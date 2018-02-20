@@ -1,15 +1,20 @@
 OUTPUT_ARCH(arm)
 SECTIONS
 {
-	. = 0x08000000;
-	.text :
-	ALIGN(4)
-	{
-		asm/crt0.o(.text);
-        asm/arm.o(.text);
-        asm/code.o(.text);
-        asm/rom.o(.text);
-	} = 0
+    . = 0x08000000;
+    .text :
+    ALIGN(4)
+    {
+	asm/crt0.o(.text);
+	asm/arm.o(.text);
+	asm/main.o(.text);
+	asm/rng.o(.text);
+	asm/rom_8000D00.o(.text);
+	asm/proc.o(.text);
+	asm/code.o(.text);
+	asm/libs.o(.text);
+	asm/rom.o(.text);
+    } = 0
 
     /* Discard everything not specifically mentioned above. */
     /DISCARD/ :
