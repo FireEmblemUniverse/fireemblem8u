@@ -1,3 +1,5 @@
+.syntax unified
+.arm
 Init:
 	b crt0
 	.include "asm/rom_header.inc"
@@ -33,52 +35,52 @@ GlobalIRQHandler:
 	push {r0, r1, r3, lr}
 	and r1, r2, r2, lsr #16
 	ands r0, r1, #0x2000
-	$loop:
-	bne $loop
+	loop:
+	bne loop
 	mov r2, #0
 	ands r0, r1, #1
-	bne $foundInterrupt
+	bne foundInterrupt
 	add r2, r2, #4
 	ands r0, r1, #2
-	bne $foundInterrupt
+	bne foundInterrupt
 	add r2, r2, #4
 	ands r0, r1, #4
-	bne $foundInterrupt
+	bne foundInterrupt
 	add r2, r2, #4
 	ands r0, r1, #8
-	bne $foundInterrupt
+	bne foundInterrupt
 	add r2, r2, #4
 	ands r0, r1, #0x10
-	bne $foundInterrupt
+	bne foundInterrupt
 	add r2, r2, #4
 	ands r0, r1, #0x20
-	bne $foundInterrupt
+	bne foundInterrupt
 	add r2, r2, #4
 	ands r0, r1, #0x40
-	bne $foundInterrupt
+	bne foundInterrupt
 	add r2, r2, #4
 	ands r0, r1, #0x80
-	bne $foundInterrupt
+	bne foundInterrupt
 	add r2, r2, #4
 	ands r0, r1, #0x100
-	bne $foundInterrupt
+	bne foundInterrupt
 	add r2, r2, #4
 	ands r0, r1, #0x200
-	bne $foundInterrupt
+	bne foundInterrupt
 	add r2, r2, #4
 	ands r0, r1, #0x400
-	bne $foundInterrupt
+	bne foundInterrupt
 	add r2, r2, #4
 	ands r0, r1, #0x800
-	bne $foundInterrupt
+	bne foundInterrupt
 	add r2, r2, #4
 	ands r0, r1, #0x1000
-	bne $foundInterrupt
+	bne foundInterrupt
 	add r2, r2, #4
 	ands r0, r1, #0x2000
-	$loop1:
-	bne $loop1
-$foundInterrupt:
+	loop1:
+	bne loop1
+foundInterrupt:
 	strh r0, [r3, #2]
 	mrs r3, apsr
 	bic r3, r3, #0xdf
