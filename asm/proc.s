@@ -139,7 +139,6 @@ _08002D08:
 _08002D0A:
 	pop {r1}
 	bx r1
-	.byte 0x00, 0x00
 
 	THUMB_FUNC_START Delete6CInternal
 Delete6CInternal: @ 0x08002D10
@@ -364,14 +363,12 @@ Exec6C: @ 0x08002E84
 _08002E8E:
 	pop {r0}
 	bx r0
-	.byte 0x00, 0x00
 
 	THUMB_FUNC_START Break6CLoop
 Break6CLoop: @ 0x08002E94
 	movs r1, #0
 	str r1, [r0, #0xc]
 	bx lr
-	.byte 0x00, 0x00
 
 	THUMB_FUNC_START Find6C
 Find6C: @ 0x08002E9C
@@ -396,7 +393,6 @@ _08002EB4:
 _08002EBE:
 	pop {r1}
 	bx r1
-	.byte 0x00, 0x00
 
 	THUMB_FUNC_START sub_08002EC4
 sub_08002EC4: @ 0x08002EC4
@@ -426,7 +422,6 @@ _08002EE4:
 _08002EEE:
 	pop {r1}
 	bx r1
-	.byte 0x00, 0x00
 
 	THUMB_FUNC_START sub_08002EF4
 sub_08002EF4: @ 0x08002EF4
@@ -456,7 +451,6 @@ _08002F14:
 _08002F1E:
 	pop {r1}
 	bx r1
-	.byte 0x00, 0x00
 
 	THUMB_FUNC_START Goto6CLabel
 Goto6CLabel: @ 0x08002F24
@@ -504,7 +498,6 @@ Set6CMark: @ 0x08002F64
 	adds r0, #0x26
 	strb r1, [r0]
 	bx lr
-	.byte 0x00, 0x00
 
 	THUMB_FUNC_START Set6CDestructor
 Set6CDestructor: @ 0x08002F6C
@@ -667,7 +660,6 @@ Delete6C_: @ 0x0800306C
 	bl Delete6C
 	pop {r0}
 	bx r0
-	.byte 0x00, 0x00
 
 	THUMB_FUNC_START DeleteEach6C
 DeleteEach6C: @ 0x08003078
@@ -685,7 +677,6 @@ Clear6CLoopWrapper: @ 0x08003088
 	bl Break6CLoop
 	pop {r0}
 	bx r0
-	.byte 0x00, 0x00
 
 	THUMB_FUNC_START ClearCallbackAll6CMatch
 ClearCallbackAll6CMatch: @ 0x08003094
@@ -752,7 +743,6 @@ Call6C_01Name: @ 0x080030F4
 	str r1, [r0, #4]
 	movs r0, #1
 	bx lr
-	.byte 0x00, 0x00
 
 	THUMB_FUNC_START Call6C_02CallAndContinue
 Call6C_02CallAndContinue: @ 0x08003104
@@ -778,7 +768,6 @@ Call6C_16Call: @ 0x08003118
 	asrs r0, r0, #0x18
 	pop {r1}
 	bx r1
-	.byte 0x00, 0x00
 
 	THUMB_FUNC_START Call6C_18CallWithArg
 Call6C_18CallWithArg: @ 0x08003130
@@ -796,7 +785,6 @@ Call6C_18CallWithArg: @ 0x08003130
 	asrs r0, r0, #0x18
 	pop {r1}
 	bx r1
-	.byte 0x00, 0x00
 
 	THUMB_FUNC_START Call6C_14While
 Call6C_14While: @ 0x08003150
@@ -833,7 +821,6 @@ Call6C_03SetLoop: @ 0x0800317C
 	str r1, [r0, #4]
 	movs r0, #0
 	bx lr
-	.byte 0x00, 0x00
 
 	THUMB_FUNC_START Call6C_04SetDestructor
 Call6C_04SetDestructor: @ 0x0800318C
@@ -899,7 +886,6 @@ Call6C_07AddGlobal_BuggedMaybe: @ 0x080031E0
 	pop {r4}
 	pop {r1}
 	bx r1
-	.byte 0x00, 0x00
 
 	THUMB_FUNC_START Call6C_08WhileExists
 Call6C_08WhileExists: @ 0x08003200
@@ -923,7 +909,6 @@ _08003220:
 	pop {r4}
 	pop {r1}
 	bx r1
-	.byte 0x00, 0x00
 
 	THUMB_FUNC_START Call6C_09DeleteEach6C
 Call6C_09DeleteEach6C: @ 0x08003228
@@ -939,7 +924,6 @@ Call6C_09DeleteEach6C: @ 0x08003228
 	pop {r4}
 	pop {r1}
 	bx r1
-	.byte 0x00, 0x00
 
 	THUMB_FUNC_START Call6C_0AClearLoopForEach6C
 Call6C_0AClearLoopForEach6C: @ 0x08003244
@@ -955,7 +939,6 @@ Call6C_0AClearLoopForEach6C: @ 0x08003244
 	pop {r4}
 	pop {r1}
 	bx r1
-	.byte 0x00, 0x00
 
 	THUMB_FUNC_START Call6C_0BOr19Label
 Call6C_0BOr19Label: @ 0x08003260
@@ -964,7 +947,6 @@ Call6C_0BOr19Label: @ 0x08003260
 	str r1, [r0, #4]
 	movs r0, #1
 	bx lr
-	.byte 0x00, 0x00
 
 	THUMB_FUNC_START Call6C_0DJump
 Call6C_0DJump: @ 0x0800326C
@@ -986,7 +968,6 @@ Call6C_0CGotoLabel: @ 0x0800327C
 	movs r0, #1
 	pop {r1}
 	bx r1
-	.byte 0x00, 0x00
 
 	THUMB_FUNC_START _6CSleepLoop
 _6CSleepLoop: @ 0x08003290
@@ -1003,7 +984,6 @@ _6CSleepLoop: @ 0x08003290
 _080032A6:
 	pop {r0}
 	bx r0
-	.byte 0x00, 0x00
 
 	THUMB_FUNC_START Call6C_0ESleep
 Call6C_0ESleep: @ 0x080032AC
@@ -1048,7 +1028,6 @@ Call6C_13Blank: @ 0x080032E8
 	str r1, [r0, #4]
 	movs r0, #1
 	bx lr
-	.byte 0x00, 0x00
 
 	THUMB_FUNC_START Call6C_10Block
 Call6C_10Block: @ 0x080032F4
@@ -1090,7 +1069,6 @@ _08003330:
 	pop {r4, r5}
 	pop {r1}
 	bx r1
-	.byte 0x00, 0x00
 
 	THUMB_FUNC_START Call6C_17DeleteOtherDuplicates
 Call6C_17DeleteOtherDuplicates: @ 0x08003338
@@ -1131,7 +1109,6 @@ Call6C_15Blank: @ 0x08003370
 	str r1, [r0, #4]
 	movs r0, #1
 	bx lr
-	.byte 0x00, 0x00
 
 	THUMB_FUNC_START Call6C_12SetBit4
 Call6C_12SetBit4: @ 0x0800337C
@@ -1146,7 +1123,6 @@ Call6C_12SetBit4: @ 0x0800337C
 	str r1, [r0, #4]
 	movs r0, #1
 	bx lr
-	.byte 0x00, 0x00
 
 	THUMB_FUNC_START Call6CCode
 Call6CCode: @ 0x08003394
@@ -1191,7 +1167,6 @@ _080033D6:
 	THUMB_FUNC_START nullsub_2
 nullsub_2: @ 0x080033DC
 	bx lr
-	.byte 0x00, 0x00
 
 	THUMB_FUNC_START ForEach6CDoNothing
 ForEach6CDoNothing: @ 0x080033E0
@@ -1221,7 +1196,6 @@ _08003410:
 	pop {r4, r5}
 	pop {r0}
 	bx r0
-	.byte 0x00, 0x00
 
 	THUMB_FUNC_START sub_08003418
 sub_08003418: @ 0x08003418
@@ -1249,12 +1223,10 @@ _08003442:
 	pop {r4}
 	pop {r0}
 	bx r0
-	.byte 0x00, 0x00
 
 	THUMB_FUNC_START sub_0800344C
 sub_0800344C: @ 0x0800344C
 	bx lr
-	.byte 0x00, 0x00
 
 	THUMB_FUNC_START Set6CLoop
 Set6CLoop: @ 0x08003450
@@ -1268,7 +1240,6 @@ sub_08003454: @ 0x08003454
 	adds r1, #1
 	strb r1, [r0]
 	bx lr
-	.byte 0x00, 0x00
 
 	THUMB_FUNC_START sub_08003460
 sub_08003460: @ 0x08003460
@@ -1277,7 +1248,6 @@ sub_08003460: @ 0x08003460
 	subs r1, #1
 	strb r1, [r0]
 	bx lr
-	.byte 0x00, 0x00
 
 	THUMB_FUNC_START Find6C_
 Find6C_: @ 0x0800346C
@@ -1450,6 +1420,3 @@ _08003572:
 	pop {r4, r5}
 	pop {r1}
 	bx r1
-
-	
-	

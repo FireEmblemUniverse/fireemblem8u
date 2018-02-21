@@ -365,7 +365,6 @@ GetBackgroundTileDataOffset: @ 0x08000F8C
 	lsls r0, r0, #0xe
 	pop {r1}
 	bx r1
-	.byte 0x00, 0x00
 
 	THUMB_FUNC_START GetTileIndex
 GetTileIndex: @ 0x08000FA4
@@ -398,7 +397,6 @@ sub_08000FC4: @ 0x08000FC4
 	lsls r0, r0, #0xb
 	pop {r1}
 	bx r1
-	.byte 0x00, 0x00
 
 	THUMB_FUNC_START SetBackgroundTileDataOffset
 SetBackgroundTileDataOffset: @ 0x08000FDC
@@ -420,7 +418,6 @@ SetBackgroundTileDataOffset: @ 0x08000FDC
 	pop {r4}
 	pop {r0}
 	bx r0
-	.byte 0x00, 0x00
 
 	THUMB_FUNC_START SetBackgroundMapDataOffset
 SetBackgroundMapDataOffset: @ 0x08001004
@@ -475,7 +472,6 @@ SetBackgroundScreenSize: @ 0x0800104C
 	pop {r4}
 	pop {r0}
 	bx r0
-	.byte 0x00, 0x00
 
 	THUMB_FUNC_START sub_0800106C
 sub_0800106C: @ 0x0800106C
@@ -984,7 +980,6 @@ sub_08001414: @ 0x08001414
 	strh r1, [r0, #6]
 	strh r1, [r0, #4]
 	bx lr
-	.byte 0x00, 0x00
 
 	THUMB_FUNC_START ResetKeyStatus
 ResetKeyStatus: @ 0x08001420
@@ -1362,7 +1357,6 @@ _080016B2:
 	pop {r4, r5, r6, r7}
 	pop {r0}
 	bx r0
-	.byte 0x00, 0x00
 
 	THUMB_FUNC_START sub_080016C4
 sub_080016C4: @ 0x080016C4
@@ -1407,7 +1401,6 @@ _08001704:
 	pop {r4, r5, r6, r7}
 	pop {r0}
 	bx r0
-	.byte 0x00, 0x00
 
 	THUMB_FUNC_START sub_8001710
 sub_8001710: @ 0x08001710
@@ -2156,7 +2149,6 @@ _08001CA0:
 _08001CAA:
 	pop {r0}
 	bx r0
-	.byte 0x00, 0x00
 
 	THUMB_FUNC_START sub_8001CB0
 sub_8001CB0: @ 0x08001CB0
@@ -2559,7 +2551,6 @@ SetDefaultColorEffects: @ 0x08001F80
 	bl SetSpecialColorEffectsParameters
 	pop {r0}
 	bx r0
-	.byte 0x00, 0x00
 
 	THUMB_FUNC_START EnablePaletteSync
 EnablePaletteSync: @ 0x08001F94
@@ -3234,7 +3225,6 @@ _080024CC:
 	pop {r4, r5, r6, r7}
 	pop {r0}
 	bx r0
-	.byte 0x00, 0x00
 
 	THUMB_FUNC_START sub_80024D4
 sub_80024D4: @ 0x080024D4
@@ -3244,7 +3234,6 @@ sub_80024D4: @ 0x080024D4
 	bl sub_8002478
 	pop {r0}
 	bx r0
-	.byte 0x00, 0x00
 
 	THUMB_FUNC_START sub_80024E4
 sub_80024E4: @ 0x080024E4
@@ -3252,7 +3241,6 @@ sub_80024E4: @ 0x080024E4
 	bl sub_8002478
 	pop {r0}
 	bx r0
-	.byte 0x00, 0x00
 
 	THUMB_FUNC_START sub_80024F0
 sub_80024F0: @ 0x080024F0
@@ -3737,7 +3725,6 @@ _080028C8:
 	pop {r4, r5}
 	pop {r0}
 	bx r0
-	.byte 0x00, 0x00
 
 	THUMB_FUNC_START sub_80028D0
 sub_80028D0: @ 0x080028D0
@@ -3826,7 +3813,6 @@ _08002964:
 _08002966:
 	pop {r1}
 	bx r1
-	.byte 0x00, 0x00
 
 	THUMB_FUNC_START sub_800296C
 sub_800296C: @ 0x0800296C
@@ -3868,7 +3854,6 @@ _080029B4:
 	pop {r4}
 	pop {r0}
 	bx r0
-	.byte 0x00, 0x00
 
 	THUMB_FUNC_START sub_80029BC
 sub_80029BC: @ 0x080029BC
@@ -3978,7 +3963,6 @@ _08002A80:
 _08002A82:
 	pop {r1}
 	bx r1
-	.byte 0x00, 0x00
 
 	THUMB_FUNC_START sub_08002A88
 sub_08002A88: @ 0x08002A88
@@ -4168,6 +4152,5 @@ CallARM_FillMovementMap: @ 0x08002BF4
 	bx r0
 	.align 2, 0
 _08002C04: .4byte 0x03003128
-@proc.s was here
 
 
