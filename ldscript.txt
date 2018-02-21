@@ -7,7 +7,6 @@ SECTIONS
     {
 	asm/crt0.o(.text);
 	asm/arm.o(.text);
-<<<<<<< HEAD
 	asm/main.o(.text);
 	asm/rng.o(.text);
 	asm/time.o(.text);
@@ -15,8 +14,6 @@ SECTIONS
 	asm/IO.o(.text);
 	asm/rom_800148C.o(.text);
 	asm/proc.o(.text);
-=======
->>>>>>> upstream/master
 	asm/code.o(.text);
 	asm/libs.o(.text);
 	asm/rom.o(.text);
