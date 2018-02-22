@@ -526,12 +526,12 @@ _080D3478:
 	cmp r3, #5
 	bhi _080D34F2
 	lsls r0, r3, #2
-	ldr r1, _080D348C @ 0x080D3490
+	ldr r1, _080D348C @ _080D3490
 	adds r0, r0, r1
 	ldr r0, [r0]
 	mov pc, r0
 	.align 2, 0
-_080D348C: .4byte 0x080D3490
+_080D348C: .4byte _080D3490
 _080D3490: @ jump table
 	.4byte _080D34A8 @ case 0
 	.4byte _080D34A8 @ case 1

@@ -275,7 +275,7 @@ _080D200A:
 	b _080D26C6
 _080D2014:
 	lsls r0, r0, #2
-	ldr r1, _080D202C @ 0x080D2030
+	ldr r1, _080D202C @ _080D2030
 	adds r0, r0, r1
 	ldr r0, [r0]
 	mov pc, r0
@@ -283,7 +283,7 @@ _080D2014:
 _080D2020: .4byte 0x08B1FA20
 _080D2024: .4byte 0x08B1FA24
 _080D2028: .4byte 0x000001C9
-_080D202C: .4byte 0x080D2030
+_080D202C: .4byte _080D2030
 _080D2030: @ jump table
 	.4byte _080D2194 @ case 0
 	.4byte _080D26C6 @ case 1
