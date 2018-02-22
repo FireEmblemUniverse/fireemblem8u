@@ -128,9 +128,9 @@ StoreLoadRoutinesToRAM: @ 0x080D17B0
 	lsls r0, r0, #0xf
 	b _080D17DC
 	.align 2, 0
-_080D17C4: .4byte 0x080D16E5
+_080D17C4: .4byte SRAMLoader
 _080D17C8: .4byte 0x03002B08
-_080D17CC: .4byte 0x080D1725
+_080D17CC: .4byte SRAMTransfer
 _080D17D0:
 	ldrh r0, [r2]
 	strh r0, [r3]
@@ -157,9 +157,9 @@ _080D17DC:
 	.align 2, 0
 _080D17FC: .4byte 0x030067A0
 _080D1800: .4byte 0x03002B09
-_080D1804: .4byte 0x080D1765
+_080D1804: .4byte SaveChecker
 _080D1808: .4byte 0x03002A68
-_080D180C: .4byte 0x080D17B1
+_080D180C: .4byte StoreLoadRoutinesToRAM
 _080D1810:
 	ldrh r0, [r2]
 	strh r0, [r3]

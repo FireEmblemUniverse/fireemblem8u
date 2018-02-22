@@ -1239,7 +1239,7 @@ _08001DA8:
 	movs r1, #0x10
 	orrs r0, r1
 	strb r0, [r2, #4]
-	ldr r1, _08001DD0  @ 0x08001D01
+	ldr r1, _08001DD0  @ sub_8001D00
 	movs r0, #1
 _08001DB6:
 	bl SetIRQHandler
@@ -1255,7 +1255,7 @@ _08001DC4:
 	bx r0
 	.align 2, 0
 _08001DCC: .4byte 0x03003080
-_08001DD0: .4byte 0x08001D01
+_08001DD0: .4byte sub_8001D00
 _08001DD4: .4byte 0x04000200
 
 	THUMB_FUNC_START SetPrimaryHBlankHandler
@@ -2979,7 +2979,7 @@ _08002AF4: .4byte 0x02024E5C
 	THUMB_FUNC_START StoreRoutinesToIRAM
 StoreRoutinesToIRAM: @ 0x08002AF8
 	push {r4, r5, lr}
-	ldr r2, _08002B54  @ 0x08000A20
+	ldr r2, _08002B54  @ ARMCodeToCopy_End
 	ldr r4, _08002B58  @ 0x08000228
 	subs r2, r2, r4
 	ldr r5, _08002B5C  @ 0x03003750
@@ -2991,32 +2991,32 @@ StoreRoutinesToIRAM: @ 0x08002AF8
 	adds r1, r5, #0
 	bl CpuSet
 	ldr r1, _08002B60  @ 0x03003740
-	ldr r0, _08002B64  @ 0x08000564
+	ldr r0, _08002B64  @ IRAMARM_Func3_DrawGlyph
 	subs r0, r0, r4
 	adds r0, r0, r5
 	str r0, [r1]
 	ldr r1, _08002B68  @ 0x03004150
-	ldr r0, _08002B6C  @ 0x080006E4
+	ldr r0, _08002B6C  @ IRAMARM_DecompText
 	subs r0, r0, r4
 	adds r0, r0, r5
 	str r0, [r1]
 	ldr r1, _08002B70  @ 0x03003130
-	ldr r0, _08002B74  @ 0x08000494
+	ldr r0, _08002B74  @ IRAMARM_CopyToSecondaryOAM
 	subs r0, r0, r4
 	adds r0, r0, r5
 	str r0, [r1]
 	ldr r1, _08002B78  @ 0x03004154
-	ldr r0, _08002B7C  @ 0x08000534
+	ldr r0, _08002B7C  @ IRAMARM_CopyToPrimaryOAM
 	subs r0, r0, r4
 	adds r0, r0, r5
 	str r0, [r1]
 	ldr r1, _08002B80  @ 0x03004960
-	ldr r0, _08002B84  @ 0x08000784
+	ldr r0, _08002B84  @ IRAMARM_Func5
 	subs r0, r0, r4
 	adds r0, r0, r5
 	str r0, [r1]
 	ldr r1, _08002B88  @ 0x03003128
-	ldr r0, _08002B8C  @ 0x08000874
+	ldr r0, _08002B8C  @ IRAMARM_FillMovementMap
 	subs r0, r0, r4
 	adds r0, r0, r5
 	str r0, [r1]
@@ -3024,21 +3024,21 @@ StoreRoutinesToIRAM: @ 0x08002AF8
 	pop {r0}
 	bx r0
 	.align 2, 0
-_08002B54: .4byte 0x08000A20
+_08002B54: .4byte ARMCodeToCopy_End
 _08002B58: .4byte 0x08000228
 _08002B5C: .4byte 0x03003750
 _08002B60: .4byte 0x03003740
-_08002B64: .4byte 0x08000564
+_08002B64: .4byte IRAMARM_Func3_DrawGlyph
 _08002B68: .4byte 0x03004150
-_08002B6C: .4byte 0x080006E4
+_08002B6C: .4byte IRAMARM_DecompText
 _08002B70: .4byte 0x03003130
-_08002B74: .4byte 0x08000494
+_08002B74: .4byte IRAMARM_CopyToSecondaryOAM
 _08002B78: .4byte 0x03004154
-_08002B7C: .4byte 0x08000534
+_08002B7C: .4byte IRAMARM_CopyToPrimaryOAM
 _08002B80: .4byte 0x03004960
-_08002B84: .4byte 0x08000784
+_08002B84: .4byte IRAMARM_Func5
 _08002B88: .4byte 0x03003128
-_08002B8C: .4byte 0x08000874
+_08002B8C: .4byte IRAMARM_FillMovementMap
 
 	THUMB_FUNC_START CallARM_Func3
 CallARM_Func3: @ 0x08002B90

@@ -67,7 +67,7 @@ _08000A64:
 	bl sub_80A40A8
 	bl sub_80D0178
 	bl sub_80028D0
-	ldr r0, _08000B0C  @ 0x080152A5
+	ldr r0, _08000B0C  @ GeneralVBlankHandler
 	bl SetInterrupt_LCDVBlank
 	bl sub_80BC81C
 	movs r0, #1
@@ -88,7 +88,7 @@ _08000AFC: .4byte 0x04000004
 _08000B00: .4byte 0x04000208
 _08000B04: .4byte 0x0858791C
 _08000B08: .4byte 0x42D690E9
-_08000B0C: .4byte 0x080152A5
+_08000B0C: .4byte GeneralVBlankHandler
 
 	THUMB_FUNC_START sub_8000B10
 sub_8000B10: @ 0x08000B10
@@ -110,10 +110,10 @@ _08000B30: .4byte 0x080D74EC
 	THUMB_FUNC_START StoreIRQToIRAM
 StoreIRQToIRAM: @ 0x08000B34
 	push {r4, lr}
-	ldr r0, _08000B60  @ 0x080000FC
+	ldr r0, _08000B60  @ GlobalIRQHandler
 	ldr r4, _08000B64  @ 0x03004160
 	ldr r2, _08000B68  @ 0x030030F0
-	ldr r3, _08000B6C  @ 0x08000B75
+	ldr r3, _08000B6C  @ DummyIRQRoutine
 	adds r1, r2, #0
 	adds r1, #0x34
 _08000B42:
@@ -131,10 +131,10 @@ _08000B42:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_08000B60: .4byte 0x080000FC
+_08000B60: .4byte GlobalIRQHandler
 _08000B64: .4byte 0x03004160
 _08000B68: .4byte 0x030030F0
-_08000B6C: .4byte 0x08000B75
+_08000B6C: .4byte DummyIRQRoutine
 _08000B70: .4byte 0x03007FFC
 
 	THUMB_FUNC_START DummyIRQRoutine

@@ -606,3 +606,6 @@ _08000A14:
 _08000A18:
 	pop {r4, r5, r6, lr}
 	bx lr
+
+	.global ARMCodeToCopy_End
+ARMCodeToCopy_End:

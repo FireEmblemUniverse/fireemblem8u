@@ -664,12 +664,12 @@ Delete6C_: @ 0x0800306C
 	THUMB_FUNC_START DeleteEach6C
 DeleteEach6C: @ 0x08003078
 	push {lr}
-	ldr r1, _08003084  @ 0x0800306D
+	ldr r1, _08003084  @ Delete6C_
 	bl ForEach6C
 	pop {r0}
 	bx r0
 	.align 2, 0
-_08003084: .4byte 0x0800306D
+_08003084: .4byte Delete6C_
 
 	THUMB_FUNC_START Clear6CLoopWrapper
 Clear6CLoopWrapper: @ 0x08003088
@@ -681,12 +681,12 @@ Clear6CLoopWrapper: @ 0x08003088
 	THUMB_FUNC_START ClearCallbackAll6CMatch
 ClearCallbackAll6CMatch: @ 0x08003094
 	push {lr}
-	ldr r1, _080030A0  @ 0x08003089
+	ldr r1, _080030A0  @ Clear6CLoopWrapper
 	bl ForEach6C
 	pop {r0}
 	bx r0
 	.align 2, 0
-_080030A0: .4byte 0x08003089
+_080030A0: .4byte Clear6CLoopWrapper
 
 	THUMB_FUNC_START ForAllFollowing6C
 ForAllFollowing6C: @ 0x080030A4
@@ -996,7 +996,7 @@ Call6C_0ESleep: @ 0x080032AC
 	cmp r0, #0
 	beq _080032C2
 	strh r2, [r1, #0x24]
-	ldr r0, _080032D0  @ 0x08003291
+	ldr r0, _080032D0  @ _6CSleepLoop
 	str r0, [r1, #0xc]
 _080032C2:
 	ldr r0, [r1, #4]
@@ -1006,7 +1006,7 @@ _080032C2:
 	pop {r1}
 	bx r1
 	.align 2, 0
-_080032D0: .4byte 0x08003291
+_080032D0: .4byte _6CSleepLoop
 
 	THUMB_FUNC_START Call6C_0FMark
 Call6C_0FMark: @ 0x080032D4
