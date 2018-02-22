@@ -1,14 +1,14 @@
 	.INCLUDE "macro.inc"
 
-	.syntax unified
-	.thumb
+	.SYNTAX UNIFIED
+
 	THUMB_FUNC_START Initialize6CEngine
 Initialize6CEngine: @ 0x08002C08
 	push {r4, r5, r6, r7, lr}
 	movs r4, #0
-	ldr r7, _08002C6C
-	ldr r5, _08002C70
-	ldr r0, _08002C74
+	ldr r7, _08002C6C  @ 0x02024E68
+	ldr r5, _08002C70  @ 0x02026968
+	ldr r0, _08002C74  @ 0x02026A6C
 	mov ip, r0
 	movs r2, #0
 	adds r6, r5, #0
@@ -44,7 +44,7 @@ _08002C1A:
 	str r0, [r1]
 	mov r0, ip
 	str r5, [r0]
-	ldr r1, _08002C78
+	ldr r1, _08002C78  @ 0x02026A70
 	movs r2, #0
 	adds r0, r1, #0
 	adds r0, #0x1c
@@ -165,7 +165,7 @@ _08002D28:
 	cmp r1, #0
 	beq _08002D42
 	adds r0, r4, #0
-	bl BXR1
+	bl _call_via_r1
 _08002D42:
 	adds r0, r4, #0
 	bl Free6C
@@ -205,7 +205,7 @@ _08002D7E:
 
 	THUMB_FUNC_START Allocate6C
 Allocate6C: @ 0x08002D84
-	ldr r1, _08002D90
+	ldr r1, _08002D90  @ 0x02026A6C
 	ldr r2, [r1]
 	ldm r2!, {r0}
 	str r2, [r1]
@@ -215,7 +215,7 @@ _08002D90: .4byte 0x02026A6C
 
 	THUMB_FUNC_START Free6C
 Free6C: @ 0x08002D94
-	ldr r2, _08002DA0
+	ldr r2, _08002DA0  @ 0x02026A6C
 	ldr r1, [r2]
 	subs r1, #4
 	str r1, [r2]
@@ -230,7 +230,7 @@ InsertMain6C: @ 0x08002DA4
 	adds r2, r0, #0
 	adds r3, r1, #0
 	lsls r1, r3, #2
-	ldr r0, _08002DC4
+	ldr r0, _08002DC4  @ 0x02026A70
 	adds r1, r1, r0
 	ldr r0, [r1]
 	cmp r0, #0
@@ -288,7 +288,7 @@ _08002DF8:
 	b _08002E1A
 _08002E0A:
 	lsls r0, r1, #2
-	ldr r1, _08002E24
+	ldr r1, _08002E24  @ 0x02026A70
 	adds r1, r0, r1
 	ldr r0, [r1]
 	cmp r0, r2
@@ -337,7 +337,7 @@ _08002E36:
 _08002E62:
 	ldr r1, [r4, #0xc]
 	adds r0, r4, #0
-	bl BXR1
+	bl _call_via_r1
 _08002E6A:
 	ldrb r1, [r5]
 	movs r0, #1
@@ -374,7 +374,7 @@ Break6CLoop: @ 0x08002E94
 Find6C: @ 0x08002E9C
 	push {lr}
 	adds r3, r0, #0
-	ldr r1, _08002EB0
+	ldr r1, _08002EB0  @ 0x02024E68
 	movs r2, #0
 _08002EA4:
 	ldr r0, [r1]
@@ -398,7 +398,7 @@ _08002EBE:
 sub_08002EC4: @ 0x08002EC4
 	push {lr}
 	adds r3, r0, #0
-	ldr r1, _08002EE0
+	ldr r1, _08002EE0  @ 0x02024E68
 	movs r2, #0
 _08002ECC:
 	ldr r0, [r1]
@@ -427,7 +427,7 @@ _08002EEE:
 sub_08002EF4: @ 0x08002EF4
 	push {lr}
 	adds r3, r0, #0
-	ldr r1, _08002F10
+	ldr r1, _08002F10  @ 0x02024E68
 	movs r2, #0
 _08002EFC:
 	ldr r0, [r1]
@@ -508,14 +508,14 @@ Set6CDestructor: @ 0x08002F6C
 ForAll6C: @ 0x08002F70
 	push {r4, r5, r6, lr}
 	adds r6, r0, #0
-	ldr r4, _08002F94
+	ldr r4, _08002F94  @ 0x02024E68
 	movs r5, #0x3f
 _08002F78:
 	ldr r0, [r4]
 	cmp r0, #0
 	beq _08002F84
 	adds r0, r4, #0
-	bl BXR6
+	bl _call_via_r6
 _08002F84:
 	subs r5, #1
 	adds r4, #0x6c
@@ -532,14 +532,14 @@ ForEach6C: @ 0x08002F98
 	push {r4, r5, r6, r7, lr}
 	adds r7, r0, #0
 	adds r6, r1, #0
-	ldr r4, _08002FBC
+	ldr r4, _08002FBC  @ 0x02024E68
 	movs r5, #0x3f
 _08002FA2:
 	ldr r0, [r4]
 	cmp r0, r7
 	bne _08002FAE
 	adds r0, r4, #0
-	bl BXR6
+	bl _call_via_r6
 _08002FAE:
 	subs r5, #1
 	adds r4, #0x6c
@@ -556,7 +556,7 @@ sub_08002FC0: @ 0x08002FC0
 	push {r4, r5, r6, r7, lr}
 	adds r7, r0, #0
 	adds r6, r1, #0
-	ldr r4, _08002FE8
+	ldr r4, _08002FE8  @ 0x02024E68
 	movs r5, #0x3f
 _08002FCA:
 	adds r0, r4, #0
@@ -565,7 +565,7 @@ _08002FCA:
 	cmp r0, r7
 	bne _08002FDA
 	adds r0, r4, #0
-	bl BXR6
+	bl _call_via_r6
 _08002FDA:
 	subs r5, #1
 	adds r4, #0x6c
@@ -582,7 +582,7 @@ BlockEach6CMarked: @ 0x08002FEC
 	push {lr}
 	adds r3, r0, #0
 	movs r2, #0x3f
-	ldr r0, _08003010
+	ldr r0, _08003010  @ 0x02024E68
 	adds r1, r0, #0
 	adds r1, #0x26
 _08002FF8:
@@ -607,7 +607,7 @@ UnblockEach6CMarked: @ 0x08003014
 	push {lr}
 	adds r3, r0, #0
 	movs r2, #0x3f
-	ldr r0, _0800303C
+	ldr r0, _0800303C  @ 0x02024E68
 	adds r1, r0, #0
 	adds r1, #0x26
 _08003020:
@@ -633,7 +633,7 @@ _0800303C: .4byte 0x02024E68
 DeleteEach6CMarked: @ 0x08003040
 	push {r4, r5, r6, lr}
 	adds r6, r0, #0
-	ldr r4, _08003068
+	ldr r4, _08003068  @ 0x02024E68
 	movs r5, #0x3f
 _08003048:
 	adds r0, r4, #0
@@ -664,7 +664,7 @@ Delete6C_: @ 0x0800306C
 	THUMB_FUNC_START DeleteEach6C
 DeleteEach6C: @ 0x08003078
 	push {lr}
-	ldr r1, _08003084
+	ldr r1, _08003084  @ 0x0800306D
 	bl ForEach6C
 	pop {r0}
 	bx r0
@@ -681,7 +681,7 @@ Clear6CLoopWrapper: @ 0x08003088
 	THUMB_FUNC_START ClearCallbackAll6CMatch
 ClearCallbackAll6CMatch: @ 0x08003094
 	push {lr}
-	ldr r1, _080030A0
+	ldr r1, _080030A0  @ 0x08003089
 	bl ForEach6C
 	pop {r0}
 	bx r0
@@ -699,7 +699,7 @@ ForAllFollowing6C: @ 0x080030A4
 	bl ForAllFollowing6C
 _080030B4:
 	adds r0, r4, #0
-	bl BXR5
+	bl _call_via_r5
 	ldr r0, [r4, #0x18]
 	cmp r0, #0
 	beq _080030C6
@@ -715,7 +715,7 @@ sub_080030CC: @ 0x080030CC
 	push {r4, r5, lr}
 	adds r4, r0, #0
 	adds r5, r1, #0
-	bl BXR5
+	bl _call_via_r5
 	ldr r0, [r4, #0x18]
 	cmp r0, #0
 	beq _080030E2
@@ -751,7 +751,7 @@ Call6C_02CallAndContinue: @ 0x08003104
 	ldr r2, [r1, #4]
 	adds r1, #8
 	str r1, [r0, #4]
-	bl BXR2
+	bl _call_via_r2
 	movs r0, #1
 	pop {r1}
 	bx r1
@@ -763,7 +763,7 @@ Call6C_16Call: @ 0x08003118
 	ldr r2, [r1, #4]
 	adds r1, #8
 	str r1, [r0, #4]
-	bl BXR2
+	bl _call_via_r2
 	lsls r0, r0, #0x18
 	asrs r0, r0, #0x18
 	pop {r1}
@@ -780,7 +780,7 @@ Call6C_18CallWithArg: @ 0x08003130
 	str r2, [r1, #4]
 	lsls r0, r0, #0x10
 	asrs r0, r0, #0x10
-	bl BXR3
+	bl _call_via_r3
 	lsls r0, r0, #0x18
 	asrs r0, r0, #0x18
 	pop {r1}
@@ -795,7 +795,7 @@ Call6C_14While: @ 0x08003150
 	adds r0, #8
 	str r0, [r4, #4]
 	adds r0, r4, #0
-	bl BXR1
+	bl _call_via_r1
 	lsls r0, r0, #0x18
 	asrs r0, r0, #0x18
 	cmp r0, #1
@@ -996,7 +996,7 @@ Call6C_0ESleep: @ 0x080032AC
 	cmp r0, #0
 	beq _080032C2
 	strh r2, [r1, #0x24]
-	ldr r0, _080032D0
+	ldr r0, _080032D0  @ 0x08003291
 	str r0, [r1, #0xc]
 _080032C2:
 	ldr r0, [r1, #4]
@@ -1038,7 +1038,7 @@ Call6C_10Block: @ 0x080032F4
 Call6C_11DeleteIfDuplicate: @ 0x080032F8
 	push {r4, r5, lr}
 	adds r3, r0, #0
-	ldr r2, _08003324
+	ldr r2, _08003324  @ 0x02024E68
 	movs r4, #0
 	ldr r5, [r3]
 	movs r1, #0x3f
@@ -1074,7 +1074,7 @@ _08003330:
 Call6C_17DeleteOtherDuplicates: @ 0x08003338
 	push {r4, lr}
 	adds r4, r0, #0
-	ldr r2, _08003344
+	ldr r2, _08003344  @ 0x02024E68
 	movs r3, #0
 	b _0800334C
 	.align 2, 0
@@ -1139,7 +1139,7 @@ Call6CCode: @ 0x08003394
 	ldr r0, [r4, #0xc]
 	cmp r0, #0
 	bne _080033D6
-	ldr r5, _080033B4
+	ldr r5, _080033B4  @ 0x085879D8
 	b _080033BE
 	.align 2, 0
 _080033B4: .4byte 0x085879D8
@@ -1155,7 +1155,7 @@ _080033BE:
 	adds r0, r0, r5
 	ldr r1, [r0]
 	adds r0, r4, #0
-	bl BXR1
+	bl _call_via_r1
 	lsls r0, r0, #0x18
 	cmp r0, #0
 	bne _080033B8
@@ -1255,7 +1255,7 @@ Find6C_: @ 0x0800346C
 	adds r3, r0, #0
 	cmp r1, #0
 	bne _08003480
-	ldr r1, _08003478
+	ldr r1, _08003478  @ 0x02024E68
 	b _08003482
 	.align 2, 0
 _08003478: .4byte 0x02024E68
@@ -1265,7 +1265,7 @@ _0800347C:
 _08003480:
 	adds r1, #0x6c
 _08003482:
-	ldr r0, _0800349C
+	ldr r0, _0800349C  @ 0x02026968
 	cmp r1, r0
 	bhs _08003496
 	adds r2, r0, #0
@@ -1290,7 +1290,7 @@ sub_80034A0: @ 0x080034A0
 	adds r2, r0, #0
 	cmp r2, #0
 	bne _080034B4
-	ldr r2, _080034AC
+	ldr r2, _080034AC  @ 0x02024E68
 	b _080034B6
 	.align 2, 0
 _080034AC: .4byte 0x02024E68
@@ -1300,7 +1300,7 @@ _080034B0:
 _080034B4:
 	adds r2, #0x6c
 _080034B6:
-	ldr r0, _080034D0
+	ldr r0, _080034D0  @ 0x02026968
 	cmp r2, r0
 	bhs _080034CA
 	adds r3, r0, #0
@@ -1323,8 +1323,8 @@ _080034D0: .4byte 0x02026968
 sub_080034D4: @ 0x080034D4
 	push {lr}
 	movs r2, #0x40
-	ldr r1, _080034F4
-	ldr r0, _080034F8
+	ldr r1, _080034F4  @ 0x02024E68
+	ldr r0, _080034F8  @ 0x00001A94
 	adds r3, r1, r0
 _080034DE:
 	ldr r0, [r1]
@@ -1346,7 +1346,7 @@ _080034F8: .4byte 0x00001A94
 sub_80034FC: @ 0x080034FC
 	push {r4, lr}
 	adds r3, r0, #0
-	ldr r2, _08003514
+	ldr r2, _08003514  @ 0x02024E68
 	movs r1, #0
 	movs r4, #0x3f
 _08003506:
@@ -1376,7 +1376,7 @@ _08003520:
 
 	THUMB_FUNC_START sub_8003530
 sub_8003530: @ 0x08003530
-	ldr r2, _0800353C
+	ldr r2, _0800353C  @ 0x02024E68
 	str r2, [r0]
 	str r1, [r0, #4]
 	movs r1, #0

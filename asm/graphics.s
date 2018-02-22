@@ -1,7 +1,6 @@
 	.INCLUDE "macro.inc"
 
-	.syntax unified
-	.thumb
+	.SYNTAX UNIFIED
 
 	THUMB_FUNC_START CopyToPaletteBuffer
 CopyToPaletteBuffer: @ 0x08000DB8
@@ -14,7 +13,7 @@ CopyToPaletteBuffer: @ 0x08000DB8
 	beq _08000DE4
 	asrs r1, r1, #1
 	lsls r1, r1, #1
-	ldr r0, _08000DE0
+	ldr r0, _08000DE0  @ 0x020228A8
 	adds r1, r1, r0
 	lsrs r2, r3, #0x1f
 	adds r2, r3, r2
@@ -28,7 +27,7 @@ _08000DE0: .4byte 0x020228A8
 _08000DE4:
 	asrs r0, r1, #1
 	lsls r0, r0, #1
-	ldr r1, _08000E0C
+	ldr r1, _08000E0C  @ 0x020228A8
 	adds r1, r0, r1
 	adds r2, r3, #0
 	cmp r2, #0
@@ -40,7 +39,7 @@ _08000DF4:
 	adds r0, r4, #0
 	bl CpuFastSet
 _08000DFE:
-	ldr r1, _08000E10
+	ldr r1, _08000E10  @ 0x0300000E
 	movs r0, #1
 	strb r0, [r1]
 	pop {r4}
@@ -61,10 +60,10 @@ sub_08000E14: @ 0x08000E14
 	adds r6, r3, #0
 	asrs r1, r1, #1
 	lsls r1, r1, #1
-	ldr r2, _08000E94
+	ldr r2, _08000E94  @ 0x020228A8
 	adds r5, r1, r2
 	adds r4, r0, #0
-	ldr r0, _08000E98
+	ldr r0, _08000E98  @ 0x0300000E
 	mov sl, r0
 	cmp r7, #0
 	ble _08000E7E
@@ -125,7 +124,7 @@ _08000E98: .4byte 0x0300000E
 FlushLCDControl: @ 0x08000E9C
 	movs r1, #0x80
 	lsls r1, r1, #0x13
-	ldr r2, _08000F40
+	ldr r2, _08000F40  @ 0x03003080
 	ldrh r0, [r2]
 	strh r0, [r1]
 	adds r1, #4
@@ -229,22 +228,22 @@ _08000F5C:
 	beq _08000F80
 	b _08000F82
 _08000F66:
-	ldr r0, _08000F6C
+	ldr r0, _08000F6C  @ 0x0300308C
 	b _08000F82
 	.align 2, 0
 _08000F6C: .4byte 0x0300308C
 _08000F70:
-	ldr r0, _08000F74
+	ldr r0, _08000F74  @ 0x03003090
 	b _08000F82
 	.align 2, 0
 _08000F74: .4byte 0x03003090
 _08000F78:
-	ldr r0, _08000F7C
+	ldr r0, _08000F7C  @ 0x03003094
 	b _08000F82
 	.align 2, 0
 _08000F7C: .4byte 0x03003094
 _08000F80:
-	ldr r0, _08000F88
+	ldr r0, _08000F88  @ 0x03003098
 _08000F82:
 	pop {r1}
 	bx r1
@@ -268,7 +267,7 @@ GetBackgroundTileDataOffset: @ 0x08000F8C
 GetTileIndex: @ 0x08000FA4
 	push {r4, lr}
 	adds r4, r1, #0
-	ldr r1, _08000FC0
+	ldr r1, _08000FC0  @ 0x0000FFFF
 	ands r4, r1
 	bl GetBackgroundTileDataOffset
 	subs r0, r4, r0
@@ -326,7 +325,7 @@ SetBackgroundMapDataOffset: @ 0x08001004
 	lsrs r0, r0, #0x10
 	bl GetBackgroundControlBuffer
 	adds r3, r0, #0
-	ldr r0, _08001044
+	ldr r0, _08001044  @ 0x000007FF
 	ands r0, r4
 	cmp r0, #0
 	bne _0800103C
@@ -339,7 +338,7 @@ SetBackgroundMapDataOffset: @ 0x08001004
 	ands r0, r2
 	orrs r0, r1
 	strb r0, [r3, #1]
-	ldr r0, _08001048
+	ldr r0, _08001048  @ 0x02024CA8
 	lsls r1, r5, #2
 	adds r1, r1, r0
 	movs r0, #0xc0
@@ -398,7 +397,7 @@ _08001082:
 FlushPalettesAdditive: @ 0x08001094
 	push {r4, r5, r6, r7, lr}
 	adds r3, r0, #0
-	ldr r6, _080010E8
+	ldr r6, _080010E8  @ 0x020228A8
 	movs r5, #0xa0
 	lsls r5, r5, #0x13
 	movs r4, #0
@@ -435,7 +434,7 @@ _080010CA:
 	adds r6, #2
 	adds r5, #2
 	adds r4, #1
-	ldr r0, _080010EC
+	ldr r0, _080010EC  @ 0x000001FF
 	cmp r4, r0
 	ble _080010A2
 	pop {r4, r5, r6, r7}
@@ -449,7 +448,7 @@ _080010EC: .4byte 0x000001FF
 FlushPalettesSubstractive: @ 0x080010F0
 	push {r4, r5, r6, r7, lr}
 	adds r3, r0, #0
-	ldr r6, _08001144
+	ldr r6, _08001144  @ 0x020228A8
 	movs r5, #0xa0
 	lsls r5, r5, #0x13
 	movs r4, #0
@@ -486,7 +485,7 @@ _08001126:
 	adds r6, #2
 	adds r5, #2
 	adds r4, #1
-	ldr r0, _08001148
+	ldr r0, _08001148  @ 0x000001FF
 	cmp r4, r0
 	ble _080010FE
 	pop {r4, r5, r6, r7}
@@ -499,14 +498,14 @@ _08001148: .4byte 0x000001FF
 	THUMB_FUNC_START FlushBackgrounds
 FlushBackgrounds: @ 0x0800114C
 	push {r4, lr}
-	ldr r4, _080011DC
+	ldr r4, _080011DC  @ 0x0300000D
 	ldrb r1, [r4]
 	movs r0, #1
 	ands r0, r1
 	cmp r0, #0
 	beq _08001168
-	ldr r0, _080011E0
-	ldr r1, _080011E4
+	ldr r0, _080011E0  @ 0x02022CA8
+	ldr r1, _080011E4  @ 0x02024CA8
 	ldr r1, [r1]
 	movs r2, #0x80
 	lsls r2, r2, #2
@@ -517,8 +516,8 @@ _08001168:
 	ands r0, r1
 	cmp r0, #0
 	beq _08001180
-	ldr r0, _080011E8
-	ldr r1, _080011E4
+	ldr r0, _080011E8  @ 0x020234A8
+	ldr r1, _080011E4  @ 0x02024CA8
 	ldr r1, [r1, #4]
 	movs r2, #0x80
 	lsls r2, r2, #2
@@ -529,8 +528,8 @@ _08001180:
 	ands r0, r1
 	cmp r0, #0
 	beq _08001198
-	ldr r0, _080011EC
-	ldr r1, _080011E4
+	ldr r0, _080011EC  @ 0x02023CA8
+	ldr r1, _080011E4  @ 0x02024CA8
 	ldr r1, [r1, #8]
 	movs r2, #0x80
 	lsls r2, r2, #2
@@ -541,8 +540,8 @@ _08001198:
 	ands r0, r1
 	cmp r0, #0
 	beq _080011B0
-	ldr r0, _080011F0
-	ldr r1, _080011E4
+	ldr r0, _080011F0  @ 0x020244A8
+	ldr r1, _080011E4  @ 0x02024CA8
 	ldr r1, [r1, #0xc]
 	movs r2, #0x80
 	lsls r2, r2, #2
@@ -550,19 +549,19 @@ _08001198:
 _080011B0:
 	movs r2, #0
 	strb r2, [r4]
-	ldr r1, _080011F4
+	ldr r1, _080011F4  @ 0x0300000E
 	movs r0, #0
 	ldrsb r0, [r1, r0]
 	cmp r0, #1
 	bne _0800121A
 	strb r2, [r1]
-	ldr r0, _080011F8
+	ldr r0, _080011F8  @ 0x03003080
 	adds r0, #0x68
 	movs r1, #0
 	ldrsb r1, [r0, r1]
 	cmp r1, #0
 	bne _08001200
-	ldr r0, _080011FC
+	ldr r0, _080011FC  @ 0x020228A8
 	movs r1, #0xa0
 	lsls r1, r1, #0x13
 	movs r2, #0x80
@@ -605,7 +604,7 @@ BG_Fill: @ 0x08001220
 	lsls r0, r1, #0x10
 	adds r0, r0, r1
 	str r0, [sp]
-	ldr r2, _0800123C
+	ldr r2, _0800123C  @ 0x01000200
 	mov r0, sp
 	adds r1, r3, #0
 	bl CpuFastSet
@@ -628,6 +627,3 @@ RegisterBlankTile: @ 0x08001240
 	bl RegisterFillTile
 	pop {r0}
 	bx r0
-	
-	
-	

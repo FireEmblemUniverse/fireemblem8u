@@ -1,12 +1,11 @@
 	.INCLUDE "macro.inc"
 
-	.syntax unified
-	.thumb
-	
+	.SYNTAX UNIFIED
+
 	THUMB_FUNC_START NextRN
 NextRN: @ 0x08000B88
 	push {r4, lr}
-	ldr r3, _08000BC4
+	ldr r3, _08000BC4  @ 0x03000000
 	ldrh r2, [r3, #2]
 	lsls r1, r2, #0xb
 	ldrh r0, [r3]
@@ -44,16 +43,16 @@ sub_8000BC8: @ 0x08000BC8
 	push {r4, r5, r6, lr}
 	sub sp, #0x10
 	adds r5, r0, #0
-	ldr r1, _08000C2C
+	ldr r1, _08000C2C  @ 0x080D74F4
 	mov r0, sp
 	movs r2, #0x10
-	bl sub_080D1C0C
+	bl memcpy
 	movs r4, #7
 	adds r0, r5, #0
 	movs r1, #7
-	bl ThumbModulo
+	bl __modsi3
 	adds r6, r0, #0
-	ldr r1, _08000C30
+	ldr r1, _08000C30  @ 0x03000000
 	ands r0, r4
 	lsls r0, r0, #1
 	add r0, sp
@@ -74,7 +73,7 @@ sub_8000BC8: @ 0x08000BC8
 	strh r0, [r1, #4]
 	adds r0, r5, #0
 	movs r1, #0x17
-	bl ThumbModulo
+	bl __modsi3
 	cmp r0, #0
 	ble _08000C22
 	adds r6, r0, #0
@@ -94,7 +93,7 @@ _08000C30: .4byte 0x03000000
 
 	THUMB_FUNC_START LoadRNState
 LoadRNState: @ 0x08000C34
-	ldr r2, _08000C48
+	ldr r2, _08000C48  @ 0x03000000
 	ldrh r1, [r0]
 	strh r1, [r2]
 	adds r0, #2
@@ -108,7 +107,7 @@ _08000C48: .4byte 0x03000000
 
 	THUMB_FUNC_START StoreRNState
 StoreRNState: @ 0x08000C4C
-	ldr r2, _08000C60
+	ldr r2, _08000C60  @ 0x03000000
 	ldrh r1, [r2]
 	strh r1, [r0]
 	adds r0, #2
@@ -128,7 +127,7 @@ NextRN_100: @ 0x08000C64
 	muls r0, r1, r0
 	cmp r0, #0
 	bge _08000C76
-	ldr r1, _08000C7C
+	ldr r1, _08000C7C  @ 0x0000FFFF
 	adds r0, r0, r1
 _08000C76:
 	asrs r0, r0, #0x10
@@ -145,7 +144,7 @@ NextRN_N: @ 0x08000C80
 	muls r0, r4, r0
 	cmp r0, #0
 	bge _08000C92
-	ldr r1, _08000C9C
+	ldr r1, _08000C9C  @ 0x0000FFFF
 	adds r0, r0, r1
 _08000C92:
 	asrs r0, r0, #0x10
@@ -192,7 +191,7 @@ _08000CD6:
 
 	THUMB_FUNC_START SetOtherRNState
 SetOtherRNState: @ 0x08000CDC
-	ldr r1, _08000CE4
+	ldr r1, _08000CE4  @ 0x03000008
 	str r0, [r1]
 	bx lr
 	.align 2, 0
@@ -200,7 +199,7 @@ _08000CE4: .4byte 0x03000008
 
 	THUMB_FUNC_START GetOtherRN
 GetOtherRN: @ 0x08000CE8
-	ldr r1, _08000CFC
+	ldr r1, _08000CFC  @ 0x03000008
 	ldr r2, [r1]
 	lsls r2, r2, #2
 	adds r0, r2, #2
@@ -211,5 +210,3 @@ GetOtherRN: @ 0x08000CE8
 	bx lr
 	.align 2, 0
 _08000CFC: .4byte 0x03000008
-
-
