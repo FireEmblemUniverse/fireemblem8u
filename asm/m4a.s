@@ -47,11 +47,11 @@ _080CF4FA:
 	cmp r3, #0
 	beq _080CF50A
 	ldr r0, [r0, #0x24]
-	bl sub_080CF8EA
+	bl sub_80CF8EA
 	ldr r0, [sp, #0x18]
 _080CF50A:
 	ldr r3, [r0, #0x28]
-	bl sub_080CF8EA
+	bl sub_80CF8EA
 	ldr r0, [sp, #0x18]
 	ldr r3, [r0, #0x10]
 	mov r8, r3
@@ -281,8 +281,8 @@ _080CF6D8:
 	add r0, pc, #0x4
 	bx r0
 
-	ARM_FUNC_START sub_080CF6E4
-sub_080CF6E4: @ 0x080CF6E4
+	ARM_FUNC_START sub_80CF6E4
+sub_80CF6E4: @ 0x080CF6E4
 	str r8, [sp]
 	ldrb sl, [r4, #0xa]
 	ldrb fp, [r4, #0xb]
@@ -442,7 +442,7 @@ _080CF8D6:
 	mov sl, r2
 	mov fp, r3
 	pop {r3}
-sub_080CF8EA: @ 0x080CF8EA
+sub_80CF8EA: @ 0x080CF8EA
 	bx r3
 	.align 2, 0
 _080CF8EC: .4byte 0x68736D53
@@ -539,7 +539,7 @@ _080CF988: .4byte 0x08207190
 	THUMB_FUNC_START sub_80CF98C
 sub_80CF98C: @ 0x080CF98C
 	ldr r2, [r1, #0x40]
-sub_080CF98E: @ 0x080CF98E
+sub_80CF98E: @ 0x080CF98E
 	adds r3, r2, #1
 	str r3, [r1, #0x40]
 	ldrb r3, [r2]
@@ -770,7 +770,7 @@ sub_80CFB04: @ 0x080CFB04
 	adds r2, #1
 	ldr r0, _080CFB18 @ 0x04000060
 	adds r0, r0, r3
-	bl sub_080CF98E
+	bl sub_80CF98E
 	strb r3, [r0]
 	bx ip
 	.align 2, 0
@@ -856,8 +856,8 @@ _080CFB64: .4byte 0x84400004
 	.byte 0x08, 0x40, 0x28, 0x70, 0x4A, 0x46, 0x01, 0x3A, 0x02, 0xDD, 0x50, 0x20, 0x2D, 0x18, 0xAD, 0xDC
 	.byte 0x06, 0x48, 0x78, 0x63, 0xFF, 0xBC, 0x80, 0x46, 0x89, 0x46, 0x92, 0x46, 0x9B, 0x46, 0x08, 0xBC
 
-	THUMB_FUNC_START sub_080CFDC0
-sub_080CFDC0: @ 0x080CFDC0
+	THUMB_FUNC_START sub_80CFDC0
+sub_80CFDC0: @ 0x080CFDC0
 	bx r3
 	.byte 0x00, 0x00, 0x04, 0x74, 0x20, 0x08
 _080CFDC8: .4byte 0x03007FF0
@@ -886,7 +886,7 @@ _080CFDE4:
 	ldr r3, _080CFE10 @ 0x03007FF0
 	ldr r3, [r3]
 	ldr r3, [r3, #0x2c]
-	bl sub_080CFDC0
+	bl sub_80CFDC0
 _080CFDFC:
 	strb r6, [r4]
 _080CFDFE:
@@ -1183,7 +1183,7 @@ _080D0000:
 	ldr r0, [sp, #0xc]
 	ldr r3, [sp, #4]
 	ldr r3, [r3, #0x30]
-	bl sub_080CFDC0
+	bl sub_80CFDC0
 	b _080D001C
 _080D0012:
 	ldrb r2, [r5, #9]

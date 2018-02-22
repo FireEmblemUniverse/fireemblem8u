@@ -225,8 +225,8 @@ _080D1880:
 	.align 2, 0
 _080D1888: .4byte 0x030067A4
 
-	THUMB_FUNC_START sub_080D188C
-sub_080D188C: @ 0x080D188C
+	THUMB_FUNC_START sub_80D188C
+sub_80D188C: @ 0x080D188C
 	push {r4, r5, r6, lr}
 	adds r6, r1, #0
 	adds r5, r0, #0

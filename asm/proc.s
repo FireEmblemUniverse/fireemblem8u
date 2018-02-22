@@ -394,8 +394,8 @@ _08002EBE:
 	pop {r1}
 	bx r1
 
-	THUMB_FUNC_START sub_08002EC4
-sub_08002EC4: @ 0x08002EC4
+	THUMB_FUNC_START sub_8002EC4
+sub_8002EC4: @ 0x08002EC4
 	push {lr}
 	adds r3, r0, #0
 	ldr r1, _08002EE0  @ 0x02024E68
@@ -423,8 +423,8 @@ _08002EEE:
 	pop {r1}
 	bx r1
 
-	THUMB_FUNC_START sub_08002EF4
-sub_08002EF4: @ 0x08002EF4
+	THUMB_FUNC_START sub_8002EF4
+sub_8002EF4: @ 0x08002EF4
 	push {lr}
 	adds r3, r0, #0
 	ldr r1, _08002F10  @ 0x02024E68
@@ -551,8 +551,8 @@ _08002FAE:
 	.align 2, 0
 _08002FBC: .4byte 0x02024E68
 
-	THUMB_FUNC_START sub_08002FC0
-sub_08002FC0: @ 0x08002FC0
+	THUMB_FUNC_START sub_8002FC0
+sub_8002FC0: @ 0x08002FC0
 	push {r4, r5, r6, r7, lr}
 	adds r7, r0, #0
 	adds r6, r1, #0
@@ -710,8 +710,8 @@ _080030C6:
 	pop {r0}
 	bx r0
 
-	THUMB_FUNC_START sub_080030CC
-sub_080030CC: @ 0x080030CC
+	THUMB_FUNC_START sub_80030CC
+sub_80030CC: @ 0x080030CC
 	push {r4, r5, lr}
 	adds r4, r0, #0
 	adds r5, r1, #0
@@ -1197,8 +1197,8 @@ _08003410:
 	pop {r0}
 	bx r0
 
-	THUMB_FUNC_START sub_08003418
-sub_08003418: @ 0x08003418
+	THUMB_FUNC_START sub_8003418
+sub_8003418: @ 0x08003418
 	push {r4, lr}
 	sub sp, #4
 	adds r4, r0, #0
@@ -1224,8 +1224,8 @@ _08003442:
 	pop {r0}
 	bx r0
 
-	THUMB_FUNC_START sub_0800344C
-sub_0800344C: @ 0x0800344C
+	THUMB_FUNC_START sub_800344C
+sub_800344C: @ 0x0800344C
 	bx lr
 
 	THUMB_FUNC_START Set6CLoop
@@ -1233,16 +1233,16 @@ Set6CLoop: @ 0x08003450
 	str r1, [r0, #0xc]
 	bx lr
 
-	THUMB_FUNC_START sub_08003454
-sub_08003454: @ 0x08003454
+	THUMB_FUNC_START sub_8003454
+sub_8003454: @ 0x08003454
 	adds r0, #0x28
 	ldrb r1, [r0]
 	adds r1, #1
 	strb r1, [r0]
 	bx lr
 
-	THUMB_FUNC_START sub_08003460
-sub_08003460: @ 0x08003460
+	THUMB_FUNC_START sub_8003460
+sub_8003460: @ 0x08003460
 	adds r0, #0x28
 	ldrb r1, [r0]
 	subs r1, #1
@@ -1319,8 +1319,8 @@ _080034CC:
 	.align 2, 0
 _080034D0: .4byte 0x02026968
 
-	THUMB_FUNC_START sub_080034D4
-sub_080034D4: @ 0x080034D4
+	THUMB_FUNC_START sub_80034D4
+sub_80034D4: @ 0x080034D4
 	push {lr}
 	movs r2, #0x40
 	ldr r1, _080034F4  @ 0x02024E68

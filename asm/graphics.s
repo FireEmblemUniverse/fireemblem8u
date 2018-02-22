@@ -49,8 +49,8 @@ _08000DFE:
 _08000E0C: .4byte 0x020228A8
 _08000E10: .4byte 0x0300000E
 
-	THUMB_FUNC_START sub_08000E14
-sub_08000E14: @ 0x08000E14
+	THUMB_FUNC_START sub_8000E14
+sub_8000E14: @ 0x08000E14
 	push {r4, r5, r6, r7, lr}
 	mov r7, sl
 	mov r6, sb
@@ -282,8 +282,8 @@ _08000FB8:
 	.align 2, 0
 _08000FC0: .4byte 0x0000FFFF
 
-	THUMB_FUNC_START sub_08000FC4
-sub_08000FC4: @ 0x08000FC4
+	THUMB_FUNC_START sub_8000FC4
+sub_8000FC4: @ 0x08000FC4
 	push {lr}
 	lsls r0, r0, #0x10
 	lsrs r0, r0, #0x10
@@ -370,8 +370,8 @@ SetBackgroundScreenSize: @ 0x0800104C
 	pop {r0}
 	bx r0
 
-	THUMB_FUNC_START sub_0800106C
-sub_0800106C: @ 0x0800106C
+	THUMB_FUNC_START sub_800106C
+sub_800106C: @ 0x0800106C
 	push {r4, lr}
 	adds r4, r1, #0
 	lsls r0, r0, #0x10

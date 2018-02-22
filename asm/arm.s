@@ -311,8 +311,8 @@ _08000574:
 	pop {r4, r5, r6, r7, r8, sb, sl}
 	bx lr
 
-	ARM_FUNC_START sub_08000620
-sub_08000620: @ 0x08000620
+	ARM_FUNC_START sub_8000620
+sub_8000620: @ 0x08000620
 	push {r4, r5, r6, r7, r8, sb, sl}
 	mov sb, #7
 	mov sl, #0x10000
