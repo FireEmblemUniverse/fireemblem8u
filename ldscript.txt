@@ -1,6 +1,15 @@
 OUTPUT_ARCH(arm)
 SECTIONS
 {
+    /* TODO: figure out what is COMMON and .bss */
+
+    . = 0x02000000;
+    EWRAM :
+    ALIGN(4)
+    {
+        INCLUDE "sym_ewram.txt"
+    }
+
     . = 0x03000000;
     .bss :
     ALIGN(4)

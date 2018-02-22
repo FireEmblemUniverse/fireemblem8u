@@ -5,9 +5,9 @@
 	.global ARMCodeToCopy_Start
 ARMCodeToCopy_Start:
 
-_08000228: .4byte 0x020228A8 @ pool
-_0800022C: .4byte 0x020222A8 @ pool
-_08000230: .4byte 0x02022288 @ pool
+_08000228: .4byte gUnknown_020228A8 @ pool
+_0800022C: .4byte gUnknown_020222A8 @ pool
+_08000230: .4byte gUnknown_02022288 @ pool
 
 	ARM_FUNC_START sub_8000234
 sub_8000234: @ 0x08000234
@@ -415,8 +415,8 @@ _08000768:
 _08000770: .4byte 0x03004BB0 @ pool
 _08000774: .4byte 0x03004E60 @ pool
 _08000778: .4byte 0x030049A0 @ pool
-_0800077C: .4byte 0x0202E4DC @ pool
-_08000780: .4byte 0x0202E4D8 @ pool
+_0800077C: .4byte gUnknown_0202E4DC @ pool
+_08000780: .4byte gUnknown_0202E4D8 @ pool
 
 	ARM_FUNC_START IRAMARM_Func5
 IRAMARM_Func5: @ 0x08000784

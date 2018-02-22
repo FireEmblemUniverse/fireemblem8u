@@ -112,16 +112,16 @@ _08001324: .4byte 0x03003080
 
 	THUMB_FUNC_START SetMainUpdateRoutine
 SetMainUpdateRoutine: @ 0x08001328
-	ldr r1, _08001330  @ 0x02024CB8
+	ldr r1, _08001330  @ gUnknown_02024CB8
 	str r0, [r1]
 	bx lr
 	.align 2, 0
-_08001330: .4byte 0x02024CB8
+_08001330: .4byte gUnknown_02024CB8
 
 	THUMB_FUNC_START ExecMainUpdate
 ExecMainUpdate: @ 0x08001334
 	push {lr}
-	ldr r0, _08001348  @ 0x02024CB8
+	ldr r0, _08001348  @ gUnknown_02024CB8
 	ldr r0, [r0]
 	cmp r0, #0
 	beq _08001342
@@ -130,7 +130,7 @@ _08001342:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_08001348: .4byte 0x02024CB8
+_08001348: .4byte gUnknown_02024CB8
 
 	THUMB_FUNC_START _UpdateKeyStatus
 _UpdateKeyStatus: @ 0x0800134C

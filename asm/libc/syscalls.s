@@ -560,7 +560,7 @@ _080D5B72:
 	pop {r4, r5, r6, pc}
 	.align 2, 0
 _080D5B7C: .4byte 0x03002B88
-_080D5B80: .4byte 0x0203EFB8
+_080D5B80: .4byte gUnknown_0203EFB8
 _080D5B84: .4byte gUnknown_085878F8
 
 	THUMB_FUNC_START _fstat

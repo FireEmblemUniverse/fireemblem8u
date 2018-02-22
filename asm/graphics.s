@@ -13,7 +13,7 @@ CopyToPaletteBuffer: @ 0x08000DB8
 	beq _08000DE4
 	asrs r1, r1, #1
 	lsls r1, r1, #1
-	ldr r0, _08000DE0  @ 0x020228A8
+	ldr r0, _08000DE0  @ gUnknown_020228A8
 	adds r1, r1, r0
 	lsrs r2, r3, #0x1f
 	adds r2, r3, r2
@@ -23,11 +23,11 @@ CopyToPaletteBuffer: @ 0x08000DB8
 	bl CpuSet
 	b _08000DFE
 	.align 2, 0
-_08000DE0: .4byte 0x020228A8
+_08000DE0: .4byte gUnknown_020228A8
 _08000DE4:
 	asrs r0, r1, #1
 	lsls r0, r0, #1
-	ldr r1, _08000E0C  @ 0x020228A8
+	ldr r1, _08000E0C  @ gUnknown_020228A8
 	adds r1, r0, r1
 	adds r2, r3, #0
 	cmp r2, #0
@@ -46,7 +46,7 @@ _08000DFE:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_08000E0C: .4byte 0x020228A8
+_08000E0C: .4byte gUnknown_020228A8
 _08000E10: .4byte 0x0300000E
 
 	THUMB_FUNC_START sub_8000E14
@@ -60,7 +60,7 @@ sub_8000E14: @ 0x08000E14
 	adds r6, r3, #0
 	asrs r1, r1, #1
 	lsls r1, r1, #1
-	ldr r2, _08000E94  @ 0x020228A8
+	ldr r2, _08000E94  @ gUnknown_020228A8
 	adds r5, r1, r2
 	adds r4, r0, #0
 	ldr r0, _08000E98  @ 0x0300000E
@@ -117,7 +117,7 @@ _08000E7E:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_08000E94: .4byte 0x020228A8
+_08000E94: .4byte gUnknown_020228A8
 _08000E98: .4byte 0x0300000E
 
 	THUMB_FUNC_START FlushLCDControl
@@ -338,7 +338,7 @@ SetBackgroundMapDataOffset: @ 0x08001004
 	ands r0, r2
 	orrs r0, r1
 	strb r0, [r3, #1]
-	ldr r0, _08001048  @ 0x02024CA8
+	ldr r0, _08001048  @ gUnknown_02024CA8
 	lsls r1, r5, #2
 	adds r1, r1, r0
 	movs r0, #0xc0
@@ -351,7 +351,7 @@ _0800103C:
 	bx r0
 	.align 2, 0
 _08001044: .4byte 0x000007FF
-_08001048: .4byte 0x02024CA8
+_08001048: .4byte gUnknown_02024CA8
 
 	THUMB_FUNC_START SetBackgroundScreenSize
 SetBackgroundScreenSize: @ 0x0800104C
@@ -397,7 +397,7 @@ _08001082:
 FlushPalettesAdditive: @ 0x08001094
 	push {r4, r5, r6, r7, lr}
 	adds r3, r0, #0
-	ldr r6, _080010E8  @ 0x020228A8
+	ldr r6, _080010E8  @ gUnknown_020228A8
 	movs r5, #0xa0
 	lsls r5, r5, #0x13
 	movs r4, #0
@@ -441,14 +441,14 @@ _080010CA:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_080010E8: .4byte 0x020228A8
+_080010E8: .4byte gUnknown_020228A8
 _080010EC: .4byte 0x000001FF
 
 	THUMB_FUNC_START FlushPalettesSubstractive
 FlushPalettesSubstractive: @ 0x080010F0
 	push {r4, r5, r6, r7, lr}
 	adds r3, r0, #0
-	ldr r6, _08001144  @ 0x020228A8
+	ldr r6, _08001144  @ gUnknown_020228A8
 	movs r5, #0xa0
 	lsls r5, r5, #0x13
 	movs r4, #0
@@ -492,7 +492,7 @@ _08001126:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_08001144: .4byte 0x020228A8
+_08001144: .4byte gUnknown_020228A8
 _08001148: .4byte 0x000001FF
 
 	THUMB_FUNC_START FlushBackgrounds
@@ -504,8 +504,8 @@ FlushBackgrounds: @ 0x0800114C
 	ands r0, r1
 	cmp r0, #0
 	beq _08001168
-	ldr r0, _080011E0  @ 0x02022CA8
-	ldr r1, _080011E4  @ 0x02024CA8
+	ldr r0, _080011E0  @ gUnknown_02022CA8
+	ldr r1, _080011E4  @ gUnknown_02024CA8
 	ldr r1, [r1]
 	movs r2, #0x80
 	lsls r2, r2, #2
@@ -516,8 +516,8 @@ _08001168:
 	ands r0, r1
 	cmp r0, #0
 	beq _08001180
-	ldr r0, _080011E8  @ 0x020234A8
-	ldr r1, _080011E4  @ 0x02024CA8
+	ldr r0, _080011E8  @ gUnknown_020234A8
+	ldr r1, _080011E4  @ gUnknown_02024CA8
 	ldr r1, [r1, #4]
 	movs r2, #0x80
 	lsls r2, r2, #2
@@ -528,8 +528,8 @@ _08001180:
 	ands r0, r1
 	cmp r0, #0
 	beq _08001198
-	ldr r0, _080011EC  @ 0x02023CA8
-	ldr r1, _080011E4  @ 0x02024CA8
+	ldr r0, _080011EC  @ gUnknown_02023CA8
+	ldr r1, _080011E4  @ gUnknown_02024CA8
 	ldr r1, [r1, #8]
 	movs r2, #0x80
 	lsls r2, r2, #2
@@ -540,8 +540,8 @@ _08001198:
 	ands r0, r1
 	cmp r0, #0
 	beq _080011B0
-	ldr r0, _080011F0  @ 0x020244A8
-	ldr r1, _080011E4  @ 0x02024CA8
+	ldr r0, _080011F0  @ gUnknown_020244A8
+	ldr r1, _080011E4  @ gUnknown_02024CA8
 	ldr r1, [r1, #0xc]
 	movs r2, #0x80
 	lsls r2, r2, #2
@@ -561,7 +561,7 @@ _080011B0:
 	ldrsb r1, [r0, r1]
 	cmp r1, #0
 	bne _08001200
-	ldr r0, _080011FC  @ 0x020228A8
+	ldr r0, _080011FC  @ gUnknown_020228A8
 	movs r1, #0xa0
 	lsls r1, r1, #0x13
 	movs r2, #0x80
@@ -570,14 +570,14 @@ _080011B0:
 	b _0800121A
 	.align 2, 0
 _080011DC: .4byte 0x0300000D
-_080011E0: .4byte 0x02022CA8
-_080011E4: .4byte 0x02024CA8
-_080011E8: .4byte 0x020234A8
-_080011EC: .4byte 0x02023CA8
-_080011F0: .4byte 0x020244A8
+_080011E0: .4byte gUnknown_02022CA8
+_080011E4: .4byte gUnknown_02024CA8
+_080011E8: .4byte gUnknown_020234A8
+_080011EC: .4byte gUnknown_02023CA8
+_080011F0: .4byte gUnknown_020244A8
 _080011F4: .4byte 0x0300000E
 _080011F8: .4byte 0x03003080
-_080011FC: .4byte 0x020228A8
+_080011FC: .4byte gUnknown_020228A8
 _08001200:
 	cmp r1, #0
 	ble _08001210
