@@ -1,6 +1,22 @@
 OUTPUT_ARCH(arm)
 SECTIONS
 {
+    . = 0x03000000;
+    .bss :
+    ALIGN(4)
+    {
+	. = 0x2C38;
+	tools/agbcc/lib/libgcc.a:dp-bit.o(.bss);
+	tools/agbcc/lib/libgcc.a:fp-bit.o(.bss);
+    }
+
+    . = 0x03000000;
+    COMMON :
+    {
+	. = 0x67A8;
+	tools/agbcc/lib/libc.a:sbrkr.o(COMMON);
+    }
+
     . = 0x08000000;
     .text :
     ALIGN(4)
@@ -8,9 +24,67 @@ SECTIONS
 	asm/crt0.o(.text);
 	asm/arm.o(.text);
 	asm/code.o(.text);
-	asm/libs.o(.text);
+	asm/m4a.o(.text);
+	asm/libagbsyscall.o(.text);
+	asm/agb_sram.o(.text);
+	tools/agbcc/lib/libgcc.a:_call_via_rX.o(.text);
+	tools/agbcc/lib/libgcc.a:_divsi3.o(.text);
+	tools/agbcc/lib/libgcc.a:_dvmd_tls.o(.text);
+	tools/agbcc/lib/libgcc.a:_modsi3.o(.text);
+	tools/agbcc/lib/libgcc.a:_muldi3.o(.text);
+	tools/agbcc/lib/libgcc.a:_udivsi3.o(.text);
+	tools/agbcc/lib/libgcc.a:_umodsi3.o(.text);
+	tools/agbcc/lib/libc.a:memcpy.o(.text);
+	tools/agbcc/lib/libc.a:memset.o(.text);
+	tools/agbcc/lib/libc.a:sprintf.o(.text);
+	tools/agbcc/lib/libc.a:strcpy.o(.text);
+	tools/agbcc/lib/libc.a:strlen.o(.text);
+	tools/agbcc/lib/libc.a:strstr.o(.text);
+	asm/libc/vfprintf.o(.text);
+	tools/agbcc/lib/libc.a:vsprintf.o(.text);
+	tools/agbcc/lib/libc.a:wsetup.o(.text);
+	asm/libc/dtoa.o(.text);
+	tools/agbcc/lib/libc.a:fflush.o(.text);
+	asm/libc/findfp.o(.text);
+	asm/libc/freer.o(.text);
+	tools/agbcc/lib/libc.a:fvwrite.o(.text);
+	tools/agbcc/lib/libc.a:fwalk.o(.text);
+	asm/libc/locale.o(.text);
+	tools/agbcc/lib/libc.a:makebuf.o(.text);
+	asm/libc/mallocr.o(.text);
+	tools/agbcc/lib/libc.a:mbtowc_r.o(.text);
+	tools/agbcc/lib/libc.a:memchr.o(.text);
+	tools/agbcc/lib/libc.a:memmove.o(.text);
+	tools/agbcc/lib/libc.a:mlock.o(.text);
+	asm/libc/mprec.o(.text);
+	tools/agbcc/lib/libc.a:s_isinf.o(.text);
+	tools/agbcc/lib/libc.a:s_isnan.o(.text);
+	tools/agbcc/lib/libc.a:sbrkr.o(.text);
+	tools/agbcc/lib/libc.a:stdio.o(.text);
+	tools/agbcc/lib/libc.a:strcmp.o(.text);
+	asm/libc/syscalls.o(.text);
+	tools/agbcc/lib/libc.a:writer.o(.text);
+	tools/agbcc/lib/libc.a:callocr.o(.text);
+	tools/agbcc/lib/libc.a:closer.o(.text);
+	tools/agbcc/lib/libc.a:errno.o(.text);
+	tools/agbcc/lib/libc.a:fstatr.o(.text);
+	tools/agbcc/lib/libc.a:libcfunc.o(.text);
+	tools/agbcc/lib/libc.a:lseekr.o(.text);
+	tools/agbcc/lib/libc.a:readr.o(.text);
+	tools/agbcc/lib/libgcc.a:dp-bit.o(.text);
+	tools/agbcc/lib/libgcc.a:fp-bit.o(.text);
+	tools/agbcc/lib/libgcc.a:_lshrdi3.o(.text);
+        tools/agbcc/lib/libgcc.a:_negdi2.o(.text);
+	asm/arm_call.o(.text);
 	asm/rom.o(.text);
     } = 0
+
+    . = 0x8B1FA20;
+    .rodata :
+    ALIGN(4)
+    {
+	_impure_ptr = .; /* impure.o(.data); */
+    }
 
     /* Discard everything not specifically mentioned above. */
     /DISCARD/ :

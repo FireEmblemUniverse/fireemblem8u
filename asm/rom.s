@@ -1,3 +1,3 @@
     .global start
 start:
-.incbin "baserom.gba", 0xD74C8
+    .incbin "baserom.gba", 0xD74C8,

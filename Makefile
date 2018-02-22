@@ -19,7 +19,7 @@ ELF      := $(ROM:.gba=.elf)
 MAP      := $(ROM:.gba=.map)
 LDSCRIPT := ldscript.txt
 CFILES   := $(wildcard src/*.c)
-SFILES   := $(wildcard asm/*.s) $(wildcard data/*.s)
+SFILES   := $(wildcard asm/*.s) $(wildcard asm/libc/*.s) $(wildcard data/*.s)
 OFILES   := $(SFILES:.s=.o) $(CFILES:.c=.o)
 
 src/agb_flash.o: CC1FLAGS := -O1 -mthumb-interwork
@@ -42,7 +42,7 @@ clean:
 #### Recipes ####
 
 $(ELF): $(OFILES) $(LDSCRIPT)
-	$(LD) -T $(LDSCRIPT) -Map $(MAP) $(OFILES) tools/agbcc/lib/libgcc.a -o $@
+	$(LD) -T $(LDSCRIPT) -Map $(MAP) $(OFILES) tools/agbcc/lib/libgcc.a tools/agbcc/lib/libc.a -o $@
 
 %.gba: %.elf
 	$(OBJCOPY) -O binary --pad-to 0x9000000 $< $@
