@@ -1139,10 +1139,10 @@ Call6CCode: @ 0x08003394
 	ldr r0, [r4, #0xc]
 	cmp r0, #0
 	bne _080033D6
-	ldr r5, _080033B4  @ 0x085879D8
+	ldr r5, _080033B4  @ gUnknown_085879D8
 	b _080033BE
 	.align 2, 0
-_080033B4: .4byte 0x085879D8
+_080033B4: .4byte gUnknown_085879D8
 _080033B8:
 	ldr r0, [r4]
 	cmp r0, #0

@@ -289,7 +289,7 @@ _08001454: .4byte 0x03000010
 
 	THUMB_FUNC_START KeyStatusSetter_Set
 KeyStatusSetter_Set: @ 0x08001458
-	ldr r1, _0800146C  @ 0x0858791C
+	ldr r1, _0800146C  @ gUnknown_0858791C
 	ldr r2, [r1]
 	adds r0, #0x64
 	ldrh r1, [r0]
@@ -300,13 +300,13 @@ KeyStatusSetter_Set: @ 0x08001458
 	strh r0, [r2, #4]
 	bx lr
 	.align 2, 0
-_0800146C: .4byte 0x0858791C
+_0800146C: .4byte gUnknown_0858791C
 
 	THUMB_FUNC_START NewKeyStatusSetter
 NewKeyStatusSetter: @ 0x08001470
 	push {r4, lr}
 	adds r4, r0, #0
-	ldr r0, _08001488  @ 0x08587920
+	ldr r0, _08001488  @ gUnknown_08587920
 	movs r1, #1
 	bl New6C
 	adds r0, #0x64
@@ -315,4 +315,4 @@ NewKeyStatusSetter: @ 0x08001470
 	pop {r0}
 	bx r0
 	.align 2, 0
-_08001488: .4byte 0x08587920
+_08001488: .4byte gUnknown_08587920

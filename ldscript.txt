@@ -83,7 +83,8 @@ SECTIONS
         tools/agbcc/lib/libgcc.a:_lshrdi3.o(.text);
         tools/agbcc/lib/libgcc.a:_negdi2.o(.text);
         asm/arm_call.o(.text);
-        asm/rom.o(.text);
+
+        data/data.o(.rodata);
     } = 0
 
     . = 0x8B1FA20;

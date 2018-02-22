@@ -48,7 +48,7 @@ _08000A64:
 	ldr r1, _08000B00  @ 0x04000208
 	movs r0, #1
 	strh r0, [r1]
-	ldr r4, _08000B04  @ 0x0858791C
+	ldr r4, _08000B04  @ gUnknown_0858791C
 	ldr r0, [r4]
 	bl ResetKeyStatus
 	ldr r0, [r4]
@@ -86,7 +86,7 @@ _08000AF4: .4byte 0x04000204
 _08000AF8: .4byte 0x000045B4
 _08000AFC: .4byte 0x04000004
 _08000B00: .4byte 0x04000208
-_08000B04: .4byte 0x0858791C
+_08000B04: .4byte gUnknown_0858791C
 _08000B08: .4byte 0x42D690E9
 _08000B0C: .4byte GeneralVBlankHandler
 
@@ -94,18 +94,18 @@ _08000B0C: .4byte GeneralVBlankHandler
 sub_8000B10: @ 0x08000B10
 	push {r4, lr}
 	adds r4, r0, #0
-	ldr r1, _08000B2C  @ 0x080D74D0
+	ldr r1, _08000B2C  @ gUnknown_080D74D0
 	bl PrintDebugStringToBG
 	subs r4, #0x40
-	ldr r1, _08000B30  @ 0x080D74EC
+	ldr r1, _08000B30  @ gUnknown_080D74EC
 	adds r0, r4, #0
 	bl PrintDebugStringToBG
 	pop {r4}
 	pop {r0}
 	bx r0
 	.align 2, 0
-_08000B2C: .4byte 0x080D74D0
-_08000B30: .4byte 0x080D74EC
+_08000B2C: .4byte gUnknown_080D74D0
+_08000B30: .4byte gUnknown_080D74EC
 
 	THUMB_FUNC_START StoreIRQToIRAM
 StoreIRQToIRAM: @ 0x08000B34

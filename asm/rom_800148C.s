@@ -945,7 +945,7 @@ SetupBackgrounds: @ 0x08001B58
 	push {r4, r5, r6, r7, lr}
 	sub sp, #0x1c
 	adds r4, r0, #0
-	ldr r1, _08001C30  @ 0x080D7504
+	ldr r1, _08001C30  @ gUnknown_080D7504
 	mov r0, sp
 	movs r2, #0x18
 	bl memcpy
@@ -1042,7 +1042,7 @@ _08001B7E:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_08001C30: .4byte 0x080D7504
+_08001C30: .4byte gUnknown_080D7504
 _08001C34: .4byte 0x0300308C
 _08001C38: .4byte 0x01000010
 _08001C3C: .4byte 0x0300000D
@@ -1052,13 +1052,13 @@ _08001C48: .4byte 0x03003080
 
 	THUMB_FUNC_START BG_GetMapBuffer
 BG_GetMapBuffer: @ 0x08001C4C
-	ldr r1, _08001C58  @ 0x08587938
+	ldr r1, _08001C58  @ gUnknown_08587938
 	lsls r0, r0, #2
 	adds r0, r0, r1
 	ldr r0, [r0]
 	bx lr
 	.align 2, 0
-_08001C58: .4byte 0x08587938
+_08001C58: .4byte gUnknown_08587938
 
 	THUMB_FUNC_START sub_8001C5C
 sub_8001C5C: @ 0x08001C5C
@@ -1085,7 +1085,7 @@ sub_8001C78: @ 0x08001C78
 	lsls r0, r0, #0x18
 	cmp r0, #0
 	beq _08001CAA
-	ldr r0, _08001C98  @ 0x0858791C
+	ldr r0, _08001C98  @ gUnknown_0858791C
 	ldr r0, [r0]
 	ldrh r1, [r0, #4]
 	ldr r0, _08001C9C  @ 0x00000303
@@ -1095,7 +1095,7 @@ sub_8001C78: @ 0x08001C78
 	bl sub_80D16B0
 	b _08001CAA
 	.align 2, 0
-_08001C98: .4byte 0x0858791C
+_08001C98: .4byte gUnknown_0858791C
 _08001C9C: .4byte 0x00000303
 _08001CA0:
 	cmp r1, #0xf
@@ -1344,7 +1344,7 @@ _08001E68:
 
 	THUMB_FUNC_START BG_SetDepth
 BG_SetDepth: @ 0x08001E6C
-	ldr r2, _08001E88  @ 0x08587948
+	ldr r2, _08001E88  @ gUnknown_08587948
 	lsls r0, r0, #2
 	adds r0, r0, r2
 	ldr r3, [r0]
@@ -1358,11 +1358,11 @@ BG_SetDepth: @ 0x08001E6C
 	strb r0, [r3]
 	bx lr
 	.align 2, 0
-_08001E88: .4byte 0x08587948
+_08001E88: .4byte gUnknown_08587948
 
 	THUMB_FUNC_START BG_GetDepth
 BG_GetDepth: @ 0x08001E8C
-	ldr r1, _08001E9C  @ 0x08587948
+	ldr r1, _08001E9C  @ gUnknown_08587948
 	lsls r0, r0, #2
 	adds r0, r0, r1
 	ldr r0, [r0]
@@ -1371,7 +1371,7 @@ BG_GetDepth: @ 0x08001E8C
 	lsrs r0, r0, #0x1e
 	bx lr
 	.align 2, 0
-_08001E9C: .4byte 0x08587948
+_08001E9C: .4byte gUnknown_08587948
 
 	THUMB_FUNC_START SetSpecialColorEffectsParameters
 SetSpecialColorEffectsParameters: @ 0x08001EA0
@@ -2282,7 +2282,7 @@ sub_8002574: @ 0x08002574
 	strb r1, [r0, #6]
 	strb r7, [r0, #7]
 	strh r6, [r0, #4]
-	ldr r0, _0800260C  @ 0x08587958
+	ldr r0, _0800260C  @ gUnknown_08587958
 	movs r1, #3
 	bl New6C
 	mov r8, r0
@@ -2330,7 +2330,7 @@ _080025F6:
 	.align 2, 0
 _08002604: .4byte 0x0202BCF0
 _08002608: .4byte 0x02024E5C
-_0800260C: .4byte 0x08587958
+_0800260C: .4byte gUnknown_08587958
 _08002610: .4byte 0x03006440
 _08002614: .4byte 0x03006650
 _08002618: .4byte 0x0000FFFF
@@ -2480,13 +2480,13 @@ ISuspectThisToBeMusicRelated_8002730: @ 0x08002730
 	adds r1, r3, #0
 	cmp r1, #0
 	beq _0800274C
-	ldr r0, _08002748  @ 0x08587970
+	ldr r0, _08002748  @ gUnknown_08587970
 	bl NewBlocking6C
 	b _08002754
 	.align 2, 0
-_08002748: .4byte 0x08587970
+_08002748: .4byte gUnknown_08587970
 _0800274C:
-	ldr r0, _08002780  @ 0x08587970
+	ldr r0, _08002780  @ gUnknown_08587970
 	movs r1, #3
 	bl New6C
 _08002754:
@@ -2513,7 +2513,7 @@ _08002770:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_08002780: .4byte 0x08587970
+_08002780: .4byte gUnknown_08587970
 _08002784: .4byte 0x03000044
 
 	THUMB_FUNC_START sub_8002788
@@ -2633,7 +2633,7 @@ Exec6CSomeWaitIfMusicOn: @ 0x08002858
 	lsls r0, r0, #0x1f
 	cmp r0, #0
 	bne _08002880
-	ldr r0, _0800288C  @ 0x08587988
+	ldr r0, _0800288C  @ gUnknown_08587988
 	movs r1, #3
 	bl New6C
 	adds r1, r0, #0
@@ -2648,7 +2648,7 @@ _08002880:
 	bx r0
 	.align 2, 0
 _08002888: .4byte 0x0202BCF0
-_0800288C: .4byte 0x08587988
+_0800288C: .4byte gUnknown_08587988
 
 	THUMB_FUNC_START sub_8002890
 sub_8002890: @ 0x08002890
@@ -2664,7 +2664,7 @@ sub_8002890: @ 0x08002890
 _080028A6:
 	cmp r5, #0
 	beq _080028C0
-	ldr r0, _080028BC  @ 0x08224470
+	ldr r0, _080028BC  @ gUnknown_08224470
 	lsls r1, r4, #3
 	adds r1, r1, r0
 	ldr r1, [r1]
@@ -2672,7 +2672,7 @@ _080028A6:
 	bl sub_80D0930
 	b _080028C8
 	.align 2, 0
-_080028BC: .4byte 0x08224470
+_080028BC: .4byte gUnknown_08224470
 _080028C0:
 	lsls r0, r4, #0x10
 	lsrs r0, r0, #0x10
@@ -2756,14 +2756,14 @@ _0800294C: .4byte 0x02024E5C
 	THUMB_FUNC_START sub_8002950
 sub_8002950: @ 0x08002950
 	push {lr}
-	ldr r0, _08002960  @ 0x08587970
+	ldr r0, _08002960  @ gUnknown_08587970
 	bl Find6C
 	cmp r0, #0
 	bne _08002964
 	movs r0, #0
 	b _08002966
 	.align 2, 0
-_08002960: .4byte 0x08587970
+_08002960: .4byte gUnknown_08587970
 _08002964:
 	movs r0, #1
 _08002966:
@@ -2858,15 +2858,15 @@ sub_80029E8: @ 0x080029E8
 _08002A0E:
 	cmp r4, #0
 	beq _08002A24
-	ldr r0, _08002A20  @ 0x08587998
+	ldr r0, _08002A20  @ gUnknown_08587998
 	adds r1, r4, #0
 	bl NewBlocking6C
 	b _08002A2C
 	.align 2, 0
 _08002A1C: .4byte 0x02024E5C
-_08002A20: .4byte 0x08587998
+_08002A20: .4byte gUnknown_08587998
 _08002A24:
-	ldr r0, _08002A4C  @ 0x08587998
+	ldr r0, _08002A4C  @ gUnknown_08587998
 	movs r1, #3
 	bl New6C
 _08002A2C:
@@ -2885,7 +2885,7 @@ _08002A2C:
 	str r0, [r4, #0x5c]
 	b _08002A56
 	.align 2, 0
-_08002A4C: .4byte 0x08587998
+_08002A4C: .4byte gUnknown_08587998
 _08002A50: .4byte 0x02024E5C
 _08002A54:
 	str r5, [r4, #0x5c]
@@ -2906,14 +2906,14 @@ _08002A62:
 	THUMB_FUNC_START sub_8002A6C
 sub_8002A6C: @ 0x08002A6C
 	push {lr}
-	ldr r0, _08002A7C  @ 0x08587998
+	ldr r0, _08002A7C  @ gUnknown_08587998
 	bl Find6C
 	cmp r0, #0
 	bne _08002A80
 	movs r0, #0
 	b _08002A82
 	.align 2, 0
-_08002A7C: .4byte 0x08587998
+_08002A7C: .4byte gUnknown_08587998
 _08002A80:
 	movs r0, #1
 _08002A82:
@@ -2948,12 +2948,12 @@ _08002AB4: .4byte 0x02024E5C
 	THUMB_FUNC_START DeleteAll6CWaitMusicRelated
 DeleteAll6CWaitMusicRelated: @ 0x08002AB8
 	push {lr}
-	ldr r0, _08002AC4  @ 0x08587988
+	ldr r0, _08002AC4  @ gUnknown_08587988
 	bl DeleteEach6C
 	pop {r0}
 	bx r0
 	.align 2, 0
-_08002AC4: .4byte 0x08587988
+_08002AC4: .4byte gUnknown_08587988
 
 	THUMB_FUNC_START sub_8002AC8
 sub_8002AC8: @ 0x08002AC8
@@ -2980,7 +2980,7 @@ _08002AF4: .4byte 0x02024E5C
 StoreRoutinesToIRAM: @ 0x08002AF8
 	push {r4, r5, lr}
 	ldr r2, _08002B54  @ ARMCodeToCopy_End
-	ldr r4, _08002B58  @ 0x08000228
+	ldr r4, _08002B58  @ ARMCodeToCopy_Start
 	subs r2, r2, r4
 	ldr r5, _08002B5C  @ 0x03003750
 	lsrs r0, r2, #0x1f
@@ -3025,7 +3025,7 @@ StoreRoutinesToIRAM: @ 0x08002AF8
 	bx r0
 	.align 2, 0
 _08002B54: .4byte ARMCodeToCopy_End
-_08002B58: .4byte 0x08000228
+_08002B58: .4byte ARMCodeToCopy_Start
 _08002B5C: .4byte 0x03003750
 _08002B60: .4byte 0x03003740
 _08002B64: .4byte IRAMARM_Func3_DrawGlyph

@@ -597,7 +597,7 @@ _080D513E:
 	str r4, [r5]
 	b _080D5180
 	.align 2, 0
-_080D5160: .4byte 0x085877D0
+_080D5160: .4byte gUnknown_085877D0
 _080D5164: .4byte 0x00000271
 _080D5168:
 	ldr r0, [r5]
@@ -1219,7 +1219,7 @@ _mprec_log10: @ 0x080D55BC
 	.align 2, 0
 _080D55D4: .4byte 0x3FF00000
 _080D55D8: .4byte 0x00000000
-_080D55DC: .4byte 0x085877DC
+_080D55DC: .4byte gUnknown_085877DC
 _080D55E0:
 	cmp r4, #0
 	ble _080D55F2

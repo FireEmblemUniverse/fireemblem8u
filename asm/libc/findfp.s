@@ -139,7 +139,7 @@ _cleanup: @ 0x080D4030
 	bl _cleanup_r
 	pop {pc}
 	.align 2, 0
-_080D403C: .4byte 0x08B1FA20
+_080D403C: .4byte gUnknown_08B1FA20
 
 	THUMB_FUNC_START __sinit
 __sinit: @ 0x080D4040

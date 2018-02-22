@@ -37,7 +37,7 @@ remap_handle: @ 0x080D57AC
 	ldr r0, _080D57C4 @ 0x03002B8C
 	b _080D57EE
 	.align 2, 0
-_080D57C0: .4byte 0x08B1FA20
+_080D57C0: .4byte gUnknown_08B1FA20
 _080D57C4: .4byte 0x03002B8C
 _080D57C8:
 	ldr r0, [r1, #8]
@@ -117,7 +117,7 @@ _080D583A:
 	add sp, #0xc
 	pop {r4, r5, pc}
 	.align 2, 0
-_080D5854: .4byte 0x085878F4
+_080D5854: .4byte gUnknown_085878F4
 _080D5858: .4byte 0x03002B8C
 _080D585C: .4byte 0x03002B90
 _080D5860: .4byte 0x03002B94
@@ -561,7 +561,7 @@ _080D5B72:
 	.align 2, 0
 _080D5B7C: .4byte 0x03002B88
 _080D5B80: .4byte 0x0203EFB8
-_080D5B84: .4byte 0x085878F8
+_080D5B84: .4byte gUnknown_085878F8
 
 	THUMB_FUNC_START _fstat
 _fstat: @ 0x080D5B88

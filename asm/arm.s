@@ -2,7 +2,9 @@
 
 	.SYNTAX UNIFIED
 
-Start_IRAMCodeToCopy:
+	.global ARMCodeToCopy_Start
+ARMCodeToCopy_Start:
+
 _08000228: .4byte 0x020228A8 @ pool
 _0800022C: .4byte 0x020222A8 @ pool
 _08000230: .4byte 0x02022288 @ pool
@@ -318,7 +320,7 @@ sub_8000620: @ 0x08000620
 	mov sl, #0x10000
 	sub sl, sl, #1
 _08000630:
-	ldr r4, _08000560  @ 0x08000540
+	ldr r4, _08000560  @ gUnknown_08000540
 	ldr r5, [r4, r3, lsl #2]
 	ldr r4, [r2]
 	umull r5, r6, r4, r5
@@ -362,8 +364,8 @@ _08000630:
 	pop {r4, r5, r6, r7, r8, sb, sl}
 	bx lr
 	.align 2, 0
-_080006DC: .4byte 0x0815D488
-_080006E0: .4byte 0x0815A72C
+_080006DC: .4byte gUnknown_0815D488
+_080006E0: .4byte gUnknown_0815A72C
 
 	ARM_FUNC_START IRAMARM_DecompText
 IRAMARM_DecompText: @ 0x080006E4

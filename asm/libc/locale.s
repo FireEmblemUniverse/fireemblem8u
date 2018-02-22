@@ -23,8 +23,8 @@ _setlocale_r: @ 0x080D458C
 	movs r0, #0
 	b _080D45C2
 	.align 2, 0
-_080D45B4: .4byte 0x085877CC
-_080D45B8: .4byte 0x085877C4
+_080D45B4: .4byte gUnknown_085877CC
+_080D45B8: .4byte gUnknown_085877C4
 _080D45BC:
 	str r6, [r5, #0x30]
 	str r4, [r5, #0x34]
@@ -33,14 +33,14 @@ _080D45C0:
 _080D45C2:
 	pop {r4, r5, r6, pc}
 	.align 2, 0
-_080D45C4: .4byte 0x085877CC
+_080D45C4: .4byte gUnknown_085877CC
 
 	THUMB_FUNC_START _localeconv_r
 _localeconv_r: @ 0x080D45C8
 	ldr r0, _080D45CC @ 0x08587794
 	bx lr
 	.align 2, 0
-_080D45CC: .4byte 0x08587794
+_080D45CC: .4byte gUnknown_08587794
 
 	THUMB_FUNC_START setlocale
 setlocale: @ 0x080D45D0
@@ -53,7 +53,7 @@ setlocale: @ 0x080D45D0
 	bl _setlocale_r
 	pop {pc}
 	.align 2, 0
-_080D45E4: .4byte 0x08B1FA20
+_080D45E4: .4byte gUnknown_08B1FA20
 
 	THUMB_FUNC_START localeconv
 localeconv: @ 0x080D45E8
@@ -63,4 +63,4 @@ localeconv: @ 0x080D45E8
 	bl _localeconv_r
 	pop {pc}
 	.align 2, 0
-_080D45F4: .4byte 0x08B1FA20
+_080D45F4: .4byte gUnknown_08B1FA20

@@ -43,7 +43,7 @@ sub_8000BC8: @ 0x08000BC8
 	push {r4, r5, r6, lr}
 	sub sp, #0x10
 	adds r5, r0, #0
-	ldr r1, _08000C2C  @ 0x080D74F4
+	ldr r1, _08000C2C  @ gUnknown_080D74F4
 	mov r0, sp
 	movs r2, #0x10
 	bl memcpy
@@ -88,7 +88,7 @@ _08000C22:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_08000C2C: .4byte 0x080D74F4
+_08000C2C: .4byte gUnknown_080D74F4
 _08000C30: .4byte 0x03000000
 
 	THUMB_FUNC_START LoadRNState
