@@ -81,8 +81,8 @@ RegisterRamReset: @ 0x080D16AC
 	svc #1
 	bx lr
 
-	THUMB_FUNC_START sub_080D16B0
-sub_080D16B0: @ 0x080D16B0
+	THUMB_FUNC_START sub_80D16B0
+sub_80D16B0: @ 0x080D16B0
 	ldr r3, _080D16C0 @ 0x04000208
 	movs r2, #0
 	strb r2, [r3]
@@ -93,7 +93,7 @@ sub_080D16B0: @ 0x080D16B0
 	movs r0, r0
 	.align 2, 0
 _080D16C0: .4byte 0x04000208
-_080D16C4: .4byte 0x03007F00
+_080D16C4: .4byte gUnknown_03007F00
 
 	THUMB_FUNC_START SoundBiasReset
 SoundBiasReset: @ 0x080D16C8

@@ -62,9 +62,9 @@ _080D410A:
 	bl __malloc_unlock
 	b _080D4256
 	.align 2, 0
-_080D4114: .4byte 0x08B1FA38
-_080D4118: .4byte 0x08B1FE40
-_080D411C: .4byte 0x08B1FE44
+_080D4114: .4byte gUnknown_08B1FA38
+_080D4118: .4byte gUnknown_08B1FE40
+_080D411C: .4byte gUnknown_08B1FE44
 _080D4120:
 	str r4, [r7, #4]
 	movs r0, #0
@@ -112,7 +112,7 @@ _080D414C:
 	str r1, [r5, #8]
 	b _080D4184
 	.align 2, 0
-_080D4178: .4byte 0x08B1FA40
+_080D4178: .4byte gUnknown_08B1FA40
 _080D417C:
 	ldr r3, [r7, #0xc]
 	adds r2, r1, #0
@@ -145,7 +145,7 @@ _080D4184:
 	b _080D4248
 	.align 2, 0
 _080D41B4: .4byte 0x000001FF
-_080D41B8: .4byte 0x08B1FA38
+_080D41B8: .4byte gUnknown_08B1FA38
 _080D41BC:
 	lsrs r1, r6, #9
 	cmp r1, #0
@@ -209,7 +209,7 @@ _080D420E:
 	str r0, [r7, #4]
 	b _080D4248
 	.align 2, 0
-_080D422C: .4byte 0x08B1FA38
+_080D422C: .4byte gUnknown_08B1FA38
 _080D4230:
 	ldr r0, [r2, #4]
 	movs r1, #4
@@ -307,10 +307,10 @@ _080D42DE:
 	movs r0, #0
 	b _080D4314
 	.align 2, 0
-_080D42E8: .4byte 0x08B1FA38
+_080D42E8: .4byte gUnknown_08B1FA38
 _080D42EC: .4byte 0x00000FEF
-_080D42F0: .4byte 0x08B1FE54
-_080D42F4: .4byte 0x08B1FE48
+_080D42F0: .4byte gUnknown_08B1FE54
+_080D42F4: .4byte gUnknown_08B1FE48
 _080D42F8:
 	mov r1, r8
 	ldr r2, [r1, #8]
@@ -330,4 +330,4 @@ _080D4314:
 	mov r8, r3
 	pop {r4, r5, r6, r7, pc}
 	.align 2, 0
-_080D431C: .4byte 0x08B1FE54
+_080D431C: .4byte gUnknown_08B1FE54

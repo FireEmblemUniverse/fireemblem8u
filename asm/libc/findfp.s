@@ -25,10 +25,10 @@ std: @ 0x080D3F44
 	str r3, [r0, #0x54]
 	pop {r4, pc}
 	.align 2, 0
-_080D3F6C: .4byte 0x080D566D
-_080D3F70: .4byte 0x080D56A1
-_080D3F74: .4byte 0x080D56E1
-_080D3F78: .4byte 0x080D5721
+_080D3F6C: .4byte __sread
+_080D3F70: .4byte __swrite
+_080D3F74: .4byte __sseek
+_080D3F78: .4byte __sclose
 
 	THUMB_FUNC_START __sfmoreglue
 __sfmoreglue: @ 0x080D3F7C
@@ -129,7 +129,7 @@ _cleanup_r: @ 0x080D4020
 	bl _fwalk
 	pop {pc}
 	.align 2, 0
-_080D402C: .4byte 0x080D3EB1
+_080D402C: .4byte fflush
 
 	THUMB_FUNC_START _cleanup
 _cleanup: @ 0x080D4030
@@ -139,7 +139,7 @@ _cleanup: @ 0x080D4030
 	bl _cleanup_r
 	pop {pc}
 	.align 2, 0
-_080D403C: .4byte 0x08B1FA20
+_080D403C: .4byte gUnknown_08B1FA20
 
 	THUMB_FUNC_START __sinit
 __sinit: @ 0x080D4040
@@ -187,4 +187,4 @@ __sinit: @ 0x080D4040
 	str r4, [r0]
 	pop {r4, r5, pc}
 	.align 2, 0
-_080D409C: .4byte 0x080D4021
+_080D409C: .4byte _cleanup_r

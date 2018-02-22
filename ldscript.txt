@@ -1,20 +1,20 @@
 OUTPUT_ARCH(arm)
 SECTIONS
 {
-    . = 0x03000000;
-    .bss :
+    /* TODO: figure out what is COMMON and .bss */
+
+    . = 0x02000000;
+    EWRAM :
     ALIGN(4)
     {
-        . = 0x2C38;
-        tools/agbcc/lib/libgcc.a:dp-bit.o(.bss);
-        tools/agbcc/lib/libgcc.a:fp-bit.o(.bss);
+        INCLUDE "sym_ewram.txt"
     }
 
     . = 0x03000000;
-    COMMON :
+    IWRAM :
+    ALIGN(4)
     {
-        . = 0x67A8;
-        tools/agbcc/lib/libc.a:sbrkr.o(COMMON);
+        INCLUDE "sym_iwram.txt"
     }
 
     . = 0x08000000;
@@ -83,7 +83,8 @@ SECTIONS
         tools/agbcc/lib/libgcc.a:_lshrdi3.o(.text);
         tools/agbcc/lib/libgcc.a:_negdi2.o(.text);
         asm/arm_call.o(.text);
-        asm/rom.o(.text);
+
+        data/data.o(.rodata);
     } = 0
 
     . = 0x8B1FA20;

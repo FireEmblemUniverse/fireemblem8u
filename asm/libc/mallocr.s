@@ -66,12 +66,12 @@ _080D472E:
 	str r2, [r1, #4]
 	b _080D4800
 	.align 2, 0
-_080D4748: .4byte 0x08B1FA38
-_080D474C: .4byte 0x08B1FE44
-_080D4750: .4byte 0x08B1FE48
+_080D4748: .4byte gUnknown_08B1FA38
+_080D474C: .4byte gUnknown_08B1FE44
+_080D4750: .4byte gUnknown_08B1FE48
 _080D4754: .4byte 0x0000100F
 _080D4758: .4byte 0xFFFFF000
-_080D475C: .4byte 0x08B1FE54
+_080D475C: .4byte gUnknown_08B1FE54
 _080D4760:
 	mov r3, sl
 	ldr r0, [r3]
@@ -132,8 +132,8 @@ _080D4788:
 	str r3, [r5, #4]
 	b _080D4818
 	.align 2, 0
-_080D47D0: .4byte 0x08B1FE54
-_080D47D4: .4byte 0x08B1FA38
+_080D47D0: .4byte gUnknown_08B1FE54
+_080D47D4: .4byte gUnknown_08B1FA38
 _080D47D8:
 	subs r7, #0xc
 	movs r0, #8
@@ -176,9 +176,9 @@ _080D4818:
 	mov sl, r5
 	pop {r4, r5, r6, r7, pc}
 	.align 2, 0
-_080D4824: .4byte 0x08B1FE54
-_080D4828: .4byte 0x08B1FE4C
-_080D482C: .4byte 0x08B1FE50
+_080D4824: .4byte gUnknown_08B1FE54
+_080D4828: .4byte gUnknown_08B1FE4C
+_080D482C: .4byte gUnknown_08B1FE50
 
 	THUMB_FUNC_START _malloc_r
 _malloc_r: @ 0x080D4830
@@ -239,7 +239,7 @@ _080D487E:
 	b _080D4BD6
 	.align 2, 0
 _080D489C: .4byte 0x000001F7
-_080D48A0: .4byte 0x08B1FA38
+_080D48A0: .4byte gUnknown_08B1FA38
 _080D48A4:
 	movs r0, #2
 	add ip, r0
@@ -318,7 +318,7 @@ _080D4908:
 	add ip, r0
 	b _080D4952
 	.align 2, 0
-_080D492C: .4byte 0x08B1FA38
+_080D492C: .4byte gUnknown_08B1FA38
 _080D4930:
 	cmp r3, #0
 	blt _080D4936
@@ -374,7 +374,7 @@ _080D4962:
 	str r3, [r0]
 	b _080D4BD6
 	.align 2, 0
-_080D4994: .4byte 0x08B1FA40
+_080D4994: .4byte gUnknown_08B1FA40
 _080D4998:
 	mov r7, sl
 	str r7, [r7, #0xc]
@@ -470,7 +470,7 @@ _080D4A22:
 	str r0, [r7, #4]
 	b _080D4A5C
 	.align 2, 0
-_080D4A40: .4byte 0x08B1FA38
+_080D4A40: .4byte gUnknown_08B1FA38
 _080D4A44:
 	ldr r0, [r4, #4]
 	movs r2, #4
@@ -517,7 +517,7 @@ _080D4A6C:
 	mov ip, r0
 	b _080D4A98
 	.align 2, 0
-_080D4A90: .4byte 0x08B1FA38
+_080D4A90: .4byte gUnknown_08B1FA38
 _080D4A94:
 	movs r3, #4
 	add ip, r3
@@ -599,7 +599,7 @@ _080D4B10:
 	beq _080D4B10
 	b _080D4AA6
 	.align 2, 0
-_080D4B20: .4byte 0x08B1FA38
+_080D4B20: .4byte gUnknown_08B1FA38
 _080D4B24:
 	mov r1, sb
 	ldr r0, [r1, #4]
@@ -639,7 +639,7 @@ _080D4B62:
 	movs r0, #0
 	b _080D4BE0
 	.align 2, 0
-_080D4B6C: .4byte 0x08B1FA38
+_080D4B6C: .4byte gUnknown_08B1FA38
 _080D4B70:
 	ldr r6, [r5, #0xc]
 	ldr r4, [r5, #8]
@@ -708,4 +708,4 @@ _080D4BE0:
 	mov sl, r5
 	pop {r4, r5, r6, r7, pc}
 	.align 2, 0
-_080D4BEC: .4byte 0x08B1FA38
+_080D4BEC: .4byte gUnknown_08B1FA38
