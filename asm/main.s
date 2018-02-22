@@ -111,8 +111,8 @@ _08000B30: .4byte gUnknown_080D74EC
 StoreIRQToIRAM: @ 0x08000B34
 	push {r4, lr}
 	ldr r0, _08000B60  @ GlobalIRQHandler
-	ldr r4, _08000B64  @ 0x03004160
-	ldr r2, _08000B68  @ 0x030030F0
+	ldr r4, _08000B64  @ gUnknown_03004160
+	ldr r2, _08000B68  @ gUnknown_030030F0
 	ldr r3, _08000B6C  @ DummyIRQRoutine
 	adds r1, r2, #0
 	adds r1, #0x34
@@ -125,17 +125,17 @@ _08000B42:
 	lsls r2, r2, #2
 	adds r1, r4, #0
 	bl CpuFastSet
-	ldr r0, _08000B70  @ 0x03007FFC
+	ldr r0, _08000B70  @ gUnknown_03007FFC
 	str r4, [r0]
 	pop {r4}
 	pop {r0}
 	bx r0
 	.align 2, 0
 _08000B60: .4byte GlobalIRQHandler
-_08000B64: .4byte 0x03004160
-_08000B68: .4byte 0x030030F0
+_08000B64: .4byte gUnknown_03004160
+_08000B68: .4byte gUnknown_030030F0
 _08000B6C: .4byte DummyIRQRoutine
-_08000B70: .4byte 0x03007FFC
+_08000B70: .4byte gUnknown_03007FFC
 
 	THUMB_FUNC_START DummyIRQRoutine
 DummyIRQRoutine: @ 0x08000B74
@@ -143,10 +143,10 @@ DummyIRQRoutine: @ 0x08000B74
 
 	THUMB_FUNC_START SetIRQHandler
 SetIRQHandler: @ 0x08000B78
-	ldr r2, _08000B84  @ 0x030030F0
+	ldr r2, _08000B84  @ gUnknown_030030F0
 	lsls r0, r0, #2
 	adds r0, r0, r2
 	str r1, [r0]
 	bx lr
 	.align 2, 0
-_08000B84: .4byte 0x030030F0
+_08000B84: .4byte gUnknown_030030F0

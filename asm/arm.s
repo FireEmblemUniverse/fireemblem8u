@@ -196,7 +196,7 @@ _0800045C:
 	pop {r4, r5, r6, r7}
 	bx lr
 	.align 2, 0
-_08000490: .4byte 0x03003744 @ pool
+_08000490: .4byte gUnknown_03003744 @ pool
 
 	ARM_FUNC_START IRAMARM_CopyToSecondaryOAM
 IRAMARM_CopyToSecondaryOAM: @ 0x08000494
@@ -243,7 +243,7 @@ _08000528:
 	pop {r4, r5, r6, r7}
 	bx lr
 	.align 2, 0
-_08000530: .4byte 0x03003070 @ pool
+_08000530: .4byte gUnknown_03003070 @ pool
 
 	ARM_FUNC_START IRAMARM_CopyToPrimaryOAM
 IRAMARM_CopyToPrimaryOAM: @ 0x08000534
@@ -412,9 +412,9 @@ _08000768:
 	pop {r4, r5, r6, r7}
 	bx lr
 	.align 2, 0
-_08000770: .4byte 0x03004BB0 @ pool
-_08000774: .4byte 0x03004E60 @ pool
-_08000778: .4byte 0x030049A0 @ pool
+_08000770: .4byte gUnknown_03004BB0 @ pool
+_08000774: .4byte gUnknown_03004E60 @ pool
+_08000778: .4byte gUnknown_030049A0 @ pool
 _0800077C: .4byte gUnknown_0202E4DC @ pool
 _08000780: .4byte gUnknown_0202E4D8 @ pool
 
@@ -474,8 +474,8 @@ _08000848:
 	pop {r4, r5, r6, r7, r8, sb, sl}
 	bx lr
 	.align 2, 0
-_08000850: .4byte 0x030049B0 @ pool
-_08000854: .4byte 0x03004C50 @ pool
+_08000850: .4byte gUnknown_030049B0 @ pool
+_08000854: .4byte gUnknown_03004C50 @ pool
 
 _08000858:
 	b _08000994
@@ -491,19 +491,19 @@ _08000858:
 IRAMARM_FillMovementMap: @ 0x08000874
 	push {r4, r5, r6, lr}
 	mov r4, #0
-	ldr r5, _08000774  @ 0x03004E60
+	ldr r5, _08000774  @ gUnknown_03004E60
 _08000880:
 	eors r4, r4, #1
 	beq _0800089C
-	ldr r0, _08000850  @ 0x030049B0
+	ldr r0, _08000850  @ gUnknown_030049B0
 	str r0, [r5]
-	ldr r0, _08000854  @ 0x03004C50
+	ldr r0, _08000854  @ gUnknown_03004C50
 	str r0, [r5, #4]
 	b _080008AC
 _0800089C:
-	ldr r0, _08000854  @ 0x03004C50
+	ldr r0, _08000854  @ gUnknown_03004C50
 	str r0, [r5]
-	ldr r0, _08000850  @ 0x030049B0
+	ldr r0, _08000850  @ gUnknown_030049B0
 	str r0, [r5, #4]
 _080008AC:
 	ldr r6, [r5]

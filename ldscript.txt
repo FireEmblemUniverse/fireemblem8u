@@ -11,19 +11,10 @@ SECTIONS
     }
 
     . = 0x03000000;
-    .bss :
+    IWRAM :
     ALIGN(4)
     {
-        . = 0x2C38;
-        tools/agbcc/lib/libgcc.a:dp-bit.o(.bss);
-        tools/agbcc/lib/libgcc.a:fp-bit.o(.bss);
-    }
-
-    . = 0x03000000;
-    COMMON :
-    {
-        . = 0x67A8;
-        tools/agbcc/lib/libc.a:sbrkr.o(COMMON);
+        INCLUDE "sym_iwram.txt"
     }
 
     . = 0x08000000;

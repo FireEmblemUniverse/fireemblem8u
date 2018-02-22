@@ -39,7 +39,7 @@ _08000DF4:
 	adds r0, r4, #0
 	bl CpuFastSet
 _08000DFE:
-	ldr r1, _08000E10  @ 0x0300000E
+	ldr r1, _08000E10  @ gUnknown_0300000E
 	movs r0, #1
 	strb r0, [r1]
 	pop {r4}
@@ -47,7 +47,7 @@ _08000DFE:
 	bx r0
 	.align 2, 0
 _08000E0C: .4byte gUnknown_020228A8
-_08000E10: .4byte 0x0300000E
+_08000E10: .4byte gUnknown_0300000E
 
 	THUMB_FUNC_START sub_8000E14
 sub_8000E14: @ 0x08000E14
@@ -63,7 +63,7 @@ sub_8000E14: @ 0x08000E14
 	ldr r2, _08000E94  @ gUnknown_020228A8
 	adds r5, r1, r2
 	adds r4, r0, #0
-	ldr r0, _08000E98  @ 0x0300000E
+	ldr r0, _08000E98  @ gUnknown_0300000E
 	mov sl, r0
 	cmp r7, #0
 	ble _08000E7E
@@ -118,13 +118,13 @@ _08000E7E:
 	bx r0
 	.align 2, 0
 _08000E94: .4byte gUnknown_020228A8
-_08000E98: .4byte 0x0300000E
+_08000E98: .4byte gUnknown_0300000E
 
 	THUMB_FUNC_START FlushLCDControl
 FlushLCDControl: @ 0x08000E9C
 	movs r1, #0x80
 	lsls r1, r1, #0x13
-	ldr r2, _08000F40  @ 0x03003080
+	ldr r2, _08000F40  @ gUnknown_03003080
 	ldrh r0, [r2]
 	strh r0, [r1]
 	adds r1, #4
@@ -205,7 +205,7 @@ FlushLCDControl: @ 0x08000E9C
 	str r0, [r1]
 	bx lr
 	.align 2, 0
-_08000F40: .4byte 0x03003080
+_08000F40: .4byte gUnknown_03003080
 
 	THUMB_FUNC_START GetBackgroundControlBuffer
 GetBackgroundControlBuffer: @ 0x08000F44
@@ -228,27 +228,27 @@ _08000F5C:
 	beq _08000F80
 	b _08000F82
 _08000F66:
-	ldr r0, _08000F6C  @ 0x0300308C
+	ldr r0, _08000F6C  @ gUnknown_0300308C
 	b _08000F82
 	.align 2, 0
-_08000F6C: .4byte 0x0300308C
+_08000F6C: .4byte gUnknown_0300308C
 _08000F70:
-	ldr r0, _08000F74  @ 0x03003090
+	ldr r0, _08000F74  @ gUnknown_03003090
 	b _08000F82
 	.align 2, 0
-_08000F74: .4byte 0x03003090
+_08000F74: .4byte gUnknown_03003090
 _08000F78:
-	ldr r0, _08000F7C  @ 0x03003094
+	ldr r0, _08000F7C  @ gUnknown_03003094
 	b _08000F82
 	.align 2, 0
-_08000F7C: .4byte 0x03003094
+_08000F7C: .4byte gUnknown_03003094
 _08000F80:
-	ldr r0, _08000F88  @ 0x03003098
+	ldr r0, _08000F88  @ gUnknown_03003098
 _08000F82:
 	pop {r1}
 	bx r1
 	.align 2, 0
-_08000F88: .4byte 0x03003098
+_08000F88: .4byte gUnknown_03003098
 
 	THUMB_FUNC_START GetBackgroundTileDataOffset
 GetBackgroundTileDataOffset: @ 0x08000F8C
@@ -498,7 +498,7 @@ _08001148: .4byte 0x000001FF
 	THUMB_FUNC_START FlushBackgrounds
 FlushBackgrounds: @ 0x0800114C
 	push {r4, lr}
-	ldr r4, _080011DC  @ 0x0300000D
+	ldr r4, _080011DC  @ gUnknown_0300000D
 	ldrb r1, [r4]
 	movs r0, #1
 	ands r0, r1
@@ -549,13 +549,13 @@ _08001198:
 _080011B0:
 	movs r2, #0
 	strb r2, [r4]
-	ldr r1, _080011F4  @ 0x0300000E
+	ldr r1, _080011F4  @ gUnknown_0300000E
 	movs r0, #0
 	ldrsb r0, [r1, r0]
 	cmp r0, #1
 	bne _0800121A
 	strb r2, [r1]
-	ldr r0, _080011F8  @ 0x03003080
+	ldr r0, _080011F8  @ gUnknown_03003080
 	adds r0, #0x68
 	movs r1, #0
 	ldrsb r1, [r0, r1]
@@ -569,14 +569,14 @@ _080011B0:
 	bl CpuFastSet
 	b _0800121A
 	.align 2, 0
-_080011DC: .4byte 0x0300000D
+_080011DC: .4byte gUnknown_0300000D
 _080011E0: .4byte gUnknown_02022CA8
 _080011E4: .4byte gUnknown_02024CA8
 _080011E8: .4byte gUnknown_020234A8
 _080011EC: .4byte gUnknown_02023CA8
 _080011F0: .4byte gUnknown_020244A8
-_080011F4: .4byte 0x0300000E
-_080011F8: .4byte 0x03003080
+_080011F4: .4byte gUnknown_0300000E
+_080011F8: .4byte gUnknown_03003080
 _080011FC: .4byte gUnknown_020228A8
 _08001200:
 	cmp r1, #0

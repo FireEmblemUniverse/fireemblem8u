@@ -8,7 +8,7 @@ SetInterrupt_LCDVBlank: @ 0x08001258
 	adds r3, r0, #0
 	cmp r3, #0
 	beq _08001284
-	ldr r2, _0800127C  @ 0x03003080
+	ldr r2, _0800127C  @ gUnknown_03003080
 	ldrb r0, [r2, #4]
 	movs r1, #8
 	orrs r0, r1
@@ -22,10 +22,10 @@ SetInterrupt_LCDVBlank: @ 0x08001258
 	orrs r0, r1
 	b _08001298
 	.align 2, 0
-_0800127C: .4byte 0x03003080
+_0800127C: .4byte gUnknown_03003080
 _08001280: .4byte 0x04000200
 _08001284:
-	ldr r2, _080012A0  @ 0x03003080
+	ldr r2, _080012A0  @ gUnknown_03003080
 	ldrb r1, [r2, #4]
 	movs r0, #9
 	rsbs r0, r0, #0
@@ -40,7 +40,7 @@ _08001298:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_080012A0: .4byte 0x03003080
+_080012A0: .4byte gUnknown_03003080
 _080012A4: .4byte 0x04000200
 _080012A8: .4byte 0x0000FFFE
 
@@ -50,7 +50,7 @@ SetInterrupt_LCDVCountMatch: @ 0x080012AC
 	adds r4, r0, #0
 	cmp r4, #0
 	beq _080012DC
-	ldr r2, _080012D4  @ 0x03003080
+	ldr r2, _080012D4  @ gUnknown_03003080
 	ldrb r0, [r2, #4]
 	movs r1, #0x20
 	orrs r0, r1
@@ -65,10 +65,10 @@ SetInterrupt_LCDVCountMatch: @ 0x080012AC
 	strh r0, [r2]
 	b _080012F4
 	.align 2, 0
-_080012D4: .4byte 0x03003080
+_080012D4: .4byte gUnknown_03003080
 _080012D8: .4byte 0x04000200
 _080012DC:
-	ldr r2, _080012FC  @ 0x03003080
+	ldr r2, _080012FC  @ gUnknown_03003080
 	ldrb r1, [r2, #4]
 	movs r0, #0x21
 	rsbs r0, r0, #0
@@ -85,7 +85,7 @@ _080012F4:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_080012FC: .4byte 0x03003080
+_080012FC: .4byte gUnknown_03003080
 _08001300: .4byte 0x04000200
 _08001304: .4byte 0x0000FFFB
 
@@ -104,11 +104,11 @@ _08001318: .4byte 0x04000004
 
 	THUMB_FUNC_START SetLCDVCountSetting
 SetLCDVCountSetting: @ 0x0800131C
-	ldr r1, _08001324  @ 0x03003080
+	ldr r1, _08001324  @ gUnknown_03003080
 	strb r0, [r1, #5]
 	bx lr
 	.align 2, 0
-_08001324: .4byte 0x03003080
+_08001324: .4byte gUnknown_03003080
 
 	THUMB_FUNC_START SetMainUpdateRoutine
 SetMainUpdateRoutine: @ 0x08001328
@@ -230,7 +230,7 @@ UpdateKeyStatus: @ 0x080013E0
 	ands r0, r1
 	cmp r0, #0xf
 	beq _080013FC
-	ldr r0, _08001410  @ 0x03000010
+	ldr r0, _08001410  @ gUnknown_03000010
 	ldrh r0, [r0]
 	bics r1, r0
 _080013FC:
@@ -242,7 +242,7 @@ _080013FC:
 	bx r0
 	.align 2, 0
 _0800140C: .4byte 0x04000130
-_08001410: .4byte 0x03000010
+_08001410: .4byte gUnknown_03000010
 
 	THUMB_FUNC_START sub_8001414
 sub_8001414: @ 0x08001414
@@ -265,27 +265,27 @@ ResetKeyStatus: @ 0x08001420
 	strh r2, [r0, #8]
 	strb r1, [r0, #2]
 	strh r2, [r0, #0x12]
-	ldr r0, _0800143C  @ 0x03000010
+	ldr r0, _0800143C  @ gUnknown_03000010
 	strh r2, [r0]
 	bx lr
 	.align 2, 0
-_0800143C: .4byte 0x03000010
+_0800143C: .4byte gUnknown_03000010
 
 	THUMB_FUNC_START SetKeyStatus_IgnoreMask
 SetKeyStatus_IgnoreMask: @ 0x08001440
-	ldr r1, _08001448  @ 0x03000010
+	ldr r1, _08001448  @ gUnknown_03000010
 	strh r0, [r1]
 	bx lr
 	.align 2, 0
-_08001448: .4byte 0x03000010
+_08001448: .4byte gUnknown_03000010
 
 	THUMB_FUNC_START GetKeyStatus_IgnoreMask
 GetKeyStatus_IgnoreMask: @ 0x0800144C
-	ldr r0, _08001454  @ 0x03000010
+	ldr r0, _08001454  @ gUnknown_03000010
 	ldrh r0, [r0]
 	bx lr
 	.align 2, 0
-_08001454: .4byte 0x03000010
+_08001454: .4byte gUnknown_03000010
 
 	THUMB_FUNC_START KeyStatusSetter_Set
 KeyStatusSetter_Set: @ 0x08001458

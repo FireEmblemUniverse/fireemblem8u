@@ -71,9 +71,9 @@ _080CF52A:
 	ldr r3, _080CF53C @ 0x03002C61
 	bx r3
 	.align 2, 0
-_080CF534: .4byte 0x03007FF0
+_080CF534: .4byte gUnknown_03007FF0
 _080CF538: .4byte 0x68736D53
-_080CF53C: .4byte 0x03002C61
+_080CF53C: .4byte gUnknown_03002C61
 _080CF540: .4byte 0x04000006
 _080CF544: .4byte 0x00000350
 _080CF548: .4byte 0x00000630
@@ -860,7 +860,7 @@ _080CFB64: .4byte 0x84400004
 sub_80CFDC0: @ 0x080CFDC0
 	bx r3
 	.byte 0x00, 0x00, 0x04, 0x74, 0x20, 0x08
-_080CFDC8: .4byte 0x03007FF0
+_080CFDC8: .4byte gUnknown_03007FF0
 _080CFDCC: .4byte 0x68736D53
 
 	THUMB_FUNC_START sub_80CFDD0
@@ -901,7 +901,7 @@ _080CFE08:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_080CFE10: .4byte 0x03007FF0
+_080CFE10: .4byte gUnknown_03007FF0
 
 	THUMB_FUNC_START sub_80CFE14
 sub_80CFE14: @ 0x080CFE14
@@ -1208,7 +1208,7 @@ _080D002A:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_080D003C: .4byte 0x03007FF0
+_080D003C: .4byte gUnknown_03007FF0
 _080D0040: .4byte gUnknown_08207404
 
 	THUMB_FUNC_START sub_80D0044
@@ -1434,14 +1434,14 @@ _080D01C6:
 	bx r0
 	.align 2, 0
 _080D01CC: .4byte sub_80CF54C
-_080D01D0: .4byte 0x03002C60
+_080D01D0: .4byte gUnknown_03002C60
 _080D01D4: .4byte 0x04000100
-_080D01D8: .4byte 0x03005410
-_080D01DC: .4byte 0x03006510
+_080D01D8: .4byte gUnknown_03005410
+_080D01DC: .4byte gUnknown_03006510
 _080D01E0: .4byte 0x0094D700
 _080D01E4: .4byte 0x00000009
 _080D01E8: .4byte gUnknown_08224404
-_080D01EC: .4byte 0x03006710
+_080D01EC: .4byte gUnknown_03006710
 
 	THUMB_FUNC_START sub_80D01F0
 sub_80D01F0: @ 0x080D01F0
@@ -1722,9 +1722,9 @@ _080D04F4:
 _080D04FC: .4byte 0x04000084
 _080D0500: .4byte 0x04000080
 _080D0504: .4byte 0x04000063
-_080D0508: .4byte 0x03007FF0
+_080D0508: .4byte gUnknown_03007FF0
 _080D050C: .4byte 0x68736D53
-_080D0510: .4byte 0x03006480
+_080D0510: .4byte gUnknown_03006480
 _080D0514: .4byte ply_memacc
 _080D0518: .4byte sub_80D00AC
 _080D051C: .4byte sub_80D00C0
@@ -1750,7 +1750,7 @@ sub_80D0550: @ 0x080D0550
 	pop {r0}
 	bx r0
 	.align 2, 0
-_080D0560: .4byte 0x03006508
+_080D0560: .4byte gUnknown_03006508
 
 	THUMB_FUNC_START sub_80D0564
 sub_80D0564: @ 0x080D0564
@@ -1761,7 +1761,7 @@ sub_80D0564: @ 0x080D0564
 	pop {r0}
 	bx r0
 	.align 2, 0
-_080D0574: .4byte 0x0300650C
+_080D0574: .4byte gUnknown_0300650C
 
 	THUMB_FUNC_START sub_80D0578
 sub_80D0578: @ 0x080D0578
@@ -1867,11 +1867,11 @@ _080D0648: .4byte 0x04000089
 _080D064C: .4byte 0x040000BC
 _080D0650: .4byte 0x040000A0
 _080D0654: .4byte 0x040000A4
-_080D0658: .4byte 0x03007FF0
+_080D0658: .4byte gUnknown_03007FF0
 _080D065C: .4byte 0x050003EC
 _080D0660: .4byte sub_80CFE44
 _080D0664: .4byte DummyFunc
-_080D0668: .4byte 0x03006480
+_080D0668: .4byte gUnknown_03006480
 _080D066C: .4byte 0x68736D53
 
 	THUMB_FUNC_START sub_80D0670
@@ -1937,7 +1937,7 @@ _080D06DC:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_080D06F0: .4byte 0x03007FF0
+_080D06F0: .4byte gUnknown_03007FF0
 _080D06F4: .4byte gUnknown_08207304
 _080D06F8: .4byte 0x00091D1B
 _080D06FC: .4byte 0x00001388
@@ -2025,7 +2025,7 @@ _080D079A:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_080D07A0: .4byte 0x03007FF0
+_080D07A0: .4byte gUnknown_03007FF0
 _080D07A4: .4byte 0x68736D53
 _080D07A8: .4byte 0x04000089
 	.byte 0xF0, 0xB5, 0x12, 0x48
@@ -2087,7 +2087,7 @@ _080D0858:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_080D0860: .4byte 0x03007FF0
+_080D0860: .4byte gUnknown_03007FF0
 _080D0864: .4byte 0x978C92AD
 _080D0868: .4byte 0x040000C4
 _080D086C: .4byte 0x84400004
@@ -2122,7 +2122,7 @@ _080D08A4:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_080D08AC: .4byte 0x03007FF0
+_080D08AC: .4byte gUnknown_03007FF0
 _080D08B0: .4byte 0x68736D53
 _080D08B4: .4byte 0x040000C6
 
@@ -2186,7 +2186,7 @@ _080D091C:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_080D0924: .4byte 0x03007FF0
+_080D0924: .4byte gUnknown_03007FF0
 _080D0928: .4byte 0x68736D53
 _080D092C: .4byte 0x080CFB69
 
@@ -2780,7 +2780,7 @@ sub_80D0D30: @ 0x080D0D30
 	strb r0, [r1, #0xa]
 	b _080D0D5A
 	.align 2, 0
-_080D0D50: .4byte 0x03007FF0
+_080D0D50: .4byte gUnknown_03007FF0
 _080D0D54:
 	movs r0, #0xe
 	ldr r2, [sp, #4]
@@ -3676,7 +3676,7 @@ _080D1528:
 	bl _call_via_r2
 	b _080D1542
 	.align 2, 0
-_080D1538: .4byte 0x03006484
+_080D1538: .4byte gUnknown_03006484
 _080D153C:
 	ldr r0, [r6, #0x40]
 	adds r0, #4
@@ -3712,7 +3712,7 @@ ply_xxx: @ 0x080D1568
 	pop {r0}
 	bx r0
 	.align 2, 0
-_080D1578: .4byte 0x03006480
+_080D1578: .4byte gUnknown_03006480
 
 	THUMB_FUNC_START ply_xwave
 ply_xwave: @ 0x080D157C

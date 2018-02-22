@@ -9,7 +9,7 @@ findslot: @ 0x080D578C
 	ldr r2, _080D5794 @ 0x03002B98
 	b _080D57A0
 	.align 2, 0
-_080D5794: .4byte 0x03002B98
+_080D5794: .4byte gUnknown_03002B98
 _080D5798:
 	adds r2, #8
 	adds r1, #1
@@ -38,7 +38,7 @@ remap_handle: @ 0x080D57AC
 	b _080D57EE
 	.align 2, 0
 _080D57C0: .4byte gUnknown_08B1FA20
-_080D57C4: .4byte 0x03002B8C
+_080D57C4: .4byte gUnknown_03002B8C
 _080D57C8:
 	ldr r0, [r1, #8]
 	movs r3, #0xe
@@ -48,7 +48,7 @@ _080D57C8:
 	ldr r0, _080D57D8 @ 0x03002B90
 	b _080D57EE
 	.align 2, 0
-_080D57D8: .4byte 0x03002B90
+_080D57D8: .4byte gUnknown_03002B90
 _080D57DC:
 	ldr r0, [r1, #0xc]
 	movs r1, #0xe
@@ -65,7 +65,7 @@ _080D57EE:
 _080D57F0:
 	bx lr
 	.align 2, 0
-_080D57F4: .4byte 0x03002B94
+_080D57F4: .4byte gUnknown_03002B94
 
 	THUMB_FUNC_START initialise_monitor_handles
 initialise_monitor_handles: @ 0x080D57F8
@@ -118,10 +118,10 @@ _080D583A:
 	pop {r4, r5, pc}
 	.align 2, 0
 _080D5854: .4byte gUnknown_085878F4
-_080D5858: .4byte 0x03002B8C
-_080D585C: .4byte 0x03002B90
-_080D5860: .4byte 0x03002B94
-_080D5864: .4byte 0x03002B98
+_080D5858: .4byte gUnknown_03002B8C
+_080D585C: .4byte gUnknown_03002B90
+_080D5860: .4byte gUnknown_03002B94
+_080D5864: .4byte gUnknown_03002B98
 
 	THUMB_FUNC_START get_errno
 get_errno: @ 0x080D5868
@@ -218,7 +218,7 @@ _080D590A:
 _080D590C:
 	pop {r4, r5, r6, r7, pc}
 	.align 2, 0
-_080D5910: .4byte 0x03002B98
+_080D5910: .4byte gUnknown_03002B98
 
 	THUMB_FUNC_START _swilseek
 _swilseek: @ 0x080D5914
@@ -289,7 +289,7 @@ _080D598C:
 	mov r8, r3
 	pop {r4, r5, r6, r7, pc}
 	.align 2, 0
-_080D5994: .4byte 0x03002B98
+_080D5994: .4byte gUnknown_03002B98
 
 	THUMB_FUNC_START _lseek
 _lseek: @ 0x080D5998
@@ -357,7 +357,7 @@ _080D5A0C:
 _080D5A0E:
 	pop {r4, r5, r6, r7, pc}
 	.align 2, 0
-_080D5A10: .4byte 0x03002B98
+_080D5A10: .4byte gUnknown_03002B98
 
 	THUMB_FUNC_START _swiopen
 _swiopen: @ 0x080D5A14
@@ -434,7 +434,7 @@ _080D5A6C:
 	adds r0, #0x20
 	b _080D5AAA
 	.align 2, 0
-_080D5AA0: .4byte 0x03002B98
+_080D5AA0: .4byte gUnknown_03002B98
 _080D5AA4:
 	adds r0, r3, #0
 	bl error
@@ -482,7 +482,7 @@ _080D5AE8:
 	add sp, #4
 	pop {pc}
 	.align 2, 0
-_080D5AF8: .4byte 0x03002B98
+_080D5AF8: .4byte gUnknown_03002B98
 
 	THUMB_FUNC_START _close
 _close: @ 0x080D5AFC
@@ -559,7 +559,7 @@ _080D5B72:
 	adds r0, r5, #0
 	pop {r4, r5, r6, pc}
 	.align 2, 0
-_080D5B7C: .4byte 0x03002B88
+_080D5B7C: .4byte gUnknown_03002B88
 _080D5B80: .4byte gUnknown_0203EFB8
 _080D5B84: .4byte gUnknown_085878F8
 

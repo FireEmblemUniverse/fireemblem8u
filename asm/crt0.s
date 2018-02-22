@@ -20,9 +20,9 @@ crt0:
 	bx r1 @AgbMain
 	b crt0
 unk_3007E00: 
-	.4byte 0x03007E00 @ pool
+	.4byte gUnknown_03007E00 @ pool
 IRQStackBottom: 
-	.4byte 0x03007FA0 @ pool
+	.4byte gUnknown_03007FA0 @ pool
 
 .global GlobalIRQHandler
 GlobalIRQHandler:

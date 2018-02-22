@@ -4,52 +4,52 @@
 
 	THUMB_FUNC_START sub_8000D00
 sub_8000D00: @ 0x08000D00
-	ldr r1, _08000D08  @ 0x0300000C
+	ldr r1, _08000D08  @ gUnknown_0300000C
 	movs r0, #1
 	strb r0, [r1]
 	bx lr
 	.align 2, 0
-_08000D08: .4byte 0x0300000C
+_08000D08: .4byte gUnknown_0300000C
 
 	THUMB_FUNC_START sub_8000D0C
 sub_8000D0C: @ 0x08000D0C
-	ldr r1, _08000D14  @ 0x0300000C
+	ldr r1, _08000D14  @ gUnknown_0300000C
 	movs r0, #0
 	strb r0, [r1]
 	bx lr
 	.align 2, 0
-_08000D14: .4byte 0x0300000C
+_08000D14: .4byte gUnknown_0300000C
 
 	THUMB_FUNC_START sub_8000D18
 sub_8000D18: @ 0x08000D18
-	ldr r0, _08000D24  @ 0x0300000C
+	ldr r0, _08000D24  @ gUnknown_0300000C
 	ldrb r0, [r0]
 	lsls r0, r0, #0x18
 	asrs r0, r0, #0x18
 	bx lr
 	.align 2, 0
-_08000D24: .4byte 0x0300000C
+_08000D24: .4byte gUnknown_0300000C
 
 	THUMB_FUNC_START sub_8000D28
 sub_8000D28: @ 0x08000D28
-	ldr r0, _08000D30  @ 0x03000014
+	ldr r0, _08000D30  @ gUnknown_03000014
 	ldr r0, [r0]
 	bx lr
 	.align 2, 0
-_08000D30: .4byte 0x03000014
+_08000D30: .4byte gUnknown_03000014
 
 	THUMB_FUNC_START SetGlobalClock
 SetGlobalClock: @ 0x08000D34
-	ldr r1, _08000D3C  @ 0x03000014
+	ldr r1, _08000D3C  @ gUnknown_03000014
 	str r0, [r1]
 	bx lr
 	.align 2, 0
-_08000D3C: .4byte 0x03000014
+_08000D3C: .4byte gUnknown_03000014
 
 	THUMB_FUNC_START IncrementGlobalClock
 IncrementGlobalClock: @ 0x08000D40
 	push {lr}
-	ldr r2, _08000D58  @ 0x03000014
+	ldr r2, _08000D58  @ gUnknown_03000014
 	ldr r0, [r2]
 	adds r0, #1
 	str r0, [r2]
@@ -62,7 +62,7 @@ _08000D54:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_08000D58: .4byte 0x03000014
+_08000D58: .4byte gUnknown_03000014
 _08000D5C: .4byte 0x0CDFE5FF
 _08000D60: .4byte 0x0CBEF080
 
