@@ -3531,12 +3531,12 @@ ply_memacc: @ 0x080D13F0
 	b _080D1542
 _080D1414:
 	lsls r0, r5, #2
-	ldr r1, _080D1420 @ 0x080D1424
+	ldr r1, _080D1420 @ _080D1424
 	adds r0, r0, r1
 	ldr r0, [r0]
 	mov pc, r0
 	.align 2, 0
-_080D1420: .4byte 0x080D1424
+_080D1420: .4byte _080D1424
 _080D1424: @ jump table
 	.4byte _080D146C @ case 0
 	.4byte _080D1470 @ case 1
