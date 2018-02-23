@@ -7,7 +7,7 @@ AS       := $(DEVKITARM)/bin/arm-none-eabi-as
 LD       := $(DEVKITARM)/bin/arm-none-eabi-ld
 OBJCOPY  := $(DEVKITARM)/bin/arm-none-eabi-objcopy
 
-CC1FLAGS := -mthumb-interwork -Wimplicit -Wparentheses -O2 -fhex-asm
+CC1FLAGS := -mthumb-interwork -Wimplicit -Wparentheses -Werror -O2 -fhex-asm
 CPPFLAGS := -I tools/agbcc/include -iquote include -nostdinc -undef
 ASFLAGS  := -mcpu=arm7tdmi -mthumb-interwork -I include
 
@@ -21,13 +21,6 @@ LDSCRIPT := ldscript.txt
 CFILES   := $(wildcard src/*.c)
 SFILES   := $(wildcard asm/*.s) $(wildcard asm/libc/*.s) $(wildcard data/*.s)
 OFILES   := $(SFILES:.s=.o) $(CFILES:.c=.o)
-
-src/agb_flash.o: CC1FLAGS := -O1 -mthumb-interwork
-src/agb_flash_1m.o: CC1FLAGS := -O1 -mthumb-interwork
-src/agb_flash_mx.o: CC1FLAGS := -O1 -mthumb-interwork
-
-src/libc.o: CC1 := $(CC1_OLD)
-src/libc.o: CC1FLAGS := -O2
 
 
 #### Main Targets ####
@@ -49,6 +42,7 @@ $(ELF): $(OFILES) $(LDSCRIPT)
 
 %.o: %.c
 	$(CPP) $(CPPFLAGS) $< | $(CC1) $(CC1FLAGS) -o $*.s
+	echo '.ALIGN 2, 0' >> $*.s
 	$(AS) $(ASFLAGS) $*.s -o $*.o
 
 %.o: %.s

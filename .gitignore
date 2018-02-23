@@ -54,5 +54,6 @@ Temporary Items
 *.elf
 *.map
 *.o
+src/*.s
 *.dump
 tools/agbcc
