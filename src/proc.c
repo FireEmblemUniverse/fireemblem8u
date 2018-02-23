@@ -1,8 +1,8 @@
 #include "global.h"
 #include "proc.h"
 
-#define PROC_FLAG_0x01 (1 << 0)
-#define PROC_FLAG_0x02 (1 << 1)
+#define PROC_FLAG_0x01 (1 << 0)  // process is inactive?
+#define PROC_FLAG_BLOCKED (1 << 1)
 #define PROC_FLAG_0x04 (1 << 2)
 #define PROC_FLAG_0x08 (1 << 3)
 
@@ -15,11 +15,11 @@ void Call6CCode();
 void Free6C();
 void Isolate6C();
 
-extern struct Proc gUnknown_02024E68[MAX_PROC_COUNT];
+extern struct Proc gProcesses[MAX_PROC_COUNT];
 extern struct Proc *gUnknown_02026968[MAX_PROC_COUNT + 1];
 extern struct Proc **gUnknown_02026A6C;
-extern struct Proc *gUnknown_02026A70[8];
-extern s8 (*const gUnknown_085879D8[])(struct Proc *);
+extern struct Proc *gRootProcesses[8];
+extern s8 (*const gProcCmdFuncs[])(struct Proc *);
 
 void Initialize6CEngine(void)
 {
@@ -27,21 +27,21 @@ void Initialize6CEngine(void)
 
     for (i = 0; i < MAX_PROC_COUNT; i++)
     {
-        struct Proc *proc = &gUnknown_02024E68[i];
+        struct Proc *proc = &gProcesses[i];
 
-        proc->codeStart = NULL;
-        proc->codeNext = NULL;
+        proc->scriptStart = NULL;
+        proc->currCmd = NULL;
         proc->onDestroy = NULL;
         proc->onCycle = NULL;
         proc->name = NULL;
-        proc->unk14 = NULL;
+        proc->parent = NULL;
         proc->child = NULL;
         proc->prev = NULL;
         proc->next = NULL;
         proc->sleepTime = 0;
         proc->mark = 0;
         proc->flags = 0;
-        proc->blockCount = 0;
+        proc->blockSemaphore = 0;
 
         gUnknown_02026968[i] = proc;
     }
@@ -50,44 +50,44 @@ void Initialize6CEngine(void)
     gUnknown_02026A6C = gUnknown_02026968;
 
     for (i = 0; i < 8; i++)
-        gUnknown_02026A70[i] = NULL;
+        gRootProcesses[i] = NULL;
 }
 
-struct Proc *New6C(struct ProcCmd *a, s32 b)
+struct Proc *New6C(struct ProcCmd *script, struct Proc *parent)
 {
     struct Proc *proc = Allocate6C();
 
-    proc->codeStart = a;
-    proc->codeNext = a;
+    proc->scriptStart = script;
+    proc->currCmd = script;
     proc->onDestroy = NULL;
     proc->onCycle = NULL;
-    proc->unk14 = NULL;
+    proc->parent = NULL;
     proc->child = NULL;
     proc->prev = NULL;
     proc->next = NULL;
     proc->sleepTime = 0;
     proc->mark = 0;
-    proc->blockCount = 0;
+    proc->blockSemaphore = 0;
     proc->flags = PROC_FLAG_0x08;
 
-    if (b < 8)
-        InsertMain6C(proc, b);
+    if ((int)parent < 8)  // If this is an integer less than 8, then add a root proc
+        InsertMain6C(proc, parent);
     else
-        InsertChild6C(proc, b);
+        InsertChild6C(proc, parent);
     Call6CCode(proc);
 
     proc->flags &= ~PROC_FLAG_0x08;
     return proc;
 }
 
-struct Proc *NewBlocking6C(struct ProcCmd *a, s32 b)
+struct Proc *NewBlocking6C(struct ProcCmd *script, struct Proc *parent)
 {
-    struct Proc *proc = New6C(a, b);
+    struct Proc *proc = New6C(script, parent);
 
-    if (proc->codeStart == 0)
+    if (proc->scriptStart == NULL)
         return NULL;
-    proc->flags |= PROC_FLAG_0x02;
-    proc->unk14->blockCount++;
+    proc->flags |= PROC_FLAG_BLOCKED;
+    proc->parent->blockSemaphore++;
     return proc;
 }
 
@@ -99,14 +99,14 @@ void Delete6CInternal(struct Proc *proc)
         Delete6CInternal(proc->child);
     if (proc->flags & PROC_FLAG_0x01)
         return;
-    if (proc->onDestroy != 0)
+    if (proc->onDestroy != NULL)
         proc->onDestroy(proc);
     Free6C(proc);
-    proc->codeStart = 0;
-    proc->onCycle = 0;
+    proc->scriptStart = NULL;
+    proc->onCycle = NULL;
     proc->flags |= PROC_FLAG_0x01;
-    if (proc->flags & PROC_FLAG_0x02)
-        proc->unk14->blockCount--;
+    if (proc->flags & PROC_FLAG_BLOCKED)
+        proc->parent->blockSemaphore--;
 }
 
 void Delete6C(struct Proc *proc)
@@ -132,19 +132,18 @@ void Free6C(struct Proc *proc)
     *gUnknown_02026A6C = proc;
 }
 
-void InsertMain6C(struct Proc *proc, s32 b)
+void InsertMain6C(struct Proc *proc, s32 rootIndex)
 {
     struct Proc *r0;
 
-    asm(""::"r"(b * 4));
-    r0 = gUnknown_02026A70[b];
+    r0 = rootIndex[gRootProcesses];  // gRootProcesses[rootIndex]
     if (r0 != NULL)
     {
         r0->prev = proc;
         proc->next = r0;
     }
-    proc->unk14 = (struct Proc *)b;
-    gUnknown_02026A70[b] = proc;
+    proc->parent = (struct Proc *)rootIndex;
+    gRootProcesses[rootIndex] = proc;
 }
 
 void InsertChild6C(struct Proc *proc, struct Proc *parent)
@@ -155,27 +154,28 @@ void InsertChild6C(struct Proc *proc, struct Proc *parent)
         proc->next = parent->child;
     }
     parent->child = proc;
-    proc->unk14 = parent;
+    proc->parent = parent;
 }
 
 void Isolate6C(struct Proc *proc)
 {
+    int rootIndex;
+
     if (proc->prev != NULL)
         proc->prev->next = proc->next;
     if (proc->next != NULL)
         proc->next->prev = proc->prev;
-    if ((int)proc->unk14 > 8)
+        
+    rootIndex = (int)proc->parent;
+    if (rootIndex > 8)  // this is a child proc
     {
-        if (proc->unk14->child == proc)
-            proc->unk14->child = proc->next;
+        if (proc->parent->child == proc)
+            proc->parent->child = proc->next;
     }
-    else
+    else  // this is a root proc
     {
-        int r1 = (int)proc->unk14;
-
-        asm(""::"r"(r1 * 4));
-        if (gUnknown_02026A70[r1] == proc)
-            gUnknown_02026A70[r1] = proc->next;
+        if (rootIndex[gRootProcesses] == proc)
+            rootIndex[gRootProcesses] = proc->next;
     }
     proc->prev = NULL;
     proc->next = NULL;
@@ -185,7 +185,7 @@ void Exec6C_(struct Proc *proc)
 {
     if (proc->next != NULL)
         Exec6C_(proc->next);
-    if (proc->blockCount == 0 && !(proc->flags & PROC_FLAG_0x08))
+    if (proc->blockSemaphore == 0 && !(proc->flags & PROC_FLAG_0x08))
     {
         if (proc->onCycle == NULL)
             Call6CCode(proc);
@@ -209,141 +209,65 @@ void Break6CLoop(struct Proc *proc)
     proc->onCycle = NULL;
 }
 
-struct Proc *Find6C(struct ProcCmd *a)
+struct Proc *Find6C(struct ProcCmd *script)
 {
     int i;
-    struct Proc *proc = &gUnknown_02024E68[0];
+    struct Proc *proc = &gProcesses[0];
 
     for (i = 0; i < MAX_PROC_COUNT; i++, proc++)
     {
-        if (proc->codeStart == a)
+        if (proc->scriptStart == script)
             return proc;
     }
     return NULL;
 }
 
-struct Proc *sub_8002EC4(struct ProcCmd *a)
+struct Proc *sub_8002EC4(struct ProcCmd *script)
 {
     int i;
-    struct Proc *proc = &gUnknown_02024E68[0];
+    struct Proc *proc = &gProcesses[0];
 
     for (i = 0; i < MAX_PROC_COUNT; i++, proc++)
     {
-        if (proc->codeStart == a && proc->blockCount == 0)
+        if (proc->scriptStart == script && proc->blockSemaphore == 0)
             return proc;
     }
     return NULL;
 }
 
-struct Proc *sub_8002EF4(u32 a)
+struct Proc *sub_8002EF4(u32 mark)
 {
     int i;
-    struct Proc *proc = &gUnknown_02024E68[0];
+    struct Proc *proc = &gProcesses[0];
 
     for (i = 0; i < MAX_PROC_COUNT; i++, proc++)
     {
-        if (proc->codeStart != NULL && proc->mark == a)
+        if (proc->scriptStart != NULL && proc->mark == mark)
             return proc;
     }
     return NULL;
 }
 
-/*
-void Goto6CLabel(struct Proc *proc, s32 b)
+void Goto6CLabel(struct Proc* proc_arg, int identifier)
 {
-    struct ProcCmd *ptr;
-    int i;
+    struct Proc* proc = proc_arg;
+    struct ProcCmd* ptr;
 
-    for (ptr = proc->codeStart; ptr->opcode != 0; ptr++)
+    for (ptr = proc->scriptStart; ptr->opcode != 0; ptr++)
     {
-        if (ptr->opcode == 11 && ptr->dataImm == b)
+        if (ptr->opcode == 11 && (s16)ptr->dataImm == identifier)
         {
-            proc->codeNext = ptr;
+            proc->currCmd = ptr;
             proc->onCycle = NULL;
+            
             return;
         }
     }
 }
-*/
 
-/*
-void Goto6CLabel(struct Proc *proc, s32 b)
+void Goto6CPointer(struct Proc *proc, struct ProcCmd *ptr)
 {
-    int i;
-
-    for (i = 0; proc->codeStart[i].opcode != 0; i++)
-    {
-        struct ProcCmd *ptr = &proc->codeStart[i];
-
-        if (ptr->opcode == 11 && ptr->dataImm == b)
-        {
-            proc->codeNext = ptr;
-            proc->onCycle = NULL;
-            return;
-        }
-    }
-}
-*/
-
-/*
-void Goto6CLabel(struct Proc *proc, s32 b)
-{
-    struct ProcCmd *ptr = (void *)proc->codeStart;
-
-    while (ptr->opcode != 0)
-    {
-        if (ptr->opcode == 11 && ptr->dataImm == b)
-        {
-            proc->codeNext = (s16 *)ptr;
-            proc->onCycle = NULL;
-            return;
-        }
-        ptr++;
-    }
-}
-*/
-
-__attribute__((naked))
-void Goto6CLabel(struct Proc *proc, s32 b)
-{
-    asm(".syntax unified\n\
-	push {r4, r5, r6, lr}\n\
-	adds r4, r1, #0\n\
-	adds r1, r0, #0\n\
-	ldr r2, [r1]\n\
-	ldrh r3, [r2]\n\
-	movs r5, #0\n\
-	ldrsh r0, [r2, r5]\n\
-	cmp r0, #0\n\
-	beq _08002F56\n\
-	movs r5, #0\n\
-_08002F38:\n\
-	cmp r3, #0xb\n\
-	bne _08002F4A\n\
-	movs r6, #2\n\
-	ldrsh r0, [r2, r6]\n\
-	cmp r0, r4\n\
-	bne _08002F4A\n\
-	str r2, [r1, #4]\n\
-	str r5, [r1, #0xc]\n\
-	b _08002F56\n\
-_08002F4A:\n\
-	adds r2, #8\n\
-	ldrh r3, [r2]\n\
-	movs r6, #0\n\
-	ldrsh r0, [r2, r6]\n\
-	cmp r0, #0\n\
-	bne _08002F38\n\
-_08002F56:\n\
-	pop {r4, r5, r6}\n\
-	pop {r0}\n\
-	bx r0\n\
-    .syntax divided");
-}
-
-void Goto6CPointer(struct Proc *proc, struct ProcCmd *b)
-{
-    proc->codeNext = b;
+    proc->currCmd = ptr;
     proc->onCycle = NULL;
 }
 
@@ -352,31 +276,31 @@ void Set6CMark(struct Proc *proc, u8 mark)
     proc->mark = mark;
 }
 
-void Set6CDestructor(struct Proc *proc, ProcFunc onDestroy)
+void Set6CDestructor(struct Proc *proc, ProcFunc func)
 {
-    proc->onDestroy = onDestroy;
+    proc->onDestroy = func;
 }
 
 void ForAll6C(ProcFunc func)
 {
     int i;
-    struct Proc *proc = &gUnknown_02024E68[0];
+    struct Proc *proc = &gProcesses[0];
 
     for (i = 0; i < MAX_PROC_COUNT; i++, proc++)
     {
-        if (proc->codeStart != NULL)
+        if (proc->scriptStart != NULL)
             func(proc);
     }
 }
 
-void ForEach6C(struct ProcCmd *code, ProcFunc func)
+void ForEach6C(struct ProcCmd *script, ProcFunc func)
 {
     int i;
-    struct Proc *proc = &gUnknown_02024E68[0];
+    struct Proc *proc = &gProcesses[0];
 
     for (i = 0; i < MAX_PROC_COUNT; i++, proc++)
     {
-        if (proc->codeStart == code)
+        if (proc->scriptStart == script)
             func(proc);
     }
 }
@@ -384,7 +308,7 @@ void ForEach6C(struct ProcCmd *code, ProcFunc func)
 void sub_8002FC0(int mark, ProcFunc func)
 {
     int i;
-    struct Proc *proc = &gUnknown_02024E68[0];
+    struct Proc *proc = &gProcesses[0];
 
     for (i = 0; i < MAX_PROC_COUNT; i++, proc++)
     {
@@ -396,31 +320,31 @@ void sub_8002FC0(int mark, ProcFunc func)
 void BlockEach6CMarked(int mark)
 {
     int i;
-    struct Proc *proc = &gUnknown_02024E68[0];
+    struct Proc *proc = &gProcesses[0];
 
     for (i = 0; i < MAX_PROC_COUNT; i++, proc++)
     {
         if (proc->mark == mark)
-            proc->blockCount++;
+            proc->blockSemaphore++;
     }
 }
 
 void UnblockEach6CMarked(int mark)
 {
     int i;
-    struct Proc *proc = &gUnknown_02024E68[0];
+    struct Proc *proc = &gProcesses[0];
 
     for (i = 0; i < MAX_PROC_COUNT; i++, proc++)
     {
-        if (proc->mark == mark && proc->blockCount > 0)
-            proc->blockCount--;
+        if (proc->mark == mark && proc->blockSemaphore > 0)
+            proc->blockSemaphore--;
     }
 }
 
 void DeleteEach6CMarked(int mark)
 {
     int i;
-    struct Proc *proc = &gUnknown_02024E68[0];
+    struct Proc *proc = &gProcesses[0];
 
     for (i = 0; i < MAX_PROC_COUNT; i++, proc++)
     {
@@ -444,9 +368,9 @@ void Clear6CLoopWrapper(struct Proc *proc)
     Break6CLoop(proc);
 }
 
-void ClearCallbackAll6CMatch(struct ProcCmd *code)
+void ClearCallbackAll6CMatch(struct ProcCmd *script)
 {
-    ForEach6C(code, Clear6CLoopWrapper);
+    ForEach6C(script, Clear6CLoopWrapper);
 }
 
 void ForAllFollowing6C(struct Proc *proc, ProcFunc func)
@@ -473,45 +397,45 @@ int Call6C_00Delete(struct Proc *proc)
 
 int Call6C_01Name(struct Proc *proc)
 {
-    proc->name = proc->codeNext->dataPtr;
-    proc->codeNext++;
+    proc->name = proc->currCmd->dataPtr;
+    proc->currCmd++;
     return 1;
 }
 
 int Call6C_02CallAndContinue(struct Proc *proc)
 {
-    ProcFunc func = proc->codeNext->dataPtr;
+    ProcFunc func = proc->currCmd->dataPtr;
 
-    proc->codeNext++;
+    proc->currCmd++;
     func(proc);
     return 1;
 }
 
 int Call6C_16Call(struct Proc *proc)
 {
-    s8 (*func)(struct Proc *) = proc->codeNext->dataPtr;
+    s8 (*func)(struct Proc *) = proc->currCmd->dataPtr;
 
-    proc->codeNext++;
+    proc->currCmd++;
     return func(proc);
 }
 
 int Call6C_18CallWithArg(struct Proc *proc)
 {
-    s16 arg = proc->codeNext->dataImm;
-    s8 (*func)(s16, struct Proc *) = proc->codeNext->dataPtr;
+    s16 arg = proc->currCmd->dataImm;
+    s8 (*func)(s16, struct Proc *) = proc->currCmd->dataPtr;
 
-    proc->codeNext++;
+    proc->currCmd++;
     return func(arg, proc);
 }
 
 int Call6C_14While(struct Proc *proc)
 {
-    s8 (*func)(struct Proc *) = proc->codeNext->dataPtr;
+    s8 (*func)(struct Proc *) = proc->currCmd->dataPtr;
 
-    proc->codeNext++;
+    proc->currCmd++;
     if (func(proc) == 1)
     {
-        proc->codeNext--;
+        proc->currCmd--;
         return 0;
     }
     return 1;
@@ -519,80 +443,78 @@ int Call6C_14While(struct Proc *proc)
 
 int Call6C_03SetLoop(struct Proc *proc)
 {
-    proc->onCycle = proc->codeNext->dataPtr;
-    proc->codeNext++;
+    proc->onCycle = proc->currCmd->dataPtr;
+    proc->currCmd++;
     return 0;
 }
 
 int Call6C_04SetDestructor(struct Proc *proc)
 {
-    Set6CDestructor(proc, proc->codeNext->dataPtr);
-    proc->codeNext++;
+    Set6CDestructor(proc, proc->currCmd->dataPtr);
+    proc->currCmd++;
     return 1;
 }
 
 int Call6C_05AddChild(struct Proc *proc)
 {
-    New6C(proc->codeNext->dataPtr, (int)proc);
-    proc->codeNext++;
+    New6C(proc->currCmd->dataPtr, proc);
+    proc->currCmd++;
     return 1;
 }
 
 int Call6C_06AddBlockingChild(struct Proc *proc)
 {
-    NewBlocking6C(proc->codeNext->dataPtr, (int)proc);
-    proc->codeNext++;
+    NewBlocking6C(proc->currCmd->dataPtr, proc);
+    proc->currCmd++;
     return 0;
 }
 
 int Call6C_07AddGlobal_BuggedMaybe(struct Proc *proc)
 {
-    New6C(proc->codeNext->dataPtr, proc->sleepTime);
-    proc->codeNext++;
+    New6C(proc->currCmd->dataPtr, (struct Proc *)(u32)proc->sleepTime);  // Why are we using sleepTime here?
+    proc->currCmd++;
     return 1;
 }
 
 int Call6C_08WhileExists(struct Proc *proc)
 {
-    struct Proc *var = Find6C(proc->codeNext->dataPtr);
+    bool8 exists = (Find6C(proc->currCmd->dataPtr) != NULL);
 
-    //int exists = (Find6C(proc->codeNext->dataPtr) != NULL);
-    //if (exists)
-    if (((s32)var | -(s32)var)  < 0)
+    if (exists)
         return 0;
-    proc->codeNext++;
+    proc->currCmd++;
     return 1;
 }
 
 int Call6C_09DeleteEach6C(struct Proc *proc)
 {
-    DeleteEach6C(proc->codeNext->dataPtr);
-    proc->codeNext++;
+    DeleteEach6C(proc->currCmd->dataPtr);
+    proc->currCmd++;
     return 1;
 }
 
 int Call6C_0AClearLoopForEach6C(struct Proc *proc)
 {
-    ClearCallbackAll6CMatch(proc->codeNext->dataPtr);
-    proc->codeNext++;
+    ClearCallbackAll6CMatch(proc->currCmd->dataPtr);
+    proc->currCmd++;
     return 1;
 }
 
 int Call6C_0BOr19Label(struct Proc *proc)
 {
-    proc->codeNext++;
+    proc->currCmd++;
     return 1;
 }
 
 int Call6C_0DJump(struct Proc *proc)
 {
-    Goto6CPointer(proc, proc->codeNext->dataPtr);
+    Goto6CPointer(proc, proc->currCmd->dataPtr);
     return 1;
 }
 
 int Call6C_0CGotoLabel(struct Proc *proc)
 {
-    Goto6CLabel(proc, proc->codeNext->dataImm);
+    Goto6CLabel(proc, proc->currCmd->dataImm);
     return 1;
 }
 
@@ -605,25 +527,25 @@ void _6CSleepLoop(struct Proc *proc)
 
 int Call6C_0ESleep(struct Proc *proc)
 {
-    if (proc->codeNext->dataImm != 0)
+    if (proc->currCmd->dataImm != 0)
     {
-        proc->sleepTime = proc->codeNext->dataImm;
+        proc->sleepTime = proc->currCmd->dataImm;
         proc->onCycle = _6CSleepLoop;
     }
-    proc->codeNext++;
+    proc->currCmd++;
     return 0;
 }
 
 int Call6C_0FMark(struct Proc *proc)
 {
-    proc->mark = proc->codeNext->dataImm;
-    proc->codeNext++;
+    proc->mark = proc->currCmd->dataImm;
+    proc->currCmd++;
     return 1;
 }
 
 int Call6C_13Blank(struct Proc *proc)
 {
-    proc->codeNext++;
+    proc->currCmd++;
     return 1;
 }
 
@@ -635,12 +557,12 @@ int Call6C_10Block(struct Proc *proc)
 int Call6C_11DeleteIfDuplicate(struct Proc *proc)
 {
     int i;
-    struct Proc *p = &gUnknown_02024E68[0];
+    struct Proc *p = &gProcesses[0];
     int count = 0;
 
     for (i = 0; i < MAX_PROC_COUNT; i++, p++)
     {
-        if (p->codeStart == proc->codeStart)
+        if (p->scriptStart == proc->scriptStart)
             count++;
     }
     if (count > 1)
@@ -648,82 +570,85 @@ int Call6C_11DeleteIfDuplicate(struct Proc *proc)
         Delete6C(proc);
         return 0;
     }
-    proc->codeNext++;
+    proc->currCmd++;
     return 1;
 }
 
 int Call6C_17DeleteOtherDuplicates(struct Proc *proc)
 {
     int i;
-    struct Proc *p = &gUnknown_02024E68[0];
+    struct Proc *p = &gProcesses[0];
 
     for (i = 0; i < MAX_PROC_COUNT; i++, p++)
     {
-        if (p != proc && p->codeStart == proc->codeStart)
+        if (p != proc && p->scriptStart == proc->scriptStart)
         {
             Delete6C(p);
             break;
         }
     }
-    proc->codeNext++;
+    proc->currCmd++;
     return 1;
 }
 
 int Call6C_15Blank(struct Proc *proc)
 {
-    proc->codeNext++;
+    proc->currCmd++;
     return 1;
 }
 
 int Call6C_12SetBit4(struct Proc *proc)
 {
     proc->flags |= PROC_FLAG_0x04;
-    proc->codeNext++;
+    proc->currCmd++;
     return 1;
 }
 
 void Call6CCode(struct Proc *proc)
 {
-    if (proc->codeStart == NULL)
+    if (proc->scriptStart == NULL)
         return;
-    if (proc->blockCount > 0)
+    if (proc->blockSemaphore > 0)
         return;
     if (proc->onCycle != NULL)
         return;
-    while (gUnknown_085879D8[proc->codeNext->opcode](proc) != 0)
+    while (gProcCmdFuncs[proc->currCmd->opcode](proc) != 0)
     {
-        if (proc->codeStart == NULL)
+        if (proc->scriptStart == NULL)
             return;
     }
 }
+
+// This was likely used to print the process list in the debug version of the game,
+// but does nothing in the release version.
 
 void nullsub_2(struct Proc *proc)
 {
 }
 
-void ForEach6CDoNothing(struct Proc *proc, int *b)
+void ForEach6CDoNothing(struct Proc *proc, int *indent)
 {
     if (proc->next != NULL)
-        ForEach6CDoNothing(proc->next, b);
+        ForEach6CDoNothing(proc->next, indent);
     nullsub_2(proc);
     if (proc->child != NULL)
     {
-        (*b) += 2;
-        ForEach6CDoNothing(proc->child, b);
-        (*b) -= 2;
+        *indent += 2;
+        ForEach6CDoNothing(proc->child, indent);
+        *indent -= 2;
     }
 }
 
 void sub_8003418(struct Proc *proc)
 {
-    int var = 4;
+    int indent = 4;
 
     nullsub_2(proc);
     if (proc->child != NULL)
     {
-        var += 2;
-        ForEach6CDoNothing(proc->child, &var);
-        var -= 2;
+        indent += 2;
+        ForEach6CDoNothing(proc->child, &indent);
+        indent -= 2;
     }
 }
 
@@ -738,10 +663,100 @@ void Set6CLoop(struct Proc *proc, ProcFunc func)
 
 void sub_8003454(struct Proc *proc)
 {
-    proc->blockCount++;
+    proc->blockSemaphore++;
 }
 
 void sub_8003460(struct Proc *proc)
 {
-    proc->blockCount--;
+    proc->blockSemaphore--;
+}
+
+struct Proc *Find6C_(struct ProcCmd *script, struct Proc *proc)
+{
+    if (proc == NULL)
+        proc = gProcesses;
+    else
+        proc++;
+
+    while (proc < gProcesses + MAX_PROC_COUNT)
+    {
+        if (proc->scriptStart == script)
+            return proc;
+        proc++;
+    }
+    return NULL;
+}
+
+struct Proc *sub_80034A0(struct Proc *proc, struct Proc *parent)
+{
+    if (proc == NULL)
+        proc = gProcesses;
+    else
+        proc++;
+
+    while (proc < gProcesses + MAX_PROC_COUNT)
+    {
+        if (proc->parent == parent)
+            return proc;
+        proc++;
+    }
+    return NULL;
+}
+
+int sub_80034D4(void)
+{
+    int i;
+    int r2 = MAX_PROC_COUNT;
+
+    for (i = 0; i < MAX_PROC_COUNT; i++)
+    {
+        if (gProcesses[i].scriptStart != NULL)
+            r2--;
+    }
+    return r2;
+}
+
+int sub_80034FC(struct ProcCmd *script)
+{
+    int i;
+    struct Proc *proc = &gProcesses[0];
+    int r1 = 0;
+
+    for (i = 0; i < MAX_PROC_COUNT; i++, proc++)
+    {
+        if (script == NULL)
+        {
+            if (proc->scriptStart != NULL)
+                r1++;
+        }
+        else
+        {
+            if (proc->scriptStart == script)
+                r1++;
+        }
+    }
+    return r1;
+}
+
+void sub_8003530(struct UnknownProcStruct *a, struct ProcCmd *script)
+{
+    a->unk0 = &gProcesses[0];
+    a->unk4 = script;
+    a->unk8 = 0;
+}
+
+struct Proc *sub_8003540(struct UnknownProcStruct *a)
+{
+    struct Proc *r4 = NULL;
+
+    while (a->unk8 < MAX_PROC_COUNT)
+    {
+        if (a->unk0->scriptStart == a->unk4)
+            r4 = a->unk0;
+        a->unk8++;
+        a->unk0++;
+        if (r4 != 0)
+            return r4;
+    }
+    return NULL;
 }

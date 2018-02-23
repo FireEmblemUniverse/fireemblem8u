@@ -30,7 +30,6 @@ SECTIONS
         asm/IO.o(.text);
         asm/rom_800148C.o(.text);
         src/proc.o(.text);
-        asm/proc.o(.text);
         asm/code.o(.text);
         asm/m4a.o(.text);
         asm/libagbsyscall.o(.text);

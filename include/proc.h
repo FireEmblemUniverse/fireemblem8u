@@ -4,7 +4,6 @@
 struct Proc;
 
 typedef void (*ProcFunc)(struct Proc *);
-typedef void (*OtherProcFunc)(struct Proc *);
 
 struct ProcCmd
 {
@@ -15,20 +14,28 @@ struct ProcCmd
 
 struct Proc
 {
-    /*0x00*/ struct ProcCmd *codeStart;
-    /*0x04*/ struct ProcCmd *codeNext;
+    /*0x00*/ struct ProcCmd *scriptStart;
+    /*0x04*/ struct ProcCmd *currCmd;
     /*0x08*/ ProcFunc onDestroy;
     /*0x0C*/ ProcFunc onCycle;
     /*0x10*/ char *name;
-    /*0x14*/ struct Proc *unk14;
+    /*0x14*/ struct Proc *parent;  // pointer to parent proc. If this proc is a root proc,
+                                   // this member is an integer which is the root index.
     /*0x18*/ struct Proc *child;
-    /*0x1C*/ struct Proc *prev;
-    /*0x20*/ struct Proc *next;
+    /*0x1C*/ struct Proc *prev;  // previous sibling
+    /*0x20*/ struct Proc *next;  // next sibling
     /*0x24*/ s16 sleepTime;
     /*0x26*/ u8 mark;
     /*0x27*/ u8 flags;
-    /*0x28*/ u8 blockCount;
+    /*0x28*/ u8 blockSemaphore;
     /*0x29*/ u8 filler29[0x6C-0x29];
+};
+
+struct UnknownProcStruct
+{
+    struct Proc *unk0;
+    struct ProcCmd *unk4;
+    int unk8;
 };
 
 void Initialize6CEngine(void);

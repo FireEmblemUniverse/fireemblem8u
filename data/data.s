@@ -1792,8 +1792,8 @@ gUnknown_08587988:  @ 0x08587988
 gUnknown_08587998:  @ 0x08587998
 	.incbin "baserom.gba", 0x587998, 0x40
 
-	.global gUnknown_085879D8
-gUnknown_085879D8:  @ 0x085879D8
+	.global gProcCmdFuncs
+gProcCmdFuncs:  @ 0x085879D8
 	.incbin "baserom.gba", 0x5879D8, 0x68
 
 	.global gUnknown_08587A40
