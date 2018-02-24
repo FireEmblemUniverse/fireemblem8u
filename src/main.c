@@ -1,42 +1,13 @@
 #include "global.h"
-
-extern int sub_8001C5C();
-extern void SetInterrupt_LCDVBlank(void *func);
-extern void ResetKeyStatus(void *keyPtr); // TODO: Uses a struct defining the key info. Define this struct.
-extern void UpdateKeyStatus(void *keyPtr); // same as above
-extern void StoreRoutinesToIRAM();
-extern void sub_80A2C3C();
-extern void Proc_Initialize();
-extern void TCS_ClearAll();
-extern void ResetMoveunitStructs();
-extern void SetOtherRNState(int seed);
-extern void GetOtherRN();
-extern void sub_8000BC8();
-extern void sub_8000D0C();
-extern void sub_80A7374();
-extern void sub_80A40A8();
-extern void m4aSoundInit();
-extern void sub_80028D0();
-extern void GeneralVBlankHandler(void);
-extern void sub_80BC81C(void);
-extern void SetSomeByte(int);
-extern void Font_InitForUIDefault(void);
-extern void NewGameControl(void);
-extern void ExecMainUpdate();
-extern void sub_8001C78();
-extern void PrintDebugStringToBG(u16 *bg, u8 *asciiStr);
-
-extern void **gUnknown_0858791C; // contains a pointer to key area (TODO: Define Key Info Struct)
-extern u8 gBuildDateTime[]; // "2005/02/04(FRI) 16:55:40...."
-extern u8 gYearProjectCreated[]; // "_2003..."
-extern void DummyIRQRoutine(void);
-extern void GlobalIRQHandler(void);
+#include "functions.h"
+#include "proc.h"
 
 #define IRQ_COUNT 14
 extern void *gIRQHandlers[IRQ_COUNT];
 extern u32 IntrMain_Buffer[0x200];
 
 void StoreIRQToIRAM();
+void DummyIRQRoutine(void);
 
 void AgbMain()
 {
