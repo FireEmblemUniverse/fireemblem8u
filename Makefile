@@ -14,13 +14,14 @@ ASFLAGS  := -mcpu=arm7tdmi -mthumb-interwork -I include
 
 #### Files ####
 
-ROM      := fireemblem8.gba
-ELF      := $(ROM:.gba=.elf)
-MAP      := $(ROM:.gba=.map)
-LDSCRIPT := ldscript.txt
-CFILES   := $(wildcard src/*.c)
-SFILES   := $(wildcard asm/*.s) $(wildcard asm/libc/*.s) $(wildcard data/*.s)
-OFILES   := $(SFILES:.s=.o) $(CFILES:.c=.o)
+ROM       := fireemblem8.gba
+ELF       := $(ROM:.gba=.elf)
+MAP       := $(ROM:.gba=.map)
+LDSCRIPT  := ldscript.txt
+SYM_FILES := sym_iwram.txt sym_ewram.txt
+CFILES    := $(wildcard src/*.c)
+SFILES    := $(wildcard asm/*.s) $(wildcard asm/libc/*.s) $(wildcard data/*.s)
+OFILES    := $(SFILES:.s=.o) $(CFILES:.c=.o)
 
 
 #### Main Targets ####
@@ -34,7 +35,7 @@ clean:
 
 #### Recipes ####
 
-$(ELF): $(OFILES) $(LDSCRIPT)
+$(ELF): $(OFILES) $(LDSCRIPT) $(SYM_FILES)
 	$(LD) -T $(LDSCRIPT) -Map $(MAP) $(OFILES) tools/agbcc/lib/libgcc.a tools/agbcc/lib/libc.a -o $@
 
 %.gba: %.elf
