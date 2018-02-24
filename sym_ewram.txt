@@ -699,4 +699,4 @@
 . = 0x03EF64; gUnknown_0203EF64 = .;
 . = 0x03EF68; gUnknown_0203EF68 = .;
 . = 0x03EFB4; gUnknown_0203EFB4 = .;
-. = 0x03EFB8; gUnknown_0203EFB8 = .;
+. = 0x03EFB8; end = .;
