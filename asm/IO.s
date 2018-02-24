@@ -308,7 +308,7 @@ NewKeyStatusSetter: @ 0x08001470
 	adds r4, r0, #0
 	ldr r0, _08001488  @ gUnknown_08587920
 	movs r1, #1
-	bl New6C
+	bl Proc_Create
 	adds r0, #0x64
 	strh r4, [r0]
 	pop {r4}

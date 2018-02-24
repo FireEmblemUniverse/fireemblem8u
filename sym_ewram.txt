@@ -495,10 +495,7 @@
 . = 0x024CD4; gUnknown_02024CD4 = .;
 . = 0x024CDC; gUnknown_02024CDC = .;
 . = 0x024E5C; gUnknown_02024E5C = .;
-. = 0x024E68; gProcesses = .;
-. = 0x026968; gUnknown_02026968 = .;
-. = 0x026A6C; gUnknown_02026A6C = .;
-. = 0x026A70; gRootProcesses = .;
+. = 0x024E68; src/proc.o(ewram_data);
 . = 0x026A90; gUnknown_02026A90 = .;
 . = 0x026E10; gUnknown_02026E10 = .;
 . = 0x026E30; gUnknown_02026E30 = .;

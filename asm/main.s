@@ -55,7 +55,7 @@ _08000A64:
 	bl UpdateKeyStatus
 	bl StoreRoutinesToIRAM
 	bl sub_80A2C3C
-	bl Initialize6CEngine
+	bl Proc_Initialize
 	bl TCS_ClearAll
 	bl ResetMoveunitStructs
 	ldr r0, _08000B08  @ 0x42D690E9
