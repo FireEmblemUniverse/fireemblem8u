@@ -38,7 +38,7 @@ void AgbMain()
     sub_80A40A8();
     m4aSoundInit();
     sub_80028D0();
-    SetInterrupt_LCDVBlank(GeneralVBlankHandler); // TODO: pass as func via type def
+    SetInterrupt_LCDVBlank(GeneralVBlankHandler);
     sub_80BC81C();
     SetSomeByte(1);
     Font_InitForUIDefault();
