@@ -1664,8 +1664,8 @@ gUnknown_082073F4:  @ 0x082073F4
 gUnknown_08207404:  @ 0x08207404
 	.incbin "baserom.gba", 0x207404, 0x34
 
-	.global gUnknown_08207438
-gUnknown_08207438:  @ 0x08207438
+	.global gXcmdTable
+gXcmdTable:  @ 0x08207438
 	.incbin "baserom.gba", 0x207438, 0x1CFCC
 
 	.global gMPlayTable
