@@ -23,7 +23,7 @@ SECTIONS
     {
         asm/crt0.o(.text);
         asm/arm.o(.text);
-        asm/main.o(.text);
+		src/main.o(.text);
         asm/rng.o(.text);
         asm/time.o(.text);
         asm/graphics.o(.text);
