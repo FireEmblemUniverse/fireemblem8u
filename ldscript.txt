@@ -15,16 +15,17 @@ SECTIONS
     }
 
     . = 0x03000000;
-    IWRAM (NOLOAD):
+    IWRAM (NOLOAD) :
     ALIGN(4)
     {
         INCLUDE "sym_iwram.txt"
     }
 
     . = 0x08000000;
-    .text :
+    ROM :
     ALIGN(4)
     {
+        /* .text */
         asm/crt0.o(.text);
         asm/arm.o(.text);
         src/main.o(.text);
@@ -54,31 +55,31 @@ SECTIONS
         tools/agbcc/lib/libc.a:strcpy.o(.text);
         tools/agbcc/lib/libc.a:strlen.o(.text);
         tools/agbcc/lib/libc.a:strstr.o(.text);
-        asm/libc/vfprintf.o(.text);
+        tools/agbcc/lib/libc.a:vfprintf.o(.text);
         tools/agbcc/lib/libc.a:vsprintf.o(.text);
         tools/agbcc/lib/libc.a:wsetup.o(.text);
-        /*tools/agbcc/lib/libc.a:dtoa.o(.text);*/
-        asm/libc/dtoa.o(.text);
+        tools/agbcc/lib/libc.a:dtoa.o(.text);
         tools/agbcc/lib/libc.a:fflush.o(.text);
-        asm/libc/findfp.o(.text);
+        tools/agbcc/lib/libc.a:findfp.o(.text);
         tools/agbcc/lib/libc.a:freer.o(.text);
         tools/agbcc/lib/libc.a:fvwrite.o(.text);
         tools/agbcc/lib/libc.a:fwalk.o(.text);
-        asm/libc/locale.o(.text);
+        tools/agbcc/lib/libc.a:locale.o(.text);
         tools/agbcc/lib/libc.a:makebuf.o(.text);
         tools/agbcc/lib/libc.a:mallocr.o(.text);
         tools/agbcc/lib/libc.a:mbtowc_r.o(.text);
         tools/agbcc/lib/libc.a:memchr.o(.text);
         tools/agbcc/lib/libc.a:memmove.o(.text);
         tools/agbcc/lib/libc.a:mlock.o(.text);
-        asm/libc/mprec.o(.text);
-        /*tools/agbcc/lib/libc.a:mprec.o(.text);*/
+        /* TODO: linking this object from libc causes some libgcc functions to 
+         * get discarded. I have no idea why. */
+        /*tools/agbcc/lib/libc.a:mprec.o(.text);*/ asm/libc/mprec.o(.text);
         tools/agbcc/lib/libc.a:s_isinf.o(.text);
         tools/agbcc/lib/libc.a:s_isnan.o(.text);
         tools/agbcc/lib/libc.a:sbrkr.o(.text);
         tools/agbcc/lib/libc.a:stdio.o(.text);
         tools/agbcc/lib/libc.a:strcmp.o(.text);
-        asm/libc/syscalls.o(.text);
+        tools/agbcc/lib/libc.a:syscalls.o(.text);
         tools/agbcc/lib/libc.a:writer.o(.text);
         tools/agbcc/lib/libc.a:callocr.o(.text);
         tools/agbcc/lib/libc.a:closer.o(.text);
@@ -93,28 +94,25 @@ SECTIONS
         tools/agbcc/lib/libgcc.a:_negdi2.o(.text);
         asm/arm_call.o(.text);
 
-        data/data_D74C8.o(.rodata);
-        data/libc_1.o(.rodata);
-        /*tools/agbcc/lib/libc.a:mprec.o(.rodata);*/
-        data/libc_mprec.o(.rodata);
-        /*tools/agbcc/lib/libc.a:dtoa.o(.rodata);*/
-        data/libc_dtoa.o(.rodata);
-        data/libc_syscalls.o(.rodata);
-        data/data_58791C.o(.rodata);
-        src/proc.o(.rodata);
-        data/data_587A40.o(.rodata);
-        data/libc_2.o(.rodata);
-        tools/agbcc/lib/libc.a:mallocr.o(.data);
-        data/libc_3.o(.rodata);
-        data/data_C00008.o(.rodata);
-    } = 0
+        /* .rodata */
+        . = ALIGN(4); data/const_data_D74C8.o(.rodata);
+        . = ALIGN(4); tools/agbcc/lib/libc.a:vfprintf.o(.rodata);
+        . = ALIGN(4); tools/agbcc/lib/libc.a:dtoa.o(.rodata);
+        . = ALIGN(4); tools/agbcc/lib/libc.a:impure.o(.rodata);
+        . = ALIGN(4); tools/agbcc/lib/libc.a:locale.o(.rodata);
+        . = ALIGN(4); /*tools/agbcc/lib/libc.a:mprec.o(.rodata);*/ data/libc_mprec.o(.rodata);
+        . = ALIGN(4); tools/agbcc/lib/libc.a:syscalls.o(.rodata);
+        . = ALIGN(4); data/const_data_58791C.o(.rodata);
+        . = ALIGN(4); src/proc.o(.rodata);
+        . = ALIGN(4); data/const_data_587A40.o(.rodata);
 
-    . = 0x8B1FA20;
-    .rodata :
-    ALIGN(4)
-    {
-        _impure_ptr = .; /* impure.o(.data); */
-    }
+        /* .data */
+        . = ALIGN(4); tools/agbcc/lib/libc.a:impure.o(.data);
+        . = ALIGN(4); tools/agbcc/lib/libc.a:locale.o(.data);
+        . = ALIGN(4); tools/agbcc/lib/libc.a:mallocr.o(.data);
+        . = ALIGN(4); data/data_B1FE7C.o(.rodata);
+        . = ALIGN(4); data/data_C00008.o(.rodata);
+    } = 0
 
     /* Discard everything not specifically mentioned above. */
     /DISCARD/ :
