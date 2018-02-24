@@ -1919,31 +1919,31 @@ SomethingSoundRelated_8002274: @ 0x08002274
 	lsrs r4, r4, #0x10
 	adds r1, r5, #0
 	adds r2, r4, #0
-	bl SomethingSoundRelated_80D11A4
+	bl m4aMPlayVolumeControl
 	ldr r0, _080022D4  @ gUnknown_03006760
 	adds r1, r5, #0
 	adds r2, r4, #0
-	bl SomethingSoundRelated_80D11A4
+	bl m4aMPlayVolumeControl
 	ldr r0, _080022D8  @ gUnknown_030066D0
 	adds r1, r5, #0
 	adds r2, r4, #0
-	bl SomethingSoundRelated_80D11A4
+	bl m4aMPlayVolumeControl
 	ldr r0, _080022DC  @ gUnknown_030063C0
 	adds r1, r5, #0
 	adds r2, r4, #0
-	bl SomethingSoundRelated_80D11A4
+	bl m4aMPlayVolumeControl
 	ldr r0, _080022E0  @ gUnknown_03006400
 	adds r1, r5, #0
 	adds r2, r4, #0
-	bl SomethingSoundRelated_80D11A4
+	bl m4aMPlayVolumeControl
 	ldr r0, _080022E4  @ gUnknown_03006610
 	adds r1, r5, #0
 	adds r2, r4, #0
-	bl SomethingSoundRelated_80D11A4
+	bl m4aMPlayVolumeControl
 	ldr r0, _080022E8  @ gUnknown_03006720
 	adds r1, r5, #0
 	adds r2, r4, #0
-	bl SomethingSoundRelated_80D11A4
+	bl m4aMPlayVolumeControl
 	pop {r4, r5}
 	pop {r0}
 	bx r0
@@ -1967,11 +1967,11 @@ SomethingSoundRelated_80022EC: @ 0x080022EC
 	lsrs r4, r4, #0x10
 	adds r1, r5, #0
 	adds r2, r4, #0
-	bl SomethingSoundRelated_80D11A4
+	bl m4aMPlayVolumeControl
 	ldr r0, _08002318  @ gUnknown_03006650
 	adds r1, r5, #0
 	adds r2, r4, #0
-	bl SomethingSoundRelated_80D11A4
+	bl m4aMPlayVolumeControl
 	pop {r4, r5}
 	pop {r0}
 	bx r0
@@ -1992,7 +1992,7 @@ _08002326:
 	ldr r0, [r5]
 	cmp r0, #0
 	beq _08002336
-	bl Break6CLoop
+	bl Proc_ClearNativeCallback
 	movs r0, #0
 	str r0, [r5]
 _08002336:
@@ -2000,7 +2000,7 @@ _08002336:
 	ldr r0, [r5]
 	cmp r0, #0
 	beq _08002346
-	bl Break6CLoop
+	bl Proc_ClearNativeCallback
 	movs r0, #0
 	str r0, [r5]
 _08002346:
@@ -2008,10 +2008,10 @@ _08002346:
 	lsls r4, r4, #0x10
 	lsrs r4, r4, #0x10
 	adds r1, r4, #0
-	bl SoundStuff_80D0394
+	bl m4aMPlayFadeOut
 	ldr r0, _08002374  @ gUnknown_03006650
 	adds r1, r4, #0
-	bl SoundStuff_80D0394
+	bl m4aMPlayFadeOut
 	ldr r1, _08002378  @ gUnknown_02024E5C
 	movs r0, #0
 	strb r0, [r1, #6]
@@ -2037,7 +2037,7 @@ _08002386:
 	ldr r0, [r5]
 	cmp r0, #0
 	beq _08002396
-	bl Break6CLoop
+	bl Proc_ClearNativeCallback
 	movs r0, #0
 	str r0, [r5]
 _08002396:
@@ -2045,7 +2045,7 @@ _08002396:
 	ldr r0, [r5]
 	cmp r0, #0
 	beq _080023A6
-	bl Break6CLoop
+	bl Proc_ClearNativeCallback
 	movs r0, #0
 	str r0, [r5]
 _080023A6:
@@ -2053,10 +2053,10 @@ _080023A6:
 	lsls r4, r4, #0x10
 	lsrs r4, r4, #0x10
 	adds r1, r4, #0
-	bl SoundStuff_80D0394
+	bl m4aMPlayFadeOut
 	ldr r0, _080023D8  @ gUnknown_03006650
 	adds r1, r4, #0
-	bl sub_80D03A4
+	bl m4aMPlayFadeOutTemporarily
 	ldr r1, _080023DC  @ gUnknown_02024E5C
 	movs r0, #0
 	strb r0, [r1, #6]
@@ -2084,25 +2084,25 @@ _080023EA:
 	lsls r4, r4, #0x10
 	lsrs r4, r4, #0x10
 	adds r1, r4, #0
-	bl SoundStuff_80D0394
+	bl m4aMPlayFadeOut
 	ldr r0, _08002430  @ gUnknown_03006760
 	adds r1, r4, #0
-	bl SoundStuff_80D0394
+	bl m4aMPlayFadeOut
 	ldr r0, _08002434  @ gUnknown_030066D0
 	adds r1, r4, #0
-	bl SoundStuff_80D0394
+	bl m4aMPlayFadeOut
 	ldr r0, _08002438  @ gUnknown_030063C0
 	adds r1, r4, #0
-	bl SoundStuff_80D0394
+	bl m4aMPlayFadeOut
 	ldr r0, _0800243C  @ gUnknown_03006400
 	adds r1, r4, #0
-	bl SoundStuff_80D0394
+	bl m4aMPlayFadeOut
 	ldr r0, _08002440  @ gUnknown_03006610
 	adds r1, r4, #0
-	bl SoundStuff_80D0394
+	bl m4aMPlayFadeOut
 	ldr r0, _08002444  @ gUnknown_03006720
 	adds r1, r4, #0
-	bl SoundStuff_80D0394
+	bl m4aMPlayFadeOut
 	pop {r4}
 	pop {r0}
 	bx r0
@@ -2126,9 +2126,9 @@ sub_8002448: @ 0x08002448
 	strh r0, [r3, #4]
 	bl sub_8002890
 	ldr r0, _08002470  @ gUnknown_03006440
-	bl sub_80D03EC
+	bl m4aMPlayImmInit
 	ldr r0, _08002474  @ gUnknown_03006650
-	bl sub_80D03EC
+	bl m4aMPlayImmInit
 	pop {r4}
 	pop {r0}
 	bx r0
@@ -2227,11 +2227,11 @@ sub_80024F0: @ 0x080024F0
 	lsrs r4, r4, #0x10
 	adds r1, r5, #0
 	adds r2, r4, #0
-	bl SomethingSoundRelated_80D11A4
+	bl m4aMPlayVolumeControl
 	ldr r0, _0800256C  @ gUnknown_03006650
 	adds r1, r5, #0
 	adds r2, r4, #0
-	bl SomethingSoundRelated_80D11A4
+	bl m4aMPlayVolumeControl
 	ldrh r0, [r6]
 	adds r0, #1
 	strh r0, [r6]
@@ -2243,7 +2243,7 @@ sub_80024F0: @ 0x080024F0
 	cmp r0, r1
 	blt _08002556
 	adds r0, r7, #0
-	bl Break6CLoop
+	bl Proc_ClearNativeCallback
 	ldr r1, _08002570  @ gUnknown_03000040
 	movs r0, #0
 	str r0, [r1]
@@ -2284,30 +2284,30 @@ sub_8002574: @ 0x08002574
 	strh r6, [r0, #4]
 	ldr r0, _0800260C  @ gUnknown_08587958
 	movs r1, #3
-	bl New6C
+	bl Proc_Create
 	mov r8, r0
 	ldr r4, _08002610  @ gUnknown_03006440
 	adds r0, r4, #0
-	bl sub_80D0A14
+	bl m4aMPlayStop
 	ldr r5, _08002614  @ gUnknown_03006650
 	adds r0, r5, #0
-	bl sub_80D0A14
+	bl m4aMPlayStop
 	adds r0, r6, #0
 	mov r1, sb
 	bl sub_8002890
 	adds r0, r4, #0
-	bl sub_80D03EC
+	bl m4aMPlayImmInit
 	adds r0, r5, #0
-	bl sub_80D03EC
+	bl m4aMPlayImmInit
 	ldr r6, _08002618  @ 0x0000FFFF
 	adds r0, r4, #0
 	adds r1, r6, #0
 	movs r2, #0
-	bl SomethingSoundRelated_80D11A4
+	bl m4aMPlayVolumeControl
 	adds r0, r5, #0
 	adds r1, r6, #0
 	movs r2, #0
-	bl SomethingSoundRelated_80D11A4
+	bl m4aMPlayVolumeControl
 	mov r0, r8
 	adds r0, #0x4c
 	strh r7, [r0]
@@ -2356,7 +2356,7 @@ sub_8002620: @ 0x08002620
 	bne _08002648
 	ldr r0, _08002668  @ gUnknown_03006650
 	movs r1, #3
-	bl sub_80D03A4
+	bl m4aMPlayFadeOutTemporarily
 _08002648:
 	strb r6, [r4, #6]
 	strb r6, [r4, #7]
@@ -2392,10 +2392,10 @@ sub_8002670: @ 0x08002670
 	beq _080026A4
 	ldr r0, _080026B4  @ gUnknown_03006440
 	movs r1, #3
-	bl SoundStuff_80D0394
+	bl m4aMPlayFadeOut
 	ldr r0, _080026B8  @ gUnknown_03006650
 	movs r1, #6
-	bl sub_80D03C4
+	bl m4aMPlayFadeIn
 	movs r0, #1
 	strb r0, [r4, #6]
 	strb r5, [r4, #7]
@@ -2430,10 +2430,10 @@ sub_80026BC: @ 0x080026BC
 	beq _080026F4
 	ldr r0, _08002704  @ gUnknown_03006440
 	movs r1, #3
-	bl SoundStuff_80D0394
+	bl m4aMPlayFadeOut
 	ldr r0, _08002708  @ gUnknown_03006650
 	adds r1, r6, #0
-	bl sub_80D03C4
+	bl m4aMPlayFadeIn
 	movs r0, #1
 	strb r0, [r4, #6]
 	strb r5, [r4, #7]
@@ -2481,14 +2481,14 @@ ISuspectThisToBeMusicRelated_8002730: @ 0x08002730
 	cmp r1, #0
 	beq _0800274C
 	ldr r0, _08002748  @ gUnknown_08587970
-	bl NewBlocking6C
+	bl Proc_CreateBlockingChild
 	b _08002754
 	.align 2, 0
 _08002748: .4byte gUnknown_08587970
 _0800274C:
 	ldr r0, _08002780  @ gUnknown_08587970
 	movs r1, #3
-	bl New6C
+	bl Proc_Create
 _08002754:
 	adds r4, r0, #0
 	adds r0, r4, #0
@@ -2560,7 +2560,7 @@ sub_8002788: @ 0x08002788
 	bl sub_8002258
 	lsls r0, r0, #0x10
 	lsrs r0, r0, #0x10
-	bl sub_80D02C8
+	bl m4aSongNumStop
 	ldr r0, _080027F0  @ gUnknown_02024E5C
 	strb r4, [r0, #6]
 	strh r4, [r0, #2]
@@ -2574,7 +2574,7 @@ _080027F4:
 	strb r0, [r1, #6]
 _080027FA:
 	adds r0, r5, #0
-	bl Break6CLoop
+	bl Proc_ClearNativeCallback
 	ldr r1, _08002818  @ gUnknown_03000044
 	movs r0, #0
 	str r0, [r1]
@@ -2613,7 +2613,7 @@ Some6CMusicRelatedWaitCallback: @ 0x0800281C
 	ldr r1, [r4, #0x54]
 	bl sub_8002890
 	adds r0, r4, #0
-	bl Delete6C
+	bl Proc_Delete
 _0800284E:
 	pop {r4}
 	pop {r0}
@@ -2635,7 +2635,7 @@ Exec6CSomeWaitIfMusicOn: @ 0x08002858
 	bne _08002880
 	ldr r0, _0800288C  @ gUnknown_08587988
 	movs r1, #3
-	bl New6C
+	bl Proc_Create
 	adds r1, r0, #0
 	adds r0, #0x4c
 	strh r4, [r0]
@@ -2664,19 +2664,19 @@ sub_8002890: @ 0x08002890
 _080028A6:
 	cmp r5, #0
 	beq _080028C0
-	ldr r0, _080028BC  @ gUnknown_08224470
+	ldr r0, _080028BC  @ gSongTable
 	lsls r1, r4, #3
 	adds r1, r1, r0
 	ldr r1, [r1]
 	adds r0, r5, #0
-	bl sub_80D0930
+	bl MPlayStart
 	b _080028C8
 	.align 2, 0
-_080028BC: .4byte gUnknown_08224470
+_080028BC: .4byte gSongTable
 _080028C0:
 	lsls r0, r4, #0x10
 	lsrs r0, r0, #0x10
-	bl PlaySound
+	bl m4aSongNumStart
 _080028C8:
 	pop {r4, r5}
 	pop {r0}
@@ -2701,7 +2701,7 @@ sub_80028E8: @ 0x080028E8
 	ldr r1, _080028F8  @ gUnknown_02024E5C
 	strb r0, [r1, #8]
 	lsls r0, r0, #8
-	bl sub_80D0714
+	bl m4aSoundMode
 	pop {r0}
 	bx r0
 	.align 2, 0
@@ -2757,7 +2757,7 @@ _0800294C: .4byte gUnknown_02024E5C
 sub_8002950: @ 0x08002950
 	push {lr}
 	ldr r0, _08002960  @ gUnknown_08587970
-	bl Find6C
+	bl Proc_Find
 	cmp r0, #0
 	bne _08002964
 	movs r0, #0
@@ -2829,7 +2829,7 @@ sub_80029BC: @ 0x080029BC
 _080029DA:
 	adds r0, r4, #0
 	movs r1, #0
-	bl Goto6CLabel
+	bl Proc_GotoLabel
 _080029E2:
 	pop {r4}
 	pop {r0}
@@ -2860,7 +2860,7 @@ _08002A0E:
 	beq _08002A24
 	ldr r0, _08002A20  @ gUnknown_08587998
 	adds r1, r4, #0
-	bl NewBlocking6C
+	bl Proc_CreateBlockingChild
 	b _08002A2C
 	.align 2, 0
 _08002A1C: .4byte gUnknown_02024E5C
@@ -2868,7 +2868,7 @@ _08002A20: .4byte gUnknown_08587998
 _08002A24:
 	ldr r0, _08002A4C  @ gUnknown_08587998
 	movs r1, #3
-	bl New6C
+	bl Proc_Create
 _08002A2C:
 	adds r4, r0, #0
 	str r6, [r4, #0x58]
@@ -2907,7 +2907,7 @@ _08002A62:
 sub_8002A6C: @ 0x08002A6C
 	push {lr}
 	ldr r0, _08002A7C  @ gUnknown_08587998
-	bl Find6C
+	bl Proc_Find
 	cmp r0, #0
 	bne _08002A80
 	movs r0, #0
@@ -2949,7 +2949,7 @@ _08002AB4: .4byte gUnknown_02024E5C
 DeleteAll6CWaitMusicRelated: @ 0x08002AB8
 	push {lr}
 	ldr r0, _08002AC4  @ gUnknown_08587988
-	bl DeleteEach6C
+	bl Proc_DeleteAllWithScript
 	pop {r0}
 	bx r0
 	.align 2, 0
@@ -2961,10 +2961,10 @@ sub_8002AC8: @ 0x08002AC8
 	bl DeleteAll6CWaitMusicRelated
 	ldr r0, _08002AEC  @ gUnknown_03006440
 	movs r1, #1
-	bl SoundStuff_80D0394
+	bl m4aMPlayFadeOut
 	ldr r0, _08002AF0  @ gUnknown_03006650
 	movs r1, #1
-	bl SoundStuff_80D0394
+	bl m4aMPlayFadeOut
 	ldr r1, _08002AF4  @ gUnknown_02024E5C
 	movs r0, #0
 	strh r0, [r1, #2]

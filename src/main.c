@@ -6,7 +6,7 @@ extern void ResetKeyStatus(void *keyPtr); // TODO: Uses a struct defining the ke
 extern void UpdateKeyStatus(void *keyPtr); // same as above
 extern void StoreRoutinesToIRAM();
 extern void sub_80A2C3C();
-extern void Initialize6CEngine();
+extern void Proc_Initialize();
 extern void TCS_ClearAll();
 extern void ResetMoveunitStructs();
 extern void SetOtherRNState(int seed);
@@ -15,7 +15,7 @@ extern void sub_8000BC8();
 extern void sub_8000D0C();
 extern void sub_80A7374();
 extern void sub_80A40A8();
-extern void sub_80D0178();
+extern void m4aSoundInit();
 extern void sub_80028D0();
 extern void GeneralVBlankHandler(void);
 extern void sub_80BC81C(void);
@@ -56,7 +56,7 @@ void AgbMain()
     UpdateKeyStatus(gUnknown_0858791C);
     StoreRoutinesToIRAM();
     sub_80A2C3C();
-    Initialize6CEngine();
+    Proc_Initialize();
     TCS_ClearAll();
     ResetMoveunitStructs();
     SetOtherRNState(0x42D690E9);
@@ -65,7 +65,7 @@ void AgbMain()
     sub_8000D0C();
     sub_80A7374();
     sub_80A40A8();
-    sub_80D0178();
+    m4aSoundInit();
     sub_80028D0();
     SetInterrupt_LCDVBlank(GeneralVBlankHandler); // TODO: pass as func via type def
     sub_80BC81C();

@@ -1,17 +1,21 @@
 OUTPUT_ARCH(arm)
+
+gNumMusicPlayers = 9;
+gMaxLines = 0;
+
 SECTIONS
 {
     /* TODO: figure out what is COMMON and .bss */
 
     . = 0x02000000;
-    EWRAM :
+    EWRAM (NOLOAD) :
     ALIGN(4)
     {
         INCLUDE "sym_ewram.txt"
     }
 
     . = 0x03000000;
-    IWRAM :
+    IWRAM (NOLOAD):
     ALIGN(4)
     {
         INCLUDE "sym_iwram.txt"
@@ -30,9 +34,11 @@ SECTIONS
         asm/IO.o(.text);
         asm/rom_800148C.o(.text);
         src/proc.o(.text);
-        asm/proc.o(.text);
         asm/code.o(.text);
-        asm/m4a.o(.text);
+        asm/m4a_1.o(.text);
+        src/m4a_2.o(.text);
+        asm/m4a_3.o(.text);
+        src/m4a_4.o(.text);
         asm/libagbsyscall.o(.text);
         asm/agb_sram.o(.text);
         tools/agbcc/lib/libgcc.a:_call_via_rX.o(.text);
@@ -85,7 +91,9 @@ SECTIONS
         tools/agbcc/lib/libgcc.a:_negdi2.o(.text);
         asm/arm_call.o(.text);
 
-        data/data.o(.rodata);
+        data/data_D74C8.o(.rodata);
+        src/proc.o(.rodata);
+        data/data_587A40.o(.rodata);
     } = 0
 
     . = 0x8B1FA20;
