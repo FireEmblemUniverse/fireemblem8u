@@ -57,20 +57,22 @@ SECTIONS
         asm/libc/vfprintf.o(.text);
         tools/agbcc/lib/libc.a:vsprintf.o(.text);
         tools/agbcc/lib/libc.a:wsetup.o(.text);
+        /*tools/agbcc/lib/libc.a:dtoa.o(.text);*/
         asm/libc/dtoa.o(.text);
         tools/agbcc/lib/libc.a:fflush.o(.text);
         asm/libc/findfp.o(.text);
-        asm/libc/freer.o(.text);
+        tools/agbcc/lib/libc.a:freer.o(.text);
         tools/agbcc/lib/libc.a:fvwrite.o(.text);
         tools/agbcc/lib/libc.a:fwalk.o(.text);
         asm/libc/locale.o(.text);
         tools/agbcc/lib/libc.a:makebuf.o(.text);
-        asm/libc/mallocr.o(.text);
+        tools/agbcc/lib/libc.a:mallocr.o(.text);
         tools/agbcc/lib/libc.a:mbtowc_r.o(.text);
         tools/agbcc/lib/libc.a:memchr.o(.text);
         tools/agbcc/lib/libc.a:memmove.o(.text);
         tools/agbcc/lib/libc.a:mlock.o(.text);
         asm/libc/mprec.o(.text);
+        /*tools/agbcc/lib/libc.a:mprec.o(.text);*/
         tools/agbcc/lib/libc.a:s_isinf.o(.text);
         tools/agbcc/lib/libc.a:s_isnan.o(.text);
         tools/agbcc/lib/libc.a:sbrkr.o(.text);
@@ -92,8 +94,19 @@ SECTIONS
         asm/arm_call.o(.text);
 
         data/data_D74C8.o(.rodata);
+        data/libc_1.o(.rodata);
+        /*tools/agbcc/lib/libc.a:mprec.o(.rodata);*/
+        data/libc_mprec.o(.rodata);
+        /*tools/agbcc/lib/libc.a:dtoa.o(.rodata);*/
+        data/libc_dtoa.o(.rodata);
+        data/libc_syscalls.o(.rodata);
+        data/data_58791C.o(.rodata);
         src/proc.o(.rodata);
         data/data_587A40.o(.rodata);
+        data/libc_2.o(.rodata);
+        tools/agbcc/lib/libc.a:mallocr.o(.data);
+        data/libc_3.o(.rodata);
+        data/data_C00008.o(.rodata);
     } = 0
 
     . = 0x8B1FA20;
