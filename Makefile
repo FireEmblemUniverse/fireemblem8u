@@ -23,6 +23,9 @@ CFILES    := $(wildcard src/*.c)
 SFILES    := $(wildcard asm/*.s) $(wildcard asm/libc/*.s) $(wildcard data/*.s)
 OFILES    := $(SFILES:.s=.o) $(CFILES:.c=.o)
 
+# Use the older compiler to build the m4a library
+src/m4a_2.o: CC1 := tools/agbcc/bin/old_agbcc
+src/m4a_4.o: CC1 := tools/agbcc/bin/old_agbcc
 
 #### Main Targets ####
 
