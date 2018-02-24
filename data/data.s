@@ -1628,8 +1628,8 @@ gUnknown_082070A0:  @ 0x082070A0
 gUnknown_082070AC:  @ 0x082070AC
 	.incbin "baserom.gba", 0x2070AC, 0xE4
 
-	.global gUnknown_08207190
-gUnknown_08207190:  @ 0x08207190
+	.global gMPlayJumpTableTemplate
+gMPlayJumpTableTemplate:  @ 0x08207190
 	.incbin "baserom.gba", 0x207190, 0x90
 
 	.global gScaleTable
@@ -1660,8 +1660,8 @@ gNoiseTable:  @ 0x082073B8
 gUnknown_082073F4:  @ 0x082073F4
 	.incbin "baserom.gba", 0x2073F4, 0x10
 
-	.global gUnknown_08207404
-gUnknown_08207404:  @ 0x08207404
+	.global gClockTable
+gClockTable:  @ 0x08207404
 	.incbin "baserom.gba", 0x207404, 0x34
 
 	.global gXcmdTable
