@@ -39,6 +39,11 @@ SECTIONS
         src/proc.o(.text);
         asm/icon.o(.text);
         asm/fontgrp.o(.text);
+        asm/animedrv.o(.text);
+        asm/ctc.o(.text);
+        asm/face.o(.text);
+        asm/ap.o(.text);
+        asm/gamectrl.o(.text);
         asm/code.o(.text);
         asm/m4a_1.o(.text);
         src/m4a_2.o(.text);
