@@ -899,8 +899,8 @@
 // extern ??? gUnknown_03007FF8
 // extern ??? gUnknown_03007FFC
 // extern ??? gUnknown_08000540
-// extern ??? gUnknown_080D74D0
-// extern ??? gUnknown_080D74EC
+extern u8 gBuildDateTime[]; // "2005/02/04(FRI) 16:55:40...."
+extern u8 gYearProjectCreated[]; // "_2003..."
 // extern ??? gUnknown_080D74F4
 // extern ??? gUnknown_080D7504
 // extern ??? gUnknown_080D751C
@@ -1338,7 +1338,7 @@
 // extern ??? gUnknown_085878A4
 // extern ??? gUnknown_085878F4
 // extern ??? gUnknown_085878F8
-// extern ??? gUnknown_0858791C
+extern void **gUnknown_0858791C;
 // extern ??? gUnknown_08587920
 // extern ??? gUnknown_08587938
 // extern ??? gUnknown_08587948

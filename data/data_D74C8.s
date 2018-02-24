@@ -4,14 +4,17 @@
 gUnknown_080D74C8:  @ 0x080D74C8
 	.incbin "baserom.gba", 0xD74C8, 0x8
 
-	.global gUnknown_080D74D0
-gUnknown_080D74D0:  @ 0x080D74D0
-	.incbin "baserom.gba", 0xD74D0, 0x1C
+	.align 2, 0
+	.global gBuildDateTime
+gBuildDateTime:  @ 0x080D74D0
+	.asciz "2005/02/04(FRI) 16:55:40"
 
-	.global gUnknown_080D74EC
-gUnknown_080D74EC:  @ 0x080D74EC
-	.incbin "baserom.gba", 0xD74EC, 0x8
+	.align 2, 0
+	.global gYearProjectCreated
+gYearProjectCreated:  @ 0x080D74EC
+	.asciz "_2003"
 
+	.align 2, 0
 	.global gUnknown_080D74F4
 gUnknown_080D74F4:  @ 0x080D74F4
 	.incbin "baserom.gba", 0xD74F4, 0x10
