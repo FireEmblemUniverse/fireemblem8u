@@ -1,4 +1,8 @@
 OUTPUT_ARCH(arm)
+
+gNumMusicPlayers = 9;
+gMaxLines = 0;
+
 SECTIONS
 {
     /* TODO: figure out what is COMMON and .bss */
@@ -32,6 +36,8 @@ SECTIONS
         src/proc.o(.text);
         asm/proc.o(.text);
         asm/code.o(.text);
+        asm/m4a_1.o(.text);
+        src/m4a_2.o(.text);
         asm/m4a.o(.text);
         asm/libagbsyscall.o(.text);
         asm/agb_sram.o(.text);

@@ -65,7 +65,7 @@ _08000A64:
 	bl sub_8000D0C
 	bl sub_80A7374
 	bl sub_80A40A8
-	bl sub_80D0178
+	bl m4aSoundInit
 	bl sub_80028D0
 	ldr r0, _08000B0C  @ GeneralVBlankHandler
 	bl SetInterrupt_LCDVBlank

@@ -38,6 +38,10 @@ OBJ_VRAM1   = VRAM + 0x14000 @ bitmap-mode BG
 
 OAM         = 0x07000000
 
+SOUND_INFO_PTR = 0x3007FF0
+INTR_CHECK     = 0x3007FF8
+INTR_VECTOR    = 0x3007FFC
+
 ROM         = 0x08000000
 
 @-------------------------------------------------------------------------------
@@ -462,3 +466,6 @@ INTR_FLAG_DMA2     = (1 << 10)
 INTR_FLAG_DMA3     = (1 << 11)
 INTR_FLAG_KEYPAD   = (1 << 12)
 INTR_FLAG_GAMEPAK  = (1 << 13)
+
+VCOUNT_VBLANK = 160
+TOTAL_SCANLINES = 228

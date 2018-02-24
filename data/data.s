@@ -1632,28 +1632,28 @@ gUnknown_082070AC:  @ 0x082070AC
 gUnknown_08207190:  @ 0x08207190
 	.incbin "baserom.gba", 0x207190, 0x90
 
-	.global gUnknown_08207220
-gUnknown_08207220:  @ 0x08207220
+	.global gScaleTable
+gScaleTable:  @ 0x08207220
 	.incbin "baserom.gba", 0x207220, 0xB4
 
-	.global gUnknown_082072D4
-gUnknown_082072D4:  @ 0x082072D4
+	.global gFreqTable
+gFreqTable:  @ 0x082072D4
 	.incbin "baserom.gba", 0x2072D4, 0x30
 
-	.global gUnknown_08207304
-gUnknown_08207304:  @ 0x08207304
+	.global gPcmSamplesPerVBlankTable
+gPcmSamplesPerVBlankTable:  @ 0x08207304
 	.incbin "baserom.gba", 0x207304, 0x18
 
-	.global gUnknown_0820731C
-gUnknown_0820731C:  @ 0x0820731C
+	.global gCgbScaleTable
+gCgbScaleTable:  @ 0x0820731C
 	.incbin "baserom.gba", 0x20731C, 0x84
 
-	.global gUnknown_082073A0
-gUnknown_082073A0:  @ 0x082073A0
+	.global gCgbFreqTable
+gCgbFreqTable:  @ 0x082073A0
 	.incbin "baserom.gba", 0x2073A0, 0x18
 
-	.global gUnknown_082073B8
-gUnknown_082073B8:  @ 0x082073B8
+	.global gNoiseTable
+gNoiseTable:  @ 0x082073B8
 	.incbin "baserom.gba", 0x2073B8, 0x3C
 
 	.global gUnknown_082073F4
@@ -1668,12 +1668,12 @@ gUnknown_08207404:  @ 0x08207404
 gUnknown_08207438:  @ 0x08207438
 	.incbin "baserom.gba", 0x207438, 0x1CFCC
 
-	.global gUnknown_08224404
-gUnknown_08224404:  @ 0x08224404
+	.global gMPlayTable
+gMPlayTable:  @ 0x08224404
 	.incbin "baserom.gba", 0x224404, 0x6C
 
-	.global gUnknown_08224470
-gUnknown_08224470:  @ 0x08224470
+	.global gSongTable
+gSongTable:  @ 0x08224470
 	.incbin "baserom.gba", 0x224470, 0x363290
 
 	.global gUnknown_08587700
