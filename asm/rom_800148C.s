@@ -1992,7 +1992,7 @@ _08002326:
 	ldr r0, [r5]
 	cmp r0, #0
 	beq _08002336
-	bl Break6CLoop
+	bl Proc_ClearNativeCallback
 	movs r0, #0
 	str r0, [r5]
 _08002336:
@@ -2000,7 +2000,7 @@ _08002336:
 	ldr r0, [r5]
 	cmp r0, #0
 	beq _08002346
-	bl Break6CLoop
+	bl Proc_ClearNativeCallback
 	movs r0, #0
 	str r0, [r5]
 _08002346:
@@ -2037,7 +2037,7 @@ _08002386:
 	ldr r0, [r5]
 	cmp r0, #0
 	beq _08002396
-	bl Break6CLoop
+	bl Proc_ClearNativeCallback
 	movs r0, #0
 	str r0, [r5]
 _08002396:
@@ -2045,7 +2045,7 @@ _08002396:
 	ldr r0, [r5]
 	cmp r0, #0
 	beq _080023A6
-	bl Break6CLoop
+	bl Proc_ClearNativeCallback
 	movs r0, #0
 	str r0, [r5]
 _080023A6:
@@ -2243,7 +2243,7 @@ sub_80024F0: @ 0x080024F0
 	cmp r0, r1
 	blt _08002556
 	adds r0, r7, #0
-	bl Break6CLoop
+	bl Proc_ClearNativeCallback
 	ldr r1, _08002570  @ gUnknown_03000040
 	movs r0, #0
 	str r0, [r1]
@@ -2284,7 +2284,7 @@ sub_8002574: @ 0x08002574
 	strh r6, [r0, #4]
 	ldr r0, _0800260C  @ gUnknown_08587958
 	movs r1, #3
-	bl New6C
+	bl Proc_Create
 	mov r8, r0
 	ldr r4, _08002610  @ gUnknown_03006440
 	adds r0, r4, #0
@@ -2481,14 +2481,14 @@ ISuspectThisToBeMusicRelated_8002730: @ 0x08002730
 	cmp r1, #0
 	beq _0800274C
 	ldr r0, _08002748  @ gUnknown_08587970
-	bl NewBlocking6C
+	bl Proc_CreateBlockingChild
 	b _08002754
 	.align 2, 0
 _08002748: .4byte gUnknown_08587970
 _0800274C:
 	ldr r0, _08002780  @ gUnknown_08587970
 	movs r1, #3
-	bl New6C
+	bl Proc_Create
 _08002754:
 	adds r4, r0, #0
 	adds r0, r4, #0
@@ -2574,7 +2574,7 @@ _080027F4:
 	strb r0, [r1, #6]
 _080027FA:
 	adds r0, r5, #0
-	bl Break6CLoop
+	bl Proc_ClearNativeCallback
 	ldr r1, _08002818  @ gUnknown_03000044
 	movs r0, #0
 	str r0, [r1]
@@ -2613,7 +2613,7 @@ Some6CMusicRelatedWaitCallback: @ 0x0800281C
 	ldr r1, [r4, #0x54]
 	bl sub_8002890
 	adds r0, r4, #0
-	bl Delete6C
+	bl Proc_Delete
 _0800284E:
 	pop {r4}
 	pop {r0}
@@ -2635,7 +2635,7 @@ Exec6CSomeWaitIfMusicOn: @ 0x08002858
 	bne _08002880
 	ldr r0, _0800288C  @ gUnknown_08587988
 	movs r1, #3
-	bl New6C
+	bl Proc_Create
 	adds r1, r0, #0
 	adds r0, #0x4c
 	strh r4, [r0]
@@ -2757,7 +2757,7 @@ _0800294C: .4byte gUnknown_02024E5C
 sub_8002950: @ 0x08002950
 	push {lr}
 	ldr r0, _08002960  @ gUnknown_08587970
-	bl Find6C
+	bl Proc_Find
 	cmp r0, #0
 	bne _08002964
 	movs r0, #0
@@ -2829,7 +2829,7 @@ sub_80029BC: @ 0x080029BC
 _080029DA:
 	adds r0, r4, #0
 	movs r1, #0
-	bl Goto6CLabel
+	bl Proc_GotoLabel
 _080029E2:
 	pop {r4}
 	pop {r0}
@@ -2860,7 +2860,7 @@ _08002A0E:
 	beq _08002A24
 	ldr r0, _08002A20  @ gUnknown_08587998
 	adds r1, r4, #0
-	bl NewBlocking6C
+	bl Proc_CreateBlockingChild
 	b _08002A2C
 	.align 2, 0
 _08002A1C: .4byte gUnknown_02024E5C
@@ -2868,7 +2868,7 @@ _08002A20: .4byte gUnknown_08587998
 _08002A24:
 	ldr r0, _08002A4C  @ gUnknown_08587998
 	movs r1, #3
-	bl New6C
+	bl Proc_Create
 _08002A2C:
 	adds r4, r0, #0
 	str r6, [r4, #0x58]
@@ -2907,7 +2907,7 @@ _08002A62:
 sub_8002A6C: @ 0x08002A6C
 	push {lr}
 	ldr r0, _08002A7C  @ gUnknown_08587998
-	bl Find6C
+	bl Proc_Find
 	cmp r0, #0
 	bne _08002A80
 	movs r0, #0
@@ -2949,7 +2949,7 @@ _08002AB4: .4byte gUnknown_02024E5C
 DeleteAll6CWaitMusicRelated: @ 0x08002AB8
 	push {lr}
 	ldr r0, _08002AC4  @ gUnknown_08587988
-	bl DeleteEach6C
+	bl Proc_DeleteAllWithScript
 	pop {r0}
 	bx r0
 	.align 2, 0
