@@ -34,6 +34,7 @@ SECTIONS
         asm/rng.o(.text);
         asm/time.o(.text);
         asm/hardware.o(.text);
+        src/dma.o(.text);
         asm/dma.o(.text);
         asm/soundwrapper.o(.text);
         src/ramfunc.o(.text);

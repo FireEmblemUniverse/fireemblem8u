@@ -312,10 +312,10 @@
 // extern ??? gUnknown_02020988
 // extern ??? gUnknown_02021188
 // extern ??? gUnknown_02022188
-// extern ??? gUnknown_02022288
-// extern ??? gUnknown_020222A8
+extern s8 gUnknown_02022288[];
+extern s8 gUnknown_020222A8[];
 // extern ??? gUnknown_02022308
-// extern ??? gUnknown_020228A8
+extern u16 gUnknown_020228A8[];
 // extern ??? gUnknown_020228AA
 // extern ??? gUnknown_020228C8
 // extern ??? gUnknown_020228E8
@@ -342,7 +342,7 @@
 // extern ??? gUnknown_02022C28
 // extern ??? gUnknown_02022C48
 // extern ??? gUnknown_02022C68
-// extern ??? gUnknown_02022CA8
+extern u8 gUnknown_02022CA8[];
 // extern ??? gUnknown_02022CAA
 // extern ??? gUnknown_02022CAC
 // extern ??? gUnknown_02022CAE
@@ -421,7 +421,7 @@
 // extern ??? gUnknown_02023116
 // extern ??? gUnknown_02023130
 // extern ??? gUnknown_02023136
-// extern ??? gUnknown_020234A8
+extern u8 gUnknown_020234A8[];
 // extern ??? gUnknown_020234AC
 // extern ??? gUnknown_020234AE
 // extern ??? gUnknown_020234B0
@@ -455,7 +455,7 @@
 // extern ??? gUnknown_0202393E
 // extern ??? gUnknown_0202396C
 // extern ??? gUnknown_020239A8
-// extern ??? gUnknown_02023CA8
+extern u8 gUnknown_02023CA8[];
 // extern ??? gUnknown_02023CAA
 // extern ??? gUnknown_02023CAE
 // extern ??? gUnknown_02023CB6
@@ -489,11 +489,11 @@
 // extern ??? gUnknown_0202400A
 // extern ??? gUnknown_02024044
 // extern ??? gUnknown_0202404A
-// extern ??? gUnknown_020244A8
+extern u8 gUnknown_020244A8[];
 // extern ??? gUnknown_02024CA8
 // extern ??? gUnknown_02024CB8
-// extern ??? gUnknown_02024CD4
-// extern ??? gUnknown_02024CDC
+extern struct Struct02024CD4 gUnknown_02024CD4;
+extern struct Struct02024CDC gUnknown_02024CDC[];
 // extern ??? gUnknown_02024E5C
 // extern ??? gProcesses
 // extern ??? gUnknown_02026968
@@ -704,15 +704,15 @@
 // extern ??? gUnknown_03000000
 // extern ??? gUnknown_03000008
 // extern ??? gUnknown_0300000C
-// extern ??? gUnknown_0300000D
-// extern ??? gUnknown_0300000E
+extern u8 gUnknown_0300000D;
+extern u8 gUnknown_0300000E;
 // extern ??? gUnknown_03000010
 // extern ??? gUnknown_03000014
-// extern ??? gUnknown_03000018
-// extern ??? gUnknown_03000019
-// extern ??? gUnknown_0300001A
-// extern ??? gUnknown_03000020
-// extern ??? gUnknown_03000030
+extern u8 gUnknown_03000018;
+extern u8 gUnknown_03000019;
+extern u8 gUnknown_0300001A;
+extern struct Struct02024CDC gUnknown_03000020;
+extern struct Struct02024CDC gUnknown_03000030;
 // extern ??? gUnknown_03000040
 // extern ??? gUnknown_03000044
 // extern ??? gUnknown_030000D0
@@ -809,32 +809,32 @@
 // extern ??? SoundMainRAM_Buffer
 // extern ??? gUnknown_03002C61
 // extern ??? gUnknown_03003060
-// extern ??? gUnknown_03003070
-// extern ??? gUnknown_03003080
-// extern ??? gUnknown_0300308C
+extern void *gUnknown_03003070;
+extern struct Struct03003080 gUnknown_03003080;
+//extern u16 gUnknown_0300308C[];
 // extern ??? gUnknown_03003090
 // extern ??? gUnknown_03003094
 // extern ??? gUnknown_03003098
 // extern ??? gUnknown_030030B4
 // extern ??? gUnknown_030030B6
-// extern ??? gUnknown_030030BC
+extern u16 gUnknown_030030BC;
 // extern ??? gUnknown_030030C8
 // extern ??? gUnknown_030030D8
 // extern ??? gUnknown_030030F0
 // extern ??? gUnknown_03003128
-// extern ??? gUnknown_0300312C
+extern u16 gUnknown_0300312C;
 // extern ??? gUnknown_03003130
-// extern ??? gUnknown_03003134
-// extern ??? gUnknown_03003140
-// extern ??? gUnknown_03003240
+extern void (*gUnknown_03003134)(void);
+extern u16 gUnknown_03003140[];
+extern void *gUnknown_03003240;
 // extern ??? gUnknown_03003540
 // extern ??? gUnknown_03003740
-// extern ??? gUnknown_03003744
-// extern ??? gUnknown_03003748
+extern void *gUnknown_03003744;
+extern void (*gUnknown_03003748)(void);
 // extern ??? gUnknown_03003750
 // extern ??? gUnknown_03004150
 // extern ??? gUnknown_03004154
-// extern ??? gUnknown_03004158
+extern void *gUnknown_03004158;
 // extern ??? gUnknown_03004160
 // extern ??? gUnknown_03004960
 // extern ??? gUnknown_03004970
@@ -902,7 +902,7 @@
 extern u8 gBuildDateTime[]; // "2005/02/04(FRI) 16:55:40...."
 extern u8 gYearProjectCreated[]; // "_2003..."
 // extern ??? gUnknown_080D74F4
-// extern ??? gUnknown_080D7504
+extern const u16 gUnknown_080D7504[];
 // extern ??? gUnknown_080D751C
 // extern ??? gUnknown_080D759C
 // extern ??? gUnknown_080D779C
@@ -1338,10 +1338,10 @@ extern u8 gYearProjectCreated[]; // "_2003..."
 // extern ??? __mprec_bigtens
 // extern ??? gUnknown_085878F4
 // extern ??? gUnknown_085878F8
-extern void **gUnknown_0858791C;
+extern struct Struct0858791C *gUnknown_0858791C;
 // extern ??? gUnknown_08587920
-// extern ??? gUnknown_08587938
-// extern ??? gUnknown_08587948
+extern void *const gUnknown_08587938[];
+extern struct BgCnt *const gUnknown_08587948[];
 // extern ??? gUnknown_08587958
 // extern ??? gUnknown_08587970
 // extern ??? gUnknown_08587988
