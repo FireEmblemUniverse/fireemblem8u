@@ -31,7 +31,7 @@ SECTIONS
         src/main.o(.text);
         src/fe3_dummy.o(.text);
         src/irq.o(.text);
-        asm/rng.o(.text);
+        src/rng.o(.text);
         asm/time.o(.text);
         asm/hardware.o(.text);
         asm/dma.o(.text);
