@@ -2,129 +2,11 @@
 
 	.SYNTAX UNIFIED
 
-	THUMB_FUNC_START CopyToPaletteBuffer
-CopyToPaletteBuffer: @ 0x08000DB8
-	push {r4, lr}
-	adds r4, r0, #0
-	adds r3, r2, #0
-	movs r0, #0x1f
-	ands r0, r3
-	cmp r0, #0
-	beq _08000DE4
-	asrs r1, r1, #1
-	lsls r1, r1, #1
-	ldr r0, _08000DE0  @ gUnknown_020228A8
-	adds r1, r1, r0
-	lsrs r2, r3, #0x1f
-	adds r2, r3, r2
-	lsls r2, r2, #0xa
-	lsrs r2, r2, #0xb
-	adds r0, r4, #0
-	bl CpuSet
-	b _08000DFE
-	.align 2, 0
-_08000DE0: .4byte gUnknown_020228A8
-_08000DE4:
-	asrs r0, r1, #1
-	lsls r0, r0, #1
-	ldr r1, _08000E0C  @ gUnknown_020228A8
-	adds r1, r0, r1
-	adds r2, r3, #0
-	cmp r2, #0
-	bge _08000DF4
-	adds r2, #3
-_08000DF4:
-	lsls r2, r2, #9
-	lsrs r2, r2, #0xb
-	adds r0, r4, #0
-	bl CpuFastSet
-_08000DFE:
-	ldr r1, _08000E10  @ gUnknown_0300000E
-	movs r0, #1
-	strb r0, [r1]
-	pop {r4}
-	pop {r0}
-	bx r0
-	.align 2, 0
-_08000E0C: .4byte gUnknown_020228A8
-_08000E10: .4byte gUnknown_0300000E
-
-	THUMB_FUNC_START sub_8000E14
-sub_8000E14: @ 0x08000E14
-	push {r4, r5, r6, r7, lr}
-	mov r7, sl
-	mov r6, r9
-	mov r5, r8
-	push {r5, r6, r7}
-	adds r7, r2, #0
-	adds r6, r3, #0
-	asrs r1, r1, #1
-	lsls r1, r1, #1
-	ldr r2, _08000E94  @ gUnknown_020228A8
-	adds r5, r1, r2
-	adds r4, r0, #0
-	ldr r0, _08000E98  @ gUnknown_0300000E
-	mov sl, r0
-	cmp r7, #0
-	ble _08000E7E
-	movs r1, #0x1f
-	mov r9, r1
-	movs r2, #0xf8
-	lsls r2, r2, #2
-	mov r8, r2
-	movs r0, #0xf8
-	lsls r0, r0, #7
-	mov ip, r0
-	adds r3, r7, #0
-_08000E46:
-	ldrh r2, [r4]
-	movs r0, #0x1f
-	ands r0, r2
-	adds r1, r0, #0
-	muls r1, r6, r1
-	asrs r1, r1, #6
-	mov r7, r9
-	ands r1, r7
-	mov r0, r8
-	ands r0, r2
-	muls r0, r6, r0
-	asrs r0, r0, #6
-	mov r7, r8
-	ands r0, r7
-	adds r1, r1, r0
-	mov r0, ip
-	ands r0, r2
-	muls r0, r6, r0
-	asrs r0, r0, #6
-	mov r2, ip
-	ands r0, r2
-	adds r1, r1, r0
-	strh r1, [r5]
-	adds r5, #2
-	adds r4, #2
-	subs r3, #1
-	cmp r3, #0
-	bne _08000E46
-_08000E7E:
-	movs r0, #1
-	mov r7, sl
-	strb r0, [r7]
-	pop {r3, r4, r5}
-	mov r8, r3
-	mov r9, r4
-	mov sl, r5
-	pop {r4, r5, r6, r7}
-	pop {r0}
-	bx r0
-	.align 2, 0
-_08000E94: .4byte gUnknown_020228A8
-_08000E98: .4byte gUnknown_0300000E
-
 	THUMB_FUNC_START FlushLCDControl
 FlushLCDControl: @ 0x08000E9C
 	movs r1, #0x80
 	lsls r1, r1, #0x13
-	ldr r2, _08000F40  @ gUnknown_03003080
+	ldr r2, _08000F40  @ gLCDControlBuffer
 	ldrh r0, [r2]
 	strh r0, [r1]
 	adds r1, #4
@@ -205,7 +87,7 @@ FlushLCDControl: @ 0x08000E9C
 	str r0, [r1]
 	bx lr
 	.align 2, 0
-_08000F40: .4byte gUnknown_03003080
+_08000F40: .4byte gLCDControlBuffer
 
 	THUMB_FUNC_START GetBackgroundControlBuffer
 GetBackgroundControlBuffer: @ 0x08000F44
@@ -555,7 +437,7 @@ _080011B0:
 	cmp r0, #1
 	bne _0800121A
 	strb r2, [r1]
-	ldr r0, _080011F8  @ gUnknown_03003080
+	ldr r0, _080011F8  @ gLCDControlBuffer
 	adds r0, #0x68
 	movs r1, #0
 	ldrsb r1, [r0, r1]
@@ -576,7 +458,7 @@ _080011E8: .4byte gUnknown_020234A8
 _080011EC: .4byte gUnknown_02023CA8
 _080011F0: .4byte gUnknown_020244A8
 _080011F4: .4byte gUnknown_0300000E
-_080011F8: .4byte gUnknown_03003080
+_080011F8: .4byte gLCDControlBuffer
 _080011FC: .4byte gUnknown_020228A8
 _08001200:
 	cmp r1, #0
@@ -634,7 +516,7 @@ SetInterrupt_LCDVBlank: @ 0x08001258
 	adds r3, r0, #0
 	cmp r3, #0
 	beq _08001284
-	ldr r2, _0800127C  @ gUnknown_03003080
+	ldr r2, _0800127C  @ gLCDControlBuffer
 	ldrb r0, [r2, #4]
 	movs r1, #8
 	orrs r0, r1
@@ -648,10 +530,10 @@ SetInterrupt_LCDVBlank: @ 0x08001258
 	orrs r0, r1
 	b _08001298
 	.align 2, 0
-_0800127C: .4byte gUnknown_03003080
+_0800127C: .4byte gLCDControlBuffer
 _08001280: .4byte 0x04000200
 _08001284:
-	ldr r2, _080012A0  @ gUnknown_03003080
+	ldr r2, _080012A0  @ gLCDControlBuffer
 	ldrb r1, [r2, #4]
 	movs r0, #9
 	negs r0, r0
@@ -666,7 +548,7 @@ _08001298:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_080012A0: .4byte gUnknown_03003080
+_080012A0: .4byte gLCDControlBuffer
 _080012A4: .4byte 0x04000200
 _080012A8: .4byte 0x0000FFFE
 
@@ -676,7 +558,7 @@ SetInterrupt_LCDVCountMatch: @ 0x080012AC
 	adds r4, r0, #0
 	cmp r4, #0
 	beq _080012DC
-	ldr r2, _080012D4  @ gUnknown_03003080
+	ldr r2, _080012D4  @ gLCDControlBuffer
 	ldrb r0, [r2, #4]
 	movs r1, #0x20
 	orrs r0, r1
@@ -691,10 +573,10 @@ SetInterrupt_LCDVCountMatch: @ 0x080012AC
 	strh r0, [r2]
 	b _080012F4
 	.align 2, 0
-_080012D4: .4byte gUnknown_03003080
+_080012D4: .4byte gLCDControlBuffer
 _080012D8: .4byte 0x04000200
 _080012DC:
-	ldr r2, _080012FC  @ gUnknown_03003080
+	ldr r2, _080012FC  @ gLCDControlBuffer
 	ldrb r1, [r2, #4]
 	movs r0, #0x21
 	negs r0, r0
@@ -711,7 +593,7 @@ _080012F4:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_080012FC: .4byte gUnknown_03003080
+_080012FC: .4byte gLCDControlBuffer
 _08001300: .4byte 0x04000200
 _08001304: .4byte 0x0000FFFB
 
@@ -730,11 +612,11 @@ _08001318: .4byte 0x04000004
 
 	THUMB_FUNC_START SetLCDVCountSetting
 SetLCDVCountSetting: @ 0x0800131C
-	ldr r1, _08001324  @ gUnknown_03003080
+	ldr r1, _08001324  @ gLCDControlBuffer
 	strb r0, [r1, #5]
 	bx lr
 	.align 2, 0
-_08001324: .4byte gUnknown_03003080
+_08001324: .4byte gLCDControlBuffer
 
 	THUMB_FUNC_START SetMainUpdateRoutine
 SetMainUpdateRoutine: @ 0x08001328

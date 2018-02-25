@@ -28,6 +28,36 @@ typedef u8  bool8;
 typedef u16 bool16;
 typedef u32 bool32;
 
+struct DispCnt
+{
+    u16 mode:3;
+    u16 cgbMode:1;  // reserved, do not use
+    u16 bmpFrameNum:1;
+    u16 hblankIntervalFree:1;
+    u16 obj1dMap:1;
+    u16 forcedBlank:1;
+    u16 bg0_on:1;
+    u16 bg1_on:1;           
+    u16 bg2_on:1;           
+    u16 bg3_on:1;           
+    u16 obj_on:1;           
+    u16 win0_on:1;          
+    u16 win1_on:1;          
+    u16 objWin_on:1;        
+};
+typedef volatile struct DispCnt vDispCnt;
+
+struct DispStat
+{
+    u16 vblankFlag:1;
+    u16 hblankFlag:1;
+    u16 vcountFlag:1;
+    u16 vblankIrqEnable:1;
+    u16 hblankIrqEnable:1;
+    u16 vcountIrqEnable:1;
+};
+typedef volatile struct DispStat vDispStat;
+
 struct BgCnt
 {
     u16 priority:2;

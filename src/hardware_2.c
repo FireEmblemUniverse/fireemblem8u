@@ -1,28 +1,24 @@
 #include "global.h"
 
-#define RED_VALUE(color) ((color) & 0x1F)
-#define GREEN_VALUE(color) (((color) >> 5) & 0x1F)
-#define BLUE_VALUE(color) (((color) >> 10) & 0x1F)
-
 void BG_SetPosition(u16 a, u16 b, u16 c)
 {
     switch (a)
     {
     case 0:
-        gUnknown_03003080.unk1C[0] = b;
-        gUnknown_03003080.unk1C[1] = c;
+        gLCDControlBuffer.bgoffset[0].x = b;
+        gLCDControlBuffer.bgoffset[0].y = c;
         break;
     case 1:
-        gUnknown_03003080.unk1C[2] = b;
-        gUnknown_03003080.unk1C[3] = c;
+        gLCDControlBuffer.bgoffset[1].x = b;
+        gLCDControlBuffer.bgoffset[1].y = c;
         break;
     case 2:
-        gUnknown_03003080.unk1C[4] = b;
-        gUnknown_03003080.unk1C[5] = c;
+        gLCDControlBuffer.bgoffset[2].x = b;
+        gLCDControlBuffer.bgoffset[2].y = c;
         break;
     case 3:
-        gUnknown_03003080.unk1C[6] = b;
-        gUnknown_03003080.unk1C[7] = c;
+        gLCDControlBuffer.bgoffset[3].x = b;
+        gLCDControlBuffer.bgoffset[3].y = c;
         break;
     }
 }
@@ -493,17 +489,12 @@ void SetupBackgrounds(u16 *a)
     memcpy(sp0, gUnknown_080D7504, 0x18);
     if (a == NULL)
         a = sp0;
-    /*
-    gUnknown_03003080.unkC[0] = 0;
-    gUnknown_03003080.unkC[2] = 0;
-    gUnknown_03003080.unkC[4] = 0;
-    gUnknown_03003080.unkC[6] = 0;
-    */
-    ptr = gUnknown_03003080.unkC;
-    ptr[0] = 0;
-    ptr[2] = 0;
-    ptr[4] = 0;
-    ptr[6] = 0;
+
+    *(u16 *)&gLCDControlBuffer.bgcnt[0] = 0;
+    *(u16 *)&gLCDControlBuffer.bgcnt[1] = 0;
+    *(u16 *)&gLCDControlBuffer.bgcnt[2] = 0;
+    *(u16 *)&gLCDControlBuffer.bgcnt[3] = 0;
+
     for (i = 0; i < 4; i++)
     {
         SetBackgroundTileDataOffset(i, *a++);
@@ -518,16 +509,16 @@ void SetupBackgrounds(u16 *a)
     SetupOAMBufferSplice(0);
     gUnknown_020228A8[0] = 0;
     gUnknown_0300000E = 1;
-    gUnknown_03003080.unk0_7 = 0;
-    gUnknown_03003080.unk0_0 = 0;
-    gUnknown_03003080.unk1_5 = 0;
-    gUnknown_03003080.unk1_6 = 0;
-    gUnknown_03003080.unk1_7 = 0;
-    gUnknown_03003080.unk1_0 = 1;
-    gUnknown_03003080.unk1_1 = 1;
-    gUnknown_03003080.unk1_2 = 1;
-    gUnknown_03003080.unk1_3 = 1;
-    gUnknown_03003080.unk1_4 = 1;
+    gLCDControlBuffer.dispcnt.forcedBlank = 0;
+    gLCDControlBuffer.dispcnt.mode = 0;
+    gLCDControlBuffer.dispcnt.win0_on = 0;
+    gLCDControlBuffer.dispcnt.win1_on = 0;
+    gLCDControlBuffer.dispcnt.objWin_on = 0;
+    gLCDControlBuffer.dispcnt.bg0_on = 1;
+    gLCDControlBuffer.dispcnt.bg1_on = 1;
+    gLCDControlBuffer.dispcnt.bg2_on = 1;
+    gLCDControlBuffer.dispcnt.bg3_on = 1;
+    gLCDControlBuffer.dispcnt.obj_on = 1;
 }
 
 void *BG_GetMapBuffer(int a)
@@ -585,21 +576,21 @@ void UpdateHBlankHandlerState(void)
     switch (r2 + (gUnknown_03003748 != NULL) * 2)
     {
     case 0:
-        gUnknown_03003080.unk4_4 = 0;
+        gLCDControlBuffer.dispstat.hblankIrqEnable = 0;
         REG_IE &= ~INTR_FLAG_HBLANK;
         break;
     case 1:
-        gUnknown_03003080.unk4_4 = 1;
+        gLCDControlBuffer.dispstat.hblankIrqEnable = 1;
         SetIRQHandler(1, gUnknown_03003134);
         REG_IE |= INTR_FLAG_HBLANK;
         break;
     case 2:
-        gUnknown_03003080.unk4_4 = 1;
+        gLCDControlBuffer.dispstat.hblankIrqEnable = 1;
         SetIRQHandler(1, gUnknown_03003748);
         REG_IE |= INTR_FLAG_HBLANK;
         break;
     case 3:
-        gUnknown_03003080.unk4_4 = 1;
+        gLCDControlBuffer.dispstat.hblankIrqEnable = 1;
         SetIRQHandler(1, sub_8001D00);
         REG_IE |= INTR_FLAG_HBLANK;
         break;
@@ -643,10 +634,10 @@ int BG_GetDepth(int bg)
 
 void SetSpecialColorEffectsParameters(u16 a, u8 b, u8 c, u8 d)
 {
-    gUnknown_03003080.unk3C_6 = a;
-    gUnknown_03003080.unk44 = b;
-    gUnknown_03003080.unk45 = c;
-    gUnknown_03003080.unk46 = d;
+    gLCDControlBuffer.unk3C_6 = a;
+    gLCDControlBuffer.unk44 = b;
+    gLCDControlBuffer.unk45 = c;
+    gLCDControlBuffer.unk46 = d;
 }
 
 void sub_8001ED0(int a, int b, int c, int d, int e)
@@ -663,12 +654,12 @@ void sub_8001F0C(int a, int b, int c, int d, int e)
 
 void sub_8001F48(int a)
 {
-    gUnknown_03003080.unk3C_5 = a;
+    gLCDControlBuffer.unk3C_5 = a;
 }
 
 void sub_8001F64(int a)
 {
-    gUnknown_03003080.unk3D_5 = a;
+    gLCDControlBuffer.unk3D_5 = a;
 }
 
 void SetDefaultColorEffects(void)

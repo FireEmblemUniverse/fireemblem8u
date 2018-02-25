@@ -33,6 +33,7 @@ SECTIONS
         src/irq.o(.text);
         src/rng.o(.text);
         asm/time.o(.text);
+        src/hardware.o(.text);
         asm/hardware.o(.text);
         src/hardware_2.o(.text);
         asm/soundwrapper.o(.text);

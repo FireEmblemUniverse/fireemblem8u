@@ -108,7 +108,7 @@
 . = 0x003060; gUnknown_03003060 = .;
 . = 0x003070; gUnknown_03003070 = .;
 . = 0x003070; gUnknown_03003070 = .;
-. = 0x003080; gUnknown_03003080 = .;
+. = 0x003080; gLCDControlBuffer = .;
 . = 0x00308C; gUnknown_0300308C = .;
 . = 0x003090; gUnknown_03003090 = .;
 . = 0x003094; gUnknown_03003094 = .;

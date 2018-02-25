@@ -778,7 +778,7 @@ sub_8005AD4: @ 0x08005AD4
 	sub sp, #4
 	movs r2, #0x34
 	ldrsh r1, [r0, r2]
-	ldr r3, _08005B00  @ gUnknown_03003080
+	ldr r3, _08005B00  @ gLCDControlBuffer
 	ldrh r2, [r3, #0x1c]
 	subs r1, r1, r2
 	movs r4, #0x36
@@ -795,7 +795,7 @@ sub_8005AD4: @ 0x08005AD4
 	pop {r0}
 	bx r0
 	.align 2, 0
-_08005B00: .4byte gUnknown_03003080
+_08005B00: .4byte gLCDControlBuffer
 
 	THUMB_FUNC_START sub_8005B04
 sub_8005B04: @ 0x08005B04
@@ -5191,7 +5191,7 @@ sub_8007DE8: @ 0x08007DE8
 	movs r0, #0x1f
 	ands r0, r5
 	lsls r0, r0, #3
-	ldr r3, _08007E98  @ gUnknown_03003080
+	ldr r3, _08007E98  @ gLCDControlBuffer
 	ldrh r1, [r3, #0x1c]
 	subs r0, r0, r1
 	add r0, r8
@@ -5224,7 +5224,7 @@ _08007E82:
 	.align 2, 0
 _08007E90: .4byte gUnknown_085914B0
 _08007E94: .4byte gUnknown_02022CA8
-_08007E98: .4byte gUnknown_03003080
+_08007E98: .4byte gLCDControlBuffer
 
 	THUMB_FUNC_START sub_8007E9C
 sub_8007E9C: @ 0x08007E9C
@@ -5621,7 +5621,7 @@ sub_80081A8: @ 0x080081A8
 	movs r0, #2
 	bl sub_8008F20
 	bl sub_80081EC
-	ldr r2, _080081E8  @ gUnknown_03003080
+	ldr r2, _080081E8  @ gLCDControlBuffer
 	ldrb r1, [r2, #1]
 	movs r0, #0x21
 	negs r0, r0
@@ -5637,7 +5637,7 @@ sub_80081A8: @ 0x080081A8
 	.align 2, 0
 _080081E0: .4byte gUnknown_0859133C
 _080081E4: .4byte gUnknown_020234A8
-_080081E8: .4byte gUnknown_03003080
+_080081E8: .4byte gLCDControlBuffer
 
 	THUMB_FUNC_START sub_80081EC
 sub_80081EC: @ 0x080081EC
@@ -5965,7 +5965,7 @@ _08008460: .4byte 0x06000200
 	THUMB_FUNC_START sub_8008464
 sub_8008464: @ 0x08008464
 	push {r4, r5, r6, lr}
-	ldr r4, _080084DC  @ gUnknown_03003080
+	ldr r4, _080084DC  @ gLCDControlBuffer
 	mov ip, r4
 	ldrb r4, [r4, #1]
 	movs r5, #0x20
@@ -6024,7 +6024,7 @@ sub_8008464: @ 0x08008464
 	pop {r0}
 	bx r0
 	.align 2, 0
-_080084DC: .4byte gUnknown_03003080
+_080084DC: .4byte gLCDControlBuffer
 
 	THUMB_FUNC_START sub_80084E0
 sub_80084E0: @ 0x080084E0
@@ -6402,7 +6402,7 @@ sub_80087A8: @ 0x080087A8
 	bl sub_8001F0C
 	movs r0, #1
 	bl sub_8001F64
-	ldr r1, _08008808  @ gUnknown_03003080
+	ldr r1, _08008808  @ gLCDControlBuffer
 	adds r2, r1, #0
 	adds r2, #0x34
 	ldrb r0, [r2]
@@ -6423,7 +6423,7 @@ _08008802:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_08008808: .4byte gUnknown_03003080
+_08008808: .4byte gLCDControlBuffer
 
 	THUMB_FUNC_START sub_800880C
 sub_800880C: @ 0x0800880C
