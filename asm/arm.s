@@ -264,8 +264,8 @@ _08000560: .4byte _08000540 @ pool
 
 	ARM_FUNC_START IRAMARM_Func3_DrawGlyph
 IRAMARM_Func3_DrawGlyph: @ 0x08000564
-	push {r4, r5, r6, r7, r8, sb, sl}
-	mov sb, #0xf
+	push {r4, r5, r6, r7, r8, r9, sl}
+	mov r9, #0xf
 	mov sl, #0x10000
 	sub sl, sl, #1
 _08000574:
@@ -308,15 +308,15 @@ _08000574:
 	str r4, [r1, #0x80]
 	add r1, r1, #4
 	add r2, r2, #4
-	subs sb, sb, #1
+	subs r9, r9, #1
 	bpl _08000574
-	pop {r4, r5, r6, r7, r8, sb, sl}
+	pop {r4, r5, r6, r7, r8, r9, sl}
 	bx lr
 
 	ARM_FUNC_START sub_8000620
 sub_8000620: @ 0x08000620
-	push {r4, r5, r6, r7, r8, sb, sl}
-	mov sb, #7
+	push {r4, r5, r6, r7, r8, r9, sl}
+	mov r9, #7
 	mov sl, #0x10000
 	sub sl, sl, #1
 _08000630:
@@ -359,9 +359,9 @@ _08000630:
 	str r4, [r1, #0x40]
 	add r1, r1, #4
 	add r2, r2, #4
-	subs sb, sb, #1
+	subs r9, r9, #1
 	bpl _08000630
-	pop {r4, r5, r6, r7, r8, sb, sl}
+	pop {r4, r5, r6, r7, r8, r9, sl}
 	bx lr
 	.align 2, 0
 _080006DC: .4byte gUnknown_0815D488
@@ -420,7 +420,7 @@ _08000780: .4byte gUnknown_0202E4D8 @ pool
 
 	ARM_FUNC_START IRAMARM_Func5
 IRAMARM_Func5: @ 0x08000784
-	push {r4, r5, r6, r7, r8, sb, sl}
+	push {r4, r5, r6, r7, r8, r9, sl}
 	ldr r3, _08000774
 	ldr r4, [r3]
 	ldrb r5, [r4]
@@ -435,12 +435,12 @@ IRAMARM_Func5: @ 0x08000784
 	ldrb sl, [r8, r7]
 	ldr r7, _08000778
 	ldr r7, [r7]
-	ldr sb, [r7, r6, lsl #2]
-	ldrb sb, [sb, r5]
-	add sl, sl, sb
-	ldr sb, [r7, r2, lsl #2]
-	ldrb sb, [sb, r1]
-	cmp sl, sb
+	ldr r9, [r7, r6, lsl #2]
+	ldrb r9, [r9, r5]
+	add sl, sl, r9
+	ldr r9, [r7, r2, lsl #2]
+	ldrb r9, [r9, r1]
+	cmp sl, r9
 	bhs _08000848
 	ldrb r4, [r3, #8]
 	tst r4, r4
@@ -471,7 +471,7 @@ _08000810:
 	ldr r7, [r7, r2, lsl #2]
 	strb sl, [r7, r1]
 _08000848:
-	pop {r4, r5, r6, r7, r8, sb, sl}
+	pop {r4, r5, r6, r7, r8, r9, sl}
 	bx lr
 	.align 2, 0
 _08000850: .4byte gUnknown_030049B0 @ pool

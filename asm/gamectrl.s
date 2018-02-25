@@ -272,13 +272,13 @@ sub_8009A24: @ 0x08009A24
 	adds r2, #0x40
 	ldrb r1, [r2]
 	movs r0, #0x61
-	rsbs r0, r0, #0
+	negs r0, r0
 	ands r0, r1
 	movs r1, #0x20
 	orrs r0, r1
 	strb r0, [r2]
 	movs r2, #1
-	rsbs r2, r2, #0
+	negs r2, r2
 	movs r0, #3
 	movs r1, #0
 	bl sub_8086BB8
@@ -613,7 +613,7 @@ sub_8009CC0: @ 0x08009CC0
 	adds r0, #0x41
 	ldrb r2, [r0]
 	movs r1, #2
-	rsbs r1, r1, #0
+	negs r1, r1
 	ands r1, r2
 	strb r1, [r0]
 	pop {r0}
@@ -975,7 +975,7 @@ sub_8009F78: @ 0x08009F78
 	bl GetGameControl6C
 	adds r0, #0x2a
 	ldrb r1, [r0]
-	rsbs r0, r1, #0
+	negs r0, r1
 	orrs r0, r1
 	lsrs r0, r0, #0x1f
 	pop {r1}
@@ -1029,10 +1029,10 @@ ForceEnableSoundEffects: @ 0x08009FDC
 	adds r2, #0x41
 	ldrb r1, [r2]
 	movs r0, #2
-	rsbs r0, r0, #0
+	negs r0, r0
 	ands r0, r1
 	movs r1, #3
-	rsbs r1, r1, #0
+	negs r1, r1
 	ands r0, r1
 	strb r0, [r2]
 	bx lr
@@ -1047,14 +1047,14 @@ sub_8009FF8: @ 0x08009FF8
 	adds r2, #0x42
 	ldrb r1, [r2]
 	movs r0, #7
-	rsbs r0, r0, #0
+	negs r0, r0
 	ands r0, r1
 	strb r0, [r2]
 	adds r5, r3, #0
 	adds r5, #0x40
 	ldrb r0, [r5]
 	movs r2, #0x61
-	rsbs r2, r2, #0
+	negs r2, r2
 	ands r2, r0
 	movs r0, #0x20
 	orrs r2, r0
@@ -1064,13 +1064,13 @@ sub_8009FF8: @ 0x08009FF8
 	adds r4, #0x41
 	ldrb r1, [r4]
 	movs r3, #2
-	rsbs r3, r3, #0
+	negs r3, r3
 	adds r0, r3, #0
 	ands r0, r1
 	movs r1, #2
 	orrs r0, r1
 	movs r1, #0xd
-	rsbs r1, r1, #0
+	negs r1, r1
 	ands r0, r1
 	strb r0, [r4]
 	ands r2, r3

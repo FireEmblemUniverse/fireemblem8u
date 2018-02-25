@@ -357,12 +357,12 @@ _08002570: .4byte gUnknown_03000040
 sub_8002574: @ 0x08002574
 	push {r4, r5, r6, r7, lr}
 	mov r7, sl
-	mov r6, sb
+	mov r6, r9
 	mov r5, r8
 	push {r5, r6, r7}
 	adds r6, r0, #0
 	mov sl, r1
-	mov sb, r2
+	mov r9, r2
 	ldr r0, _08002604  @ gUnknown_0202BCF0
 	adds r0, #0x41
 	ldrb r0, [r0]
@@ -386,7 +386,7 @@ sub_8002574: @ 0x08002574
 	adds r0, r5, #0
 	bl m4aMPlayStop
 	adds r0, r6, #0
-	mov r1, sb
+	mov r1, r9
 	bl sub_8002890
 	adds r0, r4, #0
 	bl m4aMPlayImmInit
@@ -415,7 +415,7 @@ sub_8002574: @ 0x08002574
 _080025F6:
 	pop {r3, r4, r5}
 	mov r8, r3
-	mov sb, r4
+	mov r9, r4
 	mov sl, r5
 	pop {r4, r5, r6, r7}
 	pop {r0}
@@ -836,7 +836,7 @@ _08002934:
 	movs r1, #8
 	ldrsb r1, [r0, r1]
 	movs r0, #1
-	rsbs r0, r0, #0
+	negs r0, r0
 	cmp r1, r0
 	beq _08002946
 	bl sub_80028D0
@@ -879,7 +879,7 @@ sub_800296C: @ 0x0800296C
 	beq _080029B4
 	ldr r1, [r4, #0x5c]
 	movs r0, #1
-	rsbs r0, r0, #0
+	negs r0, r0
 	cmp r1, r0
 	bne _080029A6
 	movs r1, #0
@@ -974,7 +974,7 @@ _08002A2C:
 	cmp r5, r0
 	bne _08002A54
 	movs r0, #1
-	rsbs r0, r0, #0
+	negs r0, r0
 	str r0, [r4, #0x5c]
 	b _08002A56
 	.align 2, 0

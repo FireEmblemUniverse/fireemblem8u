@@ -79,7 +79,7 @@ ClearAISArray: @ 0x08004EB8
 	adds r2, r0, r1
 	ldr r3, _08004EE4  @ gUnknown_02029D88
 	cmp r0, r2
-	bhs _08004ED6
+	bcs _08004ED6
 	movs r1, #0
 _08004ECA:
 	strh r1, [r0]
@@ -87,7 +87,7 @@ _08004ECA:
 	str r1, [r0, #0x38]
 	adds r0, #0x48
 	cmp r0, r2
-	blo _08004ECA
+	bcc _08004ECA
 _08004ED6:
 	movs r0, #0
 	str r0, [r3]
@@ -106,7 +106,7 @@ sub_8004EE8: @ 0x08004EE8
 	lsls r0, r0, #4
 	adds r2, r4, r0
 	cmp r4, r2
-	bhs _08004F0C
+	bcs _08004F0C
 	ldrh r0, [r4]
 	cmp r0, #0
 	beq _08004F0C
@@ -114,7 +114,7 @@ sub_8004EE8: @ 0x08004EE8
 _08004F00:
 	adds r4, #0x48
 	cmp r4, r1
-	bhs _08004F0C
+	bcs _08004F0C
 	ldrh r0, [r4]
 	cmp r0, #0
 	bne _08004F00
@@ -162,7 +162,7 @@ AIS_New: @ 0x08004F48
 	lsls r0, r0, #4
 	adds r2, r4, r0
 	cmp r4, r2
-	bhs _08004F70
+	bcs _08004F70
 	ldrh r0, [r4]
 	cmp r0, #0
 	beq _08004F70
@@ -170,7 +170,7 @@ AIS_New: @ 0x08004F48
 _08004F64:
 	adds r4, #0x48
 	cmp r4, r1
-	bhs _08004F70
+	bcs _08004F70
 	ldrh r0, [r4]
 	cmp r0, #0
 	bne _08004F64
@@ -217,7 +217,7 @@ AISArray_Sort: @ 0x08004FAC
 	adds r5, r4, #0
 	ldr r3, _08005000  @ gUnknown_02029D88
 	cmp r4, r0
-	bhs _08004FD2
+	bcs _08004FD2
 	movs r1, #0
 	adds r2, r0, #0
 _08004FC2:
@@ -229,7 +229,7 @@ _08004FC2:
 _08004FCC:
 	adds r4, #0x48
 	cmp r4, r2
-	blo _08004FC2
+	bcc _08004FC2
 _08004FD2:
 	movs r0, #0
 	str r0, [r3]
@@ -238,7 +238,7 @@ _08004FD2:
 	lsls r1, r1, #4
 	adds r0, r4, r1
 	cmp r4, r0
-	bhs _08004FF6
+	bcs _08004FF6
 	adds r5, r0, #0
 _08004FE4:
 	ldrh r0, [r4]
@@ -249,7 +249,7 @@ _08004FE4:
 _08004FF0:
 	adds r4, #0x48
 	cmp r4, r5
-	blo _08004FE4
+	bcc _08004FE4
 _08004FF6:
 	pop {r4, r5}
 	pop {r0}
@@ -428,7 +428,7 @@ _08005114:
 	cmp r0, #0x18
 	bhi _08005158
 	cmp r0, #1
-	blo _080051B4
+	bcc _080051B4
 	cmp r0, #5
 	bls _0800516A
 	cmp r0, #0x13
@@ -545,7 +545,7 @@ _08005202:
 _AIS_Display: @ 0x08005208
 	push {r4, r5, r6, r7, lr}
 	mov r7, sl
-	mov r6, sb
+	mov r6, r9
 	mov r5, r8
 	push {r5, r6, r7}
 	sub sp, #4
@@ -602,12 +602,12 @@ _08005268:
 	ldr r1, _08005328  @ gUnknown_03003540
 	mov sl, r1
 	cmp r0, sl
-	bhs _08005304
+	bcs _08005304
 	movs r0, #0x80
 	lsls r0, r0, #1
-	mov sb, r0
+	mov r9, r0
 	movs r1, #0x40
-	rsbs r1, r1, #0
+	negs r1, r1
 	mov r8, r1
 	mov ip, r2
 _0800528A:
@@ -621,7 +621,7 @@ _0800528A:
 	movs r2, #4
 	ldrsh r0, [r7, r2]
 	adds r4, r1, r0
-	cmp r3, sb
+	cmp r3, r9
 	bgt _080052A6
 	cmp r3, r8
 	bge _080052AA
@@ -644,7 +644,7 @@ _080052B6:
 	movs r6, #0
 	ldr r1, [r5]
 	adds r0, r1, #0
-	mov r2, sb
+	mov r2, r9
 	ands r0, r2
 	cmp r0, #0
 	beq _080052D0
@@ -676,12 +676,12 @@ _080052D0:
 	cmp r0, #1
 	beq _08005304
 	cmp r2, sl
-	blo _0800528A
+	bcc _0800528A
 _08005304:
 	add sp, #4
 	pop {r3, r4, r5}
 	mov r8, r3
-	mov sb, r4
+	mov r9, r4
 	mov sl, r5
 	pop {r4, r5, r6, r7}
 	pop {r0}
@@ -707,7 +707,7 @@ sub_8005334: @ 0x08005334
 	cmp r1, #0x18
 	bhi _08005352
 	cmp r1, #1
-	blo _0800536A
+	bcc _0800536A
 	cmp r1, #5
 	bls _08005364
 	cmp r1, #0x13

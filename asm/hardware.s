@@ -53,7 +53,7 @@ _08000E10: .4byte gUnknown_0300000E
 sub_8000E14: @ 0x08000E14
 	push {r4, r5, r6, r7, lr}
 	mov r7, sl
-	mov r6, sb
+	mov r6, r9
 	mov r5, r8
 	push {r5, r6, r7}
 	adds r7, r2, #0
@@ -68,7 +68,7 @@ sub_8000E14: @ 0x08000E14
 	cmp r7, #0
 	ble _08000E7E
 	movs r1, #0x1f
-	mov sb, r1
+	mov r9, r1
 	movs r2, #0xf8
 	lsls r2, r2, #2
 	mov r8, r2
@@ -83,7 +83,7 @@ _08000E46:
 	adds r1, r0, #0
 	muls r1, r6, r1
 	asrs r1, r1, #6
-	mov r7, sb
+	mov r7, r9
 	ands r1, r7
 	mov r0, r8
 	ands r0, r2
@@ -111,7 +111,7 @@ _08000E7E:
 	strb r0, [r7]
 	pop {r3, r4, r5}
 	mov r8, r3
-	mov sb, r4
+	mov r9, r4
 	mov sl, r5
 	pop {r4, r5, r6, r7}
 	pop {r0}
@@ -308,7 +308,7 @@ SetBackgroundTileDataOffset: @ 0x08000FDC
 	lsls r4, r4, #2
 	ldrb r2, [r0]
 	movs r1, #0xd
-	rsbs r1, r1, #0
+	negs r1, r1
 	ands r1, r2
 	orrs r1, r4
 	strb r1, [r0]
@@ -334,7 +334,7 @@ SetBackgroundMapDataOffset: @ 0x08001004
 	ands r1, r0
 	ldrb r2, [r3, #1]
 	movs r0, #0x20
-	rsbs r0, r0, #0
+	negs r0, r0
 	ands r0, r2
 	orrs r0, r1
 	strb r0, [r3, #1]
@@ -654,7 +654,7 @@ _08001284:
 	ldr r2, _080012A0  @ gUnknown_03003080
 	ldrb r1, [r2, #4]
 	movs r0, #9
-	rsbs r0, r0, #0
+	negs r0, r0
 	ands r0, r1
 	strb r0, [r2, #4]
 	ldr r2, _080012A4  @ 0x04000200
@@ -697,7 +697,7 @@ _080012DC:
 	ldr r2, _080012FC  @ gUnknown_03003080
 	ldrb r1, [r2, #4]
 	movs r0, #0x21
-	rsbs r0, r0, #0
+	negs r0, r0
 	ands r0, r1
 	strb r0, [r2, #4]
 	ldr r3, _08001300  @ 0x04000200

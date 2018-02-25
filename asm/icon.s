@@ -117,7 +117,7 @@ _08003640:
 	cmp r2, #0x1f
 	ble _0800362C
 	movs r0, #1
-	rsbs r0, r0, #0
+	negs r0, r0
 _0800364A:
 	pop {r4}
 	pop {r1}

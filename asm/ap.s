@@ -261,7 +261,7 @@ _0800942A:
 TCS_QueueRotScaleData: @ 0x08009430
 	push {r4, r5, r6, r7, lr}
 	mov r7, sl
-	mov r6, sb
+	mov r6, r9
 	mov r5, r8
 	push {r5, r6, r7}
 	sub sp, #0xc
@@ -285,7 +285,7 @@ TCS_QueueRotScaleData: @ 0x08009430
 	cmp r8, r2
 	bge _08009500
 	ldr r1, _08009514  @ gUnknown_080D751C
-	mov sb, r1
+	mov r9, r1
 	movs r2, #0xff
 	mov sl, r2
 _0800946A:
@@ -294,7 +294,7 @@ _0800946A:
 	ands r0, r1
 	adds r0, #0x40
 	lsls r0, r0, #1
-	add r0, sb
+	add r0, r9
 	movs r1, #0
 	ldrsh r0, [r0, r1]
 	lsls r0, r0, #4
@@ -307,10 +307,10 @@ _0800946A:
 	mov r0, sl
 	ands r0, r1
 	lsls r0, r0, #1
-	add r0, sb
+	add r0, r9
 	movs r2, #0
 	ldrsh r0, [r0, r2]
-	rsbs r0, r0, #0
+	negs r0, r0
 	lsls r0, r0, #4
 	ldrh r1, [r7, #4]
 	bl Div
@@ -321,7 +321,7 @@ _0800946A:
 	mov r0, sl
 	ands r0, r1
 	lsls r0, r0, #1
-	add r0, sb
+	add r0, r9
 	movs r1, #0
 	ldrsh r0, [r0, r1]
 	lsls r0, r0, #4
@@ -335,7 +335,7 @@ _0800946A:
 	ands r0, r1
 	adds r0, #0x40
 	lsls r0, r0, #1
-	add r0, sb
+	add r0, r9
 	movs r2, #0
 	ldrsh r0, [r0, r2]
 	lsls r0, r0, #4
@@ -363,7 +363,7 @@ _08009500:
 	add sp, #0xc
 	pop {r3, r4, r5}
 	mov r8, r3
-	mov sb, r4
+	mov r9, r4
 	mov sl, r5
 	pop {r4, r5, r6, r7}
 	pop {r0}
@@ -421,7 +421,7 @@ _08009562:
 TCS_QueueTileGfx: @ 0x08009568
 	push {r4, r5, r6, r7, lr}
 	mov r7, sl
-	mov r6, sb
+	mov r6, r9
 	mov r5, r8
 	push {r5, r6, r7}
 	sub sp, #8
@@ -442,7 +442,7 @@ TCS_QueueTileGfx: @ 0x08009568
 	adds r0, r0, r1
 	str r0, [sp]
 	movs r0, #0
-	mov sb, r0
+	mov r9, r0
 	subs r6, #1
 	adds r1, r7, #0
 	adds r1, #0x20
@@ -467,7 +467,7 @@ _080095AE:
 	ands r1, r2
 	lsls r1, r1, #5
 	ldr r2, _0800961C  @ 0x06010000
-	add r2, sb
+	add r2, r9
 	adds r1, r1, r2
 	ldrh r2, [r5]
 	mov r3, r8
@@ -530,7 +530,7 @@ _08009624:
 	ands r0, r4
 _08009646:
 	lsls r0, r0, #5
-	add sb, r0
+	add r9, r0
 	adds r5, #6
 	ldr r0, [sp]
 	adds r0, #2
@@ -547,7 +547,7 @@ _08009660:
 	add sp, #8
 	pop {r3, r4, r5}
 	mov r8, r3
-	mov sb, r4
+	mov r9, r4
 	mov sl, r5
 	pop {r4, r5, r6, r7}
 	pop {r0}
@@ -647,11 +647,11 @@ _08009712:
 	THUMB_FUNC_START TCSWrapper_New
 TCSWrapper_New: @ 0x08009718
 	push {r4, r5, r6, lr}
-	mov r6, sb
+	mov r6, r9
 	mov r5, r8
 	push {r5, r6}
 	mov r8, r1
-	mov sb, r2
+	mov r9, r2
 	adds r6, r3, #0
 	ldr r5, [sp, #0x18]
 	ldr r1, [sp, #0x1c]
@@ -668,11 +668,11 @@ TCSWrapper_New: @ 0x08009718
 	str r4, [r0, #0x50]
 	mov r1, r8
 	str r1, [r0, #0x54]
-	mov r1, sb
+	mov r1, r9
 	str r1, [r0, #0x58]
 	pop {r3, r4}
 	mov r8, r3
-	mov sb, r4
+	mov r9, r4
 	pop {r4, r5, r6}
 	pop {r1}
 	bx r1
@@ -719,7 +719,7 @@ TCSWrapper_SetParameters: @ 0x08009798
 	str r1, [r4, #0x54]
 	str r2, [r4, #0x58]
 	movs r0, #1
-	rsbs r0, r0, #0
+	negs r0, r0
 	cmp r3, r0
 	beq _080097AC
 	ldr r0, [r4, #0x50]

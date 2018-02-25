@@ -212,7 +212,7 @@ StoreNumberStringOrDashesToSmallBuffer: @ 0x0800391C
 	cmp r4, #0xff
 	beq _08003930
 	movs r0, #1
-	rsbs r0, r0, #0
+	negs r0, r0
 	cmp r4, r0
 	bne _08003940
 _08003930:
@@ -465,7 +465,7 @@ _08003AEE:
 	beq _08003B00
 	ldr r0, [r3, #0x10]
 	cmp r1, r0
-	bhs _08003B00
+	bcs _08003B00
 	subs r0, #1
 	str r0, [r3, #0x10]
 _08003B00:
@@ -1361,12 +1361,12 @@ Text_AppendNumberOr2Dashes: @ 0x08004144
 	cmp r1, #0xff
 	beq _08004154
 	movs r0, #1
-	rsbs r0, r0, #0
+	negs r0, r0
 	cmp r1, r0
 	bne _08004174
 _08004154:
 	movs r1, #8
-	rsbs r1, r1, #0
+	negs r1, r1
 	adds r0, r4, #0
 	bl Text_Advance
 	ldr r0, _08004170  @ 0x00000535
@@ -1475,11 +1475,11 @@ _08004214: .4byte gUnknown_08588240
 	THUMB_FUNC_START Font_StandardGlyphDrawer
 Font_StandardGlyphDrawer: @ 0x08004218
 	push {r4, r5, r6, lr}
-	mov r6, sb
+	mov r6, r9
 	mov r5, r8
 	push {r5, r6}
 	adds r5, r0, #0
-	mov sb, r1
+	mov r9, r1
 	ldr r0, _08004264  @ gUnknown_02028E70
 	ldr r0, [r0]
 	ldr r1, [r0, #0xc]
@@ -1489,7 +1489,7 @@ Font_StandardGlyphDrawer: @ 0x08004218
 	ldrb r0, [r5, #2]
 	movs r4, #7
 	ands r4, r0
-	mov r6, sb
+	mov r6, r9
 	adds r6, #8
 	ldrb r0, [r5, #3]
 	bl GetSomeTextDrawingRelatedTablePointer
@@ -1497,14 +1497,14 @@ Font_StandardGlyphDrawer: @ 0x08004218
 	adds r2, r6, #0
 	adds r3, r4, #0
 	bl CallARM_Func3
-	mov r1, sb
+	mov r1, r9
 	ldrb r0, [r1, #5]
 	ldrb r1, [r5, #2]
 	adds r0, r0, r1
 	strb r0, [r5, #2]
 	pop {r3, r4}
 	mov r8, r3
-	mov sb, r4
+	mov r9, r4
 	pop {r4, r5, r6}
 	pop {r0}
 	bx r0
@@ -1515,7 +1515,7 @@ _08004264: .4byte gUnknown_02028E70
 Font_SpecializedGlyphDrawer: @ 0x08004268
 	push {r4, r5, r6, r7, lr}
 	mov r7, sl
-	mov r6, sb
+	mov r6, r9
 	mov r5, r8
 	push {r5, r6, r7}
 	sub sp, #0x18
@@ -1541,7 +1541,7 @@ Font_SpecializedGlyphDrawer: @ 0x08004268
 	ldr r1, [sp]
 	ldrb r0, [r1, #3]
 	bl GetSomeTextDrawingRelatedTablePointer
-	mov sb, r0
+	mov r9, r0
 	movs r2, #0xf
 	str r2, [sp, #8]
 	ldr r7, [sp, #0xc]
@@ -1577,9 +1577,9 @@ _080042B0:
 	ldr r5, [r2]
 	ands r5, r3
 	str r5, [r2]
-	add r6, sb
+	add r6, r9
 	ldrh r3, [r6]
-	add r4, sb
+	add r4, r9
 	ldrh r2, [r4]
 	lsls r2, r2, #0x10
 	orrs r3, r2
@@ -1612,9 +1612,9 @@ _080042B0:
 	orrs r3, r2
 	ldr r5, [r7]
 	ands r5, r3
-	add r6, sb
+	add r6, r9
 	ldrh r3, [r6]
-	add r4, sb
+	add r4, r9
 	ldrh r2, [r4]
 	lsls r2, r2, #0x10
 	orrs r3, r2
@@ -1638,9 +1638,9 @@ _080042B0:
 	orrs r5, r0
 	ldr r3, [r7, #0x40]
 	ands r3, r5
-	add r4, sb
+	add r4, r9
 	ldrh r2, [r4]
-	add r1, sb
+	add r1, r9
 	ldrh r0, [r1]
 	lsls r0, r0, #0x10
 	orrs r2, r0
@@ -1662,7 +1662,7 @@ _080042B0:
 	add sp, #0x18
 	pop {r3, r4, r5}
 	mov r8, r3
-	mov sb, r4
+	mov r9, r4
 	mov sl, r5
 	pop {r4, r5, r6, r7}
 	pop {r0}
@@ -2113,7 +2113,7 @@ _080046FC: .4byte gUnknown_02028E70
 sub_8004700: @ 0x08004700
 	push {r4, r5, r6, r7, lr}
 	mov r7, sl
-	mov r6, sb
+	mov r6, r9
 	mov r5, r8
 	push {r5, r6, r7}
 	sub sp, #0x14
@@ -2137,7 +2137,7 @@ sub_8004700: @ 0x08004700
 	bl GetSomeTextDrawingRelatedTablePointer
 	mov r8, r0
 	movs r0, #0xff
-	mov sb, r0
+	mov r9, r0
 	ldr r1, [sp, #8]
 	lsls r1, r1, #1
 	str r1, [sp, #0x10]
@@ -2153,7 +2153,7 @@ _08004744:
 	bl sub_80D188C
 	adds r6, r1, #0
 	adds r5, r0, #0
-	mov r0, sb
+	mov r0, r9
 	ands r0, r5
 	lsls r0, r0, #1
 	add r0, r8
@@ -2162,7 +2162,7 @@ _08004744:
 	lsrs r2, r5, #8
 	adds r0, r3, #0
 	orrs r0, r2
-	mov r2, sb
+	mov r2, r9
 	ands r2, r0
 	lsls r2, r2, #1
 	add r2, r8
@@ -2176,7 +2176,7 @@ _08004744:
 	lsrs r2, r5, #0x10
 	adds r0, r3, #0
 	orrs r0, r2
-	mov r2, sb
+	mov r2, r9
 	ands r2, r0
 	lsls r2, r2, #1
 	add r2, r8
@@ -2185,7 +2185,7 @@ _08004744:
 	lsrs r2, r5, #0x18
 	adds r0, r3, #0
 	orrs r0, r2
-	mov r2, sb
+	mov r2, r9
 	ands r2, r0
 	lsls r2, r2, #1
 	add r2, r8
@@ -2196,13 +2196,13 @@ _08004744:
 	orrs r0, r4
 	str r0, [r7, #0x20]
 	adds r0, r6, #0
-	mov r2, sb
+	mov r2, r9
 	ands r2, r0
 	lsls r2, r2, #1
 	add r2, r8
 	ldrh r3, [r2]
 	lsrs r0, r6, #8
-	mov r2, sb
+	mov r2, r9
 	ands r2, r0
 	lsls r2, r2, #1
 	add r2, r8
@@ -2214,7 +2214,7 @@ _08004744:
 	str r0, [r7, #0x40]
 	adds r7, #4
 	movs r0, #1
-	rsbs r0, r0, #0
+	negs r0, r0
 	add sl, r0
 	mov r1, sl
 	cmp r1, #0
@@ -2228,7 +2228,7 @@ _08004744:
 	lsls r2, r2, #3
 	adds r7, r0, r2
 	movs r3, #0xff
-	mov sb, r3
+	mov r9, r3
 	movs r0, #7
 	mov sl, r0
 _080047F6:
@@ -2240,7 +2240,7 @@ _080047F6:
 	bl sub_80D188C
 	adds r6, r1, #0
 	adds r5, r0, #0
-	mov r0, sb
+	mov r0, r9
 	ands r0, r5
 	lsls r0, r0, #1
 	add r0, r8
@@ -2249,7 +2249,7 @@ _080047F6:
 	lsrs r2, r5, #8
 	adds r0, r3, #0
 	orrs r0, r2
-	mov r2, sb
+	mov r2, r9
 	ands r2, r0
 	lsls r2, r2, #1
 	add r2, r8
@@ -2263,7 +2263,7 @@ _080047F6:
 	lsrs r2, r5, #0x10
 	adds r0, r3, #0
 	orrs r0, r2
-	mov r2, sb
+	mov r2, r9
 	ands r2, r0
 	lsls r2, r2, #1
 	add r2, r8
@@ -2272,7 +2272,7 @@ _080047F6:
 	lsrs r2, r5, #0x18
 	adds r0, r3, #0
 	orrs r0, r2
-	mov r2, sb
+	mov r2, r9
 	ands r2, r0
 	lsls r2, r2, #1
 	add r2, r8
@@ -2283,13 +2283,13 @@ _080047F6:
 	orrs r0, r4
 	str r0, [r7, #0x20]
 	adds r0, r6, #0
-	mov r2, sb
+	mov r2, r9
 	ands r2, r0
 	lsls r2, r2, #1
 	add r2, r8
 	ldrh r3, [r2]
 	lsrs r0, r6, #8
-	mov r2, sb
+	mov r2, r9
 	ands r2, r0
 	lsls r2, r2, #1
 	add r2, r8
@@ -2301,7 +2301,7 @@ _080047F6:
 	str r0, [r7, #0x40]
 	adds r7, #4
 	movs r3, #1
-	rsbs r3, r3, #0
+	negs r3, r3
 	add sl, r3
 	mov r0, sl
 	cmp r0, #0
@@ -2316,7 +2316,7 @@ _080047F6:
 	add sp, #0x14
 	pop {r3, r4, r5}
 	mov r8, r3
-	mov sb, r4
+	mov r9, r4
 	mov sl, r5
 	pop {r4, r5, r6, r7}
 	pop {r0}
@@ -2852,7 +2852,7 @@ _08004C64: .4byte gUnknown_02022CA8
 sub_8004C68: @ 0x08004C68
 	push {r4, r5, r6, r7, lr}
 	mov r7, sl
-	mov r6, sb
+	mov r6, r9
 	mov r5, r8
 	push {r5, r6, r7}
 	sub sp, #0x10
@@ -2875,7 +2875,7 @@ sub_8004C68: @ 0x08004C68
 	lsls r0, r0, #0x18
 	str r0, [sp, #0xc]
 	lsrs r0, r0, #0x18
-	mov sb, r0
+	mov r9, r0
 	adds r0, r7, #4
 	ldrh r2, [r1]
 	adds r1, r6, #0
@@ -2922,7 +2922,7 @@ sub_8004C68: @ 0x08004C68
 	adds r0, r4, #0
 	adds r1, r6, #0
 	bl sub_8004B0C
-	mov r0, sb
+	mov r0, r9
 	cmp r0, #0
 	beq _08004D1C
 	mov r1, sl
@@ -2953,7 +2953,7 @@ _08004D4A:
 	add sp, #0x10
 	pop {r3, r4, r5}
 	mov r8, r3
-	mov sb, r4
+	mov r9, r4
 	mov sl, r5
 	pop {r4, r5, r6, r7}
 	pop {r0}
