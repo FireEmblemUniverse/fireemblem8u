@@ -1,7 +1,7 @@
 #include "global.h"
 
-static IWRAM_DATA u16 gRNSeeds[3];
-static IWRAM_DATA int gLCGRNValue;
+static u16 gRNSeeds[3];
+static int gLCGRNValue;
 
 s32 NextRN(void) 
 {
