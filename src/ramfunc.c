@@ -1,6 +1,4 @@
 #include "global.h"
-#include "gba\macro.h"
-#include "functions.h"
 
 extern u8 gUnknown_03003750[];  // buffer to copy the code to
 
@@ -45,25 +43,25 @@ void CallARM_Func3(int a, int b, int c, int d)
 
 void CallARM_DecompText(int a, int b)
 {
-	gUnknown_03004150(a, b);
+    gUnknown_03004150(a, b);
 }
 
 void CallARM_PushToSecondaryOAM(int a, int b, int c, int d)
 {
-	gUnknown_03003130(a, b, c, d);
+    gUnknown_03003130(a, b, c, d);
 }
 
 void CallARM_PushToPrimaryOAM(int a, int b, int c, int d)
 {
-	gUnknown_03004154(a, b, c, d);
+    gUnknown_03004154(a, b, c, d);
 }
 
 void CallARM_Func5(int a, int b, int c)
 {
-	gUnknown_03004960(a, b, c);
+    gUnknown_03004960(a, b, c);
 }
 
 void CallARM_FillMovementMap()
 {
-	gUnknown_03003128();
+    gUnknown_03003128();
 }

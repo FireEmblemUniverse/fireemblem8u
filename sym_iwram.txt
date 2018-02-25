@@ -98,15 +98,11 @@
 . = 0x002A69; gUnknown_03002A69 = .;
 . = 0x002B08; gUnknown_03002B08 = .;
 . = 0x002B09; gUnknown_03002B09 = .;
-. = 0x002B88; gUnknown_03002B88 = .;
-. = 0x002B8C; gUnknown_03002B8C = .;
-. = 0x002B90; gUnknown_03002B90 = .;
-. = 0x002B94; gUnknown_03002B94 = .;
-. = 0x002B98; gUnknown_03002B98 = .;
 
-. = 0x2C38;
-tools/agbcc/lib/libgcc.a:dp-bit.o(.bss);
-tools/agbcc/lib/libgcc.a:fp-bit.o(.bss);
+. = 0x2B88;
+. = ALIGN(4); tools/agbcc/lib/libc.a:syscalls.o(.bss);
+. = ALIGN(4); tools/agbcc/lib/libgcc.a:dp-bit.o(.bss);
+. = ALIGN(4); tools/agbcc/lib/libgcc.a:fp-bit.o(.bss);
 
 . = 0x002C60; SoundMainRAM_Buffer = .;
 . = 0x002C61; gUnknown_03002C61 = .;
@@ -202,7 +198,8 @@ tools/agbcc/lib/libgcc.a:fp-bit.o(.bss);
 . = 0x0067A0; gUnknown_030067A0 = .;
 . = 0x0067A4; gUnknown_030067A4 = .;
 
-. = 0x67A8; tools/agbcc/lib/libc.a:sbrkr.o(COMMON);
+. = 0x67A8;
+. = ALIGN(4); tools/agbcc/lib/libc.a:sbrkr.o(COMMON);
 
 . = 0x007E00; gUnknown_03007E00 = .;
 . = 0x007F00; gUnknown_03007F00 = .;
