@@ -494,7 +494,7 @@ extern u8 gUnknown_020244A8[];
 // extern ??? gUnknown_02024CB8
 extern struct Struct02024CD4 gUnknown_02024CD4;
 extern struct Struct02024CDC gUnknown_02024CDC[];
-// extern ??? gUnknown_02024E5C
+extern struct Struct02024E5C gUnknown_02024E5C;
 // extern ??? gProcesses
 // extern ??? gUnknown_02026968
 // extern ??? gUnknown_02026A6C
@@ -826,10 +826,10 @@ extern u16 gUnknown_0300312C;
 // extern ??? gUnknown_03003130
 extern void (*gUnknown_03003134)(void);
 extern u16 gUnknown_03003140[];
-extern void *gUnknown_03003240;
+extern u32 gUnknown_03003240[];
 // extern ??? gUnknown_03003540
 // extern ??? gUnknown_03003740
-extern void *gUnknown_03003744;
+extern u32 *gUnknown_03003744;
 extern void (*gUnknown_03003748)(void);
 // extern ??? gUnknown_03003750
 // extern ??? gUnknown_03004150

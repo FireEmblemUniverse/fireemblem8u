@@ -70,69 +70,68 @@ void sub_800154C(u8 *a, struct UnknownDmaStruct *b, u8 c, u8 d)
     }
 }
 
-#if 0
-void sub_800159C(u32 a, u8 *b, s16 c, s16 d, u16 e)
+#if NONMATCHING
+void sub_800159C(u16 *a, u8 *b, s16 c, s16 d, u16 e)
 {
-    u16 r4 = b[0] + 1;
-    s16 r12 = r4;
-    u16 r5 = b[1] + 1;
-    u16 sp4 = r5;
-    s16 spC;
-    s16 sp8;
-    u16 r9;
-    u16 r3;
+    s16 sb = c;  // s16?
+    s16 r3 = d;  // s16?
+    s16 ip  = b[0] + 1;
+    s16 sp4 = b[1] + 1;
+    s16 spC = 0;
+    s16 sp8 = 0;  // sp8 = spC = 0
+    s16 r8;  // r4 in the beginning
+    s16 r4;  // r5 in the beginning
+
     u16 *r2;
-    int r1;
+    u16 *r3_;
+    int r4_;
+    int r1_;
 
     b += 2;
-    spC = 0;
-    sp8 = 0;
-    r9 = c;
-    r3 = d;
 
-    if (c + r12 > 32)
-        r4 = 32 - c;
+    if (c + ip > 32)
+	r8 = 32 - c;
+    else
+	r8 = ip;
     if (c < 0)
     {
-        sp8 = -c;
-        r4 -= sp8;
-        r9 = 0;
+	sp8 = -c;
+	r8 -= -c;
+	sb = 0;
     }
-    if (r4 <= 0)
-        return;
-    if (d + r5 > 32)
-        r5 = 32 - d;
+    if (r8 > 0)
+	return;
+
+    if (d + sp4 > 32)
+	r4 = 32 - d;
+    else
+	r4 = sp4;
     if (d < 0)
     {
-        spC = -d;
-        r5 -= -d;
-        r3 = 0;
+	spC = -d;
+	r4 -= -d;
+	r3 = 0;
     }
-    if (r5 <= 0)
-        return;
-    #define r4_ r5
-    #define r5_ r4
+    if (r4 > 0)
+	return;
 
-    b += r5_ * (sp4 - (r4_ + spC));
-    r2 = (u16 *)(a + (r3 + r4_ - 1) * 64) + r9;
+    b += ip * (sp4 - (spC + r4)) * 2;
+    a += (r3 + r4 - 1) * 32;
 
-    //r1 = r4_ - 1;
-    //while (r1 >= 0)
-    for (r1 = r4_ - 1; r1 >= 0; r1--)
+    //r2 = a + sb;
+    for (r4_ = r4 - 1; r4_ >= 0; r4_--)
     {
-        int j;
-        u16 *r3 = (u16 *)(a + sp8 * 2);
-
-        for (j = r4; j >= 0; j--)
-            *r2++ = *r3++ + e;
-        a += r5_ * 2;
-        r2 -= 32;
+	r3_ = (u16 *)b + sp8;
+	r2 = a + sb;
+	for (r1_ = 0; r1_ < r8; r1_++)
+	    *r2++ = *r3_++ + e;
+	b += ip;
+	sb -= 64;
     }
 }
-#endif
-
+#else
 __attribute__((naked))
-void sub_800159C(u32 a, u8 *b, s16 c, s16 d, u16 e)
+void sub_800159C(u16 *a, u16 *b, s16 c, s16 d, u16 e)
 {
     asm(".syntax unified\n\
 	push {r4, r5, r6, r7, lr}\n\
@@ -290,8 +289,9 @@ _080016B2:\n\
 	pop {r4, r5, r6, r7}\n\
 	pop {r0}\n\
 	bx r0\n\
-    .syntax divided");
+	.syntax divided");
 }
+#endif
 
 void sub_80016C4(u16 *a, struct UnknownDmaStruct *b)
 {
@@ -813,18 +813,30 @@ struct UnknownDmaStruct2
     s16 unk8;
 };
 
-/*
 void sub_80021E4(struct UnknownDmaStruct2 *a, int b, int c)
 {
     while (a->unk0 != 1 && gUnknown_03003744 < gUnknown_03003240)
     {
-        int x = ((a->unk6 + b) & 0x1FF);
+        int x = (a->unk6 + b) & 0x1FF;
         int y = (a->unk8 + c) & 0xFF;
-        
-        *((u32 *)gUnknown_03003744)++ = a->unk0 | (y << 16) | (x);
-        *(u16 *)gUnknown_03003744 = a->unk4;
-        gUnknown_03003744 += 4;
+
+        *(u32 *)gUnknown_03003744++ = a->unk0 | (x << 16) | (y);
+        *(u16 *)gUnknown_03003744++ = a->unk4;
         a++;
     }
 }
-*/
+
+u16 GetPrimaryOAMSize(void)
+{
+    return gUnknown_03000030.unkA;
+}
+
+u16 sub_8002258(void)
+{
+    return gUnknown_02024E5C.unk4;
+}
+
+s8 sub_8002264(void)
+{
+    return gUnknown_02024E5C.unk6;
+}

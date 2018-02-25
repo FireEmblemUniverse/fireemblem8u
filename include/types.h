@@ -52,4 +52,11 @@ struct Struct02024CD4
     int unk4;
 };
 
+struct Struct02024E5C
+{
+    u8 filler0[4];
+    u16 unk4;
+    s8 unk6;
+};
+
 #endif  // GUARD_TYPES_H
