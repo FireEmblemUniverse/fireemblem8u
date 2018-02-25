@@ -6,7 +6,7 @@
 CgbSound: @ 0x080D0D30
 	push {r4, r5, r6, r7, lr}
 	mov r7, sl
-	mov r6, sb
+	mov r6, r9
 	mov r5, r8
 	push {r5, r6, r7}
 	sub sp, #0x1c
@@ -38,7 +38,7 @@ _080D0D60:
 	mov sl, r2
 	movs r2, #0x40
 	adds r2, r2, r4
-	mov sb, r2
+	mov r9, r2
 	cmp r0, #0
 	bne _080D0D76
 	b _080D1160
@@ -124,7 +124,7 @@ _080D0DF0:
 	mov sl, r0
 	movs r1, #0x40
 	adds r1, r1, r4
-	mov sb, r1
+	mov r9, r1
 	cmp r5, #0
 	bne _080D0F0A
 	movs r0, #3
@@ -195,7 +195,7 @@ _080D0E8C:
 _080D0EA0: .4byte 0x04000090
 _080D0EA4:
 	movs r1, #0x80
-	rsbs r1, r1, #0
+	negs r1, r1
 	strb r1, [r4, #0x1a]
 	b _080D0EC8
 _080D0EAC:
@@ -225,7 +225,7 @@ _080D0EC8:
 	mov sl, r1
 	movs r1, #0x40
 	adds r1, r1, r4
-	mov sb, r1
+	mov r9, r1
 	cmp r0, #0
 	bne _080D0EE2
 	b _080D101E
@@ -247,7 +247,7 @@ _080D0EE6:
 	mov sl, r1
 	movs r2, #0x40
 	adds r2, r2, r4
-	mov sb, r2
+	mov r9, r2
 	cmp r0, #0
 	ble _080D0F0A
 	b _080D105E
@@ -265,7 +265,7 @@ _080D0F18:
 	mov sl, r2
 	movs r2, #0x40
 	adds r2, r2, r4
-	mov sb, r2
+	mov r9, r2
 	cmp r0, #0
 	beq _080D0F58
 	movs r0, #3
@@ -399,7 +399,7 @@ _080D100E:
 	ands r0, r1
 	ldrb r2, [r4, #0xa]
 	cmp r0, r2
-	blo _080D1048
+	bcc _080D1048
 _080D101E:
 	ldrb r0, [r4]
 	subs r0, #1
@@ -571,7 +571,7 @@ _080D115C:
 	strb r0, [r4, #0x1d]
 _080D1160:
 	mov r6, sl
-	mov r4, sb
+	mov r4, r9
 	cmp r6, #4
 	bgt _080D116A
 	b _080D0D60
@@ -579,7 +579,7 @@ _080D116A:
 	add sp, #0x1c
 	pop {r3, r4, r5}
 	mov r8, r3
-	mov sb, r4
+	mov r9, r4
 	mov sl, r5
 	pop {r4, r5, r6, r7}
 	pop {r0}

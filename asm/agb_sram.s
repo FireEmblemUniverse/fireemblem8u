@@ -17,7 +17,7 @@ SRAMLoader: @ 0x080D16E4
 	strh r0, [r2]
 	subs r3, #1
 	movs r0, #1
-	rsbs r0, r0, #0
+	negs r0, r0
 	cmp r3, r0
 	beq _080D1714
 	adds r1, r0, #0
@@ -52,7 +52,7 @@ SRAMTransfer: @ 0x080D1724
 	strh r0, [r2]
 	subs r3, #1
 	movs r0, #1
-	rsbs r0, r0, #0
+	negs r0, r0
 	cmp r3, r0
 	beq _080D1754
 	adds r1, r0, #0
@@ -87,7 +87,7 @@ SaveChecker: @ 0x080D1764
 	strh r0, [r2]
 	subs r3, #1
 	movs r0, #1
-	rsbs r0, r0, #0
+	negs r0, r0
 	cmp r3, r0
 	beq _080D17A6
 	adds r2, r0, #0
@@ -237,7 +237,7 @@ sub_80D188C: @ 0x080D188C
 	cmp r0, #0
 	bgt _080D18A8
 	movs r3, #0
-	rsbs r0, r0, #0
+	negs r0, r0
 	adds r4, r5, #0
 	lsls r4, r0
 	b _080D18B8
