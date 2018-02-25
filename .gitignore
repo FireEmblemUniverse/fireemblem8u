@@ -57,3 +57,4 @@ Temporary Items
 src/*.s
 *.dump
 tools/agbcc
+*.exe
