@@ -1460,7 +1460,7 @@ _08006034:
 	bne _08006052
 	movs r5, #0x18
 _08006052:
-	bl GetOtherRN
+	bl AdvanceGetLCGRNValue
 	lsrs r0, r0, #0x10
 	movs r1, #7
 	ands r0, r1
@@ -1997,7 +1997,7 @@ _0800646C: .4byte gUnknown_03004980
 sub_8006470: @ 0x08006470
 	push {r4, lr}
 	adds r4, r0, #0
-	bl GetOtherRN
+	bl AdvanceGetLCGRNValue
 	adds r1, r0, #0
 	lsrs r2, r1, #0x10
 	ldrh r1, [r4, #0x30]

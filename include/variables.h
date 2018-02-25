@@ -702,7 +702,7 @@ extern struct Struct02024E5C gUnknown_02024E5C;
 // extern ??? gUnknown_0203EFB4
 // extern ??? end
 // extern ??? gUnknown_03000000
-// extern ??? gUnknown_03000008
+// extern ??? gLCGRNValue
 // extern ??? gUnknown_0300000C
 extern u8 gUnknown_0300000D;
 extern u8 gUnknown_0300000E;
@@ -899,8 +899,8 @@ extern void *gUnknown_03004158;
 // extern ??? gUnknown_03007FF8
 // extern ??? gUnknown_03007FFC
 // extern ??? gUnknown_08000540
-extern u8 gBuildDateTime[]; // "2005/02/04(FRI) 16:55:40...."
-extern u8 gYearProjectCreated[]; // "_2003..."
+extern const char gBuildDateTime[]; // "2005/02/04(FRI) 16:55:40...."
+extern const char gYearProjectCreated[]; // "_2003..."
 // extern ??? gUnknown_080D74F4
 extern const u16 gUnknown_080D7504[];
 // extern ??? gUnknown_080D751C

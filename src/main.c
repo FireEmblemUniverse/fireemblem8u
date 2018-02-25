@@ -2,6 +2,12 @@
 #include "functions.h"
 #include "proc.h"
 
+// uninitialized memory in the original build due to changing this call to no longer use __FILE__.
+const u16 gUninitializedMemory[] = {0x4641, 0x464A, 0x4653, 0x465C};
+
+const char gBuildDateTime[] = "2005/02/04(FRI) 16:55:40";
+const char gYearProjectCreated[] = "_2003";
+
 void StoreIRQToIRAM();
 
 void AgbMain()
@@ -25,9 +31,8 @@ void AgbMain()
     Proc_Initialize();
     TCS_ClearAll();
     ResetMoveunitStructs();
-    SetOtherRNState(0x42D690E9);
-	GetOtherRN();
-    sub_8000BC8();
+    SetLCGRNValue(0x42D690E9);
+    InitRN(AdvanceGetLCGRNValue());
     sub_8000D0C();
     sub_80A7374();
     sub_80A40A8();

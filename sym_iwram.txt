@@ -1,5 +1,4 @@
-. = 0x000000; gUnknown_03000000 = .;
-. = 0x000008; gUnknown_03000008 = .;
+. = ALIGN(4); src/rng.o(.bss);
 . = 0x00000C; gUnknown_0300000C = .;
 . = 0x00000D; gUnknown_0300000D = .;
 . = 0x00000E; gUnknown_0300000E = .;

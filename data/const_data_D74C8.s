@@ -1,24 +1,6 @@
 	.section .rodata
 
-	.global gUnknown_080D74C8
-gUnknown_080D74C8:  @ 0x080D74C8
-	.incbin "baserom.gba", 0xD74C8, 0x8
-
-	.align 2, 0
-	.global gBuildDateTime
-gBuildDateTime:  @ 0x080D74D0
-	.asciz "2005/02/04(FRI) 16:55:40"
-
-	.align 2, 0
-	.global gYearProjectCreated
-gYearProjectCreated:  @ 0x080D74EC
-	.asciz "_2003"
-
-	.align 2, 0
-	.global gUnknown_080D74F4
-gUnknown_080D74F4:  @ 0x080D74F4
-	.incbin "baserom.gba", 0xD74F4, 0x10
-
+	.align 2
 	.global gUnknown_080D7504
 gUnknown_080D7504:  @ 0x080D7504
 	.incbin "baserom.gba", 0xD7504, 0x18
