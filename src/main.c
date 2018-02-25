@@ -26,7 +26,7 @@ void AgbMain()
     TCS_ClearAll();
     ResetMoveunitStructs();
     SetOtherRNState(0x42D690E9);
-    GetOtherRN();
+	GetOtherRN();
     sub_8000BC8();
     sub_8000D0C();
     sub_80A7374();
