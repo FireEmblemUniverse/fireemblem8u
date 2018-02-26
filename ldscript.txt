@@ -45,6 +45,11 @@ SECTIONS
         asm/face.o(.text);
         asm/ap.o(.text);
         asm/gamectrl.o(.text);
+        asm/messdecode.o(.text);
+        asm/spline.o(.text);
+        asm/evtcmd_gmap.o(.text);
+        asm/event.o(.text);
+        asm/evtscr.o(.text);
         asm/code.o(.text);
         asm/m4a_1.o(.text);
         src/m4a_2.o(.text);
