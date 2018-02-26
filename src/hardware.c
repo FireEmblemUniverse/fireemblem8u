@@ -269,68 +269,68 @@ void ExecMainUpdate(void)
         gUnknown_02024CB8();
 }
 
-void _UpdateKeyStatus(struct KeyStatus *keyStatus, s16 b)
+void _UpdateKeyStatus(struct KeyStatusBuffer *keyStatus, s16 keyMask)
 {
-    keyStatus->unk0A = keyStatus->unk04;
-    keyStatus->unk04 = b;
-    keyStatus->unk06 = keyStatus->unk04 & ~keyStatus->unk0A;
-    keyStatus->unk08 = keyStatus->unk06;
-    if (keyStatus->unk08 != 0)
-        keyStatus->unk0C = b;
-    keyStatus->unk0E = 0;
-    if (keyStatus->unk04 == 0)
+    keyStatus->Previous = keyStatus->Current;
+    keyStatus->Current = keyMask;
+    keyStatus->TickPresses = keyStatus->Current & ~keyStatus->Previous;
+    keyStatus->NewPresses = keyStatus->TickPresses;
+    if (keyStatus->NewPresses != 0)
+        keyStatus->LastPressState = keyMask;
+    keyStatus->ABLRPressed = 0;
+    if (keyStatus->Current == 0)
     {
-        if (keyStatus->unk0C != 0 && keyStatus->unk0C == (keyStatus->unk0A & 0x303))
-            keyStatus->unk0E = keyStatus->unk0A;
+        if (keyStatus->LastPressState != 0 && keyStatus->LastPressState == (keyStatus->Previous & (L_BUTTON | R_BUTTON | B_BUTTON | A_BUTTON)))
+            keyStatus->ABLRPressed = keyStatus->Previous;
     }
-    if (keyStatus->unk04 != 0 && keyStatus->unk04 == keyStatus->unk0A)
+    if (keyStatus->Current != 0 && keyStatus->Current == keyStatus->Previous)
     {
-        keyStatus->unk02--;
-        if (keyStatus->unk02 == 0)
+        keyStatus->TickDownCounter--;
+        if (keyStatus->TickDownCounter == 0)
         {
-            keyStatus->unk06 = keyStatus->unk04;
-            keyStatus->unk02 = keyStatus->unk01;
+            keyStatus->TickPresses = keyStatus->Current;
+            keyStatus->TickDownCounter = keyStatus->NextTickDelay;
         }
     }
     else
     {
-        keyStatus->unk02 = keyStatus->unk00;
+        keyStatus->TickDownCounter = keyStatus->FirstTickDelay;
     }
-    keyStatus->unk10 ^= keyStatus->unk04;
-    keyStatus->unk10 &= keyStatus->unk04;
-    if (b & 0x3F3)
-        keyStatus->unk12 = 0;
-    else if (keyStatus->unk12 < 0xFFFF)
-        keyStatus->unk12++;
+    keyStatus->NewPresses2 ^= keyStatus->Current;
+    keyStatus->NewPresses2 &= keyStatus->Current;
+    if (keyMask & (A_BUTTON | B_BUTTON | DPAD_ANY | R_BUTTON | L_BUTTON)) // any button other than start and select
+        keyStatus->TimeSinceStartSelect = 0;
+    else if (keyStatus->TimeSinceStartSelect < 0xFFFF)
+        keyStatus->TimeSinceStartSelect++;
 }
 
-void UpdateKeyStatus(struct KeyStatus *keyStatus)
+void UpdateKeyStatus(struct KeyStatusBuffer *keyStatus)
 {
     u16 keys = ~REG_KEYINPUT;
 
     keys &= KEYS_MASK;
-    if ((keys & 0xF) != 0xF)
+    if ((keys & (A_BUTTON | B_BUTTON | START_BUTTON | SELECT_BUTTON)) != (A_BUTTON | B_BUTTON | START_BUTTON | SELECT_BUTTON))
         keys &= ~gUnknown_03000010;
     _UpdateKeyStatus(keyStatus, keys);
 }
 
 // unreferenced
-void sub_8001414(struct KeyStatus *keyStatus)
+void sub_8001414(struct KeyStatusBuffer *keyStatus)
 {
-    keyStatus->unk08 = 0;
-    keyStatus->unk06 = 0;
-    keyStatus->unk04 = 0;
+    keyStatus->NewPresses = 0;
+    keyStatus->TickPresses = 0;
+    keyStatus->Current = 0;
 }
 
-void ResetKeyStatus(struct KeyStatus *keyStatus)
+void ResetKeyStatus(struct KeyStatusBuffer *keyStatus)
 {
-    keyStatus->unk00 = 12;
-    keyStatus->unk01 = 4;
-    keyStatus->unk0A = 0;
-    keyStatus->unk04 = 0;
-    keyStatus->unk08 = 0;
-    keyStatus->unk02 = 0;
-    keyStatus->unk12 = 0;
+    keyStatus->FirstTickDelay = 12;
+    keyStatus->NextTickDelay = 4;
+    keyStatus->Previous = 0;
+    keyStatus->Current = 0;
+    keyStatus->NewPresses = 0;
+    keyStatus->TickDownCounter = 0;
+    keyStatus->TimeSinceStartSelect = 0;
     gUnknown_03000010 = 0;
 }
 
@@ -346,9 +346,9 @@ int GetKeyStatus_IgnoreMask(void)
 
 void KeyStatusSetter_Set(struct Proc *proc)
 {
-    gKeyStatusPtr->unk08 = proc->data[29];
-    gKeyStatusPtr->unk06 = proc->data[29];
-    gKeyStatusPtr->unk04 = proc->data[29];
+    gKeyStatusPtr->NewPresses = proc->data[29];
+    gKeyStatusPtr->TickPresses = proc->data[29];
+    gKeyStatusPtr->Current = proc->data[29];
 }
 
 static struct ProcCmd sKeyStatusSetterProc[] =
@@ -913,9 +913,9 @@ void sub_8001C78(void)
 {
     if (sub_8000D18() != 0)
     {
-        if (gKeyStatusPtr->unk04 == 0x303)
+        if (gKeyStatusPtr->Current == 0x303)
             sub_80D16B0(0);
-        else if (gKeyStatusPtr->unk04 == 15)
+        else if (gKeyStatusPtr->Current == 15)
             sub_80D16B0(0);
     }
 }

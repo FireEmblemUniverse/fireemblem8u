@@ -71,19 +71,19 @@ struct Struct02024E5C
     s8 unk6;
 };
 
-struct KeyStatus
+struct KeyStatusBuffer
 {
-    u8 unk00;
-    u8 unk01;
-    u8 unk02;
-    u16 unk04;
-    u16 unk06;
-    u16 unk08;
-    u16 unk0A;
-    u16 unk0C;
-    u16 unk0E;
-    u16 unk10;
-    u16 unk12;
+    u8 FirstTickDelay;
+    u8 NextTickDelay;
+    u8 TickDownCounter; // (decreased by one each frame, reset to FirstTickDelay when Presses change and NextTickDelay when reaches 0)
+    u16 Current;
+    u16 TickPresses; // 1 For Press|Tick&Pressed, 0 Otherwise
+    u16 NewPresses;  // 1 For Press, 0 Otherwise
+    u16 Previous; // Current, but set only if NewPresses is not null
+    u16 LastPressState;
+    bool16 ABLRPressed; // 1 for Release (A B L R Only), 0 Otherwise
+    u16 NewPresses2;
+    u16 TimeSinceStartSelect; // Time since last Non-Start Non-Select Button was pressed
 };
 
 typedef void (*InterruptHandler)(void);
