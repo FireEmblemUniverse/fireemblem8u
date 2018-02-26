@@ -2916,7 +2916,7 @@ sub_8006B4C: @ 0x08006B4C
 	bl sub_8006ADC
 	cmp r0, #0
 	bne _08006BC4
-	ldr r0, _08006BB4  @ gUnknown_0858791C
+	ldr r0, _08006BB4  @ gKeyStatusPtr
 	ldr r0, [r0]
 	ldrh r1, [r0, #8]
 	movs r0, #0xa
@@ -2943,7 +2943,7 @@ sub_8006B4C: @ 0x08006B4C
 	.align 2, 0
 _08006BAC: .4byte gUnknown_08591470
 _08006BB0: .4byte gUnknown_085914C8
-_08006BB4: .4byte gUnknown_0858791C
+_08006BB4: .4byte gKeyStatusPtr
 _08006BB8: .4byte gUnknown_0859133C
 _08006BBC: .4byte gUnknown_02022CA8
 _08006BC0: .4byte gUnknown_020234A8
@@ -2956,7 +2956,7 @@ _08006BC4:
 	bl sub_8006ADC
 	cmp r0, #0
 	bne _08006BEE
-	ldr r0, _08006BF8  @ gUnknown_0858791C
+	ldr r0, _08006BF8  @ gKeyStatusPtr
 	ldr r0, [r0]
 	ldrh r1, [r0, #8]
 	movs r0, #0xf3
@@ -2973,7 +2973,7 @@ _08006BEE:
 	bx r0
 	.align 2, 0
 _08006BF4: .4byte gUnknown_085913F0
-_08006BF8: .4byte gUnknown_0858791C
+_08006BF8: .4byte gKeyStatusPtr
 _08006BFC: .4byte gUnknown_0859133C
 
 	THUMB_FUNC_START sub_8006C00
@@ -4979,7 +4979,7 @@ _08007C8C:
 	movs r0, #0
 	bl RegisterObjectAttributes_SafeMaybe
 _08007CAC:
-	ldr r0, _08007CD0  @ gUnknown_0858791C
+	ldr r0, _08007CD0  @ gKeyStatusPtr
 	ldr r0, [r0]
 	ldrh r1, [r0, #8]
 	movs r0, #0xf3
@@ -4996,7 +4996,7 @@ _08007CC0:
 	.align 2, 0
 _08007CC8: .4byte gUnknown_08591430
 _08007CCC: .4byte 0x0000B2BF
-_08007CD0: .4byte gUnknown_0858791C
+_08007CD0: .4byte gKeyStatusPtr
 
 	THUMB_FUNC_START sub_8007CD4
 sub_8007CD4: @ 0x08007CD4
@@ -5230,7 +5230,7 @@ _08007E98: .4byte gLCDControlBuffer
 sub_8007E9C: @ 0x08007E9C
 	push {r4, r5, lr}
 	adds r4, r0, #0
-	ldr r0, _08007EC8  @ gUnknown_0858791C
+	ldr r0, _08007EC8  @ gKeyStatusPtr
 	ldr r0, [r0]
 	ldrh r1, [r0, #8]
 	movs r0, #2
@@ -5250,7 +5250,7 @@ _08007EC0:
 	movs r0, #0
 	b _08007EF6
 	.align 2, 0
-_08007EC8: .4byte gUnknown_0858791C
+_08007EC8: .4byte gKeyStatusPtr
 _08007ECC: .4byte gUnknown_0202BCF0
 _08007ED0: .4byte gUnknown_030000E8
 _08007ED4:
@@ -5304,7 +5304,7 @@ _08007F2A:
 	beq _08007F38
 	bl _call_via_r0
 _08007F38:
-	ldr r0, _08007F98  @ gUnknown_0858791C
+	ldr r0, _08007F98  @ gKeyStatusPtr
 	ldr r0, [r0]
 	ldrh r1, [r0, #8]
 	movs r0, #0x10
@@ -5351,7 +5351,7 @@ _08007F8C:
 	bx r0
 	.align 2, 0
 _08007F94: .4byte gUnknown_0202BCF0
-_08007F98: .4byte gUnknown_0858791C
+_08007F98: .4byte gKeyStatusPtr
 
 	THUMB_FUNC_START sub_8007F9C
 sub_8007F9C: @ 0x08007F9C

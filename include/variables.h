@@ -1338,10 +1338,13 @@ extern const u16 gUnknown_080D7504[];
 // extern ??? __mprec_bigtens
 // extern ??? gUnknown_085878F4
 // extern ??? gUnknown_085878F8
-extern struct KeyStatus *gUnknown_0858791C;
-extern const struct ProcCmd gUnknown_08587920[];
-extern void *const gUnknown_08587938[];
-extern struct BgCnt *const gUnknown_08587948[];
+
+// .data variables
+// Everything below this point must not be declared as const.
+
+extern struct KeyStatus *gKeyStatusPtr;
+extern void *gUnknown_08587938[];
+extern struct BgCnt *gUnknown_08587948[];
 // extern ??? gUnknown_08587958
 // extern ??? gUnknown_08587970
 // extern ??? gUnknown_08587988

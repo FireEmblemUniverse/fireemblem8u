@@ -492,9 +492,9 @@
 . = 0x0244A8; gUnknown_020244A8 = .;
 . = 0x024CA8; gUnknown_02024CA8 = .;
 . = 0x024CB8; gUnknown_02024CB8 = .;
-. = 0x024CD4; gUnknown_02024CD4 = .;
-. = 0x024CDC; gUnknown_02024CDC = .;
-. = 0x024E5C; gUnknown_02024E5C = .;
+. = 0x024CC0;
+. = ALIGN(4); src/main.o(ewram_data);
+. = ALIGN(4); src/hardware.o(ewram_data);
 . = 0x024E68; src/proc.o(ewram_data);
 . = 0x026A90; gUnknown_02026A90 = .;
 . = 0x026E10; gUnknown_02026E10 = .;

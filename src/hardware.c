@@ -1,6 +1,10 @@
 #include "global.h"
 #include "proc.h"
 
+EWRAM_DATA struct Struct02024CD4 gUnknown_02024CD4 = {0};
+EWRAM_DATA struct Struct02024CDC gUnknown_02024CDC[32] = {0};
+EWRAM_DATA struct Struct02024E5C gUnknown_02024E5C = {0};
+
 void CopyToPaletteBuffer(void *src, int b, int size)
 {
     if (size & 0x1F)  // size is not a multiple of 32
@@ -340,17 +344,23 @@ int GetKeyStatus_IgnoreMask(void)
     return gUnknown_03000010;
 }
 
-// unreferenced
 void KeyStatusSetter_Set(struct Proc *proc)
 {
-    gUnknown_0858791C->unk08 = proc->data[29];
-    gUnknown_0858791C->unk06 = proc->data[29];
-    gUnknown_0858791C->unk04 = proc->data[29];
+    gKeyStatusPtr->unk08 = proc->data[29];
+    gKeyStatusPtr->unk06 = proc->data[29];
+    gKeyStatusPtr->unk04 = proc->data[29];
 }
+
+static struct ProcCmd sKeyStatusSetterProc[] =
+{
+    PROC_SLEEP(1),
+    PROC_CALL_ROUTINE(KeyStatusSetter_Set),
+    PROC_END,
+};
 
 void NewKeyStatusSetter(int a)
 {
-    struct Proc *proc = Proc_Create(gUnknown_08587920, (struct Proc *)1);
+    struct Proc *proc = Proc_Create(sKeyStatusSetterProc, (struct Proc *)1);
 
     proc->data[29] = a;
 }
@@ -876,6 +886,14 @@ void SetupBackgrounds(u16 *a)
     gLCDControlBuffer.dispcnt.obj_on = 1;
 }
 
+static void *gUnknown_08587938[] =
+{
+    gUnknown_02022CA8,
+    gUnknown_020234A8,
+    gUnknown_02023CA8,
+    gUnknown_020244A8,
+};
+
 void *BG_GetMapBuffer(int a)
 {
     return gUnknown_08587938[a];
@@ -895,9 +913,9 @@ void sub_8001C78(void)
 {
     if (sub_8000D18() != 0)
     {
-        if (gUnknown_0858791C->unk04 == 0x303)
+        if (gKeyStatusPtr->unk04 == 0x303)
             sub_80D16B0(0);
-        else if (gUnknown_0858791C->unk04 == 15)
+        else if (gKeyStatusPtr->unk04 == 15)
             sub_80D16B0(0);
     }
 }
@@ -976,6 +994,14 @@ int GetBackgroundFromBufferPointer(u8 *ptr)
         return 3;
     return -1;
 }
+
+struct BgCnt *gUnknown_08587948[] =
+{
+    &gLCDControlBuffer.bg0cnt,
+    &gLCDControlBuffer.bg1cnt,
+    &gLCDControlBuffer.bg2cnt,
+    &gLCDControlBuffer.bg3cnt,
+};
 
 void BG_SetDepth(int bg, int priority)
 {
