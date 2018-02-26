@@ -490,8 +490,8 @@ extern u8 gUnknown_02023CA8[];
 // extern ??? gUnknown_02024044
 // extern ??? gUnknown_0202404A
 extern u8 gUnknown_020244A8[];
-// extern ??? gUnknown_02024CA8
-// extern ??? gUnknown_02024CB8
+extern void *gUnknown_02024CA8[];
+extern void (*gUnknown_02024CB8)(void);
 extern struct Struct02024CD4 gUnknown_02024CD4;
 extern struct Struct02024CDC gUnknown_02024CDC[];
 extern struct Struct02024E5C gUnknown_02024E5C;
@@ -704,9 +704,9 @@ extern struct Struct02024E5C gUnknown_02024E5C;
 // extern ??? gUnknown_03000000
 // extern ??? gLCGRNValue
 // extern ??? gUnknown_0300000C
-extern u8 gUnknown_0300000D;
-extern u8 gUnknown_0300000E;
-// extern ??? gUnknown_03000010
+extern u8 gUnknown_0300000D;  // BGs that need copying
+extern s8 gUnknown_0300000E;
+extern u16 gUnknown_03000010;
 // extern ??? gUnknown_03000014
 extern u8 gUnknown_03000018;
 extern u8 gUnknown_03000019;
@@ -1338,8 +1338,8 @@ extern const u16 gUnknown_080D7504[];
 // extern ??? __mprec_bigtens
 // extern ??? gUnknown_085878F4
 // extern ??? gUnknown_085878F8
-extern struct Struct0858791C *gUnknown_0858791C;
-// extern ??? gUnknown_08587920
+extern struct KeyStatus *gUnknown_0858791C;
+extern const struct ProcCmd gUnknown_08587920[];
 extern void *const gUnknown_08587938[];
 extern struct BgCnt *const gUnknown_08587948[];
 // extern ??? gUnknown_08587958

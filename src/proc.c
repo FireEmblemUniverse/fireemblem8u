@@ -52,7 +52,7 @@ void Proc_Initialize(void)
         gRootProcesses[i] = NULL;
 }
 
-struct Proc *Proc_Create(struct ProcCmd *script, struct Proc *parent)
+struct Proc *Proc_Create(const struct ProcCmd *script, struct Proc *parent)
 {
     struct Proc *proc = AllocateProcess();
     int rootIndex;
@@ -266,8 +266,8 @@ static struct Proc *Proc_FindWithMark(u32 mark)
 
 void Proc_GotoLabel(struct Proc* proc_arg, int label)
 {
-    struct Proc* proc = proc_arg;
-    struct ProcCmd* ptr;
+    struct Proc *proc = proc_arg;
+    const struct ProcCmd *ptr;
 
     for (ptr = proc->script; ptr->opcode != 0; ptr++)
     {

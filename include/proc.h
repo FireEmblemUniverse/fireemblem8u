@@ -42,8 +42,8 @@ struct ProcCmd
 
 struct Proc
 {
-    /*0x00*/ struct ProcCmd *script;  // pointer to process script
-    /*0x04*/ struct ProcCmd *currCmd;  // pointer to currently executing script command
+    /*0x00*/ const struct ProcCmd *script;  // pointer to process script
+    /*0x04*/ const struct ProcCmd *currCmd;  // pointer to currently executing script command
     /*0x08*/ ProcFunc onDelete;  // callback to run upon delegint the process
     /*0x0C*/ ProcFunc nativeFunc;  // callback to run once each frame.
                                    // disables script execution when not null
@@ -57,7 +57,7 @@ struct Proc
     /*0x26*/ u8 mark;
     /*0x27*/ u8 flags;
     /*0x28*/ u8 blockSemaphore;  // wait semaphore. Process execution is blocked when this is nonzero.
-    /*0x29*/ u8 filler29[0x6C-0x29];
+    /*0x2A*/ u16 data[33];
 };
 
 struct UnknownProcStruct
@@ -68,7 +68,7 @@ struct UnknownProcStruct
 };
 
 void Proc_Initialize(void);
-// ??? Proc_Create(???);
+struct Proc *Proc_Create(const struct ProcCmd *script, struct Proc *parent);
 // ??? Proc_CreateBlockingChild(???);
 // ??? Proc_Delete(???);;
 // ??? Proc_Run(???);

@@ -37,15 +37,14 @@ struct DispCnt
     u16 obj1dMap:1;
     u16 forcedBlank:1;
     u16 bg0_on:1;
-    u16 bg1_on:1;           
-    u16 bg2_on:1;           
-    u16 bg3_on:1;           
-    u16 obj_on:1;           
-    u16 win0_on:1;          
-    u16 win1_on:1;          
-    u16 objWin_on:1;        
+    u16 bg1_on:1;
+    u16 bg2_on:1;
+    u16 bg3_on:1;
+    u16 obj_on:1;
+    u16 win0_on:1;
+    u16 win1_on:1;
+    u16 objWin_on:1;
 };
-typedef volatile struct DispCnt vDispCnt;
 
 struct DispStat
 {
@@ -55,19 +54,57 @@ struct DispStat
     u16 vblankIrqEnable:1;
     u16 hblankIrqEnable:1;
     u16 vcountIrqEnable:1;
+    u16 dummy:2;
+    u8 vcountCompare;
 };
-typedef volatile struct DispStat vDispStat;
 
 struct BgCnt
 {
     u16 priority:2;
     u16 charBaseBlock:2;
-    u16 dummy:4;
+    u16 dummy:2;
+    u16 mosaic:1;
+    u16 colorMode:1;
     u16 screenBaseBlock:5;
     u16 areaOverflowMode:1;
     u16 screenSize:2;
 };
-typedef volatile struct BgCnt vBgCnt;
+
+struct WinCnt
+{
+    u8  win0_bg0_on:1;
+    u8  win0_bg1_on:1;
+    u8  win0_bg2_on:1;
+    u8  win0_bg3_on:1;
+    u8  win0_obj_on:1;
+    u8  win0_blend_on:1;
+    u8  dummy1:2;
+
+    u8  win1_bg0_on:1;
+    u8  win1_bg1_on:1;
+    u8  win1_bg2_on:1;
+    u8  win1_bg3_on:1;
+    u8  win1_obj_on:1;
+    u8  win1_blend_on:1;
+    u8  dummy2:2;
+};
+
+struct BlendCnt
+{
+    u16 target1_bg0_on:1;
+    u16 target1_bg1_on:1;
+    u16 target1_bg2_on:1;
+    u16 target1_bg3_on:1;
+    u16 target1_obj_on:1;
+    u16 target1_bd_on:1;
+    u16 effect:2;
+    u16 target2_bg0_on:1;
+    u16 target2_bg1_on:1;
+    u16 target2_bg2_on:1;
+    u16 target2_bg3_on:1;
+    u16 target2_obj_on:1;
+    u16 target2_bd_on:1;
+};
 
 struct PlttData
 {

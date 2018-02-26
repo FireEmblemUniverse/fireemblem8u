@@ -490,10 +490,10 @@ void SetupBackgrounds(u16 *a)
     if (a == NULL)
         a = sp0;
 
-    *(u16 *)&gLCDControlBuffer.bgcnt[0] = 0;
-    *(u16 *)&gLCDControlBuffer.bgcnt[1] = 0;
-    *(u16 *)&gLCDControlBuffer.bgcnt[2] = 0;
-    *(u16 *)&gLCDControlBuffer.bgcnt[3] = 0;
+    *(u16 *)&gLCDControlBuffer.bg0cnt = 0;
+    *(u16 *)&gLCDControlBuffer.bg1cnt = 0;
+    *(u16 *)&gLCDControlBuffer.bg2cnt = 0;
+    *(u16 *)&gLCDControlBuffer.bg3cnt = 0;
 
     for (i = 0; i < 4; i++)
     {
@@ -540,9 +540,9 @@ void sub_8001C78(void)
 {
     if (sub_8000D18() != 0)
     {
-        if (gUnknown_0858791C->unk2 == 0x303)
+        if (gUnknown_0858791C->unk04 == 0x303)
             sub_80D16B0(0);
-        else if (gUnknown_0858791C->unk2 == 15)
+        else if (gUnknown_0858791C->unk04 == 15)
             sub_80D16B0(0);
     }
 }
@@ -634,10 +634,10 @@ int BG_GetDepth(int bg)
 
 void SetSpecialColorEffectsParameters(u16 a, u8 b, u8 c, u8 d)
 {
-    gLCDControlBuffer.unk3C_6 = a;
-    gLCDControlBuffer.unk44 = b;
-    gLCDControlBuffer.unk45 = c;
-    gLCDControlBuffer.unk46 = d;
+    gLCDControlBuffer.bldcnt.effect = a;
+    gLCDControlBuffer.blendCoeffA = b;
+    gLCDControlBuffer.blendCoeffB = c;
+    gLCDControlBuffer.blendY = d;
 }
 
 void sub_8001ED0(int a, int b, int c, int d, int e)
@@ -654,12 +654,12 @@ void sub_8001F0C(int a, int b, int c, int d, int e)
 
 void sub_8001F48(int a)
 {
-    gLCDControlBuffer.unk3C_5 = a;
+    gLCDControlBuffer.bldcnt.target1_bd_on = a;
 }
 
 void sub_8001F64(int a)
 {
-    gLCDControlBuffer.unk3D_5 = a;
+    gLCDControlBuffer.bldcnt.target2_bd_on = a;
 }
 
 void SetDefaultColorEffects(void)
