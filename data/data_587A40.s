@@ -1,4 +1,4 @@
-	.section .rodata
+	.section .data
 
 	.global gUnknown_08587A40
 gUnknown_08587A40:  @ 0x08587A40

@@ -620,7 +620,7 @@ static s8 ProcCmd_SET_BIT4(struct Proc *proc)
     return 1;
 }
 
-static s8 (*const sProcessCmdTable[])(struct Proc *) =
+static s8 (*sProcessCmdTable[])(struct Proc *) =
 {
     ProcCmd_DELETE,
     ProcCmd_SET_NAME,

@@ -1,4 +1,4 @@
-    .section .rodata
+    .section .data
 
 	.global gUnknown_0858791C
 gUnknown_0858791C:  @ 0x0858791C

@@ -1,4 +1,4 @@
-    .section .rodata
+    .section .data
 
 	.global gUnknown_08C00008
 gUnknown_08C00008:  @ 0x08C00008

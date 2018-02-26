@@ -113,16 +113,16 @@ SECTIONS
         . = ALIGN(4); tools/agbcc/lib/libc.a:locale.o(.rodata);
         . = ALIGN(4); /*tools/agbcc/lib/libc.a:mprec.o(.rodata);*/ data/libc_mprec.o(.rodata);
         . = ALIGN(4); tools/agbcc/lib/libc.a:syscalls.o(.rodata);
-        . = ALIGN(4); data/const_data_58791C.o(.rodata);
-        . = ALIGN(4); src/proc.o(.rodata);
-        . = ALIGN(4); data/const_data_587A40.o(.rodata);
 
         /* .data */
+        . = ALIGN(4); data/data_58791C.o(.data);
+        . = ALIGN(4); src/proc.o(.data);
+        . = ALIGN(4); data/data_587A40.o(.data);
         . = ALIGN(4); tools/agbcc/lib/libc.a:impure.o(.data);
         . = ALIGN(4); tools/agbcc/lib/libc.a:locale.o(.data);
         . = ALIGN(4); tools/agbcc/lib/libc.a:mallocr.o(.data);
-        . = ALIGN(4); data/data_B1FE7C.o(.rodata);
-        . = ALIGN(4); data/data_C00008.o(.rodata);
+        . = ALIGN(4); data/data_B1FE7C.o(.data);
+        . = ALIGN(4); data/data_C00008.o(.data);
     } = 0
 
     /* Discard everything not specifically mentioned above. */
