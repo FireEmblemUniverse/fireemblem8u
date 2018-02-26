@@ -486,7 +486,7 @@ _080095AE:
 	add r3, sl
 	ldrb r3, [r3]
 	bl RegisterObjectTileGraphics
-	ldr r0, _08009620  @ gUnknown_03003080
+	ldr r0, _08009620  @ gLCDControlBuffer
 	ldrb r1, [r0]
 	movs r0, #0x40
 	ands r0, r1
@@ -509,7 +509,7 @@ _080095AE:
 _08009614: .4byte gUnknown_085916A4
 _08009618: .4byte 0x000003FF
 _0800961C: .4byte 0x06010000
-_08009620: .4byte gUnknown_03003080
+_08009620: .4byte gLCDControlBuffer
 _08009624:
 	ldrh r0, [r5]
 	mov r1, r8
