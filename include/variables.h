@@ -492,6 +492,7 @@ extern u8 gUnknown_02023CA8[];
 extern u8 gUnknown_020244A8[];
 extern void *gUnknown_02024CA8[];
 extern void (*gUnknown_02024CB8)(void);
+extern struct KeyStatus gUnknown_02024CC0; // key status pointer
 extern struct Struct02024CD4 gUnknown_02024CD4;
 extern struct Struct02024CDC gUnknown_02024CDC[];
 extern struct Struct02024E5C gUnknown_02024E5C;
@@ -1338,7 +1339,7 @@ extern const u16 gUnknown_080D7504[];
 // extern ??? __mprec_bigtens
 // extern ??? gUnknown_085878F4
 // extern ??? gUnknown_085878F8
-extern struct KeyStatus *gUnknown_0858791C;
+extern struct KeyStatus *gKeyStatusPtr; // gKeyStatusPtr
 extern const struct ProcCmd gUnknown_08587920[];
 extern void *const gUnknown_08587938[];
 extern struct BgCnt *const gUnknown_08587948[];

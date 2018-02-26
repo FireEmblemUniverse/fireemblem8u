@@ -1,12 +1,15 @@
 #include "global.h"
 #include "functions.h"
 #include "proc.h"
+#include "types.h"
 
 // uninitialized memory in the original build due to changing this call to no longer use __FILE__.
 const u16 gUninitializedMemory[] = {0x4641, 0x464A, 0x4653, 0x465C};
 
 const char gBuildDateTime[] = "2005/02/04(FRI) 16:55:40";
 const char gYearProjectCreated[] = "_2003";
+
+struct KeyStatus *gKeyStatusPtr = &gUnknown_02024CC0;
 
 void StoreIRQToIRAM();
 
@@ -24,8 +27,8 @@ void AgbMain()
     SetInterrupt_LCDVBlank(0);
     REG_DISPSTAT = 8;
     REG_IME = 1;
-    ResetKeyStatus(gUnknown_0858791C);
-    UpdateKeyStatus(gUnknown_0858791C);
+    ResetKeyStatus(gKeyStatusPtr);
+    UpdateKeyStatus(gKeyStatusPtr);
     StoreRoutinesToIRAM();
     sub_80A2C3C();
     Proc_Initialize();

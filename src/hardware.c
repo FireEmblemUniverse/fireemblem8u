@@ -343,9 +343,9 @@ int GetKeyStatus_IgnoreMask(void)
 // unreferenced
 void KeyStatusSetter_Set(struct Proc *proc)
 {
-    gUnknown_0858791C->unk08 = proc->data[29];
-    gUnknown_0858791C->unk06 = proc->data[29];
-    gUnknown_0858791C->unk04 = proc->data[29];
+    gKeyStatusPtr->unk08 = proc->data[29];
+    gKeyStatusPtr->unk06 = proc->data[29];
+    gKeyStatusPtr->unk04 = proc->data[29];
 }
 
 void NewKeyStatusSetter(int a)
@@ -895,9 +895,9 @@ void sub_8001C78(void)
 {
     if (sub_8000D18() != 0)
     {
-        if (gUnknown_0858791C->unk04 == 0x303)
+        if (gKeyStatusPtr->unk04 == 0x303)
             sub_80D16B0(0);
-        else if (gUnknown_0858791C->unk04 == 15)
+        else if (gKeyStatusPtr->unk04 == 15)
             sub_80D16B0(0);
     }
 }

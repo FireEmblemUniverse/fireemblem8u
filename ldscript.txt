@@ -115,6 +115,7 @@ SECTIONS
         . = ALIGN(4); tools/agbcc/lib/libc.a:syscalls.o(.rodata);
 
         /* .data */
+        . = ALIGN(4); src/main.o(.data);
         . = ALIGN(4); data/data_58791C.o(.data);
         . = ALIGN(4); src/proc.o(.data);
         . = ALIGN(4); data/data_587A40.o(.data);

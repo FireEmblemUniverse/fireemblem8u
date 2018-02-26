@@ -246,7 +246,7 @@ sub_80099E4: @ 0x080099E4
 Goto6CLabel12IfSomething: @ 0x08009A00
 	push {lr}
 	adds r2, r0, #0
-	ldr r0, _08009A20  @ gUnknown_0858791C
+	ldr r0, _08009A20  @ gKeyStatusPtr
 	ldr r0, [r0]
 	ldrh r1, [r0, #4]
 	movs r0, #0x85
@@ -260,7 +260,7 @@ _08009A1A:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_08009A20: .4byte gUnknown_0858791C
+_08009A20: .4byte gKeyStatusPtr
 
 	THUMB_FUNC_START sub_8009A24
 sub_8009A24: @ 0x08009A24

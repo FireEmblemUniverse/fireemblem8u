@@ -1,9 +1,5 @@
     .section .data
 
-	.global gUnknown_0858791C
-gUnknown_0858791C:  @ 0x0858791C
-	.incbin "baserom.gba", 0x58791C, 0x4
-
 	.global gUnknown_08587920
 gUnknown_08587920:  @ 0x08587920
 	.incbin "baserom.gba", 0x587920, 0x18
