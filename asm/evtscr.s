@@ -7382,3 +7382,5 @@ _08010DB8:
 	pop {r4, r5}
 	pop {r1}
 	bx r1
+
+	.align 2, 0 @ Don't pad with nop.
