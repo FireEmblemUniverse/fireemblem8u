@@ -1,9 +1,9 @@
 #include "global.h"
 #include "proc.h"
 
-EWRAM_DATA static struct KeyStatus sKeyStatus = {0};
+EWRAM_DATA static struct KeyStatusBuffer sKeyStatusBuffer = {0};
 
-struct KeyStatus *gKeyStatusPtr = &sKeyStatus;
+struct KeyStatusBuffer *gKeyStatusPtr = &sKeyStatusBuffer;
 
 // uninitialized memory in the original build due to changing this call to no longer use __FILE__.
 const u16 gUninitializedMemory[] = {0x4641, 0x464A, 0x4653, 0x465C};

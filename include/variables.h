@@ -1342,7 +1342,7 @@ extern const u16 gUnknown_080D7504[];
 // .data variables
 // Everything below this point must not be declared as const.
 
-extern struct KeyStatus *gKeyStatusPtr;
+extern struct KeyStatusBuffer *gKeyStatusPtr;
 extern void *gUnknown_08587938[];
 extern struct BgCnt *gUnknown_08587948[];
 // extern ??? gUnknown_08587958
