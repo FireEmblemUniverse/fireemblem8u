@@ -932,9 +932,9 @@ void sub_8001C78(void)
     if (sub_8000D18() != 0)
     {
         if (gKeyStatusPtr->heldKeys == (L_BUTTON | R_BUTTON | A_BUTTON | B_BUTTON))
-            sub_80D16B0(0);
+            SoftReset(0);
         else if (gKeyStatusPtr->heldKeys == (A_BUTTON | B_BUTTON | SELECT_BUTTON | START_BUTTON))
-            sub_80D16B0(0);
+            SoftReset(0);
     }
 }
 
