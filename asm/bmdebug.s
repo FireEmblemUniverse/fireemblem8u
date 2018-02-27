@@ -98,7 +98,7 @@ _0801BBCC:
 	ldrsh r0, [r5, r2]
 	adds r1, r1, r0
 	lsls r1, r1, #1
-	ldr r0, _0801BC18  @ gUnknown_02022CA8
+	ldr r0, _0801BC18  @ gBG0TilemapBuffer
 	adds r1, r1, r0
 	adds r0, r4, #0
 	bl Text_Draw
@@ -107,7 +107,7 @@ _0801BBCC:
 	bx r1
 	.align 2, 0
 _0801BC14: .4byte gUnknown_08A20E74
-_0801BC18: .4byte gUnknown_02022CA8
+_0801BC18: .4byte gBG0TilemapBuffer
 
 	THUMB_FUNC_START sub_801BC1C
 sub_801BC1C: @ 0x0801BC1C
@@ -186,7 +186,7 @@ _0801BC72:
 	ldrsh r0, [r6, r2]
 	adds r1, r1, r0
 	lsls r1, r1, #1
-	ldr r0, _0801BCC8  @ gUnknown_02022CA8
+	ldr r0, _0801BCC8  @ gBG0TilemapBuffer
 	adds r1, r1, r0
 	adds r0, r4, #0
 	bl Text_Draw
@@ -198,7 +198,7 @@ _0801BCB8:
 	.align 2, 0
 _0801BCC0: .4byte gKeyStatusPtr
 _0801BCC4: .4byte gUnknown_08A20E74
-_0801BCC8: .4byte gUnknown_02022CA8
+_0801BCC8: .4byte gBG0TilemapBuffer
 
 	THUMB_FUNC_START sub_801BCCC
 sub_801BCCC: @ 0x0801BCCC
@@ -250,7 +250,7 @@ DebugMapMenu_DisplayInfoDraw: @ 0x0801BCE4
 	ldrsh r0, [r5, r2]
 	adds r1, r1, r0
 	lsls r1, r1, #1
-	ldr r0, _0801BD54  @ gUnknown_02022CA8
+	ldr r0, _0801BD54  @ gBG0TilemapBuffer
 	adds r1, r1, r0
 	adds r0, r6, #0
 	bl Text_Draw
@@ -261,7 +261,7 @@ DebugMapMenu_DisplayInfoDraw: @ 0x0801BCE4
 	.align 2, 0
 _0801BD4C: .4byte gUnknown_0859AA5C
 _0801BD50: .4byte gUnknown_0859AA7C
-_0801BD54: .4byte gUnknown_02022CA8
+_0801BD54: .4byte gBG0TilemapBuffer
 
 	THUMB_FUNC_START DebugMapMenu_DisplayInfoIdle
 DebugMapMenu_DisplayInfoIdle: @ 0x0801BD58
@@ -347,7 +347,7 @@ DebugMenu_WeatherDraw: @ 0x0801BDA4
 	ldrsh r0, [r5, r2]
 	adds r1, r1, r0
 	lsls r1, r1, #1
-	ldr r0, _0801BE24  @ gUnknown_02022CA8
+	ldr r0, _0801BE24  @ gBG0TilemapBuffer
 	adds r1, r1, r0
 	adds r0, r4, #0
 	bl Text_Draw
@@ -359,7 +359,7 @@ DebugMenu_WeatherDraw: @ 0x0801BDA4
 	.align 2, 0
 _0801BE1C: .4byte gUnknown_080D7A6C
 _0801BE20: .4byte gUnknown_0859AA5C
-_0801BE24: .4byte gUnknown_02022CA8
+_0801BE24: .4byte gBG0TilemapBuffer
 
 	THUMB_FUNC_START DebugMenu_WeatherIdle
 DebugMenu_WeatherIdle: @ 0x0801BE28
@@ -507,7 +507,7 @@ DebugMenu_ClearDraw: @ 0x0801BF00
 	ldrsh r0, [r5, r2]
 	adds r1, r1, r0
 	lsls r1, r1, #1
-	ldr r0, _0801BF68  @ gUnknown_02022CA8
+	ldr r0, _0801BF68  @ gBG0TilemapBuffer
 	adds r1, r1, r0
 	adds r0, r4, #0
 	bl Text_Draw
@@ -516,7 +516,7 @@ DebugMenu_ClearDraw: @ 0x0801BF00
 	pop {r1}
 	bx r1
 	.align 2, 0
-_0801BF68: .4byte gUnknown_02022CA8
+_0801BF68: .4byte gBG0TilemapBuffer
 
 	THUMB_FUNC_START DebugMenu_ClearIdle
 DebugMenu_ClearIdle: @ 0x0801BF6C
@@ -636,7 +636,7 @@ sub_801C030: @ 0x0801C030
 	bl sub_80A4DA0
 	bl SaveGame
 	movs r0, #0xff
-	bl sub_80D16B0
+	bl SoftReset
 	pop {r1}
 	bx r1
 	.align 2, 0
@@ -805,7 +805,7 @@ sub_801C198: @ 0x0801C198
 	subs r1, #8
 	ands r0, r1
 	strb r0, [r2, #1]
-	ldr r1, _0801C1D8  @ gUnknown_020228A8
+	ldr r1, _0801C1D8  @ gPaletteBuffer
 	movs r0, #0
 	strh r0, [r1]
 	bl EnablePaletteSync
@@ -813,7 +813,7 @@ sub_801C198: @ 0x0801C198
 	bx r1
 	.align 2, 0
 _0801C1D4: .4byte gLCDControlBuffer
-_0801C1D8: .4byte gUnknown_020228A8
+_0801C1D8: .4byte gPaletteBuffer
 
 	THUMB_FUNC_START sub_801C1DC
 sub_801C1DC: @ 0x0801C1DC
@@ -1113,7 +1113,7 @@ DebugMenu_FogDraw: @ 0x0801C3D4
 	ldrsh r0, [r4, r2]
 	adds r1, r1, r0
 	lsls r1, r1, #1
-	ldr r0, _0801C444  @ gUnknown_02022CA8
+	ldr r0, _0801C444  @ gBG0TilemapBuffer
 	adds r1, r1, r0
 	adds r0, r5, #0
 	bl Text_Draw
@@ -1124,7 +1124,7 @@ DebugMenu_FogDraw: @ 0x0801C3D4
 	.align 2, 0
 _0801C43C: .4byte gUnknown_0859AA7C
 _0801C440: .4byte gUnknown_0202BCF0
-_0801C444: .4byte gUnknown_02022CA8
+_0801C444: .4byte gBG0TilemapBuffer
 
 	THUMB_FUNC_START DebugMenu_FogIdle
 DebugMenu_FogIdle: @ 0x0801C448
@@ -1270,7 +1270,7 @@ _0801C51C:
 	ldrsh r0, [r5, r2]
 	adds r1, r1, r0
 	lsls r1, r1, #1
-	ldr r0, _0801C584  @ gUnknown_02022CA8
+	ldr r0, _0801C584  @ gBG0TilemapBuffer
 	adds r1, r1, r0
 	adds r0, r4, #0
 	bl Text_Draw
@@ -1281,7 +1281,7 @@ _0801C51C:
 	bx r1
 	.align 2, 0
 _0801C580: .4byte gUnknown_0202BCF0
-_0801C584: .4byte gUnknown_02022CA8
+_0801C584: .4byte gBG0TilemapBuffer
 
 	THUMB_FUNC_START DebugChargeMenu_Idle
 DebugChargeMenu_Idle: @ 0x0801C588

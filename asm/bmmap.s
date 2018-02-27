@@ -989,7 +989,7 @@ _08019C5A:
 	ldrsh r0, [r7, r1]
 	adds r0, r0, r5
 	str r0, [sp]
-	ldr r0, _08019CB4  @ gUnknown_020244A8
+	ldr r0, _08019CB4  @ gBG3TilemapBuffer
 	adds r1, r4, #0
 	adds r2, r5, #0
 	bl UpdateGameTileGfx
@@ -1024,7 +1024,7 @@ _08019C5A:
 	bx r0
 	.align 2, 0
 _08019CB0: .4byte gUnknown_0202BCB0
-_08019CB4: .4byte gUnknown_020244A8
+_08019CB4: .4byte gBG3TilemapBuffer
 _08019CB8: .4byte gLCDControlBuffer
 
 	THUMB_FUNC_START sub_8019CBC
@@ -1057,7 +1057,7 @@ _08019CE4:
 	ldrsh r0, [r7, r1]
 	adds r0, r0, r5
 	str r0, [sp]
-	ldr r0, _08019D24  @ gUnknown_02023CA8
+	ldr r0, _08019D24  @ gBG2TilemapBuffer
 	adds r1, r4, #0
 	adds r2, r5, #0
 	bl UpdateGameTileGfx
@@ -1079,7 +1079,7 @@ _08019CE4:
 	bx r0
 	.align 2, 0
 _08019D20: .4byte gUnknown_0202BCB0
-_08019D24: .4byte gUnknown_02023CA8
+_08019D24: .4byte gBG2TilemapBuffer
 
 	THUMB_FUNC_START sub_8019D28
 sub_8019D28: @ 0x08019D28
@@ -1241,7 +1241,7 @@ _08019E56:
 	mov r1, sl
 	adds r0, r1, r6
 	str r0, [sp]
-	ldr r0, _08019E80  @ gUnknown_020244A8
+	ldr r0, _08019E80  @ gBG3TilemapBuffer
 	adds r1, r7, #0
 	mov r3, r8
 	bl UpdateGameTileGfx
@@ -1253,7 +1253,7 @@ _08019E56:
 	b _08019EBA
 	.align 2, 0
 _08019E7C: .4byte gUnknown_0202BCB0
-_08019E80: .4byte gUnknown_020244A8
+_08019E80: .4byte gBG3TilemapBuffer
 _08019E84:
 	movs r6, #0xa
 _08019E86:
@@ -1264,13 +1264,13 @@ _08019E86:
 	mov r1, sl
 	adds r5, r1, r6
 	str r5, [sp]
-	ldr r0, _08019ECC  @ gUnknown_020244A8
+	ldr r0, _08019ECC  @ gBG3TilemapBuffer
 	adds r1, r7, #0
 	adds r2, r4, #0
 	mov r3, r8
 	bl UpdateGameTileGfx
 	str r4, [sp]
-	ldr r0, _08019ED0  @ gUnknown_02023CA8
+	ldr r0, _08019ED0  @ gBG2TilemapBuffer
 	mov r1, r8
 	adds r2, r5, #0
 	adds r3, r7, #0
@@ -1290,8 +1290,8 @@ _08019EBA:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_08019ECC: .4byte gUnknown_020244A8
-_08019ED0: .4byte gUnknown_02023CA8
+_08019ECC: .4byte gBG3TilemapBuffer
+_08019ED0: .4byte gBG2TilemapBuffer
 
 	THUMB_FUNC_START sub_8019ED4
 sub_8019ED4: @ 0x08019ED4
@@ -1342,7 +1342,7 @@ _08019F22:
 	adds r3, r0, r6
 	mov r0, r8
 	str r0, [sp]
-	ldr r0, _08019F4C  @ gUnknown_020244A8
+	ldr r0, _08019F4C  @ gBG3TilemapBuffer
 	adds r2, r7, #0
 	bl UpdateGameTileGfx
 	subs r6, #1
@@ -1353,7 +1353,7 @@ _08019F22:
 	b _08019F88
 	.align 2, 0
 _08019F48: .4byte gUnknown_0202BCB0
-_08019F4C: .4byte gUnknown_020244A8
+_08019F4C: .4byte gBG3TilemapBuffer
 _08019F50:
 	movs r6, #0xf
 _08019F52:
@@ -1365,13 +1365,13 @@ _08019F52:
 	adds r5, r0, r6
 	mov r0, r8
 	str r0, [sp]
-	ldr r0, _08019F98  @ gUnknown_020244A8
+	ldr r0, _08019F98  @ gBG3TilemapBuffer
 	adds r1, r4, #0
 	adds r2, r7, #0
 	adds r3, r5, #0
 	bl UpdateGameTileGfx
 	str r7, [sp]
-	ldr r0, _08019F9C  @ gUnknown_02023CA8
+	ldr r0, _08019F9C  @ gBG2TilemapBuffer
 	adds r1, r5, #0
 	mov r2, r8
 	adds r3, r4, #0
@@ -1391,8 +1391,8 @@ _08019F88:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_08019F98: .4byte gUnknown_020244A8
-_08019F9C: .4byte gUnknown_02023CA8
+_08019F98: .4byte gBG3TilemapBuffer
+_08019F9C: .4byte gBG2TilemapBuffer
 
 	THUMB_FUNC_START UpdateUnitMapAndVision
 UpdateUnitMapAndVision: @ 0x08019FA0
@@ -1810,7 +1810,7 @@ _0801A290:
 	adds r0, r4, #0
 	bl RegisterBlankTile
 _0801A2CC:
-	ldr r1, _0801A2E8  @ gUnknown_020228A8
+	ldr r1, _0801A2E8  @ gPaletteBuffer
 	movs r0, #0
 	strh r0, [r1]
 	bl EnablePaletteSync
@@ -1821,7 +1821,7 @@ _0801A2CC:
 _0801A2DC: .4byte gUnknown_02030B8C
 _0801A2E0: .4byte gUnknown_0202BCB0
 _0801A2E4: .4byte 0x000003FF
-_0801A2E8: .4byte gUnknown_020228A8
+_0801A2E8: .4byte gPaletteBuffer
 
 	THUMB_FUNC_START RevertMapChangesById
 RevertMapChangesById: @ 0x0801A2EC

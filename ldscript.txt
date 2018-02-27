@@ -121,6 +121,7 @@ SECTIONS
         /* .rodata */
         . = ALIGN(4); src/main.o(.rodata);
         . = ALIGN(4); src/rng.o(.rodata);
+        . = ALIGN(4); src/hardware.o(.rodata);
         . = ALIGN(4); data/const_data_D74C8.o(.rodata);
         . = ALIGN(4); tools/agbcc/lib/libc.a:vfprintf.o(.rodata);
         . = ALIGN(4); tools/agbcc/lib/libc.a:dtoa.o(.rodata);

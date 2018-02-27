@@ -214,7 +214,7 @@ sub_801BA88: @ 0x0801BA88
 	adds r4, #1
 	add r4, r8
 	lsls r4, r4, #1
-	ldr r0, _0801BAE8  @ gUnknown_02022CA8
+	ldr r0, _0801BAE8  @ gBG0TilemapBuffer
 	adds r4, r4, r0
 	add r0, sp, #4
 	adds r1, r4, #0
@@ -228,7 +228,7 @@ sub_801BA88: @ 0x0801BA88
 	pop {r0}
 	bx r0
 	.align 2, 0
-_0801BAE8: .4byte gUnknown_02022CA8
+_0801BAE8: .4byte gBG0TilemapBuffer
 
 	THUMB_FUNC_START sub_801BAEC
 sub_801BAEC: @ 0x0801BAEC

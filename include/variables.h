@@ -315,7 +315,7 @@
 extern s8 gUnknown_02022288[];
 extern s8 gUnknown_020222A8[];
 // extern ??? gUnknown_02022308
-extern u16 gUnknown_020228A8[];
+extern u16 gPaletteBuffer[];
 // extern ??? gUnknown_020228AA
 // extern ??? gUnknown_020228C8
 // extern ??? gUnknown_020228E8
@@ -342,7 +342,7 @@ extern u16 gUnknown_020228A8[];
 // extern ??? gUnknown_02022C28
 // extern ??? gUnknown_02022C48
 // extern ??? gUnknown_02022C68
-extern u8 gUnknown_02022CA8[];
+extern u8 gBG0TilemapBuffer[];
 // extern ??? gUnknown_02022CAA
 // extern ??? gUnknown_02022CAC
 // extern ??? gUnknown_02022CAE
@@ -421,7 +421,7 @@ extern u8 gUnknown_02022CA8[];
 // extern ??? gUnknown_02023116
 // extern ??? gUnknown_02023130
 // extern ??? gUnknown_02023136
-extern u8 gUnknown_020234A8[];
+extern u8 gBG1TilemapBuffer[];
 // extern ??? gUnknown_020234AC
 // extern ??? gUnknown_020234AE
 // extern ??? gUnknown_020234B0
@@ -455,7 +455,7 @@ extern u8 gUnknown_020234A8[];
 // extern ??? gUnknown_0202393E
 // extern ??? gUnknown_0202396C
 // extern ??? gUnknown_020239A8
-extern u8 gUnknown_02023CA8[];
+extern u8 gBG2TilemapBuffer[];
 // extern ??? gUnknown_02023CAA
 // extern ??? gUnknown_02023CAE
 // extern ??? gUnknown_02023CB6
@@ -489,11 +489,11 @@ extern u8 gUnknown_02023CA8[];
 // extern ??? gUnknown_0202400A
 // extern ??? gUnknown_02024044
 // extern ??? gUnknown_0202404A
-extern u8 gUnknown_020244A8[];
+extern u8 gBG3TilemapBuffer[];
 extern void *gUnknown_02024CA8[];
-extern void (*gUnknown_02024CB8)(void);
+extern void (*gMainCallback)(void);
 extern struct Struct02024CD4 gUnknown_02024CD4;
-extern struct Struct02024CDC gUnknown_02024CDC[];
+extern struct TileDataTransfer gUnknown_02024CDC[];
 extern struct Struct02024E5C gUnknown_02024E5C;
 // extern ??? gProcesses
 // extern ??? gUnknown_02026968
@@ -704,15 +704,15 @@ extern struct Struct02024E5C gUnknown_02024E5C;
 // extern ??? gUnknown_03000000
 // extern ??? gLCGRNValue
 // extern ??? gUnknown_0300000C
-extern u8 gUnknown_0300000D;  // BGs that need copying
-extern s8 gUnknown_0300000E;
+extern u8 sModifiedBGs;  // BGs that need copying
+extern s8 sModifiedPalette;
 extern u16 gUnknown_03000010;
 // extern ??? gUnknown_03000014
 extern u8 gUnknown_03000018;
 extern u8 gUnknown_03000019;
 extern u8 gUnknown_0300001A;
-extern struct Struct02024CDC gUnknown_03000020;
-extern struct Struct02024CDC gUnknown_03000030;
+extern struct OamDataTransfer gUnknown_03000020;
+extern struct OamDataTransfer gUnknown_03000030;
 // extern ??? gUnknown_03000040
 // extern ??? gUnknown_03000044
 // extern ??? gUnknown_030000D0
@@ -824,13 +824,13 @@ extern u16 gUnknown_030030BC;
 // extern ??? gUnknown_03003128
 extern u16 gUnknown_0300312C;
 // extern ??? gUnknown_03003130
-extern void (*gUnknown_03003134)(void);
+extern void (*sHBlankHandler1)(void);
 extern u16 gUnknown_03003140[];
 extern u32 gUnknown_03003240[];
 // extern ??? gUnknown_03003540
 // extern ??? gUnknown_03003740
 extern u32 *gUnknown_03003744;
-extern void (*gUnknown_03003748)(void);
+extern void (*sHBlankHandler2)(void);
 // extern ??? gUnknown_03003750
 // extern ??? gUnknown_03004150
 // extern ??? gUnknown_03004154

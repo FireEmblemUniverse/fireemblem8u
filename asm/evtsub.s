@@ -933,12 +933,12 @@ sub_8011EF0: @ 0x08011EF0
 	adds r4, r0, #0
 	lsls r4, r4, #0x18
 	lsrs r4, r4, #0x18
-	ldr r0, _08011F34  @ gUnknown_02023CA8
+	ldr r0, _08011F34  @ gBG2TilemapBuffer
 	movs r1, #0
 	bl BG_Fill
 	movs r0, #4
 	bl BG_EnableSyncByMask
-	ldr r1, _08011F38  @ gUnknown_020228A8
+	ldr r1, _08011F38  @ gPaletteBuffer
 	movs r0, #0
 	strh r0, [r1]
 	bl EnablePaletteSync
@@ -957,8 +957,8 @@ _08011F22:
 	bl BeginAnimsOnBattleAnimations
 	b _08011F52
 	.align 2, 0
-_08011F34: .4byte gUnknown_02023CA8
-_08011F38: .4byte gUnknown_020228A8
+_08011F34: .4byte gBG2TilemapBuffer
+_08011F38: .4byte gPaletteBuffer
 _08011F3C:
 	bl ClearMOVEUNITs
 	bl UpdateGameTilesGraphics

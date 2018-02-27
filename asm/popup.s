@@ -37,7 +37,7 @@ sub_8010DC0: @ 0x08010DC0
 	adds r1, r1, r0
 	adds r0, r6, #0
 	bl CopyDataWithPossibleUncomp
-	ldr r0, _08010E48  @ gUnknown_020244A8
+	ldr r0, _08010E48  @ gBG3TilemapBuffer
 	adds r1, r5, #4
 	adds r1, r4, r1
 	ldr r1, [r1]
@@ -53,7 +53,7 @@ sub_8010DC0: @ 0x08010DC0
 	bl CopyToPaletteBuffer
 	movs r0, #8
 	bl BG_EnableSyncByMask
-	ldr r1, _08010E4C  @ gUnknown_020228A8
+	ldr r1, _08010E4C  @ gPaletteBuffer
 	movs r0, #0
 	strh r0, [r1]
 	pop {r4, r5, r6}
@@ -61,8 +61,8 @@ sub_8010DC0: @ 0x08010DC0
 	bx r0
 	.align 2, 0
 _08010E44: .4byte gUnknown_0895DD1C
-_08010E48: .4byte gUnknown_020244A8
-_08010E4C: .4byte gUnknown_020228A8
+_08010E48: .4byte gBG3TilemapBuffer
+_08010E4C: .4byte gPaletteBuffer
 
 	THUMB_FUNC_START sub_8010E50
 sub_8010E50: @ 0x08010E50
@@ -694,7 +694,7 @@ _0801134C:
 	adds r1, #1
 	adds r1, r1, r7
 	lsls r1, r1, #1
-	ldr r0, _080113B8  @ gUnknown_02022CA8
+	ldr r0, _080113B8  @ gBG0TilemapBuffer
 	adds r1, r1, r0
 	add r0, sp, #4
 	bl Text_Draw
@@ -740,7 +740,7 @@ _080113A4:
 	bx r0
 	.align 2, 0
 _080113B4: .4byte 0x0000FFFF
-_080113B8: .4byte gUnknown_02022CA8
+_080113B8: .4byte gBG0TilemapBuffer
 _080113BC: .4byte gUnknown_08592228
 
 	THUMB_FUNC_START LongPopup_WaitForPress
@@ -786,7 +786,7 @@ LongPopup_Clear: @ 0x080113F8
 	ldrb r1, [r7]
 	adds r0, r0, r1
 	lsls r0, r0, #1
-	ldr r1, _08011448  @ gUnknown_02022CA8
+	ldr r1, _08011448  @ gBG0TilemapBuffer
 	adds r0, r0, r1
 	adds r6, r2, #0
 	adds r6, #0x39
@@ -801,7 +801,7 @@ LongPopup_Clear: @ 0x080113F8
 	ldrb r7, [r7]
 	adds r0, r0, r7
 	lsls r0, r0, #1
-	ldr r1, _0801144C  @ gUnknown_020234A8
+	ldr r1, _0801144C  @ gBG1TilemapBuffer
 	adds r0, r0, r1
 	ldrb r1, [r6]
 	ldrb r2, [r4]
@@ -813,8 +813,8 @@ LongPopup_Clear: @ 0x080113F8
 	pop {r0}
 	bx r0
 	.align 2, 0
-_08011448: .4byte gUnknown_02022CA8
-_0801144C: .4byte gUnknown_020234A8
+_08011448: .4byte gBG0TilemapBuffer
+_0801144C: .4byte gBG1TilemapBuffer
 
 	THUMB_FUNC_START SetPopupUnit
 SetPopupUnit: @ 0x08011450
