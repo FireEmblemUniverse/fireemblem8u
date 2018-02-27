@@ -27,7 +27,7 @@ _0800379A:
 	movs r2, #0x80
 	lsls r2, r2, #4
 	bl RegisterTileGraphics
-	ldr r1, _080037F8  @ gUnknown_020228A8
+	ldr r1, _080037F8  @ gPaletteBuffer
 	movs r0, #0
 	strh r0, [r1]
 	ldr r0, _080037FC  @ 0x00007FFF
@@ -50,7 +50,7 @@ _0800379A:
 	.align 2, 0
 _080037F0: .4byte gUnknown_08587A40
 _080037F4: .4byte 0x0001FFFF
-_080037F8: .4byte gUnknown_020228A8
+_080037F8: .4byte gPaletteBuffer
 _080037FC: .4byte 0x00007FFF
 _08003800: .4byte gUnknown_02026E30
 
@@ -117,7 +117,7 @@ sub_8003870: @ 0x08003870
 	push {r4, r5, r6, lr}
 	movs r1, #0
 	ldr r2, _080038AC  @ gUnknown_02026E30
-	ldr r6, _080038B0  @ gUnknown_02023CA8
+	ldr r6, _080038B0  @ gBG2TilemapBuffer
 	movs r5, #0xff
 	adds r4, r2, #0
 	adds r4, #0x14
@@ -144,7 +144,7 @@ _08003880:
 	bx r0
 	.align 2, 0
 _080038AC: .4byte gUnknown_02026E30
-_080038B0: .4byte gUnknown_02023CA8
+_080038B0: .4byte gBG2TilemapBuffer
 
 	THUMB_FUNC_START sub_80038B4
 sub_80038B4: @ 0x080038B4
@@ -366,7 +366,7 @@ _08003A36:
 	THUMB_FUNC_START FlushDBGToBG2
 FlushDBGToBG2: @ 0x08003A3C
 	push {r4, r5, r6, r7, lr}
-	ldr r0, _08003A88  @ gUnknown_02023CA8
+	ldr r0, _08003A88  @ gBG2TilemapBuffer
 	movs r1, #0
 	bl BG_Fill
 	movs r2, #0
@@ -377,7 +377,7 @@ FlushDBGToBG2: @ 0x08003A3C
 	movs r6, #0xff
 _08003A52:
 	lsls r1, r2, #6
-	ldr r0, _08003A88  @ gUnknown_02023CA8
+	ldr r0, _08003A88  @ gBG2TilemapBuffer
 	adds r3, r1, r0
 	ldr r0, [r7, #0x10]
 	adds r0, r2, r0
@@ -404,7 +404,7 @@ _08003A7A:
 	subs r0, #0x40
 	b _08003A94
 	.align 2, 0
-_08003A88: .4byte gUnknown_02023CA8
+_08003A88: .4byte gBG2TilemapBuffer
 _08003A8C: .4byte gUnknown_02026E30
 _08003A90:
 	adds r0, r2, #0
@@ -522,7 +522,7 @@ _08003B32:
 	movs r2, #0x80
 	lsls r2, r2, #4
 	bl RegisterTileGraphics
-	ldr r3, _08003BA8  @ gUnknown_020228A8
+	ldr r3, _08003BA8  @ gPaletteBuffer
 	adds r1, r4, #0
 	adds r1, #0x10
 	lsls r0, r1, #5
@@ -551,7 +551,7 @@ _08003B98: .4byte gUnknown_02028E50
 _08003B9C: .4byte gUnknown_02028E54
 _08003BA0: .4byte gUnknown_08587A40
 _08003BA4: .4byte 0x0001FFFF
-_08003BA8: .4byte gUnknown_020228A8
+_08003BA8: .4byte gPaletteBuffer
 _08003BAC: .4byte 0x00007FFF
 
 	THUMB_FUNC_START PrintDebugStringAsOBJ
@@ -1680,7 +1680,7 @@ Font_LoadForUI: @ 0x080043A8
 	lsls r1, r1, #5
 	movs r2, #0x20
 	bl CopyToPaletteBuffer
-	ldr r1, _080043E0  @ gUnknown_020228A8
+	ldr r1, _080043E0  @ gPaletteBuffer
 	ldr r2, [r4]
 	ldrh r0, [r2, #0x14]
 	lsls r0, r0, #5
@@ -1697,7 +1697,7 @@ Font_LoadForUI: @ 0x080043A8
 	.align 2, 0
 _080043D8: .4byte gUnknown_0859EF00
 _080043DC: .4byte gUnknown_02028E70
-_080043E0: .4byte gUnknown_020228A8
+_080043E0: .4byte gPaletteBuffer
 _080043E4: .4byte Font_StandardGlyphDrawer
 
 	THUMB_FUNC_START Font_LoadForDialogue
@@ -1710,7 +1710,7 @@ Font_LoadForDialogue: @ 0x080043E8
 	lsls r1, r1, #5
 	movs r2, #0x20
 	bl CopyToPaletteBuffer
-	ldr r1, _08004420  @ gUnknown_020228A8
+	ldr r1, _08004420  @ gPaletteBuffer
 	ldr r2, [r4]
 	ldrh r0, [r2, #0x14]
 	lsls r0, r0, #5
@@ -1727,7 +1727,7 @@ Font_LoadForDialogue: @ 0x080043E8
 	.align 2, 0
 _08004418: .4byte gUnknown_0859EF20
 _0800441C: .4byte gUnknown_02028E70
-_08004420: .4byte gUnknown_020228A8
+_08004420: .4byte gPaletteBuffer
 _08004424: .4byte Font_StandardGlyphDrawer
 
 	THUMB_FUNC_START Font_SetSomeSpecialDrawingRoutine
@@ -2450,7 +2450,7 @@ sub_8004984: @ 0x08004984
 	lsrs r0, r0, #2
 	movs r1, #0xf
 	ands r0, r1
-	ldr r2, _080049A4  @ gUnknown_020228A8
+	ldr r2, _080049A4  @ gPaletteBuffer
 	lsls r0, r0, #1
 	ldr r1, _080049A8  @ gUnknown_0859EFC0
 	adds r0, r0, r1
@@ -2460,7 +2460,7 @@ sub_8004984: @ 0x08004984
 	pop {r0}
 	bx r0
 	.align 2, 0
-_080049A4: .4byte gUnknown_020228A8
+_080049A4: .4byte gPaletteBuffer
 _080049A8: .4byte gUnknown_0859EFC0
 
 	THUMB_FUNC_START NewGreenTextColorManager
@@ -2817,7 +2817,7 @@ sub_8004C1C: @ 0x08004C1C
 	bl sub_8000D28
 	adds r5, r0, #0
 	movs r0, #0
-	ldr r1, _08004C64  @ gUnknown_02022CA8
+	ldr r1, _08004C64  @ gBG0TilemapBuffer
 	mov r8, r1
 _08004C2E:
 	adds r7, r0, #1
@@ -2846,7 +2846,7 @@ _08004C34:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_08004C64: .4byte gUnknown_02022CA8
+_08004C64: .4byte gBG0TilemapBuffer
 
 	THUMB_FUNC_START sub_8004C68
 sub_8004C68: @ 0x08004C68

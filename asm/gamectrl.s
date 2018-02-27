@@ -320,7 +320,7 @@ sub_8009A84: @ 0x08009A84
 	sub sp, #4
 	movs r0, #0
 	str r0, [sp]
-	ldr r1, _08009AAC  @ gUnknown_020228A8
+	ldr r1, _08009AAC  @ gPaletteBuffer
 	ldr r2, _08009AB0  @ 0x01000100
 	mov r0, sp
 	bl CpuFastSet
@@ -333,7 +333,7 @@ sub_8009A84: @ 0x08009A84
 	pop {r0}
 	bx r0
 	.align 2, 0
-_08009AAC: .4byte gUnknown_020228A8
+_08009AAC: .4byte gPaletteBuffer
 _08009AB0: .4byte 0x01000100
 _08009AB4: .4byte Delete6CIfNotMarkedB
 _08009AB8: .4byte SomeUpdateRoutine
