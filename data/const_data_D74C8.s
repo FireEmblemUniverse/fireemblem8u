@@ -1,9 +1,6 @@
 	.section .rodata
 
 	.align 2
-	.global gUnknown_080D7504
-gUnknown_080D7504:  @ 0x080D7504
-	.incbin "baserom.gba", 0xD7504, 0x18
 
 	.global gUnknown_080D751C
 gUnknown_080D751C:  @ 0x080D751C

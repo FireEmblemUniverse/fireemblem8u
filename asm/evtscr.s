@@ -2502,7 +2502,7 @@ _0800E842:
 	adds r1, r1, r0
 	adds r0, r6, #0
 	bl CopyDataWithPossibleUncomp
-	ldr r0, _0800E898  @ gUnknown_020244A8
+	ldr r0, _0800E898  @ gBG3TilemapBuffer
 	adds r1, r5, #4
 	adds r1, r4, r1
 	ldr r1, [r1]
@@ -2519,19 +2519,19 @@ _0800E842:
 	movs r0, #8
 	bl BG_EnableSyncByMask
 	bl EnablePaletteSync
-	ldr r1, _0800E89C  @ gUnknown_020228A8
+	ldr r1, _0800E89C  @ gPaletteBuffer
 	movs r0, #0
 	strh r0, [r1]
 	b _0800E8BE
 	.align 2, 0
 _0800E894: .4byte gUnknown_0895DD1C
-_0800E898: .4byte gUnknown_020244A8
-_0800E89C: .4byte gUnknown_020228A8
+_0800E898: .4byte gBG3TilemapBuffer
+_0800E89C: .4byte gPaletteBuffer
 _0800E8A0:
 	movs r0, #3
 	bl GetBackgroundTileDataOffset
 	adds r1, r0, #0
-	ldr r0, _0800E8C8  @ gUnknown_020244A8
+	ldr r0, _0800E8C8  @ gBG3TilemapBuffer
 	str r6, [sp]
 	movs r2, #8
 	movs r3, #8
@@ -2547,7 +2547,7 @@ _0800E8C0:
 	pop {r1}
 	bx r1
 	.align 2, 0
-_0800E8C8: .4byte gUnknown_020244A8
+_0800E8C8: .4byte gBG3TilemapBuffer
 
 	THUMB_FUNC_START Event21_
 Event21_: @ 0x0800E8CC
@@ -3042,7 +3042,7 @@ _0800EC94:
 	adds r1, r1, r0
 	adds r0, r4, #0
 	bl CopyDataWithPossibleUncomp
-	ldr r0, _0800ECF8  @ gUnknown_02023CA8
+	ldr r0, _0800ECF8  @ gBG2TilemapBuffer
 	ldrh r2, [r6, #0x2c]
 	lsls r1, r2, #1
 	adds r1, r1, r2
@@ -3065,19 +3065,19 @@ _0800EC94:
 	movs r0, #4
 	bl BG_EnableSyncByMask
 	bl EnablePaletteSync
-	ldr r1, _0800ECFC  @ gUnknown_020228A8
+	ldr r1, _0800ECFC  @ gPaletteBuffer
 	movs r0, #0
 	strh r0, [r1]
 	b _0800ED20
 	.align 2, 0
 _0800ECF4: .4byte gUnknown_0895DD1C
-_0800ECF8: .4byte gUnknown_02023CA8
-_0800ECFC: .4byte gUnknown_020228A8
+_0800ECF8: .4byte gBG2TilemapBuffer
+_0800ECFC: .4byte gPaletteBuffer
 _0800ED00:
 	movs r0, #2
 	bl GetBackgroundTileDataOffset
 	adds r1, r0, #0
-	ldr r0, _0800ED48  @ gUnknown_02023CA8
+	ldr r0, _0800ED48  @ gBG2TilemapBuffer
 	ldrh r2, [r6, #0x2c]
 	str r2, [sp]
 	movs r2, #0
@@ -3107,7 +3107,7 @@ _0800ED20:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_0800ED48: .4byte gUnknown_02023CA8
+_0800ED48: .4byte gBG2TilemapBuffer
 _0800ED4C: .4byte gLCDControlBuffer
 
 	THUMB_FUNC_START sub_800ED50
@@ -3158,7 +3158,7 @@ _0800ED94:
 	adds r1, r1, r0
 	adds r0, r4, #0
 	bl CopyDataWithPossibleUncomp
-	ldr r0, _0800EDFC  @ gUnknown_020244A8
+	ldr r0, _0800EDFC  @ gBG3TilemapBuffer
 	ldrh r2, [r6, #0x2c]
 	lsls r1, r2, #1
 	adds r1, r1, r2
@@ -3183,19 +3183,19 @@ _0800ED94:
 	movs r0, #8
 	bl BG_EnableSyncByMask
 	bl EnablePaletteSync
-	ldr r1, _0800EE00  @ gUnknown_020228A8
+	ldr r1, _0800EE00  @ gPaletteBuffer
 	movs r0, #0
 	strh r0, [r1]
 	b _0800EE24
 	.align 2, 0
 _0800EDF8: .4byte gUnknown_0895DD1C
-_0800EDFC: .4byte gUnknown_020244A8
-_0800EE00: .4byte gUnknown_020228A8
+_0800EDFC: .4byte gBG3TilemapBuffer
+_0800EE00: .4byte gPaletteBuffer
 _0800EE04:
 	movs r0, #3
 	bl GetBackgroundTileDataOffset
 	adds r1, r0, #0
-	ldr r0, _0800EE4C  @ gUnknown_020244A8
+	ldr r0, _0800EE4C  @ gBG3TilemapBuffer
 	ldrh r2, [r6, #0x2c]
 	str r2, [sp]
 	movs r2, #8
@@ -3225,7 +3225,7 @@ _0800EE24:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_0800EE4C: .4byte gUnknown_020244A8
+_0800EE4C: .4byte gBG3TilemapBuffer
 _0800EE50: .4byte gLCDControlBuffer
 
 	THUMB_FUNC_START sub_800EE54
@@ -3474,7 +3474,7 @@ _0800EFE2:
 	movs r0, #1
 	bl sub_8001F64
 	bl sub_800BA34
-	ldr r0, _0800F0C0  @ gUnknown_02023CA8
+	ldr r0, _0800F0C0  @ gBG2TilemapBuffer
 	movs r1, #0
 	bl BG_Fill
 	movs r0, #4
@@ -3519,7 +3519,7 @@ _0800EFE2:
 	bx r0
 	.align 2, 0
 _0800F0BC: .4byte gLCDControlBuffer
-_0800F0C0: .4byte gUnknown_02023CA8
+_0800F0C0: .4byte gBG2TilemapBuffer
 _0800F0C4: .4byte 0x01000008
 
 	THUMB_FUNC_START Event22_
@@ -3531,10 +3531,10 @@ Event22_: @ 0x0800F0C8
 	adds r0, #0x44
 	ldrh r0, [r0]
 	bl sub_800BCDC
-	ldr r0, _0800F118  @ gUnknown_02022CA8
+	ldr r0, _0800F118  @ gBG0TilemapBuffer
 	movs r1, #0
 	bl BG_Fill
-	ldr r0, _0800F11C  @ gUnknown_020234A8
+	ldr r0, _0800F11C  @ gBG1TilemapBuffer
 	movs r1, #0
 	bl BG_Fill
 	movs r0, #1
@@ -3554,8 +3554,8 @@ Event22_: @ 0x0800F0C8
 	pop {r1}
 	bx r1
 	.align 2, 0
-_0800F118: .4byte gUnknown_02022CA8
-_0800F11C: .4byte gUnknown_020234A8
+_0800F118: .4byte gBG0TilemapBuffer
+_0800F11C: .4byte gBG1TilemapBuffer
 _0800F120: .4byte gUnknown_08591154
 
 	THUMB_FUNC_START Event23_
@@ -3642,10 +3642,10 @@ _0800F198:
 	adds r0, #0x44
 	ldrh r0, [r0]
 	bl sub_800BCDC
-	ldr r0, _0800F204  @ gUnknown_02022CA8
+	ldr r0, _0800F204  @ gBG0TilemapBuffer
 	movs r1, #0
 	bl BG_Fill
-	ldr r0, _0800F208  @ gUnknown_020234A8
+	ldr r0, _0800F208  @ gBG1TilemapBuffer
 	movs r1, #0
 	bl BG_Fill
 	movs r0, #1
@@ -3660,8 +3660,8 @@ _0800F198:
 _0800F1F8: .4byte gUnknown_030004E4
 _0800F1FC: .4byte gUnknown_0202BCF0
 _0800F200: .4byte gUnknown_0202BCB0
-_0800F204: .4byte gUnknown_02022CA8
-_0800F208: .4byte gUnknown_020234A8
+_0800F204: .4byte gBG0TilemapBuffer
+_0800F208: .4byte gBG1TilemapBuffer
 
 	THUMB_FUNC_START Event26_CameraControlMaybe
 Event26_CameraControlMaybe: @ 0x0800F20C

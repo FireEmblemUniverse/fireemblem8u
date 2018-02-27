@@ -2,32 +2,38 @@
 #include "proc.h"
 
 EWRAM_DATA struct Struct02024CD4 gUnknown_02024CD4 = {0};
-EWRAM_DATA struct Struct02024CDC gUnknown_02024CDC[32] = {0};
+EWRAM_DATA struct TileDataTransfer gUnknown_02024CDC[32] = {0};
 EWRAM_DATA struct Struct02024E5C gUnknown_02024E5C = {0};
+
+//static u8 sModifiedBGs;
 
 void CopyToPaletteBuffer(void *src, int b, int size)
 {
     if (size & 0x1F)  // size is not a multiple of 32
-        CpuCopy16(src, gUnknown_020228A8 + (b >> 1), size);
+        CpuCopy16(src, gPaletteBuffer + (b >> 1), size);
     else
-        CpuFastCopy(src, gUnknown_020228A8 + (b >> 1), size);
-    gUnknown_0300000E = 1;
+        CpuFastCopy(src, gPaletteBuffer + (b >> 1), size);
+    sModifiedPalette = 1;
 }
+
+#define RED_MASK 0x1F
+#define GREEN_MASK (0x1F << 5)
+#define BLUE_MASK (0x1F << 10)
 
 void sub_8000E14(u16 *a, int b, int size, int d)
 {
-    u16 *dest = gUnknown_020228A8 + (b >> 1);
+    u16 *dest = gPaletteBuffer + (b >> 1);
     u16 *src = a;
     int i;
 
     for (i = 0; i < size; i++)
     {
-        *dest++ = ((((*src & 0x1F) * d) >> 6) & 0x1F)
-                + ((((*src & 0x3E0) * d) >> 6) & 0x3E0)
-                + ((((*src & 0x7C00) * d) >> 6) & 0x7C00);
+        *dest++ = ((((*src & RED_MASK) * d) >> 6) & RED_MASK)
+                + ((((*src & GREEN_MASK) * d) >> 6) & GREEN_MASK)
+                + ((((*src & BLUE_MASK) * d) >> 6) & BLUE_MASK);
         src++;
     }
-    gUnknown_0300000E = 1;
+    sModifiedPalette = 1;
 }
 
 void FlushLCDControl(void)
@@ -130,10 +136,10 @@ void sub_800106C(int bg, int bitsPerPixel)
     GetBackgroundControlBuffer(bg)->colorMode = (bitsPerPixel == 8) ? 1 : 0;
 }
 
-void FlushPalettesAdditive(int a)
+static void ApplyColorAddition_ClampMax(int a)
 {
     int i;
-    u16 *src = gUnknown_020228A8;
+    u16 *src = gPaletteBuffer;
     u16 *dest = (u16 *)PLTT;
 
     for (i = 0; i < 0x200; i++)
@@ -156,10 +162,10 @@ void FlushPalettesAdditive(int a)
     }
 }
 
-void FlushPalettesSubstractive(int a)
+static void ApplyColorAddition_ClampMin(int a)
 {
     int i;
-    u16 *src = gUnknown_020228A8;
+    u16 *src = gPaletteBuffer;
     u16 *dest = (u16 *)PLTT;
 
     for (i = 0; i < 0x200; i++)
@@ -184,25 +190,25 @@ void FlushPalettesSubstractive(int a)
 
 void FlushBackgrounds(void)
 {
-    if (gUnknown_0300000D & (1 << 0))
-        CpuFastCopy(gUnknown_02022CA8, gUnknown_02024CA8[0], 0x800);
-    if (gUnknown_0300000D & (1 << 1))
-        CpuFastCopy(gUnknown_020234A8, gUnknown_02024CA8[1], 0x800);
-    if (gUnknown_0300000D & (1 << 2))
-        CpuFastCopy(gUnknown_02023CA8, gUnknown_02024CA8[2], 0x800);
-    if (gUnknown_0300000D & (1 << 3))
-        CpuFastCopy(gUnknown_020244A8, gUnknown_02024CA8[3], 0x800);
-    gUnknown_0300000D = 0;
+    if (sModifiedBGs & (1 << 0))
+        CpuFastCopy(gBG0TilemapBuffer, gUnknown_02024CA8[0], 0x800);
+    if (sModifiedBGs & (1 << 1))
+        CpuFastCopy(gBG1TilemapBuffer, gUnknown_02024CA8[1], 0x800);
+    if (sModifiedBGs & (1 << 2))
+        CpuFastCopy(gBG2TilemapBuffer, gUnknown_02024CA8[2], 0x800);
+    if (sModifiedBGs & (1 << 3))
+        CpuFastCopy(gBG3TilemapBuffer, gUnknown_02024CA8[3], 0x800);
+    sModifiedBGs = 0;
 
-    if (gUnknown_0300000E == 1)
+    if (sModifiedPalette == 1)
     {
-        gUnknown_0300000E = 0;
-        if (gLCDControlBuffer.unk68 == 0)
-            CpuFastCopy(gUnknown_020228A8, (void *)PLTT, 0x400);
-        else if (gLCDControlBuffer.unk68 > 0)
-            FlushPalettesAdditive(gLCDControlBuffer.unk68);
+        sModifiedPalette = 0;
+        if (gLCDControlBuffer.colorAddition == 0)
+            CpuFastCopy(gPaletteBuffer, (void *)PLTT, 0x400);
+        else if (gLCDControlBuffer.colorAddition > 0)
+            ApplyColorAddition_ClampMax(gLCDControlBuffer.colorAddition);
         else
-            FlushPalettesSubstractive(gLCDControlBuffer.unk68);
+            ApplyColorAddition_ClampMin(gLCDControlBuffer.colorAddition);
     }
 }
 
@@ -253,52 +259,57 @@ void sub_8001308(int a)
     REG_DISPSTAT = dispstat;
 }
 
-void SetLCDVCountSetting(int a)
+void SetLCDVCountSetting(int set)
 {
-    gLCDControlBuffer.dispstat.vcountCompare = a;
+    gLCDControlBuffer.dispstat.vcountCompare = set;
 }
 
 void SetMainUpdateRoutine(void (*func)(void))
 {
-    gUnknown_02024CB8 = func;
+    gMainCallback = func;
 }
 
 void ExecMainUpdate(void)
 {
-    if (gUnknown_02024CB8 != NULL)
-        gUnknown_02024CB8();
+    if (gMainCallback != NULL)
+        gMainCallback();
 }
 
-void _UpdateKeyStatus(struct KeyStatusBuffer *keyStatus, s16 keyMask)
+void _UpdateKeyStatus(struct KeyStatusBuffer *keyStatus, s16 keys)
 {
-    keyStatus->Previous = keyStatus->Current;
-    keyStatus->Current = keyMask;
-    keyStatus->TickPresses = keyStatus->Current & ~keyStatus->Previous;
-    keyStatus->NewPresses = keyStatus->TickPresses;
-    if (keyStatus->NewPresses != 0)
-        keyStatus->LastPressState = keyMask;
+    keyStatus->prevKeys = keyStatus->heldKeys;
+    keyStatus->heldKeys = keys;
+
+    // keys that are pressed now, but weren't pressed before
+    keyStatus->newKeys = keyStatus->repeatedKeys = keyStatus->heldKeys & ~keyStatus->prevKeys;
+
+    if (keyStatus->newKeys != 0)
+        keyStatus->LastPressState = keys;
     keyStatus->ABLRPressed = 0;
-    if (keyStatus->Current == 0)
+    if (keyStatus->heldKeys == 0)
     {
-        if (keyStatus->LastPressState != 0 && keyStatus->LastPressState == (keyStatus->Previous & (L_BUTTON | R_BUTTON | B_BUTTON | A_BUTTON)))
-            keyStatus->ABLRPressed = keyStatus->Previous;
+        if (keyStatus->LastPressState != 0 && keyStatus->LastPressState == (keyStatus->prevKeys & (L_BUTTON | R_BUTTON | B_BUTTON | A_BUTTON)))
+            keyStatus->ABLRPressed = keyStatus->prevKeys;
     }
-    if (keyStatus->Current != 0 && keyStatus->Current == keyStatus->Previous)
+
+    if (keyStatus->heldKeys != 0 && keyStatus->heldKeys == keyStatus->prevKeys)  // keys are being held
     {
-        keyStatus->TickDownCounter--;
-        if (keyStatus->TickDownCounter == 0)
+        keyStatus->repeatTimer--;
+        if (keyStatus->repeatTimer == 0)
         {
-            keyStatus->TickPresses = keyStatus->Current;
-            keyStatus->TickDownCounter = keyStatus->NextTickDelay;
+            keyStatus->repeatedKeys = keyStatus->heldKeys;
+            keyStatus->repeatTimer = keyStatus->repeatInterval;  // reset repeat timer
         }
     }
     else
     {
-        keyStatus->TickDownCounter = keyStatus->FirstTickDelay;
+	// held key combination has changed. reset timer
+        keyStatus->repeatTimer = keyStatus->repeatDelay;
     }
-    keyStatus->NewPresses2 ^= keyStatus->Current;
-    keyStatus->NewPresses2 &= keyStatus->Current;
-    if (keyMask & (A_BUTTON | B_BUTTON | DPAD_ANY | R_BUTTON | L_BUTTON)) // any button other than start and select
+
+    keyStatus->newKeys2 ^= keyStatus->heldKeys;
+    keyStatus->newKeys2 &= keyStatus->heldKeys;
+    if (keys & (A_BUTTON | B_BUTTON | DPAD_ANY | R_BUTTON | L_BUTTON)) // any button other than start and select
         keyStatus->TimeSinceStartSelect = 0;
     else if (keyStatus->TimeSinceStartSelect < 0xFFFF)
         keyStatus->TimeSinceStartSelect++;
@@ -317,19 +328,19 @@ void UpdateKeyStatus(struct KeyStatusBuffer *keyStatus)
 // unreferenced
 void sub_8001414(struct KeyStatusBuffer *keyStatus)
 {
-    keyStatus->NewPresses = 0;
-    keyStatus->TickPresses = 0;
-    keyStatus->Current = 0;
+    keyStatus->newKeys = 0;
+    keyStatus->repeatedKeys = 0;
+    keyStatus->heldKeys = 0;
 }
 
 void ResetKeyStatus(struct KeyStatusBuffer *keyStatus)
 {
-    keyStatus->FirstTickDelay = 12;
-    keyStatus->NextTickDelay = 4;
-    keyStatus->Previous = 0;
-    keyStatus->Current = 0;
-    keyStatus->NewPresses = 0;
-    keyStatus->TickDownCounter = 0;
+    keyStatus->repeatDelay = 12;
+    keyStatus->repeatInterval = 4;
+    keyStatus->prevKeys = 0;
+    keyStatus->heldKeys = 0;
+    keyStatus->newKeys = 0;
+    keyStatus->repeatTimer = 0;
     keyStatus->TimeSinceStartSelect = 0;
     gUnknown_03000010 = 0;
 }
@@ -346,9 +357,9 @@ int GetKeyStatus_IgnoreMask(void)
 
 void KeyStatusSetter_Set(struct Proc *proc)
 {
-    gKeyStatusPtr->NewPresses = proc->data[29];
-    gKeyStatusPtr->TickPresses = proc->data[29];
-    gKeyStatusPtr->Current = proc->data[29];
+    gKeyStatusPtr->newKeys = proc->data[29];
+    gKeyStatusPtr->repeatedKeys = proc->data[29];
+    gKeyStatusPtr->heldKeys = proc->data[29];
 }
 
 static struct ProcCmd sKeyStatusSetterProc[] =
@@ -391,8 +402,8 @@ void BG_SetPosition(u16 a, u16 b, u16 c)
 void sub_80014E8(void)
 {
     gUnknown_03000018 = gUnknown_03000019 = 0;
-    BG_Fill(gUnknown_02022CA8, 0);
-    gUnknown_0300000D |= 1;
+    BG_Fill(gBG0TilemapBuffer, 0);
+    sModifiedBGs |= 1;
 }
 
 void sub_800151C(u8 a, u8 b)
@@ -708,7 +719,7 @@ void sub_80017B4(int a, int b, int c, int d)
     int i;
     int j;
     int destOffset = a * 16;
-    u16 *src = gUnknown_020228A8 + destOffset;
+    u16 *src = gPaletteBuffer + destOffset;
 
     for (i = 0; i < b; i++)
     {
@@ -741,9 +752,9 @@ void sub_8001860(u8 a)
         gUnknown_02022288[i] = a;
         for (j = 0; j < 16; j++)
         {
-            gUnknown_020222A8[(i * 16 + j) * 3 + 0] = RED_VALUE(gUnknown_020228A8[i * 16 + j]) + 32;
-            gUnknown_020222A8[(i * 16 + j) * 3 + 1] = GREEN_VALUE(gUnknown_020228A8[i * 16 + j]) + 32;
-            gUnknown_020222A8[(i * 16 + j) * 3 + 2] = BLUE_VALUE(gUnknown_020228A8[i * 16 + j]) + 32;
+            gUnknown_020222A8[(i * 16 + j) * 3 + 0] = RED_VALUE(gPaletteBuffer[i * 16 + j]) + 32;
+            gUnknown_020222A8[(i * 16 + j) * 3 + 1] = GREEN_VALUE(gPaletteBuffer[i * 16 + j]) + 32;
+            gUnknown_020222A8[(i * 16 + j) * 3 + 2] = BLUE_VALUE(gPaletteBuffer[i * 16 + j]) + 32;
         }
     }
 }
@@ -758,9 +769,9 @@ void sub_80018E4(u8 a)
         gUnknown_02022288[i] = a;
         for (j = 0; j < 16; j++)
         {
-            gUnknown_020222A8[(i * 16 + j) * 3 + 0] = RED_VALUE(gUnknown_020228A8[i * 16 + j]);
-            gUnknown_020222A8[(i * 16 + j) * 3 + 1] = GREEN_VALUE(gUnknown_020228A8[i * 16 + j]);
-            gUnknown_020222A8[(i * 16 + j) * 3 + 2] = BLUE_VALUE(gUnknown_020228A8[i * 16 + j]);
+            gUnknown_020222A8[(i * 16 + j) * 3 + 0] = RED_VALUE(gPaletteBuffer[i * 16 + j]);
+            gUnknown_020222A8[(i * 16 + j) * 3 + 1] = GREEN_VALUE(gPaletteBuffer[i * 16 + j]);
+            gUnknown_020222A8[(i * 16 + j) * 3 + 2] = BLUE_VALUE(gPaletteBuffer[i * 16 + j]);
         }
     }
 }
@@ -776,9 +787,9 @@ void sub_8001964(u8 a)
         gUnknown_02022288[i] = a;
         for (j = 0; j < 16; j++)
         {
-            gUnknown_020222A8[(i * 16 + j) * 3 + 0] = RED_VALUE(gUnknown_020228A8[i * 16 + j]) + 32;
-            gUnknown_020222A8[(i * 16 + j) * 3 + 1] = GREEN_VALUE(gUnknown_020228A8[i * 16 + j]) + 32;
-            gUnknown_020222A8[(i * 16 + j) * 3 + 2] = BLUE_VALUE(gUnknown_020228A8[i * 16 + j]) + 32;
+            gUnknown_020222A8[(i * 16 + j) * 3 + 0] = RED_VALUE(gPaletteBuffer[i * 16 + j]) + 32;
+            gUnknown_020222A8[(i * 16 + j) * 3 + 1] = GREEN_VALUE(gPaletteBuffer[i * 16 + j]) + 32;
+            gUnknown_020222A8[(i * 16 + j) * 3 + 2] = BLUE_VALUE(gPaletteBuffer[i * 16 + j]) + 32;
         }
     }
 }
@@ -793,9 +804,9 @@ void sub_80019E8(u8 a)
         gUnknown_02022288[i] = a;
         for (j = 0; j < 16; j++)
         {
-            gUnknown_020222A8[(i * 16 + j) * 3 + 0] = RED_VALUE(gUnknown_020228A8[i * 16 + j]) + 64;
-            gUnknown_020222A8[(i * 16 + j) * 3 + 1] = GREEN_VALUE(gUnknown_020228A8[i * 16 + j]) + 64;
-            gUnknown_020222A8[(i * 16 + j) * 3 + 2] = BLUE_VALUE(gUnknown_020228A8[i * 16 + j]) + 64;
+            gUnknown_020222A8[(i * 16 + j) * 3 + 0] = RED_VALUE(gPaletteBuffer[i * 16 + j]) + 64;
+            gUnknown_020222A8[(i * 16 + j) * 3 + 1] = GREEN_VALUE(gPaletteBuffer[i * 16 + j]) + 64;
+            gUnknown_020222A8[(i * 16 + j) * 3 + 2] = BLUE_VALUE(gPaletteBuffer[i * 16 + j]) + 64;
         }
     }
 }
@@ -836,44 +847,51 @@ void sub_8001A6C(void)
                 if (r1 < 0)
                     r1 = 0;
 
-                gUnknown_020228A8[i * 16 + j] = (r1 << 10) + (r3 << 5) + r4;
+                gPaletteBuffer[i * 16 + j] = (r1 << 10) + (r3 << 5) + r4;
             }
         }
     }
 
-    gUnknown_0300000E = 1;
+    sModifiedPalette = 1;
 }
 
-void SetupBackgrounds(u16 *a)
+void SetupBackgrounds(u16 *bgConfig)
 {
-    u16 sp0[12];
-    u16 *ptr;
-    int i;
+    u16 defaultBgConfig[12] =
+    {
+	// tile offset  map offset  screen size
+	0x0000, 	0x6000,     0,          // BG 0
+	0x0000, 	0x6800,     0,          // BG 1
+	0x0000, 	0x7000,     0,          // BG 2
+	0x8000, 	0x7800,     0,          // BG 3
+    };
+    int bg;
 
-    // TODO: this is a local, initialized array.
-    memcpy(sp0, gUnknown_080D7504, 0x18);
-    if (a == NULL)
-        a = sp0;
+    if (bgConfig == NULL)
+        bgConfig = defaultBgConfig;
 
     *(u16 *)&gLCDControlBuffer.bg0cnt = 0;
     *(u16 *)&gLCDControlBuffer.bg1cnt = 0;
     *(u16 *)&gLCDControlBuffer.bg2cnt = 0;
     *(u16 *)&gLCDControlBuffer.bg3cnt = 0;
 
-    for (i = 0; i < 4; i++)
+    for (bg = 0; bg <= 3; bg++)
     {
-        SetBackgroundTileDataOffset(i, *a++);
-        SetBackgroundMapDataOffset(i, *a++);
-        SetBackgroundScreenSize(i, *a++);
-        BG_SetPosition(i, 0, 0);
-        BG_Fill(BG_GetMapBuffer(i), 0);
-        CpuFastFill16(0, (void *)(VRAM + GetBackgroundTileDataOffset(i)), 64);
+        SetBackgroundTileDataOffset(bg, *bgConfig++);
+        SetBackgroundMapDataOffset(bg, *bgConfig++);
+        SetBackgroundScreenSize(bg, *bgConfig++);
+        BG_SetPosition(bg, 0, 0);
+        BG_Fill(BG_GetMapBuffer(bg), 0);
+        CpuFastFill16(0, (void *)(VRAM + GetBackgroundTileDataOffset(bg)), 64);
     }
     SetupBackgroundForWeatherMaybe();
-    gUnknown_0300000D |= 0xF;
+    sModifiedBGs |= 0xF;
+
     SetupOAMBufferSplice(0);
-    gUnknown_020228A8[0] = 0;
-    gUnknown_0300000E = 1;
+
+    gPaletteBuffer[0] = 0;
+    sModifiedPalette = 1;
+
     gLCDControlBuffer.dispcnt.forcedBlank = 0;
     gLCDControlBuffer.dispcnt.mode = 0;
     gLCDControlBuffer.dispcnt.win0_on = 0;
@@ -886,17 +904,17 @@ void SetupBackgrounds(u16 *a)
     gLCDControlBuffer.dispcnt.obj_on = 1;
 }
 
-static void *gUnknown_08587938[] =
+static void *sBgTilemapBuffers[] =
 {
-    gUnknown_02022CA8,
-    gUnknown_020234A8,
-    gUnknown_02023CA8,
-    gUnknown_020244A8,
+    gBG0TilemapBuffer,
+    gBG1TilemapBuffer,
+    gBG2TilemapBuffer,
+    gBG3TilemapBuffer,
 };
 
 void *BG_GetMapBuffer(int a)
 {
-    return gUnknown_08587938[a];
+    return sBgTilemapBuffers[a];
 }
 
 void sub_8001C5C(u8 a)
@@ -913,9 +931,9 @@ void sub_8001C78(void)
 {
     if (sub_8000D18() != 0)
     {
-        if (gKeyStatusPtr->Current == 0x303)
+        if (gKeyStatusPtr->heldKeys == (L_BUTTON | R_BUTTON | A_BUTTON | B_BUTTON))
             sub_80D16B0(0);
-        else if (gKeyStatusPtr->Current == 15)
+        else if (gKeyStatusPtr->heldKeys == (A_BUTTON | B_BUTTON | SELECT_BUTTON | START_BUTTON))
             sub_80D16B0(0);
     }
 }
@@ -936,17 +954,17 @@ void sub_8001CB0(int a)
 
 void sub_8001D00(void)
 {
-    if (gUnknown_03003134 != NULL)
-        gUnknown_03003134();
-    if (gUnknown_03003748 != NULL)
-        gUnknown_03003748();
+    if (sHBlankHandler1 != NULL)
+        sHBlankHandler1();
+    if (sHBlankHandler2 != NULL)
+        sHBlankHandler2();
 }
 
 void UpdateHBlankHandlerState(void)
 {
-    u8 r2 = (gUnknown_03003134 != NULL);
+    u8 r2 = (sHBlankHandler1 != NULL);
 
-    switch (r2 + (gUnknown_03003748 != NULL) * 2)
+    switch (r2 + (sHBlankHandler2 != NULL) * 2)
     {
     case 0:
         gLCDControlBuffer.dispstat.hblankIrqEnable = 0;
@@ -954,12 +972,12 @@ void UpdateHBlankHandlerState(void)
         break;
     case 1:
         gLCDControlBuffer.dispstat.hblankIrqEnable = 1;
-        SetIRQHandler(1, gUnknown_03003134);
+        SetIRQHandler(1, sHBlankHandler1);
         REG_IE |= INTR_FLAG_HBLANK;
         break;
     case 2:
         gLCDControlBuffer.dispstat.hblankIrqEnable = 1;
-        SetIRQHandler(1, gUnknown_03003748);
+        SetIRQHandler(1, sHBlankHandler2);
         REG_IE |= INTR_FLAG_HBLANK;
         break;
     case 3:
@@ -972,30 +990,30 @@ void UpdateHBlankHandlerState(void)
 
 void SetPrimaryHBlankHandler(void (*hblankHandler)(void))
 {
-    gUnknown_03003134 = hblankHandler;
+    sHBlankHandler1 = hblankHandler;
     UpdateHBlankHandlerState();
 }
 
 void SetSecondaryHBlankHandler(void (*hblankHandler)(void))
 {
-    gUnknown_03003748 = hblankHandler;
+    sHBlankHandler2 = hblankHandler;
     UpdateHBlankHandlerState();
 }
 
 int GetBackgroundFromBufferPointer(u8 *ptr)
 {
-    if (ptr >= gUnknown_02022CA8 && ptr < gUnknown_02022CA8 + 0x800)
+    if (ptr >= gBG0TilemapBuffer && ptr < gBG0TilemapBuffer + 0x800)
         return 0;
-    if (ptr >= gUnknown_020234A8 && ptr < gUnknown_020234A8 + 0x800)
+    if (ptr >= gBG1TilemapBuffer && ptr < gBG1TilemapBuffer + 0x800)
         return 1;
-    if (ptr >= gUnknown_02023CA8 && ptr < gUnknown_02023CA8 + 0x800)
+    if (ptr >= gBG2TilemapBuffer && ptr < gBG2TilemapBuffer + 0x800)
         return 2;
-    if (ptr >= gUnknown_020244A8 && ptr < gUnknown_020244A8 + 0x800)
+    if (ptr >= gBG3TilemapBuffer && ptr < gBG3TilemapBuffer + 0x800)
         return 3;
     return -1;
 }
 
-struct BgCnt *gUnknown_08587948[] =
+struct BgCnt *sBGControlStructPtrs[] =
 {
     &gLCDControlBuffer.bg0cnt,
     &gLCDControlBuffer.bg1cnt,
@@ -1003,22 +1021,22 @@ struct BgCnt *gUnknown_08587948[] =
     &gLCDControlBuffer.bg3cnt,
 };
 
-void BG_SetDepth(int bg, int priority)
+void BG_SetPriority(int bg, int priority)
 {
-    gUnknown_08587948[bg]->priority = priority;
+    sBGControlStructPtrs[bg]->priority = priority;
 }
 
-int BG_GetDepth(int bg)
+int BG_GetPriority(int bg)
 {
-    return gUnknown_08587948[bg]->priority;
+    return sBGControlStructPtrs[bg]->priority;
 }
 
-void SetSpecialColorEffectsParameters(u16 a, u8 b, u8 c, u8 d)
+void SetSpecialColorEffectsParameters(u16 effect, u8 coeffA, u8 coeffB, u8 blendY)
 {
-    gLCDControlBuffer.bldcnt.effect = a;
-    gLCDControlBuffer.blendCoeffA = b;
-    gLCDControlBuffer.blendCoeffB = c;
-    gLCDControlBuffer.blendY = d;
+    gLCDControlBuffer.bldcnt.effect = effect;
+    gLCDControlBuffer.blendCoeffA = coeffA;
+    gLCDControlBuffer.blendCoeffB = coeffB;
+    gLCDControlBuffer.blendY = blendY;
 }
 
 void sub_8001ED0(int a, int b, int c, int d, int e)
@@ -1050,27 +1068,27 @@ void SetDefaultColorEffects(void)
 
 void EnablePaletteSync(void)
 {
-    gUnknown_0300000E = 1;
+    sModifiedPalette = 1;
 }
 
 void DisablePaletteSync(void)
 {
-    gUnknown_0300000E = 0;
+    sModifiedPalette = 0;
 }
 
-void BG_EnableSyncByMask(int a)
+void BG_EnableSyncByMask(int bg)
 {
-    gUnknown_0300000D |= a;
+    sModifiedBGs |= bg;
 }
 
-void BG_EnableSync(int a)
+void BG_EnableSync(int bg)
 {
-    gUnknown_0300000D |= 1 << a;
+    sModifiedBGs |= 1 << bg;
 }
 
 void sub_8001FD0(int a)
 {
-    gUnknown_0300000D &= ~a;
+    sModifiedBGs &= ~a;
 }
 
 void ClearTileRigistry(void)
@@ -1081,55 +1099,55 @@ void ClearTileRigistry(void)
     gUnknown_02024CD4.unk4 = 0;
     for (i = 0; i < 32; i++)
     {
-        gUnknown_02024CDC[i].unk0 = 0;
-        gUnknown_02024CDC[i].unk4 = 0;
-        gUnknown_02024CDC[i].unk8 = 0;
-        gUnknown_02024CDC[i].unkA = 0;
+        gUnknown_02024CDC[i].src = 0;
+        gUnknown_02024CDC[i].dest = 0;
+        gUnknown_02024CDC[i].size = 0;
+        gUnknown_02024CDC[i].mode = 0;
     }
-    gUnknown_02024CDC[0].unk0 = 0;
+    gUnknown_02024CDC[0].src = 0;
 }
 
 void RegisterTileGraphics(void *a, void *b, int c)
 {
-    struct Struct02024CDC *ptr = &gUnknown_02024CDC[gUnknown_02024CD4.unk0];
+    struct TileDataTransfer *ptr = &gUnknown_02024CDC[gUnknown_02024CD4.unk0];
 
-    ptr->unk0 = a;
-    ptr->unk4 = b;
-    ptr->unk8 = c;
-    ptr->unkA = !(c & 0x1F);
+    ptr->src = a;
+    ptr->dest = b;
+    ptr->size = c;
+    ptr->mode = (c & 0x1F) ? 0 : 1;
     gUnknown_02024CD4.unk4 += c;
     gUnknown_02024CD4.unk0++;
 }
 
 void RegisterFillTile(void *a, void *b, int c)
 {
-    struct Struct02024CDC *ptr = &gUnknown_02024CDC[gUnknown_02024CD4.unk0];
+    struct TileDataTransfer *ptr = &gUnknown_02024CDC[gUnknown_02024CD4.unk0];
 
-    ptr->unk0 = a;
-    ptr->unk4 = b;
-    ptr->unk8 = c;
-    ptr->unkA = 2;
+    ptr->src = a;
+    ptr->dest = b;
+    ptr->size = c;
+    ptr->mode = 2;
     gUnknown_02024CD4.unk4 += c;
     gUnknown_02024CD4.unk0++;
 }
 
 void FlushTiles(void)
 {
-    struct Struct02024CDC *ptr = gUnknown_02024CDC;
+    struct TileDataTransfer *ptr = gUnknown_02024CDC;
     int i;
 
     for (i = 0; i < gUnknown_02024CD4.unk0; i++)
     {
-        switch (ptr->unkA)
+        switch (ptr->mode)
         {
         case 0:
-            CpuCopy16(ptr->unk0, ptr->unk4, ptr->unk8);
+            CpuCopy16(ptr->src, ptr->dest, ptr->size);
             break;
         case 1:
-            CpuFastCopy(ptr->unk0, ptr->unk4, ptr->unk8);
+            CpuFastCopy(ptr->src, ptr->dest, ptr->size);
             break;
         case 2:
-            CpuFastFill((u32)ptr->unk0, ptr->unk4, ptr->unk8);
+            CpuFastFill((u32)ptr->src, ptr->dest, ptr->size);
             break;
         }
         ptr++;
@@ -1139,33 +1157,33 @@ void FlushTiles(void)
 
 void SetupOAMBufferSplice(int a)
 {
-    gUnknown_03000030.unk0 = gUnknown_03003140;
-    gUnknown_03000030.unk4 = (void *)OAM;
+    gUnknown_03000030.src = gUnknown_03003140;
+    gUnknown_03000030.dest = (void *)OAM;
     gUnknown_03000030.unk8 = 0;
-    gUnknown_03000030.unkA = a;
+    gUnknown_03000030.count = a;
 
-    gUnknown_03000020.unk0 = gUnknown_03003140 + a * 4;
-    gUnknown_03000020.unk4 = (void *)(OAM + a * 8);
+    gUnknown_03000020.src = gUnknown_03003140 + a * 4;
+    gUnknown_03000020.dest = (void *)(OAM + a * 8);
     gUnknown_03000020.unk8 = a * 8;
-    gUnknown_03000020.unkA = 128 - a;
+    gUnknown_03000020.count = 128 - a;
 }
 
 void FlushSecondaryOAM(void)
 {
-    CpuFastCopy(gUnknown_03000020.unk0, gUnknown_03000020.unk4, gUnknown_03000020.unkA * 8);
-    ClearOAMBuffer(gUnknown_03000020.unk0, gUnknown_03000020.unkA);
-    gUnknown_03003744 = gUnknown_03000020.unk0;
+    CpuFastCopy(gUnknown_03000020.src, gUnknown_03000020.dest, gUnknown_03000020.count * 8);
+    ClearOAMBuffer(gUnknown_03000020.src, gUnknown_03000020.count);
+    gUnknown_03003744 = gUnknown_03000020.src;
     gUnknown_03004158 = gUnknown_03003140;
     gUnknown_0300312C = 0;
 }
 
 void FlushPrimaryOAM(void)
 {
-    if (gUnknown_03000030.unkA != 0)
+    if (gUnknown_03000030.count != 0)
     {
-        CpuFastCopy(gUnknown_03000030.unk0, gUnknown_03000030.unk4, gUnknown_03000030.unkA * 8);
-        ClearOAMBuffer(gUnknown_03000030.unk0, gUnknown_03000030.unkA);
-        gUnknown_03003070 = gUnknown_03000030.unk0;
+        CpuFastCopy(gUnknown_03000030.src, gUnknown_03000030.dest, gUnknown_03000030.count * 8);
+        ClearOAMBuffer(gUnknown_03000030.src, gUnknown_03000030.count);
+        gUnknown_03003070 = gUnknown_03000030.src;
     }
 }
 
@@ -1200,7 +1218,7 @@ void sub_80021E4(struct UnknownDmaStruct2 *a, int b, int c)
 
 u16 GetPrimaryOAMSize(void)
 {
-    return gUnknown_03000030.unkA;
+    return gUnknown_03000030.count;
 }
 
 u16 sub_8002258(void)
