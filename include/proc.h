@@ -57,7 +57,7 @@ struct Proc
     /*0x26*/ u8 mark;
     /*0x27*/ u8 flags;
     /*0x28*/ u8 blockSemaphore;  // wait semaphore. Process execution is blocked when this is nonzero.
-    /*0x2A*/ u16 data[33];
+    /*0x2A*/ s16 data[33];
 };
 
 struct UnknownProcStruct
@@ -69,14 +69,14 @@ struct UnknownProcStruct
 
 void Proc_Initialize(void);
 struct Proc *Proc_Create(const struct ProcCmd *script, struct Proc *parent);
-// ??? Proc_CreateBlockingChild(???);
-// ??? Proc_Delete(???);;
+struct Proc *Proc_CreateBlockingChild(struct ProcCmd *script, struct Proc *parent);
+void Proc_Delete(struct Proc *proc);
 // ??? Proc_Run(???);
-// ??? Proc_ClearNativeCallback(???);
-// ??? Proc_Find(???);
+void Proc_ClearNativeCallback(struct Proc *proc);
+struct Proc *Proc_Find(struct ProcCmd *script);
 // ??? Proc_FindNonBlocked(???);
 // ??? Proc_FindWithMark(???);
-// ??? Proc_GotoLabel(???);
+void Proc_GotoLabel(struct Proc* proc_arg, int label);
 // ??? Proc_JumpToPointer(???);
 // ??? Proc_SetMark(???);
 // ??? Proc_SetDestructor(???);
@@ -86,7 +86,7 @@ struct Proc *Proc_Create(const struct ProcCmd *script, struct Proc *parent);
 // ??? Proc_BlockEachWithMark(???);
 // ??? Proc_UnblockEachWithMark(???);
 // ??? Proc_DeleteEachWithMark(???);
-// ??? Proc_DeleteAllWithScript(???);
+void Proc_DeleteAllWithScript(struct ProcCmd *script);
 // ??? Proc_ClearNativeCallbackEachWithScript(???);
 // ??? sub_80030CC(???);
 // ??? sub_800344C(???);

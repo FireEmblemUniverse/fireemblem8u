@@ -3,7 +3,6 @@
 
 EWRAM_DATA struct Struct02024CD4 gUnknown_02024CD4 = {0};
 EWRAM_DATA struct Struct02024CDC gUnknown_02024CDC[32] = {0};
-EWRAM_DATA struct Struct02024E5C gUnknown_02024E5C = {0};
 
 void CopyToPaletteBuffer(void *src, int b, int size)
 {
@@ -1073,6 +1072,9 @@ void sub_8001FD0(int a)
     gUnknown_0300000D &= ~a;
 }
 
+/* The functions below were likely part of a a file called dma.c in the original code,
+ * even though they do not use DMA at all. */
+
 void ClearTileRigistry(void)
 {
     int i;
@@ -1201,14 +1203,4 @@ void sub_80021E4(struct UnknownDmaStruct2 *a, int b, int c)
 u16 GetPrimaryOAMSize(void)
 {
     return gUnknown_03000030.unkA;
-}
-
-u16 sub_8002258(void)
-{
-    return gUnknown_02024E5C.unk4;
-}
-
-s8 sub_8002264(void)
-{
-    return gUnknown_02024E5C.unk6;
 }

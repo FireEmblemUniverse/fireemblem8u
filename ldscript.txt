@@ -35,7 +35,7 @@ SECTIONS
         asm/time.o(.text);
         src/hardware.o(.text);
         src/dma.o(.text);
-        asm/soundwrapper.o(.text);
+        src/soundwrapper.o(.text);
         src/ramfunc.o(.text);
         src/proc.o(.text);
         asm/icon.o(.text);
@@ -123,7 +123,7 @@ SECTIONS
         /* .data */
         . = ALIGN(4); src/main.o(.data);
         . = ALIGN(4); src/hardware.o(.data);
-        . = ALIGN(4); data/soundwrapper.o(.data);
+        . = ALIGN(4); src/soundwrapper.o(.data);
         . = ALIGN(4); src/proc.o(.data);
         . = ALIGN(4); data/data_587A40.o(.data);
         . = ALIGN(4); tools/agbcc/lib/libc.a:impure.o(.data);

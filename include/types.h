@@ -66,9 +66,12 @@ struct Struct02024CD4
 
 struct Struct02024E5C
 {
-    u8 filler0[4];
+    u8 filler0[2];
+    u16 unk2;
     u16 unk4;
     s8 unk6;
+    s8 unk7;
+    s8 unk8;
 };
 
 struct KeyStatusBuffer
@@ -87,5 +90,11 @@ struct KeyStatusBuffer
 };
 
 typedef void (*InterruptHandler)(void);
+
+struct Struct0202BCF0
+{
+    u8 filler0[0x41];
+    u32 unk41_1:1;
+};
 
 #endif  // GUARD_TYPES_H
