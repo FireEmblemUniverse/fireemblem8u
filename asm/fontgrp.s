@@ -1553,7 +1553,7 @@ _080042B0:
 	movs r1, #0
 	ldr r3, [sp, #0x10]
 	lsls r2, r3, #1
-	bl sub_80D188C
+	bl __ashldi3
 	movs r6, #0xff
 	ands r6, r0
 	lsls r6, r6, #1
@@ -2150,7 +2150,7 @@ _08004744:
 	movs r1, #0
 	ldr r3, [sp, #8]
 	lsls r2, r3, #1
-	bl sub_80D188C
+	bl __ashldi3
 	adds r6, r1, #0
 	adds r5, r0, #0
 	mov r0, r9
@@ -2237,7 +2237,7 @@ _080047F6:
 	str r2, [sp, #0xc]
 	movs r1, #0
 	ldr r2, [sp, #0x10]
-	bl sub_80D188C
+	bl __ashldi3
 	adds r6, r1, #0
 	adds r5, r0, #0
 	mov r0, r9
