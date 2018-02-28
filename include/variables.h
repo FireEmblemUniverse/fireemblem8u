@@ -1411,8 +1411,9 @@ extern struct BgCnt *gUnknown_08587948[];
 // extern ??? gUnknown_0859163C
 // extern ??? gUnknown_0859168C
 // extern ??? gUnknown_085916A4
-// extern ??? gUnknown_085916D4
-// extern ??? gUnknown_08591AA4
+// u8 ??? gUnknown_085916D4
+extern void *gUnknown_08591AA4[][2];
+//extern struct {u32 *unk0; u32 *unk4; u32 *unk8;} gUnknown_08591AA4;
 // extern ??? gUnknown_08591AB4
 // extern ??? gUnknown_08591AC0
 // extern ??? gUnknown_08591AF8
