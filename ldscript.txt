@@ -50,6 +50,15 @@ SECTIONS
         asm/evtcmd_gmap.o(.text);
         asm/event.o(.text);
         asm/evtscr.o(.text);
+        asm/popup.o(.text);
+        asm/evtsub.o(.text);
+        asm/hino.o(.text);
+        asm/bm.o(.text);
+        asm/bmitem.o(.text);
+        asm/bmunit.o(.text);
+        asm/bmmap.o(.text);
+        asm/bmidoten.o(.text);
+        asm/bmdebug.o(.text);
         asm/code.o(.text);
         asm/m4a_1.o(.text);
         src/m4a_2.o(.text);
@@ -112,6 +121,7 @@ SECTIONS
         /* .rodata */
         . = ALIGN(4); src/main.o(.rodata);
         . = ALIGN(4); src/rng.o(.rodata);
+        . = ALIGN(4); src/hardware.o(.rodata);
         . = ALIGN(4); data/const_data_D74C8.o(.rodata);
         . = ALIGN(4); tools/agbcc/lib/libc.a:vfprintf.o(.rodata);
         . = ALIGN(4); tools/agbcc/lib/libc.a:dtoa.o(.rodata);

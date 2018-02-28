@@ -75,7 +75,7 @@ sub_800B994: @ 0x0800B994
 	lsls r1, r1, #0x18
 	lsls r2, r2, #0x18
 	lsrs r0, r0, #0x13
-	ldr r3, _0800B9B4  @ gUnknown_020228A8
+	ldr r3, _0800B9B4  @ gPaletteBuffer
 	adds r0, r0, r3
 	lsrs r1, r1, #0x13
 	adds r1, r1, r3
@@ -85,7 +85,7 @@ sub_800B994: @ 0x0800B994
 	pop {r0}
 	bx r0
 	.align 2, 0
-_0800B9B4: .4byte gUnknown_020228A8
+_0800B9B4: .4byte gPaletteBuffer
 
 	THUMB_FUNC_START sub_800B9B8
 sub_800B9B8: @ 0x0800B9B8
@@ -134,7 +134,7 @@ sub_800BA04: @ 0x0800BA04
 	lsls r2, r2, #0x18
 	lsrs r2, r2, #0x18
 	lsls r3, r0, #5
-	ldr r1, _0800BA2C  @ gUnknown_020228A8
+	ldr r1, _0800BA2C  @ gPaletteBuffer
 	adds r3, r3, r1
 	ldr r1, _0800BA30  @ end
 	strh r0, [r1]
@@ -147,7 +147,7 @@ sub_800BA04: @ 0x0800BA04
 	pop {r0}
 	bx r0
 	.align 2, 0
-_0800BA2C: .4byte gUnknown_020228A8
+_0800BA2C: .4byte gPaletteBuffer
 _0800BA30: .4byte end
 
 	THUMB_FUNC_START sub_800BA34
@@ -159,7 +159,7 @@ sub_800BA34: @ 0x0800BA34
 	ldrh r2, [r0]
 	adds r0, #2
 	lsls r1, r1, #5
-	ldr r3, _0800BA58  @ gUnknown_020228A8
+	ldr r3, _0800BA58  @ gPaletteBuffer
 	adds r1, r1, r3
 	lsls r2, r2, #3
 	bl CpuFastSet
@@ -168,7 +168,7 @@ sub_800BA34: @ 0x0800BA34
 	bx r0
 	.align 2, 0
 _0800BA54: .4byte end
-_0800BA58: .4byte gUnknown_020228A8
+_0800BA58: .4byte gPaletteBuffer
 
 	THUMB_FUNC_START SetSomeRealCamPos
 SetSomeRealCamPos: @ 0x0800BA5C

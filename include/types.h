@@ -41,7 +41,7 @@ struct Struct03003080
     /*0x5E*/ u16 bg3pd;
     /*0x60*/ u32 bg3x;
     /*0x64*/ u32 bg3y;
-             s8 unk68;
+    /*0x68*/ s8 colorAddition;
 };
 
 struct Struct0858791C
@@ -50,12 +50,20 @@ struct Struct0858791C
     u16 unk2;
 };
 
-struct Struct02024CDC
+struct TileDataTransfer
 {
-    void *unk0;
-    void *unk4;
+    void *src;
+    void *dest;
+    u16 size;
+    u16 mode;
+};
+
+struct OamDataTransfer
+{
+    void *src;
+    void *dest;
     u16 unk8;
-    u16 unkA;
+    u16 count;
 };
 
 struct Struct02024CD4
@@ -76,16 +84,16 @@ struct Struct02024E5C
 
 struct KeyStatusBuffer
 {
-    u8 FirstTickDelay;
-    u8 NextTickDelay;
-    u8 TickDownCounter; // (decreased by one each frame, reset to FirstTickDelay when Presses change and NextTickDelay when reaches 0)
-    u16 Current;
-    u16 TickPresses; // 1 For Press|Tick&Pressed, 0 Otherwise
-    u16 NewPresses;  // 1 For Press, 0 Otherwise
-    u16 Previous; // Current, but set only if NewPresses is not null
+    u8 repeatDelay;     // initial delay before generating auto-repeat presses
+    u8 repeatInterval;  // time between auto-repeat presses
+    u8 repeatTimer;     // (decreased by one each frame, reset to repeatDelay when Presses change and repeatInterval when reaches 0)
+    u16 heldKeys;       // keys that are currently held down
+    u16 repeatedKeys;   // auto-repeated keys
+    u16 newKeys;        // keys that went down this frame
+    u16 prevKeys;       // keys that were held down last frame
     u16 LastPressState;
     bool16 ABLRPressed; // 1 for Release (A B L R Only), 0 Otherwise
-    u16 NewPresses2;
+    u16 newKeys2;
     u16 TimeSinceStartSelect; // Time since last Non-Start Non-Select Button was pressed
 };
 

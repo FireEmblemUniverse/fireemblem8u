@@ -314,8 +314,7 @@
 . = 0x0222A8; gUnknown_020222A8 = .;
 . = 0x0222A8; gUnknown_020222A8 = .;
 . = 0x022308; gUnknown_02022308 = .;
-. = 0x0228A8; gUnknown_020228A8 = .;
-. = 0x0228A8; gUnknown_020228A8 = .;
+. = 0x0228A8; gPaletteBuffer = .;
 . = 0x0228AA; gUnknown_020228AA = .;
 . = 0x0228C8; gUnknown_020228C8 = .;
 . = 0x0228E8; gUnknown_020228E8 = .;
@@ -342,7 +341,7 @@
 . = 0x022C28; gUnknown_02022C28 = .;
 . = 0x022C48; gUnknown_02022C48 = .;
 . = 0x022C68; gUnknown_02022C68 = .;
-. = 0x022CA8; gUnknown_02022CA8 = .;
+. = 0x022CA8; gBG0TilemapBuffer = .;
 . = 0x022CAA; gUnknown_02022CAA = .;
 . = 0x022CAC; gUnknown_02022CAC = .;
 . = 0x022CAE; gUnknown_02022CAE = .;
@@ -421,7 +420,7 @@
 . = 0x023116; gUnknown_02023116 = .;
 . = 0x023130; gUnknown_02023130 = .;
 . = 0x023136; gUnknown_02023136 = .;
-. = 0x0234A8; gUnknown_020234A8 = .;
+. = 0x0234A8; gBG1TilemapBuffer = .;
 . = 0x0234AC; gUnknown_020234AC = .;
 . = 0x0234AE; gUnknown_020234AE = .;
 . = 0x0234B0; gUnknown_020234B0 = .;
@@ -455,7 +454,7 @@
 . = 0x02393E; gUnknown_0202393E = .;
 . = 0x02396C; gUnknown_0202396C = .;
 . = 0x0239A8; gUnknown_020239A8 = .;
-. = 0x023CA8; gUnknown_02023CA8 = .;
+. = 0x023CA8; gBG2TilemapBuffer = .;
 . = 0x023CAA; gUnknown_02023CAA = .;
 . = 0x023CAE; gUnknown_02023CAE = .;
 . = 0x023CB6; gUnknown_02023CB6 = .;
@@ -489,9 +488,9 @@
 . = 0x02400A; gUnknown_0202400A = .;
 . = 0x024044; gUnknown_02024044 = .;
 . = 0x02404A; gUnknown_0202404A = .;
-. = 0x0244A8; gUnknown_020244A8 = .;
+. = 0x0244A8; gBG3TilemapBuffer = .;
 . = 0x024CA8; gUnknown_02024CA8 = .;
-. = 0x024CB8; gUnknown_02024CB8 = .;
+. = 0x024CB8; gMainCallback = .;
 . = 0x024CC0;
 . = ALIGN(4); src/main.o(ewram_data);
 . = ALIGN(4); src/hardware.o(ewram_data);

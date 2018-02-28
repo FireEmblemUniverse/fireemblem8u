@@ -1,8 +1,11 @@
 . = ALIGN(4); src/rng.o(.bss);
+
+/* hardware.c*/
 . = 0x00000C; gUnknown_0300000C = .;
-. = 0x00000D; gUnknown_0300000D = .;
-. = 0x00000E; gUnknown_0300000E = .;
+. = 0x00000D; sModifiedBGs = .;
+. = 0x00000E; sModifiedPalette = .;
 . = 0x000010; gUnknown_03000010 = .;
+
 . = 0x000014; gUnknown_03000014 = .;
 . = 0x000018; gUnknown_03000018 = .;
 . = 0x000019; gUnknown_03000019 = .;
@@ -103,6 +106,7 @@
 . = ALIGN(4); tools/agbcc/lib/libgcc.a:dp-bit.o(.bss);
 . = ALIGN(4); tools/agbcc/lib/libgcc.a:fp-bit.o(.bss);
 
+/* COMMON */
 . = 0x002C60; SoundMainRAM_Buffer = .;
 . = 0x002C61; gUnknown_03002C61 = .;
 . = 0x003060; gUnknown_03003060 = .;
@@ -122,14 +126,14 @@
 . = 0x003128; gUnknown_03003128 = .;
 . = 0x00312C; gUnknown_0300312C = .;
 . = 0x003130; gUnknown_03003130 = .;
-. = 0x003134; gUnknown_03003134 = .;
+. = 0x003134; sHBlankHandler1 = .;
 . = 0x003140; gUnknown_03003140 = .;
 . = 0x003240; gUnknown_03003240 = .;
 . = 0x003540; gUnknown_03003540 = .;
 . = 0x003740; gUnknown_03003740 = .;
 . = 0x003744; gUnknown_03003744 = .;
 . = 0x003744; gUnknown_03003744 = .;
-. = 0x003748; gUnknown_03003748 = .;
+. = 0x003748; sHBlankHandler2 = .;
 . = 0x003750; gUnknown_03003750 = .;
 . = 0x004150; gUnknown_03004150 = .;
 . = 0x004154; gUnknown_03004154 = .;
