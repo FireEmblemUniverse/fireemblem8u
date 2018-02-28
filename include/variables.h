@@ -797,10 +797,6 @@ extern struct OamDataTransfer gUnknown_03000030;
 // extern ??? gUnknown_03001DA8
 // extern ??? gUnknown_03001DE8
 // extern ??? gUnknown_03001E30
-// extern ??? gUnknown_03002A68
-// extern ??? gUnknown_03002A69
-// extern ??? gUnknown_03002B08
-// extern ??? gUnknown_03002B09
 // extern ??? gUnknown_03002B88
 // extern ??? gUnknown_03002B8C
 // extern ??? gUnknown_03002B90
@@ -890,8 +886,6 @@ extern struct MusicPlayerInfo gUnknown_030066D0;
 // extern ??? gMPlayMemAccArea
 extern struct MusicPlayerInfo gUnknown_03006720;
 extern struct MusicPlayerInfo gUnknown_03006760;
-// extern ??? gUnknown_030067A0
-// extern ??? gUnknown_030067A4
 // extern ??? gUnknown_03007E00
 // extern ??? gUnknown_03007F00
 // extern ??? gUnknown_03007FA0

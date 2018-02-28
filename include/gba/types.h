@@ -204,4 +204,19 @@ struct SioMultiCnt
 #define ST_SIO_57600_BPS  2 //  57600 bps
 #define ST_SIO_115200_BPS 3 // 115200 bps
 
+struct WaitCnt
+{
+    u16 sramWait:2;
+    u16 rom0_1stAcc:2;
+    u16 rom0_2ndAcc:1;
+    u16 rom1_1stAcc:2;
+    u16 rom1_2ndAcc:1;
+    u16 rom2_1stAcc:2;
+    u16 rom2_2ndAcc:1;
+    u16 phiTerminalClock:2;
+    u16 dummy:1;
+    u16 prefetchBufEnable:1;
+    u16 gamePakType:1;
+};
+
 #endif // GUARD_GBA_TYPES_H
