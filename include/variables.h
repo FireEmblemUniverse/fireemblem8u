@@ -516,12 +516,12 @@ extern struct Struct02024E5C gUnknown_02024E5C;
 // extern ??? gUnknown_02029D8C
 // extern ??? gUnknown_0202A58C
 // extern ??? gUnknown_0202A68C
-// extern ??? gUnknown_0202A6AC
-// extern ??? gUnknown_0202AC01
-// extern ??? gUnknown_0202B156
-// extern ??? gUnknown_0202B4AC
+extern struct TextBuffer0202A6AC gUnknown_0202A6AC;
+//extern u8 gUnknown_0202AC01[];
+//extern u8 gUnknown_0202B156[];
+extern u8 gUnknown_0202B4AC[];
 // extern ??? gUnknown_0202B5AC
-// extern ??? gUnknown_0202B6AC
+extern int gUnknown_0202B6AC;
 // extern ??? gUnknown_0202B6B0
 // extern ??? gUnknown_0202BCB0
 extern struct Struct0202BCF0 gUnknown_0202BCF0;
@@ -577,7 +577,7 @@ extern struct Struct0202BCF0 gUnknown_0202BCF0;
 // extern ??? gUnknown_0203A8EC
 // extern ??? gUnknown_0203A8F0
 // extern ??? gUnknown_0203A910
-// extern ??? gUnknown_0203A958
+extern struct UnknownItemStruct gUnknown_0203A958;
 // extern ??? gUnknown_0203A95E
 // extern ??? gUnknown_0203A974
 // extern ??? gUnknown_0203A9FC
@@ -1207,7 +1207,7 @@ extern const u16 gUnknown_080D7504[];
 // extern ??? gUnknown_080E838E
 // extern ??? gUnknown_0815A72C
 // extern ??? gUnknown_0815D488
-// extern ??? gUnknown_0815D48C
+extern const char *const gUnknown_0815D48C[];
 // extern ??? gUnknown_08205714
 // extern ??? gUnknown_0820579C
 // extern ??? gUnknown_08205824

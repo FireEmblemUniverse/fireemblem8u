@@ -24,7 +24,7 @@ struct Struct03003080
     /*0x34*/ struct WinCnt wincnt;
     /*0x38*/ u16 mosaic;
              u8 filler3A[2];
-    /*0x3C*/ struct BlendCnt bldcnt;     
+    /*0x3C*/ struct BlendCnt bldcnt;
     /*0x40*/ u8 filler40[4];
     /*0x44*/ u8 blendCoeffA;
     /*0x45*/ u8 blendCoeffB;
@@ -101,8 +101,29 @@ typedef void (*InterruptHandler)(void);
 
 struct Struct0202BCF0
 {
-    u8 filler0[0x41];
+    u8 filler0[0x1C];
+    u8 unk1C[0x41-0x1C];
     u32 unk41_1:1;
+};
+
+struct TextBuffer0202A6AC
+{
+    u8 buffer0202A6AC[0x555];
+    u8 buffer0202AC01[0x555];
+    u8 buffer0202B156[0x356];
+    u8 buffer0202B4AC[0x100];
+    u8 buffer0202B5AC[1];  // unknown length
+};
+
+struct UnknownItemStruct
+{
+    u8 filler0[6];
+    u16 unk6;
+};
+
+struct ROMCharStruct
+{
+    u16 unk0;
 };
 
 #endif  // GUARD_TYPES_H
