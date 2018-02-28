@@ -886,8 +886,6 @@ extern struct MusicPlayerInfo gUnknown_030066D0;
 // extern ??? gMPlayMemAccArea
 extern struct MusicPlayerInfo gUnknown_03006720;
 extern struct MusicPlayerInfo gUnknown_03006760;
-extern void (*gSramTransferFunc)(u8 *, u8 *, int);
-extern void *(*gSramVerifyFunc)(u8 *, u8 *, int);
 // extern ??? gUnknown_03007E00
 // extern ??? gUnknown_03007F00
 // extern ??? gUnknown_03007FA0

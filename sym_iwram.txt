@@ -96,12 +96,9 @@
 . = 0x001DA8; gUnknown_03001DA8 = .;
 . = 0x001DE8; gUnknown_03001DE8 = .;
 . = 0x001E30; gUnknown_03001E30 = .;
-. = 0x002A68; gVerifySramFast_IWRAMCodeBuffer = .;
-. = 0x002A69; gUnknown_03002A69 = .;
-. = 0x002B08; gReadSramFast_IWRAMCodeBuffer = .;
-. = 0x002B09; gUnknown_03002B09 = .;
 
-. = 0x2B88;
+. = 0x002A68;
+. = ALIGN(4); src/agb_sram.o(.bss);
 . = ALIGN(4); tools/agbcc/lib/libc.a:syscalls.o(.bss);
 . = ALIGN(4); tools/agbcc/lib/libgcc.a:dp-bit.o(.bss);
 . = ALIGN(4); tools/agbcc/lib/libgcc.a:fp-bit.o(.bss);
@@ -198,8 +195,10 @@
 . = 0x006710; gMPlayMemAccArea = .;
 . = 0x006720; gUnknown_03006720 = .;
 . = 0x006760; gUnknown_03006760 = .;
-. = 0x0067A0; gSramTransferFunc = .;
-. = 0x0067A4; gSramVerifyFunc = .;
+
+/* src/agb_sram.o(COMMON); */
+. = 0x0067A0; ReadSramFast = .;
+. = 0x0067A4; VerifySramFast = .;
 
 . = 0x67A8;
 . = ALIGN(4); tools/agbcc/lib/libc.a:sbrkr.o(COMMON);
