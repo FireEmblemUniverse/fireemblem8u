@@ -308,7 +308,7 @@ void _UpdateKeyStatus(struct KeyStatusBuffer *keyStatus, s16 keys)
     }
     else
     {
-    // held key combination has changed. reset timer
+        // held key combination has changed. reset timer
         keyStatus->repeatTimer = keyStatus->repeatDelay;
     }
 
@@ -468,30 +468,30 @@ void sub_800159C(u16 *a, u8 *b, s16 c, s16 d, u16 e)
     b += 2;
 
     if (c + ip > 32)
-    r8 = 32 - c;
+        r8 = 32 - c;
     else
-    r8 = ip;
+        r8 = ip;
     if (c < 0)
     {
-    sp8 = -c;
-    r8 -= -c;
-    sb = 0;
+        sp8 = -c;
+        r8 -= -c;
+        sb = 0;
     }
     if (r8 > 0)
-    return;
+        return;
 
     if (d + sp4 > 32)
-    r4 = 32 - d;
+        r4 = 32 - d;
     else
-    r4 = sp4;
+        r4 = sp4;
     if (d < 0)
     {
-    spC = -d;
-    r4 -= -d;
-    r3 = 0;
+        spC = -d;
+        r4 -= -d;
+        r3 = 0;
     }
     if (r4 > 0)
-    return;
+        return;
 
     b += ip * (sp4 - (spC + r4)) * 2;
     a += (r3 + r4 - 1) * 32;
@@ -499,12 +499,12 @@ void sub_800159C(u16 *a, u8 *b, s16 c, s16 d, u16 e)
     //r2 = a + sb;
     for (r4_ = r4 - 1; r4_ >= 0; r4_--)
     {
-    r3_ = (u16 *)b + sp8;
-    r2 = a + sb;
-    for (r1_ = 0; r1_ < r8; r1_++)
-        *r2++ = *r3_++ + e;
-    b += ip;
-    sb -= 64;
+        r3_ = (u16 *)b + sp8;
+        r2 = a + sb;
+        for (r1_ = 0; r1_ < r8; r1_++)
+            *r2++ = *r3_++ + e;
+        b += ip;
+        sb -= 64;
     }
 }
 #else
