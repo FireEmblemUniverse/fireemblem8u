@@ -5859,7 +5859,7 @@ sub_801512C: @ 0x0801512C
 	THUMB_FUNC_START sub_8015160
 sub_8015160: @ 0x08015160
 	push {r4, lr}
-	ldr r3, _080151A8  @ gUnknown_080D751C
+	ldr r3, _080151A8  @ gSinLookup
 	lsls r1, r1, #0x10
 	movs r2, #0xff
 	lsls r2, r2, #0x10
@@ -5894,12 +5894,12 @@ sub_8015160: @ 0x08015160
 	pop {r0}
 	bx r0
 	.align 2, 0
-_080151A8: .4byte gUnknown_080D751C
+_080151A8: .4byte gSinLookup
 
 	THUMB_FUNC_START sub_80151AC
 sub_80151AC: @ 0x080151AC
 	push {r4, lr}
-	ldr r3, _080151F0  @ gUnknown_080D751C
+	ldr r3, _080151F0  @ gSinLookup
 	lsls r1, r1, #0x10
 	movs r2, #0xff
 	lsls r2, r2, #0x10
@@ -5933,12 +5933,12 @@ sub_80151AC: @ 0x080151AC
 	pop {r0}
 	bx r0
 	.align 2, 0
-_080151F0: .4byte gUnknown_080D751C
+_080151F0: .4byte gSinLookup
 
 	THUMB_FUNC_START sub_80151F4
 sub_80151F4: @ 0x080151F4
 	push {r4, lr}
-	ldr r3, _08015238  @ gUnknown_080D751C
+	ldr r3, _08015238  @ gSinLookup
 	lsls r1, r1, #0x10
 	movs r2, #0xff
 	lsls r2, r2, #0x10
@@ -5972,7 +5972,7 @@ sub_80151F4: @ 0x080151F4
 	pop {r0}
 	bx r0
 	.align 2, 0
-_08015238: .4byte gUnknown_080D751C
+_08015238: .4byte gSinLookup
 
 	THUMB_FUNC_START sub_801523C
 sub_801523C: @ 0x0801523C

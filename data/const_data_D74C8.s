@@ -2,12 +2,12 @@
 
 	.align 2
 
-	.global gUnknown_080D751C
-gUnknown_080D751C:  @ 0x080D751C
+	.global gSinLookup
+gSinLookup:  @ 0x080D751C
 	.incbin "baserom.gba", 0xD751C, 0x80
 
-	.global gUnknown_080D759C
-gUnknown_080D759C:  @ 0x080D759C
+	.global gCosLookup
+gCosLookup:  @ 0x080D759C
 	.incbin "baserom.gba", 0xD759C, 0x200
 
 	.global gUnknown_080D779C
