@@ -46,7 +46,6 @@ SECTIONS
         asm/ap.o(.text);
         asm/gamectrl.o(.text);
         src/messdecode.o(.text);
-        asm/messdecode.o(.text);
         asm/spline.o(.text);
         asm/evtcmd_gmap.o(.text);
         asm/event.o(.text);
