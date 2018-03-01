@@ -8,9 +8,9 @@
 
 #define MAX_PROC_COUNT 64
 
-EWRAM_DATA struct Proc gProcesses[MAX_PROC_COUNT] = {0}; 
-EWRAM_DATA struct Proc *sProcessAllocList[MAX_PROC_COUNT + 1] = {0};
-EWRAM_DATA struct Proc **sProcessAllocListHead = NULL;  // pointer to next entry in sProcessAllocList
+EWRAM_DATA static struct Proc gProcesses[MAX_PROC_COUNT] = {0}; 
+EWRAM_DATA static struct Proc *sProcessAllocList[MAX_PROC_COUNT + 1] = {0};
+EWRAM_DATA static struct Proc **sProcessAllocListHead = NULL;  // pointer to next entry in sProcessAllocList
 EWRAM_DATA struct Proc *gRootProcesses[8] = {0};
 
 static struct Proc *AllocateProcess(void);
