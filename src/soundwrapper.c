@@ -9,6 +9,23 @@ EWRAM_DATA struct Struct02024E5C gUnknown_02024E5C = {0};
 extern struct Proc *gUnknown_03000040;
 extern struct Proc *gUnknown_03000044;
 
+struct MusicProc {
+    PROC_HEADER
+    /*0x2A*/ s16 filler2A[16];
+    /*0x4A*/ s16 unk4A;
+    /*0x4C*/ s16 unk4C; // 16
+    /*0x4E*/ s16 unk4E; // 17
+    /*0x50*/ s16 filler50[2];
+    /*0x54*/ s32 unk54;
+    /*0x58*/ s32 unk58; // 23
+    /*0x5C*/ s32 unk5C; // 25
+    /*0x60*/ s16 filler60[2];
+    /*0x64*/ s16 unk64;
+    /*0x66*/ s16 unk66;
+    /*0x68*/ s16 unk68;
+    /*0x6A*/ s16 unk6A;
+};
+
 int sub_8002258(void)
 {
     return gUnknown_02024E5C.unk4;
@@ -129,14 +146,15 @@ void sub_80024E4(int a, int speed, int c)
 
 static void sub_80024F0(struct Proc *proc)
 {
-    int volume = sub_8012DCC(0, 0, 0x100, proc->data[0x11], proc->data[0x12]);
+    struct MusicProc *mproc = (struct MusicProc *)proc;
+    int volume = sub_8012DCC(0, 0, 0x100, mproc->unk4C, mproc->unk4E);
 
     m4aMPlayVolumeControl(&gUnknown_03006440, 0xFFFF, volume);
     m4aMPlayVolumeControl(&gUnknown_03006650, 0xFFFF, volume);
-    proc->data[0x11]++;
-    if (proc->data[0x11] >= proc->data[0x12])
+    mproc->unk4C++;
+    if (mproc->unk4C >= mproc->unk4E)
     {
-        Proc_ClearNativeCallback(proc);
+        Proc_ClearNativeCallback((struct Proc *)mproc);
         gUnknown_03000040 = NULL;
     }
 }
@@ -144,20 +162,20 @@ static void sub_80024F0(struct Proc *proc)
 struct ProcCmd gUnknown_08587958[] =
 {
     PROC_END_DUPLICATES,
-	PROC_LOOP_ROUTINE(sub_80024F0),
-	PROC_END,
+    PROC_LOOP_ROUTINE(sub_80024F0),
+    PROC_END,
 };
 
 void sub_8002574(int a, int b, int c)
 {
-    struct Proc *proc;
+    struct MusicProc *proc;
 
     if (gUnknown_0202BCF0.unk41_1 == 0)
     {
         gUnknown_02024E5C.unk6 = 1;
         gUnknown_02024E5C.unk7 = 0;
         gUnknown_02024E5C.unk4 = a;
-        proc = Proc_Create(gUnknown_08587958, (struct Proc *)3);
+        proc = (struct MusicProc *)Proc_Create(gUnknown_08587958, ROOT_PROC_3);
         m4aMPlayStop(&gUnknown_03006440);
         m4aMPlayStop(&gUnknown_03006650);
         sub_8002890(a, c);
@@ -165,9 +183,9 @@ void sub_8002574(int a, int b, int c)
         m4aMPlayImmInit(&gUnknown_03006650);
         m4aMPlayVolumeControl(&gUnknown_03006440, 0xFFFF, 0);
         m4aMPlayVolumeControl(&gUnknown_03006650, 0xFFFF, 0);
-        proc->data[0x11] = 0;
-        proc->data[0x12] = b * 16;
-        gUnknown_03000040 = proc;
+        proc->unk4C = 0;
+        proc->unk4E = b * 16;
+        gUnknown_03000040 = (struct Proc *)proc;
     }
 }
 
@@ -223,34 +241,35 @@ void sub_800270C(void)
 struct ProcCmd gUnknown_08587970[] =
 {
     PROC_YIELD,
-	PROC_LOOP_ROUTINE(sub_8002788),
-	PROC_END,
+    PROC_LOOP_ROUTINE(sub_8002788),
+    PROC_END,
 };
 
 void ISuspectThisToBeMusicRelated_8002730(int a, int b, int c, struct Proc *parent)
 {
-    struct Proc *proc;
+    struct MusicProc *proc;
 
     if (parent)
-        proc = Proc_CreateBlockingChild(gUnknown_08587970, parent);
+        proc = (struct MusicProc *)Proc_CreateBlockingChild(gUnknown_08587970, parent);
     else
-        proc = Proc_Create(gUnknown_08587970, (struct Proc *)3);
-    proc->data[29] = a;
-    proc->data[30] = b;
-    proc->data[31] = 0;
-    proc->data[32] = c;
+        proc = (struct MusicProc *)Proc_Create(gUnknown_08587970, ROOT_PROC_3);
+    proc->unk64 = a;
+    proc->unk66 = b;
+    proc->unk68 = 0;
+    proc->unk6A = c;
     if (a == 0)
         a = 1;
     SomethingSoundRelated_80022EC(a);
-    gUnknown_03000044 = proc;
+    gUnknown_03000044 = (struct Proc *)proc;
 }
 
 static void sub_8002788(struct Proc *proc)
 {
-    SomethingSoundRelated_80022EC(sub_8012DCC(4, proc->data[29], proc->data[30], proc->data[31]++, proc->data[32]));
-    if (proc->data[31] >= proc->data[32])
+    struct MusicProc *mproc = (struct MusicProc *)proc;
+    SomethingSoundRelated_80022EC(sub_8012DCC(4, mproc->unk64, mproc->unk66, mproc->unk68++, mproc->unk6A));
+    if (mproc->unk68 >= mproc->unk6A)
     {
-        if (proc->data[30] == 0)
+        if (mproc->unk66 == 0)
         {
             m4aSongNumStop(sub_8002258());
             gUnknown_02024E5C.unk6 = 0;
@@ -268,31 +287,32 @@ static void sub_8002788(struct Proc *proc)
 
 void Some6CMusicRelatedWaitCallback(struct Proc *proc)
 {
-    proc->data[17]--;
-    if (proc->data[17] < 0)
+    struct MusicProc *mproc = (struct MusicProc *)proc;
+    mproc->unk4C--;
+    if (mproc->unk4C < 0)
     {
         gUnknown_02024E5C.unk6 = 1;
-        gUnknown_02024E5C.unk4 = proc->data[16];
-        sub_8002890(proc->data[16], *(s32 *)&proc->data[21]);
-        Proc_Delete(proc);
+        gUnknown_02024E5C.unk4 = mproc->unk4A;
+        sub_8002890(mproc->unk4A, mproc->unk54);
+        Proc_Delete((struct Proc *)proc);
     }
 }
 
 struct ProcCmd gUnknown_08587988[] =
 {
-	PROC_LOOP_ROUTINE(Some6CMusicRelatedWaitCallback),
-	PROC_END,
+    PROC_LOOP_ROUTINE(Some6CMusicRelatedWaitCallback),
+    PROC_END,
 };
 
 void Exec6CSomeWaitIfMusicOn(int a, int b, int c)
 {
     if (gUnknown_0202BCF0.unk41_1 == 0)
     {
-        struct Proc *proc = Proc_Create(gUnknown_08587988, (struct Proc *)3);
+        struct MusicProc *mproc = (struct MusicProc *)Proc_Create(gUnknown_08587988, ROOT_PROC_3);
 
-        proc->data[17] = b;
-        proc->data[16] = a;
-        *(s32 *)&proc->data[21] = c;
+        mproc->unk4C = b;
+        mproc->unk4A = a;
+        mproc->unk54 = c;
     }
 }
 
@@ -352,21 +372,23 @@ int sub_8002950(void)
 
 void sub_800296C(struct Proc *proc)
 {
-    if (sub_8002264() != 0 && proc->data[29] != 0)
+    struct MusicProc *mproc = (struct MusicProc *)proc;
+    if (sub_8002264() != 0 && mproc->unk64 != 0)
     {
-        if (*(s32 *)&proc->data[25] == -1)
-            ISuspectThisToBeMusicRelated_8002730(proc->data[29], proc->data[30], *(s32 *)&proc->data[23], proc);
+        if (mproc->unk5C == -1)
+            ISuspectThisToBeMusicRelated_8002730(mproc->unk64, mproc->unk66, mproc->unk58, proc);
         else
-            ISuspectThisToBeMusicRelated_8002730(proc->data[29], 0, *(s32 *)&proc->data[23], proc);
+            ISuspectThisToBeMusicRelated_8002730(mproc->unk64, 0, mproc->unk58, proc);
     }
 }
 
 void sub_80029BC(struct Proc *proc)
 {
-    if (*(s32 *)&proc->data[25] > 0)
+    struct MusicProc *mproc = (struct MusicProc *)proc;
+    if (mproc->unk5C > 0)
     {
-        sub_80024D4(*(s32 *)&proc->data[25], 0);
-        SomethingSoundRelated_80022EC(proc->data[30]);
+        sub_80024D4(mproc->unk5C, 0);
+        SomethingSoundRelated_80022EC(mproc->unk66);
     }
     else
     {
@@ -376,34 +398,34 @@ void sub_80029BC(struct Proc *proc)
 
 struct ProcCmd gUnknown_08587998[] =
 {
-	PROC_SLEEP(1),
-	PROC_CALL_ROUTINE(sub_800296C),
-	PROC_SLEEP(1),
-	PROC_CALL_ROUTINE(sub_80029BC),
-	PROC_SLEEP(8),
-	PROC_LABEL(0),
-	PROC_YIELD,
-	PROC_END,
+    PROC_SLEEP(1),
+    PROC_CALL_ROUTINE(sub_800296C),
+    PROC_SLEEP(1),
+    PROC_CALL_ROUTINE(sub_80029BC),
+    PROC_SLEEP(8),
+    PROC_LABEL(0),
+    PROC_YIELD,
+    PROC_END,
 };
 
 void sub_80029E8(int a, int b, int c, int d, struct Proc *parent)
 {
-    struct Proc *proc;
+    struct MusicProc *mproc;
 
     if (sub_8002264() != 0 && a == gUnknown_02024E5C.unk4 && b == c)
         return;
 
     if (parent != NULL)
-        proc = Proc_CreateBlockingChild(gUnknown_08587998, parent);
+        mproc = (struct MusicProc *)Proc_CreateBlockingChild(gUnknown_08587998, parent);
     else
-        proc = Proc_Create(gUnknown_08587998, (struct Proc *)3);
-    *(s32 *)&proc->data[23] = d;
+        mproc = (struct MusicProc *)Proc_Create(gUnknown_08587998, ROOT_PROC_3);
+    mproc->unk58 = d;
     if (sub_8002264() != 0 && a == gUnknown_02024E5C.unk4)
-        *(s32 *)&proc->data[25] = -1;
+        mproc->unk5C = -1;
     else
-        *(s32 *)&proc->data[25] = a;
-    proc->data[29] = b;
-    proc->data[30] = c;
+        mproc->unk5C = a;
+    mproc->unk64 = b;
+    mproc->unk66 = c;
 }
 
 int sub_8002A6C(void)
