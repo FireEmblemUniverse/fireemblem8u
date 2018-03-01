@@ -1,5 +1,11 @@
 #include "global.h"
 
+const char *gUnknown_08591AA4[][2] =
+{
+    {"a ", "A "},
+    {"an ", "An "},
+};
+
 const char *sub_800A048(s8 *a, s8 b)
 {
     switch (a[0])
