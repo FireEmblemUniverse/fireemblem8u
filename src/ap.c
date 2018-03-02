@@ -4,15 +4,6 @@
 
 static struct APHandle sAPArray[AP_MAX_COUNT];
 
-struct APHandle* AP_Find(const u16* definition);
-void AP_Init(struct APHandle*, const u16*, u16);
-void AP_Display(struct APHandle*, int, int);
-s8   AP_ExecFrame(struct APHandle*);
-void AP_QueueObjRotScale(struct APHandle*);
-void AP_QueueObjGraphics(struct APHandle*);
-void AP_ExecDummyFrame(struct APHandle*);
-void AP_LoadDefinition(struct APHandle*, const u16*);
-
 void AP_ClearAll(void) {
     struct APHandle* it;
 
@@ -182,9 +173,6 @@ void AP_SetDefinition(struct APHandle* handle, const u16* definition) {
     AP_ExecDummyFrame(handle);
 }
 
-// TODO: better (local const static variable?)
-extern u8 gUnknown_085916A4[];
-
 void AP_QueueObjGraphics(struct APHandle* handle) {
     const u16* itGfxData;
     const u16* itObjData;
@@ -206,21 +194,21 @@ void AP_QueueObjGraphics(struct APHandle* handle) {
 
     while ((i--) > 0) {
         RegisterObjectTileGraphics(
-            handle->pGraphics + (*itGfxData & 0x3FF) * 0x20,             // source location
+            handle->pGraphics + (*itGfxData & 0x3FF) * 0x20,              // source location
             OBJ_VRAM0 + ((handle->tileBase & 0x3FF) * 0x20) + tileOffset, // target location
-            gUnknown_085916A4[OBJ_SIZE_TABLE_INDEX(itObjData)+0],        // x size (tiles)
-            gUnknown_085916A4[OBJ_SIZE_TABLE_INDEX(itObjData)+1]         // y size (tiles)
+            gOAMTileSizeLookup[OBJ_SIZE_TABLE_INDEX(itObjData)+0],        // x size (tiles)
+            gOAMTileSizeLookup[OBJ_SIZE_TABLE_INDEX(itObjData)+1]         // y size (tiles)
         );
 
         if (!gLCDControlBuffer.dispcnt.obj1dMap)
             // Adding (width * sizeof(Tile4bpp))
-            tileOffset += (gUnknown_085916A4[OBJ_SIZE_TABLE_INDEX(itObjData)]) * 0x20;
+            tileOffset += (gOAMTileSizeLookup[OBJ_SIZE_TABLE_INDEX(itObjData)]) * 0x20;
         else
             // Using the square of the width here?
             // Maybe it's bugged, since I don't think the obj1dMap flag is ever set
             tileOffset += ((
-                (gUnknown_085916A4[OBJ_SIZE_TABLE_INDEX(itObjData)]) *
-                (gUnknown_085916A4[OBJ_SIZE_TABLE_INDEX(itObjData)])
+                (gOAMTileSizeLookup[OBJ_SIZE_TABLE_INDEX(itObjData)]) *
+                (gOAMTileSizeLookup[OBJ_SIZE_TABLE_INDEX(itObjData)])
             )& 0x3FF) * 0x20;
 
         itObjData += 3;

@@ -34,4 +34,26 @@ struct APProc {
 
 extern struct ProcCmd gUnknown_0859168C[];
 
+void AP_ClearAll();
+// ??? AP_Create(???);
+// ??? AP_Delete(???);
+// ??? AP_Update(???);
+void AP_Display(struct APHandle*, int, int);
+s8   AP_ExecFrame(struct APHandle*);
+void AP_QueueObjRotScale(struct APHandle*);
+// ??? AP_SwitchAnimation(???);
+// ??? AP_SetDefinition(???);
+void AP_QueueObjGraphics(struct APHandle*);
+void AP_LoadDefinition(struct APHandle*, const u16*);
+void AP_ExecDummyFrame(struct APHandle*);
+void AP_Init(struct APHandle*, const u16*, u16);
+struct APHandle* AP_Find(const u16* definition);
+// ??? APProc_Create(???);
+// ??? APProc_OnUpdate(???);
+// ??? APProc_OnEnd(???);
+// ??? APProc_SetParameters(???);
+// ??? APProc_Delete(???);
+// ??? APProc_DeleteAll(???);
+// ??? APProc_Exists(???);
+
 #endif // GUARD_AP_H

@@ -264,8 +264,8 @@ gUnknown_0859163C:  @ 0x0859163C
 gUnknown_0859168C:  @ 0x0859168C
 	.incbin "baserom.gba", 0x59168C, 0x18
 
-	.global gUnknown_085916A4
-gUnknown_085916A4:  @ 0x085916A4
+	.global gOAMTileSizeLookup
+gOAMTileSizeLookup:  @ 0x085916A4
 	.incbin "baserom.gba", 0x5916A4, 0x30
 
 	.global gUnknown_085916D4
