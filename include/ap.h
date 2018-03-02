@@ -1,8 +1,6 @@
 #ifndef GUARD_AP_H
 #define GUARD_AP_H
 
-#include "global.h"
-#include "proc.h"
 
 struct APHandle {
     const u16* pDefinition;      // Pointer to Definition Root
@@ -21,18 +19,6 @@ struct APHandle {
     const void* pGraphics;       // Pointer to graphics (if any)
 };
 
-struct APProc {
-    PROC_HEADER;
-
-    u8 _pad[0x50-0x29];
-    
-    struct APHandle* pHandle;
-
-    u32 xPosition;
-    u32 yPosition;
-};
-
-extern struct ProcCmd gUnknown_0859168C[];
 
 void AP_ClearAll();
 // ??? AP_Create(???);

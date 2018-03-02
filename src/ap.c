@@ -1,6 +1,23 @@
+#include "global.h"
 #include "ap.h"
+#include "proc.h"
 
 #define AP_MAX_COUNT 0x14 // 20
+
+
+struct APProc
+{
+    PROC_HEADER;
+
+    u8 _pad[0x50-0x29];
+    
+    struct APHandle* pHandle;
+
+    u32 xPosition;
+    u32 yPosition;
+};
+
+extern struct ProcCmd gUnknown_0859168C[];
 
 static struct APHandle sAPArray[AP_MAX_COUNT];
 
