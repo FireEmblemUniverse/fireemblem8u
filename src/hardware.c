@@ -1196,12 +1196,12 @@ void FlushPrimaryOAM(void)
     }
 }
 
-void WriteOAMRotScaleData(int a, int b, int c, int d, int e)
+void WriteOAMRotScaleData(int index, s16 pa, s16 pb, s16 pc, s16 pd)
 {
-    gUnknown_03003140[a * 16 + 3] = b;
-    gUnknown_03003140[a * 16 + 7] = c;
-    gUnknown_03003140[a * 16 + 11] = d;
-    gUnknown_03003140[a * 16 + 15] = e;
+    gUnknown_03003140[index * 16 + 3] = pa;
+    gUnknown_03003140[index * 16 + 7] = pb;
+    gUnknown_03003140[index * 16 + 11] = pc;
+    gUnknown_03003140[index * 16 + 15] = pd;
 }
 
 struct UnknownDmaStruct2

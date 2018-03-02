@@ -719,7 +719,7 @@ extern struct OamDataTransfer gUnknown_03000030;
 // extern ??? gUnknown_030000D8
 // extern ??? gUnknown_030000E8
 // extern ??? gUnknown_030000F0
-// extern ??? gUnknown_03000108
+// extern ??? sAPArray
 // extern ??? gUnknown_03000428
 // extern ??? gUnknown_03000430
 // extern ??? gUnknown_03000434
@@ -897,8 +897,8 @@ extern const char gBuildDateTime[]; // "2005/02/04(FRI) 16:55:40...."
 extern const char gYearProjectCreated[]; // "_2003..."
 // extern ??? gUnknown_080D74F4
 extern const u16 gUnknown_080D7504[];
-// extern ??? gUnknown_080D751C
-// extern ??? gUnknown_080D759C
+extern const s16 gSinLookup[]; // gSinTable
+extern const s16 gCosLookup[]; // gCosTable
 // extern ??? gUnknown_080D779C
 // extern ??? gUnknown_080D77B0
 // extern ??? gUnknown_080D77BC
@@ -1410,7 +1410,7 @@ extern struct BgCnt *gUnknown_08587948[];
 // extern ??? gUnknown_08591624
 // extern ??? gUnknown_0859163C
 // extern ??? gUnknown_0859168C
-// extern ??? gUnknown_085916A4
+extern u8 gOAMTileSizeLookup[]; // May be local to ap.c? Or even AP_QueueObjGraphics specifically
 // u8 ??? gUnknown_085916D4
 extern const char *gUnknown_08591AA4[][2];
 //extern struct {u32 *unk0; u32 *unk4; u32 *unk8;} gUnknown_08591AA4;

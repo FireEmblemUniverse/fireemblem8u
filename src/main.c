@@ -1,5 +1,6 @@
 #include "global.h"
 #include "proc.h"
+#include "ap.h"
 
 EWRAM_DATA static struct KeyStatusBuffer sKeyStatusBuffer = {0};
 
@@ -35,7 +36,7 @@ void AgbMain()
     StoreRoutinesToIRAM();
     sub_80A2C3C();
     Proc_Initialize();
-    TCS_ClearAll();
+    AP_ClearAll();
     ResetMoveunitStructs();
     SetLCGRNValue(0x42D690E9);
     InitRN(AdvanceGetLCGRNValue());
