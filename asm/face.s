@@ -7651,7 +7651,7 @@ sub_8009200: @ 0x08009200
 	movs r3, #1
 	negs r3, r3
 	adds r0, r6, #0
-	bl TCSWrapper_SetParameters
+	bl APProc_SetParameters
 	b _08009248
 	.align 2, 0
 _08009238: .4byte gUnknown_0202BCB0
@@ -7671,7 +7671,7 @@ sub_8009250: @ 0x08009250
 	ldr r0, [r0, #0x34]
 	cmp r0, #0
 	beq _0800925C
-	bl TCSWrapper_Delete
+	bl APProc_Delete
 _0800925C:
 	pop {r0}
 	bx r0

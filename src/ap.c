@@ -4,16 +4,16 @@
 
 static struct APHandle sAPArray[AP_MAX_COUNT];
 
-struct APHandle* TCS_Alloc(const u16* definition);
-void TCS_Init(struct APHandle*, const u16*, u16);
-void TCS_RegisterGraphics(struct APHandle*, int, int);
-s8   TCS_Exec(struct APHandle*);
-void TCS_QueueRotScaleData(struct APHandle*);
-void TCS_QueueTileGfx(struct APHandle*);
-void TCS_ExecOneFrame(struct APHandle*);
-void TCS_Load(struct APHandle*, const u16*);
+struct APHandle* AP_Find(const u16* definition);
+void AP_Init(struct APHandle*, const u16*, u16);
+void AP_Display(struct APHandle*, int, int);
+s8   AP_ExecFrame(struct APHandle*);
+void AP_QueueObjRotScale(struct APHandle*);
+void AP_QueueObjGraphics(struct APHandle*);
+void AP_ExecDummyFrame(struct APHandle*);
+void AP_LoadDefinition(struct APHandle*, const u16*);
 
-void TCS_ClearAll(void) {
+void AP_ClearAll(void) {
     struct APHandle* it;
 
     const struct APHandle* base = sAPArray;
@@ -26,37 +26,37 @@ void TCS_ClearAll(void) {
     } while ((int)it >= (int)base); // casts are needed for match
 }
 
-struct APHandle* TCS_New(const void* apDefinition, u16 aObjNode) {
+struct APHandle* AP_Create(const void* apDefinition, u16 aObjNode) {
     struct APHandle* result;
 
-    if (!(result = TCS_Alloc(NULL)))
+    if (!(result = AP_Find(NULL)))
         return NULL;
 
-    TCS_Init(result, apDefinition, aObjNode);
+    AP_Init(result, apDefinition, aObjNode);
     return result;
 }
 
-void TCS_Free(struct APHandle* handle) {
+void AP_Delete(struct APHandle* handle) {
     if (handle && handle->pDefinition)
         handle->pDefinition = NULL;
 }
 
-s8 TCS_Update(struct APHandle* handle, int x, int y) {
+s8 AP_Update(struct APHandle* handle, int x, int y) {
     if (!handle || !handle->pDefinition)
         return FALSE;
     
-    TCS_RegisterGraphics(handle, x, y);
-    return TCS_Exec(handle);
+    AP_Display(handle, x, y);
+    return AP_ExecFrame(handle);
 }
 
-void TCS_RegisterGraphics(struct APHandle* handle, int x, int y) {
+void AP_Display(struct APHandle* handle, int x, int y) {
     int rotScaleMask = 0;
 
     if (!handle || !handle->pDefinition)
         return;
 
     if (handle->pCurrentRotScale) {
-        TCS_QueueRotScaleData(handle);
+        AP_QueueObjRotScale(handle);
         rotScaleMask = (handle->rotScaleIndex << 9);
     }
 
@@ -68,10 +68,10 @@ void TCS_RegisterGraphics(struct APHandle* handle, int x, int y) {
     );
 
     if (handle->pGraphics && handle->gfxNeedsUpdate)
-        TCS_QueueTileGfx(handle);
+        AP_QueueObjGraphics(handle);
 }
 
-s8 TCS_Exec(struct APHandle* handle) {
+s8 AP_ExecFrame(struct APHandle* handle) {
     int tmp; // needed to match
 
     if (!handle || !handle->pDefinition)
@@ -94,10 +94,10 @@ s8 TCS_Exec(struct APHandle* handle) {
         switch (handle->pAnimDataCurrent[1]) {
         case (u16)(-1): // loop back to start
             handle->pAnimDataCurrent = handle->pAnimDataStart;
-            return TCS_Exec(handle);
+            return AP_ExecFrame(handle);
         
         case 1: // delete handle
-            TCS_Free(handle);
+            AP_Delete(handle);
         case 0: // end animation
             return FALSE;
         }
@@ -110,7 +110,7 @@ s8 TCS_Exec(struct APHandle* handle) {
     // Check if next frame wasn't reached yet
     if (handle->subframeTimer < 0x100) {
         handle->frameTimer = 1;
-        return TCS_Exec(handle);
+        return AP_ExecFrame(handle);
     }
 
     // Setting clock values depending on subframe clock
@@ -133,7 +133,7 @@ s8 TCS_Exec(struct APHandle* handle) {
     return TRUE;
 }
 
-void TCS_QueueRotScaleData(struct APHandle* handle) {
+void AP_QueueObjRotScale(struct APHandle* handle) {
     int i, count;
     const u16* it;
 
@@ -158,7 +158,7 @@ void TCS_QueueRotScaleData(struct APHandle* handle) {
     }
 }
 
-void TCS_SetAnim(struct APHandle* handle, int index) {
+void AP_SwitchAnimation(struct APHandle* handle, int index) {
     const u16* animDataList;
 
     if (!handle || !handle->pDefinition)
@@ -171,21 +171,21 @@ void TCS_SetAnim(struct APHandle* handle, int index) {
     handle->pAnimDataStart   = animDataList + animDataList[index]/2;
     handle->pAnimDataCurrent = handle->pAnimDataStart;
 
-    TCS_ExecOneFrame(handle);
+    AP_ExecDummyFrame(handle);
 }
 
-void TCS_SetROMTCS(struct APHandle* handle, const u16* definition) {
+void AP_SetDefinition(struct APHandle* handle, const u16* definition) {
     if (!handle || !handle->pDefinition)
         return;
     
-    TCS_Load(handle, definition);
-    TCS_ExecOneFrame(handle);
+    AP_LoadDefinition(handle, definition);
+    AP_ExecDummyFrame(handle);
 }
 
 // TODO: better (local const static variable?)
 extern u8 gUnknown_085916A4[];
 
-void TCS_QueueTileGfx(struct APHandle* handle) {
+void AP_QueueObjGraphics(struct APHandle* handle) {
     const u16* itGfxData;
     const u16* itObjData;
     u32 tileOffset;
@@ -232,7 +232,7 @@ void TCS_QueueTileGfx(struct APHandle* handle) {
     handle->gfxNeedsUpdate = FALSE;
 }
 
-void TCS_Load(struct APHandle* handle, const u16* definition) {
+void AP_LoadDefinition(struct APHandle* handle, const u16* definition) {
     handle->pDefinition = definition;
 
     // frame data starts at offset in short 0
@@ -251,7 +251,7 @@ void TCS_Load(struct APHandle* handle, const u16* definition) {
     handle->pAnimDataCurrent = handle->pAnimDataStart;
 }
 
-void TCS_ExecOneFrame(struct APHandle* handle) {
+void AP_ExecDummyFrame(struct APHandle* handle) {
     int tmp;
 
     // needed to match (and apparently even a thing in the source cf FE6:08013050)
@@ -263,13 +263,13 @@ void TCS_ExecOneFrame(struct APHandle* handle) {
     handle->frameTimer    = 0;
     handle->frameInterval = 0x100;
 
-    TCS_Exec(handle);
+    AP_ExecFrame(handle);
 
     handle->frameInterval = tmp;
 }
 
-void TCS_Init(struct APHandle* handle, const u16* definition, u16 objLayer) {
-    TCS_Load(handle, definition);
+void AP_Init(struct APHandle* handle, const u16* definition, u16 objLayer) {
+    AP_LoadDefinition(handle, definition);
 
     handle->pGraphics  = NULL;
     handle->tileBase   = 0;
@@ -286,10 +286,10 @@ void TCS_Init(struct APHandle* handle, const u16* definition, u16 objLayer) {
 
     handle->subframeTimer = 0;
 
-    TCS_Exec(handle);
+    AP_ExecFrame(handle);
 }
 
-struct APHandle* TCS_Alloc(const u16* definition) {
+struct APHandle* AP_Find(const u16* definition) {
     int i = 0;
     struct APHandle* result = sAPArray;
 
@@ -303,13 +303,13 @@ struct APHandle* TCS_Alloc(const u16* definition) {
     return NULL;
 }
 
-struct APProc* TCSWrapper_New(const void* apDefinition, int xPos, int yPos, int tileBase, int anim, u16 aObjNode) {
+struct APProc* APProc_Create(const void* apDefinition, int xPos, int yPos, int tileBase, int anim, u16 aObjNode) {
     struct APHandle* handle;
     struct APProc* proc;
 
     // Setting up handle
-    handle = TCS_New(apDefinition, aObjNode);
-    TCS_SetAnim(handle, anim);
+    handle = AP_Create(apDefinition, aObjNode);
+    AP_SwitchAnimation(handle, anim);
     handle->tileBase = tileBase;
 
     // Making Proc
@@ -323,19 +323,19 @@ struct APProc* TCSWrapper_New(const void* apDefinition, int xPos, int yPos, int 
     return proc;
 }
 
-void TCSWrapper_OnUpdate(struct APProc* proc) {
+void APProc_OnUpdate(struct APProc* proc) {
     // Update AP, and end proc if the AP was freed (aka the animation ended)
-    if (!TCS_Update(proc->pHandle, proc->xPosition, proc->yPosition))
+    if (!AP_Update(proc->pHandle, proc->xPosition, proc->yPosition))
         if (!proc->pHandle || !proc->pHandle->pDefinition)
             Proc_Delete((struct Proc*) proc);
 }
 
-void TCSWrapper_OnDelete(struct APProc* proc) {
+void APProc_OnEnd(struct APProc* proc) {
     // Free AP when proc ends
-    TCS_Free(proc->pHandle);
+    AP_Delete(proc->pHandle);
 }
 
-void TCSWrapper_SetParameters(struct APProc* proc, int x, int y, int tileBase) {
+void APProc_SetParameters(struct APProc* proc, int x, int y, int tileBase) {
     // Set position
     proc->xPosition = x;
     proc->yPosition = y;
@@ -345,16 +345,16 @@ void TCSWrapper_SetParameters(struct APProc* proc, int x, int y, int tileBase) {
         proc->pHandle->tileBase = tileBase;
 }
 
-void TCSWrapper_Delete(struct APProc* proc) {
+void APProc_Delete(struct APProc* proc) {
     // delet
     Proc_Delete((struct Proc*) proc);
 }
 
-void DeleteAllTCSWrappers(void) {
+void APProc_DeleteAll(void) {
     // delet all
     Proc_DeleteAllWithScript(gUnknown_0859168C);
 }
 
-int DoesTCSWrapperExist(void) {
+int APProc_Exists(void) {
     return Proc_Find(gUnknown_0859168C) ? TRUE : FALSE;
 }
