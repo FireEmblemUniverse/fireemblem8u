@@ -39,6 +39,7 @@ SECTIONS
         src/ramfunc.o(.text);
         src/proc.o(.text);
         asm/icon.o(.text);
+        src/fontgrp.o(.text);
         asm/fontgrp.o(.text);
         asm/animedrv.o(.text);
         asm/ctc.o(.text);

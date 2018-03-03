@@ -455,6 +455,9 @@ extern u8 gBG1TilemapBuffer[];
 // extern ??? gUnknown_0202393E
 // extern ??? gUnknown_0202396C
 // extern ??? gUnknown_020239A8
+// I'm not sure if this is u8 or u16.
+// In text mode, the tilemap entries are 16 bits,
+// while in affine mode, they are 8 bits.
 extern u8 gBG2TilemapBuffer[];
 // extern ??? gUnknown_02023CAA
 // extern ??? gUnknown_02023CAE
@@ -502,11 +505,11 @@ extern struct Struct02024E5C gUnknown_02024E5C;
 // extern ??? gUnknown_02026A90
 // extern ??? gUnknown_02026E10
 // extern ??? gUnknown_02026E30
-// extern ??? gUnknown_02028E44
+extern char gUnknown_02028E44[9];
 // extern ??? gUnknown_02028E4B
 // extern ??? gUnknown_02028E4C
-// extern ??? gUnknown_02028E50
-// extern ??? gUnknown_02028E54
+extern int gUnknown_02028E50;
+extern int gUnknown_02028E54;
 // extern ??? gUnknown_02028E58
 // extern ??? gUnknown_02028E70
 // extern ??? gUnknown_02028E74
@@ -892,6 +895,8 @@ extern struct MusicPlayerInfo gUnknown_03006760;
 // extern ??? gUnknown_03007FF0
 // extern ??? gUnknown_03007FF8
 // extern ??? gUnknown_03007FFC
+
+// const data
 // extern ??? gUnknown_08000540
 extern const char gBuildDateTime[]; // "2005/02/04(FRI) 16:55:40...."
 extern const char gYearProjectCreated[]; // "_2003..."
@@ -899,7 +904,7 @@ extern const char gYearProjectCreated[]; // "_2003..."
 extern const u16 gUnknown_080D7504[];
 extern const s16 gSinLookup[]; // gSinTable
 extern const s16 gCosLookup[]; // gCosTable
-// extern ??? gUnknown_080D779C
+extern const char gUnknown_080D779C[];
 // extern ??? gUnknown_080D77B0
 // extern ??? gUnknown_080D77BC
 // extern ??? gUnknown_080D77DC
@@ -1344,7 +1349,7 @@ extern struct BgCnt *gUnknown_08587948[];
 // extern ??? gUnknown_08587988
 // extern ??? gUnknown_08587998
 // extern ??? gProcCmdFuncs
-// extern ??? gUnknown_08587A40
+extern u8 gUnknown_08587A40[];
 // extern ??? gUnknown_08588240
 // extern ??? gUnknown_08588274
 // extern ??? gUnknown_08588284
