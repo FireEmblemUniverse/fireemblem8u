@@ -126,4 +126,14 @@ struct ROMCharStruct
     u16 unk0;
 };
 
+struct UnknownStructCTC
+{
+    struct UnknownStructCTC *unk0;
+    s16 unk4;
+    s16 unk6;
+    u16 unk8;
+    u8 fillerA[2];
+    const void *unkC;
+};
+
 #endif  // GUARD_TYPES_H
