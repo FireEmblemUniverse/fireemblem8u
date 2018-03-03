@@ -513,8 +513,8 @@ extern struct Struct02024E5C gUnknown_02024E5C;
 // extern ??? gUnknown_02028E78
 // extern ??? gUnknown_02028F78
 // extern ??? gUnknown_02029D88
-// extern ??? gUnknown_02029D8C
-// extern ??? gUnknown_0202A58C
+extern struct UnknownStructCTC gUnknown_02029D8C[];
+extern struct UnknownStructCTC gUnknown_0202A58C[17];
 // extern ??? gUnknown_0202A68C
 extern struct TextBuffer0202A6AC gUnknown_0202A6AC;
 //extern u8 gUnknown_0202AC01[];
@@ -833,7 +833,7 @@ extern void (*sHBlankHandler2)(void);
 extern void *gUnknown_03004158;
 // extern ??? gUnknown_03004160
 // extern ??? gUnknown_03004960
-// extern ??? gUnknown_03004970
+extern struct UnknownStructCTC *gUnknown_03004970;
 // extern ??? gUnknown_03004980
 // extern ??? gUnknown_03004990
 // extern ??? gUnknown_030049A0
@@ -1364,7 +1364,7 @@ extern struct BgCnt *gUnknown_08587948[];
 // extern ??? gUnknown_08590FB4
 // extern ??? gUnknown_08590FBC
 // extern ??? gUnknown_08590FD4
-// extern ??? gUnknown_08590FDC
+extern struct ProcCmd gUnknown_08590FDC[];
 // extern ??? gUnknown_08590FEC
 // extern ??? gUnknown_0859100C
 // extern ??? gUnknown_08591026
