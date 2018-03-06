@@ -1,58 +1,117 @@
+// Copyright(c) 2018 camthesaxman
+//
+// Permission is hereby granted, free of charge, to any person obtaining a copy
+// of this software and associated documentation files (the "Software"), to deal
+// in the Software without restriction, including without limitation the rights
+// to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+// copies of the Software, and to permit persons to whom the Software is
+// furnished to do so, subject to the following conditions:
+//
+// The above copyright notice and this permission notice shall be included in
+// all copies or substantial portions of the Software.
+//
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+// THE SOFTWARE.
+
+#include <ctype.h>
+#include <stdarg.h>
+#include <stdint.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 #include "textencode.h"
+
+struct String *gInputStrings = NULL;
+int gInputStringsCount = 0;
+
+struct ControlCode
+{
+    char *id;
+    uint8_t *code;
+    int codeLength;
+};
+
+static struct ControlCode *controlCodes = NULL;
+static int controlCodesCount = 0;
 
 static size_t inputFileSize;
 static char *inputFileBuffer;
 static int lineNum;
 
-struct String *gInputStrings = NULL;
-int gInputStringsCount = 0;
 
+static void syntax_error(const char *fmt, ...)
+{
+    va_list args;
 
-static void add_input_string(char *ident, char *string)
+    va_start(args, fmt);
+
+    fprintf(stderr, "error: line %i: ", lineNum);
+    vfprintf(stderr, fmt, args);
+    fputc('\n', stderr);
+
+    va_end(args);
+
+    exit(1);
+}
+
+static char *strdup_(const char *str)
+{
+    int length = strlen(str);
+    char *buffer = malloc(length + 1);
+
+    strcpy(buffer, str);
+    return buffer;
+}
+
+static void add_input_string(char *id, char *string)
 {
     int index = gInputStringsCount;
     int i;
 
     // check if ID already exists
     for (i = 0; i < index; i++)
-        if (strcmp(ident, gInputStrings[i].id) == 0)
-            FATAL_ERROR("line %i: string id %s already exists\n", lineNum, ident);
+        if (strcmp(id, gInputStrings[i].id) == 0)
+            syntax_error("string ID %s already exists", id);
 
     gInputStringsCount++;
-    gInputStrings = realloc(gInputStrings, gInputStringsCount * sizeof(*gInputStrings));
-    
-    gInputStrings[index].id = ident;
-    gInputStrings[index].text = string;
+    RESIZE_ARRAY(gInputStrings, gInputStringsCount);
+
+    gInputStrings[index].id = strdup_(id);
+    gInputStrings[index].text = strdup_(string);
 }
 
-// null terminates the current line and returns a pointer to the next line
-static char *split_next_line(char *line)
+static void add_control_code(char *id, uint8_t *code, int codeLength)
 {
-    while (*line != '\n')
-    {
-        if (*line == 0)
-        {
-            if (line == inputFileBuffer + inputFileSize)
-                return NULL;  // end of file
-            else
-                FATAL_ERROR("line %i: unexpected NUL character\n", lineNum);
-        }
-        line++;
-    }
-    *line = 0;
-    return line + 1;
+    int index = controlCodesCount;
+    int i;
+
+    // check if ID already exists
+    for (i = 0; i < index; i++)
+        if (strcmp(id, controlCodes[i].id) == 0)
+            syntax_error("control code [%s] is already defined", id);
+
+    controlCodesCount++;
+    RESIZE_ARRAY(controlCodes, controlCodesCount);
+
+    controlCodes[index].id = strdup_(id);
+    controlCodes[index].code = code;
+    controlCodes[index].codeLength = codeLength;
 }
 
-static char *skip_whitespace(char *str)
-{
-    while (isspace(*str))
-        str++;
-    return str;
-}
-
-static int is_identifier_char(int c)
+static int is_valid_string_id_char(int c)
 {
     return (isalnum(c) || c == '_');
+}
+
+static int is_valid_ctrlcode_id_char(int c)
+{
+    // FEditor allows '.' in control codes, so I'm keeping compatibility with that.
+    return (isalnum(c) || c == '_' || c == '.');
 }
 
 static int hex_digit(int c)
@@ -63,7 +122,7 @@ static int hex_digit(int c)
         return c - 'a' + 0xA;
     if (c >= 'A' && c <= 'F')
         return c - 'A' + 0xA;
-    return -1;
+    return -1;  // not a hex digit
 }
 
 static int is_hex_digit(int c)
@@ -71,186 +130,329 @@ static int is_hex_digit(int c)
     return (hex_digit(c) != -1);
 }
 
-static int read_hex_number(char **str_)
+static int decimal_digit(int c)
 {
-    char *str = *str_;
-    int val = 0;
-    int i = 0;
-
-    while (i < 2)
-    {
-        int digit = hex_digit(*str);
-        if (digit == -1)
-            break;
-        val = (val << 4) | digit;
-        str++;
-        i++;
-    }
-    *str_ = str;
-    return val;
+    if (c >= '0' && c <= '9')
+        return c - '0';
+    return -1;  // not a decimal digit
 }
 
-/*
-static int read_hex_number(char **str_)
+static int is_decimal_digit(int c)
 {
-    char *str = *str_;
-    int val = 0;
-
-    while (1)
-    {
-        int digit = hex_digit(*str);
-        if (digit == -1)
-            break;
-        val = (val << 4) | digit;
-        str++;
-    }
-    *str_ = str;
-    return val;
+    return (decimal_digit(c) != -1);
 }
-*/
 
-static void eval_escape_sequences(char *str)
+// parses a number and returns a pointer to the end of it
+// returns NULL if no valid number could be parsed
+static char *parse_number(char *str, int *value)
 {
-    const uint8_t escapeTable[] =
+    int n = 0;
+    int digit;
+
+    if (str[0] == '0' && tolower(str[1]) == 'x')  // hex number
     {
-        ['a'] = 0x07,
-        ['b'] = 0x08,
-        ['f'] = 0x0C,
-        ['n'] = 0x0A,
-        ['r'] = 0x0D,
-        ['t'] = 0x09,
-        ['v'] = 0x0B,
-        ['\\'] = '\\',
-        ['"'] = '"',
-    };
+        str += 2;
+        if (!is_hex_digit(*str))
+            return NULL;
+        while (1)
+        {
+            digit = hex_digit(*str);
+            if (digit == -1)
+                break;
+            n = n * 16 + digit;
+            str++;
+        }
+    }
+    else  // decimal number
+    {
+        if (!is_decimal_digit(*str))
+            return NULL;
+        while (1)
+        {
+            digit = decimal_digit(*str);
+            if (digit == -1)
+                break;
+            n = n * 10 + digit;
+            str++;
+        }
+    }
 
-    char *src = str;
-    char *dest = str;
+    *value = n;
+    return str;
+}
 
+// copies string from src to dest, expanding control codes
+static void expand_control_codes(char *src, char *dest)
+{
     while (*src != 0)
     {
-        if (*src == '\\')
+        switch (*src)
         {
+        case '\n':  // silently ignore line breaks
             src++;
 
-            unsigned int escval = *src;
-            if (escval < ARRAY_COUNT(escapeTable) && escapeTable[escval] != 0)
+            lineNum++;
+            break;
+
+        case '[':  // control code
+            src++;
+
+            if (isdigit(*src))  // raw number
             {
-                *dest++ = escapeTable[escval];
+                int value;
+
+                src = parse_number(src, &value);
+                if (src == NULL || *src != ']')
+                    syntax_error("invalid number in control code");
                 src++;
+
+                *dest++ = value;
             }
-            else
+            else  // identifier
             {
-                if (escval == 'x')
+                char *id;
+                const struct ControlCode *ctrlCode = NULL;
+                int i;
+
+                // extract identifier
+                id = src;
+                src = strchr(src, ']');
+                if (src == NULL)
+                    syntax_error("unterminated [");
+                *src = 0;
+                src++;
+
+                // find control code
+                for (i = 0; i < controlCodesCount; i++)
                 {
-                    src++;
-                    if (!is_hex_digit(*src))
-                        FATAL_ERROR("line %i: invalid hex number\n", lineNum);
-                    int val = read_hex_number(&src);
-                    if (val > 0xFF)
-                        FATAL_ERROR("line %i: hex value 0x%X is too large for one byte\n", lineNum, val);
-                    *dest++ = val;
-                    //printf("debug: hex 0x%X\n", val);
+                    if (strcmp(id, controlCodes[i].id) == 0)
+                    {
+                        ctrlCode = &controlCodes[i];
+                        break;
+                    }
                 }
-                else
-                {
-                    FATAL_ERROR("line %i: unknown escape sequence \\%c\n", lineNum, escval);
-                }
+                if (ctrlCode == NULL)
+                    syntax_error("unknown control code [%s]", id);
+
+                // copy control code to dest
+                for (i = 0; i < ctrlCode->codeLength; i++)
+                    *dest++ = ctrlCode->code[i];
             }
-        }
-        else
-        {
+            break;
+
+        case ']':
+            syntax_error("] without matching [");
+            break;
+
+        default:
             *dest++ = *src++;
+            break;
         }
     }
     *dest = 0;
 }
 
-static void parse_line(char *line)
+char *skip_whitespace_and_comments(char *str)
+{
+    int isLineStart = 0;
+
+    // needed to allow comments on first line of file
+    if (str == inputFileBuffer)
+        isLineStart = 1;
+
+    while (1)
+    {
+        if (isspace(*str))
+        {
+            if (*str == '\n')
+            {
+                isLineStart = 1;
+                lineNum++;
+            }
+
+            str++;
+        }
+        else
+        {
+            // Handle comments
+            // # starts a comment if it is the first non-whitespace character on a line
+            if (*str == '#' && isLineStart)
+            {
+                // Skip to the end of the line
+                while (*str != '\n' && *str != 0)
+                    str++;
+            }
+            else
+            {
+                // not whitespace and not a comment
+                return str;
+            }
+        }
+    }
+}
+
+// skips all whitespace until a newline char or non-whitespace char is encountered
+char *skip_whitespace_no_newline(char *str)
+{
+    while (isspace(*str))
+    {
+        if (*str == '\n')
+            break;
+        str++;
+    }
+    return str;
+}
+
+// parses a control code definition and returns a pointer to the end of it
+char *parse_ctrlcode_def(char *str)
+{
+    char *identStart;
+    char *identEnd;
+    uint8_t *code = NULL;
+    int codeLength = 0;
+
+    str++;  // skip opening [
+
+    // identifier
+    identStart = str;
+    if (isdigit(*str))
+        syntax_error("identifier cannot start with digit");
+    while (is_valid_ctrlcode_id_char(*str))
+        str++;
+
+    // closing bracket
+    identEnd = str;
+    if (*str != ']')
+        syntax_error("invalid identifier character '%c'", *str);
+    str++;
+
+    str = skip_whitespace_no_newline(str);
+
+    // equal sign
+    if (*str != '=')
+        syntax_error("expected = after control code identifier");
+
+    // value list
+    do
+    {
+        int value;
+
+        str++;  // skip equal sign or comma
+
+        str = skip_whitespace_no_newline(str);
+
+        // number
+        str = parse_number(str, &value);
+        if (str == NULL)
+            syntax_error("expected number as right-hand value");
+        codeLength++;
+        RESIZE_ARRAY(code, codeLength);
+        code[codeLength - 1] = value;
+
+        str = skip_whitespace_no_newline(str);
+
+    } while (*str == ',');  // values separated by commas
+
+    if (*str != '\n' && *str != 0)
+        syntax_error("junk at end of line");
+
+    *identEnd = 0;
+
+    add_control_code(identStart, code, codeLength);
+
+    return str;
+}
+
+// parses a string entry and returns a pointer to the end of it
+char *parse_string_entry(char *str)
 {
     char *identStart;
     char *identEnd;
     char *stringStart;
     char *stringEnd;
-    int escaped;
+    char *buffer = malloc(5000);  // TODO: size this buffer dynamically
 
-    line = skip_whitespace(line);
+    // identifier
+    identStart = str;
+    if (isdigit(*str))
+        syntax_error("identifier cannot start with digit");
+    while (is_valid_string_id_char(*str))
+        str++;
+    identEnd = str;
 
-    if (*line == '#')  // comment
-        return;
-    if (*line == 0)  // blank line
-        return;
+    str = skip_whitespace_and_comments(str);
 
-    // read identifier
-    if (!is_identifier_char(*line))
-        FATAL_ERROR("line %i: invalid identifier char '%c'\n", lineNum, *line);
-    identStart = line;
-    while (is_identifier_char(*line))
-        line++;
-    identEnd = line;
+    // opening bracket
+    if (*str != '{')
+        syntax_error("expected { after identifier");
+    str++;
 
-    line = skip_whitespace(line);
+    // string
+    stringStart = str;
 
-    // read string
-    if (*line != '"')
-        FATAL_ERROR("line %i: expected string literal following identifier\n", lineNum);
-    line++;
-    stringStart = line;
-    escaped = 0;
-    while (*line != '"' || escaped)
-    {
-        if (*line == 0)
-            FATAL_ERROR("line %i: unterminated string literal\n", lineNum);
-        if (escaped)
-            escaped = 0;
-        else if (*line == '\\')
-            escaped = 1;
-        line++;
-    }
-    stringEnd = line;
+    // closing bracket
+    str = strchr(str, '}');
+    stringEnd = str;
+    if (str == NULL)
+        syntax_error("unterminated {");
+    str++;
 
-    line++;
-    line = skip_whitespace(line);
-    if (*line != 0)
-        FATAL_ERROR("line %i: junk at end of line\n", lineNum);
-
-    *stringEnd = 0;
     *identEnd = 0;
+    *stringEnd = 0;
 
-    eval_escape_sequences(stringStart);
+    expand_control_codes(stringStart, buffer);
+    RESIZE_ARRAY(buffer, strlen(buffer) + 1);  // shrink buffer to avoid wasting memory for now
+    add_input_string(identStart, buffer);
 
-    add_input_string(identStart, stringStart);
+    return str;
+}
+
+void parse_contents(void)
+{
+    char *pos = inputFileBuffer;
+
+    lineNum = 1;
+    while (1)
+    {
+        // move to next non-whitespace character
+        pos = skip_whitespace_and_comments(pos);
+
+        if (*pos == 0)  // end of file
+            break;
+
+        // handle statement
+        else if (*pos == '[')
+            pos = parse_ctrlcode_def(pos);
+        else if (is_valid_string_id_char(*pos))
+            pos = parse_string_entry(pos);
+        else
+            syntax_error("unexpected character '%c'", *pos);
+    }
 }
 
 void read_input_file(const char *filename)
 {
     FILE *file;
-    char *line;
-    char *next;
 
     // open file
     file = fopen(filename, "rb");
     if (file == NULL)
         FATAL_ERROR("could not open file '%s' for reading\n", filename);
+
+    // get size
     fseek(file, 0, SEEK_END);
     inputFileSize = ftell(file);
+
+    // read file contents
     inputFileBuffer = malloc(inputFileSize + 1);
     fseek(file, 0, SEEK_SET);
     if (fread(inputFileBuffer, inputFileSize, 1, file) != 1)
         FATAL_ERROR("error reading data from file '%s'\n", filename);
     inputFileBuffer[inputFileSize] = 0;
+
+    // close file
     fclose(file);
 
-    // read contents
-    line = inputFileBuffer;
-    lineNum = 1;
-    while (line != NULL)
-    {
-        next = split_next_line(line);
-
-        parse_line(line);
-
-        line = next;
-        lineNum++;
-    }
+    // get string list
+    parse_contents();
 }

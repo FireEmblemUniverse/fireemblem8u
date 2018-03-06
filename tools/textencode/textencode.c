@@ -1,6 +1,29 @@
+// Copyright(c) 2018 camthesaxman
+//
+// Permission is hereby granted, free of charge, to any person obtaining a copy
+// of this software and associated documentation files (the "Software"), to deal
+// in the Software without restriction, including without limitation the rights
+// to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+// copies of the Software, and to permit persons to whom the Software is
+// furnished to do so, subject to the following conditions:
+//
+// The above copyright notice and this permission notice shall be included in
+// all copies or substantial portions of the Software.
+//
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+// THE SOFTWARE.
+
+#include <stdarg.h>
+#include <stdint.h>
+#include <stdio.h>
+#include <stdlib.h>
 #include "textencode.h"
 
-#include <assert.h>
 
 // TODO: Generate this table from the string data
 int32_t huffmanTable[] =
@@ -381,9 +404,6 @@ int32_t huffmanTable[] =
     0x0b550b54,
 };
 
-static FILE *outCFile;
-FILE *outHFile;
-
 
 // searches tree for value, and appends the Huffman to the output
 int compress_value_recursive(int node, uint16_t value, uint8_t *output, unsigned int *bit)
@@ -497,11 +517,10 @@ int compress_string(uint8_t *input, uint8_t *output)
     }
 done:
     size = bit / 8;
-    // handle partial byte
+    // clear out any leftover remaining in the rest of partal byte
     if (bit % 8 != 0)
     {
         size++;
-        // clear out any garbage remaining in the rest of the byte
         output[bit / 8] &= (1 << (bit % 8)) - 1;
     }
     return size;
@@ -510,29 +529,30 @@ error:
     FATAL_ERROR("could not compress value 0x%X\n", value);
 }
 
-static void print_compressed_string(const char *id, const uint8_t *compressed, int compressedLength)
+static void print_compressed_string(FILE *file, const char *id, const uint8_t *compressed, int compressedLength)
 {
     int i;
 
-    fprintf(outCFile, "const u8 gCompressedText_%s[] = {", id);
+    fprintf(file, "const u8 gCompressedText_%s[] = {", id);
     for (i = 0; i < compressedLength - 1; i++)
-        fprintf(outCFile, "0x%02X, ", compressed[i]);
-    fprintf(outCFile, "0x%02X};\n", compressed[i]);
+        fprintf(file, "0x%02X, ", compressed[i]);
+    fprintf(file, "0x%02X};\n", compressed[i]);
 }
 
-void print_bytes(const uint8_t *bytes, int length)
+void print_bytes(FILE *file, const uint8_t *bytes, int length)
 {
     int i;
 
     for (i = 0; i < length - 1; i++)
-        fprintf(outCFile, "0x%02X, ", bytes[i]);
-    fprintf(outCFile, "0x%02X", bytes[i]);
+        fprintf(file, "0x%02X, ", bytes[i]);
+    fprintf(file, "0x%02X", bytes[i]);
 }
 
 static void write_c_file(const char *filename)
 {
+    FILE *outCFile;
     int i;
-    uint8_t outputBuffer[10000];
+    uint8_t outputBuffer[10000];  // TODO: allocate this dynamically
     int size;
 
     outCFile = fopen(filename, "wb");
@@ -545,7 +565,7 @@ static void write_c_file(const char *filename)
     for (i = 0; i < gInputStringsCount; i++)
     {
         size = compress_string((uint8_t *)gInputStrings[i].text, outputBuffer);
-        print_compressed_string(gInputStrings[i].id, outputBuffer, size);
+        print_compressed_string(outCFile, gInputStrings[i].id, outputBuffer, size);
     }
     fputs("\n", outCFile);
 
@@ -567,6 +587,23 @@ static void write_c_file(const char *filename)
     for (i = 0; i < gInputStringsCount; i++)
         fprintf(outCFile, "    gCompressedText_%s,\n", gInputStrings[i].id);
     fputs("};\n", outCFile);
+    
+    fclose(outCFile);
+}
+
+void write_h_file(const char *filename)
+{
+    FILE *outHFile;
+    int i;
+    
+    outHFile = fopen(filename, "wb");
+    if (outHFile == NULL)
+        FATAL_ERROR("failed to open file '%s' for writing\n", filename);
+    
+    for (i = 0; i < gInputStringsCount; i++)
+        fprintf(outHFile, "#define %s %i\n", gInputStrings[i].id, i);
+    
+    fclose(outHFile);
 }
 
 int main(int argc, char **argv)
