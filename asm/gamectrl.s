@@ -836,14 +836,14 @@ _08009E6C: .4byte gUnknown_0202BCF0
 _08009E70:
 	ldr r0, _08009E7C  @ gUnknown_08A0035C
 	movs r1, #1
-	bl CallMapEventEngine
+	bl CallEvent
 	b _08009E88
 	.align 2, 0
 _08009E7C: .4byte gUnknown_08A0035C
 _08009E80:
 	ldr r0, _08009E94  @ gUnknown_08A00364
 	movs r1, #1
-	bl CallMapEventEngine
+	bl CallEvent
 _08009E88:
 	movs r0, #0x84
 	bl SetEventId
@@ -869,14 +869,14 @@ _08009EB0: .4byte gUnknown_0202BCF0
 _08009EB4:
 	ldr r0, _08009EC0  @ gUnknown_08A0037C
 	movs r1, #1
-	bl CallMapEventEngine
+	bl CallEvent
 	b _08009ECC
 	.align 2, 0
 _08009EC0: .4byte gUnknown_08A0037C
 _08009EC4:
 	ldr r0, _08009ED8  @ gUnknown_08A0048C
 	movs r1, #1
-	bl CallMapEventEngine
+	bl CallEvent
 _08009ECC:
 	movs r0, #0x84
 	bl SetEventId

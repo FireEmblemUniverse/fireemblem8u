@@ -653,7 +653,7 @@ _0800DA58:
 	adds r0, #0x41
 	ldrb r1, [r0]
 	adds r0, r2, #0
-	bl CallMapEventEngine
+	bl CallEvent
 	b _0800DA70
 _0800DA66:
 	lsls r1, r1, #0x18

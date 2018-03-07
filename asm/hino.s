@@ -6196,14 +6196,14 @@ CallBeginningEvents: @ 0x080153D4
 	beq _080153FC
 	ldr r0, [r4, #0x48]
 	movs r1, #1
-	bl CallMapEventEngine
+	bl CallEvent
 	b _08015404
 	.align 2, 0
 _080153F8: .4byte gUnknown_0202BCF0
 _080153FC:
 	ldr r0, _0801540C  @ gUnknown_089FFC30
 	movs r1, #1
-	bl CallMapEventEngine
+	bl CallEvent
 _08015404:
 	movs r0, #0
 	pop {r4}
