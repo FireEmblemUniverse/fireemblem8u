@@ -7,6 +7,7 @@ void sub_8013D08(int speed, struct Proc* parent); // aka NewFadeInBack
 void sub_800E640(struct EventEngineProc*);
 
 static bool8 sub_800D3A4(struct EventEngineProc*);
+static void  sub_800D414(struct EventEngineProc*);
 static void  sub_800D488(struct EventEngineProc*);
 static void  HandleNextEventEngineCall(void); // local
 
@@ -14,8 +15,8 @@ static void  HandleNextEventEngineCall(void); // local
 
 struct EnqueuedEventCall {
 	const u16* events;
-	u8 idk1;
-	s8 idk2;
+	u8 execType;
+	s8 isUsed;
 };
 
 extern unsigned gUnknown_030004B8[EVENT_SLOT_COUNT]; // event slot values (Null (0), Vars (1-A) + Position (B) + Check (C) + QP (D))
@@ -67,39 +68,71 @@ extern const u16 gUnknown_08591FA8[]; /*
 
 extern const u16 gUnknown_08591FF0[]; /*
 	1020 0003           | EVBIT_MODIFY 3
-	0C40 0000 0002 0000 | 
-	1220 FFFF           | 
+	0C40 0000 0002 0000 | BEQ 0 s2 s0
+	1220 FFFF           | MUSC 0xFFFF
 	0920 0001           | GOTO 1
 	0820 0000           | LABEL 0
-	1520 0000           | 
+	1520 0000           | MUSI
 	0820 0001           | LABEL 1
-	0620 0032           | 
-	1B20 FFFF           | 
-	1D20 0000           | 
-	1B22 0000           | 
-	3A40 000C 005A 0000 | 
-	0228 0007           | 
+	0620 0032           | SADD $032
+	1B20 FFFF           | TEXTSHOW 0xFFFF
+	1D20 0000           | TEXTEND
+	1B22 0000           | REMA
+	3A40 000C 005A 0000 | NOTIFY 0xC 0x5A 0
+	0228 0007           | EVBIT_T 7 // NoFade
 	0120 0000           | ENDA
 */
 
 extern const u16 gUnknown_08592030[]; /*
 	1020 0003           | EVBIT_MODIFY 3
-	1A21 0000           | 
-	2140 0037 0000 0000 | 
-	1720 0010           | 
-	1B20 FFFF           | 
-	1D20 0000           | 
-	1B22 0000           | 
-	1721 0010           | 
+	1A21 0000           | REMOVEPORTRAITS
+	2140 0037 0000 0000 | BACG 0x37
+	1720 0010           | FADU 16
+	1B20 FFFF           | TEXTSHOW 0xFFFF
+	1D20 0000           | TEXTEND
+	1B22 0000           | REMA
+	1721 0010           | FADI 16
 	0120 0000           | ENDA
 */
 
 extern const u16 gUnknown_08592058[]; /*
-	I don't have the patience to do this anymore
+	EVBIT_MODIFY 4
+	TUTORIALTEXTBOXSTART
+	SVAL sB (-1)
+	TEXTSHOW 0x8FC // "Retreat?        [NL][No][X]"
+	TEXTEND
+	SVAL s7 TRUE
+	BNE 0 sC s7
+	MUSCMID 0x7FFF
+	FADI 4
+	MNCH 0xFFFF
+	CHECK_SKIRMISH
+	SVAL s1 1
+	BNE 0 sC s1
+	ASMC 0x37D59
+	LABEL 0
+	REMA
+	EVBIT_T 7 // NoFade
+	ENDA
 */
 
 extern const u16 gUnknown_085920B8[]; /*
-	events
+	EVBIT_MODIFY 4
+	TEXTSTART
+	TEXTSHOW 0x8FE
+	TEXTEND
+	SVAL s7 TRUE
+	BNE 0 sC s7
+	ASMC 0xB5D5D // Save Suspended game
+	TEXTSHOW2 0x8FF
+	TEXTEND
+	MUSCMID 0x7FFF
+	FADI 4
+	MNTS 0
+	LABEL 0
+	REMA
+	EVBIT_T 7
+	ENDA
 */
 
 extern const u16 gUnknown_08592104[]; /* Game Over Events?
@@ -110,9 +143,6 @@ extern const u16 gUnknown_08592104[]; /* Game Over Events?
 
 extern const struct ProcCmd gUnknown_089A2C80[]; // extern
 extern const struct ProcCmd gUnknown_08591540[]; // extern
-
-bool8 sub_800D3A4(struct EventEngineProc*);
-void sub_800D414(struct EventEngineProc*);
 
 void _MarkSomethingInMenu(void) {
 	MarkSomethingInMenu();
@@ -127,7 +157,7 @@ void EventEngine_Loop(struct EventEngineProc* proc) {
 		return;
 	}
 
-	if (proc->idk41 != 0 && proc->idk41 != 4) {
+	if (proc->execType != EV_EXEC_WORLDMAP && proc->execType != EV_EXEC_UNK4) {
 		gLCDControlBuffer.dispcnt.bg0_on = TRUE;
 		gLCDControlBuffer.dispcnt.bg1_on = TRUE;
 		gLCDControlBuffer.dispcnt.bg2_on = TRUE;
@@ -140,7 +170,7 @@ void EventEngine_Loop(struct EventEngineProc* proc) {
 		return;
 	}
 
-	proc->evStateBits |= 0x0002;
+	proc->evStateBits |= EV_STATE_0002;
 
 	while (TRUE) {
 		unsigned evCode;
@@ -155,8 +185,6 @@ void EventEngine_Loop(struct EventEngineProc* proc) {
 		switch (evFunc(proc)) {
 		case 0:
 			proc->pEventCurrent += ((*proc->pEventCurrent) >> 4)&0xF;
-			break;
-		
 		case 1:
 		case 4:
 		case 6:
@@ -179,22 +207,22 @@ void EventEngine_Destructor(struct EventEngineProc* proc) {
 	Font_LoadForUI();
 	LoadNewUIGraphics();
 
-	switch (proc->idk41) {
-	case 4:
+	switch (proc->execType) {
+	case EV_EXEC_UNK4:
 		break;
 	
-	case 5:
+	case EV_EXEC_UNK5:
 		LoadGameCoreGfx();
 		sub_8019974();
-		sub_800BCDC(proc->idk44);
+		sub_800BCDC(proc->mapSpritePalIdOverride);
 
-		if (proc->evStateBits & 0x0800) {
+		if (proc->evStateBits & EV_STATE_CHANGEGM) {
 			ClearMOVEUNITs();
 			sub_80311F0();
 			memset((u8*)(gUnknown_03000438), 0, 0x80);
 		}
 
-	case 2:
+	case EV_EXEC_GAMEPLAY:
 		SubSkipThread2();
 		sub_804F62C();
 		sub_800BB98();
@@ -203,32 +231,33 @@ void EventEngine_Destructor(struct EventEngineProc* proc) {
 		break;
 	}
 
-	if (proc->idk41 != 3) {
-		sub_8006A7C();
-		sub_808F270();
-		sub_808BB74();
+	if (proc->execType != EV_EXEC_QUIET) {
+		sub_8006A7C(); // EndDialogueInterpreter
+		sub_808F270(); // End some thing
+		sub_808BB74(); // End some more things
 
-		if (proc->idk41 == 1)
-			sub_800BCDC(proc->idk44);
+		if (proc->execType == EV_EXEC_CUTSCENE)
+			sub_800BCDC(proc->mapSpritePalIdOverride);
 		
 		sub_800E640(proc);
 	}
 
-	if (!(proc->evStateBits & 0x0001))
+	if (!(proc->evStateBits & EV_STATE_ABORT))
 		HandleNextEventEngineCall();
 }
 
-void EqueueEventEngineCall(const u16* events, u8 idk) {
+void EqueueEventEngineCall(const u16* events, u8 execType) {
 	struct EnqueuedEventCall* it;
 	u8 i;
 
 	it = gUnknown_03000438;
 
 	for (i = -1; ++i <= 0xf;) {
-		if (!it->idk2) {
-			it->events = events;
-			it->idk1 = idk;
-			it->idk2 = TRUE;
+		if (!it->isUsed) {
+			it->events   = events;
+			it->execType = execType;
+			it->isUsed   = TRUE;
+
 			break;
 		}
 
@@ -242,61 +271,60 @@ void HandleNextEventEngineCall(void) {
 
 	it = gUnknown_03000438;
 
-	if (it->idk2 == 1)
-		NewMapEventEngine(it->events, it->idk1);
+	if (it->isUsed == 1)
+		NewMapEventEngine(it->events, it->execType);
 	
 	for (i = 0; i < 15; ++i, ++it)
 		*it = *(it + 1);
 	
-	it->events = NULL;
-	it->idk1 = 0;
-	it->idk2 = 0;
+	it->events   = NULL;
+	it->execType = 0;
+	it->isUsed   = 0;
 }
 
-void CallMapEventEngine(const u16* events, u8 idk) {
+void CallMapEventEngine(const u16* events, u8 execType) {
 	bool8 found = Proc_Find(gUnknown_08591AC0) != 0;
 
 	if (found)
-		EqueueEventEngineCall(events, idk);
+		EqueueEventEngineCall(events, execType);
 	else
-		NewMapEventEngine(events, idk);
+		NewMapEventEngine(events, execType);
 }
 
-struct EventEngineProc* NewMapEventEngine(const u16* events, u8 idk) {
+struct EventEngineProc* NewMapEventEngine(const u16* events, u8 execType) {
 	struct EventEngineProc* proc;
 
 	proc = (struct EventEngineProc*) Proc_Create(gUnknown_08591AC0, ROOT_PROC_3);
 
-	proc->pCallback     = NULL;
+	proc->pCallback      = NULL;
 
-	proc->pEventStart   = events;
-	proc->pEventIdk     = events;
-	proc->pEventCurrent = events;
+	proc->pEventStart    = events;
+	proc->pEventIdk      = events;
+	proc->pEventCurrent  = events;
 
-	proc->evStateBits   = 0x0000;
-	proc->evStallTimer  = 0;
+	proc->evStateBits    = EV_STATE_NONE;
+	proc->evStallTimer   = 0;
 
-	proc->idk40         = 0xFF;
-	proc->idk41         = idk;
-	proc->idk42         = 0;
-	proc->chapterIndex  = -1;
+	proc->overwrittenTextSpeed = -1;
+	proc->execType       = execType;
+	proc->activeTextType = 0;
+	proc->chapterIndex   = -1;
 
-	proc->idk44         = 0;
+	proc->mapSpritePalIdOverride = 0x000;
 
-	proc->pUnitLoadData = NULL;
-	proc->unitLoadCount = 0;
-
-	proc->idk4E         = 0;
+	proc->pUnitLoadData  = NULL;
+	proc->unitLoadCount  = 0;
+	proc->idk4E          = 0;
 
 	if (gLCDControlBuffer.blendY == 0x10)
-		proc->evStateBits |= 0x0100;
+		proc->evStateBits |= EV_STATE_FADEDIN;
 
-	switch (idk) {
-	case 0:
+	switch (execType) {
+	case EV_EXEC_WORLDMAP:
 		break;
 
-	case 1:
-	case 2:
+	case EV_EXEC_CUTSCENE:
+	case EV_EXEC_GAMEPLAY:
 		proc->chapterIndex = gUnknown_0202BCF0.chapterIndex;
 		AddSkipThread2();
 		break;
@@ -312,25 +340,24 @@ void NewBattleEventEngine(const u16* events) {
 
 	proc->pCallback     = NULL;
 
-	proc->pEventStart   = events;
-	proc->pEventIdk     = events;
-	proc->pEventCurrent = events;
+	proc->pEventStart    = events;
+	proc->pEventIdk      = events;
+	proc->pEventCurrent  = events;
 
-	proc->evStateBits   = 0x0000;
-	proc->evStallTimer  = 0;
+	proc->evStateBits    = EV_STATE_NONE;
+	proc->evStallTimer   = 0;
 
-	proc->idk40         = 0xFF;
-	proc->idk41         = 3; // TODO: what does it mean? it's probably some enum
-	proc->idk42         = 0;
+	proc->overwrittenTextSpeed = -1;
+	proc->execType       = EV_EXEC_QUIET;
+	proc->activeTextType = 0;
 	
-	proc->idk44         = 0;
+	proc->mapSpritePalIdOverride = 0x000;
 
-	proc->pUnitLoadData = NULL;
-	proc->unitLoadCount = 0;
+	proc->pUnitLoadData  = NULL;
+	proc->unitLoadCount  = 0;
+	proc->idk4E          = 0;
 
-	proc->idk4E         = 0;
-
-	proc->evStateBits |= 0x0001;
+	proc->evStateBits |= EV_STATE_ABORT;
 }
 
 int MapEventEngineExists(void) {
@@ -363,7 +390,7 @@ int sub_800D208(void) {
 		if (!(proc = (struct EventEngineProc*) Proc_Find(gUnknown_08591AF8)))
 			return FALSE;
 	
-	switch (proc->idk42) {
+	switch (proc->activeTextType) {
 
 	case 0:
 		return FALSE;
@@ -389,70 +416,78 @@ int sub_800D208(void) {
 }
 
 void sub_800D260(u16 textIndex) {
-	CallMapEventEngine(gUnknown_08591F88, 2);
+	// Battle quote (unused?)
+	CallMapEventEngine(gUnknown_08591F88, EV_EXEC_GAMEPLAY);
 
 	gUnknown_030004B8[0x02] = textIndex;
 }
 
 void CallBattleQuoteTextEvents(u16 textIndex) {
+	// Battle quote
 	NewBattleEventEngine(gUnknown_08591F88);
 
 	gUnknown_030004B8[0x2] = textIndex;
 }
 
 void sub_800D2A4(u16 tileChangeIndex) {
-	CallMapEventEngine(gUnknown_08591F9C, 2);
+	// Generic tile change events?
+	CallMapEventEngine(gUnknown_08591F9C, EV_EXEC_GAMEPLAY);
 
 	gUnknown_030004B8[0xD] = 1; // qp
 	gUnknown_030004F0[0]   = tileChangeIndex;
 }
 
-// Probably chest opening events?
 void CallSomeOtherEvents(u16 tileChangeIndex, u16 idr) {
-	CallMapEventEngine(gUnknown_08591FA8, 2);
+	// Chest opening events?
+	CallMapEventEngine(gUnknown_08591FA8, EV_EXEC_GAMEPLAY);
 
 	gUnknown_030004B8[0xD] = 1; // qp
 	gUnknown_030004F0[0]   = tileChangeIndex;
 	gUnknown_030004B8[0x3] = idr;
 }
 
-void sub_800D304(u16 a, u16 b) {
-	CallMapEventEngine(gUnknown_08591FF0, 1);
+void sub_800D304(u16 musicIndex, u16 textIndex) {
+	// Calls text with music (just quiets music when id is 0)
+	// On-map supports?
+	CallMapEventEngine(gUnknown_08591FF0, EV_EXEC_CUTSCENE);
 
-	gUnknown_030004B8[0x2] = a;
-	gUnknown_030004B8[0x3] = b;
+	gUnknown_030004B8[0x2] = musicIndex;
+	gUnknown_030004B8[0x3] = textIndex;
 }
 
-void sub_800D330(u16 idk) {
-	CallMapEventEngine(gUnknown_08592030, 3);
+void sub_800D330(u16 textIndex) {
+	// Calls text with random background (support viewer?)
+	CallMapEventEngine(gUnknown_08592030, EV_EXEC_QUIET);
 
-	gUnknown_030004B8[0x2] = idk;
+	gUnknown_030004B8[0x2] = textIndex;
 }
 
 void sub_800D354(void) {
-	CallMapEventEngine(gUnknown_08592058, 1);
+	// Calls Retreat events
+	CallMapEventEngine(gUnknown_08592058, EV_EXEC_CUTSCENE);
 	
 	gUnknown_030004B8[0x2] = gUnknown_0202BCF0.chapterIndex;
 }
 
 void sub_800D37C(void) {
-	CallMapEventEngine(gUnknown_085920B8, 1);
+	// Calls Suspend events
+	CallMapEventEngine(gUnknown_085920B8, EV_EXEC_CUTSCENE);
 }
 
 void sub_800D390(void) {
 	// Calls Game Over
-	NewMapEventEngine(gUnknown_08592104, 2);
+	NewMapEventEngine(gUnknown_08592104, EV_EXEC_GAMEPLAY);
 }
 
-bool8 sub_800D3A4(struct EventEngineProc* proc) {
-	if (!(proc->evStateBits & 0x0002))
+bool8 sub_800D3A4(struct EventEngineProc* proc) { // Events_CanSkip
+	if (!(proc->evStateBits & EV_STATE_0002))
 		return FALSE;
 
 	// Why is this check so different??
-	if (((proc->evStateBits >> 2) & 1))
+	if (((proc->evStateBits >> 2) & 1)) // & EV_STATE_SKIPPING
 		return FALSE;
 
-	if ((proc->evStateBits & 0x0010))
+	if ((proc->evStateBits & EV_STATE_NOSKIP))
 		return FALSE;
 
 	if (IsBattleDeamonActive())
@@ -471,33 +506,33 @@ void sub_800D3E4(void) {
 		if (!(proc = (struct EventEngineProc*) Proc_Find(gUnknown_08591AF8)))
 			return;
 	
-	proc->evStateBits |= 0x0008;
+	proc->evStateBits |= EV_STATE_0008;
 }
 
 void sub_800D414(struct EventEngineProc* proc) {
-	proc->evStateBits |= 0x0004;
+	proc->evStateBits |= EV_STATE_SKIPPING;
 
 	if (!GetZero()) {
-		if (sub_80BA054() == 1)
+		if (sub_80BA054() == TRUE) // World Map check
 			sub_800D488(proc);
-		else if (!(proc->evStateBits & 0x0080)) {
-			if (proc->evStateBits & 0x0100)
+		else if (!(proc->evStateBits & EV_STATE_NOFADE)) {
+			if (proc->evStateBits & EV_STATE_FADEDIN)
 				sub_800D488(proc);
 			else
 				sub_8013D08(0x40, (struct Proc*)(proc));
 			
-			proc->evStateBits |= 0x0100;
+			proc->evStateBits |= EV_STATE_FADEDIN;
 		}
 	}
 
-	if (proc->idk41 == 0)
+	if (proc->execType == EV_EXEC_WORLDMAP)
 		sub_80BA424();
 	
 	Proc_BlockEachWithMark(5);
 }
 
 void sub_800D488(struct EventEngineProc* unused) {
-	sub_80141B0();
+	sub_80141B0(); // disables layers
 	Proc_DeleteAllWithScript(gUnknown_08591540);
 }
 
