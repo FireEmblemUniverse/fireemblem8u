@@ -504,8 +504,8 @@
 . = 0x028E4C; gUnknown_02028E4C = .;
 . = 0x028E50; gUnknown_02028E50 = .;
 . = 0x028E54; gUnknown_02028E54 = .;
-. = 0x028E58; gUnknown_02028E58 = .;
-. = 0x028E70; gUnknown_02028E70 = .;
+. = 0x028E58; gDefaultFont = .;
+. = 0x028E70; gCurrentFont = .;
 . = 0x028E74; gUnknown_02028E74 = .;
 . = 0x028E78; gUnknown_02028E78 = .;
 . = 0x028F78; gUnknown_02028F78 = .;

@@ -510,8 +510,8 @@ extern char gUnknown_02028E44[9];
 // extern ??? gUnknown_02028E4C
 extern int gUnknown_02028E50;
 extern int gUnknown_02028E54;
-extern struct Font gUnknown_02028E58;
-extern struct Font *gUnknown_02028E70;
+extern struct Font gDefaultFont;
+extern struct Font *gCurrentFont;
 extern u8 gUnknown_02028E74;
 extern u8 gUnknown_02028E78;
 // extern ??? gUnknown_02028F78

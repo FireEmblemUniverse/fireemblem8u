@@ -12,7 +12,7 @@ sub_8004700: @ 0x08004700
 	sub sp, #0x14
 	str r0, [sp]
 	str r1, [sp, #4]
-	ldr r0, _080048AC  @ gUnknown_02028E70
+	ldr r0, _080048AC  @ gCurrentFont
 	ldr r0, [r0]
 	ldr r1, [r0, #0xc]
 	ldr r0, [sp]
@@ -112,7 +112,7 @@ _08004744:
 	mov r1, sl
 	cmp r1, #0
 	bge _08004744
-	ldr r0, _080048AC  @ gUnknown_02028E70
+	ldr r0, _080048AC  @ gCurrentFont
 	ldr r0, [r0]
 	ldr r1, [r0, #0xc]
 	ldr r0, [sp]
@@ -215,7 +215,7 @@ _080047F6:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_080048AC: .4byte gUnknown_02028E70
+_080048AC: .4byte gCurrentFont
 
 	THUMB_FUNC_START sub_80048B0
 sub_80048B0: @ 0x080048B0
@@ -393,7 +393,7 @@ sub_80049E0: @ 0x080049E0
 	adds r4, r0, #0
 	mov ip, r1
 	adds r5, r2, #0
-	ldr r0, _08004A00  @ gUnknown_02028E70
+	ldr r0, _08004A00  @ gCurrentFont
 	ldr r1, [r0]
 	ldrb r0, [r4, #6]
 	ldrb r2, [r4, #4]
@@ -406,7 +406,7 @@ sub_80049E0: @ 0x080049E0
 	movs r3, #0
 	b _08004A16
 	.align 2, 0
-_08004A00: .4byte gUnknown_02028E70
+_08004A00: .4byte gCurrentFont
 _08004A04:
 	mov r0, ip
 	strh r1, [r0]
@@ -441,7 +441,7 @@ sub_8004A34: @ 0x08004A34
 	push {r4, r5, r6, r7, lr}
 	mov r7, r8
 	push {r7}
-	ldr r3, _08004A8C  @ gUnknown_02028E70
+	ldr r3, _08004A8C  @ gCurrentFont
 	ldr r3, [r3]
 	lsls r0, r0, #6
 	ldr r3, [r3]
@@ -482,7 +482,7 @@ _08004A56:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_08004A8C: .4byte gUnknown_02028E70
+_08004A8C: .4byte gCurrentFont
 
 	THUMB_FUNC_START sub_8004A90
 sub_8004A90: @ 0x08004A90
@@ -490,7 +490,7 @@ sub_8004A90: @ 0x08004A90
 	adds r5, r0, #0
 	strb r1, [r5]
 	strb r2, [r5, #1]
-	ldr r0, _08004AC4  @ gUnknown_02028E70
+	ldr r0, _08004AC4  @ gCurrentFont
 	ldr r3, [r0]
 	ldrh r4, [r3, #0x12]
 	adds r0, r4, #1
@@ -511,7 +511,7 @@ sub_8004A90: @ 0x08004A90
 	pop {r1}
 	bx r1
 	.align 2, 0
-_08004AC4: .4byte gUnknown_02028E70
+_08004AC4: .4byte gCurrentFont
 _08004AC8: .4byte gUnknown_08590B44
 
 	THUMB_FUNC_START sub_8004ACC
@@ -566,7 +566,7 @@ sub_8004B0C: @ 0x08004B0C
 	b _08004B3C
 _08004B24:
 	bl sub_8004ACC
-	ldr r1, _08004B44  @ gUnknown_02028E70
+	ldr r1, _08004B44  @ gCurrentFont
 	ldr r1, [r1]
 	lsls r0, r0, #1
 	ldrh r1, [r1, #0x10]
@@ -581,7 +581,7 @@ _08004B3C:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_08004B44: .4byte gUnknown_02028E70
+_08004B44: .4byte gCurrentFont
 
 	THUMB_FUNC_START sub_8004B48
 sub_8004B48: @ 0x08004B48

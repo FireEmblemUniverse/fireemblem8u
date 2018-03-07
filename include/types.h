@@ -129,8 +129,8 @@ struct ROMCharStruct
 struct Text
 {
     u16 unk0;
-    u8 unk2;
-    u8 unk3;
+    u8 x;
+    u8 colorId;
     u8 unk4;
     s8 unk5;
     u8 unk6;
