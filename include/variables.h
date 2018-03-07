@@ -1353,8 +1353,8 @@ extern u8 gUnknown_08587A40[];
 extern void *gUnknown_08588240[];
 // extern ??? gUnknown_08588274
 // extern ??? gUnknown_08588284
-extern struct UnknownTextStruct4 *gUnknown_0858C7EC[];
-extern struct UnknownTextStruct4 *gUnknown_0858F6F4[];
+extern struct Glyph *gUnknown_0858C7EC[];
+extern struct Glyph *gUnknown_0858F6F4[];
 // extern ??? gUnknown_08590B44
 extern u16 gUnknown_08590F44[];
 // extern ??? gUnknown_08590F4C

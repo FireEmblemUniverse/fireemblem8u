@@ -247,7 +247,7 @@ int GetStringTextWidthSimple(const char *str);
 // ??? sub_800465C(???);
 // ??? Text_80046B4(???);
 void *sub_80046E0(struct Text *);
-void sub_8004700(struct Text *, struct UnknownTextStruct4 *);
+void sub_8004700(struct Text *, struct Glyph *);
 // ??? sub_80048B0(???);
 // ??? sub_8004924(???);
 // ??? sub_800496C(???);
