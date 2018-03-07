@@ -85,11 +85,11 @@ struct UnknownProcStruct
 
 void Proc_Initialize(void);
 struct Proc *Proc_Create(const struct ProcCmd *script, struct Proc *parent);
-struct Proc *Proc_CreateBlockingChild(struct ProcCmd *script, struct Proc *parent);
+struct Proc *Proc_CreateBlockingChild(const struct ProcCmd *script, struct Proc *parent);
 void Proc_Delete(struct Proc *proc);
 // ??? Proc_Run(???);
 void Proc_ClearNativeCallback(struct Proc *proc);
-struct Proc *Proc_Find(struct ProcCmd *script);
+struct Proc *Proc_Find(const struct ProcCmd *script);
 // ??? Proc_FindNonBlocked(???);
 // ??? Proc_FindWithMark(???);
 void Proc_GotoLabel(struct Proc* proc_arg, int label);
@@ -99,10 +99,10 @@ void Proc_GotoLabel(struct Proc* proc_arg, int label);
 // ??? Proc_ForEach(???);
 // ??? Proc_ForEachWithScript(???);
 // ??? Proc_ForEachWithMark(???);
-// ??? Proc_BlockEachWithMark(???);
+void Proc_BlockEachWithMark(int mark);
 // ??? Proc_UnblockEachWithMark(???);
 // ??? Proc_DeleteEachWithMark(???);
-void Proc_DeleteAllWithScript(struct ProcCmd *script);
+void Proc_DeleteAllWithScript(const struct ProcCmd *script);
 // ??? Proc_ClearNativeCallbackEachWithScript(???);
 // ??? sub_80030CC(???);
 // ??? sub_800344C(???);
