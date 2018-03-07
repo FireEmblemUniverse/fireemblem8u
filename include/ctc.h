@@ -1,0 +1,11 @@
+#ifndef GUARD_CTC_H
+
+// ??? ClearIntermediateOAMBuffers(???);
+// ??? RegisterObjectAttributes_SafeMaybe(???);
+void RegisterObjectAttributes(int nodeIndex, int xBase, int yBase, const void* pObjData, int tileBase);
+// ??? FlushIntermediateOAMBuffer(???);
+// ??? sub_8005488(???);
+// ??? sub_80054B0(???);
+// ??? sub_80054F4(???);
+
+#endif  // GUARD_CTC_H

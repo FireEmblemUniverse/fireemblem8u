@@ -5,7 +5,7 @@ extern u8 gUnknown_03003750[];  // buffer to copy the code to
 // pointers to the loaded functions
 extern void (*gUnknown_03003740)(int, int, int, int);
 extern void (*gUnknown_03004150)(const char *, char *);
-extern void (*gUnknown_03003130)(int, int, u16 *, int);
+extern void (*gUnknown_03003130)(int, int, const u16 *, int);
 extern void (*gUnknown_03004154)(int, int, int, int);
 extern void (*gUnknown_03004960)(int, int, int);
 extern void (*gUnknown_03003128)(void);
@@ -46,7 +46,7 @@ void CallARM_DecompText(const char *a, char *b)
     gUnknown_03004150(a, b);
 }
 
-void CallARM_PushToSecondaryOAM(int a, int b, u16 *c, int d)
+void CallARM_PushToSecondaryOAM(int a, int b, const u16 *c, int d)
 {
     gUnknown_03003130(a, b, c, d);
 }

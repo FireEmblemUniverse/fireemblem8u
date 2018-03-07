@@ -82,7 +82,7 @@ struct Proc *Proc_Create(const struct ProcCmd *script, struct Proc *parent)
 }
 
 // Creates a child process and puts the parent into a wait state
-struct Proc *Proc_CreateBlockingChild(struct ProcCmd *script, struct Proc *parent)
+struct Proc *Proc_CreateBlockingChild(const struct ProcCmd *script, struct Proc *parent)
 {
     struct Proc *proc = Proc_Create(script, parent);
 
@@ -223,7 +223,7 @@ void Proc_ClearNativeCallback(struct Proc *proc)
     proc->nativeFunc = NULL;
 }
 
-struct Proc *Proc_Find(struct ProcCmd *script)
+struct Proc *Proc_Find(const struct ProcCmd *script)
 {
     int i;
     struct Proc *proc = &gProcesses[0];
@@ -308,7 +308,7 @@ void Proc_ForEach(ProcFunc func)
     }
 }
 
-void Proc_ForEachWithScript(struct ProcCmd *script, ProcFunc func)
+void Proc_ForEachWithScript(const struct ProcCmd *script, ProcFunc func)
 {
     int i;
     struct Proc *proc = &gProcesses[0];
@@ -373,7 +373,7 @@ static void Delete(struct Proc *proc)
     Proc_Delete(proc);
 }
 
-void Proc_DeleteAllWithScript(struct ProcCmd *script)
+void Proc_DeleteAllWithScript(const struct ProcCmd *script)
 {
     Proc_ForEachWithScript(script, Delete);
 }
@@ -383,7 +383,7 @@ static void ClearNativeCallback(struct Proc *proc)
     Proc_ClearNativeCallback(proc);
 }
 
-void Proc_ClearNativeCallbackEachWithScript(struct ProcCmd *script)
+void Proc_ClearNativeCallbackEachWithScript(const struct ProcCmd *script)
 {
     Proc_ForEachWithScript(script, ClearNativeCallback);
 }
