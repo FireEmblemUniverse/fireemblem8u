@@ -3,42 +3,14 @@
 #include "event.h"
 
 // TODO: move those where they belong when possible
-void SetFont(void*); // fontgrp
-void Font_LoadForUI(void); // fontgrp
-void LoadNewUIGraphics(void); // bm?
-void LoadGameCoreGfx(void); // bm?
-void sub_8019974(void); // bmmap?
-void sub_800BCDC(int); // battle related
-void ClearMOVEUNITs(void); // mu
-void sub_80311F0(void); // bm?
-void SubSkipThread2(void); // bm?
-void AddSkipThread2(void); // bm?
-void sub_804F62C(void); // bmmenu?
-void ClearCutsceneUnits(void); // bmunit?
-void sub_8006A7C(void); // aka EndDialogueInterpreter (face? probably not)
-void sub_808F270(void); // ??? (text related)
-void sub_808BB74(void); // ??? (also text related)
-int  IsBattleDeamonActive(void); // battle?
-bool8 GetZero(void); // idk
 void sub_8013D08(int speed, struct Proc* parent); // aka NewFadeInBack
-s8   sub_80BA054(void); // gmap something
-void sub_80BA424(void); // gmap something
+void sub_800E640(struct EventEngineProc*);
 
-void sub_80141B0(void);
-
-void  UnsetEventId(u16);
-void  SetEventId(u16);
-bool8 CheckEventId(u16);
-
-void sub_800BB98(void); // local?
-void sub_800D488(struct EventEngineProc*);
-void sub_800E640(struct EventEngineProc*); // local
-void HandleNextEventEngineCall(void); // local
-struct EventEngineProc* NewMapEventEngine(const u16* events, u8 idk); // local
+static bool8 sub_800D3A4(struct EventEngineProc*);
+static void  sub_800D488(struct EventEngineProc*);
+static void  HandleNextEventEngineCall(void); // local
 
 #define EVENT_SLOT_COUNT 0xE
-
-typedef bool8(*EventFuncType)(struct EventEngineProc*);
 
 struct EnqueuedEventCall {
 	const u16* events;
@@ -46,7 +18,7 @@ struct EnqueuedEventCall {
 	s8 idk2;
 };
 
-extern unsigned gUnknown_030004B8[]; // event slot values (Null (0), Vars (1-A) + Position (B) + Check (C) + QP (D))
+extern unsigned gUnknown_030004B8[EVENT_SLOT_COUNT]; // event slot values (Null (0), Vars (1-A) + Position (B) + Check (C) + QP (D))
 extern unsigned gUnknown_030004F0[]; // event slot queue (just an array)
 
 extern unsigned gUnknown_03000568;
