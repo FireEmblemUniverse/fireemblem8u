@@ -510,10 +510,10 @@ extern char gUnknown_02028E44[9];
 // extern ??? gUnknown_02028E4C
 extern int gUnknown_02028E50;
 extern int gUnknown_02028E54;
-// extern ??? gUnknown_02028E58
-// extern ??? gUnknown_02028E70
-// extern ??? gUnknown_02028E74
-// extern ??? gUnknown_02028E78
+extern struct Font gUnknown_02028E58;
+extern struct Font *gUnknown_02028E70;
+extern u8 gUnknown_02028E74;
+extern u8 gUnknown_02028E78;
 // extern ??? gUnknown_02028F78
 // extern ??? gUnknown_02029D88
 // extern ??? gUnknown_02029D8C
@@ -905,7 +905,7 @@ extern const u16 gUnknown_080D7504[];
 extern const s16 gSinLookup[]; // gSinTable
 extern const s16 gCosLookup[]; // gCosTable
 extern const char gUnknown_080D779C[];
-// extern ??? gUnknown_080D77B0
+extern const char gUnknown_080D77B0[];
 // extern ??? gUnknown_080D77BC
 // extern ??? gUnknown_080D77DC
 // extern ??? gUnknown_080D77FC
@@ -1350,13 +1350,13 @@ extern struct BgCnt *gUnknown_08587948[];
 // extern ??? gUnknown_08587998
 // extern ??? gProcCmdFuncs
 extern u8 gUnknown_08587A40[];
-// extern ??? gUnknown_08588240
+extern void *gUnknown_08588240[];
 // extern ??? gUnknown_08588274
 // extern ??? gUnknown_08588284
-// extern ??? gUnknown_0858C7EC
-// extern ??? gUnknown_0858F6F4
+extern void *gUnknown_0858C7EC[];
+extern void *gUnknown_0858F6F4[];
 // extern ??? gUnknown_08590B44
-// extern ??? gUnknown_08590F44
+extern u16 gUnknown_08590F44[];
 // extern ??? gUnknown_08590F4C
 // extern ??? gUnknown_08590F54
 // extern ??? gUnknown_08590F64

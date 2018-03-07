@@ -126,4 +126,41 @@ struct ROMCharStruct
     u16 unk0;
 };
 
+struct Text
+{
+    u16 unk0;
+    u8 unk2;
+    u8 unk3;
+    u8 unk4;
+    s8 unk5;
+    u8 unk6;
+    u8 unk7;
+};
+
+struct Font
+{
+    u8 *unk0;
+    void **unk4;
+    int (*unk8)();
+    void *(*unkC)(struct Text *);
+    u16 unk10;
+    u16 unk12;
+    u16 unk14;
+    u8 unk16;
+};
+
+struct UnknownTextStruct2
+{
+    struct Text *unk0;
+    u8 unk4;
+};
+
+struct UnknownTextStruct4
+{
+    u8 filler0[5];
+    u8 unk5;
+    u8 unk6[2];
+    u32 unk8[0];
+};
+
 #endif  // GUARD_TYPES_H
