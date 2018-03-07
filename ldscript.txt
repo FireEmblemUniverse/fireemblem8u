@@ -49,7 +49,6 @@ SECTIONS
         asm/spline.o(.text);
         asm/evtcmd_gmap.o(.text);
         src/event.o(.text);
-        asm/event.o(.text);
         asm/evtscr.o(.text);
         asm/popup.o(.text);
         asm/evtsub.o(.text);

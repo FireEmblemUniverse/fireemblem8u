@@ -14,14 +14,27 @@ void sub_80311F0(void); // bm?
 void SubSkipThread2(void); // bm?
 void AddSkipThread2(void); // bm?
 void sub_804F62C(void); // bmmenu?
-void sub_800BB98(void); // local?
 void ClearCutsceneUnits(void); // bmunit?
 void sub_8006A7C(void); // aka EndDialogueInterpreter (face? probably not)
 void sub_808F270(void); // ??? (text related)
 void sub_808BB74(void); // ??? (also text related)
+int  IsBattleDeamonActive(void); // battle?
+bool8 GetZero(void); // idk
+void sub_8013D08(int speed, struct Proc* parent); // aka NewFadeInBack
+s8   sub_80BA054(void); // gmap something
+void sub_80BA424(void); // gmap something
+
+void sub_80141B0(void);
+
+void  UnsetEventId(u16);
+void  SetEventId(u16);
+bool8 CheckEventId(u16);
+
+void sub_800BB98(void); // local?
+void sub_800D488(struct EventEngineProc*);
 void sub_800E640(struct EventEngineProc*); // local
 void HandleNextEventEngineCall(void); // local
-struct EventEngineProc* NewMapEventEngine(const u16* events, u8 idk);
+struct EventEngineProc* NewMapEventEngine(const u16* events, u8 idk); // local
 
 #define EVENT_SLOT_COUNT 0xE
 
@@ -33,11 +46,15 @@ struct EnqueuedEventCall {
 	s8 idk2;
 };
 
-extern int gUnknown_030004B8[]; // event slot values (Null (0), Vars (1-A) + Position (B) + Check (C) + QP (D))
-extern int gUnknown_030004F0[]; // event slot queue (just an array)
+extern unsigned gUnknown_030004B8[]; // event slot values (Null (0), Vars (1-A) + Position (B) + Check (C) + QP (D))
+extern unsigned gUnknown_030004F0[]; // event slot queue (just an array)
+
+extern unsigned gUnknown_03000568;
 
 // TODO: better
 extern struct EnqueuedEventCall gUnknown_03000438[]; // gEventCallQueue
+
+extern struct ProcCmd gUnknown_030005B0[4];
 
 extern const EventFuncType gUnknown_08591B28[]; // regular event functions
 extern const EventFuncType gUnknown_08591C98[]; // gmap event functions
@@ -118,6 +135,9 @@ extern const u16 gUnknown_08592104[]; /* Game Over Events?
 	0D40 0000 08085375  | ASMC 0x8085375 (game over)
 	0120 0000           | ENDA
 */
+
+extern const struct ProcCmd gUnknown_089A2C80[]; // extern
+extern const struct ProcCmd gUnknown_08591540[]; // extern
 
 bool8 sub_800D3A4(struct EventEngineProc*);
 void sub_800D414(struct EventEngineProc*);
@@ -358,7 +378,7 @@ void sub_800D1E4(struct Proc* proc) {
 	Proc_CreateBlockingChild(gUnknown_08591DD8, proc);
 }
 
-void SetEventSlotC(int value) {
+void SetEventSlotC(unsigned value) {
 	gUnknown_030004B8[0xC] = value;
 }
 
@@ -452,17 +472,113 @@ void sub_800D390(void) {
 	NewMapEventEngine(gUnknown_08592104, 2);
 }
 
-/*
+bool8 sub_800D3A4(struct EventEngineProc* proc) {
+	if (!(proc->evStateBits & 0x0002))
+		return FALSE;
 
-	THUMB_FUNC_START sub_800D390
-sub_800D390: @ 0x0800D390
-	push {lr}
-	ldr r0, _0800D3A0  @ gUnknown_08592104
-	movs r1, #2
-	bl NewMapEventEngine
-	pop {r0}
-	bx r0
-	.align 2, 0
-_0800D3A0: .4byte gUnknown_08592104
+	// Why is this check so different??
+	if (((proc->evStateBits >> 2) & 1))
+		return FALSE;
 
-*/
+	if ((proc->evStateBits & 0x0010))
+		return FALSE;
+
+	if (IsBattleDeamonActive())
+		return FALSE;
+
+	if (Proc_Find(gUnknown_089A2C80))
+		return FALSE;
+
+	return TRUE;
+}
+
+void sub_800D3E4(void) {
+	struct EventEngineProc* proc;
+
+	if (!(proc = (struct EventEngineProc*) Proc_Find(gUnknown_08591AC0)))
+		if (!(proc = (struct EventEngineProc*) Proc_Find(gUnknown_08591AF8)))
+			return;
+	
+	proc->evStateBits |= 0x0008;
+}
+
+void sub_800D414(struct EventEngineProc* proc) {
+	proc->evStateBits |= 0x0004;
+
+	if (!GetZero()) {
+		if (sub_80BA054() == 1)
+			sub_800D488(proc);
+		else if (!(proc->evStateBits & 0x0080)) {
+			if (proc->evStateBits & 0x0100)
+				sub_800D488(proc);
+			else
+				sub_8013D08(0x40, (struct Proc*)(proc));
+			
+			proc->evStateBits |= 0x0100;
+		}
+	}
+
+	if (proc->idk41 == 0)
+		sub_80BA424();
+	
+	Proc_BlockEachWithMark(5);
+}
+
+void sub_800D488(struct EventEngineProc* unused) {
+	sub_80141B0();
+	Proc_DeleteAllWithScript(gUnknown_08591540);
+}
+
+void sub_800D49C(u16 triggerId, bool8 value) {
+	if (!value)
+		UnsetEventId(triggerId);
+	else
+		SetEventId(triggerId);
+}
+
+int CheckEventId_(u16 triggerId) {
+	if (!CheckEventId(triggerId))
+		return FALSE;
+	return TRUE;
+}
+
+struct Proc* sub_800D4D4(struct Proc* parent, void(*init)(struct Proc*), void(*loop)(struct Proc*), void(*dest)(struct Proc*)) {
+	struct ProcCmd code[] = {
+		PROC_SET_DESTRUCTOR(dest),
+		PROC_CALL_ROUTINE(init),
+		PROC_LOOP_ROUTINE(loop),
+		PROC_END
+	};
+	
+	memcpy(gUnknown_030005B0, code, sizeof code);
+	return Proc_Create(gUnknown_030005B0, parent);
+}
+
+void sub_800D524(void) {} // nullsub
+
+void SlotQueuePush(unsigned value) {
+	gUnknown_030004F0[gUnknown_030004B8[0xD]] = value;
+	gUnknown_030004B8[0xD]++;
+}
+
+unsigned SlotQueuePop(void) {
+	s16 i;
+	unsigned result;
+	
+	result = gUnknown_030004F0[0];
+
+	gUnknown_030004B8[0xD]--;
+
+	for (i = 0; i < gUnknown_030004B8[0xD]; ++i)
+		gUnknown_030004F0[i] = gUnknown_030004F0[i+1];
+
+	return result;
+}
+
+void SetEventCounter(unsigned value) {
+	gUnknown_03000568 = value;
+}
+
+unsigned sub_800D594(void) {
+	return gUnknown_03000568;
+}
