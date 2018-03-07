@@ -4,20 +4,20 @@
 gUnknown_08591AB4:  @ 0x08591AB4
 	.incbin "baserom.gba", 0x591AB4, 0xC
 
-	.global gUnknown_08591AC0
-gUnknown_08591AC0:  @ 0x08591AC0
+	.global gProc_StdEventEngine
+gProc_StdEventEngine:  @ 0x08591AC0
 	.incbin "baserom.gba", 0x591AC0, 0x38
 
-	.global gUnknown_08591AF8
-gUnknown_08591AF8:  @ 0x08591AF8
+	.global gProc_BattleEventEngine
+gProc_BattleEventEngine:  @ 0x08591AF8
 	.incbin "baserom.gba", 0x591AF8, 0x30
 
-	.global gUnknown_08591B28
-gUnknown_08591B28:  @ 0x08591B28
+	.global gEventLoCmdTable
+gEventLoCmdTable:  @ 0x08591B28
 	.incbin "baserom.gba", 0x591B28, 0x170
 
-	.global gUnknown_08591C98
-gUnknown_08591C98:  @ 0x08591C98
+	.global gEventHiCmdTable
+gEventHiCmdTable:  @ 0x08591C98
 	.incbin "baserom.gba", 0x591C98, 0x140
 
 	.global gUnknown_08591DD8
@@ -52,36 +52,36 @@ gUnknown_08591F18:  @ 0x08591F18
 gUnknown_08591F28:  @ 0x08591F28
 	.incbin "baserom.gba", 0x591F28, 0x60
 
-	.global gUnknown_08591F88
-gUnknown_08591F88:  @ 0x08591F88
+	.global gEvent_DisplayBattleQuote
+gEvent_DisplayBattleQuote:  @ 0x08591F88
 	.incbin "baserom.gba", 0x591F88, 0x14
 
-	.global gUnknown_08591F9C
-gUnknown_08591F9C:  @ 0x08591F9C
+	.global gEvent_TriggerQueuedTileChanges
+gEvent_TriggerQueuedTileChanges:  @ 0x08591F9C
 	.incbin "baserom.gba", 0x591F9C, 0xC
 
-	.global gUnknown_08591FA8
-gUnknown_08591FA8:  @ 0x08591FA8
+	.global gEvent_OpenChest
+gEvent_OpenChest:  @ 0x08591FA8
 	.incbin "baserom.gba", 0x591FA8, 0x48
 
-	.global gUnknown_08591FF0
-gUnknown_08591FF0:  @ 0x08591FF0
+	.global gEvent_MapSupportConversation
+gEvent_MapSupportConversation:  @ 0x08591FF0
 	.incbin "baserom.gba", 0x591FF0, 0x40
 
-	.global gUnknown_08592030
-gUnknown_08592030:  @ 0x08592030
+	.global gEvent_SupportViewerConversation
+gEvent_SupportViewerConversation:  @ 0x08592030
 	.incbin "baserom.gba", 0x592030, 0x28
 
-	.global gUnknown_08592058
-gUnknown_08592058:  @ 0x08592058
+	.global gEvent_SkirmishRetreat
+gEvent_SkirmishRetreat:  @ 0x08592058
 	.incbin "baserom.gba", 0x592058, 0x60
 
-	.global gUnknown_085920B8
-gUnknown_085920B8:  @ 0x085920B8
+	.global gEvent_SuspendPrompt
+gEvent_SuspendPrompt:  @ 0x085920B8
 	.incbin "baserom.gba", 0x5920B8, 0x4C
 
-	.global gUnknown_08592104
-gUnknown_08592104:  @ 0x08592104
+	.global gEvent_GameOver
+gEvent_GameOver:  @ 0x08592104
 	.incbin "baserom.gba", 0x592104, 0x10
 
 	.global gUnknown_08592114

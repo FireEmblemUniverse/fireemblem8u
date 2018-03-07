@@ -19,27 +19,27 @@ struct EnqueuedEventCall {
 	s8 isUsed;
 };
 
-extern unsigned gUnknown_030004B8[EVENT_SLOT_COUNT]; // event slot values (Null (0), Vars (1-A) + Position (B) + Check (C) + QP (D))
-extern unsigned gUnknown_030004F0[]; // event slot queue (just an array)
+extern unsigned gEventSlots[EVENT_SLOT_COUNT]; // event slot values (Null (0), Vars (1-A) + Position (B) + Check (C) + QP (D))
+extern unsigned gEventSlotQueue[]; // event slot queue (just an array)
 
-extern unsigned gUnknown_03000568;
+extern unsigned gEventSlotCounter;
 
 // TODO: better
-extern struct EnqueuedEventCall gUnknown_03000438[]; // gEventCallQueue
+extern struct EnqueuedEventCall gEventCallQueue[]; // gEventCallQueue
 
 extern struct ProcCmd gUnknown_030005B0[4];
 
-extern const EventFuncType gUnknown_08591B28[]; // regular event functions
-extern const EventFuncType gUnknown_08591C98[]; // gmap event functions
+extern const struct ProcCmd gProc_StdEventEngine[]; // map event engine proc
+extern const struct ProcCmd gProc_BattleEventEngine[]; // battle (?) event engine proc
 
-extern const struct ProcCmd gUnknown_08591AC0[]; // map event engine proc
-extern const struct ProcCmd gUnknown_08591AF8[]; // battle (?) event engine proc
+extern const EventFuncType gEventLoCmdTable[]; // regular event functions
+extern const EventFuncType gEventHiCmdTable[]; // gmap event functions
 
 extern const struct ProcCmd gUnknown_08591DD8[]; // map event engine "witness lock" (alive while map event engine is)
 
 // TODO: actual events
 
-extern const u16 gUnknown_08591F88[]; /*
+extern const u16 gEvent_DisplayBattleQuote[]; /*
 	1020 0003 | EVBIT_MODIFY 3  // modifies event state bits (how?)
 	1B20 FFFF | TEXTSHOW 0xFFFF // Show text in event slot 2
 	1D20 0000 | TEXTEND         // Ends text
@@ -47,13 +47,13 @@ extern const u16 gUnknown_08591F88[]; /*
 	0120 0000 | ENDA            // ends event execution
 */
 
-extern const u16 gUnknown_08591F9C[]; /*
+extern const u16 gEvent_TriggerQueuedTileChanges[]; /*
 	1020 0001 | EVBIT_MODIFY 1    // modifies event state bits (how?)
 	2720 FFFD | TILECHANGE 0xFFFD // Changes tile by tile change id in event slot Queue (or something)
 	0120 0000 | ENDA              // ends event execution
 */
 
-extern const u16 gUnknown_08591FA8[]; /*
+extern const u16 gEvent_OpenChest[]; /*
 	1020 0001           | EVBIT_MODIFY 1
 	2720 FFFD           | TILECHANGE 0xFFFD
 	0540 0007 000000FF  | SVAL s7 0xFF
@@ -66,7 +66,7 @@ extern const u16 gUnknown_08591FA8[]; /*
 	0120 0000           | ENDA
 */
 
-extern const u16 gUnknown_08591FF0[]; /*
+extern const u16 gEvent_MapSupportConversation[]; /*
 	1020 0003           | EVBIT_MODIFY 3
 	0C40 0000 0002 0000 | BEQ 0 s2 s0
 	1220 FFFF           | MUSC 0xFFFF
@@ -83,7 +83,7 @@ extern const u16 gUnknown_08591FF0[]; /*
 	0120 0000           | ENDA
 */
 
-extern const u16 gUnknown_08592030[]; /*
+extern const u16 gEvent_SupportViewerConversation[]; /*
 	1020 0003           | EVBIT_MODIFY 3
 	1A21 0000           | REMOVEPORTRAITS
 	2140 0037 0000 0000 | BACG 0x37
@@ -95,7 +95,7 @@ extern const u16 gUnknown_08592030[]; /*
 	0120 0000           | ENDA
 */
 
-extern const u16 gUnknown_08592058[]; /*
+extern const u16 gEvent_SkirmishRetreat[]; /*
 	EVBIT_MODIFY 4
 	TUTORIALTEXTBOXSTART
 	SVAL sB (-1)
@@ -116,7 +116,7 @@ extern const u16 gUnknown_08592058[]; /*
 	ENDA
 */
 
-extern const u16 gUnknown_085920B8[]; /*
+extern const u16 gEvent_SuspendPrompt[]; /*
 	EVBIT_MODIFY 4
 	TEXTSTART
 	TEXTSHOW 0x8FE
@@ -135,7 +135,7 @@ extern const u16 gUnknown_085920B8[]; /*
 	ENDA
 */
 
-extern const u16 gUnknown_08592104[]; /* Game Over Events?
+extern const u16 gEvent_GameOver[]; /* Game Over Events?
 	1020 0004           | EVBIT_MODIFY 4
 	0D40 0000 08085375  | ASMC 0x8085375 (game over)
 	0120 0000           | ENDA
@@ -177,10 +177,10 @@ void EventEngine_Loop(struct EventEngineProc* proc) {
 		EventFuncType evFunc;
 
 		// Event Slot 0
-		gUnknown_030004B8[0] = 0;
+		gEventSlots[0] = 0;
 
 		evCode = (*proc->pEventCurrent) >> 8;
-		evFunc = (evCode < 0x80) ? gUnknown_08591B28[evCode] : gUnknown_08591C98[evCode - 0x80];
+		evFunc = (evCode < 0x80) ? gEventLoCmdTable[evCode] : gEventHiCmdTable[evCode - 0x80];
 
 		switch (evFunc(proc)) {
 		case 0:
@@ -219,7 +219,7 @@ void EventEngine_Destructor(struct EventEngineProc* proc) {
 		if (proc->evStateBits & EV_STATE_CHANGEGM) {
 			ClearMOVEUNITs();
 			sub_80311F0();
-			memset((u8*)(gUnknown_03000438), 0, 0x80);
+			memset((u8*)(gEventCallQueue), 0, 0x80);
 		}
 
 	case EV_EXEC_GAMEPLAY:
@@ -250,7 +250,7 @@ void EqueueEventEngineCall(const u16* events, u8 execType) {
 	struct EnqueuedEventCall* it;
 	u8 i;
 
-	it = gUnknown_03000438;
+	it = gEventCallQueue;
 
 	for (i = -1; ++i <= 0xf;) {
 		if (!it->isUsed) {
@@ -269,7 +269,7 @@ void HandleNextEventEngineCall(void) {
 	struct EnqueuedEventCall* it;
 	u8 i;
 
-	it = gUnknown_03000438;
+	it = gEventCallQueue;
 
 	if (it->isUsed == 1)
 		NewMapEventEngine(it->events, it->execType);
@@ -283,7 +283,7 @@ void HandleNextEventEngineCall(void) {
 }
 
 void CallMapEventEngine(const u16* events, u8 execType) {
-	bool8 found = Proc_Find(gUnknown_08591AC0) != 0;
+	bool8 found = Proc_Find(gProc_StdEventEngine) != 0;
 
 	if (found)
 		EqueueEventEngineCall(events, execType);
@@ -294,7 +294,7 @@ void CallMapEventEngine(const u16* events, u8 execType) {
 struct EventEngineProc* NewMapEventEngine(const u16* events, u8 execType) {
 	struct EventEngineProc* proc;
 
-	proc = (struct EventEngineProc*) Proc_Create(gUnknown_08591AC0, ROOT_PROC_3);
+	proc = (struct EventEngineProc*) Proc_Create(gProc_StdEventEngine, ROOT_PROC_3);
 
 	proc->pCallback      = NULL;
 
@@ -336,7 +336,7 @@ struct EventEngineProc* NewMapEventEngine(const u16* events, u8 execType) {
 void NewBattleEventEngine(const u16* events) {
 	struct EventEngineProc* proc;
 
-	proc = (struct EventEngineProc*) Proc_Create(gUnknown_08591AF8, ROOT_PROC_3);
+	proc = (struct EventEngineProc*) Proc_Create(gProc_BattleEventEngine, ROOT_PROC_3);
 
 	proc->pCallback     = NULL;
 
@@ -361,16 +361,16 @@ void NewBattleEventEngine(const u16* events) {
 }
 
 int MapEventEngineExists(void) {
-	return Proc_Find(gUnknown_08591AC0) ? TRUE : FALSE;
+	return Proc_Find(gProc_StdEventEngine) ? TRUE : FALSE;
 }
 
 int BattleEventEngineExists(void) {
-	return Proc_Find(gUnknown_08591AF8) ? TRUE : FALSE;
+	return Proc_Find(gProc_BattleEventEngine) ? TRUE : FALSE;
 }
 
 void DeleteEventEngines(void) {
-	Proc_DeleteAllWithScript(gUnknown_08591AC0);
-	Proc_DeleteAllWithScript(gUnknown_08591AF8);
+	Proc_DeleteAllWithScript(gProc_StdEventEngine);
+	Proc_DeleteAllWithScript(gProc_BattleEventEngine);
 }
 
 void sub_800D1E4(struct Proc* proc) {
@@ -378,7 +378,7 @@ void sub_800D1E4(struct Proc* proc) {
 }
 
 void SetEventSlotC(unsigned value) {
-	gUnknown_030004B8[0xC] = value;
+	gEventSlots[0xC] = value;
 }
 
 void sub_800D204(void) {} // nullsub
@@ -386,8 +386,8 @@ void sub_800D204(void) {} // nullsub
 int sub_800D208(void) {
 	struct EventEngineProc* proc;
 
-	if (!(proc = (struct EventEngineProc*) Proc_Find(gUnknown_08591AC0)))
-		if (!(proc = (struct EventEngineProc*) Proc_Find(gUnknown_08591AF8)))
+	if (!(proc = (struct EventEngineProc*) Proc_Find(gProc_StdEventEngine)))
+		if (!(proc = (struct EventEngineProc*) Proc_Find(gProc_BattleEventEngine)))
 			return FALSE;
 	
 	switch (proc->activeTextType) {
@@ -417,66 +417,66 @@ int sub_800D208(void) {
 
 void sub_800D260(u16 textIndex) {
 	// Battle quote (unused?)
-	CallMapEventEngine(gUnknown_08591F88, EV_EXEC_GAMEPLAY);
+	CallMapEventEngine(gEvent_DisplayBattleQuote, EV_EXEC_GAMEPLAY);
 
-	gUnknown_030004B8[0x02] = textIndex;
+	gEventSlots[0x02] = textIndex;
 }
 
 void CallBattleQuoteTextEvents(u16 textIndex) {
 	// Battle quote
-	NewBattleEventEngine(gUnknown_08591F88);
+	NewBattleEventEngine(gEvent_DisplayBattleQuote);
 
-	gUnknown_030004B8[0x2] = textIndex;
+	gEventSlots[0x2] = textIndex;
 }
 
 void sub_800D2A4(u16 tileChangeIndex) {
 	// Generic tile change events?
-	CallMapEventEngine(gUnknown_08591F9C, EV_EXEC_GAMEPLAY);
+	CallMapEventEngine(gEvent_TriggerQueuedTileChanges, EV_EXEC_GAMEPLAY);
 
-	gUnknown_030004B8[0xD] = 1; // qp
-	gUnknown_030004F0[0]   = tileChangeIndex;
+	gEventSlots[0xD] = 1; // qp
+	gEventSlotQueue[0]   = tileChangeIndex;
 }
 
 void CallSomeOtherEvents(u16 tileChangeIndex, u16 idr) {
 	// Chest opening events?
-	CallMapEventEngine(gUnknown_08591FA8, EV_EXEC_GAMEPLAY);
+	CallMapEventEngine(gEvent_OpenChest, EV_EXEC_GAMEPLAY);
 
-	gUnknown_030004B8[0xD] = 1; // qp
-	gUnknown_030004F0[0]   = tileChangeIndex;
-	gUnknown_030004B8[0x3] = idr;
+	gEventSlots[0xD] = 1; // qp
+	gEventSlotQueue[0]   = tileChangeIndex;
+	gEventSlots[0x3] = idr;
 }
 
 void sub_800D304(u16 musicIndex, u16 textIndex) {
 	// Calls text with music (just quiets music when id is 0)
 	// On-map supports?
-	CallMapEventEngine(gUnknown_08591FF0, EV_EXEC_CUTSCENE);
+	CallMapEventEngine(gEvent_MapSupportConversation, EV_EXEC_CUTSCENE);
 
-	gUnknown_030004B8[0x2] = musicIndex;
-	gUnknown_030004B8[0x3] = textIndex;
+	gEventSlots[0x2] = musicIndex;
+	gEventSlots[0x3] = textIndex;
 }
 
 void sub_800D330(u16 textIndex) {
 	// Calls text with random background (support viewer?)
-	CallMapEventEngine(gUnknown_08592030, EV_EXEC_QUIET);
+	CallMapEventEngine(gEvent_SupportViewerConversation, EV_EXEC_QUIET);
 
-	gUnknown_030004B8[0x2] = textIndex;
+	gEventSlots[0x2] = textIndex;
 }
 
 void sub_800D354(void) {
 	// Calls Retreat events
-	CallMapEventEngine(gUnknown_08592058, EV_EXEC_CUTSCENE);
+	CallMapEventEngine(gEvent_SkirmishRetreat, EV_EXEC_CUTSCENE);
 	
-	gUnknown_030004B8[0x2] = gUnknown_0202BCF0.chapterIndex;
+	gEventSlots[0x2] = gUnknown_0202BCF0.chapterIndex;
 }
 
 void sub_800D37C(void) {
 	// Calls Suspend events
-	CallMapEventEngine(gUnknown_085920B8, EV_EXEC_CUTSCENE);
+	CallMapEventEngine(gEvent_SuspendPrompt, EV_EXEC_CUTSCENE);
 }
 
 void sub_800D390(void) {
 	// Calls Game Over
-	NewMapEventEngine(gUnknown_08592104, EV_EXEC_GAMEPLAY);
+	NewMapEventEngine(gEvent_GameOver, EV_EXEC_GAMEPLAY);
 }
 
 bool8 sub_800D3A4(struct EventEngineProc* proc) { // Events_CanSkip
@@ -502,8 +502,8 @@ bool8 sub_800D3A4(struct EventEngineProc* proc) { // Events_CanSkip
 void sub_800D3E4(void) {
 	struct EventEngineProc* proc;
 
-	if (!(proc = (struct EventEngineProc*) Proc_Find(gUnknown_08591AC0)))
-		if (!(proc = (struct EventEngineProc*) Proc_Find(gUnknown_08591AF8)))
+	if (!(proc = (struct EventEngineProc*) Proc_Find(gProc_StdEventEngine)))
+		if (!(proc = (struct EventEngineProc*) Proc_Find(gProc_BattleEventEngine)))
 			return;
 	
 	proc->evStateBits |= EV_STATE_0008;
@@ -564,28 +564,28 @@ struct Proc* sub_800D4D4(struct Proc* parent, void(*init)(struct Proc*), void(*l
 void sub_800D524(void) {} // nullsub
 
 void SlotQueuePush(unsigned value) {
-	gUnknown_030004F0[gUnknown_030004B8[0xD]] = value;
-	gUnknown_030004B8[0xD]++;
+	gEventSlotQueue[gEventSlots[0xD]] = value;
+	gEventSlots[0xD]++;
 }
 
 unsigned SlotQueuePop(void) {
 	s16 i;
 	unsigned result;
 	
-	result = gUnknown_030004F0[0];
+	result = gEventSlotQueue[0];
 
-	gUnknown_030004B8[0xD]--;
+	gEventSlots[0xD]--;
 
-	for (i = 0; i < gUnknown_030004B8[0xD]; ++i)
-		gUnknown_030004F0[i] = gUnknown_030004F0[i+1];
+	for (i = 0; i < gEventSlots[0xD]; ++i)
+		gEventSlotQueue[i] = gEventSlotQueue[i+1];
 
 	return result;
 }
 
 void SetEventCounter(unsigned value) {
-	gUnknown_03000568 = value;
+	gEventSlotCounter = value;
 }
 
 unsigned sub_800D594(void) {
-	return gUnknown_03000568;
+	return gEventSlotCounter;
 }
