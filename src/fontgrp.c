@@ -463,18 +463,10 @@ void Text_DrawBlank(struct Text *a, u16 *dest)
     }
 }
 
-// some sort of linked list node
-struct UnknownTextStruct3
-{
-    struct UnknownTextStruct3 *next;
-    u8 unk4;
-    u8 unk5;
-};
-
 int GetStringTextWidth(const char *str)
 {
     int r4 = 0;
-    struct UnknownTextStruct3 *r1;
+    struct UnknownTextStruct4 *r1;
     char c;
     char r0;
 
@@ -503,7 +495,7 @@ int GetStringTextWidth(const char *str)
 
 char *GetCharTextWidth(char *a, u32 *b)
 {
-    struct UnknownTextStruct3 *r1;
+    struct UnknownTextStruct4 *r1;
     char c;
     char r0;
 
@@ -563,7 +555,7 @@ char *String_GetEnd(char *str)
 
 void Text_AppendString(struct Text *a, char *b)
 {
-    struct UnknownTextStruct3 *r1;
+    struct UnknownTextStruct4 *r1;
     char r3;
     char r2;
 
@@ -671,7 +663,7 @@ void Text_AppendNumberOr2Dashes(struct Text *a, int b)
 #if NONMATCHING
 const char *Text_AppendChar(struct Text *a, const char *b)
 {
-    struct UnknownTextStruct3 *r1 = NULL;
+    struct UnknownTextStruct4 *r1 = NULL;
     char r3;
     char r2;
 
@@ -769,9 +761,9 @@ _080041E2:\n\
 }
 #endif
 
-void *GetVRAMPointerForTextMaybe(struct Text *a)
+void *GetVRAMPointerForTextMaybe(struct Text *text)
 {
-    int r1 = (a->unk6 * a->unk4 + a->unk0 + a->unk2 / 8);
+    int r1 = (text->unk6 * text->unk4 + text->unk0 + text->unk2 / 8);
 
     return gUnknown_02028E70->unk0 + r1 * 64;
 }
@@ -820,4 +812,160 @@ void Font_SpecializedGlyphDrawer(struct Text *a, struct UnknownTextStruct4 *b)
     }
 
     a->unk2 += b->unk5;
+}
+
+void Font_LoadForUI(void)
+{
+    CopyToPaletteBuffer(gUnknown_0859EF00, gUnknown_02028E70->unk14 * 32, 32);
+    gPaletteBuffer[gUnknown_02028E70->unk14 * 16] = 0;
+    gUnknown_02028E70->unk8 = Font_StandardGlyphDrawer;
+    SetFontGlyphSet(0);
+}
+
+void Font_LoadForDialogue(void)
+{
+    CopyToPaletteBuffer(gUnknown_0859EF20, gUnknown_02028E70->unk14 * 32, 32);
+    gPaletteBuffer[gUnknown_02028E70->unk14 * 16] = 0;
+    gUnknown_02028E70->unk8 = Font_StandardGlyphDrawer;
+    SetFontGlyphSet(1);
+}
+
+void Font_SetSomeSpecialDrawingRoutine(void)
+{
+    gUnknown_02028E70->unk8 = Font_SpecializedGlyphDrawer;
+}
+
+void DrawTextInline(struct Text *text, u16 *dest, int colorId, int x, int e, char *f)
+{
+    struct Text localText;
+
+    if (text == NULL)
+    {
+        text = &localText;
+        Text_Init(text, e);
+    }
+    Text_SetXCursor(text, x);
+    Text_SetColorId(text, colorId);
+    Text_AppendString(text, f);
+    Text_Draw(text, dest);
+}
+
+void Text_InsertString(struct Text *text, int x, int colorId, char *str)
+{
+    Text_SetXCursor(text, x);
+    Text_SetColorId(text, colorId);
+    Text_AppendString(text, str);
+}
+
+void Text_InsertNumberOr2Dashes(struct Text *text, int x, int colorId, int n)
+{
+    Text_SetXCursor(text, x);
+    Text_SetColorId(text, colorId);
+    Text_AppendNumberOr2Dashes(text, n);
+}
+
+void Text_AppendStringSimple(struct Text *text, const char *str)
+{
+    while (*str > 1)
+    {
+        struct UnknownTextStruct4 *r1 = gUnknown_02028E70->unk4[*str++];
+        
+        if (r1 == NULL)
+            r1 = gUnknown_02028E70->unk4[63];
+        gUnknown_02028E70->unk8(text, r1);
+    }
+}
+
+const char *Text_AppendCharSimple(struct Text *text, const char *str)
+{
+    struct UnknownTextStruct4 *r1 = gUnknown_02028E70->unk4[*str++];
+
+    if (r1 == NULL)
+        r1 = gUnknown_02028E70->unk4[63];
+    gUnknown_02028E70->unk8(text, r1);
+    return str;
+}
+
+char *GetCharTextWidthSimple(char *str, u32 *width)
+{
+    struct UnknownTextStruct4 *r1 = gUnknown_02028E70->unk4[*str++];
+
+    if (r1 == NULL)
+        r1 = gUnknown_02028E70->unk4[63];
+    *width = r1->unk5;
+    return str;
+}
+
+int GetStringTextWidthSimple(const char *str)
+{
+    int width = 0;
+
+    while (*str > 1)
+    {
+        struct UnknownTextStruct4 *r1 = gUnknown_02028E70->unk4[*str++];
+        
+        width += r1->unk5;
+    }
+    return width;
+}
+
+void sub_8004598(void)
+{
+}
+
+void InitSomeOtherGraphicsRelatedStruct(struct Font *font, int b, int c)
+{
+    font->unk0 = (void *)b;
+    font->unkC = sub_80046E0;
+    font->unk14 = (c & 0xF) + 16;
+    font->unk10 = (b & 0x1FFFF) >> 5;
+    font->unk12 = 0;
+    font->unk16 = GetSomeByte();
+    SetFont(font);
+    font->unk8 = sub_8004700;
+}
+
+void Text_Init3(struct Text *text)
+{
+    text->unk0 = gUnknown_02028E70->unk12;
+    text->unk4 = 32;
+    text->unk6 = 0;
+    text->unk5 = 0;
+    text->unk7 = 0;
+    gUnknown_02028E70->unk12 += 64;
+    text->unk2 = 0;
+    text->unk3 = 0;
+}
+
+void sub_80045FC(struct Text *text)
+{
+    if (text->unk4 != 0)
+    {
+        text->unk2 = 0;
+        CpuFastFill(0x44444444, gUnknown_02028E70->unkC(text), 0x360);
+        CpuFastFill(0x44444444, gUnknown_02028E70->unkC(text) + 0x400, 0x360);
+    }
+}
+
+void sub_800465C(struct Text *text)
+{
+    if (text->unk4 != 0)
+    {
+        text->unk2 = 0;
+        CpuFastFill(0, gUnknown_02028E70->unkC(text), 0x360);
+        CpuFastFill(0, gUnknown_02028E70->unkC(text) + 0x400, 0x360);
+    }
+}
+
+void Text_80046B4(struct Text *text, u32 b)
+{
+    text->unk2 = 0;
+    CpuFastFill(b, gUnknown_02028E70->unkC(text), 0x800);
+}
+
+void *sub_80046E0(struct Text *text)
+{
+    int r1 = (text->unk6 * text->unk4 + text->unk0 + text->unk2 / 8);
+
+    return gUnknown_02028E70->unk0 + r1 * 32;
 }

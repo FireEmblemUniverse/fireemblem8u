@@ -137,11 +137,20 @@ struct Text
     u8 unk7;
 };
 
+struct UnknownTextStruct4
+{
+    struct UnknownTextStruct4 *next;
+    u8 unk4;
+    u8 unk5;
+    u8 unk6[2];
+    u32 unk8[0];
+};
+
 struct Font
 {
     u8 *unk0;
-    void **unk4;
-    int (*unk8)();
+    struct UnknownTextStruct4 **unk4;
+    void (*unk8)(struct Text *, struct UnknownTextStruct4 *);
     void *(*unkC)(struct Text *);
     u16 unk10;
     u16 unk12;
@@ -153,14 +162,6 @@ struct UnknownTextStruct2
 {
     struct Text *unk0;
     u8 unk4;
-};
-
-struct UnknownTextStruct4
-{
-    u8 filler0[5];
-    u8 unk5;
-    u8 unk6[2];
-    u32 unk8[0];
 };
 
 #endif  // GUARD_TYPES_H

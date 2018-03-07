@@ -1353,8 +1353,8 @@ extern u8 gUnknown_08587A40[];
 extern void *gUnknown_08588240[];
 // extern ??? gUnknown_08588274
 // extern ??? gUnknown_08588284
-extern void *gUnknown_0858C7EC[];
-extern void *gUnknown_0858F6F4[];
+extern struct UnknownTextStruct4 *gUnknown_0858C7EC[];
+extern struct UnknownTextStruct4 *gUnknown_0858F6F4[];
 // extern ??? gUnknown_08590B44
 extern u16 gUnknown_08590F44[];
 // extern ??? gUnknown_08590F4C
@@ -1666,8 +1666,8 @@ extern const char *gUnknown_08591AA4[][2];
 // extern ??? gUnknown_0859EEA0
 // extern ??? gUnknown_0859EEC0
 // extern ??? gUnknown_0859EEE0
-// extern ??? gUnknown_0859EF00
-// extern ??? gUnknown_0859EF20
+extern u8 gUnknown_0859EF00[];
+extern u8 gUnknown_0859EF20[];
 // extern ??? gUnknown_0859EF40
 // extern ??? gUnknown_0859EF60
 // extern ??? gUnknown_0859EF80
