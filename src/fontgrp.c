@@ -17,7 +17,14 @@ struct Struct02026E30
     char unk14[256][32];
 };
 
-extern struct Struct02026E30 gUnknown_02026E30;
+EWRAM_DATA struct Struct02026E30 gUnknown_02026E30 = {0};
+EWRAM_DATA char gUnknown_02028E44[9] = {0};
+EWRAM_DATA int gUnknown_02028E50 = 0;
+EWRAM_DATA int gUnknown_02028E54 = 0;
+EWRAM_DATA struct Font gDefaultFont = {0};
+EWRAM_DATA struct Font *gCurrentFont = 0;
+EWRAM_DATA u8 gUnknown_02028E74 = 0;
+EWRAM_DATA struct Struct02028E78 gUnknown_02028E78[64] = {0};
 
 void SetupDebugFontForBG(int bg, int tileDataOffset)
 {
@@ -142,12 +149,13 @@ void sub_800394C(int n, int length)
 
 void StoreNumberHexStringToSmallBuffer(int n)
 {
+    static const char hexDigits[] = "0123456789ABCDEF";
     int i;
 
     ClearSmallStringBuffer();
     for (i = 7; i >= 0; i--)
     {
-        gUnknown_02028E44[i] = gUnknown_080D779C[(n & 0xF)];
+        gUnknown_02028E44[i] = hexDigits[(n & 0xF)];
         n >>= 4;
         if (n == 0)
             break;
@@ -601,7 +609,7 @@ void Text_AppendDecNumber(struct Text *a, int n)
 {
     if (n == 0)
     {
-        Text_AppendChar(a, gUnknown_080D77B0);
+        Text_AppendChar(a, "0");
         return;
     }
 
@@ -623,7 +631,7 @@ void sub_80040C0(struct Text *a, int n)
 
     if (n == 0)
     {
-        Text_AppendChar(a, gUnknown_080D77B0);
+        Text_AppendChar(a, "0");
         a->x += 8;
         return;
     }

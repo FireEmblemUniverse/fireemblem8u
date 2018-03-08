@@ -504,10 +504,10 @@ extern struct Struct02024E5C gUnknown_02024E5C;
 // extern ??? gRootProcesses
 // extern ??? gUnknown_02026A90
 // extern ??? gUnknown_02026E10
+
+// fontgrp
 // extern ??? gUnknown_02026E30
 extern char gUnknown_02028E44[9];
-// extern ??? gUnknown_02028E4B
-// extern ??? gUnknown_02028E4C
 extern int gUnknown_02028E50;
 extern int gUnknown_02028E54;
 extern struct Font gDefaultFont;
@@ -904,8 +904,6 @@ extern const char gYearProjectCreated[]; // "_2003..."
 extern const u16 gUnknown_080D7504[];
 extern const s16 gSinLookup[]; // gSinTable
 extern const s16 gCosLookup[]; // gCosTable
-extern const char gUnknown_080D779C[];
-extern const char gUnknown_080D77B0[];
 // extern ??? gUnknown_080D77BC
 // extern ??? gUnknown_080D77DC
 // extern ??? gUnknown_080D77FC
