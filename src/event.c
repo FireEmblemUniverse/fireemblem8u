@@ -137,7 +137,7 @@ extern const u16 gEvent_SuspendPrompt[]; /*
 
 extern const u16 gEvent_GameOver[]; /* Game Over Events?
     1020 0004           | EVBIT_MODIFY 4
-    0D40 0000 08085375  | ASMC 0x8085375 (game over)
+    0D40 0000 08085375  | ASMC sub_8085374 // game over
     0120 0000           | ENDA
 */
 

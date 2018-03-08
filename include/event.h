@@ -38,21 +38,21 @@ enum EventExecType {
 };
 
 enum EventStateFlags {
-    EV_STATE_NONE      = 0x0000, // null
+    EV_STATE_NONE      = 0,
 
-    EV_STATE_ABORT     = 0x0001, // queued event engine calls will wait
-    EV_STATE_0002      = 0x0002, // prevents "ENDA events" to play. Needs further investigation
-    EV_STATE_SKIPPING  = 0x0004, // currently skipping events (trigger with start)
-    EV_STATE_0008      = 0x0008, // ??? seems to be dialogue related
-    EV_STATE_NOSKIP    = 0x0010, // prevents skipping with start, set by EVBIT_MODIFY
-    EV_STATE_0020      = 0x0020, // set by EVBIT_MODIFY
-    EV_STATE_0040      = 0x0040, // set by EVBIT_MODIFY
-    EV_STATE_NOFADE    = 0x0080, // don't fade at end of events
-    EV_STATE_FADEDIN   = 0x0100, // faded into white/back
-    EV_STATE_UNITCAM   = 0x0200, // camera follows unit movement
-    EV_STATE_CHANGECH  = 0x0400, // moving to another chapter (?)
-    EV_STATE_CHANGEGM  = 0x0800, // changing "game mode" (GAMECTRL field 0x29 was changed?)
-    EV_STATE_GFXLOCKED = 0x1000  // set when the game graphics have been locked through events (codes 0x23/0x24)
+    EV_STATE_ABORT     = (1 << 0x0), // queued event engine calls will wait
+    EV_STATE_0002      = (1 << 0x1), // prevents "ENDA events" to play. Needs further investigation
+    EV_STATE_SKIPPING  = (1 << 0x2), // currently skipping events (trigger with start)
+    EV_STATE_0008      = (1 << 0x3), // ??? seems to be dialogue related
+    EV_STATE_NOSKIP    = (1 << 0x4), // prevents skipping with start, set by EVBIT_MODIFY
+    EV_STATE_0020      = (1 << 0x5), // set by EVBIT_MODIFY
+    EV_STATE_0040      = (1 << 0x6), // set by EVBIT_MODIFY
+    EV_STATE_NOFADE    = (1 << 0x7), // don't fade at end of events
+    EV_STATE_FADEDIN   = (1 << 0x8), // faded into white/back
+    EV_STATE_UNITCAM   = (1 << 0x9), // camera follows unit movement
+    EV_STATE_CHANGECH  = (1 << 0xA), // moving to another chapter (?)
+    EV_STATE_CHANGEGM  = (1 << 0xB), // changing "game mode" (GAMECTRL field 0x29 was changed?)
+    EV_STATE_GFXLOCKED = (1 << 0xC)  // set when the game graphics have been locked through events (codes 0x23/0x24)
 
     // I don't think there's more, but I could be wrong
 };
