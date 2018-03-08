@@ -39,7 +39,7 @@ SECTIONS
         src/ramfunc.o(.text);
         src/proc.o(.text);
         asm/icon.o(.text);
-        asm/fontgrp.o(.text);
+        src/fontgrp.o(.text);
         asm/animedrv.o(.text);
         src/ctc.o(.text);
         asm/face.o(.text);
@@ -123,7 +123,9 @@ SECTIONS
         . = ALIGN(4); src/main.o(.rodata);
         . = ALIGN(4); src/rng.o(.rodata);
         . = ALIGN(4); src/hardware.o(.rodata);
-        . = ALIGN(4); data/const_data_D74C8.o(.rodata);
+		. = ALIGN(4); data/trig_rodata.o(.rodata);
+		. = ALIGN(4); src/fontgrp.o(.rodata);
+        . = ALIGN(4); data/face_rodata.o(.rodata);
         . = ALIGN(4); src/messdecode.o(.rodata);
         . = ALIGN(4); data/const_data_D792C.o(.rodata);
         . = ALIGN(4); data/text.o(.rodata);

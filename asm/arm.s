@@ -124,20 +124,24 @@ _08000370:
 
 	ARM_FUNC_START ARM_FillRect
 ARM_FillRect: @ 0x080003A8
+	@ r0 = destination
+	@ r1 = width
+	@ r2 = height
+	@ r3 = fillValue
 	push {r4, r5, r6, r7}
 	mov r4, r0
 	sub r6, r2, #0
-_080003B4:
+  1:
 	sub r5, r1, #0
-_080003B8:
+  2:
 	strh r3, [r4]
 	add r4, r4, #2
-	subs r5, r5, #1
-	bpl _080003B8
+	subs r5, r5, #1		@ decrement width counter
+	bpl 2b
 	add r0, r0, #0x40
 	mov r4, r0
-	subs r6, r6, #1
-	bpl _080003B4
+	subs r6, r6, #1		@ decrement height counter
+	bpl 1b
 	pop {r4, r5, r6, r7}
 	bx lr
 
@@ -195,6 +199,7 @@ _0800045C:
 	bpl _08000458
 	pop {r4, r5, r6, r7}
 	bx lr
+
 	.align 2, 0
 _08000490: .4byte gUnknown_03003744 @ pool
 

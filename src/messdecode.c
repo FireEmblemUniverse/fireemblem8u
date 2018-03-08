@@ -88,7 +88,7 @@ char *GetStringFromIndexInBuffer(int index, char *buffer)
     return buffer;
 }
 
-void *sub_800A2A4(void)
+char *sub_800A2A4(void)
 {
     u8 *r5 = gUnknown_0202A6AC.buffer0202AC01;
     u8 *r4 = gUnknown_0202A6AC.buffer0202B156;

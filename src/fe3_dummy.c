@@ -1,6 +1,5 @@
 #include "global.h"
-#include "functions.h"
-#include "variables.h"
+#include "fontgrp.h"
 
 void PrintDebugBuildDateAndTime(u16 *bg)
 {

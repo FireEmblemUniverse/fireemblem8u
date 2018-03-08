@@ -104,10 +104,10 @@ int GetBackgroundTileDataOffset(int bg)
     return GetBackgroundControlBuffer(bg)->charBaseBlock << 14;
 }
 
-int GetTileIndex(int bg, int b)
+int GetTileIndex(int bg, int offset)
 {
-    b &= 0xFFFF;
-    return (b - GetBackgroundTileDataOffset(bg)) / 32;
+    offset &= 0xFFFF;
+    return (offset - GetBackgroundTileDataOffset(bg)) / 32;
 }
 
 int sub_8000FC4(int bg)
