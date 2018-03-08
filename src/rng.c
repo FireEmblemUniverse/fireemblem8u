@@ -1,4 +1,5 @@
 #include "global.h"
+#include "rng.h"
 
 static u16 gRNSeeds[3];
 static int gLCGRNValue;

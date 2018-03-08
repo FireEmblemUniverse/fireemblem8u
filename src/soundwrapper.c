@@ -1,13 +1,22 @@
 #include "global.h"
 #include "m4a.h"
 #include "proc.h"
+#include "soundwrapper.h"
 
-static void sub_8002788(struct Proc *proc);
+struct Struct02024E5C
+{
+    u8 filler0[2];
+    u16 unk2;
+    u16 unk4;
+    s8 unk6;
+    s8 unk7;
+    s8 unk8;
+};
 
-EWRAM_DATA struct Struct02024E5C gUnknown_02024E5C = {0};
+EWRAM_DATA static struct Struct02024E5C gUnknown_02024E5C = {0};
 
-extern struct Proc *gUnknown_03000040;
-extern struct Proc *gUnknown_03000044;
+static struct Proc *gUnknown_03000040;
+static struct Proc *gUnknown_03000044;
 
 struct MusicProc {
     PROC_HEADER
@@ -25,6 +34,8 @@ struct MusicProc {
     /*0x68*/ s16 unk68;
     /*0x6A*/ s16 unk6A;
 };
+
+static void sub_8002788(struct Proc *proc);
 
 int sub_8002258(void)
 {

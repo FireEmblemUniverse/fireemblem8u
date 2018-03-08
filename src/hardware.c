@@ -1,5 +1,6 @@
 #include "global.h"
 #include "proc.h"
+#include "hardware.h"
 
 EWRAM_DATA struct Struct02024CD4 gUnknown_02024CD4 = {0};
 EWRAM_DATA struct TileDataTransfer gUnknown_02024CDC[32] = {0};

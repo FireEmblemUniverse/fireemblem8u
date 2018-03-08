@@ -4,6 +4,7 @@
 #include "global.h"
 #include "proc.h"
 #include "fontgrp.h"
+#include "hardware.h"
 
 #define CHAR_NEWLINE 0x01
 

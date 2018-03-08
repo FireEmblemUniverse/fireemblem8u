@@ -72,16 +72,6 @@ struct Struct02024CD4
     int unk4;
 };
 
-struct Struct02024E5C
-{
-    u8 filler0[2];
-    u16 unk2;
-    u16 unk4;
-    s8 unk6;
-    s8 unk7;
-    s8 unk8;
-};
-
 struct KeyStatusBuffer
 {
     u8 repeatDelay;     // initial delay before generating auto-repeat presses

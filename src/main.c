@@ -1,7 +1,10 @@
 #include "global.h"
-#include "proc.h"
 #include "ap.h"
 #include "fontgrp.h"
+#include "hardware.h"
+#include "proc.h"
+#include "rng.h"
+#include "soundwrapper.h"
 
 EWRAM_DATA static struct KeyStatusBuffer sKeyStatusBuffer = {0};
 
