@@ -455,6 +455,9 @@ extern u8 gBG1TilemapBuffer[];
 // extern ??? gUnknown_0202393E
 // extern ??? gUnknown_0202396C
 // extern ??? gUnknown_020239A8
+// I'm not sure if this is u8 or u16.
+// In text mode, the tilemap entries are 16 bits,
+// while in affine mode, they are 8 bits.
 extern u8 gBG2TilemapBuffer[];
 // extern ??? gUnknown_02023CAA
 // extern ??? gUnknown_02023CAE
@@ -501,16 +504,6 @@ extern struct Struct02024E5C gUnknown_02024E5C;
 // extern ??? gRootProcesses
 // extern ??? gUnknown_02026A90
 // extern ??? gUnknown_02026E10
-// extern ??? gUnknown_02026E30
-// extern ??? gUnknown_02028E44
-// extern ??? gUnknown_02028E4B
-// extern ??? gUnknown_02028E4C
-// extern ??? gUnknown_02028E50
-// extern ??? gUnknown_02028E54
-// extern ??? gUnknown_02028E58
-// extern ??? gUnknown_02028E70
-// extern ??? gUnknown_02028E74
-// extern ??? gUnknown_02028E78
 // extern ??? gUnknown_02028F78
 // extern ??? gUnknown_02029D88
 extern struct UnknownStructCTC gUnknown_02029D8C[];
@@ -892,6 +885,8 @@ extern struct MusicPlayerInfo gUnknown_03006760;
 // extern ??? gUnknown_03007FF0
 // extern ??? gUnknown_03007FF8
 // extern ??? gUnknown_03007FFC
+
+// const data
 // extern ??? gUnknown_08000540
 extern const char gBuildDateTime[]; // "2005/02/04(FRI) 16:55:40...."
 extern const char gYearProjectCreated[]; // "_2003..."
@@ -899,8 +894,6 @@ extern const char gYearProjectCreated[]; // "_2003..."
 extern const u16 gUnknown_080D7504[];
 extern const s16 gSinLookup[]; // gSinTable
 extern const s16 gCosLookup[]; // gCosTable
-// extern ??? gUnknown_080D779C
-// extern ??? gUnknown_080D77B0
 // extern ??? gUnknown_080D77BC
 // extern ??? gUnknown_080D77DC
 // extern ??? gUnknown_080D77FC
@@ -1344,14 +1337,14 @@ extern struct BgCnt *gUnknown_08587948[];
 // extern ??? gUnknown_08587988
 // extern ??? gUnknown_08587998
 // extern ??? gProcCmdFuncs
-// extern ??? gUnknown_08587A40
-// extern ??? gUnknown_08588240
+extern u8 gUnknown_08587A40[];
+extern void *gUnknown_08588240[];
 // extern ??? gUnknown_08588274
 // extern ??? gUnknown_08588284
-// extern ??? gUnknown_0858C7EC
-// extern ??? gUnknown_0858F6F4
-// extern ??? gUnknown_08590B44
-// extern ??? gUnknown_08590F44
+extern struct Glyph *gUnknown_0858C7EC[];
+extern struct Glyph *gUnknown_0858F6F4[];
+extern struct Glyph *gUnknown_08590B44[];
+extern u16 gUnknown_08590F44[];
 // extern ??? gUnknown_08590F4C
 // extern ??? gUnknown_08590F54
 // extern ??? gUnknown_08590F64
@@ -1661,12 +1654,12 @@ extern const char *gUnknown_08591AA4[][2];
 // extern ??? gUnknown_0859EEA0
 // extern ??? gUnknown_0859EEC0
 // extern ??? gUnknown_0859EEE0
-// extern ??? gUnknown_0859EF00
-// extern ??? gUnknown_0859EF20
+extern u8 gUnknown_0859EF00[];
+extern u8 gUnknown_0859EF20[];
 // extern ??? gUnknown_0859EF40
 // extern ??? gUnknown_0859EF60
 // extern ??? gUnknown_0859EF80
-// extern ??? gUnknown_0859EFC0
+extern u16 gUnknown_0859EFC0[];
 // extern ??? gUnknown_0859EFE0
 // extern ??? gUnknown_0859F000
 // extern ??? gUnknown_0859F020
