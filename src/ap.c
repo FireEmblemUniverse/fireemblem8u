@@ -2,6 +2,7 @@
 #include "ap.h"
 #include "ctc.h"
 #include "proc.h"
+#include "hardware.h"
 
 #define AP_MAX_COUNT 0x14 // 20
 

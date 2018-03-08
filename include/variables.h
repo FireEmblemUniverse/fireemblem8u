@@ -497,7 +497,6 @@ extern void *gUnknown_02024CA8[];
 extern void (*gMainCallback)(void);
 extern struct Struct02024CD4 gUnknown_02024CD4;
 extern struct TileDataTransfer gUnknown_02024CDC[];
-extern struct Struct02024E5C gUnknown_02024E5C;
 // extern ??? gProcesses
 // extern ??? gUnknown_02026968
 // extern ??? gUnknown_02026A6C
@@ -696,6 +695,8 @@ extern struct UnknownItemStruct gUnknown_0203A958;
 // extern ??? end
 // extern ??? gUnknown_03000000
 // extern ??? gLCGRNValue
+
+// time.c/hardware.c
 // extern ??? gUnknown_0300000C
 extern u8 sModifiedBGs;  // BGs that need copying
 extern s8 sModifiedPalette;
@@ -706,8 +707,7 @@ extern u8 gUnknown_03000019;
 extern u8 gUnknown_0300001A;
 extern struct OamDataTransfer gUnknown_03000020;
 extern struct OamDataTransfer gUnknown_03000030;
-// extern ??? gUnknown_03000040
-// extern ??? gUnknown_03000044
+
 // extern ??? gUnknown_030000D0
 // extern ??? gUnknown_030000D8
 // extern ??? gUnknown_030000E8

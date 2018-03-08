@@ -12,8 +12,9 @@
 . = 0x00001A; gUnknown_0300001A = .;
 . = 0x000020; gUnknown_03000020 = .;
 . = 0x000030; gUnknown_03000030 = .;
-. = 0x000040; gUnknown_03000040 = .;
-. = 0x000044; gUnknown_03000044 = .;
+. = 0x000040;
+. = ALIGN(4); src/soundwrapper.o(.bss);
+/*face.c*/
 . = 0x0000D0; gUnknown_030000D0 = .;
 . = 0x0000D8; gUnknown_030000D8 = .;
 . = 0x0000E8; gUnknown_030000E8 = .;
