@@ -3,6 +3,7 @@
 
 #include "global.h"
 #include "proc.h"
+#include "fontgrp.h"
 
 #define CHAR_NEWLINE 0x01
 
@@ -15,6 +16,13 @@ struct Struct02026E30
     u32 unkC;
     u32 unk10;
     char unk14[256][32];
+};
+
+struct Struct02028E78
+{
+    s8 unk0;
+    s8 unk1;
+    s16 unk2;
 };
 
 EWRAM_DATA struct Struct02026E30 gUnknown_02026E30 = {0};
@@ -362,7 +370,7 @@ void SetFont(struct Font *font)
         gCurrentFont = font;
 }
 
-void Text_Init(struct Text *a, int b)
+void Text_Init(struct TextHandle *a, int b)
 {
     a->unk0 = gCurrentFont->unk12;
     a->unk4 = b;
@@ -373,7 +381,7 @@ void Text_Init(struct Text *a, int b)
     Text_Clear(a);
 }
 
-void Text_Allocate(struct Text *a, int b)
+void Text_Allocate(struct TextHandle *a, int b)
 {
     a->unk0 = gCurrentFont->unk12;
     a->unk4 = b;
@@ -392,57 +400,57 @@ void InitTextBatch(struct TextBatch *a)
     }
 }
 
-void Text_Clear(struct Text *a)
+void Text_Clear(struct TextHandle *a)
 {
     a->x = 0;
     a->colorId = 0;
     CpuFastFill16(0, gCurrentFont->getVramTileOffset(a), a->unk4 * 64);
 }
 
-void sub_8003E00(struct Text *a, int b, int c)
+void sub_8003E00(struct TextHandle *a, int b, int c)
 {
     void *dest = gCurrentFont->vramDest + (a->unk6 * a->unk4 + a->unk0 + b) * 64;
 
     CpuFastFill16(0, dest, c * 64);
 }
 
-int sub_8003E40(struct Text *a)
+int sub_8003E40(struct TextHandle *a)
 {
     return (a->unk6 * a->unk4 + a->unk0) * 2;
 }
 
-int Text_GetXCursor(struct Text *a)
+int Text_GetXCursor(struct TextHandle *a)
 {
     return a->x;
 }
 
-void Text_SetXCursor(struct Text *a, int x)
+void Text_SetXCursor(struct TextHandle *a, int x)
 {
     a->x = x;
 }
 
-void Text_Advance(struct Text *a, int x)
+void Text_Advance(struct TextHandle *a, int x)
 {
     a->x += x;
 }
 
-void Text_SetColorId(struct Text *a, int colorId)
+void Text_SetColorId(struct TextHandle *a, int colorId)
 {
     a->colorId = colorId;
 }
 
-int Text_GetColorId(struct Text *a)
+int Text_GetColorId(struct TextHandle *a)
 {
     return a->colorId;
 }
 
-void Text_SetParameters(struct Text *a, int x, int colorId)
+void Text_SetParameters(struct TextHandle *a, int x, int colorId)
 {
     a->x = x;
     a->colorId = colorId;
 }
 
-void Text_Draw(struct Text *a, u16 *dest)
+void Text_Draw(struct TextHandle *a, u16 *dest)
 {
     int tileEntry = gCurrentFont->unk10 + (a->unk6 * a->unk4 + a->unk0) * 2;
     int columns = a->unk4;
@@ -461,7 +469,7 @@ void Text_Draw(struct Text *a, u16 *dest)
         a->unk6 ^= 1;
 }
 
-void Text_DrawBlank(struct Text *a, u16 *dest)
+void Text_DrawBlank(struct TextHandle *a, u16 *dest)
 {
     int columns = a->unk4;
     int i;
@@ -564,7 +572,7 @@ char *String_GetEnd(char *str)
     return str;
 }
 
-void Text_AppendString(struct Text *a, char *str)
+void Text_AppendString(struct TextHandle *a, char *str)
 {
     struct Glyph *glyph;
     char r3;
@@ -605,7 +613,7 @@ void Text_AppendString(struct Text *a, char *str)
     }
 }
 
-void Text_AppendDecNumber(struct Text *a, int n)
+void Text_AppendDecNumber(struct TextHandle *a, int n)
 {
     if (n == 0)
     {
@@ -623,7 +631,7 @@ void Text_AppendDecNumber(struct Text *a, int n)
     }
 }
 
-void sub_80040C0(struct Text *a, int n)
+void sub_80040C0(struct TextHandle *a, int n)
 {
     int length;
     int r0;
@@ -658,7 +666,7 @@ void sub_80040C0(struct Text *a, int n)
     a->x += length * 8 + 8;
 }
 
-void Text_AppendNumberOr2Dashes(struct Text *a, int n)
+void Text_AppendNumberOr2Dashes(struct TextHandle *a, int n)
 {
     if (n == 255 || n == -1)
     {
@@ -672,7 +680,7 @@ void Text_AppendNumberOr2Dashes(struct Text *a, int n)
 }
 
 #if NONMATCHING
-const char *Text_AppendChar(struct Text *a, const char *b)
+const char *Text_AppendChar(struct TextHandle *a, const char *b)
 {
     struct Glyph *r1 = NULL;
     char r3;
@@ -710,7 +718,7 @@ const char *Text_AppendChar(struct Text *a, const char *b)
 }
 #else
 __attribute__((naked))
-const char *Text_AppendChar(struct Text *a, const char *b)
+const char *Text_AppendChar(struct TextHandle *a, const char *b)
 {
     asm(".syntax unified\n\
 	push {r4, r5, r6, lr}\n\
@@ -772,7 +780,7 @@ _080041E2:\n\
 }
 #endif
 
-void *GetVRAMPointerForTextMaybe(struct Text *text)
+void *GetVRAMPointerForTextMaybe(struct TextHandle *text)
 {
     int r1 = (text->unk6 * text->unk4 + text->unk0 + text->x / 8);
 
@@ -784,7 +792,7 @@ void *GetSomeTextDrawingRelatedTablePointer(int a)
     return gUnknown_08588240[a];
 }
 
-void Font_StandardGlyphDrawer(struct Text *a, struct Glyph *glyph)
+void Font_StandardGlyphDrawer(struct TextHandle *a, struct Glyph *glyph)
 {
     void *r8 = gCurrentFont->getVramTileOffset(a);
     int r4 = a->x & 7;
@@ -795,7 +803,7 @@ void Font_StandardGlyphDrawer(struct Text *a, struct Glyph *glyph)
     a->x += glyph->width;
 }
 
-void Font_SpecializedGlyphDrawer(struct Text *a, struct Glyph *glyph)
+void Font_SpecializedGlyphDrawer(struct TextHandle *a, struct Glyph *glyph)
 {
     u64 value64;
     int i;
@@ -846,9 +854,9 @@ void Font_SetSomeSpecialDrawingRoutine(void)
     gCurrentFont->drawGlyph = Font_SpecializedGlyphDrawer;
 }
 
-void DrawTextInline(struct Text *text, u16 *dest, int colorId, int x, int e, char *f)
+void DrawTextInline(struct TextHandle *text, u16 *dest, int colorId, int x, int e, char *f)
 {
-    struct Text localText;
+    struct TextHandle localText;
 
     if (text == NULL)
     {
@@ -861,21 +869,21 @@ void DrawTextInline(struct Text *text, u16 *dest, int colorId, int x, int e, cha
     Text_Draw(text, dest);
 }
 
-void Text_InsertString(struct Text *text, int x, int colorId, char *str)
+void Text_InsertString(struct TextHandle *text, int x, int colorId, char *str)
 {
     Text_SetXCursor(text, x);
     Text_SetColorId(text, colorId);
     Text_AppendString(text, str);
 }
 
-void Text_InsertNumberOr2Dashes(struct Text *text, int x, int colorId, int n)
+void Text_InsertNumberOr2Dashes(struct TextHandle *text, int x, int colorId, int n)
 {
     Text_SetXCursor(text, x);
     Text_SetColorId(text, colorId);
     Text_AppendNumberOr2Dashes(text, n);
 }
 
-void Text_AppendStringSimple(struct Text *text, const char *str)
+void Text_AppendStringSimple(struct TextHandle *text, const char *str)
 {
     while (*str != 0 && *str != CHAR_NEWLINE)
     {
@@ -887,7 +895,7 @@ void Text_AppendStringSimple(struct Text *text, const char *str)
     }
 }
 
-const char *Text_AppendCharSimple(struct Text *text, const char *str)
+const char *Text_AppendCharSimple(struct TextHandle *text, const char *str)
 {
     struct Glyph *glyph = gCurrentFont->glyphs[*str++];
 
@@ -936,7 +944,7 @@ void InitSomeOtherGraphicsRelatedStruct(struct Font *font, void *vramDest, int c
     font->drawGlyph = sub_8004700;
 }
 
-void Text_Init3(struct Text *text)
+void Text_Init3(struct TextHandle *text)
 {
     text->unk0 = gCurrentFont->unk12;
     text->unk4 = 32;
@@ -948,7 +956,7 @@ void Text_Init3(struct Text *text)
     text->colorId = 0;
 }
 
-void sub_80045FC(struct Text *text)
+void sub_80045FC(struct TextHandle *text)
 {
     if (text->unk4 != 0)
     {
@@ -958,7 +966,7 @@ void sub_80045FC(struct Text *text)
     }
 }
 
-void sub_800465C(struct Text *text)
+void sub_800465C(struct TextHandle *text)
 {
     if (text->unk4 != 0)
     {
@@ -968,20 +976,20 @@ void sub_800465C(struct Text *text)
     }
 }
 
-void Text_80046B4(struct Text *text, u32 b)
+void Text_80046B4(struct TextHandle *text, u32 b)
 {
     text->x = 0;
     CpuFastFill(b, gCurrentFont->getVramTileOffset(text), 0x800);
 }
 
-void *sub_80046E0(struct Text *text)
+void *sub_80046E0(struct TextHandle *text)
 {
     int r1 = (text->unk6 * text->unk4 + text->unk0 + text->x / 8);
 
     return gCurrentFont->vramDest + r1 * 32;
 }
 
-void sub_8004700(struct Text *a, struct Glyph *glyph)
+void sub_8004700(struct TextHandle *a, struct Glyph *glyph)
 {
     u64 value64;
     int i;
@@ -1023,7 +1031,7 @@ struct SomeTextRelatedProc
 {
     PROC_HEADER
 
-    struct Text *unk2C;
+    struct TextHandle *unk2C;
     const char *unk30;
     s8 unk34;
     s8 unk35;
@@ -1061,7 +1069,7 @@ void sub_80048B0(struct SomeTextRelatedProc *proc)
 
 extern struct ProcCmd gUnknown_08588274[];
 
-char *sub_8004924(struct Text *a, char *b, int c, int d)
+char *sub_8004924(struct TextHandle *a, char *b, int c, int d)
 {
     struct SomeTextRelatedProc *proc;
 
@@ -1080,7 +1088,7 @@ char *sub_8004924(struct Text *a, char *b, int c, int d)
 }
 
 // not sure if this is Text or not
-s8 sub_800496C(struct Text *th)
+s8 sub_800496C(struct TextHandle *th)
 {
     return th->unk7;
 }
@@ -1114,7 +1122,7 @@ void EndGreenTextColorManager(void)
     Proc_DeleteAllWithScript(gUnknown_08588284);
 }
 
-void sub_80049E0(struct Text *th, u16 *b, int c)
+void sub_80049E0(struct TextHandle *th, u16 *b, int c)
 {
     int r1 = gCurrentFont->unk10 + (th->unk6 * th->unk4 + th->unk0) * 2;
     int i;

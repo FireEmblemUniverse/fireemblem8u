@@ -504,16 +504,6 @@ extern struct Struct02024E5C gUnknown_02024E5C;
 // extern ??? gRootProcesses
 // extern ??? gUnknown_02026A90
 // extern ??? gUnknown_02026E10
-
-// fontgrp
-// extern ??? gUnknown_02026E30
-extern char gUnknown_02028E44[9];
-extern int gUnknown_02028E50;
-extern int gUnknown_02028E54;
-extern struct Font gDefaultFont;
-extern struct Font *gCurrentFont;
-extern u8 gUnknown_02028E74;
-extern struct Struct02028E78 gUnknown_02028E78[];
 // extern ??? gUnknown_02028F78
 // extern ??? gUnknown_02029D88
 extern struct UnknownStructCTC gUnknown_02029D8C[];

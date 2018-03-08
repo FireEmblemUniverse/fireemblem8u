@@ -136,49 +136,4 @@ struct UnknownStructCTC
     const void *unkC;
 };
 
-struct Text
-{
-    u16 unk0;
-    u8 x;
-    u8 colorId;
-    u8 unk4;
-    s8 unk5;
-    u8 unk6;
-    u8 unk7;
-};
-
-struct Glyph
-{
-    struct Glyph *next;
-    u8 unk4;
-    u8 width;
-    u8 unk6[2];
-    u32 unk8[64];
-};
-
-struct Font
-{
-    /*0x00*/ u8 *vramDest;
-    /*0x04*/ struct Glyph **glyphs;
-    /*0x08*/ void (*drawGlyph)(struct Text *, struct Glyph *);
-    /*0x0C*/ void *(*getVramTileOffset)(struct Text *);
-    /*0x10*/ u16 unk10;
-    /*0x12*/ u16 unk12;
-    /*0x14*/ u16 paletteNum;
-    /*0x16*/ u8 unk16;
-};
-
-struct TextBatch
-{
-    struct Text *unk0;
-    u8 unk4;
-};
-
-struct Struct02028E78
-{
-    s8 unk0;
-    s8 unk1;
-    s16 unk2;
-};
-
 #endif  // GUARD_TYPES_H
