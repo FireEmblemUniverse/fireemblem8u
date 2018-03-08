@@ -22,13 +22,13 @@
 . = 0x000428; gUnknown_03000428 = .;
 . = 0x000430; gUnknown_03000430 = .;
 . = 0x000434; gUnknown_03000434 = .;
-. = 0x000438; gUnknown_03000438 = .;
-. = 0x0004B8; gUnknown_030004B8 = .;
+. = 0x000438; gEventCallQueue = .;
+. = 0x0004B8; gEventSlots = .;
 . = 0x0004E4; gUnknown_030004E4 = .;
 . = 0x0004E6; gUnknown_030004E6 = .;
 . = 0x0004E8; gUnknown_030004E8 = .;
-. = 0x0004F0; gUnknown_030004F0 = .;
-. = 0x000568; gUnknown_03000568 = .;
+. = 0x0004F0; gEventSlotQueue = .;
+. = 0x000568; gEventSlotCounter = .;
 . = 0x000570; gUnknown_03000570 = .;
 . = 0x0005B0; gUnknown_030005B0 = .;
 . = 0x0005D0; gUnknown_030005D0 = .;

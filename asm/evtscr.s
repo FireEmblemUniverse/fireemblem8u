@@ -134,7 +134,7 @@ Event02_EvBitAndIdMod: @ 0x0800D670
 	ldrsh r0, [r1, r6]
 	cmp r0, #0
 	bge _0800D690
-	ldr r0, _0800D69C  @ gUnknown_030004B8
+	ldr r0, _0800D69C  @ gEventSlots
 	ldrh r2, [r0, #8]
 _0800D690:
 	cmp r4, #0
@@ -143,7 +143,7 @@ _0800D690:
 	beq _0800D6C4
 	b _0800D6DA
 	.align 2, 0
-_0800D69C: .4byte gUnknown_030004B8
+_0800D69C: .4byte gEventSlots
 _0800D6A0:
 	cmp r5, #0
 	bne _0800D6B4
@@ -194,7 +194,7 @@ Event03_CheckEvBitOrId: @ 0x0800D6E4
 	ldrsh r0, [r0, r1]
 	cmp r0, #0
 	bge _0800D6FE
-	ldr r0, _0800D708  @ gUnknown_030004B8
+	ldr r0, _0800D708  @ gEventSlots
 	ldrh r2, [r0, #8]
 _0800D6FE:
 	cmp r4, #0
@@ -203,7 +203,7 @@ _0800D6FE:
 	beq _0800D728
 	b _0800D748
 	.align 2, 0
-_0800D708: .4byte gUnknown_030004B8
+_0800D708: .4byte gEventSlots
 _0800D70C:
 	ldrh r1, [r3, #0x3c]
 	lsls r0, r2, #0x10
@@ -213,11 +213,11 @@ _0800D70C:
 	ands r1, r2
 	cmp r1, #0
 	beq _0800D744
-	ldr r0, _0800D724  @ gUnknown_030004B8
+	ldr r0, _0800D724  @ gEventSlots
 	str r2, [r0, #0x30]
 	b _0800D748
 	.align 2, 0
-_0800D724: .4byte gUnknown_030004B8
+_0800D724: .4byte gEventSlots
 _0800D728:
 	lsls r0, r2, #0x10
 	asrs r0, r0, #0x10
@@ -226,13 +226,13 @@ _0800D728:
 	asrs r1, r0, #0x18
 	cmp r1, #0
 	bne _0800D744
-	ldr r0, _0800D740  @ gUnknown_030004B8
+	ldr r0, _0800D740  @ gEventSlots
 	str r1, [r0, #0x30]
 	b _0800D748
 	.align 2, 0
-_0800D740: .4byte gUnknown_030004B8
+_0800D740: .4byte gEventSlots
 _0800D744:
-	ldr r0, _0800D750  @ gUnknown_030004B8
+	ldr r0, _0800D750  @ gEventSlots
 	str r4, [r0, #0x30]
 _0800D748:
 	movs r0, #0
@@ -240,7 +240,7 @@ _0800D748:
 	pop {r1}
 	bx r1
 	.align 2, 0
-_0800D750: .4byte gUnknown_030004B8
+_0800D750: .4byte gEventSlots
 
 	THUMB_FUNC_START Event04_CheckRandom
 Event04_CheckRandom: @ 0x0800D754
@@ -249,36 +249,36 @@ Event04_CheckRandom: @ 0x0800D754
 	ldrh r1, [r0, #2]
 	cmp r1, #0
 	bne _0800D768
-	ldr r0, _0800D764  @ gUnknown_030004B8
+	ldr r0, _0800D764  @ gEventSlots
 	str r1, [r0, #0x30]
 	b _0800D772
 	.align 2, 0
-_0800D764: .4byte gUnknown_030004B8
+_0800D764: .4byte gEventSlots
 _0800D768:
 	adds r0, r1, #1
 	bl NextRN_N
-	ldr r1, _0800D778  @ gUnknown_030004B8
+	ldr r1, _0800D778  @ gEventSlots
 	str r0, [r1, #0x30]
 _0800D772:
 	movs r0, #0
 	pop {r1}
 	bx r1
 	.align 2, 0
-_0800D778: .4byte gUnknown_030004B8
+_0800D778: .4byte gEventSlots
 
 	THUMB_FUNC_START Event05_SetSlot
 Event05_SetSlot: @ 0x0800D77C
 	ldr r1, [r0, #0x38]
 	ldrh r0, [r1, #2]
 	ldr r2, [r1, #4]
-	ldr r1, _0800D790  @ gUnknown_030004B8
+	ldr r1, _0800D790  @ gEventSlots
 	lsls r0, r0, #2
 	adds r0, r0, r1
 	str r2, [r0]
 	movs r0, #0
 	bx lr
 	.align 2, 0
-_0800D790: .4byte gUnknown_030004B8
+_0800D790: .4byte gEventSlots
 
 	THUMB_FUNC_START Event06_SlotOperation
 Event06_SlotOperation: @ 0x0800D794
@@ -319,7 +319,7 @@ _0800D7C4: @ jump table
 	.4byte _0800D8D4 @ case 8
 	.4byte _0800D8F0 @ case 9
 _0800D7EC:
-	ldr r2, _0800D804  @ gUnknown_030004B8
+	ldr r2, _0800D804  @ gEventSlots
 	lsls r3, r3, #2
 	adds r3, r3, r2
 	lsls r1, r5, #2
@@ -331,9 +331,9 @@ _0800D7EC:
 	adds r1, r1, r0
 	b _0800D904
 	.align 2, 0
-_0800D804: .4byte gUnknown_030004B8
+_0800D804: .4byte gEventSlots
 _0800D808:
-	ldr r2, _0800D820  @ gUnknown_030004B8
+	ldr r2, _0800D820  @ gEventSlots
 	lsls r3, r3, #2
 	adds r3, r3, r2
 	lsls r1, r5, #2
@@ -345,9 +345,9 @@ _0800D808:
 	subs r1, r1, r0
 	b _0800D904
 	.align 2, 0
-_0800D820: .4byte gUnknown_030004B8
+_0800D820: .4byte gEventSlots
 _0800D824:
-	ldr r2, _0800D840  @ gUnknown_030004B8
+	ldr r2, _0800D840  @ gEventSlots
 	lsls r3, r3, #2
 	adds r3, r3, r2
 	lsls r1, r5, #2
@@ -361,9 +361,9 @@ _0800D824:
 	movs r0, #0
 	b _0800D912
 	.align 2, 0
-_0800D840: .4byte gUnknown_030004B8
+_0800D840: .4byte gEventSlots
 _0800D844:
-	ldr r2, _0800D85C  @ gUnknown_030004B8
+	ldr r2, _0800D85C  @ gEventSlots
 	lsls r4, r3, #2
 	adds r4, r4, r2
 	lsls r0, r5, #2
@@ -375,9 +375,9 @@ _0800D844:
 	bl __udivsi3
 	b _0800D876
 	.align 2, 0
-_0800D85C: .4byte gUnknown_030004B8
+_0800D85C: .4byte gEventSlots
 _0800D860:
-	ldr r2, _0800D87C  @ gUnknown_030004B8
+	ldr r2, _0800D87C  @ gEventSlots
 	lsls r4, r3, #2
 	adds r4, r4, r2
 	lsls r0, r5, #2
@@ -392,9 +392,9 @@ _0800D876:
 	movs r0, #0
 	b _0800D912
 	.align 2, 0
-_0800D87C: .4byte gUnknown_030004B8
+_0800D87C: .4byte gEventSlots
 _0800D880:
-	ldr r2, _0800D898  @ gUnknown_030004B8
+	ldr r2, _0800D898  @ gEventSlots
 	lsls r3, r3, #2
 	adds r3, r3, r2
 	lsls r1, r5, #2
@@ -406,9 +406,9 @@ _0800D880:
 	ands r1, r0
 	b _0800D904
 	.align 2, 0
-_0800D898: .4byte gUnknown_030004B8
+_0800D898: .4byte gEventSlots
 _0800D89C:
-	ldr r2, _0800D8B4  @ gUnknown_030004B8
+	ldr r2, _0800D8B4  @ gEventSlots
 	lsls r3, r3, #2
 	adds r3, r3, r2
 	lsls r1, r5, #2
@@ -420,9 +420,9 @@ _0800D89C:
 	orrs r1, r0
 	b _0800D904
 	.align 2, 0
-_0800D8B4: .4byte gUnknown_030004B8
+_0800D8B4: .4byte gEventSlots
 _0800D8B8:
-	ldr r2, _0800D8D0  @ gUnknown_030004B8
+	ldr r2, _0800D8D0  @ gEventSlots
 	lsls r3, r3, #2
 	adds r3, r3, r2
 	lsls r1, r5, #2
@@ -434,9 +434,9 @@ _0800D8B8:
 	eors r1, r0
 	b _0800D904
 	.align 2, 0
-_0800D8D0: .4byte gUnknown_030004B8
+_0800D8D0: .4byte gEventSlots
 _0800D8D4:
-	ldr r2, _0800D8EC  @ gUnknown_030004B8
+	ldr r2, _0800D8EC  @ gEventSlots
 	lsls r3, r3, #2
 	adds r3, r3, r2
 	lsls r1, r5, #2
@@ -448,9 +448,9 @@ _0800D8D4:
 	lsls r1, r0
 	b _0800D904
 	.align 2, 0
-_0800D8EC: .4byte gUnknown_030004B8
+_0800D8EC: .4byte gEventSlots
 _0800D8F0:
-	ldr r2, _0800D90C  @ gUnknown_030004B8
+	ldr r2, _0800D90C  @ gEventSlots
 	lsls r3, r3, #2
 	adds r3, r3, r2
 	lsls r1, r5, #2
@@ -465,7 +465,7 @@ _0800D904:
 	movs r0, #0
 	b _0800D912
 	.align 2, 0
-_0800D90C: .4byte gUnknown_030004B8
+_0800D90C: .4byte gEventSlots
 _0800D910:
 	movs r0, #6
 _0800D912:
@@ -493,7 +493,7 @@ _0800D932:
 	beq _0800D960
 	b _0800D970
 _0800D938:
-	ldr r0, _0800D94C  @ gUnknown_030004B8
+	ldr r0, _0800D94C  @ gEventSlots
 	movs r2, #2
 	ldrsh r1, [r1, r2]
 	lsls r1, r1, #2
@@ -502,18 +502,18 @@ _0800D938:
 	bl SlotQueuePush
 	b _0800D970
 	.align 2, 0
-_0800D94C: .4byte gUnknown_030004B8
+_0800D94C: .4byte gEventSlots
 _0800D950:
-	ldr r0, _0800D95C  @ gUnknown_030004B8
+	ldr r0, _0800D95C  @ gEventSlots
 	ldr r0, [r0, #4]
 	bl SlotQueuePush
 	b _0800D970
 	.align 2, 0
-_0800D95C: .4byte gUnknown_030004B8
+_0800D95C: .4byte gEventSlots
 _0800D960:
 	ldrh r4, [r1, #2]
 	bl SlotQueuePop
-	ldr r2, _0800D978  @ gUnknown_030004B8
+	ldr r2, _0800D978  @ gEventSlots
 	lsls r1, r4, #0x10
 	asrs r1, r1, #0xe
 	adds r1, r1, r2
@@ -524,7 +524,7 @@ _0800D970:
 	pop {r1}
 	bx r1
 	.align 2, 0
-_0800D978: .4byte gUnknown_030004B8
+_0800D978: .4byte gEventSlots
 
 	THUMB_FUNC_START Event08_Label
 Event08_Label: @ 0x0800D97C
@@ -577,7 +577,7 @@ Event0A_Call: @ 0x0800D9B8
 	orrs r5, r0
 	cmp r5, #0
 	bge _0800D9D4
-	ldr r0, _0800DA24  @ gUnknown_030004B8
+	ldr r0, _0800DA24  @ gEventSlots
 	ldr r5, [r0, #8]
 _0800D9D4:
 	movs r0, #7
@@ -621,7 +621,7 @@ _0800D9E2:
 	pop {r1}
 	bx r1
 	.align 2, 0
-_0800DA24: .4byte gUnknown_030004B8
+_0800DA24: .4byte gEventSlots
 _0800DA28: .4byte gUnknown_03000570
 
 	THUMB_FUNC_START Event0B_
@@ -636,7 +636,7 @@ Event0B_: @ 0x0800DA2C
 	ldr r2, [r0, #4]
 	cmp r2, #0
 	bge _0800DA44
-	ldr r0, _0800DA54  @ gUnknown_030004B8
+	ldr r0, _0800DA54  @ gEventSlots
 	ldr r2, [r0, #8]
 _0800DA44:
 	cmp r2, #0
@@ -647,13 +647,13 @@ _0800DA44:
 	beq _0800DA66
 	b _0800DA70
 	.align 2, 0
-_0800DA54: .4byte gUnknown_030004B8
+_0800DA54: .4byte gEventSlots
 _0800DA58:
 	adds r0, r4, #0
 	adds r0, #0x41
 	ldrb r1, [r0]
 	adds r0, r2, #0
-	bl CallMapEventEngine
+	bl CallEvent
 	b _0800DA70
 _0800DA66:
 	lsls r1, r1, #0x18
@@ -676,7 +676,7 @@ Event0C_Branch: @ 0x0800DA78
 	ands r5, r1
 	ldrh r3, [r0, #4]
 	ldrh r2, [r0, #6]
-	ldr r1, _0800DAA4  @ gUnknown_030004B8
+	ldr r1, _0800DAA4  @ gEventSlots
 	lsls r0, r3, #2
 	adds r0, r0, r1
 	ldr r3, [r0]
@@ -691,7 +691,7 @@ Event0C_Branch: @ 0x0800DA78
 	ldr r0, [r0]
 	mov pc, r0
 	.align 2, 0
-_0800DAA4: .4byte gUnknown_030004B8
+_0800DAA4: .4byte gEventSlots
 _0800DAA8: .4byte _0800DAAC
 _0800DAAC: @ jump table
 	.4byte _0800DAC4 @ case 0
@@ -883,39 +883,39 @@ Event0F_: @ 0x0800DBE0
 	bgt _0800DC10
 	cmp r2, #0
 	beq _0800DC20
-	ldr r4, _0800DC0C  @ gUnknown_03000568
+	ldr r4, _0800DC0C  @ gEventSlotCounter
 	b _0800DC78
 	.align 2, 0
-_0800DC0C: .4byte gUnknown_03000568
+_0800DC0C: .4byte gEventSlotCounter
 _0800DC10:
 	cmp r4, #2
 	beq _0800DC44
 	cmp r4, #3
 	beq _0800DC60
-	ldr r4, _0800DC1C  @ gUnknown_03000568
+	ldr r4, _0800DC1C  @ gEventSlotCounter
 	b _0800DC78
 	.align 2, 0
-_0800DC1C: .4byte gUnknown_03000568
+_0800DC1C: .4byte gEventSlotCounter
 _0800DC20:
-	ldr r1, _0800DC30  @ gUnknown_030004B8
-	ldr r0, _0800DC34  @ gUnknown_03000568
+	ldr r1, _0800DC30  @ gEventSlots
+	ldr r0, _0800DC34  @ gEventSlotCounter
 	ldr r0, [r0]
 	lsrs r0, r6
 	ands r0, r7
 	str r0, [r1, #0x30]
 	b _0800DC8A
 	.align 2, 0
-_0800DC30: .4byte gUnknown_030004B8
-_0800DC34: .4byte gUnknown_03000568
+_0800DC30: .4byte gEventSlots
+_0800DC34: .4byte gEventSlotCounter
 _0800DC38:
 	lsls r0, r5, #0x10
 	lsrs r3, r0, #0x18
-	ldr r4, _0800DC40  @ gUnknown_03000568
+	ldr r4, _0800DC40  @ gEventSlotCounter
 	b _0800DC78
 	.align 2, 0
-_0800DC40: .4byte gUnknown_03000568
+_0800DC40: .4byte gEventSlotCounter
 _0800DC44:
-	ldr r1, _0800DC5C  @ gUnknown_03000568
+	ldr r1, _0800DC5C  @ gEventSlotCounter
 	ldr r0, [r1]
 	lsrs r0, r6
 	mov r2, ip
@@ -927,9 +927,9 @@ _0800DC44:
 	movs r3, #0xf
 	b _0800DC78
 	.align 2, 0
-_0800DC5C: .4byte gUnknown_03000568
+_0800DC5C: .4byte gEventSlotCounter
 _0800DC60:
-	ldr r1, _0800DC94  @ gUnknown_03000568
+	ldr r1, _0800DC94  @ gEventSlotCounter
 	ldr r0, [r1]
 	lsrs r0, r6
 	mov r2, ip
@@ -957,7 +957,7 @@ _0800DC8A:
 	pop {r1}
 	bx r1
 	.align 2, 0
-_0800DC94: .4byte gUnknown_03000568
+_0800DC94: .4byte gEventSlotCounter
 
 	THUMB_FUNC_START Event10_ModifyEvBit
 Event10_ModifyEvBit: @ 0x0800DC98
@@ -1097,7 +1097,7 @@ _0800DD88:
 	ldrsh r0, [r0, r2]
 	cmp r0, #0
 	bge _0800DD98
-	ldr r0, _0800DDAC  @ gUnknown_030004B8
+	ldr r0, _0800DDAC  @ gEventSlots
 	ldrh r1, [r0, #8]
 _0800DD98:
 	lsls r0, r1, #0x10
@@ -1110,7 +1110,7 @@ _0800DDA6:
 	pop {r1}
 	bx r1
 	.align 2, 0
-_0800DDAC: .4byte gUnknown_030004B8
+_0800DDAC: .4byte gEventSlots
 
 	THUMB_FUNC_START Event13_
 Event13_: @ 0x0800DDB0
@@ -1125,7 +1125,7 @@ Event13_: @ 0x0800DDB0
 	ldrsh r0, [r0, r3]
 	cmp r0, #0
 	bge _0800DDCA
-	ldr r0, _0800DDE4  @ gUnknown_030004B8
+	ldr r0, _0800DDE4  @ gEventSlots
 	ldrh r1, [r0, #8]
 _0800DDCA:
 	lsls r0, r1, #0x10
@@ -1142,7 +1142,7 @@ _0800DDCA:
 	movs r0, #0
 	b _0800DE0E
 	.align 2, 0
-_0800DDE4: .4byte gUnknown_030004B8
+_0800DDE4: .4byte gEventSlots
 _0800DDE8: .4byte 0x00007FFF
 _0800DDEC:
 	adds r0, r3, #0
@@ -1201,7 +1201,7 @@ _0800DE46:
 	lsls r0, r4, #0x10
 	cmp r0, #0
 	bge _0800DE50
-	ldr r0, _0800DE5C  @ gUnknown_030004B8
+	ldr r0, _0800DE5C  @ gEventSlots
 	ldrh r4, [r0, #8]
 _0800DE50:
 	lsls r0, r4, #0x10
@@ -1209,7 +1209,7 @@ _0800DE50:
 	bl sub_8002620
 	b _0800DE6A
 	.align 2, 0
-_0800DE5C: .4byte gUnknown_030004B8
+_0800DE5C: .4byte gEventSlots
 _0800DE60:
 	bl DeleteAll6CWaitMusicRelated
 	adds r0, r4, #0
@@ -1295,7 +1295,7 @@ Event16_: @ 0x0800DED4
 	ldrsh r0, [r0, r2]
 	cmp r0, #0
 	bge _0800DEFE
-	ldr r0, _0800DF18  @ gUnknown_030004B8
+	ldr r0, _0800DF18  @ gEventSlots
 	ldrh r1, [r0, #8]
 _0800DEFE:
 	ldr r0, _0800DF1C  @ gUnknown_0202BCF0
@@ -1311,7 +1311,7 @@ _0800DF10:
 	pop {r1}
 	bx r1
 	.align 2, 0
-_0800DF18: .4byte gUnknown_030004B8
+_0800DF18: .4byte gEventSlots
 _0800DF1C: .4byte gUnknown_0202BCF0
 
 	THUMB_FUNC_START Event17_
@@ -1529,21 +1529,21 @@ _0800E090: @ jump table
 	.4byte _0800E144 @ case 9
 	.4byte _0800E158 @ case 10
 _0800E0BC:
-	ldr r0, _0800E0C4  @ gUnknown_030004B8
+	ldr r0, _0800E0C4  @ gEventSlots
 	ldr r1, _0800E0C8  @ gUnknown_0202BCF0
 	ldrb r1, [r1, #0x1b]
 	b _0800E17A
 	.align 2, 0
-_0800E0C4: .4byte gUnknown_030004B8
+_0800E0C4: .4byte gEventSlots
 _0800E0C8: .4byte gUnknown_0202BCF0
 _0800E0CC:
-	ldr r0, _0800E0D8  @ gUnknown_030004B8
+	ldr r0, _0800E0D8  @ gEventSlots
 	adds r1, r2, #0
 	adds r1, #0x43
 	ldrb r1, [r1]
 	b _0800E17A
 	.align 2, 0
-_0800E0D8: .4byte gUnknown_030004B8
+_0800E0D8: .4byte gEventSlots
 _0800E0DC:
 	ldr r0, _0800E0E4  @ gUnknown_0202BCF0
 	ldrb r1, [r0, #0x14]
@@ -1552,12 +1552,12 @@ _0800E0DC:
 	.align 2, 0
 _0800E0E4: .4byte gUnknown_0202BCF0
 _0800E0E8:
-	ldr r0, _0800E0F0  @ gUnknown_030004B8
+	ldr r0, _0800E0F0  @ gEventSlots
 	ldr r1, _0800E0F4  @ gUnknown_0202BCF0
 	ldrh r1, [r1, #0x10]
 	b _0800E17A
 	.align 2, 0
-_0800E0F0: .4byte gUnknown_030004B8
+_0800E0F0: .4byte gEventSlots
 _0800E0F4: .4byte gUnknown_0202BCF0
 _0800E0F8:
 	bl sub_8019034
@@ -1582,32 +1582,32 @@ _0800E10A:
 	cmp r0, #0
 	beq _0800E168
 _0800E122:
-	ldr r1, _0800E130  @ gUnknown_030004B8
+	ldr r1, _0800E130  @ gEventSlots
 	movs r0, #0
 	str r0, [r1, #0x30]
 	b _0800E17C
 	.align 2, 0
 _0800E12C: .4byte gUnknown_0202BCF0
-_0800E130: .4byte gUnknown_030004B8
+_0800E130: .4byte gEventSlots
 _0800E134:
 	bl GetPartyGoldAmount
 _0800E138:
-	ldr r1, _0800E140  @ gUnknown_030004B8
+	ldr r1, _0800E140  @ gEventSlots
 	str r0, [r1, #0x30]
 	b _0800E17C
 	.align 2, 0
-_0800E140: .4byte gUnknown_030004B8
+_0800E140: .4byte gEventSlots
 _0800E144:
 	ldr r0, [r2, #0x30]
 	bl sub_80845E4
 _0800E14A:
-	ldr r1, _0800E154  @ gUnknown_030004B8
+	ldr r1, _0800E154  @ gEventSlots
 	lsls r0, r0, #0x10
 	lsrs r0, r0, #0x10
 	str r0, [r1, #0x30]
 	b _0800E17C
 	.align 2, 0
-_0800E154: .4byte gUnknown_030004B8
+_0800E154: .4byte gEventSlots
 _0800E158:
 	ldr r0, _0800E170  @ gUnknown_0202BCF0
 	ldrb r1, [r0, #0x14]
@@ -1619,15 +1619,15 @@ _0800E15E:
 	cmp r1, #0
 	beq _0800E178
 _0800E168:
-	ldr r1, _0800E174  @ gUnknown_030004B8
+	ldr r1, _0800E174  @ gEventSlots
 	movs r0, #1
 	str r0, [r1, #0x30]
 	b _0800E17C
 	.align 2, 0
 _0800E170: .4byte gUnknown_0202BCF0
-_0800E174: .4byte gUnknown_030004B8
+_0800E174: .4byte gEventSlots
 _0800E178:
-	ldr r0, _0800E184  @ gUnknown_030004B8
+	ldr r0, _0800E184  @ gEventSlots
 _0800E17A:
 	str r1, [r0, #0x30]
 _0800E17C:
@@ -1635,7 +1635,7 @@ _0800E17C:
 	pop {r1}
 	bx r1
 	.align 2, 0
-_0800E184: .4byte gUnknown_030004B8
+_0800E184: .4byte gEventSlots
 
 	THUMB_FUNC_START Event1A_TEXTSTART
 Event1A_TEXTSTART: @ 0x0800E188
@@ -1939,7 +1939,7 @@ Event1B_TEXTSHOW: @ 0x0800E3C8
 	lsls r0, r3, #0x10
 	cmp r0, #0
 	bge _0800E3E6
-	ldr r0, _0800E3FC  @ gUnknown_030004B8
+	ldr r0, _0800E3FC  @ gEventSlots
 	ldrh r3, [r0, #8]
 _0800E3E6:
 	cmp r3, #0
@@ -1954,7 +1954,7 @@ _0800E3EC:
 	beq _0800E406
 	b _0800E514
 	.align 2, 0
-_0800E3FC: .4byte gUnknown_030004B8
+_0800E3FC: .4byte gEventSlots
 _0800E400:
 	cmp r2, #2
 	beq _0800E4DE
@@ -2151,11 +2151,11 @@ Event1D_TEXTEND: @ 0x0800E560
 _0800E590:
 	adds r0, r4, #0
 	bl sub_800E640
-	ldr r1, _0800E59C  @ gUnknown_030004B8
+	ldr r1, _0800E59C  @ gEventSlots
 	movs r0, #0
 	b _0800E606
 	.align 2, 0
-_0800E59C: .4byte gUnknown_030004B8
+_0800E59C: .4byte gEventSlots
 _0800E5A0:
 	movs r5, #0
 	bl sub_80089D0
@@ -2206,7 +2206,7 @@ _0800E5F8:
 _0800E5FC: .4byte gUnknown_08A016E0
 _0800E600:
 	bl sub_8008A00
-	ldr r1, _0800E638  @ gUnknown_030004B8
+	ldr r1, _0800E638  @ gEventSlots
 _0800E606:
 	str r0, [r1, #0x30]
 	adds r3, r4, #0
@@ -2235,7 +2235,7 @@ _0800E630:
 	pop {r1}
 	bx r1
 	.align 2, 0
-_0800E638: .4byte gUnknown_030004B8
+_0800E638: .4byte gEventSlots
 _0800E63C: .4byte gUnknown_0202BCF0
 
 	THUMB_FUNC_START sub_800E640
@@ -2308,7 +2308,7 @@ Event1E_: @ 0x0800E6B4
 	negs r0, r0
 	cmp r1, r0
 	bne _0800E6D4
-	ldr r0, _0800E714  @ gUnknown_030004B8
+	ldr r0, _0800E714  @ gEventSlots
 	ldrh r5, [r0, #8]
 _0800E6D4:
 	lsls r0, r5, #0x10
@@ -2342,7 +2342,7 @@ _0800E6D4:
 	bl sub_800680C
 	b _0800E766
 	.align 2, 0
-_0800E714: .4byte gUnknown_030004B8
+_0800E714: .4byte gEventSlots
 _0800E718: .4byte gUnknown_03000428
 _0800E71C:
 	ldr r1, _0800E738  @ gUnknown_03000428
@@ -2565,7 +2565,7 @@ Event21_: @ 0x0800E8CC
 	ldrsh r0, [r2, r1]
 	cmp r0, #0
 	bge _0800E8EE
-	ldr r0, _0800E8FC  @ gUnknown_030004B8
+	ldr r0, _0800E8FC  @ gEventSlots
 	ldrh r0, [r0, #8]
 	mov r8, r0
 _0800E8EE:
@@ -2577,7 +2577,7 @@ _0800E8EE:
 	beq _0800E90E
 	b _0800EA76
 	.align 2, 0
-_0800E8FC: .4byte gUnknown_030004B8
+_0800E8FC: .4byte gEventSlots
 _0800E900:
 	cmp r3, #2
 	bne _0800E906
@@ -3819,7 +3819,7 @@ _0800F31C:
 	.align 2, 0
 _0800F32C: .4byte gUnknown_03004E50
 _0800F330:
-	ldr r0, _0800F368  @ gUnknown_030004F0
+	ldr r0, _0800F368  @ gEventSlotQueue
 	mov r8, r0
 	mov r1, r8
 	adds r1, #4
@@ -3828,7 +3828,7 @@ _0800F330:
 	ldm r1!, {r0}
 	lsls r0, r0, #0x10
 	lsrs r2, r0, #0x10
-	ldr r0, _0800F36C  @ gUnknown_030004B8
+	ldr r0, _0800F36C  @ gEventSlots
 	ldr r0, [r0, #0x34]
 	lsls r0, r0, #0x18
 	lsrs r7, r0, #0x18
@@ -3849,8 +3849,8 @@ _0800F35C:
 	beq _0800F37C
 	b _0800F386
 	.align 2, 0
-_0800F368: .4byte gUnknown_030004F0
-_0800F36C: .4byte gUnknown_030004B8
+_0800F368: .4byte gEventSlotQueue
+_0800F36C: .4byte gEventSlots
 _0800F370:
 	adds r0, r2, #0
 	movs r1, #0
@@ -3968,7 +3968,7 @@ Event2A_MoveToChapter: @ 0x0800F42C
 	ldrsh r0, [r0, r1]
 	cmp r0, #0
 	bge _0800F446
-	ldr r0, _0800F454  @ gUnknown_030004B8
+	ldr r0, _0800F454  @ gEventSlots
 	ldrh r2, [r0, #8]
 _0800F446:
 	cmp r3, #4
@@ -3979,7 +3979,7 @@ _0800F446:
 	ldr r0, [r0]
 	mov pc, r0
 	.align 2, 0
-_0800F454: .4byte gUnknown_030004B8
+_0800F454: .4byte gEventSlots
 _0800F458: .4byte _0800F45C
 _0800F45C: @ jump table
 	.4byte _0800F470 @ case 0
@@ -4896,7 +4896,7 @@ Event2B_: @ 0x0800FB18
 	ldrsh r0, [r0, r5]
 	cmp r0, #0
 	bge _0800FB34
-	ldr r0, _0800FB44  @ gUnknown_030004B8
+	ldr r0, _0800FB44  @ gEventSlots
 	ldrh r1, [r0, #8]
 _0800FB34:
 	cmp r2, #1
@@ -4907,7 +4907,7 @@ _0800FB34:
 	beq _0800FB4E
 	b _0800FB7A
 	.align 2, 0
-_0800FB44: .4byte gUnknown_030004B8
+_0800FB44: .4byte gEventSlots
 _0800FB48:
 	cmp r4, #2
 	beq _0800FB6E
@@ -4984,11 +4984,11 @@ _0800FBBE:
 _0800FBC2:
 	cmp r5, #0
 	bge _0800FBD6
-	ldr r0, _0800FBCC  @ gUnknown_030004B8
+	ldr r0, _0800FBCC  @ gEventSlots
 	ldr r5, [r0, #8]
 	b _0800FBD6
 	.align 2, 0
-_0800FBCC: .4byte gUnknown_030004B8
+_0800FBCC: .4byte gEventSlots
 _0800FBD0:
 	bl sub_80833B0
 	adds r5, r0, #0
@@ -5210,15 +5210,15 @@ _0800FD64:
 	cmp r4, #0
 	bne _0800FD78
 _0800FD68:
-	ldr r1, _0800FD74  @ gUnknown_030004B8
+	ldr r1, _0800FD74  @ gEventSlots
 	movs r0, #0
 	str r0, [r1, #0x30]
 	b _0800FD80
 	.align 2, 0
 _0800FD70: .4byte gUnknown_03004E50
-_0800FD74: .4byte gUnknown_030004B8
+_0800FD74: .4byte gEventSlots
 _0800FD78:
-	ldr r0, _0800FD88  @ gUnknown_030004B8
+	ldr r0, _0800FD88  @ gEventSlots
 	ldr r1, [r4]
 	ldrb r1, [r1, #4]
 	str r1, [r0, #0x30]
@@ -5228,7 +5228,7 @@ _0800FD80:
 	pop {r1}
 	bx r1
 	.align 2, 0
-_0800FD88: .4byte gUnknown_030004B8
+_0800FD88: .4byte gEventSlots
 
 	THUMB_FUNC_START Event2F_MoveUnit
 Event2F_MoveUnit: @ 0x0800FD8C
@@ -5363,7 +5363,7 @@ _0800FE72:
 	str r0, [sp, #0xc]
 	b _0800FE7C
 _0800FE78:
-	ldr r1, _0800FEB8  @ gUnknown_030004F0
+	ldr r1, _0800FEB8  @ gEventSlotQueue
 	str r1, [sp, #0xc]
 _0800FE7C:
 	ldr r1, [sp, #4]
@@ -5395,7 +5395,7 @@ _0800FEA6:
 	bl MoveUnit_
 	b _0800FF0C
 	.align 2, 0
-_0800FEB8: .4byte gUnknown_030004F0
+_0800FEB8: .4byte gEventSlotQueue
 _0800FEBC: .4byte gUnknown_0202E4F0
 _0800FEC0:
 	mov r0, r9
@@ -5427,7 +5427,7 @@ _0800FEDC:
 	bl sub_8079DDC
 	b _0800FF0C
 _0800FEFA:
-	ldr r0, _0800FF20  @ gUnknown_030004B8
+	ldr r0, _0800FF20  @ gEventSlots
 	ldr r2, [r0, #0x34]
 	lsls r2, r2, #0xf
 	asrs r2, r2, #0x10
@@ -5447,7 +5447,7 @@ _0800FF0E:
 	pop {r1}
 	bx r1
 	.align 2, 0
-_0800FF20: .4byte gUnknown_030004B8
+_0800FF20: .4byte gEventSlots
 
 	THUMB_FUNC_START Event30_ENUN
 Event30_ENUN: @ 0x0800FF24
@@ -5575,7 +5575,7 @@ Event32_SpawnSingleUnit: @ 0x0800FFF8
 	negs r0, r0
 	cmp r1, r0
 	bne _08010020
-	ldr r0, _08010100  @ gUnknown_030004B8
+	ldr r0, _08010100  @ gEventSlots
 	ldrh r4, [r0, #8]
 _08010020:
 	lsls r0, r6, #0x18
@@ -5694,7 +5694,7 @@ _080100EC:
 	pop {r1}
 	bx r1
 	.align 2, 0
-_08010100: .4byte gUnknown_030004B8
+_08010100: .4byte gEventSlots
 _08010104: .4byte gUnknown_030004E4
 _08010108: .4byte gUnknown_08803D64
 _0801010C: .4byte 0xFFFFF03F
@@ -5735,50 +5735,50 @@ _0801013C: @ jump table
 _08010160:
 	cmp r2, #0
 	beq _0801018C
-	ldr r1, _0801016C  @ gUnknown_030004B8
+	ldr r1, _0801016C  @ gEventSlots
 	movs r0, #1
 	b _08010288
 	.align 2, 0
-_0801016C: .4byte gUnknown_030004B8
+_0801016C: .4byte gEventSlots
 _08010170:
 	cmp r2, #0
 	bne _08010176
 	b _0801027C
 _08010176:
-	ldr r0, _08010184  @ gUnknown_030004B8
+	ldr r0, _08010184  @ gEventSlots
 	ldr r1, [r2]
 	adds r1, #0x30
 	ldrb r1, [r1]
 	str r1, [r0, #0x30]
 	b _0801028A
 	.align 2, 0
-_08010184: .4byte gUnknown_030004B8
+_08010184: .4byte gEventSlots
 _08010188:
 	cmp r2, #0
 	bne _08010198
 _0801018C:
-	ldr r0, _08010194  @ gUnknown_030004B8
+	ldr r0, _08010194  @ gEventSlots
 	str r2, [r0, #0x30]
 	b _0801028A
 	.align 2, 0
-_08010194: .4byte gUnknown_030004B8
+_08010194: .4byte gEventSlots
 _08010198:
 	ldr r0, [r2, #0xc]
 	movs r1, #4
 	ands r0, r1
 	cmp r0, #0
 	beq _080101AC
-	ldr r1, _080101A8  @ gUnknown_030004B8
+	ldr r1, _080101A8  @ gEventSlots
 	movs r0, #0
 	b _08010288
 	.align 2, 0
-_080101A8: .4byte gUnknown_030004B8
+_080101A8: .4byte gEventSlots
 _080101AC:
-	ldr r1, _080101B4  @ gUnknown_030004B8
+	ldr r1, _080101B4  @ gEventSlots
 	movs r0, #1
 	b _08010288
 	.align 2, 0
-_080101B4: .4byte gUnknown_030004B8
+_080101B4: .4byte gEventSlots
 _080101B8:
 	cmp r2, #0
 	beq _0801027C
@@ -5787,21 +5787,21 @@ _080101B8:
 	ands r1, r0
 	cmp r1, #0
 	beq _080101D0
-	ldr r1, _080101CC  @ gUnknown_030004B8
+	ldr r1, _080101CC  @ gEventSlots
 	movs r0, #0
 	b _08010288
 	.align 2, 0
-_080101CC: .4byte gUnknown_030004B8
+_080101CC: .4byte gEventSlots
 _080101D0:
 	movs r0, #0x10
 	ldrsb r0, [r2, r0]
 	cmp r0, #0
 	blt _08010234
-	ldr r1, _080101E0  @ gUnknown_030004B8
+	ldr r1, _080101E0  @ gEventSlots
 	movs r0, #1
 	b _08010288
 	.align 2, 0
-_080101E0: .4byte gUnknown_030004B8
+_080101E0: .4byte gEventSlots
 _080101E4:
 	cmp r2, #0
 	beq _0801027C
@@ -5813,18 +5813,18 @@ _080101E4:
 	asrs r0, r0, #0x10
 	cmp r1, r0
 	beq _08010208
-	ldr r1, _08010204  @ gUnknown_030004B8
+	ldr r1, _08010204  @ gEventSlots
 	movs r0, #0
 	b _08010288
 	.align 2, 0
 _08010200: .4byte gUnknown_03004E50
-_08010204: .4byte gUnknown_030004B8
+_08010204: .4byte gEventSlots
 _08010208:
-	ldr r1, _08010210  @ gUnknown_030004B8
+	ldr r1, _08010210  @ gEventSlots
 	movs r0, #1
 	b _08010288
 	.align 2, 0
-_08010210: .4byte gUnknown_030004B8
+_08010210: .4byte gEventSlots
 _08010214:
 	cmp r2, #0
 	beq _0801027C
@@ -5836,23 +5836,23 @@ _08010214:
 	beq _08010234
 	cmp r1, #0x80
 	beq _08010240
-	ldr r1, _08010230  @ gUnknown_030004B8
+	ldr r1, _08010230  @ gEventSlots
 	movs r0, #1
 	b _08010288
 	.align 2, 0
-_08010230: .4byte gUnknown_030004B8
+_08010230: .4byte gEventSlots
 _08010234:
-	ldr r0, _0801023C  @ gUnknown_030004B8
+	ldr r0, _0801023C  @ gEventSlots
 	str r1, [r0, #0x30]
 	b _0801028A
 	.align 2, 0
-_0801023C: .4byte gUnknown_030004B8
+_0801023C: .4byte gEventSlots
 _08010240:
-	ldr r1, _08010248  @ gUnknown_030004B8
+	ldr r1, _08010248  @ gEventSlots
 	movs r0, #2
 	b _08010288
 	.align 2, 0
-_08010248: .4byte gUnknown_030004B8
+_08010248: .4byte gEventSlots
 _0801024C:
 	cmp r2, #0
 	beq _0801027C
@@ -5869,13 +5869,13 @@ _08010260: .4byte gUnknown_030004E8
 _08010264:
 	cmp r2, #0
 	beq _0801027C
-	ldr r0, _08010274  @ gUnknown_030004B8
+	ldr r0, _08010274  @ gEventSlots
 	ldr r1, [r2, #4]
 	ldrb r1, [r1, #4]
 	str r1, [r0, #0x30]
 	b _0801028A
 	.align 2, 0
-_08010274: .4byte gUnknown_030004B8
+_08010274: .4byte gEventSlots
 _08010278:
 	cmp r2, #0
 	bne _08010280
@@ -5885,7 +5885,7 @@ _0801027C:
 _08010280:
 	adds r0, r2, #0
 	bl GetUnitLuck
-	ldr r1, _08010294  @ gUnknown_030004B8
+	ldr r1, _08010294  @ gEventSlots
 _08010288:
 	str r0, [r1, #0x30]
 _0801028A:
@@ -5895,7 +5895,7 @@ _0801028C:
 	pop {r1}
 	bx r1
 	.align 2, 0
-_08010294: .4byte gUnknown_030004B8
+_08010294: .4byte gEventSlots
 
 	THUMB_FUNC_START Event34_MessWithUnitState
 Event34_MessWithUnitState: @ 0x08010298
@@ -5979,7 +5979,7 @@ _08010344:
 	bl HandleAllegianceChange
 	b _0801049A
 _08010352:
-	ldr r4, _0801036C  @ gUnknown_030004B8
+	ldr r4, _0801036C  @ gEventSlots
 	ldr r1, [r4, #4]
 	adds r0, r5, #0
 	bl SetUnitHP
@@ -5992,7 +5992,7 @@ _08010364:
 	movs r1, #4
 	b _080103A8
 	.align 2, 0
-_0801036C: .4byte gUnknown_030004B8
+_0801036C: .4byte gEventSlots
 _08010370:
 	ldr r0, [r5, #0xc]
 	movs r1, #2
@@ -6002,7 +6002,7 @@ _08010376:
 	movs r1, #0x40
 	b _080103A8
 _0801037C:
-	ldr r0, _08010394  @ gUnknown_030004B8
+	ldr r0, _08010394  @ gEventSlots
 	ldr r1, [r0, #4]
 	cmp r1, #1
 	beq _08010398
@@ -6014,7 +6014,7 @@ _0801037C:
 	beq _080103AE
 	b _0801049A
 	.align 2, 0
-_08010394: .4byte gUnknown_030004B8
+_08010394: .4byte gEventSlots
 _08010398:
 	ldr r0, [r5, #0xc]
 	movs r1, #9
@@ -6250,7 +6250,7 @@ Event36_CheckInArea: @ 0x0801053C
 	ldrsh r0, [r2, r1]
 	bl GetUnitStructFromEventParameter
 	adds r2, r0, #0
-	ldr r3, _080105A0  @ gUnknown_030004B8
+	ldr r3, _080105A0  @ gEventSlots
 	movs r0, #0
 	str r0, [r3, #0x30]
 	movs r1, #0x10
@@ -6282,7 +6282,7 @@ _0801059A:
 	pop {r1}
 	bx r1
 	.align 2, 0
-_080105A0: .4byte gUnknown_030004B8
+_080105A0: .4byte gEventSlots
 
 	THUMB_FUNC_START Event37_GiveItem
 Event37_GiveItem: @ 0x080105A4
@@ -6314,24 +6314,24 @@ _080105D2:
 	beq _080105F8
 	b _0801060C
 _080105D8:
-	ldr r0, _080105E4  @ gUnknown_030004B8
+	ldr r0, _080105E4  @ gEventSlots
 	ldrh r2, [r0, #0xc]
 	adds r0, r5, #0
 	bl NewItemGot
 	b _0801060C
 	.align 2, 0
-_080105E4: .4byte gUnknown_030004B8
+_080105E4: .4byte gEventSlots
 _080105E8:
-	ldr r0, _080105F4  @ gUnknown_030004B8
+	ldr r0, _080105F4  @ gEventSlots
 	ldr r2, [r0, #0xc]
 	adds r0, r5, #0
 	bl NewGoldGotPopup
 	b _0801060C
 	.align 2, 0
-_080105F4: .4byte gUnknown_030004B8
+_080105F4: .4byte gEventSlots
 _080105F8:
 	bl GetPartyGoldAmount
-	ldr r1, _08010614  @ gUnknown_030004B8
+	ldr r1, _08010614  @ gEventSlots
 	ldr r1, [r1, #0xc]
 	subs r0, r0, r1
 	cmp r0, #0
@@ -6346,7 +6346,7 @@ _0801060E:
 	pop {r1}
 	bx r1
 	.align 2, 0
-_08010614: .4byte gUnknown_030004B8
+_08010614: .4byte gEventSlots
 
 	THUMB_FUNC_START Event38_ChangeActiveUnit
 Event38_ChangeActiveUnit: @ 0x08010618
@@ -6379,7 +6379,7 @@ Event39_: @ 0x08010644
 	ldrb r0, [r2]
 	movs r3, #0xf
 	ands r3, r0
-	ldr r4, _0801066C  @ gUnknown_030004B8
+	ldr r4, _0801066C  @ gEventSlots
 	ldr r1, [r4, #4]
 	ldrb r7, [r4, #4]
 	lsrs r0, r1, #8
@@ -6394,7 +6394,7 @@ Event39_: @ 0x08010644
 	beq _0801068C
 	b _080106DC
 	.align 2, 0
-_0801066C: .4byte gUnknown_030004B8
+_0801066C: .4byte gEventSlots
 _08010670:
 	ldrh r1, [r2, #2]
 	movs r3, #2
@@ -6480,7 +6480,7 @@ _080106F8:
 	ldrsh r0, [r1, r5]
 	cmp r0, #0
 	bge _0801070E
-	ldr r0, _08010718  @ gUnknown_030004B8
+	ldr r0, _08010718  @ gEventSlots
 	ldrh r3, [r0, #8]
 _0801070E:
 	cmp r2, #0
@@ -6489,7 +6489,7 @@ _0801070E:
 	beq _0801072A
 	b _08010740
 	.align 2, 0
-_08010718: .4byte gUnknown_030004B8
+_08010718: .4byte gEventSlots
 _0801071C:
 	ldrh r1, [r1, #4]
 	lsls r0, r3, #0x10
@@ -6823,10 +6823,10 @@ _08010988: .4byte gUnknown_0859DBBC
 	THUMB_FUNC_START sub_801098C
 sub_801098C: @ 0x0801098C
 	push {r4, r5, r6, r7, lr}
-	ldr r4, _08010A18  @ gUnknown_030004F0
+	ldr r4, _08010A18  @ gEventSlotQueue
 	ldr r3, _08010A1C  @ gUnknown_0203A974
 	movs r5, #0
-	ldr r0, _08010A20  @ gUnknown_030004B8
+	ldr r0, _08010A20  @ gEventSlots
 	ldr r1, [r0, #0x34]
 	adds r7, r0, #0
 	cmp r5, r1
@@ -6897,9 +6897,9 @@ _08010A04:
 	pop {r1}
 	bx r1
 	.align 2, 0
-_08010A18: .4byte gUnknown_030004F0
+_08010A18: .4byte gEventSlotQueue
 _08010A1C: .4byte gUnknown_0203A974
-_08010A20: .4byte gUnknown_030004B8
+_08010A20: .4byte gEventSlots
 _08010A24: .4byte 0xFFF80000
 
 	THUMB_FUNC_START sub_8010A28
@@ -6945,14 +6945,14 @@ Event3F_: @ 0x08010A58
 	str r0, [sp, #0xc]
 	lsrs r1, r1, #8
 	str r1, [sp, #0x10]
-	ldr r0, _08010A88  @ gUnknown_030004B8
+	ldr r0, _08010A88  @ gEventSlots
 	ldr r0, [r0, #0x34]
 	cmp r0, #0
 	bne _08010A8C
 	movs r0, #0
 	b _08010A90
 	.align 2, 0
-_08010A88: .4byte gUnknown_030004B8
+_08010A88: .4byte gEventSlots
 _08010A8C:
 	bl sub_801098C
 _08010A90:

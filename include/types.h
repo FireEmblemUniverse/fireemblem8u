@@ -99,10 +99,36 @@ struct KeyStatusBuffer
 
 typedef void (*InterruptHandler)(void);
 
-struct Struct0202BCF0
+struct Struct0202BCF0 // Chapter Data Struct
 {
-    u8 filler0[0x1C];
-    u8 unk1C[0x41-0x1C];
+    u32 unk0; // a time value
+    u32 unk4; // a time value
+
+    u32 partyGoldAmount;
+    u8  gameSaveSlot;
+    
+    u8  chapterVisionRange; // 0 means no fog
+    s8  chapterIndex;
+    
+    u8  chapterPhaseIndex; // 0x00 = Player phase, 0x40 = NPC phase, 0x80 = Enemy phase (0xC0 = link arena 4th team?)
+
+    u16 chapterTurnNumber;
+
+    u8  xCursor, yCursor; // map cursor position
+
+    u8  chapterStateBits; // +0x04 = postgame, +0x10 = in prep screen, +0x40 = difficult mode, +0x80 = link arena?
+    u8  chapterWeatherId;
+    u16 chapterTotalSupportGain;
+
+    u8  _pad18[0x1B - 0x18]; // unknown yet
+
+    u8  chapterModeIndex; // 1 for tutorial (ch0-8), 2 for Eirika route, 3 for Ephraim route
+
+    u8  unk1C[4];
+
+    char playerName[0x40 - 0x20]; // unused outside of arena (was tactician name in FE7); Size unknown
+
+    u8  unk40; // option byte 1 (of 3)
     u32 unk41_1:1;
 };
 

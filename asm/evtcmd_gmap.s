@@ -457,11 +457,11 @@ _0800BC76:
 	beq _0800BCC8
 	b _0800BCD0
 _0800BC84:
-	ldr r0, _0800BC8C  @ gUnknown_030004B8
+	ldr r0, _0800BC8C  @ gEventSlots
 	ldrh r2, [r0, #8]
 	b _0800BCD0
 	.align 2, 0
-_0800BC8C: .4byte gUnknown_030004B8
+_0800BC8C: .4byte gEventSlots
 _0800BC90:
 	ldr r2, _0800BCB0  @ gUnknown_030004E6
 	ldrh r1, [r2]
