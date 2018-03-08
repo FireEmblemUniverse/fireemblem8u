@@ -126,6 +126,16 @@ struct ROMCharStruct
     u16 unk0;
 };
 
+struct UnknownStructCTC
+{
+    struct UnknownStructCTC *unk0;
+    s16 unk4;
+    s16 unk6;
+    u16 unk8;
+    u8 fillerA[2];
+    const void *unkC;
+};
+
 struct Text
 {
     u16 unk0;
@@ -164,14 +174,11 @@ struct TextBatch
     u8 unk4;
 };
 
-struct UnknownStructCTC
+struct Struct02028E78
 {
-    struct UnknownStructCTC *unk0;
-    s16 unk4;
-    s16 unk6;
-    u16 unk8;
-    u8 fillerA[2];
-    const void *unkC;
+    s8 unk0;
+    s8 unk1;
+    s16 unk2;
 };
 
 #endif  // GUARD_TYPES_H

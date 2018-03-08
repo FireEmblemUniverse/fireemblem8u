@@ -40,7 +40,6 @@ SECTIONS
         src/proc.o(.text);
         asm/icon.o(.text);
         src/fontgrp.o(.text);
-        asm/fontgrp.o(.text);
         asm/animedrv.o(.text);
         src/ctc.o(.text);
         asm/face.o(.text);

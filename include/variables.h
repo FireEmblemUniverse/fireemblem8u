@@ -513,7 +513,7 @@ extern int gUnknown_02028E54;
 extern struct Font gDefaultFont;
 extern struct Font *gCurrentFont;
 extern u8 gUnknown_02028E74;
-extern u8 gUnknown_02028E78;
+extern struct Struct02028E78 gUnknown_02028E78[];
 // extern ??? gUnknown_02028F78
 // extern ??? gUnknown_02029D88
 extern struct UnknownStructCTC gUnknown_02029D8C[];
@@ -1355,7 +1355,7 @@ extern void *gUnknown_08588240[];
 // extern ??? gUnknown_08588284
 extern struct Glyph *gUnknown_0858C7EC[];
 extern struct Glyph *gUnknown_0858F6F4[];
-// extern ??? gUnknown_08590B44
+extern struct Glyph *gUnknown_08590B44[];
 extern u16 gUnknown_08590F44[];
 // extern ??? gUnknown_08590F4C
 // extern ??? gUnknown_08590F54
@@ -1671,7 +1671,7 @@ extern u8 gUnknown_0859EF20[];
 // extern ??? gUnknown_0859EF40
 // extern ??? gUnknown_0859EF60
 // extern ??? gUnknown_0859EF80
-// extern ??? gUnknown_0859EFC0
+extern u16 gUnknown_0859EFC0[];
 // extern ??? gUnknown_0859EFE0
 // extern ??? gUnknown_0859F000
 // extern ??? gUnknown_0859F020

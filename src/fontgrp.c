@@ -2,6 +2,7 @@
 #include <stdio.h>
 
 #include "global.h"
+#include "proc.h"
 
 #define CHAR_NEWLINE 0x01
 
@@ -314,7 +315,7 @@ void SetSomeByte(int a)
 void Font_InitForUIDefault(void)
 {
     Font_InitForUI(&gDefaultFont, (void *)(VRAM + 0x1000), 0x80, 0);
-    gUnknown_02028E78 = 0xFF;
+    gUnknown_02028E78[0].unk0 = -1;
 }
 
 void Font_InitForUI(struct Font *font, void *vramDest, int c, int d)
@@ -342,7 +343,7 @@ void SetFontGlyphSet(int a)
 void sub_8003D20(void)
 {
     gCurrentFont->unk12 = 0;
-    gUnknown_02028E78 = 0xFF;
+    gUnknown_02028E78[0].unk0 = -1;
 }
 
 void SetFont(struct Font *font)
@@ -788,6 +789,7 @@ void Font_StandardGlyphDrawer(struct Text *a, struct Glyph *glyph)
 
 void Font_SpecializedGlyphDrawer(struct Text *a, struct Glyph *glyph)
 {
+    u64 value64;
     int i;
     u32 *spC = gCurrentFont->getVramTileOffset(a);
     int sp10 = a->x & 7;
@@ -797,18 +799,17 @@ void Font_SpecializedGlyphDrawer(struct Text *a, struct Glyph *glyph)
 
     for (i = 0; i < 16; i++)
     {
-        u64 value64 = *sp14++;
-
-        value64 <<= sp10 * 2;
+        value64 = (u64)*sp14 << sp10 * 2;
+        sp14++;
 
         spC[0] &= table1[value64 & 0xFF] | (table1[(value64 >> 8) & 0xFF] << 16);
         spC[0] |= table2[value64 & 0xFF] | (table2[(value64 >> 8) & 0xFF] << 16);
 
-        spC[0x10] &= table1[(value64 >> 16) & 0xFF] | (table1[(value64 >> 24) & 0xFF] << 16);
-        spC[0x10] |= table2[(value64 >> 16) & 0xFF] | (table2[(value64 >> 24) & 0xFF] << 16);
+        spC[16] &= table1[(value64 >> 16) & 0xFF] | (table1[(value64 >> 24) & 0xFF] << 16);
+        spC[16] |= table2[(value64 >> 16) & 0xFF] | (table2[(value64 >> 24) & 0xFF] << 16);
 
-        spC[0x20] &= table1[(value64 >> 32) & 0xFF] | (table1[(value64 >> 40) & 0xFF] << 16);
-        spC[0x20] |= table2[(value64 >> 32) & 0xFF] | (table2[(value64 >> 40) & 0xFF] << 16);
+        spC[32] &= table1[(value64 >> 32) & 0xFF] | (table1[(value64 >> 40) & 0xFF] << 16);
+        spC[32] |= table2[(value64 >> 32) & 0xFF] | (table2[(value64 >> 40) & 0xFF] << 16);
 
         spC++;
     }
@@ -871,7 +872,7 @@ void Text_AppendStringSimple(struct Text *text, const char *str)
     while (*str != 0 && *str != CHAR_NEWLINE)
     {
         struct Glyph *glyph = gCurrentFont->glyphs[*str++];
-        
+
         if (glyph == NULL)
             glyph = gCurrentFont->glyphs[63];
         gCurrentFont->drawGlyph(text, glyph);
@@ -905,7 +906,7 @@ int GetStringTextWidthSimple(const char *str)
     while (*str != 0 && *str != CHAR_NEWLINE)
     {
         struct Glyph *glyph = gCurrentFont->glyphs[*str++];
-        
+
         width += glyph->width;
     }
     return width;
@@ -970,4 +971,347 @@ void *sub_80046E0(struct Text *text)
     int r1 = (text->unk6 * text->unk4 + text->unk0 + text->x / 8);
 
     return gCurrentFont->vramDest + r1 * 32;
+}
+
+void sub_8004700(struct Text *a, struct Glyph *glyph)
+{
+    u64 value64;
+    int i;
+    u32 *r7 = gCurrentFont->getVramTileOffset(a);
+    int sp8 = a->x & 7;
+    u32 *spC = glyph->unk8;
+    u16 *r8 = GetSomeTextDrawingRelatedTablePointer(a->colorId);
+
+    for (i = 0; i < 8; i++)
+    {
+        value64 = (u64)*spC << sp8 * 2;
+        spC++;
+
+        r7[0] |= r8[value64 & 0xFF] | (r8[(value64 >> 8) & 0xFF] << 16);
+        r7[8] |= r8[(value64 >> 16) & 0xFF] | (r8[(value64 >> 24) & 0xFF] << 16);
+        r7[16] |= r8[(value64 >> 32) & 0xFF] | (r8[(value64 >> 40) & 0xFF] << 16);
+
+        r7++;
+    }
+
+    r7 = gCurrentFont->getVramTileOffset(a) + 0x400;
+
+    for (i = 0; i < 8; i++)
+    {
+        value64 = (u64)*spC << sp8 * 2;
+        spC++;
+
+        r7[0] |= r8[value64 & 0xFF] | (r8[(value64 >> 8) & 0xFF] << 16);
+        r7[8] |= r8[(value64 >> 16) & 0xFF] | (r8[(value64 >> 24) & 0xFF] << 16);
+        r7[16] |= r8[(value64 >> 32) & 0xFF] | (r8[(value64 >> 40) & 0xFF] << 16);
+
+        r7++;
+    }
+
+    a->x += glyph->width;
+}
+
+struct SomeTextRelatedProc
+{
+    PROC_HEADER
+
+    struct Text *unk2C;
+    const char *unk30;
+    s8 unk34;
+    s8 unk35;
+    s8 unk36;
+};
+
+void sub_80048B0(struct SomeTextRelatedProc *proc)
+{
+    int i;
+
+    proc->unk35--;
+    if (proc->unk35 <= 0)
+    {
+        proc->unk35 = proc->unk34;
+        for (i = 0; i < proc->unk36; i++)
+        {
+            switch (*proc->unk30)
+            {
+            case 0:
+            case 1:
+                proc->unk2C->unk7 = 0;
+                Proc_ClearNativeCallback((struct Proc *)proc);
+                return;
+            case 4:
+                proc->unk30++;
+                Text_Advance(proc->unk2C, 6);
+                break;
+            default:
+                proc->unk30 = Text_AppendChar(proc->unk2C, proc->unk30);
+                break;
+            }
+        }
+    }
+}
+
+extern struct ProcCmd gUnknown_08588274[];
+
+char *sub_8004924(struct Text *a, char *b, int c, int d)
+{
+    struct SomeTextRelatedProc *proc;
+
+    if (c == 0)
+        Text_AppendString(a, b);
+    if (d == 0)
+        d = 1;
+    proc = (struct SomeTextRelatedProc *)Proc_Create(gUnknown_08588274, ROOT_PROC_3);
+    proc->unk2C = a;
+    proc->unk30 = b;
+    proc->unk36 = d;
+    proc->unk34 = c;
+    proc->unk35 = 0;
+    a->unk7 = 1;
+    return String_GetEnd(b);
+}
+
+// not sure if this is Text or not
+s8 sub_800496C(struct Text *th)
+{
+    return th->unk7;
+}
+
+void sub_8004974(void)
+{
+    Proc_DeleteAllWithScript(gUnknown_08588274);
+}
+
+void sub_8004984(void)
+{
+    u32 index = (sub_8000D28() / 4) % 16;
+
+    //gPaletteBuffer[14] = gUnknown_0859EFC0[index];
+    gPaletteBuffer[14] = index[gUnknown_0859EFC0];
+    EnablePaletteSync();
+}
+
+extern struct ProcCmd gUnknown_08588284[];
+
+void NewGreenTextColorManager(struct Proc *parent)
+{
+    if (parent != NULL)
+        Proc_Create(gUnknown_08588284, parent);
+    else
+        Proc_Create(gUnknown_08588284, ROOT_PROC_3);
+}
+
+void EndGreenTextColorManager(void)
+{
+    Proc_DeleteAllWithScript(gUnknown_08588284);
+}
+
+void sub_80049E0(struct Text *th, u16 *b, int c)
+{
+    int r1 = gCurrentFont->unk10 + (th->unk6 * th->unk4 + th->unk0) * 2;
+    int i;
+
+    for (i = 0; i < th->unk4 && i < c; i++)
+    {
+        b[0] = r1;
+        r1++;
+
+        b[32] = r1;
+        r1++;
+
+        b++;
+    }
+
+    if (th->unk5 != 0)
+        th->unk6 ^= 1;
+}
+
+static inline u32 func(u16 *table, u32 b)
+{
+    return table[b & 0xFF] + (table[(b >> 8) & 0xFF] << 16);
+}
+
+void sub_8004A34(int a, int b, struct Glyph *glyph)
+{
+    int i;
+    u32 *r8 = (u32 *)(gCurrentFont->vramDest + a * 64);
+    u32 *r7 = glyph->unk8;
+    u16 *r2 = GetSomeTextDrawingRelatedTablePointer(b);
+
+    for (i = 0; i < 16; i++)
+    {
+        u32 r0 = *r7++;
+        register u32 r4 asm("r4") = r2[r0 & 0xFF];
+        register u32 r5 asm("r5") = r2[(r0 >> 8) & 0xFF];
+        register u32 var asm("r0") = (r5 << 16);
+        u32 var2 = var + r4;
+
+        *r8++ = var2;
+    }
+}
+
+int sub_8004A90(struct Struct02028E78 *a, int b, int c)
+{
+    a->unk0 = b;
+    a->unk1 = c;
+    a->unk2 = gCurrentFont->unk12++;
+    (a + 1)->unk0 = -1;
+    sub_8004A34(a->unk2, b, gUnknown_08590B44[c]);
+    return a->unk2;
+}
+
+int sub_8004ACC(int a, int b)
+{
+    struct Struct02028E78 *r1 = gUnknown_02028E78;
+
+    while (1)
+    {
+        if (r1->unk0 < 0)
+            return sub_8004A90(r1, a, b);
+        if (r1->unk0 == a && r1->unk1 == b)
+            return r1->unk2;
+        r1++;
+    }
+}
+
+void sub_8004B0C(u16 *a, int b, int c)
+{
+    if (c == 0xFF)
+    {
+        a[0] = 0;
+        a[32] = 0;
+    }
+    else
+    {
+        int var = sub_8004ACC(b, c) * 2 + gCurrentFont->unk10;
+
+        a[0] = var;
+        a[32] = var + 1;
+    }
+}
+
+void sub_8004B48(u16 *a, int b, int c, int d)
+{
+    if (c == 0)
+    {
+        sub_8004B0C(a, b, d);
+        return;
+    }
+
+    while (c != 0)
+    {
+        sub_8004B0C(a, b, c % 10 + d);
+        c /= 10;
+        a--;
+    }
+}
+
+void sub_8004B88(u16 *a, int b, int c)
+{
+    sub_8004B48(a, b, c, 0);
+}
+
+void DrawDecNumber(u16 *a, int b, int c)
+{
+    if (c < 0 || c == 255)
+        sub_8004D5C(a - 1, b, 20, 20);
+    else
+        sub_8004B88(a, b, c);
+}
+
+void sub_8004BB4(u16 *a, int b, int c)
+{
+    if (c == 100)
+        sub_8004D5C(a - 1, b, 40, 41);
+    else if (c < 0 || c == 255)
+        sub_8004D5C(a - 1, b, 20, 20);
+    else
+        sub_8004B88(a, b, c);
+}
+
+void sub_8004BE4(u16 *a, int b, int c)
+{
+    sub_8004B48(a, b, c, 10);
+}
+
+void sub_8004BF0(int a, u16 *b)
+{
+    if (a != 0)
+    {
+        sub_8004B0C(b, 4, 21);
+        sub_8004BE4(b + ((a >= 10) ? 2 : 1), 4, a);
+    }
+}
+
+void sub_8004C1C(void)
+{
+    int r5 = sub_8000D28();
+    int i;
+    int j;
+
+    for (i = 0; i < 10; i++)
+    {
+        for (j = 0; j < 30; j++)
+        {
+            int index = i * 64 + j;
+            sub_8004B0C((u16 *)gBG0TilemapBuffer + index, 0, r5++ & 1);
+        }
+    }
+    BG_EnableSyncByMask(1 << 0);
+}
+
+void sub_8004C68(u16 *a, int b, int c, u8 d)
+{
+    u16 sp0;
+    u16 sp2;
+    u16 sp4;
+    int var1;
+    int var2;
+
+    u8 r9 = sub_8000D64(c, &sp0, &sp2, &sp4);
+
+    sub_8004B88(a + 2, b, sp0);
+
+    var1 = sp2;
+    sub_8004B0C(a + 5, b, var1 % 10);
+    sub_8004B0C(a + 4, b, (var1 / 10) % 10);
+
+    var2 = sp4;
+    sub_8004B0C(a + 8, b, var2 % 10 + 10);
+    sub_8004B0C(a + 7, b, (var2 / 10) % 10 + 10);
+
+    if (r9 == 0 || d != 0)
+    {
+        sub_8004B0C(a + 3, b, 32);
+        sub_8004B0C(a + 6, b, 32);
+    }
+    else
+    {
+        sub_8004B0C(a + 3, b, 0xFF);
+        sub_8004B0C(a + 6, b, 0xFF);
+    }
+}
+
+void sub_8004D5C(u16 *a, int b, int c, int d)
+{
+    sub_8004B0C(a++, b, c);
+    sub_8004B0C(a++, b, d);
+}
+
+void sub_8004D7C(u16 *a, int b, int c)
+{
+    sub_8004B0C(a, b, c % 10);
+    sub_8004B0C(a - 1, b, (c / 10) % 10);
+}
+
+void sub_8004DB8(u16 *a, int b, int c)
+{
+    sub_8004B0C(a, b, c % 10 + 10);
+    sub_8004B0C(a - 1, b, (c / 10) % 10 + 10);
+}
+
+void sub_8004DF8(u16 *a, int b, int c, int d)
+{
+    sub_8004B0C(a, b, c % 10 + d);
+    sub_8004B0C(a - 1, b, (c / 10) % 10 + d);
 }
