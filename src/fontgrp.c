@@ -790,7 +790,24 @@ void *GetVRAMPointerForTextMaybe(struct TextHandle *text)
     return gCurrentFont->vramDest + r1 * 64;
 }
 
-void *GetSomeTextDrawingRelatedTablePointer(int a)
+u16 *gUnknown_08588240[] =
+{
+    gUnknown_0858829C,
+    gUnknown_0858849C,
+    gUnknown_0858869C,
+    gUnknown_0858889C,
+    gUnknown_08588A9C,
+    gUnknown_08588C9C,
+    gUnknown_08588E9C,
+    gUnknown_0858909C,
+    gUnknown_0858929C,
+    gUnknown_0858949C,
+    gUnknown_0858969C,
+    gUnknown_0858989C,
+    gUnknown_08589A9C,
+};
+
+u16 *GetSomeTextDrawingRelatedTablePointer(int a)
 {
     return gUnknown_08588240[a];
 }
@@ -1070,7 +1087,11 @@ void sub_80048B0(struct SomeTextRelatedProc *proc)
     }
 }
 
-extern struct ProcCmd gUnknown_08588274[];
+struct ProcCmd gUnknown_08588274[] =
+{
+    PROC_LOOP_ROUTINE(sub_80048B0),
+    PROC_END,
+};
 
 char *sub_8004924(struct TextHandle *a, char *b, int c, int d)
 {
@@ -1110,7 +1131,12 @@ void sub_8004984(void)
     EnablePaletteSync();
 }
 
-extern struct ProcCmd gUnknown_08588284[];
+struct ProcCmd gUnknown_08588284[] =
+{
+	PROC_END_IF_DUPLICATE,
+	PROC_LOOP_ROUTINE(sub_8004984),
+	PROC_END,
+};
 
 void NewGreenTextColorManager(struct Proc *parent)
 {
