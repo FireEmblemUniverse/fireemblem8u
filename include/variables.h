@@ -493,7 +493,7 @@ extern u8 gBG2TilemapBuffer[];
 // extern ??? gUnknown_02024044
 // extern ??? gUnknown_0202404A
 extern u8 gBG3TilemapBuffer[];
-extern void *gUnknown_02024CA8[];
+extern void *gBGVramTilemapPointers[];
 extern void (*gMainCallback)(void);
 extern struct Struct02024CD4 gUnknown_02024CD4;
 extern struct TileDataTransfer gUnknown_02024CDC[];

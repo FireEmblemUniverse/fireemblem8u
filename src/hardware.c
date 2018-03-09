@@ -89,7 +89,7 @@ void FlushLCDControl(void)
     #undef COPY_REG
 }
 
-struct BgCnt *GetBackgroundControlBuffer(u16 bg)
+struct BgCnt *BG_GetControlBuffer(u16 bg)
 {
     switch (bg)
     {
@@ -102,7 +102,7 @@ struct BgCnt *GetBackgroundControlBuffer(u16 bg)
 
 int GetBackgroundTileDataOffset(int bg)
 {
-    return GetBackgroundControlBuffer(bg)->charBaseBlock << 14;
+    return BG_GetControlBuffer(bg)->charBaseBlock << 14;
 }
 
 int GetTileIndex(int bg, int offset)
@@ -111,35 +111,35 @@ int GetTileIndex(int bg, int offset)
     return (offset - GetBackgroundTileDataOffset(bg)) / 32;
 }
 
-int sub_8000FC4(int bg)
+int BG_GetTileMapOffset(int bg)
 {
-    return GetBackgroundControlBuffer(bg)->screenBaseBlock << 11;
+    return BG_GetControlBuffer(bg)->screenBaseBlock << 11;
 }
 
 void SetBackgroundTileDataOffset(int bg, int offset)
 {
-    GetBackgroundControlBuffer(bg)->charBaseBlock = offset >> 14;
+    BG_GetControlBuffer(bg)->charBaseBlock = offset >> 14;
 }
 
 void SetBackgroundMapDataOffset(int bg, int offset)
 {
-    struct BgCnt *bgcnt = GetBackgroundControlBuffer(bg);
+    struct BgCnt *bgcnt = BG_GetControlBuffer(bg);
 
     if ((offset & 0x7FF) == 0)  // must be aligned
     {
         bgcnt->screenBaseBlock = offset >> 11;
-        gUnknown_02024CA8[bg] = (void *)(VRAM | offset);
+        gBGVramTilemapPointers[bg] = (void *)(VRAM | offset);
     }
 }
 
 void SetBackgroundScreenSize(int bg, int size)
 {
-    GetBackgroundControlBuffer(bg)->screenSize = size;
+    BG_GetControlBuffer(bg)->screenSize = size;
 }
 
-void sub_800106C(int bg, int bitsPerPixel)
+void BG_SetColorBpp(int bg, int bitsPerPixel)
 {
-    GetBackgroundControlBuffer(bg)->colorMode = (bitsPerPixel == 8) ? 1 : 0;
+    BG_GetControlBuffer(bg)->colorMode = (bitsPerPixel == 8) ? 1 : 0;
 }
 
 static void ApplyColorAddition_ClampMax(int a)
@@ -197,13 +197,13 @@ static void ApplyColorAddition_ClampMin(int a)
 void FlushBackgrounds(void)
 {
     if (sModifiedBGs & (1 << 0))
-        CpuFastCopy(gBG0TilemapBuffer, gUnknown_02024CA8[0], 0x800);
+        CpuFastCopy(gBG0TilemapBuffer, gBGVramTilemapPointers[0], 0x800);
     if (sModifiedBGs & (1 << 1))
-        CpuFastCopy(gBG1TilemapBuffer, gUnknown_02024CA8[1], 0x800);
+        CpuFastCopy(gBG1TilemapBuffer, gBGVramTilemapPointers[1], 0x800);
     if (sModifiedBGs & (1 << 2))
-        CpuFastCopy(gBG2TilemapBuffer, gUnknown_02024CA8[2], 0x800);
+        CpuFastCopy(gBG2TilemapBuffer, gBGVramTilemapPointers[2], 0x800);
     if (sModifiedBGs & (1 << 3))
-        CpuFastCopy(gBG3TilemapBuffer, gUnknown_02024CA8[3], 0x800);
+        CpuFastCopy(gBG3TilemapBuffer, gBGVramTilemapPointers[3], 0x800);
     sModifiedBGs = 0;
 
     if (sModifiedPalette == 1)
@@ -410,7 +410,7 @@ void sub_80014E8(void)
 {
     gUnknown_03000018 = gUnknown_03000019 = 0;
     BG_Fill(gBG0TilemapBuffer, 0);
-    sModifiedBGs |= 1;
+    sModifiedBGs |= 1 << 0;
 }
 
 void sub_800151C(u8 a, u8 b)
@@ -866,11 +866,11 @@ void SetupBackgrounds(u16 *bgConfig)
 {
     u16 defaultBgConfig[12] =
     {
-    // tile offset  map offset  screen size
-    0x0000,     0x6000,     0,          // BG 0
-    0x0000,     0x6800,     0,          // BG 1
-    0x0000,     0x7000,     0,          // BG 2
-    0x8000,     0x7800,     0,          // BG 3
+        // tile offset  map offset  screen size
+        0x0000,         0x6000,     0,          // BG 0
+        0x0000,         0x6800,     0,          // BG 1
+        0x0000,         0x7000,     0,          // BG 2
+        0x8000,         0x7800,     0,          // BG 3
     };
     int bg;
 
@@ -934,7 +934,7 @@ s8 ShouldSkipHSScreen(void)
     return gUnknown_0300001A;
 }
 
-void sub_8001C78(void)
+void SoftResetIfKeyComboPressed(void)
 {
     if (sub_8000D18() != 0)
     {
@@ -959,7 +959,7 @@ void sub_8001CB0(int a)
     REG_IE = savedIE;
 }
 
-void sub_8001D00(void)
+void ExecBothHBlankHandlers(void)
 {
     if (sHBlankHandler1 != NULL)
         sHBlankHandler1();
@@ -989,7 +989,7 @@ void UpdateHBlankHandlerState(void)
         break;
     case 3:
         gLCDControlBuffer.dispstat.hblankIrqEnable = 1;
-        SetIRQHandler(1, sub_8001D00);
+        SetIRQHandler(1, ExecBothHBlankHandlers);
         REG_IE |= INTR_FLAG_HBLANK;
         break;
     }

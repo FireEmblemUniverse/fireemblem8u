@@ -489,7 +489,7 @@
 . = 0x024044; gUnknown_02024044 = .;
 . = 0x02404A; gUnknown_0202404A = .;
 . = 0x0244A8; gBG3TilemapBuffer = .;
-. = 0x024CA8; gUnknown_02024CA8 = .;
+. = 0x024CA8; gBGVramTilemapPointers = .;
 . = 0x024CB8; gMainCallback = .;
 . = 0x024CC0;
 . = ALIGN(4); src/main.o(ewram_data);

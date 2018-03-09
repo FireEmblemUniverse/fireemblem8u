@@ -62,6 +62,6 @@ void AgbMain()
     while (1)
     {
         ExecMainUpdate();
-        sub_8001C78();
+        SoftResetIfKeyComboPressed();
     };
 }
