@@ -35,6 +35,8 @@ EWRAM_DATA struct Font *gCurrentFont = 0;
 EWRAM_DATA u8 gUnknown_02028E74 = 0;
 EWRAM_DATA struct Struct02028E78 gUnknown_02028E78[64] = {0};
 
+#include "graphics/debug_font.4bpp.h"
+
 void SetupDebugFontForBG(int bg, int tileDataOffset)
 {
     if (tileDataOffset == 0)
@@ -42,7 +44,7 @@ void SetupDebugFontForBG(int bg, int tileDataOffset)
 
     SetBackgroundTileDataOffset(bg, 0);
     SetBackgroundScreenSize(bg, 0);
-    RegisterTileGraphics(gUnknown_08587A40, (void *)(VRAM + (tileDataOffset & 0x1FFFF)), 0x800);
+    RegisterTileGraphics(debug_font_4bpp, (void *)(VRAM + (tileDataOffset & 0x1FFFF)), 0x800);
 
     gPaletteBuffer[0] = 0;
     gPaletteBuffer[2] = RGB(31, 31, 31);
@@ -268,7 +270,7 @@ void SetupDebugFontForOBJ(int a, int objPalNum)
     gUnknown_02028E50 = a / 32;
     gUnknown_02028E54 = (objPalNum & 0xF) << 12;
 
-    RegisterTileGraphics(gUnknown_08587A40, (void *)(VRAM + ((a + 0x10000) & 0x1FFFF)), 0x800);
+    RegisterTileGraphics(debug_font_4bpp, (void *)(VRAM + ((a + 0x10000) & 0x1FFFF)), 0x800);
 
     gPaletteBuffer[(objPalNum + 16) * 16 + 0] = RGB(0, 0, 0);
     gPaletteBuffer[(objPalNum + 16) * 16 + 1] = RGB(0, 0, 31);
