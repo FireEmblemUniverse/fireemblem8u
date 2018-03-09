@@ -1332,10 +1332,10 @@ extern const char *const gUnknown_0815D48C[];
 extern struct KeyStatusBuffer *gKeyStatusPtr;
 extern void *gUnknown_08587938[];
 extern struct BgCnt *gUnknown_08587948[];
-// extern ??? gUnknown_08587958
-// extern ??? gUnknown_08587970
-// extern ??? gUnknown_08587988
-// extern ??? gUnknown_08587998
+// extern ??? sMusicProc1Script
+// extern ??? sMusicProc2Script
+// extern ??? gMusicProc3Script
+// extern ??? sMusicProc4Script
 // extern ??? gProcCmdFuncs
 extern u8 gUnknown_08587A40[];
 extern void *gUnknown_08588240[];

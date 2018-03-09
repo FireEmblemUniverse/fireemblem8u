@@ -343,7 +343,7 @@ sub_8009ABC: @ 0x08009ABC
 	push {lr}
 	movs r0, #0x43
 	movs r1, #0
-	bl sub_8002448
+	bl Sound_PlaySong8002448
 	movs r0, #0
 	movs r1, #0xc0
 	movs r2, #0x3c

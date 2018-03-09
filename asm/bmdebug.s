@@ -55,7 +55,7 @@ sub_801BB98: @ 0x0801BB98
 	adds r6, #0x3c
 	movs r0, #0
 	strb r0, [r6]
-	bl sub_8002258
+	bl Sound_GetCurrentSong
 	movs r1, #0
 	cmp r1, r4
 	bge _0801BBCC

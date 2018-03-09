@@ -5109,7 +5109,7 @@ sub_8014BC0: @ 0x08014BC0
 	lsls r0, r0, #0x10
 	asrs r0, r0, #0x10
 	movs r1, #0
-	bl sub_80024D4
+	bl Sound_PlaySong80024D4
 	pop {r0}
 	bx r0
 
@@ -5118,7 +5118,7 @@ sub_8014BD0: @ 0x08014BD0
 	push {lr}
 	lsls r0, r0, #0x10
 	asrs r0, r0, #0x10
-	bl SoundStuff_800231C
+	bl Sound_FadeOut800231C
 	pop {r0}
 	bx r0
 
