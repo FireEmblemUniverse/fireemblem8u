@@ -61,3 +61,4 @@ src/*.s
 *.dump
 tools/agbcc
 *.exe
+.dep
