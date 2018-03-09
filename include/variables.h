@@ -1337,7 +1337,7 @@ extern struct BgCnt *gUnknown_08587948[];
 // extern ??? gMusicProc3Script
 // extern ??? sMusicProc4Script
 // extern ??? gProcCmdFuncs
-extern u8 gUnknown_08587A40[];
+extern u8 debug_font_4bpp[];
 extern void *gUnknown_08588240[];
 // extern ??? gUnknown_08588274
 // extern ??? gUnknown_08588284
