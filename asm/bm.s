@@ -1390,7 +1390,7 @@ sub_80160D0: @ 0x080160D0
 	push {lr}
 	bl GetCurrentMapMusicIndex
 	movs r1, #0
-	bl sub_80024D4
+	bl Sound_PlaySong80024D4
 	pop {r0}
 	bx r0
 

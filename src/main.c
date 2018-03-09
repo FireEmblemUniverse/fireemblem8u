@@ -24,7 +24,7 @@ void AgbMain()
 
     // clear RAM
     DmaFill32(3, 0, (void *)IWRAM_START, 0x7F80); // reset the area for the IWRAM ARM section.
-    CpuFastFill(0, (void *)EWRAM_START, 0x01040000);    
+    CpuFastFill(0, (void *)EWRAM_START, 0x40000);    
 
     waitCnt = (REG_WAITCNT != 0);
     sub_8001C5C(waitCnt);
@@ -32,7 +32,7 @@ void AgbMain()
         RegisterRamReset(~2);
     REG_WAITCNT = 0x45B4;
     StoreIRQToIRAM();
-    SetInterrupt_LCDVBlank(0);
+    SetInterrupt_LCDVBlank(NULL);
     REG_DISPSTAT = 8;
     REG_IME = 1;
     ResetKeyStatus(gKeyStatusPtr);
@@ -47,8 +47,11 @@ void AgbMain()
     sub_8000D0C();
     sub_80A7374();
     sub_80A40A8();
+
+    // initialize sound
     m4aSoundInit();
-    sub_80028D0();
+    Sound_SetDefaultMaxNumChannels();
+
     SetInterrupt_LCDVBlank(GeneralVBlankHandler);
     sub_80BC81C();
     SetSomeByte(1);
@@ -59,6 +62,6 @@ void AgbMain()
     while (1)
     {
         ExecMainUpdate();
-        sub_8001C78();
+        SoftResetIfKeyComboPressed();
     };
 }

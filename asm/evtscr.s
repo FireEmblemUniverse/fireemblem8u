@@ -1104,7 +1104,7 @@ _0800DD98:
 	asrs r0, r0, #0x10
 	movs r1, #3
 	movs r2, #0
-	bl sub_80024E4
+	bl Sound_PlaySong80024E4
 	movs r0, #2
 _0800DDA6:
 	pop {r1}
@@ -1148,7 +1148,7 @@ _0800DDEC:
 	adds r0, r3, #0
 	adds r1, r4, #0
 	movs r2, #0
-	bl sub_8002574
+	bl Sound_PlaySong8002574
 	b _0800DE0C
 _0800DDF8:
 	ldrh r0, [r2, #0x3c]
@@ -1160,7 +1160,7 @@ _0800DDF8:
 	movs r4, #1
 _0800DE06:
 	adds r0, r4, #0
-	bl SoundStuff_800231C
+	bl Sound_FadeOut800231C
 _0800DE0C:
 	movs r0, #2
 _0800DE0E:
@@ -1259,7 +1259,7 @@ _0800DEA8:
 	beq _0800DEC0
 	movs r0, #0x80
 	lsls r0, r0, #1
-	bl SomethingSoundRelated_80022EC
+	bl Sound_SetVolume80022EC
 	movs r0, #0
 	b _0800DECE
 _0800DEC0:
@@ -4056,7 +4056,7 @@ _0800F4E8:
 	strh r0, [r4, #0x3c]
 	bl DeleteAll6CWaitMusicRelated
 	movs r0, #4
-	bl SoundStuff_800231C
+	bl Sound_FadeOut800231C
 	movs r0, #0
 	pop {r4}
 	pop {r1}
