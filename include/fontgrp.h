@@ -12,25 +12,31 @@ struct TextHandle
     u8 unk7;
 };
 
+
 struct Glyph
 {
-    struct Glyph *next;
-    u8 unk4;
-    u8 width;
-    u8 unk6[2];
-    u32 unk8[64];
+    struct Glyph *sjisNext;  // (only used in Shift-JIS fonts) next element in linked list
+    u8 sjisByte1;            // (only used in Shift-JIS fonts) second byte of character
+    u8 width;                // width of the glyph in pixels
+    u32 bitmap[16];          // image data of the glyph (16x16 pixels, 2 bits per pixel)
 };
 
 struct Font
 {
     /*0x00*/ u8 *vramDest;
+             // pointer to table of glyph structs
+             // In ASCII fonts, there is just one byte per character, so the glyph
+             // for a given character is obtained by indexing this array.
+             // In Shift-JIS fonts, each character is 2 bytes. Each element in
+             // this array is a linked list. byte2 - 0x40 is the index of the head
+             // of the list, and the list is traversed until a matching byte1 is found.
     /*0x04*/ struct Glyph **glyphs;
     /*0x08*/ void (*drawGlyph)(struct TextHandle *, struct Glyph *);
     /*0x0C*/ void *(*getVramTileOffset)(struct TextHandle *);
     /*0x10*/ u16 unk10;
     /*0x12*/ u16 unk12;
     /*0x14*/ u16 paletteNum;
-    /*0x16*/ u8 unk16;
+    /*0x16*/ u8 isAscii;
 };
 
 struct TextBatch
@@ -93,7 +99,7 @@ char *String_GetEnd(char *);
 // ??? Text_AppendNumberOr2Dashes(???);
 const char *Text_AppendChar(struct TextHandle *a, const char *b);
 void *GetVRAMPointerForTextMaybe(struct TextHandle *a);
-// ??? GetSomeTextDrawingRelatedTablePointer(???);
+// ??? GetGlyphColorLUT(???);
 // ??? Font_StandardGlyphDrawer(???);
 // ??? Font_SpecializedGlyphDrawer(???);
 void Font_LoadForUI();
@@ -102,10 +108,10 @@ void Font_LoadForUI();
 // ??? DrawTextInline(???);
 // ??? Text_InsertString(???);
 // ??? Text_InsertNumberOr2Dashes(???);
-void Text_AppendStringSimple(struct TextHandle *text, const char *str);
-const char *Text_AppendCharSimple(struct TextHandle *text, const char *str);
-char *GetCharTextWidthSimple(char *str, u32 *width);
-int GetStringTextWidthSimple(const char *str);
+void Text_AppendStringASCII(struct TextHandle *text, const char *str);
+const char *Text_AppendCharASCII(struct TextHandle *text, const char *str);
+char *GetCharTextWidthASCII(char *str, u32 *width);
+int GetStringTextWidthASCII(const char *str);
 // ??? sub_8004598(???);
 // ??? InitSomeOtherGraphicsRelatedStruct(???);
 // ??? Text_Init3(???);
