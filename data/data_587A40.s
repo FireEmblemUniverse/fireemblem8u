@@ -1,28 +1,6 @@
+	.include "proc.inc"
+
 	.section .data
-
-	.global gUnknown_08588240
-gUnknown_08588240:  @ 0x08588240
-	.incbin "baserom.gba", 0x588240, 0x34
-
-	.global gUnknown_08588274
-gUnknown_08588274:  @ 0x08588274
-	.incbin "baserom.gba", 0x588274, 0x10
-
-	.global gUnknown_08588284
-gUnknown_08588284:  @ 0x08588284
-	.incbin "baserom.gba", 0x588284, 0x4568
-
-	.global gUnknown_0858C7EC
-gUnknown_0858C7EC:  @ 0x0858C7EC
-	.incbin "baserom.gba", 0x58C7EC, 0x2F08
-
-	.global gUnknown_0858F6F4
-gUnknown_0858F6F4:  @ 0x0858F6F4
-	.incbin "baserom.gba", 0x58F6F4, 0x1450
-
-	.global gUnknown_08590B44
-gUnknown_08590B44:  @ 0x08590B44
-	.incbin "baserom.gba", 0x590B44, 0x400
 
 	.global gUnknown_08590F44
 gUnknown_08590F44:  @ 0x08590F44
@@ -267,3 +245,7 @@ gOAMTileSizeLookup:  @ 0x085916A4
 	.global gUnknown_085916D4
 gUnknown_085916D4:  @ 0x085916D4
 	.incbin "baserom.gba", 0x5916D4, 0x3D0
+
+
+
+

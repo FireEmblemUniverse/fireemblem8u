@@ -1338,9 +1338,22 @@ extern struct BgCnt *gUnknown_08587948[];
 // extern ??? sMusicProc4Script
 // extern ??? gProcCmdFuncs
 extern u8 debug_font_4bpp[];
-extern void *gUnknown_08588240[];
+extern u16 *gUnknown_08588240[];
 // extern ??? gUnknown_08588274
 // extern ??? gUnknown_08588284
+extern u16 gUnknown_0858829C[];
+extern u16 gUnknown_0858849C[];
+extern u16 gUnknown_0858869C[];
+extern u16 gUnknown_0858889C[];
+extern u16 gUnknown_08588A9C[];
+extern u16 gUnknown_08588C9C[];
+extern u16 gUnknown_08588E9C[];
+extern u16 gUnknown_0858909C[];
+extern u16 gUnknown_0858929C[];
+extern u16 gUnknown_0858949C[];
+extern u16 gUnknown_0858969C[];
+extern u16 gUnknown_0858989C[];
+extern u16 gUnknown_08589A9C[];
 extern struct Glyph *gUnknown_0858C7EC[];
 extern struct Glyph *gUnknown_0858F6F4[];
 extern struct Glyph *gUnknown_08590B44[];

@@ -51,7 +51,7 @@ MAKEDEP = mkdir -p $(DEPS_DIR)/$(dir $*) && $(CPP) $(CPPFLAGS) $< -MM -MG -MT $*
 -include $(addprefix $(DEPS_DIR)/,$(CFILES:.c=.d))
 
 $(DEPS_DIR)/%.d: %.c
-	$(MAKEDEP)
+	@$(MAKEDEP)
 
 $(ELF): $(ALL_OBJECTS) $(LDSCRIPT) $(SYM_FILES)
 	$(LD) -T $(LDSCRIPT) -Map $(MAP) $(ALL_OBJECTS) tools/agbcc/lib/libgcc.a tools/agbcc/lib/libc.a -o $@

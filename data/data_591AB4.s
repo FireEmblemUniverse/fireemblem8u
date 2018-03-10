@@ -12076,3 +12076,4 @@ gUnknown_08B19DEC:  @ 0x08B19DEC
 	.global gUnknown_08B19E0C
 gUnknown_08B19E0C:  @ 0x08B19E0C
 	.incbin "baserom.gba", 0xB19E0C, 0x5928
+
