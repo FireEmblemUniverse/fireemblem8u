@@ -66,3 +66,4 @@ tools/agbcc
 *.8bpp
 *.4bpp.h
 *.8bpp.h
+*.lz

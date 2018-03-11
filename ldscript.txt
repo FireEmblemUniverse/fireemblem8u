@@ -52,6 +52,7 @@ SECTIONS
         asm/evtscr.o(.text);
         asm/popup.o(.text);
         asm/evtsub.o(.text);
+        src/hino.o(.text);
         asm/hino.o(.text);
         asm/bm.o(.text);
         asm/bmitem.o(.text);

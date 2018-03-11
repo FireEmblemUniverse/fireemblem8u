@@ -1058,14 +1058,14 @@ void sub_8001F0C(int a, int b, int c, int d, int e)
     gUnknown_030030BC |= (a << 8) | (b << 9) | (c << 10) | (d << 11) | (e << 12);
 }
 
-void sub_8001F48(int a)
+void sub_8001F48(int bkdropOnOff)
 {
-    gLCDControlBuffer.bldcnt.target1_bd_on = a;
+    gLCDControlBuffer.bldcnt.target1_bd_on = bkdropOnOff;
 }
 
-void sub_8001F64(int a)
+void sub_8001F64(int bkdropOnOff)
 {
-    gLCDControlBuffer.bldcnt.target2_bd_on = a;
+    gLCDControlBuffer.bldcnt.target2_bd_on = bkdropOnOff;
 }
 
 void SetDefaultColorEffects(void)

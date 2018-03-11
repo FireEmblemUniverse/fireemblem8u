@@ -46,12 +46,19 @@ clean:
 #### Recipes ####
 
 # Automatic dependency generation
-MAKEDEP = mkdir -p $(DEPS_DIR)/$(dir $*) && $(CPP) $(CPPFLAGS) $< -MM -MG -MT $*.o > $(DEPS_DIR)/$*.d
+# Generate dependency rule for object produced from .c file
+MAKEDEP_C = $(CPP) $(CPPFLAGS) $1 -MM -MG -MT ${1:.c=.o}
+# Generate dependency rule for object produced from .s file (only scans incbins)
+MAKEDEP_ASM = { echo "$(1:.s=.o):" & grep -F '.incbin' "$1" | cut -d \" -f2 | sort -u; } | tr '\n' ' '
 
 -include $(addprefix $(DEPS_DIR)/,$(CFILES:.c=.d))
+-include $(addprefix $(DEPS_DIR)/,$(SFILES:.s=.d))
 
 $(DEPS_DIR)/%.d: %.c
-	@$(MAKEDEP)
+	@mkdir -p $(dir $@) && $(call MAKEDEP_C,$<) > $@
+
+$(DEPS_DIR)/data/%.d: data/%.s
+	@mkdir -p $(dir $@) && $(call MAKEDEP_ASM,$<) > $@
 
 $(ELF): $(ALL_OBJECTS) $(LDSCRIPT) $(SYM_FILES)
 	$(LD) -T $(LDSCRIPT) -Map $(MAP) $(ALL_OBJECTS) tools/agbcc/lib/libgcc.a tools/agbcc/lib/libc.a -o $@
@@ -60,7 +67,6 @@ $(ELF): $(ALL_OBJECTS) $(LDSCRIPT) $(SYM_FILES)
 	$(OBJCOPY) -O binary --pad-to 0x9000000 $< $@
 
 $(C_OBJECTS): %.o: %.c $(DEPS_DIR)/%.d
-	@$(MAKEDEP)
 	$(CPP) $(CPPFLAGS) $< | $(CC1) $(CC1FLAGS) -o $*.s
 	echo '.ALIGN 2, 0' >> $*.s
 	$(AS) $(ASFLAGS) $*.s -o $@
@@ -70,8 +76,11 @@ $(ASM_OBJECTS): %.o: %.s
 
 # Graphics Recipes
 
-%.4bpp: %.png; $(GBAGFX) $< $@
-%.8bpp: %.png; $(GBAGFX) $< $@
+%.4bpp:   %.png; $(GBAGFX) $< $@
+%.8bpp:   %.png; $(GBAGFX) $< $@
+#%.gbapal: %.pal; $(GBAGFX) $< $@
+#%.gbapal: %.png; $(GBAGFX) $< $@
+%.lz:     %;     $(GBAGFX) $< $@
 
 %.4bpp.h: %.4bpp
 	$(BIN2C) $< $(subst .,_,$(notdir $<)) | sed 's/^const //' > $@

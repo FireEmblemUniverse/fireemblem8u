@@ -1,3 +1,5 @@
+.include "proc.inc"
+
     .section .data
 
 	.global gUnknown_08591AB4
@@ -150,19 +152,35 @@ gUnknown_08592530:  @ 0x08592530
 
 	.global gUnknown_08592568
 gUnknown_08592568:  @ 0x08592568
-	.incbin "baserom.gba", 0x592568, 0x18
+	PROC_SLEEP 0
+	PROC_LOOP_ROUTINE sub_80126BC
+	PROC_END
 
 	.global gUnknown_08592580
 gUnknown_08592580:  @ 0x08592580
-	.incbin "baserom.gba", 0x592580, 0x50
+	PROC_SLEEP 1
+	PROC_CALL_ROUTINE sub_8012A2C
+	PROC_LOOP_ROUTINE sub_8012A64
+	PROC_SLEEP 80
+	PROC_LOOP_ROUTINE sub_8012AC0
+	PROC_SLEEP 1
+	PROC_CALL_ROUTINE sub_807E79C
+	PROC_SLEEP 4
+	PROC_CALL_ROUTINE sub_807E7C4
+	PROC_END
 
 	.global gUnknown_085925D0
 gUnknown_085925D0:  @ 0x085925D0
-	.incbin "baserom.gba", 0x5925D0, 0x20
+	PROC_SLEEP 1
+	PROC_CALL_ROUTINE sub_807CE18
+	PROC_WHILE_ROUTINE APProc_Exists
+	PROC_END
 
 	.global gUnknown_085925F0
 gUnknown_085925F0:  @ 0x085925F0
-	.incbin "baserom.gba", 0x5925F0, 0x18
+	PROC_SLEEP 0
+	PROC_LOOP_ROUTINE sub_8012B9C
+	PROC_END
 
 	.global gUnknown_08592608
 gUnknown_08592608:  @ 0x08592608
@@ -8095,11 +8113,11 @@ gUnknown_089B068C:  @ 0x089B068C
 
 	.global gUnknown_089B06AC
 gUnknown_089B06AC:  @ 0x089B06AC
-	.incbin "baserom.gba", 0x9B06AC, 0x54
+	.incbin "graphics/unknown_sparkles.4bpp.lz"
 
 	.global gUnknown_089B0700
 gUnknown_089B0700:  @ 0x089B0700
-	.incbin "baserom.gba", 0x9B0700, 0x20
+	.incbin "graphics/unknown_sparkles.gbapal"
 
 	.global gUnknown_089B0720
 gUnknown_089B0720:  @ 0x089B0720
