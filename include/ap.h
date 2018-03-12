@@ -41,6 +41,6 @@ struct APProc* APProc_Create(const void* apDefinition, int xPos, int yPos, int t
 // ??? APProc_SetParameters(???);
 // ??? APProc_Delete(???);
 // ??? APProc_DeleteAll(???);
-// ??? APProc_Exists(???);
+int APProc_Exists(void);
 
 #endif // GUARD_AP_H

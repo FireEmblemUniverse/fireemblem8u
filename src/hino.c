@@ -19,10 +19,10 @@ struct UnknownProc
 
 struct Struct03000700
 {
-    u32 bf0_00:10;
-    u32 bf0_0A:10;
-    u32 bf0_14:10;
-    u32 filler:2;
+             u32 bf0_00:10;
+             u32 bf0_0A:10;
+             u32 bf0_14:10;
+             u32 filler:2;
     /*0x04*/ u32 bf1_00:10;
              u32 bf1_0A:10;
              u32 bf1_14:10;
@@ -92,7 +92,12 @@ void sub_8012824(void)
     }
 }
 
-extern struct ProcCmd gUnknown_08592568[];
+struct ProcCmd gUnknown_08592568[] =
+{
+    PROC_YIELD,
+    PROC_LOOP_ROUTINE(sub_80126BC),
+    PROC_END,
+};
 
 void sub_8012890(u16 a, u32 b, u16 c, u16 d, u16 e, struct Proc *parent)
 {
@@ -171,12 +176,12 @@ struct UnknownHinoStruct
 struct UnknownProc2
 {
     PROC_HEADER
-    
+
              struct UnknownHinoStruct *unk2C;
     /*0x30*/ int someX;
     /*0x34*/ int someY;
-    u8 filler38[0x48-0x38];
-    s16 unk48;
+             u8 filler38[0x48-0x38];
+             s16 unk48;
 };
 
 void sub_8012A2C(struct UnknownProc2 *proc)
@@ -215,14 +220,26 @@ struct Struct0202BCB0
 
 extern struct Struct0202BCB0 gUnknown_0202BCB0;
 
-extern struct ProcCmd gUnknown_08592580[];
+struct ProcCmd gUnknown_08592580[] =
+{
+    PROC_SLEEP(1),
+    PROC_CALL_ROUTINE(sub_8012A2C),
+    PROC_LOOP_ROUTINE(sub_8012A64),
+    PROC_SLEEP(80),
+    PROC_LOOP_ROUTINE(sub_8012AC0),
+    PROC_SLEEP(1),
+    PROC_CALL_ROUTINE(sub_807E79C),
+    PROC_SLEEP(4),
+    PROC_CALL_ROUTINE(sub_807E7C4),
+    PROC_END,
+};
 
 void sub_8012AE0(struct UnknownHinoStruct *a)
 {
     s16 r4 = a->unk10;
     s16 r5 = a->unk11;
     struct UnknownProc2 *proc = (struct UnknownProc2 *)Proc_Create(gUnknown_08592580, ROOT_PROC_3);
-    
+
     proc->someX = r4 * 16 - gUnknown_0202BCB0.unkC + 8;
     proc->someY = r5 * 16 - gUnknown_0202BCB0.unkE;
 }
@@ -232,12 +249,18 @@ int sub_8012B24(void)
     return (Proc_Find(gUnknown_08592580) != NULL);
 }
 
-extern struct ProcCmd gUnknown_085925D0[];
+struct ProcCmd gUnknown_085925D0[] =
+{
+    PROC_SLEEP(1),
+    PROC_CALL_ROUTINE(sub_807CE18),
+    PROC_WHILE_ROUTINE(APProc_Exists),
+    PROC_END,
+};
 
 void sub_8012B3C(struct UnknownHinoStruct *a)
 {
     struct UnknownProc2 *proc = (struct UnknownProc2 *)Proc_Create(gUnknown_085925D0, ROOT_PROC_3);
-    
+
     proc->unk2C = a;
     proc->someX = ((a->unk10 - (gUnknown_0202BCB0.unkC >> 4)) * 2 + 1) * 8;
     proc->someY = ((a->unk11 - (gUnknown_0202BCB0.unkE >> 4)) * 2 + 1) * 8;
@@ -251,7 +274,7 @@ int sub_8012B84(void)
 struct UnknownProc3
 {
     PROC_HEADER
-    
+
     u8 unk29;
     u8 unk2A;
 };
@@ -288,12 +311,17 @@ void sub_8012B9C(struct UnknownProc3 *proc)
     }
 }
 
-extern struct ProcCmd gUnknown_085925F0[];
+struct ProcCmd gUnknown_085925F0[] =
+{
+    PROC_YIELD,
+    PROC_LOOP_ROUTINE(sub_8012B9C),
+    PROC_END,
+};
 
 void sub_8012C34(u8 a, u8 b, u8 c)
 {
     struct UnknownProc3 *proc = (struct UnknownProc3 *)Proc_Find(gUnknown_085925F0);
-    
+
     if (proc == NULL)
     {
         if (c == 1 && !gUnknown_0202BCF0.unk41_2)
@@ -307,7 +335,7 @@ void sub_8012C34(u8 a, u8 b, u8 c)
 void sub_8012C88(void)
 {
     struct UnknownProc3 *proc = (struct UnknownProc3 *)Proc_Find(gUnknown_085925F0);
-    
+
     if (proc != NULL)
     {
         switch (proc->unk29)
@@ -340,7 +368,7 @@ void sub_8012CFC(struct UnknownHinoStruct *a, struct Proc *parent)
     int r2;
     int r3;
     register struct Proc *proc asm("r6") = parent;
-    
+
     asm(""::"r"(proc));
     proc = Proc_CreateBlockingChild(gUnknown_08592608, parent);
 
@@ -348,26 +376,26 @@ void sub_8012CFC(struct UnknownHinoStruct *a, struct Proc *parent)
     gLCDControlBuffer.bg1cnt.priority = 1;
     gLCDControlBuffer.bg2cnt.priority = 0;
     gLCDControlBuffer.bg3cnt.priority = 3;
-    
+
     SetSpecialColorEffectsParameters(1, 16, 16, 0);
-    
+
     sub_8001ED0(0, 0, 1, 0, 0);
     sub_8001F0C(0, 0, 0, 1, 1);
-    
+
     r2 = (a->unk10 * 16) - (u16)gUnknown_0202BCB0.unkC - 16;
     r3 = (a->unk11 * 16) - (u16)gUnknown_0202BCB0.unkE - 24;
     sub_80AE7C4(gUnknown_08592628, 2, r2, r3, 0, 0x2000, 15, 0, proc);
-        
+
     if (!gUnknown_0202BCF0.unk41_2)
         m4aSongNumStart(0x2D6);
 }
 
-/*
+#if NONMATCHING
 int sub_8012DCC(int a, int b, int c, int d, int e)
 {
     int var1;
     int var2;
-    
+
     if (e == 0)
         return c;
     switch (a)
@@ -399,4 +427,348 @@ int sub_8012DCC(int a, int b, int c, int d, int e)
     }
     return 0;
 }
+#else
+__attribute__((naked))
+int sub_8012DCC(int a, int b, int c, int d, int e)
+{
+    asm(".syntax unified\n\
+        push {r4, r5, r6, lr}\n\
+        adds r6, r1, #0\n\
+        ldr r5, [sp, #0x10]\n\
+        cmp r5, #0\n\
+        bne _08012DDA\n\
+        adds r0, r2, #0\n\
+        b _08012E8E\n\
+_08012DDA:\n\
+        cmp r0, #5\n\
+        bhi _08012E8C\n\
+        lsls r0, r0, #2\n\
+        ldr r1, _08012DE8  @ _08012DEC\n\
+        adds r0, r0, r1\n\
+        ldr r0, [r0]\n\
+        mov pc, r0\n\
+        .align 2, 0\n\
+_08012DE8: .4byte _08012DEC\n\
+_08012DEC: @ jump table\n\
+        .4byte _08012E04 @ case 0\n\
+        .4byte _08012E10 @ case 1\n\
+        .4byte _08012E20 @ case 2\n\
+        .4byte _08012E34 @ case 3\n\
+        .4byte _08012E58 @ case 4\n\
+        .4byte _08012E6A @ case 5\n\
+_08012E04:\n\
+        subs r0, r2, r6\n\
+        adds r2, r0, #0\n\
+        muls r2, r3, r2\n\
+        adds r0, r2, #0\n\
+        adds r1, r5, #0\n\
+        b _08012E50\n\
+_08012E10:\n\
+        adds r0, r3, #0\n\
+        muls r0, r3, r0\n\
+        subs r1, r2, r6\n\
+        adds r2, r0, #0\n\
+        muls r2, r1, r2\n\
+        adds r1, r5, #0\n\
+        muls r1, r5, r1\n\
+        b _08012E4E\n\
+_08012E20:\n\
+        adds r0, r3, #0\n\
+        muls r0, r3, r0\n\
+        adds r1, r0, #0\n\
+        muls r1, r3, r1\n\
+        subs r0, r2, r6\n\
+        adds r2, r1, #0\n\
+        muls r2, r0, r2\n\
+        adds r0, r5, #0\n\
+        muls r0, r5, r0\n\
+        b _08012E4A\n\
+_08012E34:\n\
+        adds r0, r3, #0\n\
+        muls r0, r3, r0\n\
+        muls r0, r3, r0\n\
+        adds r1, r0, #0\n\
+        muls r1, r3, r1\n\
+        subs r0, r2, r6\n\
+        adds r2, r1, #0\n\
+        muls r2, r0, r2\n\
+        adds r0, r5, #0\n\
+        muls r0, r5, r0\n\
+        muls r0, r5, r0\n\
+_08012E4A:\n\
+        adds r1, r0, #0\n\
+        muls r1, r5, r1\n\
+_08012E4E:\n\
+        adds r0, r2, #0\n\
+_08012E50:\n\
+        bl Div\n\
+        adds r0, r6, r0\n\
+        b _08012E8E\n\
+_08012E58:\n\
+        subs r1, r5, r3\n\
+        adds r0, r1, #0\n\
+        muls r0, r1, r0\n\
+        subs r4, r2, r6\n\
+        adds r2, r0, #0\n\
+        muls r2, r4, r2\n\
+        adds r1, r5, #0\n\
+        muls r1, r5, r1\n\
+        b _08012E80\n\
+_08012E6A:\n\
+        subs r1, r5, r3\n\
+        adds r0, r1, #0\n\
+        muls r0, r1, r0\n\
+        muls r0, r1, r0\n\
+        subs r4, r2, r6\n\
+        adds r2, r0, #0\n\
+        muls r2, r4, r2\n\
+        adds r0, r5, #0\n\
+        muls r0, r5, r0\n\
+        adds r1, r0, #0\n\
+        muls r1, r5, r1\n\
+_08012E80:\n\
+        adds r0, r2, #0\n\
+        bl Div\n\
+        adds r4, r6, r4\n\
+        subs r0, r4, r0\n\
+        b _08012E8E\n\
+_08012E8C:\n\
+        movs r0, #0\n\
+_08012E8E:\n\
+        pop {r4, r5, r6}\n\
+        pop {r1}\n\
+        bx r1\n\
+    .syntax divided");
+}
+#endif
+
+void sub_8012E94(void)
+{
+}
+
+int sub_8012E98(u8 *a, u8 *b)
+{
+    while ((*a | *b) != 0)
+    {
+        if (*a++ != *b++)
+            return 0;
+    }
+    return 1;
+}
+
+void CopyString(char *dest, char *src)
+{
+    while (*src != 0)
+        *dest++ = *src++;
+    *dest = *src;
+}
+
+void CopyDirect(u32 *src, u32 *dest)
+{
+    int var2 = FilterR0ForRawCopy(src) - 4;
+
+    if (var2 & 0x1F)
+        CpuCopy16(src + 1, dest, var2);
+    else
+        CpuFastCopy(src + 1, dest, var2);
+}
+
+void sub_8012F20(void *src, void *dest)
+{
+    LZ77UnCompWram(src, gUnknown_02020188);
+    CpuFastCopy(gUnknown_02020188, dest, FilterR0ForRawCopy(src));
+}
+
+extern void (*gUnknown_08599FB4[])();
+
+void CopyDataWithPossibleUncomp(void *src, void *dest)
+{
+    int r5;
+
+    if ((uintptr_t)dest - VRAM < VRAM_SIZE)
+        r5 = 0;
+    else
+        r5 = 1;
+    gUnknown_08599FB4[r5 + ((*(u8 *)src & 0xF0) >> 3)](src, dest);
+}
+
+struct UnknownHinoStruct2
+{
+    u8 *unk0;
+    int unk4;
+};
+
+int FilterR0ForRawCopy(u32 *a)
+{
+    return *a >> 8;
+}
+
+void sub_8012F98(u32 *a, int b, int c)
+{
+    a[0] = c;
+    b = (b & 0xFFE0) >> 5;
+    c = (c & 0xFFE0) >> 5;
+    a[1] = c - b;
+}
+
+int sub_8012FB0(struct UnknownHinoStruct2 *a, u32 *b)
+{
+    int var1;
+    int var2;
+
+    CopyDataWithPossibleUncomp(b, (void *)a->unk0);
+    var1 = FilterR0ForRawCopy(b);
+    a->unk0 += var1;
+    var2 = a->unk4;
+    a->unk4 += var1 / 32;
+    return var2;
+}
+
+int sub_8012FE0(struct UnknownHinoStruct2 *a, int b)
+{
+    int var;
+
+    a->unk0 += b * 32;
+    var = a->unk4;
+    a->unk4 += b;
+    return var;
+}
+
+void RegisterObjectTileGraphics(const u8* src, u8* dest, int width, int height)
+{
+    int i;
+    int srcRowSize = width * 32;
+
+    for (i = 0; i < height; i++)
+    {
+        RegisterTileGraphics(src, dest, srcRowSize);
+        src += srcRowSize;
+        dest += 0x400;
+    }
+}
+
+void CopyTileGfxForObj(u8 *src, u8 *dest, int width, int height)
+{
+    int i;
+    int srcRowSize = width * 32;
+
+    for (i = 0; i < height; i++)
+    {
+        CpuFastCopy(src, dest, srcRowSize);
+        src += srcRowSize;
+        dest += 0x400;
+    }
+}
+
+void sub_8013058(u8 *src, u8 *dest, int width, int height)
+{
+    int i;
+
+    for (i = 0; i < height; i++)
+    {
+        sub_8013094(src, dest, width);
+        src += width * 64;
+        dest += width * 32;
+    }
+}
+
+void sub_8013094(u8 *src, u8 *dest, int width)
+{
+    int i;
+
+    for (i = 0; i < width; i++)
+    {
+        sub_80130BC(src, dest, width);
+        src += 8;
+        dest += 32;
+    }
+}
+
+void sub_80130BC(u8 *src, u8 *dest, int width)
+{
+    int i;
+
+    for (i = 0; i < 8; i++)
+    {
+        u32 val = src[7];
+        val = (val << 4) | src[6];
+        val = (val << 4) | src[5];
+        val = (val << 4) | src[4];
+        val = (val << 4) | src[3];
+        val = (val << 4) | src[2];
+        val = (val << 4) | src[1];
+        val = (val << 4) | src[0];
+
+        *(u32 *)dest = val;
+        dest += 4;
+        src += width * 8;
+    }
+}
+
+void sub_8013104(u16 *dest, int tileNum, int width, int height)
+{
+    int x;
+    int y;
+
+    for (y = 0; y < height; y++)
+    {
+        for (x = 0; x < width; x++)
+        {
+            dest[y * 32 + x] = tileNum;
+            tileNum++;
+        }
+    }
+}
+
+void sub_8013138(u16 *dest, u8 *b, int c, int size)
+{
+    int i;
+
+    for (i = 0; i < size; i++)
+        dest[-i] = 0;
+    while (*b != 0x20)
+    {
+        *dest = *b + c - 0x30;
+        dest--;
+        b--;
+    }
+}
+
+/*
+void sub_8013138(u16 *dest, u8 *b, int c, int size)
+{
+    int i;
+    u16 *ptr = dest;
+
+    for (i = 0; i < size; i++)
+        *ptr-- = 0;
+    while (*b != 0x20)
+    {
+        *dest = *b + c - 0x30;
+        dest--;
+        b--;
+    }
+}
 */
+
+void sub_8013168(u16 *dest, u8 *b, int c, int size, int e)
+{
+    int i;
+
+    for (i = 0; i < size; i++)
+        dest[-i] = 0;
+    if (e != 0)
+    {
+        *dest-- = c + 10;
+        *dest-- = c + 10;
+    }
+    else
+    {
+        while (*b != 0x20)
+        {
+            *dest = *b + c - 0x30;
+            dest--;
+            b--;
+        }
+    }
+}
