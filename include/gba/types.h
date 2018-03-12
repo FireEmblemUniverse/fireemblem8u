@@ -72,6 +72,7 @@ struct BgCnt
 
 struct WinCnt
 {
+    // WININ
     u8  win0_bg0_on:1;
     u8  win0_bg1_on:1;
     u8  win0_bg2_on:1;
@@ -87,6 +88,23 @@ struct WinCnt
     u8  win1_obj_on:1;
     u8  win1_blend_on:1;
     u8  dummy2:2;
+
+    // WINOUT
+    u8 winout_bg0_on:1;
+    u8 winout_bg1_on:1;
+    u8 winout_bg2_on:1;
+    u8 winout_bg3_on:1;
+    u8 winout_obj_on:1;
+    u8 winout_blend_on:1;
+    u8 dummy3:2;
+
+    u8 objwin_bg0_on:1;
+    u8 objwin_bg1_on:1;
+    u8 objwin_bg2_on:1;
+    u8 objwin_bg3_on:1;
+    u8 objwin_obj_on:1;
+    u8 objwin_blend_on:1;
+    u8 dummy4:2;
 };
 
 struct BlendCnt

@@ -1,49 +1,6 @@
 #ifndef GUARD_TYPES_H
 #define GUARD_TYPES_H
 
-struct BgCoords
-{
-    u16 x;
-    u16 y;
-};
-
-struct Struct03003080
-{
-    /*0x00*/ struct DispCnt dispcnt;
-    /*0x04*/ struct DispStat dispstat;
-    /*0x08*/ u8 filler8[4];
-    /*0x0C*/ struct BgCnt bg0cnt;
-    /*0x10*/ struct BgCnt bg1cnt;
-    /*0x14*/ struct BgCnt bg2cnt;
-    /*0x18*/ struct BgCnt bg3cnt;
-    /*0x1C*/ struct BgCoords bgoffset[4];
-    /*0x2C*/ u16 win0h;
-    /*0x2C*/ u16 win1h;
-    /*0x30*/ u16 win0v;
-    /*0x30*/ u16 win1v;
-    /*0x34*/ struct WinCnt wincnt;
-    /*0x38*/ u16 mosaic;
-             u8 filler3A[2];
-    /*0x3C*/ struct BlendCnt bldcnt;
-    /*0x40*/ u8 filler40[4];
-    /*0x44*/ u8 blendCoeffA;
-    /*0x45*/ u8 blendCoeffB;
-    /*0x46*/ u8 blendY;
-    /*0x48*/ u16 bg2pa;
-    /*0x4A*/ u16 bg2pb;
-    /*0x4C*/ u16 bg2pc;
-    /*0x4E*/ u16 bg2pd;
-    /*0x50*/ u32 bg2x;
-    /*0x54*/ u32 bg2y;
-    /*0x58*/ u16 bg3pa;
-    /*0x5A*/ u16 bg3pb;
-    /*0x5C*/ u16 bg3pc;
-    /*0x5E*/ u16 bg3pd;
-    /*0x60*/ u32 bg3x;
-    /*0x64*/ u32 bg3y;
-    /*0x68*/ s8 colorAddition;
-};
-
 struct Struct0858791C
 {
     u8 filler0[4];
@@ -52,7 +9,7 @@ struct Struct0858791C
 
 struct TileDataTransfer
 {
-    void *src;
+    const void *src;
     void *dest;
     u16 size;
     u16 mode;
@@ -120,6 +77,7 @@ struct Struct0202BCF0 // Chapter Data Struct
 
     u8  unk40; // option byte 1 (of 3)
     u32 unk41_1:1;
+    u32 unk41_2:1;
 };
 
 struct TextBuffer0202A6AC

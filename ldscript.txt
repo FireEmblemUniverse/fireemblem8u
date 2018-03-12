@@ -52,6 +52,7 @@ SECTIONS
         asm/evtscr.o(.text);
         asm/popup.o(.text);
         asm/evtsub.o(.text);
+        src/hino.o(.text);
         asm/hino.o(.text);
         asm/bm.o(.text);
         asm/bmitem.o(.text);
@@ -147,6 +148,8 @@ SECTIONS
         . = ALIGN(4); data/data_587A40.o(.data);
         . = ALIGN(4); src/messdecode.o(.data);
         . = ALIGN(4); data/data_591AB4.o(.data);
+        . = ALIGN(4); src/hino.o(.data);
+        . = ALIGN(4); data/hino_data.o(.data);
         . = ALIGN(4); tools/agbcc/lib/libc.a:impure.o(.data);
         . = ALIGN(4); tools/agbcc/lib/libc.a:locale.o(.data);
         . = ALIGN(4); tools/agbcc/lib/libc.a:mallocr.o(.data);

@@ -1058,14 +1058,14 @@ void sub_8001F0C(int a, int b, int c, int d, int e)
     gUnknown_030030BC |= (a << 8) | (b << 9) | (c << 10) | (d << 11) | (e << 12);
 }
 
-void sub_8001F48(int a)
+void sub_8001F48(int bkdropOnOff)
 {
-    gLCDControlBuffer.bldcnt.target1_bd_on = a;
+    gLCDControlBuffer.bldcnt.target1_bd_on = bkdropOnOff;
 }
 
-void sub_8001F64(int a)
+void sub_8001F64(int bkdropOnOff)
 {
-    gLCDControlBuffer.bldcnt.target2_bd_on = a;
+    gLCDControlBuffer.bldcnt.target2_bd_on = bkdropOnOff;
 }
 
 void SetDefaultColorEffects(void)
@@ -1117,7 +1117,7 @@ void ClearTileRigistry(void)
     gUnknown_02024CDC[0].src = 0;
 }
 
-void RegisterTileGraphics(void *a, void *b, int c)
+void RegisterTileGraphics(const void *a, void *b, int c)
 {
     struct TileDataTransfer *ptr = &gUnknown_02024CDC[gUnknown_02024CD4.unk0];
 

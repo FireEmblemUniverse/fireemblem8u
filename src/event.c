@@ -1,4 +1,5 @@
 #include "global.h"
+#include "hardware.h"
 #include "proc.h"
 #include "fontgrp.h"
 #include "event.h"
