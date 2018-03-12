@@ -57,6 +57,25 @@ enum EventStateFlags {
     // I don't think there's more, but I could be wrong
 };
 
+enum EventCommandReturnCode {
+    EVC_ADVANCE_CONTINUE = 0,
+    EVC_STOP_CONTINUE    = 1,
+
+    EVC_ADVANCE_YIELD    = 2,
+    EVC_STOP_YIELD       = 3,
+    
+    EVC_UNK4             = 4,
+    EVC_END              = 5,
+    EVC_ERROR            = 6
+};
+
+#define EVENT_SLOT_COUNT 0xE
+
+extern unsigned gEventSlots[EVENT_SLOT_COUNT]; // event slot values (Null (0), Vars (1-A) + Position (B) + Check (C) + QP (D))
+extern unsigned gEventSlotQueue[]; // event slot queue (just an array)
+
+extern unsigned gEventSlotCounter;
+
 // This will probably be used in evtcmd_gmap/evtscr for defining the event code handler arrays or something
 typedef u8(*EventFuncType)(struct EventEngineProc*);
 
@@ -91,8 +110,8 @@ struct EventEngineProc* EventEngine_Create(const u16* events, u8 idk);
 // ??? GetEventTriggerState(???);
 // ??? sub_800D4D4(???);
 // ??? sub_800D524(???);
-// ??? SlotQueuePush(???);
-// ??? SlotQueuePop(???);
+void     SlotQueuePush(unsigned value);
+unsigned SlotQueuePop(void);
 // ??? SetEventSlotCounter(???);
 // ??? GetEventSlotCounter(???);
 

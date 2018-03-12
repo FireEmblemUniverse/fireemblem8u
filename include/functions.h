@@ -5139,9 +5139,9 @@ void ClearMOVEUNITs(void); // mu
 // ??? sub_8083D18(???);
 // ??? sub_8083D34(???);
 // ??? CheckGlobalEventId(???);
-void SetEventId(u16);
-void UnsetEventId(u16);
-bool8 CheckEventId(u16);
+void SetEventId(int);
+void UnsetEventId(int);
+s8   CheckEventId(int);
 // ??? GetGlobalEventIdStorage(???);
 // ??? GetGlobalEventIdStorageSize(???);
 // ??? GetLocalEventIdStorage(???);
