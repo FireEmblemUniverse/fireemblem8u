@@ -32,7 +32,7 @@ SECTIONS
         src/fe3_dummy.o(.text);
         src/irq.o(.text);
         src/rng.o(.text);
-        asm/time.o(.text);
+        src/time.o(.text);
         src/hardware.o(.text);
         src/dma.o(.text);
         src/soundwrapper.o(.text);

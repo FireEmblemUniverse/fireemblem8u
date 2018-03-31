@@ -91,13 +91,13 @@ _0801B9E8: .4byte gUnknown_03004BB0
 sub_801B9EC: @ 0x0801B9EC
 	push {r4, lr}
 	sub sp, #8
-	bl sub_8000D28
+	bl GetGameClock
 	mov r2, sp
 	adds r2, #2
 	add r4, sp, #4
 	mov r1, sp
 	adds r3, r4, #0
-	bl sub_8000D64
+	bl ComputeDisplayTime
 	ldrh r1, [r4]
 	movs r0, #1
 	ands r0, r1
@@ -116,13 +116,13 @@ _0801BA10:
 sub_801BA1C: @ 0x0801BA1C
 	push {r4, lr}
 	sub sp, #8
-	bl sub_8000D28
+	bl GetGameClock
 	mov r2, sp
 	adds r2, #2
 	add r4, sp, #4
 	mov r1, sp
 	adds r3, r4, #0
-	bl sub_8000D64
+	bl ComputeDisplayTime
 	ldrh r1, [r4]
 	movs r0, #1
 	ands r0, r1

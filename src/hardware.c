@@ -936,7 +936,7 @@ s8 ShouldSkipHSScreen(void)
 
 void SoftResetIfKeyComboPressed(void)
 {
-    if (sub_8000D18() != 0)
+    if ((u8)sub_8000D18() != 0)
     {
         if (gKeyStatusPtr->heldKeys == (L_BUTTON | R_BUTTON | A_BUTTON | B_BUTTON))
             SoftReset(0);

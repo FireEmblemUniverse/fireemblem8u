@@ -818,7 +818,7 @@ _0801C1D8: .4byte gPaletteBuffer
 	THUMB_FUNC_START sub_801C1DC
 sub_801C1DC: @ 0x0801C1DC
 	push {lr}
-	bl sub_8000D28
+	bl GetGameClock
 	bl InitRN
 	bl ClearUnits
 	movs r3, #1
@@ -868,7 +868,7 @@ sub_801C224: @ 0x0801C224
 sub_801C248: @ 0x0801C248
 	push {r4, lr}
 	adds r4, r1, #0
-	bl sub_8000D28
+	bl GetGameClock
 	bl InitRN
 	bl ClearUnits
 	ldr r0, _0801C278  @ gKeyStatusPtr

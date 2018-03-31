@@ -3138,7 +3138,7 @@ _08006D40:
 	adds r4, r0, #0
 	cmp r4, #1
 	bne _08006D54
-	bl sub_8000D28
+	bl GetGameClock
 	ands r0, r4
 	cmp r0, #0
 	beq _08006D7E
@@ -4936,7 +4936,7 @@ sub_8007C4C: @ 0x08007C4C
 	push {r4, r5, lr}
 	sub sp, #4
 	adds r5, r0, #0
-	bl sub_8000D28
+	bl GetGameClock
 	lsrs r4, r0, #1
 	movs r0, #0xf
 	ands r4, r0

@@ -27,11 +27,11 @@ void SetIRQHandler(int index, void *irq);
 
 // ??? sub_8000D00(???);
 void sub_8000D0C();
-u8 sub_8000D18(void);
-u32 sub_8000D28(void);
-// ??? SetGlobalClock(???);
-// ??? IncrementGlobalClock(???);
-u8 sub_8000D64();
+int sub_8000D18(void);
+u32 GetGameClock(void);
+// ??? SetGameClock(???);
+// ??? IncrementGameClock(???);
+u8 ComputeDisplayTime();
 
 void StoreRoutinesToIRAM();
 void CallARM_Func3();

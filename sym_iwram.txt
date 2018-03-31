@@ -6,7 +6,7 @@
 . = 0x00000E; sModifiedPalette = .;
 . = 0x000010; gUnknown_03000010 = .;
 
-. = 0x000014; gUnknown_03000014 = .;
+. = 0x000014; gGameClock = .;
 . = 0x000018; gUnknown_03000018 = .;
 . = 0x000019; gUnknown_03000019 = .;
 . = 0x00001A; gUnknown_0300001A = .;

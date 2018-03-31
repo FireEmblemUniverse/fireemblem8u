@@ -636,7 +636,7 @@ _08012B98: .4byte gUnknown_085925D0
 sub_8012B9C: @ 0x08012B9C
 	push {r4, lr}
 	adds r4, r0, #0
-	bl sub_8000D28
+	bl GetGameClock
 	movs r1, #1
 	ands r1, r0
 	cmp r1, #0
@@ -688,7 +688,7 @@ _08012BF0:
 	beq _08012C18
 	b _08012C2E
 _08012C00:
-	bl sub_8000D28
+	bl GetGameClock
 	adds r1, r0, #0
 	movs r0, #2
 	ands r1, r0
@@ -699,7 +699,7 @@ _08012C00:
 	bl BG_SetPosition
 	b _08012C2E
 _08012C18:
-	bl sub_8000D28
+	bl GetGameClock
 	adds r2, r0, #0
 	movs r0, #2
 	ands r2, r0
@@ -6042,7 +6042,7 @@ GeneralVBlankHandler: @ 0x080152A4
 	ldr r1, _080152E8  @ gUnknown_03007FF8
 	movs r0, #1
 	strh r0, [r1]
-	bl IncrementGlobalClock
+	bl IncrementGameClock
 	bl m4aSoundVSync
 	ldr r0, _080152EC  @ gRootProcesses
 	ldr r0, [r0]
