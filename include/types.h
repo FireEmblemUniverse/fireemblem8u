@@ -118,7 +118,8 @@ struct Struct0202BCF0 // Chapter Data Struct
 
     char playerName[0x40 - 0x20]; // unused outside of arena (was tactician name in FE7); Size unknown
 
-    u8  unk40; // option byte 1 (of 3)
+    u8  unk40:7; // option byte 1 (of 3)
+    u8  unk40_8:1;
     u32 unk41_1:1;
 };
 
