@@ -1382,4 +1382,242 @@ _0801C62E:
 	.align 2, 0
 _0801C638: .4byte 0xFFFFFE7F
 
+	THUMB_FUNC_START sub_801C63C
+sub_801C63C: @ 0x0801C63C
+	push {lr}
+	ldr r0, _0801C64C  @ gUnknown_0859AA84
+	movs r1, #3
+	bl Proc_Create
+	movs r0, #0x17
+	pop {r1}
+	bx r1
+	.align 2, 0
+_0801C64C: .4byte gUnknown_0859AA84
+
+	THUMB_FUNC_START sub_801C650
+sub_801C650: @ 0x0801C650
+	ldr r1, _0801C658  @ gUnknown_0859AA9C
+	adds r0, r0, r1
+	ldrb r0, [r0]
+	bx lr
+	.align 2, 0
+_0801C658: .4byte gUnknown_0859AA9C
+
+	THUMB_FUNC_START sub_801C65C
+sub_801C65C: @ 0x0801C65C
+	push {r4, r5, r6, r7, lr}
+	mov r7, sl
+	mov r6, r9
+	mov r5, r8
+	push {r5, r6, r7}
+	sub sp, #0x10
+	adds r3, r0, #0
+	adds r7, r1, #0
+	adds r4, r2, #0
+	mov r1, sp
+	ldr r0, _0801C6A0  @ gUnknown_080D7AB4
+	ldm r0!, {r2, r5, r6}
+	stm r1!, {r2, r5, r6}
+	ldr r0, [r0]
+	str r0, [r1]
+	ldr r0, _0801C6A4  @ gKeyStatusPtr
+	ldr r0, [r0]
+	ldrh r1, [r0, #6]
+	movs r0, #0x10
+	ands r0, r1
+	cmp r0, #0
+	beq _0801C6A8
+	adds r1, r3, #0
+	adds r1, #0x3c
+	ldrb r0, [r1]
+	adds r0, #1
+	strb r0, [r1]
+	lsls r0, r0, #0x18
+	lsrs r0, r0, #0x18
+	cmp r0, #0x3b
+	bls _0801C6C4
+	movs r0, #0
+	b _0801C6C2
+	.align 2, 0
+_0801C6A0: .4byte gUnknown_080D7AB4
+_0801C6A4: .4byte gKeyStatusPtr
+_0801C6A8:
+	movs r0, #0x20
+	ands r0, r1
+	adds r1, r3, #0
+	adds r1, #0x3c
+	cmp r0, #0
+	beq _0801C6C4
+	ldrb r0, [r1]
+	subs r0, #1
+	strb r0, [r1]
+	lsls r0, r0, #0x18
+	cmp r0, #0
+	bge _0801C6C4
+	movs r0, #0x3b
+_0801C6C2:
+	strb r0, [r1]
+_0801C6C4:
+	movs r0, #0
+	ldrsb r0, [r1, r0]
+	bl sub_801C650
+	lsls r0, r0, #0x18
+	lsrs r2, r0, #0x18
+	cmp r2, #0x3e
+	bls _0801C6D6
+	b _0801C7F8
+_0801C6D6:
+	lsls r0, r2, #2
+	ldr r1, _0801C6E0  @ _0801C6E4
+	adds r0, r0, r1
+	ldr r0, [r0]
+	mov pc, r0
+	.align 2, 0
+_0801C6E0: .4byte _0801C6E4
+_0801C6E4: @ jump table
+	.4byte _0801C7E0 @ case 0
+	.4byte _0801C7E0 @ case 1
+	.4byte _0801C7E0 @ case 2
+	.4byte _0801C7E0 @ case 3
+	.4byte _0801C7E0 @ case 4
+	.4byte _0801C7E0 @ case 5
+	.4byte _0801C7E0 @ case 6
+	.4byte _0801C7E0 @ case 7
+	.4byte _0801C7E0 @ case 8
+	.4byte _0801C7E0 @ case 9
+	.4byte _0801C818 @ case 10
+	.4byte _0801C818 @ case 11
+	.4byte _0801C818 @ case 12
+	.4byte _0801C818 @ case 13
+	.4byte _0801C818 @ case 14
+	.4byte _0801C818 @ case 15
+	.4byte _0801C818 @ case 16
+	.4byte _0801C818 @ case 17
+	.4byte _0801C818 @ case 18
+	.4byte _0801C818 @ case 19
+	.4byte _0801C818 @ case 20
+	.4byte _0801C818 @ case 21
+	.4byte _0801C818 @ case 22
+	.4byte _0801C7EC @ case 23
+	.4byte _0801C7EC @ case 24
+	.4byte _0801C7EC @ case 25
+	.4byte _0801C7EC @ case 26
+	.4byte _0801C7EC @ case 27
+	.4byte _0801C7EC @ case 28
+	.4byte _0801C7EC @ case 29
+	.4byte _0801C7EC @ case 30
+	.4byte _0801C7EC @ case 31
+	.4byte _0801C7EC @ case 32
+	.4byte _0801C7EC @ case 33
+	.4byte _0801C7EC @ case 34
+	.4byte _0801C7EC @ case 35
+	.4byte _0801C7F8 @ case 36
+	.4byte _0801C7F8 @ case 37
+	.4byte _0801C7F8 @ case 38
+	.4byte _0801C7F8 @ case 39
+	.4byte _0801C7F8 @ case 40
+	.4byte _0801C7F8 @ case 41
+	.4byte _0801C7F8 @ case 42
+	.4byte _0801C7F8 @ case 43
+	.4byte _0801C7F8 @ case 44
+	.4byte _0801C7F8 @ case 45
+	.4byte _0801C7F8 @ case 46
+	.4byte _0801C7F8 @ case 47
+	.4byte _0801C7F8 @ case 48
+	.4byte _0801C7F8 @ case 49
+	.4byte _0801C7F8 @ case 50
+	.4byte _0801C7F8 @ case 51
+	.4byte _0801C7F8 @ case 52
+	.4byte _0801C7F8 @ case 53
+	.4byte _0801C7F8 @ case 54
+	.4byte _0801C7F8 @ case 55
+	.4byte _0801C7F8 @ case 56
+	.4byte _0801C7F8 @ case 57
+	.4byte _0801C7F8 @ case 58
+	.4byte _0801C7F8 @ case 59
+	.4byte _0801C7F8 @ case 60
+	.4byte _0801C818 @ case 61
+	.4byte _0801C7EC @ case 62
+_0801C7E0:
+	ldr r1, _0801C7E8  @ gUnknown_03001780
+	movs r0, #1
+	b _0801C81C
+	.align 2, 0
+_0801C7E8: .4byte gUnknown_03001780
+_0801C7EC:
+	ldr r1, _0801C7F4  @ gUnknown_03001780
+	movs r0, #3
+	b _0801C81C
+	.align 2, 0
+_0801C7F4: .4byte gUnknown_03001780
+_0801C7F8:
+	ldr r0, _0801C810  @ gKeyStatusPtr
+	ldr r0, [r0]
+	ldrh r1, [r0, #4]
+	movs r0, #0x80
+	lsls r0, r0, #1
+	ands r0, r1
+	cmp r0, #0
+	beq _0801C818
+	ldr r1, _0801C814  @ gUnknown_03001780
+	movs r0, #3
+	b _0801C81C
+	.align 2, 0
+_0801C810: .4byte gKeyStatusPtr
+_0801C814: .4byte gUnknown_03001780
+_0801C818:
+	ldr r1, _0801C888  @ gUnknown_03001780
+	movs r0, #2
+_0801C81C:
+	strb r0, [r1]
+	adds r0, r2, #0
+	bl GetROMChapterStruct
+	ldr r0, [r0]
+	mov sl, r0
+	ldr r0, _0801C888  @ gUnknown_03001780
+	ldrb r0, [r0]
+	lsls r0, r0, #2
+	add r0, sp
+	ldr r0, [r0]
+	mov r9, r0
+	lsls r5, r4, #5
+	adds r5, r5, r7
+	lsls r5, r5, #1
+	ldr r6, _0801C88C  @ gBG0TilemapBuffer
+	adds r5, r5, r6
+	ldr r0, _0801C890  @ gUnknown_080D7AC4
+	mov r8, r0
+	adds r0, r5, #0
+	mov r1, r8
+	bl PrintDebugStringToBG
+	adds r4, #1
+	lsls r4, r4, #5
+	adds r4, r4, r7
+	lsls r4, r4, #1
+	adds r4, r4, r6
+	adds r0, r4, #0
+	mov r1, r8
+	bl PrintDebugStringToBG
+	adds r0, r5, #0
+	mov r1, sl
+	bl PrintDebugStringToBG
+	adds r0, r4, #0
+	mov r1, r9
+	bl PrintDebugStringToBG
+	movs r0, #1
+	bl BG_EnableSyncByMask
+	bl EnablePaletteSync
+	add sp, #0x10
+	pop {r3, r4, r5}
+	mov r8, r3
+	mov r9, r4
+	mov sl, r5
+	pop {r4, r5, r6, r7}
+	pop {r0}
+	bx r0
+	.align 2, 0
+_0801C888: .4byte gUnknown_03001780
+_0801C88C: .4byte gBG0TilemapBuffer
+_0801C890: .4byte gUnknown_080D7AC4
+
 	.align 2, 0 @ Don't pad with nop.
