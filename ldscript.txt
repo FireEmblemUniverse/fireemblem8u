@@ -60,6 +60,7 @@ SECTIONS
         asm/bmidoten.o(.text);
         asm/bmdebug.o(.text);
         asm/playerphase.o(.text);
+        asm/koido.o(.text);
         asm/code.o(.text);
         asm/m4a_1.o(.text);
         src/m4a_2.o(.text);
