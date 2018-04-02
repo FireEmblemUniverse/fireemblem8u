@@ -64,6 +64,8 @@ SECTIONS
         asm/bmxfade.o(.text);
         asm/bmcamadjust.o(.text);
         asm/convoymenu.o(.text);
+        asm/code_801E2E0.o(.text);
+        asm/menuitempanel.o(.text);
         asm/code.o(.text);
         asm/m4a_1.o(.text);
         src/m4a_2.o(.text);
