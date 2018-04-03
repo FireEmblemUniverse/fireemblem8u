@@ -121,6 +121,7 @@ struct Struct0202BCF0 // Chapter Data Struct
     u32 unk40:7; // option byte 1 (of 3)
     u32 unk40_8:1;
     u32 unk41_1:1;
+    u32 unk41_2:1;
 };
 
 struct TextBuffer0202A6AC

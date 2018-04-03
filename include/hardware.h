@@ -27,7 +27,7 @@ void ExecMainUpdate();
 void UpdateKeyStatus(struct KeyStatusBuffer *keyStatus);
 // ??? sub_8001414(???);
 void ResetKeyStatus(struct KeyStatusBuffer *keyStatus);
-// ??? SetKeyStatus_IgnoreMask(???);
+void SetKeyStatus_IgnoreMask(int mask);
 // ??? GetKeyStatus_IgnoreMask(???);
 // ??? KeyStatusSetter_Set(???);
 // ??? NewKeyStatusSetter(???);

@@ -644,10 +644,10 @@ void RegisterObjectTileGraphics(const void* source, void* target, int width, int
 // ??? sub_8013C88(???);
 // ??? sub_8013CD0(???);
 // ??? sub_8013CEC(???);
-// void sub_8013D08(int speed, struct Proc* parent); // aka NewFadeInBack
-// ??? sub_8013D20(???);
-// ??? sub_8013D38(???);
-// ??? sub_8013D50(???);
+// void sub_8013D08(int speed, struct Proc* parent); // aka StartFadeInBlack
+// void sub_8013D20(int speed, struct Proc* parent); // aka StartFadeOutBlack
+// void sub_8013D38(int speed, struct Proc* parent); // aka StartFadeInWhite
+// void sub_8013D50(int speed, struct Proc* parent); // aka StartFadeOutWhite
 // ??? sub_8013D68(???);
 // ??? sub_8013D74(???);
 // ??? sub_8013D80(???);

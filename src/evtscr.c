@@ -3,6 +3,15 @@
 #include "event.h"
 
 #include "rng.h"
+#include "hardware.h"
+#include "m4a.h"
+#include "soundwrapper.h"
+
+// TODO: #include "hino.h"
+void sub_8013D08(int speed, struct Proc* parent); // aka StartFadeInBlack
+void sub_8013D20(int speed, struct Proc* parent); // aka StartFadeOutBlack
+void sub_8013D38(int speed, struct Proc* parent); // aka StartFadeInWhite
+void sub_8013D50(int speed, struct Proc* parent); // aka StartFadeOutWhite
 
 // TODO: not use this?
 struct EventCommandHeader {
@@ -536,3 +545,275 @@ u8 Event10_ModifyEvBit(struct EventEngineProc* proc) {
 
 	} // switch (evArgument)
 }
+
+u8 Event11_SetIgnoredKeys(struct EventEngineProc* proc) {
+	u8       subcode = 0xF & *(const u8*)(proc->pEventCurrent);
+	unsigned mask    = proc->pEventCurrent[1];
+
+	if (subcode == 0)
+		SetKeyStatus_IgnoreMask(mask);
+
+	return EVC_ADVANCE_CONTINUE;
+}
+
+// SOUND EVENT CODES
+
+u8 Event12_(struct EventEngineProc* proc) {
+	short evArgument;
+
+	if ((proc->evStateBits >> 2) & 1)
+		return EVC_ADVANCE_CONTINUE;
+
+	evArgument = proc->pEventCurrent[1];
+
+	if (evArgument < 0)
+		evArgument = gEventSlots[2];
+
+	Sound_PlaySong80024E4(evArgument, 3, NULL);
+	return EVC_ADVANCE_YIELD;
+}
+
+u8 Event13_(struct EventEngineProc* proc) {
+	u8    subcode;
+	short evArgument;
+
+	subcode    = 0xF & *(const u8*)(proc->pEventCurrent);
+	evArgument = proc->pEventCurrent[1];
+
+	if (evArgument < 0)
+		evArgument = gEventSlots[2];
+
+	if (evArgument != INT16_MAX) {
+		if ((proc->evStateBits >> 2) & 1)
+			return EVC_ADVANCE_CONTINUE;
+
+		Sound_PlaySong8002574(evArgument, subcode, 0);
+		return EVC_ADVANCE_YIELD;
+	} else {
+		if ((proc->evStateBits >> 2) & 1)
+			subcode = 1;
+		
+		Sound_FadeOut800231C(subcode);
+		return EVC_ADVANCE_YIELD;
+	}
+}
+
+u8 Event14_(struct EventEngineProc* proc) {
+	u8 subcode       = 0xF & *(const u8*)(proc->pEventCurrent);
+	short evArgument = proc->pEventCurrent[1];
+
+	switch (subcode) {
+
+	case 0:
+		if (((proc->evStateBits >> 2) & 1) || ((proc->evStateBits >> 3) & 1))
+			return EVC_ADVANCE_CONTINUE;
+
+		if (evArgument < 0)
+			evArgument = gEventSlots[2];
+
+		sub_8002620(evArgument);
+
+		break;
+
+	case 1:
+		DeleteAll6CWaitMusicRelated();
+		sub_80026BC(evArgument);
+
+		break;
+
+	} // switch (subcode)
+
+	return EVC_ADVANCE_YIELD;
+}
+
+u8 Event15_(struct EventEngineProc* proc) {
+	u8 subcode = 0xF & *(const u8*)(proc->pEventCurrent);
+
+	switch (subcode) {
+	
+	case 0:
+		if ((proc->evStateBits >> 2) & 1)
+			return EVC_ADVANCE_CONTINUE;
+
+		ISuspectThisToBeMusicRelated_8002730(0x100, 0x90, 10, (struct Proc*)(proc));
+
+		break;
+
+	case 1:
+		if ((proc->evStateBits >> 2) & 1) {
+			Sound_SetVolume80022EC(0x100);
+			return EVC_ADVANCE_CONTINUE;
+		}
+
+		ISuspectThisToBeMusicRelated_8002730(0x90, 0x100, 10, (struct Proc*)(proc));
+
+		break;
+
+	} // switch (subcode)
+
+	return EVC_ADVANCE_YIELD;
+}
+
+u8 Event16_(struct EventEngineProc* proc) {
+	short evArgument;
+
+	if (((proc->evStateBits >> 2) & 1) || ((proc->evStateBits >> 3) & 1))
+		return EVC_ADVANCE_CONTINUE;
+
+	evArgument = proc->pEventCurrent[1];
+
+	if (evArgument < 0)
+		evArgument = gEventSlots[2];
+
+	if (!gUnknown_0202BCF0.unk41_2)
+		m4aSongNumStart(evArgument);
+
+	return EVC_ADVANCE_CONTINUE;
+}
+
+// Fade
+u8 Event17_(struct EventEngineProc* proc) {
+	u8       subcode;
+	unsigned evArgument;
+
+	if ((proc->evStateBits >> 2) & 1)
+		return EVC_ADVANCE_CONTINUE;
+
+	subcode    = 0xF & *(const u8*)(proc->pEventCurrent);
+	evArgument = proc->pEventCurrent[1];
+
+	switch (subcode) {
+
+	case 0: // FADU
+		sub_8013D20(evArgument, (struct Proc*)(proc)); // StartFadeOutBlack
+
+		proc->evStateBits &= ~EV_STATE_FADEDIN;
+
+		gLCDControlBuffer.dispcnt.bg0_on = TRUE;
+		gLCDControlBuffer.dispcnt.bg1_on = TRUE;
+		gLCDControlBuffer.dispcnt.bg2_on = TRUE;
+		gLCDControlBuffer.dispcnt.bg3_on = TRUE;
+		gLCDControlBuffer.dispcnt.obj_on = TRUE;
+
+		return EVC_ADVANCE_YIELD;
+
+	case 1: // FADI
+		sub_8013D08(evArgument, (struct Proc*)(proc)); // StartFadeInBlack
+
+		proc->evStateBits |= EV_STATE_FADEDIN;
+
+		return EVC_ADVANCE_YIELD;
+
+	case 2: // FAWU
+		sub_8013D50(evArgument, (struct Proc*)(proc)); // StartFadeOutWhite
+
+		proc->evStateBits &= ~EV_STATE_FADEDIN;
+
+		gLCDControlBuffer.dispcnt.bg0_on = TRUE;
+		gLCDControlBuffer.dispcnt.bg1_on = TRUE;
+		gLCDControlBuffer.dispcnt.bg2_on = TRUE;
+		gLCDControlBuffer.dispcnt.bg3_on = TRUE;
+		gLCDControlBuffer.dispcnt.obj_on = TRUE;
+
+		return EVC_ADVANCE_YIELD;
+
+	case 3: // FAWI
+		sub_8013D38(evArgument, (struct Proc*)(proc)); // StartFadeInWhite
+
+		proc->evStateBits |= EV_STATE_FADEDIN;
+
+		return EVC_ADVANCE_YIELD;
+
+	default:
+		return EVC_ERROR;
+
+	} // switch (subcode)
+}
+
+/*
+
+	THUMB_FUNC_START Event17_
+Event17_: @ 0x0800DF20
+	push {r4, lr}
+	adds r4, r0, #0
+	ldrh r0, [r4, #0x3c]
+	lsrs r0, r0, #2
+	movs r1, #1
+	ands r0, r1
+	cmp r0, #0
+	beq _0800DF34
+	movs r0, #0
+	b _0800DFB4
+_0800DF34:
+	ldr r1, [r4, #0x38]
+	ldrb r0, [r1]
+	movs r2, #0xf
+	ands r2, r0
+	ldrh r0, [r1, #2]
+	cmp r2, #1
+	beq _0800DF5E
+	cmp r2, #1
+	bgt _0800DF4C
+	cmp r2, #0
+	beq _0800DF56
+	b _0800DFB2
+_0800DF4C:
+	cmp r2, #2
+	beq _0800DF66
+	cmp r2, #3
+	beq _0800DF9C
+	b _0800DFB2
+_0800DF56:
+	adds r1, r4, #0
+	bl sub_8013D20
+	b _0800DF6C
+_0800DF5E:
+	adds r1, r4, #0
+	bl sub_8013D08
+	b _0800DFA2
+_0800DF66:
+	adds r1, r4, #0
+	bl sub_8013D50
+_0800DF6C:
+	ldrh r1, [r4, #0x3c]
+	ldr r0, _0800DF94  @ 0x0000FEFF
+	ands r0, r1
+	strh r0, [r4, #0x3c]
+	ldr r2, _0800DF98  @ gLCDControlBuffer
+	ldrb r0, [r2, #1]
+	movs r1, #1
+	orrs r0, r1
+	movs r1, #2
+	orrs r0, r1
+	movs r1, #4
+	orrs r0, r1
+	movs r1, #8
+	orrs r0, r1
+	movs r1, #0x10
+	orrs r0, r1
+	strb r0, [r2, #1]
+	movs r0, #2
+	b _0800DFB4
+	.align 2, 0
+_0800DF94: .4byte 0x0000FEFF
+_0800DF98: .4byte gLCDControlBuffer
+_0800DF9C:
+	adds r1, r4, #0
+	bl sub_8013D38
+_0800DFA2:
+	ldrh r1, [r4, #0x3c]
+	movs r2, #0x80
+	lsls r2, r2, #1
+	adds r0, r2, #0
+	orrs r0, r1
+	strh r0, [r4, #0x3c]
+	movs r0, #2
+	b _0800DFB4
+_0800DFB2:
+	movs r0, #6
+_0800DFB4:
+	pop {r4}
+	pop {r1}
+	bx r1
+
+*/
