@@ -4,7 +4,6 @@
 
 	@ FX for unit swapping when in prep screen
 
-
 	THUMB_FUNC_START sub_801EA64
 sub_801EA64: @ 0x0801EA64
 	push {r4, r5, r6, lr}
@@ -263,6 +262,5 @@ _0801EC5C:
 _0801EC5E:
 	pop {r1}
 	bx r1
-
 
 .align 2, 0 @ align with 0

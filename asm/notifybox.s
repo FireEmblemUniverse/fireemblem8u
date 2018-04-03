@@ -360,7 +360,7 @@ _0801FCB8:
 	adds r0, r7, #0
 	movs r1, #1
 _0801FCBC:
-	bl GetItemSomeString
+	bl GetItemNameWithArticle
 	adds r1, r0, #0
 	add r0, sp, #4
 	bl Text_AppendString

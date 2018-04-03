@@ -54,7 +54,7 @@ SECTIONS
         asm/evtsub.o(.text);
         asm/hino.o(.text);
         asm/bm.o(.text);
-        asm/bmitem.o(.text);
+        src/bmitem.o(.text);
         asm/bmunit.o(.text);
         asm/bmmap.o(.text);
         asm/bmidoten.o(.text);
