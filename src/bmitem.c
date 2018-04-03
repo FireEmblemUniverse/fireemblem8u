@@ -68,7 +68,7 @@ s8 GetItemHPBonus(int item){
 
   if (item) {
     itemData = &gItemData[itemID(item)];
-    statBonus = itemData -> pStatBonuses; //doesn't load in the right order
+    statBonus = itemData -> pStatBonuses; 
   }
   else return 0;
   if (statBonus){
@@ -83,7 +83,7 @@ s8 GetItemPowBonus(int item){
 
   if (item) {
     itemData = &gItemData[itemID(item)];
-    statBonus = itemData -> pStatBonuses; //doesn't load in the right order
+    statBonus = itemData -> pStatBonuses; 
   }
   else return 0;
   if (statBonus){
@@ -98,7 +98,7 @@ s8 GetItemSklBonus(int item){
 
   if (item) {
     itemData = &gItemData[itemID(item)];
-    statBonus = itemData -> pStatBonuses; //doesn't load in the right order
+    statBonus = itemData -> pStatBonuses; 
   }
   else return 0;
   if (statBonus){
@@ -113,7 +113,7 @@ s8 GetItemSpdBonus(int item){
 
   if (item) {
     itemData = &gItemData[itemID(item)];
-    statBonus = itemData -> pStatBonuses; //doesn't load in the right order
+    statBonus = itemData -> pStatBonuses; 
   }
   else return 0;
   if (statBonus){
@@ -128,7 +128,7 @@ s8 GetItemDefBonus(int item){
 
   if (item) {
     itemData = &gItemData[itemID(item)];
-    statBonus = itemData -> pStatBonuses; //doesn't load in the right order
+    statBonus = itemData -> pStatBonuses; 
   }
   else return 0;
   if (statBonus){
@@ -143,7 +143,7 @@ s8 GetItemResBonus(int item){
 
   if (item) {
     itemData = &gItemData[itemID(item)];
-    statBonus = itemData -> pStatBonuses; //doesn't load in the right order
+    statBonus = itemData -> pStatBonuses; 
   }
   else return 0;
   if (statBonus){
@@ -158,7 +158,7 @@ s8 GetItemLckBonus(int item){
 
   if (item) {
     itemData = &gItemData[itemID(item)];
-    statBonus = itemData -> pStatBonuses; //doesn't load in the right order
+    statBonus = itemData -> pStatBonuses; 
   }
   else return 0;
   if (statBonus){
