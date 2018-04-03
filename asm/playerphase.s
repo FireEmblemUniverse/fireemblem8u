@@ -2,6 +2,8 @@
 
 	.SYNTAX UNIFIED
 
+	@ Player Phase proc code and related functions
+
 	THUMB_FUNC_START ClearActionAndSave
 ClearActionAndSave: @ 0x0801C894
 	push {lr}

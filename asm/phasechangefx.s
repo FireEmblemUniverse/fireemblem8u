@@ -2,6 +2,8 @@
 
 	.SYNTAX UNIFIED
 
+	@ The nice phase changing animation thing and related procs/functions
+
 	THUMB_FUNC_START sub_801EC64
 sub_801EC64: @ 0x0801EC64
 	push {lr}

@@ -2,6 +2,8 @@
 
 	.SYNTAX UNIFIED
 
+	@ Various Graphical Effects related to activating traps
+
 	THUMB_FUNC_START sub_801F540
 sub_801F540: @ 0x0801F540
 	push {r4, r5, r6, r7, lr}

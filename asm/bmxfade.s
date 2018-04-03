@@ -2,6 +2,8 @@
 
 	.SYNTAX UNIFIED
 
+	@ Tile Fading (for tile changes and such)
+
 	THUMB_FUNC_START sub_801DD1C
 sub_801DD1C: @ 0x0801DD1C
 	push {r4, lr}

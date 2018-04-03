@@ -2,6 +2,8 @@
 
 	.SYNTAX UNIFIED
 
+	@ Item info panel in item selection menus
+
 	THUMB_FUNC_START sub_801E4F4
 sub_801E4F4: @ 0x0801E4F4
 	push {r4, r5, r6, r7, lr}

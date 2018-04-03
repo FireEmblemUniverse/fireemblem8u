@@ -2,7 +2,7 @@
 
 	.SYNTAX UNIFIED
 
-	@ FX for unit swapping when in prep screen
+	@ Unit Swapping Animation/Effect (When you swap unit places in the prep screen)
 
 	THUMB_FUNC_START sub_801EA64
 sub_801EA64: @ 0x0801EA64

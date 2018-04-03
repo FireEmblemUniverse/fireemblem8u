@@ -2,6 +2,8 @@
 
 	.SYNTAX UNIFIED
 
+	@ Misc Camera movement functions
+
 	THUMB_FUNC_START GetPlayerStartCursorPosition
 GetPlayerStartCursorPosition: @ 0x0801DE30
 	push {r4, r5, r6, lr}

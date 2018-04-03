@@ -2,6 +2,8 @@
 
 	.SYNTAX UNIFIED
 
+	@ "Send item to convoy" menus and related functions
+
 	THUMB_FUNC_START sub_801DF94
 sub_801DF94: @ 0x0801DF94
 	push {r4, r5, lr}

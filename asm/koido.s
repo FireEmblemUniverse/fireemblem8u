@@ -2,6 +2,8 @@
 
 	.SYNTAX UNIFIED
 
+	@ KOIDO and KOIDOAMM procs (rescue/drop/give/take map unit animations)
+
 	THUMB_FUNC_START GetSomeFacingDirection
 GetSomeFacingDirection: @ 0x0801DBD4
 	push {lr}
