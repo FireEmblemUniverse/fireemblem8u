@@ -462,245 +462,43 @@ _0800DB30:
 
 #endif
 
-#ifndef NONMATCHING
-
-__attribute__((naked)) u8 Event0E_STAL() {
-	asm(
-		".syntax unified\n"
-		"push {r4, r5, r6, r7, lr}\n"
-		"adds r2, r0, #0\n"
-		"ldr r7, [r2, #0x38]\n"
-		"ldrb r0, [r7]\n"
-		"movs r1, #0xf\n"
-		"ands r1, r0\n"
-		"adds r4, r1, #0\n"
-		"ldrh r6, [r2, #0x3c]\n"
-		"lsls r3, r6, #0x10\n"
-		"lsrs r0, r3, #0x12\n"
-		"movs r5, #1\n"
-		"ands r0, r5\n"
-		"cmp r0, #0\n"
-		"bne _0800DBC4\n"
-		"movs r0, #1\n"
-		"ands r1, r0\n"
-		"cmp r1, #0\n"
-		"beq _0800DB72\n"
-		"lsrs r0, r3, #0x13\n"
-		"ands r0, r5\n"
-		"cmp r0, #0\n"
-		"bne _0800DBC4\n"
-		"ldr r0, _0800DB84  @ gKeyStatusPtr\n"
-		"ldr r0, [r0]\n"
-		"ldrh r1, [r0, #8]\n"
-		"movs r0, #2\n"
-		"ands r0, r1\n"
-		"cmp r0, #0\n"
-		"bne _0800DBC4\n"
-	"_0800DB72:\n"
-		"ldrh r3, [r2, #0x3e]\n"
-		"movs r1, #0x3e\n"
-		"ldrsh r0, [r2, r1]\n"
-		"cmp r0, #0\n"
-		"bgt _0800DB88\n"
-		"ldrh r0, [r7, #2]\n"
-		"strh r0, [r2, #0x3e]\n"
-		"b _0800DBD6\n"
-		".align 2, 0\n"
-	"_0800DB84: .4byte gKeyStatusPtr\n"
-	"_0800DB88:\n"
-		"movs r5, #1\n"
-		"movs r0, #0x40\n"
-		"ands r0, r6\n"
-		"cmp r0, #0\n"
-		"bne _0800DBB6\n"
-		"movs r0, #2\n"
-		"ands r4, r0\n"
-		"cmp r4, #0\n"
-		"beq _0800DBB6\n"
-		"ldr r0, _0800DBCC  @ gUnknown_0202BCF0\n"
-		"adds r0, #0x40\n"
-		"ldrb r0, [r0]\n"
-		"lsrs r0, r0, #7\n"
-		"cmp r0, #0\n"
-		"bne _0800DBB4\n"
-		"ldr r0, _0800DBD0  @ gKeyStatusPtr\n"
-		"ldr r0, [r0]\n"
-		"ldrh r1, [r0, #4]\n"
-		"adds r0, r5, #0\n"
-		"ands r0, r1\n"
-		"cmp r0, #0\n"
-		"beq _0800DBB6\n"
-	"_0800DBB4:\n"
-		"movs r5, #4\n"
-	"_0800DBB6:\n"
-		"lsls r0, r3, #0x10\n"
-		"asrs r0, r0, #0x10\n"
-		"subs r0, r0, r5\n"
-		"lsls r0, r0, #0x10\n"
-		"lsrs r3, r0, #0x10\n"
-		"cmp r0, #0\n"
-		"bgt _0800DBD4\n"
-	"_0800DBC4:\n"
-		"movs r0, #0\n"
-		"strh r0, [r2, #0x3e]\n"
-		"b _0800DBD8\n"
-		".align 2, 0\n"
-	"_0800DBCC: .4byte gUnknown_0202BCF0\n"
-	"_0800DBD0: .4byte gKeyStatusPtr\n"
-	"_0800DBD4:\n"
-		"strh r3, [r2, #0x3e]\n"
-	"_0800DBD6:\n"
-		"movs r0, #3\n"
-	"_0800DBD8:\n"
-		"pop {r4, r5, r6, r7}\n"
-		"pop {r1}\n"
-		"bx r1\n"
-		".syntax divided\n"
-	);
-}
-
-#else
-
 u8 Event0E_STAL(struct EventEngineProc* proc) {
-	unsigned sc;
-	short timer;
-	unsigned adv;
+	u8 subcode;
+	short stallTimer;
 
-	sc = ((struct EventCommandHeader*)(proc->pEventCurrent))->subcommand; // (*(const u8*)(proc->pEventCurrent)) & 0xF;
+	subcode = *(const u8*)(proc->pEventCurrent) & 0xF;
 
-	if (proc->evStateBits >> 2 & 1) { // *grumble*; ugly check for EV_STATE_SKIPPING
+	if (((proc->evStateBits >> 0x2) & 1)) {
 		proc->evStallTimer = 0;
 		return EVC_ADVANCE_CONTINUE;
 	}
+	
+	if (((subcode & 1) && (((proc->evStateBits >> 0x3) & 1) || (gKeyStatusPtr->newKeys & B_BUTTON))))
+		goto end_stall; // I can't get it to match without that (ugh)
+	
+	stallTimer = proc->evStallTimer;
+	
+	if (stallTimer <= 0) {
+		proc->evStallTimer = proc->pEventCurrent[1];
+	} else {
+		int timeStep = 1;
 
-	if ((sc & 1)) {
-		// Check key status
+		if ((!(proc->evStateBits & EV_STATE_0040)) && (subcode & 2))
+			if ((gUnknown_0202BCF0.unk40_8) || ((A_BUTTON & gKeyStatusPtr->heldKeys)))
+				timeStep = 4;
+		
+		stallTimer = stallTimer - timeStep;
 
-		if (!((proc->evStateBits >> 3) & 1) || (gKeyStatusPtr->newKeys & B_BUTTON)) {
+		if (stallTimer <= 0) {
+
+		end_stall:
 			proc->evStallTimer = 0;
 			return EVC_ADVANCE_CONTINUE;
+
 		}
+
+		proc->evStallTimer = stallTimer;
 	}
 
-	if ((timer = proc->evStallTimer) <= 0) {
-		// Start the timer if not started already
-		proc->evStallTimer = proc->pEventCurrent[1];
-		return EVC_STOP_YIELD;
-	}
-
-	// Advance stall timer
-
-	adv = 1;
-
-	if (!(proc->evStateBits & EV_STATE_0040) && (sc & 2))
-		if (gUnknown_0202BCF0.unk40_8 || (gKeyStatusPtr->heldKeys & A_BUTTON))
-			adv = 4;
-	
-	timer -= adv;
-
-	if (timer > 0) {
-		proc->evStallTimer = timer;
-		return EVC_STOP_YIELD;
-	}
-
-	proc->evStallTimer = 0;
-	return EVC_ADVANCE_CONTINUE;
+	return EVC_STOP_YIELD;
 }
-
-#endif
-
-/*
-
-	THUMB_FUNC_START Event0E_STAL
-Event0E_STAL: @ 0x0800DB38
-	push {r4, r5, r6, r7, lr}
-	adds r2, r0, #0
-	ldr r7, [r2, #0x38]
-	ldrb r0, [r7]
-	movs r1, #0xf
-	ands r1, r0
-	adds r4, r1, #0
-	ldrh r6, [r2, #0x3c]
-	lsls r3, r6, #0x10
-	lsrs r0, r3, #0x12
-	movs r5, #1
-	ands r0, r5
-	cmp r0, #0
-	bne _0800DBC4
-
-	movs r0, #1
-	ands r1, r0
-	cmp r1, #0
-	beq _0800DB72
-	lsrs r0, r3, #0x13
-	ands r0, r5
-	cmp r0, #0
-	bne _0800DBC4
-	ldr r0, _0800DB84  @ gKeyStatusPtr
-	ldr r0, [r0]
-	ldrh r1, [r0, #8]
-	movs r0, #2
-	ands r0, r1
-	cmp r0, #0
-	bne _0800DBC4
-_0800DB72:
-	ldrh r3, [r2, #0x3e]
-	movs r1, #0x3e
-	ldrsh r0, [r2, r1]
-	cmp r0, #0
-	bgt _0800DB88
-	ldrh r0, [r7, #2]
-	strh r0, [r2, #0x3e]
-	b _0800DBD6
-	.align 2, 0
-_0800DB84: .4byte gKeyStatusPtr
-_0800DB88:
-	movs r5, #1
-	movs r0, #0x40
-	ands r0, r6
-	cmp r0, #0
-	bne _0800DBB6
-	movs r0, #2
-	ands r4, r0
-	cmp r4, #0
-	beq _0800DBB6
-	ldr r0, _0800DBCC  @ gUnknown_0202BCF0
-	adds r0, #0x40
-	ldrb r0, [r0]
-	lsrs r0, r0, #7
-	cmp r0, #0
-	bne _0800DBB4
-	ldr r0, _0800DBD0  @ gKeyStatusPtr
-	ldr r0, [r0]
-	ldrh r1, [r0, #4]
-	adds r0, r5, #0
-	ands r0, r1
-	cmp r0, #0
-	beq _0800DBB6
-_0800DBB4:
-	movs r5, #4
-_0800DBB6:
-	lsls r0, r3, #0x10
-	asrs r0, r0, #0x10
-	subs r0, r0, r5
-	lsls r0, r0, #0x10
-	lsrs r3, r0, #0x10
-	cmp r0, #0
-	bgt _0800DBD4
-_0800DBC4:
-	movs r0, #0
-	strh r0, [r2, #0x3e]
-	b _0800DBD8
-	.align 2, 0
-_0800DBCC: .4byte gUnknown_0202BCF0
-_0800DBD0: .4byte gKeyStatusPtr
-_0800DBD4:
-	strh r3, [r2, #0x3e]
-_0800DBD6:
-	movs r0, #3
-_0800DBD8:
-	pop {r4, r5, r6, r7}
-	pop {r1}
-	bx r1
-
-*/
