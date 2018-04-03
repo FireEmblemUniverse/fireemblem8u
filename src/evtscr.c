@@ -372,95 +372,23 @@ u8 Event0C_Branch(struct EventEngineProc* proc) {
 	return EVC_ERROR;
 }
 
-#ifndef NONMATCHING
-
-__attribute__((naked)) u8 Event0D_AsmCall(struct EventEngineProc* proc) {
-	asm(
-		".syntax unified\n"
-		"push {r4, lr}\n"
-		"adds r4, r0, #0\n"
-		"ldr r0, [r4, #0x38]\n"
-		"ldrb r2, [r0]\n"
-		"movs r1, #0xf\n"
-		"ldrh r3, [r0, #4]\n"
-		"ldrh r0, [r0, #6]\n"
-		"lsls r0, r0, #0x10\n"
-		"orrs r3, r0\n"
-		"ands r1, r2\n"
-		"cmp r1, #1\n"
-		"bne _0800DB28\n"
-		"ldrh r0, [r4, #0x3c]\n"
-		"lsrs r0, r0, #2\n"
-		"movs r1, #1\n"
-		"ands r0, r1\n"
-		"cmp r0, #0\n"
-		"beq _0800DB28\n"
-		"movs r0, #0\n"
-		"b _0800DB30\n"
-	"_0800DB28:\n"
-		"adds r0, r4, #0\n"
-		"bl _call_via_r3\n"
-		"movs r0, #2\n"
-	"_0800DB30:\n"
-		"pop {r4}\n"
-		"pop {r1}\n"
-		"bx r1\n"
-		".syntax divided\n"
-	);
-}
-
-#else
-
 u8 Event0D_AsmCall(struct EventEngineProc* proc) {
-	u8 sc = ((*(const u8*)(proc->pEventCurrent)) & 0xF);
-	void(*target)(struct EventEngineProc*);
+	typedef void(*ASMCFuncType)(struct EventEngineProc*);
+
+	u8 subcode = *(const u8*)(proc->pEventCurrent) & 0xF;
 	
-	target = (void(*)(struct EventEngineProc*))(proc->pEventCurrent[2] | (proc->pEventCurrent[3] << 16));
-	
-	if ((sc == 1) && ((proc->evStateBits >> 2) & 1))
+	ASMCFuncType func = (ASMCFuncType)(
+		(proc->pEventCurrent[2]) |
+		(proc->pEventCurrent[3] << 0x10)
+	);
+
+	if (((subcode & 0xF) == 1) && ((proc->evStateBits >> 2) & 1))
 		return EVC_ADVANCE_CONTINUE;
-	
-	target(proc);
+
+	(*func)(proc);
 
 	return EVC_ADVANCE_YIELD;
 }
-
-/*
-
-	THUMB_FUNC_START Event0D_AsmCall
-Event0D_AsmCall: @ 0x0800DB00
-	push {r4, lr}
-	adds r4, r0, #0
-	ldr r0, [r4, #0x38]
-	ldrb r2, [r0]
-	movs r1, #0xf
-	ldrh r3, [r0, #4]
-	ldrh r0, [r0, #6]
-	lsls r0, r0, #0x10
-	orrs r3, r0
-	ands r1, r2
-	cmp r1, #1
-	bne _0800DB28
-	ldrh r0, [r4, #0x3c]
-	lsrs r0, r0, #2
-	movs r1, #1
-	ands r0, r1
-	cmp r0, #0
-	beq _0800DB28
-	movs r0, #0
-	b _0800DB30
-_0800DB28:
-	adds r0, r4, #0
-	bl _call_via_r3
-	movs r0, #2
-_0800DB30:
-	pop {r4}
-	pop {r1}
-	bx r1
-
-*/
-
-#endif
 
 u8 Event0E_STAL(struct EventEngineProc* proc) {
 	u8 subcode;
