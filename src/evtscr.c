@@ -12,6 +12,7 @@ void sub_8013D08(int speed, struct Proc* parent); // aka StartFadeInBlack
 void sub_8013D20(int speed, struct Proc* parent); // aka StartFadeOutBlack
 void sub_8013D38(int speed, struct Proc* parent); // aka StartFadeInWhite
 void sub_8013D50(int speed, struct Proc* parent); // aka StartFadeOutWhite
+void sub_8012890(int, int, int, int, int, struct Proc*); // aka idk
 
 // TODO: not use this?
 struct EventCommandHeader {
@@ -730,89 +731,157 @@ u8 Event17_(struct EventEngineProc* proc) {
 	} // switch (subcode)
 }
 
+// I think this is related to some color filtering effect (?)
+// Messes with palettes
+u8 Event18_(struct EventEngineProc* proc) {
+	unsigned r1, r6, r7, r8, r9, ip;
+	u8 subcode, r3;
+
+	subcode = 0xF & *(const u8*)(proc->pEventCurrent);
+
+	r1 = proc->pEventCurrent[1];
+	r3 = *(const u8*)(proc->pEventCurrent + 1);
+	r6 = r1 >> 8;
+	r7 = proc->pEventCurrent[2];
+	r8 = proc->pEventCurrent[3];
+	r9 = proc->pEventCurrent[4];
+	ip = proc->pEventCurrent[5];
+
+	switch (subcode) {
+
+	case 0:
+		sub_80127C4();
+		return EVC_ADVANCE_YIELD;
+
+	case 1:
+		sub_8012824();
+		return EVC_ADVANCE_YIELD;
+
+	case 2: {
+		s8 r2;
+		unsigned r4;
+
+		if (((proc->evStateBits >> 2) & 1) || (proc->evStateBits & EV_STATE_FADEDIN))
+			r7 = 0;
+
+		r4 = 0;
+
+		for (r2 = r6; r2 > 0; --r2) {
+			s8 r0 = r3;
+			r4 = r4 | (1 << r0);
+			r0 = r0 + 1;
+			r3 = r0;
+		}
+
+		sub_8012890(r7, r4, r8, r9, ip, (struct Proc*)(proc));
+
+		return EVC_ADVANCE_YIELD;
+	}
+
+	default:
+		return EVC_ERROR;
+
+	} // switch (subcode)
+}
+
 /*
 
-	THUMB_FUNC_START Event17_
-Event17_: @ 0x0800DF20
-	push {r4, lr}
-	adds r4, r0, #0
-	ldrh r0, [r4, #0x3c]
-	lsrs r0, r0, #2
+	THUMB_FUNC_START Event18_
+Event18_: @ 0x0800DFBC
+	push {r4, r5, r6, r7, lr}
+	mov r7, r9
+	mov r6, r8
+	push {r6, r7}
+	sub sp, #8
+	adds r5, r0, #0
+	ldr r0, [r5, #0x38]
+	ldrb r1, [r0]
+	movs r2, #0xf
+	ands r2, r1
+	adds r4, r2, #0
+	ldrh r1, [r0, #2]
+	ldrb r3, [r0, #2]
+	lsrs r6, r1, #8
+	ldrh r7, [r0, #4]
+	ldrh r1, [r0, #6]
+	mov r8, r1
+	ldrh r1, [r0, #8]
+	mov r9, r1
+	ldrh r0, [r0, #0xa]
+	mov ip, r0
+	cmp r2, #1
+	beq _0800E002
+	cmp r2, #1
+	bgt _0800DFF4
+	cmp r2, #0
+	beq _0800DFFA
+	b _0800E05E
+_0800DFF4:
+	cmp r4, #2
+	beq _0800E00A
+	b _0800E05E
+_0800DFFA:
+	bl sub_80127C4
+	movs r0, #2
+	b _0800E060
+_0800E002:
+	bl sub_8012824
+	movs r0, #2
+	b _0800E060
+_0800E00A:
+	ldrh r2, [r5, #0x3c]
+	lsrs r0, r2, #2
 	movs r1, #1
 	ands r0, r1
 	cmp r0, #0
-	beq _0800DF34
-	movs r0, #0
-	b _0800DFB4
-_0800DF34:
-	ldr r1, [r4, #0x38]
-	ldrb r0, [r1]
-	movs r2, #0xf
-	ands r2, r0
-	ldrh r0, [r1, #2]
-	cmp r2, #1
-	beq _0800DF5E
-	cmp r2, #1
-	bgt _0800DF4C
+	bne _0800E020
+	movs r0, #0x80
+	lsls r0, r0, #1
+	ands r0, r2
+	cmp r0, #0
+	beq _0800E022
+_0800E020:
+	movs r7, #0
+_0800E022:
+	movs r4, #0
+	lsls r2, r6, #0x18
 	cmp r2, #0
-	beq _0800DF56
-	b _0800DFB2
-_0800DF4C:
-	cmp r2, #2
-	beq _0800DF66
-	cmp r2, #3
-	beq _0800DF9C
-	b _0800DFB2
-_0800DF56:
+	ble _0800E048
+	movs r6, #1
+_0800E02C:
+	lsls r0, r3, #0x18
+	asrs r0, r0, #0x18
+	adds r1, r6, #0
+	lsls r1, r0
+	orrs r4, r1
+	adds r0, #1
+	lsls r0, r0, #0x18
+	lsrs r3, r0, #0x18
+	movs r0, #0xff
+	lsls r0, r0, #0x18
+	adds r2, r2, r0
+	asrs r0, r2, #0x18
+	cmp r0, #0
+	bgt _0800E02C
+_0800E048:
+	mov r1, ip
+	str r1, [sp]
+	str r5, [sp, #4]
+	adds r0, r7, #0
 	adds r1, r4, #0
-	bl sub_8013D20
-	b _0800DF6C
-_0800DF5E:
-	adds r1, r4, #0
-	bl sub_8013D08
-	b _0800DFA2
-_0800DF66:
-	adds r1, r4, #0
-	bl sub_8013D50
-_0800DF6C:
-	ldrh r1, [r4, #0x3c]
-	ldr r0, _0800DF94  @ 0x0000FEFF
-	ands r0, r1
-	strh r0, [r4, #0x3c]
-	ldr r2, _0800DF98  @ gLCDControlBuffer
-	ldrb r0, [r2, #1]
-	movs r1, #1
-	orrs r0, r1
-	movs r1, #2
-	orrs r0, r1
-	movs r1, #4
-	orrs r0, r1
-	movs r1, #8
-	orrs r0, r1
-	movs r1, #0x10
-	orrs r0, r1
-	strb r0, [r2, #1]
+	mov r2, r8
+	mov r3, r9
+	bl sub_8012890
 	movs r0, #2
-	b _0800DFB4
-	.align 2, 0
-_0800DF94: .4byte 0x0000FEFF
-_0800DF98: .4byte gLCDControlBuffer
-_0800DF9C:
-	adds r1, r4, #0
-	bl sub_8013D38
-_0800DFA2:
-	ldrh r1, [r4, #0x3c]
-	movs r2, #0x80
-	lsls r2, r2, #1
-	adds r0, r2, #0
-	orrs r0, r1
-	strh r0, [r4, #0x3c]
-	movs r0, #2
-	b _0800DFB4
-_0800DFB2:
+	b _0800E060
+_0800E05E:
 	movs r0, #6
-_0800DFB4:
-	pop {r4}
+_0800E060:
+	add sp, #8
+	pop {r3, r4}
+	mov r8, r3
+	mov r9, r4
+	pop {r4, r5, r6, r7}
 	pop {r1}
 	bx r1
 
