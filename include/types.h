@@ -152,4 +152,54 @@ struct UnknownStructCTC
     const void *unkC;
 };
 
+
+typedef u16 Item;
+
+typedef struct _ItemData ItemData;
+
+struct _StatBonuses {
+  u8 HPBonus;
+  u8 PowBonus;
+  u8 SklBonus;
+  u8 SpdBonus;
+  u8 DefBonus;
+  u8 ResBonus;
+  u8 LckBonus;
+  u8 ConBonus;
+  u8 MovBonus;
+};
+
+struct _ItemData {
+  u16 nameTextId; //0
+  u16 descTextId; //2
+  u16 useDescTextId; //4
+  
+  u8  number; //6
+  u8  weaponType; //7
+  
+  u32 attributes; //8
+  
+  const struct _StatBonuses* pStatBonuses; //c
+  const u8* pEffectiveness; //10
+  
+  u8  maxUses; //14
+  
+  u8  might; //15
+  u8  hit; //16
+  u8  weight; //17
+  u8  crit; //18
+  
+  u8 maxRange : 4; //19
+  u8 minRange : 4; //19
+  
+  u16 costPerUse; //1a
+  u8  weaponRank; //1c
+  u8  iconId; //1d
+  u8  useEffectId; //1e
+  u8  weaponEffectId; //1f
+  u8  weaponExp; //20
+  
+  u8  _u21[3]; //21
+};
+
 #endif  // GUARD_TYPES_H

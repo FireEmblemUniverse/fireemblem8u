@@ -26,7 +26,7 @@ const char *sub_800A048(s8 *a, s8 b)
     }
 }
 
-void sub_800A160(char *a, const char *b, s8 c)
+void PrependArticleToString(char *a, const char *b, s8 c)
 {
     const char *r6;
     u8 r5;

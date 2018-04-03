@@ -289,7 +289,7 @@ _0801102C:
 	ldr r0, _0801103C  @ gUnknown_030005F4
 	ldrh r0, [r0]
 	movs r1, #1
-	bl GetItemSomeString
+	bl GetItemNameWithArticle
 	bl GetStringTextWidth
 	b _08011056
 	.align 2, 0
@@ -298,7 +298,7 @@ _08011040:
 	ldr r0, _08011050  @ gUnknown_030005F4
 	ldrh r0, [r0]
 	movs r1, #0
-	bl GetItemSomeString
+	bl GetItemNameWithArticle
 	bl GetStringTextWidth
 	b _08011056
 	.align 2, 0
@@ -416,7 +416,7 @@ _08011130:
 	ldrh r0, [r0]
 	movs r1, #0
 _08011138:
-	bl GetItemSomeString
+	bl GetItemNameWithArticle
 _0801113C:
 	adds r1, r0, #0
 	adds r0, r4, #0
