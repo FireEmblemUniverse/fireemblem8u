@@ -435,14 +435,14 @@ u8 Event0E_STAL(struct EventEngineProc* proc) {
 u8 Event0F_(struct EventEngineProc* proc) {
 	s8 newValue;
 
-	u8       subcode = 0xF & (*(const u8*)(proc->pEventCurrent));
-	unsigned r5      = proc->pEventCurrent[1];
-	unsigned r6      = 4 * (*(const u8*)(proc->pEventCurrent + 1) % 8);
+	u8       subcode  = 0xF & (*(const u8*)(proc->pEventCurrent));
+	unsigned argument = proc->pEventCurrent[1];
+	unsigned shift    = 4 * (*(const u8*)(proc->pEventCurrent + 1) % 8);
 
 	switch (subcode) {
 
 	case 0: // Check
-		gEventSlots[0xC] = (gEventSlotCounter >> r6) & 0xF;
+		gEventSlots[0xC] = (gEventSlotCounter >> shift) & 0xF;
 
 		return EVC_ADVANCE_CONTINUE;
 
@@ -457,13 +457,13 @@ u8 Event0F_(struct EventEngineProc* proc) {
 			"lsr %0, r0, #24\n"
 
 			: "=r"(newValue)
-			: "r"(r5)
+			: "r"(argument)
 		);
 
 		break;
 
 	case 2: // Increment
-		newValue = ((gEventSlotCounter >> r6) & 0xF) + 1;
+		newValue = ((gEventSlotCounter >> shift) & 0xF) + 1;
 
 		if (newValue > 0xF)
 			newValue = 0xF;
@@ -471,7 +471,7 @@ u8 Event0F_(struct EventEngineProc* proc) {
 		break;
 
 	case 3: // Decrement
-		newValue = ((gEventSlotCounter >> r6) & 0xF) - 1;
+		newValue = ((gEventSlotCounter >> shift) & 0xF) - 1;
 
 		if (newValue < 0)
 			newValue = 0;
@@ -481,111 +481,58 @@ u8 Event0F_(struct EventEngineProc* proc) {
 	} // switch (subcode)
 
 	gEventSlotCounter = (
-		(gEventSlotCounter &~ (0xF << r6)) |
-		((newValue & 0xF) << r6)
+		(gEventSlotCounter &~ (0xF << shift)) |
+		((newValue & 0xF) << shift)
 	);
 
 	return EVC_ADVANCE_CONTINUE;
 }
 
-/*
+u8 Event10_ModifyEvBit(struct EventEngineProc* proc) {
+	unsigned evArgument = proc->pEventCurrent[1];
 
-	THUMB_FUNC_START Event0F_
-Event0F_: @ 0x0800DBE0
-	push {r4, r5, r6, r7, lr}
-	ldr r0, [r0, #0x38]
-	ldrb r1, [r0]
-	movs r2, #0xf
-	mov ip, r2
-	movs r7, #0xf
-	adds r2, r7, #0
-	ands r2, r1
-	adds r4, r2, #0
-	ldrh r5, [r0, #2]
-	ldrb r0, [r0, #2]
-	movs r1, #7
-	ands r0, r1
-	lsls r6, r0, #2
-	cmp r2, #1
-	beq _0800DC38
-	cmp r2, #1
-	bgt _0800DC10
-	cmp r2, #0
-	beq _0800DC20
-	ldr r4, _0800DC0C  @ gEventSlotCounter
-	b _0800DC78
-	.align 2, 0
-_0800DC0C: .4byte gEventSlotCounter
-_0800DC10:
-	cmp r4, #2
-	beq _0800DC44
-	cmp r4, #3
-	beq _0800DC60
-	ldr r4, _0800DC1C  @ gEventSlotCounter
-	b _0800DC78
-	.align 2, 0
-_0800DC1C: .4byte gEventSlotCounter
-_0800DC20:
-	ldr r1, _0800DC30  @ gEventSlots
-	ldr r0, _0800DC34  @ gEventSlotCounter
-	ldr r0, [r0]
-	lsrs r0, r6
-	ands r0, r7
-	str r0, [r1, #0x30]
-	b _0800DC8A
-	.align 2, 0
-_0800DC30: .4byte gEventSlots
-_0800DC34: .4byte gEventSlotCounter
-_0800DC38:
-	lsls r0, r5, #0x10
-	lsrs r3, r0, #0x18
-	ldr r4, _0800DC40  @ gEventSlotCounter
-	b _0800DC78
-	.align 2, 0
-_0800DC40: .4byte gEventSlotCounter
-_0800DC44:
-	ldr r1, _0800DC5C  @ gEventSlotCounter
-	ldr r0, [r1]
-	lsrs r0, r6
-	mov r2, ip
-	ands r0, r2
-	adds r3, r0, #1
-	adds r4, r1, #0
-	cmp r3, #0xf
-	ble _0800DC78
-	movs r3, #0xf
-	b _0800DC78
-	.align 2, 0
-_0800DC5C: .4byte gEventSlotCounter
-_0800DC60:
-	ldr r1, _0800DC94  @ gEventSlotCounter
-	ldr r0, [r1]
-	lsrs r0, r6
-	mov r2, ip
-	ands r0, r2
-	subs r0, #1
-	lsls r0, r0, #0x18
-	lsrs r3, r0, #0x18
-	adds r4, r1, #0
-	cmp r0, #0
-	bge _0800DC78
-	movs r3, #0
-_0800DC78:
-	movs r0, #0xf
-	adds r1, r0, #0
-	lsls r1, r6
-	ldr r2, [r4]
-	bics r2, r1
-	ands r3, r0
-	lsls r3, r6
-	orrs r2, r3
-	str r2, [r4]
-_0800DC8A:
-	movs r0, #0
-	pop {r4, r5, r6, r7}
-	pop {r1}
-	bx r1
-	.align 2, 0
-_0800DC94: .4byte gEventSlotCounter
+	if (((proc->evStateBits >> 2) & 1) && evArgument)
+		proc->evStateBits = (proc->evStateBits &~ EV_STATE_SKIPPING) | EV_STATE_FADEDIN;
 
-*/
+	switch (evArgument) {
+
+	case 0:
+		proc->evStateBits &= ~EV_STATE_NOSKIP;
+		proc->evStateBits &= ~EV_STATE_0020;
+		proc->evStateBits &= ~EV_STATE_0040;
+
+		return EVC_ADVANCE_CONTINUE;
+
+	case 1:
+		proc->evStateBits |= EV_STATE_NOSKIP;
+		proc->evStateBits |= EV_STATE_0020;
+		proc->evStateBits |= EV_STATE_0040;
+
+		return EVC_ADVANCE_CONTINUE;
+
+	case 2:
+		proc->evStateBits &= ~EV_STATE_NOSKIP;
+		proc->evStateBits &= ~EV_STATE_0020;
+		proc->evStateBits |= EV_STATE_0040;
+
+		return EVC_ADVANCE_CONTINUE;
+
+	case 3:
+		proc->evStateBits |= EV_STATE_NOSKIP;
+		proc->evStateBits &= ~EV_STATE_0020;
+		proc->evStateBits &= ~EV_STATE_0040;
+
+		return EVC_ADVANCE_CONTINUE;
+
+	case 4:
+		proc->evStateBits |= EV_STATE_NOSKIP;
+		proc->evStateBits |= EV_STATE_0020;
+		proc->evStateBits &= ~EV_STATE_0040;
+
+		return EVC_ADVANCE_CONTINUE;
+
+	default:
+		return EVC_ERROR;
+
+	} // switch (evArgument)
+}
