@@ -2,6 +2,8 @@
 
 	.SYNTAX UNIFIED
 
+	@ Some sparkle effect that's apparenly calling on dance
+
 	THUMB_FUNC_START sub_80219F8
 sub_80219F8: @ 0x080219F8
 	push {r4, r5, r6, lr}
