@@ -734,18 +734,23 @@ u8 Event17_(struct EventEngineProc* proc) {
 // I think this is related to some color filtering effect (?)
 // Messes with palettes
 u8 Event18_(struct EventEngineProc* proc) {
-	unsigned r1, r6, r7, r8, r9, ip;
-	u8 subcode, r3;
+	unsigned evArgument2, evArgument3, evArgument4, evArgument5;
+	unsigned mask;
+	u8 subcode, evArgumentBitStart, evArgumentBitCount;
 
 	subcode = 0xF & *(const u8*)(proc->pEventCurrent);
 
-	r1 = proc->pEventCurrent[1];
-	r3 = *(const u8*)(proc->pEventCurrent + 1);
-	r6 = r1 >> 8;
-	r7 = proc->pEventCurrent[2];
-	r8 = proc->pEventCurrent[3];
-	r9 = proc->pEventCurrent[4];
-	ip = proc->pEventCurrent[5];
+	{
+		// This is weird but needed to match
+		unsigned read      = proc->pEventCurrent[1];
+		evArgumentBitStart = *(const u8*)(proc->pEventCurrent + 1);
+		evArgumentBitCount = read >> 8;
+	}
+
+	evArgument2 = proc->pEventCurrent[2];
+	evArgument3 = proc->pEventCurrent[3];
+	evArgument4 = proc->pEventCurrent[4];
+	evArgument5 = proc->pEventCurrent[5];
 
 	switch (subcode) {
 
@@ -758,22 +763,20 @@ u8 Event18_(struct EventEngineProc* proc) {
 		return EVC_ADVANCE_YIELD;
 
 	case 2: {
-		s8 r2;
-		unsigned r4;
+		s8 i;
 
 		if (((proc->evStateBits >> 2) & 1) || (proc->evStateBits & EV_STATE_FADEDIN))
-			r7 = 0;
+			evArgument2 = 0;
 
-		r4 = 0;
+		mask = 0;
 
-		for (r2 = r6; r2 > 0; --r2) {
-			s8 r0 = r3;
-			r4 = r4 | (1 << r0);
-			r0 = r0 + 1;
-			r3 = r0;
+		for (i = evArgumentBitCount; i > 0; --i) {
+			s8 tmp = evArgumentBitStart;
+			mask = mask | (1 << tmp);
+			evArgumentBitStart = tmp + 1;
 		}
 
-		sub_8012890(r7, r4, r8, r9, ip, (struct Proc*)(proc));
+		sub_8012890(evArgument2, mask, evArgument3, evArgument4, evArgument5, (struct Proc*)(proc));
 
 		return EVC_ADVANCE_YIELD;
 	}
