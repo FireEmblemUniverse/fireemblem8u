@@ -72,6 +72,9 @@ SECTIONS
         asm/trapfx.o(.text);
         asm/notifybox.o(.text);
         asm/chapterintrofx.o(.text);
+        asm/gameoverbgfx.o(.text);
+        asm/lightrunefx.o(.text);
+        asm/danceringfx.o(.text);
         asm/code.o(.text);
         asm/m4a_1.o(.text);
         src/m4a_2.o(.text);
