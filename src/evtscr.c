@@ -14,6 +14,22 @@ void sub_8013D38(int speed, struct Proc* parent); // aka StartFadeInWhite
 void sub_8013D50(int speed, struct Proc* parent); // aka StartFadeOutWhite
 void sub_8012890(int, int, int, int, int, struct Proc*); // aka idk
 
+// face
+void sub_800680C(int, int, int);
+void sub_8006A30(int, int, u16);
+void sub_8006AA8(int); // set dialog flag
+
+// ???
+void sub_808A518(u16);
+void sub_808AA04(int, int, u16, struct Proc*);
+void sub_808AADC(const char*, int*, int*);
+void sub_808E9D8(int);
+void sub_808F128(int, int, int, int, int, void*, int, struct Proc*);
+
+// local
+void sub_800E640(struct EventEngineProc*);
+u8 Event23_(struct EventEngineProc*);
+
 // TODO: not use this?
 struct EventCommandHeader {
 	u16 subcommand : 4;
@@ -787,105 +803,302 @@ u8 Event18_(struct EventEngineProc* proc) {
 	} // switch (subcode)
 }
 
+// Various Checks
+u8 Event19_(struct EventEngineProc* proc) {
+	u8 subcode = 0xF & *(const u8*)(proc->pEventCurrent);
+
+	switch (subcode) {
+
+	case 0: // Check Mode
+		gEventSlots[0xC] = gUnknown_0202BCF0.chapterModeIndex;
+		break;
+
+	case 1: // Check (Next?) Chapter Index
+		gEventSlots[0xC] = proc->chapterIndex;
+		break;
+
+	case 2: // Check Difficult Mode
+		if (!(gUnknown_0202BCF0.chapterStateBits & 0x40))
+			gEventSlots[0xC] = FALSE;
+		else 
+			gEventSlots[0xC] = TRUE;
+
+		break;
+
+	case 3: // Check Turn Number
+		gEventSlots[0xC] = gUnknown_0202BCF0.chapterTurnNumber;
+		break;
+
+	case 4: // Check ?
+		gEventSlots[0xC] = sub_8019034();
+		break;
+
+	case 5: // Check ?
+		gEventSlots[0xC] = sub_8019074();
+		break;
+
+	case 6: // Check Chapter Type?
+		gEventSlots[0xC] = GetChapterThing();
+		break;
+
+	case 7: // Check Some option or difficult mode
+		if (gUnknown_0202BCF0.unk42_6 || (gUnknown_0202BCF0.chapterStateBits & 0x40))
+			gEventSlots[0xC] = FALSE;
+		else
+			gEventSlots[0xC] = TRUE;
+
+		break;
+
+	case 8: // Check gold
+		gEventSlots[0xC] = GetPartyGoldAmount();
+		break;
+
+	case 9: // Check ?
+		gEventSlots[0xC] = sub_80845E4(proc->pEventStart);
+		break;
+
+	case 10: // Check ?
+		if (gUnknown_0202BCF0.chapterStateBits & 0x20)
+			gEventSlots[0xC] = TRUE;
+		else 
+			gEventSlots[0xC] = FALSE;
+
+		break;
+
+	default:
+		break;
+
+	} // switch (subcode)
+
+	return EVC_ADVANCE_CONTINUE;
+}
+
+u8 Event1A_TEXTSTART(struct EventEngineProc* proc) {
+	u8 subcode = 0xF & *(const u8*)(proc->pEventCurrent);
+
+	if (subcode != proc->activeTextType && subcode != 5) {
+		sub_8006A7C();
+		sub_808F270();
+		sub_808BB74();
+
+		if (proc->execType == EV_EXEC_CUTSCENE)
+			sub_800BCDC(proc->mapSpritePalIdOverride);
+
+		sub_800E640(proc);
+	}
+
+	proc->activeTextType = subcode;
+
+	switch (subcode) {
+
+	case 0:
+	case 3:
+	case 4:
+	case 5:
+		return EVC_ADVANCE_YIELD;
+	
+	case 1:
+	case 2:
+		return Event23_(proc);
+
+	default:
+		return EVC_ERROR;
+
+	} // switch (subcode)
+}
+
+void sub_800E210(struct EventEngineProc* proc, u16 stringIndex, s8 b) {
+	if (b == TRUE)
+		sub_800680C(0x80, 2, 1);
+
+	if ((proc->evStateBits & EV_STATE_0040) == 1) { // ?????
+		proc->overwrittenTextSpeed = gUnknown_0202BCF0.unk40_6;
+		gUnknown_0202BCF0.unk40_6 = 1;
+	} else {
+		proc->overwrittenTextSpeed = 0xFF;
+	}
+
+	sub_8006A30(1, 1, stringIndex);
+
+	if (proc->evStateBits & EV_STATE_0020)
+		sub_8006AA8(4);
+
+	if (proc->evStateBits & EV_STATE_0040)
+		sub_8006AA8(8);
+}
+
+void sub_800E290(struct EventEngineProc* proc, u16 stringIndex, unsigned flags) {
+	flags |= 0x0400;
+
+	if (proc->evStateBits & EV_STATE_0020)
+		flags |= 0x0040;
+
+	if (proc->evStateBits & EV_STATE_0040)
+		flags |= 0x2000 | 0x0800 | 0x0020;
+
+	gLCDControlBuffer.dispcnt.win0_on   = FALSE;
+	gLCDControlBuffer.dispcnt.win1_on   = FALSE;
+	gLCDControlBuffer.dispcnt.objWin_on = FALSE;
+
+	LoadObjUIGfx();
+	sub_800680C(0x80, 0, 1);
+	BG_EnableSyncByMask(1); // bg0
+
+	sub_808F128(
+		3,
+		0x12,
+		0x14,
+		4,
+		stringIndex,
+		OBJ_VRAM0 + 0x1000,
+		-1,
+		NULL // parent proc
+	);
+
+	sub_808E9D8(flags);
+}
+
+void sub_800E31C(struct EventEngineProc* proc, u16 stringIndex, unsigned flags) {
+	u8 x, y;
+
+	x = ((u16*)(gEventSlots + 0xB))[0];
+	y = ((u16*)(gEventSlots + 0xB))[1];
+
+	if (x == (u8)(-1) && y == (u8)(-1)) {
+		x = 0;
+		y = 0;
+		flags |= 0x0100;
+	} else {
+		int boxWidth, boxHeight;
+		GetStringFromIndex(stringIndex);
+
+		sub_808AADC(sub_800A2A4(), &boxWidth, &boxHeight);
+
+		if (x == (u8)(-1))
+			x = (224 - boxWidth) / 2 - 8;
+		else if (y == (u8)(-1))
+			y = (144 - boxHeight) / 2;
+	}
+
+	if (proc->evStateBits & EV_STATE_0020)
+		flags |= 0x0080;
+
+	if (proc->evStateBits & EV_STATE_0040)
+		flags |= 0x0008;
+
+	sub_808AA04(x, y, stringIndex, NULL);
+	sub_808A518(flags);
+}
+
 /*
 
-	THUMB_FUNC_START Event18_
-Event18_: @ 0x0800DFBC
-	push {r4, r5, r6, r7, lr}
-	mov r7, r9
-	mov r6, r8
-	push {r6, r7}
-	sub sp, #8
-	adds r5, r0, #0
-	ldr r0, [r5, #0x38]
-	ldrb r1, [r0]
-	movs r2, #0xf
-	ands r2, r1
-	adds r4, r2, #0
-	ldrh r1, [r0, #2]
-	ldrb r3, [r0, #2]
-	lsrs r6, r1, #8
-	ldrh r7, [r0, #4]
-	ldrh r1, [r0, #6]
-	mov r8, r1
-	ldrh r1, [r0, #8]
-	mov r9, r1
-	ldrh r0, [r0, #0xa]
-	mov ip, r0
-	cmp r2, #1
-	beq _0800E002
-	cmp r2, #1
-	bgt _0800DFF4
-	cmp r2, #0
-	beq _0800DFFA
-	b _0800E05E
-_0800DFF4:
-	cmp r4, #2
-	beq _0800E00A
-	b _0800E05E
-_0800DFFA:
-	bl sub_80127C4
-	movs r0, #2
-	b _0800E060
-_0800E002:
-	bl sub_8012824
-	movs r0, #2
-	b _0800E060
-_0800E00A:
-	ldrh r2, [r5, #0x3c]
-	lsrs r0, r2, #2
-	movs r1, #1
-	ands r0, r1
-	cmp r0, #0
-	bne _0800E020
-	movs r0, #0x80
-	lsls r0, r0, #1
-	ands r0, r2
-	cmp r0, #0
-	beq _0800E022
-_0800E020:
-	movs r7, #0
-_0800E022:
-	movs r4, #0
-	lsls r2, r6, #0x18
-	cmp r2, #0
-	ble _0800E048
-	movs r6, #1
-_0800E02C:
-	lsls r0, r3, #0x18
-	asrs r0, r0, #0x18
-	adds r1, r6, #0
-	lsls r1, r0
-	orrs r4, r1
-	adds r0, #1
-	lsls r0, r0, #0x18
-	lsrs r3, r0, #0x18
-	movs r0, #0xff
-	lsls r0, r0, #0x18
-	adds r2, r2, r0
-	asrs r0, r2, #0x18
-	cmp r0, #0
-	bgt _0800E02C
-_0800E048:
-	mov r1, ip
-	str r1, [sp]
-	str r5, [sp, #4]
-	adds r0, r7, #0
-	adds r1, r4, #0
-	mov r2, r8
-	mov r3, r9
-	bl sub_8012890
-	movs r0, #2
-	b _0800E060
-_0800E05E:
-	movs r0, #6
-_0800E060:
-	add sp, #8
-	pop {r3, r4}
-	mov r8, r3
-	mov r9, r4
-	pop {r4, r5, r6, r7}
-	pop {r1}
-	bx r1
+// Not matching yet
 
-*/
+u8 Event1B_TEXTSHOW(struct EventEngineProc* proc) {
+	u8       subcode    = 0xF & *(const u8*)(proc->pEventCurrent);
+	short    evArgument = proc->pEventCurrent[1];
+	unsigned zeroFlag   = 0;
+
+	if (subcode != 2) {
+		if (evArgument < 0)
+			evArgument = gEventSlots[2];
+
+		if (evArgument == 0)
+			return EVC_ADVANCE_CONTINUE;
+	}
+
+	switch (subcode) {
+
+	case 0:
+		proc->evStateBits &= ~EV_STATE_0008;
+
+		if ((proc->evStateBits >> 2) & 1)
+			break;
+
+		switch (proc->activeTextType) {
+
+		case 0:
+			sub_800E210(proc, evArgument, TRUE);
+			break;
+
+		case 1:
+			sub_800E210(proc, evArgument, TRUE);
+			break;
+
+		case 2:
+			sub_800E290(proc, evArgument, zeroFlag);
+			break;
+
+		case 3:
+			sub_800E31C(proc, evArgument, 0x0010);
+			break;
+
+		case 4:
+			sub_800E31C(proc, evArgument, zeroFlag);
+			break;
+
+		case 5:
+			sub_800E31C(proc, evArgument, (0x0010 | 0x0020));
+			break;
+
+		} // switch (proc->activeTextType)
+
+		break;
+
+	case 1:
+		if ((proc->evStateBits >> 2) & 1)
+			break;
+
+		if ((proc->evStateBits >> 3) & 1)
+			break;
+
+		switch (proc->activeTextType) {
+
+		case 0:
+			sub_800E210(proc, evArgument, FALSE);
+			break;
+
+		case 1:
+			sub_800E210(proc, evArgument, FALSE);
+			break;
+
+		case 2:
+			sub_800E290(proc, evArgument, zeroFlag);
+			break;
+
+		case 3:
+			sub_800E31C(proc, evArgument, 0x0010);
+			break;
+
+		case 4:
+			sub_800E31C(proc, evArgument, zeroFlag);
+			break;
+
+		case 5:
+			sub_800E31C(proc, evArgument, (0x0010 | 0x0020));
+			break;
+
+		} // switch (proc->activeTextType)
+
+		break;
+
+	case 2: // REMA
+		proc->evStateBits &= ~EV_STATE_0008;
+
+		sub_8006A7C();
+		sub_808F270();
+		sub_808BB74();
+
+		if (proc->execType == EV_EXEC_CUTSCENE)
+			sub_800BCDC(proc->mapSpritePalIdOverride);
+
+		sub_800E640(proc);
+
+		return EVC_ADVANCE_YIELD;
+
+	} // switch (subcode)
+
+	return EVC_ADVANCE_CONTINUE;
+}
+
+// */
