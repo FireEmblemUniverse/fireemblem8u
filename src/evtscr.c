@@ -16,6 +16,7 @@ void sub_8012890(int, int, int, int, int, struct Proc*); // aka idk
 
 // face
 void sub_800680C(int, int, int);
+void sub_8006EF0(void);
 void sub_8006A30(int, int, u16);
 void sub_8006AA8(int); // set dialog flag
 
@@ -990,7 +991,7 @@ void sub_800E31C(struct EventEngineProc* proc, u16 stringIndex, unsigned flags) 
 	sub_808A518(flags);
 }
 
-/*
+#ifdef NONMATCHING
 
 // Not matching yet
 
@@ -1101,4 +1102,199 @@ u8 Event1B_TEXTSHOW(struct EventEngineProc* proc) {
 	return EVC_ADVANCE_CONTINUE;
 }
 
-// */
+#else // !NONMATCHING
+
+__attribute__((naked))
+u8 Event1B_TEXTSHOW(struct EventEngineProc* proc) {
+	asm(
+		".syntax unified\n"
+
+		"push {r4, r5, lr}\n"
+		"adds r4, r0, #0\n"
+		"ldr r1, [r4, #0x38]\n"
+		"ldrb r0, [r1]\n"
+		"movs r2, #0xf\n"
+		"ands r2, r0\n"
+		"ldrh r3, [r1, #2]\n"
+		"movs r5, #0\n"
+		"cmp r2, #2\n"
+		"beq _0800E3EC\n"
+		"lsls r0, r3, #0x10\n"
+		"cmp r0, #0\n"
+		"bge _0800E3E6\n"
+		"ldr r0, _0800E3FC  @ gEventSlots\n"
+		"ldrh r3, [r0, #8]\n"
+	"_0800E3E6:\n"
+		"cmp r3, #0\n"
+		"bne _0800E3EC\n"
+		"b _0800E514\n"
+	"_0800E3EC:\n"
+		"cmp r2, #1\n"
+		"beq _0800E462\n"
+		"cmp r2, #1\n"
+		"bgt _0800E400\n"
+		"cmp r2, #0\n"
+		"beq _0800E406\n"
+		"b _0800E514\n"
+		".align 2, 0\n"
+	"_0800E3FC: .4byte gEventSlots\n"
+	"_0800E400:\n"
+		"cmp r2, #2\n"
+		"beq _0800E4DE\n"
+		"b _0800E514\n"
+	"_0800E406:\n"
+		"ldrh r0, [r4, #0x3c]\n"
+		"ldr r1, _0800E430  @ 0x0000FFF7\n"
+		"ands r1, r0\n"
+		"strh r1, [r4, #0x3c]\n"
+		"lsrs r1, r1, #2\n"
+		"movs r0, #1\n"
+		"ands r1, r0\n"
+		"cmp r1, #0\n"
+		"beq _0800E41A\n"
+		"b _0800E514\n"
+	"_0800E41A:\n"
+		"adds r0, r4, #0\n"
+		"adds r0, #0x42\n"
+		"ldrb r0, [r0]\n"
+		"cmp r0, #5\n"
+		"bhi _0800E514\n"
+		"lsls r0, r0, #2\n"
+		"ldr r1, _0800E434  @ _0800E438\n"
+		"adds r0, r0, r1\n"
+		"ldr r0, [r0]\n"
+		"mov pc, r0\n"
+		".align 2, 0\n"
+	"_0800E430: .4byte 0x0000FFF7\n"
+	"_0800E434: .4byte _0800E438\n"
+	"_0800E438: @ jump table\n"
+		".4byte _0800E450 @ case 0\n"
+		".4byte _0800E450 @ case 1\n"
+		".4byte _0800E4B4 @ case 2\n"
+		".4byte _0800E45C @ case 3\n"
+		".4byte _0800E4C6 @ case 4\n"
+		".4byte _0800E4D2 @ case 5\n"
+	"_0800E450:\n"
+		"adds r1, r3, #0\n"
+		"adds r0, r4, #0\n"
+		"movs r2, #1\n"
+		"bl sub_800E210\n"
+		"b _0800E514\n"
+	"_0800E45C:\n"
+		"adds r1, r3, #0\n"
+		"movs r2, #0x10\n"
+		"b _0800E4D6\n"
+	"_0800E462:\n"
+		"ldrh r0, [r4, #0x3c]\n"
+		"lsls r1, r0, #0x10\n"
+		"lsrs r0, r1, #0x12\n"
+		"movs r2, #1\n"
+		"ands r0, r2\n"
+		"cmp r0, #0\n"
+		"bne _0800E514\n"
+		"lsrs r0, r1, #0x13\n"
+		"ands r0, r2\n"
+		"cmp r0, #0\n"
+		"bne _0800E514\n"
+		"adds r0, r4, #0\n"
+		"adds r0, #0x42\n"
+		"ldrb r0, [r0]\n"
+		"cmp r0, #5\n"
+		"bhi _0800E514\n"
+		"lsls r0, r0, #2\n"
+		"ldr r1, _0800E48C  @ _0800E490\n"
+		"adds r0, r0, r1\n"
+		"ldr r0, [r0]\n"
+		"mov pc, r0\n"
+		".align 2, 0\n"
+	"_0800E48C: .4byte _0800E490\n"
+	"_0800E490: @ jump table\n"
+		".4byte _0800E4A8 @ case 0\n"
+		".4byte _0800E4A8 @ case 1\n"
+		".4byte _0800E4B4 @ case 2\n"
+		".4byte _0800E4C0 @ case 3\n"
+		".4byte _0800E4C6 @ case 4\n"
+		".4byte _0800E4D2 @ case 5\n"
+	"_0800E4A8:\n"
+		"adds r1, r3, #0\n"
+		"adds r0, r4, #0\n"
+		"movs r2, #0\n"
+		"bl sub_800E210\n"
+		"b _0800E514\n"
+	"_0800E4B4:\n"
+		"adds r1, r3, #0\n"
+		"adds r0, r4, #0\n"
+		"adds r2, r5, #0\n"
+		"bl sub_800E290\n"
+		"b _0800E514\n"
+	"_0800E4C0:\n"
+		"adds r1, r3, #0\n"
+		"movs r2, #0x10\n"
+		"b _0800E4D6\n"
+	"_0800E4C6:\n"
+		"adds r1, r3, #0\n"
+		"adds r0, r4, #0\n"
+		"adds r2, r5, #0\n"
+		"bl sub_800E31C\n"
+		"b _0800E514\n"
+	"_0800E4D2:\n"
+		"adds r1, r3, #0\n"
+		"movs r2, #0x30\n"
+	"_0800E4D6:\n"
+		"adds r0, r4, #0\n"
+		"bl sub_800E31C\n"
+		"b _0800E514\n"
+	"_0800E4DE:\n"
+		"ldrh r0, [r4, #0x3c]\n"
+		"ldr r1, _0800E510  @ 0x0000FFF7\n"
+		"ands r1, r0\n"
+		"strh r1, [r4, #0x3c]\n"
+		"bl sub_8006A7C\n"
+		"bl sub_808F270\n"
+		"bl sub_808BB74\n"
+		"adds r0, r4, #0\n"
+		"adds r0, #0x41\n"
+		"ldrb r0, [r0]\n"
+		"cmp r0, #1\n"
+		"bne _0800E506\n"
+		"adds r0, r4, #0\n"
+		"adds r0, #0x44\n"
+		"ldrh r0, [r0]\n"
+		"bl sub_800BCDC\n"
+	"_0800E506:\n"
+		"adds r0, r4, #0\n"
+		"bl sub_800E640\n"
+		"movs r0, #2\n"
+		"b _0800E516\n"
+		".align 2, 0\n"
+	"_0800E510: .4byte 0x0000FFF7\n"
+	"_0800E514:\n"
+		"movs r0, #0\n"
+	"_0800E516:\n"
+		"pop {r4, r5}\n"
+		"pop {r1}\n"
+		"bx r1\n"
+
+		".syntax divided\n"
+	);
+}
+
+#endif // !NONMATCHING
+
+u8 Event1C_TEXTCONT(struct EventEngineProc* proc) {
+	if (((proc->evStateBits >> 2) & 1)) {
+		sub_8006A7C();
+		sub_808F270();
+		sub_808BB74();
+
+		if (proc->execType == EV_EXEC_CUTSCENE)
+			sub_800BCDC(proc->mapSpritePalIdOverride);
+
+		sub_800E640(proc);
+	} else {
+		sub_8006EF0();
+	}
+	
+	return EVC_ADVANCE_YIELD;
+}
+
