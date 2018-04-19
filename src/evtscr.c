@@ -16,9 +16,12 @@ void sub_8012890(int, int, int, int, int, struct Proc*); // aka idk
 
 // face
 void sub_800680C(int, int, int);
-void sub_8006EF0(void);
 void sub_8006A30(int, int, u16);
 void sub_8006AA8(int); // set dialog flag
+u8   sub_8006ED8(void);
+void sub_8006EF0(void);
+u8   sub_80089D0(void);
+int  sub_8008A00(void);
 
 // ???
 void sub_808A518(u16);
@@ -26,6 +29,9 @@ void sub_808AA04(int, int, u16, struct Proc*);
 void sub_808AADC(const char*, int*, int*);
 void sub_808E9D8(int);
 void sub_808F128(int, int, int, int, int, void*, int, struct Proc*);
+u8   sub_808F284(void);
+
+extern const struct ProcCmd gUnknown_08A016E0[];
 
 // local
 void sub_800E640(struct EventEngineProc*);
@@ -1298,3 +1304,60 @@ u8 Event1C_TEXTCONT(struct EventEngineProc* proc) {
 	return EVC_ADVANCE_YIELD;
 }
 
+/*
+
+// Not matching yet
+
+u8 Event1D_TEXTEND(struct EventEngineProc* proc) {
+	if (((proc->evStateBits >> 2) & 1)) {
+		sub_8006A7C();
+		sub_808F270();
+		sub_808BB74();
+
+		if (proc->execType == EV_EXEC_CUTSCENE)
+			sub_800BCDC(proc->mapSpritePalIdOverride);
+
+		sub_800E640(proc);
+
+		gEventSlots[0xC] = 0;
+	} else {
+		unsigned r5 = FALSE;
+
+		if ((sub_80089D0() && !sub_8006ED8()) || sub_808F284() || Proc_Find(gUnknown_08A016E0))
+			r5 = TRUE;
+
+		if (r5 == TRUE) {
+			switch (proc->execType) {
+
+			case EV_EXEC_WORLDMAP:
+			case EV_EXEC_UNK4:
+				return EVC_STOP_YIELD;
+
+			default:
+				switch (proc->activeTextType) {
+
+				case 0:
+				case 1:
+				case 2:
+					SetSpecialColorEffectsParameters(1, 0x10, 1, 0);
+
+				default:
+					break;
+
+				} // switch (proc->activeTextType)
+
+				return EVC_STOP_YIELD;
+
+			} // switch (proc->execType)
+		} else {
+			gEventSlots[0xC] = sub_8008A00();
+		}
+	}
+
+	if (proc->overwrittenTextSpeed != -1)
+		gUnknown_0202BCF0.unk40_6 = proc->overwrittenTextSpeed;
+
+	return EVC_ADVANCE_YIELD;
+}
+
+//*/
