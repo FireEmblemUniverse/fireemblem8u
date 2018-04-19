@@ -842,4 +842,85 @@ _080287CE:
 	pop {r1}
 	bx r1
 
+	THUMB_FUNC_START sub_80287D4
+sub_80287D4: @ 0x080287D4
+	push {lr}
+	adds r2, r0, #0
+	adds r3, r1, #0
+	cmp r2, #0
+	beq _0802886A
+	cmp r3, #0
+	beq _0802886A
+	ldrb r1, [r2, #8]
+	ldrb r0, [r3, #8]
+	strb r0, [r2, #8]
+	strb r1, [r3, #8]
+	ldrb r1, [r2, #9]
+	ldrb r0, [r3, #9]
+	strb r0, [r2, #9]
+	strb r1, [r3, #9]
+	ldrb r1, [r2, #0x12]
+	ldrb r0, [r3, #0x12]
+	strb r0, [r2, #0x12]
+	strb r1, [r3, #0x12]
+	ldrb r1, [r2, #0x13]
+	ldrb r0, [r3, #0x13]
+	strb r0, [r2, #0x13]
+	strb r1, [r3, #0x13]
+	ldrb r1, [r2, #0x14]
+	ldrb r0, [r3, #0x14]
+	strb r0, [r2, #0x14]
+	strb r1, [r3, #0x14]
+	ldrb r1, [r2, #0x15]
+	ldrb r0, [r3, #0x15]
+	strb r0, [r2, #0x15]
+	strb r1, [r3, #0x15]
+	ldrb r1, [r2, #0x16]
+	ldrb r0, [r3, #0x16]
+	strb r0, [r2, #0x16]
+	strb r1, [r3, #0x16]
+	ldrb r1, [r2, #0x17]
+	ldrb r0, [r3, #0x17]
+	strb r0, [r2, #0x17]
+	strb r1, [r3, #0x17]
+	ldrb r1, [r2, #0x18]
+	ldrb r0, [r3, #0x18]
+	strb r0, [r2, #0x18]
+	strb r1, [r3, #0x18]
+	ldrb r1, [r2, #0x19]
+	ldrb r0, [r3, #0x19]
+	strb r0, [r2, #0x19]
+	strb r1, [r3, #0x19]
+	ldrb r1, [r2, #0x1a]
+	ldrb r0, [r3, #0x1a]
+	strb r0, [r2, #0x1a]
+	strb r1, [r3, #0x1a]
+	ldrb r1, [r2, #0x1d]
+	ldrb r0, [r3, #0x1d]
+	strb r0, [r2, #0x1d]
+	strb r1, [r3, #0x1d]
+	ldrh r1, [r2, #0x1e]
+	ldrh r0, [r3, #0x1e]
+	strh r0, [r2, #0x1e]
+	strh r1, [r3, #0x1e]
+	ldrh r1, [r2, #0x20]
+	ldrh r0, [r3, #0x20]
+	strh r0, [r2, #0x20]
+	strh r1, [r3, #0x20]
+	ldrh r1, [r2, #0x22]
+	ldrh r0, [r3, #0x22]
+	strh r0, [r2, #0x22]
+	strh r1, [r3, #0x22]
+	ldrh r1, [r2, #0x24]
+	ldrh r0, [r3, #0x24]
+	strh r0, [r2, #0x24]
+	strh r1, [r3, #0x24]
+	ldrh r1, [r2, #0x26]
+	ldrh r0, [r3, #0x26]
+	strh r0, [r2, #0x26]
+	strh r1, [r3, #0x26]
+_0802886A:
+	pop {r0}
+	bx r0
+
 .align 2, 0
