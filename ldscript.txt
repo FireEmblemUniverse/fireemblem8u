@@ -76,6 +76,11 @@ SECTIONS
         asm/lightrunefx.o(.text);
         asm/danceringfx.o(.text);
         asm/eventwarpfx.o(.text);
+        asm/whitecircularfadefx.o(.text);
+        asm/emitstarfx.o(.text);
+        asm/minefx.o(.text);
+        asm/chapterintrofx_title.o(.text);
+        asm/bmmenu.o(.text);
         asm/code.o(.text);
         asm/m4a_1.o(.text);
         src/m4a_2.o(.text);
