@@ -84,6 +84,8 @@ SECTIONS
         asm/bmphase.o(.text);
         asm/bmgold.o(.text);
         asm/bmtarget.o(.text);
+        asm/bmudisp.o(.text);
+        asm/bmreliance.o(.text);
         asm/code.o(.text);
         asm/m4a_1.o(.text);
         src/m4a_2.o(.text);
