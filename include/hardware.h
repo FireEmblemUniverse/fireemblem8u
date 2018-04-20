@@ -1,7 +1,7 @@
 #ifndef GUARD_HARDWARE_H
 #define GUARD_HARDWARE_H
 
-void CopyToPaletteBuffer(void *src, int b, int size);
+void CopyToPaletteBuffer(const void *src, int b, int size);
 // ??? sub_8000E14(???);
 // ??? FlushLCDControl(???);
 // ??? BG_GetControlBuffer(???);

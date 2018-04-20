@@ -54,6 +54,10 @@ u8   sub_808F284(void);
 
 extern const struct ProcCmd gUnknown_08A016E0[];
 
+// ????
+
+void sub_80B65F8(u16* buf, unsigned offset, int, int, unsigned);
+
 // local
 void sub_800E640(struct EventEngineProc*);
 u8 Event23_(struct EventEngineProc*);
@@ -62,6 +66,17 @@ extern const struct ProcCmd gUnknown_08591DE8[]; // "face witness"
 
 extern struct Struct03000428 gUnknown_03000428;
 extern struct Struct03000430 gUnknown_03000430;
+
+// other
+
+void CopyDataWithPossibleUncomp(const void* source, void* target); // aka Decompress
+void CallARM_FillTileRect(u16* target, const void* source, u16 tilebase); // aka BgTileMap_ApplyTSA
+
+extern const struct {
+	const void* pTileGraphics;
+	const void* pTileArrangement;
+	const void* pColorPalettes;
+} gUnknown_0895DD1C[]; // TODO: rename to gConvoBackgroundData
 
 // TODO: not use this?
 struct EventCommandHeader {
@@ -1477,4 +1492,79 @@ u8 Event1F_(struct EventEngineProc* proc) {
 u8 Event20_(struct EventEngineProc* proc) {
 	sub_80081A8();
 	return EVC_ADVANCE_CONTINUE;
+}
+
+u8 sub_800E7D0(u8 mode, u16 bgIndex) {
+	BG_SetPosition(0, 0, 0);
+	BG_SetPosition(1, 0, 0);
+	BG_SetPosition(2, 0, 0);
+	BG_SetPosition(3, 0, 0);
+
+	switch (mode) {
+
+	case 0:
+		return EVC_ERROR;
+
+	case 3:
+		return EVC_ERROR;
+
+	case 4:
+		return EVC_ERROR;
+
+	case 5:
+		return EVC_ERROR;
+
+	case 1:
+		// Randomize background (for support viewers)
+		if (bgIndex == 0x37) // TODO: use an enum for convo backgrounds
+			bgIndex = NextRN_N(0x35);
+
+		// Loading Background Tile Graphics
+
+		CopyDataWithPossibleUncomp(
+			gUnknown_0895DD1C[bgIndex].pTileGraphics,
+			(void*)(VRAM + GetBackgroundTileDataOffset(3))
+		);
+
+		// Loading Background Tile Arrangement
+
+		CallARM_FillTileRect(
+			(u16*)(gBG3TilemapBuffer),
+			gUnknown_0895DD1C[bgIndex].pTileArrangement,
+			0x8000 // base palette is bg palette 8
+		);
+
+		// Loading Background Palettes
+
+		CopyToPaletteBuffer(
+			gUnknown_0895DD1C[bgIndex].pColorPalettes,
+			0x100, // bg pal 8
+			0x100  // 8 palettes
+		);
+
+		BG_EnableSyncByMask(1 << 3);
+		EnablePaletteSync();
+
+		gPaletteBuffer[0] = 0;
+
+		return EVC_ADVANCE_YIELD;
+
+	case 2:
+		sub_80B65F8(
+			(u16*)(gBG3TilemapBuffer),
+			GetBackgroundTileDataOffset(3),
+			8,
+			8,
+			bgIndex
+		);
+
+		BG_EnableSyncByMask(1 << 3);
+		EnablePaletteSync();
+
+		return EVC_ADVANCE_YIELD;
+
+	default:
+		return EVC_ADVANCE_YIELD;
+
+	} // switch (mode)
 }
