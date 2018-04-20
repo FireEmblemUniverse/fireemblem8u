@@ -30,6 +30,13 @@ void UpdateGameTilesGraphics(void);
 void SMS_UpdateFromGameData(void);
 void SMS_FlushIndirect(void);
 
+void sub_8030F48(void);
+
+unsigned sub_8015A40(unsigned);
+unsigned sub_8015A6C(unsigned);
+
+void RefreshFogAndUnitMaps(void);
+
 // TODO: #include "evtcmd_gmap.h" (?)
 void sub_800B910(int, int, int);
 void sub_800B954(int, int, int);
@@ -116,6 +123,21 @@ extern const struct ProcCmd gUnknown_08591E00[];
 extern const struct ProcCmd gUnknown_08591EB0[];
 
 // other
+
+struct GameState {
+	/* 00 */ u8 mainLoopEnded;
+	/* 01 */ u8 gameLogicLock;
+	/* 02 */ u8 gameGfxLock;
+	/* 03 */ u8 unk03;
+	/* 04 */ u8 gameStateBits;
+
+	/* 06 */ u16 savedVCLY;
+	/* 08 */ u32 unk08;
+	/* 0C */ u16 xCameraReal;
+	/* 0E */ u16 yCameraReal; 
+};
+
+extern struct GameState gUnknown_0202BCB0;
 
 void CopyDataWithPossibleUncomp(const void* source, void* target); // aka Decompress
 void CallARM_FillTileRect(u16* target, const void* source, u16 tilebase); // aka BgTileMap_ApplyTSA
@@ -2110,5 +2132,48 @@ u8 Event24_(struct EventEngineProc* proc) {
 	}
 
 	proc->evStateBits &= ~EV_STATE_GFXLOCKED;
+	return EVC_ADVANCE_YIELD;
+}
+
+u8 Event25_(struct EventEngineProc* proc) {
+	u8 x, y;
+	short chIndex;
+
+	{
+		// order needed to match
+		const u16* current = proc->pEventCurrent;
+
+		x = ((u16*)(gEventSlots + 0xB))[0];
+		y = ((u16*)(gEventSlots + 0xB))[1];
+
+		chIndex = current[1];
+	}
+
+	if (chIndex < 0)
+		chIndex = gEventSlots[2];
+
+	// ensure gfx are unlocked
+	Event24_(proc);
+
+	gUnknown_0202BCF0.chapterIndex = chIndex;
+
+	sub_8030F48();
+
+	gUnknown_0202BCB0.xCameraReal = sub_8015A40(x * 16);
+	gUnknown_0202BCB0.yCameraReal = sub_8015A6C(y * 16);
+
+	RefreshFogAndUnitMaps();
+	UpdateGameTilesGraphics();
+	SMS_UpdateFromGameData();
+	sub_80311A8();
+
+	sub_800BCDC(proc->mapSpritePalIdOverride);
+
+	BG_Fill(gBG0TilemapBuffer, 0);
+	BG_Fill(gBG1TilemapBuffer, 0);
+
+	BG_EnableSyncByMask(1 << 0);
+	BG_EnableSyncByMask(1 << 1);
+
 	return EVC_ADVANCE_YIELD;
 }

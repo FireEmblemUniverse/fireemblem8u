@@ -2,64 +2,6 @@
 
 	.SYNTAX UNIFIED
 
-	THUMB_FUNC_START Event25_
-Event25_: @ 0x0800F17C
-	push {r4, r5, r6, r7, lr}
-	adds r5, r0, #0
-	ldr r0, [r5, #0x38]
-	ldr r1, _0800F1F8  @ gUnknown_030004E4
-	ldrb r6, [r1]
-	ldrb r7, [r1, #2]
-	ldrh r4, [r0, #2]
-	movs r2, #2
-	ldrsh r0, [r0, r2]
-	cmp r0, #0
-	bge _0800F198
-	adds r0, r1, #0
-	subs r0, #0x2c
-	ldrh r4, [r0, #8]
-_0800F198:
-	adds r0, r5, #0
-	bl Event24_
-	ldr r0, _0800F1FC  @ gUnknown_0202BCF0
-	strb r4, [r0, #0xe]
-	bl sub_8030F48
-	lsls r0, r6, #4
-	bl sub_8015A40
-	ldr r4, _0800F200  @ gUnknown_0202BCB0
-	strh r0, [r4, #0xc]
-	lsls r0, r7, #4
-	bl sub_8015A6C
-	strh r0, [r4, #0xe]
-	bl RefreshFogAndUnitMaps
-	bl UpdateGameTilesGraphics
-	bl SMS_UpdateFromGameData
-	bl sub_80311A8
-	adds r0, r5, #0
-	adds r0, #0x44
-	ldrh r0, [r0]
-	bl sub_800BCDC
-	ldr r0, _0800F204  @ gBG0TilemapBuffer
-	movs r1, #0
-	bl BG_Fill
-	ldr r0, _0800F208  @ gBG1TilemapBuffer
-	movs r1, #0
-	bl BG_Fill
-	movs r0, #1
-	bl BG_EnableSyncByMask
-	movs r0, #2
-	bl BG_EnableSyncByMask
-	movs r0, #2
-	pop {r4, r5, r6, r7}
-	pop {r1}
-	bx r1
-	.align 2, 0
-_0800F1F8: .4byte gUnknown_030004E4
-_0800F1FC: .4byte gUnknown_0202BCF0
-_0800F200: .4byte gUnknown_0202BCB0
-_0800F204: .4byte gBG0TilemapBuffer
-_0800F208: .4byte gBG1TilemapBuffer
-
 	THUMB_FUNC_START Event26_CameraControlMaybe
 Event26_CameraControlMaybe: @ 0x0800F20C
 	push {r4, r5, r6, r7, lr}
