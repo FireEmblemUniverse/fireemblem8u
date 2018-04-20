@@ -72,7 +72,7 @@ void BG_EnableSyncByMask(int bg);
 void BG_EnableSync(int bg);
 // ??? sub_8001FD0(???);
 // ??? ClearTileRigistry(???);
-void RegisterTileGraphics(void *a, void *b, int c);
+void RegisterTileGraphics(const void *a, void *b, int c);
 void RegisterFillTile(void *a, void *b, int c);
 // ??? FlushTiles(???);
 void SetupOAMBufferSplice(int a);

@@ -56,10 +56,31 @@ extern const struct ProcCmd gUnknown_08A016E0[];
 
 // ????
 
+void sub_80B272C(int, int, int, struct Proc*);
+void sub_80B2780(int, int, int, struct Proc*);
+
 void sub_80B65F8(u16* buf, unsigned offset, int, int, unsigned);
+
+struct UnkConvoBackgroundProcStruct {
+	PROC_HEADER;
+
+	/* 29 */ u8  unk29;
+	/* 2A */ u8  unk2A;
+
+	/* 2C */ u16 unk2C;
+	/* 2E */ u16 unk2E;
+	/* 30 */ u16 unk30;
+
+	/* 34 */ struct EventEngineProc* unk34;
+};
+
+extern const struct ProcCmd gUnknown_08591E58[];
+extern const struct ProcCmd gUnknown_08591E00[];
+extern const struct ProcCmd gUnknown_08591EB0[];
 
 // local
 void sub_800E640(struct EventEngineProc*);
+u8 Event22_(struct EventEngineProc*); // CLEAN
 u8 Event23_(struct EventEngineProc*);
 
 extern const struct ProcCmd gUnknown_08591DE8[]; // "face witness"
@@ -1567,4 +1588,124 @@ u8 sub_800E7D0(u8 mode, u16 bgIndex) {
 		return EVC_ADVANCE_YIELD;
 
 	} // switch (mode)
+}
+
+u8 Event21_(struct EventEngineProc* proc) {
+	unsigned evArgument2_a, evArgument2_b, evArgument3;
+	struct UnkConvoBackgroundProcStruct* otherProc;
+
+	int   subcode    = 0xF & *(const u8*)(proc->pEventCurrent);
+	short evArgument = proc->pEventCurrent[1];
+
+	if (evArgument < 0)
+		evArgument = gEventSlots[2];
+
+	switch (subcode) {
+
+	case 0:
+		return sub_800E7D0(proc->activeTextType, evArgument);
+
+	case 1: {
+		evArgument2_a = proc->pEventCurrent[2];
+		evArgument3   = proc->pEventCurrent[3];
+
+		switch (proc->activeTextType) {
+
+		case 0:
+		case 3:
+		case 4:
+		case 5:
+			switch (evArgument2_a) {
+
+			case 0:
+			case 3:
+			case 4:
+			case 5:
+				return EVC_ERROR;
+
+			case 1:
+			case 2:
+				if (((proc->evStateBits >> 2) & 1)) // is skipping
+					return EVC_ADVANCE_CONTINUE;
+
+				otherProc = (struct UnkConvoBackgroundProcStruct*) Proc_CreateBlockingChild(gUnknown_08591E58, (struct Proc*)(proc));
+				otherProc->unk29 = 1;
+
+				break;
+
+			} // switch (a)
+
+			break;
+
+		case 1:
+		case 2:
+			switch (evArgument2_a) {
+
+			case 0:
+			case 3:
+			case 4:
+			case 5:
+				if (((proc->evStateBits >> 2) & 1)) // is skipping
+					return Event22_(proc); // CLEAN
+
+				otherProc = (struct UnkConvoBackgroundProcStruct*) Proc_CreateBlockingChild(gUnknown_08591EB0, (struct Proc*)(proc));
+				otherProc->unk29 = 2;
+
+				break;
+
+			case 1:
+			case 2:
+				if (((proc->evStateBits >> 2) & 1)) // is skipping
+					return EVC_ADVANCE_CONTINUE;
+
+				otherProc = (struct UnkConvoBackgroundProcStruct*) Proc_CreateBlockingChild(gUnknown_08591E00, (struct Proc*)(proc));
+				otherProc->unk29 = 0;
+
+				break;
+
+			}
+
+			break;
+
+		}
+
+		otherProc->unk2A = evArgument2_a;
+		otherProc->unk2C = evArgument;
+		otherProc->unk2E = evArgument3;
+		otherProc->unk30 = 0;
+		otherProc->unk34 = proc;
+
+		break;
+	}
+
+	case 2: {
+		evArgument2_b = proc->pEventCurrent[2];
+		evArgument3   = proc->pEventCurrent[3];
+
+		if (((proc->evStateBits >> 2) & 1)) // is skipping
+			return EVC_ADVANCE_CONTINUE;
+
+		if (sub_800E7D0(proc->activeTextType, evArgument) == EVC_ERROR)
+			return EVC_ERROR;
+
+		sub_80B2780(evArgument3, 0, evArgument2_b, (struct Proc*)(proc));
+
+		break;
+	}
+
+	case 3: {
+		evArgument2_b = proc->pEventCurrent[2];
+		evArgument3   = proc->pEventCurrent[3];
+
+		if (((proc->evStateBits >> 2) & 1)) // is skipping
+			return EVC_ADVANCE_CONTINUE;
+
+		sub_80B272C(evArgument3, 0, evArgument2_b, (struct Proc*)(proc));
+
+		break;
+	}
+
+	} // switch (subcode)
+
+	return EVC_ADVANCE_YIELD;
 }
