@@ -61,6 +61,14 @@ int  sub_8008A00(void);
 
 extern const struct ProcCmd gUnknown_08591154[]; // E_FACE proc
 
+void sub_80311A8(void); // ReloadGameCoreGraphics
+
+void BlockGameGraphicsLogic(void);
+void UnblockGameGraphicsLogic(void);
+
+void BlockAll6CMarked4(void);
+void UnblockAll6CMarked4(void);
+
 // ???
 void sub_808A518(u16);
 void sub_808AA04(int, int, u16, struct Proc*);
@@ -2063,4 +2071,44 @@ void sub_800EF48(struct ConvoBackgroundFadeProc* proc) {
 	CpuFastFill(0, (void*)(VRAM + GetBackgroundTileDataOffset(0)), 0x20);
 	CpuFastFill(0, (void*)(VRAM + GetBackgroundTileDataOffset(1)), 0x20);
 	CpuFastFill(0, (void*)(VRAM + GetBackgroundTileDataOffset(2)), 0x20);
+}
+
+u8 Event22_(struct EventEngineProc* proc) {
+	sub_80311A8(); // ReloadGameCoreGraphics
+	sub_800BCDC(proc->mapSpritePalIdOverride);
+
+	BG_Fill(gBG0TilemapBuffer, 0);
+	BG_Fill(gBG1TilemapBuffer, 0);
+
+	BG_EnableSyncByMask(1 << 0);
+	BG_EnableSyncByMask(1 << 1);
+
+	sub_80081A8();
+
+	Proc_DeleteAllWithScript(gUnknown_08591154); // end all faces
+	ResetFaces();
+
+	sub_80067E8();
+
+	return Event24_(proc);
+}
+
+u8 Event23_(struct EventEngineProc* proc) {
+	if (!(proc->evStateBits & EV_STATE_GFXLOCKED)) {
+		BlockGameGraphicsLogic();
+		BlockAll6CMarked4();
+	}
+
+	proc->evStateBits |= EV_STATE_GFXLOCKED;
+	return EVC_ADVANCE_YIELD;
+}
+
+u8 Event24_(struct EventEngineProc* proc) {
+	if (proc->evStateBits & EV_STATE_GFXLOCKED) {
+		UnblockGameGraphicsLogic();
+		UnblockAll6CMarked4();
+	}
+
+	proc->evStateBits &= ~EV_STATE_GFXLOCKED;
+	return EVC_ADVANCE_YIELD;
 }
