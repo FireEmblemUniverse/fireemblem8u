@@ -97,7 +97,7 @@ void Proc_GotoLabel(struct Proc* proc_arg, int label);
 // ??? Proc_SetMark(???);
 // ??? Proc_SetDestructor(???);
 // ??? Proc_ForEach(???);
-// ??? Proc_ForEachWithScript(???);
+void Proc_ForEachWithScript(const struct ProcCmd *script, ProcFunc func);
 // ??? Proc_ForEachWithMark(???);
 void Proc_BlockEachWithMark(int mark);
 // ??? Proc_UnblockEachWithMark(???);

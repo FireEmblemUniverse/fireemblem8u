@@ -7,6 +7,19 @@
 #include "m4a.h"
 #include "soundwrapper.h"
 
+struct Struct03000430 {
+	u8 unk00;
+	u8 unk01;
+	u8 unk02;
+	u8 unk03;
+};
+
+struct Struct03000428 {
+	struct Struct03000430 sub;
+	u8 unk04;
+	u8 unk05;
+};
+
 // TODO: #include "hino.h"
 void sub_8013D08(int speed, struct Proc* parent); // aka StartFadeInBlack
 void sub_8013D20(int speed, struct Proc* parent); // aka StartFadeOutBlack
@@ -14,14 +27,22 @@ void sub_8013D38(int speed, struct Proc* parent); // aka StartFadeInWhite
 void sub_8013D50(int speed, struct Proc* parent); // aka StartFadeOutWhite
 void sub_8012890(int, int, int, int, int, struct Proc*); // aka idk
 
-// face
+// TODO: #include "face.h"
+void ResetFaces(void);
+u8   Face6CExists(void);
+void sub_8005F38(struct Proc*);
+void sub_80067E8(void);
 void sub_800680C(int, int, int);
 void sub_8006A30(int, int, u16);
+void sub_8006A70(int, int, struct Struct03000430*);
 void sub_8006AA8(int); // set dialog flag
 u8   sub_8006ED8(void);
 void sub_8006EF0(void);
+void sub_80081A8(void);
 u8   sub_80089D0(void);
 int  sub_8008A00(void);
+
+extern const struct ProcCmd gUnknown_08591154[]; // E_FACE proc
 
 // ???
 void sub_808A518(u16);
@@ -36,6 +57,11 @@ extern const struct ProcCmd gUnknown_08A016E0[];
 // local
 void sub_800E640(struct EventEngineProc*);
 u8 Event23_(struct EventEngineProc*);
+
+extern const struct ProcCmd gUnknown_08591DE8[]; // "face witness"
+
+extern struct Struct03000428 gUnknown_03000428;
+extern struct Struct03000430 gUnknown_03000430;
 
 // TODO: not use this?
 struct EventCommandHeader {
@@ -1317,12 +1343,12 @@ u8 Event1D_TEXTEND(struct EventEngineProc* proc) {
 
 		gEventSlots[0xC] = 0;
 	} else {
-		unsigned r5 = FALSE;
+		unsigned flag = FALSE;
 
 		if ((sub_80089D0() && !sub_8006ED8()) || sub_808F284() || Proc_Find(gUnknown_08A016E0))
-			r5 = TRUE;
+			flag = TRUE;
 
-		if (r5 == TRUE) {
+		if (flag == TRUE) {
 			switch (proc->execType) {
 
 			case EV_EXEC_WORLDMAP:
@@ -1343,7 +1369,7 @@ u8 Event1D_TEXTEND(struct EventEngineProc* proc) {
 				case 5:
 					break;
 
-				} // switch (proc->activeTextType) */
+				} // switch (proc->activeTextType)
 
 				return EVC_STOP_YIELD;
 
@@ -1357,4 +1383,98 @@ u8 Event1D_TEXTEND(struct EventEngineProc* proc) {
 		gUnknown_0202BCF0.unk40_6 = proc->overwrittenTextSpeed;
 
 	return EVC_ADVANCE_YIELD;
+}
+
+void sub_800E640(struct EventEngineProc* proc) {
+	if (proc->evStateBits & EV_STATE_FADEDIN) {
+		sub_80081A8();
+		Proc_DeleteAllWithScript(gUnknown_08591154); // end all faces
+		ResetFaces();
+		sub_80067E8();
+	} else if (Face6CExists()) {
+		sub_80081A8();
+		Proc_ForEachWithScript(gUnknown_08591154, (ProcFunc)(sub_8005F38));
+		Proc_CreateBlockingChild(gUnknown_08591DE8, (struct Proc*)(proc));
+	}
+}
+
+void _WhileFace6CExists(struct Proc* proc) {
+	if (!Face6CExists())
+		Proc_ClearNativeCallback(proc);
+}
+
+u8 Event1E_(struct EventEngineProc* proc) {
+	u8       subcode    = 0xF & *(const u8*)(proc->pEventCurrent);
+	short    evArgument = proc->pEventCurrent[1];
+
+	if (evArgument == -1)
+		evArgument = gEventSlots[2];
+
+	if (evArgument != -3) {
+		if (evArgument != -2) {
+			if (((proc->evStateBits >> 2) & 1)) // is skipping
+				return EVC_ADVANCE_CONTINUE;
+
+			gUnknown_03000428.sub.unk00 = subcode + 8;
+			gUnknown_03000428.sub.unk01 = 0x10;
+			gUnknown_03000428.sub.unk02 = evArgument;
+			gUnknown_03000428.sub.unk03 = 1;
+
+			gUnknown_03000428.unk04 = 1;
+			gUnknown_03000428.unk05 = 0;
+
+			sub_800680C(0x80, 2, 1);
+		} else {
+			gUnknown_03000428.sub.unk00 = subcode + 8;
+			gUnknown_03000428.sub.unk01 = 0x11;
+			gUnknown_03000428.sub.unk02 = 1;
+			gUnknown_03000428.sub.unk03 = 0;
+
+			sub_80081A8();
+		}
+	} else {
+		sub_8006A7C();
+		sub_808F270();
+		sub_808BB74();
+
+		if (proc->execType == EV_EXEC_CUTSCENE)
+			sub_800BCDC(proc->mapSpritePalIdOverride);
+
+		sub_800E640(proc);
+
+		return EVC_ADVANCE_YIELD;
+	}
+
+	sub_8006A70(0, 0, &gUnknown_03000428.sub);
+	return EVC_ADVANCE_CONTINUE;
+}
+
+u8 Event1F_(struct EventEngineProc* proc) {
+	unsigned evX, evY;
+
+	if (((proc->evStateBits >> 2) & 1)) // is skipping
+		return EVC_ADVANCE_CONTINUE;
+
+	if (((proc->evStateBits >> 3) & 1)) // is skipping dialogue?
+		return EVC_ADVANCE_CONTINUE;
+
+	{
+		// I wonder if I can get this to be better
+		unsigned read = proc->pEventCurrent[1];
+		evX           = *(const u8*)(proc->pEventCurrent + 1);
+		evY           = read >> 8;
+	}
+
+	gUnknown_03000430.unk00 = evX + 8;
+	gUnknown_03000430.unk01 = 0x80;
+	gUnknown_03000430.unk02 = evY + 10;
+	gUnknown_03000430.unk03 = 0;
+
+	sub_8006A70(0, 0, &gUnknown_03000430);
+	return EVC_ADVANCE_CONTINUE;
+}
+
+u8 Event20_(struct EventEngineProc* proc) {
+	sub_80081A8();
+	return EVC_ADVANCE_CONTINUE;
 }
