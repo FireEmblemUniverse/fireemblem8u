@@ -71,6 +71,23 @@ SECTIONS
         asm/code_801F50C.o(.text); /* ChangeActiveUnitFacing */
         asm/trapfx.o(.text);
         asm/notifybox.o(.text);
+        asm/chapterintrofx.o(.text);
+        asm/gameoverbgfx.o(.text);
+        asm/lightrunefx.o(.text);
+        asm/danceringfx.o(.text);
+        asm/eventwarpfx.o(.text);
+        asm/whitecircularfadefx.o(.text);
+        asm/emitstarfx.o(.text);
+        asm/minefx.o(.text);
+        asm/chapterintrofx_title.o(.text);
+        asm/bmmenu.o(.text);
+        asm/bmphase.o(.text);
+        asm/bmgold.o(.text);
+        asm/bmtarget.o(.text);
+        asm/bmudisp.o(.text);
+        asm/bmreliance.o(.text);
+        asm/bmitemuse.o(.text);
+        asm/bmbattle.o(.text);
         asm/code.o(.text);
         asm/m4a_1.o(.text);
         src/m4a_2.o(.text);
