@@ -20,6 +20,23 @@ struct Struct03000428 {
 	u8 unk05;
 };
 
+void Font_LoadForUI(void);
+void sub_80156D4(void);
+void sub_800BA34(void);
+
+void LoadChapterMapGfx(s8);
+void SetupOAMSpliceForWeather(unsigned);
+void UpdateGameTilesGraphics(void);
+void SMS_UpdateFromGameData(void);
+void SMS_FlushIndirect(void);
+
+// TODO: #include "evtcmd_gmap.h" (?)
+void sub_800B910(int, int, int);
+void sub_800B954(int, int, int);
+void sub_800B994(int, int, int);
+void sub_800B9B8(int, int);
+void sub_800BA04(int, int);
+
 // TODO: #include "hino.h"
 void sub_8013D08(int speed, struct Proc* parent); // aka StartFadeInBlack
 void sub_8013D20(int speed, struct Proc* parent); // aka StartFadeOutBlack
@@ -61,32 +78,34 @@ void sub_80B2780(int, int, int, struct Proc*);
 
 void sub_80B65F8(u16* buf, unsigned offset, int, int, unsigned);
 
-struct UnkConvoBackgroundProcStruct {
+// local
+
+struct ConvoBackgroundFadeProc {
 	PROC_HEADER;
 
-	/* 29 */ u8  unk29;
-	/* 2A */ u8  unk2A;
+	/* 29 */ u8  fadeType;
+	/* 2A */ u8  unkType;
 
-	/* 2C */ u16 unk2C;
-	/* 2E */ u16 unk2E;
-	/* 30 */ u16 unk30;
+	/* 2C */ u16 bgIndex;
+	/* 2E */ u16 fadeSpeed;
+	/* 30 */ u16 fadeTimer;
 
-	/* 34 */ struct EventEngineProc* unk34;
+	/* 34 */ struct EventEngineProc* pEventEngine;
 };
 
-extern const struct ProcCmd gUnknown_08591E58[];
-extern const struct ProcCmd gUnknown_08591E00[];
-extern const struct ProcCmd gUnknown_08591EB0[];
-
-// local
 void sub_800E640(struct EventEngineProc*);
 u8 Event22_(struct EventEngineProc*); // CLEAN
-u8 Event23_(struct EventEngineProc*);
+u8 Event23_(struct EventEngineProc*); // Lock Game Graphics
+u8 Event24_(struct EventEngineProc*); // Resume Game Graphics
 
 extern const struct ProcCmd gUnknown_08591DE8[]; // "face witness"
 
 extern struct Struct03000428 gUnknown_03000428;
 extern struct Struct03000430 gUnknown_03000430;
+
+extern const struct ProcCmd gUnknown_08591E58[];
+extern const struct ProcCmd gUnknown_08591E00[];
+extern const struct ProcCmd gUnknown_08591EB0[];
 
 // other
 
@@ -1592,7 +1611,7 @@ u8 sub_800E7D0(u8 mode, u16 bgIndex) {
 
 u8 Event21_(struct EventEngineProc* proc) {
 	unsigned evArgument2_a, evArgument2_b, evArgument3;
-	struct UnkConvoBackgroundProcStruct* otherProc;
+	struct ConvoBackgroundFadeProc* otherProc;
 
 	int   subcode    = 0xF & *(const u8*)(proc->pEventCurrent);
 	short evArgument = proc->pEventCurrent[1];
@@ -1628,8 +1647,8 @@ u8 Event21_(struct EventEngineProc* proc) {
 				if (((proc->evStateBits >> 2) & 1)) // is skipping
 					return EVC_ADVANCE_CONTINUE;
 
-				otherProc = (struct UnkConvoBackgroundProcStruct*) Proc_CreateBlockingChild(gUnknown_08591E58, (struct Proc*)(proc));
-				otherProc->unk29 = 1;
+				otherProc = (struct ConvoBackgroundFadeProc*) Proc_CreateBlockingChild(gUnknown_08591E58, (struct Proc*)(proc));
+				otherProc->fadeType = 1;
 
 				break;
 
@@ -1648,8 +1667,8 @@ u8 Event21_(struct EventEngineProc* proc) {
 				if (((proc->evStateBits >> 2) & 1)) // is skipping
 					return Event22_(proc); // CLEAN
 
-				otherProc = (struct UnkConvoBackgroundProcStruct*) Proc_CreateBlockingChild(gUnknown_08591EB0, (struct Proc*)(proc));
-				otherProc->unk29 = 2;
+				otherProc = (struct ConvoBackgroundFadeProc*) Proc_CreateBlockingChild(gUnknown_08591EB0, (struct Proc*)(proc));
+				otherProc->fadeType = 2;
 
 				break;
 
@@ -1658,8 +1677,8 @@ u8 Event21_(struct EventEngineProc* proc) {
 				if (((proc->evStateBits >> 2) & 1)) // is skipping
 					return EVC_ADVANCE_CONTINUE;
 
-				otherProc = (struct UnkConvoBackgroundProcStruct*) Proc_CreateBlockingChild(gUnknown_08591E00, (struct Proc*)(proc));
-				otherProc->unk29 = 0;
+				otherProc = (struct ConvoBackgroundFadeProc*) Proc_CreateBlockingChild(gUnknown_08591E00, (struct Proc*)(proc));
+				otherProc->fadeType = 0;
 
 				break;
 
@@ -1669,11 +1688,11 @@ u8 Event21_(struct EventEngineProc* proc) {
 
 		}
 
-		otherProc->unk2A = evArgument2_a;
-		otherProc->unk2C = evArgument;
-		otherProc->unk2E = evArgument3;
-		otherProc->unk30 = 0;
-		otherProc->unk34 = proc;
+		otherProc->unkType = evArgument2_a;
+		otherProc->bgIndex = evArgument;
+		otherProc->fadeSpeed = evArgument3;
+		otherProc->fadeTimer = 0;
+		otherProc->pEventEngine = proc;
 
 		break;
 	}
@@ -1708,4 +1727,340 @@ u8 Event21_(struct EventEngineProc* proc) {
 	} // switch (subcode)
 
 	return EVC_ADVANCE_YIELD;
+}
+
+void sub_800EA84(struct ConvoBackgroundFadeProc* proc) {
+	gLCDControlBuffer.dispcnt.bg0_on = FALSE;
+	gLCDControlBuffer.dispcnt.bg1_on = FALSE;
+	gLCDControlBuffer.dispcnt.bg2_on = FALSE;
+	gLCDControlBuffer.dispcnt.bg3_on = TRUE;
+	gLCDControlBuffer.dispcnt.obj_on = TRUE;
+
+	BG_SetPosition(2, 0, 0);
+
+	switch (proc->fadeType) {
+
+	case 0:
+		SetSpecialColorEffectsParameters(1, 0, 0x10, 0);
+
+		// First: BG3; Second: BG2
+		sub_8001ED0(FALSE, FALSE, FALSE, TRUE, FALSE); // SetColorEffectFirstTarget
+		sub_8001F0C(FALSE, FALSE, TRUE, FALSE, FALSE); // SetColorEffectSecondTarget
+
+		// BG0 > BG1 > BG3 > BG2
+		gLCDControlBuffer.bg0cnt.priority = 0;
+		gLCDControlBuffer.bg1cnt.priority = 1;
+		gLCDControlBuffer.bg2cnt.priority = 3;
+		gLCDControlBuffer.bg3cnt.priority = 2;
+
+		break;
+
+	case 1:
+		SetSpecialColorEffectsParameters(1, 0, 0x10, 0);
+
+		// First: BG2; Second: BG3|OBJ
+		sub_8001ED0(FALSE, FALSE, TRUE, FALSE, FALSE); // SetColorEffectFirstTarget
+		sub_8001F0C(FALSE, FALSE, FALSE, TRUE, TRUE);  // SetColorEffectSecondTarget
+
+		// BG2 > BG0 > BG1 > BG3
+		gLCDControlBuffer.bg0cnt.priority = 1;
+		gLCDControlBuffer.bg1cnt.priority = 2;
+		gLCDControlBuffer.bg2cnt.priority = 0;
+		gLCDControlBuffer.bg3cnt.priority = 3;
+
+		break;
+
+	case 2:
+		SetSpecialColorEffectsParameters(1, 0x10, 0, 0);
+
+		// First: BG2; Second: BG3|OBJ
+		sub_8001ED0(FALSE, FALSE, TRUE, FALSE, FALSE); // SetColorEffectFirstTarget
+		sub_8001F0C(FALSE, FALSE, FALSE, TRUE, TRUE);  // SetColorEffectSecondTarget
+
+		// BG2 > BG0 > BG1 > BG3
+		gLCDControlBuffer.bg0cnt.priority = 1;
+		gLCDControlBuffer.bg1cnt.priority = 2;
+		gLCDControlBuffer.bg2cnt.priority = 0;
+		gLCDControlBuffer.bg3cnt.priority = 3;
+
+		break;
+
+	}
+
+	sub_8001F48(TRUE);
+	sub_8001F64(FALSE);
+
+	sub_800BA04(0, 6);
+}
+
+void sub_800EBB0(struct ConvoBackgroundFadeProc* proc) {
+	sub_800B910(3, 2, 10);
+	sub_800B954(3, 2, 1);
+	sub_800B994(8, 0, 6);
+	sub_800B9B8(2, -8);
+
+	gLCDControlBuffer.dispcnt.bg0_on = FALSE;
+	gLCDControlBuffer.dispcnt.bg1_on = FALSE;
+	gLCDControlBuffer.dispcnt.bg2_on = TRUE;
+	gLCDControlBuffer.dispcnt.bg3_on = TRUE;
+	gLCDControlBuffer.dispcnt.obj_on = TRUE;
+}
+
+void sub_800EC00(struct ConvoBackgroundFadeProc* proc) {
+	sub_800B910(2, 3, 10);
+	sub_800B954(2, 3, 1);
+	sub_800B994(0, 8, 6);
+	sub_800B9B8(3, 8);
+
+	gLCDControlBuffer.dispcnt.bg0_on = FALSE;
+	gLCDControlBuffer.dispcnt.bg1_on = FALSE;
+	gLCDControlBuffer.dispcnt.bg2_on = TRUE;
+	gLCDControlBuffer.dispcnt.bg3_on = TRUE;
+	gLCDControlBuffer.dispcnt.obj_on = TRUE;
+}
+
+void sub_800EC50(struct ConvoBackgroundFadeProc* proc) {
+	switch (proc->unkType) {
+
+	case 0:
+	case 3:
+	case 4:
+	case 5:
+		while (1) {} // oh
+
+	case 1:
+		if (proc->bgIndex == 0x37) // TODO: use an enum for convo backgrounds
+			proc->bgIndex = NextRN_N(0x35);
+
+		// Loading Background Tile Graphics
+
+		CopyDataWithPossibleUncomp(
+			gUnknown_0895DD1C[proc->bgIndex].pTileGraphics,
+			(void*)(VRAM + GetBackgroundTileDataOffset(2))
+		);
+
+		// Loading Background Tile Arrangement
+
+		CallARM_FillTileRect(
+			(u16*)(gBG2TilemapBuffer),
+			gUnknown_0895DD1C[proc->bgIndex].pTileArrangement,
+			0 // base palette is bg palette 0
+		);
+
+		// Loading Background Palettes
+
+		CopyToPaletteBuffer(
+			gUnknown_0895DD1C[proc->bgIndex].pColorPalettes,
+			0x000, // bg pal 0
+			0x0C0  // 7 palettes
+		);
+
+		BG_EnableSyncByMask(1 << 2);
+		EnablePaletteSync();
+
+		gPaletteBuffer[0] = 0;
+
+		break;
+
+	case 2:
+		sub_80B65F8(
+			(u16*)(gBG2TilemapBuffer),
+			GetBackgroundTileDataOffset(2),
+			0,
+			6,
+			proc->bgIndex
+		);
+
+		BG_EnableSyncByMask(1 << 2);
+		EnablePaletteSync();
+
+		break;
+
+	}
+
+	gLCDControlBuffer.dispcnt.bg0_on = FALSE;
+	gLCDControlBuffer.dispcnt.bg1_on = FALSE;
+	gLCDControlBuffer.dispcnt.bg2_on = TRUE;
+	gLCDControlBuffer.dispcnt.bg3_on = TRUE;
+	gLCDControlBuffer.dispcnt.obj_on = TRUE;
+}
+
+void sub_800ED50(struct ConvoBackgroundFadeProc* proc) {
+	switch (proc->unkType) {
+
+	case 0:
+	case 3:
+	case 4:
+	case 5:
+		while (1) {} // oh
+
+	case 1:
+		if (proc->bgIndex == 0x37) // TODO: use an enum for convo backgrounds
+			proc->bgIndex = NextRN_N(0x35);
+
+		// Loading Background Tile Graphics
+
+		CopyDataWithPossibleUncomp(
+			gUnknown_0895DD1C[proc->bgIndex].pTileGraphics,
+			(void*)(VRAM + GetBackgroundTileDataOffset(3))
+		);
+
+		// Loading Background Tile Arrangement
+
+		CallARM_FillTileRect(
+			(u16*)(gBG3TilemapBuffer),
+			gUnknown_0895DD1C[proc->bgIndex].pTileArrangement,
+			0x8000 // base palette is bg palette 8
+		);
+
+		// Loading Background Palettes
+
+		CopyToPaletteBuffer(
+			gUnknown_0895DD1C[proc->bgIndex].pColorPalettes,
+			0x100, // bg pal 8
+			0x0C0  // 7 palettes
+		);
+
+		BG_EnableSyncByMask(1 << 3);
+		EnablePaletteSync();
+
+		gPaletteBuffer[0] = 0;
+
+		break;
+
+	case 2:
+		sub_80B65F8(
+			(u16*)(gBG3TilemapBuffer),
+			GetBackgroundTileDataOffset(3),
+			8,
+			6,
+			proc->bgIndex
+		);
+
+		BG_EnableSyncByMask(1 << 3);
+		EnablePaletteSync();
+
+		break;
+
+	}
+
+	gLCDControlBuffer.dispcnt.bg0_on = FALSE;
+	gLCDControlBuffer.dispcnt.bg1_on = FALSE;
+	gLCDControlBuffer.dispcnt.bg2_on = TRUE;
+	gLCDControlBuffer.dispcnt.bg3_on = TRUE;
+	gLCDControlBuffer.dispcnt.obj_on = TRUE;
+}
+
+void sub_800EE54(struct ConvoBackgroundFadeProc* proc) {
+	switch (proc->unkType) {
+
+	case 0:
+	case 3:
+	case 4:
+	case 5:
+		LoadChapterMapGfx(gUnknown_0202BCF0.chapterIndex);
+		SetupOAMSpliceForWeather(gUnknown_0202BCF0.chapterWeatherId);
+		UpdateGameTilesGraphics();
+		SMS_UpdateFromGameData();
+
+		sub_800BCDC(proc->pEventEngine->mapSpritePalIdOverride);
+		SMS_FlushIndirect();
+
+		Event24_(proc->pEventEngine);
+		break;
+
+	case 1:
+	case 2:
+		while (1) {} // oh
+
+	}
+
+	gLCDControlBuffer.dispcnt.bg0_on = FALSE;
+	gLCDControlBuffer.dispcnt.bg1_on = FALSE;
+	gLCDControlBuffer.dispcnt.bg2_on = TRUE;
+	gLCDControlBuffer.dispcnt.bg3_on = TRUE;
+	gLCDControlBuffer.dispcnt.obj_on = TRUE;
+}
+
+void sub_800EEE8(struct ConvoBackgroundFadeProc* proc) {
+	unsigned currentFadeLevel = (proc->fadeTimer += proc->fadeSpeed) / 16;
+
+	switch (proc->fadeType) {
+
+	case 0:
+	case 1:
+		SetSpecialColorEffectsParameters(1, currentFadeLevel, 0x10 - currentFadeLevel, 0);
+		break;
+
+	case 2:
+		SetSpecialColorEffectsParameters(1, 0x10 - currentFadeLevel, currentFadeLevel, 0);
+		break;
+
+	}
+
+	if (currentFadeLevel >= 0x10)
+		Proc_ClearNativeCallback((struct Proc*)(proc));
+}
+
+void sub_800EF48(struct ConvoBackgroundFadeProc* proc) {
+	switch (proc->fadeType) {
+
+	case 0:
+		gLCDControlBuffer.dispcnt.bg0_on = FALSE;
+		gLCDControlBuffer.dispcnt.bg1_on = FALSE;
+		gLCDControlBuffer.dispcnt.bg2_on = FALSE;
+		gLCDControlBuffer.dispcnt.bg3_on = TRUE;
+		gLCDControlBuffer.dispcnt.obj_on = TRUE;
+
+		break;
+
+	case 1:
+		gLCDControlBuffer.dispcnt.bg0_on = FALSE;
+		gLCDControlBuffer.dispcnt.bg1_on = FALSE;
+		gLCDControlBuffer.dispcnt.bg2_on = FALSE;
+		gLCDControlBuffer.dispcnt.bg3_on = TRUE;
+		gLCDControlBuffer.dispcnt.obj_on = FALSE;
+
+		Event23_(proc->pEventEngine);
+
+		break;
+
+	case 2:
+		gLCDControlBuffer.dispcnt.bg0_on = FALSE;
+		gLCDControlBuffer.dispcnt.bg1_on = FALSE;
+		gLCDControlBuffer.dispcnt.bg2_on = FALSE;
+		gLCDControlBuffer.dispcnt.bg3_on = TRUE;
+		gLCDControlBuffer.dispcnt.obj_on = TRUE;
+
+		Font_LoadForUI();
+		sub_80156D4();
+
+		break;
+
+	}
+
+	// BG0 > BG1 > BG2 > BG3
+	gLCDControlBuffer.bg0cnt.priority = 0;
+	gLCDControlBuffer.bg1cnt.priority = 1;
+	gLCDControlBuffer.bg2cnt.priority = 2;
+	gLCDControlBuffer.bg3cnt.priority = 3;
+
+	BG_SetPosition(2, 0, 0);
+
+	SetSpecialColorEffectsParameters(0, 0x10, 0, 0);
+
+	sub_8001ED0(FALSE, FALSE, FALSE, FALSE, FALSE); // SetColorEffectFirstTarget
+	sub_8001F0C(FALSE, FALSE, FALSE, FALSE, FALSE); // SetColorEffectSecondTarget
+
+	sub_8001F48(TRUE);
+	sub_8001F64(TRUE);
+
+	sub_800BA34();
+
+	BG_Fill(gBG2TilemapBuffer, 0);
+	BG_EnableSyncByMask(1 << 2);
+
+	CpuFastFill(0, (void*)(VRAM + GetBackgroundTileDataOffset(0)), 0x20);
+	CpuFastFill(0, (void*)(VRAM + GetBackgroundTileDataOffset(1)), 0x20);
+	CpuFastFill(0, (void*)(VRAM + GetBackgroundTileDataOffset(2)), 0x20);
 }
