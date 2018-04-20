@@ -1304,10 +1304,6 @@ u8 Event1C_TEXTCONT(struct EventEngineProc* proc) {
 	return EVC_ADVANCE_YIELD;
 }
 
-/*
-
-// Not matching yet
-
 u8 Event1D_TEXTEND(struct EventEngineProc* proc) {
 	if (((proc->evStateBits >> 2) & 1)) {
 		sub_8006A7C();
@@ -1340,11 +1336,14 @@ u8 Event1D_TEXTEND(struct EventEngineProc* proc) {
 				case 1:
 				case 2:
 					SetSpecialColorEffectsParameters(1, 0x10, 1, 0);
-
-				default:
 					break;
 
-				} // switch (proc->activeTextType)
+				case 3:
+				case 4:
+				case 5:
+					break;
+
+				} // switch (proc->activeTextType) */
 
 				return EVC_STOP_YIELD;
 
@@ -1359,5 +1358,3 @@ u8 Event1D_TEXTEND(struct EventEngineProc* proc) {
 
 	return EVC_ADVANCE_YIELD;
 }
-
-//*/
