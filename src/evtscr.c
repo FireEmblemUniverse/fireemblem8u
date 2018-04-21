@@ -37,6 +37,79 @@ unsigned sub_8015A6C(unsigned);
 
 void RefreshFogAndUnitMaps(void);
 
+struct Unit {
+	/* 00 */ const void* pCharacterData;
+	/* 04 */ const void* pClassData;
+	
+	/* 08 */ u8 level;
+	/* 09 */ u8 exp;
+	/* 0A */ u8 unk0A_saved;
+	
+	/* 0B */ u8 index;
+	
+	/* 0C */ u32 state;
+	
+	/* 10 */ u8 xPos;
+	/* 11 */ u8 yPos;
+
+	/* 12 */ u8 maxHP;
+	/* 13 */ u8 curHP;
+	/* 14 */ u8 pow;
+	/* 15 */ u8 skl;
+	/* 16 */ u8 spd;
+	/* 17 */ u8 def;
+	/* 18 */ u8 res;
+	/* 19 */ u8 lck;
+
+	/* 1A */ u8 conBonus;
+	/* 1B */ u8 rescueOtherUnit;
+	/* 1C */ u8 ballistaIndex;
+	/* 1D */ u8 movBonus;
+
+	/* 1E */ u16 items[5];
+	/* 28 */ u8 ranks[8];
+	
+	/* 30 */ u8 statusIndex    : 4;
+	/* 30 */ u8 statusDuration : 4;
+	
+	/* 31 */ u8 torchDuration   : 4;
+	/* 31 */ u8 barrierDuration : 4;
+	
+	/* 32 */ u8 supports[6];
+	/* 38 */ u8 unitLeader;
+	/* 39 */ u8 supportBits;
+
+	/* 3A */ u8 unk3A;
+	/* 3B */ u8 unk3B;
+
+	/* 3C */ void* pMapSpriteHandle;
+	
+	/* 40 */ u16 ai3And4;
+	/* 42 */ u8 ai1;
+	/* 43 */ u8 ai1data;
+	/* 44 */ u8 ai2;
+	/* 45 */ u8 ai2data;
+	/* 46 */ u8 unk46_saved;
+	/* 47 */ u8 unk47;
+};
+
+struct Unit* GetUnitStructFromEventParameter(s16 param);
+
+void SetSomeRealCamPos(s8 x, s8 y, s8 thisNeedsToBeAS8);
+void SetCursorMapPosition(s8 x, s8 y);
+
+void EnsureCameraOntoPosition(struct Proc*, s8 x, s8 y);
+void sub_8015D84(struct Proc*, s8 x, s8 y);
+
+int GetMapChangesIdAt(int, int);
+
+void TriggerMapChanges(u16 mapChangeId, u8 displayFlag, struct Proc* parent);
+void sub_800BB48(u16 mapChangeId, u8 displayFlag, struct Proc* parent);
+
+extern struct Unit* gUnknown_03004E50; // TODO: gActiveUnit
+
+void SetupWeather(u16 id);
+
 // TODO: #include "evtcmd_gmap.h" (?)
 void sub_800B910(int, int, int);
 void sub_800B954(int, int, int);
@@ -2177,3 +2250,204 @@ u8 Event25_(struct EventEngineProc* proc) {
 
 	return EVC_ADVANCE_YIELD;
 }
+
+u8 Event26_CameraControlMaybe(struct EventEngineProc* proc) {
+	s8 x, y;
+
+	u8 subcode = (0x7 & proc->pEventCurrent[0]);
+	u8 sc2     = (0xF & proc->pEventCurrent[0]) >> 3;
+
+	switch (subcode) {
+
+	case 0: // position
+		y = (proc->pEventCurrent[1] >> 8);
+		x = *(const u8*)(proc->pEventCurrent + 1);
+
+		if (x < 0 || y < 0) {
+			x = ((u16*)(gEventSlots + 0xB))[0];
+			y = ((u16*)(gEventSlots + 0xB))[1];
+		}
+
+		break;
+
+	case 1: { // unit
+		struct Unit* unit = GetUnitStructFromEventParameter(proc->pEventCurrent[1]);
+
+		if (!unit)
+			return EVC_ERROR;
+
+		x = unit->xPos;
+		y = unit->yPos;
+
+		break;
+	}
+
+	} // switch (subcode)
+
+	if (((proc->evStateBits >> 2) & 1) || (proc->evStateBits & EV_STATE_FADEDIN)) {
+		SetSomeRealCamPos(x, y, sc2);
+		SetCursorMapPosition(x, y);
+		UpdateGameTilesGraphics();
+
+		return EVC_ADVANCE_CONTINUE;
+	} else {
+		if (!sc2)
+			EnsureCameraOntoPosition((struct Proc*)(proc), x, y);
+		else
+			sub_8015D84((struct Proc*)(proc), x, y);
+
+		SetCursorMapPosition(x, y);
+
+		return EVC_ADVANCE_YIELD;
+	}
+}
+
+u8 Event27_MapChange(struct EventEngineProc* proc) {
+	u8 i;
+	u8 count = 1;
+
+	unsigned* mapChangeIt;
+
+	u8    subcode     = 0xF & *(const u8*)(proc->pEventCurrent);
+	short mapChangeId = proc->pEventCurrent[1];
+
+	switch (mapChangeId) {
+
+	case (-1): // "at position in Slot B"
+		mapChangeId = GetMapChangesIdAt(
+			((u16*)(gEventSlots + 0xB))[0],
+			((u16*)(gEventSlots + 0xB))[1]
+		);
+
+		if (mapChangeId < 0)
+			return EVC_ERROR;
+
+		break;
+
+	case (-2): // "at position of active unit"
+		mapChangeId = GetMapChangesIdAt(
+			gUnknown_03004E50->xPos,
+			gUnknown_03004E50->yPos
+		);
+
+		if (mapChangeId < 0)
+			return EVC_ERROR;
+
+		break;
+
+	case (-3):
+		mapChangeIt = gEventSlotQueue;
+
+		mapChangeId = *mapChangeIt++;
+		count = gEventSlots[13]; // qp
+
+		break;
+
+	} // switch (mapChangeId)
+
+	if (proc->evStateBits & EV_STATE_FADEDIN) {
+		// Quietly apply tile changes
+
+		for (i = 0; i < count; ++i) {
+			switch (subcode) {
+
+			case 0:
+				TriggerMapChanges(mapChangeId, FALSE, (struct Proc*)(proc));
+				break;
+
+			case 1:
+				sub_800BB48(mapChangeId, FALSE, (struct Proc*)(proc));
+				break;
+
+			} // switch (subcode)
+
+			mapChangeId = *mapChangeIt++; // ??? potentially not initialized?
+		}
+	} else {
+		// Display tile changes
+
+		u8 doDisplay = TRUE;
+
+		for (i = 0; i < count; ++i) {
+			switch (subcode) {
+
+			case 0:
+				TriggerMapChanges(mapChangeId, doDisplay, (struct Proc*)(proc));
+				break;
+
+			case 1:
+				sub_800BB48(mapChangeId, doDisplay, (struct Proc*)(proc));
+				break;
+
+			} // switch (subcode)
+
+			mapChangeId = *mapChangeIt++; // ??? potentially not initialized?
+			doDisplay   = FALSE;          // Only display the first listed map change
+		}
+	}
+
+	return EVC_ADVANCE_YIELD;
+}
+
+u8 Event28_ChangeWeather(struct EventEngineProc* proc) {
+	SetupWeather(proc->pEventCurrent[1]);
+	return EVC_ADVANCE_YIELD;
+}
+
+#ifdef NONMATCHING
+
+void sub_800BAA8(s16, u8);
+
+u8 Event29_SetFogVision(struct EventEngineProc* proc) {
+	const struct {
+		u8  params;
+		u8  code;
+		u16 evArgument;
+	}* const ev = (const void*)(proc->pEventCurrent);
+
+	u8    doDisplay = ev->params & 0xF;
+	short newVision = ev->evArgument;
+
+	if ((proc->evStateBits >> 2) & 1)
+		doDisplay = FALSE;
+
+	sub_800BAA8(newVision, doDisplay);
+	return EVC_ADVANCE_YIELD;
+}
+
+#else // !NONMATCHING
+
+__attribute__((naked))
+u8 Event29_SetFogVision(struct EventEngineProc* proc) {
+	asm(
+		".syntax unified\n"
+
+		"push {r4, lr}\n"
+		"adds r2, r0, #0\n"
+		"ldr r1, [r2, #0x38]\n"
+		"ldrb r0, [r1]\n"
+		"movs r3, #0xf\n"
+		"ands r3, r0\n"
+		"ldrh r4, [r1, #2]\n"
+		"ldrh r0, [r2, #0x3c]\n"
+		"lsrs r0, r0, #2\n"
+		"movs r1, #1\n"
+		"ands r0, r1\n"
+		"cmp r0, #0\n"
+		"beq _0800F418\n"
+		"movs r3, #0\n"
+	"_0800F418:\n"
+		"lsls r0, r4, #0x10\n"
+		"asrs r0, r0, #0x10\n"
+		"adds r1, r3, #0\n"
+		"bl sub_800BAA8\n"
+		"movs r0, #2\n"
+		"pop {r4}\n"
+		"pop {r1}\n"
+		"bx r1\n"
+
+		".syntax divided\n"
+	);
+}
+
+#endif // !NONMATCHING
