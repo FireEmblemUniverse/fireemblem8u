@@ -128,7 +128,8 @@ SECTIONS
 		. = ALIGN(4); src/fontgrp.o(.rodata);
         . = ALIGN(4); data/face_rodata.o(.rodata);
         . = ALIGN(4); src/messdecode.o(.rodata);
-        . = ALIGN(4); data/const_data_D792C.o(.rodata);
+        . = ALIGN(4); data/evtcmd_gmap_rodata.o(.rodata);
+        . = ALIGN(4); src/evtscr.o(.rodata); data/const_data_D793F.o(.rodata);
         . = ALIGN(4); data/text.o(.rodata);
         . = ALIGN(4); data/const_data_1609BC.o(.rodata);
         . = ALIGN(4); data/m4a_tables.o(.rodata);

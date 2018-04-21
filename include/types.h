@@ -135,6 +135,15 @@ struct Struct0202BCF0 // Chapter Data Struct
     u32 unk42_6:1;
     u32 unk42_7:1;
     u32 unk42_8:1;
+
+    u32 unk43_1:8;
+
+    u8  unk44[0x48 - 0x44];
+
+    u16 unk48;
+
+    u16 unk4A_1 : 1;
+    u16 unk4A_2 : 3;
 };
 
 struct TextBuffer0202A6AC

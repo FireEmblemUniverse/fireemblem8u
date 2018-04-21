@@ -7,6 +7,9 @@
 #include "m4a.h"
 #include "soundwrapper.h"
 
+// temp rodata (TODO: move directly into the various functions that use those)
+const u8 gUnknown_080D793C[3] = { 0x00, 0x40, 0x80 };
+
 struct Struct03000430 {
 	u8 unk00;
 	u8 unk01;
@@ -37,8 +40,50 @@ unsigned sub_8015A6C(unsigned);
 
 void RefreshFogAndUnitMaps(void);
 
+struct CharacterData {
+	u16 nameTextId;
+	u16 descTextId;
+	u8  index;
+	u8  defaultClass;
+	u16 portraitId;
+	u8  miniPortrait;
+	u8  affinity;
+	u8  u0A;
+	
+	u8  baseLevel;
+	u8  baseHP;
+	u8  basePow;
+	u8  baseSkl;
+	u8  baseSpd;
+	u8  baseDef;
+	u8  baseRes;
+	u8  baseLck;
+	u8  baseCon;
+	
+	u8  ranks[8];
+	
+	u8  growthHP;
+	u8  growthPow;
+	u8  growthSkl;
+	u8  growthSpd;
+	u8  growthDef;
+	u8  growthRes;
+	u8  growthLck;
+	
+	u8  u23;
+	u8  u24;
+	u8  u25;
+	u8  u26;
+	u8  u27;
+	
+	u32 attributes;
+	
+	const void*    pSupportData;
+	const void*    pU30;
+};
+
 struct Unit {
-	/* 00 */ const void* pCharacterData;
+	/* 00 */ const struct CharacterData* pCharacterData;
 	/* 04 */ const void* pClassData;
 	
 	/* 08 */ u8 level;
@@ -109,6 +154,49 @@ void sub_800BB48(u16 mapChangeId, u8 displayFlag, struct Proc* parent);
 extern struct Unit* gUnknown_03004E50; // TODO: gActiveUnit
 
 void SetupWeather(u16 id);
+
+void SetNextChapterId(int chIndex);
+void SetNextGameActionId(int);
+
+void GotoChapterWithoutSave(u16 chIndex);
+
+void HandleAllegianceChange(struct Unit*, u8 allegiance);
+struct Unit* LoadUnit(const struct UnitDefinition* def);
+void GetPreferredPositionForUNIT(const struct UnitDefinition* def, s8* xOut, s8* yOut, u8 unk);
+
+struct Unit* GetNonAllyUnitStructById(unsigned index, u8 all);
+
+struct ChapterDefinition {
+	/* 00 */ const char* pDebugName;
+
+	// chapter data stuff
+	/* 04 */ u8 obj1, obj2, pal, tileconfig, map, tileanim1, tileanim2, mapchanges;
+
+	/* 0C */ u8 initialFogLevel;
+	/* 0D */ u8 battlePrep;
+	/* 0E */ u8 unk0E[0x14 - 0x0E];
+
+	/* 14 */ u8 easyLevelMalus      : 4;
+	/* 14 */ u8 difficultLevelBonus : 4;
+	/* 15 */ u8 normalLevelMalus    : 4;
+};
+
+const struct ChapterDefinition* GetROMChapterStruct(unsigned id);
+
+void sub_80180CC(struct Unit*, int amount); // aka ApplyBonusLevels
+void sub_800F8A8(struct Unit*, const struct UnitDefinition*, u16, s8);
+
+unsigned GetSomeEventEngineMoveRelatedBitfield(struct EventEngineProc* proc, s8);
+
+void sub_800F698(const struct UnitDefinition* def, s16 count, u8 param);
+u8 TryPrepareEventUnitMovement(struct EventEngineProc* proc, unsigned x, unsigned y);
+void LoadUnit_800F704(const struct UnitDefinition* def, u16 b, s8 quiet, s8 d);
+
+struct Unit* GetUnitByCharId(int);
+int IsSethLArachelMyrrhInnes(int);
+u8 IsUnitSlotAvailable(u8);
+
+extern u8** gUnknown_0202E4D8; // gMapUnit
 
 // TODO: #include "evtcmd_gmap.h" (?)
 void sub_800B910(int, int, int);
@@ -2451,3 +2539,242 @@ u8 Event29_SetFogVision(struct EventEngineProc* proc) {
 }
 
 #endif // !NONMATCHING
+
+u8 Event2A_MoveToChapter(struct EventEngineProc* proc) {
+	const struct {
+		u8 params;
+		u8 code;
+		u16 evArgument;
+	}* const ev = (const void*)(proc->pEventCurrent);
+
+	u8    subcode = ev->params & 0xF;
+	short chIndex = ev->evArgument;
+
+	if (chIndex < 0)
+		chIndex = gEventSlots[2];
+
+	switch (subcode) {
+
+	case 0:
+		SetNextGameActionId(0);
+		proc->evStateBits |= EV_STATE_CHANGEGM;
+
+		break;
+
+	case 1:
+		SetNextChapterId(chIndex);
+
+		gUnknown_0202BCF0.unk4A_2 = 1;
+
+		SetNextGameActionId(1);
+		proc->evStateBits |= EV_STATE_CHANGEGM;
+
+		break;
+
+	case 2:
+		SetNextChapterId(chIndex);
+
+		gUnknown_0202BCF0.unk4A_2 = 2;
+
+		SetNextGameActionId(2);
+		proc->evStateBits |= EV_STATE_CHANGEGM;
+
+		break;
+
+	case 3:
+		GotoChapterWithoutSave(chIndex);
+		break;
+
+	case 4:
+		gUnknown_0202BCF0.unk4A_2 = 3;
+
+		SetNextGameActionId(3);
+		proc->evStateBits |= EV_STATE_CHANGEGM;
+
+		break;
+
+	} // switch (subcode)
+
+	proc->evStateBits |= EV_STATE_CHANGECH;
+
+	DeleteAll6CWaitMusicRelated();
+	Sound_FadeOut800231C(4);
+
+	return EVC_ADVANCE_CONTINUE;
+}
+
+u16 sub_800F50C(struct UnitDefinition* unitDefition) {
+	u16 result = 0;
+
+	while (unitDefition->charIndex) {
+		++result;
+		++unitDefition;
+	}
+
+	return result;
+}
+
+s8 ShouldUNITBeLoaded(const struct UnitDefinition* unitDefinition, u8 unk) {
+	const u8 tmp = unk; // needed to match :/
+
+	if (unitDefinition->allegiance == 0 && tmp != 1) {
+		struct Unit* unit = GetUnitByCharId(unitDefinition->charIndex);
+
+		if (unit && (unit->state & 0x00000004)) {
+			switch (tmp) {
+
+			case 0:
+				return FALSE;
+
+			case 2:
+				if (IsSethLArachelMyrrhInnes(unitDefinition->charIndex))
+					break;
+
+				return FALSE;
+
+			}
+		}
+	}
+
+	if (unitDefinition->allegiance != 2)
+		return TRUE;
+
+	if (!unitDefinition->sumFlag && !unitDefinition->redaCount) {
+		if (gUnknown_0202E4D8[unitDefinition->yPosition][unitDefinition->xPosition])
+			return FALSE;
+	}
+
+	if (IsUnitSlotAvailable(0x80))
+		return TRUE;
+
+	return FALSE;
+}
+
+void sub_800F5B8(struct EventEngineProc* proc) {
+	const struct UnitDefinition* pUnitDefinition = proc->pUnitLoadData;
+
+	short count    = proc->unitLoadCount;
+	u8 param = proc->unitLoadParameter;
+
+	u16 something = GetSomeEventEngineMoveRelatedBitfield(proc, TRUE);
+
+	s8 r3 = FALSE;
+
+	if (param == 2)
+		r3 = TRUE;
+
+	if ((proc->evStateBits >> 2) & 1) {
+		sub_800F698(pUnitDefinition, count, param);
+	} else {
+		for (; pUnitDefinition->charIndex && count > 0; ++pUnitDefinition) {
+			if (ShouldUNITBeLoaded(pUnitDefinition, param) != TRUE)
+				continue;
+
+			if (!TryPrepareEventUnitMovement(proc, pUnitDefinition->xPosition, pUnitDefinition->yPosition)) {
+				proc->pUnitLoadData = pUnitDefinition;
+				proc->unitLoadCount = count;
+				return;
+			}
+
+			LoadUnit_800F704(pUnitDefinition, something, FALSE, r3);
+			count--;
+		}
+	}
+
+	proc->unitLoadCount = 0;
+	proc->idk4E         = 0;
+	proc->pCallback     = NULL;
+}
+
+void sub_800F698(const struct UnitDefinition* def, s16 count, u8 param) {
+	s8 r3 = FALSE;
+
+	if (param == 2)
+		r3 = TRUE;
+
+	for (; def->charIndex && count > 0; ++def) {
+		if (ShouldUNITBeLoaded(def, param) != TRUE)
+			continue;
+
+		LoadUnit_800F704(def, 1, TRUE, r3);
+		count--;
+	}
+}
+
+void LoadUnit_800F704(const struct UnitDefinition* def, u16 b, s8 quiet, s8 d) {
+	struct Unit* unit;
+
+	u8 allegianceLookup[3];
+	memcpy(allegianceLookup, gUnknown_080D793C, sizeof allegianceLookup);
+
+	// u8 allegianceLookup[] = { 0x00, 0x40, 0x80 }; // TODO
+
+	if (def->allegiance == 0) {
+		unit = GetNonAllyUnitStructById(def->charIndex, 0x00);
+	} else {
+		unit = GetNonAllyUnitStructById(def->charIndex, 0x00);
+
+		if (unit) {
+			HandleAllegianceChange(unit, allegianceLookup[def->allegiance]);
+			unit = GetUnitByCharId(def->charIndex);
+		}
+	}
+
+	if (!unit) {
+		unit = LoadUnit(def);
+
+		if ((d == 1) && (def->allegiance == 0))
+			unit->state |= 0x00400000;
+	} else if (def->allegiance == 0) {
+		s8 x, y;
+
+		unit->state &= ~0x00000002;
+
+		if (d == 1) {
+			if (unit->state & 0x00000004)
+				unit->state |= 0x00400000;
+		} else {
+			if (unit->state & 0x00400000)
+				unit->state &= ~0x00400000;
+		}
+
+		GetPreferredPositionForUNIT(def, &x, &y, 0);
+
+		if ((s8)(unit->xPos) == x && (s8)(unit->yPos) == y)
+			b &= ~0x0001;
+	}
+
+	unit->xPos = def->xPosition;
+	unit->yPos = def->yPosition;
+
+	if (def->allegiance == 2 && unit->pCharacterData->index >= 0x3C) {
+		if (!gUnknown_0202BCF0.unk42_6) {
+			if (!(gUnknown_0202BCF0.chapterStateBits & 0x40))
+				sub_80180CC(
+					unit,
+					-GetROMChapterStruct(gUnknown_0202BCF0.chapterIndex)->easyLevelMalus
+				);
+			else
+				goto hard_mode;
+		} else {
+			if (gUnknown_0202BCF0.chapterStateBits & 0x40)
+			hard_mode:
+				sub_80180CC(
+					unit,
+					GetROMChapterStruct(gUnknown_0202BCF0.chapterIndex)->difficultLevelBonus
+				);
+			else
+				sub_80180CC(
+					unit,
+					-GetROMChapterStruct(gUnknown_0202BCF0.chapterIndex)->normalLevelMalus
+				);
+		}
+	}
+
+	sub_800F8A8(
+		unit,
+		def,
+		b,
+		quiet
+	);
+}

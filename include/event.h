@@ -1,6 +1,29 @@
 #ifndef GUARD_EVENT_H
 #define GUARD_EVENT_H
 
+// TODO: move elsewhere?
+struct UnitDefinition {
+	u8  charIndex;
+	u8  classIndex;
+	u8  leaderCharIndex;
+
+	u8  autolevel  : 1;
+	u8  allegiance : 2;
+	u8  level      : 5;
+
+	u32 xPosition : 6;
+	u32 yPosition : 6;
+	u32 unk       : 2;
+	u32 sumFlag   : 1;
+	u32 extraData : 9;
+	u32 redaCount : 8;
+
+	const void* redas;
+
+	u8  items[4];
+	u8  ai[4];
+};
+
 struct EventEngineProc {
     PROC_HEADER;
 
@@ -22,10 +45,12 @@ struct EventEngineProc {
 
     /* 46 */ // pad
 
-    /* 48 */ const void* pUnitLoadData;
+    /* 48 */ const struct UnitDefinition* pUnitLoadData;
     /* 4C */ u16 unitLoadCount;
     
     /* 4E */ u8  idk4E;
+
+    /* 4F */ u8  unitLoadParameter : 7;
 };
 
 enum EventExecType {
