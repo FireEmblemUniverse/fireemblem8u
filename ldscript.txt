@@ -91,6 +91,8 @@ SECTIONS
         asm/bmtrade.o(.text);
         asm/bmtrick.o(.text);
         asm/bmmind.o(.text);
+        asm/bmio.o(.text);
+        asm/bmcontainer.o(.text);
         asm/code.o(.text);
         asm/m4a_1.o(.text);
         src/m4a_2.o(.text);
