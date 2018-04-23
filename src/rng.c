@@ -65,9 +65,9 @@ s32 NextRN_100(void)
     return RN >> 16;
 }
 
-s32 NextRN_N(s32 Max)
+int NextRN_N(int Max)
 {
-    s32 RN = Max * NextRN();
+    int RN = Max * NextRN();
 
     if (RN < 0)
         RN += 0xFFFF;

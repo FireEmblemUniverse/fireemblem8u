@@ -3,20 +3,20 @@
 
 // TODO: move elsewhere?
 struct UnitDefinition {
-	u8  charIndex;
-	u8  classIndex;
-	u8  leaderCharIndex;
+	/* 00 */ u8  charIndex;
+	/* 01 */ u8  classIndex;
+	/* 02 */ u8  leaderCharIndex;
 
-	u8  autolevel  : 1;
-	u8  allegiance : 2;
-	u8  level      : 5;
+	/* 03 */ u8  autolevel  : 1;
+	/* 03 */ u8  allegiance : 2;
+	/* 03 */ u8  level      : 5;
 
-	u32 xPosition : 6;
-	u32 yPosition : 6;
-	u32 unk       : 2;
-	u32 sumFlag   : 1;
-	u32 extraData : 9;
-	u32 redaCount : 8;
+	/* 04 */ u16 xPosition : 6; /* 04:0 to 04:5 */
+	/* 04 */ u16 yPosition : 6; /* 04:6 to 05:3 */
+	/* 05 */ u16 unk       : 2; /* 05:4 to 05:5 */
+	/* 05 */ u16 sumFlag   : 1; /* 05:6 */
+	/* 05 */ u16 extraData : 9; /* 05:7 to 06:7 */
+	/* 07 */ u16 redaCount : 8;
 
 	const void* redas;
 

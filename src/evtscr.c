@@ -198,6 +198,10 @@ u8 IsUnitSlotAvailable(u8);
 
 extern u8** gUnknown_0202E4D8; // gMapUnit
 
+void MoveUnit_(struct Unit* unit, s8 x, s8 y, u16 flags);
+void sub_8079FA8(struct Unit* unit, const void* redas, unsigned count, u16 flags);
+void sub_8079D74(struct Unit* unit, const void* redas, unsigned count, u16 flags);
+
 // TODO: #include "evtcmd_gmap.h" (?)
 void sub_800B910(int, int, int);
 void sub_800B954(int, int, int);
@@ -2778,3 +2782,114 @@ void LoadUnit_800F704(const struct UnitDefinition* def, u16 b, s8 quiet, s8 d) {
 		quiet
 	);
 }
+
+void sub_800F8A8(struct Unit* unit, const struct UnitDefinition* unitDefition, u16 flags, s8 unk) {
+	if (!unit)
+		return;
+
+	if (unitDefition->sumFlag == 1)
+		flags |= 0x0002;
+
+	if (!unitDefition->redaCount) {
+		MoveUnit_(unit, unitDefition->xPosition, unitDefition->yPosition, flags);
+		return;
+	}
+
+	if (unk == 1 || (unit->state & 0x00000080))
+		sub_8079FA8(unit, unitDefition->redas, unitDefition->redaCount, flags);
+	else
+		sub_8079D74(unit, unitDefition->redas, unitDefition->redaCount, flags);
+}
+
+/*
+void sub_80125C0(struct UnitDefinition*);
+
+extern struct UnitDefinition end[];
+
+struct UnitDefinition* sub_800F914(const struct UnitDefinition* source, short count, u8 arg2, s8 arg3, s8 arg4) {
+	struct UnitDefinition* result;
+
+	u8  array[0x40];
+	u16 arraySize = 0;
+
+	struct {
+		unsigned loBits, hiBits;
+	} mask;
+
+	u16 i = 0;
+
+	if (arg2) {
+		const struct UnitDefinition* itSource = source;
+
+		for (; i < count; i++) {
+			if (itSource->sumFlag) {
+				array[arraySize] = i;
+				arraySize++;
+			}
+
+			itSource++;
+		}
+
+		i = Div((arraySize * arg2) + 50, 100);
+	}
+
+	#define MASK_BIT_GET(i) (((i) < 0x20) ? (mask.loBits & (1 << (i))) : (mask.hiBits & (1 << ((i)-0x20))))
+	#define MASK_BIT_SET(i) (((i) < 0x20) ? (mask.loBits |= (1 << (i))) : (mask.hiBits |= (1 << ((i)-0x20))))
+
+	mask.loBits = 0;
+	mask.hiBits = 0;
+
+	while (i) {
+		unsigned index = array[NextRN_N(arraySize)];
+
+		if (!MASK_BIT_GET(index)) {
+			MASK_BIT_SET(index);
+			i--;
+		}
+	}
+
+	result = end;
+
+	for (i = 0; i < count; i++) {
+		if (MASK_BIT_GET(i))
+			continue;
+
+		*result = source[i];
+		result->sumFlag = FALSE;
+		result++;
+	}
+
+	for (i = 0; i < count; i++) {
+		if (!MASK_BIT_GET(i))
+			continue;
+
+		*result = source[i];
+		result->sumFlag = TRUE;
+		result++;
+	}
+
+	result->charIndex = 0; // marks the end of the unit block
+
+	if (arg4 == TRUE) {
+		result = end;
+
+		for (i = 0; i < count; i++) {
+			result->redaCount = 0;
+			result->redas     = NULL;
+
+			result++;
+		}
+	}
+
+	result = end;
+
+	if (arg3 == TRUE)
+		sub_80125C0(result);
+
+	#undef MASK_BIT_GET
+	#undef MASK_BIT_SET
+
+	return result;
+}
+
+// */

@@ -2,64 +2,6 @@
 
 	.SYNTAX UNIFIED
 
-	THUMB_FUNC_START sub_800F8A8
-sub_800F8A8: @ 0x0800F8A8
-	push {r4, r5, r6, lr}
-	adds r5, r0, #0
-	adds r4, r1, #0
-	lsls r2, r2, #0x10
-	lsrs r6, r2, #0x10
-	lsls r3, r3, #0x18
-	lsrs r3, r3, #0x18
-	cmp r5, #0
-	beq _0800F90C
-	ldrb r1, [r4, #5]
-	movs r0, #0x40
-	ands r0, r1
-	cmp r0, #0
-	beq _0800F8C8
-	movs r0, #2
-	orrs r6, r0
-_0800F8C8:
-	ldrb r0, [r4, #7]
-	cmp r0, #0
-	bne _0800F8E4
-	ldrb r1, [r4, #4]
-	lsls r1, r1, #0x1a
-	lsrs r1, r1, #0x1a
-	ldrh r2, [r4, #4]
-	lsls r2, r2, #0x14
-	lsrs r2, r2, #0x1a
-	adds r0, r5, #0
-	adds r3, r6, #0
-	bl MoveUnit_
-	b _0800F90C
-_0800F8E4:
-	cmp r3, #1
-	beq _0800F8F2
-	ldr r0, [r5, #0xc]
-	movs r1, #0x80
-	ands r0, r1
-	cmp r0, #0
-	beq _0800F900
-_0800F8F2:
-	ldr r1, [r4, #8]
-	ldrb r2, [r4, #7]
-	adds r0, r5, #0
-	adds r3, r6, #0
-	bl sub_8079FA8
-	b _0800F90C
-_0800F900:
-	ldr r1, [r4, #8]
-	ldrb r2, [r4, #7]
-	adds r0, r5, #0
-	adds r3, r6, #0
-	bl sub_8079D74
-_0800F90C:
-	pop {r4, r5, r6}
-	pop {r0}
-	bx r0
-
 	THUMB_FUNC_START sub_800F914
 sub_800F914: @ 0x0800F914
 	push {r4, r5, r6, r7, lr}
