@@ -96,6 +96,8 @@ SECTIONS
         asm/bmusort.o(.text);
         asm/bmarena.o(.text);
         asm/bmmind.o(.text);
+        asm/bmpatharrowdisp.o(.text);
+        asm/sallycursor.o(.text);
         asm/code.o(.text);
         asm/m4a_1.o(.text);
         src/m4a_2.o(.text);
