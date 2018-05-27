@@ -98,6 +98,9 @@ SECTIONS
         asm/bmmind.o(.text);
         asm/bmpatharrowdisp.o(.text);
         asm/sallycursor.o(.text);
+        asm/bmcommanddbg.o(.text);
+        asm/chapterdata.o(.text);
+        asm/unitinfowindow.o(.text);
         asm/code.o(.text);
         asm/m4a_1.o(.text);
         src/m4a_2.o(.text);
