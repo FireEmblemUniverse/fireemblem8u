@@ -1501,4 +1501,116 @@ _08035374: .4byte gUnknown_03004E50
 _08035378: .4byte gBG0TilemapBuffer
 _0803537C: .4byte 0x00000121
 
+	THUMB_FUNC_START sub_8035380
+sub_8035380: @ 0x08035380
+	push {r4, lr}
+	sub sp, #8
+	adds r4, r0, #0
+	bl ResetIconGraphics_
+	movs r0, #4
+	bl LoadIconPalettes
+	adds r0, r4, #0
+	bl sub_803519C
+	ldr r0, _080353B4  @ gUnknown_08590F4C
+	str r0, [sp]
+	movs r0, #6
+	str r0, [sp, #4]
+	adds r0, r4, #0
+	movs r1, #2
+	movs r2, #0
+	movs r3, #0
+	bl sub_80054B0
+	add sp, #8
+	pop {r4}
+	pop {r0}
+	bx r0
+	.align 2, 0
+_080353B4: .4byte gUnknown_08590F4C
+
+	THUMB_FUNC_START sub_80353B8
+sub_80353B8: @ 0x080353B8
+	push {r4, r5, r6, lr}
+	mov r6, sl
+	mov r5, r9
+	mov r4, r8
+	push {r4, r5, r6}
+	sub sp, #8
+	mov r8, r0
+	movs r1, #0xa
+	bl GetUnitInfoWindowX
+	adds r4, r0, #0
+	ldr r0, _0803546C  @ gUnknown_03004E50
+	ldr r0, [r0]
+	ldrb r0, [r0, #0x1b]
+	bl GetUnitStruct
+	adds r6, r0, #0
+	bl ClearBG0BG1
+	ldr r5, _08035470  @ gUnknown_0203A9FC
+	ldr r0, [r5]
+	movs r1, #0xa
+	mov sl, r1
+	str r1, [sp]
+	movs r2, #1
+	mov r9, r2
+	str r2, [sp, #4]
+	adds r1, r6, #0
+	adds r2, r4, #0
+	movs r3, #0
+	bl UnitInfoWindow_DrawBase
+	ldr r0, [r5]
+	adds r0, #0x38
+	adds r1, r6, #0
+	bl sub_8034A5C
+	ldr r0, [r5]
+	adds r0, #0x38
+	adds r1, r4, #0
+	adds r1, #0x61
+	lsls r1, r1, #1
+	ldr r6, _08035474  @ gBG0TilemapBuffer
+	adds r1, r1, r6
+	bl Text_Draw
+	ldr r0, [r5, #4]
+	mov r1, sl
+	str r1, [sp]
+	mov r2, r9
+	str r2, [sp, #4]
+	mov r1, r8
+	adds r2, r4, #0
+	movs r3, #6
+	bl UnitInfoWindow_DrawBase
+	ldr r0, [r5, #4]
+	adds r0, #0x38
+	mov r1, r8
+	bl sub_8034AA4
+	ldr r0, [r5, #4]
+	adds r0, #0x38
+	ldr r2, _08035478  @ 0x00000121
+	adds r1, r4, r2
+	lsls r1, r1, #1
+	adds r1, r1, r6
+	bl Text_Draw
+	adds r1, r4, #1
+	mov r0, r8
+	movs r2, #9
+	bl sub_8034ADC
+	adds r4, #4
+	lsls r4, r4, #3
+	movs r0, #0
+	adds r1, r4, #0
+	movs r2, #0x27
+	bl sub_80054F4
+	add sp, #8
+	pop {r3, r4, r5}
+	mov r8, r3
+	mov r9, r4
+	mov sl, r5
+	pop {r4, r5, r6}
+	pop {r0}
+	bx r0
+	.align 2, 0
+_0803546C: .4byte gUnknown_03004E50
+_08035470: .4byte gUnknown_0203A9FC
+_08035474: .4byte gBG0TilemapBuffer
+_08035478: .4byte 0x00000121
+
 .align 2, 0
