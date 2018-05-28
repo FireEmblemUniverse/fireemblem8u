@@ -102,7 +102,7 @@ SECTIONS
         asm/chapterdata.o(.text);
         asm/unitinfowindow.o(.text);
         asm/bb.o(.text);
-        asm/bmualiment.o(.text);
+        asm/bmusailment.o(.text);
         asm/bksel.o(.text);
         asm/bmtrap.o(.text);
         asm/bmarch.o(.text);
