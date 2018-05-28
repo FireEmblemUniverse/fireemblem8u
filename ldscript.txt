@@ -104,6 +104,9 @@ SECTIONS
         asm/bb.o(.text);
         asm/bmualiment.o(.text);
         asm/bksel.o(.text);
+        asm/bmtrap.o(.text);
+        asm/bmarch.o(.text);
+        asm/bmdifficulty.o(.text);
         asm/code.o(.text);
         asm/m4a_1.o(.text);
         src/m4a_2.o(.text);
