@@ -111,6 +111,9 @@ SECTIONS
         asm/cporder.o(.text);
         asm/cpdecide.o(.text);
         asm/cpperform.o(.text);
+        asm/cpsub.o(.text);
+        asm/cpdatsub.o(.text);
+        asm/cpcustom.o(.text);
         asm/code.o(.text);
         asm/m4a_1.o(.text);
         src/m4a_2.o(.text);
