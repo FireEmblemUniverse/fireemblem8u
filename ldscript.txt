@@ -91,6 +91,7 @@ SECTIONS
         asm/bmtrade.o(.text);
         asm/bmtrick.o(.text);
         asm/bmusemind.o(.text);
+        src/bmio.o(.text);
         asm/bmio.o(.text);
         asm/bmcontainer.o(.text);
         asm/bmusort.o(.text);
@@ -176,6 +177,8 @@ SECTIONS
         . = ALIGN(4); data/face_rodata.o(.rodata);
         . = ALIGN(4); src/messdecode.o(.rodata);
         . = ALIGN(4); data/const_data_D792C.o(.rodata);
+        . = ALIGN(4); src/bmio.o(.rodata);
+        . = ALIGN(4); data/const_data_D7F58.o(.rodata);
         . = ALIGN(4); data/text.o(.rodata);
         . = ALIGN(4); data/const_data_1609BC.o(.rodata);
         . = ALIGN(4); data/m4a_tables.o(.rodata);

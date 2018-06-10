@@ -89,6 +89,16 @@ struct KeyStatusBuffer
 
 typedef void (*InterruptHandler)(void);
 
+struct Struct0202BCB0 // Game State Struct
+{
+    /* 00 */ u8 mainLoopEndedFlag;
+
+    /* 01 */ s8 gameLogicSemaphore;
+    /* 02 */ s8 gameGfxSemaphore;
+    /* 03 */ u8 _unk04;
+    /* 04 */ u8 gameStateBits;
+};
+
 struct Struct0202BCF0 // Chapter Data Struct
 {
     u32 unk0; // a time value

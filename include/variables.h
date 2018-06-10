@@ -515,7 +515,7 @@ extern u8 gUnknown_0202B4AC[];
 // extern ??? gUnknown_0202B5AC
 extern int gUnknown_0202B6AC;
 // extern ??? gUnknown_0202B6B0
-// extern ??? gUnknown_0202BCB0
+extern struct Struct0202BCB0 gUnknown_0202BCB0;
 extern struct Struct0202BCF0 gUnknown_0202BCF0;
 // extern ??? gUnknown_0202BD10
 // extern ??? gUnknown_0202BD30
