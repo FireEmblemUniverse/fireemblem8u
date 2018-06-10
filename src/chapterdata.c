@@ -6,12 +6,12 @@ const struct ROMChapterData* GetROMChapterStruct(unsigned chIndex) {
 	if (chIndex == 0x7F)
 		return (const struct ROMChapterData*) gUnknown_08A1FB34[0];
 
-	return gUnknown_088B0890 + chIndex;
+	return gChapterDataTable + chIndex;
 }
 
 const void* GetChapterMapPointer(unsigned chIndex) {
 	if (chIndex != 0x7F)
-		return gUnknown_088B363C[GetROMChapterStruct(chIndex)->mapMainLayerId];
+		return gChapterDataAssetTable[GetROMChapterStruct(chIndex)->mapMainLayerId];
 
 	ReadSramFast(sub_80A6B70(), gUnknown_02020188, sub_80A6B90());
 	return gUnknown_02020188;
@@ -19,14 +19,14 @@ const void* GetChapterMapPointer(unsigned chIndex) {
 
 const void* GetChapterMapChangesPointer(unsigned chIndex) {
 	if (chIndex != 0x7F)
-		return gUnknown_088B363C[GetROMChapterStruct(chIndex)->mapChangeLayerId];
+		return gChapterDataAssetTable[GetROMChapterStruct(chIndex)->mapChangeLayerId];
 
 	return gUnknown_08A1FB34[1];
 }
 
 const void* GetChapterEventDataPointer(unsigned chIndex) {
 	if (chIndex != 0x7F)
-		return gUnknown_088B363C[GetROMChapterStruct(chIndex)->mapEventDataId];
+		return gChapterDataAssetTable[GetROMChapterStruct(chIndex)->mapEventDataId];
 
 	return gUnknown_08A1FB34[2];
 }
@@ -39,7 +39,7 @@ const char* sub_80346E0(unsigned chIndex) {
 	return gUnknown_08A1FB34[3];
 }
 
-int GetSomethingRelatedToCurrentDifficulty(void) {
+int IsDifficultMode(void) {
 	u8 difficultState = gUnknown_0202BCF0.chapterStateBits & 0x40;
 	return difficultState ? TRUE : FALSE;
 }

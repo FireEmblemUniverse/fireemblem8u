@@ -61,15 +61,15 @@ struct ROMChapterData {
 	/* 91 */ u8 _unk91[0x94 - 0x91];
 };
 
-extern const struct ROMChapterData gUnknown_088B0890[];
+extern const struct ROMChapterData gChapterDataTable[];
 extern const void** gUnknown_08A1FB34;
-extern const void* gUnknown_088B363C[];
+extern const void* gChapterDataAssetTable[];
 
 const struct ROMChapterData* GetROMChapterStruct(unsigned chIndex);
 const void* GetChapterMapPointer(unsigned chIndex);
 const void* GetChapterMapChangesPointer(unsigned chIndex);
 const void* GetChapterEventDataPointer(unsigned chIndex);
 const char* sub_80346E0(unsigned chIndex);
-int GetSomethingRelatedToCurrentDifficulty(void);
+int IsDifficultMode(void);
 
 #endif // GUARD_CHAPTERDATA_H

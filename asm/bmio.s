@@ -97,7 +97,7 @@ SetupGameVBlank6C_TileAnimations: @ 0x080300F4
 	movs r0, #0xe
 	ldrsb r0, [r5, r0]
 	bl GetROMChapterStruct
-	ldr r6, _08030134  @ gUnknown_088B363C
+	ldr r6, _08030134  @ gChapterDataAssetTable
 	ldrb r0, [r0, #9]
 	lsls r0, r0, #2
 	adds r0, r0, r6
@@ -118,7 +118,7 @@ SetupGameVBlank6C_TileAnimations: @ 0x080300F4
 	bx r0
 	.align 2, 0
 _08030130: .4byte gUnknown_0202BCF0
-_08030134: .4byte gUnknown_088B363C
+_08030134: .4byte gChapterDataAssetTable
 
 	THUMB_FUNC_START GameVBlank6C_Destructor
 GameVBlank6C_Destructor: @ 0x08030138
@@ -1532,7 +1532,7 @@ sub_8030C40: @ 0x08030C40
 	lsls r0, r0, #0x18
 	asrs r0, r0, #0x18
 	bl GetROMChapterStruct
-	ldr r1, _08030C78  @ gUnknown_088B363C
+	ldr r1, _08030C78  @ gChapterDataAssetTable
 	ldrb r0, [r0, #0xa]
 	lsls r0, r0, #2
 	adds r0, r0, r1
@@ -1546,7 +1546,7 @@ _08030C68:
 	.align 2, 0
 _08030C70: .4byte gUnknown_0859D8B8
 _08030C74: .4byte gUnknown_0202BCF0
-_08030C78: .4byte gUnknown_088B363C
+_08030C78: .4byte gChapterDataAssetTable
 
 	THUMB_FUNC_START SetupWeather
 SetupWeather: @ 0x08030C7C
