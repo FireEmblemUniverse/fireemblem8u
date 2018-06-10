@@ -306,7 +306,7 @@
 // extern ??? gUnknown_02020140
 // extern ??? gUnknown_02020144
 // extern ??? gUnknown_02020148
-// extern ??? gUnknown_02020188
+extern u8 gUnknown_02020188[]; // gGenericBuffer
 // extern ??? gUnknown_02020208
 // extern ??? gUnknown_02020288
 // extern ??? gUnknown_02020988
@@ -3082,9 +3082,7 @@ extern const ItemData gItemData[];
 // extern ??? gUnknown_088AFB5A
 // extern ??? gUnknown_088AFBD8
 // extern ??? gUnknown_088B05F8
-// extern ??? gUnknown_088B0890
 // extern ??? gUnknown_088B08F0
-// extern ??? gUnknown_088B363C
 // extern ??? gUnknown_088B39EC
 // extern ??? gUnknown_088B3AD8
 // extern ??? gUnknown_088D1F54
@@ -3605,7 +3603,6 @@ extern const ItemData gItemData[];
 // extern ??? gUnknown_08A1FAF8
 // extern ??? gUnknown_08A1FB08
 // extern ??? gUnknown_08A1FB30
-// extern ??? gUnknown_08A1FB34
 // extern ??? gUnknown_08A1FB38
 // extern ??? gUnknown_08A1FBD8
 // extern ??? gUnknown_08A1FFB0

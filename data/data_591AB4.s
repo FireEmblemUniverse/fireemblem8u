@@ -6648,16 +6648,16 @@ gUnknown_088AFBD8:  @ 0x088AFBD8
 gUnknown_088B05F8:  @ 0x088B05F8
 	.incbin "baserom.gba", 0x8B05F8, 0x298
 
-	.global gUnknown_088B0890
-gUnknown_088B0890:  @ 0x088B0890
+	.global gChapterDataTable
+gChapterDataTable:  @ 0x088B0890
 	.incbin "baserom.gba", 0x8B0890, 0x60
 
 	.global gUnknown_088B08F0
 gUnknown_088B08F0:  @ 0x088B08F0
 	.incbin "baserom.gba", 0x8B08F0, 0x2D4C
 
-	.global gUnknown_088B363C
-gUnknown_088B363C:  @ 0x088B363C
+	.global gChapterDataAssetTable
+gChapterDataAssetTable:  @ 0x088B363C
 	.incbin "baserom.gba", 0x8B363C, 0x3B0
 
 	.global gUnknown_088B39EC
