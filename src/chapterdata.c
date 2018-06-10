@@ -3,43 +3,43 @@
 #include "agb_sram.h"
 
 const struct ROMChapterData* GetROMChapterStruct(unsigned chIndex) {
-	if (chIndex == 0x7F)
-		return (const struct ROMChapterData*) gUnknown_08A1FB34[0];
+    if (chIndex == 0x7F)
+        return (const struct ROMChapterData*) gUnknown_08A1FB34[0];
 
-	return gChapterDataTable + chIndex;
+    return gChapterDataTable + chIndex;
 }
 
 const void* GetChapterMapPointer(unsigned chIndex) {
-	if (chIndex != 0x7F)
-		return gChapterDataAssetTable[GetROMChapterStruct(chIndex)->mapMainLayerId];
+    if (chIndex != 0x7F)
+        return gChapterDataAssetTable[GetROMChapterStruct(chIndex)->mapMainLayerId];
 
-	ReadSramFast(sub_80A6B70(), gUnknown_02020188, sub_80A6B90());
-	return gUnknown_02020188;
+    ReadSramFast(sub_80A6B70(), gUnknown_02020188, sub_80A6B90());
+    return gUnknown_02020188;
 }
 
 const void* GetChapterMapChangesPointer(unsigned chIndex) {
-	if (chIndex != 0x7F)
-		return gChapterDataAssetTable[GetROMChapterStruct(chIndex)->mapChangeLayerId];
+    if (chIndex != 0x7F)
+        return gChapterDataAssetTable[GetROMChapterStruct(chIndex)->mapChangeLayerId];
 
-	return gUnknown_08A1FB34[1];
+    return gUnknown_08A1FB34[1];
 }
 
 const void* GetChapterEventDataPointer(unsigned chIndex) {
-	if (chIndex != 0x7F)
-		return gChapterDataAssetTable[GetROMChapterStruct(chIndex)->mapEventDataId];
+    if (chIndex != 0x7F)
+        return gChapterDataAssetTable[GetROMChapterStruct(chIndex)->mapEventDataId];
 
-	return gUnknown_08A1FB34[2];
+    return gUnknown_08A1FB34[2];
 }
 
 const char* sub_80346E0(unsigned chIndex) {
-	if (chIndex != 0x7F)
-		// ???????????????????
-		return GetStringFromIndex((int)(&GetROMChapterStruct(chIndex)->unk70));
+    if (chIndex != 0x7F)
+        // ???????????????????
+        return GetStringFromIndex((int)(&GetROMChapterStruct(chIndex)->unk70));
 
-	return gUnknown_08A1FB34[3];
+    return gUnknown_08A1FB34[3];
 }
 
 int IsDifficultMode(void) {
-	u8 difficultState = gUnknown_0202BCF0.chapterStateBits & 0x40;
-	return difficultState ? TRUE : FALSE;
+    u8 difficultState = gUnknown_0202BCF0.chapterStateBits & 0x40;
+    return difficultState ? TRUE : FALSE;
 }
