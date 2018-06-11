@@ -1226,7 +1226,7 @@ void sub_80021E4(struct UnknownDmaStruct2 *a, int b, int c)
     }
 }
 
-u16 GetPrimaryOAMSize(void)
+int GetPrimaryOAMSize(void)
 {
     return gUnknown_03000030.count;
 }

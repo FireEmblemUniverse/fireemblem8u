@@ -1357,9 +1357,9 @@ extern u16 gUnknown_08589A9C[];
 extern struct Glyph *gUnknown_0858C7EC[];
 extern struct Glyph *gUnknown_0858F6F4[];
 extern struct Glyph *gUnknown_08590B44[];
-extern u16 gUnknown_08590F44[];
+extern const u16 gUnknown_08590F44[]; // 8x8 obj data
 // extern ??? gUnknown_08590F4C
-// extern ??? gUnknown_08590F54
+extern const u16 gUnknown_08590F54[]; // 32x32 obj data
 // extern ??? gUnknown_08590F64
 // extern ??? gUnknown_08590F6C
 // extern ??? gUnknown_08590F7C

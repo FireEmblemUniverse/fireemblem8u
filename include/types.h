@@ -91,12 +91,23 @@ typedef void (*InterruptHandler)(void);
 
 struct Struct0202BCB0 // Game State Struct
 {
-    /* 00 */ u8 mainLoopEndedFlag;
+    /* 00 */ u8  mainLoopEndedFlag;
 
-    /* 01 */ s8 gameLogicSemaphore;
-    /* 02 */ s8 gameGfxSemaphore;
-    /* 03 */ u8 _unk04;
-    /* 04 */ u8 gameStateBits;
+    /* 01 */ s8  gameLogicSemaphore;
+    /* 02 */ s8  gameGfxSemaphore;
+
+    /* 03 */ u8  _unk04;
+
+    /* 04 */ u8  gameStateBits;
+
+    /* 05 */ u8  _unk05;
+
+    /* 06 */ u16 prevVCount;
+
+    /* 08 */ u32 _unk08;
+
+    /* 0C */ short xCameraReal;
+    /* 0E */ short yCameraReal;
 };
 
 struct Struct0202BCF0 // Chapter Data Struct

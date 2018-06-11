@@ -80,6 +80,6 @@ void SetupOAMBufferSplice(int a);
 // ??? FlushPrimaryOAM(???);
 void WriteOAMRotScaleData(int index, s16 pa, s16 pb, s16 pc, s16 pd);
 // ??? sub_80021E4(???);
-// ??? GetPrimaryOAMSize(???);
+int GetPrimaryOAMSize(void);
 
 #endif  // GUARD_HARDWARE_H

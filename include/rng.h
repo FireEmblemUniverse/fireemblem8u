@@ -11,6 +11,6 @@ void InitRN(s32 unk1);
 // ??? Roll1RN(???);
 // ??? Roll2RN(???);
 void SetLCGRNValue(s32 Seed);
-s32 AdvanceGetLCGRNValue(void);
+unsigned AdvanceGetLCGRNValue(void);
 
 #endif
