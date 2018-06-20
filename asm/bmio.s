@@ -18,7 +18,8 @@ sub_8030758: @ 0x08030758
 	ldr r3, _080307D4  @ gUnknown_02002ADC
 	mov r9, r3
 _0803076E:
-	movs r2, #0
+	movs r2, #0 @ j = 0;
+
 	adds r0, r1, #7
 	adds r3, r1, #1
 	mov r8, r3
@@ -31,25 +32,35 @@ _0803077C:
 	lsls r0, r0, #1
 	add r0, sl
 	ldrh r0, [r0]
+
 	adds r3, r0, #0
 	ands r3, r6
+
 	asrs r1, r0, #5
 	ands r1, r6
+
 	asrs r0, r0, #0xa
 	ands r0, r6
+
 	adds r5, r2, #1
 	adds r2, r7, r2
 	lsls r2, r2, #1
+
 	lsls r0, r0, #0xa
 	lsls r1, r1, #5
 	adds r4, r0, r1
-	add r2, r9
+
+	add r2, r9 @ gUnknown_02002ADC[r7 + j++]
 	movs r1, #7
+
 _080307A2:
 	adds r3, #2
+
 	cmp r3, #0x1f
 	ble _080307AA
+
 	movs r3, #0x1f
+
 _080307AA:
 	adds r0, r4, r3
 	strh r0, [r2]
@@ -57,12 +68,16 @@ _080307AA:
 	subs r1, #1
 	cmp r1, #0
 	bge _080307A2
+
 	adds r2, r5, #0
+
 	cmp r2, #0xf
 	ble _0803077C
+
 	mov r1, r8
 	cmp r1, #3
 	ble _0803076E
+
 	pop {r3, r4, r5}
 	mov r8, r3
 	mov r9, r4

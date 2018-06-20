@@ -459,21 +459,33 @@ void sub_8030714(void) {
 }
 
 /*
+
+#define RGB_GET_R(color) (color & 0x1F)
+#define RGB_GET_G(color) ((color >> 5) & 0x1F)
+#define RGB_GET_B(color) ((color >> 10) & 0x1F)
+
 void sub_8030758(void) {
-	int i = 0;
+	int i, j, k;
 
-	while (i < 4) {
-		int j = 0;
+	for (i = 0; i < 4; ++i) {
+		for (j = 0; j < 0x10; ++j) {
+			const int color = gPaletteBuffer[0x10 * (7 + i) + j];
 
-		++i;
+			int r = RGB_GET_R(color);
+			int g = RGB_GET_G(color);
+			int b = RGB_GET_B(color);
 
-		while (j < 0x10) {
-			int k;
+			for (k = 0; k < 8; ++k) {
+				r = r + 2;
+
+				if (r > 31)
+					r = 31;
+
+				gUnknown_02002ADC[(k * 0x40) + ((i+1) * 0x10) + j] =
+					r + (g << 5) + (b << 10);
+			}
 		}
 	}
 }
-//*/
-
-/*
 
 */
