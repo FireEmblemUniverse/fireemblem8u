@@ -137,10 +137,6 @@ struct UnknownItemStruct
     u16 unk6;
 };
 
-struct ROMCharStruct
-{
-    u16 unk0;
-};
 
 struct UnknownStructCTC
 {

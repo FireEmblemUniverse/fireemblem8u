@@ -134,7 +134,7 @@ char *sub_800A2A4(void)
                 *r4++ = *r5++;
                 continue;
             }
-            CopyString(r4, GetStringFromIndex(GetROMCharStruct(gUnknown_0202BCF0.unk1C[r1])->unk0));
+            CopyString(r4, GetStringFromIndex(GetROMCharStruct(gUnknown_0202BCF0.unk1C[r1])->nameTextId));
         label:
             while (*r4 != 0)
                 r4++;
