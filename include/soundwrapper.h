@@ -35,4 +35,8 @@ void sub_80028FC(int songId);
 void DeleteAll6CWaitMusicRelated();
 // ??? sub_8002AC8(???);
 
+#define PlaySoundEffect(id) \
+    if (!gUnknown_0202BCF0.unk41_2) \
+        m4aSongNumStart((id))
+
 #endif  // GUARD_SOUNDWRAPPER_H
