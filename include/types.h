@@ -91,35 +91,59 @@ typedef void (*InterruptHandler)(void);
 
 struct Struct0202BCF0 // Chapter Data Struct
 {
-    u32 unk0; // a time value
-    u32 unk4; // a time value
+    /* 00 */ u32 unk0; // a time value
+    /* 04 */ u32 unk4; // a time value
 
-    u32 partyGoldAmount;
-    u8  gameSaveSlot;
+    /* 08 */ u32 partyGoldAmount;
+    /* 0C */ u8  gameSaveSlot;
     
-    u8  chapterVisionRange; // 0 means no fog
-    s8  chapterIndex;
+    /* 0D */ u8  chapterVisionRange; // 0 means no fog
+    /* 0E */ s8  chapterIndex;
     
-    u8  chapterPhaseIndex; // 0x00 = Player phase, 0x40 = NPC phase, 0x80 = Enemy phase (0xC0 = link arena 4th team?)
+    /* 0F */ u8  chapterPhaseIndex; // 0x00 = Player phase, 0x40 = NPC phase, 0x80 = Enemy phase (0xC0 = link arena 4th team?)
 
-    u16 chapterTurnNumber;
+    /* 10 */ u16 chapterTurnNumber;
 
-    u8  xCursor, yCursor; // map cursor position
+    /* 12 */ u8  xCursor, yCursor; // map cursor position
 
-    u8  chapterStateBits; // +0x04 = postgame, +0x10 = in prep screen, +0x40 = difficult mode, +0x80 = link arena?
-    u8  chapterWeatherId;
-    u16 chapterTotalSupportGain;
+    /* 14 */ u8  chapterStateBits; // +0x04 = postgame, +0x10 = in prep screen, +0x40 = difficult mode, +0x80 = link arena?
+    /* 15 */ u8  chapterWeatherId;
+    /* 16 */ u16 chapterTotalSupportGain;
 
-    u8  _pad18[0x1B - 0x18]; // unknown yet
+    /* 18 */ u8  _pad18[0x1B - 0x18]; // unknown yet
 
-    u8  chapterModeIndex; // 1 for tutorial (ch0-8), 2 for Eirika route, 3 for Ephraim route
+    /* 1B */ u8  chapterModeIndex; // 1 for tutorial (ch0-8), 2 for Eirika route, 3 for Ephraim route
 
-    u8  unk1C[4];
+    /* 1C */ u8  unk1C[4];
 
-    char playerName[0x40 - 0x20]; // unused outside of arena (was tactician name in FE7); Size unknown
+    /* 20 */ char playerName[0x40 - 0x20]; // unused outside of link arena (was tactician name in FE7); Size unknown
 
-    u8  unk40; // option byte 1 (of 3)
+    // option byte 1 (of 3)
+    u32 unk40_1:5;
+    u32 unk40_6:2; // text speed
+    u32 unk40_8:1;
+
     u32 unk41_1:1;
+    u32 unk41_2:1;
+    u32 unk41_3:6;
+
+    u32 unk42_1:1;
+    u32 unk42_2:1;
+    u32 unk42_3:1;
+    u32 unk42_4:1;
+    u32 unk42_5:1;
+    u32 unk42_6:1;
+    u32 unk42_7:1;
+    u32 unk42_8:1;
+
+    u32 unk43_1:8;
+
+    u8  unk44[0x48 - 0x44];
+
+    u16 unk48;
+
+    u16 unk4A_1 : 1;
+    u16 unk4A_2 : 3;
 };
 
 struct TextBuffer0202A6AC
