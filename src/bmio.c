@@ -456,11 +456,11 @@ void sub_8030714(void) {
 	CpuFastCopy(src, dst, 8);
 }
 
-#if NONMATCHING
-
 #define RGB_GET_R(color) ((color >> 0) & 0x1F)
 #define RGB_GET_G(color) ((color >> 5) & 0x1F)
 #define RGB_GET_B(color) ((color >> 10) & 0x1F)
+
+#if NONMATCHING
 
 void sub_8030758(void) {
 	int i, j, k;
@@ -482,11 +482,7 @@ void sub_8030758(void) {
 			}
 		}
 	}
-}
-
-#undef RGB_GET_R
-#undef RGB_GET_G
-#undef RGB_GET_B
+} // sub_8030758
 
 #else // NONMATCHING
 
@@ -580,9 +576,133 @@ void sub_8030758(void) {
 
 		".syntax divided\n"
 	);
-}
+} // sub_8030758
 
 #endif // NONMATCHING
+
+#if NONMATCHING
+
+void sub_80307D8(void) {
+	int i, j, k;
+
+	sub_8019974();
+
+	// This part of the body is the same as the body of sub_8030758
+
+	for (i = 0; i < 4; ++i) {
+		const u16* const pal = gPaletteBuffer + ((i+7) * 0x10);
+
+		for (j = 0; j < 0x10; ++j) {
+			const int color = pal[j];
+
+			int r = RGB_GET_R(color);
+
+			u16* const outBase = gUnknown_02002ADC + ((i+1) * 0x10) + j;
+
+			for (k = 0; k < 8; ++k) {
+				r += 2;
+
+				if (r > 31)
+					r = 31;
+
+				outBase[k * 0x40] =
+					(RGB_GET_G(color) << 5) + (RGB_GET_B(color) << 10) + (r);
+			}
+		}
+	}
+
+	SetSecondaryHBlankHandler(sub_8030714);
+} // sub_80307D8
+
+#else // NONMATCHING
+
+__attribute__((naked))
+void sub_80307D8(void) {
+	asm(
+		".syntax unified\n"
+
+		"push {r4, r5, r6, r7, lr}\n"
+		"mov r7, sl\n"
+		"mov r6, r9\n"
+		"mov r5, r8\n"
+		"push {r5, r6, r7}\n"
+		"bl sub_8019974\n"
+
+		"movs r1, #0\n"
+		"ldr r0, _0803085C  @ gPaletteBuffer\n"
+		"mov sl, r0\n"
+		"movs r6, #0x1f\n"
+		"ldr r3, _08030860  @ gUnknown_02002ADC\n"
+		"mov r9, r3\n"
+	"_080307F2:\n"
+		"movs r2, #0\n"
+		"adds r0, r1, #7\n"
+		"adds r3, r1, #1\n"
+		"mov r8, r3\n"
+		"lsls r0, r0, #4\n"
+		"mov ip, r0\n"
+		"lsls r7, r1, #4\n"
+	"_08030800:\n"
+		"mov r1, ip\n"
+		"adds r0, r1, r2\n"
+		"lsls r0, r0, #1\n"
+		"add r0, sl\n"
+		"ldrh r0, [r0]\n"
+		"adds r3, r0, #0\n"
+		"ands r3, r6\n"
+		"asrs r1, r0, #5\n"
+		"ands r1, r6\n"
+		"asrs r0, r0, #0xa\n"
+		"ands r0, r6\n"
+		"adds r5, r2, #1\n"
+		"adds r2, r7, r2\n"
+		"lsls r2, r2, #1\n"
+		"lsls r0, r0, #0xa\n"
+		"lsls r1, r1, #5\n"
+		"adds r4, r0, r1\n"
+		"add r2, r9\n"
+		"movs r1, #7\n"
+	"_08030826:\n"
+		"adds r3, #2\n"
+		"cmp r3, #0x1f\n"
+		"ble _0803082E\n"
+		"movs r3, #0x1f\n"
+	"_0803082E:\n"
+		"adds r0, r4, r3\n"
+		"strh r0, [r2]\n"
+		"adds r2, #0x80\n"
+		"subs r1, #1\n"
+		"cmp r1, #0\n"
+		"bge _08030826\n"
+		"adds r2, r5, #0\n"
+		"cmp r2, #0xf\n"
+		"ble _08030800\n"
+		"mov r1, r8\n"
+		"cmp r1, #3\n"
+		"ble _080307F2\n"
+		"ldr r0, _08030864  @ sub_8030714\n"
+		"bl SetSecondaryHBlankHandler\n"
+		"pop {r3, r4, r5}\n"
+		"mov r8, r3\n"
+		"mov r9, r4\n"
+		"mov sl, r5\n"
+		"pop {r4, r5, r6, r7}\n"
+		"pop {r0}\n"
+		"bx r0\n"
+		".align 2, 0\n"
+	"_0803085C: .4byte gPaletteBuffer\n"
+	"_08030860: .4byte gUnknown_02002ADC\n"
+	"_08030864: .4byte sub_8030714\n"
+
+		".syntax divided\n"
+	);
+} // sub_80307D8
+
+#endif // NONMATCHING
+
+#undef RGB_GET_R
+#undef RGB_GET_G
+#undef RGB_GET_B
 
 /*
 
