@@ -321,8 +321,8 @@ struct Unit {
 
     /* 0C */ u32 state;
 
-    /* 10 */ u8 xPos;
-    /* 11 */ u8 yPos;
+    /* 10 */ s8 xPos;
+    /* 11 */ s8 yPos;
 
     /* 12 */ u8 maxHP;
     /* 13 */ u8 curHP;
