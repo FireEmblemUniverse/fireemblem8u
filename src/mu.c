@@ -44,6 +44,44 @@ enum {
 	US_DUMMY
 };
 
+enum {
+	CA_NONE = 0x00000000,
+	CA_MOUNTEDAID = 0x00000001,
+	CA_CANTO = 0x00000002,
+	CA_STEAL = 0x00000004,
+	CA_LOCKPICK = 0x00000008,
+	CA_DANCE = 0x00000010,
+	CA_PLAY = 0x00000020,
+	CA_CRITBONUS = 0x00000040,
+	CA_BALLISTAE = 0x00000080,
+	CA_PROMOTED = 0x00000100,
+	CA_SUPPLY = 0x00000200,
+	CA_MOUNTED = 0x00000400,
+	CA_WYVERN = 0x00000800,
+	CA_PEGASUS = 0x00001000,
+	CA_LORD = 0x00002000,
+	CA_FEMALE = 0x00004000,
+	CA_BOSS = 0x00008000,
+	CA_LOCK_1 = 0x00010000,
+	CA_LOCK_2 = 0x00020000,
+	CA_LOCK_3 = 0x00040000, // Dragons or Monster depending of game
+	CA_MAXLEVEL10 = 0x00080000,
+	CA_UNSELECTABLE = 0x00100000,
+	CA_TRIANGLEATTACK_PEGASI = 0x00200000,
+	CA_TRIANGLEATTACK_ARMORS = 0x00400000,
+	// = 0x00800000,
+	// = 0x01000000,
+	CA_LETHALITY = 0x02000000,
+	// = 0x04000000,
+	CA_SUMMON = 0x08000000,
+	CA_LOCK_4 = 0x10000000,
+	CA_LOCK_5 = 0x20000000,
+	CA_LOCK_6 = 0x40000000,
+	CA_LOCK_7 = 0x80000000,
+
+	CA_DUMMY
+};
+
 // TODO: move to mu.h
 enum {
 	MU_STATE_IDLE,
@@ -56,6 +94,7 @@ enum {
 };
 
 enum { MU_SUBPIXELS_PER_PIXEL = 16 };
+enum { MU_MAX_COUNT = 4 };
 
 struct MUConfig;
 
@@ -81,7 +120,7 @@ struct MUProc {
 	/* 48 */ u16 _u48;
 	/* 4A */ u16 configBits;
 
-	// Positions are in 16th of pixel
+	// Coordinates are in 16th of pixel
 	/* 4C */ u16 xSubPosition;
 	/* 4E */ u16 ySubPosition;
 	/* 50 */ u16 xSubOffset;
@@ -98,7 +137,7 @@ struct MUConfig {
 	/* 48 */ struct MUProc* pMUProc;
 };
 
-extern struct MUConfig gUnknown_03001900[4];
+extern struct MUConfig gUnknown_03001900[MU_MAX_COUNT];
 extern const struct ProcCmd gUnknown_089A2C48[];
 
 struct MUProc* NewMOVEUNIT(u16 x, u16 y, u16 classIndex, int objTileId, unsigned palId);
@@ -108,11 +147,12 @@ struct MUConfig* sub_807920C(int objTileId, u8* outIndex_maybe);
 const void* MMS_GetROMTCS(int classId);
 const void* GetMovingMapSpriteGfxPtrFromMOVEUNIT(struct MUProc* proc);
 void* GetMOVEUNITGraphicsBuffer(int muIndex);
+void MOVEUNIT6C_ChangeFutureMovement(struct MUProc* proc, const void* unk);
 
 void ResetMoveunitStructs(void) {
 	int i;
 
-	for (i = 0; i < 4; ++i)
+	for (i = 0; i < MU_MAX_COUNT; ++i)
 		gUnknown_03001900[i].muIndex = 0;
 }
 
@@ -288,3 +328,84 @@ void MOVEUNIT6C_SetSpriteDirection(struct MUProc* proc, int directionId) {
 	else
 		AP_SwitchAnimation(proc->pAPHandle, proc->directionId_maybe);
 }
+
+void MOVEUNIT6C_SetDefaultSpriteDirection(struct MUProc* proc) {
+	if (GetROMClassStruct(proc->displayedClassId)->attributes & CA_MOUNTEDAID)
+		MOVEUNIT6C_SetSpriteDirection(proc, 1);
+	else
+		MOVEUNIT6C_SetSpriteDirection(proc, 2);
+}
+
+void _MOVEUNIT6C_SetDefaultFacingDirection(void) {
+	struct MUProc* proc = (struct MUProc*) Proc_Find(gUnknown_089A2C48);
+
+	if (proc)
+		MOVEUNIT6C_SetDefaultSpriteDirection(proc);
+}
+
+void _MOVEUNIT6C_ChangeFutureMovement(const void* unk) {
+	struct MUProc* proc = (struct MUProc*) Proc_Find(gUnknown_089A2C48);
+
+	if (proc)
+		MOVEUNIT6C_ChangeFutureMovement(proc, unk);
+}
+
+int DoesMoveunitExist(void) {
+	return Proc_Find(gUnknown_089A2C48) ? TRUE : FALSE;
+}
+
+#if NONMATCHING
+
+int IsThereAMovingMoveunit(void) {
+	int i;
+
+	for (i = 0; i < MU_MAX_COUNT; ++i)
+		if ((gUnknown_03001900[i].muIndex) && (gUnknown_03001900[i].pMUProc->stateId != MU_STATE_IDLE_EXEC))
+			return TRUE;
+
+	return FALSE;
+}
+
+#else // NONMATCHING
+
+__attribute__((naked))
+int IsThereAMovingMoveunit(void) {
+	asm(
+		".syntax unified\n"
+
+		"push {lr}\n"
+		"movs r3, #0\n"
+		"ldr r0, _08078764  @ gUnknown_03001900\n"
+		"adds r2, r0, #0\n"
+		"adds r2, #0x48\n"
+		"adds r1, r0, #0\n"
+	"_08078744:\n"
+		"ldrb r0, [r1]\n"
+		"cmp r0, #0\n"
+		"beq _08078754\n"
+		"ldr r0, [r2]\n"
+		"adds r0, #0x3f\n"
+		"ldrb r0, [r0]\n"
+		"cmp r0, #1\n"
+		"bne _08078768\n"
+	"_08078754:\n"
+		"adds r2, #0x4c\n"
+		"adds r1, #0x4c\n"
+		"adds r3, #1\n"
+		"cmp r3, #3\n"
+		"ble _08078744\n"
+		"movs r0, #0\n"
+		"b _0807876A\n"
+		".align 2, 0\n"
+	"_08078764: .4byte gUnknown_03001900\n"
+	"_08078768:\n"
+		"movs r0, #1\n"
+	"_0807876A:\n"
+		"pop {r1}\n"
+		"bx r1\n"
+
+		".syntax divided\n"
+	);
+}
+
+#endif // NONMATCHING
