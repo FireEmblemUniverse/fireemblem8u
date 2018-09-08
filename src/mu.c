@@ -73,7 +73,7 @@ struct MUProc {
 	/* 3F */ u8 stateId;
 	/* 40 */ u8 _u40;
 	/* 41 */ u8 displayedClassId;
-	/* 42 */ u8 directionId_maybe;
+	/* 42 */ s8 directionId_maybe;
 	/* 43 */ u8 _u43;
 	/* 44 */ u8 _u44;
 	/* 45 */ u8 _u45;
@@ -278,4 +278,13 @@ struct MUProc* NewMOVEUNIT(u16 x, u16 y, u16 classIndex, int objTileId, unsigned
 	config->pMUProc = proc;
 
 	return proc;
+}
+
+void MOVEUNIT6C_SetSpriteDirection(struct MUProc* proc, int directionId) {
+	proc->directionId_maybe = directionId;
+
+	if (directionId == 15)
+		sub_8027068(proc->currentFrame_maybe, proc->vramPtr_maybe);
+	else
+		AP_SwitchAnimation(proc->pAPHandle, proc->directionId_maybe);
 }

@@ -5,29 +5,6 @@
 	@ "MOVEUNIT" proc and related functions
 	@ Handles managing and displaying moving map sprites
 
-	THUMB_FUNC_START MOVEUNIT6C_SetSpriteDirection
-MOVEUNIT6C_SetSpriteDirection: @ 0x08078694
-	push {lr}
-	adds r2, r0, #0
-	adds r3, r2, #0
-	adds r3, #0x42
-	strb r1, [r3]
-	cmp r1, #0xf
-	bne _080786AE
-	adds r0, #0x3c
-	ldrb r0, [r0]
-	ldr r1, [r2, #0x38]
-	bl sub_8027068
-	b _080786B8
-_080786AE:
-	ldr r0, [r2, #0x30]
-	movs r1, #0
-	ldrsb r1, [r3, r1]
-	bl AP_SwitchAnimation
-_080786B8:
-	pop {r0}
-	bx r0
-
 	THUMB_FUNC_START MOVEUNIT6C_SetDefaultSpriteDirection
 MOVEUNIT6C_SetDefaultSpriteDirection: @ 0x080786BC
 	push {r4, lr}
