@@ -111,9 +111,7 @@ SECTIONS
         asm/cporder.o(.text);
         asm/cpdecide.o(.text);
         asm/cpperform.o(.text);
-        asm/cpsub.o(.text);
-        asm/cpdatsub.o(.text);
-        asm/cpcustom.o(.text);
+        asm/code_cpextra.o(.text);
         asm/code_sio.o(.text);
         asm/ui_general.o(.text);
         asm/ui_menu.o(.text);
