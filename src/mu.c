@@ -2,7 +2,9 @@
 #include "proc.h"
 #include "ap.h"
 #include "items.h"
+#include "m4a.h"
 #include "soundwrapper.h"
+#include "hardware.h"
 
 // TODO: move this elsewhere
 enum {
@@ -187,17 +189,6 @@ struct MUStepSoundProc {
 	/* 60 */ unsigned u60;
 	/* 64 */ short u64;
 	/* 66 */ short u66;
-};
-
-struct SomeProc {
-	PROC_HEADER;
-
-	/* 2C */ int xDisplay;
-	/* 30 */ int yDisplay;
-
-	/* 34 */ u8 _pad34[0x50 - 0x34];
-
-	/* 50 */ struct APHandle* pAPHandle;
 };
 
 struct MUConfig {
@@ -646,6 +637,19 @@ void Moveunit_ExecMoveCommand(struct MUProc* proc) {
 	#undef MU_AdvanceGetCommand
 }
 
+struct SomeProc {
+	PROC_HEADER;
+
+	/* 2C */ int xDisplay;
+	/* 30 */ int yDisplay;
+
+	/* 34 */ u8 _pad34[0x50 - 0x34];
+
+	/* 50 */ struct APHandle* pAPHandle;
+	/* 54 */ u8 _pad54[0x64 - 0x54];
+	/* 64 */ u16 u64;
+};
+
 void DisplayFogThingMaybe(int x, int y) {
 	struct APHandle* ap;
 	struct SomeProc* proc;
@@ -666,4 +670,19 @@ void DisplayFogThingMaybe(int x, int y) {
 
 	proc->xDisplay = x + 8;
 	proc->yDisplay = y - 4;
+}
+
+void Call6C_89A2968(struct SomeProc* proc) {
+	PlaySoundEffect(0x77);
+
+	proc->u64 = 0;
+
+	WriteOAMRotScaleData(
+		0,  // oam rotscale index
+
+		Div(+COS(0) << 4, 0x200), // pa
+		Div(-SIN(0) << 4, 0x200), // pb
+		Div(+SIN(0) << 4, 0x200), // pc
+		Div(+COS(0) << 4, 0x200)  // pd
+	);
 }
