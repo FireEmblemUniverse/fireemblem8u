@@ -5,23 +5,6 @@
 	@ "MOVEUNIT" proc and related functions
 	@ Handles managing and displaying moving map sprites
 
-	THUMB_FUNC_START ResetMoveunitStructs
-ResetMoveunitStructs: @ 0x0807840C
-	push {lr}
-	ldr r1, _08078424  @ gUnknown_03001900
-	movs r2, #0
-	adds r0, r1, #0
-	adds r0, #0xe4
-_08078416:
-	strb r2, [r0]
-	subs r0, #0x4c
-	cmp r0, r1
-	bge _08078416
-	pop {r0}
-	bx r0
-	.align 2, 0
-_08078424: .4byte gUnknown_03001900
-
 	THUMB_FUNC_START Make6CMOVEUNITForUnit
 Make6CMOVEUNITForUnit: @ 0x08078428
 	push {r4, r5, lr}
