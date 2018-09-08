@@ -45,6 +45,18 @@ enum {
 };
 
 // TODO: move to mu.h
+enum {
+	MU_STATE_IDLE,
+	MU_STATE_IDLE_EXEC,
+	MU_STATE_MOVING_EXEC,
+	MU_STATE_WAITING,
+	MU_STATE_SOMETHING_END,
+	MU_STATE_WAITING_FOR_SOMETHING_TO_FINISH,
+	MU_STATE_UI_DISPLAY,
+};
+
+enum { MU_SUBPIXELS_PER_PIXEL = 16 };
+
 struct MUProc {
 	PROC_HEADER;
 
@@ -56,6 +68,22 @@ struct MUProc {
 	/* 3C */ u8 currentFrame_maybe;
 	/* 3D */ u8 _u3D;
 	/* 3E */ u8 boolAttractCamera;
+	/* 3F */ u8 stateId;
+	/* 40 */ u8 _u40;
+	/* 41 */ u8 displayedClassId;
+	/* 42 */ u8 directionId;
+	/* 43 */ u8 _u43;
+	/* 44 */ u8 _u44;
+	/* 45 */ u8 _u45;
+	/* 46 */ u16 objPriorityBits;
+	/* 48 */ u16 _u48;
+	/* 4A */ u16 configBits;
+
+	// Positions are in 16th of pixel
+	/* 4C */ u16 xSubPosition;
+	/* 4E */ u16 ySubPosition;
+	/* 50 */ u16 xSubOffset;
+	/* 52 */ u16 ySubOffset;
 };
 
 struct MUConfig {
@@ -72,6 +100,8 @@ extern struct MUConfig gUnknown_03001900[4];
 
 struct MUProc* NewMOVEUNIT(u16 x, u16 y, u16 spriteIndex, int objTileId, unsigned palId);
 
+void _6CMOVEUNIT_Loop(struct MUProc* proc);
+
 void ResetMoveunitStructs(void) {
 	int i;
 
@@ -79,12 +109,12 @@ void ResetMoveunitStructs(void) {
 		gUnknown_03001900[i].muIndex = 0;
 }
 
-struct MUProc* Make6CMOVEUNITForUnit(struct Unit* pUnit, unsigned spriteIndex, unsigned palId) {
+struct MUProc* Make6CMOVEUNITForUnit(struct Unit* pUnit, unsigned classIndex, unsigned palId) {
 	struct MUProc* proc = NewMOVEUNIT(
 		pUnit->xPos,
 		pUnit->yPos,
 
-		spriteIndex,
+		classIndex,
 
 		-1,
 		palId
@@ -99,25 +129,25 @@ struct MUProc* Make6CMOVEUNITForUnit(struct Unit* pUnit, unsigned spriteIndex, u
 struct MUProc* MakeMOVEUNITForMapUnit(struct Unit* pUnit) {
 	struct MUProc* proc;
 
-	unsigned spriteId = pUnit->pClassData->number;
+	unsigned classIndex = pUnit->pClassData->number;
 
 	if (pUnit->state & US_IN_BALLISTA) {
 		struct Trap* blst = GetTrap(pUnit->ballistaIndex);
 
-		// FIXME: use class id
+		// FIXME: use class id definitions
 
 		switch (blst->data[TRAP_EXTDATA_BLST_ITEMID]) {
 
 		case Ballista:
-			spriteId = 0x67;
+			classIndex = 0x67;
 			break;
 
 		case IronBallista:
-			spriteId = 0x68;
+			classIndex = 0x68;
 			break;
 
 		case KillerBallista:
-			spriteId = 0x69;
+			classIndex = 0x69;
 			break;
 
 		} // switch (blst->data[TRAP_EXTDATA_BLST_ITEMID])
@@ -127,7 +157,7 @@ struct MUProc* MakeMOVEUNITForMapUnit(struct Unit* pUnit) {
 		pUnit->xPos,
 		pUnit->yPos,
 
-		spriteId,
+		classIndex,
 
 		-1,
 		GetUnitMapSpritePaletteIndex(pUnit)
@@ -137,4 +167,37 @@ struct MUProc* MakeMOVEUNITForMapUnit(struct Unit* pUnit) {
 	proc->boolAttractCamera = TRUE;
 
 	return proc;
+}
+
+void sub_80784D8(struct MUProc* proc) {
+	_6CMOVEUNIT_Loop(proc);
+}
+
+void MOVEUNIT6C_SetCameraFollow(struct MUProc* proc) {
+	proc->boolAttractCamera = TRUE;
+}
+
+void MOVEUNIT6C_UnsetCameraFollow(struct MUProc* proc) {
+	proc->boolAttractCamera = FALSE;
+}
+
+struct MUProc* Make6CMOVEUNITForUI(struct Unit* pUnit, int x, int y) {
+	struct MUProc* proc = MakeMOVEUNITForMapUnit(pUnit);
+
+	if (!proc)
+		return NULL;
+
+	proc->xSubPosition = x * MU_SUBPIXELS_PER_PIXEL;
+	proc->ySubPosition = y * MU_SUBPIXELS_PER_PIXEL;
+
+	proc->stateId = MU_STATE_UI_DISPLAY;
+
+	return proc;
+}
+
+void sub_8078524(struct MUProc* proc) {
+	SMS_80266F0(
+		GetClassStandingMapSpriteId(proc->displayedClassId),
+		proc->currentFrame_maybe
+	);
 }

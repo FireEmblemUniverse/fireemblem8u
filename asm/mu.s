@@ -5,69 +5,6 @@
 	@ "MOVEUNIT" proc and related functions
 	@ Handles managing and displaying moving map sprites
 
-	THUMB_FUNC_START sub_80784D8
-sub_80784D8: @ 0x080784D8
-	push {lr}
-	bl _6CMOVEUNIT_Loop
-	pop {r0}
-	bx r0
-
-	THUMB_FUNC_START MOVEUNIT6C_SetCameraFollow
-MOVEUNIT6C_SetCameraFollow: @ 0x080784E4
-	adds r0, #0x3e
-	movs r1, #1
-	strb r1, [r0]
-	bx lr
-
-	THUMB_FUNC_START MOVEUNIT6C_UnsetCameraFollow
-MOVEUNIT6C_UnsetCameraFollow: @ 0x080784EC
-	adds r0, #0x3e
-	movs r1, #0
-	strb r1, [r0]
-	bx lr
-
-	THUMB_FUNC_START Make6CMOVEUNITForUI
-Make6CMOVEUNITForUI: @ 0x080784F4
-	push {r4, r5, lr}
-	adds r4, r1, #0
-	adds r5, r2, #0
-	bl MakeMOVEUNITForMapUnit
-	adds r3, r0, #0
-	cmp r3, #0
-	beq _0807851C
-	lsls r1, r4, #4
-	adds r0, #0x4c
-	strh r1, [r0]
-	lsls r0, r5, #4
-	adds r1, r3, #0
-	adds r1, #0x4e
-	strh r0, [r1]
-	subs r1, #0xf
-	movs r0, #6
-	strb r0, [r1]
-	adds r0, r3, #0
-	b _0807851E
-_0807851C:
-	movs r0, #0
-_0807851E:
-	pop {r4, r5}
-	pop {r1}
-	bx r1
-
-	THUMB_FUNC_START sub_8078524
-sub_8078524: @ 0x08078524
-	push {r4, lr}
-	adds r4, r0, #0
-	adds r0, #0x41
-	ldrb r0, [r0]
-	bl GetClassStandingMapSpriteId
-	adds r4, #0x3c
-	ldrb r1, [r4]
-	bl SMS_80266F0
-	pop {r4}
-	pop {r0}
-	bx r0
-
 	THUMB_FUNC_START NewMOVEUNIT
 NewMOVEUNIT: @ 0x08078540
 	push {r4, r5, r6, r7, lr}
