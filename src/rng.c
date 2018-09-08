@@ -4,24 +4,34 @@
 static u16 gRNSeeds[3];
 static int gLCGRNValue;
 
-s32 NextRN(void) 
-{
-    u16 rng = (gRNSeeds[1] << 0xB) + (gRNSeeds[0] >> 5);
+int NextRN(void) {
+    // This generates a pseudorandom string of 16 bits
+    // In other words, a pseudorandom integer that can range from 0 to 65535
+
+    u16 rn = (gRNSeeds[1] << 11) + (gRNSeeds[0] >> 5);
+
+    // Shift state[2] one bit
     gRNSeeds[2] *= 2;
-    if(gRNSeeds[1] & 0x8000)
+
+    // "carry" the top bit of state[1] to state[2]
+    if (gRNSeeds[1] & 0x8000)
         gRNSeeds[2]++;
-    rng ^= gRNSeeds[2];
+
+    rn ^= gRNSeeds[2];
+
+    // Shifting the whole state 16 bits
     gRNSeeds[2] = gRNSeeds[1];
     gRNSeeds[1] = gRNSeeds[0];
-    gRNSeeds[0] = rng;
-    return rng;
+    gRNSeeds[0] = rn;
+
+    return rn;
 }
 
-void InitRN(int seed)
-{
-    int mod;
-    u16 initRN[8] = 
-    {
+void InitRN(int seed) {
+    // This table is a collection of 8 possible initial rn state
+    // 3 entries will be picked based of which "seed" was given
+
+    u16 initTable[8] = {
         0xA36E,
         0x924E,
         0xB784,
@@ -32,69 +42,65 @@ void InitRN(int seed)
         0xA794
     };
 
-    mod = seed % 7;
-    gRNSeeds[0] = initRN[(mod++ & 7)];
-    gRNSeeds[1] = initRN[(mod++ & 7)];
-    gRNSeeds[2] = initRN[(mod & 7)];
+    int mod = seed % 7;
 
-    if((seed % 23) > 0)
-        for(mod = seed % 23; mod != 0; mod--)
+    gRNSeeds[0] = initTable[(mod++ & 7)];
+    gRNSeeds[1] = initTable[(mod++ & 7)];
+    gRNSeeds[2] = initTable[(mod & 7)];
+
+    if ((seed % 23) > 0)
+        for (mod = seed % 23; mod != 0; mod--)
             NextRN();
 }
 
-void LoadRNState(u16 *seeds)
-{
+void LoadRNState(const u16* seeds) {
     gRNSeeds[0] = *seeds++;
     gRNSeeds[1] = *seeds++;
     gRNSeeds[2] = *seeds++;
 }
 
-void StoreRNState(u16 *seeds)
-{
+void StoreRNState(u16* seeds) {
     *seeds++ = gRNSeeds[0];
     *seeds++ = gRNSeeds[1];
     *seeds++ = gRNSeeds[2];
 }
 
-s32 NextRN_100(void)
-{
-    s32 RN = 100 * NextRN();
+int NextRN_100(void) {
+    // take the next rn (range 0-0xFFFF) and convert it to a range 0-99 value
+    return NextRN() * 100 / 0x10000;
 
-    if (RN < 0)
-        RN += 0xFFFF;
-    return RN >> 16;
+    /*
+
+    fun fact! FE6 does (NextRN() / (0x10000 / 100)) instead of the above, resulting
+    in a very slight chance of getting a 100 roll because of integer division rounding.
+
+    */
 }
 
-s32 NextRN_N(s32 Max)
-{
-    s32 RN = Max * NextRN();
-
-    if (RN < 0)
-        RN += 0xFFFF;
-    return RN >> 16;
+int NextRN_N(int max) {
+    // take the next rn (range 0-0xFFFF) and convert it to a range 0-(max-1) value
+    return NextRN() * max / 0x10000;
 }
 
-s32 Roll1RN(s32 Threshold)
-{
-    return (Threshold > NextRN_100());
+int Roll1RN(int threshold) {
+    return (threshold > NextRN_100());
 }
 
-s32 Roll2RN(s32 Threshold)
-{
-    s32 RNs = (NextRN_100() + NextRN_100()) / 2;
+int Roll2RN(int threshold) {
+    int average = (NextRN_100() + NextRN_100()) / 2;
 
-    return (Threshold > RNs);
+    return (threshold > average);
 }
 
-// the second implementation of RN is an LCG (Linear Congruental Generator) where gLCGRNValue is set to a seed and then advanced and retrieved on demand.
-void SetLCGRNValue(s32 Seed)
-{
-    gLCGRNValue = Seed;
+// the second implementation of RN is an LCG (Linear Congruental Generator),
+// where gLCGRNValue is set to a seed and then advanced and retrieved on demand.
+
+void SetLCGRNValue(int seed) {
+    gLCGRNValue = seed;
 }
 
 // The LCGRN state is advanced and retrieved here.
-s32 AdvanceGetLCGRNValue(void)
-{
+int AdvanceGetLCGRNValue(void) {
     u32 rn = (gLCGRNValue * 4 + 2);
     rn *= (gLCGRNValue * 4 + 3);
     gLCGRNValue = rn >> 2;
