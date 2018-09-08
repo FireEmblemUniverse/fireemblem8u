@@ -89729,7 +89729,7 @@ _080B5D8A:
 	movs r5, #0
 	cmp r5, r8
 	bge _080B5E42
-	ldr r6, _080B5E68  @ gUnknown_088B0890
+	ldr r6, _080B5E68  @ gChapterDataTable
 	movs r7, #0x94
 	movs r0, #0x2d
 	adds r0, r0, r6
@@ -89745,7 +89745,7 @@ _080B5DA8:
 	lsls r0, r0, #0x18
 	cmp r0, #0
 	beq _080B5E3C
-	bl GetSomethingRelatedToCurrentDifficulty
+	bl IsDifficultMode
 	lsls r0, r0, #0x18
 	lsrs r0, r0, #0x18
 	ldr r1, [r4]
@@ -89760,7 +89760,7 @@ _080B5DA8:
 	ldr r0, [sp]
 	adds r0, r0, r1
 	str r0, [sp]
-	bl GetSomethingRelatedToCurrentDifficulty
+	bl IsDifficultMode
 	lsls r0, r0, #0x18
 	lsrs r0, r0, #0x18
 	ldr r1, [r4]
@@ -89775,7 +89775,7 @@ _080B5DA8:
 	ldr r0, [sp, #4]
 	adds r0, r0, r1
 	str r0, [sp, #4]
-	bl GetSomethingRelatedToCurrentDifficulty
+	bl IsDifficultMode
 	lsls r0, r0, #0x18
 	lsrs r0, r0, #0x18
 	ldr r1, [r4]
@@ -89790,7 +89790,7 @@ _080B5DA8:
 	ldr r0, [sp, #8]
 	adds r0, r0, r1
 	str r0, [sp, #8]
-	bl GetSomethingRelatedToCurrentDifficulty
+	bl IsDifficultMode
 	lsls r0, r0, #0x18
 	lsrs r0, r0, #0x18
 	ldr r1, [r4]
@@ -89829,7 +89829,7 @@ _080B5E54:
 	pop {r1}
 	bx r1
 	.align 2, 0
-_080B5E68: .4byte gUnknown_088B0890
+_080B5E68: .4byte gChapterDataTable
 
 	THUMB_FUNC_START sub_80B5E6C
 sub_80B5E6C: @ 0x080B5E6C
@@ -89884,7 +89884,7 @@ _080B5EBA:
 	movs r5, #0
 	cmp r5, r8
 	bge _080B5F72
-	ldr r6, _080B5F98  @ gUnknown_088B0890
+	ldr r6, _080B5F98  @ gChapterDataTable
 	movs r7, #0x94
 	movs r0, #0x3e
 	adds r0, r0, r6
@@ -89900,7 +89900,7 @@ _080B5ED8:
 	lsls r0, r0, #0x18
 	cmp r0, #0
 	beq _080B5F6C
-	bl GetSomethingRelatedToCurrentDifficulty
+	bl IsDifficultMode
 	lsls r0, r0, #0x18
 	lsrs r0, r0, #0x17
 	ldr r1, [r4]
@@ -89915,7 +89915,7 @@ _080B5ED8:
 	ldr r0, [sp]
 	adds r0, r0, r1
 	str r0, [sp]
-	bl GetSomethingRelatedToCurrentDifficulty
+	bl IsDifficultMode
 	lsls r0, r0, #0x18
 	lsrs r0, r0, #0x17
 	ldr r1, [r4]
@@ -89930,7 +89930,7 @@ _080B5ED8:
 	ldr r0, [sp, #4]
 	adds r0, r0, r1
 	str r0, [sp, #4]
-	bl GetSomethingRelatedToCurrentDifficulty
+	bl IsDifficultMode
 	lsls r0, r0, #0x18
 	lsrs r0, r0, #0x17
 	ldr r1, [r4]
@@ -89945,7 +89945,7 @@ _080B5ED8:
 	ldr r0, [sp, #8]
 	adds r0, r0, r1
 	str r0, [sp, #8]
-	bl GetSomethingRelatedToCurrentDifficulty
+	bl IsDifficultMode
 	lsls r0, r0, #0x18
 	lsrs r0, r0, #0x17
 	ldr r1, [r4]
@@ -89984,7 +89984,7 @@ _080B5F84:
 	pop {r1}
 	bx r1
 	.align 2, 0
-_080B5F98: .4byte gUnknown_088B0890
+_080B5F98: .4byte gChapterDataTable
 
 	THUMB_FUNC_START sub_80B5F9C
 sub_80B5F9C: @ 0x080B5F9C
@@ -90042,7 +90042,7 @@ _080B5FF0:
 	lsls r0, r0, #0x18
 	cmp r0, #0
 	beq _080B6022
-	bl GetSomethingRelatedToCurrentDifficulty
+	bl IsDifficultMode
 	lsls r0, r0, #0x18
 	lsrs r0, r0, #0x16
 	ldr r1, [r4]
@@ -90221,9 +90221,9 @@ sub_80B6144: @ 0x080B6144
 	ldrsb r1, [r0, r1]
 	movs r0, #0x94
 	muls r1, r0, r1
-	ldr r0, _080B61C0  @ gUnknown_088B0890
+	ldr r0, _080B61C0  @ gChapterDataTable
 	adds r4, r1, r0
-	bl GetSomethingRelatedToCurrentDifficulty
+	bl IsDifficultMode
 	lsls r0, r0, #0x18
 	lsrs r0, r0, #0x18
 	adds r1, r4, #0
@@ -90231,7 +90231,7 @@ sub_80B6144: @ 0x080B6144
 	adds r1, r1, r0
 	ldrb r0, [r1]
 	str r0, [sp]
-	bl GetSomethingRelatedToCurrentDifficulty
+	bl IsDifficultMode
 	lsls r0, r0, #0x18
 	lsrs r0, r0, #0x18
 	adds r1, r4, #0
@@ -90239,7 +90239,7 @@ sub_80B6144: @ 0x080B6144
 	adds r1, r1, r0
 	ldrb r0, [r1]
 	str r0, [sp, #4]
-	bl GetSomethingRelatedToCurrentDifficulty
+	bl IsDifficultMode
 	lsls r0, r0, #0x18
 	lsrs r0, r0, #0x18
 	adds r1, r4, #0
@@ -90247,7 +90247,7 @@ sub_80B6144: @ 0x080B6144
 	adds r1, r1, r0
 	ldrb r0, [r1]
 	str r0, [sp, #8]
-	bl GetSomethingRelatedToCurrentDifficulty
+	bl IsDifficultMode
 	lsls r0, r0, #0x18
 	lsrs r0, r0, #0x18
 	adds r1, r4, #0
@@ -90273,7 +90273,7 @@ _080B61B2:
 	bx r1
 	.align 2, 0
 _080B61BC: .4byte gUnknown_0202BCF0
-_080B61C0: .4byte gUnknown_088B0890
+_080B61C0: .4byte gChapterDataTable
 
 	THUMB_FUNC_START sub_80B61C4
 sub_80B61C4: @ 0x080B61C4
@@ -90440,8 +90440,8 @@ sub_80B62DC: @ 0x080B62DC
 	subs r0, #1
 	bl GetChapterWinDataEntry
 	adds r6, r0, #0
-	ldr r4, _080B6328  @ gUnknown_088B0890
-	bl GetSomethingRelatedToCurrentDifficulty
+	ldr r4, _080B6328  @ gChapterDataTable
+	bl IsDifficultMode
 	lsls r0, r0, #0x18
 	lsrs r0, r0, #0x16
 	ldr r1, [r6]
@@ -90464,7 +90464,7 @@ sub_80B62DC: @ 0x080B62DC
 	b _080B6350
 	.align 2, 0
 _080B6324: .4byte gUnknown_0202BCF0
-_080B6328: .4byte gUnknown_088B0890
+_080B6328: .4byte gChapterDataTable
 _080B632C:
 	lsls r0, r1, #4
 	subs r0, r0, r1
@@ -90632,8 +90632,8 @@ _080B6442:
 	subs r0, #1
 	bl GetChapterWinDataEntry
 	adds r5, r0, #0
-	bl GetSomethingRelatedToCurrentDifficulty
-	ldr r6, _080B6500  @ gUnknown_088B0890
+	bl IsDifficultMode
+	ldr r6, _080B6500  @ gChapterDataTable
 	lsls r0, r0, #0x18
 	lsrs r0, r0, #0x17
 	ldr r1, [r5]
@@ -90647,7 +90647,7 @@ _080B6442:
 	adds r0, r0, r1
 	ldrh r0, [r0]
 	str r0, [sp]
-	bl GetSomethingRelatedToCurrentDifficulty
+	bl IsDifficultMode
 	lsls r0, r0, #0x18
 	lsrs r0, r0, #0x17
 	ldr r1, [r5]
@@ -90660,7 +90660,7 @@ _080B6442:
 	adds r0, r0, r1
 	ldrh r0, [r0]
 	str r0, [sp, #4]
-	bl GetSomethingRelatedToCurrentDifficulty
+	bl IsDifficultMode
 	lsls r0, r0, #0x18
 	lsrs r0, r0, #0x17
 	ldr r1, [r5]
@@ -90673,7 +90673,7 @@ _080B6442:
 	adds r0, r0, r1
 	ldrh r0, [r0]
 	str r0, [sp, #8]
-	bl GetSomethingRelatedToCurrentDifficulty
+	bl IsDifficultMode
 	lsls r0, r0, #0x18
 	lsrs r0, r0, #0x17
 	ldr r1, [r5]
@@ -90706,7 +90706,7 @@ _080B64EA:
 _080B64F4: .4byte 0x000FFFFF
 _080B64F8: .4byte gUnknown_0202BCF0
 _080B64FC: .4byte 0xF00000FF
-_080B6500: .4byte gUnknown_088B0890
+_080B6500: .4byte gChapterDataTable
 
 	THUMB_FUNC_START sub_80B6504
 sub_80B6504: @ 0x080B6504

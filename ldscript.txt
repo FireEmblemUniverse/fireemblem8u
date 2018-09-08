@@ -99,7 +99,7 @@ SECTIONS
         asm/bmpatharrowdisp.o(.text);
         asm/sallycursor.o(.text);
         asm/bmcommanddbg.o(.text);
-        asm/chapterdata.o(.text);
+        src/chapterdata.o(.text);
         asm/unitinfowindow.o(.text);
         asm/bb.o(.text);
         asm/bmusailment.o(.text);

@@ -513,7 +513,7 @@ LoadChapterMap: @ 0x080198AC
 	strh r0, [r5]
 	ldrb r0, [r4, #1]
 	strh r0, [r5, #2]
-	ldr r4, _08019900  @ gUnknown_088B363C
+	ldr r4, _08019900  @ gChapterDataAssetTable
 	adds r0, r6, #0
 	bl GetROMChapterStruct
 	ldrb r0, [r0, #7]
@@ -538,7 +538,7 @@ LoadChapterMap: @ 0x080198AC
 	bx r0
 	.align 2, 0
 _080198FC: .4byte gUnknown_0202E4D4
-_08019900: .4byte gUnknown_088B363C
+_08019900: .4byte gChapterDataAssetTable
 _08019904: .4byte gUnknown_02030B8C
 _08019908: .4byte gUnknown_0202BCB0
 
@@ -546,7 +546,7 @@ _08019908: .4byte gUnknown_0202BCB0
 LoadChapterMapGfx: @ 0x0801990C
 	push {r4, r5, lr}
 	adds r4, r0, #0
-	ldr r5, _08019968  @ gUnknown_088B363C
+	ldr r5, _08019968  @ gChapterDataAssetTable
 	bl GetROMChapterStruct
 	ldrb r0, [r0, #4]
 	lsls r0, r0, #2
@@ -585,14 +585,14 @@ _0801994A:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_08019968: .4byte gUnknown_088B363C
+_08019968: .4byte gChapterDataAssetTable
 _0801996C: .4byte 0x06008000
 _08019970: .4byte 0x0600C000
 
 	THUMB_FUNC_START sub_8019974
 sub_8019974: @ 0x08019974
 	push {r4, lr}
-	ldr r4, _0801999C  @ gUnknown_088B363C
+	ldr r4, _0801999C  @ gChapterDataAssetTable
 	ldr r0, _080199A0  @ gUnknown_0202BCF0
 	ldrb r0, [r0, #0xe]
 	lsls r0, r0, #0x18
@@ -610,7 +610,7 @@ sub_8019974: @ 0x08019974
 	pop {r0}
 	bx r0
 	.align 2, 0
-_0801999C: .4byte gUnknown_088B363C
+_0801999C: .4byte gChapterDataAssetTable
 _080199A0: .4byte gUnknown_0202BCF0
 
 	THUMB_FUNC_START FlushTilesFromBuffer
