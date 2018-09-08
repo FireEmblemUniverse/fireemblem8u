@@ -123,6 +123,8 @@ SECTIONS
         asm/mu.o(.text);
         asm/muctrl.o(.text);
         asm/code_mapanim.o(.text);
+        asm/ev_triggercheck.o(.text);
+        asm/asmcs.o(.text);
         asm/code.o(.text);
         asm/m4a_1.o(.text);
         src/m4a_2.o(.text);
