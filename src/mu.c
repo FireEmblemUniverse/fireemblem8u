@@ -1,7 +1,50 @@
 #include "global.h"
 #include "proc.h"
 #include "ap.h"
+#include "items.h"
 
+// TODO: move this elsewhere
+enum {
+	US_NONE = 0x00000000,
+
+	US_HIDDEN = 0x00000001,
+	US_UNSELECTABLE = 0x00000002,
+	US_DEAD = 0x00000004,
+	US_NOT_DEPLOYED = 0x00000008,
+	US_RESCUING = 0x00000010,
+	US_RESCUED = 0x00000020,
+	US_HAS_MOVED = 0x00000040, // Bad name?
+	US_CANTOING = 0x00000040, // Alias
+	US_UNDER_A_ROOF = 0x00000080,
+	// = 0x00000100,
+	// = 0x00000200,
+	US_HAS_MOVED_AI = 0x00000400,
+	US_IN_BALLISTA = 0x00000800,
+	US_DROP_ITEM = 0x00001000,
+	US_GROWTH_BOOST = 0x00002000,
+	US_SOLOANIM_1 = 0x00004000,
+	US_SOLOANIM_2 = 0x00008000,
+	// = 0x00010000,
+	// = 0x00020000,
+	// = 0x00040000,
+	// = 0x00080000,
+	// = 0x00100000,
+	// = 0x00200000,
+	// = 0x00400000,
+	// = 0x00800000,
+	// = 0x01000000,
+	// = 0x02000000,
+	// = 0x04000000,
+	// = 0x08000000,
+	// = 0x10000000,
+	// = 0x20000000,
+	// = 0x40000000,
+	// = 0x80000000,
+
+	US_DUMMY
+};
+
+// TODO: move to mu.h
 struct MUProc {
 	PROC_HEADER;
 
@@ -44,7 +87,6 @@ struct MUProc* Make6CMOVEUNITForUnit(struct Unit* pUnit, unsigned spriteIndex, u
 		spriteIndex,
 
 		-1,
-
 		palId
 	);
 
@@ -54,37 +96,45 @@ struct MUProc* Make6CMOVEUNITForUnit(struct Unit* pUnit, unsigned spriteIndex, u
 	return proc;
 }
 
-/*
+struct MUProc* MakeMOVEUNITForMapUnit(struct Unit* pUnit) {
+	struct MUProc* proc;
 
-	THUMB_FUNC_START Make6CMOVEUNITForUnit
-Make6CMOVEUNITForUnit: @ 0x08078428
-	push {r4, r5, lr}
-	sub sp, #4
-	adds r5, r0, #0
-	adds r4, r1, #0
-	movs r0, #0x10
-	ldrsb r0, [r5, r0]
-	lsls r0, r0, #0x10
-	lsrs r0, r0, #0x10
-	movs r1, #0x11
-	ldrsb r1, [r5, r1]
-	lsls r1, r1, #0x10
-	lsrs r1, r1, #0x10
-	lsls r4, r4, #0x10
-	lsrs r4, r4, #0x10
-	movs r3, #1
-	negs r3, r3
-	str r2, [sp]
-	adds r2, r4, #0
-	bl NewMOVEUNIT
-	str r5, [r0, #0x2c]
-	adds r2, r0, #0
-	adds r2, #0x3e
-	movs r1, #1
-	strb r1, [r2]
-	add sp, #4
-	pop {r4, r5}
-	pop {r1}
-	bx r1
+	unsigned spriteId = pUnit->pClassData->number;
 
-*/
+	if (pUnit->state & US_IN_BALLISTA) {
+		struct Trap* blst = GetTrap(pUnit->ballistaIndex);
+
+		// FIXME: use class id
+
+		switch (blst->data[TRAP_EXTDATA_BLST_ITEMID]) {
+
+		case Ballista:
+			spriteId = 0x67;
+			break;
+
+		case IronBallista:
+			spriteId = 0x68;
+			break;
+
+		case KillerBallista:
+			spriteId = 0x69;
+			break;
+
+		} // switch (blst->data[TRAP_EXTDATA_BLST_ITEMID])
+	}
+
+	proc = NewMOVEUNIT(
+		pUnit->xPos,
+		pUnit->yPos,
+
+		spriteId,
+
+		-1,
+		GetUnitMapSpritePaletteIndex(pUnit)
+	);
+
+	proc->pUnit = pUnit;
+	proc->boolAttractCamera = TRUE;
+
+	return proc;
+}

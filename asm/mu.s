@@ -5,68 +5,6 @@
 	@ "MOVEUNIT" proc and related functions
 	@ Handles managing and displaying moving map sprites
 
-	THUMB_FUNC_START MakeMOVEUNITForMapUnit
-MakeMOVEUNITForMapUnit: @ 0x08078464
-	push {r4, r5, r6, lr}
-	sub sp, #4
-	adds r5, r0, #0
-	ldr r0, [r5, #4]
-	ldrb r6, [r0, #4]
-	ldr r0, [r5, #0xc]
-	movs r1, #0x80
-	lsls r1, r1, #4
-	ands r0, r1
-	cmp r0, #0
-	beq _080784A0
-	ldrb r0, [r5, #0x1c]
-	bl GetTrap
-	ldrb r0, [r0, #3]
-	cmp r0, #0x36
-	beq _0807849A
-	cmp r0, #0x36
-	bgt _08078490
-	cmp r0, #0x35
-	beq _08078496
-	b _080784A0
-_08078490:
-	cmp r0, #0x37
-	beq _0807849E
-	b _080784A0
-_08078496:
-	movs r6, #0x67
-	b _080784A0
-_0807849A:
-	movs r6, #0x68
-	b _080784A0
-_0807849E:
-	movs r6, #0x69
-_080784A0:
-	adds r0, r5, #0
-	bl GetUnitMapSpritePaletteIndex
-	adds r4, r0, #0
-	movs r0, #0x10
-	ldrsb r0, [r5, r0]
-	lsls r0, r0, #0x10
-	lsrs r0, r0, #0x10
-	movs r1, #0x11
-	ldrsb r1, [r5, r1]
-	lsls r1, r1, #0x10
-	lsrs r1, r1, #0x10
-	adds r2, r6, #0
-	movs r3, #1
-	negs r3, r3
-	str r4, [sp]
-	bl NewMOVEUNIT
-	str r5, [r0, #0x2c]
-	adds r2, r0, #0
-	adds r2, #0x3e
-	movs r1, #1
-	strb r1, [r2]
-	add sp, #4
-	pop {r4, r5, r6}
-	pop {r1}
-	bx r1
-
 	THUMB_FUNC_START sub_80784D8
 sub_80784D8: @ 0x080784D8
 	push {lr}
