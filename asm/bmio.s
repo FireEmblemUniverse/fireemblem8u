@@ -4,58 +4,6 @@
 
 	@ General Battle Map System Stuff, mostly low level hardware stuff but also more
 
-	THUMB_FUNC_START sub_8030868
-sub_8030868: @ 0x08030868
-	push {r4, r5, r6, lr}
-	ldr r0, _080308B4  @ gUnknown_0202BCF0
-	ldrb r0, [r0, #0x15]
-	bl SetupOAMSpliceForWeather
-	ldr r0, _080308B8  @ gUnknown_085A3A84
-	ldr r1, _080308BC  @ 0x06010300
-	bl CopyDataWithPossibleUncomp
-	ldr r0, _080308C0  @ gUnknown_085A3AC0
-	movs r1, #0xd0
-	lsls r1, r1, #2
-	movs r2, #0x20
-	bl CopyToPaletteBuffer
-	ldr r5, _080308C4  @ gUnknown_080D7EEC
-	ldr r4, _080308C8  @ gUnknown_020027DC
-	movs r6, #0xf
-_0803088C:
-	bl AdvanceGetLCGRNValue
-	strh r0, [r4]
-	bl AdvanceGetLCGRNValue
-	strh r0, [r4, #2]
-	ldrh r0, [r5]
-	negs r0, r0
-	strh r0, [r4, #4]
-	ldrh r0, [r5, #2]
-	negs r0, r0
-	strh r0, [r4, #6]
-	adds r5, #6
-	adds r4, #0xc
-	subs r6, #1
-	cmp r6, #0
-	bge _0803088C
-	pop {r4, r5, r6}
-	pop {r0}
-	bx r0
-	.align 2, 0
-_080308B4: .4byte gUnknown_0202BCF0
-_080308B8: .4byte gUnknown_085A3A84
-_080308BC: .4byte 0x06010300
-_080308C0: .4byte gUnknown_085A3AC0
-_080308C4: .4byte gUnknown_080D7EEC
-_080308C8: .4byte gUnknown_020027DC
-
-	THUMB_FUNC_START sub_80308CC
-sub_80308CC: @ 0x080308CC
-	push {lr}
-	bl sub_80307D8
-	bl sub_8030868
-	pop {r0}
-	bx r0
-
 	THUMB_FUNC_START sub_80308DC
 sub_80308DC: @ 0x080308DC
 	push {r4, r5, r6, r7, lr}

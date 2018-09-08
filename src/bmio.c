@@ -6,7 +6,10 @@
 
 extern const u16* gUnknown_0859D968[];
 
+extern const u16 gUnknown_085A3AC0[];
+
 extern const u8 gUnknown_085A3964[];
+extern const u8 gUnknown_085A3A84[];
 
 void CopyDataWithPossibleUncomp(const void* src, void* dst);
 void CopyTileGfxForObj(const void* src, void* dst, int tileWidth, int tileHeight);
@@ -704,6 +707,35 @@ void sub_80307D8(void) {
 #undef RGB_GET_G
 #undef RGB_GET_B
 
+void sub_8030868(void) {
+	int i;
+
+	SetupOAMSpliceForWeather(gUnknown_0202BCF0.chapterWeatherId);
+	CopyDataWithPossibleUncomp(gUnknown_085A3A84, OBJ_VRAM0 + 0x18 * 0x20);
+	CopyToPaletteBuffer(gUnknown_085A3AC0, 0x340, 0x20);
+
+	for (i = 0; i < 0x10; ++i) {
+		gUnknown_020027DC[i].xPosition = AdvanceGetLCGRNValue();
+		gUnknown_020027DC[i].yPosition = AdvanceGetLCGRNValue();
+
+		gUnknown_020027DC[i].xSpeed = -gUnknown_080D7EEC[i*3 + 0];
+		gUnknown_020027DC[i].ySpeed = -gUnknown_080D7EEC[i*3 + 1];
+	}
+}
+
+void sub_80308CC(void) {
+	sub_80307D8();
+	sub_8030868();
+}
+
 /*
+
+	THUMB_FUNC_START sub_80308CC
+sub_80308CC: @ 0x080308CC
+	push {lr}
+	bl sub_80307D8
+	bl sub_8030868
+	pop {r0}
+	bx r0
 
 // */
