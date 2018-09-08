@@ -57,13 +57,15 @@ enum {
 
 enum { MU_SUBPIXELS_PER_PIXEL = 16 };
 
+struct MUConfig;
+
 struct MUProc {
 	PROC_HEADER;
 
 	/* 2C */ struct Unit* pUnit;
 	/* 30 */ struct APHandle* pAPHandle;
-	/* 34 */ const u8* pCommands_maybe;
-	/* 38 */ u32 vramPtr_maybe;
+	/* 34 */ struct MUConfig* pMUConfig;
+	/* 38 */ void* vramPtr_maybe;
 
 	/* 3C */ u8 currentFrame_maybe;
 	/* 3D */ u8 _u3D;
@@ -71,7 +73,7 @@ struct MUProc {
 	/* 3F */ u8 stateId;
 	/* 40 */ u8 _u40;
 	/* 41 */ u8 displayedClassId;
-	/* 42 */ u8 directionId;
+	/* 42 */ u8 directionId_maybe;
 	/* 43 */ u8 _u43;
 	/* 44 */ u8 _u44;
 	/* 45 */ u8 _u45;
@@ -97,10 +99,15 @@ struct MUConfig {
 };
 
 extern struct MUConfig gUnknown_03001900[4];
+extern const struct ProcCmd gUnknown_089A2C48[];
 
-struct MUProc* NewMOVEUNIT(u16 x, u16 y, u16 spriteIndex, int objTileId, unsigned palId);
-
+struct MUProc* NewMOVEUNIT(u16 x, u16 y, u16 classIndex, int objTileId, unsigned palId);
 void _6CMOVEUNIT_Loop(struct MUProc* proc);
+struct MUConfig* GetNextMoveunitEntryStruct(int objTileId, u8* outIndex_maybe);
+struct MUConfig* sub_807920C(int objTileId, u8* outIndex_maybe);
+const void* MMS_GetROMTCS(int classId);
+const void* GetMovingMapSpriteGfxPtrFromMOVEUNIT(struct MUProc* proc);
+void* GetMOVEUNITGraphicsBuffer(int muIndex);
 
 void ResetMoveunitStructs(void) {
 	int i;
@@ -200,4 +207,75 @@ void sub_8078524(struct MUProc* proc) {
 		GetClassStandingMapSpriteId(proc->displayedClassId),
 		proc->currentFrame_maybe
 	);
+}
+
+struct MUProc* NewMOVEUNIT(u16 x, u16 y, u16 classIndex, int objTileId, unsigned palId) {
+	struct MUConfig* config;
+	struct MUProc* proc;
+	struct APHandle* ap;
+
+	unsigned otherThing = 0;
+	u8 thing = 0;
+
+	if (objTileId == -1)
+		config = GetNextMoveunitEntryStruct(objTileId = 0x380, &thing);
+	else
+		config = sub_807920C(objTileId, &thing);
+
+	if (!config)
+		return NULL;
+
+	if (Proc_Find(gUnknown_089A2C48))
+		otherThing = 0xFE;
+
+	proc = (struct MUProc*) Proc_Create(gUnknown_089A2C48, ROOT_PROC_5);
+
+	if (!proc)
+		return NULL;
+
+	proc->pUnit = NULL;
+	proc->stateId = MU_STATE_IDLE_EXEC;
+
+	proc->xSubPosition = x * 16 * MU_SUBPIXELS_PER_PIXEL;
+	proc->ySubPosition = y * 16 * MU_SUBPIXELS_PER_PIXEL;
+
+	proc->xSubOffset = 0;
+	proc->ySubOffset = 0;
+
+	proc->directionId_maybe = 11;
+
+	proc->_u48 = 0;
+	proc->_u43 = otherThing;
+
+	proc->displayedClassId = classIndex;
+	proc->_u40 = 0;
+
+	proc->vramPtr_maybe = OBJ_VRAM0 + (0x20 * objTileId);
+
+	proc->currentFrame_maybe = thing;
+
+	proc->objPriorityBits = 0x800;
+
+	proc->configBits = 0;
+	proc->_u44 = 0;
+
+	config->paletteIndex = palId;
+
+	ap = AP_Create(MMS_GetROMTCS(classIndex), 10);
+	AP_SwitchAnimation(ap, 4);
+
+	CopyDataWithPossibleUncomp(
+		GetMovingMapSpriteGfxPtrFromMOVEUNIT(proc),
+		GetMOVEUNITGraphicsBuffer(config->muIndex)
+	);
+
+	ap->pGraphics = GetMOVEUNITGraphicsBuffer(config->muIndex);
+	ap->tileBase = ((config->paletteIndex & 0xF) << 12) + config->objTileIndex + proc->objPriorityBits;
+
+	proc->pAPHandle = ap;
+	proc->pMUConfig = config;
+
+	config->pMUProc = proc;
+
+	return proc;
 }

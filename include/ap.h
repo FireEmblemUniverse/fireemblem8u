@@ -21,13 +21,13 @@ struct APHandle {
 
 
 void AP_ClearAll();
-// ??? AP_Create(???);
+struct APHandle* AP_Create(const void* apDefinition, u16 aObjNode);
 // ??? AP_Delete(???);
 // ??? AP_Update(???);
 void AP_Display(struct APHandle*, int, int);
 s8   AP_ExecFrame(struct APHandle*);
 void AP_QueueObjRotScale(struct APHandle*);
-// ??? AP_SwitchAnimation(???);
+void AP_SwitchAnimation(struct APHandle* handle, int index);
 // ??? AP_SetDefinition(???);
 void AP_QueueObjGraphics(struct APHandle*);
 void AP_LoadDefinition(struct APHandle*, const u16*);
