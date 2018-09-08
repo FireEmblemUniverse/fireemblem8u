@@ -120,6 +120,8 @@ SECTIONS
         asm/ui_targetselection.o(.text);
         asm/code_battleanim.o(.text);
         asm/monstergen.o(.text);
+        asm/mu.o(.text);
+        asm/muctrl.o(.text);
         asm/code.o(.text);
         asm/m4a_1.o(.text);
         src/m4a_2.o(.text);
