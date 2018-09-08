@@ -5,37 +5,6 @@
 	@ "MOVEUNIT" proc and related functions
 	@ Handles managing and displaying moving map sprites
 
-	THUMB_FUNC_START Make6CMOVEUNITForUnit
-Make6CMOVEUNITForUnit: @ 0x08078428
-	push {r4, r5, lr}
-	sub sp, #4
-	adds r5, r0, #0
-	adds r4, r1, #0
-	movs r0, #0x10
-	ldrsb r0, [r5, r0]
-	lsls r0, r0, #0x10
-	lsrs r0, r0, #0x10
-	movs r1, #0x11
-	ldrsb r1, [r5, r1]
-	lsls r1, r1, #0x10
-	lsrs r1, r1, #0x10
-	lsls r4, r4, #0x10
-	lsrs r4, r4, #0x10
-	movs r3, #1
-	negs r3, r3
-	str r2, [sp]
-	adds r2, r4, #0
-	bl NewMOVEUNIT
-	str r5, [r0, #0x2c]
-	adds r2, r0, #0
-	adds r2, #0x3e
-	movs r1, #1
-	strb r1, [r2]
-	add sp, #4
-	pop {r4, r5}
-	pop {r1}
-	bx r1
-
 	THUMB_FUNC_START MakeMOVEUNITForMapUnit
 MakeMOVEUNITForMapUnit: @ 0x08078464
 	push {r4, r5, r6, lr}
