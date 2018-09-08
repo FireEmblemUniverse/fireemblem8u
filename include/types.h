@@ -155,51 +155,213 @@ struct UnknownStructCTC
 
 typedef u16 Item;
 
-typedef struct _ItemData ItemData;
-
-struct _StatBonuses {
-  u8 HPBonus;
-  u8 PowBonus;
-  u8 SklBonus;
-  u8 SpdBonus;
-  u8 DefBonus;
-  u8 ResBonus;
-  u8 LckBonus;
-  u8 ConBonus;
-  u8 MovBonus;
+struct ItemStatBonuses {
+    u8 HPBonus;
+    u8 PowBonus;
+    u8 SklBonus;
+    u8 SpdBonus;
+    u8 DefBonus;
+    u8 ResBonus;
+    u8 LckBonus;
+    u8 ConBonus;
+    u8 MovBonus;
 };
 
-struct _ItemData {
-  u16 nameTextId; //0
-  u16 descTextId; //2
-  u16 useDescTextId; //4
-  
-  u8  number; //6
-  u8  weaponType; //7
-  
-  u32 attributes; //8
-  
-  const struct _StatBonuses* pStatBonuses; //c
-  const u8* pEffectiveness; //10
-  
-  u8  maxUses; //14
-  
-  u8  might; //15
-  u8  hit; //16
-  u8  weight; //17
-  u8  crit; //18
-  
-  u8 maxRange : 4; //19
-  u8 minRange : 4; //19
-  
-  u16 costPerUse; //1a
-  u8  weaponRank; //1c
-  u8  iconId; //1d
-  u8  useEffectId; //1e
-  u8  weaponEffectId; //1f
-  u8  weaponExp; //20
-  
-  u8  _u21[3]; //21
+struct ItemData {
+    u16 nameTextId; //0
+    u16 descTextId; //2
+    u16 useDescTextId; //4
+
+    u8  number; //6
+    u8  weaponType; //7
+
+    u32 attributes; //8
+
+    const struct ItemStatBonuses* pStatBonuses; //c
+    const u8* pEffectiveness; //10
+
+    u8  maxUses; //14
+
+    u8  might; //15
+    u8  hit; //16
+    u8  weight; //17
+    u8  crit; //18
+
+    u8 maxRange : 4; //19
+    u8 minRange : 4; //19
+
+    u16 costPerUse; //1a
+    u8  weaponRank; //1c
+    u8  iconId; //1d
+    u8  useEffectId; //1e
+    u8  weaponEffectId; //1f
+    u8  weaponExp; //20
+
+    u8  _u21[3]; //21
+};
+
+struct SMSHandle {
+    /* 00 */ struct SMSHandle* pNext;
+
+    /* 04 */ short xDisplay;
+    /* 06 */ short yDisplay;
+
+    /* 08 */ u16 oam2Base;
+
+    /* 0A */ u8 _u0A;
+    /* 0B */ s8 config;
+};
+
+struct CharacterData {
+    /* 00 */ u16 nameTextId;
+    /* 02 */ u16 descTextId;
+    /* 04 */ u8 number;
+    /* 05 */ u8 defaultClass;
+    /* 06 */ u16 portraitId;
+    /* 08 */ u8 miniPortrait;
+    /* 09 */ u8 affinity;
+    /* 0A */ u8 _u0A;
+
+    /* 0B */ u8 baseLevel;
+    /* 0C */ s8 baseHP;
+    /* 0D */ s8 basePow;
+    /* 0E */ s8 baseSkl;
+    /* 0F */ s8 baseSpd;
+    /* 10 */ s8 baseDef;
+    /* 11 */ s8 baseRes;
+    /* 12 */ s8 baseLck;
+    /* 13 */ s8 baseCon;
+
+    /* 14 */ u8 baseRanks[8];
+
+    /* 1C */ u8 growthHP;
+    /* 1D */ u8 growthPow;
+    /* 1E */ u8 growthSkl;
+    /* 1F */ u8 growthSpd;
+    /* 20 */ u8 growthDef;
+    /* 21 */ u8 growthRes;
+    /* 22 */ u8 growthLck;
+
+    /* 23 */ u8 _u23;
+    /* 24 */ u8 _u24;
+    /* 25 */ u8 _u25;
+    /* 26 */ u8 _u26;
+    /* 27 */ u8 _u27;
+
+    /* 28 */ u32 attributes;
+
+    /* 2C */ void* pSupportData;
+    /* 30 */ void* _pU30;
+};
+
+struct ClassData {
+    /* 00 */ u16 nameTextId;
+    /* 02 */ u16 descTextId;
+    /* 04 */ u8 number;
+    /* 05 */ u8 promotion;
+    /* 06 */ u8 SMSId;
+    /* 07 */ u8 slowWalking;
+    /* 08 */ u16 defaultPortraitId;
+    /* 0A */ u8 _u0A;
+
+    /* 0B */ u8 baseHP;
+    /* 0C */ u8 basePow;
+    /* 0D */ u8 baseSkl;
+    /* 0E */ u8 baseSpd;
+    /* 0F */ u8 baseDef;
+    /* 10 */ u8 baseRes;
+    /* 11 */ u8 baseCon;
+    /* 12 */ u8 baseMov;
+
+    /* 13 */ u8 maxHP;
+    /* 14 */ u8 maxPow;
+    /* 15 */ u8 maxSkl;
+    /* 16 */ u8 maxSpd;
+    /* 17 */ u8 maxDef;
+    /* 18 */ u8 maxRes;
+    /* 19 */ u8 maxCon;
+
+    /* 1A */ u8 classRelativePower;
+
+    /* 1B */ u8 growthHP;
+    /* 1C */ u8 growthPow;
+    /* 1D */ u8 growthSkl;
+    /* 1E */ u8 growthSpd;
+    /* 1F */ u8 growthDef;
+    /* 20 */ u8 growthRes;
+    /* 21 */ u8 growthLck;
+
+    /* 22 */ u8 promotionHP;
+    /* 23 */ u8 promotionPow;
+    /* 24 */ u8 promotionSkl;
+    /* 25 */ u8 promotionSpd;
+    /* 26 */ u8 promotionDef;
+    /* 27 */ u8 promotionRes;
+
+    /* 28 */ u32 attributes;
+
+    /* 2C */ u8 baseRanks[8];
+
+    /* 34 */ const void* pBattleAnimDef;
+    /* 38 */ const u8* pMovCostTable[3]; // standard, rain, snow
+    /* 44 */ const u8* pTerrainBonusTables[3]; // def, avo, res
+
+    /* 50 */ const void* _pU50;
+};
+
+struct Unit {
+    /* 00 */ const struct CharacterData* pCharacterData;
+    /* 04 */ const struct ClassData* pClassData;
+
+    /* 08 */ u8 level;
+    /* 09 */ u8 exp;
+    /* 0A */ u8 _u0A;
+
+    /* 0B */ u8 index;
+
+    /* 0C */ u32 state;
+
+    /* 10 */ u8 xPos;
+    /* 11 */ u8 yPos;
+
+    /* 12 */ u8 maxHP;
+    /* 13 */ u8 curHP;
+    /* 14 */ u8 pow;
+    /* 15 */ u8 skl;
+    /* 16 */ u8 spd;
+    /* 17 */ u8 def;
+    /* 18 */ u8 res;
+    /* 19 */ u8 lck;
+
+    /* 1A */ u8 conBonus;
+    /* 1B */ u8 rescueOtherUnit;
+    /* 1C */ u8 ballistaIndex;
+    /* 1D */ u8 movBonus;
+
+    /* 1E */ u16 items[5];
+    /* 28 */ u8 ranks[8];
+
+    /* 30 */ u8 statusIndex : 4;
+    /* 30 */ u8 statusDuration : 4;
+
+    /* 31 */ u8 torchDuration : 4;
+    /* 31 */ u8 barrierDuration : 4;
+
+    /* 32 */ u8 supports[6];
+    /* 38 */ u8 unitLeader;
+    /* 39 */ u8 supportBits;
+    /* 3A */ u8 _u3A;
+    /* 3B */ u8 _u3B;
+
+    /* 3C */ struct SMSHandle* pMapSpriteHandle;
+
+    /* 40 */ u16 ai3And4;
+    /* 42 */ u8 ai1;
+    /* 43 */ u8 ai1data;
+    /* 44 */ u8 ai2;
+    /* 45 */ u8 ai2data;
+    /* 46 */ u8 _u46;
+    /* 47 */ u8 _u47;
 };
 
 #endif  // GUARD_TYPES_H
