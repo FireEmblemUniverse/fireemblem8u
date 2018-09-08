@@ -434,8 +434,6 @@ void sub_80306CC(void) {
 
 void nullsub_12(void) {}
 
-struct test { u16 _[8]; };
-
 void sub_8030714(void) {
 	const u16* src;
 	u16* dst;
