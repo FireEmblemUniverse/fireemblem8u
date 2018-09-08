@@ -2,6 +2,7 @@
 #include "proc.h"
 #include "ap.h"
 #include "items.h"
+#include "soundwrapper.h"
 
 // TODO: move this elsewhere
 enum {
@@ -95,6 +96,7 @@ enum {
 
 enum { MU_SUBPIXELS_PER_PIXEL = 16 };
 enum { MU_MAX_COUNT = 4 };
+enum { MU_COMMAND_MAX_COUNT = 0x40 };
 
 struct MUConfig;
 
@@ -127,17 +129,31 @@ struct MUProc {
 	/* 52 */ u16 ySubOffset;
 };
 
+struct MUStepSoundProc {
+	PROC_HEADER;
+
+	/* 29 */ u8 _pad29[0x58 - 0x29];
+
+	/* 58 */ unsigned u58;
+	/* 5C */ unsigned u5C;
+	/* 60 */ unsigned u60;
+	/* 64 */ short u64;
+	/* 66 */ short u66;
+};
+
 struct MUConfig {
 	/* 00 */ u8  muIndex;
 	/* 01 */ u8  paletteIndex;
 	/* 02 */ u16 objTileIndex;
 	/* 04 */ u8  currentCommand;
-	/* 05 */ u8  commands[0x40];
+	/* 05 */ u8  commands[MU_COMMAND_MAX_COUNT];
 	/* 45 */ // 3 byte padding
 	/* 48 */ struct MUProc* pMUProc;
 };
 
 extern struct MUConfig gUnknown_03001900[MU_MAX_COUNT];
+
+extern const struct ProcCmd gUnknown_089A2938[];
 extern const struct ProcCmd gUnknown_089A2C48[];
 
 struct MUProc* NewMOVEUNIT(u16 x, u16 y, u16 classIndex, int objTileId, unsigned palId);
@@ -147,7 +163,9 @@ struct MUConfig* sub_807920C(int objTileId, u8* outIndex_maybe);
 const void* MMS_GetROMTCS(int classId);
 const void* GetMovingMapSpriteGfxPtrFromMOVEUNIT(struct MUProc* proc);
 void* GetMOVEUNITGraphicsBuffer(int muIndex);
-void MOVEUNIT6C_ChangeFutureMovement(struct MUProc* proc, const void* unk);
+void MOVEUNIT6C_ChangeFutureMovement(struct MUProc* proc, const u8 commands[MU_COMMAND_MAX_COUNT]);
+void __MOVEUNIT6C_PlaySoundStepByClass(struct MUProc* proc);
+void MOVEUNIT6C_PlaySoundStepByClass(struct MUProc* proc);
 
 void ResetMoveunitStructs(void) {
 	int i;
@@ -343,11 +361,11 @@ void _MOVEUNIT6C_SetDefaultFacingDirection(void) {
 		MOVEUNIT6C_SetDefaultSpriteDirection(proc);
 }
 
-void _MOVEUNIT6C_ChangeFutureMovement(const void* unk) {
+void _MOVEUNIT6C_ChangeFutureMovement(const u8 commands[MU_COMMAND_MAX_COUNT]) {
 	struct MUProc* proc = (struct MUProc*) Proc_Find(gUnknown_089A2C48);
 
 	if (proc)
-		MOVEUNIT6C_ChangeFutureMovement(proc, unk);
+		MOVEUNIT6C_ChangeFutureMovement(proc, commands);
 }
 
 int DoesMoveunitExist(void) {
@@ -409,3 +427,72 @@ int IsThereAMovingMoveunit(void) {
 }
 
 #endif // NONMATCHING
+
+int sub_8078770(struct MUProc* proc) {
+	if (proc->pMUConfig->muIndex && proc->stateId != MU_STATE_IDLE_EXEC)
+		return TRUE;
+
+	return FALSE;
+}
+
+void MOVEUNIT6C_ChangeFutureMovement(struct MUProc* proc, const u8 commands[MU_COMMAND_MAX_COUNT]) {
+	int i;
+
+	for (i = 0; i < 0x40; ++i)
+		proc->pMUConfig->commands[i] = commands[i];
+
+	proc->pMUConfig->currentCommand = 0;
+	proc->stateId = MU_STATE_MOVING_EXEC;
+
+	__MOVEUNIT6C_PlaySoundStepByClass(proc);
+}
+
+struct MUProc* sub_80787C4(u16 x, u16 y, u16 classIndex, unsigned palId, const u8 commands[MU_COMMAND_MAX_COUNT]) {
+	struct MUProc* proc = NewMOVEUNIT(x, y, classIndex, -1, palId);
+
+	if (!proc)
+		return NULL;
+
+	MOVEUNIT6C_ChangeFutureMovement(proc, commands);
+	return proc;
+}
+
+void Init6C_89A2938(struct MUStepSoundProc* proc) {
+	proc->u58 = 0;
+	proc->u64 = 0;
+
+	proc->u5C = 0;
+	proc->u66 = 0;
+}
+
+void Call89A2938_PlaySound1(struct MUStepSoundProc* proc) {
+	PlaySpacialSoundMaybe(proc->u58, proc->u64);
+}
+
+void Call89A2938_PlaySound2(struct MUStepSoundProc* proc) {
+	if (proc->u5C)
+		PlaySpacialSoundMaybe(proc->u5C, proc->u66);
+}
+
+void NewSoundStepPlay6C(int a, int b, int c) {
+	struct MUStepSoundProc* proc;
+
+	proc = (struct MUStepSoundProc*) Proc_Find(gUnknown_089A2938);
+
+	if (!proc)
+		proc = (struct MUStepSoundProc*) Proc_Create(gUnknown_089A2938, ROOT_PROC_3);
+
+	if (!proc->u58) {
+		proc->u58 = a;
+		proc->u64 = c;
+	} else if (!proc->u60) { // TODO: FIXME Is this a bug???? u60 is never set afaik
+		proc->u5C = a + b;
+		proc->u66 = c;
+	}
+}
+
+void __MOVEUNIT6C_PlaySoundStepByClass(struct MUProc* proc) {
+	MOVEUNIT6C_PlaySoundStepByClass(proc);
+}
+
+void nullsub_19(void) {}
