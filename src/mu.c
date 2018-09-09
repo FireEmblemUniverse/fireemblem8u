@@ -108,9 +108,11 @@ struct Struct0202BCB0 { // Game State Struct
 extern struct Struct0202BCB0 gUnknown_0202BCB0;
 
 // TODO: move to mu.h
+
 enum { MU_SUBPIXELS_PER_PIXEL = 16 };
 enum { MU_MAX_COUNT = 4 };
 enum { MU_COMMAND_MAX_COUNT = 0x40 };
+enum { MU_GFX_MAX_SIZE = 0x2200 };
 
 enum {
 	MU_STATE_IDLE,
@@ -126,17 +128,21 @@ enum {
 enum {
 	MU_COMMAND_FF = -1, // end
 
-	MU_COMMAND_0,
-	MU_COMMAND_1,
-	MU_COMMAND_2,
-	MU_COMMAND_3,
+	MU_COMMAND_MOVE_BASE,
+
+	MU_COMMAND_0 = MU_COMMAND_MOVE_BASE + 0,
+	MU_COMMAND_1 = MU_COMMAND_MOVE_BASE + 1,
+	MU_COMMAND_2 = MU_COMMAND_MOVE_BASE + 2,
+	MU_COMMAND_3 = MU_COMMAND_MOVE_BASE + 3,
 
 	MU_COMMAND_4,
 
-	MU_COMMAND_5,
-	MU_COMMAND_6,
-	MU_COMMAND_7,
-	MU_COMMAND_8,
+	MU_COMMAND_TURN_BASE,
+
+	MU_COMMAND_5 = MU_COMMAND_TURN_BASE + 0,
+	MU_COMMAND_6 = MU_COMMAND_TURN_BASE + 1,
+	MU_COMMAND_7 = MU_COMMAND_TURN_BASE + 2,
+	MU_COMMAND_8 = MU_COMMAND_TURN_BASE + 3,
 
 	MU_COMMAND_9,
 	MU_COMMAND_10,
@@ -159,19 +165,19 @@ struct MUProc {
 	/* 34 */ struct MUConfig* pMUConfig;
 	/* 38 */ void* vramPtr_maybe;
 
-	/* 3C */ u8 currentFrame_maybe;
+	/* 3C */ u8 muIndex;
 	/* 3D */ u8 _u3D;
 	/* 3E */ u8 boolAttractCamera;
 	/* 3F */ u8 stateId;
-	/* 40 */ u8 _u40;
+	/* 40 */ u8 boolIsDisplayed;
 	/* 41 */ u8 displayedClassId;
 	/* 42 */ s8 directionId_maybe;
-	/* 43 */ u8 _u43;
-	/* 44 */ u8 _u44;
+	/* 43 */ u8 stepSoundTimer;
+	/* 44 */ u8 boolForceMaxSpeed;
 	/* 45 */ u8 _u45;
 	/* 46 */ u16 objPriorityBits;
-	/* 48 */ u16 _u48;
-	/* 4A */ short configBits;
+	/* 48 */ u16 moveTimer;
+	/* 4A */ short moveSpeedConfig;
 
 	// Coordinates are in 16th of pixel
 	/* 4C */ short xSubPosition;
@@ -202,18 +208,39 @@ struct MUConfig {
 	/* 48 */ struct MUProc* pMUProc;
 };
 
+struct MMSData {
+	const void* pGraphics;
+	const void* pAnimation;
+};
+
 struct PositionS16 {
 	short x, y;
 };
 
+struct MUEffectProc {
+	PROC_HEADER;
+
+	/* 29 */ u8 _pad29[0x54 - 0x29];
+	/* 54 */ struct MUProc* pMUProc;
+
+	/* 58 */ u8 _pad58[0x64 - 0x58];
+	/* 64 */ short timeLeft;
+};
+
 typedef void(*MUStateHandlerFunc)(struct MUProc*);
 
-extern struct MUConfig gUnknown_03001900[MU_MAX_COUNT];
+extern struct MUConfig gUnknown_03001900[MU_MAX_COUNT]; // Configs
+extern u8 gUnknown_02004BE0[MU_GFX_MAX_SIZE * MU_MAX_COUNT]; // Buffer for graphics
+
+extern u32 gUnknown_030018F8;
+extern u32 gUnknown_030018FC;
 
 extern const struct ProcCmd gUnknown_089A2938[];
 extern const struct ProcCmd gUnknown_089A2C48[];
 extern const struct ProcCmd gUnknown_089A2968[];
 extern const struct ProcCmd gUnknown_0859A548[];
+extern const struct ProcCmd gUnknown_089A2C80[]; // gProc_MUDeathFade
+extern const struct ProcCmd gUnknown_089A2C98[]; // gProc_MUBlinking
 
 extern const u16 gUnknown_089A8EF8[];
 extern const u8 gUnknown_089ADD4C[];
@@ -239,11 +266,19 @@ extern const u16 gUnknown_089A2BCE[]; // boat sounds
 extern const u16 gUnknown_089A2C02[]; // myrrh sounds
 extern const u16 gUnknown_089A2998[]; // feet sounds
 
+extern const u8 gUnknown_089A2C78[];
+
+extern const u8 gUnknown_089A2C7A[MU_MAX_COUNT]; // Buffer index by MU index lookup
+
+extern const struct MMSData gUnknown_089A2E00[]; // Moving Map Sprite Table
+
+extern const vu8 gUnknown_089A2CA8[]; // WHY
+
 struct MUProc* NewMOVEUNIT(u16 x, u16 y, u16 classIndex, int objTileId, unsigned palId);
 void _6CMOVEUNIT_Loop(struct MUProc* proc);
 struct MUConfig* GetNextMoveunitEntryStruct(int objTileId, u8* outIndex_maybe);
 struct MUConfig* sub_807920C(int objTileId, u8* outIndex_maybe);
-const void* MMS_GetROMTCS(int classId);
+const void* MMS_GetROMTCS(u16 classId);
 const void* GetMovingMapSpriteGfxPtrFromMOVEUNIT(struct MUProc* proc);
 void* GetMOVEUNITGraphicsBuffer(int muIndex);
 void MOVEUNIT6C_ChangeFutureMovement(struct MUProc* proc, const u8 commands[MU_COMMAND_MAX_COUNT]);
@@ -259,6 +294,7 @@ u8 GetMOVEUNITDisplayPosition(struct MUProc* proc, struct PositionS16* out);
 void UpdateMOVEUNITGfx_Idle(struct MUProc* proc);
 void UpdateMOVEUNITGfx_Movement(struct MUProc* proc);
 void Delete6C__(struct MUProc* proc);
+void sub_8079A74(struct MUProc* proc, int);
 
 #define MU_GetDisplayXOrg(proc) ((((proc)->xSubPosition + (proc)->xSubOffset) >> 4) + 8)
 #define MU_GetDisplayYOrg(proc) ((((proc)->ySubPosition + (proc)->ySubOffset) >> 4) + 8)
@@ -361,7 +397,7 @@ struct MUProc* Make6CMOVEUNITForUI(struct Unit* pUnit, int x, int y) {
 void sub_8078524(struct MUProc* proc) {
 	SMS_80266F0(
 		GetClassStandingMapSpriteId(proc->displayedClassId),
-		proc->currentFrame_maybe
+		proc->muIndex
 	);
 }
 
@@ -400,20 +436,20 @@ struct MUProc* NewMOVEUNIT(u16 x, u16 y, u16 classIndex, int objTileId, unsigned
 
 	proc->directionId_maybe = 11;
 
-	proc->_u48 = 0;
-	proc->_u43 = otherThing;
+	proc->moveTimer = 0;
+	proc->stepSoundTimer = otherThing;
 
 	proc->displayedClassId = classIndex;
-	proc->_u40 = 0;
+	proc->boolIsDisplayed = 0;
 
 	proc->vramPtr_maybe = OBJ_VRAM0 + (0x20 * objTileId);
 
-	proc->currentFrame_maybe = thing;
+	proc->muIndex = thing;
 
 	proc->objPriorityBits = 0x800;
 
-	proc->configBits = 0;
-	proc->_u44 = 0;
+	proc->moveSpeedConfig = 0;
+	proc->boolForceMaxSpeed = FALSE;
 
 	config->paletteIndex = palId;
 
@@ -440,7 +476,7 @@ void MOVEUNIT6C_SetSpriteDirection(struct MUProc* proc, int directionId) {
 	proc->directionId_maybe = directionId;
 
 	if (directionId == 15)
-		sub_8027068(proc->currentFrame_maybe, proc->vramPtr_maybe);
+		sub_8027068(proc->muIndex, proc->vramPtr_maybe);
 	else
 		AP_SwitchAnimation(proc->pAPHandle, proc->directionId_maybe);
 }
@@ -602,7 +638,7 @@ void Moveunit_ExecMoveCommand(struct MUProc* proc) {
 		switch (command) {
 
 		case MU_COMMAND_9:
-			proc->_u48 = MU_AdvanceGetCommand(proc);
+			proc->moveTimer = MU_AdvanceGetCommand(proc);
 			proc->stateId = MU_STATE_WAITING;
 
 			return;
@@ -634,7 +670,7 @@ void Moveunit_ExecMoveCommand(struct MUProc* proc) {
 		case MU_COMMAND_1:
 		case MU_COMMAND_2:
 		case MU_COMMAND_3:
-			command = command - MU_COMMAND_0;
+			command = command - MU_COMMAND_MOVE_BASE;
 
 			if (command != proc->directionId_maybe) {
 				MMS_GetROMTCS(proc->displayedClassId); // TODO: FIXME: is this a bug?
@@ -649,7 +685,7 @@ void Moveunit_ExecMoveCommand(struct MUProc* proc) {
 		case MU_COMMAND_6:
 		case MU_COMMAND_7:
 		case MU_COMMAND_8:
-			command = command - MU_COMMAND_5;
+			command = command - MU_COMMAND_TURN_BASE;
 
 			if (command != proc->directionId_maybe) {
 				MMS_GetROMTCS(proc->displayedClassId); // TODO: FIXME: is this a bug?
@@ -659,7 +695,7 @@ void Moveunit_ExecMoveCommand(struct MUProc* proc) {
 			break;
 
 		case MU_COMMAND_12:
-			proc->configBits = MU_AdvanceGetCommand(proc);
+			proc->moveSpeedConfig = MU_AdvanceGetCommand(proc);
 			break;
 
 		case MU_COMMAND_13:
@@ -779,10 +815,10 @@ void MOVU_Call4_SetState2(struct MUProc* proc) {
 }
 
 void MOVU_Call3_Wait(struct MUProc* proc) {
-	if (proc->_u48 == 0)
+	if (proc->moveTimer == 0)
 		proc->stateId = MU_STATE_MOVING_EXEC;
 	else
-		proc->_u48--;
+		proc->moveTimer--;
 }
 
 void sub_8078C58(struct MUProc* proc) {}
@@ -792,18 +828,18 @@ void nullsub_54(struct MUProc* proc) {}
 void MOVU_Call2_Moving(struct MUProc* proc) {
 	unsigned moveSpeed = MOVEUNIT6C_GetMovementSpeed(proc);
 
-	proc->_u48 = moveSpeed + proc->_u48;
+	proc->moveTimer = moveSpeed + proc->moveTimer;
 
 	proc->xSubPosition += moveSpeed * gUnknown_089A2988[proc->directionId_maybe * 2 + 0];
 	proc->ySubPosition += moveSpeed * gUnknown_089A2988[proc->directionId_maybe * 2 + 1];
 
-	if ((proc->_u48 / 16) >= 16) {
-		proc->_u48 -= 0x100;
+	if ((proc->moveTimer / 16) >= 16) {
+		proc->moveTimer -= 0x100;
 
-		proc->xSubPosition -= proc->_u48 * gUnknown_089A2988[proc->directionId_maybe * 2 + 0];
-		proc->ySubPosition -= proc->_u48 * gUnknown_089A2988[proc->directionId_maybe * 2 + 1];
+		proc->xSubPosition -= proc->moveTimer * gUnknown_089A2988[proc->directionId_maybe * 2 + 0];
+		proc->ySubPosition -= proc->moveTimer * gUnknown_089A2988[proc->directionId_maybe * 2 + 1];
 
-		proc->_u48 = 0;
+		proc->moveTimer = 0;
 
 		proc->xSubPosition &= ~0xF;
 		proc->ySubPosition &= ~0xF;
@@ -814,7 +850,7 @@ void MOVU_Call2_Moving(struct MUProc* proc) {
 		gUnknown_0202BCB0.yCameraReal = GetSomeAdjustedCameraY(proc->ySubPosition >> 4);
 	}
 
-	if (!(proc->configBits & 0x80))
+	if (!(proc->moveSpeedConfig & 0x80))
 		MOVEUNIT6C_PlaySoundStepByClass(proc);
 }
 
@@ -930,7 +966,7 @@ void MOVEUNIT6C_PlaySoundStepByClass(struct MUProc* proc) {
 		} // switch (proc->displayedClassId)
 	}
 
-	cursor = DivRem(proc->_u43++, pStepSoundDefinition[0]);
+	cursor = DivRem(proc->stepSoundTimer++, pStepSoundDefinition[0]);
 	GetMOVEUNITDisplayPosition(proc, &position);
 
 	if (pStepSoundDefinition[2 + cursor]) {
@@ -944,7 +980,7 @@ void MOVEUNIT6C_PlaySoundStepByClass(struct MUProc* proc) {
 
 void _6CMOVEUNIT_Loop(struct MUProc* proc) {
 	if (proc->stateId) {
-		if (proc->_u48 == 0 && (u8)(proc->stateId - MU_STATE_MOVING_EXEC) < 2)
+		if (proc->moveTimer == 0 && (u8)(proc->stateId - MU_STATE_MOVING_EXEC) < 2)
 			Moveunit_ExecMoveCommand(proc);
 
 		gUnknown_089A2C28[proc->stateId](proc);
@@ -1102,7 +1138,7 @@ u8 GetMOVEUNITDisplayPosition(struct MUProc* proc, struct PositionS16* out) {
 }
 
 void UpdateMOVEUNITGfx_Idle(struct MUProc* proc) {
-	if (!proc->_u40) {
+	if (!proc->boolIsDisplayed) {
 		struct PositionS16 position;
 
 		if (!GetMOVEUNITDisplayPosition(proc, &position))
@@ -1115,7 +1151,7 @@ void UpdateMOVEUNITGfx_Idle(struct MUProc* proc) {
 			position.y |= 0x400;
 
 		sub_8026FF4(
-			proc->currentFrame_maybe,
+			proc->muIndex,
 			proc->vramPtr_maybe
 		);
 
@@ -1130,13 +1166,13 @@ void UpdateMOVEUNITGfx_Idle(struct MUProc* proc) {
 				+ proc->objPriorityBits,
 
 			proc->displayedClassId,
-			proc->currentFrame_maybe
+			proc->muIndex
 		);
 	}
 }
 
 void UpdateMOVEUNITGfx_Movement(struct MUProc* proc) {
-	if (!proc->_u40) {
+	if (!proc->boolIsDisplayed) {
 		struct PositionS16 position;
 
 		if (!GetMOVEUNITDisplayPosition(proc, &position))
@@ -1163,45 +1199,143 @@ void UpdateMOVEUNITGfx_Movement(struct MUProc* proc) {
 	}
 }
 
-/*
-
-int sub_8030CC0(void);
-
-extern const u8 gUnknown_089A2C78[];
-
 u16 MOVEUNIT6C_GetMovementSpeed(struct MUProc* proc) {
-	int speed = proc->configBits;
+	int config = proc->moveSpeedConfig;
 
-	if (speed & 0x80)
-		speed += 0x80;
+	if (config & 0x80)
+		config += 0x80; // I don't really get that one
 
-	if (proc->_u44)
+	if (proc->boolForceMaxSpeed)
 		return 0x100;
 
-	if (speed == 0) {
-		if (!sub_8030CC0() && gKeyStatusPtr->heldKeys & A_BUTTON)
+	if (config != 0x40) {
+		if (config != 0x00) {
+			int speed = config;
+
+			if (speed & 0x40)
+				speed ^= 0x40;
+			else if (gUnknown_0202BCF0.unk40_8 || (gKeyStatusPtr->heldKeys & A_BUTTON))
+				speed *= 4;
+
+			if (speed > 0x80)
+				speed = 0x80;
+
+			return speed;
+		}
+
+		if (!sub_8030CC0() && (gKeyStatusPtr->heldKeys & A_BUTTON))
 			return 0x80;
 
 		if (gUnknown_0202BCF0.unk40_8)
 			return 0x40;
-
-		return 16 * gUnknown_089A2C78[GetROMClassStruct(proc->displayedClassId)->slowWalking];
 	}
 
-	if (speed == 0x40)
-		return 16 * gUnknown_089A2C78[GetROMClassStruct(proc->displayedClassId)->slowWalking];
-
-	if (speed & 0x40) {
-		speed = speed ^ 0x40;
-	} else {
-		if (gUnknown_0202BCF0.unk40_8 || gKeyStatusPtr->heldKeys & A_BUTTON)
-			speed = speed * 4;
-	}
-
-	if (speed > 0x80)
-		speed = 0x80;
-
-	return speed;
+	return 16 * gUnknown_089A2C78[GetROMClassStruct(proc->displayedClassId)->slowWalking];
 }
 
-*/
+void sub_807953C(struct MUProc* proc, u16 config) {
+	if (config > 0x100)
+		proc->moveSpeedConfig = 0x100;
+	else
+		proc->moveSpeedConfig = config;
+}
+
+void* GetMOVEUNITGraphicsBuffer(int muIndex) {
+	return gUnknown_02004BE0 + (gUnknown_089A2C7A[muIndex] * MU_GFX_MAX_SIZE);
+}
+
+const void* GetMovingMapSpriteGfxPtrFromMOVEUNIT(struct MUProc* proc) {
+	return gUnknown_089A2E00[proc->displayedClassId - 1].pGraphics;
+}
+
+const void* MMS_GetROMTCS(u16 classId) {
+	return gUnknown_089A2E00[classId - 1].pAnimation;
+}
+
+void MOVEUNIT6C_807959C(struct MUProc* muProc) {
+	struct MUEffectProc* proc;
+
+	muProc->stateId = MU_STATE_7;
+
+	proc = (struct MUEffectProc*) Proc_Create(gUnknown_089A2C80, (struct Proc*) muProc);
+
+	proc->pMUProc = muProc;
+	proc->timeLeft = 0x20;
+
+	SetSpecialColorEffectsParameters(0, 0x10, 0x10, 0);
+
+	muProc->pAPHandle->frameTimer = 0;
+	muProc->pAPHandle->frameInterval = 0;
+
+	sub_8079A74(muProc, 0);
+
+	muProc->pAPHandle->objLayer = 0xD;
+
+	PlaySoundEffect(0xD6); // TODO: SOUND DEFINITIONS
+
+	if (muProc->pUnit->state & US_IN_BALLISTA) {
+		TryRemoveUnitFromBallista(muProc->pUnit);
+		HideUnitSMS(muProc->pUnit);
+	}
+}
+
+void BlendTimer6C_MainLoop(struct MUEffectProc* proc) {
+	short time = (proc->timeLeft--) >> 1;
+
+	SetSpecialColorEffectsParameters(0, (u8) time, 0x10, 0);
+
+	if (proc->timeLeft == 0) {
+		EndMoveunitMaybe(proc->pMUProc);
+		Proc_ClearNativeCallback((struct Proc*) proc);
+	}
+}
+
+void sub_8079654(struct MUEffectProc* proc) {
+	struct MUProc* muProc = (struct MUProc*) proc->parent;
+	unsigned boolDisplay = FALSE;
+
+	if ((proc->timeLeft & 0x7) < 4)
+		boolDisplay = TRUE;
+
+	muProc->boolIsDisplayed = boolDisplay;
+
+	if (--proc->timeLeft < 0) {
+		Proc_ClearNativeCallback((struct Proc*) proc);
+		muProc->boolIsDisplayed = TRUE;
+	}
+}
+
+void sub_807968C(struct MUProc* muProc) {
+	struct MUEffectProc* proc;
+
+	muProc->stateId = MU_STATE_7;
+
+	proc = (struct MUEffectProc*) Proc_Create(gUnknown_089A2C98, (struct Proc*) muProc);
+
+	proc->pMUProc = muProc;
+	proc->timeLeft = 0x40;
+
+	muProc->pAPHandle->frameTimer = 0;
+	muProc->pAPHandle->frameInterval = 0;
+
+	PlaySoundEffect(0xD6); // TODO: SOUND DEFINITIONS
+}
+
+void sub_80796D4(u32* data, int a) {
+	int i, j;
+
+	int r2 = gUnknown_089A2CA8[a] % 8;
+	int r1 = gUnknown_089A2CA8[a] / 8;
+
+	gUnknown_030018F8 = ~(gUnknown_030018FC = (0xF << (r2 * 4)));
+
+	for (i = 0; i < 4; ++i) {
+		for (j = 0; j < 4; ++j) {
+			data[r1] &= gUnknown_030018F8;
+
+			data += 8;
+		}
+
+		data += 0xE0;
+	}
+}
