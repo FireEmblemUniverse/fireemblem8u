@@ -201,14 +201,35 @@ struct MUConfig {
 	/* 48 */ struct MUProc* pMUProc;
 };
 
+struct PositionS16 {
+	short x, y;
+};
+
 extern struct MUConfig gUnknown_03001900[MU_MAX_COUNT];
 
 extern const struct ProcCmd gUnknown_089A2938[];
 extern const struct ProcCmd gUnknown_089A2C48[];
 extern const struct ProcCmd gUnknown_089A2968[];
+extern const struct ProcCmd gUnknown_0859A548[];
 
 extern const u16 gUnknown_089A8EF8[];
 extern const u8 gUnknown_089ADD4C[];
+
+extern const short gUnknown_089A2988[]; // gDirectionMoveOffsetLookup
+
+extern const u16 gUnknown_089A2A2E[]; // wyvern sounds
+extern const u16 gUnknown_089A2AF6[]; // mogall sounds
+extern const u16 gUnknown_089A2A5A[]; // pegasi sounds
+extern const u16 gUnknown_089A2A00[]; // mounted sounds
+extern const u16 gUnknown_089A2AB2[]; // zombie sounds
+extern const u16 gUnknown_089A2AD4[]; // skelly sounds
+extern const u16 gUnknown_089A2B22[]; // spider sounds
+extern const u16 gUnknown_089A2B3A[]; // dog sounds
+extern const u16 gUnknown_089A2B68[]; // gorgon sounds
+extern const u16 gUnknown_089A29BC[]; // heavy sounds
+extern const u16 gUnknown_089A2BCE[]; // boat sounds
+extern const u16 gUnknown_089A2C02[]; // myrrh sounds
+extern const u16 gUnknown_089A2998[]; // feet sounds
 
 struct MUProc* NewMOVEUNIT(u16 x, u16 y, u16 classIndex, int objTileId, unsigned palId);
 void _6CMOVEUNIT_Loop(struct MUProc* proc);
@@ -223,6 +244,10 @@ void MOVEUNIT6C_PlaySoundStepByClass(struct MUProc* proc);
 void EndMoveunitMaybe(struct MUProc* proc);
 void sub_80790CC(struct MUProc* proc);
 void DisplayFogThingMaybe(int x, int y);
+u16 MOVEUNIT6C_GetMovementSpeed(struct MUProc* proc);
+u16 GetSomeAdjustedCameraX(int);
+u16 GetSomeAdjustedCameraY(int);
+int GetMOVEUNITDisplayPosition(struct MUProc* proc, struct PositionS16* out);
 
 void ResetMoveunitStructs(void) {
 	int i;
@@ -531,7 +556,7 @@ void Call89A2938_PlaySound2(struct MUStepSoundProc* proc) {
 		PlaySpacialSoundMaybe(proc->u5C, proc->u66);
 }
 
-void NewSoundStepPlay6C(int a, int b, int c) {
+void NewSoundStepPlay6C(int soundId, int b, int hPosition) {
 	struct MUStepSoundProc* proc;
 
 	proc = (struct MUStepSoundProc*) Proc_Find(gUnknown_089A2938);
@@ -540,11 +565,11 @@ void NewSoundStepPlay6C(int a, int b, int c) {
 		proc = (struct MUStepSoundProc*) Proc_Create(gUnknown_089A2938, ROOT_PROC_3);
 
 	if (!proc->u58) {
-		proc->u58 = a;
-		proc->u64 = c;
-	} else if (!proc->u60) { // TODO: FIXME: Is this a bug? u60 is never set
-		proc->u5C = a + b;
-		proc->u66 = c;
+		proc->u58 = soundId;
+		proc->u64 = hPosition;
+	} else if (!proc->u60) { // TODO: FIXME: Is this a bug? u60 is never initialized
+		proc->u5C = soundId + b;
+		proc->u66 = hPosition;
 	}
 }
 
@@ -749,3 +774,156 @@ void MOVU_Call3_Wait(struct MUProc* proc) {
 void sub_8078C58(struct MUProc* proc) {}
 
 void nullsub_54(struct MUProc* proc) {}
+
+void MOVU_Call2_Moving(struct MUProc* proc) {
+	unsigned moveSpeed = MOVEUNIT6C_GetMovementSpeed(proc);
+
+	proc->_u48 = moveSpeed + proc->_u48;
+
+	proc->xSubPosition += moveSpeed * gUnknown_089A2988[proc->directionId_maybe * 2 + 0];
+	proc->ySubPosition += moveSpeed * gUnknown_089A2988[proc->directionId_maybe * 2 + 1];
+
+	if ((proc->_u48 / 16) >= 16) {
+		proc->_u48 -= 0x100;
+
+		proc->xSubPosition -= proc->_u48 * gUnknown_089A2988[proc->directionId_maybe * 2 + 0];
+		proc->ySubPosition -= proc->_u48 * gUnknown_089A2988[proc->directionId_maybe * 2 + 1];
+
+		proc->_u48 = 0;
+
+		proc->xSubPosition &= ~0xF;
+		proc->ySubPosition &= ~0xF;
+	}
+
+	if (proc->boolAttractCamera && !Proc_Find(gUnknown_0859A548)) {
+		gUnknown_0202BCB0.xCameraReal = GetSomeAdjustedCameraX(proc->xSubPosition >> 4);
+		gUnknown_0202BCB0.yCameraReal = GetSomeAdjustedCameraY(proc->ySubPosition >> 4);
+	}
+
+	if (!(proc->configBits & 0x80))
+		MOVEUNIT6C_PlaySoundStepByClass(proc);
+}
+
+void MOVEUNIT6C_PlaySoundStepByClass(struct MUProc* proc) {
+	// TODO: USE CLASS DEFINITIONS
+
+	const u16* pStepSoundDefinition;
+
+	unsigned cursor;
+	struct PositionS16 position;
+
+	if (GetROMClassStruct(proc->displayedClassId)->attributes & CA_MOUNTEDAID) {
+		switch (proc->displayedClassId) {
+
+		case 0x1F: // CLASS_WYVERNRIDER
+		case 0x20: // CLASS_WYVERNRIDER_F
+		case 0x21: // CLASS_WYVERNLORD
+		case 0x22: // CLASS_WYVERNLORD_F
+		case 0x23: // CLASS_WYVERNKNIGHT
+		case 0x24: // CLASS_WYVERNKNIGHT_F
+			pStepSoundDefinition = gUnknown_089A2A2E;
+			break;
+
+		case 0x5F: // CLASS_MOGALL
+		case 0x60: // CLASS_ARCHMOGALL
+			pStepSoundDefinition = gUnknown_089A2AF6;
+			break;
+
+		case 0x48: // CLASS_PEGASUSKNIGHT
+		case 0x49: // CLASS_FALCOKNIGHT
+			pStepSoundDefinition = gUnknown_089A2A5A;
+			break;
+
+		default: // Any other mounted class
+			pStepSoundDefinition = gUnknown_089A2A00;
+			break;
+
+		} // proc->displayedClassId
+	} else {
+		switch (proc->displayedClassId) {
+
+		case 0x52: // CLASS_REVENANT
+		case 0x53: // CLASS_ENTOUMBED
+			pStepSoundDefinition = gUnknown_089A2AB2;
+			break;
+
+		case 0x54: // CLASS_BONEWALKER
+		case 0x55: // CLASS_BONEWALKER_BOW
+		case 0x56: // CLASS_WIGHT
+		case 0x57: // CLASS_WIGHT_BOW
+			pStepSoundDefinition = gUnknown_089A2AD4;
+			break;
+
+		case 0x58: // CLASS_BAEL
+		case 0x59: // CLASS_ELDERBAEL
+			pStepSoundDefinition = gUnknown_089A2B22;
+			break;
+
+		case 0x5B: // CLASS_MAUTHEDOOG
+		case 0x5C: // CLASS_GWYLLGI
+			pStepSoundDefinition = gUnknown_089A2B3A;
+			break;
+
+		case 0x5D: // CLASS_TARVOS
+		case 0x5E: // CLASS_MAELDUIN
+			pStepSoundDefinition = gUnknown_089A2A00;
+			break;
+
+		case 0x5F: // CLASS_MOGALL
+		case 0x60: // CLASS_ARCHMOGALL
+			pStepSoundDefinition = gUnknown_089A2AF6;
+			break;
+
+		case 0x61: // CLASS_GORGON
+			pStepSoundDefinition = gUnknown_089A2B68;
+			break;
+
+		case 0x63: // CLASS_GARGOYLE
+		case 0x64: // CLASS_DEATHGOYLE
+			pStepSoundDefinition = gUnknown_089A2A2E;
+			break;
+
+		case 0x09: // CLASS_ARMORKNIGHT
+		case 0x0A: // CLASS_ARMORKNIGHT_F
+		case 0x0B: // CLASS_GENERAL
+		case 0x0C: // CLASS_GENERAL_F
+		case 0x3B: // CLASS_MANAKETE?
+		case 0x5A: // CLASS_CYCLOPS
+		case 0x65: // CLASS_DRACOZOMBIE
+		case 0x66: // CLASS_DEMONKING
+		case 0x67: // CLASS_BALLISTA
+		case 0x68: // CLASS_IRONBALLISTA
+		case 0x69: // CLASS_KILLERBALLISTA
+			pStepSoundDefinition = gUnknown_089A29BC;
+			break;
+
+		case 0x50: // CLASS_FLEET
+			pStepSoundDefinition = gUnknown_089A2BCE;
+			break;
+
+		case 0x3C: // CLASS_MYRRHMANAKETE
+			pStepSoundDefinition = gUnknown_089A2C02;
+			break;
+
+		case 0x78: // CLASS_FALLENPRINCE
+		case 0x7B: // CLASS_FALLENPEER
+			return; // no sounds
+
+		default: // Any other non-mounted class
+			pStepSoundDefinition = gUnknown_089A2998;
+			break;
+
+		} // switch (proc->displayedClassId)
+	}
+
+	cursor = DivRem(proc->_u43++, pStepSoundDefinition[0]);
+	GetMOVEUNITDisplayPosition(proc, &position);
+
+	if (pStepSoundDefinition[2 + cursor]) {
+		NewSoundStepPlay6C(
+			pStepSoundDefinition[2 + cursor], // sound id
+			pStepSoundDefinition[1], // something
+			position.x // horizontal position
+		);
+	}
+}
