@@ -647,7 +647,7 @@ struct SomeProc {
 
 	/* 50 */ struct APHandle* pAPHandle;
 	/* 54 */ u8 _pad54[0x64 - 0x54];
-	/* 64 */ u16 u64;
+	/* 64 */ short u64;
 };
 
 void DisplayFogThingMaybe(int x, int y) {
@@ -677,12 +677,75 @@ void Call6C_89A2968(struct SomeProc* proc) {
 
 	proc->u64 = 0;
 
+	// TODO: maybe a macro that takes angle/xScale/yScale?
+
 	WriteOAMRotScaleData(
 		0,  // oam rotscale index
 
-		Div(+COS(0) << 4, 0x200), // pa
-		Div(-SIN(0) << 4, 0x200), // pb
-		Div(+SIN(0) << 4, 0x200), // pc
-		Div(+COS(0) << 4, 0x200)  // pd
+		Div(+COS(0) * 16, 0x200), // pa
+		Div(-SIN(0) * 16, 0x200), // pb
+		Div(+SIN(0) * 16, 0x200), // pc
+		Div(+COS(0) * 16, 0x200)  // pd
 	);
 }
+
+void Loop6C_89A2968_1(struct SomeProc* proc) {
+	int scale;
+
+	if (proc->u64++ >= 8)
+		Proc_ClearNativeCallback((struct Proc*) proc);
+
+	scale = sub_8012DCC(5, 0x200, 0x100, proc->u64, 8);
+
+	WriteOAMRotScaleData(
+		0,  // oam rotscale index
+
+		Div(+COS(0) * 16, scale), // pa
+		Div(-SIN(0) * 16, scale), // pb
+		Div(+SIN(0) * 16, scale), // pc
+		Div(+COS(0) * 16, scale)  // pd
+	);
+
+	AP_Update(
+		proc->pAPHandle,
+
+		(proc->xDisplay - 8),
+		(proc->yDisplay - 8) | 0x300
+	);
+}
+
+void Loop6C_89A2968_2(struct SomeProc* proc) {
+	if (proc->u64++ >= 40)
+		Proc_ClearNativeCallback((struct Proc*) proc);
+
+	AP_Update(
+		proc->pAPHandle,
+
+		(proc->xDisplay),
+		(proc->yDisplay) | 0x100
+	);
+}
+
+u8 Does6C_89A2968Exist(void) {
+	return Proc_Find(gUnknown_089A2968) ? TRUE : FALSE;
+}
+
+void MOVU_Call5_WaitForSomething(struct MUProc* proc) {
+	if (!Does6C_89A2968Exist())
+		proc->stateId = MU_STATE_WAITING;
+}
+
+void MOVU_Call4_SetState2(struct MUProc* proc) {
+	proc->stateId = MU_STATE_MOVING_EXEC;
+}
+
+void MOVU_Call3_Wait(struct MUProc* proc) {
+	if (proc->_u48 == 0)
+		proc->stateId = MU_STATE_MOVING_EXEC;
+	else
+		proc->_u48--;
+}
+
+void sub_8078C58(struct MUProc* proc) {}
+
+void nullsub_54(struct MUProc* proc) {}

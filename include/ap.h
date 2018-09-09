@@ -23,7 +23,7 @@ struct APHandle {
 void AP_ClearAll();
 struct APHandle* AP_Create(const void* apDefinition, u16 aObjNode);
 // ??? AP_Delete(???);
-// ??? AP_Update(???);
+s8   AP_Update(struct APHandle* handle, int x, int y);
 void AP_Display(struct APHandle*, int, int);
 s8   AP_ExecFrame(struct APHandle*);
 void AP_QueueObjRotScale(struct APHandle*);

@@ -578,7 +578,7 @@ void sub_800BCDC(int); // battle related
 // ??? sub_8012C88(???);
 // ??? sub_8012CE4(???);
 // ??? sub_8012CFC(???);
-extern int sub_8012DCC();
+extern int sub_8012DCC(int, int, int, int, int);
 // ??? sub_8012E94(???);
 // ??? sub_8012E98(???);
 char *CopyString(char *, char *);
