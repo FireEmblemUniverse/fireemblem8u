@@ -337,7 +337,7 @@ struct Unit {
     /* 09 */ u8 exp;
     /* 0A */ u8 _u0A;
 
-    /* 0B */ u8 index;
+    /* 0B */ s8 index;
 
     /* 0C */ u32 state;
 
