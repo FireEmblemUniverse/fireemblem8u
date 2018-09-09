@@ -3011,7 +3011,7 @@ extern u16 gUnknown_0859EFC0[];
 // extern ??? gUnknown_08803D64
 // extern ??? gUnknown_08803D90
 // extern ??? gUnknown_08807110
-extern const ItemData gItemData[];
+extern const struct ItemData gItemData[];
 // extern ??? gUnknown_0880B90C
 // extern ??? gUnknown_0880BB96
 // extern ??? gUnknown_0880BC18
