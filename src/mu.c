@@ -120,6 +120,7 @@ enum {
 	MU_STATE_SOMETHING_END,
 	MU_STATE_WAITING_FOR_SOMETHING_TO_FINISH,
 	MU_STATE_UI_DISPLAY,
+	MU_STATE_7,
 };
 
 enum {
@@ -170,13 +171,13 @@ struct MUProc {
 	/* 45 */ u8 _u45;
 	/* 46 */ u16 objPriorityBits;
 	/* 48 */ u16 _u48;
-	/* 4A */ u16 configBits;
+	/* 4A */ short configBits;
 
 	// Coordinates are in 16th of pixel
 	/* 4C */ short xSubPosition;
 	/* 4E */ short ySubPosition;
-	/* 50 */ u16 xSubOffset;
-	/* 52 */ u16 ySubOffset;
+	/* 50 */ short xSubOffset;
+	/* 52 */ short ySubOffset;
 };
 
 struct MUStepSoundProc {
@@ -254,10 +255,15 @@ void DisplayFogThingMaybe(int x, int y);
 u16 MOVEUNIT6C_GetMovementSpeed(struct MUProc* proc);
 u16 GetSomeAdjustedCameraX(int);
 u16 GetSomeAdjustedCameraY(int);
-int GetMOVEUNITDisplayPosition(struct MUProc* proc, struct PositionS16* out);
+u8 GetMOVEUNITDisplayPosition(struct MUProc* proc, struct PositionS16* out);
 void UpdateMOVEUNITGfx_Idle(struct MUProc* proc);
 void UpdateMOVEUNITGfx_Movement(struct MUProc* proc);
 void Delete6C__(struct MUProc* proc);
+
+#define MU_GetDisplayXOrg(proc) ((((proc)->xSubPosition + (proc)->xSubOffset) >> 4) + 8)
+#define MU_GetDisplayYOrg(proc) ((((proc)->ySubPosition + (proc)->ySubOffset) >> 4) + 8)
+
+#define MU_AdvanceGetCommand(proc) (proc->pMUConfig->commands[proc->pMUConfig->currentCommand++])
 
 void ResetMoveunitStructs(void) {
 	int i;
@@ -590,8 +596,6 @@ void __MOVEUNIT6C_PlaySoundStepByClass(struct MUProc* proc) {
 void nullsub_19(struct MUProc* proc) {}
 
 void Moveunit_ExecMoveCommand(struct MUProc* proc) {
-	#define MU_AdvanceGetCommand(proc) (proc->pMUConfig->commands[proc->pMUConfig->currentCommand++])
-
 	while (TRUE) {
 		short command = MU_AdvanceGetCommand(proc);
 
@@ -1072,3 +1076,132 @@ struct MUConfig* sub_807920C(int objTileId, u8* outIndex_maybe) {
 
 	return NULL;
 }
+
+u8 GetMOVEUNITDisplayPosition(struct MUProc* proc, struct PositionS16* out) {
+	if (proc->stateId == MU_STATE_UI_DISPLAY) {
+		out->x = (proc->xSubPosition + proc->xSubOffset) >> 4;
+		out->y = (proc->ySubPosition + proc->ySubOffset) >> 4;
+	} else {
+		short x = ((proc->xSubPosition + proc->xSubOffset) >> 4) - gUnknown_0202BCB0.xCameraReal + 8;
+		short y = ((proc->ySubPosition + proc->ySubOffset) >> 4) - gUnknown_0202BCB0.yCameraReal + 8;
+
+		out->x = x;
+		out->y = y + 8;
+
+		if ((u16)(x + 16) > 0x110)
+			return FALSE;
+
+		if (y < -0x10)
+			return FALSE;
+
+		if (y > 0xB0)
+			return FALSE;
+	}
+
+	return TRUE;
+}
+
+void UpdateMOVEUNITGfx_Idle(struct MUProc* proc) {
+	if (!proc->_u40) {
+		struct PositionS16 position;
+
+		if (!GetMOVEUNITDisplayPosition(proc, &position))
+			return;
+
+		position.x &= 0x01FF;
+		position.y &= 0x00FF;
+
+		if (proc->stateId == MU_STATE_7)
+			position.y |= 0x400;
+
+		sub_8026FF4(
+			proc->currentFrame_maybe,
+			proc->vramPtr_maybe
+		);
+
+		sub_8027DB4(
+			proc->pAPHandle->objLayer,
+
+			position.x - 8,
+			position.y - 16,
+
+			((((unsigned)(proc->vramPtr_maybe - OBJ_VRAM0) & 0x1FFFF) >> 5)
+				| ((proc->pMUConfig->paletteIndex & 0xF) << 12))
+				+ proc->objPriorityBits,
+
+			proc->displayedClassId,
+			proc->currentFrame_maybe
+		);
+	}
+}
+
+void UpdateMOVEUNITGfx_Movement(struct MUProc* proc) {
+	if (!proc->_u40) {
+		struct PositionS16 position;
+
+		if (!GetMOVEUNITDisplayPosition(proc, &position))
+			return;
+
+		position.x &= 0x01FF;
+		position.y &= 0x00FF;
+
+		if (proc->stateId != MU_STATE_UI_DISPLAY)
+			if (proc->pUnit && (proc->pUnit->index & 0xC0) == 0x80) // TODO: UNIT ALLEGIANCE DEFINITIONS
+				if (gUnknown_0202BCF0.chapterVisionRange != 0)
+					if (!gUnknown_0202E4E8[MU_GetDisplayYOrg(proc) >> 4][MU_GetDisplayXOrg(proc) >> 4])
+						return; // whew
+
+		if (proc->stateId == MU_STATE_7)
+			position.y |= 0x400;
+
+		AP_Update(
+			proc->pAPHandle,
+
+			position.x,
+			position.y
+		);
+	}
+}
+
+/*
+
+int sub_8030CC0(void);
+
+extern const u8 gUnknown_089A2C78[];
+
+u16 MOVEUNIT6C_GetMovementSpeed(struct MUProc* proc) {
+	int speed = proc->configBits;
+
+	if (speed & 0x80)
+		speed += 0x80;
+
+	if (proc->_u44)
+		return 0x100;
+
+	if (speed == 0) {
+		if (!sub_8030CC0() && gKeyStatusPtr->heldKeys & A_BUTTON)
+			return 0x80;
+
+		if (gUnknown_0202BCF0.unk40_8)
+			return 0x40;
+
+		return 16 * gUnknown_089A2C78[GetROMClassStruct(proc->displayedClassId)->slowWalking];
+	}
+
+	if (speed == 0x40)
+		return 16 * gUnknown_089A2C78[GetROMClassStruct(proc->displayedClassId)->slowWalking];
+
+	if (speed & 0x40) {
+		speed = speed ^ 0x40;
+	} else {
+		if (gUnknown_0202BCF0.unk40_8 || gKeyStatusPtr->heldKeys & A_BUTTON)
+			speed = speed * 4;
+	}
+
+	if (speed > 0x80)
+		speed = 0x80;
+
+	return speed;
+}
+
+*/

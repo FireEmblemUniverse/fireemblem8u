@@ -528,14 +528,14 @@ extern struct Struct0202BCF0 gUnknown_0202BCF0;
 // extern ??? gUnknown_0202BE4C
 // extern ??? gUnknown_0202CFBC
 // extern ??? gUnknown_0202DDCC
-// extern ??? gUnknown_0202E4D4
-// extern ??? gUnknown_0202E4D8
-// extern ??? gUnknown_0202E4DC
-// extern ??? gUnknown_0202E4E0
-// extern ??? gUnknown_0202E4E4
-// extern ??? gUnknown_0202E4E8
-// extern ??? gUnknown_0202E4EC
-// extern ??? gUnknown_0202E4F0
+extern struct { short width, height; } gUnknown_0202E4D4; // gMapSize
+extern u8** gUnknown_0202E4D8; // gMapUnit
+extern u8** gUnknown_0202E4DC; // gMapTerrain
+extern u8** gUnknown_0202E4E0; // gMapMovement
+extern u8** gUnknown_0202E4E4; // gMapRange
+extern u8** gUnknown_0202E4E8; // gMapFog
+extern u8** gUnknown_0202E4EC; // gMapHidden
+extern u8** gUnknown_0202E4F0; // gMapOther
 // extern ??? gUnknown_0202E4F4
 // extern ??? gUnknown_0202ECAC
 // extern ??? gUnknown_0202F464
