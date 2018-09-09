@@ -100,7 +100,7 @@ void Proc_GotoLabel(struct Proc* proc_arg, int label);
 // ??? Proc_ForEachWithScript(???);
 // ??? Proc_ForEachWithMark(???);
 void Proc_BlockEachWithMark(int mark);
-// ??? Proc_UnblockEachWithMark(???);
+void Proc_UnblockEachWithMark(int mark);
 // ??? Proc_DeleteEachWithMark(???);
 void Proc_DeleteAllWithScript(const struct ProcCmd *script);
 // ??? Proc_ClearNativeCallbackEachWithScript(???);

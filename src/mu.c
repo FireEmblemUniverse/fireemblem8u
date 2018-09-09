@@ -205,6 +205,8 @@ struct PositionS16 {
 	short x, y;
 };
 
+typedef void(*MUStateHandlerFunc)(struct MUProc*);
+
 extern struct MUConfig gUnknown_03001900[MU_MAX_COUNT];
 
 extern const struct ProcCmd gUnknown_089A2938[];
@@ -216,6 +218,11 @@ extern const u16 gUnknown_089A8EF8[];
 extern const u8 gUnknown_089ADD4C[];
 
 extern const short gUnknown_089A2988[]; // gDirectionMoveOffsetLookup
+
+extern const MUStateHandlerFunc gUnknown_089A2C28[]; // MU state handler function pointer lookup
+
+extern const u16 gUnknown_089A2C68[]; // obj tile id offset by MU id (0-0x10-8-0x18)
+extern const u16 gUnknown_089A2C70[]; // obj tile id offset by MU id (0-8-4-0x10)
 
 extern const u16 gUnknown_089A2A2E[]; // wyvern sounds
 extern const u16 gUnknown_089A2AF6[]; // mogall sounds
@@ -248,6 +255,9 @@ u16 MOVEUNIT6C_GetMovementSpeed(struct MUProc* proc);
 u16 GetSomeAdjustedCameraX(int);
 u16 GetSomeAdjustedCameraY(int);
 int GetMOVEUNITDisplayPosition(struct MUProc* proc, struct PositionS16* out);
+void UpdateMOVEUNITGfx_Idle(struct MUProc* proc);
+void UpdateMOVEUNITGfx_Movement(struct MUProc* proc);
+void Delete6C__(struct MUProc* proc);
 
 void ResetMoveunitStructs(void) {
 	int i;
@@ -926,4 +936,139 @@ void MOVEUNIT6C_PlaySoundStepByClass(struct MUProc* proc) {
 			position.x // horizontal position
 		);
 	}
+}
+
+void _6CMOVEUNIT_Loop(struct MUProc* proc) {
+	if (proc->stateId) {
+		if (proc->_u48 == 0 && (u8)(proc->stateId - MU_STATE_MOVING_EXEC) < 2)
+			Moveunit_ExecMoveCommand(proc);
+
+		gUnknown_089A2C28[proc->stateId](proc);
+	}
+
+	if (proc->directionId_maybe == 0xF)
+		UpdateMOVEUNITGfx_Idle(proc);
+	else
+		UpdateMOVEUNITGfx_Movement(proc);
+}
+
+void _6CMOVEUNIT_Destructor(struct MUProc* proc) {
+	proc->pMUConfig->muIndex = 0;
+	AP_Delete(proc->pAPHandle);
+}
+
+void ClearMOVEUNITs(void) {
+	Proc_DeleteAllWithScript(gUnknown_089A2C48);
+}
+
+void EndMoveunitMaybe(struct MUProc* proc) {
+	Delete6C__(proc);
+}
+
+void Delete6C__(struct MUProc* proc) {
+	Proc_Delete((struct Proc*) proc);
+}
+
+void sub_80790CC(struct MUProc* proc) {
+	nullsub_19(proc);
+	proc->stateId = MU_STATE_IDLE_EXEC;
+}
+
+void BlockAll6CMarked4(void) {
+	Proc_BlockEachWithMark(4);
+}
+
+void UnblockAll6CMarked4(void) {
+	Proc_UnblockEachWithMark(4);
+}
+
+void sub_80790F8(int* xOut, int* yOut, const u8* commands) {
+	while (TRUE) {
+		switch (*commands++) {
+
+		case MU_COMMAND_FF:
+			return;
+
+		case MU_COMMAND_0:
+			(*xOut)--;
+			break;
+
+		case MU_COMMAND_1:
+			(*xOut)++;
+			break;
+
+		case MU_COMMAND_3:
+			(*yOut)--;
+			break;
+
+		case MU_COMMAND_2:
+			(*yOut)++;
+			break;
+
+		case MU_COMMAND_4:
+			return;
+
+		case MU_COMMAND_9:
+			commands++;
+			break;
+
+		}
+	}
+}
+
+int IsSomeMOVEUNITRelatedStructAvailable(void) {
+	int i;
+
+	for (i = 0; i < MU_MAX_COUNT; ++i)
+		if (gUnknown_03001900[i].muIndex == 0)
+			return TRUE;
+
+	return FALSE;
+}
+
+void ResetAllMoveunitAnims(void) {
+	int i;
+
+	for (i = 0; i < MU_MAX_COUNT; ++i) {
+		if (gUnknown_03001900[i].muIndex) {
+			gUnknown_03001900[i].pMUProc->pAPHandle->frameTimer    = 0;
+			gUnknown_03001900[i].pMUProc->pAPHandle->frameInterval = 0x100;
+		}
+	}
+}
+
+struct MUConfig* GetNextMoveunitEntryStruct(int objTileId, u8* outIndex_maybe) {
+	int i;
+
+	for (i = 0; i < MU_MAX_COUNT; ++i) {
+		if (gUnknown_03001900[i].muIndex)
+			continue;
+
+		gUnknown_03001900[i].muIndex = i + 1;
+		gUnknown_03001900[i].objTileIndex = gUnknown_089A2C68[i] + objTileId;
+
+		*outIndex_maybe = i;
+
+		return gUnknown_03001900 + i;
+	}
+
+	return NULL;
+}
+
+struct MUConfig* sub_807920C(int objTileId, u8* outIndex_maybe) {
+	int i;
+
+	for (i = 0; i < MU_MAX_COUNT; ++i) {
+		if (gUnknown_03001900[i].muIndex)
+			continue;
+
+		gUnknown_03001900[i].muIndex = i + 1;
+		gUnknown_03001900[i].objTileIndex = gUnknown_089A2C70[i] + objTileId;
+
+		*outIndex_maybe = i;
+
+		return gUnknown_03001900 + i;
+	}
+
+	return NULL;
 }
