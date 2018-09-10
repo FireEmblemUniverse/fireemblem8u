@@ -7,288 +7,18 @@
 #include "soundwrapper.h"
 #include "hardware.h"
 
+#include "mu.h"
+
 /*
     "MOVEUNIT" proc and related functions.
     Handles managing and displaying moving map sprites.
 */
 
 // TODO: move this elsewhere
-enum {
-	US_NONE = 0x00000000,
-
-	US_HIDDEN = 0x00000001,
-	US_UNSELECTABLE = 0x00000002,
-	US_DEAD = 0x00000004,
-	US_NOT_DEPLOYED = 0x00000008,
-	US_RESCUING = 0x00000010,
-	US_RESCUED = 0x00000020,
-	US_HAS_MOVED = 0x00000040, // Bad name?
-	US_CANTOING = 0x00000040, // Alias
-	US_UNDER_A_ROOF = 0x00000080,
-	// = 0x00000100,
-	// = 0x00000200,
-	US_HAS_MOVED_AI = 0x00000400,
-	US_IN_BALLISTA = 0x00000800,
-	US_DROP_ITEM = 0x00001000,
-	US_GROWTH_BOOST = 0x00002000,
-	US_SOLOANIM_1 = 0x00004000,
-	US_SOLOANIM_2 = 0x00008000,
-	// = 0x00010000,
-	// = 0x00020000,
-	// = 0x00040000,
-	// = 0x00080000,
-	// = 0x00100000,
-	// = 0x00200000,
-	// = 0x00400000,
-	// = 0x00800000,
-	// = 0x01000000,
-	// = 0x02000000,
-	// = 0x04000000,
-	// = 0x08000000,
-	// = 0x10000000,
-	// = 0x20000000,
-	// = 0x40000000,
-	// = 0x80000000,
-
-	US_DUMMY
-};
-
-enum {
-	CA_NONE = 0x00000000,
-	CA_MOUNTEDAID = 0x00000001,
-	CA_CANTO = 0x00000002,
-	CA_STEAL = 0x00000004,
-	CA_LOCKPICK = 0x00000008,
-	CA_DANCE = 0x00000010,
-	CA_PLAY = 0x00000020,
-	CA_CRITBONUS = 0x00000040,
-	CA_BALLISTAE = 0x00000080,
-	CA_PROMOTED = 0x00000100,
-	CA_SUPPLY = 0x00000200,
-	CA_MOUNTED = 0x00000400,
-	CA_WYVERN = 0x00000800,
-	CA_PEGASUS = 0x00001000,
-	CA_LORD = 0x00002000,
-	CA_FEMALE = 0x00004000,
-	CA_BOSS = 0x00008000,
-	CA_LOCK_1 = 0x00010000,
-	CA_LOCK_2 = 0x00020000,
-	CA_LOCK_3 = 0x00040000, // Dragons or Monster depending of game
-	CA_MAXLEVEL10 = 0x00080000,
-	CA_UNSELECTABLE = 0x00100000,
-	CA_TRIANGLEATTACK_PEGASI = 0x00200000,
-	CA_TRIANGLEATTACK_ARMORS = 0x00400000,
-	// = 0x00800000,
-	// = 0x01000000,
-	CA_LETHALITY = 0x02000000,
-	// = 0x04000000,
-	CA_SUMMON = 0x08000000,
-	CA_LOCK_4 = 0x10000000,
-	CA_LOCK_5 = 0x20000000,
-	CA_LOCK_6 = 0x40000000,
-	CA_LOCK_7 = 0x80000000,
-
-	CA_DUMMY
-};
-
-struct Struct0202BCB0 { // Game State Struct
-    /* 00 */ u8  mainLoopEndedFlag;
-
-    /* 01 */ s8  gameLogicSemaphore;
-    /* 02 */ s8  gameGfxSemaphore;
-
-    /* 03 */ u8  _unk04;
-
-    /* 04 */ u8  gameStateBits;
-
-    /* 05 */ u8  _unk05;
-
-    /* 06 */ u16 prevVCount;
-
-    /* 08 */ u32 _unk08;
-
-    /* 0C */ short xCameraReal;
-    /* 0E */ short yCameraReal;
-};
-
-struct BattleUnit {
-	/* 00 */ struct Unit unit;
-
-	/* 48 */ u16 weaponAfter;
-	/* 4A */ u16 weaponBefore;
-	/* 4C */ u32 weaponAttributes;
-	/* 50 */ u8 weaponType;
-	/* 51 */ u8 weaponSlotIndex;
-
-	/* 52 */ u8 canCounter;
-
-	/* 53 */ s8 WTHitModifier;
-	/* 54 */ s8 WTAtkModifier;
-
-	/* 55 */ u8 terrainIndex;
-	/* 56 */ u8 terrainDefense;
-	/* 57 */ u8 terrainAvoid;
-	/* 58 */ u8 terrainResistance;
-	/* 59 */ u8 _u59;
-
-	/* 5A */ u16 battleAttack;
-	/* 5C */ u16 battleDefense;
-	/* 5E */ u16 battleAttackSpeed;
-	/* 60 */ u16 battleHit;
-	/* 62 */ u16 battleAvoid;
-	/* 64 */ u16 battleEffectiveHit;
-	/* 66 */ u16 battleCrit;
-	/* 68 */ u16 battleDodge;
-	/* 6A */ u16 battleEffectiveCrit;
-	/* 6C */ u16 battleSilencerRate;
-
-	/* 6E */ u8 expGain;
-	/* 6F */ u8 statusOut;
-	/* 70 */ u8 levelPrevious;
-	/* 71 */ u8 expPrevious;
-
-	/* 72 */ u8 currentHP;
-
-	/* 73 */ s8 changeHP;
-	/* 74 */ s8 changePow;
-	/* 75 */ s8 changeSkl;
-	/* 76 */ s8 changeSpd;
-	/* 77 */ s8 changeDef;
-	/* 78 */ s8 changeRes;
-	/* 79 */ s8 changeLck;
-	/* 7A */ s8 changeCon;
-
-	/* 7B */ s8 wexpMultiplier;
-	/* 7C */ u8 nonZeroDamage;
-	/* 7D */ u8 weaponBroke;
-
-	/* 7E */ u8 _u7E;
-	/* 7F */ u8 _u7F;
-};
-
-struct MapAnimActorState {
-	/* 00 */ struct Unit* pUnit;
-	/* 04 */ struct BattleUnit* pBattleUnit;
-	/* 08 */ struct MUProc* pMUProc;
-	/* 0C */ u8 u0C;
-	/* 0D */ u8 u0D;
-	/* 0E */ u16 u0E;
-	/* 10 */ u8 u10;
-	/* 11 */ u8 u11;
-	/* 12 */ u8 u12;
-	/* 13 */ u8 u13;
-};
-
-struct MapAnimState {
-	/* 00 */ struct MapAnimActorState actors[4];
-
-	/* 50 */ u32* pCurrentRound;
-	/* 54 */ const struct ProcCmd* pItemMapAnimProcScript;
-	/* 58 */ u8 subjectActorId;
-	/* 59 */ u8 targetActorId;
-	/* 5A */ u16 roundBits;
-	/* 5C */ u16 u5C;
-	/* 5E */ u8 actorCount_maybe;
-	/* 5F */ u8 u5F;
-	/* 60 */ u8 u60;
-	/* 61 */ u8 u61;
-};
-
-extern struct Struct0202BCB0 gUnknown_0202BCB0;
-extern struct MapAnimState gUnknown_0203E1F0;
-
+// I can't move this to functions.h because signatures contain types that would be not defined
+// So we'll have to wait for the corresponding files to be decompiled/get a header
 void sub_8013928(const u16*, int, int, struct Proc* proc);
 int GetSpellAssocFacing(Item item);
-
-// TODO: move to mu.h
-
-enum { MU_SUBPIXEL_PRECISION = 4 };
-enum { MU_MAX_COUNT = 4 };
-enum { MU_COMMAND_MAX_COUNT = 0x40 };
-enum { MU_GFX_MAX_SIZE = 0x2200 };
-enum { MU_BASE_OBJ_TILE = 0x380 };
-enum { MU_FADE_OBJ_PAL = 5 };
-
-enum {
-	MU_STATE_IDLE,
-	MU_STATE_IDLE_EXEC,
-	MU_STATE_MOVING_EXEC,
-	MU_STATE_WAITING,
-	MU_STATE_SOMETHING_END,
-	MU_STATE_WAITING_FOR_SOMETHING_TO_FINISH,
-	MU_STATE_UI_DISPLAY,
-	MU_STATE_7,
-};
-
-enum {
-	MU_COMMAND_FF = -1, // end
-
-	MU_COMMAND_MOVE_BASE,
-
-	MU_COMMAND_0 = MU_COMMAND_MOVE_BASE + 0,
-	MU_COMMAND_1 = MU_COMMAND_MOVE_BASE + 1,
-	MU_COMMAND_2 = MU_COMMAND_MOVE_BASE + 2,
-	MU_COMMAND_3 = MU_COMMAND_MOVE_BASE + 3,
-
-	MU_COMMAND_4,
-
-	MU_COMMAND_TURN_BASE,
-
-	MU_COMMAND_5 = MU_COMMAND_TURN_BASE + 0,
-	MU_COMMAND_6 = MU_COMMAND_TURN_BASE + 1,
-	MU_COMMAND_7 = MU_COMMAND_TURN_BASE + 2,
-	MU_COMMAND_8 = MU_COMMAND_TURN_BASE + 3,
-
-	MU_COMMAND_9,
-	MU_COMMAND_10,
-	MU_COMMAND_11,
-	MU_COMMAND_12,
-
-	MU_COMMAND_13,
-
-	MU_COMMAND_14,
-	MU_COMMAND_15,
-};
-
-enum {
-	MU_FLASH_0,
-	MU_FLASH_1,
-	MU_FLASH_2,
-	MU_FLASH_3,
-	MU_FLASH_4,
-	MU_FLASH_5,
-};
-
-struct MUConfig;
-
-struct MUProc {
-	PROC_HEADER;
-
-	/* 2C */ struct Unit* pUnit;
-	/* 30 */ struct APHandle* pAPHandle;
-	/* 34 */ struct MUConfig* pMUConfig;
-	/* 38 */ void* vramPtr_maybe;
-
-	/* 3C */ u8 muIndex;
-	/* 3D */ u8 _u3D;
-	/* 3E */ u8 boolAttractCamera;
-	/* 3F */ u8 stateId;
-	/* 40 */ u8 boolIsHidden;
-	/* 41 */ u8 displayedClassId;
-	/* 42 */ s8 directionId_maybe;
-	/* 43 */ u8 stepSoundTimer;
-	/* 44 */ u8 boolForceMaxSpeed;
-	/* 45 */ u8 _u45;
-	/* 46 */ u16 objPriorityBits;
-	/* 48 */ u16 moveTimer;
-	/* 4A */ short moveSpeedConfig;
-
-	// Coordinates are in 16th of pixel
-	/* 4C */ short xSubPosition;
-	/* 4E */ short ySubPosition;
-	/* 50 */ short xSubOffset;
-	/* 52 */ short ySubOffset;
-};
 
 struct MUStepSoundProc {
 	PROC_HEADER;
@@ -302,25 +32,6 @@ struct MUStepSoundProc {
 	/* 66 */ short u66;
 };
 
-struct MUConfig {
-	/* 00 */ u8  muIndex;
-	/* 01 */ u8  paletteIndex;
-	/* 02 */ u16 objTileIndex;
-	/* 04 */ u8  currentCommand;
-	/* 05 */ s8  commands[MU_COMMAND_MAX_COUNT];
-	/* 45 */ // 3 byte padding
-	/* 48 */ struct MUProc* pMUProc;
-};
-
-struct MMSData {
-	const void* pGraphics;
-	const void* pAnimation;
-};
-
-struct PositionS16 {
-	short x, y;
-};
-
 struct MUEffectProc {
 	PROC_HEADER;
 
@@ -332,65 +43,12 @@ struct MUEffectProc {
 	/* 66 */ short frameIndex;
 };
 
-struct AProc {
+struct MUFadeEffectProc {
 	PROC_HEADER;
 
 	/* 2C */ struct MUProc* pMUProc;
 	/* 30 */ u8 u30;
 };
-
-typedef void(*MUStateHandlerFunc)(struct MUProc*);
-
-static struct MUConfig sMUConfigArray[MU_MAX_COUNT];
-
-// Buffer for graphics
-// I do not know how to handle this :/
-extern u8 gUnknown_02004BE0[MU_GFX_MAX_SIZE * MU_MAX_COUNT];
-
-extern const struct ProcCmd gUnknown_089A2938[];
-extern const struct ProcCmd gUnknown_089A2C48[];
-extern const struct ProcCmd gUnknown_089A2968[];
-extern const struct ProcCmd gUnknown_0859A548[];
-extern const struct ProcCmd gUnknown_089A2C80[]; // gProc_MUDeathFade
-extern const struct ProcCmd gUnknown_089A2C98[]; // gProc_MUBlinking
-extern const struct ProcCmd gUnknown_089A2CE8[]; // gProc_MUSomethingElse
-extern const struct ProcCmd gUnknown_089A2CF8[];
-extern const struct ProcCmd gUnknown_089A2D10[];
-extern const struct ProcCmd gUnknown_089A2D98[];
-
-extern const u16 gUnknown_089A8EF8[];
-extern const u8 gUnknown_089ADD4C[];
-
-extern const short gUnknown_089A2988[]; // gDirectionMoveOffsetLookup
-
-extern const MUStateHandlerFunc gUnknown_089A2C28[]; // MU state handler function pointer lookup
-
-extern const u16 gUnknown_089A2C68[]; // obj tile id offset by MU id (0-0x10-8-0x18)
-extern const u16 gUnknown_089A2C70[]; // obj tile id offset by MU id (0-8-4-0x10)
-
-extern const u16 gUnknown_089A2A2E[]; // wyvern sounds
-extern const u16 gUnknown_089A2AF6[]; // mogall sounds
-extern const u16 gUnknown_089A2A5A[]; // pegasi sounds
-extern const u16 gUnknown_089A2A00[]; // mounted sounds
-extern const u16 gUnknown_089A2AB2[]; // zombie sounds
-extern const u16 gUnknown_089A2AD4[]; // skelly sounds
-extern const u16 gUnknown_089A2B22[]; // spider sounds
-extern const u16 gUnknown_089A2B3A[]; // dog sounds
-extern const u16 gUnknown_089A2B68[]; // gorgon sounds
-extern const u16 gUnknown_089A29BC[]; // heavy sounds
-extern const u16 gUnknown_089A2BCE[]; // boat sounds
-extern const u16 gUnknown_089A2C02[]; // myrrh sounds
-extern const u16 gUnknown_089A2998[]; // feet sounds
-
-extern const u8 gUnknown_089A2C78[];
-
-extern const u8 gUnknown_089A2C7A[MU_MAX_COUNT]; // Buffer index by MU index lookup
-
-extern const struct MMSData gUnknown_089A2E00[]; // Moving Map Sprite Table
-
-extern const vu8 gUnknown_089A2CA8[]; // WHY
-
-extern const u16* gUnknown_089A2920[];
 
 struct MUProc* NewMOVEUNIT(u16 x, u16 y, u16 classIndex, int objTileId, unsigned palId);
 void _6CMOVEUNIT_Loop(struct MUProc* proc);
@@ -422,6 +80,63 @@ void SetMOVEUNITField44To1(struct Proc* proc);
 #define MU_GetDisplayYOrg(proc) ((((proc)->ySubPosition + (proc)->ySubOffset) >> MU_SUBPIXEL_PRECISION) + 8)
 
 #define MU_AdvanceGetCommand(proc) (proc->pMUConfig->commands[proc->pMUConfig->currentCommand++])
+
+// NON-CONST DATA
+
+// Buffer for graphics
+// I do not know how to handle this :/
+extern u8 gUnknown_02004BE0[MU_GFX_MAX_SIZE * MU_MAX_COUNT];
+
+static struct MUConfig sMUConfigArray[MU_MAX_COUNT];
+
+// CONST DATA
+
+#ifndef CONST_DATA
+#   define CONST_DATA const __attribute__((section(".data")))
+#endif // CONST_DATA
+
+extern CONST_DATA u16* gUnknown_089A2920[];
+
+extern CONST_DATA struct ProcCmd gUnknown_089A2938[]; // gProc_MUStepSound
+
+extern CONST_DATA short gUnknown_089A2988[]; // gDirectionMoveOffsetLookup
+
+extern CONST_DATA MUStateHandlerFunc gUnknown_089A2C28[]; // MU state handler function pointer lookup
+
+extern CONST_DATA u16 gUnknown_089A2C68[]; // obj tile id offset by MU id (0-0x10-8-0x18)
+extern CONST_DATA u16 gUnknown_089A2C70[]; // obj tile id offset by MU id (0-8-4-0x10)
+
+extern CONST_DATA u16 gUnknown_089A2998[]; // feet sounds
+extern CONST_DATA u16 gUnknown_089A29BC[]; // heavy sounds
+extern CONST_DATA u16 gUnknown_089A2A00[]; // mounted sounds
+extern CONST_DATA u16 gUnknown_089A2A2E[]; // wyvern sounds
+extern CONST_DATA u16 gUnknown_089A2A5A[]; // pegasi sounds
+extern CONST_DATA u16 gUnknown_089A2AB2[]; // zombie sounds
+extern CONST_DATA u16 gUnknown_089A2AD4[]; // skelly sounds
+extern CONST_DATA u16 gUnknown_089A2AF6[]; // mogall sounds
+extern CONST_DATA u16 gUnknown_089A2B22[]; // spider sounds
+extern CONST_DATA u16 gUnknown_089A2B3A[]; // dog sounds
+extern CONST_DATA u16 gUnknown_089A2B68[]; // gorgon sounds
+extern CONST_DATA u16 gUnknown_089A2BCE[]; // boat sounds
+extern CONST_DATA u16 gUnknown_089A2C02[]; // myrrh sounds
+
+extern CONST_DATA struct ProcCmd gUnknown_089A2968[];
+extern CONST_DATA struct ProcCmd gUnknown_089A2C48[];
+
+extern CONST_DATA u8 gUnknown_089A2C78[2];
+extern CONST_DATA u8 gUnknown_089A2C7A[MU_MAX_COUNT]; // Buffer index by MU index lookup
+
+extern CONST_DATA struct ProcCmd gUnknown_089A2C80[]; // gProc_MUDeathFade
+extern CONST_DATA struct ProcCmd gUnknown_089A2C98[]; // gProc_MUBlinking
+
+extern CONST_DATA vu8 gUnknown_089A2CA8[]; // WHY
+
+extern CONST_DATA struct ProcCmd gUnknown_089A2CE8[]; // gProc_MUSomethingElse
+extern CONST_DATA struct ProcCmd gUnknown_089A2CF8[];
+extern CONST_DATA struct ProcCmd gUnknown_089A2D10[];
+extern CONST_DATA struct ProcCmd gUnknown_089A2D98[];
+
+extern CONST_DATA struct MMSData gUnknown_089A2E00[]; // Moving Map Sprite Table
 
 void ResetMoveunitStructs(void) {
 	int i;
@@ -1611,44 +1326,44 @@ void TCS_HaltAnim(int argAp) {
 }
 
 void sub_8079970(struct MUProc* muProc, int flashType) {
-	struct AProc* proc;
+	struct MUFadeEffectProc* proc;
 
 	CopyToPaletteBuffer(
 		gUnknown_089A2920[flashType],
 		(0x10 + MU_FADE_OBJ_PAL) * 0x20, 0x20
 	);
 
-	proc = (struct AProc*) Proc_Create(gUnknown_089A2D10, (struct Proc*) muProc);
+	proc = (struct MUFadeEffectProc*) Proc_Create(gUnknown_089A2D10, (struct Proc*) muProc);
 
 	proc->pMUProc = muProc;
 }
 
-void sub_80799A0(struct AProc* proc) {
+void sub_80799A0(struct MUFadeEffectProc* proc) {
 	proc->u30 = 0;
 }
 
-void sub_80799A8(struct AProc* proc) {
+void sub_80799A8(struct MUFadeEffectProc* proc) {
 	struct MUProc* muProc = proc->pMUProc;
 
 	muProc->pAPHandle->tileBase =
 		(MU_FADE_OBJ_PAL << 12) + muProc->pMUConfig->objTileIndex + muProc->objPriorityBits;
 }
 
-void sub_80799C8(struct AProc* proc) {
+void sub_80799C8(struct MUFadeEffectProc* proc) {
 	struct MUProc* muProc = proc->pMUProc;
 
 	muProc->pAPHandle->tileBase =
 		((muProc->pMUConfig->paletteIndex & 0xF) << 12) + muProc->pMUConfig->objTileIndex + muProc->objPriorityBits;
 }
 
-void sub_80799EC(struct AProc* proc) {
+void sub_80799EC(struct MUFadeEffectProc* proc) {
 	sub_8013928(
 		gPaletteBuffer + 0x10 * (0x10 + proc->pMUProc->pMUConfig->paletteIndex),
 		0x15, 0x14, (struct Proc*) proc
 	);
 }
 
-void sub_8079A10(struct AProc* proc) {
+void sub_8079A10(struct MUFadeEffectProc* proc) {
 	proc->u30++;
 
 	sub_80797F4(proc->pMUProc, ((proc->u30 & 1) ? 2 : -2), 0);
@@ -1659,7 +1374,7 @@ void sub_8079A10(struct AProc* proc) {
 	}
 }
 
-void sub_8079A50(struct AProc* proc) {
+void sub_8079A50(struct MUFadeEffectProc* proc) {
 	struct MUProc* muProc = proc->pMUProc;
 
 	muProc->pAPHandle->tileBase =
@@ -1667,7 +1382,7 @@ void sub_8079A50(struct AProc* proc) {
 }
 
 void sub_8079A74(struct MUProc* muProc, int flashType) {
-	struct AProc* proc;
+	struct MUFadeEffectProc* proc;
 
 	CopyToPaletteBuffer(
 		gUnknown_089A2920[flashType],
@@ -1682,12 +1397,12 @@ void sub_8079A74(struct MUProc* muProc, int flashType) {
 		0x15, 0x14, (struct Proc*) muProc
 	);
 
-	proc = (struct AProc*) Proc_Create(gUnknown_089A2D98, (struct Proc*) muProc);
+	proc = (struct MUFadeEffectProc*) Proc_Create(gUnknown_089A2D98, (struct Proc*) muProc);
 
 	proc->pMUProc = muProc;
 }
 
-void sub_8079AD4(struct AProc* proc) {
+void sub_8079AD4(struct MUFadeEffectProc* proc) {
 	struct MUProc* muProc = proc->pMUProc;
 
 	muProc->pAPHandle->tileBase =

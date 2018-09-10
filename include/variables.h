@@ -515,7 +515,7 @@ extern u8 gUnknown_0202B4AC[];
 // extern ??? gUnknown_0202B5AC
 extern int gUnknown_0202B6AC;
 // extern ??? gUnknown_0202B6B0
-// extern ??? gUnknown_0202BCB0
+extern struct Struct0202BCB0 gUnknown_0202BCB0;
 extern struct Struct0202BCF0 gUnknown_0202BCF0;
 // extern ??? gUnknown_0202BD10
 // extern ??? gUnknown_0202BD30
@@ -659,7 +659,7 @@ extern struct UnknownItemStruct gUnknown_0203A958;
 // extern ??? gUnknown_0203E1E4
 // extern ??? gUnknown_0203E1E8
 // extern ??? gUnknown_0203E1EC
-// extern ??? gUnknown_0203E1F0
+extern struct MapAnimState gUnknown_0203E1F0;
 // extern ??? gUnknown_0203E1F8
 // extern ??? gUnknown_0203E254
 // extern ??? gUnknown_0203E754
@@ -1488,7 +1488,7 @@ extern const char *gUnknown_08591AA4[][2];
 // extern ??? gUnknown_0859A4C0
 // extern ??? gUnknown_0859A530
 // extern ??? gUnknown_0859A53C
-// extern ??? gUnknown_0859A548
+extern const struct ProcCmd gUnknown_0859A548[]; // this is GENS/Camera Movement proc
 // extern ??? gUnknown_0859A570
 // extern ??? gUnknown_0859A580
 // extern ??? gUnknown_0859A598
@@ -3220,7 +3220,7 @@ extern const struct ItemData gItemData[];
 // extern ??? gUnknown_089A6254
 // extern ??? gUnknown_089A6F40
 // extern ??? gUnknown_089A6FD8
-// extern ??? gUnknown_089A8EF8
+extern const u16 gUnknown_089A8EF8[];
 // extern ??? gUnknown_089A8F74
 // extern ??? gUnknown_089A8F94
 // extern ??? gUnknown_089ABB70
@@ -3246,7 +3246,7 @@ extern const struct ItemData gItemData[];
 // extern ??? gUnknown_089AD9F8
 // extern ??? gUnknown_089ADA80
 // extern ??? gUnknown_089ADD0C
-// extern ??? gUnknown_089ADD4C
+extern const u8 gUnknown_089ADD4C[];
 // extern ??? gUnknown_089ADEB0
 // extern ??? gUnknown_089AE204
 // extern ??? gUnknown_089AE224
