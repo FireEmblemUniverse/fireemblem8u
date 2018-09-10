@@ -1,10 +1,16 @@
 #include "global.h"
+
 #include "proc.h"
 #include "ap.h"
 #include "items.h"
 #include "m4a.h"
 #include "soundwrapper.h"
 #include "hardware.h"
+
+/*
+    "MOVEUNIT" proc and related functions.
+    Handles managing and displaying moving map sprites.
+*/
 
 // TODO: move this elsewhere
 enum {
@@ -1770,4 +1776,41 @@ struct MUProc* GetExistingMoveunitForUnit(struct Unit* unit) {
 	}
 
 	return NULL;
+}
+
+void sub_8079BE0(void) {
+	struct MUProc* procs[MU_MAX_COUNT];
+
+	s8 i, j;
+	s8 count;
+
+	// Clear proc list
+	CpuFill32(0, procs, MU_MAX_COUNT * sizeof(struct MUProc*));
+	count = 0;
+
+	// Building proc list
+	for (i = 0; i < MU_MAX_COUNT; ++i) {
+		struct MUProc* proc = GetMoveunitByIndex(i);
+
+		if (proc) {
+			procs[count] = proc;
+			count++;
+		}
+	}
+
+	// Sorting proc list
+	for (i = 0; i < (count - 1); ++i) {
+		for (j = (i + 1); j < count; ++j) {
+			if (procs[j]->ySubPosition < procs[i]->ySubPosition) {
+				struct MUProc* tmp = procs[i];
+
+				procs[i] = procs[j];
+				procs[j] = tmp;
+			}
+		}
+	}
+
+	// Set obj layer based on order
+	for (i = 0; i < count; ++i)
+		procs[i]->pAPHandle->objLayer = 10 - i;
 }

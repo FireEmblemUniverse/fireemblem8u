@@ -119,7 +119,6 @@ SECTIONS
         asm/code_battleanim.o(.text);
         asm/monstergen.o(.text);
         src/mu.o(.text);
-        asm/mu.o(.text);
         asm/muctrl.o(.text);
         asm/code_mapanim.o(.text);
         asm/ev_triggercheck.o(.text);
