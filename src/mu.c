@@ -56,7 +56,6 @@ struct MUFadeEffectProc {
 };
 
 struct MUProc* NewMOVEUNIT(u16 x, u16 y, u16 classIndex, int objTileId, unsigned palId);
-void _6CMOVEUNIT_Loop(struct MUProc* proc);
 struct MUConfig* GetNextMoveunitEntryStruct(int objTileId, u8* outIndex_maybe);
 struct MUConfig* sub_807920C(int objTileId, u8* outIndex_maybe);
 const void* MMS_GetROMTCS(u16 classId);
@@ -80,6 +79,31 @@ void TCS_HaltAnim2(int argAp);
 void sub_807990C(int argAp);
 void TCS_HaltAnim(int argAp);
 void SetMOVEUNITField44To1(struct Proc* proc);
+
+static void sub_8078C58(struct MUProc* proc);
+static void nullsub_54(struct MUProc* proc);
+static void MOVU_Call2_Moving(struct MUProc* proc);
+static void MOVU_Call3_Wait(struct MUProc* proc);
+static void MOVU_Call4_SetState2(struct MUProc* proc);
+static void MOVU_Call5_WaitForSomething(struct MUProc* proc);
+
+static void _6CMOVEUNIT_Destructor(struct MUProc* proc);
+static void _6CMOVEUNIT_Loop(struct MUProc* proc);
+
+static void BlendTimer6C_MainLoop(struct MUEffectProc* proc);
+
+static void sub_8079654(struct MUEffectProc* proc); // MUBlink main
+
+static void sub_8079730(struct MUEffectProc* proc);
+static void sub_807988C(struct MUEffectProc* proc);
+
+static void sub_80799A8(struct MUFadeEffectProc* proc);
+static void sub_80799A0(struct MUFadeEffectProc* proc);
+static void sub_80799C8(struct MUFadeEffectProc* proc);
+static void sub_8079AD4(struct MUFadeEffectProc* proc);
+static void sub_80799EC(struct MUFadeEffectProc* proc);
+static void sub_8079A10(struct MUFadeEffectProc* proc);
+static void sub_8079A50(struct MUFadeEffectProc* proc);
 
 #define MU_GetDisplayXOrg(proc) ((((proc)->xSubPosition + (proc)->xSubOffset) >> MU_SUBPIXEL_PRECISION) + 8)
 #define MU_GetDisplayYOrg(proc) ((((proc)->ySubPosition + (proc)->ySubOffset) >> MU_SUBPIXEL_PRECISION) + 8)
@@ -106,10 +130,7 @@ extern CONST_DATA struct ProcCmd gUnknown_089A2938[]; // gProc_MUStepSound
 
 extern CONST_DATA short gUnknown_089A2988[]; // gDirectionMoveOffsetLookup
 
-extern CONST_DATA MUStateHandlerFunc gUnknown_089A2C28[]; // MU state handler function pointer lookup
-
-extern CONST_DATA u16 gUnknown_089A2C68[]; // obj tile id offset by MU id (0-0x10-8-0x18)
-extern CONST_DATA u16 gUnknown_089A2C70[]; // obj tile id offset by MU id (0-8-4-0x10)
+extern CONST_DATA struct ProcCmd gUnknown_089A2968[];
 
 extern CONST_DATA u16 gUnknown_089A2998[]; // feet sounds
 extern CONST_DATA u16 gUnknown_089A29BC[]; // heavy sounds
@@ -125,21 +146,117 @@ extern CONST_DATA u16 gUnknown_089A2B68[]; // gorgon sounds
 extern CONST_DATA u16 gUnknown_089A2BCE[]; // boat sounds
 extern CONST_DATA u16 gUnknown_089A2C02[]; // myrrh sounds
 
-extern CONST_DATA struct ProcCmd gUnknown_089A2968[];
-extern CONST_DATA struct ProcCmd gUnknown_089A2C48[];
+// MU state handler function pointer lookup
+static CONST_DATA MUStateHandlerFunc gUnknown_089A2C28[] = {
+	sub_8078C58,
+	nullsub_54,
+	MOVU_Call2_Moving,
+	MOVU_Call3_Wait,
+	MOVU_Call4_SetState2,
+	MOVU_Call5_WaitForSomething,
+	nullsub_54,
+	nullsub_54,
+};
 
-extern CONST_DATA u8 gUnknown_089A2C78[2];
-extern CONST_DATA u8 gUnknown_089A2C7A[MU_MAX_COUNT]; // Buffer index by MU index lookup
+CONST_DATA struct ProcCmd gUnknown_089A2C48[] = {
+	PROC_SET_NAME("MOVEUNIT"),
+	PROC_SET_MARK(4),
 
-extern CONST_DATA struct ProcCmd gUnknown_089A2C80[]; // gProc_MUDeathFade
-extern CONST_DATA struct ProcCmd gUnknown_089A2C98[]; // gProc_MUBlinking
+	PROC_SET_DESTRUCTOR(_6CMOVEUNIT_Destructor),
+	PROC_LOOP_ROUTINE(_6CMOVEUNIT_Loop)
+};
 
-extern CONST_DATA vu8 gUnknown_089A2CA8[]; // WHY
+// obj tile id offset by MU id
+static CONST_DATA u16 gUnknown_089A2C68[MU_MAX_COUNT] = {
+	0x0000, 0x0010, 0x0008, 0x0018
+};
 
-extern CONST_DATA struct ProcCmd gUnknown_089A2CE8[]; // gProc_MUSomethingElse
-extern CONST_DATA struct ProcCmd gUnknown_089A2CF8[];
-extern CONST_DATA struct ProcCmd gUnknown_089A2D10[];
-extern CONST_DATA struct ProcCmd gUnknown_089A2D98[];
+// obj tile id offset by MU id (variant?)
+static CONST_DATA u16 gUnknown_089A2C70[MU_MAX_COUNT] = { 
+	0x0000, 0x0008, 0x0004, 0x0010
+};
+
+// Base Movement Speed Lookup
+static CONST_DATA u8 gUnknown_089A2C78[2] = {
+	2, // fast class base movement speed
+	1  // slow class base movement speed
+};
+
+// Buffer index by MU index lookup
+static CONST_DATA u8 gUnknown_089A2C7A[MU_MAX_COUNT+1] = {
+	0, // dummy entry (this array is 1-indexed)
+
+	0, 2, 1, 3
+};
+
+// gProc_MUDeathFadeEffect
+CONST_DATA struct ProcCmd gUnknown_089A2C80[] = {
+	PROC_LOOP_ROUTINE(BlendTimer6C_MainLoop),
+	PROC_SLEEP(15),
+
+	PROC_END
+};
+
+// gProc_MUBlinkingEffect
+CONST_DATA struct ProcCmd gUnknown_089A2C98[] = {
+	PROC_LOOP_ROUTINE(sub_8079654),
+	PROC_END
+};
+
+// Doesn't match without being volatile
+// :/
+static CONST_DATA vu8 gUnknown_089A2CA8[0x40] = {
+	0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08, 0x09, 0x0A, 0x0B, 0x0C, 0x0D, 0x0E, 0x0F,
+	0x10, 0x11, 0x12, 0x13, 0x14, 0x15, 0x16, 0x17, 0x18, 0x19, 0x1A, 0x1B, 0x1C, 0x1D, 0x1E, 0x1F,
+	0x20, 0x21, 0x22, 0x23, 0x24, 0x25, 0x26, 0x27, 0x28, 0x29, 0x2A, 0x2B, 0x2C, 0x2D, 0x2E, 0x2F,
+	0x30, 0x31, 0x32, 0x33, 0x34, 0x35, 0x36, 0x37, 0x38, 0x39, 0x3A, 0x3B, 0x3C, 0x3D, 0x3E, 0x3F
+};
+
+static CONST_DATA struct ProcCmd gUnknown_089A2CE8[] = {
+	PROC_LOOP_ROUTINE(sub_8079730),
+	PROC_END
+};
+
+CONST_DATA struct ProcCmd gUnknown_089A2CF8[] = {
+	PROC_SLEEP(8),
+	PROC_CALL_ROUTINE(sub_807988C),
+
+	PROC_END
+};
+
+static CONST_DATA struct ProcCmd gUnknown_089A2D10[] = {
+	PROC_CALL_ROUTINE(sub_80799A0),
+	PROC_SLEEP(1),
+
+	PROC_CALL_ROUTINE(sub_80799A8),
+	PROC_SLEEP(2),
+
+	PROC_CALL_ROUTINE(sub_80799C8),
+	PROC_SLEEP(3),
+
+	PROC_CALL_ROUTINE(sub_80799A8),
+	PROC_SLEEP(2),
+
+	PROC_CALL_ROUTINE(sub_80799C8),
+	PROC_SLEEP(3),
+
+	PROC_CALL_ROUTINE(sub_80799A8),
+	PROC_SLEEP(1),
+
+	PROC_CALL_ROUTINE(sub_80799EC),
+	PROC_LOOP_ROUTINE(sub_8079A10),
+
+	PROC_SLEEP(17),
+	PROC_CALL_ROUTINE(sub_8079A50),
+
+	PROC_END
+};
+
+static CONST_DATA struct ProcCmd gUnknown_089A2D98[] = {
+	PROC_SLEEP(17),
+	PROC_CALL_ROUTINE(sub_8079AD4),
+	PROC_END
+};
 
 void ResetMoveunitStructs(void) {
 	int i;
