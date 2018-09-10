@@ -20,6 +20,11 @@
 void sub_8013928(const u16*, int, int, struct Proc* proc);
 int GetSpellAssocFacing(Item item);
 
+// TODO: move this elsewhere
+// For some reason putting this in variables.h makes the ROM not match???????
+// I must be missing something
+extern const struct MMSData gUnknown_089A2E00[]; // Moving Map Sprite Table
+
 struct MUStepSoundProc {
 	PROC_HEADER;
 
@@ -135,8 +140,6 @@ extern CONST_DATA struct ProcCmd gUnknown_089A2CE8[]; // gProc_MUSomethingElse
 extern CONST_DATA struct ProcCmd gUnknown_089A2CF8[];
 extern CONST_DATA struct ProcCmd gUnknown_089A2D10[];
 extern CONST_DATA struct ProcCmd gUnknown_089A2D98[];
-
-extern CONST_DATA struct MMSData gUnknown_089A2E00[]; // Moving Map Sprite Table
 
 void ResetMoveunitStructs(void) {
 	int i;
