@@ -105,9 +105,94 @@ struct Struct0202BCB0 { // Game State Struct
     /* 0E */ short yCameraReal;
 };
 
+struct BattleUnit {
+	/* 00 */ struct Unit unit;
+
+	/* 48 */ u16 weaponAfter;
+	/* 4A */ u16 weaponBefore;
+	/* 4C */ u32 weaponAttributes;
+	/* 50 */ u8 weaponType;
+	/* 51 */ u8 weaponSlotIndex;
+
+	/* 52 */ u8 canCounter;
+
+	/* 53 */ s8 WTHitModifier;
+	/* 54 */ s8 WTAtkModifier;
+
+	/* 55 */ u8 terrainIndex;
+	/* 56 */ u8 terrainDefense;
+	/* 57 */ u8 terrainAvoid;
+	/* 58 */ u8 terrainResistance;
+	/* 59 */ u8 _u59;
+
+	/* 5A */ u16 battleAttack;
+	/* 5C */ u16 battleDefense;
+	/* 5E */ u16 battleAttackSpeed;
+	/* 60 */ u16 battleHit;
+	/* 62 */ u16 battleAvoid;
+	/* 64 */ u16 battleEffectiveHit;
+	/* 66 */ u16 battleCrit;
+	/* 68 */ u16 battleDodge;
+	/* 6A */ u16 battleEffectiveCrit;
+	/* 6C */ u16 battleSilencerRate;
+
+	/* 6E */ u8 expGain;
+	/* 6F */ u8 statusOut;
+	/* 70 */ u8 levelPrevious;
+	/* 71 */ u8 expPrevious;
+
+	/* 72 */ u8 currentHP;
+
+	/* 73 */ s8 changeHP;
+	/* 74 */ s8 changePow;
+	/* 75 */ s8 changeSkl;
+	/* 76 */ s8 changeSpd;
+	/* 77 */ s8 changeDef;
+	/* 78 */ s8 changeRes;
+	/* 79 */ s8 changeLck;
+	/* 7A */ s8 changeCon;
+
+	/* 7B */ s8 wexpMultiplier;
+	/* 7C */ u8 nonZeroDamage;
+	/* 7D */ u8 weaponBroke;
+
+	/* 7E */ u8 _u7E;
+	/* 7F */ u8 _u7F;
+};
+
+struct MapAnimActorState {
+	/* 00 */ struct Unit* pUnit;
+	/* 04 */ struct BattleUnit* pBattleUnit;
+	/* 08 */ struct MUProc* pMUProc;
+	/* 0C */ u8 u0C;
+	/* 0D */ u8 u0D;
+	/* 0E */ u16 u0E;
+	/* 10 */ u8 u10;
+	/* 11 */ u8 u11;
+	/* 12 */ u8 u12;
+	/* 13 */ u8 u13;
+};
+
+struct MapAnimState {
+	/* 00 */ struct MapAnimActorState actors[4];
+
+	/* 50 */ u32* pCurrentRound;
+	/* 54 */ const struct ProcCmd* pItemMapAnimProcScript;
+	/* 58 */ u8 subjectActorId;
+	/* 59 */ u8 targetActorId;
+	/* 5A */ u16 roundBits;
+	/* 5C */ u16 u5C;
+	/* 5E */ u8 actorCount_maybe;
+	/* 5F */ u8 u5F;
+	/* 60 */ u8 u60;
+	/* 61 */ u8 u61;
+};
+
 extern struct Struct0202BCB0 gUnknown_0202BCB0;
+extern struct MapAnimState gUnknown_0203E1F0;
 
 void sub_8013928(const u16*, int, int, struct Proc* proc);
+int GetSpellAssocFacing(Item item);
 
 // TODO: move to mu.h
 
@@ -241,6 +326,13 @@ struct MUEffectProc {
 	/* 66 */ short frameIndex;
 };
 
+struct AProc {
+	PROC_HEADER;
+
+	/* 2C */ struct MUProc* pMUProc;
+	/* 30 */ u8 u30;
+};
+
 typedef void(*MUStateHandlerFunc)(struct MUProc*);
 
 extern struct MUConfig gUnknown_03001900[MU_MAX_COUNT]; // Configs
@@ -256,6 +348,9 @@ extern const struct ProcCmd gUnknown_0859A548[];
 extern const struct ProcCmd gUnknown_089A2C80[]; // gProc_MUDeathFade
 extern const struct ProcCmd gUnknown_089A2C98[]; // gProc_MUBlinking
 extern const struct ProcCmd gUnknown_089A2CE8[]; // gProc_MUSomethingElse
+extern const struct ProcCmd gUnknown_089A2CF8[];
+extern const struct ProcCmd gUnknown_089A2D10[];
+extern const struct ProcCmd gUnknown_089A2D98[];
 
 extern const u16 gUnknown_089A8EF8[];
 extern const u8 gUnknown_089ADD4C[];
@@ -311,7 +406,11 @@ u8 GetMOVEUNITDisplayPosition(struct MUProc* proc, struct PositionS16* out);
 void UpdateMOVEUNITGfx_Idle(struct MUProc* proc);
 void UpdateMOVEUNITGfx_Movement(struct MUProc* proc);
 void Delete6C__(struct MUProc* proc);
-void sub_8079A74(struct MUProc* proc, int);
+void sub_8079A74(struct MUProc* proc, int flashType);
+void TCS_HaltAnim2(int argAp);
+void sub_807990C(int argAp);
+void TCS_HaltAnim(int argAp);
+void SetMOVEUNITField44To1(struct Proc* proc);
 
 #define MU_GetDisplayXOrg(proc) ((((proc)->xSubPosition + (proc)->xSubOffset) >> MU_SUBPIXEL_PRECISION) + 8)
 #define MU_GetDisplayYOrg(proc) ((((proc)->ySubPosition + (proc)->ySubOffset) >> MU_SUBPIXEL_PRECISION) + 8)
@@ -1416,7 +1515,8 @@ void sub_80797F4(struct MUProc* proc, int xOff, int yOff) {
 }
 
 void sub_8079804(struct MUProc* proc, int flashType) {
-	proc->pAPHandle->tileBase = proc->pMUConfig->objTileIndex + (MU_FADE_OBJ_PAL << 12) + proc->objPriorityBits;
+	proc->pAPHandle->tileBase =
+		proc->pMUConfig->objTileIndex + (MU_FADE_OBJ_PAL << 12) + proc->objPriorityBits;
 
 	CopyToPaletteBuffer(
 		gPaletteBuffer + (0x10 * (0x10 + proc->pMUConfig->paletteIndex)),
@@ -1427,4 +1527,247 @@ void sub_8079804(struct MUProc* proc, int flashType) {
 		gUnknown_089A2920[flashType],
 		0x15, 8, (struct Proc*) proc
 	);
+}
+
+void sub_8079858(struct MUProc* muProc) {
+	struct MUEffectProc* proc;
+
+	sub_8013928(
+		gPaletteBuffer + (0x10 * (0x10 + muProc->pMUConfig->paletteIndex)),
+		0x15, 8, (struct Proc*) muProc
+	);
+
+	proc = (struct MUEffectProc*) Proc_Create(gUnknown_089A2CF8, ROOT_PROC_3);
+
+	proc->pMUProc = muProc;
+}
+
+void sub_807988C(struct MUEffectProc* proc) {
+	struct MUProc* muProc = proc->pMUProc;
+
+	muProc->pAPHandle->tileBase =
+		((muProc->pMUConfig->paletteIndex & 0xF) << 12) + muProc->pMUConfig->objTileIndex + muProc->objPriorityBits;
+}
+
+void SetupSomeMoveunitAnim(struct MUProc* proc) {
+	AP_SwitchAnimation(proc->pAPHandle, 4); // TODO: MU_ANIM_SELECTED
+
+	proc->pAPHandle->frameTimer    = 0;
+	proc->pAPHandle->frameInterval = 0x100;
+
+	SetupFutureCall(TCS_HaltAnim2, (int) proc->pAPHandle, 30);
+}
+
+void TCS_HaltAnim2(int argAp) {
+	struct APHandle* ap = (struct APHandle*) argAp;
+
+	ap->frameTimer    = 0;
+	ap->frameInterval = 0;
+}
+
+void sub_80798E8(struct MUProc* proc) {
+	proc->pAPHandle->frameTimer    = 0;
+	proc->pAPHandle->frameInterval = 0x100;
+
+	SetupFutureCall(sub_807990C, (int) proc->pAPHandle, 30);
+}
+
+void sub_807990C(int argAp) {
+	struct APHandle* ap = (struct APHandle*) argAp;
+
+	int actor1 = gUnknown_0203E1F0.subjectActorId;
+	int actor2 = 1 - actor1;
+
+	SetBattleAnimFacing(
+		actor1, actor2,
+		GetSpellAssocFacing(gUnknown_0203E1F0.actors[0].pBattleUnit->weaponBefore)
+	);
+
+	ap->frameTimer    = 0;
+	ap->frameInterval = 0;
+}
+
+void MOVEUNIT_Begin20FramesFastAnim(struct MUProc* proc) {
+	proc->pAPHandle->frameTimer    = 0;
+	proc->pAPHandle->frameInterval = 0x40;
+
+	SetupFutureCall(TCS_HaltAnim, (int) proc->pAPHandle, 20);
+}
+
+void TCS_HaltAnim(int argAp) {
+	struct APHandle* ap = (struct APHandle*) argAp;
+
+	ap->frameTimer    = 0;
+	ap->frameInterval = 0;
+}
+
+void sub_8079970(struct MUProc* muProc, int flashType) {
+	struct AProc* proc;
+
+	CopyToPaletteBuffer(
+		gUnknown_089A2920[flashType],
+		(0x10 + MU_FADE_OBJ_PAL) * 0x20, 0x20
+	);
+
+	proc = (struct AProc*) Proc_Create(gUnknown_089A2D10, (struct Proc*) muProc);
+
+	proc->pMUProc = muProc;
+}
+
+void sub_80799A0(struct AProc* proc) {
+	proc->u30 = 0;
+}
+
+void sub_80799A8(struct AProc* proc) {
+	struct MUProc* muProc = proc->pMUProc;
+
+	muProc->pAPHandle->tileBase =
+		(MU_FADE_OBJ_PAL << 12) + muProc->pMUConfig->objTileIndex + muProc->objPriorityBits;
+}
+
+void sub_80799C8(struct AProc* proc) {
+	struct MUProc* muProc = proc->pMUProc;
+
+	muProc->pAPHandle->tileBase =
+		((muProc->pMUConfig->paletteIndex & 0xF) << 12) + muProc->pMUConfig->objTileIndex + muProc->objPriorityBits;
+}
+
+void sub_80799EC(struct AProc* proc) {
+	sub_8013928(
+		gPaletteBuffer + 0x10 * (0x10 + proc->pMUProc->pMUConfig->paletteIndex),
+		0x15, 0x14, (struct Proc*) proc
+	);
+}
+
+void sub_8079A10(struct AProc* proc) {
+	proc->u30++;
+
+	sub_80797F4(proc->pMUProc, ((proc->u30 & 1) ? 2 : -2), 0);
+
+	if (proc->u30 >= 12) {
+		sub_80797F4(proc->pMUProc, 0, 0);
+		Proc_ClearNativeCallback((struct Proc*) proc);
+	}
+}
+
+void sub_8079A50(struct AProc* proc) {
+	struct MUProc* muProc = proc->pMUProc;
+
+	muProc->pAPHandle->tileBase =
+		((muProc->pMUConfig->paletteIndex & 0xF) << 12) + muProc->pMUConfig->objTileIndex + muProc->objPriorityBits;
+}
+
+void sub_8079A74(struct MUProc* muProc, int flashType) {
+	struct AProc* proc;
+
+	CopyToPaletteBuffer(
+		gUnknown_089A2920[flashType],
+		(0x10 + MU_FADE_OBJ_PAL) * 0x20, 0x20
+	);
+
+	muProc->pAPHandle->tileBase =
+		(MU_FADE_OBJ_PAL << 12) + muProc->pMUConfig->objTileIndex + muProc->objPriorityBits;
+
+	sub_8013928(
+		gPaletteBuffer + 0x10 * (0x10 + muProc->pMUConfig->paletteIndex),
+		0x15, 0x14, (struct Proc*) muProc
+	);
+
+	proc = (struct AProc*) Proc_Create(gUnknown_089A2D98, (struct Proc*) muProc);
+
+	proc->pMUProc = muProc;
+}
+
+void sub_8079AD4(struct AProc* proc) {
+	struct MUProc* muProc = proc->pMUProc;
+
+	muProc->pAPHandle->tileBase =
+		((muProc->pMUConfig->paletteIndex & 0xF) << 12) + muProc->pMUConfig->objTileIndex + muProc->objPriorityBits;
+}
+
+void SetAllMOVEUNITField44To1(void) {
+	Proc_ForEachWithScript(gUnknown_089A2C48, SetMOVEUNITField44To1);
+}
+
+void SetMOVEUNITField44To1(struct Proc* proc) {
+	((struct MUProc*)(proc))->boolForceMaxSpeed = TRUE;
+}
+
+void ChangeMOVEUNITDataMaybe(struct MUProc* proc, int displayedClassId, const u16* palette) {
+	proc->pAPHandle->frameTimer = 0;
+	proc->pAPHandle->frameInterval = 0;
+
+	proc->displayedClassId = displayedClassId;
+
+	AP_SetDefinition(
+		proc->pAPHandle,
+		MMS_GetROMTCS(proc->displayedClassId)
+	);
+
+	CopyDataWithPossibleUncomp(
+		GetMovingMapSpriteGfxPtrFromMOVEUNIT(proc),
+		GetMOVEUNITGraphicsBuffer(proc->pMUConfig->muIndex)
+	);
+
+	CopyToPaletteBuffer(palette, (0x20 * (0x10 + proc->pMUConfig->paletteIndex)), 0x20);
+}
+
+#if NONMATCHING
+
+void sub_8079B6C(struct MUProc* proc, int paletteId) {
+	proc->pMUConfig->paletteIndex = paletteId;
+
+	proc->pAPHandle->tileBase =
+		((proc->pMUConfig->paletteIndex & 0xF) << 12) + proc->pMUConfig->objTileIndex + proc->objPriorityBits;
+}
+
+#else // NONMATCHING
+
+__attribute__((naked))
+void sub_8079B6C(struct MUProc* proc, int paletteId) {
+	asm(
+		".syntax unified\n"
+
+		"push {r4, lr}\n"
+		"ldr r2, [r0, #0x34]\n"
+		"strb r1, [r2, #1]\n"
+		"ldr r4, [r0, #0x30]\n"
+		"ldr r3, [r0, #0x34]\n"
+		"movs r2, #0xf\n"
+		"ands r2, r1\n"
+		"lsls r2, r2, #0xc\n"
+		"ldrh r3, [r3, #2]\n"
+		"adds r2, r2, r3\n"
+		"adds r0, #0x46\n"
+		"ldrh r0, [r0]\n"
+		"adds r0, r0, r2\n"
+		"strh r0, [r4, #0x22]\n"
+		"pop {r4}\n"
+		"pop {r0}\n"
+		"bx r0\n"
+
+		".syntax divided\n"
+	);
+}
+
+#endif // NONMATCHING
+
+struct MUProc* GetMoveunitByIndex(int muIndex) {
+	if (!gUnknown_03001900[muIndex].muIndex)
+		return NULL;
+
+	return gUnknown_03001900[muIndex].pMUProc;
+}
+
+struct MUProc* GetExistingMoveunitForUnit(struct Unit* unit) {
+	int i;
+
+	for (i = 0; i < MU_MAX_COUNT; ++i) {
+		struct MUProc* proc = GetMoveunitByIndex(i);
+
+		if (proc->pUnit == unit)
+			return proc;
+	}
+
+	return NULL;
 }
