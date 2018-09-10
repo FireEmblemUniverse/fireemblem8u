@@ -341,11 +341,11 @@ struct AProc {
 
 typedef void(*MUStateHandlerFunc)(struct MUProc*);
 
-extern struct MUConfig gUnknown_03001900[MU_MAX_COUNT]; // Configs
-extern u8 gUnknown_02004BE0[MU_GFX_MAX_SIZE * MU_MAX_COUNT]; // Buffer for graphics
+static struct MUConfig sMUConfigArray[MU_MAX_COUNT];
 
-extern u32 gUnknown_030018F8;
-extern u32 gUnknown_030018FC;
+// Buffer for graphics
+// I do not know how to handle this :/
+extern u8 gUnknown_02004BE0[MU_GFX_MAX_SIZE * MU_MAX_COUNT];
 
 extern const struct ProcCmd gUnknown_089A2938[];
 extern const struct ProcCmd gUnknown_089A2C48[];
@@ -427,7 +427,7 @@ void ResetMoveunitStructs(void) {
 	int i;
 
 	for (i = 0; i < MU_MAX_COUNT; ++i)
-		gUnknown_03001900[i].muIndex = 0;
+		sMUConfigArray[i].muIndex = 0;
 }
 
 struct MUProc* Make6CMOVEUNITForUnit(struct Unit* pUnit, unsigned classIndex, unsigned palId) {
@@ -634,7 +634,7 @@ int IsThereAMovingMoveunit(void) {
 	int i;
 
 	for (i = 0; i < MU_MAX_COUNT; ++i)
-		if ((gUnknown_03001900[i].muIndex) && (gUnknown_03001900[i].pMUProc->stateId != MU_STATE_IDLE_EXEC))
+		if ((sMUConfigArray[i].muIndex) && (sMUConfigArray[i].pMUProc->stateId != MU_STATE_IDLE_EXEC))
 			return TRUE;
 
 	return FALSE;
@@ -649,7 +649,7 @@ int IsThereAMovingMoveunit(void) {
 
 		"push {lr}\n"
 		"movs r3, #0\n"
-		"ldr r0, _08078764  @ gUnknown_03001900\n"
+		"ldr r0, _08078764  @ sMUConfigArray\n"
 		"adds r2, r0, #0\n"
 		"adds r2, #0x48\n"
 		"adds r1, r0, #0\n"
@@ -671,7 +671,7 @@ int IsThereAMovingMoveunit(void) {
 		"movs r0, #0\n"
 		"b _0807876A\n"
 		".align 2, 0\n"
-	"_08078764: .4byte gUnknown_03001900\n"
+	"_08078764: .4byte sMUConfigArray\n"
 	"_08078768:\n"
 		"movs r0, #1\n"
 	"_0807876A:\n"
@@ -1182,7 +1182,7 @@ int IsSomeMOVEUNITRelatedStructAvailable(void) {
 	int i;
 
 	for (i = 0; i < MU_MAX_COUNT; ++i)
-		if (gUnknown_03001900[i].muIndex == 0)
+		if (sMUConfigArray[i].muIndex == 0)
 			return TRUE;
 
 	return FALSE;
@@ -1192,9 +1192,9 @@ void ResetAllMoveunitAnims(void) {
 	int i;
 
 	for (i = 0; i < MU_MAX_COUNT; ++i) {
-		if (gUnknown_03001900[i].muIndex) {
-			gUnknown_03001900[i].pMUProc->pAPHandle->frameTimer    = 0;
-			gUnknown_03001900[i].pMUProc->pAPHandle->frameInterval = 0x100;
+		if (sMUConfigArray[i].muIndex) {
+			sMUConfigArray[i].pMUProc->pAPHandle->frameTimer    = 0;
+			sMUConfigArray[i].pMUProc->pAPHandle->frameInterval = 0x100;
 		}
 	}
 }
@@ -1203,15 +1203,15 @@ struct MUConfig* GetNextMoveunitEntryStruct(int objTileId, u8* outIndex_maybe) {
 	int i;
 
 	for (i = 0; i < MU_MAX_COUNT; ++i) {
-		if (gUnknown_03001900[i].muIndex)
+		if (sMUConfigArray[i].muIndex)
 			continue;
 
-		gUnknown_03001900[i].muIndex = i + 1;
-		gUnknown_03001900[i].objTileIndex = gUnknown_089A2C68[i] + objTileId;
+		sMUConfigArray[i].muIndex = i + 1;
+		sMUConfigArray[i].objTileIndex = gUnknown_089A2C68[i] + objTileId;
 
 		*outIndex_maybe = i;
 
-		return gUnknown_03001900 + i;
+		return sMUConfigArray + i;
 	}
 
 	return NULL;
@@ -1221,15 +1221,15 @@ struct MUConfig* sub_807920C(int objTileId, u8* outIndex_maybe) {
 	int i;
 
 	for (i = 0; i < MU_MAX_COUNT; ++i) {
-		if (gUnknown_03001900[i].muIndex)
+		if (sMUConfigArray[i].muIndex)
 			continue;
 
-		gUnknown_03001900[i].muIndex = i + 1;
-		gUnknown_03001900[i].objTileIndex = gUnknown_089A2C70[i] + objTileId;
+		sMUConfigArray[i].muIndex = i + 1;
+		sMUConfigArray[i].objTileIndex = gUnknown_089A2C70[i] + objTileId;
 
 		*outIndex_maybe = i;
 
-		return gUnknown_03001900 + i;
+		return sMUConfigArray + i;
 	}
 
 	return NULL;
@@ -1444,16 +1444,19 @@ void sub_807968C(struct MUProc* muProc) {
 }
 
 void sub_80796D4(u32* data, int frame) {
+	static u32 sKeptPixelsWordMask;
+	static u32 sClearedPixelWordMask;
+
 	int i, j;
 
 	int pixel = gUnknown_089A2CA8[frame] % 8;
 	int wordId = gUnknown_089A2CA8[frame] / 8;
 
-	gUnknown_030018F8 = ~(gUnknown_030018FC = (0xF << (pixel * 4)));
+	sKeptPixelsWordMask = ~(sClearedPixelWordMask = (0xF << (pixel * 4)));
 
 	for (i = 0; i < 4; ++i) {
 		for (j = 0; j < 4; ++j) {
-			data[wordId] &= gUnknown_030018F8;
+			data[wordId] &= sKeptPixelsWordMask;
 
 			data += 8;
 		}
@@ -1759,10 +1762,10 @@ void sub_8079B6C(struct MUProc* proc, int paletteId) {
 #endif // NONMATCHING
 
 struct MUProc* GetMoveunitByIndex(int muIndex) {
-	if (!gUnknown_03001900[muIndex].muIndex)
+	if (!sMUConfigArray[muIndex].muIndex)
 		return NULL;
 
-	return gUnknown_03001900[muIndex].pMUProc;
+	return sMUConfigArray[muIndex].pMUProc;
 }
 
 struct MUProc* GetExistingMoveunitForUnit(struct Unit* unit) {
