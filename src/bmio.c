@@ -16,7 +16,14 @@ void CopyTileGfxForObj(const void* src, void* dst, int tileWidth, int tileHeight
 
 extern const u8 gUnknown_085A39EC[];
 
-extern u16 gUnknown_02002ADC[];
+extern union {
+	// Buffer holding colors for vertical gradient.
+	u16 lines[320];
+
+	// Buffer holding 8 different variations of the tileset palette
+	// Variations have increasing amounts of red; used for fire weather effect
+	u16 fireGradient[8][0x40];
+} gUnknown_02002ADC;
 
 struct TileGfxAnim {
 	u16         time;
@@ -85,6 +92,11 @@ static const u16 gUnknown_080D7EEC[] = {
 
 void SetSecondaryHBlankHandler(void(*)(void));
 
+enum {
+	BM_BGPAL_6 = 6,
+	BM_BGPAL_TILESET_BASE = 7,
+};
+
 void sub_803005C(struct BMVSyncProc* proc) {
 	if (!proc->tileGfxAnimStart)
 		return;
@@ -119,7 +131,7 @@ void sub_80300A4(struct BMVSyncProc* proc) {
 
 	CpuCopy16(
 		proc->tilePalAnimCurrent->data,
-		proc->tilePalAnimCurrent->colorStart + (0x10 * 6) + gPaletteBuffer,
+		proc->tilePalAnimCurrent->colorStart + (0x10 * BM_BGPAL_6) + gPaletteBuffer,
 		proc->tilePalAnimCurrent->colorCount*2
 	);
 
@@ -420,11 +432,11 @@ void sub_8030674(void) {
 	if (nextLine >= 320)
 		((u16*)(PLTT))[0] = 0;
 	else
-		((u16*)(PLTT))[0] = nextLine[gUnknown_02002ADC];
+		((u16*)(PLTT))[0] = nextLine[gUnknown_02002ADC.lines];
 }
 
 void sub_80306CC(void) {
-	u16* palIt = gUnknown_02002ADC;
+	u16* palIt = gUnknown_02002ADC.lines;
 	int i = 0;
 
 	void(*handler)(void) = sub_8030674;
@@ -451,261 +463,65 @@ void sub_8030714(void) {
 
 	nextLine -= 96;
 
-	src  = gUnknown_02002ADC;
+	src  = gUnknown_02002ADC.fireGradient[0];
 	src += nextLine * 8;
 
-	dst = ((u16*)(PLTT)) + 0x70 + (nextLine & 0x7) * 8;
+	dst = ((u16*)(PLTT)) + 0x70 + (nextLine % 8) * 8;
 
 	CpuFastCopy(src, dst, 8);
 }
 
-#define RGB_GET_R(color) ((color >> 0) & 0x1F)
-#define RGB_GET_G(color) ((color >> 5) & 0x1F)
-#define RGB_GET_B(color) ((color >> 10) & 0x1F)
-
-#if NONMATCHING
-
 void sub_8030758(void) {
-	int i, j, k;
+	int k, j, i;
 
 	for (i = 0; i < 4; ++i) {
 		for (j = 0; j < 0x10; ++j) {
-			const int color = gPaletteBuffer[((i+7) * 0x10) + j];
+			const int color = gPaletteBuffer[0x10 * (i + BM_BGPAL_TILESET_BASE) + j];
 
-			int r = RGB_GET_R(color);
+			int r = RED_VALUE(color);
+			int g = GREEN_VALUE(color);
+			int b = BLUE_VALUE(color);
 
 			for (k = 0; k < 8; ++k) {
-				r += 2;
+				r = r + 2;
 
 				if (r > 31)
 					r = 31;
 
-				gUnknown_02002ADC[((i+1) * 0x10) + k * 0x40 + j] =
-					(RGB_GET_G(color) << 5) + (RGB_GET_B(color) << 10) + (r);
+				gUnknown_02002ADC.fireGradient[k][0x10 * i + j] = 
+					(b << 10) + (g << 5) + r;
 			}
 		}
 	}
-} // sub_8030758
-
-#else // NONMATCHING
-
-__attribute__((naked))
-void sub_8030758(void) {
-	asm(
-		".syntax unified\n"
-
-		"push {r4, r5, r6, r7, lr}\n"
-		"mov r7, sl\n"
-		"mov r6, r9\n"
-		"mov r5, r8\n"
-		"push {r5, r6, r7}\n"
-		"movs r1, #0\n"
-		"ldr r0, _080307D0  @ gPaletteBuffer\n"
-		"mov sl, r0\n"
-		"movs r6, #0x1f\n"
-		"ldr r3, _080307D4  @ gUnknown_02002ADC\n"
-		"mov r9, r3\n"
-	"_0803076E:\n"
-		"movs r2, #0 @ j = 0;\n"
-
-		"adds r0, r1, #7\n"
-		"adds r3, r1, #1\n"
-		"mov r8, r3\n"
-		"lsls r0, r0, #4\n"
-		"mov ip, r0\n"
-		"lsls r7, r1, #4\n"
-	"_0803077C:\n"
-		"mov r1, ip\n"
-		"adds r0, r1, r2\n"
-		"lsls r0, r0, #1\n"
-		"add r0, sl\n"
-		"ldrh r0, [r0]\n"
-
-		"adds r3, r0, #0\n"
-		"ands r3, r6\n"
-
-		"asrs r1, r0, #5\n"
-		"ands r1, r6\n"
-
-		"asrs r0, r0, #0xa\n"
-		"ands r0, r6\n"
-
-		"adds r5, r2, #1\n"
-		"adds r2, r7, r2\n"
-		"lsls r2, r2, #1\n"
-
-		"lsls r0, r0, #0xa\n"
-		"lsls r1, r1, #5\n"
-		"adds r4, r0, r1\n"
-
-		"add r2, r9 @ gUnknown_02002ADC[r7 + j++]\n"
-		"movs r1, #7\n"
-
-	"_080307A2:\n"
-		"adds r3, #2\n"
-
-		"cmp r3, #0x1f\n"
-		"ble _080307AA\n"
-
-		"movs r3, #0x1f\n"
-
-	"_080307AA:\n"
-		"adds r0, r4, r3\n"
-		"strh r0, [r2]\n"
-		"adds r2, #0x80\n"
-		"subs r1, #1\n"
-		"cmp r1, #0\n"
-		"bge _080307A2\n"
-
-		"adds r2, r5, #0\n"
-
-		"cmp r2, #0xf\n"
-		"ble _0803077C\n"
-
-		"mov r1, r8\n"
-		"cmp r1, #3\n"
-		"ble _0803076E\n"
-
-		"pop {r3, r4, r5}\n"
-		"mov r8, r3\n"
-		"mov r9, r4\n"
-		"mov sl, r5\n"
-		"pop {r4, r5, r6, r7}\n"
-		"pop {r0}\n"
-		"bx r0\n"
-		".align 2, 0\n"
-	"_080307D0: .4byte gPaletteBuffer\n"
-	"_080307D4: .4byte gUnknown_02002ADC\n"
-
-		".syntax divided\n"
-	);
-} // sub_8030758
-
-#endif // NONMATCHING
-
-#if NONMATCHING
+}
 
 void sub_80307D8(void) {
 	int i, j, k;
 
 	sub_8019974();
 
-	// This part of the body is the same as the body of sub_8030758
-
 	for (i = 0; i < 4; ++i) {
-		const u16* const pal = gPaletteBuffer + ((i+7) * 0x10);
-
 		for (j = 0; j < 0x10; ++j) {
-			const int color = pal[j];
+			const int color = gPaletteBuffer[0x10 * (i + BM_BGPAL_TILESET_BASE) + j];
 
-			int r = RGB_GET_R(color);
-
-			u16* const outBase = gUnknown_02002ADC + ((i+1) * 0x10) + j;
+			int r = RED_VALUE(color);
+			int g = GREEN_VALUE(color);
+			int b = BLUE_VALUE(color);
 
 			for (k = 0; k < 8; ++k) {
-				r += 2;
+				r = r + 2;
 
 				if (r > 31)
 					r = 31;
 
-				outBase[k * 0x40] =
-					(RGB_GET_G(color) << 5) + (RGB_GET_B(color) << 10) + (r);
+				gUnknown_02002ADC.fireGradient[k][0x10 * i + j] = 
+					(b << 10) + (g << 5) + r;
 			}
 		}
 	}
 
 	SetSecondaryHBlankHandler(sub_8030714);
 } // sub_80307D8
-
-#else // NONMATCHING
-
-__attribute__((naked))
-void sub_80307D8(void) {
-	asm(
-		".syntax unified\n"
-
-		"push {r4, r5, r6, r7, lr}\n"
-		"mov r7, sl\n"
-		"mov r6, r9\n"
-		"mov r5, r8\n"
-		"push {r5, r6, r7}\n"
-		"bl sub_8019974\n"
-
-		"movs r1, #0\n"
-		"ldr r0, _0803085C  @ gPaletteBuffer\n"
-		"mov sl, r0\n"
-		"movs r6, #0x1f\n"
-		"ldr r3, _08030860  @ gUnknown_02002ADC\n"
-		"mov r9, r3\n"
-	"_080307F2:\n"
-		"movs r2, #0\n"
-		"adds r0, r1, #7\n"
-		"adds r3, r1, #1\n"
-		"mov r8, r3\n"
-		"lsls r0, r0, #4\n"
-		"mov ip, r0\n"
-		"lsls r7, r1, #4\n"
-	"_08030800:\n"
-		"mov r1, ip\n"
-		"adds r0, r1, r2\n"
-		"lsls r0, r0, #1\n"
-		"add r0, sl\n"
-		"ldrh r0, [r0]\n"
-		"adds r3, r0, #0\n"
-		"ands r3, r6\n"
-		"asrs r1, r0, #5\n"
-		"ands r1, r6\n"
-		"asrs r0, r0, #0xa\n"
-		"ands r0, r6\n"
-		"adds r5, r2, #1\n"
-		"adds r2, r7, r2\n"
-		"lsls r2, r2, #1\n"
-		"lsls r0, r0, #0xa\n"
-		"lsls r1, r1, #5\n"
-		"adds r4, r0, r1\n"
-		"add r2, r9\n"
-		"movs r1, #7\n"
-	"_08030826:\n"
-		"adds r3, #2\n"
-		"cmp r3, #0x1f\n"
-		"ble _0803082E\n"
-		"movs r3, #0x1f\n"
-	"_0803082E:\n"
-		"adds r0, r4, r3\n"
-		"strh r0, [r2]\n"
-		"adds r2, #0x80\n"
-		"subs r1, #1\n"
-		"cmp r1, #0\n"
-		"bge _08030826\n"
-		"adds r2, r5, #0\n"
-		"cmp r2, #0xf\n"
-		"ble _08030800\n"
-		"mov r1, r8\n"
-		"cmp r1, #3\n"
-		"ble _080307F2\n"
-		"ldr r0, _08030864  @ sub_8030714\n"
-		"bl SetSecondaryHBlankHandler\n"
-		"pop {r3, r4, r5}\n"
-		"mov r8, r3\n"
-		"mov r9, r4\n"
-		"mov sl, r5\n"
-		"pop {r4, r5, r6, r7}\n"
-		"pop {r0}\n"
-		"bx r0\n"
-		".align 2, 0\n"
-	"_0803085C: .4byte gPaletteBuffer\n"
-	"_08030860: .4byte gUnknown_02002ADC\n"
-	"_08030864: .4byte sub_8030714\n"
-
-		".syntax divided\n"
-	);
-} // sub_80307D8
-
-#endif // NONMATCHING
-
-#undef RGB_GET_R
-#undef RGB_GET_G
-#undef RGB_GET_B
 
 void sub_8030868(void) {
 	int i;
@@ -728,14 +544,68 @@ void sub_80308CC(void) {
 	sub_8030868();
 }
 
-/*
+void sub_80308DC(void) {
+	int i, j;
 
-	THUMB_FUNC_START sub_80308CC
-sub_80308CC: @ 0x080308CC
-	push {lr}
-	bl sub_80307D8
-	bl sub_8030868
-	pop {r0}
-	bx r0
+	CpuFastCopy(
+		gPaletteBuffer + BM_BGPAL_TILESET_BASE * 0x10,
+		((u16*)(PLTT)) + BM_BGPAL_TILESET_BASE * 0x10,
 
-// */
+		0x20 * 4
+	);
+
+	for (i = 12; i < 16; ++i) {
+		const int color = gPaletteBuffer[(BM_BGPAL_TILESET_BASE + 2) * 0x10 + i];
+
+		int r = RED_VALUE(color);
+		int g = GREEN_VALUE(color);
+		int b = BLUE_VALUE(color);
+
+		for (j = 0; j < 8; ++j) {
+			r = r + 2;
+
+			if (r > 31)
+				r = 31;
+
+			gUnknown_02002ADC.fireGradient[j][0x10 * 2 + i] = 
+				(b << 10) + (g << 5) + r;
+		}
+
+	}
+}
+
+void sub_8030948(void) {
+	struct WeatherParticle* it = gUnknown_020027DC;
+
+	if (GetPrimaryOAMSize()) {
+		int i;
+
+		for (i = 0; i < 0x10; ++i, ++it) {
+			int yDisplay;
+			int objTile;
+
+			it->xPosition += it->xSpeed;
+			it->yPosition += it->ySpeed;
+
+			yDisplay = ((it->yPosition >> 8) - gUnknown_0202BCB0.yCameraReal) & 0xFF;
+
+			if (yDisplay < 0x40)
+				continue;
+
+			if (yDisplay > 0xA0)
+				continue;
+
+			objTile = 31 - ((yDisplay - 0x40) / 8);
+
+			if (objTile < 24)
+				objTile = 24;
+
+			CallARM_PushToPrimaryOAM(
+				((it->xPosition >> 8) - gUnknown_0202BCB0.xCameraReal) & 0xFF,
+				yDisplay,
+				gUnknown_08590F44,
+				(0xA << 12) + objTile
+			);
+		}
+	}
+}
