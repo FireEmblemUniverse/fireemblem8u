@@ -139,21 +139,21 @@ _08037558:
 	beq _0803757C
 	b _08037586
 _0803755E:
-	bl ClearMOVEUNITs
+	bl MU_EndAll
 	b _08037586
 _08037564:
-	bl ClearMOVEUNITs
+	bl MU_EndAll
 	ldr r0, _08037578  @ gUnknown_03004E50
 	ldr r0, [r0]
-	bl MakeMOVEUNITForMapUnit
-	bl _MOVEUNIT6C_SetDefaultFacingDirection
+	bl MU_Create
+	bl MU_SetDefaultFacing_Auto
 	b _08037586
 	.align 2, 0
 _08037578: .4byte gUnknown_03004E50
 _0803757C:
 	adds r0, r4, #0
-	bl GetExistingMoveunitForUnit
-	bl EndMoveunitMaybe
+	bl MU_GetByUnit
+	bl MU_End
 _08037586:
 	ldr r1, _0803759C  @ gUnknown_0203A958
 	movs r0, #0xa
@@ -483,8 +483,8 @@ sub_80377F0: @ 0x080377F0
 	b _08037828
 _08037810:
 	adds r0, r4, #0
-	bl GetExistingMoveunitForUnit
-	bl EndMoveunitMaybe
+	bl MU_GetByUnit
+	bl MU_End
 	bl UpdateGameTilesGraphics
 	bl RefreshFogAndUnitMaps
 	bl SMS_FlushIndirect

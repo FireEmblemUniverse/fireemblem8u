@@ -625,7 +625,7 @@ _08009CDC: .4byte gUnknown_0202BCF0
 sub_8009CE0: @ 0x08009CE0
 	push {r4, lr}
 	adds r4, r0, #0
-	bl ClearMOVEUNITs
+	bl MU_EndAll
 	adds r0, r4, #0
 	adds r0, #0x29
 	ldrb r0, [r0]

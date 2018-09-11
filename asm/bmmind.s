@@ -283,7 +283,7 @@ _08032254:
 	strb r1, [r0]
 	movs r1, #4
 	strb r1, [r0, #1]
-	bl _MOVEUNIT6C_ChangeFutureMovement
+	bl MU_StartMoveScript_Auto
 _08032262:
 	movs r0, #0
 	pop {r4, r5, r6}
@@ -620,7 +620,7 @@ _0803250A:
 	strh r6, [r4]
 	adds r0, r7, #0
 	bl SaveInstigatorWith10ExtraExp
-	bl ClearMOVEUNITs
+	bl MU_EndAll
 	bl BeginMapAnimForSteal
 	movs r0, #0
 	pop {r4, r5, r6, r7}
@@ -640,7 +640,7 @@ ActionSummon: @ 0x08032554
 	bl CopyUnitToBattleStruct
 	adds r0, r4, #0
 	bl SaveInstigatorWith10ExtraExp
-	bl ClearMOVEUNITs
+	bl MU_EndAll
 	bl BeginMapAnimForSummon
 	movs r0, #0
 	pop {r4}
@@ -660,7 +660,7 @@ ActionSummonDK: @ 0x08032580
 	bl CopyUnitToBattleStruct
 	adds r0, r4, #0
 	bl SaveInstigatorWith10ExtraExp
-	bl ClearMOVEUNITs
+	bl MU_EndAll
 	bl BeginMapAnimForSummonDK
 	movs r0, #0
 	pop {r4}
@@ -954,10 +954,10 @@ BATTLE_ProbablyMakesTheDeadUnitDissapear: @ 0x080327C8
 	lsls r0, r0, #0x18
 	cmp r0, #0
 	beq _080327F2
-	ldr r0, _08032854  @ gUnknown_089A2C48
+	ldr r0, _08032854  @ gProcScr_MoveUnit
 	bl Proc_Find
 	adds r4, r0, #0
-	bl MOVEUNIT6C_807959C
+	bl MU_StartDeathFade
 	str r4, [r6, #0x54]
 	adds r0, r7, #0
 	bl TryRemoveUnitFromBallista
@@ -978,7 +978,7 @@ _080327F2:
 	bl TryRemoveUnitFromBallista
 	bl SMS_UpdateFromGameData
 	adds r0, r5, #0
-	bl MakeMOVEUNITForMapUnit
+	bl MU_Create
 	adds r4, r0, #0
 	movs r0, #0x10
 	ldrsb r0, [r7, r0]
@@ -994,9 +994,9 @@ _080327F2:
 	movs r0, #4
 	strb r0, [r1, #1]
 	adds r0, r4, #0
-	bl MOVEUNIT6C_ChangeFutureMovement
+	bl MU_StartMoveScript
 	adds r0, r4, #0
-	bl MOVEUNIT6C_807959C
+	bl MU_StartDeathFade
 	str r4, [r6, #0x54]
 _0803284A:
 	pop {r4, r5, r6, r7}
@@ -1004,7 +1004,7 @@ _0803284A:
 	bx r0
 	.align 2, 0
 _08032850: .4byte gUnknown_0203A4EC
-_08032854: .4byte gUnknown_089A2C48
+_08032854: .4byte gProcScr_MoveUnit
 _08032858: .4byte gUnknown_0203A56C
 _0803285C: .4byte gUnknown_02033EFC
 
@@ -1012,7 +1012,7 @@ _0803285C: .4byte gUnknown_02033EFC
 BATTLE_DeleteLinkedMOVEUNIT: @ 0x08032860
 	push {lr}
 	ldr r0, [r0, #0x54]
-	bl EndMoveunitMaybe
+	bl MU_End
 	pop {r0}
 	bx r0
 

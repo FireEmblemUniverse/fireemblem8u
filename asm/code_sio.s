@@ -15718,17 +15718,17 @@ sub_80493D0: @ 0x080493D0
 	cmp r0, #0
 	bne _0804944C
 	adds r0, r5, #0
-	bl MakeMOVEUNITForMapUnit
+	bl MU_Create
 	ldr r1, _080494D0  @ gUnknown_03001838
 	ldr r2, [sp, #0x10]
 	lsls r4, r2, #2
 	adds r4, r4, r1
 	str r0, [r4]
-	bl MOVEUNIT6C_UnsetCameraFollow
+	bl MU_DisableAttractCamera
 	ldr r0, [r4]
 	mov r3, sp
 	adds r1, r3, r6
-	bl MOVEUNIT6C_ChangeFutureMovement
+	bl MU_StartMoveScript
 _0804944C:
 	ldr r0, [r5, #0xc]
 	movs r1, #1
@@ -16314,7 +16314,7 @@ sub_80498F4: @ 0x080498F4
 	ldrb r0, [r0]
 	bl GetUnitStruct
 	adds r4, r0, #0
-	bl MakeMOVEUNITForMapUnit
+	bl MU_Create
 	ldr r5, _0804993C  @ gUnknown_03001838
 	str r0, [r5]
 	movs r1, #0x10
@@ -16324,12 +16324,12 @@ sub_80498F4: @ 0x080498F4
 	ldrsb r2, [r4, r2]
 	subs r2, #1
 	lsls r2, r2, #4
-	bl MOVEUNIT6C_SetDisplayPos
+	bl MU_SetDisplayPosition
 	ldr r0, [r5]
-	bl MOVEUNIT6C_UnsetCameraFollow
+	bl MU_DisableAttractCamera
 	ldr r0, [r5]
 	movs r1, #3
-	bl MOVEUNIT6C_SetSpriteDirection
+	bl MU_SetFacing
 	pop {r4, r5}
 	pop {r0}
 	bx r0
@@ -16745,7 +16745,7 @@ sub_8049C18: @ 0x08049C18
 	adds r4, r0, #0
 	cmp r5, #0
 	beq _08049C4C
-	bl ClearMOVEUNITs
+	bl MU_EndAll
 	adds r0, r5, #0
 	bl ShowUnitSMS
 _08049C4C:
@@ -16768,8 +16768,8 @@ _08049C4C:
 	cmp r1, r0
 	bne _08049C80
 	adds r0, r4, #0
-	bl MakeMOVEUNITForMapUnit
-	bl MOVEUNIT6C_UnsetCameraFollow
+	bl MU_Create
+	bl MU_DisableAttractCamera
 	adds r0, r4, #0
 	bl HideUnitSMS
 _08049C80:
@@ -16926,15 +16926,15 @@ sub_8049D24: @ 0x08049D24
 	movs r0, #0x69
 	bl m4aSongNumStart
 _08049DB2:
-	bl ClearMOVEUNITs
+	bl MU_EndAll
 	ldr r0, [r7]
-	bl MakeMOVEUNITForMapUnit
+	bl MU_Create
 	ldr r4, _08049E2C  @ gUnknown_03001838
 	str r0, [r4]
-	bl MOVEUNIT6C_UnsetCameraFollow
+	bl MU_DisableAttractCamera
 	ldr r0, [r4]
 	mov r1, sp
-	bl MOVEUNIT6C_ChangeFutureMovement
+	bl MU_StartMoveScript
 	ldr r1, [r7]
 	movs r0, #0x10
 	ldrsb r0, [r1, r0]
@@ -16999,7 +16999,7 @@ _08049E42:
 	ands r0, r1
 	cmp r0, #0
 	bne _08049E7C
-	bl ClearMOVEUNITs
+	bl MU_EndAll
 	adds r0, r6, #0
 	movs r1, #4
 	bl Proc_GotoLabel
@@ -17228,7 +17228,7 @@ _0804A040:
 _0804A05A:
 	ldr r0, _0804A0A4  @ gUnknown_03001838
 	ldr r0, [r0]
-	bl EndMoveunitMaybe
+	bl MU_End
 	ldrb r0, [r6, #4]
 	add r0, r9
 	ldrb r0, [r0]
@@ -17272,7 +17272,7 @@ _0804A0A8:
 	ands r0, r1
 	cmp r0, #0
 	bne _0804A0D4
-	bl ClearMOVEUNITs
+	bl MU_EndAll
 	mov r0, r8
 	movs r1, #6
 	bl Proc_GotoLabel
@@ -17724,7 +17724,7 @@ sub_804A44C: @ 0x0804A44C
 	bne _0804A48C
 	ldr r0, _0804A488  @ gUnknown_03001838
 	ldr r0, [r0, #4]
-	bl EndMoveunitMaybe
+	bl MU_End
 	b _0804A494
 	.align 2, 0
 _0804A480: .4byte gUnknown_03001818
@@ -17772,7 +17772,7 @@ _0804A4D8:
 	cmp r0, #0
 	beq _0804A502
 	adds r0, r4, #0
-	bl MakeMOVEUNITForMapUnit
+	bl MU_Create
 	ldr r1, _0804A514  @ gUnknown_03001838
 	str r0, [r1, #4]
 	movs r0, #0x10
@@ -17880,7 +17880,7 @@ sub_804A5A4: @ 0x0804A5A4
 	bl memcpy
 	ldr r6, _0804A60C  @ gUnknown_03001838
 	ldr r0, [r6, #4]
-	bl EndMoveunitMaybe
+	bl MU_End
 	ldrb r0, [r4, #5]
 	adds r0, r0, r5
 	ldrb r0, [r0]
@@ -17896,7 +17896,7 @@ sub_804A5A4: @ 0x0804A5A4
 	bne _0804A5F2
 	ldr r0, [r6]
 	mov r1, sp
-	bl MOVEUNIT6C_ChangeFutureMovement
+	bl MU_StartMoveScript
 	movs r0, #7
 	strb r0, [r7, #0x10]
 _0804A5F2:
@@ -17918,7 +17918,7 @@ sub_804A614: @ 0x0804A614
 	mov r7, r8
 	push {r7}
 	adds r7, r0, #0
-	bl IsThereAMovingMoveunit
+	bl MU_IsAnyActive
 	lsls r0, r0, #0x18
 	asrs r0, r0, #0x18
 	cmp r0, #1
@@ -18041,7 +18041,7 @@ sub_804A6A4: @ 0x0804A6A4
 	adds r0, r7, #0
 	movs r1, #0
 	bl SetUnitNewStatus
-	bl ClearMOVEUNITs
+	bl MU_EndAll
 	adds r0, r6, #0
 	bl GetUnitCurrentHP
 	cmp r0, #0
@@ -18165,9 +18165,9 @@ _0804A838: .4byte gUnknown_03001838
 _0804A83C: .4byte 0x00010004
 _0804A840:
 	adds r0, r4, #0
-	bl MakeMOVEUNITForMapUnit
+	bl MU_Create
 	str r0, [r6]
-	bl MOVEUNIT6C_UnsetCameraFollow
+	bl MU_DisableAttractCamera
 	ldr r0, [r4, #0xc]
 	movs r1, #1
 	orrs r0, r1
@@ -18216,10 +18216,10 @@ _0804A8A4: .4byte 0x00010004
 _0804A8A8: .4byte gUnknown_0203DD90
 _0804A8AC:
 	mov r0, r8
-	bl MakeMOVEUNITForMapUnit
+	bl MU_Create
 	ldr r4, _0804A90C  @ gUnknown_03001838
 	str r0, [r4, #4]
-	bl MOVEUNIT6C_UnsetCameraFollow
+	bl MU_DisableAttractCamera
 	mov r5, r8
 	ldr r0, [r5, #0xc]
 	movs r1, #1
@@ -18452,8 +18452,8 @@ _0804AA84: .4byte gUnknown_0202BCF0
 	THUMB_FUNC_START sub_804AA88
 sub_804AA88: @ 0x0804AA88
 	push {lr}
-	bl ClearMOVEUNITs
-	bl ClearMOVEUNITs
+	bl MU_EndAll
+	bl MU_EndAll
 	bl sub_8049594
 	bl sub_80495F4
 	bl SMS_UpdateFromGameData
@@ -18646,7 +18646,7 @@ _0804ABF8:
 	bne _0804AC1C
 	ldr r0, _0804AC18  @ gUnknown_03001838
 	ldr r0, [r0]
-	bl EndMoveunitMaybe
+	bl MU_End
 	b _0804AC24
 	.align 2, 0
 _0804AC18: .4byte gUnknown_03001838
@@ -18697,7 +18697,7 @@ sub_804AC68: @ 0x0804AC68
 	adds r4, r1, #0
 	adds r6, r2, #0
 	mov r8, r3
-	bl MakeMOVEUNITForMapUnit
+	bl MU_Create
 	ldr r1, _0804ACA4  @ gUnknown_03001838
 	lsls r4, r4, #2
 	adds r4, r4, r1
@@ -18772,7 +18772,7 @@ _0804ACF0:
 	bne _0804AD14
 	ldr r0, _0804AD10  @ gUnknown_03001838
 	ldr r0, [r0, #4]
-	bl EndMoveunitMaybe
+	bl MU_End
 	b _0804AD1C
 	.align 2, 0
 _0804AD10: .4byte gUnknown_03001838
@@ -19463,7 +19463,7 @@ sub_804B250: @ 0x0804B250
 	asrs r0, r0, #0x18
 	cmp r0, #1
 	beq _0804B272
-	bl IsThereAMovingMoveunit
+	bl MU_IsAnyActive
 	lsls r0, r0, #0x18
 	cmp r0, #0
 	bne _0804B272
@@ -19658,7 +19658,7 @@ sub_804B3D0: @ 0x0804B3D0
 	.align 2, 0
 _0804B3E8: .4byte gUnknown_0203DD90
 _0804B3EC:
-	bl ClearMOVEUNITs
+	bl MU_EndAll
 	ldr r0, _0804B404  @ gUnknown_0202BCF0
 	ldrb r1, [r0, #0xf]
 	movs r0, #6
@@ -19685,7 +19685,7 @@ sub_804B408: @ 0x0804B408
 	.align 2, 0
 _0804B41C: .4byte gUnknown_0203DD90
 _0804B420:
-	bl ClearMOVEUNITs
+	bl MU_EndAll
 	ldr r0, _0804B438  @ gUnknown_0202BCF0
 	ldrb r1, [r0, #0xf]
 	movs r0, #7
@@ -19713,8 +19713,8 @@ sub_804B43C: @ 0x0804B43C
 	.align 2, 0
 _0804B454: .4byte gUnknown_0203DD90
 _0804B458:
-	bl ClearMOVEUNITs
-	bl ClearMOVEUNITs
+	bl MU_EndAll
+	bl MU_EndAll
 	ldr r1, _0804B47C  @ gUnknown_0203DA24
 	movs r0, #1
 	strb r0, [r1, #0xb]
@@ -19984,7 +19984,7 @@ _0804B660:
 	adds r0, r6, #0
 	bl HideUnitSMS
 	adds r0, r6, #0
-	bl MakeMOVEUNITForMapUnit
+	bl MU_Create
 	adds r4, r0, #0
 	ldr r1, _0804B6A4  @ gUnknown_02033EFC
 	movs r0, #2
@@ -19992,7 +19992,7 @@ _0804B660:
 	movs r0, #4
 	strb r0, [r1, #1]
 	adds r0, r4, #0
-	bl MOVEUNIT6C_ChangeFutureMovement
+	bl MU_StartMoveScript
 	adds r0, r4, #0
 	bl sub_804BF4C
 	str r4, [r5, #0x54]
@@ -20017,7 +20017,7 @@ _0804B6A8: .4byte 0xFFFFFDFF
 sub_804B6AC: @ 0x0804B6AC
 	push {lr}
 	ldr r0, [r0, #0x54]
-	bl EndMoveunitMaybe
+	bl MU_End
 	pop {r0}
 	bx r0
 
@@ -20214,7 +20214,7 @@ sub_804B800: @ 0x0804B800
 	.align 2, 0
 _0804B82C: .4byte gBG2TilemapBuffer
 _0804B830:
-	bl ClearMOVEUNITs
+	bl MU_EndAll
 	bl UpdateGameTilesGraphics
 	bl BeginBattleMapAnims
 	ldr r2, _0804B84C  @ gUnknown_0203A4D4
@@ -20237,7 +20237,7 @@ sub_804B850: @ 0x0804B850
 	ldrsb r0, [r6, r0]
 	cmp r0, #0
 	bne _0804B86C
-	ldr r0, _0804B8C4  @ gUnknown_089A2C48
+	ldr r0, _0804B8C4  @ gProcScr_MoveUnit
 	bl Proc_Find
 	adds r4, r0, #0
 	bl sub_804BF4C
@@ -20254,7 +20254,7 @@ _0804B86C:
 	bl GetUnitStruct
 	bl HideUnitSMS
 	adds r0, r5, #0
-	bl MakeMOVEUNITForMapUnit
+	bl MU_Create
 	adds r4, r0, #0
 	movs r0, #0x10
 	ldrsb r0, [r6, r0]
@@ -20270,7 +20270,7 @@ _0804B86C:
 	movs r0, #4
 	strb r0, [r1, #1]
 	adds r0, r4, #0
-	bl MOVEUNIT6C_ChangeFutureMovement
+	bl MU_StartMoveScript
 	adds r0, r4, #0
 	bl sub_804BF4C
 	str r4, [r7, #0x54]
@@ -20280,7 +20280,7 @@ _0804B8B8:
 	bx r0
 	.align 2, 0
 _0804B8C0: .4byte gUnknown_0203A4EC
-_0804B8C4: .4byte gUnknown_089A2C48
+_0804B8C4: .4byte gProcScr_MoveUnit
 _0804B8C8: .4byte gUnknown_0203A56C
 _0804B8CC: .4byte gUnknown_02033EFC
 
@@ -21132,7 +21132,7 @@ sub_804BF4C: @ 0x0804BF4C
 	movs r5, #0
 	movs r0, #7
 	strb r0, [r1]
-	ldr r0, _0804BFA4  @ gUnknown_089A2C80
+	ldr r0, _0804BFA4  @ gProcScr_MUDeathFade
 	adds r1, r4, #0
 	bl Proc_Create
 	str r4, [r0, #0x54]
@@ -21167,7 +21167,7 @@ _0804BF9E:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_0804BFA4: .4byte gUnknown_089A2C80
+_0804BFA4: .4byte gProcScr_MUDeathFade
 _0804BFA8: .4byte gUnknown_0202BCF0
 
 	THUMB_FUNC_START sub_804BFAC
@@ -21222,7 +21222,7 @@ sub_804BFF8: @ 0x0804BFF8
 	movs r2, #8
 	adds r3, r4, #0
 	bl sub_8013928
-	ldr r0, _0804C028  @ gUnknown_089A2CF8
+	ldr r0, _0804C028  @ gProcScr_MU_89A2CF8
 	movs r1, #3
 	bl Proc_Create
 	str r4, [r0, #0x54]
@@ -21231,7 +21231,7 @@ sub_804BFF8: @ 0x0804BFF8
 	bx r0
 	.align 2, 0
 _0804C024: .4byte gPaletteBuffer
-_0804C028: .4byte gUnknown_089A2CF8
+_0804C028: .4byte gProcScr_MU_89A2CF8
 
 	THUMB_FUNC_START sub_804C02C
 sub_804C02C: @ 0x0804C02C
@@ -21259,7 +21259,7 @@ sub_804C02C: @ 0x0804C02C
 	lsls r2, r2, #3
 	movs r0, #0x7f
 	movs r1, #2
-	bl NewSoundStepPlay6C
+	bl MU_StartStepSfx
 _0804C064:
 	pop {r4}
 	pop {r0}
@@ -21406,7 +21406,7 @@ sub_804C178: @ 0x0804C178
 sub_804C188: @ 0x0804C188
 	push {lr}
 	ldr r0, [r0, #0x30]
-	bl SetMOVEUNITField40To1
+	bl MU_Hide
 	pop {r0}
 	bx r0
 
@@ -21419,7 +21419,7 @@ sub_804C194: @ 0x0804C194
 	lsls r1, r1, #4
 	ldr r2, [r4, #0x38]
 	lsls r2, r2, #4
-	bl MOVEUNIT6C_SetDisplayPos
+	bl MU_SetDisplayPosition
 	ldr r1, [r4, #0x2c]
 	ldr r0, [r4, #0x34]
 	strb r0, [r1, #0x10]
@@ -21440,10 +21440,10 @@ sub_804C1B8: @ 0x0804C1B8
 	cmp r1, r0
 	beq _0804C1CC
 	ldr r0, [r4, #0x30]
-	bl MOVEUNIT6C_SetSpriteDirection
+	bl MU_SetFacing
 _0804C1CC:
 	ldr r0, [r4, #0x30]
-	bl sub_80797DC
+	bl MU_Show
 	pop {r4}
 	pop {r0}
 	bx r0

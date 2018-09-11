@@ -960,7 +960,7 @@ _08011F22:
 _08011F34: .4byte gBG2TilemapBuffer
 _08011F38: .4byte gPaletteBuffer
 _08011F3C:
-	bl ClearMOVEUNITs
+	bl MU_EndAll
 	bl UpdateGameTilesGraphics
 	bl BeginBattleMapAnims
 	ldr r0, _08011F58  @ gUnknown_0203A4D4
@@ -1235,8 +1235,8 @@ _0801216C:
 	ldr r0, [r4]
 	bl HideUnitSMS
 	ldr r0, [r4]
-	bl MakeMOVEUNITForMapUnit
-	bl _MOVEUNIT6C_SetDefaultFacingDirection
+	bl MU_Create
+	bl MU_SetDefaultFacing_Auto
 	ldrh r0, [r7, #0x1e]
 	bl GetItemWType
 	cmp r0, #4

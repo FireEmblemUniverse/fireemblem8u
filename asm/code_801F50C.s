@@ -21,7 +21,7 @@ ChangeActiveUnitFacing: @ 0x0801F50C
 	movs r0, #4
 	strb r0, [r1, #1]
 	adds r0, r1, #0
-	bl _MOVEUNIT6C_ChangeFutureMovement
+	bl MU_StartMoveScript_Auto
 	pop {r0}
 	bx r0
 	.align 2, 0

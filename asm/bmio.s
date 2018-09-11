@@ -2102,8 +2102,8 @@ sub_8031154: @ 0x08031154
 	push {lr}
 	bl LoadObjUIGfx
 	ldr r0, _08031170  @ gUnknown_0203A4EC
-	bl MakeMOVEUNITForMapUnit
-	bl _MOVEUNIT6C_SetDefaultFacingDirection
+	bl MU_Create
+	bl MU_SetDefaultFacing_Auto
 	ldr r0, _08031174  @ gUnknown_0859D9E4
 	movs r1, #3
 	bl Proc_Create
@@ -2380,8 +2380,8 @@ sub_803133C: @ 0x0803133C
 	bl GetUnitStruct
 	bl HideUnitSMS
 	ldr r0, [r5]
-	bl MakeMOVEUNITForMapUnit
-	bl _MOVEUNIT6C_SetDefaultFacingDirection
+	bl MU_Create
+	bl MU_SetDefaultFacing_Auto
 	pop {r4, r5}
 	pop {r0}
 	bx r0

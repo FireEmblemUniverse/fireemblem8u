@@ -1833,7 +1833,7 @@ sub_8087CC0: @ 0x08087CC0
 	ldrsh r2, [r4, r1]
 	adds r2, #0x8a
 	movs r1, #0x50
-	bl MOVEUNIT6C_SetDisplayPos
+	bl MU_SetDisplayPosition
 	ldr r1, [r6, #0x3c]
 	ldr r2, [r6, #0x40]
 	movs r0, #0
@@ -1942,7 +1942,7 @@ sub_8087D98: @ 0x08087D98
 	ldrsh r2, [r4, r1]
 	adds r2, #0x8a
 	movs r1, #0x50
-	bl MOVEUNIT6C_SetDisplayPos
+	bl MU_SetDisplayPosition
 	ldr r1, [r6, #0x3c]
 	ldr r2, [r6, #0x40]
 	movs r0, #0
@@ -2000,7 +2000,7 @@ sub_8087E28: @ 0x08087E28
 	beq _08087E3A
 	movs r1, #0x50
 	movs r2, #0x8a
-	bl MOVEUNIT6C_SetDisplayPos
+	bl MU_SetDisplayPosition
 _08087E3A:
 	ldr r3, _08087E78  @ gLCDControlBuffer
 	ldrb r1, [r3, #0xc]
@@ -3028,12 +3028,12 @@ _080886D8:
 	movs r2, #0x20
 	bl CopyToPaletteBuffer
 _080886E2:
-	bl ClearMOVEUNITs
+	bl MU_EndAll
 	ldr r4, _08088728  @ gUnknown_02003BFC
 	ldr r0, [r4, #0xc]
 	movs r1, #0x50
 	movs r2, #0x8a
-	bl Make6CMOVEUNITForUI
+	bl MU_CreateForUI
 	str r0, [r4, #0x10]
 	bl sub_8086E44
 	ldrb r0, [r4]

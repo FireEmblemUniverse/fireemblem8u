@@ -163,7 +163,7 @@ _0801C994:
 	lsls r0, r0, #0x18
 	cmp r0, #0
 	beq _0801CA0C
-	bl ClearMOVEUNITs
+	bl MU_EndAll
 	bl DeletePlayerPhaseInterface6Cs
 	movs r0, #0x1f
 	bl sub_8086DE4
@@ -232,7 +232,7 @@ _0801CA58:
 	strb r1, [r0, #0x13]
 	cmp r4, #0
 	beq _0801CA78
-	bl ClearMOVEUNITs
+	bl MU_EndAll
 	adds r0, r4, #0
 	bl ShowUnitSMS
 _0801CA78:
@@ -303,7 +303,7 @@ _0801CAD4:
 	adds r4, r0, #0
 	cmp r4, #0
 	beq _0801CB18
-	bl ClearMOVEUNITs
+	bl MU_EndAll
 	adds r0, r4, #0
 	bl ShowUnitSMS
 _0801CB18:
@@ -707,7 +707,7 @@ _0801CE50:
 	ldr r0, [r4]
 	cmp r0, #0
 	beq _0801CE90
-	bl ClearMOVEUNITs
+	bl MU_EndAll
 	ldr r2, [r4]
 	ldr r0, [r2, #0xc]
 	movs r1, #2
@@ -794,7 +794,7 @@ _0801CF08:
 	lsls r0, r0, #0x18
 	cmp r0, #0
 	beq _0801CFC0
-	bl ClearMOVEUNITs
+	bl MU_EndAll
 	movs r0, #0x1f
 	bl sub_8086DE4
 	adds r0, r4, #0
@@ -944,9 +944,9 @@ _0801D05E:
 	ldr r4, _0801D080  @ gUnknown_03004E50
 	ldr r0, [r4]
 	bl HideUnitSMS
-	bl ClearMOVEUNITs
+	bl MU_EndAll
 	ldr r0, [r4]
-	bl MakeMOVEUNITForMapUnit
+	bl MU_Create
 	adds r0, r5, #0
 	movs r1, #1
 	bl Proc_GotoLabel
@@ -1209,10 +1209,10 @@ _0801D2A8:
 	subs r1, #0x43
 	ands r0, r1
 	str r0, [r2, #0xc]
-	bl ClearMOVEUNITs
+	bl MU_EndAll
 	ldr r0, [r4]
-	bl MakeMOVEUNITForMapUnit
-	bl _MOVEUNIT6C_SetDefaultFacingDirection
+	bl MU_Create
+	bl MU_SetDefaultFacing_Auto
 	ldr r0, _0801D2EC  @ gUnknown_0202BCF0
 	ldrb r0, [r0, #0xd]
 	cmp r0, #0
@@ -1336,7 +1336,7 @@ _0801D3D0:
 	lsls r0, r0, #0x18
 	cmp r0, #0
 	beq _0801D3F8
-	bl ClearMOVEUNITs
+	bl MU_EndAll
 	bl RefreshFogAndUnitMaps
 	bl UpdateGameTilesGraphics
 	bl SMS_UpdateFromGameData
@@ -1346,7 +1346,7 @@ _0801D3D0:
 	bl Proc_GotoLabel
 	b _0801D3FC
 _0801D3F8:
-	bl ClearMOVEUNITs
+	bl MU_EndAll
 _0801D3FC:
 	pop {r4, r5}
 	pop {r0}
@@ -1366,7 +1366,7 @@ sub_801D404: @ 0x0801D404
 	bl RefreshFogAndUnitMaps
 	bl UpdateGameTilesGraphics
 	bl SMS_UpdateFromGameData
-	bl ClearMOVEUNITs
+	bl MU_EndAll
 _0801D428:
 	pop {r0}
 	bx r0
@@ -1636,7 +1636,7 @@ sub_801D624: @ 0x0801D624
 	ldrsb r2, [r0, r2]
 	bl sub_801A82C
 	ldr r0, _0801D648  @ gUnknown_02033EFC
-	bl _MOVEUNIT6C_ChangeFutureMovement
+	bl MU_StartMoveScript_Auto
 	pop {r0}
 	bx r0
 	.align 2, 0
@@ -1647,7 +1647,7 @@ _0801D648: .4byte gUnknown_02033EFC
 PlayerPhase_WaitForUnitMovement: @ 0x0801D64C
 	push {r4, lr}
 	adds r4, r0, #0
-	bl IsThereAMovingMoveunit
+	bl MU_IsAnyActive
 	lsls r0, r0, #0x18
 	cmp r0, #0
 	bne _0801D660
@@ -1742,7 +1742,7 @@ sub_801D6FC: @ 0x0801D6FC
 	THUMB_FUNC_START MakeMoveunitForActiveUnit
 MakeMoveunitForActiveUnit: @ 0x0801D70C
 	push {r4, lr}
-	bl DoesMoveunitExist
+	bl MU_Exists
 	lsls r0, r0, #0x18
 	cmp r0, #0
 	bne _0801D74A
@@ -1766,11 +1766,11 @@ MakeMoveunitForActiveUnit: @ 0x0801D70C
 	cmp r1, #4
 	beq _0801D74A
 	adds r0, r2, #0
-	bl MakeMOVEUNITForMapUnit
+	bl MU_Create
 	ldr r0, [r4]
 	bl HideUnitSMS
 _0801D74A:
-	bl _MOVEUNIT6C_SetDefaultFacingDirection
+	bl MU_SetDefaultFacing_Auto
 	pop {r4}
 	pop {r0}
 	bx r0
@@ -1792,7 +1792,7 @@ ClearActiveUnit: @ 0x0801D75C
 	ldr r0, [r4]
 	cmp r0, #0
 	beq _0801D788
-	bl ClearMOVEUNITs
+	bl MU_EndAll
 	ldr r0, [r4]
 	ldr r1, [r0, #0xc]
 	movs r2, #2

@@ -269,7 +269,7 @@ MuCtr_SetupWithEventMoveBuffer: @ 0x08079E78
 	mov r1, r8
 	str r7, [r1, #0x2c]
 	adds r0, r7, #0
-	bl MakeMOVEUNITForMapUnit
+	bl MU_Create
 	mov r2, r8
 	str r0, [r2, #0x30]
 	str r5, [r2, #0x34]
@@ -348,7 +348,7 @@ _08079F30:
 	strb r1, [r0]
 	mov r3, r8
 	ldr r0, [r3, #0x30]
-	bl SetMOVEUNITField40To1
+	bl MU_Hide
 	add sp, #8
 	pop {r3, r4, r5}
 	mov r8, r3
@@ -378,7 +378,7 @@ _08079F98: .4byte gUnknown_089A2DB0
 	THUMB_FUNC_START SetAllMOVEUNITField44To1_
 SetAllMOVEUNITField44To1_: @ 0x08079F9C
 	push {lr}
-	bl SetAllMOVEUNITField44To1
+	bl MU_AllForceSetMaxMoveSpeed
 	pop {r0}
 	bx r0
 
@@ -552,7 +552,7 @@ sub_807A0E4: @ 0x0807A0E4
 	lsls r0, r0, #3
 	ldr r1, [r5, #0x34]
 	adds r4, r1, r0
-	bl sub_8079BE0
+	bl MU_SortObjLayers
 	ldr r0, [r5, #0x30]
 	adds r0, #0x44
 	ldrb r0, [r0]
@@ -609,7 +609,7 @@ _0807A14C:
 	ands r0, r1
 	str r0, [r4, #0xc]
 	ldr r0, [r5, #0x30]
-	bl SetMOVEUNITField40To1
+	bl MU_Hide
 	movs r0, #0x11
 	ldrsb r0, [r4, r0]
 	ldr r1, _0807A190  @ gUnknown_0202E4D8
@@ -637,9 +637,9 @@ sub_807A194: @ 0x0807A194
 	push {r4, r5, lr}
 	adds r4, r0, #0
 	ldr r5, [r4, #0x30]
-	bl sub_8079BE0
+	bl MU_SortObjLayers
 	adds r0, r5, #0
-	bl sub_8078770
+	bl MU_IsActive
 	lsls r0, r0, #0x18
 	cmp r0, #0
 	bne _0807A1F2
@@ -749,8 +749,8 @@ _0807A234:
 	bl SMS_UpdateFromGameData
 _0807A27A:
 	adds r0, r6, #0
-	bl EndMoveunitMaybe
-	bl sub_8079BE0
+	bl MU_End
+	bl MU_SortObjLayers
 	ldr r0, [r5, #0x34]
 	bl ClearEventMoveBuffer
 	pop {r4, r5, r6}
@@ -985,10 +985,10 @@ _0807A3EC:
 _0807A44C:
 	ldr r4, [r4, #0x30]
 	adds r0, r4, #0
-	bl sub_80797DC
+	bl MU_Show
 	adds r0, r4, #0
 	mov r1, r9
-	bl MOVEUNIT6C_ChangeFutureMovement
+	bl MU_StartMoveScript
 	ldr r0, [r7]
 	lsls r0, r0, #0xe
 	lsrs r1, r0, #0x1a
@@ -1000,20 +1000,20 @@ _0807A44C:
 	orrs r1, r0
 _0807A46E:
 	adds r0, r4, #0
-	bl sub_807953C
+	bl MU_SetMoveConfig
 	movs r0, #4
 	ands r5, r0
 	cmp r5, #0
 	beq _0807A48C
 	adds r0, r4, #0
-	bl MOVEUNIT6C_SetCameraFollow
+	bl MU_EnableAttractCamera
 	b _0807A492
 	.align 2, 0
 _0807A484: .4byte 0x0000FFFE
 _0807A488: .4byte gUnknown_0202E4F0
 _0807A48C:
 	adds r0, r4, #0
-	bl MOVEUNIT6C_UnsetCameraFollow
+	bl MU_DisableAttractCamera
 _0807A492:
 	adds r0, r6, #0
 	bl HideUnitSMS

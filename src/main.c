@@ -42,7 +42,7 @@ void AgbMain()
     sub_80A2C3C();
     Proc_Initialize();
     AP_ClearAll();
-    ResetMoveunitStructs();
+    MU_Init();
     SetLCGRNValue(0x42D690E9);
     InitRN(AdvanceGetLCGRNValue());
     sub_8000D0C();

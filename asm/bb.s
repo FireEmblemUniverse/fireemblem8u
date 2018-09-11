@@ -778,8 +778,8 @@ _08035A6E:
 _08035A84: .4byte gUnknown_0202BCB0
 _08035A88:
 	adds r0, r4, #0
-	bl MakeMOVEUNITForMapUnit
-	bl MOVEUNIT6C_807959C
+	bl MU_Create
+	bl MU_StartDeathFade
 	ldrh r0, [r6]
 	adds r0, #1
 	strh r0, [r6]

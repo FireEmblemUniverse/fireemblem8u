@@ -151,7 +151,7 @@ _InitFontForUIDefault: @ 0x0807A800
 	THUMB_FUNC_START MapAnim_Cleanup
 MapAnim_Cleanup: @ 0x0807A80C
 	push {lr}
-	bl ResetAllMoveunitAnims
+	bl MU_AllRestartAnimations
 	bl sub_8003D20
 	bl DeleteBattleAnimInfoThing
 	bl SetupBackgroundForWeatherMaybe
@@ -161,7 +161,7 @@ MapAnim_Cleanup: @ 0x0807A80C
 	lsls r0, r0, #0x18
 	cmp r0, #0
 	beq _0807A834
-	bl ClearMOVEUNITs
+	bl MU_EndAll
 _0807A834:
 	pop {r0}
 	bx r0
@@ -440,7 +440,7 @@ _0807AA2A:
 	adds r1, #8
 	adds r0, r0, r1
 	ldr r0, [r0]
-	bl MOVEUNIT6C_807959C
+	bl MU_StartDeathFade
 _0807AA42:
 	pop {r0}
 	bx r0
@@ -758,11 +758,11 @@ _0807AC74:
 	ldr r0, [r4]
 	adds r1, r6, #0
 	adds r1, #8
-	bl sub_8079B6C
+	bl MU_SetPaletteId
 	ldr r0, [r4]
 	ldr r2, _0807ACA8  @ gUnknown_089A8F74
 	movs r1, #0xe
-	bl ChangeMOVEUNITDataMaybe
+	bl MU_SetSpecialSprite
 _0807ACA2:
 	pop {r4, r5, r6, r7}
 	pop {r0}
@@ -1673,7 +1673,7 @@ MakeBattleMOVEUNIT: @ 0x0807B334
 	adds r0, r4, r0
 	str r7, [r0]
 	mov r0, r8
-	bl MakeMOVEUNITForMapUnit
+	bl MU_Create
 	adds r5, #8
 	adds r4, r4, r5
 	str r0, [r4]
@@ -1692,7 +1692,7 @@ MakeBattleMOVEUNIT: @ 0x0807B334
 	bne _0807B384
 _0807B37E:
 	ldr r0, [r4]
-	bl SetMOVEUNITField40To1
+	bl MU_Hide
 _0807B384:
 	mov r0, r8
 	adds r0, #0x30
@@ -1712,7 +1712,7 @@ _0807B396:
 	adds r1, r1, r0
 	ldr r0, [r1]
 	movs r1, #0xf
-	bl sub_8079B6C
+	bl MU_SetPaletteId
 _0807B3AA:
 	pop {r3, r4}
 	mov r8, r3
@@ -1766,7 +1766,7 @@ _0807B3D6:
 	adds r5, #8
 	adds r4, r4, r5
 	ldr r0, [r4]
-	bl MOVEUNIT6C_SetSpriteDirection
+	bl MU_SetFacing
 	b _0807B45A
 	.align 2, 0
 _0807B414: .4byte gUnknown_0203E1F0
@@ -1778,7 +1778,7 @@ _0807B418:
 	adds r0, #8
 	adds r1, r1, r0
 	ldr r0, [r1]
-	bl MOVEUNIT6C_SetDefaultSpriteDirection
+	bl MU_SetDefaultFacing
 	b _0807B45A
 	.align 2, 0
 _0807B42C: .4byte gUnknown_0203E1F0
@@ -1801,7 +1801,7 @@ _0807B430:
 	adds r5, #8
 	adds r4, r4, r5
 	ldr r0, [r4]
-	bl MOVEUNIT6C_SetSpriteDirection
+	bl MU_SetFacing
 _0807B45A:
 	pop {r4, r5, r6}
 	pop {r0}
@@ -3947,7 +3947,7 @@ sub_807C568: @ 0x0807C568
 	push {r5, r6, r7}
 	sub sp, #4
 	mov sl, r0
-	bl ClearMOVEUNITs
+	bl MU_EndAll
 	bl Font_InitForUIDefault
 	movs r0, #2
 	movs r1, #8
@@ -4661,7 +4661,7 @@ _0807CAFE:
 	THUMB_FUNC_START sub_807CB04
 sub_807CB04: @ 0x0807CB04
 	push {lr}
-	bl ResetAllMoveunitAnims
+	bl MU_AllRestartAnimations
 	bl sub_8003D20
 	bl DeleteBattleAnimInfoThing
 	bl SetupBackgroundForWeatherMaybe
@@ -4985,7 +4985,7 @@ sub_807CDB8: @ 0x0807CDB8
 	bl RefreshFogAndUnitMaps
 	bl UpdateGameTilesGraphics
 	bl SMS_UpdateFromGameData
-	bl ClearMOVEUNITs
+	bl MU_EndAll
 	pop {r0}
 	bx r0
 
@@ -5331,7 +5331,7 @@ _0807D044:
 	bl RefreshFogAndUnitMaps
 	bl UpdateGameTilesGraphics
 	bl SMS_UpdateFromGameData
-	bl ClearMOVEUNITs
+	bl MU_EndAll
 	pop {r4, r5, r6, r7}
 	pop {r0}
 	bx r0
@@ -13629,7 +13629,7 @@ MapAnim_AnimateSubjectIdle: @ 0x08081278
 	adds r2, #8
 	adds r0, r0, r2
 	ldr r0, [r0]
-	bl SetupSomeMoveunitAnim
+	bl MU_StartActionAnim
 	pop {r0}
 	bx r0
 	.align 2, 0
@@ -13648,7 +13648,7 @@ MapAnim_SubjectResetAnim: @ 0x0808129C
 	adds r2, #8
 	adds r0, r0, r2
 	ldr r0, [r0]
-	bl sub_80798E8
+	bl MU_StartDelayedFaceTarget
 	pop {r0}
 	bx r0
 	.align 2, 0
@@ -13821,7 +13821,7 @@ MapAnim_BeginSubjectFastAnim: @ 0x080813F8
 	adds r2, #8
 	adds r0, r0, r2
 	ldr r0, [r0]
-	bl MOVEUNIT_Begin20FramesFastAnim
+	bl MU_StartFastMoveAnim
 	pop {r0}
 	bx r0
 	.align 2, 0
@@ -14384,7 +14384,7 @@ _080817FA:
 	lsls r1, r1, #0x18
 	lsrs r1, r1, #0x18
 	adds r0, r5, #0
-	bl sub_8079970
+	bl MU_StartCritFlash
 	bl NewBG0Shaker
 	mov r1, r9
 	ldr r0, [r1]
@@ -14399,7 +14399,7 @@ _080817FA:
 	bl PlaySpacialSoundMaybe
 	adds r4, r4, r6
 	ldr r0, [r4]
-	bl MOVEUNIT_Begin20FramesFastAnim
+	bl MU_StartFastMoveAnim
 	b _080818C4
 	.align 2, 0
 _08081878: .4byte gUnknown_0203E1F0
@@ -14435,7 +14435,7 @@ _08081880:
 	lsls r1, r1, #0x18
 	lsrs r1, r1, #0x18
 	adds r0, r4, #0
-	bl sub_8079A74
+	bl MU_StartHitFlash
 _080818C4:
 	add sp, #4
 	pop {r3, r4, r5}
@@ -15001,7 +15001,7 @@ sub_8081CD4: @ 0x08081CD4
 	adds r0, r0, r2
 	ldr r0, [r0]
 	movs r1, #0
-	bl sub_8079804
+	bl MU_StartFlashFade
 	pop {r0}
 	bx r0
 	.align 2, 0
@@ -15020,7 +15020,7 @@ sub_8081CF8: @ 0x08081CF8
 	adds r2, #8
 	adds r0, r0, r2
 	ldr r0, [r0]
-	bl sub_8079858
+	bl MU_8079858
 	pop {r0}
 	bx r0
 	.align 2, 0
@@ -15039,7 +15039,7 @@ sub_8081D1C: @ 0x08081D1C
 	adds r2, #8
 	adds r0, r0, r2
 	ldr r0, [r0]
-	bl SetMOVEUNITField40To1
+	bl MU_Hide
 	pop {r0}
 	bx r0
 	.align 2, 0
@@ -15138,7 +15138,7 @@ sub_8081DE0: @ 0x08081DE0
 	adds r2, #8
 	adds r0, r0, r2
 	ldr r0, [r0]
-	bl sub_80797DC
+	bl MU_Show
 	pop {r0}
 	bx r0
 	.align 2, 0
@@ -15168,7 +15168,7 @@ sub_8081E04: @ 0x08081E04
 	adds r4, #0x61
 	ldrb r2, [r4]
 	lsls r2, r2, #4
-	bl MOVEUNIT6C_SetDisplayPos
+	bl MU_SetDisplayPosition
 	ldrb r0, [r5]
 	strb r0, [r6, #0x10]
 	ldrb r0, [r4]
@@ -15199,7 +15199,7 @@ sub_8081E60: @ 0x08081E60
 	bl RefreshFogAndUnitMaps
 	bl UpdateGameTilesGraphics
 	bl SMS_UpdateFromGameData
-	bl ClearMOVEUNITs
+	bl MU_EndAll
 	pop {r0}
 	bx r0
 

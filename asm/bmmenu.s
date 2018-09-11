@@ -4564,9 +4564,9 @@ RideCommandEffect: @ 0x08024920
 	ldr r4, _08024948  @ gUnknown_03004E50
 	ldr r0, [r4]
 	bl RideBallista
-	bl ClearMOVEUNITs
+	bl MU_EndAll
 	ldr r0, [r4]
-	bl MakeMOVEUNITForMapUnit
+	bl MU_Create
 	movs r0, #0x17
 	pop {r4}
 	pop {r1}
@@ -4613,9 +4613,9 @@ sub_8024980: @ 0x08024980
 	ldr r4, _080249A8  @ gUnknown_03004E50
 	ldr r0, [r4]
 	bl TryRemoveUnitFromBallista
-	bl ClearMOVEUNITs
+	bl MU_EndAll
 	ldr r0, [r4]
-	bl MakeMOVEUNITForMapUnit
+	bl MU_Create
 	movs r0, #0x17
 	pop {r4}
 	pop {r1}

@@ -4,8 +4,8 @@
 gUnknown_089A2DB0:  @ 0x089A2DB0
 	.incbin "baserom.gba", 0x9A2DB0, 0x50
 
-	.global gUnknown_089A2E00
-gUnknown_089A2E00:  @ 0x089A2E00
+	.global gMMSDataTable
+gMMSDataTable:  @ 0x089A2E00
 	.incbin "baserom.gba", 0x9A2E00, 0x3F8
 
 	.global gUnknown_089A31F8
