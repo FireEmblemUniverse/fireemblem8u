@@ -31,50 +31,48 @@ enum {
 enum {
 	// Possible MU States
 
-	MU_STATE_IDLE,
-	MU_STATE_IDLE_EXEC,
-	MU_STATE_MOVING_EXEC,
+	MU_STATE_NOSTATE,
+	MU_STATE_NONACTIVE,
+	MU_STATE_MOVEMENT,
 	MU_STATE_WAITING,
-	MU_STATE_SOMETHING_END,
-	MU_STATE_WAITING_FOR_SOMETHING_TO_FINISH,
+	MU_STATE_UNK4,
+	MU_STATE_BUMPING,
 	MU_STATE_UI_DISPLAY,
-	MU_STATE_7,
+	MU_STATE_DEATHFADE,
 };
 
 enum {
 	// MU command identifiers
 
-	MU_COMMAND_FF = -1, // end
+	MU_COMMAND_END = -1, // end
 
 	MU_COMMAND_MOVE_BASE,
 
-	MU_COMMAND_0 = MU_COMMAND_MOVE_BASE + 0,
-	MU_COMMAND_1 = MU_COMMAND_MOVE_BASE + 1,
-	MU_COMMAND_2 = MU_COMMAND_MOVE_BASE + 2,
-	MU_COMMAND_3 = MU_COMMAND_MOVE_BASE + 3,
+	MU_COMMAND_MOVE_LEFT  = MU_COMMAND_MOVE_BASE + 0,
+	MU_COMMAND_MOVE_RIGHT = MU_COMMAND_MOVE_BASE + 1,
+	MU_COMMAND_MOVE_DOWN  = MU_COMMAND_MOVE_BASE + 2,
+	MU_COMMAND_MOVE_UP    = MU_COMMAND_MOVE_BASE + 3,
 
-	MU_COMMAND_4,
+	MU_COMMAND_HALT,
 
-	MU_COMMAND_TURN_BASE,
+	MU_COMMAND_FACE_BASE,
 
-	MU_COMMAND_5 = MU_COMMAND_TURN_BASE + 0,
-	MU_COMMAND_6 = MU_COMMAND_TURN_BASE + 1,
-	MU_COMMAND_7 = MU_COMMAND_TURN_BASE + 2,
-	MU_COMMAND_8 = MU_COMMAND_TURN_BASE + 3,
+	MU_COMMAND_FACE_LEFT  = MU_COMMAND_FACE_BASE + 0,
+	MU_COMMAND_FACE_RIGHT = MU_COMMAND_FACE_BASE + 1,
+	MU_COMMAND_FACE_DOWN  = MU_COMMAND_FACE_BASE + 2,
+	MU_COMMAND_FACE_UP    = MU_COMMAND_FACE_BASE + 3,
 
-	MU_COMMAND_9,
-	MU_COMMAND_10,
-	MU_COMMAND_11,
-	MU_COMMAND_12,
+	MU_COMMAND_WAIT,
+	MU_COMMAND_BUMP,
+	MU_COMMAND_UNK11,
+	MU_COMMAND_SET_SPEED,
 
-	MU_COMMAND_13,
-
-	MU_COMMAND_14,
-	MU_COMMAND_15,
+	MU_COMMAND_CAMERA_ON,
+	MU_COMMAND_CAMERA_OFF,
 };
 
 enum {
-	// MU fade identifiers
+	// MU flash identifiers
 
 	MU_FLASH_0,
 	MU_FLASH_1,
@@ -92,7 +90,7 @@ struct MUProc {
 	/* 2C */ struct Unit* pUnit;
 	/* 30 */ struct APHandle* pAPHandle;
 	/* 34 */ struct MUConfig* pMUConfig;
-	/* 38 */ void* vramPtr_maybe;
+	/* 38 */ void* pGfxVRAM;
 
 	/* 3C */ u8 muIndex;
 	/* 3D */ u8 _u3D;
@@ -100,13 +98,12 @@ struct MUProc {
 	/* 3F */ u8 stateId;
 	/* 40 */ u8 boolIsHidden;
 	/* 41 */ u8 displayedClassId;
-	/* 42 */ s8 directionId_maybe;
+	/* 42 */ s8 directionId;
 	/* 43 */ u8 stepSoundTimer;
 	/* 44 */ u8 boolForceMaxSpeed;
-	/* 45 */ u8 _u45;
 	/* 46 */ u16 objPriorityBits;
 	/* 48 */ u16 moveTimer;
-	/* 4A */ short moveSpeedConfig;
+	/* 4A */ short moveConfig;
 
 	// Coordinates are in 16th of pixel
 	/* 4C */ short xSubPosition;
@@ -133,8 +130,6 @@ struct MMSData {
 struct PositionS16 {
 	short x, y;
 };
-
-typedef void(*MUStateHandlerFunc)(struct MUProc*);
 
 // Buffer for MU graphics
 // what to do with this?
@@ -170,9 +165,11 @@ void MOVEUNIT6C_ChangeFutureMovement(struct MUProc* proc, const u8 commands[MU_C
 struct MUProc* sub_80787C4(u16 x, u16 y, u16 classIndex, unsigned palId, const u8 commands[MU_COMMAND_MAX_COUNT]);
 
 void NewSoundStepPlay6C(int soundId, int b, int hPosition);
-u8 Does6C_89A2968Exist(void);
 
 void __MOVEUNIT6C_PlaySoundStepByClass(struct MUProc* proc);
+
+void MU_StartFogBumpFx(int x, int y);
+u8 Does6C_89A2968Exist(void);
 
 void ClearMOVEUNITs(void);
 void EndMoveunitMaybe(struct MUProc* proc);
@@ -180,13 +177,13 @@ void EndMoveunitMaybe(struct MUProc* proc);
 void BlockAll6CMarked4(void);
 void UnblockAll6CMarked4(void);
 
-void sub_80790F8(int* xOut, int* yOut, const u8* commands);
+void MU_GetComputedEndPosition(int* xOut, int* yOut, const u8* commands);
 
 int IsSomeMOVEUNITRelatedStructAvailable(void);
 
 void ResetAllMoveunitAnims(void);
 
-u8 GetMOVEUNITDisplayPosition(struct MUProc* proc, struct PositionS16* out);
+u8 MU_ComputeDisplayPosition(struct MUProc* proc, struct PositionS16* out);
 
 void sub_807953C(struct MUProc* proc, u16 config);
 
