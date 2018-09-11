@@ -37,6 +37,19 @@ struct MUStepSoundProc {
 	/* 66 */ short u66;
 };
 
+struct SomeProc {
+	PROC_HEADER;
+
+	/* 2C */ int xDisplay;
+	/* 30 */ int yDisplay;
+
+	/* 34 */ u8 _pad34[0x50 - 0x34];
+
+	/* 50 */ struct APHandle* pAPHandle;
+	/* 54 */ u8 _pad54[0x64 - 0x54];
+	/* 64 */ short u64;
+};
+
 struct MUEffectProc {
 	PROC_HEADER;
 
@@ -79,6 +92,14 @@ void TCS_HaltAnim2(int argAp);
 void sub_807990C(int argAp);
 void TCS_HaltAnim(int argAp);
 void SetMOVEUNITField44To1(struct Proc* proc);
+
+static void Init6C_89A2938(struct MUStepSoundProc* proc);
+static void Call89A2938_PlaySound1(struct MUStepSoundProc* proc);
+static void Call89A2938_PlaySound2(struct MUStepSoundProc* proc);
+
+static void Call6C_89A2968(struct SomeProc*);
+static void Loop6C_89A2968_1(struct SomeProc*);
+static void Loop6C_89A2968_2(struct SomeProc*);
 
 static void sub_8078C58(struct MUProc* proc);
 static void nullsub_54(struct MUProc* proc);
@@ -124,13 +145,43 @@ static struct MUConfig sMUConfigArray[MU_MAX_COUNT];
 #   define CONST_DATA const __attribute__((section(".data")))
 #endif // CONST_DATA
 
-extern CONST_DATA u16* gUnknown_089A2920[];
+CONST_DATA u16* gUnknown_089A2920[] = {
+	gUnknown_0859A140,
+	gUnknown_0859A120,
+	gUnknown_0859A160,
+	gUnknown_0859A180,
+	gUnknown_0859A1A0,
+	gUnknown_0859A1C0,
+};
 
-extern CONST_DATA struct ProcCmd gUnknown_089A2938[]; // gProc_MUStepSound
+// gProc_MUStepSound
+CONST_DATA struct ProcCmd gUnknown_089A2938[] = {
+	PROC_CALL_ROUTINE(Init6C_89A2938),
 
-extern CONST_DATA short gUnknown_089A2988[]; // gDirectionMoveOffsetLookup
+	PROC_SLEEP(0),
+	PROC_CALL_ROUTINE(Call89A2938_PlaySound1),
 
-extern CONST_DATA struct ProcCmd gUnknown_089A2968[];
+	PROC_SLEEP(0),
+	PROC_CALL_ROUTINE(Call89A2938_PlaySound2),
+
+	PROC_END
+};
+
+CONST_DATA struct ProcCmd gUnknown_089A2968[] = {
+	PROC_CALL_ROUTINE(Call6C_89A2968),
+	PROC_LOOP_ROUTINE(Loop6C_89A2968_1),
+	PROC_LOOP_ROUTINE(Loop6C_89A2968_2),
+
+	PROC_END
+};
+
+// gDirectionMoveOffsetLookup
+static CONST_DATA short gUnknown_089A2988[] = {
+	-1,  0, // left
+	+1,  0, // right
+	0,  +1, // up
+	0,  -1, // down
+};
 
 // START MU SFX DEFINITIONS
 
@@ -914,19 +965,6 @@ void Moveunit_ExecMoveCommand(struct MUProc* proc) {
 
 	#undef MU_AdvanceGetCommand
 }
-
-struct SomeProc {
-	PROC_HEADER;
-
-	/* 2C */ int xDisplay;
-	/* 30 */ int yDisplay;
-
-	/* 34 */ u8 _pad34[0x50 - 0x34];
-
-	/* 50 */ struct APHandle* pAPHandle;
-	/* 54 */ u8 _pad54[0x64 - 0x54];
-	/* 64 */ short u64;
-};
 
 void DisplayFogThingMaybe(int x, int y) {
 	struct APHandle* ap;
