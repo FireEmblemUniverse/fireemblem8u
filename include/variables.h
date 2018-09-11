@@ -3138,7 +3138,7 @@ extern const struct ItemData gItemData[];
 // extern ??? gUnknown_089A2D10
 // extern ??? gUnknown_089A2D98
 // extern ??? gUnknown_089A2DB0
-// extern ??? gMMSDataTable
+extern const struct MMSData gMMSDataTable[]; // Moving Map Sprite Table
 // extern ??? gUnknown_089A31F8
 // extern ??? gUnknown_089A3238
 // extern ??? gUnknown_089A3288

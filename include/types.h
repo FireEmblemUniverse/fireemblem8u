@@ -600,4 +600,9 @@ struct MapAnimState {
 	/* 61 */ u8 u61;
 };
 
+struct MMSData {
+    const void* pGraphics;
+    const void* pAnimation;
+};
+
 #endif  // GUARD_TYPES_H

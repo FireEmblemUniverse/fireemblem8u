@@ -122,11 +122,6 @@ struct MUConfig {
     /* 48 */ struct MUProc* pMUProc;
 };
 
-struct MMSData {
-    const void* pGraphics;
-    const void* pAnimation;
-};
-
 struct PositionS16 {
     short x, y;
 };
