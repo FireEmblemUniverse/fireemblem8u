@@ -4,6 +4,7 @@
 #include "hardware.h"
 #include "proc.h"
 #include "rng.h"
+#include "mu.h"
 #include "soundwrapper.h"
 
 EWRAM_DATA static struct KeyStatusBuffer sKeyStatusBuffer = {0};

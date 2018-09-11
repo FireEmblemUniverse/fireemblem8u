@@ -1,6 +1,9 @@
 #include "global.h"
+
 #include "proc.h"
 #include "fontgrp.h"
+#include "mu.h"
+
 #include "event.h"
 
 // TODO: move those where they belong when possible

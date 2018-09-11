@@ -136,6 +136,87 @@ struct PositionS16 {
 
 typedef void(*MUStateHandlerFunc)(struct MUProc*);
 
+// Buffer for MU graphics
+// what to do with this?
 extern u8 gUnknown_02004BE0[];
+
+// FUNCTIONS
+
+void ResetMoveunitStructs();
+
+struct MUProc* Make6CMOVEUNITForUnit(struct Unit* pUnit, unsigned classIndex, unsigned palId);
+struct MUProc* MakeMOVEUNITForMapUnit(struct Unit* pUnit);
+
+void sub_80784D8(struct MUProc* proc);
+
+void MOVEUNIT6C_SetCameraFollow(struct MUProc* proc);
+void MOVEUNIT6C_UnsetCameraFollow(struct MUProc* proc);
+
+struct MUProc* Make6CMOVEUNITForUI(struct Unit* pUnit, int x, int y);
+
+void sub_8078524(struct MUProc* proc);
+
+void MOVEUNIT6C_SetSpriteDirection(struct MUProc* proc, int directionId);
+void MOVEUNIT6C_SetDefaultSpriteDirection(struct MUProc* proc);
+void _MOVEUNIT6C_SetDefaultFacingDirection(void);
+void _MOVEUNIT6C_ChangeFutureMovement(const u8 commands[MU_COMMAND_MAX_COUNT]);
+
+int DoesMoveunitExist(void);
+int IsThereAMovingMoveunit(void);
+
+int sub_8078770(struct MUProc* proc);
+void MOVEUNIT6C_ChangeFutureMovement(struct MUProc* proc, const u8 commands[MU_COMMAND_MAX_COUNT]);
+
+struct MUProc* sub_80787C4(u16 x, u16 y, u16 classIndex, unsigned palId, const u8 commands[MU_COMMAND_MAX_COUNT]);
+
+void NewSoundStepPlay6C(int soundId, int b, int hPosition);
+u8 Does6C_89A2968Exist(void);
+
+void __MOVEUNIT6C_PlaySoundStepByClass(struct MUProc* proc);
+
+void ClearMOVEUNITs(void);
+void EndMoveunitMaybe(struct MUProc* proc);
+
+void BlockAll6CMarked4(void);
+void UnblockAll6CMarked4(void);
+
+void sub_80790F8(int* xOut, int* yOut, const u8* commands);
+
+int IsSomeMOVEUNITRelatedStructAvailable(void);
+
+void ResetAllMoveunitAnims(void);
+
+u8 GetMOVEUNITDisplayPosition(struct MUProc* proc, struct PositionS16* out);
+
+void sub_807953C(struct MUProc* proc, u16 config);
+
+void MOVEUNIT6C_807959C(struct MUProc* muProc);
+void sub_807968C(struct MUProc* muProc);
+void sub_8079788(struct MUProc* muProc);
+
+void SetMOVEUNITField40To1(struct MUProc* proc);
+void sub_80797DC(struct MUProc* proc);
+
+void MOVEUNIT6C_SetDisplayPos(struct MUProc* proc, int x, int y);
+void sub_80797F4(struct MUProc* proc, int xOff, int yOff);
+
+void sub_8079804(struct MUProc* proc, int flashType);
+void sub_8079858(struct MUProc* muProc);
+
+void SetupSomeMoveunitAnim(struct MUProc* proc);
+void sub_80798E8(struct MUProc* proc);
+void MOVEUNIT_Begin20FramesFastAnim(struct MUProc* proc);
+void sub_8079970(struct MUProc* muProc, int flashType);
+void sub_8079A74(struct MUProc* muProc, int flashType);
+
+void SetAllMOVEUNITField44To1(void);
+
+void ChangeMOVEUNITDataMaybe(struct MUProc* proc, int displayedClassId, const u16* palette);
+
+void sub_8079B6C(struct MUProc* proc, int paletteId);
+
+struct MUProc* GetExistingMoveunitForUnit(struct Unit* unit);
+
+void sub_8079BE0(void);
 
 #endif // GUARD_MU_H
