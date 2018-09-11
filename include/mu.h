@@ -215,7 +215,7 @@ void MU_AllForceSetMaxMoveSpeed(void);
 
 void MU_SetSpecialSprite(struct MUProc* proc, int displayedClassId, const u16* palette);
 
-void MU_SetPaletteId(struct MUProc* proc, int paletteId);
+void MU_SetPaletteId(struct MUProc* proc, unsigned paletteId);
 
 struct MUProc* MU_GetByUnit(struct Unit* unit);
 

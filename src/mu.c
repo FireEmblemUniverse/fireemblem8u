@@ -1853,45 +1853,12 @@ void MU_SetSpecialSprite(struct MUProc* proc, int displayedClassId, const u16* p
     CopyToPaletteBuffer(palette, (0x20 * (0x10 + proc->pMUConfig->paletteIndex)), 0x20);
 }
 
-#if NONMATCHING
-
-void MU_SetPaletteId(struct MUProc* proc, int paletteId) {
+void MU_SetPaletteId(struct MUProc* proc, unsigned paletteId) {
     proc->pMUConfig->paletteIndex = paletteId;
 
     proc->pAPHandle->tileBase =
-        ((proc->pMUConfig->paletteIndex & 0xF) << 12) + proc->pMUConfig->objTileIndex + proc->objPriorityBits;
+        proc->pMUConfig->objTileIndex + ((paletteId % 0x10) << 12) + proc->objPriorityBits;
 }
-
-#else // NONMATCHING
-
-__attribute__((naked))
-void MU_SetPaletteId(struct MUProc* proc, int paletteId) {
-    asm(
-        ".syntax unified\n"
-
-        "push {r4, lr}\n"
-        "ldr r2, [r0, #0x34]\n"
-        "strb r1, [r2, #1]\n"
-        "ldr r4, [r0, #0x30]\n"
-        "ldr r3, [r0, #0x34]\n"
-        "movs r2, #0xf\n"
-        "ands r2, r1\n"
-        "lsls r2, r2, #0xc\n"
-        "ldrh r3, [r3, #2]\n"
-        "adds r2, r2, r3\n"
-        "adds r0, #0x46\n"
-        "ldrh r0, [r0]\n"
-        "adds r0, r0, r2\n"
-        "strh r0, [r4, #0x22]\n"
-        "pop {r4}\n"
-        "pop {r0}\n"
-        "bx r0\n"
-
-        ".syntax divided\n"
-    );
-}
-
-#endif // NONMATCHING
 
 static struct MUProc* MU_GetByIndex(int muIndex) {
     if (!sMUConfigArray[muIndex].muIndex)
