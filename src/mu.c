@@ -670,19 +670,19 @@ static struct MUProc* MU_CreateInternal(u16 x, u16 y, u16 classIndex, int objTil
     struct MUProc* proc;
     struct APHandle* ap;
 
-    unsigned otherThing = 0;
-    u8 thing = 0;
+    u8 soundTimer = 0;
+    u8 muIndex = 0;
 
     if (objTileId == -1)
-        config = MU_GenerateConfigDefault(objTileId = MU_BASE_OBJ_TILE, &thing);
+        config = MU_GenerateConfigDefault(objTileId = MU_BASE_OBJ_TILE, &muIndex);
     else
-        config = MU_GenerateConfigOther(objTileId, &thing);
+        config = MU_GenerateConfigOther(objTileId, &muIndex);
 
     if (!config)
         return NULL;
 
     if (Proc_Find(gProcScr_MoveUnit))
-        otherThing = 0xFE;
+        soundTimer = -2;
 
     proc = (struct MUProc*) Proc_Create(gProcScr_MoveUnit, ROOT_PROC_5);
 
@@ -698,17 +698,17 @@ static struct MUProc* MU_CreateInternal(u16 x, u16 y, u16 classIndex, int objTil
     proc->xSubOffset = 0;
     proc->ySubOffset = 0;
 
-    proc->directionId = 11;
+    proc->facingId = MU_FACING_UNK11;
 
     proc->moveTimer = 0;
-    proc->stepSoundTimer = otherThing;
+    proc->stepSoundTimer = soundTimer;
 
     proc->displayedClassId = classIndex;
     proc->boolIsHidden = 0;
 
     proc->pGfxVRAM = OBJ_VRAM0 + (0x20 * objTileId);
 
-    proc->muIndex = thing;
+    proc->muIndex = muIndex;
 
     proc->objPriorityBits = 0x800;
 
@@ -718,7 +718,7 @@ static struct MUProc* MU_CreateInternal(u16 x, u16 y, u16 classIndex, int objTil
     config->paletteIndex = palId;
 
     ap = AP_Create(MU_GetAnimationByClassId(classIndex), 10);
-    AP_SwitchAnimation(ap, 4);
+    AP_SwitchAnimation(ap, MU_FACING_SELECTED);
 
     CopyDataWithPossibleUncomp(
         MU_GetSheetGfx(proc),
@@ -736,13 +736,13 @@ static struct MUProc* MU_CreateInternal(u16 x, u16 y, u16 classIndex, int objTil
     return proc;
 }
 
-void MU_SetFacing(struct MUProc* proc, int directionId) {
-    proc->directionId = directionId;
+void MU_SetFacing(struct MUProc* proc, int facingId) {
+    proc->facingId = facingId;
 
-    if (directionId == 15)
+    if (facingId == MU_FACING_STANDING)
         sub_8027068(proc->muIndex, proc->pGfxVRAM);
     else
-        AP_SwitchAnimation(proc->pAPHandle, proc->directionId);
+        AP_SwitchAnimation(proc->pAPHandle, proc->facingId);
 }
 
 void MU_SetDefaultFacing(struct MUProc* proc) {
@@ -773,13 +773,22 @@ int MU_Exists(void) {
 #if NONMATCHING
 
 int MU_IsAnyActive(void) {
+    struct MUProc* proc;
     int i;
 
-    for (i = 0; i < MU_MAX_COUNT; ++i)
-        if ((sMUConfigArray[i].muIndex) && (sMUConfigArray[i].pMUProc->stateId != MU_STATE_NONACTIVE))
-            return TRUE;
+    for (i = 0; i < MU_MAX_COUNT; ++i) {
+        if (sMUConfigArray[i].muIndex) {
+			proc = sMUConfigArray[i].pMUProc;
 
-    return FALSE;
+            if (proc->stateId != MU_STATE_NONACTIVE)
+				break;
+        }
+    }
+
+    if (i >= 4)
+        return FALSE;
+
+    return TRUE;
 }
 
 #else // NONMATCHING
@@ -936,7 +945,7 @@ static void MU_InterpretCommandScript(struct MUProc* proc) {
         case MU_COMMAND_MOVE_UP:
             command = command - MU_COMMAND_MOVE_BASE;
 
-            if (command != proc->directionId) {
+            if (command != proc->facingId) {
                 MU_GetAnimationByClassId(proc->displayedClassId); // TODO: FIXME: is this a bug?
                 MU_SetFacing(proc, command);
 
@@ -951,7 +960,7 @@ static void MU_InterpretCommandScript(struct MUProc* proc) {
         case MU_COMMAND_FACE_UP:
             command = command - MU_COMMAND_FACE_BASE;
 
-            if (command != proc->directionId) {
+            if (command != proc->facingId) {
                 MU_GetAnimationByClassId(proc->displayedClassId); // TODO: FIXME: is this a bug?
                 MU_SetFacing(proc, command);
             }
@@ -986,7 +995,7 @@ void MU_StartFogBumpFx(int x, int y) {
     ap = AP_Create(gUnknown_089A8EF8, 2);
 
     ap->tileBase = 0x1180;
-    AP_SwitchAnimation(ap, 0);
+    AP_SwitchAnimation(ap, MU_FACING_LEFT);
 
     proc = (struct MUFogBumpFxProc*) Proc_Create(sProcScr_MUFogBumpFx, ROOT_PROC_3);
 
@@ -1079,14 +1088,14 @@ static void MU_State_DuringMovement(struct MUProc* proc) {
 
     proc->moveTimer = moveSpeed + proc->moveTimer;
 
-    proc->xSubPosition += moveSpeed * sDirectionMoveOffsetLookup[proc->directionId * 2 + 0];
-    proc->ySubPosition += moveSpeed * sDirectionMoveOffsetLookup[proc->directionId * 2 + 1];
+    proc->xSubPosition += moveSpeed * sDirectionMoveOffsetLookup[proc->facingId * 2 + 0];
+    proc->ySubPosition += moveSpeed * sDirectionMoveOffsetLookup[proc->facingId * 2 + 1];
 
     if ((proc->moveTimer / 16) >= 16) {
         proc->moveTimer -= 0x100;
 
-        proc->xSubPosition -= proc->moveTimer * sDirectionMoveOffsetLookup[proc->directionId * 2 + 0];
-        proc->ySubPosition -= proc->moveTimer * sDirectionMoveOffsetLookup[proc->directionId * 2 + 1];
+        proc->xSubPosition -= proc->moveTimer * sDirectionMoveOffsetLookup[proc->facingId * 2 + 0];
+        proc->ySubPosition -= proc->moveTimer * sDirectionMoveOffsetLookup[proc->facingId * 2 + 1];
 
         proc->moveTimer = 0;
 
@@ -1236,7 +1245,7 @@ static void MU_OnLoop(struct MUProc* proc) {
         sMUStateHandlerFuncLookup[proc->stateId](proc);
     }
 
-    if (proc->directionId == 0xF) // TODO: MU_DIRECTION_SMS
+    if (proc->facingId == MU_FACING_STANDING)
         MU_DisplayAsSMS(proc);
     else
         MU_DisplayAsMMS(proc);
@@ -1686,7 +1695,7 @@ static void MU_807988C(struct MUEffectProc* proc) {
 }
 
 void MU_StartActionAnim(struct MUProc* proc) {
-    AP_SwitchAnimation(proc->pAPHandle, 4); // TODO: MU_ANIM_SELECTED
+    AP_SwitchAnimation(proc->pAPHandle, MU_FACING_SELECTED);
 
     proc->pAPHandle->frameTimer    = 0;
     proc->pAPHandle->frameInterval = 0x100;

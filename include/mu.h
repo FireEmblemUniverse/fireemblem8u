@@ -72,6 +72,22 @@ enum {
 };
 
 enum {
+    // MU facing identifiers
+
+    MU_FACING_LEFT,
+    MU_FACING_RIGHT,
+    MU_FACING_DOWN,
+    MU_FACING_UP,
+
+    MU_FACING_SELECTED,
+
+    // TODO: Which is MU_FACING_DANCING?
+
+    MU_FACING_UNK11    = 11, // The facing id at start
+    MU_FACING_STANDING = 15,
+};
+
+enum {
     // MU flash identifiers
 
     MU_FLASH_0,
@@ -98,7 +114,7 @@ struct MUProc {
     /* 3F */ u8 stateId;
     /* 40 */ u8 boolIsHidden;
     /* 41 */ u8 displayedClassId;
-    /* 42 */ s8 directionId;
+    /* 42 */ s8 facingId;
     /* 43 */ u8 stepSoundTimer;
     /* 44 */ u8 boolForceMaxSpeed;
     /* 46 */ u16 objPriorityBits;
@@ -151,7 +167,7 @@ struct MUProc* MU_CreateForUI(struct Unit* pUnit, int x, int y);
 
 void MU_8078524(struct MUProc* proc);
 
-void MU_SetFacing(struct MUProc* proc, int directionId);
+void MU_SetFacing(struct MUProc* proc, int facingId);
 void MU_SetDefaultFacing(struct MUProc* proc);
 void MU_SetDefaultFacing_Auto(void);
 void MU_StartMoveScript_Auto(const u8 commands[MU_COMMAND_MAX_COUNT]);
