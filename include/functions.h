@@ -969,8 +969,8 @@ void ClearCutsceneUnits(void); // bmunit?
 // ??? GetRescuingUnitNameId(???);
 // ??? WriteStatusTextToRAM(???);
 // ??? GetUnitStruct(???);
-// ??? GetROMClassStruct(???);
-struct ROMCharStruct *GetROMCharStruct();
+const struct ClassData* GetROMClassStruct(int classId);
+const struct CharacterData* GetROMCharStruct(int charId);
 // ??? UnitRemoveItem(???);
 // ??? CanUnitCrossTerrain(???);
 // ??? InitChapterMap(???);
