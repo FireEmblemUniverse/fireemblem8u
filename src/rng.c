@@ -100,7 +100,7 @@ void SetLCGRNValue(int seed) {
 }
 
 // The LCGRN state is advanced and retrieved here.
-int AdvanceGetLCGRNValue(void) {
+unsigned AdvanceGetLCGRNValue(void) {
     u32 rn = (gLCGRNValue * 4 + 2);
     rn *= (gLCGRNValue * 4 + 3);
     gLCGRNValue = rn >> 2;

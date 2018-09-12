@@ -146,7 +146,11 @@ struct Struct0202BCF0 // Chapter Data Struct
 
     u32 unk41_1:1;
     u32 unk41_2:1;
-    u32 unk41_3:6;
+    u32 unk41_3:2;
+    u32 unk41_5:1;
+    u32 unk41_6:1;
+    u32 unk41_7:1;
+    u32 unk41_8:1;
 
     u32 unk42_1:1;
     u32 unk42_2:1;
