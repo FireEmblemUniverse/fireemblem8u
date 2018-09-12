@@ -838,3 +838,99 @@ int sub_8030CC0(void) {
 
 	return gUnknown_0202BCF0.unk41_5;
 }
+
+void sub_8030CF4(int r5, s8 r6) {
+	CpuFill16(0, &gUnknown_0202BCF0, sizeof(gUnknown_0202BCF0));
+
+	gUnknown_0202BCF0.chapterIndex = 0;
+
+	if (r5)
+		gUnknown_0202BCF0.chapterStateBits |= 0x40; // TODO: CHAPTER STATE BITS DEFINITIONS
+
+	// TODO: WHAT ARE THOSE
+
+	gUnknown_0202BCF0.unk42_6 = r6;
+	gUnknown_0202BCF0.unk42_2 = 0;
+	gUnknown_0202BCF0.unk40_2 = 0;
+	gUnknown_0202BCF0.unk40_3 = 0;
+	gUnknown_0202BCF0.unk40_5 = 0;
+	gUnknown_0202BCF0.unk40_6 = 1; // TODO: (DEFAULT?) TEXT SPEED DEFINITIONS
+	gUnknown_0202BCF0.unk40_8 = 0;
+	gUnknown_0202BCF0.unk41_1 = 0;
+	gUnknown_0202BCF0.unk41_2 = 0;
+	gUnknown_0202BCF0.unk41_3 = 0;
+	gUnknown_0202BCF0.unk41_7 = 0;
+	gUnknown_0202BCF0.unk41_8 = 0;
+	gUnknown_0202BCF0.unk42_4 = 0;
+	gUnknown_0202BCF0.unk42_8 = 0;
+	gUnknown_0202BCF0.unk43_2 = 0;
+	gUnknown_0202BCF0.unk40_1 = 0;
+	gUnknown_0202BCF0.unk41_5 = 0;
+}
+
+void ResetGameState(void) {
+	int logicLock = gUnknown_0202BCB0.gameLogicSemaphore;
+
+	CpuFill16(0, &gUnknown_0202BCB0, sizeof(gUnknown_0202BCB0));
+	gUnknown_0202BCB0.gameLogicSemaphore = logicLock;
+}
+
+/*
+
+void SomeUpdateRoutine(void);
+void SetMainUpdateRoutine(void(*)(void));
+void GeneralVBlankHandler(void);
+void sub_80156D4(void);
+void SetupMapSpritesPalettes(void);
+void ClearLocalEvents(void);
+void SMS_ClearUsageTable(void);
+void ClearMenuRelatedList(void);
+void ResetTraps(void);
+int GetChapterThing(void);
+void InitChapterMap(int);
+void AddSnagsAndWalls(void);
+
+void SetupChapter(struct Proc* gameCtrl) {
+	int i;
+
+	SetupBackgrounds(NULL);
+
+	SetMainUpdateRoutine(SomeUpdateRoutine);
+	SetInterrupt_LCDVBlank(GeneralVBlankHandler);
+
+	ResetGameState();
+	sub_80156D4();
+	SetupMapSpritesPalettes();
+	ClearLocalEvents();
+	SMS_ClearUsageTable();
+	ClearMenuRelatedList();
+	ResetTraps();
+
+	gUnknown_0202BCF0.chapterPhaseIndex = 0x40; // TODO: PHASE/ALLEGIANCE DEFINITIONS
+	gUnknown_0202BCF0.chapterTurnNumber = 0;
+
+	if (GetChapterThing() == 2) // TODO: BATTLE MAP/CHAPTER/OBJECTIVE TYPE DEFINITION (STORY/TOWER/SKIRMISH)
+		gUnknown_0202BCF0.chapterVisionRange = (NextRN_100() & 1) * 3;
+	else
+		gUnknown_0202BCF0.chapterVisionRange = GetROMChapterStruct(gUnknown_0202BCF0.chapterIndex)->initialFogLevel;
+
+	gUnknown_0202BCF0.chapterWeatherId = GetROMChapterStruct(gUnknown_0202BCF0.chapterIndex)->initialWeather;
+
+	SetupBackgroundForWeatherMaybe();
+	InitChapterMap(gUnknown_0202BCF0.chapterIndex);
+	AddSnagsAndWalls();
+
+	gUnknown_0202BCF0.unk4 = GetGameClock();
+	gUnknown_0202BCF0.chapterTotalSupportGain = 0;
+
+	gUnknown_0202BCF0.unk48 = 0;
+	gUnknown_0202BCF0.unk4A_1 = 0;
+	gUnknown_0202BCF0.unk4B = 0;
+	gUnknown_0202BCF0.unk4A_5 = 0;
+
+	for (i = 1; i < 0x40; ++i) {
+		struct Unit* unit = GetUnit(i);
+	}
+}
+
+*/

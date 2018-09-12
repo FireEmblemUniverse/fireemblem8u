@@ -108,6 +108,30 @@ struct Struct0202BCB0 // Game State Struct
 
     /* 0C */ short xCameraReal;
     /* 0E */ short yCameraReal;
+
+    /* 10 */ u32 _unk10;
+
+    /* 14 */ short xPlayerCursor;
+    /* 16 */ short yPlayerCursor;
+
+    /* 18 */ u32 _unk18;
+
+    /* 1C */ short xUnk1C;
+    /* 1E */ short yUnk1C;
+
+    /* 20 */ short xPlayerCursorDisplay;
+    /* 22 */ short yPlayerCursorDisplay;
+
+    /* 24 */ short xUnk24;
+    /* 26 */ short yUnk24;
+
+    /* 28 */ short xUnk28;
+    /* 2A */ short yUnk28;
+
+    /* 2C */ u16 itemUnk2C;
+    /* 2E */ u16 itemUnk2E;
+
+    /* 30 */ u8 _pad30[0x40 - 0x30];
 };
 
 struct Struct0202BCF0 // Chapter Data Struct
@@ -139,36 +163,37 @@ struct Struct0202BCF0 // Chapter Data Struct
 
     /* 20 */ char playerName[0x40 - 0x20]; // unused outside of link arena (was tactician name in FE7); Size unknown
 
-    // option byte 1 (of 3)
-    u32 unk40_1:5;
-    u32 unk40_6:2; // text speed
-    u32 unk40_8:1;
-
-    u32 unk41_1:1;
-    u32 unk41_2:1;
-    u32 unk41_3:2;
-    u32 unk41_5:1;
-    u32 unk41_6:1;
-    u32 unk41_7:1;
-    u32 unk41_8:1;
-
-    u32 unk42_1:1;
-    u32 unk42_2:1;
-    u32 unk42_3:1;
-    u32 unk42_4:1;
-    u32 unk42_5:1;
-    u32 unk42_6:1;
-    u32 unk42_7:1;
-    u32 unk42_8:1;
-
-    u32 unk43_1:8;
+    // option bits
+    u32 unk40_1:1; // 1
+    u32 unk40_2:1; // 1
+    u32 unk40_3:2; // 2
+    u32 unk40_5:1; // 1
+    u32 unk40_6:2; // 2, text speed
+    u32 unk40_8:1; // 1
+    u32 unk41_1:1; // 1
+    u32 unk41_2:1; // 1
+    u32 unk41_3:2; // 2
+    u32 unk41_5:1; // 1
+    u32 unk41_6:1; // unk
+    u32 unk41_7:1; // 1
+    u32 unk41_8:1; // 1
+    u32 unk42_1:1; // unk
+    u32 unk42_2:2; // 2
+    u32 unk42_4:2; // 2
+    u32 unk42_6:1; // 1
+    u32 unk42_7:1; // unk
+    u32 unk42_8:2; // 2 (!)
+    u32 unk43_2:2; // 2
+    u32 unk43_4:5; // unk
 
     u8  unk44[0x48 - 0x44];
 
     u16 unk48;
 
-    u16 unk4A_1 : 1;
-    u16 unk4A_2 : 3;
+    unsigned unk4A_1 : 1;
+    unsigned unk4A_2 : 3;
+    unsigned unk4A_5 : 4;
+    u8 unk4B;
 };
 
 struct TextBuffer0202A6AC
