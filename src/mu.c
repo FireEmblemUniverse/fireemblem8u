@@ -95,8 +95,8 @@ static void MU_EndInternal(struct MUProc* proc);
 
 static void MU_80790CC(struct MUProc* proc);
 
-static struct MUConfig* MU_GenerateConfigDefault(int objTileId, u8* outIndex_maybe);
-static struct MUConfig* MU_GenerateConfigOther(int objTileId, u8* outIndex_maybe);
+static struct MUConfig* MU_GenerateConfigDefault(int objTileId, u8* outIndex);
+static struct MUConfig* MU_GenerateConfigOther(int objTileId, u8* outIndex);
 
 static void MU_DisplayAsSMS(struct MUProc* proc);
 static void MU_DisplayAsMMS(struct MUProc* proc);
@@ -1336,7 +1336,7 @@ void MU_AllRestartAnimations(void) {
     }
 }
 
-static struct MUConfig* MU_GenerateConfigDefault(int objTileId, u8* outIndex_maybe) {
+static struct MUConfig* MU_GenerateConfigDefault(int objTileId, u8* outIndex) {
     int i;
 
     for (i = 0; i < MU_MAX_COUNT; ++i) {
@@ -1346,7 +1346,7 @@ static struct MUConfig* MU_GenerateConfigDefault(int objTileId, u8* outIndex_may
         sMUConfigArray[i].muIndex = i + 1;
         sMUConfigArray[i].objTileIndex = sMUObjTileOffsetLookup_Default[i] + objTileId;
 
-        *outIndex_maybe = i;
+        *outIndex = i;
 
         return sMUConfigArray + i;
     }
@@ -1354,7 +1354,7 @@ static struct MUConfig* MU_GenerateConfigDefault(int objTileId, u8* outIndex_may
     return NULL;
 }
 
-static struct MUConfig* MU_GenerateConfigOther(int objTileId, u8* outIndex_maybe) {
+static struct MUConfig* MU_GenerateConfigOther(int objTileId, u8* outIndex) {
     int i;
 
     for (i = 0; i < MU_MAX_COUNT; ++i) {
@@ -1364,7 +1364,7 @@ static struct MUConfig* MU_GenerateConfigOther(int objTileId, u8* outIndex_maybe
         sMUConfigArray[i].muIndex = i + 1;
         sMUConfigArray[i].objTileIndex = sMUObjTileOffsetLookup_Other[i] + objTileId;
 
-        *outIndex_maybe = i;
+        *outIndex = i;
 
         return sMUConfigArray + i;
     }
