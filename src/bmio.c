@@ -889,8 +889,15 @@ void ResetTraps(void);
 int GetChapterThing(void);
 void InitChapterMap(int);
 void AddSnagsAndWalls(void);
+struct Unit* GetUnitStruct(int id);
+void sub_8018EB8(void);
+void LoadChapterBallistae(void);
+void MakeBMAPMAIN(struct Proc*); // TODO: Proc type here is specifically GameCtrlProc
+void sub_8001ED0(int, int, int, int, int); // SetColorEffectFirstTarget
+void sub_8001F48(int); // SetColorEffectBackdropFirstTarget
+void SetSpecialColorEffectsParameters(int, int, int, int);
 
-void SetupChapter(struct Proc* gameCtrl) {
+void SetupChapter(struct Proc* gameCtrl) { // TODO: Proc type here is specifically GameCtrlProc
 	int i;
 
 	SetupBackgrounds(NULL);
@@ -909,12 +916,19 @@ void SetupChapter(struct Proc* gameCtrl) {
 	gUnknown_0202BCF0.chapterPhaseIndex = 0x40; // TODO: PHASE/ALLEGIANCE DEFINITIONS
 	gUnknown_0202BCF0.chapterTurnNumber = 0;
 
-	if (GetChapterThing() == 2) // TODO: BATTLE MAP/CHAPTER/OBJECTIVE TYPE DEFINITION (STORY/TOWER/SKIRMISH)
-		gUnknown_0202BCF0.chapterVisionRange = (NextRN_100() & 1) * 3;
-	else
-		gUnknown_0202BCF0.chapterVisionRange = GetROMChapterStruct(gUnknown_0202BCF0.chapterIndex)->initialFogLevel;
+	// TODO: BATTLE MAP/CHAPTER/OBJECTIVE TYPE DEFINITION (STORY/TOWER/SKIRMISH)
+	// TODO: CHAPTER STATE BITS DEFINITIONS
+	if (GetChapterThing() == 2) {
+		if (!(gUnknown_0202BCF0.chapterStateBits & 0x10)) {
+		gUnknown_0202BCF0.chapterVisionRange =
+			3 * (NextRN_100() & 1);
+	} else {
+		gUnknown_0202BCF0.chapterVisionRange =
+			GetROMChapterStruct(gUnknown_0202BCF0.chapterIndex)->initialFogLevel;
+	}
 
-	gUnknown_0202BCF0.chapterWeatherId = GetROMChapterStruct(gUnknown_0202BCF0.chapterIndex)->initialWeather;
+	gUnknown_0202BCF0.chapterWeatherId =
+		GetROMChapterStruct(gUnknown_0202BCF0.chapterIndex)->initialWeather;
 
 	SetupBackgroundForWeatherMaybe();
 	InitChapterMap(gUnknown_0202BCF0.chapterIndex);
@@ -929,8 +943,29 @@ void SetupChapter(struct Proc* gameCtrl) {
 	gUnknown_0202BCF0.unk4A_5 = 0;
 
 	for (i = 1; i < 0x40; ++i) {
-		struct Unit* unit = GetUnit(i);
+		struct Unit* unit = GetUnitStruct(i);
+
+		if (unit && unit->pCharacterData) {
+			if (unit->state & US_BIT21)
+				unit->state = unit->state | US_NOT_DEPLOYED;
+			else
+				unit->state = unit->state &~ US_NOT_DEPLOYED;
+		}
 	}
+
+	sub_8018EB8();
+	LoadChapterBallistae();
+
+	if (gameCtrl)
+		MakeBMAPMAIN(gameCtrl);
+
+	// TODO: MACRO?
+	gPaletteBuffer[0] = 0;
+	EnablePaletteSync();
+
+	sub_8001ED0(TRUE, TRUE, TRUE, TRUE, TRUE);
+	sub_8001F48(TRUE);
+	SetSpecialColorEffectsParameters(3, 0, 0, 0x10);
 }
 
 */

@@ -379,6 +379,44 @@ struct ClassData {
     /* 50 */ const void* _pU50;
 };
 
+enum {
+	US_NONE         = 0,
+
+	US_HIDDEN       = (1 << 0),
+	US_UNSELECTABLE = (1 << 1),
+	US_DEAD         = (1 << 2),
+	US_NOT_DEPLOYED = (1 << 3),
+	US_RESCUING     = (1 << 4),
+	US_RESCUED      = (1 << 5),
+	US_HAS_MOVED    = (1 << 6), // Bad name?
+	US_CANTOING     = US_HAS_MOVED, // Alias
+	US_UNDER_A_ROOF = (1 << 7),
+	// = (1 << 8),
+	// = (1 << 9),
+	US_HAS_MOVED_AI = (1 << 10),
+	US_IN_BALLISTA  = (1 << 11),
+	US_DROP_ITEM    = (1 << 12),
+	US_GROWTH_BOOST = (1 << 13),
+	US_SOLOANIM_1   = (1 << 14),
+	US_SOLOANIM_2   = (1 << 15),
+	// = (1 << 16),
+	// = (1 << 17),
+	// = (1 << 18),
+	// = (1 << 19),
+	// = (1 << 20),
+	US_BIT21        = (1 << 21),
+	// = (1 << 22),
+	// = (1 << 23),
+	// = (1 << 24),
+	// = (1 << 25),
+	// = (1 << 26),
+	// = (1 << 27),
+	// = (1 << 28),
+	// = (1 << 29),
+	// = (1 << 30),
+	// = (1 << 31),
+};
+
 struct Unit {
     /* 00 */ const struct CharacterData* pCharacterData;
     /* 04 */ const struct ClassData* pClassData;
