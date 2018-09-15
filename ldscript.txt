@@ -118,7 +118,7 @@ SECTIONS
         asm/ui_targetselection.o(.text);
         asm/code_battleanim.o(.text);
         asm/monstergen.o(.text);
-        asm/mu.o(.text);
+        src/mu.o(.text);
         asm/muctrl.o(.text);
         asm/code_mapanim.o(.text);
         asm/ev_triggercheck.o(.text);
@@ -197,6 +197,9 @@ SECTIONS
         . = ALIGN(4); data/const_data_D792C.o(.rodata);
         . = ALIGN(4); data/text.o(.rodata);
         . = ALIGN(4); data/const_data_1609BC.o(.rodata);
+        . = ALIGN(4); src/mu.o(.rodata);
+        . = ALIGN(4); data/muctrl_rodata.o(.rodata);
+        . = ALIGN(4); data/const_data_205714.o(.rodata);
         . = ALIGN(4); data/m4a_tables.o(.rodata);
         . = ALIGN(4); tools/agbcc/lib/libc.a:vfprintf.o(.rodata);
         . = ALIGN(4); tools/agbcc/lib/libc.a:dtoa.o(.rodata);
@@ -214,6 +217,8 @@ SECTIONS
         . = ALIGN(4); data/data_587A40.o(.data);
         . = ALIGN(4); src/messdecode.o(.data);
         . = ALIGN(4); data/data_591AB4.o(.data);
+        . = ALIGN(4); src/mu.o(.data);
+        . = ALIGN(4); data/data_9A2DB0.o(.data);
         . = ALIGN(4); tools/agbcc/lib/libc.a:impure.o(.data);
         . = ALIGN(4); tools/agbcc/lib/libc.a:locale.o(.data);
         . = ALIGN(4); tools/agbcc/lib/libc.a:mallocr.o(.data);

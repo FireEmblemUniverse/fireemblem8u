@@ -1,6 +1,9 @@
 #include "global.h"
+
 #include "proc.h"
 #include "fontgrp.h"
+#include "mu.h"
+
 #include "event.h"
 
 // TODO: move those where they belong when possible
@@ -142,7 +145,6 @@ extern const u16 gEvent_GameOver[]; /* Game Over Events?
     0120 0000           | ENDA
 */
 
-extern const struct ProcCmd gUnknown_089A2C80[]; // extern
 extern const struct ProcCmd gUnknown_08591540[]; // extern
 
 void _MarkSomethingInMenu(void) {
@@ -218,7 +220,7 @@ void EventEngine_OnEnd(struct EventEngineProc* proc) {
         sub_800BCDC(proc->mapSpritePalIdOverride);
 
         if (proc->evStateBits & EV_STATE_CHANGEGM) {
-            ClearMOVEUNITs();
+            MU_EndAll();
             sub_80311F0();
             memset((u8*)(gEventCallQueue), 0, 0x80);
         }
@@ -494,7 +496,7 @@ bool8 EventEngine_CanStartSkip(struct EventEngineProc* proc) { // Events_CanSkip
     if (IsBattleDeamonActive())
         return FALSE;
 
-    if (Proc_Find(gUnknown_089A2C80))
+    if (Proc_Find(gProcScr_MUDeathFade))
         return FALSE;
 
     return TRUE;

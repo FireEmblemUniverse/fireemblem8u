@@ -192,10 +192,10 @@ sub_8039FAC: @ 0x08039FAC
 	cmp r0, #0
 	beq _0803A00A
 	ldr r0, [r6]
-	bl MakeMOVEUNITForMapUnit
-	bl _MOVEUNIT6C_SetDefaultFacingDirection
+	bl MU_Create
+	bl MU_SetDefaultFacing_Auto
 	adds r0, r7, #0
-	bl _MOVEUNIT6C_ChangeFutureMovement
+	bl MU_StartMoveScript_Auto
 _0803A00A:
 	pop {r4, r5, r6, r7}
 	pop {r0}
@@ -227,7 +227,7 @@ sub_803A024: @ 0x0803A024
 	bl UpdateGameTilesGraphics
 	movs r0, #1
 	bl NewBMXFADE
-	bl ClearMOVEUNITs
+	bl MU_EndAll
 	bl RefreshFogAndUnitMaps
 	ldr r0, [r5]
 	bl ShowUnitSMS
@@ -322,7 +322,7 @@ sub_803A0F4: @ 0x0803A0F4
 	adds r1, r1, r0
 	mov r2, sp
 	adds r0, r2, r1
-	bl _MOVEUNIT6C_ChangeFutureMovement
+	bl MU_StartMoveScript_Auto
 _0803A124:
 	add sp, #0xc
 	pop {r4}
@@ -731,7 +731,7 @@ _0803A45A:
 	ands r0, r1
 	cmp r0, #0
 	bne _0803A4C2
-	bl ClearMOVEUNITs
+	bl MU_EndAll
 	ldr r1, [r4]
 	ldrb r0, [r7, #2]
 	strb r0, [r1, #0x10]
@@ -741,8 +741,8 @@ _0803A45A:
 	ldr r0, [r4]
 	bl RideBallista
 	ldr r0, [r4]
-	bl MakeMOVEUNITForMapUnit
-	bl _MOVEUNIT6C_SetDefaultFacingDirection
+	bl MU_Create
+	bl MU_SetDefaultFacing_Auto
 	b _0803A4C2
 	.align 2, 0
 _0803A49C: .4byte gUnknown_0203AA94
@@ -989,7 +989,7 @@ sub_803A674: @ 0x0803A674
 	THUMB_FUNC_START sub_803A678
 sub_803A678: @ 0x0803A678
 	push {lr}
-	bl IsThereAMovingMoveunit
+	bl MU_IsAnyActive
 	lsls r0, r0, #0x18
 	asrs r1, r0, #0x18
 	cmp r1, #0

@@ -477,8 +477,8 @@ sub_802EF80: @ 0x0802EF80
 	ldr r0, _0802EFA8  @ gUnknown_0203A958
 	ldrb r0, [r0, #0xd]
 	bl GetUnitStruct
-	bl GetExistingMoveunitForUnit
-	bl EndMoveunitMaybe
+	bl MU_GetByUnit
+	bl MU_End
 	bl RefreshFogAndUnitMaps
 	bl UpdateGameTilesGraphics
 	bl SMS_UpdateFromGameData

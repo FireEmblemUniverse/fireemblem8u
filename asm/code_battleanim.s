@@ -10027,7 +10027,7 @@ _08054DF8:
 _08054E16:
 	bl RefreshFogAndUnitMaps
 	bl SMS_UpdateFromGameData
-	bl ClearMOVEUNITs
+	bl MU_EndAll
 	b _08054E3E
 	.align 2, 0
 _08054E24: .4byte gUnknown_02022BC8
@@ -12171,7 +12171,7 @@ _08055E12:
 	movs r3, #4
 	bl sub_80712B0
 	bl EnablePaletteSync
-	bl ClearMOVEUNITs
+	bl MU_EndAll
 	adds r0, r7, #0
 	bl Proc_ClearNativeCallback
 _08055EEA:
@@ -36197,7 +36197,7 @@ _0806222A:
 	str r0, [r4, #0xc]
 	bl RefreshFogAndUnitMaps
 	bl SMS_UpdateFromGameData
-	bl ClearMOVEUNITs
+	bl MU_EndAll
 _08062260:
 	adds r0, r6, #0
 	movs r1, #0

@@ -1,7 +1,7 @@
 #ifndef GUARD_HARDWARE_H
 #define GUARD_HARDWARE_H
 
-void CopyToPaletteBuffer(void *src, int b, int size);
+void CopyToPaletteBuffer(const void *src, int b, int size);
 // ??? sub_8000E14(???);
 // ??? FlushLCDControl(???);
 // ??? BG_GetControlBuffer(???);
@@ -60,7 +60,7 @@ void SoftResetIfKeyComboPressed();
 // ??? GetBackgroundFromBufferPointer(???);
 // ??? BG_SetPriority(???);
 // ??? BG_GetPriority(???);
-// ??? SetSpecialColorEffectsParameters(???);
+void SetSpecialColorEffectsParameters(u16 effect, u8 coeffA, u8 coeffB, u8 blendY);
 // ??? sub_8001ED0(???);
 // ??? sub_8001F0C(???);
 // ??? sub_8001F48(???);

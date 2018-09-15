@@ -329,6 +329,84 @@ struct ClassData {
     /* 50 */ const void* _pU50;
 };
 
+enum {
+	US_NONE = 0x00000000,
+
+	US_HIDDEN = 0x00000001,
+	US_UNSELECTABLE = 0x00000002,
+	US_DEAD = 0x00000004,
+	US_NOT_DEPLOYED = 0x00000008,
+	US_RESCUING = 0x00000010,
+	US_RESCUED = 0x00000020,
+	US_HAS_MOVED = 0x00000040, // Bad name?
+	US_CANTOING = 0x00000040, // Alias
+	US_UNDER_A_ROOF = 0x00000080,
+	// = 0x00000100,
+	// = 0x00000200,
+	US_HAS_MOVED_AI = 0x00000400,
+	US_IN_BALLISTA = 0x00000800,
+	US_DROP_ITEM = 0x00001000,
+	US_GROWTH_BOOST = 0x00002000,
+	US_SOLOANIM_1 = 0x00004000,
+	US_SOLOANIM_2 = 0x00008000,
+	// = 0x00010000,
+	// = 0x00020000,
+	// = 0x00040000,
+	// = 0x00080000,
+	// = 0x00100000,
+	// = 0x00200000,
+	// = 0x00400000,
+	// = 0x00800000,
+	// = 0x01000000,
+	// = 0x02000000,
+	// = 0x04000000,
+	// = 0x08000000,
+	// = 0x10000000,
+	// = 0x20000000,
+	// = 0x40000000,
+	// = 0x80000000,
+
+	US_DUMMY
+};
+
+enum {
+	CA_NONE = 0x00000000,
+	CA_MOUNTEDAID = 0x00000001,
+	CA_CANTO = 0x00000002,
+	CA_STEAL = 0x00000004,
+	CA_LOCKPICK = 0x00000008,
+	CA_DANCE = 0x00000010,
+	CA_PLAY = 0x00000020,
+	CA_CRITBONUS = 0x00000040,
+	CA_BALLISTAE = 0x00000080,
+	CA_PROMOTED = 0x00000100,
+	CA_SUPPLY = 0x00000200,
+	CA_MOUNTED = 0x00000400,
+	CA_WYVERN = 0x00000800,
+	CA_PEGASUS = 0x00001000,
+	CA_LORD = 0x00002000,
+	CA_FEMALE = 0x00004000,
+	CA_BOSS = 0x00008000,
+	CA_LOCK_1 = 0x00010000,
+	CA_LOCK_2 = 0x00020000,
+	CA_LOCK_3 = 0x00040000, // Dragons or Monster depending of game
+	CA_MAXLEVEL10 = 0x00080000,
+	CA_UNSELECTABLE = 0x00100000,
+	CA_TRIANGLEATTACK_PEGASI = 0x00200000,
+	CA_TRIANGLEATTACK_ARMORS = 0x00400000,
+	// = 0x00800000,
+	// = 0x01000000,
+	CA_LETHALITY = 0x02000000,
+	// = 0x04000000,
+	CA_SUMMON = 0x08000000,
+	CA_LOCK_4 = 0x10000000,
+	CA_LOCK_5 = 0x20000000,
+	CA_LOCK_6 = 0x40000000,
+	CA_LOCK_7 = 0x80000000,
+
+	CA_DUMMY
+};
+
 struct Unit {
     /* 00 */ const struct CharacterData* pCharacterData;
     /* 04 */ const struct ClassData* pClassData;
@@ -417,6 +495,114 @@ struct Trap {
     /* 02 */ u8 type;
 
     /* 03 */ u8 data[5]; // extdata (see above enum for per trap type entry allocations)
+};
+
+struct Struct0202BCB0 { // Game State Struct
+    /* 00 */ u8  mainLoopEndedFlag;
+
+    /* 01 */ s8  gameLogicSemaphore;
+    /* 02 */ s8  gameGfxSemaphore;
+
+    /* 03 */ u8  _unk04;
+
+    /* 04 */ u8  gameStateBits;
+
+    /* 05 */ u8  _unk05;
+
+    /* 06 */ u16 prevVCount;
+
+    /* 08 */ u32 _unk08;
+
+    /* 0C */ short xCameraReal;
+    /* 0E */ short yCameraReal;
+};
+
+struct BattleUnit {
+	/* 00 */ struct Unit unit;
+
+	/* 48 */ u16 weaponAfter;
+	/* 4A */ u16 weaponBefore;
+	/* 4C */ u32 weaponAttributes;
+	/* 50 */ u8 weaponType;
+	/* 51 */ u8 weaponSlotIndex;
+
+	/* 52 */ u8 canCounter;
+
+	/* 53 */ s8 WTHitModifier;
+	/* 54 */ s8 WTAtkModifier;
+
+	/* 55 */ u8 terrainIndex;
+	/* 56 */ u8 terrainDefense;
+	/* 57 */ u8 terrainAvoid;
+	/* 58 */ u8 terrainResistance;
+	/* 59 */ u8 _u59;
+
+	/* 5A */ u16 battleAttack;
+	/* 5C */ u16 battleDefense;
+	/* 5E */ u16 battleAttackSpeed;
+	/* 60 */ u16 battleHit;
+	/* 62 */ u16 battleAvoid;
+	/* 64 */ u16 battleEffectiveHit;
+	/* 66 */ u16 battleCrit;
+	/* 68 */ u16 battleDodge;
+	/* 6A */ u16 battleEffectiveCrit;
+	/* 6C */ u16 battleSilencerRate;
+
+	/* 6E */ u8 expGain;
+	/* 6F */ u8 statusOut;
+	/* 70 */ u8 levelPrevious;
+	/* 71 */ u8 expPrevious;
+
+	/* 72 */ u8 currentHP;
+
+	/* 73 */ s8 changeHP;
+	/* 74 */ s8 changePow;
+	/* 75 */ s8 changeSkl;
+	/* 76 */ s8 changeSpd;
+	/* 77 */ s8 changeDef;
+	/* 78 */ s8 changeRes;
+	/* 79 */ s8 changeLck;
+	/* 7A */ s8 changeCon;
+
+	/* 7B */ s8 wexpMultiplier;
+	/* 7C */ u8 nonZeroDamage;
+	/* 7D */ u8 weaponBroke;
+
+	/* 7E */ u8 _u7E;
+	/* 7F */ u8 _u7F;
+};
+
+struct MapAnimActorState {
+	/* 00 */ struct Unit* pUnit;
+	/* 04 */ struct BattleUnit* pBattleUnit;
+	/* 08 */ struct MUProc* pMUProc;
+	/* 0C */ u8 u0C;
+	/* 0D */ u8 u0D;
+	/* 0E */ u16 u0E;
+	/* 10 */ u8 u10;
+	/* 11 */ u8 u11;
+	/* 12 */ u8 u12;
+	/* 13 */ u8 u13;
+};
+
+struct MapAnimState {
+	/* 00 */ struct MapAnimActorState actors[4];
+
+	/* 50 */ u32* pCurrentRound;
+	/* 54 */ const struct ProcCmd* pItemMapAnimProcScript;
+	/* 58 */ u8 subjectActorId;
+	/* 59 */ u8 targetActorId;
+	/* 5A */ u16 roundBits;
+	/* 5C */ u16 u5C;
+	/* 5E */ u8 actorCount_maybe;
+	/* 5F */ u8 u5F;
+	/* 60 */ u8 u60;
+	/* 61 */ u8 u61;
+};
+
+struct MMSData {
+    const void* pGraphics;
+    const void* pAnimation;
 };
 
 #endif  // GUARD_TYPES_H

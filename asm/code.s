@@ -13809,7 +13809,7 @@ _0809061C: .4byte gLCDControlBuffer
 sub_8090620: @ 0x08090620
 	push {r4, lr}
 	adds r4, r0, #0
-	bl ClearMOVEUNITs
+	bl MU_EndAll
 	ldr r0, [r4, #0x40]
 	bl Proc_Delete
 	ldr r0, [r4, #0x44]
@@ -42559,7 +42559,7 @@ sub_809EAF4: @ 0x0809EAF4
 	ldr r0, [r4]
 	cmp r0, #0
 	beq _0809EB08
-	bl ClearMOVEUNITs
+	bl MU_EndAll
 	ldr r0, [r4]
 	bl ShowUnitSMS
 _0809EB08:
@@ -42578,8 +42578,8 @@ sub_809EB14: @ 0x0809EB14
 	beq _0809EB2C
 	bl HideUnitSMS
 	ldr r0, [r4]
-	bl MakeMOVEUNITForMapUnit
-	bl _MOVEUNIT6C_SetDefaultFacingDirection
+	bl MU_Create
+	bl MU_SetDefaultFacing_Auto
 _0809EB2C:
 	pop {r4}
 	pop {r0}
@@ -87304,15 +87304,15 @@ sub_80B4A20: @ 0x080B4A20
 	push {lr}
 	ldr r0, _080B4A34  @ gUnknown_08A394C0
 	bl Proc_DeleteAllWithScript
-	ldr r0, _080B4A38  @ gUnknown_089A2C48
-	ldr r1, _080B4A3C  @ sub_80797DC
+	ldr r0, _080B4A38  @ gProcScr_MoveUnit
+	ldr r1, _080B4A3C  @ MU_Show
 	bl Proc_ForEachWithScript
 	pop {r0}
 	bx r0
 	.align 2, 0
 _080B4A34: .4byte gUnknown_08A394C0
-_080B4A38: .4byte gUnknown_089A2C48
-_080B4A3C: .4byte sub_80797DC
+_080B4A38: .4byte gProcScr_MoveUnit
+_080B4A3C: .4byte MU_Show
 
 	THUMB_FUNC_START sub_80B4A40
 sub_80B4A40: @ 0x080B4A40
@@ -87546,8 +87546,8 @@ _080B4C0C:
 	movs r1, #0
 	bl Sound_PlaySong80024D4
 _080B4C14:
-	ldr r0, _080B4DF8  @ gUnknown_089A2C48
-	ldr r1, _080B4DFC  @ SetMOVEUNITField40To1
+	ldr r0, _080B4DF8  @ gProcScr_MoveUnit
+	ldr r1, _080B4DFC  @ MU_Hide
 	bl Proc_ForEachWithScript
 	bl sub_80B52CC
 	ldr r3, _080B4E00  @ gLCDControlBuffer
@@ -87767,8 +87767,8 @@ _080B4CC6:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_080B4DF8: .4byte gUnknown_089A2C48
-_080B4DFC: .4byte SetMOVEUNITField40To1
+_080B4DF8: .4byte gProcScr_MoveUnit
+_080B4DFC: .4byte MU_Hide
 _080B4E00: .4byte gLCDControlBuffer
 _080B4E04: .4byte gUnknown_089AD934
 _080B4E08: .4byte gUnknown_02020188
@@ -89013,8 +89013,8 @@ sub_80B57A0: @ 0x080B57A0
 	push {r5, r6, r7}
 	sub sp, #4
 	adds r6, r0, #0
-	ldr r0, _080B5948  @ gUnknown_089A2C48
-	ldr r1, _080B594C  @ SetMOVEUNITField40To1
+	ldr r0, _080B5948  @ gProcScr_MoveUnit
+	ldr r1, _080B594C  @ MU_Hide
 	bl Proc_ForEachWithScript
 	bl sub_80B52CC
 	ldr r7, _080B5950  @ gLCDControlBuffer
@@ -89201,8 +89201,8 @@ sub_80B57A0: @ 0x080B57A0
 	pop {r0}
 	bx r0
 	.align 2, 0
-_080B5948: .4byte gUnknown_089A2C48
-_080B594C: .4byte SetMOVEUNITField40To1
+_080B5948: .4byte gProcScr_MoveUnit
+_080B594C: .4byte MU_Hide
 _080B5950: .4byte gLCDControlBuffer
 _080B5954: .4byte gUnknown_089AD934
 _080B5958: .4byte gUnknown_02020188
@@ -89221,8 +89221,8 @@ sub_80B5970: @ 0x080B5970
 	bl SaveUnitFromBattle
 	ldr r0, _080B5994  @ gUnknown_03004E50
 	ldr r0, [r0]
-	bl MakeMOVEUNITForMapUnit
-	bl _MOVEUNIT6C_SetDefaultFacingDirection
+	bl MU_Create
+	bl MU_SetDefaultFacing_Auto
 	pop {r0}
 	bx r0
 	.align 2, 0
@@ -89389,7 +89389,7 @@ sub_80B5AB4: @ 0x080B5AB4
 	orrs r1, r2
 	str r1, [r0, #0xc]
 	bl sub_80A44C8
-	bl ClearMOVEUNITs
+	bl MU_EndAll
 	strb r6, [r5, #0x15]
 	ldr r0, [r4]
 	bl sub_802CD64
@@ -89521,15 +89521,15 @@ sub_80B5BE4: @ 0x080B5BE4
 	push {lr}
 	ldr r0, _080B5BF8  @ gUnknown_08A394C0
 	bl Proc_DeleteAllWithScript
-	ldr r0, _080B5BFC  @ gUnknown_089A2C48
-	ldr r1, _080B5C00  @ sub_80797DC
+	ldr r0, _080B5BFC  @ gProcScr_MoveUnit
+	ldr r1, _080B5C00  @ MU_Show
 	bl Proc_ForEachWithScript
 	pop {r0}
 	bx r0
 	.align 2, 0
 _080B5BF8: .4byte gUnknown_08A394C0
-_080B5BFC: .4byte gUnknown_089A2C48
-_080B5C00: .4byte sub_80797DC
+_080B5BFC: .4byte gProcScr_MoveUnit
+_080B5C00: .4byte MU_Show
 
 	THUMB_FUNC_START sub_80B5C04
 sub_80B5C04: @ 0x080B5C04
@@ -95724,7 +95724,7 @@ SetupGraphicSystemsForWorldMap: @ 0x080B8D5C
 	ldr r0, _080B8E0C  @ gUnknown_08A3D728
 	bl SetupFaceGfxData
 	bl SMS_ClearUsageTable
-	bl ResetMoveunitStructs
+	bl MU_Init
 	bl SetupMapSpritesPalettes
 	ldr r1, _080B8E10  @ gUnknown_0202BCB0
 	movs r0, #0
@@ -99659,26 +99659,26 @@ _080BAC18: .4byte gUnknown_03005324
 	THUMB_FUNC_START MMS_GetGfx
 MMS_GetGfx: @ 0x080BAC1C
 	lsls r0, r0, #0x10
-	ldr r1, _080BAC2C  @ gUnknown_089A2E00
+	ldr r1, _080BAC2C  @ gMMSDataTable
 	lsrs r0, r0, #0xd
 	subs r0, #8
 	adds r0, r0, r1
 	ldr r0, [r0]
 	bx lr
 	.align 2, 0
-_080BAC2C: .4byte gUnknown_089A2E00
+_080BAC2C: .4byte gMMSDataTable
 
 	THUMB_FUNC_START MMS_GetROMTCS2
 MMS_GetROMTCS2: @ 0x080BAC30
 	lsls r0, r0, #0x10
-	ldr r1, _080BAC40  @ gUnknown_089A2E00
+	ldr r1, _080BAC40  @ gMMSDataTable
 	lsrs r0, r0, #0xd
 	adds r1, r1, r0
 	subs r1, #4
 	ldr r0, [r1]
 	bx lr
 	.align 2, 0
-_080BAC40: .4byte gUnknown_089A2E00
+_080BAC40: .4byte gMMSDataTable
 
 	THUMB_FUNC_START GetMapUnitMMSGfxBuffer
 GetMapUnitMMSGfxBuffer: @ 0x080BAC44
@@ -107241,7 +107241,7 @@ _080BE4E6:
 	ldrh r1, [r4, #2]
 	lsls r2, r5, #0x10
 	asrs r2, r2, #0x10
-	bl NewSoundStepPlay6C
+	bl MU_StartStepSfx
 _080BE520:
 	pop {r4, r5, r6}
 	pop {r0}
@@ -112347,11 +112347,11 @@ _080C0CC0:
 	movs r2, #0x20
 	bl CopyToPaletteBuffer
 _080C0CCA:
-	bl ClearMOVEUNITs
+	bl MU_EndAll
 	ldr r0, [r5, #0x2c]
 	movs r1, #0xd8
 	movs r2, #0x87
-	bl Make6CMOVEUNITForUI
+	bl MU_CreateForUI
 	str r0, [r5, #0x30]
 	adds r0, r5, #0
 	bl sub_80C0A9C
@@ -135718,7 +135718,7 @@ sub_80CCA14: @ 0x080CCA14
 	ldrb r0, [r4, #0x12]
 	str r0, [r5, #0x3c]
 	bl BlockGameGraphicsLogic
-	bl ClearMOVEUNITs
+	bl MU_EndAll
 	pop {r4, r5}
 	pop {r0}
 	bx r0
@@ -136709,10 +136709,10 @@ sub_80CD218: @ 0x080CD218
 	bl RefreshFogAndUnitMaps
 	bl UpdateGameTilesGraphics
 	bl SMS_UpdateFromGameData
-	bl ClearMOVEUNITs
+	bl MU_EndAll
 	ldr r0, _080CD290  @ gUnknown_03004E50
 	ldr r0, [r0]
-	bl MakeMOVEUNITForMapUnit
+	bl MU_Create
 _080CD27C:
 	pop {r4, r5, r6}
 	pop {r0}
@@ -137202,10 +137202,10 @@ sub_80CD62C: @ 0x080CD62C
 	bl UnblockGameGraphicsLogic
 	bl sub_80311A8
 	bl RefreshFogAndUnitMaps
-	bl ClearMOVEUNITs
+	bl MU_EndAll
 	ldr r0, _080CD654  @ gUnknown_03004E50
 	ldr r0, [r0]
-	bl MakeMOVEUNITForMapUnit
+	bl MU_Create
 	bl UpdateGameTilesGraphics
 	bl SMS_UpdateFromGameData
 	pop {r0}

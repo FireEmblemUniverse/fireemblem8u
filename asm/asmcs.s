@@ -1911,7 +1911,7 @@ _080854CA:
 	cmp r5, #0x3f
 	ble _0808548A
 	bl RefreshFogAndUnitMaps
-	bl ClearMOVEUNITs
+	bl MU_EndAll
 	pop {r4, r5, r6}
 	pop {r0}
 	bx r0

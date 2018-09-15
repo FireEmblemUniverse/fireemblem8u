@@ -47,7 +47,7 @@ Make6CMOVEUNITForUnitBeingRescued: @ 0x0801DC00
 	cmp r0, #0
 	bne _0801DC1E
 	adds r0, r3, #0
-	bl MakeMOVEUNITForMapUnit
+	bl MU_Create
 	b _0801DC38
 _0801DC1E:
 	movs r0, #0x80
@@ -63,7 +63,7 @@ _0801DC2E:
 	movs r1, #0x70
 _0801DC32:
 	movs r2, #0xc
-	bl Make6CMOVEUNITForUnit
+	bl MU_CreateExt
 _0801DC38:
 	pop {r1}
 	bx r1
@@ -72,7 +72,7 @@ _0801DC38:
 Loop6C_KOIDO: @ 0x0801DC3C
 	push {r4, r5, lr}
 	adds r4, r0, #0
-	bl IsThereAMovingMoveunit
+	bl MU_IsAnyActive
 	lsls r0, r0, #0x18
 	cmp r0, #0
 	bne _0801DC76
@@ -83,7 +83,7 @@ Loop6C_KOIDO: @ 0x0801DC3C
 	cmp r0, #2
 	beq _0801DC5C
 	ldr r0, [r4, #0x34]
-	bl EndMoveunitMaybe
+	bl MU_End
 _0801DC5C:
 	adds r0, r4, #0
 	bl Proc_ClearNativeCallback
@@ -132,7 +132,7 @@ Make6CKOIDO: @ 0x0801DC7C
 	bl Make6CMOVEUNITForUnitBeingRescued
 	str r0, [r7, #0x34]
 	adds r1, r5, #0
-	bl MOVEUNIT6C_ChangeFutureMovement
+	bl MU_StartMoveScript
 	pop {r3}
 	mov r8, r3
 	pop {r4, r5, r6, r7}
@@ -171,7 +171,7 @@ Make6CKOIDOAMM: @ 0x0801DCD0
 	bl Make6CMOVEUNITForUnitBeingRescued
 	str r0, [r7, #0x34]
 	adds r1, r5, #0
-	bl MOVEUNIT6C_ChangeFutureMovement
+	bl MU_StartMoveScript
 	pop {r4, r5, r6, r7}
 	pop {r0}
 	bx r0
