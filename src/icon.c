@@ -61,7 +61,6 @@ int GetIconGfxIndex(int Index)
     return -1;
 }
 
-#ifdef NONMATCHING
 u16 GetIconTileIndex(int Index)
 {
     if (DrawnIconLookupTable[Index].Index != 0)
@@ -78,72 +77,13 @@ u16 GetIconTileIndex(int Index)
 
         RegisterTileGraphics(
             gUnknown_085926F4 + (Index * 0x80),
-            (void*)(VRAM + ((GetIconGfxTileIndex(DrawnIconLookupTable[Index].Index) * 0x20) & (0x0001FFE0 + 0 * 1))), //Here, 0x6000000 Gets put in r0 instead of r2.
+            (void*)(VRAM + (0x1FFE0 & (VRAM + 0x20 * GetIconGfxTileIndex(DrawnIconLookupTable[Index].Index)))),
             0x80
         );
 
         return GetIconGfxTileIndex(DrawnIconLookupTable[Index].Index);
     }
 }
-#else
-__attribute__((naked))
-u16 GetIconTileIndex (int Index)
-{
-    asm(".syntax unified\n\
-    push {r4, r5, lr}\n\
-    adds r4, r0, #0\n\
-    ldr r0, _0800366C  @ DrawnIconLookupTable\n\
-    lsls r1, r4, #2\n\
-    adds r5, r1, r0\n\
-    ldrb r0, [r5, #1]\n\
-    cmp r0, #0\n\
-    beq _08003670\n\
-    ldrb r0, [r5]\n\
-    cmp r0, #0xfe\n\
-    bhi _080036A4\n\
-    adds r0, #1\n\
-    strb r0, [r5]\n\
-    b _080036A4\n\
-    .align 2, 0\n\
-_0800366C: .4byte DrawnIconLookupTable\n\
-_08003670:\n\
-    ldrb r0, [r5]\n\
-    adds r0, #1\n\
-    strb r0, [r5]\n\
-    adds r0, r4, #0\n\
-    bl GetIconGfxIndex\n\
-    adds r0, #1\n\
-    strb r0, [r5, #1]\n\
-    lsls r4, r4, #7\n\
-    ldr r0, _080036B4  @ gUnknown_085926F4\n\
-    adds r4, r4, r0\n\
-    ldrb r0, [r5, #1]\n\
-    bl GetIconGfxTileIndex\n\
-    adds r1, r0, #0\n\
-    lsls r1, r1, #0x10\n\
-    lsrs r1, r1, #0xb\n\
-    movs r2, #0xc0\n\
-    lsls r2, r2, #0x13\n\
-    ldr r0, _080036B8  @ 0x0001FFE0\n\
-    ands r1, r0\n\
-    adds r1, r1, r2\n\
-    adds r0, r4, #0\n\
-    movs r2, #0x80\n\
-    bl RegisterTileGraphics\n\
-_080036A4:\n\
-    ldrb r0, [r5, #1]\n\
-    bl GetIconGfxTileIndex\n\
-    lsls r0, r0, #0x10\n\
-    lsrs r0, r0, #0x10\n\
-    pop {r4, r5}\n\
-    pop {r1}\n\
-    bx r1\n\
-    .align 2, 0\n\
-_080036B4: .4byte gUnknown_085926F4\n\
-_080036B8: .4byte 0x0001FFE0\n\
-    .syntax divided\n");
-}
-#endif
 
 void DrawIcon(u16* BgOut, int IconIndex, int OamPalBase) 
 {
