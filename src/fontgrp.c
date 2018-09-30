@@ -565,11 +565,15 @@ void sub_8003FAC(int unused, int *b, int *c)
     }
 }
 
-char *String_GetEnd(char *str)
+char* String_GetEnd(char* str)
 {
-    register char c asm("r1");
-    while ((c = *str) > 1)
+    char c = *str;
+
+    while (c > 1) {
         str++;
+        c = *str;
+    }
+
     return str;
 }
 
