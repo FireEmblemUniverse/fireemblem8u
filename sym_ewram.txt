@@ -496,8 +496,7 @@
 . = ALIGN(4); src/hardware.o(ewram_data);
 . = ALIGN(4); src/soundwrapper.o(ewram_data);
 . = ALIGN(4); src/proc.o(ewram_data);
-. = 0x026A90; gUnknown_02026A90 = .;
-. = 0x026E10; gUnknown_02026E10 = .;
+. = ALIGN(4); src/icon.o(ewram_data);
 . = 0x026E30;
 . = ALIGN(4); src/fontgrp.o(ewram_data);
 . = 0x028F78; gUnknown_02028F78 = .;
