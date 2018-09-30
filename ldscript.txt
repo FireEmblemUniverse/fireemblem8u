@@ -43,6 +43,7 @@ SECTIONS
         asm/animedrv.o(.text);
         src/ctc.o(.text);
         asm/face.o(.text);
+        asm/scene.o(.text);
         src/ap.o(.text);
         asm/gamectrl.o(.text);
         src/messdecode.o(.text);
