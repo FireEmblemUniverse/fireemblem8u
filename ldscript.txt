@@ -38,7 +38,7 @@ SECTIONS
         asm/soundwrapper.o(.text);
         src/ramfunc.o(.text);
         src/proc.o(.text);
-        asm/icon.o(.text);
+        src/icon.o(.text);
         asm/fontgrp.o(.text);
         asm/animedrv.o(.text);
         asm/ctc.o(.text);
