@@ -40,24 +40,31 @@ struct ProcCmd
 #define PROC_19                                      { 0x19, 0x0000, 0 }
 #define PROC_YIELD                                   PROC_SLEEP(0)
 
+// allows local Proc structs to invoke the general Proc
+// fields when creating local Proc definitions.
+#define PROC_HEADER                                                                  \
+    const struct ProcCmd *script; /*pointer to process script*/                      \
+    const struct ProcCmd *currCmd; /*pointer to currently executing script command*/ \
+    ProcFunc onDelete; /*callback to run upon delegint the process*/                 \
+    ProcFunc nativeFunc; /*callback to run once each frame.*/                        \
+                         /*disables script execution when not null*/                 \
+    char *name;                                                                      \
+    struct Proc *parent; /*pointer to parent proc. If this proc is a root proc,*/    \
+                         /*this member is an integer which is the root index.*/      \
+    struct Proc *child; /*pointer to most recently added child*/                     \
+    struct Proc *next; /*next sibling*/                                              \
+    struct Proc *prev; /*previous sibling*/                                          \
+    s16 sleepTime;                                                                   \
+    u8 mark;                                                                         \
+    u8 flags;                                                                        \
+    u8 blockSemaphore; /*wait semaphore. Process execution*/                         \
+                       /*is blocked when this is nonzero.*/                          \
+
+// general Proc struct for use in proc.c when initializing and using the proc.
 struct Proc
 {
-    /*0x00*/ struct ProcCmd *script;  // pointer to process script
-    /*0x04*/ struct ProcCmd *currCmd;  // pointer to currently executing script command
-    /*0x08*/ ProcFunc onDelete;  // callback to run upon delegint the process
-    /*0x0C*/ ProcFunc nativeFunc;  // callback to run once each frame.
-                                   // disables script execution when not null
-    /*0x10*/ char *name;
-    /*0x14*/ struct Proc *parent;  // pointer to parent proc. If this proc is a root proc,
-                                   // this member is an integer which is the root index.
-    /*0x18*/ struct Proc *child;  // pointer to most recently added child
-    /*0x1C*/ struct Proc *next;  // next sibling
-    /*0x20*/ struct Proc *prev;  // previous sibling
-    /*0x24*/ s16 sleepTime;
-    /*0x26*/ u8 mark;
-    /*0x27*/ u8 flags;
-    /*0x28*/ u8 blockSemaphore;  // wait semaphore. Process execution is blocked when this is nonzero.
-    /*0x29*/ u8 filler29[0x6C-0x29];
+    PROC_HEADER
+    /*0x2A*/ s16 data[33]; // this section is to be used in locally defined proc structs for use by specific files.
 };
 
 struct UnknownProcStruct
@@ -67,26 +74,35 @@ struct UnknownProcStruct
     int unk8;
 };
 
+#define ROOT_PROC_0 (struct Proc *)0
+#define ROOT_PROC_1 (struct Proc *)1
+#define ROOT_PROC_2 (struct Proc *)2
+#define ROOT_PROC_3 (struct Proc *)3
+#define ROOT_PROC_4 (struct Proc *)4
+#define ROOT_PROC_5 (struct Proc *)5
+#define ROOT_PROC_6 (struct Proc *)6
+#define ROOT_PROC_7 (struct Proc *)7
+
 void Proc_Initialize(void);
-// ??? Proc_Create(???);
-// ??? Proc_CreateBlockingChild(???);
-// ??? Proc_Delete(???);;
+struct Proc *Proc_Create(const struct ProcCmd *script, struct Proc *parent);
+struct Proc *Proc_CreateBlockingChild(const struct ProcCmd *script, struct Proc *parent);
+void Proc_Delete(struct Proc *proc);
 // ??? Proc_Run(???);
-// ??? Proc_ClearNativeCallback(???);
-// ??? Proc_Find(???);
+void Proc_ClearNativeCallback(struct Proc *proc);
+struct Proc *Proc_Find(const struct ProcCmd *script);
 // ??? Proc_FindNonBlocked(???);
 // ??? Proc_FindWithMark(???);
-// ??? Proc_GotoLabel(???);
+void Proc_GotoLabel(struct Proc* proc_arg, int label);
 // ??? Proc_JumpToPointer(???);
 // ??? Proc_SetMark(???);
 // ??? Proc_SetDestructor(???);
 // ??? Proc_ForEach(???);
-// ??? Proc_ForEachWithScript(???);
+void Proc_ForEachWithScript(const struct ProcCmd *script, ProcFunc func);
 // ??? Proc_ForEachWithMark(???);
-// ??? Proc_BlockEachWithMark(???);
-// ??? Proc_UnblockEachWithMark(???);
+void Proc_BlockEachWithMark(int mark);
+void Proc_UnblockEachWithMark(int mark);
 // ??? Proc_DeleteEachWithMark(???);
-// ??? Proc_DeleteAllWithScript(???);
+void Proc_DeleteAllWithScript(const struct ProcCmd *script);
 // ??? Proc_ClearNativeCallbackEachWithScript(???);
 // ??? sub_80030CC(???);
 // ??? sub_800344C(???);

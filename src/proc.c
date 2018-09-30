@@ -52,7 +52,7 @@ void Proc_Initialize(void)
         gRootProcesses[i] = NULL;
 }
 
-struct Proc *Proc_Create(struct ProcCmd *script, struct Proc *parent)
+struct Proc *Proc_Create(const struct ProcCmd *script, struct Proc *parent)
 {
     struct Proc *proc = AllocateProcess();
     int rootIndex;
@@ -82,7 +82,7 @@ struct Proc *Proc_Create(struct ProcCmd *script, struct Proc *parent)
 }
 
 // Creates a child process and puts the parent into a wait state
-struct Proc *Proc_CreateBlockingChild(struct ProcCmd *script, struct Proc *parent)
+struct Proc *Proc_CreateBlockingChild(const struct ProcCmd *script, struct Proc *parent)
 {
     struct Proc *proc = Proc_Create(script, parent);
 
@@ -223,7 +223,7 @@ void Proc_ClearNativeCallback(struct Proc *proc)
     proc->nativeFunc = NULL;
 }
 
-struct Proc *Proc_Find(struct ProcCmd *script)
+struct Proc *Proc_Find(const struct ProcCmd *script)
 {
     int i;
     struct Proc *proc = &gProcesses[0];
@@ -266,8 +266,8 @@ static struct Proc *Proc_FindWithMark(u32 mark)
 
 void Proc_GotoLabel(struct Proc* proc_arg, int label)
 {
-    struct Proc* proc = proc_arg;
-    struct ProcCmd* ptr;
+    struct Proc *proc = proc_arg;
+    const struct ProcCmd *ptr;
 
     for (ptr = proc->script; ptr->opcode != 0; ptr++)
     {
@@ -308,7 +308,7 @@ void Proc_ForEach(ProcFunc func)
     }
 }
 
-void Proc_ForEachWithScript(struct ProcCmd *script, ProcFunc func)
+void Proc_ForEachWithScript(const struct ProcCmd *script, ProcFunc func)
 {
     int i;
     struct Proc *proc = &gProcesses[0];
@@ -373,7 +373,7 @@ static void Delete(struct Proc *proc)
     Proc_Delete(proc);
 }
 
-void Proc_DeleteAllWithScript(struct ProcCmd *script)
+void Proc_DeleteAllWithScript(const struct ProcCmd *script)
 {
     Proc_ForEachWithScript(script, Delete);
 }
@@ -383,7 +383,7 @@ static void ClearNativeCallback(struct Proc *proc)
     Proc_ClearNativeCallback(proc);
 }
 
-void Proc_ClearNativeCallbackEachWithScript(struct ProcCmd *script)
+void Proc_ClearNativeCallbackEachWithScript(const struct ProcCmd *script)
 {
     Proc_ForEachWithScript(script, ClearNativeCallback);
 }
@@ -620,7 +620,7 @@ static s8 ProcCmd_SET_BIT4(struct Proc *proc)
     return 1;
 }
 
-static s8 (*const sProcessCmdTable[])(struct Proc *) =
+static s8 (*sProcessCmdTable[])(struct Proc *) =
 {
     ProcCmd_DELETE,
     ProcCmd_SET_NAME,

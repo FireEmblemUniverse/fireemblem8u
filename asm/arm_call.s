@@ -7,7 +7,7 @@ ClearOAMBuffer: @ 0x080D7498
 	bx pc
 	nop
 	.ARM
-	b Store160To80Structs
+	b ARM_MoveOBJsOffscreen
 
 	THUMB_FUNC_START CallARM_FillTileRect
 CallARM_FillTileRect: @ 0x080D74A0
@@ -42,6 +42,6 @@ sub_80D74C0: @ 0x080D74C0
 	bx pc
     nop
 	.ARM
-	b sub_8000360
+	b ARM_CalcSomeChecksum
 
 	.align 2, 0

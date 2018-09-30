@@ -28,16 +28,83 @@ typedef u8  bool8;
 typedef u16 bool16;
 typedef u32 bool32;
 
+struct DispCnt
+{
+    u16 mode:3;
+    u16 cgbMode:1;  // reserved, do not use
+    u16 bmpFrameNum:1;
+    u16 hblankIntervalFree:1;
+    u16 obj1dMap:1;
+    u16 forcedBlank:1;
+    u16 bg0_on:1;
+    u16 bg1_on:1;
+    u16 bg2_on:1;
+    u16 bg3_on:1;
+    u16 obj_on:1;
+    u16 win0_on:1;
+    u16 win1_on:1;
+    u16 objWin_on:1;
+};
+
+struct DispStat
+{
+    u16 vblankFlag:1;
+    u16 hblankFlag:1;
+    u16 vcountFlag:1;
+    u16 vblankIrqEnable:1;
+    u16 hblankIrqEnable:1;
+    u16 vcountIrqEnable:1;
+    u16 dummy:2;
+    u8 vcountCompare;
+};
+
 struct BgCnt
 {
     u16 priority:2;
     u16 charBaseBlock:2;
-    u16 dummy:4;
+    u16 dummy:2;
+    u16 mosaic:1;
+    u16 colorMode:1;
     u16 screenBaseBlock:5;
     u16 areaOverflowMode:1;
     u16 screenSize:2;
 };
-typedef volatile struct BgCnt vBgCnt;
+
+struct WinCnt
+{
+    u8  win0_bg0_on:1;
+    u8  win0_bg1_on:1;
+    u8  win0_bg2_on:1;
+    u8  win0_bg3_on:1;
+    u8  win0_obj_on:1;
+    u8  win0_blend_on:1;
+    u8  dummy1:2;
+
+    u8  win1_bg0_on:1;
+    u8  win1_bg1_on:1;
+    u8  win1_bg2_on:1;
+    u8  win1_bg3_on:1;
+    u8  win1_obj_on:1;
+    u8  win1_blend_on:1;
+    u8  dummy2:2;
+};
+
+struct BlendCnt
+{
+    u16 target1_bg0_on:1;
+    u16 target1_bg1_on:1;
+    u16 target1_bg2_on:1;
+    u16 target1_bg3_on:1;
+    u16 target1_obj_on:1;
+    u16 target1_bd_on:1;
+    u16 effect:2;
+    u16 target2_bg0_on:1;
+    u16 target2_bg1_on:1;
+    u16 target2_bg2_on:1;
+    u16 target2_bg3_on:1;
+    u16 target2_obj_on:1;
+    u16 target2_bd_on:1;
+};
 
 struct PlttData
 {
@@ -136,5 +203,20 @@ struct SioMultiCnt
 #define ST_SIO_38400_BPS  1 //  38400 bps
 #define ST_SIO_57600_BPS  2 //  57600 bps
 #define ST_SIO_115200_BPS 3 // 115200 bps
+
+struct WaitCnt
+{
+    u16 sramWait:2;
+    u16 rom0_1stAcc:2;
+    u16 rom0_2ndAcc:1;
+    u16 rom1_1stAcc:2;
+    u16 rom1_2ndAcc:1;
+    u16 rom2_1stAcc:2;
+    u16 rom2_2ndAcc:1;
+    u16 phiTerminalClock:2;
+    u16 dummy:1;
+    u16 prefetchBufEnable:1;
+    u16 gamePakType:1;
+};
 
 #endif // GUARD_GBA_TYPES_H

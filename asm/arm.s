@@ -5,7 +5,7 @@
 	.global ARMCodeToCopy_Start
 ARMCodeToCopy_Start:
 
-_08000228: .4byte gUnknown_020228A8 @ pool
+_08000228: .4byte gPaletteBuffer @ pool
 _0800022C: .4byte gUnknown_020222A8 @ pool
 _08000230: .4byte gUnknown_02022288 @ pool
 
@@ -73,35 +73,39 @@ _080002F4:
 	pop {r4, r5, r6, r7}
 	bx lr
 
-	ARM_FUNC_START Store160To80Structs
-Store160To80Structs: @ 0x08000304
+	ARM_FUNC_START ARM_MoveOBJsOffscreen
+ARM_MoveOBJsOffscreen: @ 0x08000304
+	@ r0 = dest
+	@ r1 = count
 	lsr r1, r1, #4
-	sub r1, r1, #1
-	mov r2, #0xa0
-_08000310:
-	str r2, [r0]
-	str r2, [r0, #8]
-	str r2, [r0, #0x10]
-	str r2, [r0, #0x18]
-	str r2, [r0, #0x20]
-	str r2, [r0, #0x28]
-	str r2, [r0, #0x30]
-	str r2, [r0, #0x38]
-	str r2, [r0, #0x40]
-	str r2, [r0, #0x48]
-	str r2, [r0, #0x50]
-	str r2, [r0, #0x58]
-	str r2, [r0, #0x60]
-	str r2, [r0, #0x68]
-	str r2, [r0, #0x70]
-	str r2, [r0, #0x78]
-	add r0, r0, #0x80
+	sub r1, r1, #1		@ count = count / 16 - 1
+	@ set the y-coordinate of each OBJ to 160, which moves it offscreen
+	@ This loop is unrolled to set 16 OBJs each iteration
+	mov r2, #160
+1:
+	str r2, [r0, #8*0]
+	str r2, [r0, #8*1]
+	str r2, [r0, #8*2]
+	str r2, [r0, #8*3]
+	str r2, [r0, #8*4]
+	str r2, [r0, #8*5]
+	str r2, [r0, #8*6]
+	str r2, [r0, #8*7]
+	str r2, [r0, #8*8]
+	str r2, [r0, #8*9]
+	str r2, [r0, #8*10]
+	str r2, [r0, #8*11]
+	str r2, [r0, #8*12]
+	str r2, [r0, #8*13]
+	str r2, [r0, #8*14]
+	str r2, [r0, #8*15]
+	add r0, r0, #8*16
 	subs r1, r1, #1
-	bpl _08000310
+	bpl 1b
 	bx lr
 
-	ARM_FUNC_START sub_8000360
-sub_8000360: @ 0x08000360
+	ARM_FUNC_START ARM_CalcSomeChecksum
+ARM_CalcSomeChecksum: @ 0x08000360
 	push {r4, r5, r6, r7}
 	sub r1, r1, #2
 	mov r2, #0
@@ -124,20 +128,24 @@ _08000370:
 
 	ARM_FUNC_START ARM_FillRect
 ARM_FillRect: @ 0x080003A8
+	@ r0 = destination
+	@ r1 = width
+	@ r2 = height
+	@ r3 = fillValue
 	push {r4, r5, r6, r7}
 	mov r4, r0
 	sub r6, r2, #0
-_080003B4:
+  1:
 	sub r5, r1, #0
-_080003B8:
+  2:
 	strh r3, [r4]
 	add r4, r4, #2
-	subs r5, r5, #1
-	bpl _080003B8
+	subs r5, r5, #1		@ decrement width counter
+	bpl 2b
 	add r0, r0, #0x40
 	mov r4, r0
-	subs r6, r6, #1
-	bpl _080003B4
+	subs r6, r6, #1		@ decrement height counter
+	bpl 1b
 	pop {r4, r5, r6, r7}
 	bx lr
 
@@ -195,6 +203,7 @@ _0800045C:
 	bpl _08000458
 	pop {r4, r5, r6, r7}
 	bx lr
+
 	.align 2, 0
 _08000490: .4byte gUnknown_03003744 @ pool
 
@@ -251,16 +260,17 @@ IRAMARM_CopyToPrimaryOAM: @ 0x08000534
 	ldr r7, _08000530
 	b _0800049C
 
-_08000540:
-	.4byte 0x00000001
-	.4byte 0x00000004
-	.4byte 0x00000010
-	.4byte 0x00000040
-	.4byte 0x00000100
-	.4byte 0x00000400
-	.4byte 0x00001000
-	.4byte 0x00004000
-_08000560: .4byte _08000540 @ pool
+bitTable:
+	.4byte (1 << 0)
+	.4byte (1 << 2)
+	.4byte (1 << 4)
+	.4byte (1 << 6)
+	.4byte (1 << 8)
+	.4byte (1 << 10)
+	.4byte (1 << 12)
+	.4byte (1 << 14)
+
+lt_bitTable: .4byte bitTable @ pool
 
 	ARM_FUNC_START IRAMARM_Func3_DrawGlyph
 IRAMARM_Func3_DrawGlyph: @ 0x08000564
@@ -269,7 +279,7 @@ IRAMARM_Func3_DrawGlyph: @ 0x08000564
 	mov sl, #0x10000
 	sub sl, sl, #1
 _08000574:
-	ldr r4, _08000560  @ _08000540
+	ldr r4, lt_bitTable  @ bitTable
 	ldr r5, [r4, r3, lsl #2]
 	ldr r4, [r2]
 	umull r5, r6, r4, r5
@@ -320,7 +330,7 @@ sub_8000620: @ 0x08000620
 	mov sl, #0x10000
 	sub sl, sl, #1
 _08000630:
-	ldr r4, _08000560  @ gUnknown_08000540
+	ldr r4, lt_bitTable  @ gUnknown_08000540
 	ldr r5, [r4, r3, lsl #2]
 	ldr r4, [r2]
 	umull r5, r6, r4, r5

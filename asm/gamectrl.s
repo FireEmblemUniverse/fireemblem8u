@@ -246,7 +246,7 @@ sub_80099E4: @ 0x080099E4
 Goto6CLabel12IfSomething: @ 0x08009A00
 	push {lr}
 	adds r2, r0, #0
-	ldr r0, _08009A20  @ gUnknown_0858791C
+	ldr r0, _08009A20  @ gKeyStatusPtr
 	ldr r0, [r0]
 	ldrh r1, [r0, #4]
 	movs r0, #0x85
@@ -260,7 +260,7 @@ _08009A1A:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_08009A20: .4byte gUnknown_0858791C
+_08009A20: .4byte gKeyStatusPtr
 
 	THUMB_FUNC_START sub_8009A24
 sub_8009A24: @ 0x08009A24
@@ -320,7 +320,7 @@ sub_8009A84: @ 0x08009A84
 	sub sp, #4
 	movs r0, #0
 	str r0, [sp]
-	ldr r1, _08009AAC  @ gUnknown_020228A8
+	ldr r1, _08009AAC  @ gPaletteBuffer
 	ldr r2, _08009AB0  @ 0x01000100
 	mov r0, sp
 	bl CpuFastSet
@@ -333,7 +333,7 @@ sub_8009A84: @ 0x08009A84
 	pop {r0}
 	bx r0
 	.align 2, 0
-_08009AAC: .4byte gUnknown_020228A8
+_08009AAC: .4byte gPaletteBuffer
 _08009AB0: .4byte 0x01000100
 _08009AB4: .4byte Delete6CIfNotMarkedB
 _08009AB8: .4byte SomeUpdateRoutine
@@ -343,7 +343,7 @@ sub_8009ABC: @ 0x08009ABC
 	push {lr}
 	movs r0, #0x43
 	movs r1, #0
-	bl sub_8002448
+	bl Sound_PlaySong8002448
 	movs r0, #0
 	movs r1, #0xc0
 	movs r2, #0x3c
@@ -625,7 +625,7 @@ _08009CDC: .4byte gUnknown_0202BCF0
 sub_8009CE0: @ 0x08009CE0
 	push {r4, lr}
 	adds r4, r0, #0
-	bl ClearMOVEUNITs
+	bl MU_EndAll
 	adds r0, r4, #0
 	adds r0, #0x29
 	ldrb r0, [r0]
@@ -836,14 +836,14 @@ _08009E6C: .4byte gUnknown_0202BCF0
 _08009E70:
 	ldr r0, _08009E7C  @ gUnknown_08A0035C
 	movs r1, #1
-	bl CallMapEventEngine
+	bl CallEvent
 	b _08009E88
 	.align 2, 0
 _08009E7C: .4byte gUnknown_08A0035C
 _08009E80:
 	ldr r0, _08009E94  @ gUnknown_08A00364
 	movs r1, #1
-	bl CallMapEventEngine
+	bl CallEvent
 _08009E88:
 	movs r0, #0x84
 	bl SetEventId
@@ -869,14 +869,14 @@ _08009EB0: .4byte gUnknown_0202BCF0
 _08009EB4:
 	ldr r0, _08009EC0  @ gUnknown_08A0037C
 	movs r1, #1
-	bl CallMapEventEngine
+	bl CallEvent
 	b _08009ECC
 	.align 2, 0
 _08009EC0: .4byte gUnknown_08A0037C
 _08009EC4:
 	ldr r0, _08009ED8  @ gUnknown_08A0048C
 	movs r1, #1
-	bl CallMapEventEngine
+	bl CallEvent
 _08009ECC:
 	movs r0, #0x84
 	bl SetEventId

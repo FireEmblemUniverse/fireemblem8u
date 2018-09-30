@@ -1,31 +1,35 @@
 . = ALIGN(4); src/rng.o(.bss);
+
+/* hardware.c*/
 . = 0x00000C; gUnknown_0300000C = .;
-. = 0x00000D; gUnknown_0300000D = .;
-. = 0x00000E; gUnknown_0300000E = .;
+. = 0x00000D; sModifiedBGs = .;
+. = 0x00000E; sModifiedPalette = .;
 . = 0x000010; gUnknown_03000010 = .;
-. = 0x000014; gUnknown_03000014 = .;
+
+. = 0x000014; gGameClock = .;
 . = 0x000018; gUnknown_03000018 = .;
 . = 0x000019; gUnknown_03000019 = .;
 . = 0x00001A; gUnknown_0300001A = .;
 . = 0x000020; gUnknown_03000020 = .;
 . = 0x000030; gUnknown_03000030 = .;
-. = 0x000040; gUnknown_03000040 = .;
-. = 0x000044; gUnknown_03000044 = .;
+. = 0x000040;
+. = ALIGN(4); src/soundwrapper.o(.bss);
+/*face.c*/
 . = 0x0000D0; gUnknown_030000D0 = .;
 . = 0x0000D8; gUnknown_030000D8 = .;
 . = 0x0000E8; gUnknown_030000E8 = .;
 . = 0x0000F0; gUnknown_030000F0 = .;
-. = 0x000108; gUnknown_03000108 = .;
+. = 0x000108; src/ap.o(.bss); /* sAPArray = .; */
 . = 0x000428; gUnknown_03000428 = .;
 . = 0x000430; gUnknown_03000430 = .;
 . = 0x000434; gUnknown_03000434 = .;
-. = 0x000438; gUnknown_03000438 = .;
-. = 0x0004B8; gUnknown_030004B8 = .;
+. = 0x000438; gEventCallQueue = .;
+. = 0x0004B8; gEventSlots = .;
 . = 0x0004E4; gUnknown_030004E4 = .;
 . = 0x0004E6; gUnknown_030004E6 = .;
 . = 0x0004E8; gUnknown_030004E8 = .;
-. = 0x0004F0; gUnknown_030004F0 = .;
-. = 0x000568; gUnknown_03000568 = .;
+. = 0x0004F0; gEventSlotQueue = .;
+. = 0x000568; gEventSlotCounter = .;
 . = 0x000570; gUnknown_03000570 = .;
 . = 0x0005B0; gUnknown_030005B0 = .;
 . = 0x0005D0; gUnknown_030005D0 = .;
@@ -70,9 +74,8 @@
 . = 0x001864; gUnknown_03001864 = .;
 . = 0x001870; gUnknown_03001870 = .;
 . = 0x0018F0; gUnknown_030018F0 = .;
-. = 0x0018F8; gUnknown_030018F8 = .;
-. = 0x0018FC; gUnknown_030018FC = .;
-. = 0x001900; gUnknown_03001900 = .;
+. = 0x0018F8;
+. = ALIGN(4); src/mu.o(.bss);
 . = 0x001A30; gUnknown_03001A30 = .;
 . = 0x001A34; gUnknown_03001A34 = .;
 . = 0x001C34; gUnknown_03001C34 = .;
@@ -93,22 +96,20 @@
 . = 0x001DA8; gUnknown_03001DA8 = .;
 . = 0x001DE8; gUnknown_03001DE8 = .;
 . = 0x001E30; gUnknown_03001E30 = .;
-. = 0x002A68; gUnknown_03002A68 = .;
-. = 0x002A69; gUnknown_03002A69 = .;
-. = 0x002B08; gUnknown_03002B08 = .;
-. = 0x002B09; gUnknown_03002B09 = .;
 
-. = 0x2B88;
+. = 0x002A68;
+. = ALIGN(4); src/agb_sram.o(.bss);
 . = ALIGN(4); tools/agbcc/lib/libc.a:syscalls.o(.bss);
 . = ALIGN(4); tools/agbcc/lib/libgcc.a:dp-bit.o(.bss);
 . = ALIGN(4); tools/agbcc/lib/libgcc.a:fp-bit.o(.bss);
 
+/* COMMON */
 . = 0x002C60; SoundMainRAM_Buffer = .;
 . = 0x002C61; gUnknown_03002C61 = .;
 . = 0x003060; gUnknown_03003060 = .;
 . = 0x003070; gUnknown_03003070 = .;
 . = 0x003070; gUnknown_03003070 = .;
-. = 0x003080; gUnknown_03003080 = .;
+. = 0x003080; gLCDControlBuffer = .;
 . = 0x00308C; gUnknown_0300308C = .;
 . = 0x003090; gUnknown_03003090 = .;
 . = 0x003094; gUnknown_03003094 = .;
@@ -122,14 +123,14 @@
 . = 0x003128; gUnknown_03003128 = .;
 . = 0x00312C; gUnknown_0300312C = .;
 . = 0x003130; gUnknown_03003130 = .;
-. = 0x003134; gUnknown_03003134 = .;
+. = 0x003134; sHBlankHandler1 = .;
 . = 0x003140; gUnknown_03003140 = .;
 . = 0x003240; gUnknown_03003240 = .;
 . = 0x003540; gUnknown_03003540 = .;
 . = 0x003740; gUnknown_03003740 = .;
 . = 0x003744; gUnknown_03003744 = .;
 . = 0x003744; gUnknown_03003744 = .;
-. = 0x003748; gUnknown_03003748 = .;
+. = 0x003748; sHBlankHandler2 = .;
 . = 0x003750; gUnknown_03003750 = .;
 . = 0x004150; gUnknown_03004150 = .;
 . = 0x004154; gUnknown_03004154 = .;
@@ -194,8 +195,10 @@
 . = 0x006710; gMPlayMemAccArea = .;
 . = 0x006720; gUnknown_03006720 = .;
 . = 0x006760; gUnknown_03006760 = .;
-. = 0x0067A0; gUnknown_030067A0 = .;
-. = 0x0067A4; gUnknown_030067A4 = .;
+
+/* src/agb_sram.o(COMMON); */
+. = 0x0067A0; ReadSramFast = .;
+. = 0x0067A4; VerifySramFast = .;
 
 . = 0x67A8;
 . = ALIGN(4); tools/agbcc/lib/libc.a:sbrkr.o(COMMON);

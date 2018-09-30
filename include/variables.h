@@ -102,7 +102,7 @@
 // extern ??? gUnknown_02004BAC
 // extern ??? gUnknown_02004BBC
 // extern ??? gUnknown_02004BC4
-// extern ??? gUnknown_02004BE0
+// extern ??? gMUGfxBuffer
 // extern ??? gUnknown_02007838
 // extern ??? gUnknown_020078D8
 // extern ??? gUnknown_02008000
@@ -306,7 +306,7 @@
 // extern ??? gUnknown_02020140
 // extern ??? gUnknown_02020144
 // extern ??? gUnknown_02020148
-// extern ??? gUnknown_02020188
+extern u8 gUnknown_02020188[]; // gGenericBuffer
 // extern ??? gUnknown_02020208
 // extern ??? gUnknown_02020288
 // extern ??? gUnknown_02020988
@@ -315,7 +315,7 @@
 extern s8 gUnknown_02022288[];
 extern s8 gUnknown_020222A8[];
 // extern ??? gUnknown_02022308
-extern u16 gUnknown_020228A8[];
+extern u16 gPaletteBuffer[];
 // extern ??? gUnknown_020228AA
 // extern ??? gUnknown_020228C8
 // extern ??? gUnknown_020228E8
@@ -342,7 +342,7 @@ extern u16 gUnknown_020228A8[];
 // extern ??? gUnknown_02022C28
 // extern ??? gUnknown_02022C48
 // extern ??? gUnknown_02022C68
-extern u8 gUnknown_02022CA8[];
+extern u8 gBG0TilemapBuffer[];
 // extern ??? gUnknown_02022CAA
 // extern ??? gUnknown_02022CAC
 // extern ??? gUnknown_02022CAE
@@ -421,7 +421,7 @@ extern u8 gUnknown_02022CA8[];
 // extern ??? gUnknown_02023116
 // extern ??? gUnknown_02023130
 // extern ??? gUnknown_02023136
-extern u8 gUnknown_020234A8[];
+extern u8 gBG1TilemapBuffer[];
 // extern ??? gUnknown_020234AC
 // extern ??? gUnknown_020234AE
 // extern ??? gUnknown_020234B0
@@ -455,7 +455,10 @@ extern u8 gUnknown_020234A8[];
 // extern ??? gUnknown_0202393E
 // extern ??? gUnknown_0202396C
 // extern ??? gUnknown_020239A8
-extern u8 gUnknown_02023CA8[];
+// I'm not sure if this is u8 or u16.
+// In text mode, the tilemap entries are 16 bits,
+// while in affine mode, they are 8 bits.
+extern u8 gBG2TilemapBuffer[];
 // extern ??? gUnknown_02023CAA
 // extern ??? gUnknown_02023CAE
 // extern ??? gUnknown_02023CB6
@@ -489,42 +492,31 @@ extern u8 gUnknown_02023CA8[];
 // extern ??? gUnknown_0202400A
 // extern ??? gUnknown_02024044
 // extern ??? gUnknown_0202404A
-extern u8 gUnknown_020244A8[];
-// extern ??? gUnknown_02024CA8
-// extern ??? gUnknown_02024CB8
+extern u8 gBG3TilemapBuffer[];
+extern void *gBGVramTilemapPointers[];
+extern void (*gMainCallback)(void);
 extern struct Struct02024CD4 gUnknown_02024CD4;
-extern struct Struct02024CDC gUnknown_02024CDC[];
-extern struct Struct02024E5C gUnknown_02024E5C;
+extern struct TileDataTransfer gUnknown_02024CDC[];
 // extern ??? gProcesses
 // extern ??? gUnknown_02026968
 // extern ??? gUnknown_02026A6C
 // extern ??? gRootProcesses
 // extern ??? gUnknown_02026A90
 // extern ??? gUnknown_02026E10
-// extern ??? gUnknown_02026E30
-// extern ??? gUnknown_02028E44
-// extern ??? gUnknown_02028E4B
-// extern ??? gUnknown_02028E4C
-// extern ??? gUnknown_02028E50
-// extern ??? gUnknown_02028E54
-// extern ??? gUnknown_02028E58
-// extern ??? gUnknown_02028E70
-// extern ??? gUnknown_02028E74
-// extern ??? gUnknown_02028E78
 // extern ??? gUnknown_02028F78
 // extern ??? gUnknown_02029D88
-// extern ??? gUnknown_02029D8C
-// extern ??? gUnknown_0202A58C
+extern struct UnknownStructCTC gUnknown_02029D8C[];
+extern struct UnknownStructCTC gUnknown_0202A58C[17];
 // extern ??? gUnknown_0202A68C
-// extern ??? gUnknown_0202A6AC
-// extern ??? gUnknown_0202AC01
-// extern ??? gUnknown_0202B156
-// extern ??? gUnknown_0202B4AC
+extern struct TextBuffer0202A6AC gUnknown_0202A6AC;
+//extern u8 gUnknown_0202AC01[];
+//extern u8 gUnknown_0202B156[];
+extern u8 gUnknown_0202B4AC[];
 // extern ??? gUnknown_0202B5AC
-// extern ??? gUnknown_0202B6AC
+extern int gUnknown_0202B6AC;
 // extern ??? gUnknown_0202B6B0
-// extern ??? gUnknown_0202BCB0
-// extern ??? gUnknown_0202BCF0
+extern struct Struct0202BCB0 gUnknown_0202BCB0;
+extern struct Struct0202BCF0 gUnknown_0202BCF0;
 // extern ??? gUnknown_0202BD10
 // extern ??? gUnknown_0202BD30
 // extern ??? gUnknown_0202BD31
@@ -536,14 +528,14 @@ extern struct Struct02024E5C gUnknown_02024E5C;
 // extern ??? gUnknown_0202BE4C
 // extern ??? gUnknown_0202CFBC
 // extern ??? gUnknown_0202DDCC
-// extern ??? gUnknown_0202E4D4
-// extern ??? gUnknown_0202E4D8
-// extern ??? gUnknown_0202E4DC
-// extern ??? gUnknown_0202E4E0
-// extern ??? gUnknown_0202E4E4
-// extern ??? gUnknown_0202E4E8
-// extern ??? gUnknown_0202E4EC
-// extern ??? gUnknown_0202E4F0
+extern struct { short width, height; } gUnknown_0202E4D4; // gMapSize
+extern u8** gUnknown_0202E4D8; // gMapUnit
+extern u8** gUnknown_0202E4DC; // gMapTerrain
+extern u8** gUnknown_0202E4E0; // gMapMovement
+extern u8** gUnknown_0202E4E4; // gMapRange
+extern u8** gUnknown_0202E4E8; // gMapFog
+extern u8** gUnknown_0202E4EC; // gMapHidden
+extern u8** gUnknown_0202E4F0; // gMapOther
 // extern ??? gUnknown_0202E4F4
 // extern ??? gUnknown_0202ECAC
 // extern ??? gUnknown_0202F464
@@ -577,7 +569,7 @@ extern struct Struct02024E5C gUnknown_02024E5C;
 // extern ??? gUnknown_0203A8EC
 // extern ??? gUnknown_0203A8F0
 // extern ??? gUnknown_0203A910
-// extern ??? gUnknown_0203A958
+extern struct UnknownItemStruct gUnknown_0203A958;
 // extern ??? gUnknown_0203A95E
 // extern ??? gUnknown_0203A974
 // extern ??? gUnknown_0203A9FC
@@ -667,7 +659,7 @@ extern struct Struct02024E5C gUnknown_02024E5C;
 // extern ??? gUnknown_0203E1E4
 // extern ??? gUnknown_0203E1E8
 // extern ??? gUnknown_0203E1EC
-// extern ??? gUnknown_0203E1F0
+extern struct MapAnimState gUnknown_0203E1F0;
 // extern ??? gUnknown_0203E1F8
 // extern ??? gUnknown_0203E254
 // extern ??? gUnknown_0203E754
@@ -703,33 +695,34 @@ extern struct Struct02024E5C gUnknown_02024E5C;
 // extern ??? end
 // extern ??? gUnknown_03000000
 // extern ??? gLCGRNValue
+
+// time.c/hardware.c
 // extern ??? gUnknown_0300000C
-extern u8 gUnknown_0300000D;
-extern u8 gUnknown_0300000E;
-// extern ??? gUnknown_03000010
+extern u8 sModifiedBGs;  // BGs that need copying
+extern s8 sModifiedPalette;
+extern u16 gUnknown_03000010;
 // extern ??? gUnknown_03000014
 extern u8 gUnknown_03000018;
 extern u8 gUnknown_03000019;
 extern u8 gUnknown_0300001A;
-extern struct Struct02024CDC gUnknown_03000020;
-extern struct Struct02024CDC gUnknown_03000030;
-// extern ??? gUnknown_03000040
-// extern ??? gUnknown_03000044
+extern struct OamDataTransfer gUnknown_03000020;
+extern struct OamDataTransfer gUnknown_03000030;
+
 // extern ??? gUnknown_030000D0
 // extern ??? gUnknown_030000D8
 // extern ??? gUnknown_030000E8
 // extern ??? gUnknown_030000F0
-// extern ??? gUnknown_03000108
+// extern ??? sAPArray
 // extern ??? gUnknown_03000428
 // extern ??? gUnknown_03000430
 // extern ??? gUnknown_03000434
-// extern ??? gUnknown_03000438
-// extern ??? gUnknown_030004B8
+// extern ??? gEventCallQueue
+// extern ??? gEventSlots
 // extern ??? gUnknown_030004E4
 // extern ??? gUnknown_030004E6
 // extern ??? gUnknown_030004E8
-// extern ??? gUnknown_030004F0
-// extern ??? gUnknown_03000568
+// extern ??? gEventSlotQueue
+// extern ??? gEventSlotCounter
 // extern ??? gUnknown_03000570
 // extern ??? gUnknown_030005B0
 // extern ??? gUnknown_030005D0
@@ -774,9 +767,6 @@ extern struct Struct02024CDC gUnknown_03000030;
 // extern ??? gUnknown_03001864
 // extern ??? gUnknown_03001870
 // extern ??? gUnknown_030018F0
-// extern ??? gUnknown_030018F8
-// extern ??? gUnknown_030018FC
-// extern ??? gUnknown_03001900
 // extern ??? gUnknown_03001A30
 // extern ??? gUnknown_03001A34
 // extern ??? gUnknown_03001C34
@@ -797,10 +787,6 @@ extern struct Struct02024CDC gUnknown_03000030;
 // extern ??? gUnknown_03001DA8
 // extern ??? gUnknown_03001DE8
 // extern ??? gUnknown_03001E30
-// extern ??? gUnknown_03002A68
-// extern ??? gUnknown_03002A69
-// extern ??? gUnknown_03002B08
-// extern ??? gUnknown_03002B09
 // extern ??? gUnknown_03002B88
 // extern ??? gUnknown_03002B8C
 // extern ??? gUnknown_03002B90
@@ -810,7 +796,7 @@ extern struct Struct02024CDC gUnknown_03000030;
 // extern ??? gUnknown_03002C61
 // extern ??? gUnknown_03003060
 extern void *gUnknown_03003070;
-extern struct Struct03003080 gUnknown_03003080;
+extern struct Struct03003080 gLCDControlBuffer;
 //extern u16 gUnknown_0300308C[];
 // extern ??? gUnknown_03003090
 // extern ??? gUnknown_03003094
@@ -824,20 +810,20 @@ extern u16 gUnknown_030030BC;
 // extern ??? gUnknown_03003128
 extern u16 gUnknown_0300312C;
 // extern ??? gUnknown_03003130
-extern void (*gUnknown_03003134)(void);
+extern void (*sHBlankHandler1)(void);
 extern u16 gUnknown_03003140[];
 extern u32 gUnknown_03003240[];
 // extern ??? gUnknown_03003540
 // extern ??? gUnknown_03003740
 extern u32 *gUnknown_03003744;
-extern void (*gUnknown_03003748)(void);
+extern void (*sHBlankHandler2)(void);
 // extern ??? gUnknown_03003750
 // extern ??? gUnknown_03004150
 // extern ??? gUnknown_03004154
 extern void *gUnknown_03004158;
 // extern ??? gUnknown_03004160
 // extern ??? gUnknown_03004960
-// extern ??? gUnknown_03004970
+extern struct UnknownStructCTC *gUnknown_03004970;
 // extern ??? gUnknown_03004980
 // extern ??? gUnknown_03004990
 // extern ??? gUnknown_030049A0
@@ -875,38 +861,36 @@ extern void *gUnknown_03004158;
 // extern ??? gUnknown_030053E0
 // extern ??? gUnknown_03005408
 // extern ??? gSoundInfo
-// extern ??? gUnknown_030063C0
-// extern ??? gUnknown_03006400
-// extern ??? gUnknown_03006440
+extern struct MusicPlayerInfo gUnknown_030063C0;
+extern struct MusicPlayerInfo gUnknown_03006400;
+extern struct MusicPlayerInfo gUnknown_03006440;
 // extern ??? gMPlayJumpTable
 // extern ??? gUnknown_03006484
 // extern ??? gUnknown_03006508
 // extern ??? gUnknown_0300650C
 // extern ??? gCgbChans
-// extern ??? gUnknown_03006610
-// extern ??? gUnknown_03006650
-// extern ??? gUnknown_03006690
-// extern ??? gUnknown_030066D0
+extern struct MusicPlayerInfo gUnknown_03006610;
+extern struct MusicPlayerInfo gUnknown_03006650;
+extern struct MusicPlayerInfo gUnknown_03006690;
+extern struct MusicPlayerInfo gUnknown_030066D0;
 // extern ??? gMPlayMemAccArea
-// extern ??? gUnknown_03006720
-// extern ??? gUnknown_03006760
-// extern ??? gUnknown_030067A0
-// extern ??? gUnknown_030067A4
+extern struct MusicPlayerInfo gUnknown_03006720;
+extern struct MusicPlayerInfo gUnknown_03006760;
 // extern ??? gUnknown_03007E00
 // extern ??? gUnknown_03007F00
 // extern ??? gUnknown_03007FA0
 // extern ??? gUnknown_03007FF0
 // extern ??? gUnknown_03007FF8
 // extern ??? gUnknown_03007FFC
+
+// const data
 // extern ??? gUnknown_08000540
 extern const char gBuildDateTime[]; // "2005/02/04(FRI) 16:55:40...."
 extern const char gYearProjectCreated[]; // "_2003..."
 // extern ??? gUnknown_080D74F4
 extern const u16 gUnknown_080D7504[];
-// extern ??? gUnknown_080D751C
-// extern ??? gUnknown_080D759C
-// extern ??? gUnknown_080D779C
-// extern ??? gUnknown_080D77B0
+extern short gSinLookup[]; // gSinTable; needs to be non-const to match?
+//extern const s16 gCosLookup[]; // gCosTable
 // extern ??? gUnknown_080D77BC
 // extern ??? gUnknown_080D77DC
 // extern ??? gUnknown_080D77FC
@@ -1213,7 +1197,7 @@ extern const u16 gUnknown_080D7504[];
 // extern ??? gUnknown_080E838E
 // extern ??? gUnknown_0815A72C
 // extern ??? gUnknown_0815D488
-// extern ??? gUnknown_0815D48C
+extern const char *const gUnknown_0815D48C[];
 // extern ??? gUnknown_08205714
 // extern ??? gUnknown_0820579C
 // extern ??? gUnknown_08205824
@@ -1338,23 +1322,39 @@ extern const u16 gUnknown_080D7504[];
 // extern ??? __mprec_bigtens
 // extern ??? gUnknown_085878F4
 // extern ??? gUnknown_085878F8
-extern struct Struct0858791C *gUnknown_0858791C;
-// extern ??? gUnknown_08587920
-extern void *const gUnknown_08587938[];
-extern struct BgCnt *const gUnknown_08587948[];
-// extern ??? gUnknown_08587958
-// extern ??? gUnknown_08587970
-// extern ??? gUnknown_08587988
-// extern ??? gUnknown_08587998
+
+// .data variables
+// Everything below this point must not be declared as const.
+
+extern struct KeyStatusBuffer *gKeyStatusPtr;
+extern void *gUnknown_08587938[];
+extern struct BgCnt *gUnknown_08587948[];
+// extern ??? sMusicProc1Script
+// extern ??? sMusicProc2Script
+// extern ??? gMusicProc3Script
+// extern ??? sMusicProc4Script
 // extern ??? gProcCmdFuncs
-// extern ??? gUnknown_08587A40
-// extern ??? gUnknown_08588240
+extern u8 debug_font_4bpp[];
+extern u16 *gUnknown_08588240[];
 // extern ??? gUnknown_08588274
 // extern ??? gUnknown_08588284
-// extern ??? gUnknown_0858C7EC
-// extern ??? gUnknown_0858F6F4
-// extern ??? gUnknown_08590B44
-// extern ??? gUnknown_08590F44
+extern u16 gUnknown_0858829C[];
+extern u16 gUnknown_0858849C[];
+extern u16 gUnknown_0858869C[];
+extern u16 gUnknown_0858889C[];
+extern u16 gUnknown_08588A9C[];
+extern u16 gUnknown_08588C9C[];
+extern u16 gUnknown_08588E9C[];
+extern u16 gUnknown_0858909C[];
+extern u16 gUnknown_0858929C[];
+extern u16 gUnknown_0858949C[];
+extern u16 gUnknown_0858969C[];
+extern u16 gUnknown_0858989C[];
+extern u16 gUnknown_08589A9C[];
+extern struct Glyph *gUnknown_0858C7EC[];
+extern struct Glyph *gUnknown_0858F6F4[];
+extern struct Glyph *gUnknown_08590B44[];
+extern u16 gUnknown_08590F44[];
 // extern ??? gUnknown_08590F4C
 // extern ??? gUnknown_08590F54
 // extern ??? gUnknown_08590F64
@@ -1367,7 +1367,7 @@ extern struct BgCnt *const gUnknown_08587948[];
 // extern ??? gUnknown_08590FB4
 // extern ??? gUnknown_08590FBC
 // extern ??? gUnknown_08590FD4
-// extern ??? gUnknown_08590FDC
+extern struct ProcCmd gUnknown_08590FDC[];
 // extern ??? gUnknown_08590FEC
 // extern ??? gUnknown_0859100C
 // extern ??? gUnknown_08591026
@@ -1413,14 +1413,15 @@ extern struct BgCnt *const gUnknown_08587948[];
 // extern ??? gUnknown_08591624
 // extern ??? gUnknown_0859163C
 // extern ??? gUnknown_0859168C
-// extern ??? gUnknown_085916A4
-// extern ??? gUnknown_085916D4
-// extern ??? gUnknown_08591AA4
+extern u8 gOAMTileSizeLookup[]; // May be local to ap.c? Or even AP_QueueObjGraphics specifically
+// u8 ??? gUnknown_085916D4
+extern const char *gUnknown_08591AA4[][2];
+//extern struct {u32 *unk0; u32 *unk4; u32 *unk8;} gUnknown_08591AA4;
 // extern ??? gUnknown_08591AB4
-// extern ??? gUnknown_08591AC0
-// extern ??? gUnknown_08591AF8
-// extern ??? gUnknown_08591B28
-// extern ??? gUnknown_08591C98
+// extern ??? gProc_StdEventEngine
+// extern ??? gProc_BattleEventEngine
+// extern ??? gEventLoCmdTable
+// extern ??? gEventHiCmdTable
 // extern ??? gUnknown_08591DD8
 // extern ??? gUnknown_08591DE8
 // extern ??? gUnknown_08591E00
@@ -1429,14 +1430,14 @@ extern struct BgCnt *const gUnknown_08587948[];
 // extern ??? gUnknown_08591F08
 // extern ??? gUnknown_08591F18
 // extern ??? gUnknown_08591F28
-// extern ??? gUnknown_08591F88
-// extern ??? gUnknown_08591F9C
-// extern ??? gUnknown_08591FA8
-// extern ??? gUnknown_08591FF0
-// extern ??? gUnknown_08592030
-// extern ??? gUnknown_08592058
-// extern ??? gUnknown_085920B8
-// extern ??? gUnknown_08592104
+// extern ??? gEvent_DisplayBattleQuote
+// extern ??? gEvent_TriggerQueuedTileChanges
+// extern ??? gEvent_OpenChest
+// extern ??? gEvent_MapSupportConversation
+// extern ??? gEvent_SupportViewerConversation
+// extern ??? gEvent_SkirmishRetreat
+// extern ??? gEvent_SuspendPrompt
+// extern ??? gEvent_GameOver
 // extern ??? gUnknown_08592114
 // extern ??? gUnknown_085921AC
 // extern ??? gUnknown_085921C8
@@ -1478,8 +1479,12 @@ extern struct BgCnt *const gUnknown_08587948[];
 // extern ??? gUnknown_0859A0F8
 // extern ??? gUnknown_0859A100
 // extern ??? gUnknown_0859A110
-// extern ??? gUnknown_0859A120
-// extern ??? gUnknown_0859A140
+extern const u16 gUnknown_0859A120[];
+extern const u16 gUnknown_0859A140[];
+extern const u16 gUnknown_0859A160[];
+extern const u16 gUnknown_0859A180[];
+extern const u16 gUnknown_0859A1A0[];
+extern const u16 gUnknown_0859A1C0[];
 // extern ??? gUnknown_0859A1E0
 // extern ??? gUnknown_0859A1F0
 // extern ??? gUnknown_0859A438
@@ -1487,7 +1492,7 @@ extern struct BgCnt *const gUnknown_08587948[];
 // extern ??? gUnknown_0859A4C0
 // extern ??? gUnknown_0859A530
 // extern ??? gUnknown_0859A53C
-// extern ??? gUnknown_0859A548
+extern const struct ProcCmd gUnknown_0859A548[]; // this is GENS/Camera Movement proc
 // extern ??? gUnknown_0859A570
 // extern ??? gUnknown_0859A580
 // extern ??? gUnknown_0859A598
@@ -1663,12 +1668,12 @@ extern struct BgCnt *const gUnknown_08587948[];
 // extern ??? gUnknown_0859EEA0
 // extern ??? gUnknown_0859EEC0
 // extern ??? gUnknown_0859EEE0
-// extern ??? gUnknown_0859EF00
-// extern ??? gUnknown_0859EF20
+extern u8 gUnknown_0859EF00[];
+extern u8 gUnknown_0859EF20[];
 // extern ??? gUnknown_0859EF40
 // extern ??? gUnknown_0859EF60
 // extern ??? gUnknown_0859EF80
-// extern ??? gUnknown_0859EFC0
+extern u16 gUnknown_0859EFC0[];
 // extern ??? gUnknown_0859EFE0
 // extern ??? gUnknown_0859F000
 // extern ??? gUnknown_0859F020
@@ -3007,7 +3012,7 @@ extern struct BgCnt *const gUnknown_08587948[];
 // extern ??? gUnknown_08803D64
 // extern ??? gUnknown_08803D90
 // extern ??? gUnknown_08807110
-// extern ??? gUnknown_08809B10
+extern const struct ItemData gItemData[];
 // extern ??? gUnknown_0880B90C
 // extern ??? gUnknown_0880BB96
 // extern ??? gUnknown_0880BC18
@@ -3078,9 +3083,7 @@ extern struct BgCnt *const gUnknown_08587948[];
 // extern ??? gUnknown_088AFB5A
 // extern ??? gUnknown_088AFBD8
 // extern ??? gUnknown_088B05F8
-// extern ??? gUnknown_088B0890
 // extern ??? gUnknown_088B08F0
-// extern ??? gUnknown_088B363C
 // extern ??? gUnknown_088B39EC
 // extern ??? gUnknown_088B3AD8
 // extern ??? gUnknown_088D1F54
@@ -3108,34 +3111,34 @@ extern struct BgCnt *const gUnknown_08587948[];
 // extern ??? gUnknown_089A2938
 // extern ??? gUnknown_089A2968
 // extern ??? gUnknown_089A2988
-// extern ??? gUnknown_089A2998
-// extern ??? gUnknown_089A29BC
-// extern ??? gUnknown_089A2A00
-// extern ??? gUnknown_089A2A2E
-// extern ??? gUnknown_089A2A5A
-// extern ??? gUnknown_089A2AB2
-// extern ??? gUnknown_089A2AD4
-// extern ??? gUnknown_089A2AF6
-// extern ??? gUnknown_089A2B22
-// extern ??? gUnknown_089A2B3A
-// extern ??? gUnknown_089A2B68
-// extern ??? gUnknown_089A2BCE
-// extern ??? gUnknown_089A2C02
+// extern ??? gMUSfxDef_Foot
+// extern ??? gMUSfxDef_Heavy
+// extern ??? gMUSfxDef_Mounted
+// extern ??? gMUSfxDef_Wyvern
+// extern ??? gMUSfxDef_Pegasus
+// extern ??? gMUSfxDef_Zombie
+// extern ??? gMUSfxDef_Skeleton
+// extern ??? gMUSfxDef_Mogall
+// extern ??? gMUSfxDef_Spider
+// extern ??? gMUSfxDef_Dog
+// extern ??? gMUSfxDef_Gorgon
+// extern ??? gMUSfxDef_Boat
+// extern ??? gMUSfxDef_Myrrh
 // extern ??? gUnknown_089A2C28
-// extern ??? gUnknown_089A2C48
+// extern ??? gProcScr_MoveUnit
 // extern ??? gUnknown_089A2C68
 // extern ??? gUnknown_089A2C70
 // extern ??? gUnknown_089A2C78
 // extern ??? gUnknown_089A2C7A
-// extern ??? gUnknown_089A2C80
-// extern ??? gUnknown_089A2C98
+// extern ??? gProcScr_MUDeathFade
+// extern ??? gProcScr_MUBlinkEffect
 // extern ??? gUnknown_089A2CA8
 // extern ??? gUnknown_089A2CE8
-// extern ??? gUnknown_089A2CF8
+// extern ??? gProcScr_MU_89A2CF8
 // extern ??? gUnknown_089A2D10
 // extern ??? gUnknown_089A2D98
 // extern ??? gUnknown_089A2DB0
-// extern ??? gUnknown_089A2E00
+extern const struct MMSData gMMSDataTable[]; // Moving Map Sprite Table
 // extern ??? gUnknown_089A31F8
 // extern ??? gUnknown_089A3238
 // extern ??? gUnknown_089A3288
@@ -3221,7 +3224,7 @@ extern struct BgCnt *const gUnknown_08587948[];
 // extern ??? gUnknown_089A6254
 // extern ??? gUnknown_089A6F40
 // extern ??? gUnknown_089A6FD8
-// extern ??? gUnknown_089A8EF8
+extern const u16 gUnknown_089A8EF8[];
 // extern ??? gUnknown_089A8F74
 // extern ??? gUnknown_089A8F94
 // extern ??? gUnknown_089ABB70
@@ -3247,7 +3250,7 @@ extern struct BgCnt *const gUnknown_08587948[];
 // extern ??? gUnknown_089AD9F8
 // extern ??? gUnknown_089ADA80
 // extern ??? gUnknown_089ADD0C
-// extern ??? gUnknown_089ADD4C
+extern const u8 gUnknown_089ADD4C[];
 // extern ??? gUnknown_089ADEB0
 // extern ??? gUnknown_089AE204
 // extern ??? gUnknown_089AE224
@@ -3601,7 +3604,6 @@ extern struct BgCnt *const gUnknown_08587948[];
 // extern ??? gUnknown_08A1FAF8
 // extern ??? gUnknown_08A1FB08
 // extern ??? gUnknown_08A1FB30
-// extern ??? gUnknown_08A1FB34
 // extern ??? gUnknown_08A1FB38
 // extern ??? gUnknown_08A1FBD8
 // extern ??? gUnknown_08A1FFB0
