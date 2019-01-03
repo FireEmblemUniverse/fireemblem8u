@@ -2,37 +2,37 @@
 #define GUARD_BMIO_H
 
 enum {
-	BM_BGPAL_6 = 6,
-	BM_BGPAL_TILESET_BASE = 7,
+    BM_BGPAL_6 = 6,
+    BM_BGPAL_TILESET_BASE = 7,
 };
 
 enum {
-	BM_OBJPAL_1  = 1,
-	BM_OBJPAL_10 = 10,
+    BM_OBJPAL_1  = 1,
+    BM_OBJPAL_10 = 10,
 };
 
 struct TileGfxAnim {
-	/* 00 */ u16         time;
-	/* 02 */ u16         size;
-	/* 04 */ const void* data;
+    /* 00 */ u16         time;
+    /* 02 */ u16         size;
+    /* 04 */ const void* data;
 };
 
 struct TilePalAnim {
-	/* 00 */ const void* data;
-	/* 04 */ u8          time;
-	/* 05 */ u8          colorCount;
-	/* 06 */ u8          colorStart;
+    /* 00 */ const void* data;
+    /* 04 */ u8          time;
+    /* 05 */ u8          colorCount;
+    /* 06 */ u8          colorStart;
 };
 
 struct GameCtrlProc {
-	PROC_HEADER;
+    PROC_HEADER;
 };
 
 struct BMapMainProc {
-	PROC_HEADER;
+    PROC_HEADER;
 
-	/* 29 */ u8 pad29[0x54 - 0x29];
-	/* 54 */ struct GameCtrlProc* gameCtrl;
+    /* 29 */ u8 pad29[0x54 - 0x29];
+    /* 54 */ struct GameCtrlProc* gameCtrl;
 };
 
 void BMapVSync_Start(void);
