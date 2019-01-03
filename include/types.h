@@ -198,6 +198,20 @@ struct Struct0202BCF0 // Chapter Data Struct
     u8 unk4B;
 };
 
+/**
+ * Use with Struct0202BCF0 field chapterStateBits
+ */
+enum {
+    CHAPTER_FLAG_0          = (1 << 0),
+    CHAPTER_FLAG_1          = (1 << 1),
+    CHAPTER_FLAG_POSTGAME   = (1 << 2),
+    CHAPTER_FLAG_3          = (1 << 3),
+    CHAPTER_FLAG_PREPSCREEN = (1 << 4),
+    CHAPTER_FLAG_5          = (1 << 5),
+    CHAPTER_FLAG_DIFFICULT  = (1 << 6),
+    CHAPTER_FLAG_7          = (1 << 7)
+};
+
 struct TextBuffer0202A6AC
 {
     u8 buffer0202A6AC[0x555];
@@ -477,17 +491,17 @@ enum {
     US_GROWTH_BOOST = (1 << 13),
     US_SOLOANIM_1   = (1 << 14),
     US_SOLOANIM_2   = (1 << 15),
-    // = (1 << 16),
+    US_BIT16        = (1 << 16),
     // = (1 << 17),
     // = (1 << 18),
     // = (1 << 19),
-    // = (1 << 20),
+    US_BIT20        = (1 << 20),
     US_BIT21        = (1 << 21),
     // = (1 << 22),
     // = (1 << 23),
     // = (1 << 24),
-    // = (1 << 25),
-    // = (1 << 26),
+    US_BIT25 = (1 << 25),
+    US_BIT26 = (1 << 26),
     // = (1 << 27),
     // = (1 << 28),
     // = (1 << 29),
@@ -495,6 +509,16 @@ enum {
     // = (1 << 31),
 
     US_DUMMY
+};
+
+enum StatusEffect {
+    UNIT_STATUS_NONE = 0,
+
+    UNIT_STATUS_POISON = 1,
+    UNIT_STATUS_SLEEP = 2,
+    UNIT_STATUS_BERSERK = 4,
+
+    UNIT_STATUS__DUMMY
 };
 
 enum {
@@ -712,5 +736,8 @@ struct MMSData {
     const void* pGraphics;
     const void* pAnimation;
 };
+
+// TODO: move elsewhere/possibly generate from class table
+#define CLASS_PHANTOM 0x51
 
 #endif  // GUARD_TYPES_H

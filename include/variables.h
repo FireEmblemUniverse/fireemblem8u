@@ -517,7 +517,6 @@ extern int gUnknown_0202B6AC;
 // extern ??? gUnknown_0202B6B0
 extern struct Struct0202BCB0 gUnknown_0202BCB0;
 extern struct Struct0202BCF0 gUnknown_0202BCF0;
-// extern ??? gUnknown_0202BD10
 // extern ??? gUnknown_0202BD30
 // extern ??? gUnknown_0202BD31
 // extern ??? gUnknown_0202BD3C
@@ -831,7 +830,7 @@ extern struct UnknownStructCTC *gUnknown_03004970;
 // extern ??? gUnknown_03004BB0
 // extern ??? gUnknown_03004C00
 // extern ??? gUnknown_03004C50
-// extern ??? gUnknown_03004E50
+extern struct Unit* gUnknown_03004E50; // gActiveUnit // Active Unit
 // extern ??? gUnknown_03004E60
 // extern ??? gUnknown_03004E70
 // extern ??? gUnknown_03004E74

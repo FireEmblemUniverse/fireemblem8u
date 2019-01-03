@@ -1,10 +1,15 @@
 #include "global.h"
 
+#include <string.h>
+
 #include "proc.h"
 #include "hardware.h"
 #include "chapterdata.h"
 #include "rng.h"
 #include "ctc.h"
+#include "mu.h"
+
+// General Battle Map System Stuff, mostly low level hardware stuff but also more
 
 extern const u8  gUnknown_085A3B00[];
 extern const u16 gUnknown_085A401C[];
@@ -117,6 +122,17 @@ enum {
 	BM_OBJPAL_10 = 10,
 };
 
+struct GameCtrlProc {
+	PROC_HEADER;
+};
+
+struct BMapMainProc {
+	PROC_HEADER;
+
+	/* 29 */ u8 pad29[0x54 - 0x29];
+	/* 54 */ struct GameCtrlProc* gameCtrl;
+};
+
 void SomeUpdateRoutine(void);
 void SetMainUpdateRoutine(void(*)(void));
 void GeneralVBlankHandler(void);
@@ -132,20 +148,46 @@ void AddSnagsAndWalls(void);
 struct Unit* GetUnitStruct(int id);
 void sub_8018EB8(void);
 void LoadChapterBallistae(void);
-struct Proc* MakeBMAPMAIN(struct Proc*); // TODO: parameter Proc type here is specifically GameCtrlProc, and result is MapMainProc
+struct BMapMainProc* MakeBMAPMAIN(struct GameCtrlProc* gameCtrl);
 void sub_8001ED0(int, int, int, int, int); // SetColorEffectFirstTarget
 void sub_8001F48(int); // SetColorEffectBackdropFirstTarget
 void sub_80A6C8C(void);
 void SetCursorMapPosition(int, int);
 int sub_8015A40(int xMapCoord);
 int sub_8015A6C(int yMapCoord);
-void sub_803133C(struct Proc* mapMain); // TODO: type proc
-void sub_8031300(struct Proc* mapMain); // TODO: type proc
-void sub_80313BC(struct Proc* mapMain); // TODO: type proc
-void sub_80313F8(struct Proc* mapMain); // TODO: type proc
-void sub_8031474(struct Proc* mapMain); // TODO: type proc
+void sub_803133C(struct BMapMainProc* mapMain);
+void sub_8031300(struct BMapMainProc* mapMain);
+void sub_80313BC(struct BMapMainProc* mapMain);
+void sub_80313F8(struct BMapMainProc* mapMain);
+void sub_8031474(struct BMapMainProc* mapMain);
 void ClearBG0BG1(void);
+void LoadObjUIGfx(void);
+void LoadChapterMapGfx(int);
+void UpdateGameTilesGraphics(void);
+void SMS_UpdateFromGameData(void);
+void SMS_FlushIndirect(void);
+void Font_LoadForUI(void);
+void ClearUnitStruct(struct Unit* unit);
+int GetUnitMaxHP(struct Unit* unit);
+void SetUnitHP(struct Unit* unit, int value);
+void SetUnitNewStatus(struct Unit* unit, int statusId);
+void RefreshFogAndUnitMaps(void);
+void HideUnitSMS(struct Unit* unit);
+void PrepareArena2(struct Unit* unit);
+void sub_802CD64(struct Unit* unit);
+void BeginBattleAnimations(void);
+void sub_80B578C(void);
+void RegisterChapterTimeAndTurnCount(struct Struct0202BCF0* chData);
+void sub_80B6504(void);
+void sub_80A3DD8(void);
 
+extern const struct ProcCmd gUnknown_0859D908[];
+
+extern struct BattleUnit gUnknown_0203A4EC;
+
+extern const struct ProcCmd gUnknown_0859D9E4[];
+
+extern const struct ProcCmd gUnknown_0859A1F0[]; // gProc_BMapMain
 extern const struct ProcCmd gUnknown_0859D908[];
 
 void sub_803005C(struct BMVSyncProc* proc) {
@@ -864,7 +906,7 @@ int sub_8030CC0(void) {
 	if (!sub_80A3870())
 		return TRUE;
 
-	if (gUnknown_0202BCF0.chapterStateBits & 0x80)
+	if (gUnknown_0202BCF0.chapterStateBits & CHAPTER_FLAG_7)
 		return FALSE;
 
 	return gUnknown_0202BCF0.unk41_5;
@@ -876,7 +918,7 @@ void sub_8030CF4(int r5, s8 r6) {
 	gUnknown_0202BCF0.chapterIndex = 0;
 
 	if (r5)
-		gUnknown_0202BCF0.chapterStateBits |= 0x40; // TODO: CHAPTER STATE BITS DEFINITIONS
+		gUnknown_0202BCF0.chapterStateBits |= CHAPTER_FLAG_DIFFICULT;
 
 	// TODO: WHAT ARE THOSE
 
@@ -906,7 +948,7 @@ void ResetGameState(void) {
 	gUnknown_0202BCB0.gameLogicSemaphore = logicLock;
 }
 
-void SetupChapter(struct Proc* gameCtrl) { // TODO: Proc type here is specifically GameCtrlProc
+void SetupChapter(struct GameCtrlProc* gameCtrl) { // TODO: Proc type here is specifically GameCtrlProc
 	int i;
 
 	SetupBackgrounds(NULL);
@@ -928,7 +970,7 @@ void SetupChapter(struct Proc* gameCtrl) { // TODO: Proc type here is specifical
 	// TODO: BATTLE MAP/CHAPTER/OBJECTIVE TYPE DEFINITION (STORY/TOWER/SKIRMISH)
 	// TODO: CHAPTER STATE BITS DEFINITIONS
 	if (GetChapterThing() == 2) {
-		if (!(gUnknown_0202BCF0.chapterStateBits & 0x10))
+		if (!(gUnknown_0202BCF0.chapterStateBits & CHAPTER_FLAG_PREPSCREEN))
 			gUnknown_0202BCF0.chapterVisionRange = 3 * (NextRN_100() & 1);
 	} else {
 		gUnknown_0202BCF0.chapterVisionRange =
@@ -1018,8 +1060,8 @@ void sub_8030F48(void) {
  * This is called after loading a suspended game
  * To get the game state back to where it was left off
  */
-void sub_8030FE4(struct Proc* gameCtrl) { // TODO: Proc type here is specifically GameCtrlProc
-	struct Proc* mapMain; // TODO: MapMainProc
+void sub_8030FE4(struct GameCtrlProc* gameCtrl) {
+	struct BMapMainProc* mapMain;
 
 	if (gUnknown_0202BCF0.chapterIndex == 0x7F) // TODO: CHAPTER_SPECIAL enum?
 		sub_80A6C8C();
@@ -1099,4 +1141,217 @@ void sub_80310F8(void) {
 	BG_Fill(gBG2TilemapBuffer, 0);
 
 	BG_EnableSyncByMask(1 << 2); // Enable bg2 sync
+}
+
+void sub_8031154(void) {
+	LoadObjUIGfx();
+
+	MU_Create(&gUnknown_0203A4EC.unit);
+	MU_SetDefaultFacing_Auto();
+
+	Proc_Create(gUnknown_0859D9E4, ROOT_PROC_3);
+}
+
+void LoadGameCoreGfx2(void) {
+	LoadChapterMapGfx(gUnknown_0202BCF0.chapterIndex);
+	SetupOAMSpliceForWeather(gUnknown_0202BCF0.chapterWeatherId);
+	UpdateGameTilesGraphics();
+	SMS_UpdateFromGameData();
+	SetupMapSpritesPalettes();
+	SMS_FlushIndirect();
+	Font_LoadForUI();
+}
+
+void sub_80311A8(void) {
+	SetupBackgrounds(NULL);
+
+	LoadGameCoreGfx();
+	LoadGameCoreGfx2();
+}
+
+struct BMapMainProc* MakeBMAPMAIN(struct GameCtrlProc* gameCtrl) {
+	struct BMapMainProc* mapMain = (struct BMapMainProc*) Proc_Create(gUnknown_0859A1F0, ROOT_PROC_2);
+
+	mapMain->gameCtrl = gameCtrl;
+	gameCtrl->blockSemaphore++;
+
+	SetupGameVBlank6C();
+	Proc_Create(gUnknown_0859D908, ROOT_PROC_4);
+
+	return mapMain;
+}
+
+void sub_80311F0(void) {
+	struct BMapMainProc* mapMain;
+
+	Proc_DeleteEachWithMark(PROC_MARK_1);
+
+	mapMain = (struct BMapMainProc*) Proc_Find(gUnknown_0859A1F0);
+	mapMain->gameCtrl->blockSemaphore--;
+
+	Proc_Delete((struct Proc*)(mapMain));
+}
+
+void sub_8031214(void) { // ChapterEndUnitCleanup
+	int i, j;
+
+	// Clear phantoms
+	for (i = 1; i < 0x40; ++i) {
+		struct Unit* unit = GetUnitStruct(i);
+
+		if (unit && unit->pCharacterData)
+			if (unit->pClassData->number == CLASS_PHANTOM)
+				ClearUnitStruct(unit);
+	}
+
+	// Clear all non player units (green & red units)
+	for (i = 0x41; i < 0xC0; ++i) {
+		struct Unit* unit = GetUnitStruct(i);
+
+		if (unit && unit->pCharacterData)
+			ClearUnitStruct(unit);
+	}
+
+	// Reset player unit "temporary" states (HP, status, some state flags, etc)
+	for (j = 1; j < 0x40; ++j) {
+		struct Unit* unit = GetUnitStruct(j);
+
+		if (unit && unit->pCharacterData) {
+			SetUnitHP(unit, GetUnitMaxHP(unit));
+			SetUnitNewStatus(unit, UNIT_STATUS_NONE);
+
+			unit->torchDuration = 0;
+			unit->barrierDuration = 0;
+
+			if (unit->state & US_NOT_DEPLOYED)
+				unit->state = unit->state | US_BIT21;
+			else
+				unit->state = unit->state &~ US_BIT21;
+
+			unit->state &= (
+				US_DEAD | US_GROWTH_BOOST | US_SOLOANIM_1 | US_SOLOANIM_2 |
+				US_BIT16 | US_BIT20 | US_BIT21 | US_BIT25 | US_BIT26
+			);
+
+			if (UNIT_ATTRIBUTES(unit) & CA_SUPPLY)
+				unit->state = unit->state &~ US_DEAD;
+
+			unit->state |= US_HIDDEN | US_NOT_DEPLOYED;
+
+			unit->rescueOtherUnit = 0;
+			unit->supportBits = 0;
+		}
+	}
+
+	gUnknown_0202BCF0.chapterStateBits = gUnknown_0202BCF0.chapterStateBits &~ CHAPTER_FLAG_PREPSCREEN;
+}
+
+void sub_8031300(struct BMapMainProc* mapMain) {
+	RefreshFogAndUnitMaps();
+	SMS_UpdateFromGameData();
+
+	gLCDControlBuffer.dispcnt.bg0_on = FALSE;
+	gLCDControlBuffer.dispcnt.bg1_on = FALSE;
+	gLCDControlBuffer.dispcnt.bg2_on = FALSE;
+	gLCDControlBuffer.dispcnt.bg3_on = FALSE;
+	gLCDControlBuffer.dispcnt.obj_on = FALSE;
+
+	Proc_GotoLabel((struct Proc*)(mapMain), 4);
+}
+
+void sub_803133C(struct BMapMainProc* mapMain) {
+	RefreshFogAndUnitMaps();
+	SMS_UpdateFromGameData();
+
+	gLCDControlBuffer.dispcnt.bg0_on = FALSE;
+	gLCDControlBuffer.dispcnt.bg1_on = FALSE;
+	gLCDControlBuffer.dispcnt.bg2_on = FALSE;
+	gLCDControlBuffer.dispcnt.bg3_on = FALSE;
+	gLCDControlBuffer.dispcnt.obj_on = FALSE;
+
+	Proc_GotoLabel((struct Proc*)(mapMain), 6);
+
+	gUnknown_03004E50 = GetUnitStruct(gUnknown_0203A958.subjectIndex);
+	gUnknown_0202E4D8[gUnknown_03004E50->yPos][gUnknown_03004E50->xPos] = 0;
+
+	HideUnitSMS(GetUnitStruct(gUnknown_0203A958.subjectIndex));
+
+	MU_Create(gUnknown_03004E50);
+	MU_SetDefaultFacing_Auto();
+}
+
+void sub_80313BC(struct BMapMainProc* mapMain) {
+	RefreshFogAndUnitMaps();
+	SMS_UpdateFromGameData();
+
+	gLCDControlBuffer.dispcnt.bg0_on = FALSE;
+	gLCDControlBuffer.dispcnt.bg1_on = FALSE;
+	gLCDControlBuffer.dispcnt.bg2_on = FALSE;
+	gLCDControlBuffer.dispcnt.bg3_on = FALSE;
+	gLCDControlBuffer.dispcnt.obj_on = FALSE;
+
+	Proc_GotoLabel((struct Proc*)(mapMain), 7);
+}
+
+void sub_80313F8(struct BMapMainProc* mapMain) {
+	gUnknown_03004E50 = GetUnitStruct(gUnknown_0203A958.subjectIndex);
+
+	PrepareArena2(gUnknown_03004E50);
+
+	sub_802CD64(gUnknown_03004E50);
+	BeginBattleAnimations();
+
+	gLCDControlBuffer.dispcnt.bg0_on = FALSE;
+	gLCDControlBuffer.dispcnt.bg1_on = FALSE;
+	gLCDControlBuffer.dispcnt.bg2_on = FALSE;
+	gLCDControlBuffer.dispcnt.bg3_on = FALSE;
+	gLCDControlBuffer.dispcnt.obj_on = FALSE;
+
+	RefreshFogAndUnitMaps();
+
+	gUnknown_0202E4D8[gUnknown_0203A958.yMove][gUnknown_0203A958.xMove] = 0;
+
+	SMS_UpdateFromGameData();
+
+	Proc_GotoLabel((struct Proc*)(mapMain), 10);
+
+	sub_80B578C();
+}
+
+void sub_8031474(struct BMapMainProc* mapMain) {
+	RefreshFogAndUnitMaps();
+	SMS_UpdateFromGameData();
+
+	gLCDControlBuffer.dispcnt.bg0_on = FALSE;
+	gLCDControlBuffer.dispcnt.bg1_on = FALSE;
+	gLCDControlBuffer.dispcnt.bg2_on = FALSE;
+	gLCDControlBuffer.dispcnt.bg3_on = FALSE;
+	gLCDControlBuffer.dispcnt.obj_on = FALSE;
+
+	Proc_GotoLabel((struct Proc*)(mapMain), 8);
+}
+
+void sub_80314B0(void) {
+	RegisterChapterTimeAndTurnCount(&gUnknown_0202BCF0);
+
+	sub_80B6504();
+	sub_80A3DD8();
+
+	gUnknown_0202BCF0.chapterStateBits |= CHAPTER_FLAG_5;
+}
+
+void SetNextGameActionId(int id);
+void sub_80A4C14(void);
+
+void sub_80314D4(void) {
+	SetNextGameActionId(3); // TODO: GAME ACTION TYPE DEFINITIONS
+	sub_80A4C14();
+}
+
+char* GetTacticianNameStringPtr(void) {
+	return gUnknown_0202BCF0.playerName;
+}
+
+void sub_80314EC(const char* newName) {
+	strcpy(gUnknown_0202BCF0.playerName, newName);
 }
