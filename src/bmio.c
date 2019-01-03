@@ -117,6 +117,38 @@ enum {
 	BM_OBJPAL_10 = 10,
 };
 
+void SomeUpdateRoutine(void);
+void SetMainUpdateRoutine(void(*)(void));
+void GeneralVBlankHandler(void);
+void sub_80156D4(void);
+void SetupMapSpritesPalettes(void);
+void ClearLocalEvents(void);
+void SMS_ClearUsageTable(void);
+void ClearMenuRelatedList(void);
+void ResetTraps(void);
+int GetChapterThing(void);
+void InitChapterMap(int);
+void AddSnagsAndWalls(void);
+struct Unit* GetUnitStruct(int id);
+void sub_8018EB8(void);
+void LoadChapterBallistae(void);
+struct Proc* MakeBMAPMAIN(struct Proc*); // TODO: parameter Proc type here is specifically GameCtrlProc, and result is MapMainProc
+void sub_8001ED0(int, int, int, int, int); // SetColorEffectFirstTarget
+void sub_8001F48(int); // SetColorEffectBackdropFirstTarget
+void SetSpecialColorEffectsParameters(int, int, int, int);
+void sub_80A6C8C(void);
+void SetCursorMapPosition(int, int);
+int sub_8015A40(int xMapCoord);
+int sub_8015A6C(int yMapCoord);
+void sub_803133C(struct Proc* mapMain); // TODO: type proc
+void sub_8031300(struct Proc* mapMain); // TODO: type proc
+void sub_80313BC(struct Proc* mapMain); // TODO: type proc
+void sub_80313F8(struct Proc* mapMain); // TODO: type proc
+void sub_8031474(struct Proc* mapMain); // TODO: type proc
+void ClearBG0BG1(void);
+
+extern const struct ProcCmd gUnknown_0859D908[];
+
 void sub_803005C(struct BMVSyncProc* proc) {
 	if (!proc->tileGfxAnimStart)
 		return;
@@ -875,26 +907,6 @@ void ResetGameState(void) {
 	gUnknown_0202BCB0.gameLogicSemaphore = logicLock;
 }
 
-void SomeUpdateRoutine(void);
-void SetMainUpdateRoutine(void(*)(void));
-void GeneralVBlankHandler(void);
-void sub_80156D4(void);
-void SetupMapSpritesPalettes(void);
-void ClearLocalEvents(void);
-void SMS_ClearUsageTable(void);
-void ClearMenuRelatedList(void);
-void ResetTraps(void);
-int GetChapterThing(void);
-void InitChapterMap(int);
-void AddSnagsAndWalls(void);
-struct Unit* GetUnitStruct(int id);
-void sub_8018EB8(void);
-void LoadChapterBallistae(void);
-void MakeBMAPMAIN(struct Proc*); // TODO: Proc type here is specifically GameCtrlProc
-void sub_8001ED0(int, int, int, int, int); // SetColorEffectFirstTarget
-void sub_8001F48(int); // SetColorEffectBackdropFirstTarget
-void SetSpecialColorEffectsParameters(int, int, int, int);
-
 void SetupChapter(struct Proc* gameCtrl) { // TODO: Proc type here is specifically GameCtrlProc
 	int i;
 
@@ -964,4 +976,128 @@ void SetupChapter(struct Proc* gameCtrl) { // TODO: Proc type here is specifical
 	sub_8001F48(TRUE);
 
 	SetSpecialColorEffectsParameters(3, 0, 0, 0x10);
+}
+
+void sub_8030F48(void) {
+	SetupBackgrounds(NULL);
+
+	SetMainUpdateRoutine(SomeUpdateRoutine);
+	SetInterrupt_LCDVBlank(GeneralVBlankHandler);
+
+	sub_80156D4();
+	SetupMapSpritesPalettes();
+	SMS_ClearUsageTable();
+
+	ResetTraps();
+
+	gUnknown_0202BCF0.chapterWeatherId =
+		GetROMChapterStruct(gUnknown_0202BCF0.chapterIndex)->initialWeather;
+
+	SetupBackgroundForWeatherMaybe();
+
+	InitChapterMap(gUnknown_0202BCF0.chapterIndex);
+
+	AddSnagsAndWalls();
+	LoadChapterBallistae();
+	sub_8030174();
+	SetupGameVBlank6C();
+
+	Proc_Create(gUnknown_0859D908, ROOT_PROC_4);
+
+	// TODO: MACRO?
+	gPaletteBuffer[0] = 0;
+	EnablePaletteSync();
+
+	gLCDControlBuffer.dispcnt.bg0_on = TRUE;
+	gLCDControlBuffer.dispcnt.bg1_on = TRUE;
+	gLCDControlBuffer.dispcnt.bg2_on = TRUE;
+	gLCDControlBuffer.dispcnt.bg3_on = FALSE;
+	gLCDControlBuffer.dispcnt.obj_on = FALSE;
+}
+
+/**
+ * This is called after loading a suspended game
+ * To get the game state back to where it was left off
+ */
+void sub_8030FE4(struct Proc* gameCtrl) { // TODO: Proc type here is specifically GameCtrlProc
+	struct Proc* mapMain; // TODO: MapMainProc
+
+	if (gUnknown_0202BCF0.chapterIndex == 0x7F) // TODO: CHAPTER_SPECIAL enum?
+		sub_80A6C8C();
+
+	SetupBackgrounds(NULL);
+
+	SetMainUpdateRoutine(SomeUpdateRoutine);
+	SetInterrupt_LCDVBlank(GeneralVBlankHandler);
+
+	ResetGameState();
+
+	SetCursorMapPosition(
+		gUnknown_0202BCF0.xCursor,
+		gUnknown_0202BCF0.yCursor
+	);
+
+	LoadGameCoreGfx();
+	SetupMapSpritesPalettes();
+	SMS_ClearUsageTable();
+
+	InitChapterMap(gUnknown_0202BCF0.chapterIndex);
+
+	gUnknown_0202BCB0.unk3C = TRUE;
+
+	mapMain = MakeBMAPMAIN(gameCtrl);
+
+	gUnknown_0202BCB0.xCameraReal = sub_8015A40(16 * gUnknown_0202BCB0.xPlayerCursor);
+	gUnknown_0202BCB0.yCameraReal = sub_8015A6C(16 * gUnknown_0202BCB0.yPlayerCursor);
+
+	switch (gUnknown_0203A958.suspendPointType) {
+
+	case SUSPEND_POINT_1:
+		sub_803133C(mapMain);
+		break;
+
+	case SUSPEND_POINT_0:
+	case SUSPEND_POINT_2:
+		sub_8031300(mapMain);
+		break;
+
+	case SUSPEND_POINT_3:
+		sub_80313BC(mapMain);
+		break;
+
+	case SUSPEND_POINT_4:
+		sub_80313F8(mapMain);
+		break;
+
+	case SUSPEND_POINT_9:
+		sub_8031474(mapMain);
+		break;
+
+	} // switch (gUnknown_0203A958.suspendPointType)
+
+	sub_8001ED0(TRUE, TRUE, TRUE, TRUE, TRUE);
+	sub_8001F48(TRUE);
+
+	SetSpecialColorEffectsParameters(3, 0, 0, 0x10);
+}
+
+void sub_80310F8(void) {
+	SetMainUpdateRoutine(SomeUpdateRoutine);
+	SetInterrupt_LCDVBlank(GeneralVBlankHandler);
+
+	LoadGameCoreGfx();
+	SetupMapSpritesPalettes();
+
+	ClearBG0BG1();
+
+	gLCDControlBuffer.dispcnt.win0_on = FALSE;
+	gLCDControlBuffer.dispcnt.win1_on = FALSE;
+	gLCDControlBuffer.dispcnt.objWin_on = FALSE;
+
+	SetDefaultColorEffects();
+
+	RegisterBlankTile(0);
+	BG_Fill(gBG2TilemapBuffer, 0);
+
+	BG_EnableSyncByMask(1 << 2); // Enable bg2 sync
 }

@@ -131,7 +131,9 @@ struct Struct0202BCB0 // Game State Struct
     /* 2C */ u16 itemUnk2C;
     /* 2E */ u16 itemUnk2E;
 
-    /* 30 */ u8 _pad30[0x40 - 0x30];
+    /* 30 */ u8 _pad30[0x3C - 0x30];
+
+    /* 3C */ u8 unk3C;
 };
 
 struct Struct0202BCF0 // Chapter Data Struct
@@ -205,12 +207,88 @@ struct TextBuffer0202A6AC
     u8 buffer0202B5AC[1];  // unknown length
 };
 
-struct UnknownItemStruct
+struct ActionData
 {
-    u8 filler0[6];
-    u16 unk6;
+    // unknown stuff (sometimes RNs are pushed here) (maybe an union?)
+    /* 00 */ u16 _u00[3];
+    /* 06 */ u16 unk6;
+
+    /* 08 */ u16 unk08[2];
+
+    /* 0C */ u8 subjectIndex;
+    /* 0D */ u8 targetIndex;
+
+    /* 0E */ u8 xMove;
+    /* 0F */ u8 yMove;
+
+    /* 10 */ u8 moveCount;
+
+    /* 11 */ u8 unitActionType;
+
+    // maybe from this onwards it's an union?
+
+    /* 12 */ u8 itemSlotIndex;
+
+    /* 13 */ u8 xOther;
+    /* 14 */ u8 yOther;
+
+    /* 15 */ u8 trapType;
+
+    /* 16 */ u8 suspendPointType;
+
+    /* 17+ TODO (sizeof(struct ActionData) == 0x38) */
 };
 
+enum {
+    // 0x00?
+    UNIT_ACTION_WAIT = 0x01,
+    UNIT_ACTION_COMBAT = 0x02,
+    UNIT_ACTION_STAFF = 0x03,
+    UNIT_ACTION_DANCE = 0x04,
+    // 0x05?
+    UNIT_ACTION_STEAL = 0x06,
+    UNIT_ACTION_SUMMON = 0x07,
+    UNIT_ACTION_SUMMON_DK = 0x08,
+    UNIT_ACTION_RESCUE = 0x09,
+    UNIT_ACTION_DROP = 0x0A,
+    UNIT_ACTION_TAKE = 0x0B,
+    UNIT_ACTION_GIVE = 0x0C,
+    // 0x0D?
+    UNIT_ACTION_TALK = 0x0E,
+    UNIT_ACTION_SUPPORT = 0x0F,
+    UNIT_ACTION_VISIT = 0x10,
+    UNIT_ACTION_SEIZE = 0x11,
+    UNIT_ACTION_DOOR = 0x12,
+    // 0x13?
+    UNIT_ACTION_CHEST = 0x14,
+    UNIT_ACTION_PICK = 0x15,
+    // 0x16?
+    UNIT_ACTION_SHOPPED = 0x17,
+    // 0x18?
+    UNIT_ACTION_ARENA = 0x19,
+    UNIT_ACTION_USE_ITEM = 0x1A,
+    // 0x1B?
+    // 0x1C?
+    UNIT_ACTION_TRADED = 0x1D,
+    // 0x1E?
+    // 0x1F?
+    // 0x20?
+    UNIT_ACTION_RIDE_BALLISTA = 0x21,
+    UNIT_ACTION_EXIT_BALLISTA = 0x22
+};
+
+enum {
+    SUSPEND_POINT_0 = 0,
+    SUSPEND_POINT_1 = 1,
+    SUSPEND_POINT_2 = 2,
+    SUSPEND_POINT_3 = 3,
+    SUSPEND_POINT_4 = 4,
+    SUSPEND_POINT_5 = 5,
+    SUSPEND_POINT_6 = 6,
+    SUSPEND_POINT_7 = 7,
+    SUSPEND_POINT_8 = 8,
+    SUSPEND_POINT_9 = 9
+};
 
 struct UnknownStructCTC
 {

@@ -569,7 +569,7 @@ extern struct Struct0202BCF0 gUnknown_0202BCF0;
 // extern ??? gUnknown_0203A8EC
 // extern ??? gUnknown_0203A8F0
 // extern ??? gUnknown_0203A910
-extern struct UnknownItemStruct gUnknown_0203A958;
+extern struct ActionData gUnknown_0203A958;
 // extern ??? gUnknown_0203A95E
 // extern ??? gUnknown_0203A974
 // extern ??? gUnknown_0203A9FC
