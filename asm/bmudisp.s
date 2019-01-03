@@ -2639,7 +2639,7 @@ sub_8027A4C: @ 0x08027A4C
 	cmp r0, #5
 	bne _08027AC0
 	adds r0, r4, #0
-	bl MakeMOVEUNITForMapUnit
+	bl MU_Create
 	adds r0, r4, #0
 	bl HideUnitSMS
 	b _08027AFA
@@ -2671,7 +2671,7 @@ _08027AC0:
 	adds r4, r0, #0
 	cmp r4, #0
 	beq _08027AFA
-	bl ClearMOVEUNITs
+	bl MU_EndAll
 	adds r0, r4, #0
 	bl ShowUnitSMS
 _08027AFA:

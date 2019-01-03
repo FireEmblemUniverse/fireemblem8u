@@ -5453,7 +5453,7 @@ BeginBattleAnimations: @ 0x0802CA14
 _0802CA48: .4byte gBG2TilemapBuffer
 _0802CA4C: .4byte gPaletteBuffer
 _0802CA50:
-	bl ClearMOVEUNITs
+	bl MU_EndAll
 	bl UpdateGameTilesGraphics
 	bl BeginBattleMapAnims
 	ldr r0, _0802CA6C  @ gUnknown_0203A4D4

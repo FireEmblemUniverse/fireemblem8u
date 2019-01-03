@@ -604,7 +604,7 @@ _08035F38:
 	THUMB_FUNC_START sub_8035F40
 sub_8035F40: @ 0x08035F40
 	push {lr}
-	bl ClearMOVEUNITs
+	bl MU_EndAll
 	ldr r0, _08035F64  @ gUnknown_0203A4EC
 	ldrb r0, [r0, #0x13]
 	lsls r0, r0, #0x18
@@ -773,7 +773,7 @@ sub_803608C: @ 0x0803608C
 	bl RefreshFogAndUnitMaps
 	bl UpdateGameTilesGraphics
 	bl SMS_UpdateFromGameData
-	bl ClearMOVEUNITs
+	bl MU_EndAll
 _080360B0:
 	pop {r4}
 	pop {r0}
@@ -978,7 +978,7 @@ _0803624A:
 	bl RefreshFogAndUnitMaps
 	bl UpdateGameTilesGraphics
 	bl SMS_UpdateFromGameData
-	bl ClearMOVEUNITs
+	bl MU_EndAll
 _08036276:
 	ldr r0, _08036294  @ gUnknown_0203A958
 	ldrb r0, [r0, #0xc]

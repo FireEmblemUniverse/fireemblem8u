@@ -135,7 +135,6 @@ void LoadChapterBallistae(void);
 struct Proc* MakeBMAPMAIN(struct Proc*); // TODO: parameter Proc type here is specifically GameCtrlProc, and result is MapMainProc
 void sub_8001ED0(int, int, int, int, int); // SetColorEffectFirstTarget
 void sub_8001F48(int); // SetColorEffectBackdropFirstTarget
-void SetSpecialColorEffectsParameters(int, int, int, int);
 void sub_80A6C8C(void);
 void SetCursorMapPosition(int, int);
 int sub_8015A40(int xMapCoord);

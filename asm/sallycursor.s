@@ -963,7 +963,7 @@ _080339CC:
 	bl sub_801C928
 	cmp r0, #0
 	beq _08033A3C
-	bl ClearMOVEUNITs
+	bl MU_EndAll
 	bl DeletePlayerPhaseInterface6Cs
 	movs r0, #0x1f
 	bl sub_8086DE4
@@ -1608,7 +1608,7 @@ sub_8033F34: @ 0x08033F34
 	ands r0, r1
 	cmp r0, #0
 	beq _08033FA0
-	bl ClearMOVEUNITs
+	bl MU_EndAll
 	ldr r0, _08033F94  @ gUnknown_03004E50
 	ldr r2, [r0]
 	ldr r0, [r2, #0xc]
@@ -1676,7 +1676,7 @@ _08033FD2:
 	bl sub_801C928
 	cmp r0, #0
 	beq _08034002
-	bl ClearMOVEUNITs
+	bl MU_EndAll
 	movs r0, #0x1f
 	bl sub_8086DE4
 	adds r0, r4, #0

@@ -99,7 +99,7 @@
 . = 0x004BAC; gUnknown_02004BAC = .;
 . = 0x004BBC; gUnknown_02004BBC = .;
 . = 0x004BC4; gUnknown_02004BC4 = .;
-. = 0x004BE0; gUnknown_02004BE0 = .;
+. = 0x004BE0; gMUGfxBuffer = .;
 . = 0x007838; gUnknown_02007838 = .;
 . = 0x0078D8; gUnknown_020078D8 = .;
 . = 0x008000; gUnknown_02008000 = .;
@@ -496,8 +496,7 @@
 . = ALIGN(4); src/hardware.o(ewram_data);
 . = ALIGN(4); src/soundwrapper.o(ewram_data);
 . = ALIGN(4); src/proc.o(ewram_data);
-. = 0x026A90; gUnknown_02026A90 = .;
-. = 0x026E10; gUnknown_02026E10 = .;
+. = ALIGN(4); src/icon.o(ewram_data);
 . = 0x026E30;
 . = ALIGN(4); src/fontgrp.o(ewram_data);
 . = 0x028F78; gUnknown_02028F78 = .;

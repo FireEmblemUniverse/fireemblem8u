@@ -4,6 +4,7 @@
 #include "hardware.h"
 #include "proc.h"
 #include "rng.h"
+#include "mu.h"
 #include "soundwrapper.h"
 
 EWRAM_DATA static struct KeyStatusBuffer sKeyStatusBuffer = {0};
@@ -41,7 +42,7 @@ void AgbMain()
     sub_80A2C3C();
     Proc_Initialize();
     AP_ClearAll();
-    ResetMoveunitStructs();
+    MU_Init();
     SetLCGRNValue(0x42D690E9);
     InitRN(AdvanceGetLCGRNValue());
     sub_8000D0C();
