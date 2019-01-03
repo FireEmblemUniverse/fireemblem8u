@@ -15,7 +15,7 @@
 // General Battle Map System Stuff, mostly low level hardware stuff but also more
 
 // TODO: move to where appropriate
-extern const struct ProcCmd gUnknown_0859A1F0[]; // gProc_BMapMain
+extern const struct ProcCmd gProc_BMapMain[]; // gProc_BMapMain
 
 struct WeatherParticle {
 	/* 00 */ short xPosition;
@@ -48,7 +48,7 @@ union GradientEffectData {
 
 	/**
 	 * Buffer holding 8 different variations of the tileset palette
-	 * Variations have increasing amounts of red; used for fire weather effect
+	 * Variations have increasing amounts of red; used for flames weather effect
 	 */
 	u16 fireGradient[8][0x40];
 };
@@ -141,17 +141,17 @@ PROC_LABEL(0),
 };
 
 // TODO: better repr?
-static CONST_DATA u16 sObj_1[] = {
+static CONST_DATA u16 sObj_RainParticle1[] = {
 	1, 0x0000, 0x0000, 0x102A
 };
 
 // TODO: better repr?
-static CONST_DATA u16 sObj_2[] = {
+static CONST_DATA u16 sObj_RainParticle2[] = {
 	1, 0x8000, 0x0000, 0x100A
 };
 
-static CONST_DATA u16* gUnknown_0859D968[3] = { // Weather particle Obj Data Lookup
-	sObj_1, sObj_2, sObj_2
+static CONST_DATA u16* sRainParticleObjLookup[3] = { // Weather particle Obj Data Lookup
+	sObj_RainParticle1, sObj_RainParticle2, sObj_RainParticle2
 };
 
 // TODO: better repr?
@@ -185,15 +185,12 @@ static CONST_DATA struct ProcCmd sProc_DelayedBMapDispResume[] = { // gProc_Game
 	PROC_END
 };
 
-// external data (gfx, pals, tsas, ...)
-extern const u8  gUnknown_085A3964[];
-extern const u8  gUnknown_085A39EC[];
-extern const u8  gUnknown_085A3A84[];
-extern const u16 gUnknown_085A3AC0[];
-extern const u8  gUnknown_085A3B00[];
-extern const u16 gUnknown_085A401C[];
-
-static const u16 gUnknown_080D7EEC[] = {
+/**
+ * Each 3 array entries represent one config template
+ * First two values are initial speed, third is type id
+ * Used for the "slower" weathers (regular snow, rain & flames)
+ */
+static const u16 sInitialParticleConfigTemplates[] = {
 	0xB0,  0xC0,  0,
 	0xB0,  0xD0,  0,
 	0xB0,  0xE0,  0,
@@ -363,11 +360,11 @@ void WfxSnow_Init(void) {
 		sWeatherEffect.particles[i].xPosition = AdvanceGetLCGRNValue();
 		sWeatherEffect.particles[i].yPosition = AdvanceGetLCGRNValue();
 
-		sWeatherEffect.particles[i].xSpeed = gUnknown_080D7EEC[templateIndex + 0] * 2;
-		sWeatherEffect.particles[i].ySpeed = gUnknown_080D7EEC[templateIndex + 1] * 2;
-		sWeatherEffect.particles[i].typeId = gUnknown_080D7EEC[templateIndex + 2];
+		sWeatherEffect.particles[i].xSpeed = sInitialParticleConfigTemplates[templateIndex + 0] * 2;
+		sWeatherEffect.particles[i].ySpeed = sInitialParticleConfigTemplates[templateIndex + 1] * 2;
+		sWeatherEffect.particles[i].typeId = sInitialParticleConfigTemplates[templateIndex + 2];
 
-		sWeatherEffect.particles[i].gfxIndex = gfxTileIndices[gUnknown_080D7EEC[templateIndex + 2]];
+		sWeatherEffect.particles[i].gfxIndex = gfxTileIndices[sInitialParticleConfigTemplates[templateIndex + 2]];
 	}
 }
 
@@ -414,9 +411,9 @@ void WfxRain_Init(void) {
 		sWeatherEffect.particles[i].xPosition = AdvanceGetLCGRNValue();
 		sWeatherEffect.particles[i].yPosition = AdvanceGetLCGRNValue();
 
-		sWeatherEffect.particles[i].xSpeed   = gUnknown_080D7EEC[templateIndex + 0] * 6;
-		sWeatherEffect.particles[i].ySpeed   = gUnknown_080D7EEC[templateIndex + 1] * 16;
-		sWeatherEffect.particles[i].gfxIndex = gUnknown_080D7EEC[templateIndex + 2];
+		sWeatherEffect.particles[i].xSpeed   = sInitialParticleConfigTemplates[templateIndex + 0] * 6;
+		sWeatherEffect.particles[i].ySpeed   = sInitialParticleConfigTemplates[templateIndex + 1] * 16;
+		sWeatherEffect.particles[i].gfxIndex = sInitialParticleConfigTemplates[templateIndex + 2];
 	}
 }
 
@@ -433,7 +430,7 @@ void WfxRain_VSync(void) {
 			CallARM_PushToPrimaryOAM(
 				((it->xPosition >> 8) - gUnknown_0202BCB0.xCameraReal) & 0xFF,
 				((it->yPosition >> 8) - gUnknown_0202BCB0.yCameraReal) & 0xFF,
-				gUnknown_0859D968[it->gfxIndex],
+				sRainParticleObjLookup[it->gfxIndex],
 				0
 			);
 
@@ -649,8 +646,8 @@ void WfxFlamesInitParticles(void) {
 		sWeatherEffect.particles[i].xPosition = AdvanceGetLCGRNValue();
 		sWeatherEffect.particles[i].yPosition = AdvanceGetLCGRNValue();
 
-		sWeatherEffect.particles[i].xSpeed = -gUnknown_080D7EEC[i*3 + 0];
-		sWeatherEffect.particles[i].ySpeed = -gUnknown_080D7EEC[i*3 + 1];
+		sWeatherEffect.particles[i].xSpeed = -sInitialParticleConfigTemplates[i*3 + 0];
+		sWeatherEffect.particles[i].ySpeed = -sInitialParticleConfigTemplates[i*3 + 1];
 	}
 }
 
@@ -1186,7 +1183,7 @@ void RefreshBMapGraphics(void) {
 }
 
 struct BMapMainProc* StartBMapMain(struct GameCtrlProc* gameCtrl) {
-	struct BMapMainProc* mapMain = (struct BMapMainProc*) Proc_Create(gUnknown_0859A1F0, ROOT_PROC_2);
+	struct BMapMainProc* mapMain = (struct BMapMainProc*) Proc_Create(gProc_BMapMain, ROOT_PROC_2);
 
 	mapMain->gameCtrl = gameCtrl;
 	gameCtrl->blockSemaphore++;
@@ -1202,7 +1199,7 @@ void EndBMapMain(void) {
 
 	Proc_DeleteEachWithMark(PROC_MARK_1);
 
-	mapMain = (struct BMapMainProc*) Proc_Find(gUnknown_0859A1F0);
+	mapMain = (struct BMapMainProc*) Proc_Find(gProc_BMapMain);
 	mapMain->gameCtrl->blockSemaphore--;
 
 	Proc_Delete((struct Proc*)(mapMain));

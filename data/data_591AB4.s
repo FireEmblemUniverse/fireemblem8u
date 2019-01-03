@@ -276,8 +276,8 @@ gUnknown_0859A1C0:  @ 0x0859A1C0
 gUnknown_0859A1E0:  @ 0x0859A1E0
 	.incbin "baserom.gba", 0x59A1E0, 0x10
 
-	.global gUnknown_0859A1F0
-gUnknown_0859A1F0:  @ 0x0859A1F0
+	.global gProc_BMapMain
+gProc_BMapMain:  @ 0x0859A1F0
 	.incbin "baserom.gba", 0x59A1F0, 0x248
 
 	.global gUnknown_0859A438

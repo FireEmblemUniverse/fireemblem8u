@@ -1482,7 +1482,7 @@ extern const u16 gUnknown_0859A180[];
 extern const u16 gUnknown_0859A1A0[];
 extern const u16 gUnknown_0859A1C0[];
 // extern ??? gUnknown_0859A1E0
-// extern ??? gUnknown_0859A1F0
+// extern ??? gProc_BMapMain
 // extern ??? gUnknown_0859A438
 // extern ??? gUnknown_0859A4A6
 // extern ??? gUnknown_0859A4C0
@@ -1699,12 +1699,15 @@ extern u16 gUnknown_0859EFC0[];
 // extern ??? gUnknown_085A34B0
 // extern ??? gUnknown_085A3730
 // extern ??? gUnknown_085A3944
-// extern ??? gUnknown_085A3964
-// extern ??? gUnknown_085A39EC
-// extern ??? gUnknown_085A3A84
-// extern ??? gUnknown_085A3AC0
-// extern ??? gUnknown_085A3B00
-// extern ??? gUnknown_085A401C
+
+// Weather graphics
+extern const u8  gUnknown_085A3964[]; // sandstorm particle 4bpp image (compressed)
+extern const u8  gUnknown_085A39EC[]; // snowstorm particle 4bpp image (compressed)
+extern const u8  gUnknown_085A3A84[]; // flames particle 4bpp image (compressed)
+extern const u16 gUnknown_085A3AC0[]; // flames particle palette
+extern const u8  gUnknown_085A3B00[]; // clouds 4bpp image (compressed)
+extern const u16 gUnknown_085A401C[]; // clouds palette
+
 // extern ??? gUnknown_085A403C
 // extern ??? gUnknown_085A5760
 // extern ??? gUnknown_085A5780

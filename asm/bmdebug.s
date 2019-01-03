@@ -1001,7 +1001,7 @@ sub_801C340: @ 0x0801C340
 	movs r0, #8
 	b _0801C368
 _0801C34E:
-	ldr r0, _0801C36C  @ gUnknown_0859A1F0
+	ldr r0, _0801C36C  @ gProc_BMapMain
 	bl Proc_Find
 	cmp r0, #0
 	beq _0801C35C
@@ -1015,7 +1015,7 @@ _0801C368:
 	pop {r1}
 	bx r1
 	.align 2, 0
-_0801C36C: .4byte gUnknown_0859A1F0
+_0801C36C: .4byte gProc_BMapMain
 
 	THUMB_FUNC_START sub_801C370
 sub_801C370: @ 0x0801C370
@@ -1027,7 +1027,7 @@ sub_801C370: @ 0x0801C370
 	movs r0, #8
 	b _0801C392
 _0801C37E:
-	ldr r0, _0801C398  @ gUnknown_0859A1F0
+	ldr r0, _0801C398  @ gProc_BMapMain
 	bl Proc_Find
 	cmp r0, #0
 	beq _0801C38C
@@ -1039,7 +1039,7 @@ _0801C392:
 	pop {r1}
 	bx r1
 	.align 2, 0
-_0801C398: .4byte gUnknown_0859A1F0
+_0801C398: .4byte gProc_BMapMain
 
 	THUMB_FUNC_START sub_801C39C
 sub_801C39C: @ 0x0801C39C

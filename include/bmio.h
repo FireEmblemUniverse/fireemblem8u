@@ -50,7 +50,7 @@ void SetWeather(unsigned weatherId);
 
 u8 GetTextDisplaySpeed(void);
 int IsFirstPlaythrough(void);
-void InitPlaythroughState(int, s8);
+void InitPlaythroughState(int isDifficult, s8);
 void StartBattleMap(struct GameCtrlProc* gameCtrl);
 void RestartBattleMap(void);
 void GameCtrl_StartResumedGame(struct GameCtrlProc* gameCtrl);

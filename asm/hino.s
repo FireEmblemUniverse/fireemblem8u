@@ -6417,7 +6417,7 @@ GotoChapterWithoutSave: @ 0x08015588
 	push {lr}
 	ldr r1, _080155B0  @ gUnknown_0202BCF0
 	strb r0, [r1, #0xe]
-	ldr r0, _080155B4  @ gUnknown_0859A1F0
+	ldr r0, _080155B4  @ gProc_BMapMain
 	bl Proc_Find
 	movs r1, #2
 	bl Proc_GotoLabel
@@ -6431,7 +6431,7 @@ GotoChapterWithoutSave: @ 0x08015588
 	bx r0
 	.align 2, 0
 _080155B0: .4byte gUnknown_0202BCF0
-_080155B4: .4byte gUnknown_0859A1F0
+_080155B4: .4byte gProc_BMapMain
 _080155B8: .4byte gUnknown_0859AAD8
 _080155BC: .4byte gUnknown_085A7F08
 _080155C0: .4byte gUnknown_085A7F30
