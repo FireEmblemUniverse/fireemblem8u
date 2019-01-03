@@ -46,8 +46,7 @@
 . = 0x002088; gUnknown_02002088 = .;
 . = 0x002774; gUnknown_02002774 = .;
 . = 0x00278C; gUnknown_0200278C = .;
-. = 0x0027DC; gUnknown_020027DC = .;
-. = 0x002ADC; gUnknown_02002ADC = .;
+. = 0x0027DC; src/bmio.o(ewram_data); /* probably not actually ewram_data */
 . = 0x002FDC; gUnknown_02002FDC = .;
 . = 0x002FF4; gUnknown_02002FF4 = .;
 . = 0x00300C; gUnknown_0200300C = .;
@@ -513,7 +512,6 @@
 . = 0x02B6B0; gUnknown_0202B6B0 = .;
 . = 0x02BCB0; gUnknown_0202BCB0 = .;
 . = 0x02BCF0; gUnknown_0202BCF0 = .;
-. = 0x02BD10; gUnknown_0202BD10 = .;
 . = 0x02BD30; gUnknown_0202BD30 = .;
 . = 0x02BD31; gUnknown_0202BD31 = .;
 . = 0x02BD3C; gUnknown_0202BD3C = .;

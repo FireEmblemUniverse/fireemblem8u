@@ -6546,7 +6546,7 @@ _080448A2:
 	cmp r0, #0
 	beq _0804493C
 	movs r4, #0
-	bl GetTacticianNameStringPtr
+	bl GetTacticianName
 	adds r2, r0, #0
 	ldrb r1, [r2]
 	cmp r1, #0
@@ -6865,7 +6865,7 @@ sub_8044B2C: @ 0x08044B2C
 _08044B58: .4byte gUnknown_0203DA24
 _08044B5C:
 	adds r0, r4, #0
-	bl sub_80314EC
+	bl SetTacticianName
 _08044B62:
 	adds r0, r5, #0
 	bl Proc_ClearNativeCallback
@@ -11095,7 +11095,7 @@ sub_8046E0C: @ 0x08046E0C
 	bl sub_804C4F8
 	bl sub_804C590
 	bl sub_804C31C
-	bl sub_8030174
+	bl BMapVSync_End
 	bl sub_8096454
 	adds r0, r4, #0
 	movs r1, #5
@@ -13398,7 +13398,7 @@ _0804818A:
 	adds r0, r2, #0
 	cmp r0, #0xff
 	bne _080481C8
-	bl sub_8030174
+	bl BMapVSync_End
 	bl nullsub_13
 	bl sub_8042E88
 	ldr r0, _080481C4  @ gUnknown_0859AA5C
@@ -13448,7 +13448,7 @@ _08048204:
 	strb r0, [r1, #1]
 	bl sub_8042E78
 	bl sub_80496A4
-	bl SetupGameVBlank6C
+	bl BMapVSync_Start
 	ldr r1, _08048254  @ gUnknown_0202BCF0
 	ldrb r2, [r1, #0x14]
 	movs r0, #0xdf
@@ -16281,10 +16281,10 @@ _08049860:
 	bl SMS_UpdateFromGameData
 	bl sub_8049788
 	bl sub_804B38C
-	ldr r0, _080498EC  @ gUnknown_0859D908
+	ldr r0, _080498EC  @ gProc_MapTask
 	movs r1, #4
 	bl Proc_Create
-	bl SetupGameVBlank6C
+	bl BMapVSync_Start
 	bl sub_80497CC
 	ldr r2, _080498F0  @ gUnknown_0202BCF0
 	ldrb r1, [r2, #0x14]
@@ -16301,7 +16301,7 @@ _080498DC: .4byte gUnknown_085AA158
 _080498E0: .4byte gUnknown_03001818
 _080498E4: .4byte gUnknown_0300182C
 _080498E8: .4byte gUnknown_0202BCB0
-_080498EC: .4byte gUnknown_0859D908
+_080498EC: .4byte gProc_MapTask
 _080498F0: .4byte gUnknown_0202BCF0
 
 	THUMB_FUNC_START sub_80498F4
@@ -16583,16 +16583,16 @@ _08049B00: .4byte gUnknown_085A92E0
 	THUMB_FUNC_START sub_8049B04
 sub_8049B04: @ 0x08049B04
 	push {lr}
-	ldr r0, _08049B20  @ gUnknown_0859D908
+	ldr r0, _08049B20  @ gProc_MapTask
 	bl Proc_DeleteAllWithScript
 	bl sub_804B3A0
-	bl sub_8030174
+	bl BMapVSync_End
 	movs r0, #1
 	bl Sound_FadeOut800231C
 	pop {r0}
 	bx r0
 	.align 2, 0
-_08049B20: .4byte gUnknown_0859D908
+_08049B20: .4byte gProc_MapTask
 
 	THUMB_FUNC_START sub_8049B24
 sub_8049B24: @ 0x08049B24

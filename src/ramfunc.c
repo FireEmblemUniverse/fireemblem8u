@@ -6,7 +6,7 @@ extern u8 gUnknown_03003750[];  // buffer to copy the code to
 extern void (*gUnknown_03003740)(int, int, int, int);
 extern void (*gUnknown_03004150)(const char *, char *);
 extern void (*gUnknown_03003130)(int, int, const u16 *, int);
-extern void (*gUnknown_03004154)(int, int, int, int);
+extern void (*gUnknown_03004154)(int, int, const u16 *, int);
 extern void (*gUnknown_03004960)(int, int, int);
 extern void (*gUnknown_03003128)(void);
 
@@ -51,7 +51,7 @@ void CallARM_PushToSecondaryOAM(int a, int b, const u16 *c, int d)
     gUnknown_03003130(a, b, c, d);
 }
 
-void CallARM_PushToPrimaryOAM(int a, int b, int c, int d)
+void CallARM_PushToPrimaryOAM(int a, int b, const u16 *c, int d)
 {
     gUnknown_03004154(a, b, c, d);
 }

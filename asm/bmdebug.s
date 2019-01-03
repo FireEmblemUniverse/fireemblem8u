@@ -17,7 +17,7 @@ DebugMenu_MapIdle: @ 0x0801BB40
 DebugMenu_MapEffect: @ 0x0801BB54
 	push {r4, lr}
 	adds r4, r1, #0
-	bl sub_80311F0
+	bl EndBMapMain
 	adds r4, #0x3c
 	movs r0, #0
 	ldrsb r0, [r4, r0]
@@ -27,7 +27,7 @@ DebugMenu_MapEffect: @ 0x0801BB54
 	ldr r0, _0801BB94  @ gUnknown_03001780
 	ldrb r0, [r0]
 	strb r0, [r4, #0x1b]
-	bl sub_8031214
+	bl ChapterChangeUnitCleanup
 	bl nullsub_9
 	adds r4, #0x4a
 	ldrb r1, [r4]
@@ -433,31 +433,31 @@ _0801BEA0: @ jump table
 	.4byte _0801BEEC @ case 6
 _0801BEBC:
 	movs r0, #0
-	bl SetupWeather
+	bl SetWeather
 	b _0801BEF2
 _0801BEC4:
 	movs r0, #6
-	bl SetupWeather
+	bl SetWeather
 	b _0801BEF2
 _0801BECC:
 	movs r0, #1
-	bl SetupWeather
+	bl SetWeather
 	b _0801BEF2
 _0801BED4:
 	movs r0, #2
-	bl SetupWeather
+	bl SetWeather
 	b _0801BEF2
 _0801BEDC:
 	movs r0, #4
-	bl SetupWeather
+	bl SetWeather
 	b _0801BEF2
 _0801BEE4:
 	movs r0, #3
-	bl SetupWeather
+	bl SetWeather
 	b _0801BEF2
 _0801BEEC:
 	movs r0, #5
-	bl SetupWeather
+	bl SetWeather
 _0801BEF2:
 	movs r0, #0
 	pop {r4, r5, r6, r7}
@@ -626,13 +626,13 @@ _0801C02C: .4byte gUnknown_0859CFB0
 	THUMB_FUNC_START sub_801C030
 sub_801C030: @ 0x0801C030
 	push {lr}
-	bl sub_80A4C14
+	bl DeclareCompletedPlaythrough
 	ldr r2, _0801C058  @ gUnknown_0202BCF0
 	ldrb r1, [r2, #0x14]
 	movs r0, #0xef
 	ands r0, r1
 	strb r0, [r2, #0x14]
-	bl sub_8031214
+	bl ChapterChangeUnitCleanup
 	bl sub_80A4DA0
 	bl SaveGame
 	movs r0, #0xff
@@ -672,7 +672,7 @@ DEBUGONLY_Startup: @ 0x0801C090
 	bl SetMainUpdateRoutine
 	ldr r0, _0801C0E4  @ GeneralVBlankHandler
 	bl SetInterrupt_LCDVBlank
-	bl sub_80311A8
+	bl RefreshBMapGraphics
 	movs r0, #2
 	movs r1, #0
 	bl SetupDebugFontForBG
@@ -829,13 +829,13 @@ sub_801C1DC: @ 0x0801C1DC
 	bl sub_80A4E70
 	ldr r0, _0801C21C  @ 0x0000026A
 	bl GetStringFromIndex
-	bl sub_80314EC
+	bl SetTacticianName
 	ldr r1, _0801C220  @ gUnknown_0202BCF0
 	movs r0, #1
 	strb r0, [r1, #0xe]
 	movs r0, #0
 	bl SaveGame
-	bl sub_8031214
+	bl ChapterChangeUnitCleanup
 	bl sub_8009FD4
 	movs r0, #2
 	pop {r1}
@@ -898,7 +898,7 @@ _0801C27C:
 _0801C28A:
 	ldr r0, _0801C2C4  @ 0x0000026A
 	bl GetStringFromIndex
-	bl sub_80314EC
+	bl SetTacticianName
 	adds r0, r4, #0
 	adds r0, #0x3c
 	ldrb r0, [r0]
@@ -912,7 +912,7 @@ _0801C28A:
 	strb r0, [r1, #0x1b]
 	movs r0, #0
 	bl SaveGame
-	bl sub_8031214
+	bl ChapterChangeUnitCleanup
 	bl nullsub_9
 	movs r0, #2
 	pop {r4}
@@ -1001,11 +1001,11 @@ sub_801C340: @ 0x0801C340
 	movs r0, #8
 	b _0801C368
 _0801C34E:
-	ldr r0, _0801C36C  @ gUnknown_0859A1F0
+	ldr r0, _0801C36C  @ gProc_BMapMain
 	bl Proc_Find
 	cmp r0, #0
 	beq _0801C35C
-	bl sub_80311F0
+	bl EndBMapMain
 _0801C35C:
 	movs r0, #4
 	bl LoadSuspendedGame
@@ -1015,7 +1015,7 @@ _0801C368:
 	pop {r1}
 	bx r1
 	.align 2, 0
-_0801C36C: .4byte gUnknown_0859A1F0
+_0801C36C: .4byte gProc_BMapMain
 
 	THUMB_FUNC_START sub_801C370
 sub_801C370: @ 0x0801C370
@@ -1027,11 +1027,11 @@ sub_801C370: @ 0x0801C370
 	movs r0, #8
 	b _0801C392
 _0801C37E:
-	ldr r0, _0801C398  @ gUnknown_0859A1F0
+	ldr r0, _0801C398  @ gProc_BMapMain
 	bl Proc_Find
 	cmp r0, #0
 	beq _0801C38C
-	bl sub_80311F0
+	bl EndBMapMain
 _0801C38C:
 	bl RestartGameAndGoto12
 	movs r0, #0x17
@@ -1039,7 +1039,7 @@ _0801C392:
 	pop {r1}
 	bx r1
 	.align 2, 0
-_0801C398: .4byte gUnknown_0859A1F0
+_0801C398: .4byte gProc_BMapMain
 
 	THUMB_FUNC_START sub_801C39C
 sub_801C39C: @ 0x0801C39C

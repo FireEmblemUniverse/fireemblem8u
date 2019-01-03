@@ -89,6 +89,53 @@ struct KeyStatusBuffer
 
 typedef void (*InterruptHandler)(void);
 
+struct Struct0202BCB0 // Game State Struct
+{
+    /* 00 */ u8  mainLoopEndedFlag;
+
+    /* 01 */ s8  gameLogicSemaphore;
+    /* 02 */ s8  gameGfxSemaphore;
+
+    /* 03 */ u8  _unk04;
+
+    /* 04 */ u8  gameStateBits;
+
+    /* 05 */ u8  _unk05;
+
+    /* 06 */ u16 prevVCount;
+
+    /* 08 */ u32 _unk08;
+
+    /* 0C */ short xCameraReal;
+    /* 0E */ short yCameraReal;
+
+    /* 10 */ u32 _unk10;
+
+    /* 14 */ short xPlayerCursor;
+    /* 16 */ short yPlayerCursor;
+
+    /* 18 */ u32 _unk18;
+
+    /* 1C */ short xUnk1C;
+    /* 1E */ short yUnk1C;
+
+    /* 20 */ short xPlayerCursorDisplay;
+    /* 22 */ short yPlayerCursorDisplay;
+
+    /* 24 */ short xUnk24;
+    /* 26 */ short yUnk24;
+
+    /* 28 */ short xUnk28;
+    /* 2A */ short yUnk28;
+
+    /* 2C */ u16 itemUnk2C;
+    /* 2E */ u16 itemUnk2E;
+
+    /* 30 */ u8 _pad30[0x3C - 0x30];
+
+    /* 3C */ u8 unk3C;
+};
+
 struct Struct0202BCF0 // Chapter Data Struct
 {
     /* 00 */ u32 unk0; // a time value
@@ -118,32 +165,51 @@ struct Struct0202BCF0 // Chapter Data Struct
 
     /* 20 */ char playerName[0x40 - 0x20]; // unused outside of link arena (was tactician name in FE7); Size unknown
 
-    // option byte 1 (of 3)
-    u32 unk40_1:5;
-    u32 unk40_6:2; // text speed
-    u32 unk40_8:1;
-
-    u32 unk41_1:1;
-    u32 unk41_2:1;
-    u32 unk41_3:6;
-
-    u32 unk42_1:1;
-    u32 unk42_2:1;
-    u32 unk42_3:1;
-    u32 unk42_4:1;
-    u32 unk42_5:1;
-    u32 unk42_6:1;
-    u32 unk42_7:1;
-    u32 unk42_8:1;
-
-    u32 unk43_1:8;
+    // option bits
+    u32 unk40_1:1; // 1
+    u32 unk40_2:1; // 1
+    u32 unk40_3:2; // 2
+    u32 unk40_5:1; // 1
+    u32 unk40_6:2; // 2, text speed
+    u32 unk40_8:1; // 1
+    u32 unk41_1:1; // 1
+    u32 unk41_2:1; // 1
+    u32 unk41_3:2; // 2
+    u32 unk41_5:1; // 1
+    u32 unk41_6:1; // unk
+    u32 unk41_7:1; // 1
+    u32 unk41_8:1; // 1
+    u32 unk42_1:1; // unk
+    u32 unk42_2:2; // 2
+    u32 unk42_4:2; // 2
+    u32 unk42_6:1; // 1
+    u32 unk42_7:1; // unk
+    u32 unk42_8:2; // 2 (!)
+    u32 unk43_2:2; // 2
+    u32 unk43_4:5; // unk
 
     u8  unk44[0x48 - 0x44];
 
     u16 unk48;
 
-    u16 unk4A_1 : 1;
-    u16 unk4A_2 : 3;
+    unsigned unk4A_1 : 1;
+    unsigned unk4A_2 : 3;
+    unsigned unk4A_5 : 4;
+    u8 unk4B;
+};
+
+/**
+ * Use with Struct0202BCF0 field chapterStateBits
+ */
+enum {
+    CHAPTER_FLAG_0          = (1 << 0),
+    CHAPTER_FLAG_1          = (1 << 1),
+    CHAPTER_FLAG_POSTGAME   = (1 << 2),
+    CHAPTER_FLAG_3          = (1 << 3),
+    CHAPTER_FLAG_PREPSCREEN = (1 << 4),
+    CHAPTER_FLAG_5          = (1 << 5),
+    CHAPTER_FLAG_DIFFICULT  = (1 << 6),
+    CHAPTER_FLAG_7          = (1 << 7)
 };
 
 struct TextBuffer0202A6AC
@@ -155,12 +221,103 @@ struct TextBuffer0202A6AC
     u8 buffer0202B5AC[1];  // unknown length
 };
 
-struct UnknownItemStruct
+struct ActionData
 {
-    u8 filler0[6];
-    u16 unk6;
+    // unknown stuff (sometimes RNs are pushed here) (maybe an union?)
+    /* 00 */ u16 _u00[3];
+    /* 06 */ u16 unk6;
+
+    /* 08 */ u16 unk08[2];
+
+    /* 0C */ u8 subjectIndex;
+    /* 0D */ u8 targetIndex;
+
+    /* 0E */ u8 xMove;
+    /* 0F */ u8 yMove;
+
+    /* 10 */ u8 moveCount;
+
+    /* 11 */ u8 unitActionType;
+
+    // maybe from this onwards it's an union?
+
+    /* 12 */ u8 itemSlotIndex;
+
+    /* 13 */ u8 xOther;
+    /* 14 */ u8 yOther;
+
+    /* 15 */ u8 trapType;
+
+    /* 16 */ u8 suspendPointType;
+
+    /* 17+ TODO (sizeof(struct ActionData) == 0x38) */
 };
 
+enum {
+    // 0x00?
+    UNIT_ACTION_WAIT = 0x01,
+    UNIT_ACTION_COMBAT = 0x02,
+    UNIT_ACTION_STAFF = 0x03,
+    UNIT_ACTION_DANCE = 0x04,
+    // 0x05?
+    UNIT_ACTION_STEAL = 0x06,
+    UNIT_ACTION_SUMMON = 0x07,
+    UNIT_ACTION_SUMMON_DK = 0x08,
+    UNIT_ACTION_RESCUE = 0x09,
+    UNIT_ACTION_DROP = 0x0A,
+    UNIT_ACTION_TAKE = 0x0B,
+    UNIT_ACTION_GIVE = 0x0C,
+    // 0x0D?
+    UNIT_ACTION_TALK = 0x0E,
+    UNIT_ACTION_SUPPORT = 0x0F,
+    UNIT_ACTION_VISIT = 0x10,
+    UNIT_ACTION_SEIZE = 0x11,
+    UNIT_ACTION_DOOR = 0x12,
+    // 0x13?
+    UNIT_ACTION_CHEST = 0x14,
+    UNIT_ACTION_PICK = 0x15,
+    // 0x16?
+    UNIT_ACTION_SHOPPED = 0x17,
+    // 0x18?
+    UNIT_ACTION_ARENA = 0x19,
+    UNIT_ACTION_USE_ITEM = 0x1A,
+    // 0x1B?
+    // 0x1C?
+    UNIT_ACTION_TRADED = 0x1D,
+    // 0x1E?
+    // 0x1F?
+    // 0x20?
+    UNIT_ACTION_RIDE_BALLISTA = 0x21,
+    UNIT_ACTION_EXIT_BALLISTA = 0x22
+};
+
+enum {
+    SUSPEND_POINT_PLAYERIDLE = 0,
+    SUSPEND_POINT_DURINGACTION = 1,
+    SUSPEND_POINT_CPPHASE = 2,
+    SUSPEND_POINT_BSKPHASE = 3,
+    SUSPEND_POINT_DURINGARENA = 4,
+    SUSPEND_POINT_5 = 5,
+    SUSPEND_POINT_6 = 6,
+    SUSPEND_POINT_7 = 7,
+    SUSPEND_POINT_8 = 8,
+    SUSPEND_POINT_PHASECHANGE = 9
+};
+
+enum {
+    GAME_ACTION_3 = 3
+};
+
+enum {
+    WEATHER_NONE = 0,
+    WEATHER_SNOW = 1,
+    WEATHER_SNOWSTORM = 2,
+    WEATHER_3 = 3,
+    WEATHER_RAIN = 4,
+    WEATHER_FLAMES = 5,
+    WEATHER_SANDSTORM = 6,
+    WEATHER_CLOUDS = 7
+};
 
 struct UnknownStructCTC
 {
@@ -330,81 +487,91 @@ struct ClassData {
 };
 
 enum {
-	US_NONE = 0x00000000,
+    US_NONE         = 0,
 
-	US_HIDDEN = 0x00000001,
-	US_UNSELECTABLE = 0x00000002,
-	US_DEAD = 0x00000004,
-	US_NOT_DEPLOYED = 0x00000008,
-	US_RESCUING = 0x00000010,
-	US_RESCUED = 0x00000020,
-	US_HAS_MOVED = 0x00000040, // Bad name?
-	US_CANTOING = 0x00000040, // Alias
-	US_UNDER_A_ROOF = 0x00000080,
-	// = 0x00000100,
-	// = 0x00000200,
-	US_HAS_MOVED_AI = 0x00000400,
-	US_IN_BALLISTA = 0x00000800,
-	US_DROP_ITEM = 0x00001000,
-	US_GROWTH_BOOST = 0x00002000,
-	US_SOLOANIM_1 = 0x00004000,
-	US_SOLOANIM_2 = 0x00008000,
-	// = 0x00010000,
-	// = 0x00020000,
-	// = 0x00040000,
-	// = 0x00080000,
-	// = 0x00100000,
-	// = 0x00200000,
-	// = 0x00400000,
-	// = 0x00800000,
-	// = 0x01000000,
-	// = 0x02000000,
-	// = 0x04000000,
-	// = 0x08000000,
-	// = 0x10000000,
-	// = 0x20000000,
-	// = 0x40000000,
-	// = 0x80000000,
+    US_HIDDEN       = (1 << 0),
+    US_UNSELECTABLE = (1 << 1),
+    US_DEAD         = (1 << 2),
+    US_NOT_DEPLOYED = (1 << 3),
+    US_RESCUING     = (1 << 4),
+    US_RESCUED      = (1 << 5),
+    US_HAS_MOVED    = (1 << 6), // Bad name?
+    US_CANTOING     = US_HAS_MOVED, // Alias
+    US_UNDER_A_ROOF = (1 << 7),
+    // = (1 << 8),
+    // = (1 << 9),
+    US_HAS_MOVED_AI = (1 << 10),
+    US_IN_BALLISTA  = (1 << 11),
+    US_DROP_ITEM    = (1 << 12),
+    US_GROWTH_BOOST = (1 << 13),
+    US_SOLOANIM_1   = (1 << 14),
+    US_SOLOANIM_2   = (1 << 15),
+    US_BIT16        = (1 << 16),
+    // = (1 << 17),
+    // = (1 << 18),
+    // = (1 << 19),
+    US_BIT20        = (1 << 20),
+    US_BIT21        = (1 << 21),
+    // = (1 << 22),
+    // = (1 << 23),
+    // = (1 << 24),
+    US_BIT25 = (1 << 25),
+    US_BIT26 = (1 << 26),
+    // = (1 << 27),
+    // = (1 << 28),
+    // = (1 << 29),
+    // = (1 << 30),
+    // = (1 << 31),
 
-	US_DUMMY
+    US_DUMMY
+};
+
+enum StatusEffect {
+    UNIT_STATUS_NONE = 0,
+
+    UNIT_STATUS_POISON = 1,
+    UNIT_STATUS_SLEEP = 2,
+    UNIT_STATUS_BERSERK = 4,
+
+    UNIT_STATUS__DUMMY
 };
 
 enum {
-	CA_NONE = 0x00000000,
-	CA_MOUNTEDAID = 0x00000001,
-	CA_CANTO = 0x00000002,
-	CA_STEAL = 0x00000004,
-	CA_LOCKPICK = 0x00000008,
-	CA_DANCE = 0x00000010,
-	CA_PLAY = 0x00000020,
-	CA_CRITBONUS = 0x00000040,
-	CA_BALLISTAE = 0x00000080,
-	CA_PROMOTED = 0x00000100,
-	CA_SUPPLY = 0x00000200,
-	CA_MOUNTED = 0x00000400,
-	CA_WYVERN = 0x00000800,
-	CA_PEGASUS = 0x00001000,
-	CA_LORD = 0x00002000,
-	CA_FEMALE = 0x00004000,
-	CA_BOSS = 0x00008000,
-	CA_LOCK_1 = 0x00010000,
-	CA_LOCK_2 = 0x00020000,
-	CA_LOCK_3 = 0x00040000, // Dragons or Monster depending of game
-	CA_MAXLEVEL10 = 0x00080000,
-	CA_UNSELECTABLE = 0x00100000,
-	CA_TRIANGLEATTACK_PEGASI = 0x00200000,
-	CA_TRIANGLEATTACK_ARMORS = 0x00400000,
-	// = 0x00800000,
-	// = 0x01000000,
-	CA_LETHALITY = 0x02000000,
-	// = 0x04000000,
-	CA_SUMMON = 0x08000000,
-	CA_LOCK_4 = 0x10000000,
-	CA_LOCK_5 = 0x20000000,
-	CA_LOCK_6 = 0x40000000,
-	CA_LOCK_7 = 0x80000000,
+    CA_NONE = 0x00000000,
+    CA_MOUNTEDAID = 0x00000001,
+    CA_CANTO = 0x00000002,
+    CA_STEAL = 0x00000004,
+    CA_LOCKPICK = 0x00000008,
+    CA_DANCE = 0x00000010,
+    CA_PLAY = 0x00000020,
+    CA_CRITBONUS = 0x00000040,
+    CA_BALLISTAE = 0x00000080,
+    CA_PROMOTED = 0x00000100,
+    CA_SUPPLY = 0x00000200,
+    CA_MOUNTED = 0x00000400,
+    CA_WYVERN = 0x00000800,
+    CA_PEGASUS = 0x00001000,
+    CA_LORD = 0x00002000,
+    CA_FEMALE = 0x00004000,
+    CA_BOSS = 0x00008000,
+    CA_LOCK_1 = 0x00010000,
+    CA_LOCK_2 = 0x00020000,
+    CA_LOCK_3 = 0x00040000, // Dragons or Monster depending of game
+    CA_MAXLEVEL10 = 0x00080000,
+    CA_UNSELECTABLE = 0x00100000,
+    CA_TRIANGLEATTACK_PEGASI = 0x00200000,
+    CA_TRIANGLEATTACK_ARMORS = 0x00400000,
+    // = 0x00800000,
+    // = 0x01000000,
+    CA_LETHALITY = 0x02000000,
+    // = 0x04000000,
+    CA_SUMMON = 0x08000000,
+    CA_LOCK_4 = 0x10000000,
+    CA_LOCK_5 = 0x20000000,
+    CA_LOCK_6 = 0x40000000,
+    CA_LOCK_7 = 0x80000000,
 
-	CA_DUMMY
+    CA_DUMMY
 };
 
 struct Unit {
@@ -497,26 +664,6 @@ struct Trap {
     /* 03 */ u8 data[5]; // extdata (see above enum for per trap type entry allocations)
 };
 
-struct Struct0202BCB0 { // Game State Struct
-    /* 00 */ u8  mainLoopEndedFlag;
-
-    /* 01 */ s8  gameLogicSemaphore;
-    /* 02 */ s8  gameGfxSemaphore;
-
-    /* 03 */ u8  _unk04;
-
-    /* 04 */ u8  gameStateBits;
-
-    /* 05 */ u8  _unk05;
-
-    /* 06 */ u16 prevVCount;
-
-    /* 08 */ u32 _unk08;
-
-    /* 0C */ short xCameraReal;
-    /* 0E */ short yCameraReal;
-};
-
 struct BattleUnit {
 	/* 00 */ struct Unit unit;
 
@@ -604,5 +751,8 @@ struct MMSData {
     const void* pGraphics;
     const void* pAnimation;
 };
+
+// TODO: move elsewhere/possibly generate from class table
+#define CLASS_PHANTOM 0x51
 
 #endif  // GUARD_TYPES_H

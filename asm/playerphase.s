@@ -1666,7 +1666,7 @@ sub_801D668: @ 0x0801D668
 	ldr r2, [r5]
 	cmp r2, #0
 	bne _0801D688
-	bl sub_80311A8
+	bl RefreshBMapGraphics
 	adds r0, r6, #0
 	movs r1, #0xc
 	bl Proc_GotoLabel
@@ -1692,7 +1692,7 @@ _0801D688:
 	negs r1, r1
 	ands r0, r1
 	str r0, [r2, #0xc]
-	bl sub_80311A8
+	bl RefreshBMapGraphics
 	ldr r2, [r5]
 	movs r0, #0x11
 	ldrsb r0, [r2, r0]
@@ -1734,7 +1734,7 @@ _0801D6F4:
 	THUMB_FUNC_START sub_801D6FC
 sub_801D6FC: @ 0x0801D6FC
 	push {lr}
-	bl sub_80311A8
+	bl RefreshBMapGraphics
 	bl SetDefaultColorEffects
 	pop {r0}
 	bx r0

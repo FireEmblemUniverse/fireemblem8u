@@ -1759,7 +1759,7 @@ sub_8034090: @ 0x08034090
 	ldr r2, [r5]
 	cmp r2, #0
 	bne _080340B0
-	bl sub_80311A8
+	bl RefreshBMapGraphics
 	adds r0, r6, #0
 	movs r1, #0xc
 	bl Proc_GotoLabel
@@ -1785,7 +1785,7 @@ _080340B0:
 	negs r1, r1
 	ands r0, r1
 	str r0, [r2, #0xc]
-	bl sub_80311A8
+	bl RefreshBMapGraphics
 	ldr r2, [r5]
 	movs r0, #0x11
 	ldrsb r0, [r2, r0]
@@ -1916,7 +1916,7 @@ _080341C8:
 sub_80341D0: @ 0x080341D0
 	push {lr}
 	bl AddSkipThread2
-	bl BlockGameGraphicsLogic
+	bl BMapDispSuspend
 	ldr r2, _080341FC  @ gLCDControlBuffer
 	ldrb r0, [r2, #1]
 	movs r1, #1
@@ -1940,7 +1940,7 @@ _080341FC: .4byte gLCDControlBuffer
 sub_8034200: @ 0x08034200
 	push {lr}
 	bl SubSkipThread2
-	bl UnblockGameGraphicsLogic
+	bl BMapDispResume
 	bl sub_80141B0
 	pop {r0}
 	bx r0

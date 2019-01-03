@@ -40,6 +40,6 @@ const char* sub_80346E0(unsigned chIndex) {
 }
 
 int IsDifficultMode(void) {
-    u8 difficultState = gUnknown_0202BCF0.chapterStateBits & 0x40;
+    u8 difficultState = gUnknown_0202BCF0.chapterStateBits & CHAPTER_FLAG_DIFFICULT;
     return difficultState ? TRUE : FALSE;
 }

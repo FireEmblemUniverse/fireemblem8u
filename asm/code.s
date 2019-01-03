@@ -4150,7 +4150,7 @@ _0808B70A:
 	ldr r1, [r6, #0x2c]
 	bl Text_AppendChar
 	str r0, [r6, #0x2c]
-	bl GetTextSpeed
+	bl GetTextDisplaySpeed
 	adds r4, r0, #0
 	cmp r4, #1
 	bne _0808B730
@@ -4525,7 +4525,7 @@ _0808B9BA:
 	asrs r1, r0, #0x18
 	cmp r1, #0
 	beq _0808BA44
-	bl GetTextSpeed
+	bl GetTextDisplaySpeed
 	adds r1, r4, #0
 	adds r1, #0x4c
 	strh r0, [r1]
@@ -10586,7 +10586,7 @@ sub_808EBD4: @ 0x0808EBD4
 	subs r0, #1
 	b _0808EC12
 _0808EC0E:
-	bl GetTextSpeed
+	bl GetTextDisplaySpeed
 _0808EC12:
 	adds r1, r6, #0
 	adds r1, #0x52
@@ -12756,7 +12756,7 @@ _0808FE26:
 	ldr r1, [r6, #0x2c]
 	bl Text_AppendChar
 	str r0, [r6, #0x2c]
-	bl GetTextSpeed
+	bl GetTextDisplaySpeed
 	cmp r0, #1
 	beq _0808FE5E
 	bl sub_808EA3C
@@ -25847,7 +25847,7 @@ sub_8096424: @ 0x08096424
 	cmp r0, #0
 	bne _08096438
 	bl AddSkipThread2
-	bl BlockGameGraphicsLogic
+	bl BMapDispSuspend
 _08096438:
 	pop {r0}
 	bx r0
@@ -25859,7 +25859,7 @@ sub_809643C: @ 0x0809643C
 	lsls r0, r0, #0x18
 	cmp r0, #0
 	bne _08096450
-	bl UnblockGameGraphicsLogic
+	bl BMapDispResume
 	bl SubSkipThread2
 _08096450:
 	pop {r0}
@@ -46905,7 +46905,7 @@ _080A0DD8:
 	bl LoadSomeUnitStatThingUnlockIdk
 	ldr r0, _080A0E50  @ 0x0000026A
 	bl GetStringFromIndex
-	bl sub_80314EC
+	bl SetTacticianName
 	movs r6, #0
 	add r0, sp, #0x28
 	mov sl, r0
@@ -52960,7 +52960,7 @@ _080A3D08:
 	ands r1, r2
 	orrs r1, r0
 	strh r1, [r7, #0xa]
-	bl GetTacticianNameStringPtr
+	bl GetTacticianName
 	adds r1, r0, #0
 	mov r0, sl
 	bl strcpy
@@ -52977,8 +52977,8 @@ _080A3DCC: .4byte 0x00010004
 _080A3DD0: .4byte 0xFFFFFC7F
 _080A3DD4: .4byte 0xFFFFF81F
 
-	THUMB_FUNC_START sub_80A3DD8
-sub_80A3DD8: @ 0x080A3DD8
+	THUMB_FUNC_START SaveChapterRankings
+SaveChapterRankings: @ 0x080A3DD8
 	push {r4, r5, r6, lr}
 	sub sp, #0x30
 	bl sub_80A39D8
@@ -54883,8 +54883,8 @@ sub_80A4C08: @ 0x080A4C08
 	.align 2, 0
 _080A4C10: .4byte gUnknown_0202BCF0
 
-	THUMB_FUNC_START sub_80A4C14
-sub_80A4C14: @ 0x080A4C14
+	THUMB_FUNC_START DeclareCompletedPlaythrough
+DeclareCompletedPlaythrough: @ 0x080A4C14
 	push {r4, r5, r6, r7, lr}
 	sub sp, #0x64
 	bl sub_80A4C08
@@ -55234,7 +55234,7 @@ _080A4EA4:
 	lsls r1, r4, #0x18
 	asrs r1, r1, #0x18
 	adds r0, r5, #0
-	bl sub_8030CF4
+	bl InitPlaythroughState
 	bl ClearUnits
 	bl ClearConvoyItems
 	bl sub_8083D18
@@ -90708,8 +90708,8 @@ _080B64F8: .4byte gUnknown_0202BCF0
 _080B64FC: .4byte 0xF00000FF
 _080B6500: .4byte gChapterDataTable
 
-	THUMB_FUNC_START sub_80B6504
-sub_80B6504: @ 0x080B6504
+	THUMB_FUNC_START ComputeChapterRankings
+ComputeChapterRankings: @ 0x080B6504
 	push {r4, r5, r6, lr}
 	sub sp, #4
 	bl GetNextChapterWinDataEntryIndex
@@ -135213,7 +135213,7 @@ sub_80CC66C: @ 0x080CC66C
 	ble _080CC694
 	cmp r0, #2
 	bne _080CC694
-	bl UnblockGameGraphicsLogic
+	bl BMapDispResume
 	bl SMS_UpdateFromGameData
 	bl SetupMapSpritesPalettes
 	bl SMS_FlushIndirect
@@ -135491,8 +135491,8 @@ _080CC864:
 	ldrb r0, [r0]
 	cmp r0, #0
 	bne _080CC8C2
-	bl UnblockGameGraphicsLogic
-	bl sub_80311A8
+	bl BMapDispResume
+	bl RefreshBMapGraphics
 	b _080CC8F0
 	.align 2, 0
 _080CC8A4: .4byte gUnknown_0895DFA4
@@ -135717,7 +135717,7 @@ sub_80CCA14: @ 0x080CCA14
 	str r0, [r5, #0x38]
 	ldrb r0, [r4, #0x12]
 	str r0, [r5, #0x3c]
-	bl BlockGameGraphicsLogic
+	bl BMapDispSuspend
 	bl MU_EndAll
 	pop {r4, r5}
 	pop {r0}
@@ -136704,8 +136704,8 @@ sub_80CD218: @ 0x080CD218
 	adds r0, r6, #0
 	movs r1, #2
 	bl Proc_GotoLabel
-	bl UnblockGameGraphicsLogic
-	bl sub_80311A8
+	bl BMapDispResume
+	bl RefreshBMapGraphics
 	bl RefreshFogAndUnitMaps
 	bl UpdateGameTilesGraphics
 	bl SMS_UpdateFromGameData
@@ -137199,8 +137199,8 @@ _080CD628: .4byte gUnknown_08B127EC
 	THUMB_FUNC_START sub_80CD62C
 sub_80CD62C: @ 0x080CD62C
 	push {lr}
-	bl UnblockGameGraphicsLogic
-	bl sub_80311A8
+	bl BMapDispResume
+	bl RefreshBMapGraphics
 	bl RefreshFogAndUnitMaps
 	bl MU_EndAll
 	ldr r0, _080CD654  @ gUnknown_03004E50

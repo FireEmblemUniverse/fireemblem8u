@@ -3256,7 +3256,7 @@ _0800EE88:
 	ldrsb r0, [r4, r0]
 	bl LoadChapterMapGfx
 	ldrb r0, [r4, #0x15]
-	bl SetupOAMSpliceForWeather
+	bl AllocWeatherParticles
 	bl UpdateGameTilesGraphics
 	bl SMS_UpdateFromGameData
 	ldr r0, [r5, #0x34]
@@ -3526,7 +3526,7 @@ _0800F0C4: .4byte 0x01000008
 Event22_: @ 0x0800F0C8
 	push {r4, lr}
 	adds r4, r0, #0
-	bl sub_80311A8
+	bl RefreshBMapGraphics
 	adds r0, r4, #0
 	adds r0, #0x44
 	ldrh r0, [r0]
@@ -3569,7 +3569,7 @@ Event23_: @ 0x0800F124
 	ands r0, r1
 	cmp r0, #0
 	bne _0800F13E
-	bl BlockGameGraphicsLogic
+	bl BMapDispSuspend
 	bl MU_AllDisable
 _0800F13E:
 	ldrh r1, [r4, #0x3c]
@@ -3591,7 +3591,7 @@ Event24_: @ 0x0800F150
 	ands r0, r1
 	cmp r0, #0
 	beq _0800F168
-	bl UnblockGameGraphicsLogic
+	bl BMapDispResume
 	bl MU_AllEnable
 _0800F168:
 	ldrh r1, [r4, #0x3c]
@@ -3626,7 +3626,7 @@ _0800F198:
 	bl Event24_
 	ldr r0, _0800F1FC  @ gUnknown_0202BCF0
 	strb r4, [r0, #0xe]
-	bl sub_8030F48
+	bl RestartBattleMap
 	lsls r0, r6, #4
 	bl sub_8015A40
 	ldr r4, _0800F200  @ gUnknown_0202BCB0
@@ -3637,7 +3637,7 @@ _0800F198:
 	bl RefreshFogAndUnitMaps
 	bl UpdateGameTilesGraphics
 	bl SMS_UpdateFromGameData
-	bl sub_80311A8
+	bl RefreshBMapGraphics
 	adds r0, r5, #0
 	adds r0, #0x44
 	ldrh r0, [r0]
@@ -3924,7 +3924,7 @@ Event28_ChangeWeather: @ 0x0800F3EC
 	push {lr}
 	ldr r0, [r0, #0x38]
 	ldrh r0, [r0, #2]
-	bl SetupWeather
+	bl SetWeather
 	movs r0, #2
 	pop {r1}
 	bx r1

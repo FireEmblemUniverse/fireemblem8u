@@ -49,8 +49,6 @@
 // extern ??? gUnknown_02002088
 // extern ??? gUnknown_02002774
 // extern ??? gUnknown_0200278C
-// extern ??? gUnknown_020027DC
-// extern ??? gUnknown_02002ADC
 // extern ??? gUnknown_02002FDC
 // extern ??? gUnknown_02002FF4
 // extern ??? gUnknown_0200300C
@@ -517,7 +515,6 @@ extern int gUnknown_0202B6AC;
 // extern ??? gUnknown_0202B6B0
 extern struct Struct0202BCB0 gUnknown_0202BCB0;
 extern struct Struct0202BCF0 gUnknown_0202BCF0;
-// extern ??? gUnknown_0202BD10
 // extern ??? gUnknown_0202BD30
 // extern ??? gUnknown_0202BD31
 // extern ??? gUnknown_0202BD3C
@@ -555,7 +552,7 @@ extern u8** gUnknown_0202E4F0; // gMapOther
 // extern ??? gUnknown_0203A4CC
 // extern ??? gUnknown_0203A4D0
 // extern ??? gUnknown_0203A4D4
-// extern ??? gUnknown_0203A4EC
+extern struct BattleUnit gUnknown_0203A4EC;
 // extern ??? gUnknown_0203A56C
 // extern ??? gUnknown_0203A5EC
 // extern ??? gUnknown_0203A608
@@ -569,7 +566,7 @@ extern u8** gUnknown_0202E4F0; // gMapOther
 // extern ??? gUnknown_0203A8EC
 // extern ??? gUnknown_0203A8F0
 // extern ??? gUnknown_0203A910
-extern struct UnknownItemStruct gUnknown_0203A958;
+extern struct ActionData gUnknown_0203A958;
 // extern ??? gUnknown_0203A95E
 // extern ??? gUnknown_0203A974
 // extern ??? gUnknown_0203A9FC
@@ -831,7 +828,7 @@ extern struct UnknownStructCTC *gUnknown_03004970;
 // extern ??? gUnknown_03004BB0
 // extern ??? gUnknown_03004C00
 // extern ??? gUnknown_03004C50
-// extern ??? gUnknown_03004E50
+extern struct Unit* gUnknown_03004E50; // gActiveUnit // Active Unit
 // extern ??? gUnknown_03004E60
 // extern ??? gUnknown_03004E70
 // extern ??? gUnknown_03004E74
@@ -927,7 +924,6 @@ extern short gSinLookup[]; // gSinTable; needs to be non-const to match?
 // extern ??? gUnknown_080D7C40
 // extern ??? gUnknown_080D7C42
 // extern ??? gUnknown_080D7C44
-// extern ??? gUnknown_080D7EEC
 // extern ??? gUnknown_080D7F4C
 // extern ??? gUnknown_080D7F58
 // extern ??? gUnknown_080D7F5C
@@ -1354,9 +1350,9 @@ extern u16 gUnknown_08589A9C[];
 extern struct Glyph *gUnknown_0858C7EC[];
 extern struct Glyph *gUnknown_0858F6F4[];
 extern struct Glyph *gUnknown_08590B44[];
-extern u16 gUnknown_08590F44[];
+extern const u16 gUnknown_08590F44[]; // 8x8 obj data
 // extern ??? gUnknown_08590F4C
-// extern ??? gUnknown_08590F54
+extern const u16 gUnknown_08590F54[]; // 32x32 obj data
 // extern ??? gUnknown_08590F64
 // extern ??? gUnknown_08590F6C
 // extern ??? gUnknown_08590F7C
@@ -1486,7 +1482,7 @@ extern const u16 gUnknown_0859A180[];
 extern const u16 gUnknown_0859A1A0[];
 extern const u16 gUnknown_0859A1C0[];
 // extern ??? gUnknown_0859A1E0
-// extern ??? gUnknown_0859A1F0
+// extern ??? gProc_BMapMain
 // extern ??? gUnknown_0859A438
 // extern ??? gUnknown_0859A4A6
 // extern ??? gUnknown_0859A4C0
@@ -1620,11 +1616,7 @@ extern const struct ProcCmd gUnknown_0859A548[]; // this is GENS/Camera Movement
 // extern ??? gUnknown_0859D438
 // extern ??? gUnknown_0859D458
 // extern ??? gUnknown_0859D478
-// extern ??? gUnknown_0859D8B8
-// extern ??? gUnknown_0859D908
-// extern ??? gUnknown_0859D968
-// extern ??? gUnknown_0859D974
-// extern ??? gUnknown_0859D9E4
+// extern ??? gProc_MapTask
 // extern ??? gUnknown_0859D9FC
 // extern ??? gUnknown_0859DA22
 // extern ??? gUnknown_0859DA4A
@@ -1707,12 +1699,15 @@ extern u16 gUnknown_0859EFC0[];
 // extern ??? gUnknown_085A34B0
 // extern ??? gUnknown_085A3730
 // extern ??? gUnknown_085A3944
-// extern ??? gUnknown_085A3964
-// extern ??? gUnknown_085A39EC
-// extern ??? gUnknown_085A3A84
-// extern ??? gUnknown_085A3AC0
-// extern ??? gUnknown_085A3B00
-// extern ??? gUnknown_085A401C
+
+// Weather graphics
+extern const u8  gUnknown_085A3964[]; // sandstorm particle 4bpp image (compressed)
+extern const u8  gUnknown_085A39EC[]; // snowstorm particle 4bpp image (compressed)
+extern const u8  gUnknown_085A3A84[]; // flames particle 4bpp image (compressed)
+extern const u16 gUnknown_085A3AC0[]; // flames particle palette
+extern const u8  gUnknown_085A3B00[]; // clouds 4bpp image (compressed)
+extern const u16 gUnknown_085A401C[]; // clouds palette
+
 // extern ??? gUnknown_085A403C
 // extern ??? gUnknown_085A5760
 // extern ??? gUnknown_085A5780
