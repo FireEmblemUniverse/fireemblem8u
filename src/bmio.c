@@ -320,14 +320,14 @@ void BMapDispResume(void) {
 void AllocWeatherParticles(unsigned weatherId) {
     switch (weatherId) {
 
-    case 1:
-    case 2:
-    case 4:
-    case 6:
+    case WEATHER_SNOW:
+    case WEATHER_SNOWSTORM:
+    case WEATHER_RAIN:
+    case WEATHER_SANDSTORM:
         SetupOAMBufferSplice(0x20);
         break;
 
-    case 5:
+    case WEATHER_FLAMES:
         SetupOAMBufferSplice(0x10);
         break;
 
@@ -1205,7 +1205,7 @@ void EndBMapMain(void) {
     Proc_Delete((struct Proc*)(mapMain));
 }
 
-void ChapterChangeUnitCleanup(void) { // ChapterEndUnitCleanup
+void ChapterChangeUnitCleanup(void) {
     int i, j;
 
     // Clear phantoms
