@@ -875,8 +875,6 @@ void ResetGameState(void) {
 	gUnknown_0202BCB0.gameLogicSemaphore = logicLock;
 }
 
-/*
-
 void SomeUpdateRoutine(void);
 void SetMainUpdateRoutine(void(*)(void));
 void GeneralVBlankHandler(void);
@@ -919,9 +917,8 @@ void SetupChapter(struct Proc* gameCtrl) { // TODO: Proc type here is specifical
 	// TODO: BATTLE MAP/CHAPTER/OBJECTIVE TYPE DEFINITION (STORY/TOWER/SKIRMISH)
 	// TODO: CHAPTER STATE BITS DEFINITIONS
 	if (GetChapterThing() == 2) {
-		if (!(gUnknown_0202BCF0.chapterStateBits & 0x10)) {
-		gUnknown_0202BCF0.chapterVisionRange =
-			3 * (NextRN_100() & 1);
+		if (!(gUnknown_0202BCF0.chapterStateBits & 0x10))
+			gUnknown_0202BCF0.chapterVisionRange = 3 * (NextRN_100() & 1);
 	} else {
 		gUnknown_0202BCF0.chapterVisionRange =
 			GetROMChapterStruct(gUnknown_0202BCF0.chapterIndex)->initialFogLevel;
@@ -965,7 +962,6 @@ void SetupChapter(struct Proc* gameCtrl) { // TODO: Proc type here is specifical
 
 	sub_8001ED0(TRUE, TRUE, TRUE, TRUE, TRUE);
 	sub_8001F48(TRUE);
+
 	SetSpecialColorEffectsParameters(3, 0, 0, 0x10);
 }
-
-*/
