@@ -14,6 +14,9 @@
 
 // General Battle Map System Stuff, mostly low level hardware stuff but also more
 
+// TODO: move to where appropriate
+extern const struct ProcCmd gUnknown_0859A1F0[]; // gProc_BMapMain
+
 struct WeatherParticle {
 	/* 00 */ short xPosition;
 	/* 02 */ short yPosition;
@@ -50,15 +53,59 @@ union GradientEffectData {
 	u16 fireGradient[8][0x40];
 };
 
+struct BMVSyncProc {
+	PROC_HEADER;
+
+	/* 2C */ const struct TileGfxAnim* tileGfxAnimStart;
+	/* 30 */ const struct TileGfxAnim* tileGfxAnimCurrent;
+
+	/* 34 */ short tileGfxAnimClock;
+	/* 36 */ short tilePalAnimClock;
+
+	/* 38 */ const struct TilePalAnim* tilePalAnimStart;
+	/* 3C */ const struct TilePalAnim* tilePalAnimCurrent;
+};
+
+static void sub_803005C(struct BMVSyncProc* proc);
+static void sub_80300A4(struct BMVSyncProc* proc);
+static void SetupGameVBlank6C_TileAnimations(struct BMVSyncProc* proc);
+static void GameVBlank6C_Destructor(struct BMVSyncProc* proc);
+static void GameVBlank6C_Loop(struct BMVSyncProc* proc);
+static void sub_8030240(void);
+static void sub_8030258(void);
+static void sub_80302D0(void);
+static void sub_8030390(void);
+static void sub_80303F4(void);
+static void sub_8030474(void);
+static void sub_80304E4(void);
+static void sub_8030540(void);
+static void sub_80305FC(void);
+static void sub_8030674(void);
+static void sub_80306CC(void);
+static void nullsub_12(void);
+static void sub_8030714(void);
+static void sub_80307D8(void);
+static void sub_8030868(void);
+static void sub_80308CC(void);
+static void sub_80308DC(void);
+static void sub_8030948(void);
+static void sub_80309E0(void);
+static void sub_80309F0(u32* lines);
+static void sub_8030A58(void);
+static void sub_8030A84(void);
+static void sub_8030B00(void);
+static void SetupWeatherGraphics_Maybe(void);
+static void UpdateWeatherGraphics(void);
+static void sub_8030C0C(void);
+
+static void ResetGameState(void);
+static void LoadGameCoreGfx2(void);
+
 // TODO: figure out if those variables should really belong to EWRAM_DATA
-EWRAM_DATA static union WeatherEffectData sWeatherEffect = {};
-EWRAM_DATA static union GradientEffectData sGradientEffect = {};
+static EWRAM_DATA union WeatherEffectData sWeatherEffect = {};
+static EWRAM_DATA union GradientEffectData sGradientEffect = {};
 
-// const data
-
-extern const struct ProcCmd gUnknown_0859A1F0[]; // gProc_BMapMain
-
-CONST_DATA struct ProcCmd gUnknown_0859D8B8[] = {
+static CONST_DATA struct ProcCmd sProc_BMVSync[] = { // gProc_VBlankHandler
 	PROC_SET_MARK(PROC_MARK_1),
 	PROC_SET_DESTRUCTOR(GameVBlank6C_Destructor),
 
@@ -73,7 +120,7 @@ PROC_LABEL(0),
 	PROC_LOOP_ROUTINE(GameVBlank6C_Loop),
 
 	PROC_END
-}; // gProc_VBlankHandler
+};
 
 CONST_DATA struct ProcCmd gUnknown_0859D908[] = { // gProc_MapTask
 	PROC_SET_NAME("MAPTASK"),
@@ -92,21 +139,21 @@ PROC_LABEL(0),
 };
 
 // TODO: better repr?
-CONST_DATA u16 sObj_1[] = {
+static CONST_DATA u16 sObj_1[] = {
 	1, 0x0000, 0x0000, 0x102A
 };
 
 // TODO: better repr?
-CONST_DATA u16 sObj_2[] = {
+static CONST_DATA u16 sObj_2[] = {
 	1, 0x8000, 0x0000, 0x100A
 };
 
-CONST_DATA u16* gUnknown_0859D968[3] = { // Obj Data Lookup
+static CONST_DATA u16* gUnknown_0859D968[3] = { // Weather particle Obj Data Lookup
 	sObj_1, sObj_2, sObj_2
 };
 
 // TODO: better repr?
-CONST_DATA u16 gUnknown_0859D974[] = { // Obj Data
+static CONST_DATA u16 sObj_BackgroundClouds[] = { // Obj Data
 	18,
 
 	0x4000, 0xC000, 0,
@@ -129,7 +176,7 @@ CONST_DATA u16 gUnknown_0859D974[] = { // Obj Data
 	0x40A0, 0xC0B0, 0,
 };
 
-CONST_DATA struct ProcCmd gUnknown_0859D9E4[] = { // gProc_GameGfxUnblocker
+static CONST_DATA struct ProcCmd gUnknown_0859D9E4[] = { // gProc_GameGfxUnblocker
 	PROC_SLEEP(0),
 	PROC_CALL_ROUTINE(UnblockGameGraphicsLogic),
 
@@ -143,8 +190,6 @@ extern const u8  gUnknown_085A3A84[];
 extern const u16 gUnknown_085A3AC0[];
 extern const u8  gUnknown_085A3B00[];
 extern const u16 gUnknown_085A401C[];
-
-// rodata
 
 static const u16 gUnknown_080D7EEC[] = {
 	0xB0,  0xC0,  0,
@@ -234,7 +279,7 @@ void SetupWeatherGraphics_Maybe(void);
 
 void SetupGameVBlank6C(void) {
 	SetupGameVBlank6C_TileAnimations(
-		(struct BMVSyncProc*) Proc_Create(gUnknown_0859D8B8, ROOT_PROC_0)
+		(struct BMVSyncProc*) Proc_Create(sProc_BMVSync, ROOT_PROC_0)
 	);
 
 	SetupWeatherGraphics_Maybe();
@@ -242,7 +287,7 @@ void SetupGameVBlank6C(void) {
 }
 
 void sub_8030174(void) {
-	Proc_DeleteAllWithScript(gUnknown_0859D8B8);
+	Proc_DeleteAllWithScript(sProc_BMVSync);
 }
 
 void BlockGameGraphicsLogic(void) {
@@ -266,7 +311,7 @@ void UnblockGameGraphicsLogic(void) {
 
 	Proc_UnblockEachWithMark(1);
 
-	proc = Proc_Find(gUnknown_0859D8B8);
+	proc = Proc_Find(sProc_BMVSync);
 
 	if (proc) {
 		// restart vblank proc
@@ -764,7 +809,7 @@ void sub_8030B00(void) {
 	RegisterObjectAttributes_SafeMaybe(
 		14,
 		0, -(y / 5),
-		gUnknown_0859D974,
+		sObj_BackgroundClouds,
 		0xAC12
 	);
 }
@@ -851,14 +896,14 @@ void sub_8030C0C(void) {
 }
 
 void sub_8030C24(void) {
-	struct BMVSyncProc* proc = (struct BMVSyncProc*) Proc_Find(gUnknown_0859D8B8);
+	struct BMVSyncProc* proc = (struct BMVSyncProc*) Proc_Find(sProc_BMVSync);
 
 	if (proc)
 		proc->tilePalAnimStart = NULL;
 }
 
 void sub_8030C40(void) {
-	struct BMVSyncProc* proc = (struct BMVSyncProc*) Proc_Find(gUnknown_0859D8B8);
+	struct BMVSyncProc* proc = (struct BMVSyncProc*) Proc_Find(sProc_BMVSync);
 
 	if (proc)
 		proc->tilePalAnimStart = proc->tilePalAnimCurrent =
