@@ -3,6 +3,7 @@
 #include "proc.h"
 #include "fontgrp.h"
 #include "mu.h"
+#include "bmio.h"
 
 #include "event.h"
 

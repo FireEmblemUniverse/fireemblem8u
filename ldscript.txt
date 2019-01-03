@@ -197,7 +197,7 @@ SECTIONS
         . = ALIGN(4); src/messdecode.o(.rodata);
         . = ALIGN(4); data/const_data_D792C.o(.rodata);
         . = ALIGN(4); src/bmio.o(.rodata);
-        . = ALIGN(4); data/const_data_D7F58.o(.rodata);
+        . = ALIGN(4); data/const_data_D7F5C.o(.rodata);
         . = ALIGN(4); data/text.o(.rodata);
         . = ALIGN(4); data/const_data_1609BC.o(.rodata);
         . = ALIGN(4); src/mu.o(.rodata);
@@ -220,6 +220,8 @@ SECTIONS
         . = ALIGN(4); data/data_587A40.o(.data);
         . = ALIGN(4); src/messdecode.o(.data);
         . = ALIGN(4); data/data_591AB4.o(.data);
+        . = ALIGN(4); src/bmio.o(.data);
+        . = ALIGN(4); data/data_59D9FC.o(.data);
         . = ALIGN(4); src/mu.o(.data);
         . = ALIGN(4); data/data_9A2DB0.o(.data);
         . = ALIGN(4); tools/agbcc/lib/libc.a:impure.o(.data);

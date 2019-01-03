@@ -49,8 +49,6 @@
 // extern ??? gUnknown_02002088
 // extern ??? gUnknown_02002774
 // extern ??? gUnknown_0200278C
-// extern ??? gUnknown_020027DC
-// extern ??? gUnknown_02002ADC
 // extern ??? gUnknown_02002FDC
 // extern ??? gUnknown_02002FF4
 // extern ??? gUnknown_0200300C
@@ -554,7 +552,7 @@ extern u8** gUnknown_0202E4F0; // gMapOther
 // extern ??? gUnknown_0203A4CC
 // extern ??? gUnknown_0203A4D0
 // extern ??? gUnknown_0203A4D4
-// extern ??? gUnknown_0203A4EC
+extern struct BattleUnit gUnknown_0203A4EC;
 // extern ??? gUnknown_0203A56C
 // extern ??? gUnknown_0203A5EC
 // extern ??? gUnknown_0203A608
@@ -926,7 +924,6 @@ extern short gSinLookup[]; // gSinTable; needs to be non-const to match?
 // extern ??? gUnknown_080D7C40
 // extern ??? gUnknown_080D7C42
 // extern ??? gUnknown_080D7C44
-// extern ??? gUnknown_080D7EEC
 // extern ??? gUnknown_080D7F4C
 // extern ??? gUnknown_080D7F58
 // extern ??? gUnknown_080D7F5C

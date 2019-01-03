@@ -122,8 +122,4 @@ gUnknown_080D7C42:  @ 0x080D7C42
 
 	.global gUnknown_080D7C44
 gUnknown_080D7C44:  @ 0x080D7C44
-	.incbin "baserom.gba", 0xD7C44, 0x2A8
-
-	.global gUnknown_080D7EEC
-gUnknown_080D7EEC:  @ 0x080D7EEC
-	.incbin "baserom.gba", 0xD7EEC, 0x60
+	.incbin "baserom.gba", 0xD7C44, 0x2A0

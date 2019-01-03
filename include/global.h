@@ -11,6 +11,8 @@
 
 // helper macros
 
+#define CONST_DATA const __attribute__((section(".data")))
+
 #define ARRAY_COUNT(array) (sizeof(array) / sizeof((array)[0]))
 
 #define RED_VALUE(color) ((color) & 0x1F)

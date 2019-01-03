@@ -6,6 +6,7 @@
 #include "m4a.h"
 #include "soundwrapper.h"
 #include "hardware.h"
+#include "bmio.h"
 
 #include "mu.h"
 

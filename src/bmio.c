@@ -4,64 +4,15 @@
 
 #include "proc.h"
 #include "hardware.h"
+#include "fontgrp.h"
 #include "chapterdata.h"
 #include "rng.h"
 #include "ctc.h"
 #include "mu.h"
 
+#include "bmio.h"
+
 // General Battle Map System Stuff, mostly low level hardware stuff but also more
-
-extern const u8  gUnknown_085A3B00[];
-extern const u16 gUnknown_085A401C[];
-
-extern const u16* gUnknown_0859D968[];
-
-extern const u16 gUnknown_085A3AC0[];
-
-extern const u8 gUnknown_085A3964[];
-extern const u8 gUnknown_085A3A84[];
-
-void CopyDataWithPossibleUncomp(const void* src, void* dst);
-void CopyTileGfxForObj(const void* src, void* dst, int tileWidth, int tileHeight);
-
-extern u8 sub_80A3870(void);
-
-extern const u8 gUnknown_085A39EC[];
-
-extern union {
-	// Buffer holding colors for vertical gradient.
-	u16 lines[320];
-
-	// Buffer holding 8 different variations of the tileset palette
-	// Variations have increasing amounts of red; used for fire weather effect
-	u16 fireGradient[8][0x40];
-} gUnknown_02002ADC;
-
-struct TileGfxAnim {
-	u16         time;
-	u16         size;
-	const void* data;
-};
-
-struct TilePalAnim {
-	const void* data;
-	u8          time;
-	u8          colorCount;
-	u8          colorStart;
-};
-
-struct BMVSyncProc {
-	PROC_HEADER;
-
-	/* 2C */ const struct TileGfxAnim* tileGfxAnimStart;
-	/* 30 */ const struct TileGfxAnim* tileGfxAnimCurrent;
-
-	/* 34 */ short tileGfxAnimClock;
-	/* 36 */ short tilePalAnimClock;
-
-	/* 38 */ const struct TilePalAnim* tilePalAnimStart;
-	/* 3C */ const struct TilePalAnim* tilePalAnimCurrent;
-};
 
 struct WeatherParticle {
 	/* 00 */ short xPosition;
@@ -74,21 +25,127 @@ struct WeatherParticle {
 	/* 09 */ u8  typeId;
 };
 
-extern const struct ProcCmd gUnknown_0859D8B8[];
-
-extern union {
+union WeatherEffectData {
+	/**
+	 * Array of weather particles
+	 */
 	struct WeatherParticle particles[0x40];
-	u32 gfxData[4 * 0x1C0];
-} gUnknown_020027DC;
 
-extern const u16 gUnknown_080D7EEC[];
+	/**
+	 * Buffer for cloud graphics
+	 */
+	u32 gfxData[0xC0];
+};
 
-extern const u16 gUnknown_0859D974[]; // Obj Data
+union GradientEffectData {
+	/**
+	 * Buffer holding colors for vertical gradient.
+	 */
+	u16 lines[320];
 
-// TODO: Inline this into GetTextSpeed
-extern const u8 gUnknown_080D7F58[4]; // Text Speed Lookup
+	/**
+	 * Buffer holding 8 different variations of the tileset palette
+	 * Variations have increasing amounts of red; used for fire weather effect
+	 */
+	u16 fireGradient[8][0x40];
+};
 
-/*
+// TODO: figure out if those variables should really belong to EWRAM_DATA
+EWRAM_DATA static union WeatherEffectData sWeatherEffect = {};
+EWRAM_DATA static union GradientEffectData sGradientEffect = {};
+
+// const data
+
+extern const struct ProcCmd gUnknown_0859A1F0[]; // gProc_BMapMain
+
+CONST_DATA struct ProcCmd gUnknown_0859D8B8[] = {
+	PROC_SET_MARK(PROC_MARK_1),
+	PROC_SET_DESTRUCTOR(GameVBlank6C_Destructor),
+
+	PROC_SLEEP(0),
+
+PROC_LABEL(0),
+	PROC_CALL_ROUTINE(sub_803005C),
+	PROC_CALL_ROUTINE(sub_80300A4),
+	PROC_CALL_ROUTINE(SMS_FlushDirect),
+	PROC_CALL_ROUTINE(UpdateWeatherGraphics),
+
+	PROC_LOOP_ROUTINE(GameVBlank6C_Loop),
+
+	PROC_END
+}; // gProc_VBlankHandler
+
+CONST_DATA struct ProcCmd gUnknown_0859D908[] = { // gProc_MapTask
+	PROC_SET_NAME("MAPTASK"),
+	PROC_END_DUPLICATES,
+	PROC_SET_MARK(PROC_MARK_1),
+
+	PROC_SLEEP(0),
+
+PROC_LABEL(0),
+	PROC_CALL_ROUTINE(SMS_DisplayAllFromInfoStructs),
+	PROC_CALL_ROUTINE(sub_8030C0C),
+	PROC_CALL_ROUTINE(sub_8019D28),
+
+	PROC_SLEEP(0),
+	PROC_GOTO(0)
+};
+
+// TODO: better repr?
+CONST_DATA u16 sObj_1[] = {
+	1, 0x0000, 0x0000, 0x102A
+};
+
+// TODO: better repr?
+CONST_DATA u16 sObj_2[] = {
+	1, 0x8000, 0x0000, 0x100A
+};
+
+CONST_DATA u16* gUnknown_0859D968[3] = { // Obj Data Lookup
+	sObj_1, sObj_2, sObj_2
+};
+
+// TODO: better repr?
+CONST_DATA u16 gUnknown_0859D974[] = { // Obj Data
+	18,
+
+	0x4000, 0xC000, 0,
+	0x4000, 0xC030, 6,
+	0x4000, 0xC070, 0,
+	0x4000, 0xC0A0, 6,
+	0x8000, 0x80E0, 0,
+	0x0020, 0x8000, 10,
+	0x4020, 0xC020, 0,
+	0x4020, 0xC050, 6,
+	0x4020, 0xC090, 0,
+	0x4020, 0xC0C0, 6,
+	0x4040, 0xC000, 0,
+	0x4040, 0xC0B0, 0,
+	0x4060, 0xC000, 4,
+	0x4060, 0xC0B0, 4,
+	0x4080, 0xC000, 0,
+	0x4080, 0xC0B0, 0,
+	0x40A0, 0xC000, 0,
+	0x40A0, 0xC0B0, 0,
+};
+
+CONST_DATA struct ProcCmd gUnknown_0859D9E4[] = { // gProc_GameGfxUnblocker
+	PROC_SLEEP(0),
+	PROC_CALL_ROUTINE(UnblockGameGraphicsLogic),
+
+	PROC_END
+};
+
+// external data (gfx, pals, tsas, ...)
+extern const u8  gUnknown_085A3964[];
+extern const u8  gUnknown_085A39EC[];
+extern const u8  gUnknown_085A3A84[];
+extern const u16 gUnknown_085A3AC0[];
+extern const u8  gUnknown_085A3B00[];
+extern const u16 gUnknown_085A401C[];
+
+// rodata
+
 static const u16 gUnknown_080D7EEC[] = {
 	0xB0,  0xC0,  0,
 	0xB0,  0xD0,  0,
@@ -108,87 +165,7 @@ static const u16 gUnknown_080D7EEC[] = {
 	0x100, 0x200, 2,
 	0xF0,  0x220, 2,
 	0xE0,  0x240, 2,
-}; //*/
-
-void SetSecondaryHBlankHandler(void(*)(void));
-
-enum {
-	BM_BGPAL_6 = 6,
-	BM_BGPAL_TILESET_BASE = 7,
 };
-
-enum {
-	BM_OBJPAL_1  = 1,
-	BM_OBJPAL_10 = 10,
-};
-
-struct GameCtrlProc {
-	PROC_HEADER;
-};
-
-struct BMapMainProc {
-	PROC_HEADER;
-
-	/* 29 */ u8 pad29[0x54 - 0x29];
-	/* 54 */ struct GameCtrlProc* gameCtrl;
-};
-
-void SomeUpdateRoutine(void);
-void SetMainUpdateRoutine(void(*)(void));
-void GeneralVBlankHandler(void);
-void sub_80156D4(void);
-void SetupMapSpritesPalettes(void);
-void ClearLocalEvents(void);
-void SMS_ClearUsageTable(void);
-void ClearMenuRelatedList(void);
-void ResetTraps(void);
-int GetChapterThing(void);
-void InitChapterMap(int);
-void AddSnagsAndWalls(void);
-struct Unit* GetUnitStruct(int id);
-void sub_8018EB8(void);
-void LoadChapterBallistae(void);
-struct BMapMainProc* MakeBMAPMAIN(struct GameCtrlProc* gameCtrl);
-void sub_8001ED0(int, int, int, int, int); // SetColorEffectFirstTarget
-void sub_8001F48(int); // SetColorEffectBackdropFirstTarget
-void sub_80A6C8C(void);
-void SetCursorMapPosition(int, int);
-int sub_8015A40(int xMapCoord);
-int sub_8015A6C(int yMapCoord);
-void sub_803133C(struct BMapMainProc* mapMain);
-void sub_8031300(struct BMapMainProc* mapMain);
-void sub_80313BC(struct BMapMainProc* mapMain);
-void sub_80313F8(struct BMapMainProc* mapMain);
-void sub_8031474(struct BMapMainProc* mapMain);
-void ClearBG0BG1(void);
-void LoadObjUIGfx(void);
-void LoadChapterMapGfx(int);
-void UpdateGameTilesGraphics(void);
-void SMS_UpdateFromGameData(void);
-void SMS_FlushIndirect(void);
-void Font_LoadForUI(void);
-void ClearUnitStruct(struct Unit* unit);
-int GetUnitMaxHP(struct Unit* unit);
-void SetUnitHP(struct Unit* unit, int value);
-void SetUnitNewStatus(struct Unit* unit, int statusId);
-void RefreshFogAndUnitMaps(void);
-void HideUnitSMS(struct Unit* unit);
-void PrepareArena2(struct Unit* unit);
-void sub_802CD64(struct Unit* unit);
-void BeginBattleAnimations(void);
-void sub_80B578C(void);
-void RegisterChapterTimeAndTurnCount(struct Struct0202BCF0* chData);
-void sub_80B6504(void);
-void sub_80A3DD8(void);
-
-extern const struct ProcCmd gUnknown_0859D908[];
-
-extern struct BattleUnit gUnknown_0203A4EC;
-
-extern const struct ProcCmd gUnknown_0859D9E4[];
-
-extern const struct ProcCmd gUnknown_0859A1F0[]; // gProc_BMapMain
-extern const struct ProcCmd gUnknown_0859D908[];
 
 void sub_803005C(struct BMVSyncProc* proc) {
 	if (!proc->tileGfxAnimStart)
@@ -338,14 +315,14 @@ void sub_8030258(void) {
 	for (i = 0; i < 0x40; ++i) {
 		unsigned templateIndex = (i & 0xF) * 3;
 
-		gUnknown_020027DC.particles[i].xPosition = AdvanceGetLCGRNValue();
-		gUnknown_020027DC.particles[i].yPosition = AdvanceGetLCGRNValue();
+		sWeatherEffect.particles[i].xPosition = AdvanceGetLCGRNValue();
+		sWeatherEffect.particles[i].yPosition = AdvanceGetLCGRNValue();
 
-		gUnknown_020027DC.particles[i].xSpeed = gUnknown_080D7EEC[templateIndex + 0] * 2;
-		gUnknown_020027DC.particles[i].ySpeed = gUnknown_080D7EEC[templateIndex + 1] * 2;
-		gUnknown_020027DC.particles[i].typeId = gUnknown_080D7EEC[templateIndex + 2];
+		sWeatherEffect.particles[i].xSpeed = gUnknown_080D7EEC[templateIndex + 0] * 2;
+		sWeatherEffect.particles[i].ySpeed = gUnknown_080D7EEC[templateIndex + 1] * 2;
+		sWeatherEffect.particles[i].typeId = gUnknown_080D7EEC[templateIndex + 2];
 
-		gUnknown_020027DC.particles[i].gfxIndex = gfxTileIndices[gUnknown_080D7EEC[templateIndex + 2]];
+		sWeatherEffect.particles[i].gfxIndex = gfxTileIndices[gUnknown_080D7EEC[templateIndex + 2]];
 	}
 }
 
@@ -354,7 +331,7 @@ void sub_80302D0(void) {
 		struct { short x, y; } origins[3];
 		int i;
 
-		struct WeatherParticle* it = gUnknown_020027DC.particles + ((GetGameClock() % 2) * 0x20);
+		struct WeatherParticle* it = sWeatherEffect.particles + ((GetGameClock() % 2) * 0x20);
 
 		origins[0].x = (gUnknown_0202BCB0.xCameraReal * 12) / 16;
 		origins[0].y = gUnknown_0202BCB0.yCameraReal;
@@ -389,12 +366,12 @@ void sub_8030390(void) {
 	for (i = 0; i < 0x40; ++i) {
 		unsigned templateIndex = (i & 0xF) * 3;
 
-		gUnknown_020027DC.particles[i].xPosition = AdvanceGetLCGRNValue();
-		gUnknown_020027DC.particles[i].yPosition = AdvanceGetLCGRNValue();
+		sWeatherEffect.particles[i].xPosition = AdvanceGetLCGRNValue();
+		sWeatherEffect.particles[i].yPosition = AdvanceGetLCGRNValue();
 
-		gUnknown_020027DC.particles[i].xSpeed   = gUnknown_080D7EEC[templateIndex + 0] * 6;
-		gUnknown_020027DC.particles[i].ySpeed   = gUnknown_080D7EEC[templateIndex + 1] * 16;
-		gUnknown_020027DC.particles[i].gfxIndex = gUnknown_080D7EEC[templateIndex + 2];
+		sWeatherEffect.particles[i].xSpeed   = gUnknown_080D7EEC[templateIndex + 0] * 6;
+		sWeatherEffect.particles[i].ySpeed   = gUnknown_080D7EEC[templateIndex + 1] * 16;
+		sWeatherEffect.particles[i].gfxIndex = gUnknown_080D7EEC[templateIndex + 2];
 	}
 }
 
@@ -402,7 +379,7 @@ void sub_80303F4(void) {
 	if (GetPrimaryOAMSize()) {
 		int i;
 
-		struct WeatherParticle* it = gUnknown_020027DC.particles + ((GetGameClock() % 2) * 0x20);
+		struct WeatherParticle* it = sWeatherEffect.particles + ((GetGameClock() % 2) * 0x20);
 
 		for (i = 0; i < 0x20; ++i) {
 			it->xPosition += it->xSpeed;
@@ -429,11 +406,11 @@ void sub_8030474(void) {
 	CopyTileGfxForObj(gUnknown_02020188, OBJ_VRAM0 + 0x1C * 0x20, 4, 4);
 
 	for (i = 0; i < 0x40; ++i) {
-		gUnknown_020027DC.particles[i].xPosition = AdvanceGetLCGRNValue();
-		gUnknown_020027DC.particles[i].yPosition = (AdvanceGetLCGRNValue() % 160 + 240) & 0xFF;
+		sWeatherEffect.particles[i].xPosition = AdvanceGetLCGRNValue();
+		sWeatherEffect.particles[i].yPosition = (AdvanceGetLCGRNValue() % 160 + 240) & 0xFF;
 
-		gUnknown_020027DC.particles[i].xSpeed = (AdvanceGetLCGRNValue() & 0x7) - 32;
-		gUnknown_020027DC.particles[i].ySpeed = 0;
+		sWeatherEffect.particles[i].xSpeed = (AdvanceGetLCGRNValue() & 0x7) - 32;
+		sWeatherEffect.particles[i].ySpeed = 0;
 	}
 }
 
@@ -441,7 +418,7 @@ void sub_80304E4(void) {
 	if (GetPrimaryOAMSize()) {
 		int i;
 
-		struct WeatherParticle* it = gUnknown_020027DC.particles + ((GetGameClock() % 2) * 0x20);
+		struct WeatherParticle* it = sWeatherEffect.particles + ((GetGameClock() % 2) * 0x20);
 
 		for (i = 0; i < 0x20; ++i) {
 			it->xPosition += it->xSpeed;
@@ -471,20 +448,20 @@ void sub_8030540(void) {
 	for (i = 0; i < 0x40; ++i) {
 		unsigned type = typeLookup[i & 7];
 
-		gUnknown_020027DC.particles[i].xPosition = AdvanceGetLCGRNValue();
-		gUnknown_020027DC.particles[i].yPosition = AdvanceGetLCGRNValue();
+		sWeatherEffect.particles[i].xPosition = AdvanceGetLCGRNValue();
+		sWeatherEffect.particles[i].yPosition = AdvanceGetLCGRNValue();
 
-		gUnknown_020027DC.particles[i].ySpeed    = (AdvanceGetLCGRNValue() & 0x3FF) - 0x100;
-		gUnknown_020027DC.particles[i].gfxIndex  = type;
+		sWeatherEffect.particles[i].ySpeed    = (AdvanceGetLCGRNValue() & 0x3FF) - 0x100;
+		sWeatherEffect.particles[i].gfxIndex  = type;
 
 		switch (type) {
 
 		case 0:
-			gUnknown_020027DC.particles[i].xSpeed = 0x700 + (AdvanceGetLCGRNValue() & 0x1FF);
+			sWeatherEffect.particles[i].xSpeed = 0x700 + (AdvanceGetLCGRNValue() & 0x1FF);
 			break;
 
 		case 1:
-			gUnknown_020027DC.particles[i].xSpeed = 0xA00 + (AdvanceGetLCGRNValue() & 0x1FF);
+			sWeatherEffect.particles[i].xSpeed = 0xA00 + (AdvanceGetLCGRNValue() & 0x1FF);
 			break;
 
 		} // switch(type)
@@ -495,7 +472,7 @@ void sub_80305FC(void) {
 	if (GetPrimaryOAMSize()) {
 		int i;
 
-		struct WeatherParticle* it = gUnknown_020027DC.particles + ((GetGameClock() % 2) * 0x20);
+		struct WeatherParticle* it = sWeatherEffect.particles + ((GetGameClock() % 2) * 0x20);
 
 		for (i = 0; i < 0x20; ++i) {
 			it->xPosition += it->xSpeed;
@@ -525,11 +502,11 @@ void sub_8030674(void) {
 	if (nextLine >= 320)
 		((u16*)(PLTT))[0] = 0;
 	else
-		((u16*)(PLTT))[0] = nextLine[gUnknown_02002ADC.lines];
+		((u16*)(PLTT))[0] = nextLine[sGradientEffect.lines];
 }
 
 void sub_80306CC(void) {
-	u16* palIt = gUnknown_02002ADC.lines;
+	u16* palIt = sGradientEffect.lines;
 	int i = 0;
 
 	void(*handler)(void) = sub_8030674;
@@ -556,7 +533,7 @@ void sub_8030714(void) {
 
 	nextLine -= 96;
 
-	src  = gUnknown_02002ADC.fireGradient[0];
+	src  = sGradientEffect.fireGradient[0];
 	src += nextLine * 8;
 
 	dst = ((u16*)(PLTT)) + 0x70 + (nextLine % 8) * 8;
@@ -581,7 +558,7 @@ void sub_8030758(void) {
 				if (r > 31)
 					r = 31;
 
-				gUnknown_02002ADC.fireGradient[k][0x10 * i + j] = 
+				sGradientEffect.fireGradient[k][0x10 * i + j] = 
 					(b << 10) + (g << 5) + r;
 			}
 		}
@@ -607,7 +584,7 @@ void sub_80307D8(void) {
 				if (r > 31)
 					r = 31;
 
-				gUnknown_02002ADC.fireGradient[k][0x10 * i + j] = 
+				sGradientEffect.fireGradient[k][0x10 * i + j] = 
 					(b << 10) + (g << 5) + r;
 			}
 		}
@@ -624,11 +601,11 @@ void sub_8030868(void) {
 	CopyToPaletteBuffer(gUnknown_085A3AC0, 0x340, 0x20);
 
 	for (i = 0; i < 0x10; ++i) {
-		gUnknown_020027DC.particles[i].xPosition = AdvanceGetLCGRNValue();
-		gUnknown_020027DC.particles[i].yPosition = AdvanceGetLCGRNValue();
+		sWeatherEffect.particles[i].xPosition = AdvanceGetLCGRNValue();
+		sWeatherEffect.particles[i].yPosition = AdvanceGetLCGRNValue();
 
-		gUnknown_020027DC.particles[i].xSpeed = -gUnknown_080D7EEC[i*3 + 0];
-		gUnknown_020027DC.particles[i].ySpeed = -gUnknown_080D7EEC[i*3 + 1];
+		sWeatherEffect.particles[i].xSpeed = -gUnknown_080D7EEC[i*3 + 0];
+		sWeatherEffect.particles[i].ySpeed = -gUnknown_080D7EEC[i*3 + 1];
 	}
 }
 
@@ -660,7 +637,7 @@ void sub_80308DC(void) {
 			if (r > 31)
 				r = 31;
 
-			gUnknown_02002ADC.fireGradient[j][0x10 * 2 + i] = 
+			sGradientEffect.fireGradient[j][0x10 * 2 + i] = 
 				(b << 10) + (g << 5) + r;
 		}
 
@@ -668,7 +645,7 @@ void sub_80308DC(void) {
 }
 
 void sub_8030948(void) {
-	struct WeatherParticle* it = gUnknown_020027DC.particles;
+	struct WeatherParticle* it = sWeatherEffect.particles;
 
 	if (GetPrimaryOAMSize()) {
 		int i;
@@ -743,7 +720,7 @@ void sub_8030A58(void) {
 
 	CopyDataWithPossibleUncomp(
 		gUnknown_085A3B00,
-		gUnknown_020027DC.gfxData
+		sWeatherEffect.gfxData
 	);
 
 	CopyToPaletteBuffer(
@@ -754,7 +731,7 @@ void sub_8030A58(void) {
 }
 
 void sub_8030A84(void) {
-	u32* gfx = gUnknown_020027DC.gfxData;
+	u32* gfx = sWeatherEffect.gfxData;
 
 	switch (GetGameClock() % 8) {
 
@@ -896,10 +873,8 @@ void SetupWeather(unsigned weatherId) {
 }
 
 u8 GetTextSpeed(void) {
-	u8 lookup[4]; // = { 8, 4, 1, 0 };
-	memcpy(lookup, gUnknown_080D7F58, 4);
-
-	return lookup[gUnknown_0202BCF0.unk40_6];
+	u8 speedLookup[4] = { 8, 4, 1, 0 };
+	return speedLookup[gUnknown_0202BCF0.unk40_6];
 }
 
 int sub_8030CC0(void) {
@@ -1339,9 +1314,6 @@ void sub_80314B0(void) {
 
 	gUnknown_0202BCF0.chapterStateBits |= CHAPTER_FLAG_5;
 }
-
-void SetNextGameActionId(int id);
-void sub_80A4C14(void);
 
 void sub_80314D4(void) {
 	SetNextGameActionId(3); // TODO: GAME ACTION TYPE DEFINITIONS

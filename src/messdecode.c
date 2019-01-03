@@ -1,5 +1,8 @@
 #include "global.h"
 
+#include "proc.h"
+#include "bmio.h"
+
 const char *gUnknown_08591AA4[][2] =
 {
     {"a ", "A "},

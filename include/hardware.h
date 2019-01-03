@@ -21,7 +21,7 @@ void SetInterrupt_LCDVBlank(InterruptHandler handler);
 // ??? SetInterrupt_LCDVCountMatch(???);
 // ??? sub_8001308(???);
 // ??? SetLCDVCountSetting(???);
-// ??? SetMainUpdateRoutine(???);
+void SetMainUpdateRoutine(void(*)(void));
 void ExecMainUpdate();
 // ??? _UpdateKeyStatus(???);
 void UpdateKeyStatus(struct KeyStatusBuffer *keyStatus);
@@ -56,14 +56,14 @@ void SoftResetIfKeyComboPressed();
 // ??? ExecBothHBlankHandlers(???);
 // ??? UpdateHBlankHandlerState(???);
 // ??? SetPrimaryHBlankHandler(???);
-// ??? SetSecondaryHBlankHandler(???);
+void SetSecondaryHBlankHandler(void(*)(void));
 // ??? GetBackgroundFromBufferPointer(???);
 // ??? BG_SetPriority(???);
 // ??? BG_GetPriority(???);
 void SetSpecialColorEffectsParameters(u16 effect, u8 coeffA, u8 coeffB, u8 blendY);
-// ??? sub_8001ED0(???);
+void sub_8001ED0(int, int, int, int, int); // SetColorEffectFirstTarget
 // ??? sub_8001F0C(???);
-// ??? sub_8001F48(???);
+void sub_8001F48(int); // SetColorEffectBackdropFirstTarget
 // ??? sub_8001F64(???);
 void SetDefaultColorEffects(void);
 void EnablePaletteSync(void);
