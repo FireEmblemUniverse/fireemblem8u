@@ -222,7 +222,7 @@ void EventEngine_OnEnd(struct EventEngineProc* proc) {
 
         if (proc->evStateBits & EV_STATE_CHANGEGM) {
             MU_EndAll();
-            sub_80311F0();
+            EndBMapMain();
             memset((u8*)(gEventCallQueue), 0, 0x80);
         }
 

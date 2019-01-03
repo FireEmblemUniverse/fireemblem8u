@@ -1777,7 +1777,7 @@ sub_80853D0: @ 0x080853D0
 	push {lr}
 	movs r0, #0
 	bl SetNextGameActionId
-	bl sub_80311F0
+	bl EndBMapMain
 	bl DeleteEventEngines
 	pop {r0}
 	bx r0

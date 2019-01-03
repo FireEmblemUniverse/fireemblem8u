@@ -314,7 +314,7 @@ sub_800698C: @ 0x0800698C
 	strb r5, [r0]
 	ldr r0, [r4]
 	strb r5, [r0, #0xb]
-	bl GetTextSpeed
+	bl GetTextDisplaySpeed
 	ldr r1, [r4]
 	strb r0, [r1, #0x13]
 	ldr r0, [r4]
@@ -771,7 +771,7 @@ _08006CE8:
 _08006D38: .4byte gUnknown_0859133C
 _08006D3C: .4byte gUnknown_030000D0
 _08006D40:
-	bl GetTextSpeed
+	bl GetTextDisplaySpeed
 	adds r4, r0, #0
 	cmp r4, #1
 	bne _08006D54
@@ -1845,7 +1845,7 @@ _080076F0:
 	ldr r0, [r1]
 	subs r0, #1
 	str r0, [r1, #4]
-	bl GetTacticianNameStringPtr
+	bl GetTacticianName
 	ldr r1, [r4]
 	str r0, [r1]
 	b _08006FDA
@@ -4793,7 +4793,7 @@ _08008E8C:
 	.align 2, 0
 _08008EA4: .4byte gUnknown_0859133C
 _08008EA8:
-	bl GetTacticianNameStringPtr
+	bl GetTacticianName
 	bl GetStringTextWidth
 	b _08008EC2
 _08008EB2:

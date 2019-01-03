@@ -12156,7 +12156,7 @@ _08055E12:
 	strb r0, [r2]
 	movs r0, #0
 	bl SetupOAMBufferSplice
-	bl BlockGameGraphicsLogic
+	bl BMapDispSuspend
 	mov r1, r9
 	mov r0, r8
 	strb r1, [r0]
@@ -12694,7 +12694,7 @@ ekrBattleEnding_8056310: @ 0x08056310
 	movs r0, #0xf
 	strh r0, [r5, #0x2e]
 	bl SMS_ClearUsageTable
-	bl sub_8031154
+	bl BMapDispResume_FromBattleDelayed
 	bl SMS_UpdateFromGameData
 	bl SMS_FlushIndirect
 	bl SetupMapSpritesPalettes
@@ -12862,7 +12862,7 @@ ekrBattleEnding_8056484: @ 0x08056484
 	push {r4, lr}
 	adds r4, r0, #0
 	bl EndEkrBattleDeamon
-	bl sub_80310F8
+	bl RefreshBMapDisplay_FromBattle
 	adds r0, r4, #0
 	bl Proc_ClearNativeCallback
 	pop {r4}

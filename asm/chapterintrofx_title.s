@@ -208,7 +208,7 @@ sub_8022528: @ 0x08022528
 	bl BG_Fill
 	movs r0, #4
 	bl BG_EnableSyncByMask
-	bl sub_8030C24
+	bl DisableMapPaletteAnimations
 	ldr r4, _080225A4  @ gUnknown_0202BCF0
 	movs r0, #0xe
 	ldrsb r0, [r4, r0]

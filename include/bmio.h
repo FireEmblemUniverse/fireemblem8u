@@ -35,39 +35,39 @@ struct BMapMainProc {
 	/* 54 */ struct GameCtrlProc* gameCtrl;
 };
 
-void SetupGameVBlank6C(void);
-void sub_8030174(void);
-void BlockGameGraphicsLogic(void);
-void UnblockGameGraphicsLogic(void);
-void SetupOAMSpliceForWeather(unsigned weatherId);
-void sub_8030758(void);
-void sub_8030C24(void);
-void sub_8030C40(void);
-void SetupWeather(unsigned weatherId);
+void BMapVSync_Start(void);
+void BMapVSync_End(void);
+void BMapDispSuspend(void);
+void BMapDispResume(void);
+void AllocWeatherParticles(unsigned weatherId);
+void WfxFlamesInitGradientPublic(void);
+void DisableMapPaletteAnimations(void);
+void ResetMapPaletteAnimations(void);
+void SetWeather(unsigned weatherId);
 
 // this may have been two (or more?) source files
-// if this is to be split, this the point.
+// if this is to be split, this the starting point.
 
-u8 GetTextSpeed(void);
-int sub_8030CC0(void);
-void sub_8030CF4(int, s8);
-void SetupChapter(struct GameCtrlProc* gameCtrl);
-void sub_8030F48(void);
-// void sub_8030FE4(struct GameCtrlProc* gameCtrl); // unused
-// void sub_80310F8(void); // unused
-// void sub_8031154(void); // unused
-void sub_80311A8(void);
-struct BMapMainProc* MakeBMAPMAIN(struct GameCtrlProc* gameCtrl);
-void sub_80311F0(void);
-void sub_8031214(void);
-void sub_8031300(struct BMapMainProc* mapMain);
-void sub_803133C(struct BMapMainProc* mapMain);
-void sub_80313BC(struct BMapMainProc* mapMain);
-void sub_80313F8(struct BMapMainProc* mapMain);
-void sub_8031474(struct BMapMainProc* mapMain);
-// void sub_80314B0(void); // unused
-// void sub_80314D4(void); // unused
-char* GetTacticianNameStringPtr(void);
-void sub_80314EC(const char* newName);
+u8 GetTextDisplaySpeed(void);
+int IsFirstPlaythrough(void);
+void InitPlaythroughState(int, s8);
+void StartBattleMap(struct GameCtrlProc* gameCtrl);
+void RestartBattleMap(void);
+void GameCtrl_StartResumedGame(struct GameCtrlProc* gameCtrl);
+void RefreshBMapDisplay_FromBattle(void);
+void BMapDispResume_FromBattleDelayed(void);
+void RefreshBMapGraphics(void);
+struct BMapMainProc* StartBMapMain(struct GameCtrlProc* gameCtrl);
+void EndBMapMain(void);
+void ChapterChangeUnitCleanup(void);
+void MapMain_ResumeFromPhaseIdle(struct BMapMainProc* mapMain);
+void MapMain_ResumeFromAction(struct BMapMainProc* mapMain);
+void MapMain_ResumeFromBskPhase(struct BMapMainProc* mapMain);
+void MapMain_ResumeFromArenaFight(struct BMapMainProc* mapMain);
+void MapMain_ResumeFromPhaseChange(struct BMapMainProc* mapMain);
+void GameCtrl_DeclareCompletedChapter(void);
+void GameCtrl_DeclareCompletedPlaythrough(void);
+char* GetTacticianName(void);
+void SetTacticianName(const char* newName);
 
 #endif // GUARD_BMIO_H

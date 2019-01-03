@@ -1677,7 +1677,7 @@ sub_8020AF8: @ 0x08020AF8
 	bl sub_80156D4
 	ldr r0, _08020B1C  @ gUnknown_0202BCF0
 	ldrb r0, [r0, #0x15]
-	bl SetupOAMSpliceForWeather
+	bl AllocWeatherParticles
 	bl SMS_UpdateFromGameData
 	bl SMS_FlushIndirect
 	bl Font_LoadForUI
@@ -1751,7 +1751,7 @@ sub_8020B30: @ 0x08020B30
 	bl BG_Fill
 	movs r0, #7
 	bl BG_EnableSyncByMask
-	bl sub_8030C24
+	bl DisableMapPaletteAnimations
 	ldr r4, _08020C24  @ gUnknown_0202BCF0
 	movs r0, #0xe
 	ldrsb r0, [r4, r0]
@@ -1845,7 +1845,7 @@ sub_8020C2C: @ 0x08020C2C
 	ldrb r0, [r0, #0x12]
 	cmp r0, #5
 	bne _08020C96
-	bl sub_8030758
+	bl WfxFlamesInitGradientPublic
 _08020C96:
 	pop {r4, r5}
 	pop {r0}
@@ -1874,7 +1874,7 @@ _08020CB8:
 	ldrb r0, [r0, #0x12]
 	cmp r0, #5
 	bne _08020CD0
-	bl sub_8030758
+	bl WfxFlamesInitGradientPublic
 _08020CD0:
 	bl GetChapterThing
 	cmp r0, #2
@@ -1975,7 +1975,7 @@ _08020D9C:
 	ldrsh r0, [r4, r1]
 	cmp r0, #0
 	bge _08020DAE
-	bl sub_8030C40
+	bl ResetMapPaletteAnimations
 	adds r0, r6, #0
 	bl Proc_ClearNativeCallback
 _08020DAE:
@@ -2259,7 +2259,7 @@ sub_8020FF8: @ 0x08020FF8
 	ldrb r0, [r0, #0x12]
 	cmp r0, #5
 	bne _08021014
-	bl sub_8030758
+	bl WfxFlamesInitGradientPublic
 _08021014:
 	bl GetChapterThing
 	cmp r0, #2
@@ -2305,7 +2305,7 @@ _08021064:
 	lsls r0, r0, #0x10
 	cmp r0, #0
 	bge _0802107A
-	bl sub_8030C40
+	bl ResetMapPaletteAnimations
 	adds r0, r4, #0
 	bl Proc_ClearNativeCallback
 _0802107A:
@@ -2437,7 +2437,7 @@ sub_80210C8: @ 0x080210C8
 	cmp r0, #0
 	beq _08021170
 _08021168:
-	bl sub_80311A8
+	bl RefreshBMapGraphics
 	bl sub_80141B0
 _08021170:
 	pop {r3, r4}
@@ -2469,9 +2469,9 @@ sub_8021188: @ 0x08021188
 	ldrb r0, [r0, #0x12]
 	cmp r0, #5
 	bne _080211B2
-	bl sub_8030758
+	bl WfxFlamesInitGradientPublic
 _080211B2:
-	bl sub_8030C40
+	bl ResetMapPaletteAnimations
 	adds r0, r4, #0
 	bl Proc_ClearNativeCallback
 _080211BC:

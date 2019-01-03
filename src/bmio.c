@@ -66,40 +66,41 @@ struct BMVSyncProc {
 	/* 3C */ const struct TilePalAnim* tilePalAnimCurrent;
 };
 
-static void sub_803005C(struct BMVSyncProc* proc);
-static void sub_80300A4(struct BMVSyncProc* proc);
-static void SetupGameVBlank6C_TileAnimations(struct BMVSyncProc* proc);
-static void GameVBlank6C_Destructor(struct BMVSyncProc* proc);
-static void GameVBlank6C_Loop(struct BMVSyncProc* proc);
-static void sub_8030240(void);
-static void sub_8030258(void);
-static void sub_80302D0(void);
-static void sub_8030390(void);
-static void sub_80303F4(void);
-static void sub_8030474(void);
-static void sub_80304E4(void);
-static void sub_8030540(void);
-static void sub_80305FC(void);
-static void sub_8030674(void);
-static void sub_80306CC(void);
-static void nullsub_12(void);
-static void sub_8030714(void);
-static void sub_80307D8(void);
-static void sub_8030868(void);
-static void sub_80308CC(void);
-static void sub_80308DC(void);
-static void sub_8030948(void);
-static void sub_80309E0(void);
-static void sub_80309F0(u32* lines);
-static void sub_8030A58(void);
-static void sub_8030A84(void);
-static void sub_8030B00(void);
-static void SetupWeatherGraphics_Maybe(void);
-static void UpdateWeatherGraphics(void);
-static void sub_8030C0C(void);
+static void BMapVSync_UpdateMapImgAnimations(struct BMVSyncProc* proc);
+static void BMapVSync_UpdateMapPalAnimations(struct BMVSyncProc* proc);
+static void BMapVSync_InitMapAnimations(struct BMVSyncProc* proc);
+static void BMapVSync_OnEnd(struct BMVSyncProc* proc);
+static void BMapVSync_OnLoop(struct BMVSyncProc* proc);
 
-static void ResetGameState(void);
-static void LoadGameCoreGfx2(void);
+static void WfxNone_Init(void);
+static void WfxSnow_Init(void);
+static void WfxSnow_VSync(void);
+static void WfxRain_Init(void);
+static void WfxRain_VSync(void);
+static void WfxSandStorm_Init(void);
+static void WfxSandStorm_VSync(void);
+static void WfxSnowStorm_Init(void);
+static void WfxSnowStorm_VSync(void);
+static void WfxBlueHSync(void);
+static void WfxBlue_Init(void);
+static void WfxBlue_VSync(void);
+static void WfxFlamesHSync(void);
+static void WfxFlamesInitGradient(void);
+static void WfxFlamesInitParticles(void);
+static void WfxFlames_Init(void);
+static void WfxFlamesUpdateGradient(void);
+static void WfxFlamesUpdateParticles(void);
+static void WfxFlames_VSync(void);
+static void WfxCloudsOffsetGraphicsEffect(u32* lines);
+static void WfxClouds_Init(void);
+static void WfxClouds_VSync(void);
+static void WfxClouds_Update(void);
+static void WfxInit(void);
+static void WfxVSync(void);
+static void WfxUpdate(void);
+
+static void ClearBattleMapState(void);
+static void InitMoreBMapGraphics(void);
 
 // TODO: figure out if those variables should really belong to EWRAM_DATA
 static EWRAM_DATA union WeatherEffectData sWeatherEffect = {};
@@ -107,22 +108,23 @@ static EWRAM_DATA union GradientEffectData sGradientEffect = {};
 
 static CONST_DATA struct ProcCmd sProc_BMVSync[] = { // gProc_VBlankHandler
 	PROC_SET_MARK(PROC_MARK_1),
-	PROC_SET_DESTRUCTOR(GameVBlank6C_Destructor),
+	PROC_SET_DESTRUCTOR(BMapVSync_OnEnd),
 
 	PROC_SLEEP(0),
 
 PROC_LABEL(0),
-	PROC_CALL_ROUTINE(sub_803005C),
-	PROC_CALL_ROUTINE(sub_80300A4),
-	PROC_CALL_ROUTINE(SMS_FlushDirect),
-	PROC_CALL_ROUTINE(UpdateWeatherGraphics),
+	PROC_CALL_ROUTINE(BMapVSync_UpdateMapImgAnimations),
+	PROC_CALL_ROUTINE(BMapVSync_UpdateMapPalAnimations),
 
-	PROC_LOOP_ROUTINE(GameVBlank6C_Loop),
+	PROC_CALL_ROUTINE(SMS_FlushDirect),
+	PROC_CALL_ROUTINE(WfxVSync),
+
+	PROC_LOOP_ROUTINE(BMapVSync_OnLoop),
 
 	PROC_END
 };
 
-CONST_DATA struct ProcCmd gUnknown_0859D908[] = { // gProc_MapTask
+CONST_DATA struct ProcCmd gProc_MapTask[] = { // gProc_MapTask
 	PROC_SET_NAME("MAPTASK"),
 	PROC_END_DUPLICATES,
 	PROC_SET_MARK(PROC_MARK_1),
@@ -131,7 +133,7 @@ CONST_DATA struct ProcCmd gUnknown_0859D908[] = { // gProc_MapTask
 
 PROC_LABEL(0),
 	PROC_CALL_ROUTINE(SMS_DisplayAllFromInfoStructs),
-	PROC_CALL_ROUTINE(sub_8030C0C),
+	PROC_CALL_ROUTINE(WfxUpdate),
 	PROC_CALL_ROUTINE(sub_8019D28),
 
 	PROC_SLEEP(0),
@@ -176,10 +178,10 @@ static CONST_DATA u16 sObj_BackgroundClouds[] = { // Obj Data
 	0x40A0, 0xC0B0, 0,
 };
 
-static CONST_DATA struct ProcCmd gUnknown_0859D9E4[] = { // gProc_GameGfxUnblocker
+static CONST_DATA struct ProcCmd sProc_DelayedBMapDispResume[] = { // gProc_GameGfxUnblocker
 	PROC_SLEEP(0),
-	PROC_CALL_ROUTINE(UnblockGameGraphicsLogic),
 
+	PROC_CALL_ROUTINE(BMapDispResume),
 	PROC_END
 };
 
@@ -212,7 +214,7 @@ static const u16 gUnknown_080D7EEC[] = {
 	0xE0,  0x240, 2,
 };
 
-void sub_803005C(struct BMVSyncProc* proc) {
+void BMapVSync_UpdateMapImgAnimations(struct BMVSyncProc* proc) {
 	if (!proc->tileGfxAnimStart)
 		return;
 
@@ -233,7 +235,7 @@ void sub_803005C(struct BMVSyncProc* proc) {
 		proc->tileGfxAnimCurrent = proc->tileGfxAnimStart;
 }
 
-void sub_80300A4(struct BMVSyncProc* proc) {
+void BMapVSync_UpdateMapPalAnimations(struct BMVSyncProc* proc) {
 	if (!proc->tilePalAnimStart)
 		return;
 
@@ -256,7 +258,7 @@ void sub_80300A4(struct BMVSyncProc* proc) {
 		proc->tilePalAnimCurrent = proc->tilePalAnimStart;
 }
 
-void SetupGameVBlank6C_TileAnimations(struct BMVSyncProc* proc) {
+void BMapVSync_InitMapAnimations(struct BMVSyncProc* proc) {
 	proc->tileGfxAnimClock = 0;
 	proc->tilePalAnimClock = 0;
 
@@ -267,30 +269,28 @@ void SetupGameVBlank6C_TileAnimations(struct BMVSyncProc* proc) {
 		gChapterDataAssetTable[GetROMChapterStruct(gUnknown_0202BCF0.chapterIndex)->mapTileAnim2Id];
 }
 
-void GameVBlank6C_Destructor(struct BMVSyncProc* proc) {
+void BMapVSync_OnEnd(struct BMVSyncProc* proc) {
 	SetSecondaryHBlankHandler(NULL);
 }
 
-void GameVBlank6C_Loop(struct BMVSyncProc* proc) {
+void BMapVSync_OnLoop(struct BMVSyncProc* proc) {
 	Proc_GotoLabel((struct Proc*)(proc), 0);
 }
 
-void SetupWeatherGraphics_Maybe(void);
-
-void SetupGameVBlank6C(void) {
-	SetupGameVBlank6C_TileAnimations(
+void BMapVSync_Start(void) {
+	BMapVSync_InitMapAnimations(
 		(struct BMVSyncProc*) Proc_Create(sProc_BMVSync, ROOT_PROC_0)
 	);
 
-	SetupWeatherGraphics_Maybe();
+	WfxInit();
 	gUnknown_0202BCB0.gameGfxSemaphore = 0;
 }
 
-void sub_8030174(void) {
+void BMapVSync_End(void) {
 	Proc_DeleteAllWithScript(sProc_BMVSync);
 }
 
-void BlockGameGraphicsLogic(void) {
+void BMapDispSuspend(void) {
 	if (++gUnknown_0202BCB0.gameGfxSemaphore > 1)
 		return; // gfx was already blocked, nothing needs to be done.
 
@@ -300,7 +300,7 @@ void BlockGameGraphicsLogic(void) {
 	Proc_BlockEachWithMark(1);
 }
 
-void UnblockGameGraphicsLogic(void) {
+void BMapDispResume(void) {
 	struct Proc* proc;
 
 	if (!gUnknown_0202BCB0.gameGfxSemaphore)
@@ -316,11 +316,11 @@ void UnblockGameGraphicsLogic(void) {
 	if (proc) {
 		// restart vblank proc
 		Proc_Delete(proc);
-		SetupGameVBlank6C();
+		BMapVSync_Start();
 	}
 }
 
-void SetupOAMSpliceForWeather(unsigned weatherId) {
+void AllocWeatherParticles(unsigned weatherId) {
 	switch (weatherId) {
 
 	case 1:
@@ -341,12 +341,12 @@ void SetupOAMSpliceForWeather(unsigned weatherId) {
 	} // switch (weatherId)
 }
 
-void sub_8030240(void) {
-	SetupOAMSpliceForWeather(gUnknown_0202BCF0.chapterWeatherId);
+void WfxNone_Init(void) {
+	AllocWeatherParticles(gUnknown_0202BCF0.chapterWeatherId);
 	SetSecondaryHBlankHandler(NULL);
 }
 
-void sub_8030258(void) {
+void WfxSnow_Init(void) {
 	int i;
 
 	int gfxTileIndices[] = {
@@ -355,7 +355,7 @@ void sub_8030258(void) {
 		0x08
 	};
 
-	SetupOAMSpliceForWeather(gUnknown_0202BCF0.chapterWeatherId);
+	AllocWeatherParticles(gUnknown_0202BCF0.chapterWeatherId);
 
 	for (i = 0; i < 0x40; ++i) {
 		unsigned templateIndex = (i & 0xF) * 3;
@@ -371,7 +371,7 @@ void sub_8030258(void) {
 	}
 }
 
-void sub_80302D0(void) {
+void WfxSnow_VSync(void) {
 	if (GetPrimaryOAMSize()) {
 		struct { short x, y; } origins[3];
 		int i;
@@ -403,10 +403,10 @@ void sub_80302D0(void) {
 	}
 }
 
-void sub_8030390(void) {
+void WfxRain_Init(void) {
 	int i;
 
-	SetupOAMSpliceForWeather(gUnknown_0202BCF0.chapterWeatherId);
+	AllocWeatherParticles(gUnknown_0202BCF0.chapterWeatherId);
 
 	for (i = 0; i < 0x40; ++i) {
 		unsigned templateIndex = (i & 0xF) * 3;
@@ -420,7 +420,7 @@ void sub_8030390(void) {
 	}
 }
 
-void sub_80303F4(void) {
+void WfxRain_VSync(void) {
 	if (GetPrimaryOAMSize()) {
 		int i;
 
@@ -442,10 +442,10 @@ void sub_80303F4(void) {
 	}
 }
 
-void sub_8030474(void) {
+void WfxSandStorm_Init(void) {
 	int i;
 
-	SetupOAMSpliceForWeather(gUnknown_0202BCF0.chapterWeatherId);
+	AllocWeatherParticles(gUnknown_0202BCF0.chapterWeatherId);
 
 	CopyDataWithPossibleUncomp(gUnknown_085A3964, gUnknown_02020188);
 	CopyTileGfxForObj(gUnknown_02020188, OBJ_VRAM0 + 0x1C * 0x20, 4, 4);
@@ -459,7 +459,7 @@ void sub_8030474(void) {
 	}
 }
 
-void sub_80304E4(void) {
+void WfxSandStorm_VSync(void) {
 	if (GetPrimaryOAMSize()) {
 		int i;
 
@@ -480,12 +480,12 @@ void sub_80304E4(void) {
 	}
 }
 
-void sub_8030540(void) {
+void WfxSnowStorm_Init(void) {
 	int i;
 
 	u8 typeLookup[] = { 0, 0, 0, 0, 0, 0, 1, 1 };
 
-	SetupOAMSpliceForWeather(gUnknown_0202BCF0.chapterWeatherId);
+	AllocWeatherParticles(gUnknown_0202BCF0.chapterWeatherId);
 
 	CopyDataWithPossibleUncomp(gUnknown_085A39EC, gUnknown_02020188);
 	CopyTileGfxForObj(gUnknown_02020188, OBJ_VRAM0 + 0x18 * 0x20, 8, 4);
@@ -513,7 +513,7 @@ void sub_8030540(void) {
 	}
 }
 
-void sub_80305FC(void) {
+void WfxSnowStorm_VSync(void) {
 	if (GetPrimaryOAMSize()) {
 		int i;
 
@@ -536,7 +536,7 @@ void sub_80305FC(void) {
 	}
 }
 
-void sub_8030674(void) {
+void WfxBlueHSync(void) {
 	u16 nextLine = (REG_VCOUNT + 1);
 
 	if (nextLine > 160)
@@ -550,11 +550,11 @@ void sub_8030674(void) {
 		((u16*)(PLTT))[0] = nextLine[sGradientEffect.lines];
 }
 
-void sub_80306CC(void) {
+void WfxBlue_Init(void) {
 	u16* palIt = sGradientEffect.lines;
 	int i = 0;
 
-	void(*handler)(void) = sub_8030674;
+	void(*handler)(void) = WfxBlueHSync;
 
 	for (; i < 320; ++i)
 		*palIt++ = RGB(0, 0, (31 - i / 10));
@@ -562,9 +562,9 @@ void sub_80306CC(void) {
 	SetSecondaryHBlankHandler(handler);
 }
 
-void nullsub_12(void) {}
+void WfxBlue_VSync(void) {}
 
-void sub_8030714(void) {
+void WfxFlamesHSync(void) {
 	const u16* src;
 	u16* dst;
 
@@ -586,7 +586,7 @@ void sub_8030714(void) {
 	CpuFastCopy(src, dst, 8);
 }
 
-void sub_8030758(void) {
+void WfxFlamesInitGradientPublic(void) {
 	int k, j, i;
 
 	for (i = 0; i < 4; ++i) {
@@ -610,7 +610,7 @@ void sub_8030758(void) {
 	}
 }
 
-void sub_80307D8(void) {
+void WfxFlamesInitGradient(void) {
 	int i, j, k;
 
 	sub_8019974();
@@ -635,13 +635,13 @@ void sub_80307D8(void) {
 		}
 	}
 
-	SetSecondaryHBlankHandler(sub_8030714);
-} // sub_80307D8
+	SetSecondaryHBlankHandler(WfxFlamesHSync);
+}
 
-void sub_8030868(void) {
+void WfxFlamesInitParticles(void) {
 	int i;
 
-	SetupOAMSpliceForWeather(gUnknown_0202BCF0.chapterWeatherId);
+	AllocWeatherParticles(gUnknown_0202BCF0.chapterWeatherId);
 	CopyDataWithPossibleUncomp(gUnknown_085A3A84, OBJ_VRAM0 + 0x18 * 0x20);
 	CopyToPaletteBuffer(gUnknown_085A3AC0, 0x340, 0x20);
 
@@ -654,12 +654,12 @@ void sub_8030868(void) {
 	}
 }
 
-void sub_80308CC(void) {
-	sub_80307D8();
-	sub_8030868();
+void WfxFlames_Init(void) {
+	WfxFlamesInitGradient();
+	WfxFlamesInitParticles();
 }
 
-void sub_80308DC(void) {
+void WfxFlamesUpdateGradient(void) {
 	int i, j;
 
 	CpuFastCopy(
@@ -689,7 +689,7 @@ void sub_80308DC(void) {
 	}
 }
 
-void sub_8030948(void) {
+void WfxFlamesUpdateParticles(void) {
 	struct WeatherParticle* it = sWeatherEffect.particles;
 
 	if (GetPrimaryOAMSize()) {
@@ -725,12 +725,12 @@ void sub_8030948(void) {
 	}
 }
 
-void sub_80309E0(void) {
-	sub_80308DC();
-	sub_8030948();
+void WfxFlames_VSync(void) {
+	WfxFlamesUpdateGradient();
+	WfxFlamesUpdateParticles();
 }
 
-void sub_80309F0(u32* lines) {
+void WfxCloudsOffsetGraphicsEffect(u32* lines) {
 	u32 lineBuf[8];
 	int iy, ix;
 
@@ -760,8 +760,8 @@ void sub_80309F0(u32* lines) {
 	}
 }
 
-void sub_8030A58(void) {
-	SetupOAMSpliceForWeather(0); // TODO: Weather Id Definition
+void WfxClouds_Init(void) {
+	AllocWeatherParticles(0); // TODO: Weather Id Definition
 
 	CopyDataWithPossibleUncomp(
 		gUnknown_085A3B00,
@@ -775,25 +775,25 @@ void sub_8030A58(void) {
 	);
 }
 
-void sub_8030A84(void) {
+void WfxClouds_VSync(void) {
 	u32* gfx = sWeatherEffect.gfxData;
 
 	switch (GetGameClock() % 8) {
 
 	case 0:
-		sub_80309F0(gfx + 0 * (14 * 8));
+		WfxCloudsOffsetGraphicsEffect(gfx + 0 * (14 * 8));
 		break;
 
 	case 2:
-		sub_80309F0(gfx + 1 * (14 * 8));
+		WfxCloudsOffsetGraphicsEffect(gfx + 1 * (14 * 8));
 		break;
 
 	case 4:
-		sub_80309F0(gfx + 2 * (14 * 8));
+		WfxCloudsOffsetGraphicsEffect(gfx + 2 * (14 * 8));
 		break;
 
 	case 6:
-		sub_80309F0(gfx + 3 * (14 * 8));
+		WfxCloudsOffsetGraphicsEffect(gfx + 3 * (14 * 8));
 		break;
 
 	case 7:
@@ -803,7 +803,7 @@ void sub_8030A84(void) {
 	} // switch (GetGameClock() % 8)
 }
 
-void sub_8030B00(void) {
+void WfxClouds_Update(void) {
 	int y = gUnknown_0202BCB0.yCameraReal;
 
 	RegisterObjectAttributes_SafeMaybe(
@@ -814,95 +814,95 @@ void sub_8030B00(void) {
 	);
 }
 
-void SetupWeatherGraphics_Maybe(void) {
+void WfxInit(void) {
 	// TODO: USE WEATHER DEFINITIONS
 
 	switch (gUnknown_0202BCF0.chapterWeatherId) {
 
 	case 0:
-		sub_8030240();
+		WfxNone_Init();
 		break;
 
 	case 1:
-		sub_8030258();
+		WfxSnow_Init();
 		break;
 
 	case 6:
-		sub_8030474();
+		WfxSandStorm_Init();
 		break;
 
 	case 2:
-		sub_8030540();
+		WfxSnowStorm_Init();
 		break;
 
 	case 4:
-		sub_8030390();
+		WfxRain_Init();
 		break;
 
 	case 3:
-		sub_80306CC();
+		WfxBlue_Init();
 		break;
 
 	case 5:
-		sub_80308CC();
+		WfxFlames_Init();
 		break;
 
 	case 7:
-		sub_8030A58();
+		WfxClouds_Init();
 		break;
 
 	} // switch (gUnknown_0202BCF0.chapterWeatherId)
 }
 
-void UpdateWeatherGraphics(void) {
+void WfxVSync(void) {
 	// TODO: USE WEATHER DEFINITIONS
 
 	switch (gUnknown_0202BCF0.chapterWeatherId) {
 
 	case 1:
-		sub_80302D0();
+		WfxSnow_VSync();
 		break;
 
 	case 6:
-		sub_80304E4();
+		WfxSandStorm_VSync();
 		break;
 
 	case 2:
-		sub_80305FC();
+		WfxSnowStorm_VSync();
 		break;
 
 	case 4:
-		sub_80303F4();
+		WfxRain_VSync();
 		break;
 
 	case 3:
-		nullsub_12();
+		WfxBlue_VSync();
 		break;
 
 	case 5:
-		sub_80309E0();
+		WfxFlames_VSync();
 		break;
 
 	case 7:
-		sub_8030A84();
+		WfxClouds_VSync();
 		break;
 
 	} // switch (gUnknown_0202BCF0.chapterWeatherId)
 }
 
-void sub_8030C0C(void) {
+void WfxUpdate(void) {
 	if (gUnknown_0202BCF0.chapterWeatherId == 7) // TODO: USE WEATHER DEFINITIONS
-		sub_8030B00();
+		WfxClouds_Update();
 }
 
-void sub_8030C24(void) {
+void DisableMapPaletteAnimations(void) {
 	struct BMVSyncProc* proc = (struct BMVSyncProc*) Proc_Find(sProc_BMVSync);
 
 	if (proc)
 		proc->tilePalAnimStart = NULL;
 }
 
-void sub_8030C40(void) {
+void ResetMapPaletteAnimations(void) {
 	struct BMVSyncProc* proc = (struct BMVSyncProc*) Proc_Find(sProc_BMVSync);
 
 	if (proc)
@@ -910,19 +910,19 @@ void sub_8030C40(void) {
 			gChapterDataAssetTable[GetROMChapterStruct(gUnknown_0202BCF0.chapterIndex)->mapTileAnim2Id];
 }
 
-void SetupWeather(unsigned weatherId) {
+void SetWeather(unsigned weatherId) {
 	gUnknown_0202BCF0.chapterWeatherId = weatherId;
 
-	SetupOAMSpliceForWeather(weatherId);
-	SetupWeatherGraphics_Maybe();
+	AllocWeatherParticles(weatherId);
+	WfxInit();
 }
 
-u8 GetTextSpeed(void) {
+u8 GetTextDisplaySpeed(void) {
 	u8 speedLookup[4] = { 8, 4, 1, 0 };
 	return speedLookup[gUnknown_0202BCF0.unk40_6];
 }
 
-int sub_8030CC0(void) {
+int IsFirstPlaythrough(void) {
 	if (!sub_80A3870())
 		return TRUE;
 
@@ -932,17 +932,16 @@ int sub_8030CC0(void) {
 	return gUnknown_0202BCF0.unk41_5;
 }
 
-void sub_8030CF4(int r5, s8 r6) {
+void InitPlaythroughState(int isDifficult, s8 unk) {
 	CpuFill16(0, &gUnknown_0202BCF0, sizeof(gUnknown_0202BCF0));
 
 	gUnknown_0202BCF0.chapterIndex = 0;
 
-	if (r5)
+	if (isDifficult)
 		gUnknown_0202BCF0.chapterStateBits |= CHAPTER_FLAG_DIFFICULT;
 
 	// TODO: WHAT ARE THOSE
-
-	gUnknown_0202BCF0.unk42_6 = r6;
+	gUnknown_0202BCF0.unk42_6 = unk;
 	gUnknown_0202BCF0.unk42_2 = 0;
 	gUnknown_0202BCF0.unk40_2 = 0;
 	gUnknown_0202BCF0.unk40_3 = 0;
@@ -961,14 +960,14 @@ void sub_8030CF4(int r5, s8 r6) {
 	gUnknown_0202BCF0.unk41_5 = 0;
 }
 
-void ResetGameState(void) {
+void ClearBattleMapState(void) {
 	int logicLock = gUnknown_0202BCB0.gameLogicSemaphore;
 
 	CpuFill16(0, &gUnknown_0202BCB0, sizeof(gUnknown_0202BCB0));
 	gUnknown_0202BCB0.gameLogicSemaphore = logicLock;
 }
 
-void SetupChapter(struct GameCtrlProc* gameCtrl) { // TODO: Proc type here is specifically GameCtrlProc
+void StartBattleMap(struct GameCtrlProc* gameCtrl) {
 	int i;
 
 	SetupBackgrounds(NULL);
@@ -976,7 +975,7 @@ void SetupChapter(struct GameCtrlProc* gameCtrl) { // TODO: Proc type here is sp
 	SetMainUpdateRoutine(SomeUpdateRoutine);
 	SetInterrupt_LCDVBlank(GeneralVBlankHandler);
 
-	ResetGameState();
+	ClearBattleMapState();
 	sub_80156D4();
 	SetupMapSpritesPalettes();
 	ClearLocalEvents();
@@ -988,7 +987,6 @@ void SetupChapter(struct GameCtrlProc* gameCtrl) { // TODO: Proc type here is sp
 	gUnknown_0202BCF0.chapterTurnNumber = 0;
 
 	// TODO: BATTLE MAP/CHAPTER/OBJECTIVE TYPE DEFINITION (STORY/TOWER/SKIRMISH)
-	// TODO: CHAPTER STATE BITS DEFINITIONS
 	if (GetChapterThing() == 2) {
 		if (!(gUnknown_0202BCF0.chapterStateBits & CHAPTER_FLAG_PREPSCREEN))
 			gUnknown_0202BCF0.chapterVisionRange = 3 * (NextRN_100() & 1);
@@ -1027,7 +1025,7 @@ void SetupChapter(struct GameCtrlProc* gameCtrl) { // TODO: Proc type here is sp
 	LoadChapterBallistae();
 
 	if (gameCtrl)
-		MakeBMAPMAIN(gameCtrl);
+		StartBMapMain(gameCtrl);
 
 	// TODO: MACRO?
 	gPaletteBuffer[0] = 0;
@@ -1039,7 +1037,7 @@ void SetupChapter(struct GameCtrlProc* gameCtrl) { // TODO: Proc type here is sp
 	SetSpecialColorEffectsParameters(3, 0, 0, 0x10);
 }
 
-void sub_8030F48(void) {
+void RestartBattleMap(void) {
 	SetupBackgrounds(NULL);
 
 	SetMainUpdateRoutine(SomeUpdateRoutine);
@@ -1060,10 +1058,10 @@ void sub_8030F48(void) {
 
 	AddSnagsAndWalls();
 	LoadChapterBallistae();
-	sub_8030174();
-	SetupGameVBlank6C();
+	BMapVSync_End();
+	BMapVSync_Start();
 
-	Proc_Create(gUnknown_0859D908, ROOT_PROC_4);
+	Proc_Create(gProc_MapTask, ROOT_PROC_4);
 
 	// TODO: MACRO?
 	gPaletteBuffer[0] = 0;
@@ -1080,7 +1078,7 @@ void sub_8030F48(void) {
  * This is called after loading a suspended game
  * To get the game state back to where it was left off
  */
-void sub_8030FE4(struct GameCtrlProc* gameCtrl) {
+void GameCtrl_StartResumedGame(struct GameCtrlProc* gameCtrl) {
 	struct BMapMainProc* mapMain;
 
 	if (gUnknown_0202BCF0.chapterIndex == 0x7F) // TODO: CHAPTER_SPECIAL enum?
@@ -1091,7 +1089,7 @@ void sub_8030FE4(struct GameCtrlProc* gameCtrl) {
 	SetMainUpdateRoutine(SomeUpdateRoutine);
 	SetInterrupt_LCDVBlank(GeneralVBlankHandler);
 
-	ResetGameState();
+	ClearBattleMapState();
 
 	SetCursorMapPosition(
 		gUnknown_0202BCF0.xCursor,
@@ -1106,32 +1104,32 @@ void sub_8030FE4(struct GameCtrlProc* gameCtrl) {
 
 	gUnknown_0202BCB0.unk3C = TRUE;
 
-	mapMain = MakeBMAPMAIN(gameCtrl);
+	mapMain = StartBMapMain(gameCtrl);
 
 	gUnknown_0202BCB0.xCameraReal = sub_8015A40(16 * gUnknown_0202BCB0.xPlayerCursor);
 	gUnknown_0202BCB0.yCameraReal = sub_8015A6C(16 * gUnknown_0202BCB0.yPlayerCursor);
 
 	switch (gUnknown_0203A958.suspendPointType) {
 
-	case SUSPEND_POINT_1:
-		sub_803133C(mapMain);
+	case SUSPEND_POINT_DURINGACTION:
+		MapMain_ResumeFromAction(mapMain);
 		break;
 
-	case SUSPEND_POINT_0:
-	case SUSPEND_POINT_2:
-		sub_8031300(mapMain);
+	case SUSPEND_POINT_PLAYERIDLE:
+	case SUSPEND_POINT_CPPHASE:
+		MapMain_ResumeFromPhaseIdle(mapMain);
 		break;
 
-	case SUSPEND_POINT_3:
-		sub_80313BC(mapMain);
+	case SUSPEND_POINT_BSKPHASE:
+		MapMain_ResumeFromBskPhase(mapMain);
 		break;
 
-	case SUSPEND_POINT_4:
-		sub_80313F8(mapMain);
+	case SUSPEND_POINT_DURINGARENA:
+		MapMain_ResumeFromArenaFight(mapMain);
 		break;
 
-	case SUSPEND_POINT_9:
-		sub_8031474(mapMain);
+	case SUSPEND_POINT_PHASECHANGE:
+		MapMain_ResumeFromPhaseChange(mapMain);
 		break;
 
 	} // switch (gUnknown_0203A958.suspendPointType)
@@ -1142,7 +1140,7 @@ void sub_8030FE4(struct GameCtrlProc* gameCtrl) {
 	SetSpecialColorEffectsParameters(3, 0, 0, 0x10);
 }
 
-void sub_80310F8(void) {
+void RefreshBMapDisplay_FromBattle(void) {
 	SetMainUpdateRoutine(SomeUpdateRoutine);
 	SetInterrupt_LCDVBlank(GeneralVBlankHandler);
 
@@ -1163,18 +1161,18 @@ void sub_80310F8(void) {
 	BG_EnableSyncByMask(1 << 2); // Enable bg2 sync
 }
 
-void sub_8031154(void) {
+void BMapDispResume_FromBattleDelayed(void) {
 	LoadObjUIGfx();
 
 	MU_Create(&gUnknown_0203A4EC.unit);
 	MU_SetDefaultFacing_Auto();
 
-	Proc_Create(gUnknown_0859D9E4, ROOT_PROC_3);
+	Proc_Create(sProc_DelayedBMapDispResume, ROOT_PROC_3);
 }
 
-void LoadGameCoreGfx2(void) {
+void InitMoreBMapGraphics(void) {
 	LoadChapterMapGfx(gUnknown_0202BCF0.chapterIndex);
-	SetupOAMSpliceForWeather(gUnknown_0202BCF0.chapterWeatherId);
+	AllocWeatherParticles(gUnknown_0202BCF0.chapterWeatherId);
 	UpdateGameTilesGraphics();
 	SMS_UpdateFromGameData();
 	SetupMapSpritesPalettes();
@@ -1182,26 +1180,26 @@ void LoadGameCoreGfx2(void) {
 	Font_LoadForUI();
 }
 
-void sub_80311A8(void) {
+void RefreshBMapGraphics(void) {
 	SetupBackgrounds(NULL);
 
 	LoadGameCoreGfx();
-	LoadGameCoreGfx2();
+	InitMoreBMapGraphics();
 }
 
-struct BMapMainProc* MakeBMAPMAIN(struct GameCtrlProc* gameCtrl) {
+struct BMapMainProc* StartBMapMain(struct GameCtrlProc* gameCtrl) {
 	struct BMapMainProc* mapMain = (struct BMapMainProc*) Proc_Create(gUnknown_0859A1F0, ROOT_PROC_2);
 
 	mapMain->gameCtrl = gameCtrl;
 	gameCtrl->blockSemaphore++;
 
-	SetupGameVBlank6C();
-	Proc_Create(gUnknown_0859D908, ROOT_PROC_4);
+	BMapVSync_Start();
+	Proc_Create(gProc_MapTask, ROOT_PROC_4);
 
 	return mapMain;
 }
 
-void sub_80311F0(void) {
+void EndBMapMain(void) {
 	struct BMapMainProc* mapMain;
 
 	Proc_DeleteEachWithMark(PROC_MARK_1);
@@ -1212,7 +1210,7 @@ void sub_80311F0(void) {
 	Proc_Delete((struct Proc*)(mapMain));
 }
 
-void sub_8031214(void) { // ChapterEndUnitCleanup
+void ChapterChangeUnitCleanup(void) { // ChapterEndUnitCleanup
 	int i, j;
 
 	// Clear phantoms
@@ -1266,7 +1264,7 @@ void sub_8031214(void) { // ChapterEndUnitCleanup
 	gUnknown_0202BCF0.chapterStateBits = gUnknown_0202BCF0.chapterStateBits &~ CHAPTER_FLAG_PREPSCREEN;
 }
 
-void sub_8031300(struct BMapMainProc* mapMain) {
+void MapMain_ResumeFromPhaseIdle(struct BMapMainProc* mapMain) {
 	RefreshFogAndUnitMaps();
 	SMS_UpdateFromGameData();
 
@@ -1279,7 +1277,7 @@ void sub_8031300(struct BMapMainProc* mapMain) {
 	Proc_GotoLabel((struct Proc*)(mapMain), 4);
 }
 
-void sub_803133C(struct BMapMainProc* mapMain) {
+void MapMain_ResumeFromAction(struct BMapMainProc* mapMain) {
 	RefreshFogAndUnitMaps();
 	SMS_UpdateFromGameData();
 
@@ -1300,7 +1298,7 @@ void sub_803133C(struct BMapMainProc* mapMain) {
 	MU_SetDefaultFacing_Auto();
 }
 
-void sub_80313BC(struct BMapMainProc* mapMain) {
+void MapMain_ResumeFromBskPhase(struct BMapMainProc* mapMain) {
 	RefreshFogAndUnitMaps();
 	SMS_UpdateFromGameData();
 
@@ -1313,7 +1311,7 @@ void sub_80313BC(struct BMapMainProc* mapMain) {
 	Proc_GotoLabel((struct Proc*)(mapMain), 7);
 }
 
-void sub_80313F8(struct BMapMainProc* mapMain) {
+void MapMain_ResumeFromArenaFight(struct BMapMainProc* mapMain) {
 	gUnknown_03004E50 = GetUnitStruct(gUnknown_0203A958.subjectIndex);
 
 	PrepareArena2(gUnknown_03004E50);
@@ -1338,7 +1336,7 @@ void sub_80313F8(struct BMapMainProc* mapMain) {
 	sub_80B578C();
 }
 
-void sub_8031474(struct BMapMainProc* mapMain) {
+void MapMain_ResumeFromPhaseChange(struct BMapMainProc* mapMain) {
 	RefreshFogAndUnitMaps();
 	SMS_UpdateFromGameData();
 
@@ -1351,24 +1349,24 @@ void sub_8031474(struct BMapMainProc* mapMain) {
 	Proc_GotoLabel((struct Proc*)(mapMain), 8);
 }
 
-void sub_80314B0(void) {
+void GameCtrl_DeclareCompletedChapter(void) {
 	RegisterChapterTimeAndTurnCount(&gUnknown_0202BCF0);
 
-	sub_80B6504();
-	sub_80A3DD8();
+	ComputeChapterRankings();
+	SaveChapterRankings();
 
 	gUnknown_0202BCF0.chapterStateBits |= CHAPTER_FLAG_5;
 }
 
-void sub_80314D4(void) {
+void GameCtrl_DeclareCompletedPlaythrough(void) {
 	SetNextGameActionId(3); // TODO: GAME ACTION TYPE DEFINITIONS
-	sub_80A4C14();
+	DeclareCompletedPlaythrough();
 }
 
-char* GetTacticianNameStringPtr(void) {
+char* GetTacticianName(void) {
 	return gUnknown_0202BCF0.playerName;
 }
 
-void sub_80314EC(const char* newName) {
+void SetTacticianName(const char* newName) {
 	strcpy(gUnknown_0202BCF0.playerName, newName);
 }

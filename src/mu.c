@@ -1483,7 +1483,7 @@ static u16 MU_GetMovementSpeed(struct MUProc* proc) {
             return speed;
         }
 
-        if (!sub_8030CC0() && (gKeyStatusPtr->heldKeys & A_BUTTON))
+        if (!IsFirstPlaythrough() && (gKeyStatusPtr->heldKeys & A_BUTTON))
             return 0x80;
 
         if (gUnknown_0202BCF0.unk40_8)

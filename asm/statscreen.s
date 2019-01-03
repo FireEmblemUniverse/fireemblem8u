@@ -255,7 +255,7 @@ sub_8086FAC: @ 0x08086FAC
 	ands r0, r1
 	cmp r0, #0
 	bne _0808709C
-	bl sub_8030CC0
+	bl IsFirstPlaythrough
 	cmp r0, #1
 	beq _0808709C
 	ldr r0, [r4, #0xc]

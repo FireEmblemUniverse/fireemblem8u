@@ -6447,16 +6447,16 @@ sub_80155C4: @ 0x080155C4
 	ldr r0, _08015604  @ gUnknown_0202BCF0
 	bl RegisterChapterTimeAndTurnCount
 _080155D8:
-	bl sub_80B6504
+	bl ComputeChapterRankings
 	ldr r0, _08015604  @ gUnknown_0202BCF0
 	adds r5, r0, #0
 	adds r5, #0x4a
 	ldrb r4, [r5]
 	lsls r4, r4, #0x1f
 	lsrs r4, r4, #0x1f
-	bl sub_8031214
+	bl ChapterChangeUnitCleanup
 	movs r0, #0
-	bl SetupChapter
+	bl StartBattleMap
 	cmp r4, #0
 	beq _080155FE
 	ldrb r0, [r5]
