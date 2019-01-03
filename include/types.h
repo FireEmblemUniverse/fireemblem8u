@@ -304,6 +304,21 @@ enum {
     SUSPEND_POINT_PHASECHANGE = 9
 };
 
+enum {
+    GAME_ACTION_3 = 3
+};
+
+enum {
+    WEATHER_NONE = 0,
+    WEATHER_SNOW = 1,
+    WEATHER_SNOWSTORM = 2,
+    WEATHER_3 = 3,
+    WEATHER_RAIN = 4,
+    WEATHER_FLAMES = 5,
+    WEATHER_SANDSTORM = 6,
+    WEATHER_CLOUDS = 7
+};
+
 struct UnknownStructCTC
 {
     struct UnknownStructCTC *unk0;

@@ -761,7 +761,7 @@ void WfxCloudsOffsetGraphicsEffect(u32* lines) {
 }
 
 void WfxClouds_Init(void) {
-	AllocWeatherParticles(0); // TODO: Weather Id Definition
+	AllocWeatherParticles(WEATHER_NONE);
 
 	CopyDataWithPossibleUncomp(
 		gUnknown_085A3B00,
@@ -815,39 +815,37 @@ void WfxClouds_Update(void) {
 }
 
 void WfxInit(void) {
-	// TODO: USE WEATHER DEFINITIONS
-
 	switch (gUnknown_0202BCF0.chapterWeatherId) {
 
-	case 0:
+	case WEATHER_NONE:
 		WfxNone_Init();
 		break;
 
-	case 1:
+	case WEATHER_SNOW:
 		WfxSnow_Init();
 		break;
 
-	case 6:
+	case WEATHER_SANDSTORM:
 		WfxSandStorm_Init();
 		break;
 
-	case 2:
+	case WEATHER_SNOWSTORM:
 		WfxSnowStorm_Init();
 		break;
 
-	case 4:
+	case WEATHER_RAIN:
 		WfxRain_Init();
 		break;
 
-	case 3:
+	case WEATHER_3:
 		WfxBlue_Init();
 		break;
 
-	case 5:
+	case WEATHER_FLAMES:
 		WfxFlames_Init();
 		break;
 
-	case 7:
+	case WEATHER_CLOUDS:
 		WfxClouds_Init();
 		break;
 
@@ -859,31 +857,31 @@ void WfxVSync(void) {
 
 	switch (gUnknown_0202BCF0.chapterWeatherId) {
 
-	case 1:
+	case WEATHER_SNOW:
 		WfxSnow_VSync();
 		break;
 
-	case 6:
+	case WEATHER_SANDSTORM:
 		WfxSandStorm_VSync();
 		break;
 
-	case 2:
+	case WEATHER_SNOWSTORM:
 		WfxSnowStorm_VSync();
 		break;
 
-	case 4:
+	case WEATHER_RAIN:
 		WfxRain_VSync();
 		break;
 
-	case 3:
+	case WEATHER_3:
 		WfxBlue_VSync();
 		break;
 
-	case 5:
+	case WEATHER_FLAMES:
 		WfxFlames_VSync();
 		break;
 
-	case 7:
+	case WEATHER_CLOUDS:
 		WfxClouds_VSync();
 		break;
 
@@ -891,7 +889,7 @@ void WfxVSync(void) {
 }
 
 void WfxUpdate(void) {
-	if (gUnknown_0202BCF0.chapterWeatherId == 7) // TODO: USE WEATHER DEFINITIONS
+	if (gUnknown_0202BCF0.chapterWeatherId == WEATHER_CLOUDS)
 		WfxClouds_Update();
 }
 
@@ -1359,7 +1357,7 @@ void GameCtrl_DeclareCompletedChapter(void) {
 }
 
 void GameCtrl_DeclareCompletedPlaythrough(void) {
-	SetNextGameActionId(3); // TODO: GAME ACTION TYPE DEFINITIONS
+	SetNextGameActionId(GAME_ACTION_3);
 	DeclareCompletedPlaythrough();
 }
 
