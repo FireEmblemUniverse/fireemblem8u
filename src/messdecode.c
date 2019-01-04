@@ -190,7 +190,7 @@ void *FilterSomeTextFromStandardBuffer(void)
 }
 #else
 __attribute__((naked))
-void *FilterSomeTextFromStandardBuffer(void)
+char *FilterSomeTextFromStandardBuffer(void)
 {
     asm(".syntax unified\n\
     push {r4, r5, lr}\n\

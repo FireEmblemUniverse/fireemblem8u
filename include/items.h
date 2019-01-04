@@ -239,4 +239,14 @@ enum _IAttributes {
 #define BlackGem 0xBA
 #define GoldGem 0xBB
 
+char* GetItemNameWithArticle(int item, u8 capitalize);
+s8 GetItemHPBonus(int item);
+s8 GetItemPowBonus(int item);
+s8 GetItemSklBonus(int item);
+s8 GetItemSpdBonus(int item);
+s8 GetItemDefBonus(int item);
+s8 GetItemResBonus(int item);
+s8 GetItemLckBonus(int item);
+int MakeItemShort(int item);
+
 #endif // GUARD_ITEMS_H
