@@ -565,11 +565,15 @@ void sub_8003FAC(int unused, int *b, int *c)
     }
 }
 
-char *String_GetEnd(char *str)
+char* String_GetEnd(char* str)
 {
-    register char c asm("r1");
-    while ((c = *str) > 1)
+    char c = *str;
+
+    while (c > 1) {
         str++;
+        c = *str;
+    }
+
     return str;
 }
 
@@ -1125,7 +1129,7 @@ void sub_8004974(void)
 
 void sub_8004984(void)
 {
-    u32 index = (sub_8000D28() / 4) % 16;
+    u32 index = (GetGameClock() / 4) % 16;
 
     //gPaletteBuffer[14] = gUnknown_0859EFC0[index];
     gPaletteBuffer[14] = index[gUnknown_0859EFC0];
@@ -1291,7 +1295,7 @@ void sub_8004BF0(int a, u16 *b)
 
 void sub_8004C1C(void)
 {
-    int r5 = sub_8000D28();
+    int r5 = GetGameClock();
     int i;
     int j;
 
@@ -1314,7 +1318,7 @@ void sub_8004C68(u16 *a, int b, int c, u8 d)
     int var1;
     int var2;
 
-    u8 r9 = sub_8000D64(c, &sp0, &sp2, &sp4);
+    u8 r9 = ComputeDisplayTime(c, &sp0, &sp2, &sp4);
 
     sub_8004B88(a + 2, b, sp0);
 

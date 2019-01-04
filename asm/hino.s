@@ -636,7 +636,7 @@ _08012B98: .4byte gUnknown_085925D0
 sub_8012B9C: @ 0x08012B9C
 	push {r4, lr}
 	adds r4, r0, #0
-	bl sub_8000D28
+	bl GetGameClock
 	movs r1, #1
 	ands r1, r0
 	cmp r1, #0
@@ -688,7 +688,7 @@ _08012BF0:
 	beq _08012C18
 	b _08012C2E
 _08012C00:
-	bl sub_8000D28
+	bl GetGameClock
 	adds r1, r0, #0
 	movs r0, #2
 	ands r1, r0
@@ -699,7 +699,7 @@ _08012C00:
 	bl BG_SetPosition
 	b _08012C2E
 _08012C18:
-	bl sub_8000D28
+	bl GetGameClock
 	adds r2, r0, #0
 	movs r0, #2
 	ands r2, r0
@@ -6042,7 +6042,7 @@ GeneralVBlankHandler: @ 0x080152A4
 	ldr r1, _080152E8  @ gUnknown_03007FF8
 	movs r0, #1
 	strh r0, [r1]
-	bl IncrementGlobalClock
+	bl IncrementGameClock
 	bl m4aSoundVSync
 	ldr r0, _080152EC  @ gRootProcesses
 	ldr r0, [r0]
@@ -6417,7 +6417,7 @@ GotoChapterWithoutSave: @ 0x08015588
 	push {lr}
 	ldr r1, _080155B0  @ gUnknown_0202BCF0
 	strb r0, [r1, #0xe]
-	ldr r0, _080155B4  @ gUnknown_0859A1F0
+	ldr r0, _080155B4  @ gProc_BMapMain
 	bl Proc_Find
 	movs r1, #2
 	bl Proc_GotoLabel
@@ -6431,7 +6431,7 @@ GotoChapterWithoutSave: @ 0x08015588
 	bx r0
 	.align 2, 0
 _080155B0: .4byte gUnknown_0202BCF0
-_080155B4: .4byte gUnknown_0859A1F0
+_080155B4: .4byte gProc_BMapMain
 _080155B8: .4byte gUnknown_0859AAD8
 _080155BC: .4byte gUnknown_085A7F08
 _080155C0: .4byte gUnknown_085A7F30
@@ -6447,16 +6447,16 @@ sub_80155C4: @ 0x080155C4
 	ldr r0, _08015604  @ gUnknown_0202BCF0
 	bl RegisterChapterTimeAndTurnCount
 _080155D8:
-	bl sub_80B6504
+	bl ComputeChapterRankings
 	ldr r0, _08015604  @ gUnknown_0202BCF0
 	adds r5, r0, #0
 	adds r5, #0x4a
 	ldrb r4, [r5]
 	lsls r4, r4, #0x1f
 	lsrs r4, r4, #0x1f
-	bl sub_8031214
+	bl ChapterChangeUnitCleanup
 	movs r0, #0
-	bl SetupChapter
+	bl StartBattleMap
 	cmp r4, #0
 	beq _080155FE
 	ldrb r0, [r5]

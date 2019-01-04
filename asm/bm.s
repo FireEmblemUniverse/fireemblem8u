@@ -574,7 +574,7 @@ DisplayCursor: @ 0x08015A98
 	movs r0, #0
 	mov r9, r0
 	mov r8, r0
-	bl sub_8000D28
+	bl GetGameClock
 	lsrs r4, r0, #1
 	movs r0, #0xf
 	ands r4, r0
@@ -603,7 +603,7 @@ _08015AE0:
 	.align 2, 0
 _08015AEC: .4byte gUnknown_0859A4C0
 _08015AF0:
-	bl sub_8000D28
+	bl GetGameClock
 	subs r0, #1
 	ldr r5, _08015B2C  @ gUnknown_0202BD40
 	ldr r1, [r5]
@@ -629,7 +629,7 @@ _08015B10:
 	ldr r0, _08015B30  @ gUnknown_0202BD3C
 	strh r6, [r0]
 	strh r7, [r0, #2]
-	bl sub_8000D28
+	bl GetGameClock
 	str r0, [r5]
 	b _08015B52
 	.align 2, 0
@@ -683,7 +683,7 @@ sub_8015B88: @ 0x08015B88
 	sub sp, #4
 	adds r4, r0, #0
 	adds r5, r1, #0
-	bl sub_8000D28
+	bl GetGameClock
 	lsrs r0, r0, #1
 	movs r1, #0xf
 	ands r0, r1
@@ -727,7 +727,7 @@ sub_8015BD4: @ 0x08015BD4
 	adds r6, r1, #0
 	lsls r4, r2, #0x18
 	lsrs r4, r4, #0x18
-	bl sub_8000D28
+	bl GetGameClock
 	lsrs r0, r0, #3
 	movs r1, #3
 	bl __umodsi3

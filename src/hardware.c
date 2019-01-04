@@ -13,7 +13,7 @@ struct KeyProc {
 
 //static u8 sModifiedBGs;
 
-void CopyToPaletteBuffer(const void *src, int b, int size)
+void CopyToPaletteBuffer(const void* src, int b, int size)
 {
     if (size & 0x1F)  // size is not a multiple of 32
         CpuCopy16(src, gPaletteBuffer + (b >> 1), size);
@@ -936,7 +936,7 @@ s8 ShouldSkipHSScreen(void)
 
 void SoftResetIfKeyComboPressed(void)
 {
-    if (sub_8000D18() != 0)
+    if ((u8)sub_8000D18() != 0)
     {
         if (gKeyStatusPtr->heldKeys == (L_BUTTON | R_BUTTON | A_BUTTON | B_BUTTON))
             SoftReset(0);
@@ -1226,7 +1226,7 @@ void sub_80021E4(struct UnknownDmaStruct2 *a, int b, int c)
     }
 }
 
-u16 GetPrimaryOAMSize(void)
+int GetPrimaryOAMSize(void)
 {
     return gUnknown_03000030.count;
 }

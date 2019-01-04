@@ -1,7 +1,7 @@
 #ifndef GUARD_CTC_H
 
 // ??? ClearIntermediateOAMBuffers(???);
-// ??? RegisterObjectAttributes_SafeMaybe(???);
+void RegisterObjectAttributes_SafeMaybe(int nodeIndex, int x, int y, const void *pObjData, int tileBase);
 void RegisterObjectAttributes(int nodeIndex, int xBase, int yBase, const void* pObjData, int tileBase);
 // ??? FlushIntermediateOAMBuffer(???);
 // ??? sub_8005488(???);

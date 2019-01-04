@@ -877,7 +877,7 @@ _080103C2:
 	str r1, [r5, #0xc]
 	b _0801049A
 _080103CC:
-	bl ClearMOVEUNITs
+	bl MU_EndAll
 	movs r4, #1
 _080103D2:
 	adds r0, r4, #0
@@ -903,7 +903,7 @@ _080103F4:
 	bl ClearCutsceneUnits
 	b _0801049A
 _08010400:
-	bl ClearMOVEUNITs
+	bl MU_EndAll
 	movs r4, #0x41
 _08010406:
 	adds r0, r4, #0
@@ -922,7 +922,7 @@ _0801041E:
 	ble _08010406
 	b _0801049A
 _08010426:
-	bl ClearMOVEUNITs
+	bl MU_EndAll
 	movs r4, #0x81
 _0801042C:
 	adds r0, r4, #0
@@ -954,15 +954,15 @@ _0801044C:
 	orrs r0, r1
 	str r0, [r5, #0xc]
 	adds r0, r5, #0
-	bl MakeMOVEUNITForMapUnit
+	bl MU_Create
 	adds r4, r0, #0
-	bl _MOVEUNIT6C_SetDefaultFacingDirection
+	bl MU_SetDefaultFacing_Auto
 	adds r0, r4, #0
-	bl MOVEUNIT6C_807959C
+	bl MU_StartDeathFade
 	movs r0, #2
 	b _080104A8
 _0801047C:
-	ldr r0, _08010490  @ gUnknown_089A2C80
+	ldr r0, _08010490  @ gProcScr_MUDeathFade
 	bl Proc_Find
 	negs r1, r0
 	orrs r1, r0
@@ -971,7 +971,7 @@ _0801047C:
 	movs r0, #3
 	b _080104A8
 	.align 2, 0
-_08010490: .4byte gUnknown_089A2C80
+_08010490: .4byte gProcScr_MUDeathFade
 _08010494:
 	adds r0, r5, #0
 	bl ClearUnitStruct

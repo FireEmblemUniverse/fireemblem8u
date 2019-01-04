@@ -6,6 +6,7 @@
 #include "hardware.h"
 #include "m4a.h"
 #include "soundwrapper.h"
+#include "bmio.h"
 
 // temp rodata (TODO: move directly into the various functions that use those)
 const u8 gUnknown_080D793C[3] = { 0x00, 0x40, 0x80 };
@@ -28,120 +29,22 @@ void sub_80156D4(void);
 void sub_800BA34(void);
 
 void LoadChapterMapGfx(s8);
-void SetupOAMSpliceForWeather(unsigned);
+void AllocWeatherParticles(unsigned);
 void UpdateGameTilesGraphics(void);
 void SMS_UpdateFromGameData(void);
 void SMS_FlushIndirect(void);
 
-void sub_8030F48(void);
+void RestartBattleMap(void);
 
-unsigned sub_8015A40(unsigned);
-unsigned sub_8015A6C(unsigned);
+int sub_8015A40(int);
+int sub_8015A6C(int);
 
 void RefreshFogAndUnitMaps(void);
-
-struct CharacterData {
-	u16 nameTextId;
-	u16 descTextId;
-	u8  index;
-	u8  defaultClass;
-	u16 portraitId;
-	u8  miniPortrait;
-	u8  affinity;
-	u8  u0A;
-	
-	u8  baseLevel;
-	u8  baseHP;
-	u8  basePow;
-	u8  baseSkl;
-	u8  baseSpd;
-	u8  baseDef;
-	u8  baseRes;
-	u8  baseLck;
-	u8  baseCon;
-	
-	u8  ranks[8];
-	
-	u8  growthHP;
-	u8  growthPow;
-	u8  growthSkl;
-	u8  growthSpd;
-	u8  growthDef;
-	u8  growthRes;
-	u8  growthLck;
-	
-	u8  u23;
-	u8  u24;
-	u8  u25;
-	u8  u26;
-	u8  u27;
-	
-	u32 attributes;
-	
-	const void*    pSupportData;
-	const void*    pU30;
-};
-
-struct Unit {
-	/* 00 */ const struct CharacterData* pCharacterData;
-	/* 04 */ const void* pClassData;
-	
-	/* 08 */ u8 level;
-	/* 09 */ u8 exp;
-	/* 0A */ u8 unk0A_saved;
-	
-	/* 0B */ u8 index;
-	
-	/* 0C */ u32 state;
-	
-	/* 10 */ u8 xPos;
-	/* 11 */ u8 yPos;
-
-	/* 12 */ u8 maxHP;
-	/* 13 */ u8 curHP;
-	/* 14 */ u8 pow;
-	/* 15 */ u8 skl;
-	/* 16 */ u8 spd;
-	/* 17 */ u8 def;
-	/* 18 */ u8 res;
-	/* 19 */ u8 lck;
-
-	/* 1A */ u8 conBonus;
-	/* 1B */ u8 rescueOtherUnit;
-	/* 1C */ u8 ballistaIndex;
-	/* 1D */ u8 movBonus;
-
-	/* 1E */ u16 items[5];
-	/* 28 */ u8 ranks[8];
-	
-	/* 30 */ u8 statusIndex    : 4;
-	/* 30 */ u8 statusDuration : 4;
-	
-	/* 31 */ u8 torchDuration   : 4;
-	/* 31 */ u8 barrierDuration : 4;
-	
-	/* 32 */ u8 supports[6];
-	/* 38 */ u8 unitLeader;
-	/* 39 */ u8 supportBits;
-
-	/* 3A */ u8 unk3A;
-	/* 3B */ u8 unk3B;
-
-	/* 3C */ void* pMapSpriteHandle;
-	
-	/* 40 */ u16 ai3And4;
-	/* 42 */ u8 ai1;
-	/* 43 */ u8 ai1data;
-	/* 44 */ u8 ai2;
-	/* 45 */ u8 ai2data;
-	/* 46 */ u8 unk46_saved;
-	/* 47 */ u8 unk47;
-};
 
 struct Unit* GetUnitStructFromEventParameter(s16 param);
 
 void SetSomeRealCamPos(s8 x, s8 y, s8 thisNeedsToBeAS8);
-void SetCursorMapPosition(s8 x, s8 y);
+void SetCursorMapPosition(int x, int y);
 
 u8 EnsureCameraOntoPosition(struct Proc*, int x, int y);
 void sub_8015D84(struct Proc*, s8 x, s8 y);
@@ -153,7 +56,7 @@ void sub_800BB48(u16 mapChangeId, u8 displayFlag, struct Proc* parent);
 
 extern struct Unit* gUnknown_03004E50; // TODO: gActiveUnit
 
-void SetupWeather(u16 id);
+// void SetWeather(u16 id);
 
 void SetNextChapterId(int chIndex);
 void SetNextGameActionId(int);
@@ -166,22 +69,7 @@ void GetPreferredPositionForUNIT(const struct UnitDefinition* def, s8* xOut, s8*
 
 struct Unit* GetNonAllyUnitStructById(unsigned index, u8 all);
 
-struct ChapterDefinition {
-	/* 00 */ const char* pDebugName;
-
-	// chapter data stuff
-	/* 04 */ u8 obj1, obj2, pal, tileconfig, map, tileanim1, tileanim2, mapchanges;
-
-	/* 0C */ u8 initialFogLevel;
-	/* 0D */ u8 battlePrep;
-	/* 0E */ u8 unk0E[0x14 - 0x0E];
-
-	/* 14 */ u8 easyLevelMalus      : 4;
-	/* 14 */ u8 difficultLevelBonus : 4;
-	/* 15 */ u8 normalLevelMalus    : 4;
-};
-
-const struct ChapterDefinition* GetROMChapterStruct(unsigned id);
+#include "chapterdata.h"
 
 void sub_80180CC(struct Unit*, int amount); // aka ApplyBonusLevels
 void sub_800F8A8(struct Unit*, const struct UnitDefinition*, u16, s8);
@@ -233,13 +121,13 @@ int  sub_8008A00(void);
 
 extern const struct ProcCmd gUnknown_08591154[]; // E_FACE proc
 
-void sub_80311A8(void); // ReloadGameCoreGraphics
+void RefreshBMapGraphics(void); // ReloadGameCoreGraphics
 
-void BlockGameGraphicsLogic(void);
-void UnblockGameGraphicsLogic(void);
+void BMapDispSuspend(void);
+void BMapDispResume(void);
 
-void BlockAll6CMarked4(void);
-void UnblockAll6CMarked4(void);
+void MU_AllDisable(void);
+void MU_AllEnable(void);
 
 // ???
 void sub_808A518(u16);
@@ -289,21 +177,6 @@ extern const struct ProcCmd gUnknown_08591EB0[];
 
 // other
 
-struct GameState {
-	/* 00 */ u8 mainLoopEnded;
-	/* 01 */ u8 gameLogicLock;
-	/* 02 */ u8 gameGfxLock;
-	/* 03 */ u8 unk03;
-	/* 04 */ u8 gameStateBits;
-
-	/* 06 */ u16 savedVCLY;
-	/* 08 */ u32 unk08;
-	/* 0C */ u16 xCameraReal;
-	/* 0E */ u16 yCameraReal; 
-};
-
-extern struct GameState gUnknown_0202BCB0;
-
 void CopyDataWithPossibleUncomp(const void* source, void* target); // aka Decompress
 void CallARM_FillTileRect(u16* target, const void* source, u16 tilebase); // aka BgTileMap_ApplyTSA
 
@@ -341,7 +214,7 @@ void ClearMapWith(u8** map, u8 value);
 
 extern const struct ProcCmd gUnknown_0859A548[];
 
-u8 IsSomeMOVEUNITRelatedStructAvailable(void);
+u8 MU_CanStart(void);
 
 u8 Event00_NULL(struct EventEngineProc* proc) {
 	return EVC_ADVANCE_CONTINUE;
@@ -2166,7 +2039,7 @@ void sub_800EE54(struct ConvoBackgroundFadeProc* proc) {
 	case 4:
 	case 5:
 		LoadChapterMapGfx(gUnknown_0202BCF0.chapterIndex);
-		SetupOAMSpliceForWeather(gUnknown_0202BCF0.chapterWeatherId);
+		AllocWeatherParticles(gUnknown_0202BCF0.chapterWeatherId);
 		UpdateGameTilesGraphics();
 		SMS_UpdateFromGameData();
 
@@ -2273,7 +2146,7 @@ void sub_800EF48(struct ConvoBackgroundFadeProc* proc) {
 }
 
 u8 Event22_(struct EventEngineProc* proc) {
-	sub_80311A8(); // ReloadGameCoreGraphics
+	RefreshBMapGraphics(); // ReloadGameCoreGraphics
 	sub_800BCDC(proc->mapSpritePalIdOverride);
 
 	BG_Fill(gBG0TilemapBuffer, 0);
@@ -2294,8 +2167,8 @@ u8 Event22_(struct EventEngineProc* proc) {
 
 u8 Event23_(struct EventEngineProc* proc) {
 	if (!(proc->evStateBits & EV_STATE_GFXLOCKED)) {
-		BlockGameGraphicsLogic();
-		BlockAll6CMarked4();
+		BMapDispSuspend();
+		MU_AllDisable();
 	}
 
 	proc->evStateBits |= EV_STATE_GFXLOCKED;
@@ -2304,8 +2177,8 @@ u8 Event23_(struct EventEngineProc* proc) {
 
 u8 Event24_(struct EventEngineProc* proc) {
 	if (proc->evStateBits & EV_STATE_GFXLOCKED) {
-		UnblockGameGraphicsLogic();
-		UnblockAll6CMarked4();
+		BMapDispResume();
+		MU_AllEnable();
 	}
 
 	proc->evStateBits &= ~EV_STATE_GFXLOCKED;
@@ -2334,7 +2207,7 @@ u8 Event25_(struct EventEngineProc* proc) {
 
 	gUnknown_0202BCF0.chapterIndex = chIndex;
 
-	sub_8030F48();
+	RestartBattleMap();
 
 	gUnknown_0202BCB0.xCameraReal = sub_8015A40(x * 16);
 	gUnknown_0202BCB0.yCameraReal = sub_8015A6C(y * 16);
@@ -2342,7 +2215,7 @@ u8 Event25_(struct EventEngineProc* proc) {
 	RefreshFogAndUnitMaps();
 	UpdateGameTilesGraphics();
 	SMS_UpdateFromGameData();
-	sub_80311A8();
+	RefreshBMapGraphics();
 
 	sub_800BCDC(proc->mapSpritePalIdOverride);
 
@@ -2430,8 +2303,8 @@ u8 Event27_MapChange(struct EventEngineProc* proc) {
 
 	case (-2): // "at position of active unit"
 		mapChangeId = GetMapChangesIdAt(
-			gUnknown_03004E50->xPos,
-			gUnknown_03004E50->yPos
+			(u8)(gUnknown_03004E50->xPos),
+			(u8)(gUnknown_03004E50->yPos)
 		);
 
 		if (mapChangeId < 0)
@@ -2494,7 +2367,7 @@ u8 Event27_MapChange(struct EventEngineProc* proc) {
 }
 
 u8 Event28_ChangeWeather(struct EventEngineProc* proc) {
-	SetupWeather(proc->pEventCurrent[1]);
+	SetWeather(proc->pEventCurrent[1]);
 	return EVC_ADVANCE_YIELD;
 }
 
@@ -2763,12 +2636,12 @@ void LoadUnit_800F704(const struct UnitDefinition* def, u16 b, s8 quiet, s8 d) {
 	unit->xPos = def->xPosition;
 	unit->yPos = def->yPosition;
 
-	if (def->allegiance == 2 && unit->pCharacterData->index >= 0x3C) {
+	if (def->allegiance == 2 && unit->pCharacterData->number >= 0x3C) {
 		if (!gUnknown_0202BCF0.unk42_6) {
 			if (!(gUnknown_0202BCF0.chapterStateBits & 0x40))
 				sub_80180CC(
 					unit,
-					-GetROMChapterStruct(gUnknown_0202BCF0.chapterIndex)->easyLevelMalus
+					-GetROMChapterStruct(gUnknown_0202BCF0.chapterIndex)->easyModeLevelMalus
 				);
 			else
 				goto hard_mode;
@@ -2777,12 +2650,12 @@ void LoadUnit_800F704(const struct UnitDefinition* def, u16 b, s8 quiet, s8 d) {
 			hard_mode:
 				sub_80180CC(
 					unit,
-					GetROMChapterStruct(gUnknown_0202BCF0.chapterIndex)->difficultLevelBonus
+					GetROMChapterStruct(gUnknown_0202BCF0.chapterIndex)->difficultModeLevelBonus
 				);
 			else
 				sub_80180CC(
 					unit,
-					-GetROMChapterStruct(gUnknown_0202BCF0.chapterIndex)->normalLevelMalus
+					-GetROMChapterStruct(gUnknown_0202BCF0.chapterIndex)->normalModeLevelMalus
 				);
 		}
 	}
@@ -3302,7 +3175,7 @@ u8 TryPrepareEventUnitMovement(struct EventEngineProc* proc, int x, int y) {
 			return FALSE; // Failed to start camera movement
 	}
 
-	if (!IsSomeMOVEUNITRelatedStructAvailable())
+	if (!MU_CanStart())
 		return FALSE; // No room to make MU for the moving unit
 
 	return TRUE; // Yay!

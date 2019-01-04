@@ -1,7 +1,7 @@
 #ifndef GUARD_HARDWARE_H
 #define GUARD_HARDWARE_H
 
-void CopyToPaletteBuffer(const void *src, int b, int size);
+void CopyToPaletteBuffer(const void* src, int b, int size);
 // ??? sub_8000E14(???);
 // ??? FlushLCDControl(???);
 // ??? BG_GetControlBuffer(???);
@@ -16,12 +16,12 @@ void SetBackgroundScreenSize(int bg, int size);
 // ??? ApplyColorAddition_ClampMin(???);
 // ??? FlushBackgrounds(???);
 void BG_Fill(void* dest, int value);
-// ??? RegisterBlankTile(???);
+void RegisterBlankTile(int a);
 void SetInterrupt_LCDVBlank(InterruptHandler handler);
 // ??? SetInterrupt_LCDVCountMatch(???);
 // ??? sub_8001308(???);
 // ??? SetLCDVCountSetting(???);
-// ??? SetMainUpdateRoutine(???);
+void SetMainUpdateRoutine(void(*)(void));
 void ExecMainUpdate();
 // ??? _UpdateKeyStatus(???);
 void UpdateKeyStatus(struct KeyStatusBuffer *keyStatus);
@@ -47,7 +47,7 @@ void BG_SetPosition(u16 a, u16 b, u16 c);
 // ??? sub_8001964(???);
 // ??? sub_80019E8(???);
 // ??? sub_8001A6C(???);
-// ??? SetupBackgrounds(???);
+void SetupBackgrounds(u16 *bgConfig);
 void *BG_GetMapBuffer();
 void sub_8001C5C(u8);
 // ??? ShouldSkipHSScreen(???);
@@ -56,14 +56,14 @@ void SoftResetIfKeyComboPressed();
 // ??? ExecBothHBlankHandlers(???);
 // ??? UpdateHBlankHandlerState(???);
 // ??? SetPrimaryHBlankHandler(???);
-// ??? SetSecondaryHBlankHandler(???);
+void SetSecondaryHBlankHandler(void(*)(void));
 // ??? GetBackgroundFromBufferPointer(???);
 // ??? BG_SetPriority(???);
 // ??? BG_GetPriority(???);
 void SetSpecialColorEffectsParameters(u16 effect, u8 coeffA, u8 coeffB, u8 blendY);
-void sub_8001ED0(int a, int b, int c, int d, int e);
+void sub_8001ED0(int a, int b, int c, int d, int e); // SetColorEffectFirstTarget
 void sub_8001F0C(int a, int b, int c, int d, int e);
-void sub_8001F48(int a);
+void sub_8001F48(int a); // SetColorEffectBackdropFirstTarget
 void sub_8001F64(int a);
 void SetDefaultColorEffects(void);
 void EnablePaletteSync(void);
@@ -80,6 +80,6 @@ void SetupOAMBufferSplice(int a);
 // ??? FlushPrimaryOAM(???);
 void WriteOAMRotScaleData(int index, s16 pa, s16 pb, s16 pc, s16 pd);
 // ??? sub_80021E4(???);
-// ??? GetPrimaryOAMSize(???);
+int GetPrimaryOAMSize(void);
 
 #endif  // GUARD_HARDWARE_H

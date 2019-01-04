@@ -74,6 +74,17 @@ struct UnknownProcStruct
     int unk8;
 };
 
+enum {
+    PROC_MARK_0 = 0,
+    PROC_MARK_1 = 1,
+    PROC_MARK_2 = 2,
+    PROC_MARK_3 = 3,
+    PROC_MARK_4 = 4,
+    PROC_MARK_5 = 5,
+    PROC_MARK_6 = 6,
+    PROC_MARK_7 = 7
+};
+
 #define ROOT_PROC_0 (struct Proc *)0
 #define ROOT_PROC_1 (struct Proc *)1
 #define ROOT_PROC_2 (struct Proc *)2
@@ -100,8 +111,8 @@ void Proc_GotoLabel(struct Proc* proc_arg, int label);
 void Proc_ForEachWithScript(const struct ProcCmd *script, ProcFunc func);
 // ??? Proc_ForEachWithMark(???);
 void Proc_BlockEachWithMark(int mark);
-// ??? Proc_UnblockEachWithMark(???);
-// ??? Proc_DeleteEachWithMark(???);
+void Proc_UnblockEachWithMark(int mark);
+void Proc_DeleteEachWithMark(int mark);
 void Proc_DeleteAllWithScript(const struct ProcCmd *script);
 // ??? Proc_ClearNativeCallbackEachWithScript(???);
 // ??? sub_80030CC(???);

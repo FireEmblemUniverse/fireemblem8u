@@ -570,7 +570,7 @@ sub_8009C5C: @ 0x08009C5C
 _08009C72:
 	movs r0, #0
 	movs r1, #0
-	bl sub_8030CF4
+	bl InitPlaythroughState
 	ldr r4, _08009CA0  @ gUnknown_0202BCF0
 	ldrb r1, [r4, #0x14]
 	movs r0, #8
@@ -595,7 +595,7 @@ sub_8009CA4: @ 0x08009CA4
 	push {lr}
 	bl sub_80A6D38
 	bl sub_80A41C8
-	bl sub_8031214
+	bl ChapterChangeUnitCleanup
 	ldr r1, _08009CBC  @ gUnknown_0202BCF0
 	movs r0, #0x7f
 	strb r0, [r1, #0xe]
@@ -625,7 +625,7 @@ _08009CDC: .4byte gUnknown_0202BCF0
 sub_8009CE0: @ 0x08009CE0
 	push {r4, lr}
 	adds r4, r0, #0
-	bl ClearMOVEUNITs
+	bl MU_EndAll
 	adds r0, r4, #0
 	adds r0, #0x29
 	ldrb r0, [r0]
@@ -744,13 +744,13 @@ _08009D9E:
 	ldr r0, _08009DDC  @ gUnknown_0202BCF0
 	bl RegisterChapterTimeAndTurnCount
 _08009DC0:
-	bl sub_80B6504
+	bl ComputeChapterRankings
 	ldr r0, _08009DDC  @ gUnknown_0202BCF0
 	adds r1, r5, #0
 	adds r1, #0x2a
 	ldrb r1, [r1]
 	strb r1, [r0, #0xe]
-	bl sub_8031214
+	bl ChapterChangeUnitCleanup
 	pop {r4, r5}
 	pop {r0}
 	bx r0
@@ -855,7 +855,7 @@ _08009E94: .4byte gUnknown_08A00364
 	THUMB_FUNC_START sub_8009E98
 sub_8009E98: @ 0x08009E98
 	push {lr}
-	bl SetupChapter
+	bl StartBattleMap
 	bl sub_80141B0
 	ldr r0, _08009EB0  @ gUnknown_0202BCF0
 	ldrb r0, [r0, #0x1b]

@@ -1,5 +1,8 @@
 #include "global.h"
 
+#include "proc.h"
+#include "bmio.h"
+
 const char *gUnknown_08591AA4[][2] =
 {
     {"a ", "A "},
@@ -26,7 +29,7 @@ const char *sub_800A048(s8 *a, s8 b)
     }
 }
 
-void sub_800A160(char *a, const char *b, s8 c)
+void PrependArticleToString(char *a, const char *b, s8 c)
 {
     const char *r6;
     u8 r5;
@@ -124,7 +127,7 @@ char *sub_800A2A4(void)
                 r1 = 3;
                 break;
             case 0x20:
-                CopyString(r4, GetTacticianNameStringPtr());
+                CopyString(r4, GetTacticianName());
                 goto label;
             case 0x22:
                 CopyString(r4, GetItemNameString(gUnknown_0203A958.unk6));
@@ -134,7 +137,7 @@ char *sub_800A2A4(void)
                 *r4++ = *r5++;
                 continue;
             }
-            CopyString(r4, GetStringFromIndex(GetROMCharStruct(gUnknown_0202BCF0.unk1C[r1])->unk0));
+            CopyString(r4, GetStringFromIndex(GetROMCharStruct(gUnknown_0202BCF0.unk1C[r1])->nameTextId));
         label:
             while (*r4 != 0)
                 r4++;
@@ -175,7 +178,7 @@ void *FilterSomeTextFromStandardBuffer(void)
             else
             {
                 //_0800A3F8
-                CopyString(r4, GetTacticianNameStringPtr());
+                CopyString(r4, GetTacticianName());
                 while (*r4 != 0)
                     r4++;
                 r5++;
@@ -222,7 +225,7 @@ _0800A3F0:\n\
     adds r4, #1\n\
     b _0800A416\n\
 _0800A3F8:\n\
-    bl GetTacticianNameStringPtr\n\
+    bl GetTacticianName\n\
     adds r1, r0, #0\n\
     adds r0, r4, #0\n\
     bl CopyString\n\
