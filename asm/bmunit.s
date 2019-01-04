@@ -2,170 +2,6 @@
 
 	.SYNTAX UNIFIED
 
-	THUMB_FUNC_START sub_80168E0
-sub_80168E0: @ 0x080168E0
-	push {r4, r5, r6, r7, lr}
-	mov r7, r8
-	push {r7}
-	adds r4, r0, #0
-	mov r8, r1
-	adds r7, r3, #0
-	movs r3, #0
-	lsls r2, r2, #0x18
-	asrs r6, r2, #0x18
-	cmp r6, #0
-	bne _080168F8
-	movs r3, #1
-_080168F8:
-	adds r0, r4, #0
-	movs r1, #0
-	adds r2, r3, #0
-	bl Text_SetParameters
-	movs r0, #0xff
-	mov r1, r8
-	ands r0, r1
-	lsls r1, r0, #3
-	adds r1, r1, r0
-	lsls r1, r1, #2
-	ldr r0, _0801698C  @ gItemData
-	adds r5, r1, r0
-	ldrh r0, [r5]
-	bl GetStringFromIndex
-	bl FilterSomeTextFromStandardBuffer
-	adds r1, r0, #0
-	adds r0, r4, #0
-	bl Text_AppendString
-	adds r1, r7, #4
-	adds r0, r4, #0
-	bl Text_Draw
-	movs r3, #0x14
-	adds r3, r3, r7
-	mov ip, r3
-	movs r1, #1
-	cmp r6, #0
-	beq _0801693A
-	movs r1, #2
-_0801693A:
-	ldr r0, [r5, #8]
-	movs r4, #8
-	ands r0, r4
-	mov r3, r8
-	asrs r2, r3, #8
-	cmp r0, #0
-	beq _0801694A
-	movs r2, #0xff
-_0801694A:
-	mov r0, ip
-	bl DrawDecNumber
-	adds r3, r7, #0
-	adds r3, #0x1a
-	movs r1, #1
-	cmp r6, #0
-	beq _0801695C
-	movs r1, #2
-_0801695C:
-	ldr r0, [r5, #8]
-	ands r0, r4
-	movs r2, #0xff
-	cmp r0, #0
-	bne _08016968
-	ldrb r2, [r5, #0x14]
-_08016968:
-	adds r0, r3, #0
-	bl DrawDecNumber
-	adds r0, r7, #0
-	adds r0, #0x16
-	movs r1, #0
-	cmp r6, #0
-	bne _0801697A
-	movs r1, #1
-_0801697A:
-	movs r2, #0x16
-	bl sub_8004B0C
-	mov r0, r8
-	cmp r0, #0
-	bne _08016990
-	movs r1, #1
-	negs r1, r1
-	b _08016992
-	.align 2, 0
-_0801698C: .4byte gItemData
-_08016990:
-	ldrb r1, [r5, #0x1d]
-_08016992:
-	movs r2, #0x80
-	lsls r2, r2, #7
-	adds r0, r7, #0
-	bl DrawIcon
-	pop {r3}
-	mov r8, r3
-	pop {r4, r5, r6, r7}
-	pop {r0}
-	bx r0
-
-	THUMB_FUNC_START DrawTextAndIconForItem
-DrawTextAndIconForItem: @ 0x080169A8
-	push {r4, r5, r6, r7, lr}
-	mov r7, r8
-	push {r7}
-	adds r4, r0, #0
-	adds r6, r1, #0
-	adds r7, r2, #0
-	movs r1, #0
-	bl Text_SetXCursor
-	movs r0, #0xff
-	ands r0, r6
-	lsls r1, r0, #3
-	adds r1, r1, r0
-	lsls r1, r1, #2
-	ldr r0, _08016A10  @ gItemData
-	adds r5, r1, r0
-	ldrh r0, [r5]
-	bl GetStringFromIndex
-	bl FilterSomeTextFromStandardBuffer
-	adds r1, r0, #0
-	adds r0, r4, #0
-	bl Text_AppendString
-	adds r1, r7, #4
-	adds r0, r4, #0
-	bl Text_Draw
-	movs r0, #0x16
-	adds r0, r0, r7
-	mov r8, r0
-	adds r0, r4, #0
-	bl Text_GetColorId
-	adds r3, r0, #0
-	ldr r0, [r5, #8]
-	movs r1, #8
-	ands r0, r1
-	asrs r2, r6, #8
-	cmp r0, #0
-	beq _080169FE
-	movs r2, #0xff
-_080169FE:
-	mov r0, r8
-	adds r1, r3, #0
-	bl DrawDecNumber
-	cmp r6, #0
-	bne _08016A14
-	movs r1, #1
-	negs r1, r1
-	b _08016A16
-	.align 2, 0
-_08016A10: .4byte gItemData
-_08016A14:
-	ldrb r1, [r5, #0x1d]
-_08016A16:
-	movs r2, #0x80
-	lsls r2, r2, #7
-	adds r0, r7, #0
-	bl DrawIcon
-	pop {r3}
-	mov r8, r3
-	pop {r4, r5, r6, r7}
-	pop {r0}
-	bx r0
-
 	THUMB_FUNC_START sub_8016A2C
 sub_8016A2C: @ 0x08016A2C
 	push {r4, r5, r6, r7, lr}
@@ -205,6 +41,7 @@ _08016A74:
 	adds r1, r4, #0
 	movs r2, #0x16
 	bl sub_8004B0C
+
 	movs r4, #1
 	cmp r5, #1
 	beq _08016A88
@@ -224,6 +61,7 @@ _08016A9C:
 	adds r0, r1, #0
 	adds r1, r4, #0
 	bl DrawDecNumber
+
 	adds r1, r7, #0
 	adds r1, #0x1c
 	ldr r0, [r6, #8]
@@ -236,6 +74,7 @@ _08016AB4:
 	adds r0, r1, #0
 	adds r1, r4, #0
 	bl DrawDecNumber
+
 	adds r1, r7, #4
 	mov r0, r8
 	bl Text_Draw

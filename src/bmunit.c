@@ -8,12 +8,13 @@
 #define ITEM_INDEX(aItem) ((aItem) & 0xFF)
 #define ITEM_USES(aItem) ((aItem) >> 8)
 
-#define ITEM_NAME_TXTID(aItem) (ITEM_INDEX(aItem)[gItemData].nameTextId)
 #define ITEM_WPN_RANK(aItem) (ITEM_INDEX(aItem)[gItemData].weaponRank)
 #define ITEM_WPN_TYPE(aItem) (ITEM_INDEX(aItem)[gItemData].weaponType)
 
 u8 sub_80174AC(struct Unit* unit, int item);
 u8 CanUnitNotUseMagic(struct Unit* unit);
+
+// TODO: reorder and make public (to generate at the end of the file)
 
 static inline const struct ItemData* GetItemData(int itemIndex) {
 	return gItemData + itemIndex;
@@ -28,6 +29,17 @@ static inline int GetItemDisplayUses(int item) {
 		return 0xFF;
 	else
 		return ITEM_USES(item);
+}
+
+static inline int GetItemNameTextId(int item) {
+	return GetItemData(ITEM_INDEX(item))->nameTextId;
+}
+
+static inline int GetItemMaxUses(int item) {
+	if (GetItemAttributes(item) & IA_UNBREAKABLE)
+		return 0xFF;
+	else
+		return GetItemData(ITEM_INDEX(item))->maxUses;
 }
 
 static inline int GetItemIconId(int item) {
@@ -140,10 +152,13 @@ s8 CanUnitUseStaff(struct Unit* unit, int item) {
 	return CanUnitUseAsStaff(unit, item);
 }
 
+// TODO: text color codes
+// TODO: special character codes
+
 void DrawItemMenuCommand(struct TextHandle* text, int item, s8 isGrayed, u16* mapOut) {
 	Text_SetParameters(text, 0, (isGrayed ? 0 : 1));
 
-	GetStringFromIndex(ITEM_NAME_TXTID(item));
+	GetStringFromIndex(GetItemNameTextId(item));
 	Text_AppendString(text, FilterSomeTextFromStandardBuffer());
 
 	Text_Draw(text, mapOut + 2);
@@ -152,3 +167,57 @@ void DrawItemMenuCommand(struct TextHandle* text, int item, s8 isGrayed, u16* ma
 
 	DrawIcon(mapOut, GetItemIconId(item), 0x4000);
 }
+
+void sub_80168E0(struct TextHandle* text, int item, s8 isGrayed, u16* mapOut) {
+	Text_SetParameters(text, 0, (isGrayed ? 0 : 1));
+
+	GetStringFromIndex(GetItemNameTextId(item));
+	Text_AppendString(text, FilterSomeTextFromStandardBuffer());
+
+	Text_Draw(text, mapOut + 2);
+
+	DrawDecNumber(mapOut + 10, isGrayed ? 2 : 1, GetItemDisplayUses(item));
+	DrawDecNumber(mapOut + 13, isGrayed ? 2 : 1, GetItemMaxUses(item));
+	sub_8004B0C(mapOut + 11, isGrayed ? 0 : 1, 0x16); // draw special character?
+
+	DrawIcon(mapOut, GetItemIconId(item), 0x4000);
+}
+
+void DrawTextAndIconForItem(struct TextHandle* text, int item, u16* mapOut) {
+	Text_SetXCursor(text, 0);
+
+	GetStringFromIndex(GetItemNameTextId(item));
+	Text_AppendString(text, FilterSomeTextFromStandardBuffer());
+
+	Text_Draw(text, mapOut + 2);
+
+	DrawDecNumber(mapOut + 11, Text_GetColorId(text), GetItemDisplayUses(item));
+
+	DrawIcon(mapOut, GetItemIconId(item), 0x4000);
+}
+
+/*
+
+void sub_8016A2C(struct TextHandle* text, int item, int color, u16* mapOut) {
+	int c;
+
+	Text_Clear(text);
+	Text_SetColorId(text, color);
+
+	GetStringFromIndex(GetItemNameTextId(item));
+	Text_AppendString(text, FilterSomeTextFromStandardBuffer());
+
+	sub_8004B0C(mapOut + 12, (color == 1) ? 1 : 0, 0x16);
+
+	c = (color == 1) ? 2 : 1;
+
+	DrawDecNumber(mapOut + 11, c, GetItemDisplayUses(item));
+	DrawDecNumber(mapOut + 13, c, GetItemMaxUses(item));
+
+	Text_Draw(text, mapOut + 2);
+
+	DrawIcon(mapOut, GetItemIconId(item), 0x4000);
+
+}
+
+*/
