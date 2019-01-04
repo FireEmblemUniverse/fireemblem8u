@@ -50,7 +50,8 @@ struct EventEngineProc {
     
     /* 4E */ u8  idk4E;
 
-    /* 4F */ u8  unitLoadParameter : 7;
+    /* 4F */ u8 unitLoadParameter : 7;
+    /* 4F */ u8 unk4F_7 : 1;
 };
 
 enum EventExecType {
@@ -139,5 +140,7 @@ void     SlotQueuePush(unsigned value);
 unsigned SlotQueuePop(void);
 // ??? SetEventSlotCounter(???);
 // ??? GetEventSlotCounter(???);
+
+#define EVENT_IS_SKIPPING(aEventEngineProc) (((aEventEngineProc)->evStateBits >> 2) & 1)
 
 #endif // GUARD_EVENT_H

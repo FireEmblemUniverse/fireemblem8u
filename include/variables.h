@@ -529,13 +529,13 @@ extern struct Struct0202BCF0 gUnknown_0202BCF0;
 // extern ??? gUnknown_0202CFBC
 // extern ??? gUnknown_0202DDCC
 // extern ??? gUnknown_0202E4D4
-// extern ??? gUnknown_0202E4D8
+extern u8** gUnknown_0202E4D8; // gUnitMap
 // extern ??? gUnknown_0202E4DC
 // extern ??? gUnknown_0202E4E0
 // extern ??? gUnknown_0202E4E4
 // extern ??? gUnknown_0202E4E8
 // extern ??? gUnknown_0202E4EC
-// extern ??? gUnknown_0202E4F0
+extern u8** gUnknown_0202E4F0; // gMapOther
 // extern ??? gUnknown_0202E4F4
 // extern ??? gUnknown_0202ECAC
 // extern ??? gUnknown_0202F464

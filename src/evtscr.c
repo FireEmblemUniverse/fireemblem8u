@@ -143,7 +143,7 @@ struct Unit* GetUnitStructFromEventParameter(s16 param);
 void SetSomeRealCamPos(s8 x, s8 y, s8 thisNeedsToBeAS8);
 void SetCursorMapPosition(s8 x, s8 y);
 
-void EnsureCameraOntoPosition(struct Proc*, s8 x, s8 y);
+u8 EnsureCameraOntoPosition(struct Proc*, int x, int y);
 void sub_8015D84(struct Proc*, s8 x, s8 y);
 
 int GetMapChangesIdAt(int, int);
@@ -189,7 +189,7 @@ void sub_800F8A8(struct Unit*, const struct UnitDefinition*, u16, s8);
 unsigned GetSomeEventEngineMoveRelatedBitfield(struct EventEngineProc* proc, s8);
 
 void sub_800F698(const struct UnitDefinition* def, s16 count, u8 param);
-u8 TryPrepareEventUnitMovement(struct EventEngineProc* proc, unsigned x, unsigned y);
+u8 TryPrepareEventUnitMovement(struct EventEngineProc* proc, int x, int y);
 void LoadUnit_800F704(const struct UnitDefinition* def, u16 b, s8 quiet, s8 d);
 
 struct Unit* GetUnitByCharId(int);
@@ -334,6 +334,14 @@ extern u16 gUnknown_08592114[]; // gEvent_PostEnd
 void sub_80125C0(struct UnitDefinition*);
 
 extern struct UnitDefinition end[];
+
+const struct UnitDefinition* sub_80833B0(void); // GetChapterEnemyUnitDefinitions
+
+void ClearMapWith(u8** map, u8 value);
+
+extern const struct ProcCmd gUnknown_0859A548[];
+
+u8 IsSomeMOVEUNITRelatedStructAvailable(void);
 
 u8 Event00_NULL(struct EventEngineProc* proc) {
 	return EVC_ADVANCE_CONTINUE;
@@ -2611,7 +2619,7 @@ u8 Event2A_MoveToChapter(struct EventEngineProc* proc) {
 	return EVC_ADVANCE_CONTINUE;
 }
 
-u16 sub_800F50C(struct UnitDefinition* unitDefition) {
+u16 sub_800F50C(const struct UnitDefinition* unitDefition) {
 	u16 result = 0;
 
 	while (unitDefition->charIndex) {
@@ -3184,3 +3192,200 @@ struct UnitDefinition* sub_800F914(const struct UnitDefinition* source, short co
 }
 
 #endif // !NONMATCHING
+
+u8 Event2B_(struct EventEngineProc* proc) {
+	const struct {
+		u8 params;
+		u8 code;
+		u16 evArgument;
+	}* const ev = (const void*)(proc->pEventCurrent);
+
+	u8    subcode  = ev->params & 0xF;
+	short argument = ev->evArgument;
+
+	if (argument < 0)
+		argument = gEventSlots[2];
+
+	switch (subcode) {
+
+	case 0: {
+		proc->unitLoadCount = argument;
+		break;
+	}
+
+	case 1: {
+		if (argument < 0)
+			argument = 0;
+
+		if (argument > 100)
+			argument = 100;
+
+		proc->idk4E = argument;
+
+		break;
+	}
+
+	case 2: {
+		proc->unk4F_7 = TRUE;
+		break;
+	}
+
+	} // switch (subcode)
+
+	return EVC_ADVANCE_CONTINUE;
+}
+
+u8 Event2C_LoadUnits(struct EventEngineProc* proc) {
+	const struct {
+		u8 params;
+		u8 code;
+		u8 evArgument;
+		const struct UnitDefinition* pUnitDefinitions;
+	}* const ev = (const void*)(proc->pEventCurrent);
+
+	u8 subcode  = ev->params & 0xF;
+	u8 argument = ev->evArgument;
+	const struct UnitDefinition* ud = ev->pUnitDefinitions;
+
+	u16 count = proc->unitLoadCount;
+
+	switch (subcode) {
+
+	case 1:
+		argument = 2;
+
+	case 0:
+	case 2:
+		if ((int)(ud) < 0)
+			ud = (const struct UnitDefinition*)(gEventSlots[2]);
+
+		break;
+
+	case 3:
+		ud = sub_80833B0();
+
+		break;
+
+	} // switch (subcode)
+
+	if (count == 0)
+		count = sub_800F50C(ud);
+
+	ud = sub_800F914(ud, count, proc->idk4E, subcode == 2, proc->unk4F_7);
+
+	ClearMapWith(gUnknown_0202E4F0, 0);
+
+	if (EVENT_IS_SKIPPING(proc) || (proc->evStateBits & EV_STATE_FADEDIN)) {
+		sub_800F698(ud, count, argument);
+
+		proc->unitLoadCount = 0;
+		proc->idk4E = 0;
+	} else {
+		proc->pUnitLoadData = ud;
+		proc->unitLoadCount = count;
+		proc->unitLoadParameter = argument;
+
+		proc->pCallback = sub_800F5B8;
+		proc->pCallback(proc);
+	}
+
+	proc->unk4F_7 = FALSE;
+	return EVC_ADVANCE_YIELD;
+}
+
+u8 TryPrepareEventUnitMovement(struct EventEngineProc* proc, int x, int y) {
+	if (proc->evStateBits & EV_STATE_UNITCAM) {
+		if (Proc_Find(gUnknown_0859A548))
+			return FALSE; // Camera proc already exists
+
+		if (EnsureCameraOntoPosition((struct Proc*)(proc), x, y))
+			return FALSE; // Failed to start camera movement
+	}
+
+	if (!IsSomeMOVEUNITRelatedStructAvailable())
+		return FALSE; // No room to make MU for the moving unit
+
+	return TRUE; // Yay!
+}
+
+unsigned GetSomeEventEngineMoveRelatedBitfield(struct EventEngineProc* proc, s8 unk) {
+	u16 result = 0;
+
+	// TODO: use some enum constants
+
+	if (unk == TRUE)
+		result = 1;
+
+	if (proc->evStateBits & EV_STATE_UNITCAM)
+		result = result | 4;
+
+	if (proc->evStateBits & EV_STATE_0040)
+		result = result | 8;
+
+	return result;
+}
+
+u8 Event2D_(struct EventEngineProc* proc) {
+	const struct {
+		u8 params;
+		u8 code;
+		u16 evArgument;
+	}* const ev = (const void*)(proc->pEventCurrent);
+
+	int palId = ev->evArgument;
+
+	sub_800BCDC(palId);
+	proc->mapSpritePalIdOverride = palId;
+
+	return EVC_ADVANCE_CONTINUE;
+}
+
+/*
+struct Unit* GetUnitStruct(int id);
+
+u8 Event2E_CheckAt(struct EventEngineProc* proc) {
+	const struct {
+		u8 params;
+		u8 code;
+		u16 evArgument;
+	}* const ev = (const void*)(proc->pEventCurrent);
+
+	u8 subcode = ev->params & 0xF;
+	struct Unit* unit;
+	int x, y; {
+		// I hate this
+		unsigned read = proc->pEventCurrent[1];
+		x = *(const u8*)(proc->pEventCurrent + 1);
+		y = read >> 8;
+	}
+
+	switch (subcode) {
+
+	case 0: {
+		unsigned unitId = gUnknown_0202E4D8[y][x];
+
+		if (unitId == 0) {
+			gEventSlots[0xC] = 0;
+			return EVC_ADVANCE_CONTINUE;
+		}
+
+		unit = GetUnitStruct(unitId);
+		break;
+	}
+
+	case 1: {
+		unit = gUnknown_03004E50;
+		break;
+	}
+
+	} // switch (subcode)
+
+	if (!unit) {
+		gEventSlots[0xC] = 0;
+		return EVC_ADVANCE_CONTINUE;
+	}
+
+	gEventSlots[0xC] = unit->pCharacterData->index;
+	return EVC_ADVANCE_CONTINUE;
+}
+*/
