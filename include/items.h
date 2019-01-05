@@ -262,14 +262,14 @@ enum {
   ITEM_NIGHTMARE     = 0xA6,
 };
 
-char* GetItemNameWithArticle(int item, u8 capitalize);
-s8 GetItemHPBonus(int item);
-s8 GetItemPowBonus(int item);
-s8 GetItemSklBonus(int item);
-s8 GetItemSpdBonus(int item);
-s8 GetItemDefBonus(int item);
-s8 GetItemResBonus(int item);
-s8 GetItemLckBonus(int item);
+char* GetItemNameWithArticle(int item, s8 capitalize);
+int GetItemHPBonus(int item);
+int GetItemPowBonus(int item);
+int GetItemSklBonus(int item);
+int GetItemSpdBonus(int item);
+int GetItemDefBonus(int item);
+int GetItemResBonus(int item);
+int GetItemLckBonus(int item);
 int MakeItemShort(int item);
 
 #endif // GUARD_ITEMS_H

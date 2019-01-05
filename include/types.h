@@ -329,19 +329,18 @@ struct UnknownStructCTC
     const void *unkC;
 };
 
-
 typedef u16 Item;
 
 struct ItemStatBonuses {
-    u8 HPBonus;
-    u8 PowBonus;
-    u8 SklBonus;
-    u8 SpdBonus;
-    u8 DefBonus;
-    u8 ResBonus;
-    u8 LckBonus;
-    u8 ConBonus;
-    u8 MovBonus;
+    s8 hpBonus;
+    s8 powBonus;
+    s8 sklBonus;
+    s8 spdBonus;
+    s8 defBonus;
+    s8 resBonus;
+    s8 lckBonus;
+    s8 conBonus;
+    s8 movBonus;
 };
 
 struct ItemData {
