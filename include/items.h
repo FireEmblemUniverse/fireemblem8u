@@ -5,7 +5,7 @@
 
 enum _IAttributes {
   IA_NONE           = 0x00000000,
-  
+
   IA_WEAPON         = 0x00000001,
   IA_MAGIC          = 0x00000002,
   IA_STAFF          = 0x00000004,
@@ -39,9 +39,9 @@ enum _IAttributes {
   //                = 0x40000000,
   //                = 0x80000000,
 
-  IA_DUMMY
+  // Helpers
+  IA_LOCK_ANY = (IA_LOCK_0 | IA_LOCK_1 | IA_LOCK_2 | IA_LOCK_3 | IA_LOCK_4 | IA_LOCK_5 | IA_LOCK_6 | IA_LOCK_7 | IA_UNUSABLE)
 };
-
 
 #define IronSword 0x01
 #define SlimSword 0x02
@@ -238,6 +238,29 @@ enum _IAttributes {
 #define Item200G 0xB9
 #define BlackGem 0xBA
 #define GoldGem 0xBB
+
+// TODO: complete, remove above, move elsewhere, maybe generate?
+enum {
+  ITEM_STAFF_HEAL    = 0x4B,
+  ITEM_STAFF_MEND    = 0x4C,
+  ITEM_STAFF_RECOVER = 0x4D,
+  ITEM_STAFF_PHYSIC  = 0x4E,
+  ITEM_STAFF_FORTIFY = 0x4F,
+
+  ITEM_LOCKPICK      = 0x6B,
+  ITEM_VULNERARY     = 0x6C,
+  ITEM_ELIXIR        = 0x6D,
+
+  ITEM_HOPLON_SHIELD = 0x7C,
+  ITEM_FILLAS_MIGHT  = 0x7D,
+  ITEM_NINISS_GRACE  = 0x7E,
+  ITEM_THORS_IRE     = 0x7F,
+  ITEM_SETS_LITANY   = 0x80,
+
+  ITEM_VULNERARY_2   = 0xA2, // TODO: figure out what this really is
+
+  ITEM_NIGHTMARE     = 0xA6,
+};
 
 char* GetItemNameWithArticle(int item, u8 capitalize);
 s8 GetItemHPBonus(int item);

@@ -901,7 +901,6 @@ extern short gSinLookup[]; // gSinTable; needs to be non-const to match?
 // extern ??? gUnknown_080D7964
 // extern ??? gUnknown_080D79D8
 // extern ??? gUnknown_080D79E0
-// extern ??? gUnknown_080D79E8
 // extern ??? gUnknown_080D7A10
 // extern ??? gUnknown_080D7A30
 // extern ??? gUnknown_080D7A38

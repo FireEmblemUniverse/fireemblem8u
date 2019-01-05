@@ -571,7 +571,8 @@ enum {
     CA_LOCK_6 = 0x40000000,
     CA_LOCK_7 = 0x80000000,
 
-    CA_DUMMY
+    // Helpers
+    CA_REFRESHER = CA_DANCE | CA_PLAY,
 };
 
 struct Unit {
