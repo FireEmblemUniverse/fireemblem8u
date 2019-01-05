@@ -93,7 +93,7 @@ void Text_Draw(struct TextHandle* th, u16* dest);
 // ??? GetStringTextCenteredPos(???);
 // ??? sub_8003FAC(???);
 char *String_GetEnd(char *);
-void Text_AppendString(struct TextHandle *th, char* str);
+void Text_AppendString(struct TextHandle *th, const char* str);
 // ??? Text_AppendDecNumber(???);
 // ??? sub_80040C0(???);
 // ??? Text_AppendNumberOr2Dashes(???);

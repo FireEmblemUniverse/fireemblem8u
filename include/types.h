@@ -364,8 +364,7 @@ struct ItemData {
     u8  weight; //17
     u8  crit; //18
 
-    u8 maxRange : 4; //19
-    u8 minRange : 4; //19
+    u8 encodedRange; //19
 
     u16 costPerUse; //1a
     u8  weaponRank; //1c
