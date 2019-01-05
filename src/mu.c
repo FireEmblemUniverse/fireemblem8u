@@ -1,8 +1,9 @@
 #include "global.h"
 
+#include "constants/items.h"
+
 #include "proc.h"
 #include "ap.h"
-#include "items.h"
 #include "m4a.h"
 #include "soundwrapper.h"
 #include "hardware.h"
@@ -602,15 +603,15 @@ struct MUProc* MU_Create(struct Unit* pUnit) {
 
         switch (blst->data[TRAP_EXTDATA_BLST_ITEMID]) {
 
-        case Ballista:
+        case ITEM_BALLISTA_REGULAR:
             classIndex = 0x67;
             break;
 
-        case IronBallista:
+        case ITEM_BALLISTA_LONG:
             classIndex = 0x68;
             break;
 
-        case KillerBallista:
+        case ITEM_BALLISTA_KILLER:
             classIndex = 0x69;
             break;
 

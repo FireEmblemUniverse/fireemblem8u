@@ -1,10 +1,12 @@
 #include "global.h"
 
+#include "constants/items.h"
+
 #include "fontgrp.h"
 #include "icon.h"
 #include "chapterdata.h"
 
-#include "items.h"
+#include "bmitem.h"
 
 #define ITEM_INDEX(aItem) ((aItem) & 0xFF)
 #define ITEM_USES(aItem) ((aItem) >> 8)
@@ -112,33 +114,36 @@ static inline int GetChapterUnk1C(int arg) {
 char* GetItemNameWithArticle(int item, s8 capitalize) {
     switch (GetItemIndex(item)) {
 
-    // TODO: use better constants
-    case Fimbulvetr:
-    case Excalibur:
-    case Fenrir:
-    case Gleipnir:
-    case Gold:
-    case Reginleif:
-    case Sieglinde:
-    case Ivaldi:
-    case MetissTome:
-    case Latona:
-    case Vidofnir:
-    case Naglfar:
-    case Audhulma:
-    case Siegmund:
-    case Garm:
-    case Nidhogg:
-    case Item1G:
-    case Item5G:
-    case Item10G:
-    case Item50G:
-    case Item100G:
-    case Item3000G:
-    case Item5000G:
-    case Alacalibur:
-    case Item150G:
-    case Item200G:
+    case ITEM_LANCE_REGINLEIF:
+    case ITEM_ANIMA_FIMBULVETR:
+    case ITEM_ANIMA_AIRCALIBUR:
+    case ITEM_DARK_FENRIR:
+
+    case ITEM_SWORD_SIEGLINDE:
+    case ITEM_LANCE_SIEGMUND:
+    case ITEM_DARK_NAGLFAR:
+
+    case ITEM_SWORD_AUDHULMA:
+    case ITEM_LANCE_VIDOFNIR:
+    case ITEM_AXE_GARM:
+    case ITEM_BOW_NIDHOGG:
+    case ITEM_ANIMA_EXCALIBUR:
+    case ITEM_LIGHT_IVALDI:
+    case ITEM_DARK_GLEIPNIR:
+    case ITEM_STAFF_LATONA:
+
+    case ITEM_GOLD:
+    case ITEM_METISSTOME:
+
+    case ITEM_1G:
+    case ITEM_5G:
+    case ITEM_10G:
+    case ITEM_50G:
+    case ITEM_100G:
+    case ITEM_150G:
+    case ITEM_200G:
+    case ITEM_3000G:
+    case ITEM_5000G:
         // no article
         return GetItemNameString(item);
 
@@ -147,7 +152,7 @@ char* GetItemNameWithArticle(int item, s8 capitalize) {
         const char* article;
 
         // check for article
-        if (GetItemIndex(item) == JunaFruit)
+        if (GetItemIndex(item) == ITEM_JUNAFRUIT)
             article = (capitalize == TRUE) ? "Some " : "some ";
         else
             article = NULL;
