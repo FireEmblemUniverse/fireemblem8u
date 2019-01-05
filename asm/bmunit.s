@@ -1551,6 +1551,8 @@ GetROMItemStructPtr: @ 0x080177B0
 	.align 2, 0
 _080177C0: .4byte gItemData
 
+	@ bm-item / bm-unit split here!
+
 	THUMB_FUNC_START ClearUnits
 ClearUnits: @ 0x080177C4
 	push {r4, r5, r6, r7, lr}

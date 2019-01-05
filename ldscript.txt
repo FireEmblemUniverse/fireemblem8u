@@ -197,6 +197,9 @@ SECTIONS
         . = ALIGN(4); data/face_rodata.o(.rodata);
         . = ALIGN(4); src/messdecode.o(.rodata);
         . = ALIGN(4); data/const_data_D792C.o(.rodata);
+        . = ALIGN(4); data/bmitem_rodata.o(.rodata);
+        . = ALIGN(4); data/bmunit_rodata.o(.rodata);
+        . = ALIGN(4); data/const_data_D7A6C.o(.rodata);
         . = ALIGN(4); src/bmio.o(.rodata);
         . = ALIGN(4); data/const_data_D7F5C.o(.rodata);
         . = ALIGN(4); data/text.o(.rodata);
