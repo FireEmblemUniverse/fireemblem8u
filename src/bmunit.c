@@ -6,6 +6,29 @@
 
 #include "bmitem.h"
 
+// TODO: move elsewhere?
+struct UnitDefinition {
+	/* 00 */ u8  charIndex;
+	/* 01 */ u8  classIndex;
+	/* 02 */ u8  leaderCharIndex;
+
+	/* 03 */ u8  autolevel  : 1;
+	/* 03 */ u8  allegiance : 2;
+	/* 03 */ u8  level      : 5;
+
+	/* 04 */ u16 xPosition : 6; /* 04:0 to 04:5 */
+	/* 04 */ u16 yPosition : 6; /* 04:6 to 05:3 */
+	/* 05 */ u16 unk       : 2; /* 05:4 to 05:5 */
+	/* 05 */ u16 sumFlag   : 1; /* 05:6 */
+	/* 05 */ u16 extraData : 9; /* 05:7 to 06:7 */
+	/* 07 */ u16 redaCount : 8;
+
+	const void* redas;
+
+	u8  items[4];
+	u8  ai[4];
+};
+
 int GetPlayerLeaderUnitId(void);
 
 extern struct Unit* gUnknown_0859A5D0[]; // unit lookup
@@ -73,12 +96,12 @@ struct Unit* GetNextFreeUnitStructPtr(int faction) {
 	return NULL;
 }
 
-#if NONMATCHING
-
-struct Unit* GetNextFreePlayerUnitStruct(const u8* unk) {
+struct Unit* GetNextFreePlayerUnitStruct(struct UnitDefinition* uDef) {
 	int i, max = 0x40;
 
-	GetPlayerLeaderUnitId() + *unk; // ??
+	// This is ?? and is completely useless but it's required to produce matching asm
+	if (uDef->charIndex == GetPlayerLeaderUnitId())
+		++i;
 
 	for (i = 1; i < max; ++i) {
 		struct Unit* unit = GetUnit(i);
@@ -89,49 +112,6 @@ struct Unit* GetNextFreePlayerUnitStruct(const u8* unk) {
 
 	return NULL;
 }
-
-#else // NONMATCHING
-
-__attribute__((naked))
-struct Unit* GetNextFreePlayerUnitStruct(const u8* unk) {
-	asm(
-		".syntax unified\n"
-
-		"push {r4, r5, lr}\n"
-		"movs r5, #0x40\n"
-		"ldrb r4, [r0]\n" // ???????????????????
-		"bl GetPlayerLeaderUnitId\n"
-		"movs r2, #1\n"
-		"ldr r4, _08017894  @ gUnknown_0859A5D0\n"
-		"movs r3, #0xff\n"
-	"_08017880:\n"
-		"adds r0, r2, #0\n"
-		"ands r0, r3\n"
-		"lsls r0, r0, #2\n"
-		"adds r0, r0, r4\n"
-		"ldr r1, [r0]\n"
-		"ldr r0, [r1]\n"
-		"cmp r0, #0\n"
-		"bne _08017898\n"
-		"adds r0, r1, #0\n"
-		"b _080178A0\n"
-		".align 2, 0\n"
-	"_08017894: .4byte gUnknown_0859A5D0\n"
-	"_08017898:\n"
-		"adds r2, #1\n"
-		"cmp r2, r5\n"
-		"blt _08017880\n"
-		"movs r0, #0\n"
-	"_080178A0:\n"
-		"pop {r4, r5}\n"
-		"pop {r1}\n"
-		"bx r1\n"
-
-		".syntax divided\n"
-	);
-}
-
-#endif // !NONMATCHING
 
 int GetUnitFogViewRange(struct Unit* unit) {
 	int result = gUnknown_0202BCF0.chapterVisionRange;
