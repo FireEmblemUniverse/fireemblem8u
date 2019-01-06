@@ -577,7 +577,7 @@ char* String_GetEnd(char* str)
     return str;
 }
 
-void Text_AppendString(struct TextHandle *th, char *str)
+void Text_AppendString(struct TextHandle *th, const char* str)
 {
     struct Glyph *glyph;
     char byte1;
@@ -906,7 +906,7 @@ void Text_InsertNumberOr2Dashes(struct TextHandle *th, int x, int colorId, int n
     Text_AppendNumberOr2Dashes(th, n);
 }
 
-void Text_AppendStringASCII(struct TextHandle *th, const char *str)
+void Text_AppendStringASCII(struct TextHandle *th, const char* str)
 {
     while (*str != 0 && *str != CHAR_NEWLINE)
     {

@@ -127,7 +127,7 @@ AddBallista: @ 0x08037A04
 	movs r6, #0
 	strb r0, [r4, #3]
 	adds r0, r5, #0
-	bl MakeItemShort
+	bl MakeNewItem
 	bl GetItemUses
 	strb r0, [r4, #6]
 	strb r6, [r4, #5]

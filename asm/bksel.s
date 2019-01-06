@@ -188,7 +188,7 @@ sub_8036628: @ 0x08036628
 	mov r8, r0
 	adds r6, r1, #0
 	adds r0, r2, #0
-	bl GetItemNameString
+	bl GetItemName
 	adds r4, r0, #0
 	movs r0, #0x38
 	adds r1, r4, #0
@@ -304,7 +304,7 @@ _08036718:
 	ldr r6, _08036814  @ gUnknown_0203A56C
 	adds r0, r4, #0
 	adds r1, r6, #0
-	bl IsSlayerApplied
+	bl IsUnitEffectiveAgainst
 	lsls r0, r0, #0x18
 	cmp r0, #0
 	beq _08036732
@@ -317,7 +317,7 @@ _08036732:
 	adds r0, #0x4a
 	ldrh r0, [r0]
 	adds r1, r6, #0
-	bl IsWeaponEffective
+	bl IsItemEffectiveAgainst
 	lsls r0, r0, #0x18
 	cmp r0, #0
 	beq _0803674C
@@ -385,7 +385,7 @@ _080367B8:
 	ldr r5, _08036810  @ gUnknown_0203A4EC
 	adds r0, r4, #0
 	adds r1, r5, #0
-	bl IsSlayerApplied
+	bl IsUnitEffectiveAgainst
 	lsls r0, r0, #0x18
 	cmp r0, #0
 	beq _080367CE
@@ -396,7 +396,7 @@ _080367CE:
 	adds r0, #0x4a
 	ldrh r0, [r0]
 	adds r1, r5, #0
-	bl IsWeaponEffective
+	bl IsItemEffectiveAgainst
 	lsls r0, r0, #0x18
 	cmp r0, #0
 	beq _080367E4

@@ -254,7 +254,7 @@ sub_801FBAC: @ 0x0801FBAC
 	movs r1, #2
 	bl Text_SetColorId
 	adds r0, r7, #0
-	bl GetItemNameString
+	bl GetItemName
 	adds r1, r0, #0
 	add r0, sp, #4
 	bl Text_AppendString

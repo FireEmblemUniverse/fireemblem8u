@@ -136,17 +136,16 @@ struct Struct0202BCB0 // Game State Struct
     /* 3C */ u8 unk3C;
 };
 
-struct Struct0202BCF0 // Chapter Data Struct
-{
+struct Struct0202BCF0 { // Chapter Data Struct
     /* 00 */ u32 unk0; // a time value
     /* 04 */ u32 unk4; // a time value
 
     /* 08 */ u32 partyGoldAmount;
     /* 0C */ u8  gameSaveSlot;
-    
+
     /* 0D */ u8  chapterVisionRange; // 0 means no fog
     /* 0E */ s8  chapterIndex;
-    
+
     /* 0F */ u8  chapterPhaseIndex; // 0x00 = Player phase, 0x40 = NPC phase, 0x80 = Enemy phase (0xC0 = link arena 4th team?)
 
     /* 10 */ u16 chapterTurnNumber;
@@ -157,10 +156,14 @@ struct Struct0202BCF0 // Chapter Data Struct
     /* 15 */ u8  chapterWeatherId;
     /* 16 */ u16 chapterTotalSupportGain;
 
-    /* 18 */ u8  _pad18[0x1B - 0x18]; // unknown yet
+    /* 18 */ u8 playthroughIdentifier;
+    /* 19 */ u8 unk19;
+    /* 1A */ u8 lastUnitSortType;
 
     /* 1B */ u8  chapterModeIndex; // 1 for tutorial (ch0-8), 2 for Eirika route, 3 for Ephraim route
 
+    // character identifiers indexed by weapon type.
+    // has to do with allowing unusable weapons to be used
     /* 1C */ u8  unk1C[4];
 
     /* 20 */ char playerName[0x40 - 0x20]; // unused outside of link arena (was tactician name in FE7); Size unknown
@@ -329,19 +332,16 @@ struct UnknownStructCTC
     const void *unkC;
 };
 
-
-typedef u16 Item;
-
 struct ItemStatBonuses {
-    u8 HPBonus;
-    u8 PowBonus;
-    u8 SklBonus;
-    u8 SpdBonus;
-    u8 DefBonus;
-    u8 ResBonus;
-    u8 LckBonus;
-    u8 ConBonus;
-    u8 MovBonus;
+    s8 hpBonus;
+    s8 powBonus;
+    s8 sklBonus;
+    s8 spdBonus;
+    s8 defBonus;
+    s8 resBonus;
+    s8 lckBonus;
+    s8 conBonus;
+    s8 movBonus;
 };
 
 struct ItemData {
@@ -364,8 +364,7 @@ struct ItemData {
     u8  weight; //17
     u8  crit; //18
 
-    u8 maxRange : 4; //19
-    u8 minRange : 4; //19
+    u8 encodedRange; //19
 
     u16 costPerUse; //1a
     u8  weaponRank; //1c
@@ -531,6 +530,7 @@ enum StatusEffect {
 
     UNIT_STATUS_POISON = 1,
     UNIT_STATUS_SLEEP = 2,
+    UNIT_STATUS_SILENCED = 3,
     UNIT_STATUS_BERSERK = 4,
 
     UNIT_STATUS__DUMMY
@@ -571,7 +571,8 @@ enum {
     CA_LOCK_6 = 0x40000000,
     CA_LOCK_7 = 0x80000000,
 
-    CA_DUMMY
+    // Helpers
+    CA_REFRESHER = CA_DANCE | CA_PLAY,
 };
 
 struct Unit {
@@ -752,7 +753,13 @@ struct MMSData {
     const void* pAnimation;
 };
 
-// TODO: move elsewhere/possibly generate from class table
-#define CLASS_PHANTOM 0x51
+// TODO: move to bmcontainer.h
+enum { CONVOY_ITEM_COUNT = 100 };
 
-#endif  // GUARD_TYPES_H
+// TODO: move to bmunit.h
+enum { UNIT_ITEM_COUNT = 5 };
+
+// TODO: move elsewhere/possibly generate from class table
+enum { CLASS_PHANTOM = 0x51 };
+
+#endif // GUARD_TYPES_H

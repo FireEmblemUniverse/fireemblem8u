@@ -518,12 +518,12 @@ LoadArenaWeapons: @ 0x08031B70
 	ldrb r0, [r4, #0xd]
 	add r0, sp
 	ldrb r0, [r0]
-	bl MakeItemShort
+	bl MakeNewItem
 	strh r0, [r4, #0x1a]
 	ldrb r0, [r4, #0xe]
 	add r0, sp
 	ldrb r0, [r0]
-	bl MakeItemShort
+	bl MakeNewItem
 	strh r0, [r4, #0x1c]
 	movs r0, #1
 	strb r0, [r4, #0xc]
@@ -572,7 +572,7 @@ _08031BDC:
 	ldrb r0, [r4]
 	cmp r0, #0
 	beq _08031BFC
-	bl MakeItemShort
+	bl MakeNewItem
 	lsls r0, r0, #0x10
 	lsrs r0, r0, #0x10
 	b _08031C08
@@ -1057,7 +1057,7 @@ sub_8031F74: @ 0x08031F74
 	bl memcpy
 	ldrh r1, [r4]
 	adds r0, r5, #0
-	bl CanUnitUseAsWeapon
+	bl CanUnitUseWeapon
 	lsls r0, r0, #0x18
 	cmp r0, #0
 	bne _08031FBE
@@ -1073,7 +1073,7 @@ _08031F98:
 	mov r2, sp
 	adds r0, r2, r1
 	ldrb r0, [r0]
-	bl MakeItemShort
+	bl MakeNewItem
 	strh r0, [r4]
 	b _08031FBE
 	.align 2, 0

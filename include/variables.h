@@ -901,7 +901,6 @@ extern short gSinLookup[]; // gSinTable; needs to be non-const to match?
 // extern ??? gUnknown_080D7964
 // extern ??? gUnknown_080D79D8
 // extern ??? gUnknown_080D79E0
-// extern ??? gUnknown_080D79E8
 // extern ??? gUnknown_080D7A10
 // extern ??? gUnknown_080D7A30
 // extern ??? gUnknown_080D7A38
@@ -3059,9 +3058,9 @@ extern const struct ItemData gItemData[];
 // extern ??? gUnknown_0880D22F
 // extern ??? gUnknown_0880D374
 // extern ??? gUnknown_088ACBC4
-// extern ??? gUnknown_088ADEF1
-// extern ??? gUnknown_088ADF2A
-// extern ??? gUnknown_088ADF39
+extern const u8 gUnknown_088ADEF1[]; // Some bow effectiveness list
+extern const u8 gUnknown_088ADF2A[]; // Some bow effectiveness list
+extern const u8 gUnknown_088ADF39[]; // Slayer effectiveness list
 // extern ??? gUnknown_088ADF57
 // extern ??? gUnknown_088ADF5E
 // extern ??? gUnknown_088ADF64

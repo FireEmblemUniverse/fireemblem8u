@@ -45,6 +45,16 @@ struct TextBatch
     u8 unk4;
 };
 
+enum {
+    // TODO: maybe use names that also reflect meaning for dialogue colors (this is ui colors)
+
+    TEXT_COLOR_NORMAL = 0,
+    TEXT_COLOR_GRAY   = 1,
+    TEXT_COLOR_BLUE   = 2,
+    TEXT_COLOR_GOLD   = 3,
+    TEXT_COLOR_GREEN  = 4,
+    TEXT_COLOR_BLACK  = 5,
+};
 
 extern char gUnknown_02028E44[9];
 
@@ -81,19 +91,19 @@ void Text_Clear(struct TextHandle *a);
 // ??? sub_8003E00(???);
 // ??? sub_8003E40(???);
 // ??? Text_GetXCursor(???);
-// ??? Text_SetXCursor(???);
+void Text_SetXCursor(struct TextHandle *th, int x);
 // ??? Text_Advance(???);
-// ??? Text_SetColorId(???);
-// ??? Text_GetColorId(???);
-// ??? Text_SetParameters(???);
-// ??? Text_Draw(???);
+void Text_SetColorId(struct TextHandle *th, int colorId);
+int Text_GetColorId(struct TextHandle *th);
+void Text_SetParameters(struct TextHandle* th, int x, int colorId);
+void Text_Draw(struct TextHandle* th, u16* dest);
 // ??? Text_DrawBlank(???);
 // ??? GetStringTextWidth(???);
 // ??? GetCharTextWidth(???);
 // ??? GetStringTextCenteredPos(???);
 // ??? sub_8003FAC(???);
 char *String_GetEnd(char *);
-// ??? Text_AppendString(???);
+void Text_AppendString(struct TextHandle *th, const char* str);
 // ??? Text_AppendDecNumber(???);
 // ??? sub_80040C0(???);
 // ??? Text_AppendNumberOr2Dashes(???);
@@ -131,10 +141,10 @@ void sub_8004700(struct TextHandle *, struct Glyph *);
 // ??? sub_8004A34(???);
 // ??? sub_8004A90(???);
 // ??? sub_8004ACC(???);
-// ??? sub_8004B0C(???);
+void sub_8004B0C(u16 *a, int b, int c);
 // ??? sub_8004B48(???);
 // ??? sub_8004B88(???);
-// ??? DrawDecNumber(???);
+void DrawDecNumber(u16* a, int b, int c);
 // ??? sub_8004BB4(???);
 // ??? sub_8004BE4(???);
 // ??? sub_8004BF0(???);

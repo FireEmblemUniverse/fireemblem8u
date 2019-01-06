@@ -4387,7 +4387,7 @@ _08051FD8:
 	ldr r0, [r0]
 	adds r0, #0x4a
 	ldrh r0, [r0]
-	bl GetItemNameString
+	bl GetItemName
 	adds r5, r0, #0
 _08051FE6:
 	ldr r4, _08052024  @ gUnknown_02017670
@@ -4463,7 +4463,7 @@ _08052098:
 	ldr r0, [r0]
 	adds r0, #0x4a
 	ldrh r0, [r0]
-	bl GetItemNameString
+	bl GetItemName
 	adds r5, r0, #0
 _080520A6:
 	ldr r4, _08052160  @ gUnknown_02017668
@@ -15488,7 +15488,7 @@ _08057930:
 	beq _08057944
 	mov r0, r9
 	mov r1, sl
-	bl IsSlayerApplied
+	bl IsUnitEffectiveAgainst
 	ldr r1, _08057A08  @ gUnknown_0203E1D8
 	lsls r0, r0, #0x18
 	asrs r0, r0, #0x18
@@ -15498,7 +15498,7 @@ _08057944:
 	beq _08057958
 	mov r0, sl
 	mov r1, r9
-	bl IsSlayerApplied
+	bl IsUnitEffectiveAgainst
 	ldr r1, _08057A08  @ gUnknown_0203E1D8
 	lsls r0, r0, #0x18
 	asrs r0, r0, #0x18
@@ -15514,7 +15514,7 @@ _08057958:
 	ldr r1, [sp, #0x2c]
 	ldrh r0, [r1]
 	mov r1, sl
-	bl IsWeaponEffective
+	bl IsItemEffectiveAgainst
 	lsls r0, r0, #0x18
 	asrs r0, r0, #0x18
 	strh r0, [r4]
@@ -15530,7 +15530,7 @@ _08057976:
 	ldr r5, [sp, #0x30]
 	ldrh r0, [r5]
 	mov r1, r9
-	bl IsWeaponEffective
+	bl IsItemEffectiveAgainst
 	lsls r0, r0, #0x18
 	asrs r0, r0, #0x18
 	strh r0, [r4, #2]
@@ -15931,7 +15931,7 @@ sub_8057CAC: @ 0x08057CAC
 	cmp r4, #0
 	beq _08057CE2
 	mov r0, r8
-	bl GetItemWType
+	bl GetItemType
 	cmp r0, #9
 	bne _08057CEC
 	mov r0, r8
@@ -15952,7 +15952,7 @@ _08057CEC:
 	b _08057D00
 _08057CF6:
 	mov r0, r8
-	bl GetItemWType
+	bl GetItemType
 	lsls r0, r0, #0x10
 	lsrs r3, r0, #0x10
 _08057D00:
@@ -17393,7 +17393,7 @@ GetBattleAnimationId: @ 0x08058848
 	cmp r4, #0
 	beq _0805887C
 	mov r0, r8
-	bl GetItemWType
+	bl GetItemType
 	cmp r0, #9
 	bne _08058884
 	mov r0, r8
@@ -17414,7 +17414,7 @@ _08058884:
 	b _08058898
 _0805888E:
 	mov r0, r8
-	bl GetItemWType
+	bl GetItemType
 	lsls r0, r0, #0x10
 	lsrs r2, r0, #0x10
 _08058898:
@@ -73291,7 +73291,7 @@ _08074FFC: .4byte gUnknown_0203E18C
 _08075000: .4byte gUnknown_0203E194
 _08075004:
 	adds r0, r4, #0
-	bl GetItemWType
+	bl GetItemType
 _0807500A:
 	cmp r0, #1
 	beq _08075014
@@ -73348,7 +73348,7 @@ _08075054:
 _08075068: .4byte gUnknown_0203E194
 _0807506C:
 	adds r0, r4, #0
-	bl GetItemWType
+	bl GetItemType
 _08075072:
 	cmp r0, #1
 	beq _0807507C
@@ -73412,7 +73412,7 @@ _080750D4:
 _080750E8: .4byte gUnknown_0203E194
 _080750EC:
 	adds r0, r4, #0
-	bl GetItemWType
+	bl GetItemType
 	cmp r0, #0
 	beq _08075100
 _080750F6:
@@ -73451,7 +73451,7 @@ _0807511C:
 _08075130: .4byte gUnknown_0203E194
 _08075134:
 	adds r0, r4, #0
-	bl GetItemWType
+	bl GetItemType
 	cmp r0, #0
 	beq _08075146
 _0807513E:
@@ -75061,7 +75061,7 @@ _08075E3E:
 	movs r1, #0x12
 	bl LoadIconPalette
 	mov r0, sl
-	bl GetItemWType
+	bl GetItemType
 	adds r0, #0x70
 	movs r1, #0x40
 	bl LoadIconObjectGraphics

@@ -3384,13 +3384,13 @@ _0803C0A6:
 _0803C0AE:
 	adds r0, r5, #0
 	adds r1, r4, #0
-	bl CanUnitUseAsWeapon
+	bl CanUnitUseWeapon
 	lsls r0, r0, #0x18
 	cmp r0, #0
 	bne _0803C0CA
 	adds r0, r5, #0
 	adds r1, r4, #0
-	bl CanUnitUseAsStaff
+	bl CanUnitUseStaff
 	lsls r0, r0, #0x18
 	cmp r0, #0
 	beq _0803C0F0
@@ -3890,7 +3890,7 @@ _0803C452:
 	beq _0803C482
 	adds r0, r6, #0
 	adds r1, r4, #0
-	bl CanUnitUseAsStaff
+	bl CanUnitUseStaff
 	lsls r0, r0, #0x18
 	cmp r0, #0
 	beq _0803C482
@@ -5387,7 +5387,7 @@ _0803CFF2:
 	ldr r0, _0803D0F8  @ gUnknown_03004E50
 	ldr r0, [r0]
 	mov r1, r8
-	bl CanUnitUseAsWeapon
+	bl CanUnitUseWeapon
 	lsls r0, r0, #0x18
 	ldr r1, [sp, #8]
 	adds r1, #1
@@ -6094,7 +6094,7 @@ _0803D572:
 	mov r3, r9
 	ldr r0, [r3]
 	adds r1, r5, #0
-	bl CanUnitUseAsWeapon
+	bl CanUnitUseWeapon
 	adds r1, r0, #0
 	lsls r1, r1, #0x18
 	cmp r1, #0
@@ -6316,7 +6316,7 @@ _0803D734:
 	mov r3, sl
 	ldr r0, [r3]
 	adds r1, r5, #0
-	bl CanUnitUseAsWeapon
+	bl CanUnitUseWeapon
 	adds r1, r0, #0
 	lsls r1, r1, #0x18
 	cmp r1, #0
@@ -7903,7 +7903,7 @@ _0803E332:
 _0803E36C:
 	adds r0, r6, #0
 	adds r1, r4, #0
-	bl CanUnitUseAsWeapon
+	bl CanUnitUseWeapon
 	lsls r0, r0, #0x18
 	cmp r0, #0
 	beq _0803E392
@@ -8704,13 +8704,13 @@ _0803E96E:
 	ldr r4, _0803EA08  @ gUnknown_03004E50
 	ldr r0, [r4]
 	adds r1, r5, #0
-	bl CanUnitUseAsWeapon
+	bl CanUnitUseWeapon
 	lsls r0, r0, #0x18
 	cmp r0, #0
 	bne _0803E9B0
 	ldr r0, [r4]
 	adds r1, r5, #0
-	bl CanUnitUseAsStaff
+	bl CanUnitUseStaff
 	adds r1, r0, #0
 	lsls r1, r1, #0x18
 	cmp r1, #0
@@ -9000,7 +9000,7 @@ _0803EBCE:
 	ldr r0, _0803EBEC  @ gUnknown_03004E50
 	ldr r0, [r0]
 	adds r1, r5, #0
-	bl EquipUnitItemByIndex
+	bl EquipUnitItemSlot
 _0803EBE4:
 	pop {r4, r5, r6, r7}
 	pop {r0}
@@ -10832,7 +10832,7 @@ sub_803F9D8: @ 0x0803F9D8
 	ldr r0, _0803F9F4  @ gUnknown_03004E50
 	ldr r0, [r0]
 	adds r1, r4, #0
-	bl CanUnitUseAsStaff
+	bl CanUnitUseStaff
 	lsls r0, r0, #0x18
 	cmp r0, #0
 	bne _0803F9FC
@@ -10910,7 +10910,7 @@ _0803FA68:
 	cmp r1, #0
 	beq _0803FAB4
 	adds r0, r4, #0
-	bl GetItemWRank
+	bl GetItemRequiredExp
 	cmp r0, r6
 	blt _0803FAB4
 	adds r0, r4, #0
@@ -10933,7 +10933,7 @@ _0803FA68:
 	cmp r0, #0
 	beq _0803FAB4
 	adds r0, r4, #0
-	bl GetItemWRank
+	bl GetItemRequiredExp
 	lsls r0, r0, #0x18
 	lsrs r6, r0, #0x18
 _0803FAB4:
@@ -11954,13 +11954,13 @@ _080402AE:
 	beq _080402F0
 	adds r0, r5, #0
 	adds r1, r4, #0
-	bl CanUnitUseAsWeapon
+	bl CanUnitUseWeapon
 	lsls r0, r0, #0x18
 	cmp r0, #0
 	bne _080402E8
 	adds r0, r5, #0
 	adds r1, r4, #0
-	bl CanUnitUseAsStaff
+	bl CanUnitUseStaff
 	lsls r0, r0, #0x18
 	cmp r0, #0
 	beq _080402F0
@@ -12677,7 +12677,7 @@ _0804085C:
 	ldr r6, _080408C8  @ gUnknown_080D86F8
 _08040874:
 	adds r0, r4, #0
-	bl GetItemWType
+	bl GetItemType
 	cmp r0, #0
 	beq _0804089A
 	adds r0, r4, #0

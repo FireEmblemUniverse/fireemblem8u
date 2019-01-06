@@ -3779,7 +3779,7 @@ _0807C3F0:
 	adds r0, r0, r6
 	movs r2, #0x10
 	ldrsh r0, [r0, r2]
-	bl GetItemNameString
+	bl GetItemName
 	adds r3, r0, #0
 	ldr r0, [r4]
 	adds r0, r0, r5

@@ -2,6 +2,7 @@
 
 #include "proc.h"
 #include "bmio.h"
+#include "bmitem.h"
 
 const char *gUnknown_08591AA4[][2] =
 {
@@ -130,7 +131,7 @@ char *sub_800A2A4(void)
                 CopyString(r4, GetTacticianName());
                 goto label;
             case 0x22:
-                CopyString(r4, GetItemNameString(gUnknown_0203A958.unk6));
+                CopyString(r4, GetItemName(gUnknown_0203A958.unk6));
                 goto label;
             default:
                 *r4++ = 0x80;
@@ -190,7 +191,7 @@ void *FilterSomeTextFromStandardBuffer(void)
 }
 #else
 __attribute__((naked))
-void *FilterSomeTextFromStandardBuffer(void)
+char *FilterSomeTextFromStandardBuffer(void)
 {
     asm(".syntax unified\n\
     push {r4, r5, lr}\n\

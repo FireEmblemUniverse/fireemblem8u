@@ -721,7 +721,7 @@ _08034CD8:
 	adds r0, r5, #0
 	bl Text_Clear
 	adds r0, r4, #0
-	bl GetItemNameString
+	bl GetItemName
 	adds r1, r0, #0
 	adds r0, r5, #0
 	bl Text_AppendString
@@ -826,7 +826,7 @@ _08034DC4:
 	adds r0, r7, #0
 	bl Text_SetColorId
 	adds r0, r6, #0
-	bl GetItemNameString
+	bl GetItemName
 	adds r1, r0, #0
 	adds r0, r7, #0
 	bl Text_AppendString
@@ -953,7 +953,7 @@ _08034EC8:
 	adds r1, r5, #0
 	bl Text_SetColorId
 	adds r0, r6, #0
-	bl GetItemNameString
+	bl GetItemName
 	adds r1, r0, #0
 	adds r0, r7, #0
 	bl Text_AppendString

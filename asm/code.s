@@ -844,8 +844,8 @@ _08089C3C: .4byte 0x000003FF
 sub_8089C40: @ 0x08089C40
 	push {r4, lr}
 	ldr r4, _08089CC0  @ gUnknown_0203E7AC
-	bl GetItemWType
-	bl GetWTypeTextInStandardBuffer
+	bl GetItemType
+	bl GetWeaponTypeDisplayString
 	adds r3, r0, #0
 	adds r0, r4, #0
 	movs r1, #0
@@ -904,14 +904,14 @@ sub_8089CD4: @ 0x08089CD4
 	push {r4, r5, lr}
 	adds r5, r0, #0
 	ldr r4, _08089D4C  @ gUnknown_0203E7AC
-	bl GetWRankTextBuffer
+	bl GetItemDisplayRankString
 	adds r3, r0, #0
 	adds r0, r4, #0
 	movs r1, #0x20
 	movs r2, #7
 	bl Text_InsertString
 	adds r0, r5, #0
-	bl sub_8016CC0
+	bl GetItemDisplayRangeString
 	adds r3, r0, #0
 	adds r0, r4, #0
 	movs r1, #0x43
@@ -965,7 +965,7 @@ sub_8089D50: @ 0x08089D50
 	movs r2, #8
 	bl Text_InsertString
 	adds r0, r5, #0
-	bl GetWRankTextBuffer
+	bl GetItemDisplayRankString
 	adds r3, r0, #0
 	adds r0, r4, #0
 	movs r1, #0x1e
@@ -980,7 +980,7 @@ sub_8089D50: @ 0x08089D50
 	movs r2, #8
 	bl Text_InsertString
 	adds r0, r5, #0
-	bl sub_8016CC0
+	bl GetItemDisplayRangeString
 	adds r3, r0, #0
 	adds r0, r4, #0
 	movs r1, #0x46
@@ -17638,7 +17638,7 @@ _080924BC:
 	bl GetUnitEquippedWeapon
 	lsls r0, r0, #0x10
 	lsrs r0, r0, #0x10
-	bl GetItemNameString
+	bl GetItemName
 	adds r1, r7, #0
 	adds r1, #0x22
 	movs r6, #0
@@ -18017,7 +18017,7 @@ _080927E8:
 	bl GetUnitEquippedWeapon
 	lsls r0, r0, #0x10
 	lsrs r0, r0, #0x10
-	bl GetItemNameString
+	bl GetItemName
 	adds r5, r0, #0
 	ldr r1, [sp, #0x50]
 	ldr r2, [sp, #0x2c]
@@ -18270,7 +18270,7 @@ _080929F4:
 	adds r0, #0x28
 	adds r0, r0, r6
 	ldrb r0, [r0]
-	bl GetWeaponRankLevel
+	bl GetWeaponLevelFromExp
 	lsls r0, r0, #0x18
 	lsrs r4, r0, #0x18
 	lsls r0, r6, #2
@@ -29219,7 +29219,7 @@ _08097DDC: .4byte gUnknown_08A188A8
 sub_8097DE0: @ 0x08097DE0
 	push {r4, lr}
 	adds r4, r1, #0
-	bl CanUnitUseAsWeapon
+	bl CanUnitUseWeapon
 	lsls r0, r0, #0x18
 	cmp r0, #0
 	beq _08097E00
@@ -29522,7 +29522,7 @@ sub_8098014: @ 0x08098014
 	ldr r4, _08098034  @ gUnknown_08A188C0
 _0809801C:
 	adds r0, r6, #0
-	bl GetItemWType
+	bl GetItemType
 	ldrb r1, [r4]
 	cmp r0, r1
 	blt _08098038
@@ -29576,7 +29576,7 @@ _08098078:
 	adds r5, r0, r1
 	ldrh r0, [r5, #2]
 	str r2, [sp]
-	bl GetItemWType
+	bl GetItemType
 	lsls r0, r0, #0x18
 	lsrs r0, r0, #0x18
 	ldr r2, [sp]
@@ -29615,7 +29615,7 @@ _080980C4:
 	lsls r0, r4, #2
 	adds r5, r0, r1
 	ldrh r0, [r5, #2]
-	bl GetItemWType
+	bl GetItemType
 	lsls r0, r0, #0x18
 	lsrs r0, r0, #0x18
 	ldrb r3, [r6]
@@ -33367,7 +33367,7 @@ _08099FCE:
 _08099FEE:
 	mov r0, r8
 	adds r1, r5, #0
-	bl IsItemUsable
+	bl IsItemDisplayUsable
 _08099FF6:
 	movs r7, #0
 	lsls r0, r0, #0x18
@@ -33389,7 +33389,7 @@ _0809A000:
 	movs r1, #0
 	bl Text_SetXCursor
 	adds r0, r5, #0
-	bl GetItemNameString
+	bl GetItemName
 	adds r1, r0, #0
 	adds r0, r6, #0
 	bl Text_AppendString
@@ -34666,7 +34666,7 @@ _0809AA38:
 	bl Text_Clear
 	adds r0, r7, #0
 	adds r1, r4, #0
-	bl IsItemUsable
+	bl IsItemDisplayUsable
 	movs r6, #0
 	lsls r0, r0, #0x18
 	cmp r0, #0
@@ -34674,7 +34674,7 @@ _0809AA38:
 	movs r6, #1
 _0809AA76:
 	adds r0, r4, #0
-	bl GetItemNameString
+	bl GetItemName
 	ldr r1, _0809AAEC  @ gUnknown_02022CAA
 	adds r1, #4
 	ldr r2, [sp, #0xc]
@@ -34688,7 +34688,7 @@ _0809AA76:
 	bl DrawTextInline
 	adds r0, r7, #0
 	adds r1, r4, #0
-	bl IsItemUsable
+	bl IsItemDisplayUsable
 	lsls r0, r0, #0x18
 	movs r5, #1
 	cmp r0, #0
@@ -36361,14 +36361,14 @@ _0809B786:
 _0809B7A2:
 	mov r0, sl
 	adds r1, r6, #0
-	bl IsItemUsable
+	bl IsItemDisplayUsable
 _0809B7AA:
 	lsls r0, r0, #0x18
 	lsrs r4, r0, #0x18
 	mov r0, r9
 	bl Text_Clear
 	adds r0, r6, #0
-	bl GetItemNameString
+	bl GetItemName
 	adds r1, r0, #0
 	movs r2, #0
 	lsls r0, r4, #0x18
@@ -39681,7 +39681,7 @@ _0809D362:
 	ldrh r7, [r0, #2]
 	ldr r0, [sp, #8]
 	adds r1, r7, #0
-	bl IsItemUsable
+	bl IsItemDisplayUsable
 	movs r1, #0
 	mov r9, r1
 	lsls r0, r0, #0x18
@@ -39693,7 +39693,7 @@ _0809D38C:
 	mov r0, r8
 	bl Text_Clear
 	adds r0, r7, #0
-	bl GetItemNameString
+	bl GetItemName
 	adds r3, r0, #0
 	mov r0, r8
 	movs r1, #0
@@ -39829,7 +39829,7 @@ sub_809D47C: @ 0x0809D47C
 	ldrh r6, [r0, #2]
 	adds r0, r3, #0
 	adds r1, r6, #0
-	bl IsItemUsable
+	bl IsItemDisplayUsable
 	movs r1, #0
 	mov r8, r1
 	lsls r0, r0, #0x18
@@ -39848,7 +39848,7 @@ _0809D4BC:
 	adds r0, r7, #0
 	bl Text_Clear
 	adds r0, r6, #0
-	bl GetItemNameString
+	bl GetItemName
 	adds r3, r0, #0
 	adds r0, r7, #0
 	movs r1, #0
@@ -52705,7 +52705,7 @@ sub_80A3B48: @ 0x080A3B48
 	ands r0, r1
 	orrs r0, r5
 	strb r0, [r7, #2]
-	bl sub_8017450
+	bl GetPartyTotalGoldValue
 	movs r2, #7
 	ands r2, r0
 	lsls r2, r2, #5
@@ -53512,7 +53512,7 @@ sub_80A41C8: @ 0x080A41C8
 	ldr r1, _080A4218  @ 0xFFF00000
 	ands r0, r1
 	str r0, [r4, #0x34]
-	bl sub_8017450
+	bl GetPartyTotalGoldValue
 	str r0, [r4, #0x30]
 	add sp, #4
 	pop {r4, r5}
@@ -79245,7 +79245,7 @@ _080B0940: .4byte gUnknown_08A21590
 _080B0944: .4byte gBG2TilemapBuffer
 _080B0948:
 	mov r0, r8
-	bl GetItemNameString
+	bl GetItemName
 	ldr r1, _080B0998  @ gBG2TilemapBuffer
 	adds r1, #4
 	adds r1, r4, r1
@@ -79282,7 +79282,7 @@ _080B0972:
 _080B0998: .4byte gBG2TilemapBuffer
 _080B099C:
 	mov r0, r8
-	bl GetItemNameString
+	bl GetItemName
 	ldr r1, _080B0A18  @ gBG2TilemapBuffer
 	adds r1, #4
 	adds r1, r4, r1
@@ -80346,7 +80346,7 @@ _080B1238:
 	cmp r2, r0
 	bne _080B1260
 	adds r0, r7, #0
-	bl MakeItemShort
+	bl MakeNewItem
 	bl AddItemToConvoy
 	b _080B1278
 _080B1260:
@@ -80356,7 +80356,7 @@ _080B1260:
 	adds r0, r0, r1
 	ldr r4, [r0, #4]
 	adds r0, r7, #0
-	bl MakeItemShort
+	bl MakeNewItem
 	adds r1, r0, #0
 	adds r0, r4, #0
 	bl UnitAddItem
@@ -80598,7 +80598,7 @@ sub_80B13BC: @ 0x080B13BC
 	movs r1, #0
 	bl Text_SetXCursor
 	ldr r0, [sp, #0x2c]
-	bl GetItemNameString
+	bl GetItemName
 	adds r7, r0, #0
 	ldr r0, _080B1514  @ 0x00000883
 	add r1, sp, #0xc
@@ -86346,7 +86346,7 @@ _080B4284:
 _080B428A:
 	ldrh r0, [r5]
 	adds r5, #2
-	bl MakeItemShort
+	bl MakeNewItem
 	strh r0, [r4]
 	adds r4, #2
 	subs r6, #1
@@ -88190,7 +88190,7 @@ sub_80B5164: @ 0x080B5164
 _080B5184:
 	adds r0, r4, #0
 	adds r1, r5, #0
-	bl IsItemUsable
+	bl IsItemDisplayUsable
 	lsls r0, r0, #0x18
 	lsrs r0, r0, #0x18
 _080B5190:
@@ -88199,7 +88199,7 @@ _080B5190:
 	mov r0, r8
 	adds r1, r5, #0
 	adds r3, r6, #0
-	bl DrawItemMenuCommand
+	bl DrawItemMenuLine
 	adds r4, r6, #0
 	adds r4, #0x22
 	bl GetPartyGoldAmount
@@ -88224,14 +88224,14 @@ sub_80B51C0: @ 0x080B51C0
 	adds r5, r1, #0
 	adds r0, r2, #0
 	adds r4, r3, #0
-	bl IsItemUsable
+	bl IsItemDisplayUsable
 	adds r2, r0, #0
 	lsls r2, r2, #0x18
 	asrs r2, r2, #0x18
 	adds r0, r6, #0
 	adds r1, r5, #0
 	adds r3, r4, #0
-	bl DrawItemMenuCommand
+	bl DrawItemMenuLine
 	adds r0, r5, #0
 	bl sub_80B527C
 	lsls r0, r0, #0x18
@@ -89610,7 +89610,7 @@ sub_80B5C48: @ 0x080B5C48
 	bl sub_801443C
 	adds r4, #0x8e
 	ldrh r0, [r5, #0x1c]
-	bl GetItemNameString
+	bl GetItemName
 	adds r2, r0, #0
 	adds r0, r4, #0
 	movs r1, #0
@@ -90021,7 +90021,7 @@ sub_80B5FD0: @ 0x080B5FD0
 	mov r7, r9
 	mov r6, r8
 	push {r6, r7}
-	bl sub_8017450
+	bl GetPartyTotalGoldValue
 	mov r8, r0
 	movs r6, #0
 	bl GetNextChapterWinDataEntryIndex
@@ -90431,7 +90431,7 @@ sub_80B62D8: @ 0x080B62D8
 	THUMB_FUNC_START sub_80B62DC
 sub_80B62DC: @ 0x080B62DC
 	push {r4, r5, r6, lr}
-	bl sub_8017450
+	bl GetPartyTotalGoldValue
 	ldr r1, _080B6324  @ gUnknown_0202BCF0
 	ldr r5, [r1, #0x30]
 	subs r5, r0, r5
@@ -137106,7 +137106,7 @@ sub_80CD570: @ 0x080CD570
 	bl GetROMClassStruct
 	ldr r5, [r0, #0x34]
 	adds r0, r6, #0
-	bl GetItemWType
+	bl GetItemType
 	movs r1, #0x80
 	lsls r1, r1, #1
 	adds r0, r0, r1
@@ -137163,13 +137163,13 @@ _080CD5E8:
 	cmp r6, #0
 	beq _080CD60C
 	adds r0, r6, #0
-	bl GetItemWRank
+	bl GetItemRequiredExp
 	adds r4, r0, #0
 	adds r0, r7, #0
 	bl GetROMClassStruct
 	adds r5, r0, #0
 	adds r0, r6, #0
-	bl GetItemWType
+	bl GetItemType
 	adds r5, #0x2c
 	adds r5, r5, r0
 	ldrb r5, [r5]

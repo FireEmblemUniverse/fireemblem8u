@@ -377,7 +377,7 @@ _0801E7E0:
 	movs r5, #8
 _0801E7E4:
 	adds r0, r4, #0
-	bl GetItemWType
+	bl GetItemType
 	cmp r0, #9
 	beq _0801E800
 	cmp r0, #9
@@ -507,7 +507,7 @@ _0801E8E6:
 	mov sl, r1
 	ldrh r1, [r1]
 	mov r0, r9
-	bl CanUnitUseAsWeapon
+	bl CanUnitUseWeapon
 	lsls r0, r0, #0x18
 	movs r2, #1
 	mov r9, r2
@@ -629,7 +629,7 @@ _0801E906:
 	adds r4, #0x50
 	mov r1, sl
 	ldrh r0, [r1]
-	bl GetItemWType
+	bl GetItemType
 	adds r1, r0, #0
 	adds r1, #0x70
 	ldr r0, [sp, #8]

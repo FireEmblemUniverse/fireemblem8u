@@ -293,7 +293,7 @@ _0802D4F8:
 	mov r1, r9
 	ldr r0, [r1]
 	adds r1, r5, #0
-	bl IsItemUsable
+	bl IsItemDisplayUsable
 	adds r2, r0, #0
 	lsls r2, r2, #0x18
 	asrs r2, r2, #0x18
@@ -314,7 +314,7 @@ _0802D4F8:
 	adds r3, r3, r0
 	adds r0, r6, #0
 	adds r1, r5, #0
-	bl DrawItemMenuCommand
+	bl DrawItemMenuLine
 _0802D54E:
 	adds r7, #1
 	cmp r7, #4

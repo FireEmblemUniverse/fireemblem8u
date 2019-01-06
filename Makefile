@@ -33,6 +33,8 @@ src/agb_sram.o: CC1FLAGS := -mthumb-interwork -Wimplicit -Wparentheses -Werror -
 src/m4a_2.o: CC1 := tools/agbcc/bin/old_agbcc
 src/m4a_4.o: CC1 := tools/agbcc/bin/old_agbcc
 
+# TODO: find a more elegant solution to the inlining issue
+src/bmitem.o: CC1FLAGS += -Wno-error
 
 #### Main Targets ####
 

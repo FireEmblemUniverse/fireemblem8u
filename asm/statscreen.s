@@ -847,7 +847,7 @@ _080874F4: .4byte gUnknown_02003BFC
 _080874F8:
 	ldr r0, [r7, #0xc]
 	adds r1, r5, #0
-	bl IsItemUsable
+	bl IsItemDisplayUsable
 	movs r2, #0
 	lsls r0, r0, #0x18
 	cmp r0, #0
@@ -860,7 +860,7 @@ _0808750A:
 	ldr r3, _080875DC  @ gUnknown_02003D2E
 	adds r3, r6, r3
 	adds r1, r5, #0
-	bl sub_8016A2C
+	bl DrawItemStatScreenLine
 	movs r0, #2
 	add r8, r0
 	adds r6, #0x80
@@ -987,7 +987,7 @@ _080875F8:
 	movs r5, #0
 _08087630:
 	adds r0, r5, #0
-	bl sub_8016CC0
+	bl GetItemDisplayRangeString
 	adds r5, r0, #0
 	ldr r4, _08087684  @ gUnknown_02003CB4
 	bl GetStringTextWidth
@@ -1185,7 +1185,7 @@ _080877C4:
 	lsls r4, r4, #1
 	add r4, r8
 	adds r0, r5, #0
-	bl GetWRankText
+	bl GetDisplayRankStringFromExp
 	adds r2, r0, #0
 	adds r0, r4, #0
 	adds r1, r7, #0
@@ -1193,7 +1193,7 @@ _080877C4:
 	add r2, sp, #0x10
 	adds r0, r5, #0
 	add r1, sp, #0xc
-	bl GetWRankBarData
+	bl GetWeaponExpProgressState
 	mov r0, r9
 	lsls r5, r0, #1
 	add r5, r9

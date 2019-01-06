@@ -1,8 +1,9 @@
 #include "global.h"
 
+#include "constants/items.h"
+
 #include "proc.h"
 #include "ap.h"
-#include "items.h"
 #include "m4a.h"
 #include "soundwrapper.h"
 #include "hardware.h"
@@ -16,10 +17,9 @@
 */
 
 // TODO: move this elsewhere
-// I can't move this to functions.h because signatures contain types that would be not defined
+// I can't move this to functions.h because signature contain types that would be not defined
 // So we'll have to wait for the corresponding files to be decompiled/get a header
 void sub_8013928(const u16*, int, int, struct Proc* proc);
-int GetSpellAssocFacing(Item item);
 
 struct MUStepSoundProc {
     PROC_HEADER;
@@ -602,15 +602,15 @@ struct MUProc* MU_Create(struct Unit* pUnit) {
 
         switch (blst->data[TRAP_EXTDATA_BLST_ITEMID]) {
 
-        case Ballista:
+        case ITEM_BALLISTA_REGULAR:
             classIndex = 0x67;
             break;
 
-        case IronBallista:
+        case ITEM_BALLISTA_LONG:
             classIndex = 0x68;
             break;
 
-        case KillerBallista:
+        case ITEM_BALLISTA_KILLER:
             classIndex = 0x69;
             break;
 

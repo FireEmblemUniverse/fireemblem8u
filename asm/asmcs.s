@@ -4154,14 +4154,14 @@ _08086640:
 _08086660: .4byte gUnknown_0202BCF0
 _08086664:
 	movs r0, #0x16
-	bl MakeItemShort
+	bl MakeNewItem
 	adds r1, r0, #0
 	adds r0, r6, #0
 	bl UnitAddItem
 	b _08086682
 _08086674:
 	movs r0, #3
-	bl MakeItemShort
+	bl MakeNewItem
 	adds r1, r0, #0
 	adds r0, r6, #0
 	bl UnitAddItem

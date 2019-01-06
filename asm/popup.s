@@ -280,7 +280,7 @@ _08011014: .4byte gUnknown_030005F0
 _08011018:
 	ldr r0, _08011028  @ gUnknown_030005F4
 	ldrh r0, [r0]
-	bl GetItemNameString
+	bl GetItemName
 	bl GetStringTextWidth
 	b _08011056
 	.align 2, 0
@@ -398,7 +398,7 @@ _08011110:
 	add r4, sp, #0x10
 	ldr r0, _0801111C  @ gUnknown_030005F4
 	ldrh r0, [r0]
-	bl GetItemNameString
+	bl GetItemName
 	b _0801113C
 	.align 2, 0
 _0801111C: .4byte gUnknown_030005F4
@@ -950,7 +950,7 @@ ItemGot_GotLeItem: @ 0x08011538
 	adds r4, r0, #0
 	ldr r5, [r4, #0x54]
 	ldr r0, [r4, #0x58]
-	bl MakeItemShort
+	bl MakeNewItem
 	adds r1, r0, #0
 	adds r0, r5, #0
 	adds r2, r4, #0
