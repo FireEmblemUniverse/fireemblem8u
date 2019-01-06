@@ -1020,7 +1020,7 @@ _08011FA8:
 	str r0, [r1, #0x18]
 _08011FAC:
 	ldrh r0, [r7, #0x1e]
-	bl GetItemWType
+	bl GetItemType
 	cmp r0, #4
 	beq _08011FBA
 	cmp r6, #0
@@ -1067,7 +1067,7 @@ _08011FE2:
 	cmp r6, #0
 	beq _080120BE
 	adds r0, r6, #0
-	bl GetItemWType
+	bl GetItemType
 	cmp r0, #7
 	bgt _08012038
 	cmp r0, #5
@@ -1101,7 +1101,7 @@ _08012050:
 	ldrh r1, [r7, #0x1e]
 	strh r1, [r0]
 	adds r0, r6, #0
-	bl MakeItemShort
+	bl MakeNewItem
 	strh r0, [r7, #0x1e]
 	mov r0, r9
 	cmp r0, #0
@@ -1118,13 +1118,13 @@ _08012074:
 	bl sub_8011EDC
 _0801207C:
 	adds r0, r6, #0
-	bl MakeItemShort
+	bl MakeNewItem
 	ldr r4, _08012098  @ gUnknown_0203A4EC
 	adds r1, r4, #0
 	adds r1, #0x48
 	strh r0, [r1]
 	adds r0, r6, #0
-	bl MakeItemShort
+	bl MakeNewItem
 	adds r4, #0x4a
 	strh r0, [r4]
 	movs r6, #0
@@ -1238,7 +1238,7 @@ _0801216C:
 	bl MU_Create
 	bl MU_SetDefaultFacing_Auto
 	ldrh r0, [r7, #0x1e]
-	bl GetItemWType
+	bl GetItemType
 	cmp r0, #4
 	beq _08012192
 	cmp r6, #0

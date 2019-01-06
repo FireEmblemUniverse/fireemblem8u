@@ -154,13 +154,13 @@ sub_8039898: @ 0x08039898
 _080398AE:
 	adds r0, r5, #0
 	adds r1, r4, #0
-	bl CanUnitUseAsWeapon
+	bl CanUnitUseWeapon
 	lsls r0, r0, #0x18
 	cmp r0, #0
 	bne _080398CA
 	adds r0, r5, #0
 	adds r1, r4, #0
-	bl CanUnitUseAsStaff
+	bl CanUnitUseStaff
 	lsls r0, r0, #0x18
 	cmp r0, #0
 	beq _08039902

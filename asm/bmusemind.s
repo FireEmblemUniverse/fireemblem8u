@@ -27,7 +27,7 @@ ExecStandardHeal: @ 0x0802EB98
 	adds r0, r0, r1
 	ldrh r1, [r0]
 	adds r0, r5, #0
-	bl GetItemHealAmount
+	bl GetUnitItemHealAmount
 	adds r5, r0, #0
 	ldrb r0, [r4, #0xd]
 	bl GetUnitStruct
@@ -715,7 +715,7 @@ ExecFortify: @ 0x0802F154
 	adds r0, r0, r1
 	ldrh r1, [r0]
 	adds r0, r5, #0
-	bl GetItemHealAmount
+	bl GetUnitItemHealAmount
 	adds r6, r0, #0
 	bl sub_804FD28
 	adds r5, r0, #0
@@ -867,7 +867,7 @@ ExecHammerne: @ 0x0802F2B4
 	adds r0, #0x1e
 	adds r0, r0, r1
 	ldrh r0, [r0]
-	bl MakeItemShort
+	bl MakeNewItem
 	ldrb r1, [r4, #0x15]
 	lsls r1, r1, #1
 	adds r5, #0x1e
@@ -1475,7 +1475,7 @@ sub_802F808: @ 0x0802F808
 	b _0802F90E
 _0802F83A:
 	adds r0, r6, #0
-	bl GetItemStatBonusesPtr
+	bl GetItemStatBonuses
 	ldrb r1, [r0]
 	ldrb r2, [r4, #0x12]
 	adds r1, r1, r2

@@ -281,7 +281,7 @@ _0803A0BA:
 	beq _0803A0E4
 	ldr r0, [r6]
 	ldrb r1, [r4, #7]
-	bl EquipUnitItemByIndex
+	bl EquipUnitItemSlot
 	movs r0, #0
 	b _0803A0E6
 	.align 2, 0
@@ -586,7 +586,7 @@ ApplyAICombat: @ 0x0803A308
 	strb r0, [r2, #0x11]
 	ldr r0, [r1]
 	ldrb r1, [r3, #7]
-	bl EquipUnitItemByIndex
+	bl EquipUnitItemSlot
 	strb r5, [r4, #0x12]
 	adds r0, r6, #0
 	bl ApplyUnitAction

@@ -367,7 +367,7 @@ _08037716:
 	adds r1, r4, #0
 	bl sub_801F9FC
 	movs r0, #0x7a
-	bl MakeItemShort
+	bl MakeNewItem
 	adds r1, r0, #0
 	adds r0, r5, #0
 	bl UnitAddItem

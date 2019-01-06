@@ -373,7 +373,7 @@ SetupBattleStructFromUnitAndWeapon: @ 0x0802A400
 	bl memcpy
 	asrs r1, r4, #0x18
 	mov r0, sp
-	bl EquipUnitItemByIndex
+	bl EquipUnitItemSlot
 	movs r6, #0
 	adds r0, r5, #0
 	mov r1, sp
@@ -894,7 +894,7 @@ _0802A84A:
 	bl GetItemAttributes
 	str r0, [r5, #0x4c]
 	ldrh r0, [r4]
-	bl GetItemWType
+	bl GetItemType
 	adds r6, r5, #0
 	adds r6, #0x50
 	strb r0, [r6]
@@ -1015,7 +1015,7 @@ SetupBattleBallistaWeaponData: @ 0x0802A918
 	bl GetItemAttributes
 	str r0, [r6, #0x4c]
 	ldrh r0, [r4]
-	bl GetItemWType
+	bl GetItemType
 	adds r1, r6, #0
 	adds r1, #0x50
 	strb r0, [r1]
@@ -1229,7 +1229,7 @@ BattleLoadAttack: @ 0x0802AABC
 	ldrh r5, [r4]
 	adds r0, r6, #0
 	mov r1, r8
-	bl IsSlayerApplied
+	bl IsUnitEffectiveAgainst
 	lsls r0, r0, #0x18
 	asrs r0, r0, #0x18
 	cmp r0, #1
@@ -1243,7 +1243,7 @@ BattleLoadAttack: @ 0x0802AABC
 _0802AB00:
 	ldrh r0, [r7]
 	mov r1, r8
-	bl IsWeaponEffective
+	bl IsItemEffectiveAgainst
 	lsls r0, r0, #0x18
 	asrs r0, r0, #0x18
 	cmp r0, #1
@@ -1581,7 +1581,7 @@ BattleApplySRankBonuses: @ 0x0802AD54
 	ldrh r0, [r1]
 	cmp r0, #0
 	beq _0802AD8A
-	bl GetItemWType
+	bl GetItemType
 	adds r1, r0, #0
 	cmp r1, #7
 	bgt _0802AD8A
@@ -3003,7 +3003,7 @@ _0802B80E:
 	adds r4, r5, #0
 	adds r4, #0x48
 	ldrh r0, [r4]
-	bl ValidateItem
+	bl GetItemAfterUse
 	strh r0, [r4]
 	lsls r0, r0, #0x10
 	cmp r0, #0
@@ -4227,7 +4227,7 @@ _0802C124:
 	adds r0, r7, #0
 	adds r0, #0x48
 	ldrh r0, [r0]
-	bl GetItemWExp
+	bl GetItemAwardedExp
 	adds r1, r7, #0
 	adds r1, #0x7b
 	ldrb r1, [r1]
@@ -4309,10 +4309,10 @@ BattleUnit_DidWRankGoUp: @ 0x0802C1B0
 	cmp r5, #0
 	blt _0802C1E4
 	adds r0, r4, #0
-	bl GetWeaponRankLevel
+	bl GetWeaponLevelFromExp
 	adds r4, r0, #0
 	adds r0, r5, #0
-	bl GetWeaponRankLevel
+	bl GetWeaponLevelFromExp
 	adds r1, r0, #0
 	eors r1, r4
 	negs r0, r1
@@ -5035,7 +5035,7 @@ sub_802C6EC: @ 0x0802C6EC
 _0802C718:
 	ldrh r1, [r4]
 	adds r0, r5, #0
-	bl CanUnitUseAsStaff
+	bl CanUnitUseStaff
 	lsls r0, r0, #0x18
 	asrs r0, r0, #0x18
 	cmp r0, #1
@@ -5615,7 +5615,7 @@ _0802CB38:
 	adds r0, #7
 	strb r7, [r0]
 	adds r0, r6, #0
-	bl GetItemWType
+	bl GetItemType
 	adds r1, r5, #0
 	adds r1, #0x50
 	strb r0, [r1]
@@ -5750,7 +5750,7 @@ sub_802CC54: @ 0x0802CC54
 	strb r0, [r1]
 _0802CC9A:
 	ldrh r0, [r5]
-	bl ValidateItem
+	bl GetItemAfterUse
 	strh r0, [r5]
 	adds r1, r4, #0
 	adds r1, #0x51

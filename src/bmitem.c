@@ -55,7 +55,7 @@ char* GetItemNameWithArticle(int item, s8 capitalize) {
     case ITEM_3000G:
     case ITEM_5000G:
         // no article
-        return GetItemNameString(item);
+        return GetItemName(item);
 
     default: {
         char* result;
@@ -67,7 +67,7 @@ char* GetItemNameWithArticle(int item, s8 capitalize) {
         else
             article = NULL;
 
-        result = GetItemNameString(item);
+        result = GetItemName(item);
         PrependArticleToString(result, article, capitalize);
 
         return result;
@@ -76,7 +76,7 @@ char* GetItemNameWithArticle(int item, s8 capitalize) {
     } // switch (GetItemIndex(item))
 }
 
-inline const struct ItemData* GetROMItemStructPtr(int itemIndex) {
+inline const struct ItemData* GetItemData(int itemIndex) {
 	return gItemData + itemIndex;
 }
 
@@ -84,32 +84,32 @@ inline int GetItemIndex(int item) {
 	return ITEM_INDEX(item);
 }
 
-inline char* GetItemNameString(int item) {
+inline char* GetItemName(int item) {
 	char* result;
 
-	result = GetStringFromIndex(GetROMItemStructPtr(ITEM_INDEX(item))->nameTextId);
+	result = GetStringFromIndex(GetItemData(ITEM_INDEX(item))->nameTextId);
 	result = FilterSomeTextFromStandardBuffer();
 
 	return result;
 }
 
 inline int GetItemDescId(int item) {
-	return GetROMItemStructPtr(ITEM_INDEX(item))->descTextId;
+	return GetItemData(ITEM_INDEX(item))->descTextId;
 }
 
 inline int GetItemUseDescId(int item) {
-	return GetROMItemStructPtr(ITEM_INDEX(item))->useDescTextId;
+	return GetItemData(ITEM_INDEX(item))->useDescTextId;
 }
 
-inline int GetItemWType(int item) {
+inline int GetItemType(int item) {
 	if (!item)
 		return 0xFF;
 
-	return GetROMItemStructPtr(ITEM_INDEX(item))->weaponType;
+	return GetItemData(ITEM_INDEX(item))->weaponType;
 }
 
 inline int GetItemAttributes(int item) {
-	return GetROMItemStructPtr(ITEM_INDEX(item))->attributes;
+	return GetItemData(ITEM_INDEX(item))->attributes;
 }
 
 inline int GetItemUses(int item) {
@@ -123,88 +123,88 @@ inline int GetItemMaxUses(int item) {
 	if (GetItemAttributes(item) & IA_UNBREAKABLE)
 		return 0xFF;
 	else
-		return GetROMItemStructPtr(ITEM_INDEX(item))->maxUses;
+		return GetItemData(ITEM_INDEX(item))->maxUses;
 }
 
 inline int GetItemMight(int item) {
-	return GetROMItemStructPtr(ITEM_INDEX(item))->might;
+	return GetItemData(ITEM_INDEX(item))->might;
 }
 
 inline int GetItemHit(int item) {
-	return GetROMItemStructPtr(ITEM_INDEX(item))->hit;
+	return GetItemData(ITEM_INDEX(item))->hit;
 }
 
 inline int GetItemWeight(int item) {
-	return GetROMItemStructPtr(ITEM_INDEX(item))->weight;
+	return GetItemData(ITEM_INDEX(item))->weight;
 }
 
 inline int GetItemCrit(int item) {
-	return GetROMItemStructPtr(ITEM_INDEX(item))->crit;
+	return GetItemData(ITEM_INDEX(item))->crit;
 }
 
 inline int GetItemCost(int item) {
 	if (GetItemAttributes(item) & IA_UNBREAKABLE)
-		return GetROMItemStructPtr(ITEM_INDEX(item))->costPerUse;
+		return GetItemData(ITEM_INDEX(item))->costPerUse;
 	else
-		return GetROMItemStructPtr(ITEM_INDEX(item))->costPerUse * GetItemUses(item);
+		return GetItemData(ITEM_INDEX(item))->costPerUse * GetItemUses(item);
 }
 
 inline int GetItemMinRange(int item) {
-	return GetROMItemStructPtr(ITEM_INDEX(item))->encodedRange >> 4;
+	return GetItemData(ITEM_INDEX(item))->encodedRange >> 4;
 }
 
 inline int GetItemMaxRange(int item) {
-	return GetROMItemStructPtr(ITEM_INDEX(item))->encodedRange & 0xF;
+	return GetItemData(ITEM_INDEX(item))->encodedRange & 0xF;
 }
 
-inline int GetItemRange(int item) {
-	return GetROMItemStructPtr(ITEM_INDEX(item))->encodedRange;
+inline int GetItemEncodedRange(int item) {
+	return GetItemData(ITEM_INDEX(item))->encodedRange;
 }
 
-inline int GetItemWRank(int item) {
-	return GetROMItemStructPtr(ITEM_INDEX(item))->weaponRank;
+inline int GetItemRequiredExp(int item) {
+	return GetItemData(ITEM_INDEX(item))->weaponRank;
 }
 
-inline const u8* GetItemEffectivenessPtr(int item) {
-	return GetROMItemStructPtr(ITEM_INDEX(item))->pEffectiveness;
+inline const u8* GetItemEffectiveness(int item) {
+	return GetItemData(ITEM_INDEX(item))->pEffectiveness;
 }
 
-inline const struct ItemStatBonuses* GetItemStatBonusesPtr(int item) {
-	return GetROMItemStructPtr(ITEM_INDEX(item))->pStatBonuses;
+inline const struct ItemStatBonuses* GetItemStatBonuses(int item) {
+	return GetItemData(ITEM_INDEX(item))->pStatBonuses;
 }
 
 inline int GetItemIconId(int item) {
 	if (!item)
 		return -1;
 
-	return GetROMItemStructPtr(ITEM_INDEX(item))->iconId;
+	return GetItemData(ITEM_INDEX(item))->iconId;
 }
 
 inline int GetItemWeaponEffect(int item) {
-	return GetROMItemStructPtr(ITEM_INDEX(item))->weaponEffectId;
+	return GetItemData(ITEM_INDEX(item))->weaponEffectId;
 }
 
 inline int GetItemUseEffect(int item) {
-	return GetROMItemStructPtr(ITEM_INDEX(item))->useEffectId;
+	return GetItemData(ITEM_INDEX(item))->useEffectId;
 }
 
 inline int GetItemCostPerUse(int item) {
-	return GetROMItemStructPtr(ITEM_INDEX(item))->costPerUse;
+	return GetItemData(ITEM_INDEX(item))->costPerUse;
 }
 
 inline int GetItemMaxCost(int item) {
-	return GetROMItemStructPtr(ITEM_INDEX(item))->costPerUse * GetItemMaxUses(item);
+	return GetItemData(ITEM_INDEX(item))->costPerUse * GetItemMaxUses(item);
 }
 
-inline int GetItemWExp(int item) {
-	return GetROMItemStructPtr(ITEM_INDEX(item))->weaponExp;
+inline int GetItemAwardedExp(int item) {
+	return GetItemData(ITEM_INDEX(item))->weaponExp;
 }
 
-int GetItemHPBonus(int item) {
+int GetItemHpBonus(int item) {
     if (!item)
         return 0;
     else {
-        const struct ItemStatBonuses* statBonuses = GetItemStatBonusesPtr(item);
+        const struct ItemStatBonuses* statBonuses = GetItemStatBonuses(item);
 
         if (statBonuses)
             return statBonuses->hpBonus;
@@ -217,7 +217,7 @@ int GetItemPowBonus(int item) {
     if (!item)
         return 0;
     else {
-        const struct ItemStatBonuses* statBonuses = GetItemStatBonusesPtr(item);
+        const struct ItemStatBonuses* statBonuses = GetItemStatBonuses(item);
 
         if (statBonuses)
             return statBonuses->powBonus;
@@ -230,7 +230,7 @@ int GetItemSklBonus(int item) {
     if (!item)
         return 0;
     else {
-        const struct ItemStatBonuses* statBonuses = GetItemStatBonusesPtr(item);
+        const struct ItemStatBonuses* statBonuses = GetItemStatBonuses(item);
 
         if (statBonuses)
             return statBonuses->sklBonus;
@@ -243,7 +243,7 @@ int GetItemSpdBonus(int item) {
     if (!item)
         return 0;
     else {
-        const struct ItemStatBonuses* statBonuses = GetItemStatBonusesPtr(item);
+        const struct ItemStatBonuses* statBonuses = GetItemStatBonuses(item);
 
         if (statBonuses)
             return statBonuses->spdBonus;
@@ -256,7 +256,7 @@ int GetItemDefBonus(int item) {
     if (!item)
         return 0;
     else {
-        const struct ItemStatBonuses* statBonuses = GetItemStatBonusesPtr(item);
+        const struct ItemStatBonuses* statBonuses = GetItemStatBonuses(item);
 
         if (statBonuses)
             return statBonuses->defBonus;
@@ -269,7 +269,7 @@ int GetItemResBonus(int item) {
     if (!item)
         return 0;
     else {
-        const struct ItemStatBonuses* statBonuses = GetItemStatBonusesPtr(item);
+        const struct ItemStatBonuses* statBonuses = GetItemStatBonuses(item);
 
         if (statBonuses)
             return statBonuses->resBonus;
@@ -282,7 +282,7 @@ int GetItemLckBonus(int item) {
     if (!item)
         return 0;
     else {
-        const struct ItemStatBonuses* statBonuses = GetItemStatBonusesPtr(item);
+        const struct ItemStatBonuses* statBonuses = GetItemStatBonuses(item);
 
         if (statBonuses)
             return statBonuses->lckBonus;
@@ -291,7 +291,7 @@ int GetItemLckBonus(int item) {
     return 0;
 }
 
-int MakeItemShort(int item) {
+int MakeNewItem(int item) {
     int uses = GetItemMaxUses(item);
 
     if (GetItemAttributes(item) & IA_UNBREAKABLE)
@@ -300,7 +300,7 @@ int MakeItemShort(int item) {
     return (uses << 8) + GetItemIndex(item);
 }
 
-s8 CanUnitUseAsWeapon(struct Unit* unit, int item) {
+s8 CanUnitUseWeapon(struct Unit* unit, int item) {
 	if (item == 0)
 		return FALSE;
 
@@ -337,7 +337,7 @@ s8 CanUnitUseAsWeapon(struct Unit* unit, int item) {
 		}
 
 		if (GetItemAttributes(item) & IA_UNUSABLE)
-			if (!(sub_80174AC(unit, item)))
+			if (!(IsItemUnsealedForUnit(unit, item)))
 				return FALSE;
 	}
 
@@ -345,14 +345,14 @@ s8 CanUnitUseAsWeapon(struct Unit* unit, int item) {
 		return FALSE;
 
 	{
-		int wRank = GetItemWRank(item);
-		int uRank = (unit->ranks[GetItemWType(item)]);
+		int wRank = GetItemRequiredExp(item);
+		int uRank = (unit->ranks[GetItemType(item)]);
 
 		return (uRank >= wRank) ? TRUE : FALSE;
 	}
 }
 
-s8 CanUnitUseWeapon(struct Unit* unit, int item) {
+s8 CanUnitUseWeaponNow(struct Unit* unit, int item) {
 	if (item == 0)
 		return FALSE;
 
@@ -362,10 +362,10 @@ s8 CanUnitUseWeapon(struct Unit* unit, int item) {
 	if ((GetItemAttributes(item) & IA_MAGIC) && CanUnitNotUseMagic(unit))
 		return FALSE;
 
-	return CanUnitUseAsWeapon(unit, item);
+	return CanUnitUseWeapon(unit, item);
 }
 
-s8 CanUnitUseAsStaff(struct Unit* unit, int item) {
+s8 CanUnitUseStaff(struct Unit* unit, int item) {
 	if (item == 0)
 		return FALSE;
 
@@ -382,15 +382,15 @@ s8 CanUnitUseAsStaff(struct Unit* unit, int item) {
 		return FALSE;
 
 	{
-		int wRank = GetItemWRank(item);
-		int uRank = unit->ranks[GetItemWType(item)];
+		int wRank = GetItemRequiredExp(item);
+		int uRank = unit->ranks[GetItemType(item)];
 
 		return (uRank >= wRank) ? TRUE : FALSE;
 	}
 }
 
 // unused?
-s8 CanUnitUseStaff(struct Unit* unit, int item) {
+s8 CanUnitUseStaffNow(struct Unit* unit, int item) {
 	if (item == 0)
 		return FALSE;
 
@@ -400,14 +400,14 @@ s8 CanUnitUseStaff(struct Unit* unit, int item) {
 	if (CanUnitNotUseMagic(unit))
 		return FALSE;
 
-	return CanUnitUseAsStaff(unit, item);
+	return CanUnitUseStaff(unit, item);
 }
 
 // TODO: special character codes
 
-void DrawItemMenuCommand(struct TextHandle* text, int item, s8 isUsable, u16* mapOut) {
+void DrawItemMenuLine(struct TextHandle* text, int item, s8 isUsable, u16* mapOut) {
 	Text_SetParameters(text, 0, (isUsable ? TEXT_COLOR_NORMAL : TEXT_COLOR_GRAY));
-	Text_AppendString(text, GetItemNameString(item));
+	Text_AppendString(text, GetItemName(item));
 
 	Text_Draw(text, mapOut + 2);
 
@@ -416,9 +416,9 @@ void DrawItemMenuCommand(struct TextHandle* text, int item, s8 isUsable, u16* ma
 	DrawIcon(mapOut, GetItemIconId(item), 0x4000);
 }
 
-void sub_80168E0(struct TextHandle* text, int item, s8 isUsable, u16* mapOut) {
+void DrawItemMenuLineLong(struct TextHandle* text, int item, s8 isUsable, u16* mapOut) {
 	Text_SetParameters(text, 0, (isUsable ? TEXT_COLOR_NORMAL : TEXT_COLOR_GRAY));
-	Text_AppendString(text, GetItemNameString(item));
+	Text_AppendString(text, GetItemName(item));
 
 	Text_Draw(text, mapOut + 2);
 
@@ -429,9 +429,9 @@ void sub_80168E0(struct TextHandle* text, int item, s8 isUsable, u16* mapOut) {
 	DrawIcon(mapOut, GetItemIconId(item), 0x4000);
 }
 
-void DrawTextAndIconForItem(struct TextHandle* text, int item, u16* mapOut) {
+void DrawItemMenuLineNoColor(struct TextHandle* text, int item, u16* mapOut) {
 	Text_SetXCursor(text, 0);
-	Text_AppendString(text, GetItemNameString(item));
+	Text_AppendString(text, GetItemName(item));
 
 	Text_Draw(text, mapOut + 2);
 
@@ -440,7 +440,7 @@ void DrawTextAndIconForItem(struct TextHandle* text, int item, u16* mapOut) {
 	DrawIcon(mapOut, GetItemIconId(item), 0x4000);
 }
 
-void sub_8016A2C(struct TextHandle* text, int item, int nameColor, u16* mapOut) {
+void DrawItemStatScreenLine(struct TextHandle* text, int item, int nameColor, u16* mapOut) {
 	int color;
 
 	Text_Clear(text);
@@ -448,7 +448,7 @@ void sub_8016A2C(struct TextHandle* text, int item, int nameColor, u16* mapOut) 
 	color = nameColor;
 	Text_SetColorId(text, color);
 
-	Text_AppendString(text, GetItemNameString(item));
+	Text_AppendString(text, GetItemName(item));
 
 	color = (nameColor == TEXT_COLOR_GRAY) ? TEXT_COLOR_GRAY : TEXT_COLOR_NORMAL;
 	sub_8004B0C(mapOut + 12, color, 0x16);
@@ -462,7 +462,7 @@ void sub_8016A2C(struct TextHandle* text, int item, int nameColor, u16* mapOut) 
 	DrawIcon(mapOut, GetItemIconId(item), 0x4000);
 }
 
-u16 ValidateItem(int item) {
+u16 GetItemAfterUse(int item) {
 	if (GetItemAttributes(item) & IA_UNBREAKABLE)
 		return item; // unbreakable items don't loose uses!
 
@@ -478,7 +478,7 @@ int GetUnitEquippedWeapon(struct Unit* unit) {
 	int i;
 
 	for (i = 0; i < UNIT_ITEM_COUNT; ++i)
-		if (CanUnitUseAsWeapon(unit, unit->items[i]) == TRUE)
+		if (CanUnitUseWeapon(unit, unit->items[i]) == TRUE)
 			return unit->items[i];
 
 	return 0;
@@ -488,7 +488,7 @@ int GetUnitEquippedWeaponSlot(struct Unit* unit) {
 	int i;
 
 	for (i = 0; i < UNIT_ITEM_COUNT; ++i)
-		if (CanUnitUseWeapon(unit, unit->items[i]) == TRUE)
+		if (CanUnitUseWeaponNow(unit, unit->items[i]) == TRUE)
 			return i;
 
 	return -1;
@@ -504,7 +504,7 @@ s8 IsItemCoveringRange(int item, int range) {
 	return FALSE;
 }
 
-void EquipUnitItemByIndex(struct Unit* unit, int itemSlot) {
+void EquipUnitItemSlot(struct Unit* unit, int itemSlot) {
 	int item, i;
 
 	item = unit->items[itemSlot];
@@ -515,10 +515,10 @@ void EquipUnitItemByIndex(struct Unit* unit, int itemSlot) {
 	unit->items[0] = item;
 }
 
-s8 IsWeaponEffective(u16 item, struct Unit* unit) {
+s8 IsItemEffectiveAgainst(u16 item, struct Unit* unit) {
 	if (unit->pClassData) {
 		int classId = unit->pClassData->number;
-		const u8* effList = GetItemEffectivenessPtr(item);
+		const u8* effList = GetItemEffectiveness(item);
 
 		if (!effList)
 			return FALSE;
@@ -534,8 +534,8 @@ s8 IsWeaponEffective(u16 item, struct Unit* unit) {
 			u32 attributes;
 			int i;
 
-			if (GetItemEffectivenessPtr(item) != gUnknown_088ADF2A)
-				if (GetItemEffectivenessPtr(item) != gUnknown_088ADEF1)
+			if (GetItemEffectiveness(item) != gUnknown_088ADF2A)
+				if (GetItemEffectiveness(item) != gUnknown_088ADEF1)
 					return TRUE;
 
 			attributes = 0;
@@ -553,7 +553,7 @@ s8 IsWeaponEffective(u16 item, struct Unit* unit) {
 	return FALSE;
 }
 
-s8 IsSlayerApplied(struct Unit* actor, struct Unit* target) {
+s8 IsUnitEffectiveAgainst(struct Unit* actor, struct Unit* target) {
 	int actorClass = actor->pClassData->number;
 	int targetClass = target->pClassData->number;
 
@@ -573,7 +573,7 @@ s8 IsSlayerApplied(struct Unit* actor, struct Unit* target) {
 
 	for (; *effList; ++effList)
 		if (*effList == targetClass)
-			// NOTE: see note in IsWeaponEffective
+			// NOTE: see note in IsItemEffectiveAgainst
 			goto is_effective;
 
 	return FALSE;
@@ -582,14 +582,14 @@ s8 IsSlayerApplied(struct Unit* actor, struct Unit* target) {
 		return TRUE;
 }
 
-char* sub_8016CC0(int item) {
+char* GetItemDisplayRangeString(int item) {
 	int rangeTextIdLookup[10] = {
 		// TODO: TEXT ID CONSTANTS
 		0x522, 0x523, 0x524, 0x525, 0x526, // 0-Mag/2, 1, 1-2, 1-3, 2
 		0x527, 0x528, 0x529, 0x52A, 0x52B, // 2-3, 3-10, 3-15, Total, --
 	};
 
-	switch (GetItemRange(item)) {
+	switch (GetItemEncodedRange(item)) {
 
 	case 0x10: // 1-mag/2
 		return GetStringFromIndex(rangeTextIdLookup[0]);
@@ -621,10 +621,10 @@ char* sub_8016CC0(int item) {
 	default: // bad
 		return GetStringFromIndex(rangeTextIdLookup[9]);
 
-	} // switch (GetItemRange(item))
+	} // switch (GetItemEncodedRange(item))
 }
 
-int GetWeaponRankLevel(int wexp) {
+int GetWeaponLevelFromExp(int wexp) {
 	if (wexp < WPN_EXP_E)
 		return WPN_LEVEL_0;
 
@@ -646,7 +646,7 @@ int GetWeaponRankLevel(int wexp) {
 	return WPN_LEVEL_S;
 }
 
-char* GetWRankTextBuffer(int item) {
+char* GetItemDisplayRankString(int item) {
 	int rankTextIdLookup[] = {
 		// TODO: TEXT ID CONSTANTS
 		0x52C, 0x52D, 0x52E, 0x52F, // --, E, D, C
@@ -654,26 +654,26 @@ char* GetWRankTextBuffer(int item) {
 	};
 
 	// reuse of the same variable for different purposes :/
-	int var = GetItemWRank(item);
+	int var = GetItemRequiredExp(item);
 
-	if ((GetItemAttributes(item) & IA_LOCK_ANY) && GetWeaponRankLevel(var) == WPN_LEVEL_0)
+	if ((GetItemAttributes(item) & IA_LOCK_ANY) && GetWeaponLevelFromExp(var) == WPN_LEVEL_0)
 		var = 7;
 	else
-		var = GetWeaponRankLevel(var);
+		var = GetWeaponLevelFromExp(var);
 
 	return GetStringFromIndex(rankTextIdLookup[var]);
 }
 
-int GetWRankText(int item) {
+int GetDisplayRankStringFromExp(int wexp) {
 	u8 rankTextIdLookup[] = {
 		// TODO: TEXT ID CONSTANTS
 		0x14, 0x1D, 0x1C, 0x1B, 0x1A, 0x19, 0x18
 	};
 
-	return rankTextIdLookup[GetWeaponRankLevel(item)];
+	return rankTextIdLookup[GetWeaponLevelFromExp(wexp)];
 }
 
-char* GetWTypeTextInStandardBuffer(int wpnType) {
+char* GetWeaponTypeDisplayString(int wpnType) {
 	int wtypeTextIdLookup[] = {
 		// TODO: TEXT ID CONSTANTS
 		0x505, 0x506, 0x507, 0x508, // Sword, Lance, Axe, Box
@@ -684,8 +684,8 @@ char* GetWTypeTextInStandardBuffer(int wpnType) {
 	return GetStringFromIndex(wtypeTextIdLookup[wpnType]);
 }
 
-void GetWRankBarData(int wexp, int* outValue, int* outMax) {
-	switch (GetWeaponRankLevel(wexp)) {
+void GetWeaponExpProgressState(int wexp, int* outValue, int* outMax) {
+	switch (GetWeaponLevelFromExp(wexp)) {
 
 	case WPN_LEVEL_0:
 		*outValue = 0;
@@ -722,7 +722,7 @@ void GetWRankBarData(int wexp, int* outValue, int* outMax) {
 		*outMax = 0;
 		return;
 
-	} // switch (GetWeaponRankLevel(wexp))
+	} // switch (GetWeaponLevelFromExp(wexp))
 }
 
 s8 IsItemDanceRing(int item) {
@@ -741,12 +741,12 @@ s8 IsItemDanceRing(int item) {
 	} // switch (GetItemIndex(item))
 }
 
-s8 IsItemUsable(struct Unit* unit, int item) {
+s8 IsItemDisplayUsable(struct Unit* unit, int item) {
 	if (GetItemAttributes(item) & IA_WEAPON)
-		return CanUnitUseAsWeapon(unit, item);
+		return CanUnitUseWeapon(unit, item);
 
 	if (GetItemAttributes(item) & IA_STAFF)
-		return CanUnitUseAsStaff(unit, item);
+		return CanUnitUseStaff(unit, item);
 
 	if (GetItemUseEffect(item)) {
 		if (unit->statusIndex == UNIT_STATUS_SLEEP)
@@ -765,14 +765,14 @@ s8 IsItemUsable(struct Unit* unit, int item) {
 	return TRUE;
 }
 
-s8 CanUnitUse(struct Unit* unit, int item) {
+s8 CanUnitUse_unused(struct Unit* unit, int item) {
 	if (GetItemAttributes(item) & IA_WEAPON)
-		return CanUnitUseAsWeapon(unit, item);
+		return CanUnitUseWeapon(unit, item);
 	else
 		return CanUnitUseItem(unit, item);
 }
 
-int GetItemHealAmount(struct Unit* unit, int item) {
+int GetUnitItemHealAmount(struct Unit* unit, int item) {
 	int result = 0;
 
 	switch (GetItemIndex(item)) {
@@ -817,7 +817,7 @@ int GetUnitItemSlot(struct Unit* unit, int itemIndex) {
 }
 
 s8 IsItemStealable(int item) {
-	return (GetItemWType(item) == ITYPE_ITEM);
+	return (GetItemType(item) == ITYPE_ITEM);
 }
 
 s8 IsItemHammernable(int item) {
@@ -836,8 +836,8 @@ s8 IsItemHammernable(int item) {
 	return TRUE;
 }
 
-int GetWeaponRangeMask(int item) {
-	switch (GetItemRange(item)) {
+int GetItemReachBits(int item) {
+	switch (GetItemEncodedRange(item)) {
 
 	case 0x11:
 		return REACH_RANGE1;
@@ -869,23 +869,23 @@ int GetWeaponRangeMask(int item) {
 	default:
 		return REACH_NONE;
 
-	} // switch (GetItemRange(item))
+	} // switch (GetItemEncodedRange(item))
 }
 
-int GetUnitRangeMask(struct Unit* unit, int itemSlot) {
+int GetUnitWeaponReachBits(struct Unit* unit, int itemSlot) {
 	int i, item, result = 0;
 
 	if (itemSlot >= 0)
-		return GetWeaponRangeMask(unit->items[itemSlot]);
+		return GetItemReachBits(unit->items[itemSlot]);
 
 	for (i = 0; (i < UNIT_ITEM_COUNT) && (item = unit->items[i]); ++i)
-		if (CanUnitUseAsWeapon(unit, item))
-			result |= GetWeaponRangeMask(item);
+		if (CanUnitUseWeapon(unit, item))
+			result |= GetItemReachBits(item);
 
 	return result;
 }
 
-int GetUnitStaffRangeMask_0(struct Unit* unit, int itemSlot) {
+int GetUnitItemUseReachBits(struct Unit* unit, int itemSlot) {
 	int i, tmp, range = 0;
 
 	if (itemSlot >= 0) {
@@ -929,11 +929,11 @@ int GetUnitStaffRangeMask_0(struct Unit* unit, int itemSlot) {
 	} // switch (range)
 }
 
-int GetUnitStaffRangeMask(struct Unit* unit) {
+int GetUnitStaffReachBits(struct Unit* unit) {
 	int i, tmp, range = 0;
 
 	for (i = 0; (i < UNIT_ITEM_COUNT) && (tmp = unit->items[i]); ++i) {
-		if (CanUnitUseAsStaff(unit, tmp)) {
+		if (CanUnitUseStaff(unit, tmp)) {
 			if (GetItemIndex(tmp) == ITEM_NIGHTMARE) {
 				tmp = 99;
 			} else {
@@ -965,7 +965,7 @@ int GetUnitStaffRangeMask(struct Unit* unit) {
 	} // switch (range)
 }
 
-int GetConvoyTotalGoldValue(void) {
+int GetConvoyItemCostSum(void) {
 	int i, result = 0;
 
 	const u16* convoy = GetConvoyItemArray();
@@ -978,7 +978,7 @@ int GetConvoyTotalGoldValue(void) {
 	return result;
 }
 
-int sub_80173D0(void) {
+int GetUnitItemCostSum(void) {
 	int i, j, item, result = 0;
 
 	for (i = 1; i < 0x40; ++i) {
@@ -1000,11 +1000,11 @@ int sub_80173D0(void) {
 	return result;
 }
 
-int sub_8017450(void) {
+int GetPartyTotalGoldValue(void) {
 	int result = 0;
 
-	result += GetConvoyTotalGoldValue();
-	result += sub_80173D0();
+	result += GetConvoyItemCostSum();
+	result += GetUnitItemCostSum();
 	result += GetPartyGoldAmount();
 
 	if (result > 9999999) // TODO: use a constant?
@@ -1013,10 +1013,10 @@ int sub_8017450(void) {
 	return result;
 }
 
-void sub_8017478(int item, u8 unk) {
-	SetChapterUnk1C(GetItemWType(item), unk);
+void SetItemUnsealedForCharacter(int item, u8 unk) {
+	SetChapterUnk1C(GetItemType(item), unk);
 }
 
-s8 sub_80174AC(struct Unit* unit, int item) {
-	return (GetChapterUnk1C(GetItemWType(item)) == unit->pCharacterData->number) ? TRUE : FALSE;
+s8 IsItemUnsealedForUnit(struct Unit* unit, int item) {
+	return (GetChapterUnk1C(GetItemType(item)) == unit->pCharacterData->number) ? TRUE : FALSE;
 }

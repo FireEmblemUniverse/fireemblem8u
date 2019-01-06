@@ -306,7 +306,7 @@ sub_8034550: @ 0x08034550
 	push {r4, r5, r6, r7, lr}
 	movs r1, #1
 	negs r1, r1
-	bl GetUnitRangeMask
+	bl GetUnitWeaponReachBits
 	adds r7, r0, #0
 	ldr r0, _08034604  @ gUnknown_0202E4F0
 	ldr r0, [r0]

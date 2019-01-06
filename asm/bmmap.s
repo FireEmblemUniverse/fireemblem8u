@@ -3173,7 +3173,7 @@ FillMapAttackRangeForUnit: @ 0x0801ACBC
 	mov r9, r0
 	movs r1, #1
 	negs r1, r1
-	bl GetUnitRangeMask
+	bl GetUnitWeaponReachBits
 	subs r0, #1
 	cmp r0, #0xe
 	bls _0801ACDA
@@ -4324,7 +4324,7 @@ FillMapStaffRangeForUnit: @ 0x0801B618
 	mov r5, r8
 	push {r5, r6, r7}
 	adds r4, r0, #0
-	bl GetUnitStaffRangeMask
+	bl GetUnitStaffReachBits
 	adds r5, r0, #0
 	adds r0, r4, #0
 	bl GetUnitMagBy2Range

@@ -16800,7 +16800,7 @@ _08049C9A:
 	beq _08049CC6
 	adds r0, r6, #0
 	adds r1, r4, #0
-	bl CanUnitUseAsWeapon
+	bl CanUnitUseWeapon
 	lsls r0, r0, #0x18
 	asrs r0, r0, #0x18
 	cmp r0, #1
@@ -17569,7 +17569,7 @@ _0804A330:
 	ldr r0, [r7]
 	mov r2, r8
 	ldrb r1, [r2, #7]
-	bl EquipUnitItemByIndex
+	bl EquipUnitItemSlot
 	ldr r4, [r5, #0xc]
 	movs r0, #0x80
 	lsls r0, r0, #2
@@ -17947,7 +17947,7 @@ sub_804A614: @ 0x0804A614
 	ldr r0, _0804A698  @ gUnknown_03001834
 	ldrb r1, [r0, #3]
 	adds r0, r6, #0
-	bl EquipUnitItemByIndex
+	bl EquipUnitItemSlot
 	adds r0, r6, #0
 	mov r1, r8
 	bl sub_802A350
@@ -18859,7 +18859,7 @@ sub_804ADA0: @ 0x0804ADA0
 _0804ADB6:
 	adds r0, r6, #0
 	adds r1, r4, #0
-	bl CanUnitUseAsWeapon
+	bl CanUnitUseWeapon
 	lsls r0, r0, #0x18
 	cmp r0, #0
 	beq _0804ADD8
@@ -19161,7 +19161,7 @@ _0804AFE0:
 _0804AFFA:
 	adds r0, r2, #0
 	adds r1, r4, #0
-	bl CanUnitUseAsWeapon
+	bl CanUnitUseWeapon
 	lsls r0, r0, #0x18
 	cmp r0, #0
 	bne _0804B00A
@@ -24347,7 +24347,7 @@ _0804D884: .4byte gUnknown_03004E50
 _0804D888:
 	ldr r0, [r5]
 	adds r1, r4, #0
-	bl CanUnitUseAsWeapon
+	bl CanUnitUseWeapon
 	lsls r0, r0, #0x18
 	cmp r0, #0
 	beq _0804D89A
@@ -24409,7 +24409,7 @@ sub_804D8DC: @ 0x0804D8DC
 	adds r1, r1, r2
 	ldrh r6, [r1]
 	adds r1, r6, #0
-	bl CanUnitUseAsWeapon
+	bl CanUnitUseWeapon
 	lsls r0, r0, #0x18
 	lsrs r5, r0, #0x18
 	adds r0, r6, #0
@@ -24432,7 +24432,7 @@ _0804D90A:
 	ldr r1, _0804D93C  @ gBG0TilemapBuffer
 	adds r3, r3, r1
 	adds r1, r6, #0
-	bl DrawItemMenuCommand
+	bl DrawItemMenuLine
 	movs r0, #1
 	bl BG_EnableSyncByMask
 	pop {r4, r5, r6}

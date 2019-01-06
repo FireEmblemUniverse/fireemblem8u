@@ -744,7 +744,7 @@ _08017CD8:
 	bl GetUnitEquippedWeapon
 	lsls r0, r0, #0x10
 	lsrs r0, r0, #0x10
-	bl GetItemHPBonus
+	bl GetItemHpBonus
 	movs r1, #0x12
 	ldrsb r1, [r5, r1]
 	adds r1, r1, r0
@@ -762,7 +762,7 @@ _08017D00:
 	bl GetUnitEquippedWeapon
 	lsls r0, r0, #0x10
 	lsrs r0, r0, #0x10
-	bl GetItemHPBonus
+	bl GetItemHpBonus
 	movs r1, #0x12
 	ldrsb r1, [r5, r1]
 	adds r1, r1, r0
@@ -772,7 +772,7 @@ _08017D00:
 	bl GetUnitEquippedWeapon
 	lsls r0, r0, #0x10
 	lsrs r0, r0, #0x10
-	bl GetItemHPBonus
+	bl GetItemHpBonus
 	movs r1, #0x12
 	ldrsb r1, [r5, r1]
 	adds r1, r1, r0
@@ -870,7 +870,7 @@ _08017DC0:
 	adds r7, r4, #0
 _08017DCE:
 	ldrb r0, [r4]
-	bl MakeItemShort
+	bl MakeNewItem
 	adds r1, r0, #0
 	adds r0, r5, #0
 	bl UnitAddItem
@@ -904,7 +904,7 @@ CharFillInventoryFromCode: @ 0x08017DF8
 	adds r6, r4, #0
 _08017E10:
 	ldrb r0, [r4]
-	bl MakeItemShort
+	bl MakeNewItem
 	adds r1, r0, #0
 	adds r0, r5, #0
 	bl UnitAddItem
@@ -1083,7 +1083,7 @@ _08017F32:
 	beq _08017F66
 	adds r0, r6, #0
 	adds r1, r4, #0
-	bl CanUnitUseAsWeapon
+	bl CanUnitUseWeapon
 	lsls r0, r0, #0x18
 	cmp r0, #0
 	bne _08017FAC
@@ -1096,7 +1096,7 @@ _08017F66:
 	beq _08017F82
 	adds r0, r6, #0
 	adds r1, r4, #0
-	bl CanUnitUseAsStaff
+	bl CanUnitUseStaff
 	lsls r0, r0, #0x18
 	cmp r0, #0
 	bne _08017FAC
@@ -1108,7 +1108,7 @@ _08017F82:
 	cmp r1, #0
 	bne _08017FAC
 	adds r0, r4, #0
-	bl GetItemWType
+	bl GetItemType
 	adds r1, r6, #0
 	adds r1, #0x28
 	adds r5, r1, r0
@@ -1118,7 +1118,7 @@ _08017F82:
 	movs r4, #0
 _08017FA4:
 	adds r0, r4, #0
-	bl GetItemWRank
+	bl GetItemRequiredExp
 	strb r0, [r5]
 _08017FAC:
 	adds r7, #1
@@ -1298,7 +1298,7 @@ _080180FE:
 	bl GetUnitEquippedWeapon
 	lsls r0, r0, #0x10
 	lsrs r0, r0, #0x10
-	bl GetItemHPBonus
+	bl GetItemHpBonus
 	movs r1, #0x12
 	ldrsb r1, [r4, r1]
 	adds r1, r1, r0
@@ -2154,7 +2154,7 @@ MoveActiveUnit: @ 0x08018740
 	bl GetUnitEquippedWeapon
 	lsls r0, r0, #0x10
 	lsrs r0, r0, #0x10
-	bl GetItemHPBonus
+	bl GetItemHpBonus
 	movs r1, #0x12
 	ldrsb r1, [r5, r1]
 	adds r1, r1, r0
@@ -2164,7 +2164,7 @@ MoveActiveUnit: @ 0x08018740
 	bl GetUnitEquippedWeapon
 	lsls r0, r0, #0x10
 	lsrs r0, r0, #0x10
-	bl GetItemHPBonus
+	bl GetItemHpBonus
 	movs r1, #0x12
 	ldrsb r1, [r5, r1]
 	adds r1, r1, r0
@@ -2443,7 +2443,7 @@ ValidateUnitItem: @ 0x08018994
 	ldrh r0, [r4]
 	cmp r0, #0
 	beq _080189B0
-	bl ValidateItem
+	bl GetItemAfterUse
 	strh r0, [r4]
 	adds r0, r5, #0
 	bl RemoveUnitBlankItems
@@ -2681,7 +2681,7 @@ _08018B3E:
 	beq _08018B5E
 	adds r0, r5, #0
 	adds r1, r4, #0
-	bl CanUnitUseAsWeapon
+	bl CanUnitUseWeapon
 	lsls r0, r0, #0x18
 	cmp r0, #0
 	beq _08018B5E
@@ -2696,7 +2696,7 @@ _08018B5E:
 	beq _08018B7E
 	adds r0, r5, #0
 	adds r1, r4, #0
-	bl CanUnitUseAsStaff
+	bl CanUnitUseStaff
 	lsls r0, r0, #0x18
 	cmp r0, #0
 	beq _08018B7E
@@ -3529,7 +3529,7 @@ GetUnitCurrentHP: @ 0x08019150
 	bl GetUnitEquippedWeapon
 	lsls r0, r0, #0x10
 	lsrs r0, r0, #0x10
-	bl GetItemHPBonus
+	bl GetItemHpBonus
 	movs r1, #0x12
 	ldrsb r1, [r5, r1]
 	adds r1, r1, r0
@@ -3539,7 +3539,7 @@ GetUnitCurrentHP: @ 0x08019150
 	bl GetUnitEquippedWeapon
 	lsls r0, r0, #0x10
 	lsrs r0, r0, #0x10
-	bl GetItemHPBonus
+	bl GetItemHpBonus
 	movs r1, #0x12
 	ldrsb r1, [r5, r1]
 	adds r1, r1, r0
@@ -3558,7 +3558,7 @@ GetUnitMaxHP: @ 0x08019190
 	bl GetUnitEquippedWeapon
 	lsls r0, r0, #0x10
 	lsrs r0, r0, #0x10
-	bl GetItemHPBonus
+	bl GetItemHpBonus
 	adds r1, r0, #0
 	movs r0, #0x12
 	ldrsb r0, [r4, r0]
@@ -3819,7 +3819,7 @@ SetUnitHP: @ 0x08019368
 	bl GetUnitEquippedWeapon
 	lsls r0, r0, #0x10
 	lsrs r0, r0, #0x10
-	bl GetItemHPBonus
+	bl GetItemHpBonus
 	movs r1, #0x12
 	ldrsb r1, [r5, r1]
 	adds r1, r1, r0
@@ -3829,7 +3829,7 @@ SetUnitHP: @ 0x08019368
 	bl GetUnitEquippedWeapon
 	lsls r0, r0, #0x10
 	lsrs r0, r0, #0x10
-	bl GetItemHPBonus
+	bl GetItemHpBonus
 	movs r1, #0x12
 	ldrsb r1, [r5, r1]
 	adds r1, r1, r0
@@ -3849,7 +3849,7 @@ UnitTryHeal: @ 0x080193A4
 	bl GetUnitEquippedWeapon
 	lsls r0, r0, #0x10
 	lsrs r0, r0, #0x10
-	bl GetItemHPBonus
+	bl GetItemHpBonus
 	movs r1, #0x12
 	ldrsb r1, [r5, r1]
 	adds r1, r1, r0
@@ -3859,7 +3859,7 @@ UnitTryHeal: @ 0x080193A4
 	bl GetUnitEquippedWeapon
 	lsls r0, r0, #0x10
 	lsrs r0, r0, #0x10
-	bl GetItemHPBonus
+	bl GetItemHpBonus
 	movs r1, #0x12
 	ldrsb r1, [r5, r1]
 	adds r4, r1, r0

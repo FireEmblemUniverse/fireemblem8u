@@ -237,7 +237,7 @@ MenuCommand_DrawExtraItem: @ 0x0801E144
 	adds r2, r2, r0
 	adds r0, r5, #0
 	adds r1, r6, #0
-	bl DrawTextAndIconForItem
+	bl DrawItemMenuLineNoColor
 	movs r0, #1
 	bl BG_EnableSyncByMask
 	pop {r4, r5, r6}

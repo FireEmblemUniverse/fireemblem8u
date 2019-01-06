@@ -17,7 +17,7 @@ CanUnitUseItem: @ 0x08028870
 	beq _08028894
 	adds r0, r4, #0
 	adds r1, r5, #0
-	bl CanUnitUseAsStaff
+	bl CanUnitUseStaff
 	lsls r0, r0, #0x18
 	cmp r0, #0
 	bne _08028894
@@ -1162,7 +1162,7 @@ CanUseStatBooster: @ 0x0802940C
 	push {r4, r5, r6, lr}
 	adds r5, r0, #0
 	adds r0, r1, #0
-	bl GetItemStatBonusesPtr
+	bl GetItemStatBonuses
 	adds r4, r0, #0
 	ldr r6, _08029500  @ gUnknown_03004C00
 	adds r0, r6, #0
@@ -1970,7 +1970,7 @@ sub_8029A84: @ 0x08029A84
 	ldr r1, _08029ADC  @ gBG0TilemapBuffer
 	adds r3, r3, r1
 	adds r1, r4, #0
-	bl sub_80168E0
+	bl DrawItemMenuLineLong
 	movs r0, #1
 	bl BG_EnableSyncByMask
 	movs r0, #0

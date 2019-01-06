@@ -136,17 +136,16 @@ struct Struct0202BCB0 // Game State Struct
     /* 3C */ u8 unk3C;
 };
 
-struct Struct0202BCF0 // Chapter Data Struct
-{
+struct Struct0202BCF0 { // Chapter Data Struct
     /* 00 */ u32 unk0; // a time value
     /* 04 */ u32 unk4; // a time value
 
     /* 08 */ u32 partyGoldAmount;
     /* 0C */ u8  gameSaveSlot;
-    
+
     /* 0D */ u8  chapterVisionRange; // 0 means no fog
     /* 0E */ s8  chapterIndex;
-    
+
     /* 0F */ u8  chapterPhaseIndex; // 0x00 = Player phase, 0x40 = NPC phase, 0x80 = Enemy phase (0xC0 = link arena 4th team?)
 
     /* 10 */ u16 chapterTurnNumber;
@@ -157,10 +156,14 @@ struct Struct0202BCF0 // Chapter Data Struct
     /* 15 */ u8  chapterWeatherId;
     /* 16 */ u16 chapterTotalSupportGain;
 
-    /* 18 */ u8  _pad18[0x1B - 0x18]; // unknown yet
+    /* 18 */ u8 playthroughIdentifier;
+    /* 19 */ u8 unk19;
+    /* 1A */ u8 lastUnitSortType;
 
     /* 1B */ u8  chapterModeIndex; // 1 for tutorial (ch0-8), 2 for Eirika route, 3 for Ephraim route
 
+    // character identifiers indexed by weapon type.
+    // has to do with allowing unusable weapons to be used
     /* 1C */ u8  unk1C[4];
 
     /* 20 */ char playerName[0x40 - 0x20]; // unused outside of link arena (was tactician name in FE7); Size unknown

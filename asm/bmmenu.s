@@ -870,7 +870,7 @@ _08022C74: .4byte gUnknown_03004E50
 _08022C78:
 	adds r0, r2, #0
 	adds r1, r5, #0
-	bl GetUnitRangeMask
+	bl GetUnitWeaponReachBits
 	adds r1, r0, #0
 	ldr r0, [r4]
 	bl FillRangeByRangeMask
@@ -907,7 +907,7 @@ sub_8022CA4: @ 0x08022CA4
 	beq _08022CE8
 	ldr r0, [r5]
 	adds r1, r4, #0
-	bl CanUnitUseAsWeapon
+	bl CanUnitUseWeapon
 	lsls r0, r0, #0x18
 	cmp r0, #0
 	beq _08022CE8
@@ -937,7 +937,7 @@ sub_8022CF0: @ 0x08022CF0
 	ldrb r1, [r1]
 	lsls r1, r1, #0x18
 	asrs r1, r1, #0x18
-	bl EquipUnitItemByIndex
+	bl EquipUnitItemSlot
 	ldr r1, _08022D2C  @ gUnknown_0203A958
 	movs r0, #0
 	strb r0, [r1, #0x12]
@@ -972,7 +972,7 @@ sub_8022D34: @ 0x08022D34
 	adds r1, r1, r2
 	ldrh r4, [r1]
 	adds r1, r4, #0
-	bl CanUnitUseAsWeapon
+	bl CanUnitUseWeapon
 	adds r2, r0, #0
 	adds r0, r5, #0
 	adds r0, #0x34
@@ -988,7 +988,7 @@ sub_8022D34: @ 0x08022D34
 	ldr r1, _08022D80  @ gBG0TilemapBuffer
 	adds r3, r3, r1
 	adds r1, r4, #0
-	bl DrawItemMenuCommand
+	bl DrawItemMenuLine
 	movs r0, #0
 	pop {r4, r5, r6}
 	pop {r1}
@@ -1018,7 +1018,7 @@ sub_8022D84: @ 0x08022D84
 	ldr r0, [r4]
 	movs r1, #0
 	ldrsb r1, [r5, r1]
-	bl GetUnitRangeMask
+	bl GetUnitWeaponReachBits
 	adds r1, r0, #0
 	ldr r0, [r4]
 	bl FillRangeByRangeMask
@@ -1472,7 +1472,7 @@ _08023118:
 	beq _0802314E
 _08023122:
 	adds r0, r4, #0
-	bl GetItemWType
+	bl GetItemType
 	cmp r0, #0xc
 	bne _0802313A
 	ldr r0, [r6]
@@ -1589,7 +1589,7 @@ sub_80231D0: @ 0x080231D0
 	beq _0802322E
 _08023200:
 	adds r0, r4, #0
-	bl GetItemWType
+	bl GetItemType
 	cmp r0, #0xc
 	bne _0802321A
 	ldr r0, [r6]
@@ -1779,7 +1779,7 @@ ItemSelectMenu_TextDraw: @ 0x08023350
 _08023388: .4byte gUnknown_03004E50
 _0802338C:
 	adds r0, r5, #0
-	bl GetItemWType
+	bl GetItemType
 	cmp r0, #0xc
 	bne _0802339A
 	movs r2, #0
@@ -1805,7 +1805,7 @@ _080233A6:
 	ldr r1, _080233D4  @ gBG0TilemapBuffer
 	adds r3, r3, r1
 	adds r1, r5, #0
-	bl DrawItemMenuCommand
+	bl DrawItemMenuLine
 	movs r0, #1
 	bl BG_EnableSyncByMask
 _080233CC:
@@ -2140,11 +2140,11 @@ sub_802367C: @ 0x0802367C
 	cmp r0, #0
 	beq _080236C8
 	adds r0, r4, #0
-	bl GetItemWType
+	bl GetItemType
 	cmp r0, #4
 	beq _080236C8
 	adds r0, r4, #0
-	bl GetItemWType
+	bl GetItemType
 	cmp r0, #0xc
 	beq _080236C8
 	adds r0, r4, #0
@@ -2155,7 +2155,7 @@ sub_802367C: @ 0x0802367C
 	beq _080236D4
 	ldr r0, [r5]
 	adds r1, r4, #0
-	bl CanUnitUseAsWeapon
+	bl CanUnitUseWeapon
 	lsls r0, r0, #0x18
 	cmp r0, #0
 	bne _080236D4
@@ -2209,7 +2209,7 @@ _0802371C: .4byte gUnknown_0203A958
 _08023720:
 	ldr r0, [r5]
 	adds r1, r4, #0
-	bl CanUnitUseAsWeapon
+	bl CanUnitUseWeapon
 	lsls r0, r0, #0x18
 	movs r1, #2
 	cmp r0, #0
@@ -2322,7 +2322,7 @@ sub_80237F8: @ 0x080237F8
 	ldr r0, [r0]
 	ldr r1, _08023820  @ gUnknown_0203A958
 	ldrb r1, [r1, #0x12]
-	bl EquipUnitItemByIndex
+	bl EquipUnitItemSlot
 	adds r0, r4, #0
 	bl sub_8023550
 	lsls r0, r0, #0x18
@@ -2518,7 +2518,7 @@ _08023962:
 	lsls r3, r3, #1
 	ldr r4, _0802399C  @ gBG0TilemapBuffer
 	adds r3, r3, r4
-	bl DrawItemMenuCommand
+	bl DrawItemMenuLine
 	pop {r4, r5}
 	pop {r1}
 	bx r1
@@ -2629,7 +2629,7 @@ _08023A70:
 	beq _08023ABE
 _08023A78:
 	adds r0, r4, #0
-	bl GetItemWType
+	bl GetItemType
 	cmp r0, #4
 	bne _08023AA8
 	ldr r5, _08023AA4  @ gUnknown_03004E50
@@ -2728,7 +2728,7 @@ sub_8023B3C: @ 0x08023B3C
 	movs r4, #1
 	negs r4, r4
 	adds r1, r4, #0
-	bl GetUnitStaffRangeMask_0
+	bl GetUnitItemUseReachBits
 	adds r6, r0, #0
 	ldr r0, _08023B7C  @ gUnknown_0202E4E0
 	ldr r0, [r0]
@@ -2770,7 +2770,7 @@ StaffItemSelect_Usability: @ 0x08023B90
 	adds r0, r0, r1
 	ldrh r4, [r0]
 	adds r0, r4, #0
-	bl GetItemWType
+	bl GetItemType
 	cmp r0, #4
 	bne _08023BC0
 	ldr r0, [r5]
@@ -2799,7 +2799,7 @@ StaffItemSelect_Effect: @ 0x08023BC8
 	ldrb r1, [r1]
 	lsls r1, r1, #0x18
 	asrs r1, r1, #0x18
-	bl EquipUnitItemByIndex
+	bl EquipUnitItemSlot
 	ldr r4, _08023C04  @ gUnknown_0203A958
 	movs r0, #0
 	strb r0, [r4, #0x12]
@@ -2836,7 +2836,7 @@ StaffItemSelect_OnHover: @ 0x08023C14
 	adds r4, #0x3c
 	movs r1, #0
 	ldrsb r1, [r4, r1]
-	bl GetUnitStaffRangeMask_0
+	bl GetUnitItemUseReachBits
 	adds r6, r0, #0
 	movs r0, #0
 	ldrsb r0, [r4, r0]
@@ -3822,7 +3822,7 @@ StealItemMenuCommand_Draw: @ 0x08024348
 	ldr r1, _08024398  @ gBG0TilemapBuffer
 	adds r3, r3, r1
 	adds r1, r4, #0
-	bl DrawItemMenuCommand
+	bl DrawItemMenuLine
 	pop {r4, r5, r6}
 	pop {r1}
 	bx r1
@@ -4660,7 +4660,7 @@ _080249D8:
 	ldr r5, _08024A24  @ gUnknown_03004E50
 	ldr r0, [r5]
 	adds r1, r4, #0
-	bl CanUnitUseWeapon
+	bl CanUnitUseWeaponNow
 	lsls r0, r0, #0x18
 	cmp r0, #0
 	beq _08024A06
@@ -4766,7 +4766,7 @@ sub_8024AAC: @ 0x08024AAC
 	adds r5, #0x34
 	ldr r0, _08024AE8  @ gUnknown_0202BCB0
 	ldrh r0, [r0, #0x2c]
-	bl GetItemNameString
+	bl GetItemName
 	adds r3, r0, #0
 	adds r0, r5, #0
 	movs r1, #0x10
@@ -4825,7 +4825,7 @@ sub_8024B1C: @ 0x08024B1C
 	adds r0, r0, r1
 	ldrh r4, [r0]
 	adds r0, r4, #0
-	bl GetItemWType
+	bl GetItemType
 	cmp r0, #0xc
 	bne _08024B4C
 	ldr r0, [r5]
@@ -4873,7 +4873,7 @@ sub_8024B54: @ 0x08024B54
 	ldr r2, _08024B98  @ gBG0TilemapBuffer
 	adds r3, r3, r2
 	movs r2, #1
-	bl DrawItemMenuCommand
+	bl DrawItemMenuLine
 	movs r0, #0
 	pop {r4}
 	pop {r1}
