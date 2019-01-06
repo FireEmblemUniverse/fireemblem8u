@@ -31,11 +31,32 @@ struct UnitDefinition {
 
 int GetPlayerLeaderUnitId(void);
 
+void LoadUnit(struct UnitDefinition* uDef);
+
 extern struct Unit* gUnknown_0859A5D0[]; // unit lookup
+
+extern const struct ClassData gUnknown_08807164[]; // gClassData
+extern const struct CharacterData gUnknown_08803D64[]; // gCharacterData
 
 // TODO: public!
 static inline struct Unit* GetUnit(int id) {
 	return gUnknown_0859A5D0[id & 0xFF];
+}
+
+// TODO: public!
+static inline const struct ClassData* GetClassData(int classId) {
+	if (classId < 1)
+		return NULL;
+
+	return gUnknown_08807164 + (classId - 1);
+}
+
+// TODO: public!
+static inline const struct CharacterData* GetCharacterData(int charId) {
+	if (charId < 1)
+		return NULL;
+
+	return gUnknown_08803D64 + (charId - 1);
 }
 
 void ClearUnits(void) {
@@ -62,26 +83,6 @@ void CopyUnitStruct(struct Unit* from, struct Unit* to) {
 	memcpy(to, from, sizeof(struct Unit));
 	to->index = id;
 }
-
-
-/* 
-static inline struct Unit* GetUnusedUnit(int start, int end) {
-	int i;
-
-	for (i = start + 1; i < end; ++i) {
-		struct Unit* unit = GetUnit(i);
-
-		if (unit->pCharacterData == NULL)
-			return unit;
-	}
-
-	return NULL;
-}
-
-struct Unit* GetNextFreeUnitStructPtr(int faction) {
-	return GetUnusedUnit(faction, faction + 0x40);
-}
-// */
 
 struct Unit* GetNextFreeUnitStructPtr(int faction) {
 	int i, last = (faction + 0x40);
@@ -112,6 +113,8 @@ struct Unit* GetNextFreePlayerUnitStruct(struct UnitDefinition* uDef) {
 
 	return NULL;
 }
+
+// Unit stat getters here in proto
 
 int GetUnitFogViewRange(struct Unit* unit) {
 	int result = gUnknown_0202BCF0.chapterVisionRange;
@@ -225,4 +228,35 @@ s8 UnitHasItem(struct Unit* unit, int item) {
 			return TRUE;
 
 	return FALSE;
+}
+
+int LoadUnits(struct UnitDefinition* uDef) {
+	int count = 0;
+
+	while (uDef->charIndex) {
+		LoadUnit(uDef);
+
+		uDef++;
+		count++;
+	}
+
+	return count;
+}
+
+void sub_8017A54(struct Unit* unit) { // unused
+	if (unit->pow >= 4)
+		unit->pow /= 2;
+
+	if (unit->def >= 4)
+		unit->def /= 2;
+
+	if (unit->res >= 4)
+		unit->res /= 2;
+}
+
+s8 HasClassWRank(u8 classId, u8 wpnType) {
+	if (GetClassData(classId)->baseRanks[wpnType])
+		return TRUE;
+	else
+		return FALSE;
 }

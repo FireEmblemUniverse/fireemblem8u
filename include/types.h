@@ -592,12 +592,12 @@ struct Unit {
 
     /* 12 */ u8 maxHP;
     /* 13 */ u8 curHP;
-    /* 14 */ u8 pow;
-    /* 15 */ u8 skl;
-    /* 16 */ u8 spd;
-    /* 17 */ u8 def;
-    /* 18 */ u8 res;
-    /* 19 */ u8 lck;
+    /* 14 */ s8 pow;
+    /* 15 */ s8 skl;
+    /* 16 */ s8 spd;
+    /* 17 */ s8 def;
+    /* 18 */ s8 res;
+    /* 19 */ s8 lck;
 
     /* 1A */ u8 conBonus;
     /* 1B */ u8 rescueOtherUnit;

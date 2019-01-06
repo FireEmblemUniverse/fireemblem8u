@@ -5546,7 +5546,11 @@ gUnknown_08803D90:  @ 0x08803D90
 
 	.global gUnknown_08807110
 gUnknown_08807110:  @ 0x08807110
-	.incbin "baserom.gba", 0x807110, 0x2A00
+	.incbin "baserom.gba", 0x807110, 0x54
+
+	.global gUnknown_08807164
+gUnknown_08807164:  @ 0x08807164
+	.incbin "baserom.gba", 0x807164, 0x29AC
 
 	.global gItemData
 gItemData:  @ 0x08809B10
