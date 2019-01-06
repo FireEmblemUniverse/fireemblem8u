@@ -17,10 +17,9 @@
 */
 
 // TODO: move this elsewhere
-// I can't move this to functions.h because signatures contain types that would be not defined
+// I can't move this to functions.h because signature contain types that would be not defined
 // So we'll have to wait for the corresponding files to be decompiled/get a header
 void sub_8013928(const u16*, int, int, struct Proc* proc);
-int GetSpellAssocFacing(Item item);
 
 struct MUStepSoundProc {
     PROC_HEADER;

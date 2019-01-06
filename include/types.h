@@ -329,8 +329,6 @@ struct UnknownStructCTC
     const void *unkC;
 };
 
-typedef u16 Item;
-
 struct ItemStatBonuses {
     s8 hpBonus;
     s8 powBonus;
@@ -752,7 +750,13 @@ struct MMSData {
     const void* pAnimation;
 };
 
-// TODO: move elsewhere/possibly generate from class table
-#define CLASS_PHANTOM 0x51
+// TODO: move to bmcontainer.h
+enum { CONVOY_ITEM_COUNT = 100 };
 
-#endif  // GUARD_TYPES_H
+// TODO: move to bmunit.h
+enum { UNIT_ITEM_COUNT = 5 };
+
+// TODO: move elsewhere/possibly generate from class table
+enum { CLASS_PHANTOM = 0x51 };
+
+#endif // GUARD_TYPES_H

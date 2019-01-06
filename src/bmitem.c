@@ -11,96 +11,6 @@
 #define ITEM_INDEX(aItem) ((aItem) & 0xFF)
 #define ITEM_USES(aItem) ((aItem) >> 8)
 
-int GetItemIndex(int item);
-char* GetItemNameString(int item);
-int GetItemDescId(int item);
-int GetItemUseDescId(int item);
-int GetItemWType(int item);
-int GetItemAttributes(int item);
-int GetItemUses(int item);
-int GetItemMaxUses(int item);
-int GetItemMight(int item);
-int GetItemHit(int item);
-int GetItemWeight(int item);
-int GetItemCrit(int item);
-int GetItemCost(int item);
-int GetItemMinRange(int item);
-int GetItemMaxRange(int item);
-int GetItemRange(int item);
-int GetItemWRank(int item);
-const u8* GetItemEffectivenessPtr(int item);
-const struct ItemStatBonuses* GetItemStatBonusesPtr(int item);
-int GetItemIconId(int item);
-int GetItemWeaponEffect(int item);
-int GetItemUseEffect(int item);
-int GetItemCostPerUse(int item);
-int GetItemMaxCost(int item);
-int GetItemWExp(int item);
-const struct ItemData* GetROMItemStructPtr(int item);
-
-s8 sub_80174AC(struct Unit* unit, int item);
-s8 CanUnitNotUseMagic(struct Unit* unit);
-
-int GetPartyGoldAmount(void);
-
-// Effectiveness lists
-extern const u8 gUnknown_088ADF2A[];
-extern const u8 gUnknown_088ADEF1[];
-extern const u8 gUnknown_088ADF39[]; // Slayer effectiveness list
-
-enum {
-	WPN_EXP_0 = 0,
-	WPN_EXP_E = 1,
-	WPN_EXP_D = 31,
-	WPN_EXP_C = 71,
-	WPN_EXP_B = 121,
-	WPN_EXP_A = 181,
-	WPN_EXP_S = 251,
-};
-
-enum {
-	WPN_LEVEL_0 = 0,
-	WPN_LEVEL_E = 1,
-	WPN_LEVEL_D = 2,
-	WPN_LEVEL_C = 3,
-	WPN_LEVEL_B = 4,
-	WPN_LEVEL_A = 5,
-	WPN_LEVEL_S = 6,
-};
-
-s8 CanUnitUseItem(struct Unit* unit, int item);
-
-int GetUnitPower(struct Unit* unit);
-
-enum {
-	ITYPE_SWORD = 0,
-	ITYPE_LANCE = 1,
-	ITYPE_AXE   = 2,
-	ITYPE_BOW   = 3,
-	ITYPE_STAFF = 4,
-	ITYPE_ANIMA = 5,
-	ITYPE_LIGHT = 6,
-	ITYPE_DARK  = 7,
-	ITYPE_BLLST = 8,
-	ITYPE_ITEM  = 9,
-	ITYPE_DRAGN = 10,
-};
-
-enum {
-	RANGE_BIT_NONE = 0,
-
-	RANGE_BIT_RNG1 = (1 << 0),
-	RANGE_BIT_RNG2 = (1 << 1),
-	RANGE_BIT_RNG3 = (1 << 2),
-	RANGE_BIT_TO10 = (1 << 3),
-	RANGE_BIT_TO15 = (1 << 4),
-	RANGE_BIT_MAG2 = (1 << 5),
-};
-
-enum { CONVOY_ITEM_COUNT = 100 };
-
-u16* GetConvoyItemArray(void);
-
 // TODO: figure out those two inline functions and where they belong
 
 static inline void SetChapterUnk1C(int arg, u8 val) {
@@ -493,29 +403,28 @@ s8 CanUnitUseStaff(struct Unit* unit, int item) {
 	return CanUnitUseAsStaff(unit, item);
 }
 
-// TODO: text color codes
 // TODO: special character codes
 
-void DrawItemMenuCommand(struct TextHandle* text, int item, s8 isGrayed, u16* mapOut) {
-	Text_SetParameters(text, 0, (isGrayed ? 0 : 1));
+void DrawItemMenuCommand(struct TextHandle* text, int item, s8 isUsable, u16* mapOut) {
+	Text_SetParameters(text, 0, (isUsable ? TEXT_COLOR_NORMAL : TEXT_COLOR_GRAY));
 	Text_AppendString(text, GetItemNameString(item));
 
 	Text_Draw(text, mapOut + 2);
 
-	DrawDecNumber(mapOut + 11, isGrayed ? 2 : 1, GetItemUses(item));
+	DrawDecNumber(mapOut + 11, isUsable ? TEXT_COLOR_BLUE : TEXT_COLOR_GRAY, GetItemUses(item));
 
 	DrawIcon(mapOut, GetItemIconId(item), 0x4000);
 }
 
-void sub_80168E0(struct TextHandle* text, int item, s8 isGrayed, u16* mapOut) {
-	Text_SetParameters(text, 0, (isGrayed ? 0 : 1));
+void sub_80168E0(struct TextHandle* text, int item, s8 isUsable, u16* mapOut) {
+	Text_SetParameters(text, 0, (isUsable ? TEXT_COLOR_NORMAL : TEXT_COLOR_GRAY));
 	Text_AppendString(text, GetItemNameString(item));
 
 	Text_Draw(text, mapOut + 2);
 
-	DrawDecNumber(mapOut + 10, isGrayed ? 2 : 1, GetItemUses(item));
-	DrawDecNumber(mapOut + 13, isGrayed ? 2 : 1, GetItemMaxUses(item));
-	sub_8004B0C(mapOut + 11, isGrayed ? 0 : 1, 0x16); // draw special character?
+	DrawDecNumber(mapOut + 10, isUsable ? TEXT_COLOR_BLUE : TEXT_COLOR_GRAY, GetItemUses(item));
+	DrawDecNumber(mapOut + 13, isUsable ? TEXT_COLOR_BLUE : TEXT_COLOR_GRAY, GetItemMaxUses(item));
+	sub_8004B0C(mapOut + 11, isUsable ? TEXT_COLOR_NORMAL : TEXT_COLOR_GRAY, 0x16); // draw special character?
 
 	DrawIcon(mapOut, GetItemIconId(item), 0x4000);
 }
@@ -541,10 +450,10 @@ void sub_8016A2C(struct TextHandle* text, int item, int nameColor, u16* mapOut) 
 
 	Text_AppendString(text, GetItemNameString(item));
 
-	color = (nameColor == 1) ? 1 : 0;
+	color = (nameColor == TEXT_COLOR_GRAY) ? TEXT_COLOR_GRAY : TEXT_COLOR_NORMAL;
 	sub_8004B0C(mapOut + 12, color, 0x16);
 
-	color = (nameColor != 1) ? 2 : 1;
+	color = (nameColor != TEXT_COLOR_GRAY) ? TEXT_COLOR_BLUE : TEXT_COLOR_GRAY;
 	DrawDecNumber(mapOut + 11, color, GetItemUses(item));
 	DrawDecNumber(mapOut + 14, color, GetItemMaxUses(item));
 
@@ -568,8 +477,7 @@ u16 ValidateItem(int item) {
 int GetUnitEquippedWeapon(struct Unit* unit) {
 	int i;
 
-	// TODO: UNIT_ITEM_COUNT
-	for (i = 0; i < 5; ++i)
+	for (i = 0; i < UNIT_ITEM_COUNT; ++i)
 		if (CanUnitUseAsWeapon(unit, unit->items[i]) == TRUE)
 			return unit->items[i];
 
@@ -579,8 +487,7 @@ int GetUnitEquippedWeapon(struct Unit* unit) {
 int GetUnitEquippedWeaponSlot(struct Unit* unit) {
 	int i;
 
-	// TODO: UNIT_ITEM_COUNT
-	for (i = 0; i < 5; ++i)
+	for (i = 0; i < UNIT_ITEM_COUNT; ++i)
 		if (CanUnitUseWeapon(unit, unit->items[i]) == TRUE)
 			return i;
 
@@ -618,6 +525,7 @@ s8 IsWeaponEffective(u16 item, struct Unit* unit) {
 
 		for (; *effList; ++effList)
 			if (*effList == classId)
+				// NOTE: maybe there's a better way to make this work (using an inline maybe?)
 				goto check_flying_effectiveness_negation;
 
 		return FALSE;
@@ -632,8 +540,7 @@ s8 IsWeaponEffective(u16 item, struct Unit* unit) {
 
 			attributes = 0;
 
-			// TODO: UNIT_ITEM_COUNT
-			for (i = 0; i < 5; ++i)
+			for (i = 0; i < UNIT_ITEM_COUNT; ++i)
 				attributes = attributes | GetItemAttributes(unit->items[i]);
 
 			if (!(attributes & IA_NEGATE_FLYING))
@@ -666,6 +573,7 @@ s8 IsSlayerApplied(struct Unit* actor, struct Unit* target) {
 
 	for (; *effList; ++effList)
 		if (*effList == targetClass)
+			// NOTE: see note in IsWeaponEffective
 			goto is_effective;
 
 	return FALSE;
@@ -679,19 +587,6 @@ char* sub_8016CC0(int item) {
 		// TODO: TEXT ID CONSTANTS
 		0x522, 0x523, 0x524, 0x525, 0x526, // 0-Mag/2, 1, 1-2, 1-3, 2
 		0x527, 0x528, 0x529, 0x52A, 0x52B, // 2-3, 3-10, 3-15, Total, --
-	};
-
-	// TODO: use those maybe?
-	enum {
-		ITEM_RANGE_MAG2 = 0x10,
-		ITEM_RANGE_1 = 0x11,
-		ITEM_RANGE_1_2 = 0x12,
-		ITEM_RANGE_1_3 = 0x13,
-		ITEM_RANGE_2 = 0x22,
-		ITEM_RANGE_2_3 = 0x23,
-		ITEM_RANGE_3_10 = 0x3A,
-		ITEM_RANGE_3_15 = 0x3F,
-		ITEM_RANGE_TOTAL = 0xFF,
 	};
 
 	switch (GetItemRange(item)) {
@@ -914,8 +809,7 @@ int GetItemHealAmount(struct Unit* unit, int item) {
 int GetUnitItemSlot(struct Unit* unit, int itemIndex) {
 	int i;
 
-	// TODO: UNIT_ITEM_COUNT
-	for (i = 0; i < 5; ++i)
+	for (i = 0; i < UNIT_ITEM_COUNT; ++i)
 		if (GetItemIndex(unit->items[i]) == itemIndex)
 			return i;
 
@@ -946,34 +840,34 @@ int GetWeaponRangeMask(int item) {
 	switch (GetItemRange(item)) {
 
 	case 0x11:
-		return RANGE_BIT_RNG1;
+		return REACH_RANGE1;
 
 	case 0x12:
-		return RANGE_BIT_RNG1 | RANGE_BIT_RNG2;
+		return REACH_RANGE1 | REACH_RANGE2;
 
 	case 0x13:
-		return RANGE_BIT_RNG1 | RANGE_BIT_RNG2 | RANGE_BIT_RNG3;
+		return REACH_RANGE1 | REACH_RANGE2 | REACH_RANGE3;
 
 	case 0x14:
-		return RANGE_BIT_RNG1 | RANGE_BIT_TO10;
+		return REACH_RANGE1 | REACH_TO10;
 
 	case 0x22:
-		return RANGE_BIT_RNG2;
+		return REACH_RANGE2;
 
 	case 0x23:
-		return RANGE_BIT_RNG2 | RANGE_BIT_RNG3;
+		return REACH_RANGE2 | REACH_RANGE3;
 
 	case 0x33:
-		return RANGE_BIT_RNG3;
+		return REACH_RANGE3;
 
 	case 0x3A:
-		return RANGE_BIT_RNG3 | RANGE_BIT_TO10;
+		return REACH_RANGE3 | REACH_TO10;
 
 	case 0x3F:
-		return RANGE_BIT_RNG3 | RANGE_BIT_TO15;
+		return REACH_RANGE3 | REACH_TO15;
 
 	default:
-		return RANGE_BIT_NONE;
+		return REACH_NONE;
 
 	} // switch (GetItemRange(item))
 }
@@ -984,8 +878,7 @@ int GetUnitRangeMask(struct Unit* unit, int itemSlot) {
 	if (itemSlot >= 0)
 		return GetWeaponRangeMask(unit->items[itemSlot]);
 
-	// TODO: UNIT_ITEM_COUNT
-	for (i = 0; (i < 5) && (item = unit->items[i]); ++i)
+	for (i = 0; (i < UNIT_ITEM_COUNT) && (item = unit->items[i]); ++i)
 		if (CanUnitUseAsWeapon(unit, item))
 			result |= GetWeaponRangeMask(item);
 
@@ -999,15 +892,14 @@ int GetUnitStaffRangeMask_0(struct Unit* unit, int itemSlot) {
 		tmp = unit->items[itemSlot];
 
 		if (!CanUnitUseItem(unit, tmp))
-			return RANGE_BIT_NONE;
+			return REACH_NONE;
 
 		range = GetItemMaxRange(tmp);
 
 		if (range == 0)
 			range = 99;
 	} else {
-		// TODO: UNIT_ITEM_COUNT
-		for (i = 0; (i < 5) && (tmp = unit->items[i]); ++i) {
+		for (i = 0; (i < UNIT_ITEM_COUNT) && (tmp = unit->items[i]); ++i) {
 			if (CanUnitUseItem(unit, tmp)) {
 				tmp = GetItemMaxRange(tmp);
 
@@ -1023,16 +915,16 @@ int GetUnitStaffRangeMask_0(struct Unit* unit, int itemSlot) {
 	switch (range) {
 
 	case 1:
-		return RANGE_BIT_RNG1;
+		return REACH_RANGE1;
 
 	case 2:
-		return RANGE_BIT_RNG1 | RANGE_BIT_RNG2;
+		return REACH_RANGE1 | REACH_RANGE2;
 
 	case 99:
-		return RANGE_BIT_MAG2;
+		return REACH_MAGBY2;
 
 	default:
-		return RANGE_BIT_NONE;
+		return REACH_NONE;
 
 	} // switch (range)
 }
@@ -1040,8 +932,7 @@ int GetUnitStaffRangeMask_0(struct Unit* unit, int itemSlot) {
 int GetUnitStaffRangeMask(struct Unit* unit) {
 	int i, tmp, range = 0;
 
-	// TODO: UNIT_ITEM_COUNT
-	for (i = 0; (i < 5) && (tmp = unit->items[i]); ++i) {
+	for (i = 0; (i < UNIT_ITEM_COUNT) && (tmp = unit->items[i]); ++i) {
 		if (CanUnitUseAsStaff(unit, tmp)) {
 			if (GetItemIndex(tmp) == ITEM_NIGHTMARE) {
 				tmp = 99;
@@ -1060,16 +951,16 @@ int GetUnitStaffRangeMask(struct Unit* unit) {
 	switch (range) {
 
 	case 1:
-		return RANGE_BIT_RNG1;
+		return REACH_RANGE1;
 
 	case 2:
-		return RANGE_BIT_RNG1 | RANGE_BIT_RNG2;
+		return REACH_RANGE1 | REACH_RANGE2;
 
 	case 99:
-		return RANGE_BIT_MAG2;
+		return REACH_MAGBY2;
 
 	default:
-		return RANGE_BIT_NONE;
+		return REACH_NONE;
 
 	} // switch (range)
 }
@@ -1102,8 +993,7 @@ int sub_80173D0(void) {
 		if (unit->state & (US_DEAD | US_BIT16))
 			continue;
 
-		// TODO: UNIT_ITEM_COUNT
-		for (j = 0; (j < 5) && (item = unit->items[j]); ++j)
+		for (j = 0; (j < UNIT_ITEM_COUNT) && (item = unit->items[j]); ++j)
 			result += GetItemCost(item);
 	}
 

@@ -45,6 +45,16 @@ struct TextBatch
     u8 unk4;
 };
 
+enum {
+    // TODO: maybe use names that also reflect meaning for dialogue colors (this is ui colors)
+
+    TEXT_COLOR_NORMAL = 0,
+    TEXT_COLOR_GRAY   = 1,
+    TEXT_COLOR_BLUE   = 2,
+    TEXT_COLOR_GOLD   = 3,
+    TEXT_COLOR_GREEN  = 4,
+    TEXT_COLOR_BLACK  = 5,
+};
 
 extern char gUnknown_02028E44[9];
 
