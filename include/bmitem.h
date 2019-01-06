@@ -116,7 +116,7 @@ s8 IsUnitEffectiveAgainst(struct Unit* actor, struct Unit* target);
 char* GetItemDisplayRangeString(int item);
 int GetWeaponLevelFromExp(int wexp);
 char* GetItemDisplayRankString(int item);
-int GetDisplayRankStringFromExp(int item);
+int GetDisplayRankStringFromExp(int wexp);
 char* GetWeaponTypeDisplayString(int wpnType);
 void GetWeaponExpProgressState(int wexp, int* outValue, int* outMax);
 s8 IsItemDanceRing(int item);
