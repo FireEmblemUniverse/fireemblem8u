@@ -53,6 +53,20 @@ void FixROMUnitStructPtr(struct Unit* unit);
 void LoadUnitSupports(struct Unit* unit);
 void CheckForStatCaps(struct Unit* unit);
 
+void GetPreferredPositionForUNIT(const struct UnitDefinition* uDef, u8* xOut, u8* yOut, s8 findNearest);
+void CharStoreAI(struct Unit* unit, const struct UnitDefinition* uDef);
+
+int GetROMUnitSupportCount(struct Unit* unit);
+int GetUnitStartingSupportValue(struct Unit* unit, int supportIndex);
+
+int GetAutoleveledStat(int growth, int levelCount);
+
+int GetCurrentPromotedLevelBonus(void);
+
+void CopyUnitToBattleStruct(struct BattleUnit* bUnit, struct Unit* unit);
+void SaveUnitFromBattle(struct Unit* unit, struct BattleUnit* bUnit);
+void CheckForLevelUp(struct BattleUnit* bUnit);
+
 // TODO: debate on which to use
 extern inline int GetUnitFaction(const struct Unit* unit) { return (unit->index & 0xC0); }
 #define UNIT_FACTION(aUnit) ((aUnit)->index & 0xC0)
@@ -63,6 +77,9 @@ enum {
 	FACTION_RED    = 0x80, // enemy units
 	FACTION_PURPLE = 0xC0, // link arena 4th team
 };
+
+enum { UNIT_EXP_DISABLED = 0xFF };
+enum { UNIT_LEVEL_MAX = 20 };
 
 #define IS_GORGON_EGG(aUnit) (((aUnit)->pClassData->number == CLASS_GORGONEGG) || ((aUnit)->pClassData->number == CLASS_GORGONEGG2))
 
@@ -416,7 +433,7 @@ struct Unit* LoadUnit(const struct UnitDefinition* uDef) {
 
 				ClearUnitStruct(unit2);
 
-				unit->exp = 0xFF;
+				unit->exp   = UNIT_EXP_DISABLED;
 				unit->level = uDef->level;
 			} else
 				AutolevelUnit(unit);
@@ -444,3 +461,224 @@ struct Unit* LoadUnit(const struct UnitDefinition* uDef) {
 
 	return unit;
 }
+
+void StoreNewUnitFromCode(struct Unit* unit, const struct UnitDefinition* uDef) {
+	unit->pCharacterData = GetCharacterData(uDef->charIndex);
+
+	if (uDef->classIndex)
+		unit->pClassData = GetClassData(uDef->classIndex);
+	else // such an overlooked feature
+		unit->pClassData = GetClassData(unit->pCharacterData->defaultClass);
+
+	unit->level = uDef->level;
+
+	GetPreferredPositionForUNIT(uDef, &unit->xPos, &unit->yPos, FALSE);
+
+	if (IS_GORGON_EGG(unit)) {
+		int i;
+
+		// For gorgon eggs, set first item to zero
+		// And store the other item ids in slots 1 through 4 for later initialization
+
+		unit->items[0] = 0;
+
+		for (i = 0; i < 4; ++i)
+			unit->items[i + 1] = uDef->items[i];
+	} else {
+		int i;
+
+		for (i = 0; (i < 4) && (uDef->items[i]); ++i)
+			UnitAddItem(unit, MakeNewItem(uDef->items[i]));
+	}
+
+	CharStoreAI(unit, uDef);
+}
+
+void CharFillInventoryFromCode(struct Unit* unit, const struct UnitDefinition* uDef) {
+	int i;
+
+	UnitClearInventory(unit);
+
+	for (i = 0; (i < 4) && (uDef->items[i]); ++i)
+		UnitAddItem(unit, MakeNewItem(uDef->items[i]));
+}
+
+void LoadUnitStats(struct Unit* unit, const struct CharacterData* character) {
+	int i;
+
+	unit->maxHP = character->baseHP + unit->pClassData->baseHP;
+	unit->pow   = character->basePow + unit->pClassData->basePow;
+	unit->skl   = character->baseSkl + unit->pClassData->baseSkl;
+	unit->spd   = character->baseSpd + unit->pClassData->baseSpd;
+	unit->def   = character->baseDef + unit->pClassData->baseDef;
+	unit->res   = character->baseRes + unit->pClassData->baseRes;
+	unit->lck   = character->baseLck;
+
+	unit->conBonus = 0;
+
+	for (i = 0; i < 8; ++i) {
+		unit->ranks[i] = unit->pClassData->baseRanks[i];
+
+		if (unit->pCharacterData->baseRanks[i])
+			unit->ranks[i] = unit->pCharacterData->baseRanks[i];
+	}
+
+	if (UNIT_FACTION(unit) == FACTION_BLUE && (unit->level != UNIT_LEVEL_MAX))
+		unit->exp = 0;
+	else
+		unit->exp = UNIT_EXP_DISABLED;
+}
+
+void FixROMUnitStructPtr(struct Unit* unit) {
+	// TODO: investigate why
+
+	if (UNIT_ATTRIBUTES(unit) & CA_BIT_23)
+		unit->pCharacterData = GetCharacterData(unit->pCharacterData->number - 1);
+}
+
+void LoadUnitSupports(struct Unit* unit) {
+	int i, count = GetROMUnitSupportCount(unit);
+
+	for (i = 0; i < count; ++i)
+		unit->supports[i] = GetUnitStartingSupportValue(unit, i);
+}
+
+void AutolevelUnitWeaponRanks(struct Unit* unit, const struct UnitDefinition* uDef) {
+	if (uDef->autolevel) {
+		int i;
+
+		for (i = 0; i < GetUnitItemCount(unit); ++i) {
+			int wType, item = unit->items[i];
+
+			if (!(GetItemAttributes(item) & IA_REQUIRES_WEXP))
+				continue;
+
+			if (GetItemAttributes(item) & IA_WEAPON)
+				if (CanUnitUseWeapon(unit, item))
+					continue;
+
+			if (GetItemAttributes(item) & IA_STAFF)
+				if (CanUnitUseStaff(unit, item))
+					continue;
+
+			if (GetItemAttributes(item) & IA_LOCK_ANY)
+				continue;
+
+			wType = GetItemType(item);
+
+			if (unit->ranks[wType] == 0)
+				item = 0;
+
+			unit->ranks[wType] = GetItemRequiredExp(item);
+		}
+	}
+}
+
+void IncreaseUnitStatsByLevelCount(struct Unit* unit, u8 classId, int levelCount) {
+	if (levelCount) {
+		unit->maxHP += GetAutoleveledStat(unit->pClassData->growthHP,  levelCount);
+		unit->pow   += GetAutoleveledStat(unit->pClassData->growthPow, levelCount);
+		unit->skl   += GetAutoleveledStat(unit->pClassData->growthSkl, levelCount);
+		unit->spd   += GetAutoleveledStat(unit->pClassData->growthSpd, levelCount);
+		unit->def   += GetAutoleveledStat(unit->pClassData->growthDef, levelCount);
+		unit->res   += GetAutoleveledStat(unit->pClassData->growthRes, levelCount);
+		unit->lck   += GetAutoleveledStat(unit->pClassData->growthLck, levelCount);
+	}
+}
+
+void StoreUnitStats(struct Unit* unit, u8 classId, int levelCount) {
+	int level = unit->level;
+
+	if (levelCount && level > unit->pCharacterData->baseLevel) {
+		levelCount = level - levelCount;
+
+		unit->maxHP = unit->pCharacterData->baseHP  + unit->pClassData->baseHP;
+		unit->pow   = unit->pCharacterData->basePow + unit->pClassData->basePow;
+		unit->skl   = unit->pCharacterData->baseSkl + unit->pClassData->baseSkl;
+		unit->spd   = unit->pCharacterData->baseSpd + unit->pClassData->baseSpd;
+		unit->def   = unit->pCharacterData->baseDef + unit->pClassData->baseDef;
+		unit->res   = unit->pCharacterData->baseRes + unit->pClassData->baseRes;
+		unit->lck   = unit->pCharacterData->baseLck;
+
+		if (levelCount > unit->pCharacterData->baseLevel) {
+			unit->level = levelCount;
+			AutolevelUnit(unit);
+			unit->level = level;
+		}
+	}
+}
+
+void sub_80180CC(struct Unit* unit, int levelCount) {
+	if (levelCount && !IS_GORGON_EGG(unit)) {
+		if (levelCount > 0)
+			IncreaseUnitStatsByLevelCount(unit, unit->pClassData->number, levelCount);
+		else if (levelCount < 0)
+			StoreUnitStats(unit, unit->pClassData->number, -levelCount);
+
+		CheckForStatCaps(unit);
+
+		unit->curHP = GetMaxHp(unit);
+	}
+}
+
+void AutolevelUnit(struct Unit* unit) {
+	if (UNIT_ATTRIBUTES(unit) & CA_PROMOTED)
+		IncreaseUnitStatsByLevelCount(unit, unit->pClassData->promotion, GetCurrentPromotedLevelBonus());
+
+	IncreaseUnitStatsByLevelCount(unit, unit->pClassData->number, unit->level - 1);
+}
+
+void AutolevelRealistic(struct Unit* unit) {
+	struct BattleUnit tmpBattleUnit;
+	short levelsLeft;
+
+	tmpBattleUnit.expGain = 0;
+
+	levelsLeft = (unit->level - unit->pCharacterData->baseLevel);
+
+	if (levelsLeft) {
+		for (unit->level -= levelsLeft; levelsLeft > 0; --levelsLeft) {
+			CopyUnitToBattleStruct(&tmpBattleUnit, unit);
+
+			tmpBattleUnit.unit.exp += 100;
+			CheckForLevelUp(&tmpBattleUnit);
+
+			SaveUnitFromBattle(unit, &tmpBattleUnit);
+		}
+	}
+}
+
+/*
+#define UNIT_BASE_CON(aUnit) ((aUnit)->pClassData->baseCon + (aUnit)->pCharacterData->baseCon)
+
+enum { UNIT_MOV_MAX = 15 };
+
+void CheckForStatCaps(struct Unit* unit) {
+	if (UNIT_FACTION(unit) == FACTION_RED ? (unit->maxHP > 120) : (unit->maxHP > 60))
+		unit->maxHP = UNIT_FACTION(unit) == FACTION_RED ? 120 : 60;
+
+	if (unit->pow > unit->pClassData->maxPow)
+		unit->pow = unit->pClassData->maxPow;
+
+	if (unit->skl > unit->pClassData->maxSkl)
+		unit->skl = unit->pClassData->maxSkl;
+
+	if (unit->spd > unit->pClassData->maxSpd)
+		unit->spd = unit->pClassData->maxSpd;
+
+	if (unit->def > unit->pClassData->maxDef)
+		unit->def = unit->pClassData->maxDef;
+
+	if (unit->res > unit->pClassData->maxRes)
+		unit->res = unit->pClassData->maxRes;
+
+	if (unit->lck > 30)
+		unit->lck = 30;
+
+	if (unit->conBonus > (unit->pClassData->maxCon - UNIT_BASE_CON(unit)))
+		unit->conBonus = (unit->pClassData->maxCon - UNIT_BASE_CON(unit));
+
+	if (unit->movBonus > (UNIT_MOV_MAX - unit->pClassData->baseMov))
+		unit->movBonus = (UNIT_MOV_MAX - unit->pClassData->baseMov);
+}
+// */

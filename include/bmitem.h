@@ -32,6 +32,7 @@ enum {
     IA_LOCK_7         = (1 << 21),
 
     // Helpers
+    IA_REQUIRES_WEXP = (IA_WEAPON | IA_STAFF),
     IA_LOCK_ANY = (IA_LOCK_0 | IA_LOCK_1 | IA_LOCK_2 | IA_LOCK_3 | IA_LOCK_4 | IA_LOCK_5 | IA_LOCK_6 | IA_LOCK_7 | IA_UNUSABLE)
 };
 

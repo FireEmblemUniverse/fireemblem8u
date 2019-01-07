@@ -398,7 +398,7 @@ struct CharacterData {
     /* 09 */ u8 affinity;
     /* 0A */ u8 _u0A;
 
-    /* 0B */ u8 baseLevel;
+    /* 0B */ s8 baseLevel;
     /* 0C */ s8 baseHP;
     /* 0D */ s8 basePow;
     /* 0E */ s8 baseSkl;
@@ -410,13 +410,13 @@ struct CharacterData {
 
     /* 14 */ u8 baseRanks[8];
 
-    /* 1C */ u8 growthHP;
-    /* 1D */ u8 growthPow;
-    /* 1E */ u8 growthSkl;
-    /* 1F */ u8 growthSpd;
-    /* 20 */ u8 growthDef;
-    /* 21 */ u8 growthRes;
-    /* 22 */ u8 growthLck;
+    /* 1C */ s8 growthHP;
+    /* 1D */ s8 growthPow;
+    /* 1E */ s8 growthSkl;
+    /* 1F */ s8 growthSpd;
+    /* 20 */ s8 growthDef;
+    /* 21 */ s8 growthRes;
+    /* 22 */ s8 growthLck;
 
     /* 23 */ u8 _u23;
     /* 24 */ u8 _u24;
@@ -459,13 +459,13 @@ struct ClassData {
 
     /* 1A */ u8 classRelativePower;
 
-    /* 1B */ u8 growthHP;
-    /* 1C */ u8 growthPow;
-    /* 1D */ u8 growthSkl;
-    /* 1E */ u8 growthSpd;
-    /* 1F */ u8 growthDef;
-    /* 20 */ u8 growthRes;
-    /* 21 */ u8 growthLck;
+    /* 1B */ s8 growthHP;
+    /* 1C */ s8 growthPow;
+    /* 1D */ s8 growthSkl;
+    /* 1E */ s8 growthSpd;
+    /* 1F */ s8 growthDef;
+    /* 20 */ s8 growthRes;
+    /* 21 */ s8 growthLck;
 
     /* 22 */ u8 promotionHP;
     /* 23 */ u8 promotionPow;
@@ -537,31 +537,32 @@ enum {
 };
 
 enum {
-    CA_NONE = 0x00000000,
-    CA_MOUNTEDAID = 0x00000001,
-    CA_CANTO = 0x00000002,
-    CA_STEAL = 0x00000004,
-    CA_LOCKPICK = 0x00000008,
-    CA_DANCE = 0x00000010,
-    CA_PLAY = 0x00000020,
-    CA_CRITBONUS = 0x00000040,
-    CA_BALLISTAE = 0x00000080,
-    CA_PROMOTED = 0x00000100,
-    CA_SUPPLY = 0x00000200,
-    CA_MOUNTED = 0x00000400,
-    CA_WYVERN = 0x00000800,
-    CA_PEGASUS = 0x00001000,
-    CA_LORD = 0x00002000,
-    CA_FEMALE = 0x00004000,
-    CA_BOSS = 0x00008000,
-    CA_LOCK_1 = 0x00010000,
-    CA_LOCK_2 = 0x00020000,
-    CA_LOCK_3 = 0x00040000, // Dragons or Monster depending of game
-    CA_MAXLEVEL10 = 0x00080000,
-    CA_UNSELECTABLE = 0x00100000,
-    CA_TRIANGLEATTACK_PEGASI = 0x00200000,
-    CA_TRIANGLEATTACK_ARMORS = 0x00400000,
-    // = 0x00800000,
+    CA_NONE = 0,
+
+    CA_MOUNTEDAID = (1 << 0),
+    CA_CANTO = (1 << 1),
+    CA_STEAL = (1 << 2),
+    CA_LOCKPICK = (1 << 3),
+    CA_DANCE = (1 << 4),
+    CA_PLAY = (1 << 5),
+    CA_CRITBONUS = (1 << 6),
+    CA_BALLISTAE = (1 << 7),
+    CA_PROMOTED = (1 << 8),
+    CA_SUPPLY = (1 << 9),
+    CA_MOUNTED = (1 << 10),
+    CA_WYVERN = (1 << 11),
+    CA_PEGASUS = (1 << 12),
+    CA_LORD = (1 << 13),
+    CA_FEMALE = (1 << 14),
+    CA_BOSS = (1 << 15),
+    CA_LOCK_1 = (1 << 16),
+    CA_LOCK_2 = (1 << 17),
+    CA_LOCK_3 = (1 << 18), // Dragons or Monster depending of game
+    CA_MAXLEVEL10 = (1 << 19),
+    CA_UNSELECTABLE = (1 << 20),
+    CA_TRIANGLEATTACK_PEGASI = (1 << 21),
+    CA_TRIANGLEATTACK_ARMORS = (1 << 22),
+    CA_BIT_23 = 0x00800000,
     // = 0x01000000,
     CA_LETHALITY = 0x02000000,
     // = 0x04000000,
