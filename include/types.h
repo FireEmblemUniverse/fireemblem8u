@@ -440,22 +440,22 @@ struct ClassData {
     /* 08 */ u16 defaultPortraitId;
     /* 0A */ u8 _u0A;
 
-    /* 0B */ u8 baseHP;
-    /* 0C */ u8 basePow;
-    /* 0D */ u8 baseSkl;
-    /* 0E */ u8 baseSpd;
-    /* 0F */ u8 baseDef;
-    /* 10 */ u8 baseRes;
-    /* 11 */ u8 baseCon;
-    /* 12 */ u8 baseMov;
+    /* 0B */ s8 baseHP;
+    /* 0C */ s8 basePow;
+    /* 0D */ s8 baseSkl;
+    /* 0E */ s8 baseSpd;
+    /* 0F */ s8 baseDef;
+    /* 10 */ s8 baseRes;
+    /* 11 */ s8 baseCon;
+    /* 12 */ s8 baseMov;
 
-    /* 13 */ u8 maxHP;
-    /* 14 */ u8 maxPow;
-    /* 15 */ u8 maxSkl;
-    /* 16 */ u8 maxSpd;
-    /* 17 */ u8 maxDef;
-    /* 18 */ u8 maxRes;
-    /* 19 */ u8 maxCon;
+    /* 13 */ s8 maxHP;
+    /* 14 */ s8 maxPow;
+    /* 15 */ s8 maxSkl;
+    /* 16 */ s8 maxSpd;
+    /* 17 */ s8 maxDef;
+    /* 18 */ s8 maxRes;
+    /* 19 */ s8 maxCon;
 
     /* 1A */ u8 classRelativePower;
 
@@ -600,10 +600,10 @@ struct Unit {
     /* 18 */ s8 res;
     /* 19 */ s8 lck;
 
-    /* 1A */ u8 conBonus;
+    /* 1A */ s8 conBonus;
     /* 1B */ u8 rescueOtherUnit;
     /* 1C */ u8 ballistaIndex;
-    /* 1D */ u8 movBonus;
+    /* 1D */ s8 movBonus;
 
     /* 1E */ u16 items[5];
     /* 28 */ u8 ranks[8];

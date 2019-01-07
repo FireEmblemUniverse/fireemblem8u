@@ -67,9 +67,31 @@ void CopyUnitToBattleStruct(struct BattleUnit* bUnit, struct Unit* unit);
 void SaveUnitFromBattle(struct Unit* unit, struct BattleUnit* bUnit);
 void CheckForLevelUp(struct BattleUnit* bUnit);
 
+int GetUnitAid(struct Unit* unit);
+
+void sub_80283E0(struct Unit* unit);
+
+#define UNIT_IS_VALID(aUnit) ((aUnit) && (aUnit)->pCharacterData)
+
 // TODO: debate on which to use
 extern inline int GetUnitFaction(const struct Unit* unit) { return (unit->index & 0xC0); }
 #define UNIT_FACTION(aUnit) ((aUnit)->index & 0xC0)
+
+#define UNIT_MHP_MAX(aUnit) (UNIT_FACTION(unit) == FACTION_RED ? 120 : 60)
+#define UNIT_POW_MAX(aUnit) ((aUnit)->pClassData->maxPow)
+#define UNIT_SKL_MAX(aUnit) ((aUnit)->pClassData->maxSkl)
+#define UNIT_SPD_MAX(aUnit) ((aUnit)->pClassData->maxSpd)
+#define UNIT_DEF_MAX(aUnit) ((aUnit)->pClassData->maxDef)
+#define UNIT_RES_MAX(aUnit) ((aUnit)->pClassData->maxRes)
+#define UNIT_LCK_MAX(aUnit) (30)
+#define UNIT_CON_MAX(aUnit) ((aUnit)->pClassData->maxCon)
+#define UNIT_MOV_MAX(aUnit) (15)
+
+#define UNIT_CON_BASE(aUnit) ((aUnit)->pClassData->baseCon + (aUnit)->pCharacterData->baseCon)
+#define UNIT_MOV_BASE(aUnit) ((aUnit)->pClassData->baseMov)
+
+#define UNIT_CON(aUnit) (UNIT_CON_BASE(aUnit) + (aUnit)->conBonus)
+#define UNIT_MOV(aUnit) (UNIT_MOV_BASE(aUnit) + (aUnit)->movBonus)
 
 enum {
 	FACTION_BLUE   = 0x00, // player units
@@ -81,7 +103,8 @@ enum {
 enum { UNIT_EXP_DISABLED = 0xFF };
 enum { UNIT_LEVEL_MAX = 20 };
 
-#define IS_GORGON_EGG(aUnit) (((aUnit)->pClassData->number == CLASS_GORGONEGG) || ((aUnit)->pClassData->number == CLASS_GORGONEGG2))
+#define UNIT_IS_GORGON_EGG(aUnit) (((aUnit)->pClassData->number == CLASS_GORGONEGG) || ((aUnit)->pClassData->number == CLASS_GORGONEGG2))
+#define UNIT_IS_PHANTOM(aUnit) ((aUnit)->pClassData->number == CLASS_PHANTOM)
 
 extern struct Unit* gUnknown_0859A5D0[]; // unit lookup
 
@@ -412,7 +435,7 @@ struct Unit* LoadUnit(const struct UnitDefinition* uDef) {
 	LoadUnitStats(unit, unit->pCharacterData);
 	HideIfUnderRoof(unit);
 
-	if (IS_GORGON_EGG(unit))
+	if (UNIT_IS_GORGON_EGG(unit))
 		SetUnitNewStatus(unit, UNIT_STATUS_10);
 
 	if (uDef->autolevel) {
@@ -442,7 +465,7 @@ struct Unit* LoadUnit(const struct UnitDefinition* uDef) {
 			unit->unitLeader = uDef->leaderCharIndex;
 		}
 
-		if (IS_GORGON_EGG(unit))
+		if (UNIT_IS_GORGON_EGG(unit))
 			unit->maxHP = (unit->level + 1) * 5;
 	} // if (uDef->autolevel)
 
@@ -456,7 +479,7 @@ struct Unit* LoadUnit(const struct UnitDefinition* uDef) {
 
 	unit->curHP = GetMaxHp(unit);
 
-	if (IS_GORGON_EGG(unit))
+	if (UNIT_IS_GORGON_EGG(unit))
 		SetHp(unit, 5);
 
 	return unit;
@@ -474,7 +497,7 @@ void StoreNewUnitFromCode(struct Unit* unit, const struct UnitDefinition* uDef) 
 
 	GetPreferredPositionForUNIT(uDef, &unit->xPos, &unit->yPos, FALSE);
 
-	if (IS_GORGON_EGG(unit)) {
+	if (UNIT_IS_GORGON_EGG(unit)) {
 		int i;
 
 		// For gorgon eggs, set first item to zero
@@ -609,7 +632,7 @@ void StoreUnitStats(struct Unit* unit, u8 classId, int levelCount) {
 }
 
 void sub_80180CC(struct Unit* unit, int levelCount) {
-	if (levelCount && !IS_GORGON_EGG(unit)) {
+	if (levelCount && !UNIT_IS_GORGON_EGG(unit)) {
 		if (levelCount > 0)
 			IncreaseUnitStatsByLevelCount(unit, unit->pClassData->number, levelCount);
 		else if (levelCount < 0)
@@ -648,37 +671,153 @@ void AutolevelRealistic(struct Unit* unit) {
 	}
 }
 
-/*
-#define UNIT_BASE_CON(aUnit) ((aUnit)->pClassData->baseCon + (aUnit)->pCharacterData->baseCon)
-
-enum { UNIT_MOV_MAX = 15 };
-
 void CheckForStatCaps(struct Unit* unit) {
-	if (UNIT_FACTION(unit) == FACTION_RED ? (unit->maxHP > 120) : (unit->maxHP > 60))
-		unit->maxHP = UNIT_FACTION(unit) == FACTION_RED ? 120 : 60;
+	if (unit->maxHP > UNIT_MHP_MAX(unit))
+		unit->maxHP = UNIT_MHP_MAX(unit);
 
-	if (unit->pow > unit->pClassData->maxPow)
-		unit->pow = unit->pClassData->maxPow;
+	if (unit->pow > UNIT_POW_MAX(unit))
+		unit->pow = UNIT_POW_MAX(unit);
 
-	if (unit->skl > unit->pClassData->maxSkl)
-		unit->skl = unit->pClassData->maxSkl;
+	if (unit->skl > UNIT_SKL_MAX(unit))
+		unit->skl = UNIT_SKL_MAX(unit);
 
-	if (unit->spd > unit->pClassData->maxSpd)
-		unit->spd = unit->pClassData->maxSpd;
+	if (unit->spd > UNIT_SPD_MAX(unit))
+		unit->spd = UNIT_SPD_MAX(unit);
 
-	if (unit->def > unit->pClassData->maxDef)
-		unit->def = unit->pClassData->maxDef;
+	if (unit->def > UNIT_DEF_MAX(unit))
+		unit->def = UNIT_DEF_MAX(unit);
 
-	if (unit->res > unit->pClassData->maxRes)
-		unit->res = unit->pClassData->maxRes;
+	if (unit->res > UNIT_RES_MAX(unit))
+		unit->res = UNIT_RES_MAX(unit);
 
-	if (unit->lck > 30)
-		unit->lck = 30;
+	if (unit->lck > UNIT_LCK_MAX(unit))
+		unit->lck = UNIT_LCK_MAX(unit);
 
-	if (unit->conBonus > (unit->pClassData->maxCon - UNIT_BASE_CON(unit)))
-		unit->conBonus = (unit->pClassData->maxCon - UNIT_BASE_CON(unit));
+	if (unit->conBonus > (UNIT_CON_MAX(unit) - UNIT_CON_BASE(unit)))
+		unit->conBonus = (UNIT_CON_MAX(unit) - UNIT_CON_BASE(unit));
 
-	if (unit->movBonus > (UNIT_MOV_MAX - unit->pClassData->baseMov))
-		unit->movBonus = (UNIT_MOV_MAX - unit->pClassData->baseMov);
+	if (unit->movBonus > (UNIT_MOV_MAX(unit) - UNIT_MOV_BASE(unit)))
+		unit->movBonus = (UNIT_MOV_MAX(unit) - UNIT_MOV_BASE(unit));
 }
-// */
+
+struct Unit* GetUnitByCharId(int charId) {
+	int i;
+
+	for (i = 1; i < 0x100; ++i) {
+		struct Unit* unit = GetUnit(i);
+
+		if (UNIT_IS_VALID(unit) && unit->pCharacterData->number == charId)
+			return unit;
+	}
+
+	return NULL;
+}
+
+struct Unit* GetNonAllyUnitStructById(int charId, int faction) {
+	int i, last = faction + 0x40;
+
+	for (i = faction + 1; i < last; ++i) {
+		struct Unit* unit = GetUnit(i);
+
+		if (UNIT_IS_VALID(unit) && unit->pCharacterData->number == charId)
+			return unit;
+	}
+
+	return NULL;
+}
+
+s8 CanUnitRescue(struct Unit* actor, struct Unit* target) {
+	int actorAid  = GetUnitAid(actor);
+	int targetCon = UNIT_CON(target);
+
+	return (actorAid >= targetCon) ? TRUE : FALSE;
+}
+
+void UnitRescue(struct Unit* actor, struct Unit* target) {
+	actor->state  |= US_RESCUING;
+	target->state |= US_RESCUED | US_HIDDEN;
+
+	actor->rescueOtherUnit = target->index;
+	target->rescueOtherUnit = actor->index;
+
+	target->xPos = actor->xPos;
+	target->yPos = actor->yPos;
+}
+
+void UpdateRescuingData(struct Unit* actor, int xTarget, int yTarget) {
+	struct Unit* target = GetUnit(actor->rescueOtherUnit);
+
+	actor->state = actor->state &~ (US_RESCUING | US_RESCUED);
+	target->state = target->state &~ (US_RESCUING | US_RESCUED | US_HIDDEN);
+
+	if (UNIT_FACTION(target) == gUnknown_0202BCF0.chapterPhaseIndex)
+		target->state |= US_UNSELECTABLE; // TODO: US_GRAYED
+
+	actor->rescueOtherUnit = 0;
+	target->rescueOtherUnit = 0;
+
+	target->xPos = xTarget;
+	target->yPos = yTarget;
+}
+
+s8 UpdateRescueData(struct Unit* actor, struct Unit* target) {
+	struct Unit* rescuee = GetUnit(actor->rescueOtherUnit);
+
+	// no used be needed to match etc
+	int couldGive = CanUnitRescue(target, rescuee);
+
+	UpdateRescuingData(actor, 0, 0);
+	UnitRescue(target, rescuee);
+
+	// return couldGive; // devs probably forgot to add this
+}
+
+void sub_80183FC(struct Unit* unit) {
+	if (UNIT_FACTION(unit) == FACTION_BLUE) {
+		if (UNIT_IS_PHANTOM(unit))
+			unit->pCharacterData = NULL;
+		else {
+			unit->state |= US_DEAD | US_HIDDEN;
+			sub_80283E0(unit);
+		}
+	} else
+		unit->pCharacterData = NULL;
+}
+
+void HandleAllegianceChange(struct Unit* unit, int faction) {
+	struct Unit* newUnit = GetNextFreeUnitStructPtr(faction);
+
+	if (gUnknown_03004E50 == unit)
+		gUnknown_03004E50 = newUnit;
+
+	CopyUnitStruct(unit, newUnit);
+	ClearUnitStruct(unit);
+
+	if (newUnit->exp == UNIT_EXP_DISABLED) {
+		if ((faction == FACTION_BLUE) && (newUnit->level != UNIT_LEVEL_MAX))
+			newUnit->exp = 0;
+		else
+			newUnit->exp = UNIT_EXP_DISABLED;
+	}
+
+	newUnit->state = newUnit->state &~ US_DROP_ITEM;
+
+	if (newUnit->rescueOtherUnit)
+		GetUnit(newUnit->rescueOtherUnit)->rescueOtherUnit = newUnit->index;
+}
+
+void ApplyUnitMovement(struct Unit* unit) {
+	if (unit->state & US_RESCUING) {
+		struct Unit* rescuee = GetUnit(unit->rescueOtherUnit);
+
+		rescuee->xPos = unit->xPos;
+		rescuee->yPos = unit->yPos;
+	}
+
+	if (unit->state & US_IN_BALLISTA) {
+		struct Trap* trap = GetTrap(unit->ballistaIndex);
+
+		trap->xPos = unit->xPos;
+		trap->yPos = unit->yPos;
+	}
+}
