@@ -474,7 +474,7 @@ u16 GetItemAfterUse(int item) {
     return item; // return used item
 }
 
-int GetUnitEquippedWeapon(struct Unit* unit) {
+u16 GetUnitEquippedWeapon(struct Unit* unit) {
     int i;
 
     for (i = 0; i < UNIT_ITEM_COUNT; ++i)

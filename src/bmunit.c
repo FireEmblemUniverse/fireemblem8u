@@ -16,22 +16,55 @@ struct UnitDefinition {
 	/* 03 */ u8  allegiance : 2;
 	/* 03 */ u8  level      : 5;
 
-	/* 04 */ u16 xPosition : 6; /* 04:0 to 04:5 */
-	/* 04 */ u16 yPosition : 6; /* 04:6 to 05:3 */
-	/* 05 */ u16 unk       : 2; /* 05:4 to 05:5 */
-	/* 05 */ u16 sumFlag   : 1; /* 05:6 */
-	/* 05 */ u16 extraData : 9; /* 05:7 to 06:7 */
-	/* 07 */ u16 redaCount : 8;
+	/* 04 */ u16 xPosition  : 6; /* 04:0 to 04:5 */
+	/* 04 */ u16 yPosition  : 6; /* 04:6 to 05:3 */
+	/* 05 */ u16 genMonster : 1; /* 05:4 */
+	/* 05 */ u16 itemDrop   : 1; /* 05:5 */
+	/* 05 */ u16 sumFlag    : 1; /* 05:6 */
+	/* 05 */ u16 extraData  : 9; /* 05:7 to 06:7 */
+	/* 07 */ u16 redaCount  : 8;
 
-	const void* redas;
+	/* 08 */ const void* redas;
 
-	u8  items[4];
-	u8  ai[4];
+	/* 0C */ u8  items[4];
+
+	struct {
+		/* 10 */ u8 ai1;
+		/* 11 */ u8 ai2;
+		/* 12 */ u8 ai3 : 8;
+	} ai;
 };
 
 int GetPlayerLeaderUnitId(void);
 
-void LoadUnit(struct UnitDefinition* uDef);
+struct Unit* LoadUnit(const struct UnitDefinition* uDef);
+
+int GenerateMonsterClass(u8 baseClassId);
+int GenerateMonsterLevel(u8 baseLevel);
+u32 GenerateMonsterItems(u8 monsterClassId);
+
+void StoreNewUnitFromCode(struct Unit* unit, const struct UnitDefinition* uDef);
+void LoadUnitStats(struct Unit* unit, const struct CharacterData* character);
+void HideIfUnderRoof(struct Unit* unit);
+void AutolevelRealistic(struct Unit* unit);
+void AutolevelUnitWeaponRanks(struct Unit* unit, const struct UnitDefinition* uDef);
+void AutolevelUnit(struct Unit* unit);
+void FixROMUnitStructPtr(struct Unit* unit);
+void LoadUnitSupports(struct Unit* unit);
+void CheckForStatCaps(struct Unit* unit);
+
+// TODO: debate on which to use
+extern inline int GetUnitFaction(const struct Unit* unit) { return (unit->index & 0xC0); }
+#define UNIT_FACTION(aUnit) ((aUnit)->index & 0xC0)
+
+enum {
+	FACTION_BLUE   = 0x00, // player units
+	FACTION_GREEN  = 0x40, // ally npc units
+	FACTION_RED    = 0x80, // enemy units
+	FACTION_PURPLE = 0xC0, // link arena 4th team
+};
+
+#define IS_GORGON_EGG(aUnit) (((aUnit)->pClassData->number == CLASS_GORGONEGG) || ((aUnit)->pClassData->number == CLASS_GORGONEGG2))
 
 extern struct Unit* gUnknown_0859A5D0[]; // unit lookup
 
@@ -57,6 +90,19 @@ static inline const struct CharacterData* GetCharacterData(int charId) {
 		return NULL;
 
 	return gUnknown_08803D64 + (charId - 1);
+}
+
+// TODO: public!
+static inline int GetMaxHp(struct Unit* unit) {
+	return unit->maxHP + GetItemHpBonus(GetUnitEquippedWeapon(unit));
+}
+
+// TODO: public!
+static inline void SetHp(struct Unit* unit, int value) {
+	unit->curHP = value;
+
+	if (unit->curHP > GetMaxHp(unit))
+		unit->curHP = GetMaxHp(unit);
 }
 
 void ClearUnits(void) {
@@ -97,7 +143,7 @@ struct Unit* GetNextFreeUnitStructPtr(int faction) {
 	return NULL;
 }
 
-struct Unit* GetNextFreePlayerUnitStruct(struct UnitDefinition* uDef) {
+struct Unit* GetNextFreePlayerUnitStruct(const struct UnitDefinition* uDef) {
 	int i, max = 0x40;
 
 	// This is ?? and is completely useless but it's required to produce matching asm
@@ -230,7 +276,7 @@ s8 UnitHasItem(struct Unit* unit, int item) {
 	return FALSE;
 }
 
-int LoadUnits(struct UnitDefinition* uDef) {
+int LoadUnits(const struct UnitDefinition* uDef) {
 	int count = 0;
 
 	while (uDef->charIndex) {
@@ -259,4 +305,142 @@ s8 HasClassWRank(u8 classId, u8 wpnType) {
 		return TRUE;
 	else
 		return FALSE;
+}
+
+struct Unit* LoadUnit(const struct UnitDefinition* uDef) {
+	struct UnitDefinition buf;
+
+	struct Unit* unit = NULL;
+
+	if (uDef->genMonster) {
+		u16 monsterClass = GenerateMonsterClass(uDef->classIndex);
+
+		buf = *uDef;
+
+		buf.autolevel = TRUE;
+		buf.classIndex = monsterClass;
+		buf.level = GenerateMonsterLevel(uDef->level);
+
+		{
+			u32 packedItems = GenerateMonsterItems(monsterClass);
+
+			u16 item1 = packedItems >> 16;
+			u16 item2 = packedItems & 0xFFFF;
+
+			buf.items[0] = item1;
+			buf.items[1] = item2;
+			buf.items[2] = 0;
+			buf.items[3] = 0;
+
+			if ((GetItemWeaponEffect(item1) == 1) || !item2)
+				buf.itemDrop = FALSE;
+			else
+				buf.itemDrop = TRUE;
+
+			if (item1 == ITEM_MONSTER_SHADOWSHT || item1 == ITEM_MONSTER_STONE) {
+				// Add another weapon item if weapon is either Shadowshot or Stone
+
+				buf.items[2] = buf.items[1];
+
+				switch (monsterClass) {
+
+				case CLASS_MOGALL:
+					buf.items[1] = ITEM_MONSTER_EVILEYE;
+					break;
+
+				case CLASS_ARCHMOGALL:
+					buf.items[1] = ITEM_MONSTER_CRIMSNEYE;
+					break;
+
+				case CLASS_GORGON:
+					buf.items[1] = ITEM_MONSTER_DEMONSURG;
+
+				} // switch (monsterClass)
+			}
+		}
+
+		if (HasClassWRank(monsterClass, ITYPE_BOW) == TRUE) {
+			// TODO: AI BIT DEFINITIONS
+			buf.ai.ai3 = buf.ai.ai3 & (1 | 2 | 4);
+			buf.ai.ai3 = buf.ai.ai3 | (8 | 32);
+		}
+
+		uDef = &buf;
+	} // (uDef->genMonster)
+
+	switch (uDef->allegiance) {
+
+		// TODO: unit definition faction constants
+
+	case 0:
+		unit = GetNextFreePlayerUnitStruct(uDef);
+		break;
+
+	case 2:
+		unit = GetNextFreeUnitStructPtr(0x80);
+		break;
+
+	case 1:
+		unit = GetNextFreeUnitStructPtr(0x40);
+		break;
+
+	} // switch (uDef->allegiance)
+
+	if (!unit)
+		return NULL;
+
+	ClearUnitStruct(unit);
+
+	StoreNewUnitFromCode(unit, uDef);
+	LoadUnitStats(unit, unit->pCharacterData);
+	HideIfUnderRoof(unit);
+
+	if (IS_GORGON_EGG(unit))
+		SetUnitNewStatus(unit, UNIT_STATUS_10);
+
+	if (uDef->autolevel) {
+		if (UNIT_FACTION(unit) == FACTION_BLUE) {
+			AutolevelRealistic(unit);
+			AutolevelUnitWeaponRanks(unit, uDef);
+		} else {
+			if ((UNIT_ATTRIBUTES(unit) & CA_BOSS) || (unit->pCharacterData->number < 0x40)) {
+				struct Unit* unit2 = GetNextFreeUnitStructPtr(0);
+
+				CopyUnitStruct(unit, unit2);
+
+				unit2->exp = 0;
+				AutolevelRealistic(unit2);
+
+				ClearUnitStruct(unit);
+				CopyUnitStruct(unit2, unit);
+
+				ClearUnitStruct(unit2);
+
+				unit->exp = 0xFF;
+				unit->level = uDef->level;
+			} else
+				AutolevelUnit(unit);
+
+			AutolevelUnitWeaponRanks(unit, uDef);
+			unit->unitLeader = uDef->leaderCharIndex;
+		}
+
+		if (IS_GORGON_EGG(unit))
+			unit->maxHP = (unit->level + 1) * 5;
+	} // if (uDef->autolevel)
+
+	FixROMUnitStructPtr(unit);
+	LoadUnitSupports(unit);
+
+	if (uDef->itemDrop)
+		unit->state |= US_DROP_ITEM;
+
+	CheckForStatCaps(unit);
+
+	unit->curHP = GetMaxHp(unit);
+
+	if (IS_GORGON_EGG(unit))
+		SetHp(unit, 5);
+
+	return unit;
 }

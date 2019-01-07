@@ -525,7 +525,7 @@ enum {
     US_DUMMY
 };
 
-enum StatusEffect {
+enum {
     UNIT_STATUS_NONE = 0,
 
     UNIT_STATUS_POISON = 1,
@@ -533,7 +533,7 @@ enum StatusEffect {
     UNIT_STATUS_SILENCED = 3,
     UNIT_STATUS_BERSERK = 4,
 
-    UNIT_STATUS__DUMMY
+    UNIT_STATUS_10 = 10,
 };
 
 enum {
@@ -579,7 +579,7 @@ struct Unit {
     /* 00 */ const struct CharacterData* pCharacterData;
     /* 04 */ const struct ClassData* pClassData;
 
-    /* 08 */ u8 level;
+    /* 08 */ s8 level;
     /* 09 */ u8 exp;
     /* 0A */ u8 _u0A;
 
@@ -590,8 +590,8 @@ struct Unit {
     /* 10 */ s8 xPos;
     /* 11 */ s8 yPos;
 
-    /* 12 */ u8 maxHP;
-    /* 13 */ u8 curHP;
+    /* 12 */ s8 maxHP;
+    /* 13 */ s8 curHP;
     /* 14 */ s8 pow;
     /* 15 */ s8 skl;
     /* 16 */ s8 spd;
@@ -760,6 +760,15 @@ enum { CONVOY_ITEM_COUNT = 100 };
 enum { UNIT_ITEM_COUNT = 5 };
 
 // TODO: move elsewhere/possibly generate from class table
-enum { CLASS_PHANTOM = 0x51 };
+enum {
+	CLASS_GORGONEGG2 = 0x34,
+
+    CLASS_PHANTOM    = 0x51,
+
+	CLASS_MOGALL     = 0x5F,
+	CLASS_ARCHMOGALL = 0x60,
+	CLASS_GORGON     = 0x61,
+	CLASS_GORGONEGG  = 0x62,
+};
 
 #endif // GUARD_TYPES_H
