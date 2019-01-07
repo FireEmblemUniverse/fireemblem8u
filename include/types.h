@@ -134,6 +134,9 @@ struct Struct0202BCB0 // Game State Struct
     /* 30 */ u8 _pad30[0x3C - 0x30];
 
     /* 3C */ u8 unk3C;
+    /* 3D */ u8 unk3D;
+    /* 3E */ u8 unk3E;
+    /* 3F */ u8 unk3F;
 };
 
 struct Struct0202BCF0 { // Chapter Data Struct
@@ -497,7 +500,7 @@ enum {
     US_HAS_MOVED    = (1 << 6), // Bad name?
     US_CANTOING     = US_HAS_MOVED, // Alias
     US_UNDER_A_ROOF = (1 << 7),
-    // = (1 << 8),
+    US_BIT8 = (1 << 8),
     // = (1 << 9),
     US_HAS_MOVED_AI = (1 << 10),
     US_IN_BALLISTA  = (1 << 11),
@@ -522,7 +525,8 @@ enum {
     // = (1 << 30),
     // = (1 << 31),
 
-    US_DUMMY
+    // Helpers
+    US_UNAVAILABLE = (US_DEAD | US_NOT_DEPLOYED | US_BIT16),
 };
 
 enum {

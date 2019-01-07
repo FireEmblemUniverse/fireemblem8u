@@ -71,10 +71,37 @@ int GetUnitAid(struct Unit* unit);
 
 void sub_80283E0(struct Unit* unit);
 
+void FillMovementMapSomehow(int x, int y, const s8* movCostLookup);
+const s8* GetMovCostTablePtr(struct Unit* unit);
+
+void NullSomeStuff(void);
+
+void BWL_AddTilesMoved(int charId, int amount);
+
+void StoreSomeUnitSetFlags(int charId);
+
+void InitTargets(int xRoot, int yRoot);
+void AddTarget(int x, int y, int uId, int tId);
+void sub_8019CBC(void);
+void RefreshFogAndUnitMaps(void);
+void UpdateGameTilesGraphics(void);
+void NewBMXFADE(s8 strongLock);
+void SMS_UpdateFromGameData(void);
+
+extern const s8 gUnknown_0880BB96[]; // Drop movement cost table
+
+enum { MAP_MOVEMENT_MAX = 120 };
+
+enum {
+	HIDDEN_BIT_UNIT = (1 << 0),
+	HIDDEN_BIT_TRAP = (1 << 1),
+};
+
+extern u8 gUnknown_0202BE44;
+extern struct { short x, y; } gUnknown_0202BE48;
+
 #define UNIT_IS_VALID(aUnit) ((aUnit) && (aUnit)->pCharacterData)
 
-// TODO: debate on which to use
-extern inline int GetUnitFaction(const struct Unit* unit) { return (unit->index & 0xC0); }
 #define UNIT_FACTION(aUnit) ((aUnit)->index & 0xC0)
 
 #define UNIT_MHP_MAX(aUnit) (UNIT_FACTION(unit) == FACTION_RED ? 120 : 60)
@@ -143,6 +170,25 @@ static inline void SetHp(struct Unit* unit, int value) {
 
 	if (unit->curHP > GetMaxHp(unit))
 		unit->curHP = GetMaxHp(unit);
+}
+
+// TODO: public!
+static inline s8 CanUnitCross(struct Unit* unit, u8 terrain) {
+	const s8* lookup = GetMovCostTablePtr(unit);
+	return (lookup[terrain] > 0) ? TRUE : FALSE;
+}
+
+// TODO: public!
+static inline int GetHp(struct Unit* unit) {
+	if (unit->curHP > GetMaxHp(unit))
+		unit->curHP = GetMaxHp(unit);
+
+	return unit->curHP;
+}
+
+// TODO: public!
+static inline int GetPower(struct Unit* unit) {
+	return unit->pow + GetItemPowBonus(GetUnitEquippedWeapon(unit));
 }
 
 void ClearUnits(void) {
@@ -820,4 +866,274 @@ void ApplyUnitMovement(struct Unit* unit) {
 		trap->xPos = unit->xPos;
 		trap->yPos = unit->yPos;
 	}
+}
+
+void sub_80184E0(struct Unit* unit, int* xOut, int* yOut) {
+	int iy, ix, minDistance = 9999;
+	struct Unit* rescuee = GetUnit(unit->rescueOtherUnit);
+
+	// Fill the movement map
+	FillMovementMapSomehow(unit->xPos, unit->yPos, gUnknown_0880BB96);
+
+	// Put the active unit on the unit map (kinda, just marking its spot)
+	gUnknown_0202E4D8[gUnknown_03004E50->yPos][gUnknown_03004E50->xPos] = 0xFF;
+
+	// Remove the actor unit from the unit map (why?)
+	gUnknown_0202E4D8[unit->yPos][unit->xPos] = 0;
+
+	for (iy = gUnknown_0202E4D4.height - 1; iy >= 0; --iy) {
+		for (ix = gUnknown_0202E4D4.width - 1; ix >= 0; --ix) {
+			int distance;
+
+			if (gUnknown_0202E4E0[iy][ix] > MAP_MOVEMENT_MAX)
+				continue;
+
+			if (gUnknown_0202E4D8[iy][ix] != 0)
+				continue;
+
+			if (gUnknown_0202E4EC[iy][ix] & HIDDEN_BIT_UNIT)
+				continue;
+
+			if (!CanUnitCross(rescuee, gUnknown_0202E4DC[iy][ix]))
+				continue;
+
+			distance = ABS(ix - unit->xPos) + ABS(iy - unit->yPos);
+
+			if (minDistance >= distance) {
+				minDistance = distance;
+
+				*xOut = ix;
+				*yOut = iy;
+			}
+		}
+	}
+
+	// Remove the active unit from the unit map again
+	gUnknown_0202E4D8[gUnknown_03004E50->yPos][gUnknown_03004E50->xPos] = 0;
+}
+
+void SetupActiveUnit(struct Unit* unit) {
+	gUnknown_03004E50 = unit;
+	gUnknown_0202BE44 = unit->index;
+
+	gUnknown_0202BE48.x = unit->xPos;
+	gUnknown_0202BE48.y = unit->yPos;
+
+	gUnknown_0203A958.subjectIndex = unit->index;
+	gUnknown_0203A958.unitActionType = 0;
+	gUnknown_0203A958.moveCount = 0;
+
+	gUnknown_0202BCB0.unk3D = 0;
+	gUnknown_0202BCB0.unk3F = 0xFF;
+
+	NullSomeStuff();
+
+	gUnknown_03004E50->state |= US_HIDDEN;
+	gUnknown_0202E4D8[unit->yPos][unit->xPos] = 0;
+}
+
+void SetActiveUnit(struct Unit* unit) {
+	gUnknown_03004E50 = unit;
+	gUnknown_0202BE44 = unit->index;
+
+	gUnknown_0202BE48.x = unit->xPos;
+	gUnknown_0202BE48.y = unit->yPos;
+
+	gUnknown_0203A958.unitActionType = 0;
+
+	gUnknown_0202BCB0.unk3D = 0;
+
+	NullSomeStuff();
+
+	gUnknown_03004E50->state |= US_HIDDEN;
+	gUnknown_0202E4D8[unit->yPos][unit->xPos] = 0;
+}
+
+void MoveActiveUnit(int x, int y) {
+	gUnknown_03004E50->xPos = x;
+	gUnknown_03004E50->yPos = y;
+
+	gUnknown_03004E50->state |= US_UNSELECTABLE;
+
+	BWL_AddTilesMoved(gUnknown_03004E50->pCharacterData->number, gUnknown_0203A958.moveCount);
+
+	if (GetHp(gUnknown_03004E50) != 0)
+		gUnknown_03004E50->state = gUnknown_03004E50->state &~ US_HIDDEN;
+
+	ApplyUnitMovement(gUnknown_03004E50);
+}
+
+void sub_80187C0(void) {
+	int i;
+
+	if (gUnknown_0202BCF0.chapterPhaseIndex == FACTION_BLUE) {
+		int i;
+
+		for (i = 1; i < 0x40; ++i) {
+			struct Unit* unit = GetUnit(i);
+
+			if (!UNIT_IS_VALID(unit))
+				continue;
+
+			if (UNIT_ATTRIBUTES(unit) & CA_SUPPLY)
+				continue;
+
+			if (unit->state & (US_UNAVAILABLE | US_UNSELECTABLE))
+				continue;
+
+			StoreSomeUnitSetFlags(unit->pCharacterData->number);
+		}
+	}
+
+	for (i = gUnknown_0202BCF0.chapterPhaseIndex + 1; i < gUnknown_0202BCF0.chapterPhaseIndex + 0x40; ++i) {
+		struct Unit* unit = GetUnit(i);
+
+		if (UNIT_IS_VALID(unit))
+			unit->state = unit->state &~ (US_UNSELECTABLE | US_HAS_MOVED | US_HAS_MOVED_AI);
+	}
+}
+
+void sub_8018858(void) {
+	int i, displayMapChange = FALSE;
+
+	InitTargets(0, 0);
+
+	for (i = gUnknown_0202BCF0.chapterPhaseIndex + 1; i < gUnknown_0202BCF0.chapterPhaseIndex + 0x40; ++i) {
+		struct Unit* unit = GetUnit(i);
+
+		if (!UNIT_IS_VALID(unit))
+			continue;
+
+		if (unit->state & (US_UNAVAILABLE | US_RESCUED))
+			continue;
+
+		if (unit->barrierDuration != 0)
+			unit->barrierDuration--;
+
+		if (unit->torchDuration != 0) {
+			unit->torchDuration--;
+			displayMapChange = TRUE;
+		}
+
+		if (unit->statusDuration != 0) {
+			if (unit->statusIndex != UNIT_STATUS_10)
+				unit->statusDuration--;
+
+			if (unit->statusDuration == 0)
+				AddTarget(unit->xPos, unit->yPos, unit->index, 0);
+		}
+	}
+
+	if (displayMapChange) {
+		sub_8019CBC();
+		RefreshFogAndUnitMaps();
+		UpdateGameTilesGraphics();
+		NewBMXFADE(TRUE);
+		SMS_UpdateFromGameData();
+	}
+}
+
+void SetAllUnitNotBackSprite(void) {
+	int i;
+
+	for (i = 1; i < 0xC0; ++i) {
+		struct Unit* unit = GetUnit(i);
+
+		if (UNIT_IS_VALID(unit))
+			unit->state = unit->state &~ US_BIT8;
+	}
+}
+
+void ValidateUnitItem(struct Unit* unit, int itemSlot) {
+	if (unit->items[itemSlot]) {
+		unit->items[itemSlot] = GetItemAfterUse(unit->items[itemSlot]);
+		RemoveUnitBlankItems(unit);
+	}
+}
+
+int GetUnitAid(struct Unit* unit) {
+	if (!(UNIT_ATTRIBUTES(unit) & CA_MOUNTEDAID))
+		return UNIT_CON(unit) - 1;
+
+	if (UNIT_ATTRIBUTES(unit) & CA_FEMALE)
+		return 20 - UNIT_CON(unit);
+	else
+		return 25 - UNIT_CON(unit);
+}
+
+int GetUnitMagBy2Range(struct Unit* unit) {
+	if (unit->pCharacterData->number == 0xBE) { // TODO: CHAR_FOMORTIIS
+		return GetItemMaxRange(ITEM_NIGHTMARE);
+	} else {
+		int result = GetPower(unit) / 2;
+
+		if (result < 5)
+			result = 5;
+
+		return result;
+	}
+}
+
+s8 UnitHasMagicRank(struct Unit* unit) {
+	u8 combinedRanks = 0; 
+
+	combinedRanks |= unit->ranks[ITYPE_STAFF];
+	combinedRanks |= unit->ranks[ITYPE_ANIMA];
+	combinedRanks |= unit->ranks[ITYPE_LIGHT];
+	combinedRanks |= unit->ranks[ITYPE_DARK];
+
+	return combinedRanks ? TRUE : FALSE;
+}
+
+void sub_8018A7C(struct Unit* unit, int x, int y) {
+	if (!(unit->state & US_UNDER_A_ROOF)) {
+		unit->state = unit->state &~ (US_HIDDEN | US_NOT_DEPLOYED);
+
+		unit->xPos = x;
+		unit->yPos = y;
+	}
+}
+
+int sub_8018A9C(struct Unit* unit, int terrain) {
+	int slot, item = 0;
+
+	if (UNIT_ATTRIBUTES(unit) & CA_LOCKPICK) {
+		int slot = GetUnitItemSlot(unit, ITEM_LOCKPICK);
+
+		if (slot >= 0)
+			return slot;
+	}
+
+	switch (terrain) {
+
+	case 0x21:
+		slot = GetUnitItemSlot(unit, ITEM_CHESTKEY);
+
+		if (slot < 0)
+			slot = GetUnitItemSlot(unit, ITEM_CHESTKEY_BUNDLE);
+
+		return slot;
+
+	case 0x1E:
+		item = ITEM_DOORKEY;
+		break;
+
+	} // switch (terrain)
+
+	return GetUnitItemSlot(unit, item);
+}
+
+int sub_8018AF0(u32 attributes) {
+	// TODO: figure out what kind of return value this is, and use constants
+
+	if (attributes & CA_MOUNTED)
+		return 0x81;
+
+	if (attributes & CA_PEGASUS)
+		return 0x82;
+
+	if (attributes & CA_WYVERN)
+		return 0x83;
+
+	return (-1);
 }
