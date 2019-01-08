@@ -24,6 +24,8 @@
 #define SIN(aAngle) (gSinLookup[(aAngle&0xFF)])
 #define COS(aAngle) (gSinLookup[0x40 + (aAngle&0xFF)])
 
+#define RECT_DISTANCE(aXA, aYA, aXB, aYB) (ABS((aXA) - (aXB)) + ABS((aYA) - (aYB)))
+
 #define UNIT_ATTRIBUTES(aUnit) ((aUnit)->pCharacterData->attributes | (aUnit)->pClassData->attributes)
 
 #endif  // GUARD_GLOBAL_H

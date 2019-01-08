@@ -6,7 +6,6 @@
 
 #include "bmitem.h"
 
-// TODO: move elsewhere?
 struct UnitDefinition {
 	/* 00 */ u8  charIndex;
 	/* 01 */ u8  classIndex;
@@ -118,7 +117,7 @@ extern struct { short x, y; } gUnknown_0202BE48;
 #define UNIT_MOV_BASE(aUnit) ((aUnit)->pClassData->baseMov)
 
 #define UNIT_CON(aUnit) (UNIT_CON_BASE(aUnit) + (aUnit)->conBonus)
-#define UNIT_MOV(aUnit) (UNIT_MOV_BASE(aUnit) + (aUnit)->movBonus)
+#define UNIT_MOV(aUnit) ((aUnit)->movBonus + UNIT_MOV_BASE(aUnit))
 
 enum {
 	FACTION_BLUE   = 0x00, // player units
@@ -130,6 +129,11 @@ enum {
 enum { UNIT_EXP_DISABLED = 0xFF };
 enum { UNIT_LEVEL_MAX = 20 };
 
+enum {
+	UNIT_USEBIT_WEAPON = 1,
+	UNIT_USEBIT_STAFF  = 2,
+};
+
 #define UNIT_IS_GORGON_EGG(aUnit) (((aUnit)->pClassData->number == CLASS_GORGONEGG) || ((aUnit)->pClassData->number == CLASS_GORGONEGG2))
 #define UNIT_IS_PHANTOM(aUnit) ((aUnit)->pClassData->number == CLASS_PHANTOM)
 
@@ -137,6 +141,8 @@ extern struct Unit* gUnknown_0859A5D0[]; // unit lookup
 
 extern const struct ClassData gUnknown_08807164[]; // gClassData
 extern const struct CharacterData gUnknown_08803D64[]; // gCharacterData
+
+extern const s8 gUnknown_0880BC18[]; // Ballista mov cost table
 
 // TODO: public!
 static inline struct Unit* GetUnit(int id) {
@@ -897,7 +903,7 @@ void sub_80184E0(struct Unit* unit, int* xOut, int* yOut) {
 			if (!CanUnitCross(rescuee, gUnknown_0202E4DC[iy][ix]))
 				continue;
 
-			distance = ABS(ix - unit->xPos) + ABS(iy - unit->yPos);
+			distance = RECT_DISTANCE(ix, iy, unit->xPos, unit->yPos);
 
 			if (minDistance >= distance) {
 				minDistance = distance;
@@ -1106,6 +1112,8 @@ int sub_8018A9C(struct Unit* unit, int terrain) {
 
 	switch (terrain) {
 
+		// TODO: terrain id constants
+
 	case 0x21:
 		slot = GetUnitItemSlot(unit, ITEM_CHESTKEY);
 
@@ -1136,4 +1144,354 @@ int sub_8018AF0(u32 attributes) {
 		return 0x83;
 
 	return (-1);
+}
+
+int GetUnitUseFlags(struct Unit* unit) {
+	int i, item, result = 0;
+
+	for (i = 0; (i < UNIT_ITEM_COUNT) && (item = unit->items[i]); ++i) {
+		if ((GetItemAttributes(item) & IA_WEAPON) && CanUnitUseWeapon(unit, item))
+			result |= UNIT_USEBIT_WEAPON;
+
+		if ((GetItemAttributes(item) & IA_STAFF) && CanUnitUseStaff(unit, item))
+			result |= UNIT_USEBIT_STAFF;
+	}
+
+	return result;
+}
+
+int sub_8018BA0(void) {
+	int i, result = 0;
+
+	for (i = 0x81; i < 0xC0; ++i) {
+		struct Unit* unit = GetUnit(i);
+
+		if (UNIT_IS_VALID(unit))
+			result |= GetUnitUseFlags(unit);
+	}
+
+	return result;
+}
+
+s8 CanUnitMove(void) {
+	s8 adjLookup[4 * 2] = {
+		-1, 0,
+		0, -1,
+		+1, 0,
+		0, +1,
+	};
+
+	int move = UNIT_MOV(gUnknown_03004E50) - gUnknown_0203A958.moveCount;
+
+	int xUnit = gUnknown_03004E50->xPos;
+	int yUnit = gUnknown_03004E50->yPos;
+
+	int i;
+
+	for (i = 0; i < 4; ++i) {
+		int xLocal = xUnit + adjLookup[i*2 + 0];
+		int yLocal = yUnit + adjLookup[i*2 + 1];
+
+		int cost;
+
+		if (gUnknown_0202E4D8[yLocal][xLocal] & FACTION_RED)
+			continue;
+
+		cost = GetMovCostTablePtr(gUnknown_03004E50)[gUnknown_0202E4DC[yLocal][xLocal]];
+
+		if ((cost < 0) || (cost > move))
+			continue;
+
+		return TRUE;
+	}
+
+	return FALSE;
+}
+
+s8 IsPosMagicSealed(int x, int y) {
+	int i;
+
+	for (i = 0x81; i < 0xC0; ++i) {
+		struct Unit* unit = GetUnit(i);
+
+		if (!UNIT_IS_VALID(unit))
+			continue;
+
+		if (!(UNIT_ATTRIBUTES(unit) & CA_MAGICSEAL))
+			continue;
+
+		if (RECT_DISTANCE(unit->xPos, unit->yPos, x, y) <= 10)
+			return TRUE;
+	}
+
+	return FALSE;
+}
+
+s8 CanUnitNotUseMagic(struct Unit* unit) {
+	if (unit->statusIndex == UNIT_STATUS_SILENCED)
+		return TRUE;
+
+	if (IsPosMagicSealed(unit->xPos, unit->yPos))
+		return TRUE;
+
+	return FALSE;
+}
+
+int GetUnitLastItem(struct Unit* unit) {
+	return unit->items[GetUnitItemCount(unit) - 1];
+}
+
+const s8* GetMovCostTablePtr(struct Unit* unit) {
+	if (unit->state & US_IN_BALLISTA)
+		return gUnknown_0880BC18;
+
+	switch (gUnknown_0202BCF0.chapterWeatherId) {
+
+	case WEATHER_RAIN:
+		return unit->pClassData->pMovCostTable[1];
+
+	case WEATHER_SNOW:
+	case WEATHER_SNOWSTORM:
+		return unit->pClassData->pMovCostTable[2];
+
+	default:
+		return unit->pClassData->pMovCostTable[0];
+
+	} // switch (gUnknown_0202BCF0.chapterWeatherId)
+}
+
+int GetClassStandingMapSpriteId(int classId) {
+	return GetClassData(classId)->SMSId;
+}
+
+void ResetAllPlayerUnitState(void);
+void StoreUnitWordStructs(void);
+void ClearCutsceneUnits(void);
+void LoadUnitWordStructs(void);
+
+void UpdatePrevDeployStates(void) {
+	int i;
+
+	for (i = 1; i < 0x40; ++i) {
+		struct Unit* unit = GetUnit(i);
+
+		if (!UNIT_IS_VALID(unit))
+			continue;
+
+		if (unit->state & US_NOT_DEPLOYED)
+			unit->state = unit->state | US_BIT21;
+		else
+			unit->state = unit->state &~ US_BIT21;
+
+		if (unit->state & US_BIT16)
+			unit->state = unit->state | US_BIT26;
+		else
+			unit->state = unit->state &~ US_BIT26;
+	}
+
+	if (gUnknown_0202BCF0.chapterStateBits & CHAPTER_FLAG_PREPSCREEN)
+		StoreUnitWordStructs();
+
+	ResetAllPlayerUnitState();
+}
+
+void LoadUnitPrepScreenPositions(void) {
+	int i;
+
+	ResetAllPlayerUnitState();
+	ClearCutsceneUnits();
+
+	for (i = 1; i < 0x40; ++i) {
+		struct Unit* unit = GetUnit(i);
+
+		if (!UNIT_IS_VALID(unit))
+			continue;
+
+		if (unit->state & US_BIT21)
+			unit->state = unit->state | US_NOT_DEPLOYED;
+		else
+			unit->state = unit->state &~ US_NOT_DEPLOYED;
+
+		if (unit->state & US_BIT26)
+			unit->state = unit->state | US_BIT16;
+		else
+			unit->state = unit->state &~ US_BIT16;
+
+		unit->state |= US_HIDDEN;
+	}
+
+	if (gUnknown_0202BCF0.chapterStateBits & CHAPTER_FLAG_PREPSCREEN)
+		LoadUnitWordStructs();
+}
+
+void sub_8018EB8(void) {
+	int i;
+
+	// player units
+	for (i = 1; i < 0x40; ++i) {
+		struct Unit* unit = GetUnit(i);
+
+		if (!UNIT_IS_VALID(unit))
+			continue;
+
+		unit->state |= US_HIDDEN;
+
+		if (UNIT_IS_PHANTOM(unit))
+			ClearUnitStruct(unit);
+	}
+
+	// red units
+	for (i = 0x81; i < 0xC0; ++i) {
+		struct Unit* unit = GetUnit(i);
+
+		if (UNIT_IS_VALID(unit))
+			ClearUnitStruct(unit);
+	}
+
+	// green units
+	for (i = 0x41; i < 0x80; ++i) {
+		struct Unit* unit = GetUnit(i);
+
+		if (UNIT_IS_VALID(unit))
+			ClearUnitStruct(unit);
+	}
+
+	RefreshFogAndUnitMaps();
+	SMS_UpdateFromGameData();
+}
+
+s8 IsUnitSlotAvailable(int faction) {
+	int i;
+
+	for (i = faction + 1; i < faction + 0x40; ++i)
+		if (GetUnit(i)->pCharacterData == NULL)
+			return TRUE;
+
+	return FALSE;
+}
+
+void sub_8018F80(void) {
+	int i;
+
+	for (i = 1; i < 0x40; ++i) {
+		struct Unit* unit = GetUnit(i);
+
+		if (!UNIT_IS_VALID(unit))
+			continue;
+
+		if (unit->state & US_DEAD)
+			continue;
+
+		unit->state |= US_HIDDEN;
+	}
+}
+
+void sub_8018FC0(void) {
+	int i;
+
+	for (i = 0x41; i < 0xC0; ++i) {
+		struct Unit* unit = GetUnit(i);
+
+		if (!UNIT_IS_VALID(unit))
+			continue;
+
+		ClearUnitStruct(unit);
+	}
+}
+
+int sub_8018FF0(void) {
+	int i;
+
+	u16 result = 0;
+
+	for (i = 1; i < 0x40; ++i) {
+		struct Unit* unit = GetUnit(i);
+
+		if (!UNIT_IS_VALID(unit))
+			continue;
+
+		if (unit->state & US_UNAVAILABLE)
+			continue;
+
+		++result;
+	}
+
+	return result;
+}
+
+int sub_8019034(void) {
+	int i;
+
+	u16 result = 0;
+
+	for (i = 0x81; i < 0xC0; ++i) {
+		struct Unit* unit = GetUnit(i);
+
+		if (!UNIT_IS_VALID(unit))
+			continue;
+
+		if (unit->state & US_DEAD)
+			continue;
+
+		++result;
+	}
+
+	return result;
+}
+
+int sub_8019074(void) {
+	int i;
+
+	u16 result = 0;
+
+	for (i = 0x41; i < 0x80; ++i) {
+		struct Unit* unit = GetUnit(i);
+
+		if (!UNIT_IS_VALID(unit))
+			continue;
+
+		if (unit->state & US_DEAD)
+			continue;
+
+		++result;
+	}
+
+	return result;
+}
+
+void ClearCutsceneUnits(void) {
+	int i;
+
+	for (i = 1; i < 0x40; ++i) {
+		struct Unit* unit = GetUnit(i);
+
+		if (!UNIT_IS_VALID(unit))
+			continue;
+
+		if (unit->state & US_BIT22) {
+			if (unit->state & US_DEAD)
+				unit->state = unit->state &~ US_BIT22;
+			else
+				ClearUnitStruct(unit);
+		}
+	}
+}
+
+void sub_8019108(void) {
+	int i;
+
+	for (i = 1; i < 0x40; ++i) {
+		struct Unit* unit = GetUnit(i);
+
+		if (!UNIT_IS_VALID(unit))
+			continue;
+
+		unit->state = unit->state &~ (US_UNSELECTABLE | US_RESCUING | US_RESCUED);
+		unit->rescueOtherUnit = 0;
+
+		SetUnitNewStatus(unit, 0);
+	}
+
+	RefreshFogAndUnitMaps();
+	SMS_UpdateFromGameData();
 }
