@@ -3,6 +3,7 @@
 #include "proc.h"
 #include "bmio.h"
 #include "bmitem.h"
+#include "bmunit.h"
 
 const char *gUnknown_08591AA4[][2] =
 {

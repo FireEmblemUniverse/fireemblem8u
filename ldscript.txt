@@ -223,6 +223,8 @@ SECTIONS
         . = ALIGN(4); data/data_587A40.o(.data);
         . = ALIGN(4); src/messdecode.o(.data);
         . = ALIGN(4); data/data_591AB4.o(.data);
+        . = ALIGN(4); src/bmunit.o(.data);
+        . = ALIGN(4); data/data_59A9D0.o(.data);
         . = ALIGN(4); src/bmio.o(.data);
         . = ALIGN(4); data/data_59D9FC.o(.data);
         . = ALIGN(4); src/mu.o(.data);

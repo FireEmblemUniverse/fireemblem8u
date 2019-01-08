@@ -3,149 +3,173 @@
 #include <string.h>
 
 #include "constants/items.h"
-
 #include "bmitem.h"
 
-struct UnitDefinition {
-	/* 00 */ u8  charIndex;
-	/* 01 */ u8  classIndex;
-	/* 02 */ u8  leaderCharIndex;
+#include "bmunit.h"
 
-	/* 03 */ u8  autolevel  : 1;
-	/* 03 */ u8  allegiance : 2;
-	/* 03 */ u8  level      : 5;
+extern const s8 gUnknown_0880BB96[]; // Unit drop movement cost table
 
-	/* 04 */ u16 xPosition  : 6; /* 04:0 to 04:5 */
-	/* 04 */ u16 yPosition  : 6; /* 04:6 to 05:3 */
-	/* 05 */ u16 genMonster : 1; /* 05:4 */
-	/* 05 */ u16 itemDrop   : 1; /* 05:5 */
-	/* 05 */ u16 sumFlag    : 1; /* 05:6 */
-	/* 05 */ u16 extraData  : 9; /* 05:7 to 06:7 */
-	/* 07 */ u16 redaCount  : 8;
+EWRAM_DATA u8 gUnknown_0202BE44 = 0;
+EWRAM_DATA struct { short x, y; } gUnknown_0202BE48 = {}; // TODO: struct Vec2?
 
-	/* 08 */ const void* redas;
+EWRAM_DATA struct Unit gUnknown_0202BE4C[62] = {}; // Player units
+EWRAM_DATA struct Unit gUnknown_0202CFBC[50] = {}; // Red units
+EWRAM_DATA struct Unit gUnknown_0202DDCC[20] = {}; // Green units
+EWRAM_DATA struct Unit gUnknown_0202E36C[5]  = {}; // Purple units
 
-	/* 0C */ u8  items[4];
+CONST_DATA int gUnknown_0859A598[] = {
+	[UNIT_STATUS_NONE]     = 0x536,
+	[UNIT_STATUS_POISON]   = 0x514,
+	[UNIT_STATUS_SLEEP]    = 0x515,
+	[UNIT_STATUS_SILENCED] = 0x516,
+	[UNIT_STATUS_BERSERK]  = 0x517,
 
-	struct {
-		/* 10 */ u8 ai1;
-		/* 11 */ u8 ai2;
-		/* 12 */ u8 ai3;
-		/* 13 */ u8 ai4;
-	} ai;
+	// TODO: more status constants
+	0x51B, 0x51C, 0x51D, 0x51E, 0x518, 0x519, 0x51A, 0, 0x51A
 };
 
-int GetPlayerLeaderUnitId(void);
+struct Unit* CONST_DATA gUnknown_0859A5D0[0x100] = { // unit lookup
+	[FACTION_BLUE + 0x01] = gUnknown_0202BE4C + 0,
+	[FACTION_BLUE + 0x02] = gUnknown_0202BE4C + 1,
+	[FACTION_BLUE + 0x03] = gUnknown_0202BE4C + 2,
+	[FACTION_BLUE + 0x04] = gUnknown_0202BE4C + 3,
+	[FACTION_BLUE + 0x05] = gUnknown_0202BE4C + 4,
+	[FACTION_BLUE + 0x06] = gUnknown_0202BE4C + 5,
+	[FACTION_BLUE + 0x07] = gUnknown_0202BE4C + 6,
+	[FACTION_BLUE + 0x08] = gUnknown_0202BE4C + 7,
+	[FACTION_BLUE + 0x09] = gUnknown_0202BE4C + 8,
+	[FACTION_BLUE + 0x0A] = gUnknown_0202BE4C + 9,
+	[FACTION_BLUE + 0x0B] = gUnknown_0202BE4C + 10,
+	[FACTION_BLUE + 0x0C] = gUnknown_0202BE4C + 11,
+	[FACTION_BLUE + 0x0D] = gUnknown_0202BE4C + 12,
+	[FACTION_BLUE + 0x0E] = gUnknown_0202BE4C + 13,
+	[FACTION_BLUE + 0x0F] = gUnknown_0202BE4C + 14,
+	[FACTION_BLUE + 0x10] = gUnknown_0202BE4C + 15,
+	[FACTION_BLUE + 0x11] = gUnknown_0202BE4C + 16,
+	[FACTION_BLUE + 0x12] = gUnknown_0202BE4C + 17,
+	[FACTION_BLUE + 0x13] = gUnknown_0202BE4C + 18,
+	[FACTION_BLUE + 0x14] = gUnknown_0202BE4C + 19,
+	[FACTION_BLUE + 0x15] = gUnknown_0202BE4C + 20,
+	[FACTION_BLUE + 0x16] = gUnknown_0202BE4C + 21,
+	[FACTION_BLUE + 0x17] = gUnknown_0202BE4C + 22,
+	[FACTION_BLUE + 0x18] = gUnknown_0202BE4C + 23,
+	[FACTION_BLUE + 0x19] = gUnknown_0202BE4C + 24,
+	[FACTION_BLUE + 0x1A] = gUnknown_0202BE4C + 25,
+	[FACTION_BLUE + 0x1B] = gUnknown_0202BE4C + 26,
+	[FACTION_BLUE + 0x1C] = gUnknown_0202BE4C + 27,
+	[FACTION_BLUE + 0x1D] = gUnknown_0202BE4C + 28,
+	[FACTION_BLUE + 0x1E] = gUnknown_0202BE4C + 29,
+	[FACTION_BLUE + 0x1F] = gUnknown_0202BE4C + 30,
+	[FACTION_BLUE + 0x20] = gUnknown_0202BE4C + 31,
+	[FACTION_BLUE + 0x21] = gUnknown_0202BE4C + 32,
+	[FACTION_BLUE + 0x22] = gUnknown_0202BE4C + 33,
+	[FACTION_BLUE + 0x23] = gUnknown_0202BE4C + 34,
+	[FACTION_BLUE + 0x24] = gUnknown_0202BE4C + 35,
+	[FACTION_BLUE + 0x25] = gUnknown_0202BE4C + 36,
+	[FACTION_BLUE + 0x26] = gUnknown_0202BE4C + 37,
+	[FACTION_BLUE + 0x27] = gUnknown_0202BE4C + 38,
+	[FACTION_BLUE + 0x28] = gUnknown_0202BE4C + 39,
+	[FACTION_BLUE + 0x29] = gUnknown_0202BE4C + 40,
+	[FACTION_BLUE + 0x2A] = gUnknown_0202BE4C + 41,
+	[FACTION_BLUE + 0x2B] = gUnknown_0202BE4C + 42,
+	[FACTION_BLUE + 0x2C] = gUnknown_0202BE4C + 43,
+	[FACTION_BLUE + 0x2D] = gUnknown_0202BE4C + 44,
+	[FACTION_BLUE + 0x2E] = gUnknown_0202BE4C + 45,
+	[FACTION_BLUE + 0x2F] = gUnknown_0202BE4C + 46,
+	[FACTION_BLUE + 0x30] = gUnknown_0202BE4C + 47,
+	[FACTION_BLUE + 0x31] = gUnknown_0202BE4C + 48,
+	[FACTION_BLUE + 0x32] = gUnknown_0202BE4C + 49,
+	[FACTION_BLUE + 0x33] = gUnknown_0202BE4C + 50,
+	[FACTION_BLUE + 0x34] = gUnknown_0202BE4C + 51,
+	[FACTION_BLUE + 0x35] = gUnknown_0202BE4C + 52,
+	[FACTION_BLUE + 0x36] = gUnknown_0202BE4C + 53,
+	[FACTION_BLUE + 0x37] = gUnknown_0202BE4C + 54,
+	[FACTION_BLUE + 0x38] = gUnknown_0202BE4C + 55,
+	[FACTION_BLUE + 0x39] = gUnknown_0202BE4C + 56,
+	[FACTION_BLUE + 0x3A] = gUnknown_0202BE4C + 57,
+	[FACTION_BLUE + 0x3B] = gUnknown_0202BE4C + 58,
+	[FACTION_BLUE + 0x3C] = gUnknown_0202BE4C + 59,
+	[FACTION_BLUE + 0x3D] = gUnknown_0202BE4C + 60,
+	[FACTION_BLUE + 0x3E] = gUnknown_0202BE4C + 61,
 
-struct Unit* LoadUnit(const struct UnitDefinition* uDef);
+	[FACTION_RED + 0x01] = gUnknown_0202CFBC + 0,
+	[FACTION_RED + 0x02] = gUnknown_0202CFBC + 1,
+	[FACTION_RED + 0x03] = gUnknown_0202CFBC + 2,
+	[FACTION_RED + 0x04] = gUnknown_0202CFBC + 3,
+	[FACTION_RED + 0x05] = gUnknown_0202CFBC + 4,
+	[FACTION_RED + 0x06] = gUnknown_0202CFBC + 5,
+	[FACTION_RED + 0x07] = gUnknown_0202CFBC + 6,
+	[FACTION_RED + 0x08] = gUnknown_0202CFBC + 7,
+	[FACTION_RED + 0x09] = gUnknown_0202CFBC + 8,
+	[FACTION_RED + 0x0A] = gUnknown_0202CFBC + 9,
+	[FACTION_RED + 0x0B] = gUnknown_0202CFBC + 10,
+	[FACTION_RED + 0x0C] = gUnknown_0202CFBC + 11,
+	[FACTION_RED + 0x0D] = gUnknown_0202CFBC + 12,
+	[FACTION_RED + 0x0E] = gUnknown_0202CFBC + 13,
+	[FACTION_RED + 0x0F] = gUnknown_0202CFBC + 14,
+	[FACTION_RED + 0x10] = gUnknown_0202CFBC + 15,
+	[FACTION_RED + 0x11] = gUnknown_0202CFBC + 16,
+	[FACTION_RED + 0x12] = gUnknown_0202CFBC + 17,
+	[FACTION_RED + 0x13] = gUnknown_0202CFBC + 18,
+	[FACTION_RED + 0x14] = gUnknown_0202CFBC + 19,
+	[FACTION_RED + 0x15] = gUnknown_0202CFBC + 20,
+	[FACTION_RED + 0x16] = gUnknown_0202CFBC + 21,
+	[FACTION_RED + 0x17] = gUnknown_0202CFBC + 22,
+	[FACTION_RED + 0x18] = gUnknown_0202CFBC + 23,
+	[FACTION_RED + 0x19] = gUnknown_0202CFBC + 24,
+	[FACTION_RED + 0x1A] = gUnknown_0202CFBC + 25,
+	[FACTION_RED + 0x1B] = gUnknown_0202CFBC + 26,
+	[FACTION_RED + 0x1C] = gUnknown_0202CFBC + 27,
+	[FACTION_RED + 0x1D] = gUnknown_0202CFBC + 28,
+	[FACTION_RED + 0x1E] = gUnknown_0202CFBC + 29,
+	[FACTION_RED + 0x1F] = gUnknown_0202CFBC + 30,
+	[FACTION_RED + 0x20] = gUnknown_0202CFBC + 31,
+	[FACTION_RED + 0x21] = gUnknown_0202CFBC + 32,
+	[FACTION_RED + 0x22] = gUnknown_0202CFBC + 33,
+	[FACTION_RED + 0x23] = gUnknown_0202CFBC + 34,
+	[FACTION_RED + 0x24] = gUnknown_0202CFBC + 35,
+	[FACTION_RED + 0x25] = gUnknown_0202CFBC + 36,
+	[FACTION_RED + 0x26] = gUnknown_0202CFBC + 37,
+	[FACTION_RED + 0x27] = gUnknown_0202CFBC + 38,
+	[FACTION_RED + 0x28] = gUnknown_0202CFBC + 39,
+	[FACTION_RED + 0x29] = gUnknown_0202CFBC + 40,
+	[FACTION_RED + 0x2A] = gUnknown_0202CFBC + 41,
+	[FACTION_RED + 0x2B] = gUnknown_0202CFBC + 42,
+	[FACTION_RED + 0x2C] = gUnknown_0202CFBC + 43,
+	[FACTION_RED + 0x2D] = gUnknown_0202CFBC + 44,
+	[FACTION_RED + 0x2E] = gUnknown_0202CFBC + 45,
+	[FACTION_RED + 0x2F] = gUnknown_0202CFBC + 46,
+	[FACTION_RED + 0x30] = gUnknown_0202CFBC + 47,
+	[FACTION_RED + 0x31] = gUnknown_0202CFBC + 48,
+	[FACTION_RED + 0x32] = gUnknown_0202CFBC + 49,
 
-int GenerateMonsterClass(u8 baseClassId);
-int GenerateMonsterLevel(u8 baseLevel);
-u32 GenerateMonsterItems(u8 monsterClassId);
+	[FACTION_GREEN + 0x01] = gUnknown_0202DDCC + 0,
+	[FACTION_GREEN + 0x02] = gUnknown_0202DDCC + 1,
+	[FACTION_GREEN + 0x03] = gUnknown_0202DDCC + 2,
+	[FACTION_GREEN + 0x04] = gUnknown_0202DDCC + 3,
+	[FACTION_GREEN + 0x05] = gUnknown_0202DDCC + 4,
+	[FACTION_GREEN + 0x06] = gUnknown_0202DDCC + 5,
+	[FACTION_GREEN + 0x07] = gUnknown_0202DDCC + 6,
+	[FACTION_GREEN + 0x08] = gUnknown_0202DDCC + 7,
+	[FACTION_GREEN + 0x09] = gUnknown_0202DDCC + 8,
+	[FACTION_GREEN + 0x0A] = gUnknown_0202DDCC + 9,
+	[FACTION_GREEN + 0x0B] = gUnknown_0202DDCC + 10,
+	[FACTION_GREEN + 0x0C] = gUnknown_0202DDCC + 11,
+	[FACTION_GREEN + 0x0D] = gUnknown_0202DDCC + 12,
+	[FACTION_GREEN + 0x0E] = gUnknown_0202DDCC + 13,
+	[FACTION_GREEN + 0x0F] = gUnknown_0202DDCC + 14,
+	[FACTION_GREEN + 0x10] = gUnknown_0202DDCC + 15,
+	[FACTION_GREEN + 0x11] = gUnknown_0202DDCC + 16,
+	[FACTION_GREEN + 0x12] = gUnknown_0202DDCC + 17,
+	[FACTION_GREEN + 0x13] = gUnknown_0202DDCC + 18,
+	[FACTION_GREEN + 0x14] = gUnknown_0202DDCC + 19,
 
-void StoreNewUnitFromCode(struct Unit* unit, const struct UnitDefinition* uDef);
-void LoadUnitStats(struct Unit* unit, const struct CharacterData* character);
-void HideIfUnderRoof(struct Unit* unit);
-void AutolevelRealistic(struct Unit* unit);
-void AutolevelUnitWeaponRanks(struct Unit* unit, const struct UnitDefinition* uDef);
-void AutolevelUnit(struct Unit* unit);
-void FixROMUnitStructPtr(struct Unit* unit);
-void LoadUnitSupports(struct Unit* unit);
-void CheckForStatCaps(struct Unit* unit);
-
-void GetPreferredPositionForUNIT(const struct UnitDefinition* uDef, u8* xOut, u8* yOut, s8 findNearest);
-void CharStoreAI(struct Unit* unit, const struct UnitDefinition* uDef);
-
-int GetROMUnitSupportCount(struct Unit* unit);
-int GetUnitStartingSupportValue(struct Unit* unit, int supportIndex);
-
-int GetAutoleveledStat(int growth, int levelCount);
-
-int GetCurrentPromotedLevelBonus(void);
-
-void CopyUnitToBattleStruct(struct BattleUnit* bUnit, struct Unit* unit);
-void SaveUnitFromBattle(struct Unit* unit, struct BattleUnit* bUnit);
-void CheckForLevelUp(struct BattleUnit* bUnit);
-
-int GetUnitAid(struct Unit* unit);
-
-void sub_80283E0(struct Unit* unit);
-
-void FillMovementMapSomehow(int x, int y, const s8* movCostLookup);
-const s8* GetMovCostTablePtr(struct Unit* unit);
-
-void NullSomeStuff(void);
-
-void BWL_AddTilesMoved(int charId, int amount);
-
-void StoreSomeUnitSetFlags(int charId);
-
-void InitTargets(int xRoot, int yRoot);
-void AddTarget(int x, int y, int uId, int tId);
-void sub_8019CBC(void);
-void RefreshFogAndUnitMaps(void);
-void UpdateGameTilesGraphics(void);
-void NewBMXFADE(s8 strongLock);
-void SMS_UpdateFromGameData(void);
-
-void ResetAllPlayerUnitState(void);
-void StoreUnitWordStructs(void);
-void ClearCutsceneUnits(void);
-void LoadUnitWordStructs(void);
-
-extern const s8 gUnknown_0880BB96[]; // Drop movement cost table
-
-enum { MAP_MOVEMENT_MAX = 120 };
-
-enum {
-	HIDDEN_BIT_UNIT = (1 << 0),
-	HIDDEN_BIT_TRAP = (1 << 1),
+	[FACTION_PURPLE + 0x01] = gUnknown_0202E36C + 0,
+	[FACTION_PURPLE + 0x02] = gUnknown_0202E36C + 1,
+	[FACTION_PURPLE + 0x03] = gUnknown_0202E36C + 2,
+	[FACTION_PURPLE + 0x04] = gUnknown_0202E36C + 3,
+	[FACTION_PURPLE + 0x05] = gUnknown_0202E36C + 4,
 };
-
-extern u8 gUnknown_0202BE44;
-extern struct { short x, y; } gUnknown_0202BE48;
-
-#define UNIT_IS_VALID(aUnit) ((aUnit) && (aUnit)->pCharacterData)
-
-#define UNIT_FACTION(aUnit) ((aUnit)->index & 0xC0)
-
-#define UNIT_MHP_MAX(aUnit) (UNIT_FACTION(unit) == FACTION_RED ? 120 : 60)
-#define UNIT_POW_MAX(aUnit) ((aUnit)->pClassData->maxPow)
-#define UNIT_SKL_MAX(aUnit) ((aUnit)->pClassData->maxSkl)
-#define UNIT_SPD_MAX(aUnit) ((aUnit)->pClassData->maxSpd)
-#define UNIT_DEF_MAX(aUnit) ((aUnit)->pClassData->maxDef)
-#define UNIT_RES_MAX(aUnit) ((aUnit)->pClassData->maxRes)
-#define UNIT_LCK_MAX(aUnit) (30)
-#define UNIT_CON_MAX(aUnit) ((aUnit)->pClassData->maxCon)
-#define UNIT_MOV_MAX(aUnit) (15)
-
-#define UNIT_CON_BASE(aUnit) ((aUnit)->pClassData->baseCon + (aUnit)->pCharacterData->baseCon)
-#define UNIT_MOV_BASE(aUnit) ((aUnit)->pClassData->baseMov)
-
-#define UNIT_CON(aUnit) (UNIT_CON_BASE(aUnit) + (aUnit)->conBonus)
-#define UNIT_MOV(aUnit) ((aUnit)->movBonus + UNIT_MOV_BASE(aUnit))
-
-enum {
-	FACTION_BLUE   = 0x00, // player units
-	FACTION_GREEN  = 0x40, // ally npc units
-	FACTION_RED    = 0x80, // enemy units
-	FACTION_PURPLE = 0xC0, // link arena 4th team
-};
-
-enum { UNIT_EXP_DISABLED = 0xFF };
-enum { UNIT_LEVEL_MAX = 20 };
-
-enum {
-	UNIT_USEBIT_WEAPON = 1,
-	UNIT_USEBIT_STAFF  = 2,
-};
-
-#define UNIT_IS_GORGON_EGG(aUnit) (((aUnit)->pClassData->number == CLASS_GORGONEGG) || ((aUnit)->pClassData->number == CLASS_GORGONEGG2))
-#define UNIT_IS_PHANTOM(aUnit) ((aUnit)->pClassData->number == CLASS_PHANTOM)
-
-extern const int gUnknown_0859A598[]; // status text id lookup
-
-extern struct Unit* gUnknown_0859A5D0[]; // unit lookup
 
 extern const struct ClassData gUnknown_08807164[]; // gClassData
 extern const struct CharacterData gUnknown_08803D64[]; // gCharacterData
@@ -428,7 +452,7 @@ void RemoveUnitBlankItems(struct Unit* unit) {
 int GetUnitItemCount(struct Unit* unit) {
 	int i;
 
-	for (i = UNIT_ITEM_COUNT - 1; i >= 0; --i)
+	for (i = (UNIT_ITEM_COUNT - 1); i >= 0; --i)
 		if (unit->items[i])
 			return i + 1;
 
@@ -495,6 +519,7 @@ struct Unit* LoadUnit(const struct UnitDefinition* uDef) {
 		{
 			u32 packedItems = GenerateMonsterItems(monsterClass);
 
+			// ew
 			u16 item1 = packedItems >> 16;
 			u16 item2 = packedItems & 0xFFFF;
 
@@ -636,12 +661,12 @@ void StoreNewUnitFromCode(struct Unit* unit, const struct UnitDefinition* uDef) 
 
 		unit->items[0] = 0;
 
-		for (i = 0; i < 4; ++i)
+		for (i = 0; i < UNIT_DEFINITION_ITEM_COUNT; ++i)
 			unit->items[i + 1] = uDef->items[i];
 	} else {
 		int i;
 
-		for (i = 0; (i < 4) && (uDef->items[i]); ++i)
+		for (i = 0; (i < UNIT_DEFINITION_ITEM_COUNT) && (uDef->items[i]); ++i)
 			UnitAddItem(unit, MakeNewItem(uDef->items[i]));
 	}
 
@@ -653,7 +678,7 @@ void CharFillInventoryFromCode(struct Unit* unit, const struct UnitDefinition* u
 
 	UnitClearInventory(unit);
 
-	for (i = 0; (i < 4) && (uDef->items[i]); ++i)
+	for (i = 0; (i < UNIT_DEFINITION_ITEM_COUNT) && (uDef->items[i]); ++i)
 		UnitAddItem(unit, MakeNewItem(uDef->items[i]));
 }
 

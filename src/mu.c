@@ -8,6 +8,7 @@
 #include "soundwrapper.h"
 #include "hardware.h"
 #include "bmio.h"
+#include "bmunit.h"
 
 #include "mu.h"
 
@@ -15,11 +16,6 @@
     "MOVEUNIT" proc and related functions.
     Handles managing and displaying moving map sprites.
 */
-
-// TODO: move this elsewhere
-// I can't move this to functions.h because signature contain types that would be not defined
-// So we'll have to wait for the corresponding files to be decompiled/get a header
-void sub_8013928(const u16*, int, int, struct Proc* proc);
 
 struct MUStepSoundProc {
     PROC_HEADER;

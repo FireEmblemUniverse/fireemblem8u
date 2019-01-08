@@ -1,7 +1,7 @@
 #ifndef GUARD_ITEMS_H
 #define GUARD_ITEMS_H
 
-#include "fontgrp.h" // for TextHandle struct definition
+struct TextHandle;
 
 enum {
     // Item attributes

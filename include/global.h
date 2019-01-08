@@ -26,6 +26,4 @@
 
 #define RECT_DISTANCE(aXA, aYA, aXB, aYB) (ABS((aXA) - (aXB)) + ABS((aYA) - (aYB)))
 
-#define UNIT_ATTRIBUTES(aUnit) ((aUnit)->pCharacterData->attributes | (aUnit)->pClassData->attributes)
-
 #endif  // GUARD_GLOBAL_H

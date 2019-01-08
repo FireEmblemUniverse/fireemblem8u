@@ -5,6 +5,7 @@
 #include "fontgrp.h"
 #include "icon.h"
 #include "chapterdata.h"
+#include "bmunit.h"
 
 #include "bmitem.h"
 

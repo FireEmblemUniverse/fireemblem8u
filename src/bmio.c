@@ -8,6 +8,7 @@
 #include "chapterdata.h"
 #include "rng.h"
 #include "ctc.h"
+#include "bmunit.h"
 #include "mu.h"
 
 #include "bmio.h"

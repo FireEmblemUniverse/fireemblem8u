@@ -4,11 +4,11 @@
 #include "fontgrp.h"
 #include "mu.h"
 #include "bmio.h"
+#include "bmunit.h"
 
 #include "event.h"
 
 // TODO: move those where they belong when possible
-void sub_8013D08(int speed, struct Proc* parent); // aka NewFadeInBack
 void sub_800E640(struct EventEngineProc*);
 
 static bool8 EventEngine_CanStartSkip(struct EventEngineProc*);
