@@ -30,7 +30,8 @@ struct UnitDefinition {
 	struct {
 		/* 10 */ u8 ai1;
 		/* 11 */ u8 ai2;
-		/* 12 */ u8 ai3 : 8;
+		/* 12 */ u8 ai3;
+		/* 13 */ u8 ai4;
 	} ai;
 };
 
@@ -87,6 +88,11 @@ void UpdateGameTilesGraphics(void);
 void NewBMXFADE(s8 strongLock);
 void SMS_UpdateFromGameData(void);
 
+void ResetAllPlayerUnitState(void);
+void StoreUnitWordStructs(void);
+void ClearCutsceneUnits(void);
+void LoadUnitWordStructs(void);
+
 extern const s8 gUnknown_0880BB96[]; // Drop movement cost table
 
 enum { MAP_MOVEMENT_MAX = 120 };
@@ -137,6 +143,8 @@ enum {
 #define UNIT_IS_GORGON_EGG(aUnit) (((aUnit)->pClassData->number == CLASS_GORGONEGG) || ((aUnit)->pClassData->number == CLASS_GORGONEGG2))
 #define UNIT_IS_PHANTOM(aUnit) ((aUnit)->pClassData->number == CLASS_PHANTOM)
 
+extern const int gUnknown_0859A598[]; // status text id lookup
+
 extern struct Unit* gUnknown_0859A5D0[]; // unit lookup
 
 extern const struct ClassData gUnknown_08807164[]; // gClassData
@@ -144,64 +152,29 @@ extern const struct CharacterData gUnknown_08803D64[]; // gCharacterData
 
 extern const s8 gUnknown_0880BC18[]; // Ballista mov cost table
 
-// TODO: public!
-static inline struct Unit* GetUnit(int id) {
+inline struct Unit* GetUnitStruct(int id) {
 	return gUnknown_0859A5D0[id & 0xFF];
 }
 
-// TODO: public!
-static inline const struct ClassData* GetClassData(int classId) {
+inline const struct ClassData* GetROMClassStruct(int classId) {
 	if (classId < 1)
 		return NULL;
 
 	return gUnknown_08807164 + (classId - 1);
 }
 
-// TODO: public!
-static inline const struct CharacterData* GetCharacterData(int charId) {
+inline const struct CharacterData* GetROMCharStruct(int charId) {
 	if (charId < 1)
 		return NULL;
 
 	return gUnknown_08803D64 + (charId - 1);
 }
 
-// TODO: public!
-static inline int GetMaxHp(struct Unit* unit) {
-	return unit->maxHP + GetItemHpBonus(GetUnitEquippedWeapon(unit));
-}
-
-// TODO: public!
-static inline void SetHp(struct Unit* unit, int value) {
-	unit->curHP = value;
-
-	if (unit->curHP > GetMaxHp(unit))
-		unit->curHP = GetMaxHp(unit);
-}
-
-// TODO: public!
-static inline s8 CanUnitCross(struct Unit* unit, u8 terrain) {
-	const s8* lookup = GetMovCostTablePtr(unit);
-	return (lookup[terrain] > 0) ? TRUE : FALSE;
-}
-
-// TODO: public!
-static inline int GetHp(struct Unit* unit) {
-	if (unit->curHP > GetMaxHp(unit))
-		unit->curHP = GetMaxHp(unit);
-
-	return unit->curHP;
-}
-
-// TODO: public!
-static inline int GetPower(struct Unit* unit) {
-	return unit->pow + GetItemPowBonus(GetUnitEquippedWeapon(unit));
-}
-
 void ClearUnits(void) {
 	int i;
 
 	for (i = 0; i < 0x100; ++i) {
-		struct Unit* unit = GetUnit(i);
+		struct Unit* unit = GetUnitStruct(i);
 
 		if (unit) {
 			ClearUnitStruct(unit);
@@ -226,7 +199,7 @@ struct Unit* GetNextFreeUnitStructPtr(int faction) {
 	int i, last = (faction + 0x40);
 
 	for (i = faction + 1; i < last; ++i) {
-		struct Unit* unit = GetUnit(i);
+		struct Unit* unit = GetUnitStruct(i);
 
 		if (unit->pCharacterData == NULL)
 			return unit;
@@ -243,7 +216,7 @@ struct Unit* GetNextFreePlayerUnitStruct(const struct UnitDefinition* uDef) {
 		++i;
 
 	for (i = 1; i < max; ++i) {
-		struct Unit* unit = GetUnit(i);
+		struct Unit* unit = GetUnitStruct(i);
 
 		if (unit->pCharacterData == NULL)
 			return unit;
@@ -252,7 +225,104 @@ struct Unit* GetNextFreePlayerUnitStruct(const struct UnitDefinition* uDef) {
 	return NULL;
 }
 
-// Unit stat getters here in proto
+inline int GetUnitMaxHP(struct Unit* unit) {
+	return unit->maxHP + GetItemHpBonus(GetUnitEquippedWeapon(unit));
+}
+
+inline int GetUnitCurrentHP(struct Unit* unit) {
+	if (unit->curHP > GetUnitMaxHP(unit))
+		unit->curHP = GetUnitMaxHP(unit);
+
+	return unit->curHP;
+}
+
+inline int GetUnitPower(struct Unit* unit) {
+	return unit->pow + GetItemPowBonus(GetUnitEquippedWeapon(unit));
+}
+
+inline int GetUnitSkill(struct Unit* unit) {
+	int item = GetUnitEquippedWeapon(unit);
+
+	if (unit->state & US_RESCUING)
+		return unit->skl / 2 + GetItemSklBonus(item);
+
+	return unit->skl + GetItemSklBonus(item);
+}
+
+inline int GetUnitSpeed(struct Unit* unit) {
+	int item = GetUnitEquippedWeapon(unit);
+
+	if (unit->state & US_RESCUING)
+		return unit->spd / 2 + GetItemSpdBonus(item);
+
+	return unit->spd + GetItemSpdBonus(item);
+}
+
+inline int GetUnitDefense(struct Unit* unit) {
+	return unit->def + GetItemDefBonus(GetUnitEquippedWeapon(unit));
+}
+
+inline int GetUnitResistance(struct Unit* unit) {
+	return unit->res + GetItemResBonus(GetUnitEquippedWeapon(unit)) + unit->barrierDuration;
+}
+
+inline int GetUnitLuck(struct Unit* unit) {
+	return unit->lck + GetItemLckBonus(GetUnitEquippedWeapon(unit));
+}
+
+inline int GetUnitPortraitId(struct Unit* unit) {
+	if (unit->pCharacterData->portraitId) {
+		// TODO: PORTRAIT_LYON?
+		if (gUnknown_0202BCF0.chapterIndex == 0x22 && unit->pCharacterData->portraitId == 0x4A)
+			return 0x46;
+
+		return unit->pCharacterData->portraitId;
+	}
+
+	if (unit->pClassData->defaultPortraitId)
+		return unit->pClassData->defaultPortraitId;
+
+	return 0;
+}
+
+inline int GetUnitMiniPortraitId(struct Unit* unit) {
+	if (unit->pCharacterData->miniPortrait)
+		return 0x7F00 + unit->pCharacterData->miniPortrait;
+
+	return GetUnitPortraitId(unit);
+}
+
+inline int GetUnitLeader(struct Unit* unit) {
+	if (!(unit->index & 0xC0))
+		return 0;
+
+	return unit->unitLeader;
+}
+
+inline void sub_8019360(struct Unit* unit, int charId) {
+	unit->unitLeader = charId;
+}
+
+inline void SetUnitHP(struct Unit* unit, int value) {
+	unit->curHP = value;
+
+	if (unit->curHP > GetUnitMaxHP(unit))
+		unit->curHP = GetUnitMaxHP(unit);
+}
+
+inline void UnitTryHeal(struct Unit* unit, int amount) {
+	int hp = unit->curHP;
+
+	hp += amount;
+
+	if (hp > GetUnitMaxHP(unit))
+		hp = GetUnitMaxHP(unit);
+
+	if (hp < 0)
+		hp = 0;
+
+	unit->curHP = hp;
+}
 
 int GetUnitFogViewRange(struct Unit* unit) {
 	int result = gUnknown_0202BCF0.chapterVisionRange;
@@ -276,6 +346,10 @@ void SetUnitNewStatus(struct Unit* unit, int status) {
 void WriteUnitStatusDuration(struct Unit* unit, int status, int duration) {
 	unit->statusIndex    = status;
 	unit->statusDuration = duration;
+}
+
+inline char* WriteStatusTextToRAM(struct Unit* unit) {
+	return GetStringFromIndex(gUnknown_0859A598[unit->statusIndex]);
 }
 
 int GetUnitSMSIndex(struct Unit* unit) {
@@ -312,6 +386,11 @@ s8 UnitAddItem(struct Unit* unit, int item) {
 	}
 
 	return FALSE;
+}
+
+inline void UnitRemoveItem(struct Unit* unit, int slot) {
+	unit->items[slot] = 0;
+	RemoveUnitBlankItems(unit);
 }
 
 void UnitClearInventory(struct Unit* unit) {
@@ -393,7 +472,7 @@ void sub_8017A54(struct Unit* unit) { // unused
 }
 
 s8 HasClassWRank(u8 classId, u8 wpnType) {
-	if (GetClassData(classId)->baseRanks[wpnType])
+	if (GetROMClassStruct(classId)->baseRanks[wpnType])
 		return TRUE;
 	else
 		return FALSE;
@@ -529,21 +608,21 @@ struct Unit* LoadUnit(const struct UnitDefinition* uDef) {
 
 	CheckForStatCaps(unit);
 
-	unit->curHP = GetMaxHp(unit);
+	unit->curHP = GetUnitMaxHP(unit);
 
 	if (UNIT_IS_GORGON_EGG(unit))
-		SetHp(unit, 5);
+		SetUnitHP(unit, 5);
 
 	return unit;
 }
 
 void StoreNewUnitFromCode(struct Unit* unit, const struct UnitDefinition* uDef) {
-	unit->pCharacterData = GetCharacterData(uDef->charIndex);
+	unit->pCharacterData = GetROMCharStruct(uDef->charIndex);
 
 	if (uDef->classIndex)
-		unit->pClassData = GetClassData(uDef->classIndex);
+		unit->pClassData = GetROMClassStruct(uDef->classIndex);
 	else // such an overlooked feature
-		unit->pClassData = GetClassData(unit->pCharacterData->defaultClass);
+		unit->pClassData = GetROMClassStruct(unit->pCharacterData->defaultClass);
 
 	unit->level = uDef->level;
 
@@ -608,7 +687,7 @@ void FixROMUnitStructPtr(struct Unit* unit) {
 	// TODO: investigate why
 
 	if (UNIT_ATTRIBUTES(unit) & CA_BIT_23)
-		unit->pCharacterData = GetCharacterData(unit->pCharacterData->number - 1);
+		unit->pCharacterData = GetROMCharStruct(unit->pCharacterData->number - 1);
 }
 
 void LoadUnitSupports(struct Unit* unit) {
@@ -692,7 +771,7 @@ void sub_80180CC(struct Unit* unit, int levelCount) {
 
 		CheckForStatCaps(unit);
 
-		unit->curHP = GetMaxHp(unit);
+		unit->curHP = GetUnitMaxHP(unit);
 	}
 }
 
@@ -756,7 +835,7 @@ struct Unit* GetUnitByCharId(int charId) {
 	int i;
 
 	for (i = 1; i < 0x100; ++i) {
-		struct Unit* unit = GetUnit(i);
+		struct Unit* unit = GetUnitStruct(i);
 
 		if (UNIT_IS_VALID(unit) && unit->pCharacterData->number == charId)
 			return unit;
@@ -769,7 +848,7 @@ struct Unit* GetNonAllyUnitStructById(int charId, int faction) {
 	int i, last = faction + 0x40;
 
 	for (i = faction + 1; i < last; ++i) {
-		struct Unit* unit = GetUnit(i);
+		struct Unit* unit = GetUnitStruct(i);
 
 		if (UNIT_IS_VALID(unit) && unit->pCharacterData->number == charId)
 			return unit;
@@ -797,7 +876,7 @@ void UnitRescue(struct Unit* actor, struct Unit* target) {
 }
 
 void UpdateRescuingData(struct Unit* actor, int xTarget, int yTarget) {
-	struct Unit* target = GetUnit(actor->rescueOtherUnit);
+	struct Unit* target = GetUnitStruct(actor->rescueOtherUnit);
 
 	actor->state = actor->state &~ (US_RESCUING | US_RESCUED);
 	target->state = target->state &~ (US_RESCUING | US_RESCUED | US_HIDDEN);
@@ -813,7 +892,7 @@ void UpdateRescuingData(struct Unit* actor, int xTarget, int yTarget) {
 }
 
 s8 UpdateRescueData(struct Unit* actor, struct Unit* target) {
-	struct Unit* rescuee = GetUnit(actor->rescueOtherUnit);
+	struct Unit* rescuee = GetUnitStruct(actor->rescueOtherUnit);
 
 	// no used be needed to match etc
 	int couldGive = CanUnitRescue(target, rescuee);
@@ -822,6 +901,13 @@ s8 UpdateRescueData(struct Unit* actor, struct Unit* target) {
 	UnitRescue(target, rescuee);
 
 	// return couldGive; // devs probably forgot to add this
+}
+
+inline char* GetRescuingUnitNameId(struct Unit* unit) {
+	if (!unit->rescueOtherUnit)
+		return GetStringFromIndex(gUnknown_0859A598[0]);
+
+	return GetStringFromIndex(GetUnitStruct(unit->rescueOtherUnit)->pCharacterData->nameTextId);
 }
 
 void sub_80183FC(struct Unit* unit) {
@@ -855,12 +941,17 @@ void HandleAllegianceChange(struct Unit* unit, int faction) {
 	newUnit->state = newUnit->state &~ US_DROP_ITEM;
 
 	if (newUnit->rescueOtherUnit)
-		GetUnit(newUnit->rescueOtherUnit)->rescueOtherUnit = newUnit->index;
+		GetUnitStruct(newUnit->rescueOtherUnit)->rescueOtherUnit = newUnit->index;
+}
+
+inline s8 CanUnitCrossTerrain(struct Unit* unit, int terrain) {
+	const s8* lookup = GetMovCostTablePtr(unit);
+	return (lookup[terrain] > 0) ? TRUE : FALSE;
 }
 
 void ApplyUnitMovement(struct Unit* unit) {
 	if (unit->state & US_RESCUING) {
-		struct Unit* rescuee = GetUnit(unit->rescueOtherUnit);
+		struct Unit* rescuee = GetUnitStruct(unit->rescueOtherUnit);
 
 		rescuee->xPos = unit->xPos;
 		rescuee->yPos = unit->yPos;
@@ -876,7 +967,7 @@ void ApplyUnitMovement(struct Unit* unit) {
 
 void sub_80184E0(struct Unit* unit, int* xOut, int* yOut) {
 	int iy, ix, minDistance = 9999;
-	struct Unit* rescuee = GetUnit(unit->rescueOtherUnit);
+	struct Unit* rescuee = GetUnitStruct(unit->rescueOtherUnit);
 
 	// Fill the movement map
 	FillMovementMapSomehow(unit->xPos, unit->yPos, gUnknown_0880BB96);
@@ -900,7 +991,7 @@ void sub_80184E0(struct Unit* unit, int* xOut, int* yOut) {
 			if (gUnknown_0202E4EC[iy][ix] & HIDDEN_BIT_UNIT)
 				continue;
 
-			if (!CanUnitCross(rescuee, gUnknown_0202E4DC[iy][ix]))
+			if (!CanUnitCrossTerrain(rescuee, gUnknown_0202E4DC[iy][ix]))
 				continue;
 
 			distance = RECT_DISTANCE(ix, iy, unit->xPos, unit->yPos);
@@ -963,7 +1054,7 @@ void MoveActiveUnit(int x, int y) {
 
 	BWL_AddTilesMoved(gUnknown_03004E50->pCharacterData->number, gUnknown_0203A958.moveCount);
 
-	if (GetHp(gUnknown_03004E50) != 0)
+	if (GetUnitCurrentHP(gUnknown_03004E50) != 0)
 		gUnknown_03004E50->state = gUnknown_03004E50->state &~ US_HIDDEN;
 
 	ApplyUnitMovement(gUnknown_03004E50);
@@ -976,7 +1067,7 @@ void sub_80187C0(void) {
 		int i;
 
 		for (i = 1; i < 0x40; ++i) {
-			struct Unit* unit = GetUnit(i);
+			struct Unit* unit = GetUnitStruct(i);
 
 			if (!UNIT_IS_VALID(unit))
 				continue;
@@ -992,7 +1083,7 @@ void sub_80187C0(void) {
 	}
 
 	for (i = gUnknown_0202BCF0.chapterPhaseIndex + 1; i < gUnknown_0202BCF0.chapterPhaseIndex + 0x40; ++i) {
-		struct Unit* unit = GetUnit(i);
+		struct Unit* unit = GetUnitStruct(i);
 
 		if (UNIT_IS_VALID(unit))
 			unit->state = unit->state &~ (US_UNSELECTABLE | US_HAS_MOVED | US_HAS_MOVED_AI);
@@ -1005,7 +1096,7 @@ void sub_8018858(void) {
 	InitTargets(0, 0);
 
 	for (i = gUnknown_0202BCF0.chapterPhaseIndex + 1; i < gUnknown_0202BCF0.chapterPhaseIndex + 0x40; ++i) {
-		struct Unit* unit = GetUnit(i);
+		struct Unit* unit = GetUnitStruct(i);
 
 		if (!UNIT_IS_VALID(unit))
 			continue;
@@ -1043,7 +1134,7 @@ void SetAllUnitNotBackSprite(void) {
 	int i;
 
 	for (i = 1; i < 0xC0; ++i) {
-		struct Unit* unit = GetUnit(i);
+		struct Unit* unit = GetUnitStruct(i);
 
 		if (UNIT_IS_VALID(unit))
 			unit->state = unit->state &~ US_BIT8;
@@ -1071,7 +1162,7 @@ int GetUnitMagBy2Range(struct Unit* unit) {
 	if (unit->pCharacterData->number == 0xBE) { // TODO: CHAR_FOMORTIIS
 		return GetItemMaxRange(ITEM_NIGHTMARE);
 	} else {
-		int result = GetPower(unit) / 2;
+		int result = GetUnitPower(unit) / 2;
 
 		if (result < 5)
 			result = 5;
@@ -1164,7 +1255,7 @@ int sub_8018BA0(void) {
 	int i, result = 0;
 
 	for (i = 0x81; i < 0xC0; ++i) {
-		struct Unit* unit = GetUnit(i);
+		struct Unit* unit = GetUnitStruct(i);
 
 		if (UNIT_IS_VALID(unit))
 			result |= GetUnitUseFlags(unit);
@@ -1212,7 +1303,7 @@ s8 IsPosMagicSealed(int x, int y) {
 	int i;
 
 	for (i = 0x81; i < 0xC0; ++i) {
-		struct Unit* unit = GetUnit(i);
+		struct Unit* unit = GetUnitStruct(i);
 
 		if (!UNIT_IS_VALID(unit))
 			continue;
@@ -1261,19 +1352,14 @@ const s8* GetMovCostTablePtr(struct Unit* unit) {
 }
 
 int GetClassStandingMapSpriteId(int classId) {
-	return GetClassData(classId)->SMSId;
+	return GetROMClassStruct(classId)->SMSId;
 }
-
-void ResetAllPlayerUnitState(void);
-void StoreUnitWordStructs(void);
-void ClearCutsceneUnits(void);
-void LoadUnitWordStructs(void);
 
 void UpdatePrevDeployStates(void) {
 	int i;
 
 	for (i = 1; i < 0x40; ++i) {
-		struct Unit* unit = GetUnit(i);
+		struct Unit* unit = GetUnitStruct(i);
 
 		if (!UNIT_IS_VALID(unit))
 			continue;
@@ -1302,7 +1388,7 @@ void LoadUnitPrepScreenPositions(void) {
 	ClearCutsceneUnits();
 
 	for (i = 1; i < 0x40; ++i) {
-		struct Unit* unit = GetUnit(i);
+		struct Unit* unit = GetUnitStruct(i);
 
 		if (!UNIT_IS_VALID(unit))
 			continue;
@@ -1329,7 +1415,7 @@ void sub_8018EB8(void) {
 
 	// player units
 	for (i = 1; i < 0x40; ++i) {
-		struct Unit* unit = GetUnit(i);
+		struct Unit* unit = GetUnitStruct(i);
 
 		if (!UNIT_IS_VALID(unit))
 			continue;
@@ -1342,7 +1428,7 @@ void sub_8018EB8(void) {
 
 	// red units
 	for (i = 0x81; i < 0xC0; ++i) {
-		struct Unit* unit = GetUnit(i);
+		struct Unit* unit = GetUnitStruct(i);
 
 		if (UNIT_IS_VALID(unit))
 			ClearUnitStruct(unit);
@@ -1350,7 +1436,7 @@ void sub_8018EB8(void) {
 
 	// green units
 	for (i = 0x41; i < 0x80; ++i) {
-		struct Unit* unit = GetUnit(i);
+		struct Unit* unit = GetUnitStruct(i);
 
 		if (UNIT_IS_VALID(unit))
 			ClearUnitStruct(unit);
@@ -1364,7 +1450,7 @@ s8 IsUnitSlotAvailable(int faction) {
 	int i;
 
 	for (i = faction + 1; i < faction + 0x40; ++i)
-		if (GetUnit(i)->pCharacterData == NULL)
+		if (GetUnitStruct(i)->pCharacterData == NULL)
 			return TRUE;
 
 	return FALSE;
@@ -1374,7 +1460,7 @@ void sub_8018F80(void) {
 	int i;
 
 	for (i = 1; i < 0x40; ++i) {
-		struct Unit* unit = GetUnit(i);
+		struct Unit* unit = GetUnitStruct(i);
 
 		if (!UNIT_IS_VALID(unit))
 			continue;
@@ -1390,7 +1476,7 @@ void sub_8018FC0(void) {
 	int i;
 
 	for (i = 0x41; i < 0xC0; ++i) {
-		struct Unit* unit = GetUnit(i);
+		struct Unit* unit = GetUnitStruct(i);
 
 		if (!UNIT_IS_VALID(unit))
 			continue;
@@ -1405,7 +1491,7 @@ int sub_8018FF0(void) {
 	u16 result = 0;
 
 	for (i = 1; i < 0x40; ++i) {
-		struct Unit* unit = GetUnit(i);
+		struct Unit* unit = GetUnitStruct(i);
 
 		if (!UNIT_IS_VALID(unit))
 			continue;
@@ -1425,7 +1511,7 @@ int sub_8019034(void) {
 	u16 result = 0;
 
 	for (i = 0x81; i < 0xC0; ++i) {
-		struct Unit* unit = GetUnit(i);
+		struct Unit* unit = GetUnitStruct(i);
 
 		if (!UNIT_IS_VALID(unit))
 			continue;
@@ -1445,7 +1531,7 @@ int sub_8019074(void) {
 	u16 result = 0;
 
 	for (i = 0x41; i < 0x80; ++i) {
-		struct Unit* unit = GetUnit(i);
+		struct Unit* unit = GetUnitStruct(i);
 
 		if (!UNIT_IS_VALID(unit))
 			continue;
@@ -1463,7 +1549,7 @@ void ClearCutsceneUnits(void) {
 	int i;
 
 	for (i = 1; i < 0x40; ++i) {
-		struct Unit* unit = GetUnit(i);
+		struct Unit* unit = GetUnitStruct(i);
 
 		if (!UNIT_IS_VALID(unit))
 			continue;
@@ -1481,7 +1567,7 @@ void sub_8019108(void) {
 	int i;
 
 	for (i = 1; i < 0x40; ++i) {
-		struct Unit* unit = GetUnit(i);
+		struct Unit* unit = GetUnitStruct(i);
 
 		if (!UNIT_IS_VALID(unit))
 			continue;
