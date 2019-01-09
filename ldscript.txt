@@ -200,6 +200,8 @@ SECTIONS
         . = ALIGN(4); src/bmitem.o(.rodata);
         . = ALIGN(4); src/bmunit.o(.rodata);
         . = ALIGN(4); data/const_data_D7A6C.o(.rodata);
+        . = ALIGN(4); src/bmbattle.o(.rodata);
+        . = ALIGN(4); data/const_data_D7C40.o(.rodata);
         . = ALIGN(4); src/bmio.o(.rodata);
         . = ALIGN(4); data/const_data_D7F5C.o(.rodata);
         . = ALIGN(4); data/text.o(.rodata);

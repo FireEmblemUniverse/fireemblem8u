@@ -1,6 +1,7 @@
 #include "global.h"
 
 #include "constants/items.h"
+#include "constants/classes.h"
 
 #include "rng.h"
 #include "bmitem.h"
@@ -15,10 +16,10 @@ struct BattleStats {
 	/* 08 */ short defense;
 	/* 0A */ short hit;
 	/* 0C */ short crit;
-	/* 0E */ short lethalityProbability;
+	/* 0E */ short silencerRate;
 
-	/* 10 */ struct Unit* extraUnitA;
-	/* 14 */ struct Unit* extraUnitB;
+	/* 10 */ struct Unit* taUnitA;
+	/* 14 */ struct Unit* taUnitB;
 };
 
 enum {
@@ -718,4 +719,390 @@ void ComputeSpecialWeapons(struct BattleUnit* attacker, struct BattleUnit* defen
 				attacker->battleEffectiveCrit = 100;
 		}
 	}
+}
+
+// maybe file split here?
+// maybe not, who knows
+
+void GetBattleUnitPointers(struct BattleUnit** outAttacker, struct BattleUnit** outDefender);
+s8 MakeBattleRound(struct BattleUnit* attacker, struct BattleUnit* defender);
+s8 BattleCheckDoubling(struct BattleUnit** outAttacker, struct BattleUnit** outDefender);
+int GetBattleHitCount(struct BattleUnit* attacker);
+s8 MakeNextBattleHitRound(struct BattleUnit* attacker, struct BattleUnit* defender);
+int BattleCheckBrave(struct BattleUnit* bu);
+
+enum { BATTLE_HIT_MAX = 7 };
+
+enum { BATTLE_FOLLOWUP_SPEED_THRESHOLD = 4 };
+
+struct BattleHit {
+	/* 00   */ unsigned unk00b   : 19;
+	/* 02+3 */ unsigned unk19b   : 5;
+	/* 03   */ unsigned hpChange : 8;
+};
+
+extern struct BattleHit gUnknown_0203A5EC[BATTLE_HIT_MAX];
+extern struct BattleHit* gUnknown_0203A608;
+
+void ClearRounds(void) {
+	int i;
+
+	for (i = 0; i < BATTLE_HIT_MAX; ++i) {
+		gUnknown_0203A5EC[i].unk00b = 0;
+		gUnknown_0203A5EC[i].unk19b = 0;
+		gUnknown_0203A5EC[i].hpChange = 0;
+	}
+
+	gUnknown_0203A608 = gUnknown_0203A5EC;
+}
+
+void MakeBattle(void) {
+	ClearRounds();
+
+	// this do { ... } while (0); is required for match
+	// which is kind of neat because it implies plans for supporting some accost kind of thing
+
+	do {
+		struct BattleUnit* attacker;
+		struct BattleUnit* defender;
+
+		GetBattleUnitPointers(&attacker, &defender);
+
+		gUnknown_0203A608->unk19b |= 1; // TODO: BATTLE HIT BITS
+
+		if (!MakeBattleRound(attacker, defender)) {
+			gUnknown_0203A608->unk00b |= 8; // TODO: BATTLE HIT BITS
+
+			if (!MakeBattleRound(defender, attacker) && BattleCheckDoubling(&attacker, &defender)) {
+				gUnknown_0203A608->unk00b = 4; // TODO: BATTLE HIT BITS
+
+				MakeBattleRound(attacker, defender);
+			}
+		}
+	} while (FALSE);
+
+	gUnknown_0203A608->unk19b |= 0x10; // TODO: BATTLE HIT BITS
+}
+
+void GetBattleUnitPointers(struct BattleUnit** outAttacker, struct BattleUnit** outDefender) {
+	*outAttacker = &gBattleActor;
+	*outDefender = &gBattleTarget;
+}
+
+s8 BattleCheckDoubling(struct BattleUnit** outAttacker, struct BattleUnit** outDefender) {
+	if (gBattleTarget.battleAttackSpeed > 250)
+		return FALSE;
+
+	if (ABS(gBattleActor.battleAttackSpeed - gBattleTarget.battleAttackSpeed) < BATTLE_FOLLOWUP_SPEED_THRESHOLD)
+		return FALSE;
+
+	if (gBattleActor.battleAttackSpeed > gBattleTarget.battleAttackSpeed) {
+		*outAttacker = &gBattleActor;
+		*outDefender = &gBattleTarget;
+	} else {
+		*outAttacker = &gBattleTarget;
+		*outDefender = &gBattleActor;
+	}
+
+	if (GetItemWeaponEffect((*outAttacker)->weaponBefore) == 3) // TODO: WEAPON EFFECT IDS
+		return FALSE;
+
+	if (GetItemIndex((*outAttacker)->weaponAfter) == ITEM_MONSTER_STONE)
+		return FALSE;
+
+	return TRUE;
+}
+
+s8 MakeBattleRound(struct BattleUnit* attacker, struct BattleUnit* defender) {
+	int i, count;
+	u16 unk;
+
+	if (!attacker->weaponAfter)
+		return FALSE;
+
+	unk = gUnknown_0203A608->unk00b;
+	count = GetBattleHitCount(attacker);
+
+	for (i = 0; i < count; ++i) {
+		gUnknown_0203A608->unk00b |= unk;
+
+		if (MakeNextBattleHitRound(attacker, defender))
+			return TRUE;
+	}
+
+	return FALSE;
+}
+
+int GetBattleHitCount(struct BattleUnit* attacker) {
+	int result = 1;
+
+	result <<= BattleCheckBrave(attacker);
+
+	return result;
+}
+
+int BattleCheckBrave(struct BattleUnit* attacker) {
+	if (!(attacker->weaponAttributes & IA_BRAVE))
+		return FALSE;
+
+	gUnknown_0203A608->unk00b |= 0x10; // TODO: BATTLE HIT BITS
+	return TRUE;
+}
+
+s8 CheckForTriangleAttack(struct BattleUnit* attacker, struct BattleUnit* defender) {
+	s8 adjacentLookup[] = {
+		-1, 0,
+		0, -1,
+		+1, 0,
+		0, +1
+	};
+
+	int i, count = 0;
+
+	int triangleAttackAttr = CA_TRIANGLEATTACK_ANY & UNIT_CATTRIBUTES(&attacker->unit);
+
+	int x = defender->unit.xPos;
+	int y = defender->unit.yPos;
+
+	int faction = UNIT_FACTION(&attacker->unit);
+
+	gUnknown_0203A4D4.taUnitA = NULL;
+	gUnknown_0203A4D4.taUnitB = NULL;
+
+	for (i = 0; i < 4; ++i) {
+		int uId = gUnknown_0202E4D8[adjacentLookup[i*2 + 1] + y][adjacentLookup[i*2 + 0] + x];
+		struct Unit* unit;
+
+		if (!uId)
+			continue;
+
+		unit = GetUnit(uId);
+
+		if ((uId & 0xC0) != faction)
+			continue;
+
+		if (unit->statusIndex == UNIT_STATUS_SLEEP)
+			continue;
+
+		if (unit->statusIndex == UNIT_STATUS_PETRIFY)
+			continue;
+
+		if (unit->statusIndex == UNIT_STATUS_13)
+			continue;
+
+		if (unit->pClassData->number == CLASS_WYVERN_KNIGHT_F)
+			continue;
+
+		if (UNIT_CATTRIBUTES(unit) & triangleAttackAttr) {
+			++count;
+
+			if (!gUnknown_0203A4D4.taUnitA)
+				gUnknown_0203A4D4.taUnitA = unit;
+			else if (!gUnknown_0203A4D4.taUnitB)
+				gUnknown_0203A4D4.taUnitB = unit;
+		}
+	}
+
+	return count >= 2 ? TRUE : FALSE;
+}
+
+void UpdateBattleStats(struct BattleUnit* attacker, struct BattleUnit* defender) {
+	gUnknown_0203A4D4.attack = attacker->battleAttack;
+	gUnknown_0203A4D4.defense = defender->battleDefense;
+	gUnknown_0203A4D4.hit = attacker->battleEffectiveHit;
+	gUnknown_0203A4D4.crit = attacker->battleEffectiveCrit;
+	gUnknown_0203A4D4.silencerRate = attacker->battleSilencerRate;
+}
+
+void RollForSureShot(struct BattleUnit* attacker) {
+	if (gUnknown_0203A608->unk00b & 0x4000) // TODO: BATTLE HIT BITS
+		return;
+
+	if (gUnknown_0203A608->unk00b & 0x10000) // TODO: BATTLE HIT BITS
+		return;
+
+	if (gUnknown_0203A608->unk00b & 0x8000) // TODO: BATTLE HIT BITS
+		return;
+
+	switch (attacker->unit.pClassData->number) {
+
+	case CLASS_SNIPER:
+	case CLASS_SNIPER_F:
+		switch (GetItemIndex(attacker->weaponAfter)) {
+
+		case ITEM_BALLISTA_REGULAR:
+		case ITEM_BALLISTA_LONG:
+		case ITEM_BALLISTA_KILLER:
+			break;
+
+		default:
+			if (RollRNIfBattleStarted(attacker->unit.level, FALSE) == TRUE)
+				gUnknown_0203A608->unk00b |= 0x4000; // TODO: BATTLE HIT BITS
+
+			break;
+
+		} // switch (GetItemIndex(attacker->weaponAfter))
+
+		break;
+
+	} // switch (attacker->unit.pClassData->number)
+}
+
+void RollForPierce(struct BattleUnit* attacker, struct BattleUnit* defender) {
+	if (gUnknown_0203A608->unk00b & 0x4000) // TODO: BATTLE HIT BITS
+		return;
+
+	if (gUnknown_0203A608->unk00b & 0x10000) // TODO: BATTLE HIT BITS
+		return;
+
+	if (gUnknown_0203A608->unk00b & 0x8000) // TODO: BATTLE HIT BITS
+		return;
+
+	switch (attacker->unit.pClassData->number) {
+
+	case CLASS_WYVERN_KNIGHT:
+	case CLASS_WYVERN_KNIGHT_F:
+		if (RollRNIfBattleStarted(attacker->unit.level, FALSE) == TRUE)
+			gUnknown_0203A608->unk00b |= 0x10000; // TODO: BATTLE HIT BITS
+
+		break;
+
+	} // switch (attacker->unit.pClassData->number)
+}
+
+void RollForGreatShield(struct BattleUnit* attacker, struct BattleUnit* defender) {
+	if (gUnknown_0203A608->unk00b & 2) // TODO: BATTLE HIT BITS
+		return;
+
+	if (gUnknown_0203A608->unk00b & 0x4000) // TODO: BATTLE HIT BITS
+		return;
+
+	if (gUnknown_0203A608->unk00b & 0x10000) // TODO: BATTLE HIT BITS
+		return;
+
+	if (gUnknown_0203A608->unk00b & 0x8000) // TODO: BATTLE HIT BITS
+		return;
+
+	if (GetItemWeaponEffect(attacker->weaponAfter) == 1) // TODO: WEAPON EFFECT DEFINITIONS
+		return;
+
+	if (gUnknown_0203A608->unk00b & 2) // TODO: BATTLE HIT BITS
+		return;
+
+	switch (defender->unit.pClassData->number) {
+
+	case CLASS_GENERAL:
+	case CLASS_GENERAL_F:
+		if (RollRNIfBattleStarted(attacker->unit.level, FALSE) == TRUE)
+			gUnknown_0203A608->unk00b |= 0x8000; // TODO: BATTLE HIT BITS
+
+		break;
+
+	} // switch (defender->unit.pClassData->number)
+}
+
+s8 RollForLethality(struct BattleUnit* attacker, struct BattleUnit* defender) {
+	switch (defender->unit.pClassData->number) {
+
+	case CLASS_DEMON_KING:
+		return FALSE;
+
+	case CLASS_NECROMANCER:
+		if (gUnknown_0202BCF0.chapterIndex == 0x15) // TODO: CHAPTER ID CONSTANTS
+			return FALSE;
+
+		if (gUnknown_0202BCF0.chapterIndex == 0x22) // TODO: CHAPTER ID CONSTANTS
+			return FALSE;
+
+	} // switch (defender->unit.pClassData->number)
+
+	if (RollRNIfBattleStarted(gUnknown_0203A4D4.silencerRate, FALSE) == TRUE)
+		return TRUE;
+
+	return FALSE;
+}
+
+void NullifyBattleDamageIfUsingStone(struct BattleUnit* attacker, struct BattleUnit* defender) {
+	if (GetItemIndex(attacker->weaponAfter) == ITEM_MONSTER_STONE)
+		gUnknown_0203A4D4.damage = 0;
+}
+
+void GenerateCurrentRoundData(struct BattleUnit* attacker, struct BattleUnit* defender) {
+	short attack, defense;
+
+	gUnknown_0203A4D4.damage = 0;
+
+	RollForSureShot(attacker);
+
+	if (!(gUnknown_0203A608->unk00b & 0x4000)) { // TODO: BATTLE HIT BITS
+		if (!Roll2RNIfBattleStarted(gUnknown_0203A4D4.hit, TRUE)) {
+			gUnknown_0203A608->unk00b |= 2; // TODO: BATTLE HIT BITS
+			return;
+		}
+	}
+
+	attack = gUnknown_0203A4D4.attack;
+	defense = gUnknown_0203A4D4.defense;
+
+	RollForGreatShield(attacker, defender);
+
+	if (!(gUnknown_0203A608->unk00b & 0x8000)) // TODO: BATTLE HIT BITS
+		RollForPierce(attacker, defender);
+
+	if (gUnknown_0203A608->unk00b & 0x10000) // TODO: BATTLE HIT BITS
+		defense = 0;
+
+	gUnknown_0203A4D4.damage = attack - defense;
+
+	if (gUnknown_0203A608->unk00b & 0x8000) // TODO: BATTLE HIT BITS
+		gUnknown_0203A4D4.damage = 0;
+
+	if (RollRNIfBattleStarted(gUnknown_0203A4D4.crit, FALSE) == TRUE) {
+		if (RollForLethality(attacker, defender)) {
+			gUnknown_0203A608->unk00b |= 0x800; // TODO: BATTLE HIT BITS
+
+			gUnknown_0203A4D4.damage = 127;
+
+			gUnknown_0203A608->unk00b = gUnknown_0203A608->unk00b &~ 0x8000; // TODO: BATTLE HIT BITS
+		} else {
+			gUnknown_0203A608->unk00b = gUnknown_0203A608->unk00b | 1; // TODO: BATTLE HIT BITS
+			gUnknown_0203A4D4.damage = gUnknown_0203A4D4.damage * 3;
+		}
+	}
+
+	if (gUnknown_0203A4D4.damage > 127)
+		gUnknown_0203A4D4.damage = 127;
+
+	if (gUnknown_0203A4D4.damage < 0)
+		gUnknown_0203A4D4.damage = 0;
+
+	NullifyBattleDamageIfUsingStone(attacker, defender);
+
+	if (gUnknown_0203A4D4.damage != 0)
+		attacker->nonZeroDamage = TRUE;
+}
+
+void UpdateBattleTriangleAttackData(struct BattleUnit* attacker, struct BattleUnit* defender) {
+	if (!(UNIT_CATTRIBUTES(&attacker->unit) & CA_TRIANGLEATTACK_ANY))
+		return;
+
+	if (gUnknown_0203A4D4.range != 1)
+		return;
+
+	if (!(gUnknown_0203A608->unk19b & 1)) // TODO: BATTLE HIT BITS
+		return;
+
+	if (attacker->unit.statusIndex == UNIT_STATUS_BERSERK)
+		return;
+
+	if (gUnknown_0203A4D4.config & BATTLE_CONFIG_ARENA)
+		return;
+
+	if (!CheckForTriangleAttack(attacker, defender))
+		return;
+
+	gUnknown_0203A608->unk00b |= 0x400;
+
+	gUnknown_0203A4D4.crit = 100;
+	gUnknown_0203A4D4.hit  = 100;
 }
