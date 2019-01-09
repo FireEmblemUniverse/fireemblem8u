@@ -100,8 +100,13 @@ struct ClassData {
     /* 2C */ u8 baseRanks[8];
 
     /* 34 */ const void* pBattleAnimDef;
-    /* 38 */ const u8* pMovCostTable[3]; // standard, rain, snow
-    /* 44 */ const u8* pTerrainBonusTables[3]; // def, avo, res
+    /* 38 */ const s8* pMovCostTable[3]; // standard, rain, snow
+
+    /* 44 */ const s8* pTerrainAvoidLookup;
+    /* 48 */ const s8* pTerrainDefenseLookup;
+    /* 4C */ const s8* pTerrainResistanceLookup;
+
+    //* 44 */ const s8* pTerrainBonusTables[3]; // def, avo, res
 
     /* 50 */ const void* _pU50;
 };
@@ -328,9 +333,9 @@ struct BattleUnit {
     /* 54 */ s8 WTAtkModifier;
 
     /* 55 */ u8 terrainIndex;
-    /* 56 */ u8 terrainDefense;
-    /* 57 */ u8 terrainAvoid;
-    /* 58 */ u8 terrainResistance;
+    /* 56 */ s8 terrainDefense;
+    /* 57 */ s8 terrainAvoid;
+    /* 58 */ s8 terrainResistance;
     /* 59 */ u8 _u59;
 
     /* 5A */ u16 battleAttack;
@@ -361,8 +366,8 @@ struct BattleUnit {
     /* 7A */ s8 changeCon;
 
     /* 7B */ s8 wexpMultiplier;
-    /* 7C */ u8 nonZeroDamage;
-    /* 7D */ u8 weaponBroke;
+    /* 7C */ s8 nonZeroDamage;
+    /* 7D */ s8 weaponBroke;
 
     /* 7E */ u8 _u7E;
     /* 7F */ u8 _u7F;

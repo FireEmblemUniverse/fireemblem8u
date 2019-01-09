@@ -266,7 +266,9 @@ struct ActionData
 
     /* 16 */ u8 suspendPointType;
 
-    /* 17+ TODO (sizeof(struct ActionData) == 0x38) */
+    /* 18 */ u32 unk18;
+
+    /* 1C+ TODO (sizeof(struct ActionData) == 0x38) */
 };
 
 enum {
@@ -423,6 +425,31 @@ struct MapAnimState {
 struct MMSData {
     const void* pGraphics;
     const void* pAnimation;
+};
+
+struct GMapData {
+    /* 00 */ u8 state;
+    /* 01 */ u8 unk01;
+    /* 02 */ short xCamera;
+    /* 04 */ short yCamera;
+    /* 08 */ u32 unk08;
+    /* 0C */ u32 unk0C;
+    /* 10 */ struct { u8 state, location; u16 unk; } unk10[4];
+    /* 20 */ struct { u8 state, location; u16 unk; } unk20[4];
+    /* 30 */ struct { u8 unk; } unk30[0x1D];
+};
+
+enum {
+    // For use with GMapData:state
+
+    GMAP_STATE_BIT0 = (1 << 0),
+    GMAP_STATE_BIT1 = (1 << 1),
+    GMAP_STATE_BIT2 = (1 << 2),
+    GMAP_STATE_BIT3 = (1 << 3),
+    GMAP_STATE_BIT4 = (1 << 4),
+    GMAP_STATE_BIT5 = (1 << 5),
+    GMAP_STATE_BIT6 = (1 << 6),
+    GMAP_STATE_BIT7 = (1 << 7),
 };
 
 // TODO: move to bmcontainer.h

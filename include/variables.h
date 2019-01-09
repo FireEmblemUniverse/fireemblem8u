@@ -847,7 +847,7 @@ extern struct Unit* gActiveUnit; // gActiveUnit // Active Unit
 // extern ??? gUnknown_03005110
 // extern ??? gUnknown_03005250
 // extern ??? gUnknown_03005270
-// extern ??? gUnknown_03005280
+extern struct GMapData gUnknown_03005280;
 // extern ??? gUnknown_03005324
 // extern ??? gUnknown_03005349
 // extern ??? gUnknown_0300534E
