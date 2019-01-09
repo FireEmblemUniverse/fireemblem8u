@@ -90,13 +90,13 @@ sub_801E02C: @ 0x0801E02C
 	ldr r0, _0801E040  @ gUnknown_0203A958
 	ldrb r0, [r0, #0xc]
 	bl GetUnit
-	ldr r1, _0801E044  @ gUnknown_03004E50
+	ldr r1, _0801E044  @ gActiveUnit
 	str r0, [r1]
 	pop {r0}
 	bx r0
 	.align 2, 0
 _0801E040: .4byte gUnknown_0203A958
-_0801E044: .4byte gUnknown_03004E50
+_0801E044: .4byte gActiveUnit
 
 	THUMB_FUNC_START sub_801E048
 sub_801E048: @ 0x0801E048
@@ -149,7 +149,7 @@ HandleNewItemGetFromDrop: @ 0x0801E098
 	lsls r0, r0, #0x18
 	cmp r0, #0
 	bne _0801E128
-	ldr r0, _0801E100  @ gUnknown_03004E50
+	ldr r0, _0801E100  @ gActiveUnit
 	str r4, [r0]
 	ldr r0, _0801E104  @ gUnknown_0202BCB0
 	strh r5, [r0, #0x2c]
@@ -184,7 +184,7 @@ HandleNewItemGetFromDrop: @ 0x0801E098
 	bl NewBottomHelpText
 	b _0801E11A
 	.align 2, 0
-_0801E100: .4byte gUnknown_03004E50
+_0801E100: .4byte gActiveUnit
 _0801E104: .4byte gUnknown_0202BCB0
 _0801E108: .4byte 0x00000867
 _0801E10C:
@@ -251,7 +251,7 @@ _0801E184: .4byte gBG0TilemapBuffer
 SendToConvoyMenu_NormalEffect: @ 0x0801E188
 	push {r4, r5, lr}
 	adds r4, r1, #0
-	ldr r5, _0801E1D0  @ gUnknown_03004E50
+	ldr r5, _0801E1D0  @ gActiveUnit
 	ldr r1, [r5]
 	adds r4, #0x3c
 	movs r0, #0
@@ -283,7 +283,7 @@ SendToConvoyMenu_NormalEffect: @ 0x0801E188
 	pop {r1}
 	bx r1
 	.align 2, 0
-_0801E1D0: .4byte gUnknown_03004E50
+_0801E1D0: .4byte gActiveUnit
 _0801E1D4: .4byte gUnknown_0203A958
 _0801E1D8: .4byte gUnknown_0202BCB0
 
@@ -310,7 +310,7 @@ sub_801E1FC: @ 0x0801E1FC
 	adds r5, r0, #0
 	adds r4, r1, #0
 	ldr r2, _0801E244  @ gUnknown_0203A958
-	ldr r0, _0801E248  @ gUnknown_03004E50
+	ldr r0, _0801E248  @ gActiveUnit
 	ldr r1, [r0]
 	adds r4, #0x3c
 	movs r0, #0
@@ -341,7 +341,7 @@ sub_801E1FC: @ 0x0801E1FC
 	bx r1
 	.align 2, 0
 _0801E244: .4byte gUnknown_0203A958
-_0801E248: .4byte gUnknown_03004E50
+_0801E248: .4byte gActiveUnit
 _0801E24C: .4byte 0x0000084B
 
 	THUMB_FUNC_START sub_801E250
@@ -394,7 +394,7 @@ _0801E2A2:
 	ldrh r0, [r1, #8]
 	cmp r0, #4
 	bhi _0801E2C6
-	ldr r4, _0801E2D8  @ gUnknown_03004E50
+	ldr r4, _0801E2D8  @ gActiveUnit
 	ldr r0, [r4]
 	ldrh r1, [r1, #8]
 	bl UnitRemoveItem
@@ -411,7 +411,7 @@ _0801E2C8:
 	.align 2, 0
 _0801E2D0: .4byte gKeyStatusPtr
 _0801E2D4: .4byte gUnknown_0203A958
-_0801E2D8: .4byte gUnknown_03004E50
+_0801E2D8: .4byte gActiveUnit
 _0801E2DC: .4byte gUnknown_0202BCB0
 
 .align 2, 0

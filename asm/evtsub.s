@@ -1231,7 +1231,7 @@ _08012168: .4byte 0x0000FFFF
 _0801216C:
 	adds r0, r7, #0
 	bl UnitBeginAction
-	ldr r4, _08012198  @ gUnknown_03004E50
+	ldr r4, _08012198  @ gActiveUnit
 	ldr r0, [r4]
 	bl HideUnitSMS
 	ldr r0, [r4]
@@ -1248,7 +1248,7 @@ _08012192:
 	movs r0, #3
 	b _080121A4
 	.align 2, 0
-_08012198: .4byte gUnknown_03004E50
+_08012198: .4byte gActiveUnit
 _0801219C: .4byte gUnknown_0203A958
 _080121A0:
 	ldr r1, _080121CC  @ gUnknown_0203A958

@@ -49,7 +49,7 @@ _08031710: .4byte gUnknown_0203A8EC
 	THUMB_FUNC_START LoadPlayerUnitsFromUnitStack
 LoadPlayerUnitsFromUnitStack: @ 0x08031714
 	push {r4, r5, lr}
-	ldr r5, _08031748  @ gUnknown_0202BE4C
+	ldr r5, _08031748  @ gUnitArrayBlue
 	movs r4, #0x3d
 _0803171A:
 	adds r0, r5, #0
@@ -60,7 +60,7 @@ _0803171A:
 	bge _0803171A
 	ldr r0, _0803174C  @ gUnknown_0203A8E4
 	ldr r0, [r0]
-	ldr r1, _08031748  @ gUnknown_0202BE4C
+	ldr r1, _08031748  @ gUnitArrayBlue
 	ldr r2, _08031750  @ gUnknown_0203A8E8
 	ldr r2, [r2]
 	subs r2, r2, r0
@@ -73,14 +73,14 @@ _0803171A:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_08031748: .4byte gUnknown_0202BE4C
+_08031748: .4byte gUnitArrayBlue
 _0803174C: .4byte gUnknown_0203A8E4
 _08031750: .4byte gUnknown_0203A8E8
 
 	THUMB_FUNC_START LoadPlayerUnitsFromUnitStack2
 LoadPlayerUnitsFromUnitStack2: @ 0x08031754
 	push {r4, r5, lr}
-	ldr r5, _08031788  @ gUnknown_0202BE4C
+	ldr r5, _08031788  @ gUnitArrayBlue
 	movs r4, #0x3d
 _0803175A:
 	adds r0, r5, #0
@@ -91,7 +91,7 @@ _0803175A:
 	bge _0803175A
 	ldr r0, _0803178C  @ gUnknown_0203A8E4
 	ldr r0, [r0]
-	ldr r1, _08031788  @ gUnknown_0202BE4C
+	ldr r1, _08031788  @ gUnitArrayBlue
 	ldr r2, _08031790  @ gUnknown_0203A8E8
 	ldr r2, [r2]
 	subs r2, r2, r0
@@ -104,7 +104,7 @@ _0803175A:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_08031788: .4byte gUnknown_0202BE4C
+_08031788: .4byte gUnitArrayBlue
 _0803178C: .4byte gUnknown_0203A8E4
 _08031790: .4byte gUnknown_0203A8E8
 

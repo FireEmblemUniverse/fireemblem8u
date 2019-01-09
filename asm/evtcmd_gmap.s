@@ -485,11 +485,11 @@ _0800BCB8:
 	movs r0, #0
 	b _0800BCD8
 _0800BCBC:
-	ldr r0, _0800BCC4  @ gUnknown_03004E50
+	ldr r0, _0800BCC4  @ gActiveUnit
 	ldr r0, [r0]
 	b _0800BCD8
 	.align 2, 0
-_0800BCC4: .4byte gUnknown_03004E50
+_0800BCC4: .4byte gActiveUnit
 _0800BCC8:
 	bl GetPlayerLeaderUnitId
 	lsls r0, r0, #0x10

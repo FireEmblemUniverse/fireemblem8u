@@ -9,7 +9,7 @@
 	THUMB_FUNC_START CanUnitUseVisit
 CanUnitUseVisit: @ 0x08034314
 	push {r4, r5, r6, r7, lr}
-	ldr r0, _08034328  @ gUnknown_03004E50
+	ldr r0, _08034328  @ gActiveUnit
 	ldr r0, [r0]
 	ldr r0, [r0, #0xc]
 	movs r1, #0x40
@@ -18,7 +18,7 @@ CanUnitUseVisit: @ 0x08034314
 	beq _08034330
 	b _08034392
 	.align 2, 0
-_08034328: .4byte gUnknown_03004E50
+_08034328: .4byte gActiveUnit
 _0803432C:
 	movs r0, #1
 	b _08034394
@@ -90,7 +90,7 @@ _080343A4: .4byte gUnknown_0202E4DC
 	THUMB_FUNC_START CanUnitUseSeize
 CanUnitUseSeize: @ 0x080343A8
 	push {r4, r5, r6, lr}
-	ldr r0, _080343C8  @ gUnknown_03004E50
+	ldr r0, _080343C8  @ gActiveUnit
 	ldr r2, [r0]
 	ldr r0, [r2, #0xc]
 	movs r1, #0x40
@@ -104,7 +104,7 @@ CanUnitUseSeize: @ 0x080343A8
 	bne _080343D0
 	b _08034416
 	.align 2, 0
-_080343C8: .4byte gUnknown_03004E50
+_080343C8: .4byte gActiveUnit
 _080343CC:
 	movs r0, #1
 	b _08034418
@@ -167,7 +167,7 @@ CanUnitUseAttack: @ 0x08034428
 	ldr r0, [r0]
 	movs r1, #0
 	bl ClearMapWith
-	ldr r4, _08034464  @ gUnknown_03004E50
+	ldr r4, _08034464  @ gActiveUnit
 	ldr r0, [r4]
 	bl FillMapAttackRangeForUnit
 	ldr r1, _08034468  @ gUnknown_02033F3C
@@ -185,14 +185,14 @@ _0803445A:
 	bx r1
 	.align 2, 0
 _08034460: .4byte gUnknown_0202E4E4
-_08034464: .4byte gUnknown_03004E50
+_08034464: .4byte gActiveUnit
 _08034468: .4byte gUnknown_02033F3C
 _0803446C: .4byte AddUnitToTargetListIfNotAllied
 
 	THUMB_FUNC_START CanActiveUnitUseRescue
 CanActiveUnitUseRescue: @ 0x08034470
 	push {lr}
-	ldr r0, _08034488  @ gUnknown_03004E50
+	ldr r0, _08034488  @ gActiveUnit
 	ldr r0, [r0]
 	bl MakeRescueTargetList
 	bl sub_804FD28
@@ -203,12 +203,12 @@ _08034484:
 	pop {r1}
 	bx r1
 	.align 2, 0
-_08034488: .4byte gUnknown_03004E50
+_08034488: .4byte gActiveUnit
 
 	THUMB_FUNC_START CanActiveUnitUseTrade
 CanActiveUnitUseTrade: @ 0x0803448C
 	push {lr}
-	ldr r0, _080344A4  @ gUnknown_03004E50
+	ldr r0, _080344A4  @ gActiveUnit
 	ldr r0, [r0]
 	bl MakeTradeTargetList
 	bl sub_804FD28
@@ -219,7 +219,7 @@ _080344A0:
 	pop {r1}
 	bx r1
 	.align 2, 0
-_080344A4: .4byte gUnknown_03004E50
+_080344A4: .4byte gActiveUnit
 
 	THUMB_FUNC_START GetUnitCommandUseFlags
 GetUnitCommandUseFlags: @ 0x080344A8
@@ -253,7 +253,7 @@ GetUnitCommandUseFlags: @ 0x080344A8
 	THUMB_FUNC_START sub_80344E8
 sub_80344E8: @ 0x080344E8
 	push {lr}
-	ldr r0, _0803450C  @ gUnknown_03004E50
+	ldr r0, _0803450C  @ gActiveUnit
 	ldr r0, [r0]
 	ldr r1, [r0, #4]
 	ldrb r1, [r1, #0x12]
@@ -269,7 +269,7 @@ sub_80344E8: @ 0x080344E8
 	pop {r1}
 	bx r1
 	.align 2, 0
-_0803450C: .4byte gUnknown_03004E50
+_0803450C: .4byte gActiveUnit
 _08034510: .4byte gUnknown_0203A958
 
 	THUMB_FUNC_START sub_8034514
@@ -280,7 +280,7 @@ sub_8034514: @ 0x08034514
 	movs r1, #1
 	negs r1, r1
 	bl ClearMapWith
-	ldr r0, _0803454C  @ gUnknown_03004E50
+	ldr r0, _0803454C  @ gActiveUnit
 	ldr r2, [r0]
 	movs r0, #0x11
 	ldrsb r0, [r2, r0]
@@ -299,7 +299,7 @@ sub_8034514: @ 0x08034514
 	bx r1
 	.align 2, 0
 _08034548: .4byte gUnknown_0202E4E0
-_0803454C: .4byte gUnknown_03004E50
+_0803454C: .4byte gActiveUnit
 
 	THUMB_FUNC_START sub_8034550
 sub_8034550: @ 0x08034550

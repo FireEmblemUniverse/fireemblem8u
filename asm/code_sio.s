@@ -16881,7 +16881,7 @@ sub_8049D24: @ 0x08049D24
 	ldrh r0, [r0, #6]
 	movs r1, #0
 	bl sub_8049B24
-	ldr r2, _08049E18  @ gUnknown_0202BE44
+	ldr r2, _08049E18  @ gActiveUnitId
 	mov r8, r2
 	ldr r1, _08049E1C  @ gUnknown_03001818
 	mov r2, r9
@@ -16893,7 +16893,7 @@ sub_8049D24: @ 0x08049D24
 	ldrb r0, [r1]
 	bl GetUnit
 	adds r2, r0, #0
-	ldr r7, _08049E20  @ gUnknown_03004E50
+	ldr r7, _08049E20  @ gActiveUnit
 	str r2, [r7]
 	ldr r0, [r4]
 	ldrh r1, [r0, #8]
@@ -16967,9 +16967,9 @@ _08049DB2:
 _08049E0C: .4byte gUnknown_080D9FB5
 _08049E10: .4byte gUnknown_0203DD90
 _08049E14: .4byte gKeyStatusPtr
-_08049E18: .4byte gUnknown_0202BE44
+_08049E18: .4byte gActiveUnitId
 _08049E1C: .4byte gUnknown_03001818
-_08049E20: .4byte gUnknown_03004E50
+_08049E20: .4byte gActiveUnit
 _08049E24: .4byte gUnknown_085A92E0
 _08049E28: .4byte gUnknown_0202BCF0
 _08049E2C: .4byte gUnknown_03001838
@@ -16991,7 +16991,7 @@ _08049E42:
 	ands r0, r1
 	cmp r0, #0
 	beq _08049E7C
-	ldr r0, _08049E78  @ gUnknown_03004E50
+	ldr r0, _08049E78  @ gActiveUnit
 	ldr r0, [r0]
 	ldr r0, [r0, #0xc]
 	movs r1, #0x80
@@ -17007,7 +17007,7 @@ _08049E42:
 	.align 2, 0
 _08049E70: .4byte gUnknown_0202BCF0
 _08049E74: .4byte gKeyStatusPtr
-_08049E78: .4byte gUnknown_03004E50
+_08049E78: .4byte gActiveUnit
 _08049E7C:
 	ldr r0, [r2]
 	ldrh r1, [r0, #8]
@@ -17031,7 +17031,7 @@ _08049E7C:
 	.align 2, 0
 _08049EA8: .4byte gUnknown_0202BCF0
 _08049EAC:
-	ldr r0, _08049F24  @ gUnknown_03004E50
+	ldr r0, _08049F24  @ gActiveUnit
 	ldr r1, [r0]
 	movs r0, #0x10
 	ldrsb r0, [r1, r0]
@@ -17088,7 +17088,7 @@ _08049F12:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_08049F24: .4byte gUnknown_03004E50
+_08049F24: .4byte gActiveUnit
 _08049F28: .4byte gUnknown_03001830
 _08049F2C: .4byte gUnknown_0300182C
 _08049F30: .4byte gUnknown_0203DD90
@@ -17118,7 +17118,7 @@ sub_8049F44: @ 0x08049F44
 	ldrh r0, [r0, #6]
 	movs r1, #1
 	bl sub_8049B24
-	ldr r2, _0804A028  @ gUnknown_0202BE44
+	ldr r2, _0804A028  @ gActiveUnitId
 	mov sl, r2
 	ldr r0, _0804A02C  @ gUnknown_03001818
 	mov r9, r0
@@ -17128,7 +17128,7 @@ sub_8049F44: @ 0x08049F44
 	strb r0, [r2]
 	ldrb r0, [r2]
 	bl GetUnit
-	ldr r1, _0804A030  @ gUnknown_03004E50
+	ldr r1, _0804A030  @ gActiveUnit
 	str r0, [r1]
 	movs r2, #0x10
 	ldrsb r2, [r0, r2]
@@ -17206,9 +17206,9 @@ _08049FE6:
 	.align 2, 0
 _0804A020: .4byte gUnknown_0203DD90
 _0804A024: .4byte gKeyStatusPtr
-_0804A028: .4byte gUnknown_0202BE44
+_0804A028: .4byte gActiveUnitId
 _0804A02C: .4byte gUnknown_03001818
-_0804A030: .4byte gUnknown_03004E50
+_0804A030: .4byte gActiveUnit
 _0804A034: .4byte gUnknown_03001830
 _0804A038: .4byte gUnknown_0300182C
 _0804A03C: .4byte gUnknown_0202BCF0
@@ -17264,7 +17264,7 @@ _0804A0A8:
 	ands r0, r1
 	cmp r0, #0
 	beq _0804A0D4
-	ldr r1, _0804A0D0  @ gUnknown_03004E50
+	ldr r1, _0804A0D0  @ gActiveUnit
 	ldr r0, [r1]
 	ldr r0, [r0, #0xc]
 	movs r1, #0x80
@@ -17278,7 +17278,7 @@ _0804A0A8:
 	bl Proc_GotoLabel
 	b _0804A0F0
 	.align 2, 0
-_0804A0D0: .4byte gUnknown_03004E50
+_0804A0D0: .4byte gActiveUnit
 _0804A0D4:
 	ldr r0, _0804A100  @ gUnknown_0203DD90
 	ldr r2, [sp, #4]
@@ -17319,7 +17319,7 @@ sub_804A108: @ 0x0804A108
 	adds r0, r0, r1
 	ldrb r0, [r0]
 	bl GetUnit
-	ldr r1, _0804A150  @ gUnknown_03004E50
+	ldr r1, _0804A150  @ gActiveUnit
 	str r0, [r1]
 	bl sub_8049298
 	bl GetThread2SkipStack
@@ -17337,7 +17337,7 @@ sub_804A108: @ 0x0804A108
 	.align 2, 0
 _0804A148: .4byte gUnknown_0203DD90
 _0804A14C: .4byte gUnknown_03001818
-_0804A150: .4byte gUnknown_03004E50
+_0804A150: .4byte gActiveUnit
 _0804A154: .4byte gUnknown_085AADA0
 
 	THUMB_FUNC_START sub_804A158
@@ -17356,7 +17356,7 @@ sub_804A158: @ 0x0804A158
 	ldrb r0, [r0, #6]
 	cmp r0, #0
 	bne _0804A1A0
-	ldr r0, _0804A198  @ gUnknown_03004E50
+	ldr r0, _0804A198  @ gActiveUnit
 	ldr r0, [r0]
 	bl sub_80492B8
 	adds r0, r5, #0
@@ -17370,7 +17370,7 @@ sub_804A158: @ 0x0804A158
 	b _0804A1B6
 	.align 2, 0
 _0804A194: .4byte gUnknown_0203DD90
-_0804A198: .4byte gUnknown_03004E50
+_0804A198: .4byte gActiveUnit
 _0804A19C: .4byte gLCDControlBuffer
 _0804A1A0:
 	adds r0, r5, #0
@@ -17402,7 +17402,7 @@ _0804A1CC: .4byte gLCDControlBuffer
 sub_804A1D0: @ 0x0804A1D0
 	push {r4, r5, r6, lr}
 	adds r4, r0, #0
-	ldr r0, _0804A208  @ gUnknown_03004E50
+	ldr r0, _0804A208  @ gActiveUnit
 	ldr r1, [r0]
 	ldr r6, _0804A20C  @ gUnknown_0203DD90
 	ldrb r0, [r6, #7]
@@ -17426,7 +17426,7 @@ sub_804A1D0: @ 0x0804A1D0
 	strb r0, [r6, #6]
 	b _0804A292
 	.align 2, 0
-_0804A208: .4byte gUnknown_03004E50
+_0804A208: .4byte gActiveUnit
 _0804A20C: .4byte gUnknown_0203DD90
 _0804A210:
 	adds r0, r5, #0
@@ -17552,7 +17552,7 @@ _0804A304:
 	ldrb r0, [r1, #6]
 	cmp r0, #0
 	bne _0804A330
-	ldr r0, _0804A32C  @ gUnknown_03004E50
+	ldr r0, _0804A32C  @ gActiveUnit
 	ldr r0, [r0]
 	bl sub_80492B8
 	adds r0, r6, #0
@@ -17563,9 +17563,9 @@ _0804A304:
 _0804A320: .4byte gUnknown_03001818
 _0804A324: .4byte gUnknown_0203DD90
 _0804A328: .4byte gUnknown_0202E4DC
-_0804A32C: .4byte gUnknown_03004E50
+_0804A32C: .4byte gActiveUnit
 _0804A330:
-	ldr r7, _0804A384  @ gUnknown_03004E50
+	ldr r7, _0804A384  @ gActiveUnit
 	ldr r0, [r7]
 	mov r2, r8
 	ldrb r1, [r2, #7]
@@ -17603,7 +17603,7 @@ _0804A35A:
 	bl Proc_ClearNativeCallback
 	b _0804A396
 	.align 2, 0
-_0804A384: .4byte gUnknown_03004E50
+_0804A384: .4byte gActiveUnit
 _0804A388:
 	ldr r0, [r7]
 	bl sub_80492B8
@@ -19119,12 +19119,12 @@ _0804AF88:
 	blt _0804AFB0
 	b _0804B158
 _0804AFB0:
-	ldr r0, _0804B0D0  @ gUnknown_0202BE44
+	ldr r0, _0804B0D0  @ gActiveUnitId
 	strb r4, [r0]
 	ldrb r0, [r0]
 	bl GetUnit
 	adds r2, r0, #0
-	ldr r0, _0804B0D4  @ gUnknown_03004E50
+	ldr r0, _0804B0D4  @ gActiveUnit
 	str r2, [r0]
 	ldr r1, [r2, #0xc]
 	ldr r0, _0804B0D8  @ 0x00010004
@@ -19145,7 +19145,7 @@ _0804AFD6:
 _0804AFDE:
 	movs r5, #0
 _0804AFE0:
-	ldr r0, _0804B0D4  @ gUnknown_03004E50
+	ldr r0, _0804B0D4  @ gActiveUnit
 	ldr r2, [r0]
 	lsls r1, r5, #1
 	adds r0, r2, #0
@@ -19247,7 +19247,7 @@ _0804B072:
 	cmp r1, r0
 	bhi _0804B0EC
 	str r0, [sp, #0x18]
-	ldr r0, _0804B0D0  @ gUnknown_0202BE44
+	ldr r0, _0804B0D0  @ gActiveUnitId
 	ldrb r0, [r0]
 	str r0, [sp, #0x1c]
 	lsls r0, r5, #0x18
@@ -19263,8 +19263,8 @@ _0804B072:
 	.align 2, 0
 _0804B0C8: .4byte gUnknown_0203AA04
 _0804B0CC: .4byte gUnknown_0202BCF0
-_0804B0D0: .4byte gUnknown_0202BE44
-_0804B0D4: .4byte gUnknown_03004E50
+_0804B0D0: .4byte gActiveUnitId
+_0804B0D4: .4byte gActiveUnit
 _0804B0D8: .4byte 0x00010004
 _0804B0DC: .4byte gUnknown_0203DD90
 _0804B0E0: .4byte gUnknown_03001834
@@ -19293,7 +19293,7 @@ _0804B0EC:
 	cmp r2, r0
 	bhi _0804B13C
 	str r0, [sp, #0x18]
-	ldr r0, _0804B130  @ gUnknown_0202BE44
+	ldr r0, _0804B130  @ gActiveUnitId
 	ldrb r0, [r0]
 	str r0, [sp, #0x1c]
 	lsls r0, r5, #0x18
@@ -19308,7 +19308,7 @@ _0804B0EC:
 	strb r0, [r7, #2]
 	b _0804B138
 	.align 2, 0
-_0804B130: .4byte gUnknown_0202BE44
+_0804B130: .4byte gActiveUnitId
 _0804B134:
 	movs r1, #2
 	strb r1, [r7, #2]
@@ -19633,7 +19633,7 @@ sub_804B3B0: @ 0x0804B3B0
 	adds r4, r0, #0
 	movs r0, #0x1f
 	bl sub_8086DE4
-	ldr r0, _0804B3CC  @ gUnknown_03004E50
+	ldr r0, _0804B3CC  @ gActiveUnit
 	ldr r0, [r0]
 	adds r1, r4, #0
 	bl sub_808894C
@@ -19641,7 +19641,7 @@ sub_804B3B0: @ 0x0804B3B0
 	pop {r0}
 	bx r0
 	.align 2, 0
-_0804B3CC: .4byte gUnknown_03004E50
+_0804B3CC: .4byte gActiveUnit
 
 	THUMB_FUNC_START sub_804B3D0
 sub_804B3D0: @ 0x0804B3D0
@@ -24324,7 +24324,7 @@ _0804D854: .4byte gUnknown_080DA2B0
 	THUMB_FUNC_START sub_804D858
 sub_804D858: @ 0x0804D858
 	push {r4, r5, lr}
-	ldr r5, _0804D884  @ gUnknown_03004E50
+	ldr r5, _0804D884  @ gActiveUnit
 	ldr r0, [r5]
 	lsls r1, r1, #1
 	adds r0, #0x1e
@@ -24343,7 +24343,7 @@ sub_804D858: @ 0x0804D858
 	movs r0, #2
 	b _0804D89C
 	.align 2, 0
-_0804D884: .4byte gUnknown_03004E50
+_0804D884: .4byte gActiveUnit
 _0804D888:
 	ldr r0, [r5]
 	adds r1, r4, #0
@@ -24398,7 +24398,7 @@ _0804D8D8: .4byte gUnknown_0203DD90
 sub_804D8DC: @ 0x0804D8DC
 	push {r4, r5, r6, lr}
 	adds r4, r1, #0
-	ldr r0, _0804D938  @ gUnknown_03004E50
+	ldr r0, _0804D938  @ gActiveUnit
 	ldr r0, [r0]
 	adds r1, #0x3c
 	movs r2, #0
@@ -24439,7 +24439,7 @@ _0804D90A:
 	pop {r1}
 	bx r1
 	.align 2, 0
-_0804D938: .4byte gUnknown_03004E50
+_0804D938: .4byte gActiveUnit
 _0804D93C: .4byte gBG0TilemapBuffer
 
 	THUMB_FUNC_START sub_804D940

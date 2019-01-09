@@ -5532,12 +5532,12 @@ gUnknown_08803CB0:  @ 0x08803CB0
 gUnknown_08803CD0:  @ 0x08803CD0
 	.incbin "baserom.gba", 0x803CD0, 0x94
 
-	.global gUnknown_08803D64
-gUnknown_08803D64:  @ 0x08803D64
+	.global gCharacterData
+gCharacterData:  @ 0x08803D64
 	.incbin "baserom.gba", 0x803D64, 0x3400
 
-	.global gUnknown_08807164
-gUnknown_08807164:  @ 0x08807164
+	.global gClassData
+gClassData:  @ 0x08807164
 	.incbin "baserom.gba", 0x807164, 0x29AC
 
 	.global gItemData

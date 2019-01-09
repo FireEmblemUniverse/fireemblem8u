@@ -1249,7 +1249,7 @@ void ChapterChangeUnitCleanup(void) {
                 US_BIT16 | US_BIT20 | US_BIT21 | US_BIT25 | US_BIT26
             );
 
-            if (UNIT_ATTRIBUTES(unit) & CA_SUPPLY)
+            if (UNIT_CATTRIBUTES(unit) & CA_SUPPLY)
                 unit->state = unit->state &~ US_DEAD;
 
             unit->state |= US_HIDDEN | US_NOT_DEPLOYED;
@@ -1287,12 +1287,12 @@ void MapMain_ResumeFromAction(struct BMapMainProc* mapMain) {
 
     Proc_GotoLabel((struct Proc*)(mapMain), 6);
 
-    gUnknown_03004E50 = GetUnit(gUnknown_0203A958.subjectIndex);
-    gUnknown_0202E4D8[gUnknown_03004E50->yPos][gUnknown_03004E50->xPos] = 0;
+    gActiveUnit = GetUnit(gUnknown_0203A958.subjectIndex);
+    gUnknown_0202E4D8[gActiveUnit->yPos][gActiveUnit->xPos] = 0;
 
     HideUnitSMS(GetUnit(gUnknown_0203A958.subjectIndex));
 
-    MU_Create(gUnknown_03004E50);
+    MU_Create(gActiveUnit);
     MU_SetDefaultFacing_Auto();
 }
 
@@ -1310,11 +1310,11 @@ void MapMain_ResumeFromBskPhase(struct BMapMainProc* mapMain) {
 }
 
 void MapMain_ResumeFromArenaFight(struct BMapMainProc* mapMain) {
-    gUnknown_03004E50 = GetUnit(gUnknown_0203A958.subjectIndex);
+    gActiveUnit = GetUnit(gUnknown_0203A958.subjectIndex);
 
-    PrepareArena2(gUnknown_03004E50);
+    PrepareArena2(gActiveUnit);
 
-    sub_802CD64(gUnknown_03004E50);
+    sub_802CD64(gActiveUnit);
     BeginBattleAnimations();
 
     gLCDControlBuffer.dispcnt.bg0_on = FALSE;

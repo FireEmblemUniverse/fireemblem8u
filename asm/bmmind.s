@@ -31,7 +31,7 @@ ApplyUnitAction: @ 0x0803200C
 	ldr r5, _08032054  @ gUnknown_0203A958
 	ldrb r0, [r5, #0xc]
 	bl GetUnit
-	ldr r1, _08032058  @ gUnknown_03004E50
+	ldr r1, _08032058  @ gActiveUnit
 	str r0, [r1]
 	ldrb r0, [r5, #0x11]
 	cmp r0, #2
@@ -62,7 +62,7 @@ _08032048:
 	mov pc, r0
 	.align 2, 0
 _08032054: .4byte gUnknown_0203A958
-_08032058: .4byte gUnknown_03004E50
+_08032058: .4byte gActiveUnit
 _0803205C: .4byte _08032060
 _08032060: @ jump table
 	.4byte _080320D8 @ case 0
@@ -96,7 +96,7 @@ _08032060: @ jump table
 	.4byte _0803215C @ case 28
 	.4byte _080320D8 @ case 29
 _080320D8:
-	ldr r0, _080320E8  @ gUnknown_03004E50
+	ldr r0, _080320E8  @ gActiveUnit
 	ldr r2, [r0]
 	ldr r0, [r2, #0xc]
 	movs r1, #0x40
@@ -104,7 +104,7 @@ _080320D8:
 	str r0, [r2, #0xc]
 	b _0803215C
 	.align 2, 0
-_080320E8: .4byte gUnknown_03004E50
+_080320E8: .4byte gActiveUnit
 _080320EC:
 	adds r0, r4, #0
 	bl ActionRescue
@@ -465,7 +465,7 @@ ActionSupport: @ 0x080323D4
 	ldrb r0, [r0, #0xd]
 	bl GetUnit
 	adds r4, r0, #0
-	ldr r0, _08032478  @ gUnknown_03004E50
+	ldr r0, _08032478  @ gActiveUnit
 	mov r9, r0
 	ldr r0, [r0]
 	ldr r1, [r4]
@@ -532,7 +532,7 @@ _08032464:
 	bx r1
 	.align 2, 0
 _08032474: .4byte gUnknown_0203A958
-_08032478: .4byte gUnknown_03004E50
+_08032478: .4byte gActiveUnit
 
 	THUMB_FUNC_START ActionSteal
 ActionSteal: @ 0x0803247C
@@ -635,7 +635,7 @@ ActionSummon: @ 0x08032554
 	push {r4, lr}
 	adds r4, r0, #0
 	ldr r0, _08032578  @ gUnknown_0203A4EC
-	ldr r1, _0803257C  @ gUnknown_03004E50
+	ldr r1, _0803257C  @ gActiveUnit
 	ldr r1, [r1]
 	bl CopyUnitToBattleStruct
 	adds r0, r4, #0
@@ -648,14 +648,14 @@ ActionSummon: @ 0x08032554
 	bx r1
 	.align 2, 0
 _08032578: .4byte gUnknown_0203A4EC
-_0803257C: .4byte gUnknown_03004E50
+_0803257C: .4byte gActiveUnit
 
 	THUMB_FUNC_START ActionSummonDK
 ActionSummonDK: @ 0x08032580
 	push {r4, lr}
 	adds r4, r0, #0
 	ldr r0, _080325A4  @ gUnknown_0203A4EC
-	ldr r1, _080325A8  @ gUnknown_03004E50
+	ldr r1, _080325A8  @ gActiveUnit
 	ldr r1, [r1]
 	bl CopyUnitToBattleStruct
 	adds r0, r4, #0
@@ -668,7 +668,7 @@ ActionSummonDK: @ 0x08032580
 	bx r1
 	.align 2, 0
 _080325A4: .4byte gUnknown_0203A4EC
-_080325A8: .4byte gUnknown_03004E50
+_080325A8: .4byte gActiveUnit
 
 	THUMB_FUNC_START sub_80325AC
 sub_80325AC: @ 0x080325AC
@@ -1173,7 +1173,7 @@ _0803299C: .4byte gUnknown_0203A4EC
 sub_80329A0: @ 0x080329A0
 	push {r4, r5, lr}
 	adds r5, r0, #0
-	ldr r4, _080329BC  @ gUnknown_03004E50
+	ldr r4, _080329BC  @ gActiveUnit
 	ldr r0, [r4]
 	bl sub_8032750
 	ldr r1, [r4]
@@ -1183,7 +1183,7 @@ sub_80329A0: @ 0x080329A0
 	pop {r0}
 	bx r0
 	.align 2, 0
-_080329BC: .4byte gUnknown_03004E50
+_080329BC: .4byte gActiveUnit
 
 	THUMB_FUNC_START sub_80329C0
 sub_80329C0: @ 0x080329C0

@@ -143,13 +143,13 @@ _0803755E:
 	b _08037586
 _08037564:
 	bl MU_EndAll
-	ldr r0, _08037578  @ gUnknown_03004E50
+	ldr r0, _08037578  @ gActiveUnit
 	ldr r0, [r0]
 	bl MU_Create
 	bl MU_SetDefaultFacing_Auto
 	b _08037586
 	.align 2, 0
-_08037578: .4byte gUnknown_03004E50
+_08037578: .4byte gActiveUnit
 _0803757C:
 	adds r0, r4, #0
 	bl MU_GetByUnit
@@ -181,7 +181,7 @@ sub_80375A0: @ 0x080375A0
 	bl GetUnitCurrentHp
 	cmp r0, #0
 	bne _080375DE
-	ldr r5, _080375E4  @ gUnknown_03004E50
+	ldr r5, _080375E4  @ gActiveUnit
 	ldr r6, [r5]
 	str r4, [r5]
 	ldr r0, [r4]
@@ -201,7 +201,7 @@ _080375DE:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_080375E4: .4byte gUnknown_03004E50
+_080375E4: .4byte gActiveUnit
 
 	THUMB_FUNC_START GetPickTrapType
 GetPickTrapType: @ 0x080375E8
@@ -383,7 +383,7 @@ _08037740: .4byte gUnknown_0202BCF0
 HandlePostActionTraps: @ 0x08037744
 	push {r4, r5, lr}
 	adds r5, r0, #0
-	ldr r4, _08037790  @ gUnknown_03004E50
+	ldr r4, _08037790  @ gActiveUnit
 	ldr r0, [r4]
 	bl GetUnitCurrentHp
 	cmp r0, #0
@@ -410,7 +410,7 @@ HandlePostActionTraps: @ 0x08037744
 	cmp r0, #1
 	blt _0803778A
 _0803777E:
-	ldr r4, _08037790  @ gUnknown_03004E50
+	ldr r4, _08037790  @ gActiveUnit
 	ldr r0, [r4]
 	bl GetPickTrapType
 	cmp r0, #0
@@ -419,7 +419,7 @@ _0803778A:
 	movs r0, #1
 	b _080377C0
 	.align 2, 0
-_08037790: .4byte gUnknown_03004E50
+_08037790: .4byte gActiveUnit
 _08037794: .4byte gUnknown_0203A958
 _08037798:
 	ldr r1, _080377C8  @ gUnknown_0203A958

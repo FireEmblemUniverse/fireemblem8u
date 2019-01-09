@@ -369,81 +369,81 @@ struct BattleUnit {
 };
 
 // TODO: MOVE ELSEWHERE
-extern const struct ClassData gUnknown_08807164[]; // gClassData
-extern const struct CharacterData gUnknown_08803D64[]; // gCharacterData
+extern const struct ClassData gClassData[]; // gClassData
+extern const struct CharacterData gCharacterData[]; // gCharacterData
 
 void ClearUnits(void);
 void ClearUnit(struct Unit* unit);
-// ??? CopyUnit(???);
-// ??? GetFreeUnit(???);
-// ??? GetFreeBlueUnit(???);
-// ??? GetUnitFogViewRange(???);
+void CopyUnit(struct Unit* from, struct Unit* to);
+struct Unit* GetFreeUnit(int faction);
+struct Unit* GetFreeBlueUnit(const struct UnitDefinition* uDef);
+int GetUnitFogViewRange(struct Unit* unit);
 void SetUnitStatus(struct Unit* unit, int statusId);
-// ??? SetUnitStatusExt(???);
-// ??? GetUnitSMSId(???);
-// ??? UnitAddItem(???);
-// ??? UnitClearInventory(???);
+void SetUnitStatusExt(struct Unit* unit, int status, int duration);
+int GetUnitSMSId(struct Unit* unit);
+s8 UnitAddItem(struct Unit* unit, int item);
+void UnitClearInventory(struct Unit* unit);
 void UnitRemoveInvalidItems(struct Unit* unit);
-// ??? GetUnitItemCount(???);
-// ??? UnitHasItem(???);
-// ??? LoadUnits(???);
-// ??? sub_8017A54(???);
-// ??? CanClassWieldWeaponType(???);
+int GetUnitItemCount(struct Unit* unit);
+s8 UnitHasItem(struct Unit* unit, int item);
+int LoadUnits(const struct UnitDefinition* uDef);
+void sub_8017A54(struct Unit* unit);
+s8 CanClassWieldWeaponType(u8 classId, u8 wpnType);
 struct Unit* LoadUnit(const struct UnitDefinition* uDef);
 void UnitInitFromDefinition(struct Unit* unit, const struct UnitDefinition* uDef);
-// ??? UnitLoadItemsFromDefinition(???);
+void UnitLoadItemsFromDefinition(struct Unit* unit, const struct UnitDefinition* uDef);
 void UnitLoadStatsFromChracter(struct Unit* unit, const struct CharacterData* character);
 void FixROMUnitStructPtr(struct Unit* unit);
 void UnitLoadSupports(struct Unit* unit);
 void UnitAutolevelWExp(struct Unit* unit, const struct UnitDefinition* uDef);
-// ??? UnitAutolevelCore(???);
-// ??? UnitAutolevelPenalty(???);
-// ??? UnitApplyBonusLevels(???);
+void UnitAutolevelCore(struct Unit* unit, u8 classId, int levelCount);
+void UnitAutolevelPenalty(struct Unit* unit, u8 classId, int levelCount);
+void UnitApplyBonusLevels(struct Unit* unit, int levelCount);
 void UnitAutolevel(struct Unit* unit);
 void UnitAutolevelRealistic(struct Unit* unit);
 void UnitCheckStatCaps(struct Unit* unit);
-// ??? GetUnitFromCharId(???);
-// ??? GetUnitFromCharIdAndFaction(???);
-// ??? CanUnitRescue(???);
-// ??? UnitRescue(???);
-// ??? UnitDrop(???);
-// ??? UnitGive(???);
-// ??? UnitKill(???);
-// ??? UnitChangeFaction(???);
-// ??? UnitFinalizeMovement(???);
-// ??? UnitGetDeathDropLocation(???);
-// ??? UnitBeginAction(???);
-// ??? UnitBeginCantoAction(???);
-// ??? MoveActiveUnit(???);
-// ??? ClearActiveFactionGrayedStates(???);
-// ??? TickActiveFactionTurn(???);
-// ??? SetAllUnitNotBackSprite(???);
-// ??? UnitUpdateUsedItem(???);
+struct Unit* GetUnitFromCharId(int charId);
+struct Unit* GetUnitFromCharIdAndFaction(int charId, int faction);
+s8 CanUnitRescue(struct Unit* actor, struct Unit* target);
+void UnitRescue(struct Unit* actor, struct Unit* target);
+void UnitDrop(struct Unit* actor, int xTarget, int yTarget);
+s8 UnitGive(struct Unit* actor, struct Unit* target);
+void UnitKill(struct Unit* unit);
+void UnitChangeFaction(struct Unit* unit, int faction);
+void UnitFinalizeMovement(struct Unit* unit);
+void UnitGetDeathDropLocation(struct Unit* unit, int* xOut, int* yOut);
+void UnitBeginAction(struct Unit* unit);
+void UnitBeginCantoAction(struct Unit* unit);
+void MoveActiveUnit(int x, int y);
+void ClearActiveFactionGrayedStates(void);
+void TickActiveFactionTurn(void);
+void SetAllUnitNotBackSprite(void); // TODO: better name
+void UnitUpdateUsedItem(struct Unit* unit, int itemSlot);
 int GetUnitAid(struct Unit* unit);
-// ??? GetUnitMagBy2Range(???);
-// ??? UnitHasMagicRank(???);
-// ??? sub_8018A7C(???);
-// ??? GetUnitKeyItemSlotForTerrain(???);
-// ??? GetUnitAidIconId(???);
-// ??? GetUnitWeaponUsabilityBits(???);
-// ??? GetCombinedEnemyWeaponUsabilityBits(???);
-// ??? CanUnitMove(???);
-// ??? IsPositionMagicSealed(???);
+int GetUnitMagBy2Range(struct Unit* unit);
+s8 UnitHasMagicRank(struct Unit* unit);
+void sub_8018A7C(struct Unit* unit, int x, int y);
+int GetUnitKeyItemSlotForTerrain(struct Unit* unit, int terrain);
+int GetUnitAidIconId(u32 attributes);
+int GetUnitWeaponUsabilityBits(struct Unit* unit);
+int GetCombinedEnemyWeaponUsabilityBits(void);
+s8 CanUnitMove(void);
+s8 IsPositionMagicSealed(int x, int y);
 s8 IsUnitMagicSealed(struct Unit* unit);
-// ??? GetUnitLastItem(???);
+int GetUnitLastItem(struct Unit* unit);
 const s8* GetUnitMovementCost(struct Unit* unit);
 int GetClassSMSId(int classId);
-// ??? UpdatePrevDeployStates(???);
-// ??? LoadUnitPrepScreenPositions(???);
+void UpdatePrevDeployStates(void);
+void LoadUnitPrepScreenPositions(void);
 void ClearTemporaryUnits(void);
-// ??? IsUnitSlotAvailable(???);
-// ??? sub_8018F80(???);
-// ??? sub_8018FC0(???);
-// ??? CountAvailableBlueUnits(???);
-// ??? CountRedUnits(???);
-// ??? CountGreenUnits(???);
+s8 IsUnitSlotAvailable(int faction);
+void sub_8018F80(void);
+void sub_8018FC0(void);
+int CountAvailableBlueUnits(void);
+int CountRedUnits(void);
+int CountGreenUnits(void);
 void ClearCutsceneUnits(void);
-// ??? sub_8019108(???);
+void sub_8019108(void);
 int GetUnitCurrentHp(struct Unit* unit);
 int GetUnitMaxHp(struct Unit* unit);
 int GetUnitPower(struct Unit* unit);
@@ -470,7 +470,7 @@ s8 CanUnitCrossTerrain(struct Unit* unit, int terrain);
 
 #define UNIT_FACTION(aUnit) ((aUnit)->index & 0xC0)
 
-#define UNIT_ATTRIBUTES(aUnit) ((aUnit)->pCharacterData->attributes | (aUnit)->pClassData->attributes)
+#define UNIT_CATTRIBUTES(aUnit) ((aUnit)->pCharacterData->attributes | (aUnit)->pClassData->attributes)
 
 #define UNIT_MHP_MAX(aUnit) (UNIT_FACTION(unit) == FACTION_RED ? 120 : 60)
 #define UNIT_POW_MAX(aUnit) ((aUnit)->pClassData->maxPow)

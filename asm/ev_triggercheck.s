@@ -151,7 +151,7 @@ sub_8082F84: @ 0x08082F84
 	push {r4, r5, lr}
 	adds r5, r1, #0
 	adds r4, r2, #0
-	ldr r1, _08082FAC  @ gUnknown_03004E50
+	ldr r1, _08082FAC  @ gActiveUnit
 	ldr r2, [r1]
 	movs r1, #0x10
 	ldrsb r1, [r2, r1]
@@ -168,7 +168,7 @@ sub_8082F84: @ 0x08082F84
 	movs r0, #1
 	b _08082FB2
 	.align 2, 0
-_08082FAC: .4byte gUnknown_03004E50
+_08082FAC: .4byte gActiveUnit
 _08082FB0:
 	movs r0, #0
 _08082FB2:
@@ -1694,7 +1694,7 @@ CheckSHOP: @ 0x08083A58
 	bne _08083A9C
 	cmp r6, #0x18
 	bne _08083A8A
-	ldr r0, _08083A98  @ gUnknown_03004E50
+	ldr r0, _08083A98  @ gActiveUnit
 	ldr r0, [r0]
 	movs r1, #0x72
 	bl GetUnitItemSlot
@@ -1711,7 +1711,7 @@ _08083A8A:
 	movs r0, #1
 	b _08083A9E
 	.align 2, 0
-_08083A98: .4byte gUnknown_03004E50
+_08083A98: .4byte gActiveUnit
 _08083A9C:
 	movs r0, #0
 _08083A9E:
@@ -1723,7 +1723,7 @@ _08083A9E:
 CheckAREA: @ 0x08083AA4
 	push {r4, r5, r6, r7, lr}
 	adds r4, r0, #0
-	ldr r0, _08083B18  @ gUnknown_03004E50
+	ldr r0, _08083B18  @ gActiveUnit
 	ldr r3, [r0]
 	ldrb r0, [r3, #0x11]
 	mov ip, r0
@@ -1783,7 +1783,7 @@ _08083B08:
 	movs r0, #1
 	b _08083B1E
 	.align 2, 0
-_08083B18: .4byte gUnknown_03004E50
+_08083B18: .4byte gActiveUnit
 _08083B1C:
 	movs r0, #0
 _08083B1E:
@@ -2674,7 +2674,7 @@ _08084190:
 	asrs r0, r0, #0x18
 	ldr r1, [r1]
 	adds r1, r1, r0
-	ldr r0, _080841D0  @ gUnknown_03004E50
+	ldr r0, _080841D0  @ gActiveUnit
 	ldr r0, [r0]
 	ldr r0, [r0]
 	ldrb r0, [r0, #4]
@@ -2697,7 +2697,7 @@ _080841CA:
 	b _080841DE
 	.align 2, 0
 _080841CC: .4byte gUnknown_0202E4D8
-_080841D0: .4byte gUnknown_03004E50
+_080841D0: .4byte gActiveUnit
 _080841D4:
 	bl GetChapterThing
 	cmp r0, #2
@@ -2829,35 +2829,35 @@ _080842D8:
 	bl GetChapterThing
 	cmp r0, #2
 	beq _08084326
-	ldr r0, _080842EC  @ gUnknown_03004E50
+	ldr r0, _080842EC  @ gActiveUnit
 	ldr r0, [r0]
 	ldr r1, [sp, #4]
 	bl sub_80B41D0
 	b _08084326
 	.align 2, 0
-_080842EC: .4byte gUnknown_03004E50
+_080842EC: .4byte gActiveUnit
 _080842F0:
 	bl GetChapterThing
 	cmp r0, #2
 	beq _08084326
-	ldr r0, _08084304  @ gUnknown_03004E50
+	ldr r0, _08084304  @ gActiveUnit
 	ldr r0, [r0]
 	ldr r1, [sp, #4]
 	bl sub_80B41F0
 	b _08084326
 	.align 2, 0
-_08084304: .4byte gUnknown_03004E50
+_08084304: .4byte gActiveUnit
 _08084308:
 	bl GetChapterThing
 	cmp r0, #2
 	beq _08084326
-	ldr r0, _0808431C  @ gUnknown_03004E50
+	ldr r0, _0808431C  @ gActiveUnit
 	ldr r0, [r0]
 	ldr r1, [sp, #4]
 	bl sub_80B4210
 	b _08084326
 	.align 2, 0
-_0808431C: .4byte gUnknown_03004E50
+_0808431C: .4byte gActiveUnit
 _08084320:
 	mov r8, r8
 	b _08084326
@@ -2913,7 +2913,7 @@ _08084374:
 	ldr r0, [r0, #0xc]
 	str r0, [sp]
 	mov r1, sp
-	ldr r0, _080843B0  @ gUnknown_03004E50
+	ldr r0, _080843B0  @ gActiveUnit
 	ldr r2, [r0]
 	ldrb r0, [r2, #0x10]
 	strb r0, [r1, #0x18]
@@ -2928,7 +2928,7 @@ _08084374:
 	b _080843B6
 	.align 2, 0
 _080843AC: .4byte gUnknown_0202BCF0
-_080843B0: .4byte gUnknown_03004E50
+_080843B0: .4byte gActiveUnit
 _080843B4:
 	movs r0, #1
 _080843B6:
@@ -2981,7 +2981,7 @@ _08084402:
 	ldr r0, [r0, #0xc]
 	str r0, [sp]
 	mov r1, sp
-	ldr r0, _08084458  @ gUnknown_03004E50
+	ldr r0, _08084458  @ gActiveUnit
 	ldr r2, [r0]
 	ldrb r0, [r2, #0x10]
 	strb r0, [r1, #0x18]
@@ -3006,7 +3006,7 @@ _0808444E:
 	bx r0
 	.align 2, 0
 _08084454: .4byte gUnknown_0202BCF0
-_08084458: .4byte gUnknown_03004E50
+_08084458: .4byte gActiveUnit
 
 	THUMB_FUNC_START TryCallSelectEvents
 TryCallSelectEvents: @ 0x0808445C

@@ -3804,7 +3804,7 @@ _0800F300:
 	.align 2, 0
 _0800F310: .4byte gUnknown_030004E4
 _0800F314:
-	ldr r0, _0800F32C  @ gUnknown_03004E50
+	ldr r0, _0800F32C  @ gActiveUnit
 	ldr r1, [r0]
 	ldrb r0, [r1, #0x10]
 	ldrb r1, [r1, #0x11]
@@ -3817,7 +3817,7 @@ _0800F31C:
 	movs r0, #6
 	b _0800F3E0
 	.align 2, 0
-_0800F32C: .4byte gUnknown_03004E50
+_0800F32C: .4byte gActiveUnit
 _0800F330:
 	ldr r0, _0800F368  @ gEventSlotQueue
 	mov r8, r0
@@ -5204,7 +5204,7 @@ _0800FD42:
 	.align 2, 0
 _0800FD5C: .4byte gUnknown_0202E4D8
 _0800FD60:
-	ldr r0, _0800FD70  @ gUnknown_03004E50
+	ldr r0, _0800FD70  @ gActiveUnit
 	ldr r4, [r0]
 _0800FD64:
 	cmp r4, #0
@@ -5215,7 +5215,7 @@ _0800FD68:
 	str r0, [r1, #0x30]
 	b _0800FD80
 	.align 2, 0
-_0800FD70: .4byte gUnknown_03004E50
+_0800FD70: .4byte gActiveUnit
 _0800FD74: .4byte gEventSlots
 _0800FD78:
 	ldr r0, _0800FD88  @ gEventSlots
@@ -5524,7 +5524,7 @@ _0800FFA0:
 	bl m4aSongNumStart
 _0800FFB2:
 	ldr r2, _0800FFCC  @ gUnknown_03000434
-	ldr r1, _0800FFD0  @ gUnknown_03004E50
+	ldr r1, _0800FFD0  @ gActiveUnit
 	ldr r0, [r1]
 	str r0, [r2]
 	str r4, [r1]
@@ -5535,14 +5535,14 @@ _0800FFB2:
 	.align 2, 0
 _0800FFC8: .4byte gUnknown_0202BCF0
 _0800FFCC: .4byte gUnknown_03000434
-_0800FFD0: .4byte gUnknown_03004E50
+_0800FFD0: .4byte gActiveUnit
 _0800FFD4:
 	bl HideMoveRangeGraphics
 	ldr r2, _0800FFF0  @ gUnknown_03000434
 	ldr r1, [r2]
 	cmp r1, #0
 	beq _0800FFE6
-	ldr r0, _0800FFF4  @ gUnknown_03004E50
+	ldr r0, _0800FFF4  @ gActiveUnit
 	str r1, [r0]
 	str r4, [r2]
 _0800FFE6:
@@ -5553,7 +5553,7 @@ _0800FFE8:
 	bx r1
 	.align 2, 0
 _0800FFF0: .4byte gUnknown_03000434
-_0800FFF4: .4byte gUnknown_03004E50
+_0800FFF4: .4byte gActiveUnit
 
 	THUMB_FUNC_START Event32_SpawnSingleUnit
 Event32_SpawnSingleUnit: @ 0x0800FFF8
@@ -5593,7 +5593,7 @@ _08010032:
 	movs r5, #0
 	strb r4, [r0]
 	mov r3, sp
-	ldr r2, _08010108  @ gUnknown_08803D64
+	ldr r2, _08010108  @ gCharacterData
 	lsls r0, r4, #0x10
 	asrs r0, r0, #0x10
 	subs r0, #1
@@ -5696,7 +5696,7 @@ _080100EC:
 	.align 2, 0
 _08010100: .4byte gEventSlots
 _08010104: .4byte gUnknown_030004E4
-_08010108: .4byte gUnknown_08803D64
+_08010108: .4byte gCharacterData
 _0801010C: .4byte 0xFFFFF03F
 
 	THUMB_FUNC_START Event33_CheckUnitVarious
@@ -5805,7 +5805,7 @@ _080101E0: .4byte gEventSlots
 _080101E4:
 	cmp r2, #0
 	beq _0801027C
-	ldr r0, _08010200  @ gUnknown_03004E50
+	ldr r0, _08010200  @ gActiveUnit
 	ldr r0, [r0]
 	ldr r0, [r0]
 	ldrb r1, [r0, #4]
@@ -5817,7 +5817,7 @@ _080101E4:
 	movs r0, #0
 	b _08010288
 	.align 2, 0
-_08010200: .4byte gUnknown_03004E50
+_08010200: .4byte gActiveUnit
 _08010204: .4byte gEventSlots
 _08010208:
 	ldr r1, _08010210  @ gEventSlots
@@ -6181,7 +6181,7 @@ Event35_UnitClassChanging: @ 0x080104B0
 _080104D6:
 	cmp r6, #0
 	bne _08010518
-	ldr r2, _080104EC  @ gUnknown_08803D64
+	ldr r2, _080104EC  @ gCharacterData
 	lsls r0, r7, #0x10
 	asrs r0, r0, #0x10
 	subs r0, #1
@@ -6191,12 +6191,12 @@ _080104D6:
 	ldrb r6, [r0, #5]
 	b _08010518
 	.align 2, 0
-_080104EC: .4byte gUnknown_08803D64
+_080104EC: .4byte gCharacterData
 _080104F0:
 	adds r4, r6, #0
 	ldr r0, [r5, #4]
 	ldrb r6, [r0, #4]
-	ldr r2, _08010538  @ gUnknown_08803D64
+	ldr r2, _08010538  @ gCharacterData
 	lsls r4, r4, #0x10
 	asrs r4, r4, #0x10
 	subs r1, r4, #1
@@ -6226,7 +6226,7 @@ _0801052E:
 	pop {r1}
 	bx r1
 	.align 2, 0
-_08010538: .4byte gUnknown_08803D64
+_08010538: .4byte gCharacterData
 
 	THUMB_FUNC_START Event36_CheckInArea
 Event36_CheckInArea: @ 0x0801053C
@@ -6359,12 +6359,12 @@ Event38_ChangeActiveUnit: @ 0x08010618
 	cmp r4, #0
 	beq _0801063C
 	bl ClearActiveUnit
-	ldr r0, _08010638  @ gUnknown_03004E50
+	ldr r0, _08010638  @ gActiveUnit
 	str r4, [r0]
 	movs r0, #0
 	b _0801063E
 	.align 2, 0
-_08010638: .4byte gUnknown_03004E50
+_08010638: .4byte gActiveUnit
 _0801063C:
 	movs r0, #6
 _0801063E:

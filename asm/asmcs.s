@@ -1584,7 +1584,7 @@ _08085294: .4byte gUnknown_0202BCF0
 
 	THUMB_FUNC_START sub_8085298
 sub_8085298: @ 0x08085298
-	ldr r0, _080852B0  @ gUnknown_03004E50
+	ldr r0, _080852B0  @ gActiveUnit
 	ldr r0, [r0]
 	ldr r1, [r0]
 	ldr r0, [r0, #4]
@@ -1596,7 +1596,7 @@ sub_8085298: @ 0x08085298
 	bics r0, r1
 	bx lr
 	.align 2, 0
-_080852B0: .4byte gUnknown_03004E50
+_080852B0: .4byte gActiveUnit
 
 	THUMB_FUNC_START sub_80852B4
 sub_80852B4: @ 0x080852B4
@@ -1699,7 +1699,7 @@ sub_8085350: @ 0x08085350
 	THUMB_FUNC_START sub_8085354
 sub_8085354: @ 0x08085354
 	push {lr}
-	ldr r0, _0808536C  @ gUnknown_03004E50
+	ldr r0, _0808536C  @ gActiveUnit
 	ldr r0, [r0]
 	bl GetUnitCurrentHp
 	movs r1, #0
@@ -1711,7 +1711,7 @@ _08085366:
 	pop {r1}
 	bx r1
 	.align 2, 0
-_0808536C: .4byte gUnknown_03004E50
+_0808536C: .4byte gActiveUnit
 
 	THUMB_FUNC_START sub_8085370
 sub_8085370: @ 0x08085370

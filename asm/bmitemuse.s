@@ -482,7 +482,7 @@ _08028DEC:
 	.align 2, 0
 _08028DF0: .4byte 0x0000085D
 _08028DF4:
-	ldr r0, _08028E10  @ gUnknown_03004E50
+	ldr r0, _08028E10  @ gActiveUnit
 	ldr r0, [r0]
 	ldr r1, [r0]
 	ldr r2, [r0, #4]
@@ -496,7 +496,7 @@ _08028DF4:
 	ldr r0, _08028E14  @ 0x00000861
 	b _08028E56
 	.align 2, 0
-_08028E10: .4byte gUnknown_03004E50
+_08028E10: .4byte gActiveUnit
 _08028E14: .4byte 0x00000861
 _08028E18:
 	ldr r0, _08028E1C  @ 0x0000085F
@@ -504,7 +504,7 @@ _08028E18:
 	.align 2, 0
 _08028E1C: .4byte 0x0000085F
 _08028E20:
-	ldr r4, _08028E44  @ gUnknown_03004E50
+	ldr r4, _08028E44  @ gActiveUnit
 	ldr r1, [r4]
 	movs r5, #8
 	ldrsb r5, [r1, r5]
@@ -521,7 +521,7 @@ _08028E20:
 	ldr r0, _08028E48  @ 0x0000085B
 	b _08028E56
 	.align 2, 0
-_08028E44: .4byte gUnknown_03004E50
+_08028E44: .4byte gActiveUnit
 _08028E48: .4byte 0x0000085B
 _08028E4C:
 	ldr r0, _08028E50  @ 0x0000085C
@@ -1422,7 +1422,7 @@ WarpTargetPosSelect_Init: @ 0x080295E8
 	adds r1, r4, #0
 	bl EnsureCameraOntoPosition
 	bl HideMoveRangeGraphics
-	ldr r0, _08029690  @ gUnknown_03004E50
+	ldr r0, _08029690  @ gActiveUnit
 	ldr r4, [r0]
 	ldrb r0, [r5, #0xd]
 	bl GetUnit
@@ -1469,7 +1469,7 @@ WarpTargetPosSelect_Init: @ 0x080295E8
 	.align 2, 0
 _08029688: .4byte 0x00000871
 _0802968C: .4byte gUnknown_0203A958
-_08029690: .4byte gUnknown_03004E50
+_08029690: .4byte gActiveUnit
 _08029694: .4byte gUnknown_0202BCB0
 _08029698: .4byte gUnknown_085A0EA0
 
@@ -1511,7 +1511,7 @@ WarpTargetPosSelect_Loop: @ 0x0802969C
 	strb r0, [r1, #0x13]
 	ldrh r0, [r4, #0x16]
 	strb r0, [r1, #0x14]
-	ldr r0, _08029724  @ gUnknown_03004E50
+	ldr r0, _08029724  @ gActiveUnit
 	ldr r0, [r0]
 	bl EndItemEffectSelectionThing
 	ldr r0, _08029728  @ gBG2TilemapBuffer
@@ -1533,7 +1533,7 @@ _08029714: .4byte gUnknown_0202BCB0
 _08029718: .4byte gUnknown_0202E4E0
 _0802971C: .4byte gKeyStatusPtr
 _08029720: .4byte gUnknown_0203A958
-_08029724: .4byte gUnknown_03004E50
+_08029724: .4byte gActiveUnit
 _08029728: .4byte gBG2TilemapBuffer
 _0802972C: .4byte gUnknown_0202BCF0
 _08029730:
@@ -1620,7 +1620,7 @@ WarpTargetPosSelect_Confirm: @ 0x080297D0
 	bl sub_8003D20
 	bl HideMoveRangeGraphics
 	bl DeleteEach6CBB
-	ldr r4, _08029808  @ gUnknown_03004E50
+	ldr r4, _08029808  @ gActiveUnit
 	ldr r1, [r4]
 	movs r0, #0x10
 	ldrsb r0, [r1, r0]
@@ -1639,7 +1639,7 @@ WarpTargetPosSelect_Confirm: @ 0x080297D0
 	pop {r0}
 	bx r0
 	.align 2, 0
-_08029808: .4byte gUnknown_03004E50
+_08029808: .4byte gActiveUnit
 
 	THUMB_FUNC_START WarpTargetPosSelect_Cancel
 WarpTargetPosSelect_Cancel: @ 0x0802980C
@@ -1647,7 +1647,7 @@ WarpTargetPosSelect_Cancel: @ 0x0802980C
 	bl sub_8003D20
 	bl HideMoveRangeGraphics
 	bl DeleteEach6CBB
-	ldr r0, _08029838  @ gUnknown_03004E50
+	ldr r0, _08029838  @ gActiveUnit
 	ldr r1, [r0]
 	movs r0, #0x10
 	ldrsb r0, [r1, r0]
@@ -1661,7 +1661,7 @@ WarpTargetPosSelect_Cancel: @ 0x0802980C
 	pop {r0}
 	bx r0
 	.align 2, 0
-_08029838: .4byte gUnknown_03004E50
+_08029838: .4byte gActiveUnit
 _0802983C: .4byte gUnknown_0859B600
 
 	THUMB_FUNC_START WarpTargetPosSelect_Destruct
@@ -2054,7 +2054,7 @@ _08029B68:
 	adds r0, #0x3c
 	ldrb r0, [r0]
 	strb r0, [r1, #0x15]
-	ldr r0, _08029B88  @ gUnknown_03004E50
+	ldr r0, _08029B88  @ gActiveUnit
 	ldr r0, [r0]
 	bl EndItemEffectSelectionThing
 	movs r0, #0x37
@@ -2064,7 +2064,7 @@ _08029B7C:
 	bx r1
 	.align 2, 0
 _08029B84: .4byte gUnknown_0203A958
-_08029B88: .4byte gUnknown_03004E50
+_08029B88: .4byte gActiveUnit
 
 	THUMB_FUNC_START PrepareTargetSelectionForHeal
 PrepareTargetSelectionForHeal: @ 0x08029B8C
@@ -2234,7 +2234,7 @@ sub_8029CE8: @ 0x08029CE8
 	ldrsb r0, [r4, r0]
 	bl GetUnit
 	adds r6, r0, #0
-	ldr r0, _08029D24  @ gUnknown_03004E50
+	ldr r0, _08029D24  @ gActiveUnit
 	ldr r5, [r0]
 	movs r0, #2
 	ldrsb r0, [r4, r0]
@@ -2249,7 +2249,7 @@ sub_8029CE8: @ 0x08029CE8
 	pop {r1}
 	bx r1
 	.align 2, 0
-_08029D24: .4byte gUnknown_03004E50
+_08029D24: .4byte gActiveUnit
 
 	THUMB_FUNC_START GenericSelection_DeleteBBAndBG
 GenericSelection_DeleteBBAndBG: @ 0x08029D28
@@ -2322,7 +2322,7 @@ TorchTargetPosSelect_Init: @ 0x08029D98
 	adds r1, r0, #0
 	adds r0, r5, #0
 	bl NewBottomHelpText
-	ldr r4, _08029DEC  @ gUnknown_03004E50
+	ldr r4, _08029DEC  @ gActiveUnit
 	ldr r1, [r4]
 	movs r0, #0x10
 	ldrsb r0, [r1, r0]
@@ -2347,7 +2347,7 @@ _08029DDC:
 	.align 2, 0
 _08029DE4: .4byte gUnknown_0202BCB0
 _08029DE8: .4byte 0x0000087C
-_08029DEC: .4byte gUnknown_03004E50
+_08029DEC: .4byte gActiveUnit
 
 	THUMB_FUNC_START TorchTargetSelection_Loop
 TorchTargetSelection_Loop: @ 0x08029DF0
@@ -2391,7 +2391,7 @@ _08029E34:
 	strb r0, [r1, #0x13]
 	ldrh r0, [r5, #0x16]
 	strb r0, [r1, #0x14]
-	ldr r0, _08029E64  @ gUnknown_03004E50
+	ldr r0, _08029E64  @ gActiveUnit
 	ldr r0, [r0]
 	bl EndItemEffectSelectionThing
 	b _08029EC0
@@ -2401,7 +2401,7 @@ _08029E54: .4byte gUnknown_0202E4E4
 _08029E58: .4byte gKeyStatusPtr
 _08029E5C: .4byte gUnknown_0202BCF0
 _08029E60: .4byte gUnknown_0203A958
-_08029E64: .4byte gUnknown_03004E50
+_08029E64: .4byte gActiveUnit
 _08029E68:
 	ldr r0, _08029EC8  @ gUnknown_0202BCF0
 	adds r0, #0x41

@@ -54,7 +54,7 @@ _08035B08: .4byte gUnknown_08A03354
 sub_8035B0C: @ 0x08035B0C
 	push {r4, lr}
 	ldr r1, _08035B3C  @ gUnknown_0202BCB0
-	ldr r0, _08035B40  @ gUnknown_03004E50
+	ldr r0, _08035B40  @ gActiveUnit
 	ldr r0, [r0]
 	ldrb r0, [r0, #0x10]
 	lsls r0, r0, #0x18
@@ -76,7 +76,7 @@ sub_8035B0C: @ 0x08035B0C
 	bx r0
 	.align 2, 0
 _08035B3C: .4byte gUnknown_0202BCB0
-_08035B40: .4byte gUnknown_03004E50
+_08035B40: .4byte gActiveUnit
 
 	THUMB_FUNC_START sub_8035B44
 sub_8035B44: @ 0x08035B44
@@ -85,7 +85,7 @@ sub_8035B44: @ 0x08035B44
 	push {r7}
 	sub sp, #4
 	mov r8, r0
-	ldr r0, _08035BE4  @ gUnknown_03004E50
+	ldr r0, _08035BE4  @ gActiveUnit
 	ldr r0, [r0]
 	bl HideUnitSMS
 	ldr r3, _08035BE8  @ gLCDControlBuffer
@@ -157,7 +157,7 @@ sub_8035B44: @ 0x08035B44
 	pop {r0}
 	bx r0
 	.align 2, 0
-_08035BE4: .4byte gUnknown_03004E50
+_08035BE4: .4byte gActiveUnit
 _08035BE8: .4byte gLCDControlBuffer
 
 	THUMB_FUNC_START sub_8035BEC
@@ -165,7 +165,7 @@ sub_8035BEC: @ 0x08035BEC
 	push {r4, r5, r6, lr}
 	sub sp, #4
 	adds r5, r0, #0
-	ldr r0, _08035C3C  @ gUnknown_03004E50
+	ldr r0, _08035C3C  @ gActiveUnit
 	ldr r4, [r0]
 	movs r1, #0x10
 	ldrsb r1, [r4, r1]
@@ -201,19 +201,19 @@ _08035C32:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_08035C3C: .4byte gUnknown_03004E50
+_08035C3C: .4byte gActiveUnit
 _08035C40: .4byte gUnknown_0202BCB0
 
 	THUMB_FUNC_START sub_8035C44
 sub_8035C44: @ 0x08035C44
 	push {lr}
-	ldr r0, _08035C54  @ gUnknown_03004E50
+	ldr r0, _08035C54  @ gActiveUnit
 	ldr r0, [r0]
 	bl ShowUnitSMS
 	pop {r0}
 	bx r0
 	.align 2, 0
-_08035C54: .4byte gUnknown_03004E50
+_08035C54: .4byte gActiveUnit
 
 	THUMB_FUNC_START sub_8035C58
 sub_8035C58: @ 0x08035C58
@@ -273,7 +273,7 @@ sub_8035CB8: @ 0x08035CB8
 	push {r4, lr}
 	adds r4, r0, #0
 	movs r2, #0
-	ldr r0, _08035CD8  @ gUnknown_03004E50
+	ldr r0, _08035CD8  @ gActiveUnit
 	ldr r0, [r0]
 	movs r1, #0xb
 	ldrsb r1, [r0, r1]
@@ -287,7 +287,7 @@ sub_8035CB8: @ 0x08035CB8
 	beq _08035CE2
 	b _08035CF6
 	.align 2, 0
-_08035CD8: .4byte gUnknown_03004E50
+_08035CD8: .4byte gActiveUnit
 _08035CDC:
 	cmp r1, #0x80
 	beq _08035CEC
@@ -430,7 +430,7 @@ _08035DD8: .4byte gLCDControlBuffer
 sub_8035DDC: @ 0x08035DDC
 	push {lr}
 	adds r2, r1, #0
-	ldr r1, _08035E04  @ gUnknown_03004E50
+	ldr r1, _08035E04  @ gActiveUnit
 	str r0, [r1]
 	cmp r2, #0
 	beq _08035E10
@@ -447,7 +447,7 @@ sub_8035DDC: @ 0x08035DDC
 	bl m4aSongNumStart
 	b _08035E18
 	.align 2, 0
-_08035E04: .4byte gUnknown_03004E50
+_08035E04: .4byte gActiveUnit
 _08035E08: .4byte gUnknown_0859E2D0
 _08035E0C: .4byte gUnknown_0202BCF0
 _08035E10:

@@ -1719,7 +1719,7 @@ AddAsTarget_IfCanStealFrom: @ 0x08025BA0
 	ands r0, r1
 	cmp r0, #0x80
 	bne _08025BF8
-	ldr r0, _08025BEC  @ gUnknown_03004E50
+	ldr r0, _08025BEC  @ gActiveUnit
 	ldr r0, [r0]
 	movs r1, #0x16
 	ldrsb r1, [r0, r1]
@@ -1748,7 +1748,7 @@ _08025BC6:
 	bl AddTarget
 	b _08025BF8
 	.align 2, 0
-_08025BEC: .4byte gUnknown_03004E50
+_08025BEC: .4byte gActiveUnit
 _08025BF0:
 	adds r4, #2
 	adds r6, #1

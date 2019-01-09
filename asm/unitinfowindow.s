@@ -1349,7 +1349,7 @@ SetupUnitRescueWindow: @ 0x08035204
 	bl ClearBG0BG1
 	ldr r6, _080352AC  @ gUnknown_0203A9FC
 	ldr r0, [r6]
-	ldr r5, _080352B0  @ gUnknown_03004E50
+	ldr r5, _080352B0  @ gActiveUnit
 	ldr r1, [r5]
 	movs r7, #0xa
 	str r7, [sp]
@@ -1411,7 +1411,7 @@ SetupUnitRescueWindow: @ 0x08035204
 	bx r0
 	.align 2, 0
 _080352AC: .4byte gUnknown_0203A9FC
-_080352B0: .4byte gUnknown_03004E50
+_080352B0: .4byte gActiveUnit
 _080352B4: .4byte gBG0TilemapBuffer
 _080352B8: .4byte 0x00000121
 
@@ -1433,7 +1433,7 @@ sub_80352BC: @ 0x080352BC
 	adds r7, r0, #0
 	ldr r6, _08035370  @ gUnknown_0203A9FC
 	ldr r0, [r6]
-	ldr r5, _08035374  @ gUnknown_03004E50
+	ldr r5, _08035374  @ gActiveUnit
 	ldr r1, [r5]
 	movs r2, #0xa
 	mov sl, r2
@@ -1497,7 +1497,7 @@ sub_80352BC: @ 0x080352BC
 	bx r0
 	.align 2, 0
 _08035370: .4byte gUnknown_0203A9FC
-_08035374: .4byte gUnknown_03004E50
+_08035374: .4byte gActiveUnit
 _08035378: .4byte gBG0TilemapBuffer
 _0803537C: .4byte 0x00000121
 
@@ -1539,7 +1539,7 @@ sub_80353B8: @ 0x080353B8
 	movs r1, #0xa
 	bl GetUnitInfoWindowX
 	adds r4, r0, #0
-	ldr r0, _0803546C  @ gUnknown_03004E50
+	ldr r0, _0803546C  @ gActiveUnit
 	ldr r0, [r0]
 	ldrb r0, [r0, #0x1b]
 	bl GetUnit
@@ -1608,7 +1608,7 @@ sub_80353B8: @ 0x080353B8
 	pop {r0}
 	bx r0
 	.align 2, 0
-_0803546C: .4byte gUnknown_03004E50
+_0803546C: .4byte gActiveUnit
 _08035470: .4byte gUnknown_0203A9FC
 _08035474: .4byte gBG0TilemapBuffer
 _08035478: .4byte 0x00000121
