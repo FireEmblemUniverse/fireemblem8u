@@ -162,36 +162,36 @@ struct Unit {
 };
 
 struct UnitDefinition {
-	/* 00 */ u8  charIndex;
-	/* 01 */ u8  classIndex;
-	/* 02 */ u8  leaderCharIndex;
+    /* 00 */ u8  charIndex;
+    /* 01 */ u8  classIndex;
+    /* 02 */ u8  leaderCharIndex;
 
-	/* 03 */ u8  autolevel  : 1;
-	/* 03 */ u8  allegiance : 2;
-	/* 03 */ u8  level      : 5;
+    /* 03 */ u8  autolevel  : 1;
+    /* 03 */ u8  allegiance : 2;
+    /* 03 */ u8  level      : 5;
 
-	/* 04 */ u16 xPosition  : 6; /* 04:0 to 04:5 */
-	/* 04 */ u16 yPosition  : 6; /* 04:6 to 05:3 */
-	/* 05 */ u16 genMonster : 1; /* 05:4 */
-	/* 05 */ u16 itemDrop   : 1; /* 05:5 */
-	/* 05 */ u16 sumFlag    : 1; /* 05:6 */
-	/* 05 */ u16 extraData  : 9; /* 05:7 to 06:7 */
-	/* 07 */ u16 redaCount  : 8;
+    /* 04 */ u16 xPosition  : 6; /* 04:0 to 04:5 */
+    /* 04 */ u16 yPosition  : 6; /* 04:6 to 05:3 */
+    /* 05 */ u16 genMonster : 1; /* 05:4 */
+    /* 05 */ u16 itemDrop   : 1; /* 05:5 */
+    /* 05 */ u16 sumFlag    : 1; /* 05:6 */
+    /* 05 */ u16 extraData  : 9; /* 05:7 to 06:7 */
+    /* 07 */ u16 redaCount  : 8;
 
-	/* 08 */ const void* redas;
+    /* 08 */ const void* redas;
 
-	/* 0C */ u8 items[UNIT_DEFINITION_ITEM_COUNT];
+    /* 0C */ u8 items[UNIT_DEFINITION_ITEM_COUNT];
 
-	struct {
-		/* 10 */ u8 ai1;
-		/* 11 */ u8 ai2;
-		/* 12 */ u8 ai3;
-		/* 13 */ u8 ai4;
-	} ai;
+    struct {
+        /* 10 */ u8 ai1;
+        /* 11 */ u8 ai2;
+        /* 12 */ u8 ai3;
+        /* 13 */ u8 ai4;
+    } ai;
 };
 
 enum {
-	// Unit state constant masks
+    // Unit state constant masks
 
     US_NONE         = 0,
 
@@ -234,7 +234,7 @@ enum {
 };
 
 enum {
-	// Unit status identifiers
+    // Unit status identifiers
 
     UNIT_STATUS_NONE = 0,
 
@@ -257,14 +257,14 @@ enum {
 };
 
 enum {
-	FACTION_BLUE   = 0x00, // player units
-	FACTION_GREEN  = 0x40, // ally npc units
-	FACTION_RED    = 0x80, // enemy units
-	FACTION_PURPLE = 0xC0, // link arena 4th team
+    FACTION_BLUE   = 0x00, // player units
+    FACTION_GREEN  = 0x40, // ally npc units
+    FACTION_RED    = 0x80, // enemy units
+    FACTION_PURPLE = 0xC0, // link arena 4th team
 };
 
 enum {
-	// Character/Class attributes
+    // Character/Class attributes
 
     CA_NONE = 0,
 
@@ -306,66 +306,66 @@ enum {
 };
 
 enum {
-	// To check result of GetUnit[Item]UseBits
+    // To check result of GetUnit[Item]UseBits
 
-	UNIT_USEBIT_WEAPON = (1 << 0),
-	UNIT_USEBIT_STAFF  = (1 << 1),
+    UNIT_USEBIT_WEAPON = (1 << 0),
+    UNIT_USEBIT_STAFF  = (1 << 1),
 };
 
 // TODO: MOVE ELSEWHERE (bmbattle?)
 struct BattleUnit {
-	/* 00 */ struct Unit unit;
+    /* 00 */ struct Unit unit;
 
-	/* 48 */ u16 weaponAfter;
-	/* 4A */ u16 weaponBefore;
-	/* 4C */ u32 weaponAttributes;
-	/* 50 */ u8 weaponType;
-	/* 51 */ u8 weaponSlotIndex;
+    /* 48 */ u16 weaponAfter;
+    /* 4A */ u16 weaponBefore;
+    /* 4C */ u32 weaponAttributes;
+    /* 50 */ u8 weaponType;
+    /* 51 */ u8 weaponSlotIndex;
 
-	/* 52 */ u8 canCounter;
+    /* 52 */ u8 canCounter;
 
-	/* 53 */ s8 WTHitModifier;
-	/* 54 */ s8 WTAtkModifier;
+    /* 53 */ s8 WTHitModifier;
+    /* 54 */ s8 WTAtkModifier;
 
-	/* 55 */ u8 terrainIndex;
-	/* 56 */ u8 terrainDefense;
-	/* 57 */ u8 terrainAvoid;
-	/* 58 */ u8 terrainResistance;
-	/* 59 */ u8 _u59;
+    /* 55 */ u8 terrainIndex;
+    /* 56 */ u8 terrainDefense;
+    /* 57 */ u8 terrainAvoid;
+    /* 58 */ u8 terrainResistance;
+    /* 59 */ u8 _u59;
 
-	/* 5A */ u16 battleAttack;
-	/* 5C */ u16 battleDefense;
-	/* 5E */ u16 battleAttackSpeed;
-	/* 60 */ u16 battleHit;
-	/* 62 */ u16 battleAvoid;
-	/* 64 */ u16 battleEffectiveHit;
-	/* 66 */ u16 battleCrit;
-	/* 68 */ u16 battleDodge;
-	/* 6A */ u16 battleEffectiveCrit;
-	/* 6C */ u16 battleSilencerRate;
+    /* 5A */ u16 battleAttack;
+    /* 5C */ u16 battleDefense;
+    /* 5E */ u16 battleAttackSpeed;
+    /* 60 */ u16 battleHit;
+    /* 62 */ u16 battleAvoid;
+    /* 64 */ u16 battleEffectiveHit;
+    /* 66 */ u16 battleCrit;
+    /* 68 */ u16 battleDodge;
+    /* 6A */ u16 battleEffectiveCrit;
+    /* 6C */ u16 battleSilencerRate;
 
-	/* 6E */ u8 expGain;
-	/* 6F */ u8 statusOut;
-	/* 70 */ u8 levelPrevious;
-	/* 71 */ u8 expPrevious;
+    /* 6E */ u8 expGain;
+    /* 6F */ u8 statusOut;
+    /* 70 */ u8 levelPrevious;
+    /* 71 */ u8 expPrevious;
 
-	/* 72 */ u8 currentHP;
+    /* 72 */ u8 currentHP;
 
-	/* 73 */ s8 changeHP;
-	/* 74 */ s8 changePow;
-	/* 75 */ s8 changeSkl;
-	/* 76 */ s8 changeSpd;
-	/* 77 */ s8 changeDef;
-	/* 78 */ s8 changeRes;
-	/* 79 */ s8 changeLck;
-	/* 7A */ s8 changeCon;
+    /* 73 */ s8 changeHP;
+    /* 74 */ s8 changePow;
+    /* 75 */ s8 changeSkl;
+    /* 76 */ s8 changeSpd;
+    /* 77 */ s8 changeDef;
+    /* 78 */ s8 changeRes;
+    /* 79 */ s8 changeLck;
+    /* 7A */ s8 changeCon;
 
-	/* 7B */ s8 wexpMultiplier;
-	/* 7C */ u8 nonZeroDamage;
-	/* 7D */ u8 weaponBroke;
+    /* 7B */ s8 wexpMultiplier;
+    /* 7C */ u8 nonZeroDamage;
+    /* 7D */ u8 weaponBroke;
 
-	/* 7E */ u8 _u7E;
-	/* 7F */ u8 _u7F;
+    /* 7E */ u8 _u7E;
+    /* 7F */ u8 _u7F;
 };
 
 // TODO: MOVE ELSEWHERE

@@ -393,31 +393,31 @@ struct Trap {
 };
 
 struct MapAnimActorState {
-	/* 00 */ struct Unit* pUnit;
-	/* 04 */ struct BattleUnit* pBattleUnit;
-	/* 08 */ struct MUProc* pMUProc;
-	/* 0C */ u8 u0C;
-	/* 0D */ u8 u0D;
-	/* 0E */ u16 u0E;
-	/* 10 */ u8 u10;
-	/* 11 */ u8 u11;
-	/* 12 */ u8 u12;
-	/* 13 */ u8 u13;
+    /* 00 */ struct Unit* pUnit;
+    /* 04 */ struct BattleUnit* pBattleUnit;
+    /* 08 */ struct MUProc* pMUProc;
+    /* 0C */ u8 u0C;
+    /* 0D */ u8 u0D;
+    /* 0E */ u16 u0E;
+    /* 10 */ u8 u10;
+    /* 11 */ u8 u11;
+    /* 12 */ u8 u12;
+    /* 13 */ u8 u13;
 };
 
 struct MapAnimState {
-	/* 00 */ struct MapAnimActorState actors[4];
+    /* 00 */ struct MapAnimActorState actors[4];
 
-	/* 50 */ u32* pCurrentRound;
-	/* 54 */ const struct ProcCmd* pItemMapAnimProcScript;
-	/* 58 */ u8 subjectActorId;
-	/* 59 */ u8 targetActorId;
-	/* 5A */ u16 roundBits;
-	/* 5C */ u16 u5C;
-	/* 5E */ u8 actorCount_maybe;
-	/* 5F */ u8 u5F;
-	/* 60 */ u8 u60;
-	/* 61 */ u8 u61;
+    /* 50 */ u32* pCurrentRound;
+    /* 54 */ const struct ProcCmd* pItemMapAnimProcScript;
+    /* 58 */ u8 subjectActorId;
+    /* 59 */ u8 targetActorId;
+    /* 5A */ u16 roundBits;
+    /* 5C */ u16 u5C;
+    /* 5E */ u8 actorCount_maybe;
+    /* 5F */ u8 u5F;
+    /* 60 */ u8 u60;
+    /* 61 */ u8 u61;
 };
 
 struct MMSData {
@@ -432,8 +432,8 @@ enum { CONVOY_ITEM_COUNT = 100 };
 enum { MAP_MOVEMENT_MAX = 120 };
 
 enum {
-	HIDDEN_BIT_UNIT = (1 << 0),
-	HIDDEN_BIT_TRAP = (1 << 1),
+    HIDDEN_BIT_UNIT = (1 << 0),
+    HIDDEN_BIT_TRAP = (1 << 1),
 };
 
 #endif // GUARD_TYPES_H
