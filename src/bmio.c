@@ -2,6 +2,8 @@
 
 #include <string.h>
 
+#include "constants/classes.h"
+
 #include "proc.h"
 #include "hardware.h"
 #include "fontgrp.h"
@@ -979,7 +981,7 @@ void StartBattleMap(struct GameCtrlProc* gameCtrl) {
     ClearMenuRelatedList();
     ResetTraps();
 
-    gUnknown_0202BCF0.chapterPhaseIndex = 0x40; // TODO: PHASE/ALLEGIANCE DEFINITIONS
+    gUnknown_0202BCF0.chapterPhaseIndex = FACTION_GREEN; // TODO: PHASE/ALLEGIANCE DEFINITIONS
     gUnknown_0202BCF0.chapterTurnNumber = 0;
 
     // TODO: BATTLE MAP/CHAPTER/OBJECTIVE TYPE DEFINITION (STORY/TOWER/SKIRMISH)
@@ -1214,7 +1216,7 @@ void ChapterChangeUnitCleanup(void) {
         struct Unit* unit = GetUnitStruct(i);
 
         if (unit && unit->pCharacterData)
-            if (unit->pClassData->number == CLASS_PHANTOM)
+            if (UNIT_IS_PHANTOM(unit))
                 ClearUnitStruct(unit);
     }
 

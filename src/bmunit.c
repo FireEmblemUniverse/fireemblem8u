@@ -3,6 +3,8 @@
 #include <string.h>
 
 #include "constants/items.h"
+#include "constants/classes.h"
+
 #include "bmitem.h"
 
 #include "bmunit.h"
@@ -537,7 +539,7 @@ struct Unit* LoadUnit(const struct UnitDefinition* uDef) {
 					buf.items[1] = ITEM_MONSTER_EVILEYE;
 					break;
 
-				case CLASS_ARCHMOGALL:
+				case CLASS_ARCH_MOGALL:
 					buf.items[1] = ITEM_MONSTER_CRIMSNEYE;
 					break;
 
