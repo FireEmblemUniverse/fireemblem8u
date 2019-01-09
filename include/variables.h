@@ -520,11 +520,11 @@ extern struct Struct0202BCF0 gUnknown_0202BCF0;
 // extern ??? gUnknown_0202BD3C
 // extern ??? gUnknown_0202BD40
 // extern ??? gUnknown_0202BD44
-// extern ??? gUnknown_0202BE44
-// extern ??? gUnknown_0202BE48
-// extern ??? gUnknown_0202BE4C
-// extern ??? gUnknown_0202CFBC
-// extern ??? gUnknown_0202DDCC
+// extern ??? gActiveUnitId
+// extern ??? gActiveUnitMoveOrigin
+// extern ??? gUnitArrayBlue
+// extern ??? gUnitArrayRed
+// extern ??? gUnitArrayGreen
 extern struct { short width, height; } gUnknown_0202E4D4; // gMapSize
 extern u8** gUnknown_0202E4D8; // gMapUnit
 extern u8** gUnknown_0202E4DC; // gMapTerrain
@@ -828,7 +828,7 @@ extern struct UnknownStructCTC *gUnknown_03004970;
 // extern ??? gUnknown_03004BB0
 // extern ??? gUnknown_03004C00
 // extern ??? gUnknown_03004C50
-extern struct Unit* gUnknown_03004E50; // gActiveUnit // Active Unit
+extern struct Unit* gActiveUnit; // gActiveUnit // Active Unit
 // extern ??? gUnknown_03004E60
 // extern ??? gUnknown_03004E70
 // extern ??? gUnknown_03004E74
@@ -1490,8 +1490,8 @@ extern const u16 gUnknown_0859A1C0[];
 extern const struct ProcCmd gUnknown_0859A548[]; // this is GENS/Camera Movement proc
 // extern ??? gUnknown_0859A570
 // extern ??? gUnknown_0859A580
-// extern ??? gUnknown_0859A598
-// extern ??? gUnknown_0859A5D0
+// extern ??? gStatusNameTextIdLookup
+// extern ??? gUnitLookup
 // extern ??? gUnknown_0859A9D0
 // extern ??? gUnknown_0859A9D4
 // extern ??? gUnknown_0859AA5C
@@ -3002,14 +3002,11 @@ extern const u16 gUnknown_085A401C[]; // clouds palette
 // extern ??? gUnknown_08803BD0
 // extern ??? gUnknown_08803CB0
 // extern ??? gUnknown_08803CD0
-// extern ??? gUnknown_08803D30
-// extern ??? gUnknown_08803D64
-// extern ??? gUnknown_08803D90
-// extern ??? gUnknown_08807110
+// extern ??? gCharacterData
 extern const struct ItemData gItemData[];
 // extern ??? gUnknown_0880B90C
-// extern ??? gUnknown_0880BB96
-// extern ??? gUnknown_0880BC18
+extern const s8 gUnknown_0880BB96[]; // Unit drop movement cost table
+extern const s8 gUnknown_0880BC18[]; // Ballista mov cost table
 // extern ??? gUnknown_0880C479
 // extern ??? gUnknown_0880C4BA
 // extern ??? gUnknown_0880C744

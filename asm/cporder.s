@@ -51,7 +51,7 @@ sub_80397B0: @ 0x080397B0
 	adds r4, r2, #1
 _080397DC:
 	adds r0, r4, #0
-	bl GetUnitStruct
+	bl GetUnit
 	adds r2, r0, #0
 	ldr r0, [r2]
 	cmp r0, #0
@@ -237,7 +237,7 @@ sub_8039938: @ 0x08039938
 	asrs r0, r0, #0x18
 	adds r4, r1, r0
 	adds r0, r5, #0
-	bl GetUnitLeader
+	bl GetUnitLeaderCharId
 	lsls r0, r0, #0x10
 	lsrs r3, r0, #0x10
 	adds r7, r3, #0
@@ -320,7 +320,7 @@ GetCurrentPhaseUnitCount: @ 0x080399B0
 	adds r4, r2, #1
 _080399E0:
 	adds r0, r4, #0
-	bl GetUnitStruct
+	bl GetUnit
 	adds r2, r0, #0
 	ldr r0, [r2]
 	cmp r0, #0

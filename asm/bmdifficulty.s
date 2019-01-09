@@ -367,7 +367,7 @@ sub_8037DDC: @ 0x08037DDC
 	adds r4, r1, #0
 	ldrb r0, [r4]
 	movs r1, #0
-	bl GetNonAllyUnitStructById
+	bl GetUnitFromCharIdAndFaction
 	cmp r0, #0
 	beq _08037DF2
 	movs r0, #0
@@ -499,7 +499,7 @@ _08037ECE:
 	movs r5, #1
 _08037ED4:
 	adds r0, r5, #0
-	bl GetUnitStruct
+	bl GetUnit
 	adds r1, r0, #0
 	cmp r1, #0
 	beq _08037EF2

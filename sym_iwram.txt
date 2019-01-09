@@ -149,7 +149,7 @@
 . = 0x004C00; gUnknown_03004C00 = .;
 . = 0x004C50; gUnknown_03004C50 = .;
 . = 0x004C50; gUnknown_03004C50 = .;
-. = 0x004E50; gUnknown_03004E50 = .;
+. = 0x004E50; gActiveUnit = .;
 . = 0x004E60; gUnknown_03004E60 = .;
 . = 0x004E60; gUnknown_03004E60 = .;
 . = 0x004E70; gUnknown_03004E70 = .;

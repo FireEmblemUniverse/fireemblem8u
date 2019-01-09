@@ -6215,7 +6215,7 @@ _0801540C: .4byte gUnknown_089FFC30
 	THUMB_FUNC_START sub_8015410
 sub_8015410: @ 0x08015410
 	push {lr}
-	bl sub_80187C0
+	bl ClearActiveFactionGrayedStates
 	bl SMS_UpdateFromGameData
 	bl SwitchPhases
 	bl sub_8083EB8
@@ -6389,7 +6389,7 @@ UndeployEveryone: @ 0x08015544
 	movs r4, #1
 _0801555C:
 	adds r0, r4, #0
-	bl GetUnitStruct
+	bl GetUnit
 	adds r2, r0, #0
 	cmp r2, #0
 	beq _08015578

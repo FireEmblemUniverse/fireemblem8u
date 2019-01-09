@@ -1400,7 +1400,7 @@ UpdateUnitMapAndVision: @ 0x08019FA0
 	movs r7, #1
 _08019FA4:
 	adds r0, r7, #0
-	bl GetUnitStruct
+	bl GetUnit
 	adds r6, r0, #0
 	cmp r6, #0
 	beq _08019FF8
@@ -1449,7 +1449,7 @@ _08019FF8:
 	movs r7, #0x81
 _0801A008:
 	adds r0, r7, #0
-	bl GetUnitStruct
+	bl GetUnit
 	adds r6, r0, #0
 	cmp r6, #0
 	beq _0801A0BE
@@ -1548,7 +1548,7 @@ _0801A0D0:
 	movs r7, #0x81
 _0801A0D2:
 	adds r0, r7, #0
-	bl GetUnitStruct
+	bl GetUnit
 	adds r6, r0, #0
 	cmp r6, #0
 	beq _0801A15E
@@ -1908,7 +1908,7 @@ _0801A388: .4byte gUnknown_0859A9D4
 FillMovementMapForUnit: @ 0x0801A38C
 	push {r4, lr}
 	adds r4, r0, #0
-	bl GetMovCostTablePtr
+	bl GetUnitMovementCost
 	bl StoreMovCostTable
 	ldr r0, _0801A3C4  @ gUnknown_0202E4E0
 	ldr r1, [r0]
@@ -1941,7 +1941,7 @@ FillMovementMapForUnitAndMovement: @ 0x0801A3CC
 	adds r5, r0, #0
 	lsls r4, r1, #0x18
 	lsrs r4, r4, #0x18
-	bl GetMovCostTablePtr
+	bl GetUnitMovementCost
 	bl StoreMovCostTable
 	ldr r0, _0801A400  @ gUnknown_0202E4E0
 	ldr r1, [r0]
@@ -1968,7 +1968,7 @@ _0801A404: .4byte gUnknown_030049A0
 FillMovementMapForUnitPosition: @ 0x0801A408
 	push {r4, lr}
 	adds r4, r0, #0
-	bl GetMovCostTablePtr
+	bl GetUnitMovementCost
 	bl StoreMovCostTable
 	ldr r0, _0801A434  @ gUnknown_0202E4E0
 	ldr r1, [r0]
@@ -2043,7 +2043,7 @@ FillMovementMapForUnitAt: @ 0x0801A49C
 	adds r5, r1, #0
 	adds r6, r2, #0
 	mov r8, r3
-	bl GetMovCostTablePtr
+	bl GetUnitMovementCost
 	bl StoreMovCostTable
 	movs r3, #0xb
 	ldrsb r3, [r4, r3]
@@ -4599,7 +4599,7 @@ ApplyStuffToRangeMaps: @ 0x0801B810
 _0801B840: .4byte gUnknown_0202E4E4
 _0801B844:
 	adds r0, r6, #0
-	bl GetUnitStruct
+	bl GetUnit
 	adds r4, r0, #0
 	cmp r4, #0
 	beq _0801B930

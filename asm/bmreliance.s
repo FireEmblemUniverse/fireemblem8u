@@ -53,7 +53,7 @@ GetUnitSupportingUnit: @ 0x080281F4
 	bge _08028234
 _08028212:
 	adds r0, r5, #0
-	bl GetUnitStruct
+	bl GetUnit
 	adds r4, r0, #0
 	cmp r4, #0
 	beq _0802822E
@@ -306,8 +306,8 @@ _080283DA:
 	pop {r1}
 	bx r1
 
-	THUMB_FUNC_START sub_80283E0
-sub_80283E0: @ 0x080283E0
+	THUMB_FUNC_START UnitClearSupports
+UnitClearSupports: @ 0x080283E0
 	push {r4, r5, r6, r7, lr}
 	mov r7, r8
 	push {r7}
@@ -368,7 +368,7 @@ HandleSupportGains: @ 0x08028434
 	movs r4, #1
 _08028450:
 	adds r0, r4, #0
-	bl GetUnitStruct
+	bl GetUnit
 	adds r5, r0, #0
 	adds r4, #1
 	mov r9, r4
@@ -708,7 +708,7 @@ _080286CE:
 	THUMB_FUNC_START sub_80286D4
 sub_80286D4: @ 0x080286D4
 	push {lr}
-	bl GetROMCharStruct
+	bl GetCharacterData
 	ldrb r0, [r0, #9]
 	cmp r0, #0
 	beq _080286E4
@@ -773,7 +773,7 @@ sub_802873C: @ 0x0802873C
 	lsls r5, r5, #0x18
 	lsrs r5, r5, #0x18
 	adds r0, r6, #0
-	bl GetUnitByCharId
+	bl GetUnitFromCharId
 	adds r7, r0, #0
 	adds r1, r5, #0
 	bl GetSupportDataIdForOtherUnit
@@ -787,7 +787,7 @@ sub_802873C: @ 0x0802873C
 	orrs r0, r1
 	strb r0, [r2]
 	adds r0, r5, #0
-	bl GetUnitByCharId
+	bl GetUnitFromCharId
 	adds r7, r0, #0
 	adds r1, r6, #0
 	bl GetSupportDataIdForOtherUnit
@@ -824,7 +824,7 @@ sub_80287A4: @ 0x080287A4
 	lsrs r0, r0, #0x18
 	lsls r4, r4, #0x18
 	lsrs r4, r4, #0x18
-	bl GetUnitByCharId
+	bl GetUnitFromCharId
 	adds r5, r0, #0
 	adds r1, r4, #0
 	bl GetSupportDataIdForOtherUnit

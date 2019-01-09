@@ -1,7 +1,49 @@
 #ifndef GUARD_ITEMS_H
 #define GUARD_ITEMS_H
 
-#include "fontgrp.h" // for TextHandle struct definition
+struct TextHandle;
+
+struct ItemStatBonuses {
+    s8 hpBonus;
+    s8 powBonus;
+    s8 sklBonus;
+    s8 spdBonus;
+    s8 defBonus;
+    s8 resBonus;
+    s8 lckBonus;
+    s8 conBonus;
+    s8 movBonus;
+};
+
+struct ItemData {
+    /* 00 */ u16 nameTextId;
+    /* 02 */ u16 descTextId;
+    /* 04 */ u16 useDescTextId;
+
+    /* 06 */ u8  number;
+    /* 07 */ u8  weaponType;
+
+    /* 08 */ u32 attributes;
+
+    /* 0C */ const struct ItemStatBonuses* pStatBonuses;
+    /* 10 */ const u8* pEffectiveness;
+
+    /* 14 */ u8  maxUses;
+
+    /* 15 */ u8  might;
+    /* 16 */ u8  hit;
+    /* 17 */ u8  weight;
+    /* 18 */ u8  crit;
+
+    /* 19 */ u8 encodedRange;
+
+    /* 1A */ u16 costPerUse;
+    /* 1C */ u8  weaponRank;
+    /* 1D */ u8  iconId;
+    /* 1E */ u8  useEffectId;
+    /* 1F */ u8  weaponEffectId;
+    /* 20 */ u8  weaponExp;
+};
 
 enum {
     // Item attributes
@@ -32,6 +74,7 @@ enum {
     IA_LOCK_7         = (1 << 21),
 
     // Helpers
+    IA_REQUIRES_WEXP = (IA_WEAPON | IA_STAFF),
     IA_LOCK_ANY = (IA_LOCK_0 | IA_LOCK_1 | IA_LOCK_2 | IA_LOCK_3 | IA_LOCK_4 | IA_LOCK_5 | IA_LOCK_6 | IA_LOCK_7 | IA_UNUSABLE)
 };
 
@@ -107,7 +150,7 @@ void DrawItemMenuLineLong(struct TextHandle* text, int item, s8 isGrayed, u16* m
 void DrawItemMenuLineNoColor(struct TextHandle* text, int item, u16* mapOut);
 void DrawItemStatScreenLine(struct TextHandle* text, int item, int nameColor, u16* mapOut);
 u16 GetItemAfterUse(int item);
-int GetUnitEquippedWeapon(struct Unit* unit);
+u16 GetUnitEquippedWeapon(struct Unit* unit);
 int GetUnitEquippedWeaponSlot(struct Unit* unit);
 s8 IsItemCoveringRange(int item, int range);
 void EquipUnitItemSlot(struct Unit* unit, int itemSlot);

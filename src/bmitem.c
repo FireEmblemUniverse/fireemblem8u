@@ -5,6 +5,7 @@
 #include "fontgrp.h"
 #include "icon.h"
 #include "chapterdata.h"
+#include "bmunit.h"
 
 #include "bmitem.h"
 
@@ -310,27 +311,27 @@ s8 CanUnitUseWeapon(struct Unit* unit, int item) {
     if (GetItemAttributes(item) & IA_LOCK_ANY) {
         // Check for item locks
 
-        if ((GetItemAttributes(item) & IA_LOCK_1) && !(UNIT_ATTRIBUTES(unit) & CA_LOCK_1))
+        if ((GetItemAttributes(item) & IA_LOCK_1) && !(UNIT_CATTRIBUTES(unit) & CA_LOCK_1))
             return FALSE;
 
-        if ((GetItemAttributes(item) & IA_LOCK_4) && !(UNIT_ATTRIBUTES(unit) & CA_LOCK_4))
+        if ((GetItemAttributes(item) & IA_LOCK_4) && !(UNIT_CATTRIBUTES(unit) & CA_LOCK_4))
             return FALSE;
 
-        if ((GetItemAttributes(item) & IA_LOCK_5) && !(UNIT_ATTRIBUTES(unit) & CA_LOCK_5))
+        if ((GetItemAttributes(item) & IA_LOCK_5) && !(UNIT_CATTRIBUTES(unit) & CA_LOCK_5))
             return FALSE;
 
-        if ((GetItemAttributes(item) & IA_LOCK_6) && !(UNIT_ATTRIBUTES(unit) & CA_LOCK_6))
+        if ((GetItemAttributes(item) & IA_LOCK_6) && !(UNIT_CATTRIBUTES(unit) & CA_LOCK_6))
             return FALSE;
 
-        if ((GetItemAttributes(item) & IA_LOCK_7) && !(UNIT_ATTRIBUTES(unit) & CA_LOCK_7))
+        if ((GetItemAttributes(item) & IA_LOCK_7) && !(UNIT_CATTRIBUTES(unit) & CA_LOCK_7))
             return FALSE;
 
-        if ((GetItemAttributes(item) & IA_LOCK_2) && !(UNIT_ATTRIBUTES(unit) & CA_LOCK_2))
+        if ((GetItemAttributes(item) & IA_LOCK_2) && !(UNIT_CATTRIBUTES(unit) & CA_LOCK_2))
             return FALSE;
 
         // Monster lock is special
         if (GetItemAttributes(item) & IA_LOCK_3) {
-            if (!(UNIT_ATTRIBUTES(unit) & CA_LOCK_3))
+            if (!(UNIT_CATTRIBUTES(unit) & CA_LOCK_3))
                 return FALSE;
 
             return TRUE;
@@ -359,7 +360,7 @@ s8 CanUnitUseWeaponNow(struct Unit* unit, int item) {
     if (!(GetItemAttributes(item) & IA_WEAPON))
         return FALSE;
 
-    if ((GetItemAttributes(item) & IA_MAGIC) && CanUnitNotUseMagic(unit))
+    if ((GetItemAttributes(item) & IA_MAGIC) && IsUnitMagicSealed(unit))
         return FALSE;
 
     return CanUnitUseWeapon(unit, item);
@@ -397,7 +398,7 @@ s8 CanUnitUseStaffNow(struct Unit* unit, int item) {
     if (!(GetItemAttributes(item) & IA_STAFF))
         return FALSE;
 
-    if (CanUnitNotUseMagic(unit))
+    if (IsUnitMagicSealed(unit))
         return FALSE;
 
     return CanUnitUseStaff(unit, item);
@@ -474,7 +475,7 @@ u16 GetItemAfterUse(int item) {
     return item; // return used item
 }
 
-int GetUnitEquippedWeapon(struct Unit* unit) {
+u16 GetUnitEquippedWeapon(struct Unit* unit) {
     int i;
 
     for (i = 0; i < UNIT_ITEM_COUNT; ++i)
@@ -755,10 +756,10 @@ s8 IsItemDisplayUsable(struct Unit* unit, int item) {
         if (unit->statusIndex == UNIT_STATUS_BERSERK)
             return FALSE;
 
-        if (!(UNIT_ATTRIBUTES(unit) & CA_LOCKPICK) && GetItemIndex(item) == ITEM_LOCKPICK)
+        if (!(UNIT_CATTRIBUTES(unit) & CA_LOCKPICK) && GetItemIndex(item) == ITEM_LOCKPICK)
             return FALSE;
 
-        if (!(UNIT_ATTRIBUTES(unit) & CA_REFRESHER) && IsItemDanceRing(item))
+        if (!(UNIT_CATTRIBUTES(unit) & CA_REFRESHER) && IsItemDanceRing(item))
             return FALSE;
     }
 
@@ -982,7 +983,7 @@ int GetUnitItemCostSum(void) {
     int i, j, item, result = 0;
 
     for (i = 1; i < 0x40; ++i) {
-        struct Unit* unit = GetUnitStruct(i);
+        struct Unit* unit = GetUnit(i);
 
         if (!unit)
             continue;

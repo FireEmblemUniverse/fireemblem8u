@@ -42,7 +42,7 @@ _08024E60:
 	ldrb r0, [r1]
 	cmp r0, #0
 	beq _08024E8C
-	bl GetUnitStruct
+	bl GetUnit
 	bl _call_via_r7
 _08024E8C:
 	subs r4, #1
@@ -99,7 +99,7 @@ _08024ECC:
 	ldrb r0, [r1]
 	cmp r0, #0
 	beq _08024EF8
-	bl GetUnitStruct
+	bl GetUnit
 	bl _call_via_r7
 _08024EF8:
 	subs r4, #1
@@ -565,7 +565,7 @@ _08025288:
 	cmp r0, #0
 	beq _080252C4
 	ldrb r0, [r4, #0x1b]
-	bl GetUnitStruct
+	bl GetUnit
 	adds r1, r0, #0
 	movs r2, #0xb
 	ldrsb r2, [r1, r2]
@@ -623,7 +623,7 @@ MakeTradeTargetList: @ 0x080252D0
 	adds r4, r0, #0
 	ldr r0, [r6]
 	ldrb r0, [r0, #0x1b]
-	bl GetUnitStruct
+	bl GetUnit
 	bl _call_via_r7
 	bl sub_804FD28
 	cmp r4, r0
@@ -746,7 +746,7 @@ TryAddToDropTargetList: @ 0x080253E8
 	ldr r0, _08025438  @ gUnknown_02033F3C
 	ldr r0, [r0]
 	ldrb r0, [r0, #0x1b]
-	bl GetUnitStruct
+	bl GetUnit
 	ldr r1, _0802543C  @ gUnknown_0202E4DC
 	ldr r1, [r1]
 	adds r1, r5, r1
@@ -828,7 +828,7 @@ TryAddRescuedUnitToTakeTargetList: @ 0x08025474
 	bne _080254D6
 	ldr r4, [r4]
 	ldrb r0, [r5, #0x1b]
-	bl GetUnitStruct
+	bl GetUnit
 	adds r1, r0, #0
 	adds r0, r4, #0
 	bl CanUnitRescue
@@ -916,7 +916,7 @@ sub_8025514: @ 0x08025514
 	bne _08025588
 	ldr r0, [r5]
 	ldrb r0, [r0, #0x1b]
-	bl GetUnitStruct
+	bl GetUnit
 	adds r1, r0, #0
 	adds r0, r4, #0
 	bl CanUnitRescue
@@ -1392,7 +1392,7 @@ sub_8025904: @ 0x08025904
 	b _080259CE
 _08025918:
 	adds r0, r7, #0
-	bl GetUnitStruct
+	bl GetUnit
 	adds r5, r0, #0
 	cmp r5, #0
 	beq _080259CE
@@ -1420,17 +1420,17 @@ _08025918:
 	cmp r0, #0
 	beq _0802598E
 	adds r0, r5, #0
-	bl GetUnitCurrentHP
+	bl GetUnitCurrentHp
 	adds r4, r0, #0
 	adds r0, r5, #0
-	bl GetUnitMaxHP
+	bl GetUnitMaxHp
 	cmp r4, r0
 	beq _0802598E
 	adds r0, r6, #0
 	bl GetTerrainHealAmount
 	adds r4, r0, #0
 	adds r0, r5, #0
-	bl GetUnitMaxHP
+	bl GetUnitMaxHp
 	muls r0, r4, r0
 	movs r1, #0x64
 	bl __divsi3
@@ -1502,7 +1502,7 @@ sub_80259EC: @ 0x080259EC
 	b _08025A4A
 _08025A00:
 	adds r0, r7, #0
-	bl GetUnitStruct
+	bl GetUnit
 	adds r2, r0, #0
 	cmp r2, #0
 	beq _08025A4A
@@ -1568,7 +1568,7 @@ sub_8025A64: @ 0x08025A64
 	mov r8, r0
 _08025A84:
 	adds r0, r6, #0
-	bl GetUnitStruct
+	bl GetUnit
 	adds r4, r0, #0
 	cmp r4, #0
 	beq _08025B02
@@ -1719,7 +1719,7 @@ AddAsTarget_IfCanStealFrom: @ 0x08025BA0
 	ands r0, r1
 	cmp r0, #0x80
 	bne _08025BF8
-	ldr r0, _08025BEC  @ gUnknown_03004E50
+	ldr r0, _08025BEC  @ gActiveUnit
 	ldr r0, [r0]
 	movs r1, #0x16
 	ldrsb r1, [r0, r1]
@@ -1748,7 +1748,7 @@ _08025BC6:
 	bl AddTarget
 	b _08025BF8
 	.align 2, 0
-_08025BEC: .4byte gUnknown_03004E50
+_08025BEC: .4byte gActiveUnit
 _08025BF0:
 	adds r4, #2
 	adds r6, #1
@@ -2044,10 +2044,10 @@ TryAddUnitToHealTargetList: @ 0x08025E28
 	cmp r0, #0
 	bne _08025E72
 	adds r0, r5, #0
-	bl GetUnitCurrentHP
+	bl GetUnitCurrentHp
 	adds r4, r0, #0
 	adds r0, r5, #0
-	bl GetUnitMaxHP
+	bl GetUnitMaxHp
 	cmp r4, r0
 	beq _08025E72
 	movs r0, #0x10
@@ -2723,7 +2723,7 @@ MakeTargetListForLatona: @ 0x08026388
 	b _08026400
 _080263AA:
 	adds r0, r6, #0
-	bl GetUnitStruct
+	bl GetUnit
 	adds r5, r0, #0
 	cmp r5, #0
 	beq _080263FC
@@ -2736,10 +2736,10 @@ _080263AA:
 	cmp r0, #0
 	bne _080263FC
 	adds r0, r5, #0
-	bl GetUnitCurrentHP
+	bl GetUnitCurrentHp
 	adds r4, r0, #0
 	adds r0, r5, #0
-	bl GetUnitMaxHP
+	bl GetUnitMaxHp
 	cmp r4, r0
 	bne _080263E6
 	adds r0, r5, #0
@@ -2792,9 +2792,9 @@ _08026428:
 	adds r4, r0, #0
 	movs r0, #2
 	ldrsb r0, [r4, r0]
-	bl GetUnitStruct
+	bl GetUnit
 	adds r5, r0, #0
-	bl GetUnitCurrentHP
+	bl GetUnitCurrentHp
 	movs r1, #3
 	ldrsb r1, [r4, r1]
 	cmp r0, r1

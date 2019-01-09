@@ -256,7 +256,7 @@ sub_8084A48: @ 0x08084A48
 	movs r4, #1
 _08084A4C:
 	adds r0, r4, #0
-	bl GetUnitStruct
+	bl GetUnit
 	adds r4, #1
 	cmp r4, #0x3f
 	ble _08084A4C
@@ -275,7 +275,7 @@ sub_8084A68: @ 0x08084A68
 	movs r4, #1
 _08084A6C:
 	adds r0, r4, #0
-	bl GetUnitStruct
+	bl GetUnit
 	adds r4, #1
 	cmp r4, #0x3f
 	ble _08084A6C
@@ -405,7 +405,7 @@ sub_8084ADC: @ 0x08084ADC
 	bl DeletePlayerPhaseInterface6Cs
 	movs r0, #0x80
 	lsls r0, r0, #1
-	bl GetUnitByCharId
+	bl GetUnitFromCharId
 	movs r1, #0
 	bl sub_802F760
 	pop {r0}
@@ -417,7 +417,7 @@ sub_8084AF4: @ 0x08084AF4
 	movs r4, #1
 _08084AF8:
 	adds r0, r4, #0
-	bl GetUnitStruct
+	bl GetUnit
 	adds r4, #1
 	cmp r4, #0x3f
 	ble _08084AF8
@@ -608,7 +608,7 @@ sub_8084C38: @ 0x08084C38
 	push {lr}
 	lsls r0, r0, #0x18
 	lsrs r0, r0, #0x18
-	bl GetUnitByCharId
+	bl GetUnitFromCharId
 	bl sub_8084BCC
 	pop {r0}
 	bx r0
@@ -621,7 +621,7 @@ sub_8084C4C: @ 0x08084C4C
 	movs r4, #1
 _08084C54:
 	adds r0, r4, #0
-	bl GetUnitStruct
+	bl GetUnit
 	cmp r0, #0
 	beq _08084C7C
 	ldr r2, [r0]
@@ -677,7 +677,7 @@ sub_8084CAC: @ 0x08084CAC
 	movs r4, #1
 _08084CB4:
 	adds r0, r4, #0
-	bl GetUnitStruct
+	bl GetUnit
 	cmp r0, #0
 	beq _08084CD8
 	ldr r2, [r0]
@@ -971,7 +971,7 @@ sub_8084E88: @ 0x08084E88
 	movs r4, #1
 _08084E90:
 	adds r0, r4, #0
-	bl GetUnitStruct
+	bl GetUnit
 	cmp r0, #0
 	beq _08084EAA
 	ldr r0, [r0]
@@ -1028,7 +1028,7 @@ AreAnyEnemyUnitDead: @ 0x08084EE8
 	movs r4, #0x81
 _08084EEC:
 	adds r0, r4, #0
-	bl GetUnitStruct
+	bl GetUnit
 	adds r1, r0, #0
 	cmp r1, #0
 	beq _08084F0C
@@ -1059,7 +1059,7 @@ GetDeadEnemyAmount: @ 0x08084F1C
 	movs r4, #0x81
 _08084F22:
 	adds r0, r4, #0
-	bl GetUnitStruct
+	bl GetUnit
 	adds r1, r0, #0
 	cmp r1, #0
 	beq _08084F44
@@ -1105,7 +1105,7 @@ IsCharDeadAsNonPlayerUnit: @ 0x08084F6C
 	movs r4, #0x41
 _08084F74:
 	adds r0, r4, #0
-	bl GetUnitStruct
+	bl GetUnit
 	cmp r0, #0
 	beq _08084F98
 	ldr r2, [r0]
@@ -1138,7 +1138,7 @@ sub_8084FA8: @ 0x08084FA8
 	movs r4, #1
 _08084FAE:
 	adds r0, r4, #0
-	bl GetUnitStruct
+	bl GetUnit
 	adds r1, r0, #0
 	cmp r1, #0
 	beq _08084FD4
@@ -1170,7 +1170,7 @@ sub_8084FE4: @ 0x08084FE4
 	movs r4, #0x41
 _08084FE8:
 	adds r0, r4, #0
-	bl GetUnitStruct
+	bl GetUnit
 	adds r1, r0, #0
 	cmp r1, #0
 	beq _08085008
@@ -1441,7 +1441,7 @@ sub_80851A0: @ 0x080851A0
 	b _080851D2
 _080851AE:
 	adds r0, r4, #0
-	bl GetUnitStruct
+	bl GetUnit
 	cmp r0, #0
 	beq _080851D0
 	ldr r2, [r0]
@@ -1477,7 +1477,7 @@ sub_80851E4: @ 0x080851E4
 	b _08085210
 _080851EE:
 	adds r0, r4, #0
-	bl GetUnitStruct
+	bl GetUnit
 	adds r1, r0, #0
 	cmp r1, #0
 	beq _0808520C
@@ -1584,7 +1584,7 @@ _08085294: .4byte gUnknown_0202BCF0
 
 	THUMB_FUNC_START sub_8085298
 sub_8085298: @ 0x08085298
-	ldr r0, _080852B0  @ gUnknown_03004E50
+	ldr r0, _080852B0  @ gActiveUnit
 	ldr r0, [r0]
 	ldr r1, [r0]
 	ldr r0, [r0, #4]
@@ -1596,7 +1596,7 @@ sub_8085298: @ 0x08085298
 	bics r0, r1
 	bx lr
 	.align 2, 0
-_080852B0: .4byte gUnknown_03004E50
+_080852B0: .4byte gActiveUnit
 
 	THUMB_FUNC_START sub_80852B4
 sub_80852B4: @ 0x080852B4
@@ -1699,9 +1699,9 @@ sub_8085350: @ 0x08085350
 	THUMB_FUNC_START sub_8085354
 sub_8085354: @ 0x08085354
 	push {lr}
-	ldr r0, _0808536C  @ gUnknown_03004E50
+	ldr r0, _0808536C  @ gActiveUnit
 	ldr r0, [r0]
-	bl GetUnitCurrentHP
+	bl GetUnitCurrentHp
 	movs r1, #0
 	cmp r0, #0
 	bne _08085366
@@ -1711,7 +1711,7 @@ _08085366:
 	pop {r1}
 	bx r1
 	.align 2, 0
-_0808536C: .4byte gUnknown_03004E50
+_0808536C: .4byte gActiveUnit
 
 	THUMB_FUNC_START sub_8085370
 sub_8085370: @ 0x08085370
@@ -1829,7 +1829,7 @@ _08085424: .4byte gUnknown_089EDFD8
 sub_8085428: @ 0x08085428
 	push {r4, r5, r6, r7, lr}
 	bl GetPlayerLeaderUnitId
-	bl GetUnitByCharId
+	bl GetUnitFromCharId
 	adds r5, r0, #0
 	movs r7, #0x10
 	ldrsb r7, [r5, r7]
@@ -1838,7 +1838,7 @@ sub_8085428: @ 0x08085428
 	movs r4, #1
 _0808543E:
 	adds r0, r4, #0
-	bl GetUnitStruct
+	bl GetUnit
 	adds r2, r0, #0
 	cmp r2, #0
 	beq _08085474
@@ -1879,7 +1879,7 @@ ResetAllPlayerUnitState: @ 0x08085484
 	movs r6, #0
 _0808548A:
 	adds r0, r5, #0
-	bl GetUnitStruct
+	bl GetUnit
 	adds r4, r0, #0
 	cmp r4, #0
 	beq _080854CA
@@ -1887,13 +1887,13 @@ _0808548A:
 	cmp r0, #0
 	beq _080854CA
 	adds r0, r4, #0
-	bl GetUnitMaxHP
+	bl GetUnitMaxHp
 	adds r1, r0, #0
 	adds r0, r4, #0
-	bl SetUnitHP
+	bl SetUnitHp
 	adds r0, r4, #0
 	movs r1, #0
-	bl SetUnitNewStatus
+	bl SetUnitStatus
 	adds r0, r4, #0
 	adds r0, #0x31
 	strb r6, [r0]
@@ -1965,10 +1965,10 @@ sub_808552C: @ 0x0808552C
 	movs r4, #0x80
 	lsls r4, r4, #1
 	adds r0, r4, #0
-	bl GetUnitByCharId
+	bl GetUnitFromCharId
 	adds r5, r0, #0
 	adds r0, r4, #0
-	bl GetUnitByCharId
+	bl GetUnitFromCharId
 	adds r1, r0, #0
 	adds r0, r5, #0
 	bl sub_80287D4
@@ -3847,7 +3847,7 @@ HandleCh5xUnits_Start: @ 0x08086414
 	movs r4, #1
 _08086418:
 	adds r0, r4, #0
-	bl GetUnitStruct
+	bl GetUnit
 	adds r2, r0, #0
 	cmp r2, #0
 	beq _08086454
@@ -3893,7 +3893,7 @@ HandleCh5xUnits_End: @ 0x08086464
 	movs r4, #1
 _08086468:
 	adds r0, r4, #0
-	bl GetUnitStruct
+	bl GetUnit
 	adds r2, r0, #0
 	cmp r2, #0
 	beq _080864BA
@@ -3921,7 +3921,7 @@ _0808648A:
 _0808649C: .4byte 0x00010001
 _080864A0:
 	adds r0, r2, #0
-	bl ClearUnitStruct
+	bl ClearUnit
 	b _080864BA
 _080864A8:
 	ldr r1, [r2, #0xc]
@@ -4063,7 +4063,7 @@ _080865B8:
 _080865BC:
 	movs r0, #1
 _080865BE:
-	bl GetUnitByCharId
+	bl GetUnitFromCharId
 	adds r6, r0, #0
 _080865C4:
 	movs r0, #8

@@ -54,7 +54,7 @@ _08035B08: .4byte gUnknown_08A03354
 sub_8035B0C: @ 0x08035B0C
 	push {r4, lr}
 	ldr r1, _08035B3C  @ gUnknown_0202BCB0
-	ldr r0, _08035B40  @ gUnknown_03004E50
+	ldr r0, _08035B40  @ gActiveUnit
 	ldr r0, [r0]
 	ldrb r0, [r0, #0x10]
 	lsls r0, r0, #0x18
@@ -76,7 +76,7 @@ sub_8035B0C: @ 0x08035B0C
 	bx r0
 	.align 2, 0
 _08035B3C: .4byte gUnknown_0202BCB0
-_08035B40: .4byte gUnknown_03004E50
+_08035B40: .4byte gActiveUnit
 
 	THUMB_FUNC_START sub_8035B44
 sub_8035B44: @ 0x08035B44
@@ -85,7 +85,7 @@ sub_8035B44: @ 0x08035B44
 	push {r7}
 	sub sp, #4
 	mov r8, r0
-	ldr r0, _08035BE4  @ gUnknown_03004E50
+	ldr r0, _08035BE4  @ gActiveUnit
 	ldr r0, [r0]
 	bl HideUnitSMS
 	ldr r3, _08035BE8  @ gLCDControlBuffer
@@ -157,7 +157,7 @@ sub_8035B44: @ 0x08035B44
 	pop {r0}
 	bx r0
 	.align 2, 0
-_08035BE4: .4byte gUnknown_03004E50
+_08035BE4: .4byte gActiveUnit
 _08035BE8: .4byte gLCDControlBuffer
 
 	THUMB_FUNC_START sub_8035BEC
@@ -165,7 +165,7 @@ sub_8035BEC: @ 0x08035BEC
 	push {r4, r5, r6, lr}
 	sub sp, #4
 	adds r5, r0, #0
-	ldr r0, _08035C3C  @ gUnknown_03004E50
+	ldr r0, _08035C3C  @ gActiveUnit
 	ldr r4, [r0]
 	movs r1, #0x10
 	ldrsb r1, [r4, r1]
@@ -201,19 +201,19 @@ _08035C32:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_08035C3C: .4byte gUnknown_03004E50
+_08035C3C: .4byte gActiveUnit
 _08035C40: .4byte gUnknown_0202BCB0
 
 	THUMB_FUNC_START sub_8035C44
 sub_8035C44: @ 0x08035C44
 	push {lr}
-	ldr r0, _08035C54  @ gUnknown_03004E50
+	ldr r0, _08035C54  @ gActiveUnit
 	ldr r0, [r0]
 	bl ShowUnitSMS
 	pop {r0}
 	bx r0
 	.align 2, 0
-_08035C54: .4byte gUnknown_03004E50
+_08035C54: .4byte gActiveUnit
 
 	THUMB_FUNC_START sub_8035C58
 sub_8035C58: @ 0x08035C58
@@ -273,7 +273,7 @@ sub_8035CB8: @ 0x08035CB8
 	push {r4, lr}
 	adds r4, r0, #0
 	movs r2, #0
-	ldr r0, _08035CD8  @ gUnknown_03004E50
+	ldr r0, _08035CD8  @ gActiveUnit
 	ldr r0, [r0]
 	movs r1, #0xb
 	ldrsb r1, [r0, r1]
@@ -287,7 +287,7 @@ sub_8035CB8: @ 0x08035CB8
 	beq _08035CE2
 	b _08035CF6
 	.align 2, 0
-_08035CD8: .4byte gUnknown_03004E50
+_08035CD8: .4byte gActiveUnit
 _08035CDC:
 	cmp r1, #0x80
 	beq _08035CEC
@@ -430,7 +430,7 @@ _08035DD8: .4byte gLCDControlBuffer
 sub_8035DDC: @ 0x08035DDC
 	push {lr}
 	adds r2, r1, #0
-	ldr r1, _08035E04  @ gUnknown_03004E50
+	ldr r1, _08035E04  @ gActiveUnit
 	str r0, [r1]
 	cmp r2, #0
 	beq _08035E10
@@ -447,7 +447,7 @@ sub_8035DDC: @ 0x08035DDC
 	bl m4aSongNumStart
 	b _08035E18
 	.align 2, 0
-_08035E04: .4byte gUnknown_03004E50
+_08035E04: .4byte gActiveUnit
 _08035E08: .4byte gUnknown_0859E2D0
 _08035E0C: .4byte gUnknown_0202BCF0
 _08035E10:
@@ -497,7 +497,7 @@ sub_8035E50: @ 0x08035E50
 	adds r4, r0, #0
 	movs r0, #2
 	ldrsb r0, [r4, r0]
-	bl GetUnitStruct
+	bl GetUnit
 	adds r6, r0, #0
 	ldr r1, _08035E88  @ gUnknown_0203A958
 	ldrb r0, [r4, #2]
@@ -539,7 +539,7 @@ _08035EB8: .4byte gUnknown_0202BCF0
 _08035EBC: .4byte gUnknown_0202E4E8
 _08035EC0:
 	adds r0, r6, #0
-	bl GetUnitCurrentHP
+	bl GetUnitCurrentHp
 	cmp r0, #0
 	bne _08035ED2
 	adds r0, r7, #0
@@ -579,7 +579,7 @@ sub_8035EFC: @ 0x08035EFC
 	adds r5, r0, #0
 	movs r0, #2
 	ldrsb r0, [r5, r0]
-	bl GetUnitStruct
+	bl GetUnit
 	adds r4, r0, #0
 	movs r0, #3
 	ldrsb r0, [r5, r0]
@@ -613,7 +613,7 @@ sub_8035F40: @ 0x08035F40
 	beq _08035F5E
 	ldr r0, _08035F68  @ gUnknown_0203A958
 	ldrb r0, [r0, #0xc]
-	bl GetUnitStruct
+	bl GetUnit
 	bl ShowUnitSMS
 _08035F5E:
 	pop {r0}
@@ -633,7 +633,7 @@ sub_8035F6C: @ 0x08035F6C
 	adds r4, r0, #0
 	movs r0, #2
 	ldrsb r0, [r4, r0]
-	bl GetUnitStruct
+	bl GetUnit
 	adds r1, r0, #0
 	movs r0, #3
 	ldrsb r0, [r4, r0]
@@ -698,7 +698,7 @@ sub_8035FF0: @ 0x08035FF0
 	adds r5, r0, #0
 	movs r0, #2
 	ldrsb r0, [r5, r0]
-	bl GetUnitStruct
+	bl GetUnit
 	adds r4, r0, #0
 	bl HideUnitSMS
 	movs r1, #3
@@ -721,7 +721,7 @@ sub_803601C: @ 0x0803601C
 	adds r4, r0, #0
 	movs r0, #2
 	ldrsb r0, [r4, r0]
-	bl GetUnitStruct
+	bl GetUnit
 	adds r1, r0, #0
 	movs r2, #3
 	ldrsb r2, [r4, r2]
@@ -735,8 +735,8 @@ sub_803601C: @ 0x0803601C
 	strh r0, [r5]
 	ldr r0, _08036088  @ gUnknown_0203A958
 	ldrb r0, [r0, #0xc]
-	bl GetUnitStruct
-	bl GetUnitCurrentHP
+	bl GetUnit
+	bl GetUnitCurrentHp
 	cmp r0, #0
 	bne _0803606C
 	bl CheckForWaitEvents
@@ -747,8 +747,8 @@ sub_803601C: @ 0x0803601C
 _0803606C:
 	ldr r0, _08036088  @ gUnknown_0203A958
 	ldrb r0, [r0, #0xc]
-	bl GetUnitStruct
-	bl GetUnitCurrentHP
+	bl GetUnit
+	bl GetUnitCurrentHp
 	cmp r0, #0
 	bgt _08036080
 	bl SMS_UpdateFromGameData
@@ -768,7 +768,7 @@ sub_803608C: @ 0x0803608C
 	cmp r0, #0x34
 	beq _080360B0
 	movs r0, #0x34
-	bl GetROMClassStruct
+	bl GetClassData
 	str r0, [r4, #4]
 	bl RefreshFogAndUnitMaps
 	bl UpdateGameTilesGraphics
@@ -814,7 +814,7 @@ sub_80360E8: @ 0x080360E8
 	adds r5, r0, #0
 	movs r0, #2
 	ldrsb r0, [r5, r0]
-	bl GetUnitStruct
+	bl GetUnit
 	adds r4, r0, #0
 	bl HideUnitSMS
 	adds r0, r4, #0
@@ -839,7 +839,7 @@ sub_803611C: @ 0x0803611C
 	adds r4, r0, #0
 	movs r0, #2
 	ldrsb r0, [r4, r0]
-	bl GetUnitStruct
+	bl GetUnit
 	adds r1, r0, #0
 	movs r2, #3
 	ldrsb r2, [r4, r2]
@@ -852,8 +852,8 @@ sub_803611C: @ 0x0803611C
 	strh r0, [r5]
 	ldr r0, _08036184  @ gUnknown_0203A958
 	ldrb r0, [r0, #0xc]
-	bl GetUnitStruct
-	bl GetUnitCurrentHP
+	bl GetUnit
+	bl GetUnitCurrentHp
 	cmp r0, #0
 	bne _0803616A
 	bl CheckForWaitEvents
@@ -864,8 +864,8 @@ sub_803611C: @ 0x0803611C
 _0803616A:
 	ldr r0, _08036184  @ gUnknown_0203A958
 	ldrb r0, [r0, #0xc]
-	bl GetUnitStruct
-	bl GetUnitCurrentHP
+	bl GetUnit
+	bl GetUnitCurrentHp
 	cmp r0, #0
 	bgt _0803617E
 	bl SMS_UpdateFromGameData
@@ -908,16 +908,16 @@ sub_80361AC: @ 0x080361AC
 	adds r7, r0, #0
 	ldr r5, _080361EC  @ gUnknown_0203A958
 	ldrb r0, [r5, #0xc]
-	bl GetUnitStruct
+	bl GetUnit
 	adds r0, #0x30
 	ldrb r4, [r0]
 	lsls r4, r4, #0x1c
 	lsrs r4, r4, #0x1c
 	str r4, [r6, #0x58]
 	ldrb r0, [r5, #0xc]
-	bl GetUnitStruct
+	bl GetUnit
 	movs r1, #0
-	bl SetUnitNewStatus
+	bl SetUnitStatus
 	subs r0, r4, #1
 	cmp r0, #0xc
 	bhi _08036236
@@ -946,7 +946,7 @@ _080361F4: @ jump table
 _08036228:
 	movs r0, #2
 	ldrsb r0, [r7, r0]
-	bl GetUnitStruct
+	bl GetUnit
 	adds r1, r6, #0
 	bl sub_8035DDC
 _08036236:
@@ -966,11 +966,11 @@ sub_803623C: @ 0x0803623C
 _0803624A:
 	ldr r4, _08036294  @ gUnknown_0203A958
 	ldrb r0, [r4, #0xc]
-	bl GetUnitStruct
+	bl GetUnit
 	movs r1, #0
-	bl SetUnitNewStatus
+	bl SetUnitStatus
 	ldrb r0, [r4, #0xc]
-	bl GetUnitStruct
+	bl GetUnit
 	ldr r1, [r0, #0xc]
 	ldr r2, _08036298  @ 0xFFFFFBBD
 	ands r1, r2
@@ -982,9 +982,9 @@ _0803624A:
 _08036276:
 	ldr r0, _08036294  @ gUnknown_0203A958
 	ldrb r0, [r0, #0xc]
-	bl GetUnitStruct
+	bl GetUnit
 	movs r1, #0
-	bl SetUnitNewStatus
+	bl SetUnitStatus
 	adds r1, r5, #0
 	adds r1, #0x4c
 	ldrh r0, [r1]
@@ -1016,7 +1016,7 @@ sub_80362A4: @ 0x080362A4
 	adds r5, r0, #0
 	movs r0, #2
 	ldrsb r0, [r5, r0]
-	bl GetUnitStruct
+	bl GetUnit
 	adds r6, r0, #0
 	ldr r1, _080362DC  @ gUnknown_0203A958
 	ldrb r0, [r5, #2]
@@ -1062,7 +1062,7 @@ _08036314: .4byte gUnknown_0202BCF0
 _08036318: .4byte gUnknown_0202E4E8
 _0803631C:
 	adds r0, r6, #0
-	bl GetUnitCurrentHP
+	bl GetUnitCurrentHp
 	cmp r0, #0
 	bne _0803632E
 	adds r0, r7, #0
@@ -1211,13 +1211,13 @@ _08036432:
 	ldrb r0, [r4, #3]
 	strb r0, [r5, #0x15]
 	ldrb r0, [r5, #0xc]
-	bl GetUnitStruct
+	bl GetUnit
 	bl HideUnitSMS
 	ldrb r0, [r5, #0x15]
 	cmp r0, #5
 	bhi _08036460
 	ldrb r0, [r5, #0xc]
-	bl GetUnitStruct
+	bl GetUnit
 	movs r1, #3
 	ldrsb r1, [r4, r1]
 	bl sub_803584C
@@ -1226,7 +1226,7 @@ _08036432:
 _0803645C: .4byte gUnknown_0203A958
 _08036460:
 	ldrb r0, [r5, #0xc]
-	bl GetUnitStruct
+	bl GetUnit
 	movs r1, #3
 	ldrsb r1, [r4, r1]
 	bl sub_803592C
@@ -1246,7 +1246,7 @@ sub_8036474: @ 0x08036474
 	adds r4, r0, #0
 	movs r0, #2
 	ldrsb r0, [r4, r0]
-	bl GetUnitStruct
+	bl GetUnit
 	adds r5, r0, #0
 	movs r0, #3
 	ldrsb r0, [r4, r0]
@@ -1270,7 +1270,7 @@ _080364A6:
 	bl sub_80357A8
 _080364B8:
 	adds r0, r5, #0
-	bl GetUnitCurrentHP
+	bl GetUnitCurrentHp
 	cmp r0, #0
 	bgt _080364C6
 	bl SMS_UpdateFromGameData

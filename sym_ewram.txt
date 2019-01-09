@@ -517,11 +517,8 @@
 . = 0x02BD3C; gUnknown_0202BD3C = .;
 . = 0x02BD40; gUnknown_0202BD40 = .;
 . = 0x02BD44; gUnknown_0202BD44 = .;
-. = 0x02BE44; gUnknown_0202BE44 = .;
-. = 0x02BE48; gUnknown_0202BE48 = .;
-. = 0x02BE4C; gUnknown_0202BE4C = .;
-. = 0x02CFBC; gUnknown_0202CFBC = .;
-. = 0x02DDCC; gUnknown_0202DDCC = .;
+. = 0x02BE44;
+. = ALIGN(4); src/bmunit.o(ewram_data);
 . = 0x02E4D4; gUnknown_0202E4D4 = .;
 . = 0x02E4D8; gUnknown_0202E4D8 = .;
 . = 0x02E4D8; gUnknown_0202E4D8 = .;

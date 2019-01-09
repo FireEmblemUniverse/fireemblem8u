@@ -448,7 +448,7 @@ _08032D1E:
 	THUMB_FUNC_START sub_8032D30
 sub_8032D30: @ 0x08032D30
 	push {r4, lr}
-	ldr r0, _08032D6C  @ gUnknown_03004E50
+	ldr r0, _08032D6C  @ gActiveUnit
 	ldr r0, [r0]
 	ldr r1, _08032D70  @ gUnknown_0859DBA0
 	ldr r3, [r1]
@@ -477,7 +477,7 @@ sub_8032D30: @ 0x08032D30
 	pop {r0}
 	bx r0
 	.align 2, 0
-_08032D6C: .4byte gUnknown_03004E50
+_08032D6C: .4byte gActiveUnit
 _08032D70: .4byte gUnknown_0859DBA0
 
 	THUMB_FUNC_START sub_8032D74
@@ -593,7 +593,7 @@ sub_8032E28: @ 0x08032E28
 	bne _08032E90
 	ldr r5, _08032EA4  @ gUnknown_0859DBA0
 	ldr r2, [r5]
-	ldr r4, _08032EA8  @ gUnknown_03004E50
+	ldr r4, _08032EA8  @ gActiveUnit
 	ldr r1, [r4]
 	ldr r0, [r1, #4]
 	ldrb r0, [r0, #0x12]
@@ -632,7 +632,7 @@ _08032E98: .4byte gUnknown_08A03054
 _08032E9C: .4byte 0x06015E00
 _08032EA0: .4byte gUnknown_08A0328C
 _08032EA4: .4byte gUnknown_0859DBA0
-_08032EA8: .4byte gUnknown_03004E50
+_08032EA8: .4byte gActiveUnit
 _08032EAC: .4byte gUnknown_0203A958
 _08032EB0: .4byte 0x0000FFFF
 

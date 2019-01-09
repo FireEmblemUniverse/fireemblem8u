@@ -28,7 +28,7 @@ PrepareArenaStruct: @ 0x08031794
 	bl sub_803190C
 	strb r0, [r5, #0x10]
 	ldrb r0, [r5, #0x10]
-	bl GetROMClassStruct
+	bl GetClassData
 	bl GetClassBestWRankType
 	strb r0, [r5, #0xe]
 	ldrb r0, [r5, #0xd]
@@ -251,7 +251,7 @@ _08031960:
 	mov r4, r8
 _0803197E:
 	ldrb r0, [r4]
-	bl GetROMClassStruct
+	bl GetClassData
 	ldr r0, [r0, #0x28]
 	movs r1, #0x80
 	lsls r1, r1, #1
@@ -280,7 +280,7 @@ _080319B2:
 	adds r4, #1
 _080319B4:
 	ldrb r0, [r4]
-	bl GetROMClassStruct
+	bl GetClassData
 	ldr r0, [r0, #0x28]
 	movs r1, #0x80
 	lsls r1, r1, #1
@@ -430,15 +430,15 @@ LoadArenaOpponentStruct: @ 0x08031A84
 	strb r3, [r0, #0x12]
 	strb r3, [r0, #0x13]
 	adds r0, r6, #0
-	bl ClearUnitStruct
+	bl ClearUnit
 	movs r0, #0x80
 	strb r0, [r6, #0xb]
 	adds r0, r6, #0
 	mov r1, sp
-	bl StoreNewUnitFromCode
+	bl UnitInitFromDefinition
 	ldr r1, [r6]
 	adds r0, r6, #0
-	bl LoadUnitStats
+	bl UnitLoadStatsFromChracter
 	movs r4, #8
 	ldrsb r4, [r6, r4]
 	ldr r0, _08031B08  @ gUnknown_0202BCF0
@@ -464,7 +464,7 @@ _08031B12:
 	bl __divsi3
 	strb r0, [r6, #8]
 	adds r0, r6, #0
-	bl AutolevelUnit
+	bl UnitAutolevel
 	strb r4, [r6, #8]
 	movs r2, #0
 	adds r3, r6, #0
@@ -495,12 +495,12 @@ _08031B46:
 	strb r0, [r6, #8]
 _08031B52:
 	adds r0, r6, #0
-	bl CheckForStatCaps
+	bl UnitCheckStatCaps
 	adds r0, r6, #0
-	bl GetUnitMaxHP
+	bl GetUnitMaxHp
 	adds r1, r0, #0
 	adds r0, r6, #0
-	bl SetUnitHP
+	bl SetUnitHp
 	add sp, #0x14
 	pop {r4, r5, r6}
 	pop {r0}
@@ -656,7 +656,7 @@ _08031C7E:
 	subs r4, r4, r0
 	ldr r5, _08031CD4  @ gUnknown_0203A8F0
 	ldr r0, [r5, #4]
-	bl GetUnitMaxHP
+	bl GetUnitMaxHp
 	movs r1, #6
 	bl __divsi3
 	cmp r4, r0
@@ -715,7 +715,7 @@ _08031CFE:
 	subs r4, r4, r0
 	ldr r5, _08031D4C  @ gUnknown_0203A8F0
 	ldr r0, [r5]
-	bl GetUnitMaxHP
+	bl GetUnitMaxHp
 	movs r1, #6
 	bl __divsi3
 	cmp r4, r0

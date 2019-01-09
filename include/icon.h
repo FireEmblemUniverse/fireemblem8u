@@ -2,8 +2,8 @@
 #define GUARD_ICON_H
 
 struct IconStruct {
-	u8 References; // Seems to count the number of references to that icon ID
-	u8 Index;
+    u8 References; // Seems to count the number of references to that icon ID
+    u8 Index;
 };
 
 void ResetIconGraphics_();

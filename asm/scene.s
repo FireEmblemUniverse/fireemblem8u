@@ -2078,7 +2078,7 @@ _08007894:
 	ldr r0, _080078B8  @ 0x0000FFFF
 	cmp r4, r0
 	bne _080078C0
-	ldr r0, _080078BC  @ gUnknown_03004E50
+	ldr r0, _080078BC  @ gActiveUnit
 	ldr r0, [r0]
 	bl GetUnitPortraitId
 	adds r4, r0, #0
@@ -2086,7 +2086,7 @@ _08007894:
 	.align 2, 0
 _080078B4: .4byte gUnknown_0859133C
 _080078B8: .4byte 0x0000FFFF
-_080078BC: .4byte gUnknown_03004E50
+_080078BC: .4byte gActiveUnit
 _080078C0:
 	ldr r0, _080078E0  @ 0xFFFFFF00
 	adds r4, r4, r0

@@ -10,17 +10,17 @@ ExecStandardHeal: @ 0x0802EB98
 	adds r6, r0, #0
 	ldr r4, _0802EC14  @ gUnknown_0203A958
 	ldrb r0, [r4, #0xc]
-	bl GetUnitStruct
+	bl GetUnit
 	ldrb r1, [r4, #0x12]
 	bl sub_802CB24
 	ldrb r0, [r4, #0xd]
-	bl GetUnitStruct
+	bl GetUnit
 	bl sub_802CBC8
 	ldrb r0, [r4, #0xc]
-	bl GetUnitStruct
+	bl GetUnit
 	adds r5, r0, #0
 	ldrb r0, [r4, #0xc]
-	bl GetUnitStruct
+	bl GetUnit
 	ldrb r1, [r4, #0x12]
 	lsls r1, r1, #1
 	adds r0, #0x1e
@@ -30,12 +30,12 @@ ExecStandardHeal: @ 0x0802EB98
 	bl GetUnitItemHealAmount
 	adds r5, r0, #0
 	ldrb r0, [r4, #0xd]
-	bl GetUnitStruct
+	bl GetUnit
 	adds r1, r5, #0
-	bl UnitTryHeal
+	bl AddUnitHp
 	ldrb r0, [r4, #0xd]
-	bl GetUnitStruct
-	bl GetUnitCurrentHP
+	bl GetUnit
+	bl GetUnitCurrentHp
 	ldr r1, _0802EC18  @ gUnknown_0203A608
 	ldr r2, [r1]
 	ldr r5, _0802EC1C  @ gUnknown_0203A56C
@@ -43,8 +43,8 @@ ExecStandardHeal: @ 0x0802EB98
 	subs r1, r1, r0
 	strb r1, [r2, #3]
 	ldrb r0, [r4, #0xd]
-	bl GetUnitStruct
-	bl GetUnitCurrentHP
+	bl GetUnit
+	bl GetUnitCurrentHp
 	strb r0, [r5, #0x13]
 	adds r0, r6, #0
 	bl sub_802CC54
@@ -63,14 +63,14 @@ ExecRestore: @ 0x0802EC20
 	adds r5, r0, #0
 	ldr r4, _0802EC84  @ gUnknown_0203A958
 	ldrb r0, [r4, #0xc]
-	bl GetUnitStruct
+	bl GetUnit
 	ldrb r1, [r4, #0x12]
 	bl sub_802CB24
 	ldrb r0, [r4, #0xd]
-	bl GetUnitStruct
+	bl GetUnit
 	bl sub_802CBC8
 	ldrb r0, [r4, #0xd]
-	bl GetUnitStruct
+	bl GetUnit
 	adds r0, #0x30
 	ldrb r1, [r0]
 	movs r0, #0xf
@@ -78,20 +78,20 @@ ExecRestore: @ 0x0802EC20
 	cmp r0, #0xb
 	bne _0802EC68
 	ldrb r0, [r4, #0xd]
-	bl GetUnitStruct
+	bl GetUnit
 	movs r1, #0
-	bl SetUnitNewStatus
+	bl SetUnitStatus
 	ldrb r0, [r4, #0xd]
-	bl GetUnitStruct
+	bl GetUnit
 	ldr r1, [r0, #0xc]
 	ldr r2, _0802EC88  @ 0xFFFFFBBD
 	ands r1, r2
 	str r1, [r0, #0xc]
 _0802EC68:
 	ldrb r0, [r4, #0xd]
-	bl GetUnitStruct
+	bl GetUnit
 	movs r1, #0
-	bl SetUnitNewStatus
+	bl SetUnitStatus
 	adds r0, r5, #0
 	bl sub_802CC54
 	bl BeginBattleAnimations
@@ -108,14 +108,14 @@ sub_802EC8C: @ 0x0802EC8C
 	adds r5, r0, #0
 	ldr r4, _0802ECCC  @ gUnknown_0203A958
 	ldrb r0, [r4, #0xc]
-	bl GetUnitStruct
+	bl GetUnit
 	ldrb r1, [r4, #0x12]
 	bl sub_802CB24
 	ldrb r0, [r4, #0xd]
-	bl GetUnitStruct
+	bl GetUnit
 	bl sub_802CBC8
 	ldrb r0, [r4, #0xd]
-	bl GetUnitStruct
+	bl GetUnit
 	adds r0, #0x31
 	ldrb r2, [r0]
 	movs r1, #0xf
@@ -419,28 +419,28 @@ ExecRescueStaff: @ 0x0802EEF8
 	adds r6, r0, #0
 	ldr r4, _0802EF68  @ gUnknown_0203A958
 	ldrb r0, [r4, #0xc]
-	bl GetUnitStruct
+	bl GetUnit
 	ldrb r1, [r4, #0x12]
 	bl sub_802CB24
 	ldrb r0, [r4, #0xd]
-	bl GetUnitStruct
+	bl GetUnit
 	bl sub_802CBC8
 	ldrb r0, [r4, #0xc]
-	bl GetUnitStruct
+	bl GetUnit
 	adds r5, r0, #0
 	ldrb r0, [r4, #0xd]
-	bl GetUnitStruct
+	bl GetUnit
 	adds r1, r0, #0
 	add r3, sp, #4
 	adds r0, r5, #0
 	mov r2, sp
 	bl GetRescueStaffeePosition
 	ldrb r0, [r4, #0xd]
-	bl GetUnitStruct
+	bl GetUnit
 	ldr r1, [sp]
 	strb r1, [r0, #0x10]
 	ldrb r0, [r4, #0xd]
-	bl GetUnitStruct
+	bl GetUnit
 	ldr r1, [sp, #4]
 	strb r1, [r0, #0x11]
 	ldr r0, _0802EF6C  @ gUnknown_0203A56C
@@ -476,7 +476,7 @@ sub_802EF80: @ 0x0802EF80
 	push {lr}
 	ldr r0, _0802EFA8  @ gUnknown_0203A958
 	ldrb r0, [r0, #0xd]
-	bl GetUnitStruct
+	bl GetUnit
 	bl MU_GetByUnit
 	bl MU_End
 	bl RefreshFogAndUnitMaps
@@ -494,18 +494,18 @@ ExecWarpStaff: @ 0x0802EFAC
 	adds r5, r0, #0
 	ldr r4, _0802F004  @ gUnknown_0203A958
 	ldrb r0, [r4, #0xc]
-	bl GetUnitStruct
+	bl GetUnit
 	ldrb r1, [r4, #0x12]
 	bl sub_802CB24
 	ldrb r0, [r4, #0xd]
-	bl GetUnitStruct
+	bl GetUnit
 	bl sub_802CBC8
 	ldrb r0, [r4, #0xd]
-	bl GetUnitStruct
+	bl GetUnit
 	ldrb r1, [r4, #0x13]
 	strb r1, [r0, #0x10]
 	ldrb r0, [r4, #0xd]
-	bl GetUnitStruct
+	bl GetUnit
 	ldrb r1, [r4, #0x14]
 	strb r1, [r0, #0x11]
 	ldr r0, _0802F008  @ gUnknown_0203A56C
@@ -536,17 +536,17 @@ ExecStatusStaff: @ 0x0802F010
 	adds r6, r0, #0
 	ldr r4, _0802F06C  @ gUnknown_0203A958
 	ldrb r0, [r4, #0xc]
-	bl GetUnitStruct
+	bl GetUnit
 	ldrb r1, [r4, #0x12]
 	bl sub_802CB24
 	ldrb r0, [r4, #0xd]
-	bl GetUnitStruct
+	bl GetUnit
 	bl sub_802CBC8
 	ldrb r0, [r4, #0xc]
-	bl GetUnitStruct
+	bl GetUnit
 	adds r5, r0, #0
 	ldrb r0, [r4, #0xd]
-	bl GetUnitStruct
+	bl GetUnit
 	adds r1, r0, #0
 	adds r0, r5, #0
 	bl GetStaffAccuracy
@@ -695,20 +695,20 @@ ExecFortify: @ 0x0802F154
 	adds r7, r0, #0
 	ldr r4, _0802F1D4  @ gUnknown_0203A958
 	ldrb r0, [r4, #0xc]
-	bl GetUnitStruct
+	bl GetUnit
 	ldrb r1, [r4, #0x12]
 	bl sub_802CB24
 	bl GetPlayerLeaderUnitId
-	bl GetUnitByCharId
+	bl GetUnitFromCharId
 	bl sub_802CBC8
 	ldrb r0, [r4, #0xc]
-	bl GetUnitStruct
+	bl GetUnit
 	bl MakeTargetListForRangedHeal
 	ldrb r0, [r4, #0xc]
-	bl GetUnitStruct
+	bl GetUnit
 	adds r5, r0, #0
 	ldrb r0, [r4, #0xc]
-	bl GetUnitStruct
+	bl GetUnit
 	ldrb r1, [r4, #0x12]
 	lsls r1, r1, #1
 	adds r0, #0x1e
@@ -728,9 +728,9 @@ _0802F1A8:
 	ldrb r0, [r0, #2]
 	lsls r0, r0, #0x18
 	asrs r0, r0, #0x18
-	bl GetUnitStruct
+	bl GetUnit
 	adds r1, r6, #0
-	bl UnitTryHeal
+	bl AddUnitHp
 	adds r4, #1
 	cmp r4, r5
 	blt _0802F1A8
@@ -750,11 +750,11 @@ sub_802F1D8: @ 0x0802F1D8
 	adds r5, r0, #0
 	ldr r4, _0802F204  @ gUnknown_0203A958
 	ldrb r0, [r4, #0xc]
-	bl GetUnitStruct
+	bl GetUnit
 	ldrb r1, [r4, #0x12]
 	bl sub_802CB24
 	ldrb r0, [r4, #0xd]
-	bl GetUnitStruct
+	bl GetUnit
 	bl sub_802CBC8
 	adds r0, r5, #0
 	bl sub_802CC54
@@ -770,7 +770,7 @@ sub_802F208: @ 0x0802F208
 	push {r4, r5, r6, lr}
 	ldr r0, _0802F270  @ gUnknown_0203A958
 	ldrb r0, [r0, #0xc]
-	bl GetUnitStruct
+	bl GetUnit
 	bl MakeTargetListForFuckingNightmare
 	bl sub_804FD28
 	adds r6, r0, #0
@@ -783,11 +783,11 @@ _0802F222:
 	ldrb r0, [r0, #2]
 	lsls r0, r0, #0x18
 	asrs r0, r0, #0x18
-	bl GetUnitStruct
+	bl GetUnit
 	adds r4, r0, #0
 	ldr r0, _0802F270  @ gUnknown_0203A958
 	ldrb r0, [r0, #0xc]
-	bl GetUnitStruct
+	bl GetUnit
 	adds r1, r4, #0
 	bl GetStaffAccuracy
 	bl Roll1RN
@@ -804,7 +804,7 @@ _0802F222:
 	bne _0802F264
 	adds r0, r4, #0
 	movs r1, #2
-	bl SetUnitNewStatus
+	bl SetUnitStatus
 _0802F264:
 	adds r5, #1
 	cmp r5, r6
@@ -822,7 +822,7 @@ sub_802F274: @ 0x0802F274
 	adds r5, r0, #0
 	ldr r4, _0802F2AC  @ gUnknown_0203A958
 	ldrb r0, [r4, #0xc]
-	bl GetUnitStruct
+	bl GetUnit
 	ldrb r1, [r4, #0x12]
 	bl sub_802CB24
 	ldr r0, _0802F2B0  @ gUnknown_0203A56C
@@ -851,17 +851,17 @@ ExecHammerne: @ 0x0802F2B4
 	adds r6, r0, #0
 	ldr r4, _0802F308  @ gUnknown_0203A958
 	ldrb r0, [r4, #0xc]
-	bl GetUnitStruct
+	bl GetUnit
 	ldrb r1, [r4, #0x12]
 	bl sub_802CB24
 	ldrb r0, [r4, #0xd]
-	bl GetUnitStruct
+	bl GetUnit
 	bl sub_802CBC8
 	ldrb r0, [r4, #0xd]
-	bl GetUnitStruct
+	bl GetUnit
 	adds r5, r0, #0
 	ldrb r0, [r4, #0xd]
-	bl GetUnitStruct
+	bl GetUnit
 	ldrb r1, [r4, #0x15]
 	lsls r1, r1, #1
 	adds r0, #0x1e
@@ -888,14 +888,14 @@ sub_802F30C: @ 0x0802F30C
 	adds r7, r0, #0
 	ldr r4, _0802F37C  @ gUnknown_0203A958
 	ldrb r0, [r4, #0xc]
-	bl GetUnitStruct
+	bl GetUnit
 	ldrb r1, [r4, #0x12]
 	bl sub_802CB24
 	bl GetPlayerLeaderUnitId
-	bl GetUnitByCharId
+	bl GetUnitFromCharId
 	bl sub_802CBC8
 	ldrb r0, [r4, #0xc]
-	bl GetUnitStruct
+	bl GetUnit
 	bl MakeTargetListForLatona
 	bl sub_804FD28
 	adds r6, r0, #0
@@ -908,15 +908,15 @@ _0802F340:
 	ldrb r0, [r0, #2]
 	lsls r0, r0, #0x18
 	asrs r0, r0, #0x18
-	bl GetUnitStruct
+	bl GetUnit
 	adds r4, r0, #0
-	bl GetUnitMaxHP
+	bl GetUnitMaxHp
 	adds r1, r0, #0
 	adds r0, r4, #0
-	bl SetUnitHP
+	bl SetUnitHp
 	adds r0, r4, #0
 	movs r1, #0
-	bl SetUnitNewStatus
+	bl SetUnitStatus
 	adds r5, #1
 	cmp r5, r6
 	blt _0802F340
@@ -937,16 +937,16 @@ ExecSomeSelfHeal: @ 0x0802F380
 	adds r4, r1, #0
 	ldr r5, _0802F3D8  @ gUnknown_0203A958
 	ldrb r0, [r5, #0xc]
-	bl GetUnitStruct
+	bl GetUnit
 	ldrb r1, [r5, #0x12]
 	bl sub_802CB24
 	ldrb r0, [r5, #0xc]
-	bl GetUnitStruct
+	bl GetUnit
 	adds r1, r4, #0
-	bl UnitTryHeal
+	bl AddUnitHp
 	ldrb r0, [r5, #0xc]
-	bl GetUnitStruct
-	bl GetUnitCurrentHP
+	bl GetUnit
+	bl GetUnitCurrentHp
 	ldr r1, _0802F3DC  @ gUnknown_0203A608
 	ldr r2, [r1]
 	ldr r4, _0802F3E0  @ gUnknown_0203A4EC
@@ -954,8 +954,8 @@ ExecSomeSelfHeal: @ 0x0802F380
 	subs r1, r1, r0
 	strb r1, [r2, #3]
 	ldrb r0, [r5, #0xc]
-	bl GetUnitStruct
-	bl GetUnitCurrentHP
+	bl GetUnit
+	bl GetUnitCurrentHp
 	strb r0, [r4, #0x13]
 	adds r4, #0x4a
 	movs r0, #0x6c
@@ -977,21 +977,21 @@ sub_802F3E4: @ 0x0802F3E4
 	adds r6, r0, #0
 	ldr r4, _0802F444  @ gUnknown_0203A958
 	ldrb r0, [r4, #0xc]
-	bl GetUnitStruct
+	bl GetUnit
 	ldrb r1, [r4, #0x12]
 	bl sub_802CB24
 	ldrb r0, [r4, #0xc]
-	bl GetUnitStruct
+	bl GetUnit
 	adds r5, r0, #0
 	ldrb r0, [r4, #0xc]
-	bl GetUnitStruct
-	bl GetUnitMaxHP
+	bl GetUnit
+	bl GetUnitMaxHp
 	adds r1, r0, #0
 	adds r0, r5, #0
-	bl SetUnitHP
+	bl SetUnitHp
 	ldrb r0, [r4, #0xc]
-	bl GetUnitStruct
-	bl GetUnitCurrentHP
+	bl GetUnit
+	bl GetUnitCurrentHp
 	ldr r1, _0802F448  @ gUnknown_0203A608
 	ldr r2, [r1]
 	ldr r5, _0802F44C  @ gUnknown_0203A4EC
@@ -999,8 +999,8 @@ sub_802F3E4: @ 0x0802F3E4
 	subs r1, r1, r0
 	strb r1, [r2, #3]
 	ldrb r0, [r4, #0xc]
-	bl GetUnitStruct
-	bl GetUnitCurrentHP
+	bl GetUnit
+	bl GetUnitCurrentHp
 	strb r0, [r5, #0x13]
 	adds r0, r6, #0
 	bl sub_802CC54
@@ -1019,11 +1019,11 @@ sub_802F450: @ 0x0802F450
 	adds r5, r0, #0
 	ldr r4, _0802F488  @ gUnknown_0203A958
 	ldrb r0, [r4, #0xc]
-	bl GetUnitStruct
+	bl GetUnit
 	ldrb r1, [r4, #0x12]
 	bl sub_802CB24
 	ldrb r0, [r4, #0xc]
-	bl GetUnitStruct
+	bl GetUnit
 	adds r0, #0x31
 	ldrb r2, [r0]
 	movs r1, #0xf
@@ -1046,11 +1046,11 @@ sub_802F48C: @ 0x0802F48C
 	adds r5, r0, #0
 	ldr r4, _0802F4CC  @ gUnknown_0203A958
 	ldrb r0, [r4, #0xc]
-	bl GetUnitStruct
+	bl GetUnit
 	ldrb r1, [r4, #0x12]
 	bl sub_802CB24
 	ldrb r0, [r4, #0xc]
-	bl GetUnitStruct
+	bl GetUnit
 	adds r0, #0x31
 	ldrb r2, [r0]
 	movs r1, #0x10
@@ -1078,16 +1078,16 @@ sub_802F4D0: @ 0x0802F4D0
 	adds r5, r0, #0
 	ldr r4, _0802F508  @ gUnknown_0203A958
 	ldrb r0, [r4, #0xc]
-	bl GetUnitStruct
+	bl GetUnit
 	ldrb r1, [r4, #0x12]
 	bl sub_802CB24
 	ldrb r0, [r4, #0xc]
-	bl GetUnitStruct
+	bl GetUnit
 	movs r1, #0
-	bl SetUnitNewStatus
+	bl SetUnitStatus
 	ldr r0, _0802F50C  @ gUnknown_0203A4EC
 	movs r1, #0
-	bl SetUnitNewStatus
+	bl SetUnitStatus
 	adds r0, r5, #0
 	bl sub_802CC54
 	bl BeginBattleAnimations
@@ -1103,15 +1103,15 @@ sub_802F510: @ 0x0802F510
 	push {r4, r5, lr}
 	ldr r4, _0802F58C  @ gUnknown_0203A958
 	ldrb r0, [r4, #0xc]
-	bl GetUnitStruct
+	bl GetUnit
 	ldrb r1, [r4, #0x12]
-	bl ValidateUnitItem
+	bl UnitUpdateUsedItem
 	ldrb r0, [r4, #0xc]
-	bl GetUnitStruct
+	bl GetUnit
 	movs r5, #0x10
 	ldrsb r5, [r0, r5]
 	ldrb r0, [r4, #0xc]
-	bl GetUnitStruct
+	bl GetUnit
 	movs r4, #0x11
 	ldrsb r4, [r0, r4]
 	subs r0, r5, #1
@@ -1223,7 +1223,7 @@ _0802F618:
 	beq _0802F624
 	adds r0, r6, #0
 	adds r1, r7, #0
-	bl ValidateUnitItem
+	bl UnitUpdateUsedItem
 _0802F624:
 	ldr r2, _0802F658  @ gUnknown_0203A5EC
 	ldr r0, [r2]
@@ -1324,7 +1324,7 @@ _0802F6EE:
 	beq _0802F6FA
 	adds r0, r6, #0
 	adds r1, r7, #0
-	bl ValidateUnitItem
+	bl UnitUpdateUsedItem
 _0802F6FA:
 	ldr r2, _0802F730  @ gUnknown_0203A5EC
 	ldr r0, [r2]
@@ -1361,7 +1361,7 @@ sub_802F73C: @ 0x0802F73C
 	push {r4, lr}
 	ldr r4, _0802F75C  @ gUnknown_0203A958
 	ldrb r0, [r4, #0xc]
-	bl GetUnitStruct
+	bl GetUnit
 	ldrb r2, [r4, #0x12]
 	movs r1, #1
 	movs r3, #1
@@ -1470,7 +1470,7 @@ sub_802F808: @ 0x0802F808
 	str r0, [r4, #0xc]
 	adds r0, r4, #0
 	adds r1, r7, #0
-	bl ValidateUnitItem
+	bl UnitUpdateUsedItem
 	movs r0, #0x1d
 	b _0802F90E
 _0802F83A:
@@ -1517,10 +1517,10 @@ _0802F83A:
 	adds r0, r0, r1
 	strb r0, [r4, #0x1a]
 	adds r0, r4, #0
-	bl CheckForStatCaps
+	bl UnitCheckStatCaps
 	adds r0, r4, #0
 	adds r1, r7, #0
-	bl ValidateUnitItem
+	bl UnitUpdateUsedItem
 	adds r0, r6, #0
 	bl GetItemIndex
 	subs r0, #0x5b
@@ -1588,7 +1588,7 @@ sub_802F914: @ 0x0802F914
 	adds r7, r0, #0
 	ldr r4, _0802F96C  @ gUnknown_0203A958
 	ldrb r0, [r4, #0xc]
-	bl GetUnitStruct
+	bl GetUnit
 	ldrb r2, [r4, #0x12]
 	lsls r2, r2, #1
 	adds r1, r0, #0
@@ -1675,7 +1675,7 @@ _0802F9BE:
 	strb r1, [r5, #9]
 	adds r0, r5, #0
 	adds r1, r6, #0
-	bl ValidateUnitItem
+	bl UnitUpdateUsedItem
 	adds r0, r4, #0
 	pop {r4, r5, r6}
 	pop {r1}
@@ -1690,7 +1690,7 @@ sub_802F9E0: @ 0x0802F9E0
 	adds r7, r0, #0
 	ldr r4, _0802FA40  @ gUnknown_0203A958
 	ldrb r0, [r4, #0xc]
-	bl GetUnitStruct
+	bl GetUnit
 	ldrb r2, [r4, #0x12]
 	lsls r2, r2, #1
 	adds r1, r0, #0
@@ -1739,7 +1739,7 @@ sub_802FA4C: @ 0x0802FA4C
 	adds r5, r0, #0
 	ldr r4, _0802FA88  @ gUnknown_0203A958
 	ldrb r0, [r4, #0xc]
-	bl GetUnitStruct
+	bl GetUnit
 	ldrb r1, [r4, #0x12]
 	bl sub_802CB24
 	ldrb r0, [r4, #0x13]
@@ -1770,7 +1770,7 @@ sub_802FA90: @ 0x0802FA90
 	adds r5, r0, #0
 	ldr r4, _0802FAC8  @ gUnknown_0203A958
 	ldrb r0, [r4, #0xc]
-	bl GetUnitStruct
+	bl GetUnit
 	ldrb r1, [r4, #0x12]
 	bl sub_802CB24
 	ldrb r0, [r4, #0x13]
@@ -1799,7 +1799,7 @@ sub_802FAD0: @ 0x0802FAD0
 	adds r6, r0, #0
 	ldr r4, _0802FB78  @ gUnknown_0203A958
 	ldrb r0, [r4, #0xc]
-	bl GetUnitStruct
+	bl GetUnit
 	ldrb r1, [r4, #0x12]
 	bl sub_802CB24
 	adds r0, r6, #0
@@ -1859,7 +1859,7 @@ sub_802FAD0: @ 0x0802FAD0
 	strb r2, [r6, #0x12]
 	strb r2, [r6, #0x13]
 	movs r0, #1
-	bl GetUnitByCharId
+	bl GetUnitFromCharId
 	adds r2, r0, #0
 	cmp r2, #0
 	bne _0802FB68
@@ -1885,7 +1885,7 @@ ExecTorchStaff: @ 0x0802FB88
 	adds r5, r0, #0
 	ldr r4, _0802FBB8  @ gUnknown_0203A958
 	ldrb r0, [r4, #0xc]
-	bl GetUnitStruct
+	bl GetUnit
 	ldrb r1, [r4, #0x12]
 	bl sub_802CB24
 	ldrb r0, [r4, #0x13]
@@ -1909,14 +1909,14 @@ sub_802FBBC: @ 0x0802FBBC
 	movs r5, #0
 	ldr r4, _0802FBFC  @ gUnknown_0203A958
 	ldrb r0, [r4, #0xc]
-	bl GetUnitStruct
+	bl GetUnit
 	ldrb r1, [r4, #0x12]
 	bl sub_802CB24
 	ldrb r0, [r4, #0xd]
-	bl GetUnitStruct
+	bl GetUnit
 	bl sub_802CBC8
 	ldrb r0, [r4, #0xc]
-	bl GetUnitStruct
+	bl GetUnit
 	ldrb r1, [r4, #0x12]
 	lsls r1, r1, #1
 	adds r0, #0x1e
@@ -1952,10 +1952,10 @@ _0802FC16:
 _0802FC18:
 	ldr r0, _0802FC40  @ gUnknown_0203A958
 	ldrb r0, [r0, #0xd]
-	bl GetUnitStruct
+	bl GetUnit
 	adds r1, r5, #0
 	movs r2, #1
-	bl WriteUnitStatusDuration
+	bl SetUnitStatusExt
 	ldr r1, _0802FC44  @ gUnknown_0203A4D4
 	movs r0, #0x80
 	lsls r0, r0, #2
@@ -1978,7 +1978,7 @@ ActionStaffDoorChestUseItem: @ 0x0802FC48
 	adds r6, r0, #0
 	ldr r4, _0802FC84  @ gUnknown_0203A958
 	ldrb r0, [r4, #0xc]
-	bl GetUnitStruct
+	bl GetUnit
 	ldrb r1, [r4, #0x12]
 	lsls r1, r1, #1
 	adds r0, #0x1e
@@ -2192,7 +2192,7 @@ _0802FEE6:
 _0802FEEC:
 	ldr r4, _0802FF34  @ gUnknown_0203A958
 	ldrb r0, [r4, #0xc]
-	bl GetUnitStruct
+	bl GetUnit
 	ldr r5, _0802FF38  @ gUnknown_0203A4EC
 	ldr r7, _0802FF3C  @ gUnknown_0203A56C
 	ldrb r1, [r4, #0x12]
@@ -2208,7 +2208,7 @@ _0802FEEC:
 	adds r1, #0x4a
 	strh r0, [r1]
 	ldrb r0, [r4, #0xc]
-	bl GetUnitStruct
+	bl GetUnit
 	bl GetUnitEquippedWeapon
 	adds r1, r7, #0
 	adds r1, #0x48
@@ -2344,10 +2344,10 @@ sub_803001C: @ 0x0803001C
 	blt _08030040
 	ldr r0, _0803004C  @ gUnknown_0203A958
 	ldrb r0, [r0, #0xd]
-	bl GetUnitStruct
+	bl GetUnit
 	movs r1, #0
 	ldrsb r1, [r4, r1]
-	bl SetUnitNewStatus
+	bl SetUnitStatus
 	movs r0, #0xff
 	strb r0, [r4]
 _08030040:

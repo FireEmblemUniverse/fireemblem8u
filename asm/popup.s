@@ -1038,7 +1038,7 @@ sub_80115DC: @ 0x080115DC
 	push {r4, lr}
 	adds r4, r1, #0
 	bl SetPopupNumber
-	ldr r0, _08011604  @ gUnknown_03004E50
+	ldr r0, _08011604  @ gActiveUnit
 	ldr r0, [r0]
 	ldrb r0, [r0, #0xb]
 	lsls r0, r0, #0x18
@@ -1054,7 +1054,7 @@ sub_80115DC: @ 0x080115DC
 	bl NewPopupSimple
 	b _08011618
 	.align 2, 0
-_08011604: .4byte gUnknown_03004E50
+_08011604: .4byte gActiveUnit
 _08011608: .4byte gUnknown_08592300
 _0801160C:
 	ldr r0, _08011620  @ gUnknown_08592348
@@ -1131,7 +1131,7 @@ sub_8011694: @ 0x08011694
 	lsls r0, r0, #0x10
 	lsrs r0, r0, #0x10
 	bl SetPopupItem
-	ldr r0, _080116C0  @ gUnknown_03004E50
+	ldr r0, _080116C0  @ gActiveUnit
 	ldr r0, [r0]
 	ldrb r0, [r0, #0xb]
 	lsls r0, r0, #0x18
@@ -1147,7 +1147,7 @@ sub_8011694: @ 0x08011694
 	bl NewPopupSimple
 	b _080116D4
 	.align 2, 0
-_080116C0: .4byte gUnknown_03004E50
+_080116C0: .4byte gActiveUnit
 _080116C4: .4byte gUnknown_08592380
 _080116C8:
 	ldr r0, _080116DC  @ gUnknown_085923D8
@@ -1204,7 +1204,7 @@ sub_8011728: @ 0x08011728
 	adds r4, r0, #0
 	lsls r0, r1, #0x18
 	lsrs r0, r0, #0x18
-	bl GetUnitByCharId
+	bl GetUnitFromCharId
 	bl SetPopupUnit
 	ldr r0, _0801174C  @ gUnknown_08592490
 	movs r1, #0x60

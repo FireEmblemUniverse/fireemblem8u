@@ -429,17 +429,17 @@ sub_80357A8: @ 0x080357A8
 	cmp r1, #0
 	blt _080357BC
 	adds r0, r4, #0
-	bl SetUnitNewStatus
+	bl SetUnitStatus
 _080357BC:
 	adds r0, r4, #0
 	adds r1, r5, #0
-	bl UnitTryHeal
+	bl AddUnitHp
 	adds r0, r4, #0
-	bl GetUnitCurrentHP
+	bl GetUnitCurrentHp
 	cmp r0, #0
 	bgt _080357D4
 	adds r0, r4, #0
-	bl sub_80183FC
+	bl UnitKill
 _080357D4:
 	adds r0, r6, #0
 	adds r1, r4, #0
@@ -451,7 +451,7 @@ _080357D4:
 	THUMB_FUNC_START sub_80357E4
 sub_80357E4: @ 0x080357E4
 	push {lr}
-	bl GetUnitCurrentHP
+	bl GetUnitCurrentHp
 	cmp r0, #0
 	bne _080357FA
 	ldr r0, _08035800  @ gUnknown_0202BCF0
@@ -481,7 +481,7 @@ sub_8035804: @ 0x08035804
 	strh r1, [r0]
 	adds r0, r5, #0
 	adds r1, r4, #0
-	bl UnitTryHeal
+	bl AddUnitHp
 	ldr r0, _08035848  @ gUnknown_0203A608
 	ldr r2, [r0]
 	adds r0, r5, #0
@@ -511,7 +511,7 @@ sub_803584C: @ 0x0803584C
 	negs r4, r4
 	adds r0, r5, #0
 	adds r1, r4, #0
-	bl UnitTryHeal
+	bl AddUnitHp
 	movs r0, #0x13
 	ldrsb r0, [r5, r0]
 	cmp r0, #0
@@ -566,7 +566,7 @@ sub_80358C0: @ 0x080358C0
 	negs r4, r4
 	adds r0, r5, #0
 	adds r1, r4, #0
-	bl UnitTryHeal
+	bl AddUnitHp
 	movs r0, #0x13
 	ldrsb r0, [r5, r0]
 	cmp r0, #0
@@ -620,7 +620,7 @@ sub_803592C: @ 0x0803592C
 	negs r4, r4
 	adds r0, r5, #0
 	adds r1, r4, #0
-	bl UnitTryHeal
+	bl AddUnitHp
 	movs r0, #0x13
 	ldrsb r0, [r5, r0]
 	cmp r0, #0
@@ -683,7 +683,7 @@ sub_80359B4: @ 0x080359B4
 	movs r4, #0x81
 _080359C2:
 	adds r0, r4, #0
-	bl GetUnitStruct
+	bl GetUnit
 	adds r2, r0, #0
 	cmp r2, #0
 	beq _080359F2
@@ -740,11 +740,11 @@ _08035A2A:
 	ldrb r0, [r0, #2]
 	lsls r0, r0, #0x18
 	asrs r0, r0, #0x18
-	bl GetUnitStruct
+	bl GetUnit
 	adds r4, r0, #0
 	bl HideUnitSMS
 	adds r0, r4, #0
-	bl sub_80183FC
+	bl UnitKill
 	movs r2, #0x10
 	ldrsb r2, [r4, r2]
 	lsls r2, r2, #4

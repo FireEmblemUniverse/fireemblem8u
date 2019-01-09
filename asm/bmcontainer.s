@@ -230,7 +230,7 @@ sub_8031688: @ 0x08031688
 	movs r4, #1
 _0803168C:
 	adds r0, r4, #0
-	bl GetUnitStruct
+	bl GetUnit
 	adds r2, r0, #0
 	cmp r2, #0
 	beq _080316B4

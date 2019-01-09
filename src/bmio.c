@@ -2,12 +2,15 @@
 
 #include <string.h>
 
+#include "constants/classes.h"
+
 #include "proc.h"
 #include "hardware.h"
 #include "fontgrp.h"
 #include "chapterdata.h"
 #include "rng.h"
 #include "ctc.h"
+#include "bmunit.h"
 #include "mu.h"
 
 #include "bmio.h"
@@ -978,7 +981,7 @@ void StartBattleMap(struct GameCtrlProc* gameCtrl) {
     ClearMenuRelatedList();
     ResetTraps();
 
-    gUnknown_0202BCF0.chapterPhaseIndex = 0x40; // TODO: PHASE/ALLEGIANCE DEFINITIONS
+    gUnknown_0202BCF0.chapterPhaseIndex = FACTION_GREEN; // TODO: PHASE/ALLEGIANCE DEFINITIONS
     gUnknown_0202BCF0.chapterTurnNumber = 0;
 
     // TODO: BATTLE MAP/CHAPTER/OBJECTIVE TYPE DEFINITION (STORY/TOWER/SKIRMISH)
@@ -1006,7 +1009,7 @@ void StartBattleMap(struct GameCtrlProc* gameCtrl) {
     gUnknown_0202BCF0.unk4A_5 = 0;
 
     for (i = 1; i < 0x40; ++i) {
-        struct Unit* unit = GetUnitStruct(i);
+        struct Unit* unit = GetUnit(i);
 
         if (unit && unit->pCharacterData) {
             if (unit->state & US_BIT21)
@@ -1016,7 +1019,7 @@ void StartBattleMap(struct GameCtrlProc* gameCtrl) {
         }
     }
 
-    sub_8018EB8();
+    ClearTemporaryUnits();
     LoadChapterBallistae();
 
     if (gameCtrl)
@@ -1210,28 +1213,28 @@ void ChapterChangeUnitCleanup(void) {
 
     // Clear phantoms
     for (i = 1; i < 0x40; ++i) {
-        struct Unit* unit = GetUnitStruct(i);
+        struct Unit* unit = GetUnit(i);
 
         if (unit && unit->pCharacterData)
-            if (unit->pClassData->number == CLASS_PHANTOM)
-                ClearUnitStruct(unit);
+            if (UNIT_IS_PHANTOM(unit))
+                ClearUnit(unit);
     }
 
     // Clear all non player units (green & red units)
     for (i = 0x41; i < 0xC0; ++i) {
-        struct Unit* unit = GetUnitStruct(i);
+        struct Unit* unit = GetUnit(i);
 
         if (unit && unit->pCharacterData)
-            ClearUnitStruct(unit);
+            ClearUnit(unit);
     }
 
     // Reset player unit "temporary" states (HP, status, some state flags, etc)
     for (j = 1; j < 0x40; ++j) {
-        struct Unit* unit = GetUnitStruct(j);
+        struct Unit* unit = GetUnit(j);
 
         if (unit && unit->pCharacterData) {
-            SetUnitHP(unit, GetUnitMaxHP(unit));
-            SetUnitNewStatus(unit, UNIT_STATUS_NONE);
+            SetUnitHp(unit, GetUnitMaxHp(unit));
+            SetUnitStatus(unit, UNIT_STATUS_NONE);
 
             unit->torchDuration = 0;
             unit->barrierDuration = 0;
@@ -1246,7 +1249,7 @@ void ChapterChangeUnitCleanup(void) {
                 US_BIT16 | US_BIT20 | US_BIT21 | US_BIT25 | US_BIT26
             );
 
-            if (UNIT_ATTRIBUTES(unit) & CA_SUPPLY)
+            if (UNIT_CATTRIBUTES(unit) & CA_SUPPLY)
                 unit->state = unit->state &~ US_DEAD;
 
             unit->state |= US_HIDDEN | US_NOT_DEPLOYED;
@@ -1284,12 +1287,12 @@ void MapMain_ResumeFromAction(struct BMapMainProc* mapMain) {
 
     Proc_GotoLabel((struct Proc*)(mapMain), 6);
 
-    gUnknown_03004E50 = GetUnitStruct(gUnknown_0203A958.subjectIndex);
-    gUnknown_0202E4D8[gUnknown_03004E50->yPos][gUnknown_03004E50->xPos] = 0;
+    gActiveUnit = GetUnit(gUnknown_0203A958.subjectIndex);
+    gUnknown_0202E4D8[gActiveUnit->yPos][gActiveUnit->xPos] = 0;
 
-    HideUnitSMS(GetUnitStruct(gUnknown_0203A958.subjectIndex));
+    HideUnitSMS(GetUnit(gUnknown_0203A958.subjectIndex));
 
-    MU_Create(gUnknown_03004E50);
+    MU_Create(gActiveUnit);
     MU_SetDefaultFacing_Auto();
 }
 
@@ -1307,11 +1310,11 @@ void MapMain_ResumeFromBskPhase(struct BMapMainProc* mapMain) {
 }
 
 void MapMain_ResumeFromArenaFight(struct BMapMainProc* mapMain) {
-    gUnknown_03004E50 = GetUnitStruct(gUnknown_0203A958.subjectIndex);
+    gActiveUnit = GetUnit(gUnknown_0203A958.subjectIndex);
 
-    PrepareArena2(gUnknown_03004E50);
+    PrepareArena2(gActiveUnit);
 
-    sub_802CD64(gUnknown_03004E50);
+    sub_802CD64(gActiveUnit);
     BeginBattleAnimations();
 
     gLCDControlBuffer.dispcnt.bg0_on = FALSE;
