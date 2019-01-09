@@ -46810,7 +46810,7 @@ _080A0CBC:
 	subs r0, #1
 	movs r1, #0x34
 	muls r0, r1, r0
-	ldr r1, _080A0DD4  @ gUnknown_08803D90
+	ldr r1, _080A0DD4  @ gUnknown_08803D64+0x2C
 	adds r0, r0, r1
 	ldr r0, [r0]
 	ldrb r0, [r0, #0x15]
@@ -46874,7 +46874,7 @@ _080A0D30:
 	subs r0, #1
 	movs r1, #0x34
 	muls r0, r1, r0
-	ldr r1, _080A0DD4  @ gUnknown_08803D90
+	ldr r1, _080A0DD4  @ gUnknown_08803D64+0x2C
 	adds r0, r0, r1
 	ldr r0, [r0]
 	ldrb r0, [r0, #0x15]
@@ -46898,7 +46898,7 @@ _080A0DC4: .4byte 0x01000600
 _080A0DC8: .4byte gUnknown_020136F0
 _080A0DCC: .4byte 0x01000010
 _080A0DD0: .4byte 0x00010004
-_080A0DD4: .4byte gUnknown_08803D90
+_080A0DD4: .4byte gUnknown_08803D64+0x2C
 _080A0DD8:
 	add r4, sp, #0x28
 	adds r0, r4, #0
@@ -47073,10 +47073,10 @@ sub_80A0F30: @ 0x080A0F30
 	adds r5, r0, #0
 	movs r6, #0
 	movs r4, #0
-	ldr r7, _080A0F3C  @ gUnknown_08803D90
+	ldr r7, _080A0F3C  @ gUnknown_08803D64+0x2C
 	b _080A0F4C
 	.align 2, 0
-_080A0F3C: .4byte gUnknown_08803D90
+_080A0F3C: .4byte gUnknown_08803D64+0x2C
 _080A0F40:
 	adds r0, r5, #0
 	adds r1, r4, #0
@@ -52028,7 +52028,7 @@ _080A3678:
 	ldrb r0, [r0, #0x15]
 	cmp r3, r0
 	bge _080A36DC
-	ldr r0, _080A36D0  @ gUnknown_08803D90
+	ldr r0, _080A36D0  @ gUnknown_08803D64+0x2C
 	ldr r2, [sp, #0x6c]
 	adds r6, r2, r0
 	ldr r0, [sp, #0x68]
@@ -52056,7 +52056,7 @@ _080A36B8:
 	b _080A36DC
 	.align 2, 0
 _080A36CC: .4byte 0x0000FFFF
-_080A36D0: .4byte gUnknown_08803D90
+_080A36D0: .4byte gUnknown_08803D64+0x2C
 _080A36D4:
 	adds r3, #1
 	ldrb r4, [r4, #0x15]

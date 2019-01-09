@@ -7,8 +7,6 @@
 
 #include "bmunit.h"
 
-extern const s8 gUnknown_0880BB96[]; // Unit drop movement cost table
-
 EWRAM_DATA u8 gUnknown_0202BE44 = 0;
 EWRAM_DATA struct { short x, y; } gUnknown_0202BE48 = {}; // TODO: struct Vec2?
 
@@ -170,11 +168,6 @@ struct Unit* CONST_DATA gUnknown_0859A5D0[0x100] = { // unit lookup
 	[FACTION_PURPLE + 0x04] = gUnknown_0202E36C + 3,
 	[FACTION_PURPLE + 0x05] = gUnknown_0202E36C + 4,
 };
-
-extern const struct ClassData gUnknown_08807164[]; // gClassData
-extern const struct CharacterData gUnknown_08803D64[]; // gCharacterData
-
-extern const s8 gUnknown_0880BC18[]; // Ballista mov cost table
 
 inline struct Unit* GetUnitStruct(int id) {
 	return gUnknown_0859A5D0[id & 0xFF];

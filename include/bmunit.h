@@ -358,6 +358,10 @@ struct BattleUnit {
 	/* 7F */ u8 _u7F;
 };
 
+// TODO: MOVE ELSEWHERE
+extern const struct ClassData gUnknown_08807164[]; // gClassData
+extern const struct CharacterData gUnknown_08803D64[]; // gCharacterData
+
 void ClearUnits(void);
 void ClearUnitStruct(struct Unit* unit);
 // ??? CopyUnitStruct(???);

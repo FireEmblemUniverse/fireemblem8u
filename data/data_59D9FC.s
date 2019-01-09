@@ -5530,23 +5530,11 @@ gUnknown_08803CB0:  @ 0x08803CB0
 
 	.global gUnknown_08803CD0
 gUnknown_08803CD0:  @ 0x08803CD0
-	.incbin "baserom.gba", 0x803CD0, 0x60
-
-	.global gUnknown_08803D30
-gUnknown_08803D30:  @ 0x08803D30
-	.incbin "baserom.gba", 0x803D30, 0x34
+	.incbin "baserom.gba", 0x803CD0, 0x94
 
 	.global gUnknown_08803D64
 gUnknown_08803D64:  @ 0x08803D64
-	.incbin "baserom.gba", 0x803D64, 0x2C
-
-	.global gUnknown_08803D90
-gUnknown_08803D90:  @ 0x08803D90
-	.incbin "baserom.gba", 0x803D90, 0x3380
-
-	.global gUnknown_08807110
-gUnknown_08807110:  @ 0x08807110
-	.incbin "baserom.gba", 0x807110, 0x54
+	.incbin "baserom.gba", 0x803D64, 0x3400
 
 	.global gUnknown_08807164
 gUnknown_08807164:  @ 0x08807164

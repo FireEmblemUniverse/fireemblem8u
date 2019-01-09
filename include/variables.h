@@ -3002,14 +3002,11 @@ extern const u16 gUnknown_085A401C[]; // clouds palette
 // extern ??? gUnknown_08803BD0
 // extern ??? gUnknown_08803CB0
 // extern ??? gUnknown_08803CD0
-// extern ??? gUnknown_08803D30
 // extern ??? gUnknown_08803D64
-// extern ??? gUnknown_08803D90
-// extern ??? gUnknown_08807110
 extern const struct ItemData gItemData[];
 // extern ??? gUnknown_0880B90C
-// extern ??? gUnknown_0880BB96
-// extern ??? gUnknown_0880BC18
+extern const s8 gUnknown_0880BB96[]; // Unit drop movement cost table
+extern const s8 gUnknown_0880BC18[]; // Ballista mov cost table
 // extern ??? gUnknown_0880C479
 // extern ??? gUnknown_0880C4BA
 // extern ??? gUnknown_0880C744
