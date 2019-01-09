@@ -512,6 +512,9 @@ struct Unit* LoadUnit(const struct UnitDefinition* uDef) {
     struct Unit* unit = NULL;
 
     if (uDef->genMonster) {
+        u32 packedItems;
+        u16 item1, item2;
+
         u16 monsterClass = GenerateMonsterClass(uDef->classIndex);
 
         buf = *uDef;
@@ -520,43 +523,41 @@ struct Unit* LoadUnit(const struct UnitDefinition* uDef) {
         buf.classIndex = monsterClass;
         buf.level = GenerateMonsterLevel(uDef->level);
 
-        {
-            u32 packedItems = GenerateMonsterItems(monsterClass);
+        packedItems = GenerateMonsterItems(monsterClass);
 
-            // ew
-            u16 item1 = packedItems >> 16;
-            u16 item2 = packedItems & 0xFFFF;
+        // ew
+        item1 = packedItems >> 16;
+        item2 = packedItems & 0xFFFF;
 
-            buf.items[0] = item1;
-            buf.items[1] = item2;
-            buf.items[2] = 0;
-            buf.items[3] = 0;
+        buf.items[0] = item1;
+        buf.items[1] = item2;
+        buf.items[2] = 0;
+        buf.items[3] = 0;
 
-            if ((GetItemWeaponEffect(item1) == 1) || !item2)
-                buf.itemDrop = FALSE;
-            else
-                buf.itemDrop = TRUE;
+        if ((GetItemWeaponEffect(item1) == 1) || !item2)
+            buf.itemDrop = FALSE;
+        else
+            buf.itemDrop = TRUE;
 
-            if (item1 == ITEM_MONSTER_SHADOWSHT || item1 == ITEM_MONSTER_STONE) {
-                // Add another weapon item if weapon is either Shadowshot or Stone
+        if (item1 == ITEM_MONSTER_SHADOWSHT || item1 == ITEM_MONSTER_STONE) {
+            // Add another weapon item if weapon is either Shadowshot or Stone
 
-                buf.items[2] = buf.items[1];
+            buf.items[2] = buf.items[1];
 
-                switch (monsterClass) {
+            switch (monsterClass) {
 
-                case CLASS_MOGALL:
-                    buf.items[1] = ITEM_MONSTER_EVILEYE;
-                    break;
+            case CLASS_MOGALL:
+                buf.items[1] = ITEM_MONSTER_EVILEYE;
+                break;
 
-                case CLASS_ARCH_MOGALL:
-                    buf.items[1] = ITEM_MONSTER_CRIMSNEYE;
-                    break;
+            case CLASS_ARCH_MOGALL:
+                buf.items[1] = ITEM_MONSTER_CRIMSNEYE;
+                break;
 
-                case CLASS_GORGON:
-                    buf.items[1] = ITEM_MONSTER_DEMONSURG;
+            case CLASS_GORGON:
+                buf.items[1] = ITEM_MONSTER_DEMONSURG;
 
-                } // switch (monsterClass)
-            }
+            } // switch (monsterClass)
         }
 
         if (CanClassWieldWeaponType(monsterClass, ITYPE_BOW) == TRUE) {

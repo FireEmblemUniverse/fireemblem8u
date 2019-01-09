@@ -16,35 +16,33 @@ struct ItemStatBonuses {
 };
 
 struct ItemData {
-    u16 nameTextId; //0
-    u16 descTextId; //2
-    u16 useDescTextId; //4
+    /* 00 */ u16 nameTextId;
+    /* 02 */ u16 descTextId;
+    /* 04 */ u16 useDescTextId;
 
-    u8  number; //6
-    u8  weaponType; //7
+    /* 06 */ u8  number;
+    /* 07 */ u8  weaponType;
 
-    u32 attributes; //8
+    /* 08 */ u32 attributes;
 
-    const struct ItemStatBonuses* pStatBonuses; //c
-    const u8* pEffectiveness; //10
+    /* 0C */ const struct ItemStatBonuses* pStatBonuses;
+    /* 10 */ const u8* pEffectiveness;
 
-    u8  maxUses; //14
+    /* 14 */ u8  maxUses;
 
-    u8  might; //15
-    u8  hit; //16
-    u8  weight; //17
-    u8  crit; //18
+    /* 15 */ u8  might;
+    /* 16 */ u8  hit;
+    /* 17 */ u8  weight;
+    /* 18 */ u8  crit;
 
-    u8 encodedRange; //19
+    /* 19 */ u8 encodedRange;
 
-    u16 costPerUse; //1a
-    u8  weaponRank; //1c
-    u8  iconId; //1d
-    u8  useEffectId; //1e
-    u8  weaponEffectId; //1f
-    u8  weaponExp; //20
-
-    u8  _u21[3]; //21
+    /* 1A */ u16 costPerUse;
+    /* 1C */ u8  weaponRank;
+    /* 1D */ u8  iconId;
+    /* 1E */ u8  useEffectId;
+    /* 1F */ u8  weaponEffectId;
+    /* 20 */ u8  weaponExp;
 };
 
 enum {
