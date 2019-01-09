@@ -1162,7 +1162,7 @@ void RefreshBMapDisplay_FromBattle(void) {
 void BMapDispResume_FromBattleDelayed(void) {
     LoadObjUIGfx();
 
-    MU_Create(&gUnknown_0203A4EC.unit);
+    MU_Create(&gBattleActor.unit);
     MU_SetDefaultFacing_Auto();
 
     Proc_Create(sProc_DelayedBMapDispResume, ROOT_PROC_3);

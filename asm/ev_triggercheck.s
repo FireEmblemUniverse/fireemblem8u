@@ -1150,7 +1150,7 @@ _0808365E:
 	adds r0, r4, #0
 	movs r1, #0
 	bl SetUnitHp
-	ldr r2, _08083704  @ gUnknown_0203A4EC
+	ldr r2, _08083704  @ gBattleActor
 	movs r1, #0xb
 	ldrsb r1, [r2, r1]
 	movs r0, #0xb
@@ -1162,7 +1162,7 @@ _0808365E:
 	movs r2, #0x48
 	bl memcpy
 _080836B2:
-	ldr r2, _08083708  @ gUnknown_0203A56C
+	ldr r2, _08083708  @ gBattleTarget
 	movs r1, #0xb
 	ldrsb r1, [r2, r1]
 	movs r0, #0xb
@@ -1200,8 +1200,8 @@ _080836E2:
 	bl UnitDrop
 	b _08083712
 	.align 2, 0
-_08083704: .4byte gUnknown_0203A4EC
-_08083708: .4byte gUnknown_0203A56C
+_08083704: .4byte gBattleActor
+_08083708: .4byte gBattleTarget
 _0808370C:
 	adds r5, #1
 	cmp r5, #0x3f

@@ -605,7 +605,7 @@ _08035F38:
 sub_8035F40: @ 0x08035F40
 	push {lr}
 	bl MU_EndAll
-	ldr r0, _08035F64  @ gUnknown_0203A4EC
+	ldr r0, _08035F64  @ gBattleActor
 	ldrb r0, [r0, #0x13]
 	lsls r0, r0, #0x18
 	asrs r0, r0, #0x18
@@ -619,7 +619,7 @@ _08035F5E:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_08035F64: .4byte gUnknown_0203A4EC
+_08035F64: .4byte gBattleActor
 _08035F68: .4byte gUnknown_0203A958
 
 	THUMB_FUNC_START sub_8035F6C

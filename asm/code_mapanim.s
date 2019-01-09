@@ -30,7 +30,7 @@ DisplayWpnBrokePopup: @ 0x0807A72C
 	push {r4, r5, r6, lr}
 	adds r6, r0, #0
 	movs r4, #0
-	ldr r5, _0807A768  @ gUnknown_0203A4EC
+	ldr r5, _0807A768  @ gBattleActor
 	adds r0, r5, #0
 	bl BattleUnit_ShouldDisplayWpnBroke
 	lsls r0, r0, #0x18
@@ -38,7 +38,7 @@ DisplayWpnBrokePopup: @ 0x0807A72C
 	beq _0807A742
 	adds r4, r5, #0
 _0807A742:
-	ldr r5, _0807A76C  @ gUnknown_0203A56C
+	ldr r5, _0807A76C  @ gBattleTarget
 	adds r0, r5, #0
 	bl BattleUnit_ShouldDisplayWpnBroke
 	lsls r0, r0, #0x18
@@ -58,8 +58,8 @@ _0807A762:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_0807A768: .4byte gUnknown_0203A4EC
-_0807A76C: .4byte gUnknown_0203A56C
+_0807A768: .4byte gBattleActor
+_0807A76C: .4byte gBattleTarget
 
 	THUMB_FUNC_START BattleUnit_ShouldDisplayWpnBroke
 BattleUnit_ShouldDisplayWpnBroke: @ 0x0807A770
@@ -87,7 +87,7 @@ DisplayWRankUpPopup: @ 0x0807A794
 	push {r4, r5, r6, lr}
 	adds r6, r0, #0
 	movs r4, #0
-	ldr r5, _0807A7D0  @ gUnknown_0203A4EC
+	ldr r5, _0807A7D0  @ gBattleActor
 	adds r0, r5, #0
 	bl BattleUnit_ShouldDisplayWRankUp
 	lsls r0, r0, #0x18
@@ -95,7 +95,7 @@ DisplayWRankUpPopup: @ 0x0807A794
 	beq _0807A7AA
 	adds r4, r5, #0
 _0807A7AA:
-	ldr r5, _0807A7D4  @ gUnknown_0203A56C
+	ldr r5, _0807A7D4  @ gBattleTarget
 	adds r0, r5, #0
 	bl BattleUnit_ShouldDisplayWRankUp
 	lsls r0, r0, #0x18
@@ -115,8 +115,8 @@ _0807A7CA:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_0807A7D0: .4byte gUnknown_0203A4EC
-_0807A7D4: .4byte gUnknown_0203A56C
+_0807A7D0: .4byte gBattleActor
+_0807A7D4: .4byte gBattleTarget
 
 	THUMB_FUNC_START BattleUnit_ShouldDisplayWRankUp
 BattleUnit_ShouldDisplayWRankUp: @ 0x0807A7D8
@@ -1112,7 +1112,7 @@ _0807AF02:
 	adds r5, r0, #0
 	cmp r5, #0
 	bne _0807AF48
-	ldr r4, _0807AF90  @ gUnknown_0203A4EC
+	ldr r4, _0807AF90  @ gBattleActor
 	mov r0, sp
 	adds r1, r4, #0
 	movs r2, #0x80
@@ -1160,7 +1160,7 @@ _0807AF58:
 	b _0807AFBE
 	.align 2, 0
 _0807AF8C: .4byte gUnknown_03001C48
-_0807AF90: .4byte gUnknown_0203A4EC
+_0807AF90: .4byte gBattleActor
 _0807AF94: .4byte gUnknown_03001C38
 _0807AF98: .4byte gActiveUnit
 _0807AF9C:
@@ -1386,7 +1386,7 @@ _0807B11E:
 	ldr r0, [r0]
 	adds r0, r0, r1
 	ldrb r1, [r0]
-	ldr r0, _0807B1A8  @ gUnknown_0203A4EC
+	ldr r0, _0807B1A8  @ gBattleActor
 	str r3, [sp, #0x70]
 	bl CanUnitCrossTerrain
 	ldr r3, [sp, #0x70]
@@ -1446,7 +1446,7 @@ _0807B198: .4byte gUnknown_0202E4D8
 _0807B19C: .4byte gUnknown_0202BCF0
 _0807B1A0: .4byte gUnknown_0202E4E8
 _0807B1A4: .4byte gUnknown_0202E4DC
-_0807B1A8: .4byte gUnknown_0203A4EC
+_0807B1A8: .4byte gBattleActor
 _0807B1AC:
 	movs r0, #1
 	negs r0, r0
@@ -1523,7 +1523,7 @@ _0807B22C:
 	THUMB_FUNC_START sub_807B234
 sub_807B234: @ 0x0807B234
 	push {lr}
-	ldr r2, _0807B250  @ gUnknown_0203A4EC
+	ldr r2, _0807B250  @ gBattleActor
 	movs r1, #0x10
 	ldrsb r1, [r2, r1]
 	ldrb r2, [r2, #0x11]
@@ -1535,12 +1535,12 @@ sub_807B234: @ 0x0807B234
 	pop {r0}
 	bx r0
 	.align 2, 0
-_0807B250: .4byte gUnknown_0203A4EC
+_0807B250: .4byte gBattleActor
 
 	THUMB_FUNC_START sub_807B254
 sub_807B254: @ 0x0807B254
 	push {lr}
-	ldr r2, _0807B270  @ gUnknown_0203A4EC
+	ldr r2, _0807B270  @ gBattleActor
 	ldrb r1, [r2, #0x10]
 	adds r1, #4
 	lsls r1, r1, #0x18
@@ -1553,12 +1553,12 @@ sub_807B254: @ 0x0807B254
 	pop {r0}
 	bx r0
 	.align 2, 0
-_0807B270: .4byte gUnknown_0203A4EC
+_0807B270: .4byte gBattleActor
 
 	THUMB_FUNC_START sub_807B274
 sub_807B274: @ 0x0807B274
 	push {lr}
-	ldr r2, _0807B290  @ gUnknown_0203A4EC
+	ldr r2, _0807B290  @ gBattleActor
 	ldrb r1, [r2, #0x10]
 	subs r1, #4
 	lsls r1, r1, #0x18
@@ -1571,12 +1571,12 @@ sub_807B274: @ 0x0807B274
 	pop {r0}
 	bx r0
 	.align 2, 0
-_0807B290: .4byte gUnknown_0203A4EC
+_0807B290: .4byte gBattleActor
 
 	THUMB_FUNC_START sub_807B294
 sub_807B294: @ 0x0807B294
 	push {lr}
-	ldr r2, _0807B2B0  @ gUnknown_0203A4EC
+	ldr r2, _0807B2B0  @ gBattleActor
 	movs r1, #0x10
 	ldrsb r1, [r2, r1]
 	ldrb r2, [r2, #0x11]
@@ -1588,7 +1588,7 @@ sub_807B294: @ 0x0807B294
 	pop {r0}
 	bx r0
 	.align 2, 0
-_0807B2B0: .4byte gUnknown_0203A4EC
+_0807B2B0: .4byte gBattleActor
 
 	THUMB_FUNC_START sub_807B2B4
 sub_807B2B4: @ 0x0807B2B4
@@ -2011,7 +2011,7 @@ _0807B5D8: .4byte gUnknown_08205714
 	THUMB_FUNC_START sub_807B5DC
 sub_807B5DC: @ 0x0807B5DC
 	push {r4, r5, lr}
-	ldr r5, _0807B620  @ gUnknown_0203A4EC
+	ldr r5, _0807B620  @ gBattleActor
 	adds r2, r5, #0
 	adds r2, #0x4a
 	movs r1, #0
@@ -2030,7 +2030,7 @@ sub_807B5DC: @ 0x0807B5DC
 	ldr r4, _0807B628  @ gUnknown_0203A5EC
 	str r4, [r2, #0x50]
 	bl MapAnim_AdvanceBattleRound
-	ldr r1, _0807B62C  @ gUnknown_0203A56C
+	ldr r1, _0807B62C  @ gBattleTarget
 	adds r0, r5, #0
 	adds r2, r4, #0
 	bl SetupMapBattleAnim
@@ -2041,16 +2041,16 @@ sub_807B5DC: @ 0x0807B5DC
 	pop {r0}
 	bx r0
 	.align 2, 0
-_0807B620: .4byte gUnknown_0203A4EC
+_0807B620: .4byte gBattleActor
 _0807B624: .4byte gUnknown_0203E1F0
 _0807B628: .4byte gUnknown_0203A5EC
-_0807B62C: .4byte gUnknown_0203A56C
+_0807B62C: .4byte gBattleTarget
 _0807B630: .4byte gUnknown_089A31F8
 
 	THUMB_FUNC_START sub_807B634
 sub_807B634: @ 0x0807B634
 	push {r4, r5, lr}
-	ldr r5, _0807B678  @ gUnknown_0203A4EC
+	ldr r5, _0807B678  @ gBattleActor
 	adds r2, r5, #0
 	adds r2, #0x4a
 	movs r1, #0
@@ -2069,7 +2069,7 @@ sub_807B634: @ 0x0807B634
 	ldr r4, _0807B680  @ gUnknown_0203A5EC
 	str r4, [r2, #0x50]
 	bl MapAnim_AdvanceBattleRound
-	ldr r1, _0807B684  @ gUnknown_0203A56C
+	ldr r1, _0807B684  @ gBattleTarget
 	adds r0, r5, #0
 	adds r2, r4, #0
 	bl SetupMapBattleAnim
@@ -2080,16 +2080,16 @@ sub_807B634: @ 0x0807B634
 	pop {r0}
 	bx r0
 	.align 2, 0
-_0807B678: .4byte gUnknown_0203A4EC
+_0807B678: .4byte gBattleActor
 _0807B67C: .4byte gUnknown_0203E1F0
 _0807B680: .4byte gUnknown_0203A5EC
-_0807B684: .4byte gUnknown_0203A56C
+_0807B684: .4byte gBattleTarget
 _0807B688: .4byte gUnknown_089A3238
 
 	THUMB_FUNC_START sub_807B68C
 sub_807B68C: @ 0x0807B68C
 	push {r4, r5, lr}
-	ldr r5, _0807B6D0  @ gUnknown_0203A4EC
+	ldr r5, _0807B6D0  @ gBattleActor
 	adds r2, r5, #0
 	adds r2, #0x4a
 	movs r1, #0
@@ -2108,7 +2108,7 @@ sub_807B68C: @ 0x0807B68C
 	ldr r4, _0807B6D8  @ gUnknown_0203A5EC
 	str r4, [r2, #0x50]
 	bl MapAnim_AdvanceBattleRound
-	ldr r1, _0807B6DC  @ gUnknown_0203A56C
+	ldr r1, _0807B6DC  @ gBattleTarget
 	adds r0, r5, #0
 	adds r2, r4, #0
 	bl SetupMapBattleAnim
@@ -2119,16 +2119,16 @@ sub_807B68C: @ 0x0807B68C
 	pop {r0}
 	bx r0
 	.align 2, 0
-_0807B6D0: .4byte gUnknown_0203A4EC
+_0807B6D0: .4byte gBattleActor
 _0807B6D4: .4byte gUnknown_0203E1F0
 _0807B6D8: .4byte gUnknown_0203A5EC
-_0807B6DC: .4byte gUnknown_0203A56C
+_0807B6DC: .4byte gBattleTarget
 _0807B6E0: .4byte gUnknown_089A3288
 
 	THUMB_FUNC_START BeginMapAnimForSteal
 BeginMapAnimForSteal: @ 0x0807B6E4
 	push {r4, lr}
-	ldr r0, _0807B72C  @ gUnknown_0203A4EC
+	ldr r0, _0807B72C  @ gBattleActor
 	adds r4, r0, #0
 	adds r4, #0x4a
 	movs r2, #0
@@ -2151,7 +2151,7 @@ BeginMapAnimForSteal: @ 0x0807B6E4
 	strb r2, [r1]
 	adds r1, #1
 	strb r3, [r1]
-	ldr r1, _0807B734  @ gUnknown_0203A56C
+	ldr r1, _0807B734  @ gBattleTarget
 	ldr r2, _0807B738  @ gUnknown_0203A5EC
 	bl SetupMapBattleAnim
 	ldr r0, _0807B73C  @ gUnknown_089A32C8
@@ -2161,16 +2161,16 @@ BeginMapAnimForSteal: @ 0x0807B6E4
 	pop {r0}
 	bx r0
 	.align 2, 0
-_0807B72C: .4byte gUnknown_0203A4EC
+_0807B72C: .4byte gBattleActor
 _0807B730: .4byte gUnknown_0203E1F0
-_0807B734: .4byte gUnknown_0203A56C
+_0807B734: .4byte gBattleTarget
 _0807B738: .4byte gUnknown_0203A5EC
 _0807B73C: .4byte gUnknown_089A32C8
 
 	THUMB_FUNC_START BeginMapAnimForSummon
 BeginMapAnimForSummon: @ 0x0807B740
 	push {lr}
-	ldr r0, _0807B784  @ gUnknown_0203A4EC
+	ldr r0, _0807B784  @ gBattleActor
 	adds r2, r0, #0
 	adds r2, #0x4a
 	movs r3, #0
@@ -2192,7 +2192,7 @@ BeginMapAnimForSummon: @ 0x0807B740
 	strb r3, [r1]
 	adds r1, #1
 	strb r2, [r1]
-	ldr r1, _0807B78C  @ gUnknown_0203A56C
+	ldr r1, _0807B78C  @ gBattleTarget
 	ldr r2, _0807B790  @ gUnknown_0203A5EC
 	bl SetupMapBattleAnim
 	ldr r0, _0807B794  @ gUnknown_089A3398
@@ -2201,16 +2201,16 @@ BeginMapAnimForSummon: @ 0x0807B740
 	pop {r0}
 	bx r0
 	.align 2, 0
-_0807B784: .4byte gUnknown_0203A4EC
+_0807B784: .4byte gBattleActor
 _0807B788: .4byte gUnknown_0203E1F0
-_0807B78C: .4byte gUnknown_0203A56C
+_0807B78C: .4byte gBattleTarget
 _0807B790: .4byte gUnknown_0203A5EC
 _0807B794: .4byte gUnknown_089A3398
 
 	THUMB_FUNC_START BeginMapAnimForSummonDK
 BeginMapAnimForSummonDK: @ 0x0807B798
 	push {lr}
-	ldr r0, _0807B7DC  @ gUnknown_0203A4EC
+	ldr r0, _0807B7DC  @ gBattleActor
 	adds r2, r0, #0
 	adds r2, #0x4a
 	movs r3, #0
@@ -2232,7 +2232,7 @@ BeginMapAnimForSummonDK: @ 0x0807B798
 	strb r3, [r1]
 	adds r1, #1
 	strb r2, [r1]
-	ldr r1, _0807B7E4  @ gUnknown_0203A56C
+	ldr r1, _0807B7E4  @ gBattleTarget
 	ldr r2, _0807B7E8  @ gUnknown_0203A5EC
 	bl SetupMapBattleAnim
 	ldr r0, _0807B7EC  @ gUnknown_089A33C0
@@ -2241,16 +2241,16 @@ BeginMapAnimForSummonDK: @ 0x0807B798
 	pop {r0}
 	bx r0
 	.align 2, 0
-_0807B7DC: .4byte gUnknown_0203A4EC
+_0807B7DC: .4byte gBattleActor
 _0807B7E0: .4byte gUnknown_0203E1F0
-_0807B7E4: .4byte gUnknown_0203A56C
+_0807B7E4: .4byte gBattleTarget
 _0807B7E8: .4byte gUnknown_0203A5EC
 _0807B7EC: .4byte gUnknown_089A33C0
 
 	THUMB_FUNC_START sub_807B7F0
 sub_807B7F0: @ 0x0807B7F0
 	push {r4, lr}
-	ldr r0, _0807B840  @ gUnknown_0203A4EC
+	ldr r0, _0807B840  @ gBattleActor
 	adds r3, r0, #0
 	adds r3, #0x4a
 	movs r2, #0
@@ -2277,7 +2277,7 @@ sub_807B7F0: @ 0x0807B7F0
 	strb r2, [r1]
 	adds r1, #1
 	strb r2, [r1]
-	ldr r1, _0807B848  @ gUnknown_0203A56C
+	ldr r1, _0807B848  @ gBattleTarget
 	ldr r2, _0807B84C  @ gUnknown_0203A5EC
 	bl SetupMapBattleAnim
 	ldr r0, _0807B850  @ gUnknown_089A34B0
@@ -2287,9 +2287,9 @@ sub_807B7F0: @ 0x0807B7F0
 	pop {r0}
 	bx r0
 	.align 2, 0
-_0807B840: .4byte gUnknown_0203A4EC
+_0807B840: .4byte gBattleActor
 _0807B844: .4byte gUnknown_0203E1F0
-_0807B848: .4byte gUnknown_0203A56C
+_0807B848: .4byte gBattleTarget
 _0807B84C: .4byte gUnknown_0203A5EC
 _0807B850: .4byte gUnknown_089A34B0
 
@@ -2314,8 +2314,8 @@ _0807B870:
 	strb r1, [r2]
 	adds r0, #0x62
 	strb r1, [r0]
-	ldr r4, _0807B8B0  @ gUnknown_0203A4EC
-	ldr r5, _0807B8B4  @ gUnknown_0203A56C
+	ldr r4, _0807B8B0  @ gBattleActor
+	ldr r5, _0807B8B4  @ gBattleTarget
 	ldr r6, _0807B8B8  @ gUnknown_0203A5EC
 	adds r0, r4, #0
 	adds r1, r5, #0
@@ -2335,8 +2335,8 @@ _0807B870:
 	b _0807B8C8
 	.align 2, 0
 _0807B8AC: .4byte gUnknown_0203E1F0
-_0807B8B0: .4byte gUnknown_0203A4EC
-_0807B8B4: .4byte gUnknown_0203A56C
+_0807B8B0: .4byte gBattleActor
+_0807B8B4: .4byte gBattleTarget
 _0807B8B8: .4byte gUnknown_0203A5EC
 _0807B8BC: .4byte gUnknown_089A3508
 _0807B8C0:
@@ -2389,7 +2389,7 @@ SetupMapBattleAnim: @ 0x0807B900
 	ldrb r0, [r6]
 	cmp r0, #1
 	bls _0807B930
-	ldr r0, _0807B9AC  @ gUnknown_0203A56C
+	ldr r0, _0807B9AC  @ gBattleTarget
 	bl HideUnitSMS
 	movs r0, #1
 	adds r1, r4, #0
@@ -2453,7 +2453,7 @@ _0807B998:
 	bx r0
 	.align 2, 0
 _0807B9A8: .4byte gUnknown_0203E1F0
-_0807B9AC: .4byte gUnknown_0203A56C
+_0807B9AC: .4byte gBattleTarget
 _0807B9B0: .4byte gUnknown_0203A5EC
 _0807B9B4: .4byte gUnknown_0203A4D4
 
@@ -4404,10 +4404,10 @@ _0807C8F8: .4byte gUnknown_089A3810
 sub_807C8FC: @ 0x0807C8FC
 	push {r4, r5, r6, r7, lr}
 	ldr r5, _0807C920  @ gUnknown_0203A5EC
-	ldr r0, _0807C924  @ gUnknown_0203A4EC
+	ldr r0, _0807C924  @ gBattleActor
 	movs r1, #0
 	bl sub_807C8A0
-	ldr r0, _0807C928  @ gUnknown_0203A56C
+	ldr r0, _0807C928  @ gBattleTarget
 	movs r1, #1
 	bl sub_807C8A0
 	bl ClearRounds
@@ -4418,8 +4418,8 @@ sub_807C8FC: @ 0x0807C8FC
 	b _0807C934
 	.align 2, 0
 _0807C920: .4byte gUnknown_0203A5EC
-_0807C924: .4byte gUnknown_0203A4EC
-_0807C928: .4byte gUnknown_0203A56C
+_0807C924: .4byte gBattleActor
+_0807C928: .4byte gBattleTarget
 _0807C92C: .4byte gUnknown_089A3810
 _0807C930:
 	adds r2, #2
@@ -14081,7 +14081,7 @@ _080815E8: .4byte gUnknown_0203E1F0
 sub_80815EC: @ 0x080815EC
 	push {r4, lr}
 	ldr r2, _08081614  @ gUnknown_0203E1F0
-	ldr r1, _08081618  @ gUnknown_0203A56C
+	ldr r1, _08081618  @ gBattleTarget
 	adds r3, r1, #0
 	adds r3, #0x73
 	ldrb r3, [r3]
@@ -14100,7 +14100,7 @@ sub_80815EC: @ 0x080815EC
 	bx r0
 	.align 2, 0
 _08081614: .4byte gUnknown_0203E1F0
-_08081618: .4byte gUnknown_0203A56C
+_08081618: .4byte gBattleTarget
 
 	THUMB_FUNC_START MapAnim_BeginRoundSpecificAnims
 MapAnim_BeginRoundSpecificAnims: @ 0x0808161C
@@ -14809,7 +14809,7 @@ sub_8081B70: @ 0x08081B70
 	bl m4aSongNumStart
 _08081B84:
 	ldr r3, _08081BC4  @ gUnknown_0203E1F0
-	ldr r1, _08081BC8  @ gUnknown_0203A56C
+	ldr r1, _08081BC8  @ gBattleTarget
 	adds r0, r1, #0
 	adds r0, #0x73
 	ldrb r2, [r0]
@@ -14839,7 +14839,7 @@ _08081B84:
 	.align 2, 0
 _08081BC0: .4byte gUnknown_0202BCF0
 _08081BC4: .4byte gUnknown_0203E1F0
-_08081BC8: .4byte gUnknown_0203A56C
+_08081BC8: .4byte gBattleTarget
 
 	THUMB_FUNC_START sub_8081BCC
 sub_8081BCC: @ 0x08081BCC

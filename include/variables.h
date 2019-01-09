@@ -552,8 +552,8 @@ extern u8** gUnknown_0202E4F0; // gMapOther
 // extern ??? gUnknown_0203A4CC
 // extern ??? gUnknown_0203A4D0
 // extern ??? gUnknown_0203A4D4
-extern struct BattleUnit gUnknown_0203A4EC;
-// extern ??? gUnknown_0203A56C
+extern struct BattleUnit gBattleActor;
+// extern ??? gBattleTarget
 // extern ??? gUnknown_0203A5EC
 // extern ??? gUnknown_0203A608
 // extern ??? gUnknown_0203A60C

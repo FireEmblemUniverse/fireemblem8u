@@ -18005,7 +18005,7 @@ sub_804A6A4: @ 0x0804A6A4
 	mov r2, r8
 	adds r2, #0x30
 	adds r3, r0, r2
-	ldr r1, _0804A798  @ gUnknown_0203A4EC
+	ldr r1, _0804A798  @ gBattleActor
 	mov r9, r1
 	adds r1, #0x6e
 	ldrb r1, [r1]
@@ -18020,7 +18020,7 @@ sub_804A6A4: @ 0x0804A6A4
 	lsrs r0, r5, #6
 	lsls r0, r0, #3
 	adds r2, r0, r2
-	ldr r4, _0804A79C  @ gUnknown_0203A56C
+	ldr r4, _0804A79C  @ gBattleTarget
 	adds r1, r4, #0
 	adds r1, #0x6e
 	ldrb r1, [r1]
@@ -18085,8 +18085,8 @@ _0804A750:
 	.align 2, 0
 _0804A790: .4byte gUnknown_03001818
 _0804A794: .4byte gUnknown_0203DD90
-_0804A798: .4byte gUnknown_0203A4EC
-_0804A79C: .4byte gUnknown_0203A56C
+_0804A798: .4byte gBattleActor
+_0804A79C: .4byte gBattleTarget
 _0804A7A0:
 	ldr r1, _0804A7BC  @ gUnknown_0203DD90
 	movs r0, #0
@@ -20232,7 +20232,7 @@ _0804B84C: .4byte gUnknown_0203A4D4
 sub_804B850: @ 0x0804B850
 	push {r4, r5, r6, r7, lr}
 	adds r7, r0, #0
-	ldr r6, _0804B8C0  @ gUnknown_0203A4EC
+	ldr r6, _0804B8C0  @ gBattleActor
 	movs r0, #0x13
 	ldrsb r0, [r6, r0]
 	cmp r0, #0
@@ -20243,7 +20243,7 @@ sub_804B850: @ 0x0804B850
 	bl sub_804BF4C
 	str r4, [r7, #0x54]
 _0804B86C:
-	ldr r5, _0804B8C8  @ gUnknown_0203A56C
+	ldr r5, _0804B8C8  @ gBattleTarget
 	movs r0, #0x13
 	ldrsb r0, [r5, r0]
 	cmp r0, #0
@@ -20279,21 +20279,21 @@ _0804B8B8:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_0804B8C0: .4byte gUnknown_0203A4EC
+_0804B8C0: .4byte gBattleActor
 _0804B8C4: .4byte gProcScr_MoveUnit
-_0804B8C8: .4byte gUnknown_0203A56C
+_0804B8C8: .4byte gBattleTarget
 _0804B8CC: .4byte gUnknown_02033EFC
 
 	THUMB_FUNC_START sub_804B8D0
 sub_804B8D0: @ 0x0804B8D0
 	push {r4, r5, lr}
-	ldr r0, _0804B918  @ gUnknown_0203A4EC
+	ldr r0, _0804B918  @ gBattleActor
 	ldrb r0, [r0, #0xb]
 	lsls r0, r0, #0x18
 	asrs r0, r0, #0x18
 	bl GetUnit
 	adds r4, r0, #0
-	ldr r0, _0804B91C  @ gUnknown_0203A56C
+	ldr r0, _0804B91C  @ gBattleTarget
 	ldrb r0, [r0, #0xb]
 	lsls r0, r0, #0x18
 	asrs r0, r0, #0x18
@@ -20321,8 +20321,8 @@ _0804B912:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_0804B918: .4byte gUnknown_0203A4EC
-_0804B91C: .4byte gUnknown_0203A56C
+_0804B918: .4byte gBattleActor
+_0804B91C: .4byte gBattleTarget
 
 	THUMB_FUNC_START sub_804B920
 sub_804B920: @ 0x0804B920

@@ -598,7 +598,7 @@ PrepareBalancedArenaFight: @ 0x08031C10
 	ldr r4, _08031C38  @ gUnknown_0203A8F0
 	ldr r0, [r4]
 	bl GetUnitPower
-	ldr r5, _08031C3C  @ gUnknown_0203A4EC
+	ldr r5, _08031C3C  @ gBattleActor
 	adds r0, #5
 	adds r1, r5, #0
 	adds r1, #0x5a
@@ -612,7 +612,7 @@ PrepareBalancedArenaFight: @ 0x08031C10
 	b _08031C46
 	.align 2, 0
 _08031C38: .4byte gUnknown_0203A8F0
-_08031C3C: .4byte gUnknown_0203A4EC
+_08031C3C: .4byte gBattleActor
 _08031C40:
 	ldr r0, [r4]
 	bl GetUnitDefense
@@ -623,7 +623,7 @@ _08031C46:
 	ldr r4, _08031C70  @ gUnknown_0203A8F0
 	ldr r0, [r4, #4]
 	bl GetUnitPower
-	ldr r5, _08031C74  @ gUnknown_0203A56C
+	ldr r5, _08031C74  @ gBattleTarget
 	adds r0, #5
 	adds r1, r5, #0
 	adds r1, #0x5a
@@ -637,7 +637,7 @@ _08031C46:
 	b _08031C7E
 	.align 2, 0
 _08031C70: .4byte gUnknown_0203A8F0
-_08031C74: .4byte gUnknown_0203A56C
+_08031C74: .4byte gBattleTarget
 _08031C78:
 	ldr r0, [r4, #4]
 	bl GetUnitDefense
@@ -645,11 +645,11 @@ _08031C7E:
 	adds r1, r5, #0
 	adds r1, #0x5c
 	strh r0, [r1]
-	ldr r0, _08031CCC  @ gUnknown_0203A4EC
+	ldr r0, _08031CCC  @ gBattleActor
 	adds r0, #0x5a
 	movs r1, #0
 	ldrsh r4, [r0, r1]
-	ldr r0, _08031CD0  @ gUnknown_0203A56C
+	ldr r0, _08031CD0  @ gBattleTarget
 	adds r0, #0x5c
 	movs r1, #0
 	ldrsh r0, [r0, r1]
@@ -679,8 +679,8 @@ _08031C7E:
 	strb r0, [r1, #0x18]
 	b _08031CEC
 	.align 2, 0
-_08031CCC: .4byte gUnknown_0203A4EC
-_08031CD0: .4byte gUnknown_0203A56C
+_08031CCC: .4byte gBattleActor
+_08031CD0: .4byte gBattleTarget
 _08031CD4: .4byte gUnknown_0203A8F0
 _08031CD8:
 	ldr r0, [r5, #4]
@@ -704,11 +704,11 @@ _08031CEC:
 	adds r0, #1
 	strb r0, [r1, #0x15]
 _08031CFE:
-	ldr r0, _08031D50  @ gUnknown_0203A56C
+	ldr r0, _08031D50  @ gBattleTarget
 	adds r0, #0x5a
 	movs r1, #0
 	ldrsh r4, [r0, r1]
-	ldr r0, _08031D54  @ gUnknown_0203A4EC
+	ldr r0, _08031D54  @ gBattleActor
 	adds r0, #0x5c
 	movs r1, #0
 	ldrsh r0, [r0, r1]
@@ -743,8 +743,8 @@ _08031D44:
 	bx r1
 	.align 2, 0
 _08031D4C: .4byte gUnknown_0203A8F0
-_08031D50: .4byte gUnknown_0203A56C
-_08031D54: .4byte gUnknown_0203A4EC
+_08031D50: .4byte gBattleTarget
+_08031D54: .4byte gBattleActor
 
 	THUMB_FUNC_START AdjustArenaOpponentPower
 AdjustArenaOpponentPower: @ 0x08031D58
@@ -986,7 +986,7 @@ sub_8031EF0: @ 0x08031EF0
 	adds r0, #0x3c
 	ldrb r5, [r0]
 	ldr r1, _08031F40  @ gUnknown_0203A958
-	ldr r4, _08031F44  @ gUnknown_0203A56C
+	ldr r4, _08031F44  @ gBattleTarget
 	ldrb r0, [r4, #0x13]
 	strb r0, [r1, #0x15]
 	movs r0, #4
@@ -1002,7 +1002,7 @@ sub_8031EF0: @ 0x08031EF0
 _08031F1A:
 	ldr r0, _08031F48  @ gUnknown_0203A8F0
 	ldr r0, [r0]
-	ldr r1, _08031F4C  @ gUnknown_0203A4EC
+	ldr r1, _08031F4C  @ gBattleActor
 	bl sub_802C2D4
 	cmp r5, #0
 	beq _08031F30
@@ -1019,9 +1019,9 @@ _08031F34:
 	.align 2, 0
 _08031F3C: .4byte gUnknown_0202BCB0
 _08031F40: .4byte gUnknown_0203A958
-_08031F44: .4byte gUnknown_0203A56C
+_08031F44: .4byte gBattleTarget
 _08031F48: .4byte gUnknown_0203A8F0
-_08031F4C: .4byte gUnknown_0203A4EC
+_08031F4C: .4byte gBattleActor
 
 	THUMB_FUNC_START sub_8031F50
 sub_8031F50: @ 0x08031F50

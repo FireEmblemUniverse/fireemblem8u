@@ -472,7 +472,7 @@ sub_8035804: @ 0x08035804
 	movs r1, #1
 	negs r1, r1
 	bl sub_802CB24
-	ldr r5, _08035844  @ gUnknown_0203A4EC
+	ldr r5, _08035844  @ gBattleActor
 	adds r0, r5, #0
 	adds r0, #0x48
 	movs r1, #0x6c
@@ -496,7 +496,7 @@ sub_8035804: @ 0x08035804
 	pop {r0}
 	bx r0
 	.align 2, 0
-_08035844: .4byte gUnknown_0203A4EC
+_08035844: .4byte gBattleActor
 _08035848: .4byte gUnknown_0203A608
 
 	THUMB_FUNC_START sub_803584C
@@ -507,7 +507,7 @@ sub_803584C: @ 0x0803584C
 	movs r1, #1
 	negs r1, r1
 	bl sub_802CB24
-	ldr r5, _080358B8  @ gUnknown_0203A4EC
+	ldr r5, _080358B8  @ gBattleActor
 	negs r4, r4
 	adds r0, r5, #0
 	adds r1, r4, #0
@@ -552,7 +552,7 @@ _080358A2:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_080358B8: .4byte gUnknown_0203A4EC
+_080358B8: .4byte gBattleActor
 _080358BC: .4byte gUnknown_0203A608
 
 	THUMB_FUNC_START sub_80358C0
@@ -562,7 +562,7 @@ sub_80358C0: @ 0x080358C0
 	movs r1, #1
 	negs r1, r1
 	bl sub_802CB24
-	ldr r5, _08035924  @ gUnknown_0203A4EC
+	ldr r5, _08035924  @ gBattleActor
 	negs r4, r4
 	adds r0, r5, #0
 	adds r1, r4, #0
@@ -605,7 +605,7 @@ _08035914:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_08035924: .4byte gUnknown_0203A4EC
+_08035924: .4byte gBattleActor
 _08035928: .4byte gUnknown_0203A608
 
 	THUMB_FUNC_START sub_803592C
@@ -616,7 +616,7 @@ sub_803592C: @ 0x0803592C
 	movs r1, #1
 	negs r1, r1
 	bl sub_802CB24
-	ldr r5, _080359A8  @ gUnknown_0203A4EC
+	ldr r5, _080359A8  @ gBattleActor
 	negs r4, r4
 	adds r0, r5, #0
 	adds r1, r4, #0
@@ -669,7 +669,7 @@ _08035992:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_080359A8: .4byte gUnknown_0203A4EC
+_080359A8: .4byte gBattleActor
 _080359AC: .4byte gUnknown_0203A608
 _080359B0: .4byte 0xFFF80000
 

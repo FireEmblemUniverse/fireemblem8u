@@ -14376,11 +14376,11 @@ _08057072:
 	cmp r0, #4
 	bne _080570C0
 	ldr r1, _080570A8  @ gUnknown_0203E188
-	ldr r0, _080570AC  @ gUnknown_0203A4EC
+	ldr r0, _080570AC  @ gBattleActor
 	str r0, [r1]
 	str r0, [sp, #8]
 	ldr r1, _080570B0  @ gUnknown_0203E18C
-	ldr r0, _080570B4  @ gUnknown_0203A56C
+	ldr r0, _080570B4  @ gBattleTarget
 	str r0, [r1]
 	str r0, [sp, #0xc]
 	ldr r1, _080570B8  @ gUnknown_0203E108
@@ -14397,13 +14397,13 @@ _08057072:
 	.align 2, 0
 _080570A4: .4byte gUnknown_0203E120
 _080570A8: .4byte gUnknown_0203E188
-_080570AC: .4byte gUnknown_0203A4EC
+_080570AC: .4byte gBattleActor
 _080570B0: .4byte gUnknown_0203E18C
-_080570B4: .4byte gUnknown_0203A56C
+_080570B4: .4byte gBattleTarget
 _080570B8: .4byte gUnknown_0203E108
 _080570BC: .4byte gUnknown_0203E104
 _080570C0:
-	ldr r5, _080570F8  @ gUnknown_0203A4EC
+	ldr r5, _080570F8  @ gBattleActor
 	ldrb r1, [r5, #0xb]
 	movs r4, #0x40
 	negs r4, r4
@@ -14412,7 +14412,7 @@ _080570C0:
 	bl GetAllegienceId
 	lsls r0, r0, #0x10
 	lsrs r7, r0, #0x10
-	ldr r0, _080570FC  @ gUnknown_0203A56C
+	ldr r0, _080570FC  @ gBattleTarget
 	ldrb r0, [r0, #0xb]
 	ands r4, r0
 	adds r0, r4, #0
@@ -14429,8 +14429,8 @@ _080570C0:
 	str r3, [sp, #0x20]
 	b _08057128
 	.align 2, 0
-_080570F8: .4byte gUnknown_0203A4EC
-_080570FC: .4byte gUnknown_0203A56C
+_080570F8: .4byte gBattleActor
+_080570FC: .4byte gBattleTarget
 _08057100: .4byte gUnknown_0203A4D4
 _08057104:
 	adds r1, r5, #0
@@ -14476,11 +14476,11 @@ _08057150:
 	cmp r2, #1
 	bne _0805719C
 	ldr r1, _08057184  @ gUnknown_0203E188
-	ldr r0, _08057188  @ gUnknown_0203A56C
+	ldr r0, _08057188  @ gBattleTarget
 	str r0, [r1]
 	str r0, [sp, #8]
 	ldr r1, _0805718C  @ gUnknown_0203E18C
-	ldr r0, _08057190  @ gUnknown_0203A4EC
+	ldr r0, _08057190  @ gBattleActor
 	str r0, [r1]
 	str r0, [sp, #0xc]
 	ldr r0, _08057194  @ gUnknown_0203E108
@@ -14499,18 +14499,18 @@ _08057150:
 	.align 2, 0
 _08057180: .4byte gUnknown_0203E104
 _08057184: .4byte gUnknown_0203E188
-_08057188: .4byte gUnknown_0203A56C
+_08057188: .4byte gBattleTarget
 _0805718C: .4byte gUnknown_0203E18C
-_08057190: .4byte gUnknown_0203A4EC
+_08057190: .4byte gBattleActor
 _08057194: .4byte gUnknown_0203E108
 _08057198: .4byte gUnknown_0203E120
 _0805719C:
 	ldr r1, _08057284  @ gUnknown_0203E188
-	ldr r0, _08057288  @ gUnknown_0203A4EC
+	ldr r0, _08057288  @ gBattleActor
 	str r0, [r1]
 	str r0, [sp, #8]
 	ldr r1, _0805728C  @ gUnknown_0203E18C
-	ldr r0, _08057290  @ gUnknown_0203A56C
+	ldr r0, _08057290  @ gBattleTarget
 	str r0, [r1]
 	str r0, [sp, #0xc]
 	ldr r1, _08057294  @ gUnknown_0203E108
@@ -14626,9 +14626,9 @@ _0805725E:
 	b _0805732C
 	.align 2, 0
 _08057284: .4byte gUnknown_0203E188
-_08057288: .4byte gUnknown_0203A4EC
+_08057288: .4byte gBattleActor
 _0805728C: .4byte gUnknown_0203E18C
-_08057290: .4byte gUnknown_0203A56C
+_08057290: .4byte gBattleTarget
 _08057294: .4byte gUnknown_0203E108
 _08057298: .4byte gUnknown_0203E120
 _0805729C: .4byte gUnknown_0203E104
@@ -19621,7 +19621,7 @@ _08059A64:
 	adds r1, #0x20
 	movs r2, #8
 	bl CpuFastSet
-	ldr r0, _08059C0C  @ gUnknown_0203A4EC
+	ldr r0, _08059C0C  @ gBattleActor
 	adds r0, #0x30
 	ldrb r0, [r0]
 	movs r1, #0xf
@@ -19637,7 +19637,7 @@ _08059A98:
 	movs r2, #1
 	bl sub_8071468
 _08059AA4:
-	ldr r0, _08059C14  @ gUnknown_0203A56C
+	ldr r0, _08059C14  @ gBattleTarget
 	adds r0, #0x30
 	ldrb r0, [r0]
 	movs r1, #0xf
@@ -19797,9 +19797,9 @@ _08059BFC: .4byte gUnknown_08EF8008
 _08059C00: .4byte gUnknown_02000054
 _08059C04: .4byte gUnknown_02022B88
 _08059C08: .4byte gUnknown_0203E19C
-_08059C0C: .4byte gUnknown_0203A4EC
+_08059C0C: .4byte gBattleActor
 _08059C10: .4byte 0xFFFFFD20
-_08059C14: .4byte gUnknown_0203A56C
+_08059C14: .4byte gBattleTarget
 _08059C18: .4byte gPaletteBuffer
 _08059C1C: .4byte gUnknown_020041C8
 _08059C20: .4byte 0x000057F0
@@ -68378,23 +68378,23 @@ _08072838:
 	bl sub_8072548
 	cmp r0, #1
 	bne _0807284C
-	ldr r0, _08072848  @ gUnknown_0203A4EC
+	ldr r0, _08072848  @ gBattleActor
 	b _08072858
 	.align 2, 0
-_08072848: .4byte gUnknown_0203A4EC
+_08072848: .4byte gBattleActor
 _0807284C:
 	movs r0, #1
 	bl sub_8072548
 	cmp r0, #1
 	bne _08072868
-	ldr r0, _08072864  @ gUnknown_0203A56C
+	ldr r0, _08072864  @ gBattleTarget
 _08072858:
 	adds r0, #0x4a
 	ldrh r0, [r0]
 	bl sub_8072570
 	b _0807286A
 	.align 2, 0
-_08072864: .4byte gUnknown_0203A56C
+_08072864: .4byte gBattleTarget
 _08072868:
 	movs r0, #0
 _0807286A:

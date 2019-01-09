@@ -32,10 +32,10 @@ enum {
 	BATTLE_CONFIG_DANCERING = (1 << 9),
 };
 
-extern struct BattleUnit gUnknown_0203A4EC;
-extern struct BattleUnit gUnknown_0203A56C;
+EWRAM_DATA struct BattleStats gUnknown_0203A4D4 = {};
 
-extern struct BattleStats gUnknown_0203A4D4;
+EWRAM_DATA struct BattleUnit gBattleActor = {};
+EWRAM_DATA struct BattleUnit gBattleTarget = {};
 
 void SetupBattleBallistaWeaponData(struct BattleUnit* bu);
 void SetupBattleWeaponData(struct BattleUnit* bu, int itemSlot);
@@ -47,30 +47,30 @@ void sub_802A398(struct Unit* actor, struct Unit* target);
 void NullAllLightRunesTerrain(void);
 
 void sub_802A13C(struct Unit* actor, struct Unit* target, int x, int y, int actorWpnSlot) {
-	CopyUnitToBattleStruct(&gUnknown_0203A4EC, actor);
-	CopyUnitToBattleStruct(&gUnknown_0203A56C, target);
+	CopyUnitToBattleStruct(&gBattleActor, actor);
+	CopyUnitToBattleStruct(&gBattleTarget, target);
 
-	gUnknown_0203A4EC.unit.xPos = x;
-	gUnknown_0203A4EC.unit.yPos = y;
+	gBattleActor.unit.xPos = x;
+	gBattleActor.unit.yPos = y;
 
 	gUnknown_0203A4D4.range = RECT_DISTANCE(
-		gUnknown_0203A4EC.unit.xPos, gUnknown_0203A4EC.unit.yPos,
-		gUnknown_0203A56C.unit.xPos, gUnknown_0203A56C.unit.yPos
+		gBattleActor.unit.xPos, gBattleActor.unit.yPos,
+		gBattleTarget.unit.xPos, gBattleTarget.unit.yPos
 	);
 
 	if (gUnknown_0203A4D4.config & BATTLE_CONFIG_BALLISTA)
-		SetupBattleBallistaWeaponData(&gUnknown_0203A4EC);
+		SetupBattleBallistaWeaponData(&gBattleActor);
 	else
-		SetupBattleWeaponData(&gUnknown_0203A4EC, actorWpnSlot);
+		SetupBattleWeaponData(&gBattleActor, actorWpnSlot);
 
-	SetupBattleWeaponData(&gUnknown_0203A56C, -1);
+	SetupBattleWeaponData(&gBattleTarget, -1);
 
 	DoSomeBattleWeaponStuff();
-	BattleApplyWeaponTriangle(&gUnknown_0203A4EC, &gUnknown_0203A56C);
+	BattleApplyWeaponTriangle(&gBattleActor, &gBattleTarget);
 
 	BattleSomethingTrapChangeTerrain();
-	BattleSetupTerrainData(&gUnknown_0203A4EC);
-	BattleSetupTerrainData(&gUnknown_0203A56C);
+	BattleSetupTerrainData(&gBattleActor);
+	BattleSetupTerrainData(&gBattleTarget);
 
 	sub_802A398(actor, target);
 

@@ -1094,7 +1094,7 @@ _0801D1C8:
 	ldrh r0, [r0]
 	bl GetItemIndex
 	adds r2, r0, #0
-	ldr r0, _0801D204  @ gUnknown_0203A4EC
+	ldr r0, _0801D204  @ gBattleActor
 	adds r0, #0x7e
 	movs r1, #0
 	strb r1, [r0]
@@ -1111,7 +1111,7 @@ _0801D1C8:
 	b _0801D214
 	.align 2, 0
 _0801D200: .4byte gUnknown_0203A958
-_0801D204: .4byte gUnknown_0203A4EC
+_0801D204: .4byte gBattleActor
 _0801D208:
 	cmp r2, #0x97
 	blt _0801D214

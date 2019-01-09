@@ -918,7 +918,7 @@ _0808757C:
 	cmp r0, #0x34
 	beq _080875F8
 	ldr r4, _080875F0  @ gUnknown_0200407C
-	ldr r6, _080875F4  @ gUnknown_0203A4EC
+	ldr r6, _080875F4  @ gBattleActor
 	adds r0, r6, #0
 	adds r0, #0x5a
 	movs r1, #0
@@ -959,7 +959,7 @@ _080875E4: .4byte gUnknown_02003D4C
 _080875E8: .4byte gUnknown_0200472E
 _080875EC: .4byte gUnknown_08A02250
 _080875F0: .4byte gUnknown_0200407C
-_080875F4: .4byte gUnknown_0203A4EC
+_080875F4: .4byte gBattleActor
 _080875F8:
 	ldr r4, _0808767C  @ gUnknown_0200407C
 	adds r0, r4, #0
@@ -977,7 +977,7 @@ _080875F8:
 	movs r2, #0xff
 	bl DrawDecNumber
 	adds r4, #0x8e
-	ldr r0, _08087680  @ gUnknown_0203A4EC
+	ldr r0, _08087680  @ gBattleActor
 	adds r0, #0x62
 	movs r1, #0
 	ldrsh r2, [r0, r1]
@@ -1024,7 +1024,7 @@ _08087660:
 	bx r0
 	.align 2, 0
 _0808767C: .4byte gUnknown_0200407C
-_08087680: .4byte gUnknown_0203A4EC
+_08087680: .4byte gBattleActor
 _08087684: .4byte gUnknown_02003CB4
 _08087688: .4byte gUnknown_02003D2C
 _0808768C: .4byte 0x00007060

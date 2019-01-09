@@ -36,7 +36,7 @@ sub_8037494: @ 0x08037494
 	adds r4, r0, #0
 	ldr r0, _080374BC  @ gUnknown_0859E520
 	bl Proc_Find
-	ldr r1, _080374C0  @ gUnknown_0203A4EC
+	ldr r1, _080374C0  @ gBattleActor
 	adds r1, #0x53
 	movs r2, #0
 	ldrsb r2, [r1, r2]
@@ -52,7 +52,7 @@ sub_8037494: @ 0x08037494
 	bx r0
 	.align 2, 0
 _080374BC: .4byte gUnknown_0859E520
-_080374C0: .4byte gUnknown_0203A4EC
+_080374C0: .4byte gBattleActor
 
 	THUMB_FUNC_START sub_80374C4
 sub_80374C4: @ 0x080374C4
@@ -60,7 +60,7 @@ sub_80374C4: @ 0x080374C4
 	adds r4, r0, #0
 	ldr r0, _080374EC  @ gUnknown_0859E520
 	bl Proc_Find
-	ldr r1, _080374F0  @ gUnknown_0203A56C
+	ldr r1, _080374F0  @ gBattleTarget
 	adds r1, #0x53
 	movs r2, #0
 	ldrsb r2, [r1, r2]
@@ -76,7 +76,7 @@ sub_80374C4: @ 0x080374C4
 	bx r0
 	.align 2, 0
 _080374EC: .4byte gUnknown_0859E520
-_080374F0: .4byte gUnknown_0203A56C
+_080374F0: .4byte gBattleTarget
 
 	THUMB_FUNC_START sub_80374F4
 sub_80374F4: @ 0x080374F4
