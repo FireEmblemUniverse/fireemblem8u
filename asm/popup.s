@@ -1204,7 +1204,7 @@ sub_8011728: @ 0x08011728
 	adds r4, r0, #0
 	lsls r0, r1, #0x18
 	lsrs r0, r0, #0x18
-	bl GetUnitByCharId
+	bl GetUnitFromCharId
 	bl SetPopupUnit
 	ldr r0, _0801174C  @ gUnknown_08592490
 	movs r1, #0x60

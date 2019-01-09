@@ -625,7 +625,7 @@ MakeUnitRescueTransferGraphics: @ 0x08022A5C
 	adds r4, r0, #0
 	adds r5, r1, #0
 	ldrb r0, [r4, #0x1b]
-	bl GetUnitStruct
+	bl GetUnit
 	adds r6, r0, #0
 	bl DeleteEach6CBB
 	movs r0, #0x10
@@ -653,24 +653,24 @@ TakeSelection_OnSelect: @ 0x08022A90
 	ldrb r0, [r1, #2]
 	strb r0, [r4, #0xd]
 	ldrb r0, [r4, #0xd]
-	bl GetUnitStruct
-	bl ApplyUnitMovement
+	bl GetUnit
+	bl UnitFinalizeMovement
 	ldrb r0, [r4, #0xd]
-	bl GetUnitStruct
+	bl GetUnit
 	adds r5, r0, #0
 	ldrb r0, [r4, #0xc]
-	bl GetUnitStruct
+	bl GetUnit
 	adds r1, r0, #0
 	adds r0, r5, #0
 	bl MakeUnitRescueTransferGraphics
 	ldrb r0, [r4, #0xd]
-	bl GetUnitStruct
+	bl GetUnit
 	adds r5, r0, #0
 	ldrb r0, [r4, #0xc]
-	bl GetUnitStruct
+	bl GetUnit
 	adds r1, r0, #0
 	adds r0, r5, #0
-	bl UpdateRescueData
+	bl UnitGive
 	movs r0, #0x17
 	pop {r4, r5}
 	pop {r1}
@@ -687,24 +687,24 @@ GiveSelection_OnSelect: @ 0x08022AE0
 	ldrb r0, [r1, #2]
 	strb r0, [r4, #0xd]
 	ldrb r0, [r4, #0xc]
-	bl GetUnitStruct
-	bl ApplyUnitMovement
+	bl GetUnit
+	bl UnitFinalizeMovement
 	ldrb r0, [r4, #0xc]
-	bl GetUnitStruct
+	bl GetUnit
 	adds r5, r0, #0
 	ldrb r0, [r4, #0xd]
-	bl GetUnitStruct
+	bl GetUnit
 	adds r1, r0, #0
 	adds r0, r5, #0
 	bl MakeUnitRescueTransferGraphics
 	ldrb r0, [r4, #0xc]
-	bl GetUnitStruct
+	bl GetUnit
 	adds r5, r0, #0
 	ldrb r0, [r4, #0xd]
-	bl GetUnitStruct
+	bl GetUnit
 	adds r1, r0, #0
 	adds r0, r5, #0
-	bl UpdateRescueData
+	bl UnitGive
 	movs r0, #0x17
 	pop {r4, r5}
 	pop {r1}
@@ -1140,7 +1140,7 @@ sub_8022E8C: @ 0x08022E8C
 	adds r4, r1, #0
 	movs r0, #2
 	ldrsb r0, [r4, r0]
-	bl GetUnitStruct
+	bl GetUnit
 	adds r5, r0, #0
 	movs r0, #0
 	ldrsb r0, [r4, r0]
@@ -1281,7 +1281,7 @@ sub_8022FAC: @ 0x08022FAC
 	ldr r4, [r0]
 	movs r0, #2
 	ldrsb r0, [r1, r0]
-	bl GetUnitStruct
+	bl GetUnit
 	adds r1, r0, #0
 	adds r0, r4, #0
 	movs r2, #0
@@ -1402,7 +1402,7 @@ _08023090:
 	cmp r0, #0x10
 	bne _080230B8
 	ldr r0, [r4]
-	bl CanUnitNotUseMagic
+	bl IsUnitMagicSealed
 	lsls r0, r0, #0x18
 	cmp r0, #0
 	beq _080230B4
@@ -2640,7 +2640,7 @@ _08023A78:
 	cmp r0, #0
 	beq _08023AA8
 	ldr r0, [r5]
-	bl CanUnitNotUseMagic
+	bl IsUnitMagicSealed
 	lsls r0, r0, #0x18
 	cmp r0, #0
 	bne _08023A6C
@@ -3052,7 +3052,7 @@ sub_8023DB4: @ 0x08023DB4
 	bne _08023DD0
 	adds r0, r2, #0
 	movs r1, #0x1e
-	bl sub_8018A9C
+	bl GetUnitKeyItemSlotForTerrain
 	cmp r0, #0
 	bge _08023DD8
 _08023DD0:
@@ -3087,7 +3087,7 @@ sub_8023DF4: @ 0x08023DF4
 	ldrb r1, [r0, #0xb]
 	strb r1, [r4, #0xc]
 	movs r1, #0x1e
-	bl sub_8018A9C
+	bl GetUnitKeyItemSlotForTerrain
 	strb r0, [r4, #0x12]
 	movs r0, #0x17
 	pop {r4}
@@ -3109,7 +3109,7 @@ sub_8023E1C: @ 0x08023E1C
 	bne _08023E38
 	adds r0, r2, #0
 	movs r1, #0x21
-	bl sub_8018A9C
+	bl GetUnitKeyItemSlotForTerrain
 	cmp r0, #0
 	bge _08023E40
 _08023E38:
@@ -3141,7 +3141,7 @@ sub_8023E58: @ 0x08023E58
 	ldr r0, _08023E78  @ gUnknown_03004E50
 	ldr r0, [r0]
 	movs r1, #0x21
-	bl sub_8018A9C
+	bl GetUnitKeyItemSlotForTerrain
 	strb r0, [r4, #0x12]
 	movs r0, #0x17
 	pop {r4}
@@ -3189,7 +3189,7 @@ sub_8023EB4: @ 0x08023EB4
 	push {lr}
 	ldr r0, _08023ED0  @ gUnknown_0203A958
 	ldrb r0, [r0, #0xc]
-	bl GetUnitStruct
+	bl GetUnit
 	bl sub_80258A4
 	ldr r0, _08023ED4  @ gUnknown_0859D358
 	bl NewTargetSelection
@@ -3249,7 +3249,7 @@ _08023F0C:
 	cmp r0, #0
 	bne _08023F50
 	adds r0, r1, #0
-	bl GetUnitStruct
+	bl GetUnit
 	cmp r0, #0
 	beq _08023F50
 	ldr r0, [r0]
@@ -3552,7 +3552,7 @@ sub_8024144: @ 0x08024144
 	bne _08024180
 	ldr r0, _08024168  @ gUnknown_03004E50
 	ldr r0, [r0]
-	bl CanUnitNotUseMagic
+	bl IsUnitMagicSealed
 	lsls r0, r0, #0x18
 	cmp r0, #0
 	beq _08024170
@@ -3680,7 +3680,7 @@ sub_802423C: @ 0x0802423C
 	bl ChangeActiveUnitFacing
 	movs r0, #2
 	ldrsb r0, [r4, r0]
-	bl GetUnitStruct
+	bl GetUnit
 	bl sub_8034D48
 	pop {r4}
 	pop {r1}
@@ -3707,7 +3707,7 @@ sub_8024260: @ 0x08024260
 	lsls r2, r2, #5
 	bl CallARM_FillTileRect
 	ldrb r0, [r6, #0xd]
-	bl GetUnitStruct
+	bl GetUnit
 	ldr r0, [r0]
 	ldrh r0, [r0]
 	bl GetStringFromIndex
@@ -3718,7 +3718,7 @@ sub_8024260: @ 0x08024260
 	adds r4, r4, r0
 	asrs r4, r4, #1
 	ldrb r0, [r6, #0xd]
-	bl GetUnitStruct
+	bl GetUnit
 	ldr r0, [r0]
 	ldrh r0, [r0]
 	bl GetStringFromIndex
@@ -3733,7 +3733,7 @@ sub_8024260: @ 0x08024260
 	bl DrawTextInline
 	adds r5, #0x80
 	ldrb r0, [r6, #0xd]
-	bl GetUnitStruct
+	bl GetUnit
 	bl GetUnitPortraitId
 	adds r1, r0, #0
 	movs r2, #0x80
@@ -3759,7 +3759,7 @@ StealItemMenuCommand_Usability: @ 0x08024304
 	adds r4, r1, #0
 	ldr r5, _08024320  @ gUnknown_0203A958
 	ldrb r0, [r5, #0xd]
-	bl GetUnitStruct
+	bl GetUnit
 	lsls r4, r4, #1
 	adds r0, #0x1e
 	adds r0, r0, r4
@@ -3772,7 +3772,7 @@ StealItemMenuCommand_Usability: @ 0x08024304
 _08024320: .4byte gUnknown_0203A958
 _08024324:
 	ldrb r0, [r5, #0xd]
-	bl GetUnitStruct
+	bl GetUnit
 	adds r0, #0x1e
 	adds r0, r0, r4
 	ldrh r0, [r0]
@@ -3795,7 +3795,7 @@ StealItemMenuCommand_Draw: @ 0x08024348
 	adds r5, r1, #0
 	ldr r0, _08024394  @ gUnknown_0203A958
 	ldrb r0, [r0, #0xd]
-	bl GetUnitStruct
+	bl GetUnit
 	adds r1, r5, #0
 	adds r1, #0x3c
 	ldrb r1, [r1]
@@ -3945,7 +3945,7 @@ _08024470:
 	adds r5, r1, r0
 _08024478:
 	adds r0, r4, #0
-	bl GetUnitStruct
+	bl GetUnit
 	adds r2, r0, #0
 	cmp r2, #0
 	beq _080244A8
@@ -3997,7 +3997,7 @@ sub_80244D8: @ 0x080244D8
 	adds r5, r1, #0
 	ldr r4, _080244F8  @ gUnknown_0203A958
 	ldrb r0, [r4, #0xc]
-	bl GetUnitStruct
+	bl GetUnit
 	movs r0, #7
 	strb r0, [r4, #0x11]
 	ldrb r0, [r5]
@@ -4035,7 +4035,7 @@ _0802451C:
 	movs r4, #0x81
 _08024520:
 	adds r0, r4, #0
-	bl GetUnitStruct
+	bl GetUnit
 	cmp r0, #0
 	beq _0802453A
 	ldr r0, [r0]
@@ -4061,7 +4061,7 @@ sub_8024548: @ 0x08024548
 	push {r4, lr}
 	ldr r4, _08024560  @ gUnknown_0203A958
 	ldrb r0, [r4, #0xc]
-	bl GetUnitStruct
+	bl GetUnit
 	movs r0, #8
 	strb r0, [r4, #0x11]
 	movs r0, #0x17
@@ -4077,7 +4077,7 @@ sub_8024564: @ 0x08024564
 	adds r5, r1, #0
 	ldr r4, _08024584  @ gUnknown_0203A958
 	ldrb r0, [r4, #0xc]
-	bl GetUnitStruct
+	bl GetUnit
 	movs r0, #8
 	strb r0, [r4, #0x11]
 	ldrb r0, [r5]
@@ -4142,7 +4142,7 @@ sub_80245E0: @ 0x080245E0
 	adds r4, r1, #0
 	ldr r0, _08024614  @ gUnknown_0203A958
 	ldrb r0, [r0, #0xd]
-	bl GetUnitStruct
+	bl GetUnit
 	movs r1, #0x2a
 	ldrsh r3, [r4, r1]
 	lsls r3, r3, #3
@@ -4209,7 +4209,7 @@ sub_8024658: @ 0x08024658
 	bl ChangeActiveUnitFacing
 	movs r0, #2
 	ldrsb r0, [r4, r0]
-	bl GetUnitStruct
+	bl GetUnit
 	bl sub_8034FB0
 	pop {r4}
 	pop {r1}
@@ -4242,7 +4242,7 @@ RescueSelection_OnChange: @ 0x0802469C
 	bl ChangeActiveUnitFacing
 	movs r0, #2
 	ldrsb r0, [r4, r0]
-	bl GetUnitStruct
+	bl GetUnit
 	bl SetupUnitRescueWindow
 	pop {r4}
 	pop {r1}
@@ -4294,7 +4294,7 @@ sub_8024700: @ 0x08024700
 	bl ChangeActiveUnitFacing
 	movs r0, #2
 	ldrsb r0, [r4, r0]
-	bl GetUnitStruct
+	bl GetUnit
 	bl sub_80353B8
 	pop {r4}
 	pop {r1}
@@ -4327,7 +4327,7 @@ sub_8024744: @ 0x08024744
 	bl ChangeActiveUnitFacing
 	movs r0, #2
 	ldrsb r0, [r4, r0]
-	bl GetUnitStruct
+	bl GetUnit
 	bl sub_80352BC
 	pop {r4}
 	pop {r1}
@@ -4361,7 +4361,7 @@ sub_8024788: @ 0x08024788
 	bl ResetIconGraphics
 	movs r0, #2
 	ldrsb r0, [r4, r0]
-	bl GetUnitStruct
+	bl GetUnit
 	bl sub_8034C3C
 	pop {r4}
 	pop {r1}
@@ -4394,7 +4394,7 @@ sub_80247D0: @ 0x080247D0
 	bl ChangeActiveUnitFacing
 	movs r0, #2
 	ldrsb r0, [r4, r0]
-	bl GetUnitStruct
+	bl GetUnit
 	bl sub_8034FB0
 	pop {r4}
 	pop {r1}
@@ -4426,7 +4426,7 @@ sub_8024814: @ 0x08024814
 	bl ChangeActiveUnitFacing
 	movs r0, #2
 	ldrsb r0, [r4, r0]
-	bl GetUnitStruct
+	bl GetUnit
 	bl sub_8034FB0
 	pop {r4}
 	pop {r1}
@@ -4450,7 +4450,7 @@ sub_8024844: @ 0x08024844
 	bl ChangeActiveUnitFacing
 	movs r0, #2
 	ldrsb r0, [r4, r0]
-	bl GetUnitStruct
+	bl GetUnit
 	bl sub_8034FB0
 	pop {r4}
 	pop {r1}

@@ -14,7 +14,7 @@ GetPlayerStartCursorPosition: @ 0x0801DE30
 	cmp r0, #1
 	bne _0801DE50
 	bl GetPlayerLeaderUnitId
-	bl GetUnitByCharId
+	bl GetUnitFromCharId
 	adds r1, r0, #0
 	ldrb r0, [r1, #0x10]
 	strb r0, [r4, #0x12]
@@ -28,7 +28,7 @@ _0801DE50:
 	cmp r0, #0
 	blt _0801DE78
 	bl GetPlayerLeaderUnitId
-	bl GetUnitByCharId
+	bl GetUnitFromCharId
 	adds r1, r0, #0
 	movs r0, #0x10
 	ldrsb r0, [r1, r0]
@@ -61,7 +61,7 @@ GetEnemyStartCursorPosition: @ 0x0801DE88
 _0801DE98: .4byte gUnknown_0202BCF0
 _0801DE9C:
 	adds r0, r4, #0
-	bl GetUnitStruct
+	bl GetUnit
 	adds r2, r0, #0
 	cmp r2, #0
 	beq _0801DED6
@@ -168,7 +168,7 @@ ADJUSTFROMXI_MoveCameraOnSomeUnit: @ 0x0801DF64
 	push {r4, r5, r6, lr}
 	adds r6, r0, #0
 	bl GetSomeUnitId
-	bl GetUnitStruct
+	bl GetUnit
 	cmp r0, #0
 	beq _0801DF8E
 	movs r4, #0x10

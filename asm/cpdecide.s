@@ -55,7 +55,7 @@ _08039B04:
 	ldrb r0, [r2]
 	strb r0, [r1]
 	ldrb r0, [r1]
-	bl GetUnitStruct
+	bl GetUnit
 	adds r1, r0, #0
 	ldr r6, _08039B50  @ gUnknown_03004E50
 	str r1, [r6]

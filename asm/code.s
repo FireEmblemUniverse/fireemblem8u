@@ -4872,14 +4872,14 @@ sub_808BC94: @ 0x0808BC94
 	adds r6, r1, #0
 	mov r8, r2
 	adds r0, r6, #0
-	bl GetUnitCurrentHP
+	bl GetUnitCurrentHp
 	movs r1, #0x32
 	adds r4, r0, #0
 	muls r4, r1, r4
 	lsls r4, r4, #0x10
 	asrs r4, r4, #0x10
 	adds r0, r6, #0
-	bl GetUnitMaxHP
+	bl GetUnitMaxHp
 	adds r1, r0, #0
 	adds r0, r4, #0
 	bl Div
@@ -5062,7 +5062,7 @@ _0808BE0E:
 	ldr r0, [r0]
 	adds r0, r0, r1
 	ldrb r0, [r0]
-	bl GetUnitStruct
+	bl GetUnit
 	adds r1, r0, #0
 	adds r0, r7, #0
 	bl DrawMinimugBoxMaybe
@@ -5839,7 +5839,7 @@ _0808C47A:
 	b _0808C518
 _0808C4A0:
 	adds r0, r5, #0
-	bl GetUnitCurrentHP
+	bl GetUnitCurrentHp
 	cmp r0, #0x63
 	ble _0808C4B2
 	movs r0, #0xff
@@ -5847,7 +5847,7 @@ _0808C4A0:
 	b _0808C4BC
 _0808C4B2:
 	adds r0, r5, #0
-	bl GetUnitCurrentHP
+	bl GetUnitCurrentHp
 	bl StoreNumberStringOrDashesToSmallBuffer
 _0808C4BC:
 	ldr r1, _0808C4E4  @ gUnknown_02028E44
@@ -5862,7 +5862,7 @@ _0808C4BC:
 	adds r1, #0x52
 	strb r0, [r1]
 	adds r0, r5, #0
-	bl GetUnitMaxHP
+	bl GetUnitMaxHp
 	cmp r0, #0x63
 	ble _0808C4E8
 	movs r0, #0xff
@@ -5872,7 +5872,7 @@ _0808C4BC:
 _0808C4E4: .4byte gUnknown_02028E44
 _0808C4E8:
 	adds r0, r5, #0
-	bl GetUnitMaxHP
+	bl GetUnitMaxHp
 	bl StoreNumberStringOrDashesToSmallBuffer
 _0808C4F2:
 	ldr r1, _0808C5C4  @ gUnknown_02028E44
@@ -6832,7 +6832,7 @@ Loop6CUI1_Hidden: @ 0x0808CCC8
 	ldr r0, [r0]
 	adds r0, r0, r1
 	ldrb r0, [r0]
-	bl GetUnitStruct
+	bl GetUnit
 	adds r6, r0, #0
 	cmp r6, #0
 	beq _0808CD5C
@@ -6913,7 +6913,7 @@ Loop6CUI1_Displayed: @ 0x0808CD74
 	ldr r0, [r0]
 	adds r0, r0, r1
 	ldrb r0, [r0]
-	bl GetUnitStruct
+	bl GetUnit
 	adds r7, r0, #0
 	adds r4, r5, #0
 	adds r4, #0x44
@@ -7020,7 +7020,7 @@ sub_808CE50: @ 0x0808CE50
 	ldr r0, [r0]
 	adds r0, r0, r1
 	ldrb r0, [r0]
-	bl GetUnitStruct
+	bl GetUnit
 	adds r1, r0, #0
 	cmp r1, #0
 	bne _0808CE88
@@ -7156,7 +7156,7 @@ _0808CF70:
 	cmp r0, #8
 	bne _0808CF8E
 	ldrb r0, [r6]
-	bl GetUnitStruct
+	bl GetUnit
 	adds r1, r0, #0
 	adds r0, r4, #0
 	bl sub_808C750
@@ -7181,7 +7181,7 @@ _0808CFA6:
 _0808CFAC:
 	strb r0, [r1]
 	ldrb r0, [r6]
-	bl GetUnitStruct
+	bl GetUnit
 	adds r1, r0, #0
 	adds r0, r4, #0
 	bl DrawMinimugBoxMaybe
@@ -8773,7 +8773,7 @@ sub_808DCD0: @ 0x0808DCD0
 	movs r4, #1
 _0808DCD4:
 	adds r0, r4, #0
-	bl GetUnitStruct
+	bl GetUnit
 	adds r1, r0, #0
 	cmp r1, #0
 	beq _0808DCEA
@@ -8845,7 +8845,7 @@ _0808DD78:
 _0808DD7C:
 	movs r0, #0x41
 _0808DD7E:
-	bl GetUnitByCharId
+	bl GetUnitFromCharId
 	adds r2, r0, #0
 _0808DD84:
 	cmp r2, #0
@@ -8857,7 +8857,7 @@ _0808DD8C:
 	movs r4, #0x81
 _0808DD8E:
 	adds r0, r4, #0
-	bl GetUnitStruct
+	bl GetUnit
 	adds r2, r0, #0
 	cmp r2, #0
 	beq _0808DDB2
@@ -8890,7 +8890,7 @@ sub_808DDC0: @ 0x0808DDC0
 	movs r4, #0x81
 _0808DDC6:
 	adds r0, r4, #0
-	bl GetUnitStruct
+	bl GetUnit
 	cmp r0, #0
 	beq _0808DDEA
 	ldr r1, [r0]
@@ -8924,7 +8924,7 @@ sub_808DDF8: @ 0x0808DDF8
 	b _0808DE24
 _0808DE02:
 	adds r0, r4, #0
-	bl GetUnitStruct
+	bl GetUnit
 	adds r1, r0, #0
 	cmp r1, #0
 	beq _0808DE20
@@ -9189,7 +9189,7 @@ sub_808DF24: @ 0x0808DF24
 	adds r0, #0x12
 	strb r5, [r0]
 	bl GetPlayerLeaderUnitId
-	bl GetUnitByCharId
+	bl GetUnitFromCharId
 	str r0, [r7, #0x34]
 	movs r0, #0
 	bl sub_808DDF8
@@ -9255,7 +9255,7 @@ _0808E0C6:
 	ldr r0, [r4]
 	cmp r0, #0
 	beq _0808E0D4
-	bl GetUnitSMSIndex
+	bl GetUnitSMSId
 	bl SMS_RegisterUsage
 _0808E0D4:
 	adds r4, #4
@@ -9443,7 +9443,7 @@ _0808E238:
 	adds r0, r5, #0
 	bl Text_AppendNumberOr2Dashes
 	adds r0, r6, #0
-	bl GetUnitCurrentHP
+	bl GetUnitCurrentHp
 	cmp r0, #0x63
 	ble _0808E2A4
 	adds r0, r5, #0
@@ -9462,13 +9462,13 @@ _0808E2A4:
 	movs r1, #0xaa
 	bl Text_SetXCursor
 	adds r0, r6, #0
-	bl GetUnitCurrentHP
+	bl GetUnitCurrentHp
 	adds r1, r0, #0
 	adds r0, r5, #0
 	bl Text_AppendNumberOr2Dashes
 _0808E2BA:
 	adds r0, r6, #0
-	bl GetUnitMaxHP
+	bl GetUnitMaxHp
 	cmp r0, #0x63
 	ble _0808E2E0
 	adds r0, r5, #0
@@ -9487,7 +9487,7 @@ _0808E2E0:
 	movs r1, #0xc2
 	bl Text_SetXCursor
 	adds r0, r6, #0
-	bl GetUnitMaxHP
+	bl GetUnitMaxHp
 	adds r1, r0, #0
 	adds r0, r5, #0
 	bl Text_AppendNumberOr2Dashes
@@ -13176,7 +13176,7 @@ sub_809014C: @ 0x0809014C
 	movs r5, #1
 _08090156:
 	adds r0, r5, #0
-	bl GetUnitStruct
+	bl GetUnit
 	adds r4, r0, #0
 	cmp r4, #0
 	beq _0809017A
@@ -13197,7 +13197,7 @@ _0809017A:
 	movs r5, #1
 _08090182:
 	adds r0, r5, #0
-	bl GetUnitStruct
+	bl GetUnit
 	adds r4, r0, #0
 	cmp r4, #0
 	beq _080901A6
@@ -14566,7 +14566,7 @@ _08090C0C:
 	adds r0, #1
 	strb r0, [r3]
 	adds r0, r7, #0
-	bl GetUnitSMSIndex
+	bl GetUnitSMSId
 	bl SMS_RegisterUsage
 	pop {r3}
 	mov r8, r3
@@ -14599,7 +14599,7 @@ sub_8090C58: @ 0x08090C58
 	bge _08090CF0
 _08090C78:
 	adds r0, r5, #0
-	bl GetUnitStruct
+	bl GetUnit
 	adds r4, r0, #0
 	cmp r4, #0
 	beq _08090C9E
@@ -14634,7 +14634,7 @@ _08090CB4:
 _08090CBC: .4byte gUnknown_0202BCF0
 _08090CC0:
 	adds r0, r4, #0
-	bl GetUnitStruct
+	bl GetUnit
 	adds r2, r0, #0
 	cmp r2, #0
 	beq _08090CE4
@@ -14680,7 +14680,7 @@ sub_8090D00: @ 0x08090D00
 	movs r5, #1
 _08090D16:
 	adds r0, r5, #0
-	bl GetUnitStruct
+	bl GetUnit
 	adds r4, r0, #0
 	cmp r4, #0
 	beq _08090D3C
@@ -14706,7 +14706,7 @@ _08090D48:
 	movs r4, #1
 _08090D4A:
 	adds r0, r4, #0
-	bl GetUnitStruct
+	bl GetUnit
 	adds r2, r0, #0
 	cmp r2, #0
 	beq _08090D6E
@@ -17801,7 +17801,7 @@ _08092602:
 _0809261C:
 	ldr r0, [r6]
 	ldr r0, [r0]
-	bl GetUnitCurrentHP
+	bl GetUnitCurrentHp
 	adds r2, r0, #0
 	adds r0, r5, #0
 	adds r1, r4, #0
@@ -17821,7 +17821,7 @@ _0809261C:
 _08092648:
 	ldr r0, [r6]
 	ldr r0, [r0]
-	bl GetUnitMaxHP
+	bl GetUnitMaxHp
 	adds r2, r0, #0
 	adds r0, r4, #0
 	adds r1, r5, #0
@@ -18116,7 +18116,7 @@ _080928B0:
 	cmp r5, #0
 	beq _080928FC
 	adds r0, r2, #0
-	bl GetRescuingUnitNameId
+	bl GetUnitRescueName
 	adds r5, r0, #0
 	ldr r6, [sp, #0x50]
 	ldr r1, [sp, #0x2c]
@@ -18224,7 +18224,7 @@ _08092994:
 	bl DrawDecNumber
 	ldr r0, [r4]
 	ldr r0, [r0]
-	bl WriteStatusTextToRAM
+	bl GetUnitStatusName
 	adds r4, r0, #0
 	ldr r2, [sp, #0x50]
 	ldr r3, [sp, #0x2c]
@@ -18368,7 +18368,7 @@ _08092A92:
 	bl GetROMUnitSupportingId
 	lsls r0, r0, #0x18
 	lsrs r0, r0, #0x18
-	bl GetROMCharStruct
+	bl GetCharacterData
 	ldrh r0, [r0]
 	bl GetStringFromIndex
 	adds r2, r0, #0
@@ -18400,7 +18400,7 @@ _08092B18:
 	bl GetROMUnitSupportingId
 	lsls r0, r0, #0x18
 	lsrs r0, r0, #0x18
-	bl GetROMCharStruct
+	bl GetCharacterData
 	ldrh r0, [r0]
 	bl GetStringFromIndex
 	adds r3, r0, #0
@@ -19257,14 +19257,14 @@ _080931BA:
 	adds r6, r0, r2
 	ldr r0, [r6]
 	ldr r0, [r0]
-	bl GetUnitCurrentHP
+	bl GetUnitCurrentHp
 	adds r4, r0, #0
 	lsls r0, r5, #2
 	mov r3, r9
 	adds r5, r0, r3
 	ldr r0, [r5]
 	ldr r0, [r0]
-	bl GetUnitCurrentHP
+	bl GetUnitCurrentHp
 	cmp r4, r0
 	ble _080931EA
 	ldr r1, [r5]
@@ -19322,14 +19322,14 @@ _0809323E:
 	adds r6, r0, r1
 	ldr r0, [r6]
 	ldr r0, [r0]
-	bl GetUnitCurrentHP
+	bl GetUnitCurrentHp
 	adds r4, r0, #0
 	lsls r0, r5, #2
 	mov r2, r9
 	adds r5, r0, r2
 	ldr r0, [r5]
 	ldr r0, [r0]
-	bl GetUnitCurrentHP
+	bl GetUnitCurrentHp
 	cmp r4, r0
 	bge _0809326E
 	ldr r1, [r5]
@@ -19389,14 +19389,14 @@ _080932C6:
 	adds r6, r0, r1
 	ldr r0, [r6]
 	ldr r0, [r0]
-	bl GetUnitMaxHP
+	bl GetUnitMaxHp
 	adds r4, r0, #0
 	lsls r0, r5, #2
 	mov r2, r9
 	adds r5, r0, r2
 	ldr r0, [r5]
 	ldr r0, [r0]
-	bl GetUnitMaxHP
+	bl GetUnitMaxHp
 	cmp r4, r0
 	ble _080932F6
 	ldr r1, [r5]
@@ -19454,14 +19454,14 @@ _0809334A:
 	adds r6, r0, r1
 	ldr r0, [r6]
 	ldr r0, [r0]
-	bl GetUnitMaxHP
+	bl GetUnitMaxHp
 	adds r4, r0, #0
 	lsls r0, r5, #2
 	mov r2, r9
 	adds r5, r0, r2
 	ldr r0, [r5]
 	ldr r0, [r0]
-	bl GetUnitMaxHP
+	bl GetUnitMaxHp
 	cmp r4, r0
 	bge _0809337A
 	ldr r1, [r5]
@@ -23869,7 +23869,7 @@ sub_809541C: @ 0x0809541C
 	movs r4, #1
 _08095422:
 	adds r0, r4, #0
-	bl GetUnitStruct
+	bl GetUnit
 	cmp r0, #0
 	beq _0809544A
 	ldr r2, [r0]
@@ -24212,7 +24212,7 @@ sub_80956D8: @ 0x080956D8
 	movs r4, #1
 _080956E2:
 	adds r0, r4, #0
-	bl GetUnitStruct
+	bl GetUnit
 	adds r2, r0, #0
 	cmp r2, #0
 	beq _08095704
@@ -24233,7 +24233,7 @@ _08095704:
 	movs r4, #1
 _0809570C:
 	adds r0, r4, #0
-	bl GetUnitStruct
+	bl GetUnit
 	adds r2, r0, #0
 	cmp r2, #0
 	beq _0809572E
@@ -24270,7 +24270,7 @@ SortPlayerUnitsForPrepScreen: @ 0x08095748
 	movs r5, #1
 _0809575A:
 	adds r0, r5, #0
-	bl GetUnitStruct
+	bl GetUnit
 	adds r4, r0, #0
 	cmp r4, #0
 	beq _08095794
@@ -24301,7 +24301,7 @@ _08095794:
 	movs r5, #1
 _0809579C:
 	adds r0, r5, #0
-	bl GetUnitStruct
+	bl GetUnit
 	adds r4, r0, #0
 	cmp r4, #0
 	beq _080957CE
@@ -24330,7 +24330,7 @@ _080957CE:
 	movs r5, #1
 _080957DA:
 	adds r0, r5, #0
-	bl GetUnitStruct
+	bl GetUnit
 	adds r4, r0, #0
 	cmp r4, #0
 	beq _08095832
@@ -24386,7 +24386,7 @@ sub_8095840: @ 0x08095840
 	movs r4, #1
 _08095848:
 	adds r0, r4, #0
-	bl GetUnitStruct
+	bl GetUnit
 	adds r5, r0, #0
 	adds r4, #1
 	mov r8, r4
@@ -24435,7 +24435,7 @@ _080958A2:
 	cmp r7, #0
 	beq _080958AC
 	adds r0, r5, #0
-	bl RemoveUnitBlankItems
+	bl UnitRemoveInvalidItems
 _080958AC:
 	mov r4, r8
 	cmp r4, #0x3f
@@ -24453,7 +24453,7 @@ sub_80958BC: @ 0x080958BC
 	movs r5, #1
 _080958C2:
 	adds r0, r5, #0
-	bl GetUnitStruct
+	bl GetUnit
 	adds r4, r0, #0
 	cmp r4, #0
 	beq _080958EA
@@ -24531,7 +24531,7 @@ _0809594C:
 _08095950:
 	str r1, [r2, #0xc]
 	adds r0, r2, #0
-	bl GetUnitSMSIndex
+	bl GetUnitSMSId
 	bl SMS_RegisterUsage
 	adds r4, #1
 _0809595E:
@@ -25190,7 +25190,7 @@ sub_8095EBC: @ 0x08095EBC
 	movs r4, #1
 _08095EE2:
 	adds r0, r4, #0
-	bl GetUnitStruct
+	bl GetUnit
 	adds r1, r0, #0
 	cmp r1, #0
 	beq _08095F06
@@ -25624,7 +25624,7 @@ sub_809625C: @ 0x0809625C
 	movs r4, #1
 _08096262:
 	adds r0, r4, #0
-	bl GetUnitStruct
+	bl GetUnit
 	adds r2, r0, #0
 	cmp r2, #0
 	beq _0809627C
@@ -25950,7 +25950,7 @@ sub_80964F4: @ 0x080964F4
 	adds r4, r0, #0
 	movs r0, #0x80
 	lsls r0, r0, #1
-	bl GetUnitByCharId
+	bl GetUnitFromCharId
 	adds r5, r0, #0
 	cmp r5, #0
 	bne _0809650E
@@ -26027,7 +26027,7 @@ sub_8096590: @ 0x08096590
 	movs r4, #0x80
 	lsls r4, r4, #1
 	adds r0, r4, #0
-	bl GetUnitByCharId
+	bl GetUnitFromCharId
 	adds r1, r0, #0
 	cmp r1, #0
 	beq _080965A8
@@ -29776,7 +29776,7 @@ SomethingPrepListRelated: @ 0x080981E4
 	movs r5, #1
 _08098206:
 	adds r0, r5, #0
-	bl GetUnitStruct
+	bl GetUnit
 	adds r4, r0, #0
 	adds r7, r5, #1
 	cmp r4, #0
@@ -35936,7 +35936,7 @@ sub_809B478: @ 0x0809B478
 	movs r5, #1
 _0809B48C:
 	adds r0, r5, #0
-	bl GetUnitStruct
+	bl GetUnit
 	adds r1, r0, #0
 	cmp r1, #0
 	beq _0809B4AE
@@ -36043,9 +36043,9 @@ sub_809B538: @ 0x0809B538
 	ldrh r2, [r1]
 	strh r2, [r4]
 	strh r5, [r1]
-	bl RemoveUnitBlankItems
+	bl UnitRemoveInvalidItems
 	adds r0, r6, #0
-	bl RemoveUnitBlankItems
+	bl UnitRemoveInvalidItems
 	pop {r4, r5, r6}
 	pop {r0}
 	bx r0
@@ -37463,7 +37463,7 @@ sub_809C0B4: @ 0x0809C0B4
 	bl sub_804E138
 	add r4, sp, #0xc
 	adds r0, r5, #0
-	bl GetUnitCurrentHP
+	bl GetUnitCurrentHp
 	adds r2, r0, #0
 	lsls r0, r2, #1
 	adds r0, r0, r2
@@ -37652,7 +37652,7 @@ sub_809C254: @ 0x0809C254
 	push {r4, r5, r6, r7, lr}
 	adds r4, r0, #0
 	ldr r6, _0809C274  @ gUnknown_02023D90
-	bl GetUnitCurrentHP
+	bl GetUnitCurrentHp
 	adds r2, r0, #0
 	movs r0, #0xb
 	ldrsb r0, [r4, r0]
@@ -37675,7 +37675,7 @@ _0809C280:
 	movs r5, #2
 _0809C282:
 	adds r0, r4, #0
-	bl GetUnitCurrentHP
+	bl GetUnitCurrentHp
 	adds r2, r0, #0
 	adds r0, r6, #0
 	adds r1, r5, #0
@@ -38266,7 +38266,7 @@ _0809C5CA:
 	lsls r3, r3, #4
 	bl sub_80AD51C
 	ldr r0, [r7, #0x2c]
-	bl GetUnitSMSIndex
+	bl GetUnitSMSId
 	bl SMS_RegisterUsage
 	bl SMS_FlushIndirect
 	add sp, #0x28
@@ -39009,7 +39009,7 @@ sub_809CDD4: @ 0x0809CDD4
 	adds r3, r7, #0
 	bl sub_807EDF8
 	ldr r0, [r4, #0x2c]
-	bl GetUnitCurrentHP
+	bl GetUnitCurrentHp
 	adds r1, r7, #0
 	adds r1, #0x30
 	strb r0, [r1]
@@ -39069,7 +39069,7 @@ sub_809CDD4: @ 0x0809CDD4
 	ldr r0, [r4, #0x2c]
 	bl sub_809C254
 	ldr r0, [r4, #0x2c]
-	bl GetUnitCurrentHP
+	bl GetUnitCurrentHp
 	adds r1, r7, #0
 	adds r1, #0x38
 	strb r0, [r1]
@@ -41579,7 +41579,7 @@ _0809E304:
 	ldrh r0, [r0, #2]
 	strh r0, [r1]
 	ldr r0, [r7, #0x2c]
-	bl RemoveUnitBlankItems
+	bl UnitRemoveInvalidItems
 	mov r1, r8
 	ldrb r0, [r1]
 	lsls r0, r0, #1
@@ -42258,7 +42258,7 @@ sub_809E85C: @ 0x0809E85C
 	movs r0, #0
 	strh r0, [r1]
 	ldr r0, [r5, #0x2c]
-	bl RemoveUnitBlankItems
+	bl UnitRemoveInvalidItems
 	adds r0, r4, #0
 	bl sub_8098014
 	adds r6, r5, #0
@@ -42785,7 +42785,7 @@ _0809ECBA:
 _0809ECC4: .4byte gUnknown_020122D4
 _0809ECC8:
 	adds r0, r4, #0
-	bl GetUnitByCharId
+	bl GetUnitFromCharId
 	ldr r0, [r0]
 	ldrh r0, [r0]
 	bl GetStringFromIndex
@@ -43755,7 +43755,7 @@ _0809F4D4:
 	ldrh r0, [r0, #2]
 	strh r0, [r1]
 	ldr r0, [r6, #0x2c]
-	bl RemoveUnitBlankItems
+	bl UnitRemoveInvalidItems
 	ldrb r0, [r7]
 	lsls r0, r0, #1
 	adds r0, r5, r0
@@ -44605,7 +44605,7 @@ sub_809FB70: @ 0x0809FB70
 	ldrh r0, [r4, #2]
 	strh r0, [r1]
 	ldr r0, [r6, #0x2c]
-	bl RemoveUnitBlankItems
+	bl UnitRemoveInvalidItems
 	strh r5, [r4, #2]
 	bl sub_80982B8
 	cmp r5, #0
@@ -44823,7 +44823,7 @@ sub_809FD54: @ 0x0809FD54
 	adds r4, r4, r0
 	ldr r6, [r5, #0x2c]
 	ldrb r0, [r4]
-	bl GetUnitByCharId
+	bl GetUnitFromCharId
 	adds r1, r0, #0
 	ldrb r2, [r4, #1]
 	adds r0, r6, #0
@@ -45822,7 +45822,7 @@ sub_80A05BC: @ 0x080A05BC
 	movs r0, #0
 	strh r0, [r1]
 	ldr r0, [r4, #0x2c]
-	bl RemoveUnitBlankItems
+	bl UnitRemoveInvalidItems
 	ldr r0, _080A0628  @ gUnknown_0202BCF0
 	adds r0, #0x41
 	ldrb r0, [r0]
@@ -46590,7 +46590,7 @@ sub_80A0B6C: @ 0x080A0B6C
 	movs r4, #1
 _080A0B72:
 	adds r0, r4, #0
-	bl GetUnitStruct
+	bl GetUnit
 	adds r2, r0, #0
 	cmp r2, #0
 	beq _080A0BA0
@@ -46733,7 +46733,7 @@ _080A0C72:
 	movs r4, #1
 _080A0C80:
 	adds r0, r4, #0
-	bl GetUnitStruct
+	bl GetUnit
 	cmp r0, #0
 	beq _080A0CB0
 	ldr r2, [r0]
@@ -46764,7 +46764,7 @@ _080A0CB0:
 	mov sl, r0
 _080A0CBC:
 	adds r0, r4, #0
-	bl GetUnitStruct
+	bl GetUnit
 	adds r5, r0, #0
 	adds r4, #1
 	str r4, [sp, #0x8c]
@@ -47023,7 +47023,7 @@ sub_80A0EC0: @ 0x080A0EC0
 	movs r4, #1
 _080A0ED0:
 	adds r0, r4, #0
-	bl GetUnitStruct
+	bl GetUnit
 	adds r1, r0, #0
 	cmp r1, #0
 	beq _080A0EEC
@@ -47031,7 +47031,7 @@ _080A0ED0:
 	cmp r0, #0
 	beq _080A0EEC
 	adds r0, r1, #0
-	bl GetUnitSMSIndex
+	bl GetUnitSMSId
 	bl SMS_RegisterUsage
 _080A0EEC:
 	adds r4, #1
@@ -47050,7 +47050,7 @@ _080A0F00:
 	ldr r0, [r0]
 	adds r0, r5, r0
 	ldrb r0, [r0, #1]
-	bl GetClassStandingMapSpriteId
+	bl GetClassSMSId
 	bl SMS_RegisterUsage
 	adds r5, #0x18
 	adds r4, #1
@@ -49095,7 +49095,7 @@ _080A1F94:
 	adds r4, r1, #0
 _080A1FAE:
 	adds r0, r5, #0
-	bl GetUnitStruct
+	bl GetUnit
 	adds r1, r0, #0
 	cmp r1, #0
 	beq _080A1FE2
@@ -49286,7 +49286,7 @@ _080A2108:
 	adds r1, r1, r4
 	strb r0, [r1]
 	ldrb r0, [r1]
-	bl GetClassStandingMapSpriteId
+	bl GetClassSMSId
 	bl SMS_RegisterUsage
 	adds r4, #1
 _080A2124:
@@ -52815,7 +52815,7 @@ _080A3C78:
 	cmp r4, #0x3f
 	bgt _080A3CA0
 	adds r0, r4, #0
-	bl GetUnitStruct
+	bl GetUnit
 	cmp r0, #0
 	beq _080A3C76
 	ldr r2, [r0]
@@ -52841,7 +52841,7 @@ _080A3CA0:
 	movs r6, #0x7f
 _080A3CAE:
 	adds r0, r5, #0
-	bl GetUnitStruct
+	bl GetUnit
 	adds r4, r0, #0
 	cmp r4, #0
 	beq _080A3D08
@@ -53915,7 +53915,7 @@ sub_80A44C8: @ 0x080A44C8
 	adds r5, r0, #0
 	cmp r0, #0x45
 	bhi _080A451E
-	bl GetROMCharStruct
+	bl GetCharacterData
 	ldrb r0, [r0, #9]
 	cmp r0, #0
 	beq _080A451E
@@ -53963,7 +53963,7 @@ sub_80A4534: @ 0x080A4534
 	cmp r4, #0x45
 	bhi _080A4584
 	adds r0, r4, #0
-	bl GetROMCharStruct
+	bl GetCharacterData
 	ldrb r0, [r0, #9]
 	cmp r0, #0
 	beq _080A4584
@@ -54019,7 +54019,7 @@ sub_80A4594: @ 0x080A4594
 	cmp r4, #0x45
 	bhi _080A4662
 	adds r0, r4, #0
-	bl GetROMCharStruct
+	bl GetCharacterData
 	ldrb r0, [r0, #9]
 	cmp r0, #0
 	beq _080A4662
@@ -54121,7 +54121,7 @@ BWL_AddWinOrLossIdk: @ 0x080A4684
 	lsrs r6, r1, #0x18
 	cmp r0, #0x45
 	bhi _080A4734
-	bl GetROMCharStruct
+	bl GetCharacterData
 	ldrb r0, [r0, #9]
 	cmp r0, #0
 	beq _080A4734
@@ -54216,7 +54216,7 @@ BWL_IncrementMoveValue: @ 0x080A474C
 	cmp r4, #0x45
 	bhi _080A4780
 	adds r0, r4, #0
-	bl GetROMCharStruct
+	bl GetCharacterData
 	ldrb r0, [r0, #9]
 	cmp r0, #0
 	beq _080A4780
@@ -54250,7 +54250,7 @@ BWL_IncrementStatScreenViews: @ 0x080A478C
 	cmp r4, #0x45
 	bhi _080A47C0
 	adds r0, r4, #0
-	bl GetROMCharStruct
+	bl GetCharacterData
 	ldrb r0, [r0, #9]
 	cmp r0, #0
 	beq _080A47C0
@@ -54284,7 +54284,7 @@ BWL_IncrementDeployCountMaybe: @ 0x080A47CC
 	cmp r4, #0x45
 	bhi _080A4810
 	adds r0, r4, #0
-	bl GetROMCharStruct
+	bl GetCharacterData
 	ldrb r0, [r0, #9]
 	cmp r0, #0
 	beq _080A4810
@@ -54327,7 +54327,7 @@ BWL_AddTilesMoved: @ 0x080A481C
 	cmp r4, #0x45
 	bhi _080A4870
 	adds r0, r4, #0
-	bl GetROMCharStruct
+	bl GetCharacterData
 	ldrb r0, [r0, #9]
 	cmp r0, #0
 	beq _080A4870
@@ -54377,7 +54377,7 @@ BWL_AddExpGained: @ 0x080A487C
 	cmp r4, #0x45
 	bhi _080A48C8
 	adds r0, r4, #0
-	bl GetROMCharStruct
+	bl GetCharacterData
 	ldrb r0, [r0, #9]
 	cmp r0, #0
 	beq _080A48C8
@@ -54558,7 +54558,7 @@ sub_80A49C8: @ 0x080A49C8
 	adds r4, r0, #0
 	cmp r0, #0x45
 	bhi _080A49E8
-	bl GetROMCharStruct
+	bl GetCharacterData
 	ldrb r0, [r0, #9]
 	cmp r0, #0
 	beq _080A49E8
@@ -54589,7 +54589,7 @@ sub_80A49FC: @ 0x080A49FC
 	adds r4, r0, #0
 	cmp r0, #0x45
 	bhi _080A4A1C
-	bl GetROMCharStruct
+	bl GetCharacterData
 	ldrb r0, [r0, #9]
 	cmp r0, #0
 	beq _080A4A1C
@@ -54622,7 +54622,7 @@ BWL_AddFavoritismValue: @ 0x080A4A34
 	adds r4, r0, #0
 	cmp r0, #0x45
 	bhi _080A4A96
-	bl GetROMCharStruct
+	bl GetCharacterData
 	ldrb r0, [r0, #9]
 	cmp r0, #0
 	beq _080A4A96
@@ -54680,7 +54680,7 @@ sub_80A4AA4: @ 0x080A4AA4
 	movs r5, #0
 	ldr r4, _080A4B10  @ gUnknown_0203A4EC
 	adds r0, r4, #0
-	bl GetUnitCurrentHP
+	bl GetUnitCurrentHp
 	cmp r0, #0
 	bne _080A4ABA
 	adds r7, r4, #0
@@ -54688,7 +54688,7 @@ sub_80A4AA4: @ 0x080A4AA4
 _080A4ABA:
 	ldr r6, _080A4B14  @ gUnknown_0203A56C
 	adds r0, r6, #0
-	bl GetUnitCurrentHP
+	bl GetUnitCurrentHp
 	cmp r0, #0
 	bne _080A4ACA
 	adds r7, r6, #0
@@ -55018,7 +55018,7 @@ BWL_GetEntry: @ 0x080A4CFC
 	cmp r4, #0x45
 	bhi _080A4D20
 	adds r0, r4, #0
-	bl GetROMCharStruct
+	bl GetCharacterData
 	ldrb r0, [r0, #9]
 	cmp r0, #0
 	beq _080A4D20
@@ -55784,7 +55784,7 @@ SaveUnit: @ 0x080A533C
 	bne _080A5388
 	add r7, sp, #0x24
 	adds r0, r7, #0
-	bl ClearUnitStruct
+	bl ClearUnit
 	mov r0, sp
 	strb r4, [r0, #0x14]
 	mov r2, sp
@@ -56324,13 +56324,13 @@ LoadSavedUnit: @ 0x080A5794
 	bl _call_via_r3
 	mov r0, sp
 	ldrb r0, [r0, #0x14]
-	bl GetROMCharStruct
+	bl GetCharacterData
 	str r0, [r4]
 	mov r0, sp
 	ldrb r0, [r0]
 	lsls r0, r0, #0x19
 	lsrs r0, r0, #0x19
-	bl GetROMClassStruct
+	bl GetClassData
 	str r0, [r4, #4]
 	mov r0, sp
 	ldrh r0, [r0]
@@ -56576,10 +56576,10 @@ _080A5984:
 	cmp r2, #6
 	ble _080A5984
 	adds r0, r4, #0
-	bl GetUnitMaxHP
+	bl GetUnitMaxHp
 	adds r1, r0, #0
 	adds r0, r4, #0
-	bl SetUnitHP
+	bl SetUnitHp
 	movs r0, #0
 	mov r1, r8
 	strb r0, [r1]
@@ -57481,11 +57481,11 @@ UnpackUnitStructFromSuspend: @ 0x080A6118
 	bl _call_via_r3
 	mov r0, sp
 	ldrb r0, [r0]
-	bl GetROMCharStruct
+	bl GetCharacterData
 	str r0, [r6]
 	mov r0, sp
 	ldrb r0, [r0, #1]
-	bl GetROMClassStruct
+	bl GetClassData
 	str r0, [r6, #4]
 	add r0, sp, #0x24
 	ldrb r0, [r0]
@@ -79376,7 +79376,7 @@ sub_80B0A50: @ 0x080B0A50
 	movs r4, #1
 _080B0A5C:
 	adds r0, r4, #0
-	bl GetUnitStruct
+	bl GetUnit
 	adds r2, r0, #0
 	cmp r2, #0
 	beq _080B0A98
@@ -79401,7 +79401,7 @@ _080B0A82:
 	str r2, [r0, #4]
 	adds r5, #1
 	adds r0, r2, #0
-	bl GetUnitSMSIndex
+	bl GetUnitSMSId
 	bl SMS_RegisterUsage
 _080B0A98:
 	adds r4, #1
@@ -84141,7 +84141,7 @@ _080B30A0:
 	adds r5, r2, #0
 _080B30C6:
 	ldrb r0, [r7]
-	bl GetROMClassStruct
+	bl GetClassData
 	adds r0, #0x2c
 	adds r0, r0, r4
 	ldrb r0, [r0]
@@ -84886,7 +84886,7 @@ sub_80B369C: @ 0x080B369C
 	adds r4, r1, #0
 	lsls r0, r0, #0x18
 	lsrs r0, r0, #0x18
-	bl GetROMClassStruct
+	bl GetClassData
 	cmp r4, #0
 	bne _080B36B6
 	ldrh r0, [r0]
@@ -85092,7 +85092,7 @@ _080B3836:
 	mov r2, r9
 	ldr r0, [r2, #0x34]
 	ldrb r0, [r0, #5]
-	bl GetROMClassStruct
+	bl GetClassData
 	adds r0, #0x2c
 	adds r0, r0, r7
 	ldrb r0, [r0]
@@ -85225,7 +85225,7 @@ _080B3852:
 	mov r1, r9
 	ldr r0, [r1, #0x34]
 	ldrb r0, [r0, #5]
-	bl GetROMClassStruct
+	bl GetClassData
 	ldrb r0, [r0, #0xb]
 	mov r4, r9
 	adds r4, #0x40
@@ -85233,7 +85233,7 @@ _080B3852:
 	mov r2, r9
 	ldr r0, [r2, #0x34]
 	ldrb r0, [r0, #5]
-	bl GetROMClassStruct
+	bl GetClassData
 	ldrb r0, [r0, #0xc]
 	mov r1, r9
 	adds r1, #0x41
@@ -85241,7 +85241,7 @@ _080B3852:
 	mov r3, r9
 	ldr r0, [r3, #0x34]
 	ldrb r0, [r0, #5]
-	bl GetROMClassStruct
+	bl GetClassData
 	ldrb r0, [r0, #0xd]
 	mov r1, r9
 	adds r1, #0x42
@@ -85249,7 +85249,7 @@ _080B3852:
 	mov r1, r9
 	ldr r0, [r1, #0x34]
 	ldrb r0, [r0, #5]
-	bl GetROMClassStruct
+	bl GetClassData
 	ldrb r0, [r0, #0xe]
 	mov r1, r9
 	adds r1, #0x43
@@ -85257,7 +85257,7 @@ _080B3852:
 	mov r2, r9
 	ldr r0, [r2, #0x34]
 	ldrb r0, [r0, #5]
-	bl GetROMClassStruct
+	bl GetClassData
 	ldrb r1, [r0, #0xf]
 	mov r0, r9
 	adds r0, #0x44
@@ -85265,7 +85265,7 @@ _080B3852:
 	mov r3, r9
 	ldr r0, [r3, #0x34]
 	ldrb r0, [r0, #5]
-	bl GetROMClassStruct
+	bl GetClassData
 	ldrb r0, [r0, #0x10]
 	mov r1, r9
 	adds r1, #0x45
@@ -90340,7 +90340,7 @@ sub_80B622C: @ 0x080B622C
 	movs r4, #1
 _080B6232:
 	adds r0, r4, #0
-	bl GetUnitStruct
+	bl GetUnit
 	adds r1, r0, #0
 	cmp r1, #0
 	beq _080B6250
@@ -90388,7 +90388,7 @@ sub_80B6284: @ 0x080B6284
 	movs r4, #1
 _080B628A:
 	adds r0, r4, #0
-	bl GetUnitStruct
+	bl GetUnit
 	cmp r0, #0
 	beq _080B62BE
 	ldr r2, [r0]
@@ -91350,7 +91350,7 @@ sub_80B6A10: @ 0x080B6A10
 	movs r4, #1
 _080B6A16:
 	adds r0, r4, #0
-	bl GetUnitStruct
+	bl GetUnit
 	adds r2, r0, #0
 	cmp r2, #0
 	beq _080B6A3E
@@ -91423,14 +91423,14 @@ sub_80B6A80: @ 0x080B6A80
 	cmp r5, #0
 	beq _080B6AD8
 	adds r0, r6, #0
-	bl GetUnitByCharId
+	bl GetUnitFromCharId
 	ldr r0, [r0, #0xc]
 	movs r7, #4
 	ands r0, r7
 	cmp r0, #0
 	bne _080B6AD8
 	adds r0, r5, #0
-	bl GetUnitByCharId
+	bl GetUnitFromCharId
 	ldr r0, [r0, #0xc]
 	ands r0, r7
 	cmp r0, #0
@@ -95911,7 +95911,7 @@ DeployEveryUnit: @ 0x080B8FA4
 	movs r4, #1
 _080B8FA8:
 	adds r0, r4, #0
-	bl GetUnitStruct
+	bl GetUnit
 	adds r2, r0, #0
 	cmp r2, #0
 	beq _080B8FC4
@@ -99973,7 +99973,7 @@ _080BAE44:
 	strh r0, [r5, #0x38]
 	strh r0, [r5, #0x3a]
 	mov r0, r8
-	bl GetClassStandingMapSpriteId
+	bl GetClassSMSId
 	movs r1, #0
 	ldrsb r1, [r4, r1]
 	ldr r2, _080BAEEC  @ gUnknown_08205F7C
@@ -104803,7 +104803,7 @@ GetCharacterClassId: @ 0x080BD2AC
 	movs r4, #1
 _080BD2B2:
 	adds r0, r4, #0
-	bl GetUnitStruct
+	bl GetUnit
 	adds r1, r0, #0
 	cmp r1, #0
 	beq _080BD2D0
@@ -107151,7 +107151,7 @@ sub_80BE45C: @ 0x080BE45C
 	asrs r1, r1, #0x18
 	bl sub_80BB194
 	adds r4, r0, #0
-	bl GetROMClassStruct
+	bl GetClassData
 	ldr r0, [r0, #0x28]
 	movs r1, #1
 	ands r0, r1
@@ -107784,7 +107784,7 @@ sub_80BE958: @ 0x080BE958
 	ldrb r0, [r1]
 	cmp r0, #0
 	beq _080BE974
-	bl GetUnitByCharId
+	bl GetUnitFromCharId
 	bl GetUnitMiniPortraitId
 	adds r3, r0, #0
 	b _080BE980
@@ -107820,7 +107820,7 @@ sub_80BE9A0: @ 0x080BE9A0
 	adds r0, r4, #0
 	bl Text_Clear
 	adds r0, r5, #0
-	bl GetROMClassStruct
+	bl GetClassData
 	ldrh r0, [r0]
 	bl GetStringFromIndex
 	adds r5, r0, #0
@@ -107925,7 +107925,7 @@ sub_80BEA78: @ 0x080BEA78
 	ldrb r0, [r1]
 	cmp r0, #0
 	beq _080BEA90
-	bl GetUnitByCharId
+	bl GetUnitFromCharId
 	movs r5, #8
 	ldrsb r5, [r0, r5]
 	b _080BEA9C
@@ -112074,7 +112074,7 @@ sub_80C0A64: @ 0x080C0A64
 	movs r4, #1
 _080C0A6A:
 	adds r0, r4, #0
-	bl GetUnitStruct
+	bl GetUnit
 	adds r1, r0, #0
 	cmp r1, #0
 	beq _080C0A88
@@ -112187,7 +112187,7 @@ sub_80C0A9C: @ 0x080C0A9C
 	movs r1, #2
 	bl DrawDecNumber
 	ldr r0, [r7, #0x2c]
-	bl GetUnitCurrentHP
+	bl GetUnitCurrentHp
 	cmp r0, #0x63
 	ble _080C0B84
 	movs r1, #0xe0
@@ -112205,14 +112205,14 @@ _080C0B84:
 	lsls r0, r0, #1
 	adds r4, r4, r0
 	ldr r0, [r7, #0x2c]
-	bl GetUnitCurrentHP
+	bl GetUnitCurrentHp
 	adds r2, r0, #0
 	adds r0, r4, #0
 	movs r1, #2
 	bl DrawDecNumber
 _080C0B9A:
 	ldr r0, [r7, #0x2c]
-	bl GetUnitMaxHP
+	bl GetUnitMaxHp
 	cmp r0, #0x63
 	ble _080C0BB8
 	ldr r0, _080C0BB4  @ gUnknown_02023114
@@ -112226,7 +112226,7 @@ _080C0BB4: .4byte gUnknown_02023114
 _080C0BB8:
 	ldr r4, _080C0C1C  @ gUnknown_02023116
 	ldr r0, [r7, #0x2c]
-	bl GetUnitMaxHP
+	bl GetUnitMaxHp
 	adds r2, r0, #0
 	adds r0, r4, #0
 	movs r1, #2
@@ -112302,7 +112302,7 @@ sub_80C0C44: @ 0x080C0C44
 	ldrsh r1, [r2, r0]
 _080C0C5C:
 	adds r0, r1, #0
-	bl GetUnitByCharId
+	bl GetUnitFromCharId
 	str r0, [r5, #0x2c]
 	bl GetUnitPortraitId
 	adds r4, r0, #0
@@ -118849,7 +118849,7 @@ sub_80C3F88: @ 0x080C3F88
 	push {r4, lr}
 	adds r4, r0, #0
 	ldr r0, [r4, #0x2c]
-	bl GetUnitByCharId
+	bl GetUnitFromCharId
 	ldr r1, _080C3FAC  @ gUnknown_03005280
 	ldrb r1, [r1, #0x11]
 	lsls r1, r1, #5
@@ -118870,7 +118870,7 @@ sub_80C3FB4: @ 0x080C3FB4
 	push {r4, lr}
 	adds r4, r0, #0
 	ldr r0, [r4, #0x2c]
-	bl GetUnitByCharId
+	bl GetUnitFromCharId
 	ldr r1, _080C3FD8  @ gUnknown_03005280
 	ldrb r1, [r1, #0x11]
 	lsls r1, r1, #5
@@ -118891,7 +118891,7 @@ sub_80C3FE0: @ 0x080C3FE0
 	push {r4, lr}
 	adds r4, r0, #0
 	ldr r0, [r4, #0x2c]
-	bl GetUnitByCharId
+	bl GetUnitFromCharId
 	ldr r1, _080C4004  @ gUnknown_03005280
 	ldrb r1, [r1, #0x11]
 	lsls r1, r1, #5
@@ -135301,7 +135301,7 @@ _080CC724:
 	adds r5, r2, r4
 	ldrb r0, [r5]
 	str r3, [sp, #0xc]
-	bl GetUnitByCharId
+	bl GetUnitFromCharId
 	adds r2, r0, #0
 	ldr r3, [sp, #0xc]
 	cmp r2, #0
@@ -135413,7 +135413,7 @@ _080CC7EE:
 	adds r4, r7, #0
 	adds r4, #0x33
 	ldrb r0, [r4]
-	bl GetUnitByCharId
+	bl GetUnitFromCharId
 	adds r2, r0, #0
 	ldr r0, [r2, #4]
 	ldrb r2, [r0, #4]
@@ -135475,7 +135475,7 @@ _080CC864:
 	adds r4, r7, #0
 	adds r4, #0x33
 	ldrb r0, [r4]
-	bl GetUnitByCharId
+	bl GetUnitFromCharId
 	adds r2, r0, #0
 	ldr r0, [r2, #4]
 	ldrb r2, [r0, #4]
@@ -135706,14 +135706,14 @@ sub_80CCA14: @ 0x080CCA14
 	strb r1, [r0]
 	ldr r4, _080CCA60  @ gUnknown_0203A958
 	ldrb r0, [r4, #0xc]
-	bl GetUnitStruct
+	bl GetUnit
 	ldr r0, [r0]
 	ldrb r0, [r0, #4]
 	adds r1, r5, #0
 	adds r1, #0x33
 	strb r0, [r1]
 	ldrb r0, [r4, #0xc]
-	bl GetUnitStruct
+	bl GetUnit
 	str r0, [r5, #0x38]
 	ldrb r0, [r4, #0x12]
 	str r0, [r5, #0x3c]
@@ -135772,7 +135772,7 @@ sub_80CCAAC: @ 0x080CCAAC
 	adds r2, #3
 	movs r1, #0x78
 	strb r1, [r2]
-	bl GetROMClassStruct
+	bl GetClassData
 	ldrh r0, [r0]
 	mov r1, sp
 	bl GetStringFromIndexInBuffer
@@ -135839,7 +135839,7 @@ sub_80CCB40: @ 0x080CCB40
 	adds r0, r0, r1
 	ldrh r0, [r0]
 	movs r6, #0x74
-	bl GetROMClassStruct
+	bl GetClassData
 	ldrh r0, [r0]
 	add r1, sp, #4
 	bl GetStringFromIndexInBuffer
@@ -135964,7 +135964,7 @@ sub_80CCC2C: @ 0x080CCC2C
 	movs r0, #0
 	bl SetFont
 	ldrh r0, [r6, #0x2c]
-	bl GetROMClassStruct
+	bl GetClassData
 	ldrh r0, [r0]
 	bl GetStringFromIndex
 	ldr r4, _080CCCA0  @ gUnknown_02022D2E
@@ -135977,7 +135977,7 @@ sub_80CCC2C: @ 0x080CCC2C
 	movs r3, #0
 	bl DrawTextInline
 	ldrh r0, [r6, #0x2e]
-	bl GetROMClassStruct
+	bl GetClassData
 	ldrh r0, [r0]
 	bl GetStringFromIndex
 	adds r4, #0x80
@@ -136143,7 +136143,7 @@ sub_80CCD48: @ 0x080CCD48
 	movs r4, #1
 _080CCDC0:
 	adds r0, r4, #0
-	bl GetUnitStruct
+	bl GetUnit
 	mov sl, r0
 	cmp r0, #0
 	bne _080CCDCE
@@ -136207,7 +136207,7 @@ _080CCE1E:
 	add r1, r8
 	strb r0, [r1]
 	ldrb r0, [r4]
-	bl GetROMClassStruct
+	bl GetClassData
 	ldrh r0, [r0, #2]
 	ldr r3, [sp, #0x1c]
 	strh r0, [r3]
@@ -136286,7 +136286,7 @@ _080CCECC:
 	strb r0, [r1]
 	movs r0, #0x37
 _080CCEE4:
-	bl GetROMClassStruct
+	bl GetClassData
 	ldrh r0, [r0, #2]
 	strh r0, [r5, #0x3c]
 	b _080CCF02
@@ -136520,7 +136520,7 @@ _080CD09C:
 	ldr r2, _080CD19C  @ 0x0000FFFF
 	str r2, [sp, #0x58]
 	ldrh r0, [r1]
-	bl GetUnitByCharId
+	bl GetUnitFromCharId
 	adds r1, r0, #0
 	add r0, sp, #4
 	movs r2, #0x48
@@ -136530,7 +136530,7 @@ _080CD09C:
 	lsls r0, r0, #1
 	adds r5, r5, r0
 	ldrh r0, [r5]
-	bl GetROMClassStruct
+	bl GetClassData
 	str r0, [sp, #8]
 	ldr r5, [r0, #0x34]
 	add r0, sp, #4
@@ -137103,7 +137103,7 @@ sub_80CD570: @ 0x080CD570
 	lsls r2, r2, #0x10
 	lsrs r6, r2, #0x10
 	adds r0, r7, #0
-	bl GetROMClassStruct
+	bl GetClassData
 	ldr r5, [r0, #0x34]
 	adds r0, r6, #0
 	bl GetItemType
@@ -137166,7 +137166,7 @@ _080CD5E8:
 	bl GetItemRequiredExp
 	adds r4, r0, #0
 	adds r0, r7, #0
-	bl GetROMClassStruct
+	bl GetClassData
 	adds r5, r0, #0
 	adds r0, r6, #0
 	bl GetItemType
@@ -137275,7 +137275,7 @@ sub_80CD6B0: @ 0x080CD6B0
 	ldrb r0, [r0]
 	strh r0, [r4, #0x2a]
 	ldrh r0, [r4, #0x2a]
-	bl GetUnitByCharId
+	bl GetUnitFromCharId
 	cmp r0, #0
 	beq _080CD6D4
 	ldr r0, [r0]
@@ -137873,7 +137873,7 @@ PromotionCommand_OnSelect: @ 0x080CDB34
 	adds r0, r4, #0
 	adds r0, #0x38
 	ldrb r0, [r0]
-	bl GetUnitByCharId
+	bl GetUnitFromCharId
 	adds r5, r0, #0
 	ldr r0, [r5, #4]
 	ldrb r1, [r0, #4]
@@ -138077,7 +138077,7 @@ PromotionCommand_OnTextDraw: @ 0x080CDCC4
 	adds r1, #0x2c
 	adds r1, r1, r0
 	ldrh r0, [r1]
-	bl GetROMClassStruct
+	bl GetClassData
 	ldrh r0, [r0]
 	bl GetStringFromIndex
 	adds r2, r0, #0
@@ -138131,7 +138131,7 @@ Usability_ThirdPromotionOption: @ 0x080CDD38
 	adds r0, r4, #0
 	adds r0, #0x38
 	ldrb r0, [r0]
-	bl GetUnitByCharId
+	bl GetUnitFromCharId
 	ldr r0, [r0, #4]
 	ldrb r0, [r0, #4]
 	cmp r0, #0x3d
@@ -138220,7 +138220,7 @@ sub_80CDDF0: @ 0x080CDDF0
 	adds r0, r5, #0
 	adds r0, #0x38
 	ldrb r0, [r0]
-	bl GetUnitByCharId
+	bl GetUnitFromCharId
 	adds r6, r0, #0
 	cmp r6, #0
 	bne _080CDE10
@@ -138303,7 +138303,7 @@ sub_80CDE98: @ 0x080CDE98
 	ldr r0, [r0, #0x14]
 	adds r0, #0x38
 	ldrb r0, [r0]
-	bl GetUnitByCharId
+	bl GetUnitFromCharId
 	pop {r0}
 	bx r0
 
@@ -138371,7 +138371,7 @@ sub_80CDEA8: @ 0x080CDEA8
 	cmp r1, r0
 	beq _080CDF38
 	ldr r0, [r5, #0x38]
-	bl ValidateUnitItem
+	bl UnitUpdateUsedItem
 _080CDF38:
 	add sp, #4
 	pop {r4, r5}

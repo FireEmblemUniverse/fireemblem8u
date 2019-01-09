@@ -188,7 +188,7 @@ sub_8082FB8: @ 0x08082FB8
 	movs r4, #1
 _08082FC8:
 	adds r0, r4, #0
-	bl GetUnitStruct
+	bl GetUnit
 	adds r2, r0, #0
 	cmp r2, #0
 	beq _08083004
@@ -412,7 +412,7 @@ sub_808314C: @ 0x0808314C
 	movs r4, #0x81
 _0808315C:
 	adds r0, r4, #0
-	bl GetUnitStruct
+	bl GetUnit
 	adds r2, r0, #0
 	cmp r2, #0
 	beq _08083198
@@ -1085,7 +1085,7 @@ sub_80835DC: @ 0x080835DC
 _08083610: .4byte gUnknown_0202BCF0
 _08083614:
 	adds r0, r5, #0
-	bl GetUnitByCharId
+	bl GetUnitFromCharId
 	ldrb r0, [r0, #0xb]
 	lsls r0, r0, #0x18
 	asrs r0, r0, #0x18
@@ -1125,7 +1125,7 @@ sub_8083654: @ 0x08083654
 	movs r5, #1
 _0808365E:
 	adds r0, r5, #0
-	bl GetUnitStruct
+	bl GetUnit
 	adds r4, r0, #0
 	cmp r4, #0
 	beq _0808370C
@@ -1146,10 +1146,10 @@ _0808365E:
 	movs r2, #7
 	bl BWL_AddWinOrLossIdk
 	adds r0, r4, #0
-	bl sub_80183FC
+	bl UnitKill
 	adds r0, r4, #0
 	movs r1, #0
-	bl SetUnitHP
+	bl SetUnitHp
 	ldr r2, _08083704  @ gUnknown_0203A4EC
 	movs r1, #0xb
 	ldrsb r1, [r2, r1]
@@ -1180,10 +1180,10 @@ _080836CA:
 	cmp r0, #0
 	beq _080836E2
 	ldrb r0, [r4, #0x1b]
-	bl GetUnitStruct
+	bl GetUnit
 	movs r1, #0
 	movs r2, #0
-	bl UpdateRescuingData
+	bl UnitDrop
 _080836E2:
 	ldr r0, [r4, #0xc]
 	movs r1, #0x10
@@ -1193,11 +1193,11 @@ _080836E2:
 	adds r0, r4, #0
 	mov r1, sp
 	add r2, sp, #4
-	bl sub_80184E0
+	bl UnitGetDeathDropLocation
 	ldr r1, [sp]
 	ldr r2, [sp, #4]
 	adds r0, r4, #0
-	bl UpdateRescuingData
+	bl UnitDrop
 	b _08083712
 	.align 2, 0
 _08083704: .4byte gUnknown_0203A4EC
@@ -2510,7 +2510,7 @@ _0808401E:
 	movs r7, #1
 _08084020:
 	adds r0, r7, #0
-	bl GetUnitStruct
+	bl GetUnit
 	adds r6, r0, #0
 	cmp r6, #0
 	beq _08084066
@@ -2891,7 +2891,7 @@ _08084352:
 	lsls r0, r0, #0x18
 	cmp r0, #0
 	bne _080843B4
-	bl sub_8018FF0
+	bl CountAvailableBlueUnits
 	lsls r0, r0, #0x10
 	cmp r0, #0
 	beq _080843B4
@@ -2960,7 +2960,7 @@ _080843E6:
 	lsls r0, r0, #0x18
 	cmp r0, #0
 	bne _080843FC
-	bl sub_8018FF0
+	bl CountAvailableBlueUnits
 	lsls r0, r0, #0x10
 	cmp r0, #0
 	bne _08084402

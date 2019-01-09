@@ -30,14 +30,14 @@ ApplyUnitAction: @ 0x0803200C
 	adds r4, r0, #0
 	ldr r5, _08032054  @ gUnknown_0203A958
 	ldrb r0, [r5, #0xc]
-	bl GetUnitStruct
+	bl GetUnit
 	ldr r1, _08032058  @ gUnknown_03004E50
 	str r0, [r1]
 	ldrb r0, [r5, #0x11]
 	cmp r0, #2
 	bne _0803203C
 	ldrb r0, [r5, #0xc]
-	bl GetUnitStruct
+	bl GetUnit
 	ldrb r1, [r5, #0x12]
 	lsls r1, r1, #1
 	adds r0, #0x1e
@@ -175,10 +175,10 @@ ActionRescue: @ 0x08032164
 	adds r6, r0, #0
 	ldr r4, _080321B4  @ gUnknown_0203A958
 	ldrb r0, [r4, #0xc]
-	bl GetUnitStruct
+	bl GetUnit
 	adds r5, r0, #0
 	ldrb r0, [r4, #0xd]
-	bl GetUnitStruct
+	bl GetUnit
 	adds r4, r0, #0
 	bl TryRemoveUnitFromBallista
 	movs r0, #0x10
@@ -233,7 +233,7 @@ ActionDrop: @ 0x080321E0
 	adds r6, r0, #0
 	ldr r4, _08032248  @ gUnknown_0203A958
 	ldrb r0, [r4, #0xd]
-	bl GetUnitStruct
+	bl GetUnit
 	adds r5, r0, #0
 	ldrb r0, [r4, #0x14]
 	ldr r1, _0803224C  @ gUnknown_0202E4EC
@@ -249,8 +249,8 @@ ActionDrop: @ 0x080321E0
 	cmp r0, #0
 	bne _08032254
 	ldrb r0, [r4, #0xc]
-	bl GetUnitStruct
-	bl ApplyUnitMovement
+	bl GetUnit
+	bl UnitFinalizeMovement
 	ldrb r0, [r4, #0x13]
 	ldrb r1, [r4, #0x14]
 	movs r2, #0x10
@@ -264,10 +264,10 @@ ActionDrop: @ 0x080321E0
 	adds r3, r6, #0
 	bl Make6CKOIDO
 	ldrb r0, [r4, #0xc]
-	bl GetUnitStruct
+	bl GetUnit
 	ldrb r1, [r4, #0x13]
 	ldrb r2, [r4, #0x14]
-	bl UpdateRescuingData
+	bl UnitDrop
 	ldr r0, _08032250  @ gUnknown_0859DA6C
 	adds r1, r6, #0
 	bl Proc_CreateBlockingChild
@@ -297,11 +297,11 @@ ActionVisitAndSieze: @ 0x08032270
 	push {r4, r5, lr}
 	ldr r5, _08032298  @ gUnknown_0203A958
 	ldrb r0, [r5, #0xc]
-	bl GetUnitStruct
+	bl GetUnit
 	movs r4, #0x10
 	ldrsb r4, [r0, r4]
 	ldrb r0, [r5, #0xc]
-	bl GetUnitStruct
+	bl GetUnit
 	movs r1, #0x11
 	ldrsb r1, [r0, r1]
 	adds r0, r4, #0
@@ -319,10 +319,10 @@ ActionCombat: @ 0x0803229C
 	adds r7, r0, #0
 	ldr r4, _0803231C  @ gUnknown_0203A958
 	ldrb r0, [r4, #0xd]
-	bl GetUnitStruct
+	bl GetUnit
 	adds r6, r0, #0
 	ldrb r0, [r4, #0xc]
-	bl GetUnitStruct
+	bl GetUnit
 	ldrb r1, [r4, #0x12]
 	lsls r1, r1, #1
 	adds r0, #0x1e
@@ -336,7 +336,7 @@ ActionCombat: @ 0x0803229C
 	cmp r0, #0xa6
 	bne _080322FC
 	ldrb r0, [r4, #0xc]
-	bl GetUnitStruct
+	bl GetUnit
 	bl MakeTargetListForFuckingNightmare
 	bl sub_804FD28
 	adds r5, r0, #0
@@ -349,9 +349,9 @@ _080322E0:
 	ldrb r0, [r0, #2]
 	lsls r0, r0, #0x18
 	asrs r0, r0, #0x18
-	bl GetUnitStruct
+	bl GetUnit
 	movs r1, #2
-	bl SetUnitNewStatus
+	bl SetUnitStatus
 	adds r4, #1
 	cmp r4, r5
 	blt _080322E0
@@ -365,7 +365,7 @@ _08032304:
 	cmp r0, #8
 	bne _08032324
 	ldrb r0, [r1, #0xc]
-	bl GetUnitStruct
+	bl GetUnit
 	adds r1, r6, #0
 	bl sub_802A384
 	b _08032330
@@ -374,7 +374,7 @@ _0803231C: .4byte gUnknown_0203A958
 _08032320: .4byte gUnknown_0203A4EC
 _08032324:
 	ldrb r0, [r1, #0xc]
-	bl GetUnitStruct
+	bl GetUnit
 	adds r1, r6, #0
 	bl sub_802A350
 _08032330:
@@ -406,18 +406,18 @@ ActionDance: @ 0x08032358
 	adds r5, r0, #0
 	ldr r4, _0803239C  @ gUnknown_0203A958
 	ldrb r0, [r4, #0xd]
-	bl GetUnitStruct
+	bl GetUnit
 	ldr r1, [r0, #0xc]
 	ldr r2, _080323A0  @ 0xFFFFFBBD
 	ands r1, r2
 	str r1, [r0, #0xc]
 	ldrb r0, [r4, #0xc]
-	bl GetUnitStruct
+	bl GetUnit
 	movs r1, #1
 	negs r1, r1
 	bl sub_802CB24
 	ldrb r0, [r4, #0xd]
-	bl GetUnitStruct
+	bl GetUnit
 	bl sub_802CBC8
 	ldr r1, _080323A4  @ gUnknown_0203A4D4
 	movs r0, #0x40
@@ -439,11 +439,11 @@ ActionTalk: @ 0x080323A8
 	push {r4, r5, lr}
 	ldr r4, _080323D0  @ gUnknown_0203A958
 	ldrb r0, [r4, #0xc]
-	bl GetUnitStruct
+	bl GetUnit
 	ldr r0, [r0]
 	ldrb r5, [r0, #4]
 	ldrb r0, [r4, #0xd]
-	bl GetUnitStruct
+	bl GetUnit
 	ldr r0, [r0]
 	ldrb r1, [r0, #4]
 	adds r0, r5, #0
@@ -463,7 +463,7 @@ ActionSupport: @ 0x080323D4
 	push {r6, r7}
 	ldr r0, _08032474  @ gUnknown_0203A958
 	ldrb r0, [r0, #0xd]
-	bl GetUnitStruct
+	bl GetUnit
 	adds r4, r0, #0
 	ldr r0, _08032478  @ gUnknown_03004E50
 	mov r9, r0
@@ -540,7 +540,7 @@ ActionSteal: @ 0x0803247C
 	adds r7, r0, #0
 	ldr r4, _080324F4  @ gUnknown_0203A958
 	ldrb r0, [r4, #0xd]
-	bl GetUnitStruct
+	bl GetUnit
 	adds r5, r0, #0
 	ldr r0, [r5, #0xc]
 	movs r1, #0x80
@@ -561,14 +561,14 @@ ActionSteal: @ 0x0803247C
 _080324AC:
 	ldr r4, _080324F4  @ gUnknown_0203A958
 	ldrb r0, [r4, #0xd]
-	bl GetUnitStruct
+	bl GetUnit
 	ldrb r1, [r4, #0x12]
 	lsls r1, r1, #1
 	adds r0, #0x1e
 	adds r0, r0, r1
 	ldrh r6, [r0]
 	ldrb r0, [r4, #0xd]
-	bl GetUnitStruct
+	bl GetUnit
 	ldrb r1, [r4, #0x12]
 	bl UnitRemoveItem
 	movs r0, #0xff
@@ -596,13 +596,13 @@ _080324F8: .4byte 0xFFFFEFFF
 _080324FC:
 	ldr r0, _0803254C  @ gUnknown_0203A958
 	ldrb r0, [r0, #0xc]
-	bl GetUnitStruct
+	bl GetUnit
 	adds r1, r6, #0
 	bl UnitAddItem
 _0803250A:
 	ldr r5, _0803254C  @ gUnknown_0203A958
 	ldrb r0, [r5, #0xc]
-	bl GetUnitStruct
+	bl GetUnit
 	movs r1, #1
 	negs r1, r1
 	bl sub_802CB24
@@ -612,7 +612,7 @@ _0803250A:
 	movs r0, #1
 	strb r0, [r1]
 	ldrb r0, [r5, #0xd]
-	bl GetUnitStruct
+	bl GetUnit
 	adds r1, r0, #0
 	adds r0, r4, #0
 	bl CopyUnitToBattleStruct
@@ -777,7 +777,7 @@ sub_8032674: @ 0x08032674
 	adds r4, r0, #0
 	adds r5, r1, #0
 	adds r0, r5, #0
-	bl GetUnitCurrentHP
+	bl GetUnitCurrentHp
 	adds r6, r0, #0
 	cmp r6, #0
 	bne _08032716
@@ -791,18 +791,18 @@ sub_8032674: @ 0x08032674
 	bl Proc_CreateBlockingChild
 	adds r4, r0, #0
 	ldrb r0, [r5, #0x1b]
-	bl GetUnitStruct
+	bl GetUnit
 	str r0, [r4, #0x2c]
 	adds r1, r4, #0
 	adds r1, #0x30
 	adds r2, r4, #0
 	adds r2, #0x34
 	adds r0, r5, #0
-	bl sub_80184E0
+	bl UnitGetDeathDropLocation
 	ldr r1, [r4, #0x30]
 	ldr r2, [r4, #0x34]
 	adds r0, r5, #0
-	bl UpdateRescuingData
+	bl UnitDrop
 	movs r0, #0x10
 	ldrsb r0, [r5, r0]
 	lsls r0, r0, #4
@@ -834,7 +834,7 @@ sub_8032674: @ 0x08032674
 	movs r0, #0xb
 	strh r0, [r1]
 	ldr r0, [r4, #0x2c]
-	bl GetUnitSMSIndex
+	bl GetUnitSMSId
 	bl SMS_RegisterUsage
 	bl SMS_FlushIndirect
 	ldr r0, _08032724  @ gUnknown_0202BCF0
@@ -859,7 +859,7 @@ sub_8032728: @ 0x08032728
 	push {r4, r5, lr}
 	adds r4, r0, #0
 	adds r5, r1, #0
-	bl GetUnitCurrentHP
+	bl GetUnitCurrentHp
 	cmp r0, #0
 	bne _0803274A
 	ldr r0, [r4]
@@ -869,7 +869,7 @@ sub_8032728: @ 0x08032728
 	movs r2, #2
 	bl BWL_AddWinOrLossIdk
 	adds r0, r4, #0
-	bl sub_80183FC
+	bl UnitKill
 _0803274A:
 	pop {r4, r5}
 	pop {r0}
@@ -879,11 +879,11 @@ _0803274A:
 sub_8032750: @ 0x08032750
 	push {r4, lr}
 	adds r4, r0, #0
-	bl GetUnitCurrentHP
+	bl GetUnitCurrentHp
 	cmp r0, #0
 	bne _0803276E
 	adds r0, r4, #0
-	bl sub_80183FC
+	bl UnitKill
 	ldr r0, [r4]
 	ldrb r0, [r0, #4]
 	movs r1, #0
@@ -931,7 +931,7 @@ _080327B0: .4byte gUnknown_0203A56C
 	THUMB_FUNC_START DidUnitDie
 DidUnitDie: @ 0x080327B4
 	push {lr}
-	bl GetUnitCurrentHP
+	bl GetUnitCurrentHp
 	cmp r0, #0
 	bne _080327C2
 	movs r0, #1
@@ -970,7 +970,7 @@ _080327F2:
 	beq _0803284A
 	movs r0, #0xb
 	ldrsb r0, [r5, r0]
-	bl GetUnitStruct
+	bl GetUnit
 	ldr r1, [r0, #0xc]
 	movs r2, #1
 	orrs r1, r2
@@ -1023,13 +1023,13 @@ sub_803286C: @ 0x0803286C
 	adds r0, #0x64
 	movs r1, #0
 	ldrsh r0, [r0, r1]
-	bl GetUnitStruct
+	bl GetUnit
 	adds r6, r0, #0
 	adds r0, r5, #0
 	adds r0, #0x66
 	movs r1, #0
 	ldrsh r0, [r0, r1]
-	bl GetUnitStruct
+	bl GetUnit
 	adds r4, r0, #0
 	adds r0, r5, #0
 	adds r1, r6, #0
@@ -1088,11 +1088,11 @@ BATTLE_HandleItemDrop: @ 0x080328D0
 	bne _0803290C
 	movs r0, #0xb
 	ldrsb r0, [r6, r0]
-	bl GetUnitStruct
+	bl GetUnit
 	adds r7, r0, #0
 	movs r0, #0xb
 	ldrsb r0, [r4, r0]
-	bl GetUnitStruct
+	bl GetUnit
 	adds r5, r0, #0
 _0803290C:
 	movs r0, #0x13
@@ -1101,11 +1101,11 @@ _0803290C:
 	bne _08032928
 	movs r0, #0xb
 	ldrsb r0, [r4, r0]
-	bl GetUnitStruct
+	bl GetUnit
 	adds r7, r0, #0
 	movs r0, #0xb
 	ldrsb r0, [r6, r0]
-	bl GetUnitStruct
+	bl GetUnit
 	adds r5, r0, #0
 _08032928:
 	cmp r7, #0

@@ -9,7 +9,7 @@ sub_801B950: @ 0x0801B950
 	movs r4, #0x81
 _0801B956:
 	adds r0, r4, #0
-	bl GetUnitStruct
+	bl GetUnit
 	adds r2, r0, #0
 	cmp r2, #0
 	beq _0801B98A

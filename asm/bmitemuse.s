@@ -748,10 +748,10 @@ _08029078:
 CanUseHealingItem: @ 0x0802907C
 	push {r4, r5, lr}
 	adds r4, r0, #0
-	bl GetUnitCurrentHP
+	bl GetUnitCurrentHp
 	adds r5, r0, #0
 	adds r0, r4, #0
-	bl GetUnitMaxHP
+	bl GetUnitMaxHp
 	cmp r5, r0
 	beq _08029094
 	movs r0, #1
@@ -1166,7 +1166,7 @@ CanUseStatBooster: @ 0x0802940C
 	adds r4, r0, #0
 	ldr r6, _08029500  @ gUnknown_03004C00
 	adds r0, r6, #0
-	bl ClearUnitStruct
+	bl ClearUnit
 	ldr r0, [r5]
 	str r0, [r6]
 	ldr r0, [r5, #4]
@@ -1208,7 +1208,7 @@ CanUseStatBooster: @ 0x0802940C
 	adds r0, r0, r1
 	strb r0, [r6, #0x1a]
 	adds r0, r6, #0
-	bl CheckForStatCaps
+	bl UnitCheckStatCaps
 	movs r1, #0x12
 	ldrsb r1, [r6, r1]
 	movs r0, #0x12
@@ -1411,11 +1411,11 @@ WarpTargetPosSelect_Init: @ 0x080295E8
 	bl NewBottomHelpText
 	ldr r5, _0802968C  @ gUnknown_0203A958
 	ldrb r0, [r5, #0xd]
-	bl GetUnitStruct
+	bl GetUnit
 	movs r4, #0x10
 	ldrsb r4, [r0, r4]
 	ldrb r0, [r5, #0xd]
-	bl GetUnitStruct
+	bl GetUnit
 	movs r2, #0x11
 	ldrsb r2, [r0, r2]
 	adds r0, r6, #0
@@ -1425,7 +1425,7 @@ WarpTargetPosSelect_Init: @ 0x080295E8
 	ldr r0, _08029690  @ gUnknown_03004E50
 	ldr r4, [r0]
 	ldrb r0, [r5, #0xd]
-	bl GetUnitStruct
+	bl GetUnit
 	adds r1, r0, #0
 	adds r0, r4, #0
 	bl FillWarpRangeMap
@@ -1439,11 +1439,11 @@ WarpTargetPosSelect_Init: @ 0x080295E8
 	movs r0, #1
 	bl DisplayMoveRangeGraphics
 	ldrb r0, [r5, #0xd]
-	bl GetUnitStruct
+	bl GetUnit
 	movs r4, #0x10
 	ldrsb r4, [r0, r4]
 	ldrb r0, [r5, #0xd]
-	bl GetUnitStruct
+	bl GetUnit
 	movs r1, #0x11
 	ldrsb r1, [r0, r1]
 	adds r0, r4, #0
@@ -1797,21 +1797,21 @@ HammerneTargetSelection_OnSelect: @ 0x08029944
 	bl NewMenu_Default
 	adds r4, r0, #0
 	ldrb r0, [r5, #0xd]
-	bl GetUnitStruct
+	bl GetUnit
 	adds r1, r0, #0
 	adds r0, r4, #0
 	movs r2, #0x10
 	movs r3, #0xb
 	bl sub_801E684
 	ldrb r0, [r5, #0xd]
-	bl GetUnitStruct
+	bl GetUnit
 	bl GetUnitPortraitId
 	bl GetPortraitStructPointer
 	ldr r0, [r0]
 	cmp r0, #0
 	beq _080299A4
 	ldrb r0, [r5, #0xd]
-	bl GetUnitStruct
+	bl GetUnit
 	bl GetUnitPortraitId
 	adds r1, r0, #0
 	movs r0, #2
@@ -1879,7 +1879,7 @@ HammerneTargetSelection_OnChange: @ 0x08029A08
 	bl ChangeActiveUnitFacing
 	movs r0, #2
 	ldrsb r0, [r4, r0]
-	bl GetUnitStruct
+	bl GetUnit
 	bl DrawHammerneUnitInfoWindow
 	pop {r4}
 	pop {r1}
@@ -1912,7 +1912,7 @@ sub_8029A4C: @ 0x08029A4C
 	adds r4, r1, #0
 	ldr r0, _08029A68  @ gUnknown_0203A958
 	ldrb r0, [r0, #0xd]
-	bl GetUnitStruct
+	bl GetUnit
 	lsls r4, r4, #1
 	adds r0, #0x1e
 	adds r0, r0, r4
@@ -1943,7 +1943,7 @@ sub_8029A84: @ 0x08029A84
 	adds r5, r1, #0
 	ldr r0, _08029AD8  @ gUnknown_0203A958
 	ldrb r0, [r0, #0xd]
-	bl GetUnitStruct
+	bl GetUnit
 	adds r1, r5, #0
 	adds r1, #0x3c
 	ldrb r1, [r1]
@@ -1994,7 +1994,7 @@ sub_8029AE0: @ 0x08029AE0
 	movs r6, #0
 	ldr r0, _08029B20  @ gUnknown_0203A958
 	ldrb r0, [r0, #0xd]
-	bl GetUnitStruct
+	bl GetUnit
 	adds r1, r4, #0
 	adds r1, #0x3c
 	ldrb r1, [r1]
@@ -2134,7 +2134,7 @@ sub_8029C10: @ 0x08029C10
 	bl ChangeActiveUnitFacing
 	movs r0, #2
 	ldrsb r0, [r4, r0]
-	bl GetUnitStruct
+	bl GetUnit
 	bl sub_803501C
 	pop {r4}
 	pop {r1}
@@ -2183,7 +2183,7 @@ sub_8029C7C: @ 0x08029C7C
 	bl ChangeActiveUnitFacing
 	movs r0, #2
 	ldrsb r0, [r4, r0]
-	bl GetUnitStruct
+	bl GetUnit
 	bl sub_80350A4
 	pop {r4}
 	pop {r1}
@@ -2232,13 +2232,13 @@ sub_8029CE8: @ 0x08029CE8
 	bl ChangeActiveUnitFacing
 	movs r0, #2
 	ldrsb r0, [r4, r0]
-	bl GetUnitStruct
+	bl GetUnit
 	adds r6, r0, #0
 	ldr r0, _08029D24  @ gUnknown_03004E50
 	ldr r5, [r0]
 	movs r0, #2
 	ldrsb r0, [r4, r0]
-	bl GetUnitStruct
+	bl GetUnit
 	adds r1, r0, #0
 	adds r0, r5, #0
 	bl GetStaffAccuracy

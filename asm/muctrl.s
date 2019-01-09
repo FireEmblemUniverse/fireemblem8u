@@ -418,7 +418,7 @@ sub_8079FA8: @ 0x08079FA8
 	ldrh r0, [r4, #2]
 	strb r0, [r5, #0x11]
 	adds r0, r5, #0
-	bl ApplyUnitMovement
+	bl UnitFinalizeMovement
 	ldr r1, [r5, #0xc]
 	movs r0, #0x80
 	ands r0, r1
@@ -495,7 +495,7 @@ GetPreferredPositionForUNIT: @ 0x0807A054
 	orrs r5, r0
 _0807A080:
 	ldrb r0, [r4]
-	bl GetUnitStruct
+	bl GetUnit
 	ldrb r1, [r4, #7]
 	lsls r1, r1, #3
 	subs r1, #8
@@ -725,7 +725,7 @@ _0807A234:
 	ldrb r0, [r0]
 	strb r0, [r4, #0x11]
 	adds r0, r4, #0
-	bl ApplyUnitMovement
+	bl UnitFinalizeMovement
 	adds r0, r4, #0
 	bl ShowUnitSMS
 	ldr r0, [r4, #0xc]
@@ -1084,7 +1084,7 @@ _0807A506:
 	movs r2, #2
 	ldrsh r5, [r6, r2]
 	adds r0, r3, #0
-	bl GetMovCostTablePtr
+	bl GetUnitMovementCost
 	adds r2, r0, #0
 	adds r0, r4, #0
 	adds r1, r5, #0

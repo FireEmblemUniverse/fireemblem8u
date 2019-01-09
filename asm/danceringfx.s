@@ -167,7 +167,7 @@ sub_8021B30: @ 0x08021B30
 	beq _08021B86
 	ldr r0, _08021B90  @ gUnknown_0203A958
 	ldrb r0, [r0, #0xd]
-	bl GetUnitStruct
+	bl GetUnit
 	movs r4, #0x10
 	ldrsb r4, [r0, r4]
 	movs r5, #0x11

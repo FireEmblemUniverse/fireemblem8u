@@ -36189,7 +36189,7 @@ _0806222A:
 	bl sub_8054BA4
 	movs r0, #0xb
 	ldrsb r0, [r4, r0]
-	bl GetUnitStruct
+	bl GetUnit
 	adds r4, r0, #0
 	ldr r0, [r4, #0xc]
 	ldr r1, _08062270  @ 0xFFFFFBBD
@@ -64770,14 +64770,14 @@ _08070B9A:
 	beq _08070C4E
 	ldr r0, [r6]
 	ldrb r0, [r0, #4]
-	bl GetUnitByCharId
+	bl GetUnitFromCharId
 	movs r5, #0xb
 	ldrsb r5, [r0, r5]
 	movs r4, #0xc0
 	ands r5, r4
 	ldr r0, [r7]
 	ldrb r0, [r0, #4]
-	bl GetUnitByCharId
+	bl GetUnitFromCharId
 	ldrb r0, [r0, #0xb]
 	lsls r0, r0, #0x18
 	asrs r0, r0, #0x18
@@ -64858,7 +64858,7 @@ _08070C4E:
 	beq _08070CEE
 	ldr r0, [r6]
 	ldrb r0, [r0, #4]
-	bl GetUnitByCharId
+	bl GetUnitFromCharId
 	movs r5, #0xb
 	ldrsb r5, [r0, r5]
 	movs r4, #0xc0
@@ -64866,7 +64866,7 @@ _08070C4E:
 	mov r1, r8
 	ldr r0, [r1]
 	ldrb r0, [r0, #4]
-	bl GetUnitByCharId
+	bl GetUnitFromCharId
 	ldrb r0, [r0, #0xb]
 	lsls r0, r0, #0x18
 	asrs r0, r0, #0x18
@@ -68313,7 +68313,7 @@ _080727B4:
 	adds r4, r0, #0
 	ldr r0, [r5]
 	ldrb r0, [r0, #4]
-	bl GetUnitByCharId
+	bl GetUnitFromCharId
 	ldrb r0, [r0, #0xb]
 	lsls r0, r0, #0x18
 	asrs r0, r0, #0x18
@@ -70061,7 +70061,7 @@ _08073560:
 _08073572:
 	movs r0, #0xb
 	ldrsb r0, [r5, r0]
-	bl GetUnitStruct
+	bl GetUnit
 	adds r5, r0, #0
 	ldr r1, _08073680  @ gUnknown_02020110
 	adds r3, r4, #0

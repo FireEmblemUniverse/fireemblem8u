@@ -538,7 +538,7 @@ CopyUnitToBattleStruct: @ 0x0802A584
 	movs r2, #0x48
 	bl memcpy
 	adds r0, r6, #0
-	bl GetUnitMaxHP
+	bl GetUnitMaxHp
 	movs r4, #0
 	strb r0, [r5, #0x12]
 	adds r0, r6, #0
@@ -2107,7 +2107,7 @@ _0802B11A:
 	beq _0802B19C
 	adds r0, r4, #0
 	str r3, [sp, #8]
-	bl GetUnitStruct
+	bl GetUnit
 	adds r2, r0, #0
 	movs r0, #0xc0
 	ands r4, r0
@@ -3500,7 +3500,7 @@ _0802BBCA:
 _0802BBE0:
 	movs r0, #0xb
 	ldrsb r0, [r7, r0]
-	bl GetUnitStruct
+	bl GetUnit
 	adds r1, r7, #0
 	bl CheckForLevelUpCaps
 _0802BBEE:
@@ -3522,7 +3522,7 @@ sub_802BC00: @ 0x0802BC00
 	adds r5, r0, #0
 	ldr r0, [r5, #4]
 	ldrb r0, [r0, #5]
-	bl GetROMClassStruct
+	bl GetClassData
 	adds r4, r0, #0
 	ldr r0, [r5, #4]
 	ldrb r0, [r0, #4]
@@ -3678,11 +3678,11 @@ _0802BD1C:
 	movs r4, #0x13
 	ldrsb r4, [r5, r4]
 	adds r0, r5, #0
-	bl GetUnitMaxHP
+	bl GetUnitMaxHp
 	cmp r4, r0
 	ble _0802BD44
 	adds r0, r5, #0
-	bl GetUnitMaxHP
+	bl GetUnitMaxHp
 	strb r0, [r5, #0x13]
 _0802BD44:
 	pop {r3, r4}
@@ -3701,7 +3701,7 @@ sub_802BD50: @ 0x0802BD50
 	adds r5, r0, #0
 	lsls r0, r1, #0x18
 	lsrs r0, r0, #0x18
-	bl GetROMClassStruct
+	bl GetClassData
 	adds r4, r0, #0
 	ldr r0, [r5, #4]
 	ldrb r0, [r0, #4]
@@ -3857,11 +3857,11 @@ _0802BE6C:
 	movs r4, #0x13
 	ldrsb r4, [r5, r4]
 	adds r0, r5, #0
-	bl GetUnitMaxHP
+	bl GetUnitMaxHp
 	cmp r4, r0
 	ble _0802BE94
 	adds r0, r5, #0
-	bl GetUnitMaxHP
+	bl GetUnitMaxHp
 	strb r0, [r5, #0x13]
 _0802BE94:
 	pop {r3, r4}
@@ -4091,12 +4091,12 @@ SaveUnitsFromBattle: @ 0x0802C028
 	ldr r5, _0802C09C  @ gUnknown_0203A4EC
 	movs r0, #0xb
 	ldrsb r0, [r5, r0]
-	bl GetUnitStruct
+	bl GetUnit
 	adds r7, r0, #0
 	ldr r4, _0802C0A0  @ gUnknown_0203A56C
 	movs r0, #0xb
 	ldrsb r0, [r4, r0]
-	bl GetUnitStruct
+	bl GetUnit
 	adds r6, r0, #0
 	adds r0, r5, #0
 	adds r0, #0x52
@@ -4352,7 +4352,7 @@ SaveUnitFromBattle: @ 0x0802C1EC
 	blt _0802C220
 	adds r1, r0, #0
 	adds r0, r4, #0
-	bl SetUnitNewStatus
+	bl SetUnitStatus
 _0802C220:
 	adds r0, r5, #0
 	adds r0, #0x73
@@ -4397,7 +4397,7 @@ _0802C220:
 	adds r0, r0, r1
 	strb r0, [r4, #0x19]
 	adds r0, r4, #0
-	bl CheckForStatCaps
+	bl UnitCheckStatCaps
 	adds r0, r5, #0
 	bl GetBattleNewWExp
 	adds r2, r0, #0
@@ -4427,7 +4427,7 @@ _0802C2A2:
 	cmp r2, #0
 	bge _0802C2A2
 	adds r0, r4, #0
-	bl RemoveUnitBlankItems
+	bl UnitRemoveInvalidItems
 	movs r0, #0
 	ldrsb r0, [r6, r0]
 	cmp r0, #0
@@ -4573,7 +4573,7 @@ sub_802C398: @ 0x0802C398
 	ldrb r0, [r3, #5]
 	cmp r0, #0
 	beq _0802C3D0
-	bl GetROMClassStruct
+	bl GetClassData
 	movs r1, #0x1a
 	ldrsb r1, [r0, r1]
 	lsls r0, r1, #2
@@ -5274,11 +5274,11 @@ MakeSnagBattleTarget: @ 0x0802C8C4
 	push {r4, lr}
 	ldr r4, _0802C91C  @ gUnknown_0203A56C
 	adds r0, r4, #0
-	bl ClearUnitStruct
+	bl ClearUnit
 	movs r0, #0
 	strb r0, [r4, #0xb]
 	movs r0, #1
-	bl GetROMClassStruct
+	bl GetClassData
 	str r0, [r4, #4]
 	ldr r0, _0802C920  @ gUnknown_0202BCF0
 	ldrb r0, [r0, #0xe]
@@ -5318,12 +5318,12 @@ _0802C924: .4byte gUnknown_0203A958
 _0802C928: .4byte gUnknown_0202E4DC
 _0802C92C:
 	movs r0, #0xfe
-	bl GetROMCharStruct
+	bl GetCharacterData
 	str r0, [r4]
 	b _0802C942
 _0802C936:
 	movs r0, #0xff
-	bl GetROMCharStruct
+	bl GetCharacterData
 	str r0, [r4]
 	movs r0, #0x14
 	strb r0, [r4, #0x12]
@@ -5690,7 +5690,7 @@ SaveInstigatorFromBattle: @ 0x0802CC1C
 	ldr r4, _0802CC34  @ gUnknown_0203A4EC
 	movs r0, #0xb
 	ldrsb r0, [r4, r0]
-	bl GetUnitStruct
+	bl GetUnit
 	adds r1, r4, #0
 	bl SaveUnitFromBattle
 	pop {r4}

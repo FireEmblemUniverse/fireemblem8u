@@ -706,7 +706,7 @@ sub_8011D10: @ 0x08011D10
 	movs r4, #1
 _08011D2A:
 	adds r0, r4, #0
-	bl GetUnitStruct
+	bl GetUnit
 	adds r1, r0, #0
 	cmp r1, #0
 	beq _08011D4E
@@ -755,7 +755,7 @@ sub_8011D60: @ 0x08011D60
 	movs r4, #1
 _08011D88:
 	adds r0, r4, #0
-	bl GetUnitStruct
+	bl GetUnit
 	adds r5, r0, #0
 	adds r7, r4, #1
 	cmp r5, #0
@@ -1216,7 +1216,7 @@ _08012118:
 	beq _080121BA
 	movs r0, #0xb
 	ldrsb r0, [r5, r0]
-	bl GetUnitStruct
+	bl GetUnit
 	ldrh r1, [r4]
 	strh r1, [r0, #0x1e]
 	b _080121BA
@@ -1230,7 +1230,7 @@ _08012164: .4byte gUnknown_030005FC
 _08012168: .4byte 0x0000FFFF
 _0801216C:
 	adds r0, r7, #0
-	bl SetupActiveUnit
+	bl UnitBeginAction
 	ldr r4, _08012198  @ gUnknown_03004E50
 	ldr r0, [r4]
 	bl HideUnitSMS
@@ -1283,12 +1283,12 @@ sub_80121D4: @ 0x080121D4
 	ldr r5, _08012258  @ gUnknown_0203A4EC
 	movs r0, #0xb
 	ldrsb r0, [r5, r0]
-	bl GetUnitStruct
+	bl GetUnit
 	adds r6, r0, #0
 	ldr r4, _0801225C  @ gUnknown_0203A56C
 	movs r0, #0xb
 	ldrsb r0, [r4, r0]
-	bl GetUnitStruct
+	bl GetUnit
 	adds r7, r0, #0
 	ldrb r0, [r5, #0x13]
 	movs r1, #0
@@ -1481,7 +1481,7 @@ InitPlayerUnitPositionsForPrepScreen: @ 0x08012360
 	adds r7, #1
 _08012378:
 	adds r0, r6, #0
-	bl GetUnitStruct
+	bl GetUnit
 	adds r4, r0, #0
 	cmp r4, #0
 	beq _080123F8
@@ -1559,7 +1559,7 @@ sub_801240C: @ 0x0801240C
 	negs r5, r5
 _08012414:
 	adds r0, r4, #0
-	bl GetUnitStruct
+	bl GetUnit
 	adds r2, r0, #0
 	cmp r2, #0
 	beq _0801246A
@@ -1664,7 +1664,7 @@ _080124DE:
 	movs r7, #1
 _080124E4:
 	adds r0, r7, #0
-	bl GetUnitStruct
+	bl GetUnit
 	adds r4, r0, #0
 	cmp r4, #0
 	beq _0801252A
@@ -1746,7 +1746,7 @@ sub_8012578: @ 0x08012578
 	bgt _080125B6
 _08012580:
 	adds r0, r6, #0
-	bl GetUnitStruct
+	bl GetUnit
 	adds r5, r0, #0
 	cmp r5, #0
 	beq _080125B0
@@ -1783,7 +1783,7 @@ sub_80125C0: @ 0x080125C0
 	adds r4, r0, #0
 	bl GetPlayerLeaderUnitId
 	adds r5, r0, #0
-	bl GetUnitByCharId
+	bl GetUnitFromCharId
 	adds r2, r0, #0
 	cmp r2, #0
 	beq _080125F6
@@ -1812,7 +1812,7 @@ _080125F6:
 	b _0801261E
 _08012600:
 	adds r0, r5, #0
-	bl GetUnitStruct
+	bl GetUnit
 	adds r2, r0, #0
 	adds r5, #1
 	ldr r0, [r2]
@@ -1848,7 +1848,7 @@ StoreUnitWordStructs: @ 0x0801263C
 	movs r5, #1
 _08012642:
 	adds r0, r5, #0
-	bl GetUnitStruct
+	bl GetUnit
 	adds r1, r0, #0
 	cmp r1, #0
 	beq _08012662
@@ -1883,7 +1883,7 @@ LoadUnitWordStructs: @ 0x08012678
 _08012680: .4byte gUnknown_03000600
 _08012684:
 	ldrb r0, [r4]
-	bl GetUnitByCharId
+	bl GetUnitFromCharId
 	adds r2, r0, #0
 	ldrb r0, [r4, #1]
 	strb r0, [r2, #0x10]

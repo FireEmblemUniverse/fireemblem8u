@@ -89,7 +89,7 @@ sub_801E02C: @ 0x0801E02C
 	push {lr}
 	ldr r0, _0801E040  @ gUnknown_0203A958
 	ldrb r0, [r0, #0xc]
-	bl GetUnitStruct
+	bl GetUnit
 	ldr r1, _0801E044  @ gUnknown_03004E50
 	str r0, [r1]
 	pop {r0}

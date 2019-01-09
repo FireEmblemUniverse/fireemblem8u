@@ -595,9 +595,9 @@ sub_802D72C: @ 0x0802D72C
 	movs r0, #0x1b
 	strb r0, [r1, #0x11]
 	ldr r0, [r4, #0x2c]
-	bl RemoveUnitBlankItems
+	bl UnitRemoveInvalidItems
 	ldr r0, [r4, #0x30]
-	bl RemoveUnitBlankItems
+	bl UnitRemoveInvalidItems
 	adds r0, r4, #0
 	bl sub_802D4A8
 	pop {r4}

@@ -394,14 +394,14 @@ sub_80349FC: @ 0x080349FC
 	movs r2, #3
 	bl Text_InsertString
 	adds r0, r5, #0
-	bl GetUnitCurrentHP
+	bl GetUnitCurrentHp
 	adds r3, r0, #0
 	adds r0, r4, #0
 	movs r1, #0x20
 	movs r2, #2
 	bl Text_InsertNumberOr2Dashes
 	adds r0, r5, #0
-	bl GetUnitMaxHP
+	bl GetUnitMaxHp
 	adds r3, r0, #0
 	adds r0, r4, #0
 	movs r1, #0x38
@@ -487,7 +487,7 @@ sub_8034ADC: @ 0x08034ADC
 	ldr r0, [r1, #0x28]
 	ldr r1, [r2, #0x28]
 	orrs r0, r1
-	bl sub_8018AF0
+	bl GetUnitAidIconId
 	adds r1, r0, #0
 	movs r2, #0xa0
 	lsls r2, r2, #7
@@ -513,7 +513,7 @@ sub_8034B10: @ 0x08034B10
 	movs r2, #3
 	bl Text_InsertString
 	adds r0, r5, #0
-	bl WriteStatusTextToRAM
+	bl GetUnitStatusName
 	adds r3, r0, #0
 	adds r0, r4, #0
 	movs r1, #0x18
@@ -1429,7 +1429,7 @@ sub_80352BC: @ 0x080352BC
 	adds r4, r0, #0
 	bl ClearBG0BG1
 	ldrb r0, [r5, #0x1b]
-	bl GetUnitStruct
+	bl GetUnit
 	adds r7, r0, #0
 	ldr r6, _08035370  @ gUnknown_0203A9FC
 	ldr r0, [r6]
@@ -1542,7 +1542,7 @@ sub_80353B8: @ 0x080353B8
 	ldr r0, _0803546C  @ gUnknown_03004E50
 	ldr r0, [r0]
 	ldrb r0, [r0, #0x1b]
-	bl GetUnitStruct
+	bl GetUnit
 	adds r6, r0, #0
 	bl ClearBG0BG1
 	ldr r5, _08035470  @ gUnknown_0203A9FC

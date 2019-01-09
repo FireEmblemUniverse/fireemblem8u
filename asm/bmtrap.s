@@ -83,7 +83,7 @@ sub_80374F4: @ 0x080374F4
 	push {r4, lr}
 	ldr r4, [r0, #0x54]
 	adds r0, r4, #0
-	bl GetUnitCurrentHP
+	bl GetUnitCurrentHp
 	cmp r0, #0xa
 	bgt _0803750A
 	ldr r0, [r4]
@@ -178,7 +178,7 @@ sub_80375A0: @ 0x080375A0
 	adds r1, r4, #0
 	bl sub_80357A8
 	adds r0, r4, #0
-	bl GetUnitCurrentHP
+	bl GetUnitCurrentHp
 	cmp r0, #0
 	bne _080375DE
 	ldr r5, _080375E4  @ gUnknown_03004E50
@@ -385,7 +385,7 @@ HandlePostActionTraps: @ 0x08037744
 	adds r5, r0, #0
 	ldr r4, _08037790  @ gUnknown_03004E50
 	ldr r0, [r4]
-	bl GetUnitCurrentHP
+	bl GetUnitCurrentHp
 	cmp r0, #0
 	ble _0803778A
 	ldr r2, [r4]
@@ -452,7 +452,7 @@ sub_80377CC: @ 0x080377CC
 	adds r4, r0, #0
 	ldr r0, _080377EC  @ gUnknown_0203A958
 	ldrb r0, [r0, #0xd]
-	bl GetUnitStruct
+	bl GetUnit
 	adds r1, r0, #0
 	adds r0, r4, #0
 	movs r2, #1

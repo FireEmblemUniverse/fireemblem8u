@@ -672,8 +672,8 @@ _0802E65C:
 	pop {r1}
 	bx r1
 
-	THUMB_FUNC_START HideIfUnderRoof
-HideIfUnderRoof: @ 0x0802E660
+	THUMB_FUNC_START UnitHideIfUnderRoof
+UnitHideIfUnderRoof: @ 0x0802E660
 	push {lr}
 	adds r2, r0, #0
 	movs r0, #0x11
@@ -705,7 +705,7 @@ sub_802E690: @ 0x0802E690
 	movs r5, #1
 _0802E694:
 	adds r0, r5, #0
-	bl GetUnitStruct
+	bl GetUnit
 	adds r4, r0, #0
 	cmp r4, #0
 	beq _0802E6D8
@@ -1217,7 +1217,7 @@ sub_802EA28: @ 0x0802EA28
 	lsls r0, r0, #0x18
 	cmp r0, #0
 	bne _0802EA40
-	bl sub_8018FF0
+	bl CountAvailableBlueUnits
 	lsls r0, r0, #0x10
 	cmp r0, #0
 	bne _0802EA44

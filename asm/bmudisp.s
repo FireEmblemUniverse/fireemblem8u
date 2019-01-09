@@ -787,7 +787,7 @@ sub_8026C1C: @ 0x08026C1C
 	push {r5, r6, r7}
 	sub sp, #0xc
 	str r1, [sp]
-	bl GetUnitSMSIndex
+	bl GetUnitSMSId
 	str r0, [sp, #4]
 	bl SMS_RegisterUsage
 	lsls r7, r0, #5
@@ -1519,7 +1519,7 @@ SMS_UpdateFromGameData: @ 0x080271A0
 	movs r7, #1
 _080271C0:
 	adds r0, r7, #0
-	bl GetUnitStruct
+	bl GetUnit
 	adds r6, r0, #0
 	cmp r6, #0
 	beq _08027282
@@ -1572,7 +1572,7 @@ _08027212:
 	lsls r0, r0, #4
 	strh r0, [r5, #4]
 	adds r0, r6, #0
-	bl GetUnitSMSIndex
+	bl GetUnitSMSId
 	bl SMS_RegisterUsage
 	adds r4, r0, #0
 	adds r0, r6, #0
@@ -1584,7 +1584,7 @@ _08027212:
 	adds r4, r4, r1
 	strh r4, [r5, #8]
 	adds r0, r6, #0
-	bl GetUnitSMSIndex
+	bl GetUnitSMSId
 	ldr r2, _080272D0  @ gUnknown_088AF880
 	movs r1, #0x7f
 	ands r1, r0
@@ -2120,7 +2120,7 @@ _0802767C:
 	mov r8, r1
 _08027684:
 	mov r0, r8
-	bl GetUnitStruct
+	bl GetUnit
 	adds r4, r0, #0
 	cmp r4, #0
 	bne _08027692
@@ -2608,7 +2608,7 @@ sub_8027A4C: @ 0x08027A4C
 	ldr r0, [r0]
 	adds r0, r0, r1
 	ldrb r0, [r0]
-	bl GetUnitStruct
+	bl GetUnit
 	adds r4, r0, #0
 	cmp r4, #0
 	beq _08027AC0
@@ -2667,7 +2667,7 @@ _08027AC0:
 	ldr r0, [r0]
 	adds r0, r0, r1
 	ldrb r0, [r0]
-	bl GetUnitStruct
+	bl GetUnit
 	adds r4, r0, #0
 	cmp r4, #0
 	beq _08027AFA
@@ -2693,7 +2693,7 @@ sub_8027B0C: @ 0x08027B0C
 	ldr r1, [r1]
 	adds r1, r1, r0
 	ldrb r0, [r1]
-	bl GetUnitStruct
+	bl GetUnit
 	adds r2, r0, #0
 	cmp r2, #0
 	beq _08027B58
@@ -2739,7 +2739,7 @@ sub_8027B60: @ 0x08027B60
 	adds r7, r2, #0
 	adds r4, r3, #0
 	adds r0, r4, #0
-	bl GetUnitSMSIndex
+	bl GetUnitSMSId
 	adds r5, r0, #0
 	bl SMS_RegisterUsage
 	adds r6, r0, #0
@@ -2853,7 +2853,7 @@ sub_8027C48: @ 0x08027C48
 	ldr r0, [sp, #0x20]
 	lsls r3, r3, #0x10
 	lsrs r7, r3, #0x10
-	bl GetClassStandingMapSpriteId
+	bl GetClassSMSId
 	mov r8, r0
 	bl SMS_RegisterUsage
 	adds r4, r0, #0
@@ -2942,7 +2942,7 @@ sub_8027CFC: @ 0x08027CFC
 	adds r5, r1, #0
 	adds r4, r2, #0
 	adds r0, r3, #0
-	bl GetClassStandingMapSpriteId
+	bl GetClassSMSId
 	adds r6, r0, #0
 	bl SMS_RegisterUsage
 	adds r7, r0, #0
@@ -3041,7 +3041,7 @@ sub_8027DB4: @ 0x08027DB4
 	ldr r4, [sp, #0x20]
 	lsls r3, r3, #0x10
 	lsrs r7, r3, #0x10
-	bl GetClassStandingMapSpriteId
+	bl GetClassSMSId
 	adds r2, r0, #0
 	ldr r0, _08027E08  @ gUnknown_0859B66C
 	lsls r4, r4, #2
@@ -3118,7 +3118,7 @@ sub_8027E4C: @ 0x08027E4C
 	adds r6, r2, #0
 	adds r7, r3, #0
 	ldr r0, [sp, #0x20]
-	bl GetUnitSMSIndex
+	bl GetUnitSMSId
 	adds r4, r0, #0
 	bl SMS_RegisterUsage
 	adds r5, r0, #0
@@ -3239,7 +3239,7 @@ SMS_DisplayOne: @ 0x08027F28
 	bhi _08027FFE
 	ldr r4, _08027F74  @ gUnknown_088AF880
 	mov r0, ip
-	bl GetClassStandingMapSpriteId
+	bl GetClassSMSId
 	movs r1, #0x7f
 	ands r1, r0
 	lsls r1, r1, #3
@@ -3348,7 +3348,7 @@ sub_8028014: @ 0x08028014
 	adds r6, r2, #0
 	mov r8, r3
 	ldr r0, [sp, #0x20]
-	bl GetUnitSMSIndex
+	bl GetUnitSMSId
 	adds r5, r0, #0
 	bl SMS_RegisterUsage
 	adds r4, r0, #0

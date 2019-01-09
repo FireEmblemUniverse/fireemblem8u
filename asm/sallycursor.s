@@ -37,7 +37,7 @@ _08033284:
 	cmp r0, #0
 	beq _080332C2
 	adds r0, r5, #0
-	bl GetUnitByCharId
+	bl GetUnitFromCharId
 	cmp r0, #0
 	beq _080332A0
 	ldr r0, [r0, #0xc]
@@ -49,7 +49,7 @@ _080332A0:
 	movs r4, #1
 _080332A2:
 	adds r0, r4, #0
-	bl GetUnitStruct
+	bl GetUnit
 	cmp r0, #0
 	beq _080332BC
 	ldr r2, [r0]
@@ -816,7 +816,7 @@ sub_80338C0: @ 0x080338C0
 	push {r4, r5, lr}
 	sub sp, #4
 	bl GetPlayerLeaderUnitId
-	bl GetUnitByCharId
+	bl GetUnitFromCharId
 	adds r4, r0, #0
 	cmp r4, #0
 	beq _080338E8
@@ -959,7 +959,7 @@ _080339CC:
 	ldrb r0, [r1]
 	cmp r0, #0
 	beq _08033A3C
-	bl GetUnitStruct
+	bl GetUnit
 	bl sub_801C928
 	cmp r0, #0
 	beq _08033A3C
@@ -977,7 +977,7 @@ _080339CC:
 	ldr r0, [r0]
 	adds r0, r0, r1
 	ldrb r0, [r0]
-	bl GetUnitStruct
+	bl GetUnit
 	adds r1, r5, #0
 	bl sub_808894C
 	adds r0, r5, #0
@@ -1031,7 +1031,7 @@ _08033A7E:
 	ldr r0, [r0]
 	adds r0, r0, r1
 	ldrb r0, [r0]
-	bl GetUnitStruct
+	bl GetUnit
 	adds r4, r0, #0
 	bl GetUnitSelectionValueThing
 	cmp r0, #4
@@ -1111,7 +1111,7 @@ _08033B36:
 _08033B44: .4byte gUnknown_0202BCF0
 _08033B48:
 	adds r0, r4, #0
-	bl SetupActiveUnit
+	bl UnitBeginAction
 	ldr r0, _08033B6C  @ gUnknown_03004E50
 	ldr r2, [r0]
 	ldr r0, [r2, #0xc]
@@ -1145,7 +1145,7 @@ _08033B70:
 _08033B8C: .4byte gUnknown_0202BCF0
 _08033B90:
 	adds r0, r4, #0
-	bl SetupActiveUnit
+	bl UnitBeginAction
 	ldr r0, _08033BB0  @ gUnknown_03004E50
 	ldr r2, [r0]
 	ldr r0, [r2, #0xc]
@@ -1285,7 +1285,7 @@ sub_8033C90: @ 0x08033C90
 	ldr r0, [r1]
 	adds r0, r0, r2
 	ldrb r0, [r0]
-	bl GetUnitStruct
+	bl GetUnit
 	bl GetUnitSelectionValueThing
 	cmp r0, #4
 	bne _08033CC8
@@ -1460,7 +1460,7 @@ sub_8033E08: @ 0x08033E08
 	ldr r0, [r0]
 	adds r0, r0, r1
 	ldrb r0, [r0]
-	bl GetUnitStruct
+	bl GetUnit
 	adds r4, r0, #0
 	cmp r4, #0
 	bne _08033E50
@@ -1672,7 +1672,7 @@ _08033FD2:
 	cmp r4, #0
 	beq _08034002
 	adds r0, r4, #0
-	bl GetUnitStruct
+	bl GetUnit
 	bl sub_801C928
 	cmp r0, #0
 	beq _08034002
@@ -1680,7 +1680,7 @@ _08033FD2:
 	movs r0, #0x1f
 	bl sub_8086DE4
 	adds r0, r4, #0
-	bl GetUnitStruct
+	bl GetUnit
 	adds r1, r5, #0
 	bl sub_808894C
 	adds r0, r5, #0
@@ -1965,7 +1965,7 @@ ShrinkPlayerUnits: @ 0x08034214
 	movs r4, #1
 _08034236:
 	adds r0, r4, #0
-	bl GetUnitStruct
+	bl GetUnit
 	adds r2, r0, #0
 	cmp r2, #0
 	beq _08034258
@@ -2000,7 +2000,7 @@ sub_8034278: @ 0x08034278
 	movs r4, #1
 _0803427C:
 	adds r0, r4, #0
-	bl GetUnitStruct
+	bl GetUnit
 	adds r2, r0, #0
 	cmp r2, #0
 	beq _080342BA

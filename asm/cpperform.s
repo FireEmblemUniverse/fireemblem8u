@@ -162,7 +162,7 @@ sub_8039FAC: @ 0x08039FAC
 	adds r5, r0, #0
 	ldr r6, _0803A010  @ gUnknown_03004E50
 	ldr r0, [r6]
-	bl SetupActiveUnit
+	bl UnitBeginAction
 	ldr r0, [r6]
 	bl HideUnitSMS
 	ldr r0, [r6]
@@ -212,7 +212,7 @@ sub_803A024: @ 0x0803A024
 	push {r4, r5, lr}
 	ldr r0, _0803A070  @ gUnknown_0203A958
 	ldrb r0, [r0, #0xc]
-	bl GetUnitStruct
+	bl GetUnit
 	ldr r5, _0803A074  @ gUnknown_03004E50
 	str r0, [r5]
 	ldr r4, _0803A078  @ gUnknown_0203AA94
@@ -340,7 +340,7 @@ sub_803A134: @ 0x0803A134
 	mov r8, r0
 	ldr r4, _0803A174  @ gUnknown_0203AA94
 	ldrb r0, [r4, #6]
-	bl GetUnitStruct
+	bl GetUnit
 	adds r6, r0, #0
 	ldrb r1, [r4, #7]
 	lsls r1, r1, #1
@@ -505,11 +505,11 @@ sub_803A274: @ 0x0803A274
 	cmp r0, #0
 	bne _0803A2A6
 	ldrb r0, [r5, #7]
-	bl GetUnitStruct
+	bl GetUnit
 	ldr r0, [r0]
 	ldrb r4, [r0, #4]
 	ldrb r0, [r5, #8]
-	bl GetUnitStruct
+	bl GetUnit
 	ldr r0, [r0]
 	ldrb r1, [r0, #4]
 	adds r0, r4, #0
@@ -710,7 +710,7 @@ _0803A438:
 _0803A448: .4byte gUnknown_0203AA94
 _0803A44C:
 	ldrb r0, [r1, #6]
-	bl GetUnitStruct
+	bl GetUnit
 	movs r6, #0x10
 	ldrsb r6, [r0, r6]
 	movs r5, #0x11
@@ -761,7 +761,7 @@ _0803A4B0:
 	cmp r0, #0
 	beq _0803A4D8
 _0803A4B6:
-	bl GetUnitStruct
+	bl GetUnit
 	movs r6, #0x10
 	ldrsb r6, [r0, r6]
 	movs r5, #0x11

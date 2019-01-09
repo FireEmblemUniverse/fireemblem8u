@@ -360,7 +360,7 @@ s8 CanUnitUseWeaponNow(struct Unit* unit, int item) {
     if (!(GetItemAttributes(item) & IA_WEAPON))
         return FALSE;
 
-    if ((GetItemAttributes(item) & IA_MAGIC) && CanUnitNotUseMagic(unit))
+    if ((GetItemAttributes(item) & IA_MAGIC) && IsUnitMagicSealed(unit))
         return FALSE;
 
     return CanUnitUseWeapon(unit, item);
@@ -398,7 +398,7 @@ s8 CanUnitUseStaffNow(struct Unit* unit, int item) {
     if (!(GetItemAttributes(item) & IA_STAFF))
         return FALSE;
 
-    if (CanUnitNotUseMagic(unit))
+    if (IsUnitMagicSealed(unit))
         return FALSE;
 
     return CanUnitUseStaff(unit, item);
@@ -983,7 +983,7 @@ int GetUnitItemCostSum(void) {
     int i, j, item, result = 0;
 
     for (i = 1; i < 0x40; ++i) {
-        struct Unit* unit = GetUnitStruct(i);
+        struct Unit* unit = GetUnit(i);
 
         if (!unit)
             continue;

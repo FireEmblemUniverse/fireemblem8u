@@ -164,7 +164,7 @@ sub_8086E44: @ 0x08086E44
 	movs r1, #2
 	bl DrawDecNumber
 	ldr r0, [r7, #0xc]
-	bl GetUnitCurrentHP
+	bl GetUnitCurrentHp
 	cmp r0, #0x63
 	ble _08086F50
 	ldr r0, _08086F4C  @ 0x00000446
@@ -190,7 +190,7 @@ _08086F50:
 	lsls r4, r4, #3
 	add r4, r8
 	ldr r0, [r7, #0xc]
-	bl GetUnitCurrentHP
+	bl GetUnitCurrentHp
 	adds r2, r0, #0
 	adds r0, r4, #0
 	movs r1, #2
@@ -198,7 +198,7 @@ _08086F50:
 _08086F66:
 	ldr r5, _08086F80  @ gUnknown_02003BFC
 	ldr r0, [r5, #0xc]
-	bl GetUnitMaxHP
+	bl GetUnitMaxHp
 	cmp r0, #0x63
 	ble _08086F88
 	ldr r0, _08086F84  @ gUnknown_020230F4
@@ -213,7 +213,7 @@ _08086F84: .4byte gUnknown_020230F4
 _08086F88:
 	ldr r4, _08086FA8  @ gUnknown_020230F6
 	ldr r0, [r5, #0xc]
-	bl GetUnitMaxHP
+	bl GetUnitMaxHp
 	adds r2, r0, #0
 	adds r0, r4, #0
 	movs r1, #2
@@ -670,7 +670,7 @@ _08087290:
 	ldr r0, [r1, #0x28]
 	ldr r1, [r2, #0x28]
 	orrs r0, r1
-	bl sub_8018AF0
+	bl GetUnitAidIconId
 	adds r1, r0, #0
 	movs r2, #0xa0
 	lsls r2, r2, #7
@@ -679,7 +679,7 @@ _08087290:
 	adds r4, r5, #0
 	adds r4, #0x78
 	ldr r0, [r5, #0xc]
-	bl GetRescuingUnitNameId
+	bl GetUnitRescueName
 	adds r3, r0, #0
 	adds r0, r4, #0
 	movs r1, #0x18
@@ -697,7 +697,7 @@ _08087290:
 	bne _080873CC
 	adds r4, #0x10
 	adds r0, r1, #0
-	bl WriteStatusTextToRAM
+	bl GetUnitStatusName
 	adds r3, r0, #0
 	adds r0, r4, #0
 	movs r1, #0x18
@@ -713,7 +713,7 @@ _080873CC:
 	adds r4, r5, #0
 	adds r4, #0x88
 	adds r0, r1, #0
-	bl WriteStatusTextToRAM
+	bl GetUnitStatusName
 	adds r3, r0, #0
 	adds r0, r4, #0
 	movs r1, #0x16
@@ -756,7 +756,7 @@ _08087408:
 	adds r4, r5, #0
 	adds r4, #0x88
 	add r0, sp, #8
-	bl WriteStatusTextToRAM
+	bl GetUnitStatusName
 	adds r3, r0, #0
 	adds r0, r4, #0
 	movs r1, #0x18
@@ -767,7 +767,7 @@ _08087442:
 	adds r4, r5, #0
 	adds r4, #0x88
 	add r0, sp, #8
-	bl WriteStatusTextToRAM
+	bl GetUnitStatusName
 	adds r3, r0, #0
 	adds r0, r4, #0
 	movs r1, #0x16
@@ -1092,7 +1092,7 @@ _080876D8:
 	lsls r2, r2, #7
 	bl DrawIcon
 	adds r0, r4, #0
-	bl GetROMCharStruct
+	bl GetCharacterData
 	ldrh r0, [r0]
 	bl GetStringFromIndex
 	mov r1, r8
@@ -1352,7 +1352,7 @@ _08087930:
 	movs r0, #0x3f
 	ands r4, r0
 	adds r0, r6, r4
-	bl GetUnitStruct
+	bl GetUnit
 	adds r3, r0, #0
 	cmp r3, #0
 	beq _08087930
@@ -1976,7 +1976,7 @@ sub_8087DF8: @ 0x08087DF8
 	adds r0, #0x4a
 	movs r1, #0
 	ldrsh r0, [r0, r1]
-	bl GetUnitStruct
+	bl GetUnit
 	ldr r1, _08087E20  @ gUnknown_02003BFC
 	str r0, [r1, #0xc]
 	ldr r0, _08087E24  @ gUnknown_08A009D8
@@ -3203,7 +3203,7 @@ _08088850:
 	ldrb r0, [r1, #0x1b]
 	cmp r0, #0
 	beq _08088888
-	bl GetUnitStruct
+	bl GetUnit
 	adds r2, r0, #0
 	ldr r0, [r4, #0xc]
 	ldr r0, [r0, #0xc]

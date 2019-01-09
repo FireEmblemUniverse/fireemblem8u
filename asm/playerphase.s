@@ -158,7 +158,7 @@ _0801C994:
 	ldrb r0, [r1]
 	cmp r0, #0
 	beq _0801CA0C
-	bl GetUnitStruct
+	bl GetUnit
 	bl sub_801C928
 	lsls r0, r0, #0x18
 	cmp r0, #0
@@ -177,7 +177,7 @@ _0801C994:
 	ldr r0, [r0]
 	adds r0, r0, r1
 	ldrb r0, [r0]
-	bl GetUnitStruct
+	bl GetUnit
 	adds r1, r6, #0
 	bl sub_808894C
 	adds r0, r6, #0
@@ -207,7 +207,7 @@ _0801CA0C:
 	ldr r0, [r0]
 	adds r0, r0, r1
 	ldrb r0, [r0]
-	bl GetUnitStruct
+	bl GetUnit
 	adds r4, r0, #0
 	bl GetUnitSelectionValueThing
 	cmp r0, #2
@@ -252,7 +252,7 @@ _0801CA94: .4byte gUnknown_0202BCF0
 _0801CA98: .4byte gUnknown_0859D214
 _0801CA9C:
 	adds r0, r4, #0
-	bl SetupActiveUnit
+	bl UnitBeginAction
 	ldr r0, _0801CAB8  @ gUnknown_03004E50
 	ldr r0, [r0]
 	ldr r0, [r0]
@@ -265,7 +265,7 @@ _0801CA9C:
 _0801CAB8: .4byte gUnknown_03004E50
 _0801CABC:
 	adds r0, r4, #0
-	bl SetupActiveUnit
+	bl UnitBeginAction
 	adds r1, r5, #0
 	adds r1, #0x3e
 	movs r0, #0
@@ -299,7 +299,7 @@ _0801CAD4:
 	ldr r0, [r0]
 	adds r0, r0, r1
 	ldrb r0, [r0]
-	bl GetUnitStruct
+	bl GetUnit
 	adds r4, r0, #0
 	cmp r4, #0
 	beq _0801CB18
@@ -386,7 +386,7 @@ _0801CBB8:
 	movs r1, #0
 	bl ClearMapWith
 	ldr r0, [r5]
-	bl GetUnitUseFlags
+	bl GetUnitWeaponUsabilityBits
 	cmp r0, #2
 	beq _0801CBF8
 	cmp r0, #2
@@ -574,7 +574,7 @@ sub_801CD1C: @ 0x0801CD1C
 	ldr r0, [r4]
 	cmp r0, #0
 	bne _0801CD4C
-	bl sub_8018BA0
+	bl GetCombinedEnemyWeaponUsabilityBits
 	b _0801CD76
 	.align 2, 0
 _0801CD44: .4byte gKeyStatusPtr
@@ -598,7 +598,7 @@ _0801CD5A:
 	cmp r0, #0
 	bne _0801CD80
 	adds r0, r2, #0
-	bl GetUnitUseFlags
+	bl GetUnitWeaponUsabilityBits
 _0801CD76:
 	movs r4, #2
 	cmp r0, #3
@@ -789,7 +789,7 @@ _0801CF08:
 	cmp r4, #0
 	beq _0801CFC0
 	adds r0, r4, #0
-	bl GetUnitStruct
+	bl GetUnit
 	bl sub_801C928
 	lsls r0, r0, #0x18
 	cmp r0, #0
@@ -798,7 +798,7 @@ _0801CF08:
 	movs r0, #0x1f
 	bl sub_8086DE4
 	adds r0, r4, #0
-	bl GetUnitStruct
+	bl GetUnit
 	adds r1, r5, #0
 	bl sub_808894C
 	adds r0, r5, #0
@@ -915,7 +915,7 @@ sub_801D008: @ 0x0801D008
 	ldrh r0, [r2, #2]
 	strb r0, [r1, #0x11]
 	ldr r0, [r4]
-	bl ApplyUnitMovement
+	bl UnitFinalizeMovement
 	ldr r2, [r4]
 	ldr r0, [r2, #0xc]
 	movs r1, #2
@@ -932,14 +932,14 @@ sub_801D008: @ 0x0801D008
 	cmp r0, #0
 	bne _0801D058
 	adds r0, r4, #0
-	bl SetupActiveUnit
+	bl UnitBeginAction
 	b _0801D05E
 	.align 2, 0
 _0801D050: .4byte gUnknown_03004E50
 _0801D054: .4byte gUnknown_0202BE48
 _0801D058:
 	adds r0, r4, #0
-	bl SetActiveUnit
+	bl UnitBeginCantoAction
 _0801D05E:
 	ldr r4, _0801D080  @ gUnknown_03004E50
 	ldr r0, [r4]
@@ -962,11 +962,11 @@ _6CE_PLAYERPAHSE_PrepareAction: @ 0x0801D084
 	adds r6, r0, #0
 	ldr r4, _0801D0C4  @ gUnknown_0203A958
 	ldrb r0, [r4, #0xc]
-	bl GetUnitStruct
+	bl GetUnit
 	movs r5, #0x10
 	ldrsb r5, [r0, r5]
 	ldrb r0, [r4, #0xc]
-	bl GetUnitStruct
+	bl GetUnit
 	movs r2, #0x11
 	ldrsb r2, [r0, r2]
 	adds r0, r6, #0
@@ -1086,7 +1086,7 @@ _0801D1C4: .4byte gUnknown_0202BCB0
 _0801D1C8:
 	ldr r4, _0801D200  @ gUnknown_0203A958
 	ldrb r0, [r4, #0xc]
-	bl GetUnitStruct
+	bl GetUnit
 	ldrb r1, [r4, #0x12]
 	lsls r1, r1, #1
 	adds r0, #0x1e
@@ -1201,7 +1201,7 @@ _0801D2A8:
 	movs r1, #0
 	bl ClearMapWith
 	ldr r0, [r4]
-	bl SetActiveUnit
+	bl UnitBeginCantoAction
 	ldr r2, [r4]
 	ldr r0, [r2, #0xc]
 	movs r1, #0x40
@@ -1416,7 +1416,7 @@ PlayerPhase_ApplyUnitMovement: @ 0x0801D470
 	ldrb r0, [r5, #0xf]
 	strb r0, [r1, #0x11]
 	ldr r0, [r4]
-	bl ApplyUnitMovement
+	bl UnitFinalizeMovement
 	ldr r0, [r4]
 	ldr r0, [r0, #0xc]
 	movs r1, #0x40
@@ -1809,7 +1809,7 @@ _0801D788:
 	bl RefreshFogAndUnitMaps
 	bl SMS_UpdateFromGameData
 	adds r0, r5, #0
-	bl SetupActiveUnit
+	bl UnitBeginAction
 	ldr r2, [r4]
 	ldr r0, [r2, #0xc]
 	movs r1, #2
@@ -2212,7 +2212,7 @@ _0801DAD8: .4byte gUnknown_0859AD50
 	THUMB_FUNC_START sub_801DADC
 sub_801DADC: @ 0x0801DADC
 	push {r4, lr}
-	bl GetUnitStruct
+	bl GetUnit
 	adds r4, r0, #0
 	cmp r4, #0
 	beq _0801DB0A

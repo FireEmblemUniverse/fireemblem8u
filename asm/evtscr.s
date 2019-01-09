@@ -1560,10 +1560,10 @@ _0800E0E8:
 _0800E0F0: .4byte gEventSlots
 _0800E0F4: .4byte gUnknown_0202BCF0
 _0800E0F8:
-	bl sub_8019034
+	bl CountRedUnits
 	b _0800E14A
 _0800E0FE:
-	bl sub_8019074
+	bl CountGreenUnits
 	b _0800E14A
 _0800E104:
 	bl GetChapterThing
@@ -4097,7 +4097,7 @@ ShouldUNITBeLoaded: @ 0x0800F528
 	cmp r5, #1
 	beq _0800F564
 	ldrb r0, [r4]
-	bl GetUnitByCharId
+	bl GetUnitFromCharId
 	cmp r0, #0
 	beq _0800F564
 	ldr r0, [r0, #0xc]
@@ -4361,14 +4361,14 @@ LoadUnit_800F704: @ 0x0800F704
 	bne _0800F744
 	ldrb r0, [r6]
 	movs r1, #0
-	bl GetNonAllyUnitStructById
+	bl GetUnitFromCharIdAndFaction
 	b _0800F768
 	.align 2, 0
 _0800F740: .4byte gUnknown_080D793C
 _0800F744:
 	ldrb r0, [r6]
 	movs r1, #0
-	bl GetNonAllyUnitStructById
+	bl GetUnitFromCharIdAndFaction
 	adds r5, r0, #0
 	cmp r5, #0
 	beq _0800F76E
@@ -4378,9 +4378,9 @@ _0800F744:
 	add r0, sp
 	ldrb r1, [r0]
 	adds r0, r5, #0
-	bl HandleAllegianceChange
+	bl UnitChangeFaction
 	ldrb r0, [r6]
-	bl GetUnitByCharId
+	bl GetUnitFromCharId
 _0800F768:
 	adds r5, r0, #0
 	cmp r5, #0
@@ -4515,7 +4515,7 @@ _0800F85E:
 	lsrs r1, r1, #4
 _0800F86A:
 	adds r0, r5, #0
-	bl sub_80180CC
+	bl UnitApplyBonusLevels
 	b _0800F888
 _0800F872:
 	movs r0, #0xe
@@ -4526,7 +4526,7 @@ _0800F872:
 	lsrs r1, r1, #0x1c
 	negs r1, r1
 	adds r0, r5, #0
-	bl sub_80180CC
+	bl UnitApplyBonusLevels
 _0800F888:
 	mov r0, r9
 	lsls r3, r0, #0x18
@@ -5198,7 +5198,7 @@ _0800FD42:
 	ldrb r0, [r1]
 	cmp r0, #0
 	beq _0800FD68
-	bl GetUnitStruct
+	bl GetUnit
 	adds r4, r0, #0
 	b _0800FD64
 	.align 2, 0
@@ -5976,13 +5976,13 @@ _08010344:
 	add r0, sp
 	ldrb r1, [r0]
 	adds r0, r5, #0
-	bl HandleAllegianceChange
+	bl UnitChangeFaction
 	b _0801049A
 _08010352:
 	ldr r4, _0801036C  @ gEventSlots
 	ldr r1, [r4, #4]
 	adds r0, r5, #0
-	bl SetUnitHP
+	bl SetUnitHp
 	ldr r0, [r4, #4]
 	cmp r0, #0
 	beq _08010364
@@ -6052,7 +6052,7 @@ _080103CC:
 	movs r4, #1
 _080103D2:
 	adds r0, r4, #0
-	bl GetUnitStruct
+	bl GetUnit
 	adds r2, r0, #0
 	cmp r2, #0
 	beq _080103F4
@@ -6078,7 +6078,7 @@ _08010400:
 	movs r4, #0x41
 _08010406:
 	adds r0, r4, #0
-	bl GetUnitStruct
+	bl GetUnit
 	adds r1, r0, #0
 	cmp r1, #0
 	beq _0801041E
@@ -6086,7 +6086,7 @@ _08010406:
 	cmp r0, #0
 	beq _0801041E
 	adds r0, r1, #0
-	bl ClearUnitStruct
+	bl ClearUnit
 _0801041E:
 	adds r4, #1
 	cmp r4, #0x7f
@@ -6097,7 +6097,7 @@ _08010426:
 	movs r4, #0x81
 _0801042C:
 	adds r0, r4, #0
-	bl GetUnitStruct
+	bl GetUnit
 	adds r1, r0, #0
 	cmp r1, #0
 	beq _08010444
@@ -6105,7 +6105,7 @@ _0801042C:
 	cmp r0, #0
 	beq _08010444
 	adds r0, r1, #0
-	bl ClearUnitStruct
+	bl ClearUnit
 _08010444:
 	adds r4, #1
 	cmp r4, #0xbf
@@ -6145,7 +6145,7 @@ _0801047C:
 _08010490: .4byte gProcScr_MUDeathFade
 _08010494:
 	adds r0, r5, #0
-	bl ClearUnitStruct
+	bl ClearUnit
 _0801049A:
 	bl RefreshFogAndUnitMaps
 	bl SMS_UpdateFromGameData
@@ -6204,17 +6204,17 @@ _080104F0:
 	muls r0, r1, r0
 	adds r0, r0, r2
 	ldrb r0, [r0, #5]
-	bl GetROMClassStruct
+	bl GetClassData
 	str r0, [r5, #4]
 	adds r0, r4, #0
-	bl GetUnitByCharId
+	bl GetUnitFromCharId
 	adds r5, r0, #0
 	cmp r5, #0
 	beq _0801052E
 _08010518:
 	lsls r0, r6, #0x10
 	asrs r0, r0, #0x10
-	bl GetROMClassStruct
+	bl GetClassData
 	str r0, [r5, #4]
 _08010522:
 	bl RefreshFogAndUnitMaps
@@ -6441,7 +6441,7 @@ _080106AC:
 	ldrb r0, [r1]
 	cmp r0, #0
 	beq _080106D0
-	bl GetUnitStruct
+	bl GetUnit
 	b _080106D2
 	.align 2, 0
 _080106CC: .4byte gUnknown_0202E4D8
@@ -7104,7 +7104,7 @@ Event40_: @ 0x08010B78
 	bl GetUnitStructFromEventParameter
 	adds r4, r0, #0
 	movs r1, #0
-	bl SetUnitNewStatus
+	bl SetUnitStatus
 	mov r0, r8
 	lsls r0, r0, #0x18
 	lsrs r0, r0, #0x18

@@ -902,7 +902,7 @@ _0807AD90:
 	adds r5, r1, r0
 _0807AD98:
 	adds r0, r4, #0
-	bl GetUnitStruct
+	bl GetUnit
 	adds r1, r0, #0
 	cmp r1, #0
 	beq _0807ADB8
@@ -914,7 +914,7 @@ _0807AD98:
 	cmp r0, r2
 	bne _0807ADB8
 	adds r0, r1, #0
-	bl ClearUnitStruct
+	bl ClearUnit
 _0807ADB8:
 	adds r4, #1
 	cmp r4, #0x3f
@@ -1108,7 +1108,7 @@ _0807AF02:
 	adds r1, #1
 	adds r6, r0, r1
 	ldrb r0, [r6]
-	bl GetUnitByCharId
+	bl GetUnitFromCharId
 	adds r5, r0, #0
 	cmp r5, #0
 	bne _0807AF48
@@ -1125,7 +1125,7 @@ _0807AF02:
 	bl memcpy
 _0807AF48:
 	ldrb r0, [r6]
-	bl GetUnitByCharId
+	bl GetUnitFromCharId
 	adds r5, r0, #0
 	movs r4, #0
 	adds r2, r5, #0
@@ -1228,7 +1228,7 @@ sub_807AFFC: @ 0x0807AFFC
 	movs r4, #0x81
 _0807B004:
 	adds r0, r4, #0
-	bl GetUnitStruct
+	bl GetUnit
 	cmp r0, #0
 	beq _0807B022
 	ldr r0, [r0]
@@ -2435,7 +2435,7 @@ _0807B976:
 	ldrb r0, [r0]
 	strb r0, [r4, #0xd]
 	ldr r0, [r4]
-	bl GetUnitMaxHP
+	bl GetUnitMaxHp
 	strb r0, [r4, #0xc]
 	adds r4, #0x14
 	adds r6, #0x14
@@ -3585,13 +3585,13 @@ sub_807C244: @ 0x0807C244
 	adds r0, r0, r4
 	movs r1, #8
 	ldrsh r0, [r0, r1]
-	bl GetROMCharStruct
+	bl GetCharacterData
 	str r0, [sp, #0xc]
 	ldr r0, [r5]
 	adds r0, r0, r4
 	movs r2, #0xe
 	ldrsh r0, [r0, r2]
-	bl GetROMClassStruct
+	bl GetClassData
 	str r0, [sp, #0x10]
 	ldr r0, [r5]
 	adds r0, r0, r4
@@ -4372,13 +4372,13 @@ sub_807C8A0: @ 0x0807C8A0
 	adds r0, r0, r4
 	movs r1, #8
 	ldrsh r0, [r0, r1]
-	bl GetROMCharStruct
+	bl GetCharacterData
 	str r0, [r6]
 	ldr r0, [r5]
 	adds r0, r0, r4
 	movs r1, #0xe
 	ldrsh r0, [r0, r1]
-	bl GetROMClassStruct
+	bl GetClassData
 	str r0, [r6, #4]
 	ldr r0, [r5]
 	adds r0, r0, r4
@@ -5321,13 +5321,13 @@ _0807D044:
 	adds r0, r5, #0
 	bl LoadUnits
 	movs r0, #0xba
-	bl GetUnitByCharId
+	bl GetUnitFromCharId
 	ldr r0, [r7, #0x2c]
 	ldrb r0, [r0, #0xb]
 	lsls r0, r0, #0x18
 	asrs r0, r0, #0x18
-	bl GetUnitStruct
-	bl ClearUnitStruct
+	bl GetUnit
+	bl ClearUnit
 	bl RefreshFogAndUnitMaps
 	bl UpdateGameTilesGraphics
 	bl SMS_UpdateFromGameData
@@ -8162,7 +8162,7 @@ sub_807E79C: @ 0x0807E79C
 	push {r4, lr}
 	ldr r4, _0807E7C0  @ gUnknown_0203A958
 	ldrb r0, [r4, #0xc]
-	bl GetUnitStruct
+	bl GetUnit
 	ldr r1, [r0, #0xc]
 	movs r2, #1
 	orrs r1, r2
@@ -8183,7 +8183,7 @@ sub_807E7C4: @ 0x0807E7C4
 	push {lr}
 	ldr r0, _0807E7DC  @ gUnknown_0203A958
 	ldrb r0, [r0, #0xc]
-	bl GetUnitStruct
+	bl GetUnit
 	ldr r1, [r0, #0xc]
 	movs r2, #2
 	negs r2, r2
@@ -8865,7 +8865,7 @@ GetSomeStatBase: @ 0x0807ED30
 	ldrb r0, [r0, #0xb]
 	lsls r0, r0, #0x18
 	asrs r0, r0, #0x18
-	bl GetUnitStruct
+	bl GetUnit
 	adds r2, r0, #0
 	cmp r5, #8
 	bhi _0807EDE2

@@ -27,7 +27,7 @@ PushUnit: @ 0x080316E0
 	ldr r1, [r4]
 	movs r5, #0
 	str r5, [r1]
-	bl CopyUnitStruct
+	bl CopyUnit
 	ldr r2, [r4]
 	ldr r1, _08031710  @ gUnknown_0203A8EC
 	ldrb r0, [r1]
@@ -53,7 +53,7 @@ LoadPlayerUnitsFromUnitStack: @ 0x08031714
 	movs r4, #0x3d
 _0803171A:
 	adds r0, r5, #0
-	bl ClearUnitStruct
+	bl ClearUnit
 	adds r5, #0x48
 	subs r4, #1
 	cmp r4, #0
@@ -84,7 +84,7 @@ LoadPlayerUnitsFromUnitStack2: @ 0x08031754
 	movs r4, #0x3d
 _0803175A:
 	adds r0, r5, #0
-	bl ClearUnitStruct
+	bl ClearUnit
 	adds r5, #0x48
 	subs r4, #1
 	cmp r4, #0

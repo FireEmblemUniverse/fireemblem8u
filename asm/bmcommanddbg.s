@@ -316,7 +316,7 @@ sub_8034550: @ 0x08034550
 	ldr r6, _08034608  @ gUnknown_0203A958
 _0803456A:
 	adds r0, r5, #0
-	bl GetUnitStruct
+	bl GetUnit
 	adds r4, r0, #0
 	cmp r4, #0
 	beq _0803458C

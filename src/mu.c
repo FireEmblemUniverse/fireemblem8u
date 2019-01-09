@@ -656,7 +656,7 @@ struct MUProc* MU_CreateForUI(struct Unit* pUnit, int x, int y) {
 
 void MU_8078524(struct MUProc* proc) {
     SMS_80266F0(
-        GetClassStandingMapSpriteId(proc->displayedClassId),
+        GetClassSMSId(proc->displayedClassId),
         proc->muIndex
     );
 }
@@ -742,7 +742,7 @@ void MU_SetFacing(struct MUProc* proc, int facingId) {
 }
 
 void MU_SetDefaultFacing(struct MUProc* proc) {
-    if (GetROMClassStruct(proc->displayedClassId)->attributes & CA_MOUNTEDAID)
+    if (GetClassData(proc->displayedClassId)->attributes & CA_MOUNTEDAID)
         MU_SetFacing(proc, 1);
     else
         MU_SetFacing(proc, 2);
@@ -1114,7 +1114,7 @@ static void MU_AdvanceStepSfx(struct MUProc* proc) {
     unsigned cursor;
     struct PositionS16 position;
 
-    if (GetROMClassStruct(proc->displayedClassId)->attributes & CA_MOUNTEDAID) {
+    if (GetClassData(proc->displayedClassId)->attributes & CA_MOUNTEDAID) {
         switch (proc->displayedClassId) {
 
         case CLASS_WYVERN_RIDER:
@@ -1483,7 +1483,7 @@ static u16 MU_GetMovementSpeed(struct MUProc* proc) {
             return 0x40;
     }
 
-    return 16 * sMUBaseMoveSpeedLookup[GetROMClassStruct(proc->displayedClassId)->slowWalking];
+    return 16 * sMUBaseMoveSpeedLookup[GetClassData(proc->displayedClassId)->slowWalking];
 }
 
 void MU_SetMoveConfig(struct MUProc* proc, u16 config) {

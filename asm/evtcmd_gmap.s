@@ -345,7 +345,7 @@ sub_800BBB4: @ 0x0800BBB4
 	movs r4, #1
 _0800BBBC:
 	adds r0, r4, #0
-	bl GetUnitStruct
+	bl GetUnit
 	cmp r0, #0
 	beq _0800BBD6
 	ldr r0, [r0]
@@ -373,7 +373,7 @@ sub_800BBE4: @ 0x0800BBE4
 	movs r4, #1
 _0800BBEA:
 	adds r0, r4, #0
-	bl GetUnitStruct
+	bl GetUnit
 	adds r1, r0, #0
 	cmp r1, #0
 	beq _0800BC0C
@@ -403,7 +403,7 @@ HideAllUnits: @ 0x0800BC1C
 	movs r4, #1
 _0800BC20:
 	adds r0, r4, #0
-	bl GetUnitStruct
+	bl GetUnit
 	adds r2, r0, #0
 	cmp r2, #0
 	beq _0800BC42
@@ -476,7 +476,7 @@ _0800BC90:
 	ldrb r0, [r1]
 	cmp r0, #0
 	beq _0800BCB8
-	bl GetUnitStruct
+	bl GetUnit
 	b _0800BCD8
 	.align 2, 0
 _0800BCB0: .4byte gUnknown_030004E6
@@ -497,7 +497,7 @@ _0800BCC8:
 _0800BCD0:
 	lsls r0, r2, #0x10
 	asrs r0, r0, #0x10
-	bl GetUnitByCharId
+	bl GetUnitFromCharId
 _0800BCD8:
 	pop {r1}
 	bx r1
