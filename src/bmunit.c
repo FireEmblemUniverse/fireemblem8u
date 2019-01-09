@@ -4,6 +4,7 @@
 
 #include "constants/items.h"
 #include "constants/classes.h"
+#include "constants/characters.h"
 
 #include "bmitem.h"
 
@@ -18,14 +19,22 @@ EWRAM_DATA struct Unit gUnknown_0202DDCC[20] = {}; // Green units
 EWRAM_DATA struct Unit gUnknown_0202E36C[5]  = {}; // Purple units
 
 CONST_DATA int gUnknown_0859A598[] = {
+	// TODO: TEXT ID DEFINITIONS
+
 	[UNIT_STATUS_NONE]     = 0x536,
 	[UNIT_STATUS_POISON]   = 0x514,
 	[UNIT_STATUS_SLEEP]    = 0x515,
 	[UNIT_STATUS_SILENCED] = 0x516,
 	[UNIT_STATUS_BERSERK]  = 0x517,
-
-	// TODO: more status constants
-	0x51B, 0x51C, 0x51D, 0x51E, 0x518, 0x519, 0x51A, 0, 0x51A
+	[UNIT_STATUS_ATTACK]   = 0x51B,
+	[UNIT_STATUS_DEFENSE]  = 0x51C,
+	[UNIT_STATUS_CRIT]     = 0x51D,
+	[UNIT_STATUS_DODGE]    = 0x51E,
+	[UNIT_STATUS_SICK]     = 0x518,
+	[UNIT_STATUS_RECOVER]  = 0x519,
+	[UNIT_STATUS_PETRIFY]  = 0x51A,
+	[UNIT_STATUS_12]       = 0,
+	[UNIT_STATUS_13]       = 0x51A,
 };
 
 struct Unit* CONST_DATA gUnknown_0859A5D0[0x100] = { // unit lookup
@@ -291,7 +300,7 @@ inline int GetUnitLuck(struct Unit* unit) {
 
 inline int GetUnitPortraitId(struct Unit* unit) {
 	if (unit->pCharacterData->portraitId) {
-		// TODO: PORTRAIT_LYON?
+		// TODO: PORTRAIT_LYON?, CHAPTER definitions
 		if (gUnknown_0202BCF0.chapterIndex == 0x22 && unit->pCharacterData->portraitId == 0x4A)
 			return 0x46;
 
@@ -587,7 +596,7 @@ struct Unit* LoadUnit(const struct UnitDefinition* uDef) {
 	HideIfUnderRoof(unit);
 
 	if (UNIT_IS_GORGON_EGG(unit))
-		SetUnitNewStatus(unit, UNIT_STATUS_10);
+		SetUnitNewStatus(unit, UNIT_STATUS_RECOVER);
 
 	if (uDef->autolevel) {
 		if (UNIT_FACTION(unit) == FACTION_BLUE) {
@@ -1133,7 +1142,7 @@ void sub_8018858(void) {
 		}
 
 		if (unit->statusDuration != 0) {
-			if (unit->statusIndex != UNIT_STATUS_10)
+			if (unit->statusIndex != UNIT_STATUS_RECOVER)
 				unit->statusDuration--;
 
 			if (unit->statusDuration == 0)
@@ -1179,7 +1188,7 @@ int GetUnitAid(struct Unit* unit) {
 }
 
 int GetUnitMagBy2Range(struct Unit* unit) {
-	if (unit->pCharacterData->number == 0xBE) { // TODO: CHAR_FOMORTIIS
+	if (unit->pCharacterData->number == CHARACTER_FOMORTIIS) {
 		return GetItemMaxRange(ITEM_NIGHTMARE);
 	} else {
 		int result = GetUnitPower(unit) / 2;
