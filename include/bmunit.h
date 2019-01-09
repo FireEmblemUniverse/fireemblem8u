@@ -251,7 +251,7 @@ enum {
     UNIT_STATUS_ATTACK = 5,
     UNIT_STATUS_DEFENSE = 6,
     UNIT_STATUS_CRIT = 7,
-    UNIT_STATUS_DODGE = 8,
+    UNIT_STATUS_AVOID = 8,
 
     UNIT_STATUS_SICK = 9,
     UNIT_STATUS_RECOVER = 10,
@@ -297,7 +297,7 @@ enum {
     CA_TRIANGLEATTACK_PEGASI = (1 << 21),
     CA_TRIANGLEATTACK_ARMORS = (1 << 22),
     CA_BIT_23 = 0x00800000,
-    // = 0x01000000,
+    CA_NEGATE_LETHALITY = 0x01000000,
     CA_LETHALITY = 0x02000000,
     CA_MAGICSEAL = 0x04000000,
     CA_SUMMON = 0x08000000,
@@ -327,7 +327,7 @@ struct BattleUnit {
     /* 50 */ u8 weaponType;
     /* 51 */ u8 weaponSlotIndex;
 
-    /* 52 */ u8 canCounter;
+    /* 52 */ s8 canCounter;
 
     /* 53 */ s8 WTHitModifier;
     /* 54 */ s8 WTAtkModifier;
@@ -338,16 +338,16 @@ struct BattleUnit {
     /* 58 */ s8 terrainResistance;
     /* 59 */ u8 _u59;
 
-    /* 5A */ u16 battleAttack;
-    /* 5C */ u16 battleDefense;
-    /* 5E */ u16 battleAttackSpeed;
-    /* 60 */ u16 battleHit;
-    /* 62 */ u16 battleAvoid;
-    /* 64 */ u16 battleEffectiveHit;
-    /* 66 */ u16 battleCrit;
-    /* 68 */ u16 battleDodge;
-    /* 6A */ u16 battleEffectiveCrit;
-    /* 6C */ u16 battleSilencerRate;
+    /* 5A */ short battleAttack;
+    /* 5C */ short battleDefense;
+    /* 5E */ short battleAttackSpeed;
+    /* 60 */ short battleHit;
+    /* 62 */ short battleAvoid;
+    /* 64 */ short battleEffectiveHit;
+    /* 66 */ short battleCrit;
+    /* 68 */ short battleDodge;
+    /* 6A */ short battleEffectiveCrit;
+    /* 6C */ short battleSilencerRate;
 
     /* 6E */ u8 expGain;
     /* 6F */ u8 statusOut;

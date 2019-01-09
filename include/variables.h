@@ -564,8 +564,8 @@ extern struct BattleUnit gBattleActor;
 // extern ??? gUnknown_0203A8E4
 // extern ??? gUnknown_0203A8E8
 // extern ??? gUnknown_0203A8EC
-// extern ??? gUnknown_0203A8F0
-// extern ??? gUnknown_0203A910
+extern struct ArenaData gUnknown_0203A8F0;
+extern struct Unit gUnknown_0203A910; // arena opponent unit
 extern struct ActionData gUnknown_0203A958;
 // extern ??? gUnknown_0203A95E
 // extern ??? gUnknown_0203A974

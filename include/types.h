@@ -427,6 +427,38 @@ struct MMSData {
     const void* pAnimation;
 };
 
+struct SupportBonuses {
+	/* 00 */ u8 unk00;
+
+	/* 01 */ u8 bonusAttack;
+	/* 02 */ u8 bonusDefense;
+	/* 03 */ u8 bonusHit;
+	/* 04 */ u8 bonusAvoid;
+	/* 05 */ u8 bonusCrit;
+	/* 06 */ u8 bonusDodge;
+};
+
+struct ArenaData {
+    /* 00 */ struct Unit* playerUnit;
+    /* 04 */ struct Unit* opponentUnit;
+    /* 08 */ short unk08;
+    /* 0A */ u8 unk0A;
+    /* 0B */ u8 unk0B;
+    /* 0C */ u8 unk0C;
+    /* 0D */ u8 playerWpnType;
+    /* 0E */ u8 opponentWpnType;
+    /* 0F */ u8 playerClassId;
+    /* 10 */ u8 opponentClassId;
+    /* 11 */ u8 playerLevel;
+    /* 12 */ u8 oppenentLevel;
+    /* 13 */ s8 playerIsMagic;
+    /* 14 */ s8 opponentIsMagic;
+    /* 16 */ short playerPowerWeight;
+    /* 18 */ short opponentPowerWeight;
+    /* 1A */ u16 playerWeapon;
+    /* 1C */ u16 opponentWeapon;
+};
+
 struct GMapData {
     /* 00 */ u8 state;
     /* 01 */ u8 unk01;
