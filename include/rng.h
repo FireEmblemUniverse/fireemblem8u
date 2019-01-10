@@ -8,8 +8,8 @@ void InitRN(s32 unk1);
 // ??? StoreRNState(???);
 int NextRN_100(void);
 int NextRN_N(int max);
-int Roll1RN(int threshold);
-int Roll2RN(int threshold);
+s8 Roll1RN(int threshold);
+s8 Roll2RN(int threshold);
 void SetLCGRNValue(s32 Seed);
 unsigned AdvanceGetLCGRNValue(void);
 

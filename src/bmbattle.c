@@ -730,6 +730,9 @@ s8 BattleCheckDoubling(struct BattleUnit** outAttacker, struct BattleUnit** outD
 int GetBattleHitCount(struct BattleUnit* attacker);
 s8 MakeNextBattleHitRound(struct BattleUnit* attacker, struct BattleUnit* defender);
 int BattleCheckBrave(struct BattleUnit* bu);
+int sub_802C534(struct BattleUnit* actor, struct BattleUnit* target);
+void CheckForLevelUp(struct BattleUnit* bu);
+void CheckForLevelUpCaps(struct Unit* unit, struct BattleUnit* bu);
 
 enum { BATTLE_HIT_MAX = 7 };
 
@@ -1105,4 +1108,268 @@ void UpdateBattleTriangleAttackData(struct BattleUnit* attacker, struct BattleUn
 
 	gUnknown_0203A4D4.crit = 100;
 	gUnknown_0203A4D4.hit  = 100;
+}
+
+void CurrentRound_ComputeWeaponEffects(struct BattleUnit* attacker, struct BattleUnit* defender) {
+	attacker->wexpMultiplier++;
+
+	if (!(gUnknown_0203A608->unk00b & 2)) { // TODO: BATTLE HIT BITS
+		if (defender->unit.pClassData->number != CLASS_DEMON_KING) {
+			switch (GetItemWeaponEffect(attacker->weaponAfter)) {
+
+			case 1: // TODO: WEAPON EFFECT CONSTANTS
+				// Poison defender
+
+				defender->statusOut = UNIT_STATUS_POISON;
+				gUnknown_0203A608->unk00b |= 0x40; // TODO: BATTLE HIT BITS
+
+				// "Ungray" defender if it was petrified (as it won't be anymore)
+				if (defender->unit.statusIndex == UNIT_STATUS_PETRIFY || defender->unit.statusIndex == UNIT_STATUS_13)
+					defender->unit.state = defender->unit.state &~ US_UNSELECTABLE;
+
+				break;
+
+			case 3: // TODO: WEAPON EFFECT CONSTANTS
+				gUnknown_0203A608->unk00b |= 0x200; // TODO: BATTLE HIT BITS
+				break;
+
+			} // switch (GetItemWeaponEffect(attacker->weaponAfter))
+		}
+
+		// TODO: WEAPON EFFECT CONSTANTS
+		if ((GetItemWeaponEffect(attacker->weaponAfter) == 4) && (RollRNIfBattleStarted(31 - attacker->unit.lck, FALSE))) {
+			gUnknown_0203A608->unk00b |= 0x80; // TODO: BATTLE HIT BITS
+
+			attacker->unit.curHP -= gUnknown_0203A4D4.damage;
+
+			if (attacker->unit.curHP < 0)
+				attacker->unit.curHP = 0;
+		} else {
+			if (gUnknown_0203A4D4.damage > defender->unit.curHP)
+				gUnknown_0203A4D4.damage = defender->unit.curHP;
+
+			defender->unit.curHP -= gUnknown_0203A4D4.damage;
+
+			if (defender->unit.curHP < 0)
+				defender->unit.curHP = 0;
+		}
+
+		// TODO: WEAPON EFFECT CONSTANTS
+		if (GetItemWeaponEffect(attacker->weaponAfter) == 2) {
+			if (attacker->unit.maxHP < (attacker->unit.curHP + gUnknown_0203A4D4.damage))
+				attacker->unit.curHP = attacker->unit.maxHP;
+			else
+				attacker->unit.curHP += gUnknown_0203A4D4.damage;
+
+			gUnknown_0203A608->unk00b |= 0x100; // TODO: BATTLE HIT BITS
+		}
+
+		if (defender->unit.pClassData->number != CLASS_DEMON_KING) {
+			if (GetItemWeaponEffect(attacker->weaponAfter) == 5) { // TODO: WEAPON EFFECT CONSTANTS
+				switch (gUnknown_0202BCF0.chapterPhaseIndex) {
+
+				case FACTION_BLUE:
+					if (UNIT_FACTION(&defender->unit) == FACTION_BLUE)
+						defender->statusOut = UNIT_STATUS_13;
+					else
+						defender->statusOut = UNIT_STATUS_PETRIFY;
+
+					break;
+
+				case FACTION_RED:
+					if (UNIT_FACTION(&defender->unit) == FACTION_RED)
+						defender->statusOut = UNIT_STATUS_13;
+					else
+						defender->statusOut = UNIT_STATUS_PETRIFY;
+
+					break;
+
+				case FACTION_GREEN:
+					if (UNIT_FACTION(&defender->unit) == FACTION_GREEN)
+						defender->statusOut = UNIT_STATUS_13;
+					else
+						defender->statusOut = UNIT_STATUS_PETRIFY;
+
+					break;
+
+				} // switch (gUnknown_0202BCF0.chapterPhaseIndex)
+
+				gUnknown_0203A608->unk00b |= 0x2000; // TODO: BATTLE HIT BITS
+			}
+		}
+	}
+
+	gUnknown_0203A608->hpChange = gUnknown_0203A4D4.damage;
+
+	// TODO: BATTLE HIT BITS
+	if (!(gUnknown_0203A608->unk00b & 2) || attacker->weaponAttributes & (IA_UNCOUNTERABLE | IA_MAGIC)) {
+		attacker->weaponAfter = GetItemAfterUse(attacker->weaponAfter);
+
+		if (!attacker->weaponAfter)
+			attacker->weaponBroke = TRUE;
+	}
+}
+
+s8 MakeNextBattleHitRound(struct BattleUnit* attacker, struct BattleUnit* defender) {
+	if (attacker == &gBattleTarget)
+		gUnknown_0203A608->unk19b |= 8; // TODO: BATTLE HIT BITS
+
+	UpdateBattleStats(attacker, defender);
+	UpdateBattleTriangleAttackData(attacker, defender);
+	GenerateCurrentRoundData(attacker, defender);
+	CurrentRound_ComputeWeaponEffects(attacker, defender);
+
+	if (attacker->unit.curHP == 0 || defender->unit.curHP == 0) {
+		attacker->wexpMultiplier++;
+
+		gUnknown_0203A608->unk19b |= 2; // TODO: BATTLE HIT BITS
+
+		if (gBattleTarget.unit.curHP != 0) {
+			gUnknown_0203A608++;
+			return TRUE;
+		}
+
+		gUnknown_0203A608->unk19b |= 4; // TODO: BATTLE HIT BITS
+
+		gUnknown_0203A608++;
+		return TRUE;
+	} else if (defender->statusOut == UNIT_STATUS_PETRIFY || defender->statusOut == UNIT_STATUS_13) {
+		gUnknown_0203A608->unk19b |= 2; // TODO: BATTLE HIT BITS
+
+		gUnknown_0203A608++;
+		return TRUE;
+	}
+
+	gUnknown_0203A608++;
+	return FALSE;
+}
+
+void sub_802B92C(void) {
+	if ((UNIT_FACTION(&gBattleActor.unit) != FACTION_BLUE) || (UNIT_FACTION(&gBattleTarget.unit) != FACTION_BLUE)) {
+		if (!(gUnknown_0202BCF0.chapterStateBits & CHAPTER_FLAG_7)) {
+			gBattleActor.expGain  = sub_802C534(&gBattleActor, &gBattleTarget);
+			gBattleTarget.expGain = sub_802C534(&gBattleTarget, &gBattleActor);
+
+			gBattleActor.unit.exp  += gBattleActor.expGain;
+			gBattleTarget.unit.exp += gBattleTarget.expGain;
+
+			CheckForLevelUp(&gBattleActor);
+			CheckForLevelUp(&gBattleTarget);
+		}
+	}
+}
+
+int GetStatIncrease(int growth) {
+	int result = 0;
+
+	while (growth > 100) {
+		result++;
+		growth -= 100;
+	}
+
+	if (Roll1RN(growth))
+		result++;
+
+	return result;
+}
+
+int GetAutoleveledStat(int growth, int levelCount) {
+	return GetStatIncrease((growth * levelCount) + (NextRN_N((growth * levelCount) / 4) - (growth * levelCount) / 8));
+}
+
+s8 CanUnitNotLevelUp(struct BattleUnit* bu) {
+	if (gUnknown_0202BCB0.gameStateBits & 0x40)
+		return TRUE;
+
+	if (bu->unit.exp == UNIT_EXP_DISABLED)
+		return FALSE;
+
+	if (UNIT_FACTION(&bu->unit) != FACTION_BLUE)
+		return FALSE;
+
+	return TRUE;
+}
+
+void CheckForLevelUp(struct BattleUnit* bu) {
+	if (CanUnitNotLevelUp(bu) && bu->unit.exp >= 100) {
+		int growthBonus, statGainTotal;
+
+		bu->unit.exp -= 100;
+		bu->unit.level++;
+
+		if (UNIT_CATTRIBUTES(&bu->unit) & CA_MAXLEVEL10) {
+			if (bu->unit.level == 10) {
+				bu->expGain -= bu->unit.exp;
+				bu->unit.exp = UNIT_EXP_DISABLED;
+			}
+		} else if (bu->unit.level == 20) {
+			bu->expGain -= bu->unit.exp;
+			bu->unit.exp = UNIT_EXP_DISABLED;
+		}
+
+		growthBonus = (bu->unit.state & US_GROWTH_BOOST) ? 5: 0;
+		statGainTotal = 0;
+
+		bu->changeHP  = GetStatIncrease(bu->unit.pCharacterData->growthHP + growthBonus);
+		statGainTotal += bu->changeHP;
+
+		bu->changePow = GetStatIncrease(bu->unit.pCharacterData->growthPow + growthBonus);
+		statGainTotal += bu->changePow;
+
+		bu->changeSkl = GetStatIncrease(bu->unit.pCharacterData->growthSkl + growthBonus);
+		statGainTotal += bu->changeSkl;
+
+		bu->changeSpd = GetStatIncrease(bu->unit.pCharacterData->growthSpd + growthBonus);
+		statGainTotal += bu->changeSpd;
+
+		bu->changeDef = GetStatIncrease(bu->unit.pCharacterData->growthDef + growthBonus);
+		statGainTotal += bu->changeDef;
+
+		bu->changeRes = GetStatIncrease(bu->unit.pCharacterData->growthRes + growthBonus);
+		statGainTotal += bu->changeRes;
+
+		bu->changeLck = GetStatIncrease(bu->unit.pCharacterData->growthLck + growthBonus);
+		statGainTotal += bu->changeLck;
+
+		if (statGainTotal == 0) {
+			for (statGainTotal = 0; statGainTotal < 2; ++statGainTotal) {
+				bu->changeHP = GetStatIncrease(bu->unit.pCharacterData->growthHP);
+
+				if (bu->changeHP)
+					break;
+
+				bu->changePow = GetStatIncrease(bu->unit.pCharacterData->growthPow);
+
+				if (bu->changePow)
+					break;
+
+				bu->changeSkl = GetStatIncrease(bu->unit.pCharacterData->growthSkl);
+
+				if (bu->changeSkl)
+					break;
+
+				bu->changeSpd = GetStatIncrease(bu->unit.pCharacterData->growthSpd);
+
+				if (bu->changeSpd)
+					break;
+
+				bu->changeDef = GetStatIncrease(bu->unit.pCharacterData->growthDef);
+
+				if (bu->changeDef)
+					break;
+
+				bu->changeRes = GetStatIncrease(bu->unit.pCharacterData->growthRes);
+
+				if (bu->changeRes)
+					break;
+
+				bu->changeLck = GetStatIncrease(bu->unit.pCharacterData->growthLck);
+
+				if (bu->changeLck)
+					break;
+			}
+		}
+
+		CheckForLevelUpCaps(GetUnit(bu->unit.index), bu);
+	}
 }

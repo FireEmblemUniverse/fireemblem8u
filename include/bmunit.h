@@ -31,13 +31,13 @@ struct CharacterData {
 
     /* 14 */ u8 baseRanks[8];
 
-    /* 1C */ s8 growthHP;
-    /* 1D */ s8 growthPow;
-    /* 1E */ s8 growthSkl;
-    /* 1F */ s8 growthSpd;
-    /* 20 */ s8 growthDef;
-    /* 21 */ s8 growthRes;
-    /* 22 */ s8 growthLck;
+    /* 1C */ u8 growthHP;
+    /* 1D */ u8 growthPow;
+    /* 1E */ u8 growthSkl;
+    /* 1F */ u8 growthSpd;
+    /* 20 */ u8 growthDef;
+    /* 21 */ u8 growthRes;
+    /* 22 */ u8 growthLck;
 
     /* 23 */ u8 _u23;
     /* 24 */ u8 _u24;
@@ -351,7 +351,7 @@ struct BattleUnit {
     /* 6C */ short battleSilencerRate;
 
     /* 6E */ u8 expGain;
-    /* 6F */ u8 statusOut;
+    /* 6F */ s8 statusOut;
     /* 70 */ u8 levelPrevious;
     /* 71 */ u8 expPrevious;
 
