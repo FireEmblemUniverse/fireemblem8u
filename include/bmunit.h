@@ -78,7 +78,7 @@ struct ClassData {
     /* 18 */ s8 maxRes;
     /* 19 */ s8 maxCon;
 
-    /* 1A */ u8 classRelativePower;
+    /* 1A */ s8 classRelativePower;
 
     /* 1B */ s8 growthHP;
     /* 1C */ s8 growthPow;
@@ -88,7 +88,7 @@ struct ClassData {
     /* 20 */ s8 growthRes;
     /* 21 */ s8 growthLck;
 
-    /* 22 */ u8 promotionHP;
+    /* 22 */ u8 promotionHp;
     /* 23 */ u8 promotionPow;
     /* 24 */ u8 promotionSkl;
     /* 25 */ u8 promotionSpd;
@@ -350,7 +350,7 @@ struct BattleUnit {
     /* 6A */ short battleEffectiveCrit;
     /* 6C */ short battleSilencerRate;
 
-    /* 6E */ u8 expGain;
+    /* 6E */ s8 expGain;
     /* 6F */ s8 statusOut;
     /* 70 */ u8 levelPrevious;
     /* 71 */ u8 expPrevious;

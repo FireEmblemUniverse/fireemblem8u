@@ -733,6 +733,7 @@ int BattleCheckBrave(struct BattleUnit* bu);
 int sub_802C534(struct BattleUnit* actor, struct BattleUnit* target);
 void CheckForLevelUp(struct BattleUnit* bu);
 void CheckForLevelUpCaps(struct Unit* unit, struct BattleUnit* bu);
+void BWL_AddExpGained(int charId, int expGain);
 
 enum { BATTLE_HIT_MAX = 7 };
 
@@ -746,6 +747,8 @@ struct BattleHit {
 
 extern struct BattleHit gUnknown_0203A5EC[BATTLE_HIT_MAX];
 extern struct BattleHit* gUnknown_0203A608;
+
+extern u8 gUnknown_03003060;
 
 void ClearRounds(void) {
 	int i;
@@ -1372,4 +1375,409 @@ void CheckForLevelUp(struct BattleUnit* bu) {
 
 		CheckForLevelUpCaps(GetUnit(bu->unit.index), bu);
 	}
+}
+
+void sub_802BC00(struct Unit* unit) {
+	const struct ClassData* promotedClass = GetClassData(unit->pClassData->promotion);
+
+	int baseClassId = unit->pClassData->number;
+	int promClassId = promotedClass->number;
+
+	int i;
+
+	// Apply stat ups
+
+	unit->maxHP += promotedClass->promotionHp;
+
+	if (unit->maxHP > promotedClass->maxHP)
+		unit->maxHP = promotedClass->maxHP;
+
+	unit->pow += promotedClass->promotionPow;
+
+	if (unit->pow > promotedClass->maxPow)
+		unit->pow = promotedClass->maxPow;
+
+	unit->skl += promotedClass->promotionSkl;
+
+	if (unit->skl > promotedClass->maxSkl)
+		unit->skl = promotedClass->maxSkl;
+
+	unit->spd += promotedClass->promotionSpd;
+
+	if (unit->spd > promotedClass->maxSpd)
+		unit->spd = promotedClass->maxSpd;
+
+	unit->def += promotedClass->promotionDef;
+
+	if (unit->def > promotedClass->maxDef)
+		unit->def = promotedClass->maxDef;
+
+	unit->res += promotedClass->promotionRes;
+
+	if (unit->res > promotedClass->maxRes)
+		unit->res = promotedClass->maxRes;
+
+	// Remove base class' base wexp from unit wexp
+	for (i = 0; i < 8; ++i)
+		unit->ranks[i] -= unit->pClassData->baseRanks[i];
+
+	// Update unit class
+	unit->pClassData = promotedClass;
+
+	// Add promoted class' base wexp to unit wexp
+	for (i = 0; i < 8; ++i) {
+		int wexp = unit->ranks[i];
+
+		wexp += unit->pClassData->baseRanks[i];
+
+		if (wexp > WPN_EXP_S)
+			wexp = WPN_EXP_S;
+
+		unit->ranks[i] = wexp;
+	}
+
+	// If Pupil -> Shaman promotion, set Anima rank to 0
+	if (baseClassId == CLASS_PUPIL && promClassId == CLASS_SHAMAN)
+		unit->ranks[ITYPE_ANIMA] = 0;
+
+	unit->level = 1;
+	unit->exp   = 0;
+
+	unit->curHP += promotedClass->promotionHp;
+
+	if (unit->curHP > GetUnitMaxHp(unit))
+		unit->curHP = GetUnitMaxHp(unit);
+}
+
+void sub_802BD50(struct Unit* unit, u8 classId) {
+	// Nice copy-paste
+
+	const struct ClassData* promotedClass = GetClassData(classId);
+
+	int baseClassId = unit->pClassData->number;
+	int promClassId = promotedClass->number;
+
+	int i;
+
+	// Apply stat ups
+
+	unit->maxHP += promotedClass->promotionHp;
+
+	if (unit->maxHP > promotedClass->maxHP)
+		unit->maxHP = promotedClass->maxHP;
+
+	unit->pow += promotedClass->promotionPow;
+
+	if (unit->pow > promotedClass->maxPow)
+		unit->pow = promotedClass->maxPow;
+
+	unit->skl += promotedClass->promotionSkl;
+
+	if (unit->skl > promotedClass->maxSkl)
+		unit->skl = promotedClass->maxSkl;
+
+	unit->spd += promotedClass->promotionSpd;
+
+	if (unit->spd > promotedClass->maxSpd)
+		unit->spd = promotedClass->maxSpd;
+
+	unit->def += promotedClass->promotionDef;
+
+	if (unit->def > promotedClass->maxDef)
+		unit->def = promotedClass->maxDef;
+
+	unit->res += promotedClass->promotionRes;
+
+	if (unit->res > promotedClass->maxRes)
+		unit->res = promotedClass->maxRes;
+
+	// Remove base class' base wexp from unit wexp
+	for (i = 0; i < 8; ++i)
+		unit->ranks[i] -= unit->pClassData->baseRanks[i];
+
+	// Update unit class
+	unit->pClassData = promotedClass;
+
+	// Add promoted class' base wexp to unit wexp
+	for (i = 0; i < 8; ++i) {
+		int wexp = unit->ranks[i];
+
+		wexp += unit->pClassData->baseRanks[i];
+
+		if (wexp > WPN_EXP_S)
+			wexp = WPN_EXP_S;
+
+		unit->ranks[i] = wexp;
+	}
+
+	// If Pupil -> Shaman promotion, set Anima rank to 0
+	if (baseClassId == CLASS_PUPIL && promClassId == CLASS_SHAMAN)
+		unit->ranks[ITYPE_ANIMA] = 0;
+
+	unit->level = 1;
+	unit->exp   = 0;
+
+	unit->curHP += promotedClass->promotionHp;
+
+	if (unit->curHP > GetUnitMaxHp(unit))
+		unit->curHP = GetUnitMaxHp(unit);
+}
+
+void sub_802BEA0(struct BattleUnit* bu, struct Unit* unit) {
+	bu->changeHP  = bu->unit.maxHP - unit->maxHP;
+	bu->changePow = bu->unit.pow   - unit->pow;
+	bu->changeSkl = bu->unit.skl   - unit->skl;
+	bu->changeSpd = bu->unit.spd   - unit->spd;
+	bu->changeDef = bu->unit.def   - unit->def;
+	bu->changeRes = bu->unit.res   - unit->res;
+	bu->changeLck = bu->unit.lck   - unit->lck;
+
+	if (bu->unit.conBonus != unit->conBonus)
+		bu->changeCon = bu->unit.conBonus - unit->conBonus;
+	else {
+		bu->changeCon = 0;
+		bu->unit.conBonus = unit->conBonus;
+	}
+}
+
+void CheckForLevelUpCaps(struct Unit* unit, struct BattleUnit* bu) {
+	if ((unit->maxHP + bu->changeHP) > UNIT_MHP_MAX(unit))
+		bu->changeHP = UNIT_MHP_MAX(unit) - unit->maxHP;
+
+	if ((unit->pow + bu->changePow) > UNIT_POW_MAX(unit))
+		bu->changePow = UNIT_POW_MAX(unit) - unit->pow;
+
+	if ((unit->skl + bu->changeSkl) > UNIT_SKL_MAX(unit))
+		bu->changeSkl = UNIT_SKL_MAX(unit) - unit->skl;
+
+	if ((unit->spd + bu->changeSpd) > UNIT_SPD_MAX(unit))
+		bu->changeSpd = UNIT_SPD_MAX(unit) - unit->spd;
+
+	if ((unit->def + bu->changeDef) > UNIT_DEF_MAX(unit))
+		bu->changeDef = UNIT_DEF_MAX(unit) - unit->def;
+
+	if ((unit->res + bu->changeRes) > UNIT_RES_MAX(unit))
+		bu->changeRes = UNIT_RES_MAX(unit) - unit->res;
+
+	if ((unit->lck + bu->changeLck) > UNIT_LCK_MAX(unit))
+		bu->changeLck = UNIT_LCK_MAX(unit) - unit->lck;
+}
+
+void SaveSnagWallFromBattle(struct BattleUnit* bu);
+
+void SaveUnitsFromBattle(void) {
+	struct Unit* actor  = GetUnit(gBattleActor.unit.index);
+	struct Unit* target = GetUnit(gBattleTarget.unit.index);
+
+	if (gBattleActor.canCounter)
+		gBattleActor.unit.items[gBattleActor.weaponSlotIndex] = gBattleActor.weaponAfter;
+
+	if (gBattleTarget.canCounter)
+		gBattleTarget.unit.items[gBattleTarget.weaponSlotIndex] = gBattleTarget.weaponAfter;
+
+	SaveUnitFromBattle(actor, &gBattleActor);
+
+	if (target)
+		SaveUnitFromBattle(target, &gBattleTarget);
+	else
+		SaveSnagWallFromBattle(&gBattleTarget);
+}
+
+s8 sub_802C0B0(void) {
+	return TRUE;
+}
+
+int GetBattleNewWExp(struct BattleUnit* bu) {
+	int i, result;
+
+	if (UNIT_FACTION(&bu->unit) != FACTION_BLUE)
+		return -1;
+
+	if (bu->unit.curHP == 0)
+		return -1;
+
+	if (gUnknown_0202BCF0.chapterStateBits & CHAPTER_FLAG_7)
+		return -1;
+
+	if (gUnknown_0202BCB0.gameStateBits & 0x40) // TODO: GAME STATE BITS CONSTANTS
+		return -1;
+
+	if (!(gUnknown_0203A4D4.config & BATTLE_CONFIG_ARENA)) {
+		if (!bu->canCounter)
+			return -1;
+
+		if (!(bu->weaponAttributes & IA_REQUIRES_WEXP))
+			return -1;
+
+		if (bu->weaponAttributes & (IA_MAGICDAMAGE | IA_LOCK_3))
+			return -1;
+	}
+
+	result = bu->unit.ranks[bu->weaponType];
+	result += GetItemAwardedExp(bu->weaponAfter) * bu->wexpMultiplier;
+
+	for (i = 0; i < 8; ++i) {
+		if (i == bu->weaponType)
+			continue;
+
+		if (bu->unit.pClassData->baseRanks[i] == WPN_EXP_S)
+			continue;
+
+		if (bu->unit.ranks[i] < WPN_EXP_S)
+			continue;
+
+		if (result >= WPN_EXP_S)
+			result = (WPN_EXP_S - 1);
+
+		break;
+	}
+
+	if (UNIT_CATTRIBUTES(&bu->unit) & CA_PROMOTED) {
+		if (result > WPN_EXP_S)
+			result = WPN_EXP_S;
+	} else if (UNIT_CATTRIBUTES(&bu->unit) & CA_MAXLEVEL10) {
+		if (result > WPN_EXP_C)
+			result = WPN_EXP_C;
+	} else {
+		if (result > WPN_EXP_A)
+			result = WPN_EXP_A;
+	}
+
+	return result;
+}
+
+s8 BattleUnit_DidWRankGoUp(struct BattleUnit* bu) {
+	int oldWexp = bu->unit.ranks[bu->weaponType];
+	int newWexp = GetBattleNewWExp(bu);
+
+	if (newWexp < 0)
+		return FALSE;
+
+	return GetWeaponLevelFromExp(oldWexp) != GetWeaponLevelFromExp(newWexp);
+}
+
+void SaveUnitFromBattle(struct Unit* unit, struct BattleUnit* bu) {
+	int tmp;
+
+	unit->level = bu->unit.level;
+	unit->exp   = bu->unit.exp;
+	unit->curHP = bu->unit.curHP;
+	unit->state = bu->unit.state;
+
+	gUnknown_03003060 = 0x7 & (unit->state >> 17); // ???
+
+	if (bu->statusOut >= 0)
+		SetUnitStatus(unit, bu->statusOut);
+
+	unit->maxHP += bu->changeHP;
+	unit->pow   += bu->changePow;
+	unit->skl   += bu->changeSkl;
+	unit->spd   += bu->changeSpd;
+	unit->def   += bu->changeDef;
+	unit->res   += bu->changeRes;
+	unit->lck   += bu->changeLck;
+
+	UnitCheckStatCaps(unit);
+
+	tmp = GetBattleNewWExp(bu);
+
+	if (tmp > 0)
+		unit->ranks[bu->weaponType] = tmp;
+
+	for (tmp = 0; tmp < UNIT_ITEM_COUNT; ++tmp)
+		unit->items[tmp] = bu->unit.items[tmp];
+
+	UnitRemoveInvalidItems(unit);
+
+	if (bu->expGain)
+		BWL_AddExpGained(unit->pCharacterData->number, bu->expGain);
+}
+
+void sub_802C2D4(struct Unit* unit, struct BattleUnit* bu) {
+	int wexp;
+
+	unit->curHP = bu->unit.curHP;
+
+	wexp = GetBattleNewWExp(bu);
+
+	if (wexp > 0)
+		unit->ranks[bu->weaponType] = wexp;
+}
+
+void UpdateBallistaUsesFromBattle(void) {
+	if (gUnknown_0203A4D4.config & BATTLE_CONFIG_BALLISTA) {
+		int uses = GetItemUses(gBattleActor.weaponAfter);
+		GetTrap(gBattleActor.unit.ballistaIndex)->data[TRAP_EXTDATA_BLST_ITEMUSES] = uses;
+	}
+}
+
+extern struct {
+	u8 unk00;
+	u8 unk01;
+	u8 unk02;
+} gUnknown_0203A60C;
+
+void NullSomeStuff(void) {
+	gUnknown_0203A60C.unk00 = 0;
+	gUnknown_0203A60C.unk01 = 0;
+	gUnknown_0203A60C.unk02 = 0;
+}
+
+int sub_802C344(struct Unit* unit) {
+	int result = unit->level;
+
+	if (UNIT_CATTRIBUTES(unit) & CA_PROMOTED)
+		result += 20;
+
+	return result;
+}
+
+int sub_802C368(struct Unit* actor, struct Unit* target) {
+	int expLevel;
+
+	expLevel = sub_802C344(actor);
+	expLevel = expLevel - sub_802C344(target);
+	expLevel = 31 - expLevel;
+
+	if (expLevel < 0)
+		expLevel = 0;
+
+	return expLevel / actor->pClassData->classRelativePower;
+}
+
+int sub_802C398(struct Unit* unit) {
+	int result = unit->level * unit->pClassData->classRelativePower;
+
+	if ((UNIT_CATTRIBUTES(unit) & CA_PROMOTED) && unit->pClassData->promotion)
+		result = result + 20 * GetClassData(unit->pClassData->promotion)->classRelativePower;
+
+	return result;
+}
+
+int sub_802C3D8(struct Unit* actor, struct Unit* target) {
+	int result = 0;
+
+	if (UNIT_CATTRIBUTES(target) & CA_LOCKPICK)
+		result += 20;
+
+	if (UNIT_CATTRIBUTES(target) & CA_BOSS)
+		result += 40;
+
+	if (target->pClassData->number == CLASS_ENTOUMBED)
+		result += 40;
+
+	return result;
+}
+
+int sub_802C40C(struct Unit* unit) {
+	int i;
+
+	if (!(UNIT_CATTRIBUTES(unit) & CA_LETHALITY))
+		return 1;
+
+	for (i = 0; i < BATTLE_HIT_MAX; ++i)
+		if (gUnknown_0203A5EC[i].unk00b & 0x800) // TODO: BATTLE HIT BITS
+			return 2;
+
+	return 1;
 }
