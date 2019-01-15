@@ -734,6 +734,7 @@ int sub_802C534(struct BattleUnit* actor, struct BattleUnit* target);
 void CheckForLevelUp(struct BattleUnit* bu);
 void CheckForLevelUpCaps(struct Unit* unit, struct BattleUnit* bu);
 void BWL_AddExpGained(int charId, int expGain);
+int GetBattleUnitStaffExp(struct BattleUnit* bu);
 
 enum { BATTLE_HIT_MAX = 7 };
 
@@ -749,6 +750,12 @@ extern struct BattleHit gUnknown_0203A5EC[BATTLE_HIT_MAX];
 extern struct BattleHit* gUnknown_0203A608;
 
 extern u8 gUnknown_03003060;
+
+extern struct {
+	u8 unk00;
+	u8 unk01;
+	u8 unk02;
+} gUnknown_0203A60C;
 
 void ClearRounds(void) {
 	int i;
@@ -1664,7 +1671,7 @@ void SaveUnitFromBattle(struct Unit* unit, struct BattleUnit* bu) {
 	unit->curHP = bu->unit.curHP;
 	unit->state = bu->unit.state;
 
-	gUnknown_03003060 = 0x7 & (unit->state >> 17); // ???
+	gUnknown_03003060 = 0x7 & (unit->state >> 17); // ??? TODO: figure this out
 
 	if (bu->statusOut >= 0)
 		SetUnitStatus(unit, bu->statusOut);
@@ -1710,12 +1717,6 @@ void UpdateBallistaUsesFromBattle(void) {
 		GetTrap(gBattleActor.unit.ballistaIndex)->data[TRAP_EXTDATA_BLST_ITEMUSES] = uses;
 	}
 }
-
-extern struct {
-	u8 unk00;
-	u8 unk01;
-	u8 unk02;
-} gUnknown_0203A60C;
 
 void NullSomeStuff(void) {
 	gUnknown_0203A60C.unk00 = 0;
@@ -1769,10 +1770,10 @@ int sub_802C3D8(struct Unit* actor, struct Unit* target) {
 	return result;
 }
 
-int sub_802C40C(struct Unit* unit) {
+int sub_802C40C(struct Unit* actor, struct Unit* target) {
 	int i;
 
-	if (!(UNIT_CATTRIBUTES(unit) & CA_LETHALITY))
+	if (!(UNIT_CATTRIBUTES(actor) & CA_LETHALITY))
 		return 1;
 
 	for (i = 0; i < BATTLE_HIT_MAX; ++i)
@@ -1780,4 +1781,132 @@ int sub_802C40C(struct Unit* unit) {
 			return 2;
 
 	return 1;
+}
+
+int sub_802C450(struct Unit* actor, struct Unit* target) {
+	int result;
+
+	if (target->curHP != 0)
+		return 0;
+
+	result = 20;
+
+	// TODO: All the definitions
+	if ((gUnknown_0202BCB0.gameStateBits & 0x40) || (gUnknown_0202BCF0.chapterModeIndex != 1)) {
+		result = sub_802C398(target);
+
+		result += 20;
+		result -= sub_802C398(actor);
+	} else {
+		int local = sub_802C398(target);
+
+		if (local <= sub_802C398(actor))
+			local = sub_802C398(target) - sub_802C398(actor) / 2;
+		else
+			local = sub_802C398(target) - sub_802C398(actor);
+
+		result += local;
+	}
+
+	result += sub_802C3D8(actor, target);
+	result *= sub_802C40C(actor, target);
+
+	if (result < 0)
+		result = 0;
+
+	return result;
+}
+
+void sub_802C4F0(struct Unit* actor, struct Unit* target, int* out) {
+	if (UNIT_IS_GORGON_EGG(target)) {
+		if (target->curHP == 0)
+			*out = 50;
+		else
+			*out = 0;
+	}
+
+	if (target->pClassData->number == CLASS_DEMON_KING)
+		if (target->curHP == 0)
+			*out = 0;
+
+	if (actor->pClassData->number == CLASS_PHANTOM)
+		*out = 0;
+}
+
+int sub_802C534(struct BattleUnit* actor, struct BattleUnit* target) {
+	int result;
+
+	if (!CanUnitNotLevelUp(actor) || (actor->unit.curHP == 0) || UNIT_CATTRIBUTES(&target->unit) & CA_NEGATE_LETHALITY)
+		return 0;
+
+	if (!actor->nonZeroDamage)
+		return 1;
+
+	result = sub_802C368(&actor->unit, &target->unit);
+	result += sub_802C450(&actor->unit, &target->unit);
+
+	if (result > 100)
+		result = 100;
+
+	if (result < 1)
+		result = 1;
+
+	sub_802C4F0(&actor->unit, &target->unit, &result);
+
+	return result;
+}
+
+void HandleSomeExp(void) {
+	if (!(gUnknown_0202BCF0.chapterStateBits & CHAPTER_FLAG_7)) {
+		if (gBattleActor.weaponAttributes & IA_STAFF) {
+			if (UNIT_FACTION(&gBattleActor.unit) == FACTION_BLUE)
+				gBattleActor.wexpMultiplier++;
+
+			gBattleActor.expGain = GetBattleUnitStaffExp(&gBattleActor);
+			gBattleActor.unit.exp += gBattleActor.expGain;
+
+			CheckForLevelUp(&gBattleActor);
+		} else if ((gBattleActor.weaponType == ITYPE_12) && (gBattleActor.unit.exp != UNIT_EXP_DISABLED)) {
+			gBattleActor.expGain = 20;
+			gBattleActor.unit.exp += 20;
+
+			CheckForLevelUp(&gBattleActor);
+		}
+	}
+}
+
+int GetBattleUnitStaffExp(struct BattleUnit* bu) {
+	int result;
+
+	if (!CanUnitNotLevelUp(bu))
+		return 0;
+
+	if (gUnknown_0203A5EC->unk00b & 2) // TODO: battle hit bits
+		return 1;
+
+	result = 10 + GetItemCostPerUse(bu->weaponAfter) / 20;
+
+	if (UNIT_CATTRIBUTES(&bu->unit) & CA_PROMOTED)
+		result = result / 2;
+
+	if (result > 100)
+		result = 100;
+
+	return result;
+}
+
+void InstigatorAdd10Exp(void) {
+	if (UNIT_FACTION(&gBattleActor.unit) != FACTION_BLUE)
+		return;
+
+	if (!CanUnitNotLevelUp(&gBattleActor))
+		return;
+
+	if (gUnknown_0202BCF0.chapterStateBits & CHAPTER_FLAG_7)
+		return;
+
+	gBattleActor.expGain = 10;
+	gBattleActor.unit.exp += 10;
+
+	CheckForLevelUp(&gBattleActor);
 }

@@ -90,6 +90,8 @@ enum {
     ITYPE_BLLST = 8,
     ITYPE_ITEM  = 9,
     ITYPE_DRAGN = 10,
+
+    ITYPE_12    = 12,
 };
 
 enum {
