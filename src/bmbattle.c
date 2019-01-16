@@ -2,10 +2,18 @@
 
 #include "constants/items.h"
 #include "constants/classes.h"
+#include "constants/characters.h"
 
 #include "rng.h"
 #include "bmitem.h"
 #include "bmunit.h"
+#include "chapterdata.h"
+
+#include "m4a.h"
+#include "soundwrapper.h"
+#include "hardware.h"
+#include "proc.h"
+#include "mu.h"
 
 struct BattleStats {
 	/* 00 */ u16 config;
@@ -756,6 +764,15 @@ extern struct {
 	u8 unk01;
 	u8 unk02;
 } gUnknown_0203A60C;
+
+struct WTEntry {
+	s8 attackerWeaponType;
+	s8 defenderWeaponType;
+	s8 hitBonus;
+	s8 atkBonus;
+};
+
+extern const struct WTEntry gUnknown_0859BA90[];
 
 void ClearRounds(void) {
 	int i;
@@ -1910,3 +1927,215 @@ void InstigatorAdd10Exp(void) {
 
 	CheckForLevelUp(&gBattleActor);
 }
+
+void sub_802C6EC(struct BattleUnit* bu) {
+	int i;
+
+	if (bu->weaponBefore)
+		return;
+
+	bu->weaponBefore = GetUnitEquippedWeapon(&bu->unit);
+
+	if (bu->weaponBefore)
+		return;
+
+	if (!UnitHasMagicRank(&bu->unit))
+		return;
+
+	for (i = 0; i < UNIT_ITEM_COUNT; ++i) {
+		if (CanUnitUseStaff(&bu->unit, bu->unit.items[i]) == TRUE) {
+			bu->weaponBefore = bu->unit.items[i];
+			break;
+		}
+	}
+}
+
+void sub_802C740(struct BattleUnit* bu) {
+	if (!bu->canCounter) {
+		bu->battleAttack = 0xFF;
+		bu->battleHit = 0xFF;
+		bu->battleEffectiveHit = 0xFF;
+		bu->battleCrit = 0xFF;
+		bu->battleEffectiveCrit = 0xFF;
+	}
+}
+
+void BattleReverseWTriangeEffect(struct BattleUnit* attacker, struct BattleUnit* defender) {
+	if (!(attacker->weaponAttributes & IA_REVERTTRIANGLE) || !(defender->weaponAttributes & IA_REVERTTRIANGLE)) {
+		attacker->WTHitModifier = -(attacker->WTHitModifier * 2);
+		attacker->WTAtkModifier = -(attacker->WTAtkModifier * 2);
+		defender->WTHitModifier = -(defender->WTHitModifier * 2);
+		defender->WTAtkModifier = -(defender->WTAtkModifier * 2);
+	}
+}
+
+void BattleApplyWeaponTriangle(struct BattleUnit* attacker, struct BattleUnit* defender) {
+	const struct WTEntry* it;
+
+	for (it = gUnknown_0859BA90; it->attackerWeaponType >= 0; ++it) {
+		if ((attacker->weaponType == it->attackerWeaponType) && (defender->weaponType == it->defenderWeaponType)) {
+			attacker->WTHitModifier = it->hitBonus;
+			attacker->WTAtkModifier = it->atkBonus;
+
+			defender->WTHitModifier = -it->hitBonus;
+			defender->WTAtkModifier = -it->atkBonus;
+
+			break;
+		}
+	}
+
+	if (attacker->weaponAttributes & IA_REVERTTRIANGLE)
+		BattleReverseWTriangeEffect(attacker, defender);
+
+	if (defender->weaponAttributes & IA_REVERTTRIANGLE)
+		BattleReverseWTriangeEffect(attacker, defender);
+}
+
+void DoSomeBattleWeaponStuff(void) {
+	// Target cannot counter if it is a gorgon egg
+
+	if (UNIT_IS_GORGON_EGG(&gBattleTarget.unit)) {
+		gBattleTarget.weaponAfter = 0;
+		gBattleTarget.canCounter = FALSE;
+	}
+
+	// Target cannot counter if either units are using "uncounterable" weapons
+
+	if ((gBattleActor.weaponAttributes | gBattleTarget.weaponAttributes) & IA_UNCOUNTERABLE) {
+		gBattleTarget.weaponAfter = 0;
+		gBattleTarget.canCounter = FALSE;
+	}
+
+	// Target cannot counter if a berserked player unit is attacking another player unit
+
+	if (gBattleActor.unit.statusIndex == UNIT_STATUS_BERSERK) {
+		if ((UNIT_FACTION(&gBattleActor.unit) == FACTION_BLUE) && (UNIT_FACTION(&gBattleTarget.unit) == FACTION_BLUE)) {
+			gBattleTarget.weaponAfter = 0;
+			gBattleTarget.canCounter = FALSE;
+		}
+	}
+}
+
+void MakeSnagBattleTarget(void) {
+	ClearUnit(&gBattleTarget.unit);
+
+	gBattleTarget.unit.index = 0;
+
+	gBattleTarget.unit.pClassData = GetClassData(CLASS_SNAG);
+
+	gBattleTarget.unit.maxHP = GetROMChapterStruct(gUnknown_0202BCF0.chapterIndex)->mapCrackedWallHeath;
+	gBattleTarget.unit.curHP = gUnknown_0203A958.trapType; // TODO: better
+
+	gBattleTarget.unit.xPos  = gUnknown_0203A958.xOther;
+	gBattleTarget.unit.yPos  = gUnknown_0203A958.yOther;
+
+	switch (gUnknown_0202E4DC[gBattleTarget.unit.yPos][gBattleTarget.unit.xPos]) {
+
+	case 0x1B: // TODO: terrain id constants
+		gBattleTarget.unit.pCharacterData = GetCharacterData(CHARACTER_WALL);
+
+		break;
+
+	case 0x33: // TODO: terrain id constants
+		gBattleTarget.unit.pCharacterData = GetCharacterData(CHARACTER_SNAG);
+		gBattleTarget.unit.maxHP = 20;
+
+		break;
+
+	} // switch (gUnknown_0202E4DC[gBattleTarget.unit.yPos][gBattleTarget.unit.xPos])
+}
+
+void FillSnagBattleStats(void) {
+	gBattleActor.battleEffectiveHit = 100;
+	gBattleActor.battleEffectiveCrit = 0;
+
+	gBattleTarget.battleAttackSpeed = 0xFF;
+	gBattleTarget.currentHP = gBattleTarget.unit.curHP;
+
+	gBattleTarget.WTHitModifier = 0;
+	gBattleTarget.WTAtkModifier = 0;
+}
+
+void SaveSnagWallFromBattle(struct BattleUnit* bu) {
+	struct Trap* trap = GetTrapAt(bu->unit.xPos, bu->unit.yPos);
+
+	trap->data[TRAP_EXTDATA_OBSTACLE_HP] = bu->unit.curHP;
+
+	if (trap->data[TRAP_EXTDATA_OBSTACLE_HP] == 0) {
+		int mapChangeId = GetMapChangesIdAt(bu->unit.xPos, bu->unit.yPos);
+
+		if (gUnknown_0202E4DC[bu->unit.yPos][bu->unit.xPos] == 0x33) // TODO: terrain id constants
+			PlaySoundEffect(0x2D7); // TODO: Sound id constants
+
+		sub_8019CBC();
+
+		ApplyMapChangesById(mapChangeId);
+
+		// This is kind of jank: it sets trap type to 0 which should be the terminating id
+		// But then immediately calls the map change trap adding routine, which would effectively replace
+		// the 0-id trap with the new map change trap, even if it is not actually the end of the trap array
+
+		trap->type = 0; // TODO: trap id constants
+		AddMapChange(mapChangeId);
+
+		FlushTerrainData();
+		sub_802E690();
+		UpdateGameTilesGraphics();
+
+		NewBMXFADE(FALSE);
+	}
+}
+
+void BeginBattleAnimations(void) {
+	BG_Fill(gBG2TilemapBuffer, 0);
+	BG_EnableSyncByMask(1 << 2);
+
+	gPaletteBuffer[0] = 0;
+	EnablePaletteSync();
+
+	UpdateGameTilesGraphics();
+
+	if (sub_8055BC4()) {
+		sub_804FD48(0);
+		BeginAnimsOnBattleAnimations();
+	} else {
+		MU_EndAll();
+		UpdateGameTilesGraphics();
+		BeginBattleMapAnims();
+
+		gUnknown_0203A4D4.config |= BATTLE_CONFIG_MAPANIMS;
+	}
+}
+
+int sub_802CA70(struct Unit* unit) {
+	// TODO: battle anim type constants
+
+	if (unit->state & US_SOLOANIM_1)
+		return 0;
+
+	if (unit->state & US_SOLOANIM_2)
+		return 3;
+
+	return 1;
+}
+
+/*
+
+int sub_802CA98(void) {
+	if (2 == gUnknown_0202BCF0.unk42_2) {
+		if (UNIT_FACTION(&gBattleActor.unit) == FACTION_BLUE) {
+			if (UNIT_FACTION(&gBattleTarget.unit) == FACTION_BLUE)
+				return sub_802CA70(&gBattleActor.unit);
+
+			return sub_802CA70(&gBattleActor.unit);
+		}
+
+		if (UNIT_FACTION(&gBattleTarget.unit) == FACTION_BLUE) {
+			return sub_802CA70(&gBattleTarget.unit);
+		}
+
+		return 1;
+	}
+}
+
+*/
