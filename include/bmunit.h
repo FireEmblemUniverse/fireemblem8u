@@ -218,9 +218,9 @@ enum {
     US_SOLOANIM_1   = (1 << 14),
     US_SOLOANIM_2   = (1 << 15),
     US_BIT16        = (1 << 16),
-    // = (1 << 17),
-    // = (1 << 18),
-    // = (1 << 19),
+    US_BIT17        = (1 << 17),
+    US_BIT18        = (1 << 18),
+    US_BIT19        = (1 << 19),
     US_BIT20        = (1 << 20),
     US_BIT21        = (1 << 21),
     US_BIT22        = (1 << 22),
@@ -370,7 +370,7 @@ struct BattleUnit {
     /* 7C */ s8 nonZeroDamage;
     /* 7D */ s8 weaponBroke;
 
-    /* 7E */ u8 _u7E;
+    /* 7E */ s8 unk7E;
     /* 7F */ u8 _u7F;
 };
 

@@ -10,6 +10,7 @@ struct BattleUnit; // currently in bmunit.h
 struct UnitDefinition; // currently in bmunit.h
 
 // Type definitions for types without any other home :/
+struct BattleHit;
 
 struct BgCoords
 {
@@ -266,7 +267,7 @@ struct ActionData
 
     /* 16 */ u8 suspendPointType;
 
-    /* 18 */ u32 unk18;
+    /* 18 */ struct BattleHit* unk18;
 
     /* 1C+ TODO (sizeof(struct ActionData) == 0x38) */
 };
@@ -444,7 +445,7 @@ struct ArenaData {
     /* 08 */ short unk08;
     /* 0A */ u8 unk0A;
     /* 0B */ u8 unk0B;
-    /* 0C */ u8 unk0C;
+    /* 0C */ u8 range;
     /* 0D */ u8 playerWpnType;
     /* 0E */ u8 opponentWpnType;
     /* 0F */ u8 playerClassId;

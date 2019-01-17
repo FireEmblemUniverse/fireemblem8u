@@ -751,7 +751,7 @@ enum { BATTLE_FOLLOWUP_SPEED_THRESHOLD = 4 };
 struct BattleHit {
 	/* 00   */ unsigned unk00b   : 19;
 	/* 02+3 */ unsigned unk19b   : 5;
-	/* 03   */ unsigned hpChange : 8;
+	/* 03   */ signed   hpChange : 8;
 };
 
 extern struct BattleHit gUnknown_0203A5EC[BATTLE_HIT_MAX];
@@ -773,6 +773,8 @@ struct WTEntry {
 };
 
 extern const struct WTEntry gUnknown_0859BA90[];
+
+extern const struct ProcCmd gUnknown_0859BAC4[];
 
 void ClearRounds(void) {
 	int i;
@@ -2119,23 +2121,298 @@ int sub_802CA70(struct Unit* unit) {
 	return 1;
 }
 
+int sub_802CA98(void) {
+	// TODO: battle anim type constants
+
+	// If not solo anim, return global type
+	if (gUnknown_0202BCF0.unk42_2 != 2)
+		return gUnknown_0202BCF0.unk42_2;
+
+	// If both units are players, use actor solo anim type
+	if (UNIT_FACTION(&gBattleActor.unit) == FACTION_BLUE)
+		if (UNIT_FACTION(&gBattleTarget.unit) == FACTION_BLUE)
+			return sub_802CA70(&gBattleActor.unit);
+
+	// If neither are players, return 1
+	if (UNIT_FACTION(&gBattleActor.unit) != FACTION_BLUE)
+		if (UNIT_FACTION(&gBattleTarget.unit) != FACTION_BLUE)
+			return 1;
+
+	// Return solo anim type for the one that is a player unit
+	if (UNIT_FACTION(&gBattleActor.unit) == FACTION_BLUE)
+		return sub_802CA70(&gBattleActor.unit);
+	else
+		return sub_802CA70(&gBattleTarget.unit);
+}
+
+void nullsub_11(struct BattleUnit* actor, struct BattleUnit* target) {
+	// prints battle unit information to debug output
+}
+
+void sub_802CAFC(void) {
+	struct BattleHit* it;
+
+	// TODO: round bit info stuff
+	for (it = gUnknown_0203A5EC; !(it->unk19b & 0x10); ++it) {
+		// prints battle rounds information to debug output
+	}
+}
+
+void sub_802CB24(struct Unit* actor, int itemSlot) {
+	int item = actor->items[itemSlot];
+
+	if (itemSlot < 0)
+		item = 0;
+
+	gUnknown_0203A4D4.config = 0;
+
+	CopyUnitToBattleStruct(&gBattleActor, actor);
+
+	BattleSetupTerrainData(&gBattleActor);
+	LoadRawDefense(&gBattleActor);
+	BattleApplyMiscBonuses(&gBattleActor, NULL);
+
+	gBattleActor.battleAttack = 0xFF;
+	gBattleActor.battleEffectiveHit = 100;
+	gBattleActor.battleEffectiveCrit = 0xFF;
+
+	gBattleActor.weaponAfter = item;
+	gBattleActor.weaponBefore = item;
+	gBattleActor.weaponSlotIndex = itemSlot;
+	gBattleActor.weaponType = GetItemType(item);
+	gBattleActor.weaponAttributes = GetItemAttributes(item);
+
+	gBattleActor.canCounter = TRUE;
+	gBattleActor.unk7E = FALSE;
+
+	gBattleActor.statusOut = -1;
+	gBattleTarget.statusOut = -1;
+
+	ClearRounds();
+}
+
+void sub_802CBC8(struct Unit* unit) {
+	CopyUnitToBattleStruct(&gBattleTarget, unit);
+
+	BattleSetupTerrainData(&gBattleTarget);
+	LoadRawDefense(&gBattleTarget);
+	BattleApplyMiscBonuses(&gBattleTarget, NULL);
+
+	gBattleTarget.battleAttack = 0xFF;
+	gBattleTarget.battleEffectiveHit = 0xFF;
+	gBattleTarget.battleEffectiveCrit = 0xFF;
+
+	gBattleTarget.weaponBefore = 0;
+
+	sub_802C6EC(&gBattleTarget);
+
+	gBattleActor.unk7E = TRUE;
+}
+
+void SaveInstigatorFromBattle(void) {
+	SaveUnitFromBattle(GetUnit(gBattleActor.unit.index), &gBattleActor);
+}
+
+void SaveInstigatorWith10ExtraExp(struct Proc* proc) {
+	InstigatorAdd10Exp();
+	Proc_CreateBlockingChild(gUnknown_0859BAC4, proc);
+}
+
+void sub_802CC54(struct Proc* proc) {
+	(++gUnknown_0203A608)->unk19b = 0x10; // TODO: battle hit bits
+
+	HandleSomeExp();
+
+	if (gBattleActor.canCounter) {
+		if (GetItemAttributes(gBattleActor.weaponAfter) & IA_STAFF)
+			gBattleActor.weaponBroke = TRUE;
+
+		gBattleActor.weaponAfter = GetItemAfterUse(gBattleActor.weaponAfter);
+		gBattleActor.unit.items[gBattleActor.weaponSlotIndex] = gBattleActor.weaponAfter;
+
+		if (gBattleActor.weaponAfter)
+			gBattleActor.weaponBroke = FALSE;
+	}
+
+	Proc_CreateBlockingChild(gUnknown_0859BAC4, proc);
+}
+
+int GetStaffAccuracy(struct Unit* actor, struct Unit* target) {
+	int baseAccuracy = (GetUnitPower(actor) - GetUnitResistance(target)) * 5;
+	int unitSkill = GetUnitSkill(actor);
+	int distance = RECT_DISTANCE(actor->xPos, actor->yPos, target->xPos, target->yPos);
+
+	int result;
+
+	if (actor->pClassData->number == CLASS_DEMON_KING)
+		result = (baseAccuracy + unitSkill) - distance * 2;
+	else
+		result = (baseAccuracy + 30 + unitSkill) - distance * 2;
+
+	if ((target->pClassData->number == CLASS_DEMON_KING) || (target->pCharacterData->number == CHARACTER_LYON) || (target->pCharacterData->number == CHARACTER_LYON_FINAL))
+		return 0;
+
+	if (result < 0)
+		result = 0;
+
+	if (result > 100)
+		result = 100;
+
+	return result;
+}
+
+void sub_802CD64(struct Unit* actor) {
+	struct Unit* target = gUnknown_0203A8F0.opponentUnit;
+	int something = gUnknown_0202BCB0.unk3C;
+
+	gUnknown_0203A4D4.config = BATTLE_CONFIG_BIT0 | BATTLE_CONFIG_ARENA;
+
+	CopyUnitToBattleStruct(&gBattleActor, actor);
+	CopyUnitToBattleStruct(&gBattleTarget, target);
+
+	if (gUnknown_0203A958.trapType) {
+		gBattleTarget.unit.curHP = gUnknown_0203A958.trapType;
+		gBattleTarget.currentHP = gUnknown_0203A958.trapType;
+	}
+
+	gUnknown_0203A4D4.range = gUnknown_0203A8F0.range;
+
+	gBattleTarget.unit.xPos = gBattleActor.unit.xPos + gUnknown_0203A8F0.range;
+	gBattleTarget.unit.yPos = gBattleActor.unit.yPos;
+
+	SetupBattleWeaponData(&gBattleActor, BU_ISLOT_ARENA_PLAYER);
+	SetupBattleWeaponData(&gBattleTarget, BU_ISLOT_ARENA_OPPONENT);
+
+	BattleApplyWeaponTriangle(&gBattleActor, &gBattleTarget);
+
+	gUnknown_0203A958.suspendPointType = SUSPEND_POINT_DURINGARENA;
+	SaveSuspendedGame(3); // TODO: save block id constants
+
+	BattleSetupTerrainData(&gBattleActor);
+	WriteBattleStructTerrainBonuses(&gBattleTarget, 8); // TODO: terrain id constants
+
+	sub_802A398(actor, target);
+
+	if (gBattleTarget.unit.curHP == 0)
+		sub_802B92C();
+
+	sub_802C2D4(actor, &gBattleActor);
+
+	#define UNIT_ARENA_LEVEL(aUnit) (((aUnit)->state >> 17) & 0x7)
+
+	if (!something || (gBattleTarget.unit.curHP == 0)) {
+		sub_80A4AA4();
+
+		actor->state = (actor->state &~ (US_BIT17 | US_BIT18 | US_BIT19))
+			+ ((((UNIT_ARENA_LEVEL(actor) + 1) <= 7) ? (UNIT_ARENA_LEVEL(actor) + 1) << 17 : 7 << 17));
+
+		gUnknown_03003060 = UNIT_ARENA_LEVEL(actor);
+	}
+
+	#undef UNIT_ARENA_LEVEL
+
+	nullsub_11(&gBattleActor, &gBattleTarget);
+}
+
+s8 IsCurrentBattleTriangleAttack(void) {
+	// TODO: battle hit bits
+	return (gUnknown_0203A5EC->unk00b & 0x400) != 0;
+}
+
+s8 DidWeaponBreak(struct BattleUnit* bu) {
+	if (bu->unit.curHP == 0)
+		return FALSE;
+
+	return bu->weaponBroke;
+}
+
+void sub_802CEBC(struct BattleHit* hit) {
+	gUnknown_0203A958.unk18 = hit;
+}
+
+void CurrentRound_ComputeDamage(struct BattleUnit* bu) {
+	gUnknown_0203A4D4.damage = 0;
+
+	// TODO: battle hit bits
+	if (!(gUnknown_0203A608->unk00b & 2)) {
+		if (gUnknown_0203A608->hpChange == 0) {
+			gUnknown_0203A4D4.damage = gUnknown_0203A4D4.attack - gUnknown_0203A4D4.defense;
+
+			if (gUnknown_0203A608->unk00b & 1)
+				gUnknown_0203A4D4.damage = 3 * gUnknown_0203A4D4.damage;
+		} else
+			gUnknown_0203A4D4.damage = gUnknown_0203A608->hpChange;
+
+		if (gUnknown_0203A4D4.damage > 127)
+			gUnknown_0203A4D4.damage = 127;
+
+		if (gUnknown_0203A4D4.damage < 0)
+			gUnknown_0203A4D4.damage = 0;
+
+		if (gUnknown_0203A4D4.damage != 0)
+			bu->nonZeroDamage = TRUE;
+	}
+}
+
 /*
 
-int sub_802CA98(void) {
-	if (2 == gUnknown_0202BCF0.unk42_2) {
-		if (UNIT_FACTION(&gBattleActor.unit) == FACTION_BLUE) {
-			if (UNIT_FACTION(&gBattleTarget.unit) == FACTION_BLUE)
-				return sub_802CA70(&gBattleActor.unit);
+void sub_802CF4C(void) {
+	struct BattleHit* itIn = gUnknown_0203A958.unk18;
+	struct BattleHit* itOut = gUnknown_0203A5EC;
 
-			return sub_802CA70(&gBattleActor.unit);
+	// TODO: battle round bits
+	while (!(itIn->unk19b & 0x10))
+		*itOut++ = *itIn++;
+
+	*itOut = *itIn;
+	gUnknown_0203A608 = gUnknown_0203A5EC;
+
+	// TODO: battle round bits
+	while (!(gUnknown_0203A608->unk19b & 0x10)) {
+		struct BattleUnit* attacker;
+		struct BattleUnit* defender;
+
+		if (gUnknown_0203A608->unk19b & 8) { // TODO: battle hit bits
+			attacker = &gBattleTarget;
+			defender = &gBattleActor;
+		} else {
+			attacker = &gBattleActor;
+			defender = &gBattleTarget;
 		}
 
-		if (UNIT_FACTION(&gBattleTarget.unit) == FACTION_BLUE) {
-			return sub_802CA70(&gBattleTarget.unit);
+		UpdateBattleStats(attacker, defender);
+		CurrentRound_ComputeDamage(attacker);
+		CurrentRound_ComputeWeaponEffects(attacker, defender);
+
+		if ((attacker->unit.curHP == 0) || (defender->unit.curHP == 0)) {
+			attacker->wexpMultiplier++;
+
+			gUnknown_0203A608->unk19b |= 2; // TODO: battle hit bits
+
+			if (gBattleTarget.unit.curHP == 0)
+				gUnknown_0203A608->unk19b |= 4; // TODO: battle hit bits
+
+			(gUnknown_0203A608 + 1)->unk19b = 0x10;
+			break;
 		}
 
-		return 1;
+		if (
+			(defender->unit.statusIndex == UNIT_STATUS_PETRIFY) ||
+			(defender->unit.statusIndex == UNIT_STATUS_13) ||
+			(defender->statusOut == UNIT_STATUS_PETRIFY) ||
+			(defender->statusOut == UNIT_STATUS_13)
+		) {
+			attacker->wexpMultiplier++;
+			gUnknown_0203A608->unk19b |= 2; // TODO: battle hit bits
+
+			(gUnknown_0203A608 + 1)->unk19b = 0x10;
+			break;
+		}
+
+		++gUnknown_0203A608;
 	}
+
+	gUnknown_0203A958.unk18 = NULL;
 }
 
 */
