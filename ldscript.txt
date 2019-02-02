@@ -89,7 +89,6 @@ SECTIONS
         asm/bmreliance.o(.text);
         asm/bmitemuse.o(.text);
         src/bmbattle.o(.text);
-        asm/bmbattle.o(.text);
         asm/bmtrade.o(.text);
         asm/bmtrick.o(.text);
         asm/bmusemind.o(.text);

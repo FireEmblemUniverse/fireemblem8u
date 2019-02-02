@@ -2354,24 +2354,26 @@ void CurrentRound_ComputeDamage(struct BattleUnit* bu) {
 	}
 }
 
-/*
+#if NONMATCHING
 
 void sub_802CF4C(void) {
-	struct BattleHit* itIn = gUnknown_0203A958.unk18;
-	struct BattleHit* itOut = gUnknown_0203A5EC;
+	struct BattleUnit* attacker;
+	struct BattleUnit* defender;
+
+	struct BattleHit* itIn;
+	struct BattleHit* itOut;
+
+	itIn = gUnknown_0203A958.unk18;
+	itOut = gUnknown_0203A5EC;
 
 	// TODO: battle round bits
 	while (!(itIn->unk19b & 0x10))
 		*itOut++ = *itIn++;
 
 	*itOut = *itIn;
-	gUnknown_0203A608 = gUnknown_0203A5EC;
 
 	// TODO: battle round bits
-	while (!(gUnknown_0203A608->unk19b & 0x10)) {
-		struct BattleUnit* attacker;
-		struct BattleUnit* defender;
-
+	for (gUnknown_0203A608 = gUnknown_0203A5EC; !(gUnknown_0203A608->unk19b & 0x10); ++gUnknown_0203A608) {
 		if (gUnknown_0203A608->unk19b & 8) { // TODO: battle hit bits
 			attacker = &gBattleTarget;
 			defender = &gBattleActor;
@@ -2393,6 +2395,7 @@ void sub_802CF4C(void) {
 				gUnknown_0203A608->unk19b |= 4; // TODO: battle hit bits
 
 			(gUnknown_0203A608 + 1)->unk19b = 0x10;
+
 			break;
 		}
 
@@ -2406,13 +2409,327 @@ void sub_802CF4C(void) {
 			gUnknown_0203A608->unk19b |= 2; // TODO: battle hit bits
 
 			(gUnknown_0203A608 + 1)->unk19b = 0x10;
+
 			break;
 		}
-
-		++gUnknown_0203A608;
 	}
 
 	gUnknown_0203A958.unk18 = NULL;
 }
 
-*/
+#else // if !NONMATCHING
+
+__attribute__((naked))
+void sub_802CF4C(void) {
+	/* :( */
+
+	asm("\n\
+		.syntax unified\n\
+		push {r4, r5, r6, r7, lr}\n\
+		ldr r0, _0802CFA4  @ gUnknown_0203A958\n\
+		ldr r3, [r0, #0x18]\n\
+		ldr r4, _0802CFA8  @ gUnknown_0203A5EC\n\
+		ldr r2, [r3]\n\
+		lsls r0, r2, #8\n\
+		lsrs r0, r0, #0x1b\n\
+		movs r1, #0x10\n\
+		ands r0, r1\n\
+		adds r5, r4, #0\n\
+		ldr r6, _0802CFAC  @ gUnknown_0203A608\n\
+		cmp r0, #0\n\
+		bne _0802CF76\n\
+	_0802CF66:\n\
+		stm r4!, {r2}\n\
+		adds r3, #4\n\
+		ldr r2, [r3]\n\
+		lsls r0, r2, #8\n\
+		lsrs r0, r0, #0x1b\n\
+		ands r0, r1\n\
+		cmp r0, #0\n\
+		beq _0802CF66\n\
+	_0802CF76:\n\
+		ldr r0, [r3]\n\
+		str r0, [r4]\n\
+		str r5, [r6]\n\
+		ldr r0, [r5]\n\
+		lsls r0, r0, #8\n\
+		lsrs r0, r0, #0x1b\n\
+		movs r1, #0x10\n\
+		ands r0, r1\n\
+		cmp r0, #0\n\
+		beq _0802CF8C\n\
+		b _0802D0AC\n\
+	_0802CF8C:\n\
+		movs r7, #7\n\
+	_0802CF8E:\n\
+		ldr r0, [r6]\n\
+		ldr r0, [r0]\n\
+		lsls r0, r0, #8\n\
+		lsrs r0, r0, #0x1b\n\
+		movs r1, #8\n\
+		ands r0, r1\n\
+		cmp r0, #0\n\
+		beq _0802CFB8\n\
+		ldr r4, _0802CFB0  @ gBattleTarget\n\
+		ldr r5, _0802CFB4  @ gBattleActor\n\
+		b _0802CFBC\n\
+		.align 2, 0\n\
+	_0802CFA4: .4byte gUnknown_0203A958\n\
+	_0802CFA8: .4byte gUnknown_0203A5EC\n\
+	_0802CFAC: .4byte gUnknown_0203A608\n\
+	_0802CFB0: .4byte gBattleTarget\n\
+	_0802CFB4: .4byte gBattleActor\n\
+	_0802CFB8:\n\
+		ldr r4, _0802D034  @ gBattleActor\n\
+		ldr r5, _0802D038  @ gBattleTarget\n\
+	_0802CFBC:\n\
+		adds r0, r4, #0\n\
+		adds r1, r5, #0\n\
+		bl UpdateBattleStats\n\
+		adds r0, r4, #0\n\
+		bl CurrentRound_ComputeDamage\n\
+		adds r0, r4, #0\n\
+		adds r1, r5, #0\n\
+		bl CurrentRound_ComputeWeaponEffects\n\
+		movs r0, #0x13\n\
+		ldrsb r0, [r4, r0]\n\
+		cmp r0, #0\n\
+		beq _0802CFE2\n\
+		movs r0, #0x13\n\
+		ldrsb r0, [r5, r0]\n\
+		cmp r0, #0\n\
+		bne _0802D040\n\
+	_0802CFE2:\n\
+		adds r1, r4, #0\n\
+		adds r1, #0x7b\n\
+		ldrb r0, [r1]\n\
+		adds r0, #1\n\
+		strb r0, [r1]\n\
+		ldr r5, _0802D03C  @ gUnknown_0203A608\n\
+		ldr r3, [r5]\n\
+		ldr r1, [r3]\n\
+		lsls r1, r1, #8\n\
+		lsrs r1, r1, #0x1b\n\
+		movs r0, #2\n\
+		orrs r1, r0\n\
+		lsls r1, r1, #3\n\
+		ldrb r2, [r3, #2]\n\
+		movs r4, #7\n\
+		adds r0, r4, #0\n\
+		ands r0, r2\n\
+		orrs r0, r1\n\
+		strb r0, [r3, #2]\n\
+		ldr r0, _0802D038  @ gBattleTarget\n\
+		ldrb r0, [r0, #0x13]\n\
+		lsls r0, r0, #0x18\n\
+		asrs r0, r0, #0x18\n\
+		cmp r0, #0\n\
+		bne _0802D02C\n\
+		ldr r3, [r5]\n\
+		ldr r1, [r3]\n\
+		lsls r1, r1, #8\n\
+		lsrs r1, r1, #0x1b\n\
+		movs r0, #4\n\
+		orrs r1, r0\n\
+		lsls r1, r1, #3\n\
+		ldrb r2, [r3, #2]\n\
+		adds r0, r4, #0\n\
+		ands r0, r2\n\
+		orrs r0, r1\n\
+		strb r0, [r3, #2]\n\
+	_0802D02C:\n\
+		ldr r2, [r5]\n\
+		ldrb r1, [r2, #6]\n\
+		adds r0, r4, #0\n\
+		b _0802D08C\n\
+		.align 2, 0\n\
+	_0802D034: .4byte gBattleActor\n\
+	_0802D038: .4byte gBattleTarget\n\
+	_0802D03C: .4byte gUnknown_0203A608\n\
+	_0802D040:\n\
+		adds r0, r5, #0\n\
+		adds r0, #0x30\n\
+		ldrb r0, [r0]\n\
+		movs r1, #0xf\n\
+		ands r1, r0\n\
+		cmp r1, #0xb\n\
+		beq _0802D064\n\
+		cmp r1, #0xd\n\
+		beq _0802D064\n\
+		adds r0, r5, #0\n\
+		adds r0, #0x6f\n\
+		ldrb r0, [r0]\n\
+		lsls r0, r0, #0x18\n\
+		asrs r0, r0, #0x18\n\
+		cmp r0, #0xb\n\
+		beq _0802D064\n\
+		cmp r0, #0xd\n\
+		bne _0802D096\n\
+	_0802D064:\n\
+		adds r1, r4, #0\n\
+		adds r1, #0x7b\n\
+		ldrb r0, [r1]\n\
+		adds r0, #1\n\
+		strb r0, [r1]\n\
+		ldr r3, [r6]\n\
+		ldr r1, [r3]\n\
+		lsls r1, r1, #8\n\
+		lsrs r1, r1, #0x1b\n\
+		movs r0, #2\n\
+		orrs r1, r0\n\
+		lsls r1, r1, #3\n\
+		ldrb r2, [r3, #2]\n\
+		adds r0, r7, #0\n\
+		ands r0, r2\n\
+		orrs r0, r1\n\
+		strb r0, [r3, #2]\n\
+		ldr r2, [r6]\n\
+		ldrb r1, [r2, #6]\n\
+		adds r0, r7, #0\n\
+	_0802D08C:\n\
+		ands r0, r1\n\
+		movs r1, #0x80\n\
+		orrs r0, r1\n\
+		strb r0, [r2, #6]\n\
+		b _0802D0AC\n\
+	_0802D096:\n\
+		ldr r1, [r6]\n\
+		adds r0, r1, #4\n\
+		str r0, [r6]\n\
+		ldr r0, [r1, #4]\n\
+		lsls r0, r0, #8\n\
+		lsrs r0, r0, #0x1b\n\
+		movs r1, #0x10\n\
+		ands r0, r1\n\
+		cmp r0, #0\n\
+		bne _0802D0AC\n\
+		b _0802CF8E\n\
+	_0802D0AC:\n\
+		ldr r1, _0802D0B8  @ gUnknown_0203A958\n\
+		movs r0, #0\n\
+		str r0, [r1, #0x18]\n\
+		pop {r4, r5, r6, r7}\n\
+		pop {r0}\n\
+		bx r0\n\
+		.align 2, 0\n\
+	_0802D0B8: .4byte gUnknown_0203A958\n\
+		.syntax divided\n\
+	");
+}
+
+#endif // !NONMATCHING
+
+void sub_802D0BC(struct Unit* unit) {
+	if (unit->level != 20) {
+		int hpGain, powGain, sklGain, spdGain, defGain, resGain, lckGain;
+		int growthBonus;
+		int totalGain;
+
+		unit->exp = 0;
+		unit->level++;
+
+		if (unit->level == 20)
+			unit->exp = UNIT_EXP_DISABLED;
+
+		growthBonus = (unit->state & US_GROWTH_BOOST) ? 5: 0;
+		totalGain = 0;
+
+		hpGain  = GetStatIncrease(growthBonus + unit->pCharacterData->growthHP);
+		totalGain += hpGain;
+
+		powGain = GetStatIncrease(growthBonus + unit->pCharacterData->growthPow);
+		totalGain += powGain;
+
+		sklGain = GetStatIncrease(growthBonus + unit->pCharacterData->growthSkl);
+		totalGain += sklGain;
+
+		spdGain = GetStatIncrease(growthBonus + unit->pCharacterData->growthSpd);
+		totalGain += spdGain;
+
+		defGain = GetStatIncrease(growthBonus + unit->pCharacterData->growthDef);
+		totalGain += defGain;
+
+		resGain = GetStatIncrease(growthBonus + unit->pCharacterData->growthRes);
+		totalGain += resGain;
+
+		lckGain = GetStatIncrease(growthBonus + unit->pCharacterData->growthLck);
+		totalGain += lckGain;
+
+		if (totalGain == 0) {
+			for (totalGain = 0; totalGain < 2; ++totalGain) {
+				hpGain = GetStatIncrease(unit->pCharacterData->growthHP);
+
+				if (hpGain)
+					break;
+
+				powGain = GetStatIncrease(unit->pCharacterData->growthPow);
+
+				if (powGain)
+					break;
+
+				sklGain = GetStatIncrease(unit->pCharacterData->growthSkl);
+
+				if (sklGain)
+					break;
+
+				spdGain = GetStatIncrease(unit->pCharacterData->growthSpd);
+
+				if (spdGain)
+					break;
+
+				defGain = GetStatIncrease(unit->pCharacterData->growthDef);
+
+				if (defGain)
+					break;
+
+				resGain = GetStatIncrease(unit->pCharacterData->growthRes);
+
+				if (resGain)
+					break;
+
+				lckGain = GetStatIncrease(unit->pCharacterData->growthLck);
+
+				if (lckGain)
+					break;
+			}
+		}
+
+		if ((unit->maxHP + hpGain) > UNIT_MHP_MAX(unit))
+			hpGain = UNIT_MHP_MAX(unit) - unit->maxHP;
+
+		if ((unit->pow + powGain) > UNIT_POW_MAX(unit))
+			powGain = UNIT_POW_MAX(unit) - unit->pow;
+
+		if ((unit->skl + sklGain) > UNIT_SKL_MAX(unit))
+			sklGain = UNIT_SKL_MAX(unit) - unit->skl;
+
+		if ((unit->spd + spdGain) > UNIT_SPD_MAX(unit))
+			spdGain = UNIT_SPD_MAX(unit) - unit->spd;
+
+		if ((unit->def + defGain) > UNIT_DEF_MAX(unit))
+			defGain = UNIT_DEF_MAX(unit) - unit->def;
+
+		if ((unit->res + resGain) > UNIT_RES_MAX(unit))
+			resGain = UNIT_RES_MAX(unit) - unit->res;
+
+		if ((unit->lck + lckGain) > UNIT_LCK_MAX(unit))
+			lckGain = UNIT_LCK_MAX(unit) - unit->lck;
+
+		unit->maxHP += hpGain;
+		unit->pow += powGain;
+		unit->skl += sklGain;
+		unit->spd += spdGain;
+		unit->def += defGain;
+		unit->res += resGain;
+		unit->lck += lckGain;
+	}
+}
+
+void sub_802D2B4(void) {
+	gUnknown_0203A608++;
+}
+
+void sub_802D2C4(void) {
+	gUnknown_0203A608++;
+	gUnknown_0203A608->unk19b = 0x10;
+}
