@@ -1,9 +1,11 @@
 #include "global.h"
 
+#include "constants/terrains.h"
+
 void InitChapterMap(int chapterId);
-// ??? sub_80195BC(???);
+void sub_80195BC(int chapterId);
 void sub_8019624(void);
-// ??? sub_8019778(???);
+void sub_8019778(void);
 void SetupMapRowPointers(void* buffer, u8*** outHandle, int width, int height);
 void ClearMapWith(u8** map, int value);
 // ??? sub_8019840(???);
@@ -61,6 +63,9 @@ extern u8 gBmMapFogPool[];
 extern u8 gBmMapHiddenPool[];
 extern u8 gBmMapUnkPool[];
 
+extern u16** const gUnknown_0859A9D4;
+extern u8** gUnknown_03000808;
+
 void InitChapterMap(int chapterId) {
 	LoadChapterMap(gUnknown_02001000, chapterId);
 	LoadChapterMapGfx(chapterId);
@@ -96,4 +101,118 @@ void sub_80195BC(int chapterId) {
 
 	FlushTilesFromBuffer();
 	FlushTerrainData();
+}
+
+void sub_8019624(void) {
+	int ix, iy;
+
+	// Automatic water shadows?
+
+	for (iy = 0; iy < gBmMapSize.height; ++iy) {
+		for (ix = 0; ix < gBmMapSize.width; ++ix) {
+			int connexion;
+
+			if (gBmMapTerrain[iy][ix] != TERRAIN_WATER)
+				continue;
+
+			connexion = 0;
+
+			if (ix > 0) {
+				if (gBmMapTerrain[iy][ix - 1] == TERRAIN_FLOOR_17)
+					connexion = 1;
+
+				if (gBmMapTerrain[iy][ix - 1] == TERRAIN_STAIRS)
+					connexion = 1;
+
+				if (gBmMapTerrain[iy][ix - 1] == TERRAIN_CHEST_20)
+					connexion = 1;
+
+				if (gBmMapTerrain[iy][ix - 1] == TERRAIN_CHEST_21)
+					connexion = 1;
+			}
+
+			if (iy > 0) {
+				if (gBmMapTerrain[iy - 1][ix] == TERRAIN_FLOOR_17)
+					connexion += 2;
+
+				if (gBmMapTerrain[iy - 1][ix] == TERRAIN_STAIRS)
+					connexion += 2;
+
+				if (gBmMapTerrain[iy - 1][ix] == TERRAIN_CHEST_20)
+					connexion += 2;
+
+				if (gBmMapTerrain[iy - 1][ix] == TERRAIN_CHEST_21)
+					connexion += 2;
+			}
+
+			if (ix > 0 && iy > 0)
+				if ((gBmMapTerrain[iy]    [ix - 1] == TERRAIN_FLOOR_17) &&
+					(gBmMapTerrain[iy + 1][ix - 1] == TERRAIN_WATER) &&
+					(gBmMapTerrain[iy - 1][ix]     != TERRAIN_FLOOR_17))
+					connexion = 4;
+
+			switch (connexion) {
+
+			case 1: // straight shadow on the left
+				gUnknown_0859A9D4[iy][ix] = 0x2DC;
+				break;
+
+			case 2: // straight shadow on the top
+				gUnknown_0859A9D4[iy][ix] = 0x2D8;
+				break;
+
+			case 3: // shadow on both the left and the top
+				gUnknown_0859A9D4[iy][ix] = 0x358;
+				break;
+
+			case 4: // shadow on the left, but stronger at the top-left than bottom-left
+				gUnknown_0859A9D4[iy][ix] = 0x35C;
+				break;
+
+			} // switch (connexion)
+		}
+	}
+}
+
+void sub_8019778(void) {
+	LoadChapterMap(gUnknown_02001000, gUnknown_0202BCF0.chapterIndex);
+
+	FlushTilesFromBuffer();
+	ApplyTrapMapChanges();
+	FlushTerrainData();
+	sub_8019624();
+}
+
+void SetupMapRowPointers(void* buffer, u8*** outHandle, int width, int height) {
+	int i;
+	u8* itBuffer;
+
+	gUnknown_03000808 = buffer;
+
+	width  += 2; // two tiles on each edge (shared)
+	height += 4; // two tiles on each edge
+
+	itBuffer = buffer + height * sizeof(u8*);
+
+	for (i = 0; i < height; ++i) {
+		gUnknown_03000808[i] = itBuffer;
+		itBuffer += width;
+	}
+
+	// first row is actually the third, ensuring the top two map rows as safety
+	*outHandle = gUnknown_03000808 + 2;
+}
+
+void ClearMapWith(u8** map, int value) {
+	int size = (gBmMapSize.height + 4) * (gBmMapSize.width + 2);
+
+	if (size % 2)
+		size = size - 1;
+
+	value = (0xFF & value);
+	value += value << 8;
+
+	CpuFill16(value, map[-2], size);
+
+	SetSubjectMap(map);
 }
