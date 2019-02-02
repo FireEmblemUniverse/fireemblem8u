@@ -20217,7 +20217,7 @@ _0804B830:
 	bl MU_EndAll
 	bl UpdateGameTilesGraphics
 	bl BeginBattleMapAnims
-	ldr r2, _0804B84C  @ gUnknown_0203A4D4
+	ldr r2, _0804B84C  @ gBattleStats
 	ldrh r1, [r2]
 	movs r0, #0x80
 	orrs r0, r1
@@ -20226,7 +20226,7 @@ _0804B846:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_0804B84C: .4byte gUnknown_0203A4D4
+_0804B84C: .4byte gBattleStats
 
 	THUMB_FUNC_START sub_804B850
 sub_804B850: @ 0x0804B850

@@ -825,7 +825,7 @@ sub_8011DF4: @ 0x08011DF4
 	adds r0, r4, #0
 	mov r1, r8
 	bl CopyUnitToBattleStruct
-	ldr r6, _08011E40  @ gUnknown_0203A4D4
+	ldr r6, _08011E40  @ gBattleStats
 	movs r2, #0x10
 	ldrsb r2, [r5, r2]
 	movs r0, #0x10
@@ -847,13 +847,13 @@ _08011E24:
 	.align 2, 0
 _08011E38: .4byte gBattleActor
 _08011E3C: .4byte gBattleTarget
-_08011E40: .4byte gUnknown_0203A4D4
+_08011E40: .4byte gBattleStats
 _08011E44:
 	subs r0, r0, r3
 	adds r0, r1, r0
 _08011E48:
 	strb r0, [r6, #2]
-	ldr r0, _08011E60  @ gUnknown_0203A4D4
+	ldr r0, _08011E60  @ gBattleStats
 	ldrh r1, [r0]
 	movs r0, #8
 	ands r0, r1
@@ -863,7 +863,7 @@ _08011E48:
 	bl SetupBattleBallistaWeaponData
 	b _08011E72
 	.align 2, 0
-_08011E60: .4byte gUnknown_0203A4D4
+_08011E60: .4byte gBattleStats
 _08011E64: .4byte gBattleActor
 _08011E68:
 	ldr r0, _08011EC0  @ gBattleActor
@@ -906,26 +906,26 @@ _08011EC4: .4byte gBattleTarget
 	THUMB_FUNC_START sub_8011EC8
 sub_8011EC8: @ 0x08011EC8
 	push {lr}
-	ldr r3, _08011ED8  @ gUnknown_0203A4D4
+	ldr r3, _08011ED8  @ gBattleStats
 	movs r2, #1
 	strh r2, [r3]
 	bl sub_8011DF4
 	pop {r0}
 	bx r0
 	.align 2, 0
-_08011ED8: .4byte gUnknown_0203A4D4
+_08011ED8: .4byte gBattleStats
 
 	THUMB_FUNC_START sub_8011EDC
 sub_8011EDC: @ 0x08011EDC
 	push {lr}
-	ldr r3, _08011EEC  @ gUnknown_0203A4D4
+	ldr r3, _08011EEC  @ gBattleStats
 	movs r2, #9
 	strh r2, [r3]
 	bl sub_8011DF4
 	pop {r0}
 	bx r0
 	.align 2, 0
-_08011EEC: .4byte gUnknown_0203A4D4
+_08011EEC: .4byte gBattleStats
 
 	THUMB_FUNC_START sub_8011EF0
 sub_8011EF0: @ 0x08011EF0
@@ -963,7 +963,7 @@ _08011F3C:
 	bl MU_EndAll
 	bl UpdateGameTilesGraphics
 	bl BeginBattleMapAnims
-	ldr r0, _08011F58  @ gUnknown_0203A4D4
+	ldr r0, _08011F58  @ gBattleStats
 	ldrh r1, [r0]
 	movs r2, #0x80
 	orrs r1, r2
@@ -973,7 +973,7 @@ _08011F52:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_08011F58: .4byte gUnknown_0203A4D4
+_08011F58: .4byte gBattleStats
 
 	THUMB_FUNC_START sub_8011F5C
 sub_8011F5C: @ 0x08011F5C
@@ -1145,7 +1145,7 @@ _0801209C:
 	bgt _080120BE
 	cmp r6, #0x7d
 	blt _080120BE
-	ldr r1, _08012154  @ gUnknown_0203A4D4
+	ldr r1, _08012154  @ gBattleStats
 	movs r0, #0x80
 	lsls r0, r0, #2
 	strh r0, [r1]
@@ -1166,7 +1166,7 @@ _080120BE:
 	cmp r1, #0
 	bne _08012118
 	bl ClearRounds
-	ldr r2, _0801215C  @ gUnknown_0203A608
+	ldr r2, _0801215C  @ gBattleHitIterator
 	ldr r1, [r2]
 	ldr r0, [r5]
 	str r0, [r1]
@@ -1222,9 +1222,9 @@ _08012118:
 	b _080121BA
 	.align 2, 0
 _08012150: .4byte gBattleActor
-_08012154: .4byte gUnknown_0203A4D4
+_08012154: .4byte gBattleStats
 _08012158: .4byte gBattleTarget
-_0801215C: .4byte gUnknown_0203A608
+_0801215C: .4byte gBattleHitIterator
 _08012160: .4byte gUnknown_0203A958
 _08012164: .4byte gUnknown_030005FC
 _08012168: .4byte 0x0000FFFF
@@ -1313,7 +1313,7 @@ _0801220C:
 	ldr r0, [r7, #0xc]
 	ands r0, r1
 	str r0, [r7, #0xc]
-	ldr r0, _0801226C  @ gUnknown_0203A4D4
+	ldr r0, _0801226C  @ gBattleStats
 	ldrh r1, [r0]
 	movs r0, #0x80
 	ands r0, r1
@@ -1348,7 +1348,7 @@ _0801225C: .4byte gBattleTarget
 _08012260: .4byte gUnknown_0203A958
 _08012264: .4byte gUnknown_030005FC
 _08012268: .4byte 0x0000FFFF
-_0801226C: .4byte gUnknown_0203A4D4
+_0801226C: .4byte gBattleStats
 
 	THUMB_FUNC_START sub_8012270
 sub_8012270: @ 0x08012270
@@ -1418,7 +1418,7 @@ sub_8012270: @ 0x08012270
 	strh r5, [r0]
 	adds r1, #0x4a
 	strh r5, [r1]
-	ldr r1, _08012320  @ gUnknown_0203A4D4
+	ldr r1, _08012320  @ gBattleStats
 	movs r0, #0x88
 	lsls r0, r0, #1
 	strh r0, [r1]
@@ -1433,7 +1433,7 @@ sub_8012270: @ 0x08012270
 _08012314: .4byte gLCDControlBuffer
 _08012318: .4byte gBattleActor
 _0801231C: .4byte gBattleTarget
-_08012320: .4byte gUnknown_0203A4D4
+_08012320: .4byte gBattleStats
 
 	THUMB_FUNC_START sub_8012324
 sub_8012324: @ 0x08012324

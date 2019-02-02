@@ -441,4 +441,6 @@ s8 CanUnitCrossTerrain(struct Unit* unit, int terrain);
 #define UNIT_IS_GORGON_EGG(aUnit) (((aUnit)->pClassData->number == CLASS_GORGONEGG) || ((aUnit)->pClassData->number == CLASS_GORGONEGG2))
 #define UNIT_IS_PHANTOM(aUnit) ((aUnit)->pClassData->number == CLASS_PHANTOM)
 
+#define UNIT_ARENA_LEVEL(aUnit) (((aUnit)->state >> 17) & 0x7)
+
 #endif // GUARD_BM_UNIT_H

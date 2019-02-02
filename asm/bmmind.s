@@ -419,7 +419,7 @@ ActionDance: @ 0x08032358
 	ldrb r0, [r4, #0xd]
 	bl GetUnit
 	bl sub_802CBC8
-	ldr r1, _080323A4  @ gUnknown_0203A4D4
+	ldr r1, _080323A4  @ gBattleStats
 	movs r0, #0x40
 	strh r0, [r1]
 	adds r0, r5, #0
@@ -432,7 +432,7 @@ ActionDance: @ 0x08032358
 	.align 2, 0
 _0803239C: .4byte gUnknown_0203A958
 _080323A0: .4byte 0xFFFFFBBD
-_080323A4: .4byte gUnknown_0203A4D4
+_080323A4: .4byte gBattleStats
 
 	THUMB_FUNC_START ActionTalk
 ActionTalk: @ 0x080323A8
@@ -898,7 +898,7 @@ _0803276E:
 BATTLE_GOTO1_IfNobodyIsDead: @ 0x08032774
 	push {lr}
 	adds r2, r0, #0
-	ldr r0, _080327A8  @ gUnknown_0203A4D4
+	ldr r0, _080327A8  @ gBattleStats
 	ldrh r1, [r0]
 	movs r0, #0x80
 	ands r0, r1
@@ -924,7 +924,7 @@ _080327A4:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_080327A8: .4byte gUnknown_0203A4D4
+_080327A8: .4byte gBattleStats
 _080327AC: .4byte gBattleActor
 _080327B0: .4byte gBattleTarget
 

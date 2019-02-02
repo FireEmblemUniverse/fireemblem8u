@@ -482,7 +482,7 @@ sub_8035804: @ 0x08035804
 	adds r0, r5, #0
 	adds r1, r4, #0
 	bl AddUnitHp
-	ldr r0, _08035848  @ gUnknown_0203A608
+	ldr r0, _08035848  @ gBattleHitIterator
 	ldr r2, [r0]
 	adds r0, r5, #0
 	adds r0, #0x72
@@ -497,7 +497,7 @@ sub_8035804: @ 0x08035804
 	bx r0
 	.align 2, 0
 _08035844: .4byte gBattleActor
-_08035848: .4byte gUnknown_0203A608
+_08035848: .4byte gBattleHitIterator
 
 	THUMB_FUNC_START sub_803584C
 sub_803584C: @ 0x0803584C
@@ -519,7 +519,7 @@ sub_803584C: @ 0x0803584C
 	movs r0, #0
 	strb r0, [r5, #0x13]
 _08035872:
-	ldr r3, _080358BC  @ gUnknown_0203A608
+	ldr r3, _080358BC  @ gBattleHitIterator
 	ldr r2, [r3]
 	adds r0, r5, #0
 	adds r0, #0x72
@@ -553,7 +553,7 @@ _080358A2:
 	bx r0
 	.align 2, 0
 _080358B8: .4byte gBattleActor
-_080358BC: .4byte gUnknown_0203A608
+_080358BC: .4byte gBattleHitIterator
 
 	THUMB_FUNC_START sub_80358C0
 sub_80358C0: @ 0x080358C0
@@ -574,7 +574,7 @@ sub_80358C0: @ 0x080358C0
 	movs r0, #0
 	strb r0, [r5, #0x13]
 _080358E4:
-	ldr r3, _08035928  @ gUnknown_0203A608
+	ldr r3, _08035928  @ gBattleHitIterator
 	ldr r2, [r3]
 	adds r0, r5, #0
 	adds r0, #0x72
@@ -606,7 +606,7 @@ _08035914:
 	bx r0
 	.align 2, 0
 _08035924: .4byte gBattleActor
-_08035928: .4byte gUnknown_0203A608
+_08035928: .4byte gBattleHitIterator
 
 	THUMB_FUNC_START sub_803592C
 sub_803592C: @ 0x0803592C
@@ -628,7 +628,7 @@ sub_803592C: @ 0x0803592C
 	movs r0, #0
 	strb r0, [r5, #0x13]
 _08035952:
-	ldr r3, _080359AC  @ gUnknown_0203A608
+	ldr r3, _080359AC  @ gBattleHitIterator
 	ldr r2, [r3]
 	adds r0, r5, #0
 	adds r0, #0x72
@@ -670,7 +670,7 @@ _08035992:
 	bx r0
 	.align 2, 0
 _080359A8: .4byte gBattleActor
-_080359AC: .4byte gUnknown_0203A608
+_080359AC: .4byte gBattleHitIterator
 _080359B0: .4byte 0xFFF80000
 
 	THUMB_FUNC_START sub_80359B4

@@ -15,14 +15,14 @@
 #include "mu.h"
 #include "bmbattle.h"
 
-struct WTEntry {
+struct WeaponTriangleRule {
 	s8 attackerWeaponType;
 	s8 defenderWeaponType;
 	s8 hitBonus;
 	s8 atkBonus;
 };
 
-CONST_DATA struct WTEntry gUnknown_0859BA90[] = {
+static CONST_DATA struct WeaponTriangleRule sWeaponTriangleRules[] = {
 	{ ITYPE_SWORD, ITYPE_LANCE, -15, -1 },
 	{ ITYPE_SWORD, ITYPE_AXE,   +15, +1 },
 
@@ -44,25 +44,25 @@ CONST_DATA struct WTEntry gUnknown_0859BA90[] = {
 	{ -1 },
 };
 
-CONST_DATA struct ProcCmd gUnknown_0859BAC4[] = {
+static CONST_DATA struct ProcCmd sProcScr_BattleAnimSimpleLock[] = {
 	PROC_SLEEP(1),
 	PROC_CALL_ROUTINE(SaveInstigatorFromBattle),
 	PROC_END
 };
 
-EWRAM_DATA struct BattleStats gUnknown_0203A4D4 = {};
+EWRAM_DATA struct BattleStats gBattleStats = {};
 
 EWRAM_DATA struct BattleUnit gBattleActor = {};
 EWRAM_DATA struct BattleUnit gBattleTarget = {};
 
-EWRAM_DATA struct BattleHit gUnknown_0203A5EC[BATTLE_HIT_MAX] = {};
-EWRAM_DATA struct BattleHit* gUnknown_0203A608 = 0;
+EWRAM_DATA struct BattleHit gBattleHitArray[BATTLE_HIT_MAX] = {};
+EWRAM_DATA struct BattleHit* gBattleHitIterator = 0;
 
-EWRAM_DATA struct {
+static EWRAM_DATA struct {
 	u8 unk00;
 	u8 unk01;
 	u8 unk02;
-} gUnknown_0203A60C = {};
+} sUnknown_0203A60C = {};
 
 void sub_802A13C(struct Unit* actor, struct Unit* target, int x, int y, int actorWpnSlot) {
 	CopyUnitToBattleStruct(&gBattleActor, actor);
@@ -71,12 +71,12 @@ void sub_802A13C(struct Unit* actor, struct Unit* target, int x, int y, int acto
 	gBattleActor.unit.xPos = x;
 	gBattleActor.unit.yPos = y;
 
-	gUnknown_0203A4D4.range = RECT_DISTANCE(
+	gBattleStats.range = RECT_DISTANCE(
 		gBattleActor.unit.xPos, gBattleActor.unit.yPos,
 		gBattleTarget.unit.xPos, gBattleTarget.unit.yPos
 	);
 
-	if (gUnknown_0203A4D4.config & BATTLE_CONFIG_BALLISTA)
+	if (gBattleStats.config & BATTLE_CONFIG_BALLISTA)
 		SetupBattleBallistaWeaponData(&gBattleActor);
 	else
 		SetupBattleWeaponData(&gBattleActor, actorWpnSlot);
@@ -99,12 +99,12 @@ void sub_802A20C(struct Unit* actor, struct Unit* target) {
 	CopyUnitToBattleStruct(&gBattleActor, actor);
 	CopyUnitToBattleStruct(&gBattleTarget, target);
 
-	gUnknown_0203A4D4.range = RECT_DISTANCE(
+	gBattleStats.range = RECT_DISTANCE(
 		gBattleActor.unit.xPos, gBattleActor.unit.yPos,
 		gBattleTarget.unit.xPos, gBattleTarget.unit.yPos
 	);
 
-	if (gUnknown_0203A4D4.config & BATTLE_CONFIG_BALLISTA)
+	if (gBattleStats.config & BATTLE_CONFIG_BALLISTA)
 		SetupBattleBallistaWeaponData(&gBattleActor);
 	else
 		SetupBattleWeaponData(&gBattleActor, BU_ISLOT_AUTO);
@@ -147,22 +147,22 @@ void sub_802A318(struct Unit* actor, struct Unit* target, int x, int y, int acto
 		y = actor->yPos;
 	}
 
-	gUnknown_0203A4D4.config = BATTLE_CONFIG_SIMULATE;
+	gBattleStats.config = BATTLE_CONFIG_SIMULATE;
 	sub_802A13C(actor, target, x, y, actorWpnSlot);
 }
 
 void sub_802A350(struct Unit* actor, struct Unit* target) {
-	gUnknown_0203A4D4.config = BATTLE_CONFIG_BIT0;
+	gBattleStats.config = BATTLE_CONFIG_BIT0;
 	sub_802A20C(actor, target);
 }
 
 void sub_802A364(struct Unit* actor, struct Unit* target, int x, int y) {
-	gUnknown_0203A4D4.config = BATTLE_CONFIG_SIMULATE | BATTLE_CONFIG_BALLISTA;
+	gBattleStats.config = BATTLE_CONFIG_SIMULATE | BATTLE_CONFIG_BALLISTA;
 	sub_802A13C(actor, target, x, y, 0);
 }
 
 void sub_802A384(struct Unit* actor, struct Unit* target) {
-	gUnknown_0203A4D4.config = BATTLE_CONFIG_BIT0 | BATTLE_CONFIG_BALLISTA;
+	gBattleStats.config = BATTLE_CONFIG_BIT0 | BATTLE_CONFIG_BALLISTA;
 	sub_802A20C(actor, target);
 }
 
@@ -176,14 +176,14 @@ void sub_802A398(struct Unit* actor, struct Unit* target) {
 	if (target == NULL)
 		FillSnagBattleStats();
 
-	if ((gUnknown_0203A4D4.config & BATTLE_CONFIG_BIT0) && (gUnknown_0203A958.unk18))
+	if ((gBattleStats.config & BATTLE_CONFIG_BIT0) && (gUnknown_0203A958.unk18))
 		sub_802CF4C();
 	else
 		MakeBattle();
 }
 
 void SetupBattleStructFromUnitAndWeapon(struct Unit* unit, s8 itemSlot) {
-	gUnknown_0203A4D4.config = BATTLE_CONFIG_BIT2;
+	gBattleStats.config = BATTLE_CONFIG_BIT2;
 
 	gBattleTarget.weaponAfter = 0;
 	gBattleTarget.weaponAttributes = IA_NONE;
@@ -235,14 +235,14 @@ void SetupBattleStructFromUnitAndWeapon(struct Unit* unit, s8 itemSlot) {
 }
 
 s8 RollRNIfBattleStarted(u16 threshold, s8 simResult) {
-	if (gUnknown_0203A4D4.config & BATTLE_CONFIG_SIMULATE)
+	if (gBattleStats.config & BATTLE_CONFIG_SIMULATE)
 		return simResult;
 
 	return Roll1RN(threshold);
 }
 
 s8 Roll2RNIfBattleStarted(u16 threshold, s8 simResult) {
-	if (gUnknown_0203A4D4.config & BATTLE_CONFIG_SIMULATE)
+	if (gBattleStats.config & BATTLE_CONFIG_SIMULATE)
 		return simResult;
 
 	return Roll2RN(threshold);
@@ -399,12 +399,12 @@ void SetupBattleWeaponData(struct BattleUnit* bu, int itemSlot) {
 	bu->weaponAttributes = GetItemAttributes(bu->weaponAfter);
 	bu->weaponType = GetItemType(bu->weaponAfter);
 
-	if (!(gUnknown_0203A4D4.config & BATTLE_CONFIG_BIT2)) {
+	if (!(gBattleStats.config & BATTLE_CONFIG_BIT2)) {
 		if (bu->weaponAttributes & IA_MAGICDAMAGE) {
 			switch (GetItemIndex(bu->weaponAfter)) {
 
 			case ITEM_SWORD_WINDSWORD:
-				if (gUnknown_0203A4D4.range == 2)
+				if (gBattleStats.range == 2)
 					bu->weaponType = ITYPE_ANIMA;
 				else
 					bu->weaponAttributes = bu->weaponAttributes &~ IA_MAGICDAMAGE;
@@ -412,7 +412,7 @@ void SetupBattleWeaponData(struct BattleUnit* bu, int itemSlot) {
 				break;
 
 			case ITEM_SWORD_LIGHTBRAND:
-				if (gUnknown_0203A4D4.range == 2)
+				if (gBattleStats.range == 2)
 					bu->weaponType = ITYPE_LIGHT;
 				else
 					bu->weaponAttributes = bu->weaponAttributes &~ IA_MAGICDAMAGE;
@@ -426,7 +426,7 @@ void SetupBattleWeaponData(struct BattleUnit* bu, int itemSlot) {
 			} // switch (GetItemIndex(bu->weaponAfter))
 		} // if (bu->weaponAttributes & IA_MAGICDAMAGE)
 
-		if (!IsItemCoveringRange(bu->weaponAfter, gUnknown_0203A4D4.range) || bu->weaponSlotIndex == 0xFF) {
+		if (!IsItemCoveringRange(bu->weaponAfter, gBattleStats.range) || bu->weaponSlotIndex == 0xFF) {
 			bu->weaponAfter = 0;
 			bu->canCounter = FALSE;
 		}
@@ -478,7 +478,7 @@ void FillBattleStats(struct BattleUnit* attacker, struct BattleUnit* defender) {
 }
 
 void BattleApplyMiscBonuses(struct BattleUnit* attacker, struct BattleUnit* defender) {
-	if (!(gUnknown_0203A4D4.config & BATTLE_CONFIG_ARENA) || gUnknown_0202BCF0.chapterWeatherId) {
+	if (!(gBattleStats.config & BATTLE_CONFIG_ARENA) || gUnknown_0202BCF0.chapterWeatherId) {
 		struct SupportBonuses tmpBonuses;
 
 		GetUnitSupportBonuses(&attacker->unit, &tmpBonuses);
@@ -702,12 +702,12 @@ void ClearRounds(void) {
 	int i;
 
 	for (i = 0; i < BATTLE_HIT_MAX; ++i) {
-		gUnknown_0203A5EC[i].attributes = 0;
-		gUnknown_0203A5EC[i].info = 0;
-		gUnknown_0203A5EC[i].hpChange = 0;
+		gBattleHitArray[i].attributes = 0;
+		gBattleHitArray[i].info = 0;
+		gBattleHitArray[i].hpChange = 0;
 	}
 
-	gUnknown_0203A608 = gUnknown_0203A5EC;
+	gBattleHitIterator = gBattleHitArray;
 }
 
 void MakeBattle(void) {
@@ -722,20 +722,20 @@ void MakeBattle(void) {
 
 		GetBattleUnitPointers(&attacker, &defender);
 
-		gUnknown_0203A608->info |= BATTLE_HIT_INFO_BEGIN;
+		gBattleHitIterator->info |= BATTLE_HIT_INFO_BEGIN;
 
 		if (!MakeBattleRound(attacker, defender)) {
-			gUnknown_0203A608->attributes |= BATTLE_HIT_ATTR_RETALIATE;
+			gBattleHitIterator->attributes |= BATTLE_HIT_ATTR_RETALIATE;
 
 			if (!MakeBattleRound(defender, attacker) && BattleCheckDoubling(&attacker, &defender)) {
-				gUnknown_0203A608->attributes = BATTLE_HIT_ATTR_FOLLOWUP;
+				gBattleHitIterator->attributes = BATTLE_HIT_ATTR_FOLLOWUP;
 
 				MakeBattleRound(attacker, defender);
 			}
 		}
 	} while (FALSE);
 
-	gUnknown_0203A608->info |= BATTLE_HIT_INFO_END;
+	gBattleHitIterator->info |= BATTLE_HIT_INFO_END;
 }
 
 void GetBattleUnitPointers(struct BattleUnit** outAttacker, struct BattleUnit** outDefender) {
@@ -774,11 +774,11 @@ s8 MakeBattleRound(struct BattleUnit* attacker, struct BattleUnit* defender) {
 	if (!attacker->weaponAfter)
 		return FALSE;
 
-	attrs = gUnknown_0203A608->attributes;
+	attrs = gBattleHitIterator->attributes;
 	count = GetBattleHitCount(attacker);
 
 	for (i = 0; i < count; ++i) {
-		gUnknown_0203A608->attributes |= attrs;
+		gBattleHitIterator->attributes |= attrs;
 
 		if (MakeNextBattleHitRound(attacker, defender))
 			return TRUE;
@@ -799,7 +799,7 @@ int BattleCheckBrave(struct BattleUnit* attacker) {
 	if (!(attacker->weaponAttributes & IA_BRAVE))
 		return FALSE;
 
-	gUnknown_0203A608->attributes |= BATTLE_HIT_ATTR_BRAVE;
+	gBattleHitIterator->attributes |= BATTLE_HIT_ATTR_BRAVE;
 	return TRUE;
 }
 
@@ -820,8 +820,8 @@ s8 CheckForTriangleAttack(struct BattleUnit* attacker, struct BattleUnit* defend
 
 	int faction = UNIT_FACTION(&attacker->unit);
 
-	gUnknown_0203A4D4.taUnitA = NULL;
-	gUnknown_0203A4D4.taUnitB = NULL;
+	gBattleStats.taUnitA = NULL;
+	gBattleStats.taUnitB = NULL;
 
 	for (i = 0; i < 4; ++i) {
 		int uId = gUnknown_0202E4D8[adjacentLookup[i*2 + 1] + y][adjacentLookup[i*2 + 0] + x];
@@ -850,10 +850,10 @@ s8 CheckForTriangleAttack(struct BattleUnit* attacker, struct BattleUnit* defend
 		if (UNIT_CATTRIBUTES(unit) & triangleAttackAttr) {
 			++count;
 
-			if (!gUnknown_0203A4D4.taUnitA)
-				gUnknown_0203A4D4.taUnitA = unit;
-			else if (!gUnknown_0203A4D4.taUnitB)
-				gUnknown_0203A4D4.taUnitB = unit;
+			if (!gBattleStats.taUnitA)
+				gBattleStats.taUnitA = unit;
+			else if (!gBattleStats.taUnitB)
+				gBattleStats.taUnitB = unit;
 		}
 	}
 
@@ -861,21 +861,21 @@ s8 CheckForTriangleAttack(struct BattleUnit* attacker, struct BattleUnit* defend
 }
 
 void UpdateBattleStats(struct BattleUnit* attacker, struct BattleUnit* defender) {
-	gUnknown_0203A4D4.attack = attacker->battleAttack;
-	gUnknown_0203A4D4.defense = defender->battleDefense;
-	gUnknown_0203A4D4.hit = attacker->battleEffectiveHit;
-	gUnknown_0203A4D4.crit = attacker->battleEffectiveCrit;
-	gUnknown_0203A4D4.silencerRate = attacker->battleSilencerRate;
+	gBattleStats.attack = attacker->battleAttack;
+	gBattleStats.defense = defender->battleDefense;
+	gBattleStats.hit = attacker->battleEffectiveHit;
+	gBattleStats.crit = attacker->battleEffectiveCrit;
+	gBattleStats.silencerRate = attacker->battleSilencerRate;
 }
 
 void RollForSureShot(struct BattleUnit* attacker) {
-	if (gUnknown_0203A608->attributes & BATTLE_HIT_ATTR_SURESHOT)
+	if (gBattleHitIterator->attributes & BATTLE_HIT_ATTR_SURESHOT)
 		return;
 
-	if (gUnknown_0203A608->attributes & BATTLE_HIT_ATTR_PIERCE)
+	if (gBattleHitIterator->attributes & BATTLE_HIT_ATTR_PIERCE)
 		return;
 
-	if (gUnknown_0203A608->attributes & BATTLE_HIT_ATTR_GREATSHLD)
+	if (gBattleHitIterator->attributes & BATTLE_HIT_ATTR_GREATSHLD)
 		return;
 
 	switch (attacker->unit.pClassData->number) {
@@ -891,7 +891,7 @@ void RollForSureShot(struct BattleUnit* attacker) {
 
 		default:
 			if (RollRNIfBattleStarted(attacker->unit.level, FALSE) == TRUE)
-				gUnknown_0203A608->attributes |= BATTLE_HIT_ATTR_SURESHOT;
+				gBattleHitIterator->attributes |= BATTLE_HIT_ATTR_SURESHOT;
 
 			break;
 
@@ -903,13 +903,13 @@ void RollForSureShot(struct BattleUnit* attacker) {
 }
 
 void RollForPierce(struct BattleUnit* attacker, struct BattleUnit* defender) {
-	if (gUnknown_0203A608->attributes & BATTLE_HIT_ATTR_SURESHOT)
+	if (gBattleHitIterator->attributes & BATTLE_HIT_ATTR_SURESHOT)
 		return;
 
-	if (gUnknown_0203A608->attributes & BATTLE_HIT_ATTR_PIERCE)
+	if (gBattleHitIterator->attributes & BATTLE_HIT_ATTR_PIERCE)
 		return;
 
-	if (gUnknown_0203A608->attributes & BATTLE_HIT_ATTR_GREATSHLD)
+	if (gBattleHitIterator->attributes & BATTLE_HIT_ATTR_GREATSHLD)
 		return;
 
 	switch (attacker->unit.pClassData->number) {
@@ -917,7 +917,7 @@ void RollForPierce(struct BattleUnit* attacker, struct BattleUnit* defender) {
 	case CLASS_WYVERN_KNIGHT:
 	case CLASS_WYVERN_KNIGHT_F:
 		if (RollRNIfBattleStarted(attacker->unit.level, FALSE) == TRUE)
-			gUnknown_0203A608->attributes |= BATTLE_HIT_ATTR_PIERCE;
+			gBattleHitIterator->attributes |= BATTLE_HIT_ATTR_PIERCE;
 
 		break;
 
@@ -925,22 +925,22 @@ void RollForPierce(struct BattleUnit* attacker, struct BattleUnit* defender) {
 }
 
 void RollForGreatShield(struct BattleUnit* attacker, struct BattleUnit* defender) {
-	if (gUnknown_0203A608->attributes & BATTLE_HIT_ATTR_MISS)
+	if (gBattleHitIterator->attributes & BATTLE_HIT_ATTR_MISS)
 		return;
 
-	if (gUnknown_0203A608->attributes & BATTLE_HIT_ATTR_SURESHOT)
+	if (gBattleHitIterator->attributes & BATTLE_HIT_ATTR_SURESHOT)
 		return;
 
-	if (gUnknown_0203A608->attributes & BATTLE_HIT_ATTR_PIERCE)
+	if (gBattleHitIterator->attributes & BATTLE_HIT_ATTR_PIERCE)
 		return;
 
-	if (gUnknown_0203A608->attributes & BATTLE_HIT_ATTR_GREATSHLD)
+	if (gBattleHitIterator->attributes & BATTLE_HIT_ATTR_GREATSHLD)
 		return;
 
 	if (GetItemWeaponEffect(attacker->weaponAfter) == WPN_EFFECT_POISON)
 		return;
 
-	if (gUnknown_0203A608->attributes & BATTLE_HIT_ATTR_MISS)
+	if (gBattleHitIterator->attributes & BATTLE_HIT_ATTR_MISS)
 		return;
 
 	switch (defender->unit.pClassData->number) {
@@ -948,7 +948,7 @@ void RollForGreatShield(struct BattleUnit* attacker, struct BattleUnit* defender
 	case CLASS_GENERAL:
 	case CLASS_GENERAL_F:
 		if (RollRNIfBattleStarted(attacker->unit.level, FALSE) == TRUE)
-			gUnknown_0203A608->attributes |= BATTLE_HIT_ATTR_GREATSHLD;
+			gBattleHitIterator->attributes |= BATTLE_HIT_ATTR_GREATSHLD;
 
 		break;
 
@@ -970,7 +970,7 @@ s8 RollForLethality(struct BattleUnit* attacker, struct BattleUnit* defender) {
 
 	} // switch (defender->unit.pClassData->number)
 
-	if (RollRNIfBattleStarted(gUnknown_0203A4D4.silencerRate, FALSE) == TRUE)
+	if (RollRNIfBattleStarted(gBattleStats.silencerRate, FALSE) == TRUE)
 		return TRUE;
 
 	return FALSE;
@@ -978,61 +978,61 @@ s8 RollForLethality(struct BattleUnit* attacker, struct BattleUnit* defender) {
 
 void NullifyBattleDamageIfUsingStone(struct BattleUnit* attacker, struct BattleUnit* defender) {
 	if (GetItemIndex(attacker->weaponAfter) == ITEM_MONSTER_STONE)
-		gUnknown_0203A4D4.damage = 0;
+		gBattleStats.damage = 0;
 }
 
 void GenerateCurrentRoundData(struct BattleUnit* attacker, struct BattleUnit* defender) {
 	short attack, defense;
 
-	gUnknown_0203A4D4.damage = 0;
+	gBattleStats.damage = 0;
 
 	RollForSureShot(attacker);
 
-	if (!(gUnknown_0203A608->attributes & BATTLE_HIT_ATTR_SURESHOT)) {
-		if (!Roll2RNIfBattleStarted(gUnknown_0203A4D4.hit, TRUE)) {
-			gUnknown_0203A608->attributes |= BATTLE_HIT_ATTR_MISS;
+	if (!(gBattleHitIterator->attributes & BATTLE_HIT_ATTR_SURESHOT)) {
+		if (!Roll2RNIfBattleStarted(gBattleStats.hit, TRUE)) {
+			gBattleHitIterator->attributes |= BATTLE_HIT_ATTR_MISS;
 			return;
 		}
 	}
 
-	attack = gUnknown_0203A4D4.attack;
-	defense = gUnknown_0203A4D4.defense;
+	attack = gBattleStats.attack;
+	defense = gBattleStats.defense;
 
 	RollForGreatShield(attacker, defender);
 
-	if (!(gUnknown_0203A608->attributes & BATTLE_HIT_ATTR_GREATSHLD))
+	if (!(gBattleHitIterator->attributes & BATTLE_HIT_ATTR_GREATSHLD))
 		RollForPierce(attacker, defender);
 
-	if (gUnknown_0203A608->attributes & BATTLE_HIT_ATTR_PIERCE)
+	if (gBattleHitIterator->attributes & BATTLE_HIT_ATTR_PIERCE)
 		defense = 0;
 
-	gUnknown_0203A4D4.damage = attack - defense;
+	gBattleStats.damage = attack - defense;
 
-	if (gUnknown_0203A608->attributes & BATTLE_HIT_ATTR_GREATSHLD)
-		gUnknown_0203A4D4.damage = 0;
+	if (gBattleHitIterator->attributes & BATTLE_HIT_ATTR_GREATSHLD)
+		gBattleStats.damage = 0;
 
-	if (RollRNIfBattleStarted(gUnknown_0203A4D4.crit, FALSE) == TRUE) {
+	if (RollRNIfBattleStarted(gBattleStats.crit, FALSE) == TRUE) {
 		if (RollForLethality(attacker, defender)) {
-			gUnknown_0203A608->attributes |= BATTLE_HIT_ATTR_SILENCER;
+			gBattleHitIterator->attributes |= BATTLE_HIT_ATTR_SILENCER;
 
-			gUnknown_0203A4D4.damage = BATTLE_MAX_DAMAGE;
+			gBattleStats.damage = BATTLE_MAX_DAMAGE;
 
-			gUnknown_0203A608->attributes = gUnknown_0203A608->attributes &~ BATTLE_HIT_ATTR_GREATSHLD;
+			gBattleHitIterator->attributes = gBattleHitIterator->attributes &~ BATTLE_HIT_ATTR_GREATSHLD;
 		} else {
-			gUnknown_0203A608->attributes = gUnknown_0203A608->attributes | BATTLE_HIT_ATTR_CRIT;
-			gUnknown_0203A4D4.damage = gUnknown_0203A4D4.damage * 3;
+			gBattleHitIterator->attributes = gBattleHitIterator->attributes | BATTLE_HIT_ATTR_CRIT;
+			gBattleStats.damage = gBattleStats.damage * 3;
 		}
 	}
 
-	if (gUnknown_0203A4D4.damage > BATTLE_MAX_DAMAGE)
-		gUnknown_0203A4D4.damage = BATTLE_MAX_DAMAGE;
+	if (gBattleStats.damage > BATTLE_MAX_DAMAGE)
+		gBattleStats.damage = BATTLE_MAX_DAMAGE;
 
-	if (gUnknown_0203A4D4.damage < 0)
-		gUnknown_0203A4D4.damage = 0;
+	if (gBattleStats.damage < 0)
+		gBattleStats.damage = 0;
 
 	NullifyBattleDamageIfUsingStone(attacker, defender);
 
-	if (gUnknown_0203A4D4.damage != 0)
+	if (gBattleStats.damage != 0)
 		attacker->nonZeroDamage = TRUE;
 }
 
@@ -1040,31 +1040,31 @@ void UpdateBattleTriangleAttackData(struct BattleUnit* attacker, struct BattleUn
 	if (!(UNIT_CATTRIBUTES(&attacker->unit) & CA_TRIANGLEATTACK_ANY))
 		return;
 
-	if (gUnknown_0203A4D4.range != 1)
+	if (gBattleStats.range != 1)
 		return;
 
-	if (!(gUnknown_0203A608->info & BATTLE_HIT_INFO_BEGIN))
+	if (!(gBattleHitIterator->info & BATTLE_HIT_INFO_BEGIN))
 		return;
 
 	if (attacker->unit.statusIndex == UNIT_STATUS_BERSERK)
 		return;
 
-	if (gUnknown_0203A4D4.config & BATTLE_CONFIG_ARENA)
+	if (gBattleStats.config & BATTLE_CONFIG_ARENA)
 		return;
 
 	if (!CheckForTriangleAttack(attacker, defender))
 		return;
 
-	gUnknown_0203A608->attributes |= BATTLE_HIT_ATTR_TATTACK;
+	gBattleHitIterator->attributes |= BATTLE_HIT_ATTR_TATTACK;
 
-	gUnknown_0203A4D4.crit = 100;
-	gUnknown_0203A4D4.hit  = 100;
+	gBattleStats.crit = 100;
+	gBattleStats.hit  = 100;
 }
 
 void CurrentRound_ComputeWeaponEffects(struct BattleUnit* attacker, struct BattleUnit* defender) {
 	attacker->wexpMultiplier++;
 
-	if (!(gUnknown_0203A608->attributes & BATTLE_HIT_ATTR_MISS)) {
+	if (!(gBattleHitIterator->attributes & BATTLE_HIT_ATTR_MISS)) {
 		if (defender->unit.pClassData->number != CLASS_DEMON_KING) {
 			switch (GetItemWeaponEffect(attacker->weaponAfter)) {
 
@@ -1072,7 +1072,7 @@ void CurrentRound_ComputeWeaponEffects(struct BattleUnit* attacker, struct Battl
 				// Poison defender
 
 				defender->statusOut = UNIT_STATUS_POISON;
-				gUnknown_0203A608->attributes |= BATTLE_HIT_ATTR_POISON;
+				gBattleHitIterator->attributes |= BATTLE_HIT_ATTR_POISON;
 
 				// "Ungray" defender if it was petrified (as it won't be anymore)
 				if (defender->unit.statusIndex == UNIT_STATUS_PETRIFY || defender->unit.statusIndex == UNIT_STATUS_13)
@@ -1081,36 +1081,36 @@ void CurrentRound_ComputeWeaponEffects(struct BattleUnit* attacker, struct Battl
 				break;
 
 			case WPN_EFFECT_HPHALVE:
-				gUnknown_0203A608->attributes |= BATTLE_HIT_ATTR_HPHALVE;
+				gBattleHitIterator->attributes |= BATTLE_HIT_ATTR_HPHALVE;
 				break;
 
 			} // switch (GetItemWeaponEffect(attacker->weaponAfter))
 		}
 
 		if ((GetItemWeaponEffect(attacker->weaponAfter) == WPN_EFFECT_DEVIL) && (RollRNIfBattleStarted(31 - attacker->unit.lck, FALSE))) {
-			gUnknown_0203A608->attributes |= BATTLE_HIT_ATTR_DEVIL;
+			gBattleHitIterator->attributes |= BATTLE_HIT_ATTR_DEVIL;
 
-			attacker->unit.curHP -= gUnknown_0203A4D4.damage;
+			attacker->unit.curHP -= gBattleStats.damage;
 
 			if (attacker->unit.curHP < 0)
 				attacker->unit.curHP = 0;
 		} else {
-			if (gUnknown_0203A4D4.damage > defender->unit.curHP)
-				gUnknown_0203A4D4.damage = defender->unit.curHP;
+			if (gBattleStats.damage > defender->unit.curHP)
+				gBattleStats.damage = defender->unit.curHP;
 
-			defender->unit.curHP -= gUnknown_0203A4D4.damage;
+			defender->unit.curHP -= gBattleStats.damage;
 
 			if (defender->unit.curHP < 0)
 				defender->unit.curHP = 0;
 		}
 
 		if (GetItemWeaponEffect(attacker->weaponAfter) == WPN_EFFECT_HPDRAIN) {
-			if (attacker->unit.maxHP < (attacker->unit.curHP + gUnknown_0203A4D4.damage))
+			if (attacker->unit.maxHP < (attacker->unit.curHP + gBattleStats.damage))
 				attacker->unit.curHP = attacker->unit.maxHP;
 			else
-				attacker->unit.curHP += gUnknown_0203A4D4.damage;
+				attacker->unit.curHP += gBattleStats.damage;
 
-			gUnknown_0203A608->attributes |= BATTLE_HIT_ATTR_HPSTEAL;
+			gBattleHitIterator->attributes |= BATTLE_HIT_ATTR_HPSTEAL;
 		}
 
 		if (defender->unit.pClassData->number != CLASS_DEMON_KING) {
@@ -1143,14 +1143,14 @@ void CurrentRound_ComputeWeaponEffects(struct BattleUnit* attacker, struct Battl
 
 				} // switch (gUnknown_0202BCF0.chapterPhaseIndex)
 
-				gUnknown_0203A608->attributes |= BATTLE_HIT_ATTR_PETRIFY;
+				gBattleHitIterator->attributes |= BATTLE_HIT_ATTR_PETRIFY;
 			}
 		}
 	}
 
-	gUnknown_0203A608->hpChange = gUnknown_0203A4D4.damage;
+	gBattleHitIterator->hpChange = gBattleStats.damage;
 
-	if (!(gUnknown_0203A608->attributes & BATTLE_HIT_ATTR_MISS) || attacker->weaponAttributes & (IA_UNCOUNTERABLE | IA_MAGIC)) {
+	if (!(gBattleHitIterator->attributes & BATTLE_HIT_ATTR_MISS) || attacker->weaponAttributes & (IA_UNCOUNTERABLE | IA_MAGIC)) {
 		attacker->weaponAfter = GetItemAfterUse(attacker->weaponAfter);
 
 		if (!attacker->weaponAfter)
@@ -1160,7 +1160,7 @@ void CurrentRound_ComputeWeaponEffects(struct BattleUnit* attacker, struct Battl
 
 s8 MakeNextBattleHitRound(struct BattleUnit* attacker, struct BattleUnit* defender) {
 	if (attacker == &gBattleTarget)
-		gUnknown_0203A608->info |= BATTLE_HIT_INFO_RETALIATION;
+		gBattleHitIterator->info |= BATTLE_HIT_INFO_RETALIATION;
 
 	UpdateBattleStats(attacker, defender);
 	UpdateBattleTriangleAttackData(attacker, defender);
@@ -1170,25 +1170,25 @@ s8 MakeNextBattleHitRound(struct BattleUnit* attacker, struct BattleUnit* defend
 	if (attacker->unit.curHP == 0 || defender->unit.curHP == 0) {
 		attacker->wexpMultiplier++;
 
-		gUnknown_0203A608->info |= BATTLE_HIT_INFO_FINISHES;
+		gBattleHitIterator->info |= BATTLE_HIT_INFO_FINISHES;
 
 		if (gBattleTarget.unit.curHP != 0) {
-			gUnknown_0203A608++;
+			gBattleHitIterator++;
 			return TRUE;
 		}
 
-		gUnknown_0203A608->info |= BATTLE_HIT_INFO_KILLS_TARGET;
+		gBattleHitIterator->info |= BATTLE_HIT_INFO_KILLS_TARGET;
 
-		gUnknown_0203A608++;
+		gBattleHitIterator++;
 		return TRUE;
 	} else if (defender->statusOut == UNIT_STATUS_PETRIFY || defender->statusOut == UNIT_STATUS_13) {
-		gUnknown_0203A608->info |= BATTLE_HIT_INFO_FINISHES;
+		gBattleHitIterator->info |= BATTLE_HIT_INFO_FINISHES;
 
-		gUnknown_0203A608++;
+		gBattleHitIterator++;
 		return TRUE;
 	}
 
-	gUnknown_0203A608++;
+	gBattleHitIterator++;
 	return FALSE;
 }
 
@@ -1508,8 +1508,6 @@ void CheckForLevelUpCaps(struct Unit* unit, struct BattleUnit* bu) {
 		bu->changeLck = UNIT_LCK_MAX(unit) - unit->lck;
 }
 
-void SaveSnagWallFromBattle(struct BattleUnit* bu);
-
 void SaveUnitsFromBattle(void) {
 	struct Unit* actor  = GetUnit(gBattleActor.unit.index);
 	struct Unit* target = GetUnit(gBattleTarget.unit.index);
@@ -1547,7 +1545,7 @@ int GetBattleNewWExp(struct BattleUnit* bu) {
 	if (gUnknown_0202BCB0.gameStateBits & 0x40) // TODO: GAME STATE BITS CONSTANTS
 		return -1;
 
-	if (!(gUnknown_0203A4D4.config & BATTLE_CONFIG_ARENA)) {
+	if (!(gBattleStats.config & BATTLE_CONFIG_ARENA)) {
 		if (!bu->canCounter)
 			return -1;
 
@@ -1609,7 +1607,7 @@ void SaveUnitFromBattle(struct Unit* unit, struct BattleUnit* bu) {
 	unit->curHP = bu->unit.curHP;
 	unit->state = bu->unit.state;
 
-	gUnknown_03003060 = 0x7 & (unit->state >> 17); // ??? TODO: figure this out
+	gUnknown_03003060 = UNIT_ARENA_LEVEL(unit);
 
 	if (bu->statusOut >= 0)
 		SetUnitStatus(unit, bu->statusOut);
@@ -1650,16 +1648,16 @@ void sub_802C2D4(struct Unit* unit, struct BattleUnit* bu) {
 }
 
 void UpdateBallistaUsesFromBattle(void) {
-	if (gUnknown_0203A4D4.config & BATTLE_CONFIG_BALLISTA) {
+	if (gBattleStats.config & BATTLE_CONFIG_BALLISTA) {
 		int uses = GetItemUses(gBattleActor.weaponAfter);
 		GetTrap(gBattleActor.unit.ballistaIndex)->data[TRAP_EXTDATA_BLST_ITEMUSES] = uses;
 	}
 }
 
 void NullSomeStuff(void) {
-	gUnknown_0203A60C.unk00 = 0;
-	gUnknown_0203A60C.unk01 = 0;
-	gUnknown_0203A60C.unk02 = 0;
+	sUnknown_0203A60C.unk00 = 0;
+	sUnknown_0203A60C.unk01 = 0;
+	sUnknown_0203A60C.unk02 = 0;
 }
 
 int sub_802C344(struct Unit* unit) {
@@ -1715,7 +1713,7 @@ int sub_802C40C(struct Unit* actor, struct Unit* target) {
 		return 1;
 
 	for (i = 0; i < BATTLE_HIT_MAX; ++i)
-		if (gUnknown_0203A5EC[i].attributes & BATTLE_HIT_ATTR_SILENCER)
+		if (gBattleHitArray[i].attributes & BATTLE_HIT_ATTR_SILENCER)
 			return 2;
 
 	return 1;
@@ -1819,7 +1817,7 @@ int GetBattleUnitStaffExp(struct BattleUnit* bu) {
 	if (!CanUnitNotLevelUp(bu))
 		return 0;
 
-	if (gUnknown_0203A5EC->attributes & BATTLE_HIT_ATTR_MISS)
+	if (gBattleHitArray->attributes & BATTLE_HIT_ATTR_MISS)
 		return 1;
 
 	result = 10 + GetItemCostPerUse(bu->weaponAfter) / 20;
@@ -1891,9 +1889,9 @@ void BattleReverseWTriangeEffect(struct BattleUnit* attacker, struct BattleUnit*
 }
 
 void BattleApplyWeaponTriangle(struct BattleUnit* attacker, struct BattleUnit* defender) {
-	const struct WTEntry* it;
+	const struct WeaponTriangleRule* it;
 
-	for (it = gUnknown_0859BA90; it->attackerWeaponType >= 0; ++it) {
+	for (it = sWeaponTriangleRules; it->attackerWeaponType >= 0; ++it) {
 		if ((attacker->weaponType == it->attackerWeaponType) && (defender->weaponType == it->defenderWeaponType)) {
 			attacker->WTHitModifier = it->hitBonus;
 			attacker->WTAtkModifier = it->atkBonus;
@@ -2024,7 +2022,7 @@ void BeginBattleAnimations(void) {
 		UpdateGameTilesGraphics();
 		BeginBattleMapAnims();
 
-		gUnknown_0203A4D4.config |= BATTLE_CONFIG_MAPANIMS;
+		gBattleStats.config |= BATTLE_CONFIG_MAPANIMS;
 	}
 }
 
@@ -2071,7 +2069,7 @@ void nullsub_11(struct BattleUnit* actor, struct BattleUnit* target) {
 void sub_802CAFC(void) {
 	struct BattleHit* it;
 
-	for (it = gUnknown_0203A5EC; !(it->info & BATTLE_HIT_INFO_END); ++it) {
+	for (it = gBattleHitArray; !(it->info & BATTLE_HIT_INFO_END); ++it) {
 		// prints battle rounds information to debug output
 	}
 }
@@ -2082,7 +2080,7 @@ void sub_802CB24(struct Unit* actor, int itemSlot) {
 	if (itemSlot < 0)
 		item = 0;
 
-	gUnknown_0203A4D4.config = 0;
+	gBattleStats.config = 0;
 
 	CopyUnitToBattleStruct(&gBattleActor, actor);
 
@@ -2133,11 +2131,11 @@ void SaveInstigatorFromBattle(void) {
 
 void SaveInstigatorWith10ExtraExp(struct Proc* proc) {
 	InstigatorAdd10Exp();
-	Proc_CreateBlockingChild(gUnknown_0859BAC4, proc);
+	Proc_CreateBlockingChild(sProcScr_BattleAnimSimpleLock, proc);
 }
 
 void sub_802CC54(struct Proc* proc) {
-	(++gUnknown_0203A608)->info = BATTLE_HIT_INFO_END;
+	(++gBattleHitIterator)->info = BATTLE_HIT_INFO_END;
 
 	HandleSomeExp();
 
@@ -2152,7 +2150,7 @@ void sub_802CC54(struct Proc* proc) {
 			gBattleActor.weaponBroke = FALSE;
 	}
 
-	Proc_CreateBlockingChild(gUnknown_0859BAC4, proc);
+	Proc_CreateBlockingChild(sProcScr_BattleAnimSimpleLock, proc);
 }
 
 int GetStaffAccuracy(struct Unit* actor, struct Unit* target) {
@@ -2183,7 +2181,7 @@ void sub_802CD64(struct Unit* actor) {
 	struct Unit* target = gUnknown_0203A8F0.opponentUnit;
 	int something = gUnknown_0202BCB0.unk3C;
 
-	gUnknown_0203A4D4.config = BATTLE_CONFIG_BIT0 | BATTLE_CONFIG_ARENA;
+	gBattleStats.config = BATTLE_CONFIG_BIT0 | BATTLE_CONFIG_ARENA;
 
 	CopyUnitToBattleStruct(&gBattleActor, actor);
 	CopyUnitToBattleStruct(&gBattleTarget, target);
@@ -2193,7 +2191,7 @@ void sub_802CD64(struct Unit* actor) {
 		gBattleTarget.currentHP = gUnknown_0203A958.trapType;
 	}
 
-	gUnknown_0203A4D4.range = gUnknown_0203A8F0.range;
+	gBattleStats.range = gUnknown_0203A8F0.range;
 
 	gBattleTarget.unit.xPos = gBattleActor.unit.xPos + gUnknown_0203A8F0.range;
 	gBattleTarget.unit.yPos = gBattleActor.unit.yPos;
@@ -2216,8 +2214,6 @@ void sub_802CD64(struct Unit* actor) {
 
 	sub_802C2D4(actor, &gBattleActor);
 
-	#define UNIT_ARENA_LEVEL(aUnit) (((aUnit)->state >> 17) & 0x7)
-
 	if (!something || (gBattleTarget.unit.curHP == 0)) {
 		sub_80A4AA4();
 
@@ -2227,13 +2223,11 @@ void sub_802CD64(struct Unit* actor) {
 		gUnknown_03003060 = UNIT_ARENA_LEVEL(actor);
 	}
 
-	#undef UNIT_ARENA_LEVEL
-
 	nullsub_11(&gBattleActor, &gBattleTarget);
 }
 
 s8 IsCurrentBattleTriangleAttack(void) {
-	return (gUnknown_0203A5EC->attributes & BATTLE_HIT_ATTR_TATTACK) != 0;
+	return (gBattleHitArray->attributes & BATTLE_HIT_ATTR_TATTACK) != 0;
 }
 
 s8 DidWeaponBreak(struct BattleUnit* bu) {
@@ -2248,24 +2242,24 @@ void sub_802CEBC(struct BattleHit* hit) {
 }
 
 void CurrentRound_ComputeDamage(struct BattleUnit* bu) {
-	gUnknown_0203A4D4.damage = 0;
+	gBattleStats.damage = 0;
 
-	if (!(gUnknown_0203A608->attributes & BATTLE_HIT_ATTR_MISS)) {
-		if (gUnknown_0203A608->hpChange == 0) {
-			gUnknown_0203A4D4.damage = gUnknown_0203A4D4.attack - gUnknown_0203A4D4.defense;
+	if (!(gBattleHitIterator->attributes & BATTLE_HIT_ATTR_MISS)) {
+		if (gBattleHitIterator->hpChange == 0) {
+			gBattleStats.damage = gBattleStats.attack - gBattleStats.defense;
 
-			if (gUnknown_0203A608->attributes & BATTLE_HIT_ATTR_CRIT)
-				gUnknown_0203A4D4.damage = 3 * gUnknown_0203A4D4.damage;
+			if (gBattleHitIterator->attributes & BATTLE_HIT_ATTR_CRIT)
+				gBattleStats.damage = 3 * gBattleStats.damage;
 		} else
-			gUnknown_0203A4D4.damage = gUnknown_0203A608->hpChange;
+			gBattleStats.damage = gBattleHitIterator->hpChange;
 
-		if (gUnknown_0203A4D4.damage > BATTLE_MAX_DAMAGE)
-			gUnknown_0203A4D4.damage = BATTLE_MAX_DAMAGE;
+		if (gBattleStats.damage > BATTLE_MAX_DAMAGE)
+			gBattleStats.damage = BATTLE_MAX_DAMAGE;
 
-		if (gUnknown_0203A4D4.damage < 0)
-			gUnknown_0203A4D4.damage = 0;
+		if (gBattleStats.damage < 0)
+			gBattleStats.damage = 0;
 
-		if (gUnknown_0203A4D4.damage != 0)
+		if (gBattleStats.damage != 0)
 			bu->nonZeroDamage = TRUE;
 	}
 }
@@ -2280,15 +2274,15 @@ void sub_802CF4C(void) {
 	struct BattleHit* itOut;
 
 	itIn = gUnknown_0203A958.unk18;
-	itOut = gUnknown_0203A5EC;
+	itOut = gBattleHitArray;
 
 	while (!(itIn->info & BATTLE_HIT_INFO_END))
 		*itOut++ = *itIn++;
 
 	*itOut = *itIn;
 
-	for (gUnknown_0203A608 = gUnknown_0203A5EC; !(gUnknown_0203A608->info & BATTLE_HIT_INFO_END); ++gUnknown_0203A608) {
-		if (gUnknown_0203A608->info & BATTLE_HIT_INFO_RETALIATION) {
+	for (gBattleHitIterator = gBattleHitArray; !(gBattleHitIterator->info & BATTLE_HIT_INFO_END); ++gBattleHitIterator) {
+		if (gBattleHitIterator->info & BATTLE_HIT_INFO_RETALIATION) {
 			attacker = &gBattleTarget;
 			defender = &gBattleActor;
 		} else {
@@ -2303,12 +2297,12 @@ void sub_802CF4C(void) {
 		if ((attacker->unit.curHP == 0) || (defender->unit.curHP == 0)) {
 			attacker->wexpMultiplier++;
 
-			gUnknown_0203A608->info |= BATTLE_HIT_INFO_FINISHES;
+			gBattleHitIterator->info |= BATTLE_HIT_INFO_FINISHES;
 
 			if (gBattleTarget.unit.curHP == 0)
-				gUnknown_0203A608->info |= BATTLE_HIT_INFO_KILLS_TARGET;
+				gBattleHitIterator->info |= BATTLE_HIT_INFO_KILLS_TARGET;
 
-			(gUnknown_0203A608 + 1)->info = BATTLE_HIT_INFO_END;
+			(gBattleHitIterator + 1)->info = BATTLE_HIT_INFO_END;
 
 			break;
 		}
@@ -2320,9 +2314,10 @@ void sub_802CF4C(void) {
 			(defender->statusOut == UNIT_STATUS_13)
 		) {
 			attacker->wexpMultiplier++;
-			gUnknown_0203A608->info |= BATTLE_HIT_INFO_FINISHES;
 
-			(gUnknown_0203A608 + 1)->info = BATTLE_HIT_INFO_END;
+			gBattleHitIterator->info |= BATTLE_HIT_INFO_FINISHES;
+
+			(gBattleHitIterator + 1)->info = BATTLE_HIT_INFO_END;
 
 			break;
 		}
@@ -2342,14 +2337,14 @@ void sub_802CF4C(void) {
 		push {r4, r5, r6, r7, lr}\n\
 		ldr r0, _0802CFA4  @ gUnknown_0203A958\n\
 		ldr r3, [r0, #0x18]\n\
-		ldr r4, _0802CFA8  @ gUnknown_0203A5EC\n\
+		ldr r4, _0802CFA8  @ gBattleHitArray\n\
 		ldr r2, [r3]\n\
 		lsls r0, r2, #8\n\
 		lsrs r0, r0, #0x1b\n\
 		movs r1, #0x10\n\
 		ands r0, r1\n\
 		adds r5, r4, #0\n\
-		ldr r6, _0802CFAC  @ gUnknown_0203A608\n\
+		ldr r6, _0802CFAC  @ gBattleHitIterator\n\
 		cmp r0, #0\n\
 		bne _0802CF76\n\
 	_0802CF66:\n\
@@ -2389,8 +2384,8 @@ void sub_802CF4C(void) {
 		b _0802CFBC\n\
 		.align 2, 0\n\
 	_0802CFA4: .4byte gUnknown_0203A958\n\
-	_0802CFA8: .4byte gUnknown_0203A5EC\n\
-	_0802CFAC: .4byte gUnknown_0203A608\n\
+	_0802CFA8: .4byte gBattleHitArray\n\
+	_0802CFAC: .4byte gBattleHitIterator\n\
 	_0802CFB0: .4byte gBattleTarget\n\
 	_0802CFB4: .4byte gBattleActor\n\
 	_0802CFB8:\n\
@@ -2419,7 +2414,7 @@ void sub_802CF4C(void) {
 		ldrb r0, [r1]\n\
 		adds r0, #1\n\
 		strb r0, [r1]\n\
-		ldr r5, _0802D03C  @ gUnknown_0203A608\n\
+		ldr r5, _0802D03C  @ gBattleHitIterator\n\
 		ldr r3, [r5]\n\
 		ldr r1, [r3]\n\
 		lsls r1, r1, #8\n\
@@ -2459,7 +2454,7 @@ void sub_802CF4C(void) {
 		.align 2, 0\n\
 	_0802D034: .4byte gBattleActor\n\
 	_0802D038: .4byte gBattleTarget\n\
-	_0802D03C: .4byte gUnknown_0203A608\n\
+	_0802D03C: .4byte gBattleHitIterator\n\
 	_0802D040:\n\
 		adds r0, r5, #0\n\
 		adds r0, #0x30\n\
@@ -2640,10 +2635,10 @@ void sub_802D0BC(struct Unit* unit) {
 }
 
 void sub_802D2B4(void) {
-	gUnknown_0203A608++;
+	gBattleHitIterator++;
 }
 
 void sub_802D2C4(void) {
-	gUnknown_0203A608++;
-	gUnknown_0203A608->info = BATTLE_HIT_INFO_END;
+	gBattleHitIterator++;
+	gBattleHitIterator->info = BATTLE_HIT_INFO_END;
 }

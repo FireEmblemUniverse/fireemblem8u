@@ -705,7 +705,7 @@ ekrBattle_80502B0: @ 0x080502B0
 	movs r2, #2
 	ldrsh r1, [r1, r2]
 	bl sub_8054E8C
-	ldr r0, _080502FC  @ gUnknown_0203A4D4
+	ldr r0, _080502FC  @ gBattleStats
 	ldrh r1, [r0]
 	movs r0, #0x40
 	ands r0, r1
@@ -724,7 +724,7 @@ _080502E2:
 	.align 2, 0
 _080502F4: .4byte gUnknown_02000000
 _080502F8: .4byte gUnknown_0203E1D8
-_080502FC: .4byte gUnknown_0203A4D4
+_080502FC: .4byte gBattleStats
 _08050300: .4byte ekrBattle_8050304
 
 	THUMB_FUNC_START ekrBattle_8050304
@@ -13546,7 +13546,7 @@ _080569EE:
 	ldr r0, [r4, #0x44]
 	cmp r0, #0
 	bne _08056A0A
-	ldr r0, _08056B04  @ gUnknown_0203A4D4
+	ldr r0, _08056B04  @ gBattleStats
 	ldrh r1, [r0]
 	movs r0, #0x40
 	ands r0, r1
@@ -13674,7 +13674,7 @@ _08056AF4: .4byte gUnknown_02000000
 _08056AF8: .4byte gUnknown_0203E18C
 _08056AFC: .4byte gPaletteBuffer
 _08056B00: .4byte gUnknown_0203E188
-_08056B04: .4byte gUnknown_0203A4D4
+_08056B04: .4byte gBattleStats
 _08056B08: .4byte gUnknown_0203E104
 _08056B0C: .4byte gUnknown_0200005C
 _08056B10: .4byte gUnknown_0200F1C8
@@ -14319,7 +14319,7 @@ PrepareBattleGraphicsMaybe: @ 0x08056FF8
 	movs r0, #1
 	str r0, [sp, #0x20]
 	bl sub_806F9FC
-	ldr r0, _08057020  @ gUnknown_0203A4D4
+	ldr r0, _08057020  @ gBattleStats
 	ldrh r1, [r0]
 	movs r0, #0x20
 	ands r0, r1
@@ -14329,7 +14329,7 @@ PrepareBattleGraphicsMaybe: @ 0x08056FF8
 	bl SetBattleAnimArenaFlag
 	b _0805702A
 	.align 2, 0
-_08057020: .4byte gUnknown_0203A4D4
+_08057020: .4byte gBattleStats
 _08057024:
 	movs r0, #1
 	bl SetBattleAnimArenaFlag
@@ -14349,7 +14349,7 @@ _08057044:
 	movs r0, #1
 	bl sub_804FD48
 _0805704A:
-	ldr r0, _08057064  @ gUnknown_0203A4D4
+	ldr r0, _08057064  @ gBattleStats
 	ldrh r1, [r0]
 	movs r0, #0x10
 	ands r0, r1
@@ -14363,7 +14363,7 @@ _0805704A:
 	mov r8, r1
 	b _08057072
 	.align 2, 0
-_08057064: .4byte gUnknown_0203A4D4
+_08057064: .4byte gBattleStats
 _08057068: .4byte gUnknown_0203E120
 _0805706C:
 	ldr r0, _080570A4  @ gUnknown_0203E120
@@ -14419,7 +14419,7 @@ _080570C0:
 	bl GetAllegienceId
 	lsls r0, r0, #0x10
 	lsrs r6, r0, #0x10
-	ldr r0, _08057100  @ gUnknown_0203A4D4
+	ldr r0, _08057100  @ gBattleStats
 	ldrh r1, [r0]
 	movs r0, #0x40
 	ands r0, r1
@@ -14431,7 +14431,7 @@ _080570C0:
 	.align 2, 0
 _080570F8: .4byte gBattleActor
 _080570FC: .4byte gBattleTarget
-_08057100: .4byte gUnknown_0203A4D4
+_08057100: .4byte gBattleStats
 _08057104:
 	adds r1, r5, #0
 	adds r1, #0x4a
@@ -15138,7 +15138,7 @@ _08057688:
 	ldr r1, _08057714  @ gUnknown_0203E118
 	strh r0, [r1, #2]
 _080576A0:
-	ldr r0, _08057718  @ gUnknown_0203A4D4
+	ldr r0, _08057718  @ gBattleStats
 	ldrh r1, [r0]
 	movs r0, #0x40
 	ands r0, r1
@@ -15197,7 +15197,7 @@ _080576F4:
 	b _0805773E
 	.align 2, 0
 _08057714: .4byte gUnknown_0203E118
-_08057718: .4byte gUnknown_0203A4D4
+_08057718: .4byte gBattleStats
 _0805771C: .4byte gUnknown_0203E11A
 _08057720: .4byte gUnknown_0203E120
 _08057724:
@@ -16559,7 +16559,7 @@ sub_80581EC: @ 0x080581EC
 	mov r5, r8
 	push {r5, r6, r7}
 	sub sp, #0x20
-	ldr r7, _08058244  @ gUnknown_0203A5EC
+	ldr r7, _08058244  @ gBattleHitArray
 	movs r2, #0
 	ldr r4, _08058248  @ gUnknown_0203E12A
 	ldr r5, _0805824C  @ gUnknown_0203E194
@@ -16599,14 +16599,14 @@ _08058220:
 	strh r0, [r4, #2]
 	b _08058834
 	.align 2, 0
-_08058244: .4byte gUnknown_0203A5EC
+_08058244: .4byte gBattleHitArray
 _08058248: .4byte gUnknown_0203E12A
 _0805824C: .4byte gUnknown_0203E194
 _08058250: .4byte gUnknown_0203E120
 _08058254: .4byte 0x0000FFFF
 _08058258: .4byte gUnknown_0203E156
 _0805825C:
-	ldr r0, _08058270  @ gUnknown_0203A4D4
+	ldr r0, _08058270  @ gBattleStats
 	ldrh r1, [r0]
 	movs r0, #0x40
 	ands r0, r1
@@ -16617,7 +16617,7 @@ _0805825C:
 	strh r2, [r4, #2]
 	b _08058834
 	.align 2, 0
-_08058270: .4byte gUnknown_0203A4D4
+_08058270: .4byte gBattleStats
 _08058274:
 	ldrh r6, [r6]
 	str r6, [sp, #0x14]
@@ -16787,7 +16787,7 @@ _080583B4:
 	cmp r0, #0
 	beq _080583D0
 	ldr r2, _080583F4  @ gUnknown_0203E194
-	ldr r1, _080583F8  @ gUnknown_0203A4D4
+	ldr r1, _080583F8  @ gBattleStats
 	ldr r0, [r1, #0x10]
 	str r0, [r2]
 	ldr r0, [r1, #0x14]
@@ -16810,7 +16810,7 @@ _080583D0:
 	.align 2, 0
 _080583F0: .4byte gUnknown_0203E100
 _080583F4: .4byte gUnknown_0203E194
-_080583F8: .4byte gUnknown_0203A4D4
+_080583F8: .4byte gBattleStats
 _080583FC: .4byte gUnknown_080DAEA0
 _08058400:
 	ldr r0, _08058404  @ gUnknown_080DAEC8
@@ -17494,7 +17494,7 @@ _08058908:
 	THUMB_FUNC_START sub_8058918
 sub_8058918: @ 0x08058918
 	push {lr}
-	ldr r0, _08058930  @ gUnknown_0203A5EC
+	ldr r0, _08058930  @ gBattleHitArray
 	ldr r0, [r0]
 	lsls r0, r0, #8
 	lsrs r0, r0, #0x1b
@@ -17505,7 +17505,7 @@ sub_8058918: @ 0x08058918
 	movs r0, #0
 	b _08058936
 	.align 2, 0
-_08058930: .4byte gUnknown_0203A5EC
+_08058930: .4byte gBattleHitArray
 _08058934:
 	movs r0, #1
 _08058936:
@@ -68058,7 +68058,7 @@ _08072540:
 	THUMB_FUNC_START sub_8072548
 sub_8072548: @ 0x08072548
 	push {lr}
-	ldr r1, _08072564  @ gUnknown_0203A5EC
+	ldr r1, _08072564  @ gBattleHitArray
 	ldr r1, [r1]
 	lsls r1, r1, #8
 	lsrs r1, r1, #0x1b
@@ -68071,7 +68071,7 @@ sub_8072548: @ 0x08072548
 	movs r0, #0
 	b _0807256A
 	.align 2, 0
-_08072564: .4byte gUnknown_0203A5EC
+_08072564: .4byte gBattleHitArray
 _08072568:
 	movs r0, #1
 _0807256A:
@@ -68349,7 +68349,7 @@ _080727FC:
 	ldrb r0, [r0, #4]
 	cmp r0, #0x4d
 	bne _08072822
-	ldr r0, _08072834  @ gUnknown_0203A4D4
+	ldr r0, _08072834  @ gBattleStats
 	ldrh r1, [r0]
 	movs r0, #0x40
 	ands r0, r1
@@ -68372,7 +68372,7 @@ _08072822:
 	bl sub_8071A54
 	b _08072892
 	.align 2, 0
-_08072834: .4byte gUnknown_0203A4D4
+_08072834: .4byte gBattleStats
 _08072838:
 	movs r0, #0
 	bl sub_8072548
@@ -75655,7 +75655,7 @@ _08076308:
 	THUMB_FUNC_START sub_8076310
 sub_8076310: @ 0x08076310
 	push {lr}
-	ldr r0, _08076324  @ gUnknown_0203A4D4
+	ldr r0, _08076324  @ gBattleStats
 	ldrh r1, [r0]
 	movs r0, #0x80
 	lsls r0, r0, #1
@@ -75665,7 +75665,7 @@ sub_8076310: @ 0x08076310
 	movs r0, #0
 	b _0807632A
 	.align 2, 0
-_08076324: .4byte gUnknown_0203A4D4
+_08076324: .4byte gBattleStats
 _08076328:
 	movs r0, #1
 _0807632A:

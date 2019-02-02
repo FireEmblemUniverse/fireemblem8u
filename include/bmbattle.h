@@ -146,8 +146,13 @@ enum {
 	BU_ISLOT_BALLISTA       = UNIT_ITEM_COUNT + 3,
 };
 
-extern struct BattleHit gUnknown_0203A5EC[BATTLE_HIT_MAX];
-extern struct BattleHit* gUnknown_0203A608;
+extern struct BattleStats gBattleStats;
+
+extern struct BattleUnit gBattleActor;
+extern struct BattleUnit gBattleTarget;
+
+extern struct BattleHit gBattleHitArray[BATTLE_HIT_MAX];
+extern struct BattleHit* gBattleHitIterator;
 
 // ??? sub_802A13C(???);
 // ??? sub_802A20C(???);
@@ -237,7 +242,7 @@ void BattleApplyWeaponTriangle(struct BattleUnit* actor, struct BattleUnit* targ
 void DoSomeBattleWeaponStuff(void);
 // ??? MakeSnagBattleTarget(???);
 void FillSnagBattleStats(void);
-// ??? SaveSnagWallFromBattle(???);
+void SaveSnagWallFromBattle(struct BattleUnit* bu);
 void BeginBattleAnimations(void);
 // ??? sub_802CA70(???);
 // ??? sub_802CA98(???);

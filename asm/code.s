@@ -25980,7 +25980,7 @@ _0809650E:
 	adds r0, r5, #0
 	movs r2, #0
 	bl sub_802F598
-	ldr r1, _08096560  @ gUnknown_0203A4D4
+	ldr r1, _08096560  @ gBattleStats
 	movs r0, #0x88
 	lsls r0, r0, #1
 	strh r0, [r1]
@@ -25997,7 +25997,7 @@ _08096556:
 	bx r0
 	.align 2, 0
 _0809655C: .4byte gLCDControlBuffer
-_08096560: .4byte gUnknown_0203A4D4
+_08096560: .4byte gBattleStats
 _08096564: .4byte gBattleActor
 _08096568: .4byte gBattleTarget
 
@@ -38783,7 +38783,7 @@ sub_809CBA8: @ 0x0809CBA8
 	movs r1, #1
 	movs r3, #0
 	bl sub_802F664
-	ldr r1, _0809CC3C  @ gUnknown_0203A4D4
+	ldr r1, _0809CC3C  @ gBattleStats
 	movs r0, #0x88
 	lsls r0, r0, #1
 	strh r0, [r1]
@@ -38793,7 +38793,7 @@ sub_809CBA8: @ 0x0809CBA8
 	bx r0
 	.align 2, 0
 _0809CC38: .4byte gLCDControlBuffer
-_0809CC3C: .4byte gUnknown_0203A4D4
+_0809CC3C: .4byte gBattleStats
 
 	THUMB_FUNC_START sub_809CC40
 sub_809CC40: @ 0x0809CC40
@@ -58967,7 +58967,7 @@ sub_80A6C8C: @ 0x080A6C8C
 	str r0, [r1, #0x28]
 	ldr r0, _080A6D14  @ gBattleTarget
 	str r0, [r1, #0x2c]
-	ldr r0, _080A6D18  @ gUnknown_0203A5EC
+	ldr r0, _080A6D18  @ gBattleHitArray
 	str r0, [r1, #0x30]
 	movs r0, #0
 	bl GetTrap
@@ -58992,7 +58992,7 @@ _080A6D08: .4byte gActiveUnit
 _080A6D0C: .4byte gUnitLookup
 _080A6D10: .4byte gBattleActor
 _080A6D14: .4byte gBattleTarget
-_080A6D18: .4byte gUnknown_0203A5EC
+_080A6D18: .4byte gBattleHitArray
 
 	THUMB_FUNC_START sub_80A6D1C
 sub_80A6D1C: @ 0x080A6D1C
@@ -138258,15 +138258,15 @@ _080CDE10:
 	ldrb r0, [r0]
 	cmp r0, #2
 	beq _080CDE60
-	ldr r1, _080CDE5C  @ gUnknown_0203A4D4
+	ldr r1, _080CDE5C  @ gBattleStats
 	movs r0, #0x88
 	lsls r0, r0, #1
 	b _080CDE64
 	.align 2, 0
 _080CDE58: .4byte gLCDControlBuffer
-_080CDE5C: .4byte gUnknown_0203A4D4
+_080CDE5C: .4byte gBattleStats
 _080CDE60:
-	ldr r1, _080CDE70  @ gUnknown_0203A4D4
+	ldr r1, _080CDE70  @ gBattleStats
 	movs r0, #0x10
 _080CDE64:
 	strh r0, [r1]
@@ -138276,7 +138276,7 @@ _080CDE6A:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_080CDE70: .4byte gUnknown_0203A4D4
+_080CDE70: .4byte gBattleStats
 
 	THUMB_FUNC_START sub_80CDE74
 sub_80CDE74: @ 0x080CDE74

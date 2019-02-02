@@ -158,7 +158,7 @@ _08021B2A:
 sub_8021B30: @ 0x08021B30
 	push {r4, r5, r6, lr}
 	adds r6, r0, #0
-	ldr r0, _08021B8C  @ gUnknown_0203A4D4
+	ldr r0, _08021B8C  @ gBattleStats
 	ldrh r1, [r0]
 	movs r0, #0x80
 	lsls r0, r0, #2
@@ -201,7 +201,7 @@ _08021B86:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_08021B8C: .4byte gUnknown_0203A4D4
+_08021B8C: .4byte gBattleStats
 _08021B90: .4byte gUnknown_0203A958
 _08021B94: .4byte gUnknown_0859B410
 _08021B98: .4byte gUnknown_0202BCB0
