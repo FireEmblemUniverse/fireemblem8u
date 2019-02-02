@@ -7,8 +7,8 @@
 #include "constants/characters.h"
 
 #include "bmitem.h"
-
 #include "bmunit.h"
+#include "bmbattle.h"
 
 EWRAM_DATA u8 gActiveUnitId = 0;
 EWRAM_DATA struct { short x, y; } gActiveUnitMoveOrigin = {}; // TODO: struct Vec2?
@@ -29,7 +29,7 @@ CONST_DATA static int sStatusNameTextIdLookup[] = {
     [UNIT_STATUS_ATTACK]   = 0x51B,
     [UNIT_STATUS_DEFENSE]  = 0x51C,
     [UNIT_STATUS_CRIT]     = 0x51D,
-    [UNIT_STATUS_DODGE]    = 0x51E,
+    [UNIT_STATUS_AVOID]    = 0x51E,
     [UNIT_STATUS_SICK]     = 0x518,
     [UNIT_STATUS_RECOVER]  = 0x519,
     [UNIT_STATUS_PETRIFY]  = 0x51A,
@@ -760,13 +760,13 @@ void UnitAutolevelWExp(struct Unit* unit, const struct UnitDefinition* uDef) {
 
 void UnitAutolevelCore(struct Unit* unit, u8 classId, int levelCount) {
     if (levelCount) {
-        unit->maxHP += GetAutoleveledStat(unit->pClassData->growthHP,  levelCount);
-        unit->pow   += GetAutoleveledStat(unit->pClassData->growthPow, levelCount);
-        unit->skl   += GetAutoleveledStat(unit->pClassData->growthSkl, levelCount);
-        unit->spd   += GetAutoleveledStat(unit->pClassData->growthSpd, levelCount);
-        unit->def   += GetAutoleveledStat(unit->pClassData->growthDef, levelCount);
-        unit->res   += GetAutoleveledStat(unit->pClassData->growthRes, levelCount);
-        unit->lck   += GetAutoleveledStat(unit->pClassData->growthLck, levelCount);
+        unit->maxHP += GetAutoleveledStatIncrease(unit->pClassData->growthHP,  levelCount);
+        unit->pow   += GetAutoleveledStatIncrease(unit->pClassData->growthPow, levelCount);
+        unit->skl   += GetAutoleveledStatIncrease(unit->pClassData->growthSkl, levelCount);
+        unit->spd   += GetAutoleveledStatIncrease(unit->pClassData->growthSpd, levelCount);
+        unit->def   += GetAutoleveledStatIncrease(unit->pClassData->growthDef, levelCount);
+        unit->res   += GetAutoleveledStatIncrease(unit->pClassData->growthRes, levelCount);
+        unit->lck   += GetAutoleveledStatIncrease(unit->pClassData->growthLck, levelCount);
     }
 }
 
@@ -822,12 +822,12 @@ void UnitAutolevelRealistic(struct Unit* unit) {
 
     if (levelsLeft) {
         for (unit->level -= levelsLeft; levelsLeft > 0; --levelsLeft) {
-            CopyUnitToBattleStruct(&tmpBattleUnit, unit);
+            InitBattleUnit(&tmpBattleUnit, unit);
 
             tmpBattleUnit.unit.exp += 100;
-            CheckForLevelUp(&tmpBattleUnit);
+            CheckBattleUnitLevelUp(&tmpBattleUnit);
 
-            SaveUnitFromBattle(unit, &tmpBattleUnit);
+            UpdateUnitFromBattle(unit, &tmpBattleUnit);
         }
     }
 }
@@ -1046,14 +1046,14 @@ void UnitBeginAction(struct Unit* unit) {
     gActiveUnitMoveOrigin.x = unit->xPos;
     gActiveUnitMoveOrigin.y = unit->yPos;
 
-    gUnknown_0203A958.subjectIndex = unit->index;
-    gUnknown_0203A958.unitActionType = 0;
-    gUnknown_0203A958.moveCount = 0;
+    gActionData.subjectIndex = unit->index;
+    gActionData.unitActionType = 0;
+    gActionData.moveCount = 0;
 
     gUnknown_0202BCB0.unk3D = 0;
     gUnknown_0202BCB0.unk3F = 0xFF;
 
-    NullSomeStuff();
+    sub_802C334();
 
     gActiveUnit->state |= US_HIDDEN;
     gUnknown_0202E4D8[unit->yPos][unit->xPos] = 0;
@@ -1066,11 +1066,11 @@ void UnitBeginCantoAction(struct Unit* unit) {
     gActiveUnitMoveOrigin.x = unit->xPos;
     gActiveUnitMoveOrigin.y = unit->yPos;
 
-    gUnknown_0203A958.unitActionType = 0;
+    gActionData.unitActionType = 0;
 
     gUnknown_0202BCB0.unk3D = 0;
 
-    NullSomeStuff();
+    sub_802C334();
 
     gActiveUnit->state |= US_HIDDEN;
     gUnknown_0202E4D8[unit->yPos][unit->xPos] = 0;
@@ -1082,7 +1082,7 @@ void MoveActiveUnit(int x, int y) {
 
     gActiveUnit->state |= US_UNSELECTABLE;
 
-    BWL_AddTilesMoved(gActiveUnit->pCharacterData->number, gUnknown_0203A958.moveCount);
+    BWL_AddTilesMoved(gActiveUnit->pCharacterData->number, gActionData.moveCount);
 
     if (GetUnitCurrentHp(gActiveUnit) != 0)
         gActiveUnit->state = gActiveUnit->state &~ US_HIDDEN;
@@ -1302,7 +1302,7 @@ s8 CanUnitMove(void) {
         0, +1,
     };
 
-    int move = UNIT_MOV(gActiveUnit) - gUnknown_0203A958.moveCount;
+    int move = UNIT_MOV(gActiveUnit) - gActionData.moveCount;
 
     int xUnit = gActiveUnit->xPos;
     int yUnit = gActiveUnit->yPos;

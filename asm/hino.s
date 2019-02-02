@@ -6335,7 +6335,7 @@ _080154EE:
 	THUMB_FUNC_START E_BMAPMAIN_SuspendGame
 E_BMAPMAIN_SuspendGame: @ 0x080154F4
 	push {lr}
-	ldr r1, _08015508  @ gUnknown_0203A958
+	ldr r1, _08015508  @ gActionData
 	movs r0, #9
 	strb r0, [r1, #0x16]
 	movs r0, #3
@@ -6343,7 +6343,7 @@ E_BMAPMAIN_SuspendGame: @ 0x080154F4
 	pop {r0}
 	bx r0
 	.align 2, 0
-_08015508: .4byte gUnknown_0203A958
+_08015508: .4byte gActionData
 
 	THUMB_FUNC_START sub_801550C
 sub_801550C: @ 0x0801550C

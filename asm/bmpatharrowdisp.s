@@ -599,7 +599,7 @@ sub_8032E28: @ 0x08032E28
 	ldrb r0, [r0, #0x12]
 	ldrb r1, [r1, #0x1d]
 	adds r0, r0, r1
-	ldr r1, _08032EAC  @ gUnknown_0203A958
+	ldr r1, _08032EAC  @ gActionData
 	ldrb r1, [r1, #0x10]
 	subs r0, r0, r1
 	adds r2, #0x2b
@@ -633,7 +633,7 @@ _08032E9C: .4byte 0x06015E00
 _08032EA0: .4byte gUnknown_08A0328C
 _08032EA4: .4byte gUnknown_0859DBA0
 _08032EA8: .4byte gActiveUnit
-_08032EAC: .4byte gUnknown_0203A958
+_08032EAC: .4byte gActionData
 _08032EB0: .4byte 0x0000FFFF
 
 	THUMB_FUNC_START sub_8032EB4

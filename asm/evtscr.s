@@ -7034,7 +7034,7 @@ _08010B06:
 _08010B28: .4byte gUnknown_08591F18
 _08010B2C:
 	mov r0, r8
-	bl sub_802CEBC
+	bl SetScriptedBattle
 	movs r0, #0
 	b _08010B38
 _08010B36:

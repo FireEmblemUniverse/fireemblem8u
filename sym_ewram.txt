@@ -547,12 +547,8 @@
 . = 0x03A4C8; gUnknown_0203A4C8 = .;
 . = 0x03A4CC; gUnknown_0203A4CC = .;
 . = 0x03A4D0; gUnknown_0203A4D0 = .;
-. = 0x03A4D4; gUnknown_0203A4D4 = .;
-. = 0x03A4EC; gUnknown_0203A4EC = .;
-. = 0x03A56C; gUnknown_0203A56C = .;
-. = 0x03A5EC; gUnknown_0203A5EC = .;
-. = 0x03A608; gUnknown_0203A608 = .;
-. = 0x03A60C; gUnknown_0203A60C = .;
+. = 0x03A4D4;
+. = ALIGN(4); src/bmbattle.o(ewram_data);
 . = 0x03A610; gUnknown_0203A610 = .;
 . = 0x03A614; gUnknown_0203A614 = .;
 . = 0x03A814; gUnknown_0203A814 = .;
@@ -562,7 +558,7 @@
 . = 0x03A8EC; gUnknown_0203A8EC = .;
 . = 0x03A8F0; gUnknown_0203A8F0 = .;
 . = 0x03A910; gUnknown_0203A910 = .;
-. = 0x03A958; gUnknown_0203A958 = .;
+. = 0x03A958; gActionData = .;
 . = 0x03A95E; gUnknown_0203A95E = .;
 . = 0x03A974; gUnknown_0203A974 = .;
 . = 0x03A9FC; gUnknown_0203A9FC = .;

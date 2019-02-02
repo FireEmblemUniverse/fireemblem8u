@@ -2534,13 +2534,13 @@ sub_801A82C: @ 0x0801A82C
 	adds r3, r1, #0
 	adds r4, r2, #0
 	ldr r5, _0801A840  @ gUnknown_02033EFC
-	ldr r6, _0801A844  @ gUnknown_0203A958
+	ldr r6, _0801A844  @ gActionData
 	ldr r0, _0801A848  @ gUnknown_0202E4EC
 	mov ip, r0
 	b _0801A84E
 	.align 2, 0
 _0801A840: .4byte gUnknown_02033EFC
-_0801A844: .4byte gUnknown_0203A958
+_0801A844: .4byte gActionData
 _0801A848: .4byte gUnknown_0202E4EC
 _0801A84C:
 	adds r5, #1

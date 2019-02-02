@@ -31,13 +31,13 @@ struct CharacterData {
 
     /* 14 */ u8 baseRanks[8];
 
-    /* 1C */ s8 growthHP;
-    /* 1D */ s8 growthPow;
-    /* 1E */ s8 growthSkl;
-    /* 1F */ s8 growthSpd;
-    /* 20 */ s8 growthDef;
-    /* 21 */ s8 growthRes;
-    /* 22 */ s8 growthLck;
+    /* 1C */ u8 growthHP;
+    /* 1D */ u8 growthPow;
+    /* 1E */ u8 growthSkl;
+    /* 1F */ u8 growthSpd;
+    /* 20 */ u8 growthDef;
+    /* 21 */ u8 growthRes;
+    /* 22 */ u8 growthLck;
 
     /* 23 */ u8 _u23;
     /* 24 */ u8 _u24;
@@ -78,7 +78,7 @@ struct ClassData {
     /* 18 */ s8 maxRes;
     /* 19 */ s8 maxCon;
 
-    /* 1A */ u8 classRelativePower;
+    /* 1A */ s8 classRelativePower;
 
     /* 1B */ s8 growthHP;
     /* 1C */ s8 growthPow;
@@ -88,7 +88,7 @@ struct ClassData {
     /* 20 */ s8 growthRes;
     /* 21 */ s8 growthLck;
 
-    /* 22 */ u8 promotionHP;
+    /* 22 */ u8 promotionHp;
     /* 23 */ u8 promotionPow;
     /* 24 */ u8 promotionSkl;
     /* 25 */ u8 promotionSpd;
@@ -100,8 +100,13 @@ struct ClassData {
     /* 2C */ u8 baseRanks[8];
 
     /* 34 */ const void* pBattleAnimDef;
-    /* 38 */ const u8* pMovCostTable[3]; // standard, rain, snow
-    /* 44 */ const u8* pTerrainBonusTables[3]; // def, avo, res
+    /* 38 */ const s8* pMovCostTable[3]; // standard, rain, snow
+
+    /* 44 */ const s8* pTerrainAvoidLookup;
+    /* 48 */ const s8* pTerrainDefenseLookup;
+    /* 4C */ const s8* pTerrainResistanceLookup;
+
+    //* 44 */ const s8* pTerrainBonusTables[3]; // def, avo, res
 
     /* 50 */ const void* _pU50;
 };
@@ -213,9 +218,9 @@ enum {
     US_SOLOANIM_1   = (1 << 14),
     US_SOLOANIM_2   = (1 << 15),
     US_BIT16        = (1 << 16),
-    // = (1 << 17),
-    // = (1 << 18),
-    // = (1 << 19),
+    US_BIT17        = (1 << 17),
+    US_BIT18        = (1 << 18),
+    US_BIT19        = (1 << 19),
     US_BIT20        = (1 << 20),
     US_BIT21        = (1 << 21),
     US_BIT22        = (1 << 22),
@@ -246,7 +251,7 @@ enum {
     UNIT_STATUS_ATTACK = 5,
     UNIT_STATUS_DEFENSE = 6,
     UNIT_STATUS_CRIT = 7,
-    UNIT_STATUS_DODGE = 8,
+    UNIT_STATUS_AVOID = 8,
 
     UNIT_STATUS_SICK = 9,
     UNIT_STATUS_RECOVER = 10,
@@ -292,7 +297,7 @@ enum {
     CA_TRIANGLEATTACK_PEGASI = (1 << 21),
     CA_TRIANGLEATTACK_ARMORS = (1 << 22),
     CA_BIT_23 = 0x00800000,
-    // = 0x01000000,
+    CA_NEGATE_LETHALITY = 0x01000000,
     CA_LETHALITY = 0x02000000,
     CA_MAGICSEAL = 0x04000000,
     CA_SUMMON = 0x08000000,
@@ -303,6 +308,7 @@ enum {
 
     // Helpers
     CA_REFRESHER = CA_DANCE | CA_PLAY,
+    CA_TRIANGLEATTACK_ANY = CA_TRIANGLEATTACK_ARMORS | CA_TRIANGLEATTACK_PEGASI,
 };
 
 enum {
@@ -310,62 +316,6 @@ enum {
 
     UNIT_USEBIT_WEAPON = (1 << 0),
     UNIT_USEBIT_STAFF  = (1 << 1),
-};
-
-// TODO: MOVE ELSEWHERE (bmbattle?)
-struct BattleUnit {
-    /* 00 */ struct Unit unit;
-
-    /* 48 */ u16 weaponAfter;
-    /* 4A */ u16 weaponBefore;
-    /* 4C */ u32 weaponAttributes;
-    /* 50 */ u8 weaponType;
-    /* 51 */ u8 weaponSlotIndex;
-
-    /* 52 */ u8 canCounter;
-
-    /* 53 */ s8 WTHitModifier;
-    /* 54 */ s8 WTAtkModifier;
-
-    /* 55 */ u8 terrainIndex;
-    /* 56 */ u8 terrainDefense;
-    /* 57 */ u8 terrainAvoid;
-    /* 58 */ u8 terrainResistance;
-    /* 59 */ u8 _u59;
-
-    /* 5A */ u16 battleAttack;
-    /* 5C */ u16 battleDefense;
-    /* 5E */ u16 battleAttackSpeed;
-    /* 60 */ u16 battleHit;
-    /* 62 */ u16 battleAvoid;
-    /* 64 */ u16 battleEffectiveHit;
-    /* 66 */ u16 battleCrit;
-    /* 68 */ u16 battleDodge;
-    /* 6A */ u16 battleEffectiveCrit;
-    /* 6C */ u16 battleSilencerRate;
-
-    /* 6E */ u8 expGain;
-    /* 6F */ u8 statusOut;
-    /* 70 */ u8 levelPrevious;
-    /* 71 */ u8 expPrevious;
-
-    /* 72 */ u8 currentHP;
-
-    /* 73 */ s8 changeHP;
-    /* 74 */ s8 changePow;
-    /* 75 */ s8 changeSkl;
-    /* 76 */ s8 changeSpd;
-    /* 77 */ s8 changeDef;
-    /* 78 */ s8 changeRes;
-    /* 79 */ s8 changeLck;
-    /* 7A */ s8 changeCon;
-
-    /* 7B */ s8 wexpMultiplier;
-    /* 7C */ u8 nonZeroDamage;
-    /* 7D */ u8 weaponBroke;
-
-    /* 7E */ u8 _u7E;
-    /* 7F */ u8 _u7F;
 };
 
 // TODO: MOVE ELSEWHERE
@@ -490,5 +440,7 @@ s8 CanUnitCrossTerrain(struct Unit* unit, int terrain);
 
 #define UNIT_IS_GORGON_EGG(aUnit) (((aUnit)->pClassData->number == CLASS_GORGONEGG) || ((aUnit)->pClassData->number == CLASS_GORGONEGG2))
 #define UNIT_IS_PHANTOM(aUnit) ((aUnit)->pClassData->number == CLASS_PHANTOM)
+
+#define UNIT_ARENA_LEVEL(aUnit) (((aUnit)->state >> 17) & 0x7)
 
 #endif // GUARD_BM_UNIT_H

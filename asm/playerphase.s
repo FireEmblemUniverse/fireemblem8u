@@ -7,7 +7,7 @@
 	THUMB_FUNC_START ClearActionAndSave
 ClearActionAndSave: @ 0x0801C894
 	push {lr}
-	ldr r1, _0801C8A8  @ gUnknown_0203A958
+	ldr r1, _0801C8A8  @ gActionData
 	movs r0, #0
 	strb r0, [r1, #0x16]
 	movs r0, #3
@@ -15,7 +15,7 @@ ClearActionAndSave: @ 0x0801C894
 	pop {r0}
 	bx r0
 	.align 2, 0
-_0801C8A8: .4byte gUnknown_0203A958
+_0801C8A8: .4byte gActionData
 
 	THUMB_FUNC_START HandlePlayerCursorMovement
 HandlePlayerCursorMovement: @ 0x0801C8AC
@@ -357,7 +357,7 @@ DisplayUnitEffectRange: @ 0x0801CB70
 	ldrb r1, [r1, #0x12]
 	ldrb r2, [r0, #0x1d]
 	adds r1, r1, r2
-	ldr r2, _0801CBDC  @ gUnknown_0203A958
+	ldr r2, _0801CBDC  @ gActionData
 	ldrb r2, [r2, #0x10]
 	subs r1, r1, r2
 	lsls r1, r1, #0x18
@@ -396,7 +396,7 @@ _0801CBB8:
 	b _0801CC10
 	.align 2, 0
 _0801CBD8: .4byte gActiveUnit
-_0801CBDC: .4byte gUnknown_0203A958
+_0801CBDC: .4byte gActionData
 _0801CBE0: .4byte gUnknown_0202E4F0
 _0801CBE4: .4byte gUnknown_0202E4E4
 _0801CBE8:
@@ -892,7 +892,7 @@ sub_801CFF0: @ 0x0801CFF0
 	@ Player Phase Action Cancel
 
 	push {lr}
-	ldr r2, _0801D004  @ gUnknown_0203A958
+	ldr r2, _0801D004  @ gActionData
 	movs r1, #0
 	strb r1, [r2, #0x11]
 	movs r1, #2
@@ -900,7 +900,7 @@ sub_801CFF0: @ 0x0801CFF0
 	pop {r0}
 	bx r0
 	.align 2, 0
-_0801D004: .4byte gUnknown_0203A958
+_0801D004: .4byte gActionData
 
 	THUMB_FUNC_START sub_801D008
 sub_801D008: @ 0x0801D008
@@ -960,7 +960,7 @@ _0801D080: .4byte gActiveUnit
 _6CE_PLAYERPAHSE_PrepareAction: @ 0x0801D084
 	push {r4, r5, r6, lr}
 	adds r6, r0, #0
-	ldr r4, _0801D0C4  @ gUnknown_0203A958
+	ldr r4, _0801D0C4  @ gActionData
 	ldrb r0, [r4, #0xc]
 	bl GetUnit
 	movs r5, #0x10
@@ -988,7 +988,7 @@ _0801D0B8:
 	ldr r0, [r0]
 	mov pc, r0
 	.align 2, 0
-_0801D0C4: .4byte gUnknown_0203A958
+_0801D0C4: .4byte gActionData
 _0801D0C8: .4byte _0801D0CC
 _0801D0CC: @ jump table
 	.4byte _0801D158 @ case 0
@@ -1032,13 +1032,13 @@ _0801D158:
 	ldrb r0, [r0]
 	cmp r0, #0
 	beq _0801D174
-	ldr r1, _0801D170  @ gUnknown_0203A958
+	ldr r1, _0801D170  @ gActionData
 	movs r0, #0x1f
 	strb r0, [r1, #0x11]
 	b _0801D1C8
 	.align 2, 0
 _0801D16C: .4byte gUnknown_0202BCB0
-_0801D170: .4byte gUnknown_0203A958
+_0801D170: .4byte gActionData
 _0801D174:
 	adds r0, r6, #0
 	bl sub_801D008
@@ -1084,7 +1084,7 @@ _0801D1B8:
 	.align 2, 0
 _0801D1C4: .4byte gUnknown_0202BCB0
 _0801D1C8:
-	ldr r4, _0801D200  @ gUnknown_0203A958
+	ldr r4, _0801D200  @ gActionData
 	ldrb r0, [r4, #0xc]
 	bl GetUnit
 	ldrb r1, [r4, #0x12]
@@ -1094,7 +1094,7 @@ _0801D1C8:
 	ldrh r0, [r0]
 	bl GetItemIndex
 	adds r2, r0, #0
-	ldr r0, _0801D204  @ gUnknown_0203A4EC
+	ldr r0, _0801D204  @ gBattleActor
 	adds r0, #0x7e
 	movs r1, #0
 	strb r1, [r0]
@@ -1110,8 +1110,8 @@ _0801D1C8:
 	beq _0801D230
 	b _0801D214
 	.align 2, 0
-_0801D200: .4byte gUnknown_0203A958
-_0801D204: .4byte gUnknown_0203A4EC
+_0801D200: .4byte gActionData
+_0801D204: .4byte gBattleActor
 _0801D208:
 	cmp r2, #0x97
 	blt _0801D214
@@ -1120,7 +1120,7 @@ _0801D208:
 	cmp r2, #0xc1
 	beq _0801D230
 _0801D214:
-	ldr r1, _0801D23C  @ gUnknown_0203A958
+	ldr r1, _0801D23C  @ gActionData
 	ldrb r0, [r1, #0x11]
 	cmp r0, #1
 	beq _0801D230
@@ -1141,7 +1141,7 @@ _0801D234:
 	pop {r1}
 	bx r1
 	.align 2, 0
-_0801D23C: .4byte gUnknown_0203A958
+_0801D23C: .4byte gActionData
 _0801D240: .4byte gUnknown_0202BCB0
 
 	THUMB_FUNC_START TryMakeCantoUnit
@@ -1165,7 +1165,7 @@ TryMakeCantoUnit: @ 0x0801D244
 	ands r0, r1
 	cmp r0, #0
 	bne _0801D298
-	ldr r0, _0801D2A4  @ gUnknown_0203A958
+	ldr r0, _0801D2A4  @ gActionData
 	ldrb r1, [r0, #0x11]
 	adds r2, r0, #0
 	cmp r1, #3
@@ -1194,7 +1194,7 @@ _0801D298:
 	.align 2, 0
 _0801D29C: .4byte gActiveUnit
 _0801D2A0: .4byte 0x00010044
-_0801D2A4: .4byte gUnknown_0203A958
+_0801D2A4: .4byte gActionData
 _0801D2A8:
 	ldr r0, _0801D2E8  @ gUnknown_0202E4E4
 	ldr r0, [r0]
@@ -1283,7 +1283,7 @@ sub_801D344: @ 0x0801D344
 	cmp r0, #0
 	beq _0801D37C
 	bl sub_8019CBC
-	ldr r1, _0801D378  @ gUnknown_0203A958
+	ldr r1, _0801D378  @ gActionData
 	ldrb r0, [r1, #0xe]
 	ldrb r1, [r1, #0xf]
 	bl MoveActiveUnit
@@ -1295,9 +1295,9 @@ sub_801D344: @ 0x0801D344
 	b _0801D38E
 	.align 2, 0
 _0801D374: .4byte gUnknown_0202BCF0
-_0801D378: .4byte gUnknown_0203A958
+_0801D378: .4byte gActionData
 _0801D37C:
-	ldr r1, _0801D3C0  @ gUnknown_0203A958
+	ldr r1, _0801D3C0  @ gActionData
 	ldrb r0, [r1, #0xe]
 	ldrb r1, [r1, #0xf]
 	bl MoveActiveUnit
@@ -1327,7 +1327,7 @@ _0801D38E:
 	bl HideUnitSMS
 	b _0801D3FC
 	.align 2, 0
-_0801D3C0: .4byte gUnknown_0203A958
+_0801D3C0: .4byte gActionData
 _0801D3C4: .4byte gActiveUnit
 _0801D3C8: .4byte gUnknown_0202BCF0
 _0801D3CC: .4byte gUnknown_0202BCB0
@@ -1359,7 +1359,7 @@ sub_801D404: @ 0x0801D404
 	ldrb r0, [r0, #0xf]
 	cmp r0, #0
 	bne _0801D428
-	ldr r1, _0801D430  @ gUnknown_0203A958
+	ldr r1, _0801D430  @ gActionData
 	ldrb r0, [r1, #0xe]
 	ldrb r1, [r1, #0xf]
 	bl MoveActiveUnit
@@ -1372,13 +1372,13 @@ _0801D428:
 	bx r0
 	.align 2, 0
 _0801D42C: .4byte gUnknown_0202BCF0
-_0801D430: .4byte gUnknown_0203A958
+_0801D430: .4byte gActionData
 
 	THUMB_FUNC_START sub_801D434
 sub_801D434: @ 0x0801D434
 	push {r4, lr}
 	adds r4, r0, #0
-	ldr r0, _0801D464  @ gUnknown_0203A958
+	ldr r0, _0801D464  @ gActionData
 	ldrb r0, [r0, #0x11]
 	cmp r0, #0x1e
 	beq _0801D456
@@ -1399,7 +1399,7 @@ _0801D456:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_0801D464: .4byte gUnknown_0203A958
+_0801D464: .4byte gActionData
 _0801D468: .4byte gUnknown_0859D1F0
 _0801D46C: .4byte gUnknown_0202BCB0
 
@@ -1409,7 +1409,7 @@ PlayerPhase_ApplyUnitMovement: @ 0x0801D470
 	adds r6, r0, #0
 	ldr r4, _0801D4D4  @ gActiveUnit
 	ldr r1, [r4]
-	ldr r5, _0801D4D8  @ gUnknown_0203A958
+	ldr r5, _0801D4D8  @ gActionData
 	ldrb r0, [r5, #0xe]
 	strb r0, [r1, #0x10]
 	ldr r1, [r4]
@@ -1453,11 +1453,11 @@ _0801D4BA:
 	b _0801D508
 	.align 2, 0
 _0801D4D4: .4byte gActiveUnit
-_0801D4D8: .4byte gUnknown_0203A958
+_0801D4D8: .4byte gActionData
 _0801D4DC: .4byte gUnknown_0202BCB0
 _0801D4E0: .4byte gUnknown_0202E4E0
 _0801D4E4:
-	ldr r0, _0801D510  @ gUnknown_0203A958
+	ldr r0, _0801D510  @ gActionData
 	ldrb r0, [r0, #0x11]
 	cmp r0, #0x1e
 	beq _0801D502
@@ -1479,7 +1479,7 @@ _0801D508:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_0801D510: .4byte gUnknown_0203A958
+_0801D510: .4byte gActionData
 _0801D514: .4byte gUnknown_0859D1F0
 _0801D518: .4byte gUnknown_0202BCB0
 
@@ -1897,7 +1897,7 @@ sub_801D834: @ 0x0801D834
 	ands r0, r1
 	cmp r0, #0
 	bne _0801D888
-	ldr r4, _0801D898  @ gUnknown_0203A958
+	ldr r4, _0801D898  @ gActionData
 	ldrb r0, [r4, #0x11]
 	subs r0, #2
 	lsls r0, r0, #0x18
@@ -1928,7 +1928,7 @@ _0801D888:
 	.align 2, 0
 _0801D890: .4byte gActiveUnit
 _0801D894: .4byte 0x00010044
-_0801D898: .4byte gUnknown_0203A958
+_0801D898: .4byte gActionData
 
 	THUMB_FUNC_START Load6CRangeDisplaySquareGfx
 Load6CRangeDisplaySquareGfx: @ 0x0801D89C

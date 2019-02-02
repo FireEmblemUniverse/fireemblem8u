@@ -88,7 +88,7 @@ SECTIONS
         asm/bmudisp.o(.text);
         asm/bmreliance.o(.text);
         asm/bmitemuse.o(.text);
-        asm/bmbattle.o(.text);
+        src/bmbattle.o(.text);
         asm/bmtrade.o(.text);
         asm/bmtrick.o(.text);
         asm/bmusemind.o(.text);
@@ -199,6 +199,8 @@ SECTIONS
         . = ALIGN(4); src/bmitem.o(.rodata);
         . = ALIGN(4); src/bmunit.o(.rodata);
         . = ALIGN(4); data/const_data_D7A6C.o(.rodata);
+        . = ALIGN(4); src/bmbattle.o(.rodata);
+        . = ALIGN(4); data/const_data_D7C40.o(.rodata);
         . = ALIGN(4); src/bmio.o(.rodata);
         . = ALIGN(4); data/const_data_D7F5C.o(.rodata);
         . = ALIGN(4); data/text.o(.rodata);
@@ -225,6 +227,8 @@ SECTIONS
         . = ALIGN(4); data/data_591AB4.o(.data);
         . = ALIGN(4); src/bmunit.o(.data);
         . = ALIGN(4); data/data_59A9D0.o(.data);
+        . = ALIGN(4); src/bmbattle.o(.data);
+        . = ALIGN(4); data/data_59BADC.o(.data);
         . = ALIGN(4); src/bmio.o(.data);
         . = ALIGN(4); data/data_59D9FC.o(.data);
         . = ALIGN(4); src/mu.o(.data);

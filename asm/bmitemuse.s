@@ -1312,28 +1312,28 @@ EndItemEffectSelectionThing: @ 0x0802951C
 	bl BG_Fill
 	movs r0, #4
 	bl BG_EnableSyncByMask
-	ldr r1, _08029540  @ gUnknown_0203A958
+	ldr r1, _08029540  @ gActionData
 	movs r0, #3
 	strb r0, [r1, #0x11]
 	pop {r0}
 	bx r0
 	.align 2, 0
 _0802953C: .4byte gBG2TilemapBuffer
-_08029540: .4byte gUnknown_0203A958
+_08029540: .4byte gActionData
 
 	THUMB_FUNC_START sub_8029544
 sub_8029544: @ 0x08029544
-	ldr r1, _0802954C  @ gUnknown_0203A958
+	ldr r1, _0802954C  @ gActionData
 	movs r0, #0x1a
 	strb r0, [r1, #0x11]
 	bx lr
 	.align 2, 0
-_0802954C: .4byte gUnknown_0203A958
+_0802954C: .4byte gActionData
 
 	THUMB_FUNC_START GenericStaffSelection_OnSelect
 GenericStaffSelection_OnSelect: @ 0x08029550
 	push {lr}
-	ldr r2, _08029564  @ gUnknown_0203A958
+	ldr r2, _08029564  @ gActionData
 	ldrb r0, [r1, #2]
 	strb r0, [r2, #0xd]
 	movs r0, #0
@@ -1342,7 +1342,7 @@ GenericStaffSelection_OnSelect: @ 0x08029550
 	pop {r1}
 	bx r1
 	.align 2, 0
-_08029564: .4byte gUnknown_0203A958
+_08029564: .4byte gActionData
 
 	THUMB_FUNC_START PrepareTargetSelectionForRescueStaff
 PrepareTargetSelectionForRescueStaff: @ 0x08029568
@@ -1409,7 +1409,7 @@ WarpTargetPosSelect_Init: @ 0x080295E8
 	adds r1, r0, #0
 	adds r0, r6, #0
 	bl NewBottomHelpText
-	ldr r5, _0802968C  @ gUnknown_0203A958
+	ldr r5, _0802968C  @ gActionData
 	ldrb r0, [r5, #0xd]
 	bl GetUnit
 	movs r4, #0x10
@@ -1468,7 +1468,7 @@ WarpTargetPosSelect_Init: @ 0x080295E8
 	bx r0
 	.align 2, 0
 _08029688: .4byte 0x00000871
-_0802968C: .4byte gUnknown_0203A958
+_0802968C: .4byte gActionData
 _08029690: .4byte gActiveUnit
 _08029694: .4byte gUnknown_0202BCB0
 _08029698: .4byte gUnknown_085A0EA0
@@ -1506,7 +1506,7 @@ WarpTargetPosSelect_Loop: @ 0x0802969C
 	beq _08029730
 	adds r0, r5, #0
 	bl Proc_ClearNativeCallback
-	ldr r1, _08029720  @ gUnknown_0203A958
+	ldr r1, _08029720  @ gActionData
 	ldrh r0, [r4, #0x14]
 	strb r0, [r1, #0x13]
 	ldrh r0, [r4, #0x16]
@@ -1532,7 +1532,7 @@ WarpTargetPosSelect_Loop: @ 0x0802969C
 _08029714: .4byte gUnknown_0202BCB0
 _08029718: .4byte gUnknown_0202E4E0
 _0802971C: .4byte gKeyStatusPtr
-_08029720: .4byte gUnknown_0203A958
+_08029720: .4byte gActionData
 _08029724: .4byte gActiveUnit
 _08029728: .4byte gBG2TilemapBuffer
 _0802972C: .4byte gUnknown_0202BCF0
@@ -1680,7 +1680,7 @@ WarpTargetSelection_OnSelect: @ 0x08029854
 	push {r4, lr}
 	adds r4, r1, #0
 	bl EndTargetSelection
-	ldr r1, _08029874  @ gUnknown_0203A958
+	ldr r1, _08029874  @ gActionData
 	ldrb r0, [r4, #2]
 	strb r0, [r1, #0xd]
 	ldr r0, _08029878  @ gUnknown_0859B9B8
@@ -1691,7 +1691,7 @@ WarpTargetSelection_OnSelect: @ 0x08029854
 	pop {r1}
 	bx r1
 	.align 2, 0
-_08029874: .4byte gUnknown_0203A958
+_08029874: .4byte gActionData
 _08029878: .4byte gUnknown_0859B9B8
 
 	THUMB_FUNC_START SetupWarpTargetSelection
@@ -1734,7 +1734,7 @@ _080298D0: .4byte gUnknown_0202BCF0
 	THUMB_FUNC_START sub_80298D4
 sub_80298D4: @ 0x080298D4
 	push {lr}
-	ldr r2, _080298EC  @ gUnknown_0203A958
+	ldr r2, _080298EC  @ gActionData
 	ldrb r0, [r1]
 	strb r0, [r2, #0x13]
 	ldrb r0, [r1, #1]
@@ -1745,7 +1745,7 @@ sub_80298D4: @ 0x080298D4
 	pop {r1}
 	bx r1
 	.align 2, 0
-_080298EC: .4byte gUnknown_0203A958
+_080298EC: .4byte gActionData
 
 	THUMB_FUNC_START PrepareTargetSelectionForMineAndLightRune
 PrepareTargetSelectionForMineAndLightRune: @ 0x080298F0
@@ -1790,7 +1790,7 @@ HammerneTargetSelection_OnSelect: @ 0x08029944
 	sub sp, #4
 	adds r4, r1, #0
 	bl sub_8003D20
-	ldr r5, _080299B0  @ gUnknown_0203A958
+	ldr r5, _080299B0  @ gActionData
 	ldrb r0, [r4, #2]
 	strb r0, [r5, #0xd]
 	ldr r0, _080299B4  @ gUnknown_0859D064
@@ -1830,7 +1830,7 @@ _080299A4:
 	pop {r1}
 	bx r1
 	.align 2, 0
-_080299B0: .4byte gUnknown_0203A958
+_080299B0: .4byte gActionData
 _080299B4: .4byte gUnknown_0859D064
 
 	THUMB_FUNC_START SetupHammerneUseSelection
@@ -1910,7 +1910,7 @@ nullsub_24: @ 0x08029A48
 sub_8029A4C: @ 0x08029A4C
 	push {r4, lr}
 	adds r4, r1, #0
-	ldr r0, _08029A68  @ gUnknown_0203A958
+	ldr r0, _08029A68  @ gActionData
 	ldrb r0, [r0, #0xd]
 	bl GetUnit
 	lsls r4, r4, #1
@@ -1922,7 +1922,7 @@ sub_8029A4C: @ 0x08029A4C
 	movs r0, #3
 	b _08029A7C
 	.align 2, 0
-_08029A68: .4byte gUnknown_0203A958
+_08029A68: .4byte gActionData
 _08029A6C:
 	bl IsItemHammernable
 	lsls r0, r0, #0x18
@@ -1941,7 +1941,7 @@ _08029A7C:
 sub_8029A84: @ 0x08029A84
 	push {r4, r5, r6, lr}
 	adds r5, r1, #0
-	ldr r0, _08029AD8  @ gUnknown_0203A958
+	ldr r0, _08029AD8  @ gActionData
 	ldrb r0, [r0, #0xd]
 	bl GetUnit
 	adds r1, r5, #0
@@ -1978,7 +1978,7 @@ sub_8029A84: @ 0x08029A84
 	pop {r1}
 	bx r1
 	.align 2, 0
-_08029AD8: .4byte gUnknown_0203A958
+_08029AD8: .4byte gActionData
 _08029ADC: .4byte gBG0TilemapBuffer
 
 	THUMB_FUNC_START sub_8029AE0
@@ -1992,7 +1992,7 @@ sub_8029AE0: @ 0x08029AE0
 	cmp r0, #2
 	bne _08029B68
 	movs r6, #0
-	ldr r0, _08029B20  @ gUnknown_0203A958
+	ldr r0, _08029B20  @ gActionData
 	ldrb r0, [r0, #0xd]
 	bl GetUnit
 	adds r1, r4, #0
@@ -2014,7 +2014,7 @@ sub_8029AE0: @ 0x08029AE0
 	ldr r6, _08029B24  @ 0x00000863
 	b _08029B58
 	.align 2, 0
-_08029B20: .4byte gUnknown_0203A958
+_08029B20: .4byte gActionData
 _08029B24: .4byte 0x00000863
 _08029B28:
 	adds r0, r5, #0
@@ -2049,7 +2049,7 @@ _08029B60:
 	.align 2, 0
 _08029B64: .4byte 0x00000856
 _08029B68:
-	ldr r1, _08029B84  @ gUnknown_0203A958
+	ldr r1, _08029B84  @ gActionData
 	adds r0, r4, #0
 	adds r0, #0x3c
 	ldrb r0, [r0]
@@ -2063,7 +2063,7 @@ _08029B7C:
 	pop {r1}
 	bx r1
 	.align 2, 0
-_08029B84: .4byte gUnknown_0203A958
+_08029B84: .4byte gActionData
 _08029B88: .4byte gActiveUnit
 
 	THUMB_FUNC_START PrepareTargetSelectionForHeal
@@ -2241,7 +2241,7 @@ sub_8029CE8: @ 0x08029CE8
 	bl GetUnit
 	adds r1, r0, #0
 	adds r0, r5, #0
-	bl GetStaffAccuracy
+	bl GetOffensiveStaffAccuracy
 	adds r1, r0, #0
 	adds r0, r6, #0
 	bl sub_803511C
@@ -2386,7 +2386,7 @@ TorchTargetSelection_Loop: @ 0x08029DF0
 _08029E34:
 	adds r0, r6, #0
 	bl Proc_ClearNativeCallback
-	ldr r1, _08029E60  @ gUnknown_0203A958
+	ldr r1, _08029E60  @ gActionData
 	ldrh r0, [r5, #0x14]
 	strb r0, [r1, #0x13]
 	ldrh r0, [r5, #0x16]
@@ -2400,7 +2400,7 @@ _08029E50: .4byte gUnknown_0202BCB0
 _08029E54: .4byte gUnknown_0202E4E4
 _08029E58: .4byte gKeyStatusPtr
 _08029E5C: .4byte gUnknown_0202BCF0
-_08029E60: .4byte gUnknown_0203A958
+_08029E60: .4byte gActionData
 _08029E64: .4byte gActiveUnit
 _08029E68:
 	ldr r0, _08029EC8  @ gUnknown_0202BCF0

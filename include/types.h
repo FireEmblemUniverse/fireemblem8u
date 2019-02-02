@@ -10,6 +10,7 @@ struct BattleUnit; // currently in bmunit.h
 struct UnitDefinition; // currently in bmunit.h
 
 // Type definitions for types without any other home :/
+struct BattleHit;
 
 struct BgCoords
 {
@@ -266,7 +267,9 @@ struct ActionData
 
     /* 16 */ u8 suspendPointType;
 
-    /* 17+ TODO (sizeof(struct ActionData) == 0x38) */
+    /* 18 */ struct BattleHit* scriptedBattleHits;
+
+    /* 1C+ TODO (sizeof(struct ActionData) == 0x38) */
 };
 
 enum {
@@ -358,6 +361,23 @@ struct SMSHandle {
 };
 
 enum {
+    TRAP_NONE       = 0,
+    TRAP_BALLISTA   = 1,
+    TRAP_OBSTACLE   = 2, // walls & snags
+    TRAP_MAPCHANGE  = 3,
+    TRAP_FIRETILE   = 4,
+    TRAP_GAS        = 5,
+    TRAP_MAPCHANGE2 = 6, // TODO: figure out
+    TRAP_LIGHTARROW = 7,
+    TRAP_8          = 8,
+    TRAP_9          = 9,
+    TRAP_TORCHLIGHT = 10,
+    TRAP_MINE       = 11,
+    TRAP_GORGON_EGG = 12, // TODO: figure out
+    TRAP_LIGHT_RUNE = 13,
+};
+
+enum {
     // Ballista extdata definitions
     TRAP_EXTDATA_BLST_ITEMID   = 0, // ballista item id
     TRAP_EXTDATA_BLST_RIDDEN   = 2, // "is ridden" boolean
@@ -423,6 +443,75 @@ struct MapAnimState {
 struct MMSData {
     const void* pGraphics;
     const void* pAnimation;
+};
+
+struct SupportBonuses {
+    /* 00 */ u8 unk00;
+
+    /* 01 */ u8 bonusAttack;
+    /* 02 */ u8 bonusDefense;
+    /* 03 */ u8 bonusHit;
+    /* 04 */ u8 bonusAvoid;
+    /* 05 */ u8 bonusCrit;
+    /* 06 */ u8 bonusDodge;
+};
+
+struct ArenaData {
+    /* 00 */ struct Unit* playerUnit;
+    /* 04 */ struct Unit* opponentUnit;
+    /* 08 */ short unk08;
+    /* 0A */ u8 unk0A;
+    /* 0B */ u8 unk0B;
+    /* 0C */ u8 range;
+    /* 0D */ u8 playerWpnType;
+    /* 0E */ u8 opponentWpnType;
+    /* 0F */ u8 playerClassId;
+    /* 10 */ u8 opponentClassId;
+    /* 11 */ u8 playerLevel;
+    /* 12 */ u8 oppenentLevel;
+    /* 13 */ s8 playerIsMagic;
+    /* 14 */ s8 opponentIsMagic;
+    /* 16 */ short playerPowerWeight;
+    /* 18 */ short opponentPowerWeight;
+    /* 1A */ u16 playerWeapon;
+    /* 1C */ u16 opponentWeapon;
+};
+
+struct GMapData {
+    /* 00 */ u8 state;
+    /* 01 */ u8 unk01;
+    /* 02 */ short xCamera;
+    /* 04 */ short yCamera;
+    /* 08 */ u32 unk08;
+    /* 0C */ u32 unk0C;
+    /* 10 */ struct { u8 state, location; u16 unk; } unk10[4];
+    /* 20 */ struct { u8 state, location; u16 unk; } unk20[4];
+    /* 30 */ struct { u8 unk; } unk30[0x1D];
+};
+
+enum {
+    // For use with GMapData:state
+
+    GMAP_STATE_BIT0 = (1 << 0),
+    GMAP_STATE_BIT1 = (1 << 1),
+    GMAP_STATE_BIT2 = (1 << 2),
+    GMAP_STATE_BIT3 = (1 << 3),
+    GMAP_STATE_BIT4 = (1 << 4),
+    GMAP_STATE_BIT5 = (1 << 5),
+    GMAP_STATE_BIT6 = (1 << 6),
+    GMAP_STATE_BIT7 = (1 << 7),
+};
+
+enum {
+    SAVE_BLOCK_SAVE_BASE      = 0,
+    SAVE_BLOCK_SAVE1          = SAVE_BLOCK_SAVE_BASE + 0,
+    SAVE_BLOCK_SAVE2          = SAVE_BLOCK_SAVE_BASE + 1,
+    SAVE_BLOCK_SAVE3          = SAVE_BLOCK_SAVE_BASE + 2,
+
+    SAVE_BLOCK_SUSPEND_BASE   = 3,
+    SAVE_BLOCK_SUSPEND        = SAVE_BLOCK_SUSPEND_BASE + 0,
+    SAVE_BLOCK_SUSPEND_BACKUP = SAVE_BLOCK_SUSPEND_BASE + 1,
+    // TODO: 5 & 6
 };
 
 // TODO: move to bmcontainer.h

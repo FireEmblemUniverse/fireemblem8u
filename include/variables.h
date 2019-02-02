@@ -551,12 +551,6 @@ extern u8** gUnknown_0202E4F0; // gMapOther
 // extern ??? gUnknown_0203A4C8
 // extern ??? gUnknown_0203A4CC
 // extern ??? gUnknown_0203A4D0
-// extern ??? gUnknown_0203A4D4
-extern struct BattleUnit gUnknown_0203A4EC;
-// extern ??? gUnknown_0203A56C
-// extern ??? gUnknown_0203A5EC
-// extern ??? gUnknown_0203A608
-// extern ??? gUnknown_0203A60C
 // extern ??? gUnknown_0203A610
 // extern ??? gUnknown_0203A614
 // extern ??? gUnknown_0203A814
@@ -564,9 +558,9 @@ extern struct BattleUnit gUnknown_0203A4EC;
 // extern ??? gUnknown_0203A8E4
 // extern ??? gUnknown_0203A8E8
 // extern ??? gUnknown_0203A8EC
-// extern ??? gUnknown_0203A8F0
-// extern ??? gUnknown_0203A910
-extern struct ActionData gUnknown_0203A958;
+extern struct ArenaData gUnknown_0203A8F0;
+extern struct Unit gUnknown_0203A910; // arena opponent unit
+extern struct ActionData gActionData;
 // extern ??? gUnknown_0203A95E
 // extern ??? gUnknown_0203A974
 // extern ??? gUnknown_0203A9FC
@@ -791,8 +785,8 @@ extern struct OamDataTransfer gUnknown_03000030;
 // extern ??? gUnknown_03002B98
 // extern ??? SoundMainRAM_Buffer
 // extern ??? gUnknown_03002C61
-// extern ??? gUnknown_03003060
-extern void *gUnknown_03003070;
+extern u8 gUnknown_03003060;
+extern void* gUnknown_03003070;
 extern struct Struct03003080 gLCDControlBuffer;
 //extern u16 gUnknown_0300308C[];
 // extern ??? gUnknown_03003090
@@ -847,7 +841,7 @@ extern struct Unit* gActiveUnit; // gActiveUnit // Active Unit
 // extern ??? gUnknown_03005110
 // extern ??? gUnknown_03005250
 // extern ??? gUnknown_03005270
-// extern ??? gUnknown_03005280
+extern struct GMapData gUnknown_03005280;
 // extern ??? gUnknown_03005324
 // extern ??? gUnknown_03005349
 // extern ??? gUnknown_0300534E
@@ -919,7 +913,6 @@ extern short gSinLookup[]; // gSinTable; needs to be non-const to match?
 // extern ??? gUnknown_080D7C0C
 // extern ??? gUnknown_080D7C14
 // extern ??? gUnknown_080D7C18
-// extern ??? gUnknown_080D7C38
 // extern ??? gUnknown_080D7C40
 // extern ??? gUnknown_080D7C42
 // extern ??? gUnknown_080D7C44
@@ -1561,8 +1554,6 @@ extern const struct ProcCmd gUnknown_0859A548[]; // this is GENS/Camera Movement
 // extern ??? gUnknown_0859B9A8
 // extern ??? gUnknown_0859B9B8
 // extern ??? gUnknown_0859BA38
-// extern ??? gUnknown_0859BA90
-// extern ??? gUnknown_0859BAC4
 // extern ??? gUnknown_0859BADC
 // extern ??? gUnknown_0859BB1C
 // extern ??? gUnknown_0859BBD4

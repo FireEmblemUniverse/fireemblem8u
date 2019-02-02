@@ -259,7 +259,7 @@ sub_80344E8: @ 0x080344E8
 	ldrb r1, [r1, #0x12]
 	ldrb r2, [r0, #0x1d]
 	adds r1, r1, r2
-	ldr r2, _08034510  @ gUnknown_0203A958
+	ldr r2, _08034510  @ gActionData
 	ldrb r2, [r2, #0x10]
 	subs r1, r1, r2
 	lsls r1, r1, #0x18
@@ -270,7 +270,7 @@ sub_80344E8: @ 0x080344E8
 	bx r1
 	.align 2, 0
 _0803450C: .4byte gActiveUnit
-_08034510: .4byte gUnknown_0203A958
+_08034510: .4byte gActionData
 
 	THUMB_FUNC_START sub_8034514
 sub_8034514: @ 0x08034514
@@ -313,7 +313,7 @@ sub_8034550: @ 0x08034550
 	movs r1, #0
 	bl ClearMapWith
 	movs r5, #0x81
-	ldr r6, _08034608  @ gUnknown_0203A958
+	ldr r6, _08034608  @ gActionData
 _0803456A:
 	adds r0, r5, #0
 	bl GetUnit
@@ -396,7 +396,7 @@ _080345FE:
 	bx r0
 	.align 2, 0
 _08034604: .4byte gUnknown_0202E4F0
-_08034608: .4byte gUnknown_0203A958
+_08034608: .4byte gActionData
 _0803460C: .4byte gUnknown_0202E4D4
 _08034610: .4byte gUnknown_0202E4E0
 _08034614: .4byte gUnknown_0202E4D8

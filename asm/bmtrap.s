@@ -36,7 +36,7 @@ sub_8037494: @ 0x08037494
 	adds r4, r0, #0
 	ldr r0, _080374BC  @ gUnknown_0859E520
 	bl Proc_Find
-	ldr r1, _080374C0  @ gUnknown_0203A4EC
+	ldr r1, _080374C0  @ gBattleActor
 	adds r1, #0x53
 	movs r2, #0
 	ldrsb r2, [r1, r2]
@@ -52,7 +52,7 @@ sub_8037494: @ 0x08037494
 	bx r0
 	.align 2, 0
 _080374BC: .4byte gUnknown_0859E520
-_080374C0: .4byte gUnknown_0203A4EC
+_080374C0: .4byte gBattleActor
 
 	THUMB_FUNC_START sub_80374C4
 sub_80374C4: @ 0x080374C4
@@ -60,7 +60,7 @@ sub_80374C4: @ 0x080374C4
 	adds r4, r0, #0
 	ldr r0, _080374EC  @ gUnknown_0859E520
 	bl Proc_Find
-	ldr r1, _080374F0  @ gUnknown_0203A56C
+	ldr r1, _080374F0  @ gBattleTarget
 	adds r1, #0x53
 	movs r2, #0
 	ldrsb r2, [r1, r2]
@@ -76,7 +76,7 @@ sub_80374C4: @ 0x080374C4
 	bx r0
 	.align 2, 0
 _080374EC: .4byte gUnknown_0859E520
-_080374F0: .4byte gUnknown_0203A56C
+_080374F0: .4byte gBattleTarget
 
 	THUMB_FUNC_START sub_80374F4
 sub_80374F4: @ 0x080374F4
@@ -155,7 +155,7 @@ _0803757C:
 	bl MU_GetByUnit
 	bl MU_End
 _08037586:
-	ldr r1, _0803759C  @ gUnknown_0203A958
+	ldr r1, _0803759C  @ gActionData
 	movs r0, #0xa
 	strb r0, [r1, #0x15]
 	adds r0, r4, #0
@@ -165,7 +165,7 @@ _08037586:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_0803759C: .4byte gUnknown_0203A958
+_0803759C: .4byte gActionData
 
 	THUMB_FUNC_START sub_80375A0
 sub_80375A0: @ 0x080375A0
@@ -403,7 +403,7 @@ HandlePostActionTraps: @ 0x08037744
 	ands r0, r1
 	cmp r0, #0
 	bne _0803777E
-	ldr r0, _08037794  @ gUnknown_0203A958
+	ldr r0, _08037794  @ gActionData
 	ldrb r0, [r0, #0x11]
 	cmp r0, #3
 	bgt _0803778A
@@ -420,15 +420,15 @@ _0803778A:
 	b _080377C0
 	.align 2, 0
 _08037790: .4byte gActiveUnit
-_08037794: .4byte gUnknown_0203A958
+_08037794: .4byte gActionData
 _08037798:
-	ldr r1, _080377C8  @ gUnknown_0203A958
+	ldr r1, _080377C8  @ gActionData
 	movs r0, #1
 	strb r0, [r1, #0x16]
 	strb r0, [r1, #0x11]
 	movs r0, #3
 	bl SaveSuspendedGame
-	bl sub_802CA98
+	bl GetBattleAnimType
 	cmp r0, #1
 	bne _080377B2
 	bl SMS_UpdateFromGameData
@@ -444,13 +444,13 @@ _080377C0:
 	pop {r1}
 	bx r1
 	.align 2, 0
-_080377C8: .4byte gUnknown_0203A958
+_080377C8: .4byte gActionData
 
 	THUMB_FUNC_START sub_80377CC
 sub_80377CC: @ 0x080377CC
 	push {r4, lr}
 	adds r4, r0, #0
-	ldr r0, _080377EC  @ gUnknown_0203A958
+	ldr r0, _080377EC  @ gActionData
 	ldrb r0, [r0, #0xd]
 	bl GetUnit
 	adds r1, r0, #0
@@ -463,7 +463,7 @@ sub_80377CC: @ 0x080377CC
 	pop {r1}
 	bx r1
 	.align 2, 0
-_080377EC: .4byte gUnknown_0203A958
+_080377EC: .4byte gActionData
 
 	THUMB_FUNC_START sub_80377F0
 sub_80377F0: @ 0x080377F0
