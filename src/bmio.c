@@ -11,6 +11,7 @@
 #include "rng.h"
 #include "ctc.h"
 #include "bmunit.h"
+#include "bmbattle.h"
 #include "mu.h"
 
 #include "bmio.h"

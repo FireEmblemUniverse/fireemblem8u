@@ -7,8 +7,8 @@
 #include "constants/characters.h"
 
 #include "bmitem.h"
-
 #include "bmunit.h"
+#include "bmbattle.h"
 
 EWRAM_DATA u8 gActiveUnitId = 0;
 EWRAM_DATA struct { short x, y; } gActiveUnitMoveOrigin = {}; // TODO: struct Vec2?

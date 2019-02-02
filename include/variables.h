@@ -791,8 +791,8 @@ extern struct OamDataTransfer gUnknown_03000030;
 // extern ??? gUnknown_03002B98
 // extern ??? SoundMainRAM_Buffer
 // extern ??? gUnknown_03002C61
-// extern ??? gUnknown_03003060
-extern void *gUnknown_03003070;
+extern u8 gUnknown_03003060;
+extern void* gUnknown_03003070;
 extern struct Struct03003080 gLCDControlBuffer;
 //extern u16 gUnknown_0300308C[];
 // extern ??? gUnknown_03003090

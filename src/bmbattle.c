@@ -8,48 +8,46 @@
 #include "bmitem.h"
 #include "bmunit.h"
 #include "chapterdata.h"
-
 #include "m4a.h"
 #include "soundwrapper.h"
 #include "hardware.h"
 #include "proc.h"
 #include "mu.h"
+#include "bmbattle.h"
 
-struct BattleStats {
-	/* 00 */ u16 config;
-
-	/* 02 */ u8 range;
-	/* 04 */ short damage;
-	/* 06 */ short attack;
-	/* 08 */ short defense;
-	/* 0A */ short hit;
-	/* 0C */ short crit;
-	/* 0E */ short silencerRate;
-
-	/* 10 */ struct Unit* taUnitA;
-	/* 14 */ struct Unit* taUnitB;
+struct WTEntry {
+	s8 attackerWeaponType;
+	s8 defenderWeaponType;
+	s8 hitBonus;
+	s8 atkBonus;
 };
 
-enum {
-	// For use with BattleStats:config
+CONST_DATA struct WTEntry gUnknown_0859BA90[] = {
+	{ ITYPE_SWORD, ITYPE_LANCE, -15, -1 },
+	{ ITYPE_SWORD, ITYPE_AXE,   +15, +1 },
 
-	BATTLE_CONFIG_BIT0 = (1 << 0),
-	BATTLE_CONFIG_SIMULATE = (1 << 1),
-	BATTLE_CONFIG_BIT2 = (1 << 2),
-	BATTLE_CONFIG_BALLISTA = (1 << 3),
-	BATTLE_CONFIG_BIT4 = (1 << 4),
-	BATTLE_CONFIG_ARENA = (1 << 5),
-	BATTLE_CONFIG_REFRESH = (1 << 6),
-	BATTLE_CONFIG_MAPANIMS = (1 << 7),
-	BATTLE_CONFIG_PROMOTION = (1 << 8),
-	BATTLE_CONFIG_DANCERING = (1 << 9),
+	{ ITYPE_LANCE, ITYPE_AXE,   -15, -1 },
+	{ ITYPE_LANCE, ITYPE_SWORD, +15, +1 },
+
+	{ ITYPE_AXE,   ITYPE_SWORD, -15, -1 },
+	{ ITYPE_AXE,   ITYPE_LANCE, +15, +1 },
+
+	{ ITYPE_ANIMA, ITYPE_DARK,  -15, -1 },
+	{ ITYPE_ANIMA, ITYPE_LIGHT, +15, +1 },
+
+	{ ITYPE_LIGHT, ITYPE_ANIMA, -15, -1 },
+	{ ITYPE_LIGHT, ITYPE_DARK,  +15, +1 },
+
+	{ ITYPE_DARK,  ITYPE_LIGHT, -15, -1 },
+	{ ITYPE_DARK,  ITYPE_ANIMA, +15, +1 },
+
+	{ -1 },
 };
 
-enum {
-	BU_ISLOT_5              = UNIT_ITEM_COUNT + 0,
-	BU_ISLOT_ARENA_PLAYER   = UNIT_ITEM_COUNT + 1,
-	BU_ISLOT_ARENA_OPPONENT = UNIT_ITEM_COUNT + 2,
-	BU_ISLOT_BALLISTA       = UNIT_ITEM_COUNT + 3,
+CONST_DATA struct ProcCmd gUnknown_0859BAC4[] = {
+	PROC_SLEEP(1),
+	PROC_CALL_ROUTINE(SaveInstigatorFromBattle),
+	PROC_END
 };
 
 EWRAM_DATA struct BattleStats gUnknown_0203A4D4 = {};
@@ -57,43 +55,14 @@ EWRAM_DATA struct BattleStats gUnknown_0203A4D4 = {};
 EWRAM_DATA struct BattleUnit gBattleActor = {};
 EWRAM_DATA struct BattleUnit gBattleTarget = {};
 
-void SetupBattleBallistaWeaponData(struct BattleUnit* bu);
-void SetupBattleWeaponData(struct BattleUnit* bu, int itemSlot);
-void DoSomeBattleWeaponStuff(void);
-void BattleApplyWeaponTriangle(struct BattleUnit* actor, struct BattleUnit* target);
-void BattleSomethingTrapChangeTerrain(void);
-void BattleSetupTerrainData(struct BattleUnit* bu);
-void sub_802A398(struct Unit* actor, struct Unit* target);
-void NullAllLightRunesTerrain(void);
-void sub_802C740(struct BattleUnit* bu);
-void sub_802C6EC(struct BattleUnit* bu);
-void sub_802B92C(void);
-void sub_80A4AA4(void);
-void sub_80A44C8(struct Unit* unit);
-void SaveUnitsFromBattle(void);
-void UpdateBallistaUsesFromBattle(void);
-void nullsub_11(struct BattleUnit* actor, struct BattleUnit* target);
-void sub_802CAFC(void);
-void FillPreBattleStats(struct BattleUnit* attacker, struct BattleUnit* defender);
-void FillBattleStats(struct BattleUnit* attacker, struct BattleUnit* defender);
-void FillSnagBattleStats(void);
-void sub_802CF4C(void);
-void MakeBattle(void);
-void WriteBattleStructTerrainBonuses(struct BattleUnit* bu, int terrain);
-void BattleLoadDefense(struct BattleUnit* attacker, struct BattleUnit* defender);
-void BattleLoadAttack(struct BattleUnit* attacker, struct BattleUnit* defender);
-void BattleLoadAS(struct BattleUnit* bu);
-void BattleLoadHit(struct BattleUnit* bu);
-void BattleLoadAvoid(struct BattleUnit* bu);
-void BattleLoadCrit(struct BattleUnit* bu);
-void BattleLoadDodge(struct BattleUnit* bu);
-void BattleApplyMiscBonuses(struct BattleUnit* attacker, struct BattleUnit* defender);
-void BattleApplySRankBonuses(struct BattleUnit* bu);
-void BattleComputeBuffStatus(struct BattleUnit* bu);
-void ComputeHit(struct BattleUnit* attacker, struct BattleUnit* defender);
-void ComputeCrit(struct BattleUnit* attacker, struct BattleUnit* defender);
-void ComputeLethalityChance(struct BattleUnit* attacker, struct BattleUnit* defender);
-void ComputeSpecialWeapons(struct BattleUnit* attacker, struct BattleUnit* defender);
+EWRAM_DATA struct BattleHit gUnknown_0203A5EC[BATTLE_HIT_MAX] = {};
+EWRAM_DATA struct BattleHit* gUnknown_0203A608 = 0;
+
+EWRAM_DATA struct {
+	u8 unk00;
+	u8 unk01;
+	u8 unk02;
+} gUnknown_0203A60C = {};
 
 void sub_802A13C(struct Unit* actor, struct Unit* target, int x, int y, int actorWpnSlot) {
 	CopyUnitToBattleStruct(&gBattleActor, actor);
@@ -728,53 +697,6 @@ void ComputeSpecialWeapons(struct BattleUnit* attacker, struct BattleUnit* defen
 		}
 	}
 }
-
-// maybe file split here?
-// maybe not, who knows
-
-void GetBattleUnitPointers(struct BattleUnit** outAttacker, struct BattleUnit** outDefender);
-s8 MakeBattleRound(struct BattleUnit* attacker, struct BattleUnit* defender);
-s8 BattleCheckDoubling(struct BattleUnit** outAttacker, struct BattleUnit** outDefender);
-int GetBattleHitCount(struct BattleUnit* attacker);
-s8 MakeNextBattleHitRound(struct BattleUnit* attacker, struct BattleUnit* defender);
-int BattleCheckBrave(struct BattleUnit* bu);
-int sub_802C534(struct BattleUnit* actor, struct BattleUnit* target);
-void CheckForLevelUp(struct BattleUnit* bu);
-void CheckForLevelUpCaps(struct Unit* unit, struct BattleUnit* bu);
-void BWL_AddExpGained(int charId, int expGain);
-int GetBattleUnitStaffExp(struct BattleUnit* bu);
-
-enum { BATTLE_HIT_MAX = 7 };
-
-enum { BATTLE_FOLLOWUP_SPEED_THRESHOLD = 4 };
-
-struct BattleHit {
-	/* 00   */ unsigned unk00b   : 19;
-	/* 02+3 */ unsigned unk19b   : 5;
-	/* 03   */ signed   hpChange : 8;
-};
-
-extern struct BattleHit gUnknown_0203A5EC[BATTLE_HIT_MAX];
-extern struct BattleHit* gUnknown_0203A608;
-
-extern u8 gUnknown_03003060;
-
-extern struct {
-	u8 unk00;
-	u8 unk01;
-	u8 unk02;
-} gUnknown_0203A60C;
-
-struct WTEntry {
-	s8 attackerWeaponType;
-	s8 defenderWeaponType;
-	s8 hitBonus;
-	s8 atkBonus;
-};
-
-extern const struct WTEntry gUnknown_0859BA90[];
-
-extern const struct ProcCmd gUnknown_0859BAC4[];
 
 void ClearRounds(void) {
 	int i;
