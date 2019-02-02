@@ -48,7 +48,7 @@ _0802E200:
 	adds r0, r3, #0
 	b _0802E246
 _0802E210:
-	ldr r0, _0802E238  @ gUnknown_0202E4DC
+	ldr r0, _0802E238  @ gBmMapTerrain
 	ldr r1, [r0]
 	lsls r0, r2, #2
 	adds r1, r0, r1
@@ -68,7 +68,7 @@ _0802E210:
 	subs r2, #1
 	b _0802E1F8
 	.align 2, 0
-_0802E238: .4byte gUnknown_0202E4DC
+_0802E238: .4byte gBmMapTerrain
 _0802E23C:
 	adds r3, #8
 _0802E23E:
@@ -105,7 +105,7 @@ _0802E25C:
 _0802E272:
 	cmp r2, #0x1b
 	bne _0802E2A8
-	ldr r0, _0802E2A4  @ gUnknown_0202E4DC
+	ldr r0, _0802E2A4  @ gBmMapTerrain
 	ldr r1, [r0]
 	lsls r0, r5, #2
 	adds r1, r0, r1
@@ -127,7 +127,7 @@ _0802E272:
 	bl GetTrapAt
 	b _0802E2B2
 	.align 2, 0
-_0802E2A4: .4byte gUnknown_0202E4DC
+_0802E2A4: .4byte gBmMapTerrain
 _0802E2A8:
 	adds r3, #8
 _0802E2AA:
@@ -280,14 +280,14 @@ AddTrap9: @ 0x0802E398
 	THUMB_FUNC_START AddSnagsAndWalls
 AddSnagsAndWalls: @ 0x0802E3A8
 	push {r4, r5, r6, lr}
-	ldr r0, _0802E3DC  @ gUnknown_0202E4D4
+	ldr r0, _0802E3DC  @ gBmMapSize
 	movs r1, #2
 	ldrsh r0, [r0, r1]
 	subs r5, r0, #1
 	cmp r5, #0
 	blt _0802E428
 _0802E3B6:
-	ldr r0, _0802E3DC  @ gUnknown_0202E4D4
+	ldr r0, _0802E3DC  @ gBmMapSize
 	movs r1, #0
 	ldrsh r0, [r0, r1]
 	subs r4, r0, #1
@@ -295,7 +295,7 @@ _0802E3B6:
 	cmp r4, #0
 	blt _0802E422
 _0802E3C4:
-	ldr r0, _0802E3E0  @ gUnknown_0202E4DC
+	ldr r0, _0802E3E0  @ gBmMapTerrain
 	ldr r1, [r0]
 	lsls r0, r5, #2
 	adds r1, r0, r1
@@ -308,8 +308,8 @@ _0802E3C4:
 	beq _0802E410
 	b _0802E41C
 	.align 2, 0
-_0802E3DC: .4byte gUnknown_0202E4D4
-_0802E3E0: .4byte gUnknown_0202E4DC
+_0802E3DC: .4byte gBmMapSize
+_0802E3E0: .4byte gBmMapTerrain
 _0802E3E4:
 	subs r0, r1, #4
 	ldr r0, [r0]
@@ -395,7 +395,7 @@ UpdateAllLightRunes: @ 0x0802E470
 	ldrb r0, [r2, #2]
 	cmp r0, #0
 	beq _0802E49C
-	ldr r4, _0802E4A8  @ gUnknown_0202E4DC
+	ldr r4, _0802E4A8  @ gBmMapTerrain
 	movs r3, #0
 _0802E47E:
 	ldrb r0, [r2, #2]
@@ -420,7 +420,7 @@ _0802E49C:
 	bx r0
 	.align 2, 0
 _0802E4A4: .4byte gUnknown_0203A614
-_0802E4A8: .4byte gUnknown_0202E4DC
+_0802E4A8: .4byte gBmMapTerrain
 
 	THUMB_FUNC_START GetTrapExt1At
 GetTrapExt1At: @ 0x0802E4AC
@@ -430,7 +430,7 @@ GetTrapExt1At: @ 0x0802E4AC
 	bl GetTrapAt
 	cmp r0, #0
 	bne _0802E4E4
-	ldr r0, _0802E4E8  @ gUnknown_0202E4DC
+	ldr r0, _0802E4E8  @ gBmMapTerrain
 	ldr r1, [r0]
 	lsls r0, r5, #2
 	adds r1, r0, r1
@@ -454,7 +454,7 @@ _0802E4E4:
 	ldrb r0, [r0, #3]
 	b _0802E4EE
 	.align 2, 0
-_0802E4E8: .4byte gUnknown_0202E4DC
+_0802E4E8: .4byte gBmMapTerrain
 _0802E4EC:
 	movs r0, #0
 _0802E4EE:
@@ -678,7 +678,7 @@ UnitHideIfUnderRoof: @ 0x0802E660
 	adds r2, r0, #0
 	movs r0, #0x11
 	ldrsb r0, [r2, r0]
-	ldr r1, _0802E68C  @ gUnknown_0202E4DC
+	ldr r1, _0802E68C  @ gBmMapTerrain
 	ldr r1, [r1]
 	lsls r0, r0, #2
 	adds r0, r0, r1
@@ -697,7 +697,7 @@ _0802E686:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_0802E68C: .4byte gUnknown_0202E4DC
+_0802E68C: .4byte gBmMapTerrain
 
 	THUMB_FUNC_START sub_802E690
 sub_802E690: @ 0x0802E690
@@ -719,7 +719,7 @@ _0802E694:
 	beq _0802E6D8
 	movs r1, #0x11
 	ldrsb r1, [r4, r1]
-	ldr r0, _0802E6EC  @ gUnknown_0202E4DC
+	ldr r0, _0802E6EC  @ gBmMapTerrain
 	ldr r0, [r0]
 	lsls r1, r1, #2
 	adds r1, r1, r0
@@ -747,13 +747,13 @@ _0802E6D8:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_0802E6EC: .4byte gUnknown_0202E4DC
+_0802E6EC: .4byte gBmMapTerrain
 
 	THUMB_FUNC_START AddToTargetListFromPos
 AddToTargetListFromPos: @ 0x0802E6F0
 	push {r4, lr}
 	adds r3, r2, #0
-	ldr r2, _0802E70C  @ gUnknown_0202E4D8
+	ldr r2, _0802E70C  @ gBmMapUnit
 	ldr r4, [r2]
 	lsls r2, r1, #2
 	adds r2, r2, r4
@@ -765,7 +765,7 @@ AddToTargetListFromPos: @ 0x0802E6F0
 	pop {r0}
 	bx r0
 	.align 2, 0
-_0802E70C: .4byte gUnknown_0202E4D8
+_0802E70C: .4byte gBmMapUnit
 
 	THUMB_FUNC_START AddArrowTrapTargetsToTargetList
 AddArrowTrapTargetsToTargetList: @ 0x0802E710
@@ -775,7 +775,7 @@ AddArrowTrapTargetsToTargetList: @ 0x0802E710
 	movs r4, #0
 	b _0802E73A
 _0802E71A:
-	ldr r0, _0802E74C  @ gUnknown_0202E4D8
+	ldr r0, _0802E74C  @ gBmMapUnit
 	ldr r1, [r0]
 	lsls r0, r4, #2
 	adds r0, r0, r1
@@ -792,7 +792,7 @@ _0802E71A:
 _0802E738:
 	adds r4, #1
 _0802E73A:
-	ldr r0, _0802E750  @ gUnknown_0202E4D4
+	ldr r0, _0802E750  @ gBmMapSize
 	movs r1, #2
 	ldrsh r0, [r0, r1]
 	cmp r4, r0
@@ -801,8 +801,8 @@ _0802E73A:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_0802E74C: .4byte gUnknown_0202E4D8
-_0802E750: .4byte gUnknown_0202E4D4
+_0802E74C: .4byte gBmMapUnit
+_0802E750: .4byte gBmMapSize
 
 	THUMB_FUNC_START sub_802E754
 sub_802E754: @ 0x0802E754
@@ -851,7 +851,7 @@ _0802E79A:
 _0802E79C:
 	add r5, r9
 	adds r4, r4, r7
-	ldr r0, _0802E7D0  @ gUnknown_0202E4D8
+	ldr r0, _0802E7D0  @ gBmMapUnit
 	ldr r1, [r0]
 	lsls r0, r4, #2
 	adds r0, r0, r1
@@ -876,7 +876,7 @@ _0802E7BE:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_0802E7D0: .4byte gUnknown_0202E4D8
+_0802E7D0: .4byte gBmMapUnit
 
 	THUMB_FUNC_START sub_802E7D4
 sub_802E7D4: @ 0x0802E7D4
@@ -913,7 +913,7 @@ _0802E804:
 _0802E80A:
 	movs r7, #1
 _0802E80C:
-	ldr r0, _0802E838  @ gUnknown_0202E4D8
+	ldr r0, _0802E838  @ gBmMapUnit
 	ldr r1, [r0]
 	movs r2, #2
 	lsls r0, r6, #2
@@ -937,7 +937,7 @@ _0802E828:
 	pop {r1}
 	bx r1
 	.align 2, 0
-_0802E838: .4byte gUnknown_0202E4D8
+_0802E838: .4byte gBmMapUnit
 
 	THUMB_FUNC_START MakeTargetListForTurnTrapDamage
 MakeTargetListForTurnTrapDamage: @ 0x0802E83C
@@ -1029,7 +1029,7 @@ _0802E8D4:
 	b _0802E996
 _0802E8DE:
 	ldrb r2, [r4, #1]
-	ldr r0, _0802E910  @ gUnknown_0202E4D8
+	ldr r0, _0802E910  @ gBmMapUnit
 	ldr r1, [r0]
 	lsls r0, r2, #2
 	adds r0, r0, r1
@@ -1051,7 +1051,7 @@ _0802E8DE:
 	bl AddToTargetListFromPos
 	b _0802E996
 	.align 2, 0
-_0802E910: .4byte gUnknown_0202E4D8
+_0802E910: .4byte gBmMapUnit
 _0802E914:
 	ldrb r2, [r4, #3]
 	cmp r2, #1
@@ -1237,7 +1237,7 @@ _0802EA52:
 AddLightRune: @ 0x0802EA58
 	push {r4, r5, r6, lr}
 	adds r5, r0, #0
-	ldr r6, _0802EA8C  @ gUnknown_0202E4DC
+	ldr r6, _0802EA8C  @ gBmMapTerrain
 	ldr r0, [r6]
 	lsls r4, r1, #2
 	adds r0, r4, r0
@@ -1260,7 +1260,7 @@ AddLightRune: @ 0x0802EA58
 	pop {r1}
 	bx r1
 	.align 2, 0
-_0802EA8C: .4byte gUnknown_0202E4DC
+_0802EA8C: .4byte gBmMapTerrain
 
 	THUMB_FUNC_START RemoveLightRune
 RemoveLightRune: @ 0x0802EA90
@@ -1270,7 +1270,7 @@ RemoveLightRune: @ 0x0802EA90
 	ldrb r1, [r4, #1]
 	bl GetSomeTerrainToChangeAtSomePosition
 	ldrb r1, [r4, #1]
-	ldr r2, _0802EABC  @ gUnknown_0202E4DC
+	ldr r2, _0802EABC  @ gBmMapTerrain
 	ldr r2, [r2]
 	lsls r1, r1, #2
 	adds r1, r1, r2
@@ -1284,7 +1284,7 @@ RemoveLightRune: @ 0x0802EA90
 	pop {r1}
 	bx r1
 	.align 2, 0
-_0802EABC: .4byte gUnknown_0202E4DC
+_0802EABC: .4byte gBmMapTerrain
 
 	THUMB_FUNC_START HandleTrapDecay
 HandleTrapDecay: @ 0x0802EAC0
@@ -1346,7 +1346,7 @@ _0802EB1C:
 	ldrb r1, [r4, #1]
 	bl GetSomeTerrainToChangeAtSomePosition
 	ldrb r2, [r4, #1]
-	ldr r1, _0802EB4C  @ gUnknown_0202E4DC
+	ldr r1, _0802EB4C  @ gBmMapTerrain
 	ldr r1, [r1]
 	lsls r2, r2, #2
 	adds r2, r2, r1
@@ -1364,7 +1364,7 @@ _0802EB3E:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_0802EB4C: .4byte gUnknown_0202E4DC
+_0802EB4C: .4byte gBmMapTerrain
 
 	THUMB_FUNC_START NullAllLightRunesTerrain
 NullAllLightRunesTerrain: @ 0x0802EB50
@@ -1373,7 +1373,7 @@ NullAllLightRunesTerrain: @ 0x0802EB50
 	ldrb r0, [r2, #2]
 	cmp r0, #0
 	beq _0802EB7C
-	ldr r4, _0802EB88  @ gUnknown_0202E4DC
+	ldr r4, _0802EB88  @ gBmMapTerrain
 	movs r3, #0
 _0802EB5E:
 	ldrb r0, [r2, #2]
@@ -1398,7 +1398,7 @@ _0802EB7C:
 	bx r0
 	.align 2, 0
 _0802EB84: .4byte gUnknown_0203A614
-_0802EB88: .4byte gUnknown_0202E4DC
+_0802EB88: .4byte gBmMapTerrain
 
 	THUMB_FUNC_START GetTrap
 GetTrap: @ 0x0802EB8C

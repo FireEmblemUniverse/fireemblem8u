@@ -1806,7 +1806,7 @@ _0803736C:
 _08037372:
 	strb r0, [r1]
 _08037374:
-	ldr r0, _08037388  @ gUnknown_0202E4E0
+	ldr r0, _08037388  @ gBmMapMovement
 	ldr r0, [r0]
 	movs r1, #1
 	negs r1, r1
@@ -1816,7 +1816,7 @@ _08037380:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_08037388: .4byte gUnknown_0202E4E0
+_08037388: .4byte gBmMapMovement
 
 	THUMB_FUNC_START sub_803738C
 sub_803738C: @ 0x0803738C

@@ -79,11 +79,11 @@ sub_80332D0: @ 0x080332D0
 	sub sp, #4
 	bl GetChapterAllyUnitDataPointer
 	adds r4, r0, #0
-	ldr r0, _08033344  @ gUnknown_0202E4E4
+	ldr r0, _08033344  @ gBmMapRange
 	ldr r0, [r0]
 	movs r1, #0
 	bl ClearMapWith
-	ldr r0, _08033348  @ gUnknown_0202E4E0
+	ldr r0, _08033348  @ gBmMapMovement
 	ldr r0, [r0]
 	movs r1, #1
 	negs r1, r1
@@ -106,7 +106,7 @@ _08033306:
 	bl GetPreferredPositionForUNIT
 	movs r1, #0
 	ldrsb r1, [r5, r1]
-	ldr r0, _08033344  @ gUnknown_0202E4E4
+	ldr r0, _08033344  @ gBmMapRange
 	ldr r0, [r0]
 	lsls r1, r1, #2
 	adds r1, r1, r0
@@ -129,8 +129,8 @@ _08033334:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_08033344: .4byte gUnknown_0202E4E4
-_08033348: .4byte gUnknown_0202E4E0
+_08033344: .4byte gBmMapRange
+_08033348: .4byte gBmMapMovement
 
 	THUMB_FUNC_START sub_803334C
 sub_803334C: @ 0x0803334C
@@ -646,7 +646,7 @@ sub_8033770: @ 0x08033770
 	movs r1, #2
 	str r1, [r0, #0x34]
 	str r2, [r0, #0x38]
-	ldr r1, _08033794  @ gUnknown_0202E4D4
+	ldr r1, _08033794  @ gBmMapSize
 	movs r2, #0
 	ldrsh r1, [r1, r2]
 	lsls r1, r1, #3
@@ -655,7 +655,7 @@ sub_8033770: @ 0x08033770
 	strh r1, [r0]
 	bx lr
 	.align 2, 0
-_08033794: .4byte gUnknown_0202E4D4
+_08033794: .4byte gBmMapSize
 
 	THUMB_FUNC_START sub_8033798
 sub_8033798: @ 0x08033798
@@ -663,7 +663,7 @@ sub_8033798: @ 0x08033798
 	str r1, [r0, #0x34]
 	movs r1, #2
 	str r1, [r0, #0x38]
-	ldr r1, _080337B0  @ gUnknown_0202E4D4
+	ldr r1, _080337B0  @ gBmMapSize
 	movs r2, #2
 	ldrsh r1, [r1, r2]
 	lsls r1, r1, #3
@@ -672,7 +672,7 @@ sub_8033798: @ 0x08033798
 	strh r1, [r0]
 	bx lr
 	.align 2, 0
-_080337B0: .4byte gUnknown_0202E4D4
+_080337B0: .4byte gBmMapSize
 
 	THUMB_FUNC_START sub_80337B4
 sub_80337B4: @ 0x080337B4
@@ -681,7 +681,7 @@ sub_80337B4: @ 0x080337B4
 	str r1, [r0, #0x34]
 	movs r1, #0
 	str r1, [r0, #0x38]
-	ldr r1, _080337D0  @ gUnknown_0202E4D4
+	ldr r1, _080337D0  @ gBmMapSize
 	movs r2, #0
 	ldrsh r1, [r1, r2]
 	lsls r1, r1, #3
@@ -690,7 +690,7 @@ sub_80337B4: @ 0x080337B4
 	strh r1, [r0]
 	bx lr
 	.align 2, 0
-_080337D0: .4byte gUnknown_0202E4D4
+_080337D0: .4byte gBmMapSize
 
 	THUMB_FUNC_START sub_80337D4
 sub_80337D4: @ 0x080337D4
@@ -698,7 +698,7 @@ sub_80337D4: @ 0x080337D4
 	str r1, [r0, #0x34]
 	subs r1, #2
 	str r1, [r0, #0x38]
-	ldr r1, _080337EC  @ gUnknown_0202E4D4
+	ldr r1, _080337EC  @ gBmMapSize
 	movs r2, #2
 	ldrsh r1, [r1, r2]
 	lsls r1, r1, #3
@@ -707,7 +707,7 @@ sub_80337D4: @ 0x080337D4
 	strh r1, [r0]
 	bx lr
 	.align 2, 0
-_080337EC: .4byte gUnknown_0202E4D4
+_080337EC: .4byte gBmMapSize
 
 	THUMB_FUNC_START sub_80337F0
 sub_80337F0: @ 0x080337F0
@@ -948,7 +948,7 @@ _080339CC:
 	ldr r4, _08033A34  @ gUnknown_0202BCB0
 	movs r1, #0x16
 	ldrsh r0, [r4, r1]
-	ldr r6, _08033A38  @ gUnknown_0202E4D8
+	ldr r6, _08033A38  @ gBmMapUnit
 	ldr r1, [r6]
 	lsls r0, r0, #2
 	adds r0, r0, r1
@@ -986,7 +986,7 @@ _080339CC:
 	b _08033BEC
 	.align 2, 0
 _08033A34: .4byte gUnknown_0202BCB0
-_08033A38: .4byte gUnknown_0202E4D8
+_08033A38: .4byte gBmMapUnit
 _08033A3C:
 	ldr r0, _08033A68  @ gKeyStatusPtr
 	ldr r0, [r0]
@@ -1022,7 +1022,7 @@ _08033A7E:
 	ldr r2, _08033AB0  @ gUnknown_0202BCB0
 	movs r3, #0x16
 	ldrsh r0, [r2, r3]
-	ldr r1, _08033AB4  @ gUnknown_0202E4D8
+	ldr r1, _08033AB4  @ gBmMapUnit
 	ldr r1, [r1]
 	lsls r0, r0, #2
 	adds r0, r0, r1
@@ -1045,7 +1045,7 @@ _08033AA6:
 	mov pc, r0
 	.align 2, 0
 _08033AB0: .4byte gUnknown_0202BCB0
-_08033AB4: .4byte gUnknown_0202E4D8
+_08033AB4: .4byte gBmMapUnit
 _08033AB8: .4byte _08033ABC
 _08033ABC: @ jump table
 	.4byte _08033AD0 @ case 0
@@ -1063,7 +1063,7 @@ _08033AD0:
 	strb r0, [r3, #0x13]
 	movs r1, #0x16
 	ldrsh r0, [r2, r1]
-	ldr r1, _08033B24  @ gUnknown_0202E4DC
+	ldr r1, _08033B24  @ gBmMapTerrain
 	ldr r1, [r1]
 	lsls r0, r0, #2
 	adds r0, r0, r1
@@ -1092,7 +1092,7 @@ _08033B10:
 	.align 2, 0
 _08033B1C: .4byte gUnknown_0202BCF0
 _08033B20: .4byte gUnknown_0202BCB0
-_08033B24: .4byte gUnknown_0202E4DC
+_08033B24: .4byte gBmMapTerrain
 _08033B28:
 	adds r0, r5, #0
 	movs r1, #0
@@ -1270,7 +1270,7 @@ sub_8033C90: @ 0x08033C90
 	ldr r6, _08033D28  @ gUnknown_0202BCB0
 	movs r0, #0x16
 	ldrsh r1, [r6, r0]
-	ldr r0, _08033D2C  @ gUnknown_0202E4E4
+	ldr r0, _08033D2C  @ gBmMapRange
 	ldr r0, [r0]
 	lsls r1, r1, #2
 	adds r0, r1, r0
@@ -1279,7 +1279,7 @@ sub_8033C90: @ 0x08033C90
 	ldr r0, [r0]
 	adds r0, r0, r2
 	ldrb r7, [r0]
-	ldr r0, _08033D30  @ gUnknown_0202E4D8
+	ldr r0, _08033D30  @ gBmMapUnit
 	ldr r0, [r0]
 	adds r1, r1, r0
 	ldr r0, [r1]
@@ -1337,8 +1337,8 @@ _08033D04:
 	b _08033DCA
 	.align 2, 0
 _08033D28: .4byte gUnknown_0202BCB0
-_08033D2C: .4byte gUnknown_0202E4E4
-_08033D30: .4byte gUnknown_0202E4D8
+_08033D2C: .4byte gBmMapRange
+_08033D30: .4byte gBmMapUnit
 _08033D34: .4byte gUnknown_08590F4C
 _08033D38: .4byte gKeyStatusPtr
 _08033D3C:
@@ -1451,7 +1451,7 @@ sub_8033E08: @ 0x08033E08
 	ldr r6, _08033E48  @ gUnknown_0202BCB0
 	movs r1, #0x16
 	ldrsh r0, [r6, r1]
-	ldr r1, _08033E4C  @ gUnknown_0202E4D8
+	ldr r1, _08033E4C  @ gBmMapUnit
 	ldr r1, [r1]
 	lsls r0, r0, #2
 	adds r0, r0, r1
@@ -1475,7 +1475,7 @@ sub_8033E08: @ 0x08033E08
 	.align 2, 0
 _08033E44: .4byte gActiveUnit
 _08033E48: .4byte gUnknown_0202BCB0
-_08033E4C: .4byte gUnknown_0202E4D8
+_08033E4C: .4byte gBmMapUnit
 _08033E50:
 	movs r2, #0x10
 	ldrsb r2, [r4, r2]
@@ -1651,7 +1651,7 @@ _08033FA0:
 	ldr r2, _08034060  @ gUnknown_0202BCB0
 	movs r1, #0x16
 	ldrsh r0, [r2, r1]
-	ldr r1, _08034064  @ gUnknown_0202E4D8
+	ldr r1, _08034064  @ gBmMapUnit
 	ldr r1, [r1]
 	lsls r0, r0, #2
 	adds r0, r0, r1
@@ -1733,7 +1733,7 @@ _08034058:
 	bx r0
 	.align 2, 0
 _08034060: .4byte gUnknown_0202BCB0
-_08034064: .4byte gUnknown_0202E4D8
+_08034064: .4byte gBmMapUnit
 _08034068: .4byte gActiveUnitMoveOrigin
 _0803406C: .4byte gActiveUnit
 _08034070: .4byte gKeyStatusPtr
@@ -1769,7 +1769,7 @@ _080340AC: .4byte gActiveUnit
 _080340B0:
 	movs r0, #0x11
 	ldrsb r0, [r2, r0]
-	ldr r4, _08034108  @ gUnknown_0202E4D8
+	ldr r4, _08034108  @ gBmMapUnit
 	ldr r1, [r4]
 	lsls r0, r0, #2
 	adds r0, r0, r1
@@ -1811,7 +1811,7 @@ _08034102:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_08034108: .4byte gUnknown_0202E4D8
+_08034108: .4byte gBmMapUnit
 
 	THUMB_FUNC_START sub_803410C
 sub_803410C: @ 0x0803410C

@@ -525,19 +525,14 @@ extern struct Struct0202BCF0 gUnknown_0202BCF0;
 // extern ??? gUnitArrayBlue
 // extern ??? gUnitArrayRed
 // extern ??? gUnitArrayGreen
-extern struct { short width, height; } gUnknown_0202E4D4; // gMapSize
-extern u8** gUnknown_0202E4D8; // gMapUnit
-extern u8** gUnknown_0202E4DC; // gMapTerrain
-extern u8** gUnknown_0202E4E0; // gMapMovement
-extern u8** gUnknown_0202E4E4; // gMapRange
-extern u8** gUnknown_0202E4E8; // gMapFog
-extern u8** gUnknown_0202E4EC; // gMapHidden
-extern u8** gUnknown_0202E4F0; // gMapOther
-// extern ??? gUnknown_0202E4F4
-// extern ??? gUnknown_0202ECAC
-// extern ??? gUnknown_0202F464
-// extern ??? gUnknown_0202FC1C
-// extern ??? gUnknown_020303D4
+extern struct { short width, height; } gBmMapSize; // gMapSize
+extern u8** gBmMapUnit; // gMapUnit
+extern u8** gBmMapTerrain; // gMapTerrain
+extern u8** gBmMapMovement; // gMapMovement
+extern u8** gBmMapRange; // gMapRange
+extern u8** gBmMapFog; // gMapFog
+extern u8** gBmMapHidden; // gMapHidden
+extern u8** gBmMapUnk; // gMapOther
 // extern ??? gUnknown_02030B8C
 // extern ??? gUnknown_02033EFC
 // extern ??? gUnknown_02033F3C
@@ -725,8 +720,6 @@ extern struct OamDataTransfer gUnknown_03000030;
 // extern ??? gUnknown_03000700
 // extern ??? gUnknown_03000800
 // extern ??? gUnknown_03000808
-// extern ??? gUnknown_03000810
-// extern ??? gUnknown_03000FC8
 // extern ??? gUnknown_03001780
 // extern ??? gUnknown_03001788
 // extern ??? gUnknown_030017A0

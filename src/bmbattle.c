@@ -386,7 +386,7 @@ void SetBattleUnitTerrainBonuses(struct BattleUnit* bu, int terrain) {
 }
 
 void SetBattleUnitTerrainBonusesAuto(struct BattleUnit* bu) {
-    bu->terrainId = gUnknown_0202E4DC[bu->unit.yPos][bu->unit.xPos];
+    bu->terrainId = gBmMapTerrain[bu->unit.yPos][bu->unit.xPos];
 
     bu->terrainAvoid      = bu->unit.pClassData->pTerrainAvoidLookup[bu->terrainId];
     bu->terrainDefense    = bu->unit.pClassData->pTerrainDefenseLookup[bu->terrainId];
@@ -893,7 +893,7 @@ s8 BattleCheckTriangleAttack(struct BattleUnit* attacker, struct BattleUnit* def
     gBattleStats.taUnitB = NULL;
 
     for (i = 0; i < 4; ++i) {
-        int uId = gUnknown_0202E4D8[adjacentLookup[i*2 + 1] + y][adjacentLookup[i*2 + 0] + x];
+        int uId = gBmMapUnit[adjacentLookup[i*2 + 1] + y][adjacentLookup[i*2 + 0] + x];
         struct Unit* unit;
 
         if (!uId)
@@ -2018,7 +2018,7 @@ void InitObstacleBattleUnit(void) {
     gBattleTarget.unit.xPos  = gActionData.xOther;
     gBattleTarget.unit.yPos  = gActionData.yOther;
 
-    switch (gUnknown_0202E4DC[gBattleTarget.unit.yPos][gBattleTarget.unit.xPos]) {
+    switch (gBmMapTerrain[gBattleTarget.unit.yPos][gBattleTarget.unit.xPos]) {
 
     case 0x1B: // TODO: terrain id constants
         gBattleTarget.unit.pCharacterData = GetCharacterData(CHARACTER_WALL);
@@ -2031,7 +2031,7 @@ void InitObstacleBattleUnit(void) {
 
         break;
 
-    } // switch (gUnknown_0202E4DC[gBattleTarget.unit.yPos][gBattleTarget.unit.xPos])
+    } // switch (gBmMapTerrain[gBattleTarget.unit.yPos][gBattleTarget.unit.xPos])
 }
 
 void ComputeBattleObstacleStats(void) {
@@ -2053,7 +2053,7 @@ void UpdateObstacleFromBattle(struct BattleUnit* bu) {
     if (trap->data[TRAP_EXTDATA_OBSTACLE_HP] == 0) {
         int mapChangeId = GetMapChangesIdAt(bu->unit.xPos, bu->unit.yPos);
 
-        if (gUnknown_0202E4DC[bu->unit.yPos][bu->unit.xPos] == 0x33) // TODO: terrain id constants
+        if (gBmMapTerrain[bu->unit.yPos][bu->unit.xPos] == 0x33) // TODO: terrain id constants
             PlaySoundEffect(0x2D7); // TODO: Sound id constants
 
         sub_8019CBC();

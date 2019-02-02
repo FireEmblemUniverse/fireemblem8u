@@ -236,7 +236,7 @@ ActionDrop: @ 0x080321E0
 	bl GetUnit
 	adds r5, r0, #0
 	ldrb r0, [r4, #0x14]
-	ldr r1, _0803224C  @ gUnknown_0202E4EC
+	ldr r1, _0803224C  @ gBmMapHidden
 	ldr r1, [r1]
 	lsls r0, r0, #2
 	adds r0, r0, r1
@@ -275,7 +275,7 @@ ActionDrop: @ 0x080321E0
 	b _08032262
 	.align 2, 0
 _08032248: .4byte gActionData
-_0803224C: .4byte gUnknown_0202E4EC
+_0803224C: .4byte gBmMapHidden
 _08032250: .4byte gUnknown_0859DA6C
 _08032254:
 	ldr r0, _0803226C  @ gUnknown_02033EFC

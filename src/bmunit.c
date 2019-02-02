@@ -1003,25 +1003,25 @@ void UnitGetDeathDropLocation(struct Unit* unit, int* xOut, int* yOut) {
     FillMovementMapSomehow(unit->xPos, unit->yPos, gUnknown_0880BB96);
 
     // Put the active unit on the unit map (kinda, just marking its spot)
-    gUnknown_0202E4D8[gActiveUnit->yPos][gActiveUnit->xPos] = 0xFF;
+    gBmMapUnit[gActiveUnit->yPos][gActiveUnit->xPos] = 0xFF;
 
     // Remove the actor unit from the unit map (why?)
-    gUnknown_0202E4D8[unit->yPos][unit->xPos] = 0;
+    gBmMapUnit[unit->yPos][unit->xPos] = 0;
 
-    for (iy = gUnknown_0202E4D4.height - 1; iy >= 0; --iy) {
-        for (ix = gUnknown_0202E4D4.width - 1; ix >= 0; --ix) {
+    for (iy = gBmMapSize.height - 1; iy >= 0; --iy) {
+        for (ix = gBmMapSize.width - 1; ix >= 0; --ix) {
             int distance;
 
-            if (gUnknown_0202E4E0[iy][ix] > MAP_MOVEMENT_MAX)
+            if (gBmMapMovement[iy][ix] > MAP_MOVEMENT_MAX)
                 continue;
 
-            if (gUnknown_0202E4D8[iy][ix] != 0)
+            if (gBmMapUnit[iy][ix] != 0)
                 continue;
 
-            if (gUnknown_0202E4EC[iy][ix] & HIDDEN_BIT_UNIT)
+            if (gBmMapHidden[iy][ix] & HIDDEN_BIT_UNIT)
                 continue;
 
-            if (!CanUnitCrossTerrain(rescuee, gUnknown_0202E4DC[iy][ix]))
+            if (!CanUnitCrossTerrain(rescuee, gBmMapTerrain[iy][ix]))
                 continue;
 
             distance = RECT_DISTANCE(ix, iy, unit->xPos, unit->yPos);
@@ -1036,7 +1036,7 @@ void UnitGetDeathDropLocation(struct Unit* unit, int* xOut, int* yOut) {
     }
 
     // Remove the active unit from the unit map again
-    gUnknown_0202E4D8[gActiveUnit->yPos][gActiveUnit->xPos] = 0;
+    gBmMapUnit[gActiveUnit->yPos][gActiveUnit->xPos] = 0;
 }
 
 void UnitBeginAction(struct Unit* unit) {
@@ -1056,7 +1056,7 @@ void UnitBeginAction(struct Unit* unit) {
     sub_802C334();
 
     gActiveUnit->state |= US_HIDDEN;
-    gUnknown_0202E4D8[unit->yPos][unit->xPos] = 0;
+    gBmMapUnit[unit->yPos][unit->xPos] = 0;
 }
 
 void UnitBeginCantoAction(struct Unit* unit) {
@@ -1073,7 +1073,7 @@ void UnitBeginCantoAction(struct Unit* unit) {
     sub_802C334();
 
     gActiveUnit->state |= US_HIDDEN;
-    gUnknown_0202E4D8[unit->yPos][unit->xPos] = 0;
+    gBmMapUnit[unit->yPos][unit->xPos] = 0;
 }
 
 void MoveActiveUnit(int x, int y) {
@@ -1315,10 +1315,10 @@ s8 CanUnitMove(void) {
 
         int cost;
 
-        if (gUnknown_0202E4D8[yLocal][xLocal] & FACTION_RED)
+        if (gBmMapUnit[yLocal][xLocal] & FACTION_RED)
             continue;
 
-        cost = GetUnitMovementCost(gActiveUnit)[gUnknown_0202E4DC[yLocal][xLocal]];
+        cost = GetUnitMovementCost(gActiveUnit)[gBmMapTerrain[yLocal][xLocal]];
 
         if ((cost < 0) || (cost > move))
             continue;

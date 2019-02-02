@@ -1289,7 +1289,7 @@ void MapMain_ResumeFromAction(struct BMapMainProc* mapMain) {
     Proc_GotoLabel((struct Proc*)(mapMain), 6);
 
     gActiveUnit = GetUnit(gActionData.subjectIndex);
-    gUnknown_0202E4D8[gActiveUnit->yPos][gActiveUnit->xPos] = 0;
+    gBmMapUnit[gActiveUnit->yPos][gActiveUnit->xPos] = 0;
 
     HideUnitSMS(GetUnit(gActionData.subjectIndex));
 
@@ -1326,7 +1326,7 @@ void MapMain_ResumeFromArenaFight(struct BMapMainProc* mapMain) {
 
     RefreshFogAndUnitMaps();
 
-    gUnknown_0202E4D8[gActionData.yMove][gActionData.xMove] = 0;
+    gBmMapUnit[gActionData.yMove][gActionData.xMove] = 0;
 
     SMS_UpdateFromGameData();
 

@@ -1334,7 +1334,7 @@ _0807B0B8:
 	mov sl, r0
 	cmp r1, #0
 	blt _0807B162
-	ldr r0, _0807B194  @ gUnknown_0202E4D4
+	ldr r0, _0807B194  @ gBmMapSize
 	movs r2, #2
 	ldrsh r0, [r0, r2]
 	cmp r0, r1
@@ -1353,12 +1353,12 @@ _0807B0E4:
 	asrs r1, r1, #0x10
 	cmp r1, #0
 	blt _0807B150
-	ldr r0, _0807B194  @ gUnknown_0202E4D4
+	ldr r0, _0807B194  @ gBmMapSize
 	movs r2, #0
 	ldrsh r0, [r0, r2]
 	cmp r0, r1
 	ble _0807B150
-	ldr r0, _0807B198  @ gUnknown_0202E4D8
+	ldr r0, _0807B198  @ gBmMapUnit
 	ldr r0, [r0]
 	asrs r2, r3, #0xe
 	adds r0, r2, r0
@@ -1371,7 +1371,7 @@ _0807B0E4:
 	ldrb r0, [r0, #0xd]
 	cmp r0, #0
 	beq _0807B11E
-	ldr r0, _0807B1A0  @ gUnknown_0202E4E8
+	ldr r0, _0807B1A0  @ gBmMapFog
 	ldr r0, [r0]
 	adds r0, r2, r0
 	ldr r0, [r0]
@@ -1380,7 +1380,7 @@ _0807B0E4:
 	cmp r0, #0
 	beq _0807B150
 _0807B11E:
-	ldr r0, _0807B1A4  @ gUnknown_0202E4DC
+	ldr r0, _0807B1A4  @ gBmMapTerrain
 	ldr r0, [r0]
 	adds r0, r2, r0
 	ldr r0, [r0]
@@ -1441,11 +1441,11 @@ _0807B172:
 	movs r0, #1
 	b _0807B1B0
 	.align 2, 0
-_0807B194: .4byte gUnknown_0202E4D4
-_0807B198: .4byte gUnknown_0202E4D8
+_0807B194: .4byte gBmMapSize
+_0807B198: .4byte gBmMapUnit
 _0807B19C: .4byte gUnknown_0202BCF0
-_0807B1A0: .4byte gUnknown_0202E4E8
-_0807B1A4: .4byte gUnknown_0202E4DC
+_0807B1A0: .4byte gBmMapFog
+_0807B1A4: .4byte gBmMapTerrain
 _0807B1A8: .4byte gBattleActor
 _0807B1AC:
 	movs r0, #1

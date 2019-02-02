@@ -41,8 +41,8 @@
 . = 0x000700; gUnknown_03000700 = .;
 . = 0x000800; gUnknown_03000800 = .;
 . = 0x000808; gUnknown_03000808 = .;
-. = 0x000810; gUnknown_03000810 = .;
-. = 0x000FC8; gUnknown_03000FC8 = .;
+. = 0x000810; gBmMapMovementPool = .;
+. = 0x000FC8; gBmMapRangePool = .;
 . = 0x001780; gUnknown_03001780 = .;
 . = 0x001788; gUnknown_03001788 = .;
 . = 0x0017A0; gUnknown_030017A0 = .;

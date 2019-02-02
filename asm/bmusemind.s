@@ -154,7 +154,7 @@ GetRescueStaffeePosition: @ 0x0802ECD0
 	bl FillMovementMapForUnitPosition
 	movs r0, #0x11
 	ldrsb r0, [r7, r0]
-	ldr r1, _0802ED98  @ gUnknown_0202E4D8
+	ldr r1, _0802ED98  @ gBmMapUnit
 	ldr r1, [r1]
 	lsls r0, r0, #2
 	adds r0, r0, r1
@@ -164,14 +164,14 @@ GetRescueStaffeePosition: @ 0x0802ECD0
 	adds r0, r0, r1
 	movs r1, #0xff
 	strb r1, [r0]
-	ldr r0, _0802ED9C  @ gUnknown_0202E4D4
+	ldr r0, _0802ED9C  @ gBmMapSize
 	movs r1, #2
 	ldrsh r0, [r0, r1]
 	subs r5, r0, #1
 	cmp r5, #0
 	blt _0802EDCC
 _0802ED1A:
-	ldr r0, _0802ED9C  @ gUnknown_0202E4D4
+	ldr r0, _0802ED9C  @ gBmMapSize
 	movs r1, #0
 	ldrsh r0, [r0, r1]
 	subs r4, r0, #1
@@ -181,7 +181,7 @@ _0802ED1A:
 	blt _0802EDC6
 	lsls r6, r5, #2
 _0802ED2C:
-	ldr r0, _0802EDA0  @ gUnknown_0202E4E0
+	ldr r0, _0802EDA0  @ gBmMapMovement
 	ldr r0, [r0]
 	adds r0, r6, r0
 	ldr r0, [r0]
@@ -189,7 +189,7 @@ _0802ED2C:
 	ldrb r0, [r0]
 	cmp r0, #0x78
 	bhi _0802EDC0
-	ldr r0, _0802ED98  @ gUnknown_0202E4D8
+	ldr r0, _0802ED98  @ gBmMapUnit
 	ldr r0, [r0]
 	adds r0, r6, r0
 	ldr r0, [r0]
@@ -197,7 +197,7 @@ _0802ED2C:
 	ldrb r0, [r0]
 	cmp r0, #0
 	bne _0802EDC0
-	ldr r0, _0802EDA4  @ gUnknown_0202E4EC
+	ldr r0, _0802EDA4  @ gBmMapHidden
 	ldr r0, [r0]
 	adds r0, r6, r0
 	ldr r0, [r0]
@@ -207,7 +207,7 @@ _0802ED2C:
 	ands r0, r1
 	cmp r0, #0
 	bne _0802EDC0
-	ldr r0, _0802EDA8  @ gUnknown_0202E4DC
+	ldr r0, _0802EDA8  @ gBmMapTerrain
 	ldr r0, [r0]
 	adds r0, r6, r0
 	ldr r0, [r0]
@@ -234,11 +234,11 @@ _0802ED84:
 	b _0802EDB0
 	.align 2, 0
 _0802ED94: .4byte 0x0000270F
-_0802ED98: .4byte gUnknown_0202E4D8
-_0802ED9C: .4byte gUnknown_0202E4D4
-_0802EDA0: .4byte gUnknown_0202E4E0
-_0802EDA4: .4byte gUnknown_0202E4EC
-_0802EDA8: .4byte gUnknown_0202E4DC
+_0802ED98: .4byte gBmMapUnit
+_0802ED9C: .4byte gBmMapSize
+_0802EDA0: .4byte gBmMapMovement
+_0802EDA4: .4byte gBmMapHidden
+_0802EDA8: .4byte gBmMapTerrain
 _0802EDAC:
 	subs r0, r0, r5
 	adds r0, r2, r0
@@ -279,7 +279,7 @@ _0802EDDC:
 	bl FillMovementMapSomehow
 	movs r0, #0x11
 	ldrsb r0, [r7, r0]
-	ldr r1, _0802EEE4  @ gUnknown_0202E4D8
+	ldr r1, _0802EEE4  @ gBmMapUnit
 	ldr r1, [r1]
 	lsls r0, r0, #2
 	adds r0, r0, r1
@@ -289,14 +289,14 @@ _0802EDDC:
 	adds r0, r0, r1
 	movs r1, #0xff
 	strb r1, [r0]
-	ldr r0, _0802EEE8  @ gUnknown_0202E4D4
+	ldr r0, _0802EEE8  @ gBmMapSize
 	movs r1, #2
 	ldrsh r0, [r0, r1]
 	subs r5, r0, #1
 	cmp r5, #0
 	blt _0802EEA6
 _0802EE12:
-	ldr r0, _0802EEE8  @ gUnknown_0202E4D4
+	ldr r0, _0802EEE8  @ gBmMapSize
 	movs r1, #0
 	ldrsh r0, [r0, r1]
 	subs r4, r0, #1
@@ -306,7 +306,7 @@ _0802EE12:
 	blt _0802EEA0
 	lsls r6, r5, #2
 _0802EE24:
-	ldr r0, _0802EEEC  @ gUnknown_0202E4E0
+	ldr r0, _0802EEEC  @ gBmMapMovement
 	ldr r0, [r0]
 	adds r0, r6, r0
 	ldr r0, [r0]
@@ -314,7 +314,7 @@ _0802EE24:
 	ldrb r0, [r0]
 	cmp r0, #0x78
 	bhi _0802EE9A
-	ldr r0, _0802EEE4  @ gUnknown_0202E4D8
+	ldr r0, _0802EEE4  @ gBmMapUnit
 	ldr r0, [r0]
 	adds r0, r6, r0
 	ldr r0, [r0]
@@ -322,7 +322,7 @@ _0802EE24:
 	ldrb r0, [r0]
 	cmp r0, #0
 	bne _0802EE9A
-	ldr r0, _0802EEF0  @ gUnknown_0202E4EC
+	ldr r0, _0802EEF0  @ gBmMapHidden
 	ldr r0, [r0]
 	adds r0, r6, r0
 	ldr r0, [r0]
@@ -332,7 +332,7 @@ _0802EE24:
 	ands r0, r1
 	cmp r0, #0
 	bne _0802EE9A
-	ldr r0, _0802EEF4  @ gUnknown_0202E4DC
+	ldr r0, _0802EEF4  @ gBmMapTerrain
 	ldr r0, [r0]
 	adds r0, r6, r0
 	ldr r0, [r0]
@@ -406,11 +406,11 @@ _0802EECA:
 	.align 2, 0
 _0802EEDC: .4byte 0x0000270F
 _0802EEE0: .4byte gUnknown_0880BB96
-_0802EEE4: .4byte gUnknown_0202E4D8
-_0802EEE8: .4byte gUnknown_0202E4D4
-_0802EEEC: .4byte gUnknown_0202E4E0
-_0802EEF0: .4byte gUnknown_0202E4EC
-_0802EEF4: .4byte gUnknown_0202E4DC
+_0802EEE4: .4byte gBmMapUnit
+_0802EEE8: .4byte gBmMapSize
+_0802EEEC: .4byte gBmMapMovement
+_0802EEF0: .4byte gBmMapHidden
+_0802EEF4: .4byte gBmMapTerrain
 
 	THUMB_FUNC_START ExecRescueStaff
 ExecRescueStaff: @ 0x0802EEF8

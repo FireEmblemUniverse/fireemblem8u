@@ -57,6 +57,7 @@ SECTIONS
         asm/bm.o(.text);
         src/bmitem.o(.text);
         src/bmunit.o(.text);
+        src/bmmap.o(.text);
         asm/bmmap.o(.text);
         asm/bmidoten.o(.text);
         asm/bmdebug.o(.text);

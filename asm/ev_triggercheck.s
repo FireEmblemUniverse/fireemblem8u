@@ -2666,7 +2666,7 @@ _0808410C: @ jump table
 	.4byte _080841D4 @ case 32
 _08084190:
 	lsls r1, r4, #0x18
-	ldr r0, _080841CC  @ gUnknown_0202E4D8
+	ldr r0, _080841CC  @ gBmMapUnit
 	ldr r0, [r0]
 	asrs r1, r1, #0x16
 	adds r1, r1, r0
@@ -2696,7 +2696,7 @@ _080841B6:
 _080841CA:
 	b _080841DE
 	.align 2, 0
-_080841CC: .4byte gUnknown_0202E4D8
+_080841CC: .4byte gBmMapUnit
 _080841D0: .4byte gActiveUnit
 _080841D4:
 	bl GetChapterThing

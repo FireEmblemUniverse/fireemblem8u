@@ -1438,7 +1438,7 @@ static void MU_DisplayAsMMS(struct MUProc* proc) {
         if (proc->stateId != MU_STATE_UI_DISPLAY)
             if (proc->pUnit && UNIT_FACTION(proc->pUnit) == FACTION_RED)
                 if (gUnknown_0202BCF0.chapterVisionRange != 0)
-                    if (!gUnknown_0202E4E8[MU_GetDisplayYOrg(proc) >> 4][MU_GetDisplayXOrg(proc) >> 4])
+                    if (!gBmMapFog[MU_GetDisplayYOrg(proc) >> 4][MU_GetDisplayXOrg(proc) >> 4])
                         return; // whew
 
         if (proc->stateId == MU_STATE_DEATHFADE)

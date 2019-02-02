@@ -465,7 +465,7 @@ _0800BC8C: .4byte gEventSlots
 _0800BC90:
 	ldr r2, _0800BCB0  @ gUnknown_030004E6
 	ldrh r1, [r2]
-	ldr r0, _0800BCB4  @ gUnknown_0202E4D8
+	ldr r0, _0800BCB4  @ gBmMapUnit
 	ldr r0, [r0]
 	lsls r1, r1, #2
 	adds r1, r1, r0
@@ -480,7 +480,7 @@ _0800BC90:
 	b _0800BCD8
 	.align 2, 0
 _0800BCB0: .4byte gUnknown_030004E6
-_0800BCB4: .4byte gUnknown_0202E4D8
+_0800BCB4: .4byte gBmMapUnit
 _0800BCB8:
 	movs r0, #0
 	b _0800BCD8
