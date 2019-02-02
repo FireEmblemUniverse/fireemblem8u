@@ -428,7 +428,7 @@ _08037798:
 	strb r0, [r1, #0x11]
 	movs r0, #3
 	bl SaveSuspendedGame
-	bl sub_802CA98
+	bl GetBattleAnimType
 	cmp r0, #1
 	bne _080377B2
 	bl SMS_UpdateFromGameData

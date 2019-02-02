@@ -1158,7 +1158,7 @@ sub_8022E8C: @ 0x08022E8C
 	strb r0, [r1, #0x14]
 	ldrb r0, [r4, #3]
 	strb r0, [r1, #0x15]
-	bl MakeSnagBattleTarget
+	bl InitObstacleBattleUnit
 _08022EC2:
 	ldr r1, _08022EE0  @ gUnknown_0203A958
 	ldrb r0, [r1, #0x12]
@@ -1171,7 +1171,7 @@ _08022EC2:
 	movs r3, #0x11
 	ldrsb r3, [r0, r3]
 	adds r1, r5, #0
-	bl sub_802A364
+	bl BattleGenerateBallistaSimulation
 	b _08022EFC
 	.align 2, 0
 _08022EE0: .4byte gUnknown_0203A958
@@ -1185,7 +1185,7 @@ _08022EE8:
 	str r1, [sp]
 	adds r1, r5, #0
 	adds r2, r3, #0
-	bl sub_802A318
+	bl BattleGenerateSimulation
 _08022EFC:
 	bl sub_803738C
 	movs r0, #0

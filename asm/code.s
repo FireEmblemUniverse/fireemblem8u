@@ -14473,7 +14473,7 @@ _08090B66:
 	movs r1, #1
 	negs r1, r1
 	adds r0, r7, #0
-	bl SetupBattleStructFromUnitAndWeapon
+	bl BattleGenerateUiStats
 	ldrb r0, [r4]
 	lsls r1, r0, #1
 	adds r1, r1, r0
@@ -89218,7 +89218,7 @@ sub_80B5970: @ 0x080B5970
 	ldr r0, _080B598C  @ gUnknown_0203A8F0
 	ldr r0, [r0]
 	ldr r1, _080B5990  @ gBattleActor
-	bl SaveUnitFromBattle
+	bl UpdateUnitFromBattle
 	ldr r0, _080B5994  @ gActiveUnit
 	ldr r0, [r0]
 	bl MU_Create
@@ -89392,7 +89392,7 @@ sub_80B5AB4: @ 0x080B5AB4
 	bl MU_EndAll
 	strb r6, [r5, #0x15]
 	ldr r0, [r4]
-	bl sub_802CD64
+	bl BattleGenerateArena
 	bl BeginBattleAnimations
 	pop {r4, r5, r6}
 	pop {r0}
@@ -112121,7 +112121,7 @@ sub_80C0A9C: @ 0x080C0A9C
 	lsls r1, r1, #0x18
 	asrs r1, r1, #0x18
 	adds r0, r4, #0
-	bl SetupBattleStructFromUnitAndWeapon
+	bl BattleGenerateUiStats
 	adds r0, r7, #0
 	adds r0, #0x34
 	ldr r4, _080C0B80  @ gUnknown_02022F4E

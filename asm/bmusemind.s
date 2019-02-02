@@ -12,10 +12,10 @@ ExecStandardHeal: @ 0x0802EB98
 	ldrb r0, [r4, #0xc]
 	bl GetUnit
 	ldrb r1, [r4, #0x12]
-	bl sub_802CB24
+	bl BattleInitItemEffect
 	ldrb r0, [r4, #0xd]
 	bl GetUnit
-	bl sub_802CBC8
+	bl BattleInitItemEffectTarget
 	ldrb r0, [r4, #0xc]
 	bl GetUnit
 	adds r5, r0, #0
@@ -47,7 +47,7 @@ ExecStandardHeal: @ 0x0802EB98
 	bl GetUnitCurrentHp
 	strb r0, [r5, #0x13]
 	adds r0, r6, #0
-	bl sub_802CC54
+	bl BattleApplyItemEffect
 	bl BeginBattleAnimations
 	pop {r4, r5, r6}
 	pop {r0}
@@ -65,10 +65,10 @@ ExecRestore: @ 0x0802EC20
 	ldrb r0, [r4, #0xc]
 	bl GetUnit
 	ldrb r1, [r4, #0x12]
-	bl sub_802CB24
+	bl BattleInitItemEffect
 	ldrb r0, [r4, #0xd]
 	bl GetUnit
-	bl sub_802CBC8
+	bl BattleInitItemEffectTarget
 	ldrb r0, [r4, #0xd]
 	bl GetUnit
 	adds r0, #0x30
@@ -93,7 +93,7 @@ _0802EC68:
 	movs r1, #0
 	bl SetUnitStatus
 	adds r0, r5, #0
-	bl sub_802CC54
+	bl BattleApplyItemEffect
 	bl BeginBattleAnimations
 	pop {r4, r5}
 	pop {r0}
@@ -110,10 +110,10 @@ sub_802EC8C: @ 0x0802EC8C
 	ldrb r0, [r4, #0xc]
 	bl GetUnit
 	ldrb r1, [r4, #0x12]
-	bl sub_802CB24
+	bl BattleInitItemEffect
 	ldrb r0, [r4, #0xd]
 	bl GetUnit
-	bl sub_802CBC8
+	bl BattleInitItemEffectTarget
 	ldrb r0, [r4, #0xd]
 	bl GetUnit
 	adds r0, #0x31
@@ -124,7 +124,7 @@ sub_802EC8C: @ 0x0802EC8C
 	orrs r1, r2
 	strb r1, [r0]
 	adds r0, r5, #0
-	bl sub_802CC54
+	bl BattleApplyItemEffect
 	bl BeginBattleAnimations
 	pop {r4, r5}
 	pop {r0}
@@ -421,10 +421,10 @@ ExecRescueStaff: @ 0x0802EEF8
 	ldrb r0, [r4, #0xc]
 	bl GetUnit
 	ldrb r1, [r4, #0x12]
-	bl sub_802CB24
+	bl BattleInitItemEffect
 	ldrb r0, [r4, #0xd]
 	bl GetUnit
-	bl sub_802CBC8
+	bl BattleInitItemEffectTarget
 	ldrb r0, [r4, #0xc]
 	bl GetUnit
 	adds r5, r0, #0
@@ -452,7 +452,7 @@ ExecRescueStaff: @ 0x0802EEF8
 	adds r0, #0x74
 	strb r1, [r0]
 	adds r0, r6, #0
-	bl sub_802CC54
+	bl BattleApplyItemEffect
 	bl BeginBattleAnimations
 	add sp, #8
 	pop {r4, r5, r6}
@@ -496,10 +496,10 @@ ExecWarpStaff: @ 0x0802EFAC
 	ldrb r0, [r4, #0xc]
 	bl GetUnit
 	ldrb r1, [r4, #0x12]
-	bl sub_802CB24
+	bl BattleInitItemEffect
 	ldrb r0, [r4, #0xd]
 	bl GetUnit
-	bl sub_802CBC8
+	bl BattleInitItemEffectTarget
 	ldrb r0, [r4, #0xd]
 	bl GetUnit
 	ldrb r1, [r4, #0x13]
@@ -517,7 +517,7 @@ ExecWarpStaff: @ 0x0802EFAC
 	adds r0, #0x74
 	strb r1, [r0]
 	adds r0, r5, #0
-	bl sub_802CC54
+	bl BattleApplyItemEffect
 	bl BeginBattleAnimations
 	ldr r0, _0802F00C  @ gUnknown_0859BDF0
 	adds r1, r5, #0
@@ -538,10 +538,10 @@ ExecStatusStaff: @ 0x0802F010
 	ldrb r0, [r4, #0xc]
 	bl GetUnit
 	ldrb r1, [r4, #0x12]
-	bl sub_802CB24
+	bl BattleInitItemEffect
 	ldrb r0, [r4, #0xd]
 	bl GetUnit
-	bl sub_802CBC8
+	bl BattleInitItemEffectTarget
 	ldrb r0, [r4, #0xc]
 	bl GetUnit
 	adds r5, r0, #0
@@ -549,7 +549,7 @@ ExecStatusStaff: @ 0x0802F010
 	bl GetUnit
 	adds r1, r0, #0
 	adds r0, r5, #0
-	bl GetStaffAccuracy
+	bl GetOffensiveStaffAccuracy
 	ldr r4, _0802F070  @ gBattleActor
 	adds r1, r4, #0
 	adds r1, #0x64
@@ -683,7 +683,7 @@ _0802F142:
 	strb r0, [r1]
 _0802F144:
 	adds r0, r6, #0
-	bl sub_802CC54
+	bl BattleApplyItemEffect
 	bl BeginBattleAnimations
 	pop {r4, r5, r6}
 	pop {r0}
@@ -697,10 +697,10 @@ ExecFortify: @ 0x0802F154
 	ldrb r0, [r4, #0xc]
 	bl GetUnit
 	ldrb r1, [r4, #0x12]
-	bl sub_802CB24
+	bl BattleInitItemEffect
 	bl GetPlayerLeaderUnitId
 	bl GetUnitFromCharId
-	bl sub_802CBC8
+	bl BattleInitItemEffectTarget
 	ldrb r0, [r4, #0xc]
 	bl GetUnit
 	bl MakeTargetListForRangedHeal
@@ -736,7 +736,7 @@ _0802F1A8:
 	blt _0802F1A8
 _0802F1C4:
 	adds r0, r7, #0
-	bl sub_802CC54
+	bl BattleApplyItemEffect
 	bl BeginBattleAnimations
 	pop {r4, r5, r6, r7}
 	pop {r0}
@@ -752,12 +752,12 @@ sub_802F1D8: @ 0x0802F1D8
 	ldrb r0, [r4, #0xc]
 	bl GetUnit
 	ldrb r1, [r4, #0x12]
-	bl sub_802CB24
+	bl BattleInitItemEffect
 	ldrb r0, [r4, #0xd]
 	bl GetUnit
-	bl sub_802CBC8
+	bl BattleInitItemEffectTarget
 	adds r0, r5, #0
-	bl sub_802CC54
+	bl BattleApplyItemEffect
 	bl BeginBattleAnimations
 	pop {r4, r5}
 	pop {r0}
@@ -789,7 +789,7 @@ _0802F222:
 	ldrb r0, [r0, #0xc]
 	bl GetUnit
 	adds r1, r4, #0
-	bl GetStaffAccuracy
+	bl GetOffensiveStaffAccuracy
 	bl Roll1RN
 	lsls r0, r0, #0x18
 	asrs r0, r0, #0x18
@@ -824,7 +824,7 @@ sub_802F274: @ 0x0802F274
 	ldrb r0, [r4, #0xc]
 	bl GetUnit
 	ldrb r1, [r4, #0x12]
-	bl sub_802CB24
+	bl BattleInitItemEffect
 	ldr r0, _0802F2B0  @ gBattleTarget
 	ldrb r1, [r4, #0x13]
 	strb r1, [r0, #0x10]
@@ -836,7 +836,7 @@ sub_802F274: @ 0x0802F274
 	adds r0, #0x74
 	strb r2, [r0]
 	adds r0, r5, #0
-	bl sub_802CC54
+	bl BattleApplyItemEffect
 	bl BeginBattleAnimations
 	pop {r4, r5}
 	pop {r0}
@@ -853,10 +853,10 @@ ExecHammerne: @ 0x0802F2B4
 	ldrb r0, [r4, #0xc]
 	bl GetUnit
 	ldrb r1, [r4, #0x12]
-	bl sub_802CB24
+	bl BattleInitItemEffect
 	ldrb r0, [r4, #0xd]
 	bl GetUnit
-	bl sub_802CBC8
+	bl BattleInitItemEffectTarget
 	ldrb r0, [r4, #0xd]
 	bl GetUnit
 	adds r5, r0, #0
@@ -874,7 +874,7 @@ ExecHammerne: @ 0x0802F2B4
 	adds r5, r5, r1
 	strh r0, [r5]
 	adds r0, r6, #0
-	bl sub_802CC54
+	bl BattleApplyItemEffect
 	bl BeginBattleAnimations
 	pop {r4, r5, r6}
 	pop {r0}
@@ -890,10 +890,10 @@ sub_802F30C: @ 0x0802F30C
 	ldrb r0, [r4, #0xc]
 	bl GetUnit
 	ldrb r1, [r4, #0x12]
-	bl sub_802CB24
+	bl BattleInitItemEffect
 	bl GetPlayerLeaderUnitId
 	bl GetUnitFromCharId
-	bl sub_802CBC8
+	bl BattleInitItemEffectTarget
 	ldrb r0, [r4, #0xc]
 	bl GetUnit
 	bl MakeTargetListForLatona
@@ -922,7 +922,7 @@ _0802F340:
 	blt _0802F340
 _0802F36C:
 	adds r0, r7, #0
-	bl sub_802CC54
+	bl BattleApplyItemEffect
 	bl BeginBattleAnimations
 	pop {r4, r5, r6, r7}
 	pop {r0}
@@ -939,7 +939,7 @@ ExecSomeSelfHeal: @ 0x0802F380
 	ldrb r0, [r5, #0xc]
 	bl GetUnit
 	ldrb r1, [r5, #0x12]
-	bl sub_802CB24
+	bl BattleInitItemEffect
 	ldrb r0, [r5, #0xc]
 	bl GetUnit
 	adds r1, r4, #0
@@ -961,7 +961,7 @@ ExecSomeSelfHeal: @ 0x0802F380
 	movs r0, #0x6c
 	strh r0, [r4]
 	adds r0, r6, #0
-	bl sub_802CC54
+	bl BattleApplyItemEffect
 	bl BeginBattleAnimations
 	pop {r4, r5, r6}
 	pop {r0}
@@ -979,7 +979,7 @@ sub_802F3E4: @ 0x0802F3E4
 	ldrb r0, [r4, #0xc]
 	bl GetUnit
 	ldrb r1, [r4, #0x12]
-	bl sub_802CB24
+	bl BattleInitItemEffect
 	ldrb r0, [r4, #0xc]
 	bl GetUnit
 	adds r5, r0, #0
@@ -1003,7 +1003,7 @@ sub_802F3E4: @ 0x0802F3E4
 	bl GetUnitCurrentHp
 	strb r0, [r5, #0x13]
 	adds r0, r6, #0
-	bl sub_802CC54
+	bl BattleApplyItemEffect
 	bl BeginBattleAnimations
 	pop {r4, r5, r6}
 	pop {r0}
@@ -1021,7 +1021,7 @@ sub_802F450: @ 0x0802F450
 	ldrb r0, [r4, #0xc]
 	bl GetUnit
 	ldrb r1, [r4, #0x12]
-	bl sub_802CB24
+	bl BattleInitItemEffect
 	ldrb r0, [r4, #0xc]
 	bl GetUnit
 	adds r0, #0x31
@@ -1032,7 +1032,7 @@ sub_802F450: @ 0x0802F450
 	orrs r1, r2
 	strb r1, [r0]
 	adds r0, r5, #0
-	bl sub_802CC54
+	bl BattleApplyItemEffect
 	bl BeginBattleAnimations
 	pop {r4, r5}
 	pop {r0}
@@ -1048,7 +1048,7 @@ sub_802F48C: @ 0x0802F48C
 	ldrb r0, [r4, #0xc]
 	bl GetUnit
 	ldrb r1, [r4, #0x12]
-	bl sub_802CB24
+	bl BattleInitItemEffect
 	ldrb r0, [r4, #0xc]
 	bl GetUnit
 	adds r0, #0x31
@@ -1064,7 +1064,7 @@ sub_802F48C: @ 0x0802F48C
 	ldrb r0, [r4, #0xf]
 	strb r0, [r4, #0x14]
 	adds r0, r5, #0
-	bl sub_802CC54
+	bl BattleApplyItemEffect
 	bl BeginBattleAnimations
 	pop {r4, r5}
 	pop {r0}
@@ -1080,7 +1080,7 @@ sub_802F4D0: @ 0x0802F4D0
 	ldrb r0, [r4, #0xc]
 	bl GetUnit
 	ldrb r1, [r4, #0x12]
-	bl sub_802CB24
+	bl BattleInitItemEffect
 	ldrb r0, [r4, #0xc]
 	bl GetUnit
 	movs r1, #0
@@ -1089,7 +1089,7 @@ sub_802F4D0: @ 0x0802F4D0
 	movs r1, #0
 	bl SetUnitStatus
 	adds r0, r5, #0
-	bl sub_802CC54
+	bl BattleApplyItemEffect
 	bl BeginBattleAnimations
 	pop {r4, r5}
 	pop {r0}
@@ -1198,19 +1198,19 @@ _0802F5CA:
 	strh r0, [r1]
 	adds r0, r5, #0
 	adds r1, r6, #0
-	bl CopyUnitToBattleStructRawStats
+	bl InitBattleUnitWithoutBonuses
 	adds r0, r6, #0
-	bl sub_802BC00
+	bl ApplyUnitDefaultPromotion
 	adds r0, r4, #0
 	adds r1, r6, #0
-	bl CopyUnitToBattleStructRawStats
+	bl InitBattleUnitWithoutBonuses
 	adds r0, r4, #0
 	adds r1, r5, #0
-	bl sub_802BEA0
+	bl GenerateBattleUnitStatGainsComparatively
 	adds r0, r4, #0
-	bl BattleSetupTerrainData
+	bl SetBattleUnitTerrainBonusesAuto
 	adds r0, r5, #0
-	bl BattleSetupTerrainData
+	bl SetBattleUnitTerrainBonusesAuto
 	mov r0, r8
 	cmp r0, #0
 	beq _0802F618
@@ -1298,20 +1298,20 @@ _0802F69E:
 	strh r0, [r1]
 	adds r0, r5, #0
 	adds r1, r6, #0
-	bl CopyUnitToBattleStructRawStats
+	bl InitBattleUnitWithoutBonuses
 	adds r0, r6, #0
 	mov r1, r8
-	bl sub_802BD50
+	bl ApplyUnitPromotion
 	adds r0, r4, #0
 	adds r1, r6, #0
-	bl CopyUnitToBattleStructRawStats
+	bl InitBattleUnitWithoutBonuses
 	adds r0, r4, #0
 	adds r1, r5, #0
-	bl sub_802BEA0
+	bl GenerateBattleUnitStatGainsComparatively
 	adds r0, r4, #0
-	bl BattleSetupTerrainData
+	bl SetBattleUnitTerrainBonusesAuto
 	adds r0, r5, #0
-	bl BattleSetupTerrainData
+	bl SetBattleUnitTerrainBonusesAuto
 	mov r0, r9
 	cmp r0, #0
 	beq _0802F6EE
@@ -1401,19 +1401,19 @@ sub_802F760: @ 0x0802F760
 	strh r2, [r0]
 	adds r0, r5, #0
 	adds r1, r6, #0
-	bl CopyUnitToBattleStruct
+	bl InitBattleUnit
 	adds r0, r6, #0
-	bl sub_802BC00
+	bl ApplyUnitDefaultPromotion
 	adds r0, r4, #0
 	adds r1, r6, #0
-	bl CopyUnitToBattleStruct
+	bl InitBattleUnit
 	adds r0, r4, #0
 	adds r1, r5, #0
-	bl sub_802BEA0
+	bl GenerateBattleUnitStatGainsComparatively
 	adds r0, r4, #0
-	bl BattleSetupTerrainData
+	bl SetBattleUnitTerrainBonusesAuto
 	adds r0, r5, #0
-	bl BattleSetupTerrainData
+	bl SetBattleUnitTerrainBonusesAuto
 	ldr r2, _0802F7FC  @ gBattleHitArray
 	ldr r0, [r2]
 	ldr r1, _0802F800  @ 0xFFF80000
@@ -1741,14 +1741,14 @@ sub_802FA4C: @ 0x0802FA4C
 	ldrb r0, [r4, #0xc]
 	bl GetUnit
 	ldrb r1, [r4, #0x12]
-	bl sub_802CB24
+	bl BattleInitItemEffect
 	ldrb r0, [r4, #0x13]
 	ldrb r1, [r4, #0x14]
 	movs r2, #0xb
 	movs r3, #0
 	bl AddTrap
 	adds r0, r5, #0
-	bl sub_802CC54
+	bl BattleApplyItemEffect
 	ldr r0, _0802FA8C  @ gBattleTarget
 	adds r0, #0x6f
 	movs r1, #0xff
@@ -1772,12 +1772,12 @@ sub_802FA90: @ 0x0802FA90
 	ldrb r0, [r4, #0xc]
 	bl GetUnit
 	ldrb r1, [r4, #0x12]
-	bl sub_802CB24
+	bl BattleInitItemEffect
 	ldrb r0, [r4, #0x13]
 	ldrb r1, [r4, #0x14]
 	bl AddLightRune
 	adds r0, r5, #0
-	bl sub_802CC54
+	bl BattleApplyItemEffect
 	ldrb r1, [r4, #0x13]
 	ldrb r2, [r4, #0x14]
 	adds r0, r5, #0
@@ -1801,9 +1801,9 @@ sub_802FAD0: @ 0x0802FAD0
 	ldrb r0, [r4, #0xc]
 	bl GetUnit
 	ldrb r1, [r4, #0x12]
-	bl sub_802CB24
+	bl BattleInitItemEffect
 	adds r0, r6, #0
-	bl sub_802CC54
+	bl BattleApplyItemEffect
 	ldrb r5, [r4, #0x13]
 	ldrb r4, [r4, #0x14]
 	adds r0, r6, #0
@@ -1887,14 +1887,14 @@ ExecTorchStaff: @ 0x0802FB88
 	ldrb r0, [r4, #0xc]
 	bl GetUnit
 	ldrb r1, [r4, #0x12]
-	bl sub_802CB24
+	bl BattleInitItemEffect
 	ldrb r0, [r4, #0x13]
 	ldrb r1, [r4, #0x14]
 	movs r2, #0xa
 	movs r3, #8
 	bl AddTrap
 	adds r0, r5, #0
-	bl sub_802CC54
+	bl BattleApplyItemEffect
 	bl BeginBattleAnimations
 	pop {r4, r5}
 	pop {r0}
@@ -1911,10 +1911,10 @@ sub_802FBBC: @ 0x0802FBBC
 	ldrb r0, [r4, #0xc]
 	bl GetUnit
 	ldrb r1, [r4, #0x12]
-	bl sub_802CB24
+	bl BattleInitItemEffect
 	ldrb r0, [r4, #0xd]
 	bl GetUnit
-	bl sub_802CBC8
+	bl BattleInitItemEffectTarget
 	ldrb r0, [r4, #0xc]
 	bl GetUnit
 	ldrb r1, [r4, #0x12]
@@ -1961,7 +1961,7 @@ _0802FC18:
 	lsls r0, r0, #2
 	strh r0, [r1]
 	adds r0, r6, #0
-	bl sub_802CC54
+	bl BattleApplyItemEffect
 	bl BeginBattleAnimations
 	pop {r4, r5, r6}
 	pop {r0}

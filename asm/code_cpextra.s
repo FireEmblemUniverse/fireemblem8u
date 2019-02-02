@@ -7296,7 +7296,7 @@ sub_803DEC8: @ 0x0803DEC8
 	ldrb r3, [r5, #1]
 	ldrh r4, [r5, #4]
 	str r4, [sp]
-	bl sub_802A318
+	bl BattleGenerateSimulation
 	b _0803DF0E
 	.align 2, 0
 _0803DEF0: .4byte 0x0000FFFF
@@ -7310,7 +7310,7 @@ _0803DEF8:
 	ldrb r2, [r5]
 	ldrb r3, [r5, #1]
 	adds r0, r4, #0
-	bl sub_802A364
+	bl BattleGenerateBallistaSimulation
 _0803DF0E:
 	adds r0, r5, #0
 	bl sub_803DEC4
@@ -11987,7 +11987,7 @@ sub_8040300: @ 0x08040300
 	ldr r0, _0804031C  @ gActiveUnit
 	ldr r0, [r0]
 	adds r1, r5, #0
-	bl GetStaffAccuracy
+	bl GetOffensiveStaffAccuracy
 	lsls r0, r0, #0x18
 	lsrs r4, r0, #0x18
 	cmp r4, #4
@@ -12314,7 +12314,7 @@ _08040560:
 	beq _08040612
 	ldr r0, [r7]
 	adds r1, r6, #0
-	bl GetStaffAccuracy
+	bl GetOffensiveStaffAccuracy
 	lsls r0, r0, #0x18
 	lsrs r1, r0, #0x18
 	cmp r1, #4
@@ -13845,7 +13845,7 @@ _0804113A:
 	ldr r0, _080411F4  @ gActiveUnit
 	ldr r0, [r0]
 	adds r1, r4, #0
-	bl GetStaffAccuracy
+	bl GetOffensiveStaffAccuracy
 	ldr r2, [sp]
 	cmp r0, r2
 	blt _080411C6

@@ -261,7 +261,7 @@ BKSEL_SetupHitAndSuchStats: @ 0x080366A0
 	str r0, [sp, #0xc]
 	add r1, sp, #4
 	mov r0, sp
-	bl BattleCheckDoubling
+	bl BattleGetFollowUpOrder
 	lsls r0, r0, #0x18
 	lsrs r0, r0, #0x18
 	mov r8, r0

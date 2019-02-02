@@ -262,7 +262,7 @@ sub_801E684: @ 0x0801E684
 	ldr r0, [r4, #0x2c]
 	movs r1, #1
 	negs r1, r1
-	bl SetupBattleStructFromUnitAndWeapon
+	bl BattleGenerateUiStats
 	ldr r3, _0801E740  @ gBattleTarget
 	ldr r2, _0801E744  @ gBattleActor
 	adds r0, r2, #0
@@ -470,7 +470,7 @@ _0801E8A4:
 	lsls r1, r5, #0x18
 	asrs r1, r1, #0x18
 	mov r0, r9
-	bl SetupBattleStructFromUnitAndWeapon
+	bl BattleGenerateUiStats
 	cmp r5, #8
 	bne _0801E8E6
 	ldr r3, _0801EA34  @ gBattleTarget

@@ -133,8 +133,7 @@ enum {
     CLASS_PUPIL_T1            = 0x7F,
 
     // Hiding the game's misery
-    CLASS_SNAG = CLASS_EPHRAIM_LORD,
-    CLASS_WALL = CLASS_EPHRAIM_LORD,
+    CLASS_OBSTACLE = CLASS_EPHRAIM_LORD,
 };
 
 #endif // GUARD_CONSTANTS_CLASSES_H

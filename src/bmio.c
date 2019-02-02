@@ -1315,7 +1315,7 @@ void MapMain_ResumeFromArenaFight(struct BMapMainProc* mapMain) {
 
     PrepareArena2(gActiveUnit);
 
-    sub_802CD64(gActiveUnit);
+    BattleGenerateArena(gActiveUnit);
     BeginBattleAnimations();
 
     gLCDControlBuffer.dispcnt.bg0_on = FALSE;

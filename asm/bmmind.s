@@ -358,7 +358,7 @@ _080322E0:
 _080322FC:
 	cmp r6, #0
 	bne _08032304
-	bl MakeSnagBattleTarget
+	bl InitObstacleBattleUnit
 _08032304:
 	ldr r1, _0803231C  @ gUnknown_0203A958
 	ldrb r0, [r1, #0x12]
@@ -367,7 +367,7 @@ _08032304:
 	ldrb r0, [r1, #0xc]
 	bl GetUnit
 	adds r1, r6, #0
-	bl sub_802A384
+	bl BattleGenerateBallistaReal
 	b _08032330
 	.align 2, 0
 _0803231C: .4byte gUnknown_0203A958
@@ -376,7 +376,7 @@ _08032324:
 	ldrb r0, [r1, #0xc]
 	bl GetUnit
 	adds r1, r6, #0
-	bl sub_802A350
+	bl BattleGenerateReal
 _08032330:
 	ldr r0, _08032340  @ gUnknown_0859DABC
 	adds r1, r7, #0
@@ -415,15 +415,15 @@ ActionDance: @ 0x08032358
 	bl GetUnit
 	movs r1, #1
 	negs r1, r1
-	bl sub_802CB24
+	bl BattleInitItemEffect
 	ldrb r0, [r4, #0xd]
 	bl GetUnit
-	bl sub_802CBC8
+	bl BattleInitItemEffectTarget
 	ldr r1, _080323A4  @ gBattleStats
 	movs r0, #0x40
 	strh r0, [r1]
 	adds r0, r5, #0
-	bl SaveInstigatorWith10ExtraExp
+	bl BattleApplyMiscAction
 	bl BeginBattleAnimations
 	movs r0, #0
 	pop {r4, r5}
@@ -605,7 +605,7 @@ _0803250A:
 	bl GetUnit
 	movs r1, #1
 	negs r1, r1
-	bl sub_802CB24
+	bl BattleInitItemEffect
 	ldr r4, _08032550  @ gBattleTarget
 	adds r1, r4, #0
 	adds r1, #0x55
@@ -615,11 +615,11 @@ _0803250A:
 	bl GetUnit
 	adds r1, r0, #0
 	adds r0, r4, #0
-	bl CopyUnitToBattleStruct
+	bl InitBattleUnit
 	adds r4, #0x48
 	strh r6, [r4]
 	adds r0, r7, #0
-	bl SaveInstigatorWith10ExtraExp
+	bl BattleApplyMiscAction
 	bl MU_EndAll
 	bl BeginMapAnimForSteal
 	movs r0, #0
@@ -637,9 +637,9 @@ ActionSummon: @ 0x08032554
 	ldr r0, _08032578  @ gBattleActor
 	ldr r1, _0803257C  @ gActiveUnit
 	ldr r1, [r1]
-	bl CopyUnitToBattleStruct
+	bl InitBattleUnit
 	adds r0, r4, #0
-	bl SaveInstigatorWith10ExtraExp
+	bl BattleApplyMiscAction
 	bl MU_EndAll
 	bl BeginMapAnimForSummon
 	movs r0, #0
@@ -657,9 +657,9 @@ ActionSummonDK: @ 0x08032580
 	ldr r0, _080325A4  @ gBattleActor
 	ldr r1, _080325A8  @ gActiveUnit
 	ldr r1, [r1]
-	bl CopyUnitToBattleStruct
+	bl InitBattleUnit
 	adds r0, r4, #0
-	bl SaveInstigatorWith10ExtraExp
+	bl BattleApplyMiscAction
 	bl MU_EndAll
 	bl BeginMapAnimForSummonDK
 	movs r0, #0

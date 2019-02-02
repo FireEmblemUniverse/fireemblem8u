@@ -15594,7 +15594,7 @@ _08057A1E:
 	ldr r5, _08057A40  @ gUnknown_0203E0FE
 	movs r0, #0
 	strh r0, [r5]
-	bl sub_802CA98
+	bl GetBattleAnimType
 	cmp r0, #3
 	bne _08057A66
 	ldr r0, _08057A44  @ gUnknown_0203E104
@@ -15632,17 +15632,17 @@ _08057A66:
 	strh r0, [r1]
 _08057A74:
 	movs r4, #0
-	bl sub_802CA98
+	bl GetBattleAnimType
 	cmp r0, #0
 	bne _08057A80
 	movs r4, #1
 _08057A80:
-	bl sub_802CA98
+	bl GetBattleAnimType
 	cmp r0, #3
 	bne _08057A8A
 	movs r4, #1
 _08057A8A:
-	bl sub_802CA98
+	bl GetBattleAnimType
 	cmp r0, #1
 	bne _08057AB6
 	ldr r0, _08057C84  @ gUnknown_0203E120
@@ -75223,7 +75223,7 @@ _08075F9E:
 	bne _08075FF4
 	ldr r4, _08076058  @ gUnknown_0203E188
 	ldr r0, [r4]
-	bl BattleUnit_DidWRankGoUp
+	bl HasBattleUnitGainedWeaponLevel
 	lsls r0, r0, #0x18
 	asrs r0, r0, #0x18
 	cmp r0, #1
@@ -75234,7 +75234,7 @@ _08075F9E:
 	str r0, [r5, #0x44]
 _08075FDE:
 	ldr r0, [r4]
-	bl DidWeaponBreak
+	bl DidBattleUnitBreakWeapon
 	lsls r0, r0, #0x18
 	asrs r0, r0, #0x18
 	cmp r0, #1
@@ -75251,7 +75251,7 @@ _08075FF4:
 	bne _0807602C
 	ldr r4, _0807605C  @ gUnknown_0203E18C
 	ldr r0, [r4]
-	bl BattleUnit_DidWRankGoUp
+	bl HasBattleUnitGainedWeaponLevel
 	lsls r0, r0, #0x18
 	asrs r0, r0, #0x18
 	cmp r0, #1
@@ -75262,7 +75262,7 @@ _08075FF4:
 	str r0, [r5, #0x4c]
 _08076016:
 	ldr r0, [r4]
-	bl DidWeaponBreak
+	bl DidBattleUnitBreakWeapon
 	lsls r0, r0, #0x18
 	asrs r0, r0, #0x18
 	cmp r0, #1

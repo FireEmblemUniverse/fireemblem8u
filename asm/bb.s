@@ -471,7 +471,7 @@ sub_8035804: @ 0x08035804
 	adds r4, r1, #0
 	movs r1, #1
 	negs r1, r1
-	bl sub_802CB24
+	bl BattleInitItemEffect
 	ldr r5, _08035844  @ gBattleActor
 	adds r0, r5, #0
 	adds r0, #0x48
@@ -490,7 +490,7 @@ sub_8035804: @ 0x08035804
 	ldrb r1, [r5, #0x13]
 	subs r0, r0, r1
 	strb r0, [r2, #3]
-	bl sub_802D2C4
+	bl BattleHitTerminate
 	bl BeginBattleAnimations
 	pop {r4, r5}
 	pop {r0}
@@ -506,7 +506,7 @@ sub_803584C: @ 0x0803584C
 	adds r4, r1, #0
 	movs r1, #1
 	negs r1, r1
-	bl sub_802CB24
+	bl BattleInitItemEffect
 	ldr r5, _080358B8  @ gBattleActor
 	negs r4, r4
 	adds r0, r5, #0
@@ -544,7 +544,7 @@ _08035872:
 	orrs r0, r1
 	strb r0, [r3, #2]
 _080358A2:
-	bl sub_802D2C4
+	bl BattleHitTerminate
 	bl sub_807B5DC
 	adds r0, r6, #0
 	bl sub_80357E4
@@ -561,7 +561,7 @@ sub_80358C0: @ 0x080358C0
 	adds r4, r1, #0
 	movs r1, #1
 	negs r1, r1
-	bl sub_802CB24
+	bl BattleInitItemEffect
 	ldr r5, _08035924  @ gBattleActor
 	negs r4, r4
 	adds r0, r5, #0
@@ -599,7 +599,7 @@ _080358E4:
 	orrs r0, r1
 	strb r0, [r3, #2]
 _08035914:
-	bl sub_802D2C4
+	bl BattleHitTerminate
 	bl sub_807B634
 	pop {r4, r5}
 	pop {r0}
@@ -615,7 +615,7 @@ sub_803592C: @ 0x0803592C
 	adds r4, r1, #0
 	movs r1, #1
 	negs r1, r1
-	bl sub_802CB24
+	bl BattleInitItemEffect
 	ldr r5, _080359A8  @ gBattleActor
 	negs r4, r4
 	adds r0, r5, #0
@@ -661,7 +661,7 @@ _08035952:
 	orrs r0, r1
 	strb r0, [r3, #2]
 _08035992:
-	bl sub_802D2C4
+	bl BattleHitTerminate
 	bl sub_807B68C
 	adds r0, r6, #0
 	bl sub_80357E4

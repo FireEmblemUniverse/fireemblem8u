@@ -2241,7 +2241,7 @@ sub_8029CE8: @ 0x08029CE8
 	bl GetUnit
 	adds r1, r0, #0
 	adds r0, r5, #0
-	bl GetStaffAccuracy
+	bl GetOffensiveStaffAccuracy
 	adds r1, r0, #0
 	adds r0, r6, #0
 	bl sub_803511C

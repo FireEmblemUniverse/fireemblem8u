@@ -993,17 +993,17 @@ sub_8031EF0: @ 0x08031EF0
 	strb r0, [r1, #0x16]
 	movs r0, #3
 	bl SaveSuspendedGame
-	bl MakeBattle
+	bl BattleUnwind
 	movs r0, #0x13
 	ldrsb r0, [r4, r0]
 	cmp r0, #0
 	bne _08031F1A
-	bl sub_802B92C
+	bl BattleApplyExpGains
 _08031F1A:
 	ldr r0, _08031F48  @ gUnknown_0203A8F0
 	ldr r0, [r0]
 	ldr r1, _08031F4C  @ gBattleActor
-	bl sub_802C2D4
+	bl UpdateUnitDuringBattle
 	cmp r5, #0
 	beq _08031F30
 	movs r0, #0x13

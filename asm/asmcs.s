@@ -4091,15 +4091,15 @@ _080865E6:
 _080865EC:
 	mov r0, sp
 	adds r1, r6, #0
-	bl CopyUnitToBattleStruct
+	bl InitBattleUnit
 	ldrb r0, [r7, #9]
 	adds r0, #0x64
 	strb r0, [r7, #9]
 	mov r0, sp
-	bl CheckForLevelUp
+	bl CheckBattleUnitLevelUp
 	adds r0, r6, #0
 	mov r1, sp
-	bl SaveUnitFromBattle
+	bl UpdateUnitFromBattle
 	adds r0, r4, #1
 	lsls r0, r0, #0x18
 	lsrs r4, r0, #0x18

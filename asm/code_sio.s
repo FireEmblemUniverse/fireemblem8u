@@ -17595,7 +17595,7 @@ _0804A35A:
 	str r4, [sp]
 	mov r0, r9
 	adds r1, r5, #0
-	bl sub_802A318
+	bl BattleGenerateSimulation
 	bl sub_803738C
 	ldr r0, [r7]
 	bl sub_80492B8
@@ -17950,7 +17950,7 @@ sub_804A614: @ 0x0804A614
 	bl EquipUnitItemSlot
 	adds r0, r6, #0
 	mov r1, r8
-	bl sub_802A350
+	bl BattleGenerateReal
 	ldr r2, _0804A69C  @ gUnknown_0202BCB0
 	ldrb r1, [r2, #4]
 	movs r0, #0x40

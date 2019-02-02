@@ -267,7 +267,7 @@ struct ActionData
 
     /* 16 */ u8 suspendPointType;
 
-    /* 18 */ struct BattleHit* unk18;
+    /* 18 */ struct BattleHit* scriptedBattleHits;
 
     /* 1C+ TODO (sizeof(struct ActionData) == 0x38) */
 };

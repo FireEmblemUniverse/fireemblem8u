@@ -102,7 +102,7 @@ sub_8086E44: @ 0x08086E44
 	lsls r1, r1, #0x18
 	asrs r1, r1, #0x18
 	adds r0, r4, #0
-	bl SetupBattleStructFromUnitAndWeapon
+	bl BattleGenerateUiStats
 	adds r0, r7, #0
 	adds r0, #0x18
 	ldr r1, _08086F30  @ 0x00000286

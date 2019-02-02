@@ -820,11 +820,11 @@ sub_8011DF4: @ 0x08011DF4
 	ldr r5, _08011E38  @ gBattleActor
 	adds r0, r5, #0
 	adds r1, r7, #0
-	bl CopyUnitToBattleStruct
+	bl InitBattleUnit
 	ldr r4, _08011E3C  @ gBattleTarget
 	adds r0, r4, #0
 	mov r1, r8
-	bl CopyUnitToBattleStruct
+	bl InitBattleUnit
 	ldr r6, _08011E40  @ gBattleStats
 	movs r2, #0x10
 	ldrsb r2, [r5, r2]
@@ -860,7 +860,7 @@ _08011E48:
 	cmp r0, #0
 	beq _08011E68
 	ldr r0, _08011E64  @ gBattleActor
-	bl SetupBattleBallistaWeaponData
+	bl SetBattleUnitWeaponBallista
 	b _08011E72
 	.align 2, 0
 _08011E60: .4byte gBattleStats
@@ -869,31 +869,31 @@ _08011E68:
 	ldr r0, _08011EC0  @ gBattleActor
 	movs r1, #1
 	negs r1, r1
-	bl SetupBattleWeaponData
+	bl SetBattleUnitWeapon
 _08011E72:
 	ldr r4, _08011EC4  @ gBattleTarget
 	movs r1, #1
 	negs r1, r1
 	adds r0, r4, #0
-	bl SetupBattleWeaponData
-	bl DoSomeBattleWeaponStuff
+	bl SetBattleUnitWeapon
+	bl BattleInitTargetCanCounter
 	ldr r5, _08011EC0  @ gBattleActor
 	adds r0, r5, #0
 	adds r1, r4, #0
-	bl BattleApplyWeaponTriangle
+	bl BattleApplyWeaponTriangleEffect
 	bl BattleSomethingTrapChangeTerrain
 	adds r0, r5, #0
-	bl BattleSetupTerrainData
+	bl SetBattleUnitTerrainBonusesAuto
 	adds r0, r4, #0
-	bl BattleSetupTerrainData
+	bl SetBattleUnitTerrainBonusesAuto
 	adds r0, r7, #0
 	mov r1, r8
-	bl sub_802A398
+	bl BattleGenerate
 	bl NullAllLightRunesTerrain
 	adds r0, r4, #0
-	bl sub_802C740
+	bl BattleUnitTargetCheckCanCounter
 	adds r0, r4, #0
-	bl sub_802C6EC
+	bl BattleUnitTargetSetEquippedWeapon
 	pop {r3}
 	mov r8, r3
 	pop {r4, r5, r6, r7}
@@ -1028,9 +1028,9 @@ _08011FAC:
 _08011FBA:
 	adds r0, r7, #0
 	movs r1, #0
-	bl sub_802CB24
+	bl BattleInitItemEffect
 	mov r0, r8
-	bl sub_802CBC8
+	bl BattleInitItemEffectTarget
 	b _08011FE2
 _08011FCA:
 	mov r1, r9
@@ -1165,7 +1165,7 @@ _080120BE:
 	ldr r1, [sp, #4]
 	cmp r1, #0
 	bne _08012118
-	bl ClearRounds
+	bl ClearBattleHits
 	ldr r2, _0801215C  @ gBattleHitIterator
 	ldr r1, [r2]
 	ldr r0, [r5]
@@ -1180,7 +1180,7 @@ _080120BE:
 	mov r9, r2
 	movs r4, #0x10
 _080120FA:
-	bl sub_802D2B4
+	bl BattleHitAdvance
 	adds r5, #4
 	mov r0, r9
 	ldr r1, [r0]
@@ -1193,7 +1193,7 @@ _080120FA:
 	cmp r0, #0
 	beq _080120FA
 _08012114:
-	bl sub_802D2C4
+	bl BattleHitTerminate
 _08012118:
 	mov r1, sl
 	asrs r4, r1, #0x18

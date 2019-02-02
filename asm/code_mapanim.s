@@ -75,7 +75,7 @@ BattleUnit_ShouldDisplayWpnBroke: @ 0x0807A770
 	b _0807A78E
 _0807A784:
 	adds r0, r2, #0
-	bl DidWeaponBreak
+	bl DidBattleUnitBreakWeapon
 	lsls r0, r0, #0x18
 	asrs r0, r0, #0x18
 _0807A78E:
@@ -129,7 +129,7 @@ BattleUnit_ShouldDisplayWRankUp: @ 0x0807A7D8
 	cmp r0, #0
 	bne _0807A7F8
 	adds r0, r2, #0
-	bl BattleUnit_DidWRankGoUp
+	bl HasBattleUnitGainedWeaponLevel
 	lsls r0, r0, #0x18
 	cmp r0, #0
 	beq _0807A7F8
@@ -4410,7 +4410,7 @@ sub_807C8FC: @ 0x0807C8FC
 	ldr r0, _0807C928  @ gBattleTarget
 	movs r1, #1
 	bl sub_807C8A0
-	bl ClearRounds
+	bl ClearBattleHits
 	movs r7, #0
 	movs r6, #0
 	ldr r3, _0807C92C  @ gUnknown_089A3810
