@@ -985,7 +985,7 @@ sub_8031EF0: @ 0x08031EF0
 	ldr r0, _08031F3C  @ gUnknown_0202BCB0
 	adds r0, #0x3c
 	ldrb r5, [r0]
-	ldr r1, _08031F40  @ gUnknown_0203A958
+	ldr r1, _08031F40  @ gActionData
 	ldr r4, _08031F44  @ gBattleTarget
 	ldrb r0, [r4, #0x13]
 	strb r0, [r1, #0x15]
@@ -1018,7 +1018,7 @@ _08031F34:
 	bx r0
 	.align 2, 0
 _08031F3C: .4byte gUnknown_0202BCB0
-_08031F40: .4byte gUnknown_0203A958
+_08031F40: .4byte gActionData
 _08031F44: .4byte gBattleTarget
 _08031F48: .4byte gUnknown_0203A8F0
 _08031F4C: .4byte gBattleActor

@@ -165,7 +165,7 @@ sub_8021B30: @ 0x08021B30
 	ands r0, r1
 	cmp r0, #0
 	beq _08021B86
-	ldr r0, _08021B90  @ gUnknown_0203A958
+	ldr r0, _08021B90  @ gActionData
 	ldrb r0, [r0, #0xd]
 	bl GetUnit
 	movs r4, #0x10
@@ -202,7 +202,7 @@ _08021B86:
 	bx r0
 	.align 2, 0
 _08021B8C: .4byte gBattleStats
-_08021B90: .4byte gUnknown_0203A958
+_08021B90: .4byte gActionData
 _08021B94: .4byte gUnknown_0859B410
 _08021B98: .4byte gUnknown_0202BCB0
 

@@ -499,7 +499,7 @@ sub_8035E50: @ 0x08035E50
 	ldrsb r0, [r4, r0]
 	bl GetUnit
 	adds r6, r0, #0
-	ldr r1, _08035E88  @ gUnknown_0203A958
+	ldr r1, _08035E88  @ gActionData
 	ldrb r0, [r4, #2]
 	strb r0, [r1, #0xc]
 	movs r0, #0
@@ -511,7 +511,7 @@ sub_8035E50: @ 0x08035E50
 	bl Proc_Delete
 	b _08035ED2
 	.align 2, 0
-_08035E88: .4byte gUnknown_0203A958
+_08035E88: .4byte gActionData
 _08035E8C:
 	ldr r0, _08035EB8  @ gUnknown_0202BCF0
 	ldrb r0, [r0, #0xd]
@@ -611,7 +611,7 @@ sub_8035F40: @ 0x08035F40
 	asrs r0, r0, #0x18
 	cmp r0, #0
 	beq _08035F5E
-	ldr r0, _08035F68  @ gUnknown_0203A958
+	ldr r0, _08035F68  @ gActionData
 	ldrb r0, [r0, #0xc]
 	bl GetUnit
 	bl ShowUnitSMS
@@ -620,7 +620,7 @@ _08035F5E:
 	bx r0
 	.align 2, 0
 _08035F64: .4byte gBattleActor
-_08035F68: .4byte gUnknown_0203A958
+_08035F68: .4byte gActionData
 
 	THUMB_FUNC_START sub_8035F6C
 sub_8035F6C: @ 0x08035F6C
@@ -733,7 +733,7 @@ sub_803601C: @ 0x0803601C
 	ldrh r0, [r5]
 	adds r0, #1
 	strh r0, [r5]
-	ldr r0, _08036088  @ gUnknown_0203A958
+	ldr r0, _08036088  @ gActionData
 	ldrb r0, [r0, #0xc]
 	bl GetUnit
 	bl GetUnitCurrentHp
@@ -745,7 +745,7 @@ sub_803601C: @ 0x0803601C
 	beq _0803606C
 	bl RunWaitEvents
 _0803606C:
-	ldr r0, _08036088  @ gUnknown_0203A958
+	ldr r0, _08036088  @ gActionData
 	ldrb r0, [r0, #0xc]
 	bl GetUnit
 	bl GetUnitCurrentHp
@@ -757,7 +757,7 @@ _08036080:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_08036088: .4byte gUnknown_0203A958
+_08036088: .4byte gActionData
 
 	THUMB_FUNC_START sub_803608C
 sub_803608C: @ 0x0803608C
@@ -850,7 +850,7 @@ sub_803611C: @ 0x0803611C
 	ldrh r0, [r5]
 	adds r0, #1
 	strh r0, [r5]
-	ldr r0, _08036184  @ gUnknown_0203A958
+	ldr r0, _08036184  @ gActionData
 	ldrb r0, [r0, #0xc]
 	bl GetUnit
 	bl GetUnitCurrentHp
@@ -862,7 +862,7 @@ sub_803611C: @ 0x0803611C
 	beq _0803616A
 	bl RunWaitEvents
 _0803616A:
-	ldr r0, _08036184  @ gUnknown_0203A958
+	ldr r0, _08036184  @ gActionData
 	ldrb r0, [r0, #0xc]
 	bl GetUnit
 	bl GetUnitCurrentHp
@@ -874,7 +874,7 @@ _0803617E:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_08036184: .4byte gUnknown_0203A958
+_08036184: .4byte gActionData
 
 	THUMB_FUNC_START sub_8036188
 sub_8036188: @ 0x08036188
@@ -906,7 +906,7 @@ sub_80361AC: @ 0x080361AC
 	ldrsh r0, [r0, r1]
 	bl GetTarget
 	adds r7, r0, #0
-	ldr r5, _080361EC  @ gUnknown_0203A958
+	ldr r5, _080361EC  @ gActionData
 	ldrb r0, [r5, #0xc]
 	bl GetUnit
 	adds r0, #0x30
@@ -927,7 +927,7 @@ sub_80361AC: @ 0x080361AC
 	ldr r0, [r0]
 	mov pc, r0
 	.align 2, 0
-_080361EC: .4byte gUnknown_0203A958
+_080361EC: .4byte gActionData
 _080361F0: .4byte _080361F4
 _080361F4: @ jump table
 	.4byte _08036228 @ case 0
@@ -964,7 +964,7 @@ sub_803623C: @ 0x0803623C
 	cmp r0, #0xd
 	bne _08036276
 _0803624A:
-	ldr r4, _08036294  @ gUnknown_0203A958
+	ldr r4, _08036294  @ gActionData
 	ldrb r0, [r4, #0xc]
 	bl GetUnit
 	movs r1, #0
@@ -980,7 +980,7 @@ _0803624A:
 	bl SMS_UpdateFromGameData
 	bl MU_EndAll
 _08036276:
-	ldr r0, _08036294  @ gUnknown_0203A958
+	ldr r0, _08036294  @ gActionData
 	ldrb r0, [r0, #0xc]
 	bl GetUnit
 	movs r1, #0
@@ -994,7 +994,7 @@ _08036276:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_08036294: .4byte gUnknown_0203A958
+_08036294: .4byte gActionData
 _08036298: .4byte 0xFFFFFBBD
 
 	THUMB_FUNC_START sub_803629C
@@ -1018,7 +1018,7 @@ sub_80362A4: @ 0x080362A4
 	ldrsb r0, [r5, r0]
 	bl GetUnit
 	adds r6, r0, #0
-	ldr r1, _080362DC  @ gUnknown_0203A958
+	ldr r1, _080362DC  @ gActionData
 	ldrb r0, [r5, #2]
 	strb r0, [r1, #0xc]
 	movs r0, #0
@@ -1030,7 +1030,7 @@ sub_80362A4: @ 0x080362A4
 	bl Proc_Delete
 	b _0803632E
 	.align 2, 0
-_080362DC: .4byte gUnknown_0203A958
+_080362DC: .4byte gActionData
 _080362E0:
 	movs r0, #2
 	ldrsb r0, [r5, r0]
@@ -1206,7 +1206,7 @@ _0803641E:
 	bl Proc_GotoLabel
 	b _0803646E
 _08036432:
-	ldr r5, _0803645C  @ gUnknown_0203A958
+	ldr r5, _0803645C  @ gActionData
 	strb r1, [r5, #0xc]
 	ldrb r0, [r4, #3]
 	strb r0, [r5, #0x15]
@@ -1223,7 +1223,7 @@ _08036432:
 	bl sub_803584C
 	b _0803646E
 	.align 2, 0
-_0803645C: .4byte gUnknown_0203A958
+_0803645C: .4byte gActionData
 _08036460:
 	ldrb r0, [r5, #0xc]
 	bl GetUnit

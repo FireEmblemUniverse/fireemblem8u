@@ -17937,7 +17937,7 @@ sub_804A614: @ 0x0804A614
 	mov r8, r0
 	adds r0, r6, #0
 	bl HideUnitSMS
-	ldr r1, _0804A694  @ gUnknown_0203A958
+	ldr r1, _0804A694  @ gActionData
 	movs r0, #2
 	strb r0, [r1, #0x11]
 	ldrb r0, [r4, #5]
@@ -17970,7 +17970,7 @@ _0804A682:
 	.align 2, 0
 _0804A68C: .4byte gUnknown_03001818
 _0804A690: .4byte gUnknown_0203DD90
-_0804A694: .4byte gUnknown_0203A958
+_0804A694: .4byte gActionData
 _0804A698: .4byte gUnknown_03001834
 _0804A69C: .4byte gUnknown_0202BCB0
 _0804A6A0: .4byte gUnknown_085AA75C

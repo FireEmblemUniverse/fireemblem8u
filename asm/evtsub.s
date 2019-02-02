@@ -1007,14 +1007,14 @@ sub_8011F5C: @ 0x08011F5C
 	movs r1, #1
 	str r1, [sp, #4]
 _08011F98:
-	ldr r1, _08011FA4  @ gUnknown_0203A958
+	ldr r1, _08011FA4  @ gActionData
 	ldr r0, [sp, #4]
 	cmp r0, #0
 	bne _08011FA8
 	str r5, [r1, #0x18]
 	b _08011FAC
 	.align 2, 0
-_08011FA4: .4byte gUnknown_0203A958
+_08011FA4: .4byte gActionData
 _08011FA8:
 	movs r0, #0
 	str r0, [r1, #0x18]
@@ -1207,7 +1207,7 @@ _08012118:
 	mov r1, r8
 	strb r0, [r1, #0x13]
 	bl sub_8058B70
-	ldr r0, _08012160  @ gUnknown_0203A958
+	ldr r0, _08012160  @ gActionData
 	str r4, [r0, #0x18]
 	ldr r4, _08012164  @ gUnknown_030005FC
 	ldrh r1, [r4]
@@ -1225,7 +1225,7 @@ _08012150: .4byte gBattleActor
 _08012154: .4byte gBattleStats
 _08012158: .4byte gBattleTarget
 _0801215C: .4byte gBattleHitIterator
-_08012160: .4byte gUnknown_0203A958
+_08012160: .4byte gActionData
 _08012164: .4byte gUnknown_030005FC
 _08012168: .4byte 0x0000FFFF
 _0801216C:
@@ -1244,14 +1244,14 @@ _0801216C:
 	cmp r6, #0
 	beq _080121A0
 _08012192:
-	ldr r1, _0801219C  @ gUnknown_0203A958
+	ldr r1, _0801219C  @ gActionData
 	movs r0, #3
 	b _080121A4
 	.align 2, 0
 _08012198: .4byte gActiveUnit
-_0801219C: .4byte gUnknown_0203A958
+_0801219C: .4byte gActionData
 _080121A0:
-	ldr r1, _080121CC  @ gUnknown_0203A958
+	ldr r1, _080121CC  @ gActionData
 	movs r0, #2
 _080121A4:
 	strb r0, [r1, #0x11]
@@ -1274,7 +1274,7 @@ _080121BA:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_080121CC: .4byte gUnknown_0203A958
+_080121CC: .4byte gActionData
 _080121D0: .4byte gUnknown_0203AA94
 
 	THUMB_FUNC_START sub_80121D4
@@ -1295,7 +1295,7 @@ sub_80121D4: @ 0x080121D4
 	strb r0, [r6, #0x13]
 	ldrb r0, [r4, #0x13]
 	strb r0, [r7, #0x13]
-	ldr r0, _08012260  @ gUnknown_0203A958
+	ldr r0, _08012260  @ gActionData
 	str r1, [r0, #0x18]
 	bl sub_803A024
 	ldr r0, _08012264  @ gUnknown_030005FC
@@ -1345,7 +1345,7 @@ _08012248:
 	.align 2, 0
 _08012258: .4byte gBattleActor
 _0801225C: .4byte gBattleTarget
-_08012260: .4byte gUnknown_0203A958
+_08012260: .4byte gActionData
 _08012264: .4byte gUnknown_030005FC
 _08012268: .4byte 0x0000FFFF
 _0801226C: .4byte gBattleStats

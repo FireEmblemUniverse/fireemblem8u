@@ -1108,7 +1108,7 @@ void GameCtrl_StartResumedGame(struct GameCtrlProc* gameCtrl) {
     gUnknown_0202BCB0.xCameraReal = sub_8015A40(16 * gUnknown_0202BCB0.xPlayerCursor);
     gUnknown_0202BCB0.yCameraReal = sub_8015A6C(16 * gUnknown_0202BCB0.yPlayerCursor);
 
-    switch (gUnknown_0203A958.suspendPointType) {
+    switch (gActionData.suspendPointType) {
 
     case SUSPEND_POINT_DURINGACTION:
         MapMain_ResumeFromAction(mapMain);
@@ -1131,7 +1131,7 @@ void GameCtrl_StartResumedGame(struct GameCtrlProc* gameCtrl) {
         MapMain_ResumeFromPhaseChange(mapMain);
         break;
 
-    } // switch (gUnknown_0203A958.suspendPointType)
+    } // switch (gActionData.suspendPointType)
 
     sub_8001ED0(TRUE, TRUE, TRUE, TRUE, TRUE);
     sub_8001F48(TRUE);
@@ -1288,10 +1288,10 @@ void MapMain_ResumeFromAction(struct BMapMainProc* mapMain) {
 
     Proc_GotoLabel((struct Proc*)(mapMain), 6);
 
-    gActiveUnit = GetUnit(gUnknown_0203A958.subjectIndex);
+    gActiveUnit = GetUnit(gActionData.subjectIndex);
     gUnknown_0202E4D8[gActiveUnit->yPos][gActiveUnit->xPos] = 0;
 
-    HideUnitSMS(GetUnit(gUnknown_0203A958.subjectIndex));
+    HideUnitSMS(GetUnit(gActionData.subjectIndex));
 
     MU_Create(gActiveUnit);
     MU_SetDefaultFacing_Auto();
@@ -1311,7 +1311,7 @@ void MapMain_ResumeFromBskPhase(struct BMapMainProc* mapMain) {
 }
 
 void MapMain_ResumeFromArenaFight(struct BMapMainProc* mapMain) {
-    gActiveUnit = GetUnit(gUnknown_0203A958.subjectIndex);
+    gActiveUnit = GetUnit(gActionData.subjectIndex);
 
     PrepareArena2(gActiveUnit);
 
@@ -1326,7 +1326,7 @@ void MapMain_ResumeFromArenaFight(struct BMapMainProc* mapMain) {
 
     RefreshFogAndUnitMaps();
 
-    gUnknown_0202E4D8[gUnknown_0203A958.yMove][gUnknown_0203A958.xMove] = 0;
+    gUnknown_0202E4D8[gActionData.yMove][gActionData.xMove] = 0;
 
     SMS_UpdateFromGameData();
 

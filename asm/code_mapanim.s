@@ -828,14 +828,14 @@ _0807AD04: .4byte gUnknown_0202BCF0
 	THUMB_FUNC_START New6C_SummonGfx_FromActionPos
 New6C_SummonGfx_FromActionPos: @ 0x0807AD08
 	push {lr}
-	ldr r2, _0807AD18  @ gUnknown_0203A958
+	ldr r2, _0807AD18  @ gActionData
 	ldrb r1, [r2, #0x13]
 	ldrb r2, [r2, #0x14]
 	bl New6C_SummonGfx
 	pop {r0}
 	bx r0
 	.align 2, 0
-_0807AD18: .4byte gUnknown_0203A958
+_0807AD18: .4byte gActionData
 
 	THUMB_FUNC_START sub_807AD1C
 sub_807AD1C: @ 0x0807AD1C
@@ -984,7 +984,7 @@ _0807AE2A:
 	ands r0, r2
 	orrs r0, r1
 	strb r0, [r6, #3]
-	ldr r3, _0807AEAC  @ gUnknown_0203A958
+	ldr r3, _0807AEAC  @ gActionData
 	movs r0, #0x3f
 	ldrb r1, [r3, #0x13]
 	ands r1, r0
@@ -1042,7 +1042,7 @@ _0807AE7E:
 	movs r0, #0x27
 	b _0807AEFA
 	.align 2, 0
-_0807AEAC: .4byte gUnknown_0203A958
+_0807AEAC: .4byte gActionData
 _0807AEB0: .4byte 0xFFFFF03F
 _0807AEB4:
 	cmp r0, #0xf
@@ -6709,7 +6709,7 @@ sub_807DBA8: @ 0x0807DBA8
 	movs r1, #3
 	bl Proc_Create
 	str r4, [r0, #0x2c]
-	ldr r4, _0807DBDC  @ gUnknown_0203A958
+	ldr r4, _0807DBDC  @ gActionData
 	ldrb r1, [r4, #0x13]
 	lsls r1, r1, #4
 	ldr r3, _0807DBE0  @ gUnknown_0202BCB0
@@ -6728,7 +6728,7 @@ sub_807DBA8: @ 0x0807DBA8
 	bx r0
 	.align 2, 0
 _0807DBD8: .4byte gUnknown_089A3C24
-_0807DBDC: .4byte gUnknown_0203A958
+_0807DBDC: .4byte gActionData
 _0807DBE0: .4byte gUnknown_0202BCB0
 
 	THUMB_FUNC_START sub_807DBE4
@@ -8160,7 +8160,7 @@ _0807E798: .4byte gUnknown_0202BCB0
 	THUMB_FUNC_START sub_807E79C
 sub_807E79C: @ 0x0807E79C
 	push {r4, lr}
-	ldr r4, _0807E7C0  @ gUnknown_0203A958
+	ldr r4, _0807E7C0  @ gActionData
 	ldrb r0, [r4, #0xc]
 	bl GetUnit
 	ldr r1, [r0, #0xc]
@@ -8176,12 +8176,12 @@ sub_807E79C: @ 0x0807E79C
 	pop {r0}
 	bx r0
 	.align 2, 0
-_0807E7C0: .4byte gUnknown_0203A958
+_0807E7C0: .4byte gActionData
 
 	THUMB_FUNC_START sub_807E7C4
 sub_807E7C4: @ 0x0807E7C4
 	push {lr}
-	ldr r0, _0807E7DC  @ gUnknown_0203A958
+	ldr r0, _0807E7DC  @ gActionData
 	ldrb r0, [r0, #0xc]
 	bl GetUnit
 	ldr r1, [r0, #0xc]
@@ -8192,7 +8192,7 @@ sub_807E7C4: @ 0x0807E7C4
 	pop {r0}
 	bx r0
 	.align 2, 0
-_0807E7DC: .4byte gUnknown_0203A958
+_0807E7DC: .4byte gActionData
 
 	THUMB_FUNC_START sub_807E7E0
 sub_807E7E0: @ 0x0807E7E0

@@ -1786,7 +1786,7 @@ sub_80853D0: @ 0x080853D0
 sub_80853E4: @ 0x080853E4
 	push {lr}
 	movs r1, #0
-	ldr r0, _080853F8  @ gUnknown_0203A958
+	ldr r0, _080853F8  @ gActionData
 	ldrb r0, [r0, #0x11]
 	cmp r0, #1
 	bne _080853F2
@@ -1796,7 +1796,7 @@ _080853F2:
 	pop {r1}
 	bx r1
 	.align 2, 0
-_080853F8: .4byte gUnknown_0203A958
+_080853F8: .4byte gActionData
 
 	THUMB_FUNC_START sub_80853FC
 sub_80853FC: @ 0x080853FC

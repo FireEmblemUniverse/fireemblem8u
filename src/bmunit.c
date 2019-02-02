@@ -1046,9 +1046,9 @@ void UnitBeginAction(struct Unit* unit) {
     gActiveUnitMoveOrigin.x = unit->xPos;
     gActiveUnitMoveOrigin.y = unit->yPos;
 
-    gUnknown_0203A958.subjectIndex = unit->index;
-    gUnknown_0203A958.unitActionType = 0;
-    gUnknown_0203A958.moveCount = 0;
+    gActionData.subjectIndex = unit->index;
+    gActionData.unitActionType = 0;
+    gActionData.moveCount = 0;
 
     gUnknown_0202BCB0.unk3D = 0;
     gUnknown_0202BCB0.unk3F = 0xFF;
@@ -1066,7 +1066,7 @@ void UnitBeginCantoAction(struct Unit* unit) {
     gActiveUnitMoveOrigin.x = unit->xPos;
     gActiveUnitMoveOrigin.y = unit->yPos;
 
-    gUnknown_0203A958.unitActionType = 0;
+    gActionData.unitActionType = 0;
 
     gUnknown_0202BCB0.unk3D = 0;
 
@@ -1082,7 +1082,7 @@ void MoveActiveUnit(int x, int y) {
 
     gActiveUnit->state |= US_UNSELECTABLE;
 
-    BWL_AddTilesMoved(gActiveUnit->pCharacterData->number, gUnknown_0203A958.moveCount);
+    BWL_AddTilesMoved(gActiveUnit->pCharacterData->number, gActionData.moveCount);
 
     if (GetUnitCurrentHp(gActiveUnit) != 0)
         gActiveUnit->state = gActiveUnit->state &~ US_HIDDEN;
@@ -1302,7 +1302,7 @@ s8 CanUnitMove(void) {
         0, +1,
     };
 
-    int move = UNIT_MOV(gActiveUnit) - gUnknown_0203A958.moveCount;
+    int move = UNIT_MOV(gActiveUnit) - gActionData.moveCount;
 
     int xUnit = gActiveUnit->xPos;
     int yUnit = gActiveUnit->yPos;

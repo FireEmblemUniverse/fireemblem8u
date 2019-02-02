@@ -41637,7 +41637,7 @@ _0809E304:
 	bl sub_80AD51C
 	movs r0, #5
 	bl BG_EnableSyncByMask
-	ldr r1, _0809E3F8  @ gUnknown_0203A958
+	ldr r1, _0809E3F8  @ gActionData
 	movs r0, #0x1c
 	strb r0, [r1, #0x11]
 	ldr r0, [r7, #0x2c]
@@ -41662,7 +41662,7 @@ _0809E3E8: .4byte gUnknown_02022EEC
 _0809E3EC: .4byte gUnknown_02013670
 _0809E3F0: .4byte gUnknown_02023CC6
 _0809E3F4: .4byte sub_809E2BC
-_0809E3F8: .4byte gUnknown_0203A958
+_0809E3F8: .4byte gActionData
 _0809E3FC: .4byte gUnknown_0202BCF0
 _0809E400:
 	ldr r0, _0809E41C  @ gUnknown_0202BCF0
@@ -42300,7 +42300,7 @@ sub_809E85C: @ 0x0809E85C
 	ldr r0, [r5, #0x2c]
 	bl GetUnitItemCount
 	adds r4, r0, #0
-	ldr r1, _0809E934  @ gUnknown_0203A958
+	ldr r1, _0809E934  @ gActionData
 	movs r0, #0x1c
 	strb r0, [r1, #0x11]
 	cmp r4, #0
@@ -42328,7 +42328,7 @@ _0809E924: .4byte gUnknown_02022EEC
 _0809E928: .4byte gUnknown_02013670
 _0809E92C: .4byte gUnknown_02023CC6
 _0809E930: .4byte sub_809E2BC
-_0809E934: .4byte gUnknown_0203A958
+_0809E934: .4byte gActionData
 _0809E938: .4byte gUnknown_0202BCF0
 _0809E93C:
 	ldr r0, _0809E970  @ gUnknown_0202BCF0
@@ -56705,7 +56705,7 @@ _080A5A70:
 	movs r2, #0x4c
 	bl WriteAndVerifySramFast
 	bl StoreRNStateToActionStruct
-	ldr r0, _080A5BC4  @ gUnknown_0203A958
+	ldr r0, _080A5BC4  @ gActionData
 	adds r1, r7, #0
 	adds r1, #0x4c
 	movs r2, #0x38
@@ -56839,7 +56839,7 @@ _080A5BB0:
 	bx r0
 	.align 2, 0
 _080A5BC0: .4byte gUnknown_0202BCF0
-_080A5BC4: .4byte gUnknown_0203A958
+_080A5BC4: .4byte gActionData
 _080A5BC8: .4byte gUnknown_02020188
 _080A5BCC: .4byte gUnitArrayBlue
 _080A5BD0: .4byte 0x00000A5C
@@ -56881,7 +56881,7 @@ LoadSuspendedGame: @ 0x080A5C14
 	bl SetGameClock
 	adds r0, r6, #0
 	adds r0, #0x4c
-	ldr r1, _080A5D64  @ gUnknown_0203A958
+	ldr r1, _080A5D64  @ gActionData
 	ldr r3, [r5]
 	movs r2, #0x38
 	bl _call_via_r3
@@ -57004,7 +57004,7 @@ _080A5C96:
 _080A5D58: .4byte gUnknown_0203EDB8
 _080A5D5C: .4byte ReadSramFast
 _080A5D60: .4byte gUnknown_0202BCF0
-_080A5D64: .4byte gUnknown_0203A958
+_080A5D64: .4byte gActionData
 _080A5D68: .4byte gUnitArrayBlue
 _080A5D6C: .4byte 0x00000B14
 _080A5D70: .4byte gUnitArrayRed
@@ -87193,7 +87193,7 @@ sub_80B4930: @ 0x080B4930
 	movs r0, #0xb9
 	movs r1, #8
 	bl sub_8014B88
-	ldr r1, _080B49A0  @ gUnknown_0203A958
+	ldr r1, _080B49A0  @ gActionData
 	movs r0, #0x17
 	strb r0, [r1, #0x11]
 	bl GetPartyGoldAmount
@@ -87231,7 +87231,7 @@ sub_80B4930: @ 0x080B4930
 	bl Proc_GotoLabel
 	b _080B49B0
 	.align 2, 0
-_080B49A0: .4byte gUnknown_0203A958
+_080B49A0: .4byte gActionData
 _080B49A4: .4byte gUnknown_02022E5E
 _080B49A8:
 	adds r0, r6, #0
@@ -88531,7 +88531,7 @@ sub_80B5440: @ 0x080B5440
 	movs r0, #0xb9
 	movs r1, #8
 	bl sub_8014B88
-	ldr r1, _080B5490  @ gUnknown_0203A958
+	ldr r1, _080B5490  @ gActionData
 	movs r0, #0x17
 	strb r0, [r1, #0x11]
 	bl GetPartyGoldAmount
@@ -88560,7 +88560,7 @@ sub_80B5440: @ 0x080B5440
 	pop {r0}
 	bx r0
 	.align 2, 0
-_080B5490: .4byte gUnknown_0203A958
+_080B5490: .4byte gActionData
 _080B5494: .4byte gUnknown_02022E5E
 
 	THUMB_FUNC_START sub_80B5498
@@ -89378,7 +89378,7 @@ sub_80B5AB4: @ 0x080B5AB4
 	bl sub_8010E50
 	ldr r0, _080B5AF4  @ gUnknown_08A394C0
 	bl Proc_DeleteAllWithScript
-	ldr r5, _080B5AF8  @ gUnknown_0203A958
+	ldr r5, _080B5AF8  @ gActionData
 	movs r6, #0
 	movs r0, #0x19
 	strb r0, [r5, #0x11]
@@ -89399,7 +89399,7 @@ sub_80B5AB4: @ 0x080B5AB4
 	bx r0
 	.align 2, 0
 _080B5AF4: .4byte gUnknown_08A394C0
-_080B5AF8: .4byte gUnknown_0203A958
+_080B5AF8: .4byte gActionData
 _080B5AFC: .4byte gActiveUnit
 
 	THUMB_FUNC_START sub_80B5B00
@@ -89697,7 +89697,7 @@ _080B5D58:
 	THUMB_FUNC_START sub_80B5D5C
 sub_80B5D5C: @ 0x080B5D5C
 	push {lr}
-	ldr r1, _080B5D70  @ gUnknown_0203A958
+	ldr r1, _080B5D70  @ gActionData
 	movs r0, #0
 	strb r0, [r1, #0x16]
 	movs r0, #3
@@ -89705,7 +89705,7 @@ sub_80B5D5C: @ 0x080B5D5C
 	pop {r0}
 	bx r0
 	.align 2, 0
-_080B5D70: .4byte gUnknown_0203A958
+_080B5D70: .4byte gActionData
 
 	THUMB_FUNC_START sub_80B5D74
 sub_80B5D74: @ 0x080B5D74
@@ -135704,7 +135704,7 @@ sub_80CCA14: @ 0x080CCA14
 	adds r0, r5, #0
 	adds r0, #0x32
 	strb r1, [r0]
-	ldr r4, _080CCA60  @ gUnknown_0203A958
+	ldr r4, _080CCA60  @ gActionData
 	ldrb r0, [r4, #0xc]
 	bl GetUnit
 	ldr r0, [r0]
@@ -135724,7 +135724,7 @@ sub_80CCA14: @ 0x080CCA14
 	bx r0
 	.align 2, 0
 _080CCA5C: .4byte gUnknown_08B126CC
-_080CCA60: .4byte gUnknown_0203A958
+_080CCA60: .4byte gActionData
 
 	THUMB_FUNC_START sub_80CCA64
 sub_80CCA64: @ 0x080CCA64
@@ -136698,7 +136698,7 @@ sub_80CD218: @ 0x080CD218
 	ldr r0, _080CD288  @ gUnknown_0201FADC
 	bl sub_805AE14
 	bl sub_805A9E0
-	ldr r1, _080CD28C  @ gUnknown_0203A958
+	ldr r1, _080CD28C  @ gActionData
 	movs r0, #0
 	strb r0, [r1, #0x11]
 	adds r0, r6, #0
@@ -136720,7 +136720,7 @@ _080CD27C:
 	.align 2, 0
 _080CD284: .4byte gUnknown_030053A0
 _080CD288: .4byte gUnknown_0201FADC
-_080CD28C: .4byte gUnknown_0203A958
+_080CD28C: .4byte gActionData
 _080CD290: .4byte gActiveUnit
 
 	THUMB_FUNC_START sub_80CD294

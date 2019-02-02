@@ -560,7 +560,7 @@ extern u8** gUnknown_0202E4F0; // gMapOther
 // extern ??? gUnknown_0203A8EC
 extern struct ArenaData gUnknown_0203A8F0;
 extern struct Unit gUnknown_0203A910; // arena opponent unit
-extern struct ActionData gUnknown_0203A958;
+extern struct ActionData gActionData;
 // extern ??? gUnknown_0203A95E
 // extern ??? gUnknown_0203A974
 // extern ??? gUnknown_0203A9FC

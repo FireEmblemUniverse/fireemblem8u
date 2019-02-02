@@ -558,7 +558,7 @@
 . = 0x03A8EC; gUnknown_0203A8EC = .;
 . = 0x03A8F0; gUnknown_0203A8F0 = .;
 . = 0x03A910; gUnknown_0203A910 = .;
-. = 0x03A958; gUnknown_0203A958 = .;
+. = 0x03A958; gActionData = .;
 . = 0x03A95E; gUnknown_0203A95E = .;
 . = 0x03A974; gUnknown_0203A974 = .;
 . = 0x03A9FC; gUnknown_0203A9FC = .;

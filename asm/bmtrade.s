@@ -591,7 +591,7 @@ sub_802D72C: @ 0x0802D72C
 	adds r1, #0x40
 	movs r0, #1
 	strb r0, [r1]
-	ldr r1, _0802D790  @ gUnknown_0203A958
+	ldr r1, _0802D790  @ gActionData
 	movs r0, #0x1b
 	strb r0, [r1, #0x11]
 	ldr r0, [r4, #0x2c]
@@ -604,7 +604,7 @@ sub_802D72C: @ 0x0802D72C
 	pop {r0}
 	bx r0
 	.align 2, 0
-_0802D790: .4byte gUnknown_0203A958
+_0802D790: .4byte gActionData
 
 	THUMB_FUNC_START sub_802D794
 sub_802D794: @ 0x0802D794

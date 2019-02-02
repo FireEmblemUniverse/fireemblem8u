@@ -911,7 +911,7 @@ ShouldCallBattleQuote: @ 0x080834B0
 	bl GetChapterThing
 	cmp r0, #2
 	beq _080834F2
-	ldr r0, _080834F8  @ gUnknown_0203A958
+	ldr r0, _080834F8  @ gActionData
 	ldrb r0, [r0, #0x11]
 	cmp r0, #2
 	bne _080834F2
@@ -934,7 +934,7 @@ _080834F2:
 	movs r0, #0
 	b _080834FE
 	.align 2, 0
-_080834F8: .4byte gUnknown_0203A958
+_080834F8: .4byte gActionData
 _080834FC:
 	movs r0, #1
 _080834FE:
@@ -952,7 +952,7 @@ CallBattleQuoteEventsIfAny: @ 0x08083504
 	bl GetChapterThing
 	cmp r0, #2
 	beq _08083568
-	ldr r0, _08083554  @ gUnknown_0203A958
+	ldr r0, _08083554  @ gActionData
 	ldrb r0, [r0, #0x11]
 	cmp r0, #2
 	bne _08083568
@@ -981,7 +981,7 @@ _08083548:
 	bl CallBattleQuoteEventInBattle
 	b _08083562
 	.align 2, 0
-_08083554: .4byte gUnknown_0203A958
+_08083554: .4byte gActionData
 _08083558:
 	ldr r0, [r4, #0xc]
 	cmp r0, #0
