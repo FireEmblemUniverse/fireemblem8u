@@ -81,7 +81,7 @@ void sub_802A13C(struct Unit* actor, struct Unit* target, int x, int y, int acto
 	else
 		SetupBattleWeaponData(&gBattleActor, actorWpnSlot);
 
-	SetupBattleWeaponData(&gBattleTarget, -1);
+	SetupBattleWeaponData(&gBattleTarget, BU_ISLOT_AUTO);
 
 	DoSomeBattleWeaponStuff();
 	BattleApplyWeaponTriangle(&gBattleActor, &gBattleTarget);
@@ -107,9 +107,9 @@ void sub_802A20C(struct Unit* actor, struct Unit* target) {
 	if (gUnknown_0203A4D4.config & BATTLE_CONFIG_BALLISTA)
 		SetupBattleBallistaWeaponData(&gBattleActor);
 	else
-		SetupBattleWeaponData(&gBattleActor, -1);
+		SetupBattleWeaponData(&gBattleActor, BU_ISLOT_AUTO);
 
-	SetupBattleWeaponData(&gBattleTarget, -1);
+	SetupBattleWeaponData(&gBattleTarget, BU_ISLOT_AUTO);
 
 	DoSomeBattleWeaponStuff();
 	BattleApplyWeaponTriangle(&gBattleActor, &gBattleTarget);
@@ -225,7 +225,7 @@ void SetupBattleStructFromUnitAndWeapon(struct Unit* unit, s8 itemSlot) {
 		gBattleActor.battleCrit = 0xFF;
 	}
 
-	if (GetItemWeaponEffect(gBattleActor.weaponAfter) == 3) // TODO: WEAPON EFFECT CONSTANTS
+	if (GetItemWeaponEffect(gBattleActor.weaponAfter) == WPN_EFFECT_HPHALVE)
 		gBattleActor.battleAttack = 0xFF;
 
 	if (GetItemIndex(gBattleActor.weaponAfter) == ITEM_MONSTER_STONE) {
@@ -325,7 +325,7 @@ void BattleSetupTerrainData(struct BattleUnit* bu) {
 }
 
 void SetupBattleWeaponData(struct BattleUnit* bu, int itemSlot) {
-	if (itemSlot == -1)
+	if (itemSlot == BU_ISLOT_AUTO)
 		itemSlot = GetUnitEquippedWeaponSlot(&bu->unit);
 
 	if (bu->unit.state & US_IN_BALLISTA)
@@ -672,7 +672,7 @@ void ComputeSpecialWeapons(struct BattleUnit* attacker, struct BattleUnit* defen
 
 		} // switch (GetItemIndex(attacker->weaponAfter))
 	} else {
-		if (GetItemWeaponEffect(attacker->weaponBefore) == 3) { // TODO: WEAPON EFFECT CONSTANTS
+		if (GetItemWeaponEffect(attacker->weaponBefore) == WPN_EFFECT_HPHALVE) {
 			attacker->battleAttack = (defender->unit.curHP + 1) >> 1;
 
 			if (attacker->battleAttack == 0)
@@ -702,8 +702,8 @@ void ClearRounds(void) {
 	int i;
 
 	for (i = 0; i < BATTLE_HIT_MAX; ++i) {
-		gUnknown_0203A5EC[i].unk00b = 0;
-		gUnknown_0203A5EC[i].unk19b = 0;
+		gUnknown_0203A5EC[i].attributes = 0;
+		gUnknown_0203A5EC[i].info = 0;
 		gUnknown_0203A5EC[i].hpChange = 0;
 	}
 
@@ -714,7 +714,7 @@ void MakeBattle(void) {
 	ClearRounds();
 
 	// this do { ... } while (0); is required for match
-	// which is kind of neat because it implies plans for supporting some accost kind of thing
+	// which is kind of neat because it implies scrapped plans for supporting some accost kind of thing
 
 	do {
 		struct BattleUnit* attacker;
@@ -722,20 +722,20 @@ void MakeBattle(void) {
 
 		GetBattleUnitPointers(&attacker, &defender);
 
-		gUnknown_0203A608->unk19b |= 1; // TODO: BATTLE HIT BITS
+		gUnknown_0203A608->info |= BATTLE_HIT_INFO_BEGIN;
 
 		if (!MakeBattleRound(attacker, defender)) {
-			gUnknown_0203A608->unk00b |= 8; // TODO: BATTLE HIT BITS
+			gUnknown_0203A608->attributes |= BATTLE_HIT_ATTR_RETALIATE;
 
 			if (!MakeBattleRound(defender, attacker) && BattleCheckDoubling(&attacker, &defender)) {
-				gUnknown_0203A608->unk00b = 4; // TODO: BATTLE HIT BITS
+				gUnknown_0203A608->attributes = BATTLE_HIT_ATTR_FOLLOWUP;
 
 				MakeBattleRound(attacker, defender);
 			}
 		}
 	} while (FALSE);
 
-	gUnknown_0203A608->unk19b |= 0x10; // TODO: BATTLE HIT BITS
+	gUnknown_0203A608->info |= BATTLE_HIT_INFO_END;
 }
 
 void GetBattleUnitPointers(struct BattleUnit** outAttacker, struct BattleUnit** outDefender) {
@@ -758,7 +758,7 @@ s8 BattleCheckDoubling(struct BattleUnit** outAttacker, struct BattleUnit** outD
 		*outDefender = &gBattleActor;
 	}
 
-	if (GetItemWeaponEffect((*outAttacker)->weaponBefore) == 3) // TODO: WEAPON EFFECT IDS
+	if (GetItemWeaponEffect((*outAttacker)->weaponBefore) == WPN_EFFECT_HPHALVE)
 		return FALSE;
 
 	if (GetItemIndex((*outAttacker)->weaponAfter) == ITEM_MONSTER_STONE)
@@ -769,16 +769,16 @@ s8 BattleCheckDoubling(struct BattleUnit** outAttacker, struct BattleUnit** outD
 
 s8 MakeBattleRound(struct BattleUnit* attacker, struct BattleUnit* defender) {
 	int i, count;
-	u16 unk;
+	u16 attrs; // NOTE: this is a bug! attrs are 19 bits in FE8 (they're 16 bits in previous games)
 
 	if (!attacker->weaponAfter)
 		return FALSE;
 
-	unk = gUnknown_0203A608->unk00b;
+	attrs = gUnknown_0203A608->attributes;
 	count = GetBattleHitCount(attacker);
 
 	for (i = 0; i < count; ++i) {
-		gUnknown_0203A608->unk00b |= unk;
+		gUnknown_0203A608->attributes |= attrs;
 
 		if (MakeNextBattleHitRound(attacker, defender))
 			return TRUE;
@@ -799,7 +799,7 @@ int BattleCheckBrave(struct BattleUnit* attacker) {
 	if (!(attacker->weaponAttributes & IA_BRAVE))
 		return FALSE;
 
-	gUnknown_0203A608->unk00b |= 0x10; // TODO: BATTLE HIT BITS
+	gUnknown_0203A608->attributes |= BATTLE_HIT_ATTR_BRAVE;
 	return TRUE;
 }
 
@@ -869,13 +869,13 @@ void UpdateBattleStats(struct BattleUnit* attacker, struct BattleUnit* defender)
 }
 
 void RollForSureShot(struct BattleUnit* attacker) {
-	if (gUnknown_0203A608->unk00b & 0x4000) // TODO: BATTLE HIT BITS
+	if (gUnknown_0203A608->attributes & BATTLE_HIT_ATTR_SURESHOT)
 		return;
 
-	if (gUnknown_0203A608->unk00b & 0x10000) // TODO: BATTLE HIT BITS
+	if (gUnknown_0203A608->attributes & BATTLE_HIT_ATTR_PIERCE)
 		return;
 
-	if (gUnknown_0203A608->unk00b & 0x8000) // TODO: BATTLE HIT BITS
+	if (gUnknown_0203A608->attributes & BATTLE_HIT_ATTR_GREATSHLD)
 		return;
 
 	switch (attacker->unit.pClassData->number) {
@@ -891,7 +891,7 @@ void RollForSureShot(struct BattleUnit* attacker) {
 
 		default:
 			if (RollRNIfBattleStarted(attacker->unit.level, FALSE) == TRUE)
-				gUnknown_0203A608->unk00b |= 0x4000; // TODO: BATTLE HIT BITS
+				gUnknown_0203A608->attributes |= BATTLE_HIT_ATTR_SURESHOT;
 
 			break;
 
@@ -903,13 +903,13 @@ void RollForSureShot(struct BattleUnit* attacker) {
 }
 
 void RollForPierce(struct BattleUnit* attacker, struct BattleUnit* defender) {
-	if (gUnknown_0203A608->unk00b & 0x4000) // TODO: BATTLE HIT BITS
+	if (gUnknown_0203A608->attributes & BATTLE_HIT_ATTR_SURESHOT)
 		return;
 
-	if (gUnknown_0203A608->unk00b & 0x10000) // TODO: BATTLE HIT BITS
+	if (gUnknown_0203A608->attributes & BATTLE_HIT_ATTR_PIERCE)
 		return;
 
-	if (gUnknown_0203A608->unk00b & 0x8000) // TODO: BATTLE HIT BITS
+	if (gUnknown_0203A608->attributes & BATTLE_HIT_ATTR_GREATSHLD)
 		return;
 
 	switch (attacker->unit.pClassData->number) {
@@ -917,7 +917,7 @@ void RollForPierce(struct BattleUnit* attacker, struct BattleUnit* defender) {
 	case CLASS_WYVERN_KNIGHT:
 	case CLASS_WYVERN_KNIGHT_F:
 		if (RollRNIfBattleStarted(attacker->unit.level, FALSE) == TRUE)
-			gUnknown_0203A608->unk00b |= 0x10000; // TODO: BATTLE HIT BITS
+			gUnknown_0203A608->attributes |= BATTLE_HIT_ATTR_PIERCE;
 
 		break;
 
@@ -925,22 +925,22 @@ void RollForPierce(struct BattleUnit* attacker, struct BattleUnit* defender) {
 }
 
 void RollForGreatShield(struct BattleUnit* attacker, struct BattleUnit* defender) {
-	if (gUnknown_0203A608->unk00b & 2) // TODO: BATTLE HIT BITS
+	if (gUnknown_0203A608->attributes & BATTLE_HIT_ATTR_MISS)
 		return;
 
-	if (gUnknown_0203A608->unk00b & 0x4000) // TODO: BATTLE HIT BITS
+	if (gUnknown_0203A608->attributes & BATTLE_HIT_ATTR_SURESHOT)
 		return;
 
-	if (gUnknown_0203A608->unk00b & 0x10000) // TODO: BATTLE HIT BITS
+	if (gUnknown_0203A608->attributes & BATTLE_HIT_ATTR_PIERCE)
 		return;
 
-	if (gUnknown_0203A608->unk00b & 0x8000) // TODO: BATTLE HIT BITS
+	if (gUnknown_0203A608->attributes & BATTLE_HIT_ATTR_GREATSHLD)
 		return;
 
-	if (GetItemWeaponEffect(attacker->weaponAfter) == 1) // TODO: WEAPON EFFECT DEFINITIONS
+	if (GetItemWeaponEffect(attacker->weaponAfter) == WPN_EFFECT_POISON)
 		return;
 
-	if (gUnknown_0203A608->unk00b & 2) // TODO: BATTLE HIT BITS
+	if (gUnknown_0203A608->attributes & BATTLE_HIT_ATTR_MISS)
 		return;
 
 	switch (defender->unit.pClassData->number) {
@@ -948,7 +948,7 @@ void RollForGreatShield(struct BattleUnit* attacker, struct BattleUnit* defender
 	case CLASS_GENERAL:
 	case CLASS_GENERAL_F:
 		if (RollRNIfBattleStarted(attacker->unit.level, FALSE) == TRUE)
-			gUnknown_0203A608->unk00b |= 0x8000; // TODO: BATTLE HIT BITS
+			gUnknown_0203A608->attributes |= BATTLE_HIT_ATTR_GREATSHLD;
 
 		break;
 
@@ -988,9 +988,9 @@ void GenerateCurrentRoundData(struct BattleUnit* attacker, struct BattleUnit* de
 
 	RollForSureShot(attacker);
 
-	if (!(gUnknown_0203A608->unk00b & 0x4000)) { // TODO: BATTLE HIT BITS
+	if (!(gUnknown_0203A608->attributes & BATTLE_HIT_ATTR_SURESHOT)) {
 		if (!Roll2RNIfBattleStarted(gUnknown_0203A4D4.hit, TRUE)) {
-			gUnknown_0203A608->unk00b |= 2; // TODO: BATTLE HIT BITS
+			gUnknown_0203A608->attributes |= BATTLE_HIT_ATTR_MISS;
 			return;
 		}
 	}
@@ -1000,32 +1000,32 @@ void GenerateCurrentRoundData(struct BattleUnit* attacker, struct BattleUnit* de
 
 	RollForGreatShield(attacker, defender);
 
-	if (!(gUnknown_0203A608->unk00b & 0x8000)) // TODO: BATTLE HIT BITS
+	if (!(gUnknown_0203A608->attributes & BATTLE_HIT_ATTR_GREATSHLD))
 		RollForPierce(attacker, defender);
 
-	if (gUnknown_0203A608->unk00b & 0x10000) // TODO: BATTLE HIT BITS
+	if (gUnknown_0203A608->attributes & BATTLE_HIT_ATTR_PIERCE)
 		defense = 0;
 
 	gUnknown_0203A4D4.damage = attack - defense;
 
-	if (gUnknown_0203A608->unk00b & 0x8000) // TODO: BATTLE HIT BITS
+	if (gUnknown_0203A608->attributes & BATTLE_HIT_ATTR_GREATSHLD)
 		gUnknown_0203A4D4.damage = 0;
 
 	if (RollRNIfBattleStarted(gUnknown_0203A4D4.crit, FALSE) == TRUE) {
 		if (RollForLethality(attacker, defender)) {
-			gUnknown_0203A608->unk00b |= 0x800; // TODO: BATTLE HIT BITS
+			gUnknown_0203A608->attributes |= BATTLE_HIT_ATTR_SILENCER;
 
-			gUnknown_0203A4D4.damage = 127;
+			gUnknown_0203A4D4.damage = BATTLE_MAX_DAMAGE;
 
-			gUnknown_0203A608->unk00b = gUnknown_0203A608->unk00b &~ 0x8000; // TODO: BATTLE HIT BITS
+			gUnknown_0203A608->attributes = gUnknown_0203A608->attributes &~ BATTLE_HIT_ATTR_GREATSHLD;
 		} else {
-			gUnknown_0203A608->unk00b = gUnknown_0203A608->unk00b | 1; // TODO: BATTLE HIT BITS
+			gUnknown_0203A608->attributes = gUnknown_0203A608->attributes | BATTLE_HIT_ATTR_CRIT;
 			gUnknown_0203A4D4.damage = gUnknown_0203A4D4.damage * 3;
 		}
 	}
 
-	if (gUnknown_0203A4D4.damage > 127)
-		gUnknown_0203A4D4.damage = 127;
+	if (gUnknown_0203A4D4.damage > BATTLE_MAX_DAMAGE)
+		gUnknown_0203A4D4.damage = BATTLE_MAX_DAMAGE;
 
 	if (gUnknown_0203A4D4.damage < 0)
 		gUnknown_0203A4D4.damage = 0;
@@ -1043,7 +1043,7 @@ void UpdateBattleTriangleAttackData(struct BattleUnit* attacker, struct BattleUn
 	if (gUnknown_0203A4D4.range != 1)
 		return;
 
-	if (!(gUnknown_0203A608->unk19b & 1)) // TODO: BATTLE HIT BITS
+	if (!(gUnknown_0203A608->info & BATTLE_HIT_INFO_BEGIN))
 		return;
 
 	if (attacker->unit.statusIndex == UNIT_STATUS_BERSERK)
@@ -1055,7 +1055,7 @@ void UpdateBattleTriangleAttackData(struct BattleUnit* attacker, struct BattleUn
 	if (!CheckForTriangleAttack(attacker, defender))
 		return;
 
-	gUnknown_0203A608->unk00b |= 0x400;
+	gUnknown_0203A608->attributes |= BATTLE_HIT_ATTR_TATTACK;
 
 	gUnknown_0203A4D4.crit = 100;
 	gUnknown_0203A4D4.hit  = 100;
@@ -1064,15 +1064,15 @@ void UpdateBattleTriangleAttackData(struct BattleUnit* attacker, struct BattleUn
 void CurrentRound_ComputeWeaponEffects(struct BattleUnit* attacker, struct BattleUnit* defender) {
 	attacker->wexpMultiplier++;
 
-	if (!(gUnknown_0203A608->unk00b & 2)) { // TODO: BATTLE HIT BITS
+	if (!(gUnknown_0203A608->attributes & BATTLE_HIT_ATTR_MISS)) {
 		if (defender->unit.pClassData->number != CLASS_DEMON_KING) {
 			switch (GetItemWeaponEffect(attacker->weaponAfter)) {
 
-			case 1: // TODO: WEAPON EFFECT CONSTANTS
+			case WPN_EFFECT_POISON:
 				// Poison defender
 
 				defender->statusOut = UNIT_STATUS_POISON;
-				gUnknown_0203A608->unk00b |= 0x40; // TODO: BATTLE HIT BITS
+				gUnknown_0203A608->attributes |= BATTLE_HIT_ATTR_POISON;
 
 				// "Ungray" defender if it was petrified (as it won't be anymore)
 				if (defender->unit.statusIndex == UNIT_STATUS_PETRIFY || defender->unit.statusIndex == UNIT_STATUS_13)
@@ -1080,16 +1080,15 @@ void CurrentRound_ComputeWeaponEffects(struct BattleUnit* attacker, struct Battl
 
 				break;
 
-			case 3: // TODO: WEAPON EFFECT CONSTANTS
-				gUnknown_0203A608->unk00b |= 0x200; // TODO: BATTLE HIT BITS
+			case WPN_EFFECT_HPHALVE:
+				gUnknown_0203A608->attributes |= BATTLE_HIT_ATTR_HPHALVE;
 				break;
 
 			} // switch (GetItemWeaponEffect(attacker->weaponAfter))
 		}
 
-		// TODO: WEAPON EFFECT CONSTANTS
-		if ((GetItemWeaponEffect(attacker->weaponAfter) == 4) && (RollRNIfBattleStarted(31 - attacker->unit.lck, FALSE))) {
-			gUnknown_0203A608->unk00b |= 0x80; // TODO: BATTLE HIT BITS
+		if ((GetItemWeaponEffect(attacker->weaponAfter) == WPN_EFFECT_DEVIL) && (RollRNIfBattleStarted(31 - attacker->unit.lck, FALSE))) {
+			gUnknown_0203A608->attributes |= BATTLE_HIT_ATTR_DEVIL;
 
 			attacker->unit.curHP -= gUnknown_0203A4D4.damage;
 
@@ -1105,18 +1104,17 @@ void CurrentRound_ComputeWeaponEffects(struct BattleUnit* attacker, struct Battl
 				defender->unit.curHP = 0;
 		}
 
-		// TODO: WEAPON EFFECT CONSTANTS
-		if (GetItemWeaponEffect(attacker->weaponAfter) == 2) {
+		if (GetItemWeaponEffect(attacker->weaponAfter) == WPN_EFFECT_HPDRAIN) {
 			if (attacker->unit.maxHP < (attacker->unit.curHP + gUnknown_0203A4D4.damage))
 				attacker->unit.curHP = attacker->unit.maxHP;
 			else
 				attacker->unit.curHP += gUnknown_0203A4D4.damage;
 
-			gUnknown_0203A608->unk00b |= 0x100; // TODO: BATTLE HIT BITS
+			gUnknown_0203A608->attributes |= BATTLE_HIT_ATTR_HPSTEAL;
 		}
 
 		if (defender->unit.pClassData->number != CLASS_DEMON_KING) {
-			if (GetItemWeaponEffect(attacker->weaponAfter) == 5) { // TODO: WEAPON EFFECT CONSTANTS
+			if (GetItemWeaponEffect(attacker->weaponAfter) == WPN_EFFECT_PETRIFY) {
 				switch (gUnknown_0202BCF0.chapterPhaseIndex) {
 
 				case FACTION_BLUE:
@@ -1145,15 +1143,14 @@ void CurrentRound_ComputeWeaponEffects(struct BattleUnit* attacker, struct Battl
 
 				} // switch (gUnknown_0202BCF0.chapterPhaseIndex)
 
-				gUnknown_0203A608->unk00b |= 0x2000; // TODO: BATTLE HIT BITS
+				gUnknown_0203A608->attributes |= BATTLE_HIT_ATTR_PETRIFY;
 			}
 		}
 	}
 
 	gUnknown_0203A608->hpChange = gUnknown_0203A4D4.damage;
 
-	// TODO: BATTLE HIT BITS
-	if (!(gUnknown_0203A608->unk00b & 2) || attacker->weaponAttributes & (IA_UNCOUNTERABLE | IA_MAGIC)) {
+	if (!(gUnknown_0203A608->attributes & BATTLE_HIT_ATTR_MISS) || attacker->weaponAttributes & (IA_UNCOUNTERABLE | IA_MAGIC)) {
 		attacker->weaponAfter = GetItemAfterUse(attacker->weaponAfter);
 
 		if (!attacker->weaponAfter)
@@ -1163,7 +1160,7 @@ void CurrentRound_ComputeWeaponEffects(struct BattleUnit* attacker, struct Battl
 
 s8 MakeNextBattleHitRound(struct BattleUnit* attacker, struct BattleUnit* defender) {
 	if (attacker == &gBattleTarget)
-		gUnknown_0203A608->unk19b |= 8; // TODO: BATTLE HIT BITS
+		gUnknown_0203A608->info |= BATTLE_HIT_INFO_RETALIATION;
 
 	UpdateBattleStats(attacker, defender);
 	UpdateBattleTriangleAttackData(attacker, defender);
@@ -1173,19 +1170,19 @@ s8 MakeNextBattleHitRound(struct BattleUnit* attacker, struct BattleUnit* defend
 	if (attacker->unit.curHP == 0 || defender->unit.curHP == 0) {
 		attacker->wexpMultiplier++;
 
-		gUnknown_0203A608->unk19b |= 2; // TODO: BATTLE HIT BITS
+		gUnknown_0203A608->info |= BATTLE_HIT_INFO_FINISHES;
 
 		if (gBattleTarget.unit.curHP != 0) {
 			gUnknown_0203A608++;
 			return TRUE;
 		}
 
-		gUnknown_0203A608->unk19b |= 4; // TODO: BATTLE HIT BITS
+		gUnknown_0203A608->info |= BATTLE_HIT_INFO_KILLS_TARGET;
 
 		gUnknown_0203A608++;
 		return TRUE;
 	} else if (defender->statusOut == UNIT_STATUS_PETRIFY || defender->statusOut == UNIT_STATUS_13) {
-		gUnknown_0203A608->unk19b |= 2; // TODO: BATTLE HIT BITS
+		gUnknown_0203A608->info |= BATTLE_HIT_INFO_FINISHES;
 
 		gUnknown_0203A608++;
 		return TRUE;
@@ -1718,7 +1715,7 @@ int sub_802C40C(struct Unit* actor, struct Unit* target) {
 		return 1;
 
 	for (i = 0; i < BATTLE_HIT_MAX; ++i)
-		if (gUnknown_0203A5EC[i].unk00b & 0x800) // TODO: BATTLE HIT BITS
+		if (gUnknown_0203A5EC[i].attributes & BATTLE_HIT_ATTR_SILENCER)
 			return 2;
 
 	return 1;
@@ -1822,7 +1819,7 @@ int GetBattleUnitStaffExp(struct BattleUnit* bu) {
 	if (!CanUnitNotLevelUp(bu))
 		return 0;
 
-	if (gUnknown_0203A5EC->unk00b & 2) // TODO: battle hit bits
+	if (gUnknown_0203A5EC->attributes & BATTLE_HIT_ATTR_MISS)
 		return 1;
 
 	result = 10 + GetItemCostPerUse(bu->weaponAfter) / 20;
@@ -1995,11 +1992,11 @@ void SaveSnagWallFromBattle(struct BattleUnit* bu) {
 
 		ApplyMapChangesById(mapChangeId);
 
-		// This is kind of jank: it sets trap type to 0 which should be the terminating id
+		// This is kind of jank: it sets trap type to 0 (TRAP_NONE) which should be the terminating id
 		// But then immediately calls the map change trap adding routine, which would effectively replace
 		// the 0-id trap with the new map change trap, even if it is not actually the end of the trap array
 
-		trap->type = 0; // TODO: trap id constants
+		trap->type = TRAP_NONE;
 		AddMapChange(mapChangeId);
 
 		FlushTerrainData();
@@ -2074,8 +2071,7 @@ void nullsub_11(struct BattleUnit* actor, struct BattleUnit* target) {
 void sub_802CAFC(void) {
 	struct BattleHit* it;
 
-	// TODO: round bit info stuff
-	for (it = gUnknown_0203A5EC; !(it->unk19b & 0x10); ++it) {
+	for (it = gUnknown_0203A5EC; !(it->info & BATTLE_HIT_INFO_END); ++it) {
 		// prints battle rounds information to debug output
 	}
 }
@@ -2141,7 +2137,7 @@ void SaveInstigatorWith10ExtraExp(struct Proc* proc) {
 }
 
 void sub_802CC54(struct Proc* proc) {
-	(++gUnknown_0203A608)->unk19b = 0x10; // TODO: battle hit bits
+	(++gUnknown_0203A608)->info = BATTLE_HIT_INFO_END;
 
 	HandleSomeExp();
 
@@ -2208,7 +2204,7 @@ void sub_802CD64(struct Unit* actor) {
 	BattleApplyWeaponTriangle(&gBattleActor, &gBattleTarget);
 
 	gUnknown_0203A958.suspendPointType = SUSPEND_POINT_DURINGARENA;
-	SaveSuspendedGame(3); // TODO: save block id constants
+	SaveSuspendedGame(SAVE_BLOCK_SUSPEND_BASE);
 
 	BattleSetupTerrainData(&gBattleActor);
 	WriteBattleStructTerrainBonuses(&gBattleTarget, 8); // TODO: terrain id constants
@@ -2237,8 +2233,7 @@ void sub_802CD64(struct Unit* actor) {
 }
 
 s8 IsCurrentBattleTriangleAttack(void) {
-	// TODO: battle hit bits
-	return (gUnknown_0203A5EC->unk00b & 0x400) != 0;
+	return (gUnknown_0203A5EC->attributes & BATTLE_HIT_ATTR_TATTACK) != 0;
 }
 
 s8 DidWeaponBreak(struct BattleUnit* bu) {
@@ -2255,18 +2250,17 @@ void sub_802CEBC(struct BattleHit* hit) {
 void CurrentRound_ComputeDamage(struct BattleUnit* bu) {
 	gUnknown_0203A4D4.damage = 0;
 
-	// TODO: battle hit bits
-	if (!(gUnknown_0203A608->unk00b & 2)) {
+	if (!(gUnknown_0203A608->attributes & BATTLE_HIT_ATTR_MISS)) {
 		if (gUnknown_0203A608->hpChange == 0) {
 			gUnknown_0203A4D4.damage = gUnknown_0203A4D4.attack - gUnknown_0203A4D4.defense;
 
-			if (gUnknown_0203A608->unk00b & 1)
+			if (gUnknown_0203A608->attributes & BATTLE_HIT_ATTR_CRIT)
 				gUnknown_0203A4D4.damage = 3 * gUnknown_0203A4D4.damage;
 		} else
 			gUnknown_0203A4D4.damage = gUnknown_0203A608->hpChange;
 
-		if (gUnknown_0203A4D4.damage > 127)
-			gUnknown_0203A4D4.damage = 127;
+		if (gUnknown_0203A4D4.damage > BATTLE_MAX_DAMAGE)
+			gUnknown_0203A4D4.damage = BATTLE_MAX_DAMAGE;
 
 		if (gUnknown_0203A4D4.damage < 0)
 			gUnknown_0203A4D4.damage = 0;
@@ -2288,15 +2282,13 @@ void sub_802CF4C(void) {
 	itIn = gUnknown_0203A958.unk18;
 	itOut = gUnknown_0203A5EC;
 
-	// TODO: battle round bits
-	while (!(itIn->unk19b & 0x10))
+	while (!(itIn->info & BATTLE_HIT_INFO_END))
 		*itOut++ = *itIn++;
 
 	*itOut = *itIn;
 
-	// TODO: battle round bits
-	for (gUnknown_0203A608 = gUnknown_0203A5EC; !(gUnknown_0203A608->unk19b & 0x10); ++gUnknown_0203A608) {
-		if (gUnknown_0203A608->unk19b & 8) { // TODO: battle hit bits
+	for (gUnknown_0203A608 = gUnknown_0203A5EC; !(gUnknown_0203A608->info & BATTLE_HIT_INFO_END); ++gUnknown_0203A608) {
+		if (gUnknown_0203A608->info & BATTLE_HIT_INFO_RETALIATION) {
 			attacker = &gBattleTarget;
 			defender = &gBattleActor;
 		} else {
@@ -2311,12 +2303,12 @@ void sub_802CF4C(void) {
 		if ((attacker->unit.curHP == 0) || (defender->unit.curHP == 0)) {
 			attacker->wexpMultiplier++;
 
-			gUnknown_0203A608->unk19b |= 2; // TODO: battle hit bits
+			gUnknown_0203A608->info |= BATTLE_HIT_INFO_FINISHES;
 
 			if (gBattleTarget.unit.curHP == 0)
-				gUnknown_0203A608->unk19b |= 4; // TODO: battle hit bits
+				gUnknown_0203A608->info |= BATTLE_HIT_INFO_KILLS_TARGET;
 
-			(gUnknown_0203A608 + 1)->unk19b = 0x10;
+			(gUnknown_0203A608 + 1)->info = BATTLE_HIT_INFO_END;
 
 			break;
 		}
@@ -2328,9 +2320,9 @@ void sub_802CF4C(void) {
 			(defender->statusOut == UNIT_STATUS_13)
 		) {
 			attacker->wexpMultiplier++;
-			gUnknown_0203A608->unk19b |= 2; // TODO: battle hit bits
+			gUnknown_0203A608->info |= BATTLE_HIT_INFO_FINISHES;
 
-			(gUnknown_0203A608 + 1)->unk19b = 0x10;
+			(gUnknown_0203A608 + 1)->info = BATTLE_HIT_INFO_END;
 
 			break;
 		}
@@ -2653,5 +2645,5 @@ void sub_802D2B4(void) {
 
 void sub_802D2C4(void) {
 	gUnknown_0203A608++;
-	gUnknown_0203A608->unk19b = 0x10;
+	gUnknown_0203A608->info = BATTLE_HIT_INFO_END;
 }

@@ -361,6 +361,23 @@ struct SMSHandle {
 };
 
 enum {
+    TRAP_NONE       = 0,
+    TRAP_BALLISTA   = 1,
+    TRAP_OBSTACLE   = 2, // walls & snags
+    TRAP_MAPCHANGE  = 3,
+    TRAP_FIRETILE   = 4,
+    TRAP_GAS        = 5,
+    TRAP_MAPCHANGE2 = 6, // TODO: figure out
+    TRAP_LIGHTARROW = 7,
+    TRAP_8          = 8,
+    TRAP_9          = 9,
+    TRAP_TORCHLIGHT = 10,
+    TRAP_MINE       = 11,
+    TRAP_GORGON_EGG = 12, // TODO: figure out
+    TRAP_LIGHT_RUNE = 13,
+};
+
+enum {
     // Ballista extdata definitions
     TRAP_EXTDATA_BLST_ITEMID   = 0, // ballista item id
     TRAP_EXTDATA_BLST_RIDDEN   = 2, // "is ridden" boolean
@@ -483,6 +500,18 @@ enum {
     GMAP_STATE_BIT5 = (1 << 5),
     GMAP_STATE_BIT6 = (1 << 6),
     GMAP_STATE_BIT7 = (1 << 7),
+};
+
+enum {
+    SAVE_BLOCK_SAVE_BASE      = 0,
+    SAVE_BLOCK_SAVE1          = SAVE_BLOCK_SAVE_BASE + 0,
+    SAVE_BLOCK_SAVE2          = SAVE_BLOCK_SAVE_BASE + 1,
+    SAVE_BLOCK_SAVE3          = SAVE_BLOCK_SAVE_BASE + 2,
+
+    SAVE_BLOCK_SUSPEND_BASE   = 3,
+    SAVE_BLOCK_SUSPEND        = SAVE_BLOCK_SUSPEND_BASE + 0,
+    SAVE_BLOCK_SUSPEND_BACKUP = SAVE_BLOCK_SUSPEND_BASE + 1,
+    // TODO: 5 & 6
 };
 
 // TODO: move to bmcontainer.h

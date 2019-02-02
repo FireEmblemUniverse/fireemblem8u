@@ -1,8 +1,6 @@
 #ifndef GUARD_ITEMS_H
 #define GUARD_ITEMS_H
 
-struct TextHandle;
-
 struct ItemStatBonuses {
     s8 hpBonus;
     s8 powBonus;
@@ -95,6 +93,15 @@ enum {
 };
 
 enum {
+    WPN_EFFECT_NONE    = 0,
+    WPN_EFFECT_POISON  = 1,
+    WPN_EFFECT_HPDRAIN = 2,
+    WPN_EFFECT_HPHALVE = 3,
+    WPN_EFFECT_DEVIL   = 4,
+    WPN_EFFECT_PETRIFY = 5,
+};
+
+enum {
     // Unit ranges are a (sometimes) weirdly hardcoded.
     // A flagset value is used to represent the combined ranges of a unit's usable items
     // That's what those "reaches" bits are for.
@@ -132,6 +139,8 @@ enum {
     WPN_EXP_A = 181,
     WPN_EXP_S = 251,
 };
+
+struct TextHandle;
 
 char* GetItemNameWithArticle(int item, s8 capitalize);
 
