@@ -211,7 +211,7 @@ void FlushDBGToBG2(void)
     BG_Fill(gBG2TilemapBuffer, 0);
     for (i = 0; i < 20; i++)
     {
-        u16 *r3 = (u16 *)(gBG2TilemapBuffer + i * 64);
+        u16* r3 = gBG2TilemapBuffer + i * 0x20;
 
         if (gUnknown_02026E30.unk14[(i + gUnknown_02026E30.unk10) & 0xFF][0] != 0)
         {

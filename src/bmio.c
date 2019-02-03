@@ -379,14 +379,14 @@ void WfxSnow_VSync(void) {
 
         struct WeatherParticle* it = sWeatherEffect.particles + ((GetGameClock() % 2) * 0x20);
 
-        origins[0].x = (gUnknown_0202BCB0.xCameraReal * 12) / 16;
-        origins[0].y = gUnknown_0202BCB0.yCameraReal;
+        origins[0].x = (gUnknown_0202BCB0.camera.x * 12) / 16;
+        origins[0].y = gUnknown_0202BCB0.camera.y;
 
-        origins[1].x = gUnknown_0202BCB0.xCameraReal;
-        origins[1].y = gUnknown_0202BCB0.yCameraReal;
+        origins[1].x = gUnknown_0202BCB0.camera.x;
+        origins[1].y = gUnknown_0202BCB0.camera.y;
 
-        origins[2].x = (gUnknown_0202BCB0.xCameraReal * 20) / 16;
-        origins[2].y = gUnknown_0202BCB0.yCameraReal;
+        origins[2].x = (gUnknown_0202BCB0.camera.x * 20) / 16;
+        origins[2].y = gUnknown_0202BCB0.camera.y;
 
         for (i = 0; i < 0x20; ++i) {
             it->xPosition += it->xSpeed;
@@ -432,8 +432,8 @@ void WfxRain_VSync(void) {
             it->yPosition += it->ySpeed;
 
             CallARM_PushToPrimaryOAM(
-                ((it->xPosition >> 8) - gUnknown_0202BCB0.xCameraReal) & 0xFF,
-                ((it->yPosition >> 8) - gUnknown_0202BCB0.yCameraReal) & 0xFF,
+                ((it->xPosition >> 8) - gUnknown_0202BCB0.camera.x) & 0xFF,
+                ((it->yPosition >> 8) - gUnknown_0202BCB0.camera.y) & 0xFF,
                 sRainParticleObjLookup[it->gfxIndex],
                 0
             );
@@ -525,8 +525,8 @@ void WfxSnowStorm_VSync(void) {
             it->yPosition += it->ySpeed;
 
             CallARM_PushToPrimaryOAM(
-                ((it->xPosition >> 8) - gUnknown_0202BCB0.xCameraReal) & 0xFF,
-                ((it->yPosition >> 8) - gUnknown_0202BCB0.yCameraReal) & 0xFF,
+                ((it->xPosition >> 8) - gUnknown_0202BCB0.camera.x) & 0xFF,
+                ((it->yPosition >> 8) - gUnknown_0202BCB0.camera.y) & 0xFF,
                 gUnknown_08590F54,
                 (BM_OBJPAL_1 << 12) + 0x18 + (it->gfxIndex * 4)
             );
@@ -543,7 +543,7 @@ void WfxBlueHSync(void) {
     if (nextLine > 160)
         nextLine = 0;
 
-    nextLine += gUnknown_0202BCB0.yCameraReal / 2;
+    nextLine += gUnknown_0202BCB0.camera.y / 2;
 
     if (nextLine >= 320)
         ((u16*)(PLTT))[0] = 0;
@@ -703,7 +703,7 @@ void WfxFlamesUpdateParticles(void) {
             it->xPosition += it->xSpeed;
             it->yPosition += it->ySpeed;
 
-            yDisplay = ((it->yPosition >> 8) - gUnknown_0202BCB0.yCameraReal) & 0xFF;
+            yDisplay = ((it->yPosition >> 8) - gUnknown_0202BCB0.camera.y) & 0xFF;
 
             if (yDisplay < 0x40)
                 continue;
@@ -717,7 +717,7 @@ void WfxFlamesUpdateParticles(void) {
                 objTile = 24;
 
             CallARM_PushToPrimaryOAM(
-                ((it->xPosition >> 8) - gUnknown_0202BCB0.xCameraReal) & 0xFF,
+                ((it->xPosition >> 8) - gUnknown_0202BCB0.camera.x) & 0xFF,
                 yDisplay,
                 gUnknown_08590F44,
                 (BM_OBJPAL_10 << 12) + objTile
@@ -805,7 +805,7 @@ void WfxClouds_VSync(void) {
 }
 
 void WfxClouds_Update(void) {
-    int y = gUnknown_0202BCB0.yCameraReal;
+    int y = gUnknown_0202BCB0.camera.y;
 
     RegisterObjectAttributes_SafeMaybe(
         14,
@@ -1105,8 +1105,8 @@ void GameCtrl_StartResumedGame(struct GameCtrlProc* gameCtrl) {
 
     mapMain = StartBMapMain(gameCtrl);
 
-    gUnknown_0202BCB0.xCameraReal = sub_8015A40(16 * gUnknown_0202BCB0.xPlayerCursor);
-    gUnknown_0202BCB0.yCameraReal = sub_8015A6C(16 * gUnknown_0202BCB0.yPlayerCursor);
+    gUnknown_0202BCB0.camera.x = sub_8015A40(16 * gUnknown_0202BCB0.playerCursor.x);
+    gUnknown_0202BCB0.camera.y = sub_8015A6C(16 * gUnknown_0202BCB0.playerCursor.y);
 
     switch (gActionData.suspendPointType) {
 

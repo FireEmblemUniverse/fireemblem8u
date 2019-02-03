@@ -340,7 +340,7 @@ extern u16 gPaletteBuffer[];
 // extern ??? gUnknown_02022C28
 // extern ??? gUnknown_02022C48
 // extern ??? gUnknown_02022C68
-extern u8 gBG0TilemapBuffer[];
+extern u16 gBG0TilemapBuffer[];
 // extern ??? gUnknown_02022CAA
 // extern ??? gUnknown_02022CAC
 // extern ??? gUnknown_02022CAE
@@ -419,7 +419,7 @@ extern u8 gBG0TilemapBuffer[];
 // extern ??? gUnknown_02023116
 // extern ??? gUnknown_02023130
 // extern ??? gUnknown_02023136
-extern u8 gBG1TilemapBuffer[];
+extern u16 gBG1TilemapBuffer[];
 // extern ??? gUnknown_020234AC
 // extern ??? gUnknown_020234AE
 // extern ??? gUnknown_020234B0
@@ -456,7 +456,7 @@ extern u8 gBG1TilemapBuffer[];
 // I'm not sure if this is u8 or u16.
 // In text mode, the tilemap entries are 16 bits,
 // while in affine mode, they are 8 bits.
-extern u8 gBG2TilemapBuffer[];
+extern u16 gBG2TilemapBuffer[];
 // extern ??? gUnknown_02023CAA
 // extern ??? gUnknown_02023CAE
 // extern ??? gUnknown_02023CB6
@@ -490,7 +490,7 @@ extern u8 gBG2TilemapBuffer[];
 // extern ??? gUnknown_0202400A
 // extern ??? gUnknown_02024044
 // extern ??? gUnknown_0202404A
-extern u8 gBG3TilemapBuffer[];
+extern u16 gBG3TilemapBuffer[];
 extern void *gBGVramTilemapPointers[];
 extern void (*gMainCallback)(void);
 extern struct Struct02024CD4 gUnknown_02024CD4;

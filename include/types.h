@@ -100,6 +100,8 @@ struct KeyStatusBuffer
 
 typedef void (*InterruptHandler)(void);
 
+struct Vec2 { short x, y; };
+
 struct Struct0202BCB0 // Game State Struct
 {
     /* 00 */ u8  mainLoopEndedFlag;
@@ -117,27 +119,14 @@ struct Struct0202BCB0 // Game State Struct
 
     /* 08 */ u32 _unk08;
 
-    /* 0C */ short xCameraReal;
-    /* 0E */ short yCameraReal;
-
-    /* 10 */ u32 _unk10;
-
-    /* 14 */ short xPlayerCursor;
-    /* 16 */ short yPlayerCursor;
-
-    /* 18 */ u32 _unk18;
-
-    /* 1C */ short xUnk1C;
-    /* 1E */ short yUnk1C;
-
-    /* 20 */ short xPlayerCursorDisplay;
-    /* 22 */ short yPlayerCursorDisplay;
-
-    /* 24 */ short xUnk24;
-    /* 26 */ short yUnk24;
-
-    /* 28 */ short xUnk28;
-    /* 2A */ short yUnk28;
+    /* 0C */ struct Vec2 camera;
+    /* 10 */ struct Vec2 unk10;
+    /* 14 */ struct Vec2 playerCursor;
+    /* 18 */ struct Vec2 unk18;
+    /* 1C */ struct Vec2 unk1C;
+    /* 20 */ struct Vec2 playerCursorDisplay;
+    /* 24 */ struct Vec2 unk24;
+    /* 28 */ struct Vec2 unk28;
 
     /* 2C */ u16 itemUnk2C;
     /* 2E */ u16 itemUnk2E;

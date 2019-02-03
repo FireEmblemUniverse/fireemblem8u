@@ -1574,7 +1574,7 @@ struct Trap* GetTrapAt(int x, int y);
 // ??? AddTrap9(???);
 void AddSnagsAndWalls(void);
 void ApplyTrapMapChanges(void);
-// ??? UpdateAllLightRunes(???);
+void UpdateAllLightRunes(void);
 // ??? GetTrapExt1At(???);
 // ??? GetMapChangesPointerById(???);
 int GetMapChangesIdAt(int x, int y);
