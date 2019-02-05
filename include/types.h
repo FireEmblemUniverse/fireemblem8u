@@ -101,6 +101,7 @@ struct KeyStatusBuffer
 typedef void (*InterruptHandler)(void);
 
 struct Vec2 { short x, y; };
+struct Vec2u { u16 x, y; };
 
 struct Struct0202BCB0 // Game State Struct
 {
@@ -125,7 +126,7 @@ struct Struct0202BCB0 // Game State Struct
     /* 18 */ struct Vec2 unk18;
     /* 1C */ struct Vec2 unk1C;
     /* 20 */ struct Vec2 playerCursorDisplay;
-    /* 24 */ struct Vec2 unk24;
+    /* 24 */ struct Vec2u unk24;
     /* 28 */ struct Vec2 unk28;
 
     /* 2C */ u16 itemUnk2C;
