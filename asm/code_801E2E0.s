@@ -19,12 +19,12 @@ sub_801E2E0: @ 0x0801E2E0
 	bl GetROMChapterStruct
 	ldrb r4, [r0, #0xc]
 _0801E2F6:
-	bl sub_8019CBC
+	bl RenderBmMapOnBg2
 	ldr r0, _0801E318  @ gUnknown_0202BCF0
 	strb r4, [r0, #0xd]
-	bl RefreshFogAndUnitMaps
+	bl RefreshEntityBmMaps
 	bl SMS_UpdateFromGameData
-	bl UpdateGameTilesGraphics
+	bl RenderBmMap
 	movs r0, #1
 	bl NewBMXFADE
 	pop {r4}
@@ -48,9 +48,9 @@ sub_801E31C: @ 0x0801E31C
 _0801E332:
 	ldr r0, _0801E348  @ gUnknown_0202BCF0
 	strb r1, [r0, #0xd]
-	bl RefreshFogAndUnitMaps
+	bl RefreshEntityBmMaps
 	bl SMS_UpdateFromGameData
-	bl UpdateGameTilesGraphics
+	bl RenderBmMap
 	pop {r0}
 	bx r0
 	.align 2, 0
@@ -64,15 +64,15 @@ FillWarpRangeMap: @ 0x0801E34C
 	push {r6, r7}
 	mov r9, r0
 	mov r8, r1
-	ldr r6, _0801E418  @ gUnknown_0202E4E0
+	ldr r6, _0801E418  @ gBmMapMovement
 	ldr r0, [r6]
 	movs r1, #1
 	negs r1, r1
-	bl ClearMapWith
-	ldr r0, _0801E41C  @ gUnknown_0202E4E4
+	bl BmMapFill
+	ldr r0, _0801E41C  @ gBmMapRange
 	ldr r0, [r0]
 	movs r1, #0
-	bl ClearMapWith
+	bl BmMapFill
 	ldr r0, [r6]
 	bl SetSubjectMap
 	mov r0, r8
@@ -93,7 +93,7 @@ FillWarpRangeMap: @ 0x0801E34C
 	ldrb r0, [r0, #0xd]
 	cmp r0, #0
 	bne _0801E430
-	ldr r0, _0801E424  @ gUnknown_0202E4D4
+	ldr r0, _0801E424  @ gBmMapSize
 	movs r1, #2
 	ldrsh r0, [r0, r1]
 	subs r3, r0, #1
@@ -102,14 +102,14 @@ FillWarpRangeMap: @ 0x0801E34C
 	bge _0801E3AC
 	b _0801E4B4
 _0801E3AC:
-	ldr r0, _0801E424  @ gUnknown_0202E4D4
+	ldr r0, _0801E424  @ gBmMapSize
 	movs r1, #0
 	ldrsh r0, [r0, r1]
 	subs r4, r0, #1
 	subs r7, r3, #1
 	cmp r4, #0
 	blt _0801E40E
-	ldr r6, _0801E418  @ gUnknown_0202E4E0
+	ldr r6, _0801E418  @ gBmMapMovement
 	lsls r5, r3, #2
 _0801E3BE:
 	ldr r0, [r6]
@@ -119,7 +119,7 @@ _0801E3BE:
 	ldrb r0, [r0]
 	cmp r0, #0x78
 	bhi _0801E408
-	ldr r0, _0801E428  @ gUnknown_0202E4DC
+	ldr r0, _0801E428  @ gBmMapTerrain
 	ldr r0, [r0]
 	adds r0, r5, r0
 	ldr r0, [r0]
@@ -130,13 +130,13 @@ _0801E3BE:
 	lsls r0, r0, #0x18
 	cmp r0, #0
 	beq _0801E3F6
-	ldr r0, _0801E42C  @ gUnknown_0202E4D8
+	ldr r0, _0801E42C  @ gBmMapUnit
 	ldr r0, [r0]
 	adds r0, r5, r0
 	ldr r0, [r0]
 	adds r0, r0, r4
 	ldrb r0, [r0]
-	ldr r2, _0801E418  @ gUnknown_0202E4E0
+	ldr r2, _0801E418  @ gBmMapMovement
 	cmp r0, #0
 	beq _0801E408
 _0801E3F6:
@@ -148,7 +148,7 @@ _0801E3F6:
 	negs r2, r2
 	adds r1, r2, #0
 	strb r1, [r0]
-	ldr r2, _0801E418  @ gUnknown_0202E4E0
+	ldr r2, _0801E418  @ gBmMapMovement
 _0801E408:
 	subs r4, #1
 	cmp r4, #0
@@ -159,14 +159,14 @@ _0801E40E:
 	bge _0801E3AC
 	b _0801E4B4
 	.align 2, 0
-_0801E418: .4byte gUnknown_0202E4E0
-_0801E41C: .4byte gUnknown_0202E4E4
+_0801E418: .4byte gBmMapMovement
+_0801E41C: .4byte gBmMapRange
 _0801E420: .4byte gUnknown_0202BCF0
-_0801E424: .4byte gUnknown_0202E4D4
-_0801E428: .4byte gUnknown_0202E4DC
-_0801E42C: .4byte gUnknown_0202E4D8
+_0801E424: .4byte gBmMapSize
+_0801E428: .4byte gBmMapTerrain
+_0801E42C: .4byte gBmMapUnit
 _0801E430:
-	ldr r0, _0801E4E0  @ gUnknown_0202E4D4
+	ldr r0, _0801E4E0  @ gBmMapSize
 	movs r3, #2
 	ldrsh r0, [r0, r3]
 	subs r3, r0, #1
@@ -174,7 +174,7 @@ _0801E430:
 	cmp r3, #0
 	blt _0801E4B4
 _0801E43E:
-	ldr r0, _0801E4E0  @ gUnknown_0202E4D4
+	ldr r0, _0801E4E0  @ gBmMapSize
 	movs r1, #0
 	ldrsh r0, [r0, r1]
 	subs r4, r0, #1
@@ -190,7 +190,7 @@ _0801E44E:
 	ldrb r0, [r0]
 	cmp r0, #0x78
 	bhi _0801E4A8
-	ldr r0, _0801E4E4  @ gUnknown_0202E4DC
+	ldr r0, _0801E4E4  @ gBmMapTerrain
 	ldr r0, [r0]
 	adds r0, r5, r0
 	ldr r0, [r0]
@@ -201,7 +201,7 @@ _0801E44E:
 	lsls r0, r0, #0x18
 	cmp r0, #0
 	beq _0801E496
-	ldr r0, _0801E4E8  @ gUnknown_0202E4D8
+	ldr r0, _0801E4E8  @ gBmMapUnit
 	ldr r0, [r0]
 	adds r0, r5, r0
 	ldr r0, [r0]
@@ -209,17 +209,17 @@ _0801E44E:
 	ldrb r0, [r0]
 	cmp r0, #0
 	bne _0801E496
-	ldr r0, _0801E4EC  @ gUnknown_0202E4E8
+	ldr r0, _0801E4EC  @ gBmMapFog
 	ldr r0, [r0]
 	adds r0, r5, r0
 	ldr r0, [r0]
 	adds r0, r0, r4
 	ldrb r0, [r0]
-	ldr r2, _0801E4F0  @ gUnknown_0202E4E0
+	ldr r2, _0801E4F0  @ gBmMapMovement
 	cmp r0, #0
 	bne _0801E4A8
 _0801E496:
-	ldr r2, _0801E4F0  @ gUnknown_0202E4E0
+	ldr r2, _0801E4F0  @ gBmMapMovement
 	ldr r0, [r2]
 	adds r0, r5, r0
 	ldr r0, [r0]
@@ -259,10 +259,10 @@ _0801E4B4:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_0801E4E0: .4byte gUnknown_0202E4D4
-_0801E4E4: .4byte gUnknown_0202E4DC
-_0801E4E8: .4byte gUnknown_0202E4D8
-_0801E4EC: .4byte gUnknown_0202E4E8
-_0801E4F0: .4byte gUnknown_0202E4E0
+_0801E4E0: .4byte gBmMapSize
+_0801E4E4: .4byte gBmMapTerrain
+_0801E4E8: .4byte gBmMapUnit
+_0801E4EC: .4byte gBmMapFog
+_0801E4F0: .4byte gBmMapMovement
 
 .align 2, 0 @ align with 0

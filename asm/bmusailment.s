@@ -519,7 +519,7 @@ _08035E8C:
 	beq _08035EC0
 	movs r0, #0x11
 	ldrsb r0, [r6, r0]
-	ldr r1, _08035EBC  @ gUnknown_0202E4E8
+	ldr r1, _08035EBC  @ gBmMapFog
 	ldr r1, [r1]
 	lsls r0, r0, #2
 	adds r0, r0, r1
@@ -536,7 +536,7 @@ _08035E8C:
 	b _08035ED2
 	.align 2, 0
 _08035EB8: .4byte gUnknown_0202BCF0
-_08035EBC: .4byte gUnknown_0202E4E8
+_08035EBC: .4byte gBmMapFog
 _08035EC0:
 	adds r0, r6, #0
 	bl GetUnitCurrentHp
@@ -770,8 +770,8 @@ sub_803608C: @ 0x0803608C
 	movs r0, #0x34
 	bl GetClassData
 	str r0, [r4, #4]
-	bl RefreshFogAndUnitMaps
-	bl UpdateGameTilesGraphics
+	bl RefreshEntityBmMaps
+	bl RenderBmMap
 	bl SMS_UpdateFromGameData
 	bl MU_EndAll
 _080360B0:
@@ -975,8 +975,8 @@ _0803624A:
 	ldr r2, _08036298  @ 0xFFFFFBBD
 	ands r1, r2
 	str r1, [r0, #0xc]
-	bl RefreshFogAndUnitMaps
-	bl UpdateGameTilesGraphics
+	bl RefreshEntityBmMaps
+	bl RenderBmMap
 	bl SMS_UpdateFromGameData
 	bl MU_EndAll
 _08036276:
@@ -1042,7 +1042,7 @@ _080362E0:
 	beq _0803631C
 	movs r0, #0x11
 	ldrsb r0, [r6, r0]
-	ldr r1, _08036318  @ gUnknown_0202E4E8
+	ldr r1, _08036318  @ gBmMapFog
 	ldr r1, [r1]
 	lsls r0, r0, #2
 	adds r0, r0, r1
@@ -1059,7 +1059,7 @@ _080362E0:
 	b _0803632E
 	.align 2, 0
 _08036314: .4byte gUnknown_0202BCF0
-_08036318: .4byte gUnknown_0202E4E8
+_08036318: .4byte gBmMapFog
 _0803631C:
 	adds r0, r6, #0
 	bl GetUnitCurrentHp

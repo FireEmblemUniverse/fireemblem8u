@@ -419,9 +419,9 @@ sub_801F860: @ 0x0801F860
 sub_801F88C: @ 0x0801F88C
 	push {r4, lr}
 	adds r4, r0, #0
-	bl sub_8019CBC
+	bl RenderBmMapOnBg2
 	bl sub_8019778
-	bl UpdateGameTilesGraphics
+	bl RenderBmMap
 	movs r0, #0
 	bl NewBMXFADE
 	ldr r0, [r4, #0x30]

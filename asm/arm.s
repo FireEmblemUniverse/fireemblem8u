@@ -425,8 +425,8 @@ _08000768:
 _08000770: .4byte gUnknown_03004BB0 @ pool
 _08000774: .4byte gUnknown_03004E60 @ pool
 _08000778: .4byte gUnknown_030049A0 @ pool
-_0800077C: .4byte gUnknown_0202E4DC @ pool
-_08000780: .4byte gUnknown_0202E4D8 @ pool
+_0800077C: .4byte gBmMapTerrain @ pool
+_08000780: .4byte gBmMapUnit @ pool
 
 	ARM_FUNC_START IRAMARM_Func5
 IRAMARM_Func5: @ 0x08000784

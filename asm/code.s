@@ -5053,7 +5053,7 @@ _0808BE0E:
 	ldr r2, _0808BE68  @ gUnknown_0202BCB0
 	movs r1, #0x16
 	ldrsh r0, [r2, r1]
-	ldr r1, _0808BE6C  @ gUnknown_0202E4D8
+	ldr r1, _0808BE6C  @ gBmMapUnit
 	ldr r1, [r1]
 	lsls r0, r0, #2
 	adds r0, r0, r1
@@ -5078,7 +5078,7 @@ _0808BE5C: .4byte gBG0TilemapBuffer
 _0808BE60: .4byte gUnknown_0200422C
 _0808BE64: .4byte gBG1TilemapBuffer
 _0808BE68: .4byte gUnknown_0202BCB0
-_0808BE6C: .4byte gUnknown_0202E4D8
+_0808BE6C: .4byte gBmMapUnit
 
 	THUMB_FUNC_START Loop6CUI1_HideTransition
 Loop6CUI1_HideTransition: @ 0x0808BE70
@@ -6430,7 +6430,7 @@ sub_808C964: @ 0x0808C964
 	mov r9, r0
 	movs r1, #0x16
 	ldrsh r0, [r0, r1]
-	ldr r1, _0808CA4C  @ gUnknown_0202E4DC
+	ldr r1, _0808CA4C  @ gBmMapTerrain
 	ldr r1, [r1]
 	lsls r0, r0, #2
 	adds r0, r0, r1
@@ -6452,7 +6452,7 @@ sub_808C964: @ 0x0808C964
 	movs r3, #0
 	bl TileMap_FillRect
 	adds r0, r7, #0
-	bl GetTerrainNameString
+	bl GetTerrainName
 	adds r5, r0, #0
 	movs r0, #0x28
 	adds r1, r5, #0
@@ -6525,7 +6525,7 @@ _0808CA3A:
 	b _0808CB06
 	.align 2, 0
 _0808CA48: .4byte gUnknown_0202BCB0
-_0808CA4C: .4byte gUnknown_0202E4DC
+_0808CA4C: .4byte gBmMapTerrain
 _0808CA50: .4byte gUnknown_02003FAC
 _0808CA54: .4byte gUnknown_020044AC
 _0808CA58: .4byte gUnknown_08A1768C
@@ -6823,7 +6823,7 @@ Loop6CUI1_Hidden: @ 0x0808CCC8
 	ldr r2, _0808CD64  @ gUnknown_0202BCB0
 	movs r1, #0x16
 	ldrsh r0, [r2, r1]
-	ldr r1, _0808CD68  @ gUnknown_0202E4D8
+	ldr r1, _0808CD68  @ gBmMapUnit
 	ldr r1, [r1]
 	lsls r0, r0, #2
 	adds r0, r0, r1
@@ -6893,7 +6893,7 @@ _0808CD5C:
 	bx r0
 	.align 2, 0
 _0808CD64: .4byte gUnknown_0202BCB0
-_0808CD68: .4byte gUnknown_0202E4D8
+_0808CD68: .4byte gBmMapUnit
 _0808CD6C: .4byte gUnknown_08A01828
 _0808CD70: .4byte gUnknown_08A018AC
 
@@ -6904,7 +6904,7 @@ Loop6CUI1_Displayed: @ 0x0808CD74
 	ldr r6, _0808CE2C  @ gUnknown_0202BCB0
 	movs r1, #0x16
 	ldrsh r0, [r6, r1]
-	ldr r1, _0808CE30  @ gUnknown_0202E4D8
+	ldr r1, _0808CE30  @ gBmMapUnit
 	ldr r1, [r1]
 	lsls r0, r0, #2
 	adds r0, r0, r1
@@ -6989,7 +6989,7 @@ _0808CE22:
 	b _0808CE4A
 	.align 2, 0
 _0808CE2C: .4byte gUnknown_0202BCB0
-_0808CE30: .4byte gUnknown_0202E4D8
+_0808CE30: .4byte gBmMapUnit
 _0808CE34: .4byte gUnknown_0859A548
 _0808CE38: .4byte gUnknown_08A01828
 _0808CE3C:
@@ -7011,7 +7011,7 @@ sub_808CE50: @ 0x0808CE50
 	ldr r2, _0808CE80  @ gUnknown_0202BCB0
 	movs r1, #0x16
 	ldrsh r0, [r2, r1]
-	ldr r1, _0808CE84  @ gUnknown_0202E4D8
+	ldr r1, _0808CE84  @ gBmMapUnit
 	ldr r1, [r1]
 	lsls r0, r0, #2
 	adds r0, r0, r1
@@ -7030,7 +7030,7 @@ sub_808CE50: @ 0x0808CE50
 	b _0808CE94
 	.align 2, 0
 _0808CE80: .4byte gUnknown_0202BCB0
-_0808CE84: .4byte gUnknown_0202E4D8
+_0808CE84: .4byte gBmMapUnit
 _0808CE88:
 	adds r0, r4, #0
 	bl InitMinimugBoxMaybe
@@ -7078,7 +7078,7 @@ Loop6CUI2: @ 0x0808CEC8
 	ldr r2, _0808CF0C  @ gUnknown_0202BCB0
 	movs r1, #0x16
 	ldrsh r0, [r2, r1]
-	ldr r1, _0808CF10  @ gUnknown_0202E4D8
+	ldr r1, _0808CF10  @ gBmMapUnit
 	ldr r1, [r1]
 	lsls r0, r0, #2
 	adds r0, r0, r1
@@ -7102,7 +7102,7 @@ Loop6CUI2: @ 0x0808CEC8
 	b _0808CFBC
 	.align 2, 0
 _0808CF0C: .4byte gUnknown_0202BCB0
-_0808CF10: .4byte gUnknown_0202E4D8
+_0808CF10: .4byte gBmMapUnit
 _0808CF14:
 	adds r0, r4, #0
 	adds r0, #0x4b
@@ -25704,7 +25704,7 @@ _080962F6:
 _08096304:
 	bl sub_801240C
 	bl SMS_ClearUsageTable
-	bl RefreshFogAndUnitMaps
+	bl RefreshEntityBmMaps
 	bl SMS_UpdateFromGameData
 	pop {r4}
 	pop {r0}
@@ -59022,13 +59022,13 @@ sub_80A6D34: @ 0x080A6D34
 sub_80A6D38: @ 0x080A6D38
 	push {lr}
 	bl sub_80A4BB0
-	ldr r1, _080A6D48  @ gUnknown_0202E4EC
+	ldr r1, _080A6D48  @ gBmMapHidden
 	movs r0, #0
 	str r0, [r1]
 	pop {r0}
 	bx r0
 	.align 2, 0
-_080A6D48: .4byte gUnknown_0202E4EC
+_080A6D48: .4byte gBmMapHidden
 
 	THUMB_FUNC_START sub_80A6D4C
 sub_80A6D4C: @ 0x080A6D4C
@@ -60105,7 +60105,7 @@ sub_80A7578: @ 0x080A7578
 	push {r4, r5, lr}
 	adds r4, r0, #0
 	movs r2, #0
-	ldr r0, _080A75C8  @ gUnknown_0202E4DC
+	ldr r0, _080A75C8  @ gBmMapTerrain
 	ldr r0, [r0]
 	lsls r1, r1, #2
 	adds r1, r1, r0
@@ -60146,7 +60146,7 @@ _080A75BE:
 	pop {r1}
 	bx r1
 	.align 2, 0
-_080A75C8: .4byte gUnknown_0202E4DC
+_080A75C8: .4byte gBmMapTerrain
 
 	THUMB_FUNC_START sub_80A75CC
 sub_80A75CC: @ 0x080A75CC
@@ -60174,7 +60174,7 @@ sub_80A75E8: @ 0x080A75E8
 	push {r7}
 	adds r6, r0, #0
 	movs r4, #0
-	ldr r0, _080A7678  @ gUnknown_0202E4DC
+	ldr r0, _080A7678  @ gBmMapTerrain
 	mov r8, r0
 	ldr r0, [r0]
 	lsls r5, r1, #2
@@ -60240,7 +60240,7 @@ _080A766A:
 	pop {r1}
 	bx r1
 	.align 2, 0
-_080A7678: .4byte gUnknown_0202E4DC
+_080A7678: .4byte gBmMapTerrain
 
 	THUMB_FUNC_START sub_80A767C
 sub_80A767C: @ 0x080A767C
@@ -60270,7 +60270,7 @@ sub_80A769C: @ 0x080A769C
 	push {r7}
 	adds r6, r0, #0
 	movs r4, #0
-	ldr r0, _080A772C  @ gUnknown_0202E4DC
+	ldr r0, _080A772C  @ gBmMapTerrain
 	mov r8, r0
 	ldr r0, [r0]
 	lsls r5, r1, #2
@@ -60336,7 +60336,7 @@ _080A771E:
 	pop {r1}
 	bx r1
 	.align 2, 0
-_080A772C: .4byte gUnknown_0202E4DC
+_080A772C: .4byte gBmMapTerrain
 
 	THUMB_FUNC_START sub_80A7730
 sub_80A7730: @ 0x080A7730
@@ -60344,7 +60344,7 @@ sub_80A7730: @ 0x080A7730
 	adds r4, r0, #0
 	adds r5, r1, #0
 	movs r3, #0
-	ldr r2, _080A77D0  @ gUnknown_0202E4DC
+	ldr r2, _080A77D0  @ gBmMapTerrain
 	ldr r1, [r2]
 	lsls r0, r5, #2
 	adds r0, r0, r1
@@ -60429,13 +60429,13 @@ _080A77C8:
 	pop {r1}
 	bx r1
 	.align 2, 0
-_080A77D0: .4byte gUnknown_0202E4DC
+_080A77D0: .4byte gBmMapTerrain
 
 	THUMB_FUNC_START sub_80A77D4
 sub_80A77D4: @ 0x080A77D4
 	push {r4, r5, r6, lr}
 	adds r4, r0, #0
-	ldr r0, _080A780C  @ gUnknown_0202E4DC
+	ldr r0, _080A780C  @ gBmMapTerrain
 	ldr r0, [r0]
 	lsls r1, r1, #2
 	adds r1, r1, r0
@@ -60464,7 +60464,7 @@ _080A7808:
 	movs r0, #4
 	b _080A78F4
 	.align 2, 0
-_080A780C: .4byte gUnknown_0202E4DC
+_080A780C: .4byte gBmMapTerrain
 _080A7810:
 	ldr r0, [r1, #4]
 	adds r0, r0, r4
@@ -60613,7 +60613,7 @@ _080A78F4:
 sub_80A78FC: @ 0x080A78FC
 	push {lr}
 	adds r2, r0, #0
-	ldr r0, _080A7934  @ gUnknown_0202E4DC
+	ldr r0, _080A7934  @ gBmMapTerrain
 	ldr r0, [r0]
 	lsls r1, r1, #2
 	adds r1, r1, r0
@@ -60641,7 +60641,7 @@ _080A7930:
 	movs r0, #0x12
 	b _080A793A
 	.align 2, 0
-_080A7934: .4byte gUnknown_0202E4DC
+_080A7934: .4byte gBmMapTerrain
 _080A7938:
 	movs r0, #0x11
 _080A793A:
@@ -60651,7 +60651,7 @@ _080A793A:
 	THUMB_FUNC_START sub_80A7940
 sub_80A7940: @ 0x080A7940
 	push {lr}
-	ldr r2, _080A7958  @ gUnknown_0202E4DC
+	ldr r2, _080A7958  @ gBmMapTerrain
 	ldr r2, [r2]
 	lsls r1, r1, #2
 	adds r1, r1, r2
@@ -60663,7 +60663,7 @@ sub_80A7940: @ 0x080A7940
 	movs r0, #0x16
 	b _080A796A
 	.align 2, 0
-_080A7958: .4byte gUnknown_0202E4DC
+_080A7958: .4byte gBmMapTerrain
 _080A795C:
 	subs r0, r1, #1
 	ldrb r0, [r0]
@@ -60681,7 +60681,7 @@ _080A796A:
 sub_80A7970: @ 0x080A7970
 	push {r4, r5, r6, r7, lr}
 	adds r5, r0, #0
-	ldr r2, _080A79E0  @ gUnknown_0202E4DC
+	ldr r2, _080A79E0  @ gBmMapTerrain
 	mov ip, r2
 	ldr r2, [r2]
 	lsls r7, r1, #2
@@ -60736,7 +60736,7 @@ _080A79DA:
 	movs r0, #0x10
 	b _080A7A04
 	.align 2, 0
-_080A79E0: .4byte gUnknown_0202E4DC
+_080A79E0: .4byte gBmMapTerrain
 _080A79E4:
 	ldr r1, [r2]
 	adds r2, r5, r1
@@ -60767,7 +60767,7 @@ sub_80A7A0C: @ 0x080A7A0C
 	push {lr}
 	adds r2, r0, #0
 	adds r3, r1, #0
-	ldr r0, _080A7A30  @ gUnknown_0202E4DC
+	ldr r0, _080A7A30  @ gBmMapTerrain
 	ldr r1, [r0]
 	lsls r0, r3, #2
 	adds r0, r0, r1
@@ -60784,7 +60784,7 @@ _080A7A26:
 	ldr r0, [r0]
 	mov pc, r0
 	.align 2, 0
-_080A7A30: .4byte gUnknown_0202E4DC
+_080A7A30: .4byte gBmMapTerrain
 _080A7A34: .4byte _080A7A38
 _080A7A38: @ jump table
 	.4byte _080A7BF2 @ case 0
@@ -60991,7 +60991,7 @@ sub_80A7C0C: @ 0x080A7C0C
 	mov r0, sp
 	movs r2, #3
 	bl memcpy
-	ldr r0, _080A7C44  @ gUnknown_0202E4D8
+	ldr r0, _080A7C44  @ gBmMapUnit
 	ldr r0, [r0]
 	lsls r4, r4, #2
 	adds r4, r4, r0
@@ -61009,7 +61009,7 @@ sub_80A7C0C: @ 0x080A7C0C
 	b _080A7C4E
 	.align 2, 0
 _080A7C40: .4byte gUnknown_08205D84
-_080A7C44: .4byte gUnknown_0202E4D8
+_080A7C44: .4byte gBmMapUnit
 _080A7C48: .4byte gUnknown_02020188
 _080A7C4C:
 	ldr r0, _080A7C58  @ gUnknown_02020188
@@ -61155,7 +61155,7 @@ _080A7CB0:
 	adds r0, r7, r0
 	strh r0, [r1]
 	adds r7, #1
-	ldr r0, _080A7E78  @ gUnknown_0202E4D8
+	ldr r0, _080A7E78  @ gBmMapUnit
 	ldr r1, [r0]
 	mov r3, r8
 	lsls r0, r3, #2
@@ -61268,7 +61268,7 @@ _080A7E42:
 	movs r0, #2
 	add sl, r0
 	adds r6, #2
-	ldr r0, _080A7E80  @ gUnknown_0202E4D4
+	ldr r0, _080A7E80  @ gBmMapSize
 	movs r1, #0
 	ldrsh r0, [r0, r1]
 	cmp r6, r0
@@ -61278,7 +61278,7 @@ _080A7E54:
 	ldr r2, [sp, #0xc]
 _080A7E56:
 	mov r8, r2
-	ldr r1, _080A7E80  @ gUnknown_0202E4D4
+	ldr r1, _080A7E80  @ gBmMapSize
 	movs r3, #2
 	ldrsh r0, [r1, r3]
 	cmp r8, r0
@@ -61295,9 +61295,9 @@ _080A7E64:
 	bx r0
 	.align 2, 0
 _080A7E74: .4byte gBG1TilemapBuffer
-_080A7E78: .4byte gUnknown_0202E4D8
+_080A7E78: .4byte gBmMapUnit
 _080A7E7C: .4byte gBG0TilemapBuffer
-_080A7E80: .4byte gUnknown_0202E4D4
+_080A7E80: .4byte gBmMapSize
 
 	THUMB_FUNC_START sub_80A7E84
 sub_80A7E84: @ 0x080A7E84
@@ -62165,7 +62165,7 @@ _080A8564: .4byte gUnknown_0202BCB0
 sub_80A8568: @ 0x080A8568
 	push {r4, r5, r6, lr}
 	adds r6, r0, #0
-	ldr r2, _080A85D8  @ gUnknown_0202E4D4
+	ldr r2, _080A85D8  @ gBmMapSize
 	movs r0, #0
 	ldrsh r1, [r2, r0]
 	lsls r1, r1, #2
@@ -62219,7 +62219,7 @@ _080A85AE:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_080A85D8: .4byte gUnknown_0202E4D4
+_080A85D8: .4byte gBmMapSize
 _080A85DC: .4byte gUnknown_0202BCB0
 _080A85E0: .4byte 0x0000FFFF
 
@@ -62338,7 +62338,7 @@ sub_80A86AC: @ 0x080A86AC
 	adds r2, #0x4a
 	movs r1, #0
 	strh r1, [r2]
-	ldr r2, _080A86C8  @ gUnknown_0202E4D4
+	ldr r2, _080A86C8  @ gBmMapSize
 	movs r3, #0
 	ldrsh r1, [r2, r3]
 	lsls r1, r1, #1
@@ -62349,7 +62349,7 @@ sub_80A86AC: @ 0x080A86AC
 	str r1, [r0, #0x38]
 	bx lr
 	.align 2, 0
-_080A86C8: .4byte gUnknown_0202E4D4
+_080A86C8: .4byte gBmMapSize
 
 	THUMB_FUNC_START sub_80A86CC
 sub_80A86CC: @ 0x080A86CC
@@ -62507,7 +62507,7 @@ sub_80A87F0: @ 0x080A87F0
 	movs r1, #0
 	bl BG_Fill
 	adds r0, r5, #0
-	bl sub_80195BC
+	bl InitChapterPreviewMap
 	adds r0, r4, #0
 	bl sub_80A83D0
 	adds r0, r6, #0
@@ -136706,8 +136706,8 @@ sub_80CD218: @ 0x080CD218
 	bl Proc_GotoLabel
 	bl BMapDispResume
 	bl RefreshBMapGraphics
-	bl RefreshFogAndUnitMaps
-	bl UpdateGameTilesGraphics
+	bl RefreshEntityBmMaps
+	bl RenderBmMap
 	bl SMS_UpdateFromGameData
 	bl MU_EndAll
 	ldr r0, _080CD290  @ gActiveUnit
@@ -137201,12 +137201,12 @@ sub_80CD62C: @ 0x080CD62C
 	push {lr}
 	bl BMapDispResume
 	bl RefreshBMapGraphics
-	bl RefreshFogAndUnitMaps
+	bl RefreshEntityBmMaps
 	bl MU_EndAll
 	ldr r0, _080CD654  @ gActiveUnit
 	ldr r0, [r0]
 	bl MU_Create
-	bl UpdateGameTilesGraphics
+	bl RenderBmMap
 	bl SMS_UpdateFromGameData
 	pop {r0}
 	bx r0

@@ -97,7 +97,7 @@ sub_8039F0C: @ 0x08039F0C
 	ldr r1, [r0]
 	movs r6, #0x11
 	ldrsb r6, [r1, r6]
-	ldr r0, _08039F70  @ gUnknown_0202E4E8
+	ldr r0, _08039F70  @ gBmMapFog
 	ldr r2, [r0]
 	lsls r0, r6, #2
 	adds r0, r0, r2
@@ -127,7 +127,7 @@ _08039F5C:
 	.align 2, 0
 _08039F68: .4byte gUnknown_0202BCF0
 _08039F6C: .4byte gActiveUnit
-_08039F70: .4byte gUnknown_0202E4E8
+_08039F70: .4byte gBmMapFog
 _08039F74: .4byte gUnknown_0203AA94
 _08039F78:
 	mov r1, ip
@@ -167,7 +167,7 @@ sub_8039FAC: @ 0x08039FAC
 	bl HideUnitSMS
 	ldr r0, [r6]
 	bl FillMovementMapForUnit
-	ldr r0, _0803A014  @ gUnknown_0202E4E0
+	ldr r0, _0803A014  @ gBmMapMovement
 	ldr r0, [r0]
 	bl SetSubjectMap
 	ldr r4, _0803A018  @ gUnknown_0203AA94
@@ -202,7 +202,7 @@ _0803A00A:
 	bx r0
 	.align 2, 0
 _0803A010: .4byte gActiveUnit
-_0803A014: .4byte gUnknown_0202E4E0
+_0803A014: .4byte gBmMapMovement
 _0803A018: .4byte gUnknown_0203AA94
 _0803A01C: .4byte gUnknown_02033EFC
 _0803A020: .4byte gActionData
@@ -219,16 +219,16 @@ sub_803A024: @ 0x0803A024
 	ldrb r0, [r4, #2]
 	ldrb r1, [r4, #3]
 	bl SetCursorMapPosition
-	bl sub_8019CBC
+	bl RenderBmMapOnBg2
 	ldrb r0, [r4, #2]
 	ldrb r1, [r4, #3]
 	bl MoveActiveUnit
-	bl RefreshFogAndUnitMaps
-	bl UpdateGameTilesGraphics
+	bl RefreshEntityBmMaps
+	bl RenderBmMap
 	movs r0, #1
 	bl NewBMXFADE
 	bl MU_EndAll
-	bl RefreshFogAndUnitMaps
+	bl RefreshEntityBmMaps
 	ldr r0, [r5]
 	bl ShowUnitSMS
 	bl SMS_UpdateFromGameData
@@ -373,7 +373,7 @@ sub_803A17C: @ 0x0803A17C
 	ldr r3, _0803A1B8  @ gUnknown_0203AA94
 	ldrb r2, [r3, #2]
 	ldrb r4, [r3, #3]
-	ldr r0, _0803A1BC  @ gUnknown_0202E4DC
+	ldr r0, _0803A1BC  @ gBmMapTerrain
 	ldr r1, [r0]
 	lsls r0, r4, #2
 	adds r0, r0, r1
@@ -398,7 +398,7 @@ sub_803A17C: @ 0x0803A17C
 	b _0803A1F4
 	.align 2, 0
 _0803A1B8: .4byte gUnknown_0203AA94
-_0803A1BC: .4byte gUnknown_0202E4DC
+_0803A1BC: .4byte gBmMapTerrain
 _0803A1C0: .4byte gActiveUnit
 _0803A1C4: .4byte gActionData
 _0803A1C8:

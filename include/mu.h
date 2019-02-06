@@ -138,10 +138,6 @@ struct MUConfig {
     /* 48 */ struct MUProc* pMUProc;
 };
 
-struct PositionS16 {
-    short x, y;
-};
-
 extern const struct ProcCmd gProcScr_MoveUnit[];
 extern const struct ProcCmd gProcScr_MUDeathFade[];
 extern const struct ProcCmd gProcScr_MUBlinkEffect[];
@@ -199,7 +195,7 @@ int MU_CanStart(void);
 
 void MU_AllRestartAnimations(void);
 
-u8 MU_ComputeDisplayPosition(struct MUProc* proc, struct PositionS16* out);
+u8 MU_ComputeDisplayPosition(struct MUProc* proc, struct Vec2* out);
 
 void MU_SetMoveConfig(struct MUProc* proc, u16 config);
 

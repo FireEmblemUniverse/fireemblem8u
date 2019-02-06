@@ -209,8 +209,8 @@ enum {
     US_HAS_MOVED    = (1 << 6), // Bad name?
     US_CANTOING     = US_HAS_MOVED, // Alias
     US_UNDER_A_ROOF = (1 << 7),
-    US_BIT8 = (1 << 8),
-    // = (1 << 9),
+    US_BIT8 = (1 << 8), // has been seen?
+    US_BIT9 = (1 << 9), // hidden by fog?
     US_HAS_MOVED_AI = (1 << 10),
     US_IN_BALLISTA  = (1 << 11),
     US_DROP_ITEM    = (1 << 12),

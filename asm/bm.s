@@ -102,7 +102,7 @@ HandleCursorMovement: @ 0x08015714
 	beq _08015792
 	movs r3, #0x16
 	ldrsh r0, [r5, r3]
-	ldr r1, _0801581C  @ gUnknown_0202E4E0
+	ldr r1, _0801581C  @ gBmMapMovement
 	ldr r2, [r1]
 	lsls r0, r0, #2
 	adds r0, r0, r2
@@ -137,7 +137,7 @@ _08015792:
 	asrs r1, r0, #0x10
 	cmp r1, #0
 	blt _080157BC
-	ldr r0, _08015824  @ gUnknown_0202E4D4
+	ldr r0, _08015824  @ gBmMapSize
 	movs r2, #0
 	ldrsh r0, [r0, r2]
 	cmp r1, r0
@@ -159,7 +159,7 @@ _080157BC:
 	adds r1, r2, #0
 	cmp r1, #0
 	blt _080157E8
-	ldr r0, _08015824  @ gUnknown_0202E4D4
+	ldr r0, _08015824  @ gBmMapSize
 	movs r3, #2
 	ldrsh r0, [r0, r3]
 	cmp r1, r0
@@ -203,9 +203,9 @@ _0801580C:
 	.align 2, 0
 _08015814: .4byte gUnknown_0202BCB0
 _08015818: .4byte gUnknown_0859A438
-_0801581C: .4byte gUnknown_0202E4E0
+_0801581C: .4byte gBmMapMovement
 _08015820: .4byte gKeyStatusPtr
-_08015824: .4byte gUnknown_0202E4D4
+_08015824: .4byte gBmMapSize
 _08015828: .4byte gUnknown_0202BCF0
 _0801582C:
 	movs r0, #0xfb
@@ -926,7 +926,7 @@ _08015D46:
 _08015D50:
 	ldr r1, [r4]
 	adds r1, #8
-	ldr r5, _08015D80  @ gUnknown_0202E4D4
+	ldr r5, _08015D80  @ gBmMapSize
 	movs r0, #0
 	ldrsh r2, [r5, r0]
 	subs r0, r2, #1
@@ -950,7 +950,7 @@ _08015D78:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_08015D80: .4byte gUnknown_0202E4D4
+_08015D80: .4byte gBmMapSize
 
 	THUMB_FUNC_START sub_8015D84
 sub_8015D84: @ 0x08015D84

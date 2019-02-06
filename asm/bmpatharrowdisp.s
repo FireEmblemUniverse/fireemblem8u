@@ -67,7 +67,7 @@ _08032A2E:
 	adds r1, r1, r4
 	movs r2, #0
 	ldrsb r2, [r1, r2]
-	ldr r1, _08032A90  @ gUnknown_0202E4DC
+	ldr r1, _08032A90  @ gBmMapTerrain
 	ldr r1, [r1]
 	lsls r2, r2, #2
 	adds r2, r2, r1
@@ -101,7 +101,7 @@ _08032A84:
 	bx r0
 	.align 2, 0
 _08032A8C: .4byte gUnknown_0859DBA0
-_08032A90: .4byte gUnknown_0202E4DC
+_08032A90: .4byte gBmMapTerrain
 
 	THUMB_FUNC_START sub_8032A94
 sub_8032A94: @ 0x08032A94
@@ -148,7 +148,7 @@ sub_8032A94: @ 0x08032A94
 	subs r1, #1
 	adds r2, r2, r1
 	lsls r4, r4, #0x18
-	ldr r1, _08032B14  @ gUnknown_0202E4DC
+	ldr r1, _08032B14  @ gBmMapTerrain
 	ldr r1, [r1]
 	asrs r4, r4, #0x16
 	adds r4, r4, r1
@@ -167,7 +167,7 @@ sub_8032A94: @ 0x08032A94
 	bx r0
 	.align 2, 0
 _08032B10: .4byte gUnknown_0859DBA0
-_08032B14: .4byte gUnknown_0202E4DC
+_08032B14: .4byte gBmMapTerrain
 
 	THUMB_FUNC_START sub_8032B18
 sub_8032B18: @ 0x08032B18
@@ -663,7 +663,7 @@ _08032EDE:
 	ldrh r0, [r5, #0x14]
 	ldrh r1, [r5, #0x16]
 	bl sub_80329D8
-	ldr r0, _08032F40  @ gUnknown_0202E4E0
+	ldr r0, _08032F40  @ gBmMapMovement
 	ldr r0, [r0]
 	bl SetSubjectMap
 	movs r3, #0x16
@@ -705,7 +705,7 @@ _08032F12:
 	.align 2, 0
 _08032F38: .4byte gUnknown_0859DBA0
 _08032F3C: .4byte gUnknown_0202BCB0
-_08032F40: .4byte gUnknown_0202E4E0
+_08032F40: .4byte gBmMapMovement
 _08032F44: .4byte gUnknown_030049A0
 _08032F48:
 	ldr r4, [r7]
@@ -719,7 +719,7 @@ _08032F48:
 	bl GetCurrentMovCostTable
 	movs r1, #0x16
 	ldrsh r6, [r5, r1]
-	ldr r1, _08032FB8  @ gUnknown_0202E4DC
+	ldr r1, _08032FB8  @ gBmMapTerrain
 	ldr r2, [r1]
 	lsls r1, r6, #2
 	adds r1, r1, r2
@@ -764,7 +764,7 @@ _08032F9E:
 	beq _08032FC4
 	b _08032FDC
 	.align 2, 0
-_08032FB8: .4byte gUnknown_0202E4DC
+_08032FB8: .4byte gBmMapTerrain
 _08032FBC:
 	subs r0, r6, r1
 	adds r0, r2, r0
@@ -799,7 +799,7 @@ _08032FDC:
 	movs r0, #1
 	bl sub_80329EC
 _08032FFE:
-	ldr r0, _08033038  @ gUnknown_0202E4F0
+	ldr r0, _08033038  @ gBmMapUnk
 	ldr r0, [r0]
 	bl SetSubjectMap
 	bl sub_8032D30
@@ -824,7 +824,7 @@ _08032FFE:
 	b _08033060
 	.align 2, 0
 _08033034: .4byte gUnknown_0859DBA0
-_08033038: .4byte gUnknown_0202E4F0
+_08033038: .4byte gBmMapUnk
 _0803303C: .4byte gUnknown_0202BCB0
 _08033040: .4byte gUnknown_030049A0
 _08033044:

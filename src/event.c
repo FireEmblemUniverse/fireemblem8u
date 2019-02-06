@@ -5,6 +5,7 @@
 #include "mu.h"
 #include "bmio.h"
 #include "bmunit.h"
+#include "bmmap.h"
 
 #include "event.h"
 
@@ -217,7 +218,7 @@ void EventEngine_OnEnd(struct EventEngineProc* proc) {
     
     case EV_EXEC_UNK5:
         LoadGameCoreGfx();
-        sub_8019974();
+        UnpackChapterMapPalette();
         sub_800BCDC(proc->mapSpritePalIdOverride);
 
         if (proc->evStateBits & EV_STATE_CHANGEGM) {

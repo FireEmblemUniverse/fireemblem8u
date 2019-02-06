@@ -674,7 +674,7 @@ _08012BDC:
 	eors r1, r2
 	strh r1, [r0, #0xe]
 _08012BE6:
-	bl UpdateGameTilesGraphics
+	bl RenderBmMap
 	b _08012C2E
 	.align 2, 0
 _08012BEC: .4byte gUnknown_0202BCB0

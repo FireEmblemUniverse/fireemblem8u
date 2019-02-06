@@ -10,6 +10,7 @@
 #include "hardware.h"
 #include "bmio.h"
 #include "bmunit.h"
+#include "bmmap.h"
 #include "bmbattle.h"
 
 #include "mu.h"
@@ -919,8 +920,8 @@ static void MU_InterpretCommandScript(struct MUProc* proc) {
             proc->stateId = MU_STATE_BUMPING;
 
             MU_StartFogBumpFx(
-                (proc->xSubPosition >> MU_SUBPIXEL_PRECISION) - gUnknown_0202BCB0.xCameraReal,
-                (proc->ySubPosition >> MU_SUBPIXEL_PRECISION) - gUnknown_0202BCB0.yCameraReal
+                (proc->xSubPosition >> MU_SUBPIXEL_PRECISION) - gUnknown_0202BCB0.camera.x,
+                (proc->ySubPosition >> MU_SUBPIXEL_PRECISION) - gUnknown_0202BCB0.camera.y
             );
 
             return;
@@ -1101,8 +1102,8 @@ static void MU_State_DuringMovement(struct MUProc* proc) {
     }
 
     if (proc->boolAttractCamera && !Proc_Find(gUnknown_0859A548)) {
-        gUnknown_0202BCB0.xCameraReal = GetSomeAdjustedCameraX(proc->xSubPosition >> MU_SUBPIXEL_PRECISION);
-        gUnknown_0202BCB0.yCameraReal = GetSomeAdjustedCameraY(proc->ySubPosition >> MU_SUBPIXEL_PRECISION);
+        gUnknown_0202BCB0.camera.x = GetSomeAdjustedCameraX(proc->xSubPosition >> MU_SUBPIXEL_PRECISION);
+        gUnknown_0202BCB0.camera.y = GetSomeAdjustedCameraY(proc->ySubPosition >> MU_SUBPIXEL_PRECISION);
     }
 
     if (!(proc->moveConfig & 0x80))
@@ -1113,7 +1114,7 @@ static void MU_AdvanceStepSfx(struct MUProc* proc) {
     const u16* pStepSoundDefinition;
 
     unsigned cursor;
-    struct PositionS16 position;
+    struct Vec2 position;
 
     if (GetClassData(proc->displayedClassId)->attributes & CA_MOUNTEDAID) {
         switch (proc->displayedClassId) {
@@ -1367,13 +1368,13 @@ static struct MUConfig* MU_GenerateConfigOther(int objTileId, u8* outIndex) {
     return NULL;
 }
 
-u8 MU_ComputeDisplayPosition(struct MUProc* proc, struct PositionS16* out) {
+u8 MU_ComputeDisplayPosition(struct MUProc* proc, struct Vec2* out) {
     if (proc->stateId == MU_STATE_UI_DISPLAY) {
         out->x = (proc->xSubPosition + proc->xSubOffset) >> MU_SUBPIXEL_PRECISION;
         out->y = (proc->ySubPosition + proc->ySubOffset) >> MU_SUBPIXEL_PRECISION;
     } else {
-        short x = ((proc->xSubPosition + proc->xSubOffset) >> MU_SUBPIXEL_PRECISION) - gUnknown_0202BCB0.xCameraReal + 8;
-        short y = ((proc->ySubPosition + proc->ySubOffset) >> MU_SUBPIXEL_PRECISION) - gUnknown_0202BCB0.yCameraReal + 8;
+        short x = ((proc->xSubPosition + proc->xSubOffset) >> MU_SUBPIXEL_PRECISION) - gUnknown_0202BCB0.camera.x + 8;
+        short y = ((proc->ySubPosition + proc->ySubOffset) >> MU_SUBPIXEL_PRECISION) - gUnknown_0202BCB0.camera.y + 8;
 
         out->x = x;
         out->y = y + 8;
@@ -1393,7 +1394,7 @@ u8 MU_ComputeDisplayPosition(struct MUProc* proc, struct PositionS16* out) {
 
 static void MU_DisplayAsSMS(struct MUProc* proc) {
     if (!proc->boolIsHidden) {
-        struct PositionS16 position;
+        struct Vec2 position;
 
         if (!MU_ComputeDisplayPosition(proc, &position))
             return;
@@ -1427,7 +1428,7 @@ static void MU_DisplayAsSMS(struct MUProc* proc) {
 
 static void MU_DisplayAsMMS(struct MUProc* proc) {
     if (!proc->boolIsHidden) {
-        struct PositionS16 position;
+        struct Vec2 position;
 
         if (!MU_ComputeDisplayPosition(proc, &position))
             return;
@@ -1438,7 +1439,7 @@ static void MU_DisplayAsMMS(struct MUProc* proc) {
         if (proc->stateId != MU_STATE_UI_DISPLAY)
             if (proc->pUnit && UNIT_FACTION(proc->pUnit) == FACTION_RED)
                 if (gUnknown_0202BCF0.chapterVisionRange != 0)
-                    if (!gUnknown_0202E4E8[MU_GetDisplayYOrg(proc) >> 4][MU_GetDisplayXOrg(proc) >> 4])
+                    if (!gBmMapFog[MU_GetDisplayYOrg(proc) >> 4][MU_GetDisplayXOrg(proc) >> 4])
                         return; // whew
 
         if (proc->stateId == MU_STATE_DEATHFADE)

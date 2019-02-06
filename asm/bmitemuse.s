@@ -832,7 +832,7 @@ CanUseChestKey: @ 0x080290FC
 	push {lr}
 	movs r3, #0x11
 	ldrsb r3, [r0, r3]
-	ldr r1, _0802912C  @ gUnknown_0202E4DC
+	ldr r1, _0802912C  @ gBmMapTerrain
 	ldr r2, [r1]
 	lsls r1, r3, #2
 	adds r1, r1, r2
@@ -852,7 +852,7 @@ CanUseChestKey: @ 0x080290FC
 	movs r0, #1
 	b _08029132
 	.align 2, 0
-_0802912C: .4byte gUnknown_0202E4DC
+_0802912C: .4byte gBmMapTerrain
 _08029130:
 	movs r0, #0
 _08029132:
@@ -1348,11 +1348,11 @@ _08029564: .4byte gActionData
 PrepareTargetSelectionForRescueStaff: @ 0x08029568
 	push {r4, lr}
 	bl _call_via_r1
-	ldr r0, _08029598  @ gUnknown_0202E4E0
+	ldr r0, _08029598  @ gBmMapMovement
 	ldr r0, [r0]
 	movs r1, #1
 	negs r1, r1
-	bl ClearMapWith
+	bl BmMapFill
 	ldr r0, _0802959C  @ gUnknown_0859D2F8
 	ldr r1, _080295A0  @ GenericStaffSelection_OnSelect
 	bl NewTargetSelection_Specialized
@@ -1366,7 +1366,7 @@ PrepareTargetSelectionForRescueStaff: @ 0x08029568
 	pop {r0}
 	bx r0
 	.align 2, 0
-_08029598: .4byte gUnknown_0202E4E0
+_08029598: .4byte gBmMapMovement
 _0802959C: .4byte gUnknown_0859D2F8
 _080295A0: .4byte GenericStaffSelection_OnSelect
 _080295A4: .4byte 0x00000876
@@ -1376,11 +1376,11 @@ SetupTargetSelectionForGenericStaff: @ 0x080295A8
 	push {r4, r5, lr}
 	adds r5, r2, #0
 	bl _call_via_r1
-	ldr r0, _080295DC  @ gUnknown_0202E4E0
+	ldr r0, _080295DC  @ gBmMapMovement
 	ldr r0, [r0]
 	movs r1, #1
 	negs r1, r1
-	bl ClearMapWith
+	bl BmMapFill
 	ldr r0, _080295E0  @ gUnknown_0859D2F8
 	ldr r1, _080295E4  @ GenericStaffSelection_OnSelect
 	bl NewTargetSelection_Specialized
@@ -1394,7 +1394,7 @@ SetupTargetSelectionForGenericStaff: @ 0x080295A8
 	pop {r0}
 	bx r0
 	.align 2, 0
-_080295DC: .4byte gUnknown_0202E4E0
+_080295DC: .4byte gBmMapMovement
 _080295E0: .4byte gUnknown_0859D2F8
 _080295E4: .4byte GenericStaffSelection_OnSelect
 
@@ -1480,7 +1480,7 @@ WarpTargetPosSelect_Loop: @ 0x0802969C
 	ldr r4, _08029714  @ gUnknown_0202BCB0
 	movs r1, #0x16
 	ldrsh r0, [r4, r1]
-	ldr r1, _08029718  @ gUnknown_0202E4E0
+	ldr r1, _08029718  @ gBmMapMovement
 	ldr r1, [r1]
 	lsls r0, r0, #2
 	adds r0, r0, r1
@@ -1530,7 +1530,7 @@ WarpTargetPosSelect_Loop: @ 0x0802969C
 	b _080297BA
 	.align 2, 0
 _08029714: .4byte gUnknown_0202BCB0
-_08029718: .4byte gUnknown_0202E4E0
+_08029718: .4byte gBmMapMovement
 _0802971C: .4byte gKeyStatusPtr
 _08029720: .4byte gActionData
 _08029724: .4byte gActiveUnit
@@ -1698,11 +1698,11 @@ _08029878: .4byte gUnknown_0859B9B8
 SetupWarpTargetSelection: @ 0x0802987C
 	push {r4, lr}
 	bl MakeTargetListForWarp
-	ldr r0, _080298C0  @ gUnknown_0202E4E0
+	ldr r0, _080298C0  @ gBmMapMovement
 	ldr r0, [r0]
 	movs r1, #1
 	negs r1, r1
-	bl ClearMapWith
+	bl BmMapFill
 	ldr r0, _080298C4  @ gUnknown_0859D2F8
 	ldr r1, _080298C8  @ WarpTargetSelection_OnSelect
 	bl NewTargetSelection_Specialized
@@ -1725,7 +1725,7 @@ _080298B8:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_080298C0: .4byte gUnknown_0202E4E0
+_080298C0: .4byte gBmMapMovement
 _080298C4: .4byte gUnknown_0859D2F8
 _080298C8: .4byte WarpTargetSelection_OnSelect
 _080298CC: .4byte 0x00000875
@@ -1752,11 +1752,11 @@ PrepareTargetSelectionForMineAndLightRune: @ 0x080298F0
 	push {r4, r5, lr}
 	adds r5, r2, #0
 	bl _call_via_r1
-	ldr r0, _08029934  @ gUnknown_0202E4E0
+	ldr r0, _08029934  @ gBmMapMovement
 	ldr r0, [r0]
 	movs r1, #1
 	negs r1, r1
-	bl ClearMapWith
+	bl BmMapFill
 	ldr r0, _08029938  @ gUnknown_0859D2D8
 	ldr r1, _0802993C  @ sub_80298D4
 	bl NewTargetSelection_Specialized
@@ -1779,7 +1779,7 @@ _0802992E:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_08029934: .4byte gUnknown_0202E4E0
+_08029934: .4byte gBmMapMovement
 _08029938: .4byte gUnknown_0859D2D8
 _0802993C: .4byte sub_80298D4
 _08029940: .4byte gUnknown_0202BCF0
@@ -1837,11 +1837,11 @@ _080299B4: .4byte gUnknown_0859D064
 SetupHammerneUseSelection: @ 0x080299B8
 	push {r4, lr}
 	bl MakeTargetListForHammerne
-	ldr r0, _080299F8  @ gUnknown_0202E4E0
+	ldr r0, _080299F8  @ gBmMapMovement
 	ldr r0, [r0]
 	movs r1, #1
 	negs r1, r1
-	bl ClearMapWith
+	bl BmMapFill
 	ldr r0, _080299FC  @ gUnknown_0859D3B8
 	bl NewTargetSelection
 	adds r4, r0, #0
@@ -1863,7 +1863,7 @@ _080299F2:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_080299F8: .4byte gUnknown_0202E4E0
+_080299F8: .4byte gBmMapMovement
 _080299FC: .4byte gUnknown_0859D3B8
 _08029A00: .4byte 0x00000878
 _08029A04: .4byte gUnknown_0202BCF0
@@ -2070,11 +2070,11 @@ _08029B88: .4byte gActiveUnit
 PrepareTargetSelectionForHeal: @ 0x08029B8C
 	push {r4, lr}
 	bl _call_via_r1
-	ldr r0, _08029BBC  @ gUnknown_0202E4E0
+	ldr r0, _08029BBC  @ gBmMapMovement
 	ldr r0, [r0]
 	movs r1, #1
 	negs r1, r1
-	bl ClearMapWith
+	bl BmMapFill
 	ldr r0, _08029BC0  @ gUnknown_0859D298
 	bl NewTargetSelection
 	adds r4, r0, #0
@@ -2087,7 +2087,7 @@ PrepareTargetSelectionForHeal: @ 0x08029B8C
 	pop {r0}
 	bx r0
 	.align 2, 0
-_08029BBC: .4byte gUnknown_0202E4E0
+_08029BBC: .4byte gBmMapMovement
 _08029BC0: .4byte gUnknown_0859D298
 _08029BC4: .4byte 0x00000874
 
@@ -2095,11 +2095,11 @@ _08029BC4: .4byte 0x00000874
 PrepareTargetSelectionForRestoreStaff: @ 0x08029BC8
 	push {r4, lr}
 	bl _call_via_r1
-	ldr r0, _08029BF8  @ gUnknown_0202E4E0
+	ldr r0, _08029BF8  @ gBmMapMovement
 	ldr r0, [r0]
 	movs r1, #1
 	negs r1, r1
-	bl ClearMapWith
+	bl BmMapFill
 	ldr r0, _08029BFC  @ gUnknown_0859D278
 	bl NewTargetSelection
 	adds r4, r0, #0
@@ -2112,7 +2112,7 @@ PrepareTargetSelectionForRestoreStaff: @ 0x08029BC8
 	pop {r0}
 	bx r0
 	.align 2, 0
-_08029BF8: .4byte gUnknown_0202E4E0
+_08029BF8: .4byte gBmMapMovement
 _08029BFC: .4byte gUnknown_0859D278
 _08029C00: .4byte 0x00000877
 
@@ -2144,11 +2144,11 @@ sub_8029C10: @ 0x08029C10
 sub_8029C34: @ 0x08029C34
 	push {r4, lr}
 	bl MakeTargetListForBarrier
-	ldr r0, _08029C64  @ gUnknown_0202E4E0
+	ldr r0, _08029C64  @ gBmMapMovement
 	ldr r0, [r0]
 	movs r1, #1
 	negs r1, r1
-	bl ClearMapWith
+	bl BmMapFill
 	ldr r0, _08029C68  @ gUnknown_0859D258
 	bl NewTargetSelection
 	adds r4, r0, #0
@@ -2161,7 +2161,7 @@ sub_8029C34: @ 0x08029C34
 	pop {r0}
 	bx r0
 	.align 2, 0
-_08029C64: .4byte gUnknown_0202E4E0
+_08029C64: .4byte gBmMapMovement
 _08029C68: .4byte gUnknown_0859D258
 _08029C6C: .4byte 0x00000879
 
@@ -2193,11 +2193,11 @@ sub_8029C7C: @ 0x08029C7C
 PrepareTargetSelectionForOffensiveStaff: @ 0x08029CA0
 	push {r4, lr}
 	bl _call_via_r1
-	ldr r0, _08029CD0  @ gUnknown_0202E4E0
+	ldr r0, _08029CD0  @ gBmMapMovement
 	ldr r0, [r0]
 	movs r1, #1
 	negs r1, r1
-	bl ClearMapWith
+	bl BmMapFill
 	ldr r0, _08029CD4  @ gUnknown_0859D238
 	bl NewTargetSelection
 	adds r4, r0, #0
@@ -2210,7 +2210,7 @@ PrepareTargetSelectionForOffensiveStaff: @ 0x08029CA0
 	pop {r0}
 	bx r0
 	.align 2, 0
-_08029CD0: .4byte gUnknown_0202E4E0
+_08029CD0: .4byte gBmMapMovement
 _08029CD4: .4byte gUnknown_0859D238
 _08029CD8: .4byte 0x0000087B
 
@@ -2358,7 +2358,7 @@ TorchTargetSelection_Loop: @ 0x08029DF0
 	ldrsh r2, [r5, r0]
 	movs r1, #0x16
 	ldrsh r0, [r5, r1]
-	ldr r1, _08029E54  @ gUnknown_0202E4E4
+	ldr r1, _08029E54  @ gBmMapRange
 	ldr r1, [r1]
 	lsls r0, r0, #2
 	adds r0, r0, r1
@@ -2397,7 +2397,7 @@ _08029E34:
 	b _08029EC0
 	.align 2, 0
 _08029E50: .4byte gUnknown_0202BCB0
-_08029E54: .4byte gUnknown_0202E4E4
+_08029E54: .4byte gBmMapRange
 _08029E58: .4byte gKeyStatusPtr
 _08029E5C: .4byte gUnknown_0202BCF0
 _08029E60: .4byte gActionData
