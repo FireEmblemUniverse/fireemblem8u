@@ -561,7 +561,7 @@ ApplyMapChangesById: @ 0x0802E58C
 	ldrb r0, [r3, #4]
 	cmp r6, r0
 	bge _0802E5E6
-	ldr r7, _0802E5F4  @ gUnknown_0859A9D4
+	ldr r7, _0802E5F4  @ gBmMapBaseTiles
 	mov r8, r7
 _0802E5A8:
 	movs r5, #0
@@ -606,7 +606,7 @@ _0802E5E6:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_0802E5F4: .4byte gUnknown_0859A9D4
+_0802E5F4: .4byte gBmMapBaseTiles
 
 	THUMB_FUNC_START AddMapChange
 AddMapChange: @ 0x0802E5F8

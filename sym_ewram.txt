@@ -35,7 +35,7 @@
 . = 0x000C60; gUnknown_02000C60 = .;
 . = 0x000C78; gUnknown_02000C78 = .;
 . = 0x000F00; gUnknown_02000F00 = .;
-. = 0x001000; gUnknown_02001000 = .;
+. = 0x001000; gBmMapBuffer = .;
 . = 0x001088; gUnknown_02001088 = .;
 . = 0x001180; gUnknown_02001180 = .;
 . = 0x001184; gUnknown_02001184 = .;

@@ -36,12 +36,12 @@ extern u8** gUnknown_030049A0;
 
 // inlined SetSubjectMap
 static inline void SetMap(u8** map) {
-	gUnknown_030049A0 = map;
+    gUnknown_030049A0 = map;
 }
 
 void FillMovementMapForUnit(struct Unit* unit) {
-	StoreMovCostTable(GetUnitMovementCost(unit));
+    StoreMovCostTable(GetUnitMovementCost(unit));
 
-	SetMap(gBmMapMovement);
-	FillMovementMap(unit->xPos, unit->yPos, UNIT_MOV(unit), unit->index);
+    SetMap(gBmMapMovement);
+    FillMovementMap(unit->xPos, unit->yPos, UNIT_MOV(unit), unit->index);
 }
