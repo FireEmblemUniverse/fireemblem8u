@@ -1114,7 +1114,7 @@ static void MU_AdvanceStepSfx(struct MUProc* proc) {
     const u16* pStepSoundDefinition;
 
     unsigned cursor;
-    struct PositionS16 position;
+    struct Vec2 position;
 
     if (GetClassData(proc->displayedClassId)->attributes & CA_MOUNTEDAID) {
         switch (proc->displayedClassId) {
@@ -1368,7 +1368,7 @@ static struct MUConfig* MU_GenerateConfigOther(int objTileId, u8* outIndex) {
     return NULL;
 }
 
-u8 MU_ComputeDisplayPosition(struct MUProc* proc, struct PositionS16* out) {
+u8 MU_ComputeDisplayPosition(struct MUProc* proc, struct Vec2* out) {
     if (proc->stateId == MU_STATE_UI_DISPLAY) {
         out->x = (proc->xSubPosition + proc->xSubOffset) >> MU_SUBPIXEL_PRECISION;
         out->y = (proc->ySubPosition + proc->ySubOffset) >> MU_SUBPIXEL_PRECISION;
@@ -1394,7 +1394,7 @@ u8 MU_ComputeDisplayPosition(struct MUProc* proc, struct PositionS16* out) {
 
 static void MU_DisplayAsSMS(struct MUProc* proc) {
     if (!proc->boolIsHidden) {
-        struct PositionS16 position;
+        struct Vec2 position;
 
         if (!MU_ComputeDisplayPosition(proc, &position))
             return;
@@ -1428,7 +1428,7 @@ static void MU_DisplayAsSMS(struct MUProc* proc) {
 
 static void MU_DisplayAsMMS(struct MUProc* proc) {
     if (!proc->boolIsHidden) {
-        struct PositionS16 position;
+        struct Vec2 position;
 
         if (!MU_ComputeDisplayPosition(proc, &position))
             return;
