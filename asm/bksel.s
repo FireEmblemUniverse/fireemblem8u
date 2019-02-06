@@ -1810,7 +1810,7 @@ _08037374:
 	ldr r0, [r0]
 	movs r1, #1
 	negs r1, r1
-	bl ClearMapWith
+	bl BmMapFill
 _08037380:
 	pop {r4, r5, r6}
 	pop {r0}

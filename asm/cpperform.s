@@ -219,16 +219,16 @@ sub_803A024: @ 0x0803A024
 	ldrb r0, [r4, #2]
 	ldrb r1, [r4, #3]
 	bl SetCursorMapPosition
-	bl sub_8019CBC
+	bl RenderBmMapOnBg2
 	ldrb r0, [r4, #2]
 	ldrb r1, [r4, #3]
 	bl MoveActiveUnit
-	bl RefreshFogAndUnitMaps
-	bl UpdateGameTilesGraphics
+	bl RefreshEntityBmMaps
+	bl RenderBmMap
 	movs r0, #1
 	bl NewBMXFADE
 	bl MU_EndAll
-	bl RefreshFogAndUnitMaps
+	bl RefreshEntityBmMaps
 	ldr r0, [r5]
 	bl ShowUnitSMS
 	bl SMS_UpdateFromGameData

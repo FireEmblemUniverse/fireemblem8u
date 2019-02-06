@@ -6452,7 +6452,7 @@ sub_808C964: @ 0x0808C964
 	movs r3, #0
 	bl TileMap_FillRect
 	adds r0, r7, #0
-	bl GetTerrainNameString
+	bl GetTerrainName
 	adds r5, r0, #0
 	movs r0, #0x28
 	adds r1, r5, #0
@@ -25704,7 +25704,7 @@ _080962F6:
 _08096304:
 	bl sub_801240C
 	bl SMS_ClearUsageTable
-	bl RefreshFogAndUnitMaps
+	bl RefreshEntityBmMaps
 	bl SMS_UpdateFromGameData
 	pop {r4}
 	pop {r0}
@@ -62507,7 +62507,7 @@ sub_80A87F0: @ 0x080A87F0
 	movs r1, #0
 	bl BG_Fill
 	adds r0, r5, #0
-	bl sub_80195BC
+	bl InitChapterPreviewMap
 	adds r0, r4, #0
 	bl sub_80A83D0
 	adds r0, r6, #0
@@ -136706,8 +136706,8 @@ sub_80CD218: @ 0x080CD218
 	bl Proc_GotoLabel
 	bl BMapDispResume
 	bl RefreshBMapGraphics
-	bl RefreshFogAndUnitMaps
-	bl UpdateGameTilesGraphics
+	bl RefreshEntityBmMaps
+	bl RenderBmMap
 	bl SMS_UpdateFromGameData
 	bl MU_EndAll
 	ldr r0, _080CD290  @ gActiveUnit
@@ -137201,12 +137201,12 @@ sub_80CD62C: @ 0x080CD62C
 	push {lr}
 	bl BMapDispResume
 	bl RefreshBMapGraphics
-	bl RefreshFogAndUnitMaps
+	bl RefreshEntityBmMaps
 	bl MU_EndAll
 	ldr r0, _080CD654  @ gActiveUnit
 	ldr r0, [r0]
 	bl MU_Create
-	bl UpdateGameTilesGraphics
+	bl RenderBmMap
 	bl SMS_UpdateFromGameData
 	pop {r0}
 	bx r0

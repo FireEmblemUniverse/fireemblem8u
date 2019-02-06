@@ -19,12 +19,12 @@ sub_801E2E0: @ 0x0801E2E0
 	bl GetROMChapterStruct
 	ldrb r4, [r0, #0xc]
 _0801E2F6:
-	bl sub_8019CBC
+	bl RenderBmMapOnBg2
 	ldr r0, _0801E318  @ gUnknown_0202BCF0
 	strb r4, [r0, #0xd]
-	bl RefreshFogAndUnitMaps
+	bl RefreshEntityBmMaps
 	bl SMS_UpdateFromGameData
-	bl UpdateGameTilesGraphics
+	bl RenderBmMap
 	movs r0, #1
 	bl NewBMXFADE
 	pop {r4}
@@ -48,9 +48,9 @@ sub_801E31C: @ 0x0801E31C
 _0801E332:
 	ldr r0, _0801E348  @ gUnknown_0202BCF0
 	strb r1, [r0, #0xd]
-	bl RefreshFogAndUnitMaps
+	bl RefreshEntityBmMaps
 	bl SMS_UpdateFromGameData
-	bl UpdateGameTilesGraphics
+	bl RenderBmMap
 	pop {r0}
 	bx r0
 	.align 2, 0
@@ -68,11 +68,11 @@ FillWarpRangeMap: @ 0x0801E34C
 	ldr r0, [r6]
 	movs r1, #1
 	negs r1, r1
-	bl ClearMapWith
+	bl BmMapFill
 	ldr r0, _0801E41C  @ gBmMapRange
 	ldr r0, [r0]
 	movs r1, #0
-	bl ClearMapWith
+	bl BmMapFill
 	ldr r0, [r6]
 	bl SetSubjectMap
 	mov r0, r8

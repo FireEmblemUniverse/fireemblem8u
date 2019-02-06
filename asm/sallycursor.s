@@ -82,12 +82,12 @@ sub_80332D0: @ 0x080332D0
 	ldr r0, _08033344  @ gBmMapRange
 	ldr r0, [r0]
 	movs r1, #0
-	bl ClearMapWith
+	bl BmMapFill
 	ldr r0, _08033348  @ gBmMapMovement
 	ldr r0, [r0]
 	movs r1, #1
 	negs r1, r1
-	bl ClearMapWith
+	bl BmMapFill
 	bl sub_809541C
 	lsls r1, r0, #2
 	adds r1, r1, r0
@@ -229,7 +229,7 @@ sub_80333D4: @ 0x080333D4
 	adds r0, #0x84
 	ldrb r0, [r0]
 	strb r0, [r5, #0x11]
-	bl RefreshFogAndUnitMaps
+	bl RefreshEntityBmMaps
 	bl SMS_UpdateFromGameData
 _08033410:
 	pop {r4, r5}
@@ -264,7 +264,7 @@ sub_803342C: @ 0x0803342C
 	movs r0, #1
 	negs r0, r0
 	strb r0, [r2, #0x11]
-	bl RefreshFogAndUnitMaps
+	bl RefreshEntityBmMaps
 	bl SMS_UpdateFromGameData
 _08033452:
 	pop {r0}
@@ -802,8 +802,8 @@ _08033892:
 	ldrb r0, [r4, #4]
 	orrs r0, r5
 	strb r0, [r4, #4]
-	bl RefreshFogAndUnitMaps
-	bl UpdateGameTilesGraphics
+	bl RefreshEntityBmMaps
+	bl RenderBmMap
 	pop {r4, r5}
 	pop {r0}
 	bx r0
@@ -1514,7 +1514,7 @@ sub_8033E8C: @ 0x08033E8C
 	ldrb r0, [r0, #0xd]
 	cmp r0, #0
 	beq _08033E9A
-	bl sub_8019CBC
+	bl RenderBmMapOnBg2
 _08033E9A:
 	pop {r0}
 	bx r0
@@ -1528,7 +1528,7 @@ sub_8033EA4: @ 0x08033EA4
 	ldrb r0, [r0, #0xd]
 	cmp r0, #0
 	beq _08033EB8
-	bl UpdateGameTilesGraphics
+	bl RenderBmMap
 	movs r0, #0
 	bl NewBMXFADE
 _08033EB8:
@@ -1622,7 +1622,7 @@ sub_8033F34: @ 0x08033F34
 	ands r0, r1
 	strb r0, [r2, #4]
 	bl HideMoveRangeGraphics
-	bl RefreshFogAndUnitMaps
+	bl RefreshEntityBmMaps
 	bl SMS_UpdateFromGameData
 	ldr r0, _08033F9C  @ gUnknown_0202BCF0
 	adds r0, #0x41

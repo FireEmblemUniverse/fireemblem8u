@@ -770,8 +770,8 @@ sub_803608C: @ 0x0803608C
 	movs r0, #0x34
 	bl GetClassData
 	str r0, [r4, #4]
-	bl RefreshFogAndUnitMaps
-	bl UpdateGameTilesGraphics
+	bl RefreshEntityBmMaps
+	bl RenderBmMap
 	bl SMS_UpdateFromGameData
 	bl MU_EndAll
 _080360B0:
@@ -975,8 +975,8 @@ _0803624A:
 	ldr r2, _08036298  @ 0xFFFFFBBD
 	ands r1, r2
 	str r1, [r0, #0xc]
-	bl RefreshFogAndUnitMaps
-	bl UpdateGameTilesGraphics
+	bl RefreshEntityBmMaps
+	bl RenderBmMap
 	bl SMS_UpdateFromGameData
 	bl MU_EndAll
 _08036276:

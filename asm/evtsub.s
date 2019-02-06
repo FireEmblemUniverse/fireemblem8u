@@ -942,7 +942,7 @@ sub_8011EF0: @ 0x08011EF0
 	movs r0, #0
 	strh r0, [r1]
 	bl EnablePaletteSync
-	bl UpdateGameTilesGraphics
+	bl RenderBmMap
 	bl sub_8055BC4
 	lsls r0, r0, #0x18
 	lsrs r0, r0, #0x18
@@ -961,7 +961,7 @@ _08011F34: .4byte gBG2TilemapBuffer
 _08011F38: .4byte gPaletteBuffer
 _08011F3C:
 	bl MU_EndAll
-	bl UpdateGameTilesGraphics
+	bl RenderBmMap
 	bl BeginBattleMapAnims
 	ldr r0, _08011F58  @ gBattleStats
 	ldrh r1, [r0]
@@ -1337,7 +1337,7 @@ _08012238:
 	orrs r0, r1
 	str r0, [r7, #0xc]
 _08012248:
-	bl RefreshFogAndUnitMaps
+	bl RefreshEntityBmMaps
 	bl SMS_UpdateFromGameData
 	pop {r4, r5, r6, r7}
 	pop {r0}

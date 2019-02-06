@@ -475,7 +475,7 @@ MakeTargetListForWeapon: @ 0x080251B4
 	ldr r0, _08025214  @ gBmMapRange
 	ldr r0, [r0]
 	movs r1, #0
-	bl ClearMapWith
+	bl BmMapFill
 	mov r0, r8
 	bl GetItemMinRange
 	adds r4, r0, #0
@@ -607,7 +607,7 @@ MakeTradeTargetList: @ 0x080252D0
 	ldr r0, _0802533C  @ gBmMapRange
 	ldr r0, [r0]
 	movs r1, #0
-	bl ClearMapWith
+	bl BmMapFill
 	ldr r7, _08025340  @ TryAddUnitToTradeTargetList
 	adds r0, r4, #0
 	adds r1, r5, #0
@@ -716,7 +716,7 @@ MakeRescueTargetList: @ 0x080253B4
 	ldr r0, _080253E0  @ gBmMapRange
 	ldr r0, [r0]
 	movs r1, #0
-	bl ClearMapWith
+	bl BmMapFill
 	ldr r2, _080253E4  @ TryAddUnitToRescueTargetList
 	adds r0, r4, #0
 	adds r1, r5, #0
@@ -783,7 +783,7 @@ MakeDropTargetList: @ 0x08025440
 	ldr r0, _0802546C  @ gBmMapRange
 	ldr r0, [r0]
 	movs r1, #0
-	bl ClearMapWith
+	bl BmMapFill
 	ldr r2, _08025470  @ TryAddToDropTargetList
 	adds r0, r4, #0
 	adds r1, r5, #0
@@ -862,7 +862,7 @@ MakeTakeTargetList: @ 0x080254E0
 	ldr r0, _0802550C  @ gBmMapRange
 	ldr r0, [r0]
 	movs r1, #0
-	bl ClearMapWith
+	bl BmMapFill
 	ldr r2, _08025510  @ TryAddRescuedUnitToTakeTargetList
 	adds r0, r4, #0
 	adds r1, r5, #0
@@ -950,7 +950,7 @@ sub_8025594: @ 0x08025594
 	ldr r0, _080255C0  @ gBmMapRange
 	ldr r0, [r0]
 	movs r1, #0
-	bl ClearMapWith
+	bl BmMapFill
 	ldr r2, _080255C4  @ sub_8025514
 	adds r0, r4, #0
 	adds r1, r5, #0
@@ -1013,7 +1013,7 @@ sub_8025610: @ 0x08025610
 	ldr r0, _0802563C  @ gBmMapRange
 	ldr r0, [r0]
 	movs r1, #0
-	bl ClearMapWith
+	bl BmMapFill
 	ldr r2, _08025640  @ sub_80255C8
 	adds r0, r4, #0
 	adds r1, r5, #0
@@ -1165,7 +1165,7 @@ FillBallistaRangeMaybe: @ 0x08025728
 	ldr r0, _0802578C  @ gBmMapRange
 	ldr r0, [r0]
 	movs r1, #0
-	bl ClearMapWith
+	bl BmMapFill
 	adds r0, r7, #0
 	bl GetItemMinRange
 	adds r4, r0, #0
@@ -1273,7 +1273,7 @@ MakeTargetListForDoorAndBridges: @ 0x08025814
 	ldr r0, _08025848  @ gBmMapRange
 	ldr r0, [r0]
 	movs r1, #0
-	bl ClearMapWith
+	bl BmMapFill
 	cmp r4, #0x14
 	beq _08025850
 	cmp r4, #0x1e
@@ -1346,7 +1346,7 @@ sub_80258A4: @ 0x080258A4
 	ldr r0, _080258F8  @ gBmMapRange
 	ldr r0, [r0]
 	movs r1, #0
-	bl ClearMapWith
+	bl BmMapFill
 	ldr r2, _080258FC  @ sub_8025864
 	adds r0, r5, #0
 	adds r1, r6, #0
@@ -1444,7 +1444,7 @@ _08025918:
 	bl AddTarget
 _0802598E:
 	adds r0, r6, #0
-	bl GetTerrainSomething
+	bl GetTerrainUnk
 	lsls r0, r0, #0x18
 	cmp r0, #0
 	beq _080259CE
@@ -1696,7 +1696,7 @@ sub_8025B6C: @ 0x08025B6C
 	ldr r0, _08025B98  @ gBmMapRange
 	ldr r0, [r0]
 	movs r1, #0
-	bl ClearMapWith
+	bl BmMapFill
 	ldr r2, _08025B9C  @ sub_8025B18
 	adds r0, r4, #0
 	adds r1, r5, #0
@@ -1771,7 +1771,7 @@ MakeTargetListForSteal: @ 0x08025C00
 	ldr r0, _08025C2C  @ gBmMapRange
 	ldr r0, [r0]
 	movs r1, #0
-	bl ClearMapWith
+	bl BmMapFill
 	ldr r2, _08025C30  @ AddAsTarget_IfCanStealFrom
 	adds r0, r4, #0
 	adds r1, r5, #0
@@ -1851,7 +1851,7 @@ sub_8025CA4: @ 0x08025CA4
 	ldr r0, _08025CD0  @ gBmMapRange
 	ldr r0, [r0]
 	movs r1, #0
-	bl ClearMapWith
+	bl BmMapFill
 	ldr r2, _08025CD4  @ sub_8025C34
 	adds r0, r4, #0
 	adds r1, r5, #0
@@ -1931,7 +1931,7 @@ sub_8025D48: @ 0x08025D48
 	ldr r0, _08025D78  @ gBmMapRange
 	ldr r0, [r0]
 	movs r1, #0
-	bl ClearMapWith
+	bl BmMapFill
 	adds r4, #4
 	ldr r2, _08025D7C  @ sub_8025CD8
 	adds r0, r5, #0
@@ -1957,7 +1957,7 @@ sub_8025D80: @ 0x08025D80
 	ldr r0, _08025DB0  @ gBmMapRange
 	ldr r0, [r0]
 	movs r1, #0
-	bl ClearMapWith
+	bl BmMapFill
 	subs r4, #4
 	ldr r2, _08025DB4  @ sub_8025CD8
 	adds r0, r4, #0
@@ -1983,7 +1983,7 @@ sub_8025DB8: @ 0x08025DB8
 	ldr r0, _08025DE8  @ gBmMapRange
 	ldr r0, [r0]
 	movs r1, #0
-	bl ClearMapWith
+	bl BmMapFill
 	adds r4, #4
 	ldr r2, _08025DEC  @ sub_8025CD8
 	adds r0, r4, #0
@@ -2009,7 +2009,7 @@ sub_8025DF0: @ 0x08025DF0
 	ldr r0, _08025E20  @ gBmMapRange
 	ldr r0, [r0]
 	movs r1, #0
-	bl ClearMapWith
+	bl BmMapFill
 	subs r4, #4
 	ldr r2, _08025E24  @ sub_8025CD8
 	adds r0, r5, #0
@@ -2077,7 +2077,7 @@ MakeTargetListForAdjacentHeal: @ 0x08025E7C
 	ldr r0, _08025EA8  @ gBmMapRange
 	ldr r0, [r0]
 	movs r1, #0
-	bl ClearMapWith
+	bl BmMapFill
 	ldr r2, _08025EAC  @ TryAddUnitToHealTargetList
 	adds r0, r4, #0
 	adds r1, r5, #0
@@ -2105,7 +2105,7 @@ MakeTargetListForRangedHeal: @ 0x08025EB0
 	ldr r0, _08025EF4  @ gBmMapRange
 	ldr r0, [r0]
 	movs r1, #0
-	bl ClearMapWith
+	bl BmMapFill
 	ldr r0, [r4]
 	bl GetUnitMagBy2Range
 	adds r2, r0, #0
@@ -2176,7 +2176,7 @@ MakeTargetListForFuckingNightmare: @ 0x08025F44
 	ldr r0, _08025F90  @ gBmMapRange
 	ldr r0, [r0]
 	movs r1, #0
-	bl ClearMapWith
+	bl BmMapFill
 	adds r0, r4, #0
 	adds r1, r5, #0
 	movs r2, #3
@@ -2252,7 +2252,7 @@ MakeTargetListForRestore: @ 0x08025FE8
 	ldr r0, _08026014  @ gBmMapRange
 	ldr r0, [r0]
 	movs r1, #0
-	bl ClearMapWith
+	bl BmMapFill
 	ldr r2, _08026018  @ TryAddUnitToRestoreTargetList
 	adds r0, r4, #0
 	adds r1, r5, #0
@@ -2318,7 +2318,7 @@ MakeTargetListForBarrier: @ 0x0802606C
 	ldr r0, _08026098  @ gBmMapRange
 	ldr r0, [r0]
 	movs r1, #0
-	bl ClearMapWith
+	bl BmMapFill
 	ldr r2, _0802609C  @ TryAddUnitToBarrierTargetList
 	adds r0, r4, #0
 	adds r1, r5, #0
@@ -2369,7 +2369,7 @@ MakeTargetListForRescueStaff: @ 0x080260D8
 	ldr r0, _080260F8  @ gBmMapRange
 	ldr r0, [r0]
 	movs r1, #0
-	bl ClearMapWith
+	bl BmMapFill
 	ldr r0, _080260FC  @ TryAddUnitToRescueStaffTargetList
 	bl ForEachUnitInMagBy2Range
 	pop {r0}
@@ -2507,7 +2507,7 @@ MakeTargetListForSilence: @ 0x080261E4
 	ldr r0, _08026204  @ gBmMapRange
 	ldr r0, [r0]
 	movs r1, #0
-	bl ClearMapWith
+	bl BmMapFill
 	ldr r0, _08026208  @ TryAddUnitToSilenceTargetList
 	bl ForEachUnitInMagBy2Range
 	pop {r0}
@@ -2525,7 +2525,7 @@ MakeTargetListForSleep: @ 0x0802620C
 	ldr r0, _0802622C  @ gBmMapRange
 	ldr r0, [r0]
 	movs r1, #0
-	bl ClearMapWith
+	bl BmMapFill
 	ldr r0, _08026230  @ TryAddUnitToSleepTargetList
 	bl ForEachUnitInMagBy2Range
 	pop {r0}
@@ -2543,7 +2543,7 @@ MakeTargetListForBerserk: @ 0x08026234
 	ldr r0, _08026254  @ gBmMapRange
 	ldr r0, [r0]
 	movs r1, #0
-	bl ClearMapWith
+	bl BmMapFill
 	ldr r0, _08026258  @ TryAddUnitToBerzerkTargetList
 	bl ForEachUnitInMagBy2Range
 	pop {r0}
@@ -2595,7 +2595,7 @@ MakeTargetListForWarp: @ 0x08026294
 	ldr r0, _080262C0  @ gBmMapRange
 	ldr r0, [r0]
 	movs r1, #0
-	bl ClearMapWith
+	bl BmMapFill
 	ldr r2, _080262C4  @ TryAddUnitToWarpTargetList
 	adds r0, r4, #0
 	adds r1, r5, #0
@@ -2620,7 +2620,7 @@ MakeTargetListForUnlock: @ 0x080262C8
 	ldr r0, _080262F4  @ gBmMapRange
 	ldr r0, [r0]
 	movs r1, #0
-	bl ClearMapWith
+	bl BmMapFill
 	ldr r2, _080262F8  @ TryAddClosedDoorToTargetList
 	adds r0, r4, #0
 	adds r1, r5, #0
@@ -2691,7 +2691,7 @@ MakeTargetListForHammerne: @ 0x08026354
 	ldr r0, _08026380  @ gBmMapRange
 	ldr r0, [r0]
 	movs r1, #0
-	bl ClearMapWith
+	bl BmMapFill
 	ldr r2, _08026384  @ TryAddUnitToHammerneTargetList
 	adds r0, r4, #0
 	adds r1, r5, #0
@@ -2894,7 +2894,7 @@ MakeTargetListForMine: @ 0x080264F0
 	ldr r0, _0802651C  @ gBmMapRange
 	ldr r0, [r0]
 	movs r1, #0
-	bl ClearMapWith
+	bl BmMapFill
 	ldr r2, _08026520  @ sub_802646C
 	adds r0, r4, #0
 	adds r1, r5, #0
@@ -2964,7 +2964,7 @@ MakeTargetListForLightRune: @ 0x08026580
 	ldr r0, _080265AC  @ gBmMapRange
 	ldr r0, [r0]
 	movs r1, #0
-	bl ClearMapWith
+	bl BmMapFill
 	ldr r2, _080265B0  @ sub_8026524
 	adds r0, r4, #0
 	adds r1, r5, #0
@@ -3016,7 +3016,7 @@ MakeTargetListForDanceRing: @ 0x080265E4
 	ldr r0, _08026610  @ gBmMapRange
 	ldr r0, [r0]
 	movs r1, #0
-	bl ClearMapWith
+	bl BmMapFill
 	ldr r2, _08026614  @ TryAddUnitToDanceRingTargetList
 	adds r0, r4, #0
 	adds r1, r5, #0

@@ -1352,7 +1352,7 @@ PrepareTargetSelectionForRescueStaff: @ 0x08029568
 	ldr r0, [r0]
 	movs r1, #1
 	negs r1, r1
-	bl ClearMapWith
+	bl BmMapFill
 	ldr r0, _0802959C  @ gUnknown_0859D2F8
 	ldr r1, _080295A0  @ GenericStaffSelection_OnSelect
 	bl NewTargetSelection_Specialized
@@ -1380,7 +1380,7 @@ SetupTargetSelectionForGenericStaff: @ 0x080295A8
 	ldr r0, [r0]
 	movs r1, #1
 	negs r1, r1
-	bl ClearMapWith
+	bl BmMapFill
 	ldr r0, _080295E0  @ gUnknown_0859D2F8
 	ldr r1, _080295E4  @ GenericStaffSelection_OnSelect
 	bl NewTargetSelection_Specialized
@@ -1702,7 +1702,7 @@ SetupWarpTargetSelection: @ 0x0802987C
 	ldr r0, [r0]
 	movs r1, #1
 	negs r1, r1
-	bl ClearMapWith
+	bl BmMapFill
 	ldr r0, _080298C4  @ gUnknown_0859D2F8
 	ldr r1, _080298C8  @ WarpTargetSelection_OnSelect
 	bl NewTargetSelection_Specialized
@@ -1756,7 +1756,7 @@ PrepareTargetSelectionForMineAndLightRune: @ 0x080298F0
 	ldr r0, [r0]
 	movs r1, #1
 	negs r1, r1
-	bl ClearMapWith
+	bl BmMapFill
 	ldr r0, _08029938  @ gUnknown_0859D2D8
 	ldr r1, _0802993C  @ sub_80298D4
 	bl NewTargetSelection_Specialized
@@ -1841,7 +1841,7 @@ SetupHammerneUseSelection: @ 0x080299B8
 	ldr r0, [r0]
 	movs r1, #1
 	negs r1, r1
-	bl ClearMapWith
+	bl BmMapFill
 	ldr r0, _080299FC  @ gUnknown_0859D3B8
 	bl NewTargetSelection
 	adds r4, r0, #0
@@ -2074,7 +2074,7 @@ PrepareTargetSelectionForHeal: @ 0x08029B8C
 	ldr r0, [r0]
 	movs r1, #1
 	negs r1, r1
-	bl ClearMapWith
+	bl BmMapFill
 	ldr r0, _08029BC0  @ gUnknown_0859D298
 	bl NewTargetSelection
 	adds r4, r0, #0
@@ -2099,7 +2099,7 @@ PrepareTargetSelectionForRestoreStaff: @ 0x08029BC8
 	ldr r0, [r0]
 	movs r1, #1
 	negs r1, r1
-	bl ClearMapWith
+	bl BmMapFill
 	ldr r0, _08029BFC  @ gUnknown_0859D278
 	bl NewTargetSelection
 	adds r4, r0, #0
@@ -2148,7 +2148,7 @@ sub_8029C34: @ 0x08029C34
 	ldr r0, [r0]
 	movs r1, #1
 	negs r1, r1
-	bl ClearMapWith
+	bl BmMapFill
 	ldr r0, _08029C68  @ gUnknown_0859D258
 	bl NewTargetSelection
 	adds r4, r0, #0
@@ -2197,7 +2197,7 @@ PrepareTargetSelectionForOffensiveStaff: @ 0x08029CA0
 	ldr r0, [r0]
 	movs r1, #1
 	negs r1, r1
-	bl ClearMapWith
+	bl BmMapFill
 	ldr r0, _08029CD4  @ gUnknown_0859D238
 	bl NewTargetSelection
 	adds r4, r0, #0

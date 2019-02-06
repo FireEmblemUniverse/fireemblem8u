@@ -91,7 +91,7 @@ _0801DC5C:
 	ldrsb r0, [r5, r0]
 	cmp r0, #1
 	bne _0801DC76
-	bl RefreshFogAndUnitMaps
+	bl RefreshEntityBmMaps
 	bl SMS_UpdateFromGameData
 	bl SMS_FlushIndirect
 _0801DC76:

@@ -842,11 +842,11 @@ DisplayUnitStandingAttackRange: @ 0x08022C30
 	movs r5, #1
 	negs r5, r5
 	adds r1, r5, #0
-	bl ClearMapWith
+	bl BmMapFill
 	ldr r0, _08022C70  @ gBmMapRange
 	ldr r0, [r0]
 	movs r1, #0
-	bl ClearMapWith
+	bl BmMapFill
 	ldr r4, _08022C74  @ gActiveUnit
 	ldr r2, [r4]
 	ldr r0, [r2, #0xc]
@@ -1009,11 +1009,11 @@ sub_8022D84: @ 0x08022D84
 	ldr r0, [r0]
 	movs r1, #1
 	negs r1, r1
-	bl ClearMapWith
+	bl BmMapFill
 	ldr r0, _08022DD0  @ gBmMapRange
 	ldr r0, [r0]
 	movs r1, #0
-	bl ClearMapWith
+	bl BmMapFill
 	ldr r4, _08022DD4  @ gActiveUnit
 	ldr r0, [r4]
 	movs r1, #0
@@ -2555,11 +2555,11 @@ FillBallistaRange: @ 0x080239CC
 	ldr r0, [r0]
 	movs r1, #1
 	negs r1, r1
-	bl ClearMapWith
+	bl BmMapFill
 	ldr r4, _08023A4C  @ gBmMapRange
 	ldr r0, [r4]
 	movs r1, #0
-	bl ClearMapWith
+	bl BmMapFill
 	ldr r0, [r4]
 	bl SetSubjectMap
 	ldr r4, _08023A50  @ gActiveUnit
@@ -2733,11 +2733,11 @@ sub_8023B3C: @ 0x08023B3C
 	ldr r0, _08023B7C  @ gBmMapMovement
 	ldr r0, [r0]
 	adds r1, r4, #0
-	bl ClearMapWith
+	bl BmMapFill
 	ldr r0, _08023B80  @ gBmMapRange
 	ldr r0, [r0]
 	movs r1, #0
-	bl ClearMapWith
+	bl BmMapFill
 	ldr r0, [r5]
 	adds r1, r6, #0
 	bl FillRangeByRangeMask
@@ -2845,11 +2845,11 @@ StaffItemSelect_OnHover: @ 0x08023C14
 	ldr r0, [r0]
 	movs r1, #1
 	negs r1, r1
-	bl ClearMapWith
+	bl BmMapFill
 	ldr r0, _08023C64  @ gBmMapRange
 	ldr r0, [r0]
 	movs r1, #0
-	bl ClearMapWith
+	bl BmMapFill
 	ldr r0, [r5]
 	adds r1, r6, #0
 	bl FillRangeByRangeMask

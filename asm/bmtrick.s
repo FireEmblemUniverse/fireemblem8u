@@ -741,7 +741,7 @@ _0802E6D8:
 	adds r5, #1
 	cmp r5, #0xbf
 	ble _0802E694
-	bl RefreshFogAndUnitMaps
+	bl RefreshEntityBmMaps
 	bl SMS_UpdateFromGameData
 	pop {r4, r5}
 	pop {r0}
@@ -1193,7 +1193,7 @@ sub_802EA00: @ 0x0802EA00
 	ldrb r5, [r4, #0xf]
 	movs r0, #0x80
 	strb r0, [r4, #0xf]
-	bl RefreshFogAndUnitMaps
+	bl RefreshEntityBmMaps
 	strb r5, [r4, #0xf]
 	pop {r4, r5}
 	pop {r0}
@@ -1268,7 +1268,7 @@ RemoveLightRune: @ 0x0802EA90
 	adds r4, r0, #0
 	ldrb r0, [r4]
 	ldrb r1, [r4, #1]
-	bl GetSomeTerrainToChangeAtSomePosition
+	bl GetTrueTerrainAt
 	ldrb r1, [r4, #1]
 	ldr r2, _0802EABC  @ gBmMapTerrain
 	ldr r2, [r2]
@@ -1344,7 +1344,7 @@ _0802EB1C:
 	bne _0802EB3C
 	ldrb r0, [r4]
 	ldrb r1, [r4, #1]
-	bl GetSomeTerrainToChangeAtSomePosition
+	bl GetTrueTerrainAt
 	ldrb r2, [r4, #1]
 	ldr r1, _0802EB4C  @ gBmMapTerrain
 	ldr r1, [r1]

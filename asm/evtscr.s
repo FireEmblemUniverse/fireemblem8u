@@ -3254,10 +3254,10 @@ _0800EE88:
 	ldr r4, _0800EEB8  @ gUnknown_0202BCF0
 	movs r0, #0xe
 	ldrsb r0, [r4, r0]
-	bl LoadChapterMapGfx
+	bl UnpackChapterMapGraphics
 	ldrb r0, [r4, #0x15]
 	bl AllocWeatherParticles
-	bl UpdateGameTilesGraphics
+	bl RenderBmMap
 	bl SMS_UpdateFromGameData
 	ldr r0, [r5, #0x34]
 	adds r0, #0x44
@@ -3634,8 +3634,8 @@ _0800F198:
 	lsls r0, r7, #4
 	bl sub_8015A6C
 	strh r0, [r4, #0xe]
-	bl RefreshFogAndUnitMaps
-	bl UpdateGameTilesGraphics
+	bl RefreshEntityBmMaps
+	bl RenderBmMap
 	bl SMS_UpdateFromGameData
 	bl RefreshBMapGraphics
 	adds r0, r5, #0
@@ -3735,7 +3735,7 @@ _0800F27A:
 	adds r0, r4, #0
 	adds r1, r5, #0
 	bl SetCursorMapPosition
-	bl UpdateGameTilesGraphics
+	bl RenderBmMap
 	movs r0, #0
 	b _0800F2CA
 _0800F29C:
@@ -5024,7 +5024,7 @@ _0800FBFA:
 	ldr r0, _0800FC48  @ gBmMapUnk
 	ldr r0, [r0]
 	movs r1, #0
-	bl ClearMapWith
+	bl BmMapFill
 	ldrh r2, [r6, #0x3c]
 	lsrs r0, r2, #2
 	movs r1, #1
@@ -5374,7 +5374,7 @@ _0800FE7C:
 	ldr r0, _0800FEBC  @ gBmMapUnk
 	ldr r0, [r0]
 	movs r1, #0
-	bl ClearMapWith
+	bl BmMapFill
 	ldrh r0, [r7, #0x3c]
 	lsrs r0, r0, #2
 	movs r1, #1
@@ -5465,13 +5465,13 @@ _0800FF36:
 	asrs r0, r0, #0x18
 	cmp r0, #1
 	beq _0800FF60
-	bl RefreshFogAndUnitMaps
+	bl RefreshEntityBmMaps
 	bl SMS_UpdateFromGameData
-	bl UpdateGameTilesGraphics
+	bl RenderBmMap
 	ldr r0, _0800FF5C  @ gBmMapUnk
 	ldr r0, [r0]
 	movs r1, #0
-	bl ClearMapWith
+	bl BmMapFill
 	movs r0, #2
 	b _0800FF62
 	.align 2, 0
@@ -6147,9 +6147,9 @@ _08010494:
 	adds r0, r5, #0
 	bl ClearUnit
 _0801049A:
-	bl RefreshFogAndUnitMaps
+	bl RefreshEntityBmMaps
 	bl SMS_UpdateFromGameData
-	bl UpdateGameTilesGraphics
+	bl RenderBmMap
 _080104A6:
 	movs r0, #0
 _080104A8:
@@ -6217,9 +6217,9 @@ _08010518:
 	bl GetClassData
 	str r0, [r5, #4]
 _08010522:
-	bl RefreshFogAndUnitMaps
+	bl RefreshEntityBmMaps
 	bl SMS_UpdateFromGameData
-	bl UpdateGameTilesGraphics
+	bl RenderBmMap
 _0801052E:
 	movs r0, #0
 	pop {r4, r5, r6, r7}

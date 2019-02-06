@@ -15901,11 +15901,11 @@ sub_8049594: @ 0x08049594
 	ldr r0, _080495EC  @ gBmMapUnit
 	ldr r0, [r0]
 	movs r1, #0
-	bl ClearMapWith
+	bl BmMapFill
 	ldr r0, _080495F0  @ gBmMapFog
 	ldr r0, [r0]
 	movs r1, #1
-	bl ClearMapWith
+	bl BmMapFill
 	movs r4, #1
 _080495AC:
 	adds r0, r4, #0
@@ -16097,9 +16097,9 @@ sub_804970C: @ 0x0804970C
 	movs r1, #1
 _0804972A:
 	adds r0, r2, #0
-	bl ClearMapWith
+	bl BmMapFill
 	bl sub_8049594
-	bl UpdateGameTilesGraphics
+	bl RenderBmMap
 	pop {r0}
 	bx r0
 	.align 2, 0
@@ -20202,7 +20202,7 @@ sub_804B800: @ 0x0804B800
 	bl BG_Fill
 	movs r0, #4
 	bl BG_EnableSyncByMask
-	bl UpdateGameTilesGraphics
+	bl RenderBmMap
 	bl sub_8055BB4
 	lsls r0, r0, #0x18
 	cmp r0, #0
@@ -20215,7 +20215,7 @@ sub_804B800: @ 0x0804B800
 _0804B82C: .4byte gBG2TilemapBuffer
 _0804B830:
 	bl MU_EndAll
-	bl UpdateGameTilesGraphics
+	bl RenderBmMap
 	bl BeginBattleMapAnims
 	ldr r2, _0804B84C  @ gBattleStats
 	ldrh r1, [r2]

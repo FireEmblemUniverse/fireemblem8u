@@ -1910,7 +1910,7 @@ _080854CA:
 	adds r5, #1
 	cmp r5, #0x3f
 	ble _0808548A
-	bl RefreshFogAndUnitMaps
+	bl RefreshEntityBmMaps
 	bl MU_EndAll
 	pop {r4, r5, r6}
 	pop {r0}
@@ -2549,7 +2549,7 @@ sub_8085990: @ 0x08085990
 	movs r1, #9
 	orrs r0, r1
 	str r0, [r5, #0xc]
-	bl RefreshFogAndUnitMaps
+	bl RefreshEntityBmMaps
 	bl SMS_UpdateFromGameData
 	adds r0, r6, #0
 	bl Proc_ClearNativeCallback
@@ -2738,9 +2738,9 @@ sub_8085B30: @ 0x08085B30
 	bl ApplyMapChangesById
 	movs r0, #1
 	bl AddMapChange
-	bl FlushTerrainData
+	bl RefreshTerrainBmMap
 	bl sub_802E690
-	bl UpdateGameTilesGraphics
+	bl RenderBmMap
 	movs r0, #0
 	str r0, [r4, #0x2c]
 	pop {r4}

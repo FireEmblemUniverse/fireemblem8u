@@ -179,7 +179,7 @@ _0801A51E:
 	ldr r0, [r4]
 	movs r1, #1
 	negs r1, r1
-	bl ClearMapWith
+	bl BmMapFill
 	ldr r0, [r6, #4]
 	strb r5, [r0]
 	ldr r0, [r6, #4]
@@ -2656,7 +2656,7 @@ ApplyStuffToRangeMaps: @ 0x0801B810
 	ldr r0, _0801B840  @ gBmMapRange
 	ldr r0, [r0]
 	movs r1, #0
-	bl ClearMapWith
+	bl BmMapFill
 	bl IsNotEnemyPhaseMaybe
 	mov r9, r0
 	mov r6, r9
@@ -2736,7 +2736,7 @@ _0801B88E:
 	ldr r0, _0801B908  @ gBmMapUnk
 	ldr r0, [r0]
 	movs r1, #0
-	bl ClearMapWith
+	bl BmMapFill
 	cmp r5, #0
 	beq _0801B8E4
 	movs r0, #1

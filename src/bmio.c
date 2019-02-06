@@ -139,7 +139,7 @@ CONST_DATA struct ProcCmd gProc_MapTask[] = { // gProc_MapTask
 PROC_LABEL(0),
     PROC_CALL_ROUTINE(SMS_DisplayAllFromInfoStructs),
     PROC_CALL_ROUTINE(WfxUpdate),
-    PROC_CALL_ROUTINE(sub_8019D28),
+    PROC_CALL_ROUTINE(UpdateBmMapDisplay),
 
     PROC_SLEEP(0),
     PROC_GOTO(0)
@@ -615,7 +615,7 @@ void WfxFlamesInitGradientPublic(void) {
 void WfxFlamesInitGradient(void) {
     int i, j, k;
 
-    sub_8019974();
+    UnpackChapterMapPalette();
 
     for (i = 0; i < 4; ++i) {
         for (j = 0; j < 0x10; ++j) {
@@ -1171,9 +1171,9 @@ void BMapDispResume_FromBattleDelayed(void) {
 }
 
 void InitMoreBMapGraphics(void) {
-    LoadChapterMapGfx(gUnknown_0202BCF0.chapterIndex);
+    UnpackChapterMapGraphics(gUnknown_0202BCF0.chapterIndex);
     AllocWeatherParticles(gUnknown_0202BCF0.chapterWeatherId);
-    UpdateGameTilesGraphics();
+    RenderBmMap();
     SMS_UpdateFromGameData();
     SetupMapSpritesPalettes();
     SMS_FlushIndirect();
@@ -1265,7 +1265,7 @@ void ChapterChangeUnitCleanup(void) {
 }
 
 void MapMain_ResumeFromPhaseIdle(struct BMapMainProc* mapMain) {
-    RefreshFogAndUnitMaps();
+    RefreshEntityBmMaps();
     SMS_UpdateFromGameData();
 
     gLCDControlBuffer.dispcnt.bg0_on = FALSE;
@@ -1278,7 +1278,7 @@ void MapMain_ResumeFromPhaseIdle(struct BMapMainProc* mapMain) {
 }
 
 void MapMain_ResumeFromAction(struct BMapMainProc* mapMain) {
-    RefreshFogAndUnitMaps();
+    RefreshEntityBmMaps();
     SMS_UpdateFromGameData();
 
     gLCDControlBuffer.dispcnt.bg0_on = FALSE;
@@ -1299,7 +1299,7 @@ void MapMain_ResumeFromAction(struct BMapMainProc* mapMain) {
 }
 
 void MapMain_ResumeFromBskPhase(struct BMapMainProc* mapMain) {
-    RefreshFogAndUnitMaps();
+    RefreshEntityBmMaps();
     SMS_UpdateFromGameData();
 
     gLCDControlBuffer.dispcnt.bg0_on = FALSE;
@@ -1325,7 +1325,7 @@ void MapMain_ResumeFromArenaFight(struct BMapMainProc* mapMain) {
     gLCDControlBuffer.dispcnt.bg3_on = FALSE;
     gLCDControlBuffer.dispcnt.obj_on = FALSE;
 
-    RefreshFogAndUnitMaps();
+    RefreshEntityBmMaps();
 
     gBmMapUnit[gActionData.yMove][gActionData.xMove] = 0;
 
@@ -1337,7 +1337,7 @@ void MapMain_ResumeFromArenaFight(struct BMapMainProc* mapMain) {
 }
 
 void MapMain_ResumeFromPhaseChange(struct BMapMainProc* mapMain) {
-    RefreshFogAndUnitMaps();
+    RefreshEntityBmMaps();
     SMS_UpdateFromGameData();
 
     gLCDControlBuffer.dispcnt.bg0_on = FALSE;

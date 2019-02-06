@@ -479,8 +479,8 @@ sub_802EF80: @ 0x0802EF80
 	bl GetUnit
 	bl MU_GetByUnit
 	bl MU_End
-	bl RefreshFogAndUnitMaps
-	bl UpdateGameTilesGraphics
+	bl RefreshEntityBmMaps
+	bl RenderBmMap
 	bl SMS_UpdateFromGameData
 	bl SMS_FlushIndirect
 	pop {r1}

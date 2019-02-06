@@ -1905,7 +1905,7 @@ FillMovementAndRangeMapForItem: @ 0x0803B558
 	ldr r0, _0803B5EC  @ gBmMapRange
 	ldr r0, [r0]
 	movs r1, #0
-	bl ClearMapWith
+	bl BmMapFill
 	ldr r0, _0803B5F0  @ gBmMapSize
 	movs r1, #2
 	ldrsh r0, [r0, r1]
@@ -1990,7 +1990,7 @@ _0803B610:
 	ldr r0, _0803B66C  @ gBmMapRange
 	ldr r0, [r0]
 	movs r1, #0
-	bl ClearMapWith
+	bl BmMapFill
 	ldr r0, _0803B670  @ gBmMapSize
 	movs r1, #2
 	ldrsh r0, [r0, r1]
@@ -2051,7 +2051,7 @@ sub_803B678: @ 0x0803B678
 	ldr r0, _0803B70C  @ gBmMapRange
 	ldr r0, [r0]
 	movs r1, #0
-	bl ClearMapWith
+	bl BmMapFill
 	ldr r0, _0803B710  @ gBmMapSize
 	movs r1, #2
 	ldrsh r0, [r0, r1]
@@ -2273,7 +2273,7 @@ sub_803B808: @ 0x0803B808
 	ldr r0, [r4]
 	movs r1, #1
 	negs r1, r1
-	bl ClearMapWith
+	bl BmMapFill
 	movs r0, #0x11
 	ldrsb r0, [r5, r0]
 	ldr r1, [r4]
@@ -3531,7 +3531,7 @@ SaveNumberOfAlliedUnitsIn0To8Range: @ 0x0803C1B4
 	ldr r0, _0803C24C  @ gBmMapMovement
 	ldr r0, [r0]
 	movs r1, #0
-	bl ClearMapWith
+	bl BmMapFill
 	movs r0, #0x10
 	ldrsb r0, [r6, r0]
 	movs r1, #0x11
@@ -5397,7 +5397,7 @@ _0803CFF2:
 	ldr r0, _0803D0FC  @ gBmMapRange
 	ldr r0, [r0]
 	movs r1, #0
-	bl ClearMapWith
+	bl BmMapFill
 	mov r0, r8
 	bl GetItemMinRange
 	adds r4, r0, #0
@@ -5974,7 +5974,7 @@ sub_803D450: @ 0x0803D450
 	ldr r0, [r4]
 	movs r1, #1
 	negs r1, r1
-	bl ClearMapWith
+	bl BmMapFill
 	ldr r2, [r6]
 	movs r0, #0x11
 	ldrsb r0, [r2, r0]
@@ -6040,7 +6040,7 @@ _0803D4FA:
 	ldr r0, [r4]
 	movs r1, #1
 	negs r1, r1
-	bl ClearMapWith
+	bl BmMapFill
 	ldr r0, _0803D538  @ gActiveUnit
 	ldr r2, [r0]
 	movs r0, #0x11
@@ -6272,7 +6272,7 @@ sub_803D6B8: @ 0x0803D6B8
 	ldr r0, [r4]
 	movs r1, #1
 	negs r1, r1
-	bl ClearMapWith
+	bl BmMapFill
 	ldr r2, [r6]
 	movs r0, #0x11
 	ldrsb r0, [r2, r0]
@@ -6480,7 +6480,7 @@ sub_803D880: @ 0x0803D880
 	ldr r0, _0803D8D0  @ gBmMapRange
 	ldr r0, [r0]
 	movs r1, #0
-	bl ClearMapWith
+	bl BmMapFill
 	movs r6, #0x10
 	ldrsb r6, [r4, r6]
 	ldrb r4, [r4, #0x11]
@@ -6539,7 +6539,7 @@ sub_803D8D4: @ 0x0803D8D4
 	ldr r0, _0803D990  @ gBmMapRange
 	ldr r0, [r0]
 	movs r1, #0
-	bl ClearMapWith
+	bl BmMapFill
 	ldr r0, _0803D994  @ gBmMapSize
 	movs r1, #2
 	ldrsh r0, [r0, r1]
@@ -7852,7 +7852,7 @@ sub_803E2F4: @ 0x0803E2F4
 	ldr r0, _0803E31C  @ gBmMapUnk
 	ldr r0, [r0]
 	movs r1, #0
-	bl ClearMapWith
+	bl BmMapFill
 	bl sub_803E320
 _0803E314:
 	pop {r0}
@@ -8821,7 +8821,7 @@ sub_803EA58: @ 0x0803EA58
 	ldr r0, _0803EB94  @ gBmMapUnk
 	ldr r0, [r0]
 	movs r1, #0
-	bl ClearMapWith
+	bl BmMapFill
 	movs r4, #1
 _0803EA86:
 	adds r0, r4, #0
@@ -9208,7 +9208,7 @@ sub_803ED28: @ 0x0803ED28
 	ldr r0, [r0]
 	movs r1, #1
 	negs r1, r1
-	bl ClearMapWith
+	bl BmMapFill
 	mov r0, sl
 	ldr r1, [sp, #0xc]
 	movs r2, #1
@@ -9348,7 +9348,7 @@ sub_803EE4C: @ 0x0803EE4C
 	movs r5, #1
 	negs r5, r5
 	adds r1, r5, #0
-	bl ClearMapWith
+	bl BmMapFill
 	ldr r1, [r4]
 	lsls r0, r7, #2
 	adds r0, r0, r1
@@ -9425,7 +9425,7 @@ _0803EF08:
 	ldr r0, _0803EFD0  @ gBmMapMovement
 	ldr r0, [r0]
 	movs r1, #0
-	bl ClearMapWith
+	bl BmMapFill
 	ldr r0, [sp, #0xc]
 	lsls r0, r0, #0x10
 	mov r9, r0
@@ -11376,7 +11376,7 @@ _0803FDF2:
 	ldr r0, _0803FEFC  @ gBmMapRange
 	ldr r0, [r0]
 	movs r1, #0
-	bl ClearMapWith
+	bl BmMapFill
 	movs r4, #0x10
 	ldrsb r4, [r6, r4]
 	movs r5, #0x11
@@ -11541,7 +11541,7 @@ _0803FF80:
 	ldr r0, _08040008  @ gBmMapRange
 	ldr r0, [r0]
 	movs r1, #0
-	bl ClearMapWith
+	bl BmMapFill
 	ldr r0, _0803FFF4  @ gActiveUnit
 	ldr r0, [r0]
 	bl GetUnitMagBy2Range
@@ -12141,7 +12141,7 @@ _080403D4:
 	ldr r0, _080404DC  @ gBmMapRange
 	ldr r0, [r0]
 	movs r1, #0
-	bl ClearMapWith
+	bl BmMapFill
 	movs r4, #0x10
 	ldrsb r4, [r6, r4]
 	movs r5, #0x11
@@ -12327,7 +12327,7 @@ _08040560:
 	ldr r0, _08040660  @ gBmMapRange
 	ldr r0, [r0]
 	movs r1, #0
-	bl ClearMapWith
+	bl BmMapFill
 	movs r4, #0x10
 	ldrsb r4, [r6, r4]
 	movs r5, #0x11
@@ -14001,7 +14001,7 @@ _080412CE:
 	ldr r0, _0804139C  @ gBmMapRange
 	ldr r0, [r0]
 	movs r1, #0
-	bl ClearMapWith
+	bl BmMapFill
 	lsls r5, r6, #0x10
 	asrs r5, r5, #0x10
 	movs r0, #0xa6
@@ -14187,7 +14187,7 @@ _08041444:
 	ldr r0, _0804154C  @ gBmMapRange
 	ldr r0, [r0]
 	movs r1, #0
-	bl ClearMapWith
+	bl BmMapFill
 	ldr r0, _08041550  @ gActiveUnit
 	ldr r0, [r0]
 	movs r5, #0x10

@@ -121,12 +121,12 @@ struct Struct0202BCB0 // Game State Struct
     /* 08 */ u32 _unk08;
 
     /* 0C */ struct Vec2 camera;
-    /* 10 */ struct Vec2 unk10;
+    /* 10 */ struct Vec2 cameraPrevious;
     /* 14 */ struct Vec2 playerCursor;
     /* 18 */ struct Vec2 unk18;
     /* 1C */ struct Vec2 unk1C;
     /* 20 */ struct Vec2 playerCursorDisplay;
-    /* 24 */ struct Vec2u unk24;
+    /* 24 */ struct Vec2u mapRenderOrigin;
     /* 28 */ struct Vec2 unk28;
 
     /* 2C */ u16 itemUnk2C;

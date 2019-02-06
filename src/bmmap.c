@@ -9,6 +9,15 @@
 #include "bmunit.h"
 #include "bmmap.h"
 
+static void BmMapInit(void* buffer, u8*** outHandle, int width, int height);
+
+static void RenderBmMapColumn(u16 xOffset);
+static void RenderBmMapLine(u16 yOffset);
+
+static void RefreshUnitsOnBmMap(void);
+static void RefreshTorchlightsOnBmMap(void);
+static void RefreshMinesOnBmMap(void);
+
 enum { MAP_POOL_SIZE = 0x7B8 };
 
 // TODO: figure out what's up with this (overlaps with a lot of other objects?)
@@ -43,40 +52,40 @@ u8*   gTilesetTerrainLookup = (u8*)(sTilesetConfig + 0x1000);
 u16** gBmMapBaseTiles       = (u16**)(sBmBaseTilesPool);
 
 void InitChapterMap(int chapterId) {
-    LoadChapterMap(gBmMapBuffer, chapterId);
-    LoadChapterMapGfx(chapterId);
+    UnpackChapterMap(gBmMapBuffer, chapterId);
+    UnpackChapterMapGraphics(chapterId);
 
-    SetupMapRowPointers(sBmMapUnitPool,     &gBmMapUnit,     gBmMapSize.x, gBmMapSize.y);
-    SetupMapRowPointers(sBmMapTerrainPool,  &gBmMapTerrain,  gBmMapSize.x, gBmMapSize.y);
-    SetupMapRowPointers(sBmMapMovementPool, &gBmMapMovement, gBmMapSize.x, gBmMapSize.y);
-    SetupMapRowPointers(sBmMapRangePool,    &gBmMapRange,    gBmMapSize.x, gBmMapSize.y);
-    SetupMapRowPointers(sBmMapFogPool,      &gBmMapFog,      gBmMapSize.x, gBmMapSize.y);
-    SetupMapRowPointers(sBmMapHiddenPool,   &gBmMapHidden,   gBmMapSize.x, gBmMapSize.y);
-    SetupMapRowPointers(sBmMapUnkPool, &gBmMapUnk, gBmMapSize.x, gBmMapSize.y);
+    BmMapInit(sBmMapUnitPool,     &gBmMapUnit,     gBmMapSize.x, gBmMapSize.y);
+    BmMapInit(sBmMapTerrainPool,  &gBmMapTerrain,  gBmMapSize.x, gBmMapSize.y);
+    BmMapInit(sBmMapMovementPool, &gBmMapMovement, gBmMapSize.x, gBmMapSize.y);
+    BmMapInit(sBmMapRangePool,    &gBmMapRange,    gBmMapSize.x, gBmMapSize.y);
+    BmMapInit(sBmMapFogPool,      &gBmMapFog,      gBmMapSize.x, gBmMapSize.y);
+    BmMapInit(sBmMapHiddenPool,   &gBmMapHidden,   gBmMapSize.x, gBmMapSize.y);
+    BmMapInit(sBmMapUnkPool, &gBmMapUnk, gBmMapSize.x, gBmMapSize.y);
 
-    ClearMapWith(gBmMapUnit, 0);
-    ClearMapWith(gBmMapTerrain, 0);
+    BmMapFill(gBmMapUnit, 0);
+    BmMapFill(gBmMapTerrain, 0);
 
-    FlushTilesFromBuffer();
+    InitBaseTilesBmMap();
     ApplyTrapMapChanges();
-    FlushTerrainData();
+    RefreshTerrainBmMap();
 
     // TODO: chapter id definitions
     if (gUnknown_0202BCF0.chapterIndex == 0x75)
         sub_8019624();
 }
 
-void sub_80195BC(int chapterId) {
-    LoadChapterMap(gBmMapBuffer, chapterId);
+void InitChapterPreviewMap(int chapterId) {
+    UnpackChapterMap(gBmMapBuffer, chapterId);
 
-    SetupMapRowPointers(sBmMapUnitPool,    &gBmMapUnit,    gBmMapSize.x, gBmMapSize.y);
-    SetupMapRowPointers(sBmMapTerrainPool, &gBmMapTerrain, gBmMapSize.x, gBmMapSize.y);
+    BmMapInit(sBmMapUnitPool,    &gBmMapUnit,    gBmMapSize.x, gBmMapSize.y);
+    BmMapInit(sBmMapTerrainPool, &gBmMapTerrain, gBmMapSize.x, gBmMapSize.y);
 
-    ClearMapWith(gBmMapUnit, 0);
-    ClearMapWith(gBmMapTerrain, 0);
+    BmMapFill(gBmMapUnit, 0);
+    BmMapFill(gBmMapTerrain, 0);
 
-    FlushTilesFromBuffer();
-    FlushTerrainData();
+    InitBaseTilesBmMap();
+    RefreshTerrainBmMap();
 }
 
 void sub_8019624(void) {
@@ -151,15 +160,15 @@ void sub_8019624(void) {
 }
 
 void sub_8019778(void) {
-    LoadChapterMap(gBmMapBuffer, gUnknown_0202BCF0.chapterIndex);
+    UnpackChapterMap(gBmMapBuffer, gUnknown_0202BCF0.chapterIndex);
 
-    FlushTilesFromBuffer();
+    InitBaseTilesBmMap();
     ApplyTrapMapChanges();
-    FlushTerrainData();
+    RefreshTerrainBmMap();
     sub_8019624();
 }
 
-void SetupMapRowPointers(void* buffer, u8*** outHandle, int x, int y) {
+void BmMapInit(void* buffer, u8*** outHandle, int x, int y) {
     int i;
     u8* itBuffer;
 
@@ -181,7 +190,7 @@ void SetupMapRowPointers(void* buffer, u8*** outHandle, int x, int y) {
     *outHandle = sInitializingMap + 2;
 }
 
-void ClearMapWith(u8** map, int value) {
+void BmMapFill(u8** map, int value) {
     int size = (gBmMapSize.y + 4) * (gBmMapSize.x + 2);
 
     if (size % 2)
@@ -195,7 +204,7 @@ void ClearMapWith(u8** map, int value) {
     SetSubjectMap(map);
 }
 
-void sub_8019840(u8** map, u8 value) {
+void BmMapFillEdges(u8** map, u8 value) {
     int ix, iy;
 
     u8** theMap = map;
@@ -213,7 +222,7 @@ void sub_8019840(u8** map, u8 value) {
     }
 }
 
-void LoadChapterMap(void* into, int chapterId) {
+void UnpackChapterMap(void* into, int chapterId) {
     // Decompress map data
     CopyDataWithPossibleUncomp(
         GetChapterMapPointer(chapterId), into);
@@ -231,7 +240,7 @@ void LoadChapterMap(void* into, int chapterId) {
     gUnknown_0202BCB0.unk28.y = gBmMapSize.y*16 - 160;
 }
 
-void LoadChapterMapGfx(int chapterId) {
+void UnpackChapterMapGraphics(int chapterId) {
     // Decompress tileset graphics (part 1)
     CopyDataWithPossibleUncomp(
         gChapterDataAssetTable[GetROMChapterStruct(chapterId)->mapObj1Id],
@@ -249,13 +258,13 @@ void LoadChapterMapGfx(int chapterId) {
         0x20 * 6, 0x20 * 10); // TODO: palette id constant?
 }
 
-void sub_8019974(void) {
+void UnpackChapterMapPalette(void) {
     CopyToPaletteBuffer(
         gChapterDataAssetTable[GetROMChapterStruct(gUnknown_0202BCF0.chapterIndex)->mapPaletteId],
         0x20 * 6, 0x20 * 10); // TODO: palette id constant?
 }
 
-void FlushTilesFromBuffer(void) {
+void InitBaseTilesBmMap(void) {
     int ix, iy;
 
     u16** rows;
@@ -263,7 +272,7 @@ void FlushTilesFromBuffer(void) {
     u16*  itBuffer;
 
     rows  = gBmMapBaseTiles;
-    tiles = (u16*)(gBmMapBuffer);
+    tiles = gBmMapBuffer;
 
     gBmMapSize.y++; // ?
 
@@ -294,7 +303,7 @@ void FlushTilesFromBuffer(void) {
     gBmMapSize.y--; // ?
 }
 
-void FlushTerrainData(void) {
+void RefreshTerrainBmMap(void) {
     int ix, iy;
 
     for (iy = 0; iy < gBmMapSize.y; ++iy)
@@ -304,11 +313,11 @@ void FlushTerrainData(void) {
     UpdateAllLightRunes();
 }
 
-int GetSomeTerrainToChangeAtSomePosition(int x, int y) {
+int GetTrueTerrainAt(int x, int y) {
     return gTilesetTerrainLookup[gBmMapBaseTiles[y][x] >> 2];
 }
 
-void UpdateGameTileGfx(u16* bg, int xTileMap, int yTileMap, int xBmMap, int yBmMap) {
+void DisplayBmTile(u16* bg, int xTileMap, int yTileMap, int xBmMap, int yBmMap) {
     u16* out = bg + yTileMap * 0x40 + xTileMap * 2; // TODO: BG_LOCATED_TILE?
     u16* tile = sTilesetConfig + gBmMapBaseTiles[yBmMap][xBmMap];
 
@@ -323,7 +332,7 @@ void UpdateGameTileGfx(u16* bg, int xTileMap, int yTileMap, int xBmMap, int yBmM
 
 void nullsub_8(void) {}
 
-void sub_8019B8C(u16* bg, int xBmMap, int yBmMap, int xTileMap, int yTileMap) {
+void DisplayMovementViewTile(u16* bg, int xBmMap, int yBmMap, int xTileMap, int yTileMap) {
     bg = bg + 2*(yTileMap * 0x20 + xTileMap);
 
     if (!bg)
@@ -365,16 +374,16 @@ void sub_8019B8C(u16* bg, int xBmMap, int yBmMap, int xTileMap, int yTileMap) {
     bg[0x20 + 1] = 0;
 }
 
-void UpdateGameTilesGraphics(void) {
+void RenderBmMap(void) {
     int ix, iy;
 
-    gUnknown_0202BCB0.unk24.x = gUnknown_0202BCB0.camera.x >> 4;
-    gUnknown_0202BCB0.unk24.y = gUnknown_0202BCB0.camera.y >> 4;
+    gUnknown_0202BCB0.mapRenderOrigin.x = gUnknown_0202BCB0.camera.x >> 4;
+    gUnknown_0202BCB0.mapRenderOrigin.y = gUnknown_0202BCB0.camera.y >> 4;
 
     for (iy = (10 - 1); iy >= 0; --iy)
         for (ix = (15 - 1); ix >= 0; --ix)
-            UpdateGameTileGfx(gBG3TilemapBuffer, ix, iy,
-                (short) gUnknown_0202BCB0.unk24.x + ix, (short) gUnknown_0202BCB0.unk24.y + iy);
+            DisplayBmTile(gBG3TilemapBuffer, ix, iy,
+                (short) gUnknown_0202BCB0.mapRenderOrigin.x + ix, (short) gUnknown_0202BCB0.mapRenderOrigin.y + iy);
 
     BG_EnableSyncByMask(1 << 3);
     BG_SetPosition(3, 0, 0);
@@ -386,74 +395,74 @@ void UpdateGameTilesGraphics(void) {
     gLCDControlBuffer.dispcnt.obj_on = TRUE;
 }
 
-void sub_8019CBC(void) {
+void RenderBmMapOnBg2(void) {
     int ix, iy;
 
     SetBackgroundTileDataOffset(2, 0x8000);
 
-    gUnknown_0202BCB0.unk24.x = gUnknown_0202BCB0.camera.x >> 4;
-    gUnknown_0202BCB0.unk24.y = gUnknown_0202BCB0.camera.y >> 4;
+    gUnknown_0202BCB0.mapRenderOrigin.x = gUnknown_0202BCB0.camera.x >> 4;
+    gUnknown_0202BCB0.mapRenderOrigin.y = gUnknown_0202BCB0.camera.y >> 4;
 
     for (iy = (10 - 1); iy >= 0; --iy)
         for (ix = (15 - 1); ix >= 0; --ix)
-            UpdateGameTileGfx(gBG2TilemapBuffer, ix, iy,
-                (short) gUnknown_0202BCB0.unk24.x + ix, (short) gUnknown_0202BCB0.unk24.y + iy);
+            DisplayBmTile(gBG2TilemapBuffer, ix, iy,
+                (short) gUnknown_0202BCB0.mapRenderOrigin.x + ix, (short) gUnknown_0202BCB0.mapRenderOrigin.y + iy);
 
     BG_EnableSyncByMask(1 << 2);
     BG_SetPosition(2, 0, 0);
 }
 
-void sub_8019D28(void) {
+void UpdateBmMapDisplay(void) {
     // TODO: figure out
 
-    if (gUnknown_0202BCB0.camera.x != gUnknown_0202BCB0.unk10.x) {
-        if (gUnknown_0202BCB0.camera.x > gUnknown_0202BCB0.unk10.x) {
-            if (((gUnknown_0202BCB0.camera.x - 1) ^ (gUnknown_0202BCB0.unk10.x - 1)) & 0x10)
-                sub_8019E08(15);
+    if (gUnknown_0202BCB0.camera.x != gUnknown_0202BCB0.cameraPrevious.x) {
+        if (gUnknown_0202BCB0.camera.x > gUnknown_0202BCB0.cameraPrevious.x) {
+            if (((gUnknown_0202BCB0.camera.x - 1) ^ (gUnknown_0202BCB0.cameraPrevious.x - 1)) & 0x10)
+                RenderBmMapColumn(15);
         } else {
-            if ((gUnknown_0202BCB0.camera.x ^ gUnknown_0202BCB0.unk10.x) & 0x10)
-                sub_8019E08(0);
+            if ((gUnknown_0202BCB0.camera.x ^ gUnknown_0202BCB0.cameraPrevious.x) & 0x10)
+                RenderBmMapColumn(0);
         }
     }
 
-    if (gUnknown_0202BCB0.camera.y != gUnknown_0202BCB0.unk10.y) {
-        if (gUnknown_0202BCB0.camera.y > gUnknown_0202BCB0.unk10.y) {
-            if (((gUnknown_0202BCB0.camera.y - 1) ^ (gUnknown_0202BCB0.unk10.y - 1)) & 0x10)
-                sub_8019ED4(10);
+    if (gUnknown_0202BCB0.camera.y != gUnknown_0202BCB0.cameraPrevious.y) {
+        if (gUnknown_0202BCB0.camera.y > gUnknown_0202BCB0.cameraPrevious.y) {
+            if (((gUnknown_0202BCB0.camera.y - 1) ^ (gUnknown_0202BCB0.cameraPrevious.y - 1)) & 0x10)
+                RenderBmMapLine(10);
         } else {
-            if ((gUnknown_0202BCB0.camera.y ^ gUnknown_0202BCB0.unk10.y) & 0x10)
-                sub_8019ED4(0);
+            if ((gUnknown_0202BCB0.camera.y ^ gUnknown_0202BCB0.cameraPrevious.y) & 0x10)
+                RenderBmMapLine(0);
         }
     }
 
-    gUnknown_0202BCB0.unk10 = gUnknown_0202BCB0.camera;
+    gUnknown_0202BCB0.cameraPrevious = gUnknown_0202BCB0.camera;
 
     BG_SetPosition(3,
-        gUnknown_0202BCB0.camera.x - gUnknown_0202BCB0.unk24.x * 16,
-        gUnknown_0202BCB0.camera.y - gUnknown_0202BCB0.unk24.y * 16
+        gUnknown_0202BCB0.camera.x - gUnknown_0202BCB0.mapRenderOrigin.x * 16,
+        gUnknown_0202BCB0.camera.y - gUnknown_0202BCB0.mapRenderOrigin.y * 16
     );
 
     // TODO: GAME STATE BITS CONSTANTS
     if (gUnknown_0202BCB0.gameStateBits & 1) {
         BG_SetPosition(2,
-            gUnknown_0202BCB0.camera.x - gUnknown_0202BCB0.unk24.x * 16,
-            gUnknown_0202BCB0.camera.y - gUnknown_0202BCB0.unk24.y * 16
+            gUnknown_0202BCB0.camera.x - gUnknown_0202BCB0.mapRenderOrigin.x * 16,
+            gUnknown_0202BCB0.camera.y - gUnknown_0202BCB0.mapRenderOrigin.y * 16
         );
     }
 }
 
-void sub_8019E08(u16 unk) {
-    u16 xBmMap = (gUnknown_0202BCB0.camera.x >> 4) + unk;
+void RenderBmMapColumn(u16 xOffset) {
+    u16 xBmMap = (gUnknown_0202BCB0.camera.x >> 4) + xOffset;
     u16 yBmMap = (gUnknown_0202BCB0.camera.y >> 4);
 
-    u16 xTileMap = ((gUnknown_0202BCB0.camera.x >> 4) - gUnknown_0202BCB0.unk24.x + unk) & 0xF;
-    u16 yTileMap = ((gUnknown_0202BCB0.camera.y >> 4) - gUnknown_0202BCB0.unk24.y);
+    u16 xTileMap = ((gUnknown_0202BCB0.camera.x >> 4) - gUnknown_0202BCB0.mapRenderOrigin.x + xOffset) & 0xF;
+    u16 yTileMap = ((gUnknown_0202BCB0.camera.y >> 4) - gUnknown_0202BCB0.mapRenderOrigin.y);
 
     int iy;
 
     if (!(gUnknown_0202BCB0.gameStateBits & 1)) {
         for (iy = 10; iy >= 0; --iy) {
-            UpdateGameTileGfx(gBG3TilemapBuffer,
+            DisplayBmTile(gBG3TilemapBuffer,
                 xTileMap, (yTileMap + iy) & 0xF,
                 xBmMap, (yBmMap + iy));
         }
@@ -461,11 +470,11 @@ void sub_8019E08(u16 unk) {
         BG_EnableSyncByMask(1 << 3);
     } else {
         for (iy = 10; iy >= 0; --iy) {
-            UpdateGameTileGfx(gBG3TilemapBuffer,
+            DisplayBmTile(gBG3TilemapBuffer,
                 xTileMap, (yTileMap + iy) & 0xF,
                 xBmMap, (yBmMap + iy));
 
-            sub_8019B8C(gBG2TilemapBuffer,
+            DisplayMovementViewTile(gBG2TilemapBuffer,
                 xBmMap, (yBmMap + iy),
                 xTileMap, (yTileMap + iy) & 0xF);
         }
@@ -474,18 +483,18 @@ void sub_8019E08(u16 unk) {
     }
 }
 
-void sub_8019ED4(u16 unk) {
+void RenderBmMapLine(u16 yOffset) {
     u16 xBmMap = (gUnknown_0202BCB0.camera.x >> 4);
-    u16 yBmMap = (gUnknown_0202BCB0.camera.y >> 4) + unk;
+    u16 yBmMap = (gUnknown_0202BCB0.camera.y >> 4) + yOffset;
 
-    u16 xTileMap = ((gUnknown_0202BCB0.camera.x >> 4) - gUnknown_0202BCB0.unk24.x);
-    u16 yTileMap = ((gUnknown_0202BCB0.camera.y >> 4) - gUnknown_0202BCB0.unk24.y + unk) & 0xF;
+    u16 xTileMap = ((gUnknown_0202BCB0.camera.x >> 4) - gUnknown_0202BCB0.mapRenderOrigin.x);
+    u16 yTileMap = ((gUnknown_0202BCB0.camera.y >> 4) - gUnknown_0202BCB0.mapRenderOrigin.y + yOffset) & 0xF;
 
     int ix;
 
     if (!(gUnknown_0202BCB0.gameStateBits & 1)) {
         for (ix = 15; ix >= 0; --ix) {
-            UpdateGameTileGfx(gBG3TilemapBuffer,
+            DisplayBmTile(gBG3TilemapBuffer,
                 (xTileMap + ix) & 0xF, yTileMap,
                 (xBmMap + ix), yBmMap);
         }
@@ -493,11 +502,11 @@ void sub_8019ED4(u16 unk) {
         BG_EnableSyncByMask(1 << 3);
     } else {
         for (ix = 15; ix >= 0; --ix) {
-            UpdateGameTileGfx(gBG3TilemapBuffer,
+            DisplayBmTile(gBG3TilemapBuffer,
                 (xTileMap + ix) & 0xF, yTileMap,
                 (xBmMap + ix), yBmMap);
 
-            sub_8019B8C(gBG2TilemapBuffer,
+            DisplayMovementViewTile(gBG2TilemapBuffer,
                 (xBmMap + ix), yBmMap,
                 (xTileMap + ix) & 0xF, yTileMap);
         }
@@ -506,7 +515,7 @@ void sub_8019ED4(u16 unk) {
     }
 }
 
-void UpdateUnitMapAndVision(void) {
+void RefreshUnitsOnBmMap(void) {
     struct Unit* unit;
     int i;
 
@@ -597,7 +606,7 @@ void UpdateUnitMapAndVision(void) {
     }
 }
 
-void UpdateTrapFogVision(void) {
+void RefreshTorchlightsOnBmMap(void) {
     struct Trap* trap;
     
     for (trap = GetTrap(0); trap->type != TRAP_NONE; ++trap) {
@@ -611,7 +620,7 @@ void UpdateTrapFogVision(void) {
     }
 }
 
-void UpdateTrapHiddenStates(void) {
+void RefreshMinesOnBmMap(void) {
     struct Trap* trap;
     
     for (trap = GetTrap(0); trap->type != TRAP_NONE; ++trap) {
@@ -627,24 +636,24 @@ void UpdateTrapHiddenStates(void) {
     }
 }
 
-void RefreshFogAndUnitMaps(void) {
+void RefreshEntityBmMaps(void) {
     // 1. Clear unit & hidden maps
 
-    ClearMapWith(gBmMapUnit, 0);
-    ClearMapWith(gBmMapHidden, 0);
+    BmMapFill(gBmMapUnit, 0);
+    BmMapFill(gBmMapHidden, 0);
 
     // 2. Clear fog map, with 1 (visible) if no fog, with 0 (hidden) if yes fog
 
-    ClearMapWith(gBmMapFog, !gUnknown_0202BCF0.chapterVisionRange ? 1 : 0);
+    BmMapFill(gBmMapFog, !gUnknown_0202BCF0.chapterVisionRange ? 1 : 0);
 
     // 3. Populate unit, fog & hidden maps
 
-    UpdateTrapFogVision();
-    UpdateUnitMapAndVision();
-    UpdateTrapHiddenStates();
+    RefreshTorchlightsOnBmMap();
+    RefreshUnitsOnBmMap();
+    RefreshMinesOnBmMap();
 }
 
-char* GetTerrainNameString(int terrainId) {
+char* GetTerrainName(int terrainId) {
     return GetStringFromIndex(gUnknown_0880D374[terrainId]);
 }
 
@@ -652,7 +661,7 @@ int GetTerrainHealAmount(int terrainId) {
     return gUnknown_0880C744[terrainId];
 }
 
-int GetTerrainSomething(int terrainId) {
+int GetTerrainUnk(int terrainId) {
     return gUnknown_0880C785[terrainId];
 }
 
@@ -673,7 +682,7 @@ void sub_801A278(void) {
     EnablePaletteSync();
 }
 
-void RevertMapChangesById(int id) {
+void RevertMapChange(int id) {
     struct MapChange* mapChange;
     u8 ix, iy;
 

@@ -485,8 +485,8 @@ _08037810:
 	adds r0, r4, #0
 	bl MU_GetByUnit
 	bl MU_End
-	bl UpdateGameTilesGraphics
-	bl RefreshFogAndUnitMaps
+	bl RenderBmMap
+	bl RefreshEntityBmMaps
 	bl SMS_FlushIndirect
 	movs r0, #1
 _08037828:

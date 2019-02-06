@@ -4982,8 +4982,8 @@ _0807CDB4: .4byte 0x000041C0
 	THUMB_FUNC_START sub_807CDB8
 sub_807CDB8: @ 0x0807CDB8
 	push {lr}
-	bl RefreshFogAndUnitMaps
-	bl UpdateGameTilesGraphics
+	bl RefreshEntityBmMaps
+	bl RenderBmMap
 	bl SMS_UpdateFromGameData
 	bl MU_EndAll
 	pop {r0}
@@ -5328,8 +5328,8 @@ _0807D044:
 	asrs r0, r0, #0x18
 	bl GetUnit
 	bl ClearUnit
-	bl RefreshFogAndUnitMaps
-	bl UpdateGameTilesGraphics
+	bl RefreshEntityBmMaps
+	bl RenderBmMap
 	bl SMS_UpdateFromGameData
 	bl MU_EndAll
 	pop {r4, r5, r6, r7}
@@ -13039,7 +13039,7 @@ _08080DF0: .4byte 0x000003BF
 _08080DF4:
 	cmp r1, #0xc
 	bne _08080E02
-	bl RefreshFogAndUnitMaps
+	bl RefreshEntityBmMaps
 	bl SMS_UpdateFromGameData
 	b _08080E0E
 _08080E02:
@@ -13228,7 +13228,7 @@ _08080F6C:
 	negs r2, r2
 	ands r1, r2
 	str r1, [r0, #0xc]
-	bl RefreshFogAndUnitMaps
+	bl RefreshEntityBmMaps
 	bl SMS_UpdateFromGameData
 	b _08080F92
 _08080F86:
@@ -15196,8 +15196,8 @@ sub_8081E54: @ 0x08081E54
 	THUMB_FUNC_START sub_8081E60
 sub_8081E60: @ 0x08081E60
 	push {lr}
-	bl RefreshFogAndUnitMaps
-	bl UpdateGameTilesGraphics
+	bl RefreshEntityBmMaps
+	bl RenderBmMap
 	bl SMS_UpdateFromGameData
 	bl MU_EndAll
 	pop {r0}

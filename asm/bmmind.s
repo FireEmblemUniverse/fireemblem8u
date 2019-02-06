@@ -220,8 +220,8 @@ sub_80321B8: @ 0x080321B8
 	THUMB_FUNC_START sub_80321C8
 sub_80321C8: @ 0x080321C8
 	push {lr}
-	bl RefreshFogAndUnitMaps
-	bl UpdateGameTilesGraphics
+	bl RefreshEntityBmMaps
+	bl RenderBmMap
 	bl SMS_UpdateFromGameData
 	bl SMS_FlushIndirect
 	pop {r1}
@@ -766,7 +766,7 @@ sub_8032658: @ 0x08032658
 	THUMB_FUNC_START sub_8032664
 sub_8032664: @ 0x08032664
 	push {lr}
-	bl RefreshFogAndUnitMaps
+	bl RefreshEntityBmMaps
 	bl SMS_UpdateFromGameData
 	pop {r0}
 	bx r0

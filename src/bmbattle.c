@@ -2057,7 +2057,7 @@ void UpdateObstacleFromBattle(struct BattleUnit* bu) {
         if (gBmMapTerrain[bu->unit.yPos][bu->unit.xPos] == 0x33) // TODO: terrain id constants
             PlaySoundEffect(0x2D7); // TODO: Sound id constants
 
-        sub_8019CBC();
+        RenderBmMapOnBg2();
 
         ApplyMapChangesById(mapChangeId);
 
@@ -2068,9 +2068,9 @@ void UpdateObstacleFromBattle(struct BattleUnit* bu) {
         trap->type = TRAP_NONE;
         AddMapChange(mapChangeId);
 
-        FlushTerrainData();
+        RefreshTerrainBmMap();
         sub_802E690();
-        UpdateGameTilesGraphics();
+        RenderBmMap();
 
         NewBMXFADE(FALSE);
     }
@@ -2083,14 +2083,14 @@ void BeginBattleAnimations(void) {
     gPaletteBuffer[0] = 0;
     EnablePaletteSync();
 
-    UpdateGameTilesGraphics();
+    RenderBmMap();
 
     if (sub_8055BC4()) {
         sub_804FD48(0);
         BeginAnimsOnBattleAnimations();
     } else {
         MU_EndAll();
-        UpdateGameTilesGraphics();
+        RenderBmMap();
         BeginBattleMapAnims();
 
         gBattleStats.config |= BATTLE_CONFIG_MAPANIMS;

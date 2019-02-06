@@ -1153,9 +1153,9 @@ void TickActiveFactionTurn(void) {
     }
 
     if (displayMapChange) {
-        sub_8019CBC();
-        RefreshFogAndUnitMaps();
-        UpdateGameTilesGraphics();
+        RenderBmMapOnBg2();
+        RefreshEntityBmMaps();
+        RenderBmMap();
         NewBMXFADE(TRUE);
         SMS_UpdateFromGameData();
     }
@@ -1473,7 +1473,7 @@ void ClearTemporaryUnits(void) {
             ClearUnit(unit);
     }
 
-    RefreshFogAndUnitMaps();
+    RefreshEntityBmMaps();
     SMS_UpdateFromGameData();
 }
 
@@ -1609,6 +1609,6 @@ void sub_8019108(void) {
         SetUnitStatus(unit, 0);
     }
 
-    RefreshFogAndUnitMaps();
+    RefreshEntityBmMaps();
     SMS_UpdateFromGameData();
 }

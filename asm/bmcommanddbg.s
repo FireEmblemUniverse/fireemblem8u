@@ -166,7 +166,7 @@ CanUnitUseAttack: @ 0x08034428
 	ldr r0, _08034460  @ gBmMapRange
 	ldr r0, [r0]
 	movs r1, #0
-	bl ClearMapWith
+	bl BmMapFill
 	ldr r4, _08034464  @ gActiveUnit
 	ldr r0, [r4]
 	bl FillMapAttackRangeForUnit
@@ -279,7 +279,7 @@ sub_8034514: @ 0x08034514
 	ldr r0, [r4]
 	movs r1, #1
 	negs r1, r1
-	bl ClearMapWith
+	bl BmMapFill
 	ldr r0, _0803454C  @ gActiveUnit
 	ldr r2, [r0]
 	movs r0, #0x11
@@ -311,7 +311,7 @@ sub_8034550: @ 0x08034550
 	ldr r0, _08034604  @ gBmMapUnk
 	ldr r0, [r0]
 	movs r1, #0
-	bl ClearMapWith
+	bl BmMapFill
 	movs r5, #0x81
 	ldr r6, _08034608  @ gActionData
 _0803456A:

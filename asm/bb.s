@@ -458,7 +458,7 @@ sub_80357E4: @ 0x080357E4
 	ldrb r0, [r0, #0xd]
 	cmp r0, #0
 	beq _080357FA
-	bl sub_8019CBC
+	bl RenderBmMapOnBg2
 _080357FA:
 	pop {r0}
 	bx r0

@@ -10025,7 +10025,7 @@ _08054DF8:
 	str r5, [sp, #8]
 	bl sub_80715F4
 _08054E16:
-	bl RefreshFogAndUnitMaps
+	bl RefreshEntityBmMaps
 	bl SMS_UpdateFromGameData
 	bl MU_EndAll
 	b _08054E3E
@@ -12507,10 +12507,10 @@ _08056198:
 	ldrb r0, [r0, #0xe]
 	lsls r0, r0, #0x18
 	asrs r0, r0, #0x18
-	bl LoadChapterMapGfx
+	bl UnpackChapterMapGraphics
 	movs r0, #0x10
 	bl sub_807168C
-	bl UpdateGameTilesGraphics
+	bl RenderBmMap
 	movs r0, #3
 	movs r1, #0
 	movs r2, #0
@@ -12725,7 +12725,7 @@ ekrBattleEnding_8056310: @ 0x08056310
 	bl sub_805B028
 	cmp r0, #1
 	beq _08056372
-	bl sub_8019974
+	bl UnpackChapterMapPalette
 _08056372:
 	bl sub_804FD54
 	cmp r0, #1
@@ -36195,7 +36195,7 @@ _0806222A:
 	ldr r1, _08062270  @ 0xFFFFFBBD
 	ands r0, r1
 	str r0, [r4, #0xc]
-	bl RefreshFogAndUnitMaps
+	bl RefreshEntityBmMaps
 	bl SMS_UpdateFromGameData
 	bl MU_EndAll
 _08062260:
@@ -63395,8 +63395,8 @@ sub_80700CC: @ 0x080700CC
 	ldrb r0, [r0, #0xe]
 	lsls r0, r0, #0x18
 	asrs r0, r0, #0x18
-	bl LoadChapterMapGfx
-	bl UpdateGameTilesGraphics
+	bl UnpackChapterMapGraphics
+	bl RenderBmMap
 _080700EA:
 	movs r0, #0x2c
 	ldrsh r3, [r5, r0]
@@ -66249,7 +66249,7 @@ _08071680:
 sub_807168C: @ 0x0807168C
 	push {r4, lr}
 	adds r4, r0, #0
-	bl sub_8019974
+	bl UnpackChapterMapPalette
 	ldr r0, _080716AC  @ gPaletteBuffer
 	movs r1, #6
 	movs r2, #0xa
@@ -76340,8 +76340,8 @@ sub_80768A0: @ 0x080768A0
 	ldrb r0, [r0, #0xe]
 	lsls r0, r0, #0x18
 	asrs r0, r0, #0x18
-	bl LoadChapterMapGfx
-	bl UpdateGameTilesGraphics
+	bl UnpackChapterMapGraphics
+	bl RenderBmMap
 _080768BE:
 	movs r0, #0x2c
 	ldrsh r3, [r4, r0]

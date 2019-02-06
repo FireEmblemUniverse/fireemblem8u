@@ -428,7 +428,7 @@ sub_8079FA8: @ 0x08079FA8
 	negs r0, r0
 	ands r1, r0
 	str r1, [r5, #0xc]
-	bl RefreshFogAndUnitMaps
+	bl RefreshEntityBmMaps
 	bl SMS_UpdateFromGameData
 _0807A00C:
 	add sp, #4
@@ -745,7 +745,7 @@ _0807A234:
 	adds r0, r0, r1
 	ldrb r1, [r4, #0xb]
 	strb r1, [r0]
-	bl RefreshFogAndUnitMaps
+	bl RefreshEntityBmMaps
 	bl SMS_UpdateFromGameData
 _0807A27A:
 	adds r0, r6, #0

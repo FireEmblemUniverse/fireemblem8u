@@ -372,7 +372,7 @@ DisplayUnitEffectRange: @ 0x0801CB70
 	ldr r0, _0801CBE0  @ gBmMapUnk
 	ldr r0, [r0]
 	movs r1, #0
-	bl ClearMapWith
+	bl BmMapFill
 	adds r0, r6, #0
 	bl UnitHasMagicRank
 	lsls r0, r0, #0x18
@@ -384,7 +384,7 @@ _0801CBB8:
 	ldr r0, _0801CBE4  @ gBmMapRange
 	ldr r0, [r0]
 	movs r1, #0
-	bl ClearMapWith
+	bl BmMapFill
 	ldr r0, [r5]
 	bl GetUnitWeaponUsabilityBits
 	cmp r0, #2
@@ -518,7 +518,7 @@ sub_801CCB4: @ 0x0801CCB4
 	ldr r0, [r0]
 	movs r1, #1
 	negs r1, r1
-	bl ClearMapWith
+	bl BmMapFill
 	ldr r0, _0801CD0C  @ gUnknown_0202BCF0
 	adds r0, #0x41
 	ldrb r0, [r0]
@@ -739,7 +739,7 @@ _0801CE90:
 	ands r0, r1
 	strb r0, [r2, #4]
 	bl HideMoveRangeGraphics
-	bl RefreshFogAndUnitMaps
+	bl RefreshEntityBmMaps
 	bl SMS_UpdateFromGameData
 	ldr r0, _0801CED0  @ gUnknown_0202BCF0
 	adds r0, #0x41
@@ -922,8 +922,8 @@ sub_801D008: @ 0x0801D008
 	negs r1, r1
 	ands r0, r1
 	str r0, [r2, #0xc]
-	bl RefreshFogAndUnitMaps
-	bl UpdateGameTilesGraphics
+	bl RefreshEntityBmMaps
+	bl RenderBmMap
 	bl SMS_UpdateFromGameData
 	ldr r4, [r4]
 	ldr r0, [r4, #0xc]
@@ -1199,7 +1199,7 @@ _0801D2A8:
 	ldr r0, _0801D2E8  @ gBmMapRange
 	ldr r0, [r0]
 	movs r1, #0
-	bl ClearMapWith
+	bl BmMapFill
 	ldr r0, [r4]
 	bl UnitBeginCantoAction
 	ldr r2, [r4]
@@ -1282,13 +1282,13 @@ sub_801D344: @ 0x0801D344
 	ldrb r0, [r0, #0xd]
 	cmp r0, #0
 	beq _0801D37C
-	bl sub_8019CBC
+	bl RenderBmMapOnBg2
 	ldr r1, _0801D378  @ gActionData
 	ldrb r0, [r1, #0xe]
 	ldrb r1, [r1, #0xf]
 	bl MoveActiveUnit
-	bl RefreshFogAndUnitMaps
-	bl UpdateGameTilesGraphics
+	bl RefreshEntityBmMaps
+	bl RenderBmMap
 	movs r0, #0
 	bl NewBMXFADE
 	bl SMS_UpdateFromGameData
@@ -1301,8 +1301,8 @@ _0801D37C:
 	ldrb r0, [r1, #0xe]
 	ldrb r1, [r1, #0xf]
 	bl MoveActiveUnit
-	bl RefreshFogAndUnitMaps
-	bl UpdateGameTilesGraphics
+	bl RefreshEntityBmMaps
+	bl RenderBmMap
 _0801D38E:
 	ldr r4, _0801D3C4  @ gActiveUnit
 	ldr r1, [r4]
@@ -1337,8 +1337,8 @@ _0801D3D0:
 	cmp r0, #0
 	beq _0801D3F8
 	bl MU_EndAll
-	bl RefreshFogAndUnitMaps
-	bl UpdateGameTilesGraphics
+	bl RefreshEntityBmMaps
+	bl RenderBmMap
 	bl SMS_UpdateFromGameData
 	bl sub_808326C
 	adds r0, r5, #0
@@ -1363,8 +1363,8 @@ sub_801D404: @ 0x0801D404
 	ldrb r0, [r1, #0xe]
 	ldrb r1, [r1, #0xf]
 	bl MoveActiveUnit
-	bl RefreshFogAndUnitMaps
-	bl UpdateGameTilesGraphics
+	bl RefreshEntityBmMaps
+	bl RenderBmMap
 	bl SMS_UpdateFromGameData
 	bl MU_EndAll
 _0801D428:
@@ -1806,7 +1806,7 @@ _0801D788:
 	ands r0, r1
 	strb r0, [r2, #4]
 	bl HideMoveRangeGraphics
-	bl RefreshFogAndUnitMaps
+	bl RefreshEntityBmMaps
 	bl SMS_UpdateFromGameData
 	adds r0, r5, #0
 	bl UnitBeginAction
@@ -1828,7 +1828,7 @@ _0801D788:
 	movs r2, #2
 	ldrsh r1, [r1, r2]
 	bl SetCursorMapPosition
-	bl RefreshFogAndUnitMaps
+	bl RefreshEntityBmMaps
 	bl SMS_UpdateFromGameData
 _0801D7D2:
 	pop {r4, r5}
@@ -2020,7 +2020,7 @@ Setup6CRangeDisplayGfx: @ 0x0801D92C
 	movs r0, #1
 	orrs r0, r1
 	strb r0, [r4, #4]
-	bl UpdateGameTilesGraphics
+	bl RenderBmMap
 	movs r5, #9
 	adds r7, r4, #0
 _0801D958:
@@ -2036,7 +2036,7 @@ _0801D95C:
 	str r5, [sp]
 	ldr r0, _0801D9D8  @ gBG2TilemapBuffer
 	adds r3, r4, #0
-	bl sub_8019B8C
+	bl DisplayMovementViewTile
 	subs r4, #1
 	cmp r4, #0
 	bge _0801D95C

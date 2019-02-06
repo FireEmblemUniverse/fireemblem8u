@@ -77,8 +77,8 @@ _08039B48: .4byte gUnknown_0203AA04
 _08039B4C: .4byte gActiveUnitId
 _08039B50: .4byte gActiveUnit
 _08039B54:
-	bl RefreshFogAndUnitMaps
-	bl UpdateGameTilesGraphics
+	bl RefreshEntityBmMaps
+	bl RenderBmMap
 	bl SMS_UpdateFromGameData
 	ldr r0, [r6]
 	bl sub_8041090

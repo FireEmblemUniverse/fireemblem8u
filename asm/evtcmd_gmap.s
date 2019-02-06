@@ -229,13 +229,13 @@ _0800BAC6:
 	asrs r4, r0, #0x18
 	cmp r4, #1
 	bne _0800BAD2
-	bl sub_8019CBC
+	bl RenderBmMapOnBg2
 _0800BAD2:
 	ldr r0, _0800BAF4  @ gUnknown_0202BCF0
 	strb r5, [r0, #0xd]
-	bl RefreshFogAndUnitMaps
+	bl RefreshEntityBmMaps
 	bl SMS_UpdateFromGameData
-	bl UpdateGameTilesGraphics
+	bl RenderBmMap
 	cmp r4, #1
 	bne _0800BAEE
 	movs r0, #1
@@ -265,15 +265,15 @@ TriggerMapChanges: @ 0x0800BAF8
 	asrs r5, r0, #0x18
 	cmp r5, #1
 	bne _0800BB1C
-	bl sub_8019CBC
+	bl RenderBmMapOnBg2
 _0800BB1C:
 	adds r0, r4, #0
 	bl ApplyMapChangesById
 	adds r0, r4, #0
 	bl AddMapChange
-	bl FlushTerrainData
+	bl RefreshTerrainBmMap
 	bl sub_802E690
-	bl UpdateGameTilesGraphics
+	bl RenderBmMap
 	cmp r5, #1
 	bne _0800BB40
 	movs r0, #1
@@ -302,15 +302,15 @@ sub_800BB48: @ 0x0800BB48
 	asrs r5, r0, #0x18
 	cmp r5, #1
 	bne _0800BB6E
-	bl sub_8019CBC
+	bl RenderBmMapOnBg2
 _0800BB6E:
 	adds r0, r4, #0
-	bl RevertMapChangesById
+	bl RevertMapChange
 	adds r0, r4, #0
 	bl UntriggerMapChange
-	bl FlushTerrainData
+	bl RefreshTerrainBmMap
 	bl sub_802E690
-	bl UpdateGameTilesGraphics
+	bl RenderBmMap
 	cmp r5, #1
 	bne _0800BB92
 	movs r0, #1
