@@ -211,13 +211,13 @@ void BmMapFillEdges(u8** map, u8 value) {
 
     // Set tile values for horizontal edges
     for (iy = 0; iy < gBmMapSize.y; ++iy) {
-        theMap[iy][0]                  = value;
+        theMap[iy][0]              = value;
         theMap[iy][gBmMapSize.x-1] = value;
     }
 
     // Set tile values for vertical edges
     for (ix = 0; ix < gBmMapSize.x; ++ix) {
-        theMap[0]                  [ix] = value;
+        theMap[0]             [ix] = value;
         theMap[gBmMapSize.y-1][ix] = value;
     }
 }
@@ -228,7 +228,7 @@ void UnpackChapterMap(void* into, int chapterId) {
         GetChapterMapPointer(chapterId), into);
 
     // Setting map size
-    gBmMapSize.x  = ((u8*)(into))[0];
+    gBmMapSize.x = ((u8*)(into))[0];
     gBmMapSize.y = ((u8*)(into))[1];
 
     // Decompress tileset config
@@ -236,7 +236,7 @@ void UnpackChapterMap(void* into, int chapterId) {
         gChapterDataAssetTable[GetROMChapterStruct(chapterId)->mapTileConfigId], sTilesetConfig);
 
     // Setting max camera offsets (?) TODO: figure out
-    gUnknown_0202BCB0.unk28.x = gBmMapSize.x*16  - 240;
+    gUnknown_0202BCB0.unk28.x = gBmMapSize.x*16 - 240;
     gUnknown_0202BCB0.unk28.y = gBmMapSize.y*16 - 160;
 }
 
