@@ -10,6 +10,7 @@
 #include "hardware.h"
 #include "bmio.h"
 #include "bmunit.h"
+#include "bmmap.h"
 #include "bmbattle.h"
 
 #include "mu.h"

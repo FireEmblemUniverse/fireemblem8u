@@ -5,6 +5,7 @@
 #include "mu.h"
 #include "bmio.h"
 #include "bmunit.h"
+#include "bmmap.h"
 
 #include "event.h"
 

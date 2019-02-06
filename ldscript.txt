@@ -58,7 +58,7 @@ SECTIONS
         src/bmitem.o(.text);
         src/bmunit.o(.text);
         src/bmmap.o(.text);
-        asm/bmmap.o(.text);
+        src/bmidoten.o(.text);
         asm/bmidoten.o(.text);
         asm/bmdebug.o(.text);
         asm/playerphase.o(.text);
@@ -227,7 +227,8 @@ SECTIONS
         . = ALIGN(4); src/messdecode.o(.data);
         . = ALIGN(4); data/data_591AB4.o(.data);
         . = ALIGN(4); src/bmunit.o(.data);
-        . = ALIGN(4); data/data_59A9D0.o(.data);
+        . = ALIGN(4); src/bmmap.o(.data);
+        . = ALIGN(4); data/data_59A9D8.o(.data);
         . = ALIGN(4); src/bmbattle.o(.data);
         . = ALIGN(4); data/data_59BADC.o(.data);
         . = ALIGN(4); src/bmio.o(.data);

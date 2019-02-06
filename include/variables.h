@@ -525,14 +525,6 @@ extern struct Struct0202BCF0 gUnknown_0202BCF0;
 // extern ??? gUnitArrayBlue
 // extern ??? gUnitArrayRed
 // extern ??? gUnitArrayGreen
-extern struct { short width, height; } gBmMapSize; // gMapSize
-extern u8** gBmMapUnit; // gMapUnit
-extern u8** gBmMapTerrain; // gMapTerrain
-extern u8** gBmMapMovement; // gMapMovement
-extern u8** gBmMapRange; // gMapRange
-extern u8** gBmMapFog; // gMapFog
-extern u8** gBmMapHidden; // gMapHidden
-extern u8** gBmMapUnk; // gMapOther
 // extern ??? gUnknown_02030B8C
 // extern ??? gUnknown_02033EFC
 // extern ??? gUnknown_02033F3C
@@ -2993,8 +2985,8 @@ extern const s8 gUnknown_0880BB96[]; // Unit drop movement cost table
 extern const s8 gUnknown_0880BC18[]; // Ballista mov cost table
 // extern ??? gUnknown_0880C479
 // extern ??? gUnknown_0880C4BA
-// extern ??? gUnknown_0880C744
-// extern ??? gUnknown_0880C785
+extern const s8 gUnknown_0880C744[]; // terrainid-to-healamount lookup
+extern const s8 gUnknown_0880C785[]; // terrainid-to-something lookup
 // extern ??? gUnknown_0880C7C6
 // extern ??? gUnknown_0880C807
 // extern ??? gUnknown_0880C848
@@ -3037,7 +3029,7 @@ extern const s8 gUnknown_0880BC18[]; // Ballista mov cost table
 // extern ??? gUnknown_0880D1AD
 // extern ??? gUnknown_0880D1EE
 // extern ??? gUnknown_0880D22F
-// extern ??? gUnknown_0880D374
+extern const u16 gUnknown_0880D374[]; // terrainid-to-textid lookup
 // extern ??? gUnknown_088ACBC4
 extern const u8 gUnknown_088ADEF1[]; // Some bow effectiveness list
 extern const u8 gUnknown_088ADF2A[]; // Some bow effectiveness list

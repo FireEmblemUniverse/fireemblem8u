@@ -7,95 +7,50 @@
 #include "proc.h"
 #include "event.h"
 #include "bmunit.h"
+#include "bmmap.h"
 
-void InitChapterMap(int chapterId);
-void sub_80195BC(int chapterId);
-void sub_8019624(void);
-void sub_8019778(void);
-void SetupMapRowPointers(void* buffer, u8*** outHandle, int width, int height);
-void ClearMapWith(u8** map, int value);
-void sub_8019840(u8** map, u8 value);
-void LoadChapterMap(void* into, int chapterId);
-void LoadChapterMapGfx(int chapterId);
-void sub_8019974(void);
-void FlushTilesFromBuffer(void);
-void FlushTerrainData(void);
-int GetSomeTerrainToChangeAtSomePosition(int x, int y);
-void UpdateGameTileGfx(u16* bg, int xOut, int yOut, int xMap, int yMap);
-void nullsub_8(void);
-void sub_8019B8C(u16* out, int xMap, int yMap, int xOut, int yOut);
-void UpdateGameTilesGraphics(void);
-void sub_8019CBC(void);
-void sub_8019D28(void);
-void sub_8019E08(u16 unk);
-void sub_8019ED4(u16 unk);
-void UpdateUnitMapAndVision(void);
-void UpdateTrapFogVision(void);
-void UpdateTrapHiddenStates(void);
-void RefreshFogAndUnitMaps(void);
-char* GetTerrainNameString(int terrainId);
-int GetTerrainHealAmount(int terrainId);
-// ??? GetTerrainSomething(???);
-// ??? sub_801A278(???);
-// ??? RevertMapChangesById(???);
-// ??? FillMovementMapForUnit(???);
-// ??? FillMovementMapForUnitAndMovement(???);
-// ??? FillMovementMapForUnitPosition(???);
-// ??? FillMovementRangeMapSomehow(???);
-void FillMovementMapSomehow(int x, int y, const s8* movCostLookup);
-// ??? FillMovementMapForUnitAt(???);
-// ??? StoreMovCostTable(???);
-// ??? FillMovementMap(???);
-// ??? sub_801A570(???);
-// ??? sub_801A640(???);
-// ??? sub_801A7F4(???);
-// ??? sub_801A82C(???);
-// ??? sub_801A8E4(???);
-// ??? sub_801A9D0(???);
-// ??? MapAddInRange(???);
-// ??? StoreR3ToMapSomething(???);
-// ??? FillMapAttackRangeForUnit(???);
-// ??? FillRangeByRangeMask(???);
-// ??? FillMapStaffRangeForUnit(???);
-// ??? ApplyStuffToRangeMaps(???);
+enum { MAP_POOL_SIZE = 0x7B8 };
 
-extern u8 gUnknown_02001000[];
+// TODO: figure out what's up with this
+extern u16 gUnknown_02001000[];
 
-extern u8 gBmMapUnitPool[];
-extern u8 gBmMapTerrainPool[];
-extern u8 gBmMapMovementPool[];
-extern u8 gBmMapRangePool[];
-extern u8 gBmMapFogPool[];
-extern u8 gBmMapHiddenPool[];
-extern u8 gBmMapUnkPool[];
+EWRAM_DATA struct Vec2 gBmMapSize = {};
 
-extern u8* gUnknown_0859A9D0;
-extern u16** gUnknown_0859A9D4; // reee y no const
+EWRAM_DATA u8** gBmMapUnit     = NULL;
+EWRAM_DATA u8** gBmMapTerrain  = NULL;
+EWRAM_DATA u8** gBmMapMovement = NULL;
+EWRAM_DATA u8** gBmMapRange    = NULL;
+EWRAM_DATA u8** gBmMapFog      = NULL;
+EWRAM_DATA u8** gBmMapHidden   = NULL;
+EWRAM_DATA u8** gBmMapUnk      = NULL;
 
-extern u8** gUnknown_03000808;
+EWRAM_DATA static u8 gBmMapUnitPool[MAP_POOL_SIZE] = {};
+EWRAM_DATA static u8 gBmMapTerrainPool[MAP_POOL_SIZE] = {};
+EWRAM_DATA static u8 gBmMapFogPool[MAP_POOL_SIZE] = {};
+EWRAM_DATA static u8 gBmMapHiddenPool[MAP_POOL_SIZE] = {};
+EWRAM_DATA static u8 gBmMapUnkPool[MAP_POOL_SIZE] = {};
+EWRAM_DATA static u16 gUnknown_02030B8C[0x1200] = {};
+EWRAM_DATA static u16 sRawTilePool[MAP_POOL_SIZE] = {};
 
-extern u16 gUnknown_02030B8C[];
+static u8** gUnknown_03000808;
 
-// terrainid-to-textid lookup
-extern const u16 gUnknown_0880D374[];
+static u8 gBmMapMovementPool[MAP_POOL_SIZE];
+static u8 gBmMapRangePool[MAP_POOL_SIZE];
 
-// terrainid-to-healamount lookup
-extern const s8 gUnknown_0880C744[];
-
-// terrainid-to-something lookup
-extern const s8 gUnknown_0880C785[];
+u8*   gUnknown_0859A9D0 = (u8*)(gUnknown_02030B8C + 0x1000);
+u16** gUnknown_0859A9D4 = (u16**)(sRawTilePool);
 
 void InitChapterMap(int chapterId) {
 	LoadChapterMap(gUnknown_02001000, chapterId);
 	LoadChapterMapGfx(chapterId);
 
-	SetupMapRowPointers(gBmMapUnitPool,     &gBmMapUnit,     gBmMapSize.width, gBmMapSize.height);
-	SetupMapRowPointers(gBmMapTerrainPool,  &gBmMapTerrain,  gBmMapSize.width, gBmMapSize.height);
-	SetupMapRowPointers(gBmMapMovementPool, &gBmMapMovement, gBmMapSize.width, gBmMapSize.height);
-	SetupMapRowPointers(gBmMapRangePool,    &gBmMapRange,    gBmMapSize.width, gBmMapSize.height);
-	SetupMapRowPointers(gBmMapFogPool,      &gBmMapFog,      gBmMapSize.width, gBmMapSize.height);
-	SetupMapRowPointers(gBmMapHiddenPool,   &gBmMapHidden,   gBmMapSize.width, gBmMapSize.height);
-	SetupMapRowPointers(gBmMapUnkPool, &gBmMapUnk, gBmMapSize.width, gBmMapSize.height);
+	SetupMapRowPointers(gBmMapUnitPool,     &gBmMapUnit,     gBmMapSize.x, gBmMapSize.y);
+	SetupMapRowPointers(gBmMapTerrainPool,  &gBmMapTerrain,  gBmMapSize.x, gBmMapSize.y);
+	SetupMapRowPointers(gBmMapMovementPool, &gBmMapMovement, gBmMapSize.x, gBmMapSize.y);
+	SetupMapRowPointers(gBmMapRangePool,    &gBmMapRange,    gBmMapSize.x, gBmMapSize.y);
+	SetupMapRowPointers(gBmMapFogPool,      &gBmMapFog,      gBmMapSize.x, gBmMapSize.y);
+	SetupMapRowPointers(gBmMapHiddenPool,   &gBmMapHidden,   gBmMapSize.x, gBmMapSize.y);
+	SetupMapRowPointers(gBmMapUnkPool, &gBmMapUnk, gBmMapSize.x, gBmMapSize.y);
 
 	ClearMapWith(gBmMapUnit, 0);
 	ClearMapWith(gBmMapTerrain, 0);
@@ -112,8 +67,8 @@ void InitChapterMap(int chapterId) {
 void sub_80195BC(int chapterId) {
 	LoadChapterMap(gUnknown_02001000, chapterId);
 
-	SetupMapRowPointers(gBmMapUnitPool, &gBmMapUnit, gBmMapSize.width, gBmMapSize.height);
-	SetupMapRowPointers(gBmMapTerrainPool, &gBmMapTerrain, gBmMapSize.width, gBmMapSize.height);
+	SetupMapRowPointers(gBmMapUnitPool,    &gBmMapUnit,    gBmMapSize.x, gBmMapSize.y);
+	SetupMapRowPointers(gBmMapTerrainPool, &gBmMapTerrain, gBmMapSize.x, gBmMapSize.y);
 
 	ClearMapWith(gBmMapUnit, 0);
 	ClearMapWith(gBmMapTerrain, 0);
@@ -127,8 +82,8 @@ void sub_8019624(void) {
 
 	// Automatic water shadows?
 
-	for (iy = 0; iy < gBmMapSize.height; ++iy) {
-		for (ix = 0; ix < gBmMapSize.width; ++ix) {
+	for (iy = 0; iy < gBmMapSize.y; ++iy) {
+		for (ix = 0; ix < gBmMapSize.x; ++ix) {
 			int connexion;
 
 			if (gBmMapTerrain[iy][ix] != TERRAIN_WATER)
@@ -202,22 +157,22 @@ void sub_8019778(void) {
 	sub_8019624();
 }
 
-void SetupMapRowPointers(void* buffer, u8*** outHandle, int width, int height) {
+void SetupMapRowPointers(void* buffer, u8*** outHandle, int x, int y) {
 	int i;
 	u8* itBuffer;
 
 	gUnknown_03000808 = buffer;
 
-	width  += 2; // two tiles on each edge (shared)
-	height += 4; // two tiles on each edge
+	x  += 2; // two tiles on each edge (shared)
+	y += 4; // two tiles on each edge
 
-	// itBuffer = start of tile area (the first height * sizeof(u8*) bytes are reserved for row pointers)
-	itBuffer = buffer + height * sizeof(u8*);
+	// itBuffer = start of tile area (the first y * sizeof(u8*) bytes are reserved for row pointers)
+	itBuffer = buffer + y * sizeof(u8*);
 
 	// Setting up the row pointers
-	for (i = 0; i < height; ++i) {
+	for (i = 0; i < y; ++i) {
 		gUnknown_03000808[i] = itBuffer;
-		itBuffer += width;
+		itBuffer += x;
 	}
 
 	// first row is actually the third, ensuring the top two map rows as safety
@@ -225,7 +180,7 @@ void SetupMapRowPointers(void* buffer, u8*** outHandle, int width, int height) {
 }
 
 void ClearMapWith(u8** map, int value) {
-	int size = (gBmMapSize.height + 4) * (gBmMapSize.width + 2);
+	int size = (gBmMapSize.y + 4) * (gBmMapSize.x + 2);
 
 	if (size % 2)
 		size = size - 1;
@@ -244,15 +199,15 @@ void sub_8019840(u8** map, u8 value) {
 	u8** theMap = map;
 
 	// Set tile values for horizontal edges
-	for (iy = 0; iy < gBmMapSize.height; ++iy) {
+	for (iy = 0; iy < gBmMapSize.y; ++iy) {
 		theMap[iy][0]                  = value;
-		theMap[iy][gBmMapSize.width-1] = value;
+		theMap[iy][gBmMapSize.x-1] = value;
 	}
 
 	// Set tile values for vertical edges
-	for (ix = 0; ix < gBmMapSize.width; ++ix) {
+	for (ix = 0; ix < gBmMapSize.x; ++ix) {
 		theMap[0]                  [ix] = value;
-		theMap[gBmMapSize.height-1][ix] = value;
+		theMap[gBmMapSize.y-1][ix] = value;
 	}
 }
 
@@ -262,16 +217,16 @@ void LoadChapterMap(void* into, int chapterId) {
 		GetChapterMapPointer(chapterId), into);
 
 	// Setting map size
-	gBmMapSize.width  = ((u8*)(into))[0];
-	gBmMapSize.height = ((u8*)(into))[1];
+	gBmMapSize.x  = ((u8*)(into))[0];
+	gBmMapSize.y = ((u8*)(into))[1];
 
 	// Decompress tileset config
 	CopyDataWithPossibleUncomp(
 		gChapterDataAssetTable[GetROMChapterStruct(chapterId)->mapTileConfigId], gUnknown_02030B8C);
 
 	// Setting max camera offsets (?) TODO: figure out
-	gUnknown_0202BCB0.unk28.x = gBmMapSize.width*16  - 240;
-	gUnknown_0202BCB0.unk28.y = gBmMapSize.height*16 - 160;
+	gUnknown_0202BCB0.unk28.x = gBmMapSize.x*16  - 240;
+	gUnknown_0202BCB0.unk28.y = gBmMapSize.y*16 - 160;
 }
 
 void LoadChapterMapGfx(int chapterId) {
@@ -308,40 +263,40 @@ void FlushTilesFromBuffer(void) {
 	rows  = gUnknown_0859A9D4;
 	tiles = (u16*)(gUnknown_02001000);
 
-	gBmMapSize.height++; // ?
+	gBmMapSize.y++; // ?
 
-	// Ignore first short (width, height byte pair)
+	// Ignore first short (x, y byte pair)
 	tiles++;
 
 	// Tile buffer starts after the rows
-	itBuffer = (u16*)(gUnknown_0859A9D4 + gBmMapSize.height);
+	itBuffer = (u16*)(gUnknown_0859A9D4 + gBmMapSize.y);
 
-	for (iy = 0; iy < gBmMapSize.height; ++iy) {
+	for (iy = 0; iy < gBmMapSize.y; ++iy) {
 		// Set row buffer
 		rows[iy] = itBuffer;
-		itBuffer += gBmMapSize.width;
+		itBuffer += gBmMapSize.x;
 
 		// Set tiles
-		for (ix = 0; ix < gBmMapSize.width; ++ix)
+		for (ix = 0; ix < gBmMapSize.x; ++ix)
 			gUnknown_0859A9D4[iy][ix] = *tiles++;
 	}
 
 	// Fill "bottom" row with empty tiles?
-	// "bottom" as the height had been increased too this is just weird
+	// "bottom" as the y had been increased too this is just weird
 
 	tiles = gUnknown_0859A9D4[iy - 1];
 
-	for (ix = 0; ix < gBmMapSize.width; ++ix)
+	for (ix = 0; ix < gBmMapSize.x; ++ix)
 		*tiles++ = 0;
 
-	gBmMapSize.height--; // ?
+	gBmMapSize.y--; // ?
 }
 
 void FlushTerrainData(void) {
 	int ix, iy;
 
-	for (iy = 0; iy < gBmMapSize.height; ++iy)
-		for (ix = 0; ix < gBmMapSize.width; ++ix)
+	for (iy = 0; iy < gBmMapSize.y; ++iy)
+		for (ix = 0; ix < gBmMapSize.x; ++ix)
 			gBmMapTerrain[iy][ix] = gUnknown_0859A9D0[gUnknown_0859A9D4[iy][ix] >> 2];
 
 	UpdateAllLightRunes();
@@ -714,4 +669,21 @@ void sub_801A278(void) {
 	// TODO: macro?
 	gPaletteBuffer[0] = 0;
 	EnablePaletteSync();
+}
+
+void RevertMapChangesById(int id) {
+	struct MapChange* mapChange;
+	u8 ix, iy;
+
+	CopyDataWithPossibleUncomp(GetChapterMapPointer(gUnknown_0202BCF0.chapterIndex), gUnknown_02001000);
+
+	mapChange = GetMapChangesPointerById(id);
+
+	for (iy = mapChange->yOrigin; iy < (mapChange->yOrigin + mapChange->ySize); ++iy) {
+		u16* itSource = (iy * gBmMapSize.x) + mapChange->xOrigin + (gUnknown_02001000 + 1);
+		u16* itDest   = gUnknown_0859A9D4[iy] + mapChange->xOrigin;
+
+		for (ix = mapChange->xOrigin; ix < (mapChange->xOrigin + mapChange->xSize); ++ix)
+			*itDest++ = *itSource++;
+	}
 }

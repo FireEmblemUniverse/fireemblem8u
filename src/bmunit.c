@@ -8,6 +8,7 @@
 
 #include "bmitem.h"
 #include "bmunit.h"
+#include "bmmap.h"
 #include "bmbattle.h"
 
 EWRAM_DATA u8 gActiveUnitId = 0;
@@ -1008,8 +1009,8 @@ void UnitGetDeathDropLocation(struct Unit* unit, int* xOut, int* yOut) {
     // Remove the actor unit from the unit map (why?)
     gBmMapUnit[unit->yPos][unit->xPos] = 0;
 
-    for (iy = gBmMapSize.height - 1; iy >= 0; --iy) {
-        for (ix = gBmMapSize.width - 1; ix >= 0; --ix) {
+    for (iy = gBmMapSize.y - 1; iy >= 0; --iy) {
+        for (ix = gBmMapSize.x - 1; ix >= 0; --ix) {
             int distance;
 
             if (gBmMapMovement[iy][ix] > MAP_MOVEMENT_MAX)

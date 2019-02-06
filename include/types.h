@@ -492,6 +492,14 @@ enum {
     GMAP_STATE_BIT7 = (1 << 7),
 };
 
+struct MapChange {
+	/* 00 */ u8 id;
+	/* 01 */ u8 xOrigin;
+	/* 02 */ u8 yOrigin;
+	/* 03 */ u8 xSize;
+	/* 04 */ u8 ySize;
+};
+
 enum {
     SAVE_BLOCK_SAVE_BASE      = 0,
     SAVE_BLOCK_SAVE1          = SAVE_BLOCK_SAVE_BASE + 0,

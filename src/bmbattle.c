@@ -7,6 +7,7 @@
 #include "rng.h"
 #include "bmitem.h"
 #include "bmunit.h"
+#include "bmmap.h"
 #include "chapterdata.h"
 #include "m4a.h"
 #include "soundwrapper.h"
