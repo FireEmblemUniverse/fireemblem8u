@@ -72,6 +72,8 @@ enum {
     TERRAIN_DECK       = 0x3E,
     TERRAIN_BRACE      = 0x3F,
     TERRAIN_MAST       = 0x40,
+
+    TERRAIN_COUNT      = 0x41,
 };
 
 #endif // GUARD_CONSTANTS_TERRAINS_H

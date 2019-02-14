@@ -39,7 +39,7 @@ void CallARM_DecompText(const char *, char *);
 void CallARM_PushToSecondaryOAM(int a, int b, const u16 *c, int d);
 void CallARM_PushToPrimaryOAM(int x, int y, const u16* data, int oam2base);
 // ??? CallARM_Func5(???);
-// ??? CallARM_FillMovementMap(???);
+void CallARM_FillMovementMap(void);
 // ??? ResetIconGraphics_(???);
 // ??? ResetIconGraphics(???);
 // ??? LoadIconPalettes(???);

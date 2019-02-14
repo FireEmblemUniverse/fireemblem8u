@@ -515,8 +515,13 @@ enum {
 // TODO: move to bmcontainer.h
 enum { CONVOY_ITEM_COUNT = 100 };
 
-// TODO: move to bmmap.h
-enum { MAP_MOVEMENT_MAX = 120 };
+enum {
+    // TODO: move to bmmap.h
+    // TODO: figure out
+
+    MAP_MOVEMENT_MAX = 120,
+    MAP_MOVEMENT_MAX_124 = 124,
+};
 
 enum {
     HIDDEN_BIT_UNIT = (1 << 0),
