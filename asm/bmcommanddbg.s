@@ -169,7 +169,7 @@ CanUnitUseAttack: @ 0x08034428
 	bl BmMapFill
 	ldr r4, _08034464  @ gActiveUnit
 	ldr r0, [r4]
-	bl FillMapAttackRangeForUnit
+	bl GenerateUnitCompleteAttackRange
 	ldr r1, _08034468  @ gUnknown_02033F3C
 	ldr r0, [r4]
 	str r0, [r1]
@@ -264,7 +264,7 @@ sub_80344E8: @ 0x080344E8
 	subs r1, r1, r2
 	lsls r1, r1, #0x18
 	asrs r1, r1, #0x18
-	bl FillMovementMapForUnitAndMovement
+	bl GenerateUnitMovementMapExt
 	bl GetUnitCommandUseFlags
 	pop {r1}
 	bx r1
@@ -325,7 +325,7 @@ _0803456A:
 	beq _0803458C
 	adds r0, r4, #0
 	adds r1, r7, #0
-	bl FillRangeByRangeMask
+	bl GenerateUnitStandingReachRange
 	ldrb r0, [r4, #0x10]
 	strb r0, [r6, #0x13]
 	ldrb r0, [r4, #0x11]

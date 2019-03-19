@@ -74,7 +74,7 @@ FillWarpRangeMap: @ 0x0801E34C
 	movs r1, #0
 	bl BmMapFill
 	ldr r0, [r6]
-	bl SetSubjectMap
+	bl SetWorkingBmMap
 	mov r0, r8
 	movs r4, #0x10
 	ldrsb r4, [r0, r4]
@@ -88,7 +88,7 @@ FillWarpRangeMap: @ 0x0801E34C
 	adds r0, r4, #0
 	adds r1, r5, #0
 	movs r2, #1
-	bl FillRangeMap
+	bl MapAddInBoundedRange
 	ldr r0, _0801E420  @ gUnknown_0202BCF0
 	ldrb r0, [r0, #0xd]
 	cmp r0, #0

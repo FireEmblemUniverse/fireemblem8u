@@ -151,7 +151,7 @@ GetRescueStaffeePosition: @ 0x0802ECD0
 	ldr r0, _0802ED94  @ 0x0000270F
 	str r0, [sp, #4]
 	adds r0, r7, #0
-	bl FillMovementMapForUnitPosition
+	bl GenerateUnitExtendedMovementMap
 	movs r0, #0x11
 	ldrsb r0, [r7, r0]
 	ldr r1, _0802ED98  @ gBmMapUnit
@@ -276,7 +276,7 @@ _0802EDDC:
 	movs r1, #0x11
 	ldrsb r1, [r7, r1]
 	ldr r2, _0802EEE0  @ gUnknown_0880BB96
-	bl FillMovementMapSomehow
+	bl GenerateExtendedMovementMap
 	movs r0, #0x11
 	ldrsb r0, [r7, r0]
 	ldr r1, _0802EEE4  @ gBmMapUnit

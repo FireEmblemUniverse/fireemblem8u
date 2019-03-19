@@ -525,7 +525,7 @@ extern struct Struct0202BCF0 gUnknown_0202BCF0;
 // extern ??? gUnitArrayRed
 // extern ??? gUnitArrayGreen
 // extern ??? gUnknown_02030B8C
-extern u8 gUnknown_02033EFC[];
+extern u8 gWorkingMovementScript[];
 // extern ??? gUnknown_02033F3C
 // extern ??? gUnknown_02033F40
 // extern ??? gUnknown_02034010

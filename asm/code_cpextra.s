@@ -80,8 +80,8 @@ sub_803A788: @ 0x0803A788
 	adds r2, r0, #0
 	adds r0, r4, #0
 	adds r1, r5, #0
-	bl FillMovementRangeMapSomehow
-	bl sub_801A9D0
+	bl GenerateExtendedMovementMapOnRange
+	bl MarkWorkingMapEdges
 	ldr r0, _0803A828  @ 0x0000FFFF
 	strh r0, [r6]
 	movs r5, #1
@@ -202,7 +202,7 @@ sub_803A878: @ 0x0803A878
 	adds r2, r0, #0
 	adds r0, r4, #0
 	adds r1, r5, #0
-	bl FillMovementRangeMapSomehow
+	bl GenerateExtendedMovementMapOnRange
 	ldr r0, _0803A90C  @ 0x0000FFFF
 	strh r0, [r6]
 	movs r4, #1
@@ -294,7 +294,7 @@ sub_803A924: @ 0x0803A924
 	adds r2, r0, #0
 	adds r0, r4, #0
 	adds r1, r5, #0
-	bl FillMovementRangeMapSomehow
+	bl GenerateExtendedMovementMapOnRange
 	ldr r2, _0803A968  @ 0x0000FFFF
 	str r2, [sp, #0xc]
 	ldr r0, _0803A96C  @ gBmMapSize
@@ -566,7 +566,7 @@ sub_803AB5C: @ 0x0803AB5C
 	mov r9, r0
 	ldr r0, _0803AB80  @ gActiveUnit
 	ldr r0, [r0]
-	bl FillMovementMapForUnit
+	bl GenerateUnitMovementMap
 	ldr r3, _0803AB84  @ 0x0000FFFF
 	ldr r0, _0803AB88  @ gBmMapSize
 	ldrh r0, [r0, #2]
@@ -1901,7 +1901,7 @@ FillMovementAndRangeMapForItem: @ 0x0803B558
 	lsls r1, r1, #0x10
 	lsrs r1, r1, #0x10
 	mov r9, r1
-	bl FillMovementMapForUnit
+	bl GenerateUnitMovementMap
 	ldr r0, _0803B5EC  @ gBmMapRange
 	ldr r0, [r0]
 	movs r1, #0
@@ -1949,7 +1949,7 @@ _0803B596:
 	mov r2, r8
 	asrs r1, r2, #0x10
 	adds r2, r4, #0
-	bl FillRangeMap
+	bl MapAddInBoundedRange
 _0803B5D0:
 	subs r6, #1
 	cmp r6, #0
@@ -1986,7 +1986,7 @@ _0803B60E:
 	movs r7, #0x14
 _0803B610:
 	adds r0, r4, #0
-	bl FillMovementMapForUnit
+	bl GenerateUnitMovementMap
 	ldr r0, _0803B66C  @ gBmMapRange
 	ldr r0, [r0]
 	movs r1, #0
@@ -2047,7 +2047,7 @@ sub_803B678: @ 0x0803B678
 	lsls r1, r1, #0x10
 	lsrs r1, r1, #0x10
 	mov r9, r1
-	bl FillMovementMapForUnit
+	bl GenerateUnitMovementMap
 	ldr r0, _0803B70C  @ gBmMapRange
 	ldr r0, [r0]
 	movs r1, #0
@@ -2095,7 +2095,7 @@ _0803B6B6:
 	mov r2, r8
 	asrs r1, r2, #0x10
 	adds r2, r4, #0
-	bl FillRangeMap
+	bl MapAddInBoundedRange
 _0803B6F0:
 	subs r6, #1
 	cmp r6, #0
@@ -2291,7 +2291,7 @@ _0803B84C: .4byte gUnknown_0203AA04
 _0803B850: .4byte gBmMapMovement
 _0803B854:
 	adds r0, r5, #0
-	bl FillMovementMapForUnit
+	bl GenerateUnitMovementMap
 _0803B85A:
 	ldr r1, _0803B8D8  @ gBmMapSize
 	movs r2, #2
@@ -2387,10 +2387,10 @@ sub_803B8FC: @ 0x0803B8FC
 	ldr r5, _0803B97C  @ gActiveUnit
 	ldr r0, [r5]
 	bl GetUnitMovementCost
-	bl StoreMovCostTable
+	bl SetWorkingMoveCosts
 	ldr r0, _0803B980  @ gBmMapRange
 	ldr r0, [r0]
-	bl SetSubjectMap
+	bl SetWorkingBmMap
 	ldr r2, [r5]
 	movs r0, #0x10
 	ldrsb r0, [r2, r0]
@@ -2399,7 +2399,7 @@ sub_803B8FC: @ 0x0803B8FC
 	movs r3, #0xb
 	ldrsb r3, [r2, r3]
 	movs r2, #0x7c
-	bl FillMovementMap
+	bl GenerateMovementMap
 	adds r0, r4, #0
 	bl sub_803B994
 	lsls r0, r0, #0x18
@@ -2426,7 +2426,7 @@ _0803B93C:
 	adds r2, r0, #0
 	adds r0, r4, #0
 	adds r1, r5, #0
-	bl FillMovementRangeMapSomehow
+	bl GenerateExtendedMovementMapOnRange
 	adds r0, r6, #0
 	movs r1, #0
 	adds r2, r7, #0
@@ -2573,7 +2573,7 @@ _0803BA68:
 	adds r2, r0, #0
 	adds r0, r5, #0
 	adds r1, r4, #0
-	bl FillMovementRangeMapSomehow
+	bl GenerateExtendedMovementMapOnRange
 	b _0803BA9C
 	.align 2, 0
 _0803BA88: .4byte gActiveUnit
@@ -2588,7 +2588,7 @@ _0803BA8C:
 _0803BA9C:
 	ldr r4, _0803BACC  @ gActiveUnit
 	ldr r0, [r4]
-	bl FillMovementMapForUnit
+	bl GenerateUnitMovementMap
 	ldr r2, [r4]
 	movs r0, #0x11
 	ldrsb r0, [r2, r0]
@@ -2829,7 +2829,7 @@ _0803BC78:
 _0803BC88:
 	ldr r4, _0803BCB8  @ gActiveUnit
 	ldr r0, [r4]
-	bl FillMovementMapForUnit
+	bl GenerateUnitMovementMap
 	ldr r2, [r4]
 	movs r0, #0x11
 	ldrsb r0, [r2, r0]
@@ -3048,9 +3048,9 @@ _0803BE40:
 	adds r2, r0, #0
 	adds r0, r4, #0
 	adds r1, r5, #0
-	bl FillMovementRangeMapSomehow
+	bl GenerateExtendedMovementMapOnRange
 	ldr r0, [sp, #8]
-	bl FillMovementMapForUnitPosition
+	bl GenerateUnitExtendedMovementMap
 	movs r2, #0x7c
 	str r2, [sp]
 	ldr r0, _0803BE68  @ 0x0000FFFF
@@ -3538,7 +3538,7 @@ SaveNumberOfAlliedUnitsIn0To8Range: @ 0x0803C1B4
 	ldrsb r1, [r6, r1]
 	movs r2, #1
 	movs r3, #8
-	bl FillRangeMap
+	bl MapAddInBoundedRange
 	ldr r0, _0803C250  @ gBmMapSize
 	movs r1, #2
 	ldrsh r0, [r0, r1]
@@ -3920,13 +3920,13 @@ sub_803C490: @ 0x0803C490
 	beq _0803C4B0
 	adds r0, r2, #0
 	movs r1, #0
-	bl FillMovementMapForUnitAndMovement
+	bl GenerateUnitMovementMapExt
 	b _0803C4B6
 	.align 2, 0
 _0803C4AC: .4byte gUnknown_0203AA04
 _0803C4B0:
 	adds r0, r2, #0
-	bl FillMovementMapForUnit
+	bl GenerateUnitMovementMap
 _0803C4B6:
 	pop {r0}
 	bx r0
@@ -5371,7 +5371,7 @@ sub_803CFB4: @ 0x0803CFB4
 	str r1, [sp, #0x14]
 	ldr r4, _0803D0F8  @ gActiveUnit
 	ldr r0, [r4]
-	bl FillMovementMapForUnit
+	bl GenerateUnitMovementMap
 	movs r2, #0
 	str r2, [sp, #8]
 	ldr r0, [r4]
@@ -5413,7 +5413,7 @@ _0803CFF2:
 	ldr r2, [sp, #0x1c]
 	asrs r1, r2, #0x10
 	adds r2, r4, #0
-	bl FillRangeMap
+	bl MapAddInBoundedRange
 	ldr r0, _0803D100  @ gBmMapSize
 	movs r1, #2
 	ldrsh r0, [r0, r1]
@@ -5769,7 +5769,7 @@ sub_803D2D8: @ 0x0803D2D8
 	adds r2, r0, #0
 	adds r0, r4, #0
 	adds r1, r5, #0
-	bl FillMovementRangeMapSomehow
+	bl GenerateExtendedMovementMapOnRange
 	ldr r6, _0803D32C  @ gUnknown_030017D0
 	ldr r0, [r6]
 	adds r0, #3
@@ -5830,7 +5830,7 @@ sub_803D354: @ 0x0803D354
 	adds r2, r0, #0
 	adds r0, r4, #0
 	adds r1, r5, #0
-	bl FillMovementRangeMapSomehow
+	bl GenerateExtendedMovementMapOnRange
 	ldr r6, _0803D3A8  @ gUnknown_030017D0
 	ldr r0, [r6]
 	ldr r0, [r0, #8]
@@ -6019,8 +6019,8 @@ _0803D4C4:
 	cmp r0, #4
 	bgt _0803D4FA
 	ldr r0, [r6]
-	bl FillMovementMapForUnit
-	bl sub_801A8E4
+	bl GenerateUnitMovementMap
+	bl MarkMovementMapEdges
 	bl sub_803DB60
 	lsls r0, r0, #0x18
 	asrs r0, r0, #0x18
@@ -6062,7 +6062,7 @@ _0803D538: .4byte gActiveUnit
 _0803D53C:
 	ldr r0, _0803D6AC  @ gActiveUnit
 	ldr r0, [r0]
-	bl FillMovementMapForUnit
+	bl GenerateUnitMovementMap
 _0803D544:
 	ldr r0, _0803D6AC  @ gActiveUnit
 	ldr r0, [r0]
@@ -6072,11 +6072,11 @@ _0803D544:
 	beq _0803D55A
 	movs r0, #1
 	negs r0, r0
-	bl sub_801B950
+	bl GenerateMagicSealMap
 _0803D55A:
 	ldr r0, _0803D6B0  @ gBmMapRange
 	ldr r0, [r0]
-	bl SetSubjectMap
+	bl SetWorkingBmMap
 	movs r1, #0
 	mov r8, r1
 	ldr r2, _0803D6AC  @ gActiveUnit
@@ -6299,7 +6299,7 @@ sub_803D6B8: @ 0x0803D6B8
 _0803D71E:
 	ldr r0, _0803D878  @ gBmMapRange
 	ldr r0, [r0]
-	bl SetSubjectMap
+	bl SetWorkingBmMap
 	movs r1, #0
 	mov r9, r1
 	ldr r1, [r6]
@@ -6500,7 +6500,7 @@ sub_803D880: @ 0x0803D880
 	adds r0, r6, #0
 	mov r1, r8
 	adds r2, r4, #0
-	bl FillRangeMap
+	bl MapAddInBoundedRange
 	pop {r3}
 	mov r8, r3
 	pop {r4, r5, r6}
@@ -6524,10 +6524,10 @@ sub_803D8D4: @ 0x0803D8D4
 	lsrs r2, r2, #0x10
 	mov sl, r2
 	bl GetUnitMovementCost
-	bl StoreMovCostTable
+	bl SetWorkingMoveCosts
 	ldr r0, _0803D98C  @ gBmMapMovement
 	ldr r0, [r0]
-	bl SetSubjectMap
+	bl SetWorkingBmMap
 	movs r0, #0x10
 	ldrsb r0, [r5, r0]
 	movs r1, #0x11
@@ -6535,7 +6535,7 @@ sub_803D8D4: @ 0x0803D8D4
 	movs r3, #0xb
 	ldrsb r3, [r5, r3]
 	adds r2, r4, #0
-	bl FillMovementMap
+	bl GenerateMovementMap
 	ldr r0, _0803D990  @ gBmMapRange
 	ldr r0, [r0]
 	movs r1, #0
@@ -6583,7 +6583,7 @@ _0803D938:
 	mov r2, r8
 	asrs r1, r2, #0x10
 	adds r2, r4, #0
-	bl FillRangeMap
+	bl MapAddInBoundedRange
 _0803D972:
 	subs r6, #1
 	cmp r6, #0
@@ -8070,7 +8070,7 @@ _0803E49E:
 _0803E4B0:
 	adds r0, r2, #0
 	movs r1, #0x7c
-	bl FillMovementMapForUnitAndMovement
+	bl GenerateUnitMovementMapExt
 	ldr r0, _0803E53C  @ gBmMapSize
 	movs r2, #2
 	ldrsh r0, [r0, r2]
@@ -8476,7 +8476,7 @@ sub_803E7D0: @ 0x0803E7D0
 	ldr r6, _0803E840  @ gActiveUnit
 	ldr r0, [r6]
 	movs r1, #0x7c
-	bl FillMovementMapForUnitAndMovement
+	bl GenerateUnitMovementMapExt
 	bl GetEscapePointStructThingMaybe
 	adds r4, r0, #0
 	cmp r4, #0
@@ -8855,7 +8855,7 @@ _0803EA86:
 	cmp r0, #0
 	beq _0803EB70
 	adds r0, r5, #0
-	bl FillMovementMapForUnit
+	bl GenerateUnitMovementMap
 	ldr r4, _0803EB9C  @ gBmMapMovement
 	ldr r1, [r4]
 	ldr r2, [sp, #8]
@@ -9447,7 +9447,7 @@ _0803EF08:
 	adds r0, r6, #0
 	adds r1, r5, #0
 	adds r2, r4, #0
-	bl FillRangeMap
+	bl MapAddInBoundedRange
 	ldr r0, _0803EFD4  @ gBmMapSize
 	movs r3, #2
 	ldrsh r0, [r0, r3]
@@ -9644,10 +9644,10 @@ _0803F0BC:
 	ldr r4, _0803F14C  @ gActiveUnit
 	ldr r0, [r4]
 	bl GetUnitMovementCost
-	bl StoreMovCostTable
+	bl SetWorkingMoveCosts
 	ldr r0, _0803F150  @ gBmMapRange
 	ldr r0, [r0]
-	bl SetSubjectMap
+	bl SetWorkingBmMap
 	ldr r1, [r4]
 	movs r0, #0x10
 	ldrsb r0, [r1, r0]
@@ -9656,7 +9656,7 @@ _0803F0BC:
 	asrs r1, r1, #0x18
 	adds r2, r5, #0
 	movs r3, #0
-	bl FillMovementMap
+	bl GenerateMovementMap
 	ldr r0, _0803F154  @ gBmMapSize
 	movs r1, #2
 	ldrsh r0, [r0, r1]
@@ -9803,10 +9803,10 @@ _0803F200:
 	ldr r5, _0803F2B0  @ gActiveUnit
 	ldr r0, [r5]
 	bl GetUnitMovementCost
-	bl StoreMovCostTable
+	bl SetWorkingMoveCosts
 	ldr r4, _0803F2B4  @ gBmMapRange
 	ldr r0, [r4]
-	bl SetSubjectMap
+	bl SetWorkingBmMap
 	ldr r1, [r5]
 	movs r0, #0x10
 	ldrsb r0, [r1, r0]
@@ -9815,7 +9815,7 @@ _0803F200:
 	asrs r1, r1, #0x18
 	ldr r2, [sp, #4]
 	movs r3, #0
-	bl FillMovementMap
+	bl GenerateMovementMap
 	ldr r1, [r4]
 	mov r2, r9
 	lsls r0, r2, #2
@@ -9832,7 +9832,7 @@ _0803F23A:
 	ldr r0, [r4]
 	strb r7, [r0, #0x11]
 	ldr r0, [r4]
-	bl FillMovementMapForUnit
+	bl GenerateUnitMovementMap
 	ldr r0, [r4]
 	bl UnitHasMagicRank
 	lsls r0, r0, #0x18
@@ -9840,7 +9840,7 @@ _0803F23A:
 	beq _0803F25E
 	movs r0, #1
 	negs r0, r0
-	bl sub_801B950
+	bl GenerateMagicSealMap
 _0803F25E:
 	ldr r1, _0803F2B8  @ gBmMapSize
 	movs r2, #2
@@ -10120,7 +10120,7 @@ _0803F464: .4byte gActiveUnit
 _0803F468: .4byte gUnknown_0203AA04
 _0803F46C:
 	ldr r0, [r4]
-	bl FillMovementMapForUnit
+	bl GenerateUnitMovementMap
 _0803F472:
 	add r4, sp, #4
 	adds r0, r4, #0
@@ -11088,8 +11088,8 @@ sub_803FBB8: @ 0x0803FBB8
 	ldr r0, [r0]
 	bl sub_803C490
 	ldr r0, [sp, #0x18]
-	bl sub_801B950
-	bl sub_801A8E4
+	bl GenerateMagicSealMap
+	bl MarkMovementMapEdges
 	ldr r0, _0803FD14  @ gUnknown_0203AA04
 	adds r1, r0, #0
 	adds r1, #0x7c
@@ -11280,7 +11280,7 @@ _0803FD62:
 	ldr r0, [r0]
 	bl sub_803C490
 	ldr r0, [sp, #0x18]
-	bl sub_801B950
+	bl GenerateMagicSealMap
 	adds r1, r4, #0
 	adds r1, #0x7c
 	ldrb r0, [r1]
@@ -11500,7 +11500,7 @@ sub_803FF00: @ 0x0803FF00
 	bl sub_803C490
 	movs r0, #1
 	negs r0, r0
-	bl sub_801B950
+	bl GenerateMagicSealMap
 	ldr r0, _0803FFF8  @ gBmMapSize
 	movs r1, #2
 	ldrsh r0, [r0, r1]
@@ -11634,8 +11634,8 @@ _0804003C:
 	bl sub_803C490
 	movs r0, #1
 	negs r0, r0
-	bl sub_801B950
-	bl sub_801A8E4
+	bl GenerateMagicSealMap
+	bl MarkMovementMapEdges
 	ldr r0, _08040158  @ gBmMapSize
 	movs r1, #2
 	ldrsh r0, [r0, r1]
@@ -11802,8 +11802,8 @@ sub_8040164: @ 0x08040164
 	bl sub_803C490
 	movs r0, #1
 	negs r0, r0
-	bl sub_801B950
-	bl sub_801A8E4
+	bl GenerateMagicSealMap
+	bl MarkMovementMapEdges
 	ldr r0, _0804029C  @ gBmMapSize
 	movs r1, #2
 	ldrsh r0, [r0, r1]
@@ -12054,7 +12054,7 @@ _08040384:
 	bl sub_803C490
 	movs r0, #1
 	negs r0, r0
-	bl sub_801B950
+	bl GenerateMagicSealMap
 	movs r4, #1
 	mov r9, r4
 _08040398:
@@ -12244,7 +12244,7 @@ _08040510:
 	bl sub_803C490
 	movs r0, #1
 	negs r0, r0
-	bl sub_801B950
+	bl GenerateMagicSealMap
 	movs r4, #1
 	mov r8, r4
 _08040524:
@@ -13444,10 +13444,10 @@ sub_8040E68: @ 0x08040E68
 	push {r4, lr}
 	adds r4, r0, #0
 	bl GetUnitMovementCost
-	bl StoreMovCostTable
+	bl SetWorkingMoveCosts
 	ldr r0, _08040E94  @ gBmMapMovement
 	ldr r0, [r0]
-	bl SetSubjectMap
+	bl SetWorkingBmMap
 	movs r0, #0x10
 	ldrsb r0, [r4, r0]
 	movs r1, #0x11
@@ -13455,7 +13455,7 @@ sub_8040E68: @ 0x08040E68
 	movs r3, #0xb
 	ldrsb r3, [r4, r3]
 	movs r2, #0x7c
-	bl FillMovementMap
+	bl GenerateMovementMap
 	pop {r4}
 	pop {r0}
 	bx r0
@@ -13467,10 +13467,10 @@ sub_8040E98: @ 0x08040E98
 	push {r4, lr}
 	adds r4, r0, #0
 	bl GetUnitMovementCost
-	bl StoreMovCostTable
+	bl SetWorkingMoveCosts
 	ldr r0, _08040EC4  @ gBmMapRange
 	ldr r0, [r0]
-	bl SetSubjectMap
+	bl SetWorkingBmMap
 	movs r0, #0x10
 	ldrsb r0, [r4, r0]
 	movs r1, #0x11
@@ -13478,7 +13478,7 @@ sub_8040E98: @ 0x08040E98
 	movs r3, #0xb
 	ldrsb r3, [r4, r3]
 	movs r2, #0x7c
-	bl FillMovementMap
+	bl GenerateMovementMap
 	pop {r4}
 	pop {r0}
 	bx r0
@@ -13493,7 +13493,7 @@ sub_8040EC8: @ 0x08040EC8
 	bl sub_8040DCC
 	ldr r0, _08040EF4  @ gBmMapMovement
 	ldr r0, [r0]
-	bl SetSubjectMap
+	bl SetWorkingBmMap
 	movs r0, #0x10
 	ldrsb r0, [r4, r0]
 	movs r1, #0x11
@@ -13501,7 +13501,7 @@ sub_8040EC8: @ 0x08040EC8
 	movs r3, #0xb
 	ldrsb r3, [r4, r3]
 	movs r2, #0x7c
-	bl FillMovementMap
+	bl GenerateMovementMap
 	pop {r4}
 	pop {r0}
 	bx r0
@@ -13516,14 +13516,14 @@ sub_8040EF8: @ 0x08040EF8
 	bl sub_8040DCC
 	ldr r0, _08040F24  @ gBmMapMovement
 	ldr r0, [r0]
-	bl SetSubjectMap
+	bl SetWorkingBmMap
 	movs r0, #0x10
 	ldrsb r0, [r4, r0]
 	movs r1, #0x11
 	ldrsb r1, [r4, r1]
 	movs r2, #0x7c
 	movs r3, #0
-	bl FillMovementMap
+	bl GenerateMovementMap
 	pop {r4}
 	pop {r0}
 	bx r0
@@ -13539,12 +13539,12 @@ sub_8040F28: @ 0x08040F28
 	bl sub_8040DCC
 	ldr r0, _08040F50  @ gBmMapRange
 	ldr r0, [r0]
-	bl SetSubjectMap
+	bl SetWorkingBmMap
 	adds r0, r4, #0
 	adds r1, r5, #0
 	movs r2, #0x7c
 	movs r3, #0
-	bl FillMovementMap
+	bl GenerateMovementMap
 	pop {r4, r5}
 	pop {r0}
 	bx r0
@@ -13562,13 +13562,13 @@ sub_8040F54: @ 0x08040F54
 	bl sub_8040DCC
 	ldr r0, _08040F84  @ gBmMapRange
 	ldr r0, [r0]
-	bl SetSubjectMap
+	bl SetWorkingBmMap
 	movs r3, #0xb
 	ldrsb r3, [r4, r3]
 	adds r0, r5, #0
 	adds r1, r6, #0
 	movs r2, #0x7c
-	bl FillMovementMap
+	bl GenerateMovementMap
 	pop {r4, r5, r6}
 	pop {r0}
 	bx r0
@@ -13584,7 +13584,7 @@ sub_8040F88: @ 0x08040F88
 	bl sub_8040E04
 	ldr r0, _08040FB8  @ gBmMapRange
 	ldr r0, [r0]
-	bl SetSubjectMap
+	bl SetWorkingBmMap
 	movs r0, #0x10
 	ldrsb r0, [r4, r0]
 	movs r1, #0x11
@@ -13592,7 +13592,7 @@ sub_8040F88: @ 0x08040F88
 	movs r3, #0xb
 	ldrsb r3, [r4, r3]
 	movs r2, #0x7c
-	bl FillMovementMap
+	bl GenerateMovementMap
 	pop {r4}
 	pop {r0}
 	bx r0
@@ -13608,14 +13608,14 @@ sub_8040FBC: @ 0x08040FBC
 	bl sub_8040E04
 	ldr r0, _08040FE8  @ gBmMapRange
 	ldr r0, [r0]
-	bl SetSubjectMap
+	bl SetWorkingBmMap
 	movs r0, #0x10
 	ldrsb r0, [r4, r0]
 	movs r1, #0x11
 	ldrsb r1, [r4, r1]
 	movs r2, #0x7c
 	movs r3, #0
-	bl FillMovementMap
+	bl GenerateMovementMap
 	pop {r4}
 	pop {r0}
 	bx r0
@@ -13632,7 +13632,7 @@ sub_8040FEC: @ 0x08040FEC
 	bl sub_8040E34
 	ldr r0, _0804101C  @ gBmMapRange
 	ldr r0, [r0]
-	bl SetSubjectMap
+	bl SetWorkingBmMap
 	movs r0, #0x10
 	ldrsb r0, [r4, r0]
 	movs r1, #0x11
@@ -13640,7 +13640,7 @@ sub_8040FEC: @ 0x08040FEC
 	movs r3, #0xb
 	ldrsb r3, [r4, r3]
 	movs r2, #0x7c
-	bl FillMovementMap
+	bl GenerateMovementMap
 	pop {r4}
 	pop {r0}
 	bx r0
@@ -13657,14 +13657,14 @@ sub_8041020: @ 0x08041020
 	bl sub_8040E34
 	ldr r0, _08041050  @ gBmMapRange
 	ldr r0, [r0]
-	bl SetSubjectMap
+	bl SetWorkingBmMap
 	movs r0, #0x10
 	ldrsb r0, [r4, r0]
 	movs r1, #0x11
 	ldrsb r1, [r4, r1]
 	movs r2, #0x7c
 	movs r3, #0
-	bl FillMovementMap
+	bl GenerateMovementMap
 	pop {r4}
 	pop {r0}
 	bx r0
@@ -13676,10 +13676,10 @@ sub_8041054: @ 0x08041054
 	push {r4, lr}
 	adds r4, r0, #0
 	bl GetUnitMovementCost
-	bl StoreMovCostTable
+	bl SetWorkingMoveCosts
 	ldr r0, _0804108C  @ gBmMapRange
 	ldr r0, [r0]
-	bl SetSubjectMap
+	bl SetWorkingBmMap
 	movs r0, #0x10
 	ldrsb r0, [r4, r0]
 	movs r1, #0x11
@@ -13693,7 +13693,7 @@ sub_8041054: @ 0x08041054
 	adds r2, r2, r3
 	movs r3, #0xb
 	ldrsb r3, [r4, r3]
-	bl FillMovementMap
+	bl GenerateMovementMap
 	pop {r4}
 	pop {r0}
 	bx r0
@@ -13739,16 +13739,16 @@ sub_80410C4: @ 0x080410C4
 	adds r4, r2, #0
 	adds r0, r4, #0
 	bl GetUnitMovementCost
-	bl StoreMovCostTable
+	bl SetWorkingMoveCosts
 	ldr r0, _080410F4  @ gBmMapRange
 	ldr r0, [r0]
-	bl SetSubjectMap
+	bl SetWorkingBmMap
 	movs r3, #0xb
 	ldrsb r3, [r4, r3]
 	adds r0, r5, #0
 	adds r1, r6, #0
 	movs r2, #0x7c
-	bl FillMovementMap
+	bl GenerateMovementMap
 	pop {r4, r5, r6}
 	pop {r0}
 	bx r0
@@ -13956,7 +13956,7 @@ _08041272:
 	bl sub_803C490
 	movs r0, #1
 	negs r0, r0
-	bl sub_801B950
+	bl GenerateMagicSealMap
 	ldr r0, _0804138C  @ gBmMapSize
 	movs r4, #2
 	ldrsh r0, [r0, r4]
@@ -14018,7 +14018,7 @@ _080412CE:
 	mov r2, sl
 	asrs r1, r2, #0x10
 	adds r2, r4, #0
-	bl FillRangeMap
+	bl MapAddInBoundedRange
 	mov r3, r9
 	ldrb r2, [r3, #2]
 	mov r0, sp
@@ -14207,7 +14207,7 @@ _08041444:
 	adds r0, r5, #0
 	adds r1, r6, #0
 	adds r2, r4, #0
-	bl FillRangeMap
+	bl MapAddInBoundedRange
 	add r1, sp, #4
 	mov r0, sp
 	movs r2, #0

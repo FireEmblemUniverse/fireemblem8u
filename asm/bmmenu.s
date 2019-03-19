@@ -861,7 +861,7 @@ DisplayUnitStandingAttackRange: @ 0x08022C30
 	ldrsb r1, [r2, r1]
 	movs r2, #1
 	movs r3, #0xa
-	bl FillRangeMap
+	bl MapAddInBoundedRange
 	b _08022C88
 	.align 2, 0
 _08022C6C: .4byte gBmMapMovement
@@ -873,7 +873,7 @@ _08022C78:
 	bl GetUnitWeaponReachBits
 	adds r1, r0, #0
 	ldr r0, [r4]
-	bl FillRangeByRangeMask
+	bl GenerateUnitStandingReachRange
 _08022C88:
 	movs r0, #3
 	bl DisplayMoveRangeGraphics
@@ -1021,7 +1021,7 @@ sub_8022D84: @ 0x08022D84
 	bl GetUnitWeaponReachBits
 	adds r1, r0, #0
 	ldr r0, [r4]
-	bl FillRangeByRangeMask
+	bl GenerateUnitStandingReachRange
 	movs r0, #2
 	bl DisplayMoveRangeGraphics
 	movs r0, #0
@@ -2561,7 +2561,7 @@ FillBallistaRange: @ 0x080239CC
 	movs r1, #0
 	bl BmMapFill
 	ldr r0, [r4]
-	bl SetSubjectMap
+	bl SetWorkingBmMap
 	ldr r4, _08023A50  @ gActiveUnit
 	ldr r1, [r4]
 	movs r0, #0x10
@@ -2592,7 +2592,7 @@ FillBallistaRange: @ 0x080239CC
 	adds r0, r6, #0
 	mov r1, r8
 	adds r2, r4, #0
-	bl FillRangeMap
+	bl MapAddInBoundedRange
 	movs r0, #2
 	bl DisplayMoveRangeGraphics
 	movs r0, #0
@@ -2740,7 +2740,7 @@ sub_8023B3C: @ 0x08023B3C
 	bl BmMapFill
 	ldr r0, [r5]
 	adds r1, r6, #0
-	bl FillRangeByRangeMask
+	bl GenerateUnitStandingReachRange
 	movs r0, #5
 	bl DisplayMoveRangeGraphics
 	movs r0, #0
@@ -2852,7 +2852,7 @@ StaffItemSelect_OnHover: @ 0x08023C14
 	bl BmMapFill
 	ldr r0, [r5]
 	adds r1, r6, #0
-	bl FillRangeByRangeMask
+	bl GenerateUnitStandingReachRange
 	movs r0, #4
 	bl DisplayMoveRangeGraphics
 	movs r0, #0

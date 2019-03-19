@@ -53,7 +53,7 @@ sub_80329EC: @ 0x080329EC
 	bgt _08032A84
 	adds r7, r3, #0
 _08032A2E:
-	bl GetCurrentMovCostTable
+	bl GetWorkingMoveCosts
 	ldr r3, [r7]
 	lsls r4, r5, #0x18
 	asrs r4, r4, #0x18
@@ -136,7 +136,7 @@ sub_8032A94: @ 0x08032A94
 	adds r0, #0x41
 	adds r0, r0, r1
 	strb r4, [r0]
-	bl GetCurrentMovCostTable
+	bl GetWorkingMoveCosts
 	ldr r2, [r6]
 	adds r1, r2, #0
 	adds r1, #0x2c
@@ -236,7 +236,7 @@ sub_8032B88: @ 0x08032B88
 	push {r4, lr}
 	movs r4, #0
 _08032B8C:
-	ldr r2, _08032BB4  @ gUnknown_02033EFC
+	ldr r2, _08032BB4  @ gWorkingMovementScript
 	adds r1, r4, #0
 	lsls r0, r1, #0x18
 	movs r3, #0x80
@@ -256,7 +256,7 @@ _08032B8C:
 	ldr r0, [r0]
 	mov pc, r0
 	.align 2, 0
-_08032BB4: .4byte gUnknown_02033EFC
+_08032BB4: .4byte gWorkingMovementScript
 _08032BB8: .4byte _08032BBC
 _08032BBC: @ jump table
 	.4byte _08032C80 @ case 0
@@ -365,7 +365,7 @@ sub_8032C88: @ 0x08032C88
 	lsls r0, r0, #0x18
 	asrs r0, r0, #0x18
 	adds r7, r2, #0
-	ldr r1, _08032CD0  @ gUnknown_02033EFC
+	ldr r1, _08032CD0  @ gWorkingMovementScript
 	mov ip, r1
 	cmp r6, r0
 	bgt _08032D1E
@@ -392,7 +392,7 @@ _08032CA4:
 	b _08032D00
 	.align 2, 0
 _08032CCC: .4byte gUnknown_0859DBA0
-_08032CD0: .4byte gUnknown_02033EFC
+_08032CD0: .4byte gWorkingMovementScript
 _08032CD4:
 	cmp r1, r0
 	ble _08032CDE
@@ -472,7 +472,7 @@ sub_8032D30: @ 0x08032D30
 	ldrb r3, [r3]
 	lsls r3, r3, #0x18
 	asrs r3, r3, #0x18
-	bl FillMovementMapForUnitAt
+	bl GenerateMovementMapOnWorkingMap
 	pop {r4}
 	pop {r0}
 	bx r0
@@ -491,14 +491,14 @@ sub_8032D74: @ 0x08032D74
 	ldrsh r0, [r1, r2]
 	movs r2, #0x16
 	ldrsh r1, [r1, r2]
-	ldr r2, _08032D9C  @ gUnknown_02033EFC
-	bl sub_801A640
+	ldr r2, _08032D9C  @ gWorkingMovementScript
+	bl GenerateBestMovementScript
 	bl sub_8032B88
 	pop {r0}
 	bx r0
 	.align 2, 0
 _08032D98: .4byte gUnknown_0202BCB0
-_08032D9C: .4byte gUnknown_02033EFC
+_08032D9C: .4byte gWorkingMovementScript
 
 	THUMB_FUNC_START sub_8032DA0
 sub_8032DA0: @ 0x08032DA0
@@ -665,7 +665,7 @@ _08032EDE:
 	bl sub_80329D8
 	ldr r0, _08032F40  @ gBmMapMovement
 	ldr r0, [r0]
-	bl SetSubjectMap
+	bl SetWorkingBmMap
 	movs r3, #0x16
 	ldrsh r0, [r5, r3]
 	ldr r1, _08032F44  @ gWorkingBmMap
@@ -716,7 +716,7 @@ _08032F48:
 	asrs r0, r0, #0x18
 	adds r4, #0x55
 	adds r4, r4, r0
-	bl GetCurrentMovCostTable
+	bl GetWorkingMoveCosts
 	movs r1, #0x16
 	ldrsh r6, [r5, r1]
 	ldr r1, _08032FB8  @ gBmMapTerrain
@@ -801,7 +801,7 @@ _08032FDC:
 _08032FFE:
 	ldr r0, _08033038  @ gBmMapUnk
 	ldr r0, [r0]
-	bl SetSubjectMap
+	bl SetWorkingBmMap
 	bl sub_8032D30
 	ldr r2, _0803303C  @ gUnknown_0202BCB0
 	movs r3, #0x16
@@ -828,10 +828,10 @@ _08033038: .4byte gBmMapUnk
 _0803303C: .4byte gUnknown_0202BCB0
 _08033040: .4byte gWorkingBmMap
 _08033044:
-	ldr r2, _08033068  @ gUnknown_02033EFC
+	ldr r2, _08033068  @ gWorkingMovementScript
 	adds r0, r3, #0
 	adds r1, r4, #0
-	bl sub_801A640
+	bl GenerateBestMovementScript
 	bl sub_8032B88
 	bl sub_8032DA0
 	lsls r0, r0, #0x18
@@ -843,7 +843,7 @@ _08033060:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_08033068: .4byte gUnknown_02033EFC
+_08033068: .4byte gWorkingMovementScript
 
 	THUMB_FUNC_START sub_803306C
 sub_803306C: @ 0x0803306C

@@ -519,7 +519,7 @@
 . = 0x02BE44;
 . = ALIGN(4); src/bmunit.o(ewram_data);
 . = ALIGN(4); src/bmmap.o(ewram_data);
-. = 0x033EFC; gUnknown_02033EFC = .;
+. = 0x033EFC; gWorkingMovementScript = .;
 . = 0x033F3C; gUnknown_02033F3C = .;
 . = 0x033F40; gUnknown_02033F40 = .;
 . = 0x034010; gUnknown_02034010 = .;

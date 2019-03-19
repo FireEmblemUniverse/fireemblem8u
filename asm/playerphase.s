@@ -362,7 +362,7 @@ DisplayUnitEffectRange: @ 0x0801CB70
 	subs r1, r1, r2
 	lsls r1, r1, #0x18
 	asrs r1, r1, #0x18
-	bl FillMovementMapForUnitAndMovement
+	bl GenerateUnitMovementMapExt
 	ldr r0, [r5]
 	ldr r0, [r0, #0xc]
 	movs r1, #0x40
@@ -379,7 +379,7 @@ DisplayUnitEffectRange: @ 0x0801CB70
 	cmp r0, #0
 	beq _0801CBB8
 	movs r0, #1
-	bl sub_801B950
+	bl GenerateMagicSealMap
 _0801CBB8:
 	ldr r0, _0801CBE4  @ gBmMapRange
 	ldr r0, [r0]
@@ -410,14 +410,14 @@ _0801CBE8:
 	beq _0801CC08
 _0801CBF8:
 	ldr r0, [r5]
-	bl FillMapStaffRangeForUnit
+	bl GenerateUnitCompleteStaffRange
 	movs r4, #5
 	b _0801CC10
 	.align 2, 0
 _0801CC04: .4byte gUnknown_0202BCB0
 _0801CC08:
 	ldr r0, [r5]
-	bl FillMapAttackRangeForUnit
+	bl GenerateUnitCompleteAttackRange
 	movs r4, #3
 _0801CC10:
 	adds r0, r4, #0
@@ -513,7 +513,7 @@ sub_801CCB4: @ 0x0801CCB4
 	movs r6, #1
 	adds r0, r6, #0
 	ands r0, r1
-	bl ApplyStuffToRangeMaps
+	bl GenerateDangerZoneRange
 	ldr r0, _0801CD08  @ gBmMapMovement
 	ldr r0, [r0]
 	movs r1, #1
@@ -1634,14 +1634,14 @@ sub_801D624: @ 0x0801D624
 	ldrsb r1, [r0, r1]
 	movs r2, #0x11
 	ldrsb r2, [r0, r2]
-	bl sub_801A82C
-	ldr r0, _0801D648  @ gUnknown_02033EFC
+	bl UnitApplyWorkingMovementScript
+	ldr r0, _0801D648  @ gWorkingMovementScript
 	bl MU_StartMoveScript_Auto
 	pop {r0}
 	bx r0
 	.align 2, 0
 _0801D644: .4byte gActiveUnit
-_0801D648: .4byte gUnknown_02033EFC
+_0801D648: .4byte gWorkingMovementScript
 
 	THUMB_FUNC_START PlayerPhase_WaitForUnitMovement
 PlayerPhase_WaitForUnitMovement: @ 0x0801D64C

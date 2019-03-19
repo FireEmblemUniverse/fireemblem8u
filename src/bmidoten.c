@@ -11,59 +11,61 @@
 
 #include "bmidoten.h"
 
-inline void SetSubjectMap(u8** map)
+static void RevertMovementScript(u8* begin, u8* end);
+
+inline void SetWorkingBmMap(u8** map)
 {
     gWorkingBmMap = map;
 }
 
-void FillMovementMapForUnit(struct Unit* unit)
+void GenerateUnitMovementMap(struct Unit* unit)
 {
-    StoreMovCostTable(GetUnitMovementCost(unit));
-    SetSubjectMap(gBmMapMovement);
+    SetWorkingMoveCosts(GetUnitMovementCost(unit));
+    SetWorkingBmMap(gBmMapMovement);
 
-    FillMovementMap(unit->xPos, unit->yPos, UNIT_MOV(unit), unit->index);
+    GenerateMovementMap(unit->xPos, unit->yPos, UNIT_MOV(unit), unit->index);
 }
 
-void FillMovementMapForUnitAndMovement(struct Unit* unit, s8 movement)
+void GenerateUnitMovementMapExt(struct Unit* unit, s8 movement)
 {
-    StoreMovCostTable(GetUnitMovementCost(unit));
-    SetSubjectMap(gBmMapMovement);
+    SetWorkingMoveCosts(GetUnitMovementCost(unit));
+    SetWorkingBmMap(gBmMapMovement);
 
-    FillMovementMap(unit->xPos, unit->yPos, movement, unit->index);
+    GenerateMovementMap(unit->xPos, unit->yPos, movement, unit->index);
 }
 
-void FillMovementMapForUnitPosition(struct Unit* unit)
+void GenerateUnitExtendedMovementMap(struct Unit* unit)
 {
-    StoreMovCostTable(GetUnitMovementCost(unit));
-    SetSubjectMap(gBmMapMovement);
+    SetWorkingMoveCosts(GetUnitMovementCost(unit));
+    SetWorkingBmMap(gBmMapMovement);
 
-    FillMovementMap(unit->xPos, unit->yPos, MAP_MOVEMENT_MAX_124, 0);
+    GenerateMovementMap(unit->xPos, unit->yPos, MAP_MOVEMENT_MAX_124, 0);
 }
 
-void FillMovementRangeMapSomehow(int x, int y, const s8 mct[TERRAIN_COUNT])
+void GenerateExtendedMovementMapOnRange(int x, int y, const s8 mct[TERRAIN_COUNT])
 {
-    StoreMovCostTable(mct);
-    SetSubjectMap(gBmMapRange);
+    SetWorkingMoveCosts(mct);
+    SetWorkingBmMap(gBmMapRange);
 
-    FillMovementMap(x, y, MAP_MOVEMENT_MAX_124, 0);
+    GenerateMovementMap(x, y, MAP_MOVEMENT_MAX_124, 0);
 }
 
-void FillMovementMapSomehow(int x, int y, const s8 mct[TERRAIN_COUNT])
+void GenerateExtendedMovementMap(int x, int y, const s8 mct[TERRAIN_COUNT])
 {
-    StoreMovCostTable(mct);
-    SetSubjectMap(gBmMapMovement);
+    SetWorkingMoveCosts(mct);
+    SetWorkingBmMap(gBmMapMovement);
 
-    FillMovementMap(x, y, MAP_MOVEMENT_MAX_124, 0);
+    GenerateMovementMap(x, y, MAP_MOVEMENT_MAX_124, 0);
 }
 
-void FillMovementMapForUnitAt(struct Unit* unit, int x, int y, int movement)
+void GenerateMovementMapOnWorkingMap(struct Unit* unit, int x, int y, int movement)
 {
-    StoreMovCostTable(GetUnitMovementCost(unit));
+    SetWorkingMoveCosts(GetUnitMovementCost(unit));
 
-    FillMovementMap(x, y, movement, unit->index);
+    GenerateMovementMap(x, y, movement, unit->index);
 }
 
-void StoreMovCostTable(const s8 mct[TERRAIN_COUNT])
+void SetWorkingMoveCosts(const s8 mct[TERRAIN_COUNT])
 {
     int i;
 
@@ -71,7 +73,7 @@ void StoreMovCostTable(const s8 mct[TERRAIN_COUNT])
         gWorkingTerrainMoveCosts[i] = mct[i];
 }
 
-void FillMovementMap(int x, int y, int movement, int unitId)
+void GenerateMovementMap(int x, int y, int movement, int unitId)
 {
     gMovMapFillState.pUnk04 = gUnknown_030049B0;
     gMovMapFillState.pUnk00 = gUnknown_03004C50;
@@ -138,7 +140,7 @@ void sub_801A570(int connexion, int x, int y)
     gWorkingBmMap[y][x] = tileMovementCost;
 }
 
-void sub_801A640(int x, int y, u8 output[])
+void GenerateBestMovementScript(int x, int y, u8 output[])
 {
     u8* outputStart = output;
 
@@ -253,10 +255,10 @@ void sub_801A640(int x, int y, u8 output[])
     }
 
     // reverse and terminate output
-    sub_801A7F4(outputStart, output);
+    RevertMovementScript(outputStart, output);
 }
 
-void sub_801A7F4(u8* begin, u8* end)
+void RevertMovementScript(u8* begin, u8* end)
 {
     u8 buffer[MU_COMMAND_MAX_COUNT];
 
@@ -273,9 +275,9 @@ void sub_801A7F4(u8* begin, u8* end)
     *begin = MU_COMMAND_HALT;
 }
 
-void sub_801A82C(struct Unit* unit, int x, int y)
+void UnitApplyWorkingMovementScript(struct Unit* unit, int x, int y)
 {
-    u8* it = gUnknown_02033EFC;
+    u8* it = gWorkingMovementScript;
 
     for (;;) {
         gActionData.xMove = x;
@@ -333,7 +335,7 @@ void sub_801A82C(struct Unit* unit, int x, int y)
     }
 }
 
-void sub_801A8E4(void) {
+void MarkMovementMapEdges(void) {
     int ix, iy;
 
     for (iy = gBmMapSize.y - 1; iy >= 0; --iy)
@@ -363,7 +365,7 @@ void sub_801A8E4(void) {
     gMovMapFillState.maxMovementValue++;
 }
 
-void sub_801A9D0(void)
+void MarkWorkingMapEdges(void)
 {
     int ix, iy;
 
@@ -457,7 +459,7 @@ void MapAddInRange(int x, int y, int range, int value)
     }
 }
 
-void StoreR3ToMapSomething(int x, int y, int range, int value)
+void MapSetInRange(int x, int y, int range, int value)
 {
     int ix, iy, iRange;
 
@@ -520,13 +522,13 @@ void StoreR3ToMapSomething(int x, int y, int range, int value)
     }
 }
 
-inline void FillRangeMap(short x, short y, short minRange, short maxRange)
+inline void MapAddInBoundedRange(short x, short y, short minRange, short maxRange)
 {
     MapAddInRange(x, y, maxRange,     +1);
     MapAddInRange(x, y, minRange - 1, -1);
 }
 
-void FillMapAttackRangeForUnit(struct Unit* unit)
+void GenerateUnitCompleteAttackRange(struct Unit* unit)
 {
     int ix, iy;
 
@@ -550,79 +552,79 @@ void FillMapAttackRangeForUnit(struct Unit* unit)
 
     case REACH_RANGE1:
         FOR_EACH_IN_MOVEMENT_RANGE({
-            FillRangeMap(ix, iy, 1, 1);
+            MapAddInBoundedRange(ix, iy, 1, 1);
         })
 
         break;
 
     case REACH_RANGE1 | REACH_RANGE2:
         FOR_EACH_IN_MOVEMENT_RANGE({
-            FillRangeMap(ix, iy, 1, 2);
+            MapAddInBoundedRange(ix, iy, 1, 2);
         })
 
         break;
 
     case REACH_RANGE1 | REACH_RANGE2 | REACH_RANGE3:
         FOR_EACH_IN_MOVEMENT_RANGE({
-            FillRangeMap(ix, iy, 1, 3);
+            MapAddInBoundedRange(ix, iy, 1, 3);
         })
 
         break;
 
     case REACH_RANGE2:
         FOR_EACH_IN_MOVEMENT_RANGE({
-            FillRangeMap(ix, iy, 2, 2);
+            MapAddInBoundedRange(ix, iy, 2, 2);
         })
 
         break;
 
     case REACH_RANGE2 | REACH_RANGE3:
         FOR_EACH_IN_MOVEMENT_RANGE({
-            FillRangeMap(ix, iy, 2, 3);
+            MapAddInBoundedRange(ix, iy, 2, 3);
         })
 
         break;
 
     case REACH_RANGE3:
         FOR_EACH_IN_MOVEMENT_RANGE({
-            FillRangeMap(ix, iy, 3, 3);
+            MapAddInBoundedRange(ix, iy, 3, 3);
         })
 
         break;
 
     case REACH_RANGE3 | REACH_TO10:
         FOR_EACH_IN_MOVEMENT_RANGE({
-            FillRangeMap(ix, iy, 3, 10);
+            MapAddInBoundedRange(ix, iy, 3, 10);
         })
 
         break;
 
     case REACH_RANGE1 | REACH_RANGE3:
         FOR_EACH_IN_MOVEMENT_RANGE({
-            FillRangeMap(ix, iy, 1, 1);
-            FillRangeMap(ix, iy, 3, 3);
+            MapAddInBoundedRange(ix, iy, 1, 1);
+            MapAddInBoundedRange(ix, iy, 3, 3);
         })
 
         break;
 
     case REACH_RANGE1 | REACH_RANGE3 | REACH_TO10:
         FOR_EACH_IN_MOVEMENT_RANGE({
-            FillRangeMap(ix, iy, 1, 1);
-            FillRangeMap(ix, iy, 3, 10);
+            MapAddInBoundedRange(ix, iy, 1, 1);
+            MapAddInBoundedRange(ix, iy, 3, 10);
         })
 
         break;
 
     case REACH_RANGE1 | REACH_RANGE2 | REACH_RANGE3 | REACH_TO10:
         FOR_EACH_IN_MOVEMENT_RANGE({
-            FillRangeMap(ix, iy, 1, 10);
+            MapAddInBoundedRange(ix, iy, 1, 10);
         })
 
         break;
 
     case REACH_RANGE1 | REACH_TO10:
         FOR_EACH_IN_MOVEMENT_RANGE({
-            FillRangeMap(ix, iy, 1, 4);
+            MapAddInBoundedRange(ix, iy, 1, 4);
         })
 
         break;
@@ -636,7 +638,7 @@ void FillMapAttackRangeForUnit(struct Unit* unit)
 
             if (item)
             {
-                FillRangeMap(ix, iy,
+                MapAddInBoundedRange(ix, iy,
                     GetItemMinRange(item), GetItemMaxRange(item));
             }
         })
@@ -644,10 +646,10 @@ void FillMapAttackRangeForUnit(struct Unit* unit)
 
     #undef FOR_EACH_IN_MOVEMENT_RANGE
 
-    SetSubjectMap(gBmMapMovement);
+    SetWorkingBmMap(gBmMapMovement);
 }
 
-void FillRangeByRangeMask(struct Unit* unit, int reach)
+void GenerateUnitStandingReachRange(struct Unit* unit, int reach)
 {
     int x = unit->xPos;
     int y = unit->yPos;
@@ -656,59 +658,59 @@ void FillRangeByRangeMask(struct Unit* unit, int reach)
     {
 
     case REACH_RANGE1:
-        FillRangeMap(x, y, 1, 1);
+        MapAddInBoundedRange(x, y, 1, 1);
         break;
 
     case REACH_RANGE1 | REACH_RANGE2:
-        FillRangeMap(x, y, 1, 2);
+        MapAddInBoundedRange(x, y, 1, 2);
         break;
 
     case REACH_RANGE1 | REACH_RANGE2 | REACH_RANGE3:
-        FillRangeMap(x, y, 1, 3);
+        MapAddInBoundedRange(x, y, 1, 3);
         break;
 
     case REACH_RANGE2:
-        FillRangeMap(x, y, 2, 2);
+        MapAddInBoundedRange(x, y, 2, 2);
         break;
 
     case REACH_RANGE2 | REACH_RANGE3:
-        FillRangeMap(x, y, 2, 3);
+        MapAddInBoundedRange(x, y, 2, 3);
         break;
 
     case REACH_RANGE3:
-        FillRangeMap(x, y, 3, 3);
+        MapAddInBoundedRange(x, y, 3, 3);
         break;
 
     case REACH_RANGE3 | REACH_TO10:
-        FillRangeMap(x, y, 3, 10);
+        MapAddInBoundedRange(x, y, 3, 10);
         break;
 
     case REACH_RANGE1 | REACH_RANGE3:
-        FillRangeMap(x, y, 1, 1);
-        FillRangeMap(x, y, 3, 3);
+        MapAddInBoundedRange(x, y, 1, 1);
+        MapAddInBoundedRange(x, y, 3, 3);
         break;
 
     case REACH_RANGE1 | REACH_RANGE3 | REACH_TO10:
-        FillRangeMap(x, y, 1, 1);
-        FillRangeMap(x, y, 3, 10);
+        MapAddInBoundedRange(x, y, 1, 1);
+        MapAddInBoundedRange(x, y, 3, 10);
         break;
 
     case REACH_RANGE1 | REACH_RANGE2 | REACH_RANGE3 | REACH_TO10:
-        FillRangeMap(x, y, 1, 10);
+        MapAddInBoundedRange(x, y, 1, 10);
         break;
 
     case REACH_RANGE1 | REACH_TO10:
-        FillRangeMap(x, y, 1, 4);
+        MapAddInBoundedRange(x, y, 1, 4);
         break;
 
     case REACH_MAGBY2:
-        FillRangeMap(x, y, 1, GetUnitMagBy2Range(unit));
+        MapAddInBoundedRange(x, y, 1, GetUnitMagBy2Range(unit));
         break;
 
     } // switch (reach)
 }
 
-void FillMapStaffRangeForUnit(struct Unit* unit)
+void GenerateUnitCompleteStaffRange(struct Unit* unit)
 {
     int ix, iy;
 
@@ -735,21 +737,21 @@ void FillMapStaffRangeForUnit(struct Unit* unit)
 
     case REACH_RANGE1:
         FOR_EACH_IN_MOVEMENT_RANGE({
-            FillRangeMap(ix, iy, 1, 1);
+            MapAddInBoundedRange(ix, iy, 1, 1);
         })
 
         break;
 
     case REACH_RANGE1 | REACH_RANGE2:
         FOR_EACH_IN_MOVEMENT_RANGE({
-            FillRangeMap(ix, iy, 1, 2);
+            MapAddInBoundedRange(ix, iy, 1, 2);
         })
 
         break;
 
     case REACH_MAGBY2:
         FOR_EACH_IN_MOVEMENT_RANGE({
-            FillRangeMap(ix, iy, 1, magBy2Range);
+            MapAddInBoundedRange(ix, iy, 1, magBy2Range);
         })
 
         break;
@@ -762,7 +764,7 @@ void FillMapStaffRangeForUnit(struct Unit* unit)
     #undef FOR_EACH_IN_MOVEMENT_RANGE
 }
 
-void ApplyStuffToRangeMaps(s8 boolDisplayStaffRange)
+void GenerateDangerZoneRange(s8 boolDisplayStaffRange)
 {
     int i, enemyFaction;
     int hasMagicRank, prevHasMagicRank;
@@ -791,7 +793,7 @@ void ApplyStuffToRangeMaps(s8 boolDisplayStaffRange)
             continue; // under a roof
 
         // Fill movement map for unit
-        FillMovementMapForUnitAndMovement(unit, UNIT_MOV(unit));
+        GenerateUnitMovementMapExt(unit, UNIT_MOV(unit));
 
         savedUnitId = gBmMapUnit[unit->yPos][unit->xPos];
         gBmMapUnit[unit->yPos][unit->xPos] = 0;
@@ -803,25 +805,25 @@ void ApplyStuffToRangeMaps(s8 boolDisplayStaffRange)
             BmMapFill(gBmMapUnk, 0);
 
             if (hasMagicRank)
-                sub_801B950(1);
+                GenerateMagicSealMap(1);
 
             prevHasMagicRank = hasMagicRank;
         }
 
-        SetSubjectMap(gBmMapRange);
+        SetWorkingBmMap(gBmMapRange);
 
         // Apply unit's range to range map
 
         if (boolDisplayStaffRange)
-            FillMapStaffRangeForUnit(unit);
+            GenerateUnitCompleteStaffRange(unit);
         else
-            FillMapAttackRangeForUnit(unit);
+            GenerateUnitCompleteAttackRange(unit);
 
         gBmMapUnit[unit->yPos][unit->xPos] = savedUnitId;
     }
 }
 
-void sub_801B950(int value)
+void GenerateMagicSealMap(int value)
 {
     int i;
 
@@ -833,11 +835,11 @@ void sub_801B950(int value)
             continue;
 
         if (UNIT_CATTRIBUTES(unit) & CA_MAGICSEAL)
-            StoreR3ToMapSomething(unit->xPos, unit->yPos, 10, value);
+            MapSetInRange(unit->xPos, unit->yPos, 10, value);
     }
 }
 
-inline u8* GetCurrentMovCostTable(void)
+inline u8* GetWorkingMoveCosts(void)
 {
     return gWorkingTerrainMoveCosts;
 }

@@ -1002,7 +1002,7 @@ void UnitGetDeathDropLocation(struct Unit* unit, int* xOut, int* yOut) {
     struct Unit* rescuee = GetUnit(unit->rescueOtherUnit);
 
     // Fill the movement map
-    FillMovementMapSomehow(unit->xPos, unit->yPos, gUnknown_0880BB96);
+    GenerateExtendedMovementMap(unit->xPos, unit->yPos, gUnknown_0880BB96);
 
     // Put the active unit on the unit map (kinda, just marking its spot)
     gBmMapUnit[gActiveUnit->yPos][gActiveUnit->xPos] = 0xFF;

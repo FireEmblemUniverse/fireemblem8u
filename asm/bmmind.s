@@ -278,7 +278,7 @@ _08032248: .4byte gActionData
 _0803224C: .4byte gBmMapHidden
 _08032250: .4byte gUnknown_0859DA6C
 _08032254:
-	ldr r0, _0803226C  @ gUnknown_02033EFC
+	ldr r0, _0803226C  @ gWorkingMovementScript
 	movs r1, #0xa
 	strb r1, [r0]
 	movs r1, #4
@@ -290,7 +290,7 @@ _08032262:
 	pop {r1}
 	bx r1
 	.align 2, 0
-_0803226C: .4byte gUnknown_02033EFC
+_0803226C: .4byte gWorkingMovementScript
 
 	THUMB_FUNC_START ActionVisitAndSieze
 ActionVisitAndSieze: @ 0x08032270
@@ -989,7 +989,7 @@ _080327F2:
 	movs r3, #0x11
 	ldrsb r3, [r5, r3]
 	bl GetFacingDirection
-	ldr r1, _0803285C  @ gUnknown_02033EFC
+	ldr r1, _0803285C  @ gWorkingMovementScript
 	strb r0, [r1]
 	movs r0, #4
 	strb r0, [r1, #1]
@@ -1006,7 +1006,7 @@ _0803284A:
 _08032850: .4byte gBattleActor
 _08032854: .4byte gProcScr_MoveUnit
 _08032858: .4byte gBattleTarget
-_0803285C: .4byte gUnknown_02033EFC
+_0803285C: .4byte gWorkingMovementScript
 
 	THUMB_FUNC_START BATTLE_DeleteLinkedMOVEUNIT
 BATTLE_DeleteLinkedMOVEUNIT: @ 0x08032860

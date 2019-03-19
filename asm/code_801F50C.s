@@ -16,7 +16,7 @@ ChangeActiveUnitFacing: @ 0x0801F50C
 	asrs r1, r1, #0x18
 	bl GetFacingDirection
 	adds r0, #5
-	ldr r1, _0801F53C  @ gUnknown_02033EFC
+	ldr r1, _0801F53C  @ gWorkingMovementScript
 	strb r0, [r1]
 	movs r0, #4
 	strb r0, [r1, #1]
@@ -26,6 +26,6 @@ ChangeActiveUnitFacing: @ 0x0801F50C
 	bx r0
 	.align 2, 0
 _0801F538: .4byte gActiveUnit
-_0801F53C: .4byte gUnknown_02033EFC
+_0801F53C: .4byte gWorkingMovementScript
 
 .align 2, 0

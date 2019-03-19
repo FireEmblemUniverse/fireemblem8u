@@ -489,7 +489,7 @@ MakeTargetListForWeapon: @ 0x080251B4
 	adds r0, r5, #0
 	adds r1, r6, #0
 	adds r2, r4, #0
-	bl FillRangeMap
+	bl MapAddInBoundedRange
 	ldr r0, _08025218  @ AddUnitToTargetListIfNotAllied
 	bl ForEachUnitInRange
 	bl TryAddTrapsToTargetList
@@ -1179,7 +1179,7 @@ FillBallistaRangeMaybe: @ 0x08025728
 	adds r0, r5, #0
 	adds r1, r6, #0
 	adds r2, r4, #0
-	bl FillRangeMap
+	bl MapAddInBoundedRange
 	ldr r0, _08025790  @ AddUnitToTargetListIfAllied
 	bl ForEachUnitInRange
 	bl TryAddTrapsToTargetList

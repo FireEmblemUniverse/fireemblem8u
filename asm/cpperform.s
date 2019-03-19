@@ -166,22 +166,22 @@ sub_8039FAC: @ 0x08039FAC
 	ldr r0, [r6]
 	bl HideUnitSMS
 	ldr r0, [r6]
-	bl FillMovementMapForUnit
+	bl GenerateUnitMovementMap
 	ldr r0, _0803A014  @ gBmMapMovement
 	ldr r0, [r0]
-	bl SetSubjectMap
+	bl SetWorkingBmMap
 	ldr r4, _0803A018  @ gUnknown_0203AA94
 	ldrb r0, [r4, #2]
 	ldrb r1, [r4, #3]
-	ldr r7, _0803A01C  @ gUnknown_02033EFC
+	ldr r7, _0803A01C  @ gWorkingMovementScript
 	adds r2, r7, #0
-	bl sub_801A640
+	bl GenerateBestMovementScript
 	ldr r0, [r6]
 	movs r1, #0x10
 	ldrsb r1, [r0, r1]
 	movs r2, #0x11
 	ldrsb r2, [r0, r2]
-	bl sub_801A82C
+	bl UnitApplyWorkingMovementScript
 	ldr r1, _0803A020  @ gActionData
 	ldrb r0, [r1, #0xe]
 	strb r0, [r4, #2]
@@ -204,7 +204,7 @@ _0803A00A:
 _0803A010: .4byte gActiveUnit
 _0803A014: .4byte gBmMapMovement
 _0803A018: .4byte gUnknown_0203AA94
-_0803A01C: .4byte gUnknown_02033EFC
+_0803A01C: .4byte gWorkingMovementScript
 _0803A020: .4byte gActionData
 
 	THUMB_FUNC_START sub_803A024
