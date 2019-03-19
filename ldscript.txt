@@ -59,7 +59,6 @@ SECTIONS
         src/bmunit.o(.text);
         src/bmmap.o(.text);
         src/bmidoten.o(.text);
-        asm/bmidoten.o(.text);
         asm/bmdebug.o(.text);
         asm/playerphase.o(.text);
         asm/koido.o(.text);
