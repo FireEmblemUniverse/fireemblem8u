@@ -39,7 +39,7 @@ void GenerateUnitExtendedMovementMap(struct Unit* unit)
     SetWorkingMoveCosts(GetUnitMovementCost(unit));
     SetWorkingBmMap(gBmMapMovement);
 
-    GenerateMovementMap(unit->xPos, unit->yPos, MAP_MOVEMENT_MAX_124, 0);
+    GenerateMovementMap(unit->xPos, unit->yPos, MAP_MOVEMENT_EXTENDED, 0);
 }
 
 void GenerateExtendedMovementMapOnRange(int x, int y, const s8 mct[TERRAIN_COUNT])
@@ -47,7 +47,7 @@ void GenerateExtendedMovementMapOnRange(int x, int y, const s8 mct[TERRAIN_COUNT
     SetWorkingMoveCosts(mct);
     SetWorkingBmMap(gBmMapRange);
 
-    GenerateMovementMap(x, y, MAP_MOVEMENT_MAX_124, 0);
+    GenerateMovementMap(x, y, MAP_MOVEMENT_EXTENDED, 0);
 }
 
 void GenerateExtendedMovementMap(int x, int y, const s8 mct[TERRAIN_COUNT])
@@ -55,7 +55,7 @@ void GenerateExtendedMovementMap(int x, int y, const s8 mct[TERRAIN_COUNT])
     SetWorkingMoveCosts(mct);
     SetWorkingBmMap(gBmMapMovement);
 
-    GenerateMovementMap(x, y, MAP_MOVEMENT_MAX_124, 0);
+    GenerateMovementMap(x, y, MAP_MOVEMENT_EXTENDED, 0);
 }
 
 void GenerateMovementMapOnWorkingMap(struct Unit* unit, int x, int y, int movement)
@@ -304,7 +304,7 @@ void UnitApplyWorkingMovementScript(struct Unit* unit, int x, int y)
 
         } // switch (*it)
 
-        if (!(UNIT_CATTRIBUTES(unit) & (CA_LOCKPICK | CA_FLYER | CA_LETHALITY)))
+        if (!(UNIT_CATTRIBUTES(unit) & (CA_THIEF | CA_FLYER | CA_ASSASSIN)))
         {
             if (gBmMapHidden[y][x] & HIDDEN_BIT_TRAP)
             {

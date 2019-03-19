@@ -43,7 +43,7 @@ enum
     // Magic values for gBmMapMovement
 
     MAP_MOVEMENT_MAX = 120,
-    MAP_MOVEMENT_MAX_124 = 124, // TODO: figure out
+    MAP_MOVEMENT_EXTENDED = 124,
 };
 
 enum

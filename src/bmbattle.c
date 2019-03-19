@@ -3,6 +3,7 @@
 #include "constants/items.h"
 #include "constants/classes.h"
 #include "constants/characters.h"
+#include "constants/terrains.h"
 
 #include "rng.h"
 #include "bmitem.h"
@@ -680,7 +681,7 @@ void ComputeBattleUnitEffectiveCritRate(struct BattleUnit* attacker, struct Batt
 }
 
 void ComputeBattleUnitSilencerRate(struct BattleUnit* attacker, struct BattleUnit* defender) {
-    if (!(UNIT_CATTRIBUTES(&attacker->unit) & CA_LETHALITY))
+    if (!(UNIT_CATTRIBUTES(&attacker->unit) & CA_ASSASSIN))
         attacker->battleSilencerRate = 0;
     else {
         attacker->battleSilencerRate = 50;
@@ -1765,7 +1766,7 @@ int GetUnitPowerLevel(struct Unit* unit) {
 int GetUnitClassKillExpBonus(struct Unit* actor, struct Unit* target) {
     int result = 0;
 
-    if (UNIT_CATTRIBUTES(target) & CA_LOCKPICK)
+    if (UNIT_CATTRIBUTES(target) & CA_THIEF)
         result += 20;
 
     if (UNIT_CATTRIBUTES(target) & CA_BOSS)
@@ -1780,7 +1781,7 @@ int GetUnitClassKillExpBonus(struct Unit* actor, struct Unit* target) {
 int GetUnitExpMultiplier(struct Unit* actor, struct Unit* target) {
     int i;
 
-    if (!(UNIT_CATTRIBUTES(actor) & CA_LETHALITY))
+    if (!(UNIT_CATTRIBUTES(actor) & CA_ASSASSIN))
         return 1;
 
     for (i = 0; i < BATTLE_HIT_MAX; ++i)
@@ -2021,12 +2022,12 @@ void InitObstacleBattleUnit(void) {
 
     switch (gBmMapTerrain[gBattleTarget.unit.yPos][gBattleTarget.unit.xPos]) {
 
-    case 0x1B: // TODO: terrain id constants
+    case TERRAIN_WALL_1B:
         gBattleTarget.unit.pCharacterData = GetCharacterData(CHARACTER_WALL);
 
         break;
 
-    case 0x33: // TODO: terrain id constants
+    case TERRAIN_SNAG:
         gBattleTarget.unit.pCharacterData = GetCharacterData(CHARACTER_SNAG);
         gBattleTarget.unit.maxHP = 20;
 
@@ -2054,7 +2055,7 @@ void UpdateObstacleFromBattle(struct BattleUnit* bu) {
     if (trap->data[TRAP_EXTDATA_OBSTACLE_HP] == 0) {
         int mapChangeId = GetMapChangesIdAt(bu->unit.xPos, bu->unit.yPos);
 
-        if (gBmMapTerrain[bu->unit.yPos][bu->unit.xPos] == 0x33) // TODO: terrain id constants
+        if (gBmMapTerrain[bu->unit.yPos][bu->unit.xPos] == TERRAIN_SNAG)
             PlaySoundEffect(0x2D7); // TODO: Sound id constants
 
         RenderBmMapOnBg2();

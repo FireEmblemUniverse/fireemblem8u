@@ -855,8 +855,6 @@ void WfxInit(void) {
 }
 
 void WfxVSync(void) {
-    // TODO: USE WEATHER DEFINITIONS
-
     switch (gUnknown_0202BCF0.chapterWeatherId) {
 
     case WEATHER_SNOW:
