@@ -3,6 +3,7 @@
 #include "constants/terrains.h"
 
 #include "rng.h"
+#include "bmitem.h"
 #include "bmunit.h"
 #include "bmmap.h"
 
@@ -392,4 +393,349 @@ void sub_801A8E4(void) {
     }
 
     gUnknown_03004E60.maxMovementValue++;
+}
+
+void sub_801A9D0(void)
+{
+    int ix, iy;
+
+    for (iy = gBmMapSize.y - 1; iy >= 0; --iy)
+    {
+        for (ix = gBmMapSize.x - 1; ix >= 0; --ix)
+        {
+            if (gUnknown_030049A0[iy][ix] > MAP_MOVEMENT_MAX)
+                continue;
+
+            if ((s8) gUnknown_030049A0[iy][ix] == gUnknown_03004E60.maxMovementValue)
+                continue;
+
+            if ((s8) gUnknown_030049A0[iy][ix - 1] < 0 && (ix != 0))
+                gUnknown_030049A0[iy][ix - 1] = gUnknown_03004E60.maxMovementValue;
+
+            if ((s8) gUnknown_030049A0[iy][ix + 1] < 0 && (ix != (gBmMapSize.x - 1)))
+                gUnknown_030049A0[iy][ix + 1] = gUnknown_03004E60.maxMovementValue;
+
+            if ((s8) gUnknown_030049A0[iy - 1][ix] < 0 && (iy != 0))
+                gUnknown_030049A0[iy - 1][ix] = gUnknown_03004E60.maxMovementValue;
+
+            if ((s8) gUnknown_030049A0[iy + 1][ix] < 0 && (iy != (gBmMapSize.y - 1)))
+                gUnknown_030049A0[iy + 1][ix] = gUnknown_03004E60.maxMovementValue;
+        }
+    }
+
+    gUnknown_03004E60.maxMovementValue++;
+}
+
+void MapAddInRange(int x, int y, int range, int value)
+{
+    int ix, iy, iRange;
+
+    // Handles rows [y, y+range]
+    // For each row, decrement range
+    for (iRange = range, iy = y; (iy <= y + range) && (iy < gBmMapSize.y); --iRange, ++iy)
+    {
+        int xMin, xMax, xRange;
+
+        xMin = x - iRange;
+        xRange = 2 * iRange + 1;
+
+        if (xMin < 0)
+        {
+            xRange += xMin;
+            xMin = 0;
+        }
+
+        xMax = xMin + xRange;
+
+        if (xMax > gBmMapSize.x)
+        {
+            xMax -= (xMax - gBmMapSize.x);
+            xMax = gBmMapSize.x;
+        }
+
+        for (ix = xMin; ix < xMax; ++ix)
+        {
+            gUnknown_030049A0[iy][ix] += value;
+        }
+    }
+
+    // Handle rows [y-range, y-1], starting from the bottom most row
+    // For each row, decrement range
+    for (iRange = (range - 1), iy = (y - 1); (iy >= y - range) && (iy >= 0); --iRange, --iy)
+    {
+        int xMin, xMax, xRange;
+
+        xMin = x - iRange;
+        xRange = 2 * iRange + 1;
+
+        if (xMin < 0)
+        {
+            xRange += xMin;
+            xMin = 0;
+        }
+
+        xMax = xMin + xRange;
+
+        if (xMax > gBmMapSize.x)
+        {
+            xMax -= (xMax - gBmMapSize.x);
+            xMax = gBmMapSize.x;
+        }
+
+        for (ix = xMin; ix < xMax; ++ix)
+        {
+            gUnknown_030049A0[iy][ix] += value;
+        }
+    }
+}
+
+void StoreR3ToMapSomething(int x, int y, int range, int value)
+{
+    int ix, iy, iRange;
+
+    // Handles rows [y, y+range]
+    // For each row, decrement range
+    for (iRange = range, iy = y; (iy <= y + range) && (iy < gBmMapSize.y); --iRange, ++iy)
+    {
+        int xMin, xMax, xRange;
+
+        xMin = x - iRange;
+        xRange = 2 * iRange + 1;
+
+        if (xMin < 0)
+        {
+            xRange += xMin;
+            xMin = 0;
+        }
+
+        xMax = xMin + xRange;
+
+        if (xMax > gBmMapSize.x)
+        {
+            xMax -= (xMax - gBmMapSize.x);
+            xMax = gBmMapSize.x;
+        }
+
+        for (ix = xMin; ix < xMax; ++ix)
+        {
+            gUnknown_030049A0[iy][ix] = value;
+        }
+    }
+
+    // Handle rows [y-range, y-1], starting from the bottom most row
+    // For each row, decrement range
+    for (iRange = (range - 1), iy = (y - 1); (iy >= y - range) && (iy >= 0); --iRange, --iy)
+    {
+        int xMin, xMax, xRange;
+
+        xMin = x - iRange;
+        xRange = 2 * iRange + 1;
+
+        if (xMin < 0)
+        {
+            xRange += xMin;
+            xMin = 0;
+        }
+
+        xMax = xMin + xRange;
+
+        if (xMax > gBmMapSize.x)
+        {
+            xMax -= (xMax - gBmMapSize.x);
+            xMax = gBmMapSize.x;
+        }
+
+        for (ix = xMin; ix < xMax; ++ix)
+        {
+            gUnknown_030049A0[iy][ix] = value;
+        }
+    }
+}
+
+static inline void BmMapAddInBoundedRange(short x, short y, short minRange, short maxRange)
+{
+    MapAddInRange(x, y, maxRange,     +1);
+    MapAddInRange(x, y, minRange - 1, -1);
+}
+
+void FillMapAttackRangeForUnit(struct Unit* unit)
+{
+    int ix, iy;
+
+    #define FOR_EACH_IN_MOVEMENT_RANGE(block) \
+        for (iy = gBmMapSize.y - 1; iy >= 0; --iy) \
+        { \
+            for (ix = gBmMapSize.x - 1; ix >= 0; --ix) \
+            { \
+                if (gBmMapMovement[iy][ix] > MAP_MOVEMENT_MAX) \
+                    continue; \
+                if (gBmMapUnit[iy][ix]) \
+                    continue; \
+                if (gBmMapUnk[iy][ix]) \
+                    continue; \
+                block \
+            } \
+        }
+
+    switch (GetUnitWeaponReachBits(unit, -1))
+    {
+
+    case REACH_RANGE1:
+        FOR_EACH_IN_MOVEMENT_RANGE({
+            BmMapAddInBoundedRange(ix, iy, 1, 1);
+        })
+
+        break;
+
+    case REACH_RANGE1 | REACH_RANGE2:
+        FOR_EACH_IN_MOVEMENT_RANGE({
+            BmMapAddInBoundedRange(ix, iy, 1, 2);
+        })
+
+        break;
+
+    case REACH_RANGE1 | REACH_RANGE2 | REACH_RANGE3:
+        FOR_EACH_IN_MOVEMENT_RANGE({
+            BmMapAddInBoundedRange(ix, iy, 1, 3);
+        })
+
+        break;
+
+    case REACH_RANGE2:
+        FOR_EACH_IN_MOVEMENT_RANGE({
+            BmMapAddInBoundedRange(ix, iy, 2, 2);
+        })
+
+        break;
+
+    case REACH_RANGE2 | REACH_RANGE3:
+        FOR_EACH_IN_MOVEMENT_RANGE({
+            BmMapAddInBoundedRange(ix, iy, 2, 3);
+        })
+
+        break;
+
+    case REACH_RANGE3:
+        FOR_EACH_IN_MOVEMENT_RANGE({
+            BmMapAddInBoundedRange(ix, iy, 3, 3);
+        })
+
+        break;
+
+    case REACH_RANGE3 | REACH_TO10:
+        FOR_EACH_IN_MOVEMENT_RANGE({
+            BmMapAddInBoundedRange(ix, iy, 3, 10);
+        })
+
+        break;
+
+    case REACH_RANGE1 | REACH_RANGE3:
+        FOR_EACH_IN_MOVEMENT_RANGE({
+            BmMapAddInBoundedRange(ix, iy, 1, 1);
+            BmMapAddInBoundedRange(ix, iy, 3, 3);
+        })
+
+        break;
+
+    case REACH_RANGE1 | REACH_RANGE3 | REACH_TO10:
+        FOR_EACH_IN_MOVEMENT_RANGE({
+            BmMapAddInBoundedRange(ix, iy, 1, 1);
+            BmMapAddInBoundedRange(ix, iy, 3, 10);
+        })
+
+        break;
+
+    case REACH_RANGE1 | REACH_RANGE2 | REACH_RANGE3 | REACH_TO10:
+        FOR_EACH_IN_MOVEMENT_RANGE({
+            BmMapAddInBoundedRange(ix, iy, 1, 10);
+        })
+
+        break;
+
+    case REACH_RANGE1 | REACH_TO10:
+        FOR_EACH_IN_MOVEMENT_RANGE({
+            BmMapAddInBoundedRange(ix, iy, 1, 4);
+        })
+
+        break;
+
+    } // switch (GetUnitWeaponReachBits(unit, -1))
+
+    if (UNIT_CATTRIBUTES(unit) & CA_BALLISTAE)
+    {
+        FOR_EACH_IN_MOVEMENT_RANGE({
+            int item = GetBallistaItemAt(ix, iy);
+
+            if (item)
+            {
+                BmMapAddInBoundedRange(ix, iy,
+                    GetItemMinRange(item), GetItemMaxRange(item));
+            }
+        })
+    }
+
+    #undef FOR_EACH_IN_MOVEMENT_RANGE
+
+    SetMap(gBmMapMovement);
+}
+
+void FillRangeByRangeMask(struct Unit* unit, int reach)
+{
+    int x = unit->xPos;
+    int y = unit->yPos;
+
+    switch (reach)
+    {
+
+    case REACH_RANGE1:
+        BmMapAddInBoundedRange(x, y, 1, 1);
+        break;
+
+    case REACH_RANGE1 | REACH_RANGE2:
+        BmMapAddInBoundedRange(x, y, 1, 2);
+        break;
+
+    case REACH_RANGE1 | REACH_RANGE2 | REACH_RANGE3:
+        BmMapAddInBoundedRange(x, y, 1, 3);
+        break;
+
+    case REACH_RANGE2:
+        BmMapAddInBoundedRange(x, y, 2, 2);
+        break;
+
+    case REACH_RANGE2 | REACH_RANGE3:
+        BmMapAddInBoundedRange(x, y, 2, 3);
+        break;
+
+    case REACH_RANGE3:
+        BmMapAddInBoundedRange(x, y, 3, 3);
+        break;
+
+    case REACH_RANGE3 | REACH_TO10:
+        BmMapAddInBoundedRange(x, y, 3, 10);
+        break;
+
+    case REACH_RANGE1 | REACH_RANGE3:
+        BmMapAddInBoundedRange(x, y, 1, 1);
+        BmMapAddInBoundedRange(x, y, 3, 3);
+        break;
+
+    case REACH_RANGE1 | REACH_RANGE3 | REACH_TO10:
+        BmMapAddInBoundedRange(x, y, 1, 1);
+        BmMapAddInBoundedRange(x, y, 3, 10);
+        break;
+
+    case REACH_RANGE1 | REACH_RANGE2 | REACH_RANGE3 | REACH_TO10:
+        BmMapAddInBoundedRange(x, y, 1, 10);
+        break;
+
+    case REACH_RANGE1 | REACH_TO10:
+        BmMapAddInBoundedRange(x, y, 1, 4);
+        break;
+
+    case REACH_MAGBY2:
+        BmMapAddInBoundedRange(x, y, 1, GetUnitMagBy2Range(unit));
+        break;
+
+    } // switch (reach)
 }
