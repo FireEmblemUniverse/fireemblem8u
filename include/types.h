@@ -293,7 +293,7 @@ enum {
     // 0x1B?
     // 0x1C?
     UNIT_ACTION_TRADED = 0x1D,
-    // 0x1E?
+    UNIT_ACTION_TRAPPED = 0x1E,
     // 0x1F?
     // 0x20?
     UNIT_ACTION_RIDE_BALLISTA = 0x21,
