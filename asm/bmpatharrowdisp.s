@@ -668,7 +668,7 @@ _08032EDE:
 	bl SetSubjectMap
 	movs r3, #0x16
 	ldrsh r0, [r5, r3]
-	ldr r1, _08032F44  @ gUnknown_030049A0
+	ldr r1, _08032F44  @ gWorkingBmMap
 	ldr r1, [r1]
 	lsls r0, r0, #2
 	adds r0, r0, r1
@@ -706,7 +706,7 @@ _08032F12:
 _08032F38: .4byte gUnknown_0859DBA0
 _08032F3C: .4byte gUnknown_0202BCB0
 _08032F40: .4byte gBmMapMovement
-_08032F44: .4byte gUnknown_030049A0
+_08032F44: .4byte gWorkingBmMap
 _08032F48:
 	ldr r4, [r7]
 	adds r0, r4, #0
@@ -806,7 +806,7 @@ _08032FFE:
 	ldr r2, _0803303C  @ gUnknown_0202BCB0
 	movs r3, #0x16
 	ldrsh r4, [r2, r3]
-	ldr r0, _08033040  @ gUnknown_030049A0
+	ldr r0, _08033040  @ gWorkingBmMap
 	ldr r1, [r0]
 	lsls r0, r4, #2
 	adds r0, r0, r1
@@ -826,7 +826,7 @@ _08032FFE:
 _08033034: .4byte gUnknown_0859DBA0
 _08033038: .4byte gBmMapUnk
 _0803303C: .4byte gUnknown_0202BCB0
-_08033040: .4byte gUnknown_030049A0
+_08033040: .4byte gWorkingBmMap
 _08033044:
 	ldr r2, _08033068  @ gUnknown_02033EFC
 	adds r0, r3, #0

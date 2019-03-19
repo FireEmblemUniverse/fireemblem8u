@@ -9,7 +9,7 @@ struct UnkMovMapFill
     /* 03 */ u8 leastMoveCost;
 };
 
-struct Unk03004E60
+struct MovMapFillState
 {
     /* 00 */ struct UnkMovMapFill* pUnk00;
     /* 04 */ struct UnkMovMapFill* pUnk04;
@@ -44,15 +44,12 @@ void SetSubjectMap(u8** map);
 void FillRangeMap(short x, short y, short minRange, short maxRange);
 u8* GetCurrentMovCostTable(void);
 
-// gSubjectMap (?)
-extern u8** gUnknown_030049A0;
-
-// working Terrain-to-MoveCost table
-extern u8 gUnknown_03004BB0[];
+extern u8** gWorkingBmMap;
+extern u8 gWorkingTerrainMoveCosts[];
 
 extern struct UnkMovMapFill gUnknown_030049B0[];
 extern struct UnkMovMapFill gUnknown_03004C50[];
 
-extern struct Unk03004E60 gUnknown_03004E60;
+extern struct MovMapFillState gMovMapFillState;
 
 #endif // GUARD_BMIDOTEN_H

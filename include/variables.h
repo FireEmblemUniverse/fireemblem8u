@@ -801,13 +801,8 @@ extern void *gUnknown_03004158;
 extern struct UnknownStructCTC *gUnknown_03004970;
 // extern ??? gUnknown_03004980
 // extern ??? gUnknown_03004990
-// extern ??? gUnknown_030049A0
-// extern ??? gUnknown_030049B0
-// extern ??? gUnknown_03004BB0
 // extern ??? gUnknown_03004C00
-// extern ??? gUnknown_03004C50
-extern struct Unit* gActiveUnit; // gActiveUnit // Active Unit
-// extern ??? gUnknown_03004E60
+extern struct Unit* gActiveUnit;
 // extern ??? gUnknown_03004E70
 // extern ??? gUnknown_03004E74
 // extern ??? gUnknown_03004E80

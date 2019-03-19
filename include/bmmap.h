@@ -38,4 +38,20 @@ extern u8** gBmMapUnk;
 extern u8*   gTilesetTerrainLookup;
 extern u16** gBmMapBaseTiles;
 
+enum
+{
+    // Magic values for gBmMapMovement
+
+    MAP_MOVEMENT_MAX = 120,
+    MAP_MOVEMENT_MAX_124 = 124, // TODO: figure out
+};
+
+enum
+{
+    // For use with gBmMapHidden
+
+    HIDDEN_BIT_UNIT = (1 << 0),
+    HIDDEN_BIT_TRAP = (1 << 1),
+};
+
 #endif // GUARD_BMMAP_H

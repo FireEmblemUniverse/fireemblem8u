@@ -225,7 +225,7 @@ sub_8024FD8: @ 0x08024FD8
 	mov r8, r2
 	bl InitTargets
 	movs r1, #0xff
-	ldr r7, _08025034  @ gUnknown_030049A0
+	ldr r7, _08025034  @ gWorkingBmMap
 	lsls r6, r5, #2
 _08024FEE:
 	movs r2, #0xff
@@ -264,7 +264,7 @@ _08025008:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_08025034: .4byte gUnknown_030049A0
+_08025034: .4byte gWorkingBmMap
 
 	THUMB_FUNC_START ForEachPosIn12Range
 ForEachPosIn12Range: @ 0x08025038

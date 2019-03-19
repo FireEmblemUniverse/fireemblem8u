@@ -13354,7 +13354,7 @@ sub_8040DCC: @ 0x08040DCC
 	push {r4, r5, lr}
 	adds r4, r0, #0
 	movs r2, #1
-	ldr r3, _08040DEC  @ gUnknown_03004BB0
+	ldr r3, _08040DEC  @ gWorkingTerrainMoveCosts
 	movs r5, #1
 _08040DD6:
 	adds r0, r4, r2
@@ -13368,7 +13368,7 @@ _08040DD6:
 	strb r1, [r0]
 	b _08040DF4
 	.align 2, 0
-_08040DEC: .4byte gUnknown_03004BB0
+_08040DEC: .4byte gWorkingTerrainMoveCosts
 _08040DF0:
 	adds r0, r2, r3
 	strb r5, [r0]
@@ -13388,7 +13388,7 @@ sub_8040E04: @ 0x08040E04
 	adds r3, r0, #0
 	adds r5, r1, #0
 	movs r2, #1
-	ldr r6, _08040E30  @ gUnknown_03004BB0
+	ldr r6, _08040E30  @ gWorkingTerrainMoveCosts
 	adds r4, r6, #0
 _08040E10:
 	adds r1, r2, r4
@@ -13407,7 +13407,7 @@ _08040E10:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_08040E30: .4byte gUnknown_03004BB0
+_08040E30: .4byte gWorkingTerrainMoveCosts
 
 	THUMB_FUNC_START sub_8040E34
 sub_8040E34: @ 0x08040E34
@@ -13416,7 +13416,7 @@ sub_8040E34: @ 0x08040E34
 	adds r6, r1, #0
 	adds r7, r2, #0
 	movs r3, #1
-	ldr r2, _08040E64  @ gUnknown_03004BB0
+	ldr r2, _08040E64  @ gWorkingTerrainMoveCosts
 	adds r5, r2, #0
 _08040E42:
 	adds r1, r3, r5
@@ -13437,7 +13437,7 @@ _08040E42:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_08040E64: .4byte gUnknown_03004BB0
+_08040E64: .4byte gWorkingTerrainMoveCosts
 
 	THUMB_FUNC_START sub_8040E68
 sub_8040E68: @ 0x08040E68

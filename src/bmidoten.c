@@ -13,7 +13,7 @@
 
 inline void SetSubjectMap(u8** map)
 {
-    gUnknown_030049A0 = map;
+    gWorkingBmMap = map;
 }
 
 void FillMovementMapForUnit(struct Unit* unit)
@@ -68,39 +68,39 @@ void StoreMovCostTable(const s8 mct[TERRAIN_COUNT])
     int i;
 
     for (i = 0; i < TERRAIN_COUNT; ++i)
-        gUnknown_03004BB0[i] = mct[i];
+        gWorkingTerrainMoveCosts[i] = mct[i];
 }
 
 void FillMovementMap(int x, int y, int movement, int unitId)
 {
-    gUnknown_03004E60.pUnk04 = gUnknown_030049B0;
-    gUnknown_03004E60.pUnk00 = gUnknown_03004C50;
+    gMovMapFillState.pUnk04 = gUnknown_030049B0;
+    gMovMapFillState.pUnk00 = gUnknown_03004C50;
 
-    gUnknown_03004E60.movement = movement;
+    gMovMapFillState.movement = movement;
 
     if (unitId == 0)
     {
-        gUnknown_03004E60.hasUnit = FALSE;
+        gMovMapFillState.hasUnit = FALSE;
     }
     else
     {
-        gUnknown_03004E60.hasUnit = TRUE;
-        gUnknown_03004E60.unitId = unitId;
+        gMovMapFillState.hasUnit = TRUE;
+        gMovMapFillState.unitId = unitId;
     }
 
-    gUnknown_03004E60.maxMovementValue = MAP_MOVEMENT_MAX;
+    gMovMapFillState.maxMovementValue = MAP_MOVEMENT_MAX;
 
-    BmMapFill(gUnknown_030049A0, -1);
+    BmMapFill(gWorkingBmMap, -1);
 
-    gUnknown_03004E60.pUnk04->xPos = x;
-    gUnknown_03004E60.pUnk04->yPos = y;
-    gUnknown_03004E60.pUnk04->connexion = 5;
-    gUnknown_03004E60.pUnk04->leastMoveCost = 0;
+    gMovMapFillState.pUnk04->xPos = x;
+    gMovMapFillState.pUnk04->yPos = y;
+    gMovMapFillState.pUnk04->connexion = 5;
+    gMovMapFillState.pUnk04->leastMoveCost = 0;
 
-    gUnknown_030049A0[y][x] = 0;
+    gWorkingBmMap[y][x] = 0;
 
-    gUnknown_03004E60.pUnk04++;
-    gUnknown_03004E60.pUnk04->connexion = 4;
+    gMovMapFillState.pUnk04++;
+    gMovMapFillState.pUnk04->connexion = 4;
 
     CallARM_FillMovementMap();
 }
@@ -112,30 +112,30 @@ void sub_801A570(int connexion, int x, int y)
 
     short tileMovementCost;
 
-    x += gUnknown_03004E60.pUnk00->xPos;
-    y += gUnknown_03004E60.pUnk00->yPos;
+    x += gMovMapFillState.pUnk00->xPos;
+    y += gMovMapFillState.pUnk00->yPos;
 
-    tileMovementCost = gUnknown_03004BB0[gBmMapTerrain[y][x]]
-        + (s8) gUnknown_030049A0[(u8) gUnknown_03004E60.pUnk00->yPos][(u8) gUnknown_03004E60.pUnk00->xPos];
+    tileMovementCost = gWorkingTerrainMoveCosts[gBmMapTerrain[y][x]]
+        + (s8) gWorkingBmMap[(u8) gMovMapFillState.pUnk00->yPos][(u8) gMovMapFillState.pUnk00->xPos];
 
-    if (tileMovementCost >= gUnknown_030049A0[y][x])
+    if (tileMovementCost >= gWorkingBmMap[y][x])
         return;
 
-    if (gUnknown_03004E60.hasUnit && gBmMapUnit[y][x])
-        if ((gBmMapUnit[y][x] ^ gUnknown_03004E60.unitId) & 0x80)
+    if (gMovMapFillState.hasUnit && gBmMapUnit[y][x])
+        if ((gBmMapUnit[y][x] ^ gMovMapFillState.unitId) & 0x80)
             return;
 
-    if (tileMovementCost > gUnknown_03004E60.movement)
+    if (tileMovementCost > gMovMapFillState.movement)
         return;
 
-    gUnknown_03004E60.pUnk04->xPos = x;
-    gUnknown_03004E60.pUnk04->yPos = y;
-    gUnknown_03004E60.pUnk04->connexion = connexion;
-    gUnknown_03004E60.pUnk04->leastMoveCost = tileMovementCost;
+    gMovMapFillState.pUnk04->xPos = x;
+    gMovMapFillState.pUnk04->yPos = y;
+    gMovMapFillState.pUnk04->connexion = connexion;
+    gMovMapFillState.pUnk04->leastMoveCost = tileMovementCost;
 
-    gUnknown_03004E60.pUnk04++;
+    gMovMapFillState.pUnk04++;
 
-    gUnknown_030049A0[y][x] = tileMovementCost;
+    gWorkingBmMap[y][x] = tileMovementCost;
 }
 
 void sub_801A640(int x, int y, u8 output[])
@@ -161,29 +161,29 @@ void sub_801A640(int x, int y, u8 output[])
 
     // As we build the list *in reverse*, the directions are also "reversed" as we traverse the path.
 
-    while (((s8**) gUnknown_030049A0)[y][x] != 0)
+    while (((s8**) gWorkingBmMap)[y][x] != 0)
     {
         // Build neighbor cost list
 
         if (x == (gBmMapSize.x - 1))
             neighbourCosts[MU_COMMAND_MOVE_LEFT] |= 0xFF;
         else
-            neighbourCosts[MU_COMMAND_MOVE_LEFT] = gUnknown_030049A0[y][x+1];
+            neighbourCosts[MU_COMMAND_MOVE_LEFT] = gWorkingBmMap[y][x+1];
 
         if (x == 0)
             neighbourCosts[MU_COMMAND_MOVE_RIGHT] |= 0xFF;
         else
-            neighbourCosts[MU_COMMAND_MOVE_RIGHT] = gUnknown_030049A0[y][x-1];
+            neighbourCosts[MU_COMMAND_MOVE_RIGHT] = gWorkingBmMap[y][x-1];
 
         if (y == (gBmMapSize.y - 1))
             neighbourCosts[MU_COMMAND_MOVE_UP] |= 0xFF;
         else
-            neighbourCosts[MU_COMMAND_MOVE_UP] = gUnknown_030049A0[y+1][x];
+            neighbourCosts[MU_COMMAND_MOVE_UP] = gWorkingBmMap[y+1][x];
 
         if (y == 0)
             neighbourCosts[MU_COMMAND_MOVE_DOWN] |= 0xFF;
         else
-            neighbourCosts[MU_COMMAND_MOVE_DOWN] = gUnknown_030049A0[y-1][x];
+            neighbourCosts[MU_COMMAND_MOVE_DOWN] = gWorkingBmMap[y-1][x];
 
         // find best cost
 
@@ -343,24 +343,24 @@ void sub_801A8E4(void) {
             if (gBmMapMovement[iy][ix] > MAP_MOVEMENT_MAX)
                 continue;
 
-            if ((s8) gBmMapMovement[iy][ix] == gUnknown_03004E60.maxMovementValue)
+            if ((s8) gBmMapMovement[iy][ix] == gMovMapFillState.maxMovementValue)
                 continue;
 
             if ((s8) gBmMapMovement[iy][ix - 1] < 0 && (ix != 0))
-                gBmMapMovement[iy][ix - 1] = gUnknown_03004E60.maxMovementValue;
+                gBmMapMovement[iy][ix - 1] = gMovMapFillState.maxMovementValue;
 
             if ((s8) gBmMapMovement[iy][ix + 1] < 0 && (ix != (gBmMapSize.x - 1)))
-                gBmMapMovement[iy][ix + 1] = gUnknown_03004E60.maxMovementValue;
+                gBmMapMovement[iy][ix + 1] = gMovMapFillState.maxMovementValue;
 
             if ((s8) gBmMapMovement[iy - 1][ix] < 0 && (iy != 0))
-                gBmMapMovement[iy - 1][ix] = gUnknown_03004E60.maxMovementValue;
+                gBmMapMovement[iy - 1][ix] = gMovMapFillState.maxMovementValue;
 
             if ((s8) gBmMapMovement[iy + 1][ix] < 0 && (iy != (gBmMapSize.y - 1)))
-                gBmMapMovement[iy + 1][ix] = gUnknown_03004E60.maxMovementValue;
+                gBmMapMovement[iy + 1][ix] = gMovMapFillState.maxMovementValue;
         }
     }
 
-    gUnknown_03004E60.maxMovementValue++;
+    gMovMapFillState.maxMovementValue++;
 }
 
 void sub_801A9D0(void)
@@ -371,27 +371,27 @@ void sub_801A9D0(void)
     {
         for (ix = gBmMapSize.x - 1; ix >= 0; --ix)
         {
-            if (gUnknown_030049A0[iy][ix] > MAP_MOVEMENT_MAX)
+            if (gWorkingBmMap[iy][ix] > MAP_MOVEMENT_MAX)
                 continue;
 
-            if ((s8) gUnknown_030049A0[iy][ix] == gUnknown_03004E60.maxMovementValue)
+            if ((s8) gWorkingBmMap[iy][ix] == gMovMapFillState.maxMovementValue)
                 continue;
 
-            if ((s8) gUnknown_030049A0[iy][ix - 1] < 0 && (ix != 0))
-                gUnknown_030049A0[iy][ix - 1] = gUnknown_03004E60.maxMovementValue;
+            if ((s8) gWorkingBmMap[iy][ix - 1] < 0 && (ix != 0))
+                gWorkingBmMap[iy][ix - 1] = gMovMapFillState.maxMovementValue;
 
-            if ((s8) gUnknown_030049A0[iy][ix + 1] < 0 && (ix != (gBmMapSize.x - 1)))
-                gUnknown_030049A0[iy][ix + 1] = gUnknown_03004E60.maxMovementValue;
+            if ((s8) gWorkingBmMap[iy][ix + 1] < 0 && (ix != (gBmMapSize.x - 1)))
+                gWorkingBmMap[iy][ix + 1] = gMovMapFillState.maxMovementValue;
 
-            if ((s8) gUnknown_030049A0[iy - 1][ix] < 0 && (iy != 0))
-                gUnknown_030049A0[iy - 1][ix] = gUnknown_03004E60.maxMovementValue;
+            if ((s8) gWorkingBmMap[iy - 1][ix] < 0 && (iy != 0))
+                gWorkingBmMap[iy - 1][ix] = gMovMapFillState.maxMovementValue;
 
-            if ((s8) gUnknown_030049A0[iy + 1][ix] < 0 && (iy != (gBmMapSize.y - 1)))
-                gUnknown_030049A0[iy + 1][ix] = gUnknown_03004E60.maxMovementValue;
+            if ((s8) gWorkingBmMap[iy + 1][ix] < 0 && (iy != (gBmMapSize.y - 1)))
+                gWorkingBmMap[iy + 1][ix] = gMovMapFillState.maxMovementValue;
         }
     }
 
-    gUnknown_03004E60.maxMovementValue++;
+    gMovMapFillState.maxMovementValue++;
 }
 
 void MapAddInRange(int x, int y, int range, int value)
@@ -423,7 +423,7 @@ void MapAddInRange(int x, int y, int range, int value)
 
         for (ix = xMin; ix < xMax; ++ix)
         {
-            gUnknown_030049A0[iy][ix] += value;
+            gWorkingBmMap[iy][ix] += value;
         }
     }
 
@@ -452,7 +452,7 @@ void MapAddInRange(int x, int y, int range, int value)
 
         for (ix = xMin; ix < xMax; ++ix)
         {
-            gUnknown_030049A0[iy][ix] += value;
+            gWorkingBmMap[iy][ix] += value;
         }
     }
 }
@@ -486,7 +486,7 @@ void StoreR3ToMapSomething(int x, int y, int range, int value)
 
         for (ix = xMin; ix < xMax; ++ix)
         {
-            gUnknown_030049A0[iy][ix] = value;
+            gWorkingBmMap[iy][ix] = value;
         }
     }
 
@@ -515,7 +515,7 @@ void StoreR3ToMapSomething(int x, int y, int range, int value)
 
         for (ix = xMin; ix < xMax; ++ix)
         {
-            gUnknown_030049A0[iy][ix] = value;
+            gWorkingBmMap[iy][ix] = value;
         }
     }
 }
@@ -839,5 +839,5 @@ void sub_801B950(int value)
 
 inline u8* GetCurrentMovCostTable(void)
 {
-    return gUnknown_03004BB0;
+    return gWorkingTerrainMoveCosts;
 }
