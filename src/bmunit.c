@@ -5,14 +5,16 @@
 #include "constants/items.h"
 #include "constants/classes.h"
 #include "constants/characters.h"
+#include "constants/terrains.h"
 
 #include "bmitem.h"
 #include "bmunit.h"
 #include "bmmap.h"
+#include "bmidoten.h"
 #include "bmbattle.h"
 
 EWRAM_DATA u8 gActiveUnitId = 0;
-EWRAM_DATA struct { short x, y; } gActiveUnitMoveOrigin = {}; // TODO: struct Vec2?
+EWRAM_DATA struct Vec2 gActiveUnitMoveOrigin = {};
 
 EWRAM_DATA struct Unit gUnitArrayBlue[62]  = {}; // Player units
 EWRAM_DATA struct Unit gUnitArrayRed[50]   = {}; // Red units
@@ -356,7 +358,7 @@ inline void AddUnitHp(struct Unit* unit, int amount) {
 int GetUnitFogViewRange(struct Unit* unit) {
     int result = gUnknown_0202BCF0.chapterVisionRange;
 
-    if (UNIT_CATTRIBUTES(unit) & CA_LOCKPICK)
+    if (UNIT_CATTRIBUTES(unit) & CA_THIEF)
         result += 5;
 
     return result + unit->torchDuration;
@@ -1001,7 +1003,7 @@ void UnitGetDeathDropLocation(struct Unit* unit, int* xOut, int* yOut) {
     struct Unit* rescuee = GetUnit(unit->rescueOtherUnit);
 
     // Fill the movement map
-    FillMovementMapSomehow(unit->xPos, unit->yPos, gUnknown_0880BB96);
+    GenerateExtendedMovementMap(unit->xPos, unit->yPos, gUnknown_0880BB96);
 
     // Put the active unit on the unit map (kinda, just marking its spot)
     gBmMapUnit[gActiveUnit->yPos][gActiveUnit->xPos] = 0xFF;
@@ -1225,7 +1227,7 @@ void sub_8018A7C(struct Unit* unit, int x, int y) {
 int GetUnitKeyItemSlotForTerrain(struct Unit* unit, int terrain) {
     int slot, item = 0;
 
-    if (UNIT_CATTRIBUTES(unit) & CA_LOCKPICK) {
+    if (UNIT_CATTRIBUTES(unit) & CA_THIEF) {
         int slot = GetUnitItemSlot(unit, ITEM_LOCKPICK);
 
         if (slot >= 0)
@@ -1234,9 +1236,7 @@ int GetUnitKeyItemSlotForTerrain(struct Unit* unit, int terrain) {
 
     switch (terrain) {
 
-        // TODO: terrain id constants
-
-    case 0x21:
+    case TERRAIN_CHEST_21:
         slot = GetUnitItemSlot(unit, ITEM_CHESTKEY);
 
         if (slot < 0)
@@ -1244,7 +1244,7 @@ int GetUnitKeyItemSlotForTerrain(struct Unit* unit, int terrain) {
 
         return slot;
 
-    case 0x1E:
+    case TERRAIN_DOOR:
         item = ITEM_DOORKEY;
         break;
 

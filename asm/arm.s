@@ -422,9 +422,9 @@ _08000768:
 	pop {r4, r5, r6, r7}
 	bx lr
 	.align 2, 0
-_08000770: .4byte gUnknown_03004BB0 @ pool
-_08000774: .4byte gUnknown_03004E60 @ pool
-_08000778: .4byte gUnknown_030049A0 @ pool
+_08000770: .4byte gWorkingTerrainMoveCosts @ pool
+_08000774: .4byte gMovMapFillState @ pool
+_08000778: .4byte gWorkingBmMap @ pool
 _0800077C: .4byte gBmMapTerrain @ pool
 _08000780: .4byte gBmMapUnit @ pool
 
@@ -501,7 +501,7 @@ _08000858:
 IRAMARM_FillMovementMap: @ 0x08000874
 	push {r4, r5, r6, lr}
 	mov r4, #0
-	ldr r5, _08000774  @ gUnknown_03004E60
+	ldr r5, _08000774  @ gMovMapFillState
 _08000880:
 	eors r4, r4, #1
 	beq _0800089C

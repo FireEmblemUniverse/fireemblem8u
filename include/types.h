@@ -293,7 +293,7 @@ enum {
     // 0x1B?
     // 0x1C?
     UNIT_ACTION_TRADED = 0x1D,
-    // 0x1E?
+    UNIT_ACTION_TRAPPED = 0x1E,
     // 0x1F?
     // 0x20?
     UNIT_ACTION_RIDE_BALLISTA = 0x21,
@@ -514,13 +514,5 @@ enum {
 
 // TODO: move to bmcontainer.h
 enum { CONVOY_ITEM_COUNT = 100 };
-
-// TODO: move to bmmap.h
-enum { MAP_MOVEMENT_MAX = 120 };
-
-enum {
-    HIDDEN_BIT_UNIT = (1 << 0),
-    HIDDEN_BIT_TRAP = (1 << 1),
-};
 
 #endif // GUARD_TYPES_H

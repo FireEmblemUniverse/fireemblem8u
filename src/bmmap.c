@@ -8,6 +8,7 @@
 #include "event.h"
 #include "bmunit.h"
 #include "bmmap.h"
+#include "bmidoten.h"
 
 static void BmMapInit(void* buffer, u8*** outHandle, int width, int height);
 
@@ -201,7 +202,7 @@ void BmMapFill(u8** map, int value) {
 
     CpuFill16(value, map[-2], size);
 
-    SetSubjectMap(map);
+    SetWorkingBmMap(map);
 }
 
 void BmMapFillEdges(u8** map, u8 value) {

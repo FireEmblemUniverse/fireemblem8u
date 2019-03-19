@@ -19986,7 +19986,7 @@ _0804B660:
 	adds r0, r6, #0
 	bl MU_Create
 	adds r4, r0, #0
-	ldr r1, _0804B6A4  @ gUnknown_02033EFC
+	ldr r1, _0804B6A4  @ gWorkingMovementScript
 	movs r0, #2
 	strb r0, [r1]
 	movs r0, #4
@@ -20010,7 +20010,7 @@ _0804B69C:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_0804B6A4: .4byte gUnknown_02033EFC
+_0804B6A4: .4byte gWorkingMovementScript
 _0804B6A8: .4byte 0xFFFFFDFF
 
 	THUMB_FUNC_START sub_804B6AC
@@ -20265,7 +20265,7 @@ _0804B86C:
 	movs r3, #0x11
 	ldrsb r3, [r5, r3]
 	bl GetFacingDirection
-	ldr r1, _0804B8CC  @ gUnknown_02033EFC
+	ldr r1, _0804B8CC  @ gWorkingMovementScript
 	strb r0, [r1]
 	movs r0, #4
 	strb r0, [r1, #1]
@@ -20282,7 +20282,7 @@ _0804B8B8:
 _0804B8C0: .4byte gBattleActor
 _0804B8C4: .4byte gProcScr_MoveUnit
 _0804B8C8: .4byte gBattleTarget
-_0804B8CC: .4byte gUnknown_02033EFC
+_0804B8CC: .4byte gWorkingMovementScript
 
 	THUMB_FUNC_START sub_804B8D0
 sub_804B8D0: @ 0x0804B8D0

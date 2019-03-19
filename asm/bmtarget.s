@@ -225,7 +225,7 @@ sub_8024FD8: @ 0x08024FD8
 	mov r8, r2
 	bl InitTargets
 	movs r1, #0xff
-	ldr r7, _08025034  @ gUnknown_030049A0
+	ldr r7, _08025034  @ gWorkingBmMap
 	lsls r6, r5, #2
 _08024FEE:
 	movs r2, #0xff
@@ -264,7 +264,7 @@ _08025008:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_08025034: .4byte gUnknown_030049A0
+_08025034: .4byte gWorkingBmMap
 
 	THUMB_FUNC_START ForEachPosIn12Range
 ForEachPosIn12Range: @ 0x08025038
@@ -489,7 +489,7 @@ MakeTargetListForWeapon: @ 0x080251B4
 	adds r0, r5, #0
 	adds r1, r6, #0
 	adds r2, r4, #0
-	bl FillRangeMap
+	bl MapAddInBoundedRange
 	ldr r0, _08025218  @ AddUnitToTargetListIfNotAllied
 	bl ForEachUnitInRange
 	bl TryAddTrapsToTargetList
@@ -1179,7 +1179,7 @@ FillBallistaRangeMaybe: @ 0x08025728
 	adds r0, r5, #0
 	adds r1, r6, #0
 	adds r2, r4, #0
-	bl FillRangeMap
+	bl MapAddInBoundedRange
 	ldr r0, _08025790  @ AddUnitToTargetListIfAllied
 	bl ForEachUnitInRange
 	bl TryAddTrapsToTargetList

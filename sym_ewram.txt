@@ -40,7 +40,6 @@
 . = 0x001180; gUnknown_02001180 = .;
 . = 0x001184; gUnknown_02001184 = .;
 . = 0x001188; gUnknown_02001188 = .;
-. = 0x001808; gUnknown_02001808 = .;
 . = 0x001F70; gUnknown_02001F70 = .;
 . = 0x002038; gUnknown_02002038 = .;
 . = 0x002088; gUnknown_02002088 = .;
@@ -520,7 +519,7 @@
 . = 0x02BE44;
 . = ALIGN(4); src/bmunit.o(ewram_data);
 . = ALIGN(4); src/bmmap.o(ewram_data);
-. = 0x033EFC; gUnknown_02033EFC = .;
+. = 0x033EFC; gWorkingMovementScript = .;
 . = 0x033F3C; gUnknown_02033F3C = .;
 . = 0x033F40; gUnknown_02033F40 = .;
 . = 0x034010; gUnknown_02034010 = .;

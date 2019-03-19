@@ -756,7 +756,7 @@ s8 IsItemDisplayUsable(struct Unit* unit, int item) {
         if (unit->statusIndex == UNIT_STATUS_BERSERK)
             return FALSE;
 
-        if (!(UNIT_CATTRIBUTES(unit) & CA_LOCKPICK) && GetItemIndex(item) == ITEM_LOCKPICK)
+        if (!(UNIT_CATTRIBUTES(unit) & CA_THIEF) && GetItemIndex(item) == ITEM_LOCKPICK)
             return FALSE;
 
         if (!(UNIT_CATTRIBUTES(unit) & CA_REFRESHER) && IsItemDanceRing(item))

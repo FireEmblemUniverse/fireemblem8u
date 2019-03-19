@@ -43,7 +43,6 @@
 // extern ??? gUnknown_02001180
 // extern ??? gUnknown_02001184
 // extern ??? gUnknown_02001188
-// extern ??? gUnknown_02001808
 // extern ??? gUnknown_02001F70
 // extern ??? gUnknown_02002038
 // extern ??? gUnknown_02002088
@@ -526,7 +525,7 @@ extern struct Struct0202BCF0 gUnknown_0202BCF0;
 // extern ??? gUnitArrayRed
 // extern ??? gUnitArrayGreen
 // extern ??? gUnknown_02030B8C
-// extern ??? gUnknown_02033EFC
+extern u8 gWorkingMovementScript[];
 // extern ??? gUnknown_02033F3C
 // extern ??? gUnknown_02033F40
 // extern ??? gUnknown_02034010
@@ -802,13 +801,8 @@ extern void *gUnknown_03004158;
 extern struct UnknownStructCTC *gUnknown_03004970;
 // extern ??? gUnknown_03004980
 // extern ??? gUnknown_03004990
-// extern ??? gUnknown_030049A0
-// extern ??? gUnknown_030049B0
-// extern ??? gUnknown_03004BB0
 // extern ??? gUnknown_03004C00
-// extern ??? gUnknown_03004C50
-extern struct Unit* gActiveUnit; // gActiveUnit // Active Unit
-// extern ??? gUnknown_03004E60
+extern struct Unit* gActiveUnit;
 // extern ??? gUnknown_03004E70
 // extern ??? gUnknown_03004E74
 // extern ??? gUnknown_03004E80
