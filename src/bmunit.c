@@ -9,6 +9,7 @@
 #include "bmitem.h"
 #include "bmunit.h"
 #include "bmmap.h"
+#include "bmidoten.h"
 #include "bmbattle.h"
 
 EWRAM_DATA u8 gActiveUnitId = 0;

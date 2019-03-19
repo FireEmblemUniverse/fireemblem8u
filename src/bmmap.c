@@ -8,6 +8,7 @@
 #include "event.h"
 #include "bmunit.h"
 #include "bmmap.h"
+#include "bmidoten.h"
 
 static void BmMapInit(void* buffer, u8*** outHandle, int width, int height);
 

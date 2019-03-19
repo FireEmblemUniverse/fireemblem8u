@@ -6,131 +6,86 @@
 #include "bmitem.h"
 #include "bmunit.h"
 #include "bmmap.h"
+#include "proc.h"
+#include "mu.h"
 
-void FillMovementMapForUnit(struct Unit* unit);
-void FillMovementMapForUnitAndMovement(struct Unit* unit, s8 movement);
-void FillMovementMapForUnitPosition(struct Unit* unit);
-void FillMovementRangeMapSomehow(int x, int y, const s8 mct[TERRAIN_COUNT]);
-void FillMovementMapSomehow(int x, int y, const s8 mct[TERRAIN_COUNT]);
-void FillMovementMapForUnitAt(struct Unit* unit, int x, int y, int movement);
-void StoreMovCostTable(const s8 mct[TERRAIN_COUNT]);
-void FillMovementMap(int x, int y, int movement, int id);
-void sub_801A570(int connexion, int x, int y);
-void sub_801A640(int x, int y, u8 output[]);
-void sub_801A7F4(u8* begin, u8* end);
-void sub_801A82C(struct Unit* unit, int x, int y);
-void sub_801A8E4(void);
-void sub_801A9D0(void);
-void MapAddInRange(int x, int y, int range, int value);
-void StoreR3ToMapSomething(int x, int y, int range, int value);
-void FillMapAttackRangeForUnit(struct Unit* unit);
-void FillRangeByRangeMask(struct Unit* unit, int reach);
-void FillMapStaffRangeForUnit(struct Unit* unit);
-void ApplyStuffToRangeMaps(s8 boolDisplayStaffRange);
-void sub_801B950(int value);
-void SetSubjectMap(u8** map);
-void FillRangeMap(short x, short y, short minRange, short maxRange);
-u8* GetCurrentMovCostTable(void);
+#include "bmidoten.h"
 
-// gSubjectMap (?)
-extern u8** gUnknown_030049A0;
-
-// working Terrain-to-MoveCost table
-extern u8 gUnknown_03004BB0[];
-
-struct UnkMovMapFill {
-    /* 00 */ s8 xPos;
-    /* 01 */ s8 yPos;
-    /* 02 */ u8 connexion;
-    /* 03 */ u8 leastMoveCost;
-};
-
-struct Unk03004E60 {
-    /* 00 */ struct UnkMovMapFill* pUnk00;
-    /* 04 */ struct UnkMovMapFill* pUnk04;
-    /* 08 */ s8 hasUnit;
-    /* 09 */ u8 movement;
-    /* 0A */ u8 unitId;
-    /* 0B */ u8 maxMovementValue;
-};
-
-enum {
-    RECT_DIRECTION_RIGHT,
-    RECT_DIRECTION_LEFT,
-    RECT_DIRECTION_UP,
-    RECT_DIRECTION_DOWN,
-
-    RECT_DIRECTION_END,
-};
-
-extern struct UnkMovMapFill gUnknown_030049B0[];
-extern struct UnkMovMapFill gUnknown_03004C50[];
-
-extern struct Unk03004E60 gUnknown_03004E60;
-
-inline void SetSubjectMap(u8** map) {
+inline void SetSubjectMap(u8** map)
+{
     gUnknown_030049A0 = map;
 }
 
-void FillMovementMapForUnit(struct Unit* unit) {
+void FillMovementMapForUnit(struct Unit* unit)
+{
     StoreMovCostTable(GetUnitMovementCost(unit));
     SetSubjectMap(gBmMapMovement);
 
     FillMovementMap(unit->xPos, unit->yPos, UNIT_MOV(unit), unit->index);
 }
 
-void FillMovementMapForUnitAndMovement(struct Unit* unit, s8 movement) {
+void FillMovementMapForUnitAndMovement(struct Unit* unit, s8 movement)
+{
     StoreMovCostTable(GetUnitMovementCost(unit));
     SetSubjectMap(gBmMapMovement);
 
     FillMovementMap(unit->xPos, unit->yPos, movement, unit->index);
 }
 
-void FillMovementMapForUnitPosition(struct Unit* unit) {
+void FillMovementMapForUnitPosition(struct Unit* unit)
+{
     StoreMovCostTable(GetUnitMovementCost(unit));
     SetSubjectMap(gBmMapMovement);
 
     FillMovementMap(unit->xPos, unit->yPos, MAP_MOVEMENT_MAX_124, 0);
 }
 
-void FillMovementRangeMapSomehow(int x, int y, const s8 mct[TERRAIN_COUNT]) {
+void FillMovementRangeMapSomehow(int x, int y, const s8 mct[TERRAIN_COUNT])
+{
     StoreMovCostTable(mct);
     SetSubjectMap(gBmMapRange);
 
     FillMovementMap(x, y, MAP_MOVEMENT_MAX_124, 0);
 }
 
-void FillMovementMapSomehow(int x, int y, const s8 mct[TERRAIN_COUNT]) {
+void FillMovementMapSomehow(int x, int y, const s8 mct[TERRAIN_COUNT])
+{
     StoreMovCostTable(mct);
     SetSubjectMap(gBmMapMovement);
 
     FillMovementMap(x, y, MAP_MOVEMENT_MAX_124, 0);
 }
 
-void FillMovementMapForUnitAt(struct Unit* unit, int x, int y, int movement) {
+void FillMovementMapForUnitAt(struct Unit* unit, int x, int y, int movement)
+{
     StoreMovCostTable(GetUnitMovementCost(unit));
 
     FillMovementMap(x, y, movement, unit->index);
 }
 
-void StoreMovCostTable(const s8 mct[TERRAIN_COUNT]) {
+void StoreMovCostTable(const s8 mct[TERRAIN_COUNT])
+{
     int i;
 
     for (i = 0; i < TERRAIN_COUNT; ++i)
         gUnknown_03004BB0[i] = mct[i];
 }
 
-void FillMovementMap(int x, int y, int movement, int id) {
+void FillMovementMap(int x, int y, int movement, int unitId)
+{
     gUnknown_03004E60.pUnk04 = gUnknown_030049B0;
     gUnknown_03004E60.pUnk00 = gUnknown_03004C50;
 
     gUnknown_03004E60.movement = movement;
 
-    if (id == 0) {
+    if (unitId == 0)
+    {
         gUnknown_03004E60.hasUnit = FALSE;
-    } else {
+    }
+    else
+    {
         gUnknown_03004E60.hasUnit = TRUE;
-        gUnknown_03004E60.unitId = id;
+        gUnknown_03004E60.unitId = unitId;
     }
 
     gUnknown_03004E60.maxMovementValue = MAP_MOVEMENT_MAX;
@@ -150,7 +105,8 @@ void FillMovementMap(int x, int y, int movement, int id) {
     CallARM_FillMovementMap();
 }
 
-void sub_801A570(int connexion, int x, int y) {
+void sub_801A570(int connexion, int x, int y)
+{
     // This is a C implementation of the ARM (asm) function IRAMARM_Func5
     // Probably used during testing before switching to the a more "optimal" version.
 
@@ -182,7 +138,8 @@ void sub_801A570(int connexion, int x, int y) {
     gUnknown_030049A0[y][x] = tileMovementCost;
 }
 
-void sub_801A640(int x, int y, u8 output[]) {
+void sub_801A640(int x, int y, u8 output[])
+{
     u8* outputStart = output;
 
     short bestCost;
@@ -202,28 +159,31 @@ void sub_801A640(int x, int y, u8 output[]) {
     // 4. repeat 2-4 until we reached origin (cost = 0)
     // 5. reverse and terminate output
 
-    while (((s8**) gUnknown_030049A0)[y][x] != 0) {
+    // As we build the list *in reverse*, the directions are also "reversed" as we traverse the path.
+
+    while (((s8**) gUnknown_030049A0)[y][x] != 0)
+    {
         // Build neighbor cost list
 
         if (x == (gBmMapSize.x - 1))
-            neighbourCosts[RECT_DIRECTION_RIGHT] |= 0xFF;
+            neighbourCosts[MU_COMMAND_MOVE_LEFT] |= 0xFF;
         else
-            neighbourCosts[RECT_DIRECTION_RIGHT] = gUnknown_030049A0[y][x+1];
+            neighbourCosts[MU_COMMAND_MOVE_LEFT] = gUnknown_030049A0[y][x+1];
 
         if (x == 0)
-            neighbourCosts[RECT_DIRECTION_LEFT] |= 0xFF;
+            neighbourCosts[MU_COMMAND_MOVE_RIGHT] |= 0xFF;
         else
-            neighbourCosts[RECT_DIRECTION_LEFT] = gUnknown_030049A0[y][x-1];
+            neighbourCosts[MU_COMMAND_MOVE_RIGHT] = gUnknown_030049A0[y][x-1];
 
         if (y == (gBmMapSize.y - 1))
-            neighbourCosts[RECT_DIRECTION_DOWN] |= 0xFF;
+            neighbourCosts[MU_COMMAND_MOVE_UP] |= 0xFF;
         else
-            neighbourCosts[RECT_DIRECTION_DOWN] = gUnknown_030049A0[y+1][x];
+            neighbourCosts[MU_COMMAND_MOVE_UP] = gUnknown_030049A0[y+1][x];
 
         if (y == 0)
-            neighbourCosts[RECT_DIRECTION_UP] |= 0xFF;
+            neighbourCosts[MU_COMMAND_MOVE_DOWN] |= 0xFF;
         else
-            neighbourCosts[RECT_DIRECTION_UP] = gUnknown_030049A0[y-1][x];
+            neighbourCosts[MU_COMMAND_MOVE_DOWN] = gUnknown_030049A0[y-1][x];
 
         // find best cost
 
@@ -242,7 +202,8 @@ void sub_801A640(int x, int y, u8 output[]) {
 
         // get next direction (choose randomly if necessary)
 
-        switch (bestDirectionCount) {
+        switch (bestDirectionCount)
+        {
 
         case 1:
             nextDirection = bestDirections[0];
@@ -267,22 +228,24 @@ void sub_801A640(int x, int y, u8 output[]) {
         *output++ = nextDirection;
 
         // update position given direction
+        // reminder: directions are reversed
 
-        switch (nextDirection) {
+        switch (nextDirection)
+        {
 
-        case RECT_DIRECTION_RIGHT:
+        case MU_COMMAND_MOVE_LEFT:
             x++;
             break;
 
-        case RECT_DIRECTION_LEFT:
+        case MU_COMMAND_MOVE_RIGHT:
             x--;
             break;
 
-        case RECT_DIRECTION_DOWN:
+        case MU_COMMAND_MOVE_UP:
             y++;
             break;
 
-        case RECT_DIRECTION_UP:
+        case MU_COMMAND_MOVE_DOWN:
             y--;
             break;
 
@@ -293,52 +256,57 @@ void sub_801A640(int x, int y, u8 output[]) {
     sub_801A7F4(outputStart, output);
 }
 
-void sub_801A7F4(u8* begin, u8* end) {
-    u8 buffer[0x40];
+void sub_801A7F4(u8* begin, u8* end)
+{
+    u8 buffer[MU_COMMAND_MAX_COUNT];
 
     u8* it = buffer;
 
     while (end > begin)
         *it++ = *--end;
 
-    *it = RECT_DIRECTION_END;
+    *it = MU_COMMAND_HALT;
 
-    for (it = buffer; *it != RECT_DIRECTION_END;)
+    for (it = buffer; *it != MU_COMMAND_HALT;)
         *begin++ = *it++;
 
-    *begin = RECT_DIRECTION_END;
+    *begin = MU_COMMAND_HALT;
 }
 
-void sub_801A82C(struct Unit* unit, int x, int y) {
+void sub_801A82C(struct Unit* unit, int x, int y)
+{
     u8* it = gUnknown_02033EFC;
 
     for (;;) {
         gActionData.xMove = x;
         gActionData.yMove = y;
 
-        switch (*it) {
+        switch (*it)
+        {
 
-        case RECT_DIRECTION_DOWN: // up
+        case MU_COMMAND_MOVE_UP: // up
             y--;
             break;
 
-        case RECT_DIRECTION_UP: // down
+        case MU_COMMAND_MOVE_DOWN: // down
             y++;
             break;
 
-        case RECT_DIRECTION_RIGHT: // left
+        case MU_COMMAND_MOVE_LEFT: // left
             x--;
             break;
 
-        case RECT_DIRECTION_LEFT: // right
+        case MU_COMMAND_MOVE_RIGHT: // right
             x++;
             break;
 
         } // switch (*it)
 
-        if (!(UNIT_CATTRIBUTES(unit) & (CA_LOCKPICK | CA_FLYER | CA_LETHALITY))) {
-            if (gBmMapHidden[y][x] & HIDDEN_BIT_TRAP) {
-                *++it = RECT_DIRECTION_END;
+        if (!(UNIT_CATTRIBUTES(unit) & (CA_LOCKPICK | CA_FLYER | CA_LETHALITY)))
+        {
+            if (gBmMapHidden[y][x] & HIDDEN_BIT_TRAP)
+            {
+                *++it = MU_COMMAND_HALT;
 
                 gActionData.unitActionType = UNIT_ACTION_TRAPPED;
                 gActionData.xMove = x;
@@ -348,16 +316,17 @@ void sub_801A82C(struct Unit* unit, int x, int y) {
             }
         }
 
-        if (gBmMapHidden[y][x] & HIDDEN_BIT_UNIT) {
-            *it++ = 0xA;
-            *it++ = RECT_DIRECTION_END;
+        if (gBmMapHidden[y][x] & HIDDEN_BIT_UNIT)
+        {
+            *it++ = MU_COMMAND_BUMP;
+            *it++ = MU_COMMAND_HALT;
 
             gActionData.unitActionType = UNIT_ACTION_TRAPPED;
 
             return;
         }
 
-        if (*it == RECT_DIRECTION_END)
+        if (*it == MU_COMMAND_HALT)
             break;
 
         it++;
