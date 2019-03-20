@@ -1263,7 +1263,7 @@ sub_807A644: @ 0x0807A644
 	.align 2, 0
 _0807A678: .4byte gWorkingMovementScript
 _0807A67C:
-	bl BattleSomethingTrapChangeTerrain
+	bl DisableAllLightRunes
 	lsls r0, r6, #0x18
 	asrs r2, r0, #0x18
 	ldr r0, _0807A6A4  @ gBmMapTerrain
@@ -1319,7 +1319,7 @@ _0807A6B6:
 	movs r1, #0
 	strb r1, [r0]
 _0807A6F0:
-	bl NullAllLightRunesTerrain
+	bl EnableAllLightRunes
 _0807A6F4:
 	ldr r0, _0807A700  @ gWorkingMovementScript
 	pop {r3}

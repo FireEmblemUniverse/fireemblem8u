@@ -6549,7 +6549,7 @@ _0808CA74:
 	ldrsh r0, [r1, r2]
 	movs r3, #0x16
 	ldrsh r1, [r1, r3]
-	bl GetTrapExt1At
+	bl GetObstacleHpAt
 	adds r6, r0, #0
 	cmp r6, #0x64
 	bne _0808CAB8
@@ -6589,7 +6589,7 @@ _0808CAD8:
 	ldrsh r0, [r1, r2]
 	movs r3, #0x16
 	ldrsh r1, [r1, r3]
-	bl GetTrapExt1At
+	bl GetObstacleHpAt
 	bl StoreNumberStringToSmallBuffer
 	movs r0, #0x85
 	lsls r0, r0, #1

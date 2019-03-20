@@ -157,13 +157,14 @@ void BattleGenerateSimulationInternal(struct Unit* actor, struct Unit* target, i
     BattleInitTargetCanCounter();
     BattleApplyWeaponTriangleEffect(&gBattleActor, &gBattleTarget);
 
-    BattleSomethingTrapChangeTerrain();
+    DisableAllLightRunes();
+
     SetBattleUnitTerrainBonusesAuto(&gBattleActor);
     SetBattleUnitTerrainBonusesAuto(&gBattleTarget);
 
     BattleGenerate(actor, target);
 
-    NullAllLightRunesTerrain();
+    EnableAllLightRunes();
 }
 
 void BattleGenerateRealInternal(struct Unit* actor, struct Unit* target) {
@@ -185,13 +186,14 @@ void BattleGenerateRealInternal(struct Unit* actor, struct Unit* target) {
     BattleInitTargetCanCounter();
     BattleApplyWeaponTriangleEffect(&gBattleActor, &gBattleTarget);
 
-    BattleSomethingTrapChangeTerrain();
+    DisableAllLightRunes();
+
     SetBattleUnitTerrainBonusesAuto(&gBattleActor);
     SetBattleUnitTerrainBonusesAuto(&gBattleTarget);
 
     BattleGenerate(actor, target);
 
-    NullAllLightRunesTerrain();
+    EnableAllLightRunes();
 
     BattleUnitTargetCheckCanCounter(&gBattleTarget);
     BattleUnitTargetSetEquippedWeapon(&gBattleTarget);
@@ -2054,7 +2056,7 @@ void UpdateObstacleFromBattle(struct BattleUnit* bu) {
     trap->data[TRAP_EXTDATA_OBSTACLE_HP] = bu->unit.curHP;
 
     if (trap->data[TRAP_EXTDATA_OBSTACLE_HP] == 0) {
-        int mapChangeId = GetMapChangesIdAt(bu->unit.xPos, bu->unit.yPos);
+        int mapChangeId = GetMapChangeIdAt(bu->unit.xPos, bu->unit.yPos);
 
         if (gBmMapTerrain[bu->unit.yPos][bu->unit.xPos] == TERRAIN_SNAG)
             PlaySoundEffect(0x2D7); // TODO: Sound id constants
@@ -2068,10 +2070,10 @@ void UpdateObstacleFromBattle(struct BattleUnit* bu) {
         // the 0-id trap with the new map change trap, even if it is not actually the end of the trap array
 
         trap->type = TRAP_NONE;
-        AddMapChange(mapChangeId);
+        EnableMapChange(mapChangeId);
 
         RefreshTerrainBmMap();
-        sub_802E690();
+        UpdateRoofedUnits();
         RenderBmMap();
 
         NewBMXFADE(FALSE);

@@ -1592,7 +1592,7 @@ _08025A84:
 	movs r1, #0x11
 	ldrsb r1, [r4, r1]
 	movs r2, #0xc
-	bl GetSpecificTrapAt
+	bl GetTypedTrapAt
 	adds r2, r0, #0
 	cmp r2, #0
 	beq _08025B02

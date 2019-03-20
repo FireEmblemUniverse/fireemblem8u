@@ -979,7 +979,7 @@ void StartBattleMap(struct GameCtrlProc* gameCtrl) {
     ClearLocalEvents();
     SMS_ClearUsageTable();
     ClearMenuRelatedList();
-    ResetTraps();
+    ClearTraps();
 
     gUnknown_0202BCF0.chapterPhaseIndex = FACTION_GREEN; // TODO: PHASE/ALLEGIANCE DEFINITIONS
     gUnknown_0202BCF0.chapterTurnNumber = 0;
@@ -998,7 +998,7 @@ void StartBattleMap(struct GameCtrlProc* gameCtrl) {
 
     SetupBackgroundForWeatherMaybe();
     InitChapterMap(gUnknown_0202BCF0.chapterIndex);
-    AddSnagsAndWalls();
+    InitMapObstacles();
 
     gUnknown_0202BCF0.unk4 = GetGameClock();
     gUnknown_0202BCF0.chapterTotalSupportGain = 0;
@@ -1045,7 +1045,7 @@ void RestartBattleMap(void) {
     SetupMapSpritesPalettes();
     SMS_ClearUsageTable();
 
-    ResetTraps();
+    ClearTraps();
 
     gUnknown_0202BCF0.chapterWeatherId =
         GetROMChapterStruct(gUnknown_0202BCF0.chapterIndex)->initialWeather;
@@ -1054,7 +1054,7 @@ void RestartBattleMap(void) {
 
     InitChapterMap(gUnknown_0202BCF0.chapterIndex);
 
-    AddSnagsAndWalls();
+    InitMapObstacles();
     LoadChapterBallistae();
     BMapVSync_End();
     BMapVSync_Start();

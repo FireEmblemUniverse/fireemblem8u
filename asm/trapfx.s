@@ -398,7 +398,7 @@ sub_801F860: @ 0x0801F860
 	push {r4, r5, lr}
 	adds r5, r0, #0
 	ldr r0, [r5, #0x2c]
-	bl GetMapChangesPointerById
+	bl GetMapChange
 	ldrb r4, [r0, #3]
 	lsrs r4, r4, #1
 	ldrb r1, [r0, #1]

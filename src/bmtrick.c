@@ -17,7 +17,7 @@ inline struct Trap* GetTrap(int id)
     return gUnknown_0203A614 + id;
 }
 
-void ResetTraps(void)
+void ClearTraps(void)
 {
     int i;
 
@@ -53,7 +53,7 @@ lop:
     return NULL;
 }
 
-struct Trap* GetSpecificTrapAt(int x, int y, int trapType)
+struct Trap* GetTypedTrapAt(int x, int y, int trapType)
 {
     struct Trap* it;
 
@@ -96,14 +96,14 @@ struct Trap* AddTrap(int x, int y, int trapType, int meta)
     return trap;
 }
 
-struct Trap* AddTrapExt(int x, int y, int trapType, int meta, int turnCountdown, int turnInterval, int damage)
+struct Trap* AddDamagingTrap(int x, int y, int trapType, int meta, int turnCountdown, int turnInterval, int damage)
 {
     struct Trap* trap = AddTrap(x, y, trapType, meta);
 
-    trap->data[1] = turnCountdown;
-    trap->data[2] = turnInterval;
-    trap->data[3] = turnCountdown;
-    trap->data[4] = damage;
+    trap->data[TRAP_EXTDATA_TRAP_TURNFIRST] = turnCountdown;
+    trap->data[TRAP_EXTDATA_TRAP_TURNNEXT]  = turnInterval;
+    trap->data[TRAP_EXTDATA_TRAP_COUNTER]   = turnCountdown;
+    trap->data[TRAP_EXTDATA_TRAP_DAMAGE]    = damage;
 
     return trap;
 }
@@ -148,24 +148,24 @@ struct Trap* RemoveTrap(struct Trap* trap)
 
 #endif // NONMATCHING
 
-void AddFireTrap(int x, int y, int turnCountdown, int turnInterval)
+void AddFireTile(int x, int y, int turnCountdown, int turnInterval)
 {
-    AddTrapExt(x, y, TRAP_FIRETILE, 0, turnCountdown, turnInterval, 10);
+    AddDamagingTrap(x, y, TRAP_FIRETILE, 0, turnCountdown, turnInterval, 10);
 }
 
 void AddGasTrap(int x, int y, int facing, int turnCountdown, int turnInterval)
 {
-    AddTrapExt(x, y, TRAP_GAS, facing, turnCountdown, turnInterval, 3);
+    AddDamagingTrap(x, y, TRAP_GAS, facing, turnCountdown, turnInterval, 3);
 }
 
 void AddArrowTrap(int x, int turnCountdown, int turnInterval)
 {
-    AddTrapExt(x, 0, TRAP_LIGHTARROW, 0, turnCountdown, turnInterval, 10);
+    AddDamagingTrap(x, 0, TRAP_LIGHTARROW, 0, turnCountdown, turnInterval, 10);
 }
 
 void sub_802E36C(int x, int y, int turnCountdown, int turnInterval)
 {
-    AddTrapExt(x, y, TRAP_MAPCHANGE2, 0, turnCountdown, turnInterval, 0);
+    AddDamagingTrap(x, y, TRAP_MAPCHANGE2, 0, turnCountdown, turnInterval, 0);
 }
 
 void AddTrap8(int x, int y)
@@ -178,7 +178,7 @@ void AddTrap9(int x, int y, int meta)
     AddTrap(x, y, TRAP_9, meta);
 }
 
-void AddSnagsAndWalls(void)
+void InitMapObstacles(void)
 {
     int ix, iy;
 
@@ -208,7 +208,7 @@ void AddSnagsAndWalls(void)
     }
 }
 
-void ApplyTrapMapChanges(void)
+void ApplyEnabledMapChanges(void)
 {
     struct Trap* trap;
 
@@ -230,7 +230,7 @@ void ApplyTrapMapChanges(void)
     }
 }
 
-void UpdateAllLightRunes(void)
+void RefreshAllLightRunes(void)
 {
     struct Trap* trap;
 
@@ -247,7 +247,7 @@ void UpdateAllLightRunes(void)
     }
 }
 
-int GetTrapExt1At(int x, int y)
+int GetObstacleHpAt(int x, int y)
 {
     struct Trap* trap;
 
@@ -267,7 +267,7 @@ int GetTrapExt1At(int x, int y)
     return 0;
 }
 
-const struct MapChange* GetMapChangesPointerById(int id)
+const struct MapChange* GetMapChange(int id)
 {
     const struct MapChange* mapChange = GetChapterMapChangesPointer(gUnknown_0202BCF0.chapterIndex);
 
@@ -285,7 +285,7 @@ const struct MapChange* GetMapChangesPointerById(int id)
     return NULL;
 }
 
-int GetMapChangesIdAt(int x, int y)
+int GetMapChangeIdAt(int x, int y)
 {
     int result = -1;
 
@@ -312,7 +312,7 @@ void ApplyMapChangesById(int id)
 {
     int ix = 0, iy = 0;
 
-    const struct MapChange* mapChange = GetMapChangesPointerById(id);
+    const struct MapChange* mapChange = GetMapChange(id);
     const u16* tileDataIt = mapChange->data;
 
     for (iy = 0; iy < mapChange->ySize; ++iy)
@@ -331,12 +331,12 @@ void ApplyMapChangesById(int id)
     }
 }
 
-void AddMapChange(int id)
+void EnableMapChange(int id)
 {
     AddTrap(0, 0, TRAP_MAPCHANGE, id);
 }
 
-void UntriggerMapChange(int id)
+void DisableMapChange(int id)
 {
     struct Trap* trap;
 
@@ -347,7 +347,7 @@ void UntriggerMapChange(int id)
     }
 }
 
-s8 AreMapChangeTriggered(int id)
+s8 IsMapChangeEnabled(int id)
 {
     struct Trap* trap;
 
@@ -368,7 +368,7 @@ void UnitHideIfUnderRoof(struct Unit* unit)
     }
 }
 
-void sub_802E690(void)
+void UpdateRoofedUnits(void)
 {
     int i;
 
@@ -392,12 +392,12 @@ void sub_802E690(void)
     SMS_UpdateFromGameData();
 }
 
-void AddToTargetListFromPos(int x, int y, int damage)
+void GenerateFireTileTrapTargets(int x, int y, int damage)
 {
     AddTarget(x, y, gBmMapUnit[y][x], damage);
 }
 
-void AddArrowTrapTargetsToTargetList(int x, int y, int damage)
+void GenerateArrowTrapTargets(int x, int y, int damage)
 {
     int iy;
 
@@ -408,7 +408,7 @@ void AddArrowTrapTargetsToTargetList(int x, int y, int damage)
     }
 }
 
-void sub_802E754(int x, int y, int damage, int facing)
+void GenerateGasTrapTargets(int x, int y, int damage, int facing)
 {
     int i;
 
@@ -454,7 +454,7 @@ void sub_802E754(int x, int y, int damage, int facing)
     }
 }
 
-s8 sub_802E7D4(int x, int y, int facing)
+s8 ShouldSkipGasTrapDisplay(int x, int y, int facing)
 {
     int i;
 
@@ -504,7 +504,7 @@ s8 sub_802E7D4(int x, int y, int facing)
     return boolHasNoEffect;
 }
 
-void MakeTargetListForTurnTrapDamage(void)
+void GenerateTrapDamageTargets(void)
 {
     struct Trap* trap;
 
@@ -518,15 +518,15 @@ void MakeTargetListForTurnTrapDamage(void)
             {
 
             case TRAP_FIRETILE:
-                AddToTargetListFromPos(trap->xPos, trap->yPos, (s8) trap->data[TRAP_EXTDATA_TRAP_DAMAGE]);
+                GenerateFireTileTrapTargets(trap->xPos, trap->yPos, (s8) trap->data[TRAP_EXTDATA_TRAP_DAMAGE]);
                 break;
 
             case TRAP_LIGHTARROW:
-                AddArrowTrapTargetsToTargetList(trap->xPos, trap->yPos, (s8) trap->data[TRAP_EXTDATA_TRAP_DAMAGE]);
+                GenerateArrowTrapTargets(trap->xPos, trap->yPos, (s8) trap->data[TRAP_EXTDATA_TRAP_DAMAGE]);
                 break;
 
             case TRAP_GAS:
-                sub_802E754(trap->xPos, trap->yPos, (s8) trap->data[TRAP_EXTDATA_TRAP_DAMAGE], trap->data[TRAP_EXTDATA_GAS_FACING]);
+                GenerateGasTrapTargets(trap->xPos, trap->yPos, (s8) trap->data[TRAP_EXTDATA_TRAP_DAMAGE], trap->data[TRAP_EXTDATA_GAS_FACING]);
                 break;
 
             }
@@ -534,7 +534,7 @@ void MakeTargetListForTurnTrapDamage(void)
     }
 }
 
-void sub_802E8A8(void)
+void GenerateDisplayedTrapDamageTargets(void)
 {
     struct Trap* trap;
 
@@ -553,7 +553,7 @@ void sub_802E8A8(void)
                 if (gBmMapUnit[trap->yPos][trap->xPos])
                 {
                     AddTarget(trap->xPos, trap->yPos, 0, TRAP_FIRETILE);
-                    AddToTargetListFromPos(trap->xPos, trap->yPos, (s8) trap->data[TRAP_EXTDATA_TRAP_DAMAGE]);
+                    GenerateFireTileTrapTargets(trap->xPos, trap->yPos, (s8) trap->data[TRAP_EXTDATA_TRAP_DAMAGE]);
                 }
 
                 break;
@@ -582,17 +582,17 @@ void sub_802E8A8(void)
 
                 } // switch (trap->data[TRAP_EXTDATA_GAS_FACING])
 
-                if (!sub_802E7D4(trap->xPos, trap->yPos, trap->data[TRAP_EXTDATA_GAS_FACING]))
+                if (!ShouldSkipGasTrapDisplay(trap->xPos, trap->yPos, trap->data[TRAP_EXTDATA_GAS_FACING]))
                 {
                     AddTarget(trap->xPos, trap->yPos, 0, specialType);
-                    sub_802E754(trap->xPos, trap->yPos, (s8) trap->data[TRAP_EXTDATA_TRAP_DAMAGE], trap->data[TRAP_EXTDATA_GAS_FACING]);
+                    GenerateGasTrapTargets(trap->xPos, trap->yPos, (s8) trap->data[TRAP_EXTDATA_TRAP_DAMAGE], trap->data[TRAP_EXTDATA_GAS_FACING]);
                 }
 
                 break;
 
             case TRAP_LIGHTARROW:
                 AddTarget(trap->xPos, trap->yPos, 0, TRAP_LIGHTARROW);
-                AddArrowTrapTargetsToTargetList(trap->xPos, trap->yPos, (s8) trap->data[TRAP_EXTDATA_TRAP_DAMAGE]);
+                GenerateArrowTrapTargets(trap->xPos, trap->yPos, (s8) trap->data[TRAP_EXTDATA_TRAP_DAMAGE]);
                 break;
 
             case TRAP_MAPCHANGE2:
@@ -624,7 +624,7 @@ void CountDownTraps(void)
     }
 }
 
-void ResetCounterForCountedDownTraps(void)
+void ResetCountedDownTraps(void)
 {
     struct Trap* trap;
 
@@ -690,7 +690,7 @@ struct Trap* RemoveLightRune(struct Trap* trap)
     return RemoveTrap(trap);
 }
 
-void HandleTrapDecay(void)
+void DecayTraps(void)
 {
     struct Trap* trap;
 
@@ -725,7 +725,7 @@ void HandleTrapDecay(void)
     }
 }
 
-void BattleSomethingTrapChangeTerrain(void)
+void DisableAllLightRunes(void)
 {
     struct Trap* trap;
 
@@ -742,7 +742,7 @@ void BattleSomethingTrapChangeTerrain(void)
     }
 }
 
-void NullAllLightRunesTerrain(void)
+void EnableAllLightRunes(void)
 {
     struct Trap* trap;
 

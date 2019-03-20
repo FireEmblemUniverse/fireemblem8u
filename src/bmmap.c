@@ -69,7 +69,7 @@ void InitChapterMap(int chapterId) {
     BmMapFill(gBmMapTerrain, 0);
 
     InitBaseTilesBmMap();
-    ApplyTrapMapChanges();
+    ApplyEnabledMapChanges();
     RefreshTerrainBmMap();
 
     // TODO: chapter id definitions
@@ -165,7 +165,7 @@ void sub_8019778(void) {
     UnpackChapterMap(gBmMapBuffer, gUnknown_0202BCF0.chapterIndex);
 
     InitBaseTilesBmMap();
-    ApplyTrapMapChanges();
+    ApplyEnabledMapChanges();
     RefreshTerrainBmMap();
     sub_8019624();
 }
@@ -312,7 +312,7 @@ void RefreshTerrainBmMap(void) {
         for (ix = 0; ix < gBmMapSize.x; ++ix)
             gBmMapTerrain[iy][ix] = gTilesetTerrainLookup[gBmMapBaseTiles[iy][ix] >> 2];
 
-    UpdateAllLightRunes();
+    RefreshAllLightRunes();
 }
 
 int GetTrueTerrainAt(int x, int y) {
@@ -690,7 +690,7 @@ void RevertMapChange(int id) {
 
     CopyDataWithPossibleUncomp(GetChapterMapPointer(gUnknown_0202BCF0.chapterIndex), gBmMapBuffer);
 
-    mapChange = GetMapChangesPointerById(id);
+    mapChange = GetMapChange(id);
 
     for (iy = mapChange->yOrigin; iy < (mapChange->yOrigin + mapChange->ySize); ++iy) {
         u16* itSource = (iy * gBmMapSize.x) + mapChange->xOrigin + (gBmMapBuffer + 1);

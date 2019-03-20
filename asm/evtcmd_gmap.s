@@ -257,7 +257,7 @@ TriggerMapChanges: @ 0x0800BAF8
 	adds r4, r0, #0
 	lsls r1, r1, #0x18
 	lsrs r5, r1, #0x18
-	bl AreMapChangeTriggered
+	bl IsMapChangeEnabled
 	lsls r0, r0, #0x18
 	cmp r0, #0
 	bne _0800BB40
@@ -270,9 +270,9 @@ _0800BB1C:
 	adds r0, r4, #0
 	bl ApplyMapChangesById
 	adds r0, r4, #0
-	bl AddMapChange
+	bl EnableMapChange
 	bl RefreshTerrainBmMap
-	bl sub_802E690
+	bl UpdateRoofedUnits
 	bl RenderBmMap
 	cmp r5, #1
 	bne _0800BB40
@@ -293,7 +293,7 @@ sub_800BB48: @ 0x0800BB48
 	adds r4, r0, #0
 	lsls r1, r1, #0x18
 	lsrs r5, r1, #0x18
-	bl AreMapChangeTriggered
+	bl IsMapChangeEnabled
 	lsls r0, r0, #0x18
 	asrs r0, r0, #0x18
 	cmp r0, #1
@@ -307,9 +307,9 @@ _0800BB6E:
 	adds r0, r4, #0
 	bl RevertMapChange
 	adds r0, r4, #0
-	bl UntriggerMapChange
+	bl DisableMapChange
 	bl RefreshTerrainBmMap
-	bl sub_802E690
+	bl UpdateRoofedUnits
 	bl RenderBmMap
 	cmp r5, #1
 	bne _0800BB92

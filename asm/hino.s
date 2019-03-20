@@ -6320,7 +6320,7 @@ sub_80154C8: @ 0x080154C8
 	bne _080154EC
 	ldr r0, _080154E8  @ gUnknown_0859BDA0
 	bl Proc_CreateBlockingChild
-	bl HandleTrapDecay
+	bl DecayTraps
 	movs r0, #0
 	b _080154EE
 	.align 2, 0
