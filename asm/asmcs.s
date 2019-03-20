@@ -2737,9 +2737,9 @@ sub_8085B30: @ 0x08085B30
 	movs r0, #1
 	bl ApplyMapChangesById
 	movs r0, #1
-	bl AddMapChange
+	bl EnableMapChange
 	bl RefreshTerrainBmMap
-	bl sub_802E690
+	bl UpdateRoofedUnits
 	bl RenderBmMap
 	movs r0, #0
 	str r0, [r4, #0x2c]

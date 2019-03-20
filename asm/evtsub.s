@@ -881,7 +881,7 @@ _08011E72:
 	adds r0, r5, #0
 	adds r1, r4, #0
 	bl BattleApplyWeaponTriangleEffect
-	bl BattleSomethingTrapChangeTerrain
+	bl DisableAllLightRunes
 	adds r0, r5, #0
 	bl SetBattleUnitTerrainBonusesAuto
 	adds r0, r4, #0
@@ -889,7 +889,7 @@ _08011E72:
 	adds r0, r7, #0
 	mov r1, r8
 	bl BattleGenerate
-	bl NullAllLightRunesTerrain
+	bl EnableAllLightRunes
 	adds r0, r4, #0
 	bl BattleUnitTargetCheckCanCounter
 	adds r0, r4, #0

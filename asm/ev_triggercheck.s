@@ -2712,7 +2712,7 @@ _080841DE:
 	ldrb r1, [r1, #0x19]
 	lsls r1, r1, #0x18
 	asrs r1, r1, #0x18
-	bl GetMapChangesIdAt
+	bl GetMapChangeIdAt
 	lsls r0, r0, #0x10
 	lsrs r0, r0, #0x10
 	bl CallTileChangeEvent
@@ -2734,7 +2734,7 @@ _08084206:
 	ldrb r1, [r1, #0x19]
 	lsls r1, r1, #0x18
 	asrs r1, r1, #0x18
-	bl GetMapChangesIdAt
+	bl GetMapChangeIdAt
 	lsls r0, r0, #0x10
 	lsrs r0, r0, #0x10
 	bl CallTileChangeEvent
@@ -2797,7 +2797,7 @@ _0808427C:
 	ldrb r1, [r1, #0x19]
 	lsls r1, r1, #0x18
 	asrs r1, r1, #0x18
-	bl GetMapChangesIdAt
+	bl GetMapChangeIdAt
 	lsls r0, r0, #0x10
 	lsrs r0, r0, #0x10
 	ldr r1, [sp, #0x14]
@@ -2814,7 +2814,7 @@ _080842AE:
 	ldrb r1, [r1, #0x19]
 	lsls r1, r1, #0x18
 	asrs r1, r1, #0x18
-	bl GetMapChangesIdAt
+	bl GetMapChangeIdAt
 	lsls r0, r0, #0x10
 	lsrs r0, r0, #0x10
 	ldr r1, [sp, #0x10]

@@ -12,6 +12,7 @@
 #include "bmmap.h"
 #include "bmidoten.h"
 #include "bmbattle.h"
+#include "bmtrick.h"
 
 EWRAM_DATA u8 gActiveUnitId = 0;
 EWRAM_DATA struct Vec2 gActiveUnitMoveOrigin = {};
@@ -1516,7 +1517,7 @@ void sub_8018FC0(void) {
     }
 }
 
-int CountAvailableBlueUnits(void) {
+u16 CountAvailableBlueUnits(void) {
     int i;
 
     u16 result = 0;

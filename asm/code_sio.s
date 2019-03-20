@@ -16051,7 +16051,7 @@ sub_80496A4: @ 0x080496A4
 	movs r5, #0
 	orrs r0, r1
 	strb r0, [r4, #4]
-	bl ResetTraps
+	bl ClearTraps
 	ldr r4, _08049708  @ gUnknown_0202BCF0
 	movs r0, #0x40
 	strb r0, [r4, #0xf]

@@ -208,7 +208,8 @@ struct Struct0202BCF0 { // Chapter Data Struct
 /**
  * Use with Struct0202BCF0 field chapterStateBits
  */
-enum {
+enum
+{
     CHAPTER_FLAG_0          = (1 << 0),
     CHAPTER_FLAG_1          = (1 << 1),
     CHAPTER_FLAG_POSTGAME   = (1 << 2),
@@ -262,7 +263,16 @@ struct ActionData
     /* 1C+ TODO (sizeof(struct ActionData) == 0x38) */
 };
 
-enum {
+enum
+{
+    FACING_LEFT  = 0,
+    FACING_RIGHT = 1,
+    FACING_DOWN  = 2,
+    FACING_UP    = 3,
+};
+
+enum
+{
     // 0x00?
     UNIT_ACTION_WAIT = 0x01,
     UNIT_ACTION_COMBAT = 0x02,
@@ -300,7 +310,8 @@ enum {
     UNIT_ACTION_EXIT_BALLISTA = 0x22
 };
 
-enum {
+enum
+{
     SUSPEND_POINT_PLAYERIDLE = 0,
     SUSPEND_POINT_DURINGACTION = 1,
     SUSPEND_POINT_CPPHASE = 2,
@@ -313,11 +324,13 @@ enum {
     SUSPEND_POINT_PHASECHANGE = 9
 };
 
-enum {
+enum
+{
     GAME_ACTION_3 = 3
 };
 
-enum {
+enum
+{
     WEATHER_NONE = 0,
     WEATHER_SNOW = 1,
     WEATHER_SNOWSTORM = 2,
@@ -338,7 +351,8 @@ struct UnknownStructCTC
     const void *unkC;
 };
 
-struct SMSHandle {
+struct SMSHandle
+{
     /* 00 */ struct SMSHandle* pNext;
 
     /* 04 */ short xDisplay;
@@ -350,59 +364,8 @@ struct SMSHandle {
     /* 0B */ s8 config;
 };
 
-enum {
-    TRAP_NONE       = 0,
-    TRAP_BALLISTA   = 1,
-    TRAP_OBSTACLE   = 2, // walls & snags
-    TRAP_MAPCHANGE  = 3,
-    TRAP_FIRETILE   = 4,
-    TRAP_GAS        = 5,
-    TRAP_MAPCHANGE2 = 6, // TODO: figure out
-    TRAP_LIGHTARROW = 7,
-    TRAP_8          = 8,
-    TRAP_9          = 9,
-    TRAP_TORCHLIGHT = 10,
-    TRAP_MINE       = 11,
-    TRAP_GORGON_EGG = 12, // TODO: figure out
-    TRAP_LIGHT_RUNE = 13,
-};
-
-enum {
-    // Ballista extdata definitions
-    TRAP_EXTDATA_BLST_ITEMID   = 0, // ballista item id
-    TRAP_EXTDATA_BLST_RIDDEN   = 2, // "is ridden" boolean
-    TRAP_EXTDATA_BLST_ITEMUSES = 3, // ballista item uses
-
-    // Obstacle (Snags and Walls) extdata definitions
-    TRAP_EXTDATA_OBSTACLE_HP = 0, // hp left
-
-    // Map Change extdata definitions
-    TRAP_EXTDATA_MAPCHANGE_ID = 0, // map change id
-
-    // Trap (Fire/Gas/Arrow) extdata definitions
-    TRAP_EXTDATA_TRAP_TURNFIRST = 1, // start turn countdown
-    TRAP_EXTDATA_TRAP_TURNNEXT  = 2, // repeat turn countdown
-    TRAP_EXTDATA_TRAP_COUNTER   = 3, // turn counter
-    TRAP_EXTDATA_TRAP_DAMAGE    = 4, // trap damage (needs confirmation)
-
-    // Torchlight extdata definitions
-    TRAP_EXTDATA_LIGHT_TURNSLEFT = 0, // turns left before wearing out
-
-    // Light Rune extdata definitions
-    TRAP_EXTDATA_RUNE_REPLACINGTERRAIN = 0, // terrain id of the replaced tile
-    TRAP_EXTDATA_RUNE_TURNSLEFT        = 3, // turns left beofre wearing out
-};
-
-struct Trap {
-    /* 00 */ u8 xPos;
-    /* 01 */ u8 yPos;
-
-    /* 02 */ u8 type;
-
-    /* 03 */ u8 data[5]; // extdata (see above enum for per trap type entry allocations)
-};
-
-struct MapAnimActorState {
+struct MapAnimActorState
+{
     /* 00 */ struct Unit* pUnit;
     /* 04 */ struct BattleUnit* pBattleUnit;
     /* 08 */ struct MUProc* pMUProc;
@@ -415,7 +378,8 @@ struct MapAnimActorState {
     /* 13 */ u8 u13;
 };
 
-struct MapAnimState {
+struct MapAnimState
+{
     /* 00 */ struct MapAnimActorState actors[4];
 
     /* 50 */ u32* pCurrentRound;
@@ -430,12 +394,14 @@ struct MapAnimState {
     /* 61 */ u8 u61;
 };
 
-struct MMSData {
+struct MMSData
+{
     const void* pGraphics;
     const void* pAnimation;
 };
 
-struct SupportBonuses {
+struct SupportBonuses
+{
     /* 00 */ u8 unk00;
 
     /* 01 */ u8 bonusAttack;
@@ -446,7 +412,8 @@ struct SupportBonuses {
     /* 06 */ u8 bonusDodge;
 };
 
-struct ArenaData {
+struct ArenaData
+{
     /* 00 */ struct Unit* playerUnit;
     /* 04 */ struct Unit* opponentUnit;
     /* 08 */ short unk08;
@@ -467,7 +434,8 @@ struct ArenaData {
     /* 1C */ u16 opponentWeapon;
 };
 
-struct GMapData {
+struct GMapData
+{
     /* 00 */ u8 state;
     /* 01 */ u8 unk01;
     /* 02 */ short xCamera;
@@ -479,7 +447,8 @@ struct GMapData {
     /* 30 */ struct { u8 unk; } unk30[0x1D];
 };
 
-enum {
+enum
+{
     // For use with GMapData:state
 
     GMAP_STATE_BIT0 = (1 << 0),
@@ -492,15 +461,18 @@ enum {
     GMAP_STATE_BIT7 = (1 << 7),
 };
 
-struct MapChange {
-	/* 00 */ u8 id;
-	/* 01 */ u8 xOrigin;
-	/* 02 */ u8 yOrigin;
-	/* 03 */ u8 xSize;
-	/* 04 */ u8 ySize;
+struct MapChange
+{
+    /* 00 */ s8 id;
+    /* 01 */ u8 xOrigin;
+    /* 02 */ u8 yOrigin;
+    /* 03 */ u8 xSize;
+    /* 04 */ u8 ySize;
+    /* 08 */ const void* data;
 };
 
-enum {
+enum
+{
     SAVE_BLOCK_SAVE_BASE      = 0,
     SAVE_BLOCK_SAVE1          = SAVE_BLOCK_SAVE_BASE + 0,
     SAVE_BLOCK_SAVE2          = SAVE_BLOCK_SAVE_BASE + 1,

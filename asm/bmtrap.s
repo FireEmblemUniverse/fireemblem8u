@@ -302,7 +302,7 @@ _08037690:
 	movs r1, #0x11
 	ldrsb r1, [r5, r1]
 	movs r2, #0xb
-	bl GetSpecificTrapAt
+	bl GetTypedTrapAt
 	bl RemoveTrap
 	ldr r0, _080376B4  @ gUnknown_0859E5FC
 _080376A4:
@@ -549,7 +549,7 @@ _080378A0:
 	ldrb r1, [r5, #2]
 	ldrb r2, [r5, #4]
 	ldrb r3, [r5, #5]
-	bl AddFireTrap
+	bl AddFireTile
 	b _08037900
 _080378AE:
 	ldrb r0, [r5, #1]
@@ -636,7 +636,7 @@ AddGorgonEggTrap: @ 0x08037928
 	str r4, [sp, #8]
 	movs r2, #0xc
 	adds r3, r5, #0
-	bl AddTrapExt
+	bl AddDamagingTrap
 	add sp, #0xc
 	pop {r4, r5}
 	pop {r0}

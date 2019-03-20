@@ -3809,7 +3809,7 @@ _0800F314:
 	ldrb r0, [r1, #0x10]
 	ldrb r1, [r1, #0x11]
 _0800F31C:
-	bl GetMapChangesIdAt
+	bl GetMapChangeIdAt
 	lsls r0, r0, #0x10
 	lsrs r2, r0, #0x10
 	cmp r0, #0
