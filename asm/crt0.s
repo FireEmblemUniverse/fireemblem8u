@@ -82,7 +82,7 @@ GlobalIRQHandler:
 	bne loop1
 foundInterrupt:
 	strh r0, [r3, #2]
-	mrs r3, apsr
+	mrs r3, cpsr
 	bic r3, r3, #0xdf
 	orr r3, r3, #0x1f
 	msr cpsr_fc, r3
