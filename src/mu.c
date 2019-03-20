@@ -11,8 +11,8 @@
 #include "bmio.h"
 #include "bmunit.h"
 #include "bmmap.h"
+#include "bmtrick.h"
 #include "bmbattle.h"
-
 #include "mu.h"
 
 /*

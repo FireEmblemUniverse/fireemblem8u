@@ -7,16 +7,10 @@
 #include "chapterdata.h"
 #include "proc.h"
 #include "event.h"
-
-enum
-{
-    TRAP_MAX_COUNT = 64,
-};
+#include "bmtrick.h"
 
 EWRAM_DATA struct Trap gUnknown_0203A614[TRAP_MAX_COUNT] = {};
 EWRAM_DATA struct Trap gUnknown_0203A814 = {};
-
-#define TRAP_INDEX(aTrap) ((aTrap) - GetTrap(0))
 
 inline struct Trap* GetTrap(int id)
 {
@@ -87,7 +81,7 @@ struct Trap* GetSpecificTrapAt(int x, int y, int trapType)
     return NULL;
 }
 
-struct Trap* AddTrap(int x, int y, int trapType, int data0)
+struct Trap* AddTrap(int x, int y, int trapType, int meta)
 {
     struct Trap* trap;
 
@@ -97,19 +91,19 @@ struct Trap* AddTrap(int x, int y, int trapType, int data0)
     trap->xPos = x;
     trap->yPos = y;
     trap->type = trapType;
-    trap->data[0] = data0;
+    trap->data[0] = meta;
 
     return trap;
 }
 
-struct Trap* AddTrapExt(int x, int y, int trapType, int data0, int data1, int data2, int data3)
+struct Trap* AddTrapExt(int x, int y, int trapType, int meta, int turnCountdown, int turnInterval, int damage)
 {
-    struct Trap* trap = AddTrap(x, y, trapType, data0);
+    struct Trap* trap = AddTrap(x, y, trapType, meta);
 
-    trap->data[1] = data1;
-    trap->data[2] = data2;
-    trap->data[3] = data1;
-    trap->data[4] = data3;
+    trap->data[1] = turnCountdown;
+    trap->data[2] = turnInterval;
+    trap->data[3] = turnCountdown;
+    trap->data[4] = damage;
 
     return trap;
 }
@@ -154,24 +148,24 @@ struct Trap* RemoveTrap(struct Trap* trap)
 
 #endif // NONMATCHING
 
-void AddFireTrap(int x, int y, int arg2, int arg3)
+void AddFireTrap(int x, int y, int turnCountdown, int turnInterval)
 {
-    AddTrapExt(x, y, TRAP_FIRETILE, 0, arg2, arg3, 10);
+    AddTrapExt(x, y, TRAP_FIRETILE, 0, turnCountdown, turnInterval, 10);
 }
 
-void AddGasTrap(int x, int y, int arg2, int arg3, int arg4)
+void AddGasTrap(int x, int y, int facing, int turnCountdown, int turnInterval)
 {
-    AddTrapExt(x, y, TRAP_GAS, arg2, arg3, arg4, 3);
+    AddTrapExt(x, y, TRAP_GAS, facing, turnCountdown, turnInterval, 3);
 }
 
-void AddArrowTrap(int x, int arg1, int arg2)
+void AddArrowTrap(int x, int turnCountdown, int turnInterval)
 {
-    AddTrapExt(x, 0, TRAP_LIGHTARROW, 0, arg1, arg2, 10);
+    AddTrapExt(x, 0, TRAP_LIGHTARROW, 0, turnCountdown, turnInterval, 10);
 }
 
-void sub_802E36C(int x, int y, int arg2, int arg3)
+void sub_802E36C(int x, int y, int turnCountdown, int turnInterval)
 {
-    AddTrapExt(x, y, TRAP_MAPCHANGE2, 0, arg2, arg3, 0);
+    AddTrapExt(x, y, TRAP_MAPCHANGE2, 0, turnCountdown, turnInterval, 0);
 }
 
 void AddTrap8(int x, int y)
@@ -179,9 +173,9 @@ void AddTrap8(int x, int y)
     AddTrap(x, y, TRAP_8, 0);
 }
 
-void AddTrap9(int x, int y, int arg2)
+void AddTrap9(int x, int y, int meta)
 {
-    AddTrap(x, y, TRAP_9, arg2);
+    AddTrap(x, y, TRAP_9, meta);
 }
 
 void AddSnagsAndWalls(void)
@@ -398,23 +392,23 @@ void sub_802E690(void)
     SMS_UpdateFromGameData();
 }
 
-void AddToTargetListFromPos(int x, int y, int tId)
+void AddToTargetListFromPos(int x, int y, int damage)
 {
-    AddTarget(x, y, gBmMapUnit[y][x], tId);
+    AddTarget(x, y, gBmMapUnit[y][x], damage);
 }
 
-void AddArrowTrapTargetsToTargetList(int x, int y, int tId)
+void AddArrowTrapTargetsToTargetList(int x, int y, int damage)
 {
     int iy;
 
     for (iy = 0; iy < gBmMapSize.y; ++iy)
     {
         if (gBmMapUnit[iy][x])
-            AddTarget(x, iy, gBmMapUnit[iy][x], tId);
+            AddTarget(x, iy, gBmMapUnit[iy][x], damage);
     }
 }
 
-void sub_802E754(int x, int y, int tId, int facing)
+void sub_802E754(int x, int y, int damage, int facing)
 {
     int i;
 
@@ -456,7 +450,7 @@ void sub_802E754(int x, int y, int tId, int facing)
         y += yInc;
 
         if (gBmMapUnit[y][x])
-            AddTarget(x, y, gBmMapUnit[y][x], tId);
+            AddTarget(x, y, gBmMapUnit[y][x], damage);
     }
 }
 

@@ -10,6 +10,7 @@
 #include "bmunit.h"
 #include "bmmap.h"
 #include "chapterdata.h"
+#include "bmtrick.h"
 #include "m4a.h"
 #include "soundwrapper.h"
 #include "hardware.h"
