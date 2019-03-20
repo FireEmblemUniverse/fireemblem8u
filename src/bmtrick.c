@@ -9,12 +9,17 @@
 #include "event.h"
 #include "bmtrick.h"
 
-EWRAM_DATA struct Trap gUnknown_0203A614[TRAP_MAX_COUNT] = {};
-EWRAM_DATA struct Trap gUnknown_0203A814 = {};
+static void GenerateFireTileTrapTargets(int x, int y, int damage);
+static void GenerateArrowTrapTargets(int x, int y, int damage);
+static void GenerateGasTrapTargets(int x, int y, int damage, int facing);
+static s8 ShouldSkipGasTrapDisplay(int x, int y, int facing);
+
+EWRAM_DATA static struct Trap sTrapPool[TRAP_MAX_COUNT] = {};
+EWRAM_DATA static struct Trap sTrapLast = {};
 
 inline struct Trap* GetTrap(int id)
 {
-    return gUnknown_0203A614 + id;
+    return sTrapPool + id;
 }
 
 void ClearTraps(void)
@@ -22,9 +27,9 @@ void ClearTraps(void)
     int i;
 
     for (i = 0; i < TRAP_MAX_COUNT; ++i)
-        gUnknown_0203A614[i].type = TRAP_NONE;
+        sTrapPool[i].type = TRAP_NONE;
 
-    gUnknown_0203A814.type = TRAP_NONE;
+    sTrapLast.type = TRAP_NONE;
 }
 
 struct Trap* GetTrapAt(int x, int y)
