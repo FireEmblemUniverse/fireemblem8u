@@ -105,9 +105,5 @@ struct Anim* AnimCreate(const void* script, u16 displayPriority);
 void AnimSort(void);
 void AnimDelete(struct Anim* anim);
 void AnimDisplay(struct Anim* anim);
-int AnimInterpret(struct Anim* anim);
-void AnimInsert(struct Anim* anim);
-void AnimDisplayPrivate(struct Anim* anim);
-void Anim_8005334(struct Anim* anim, u32 instruction);
 
 #endif // GUARD_ANIME_H

@@ -4,6 +4,11 @@
 
 #include "anime.h"
 
+static int  AnimInterpret(struct Anim* anim);
+static void AnimInsert(struct Anim* anim);
+static void AnimDisplayPrivate(struct Anim* anim);
+static void Anim_8005334(struct Anim* anim, u32 instruction);
+
 #define ANINS_IS_NOT_FORCESPRITE(instruction) ((instruction) & 0x80000000)
 #define ANINS_IS_PTRINS(instruction) ((instruction) & 0x40000000)
 
