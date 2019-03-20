@@ -1516,7 +1516,7 @@ void sub_8018FC0(void) {
     }
 }
 
-int CountAvailableBlueUnits(void) {
+u16 CountAvailableBlueUnits(void) {
     int i;
 
     u16 result = 0;

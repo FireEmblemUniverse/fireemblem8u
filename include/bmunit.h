@@ -390,7 +390,7 @@ void ClearTemporaryUnits(void);
 s8 IsUnitSlotAvailable(int faction);
 void sub_8018F80(void);
 void sub_8018FC0(void);
-int CountAvailableBlueUnits(void);
+u16 CountAvailableBlueUnits(void);
 int CountRedUnits(void);
 int CountGreenUnits(void);
 void ClearCutsceneUnits(void);

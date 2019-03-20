@@ -684,7 +684,7 @@ void sub_801A278(void) {
 }
 
 void RevertMapChange(int id) {
-    struct MapChange* mapChange;
+    const struct MapChange* mapChange;
     u8 ix, iy;
 
     CopyDataWithPossibleUncomp(GetChapterMapPointer(gUnknown_0202BCF0.chapterIndex), gBmMapBuffer);
