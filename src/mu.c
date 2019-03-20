@@ -597,7 +597,7 @@ struct MUProc* MU_Create(struct Unit* pUnit) {
     if (pUnit->state & US_IN_BALLISTA) {
         struct Trap* blst = GetTrap(pUnit->ballistaIndex);
 
-        switch (blst->data[TRAP_EXTDATA_BLST_ITEMID]) {
+        switch (blst->extra) {
 
         case ITEM_BALLISTA_REGULAR:
             classIndex = CLASS_BLST_REGULAR_USED;
@@ -611,7 +611,7 @@ struct MUProc* MU_Create(struct Unit* pUnit) {
             classIndex = CLASS_BLST_KILLER_USED;
             break;
 
-        } // switch (blst->data[TRAP_EXTDATA_BLST_ITEMID])
+        } // switch (blst->extra)
     }
 
     proc = MU_CreateInternal(

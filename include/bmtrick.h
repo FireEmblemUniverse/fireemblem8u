@@ -27,31 +27,17 @@ enum
 enum
 {
     // Ballista extdata definitions
-    TRAP_EXTDATA_BLST_ITEMID   = 0, // ballista item id
-    TRAP_EXTDATA_BLST_RIDDEN   = 2, // "is ridden" boolean
-    TRAP_EXTDATA_BLST_ITEMUSES = 3, // ballista item uses
-
-    // Obstacle (Snags and Walls) extdata definitions
-    TRAP_EXTDATA_OBSTACLE_HP = 0, // hp left
-
-    // Map Change extdata definitions
-    TRAP_EXTDATA_MAPCHANGE_ID = 0, // map change id
+    TRAP_EXTDATA_BLST_RIDDEN   = 1, // "is ridden" boolean
+    TRAP_EXTDATA_BLST_ITEMUSES = 2, // ballista item uses
 
     // Trap (Fire/Gas/Arrow) extdata definitions
-    TRAP_EXTDATA_TRAP_TURNFIRST = 1, // start turn countdown
-    TRAP_EXTDATA_TRAP_TURNNEXT  = 2, // repeat turn countdown
-    TRAP_EXTDATA_TRAP_COUNTER   = 3, // turn counter
-    TRAP_EXTDATA_TRAP_DAMAGE    = 4, // trap damage (needs confirmation)
-
-    // Gas Trap exdata definition (in addition to the above)
-    TRAP_EXTDATA_GAS_FACING = 0,
-
-    // Torchlight extdata definitions
-    TRAP_EXTDATA_LIGHT_TURNSLEFT = 0, // turns left before wearing out
+    TRAP_EXTDATA_TRAP_TURNFIRST = 0, // start turn countdown
+    TRAP_EXTDATA_TRAP_TURNNEXT  = 1, // repeat turn countdown
+    TRAP_EXTDATA_TRAP_COUNTER   = 2, // turn counter
+    TRAP_EXTDATA_TRAP_DAMAGE    = 3, // trap damage (needs confirmation)
 
     // Light Rune extdata definitions
-    TRAP_EXTDATA_RUNE_REPLACINGTERRAIN = 0, // terrain id of the replaced tile
-    TRAP_EXTDATA_RUNE_TURNSLEFT        = 3, // turns left beofre wearing out
+    TRAP_EXTDATA_RUNE_TURNSLEFT        = 2, // turns left beofre wearing out
 };
 
 struct Trap
@@ -61,7 +47,8 @@ struct Trap
 
     /* 02 */ u8 type;
 
-    /* 03 */ u8 data[5]; // extdata (see above enum for per trap type entry allocations)
+    /* 03 */ u8 extra; // extra data (meaning varies based on trap type)
+    /* 04 */ s8 data[4]; // more extra data (see above enum for per trap type entry allocations)
 };
 
 #define TRAP_INDEX(aTrap) ((aTrap) - GetTrap(0))

@@ -388,7 +388,7 @@ int GetUnitSMSId(struct Unit* unit) {
     if (!(unit->state & US_IN_BALLISTA))
         return unit->pClassData->SMSId;
 
-    switch (GetTrap(unit->ballistaIndex)->data[TRAP_EXTDATA_BLST_ITEMID]) {
+    switch (GetTrap(unit->ballistaIndex)->extra) {
 
         // TODO: SMS id definitions
 
