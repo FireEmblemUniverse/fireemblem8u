@@ -1,98 +1,8 @@
 #include "global.h"
 
-struct Anim
-{
-    /* 00 */ u16 state;
-    /* 02 */ short xPosition;
-    /* 04 */ short yPosition;
-    /* 06 */ short timer;
-    /* 08 */ u16 oam2Base;
-    /* 0A */ u16 drawLayerPriority;
-    /* 0C */ u16 state2;
-    /* 0E */ u16 nextRoundId;
-    /* 10 */ u16 state3;
-    /* 12 */ u8 currentRoundType;
-    /* 13 */ u8 unk13;
+#include "hardware.h"
 
-    /* 14 */ u8 commandQueueSize;
-    /* 15 */ u8 commandQueue[7];
-
-    /* 1C */ u32 oamBase;
-
-    /* 20 */ const u32* pScrCurrent;
-    /* 24 */ const u32* pScrStart;
-    /* 28 */ const void* pImgSheet;
-    /* 2C */ const void* pUnk2C;
-    /* 30 */ const void* pSpriteDataPool; // aka "OAM data"
-
-    /* 34 */ struct Anim* pPrev;
-    /* 38 */ struct Anim* pNext;
-
-    /* 3C */ const void* pSpriteData;
-    /* 40 */ const void* pUnk40;
-    /* 44 */ const void* pUnk44;
-};
-
-struct AnimSpriteData
-{
-    /* 00 */ u32 header;
-
-    union
-    {
-
-    struct
-    {
-        /* 04 */ u16 pa;
-        /* 06 */ u16 pb;
-        /* 08 */ u16 pc;
-        /* 0A */ u16 pd;
-    } affine;
-
-    struct
-    {
-        /* 04 */ u16 oam2;
-        /* 06 */ short x;
-        /* 08 */ short y;
-    } object;
-
-    } as;
-};
-
-enum
-{
-    // For use with 
-    ANIM_BIT_ENABLED = (1 << 0),
-    ANIM_BIT_HIDDEN  = (1 << 1),
-    ANIM_BIT_2       = (1 << 2),
-    ANIM_BIT_FROZEN  = (1 << 3),
-};
-
-enum
-{
-    ANIM_MAX_COUNT = 50,
-};
-
-enum
-{
-    // Animation Command Identifiers
-
-    // TODO: complete during battle animation decomp
-
-    ANIM_CMD_NOP     = 0x00,
-    ANIM_CMD_WAIT_01 = 0x01, // wait for hp depletion
-    ANIM_CMD_WAIT_02 = 0x02, // wait for dodge start, then dodge
-    ANIM_CMD_WAIT_03 = 0x03, // wait for attack start
-    ANIM_CMD_WAIT_04 = 0x04,
-    ANIM_CMD_WAIT_05 = 0x05, // wait for spell animation?
-    // TODO: more
-    ANIM_CMD_WAIT_13 = 0x13, // unk
-    ANIM_CMD_WAIT_18 = 0x18, // wait for dodge start, then forward dodge
-    ANIM_CMD_WAIT_2D = 0x2D, // unk
-    ANIM_CMD_WAIT_39 = 0x39, // unk
-    ANIM_CMD_WAIT_52 = 0x52, // unk
-};
-
-#define ANIM_IS_DISABLED(anim) ((anim)->state == 0)
+#include "anime.h"
 
 #define ANINS_IS_NOT_FORCESPRITE(instruction) ((instruction) & 0x80000000)
 #define ANINS_IS_PTRINS(instruction) ((instruction) & 0x40000000)
@@ -129,54 +39,42 @@ enum
 
 typedef void (*AnimCallback_t) (struct Anim* anim);
 
-void AIS_ExecAll(void);
-void ClearAISArray(void);
-struct Anim* sub_8004EE8(const void* frameData);
-struct Anim* AIS_New(const void* frameData, u16 displayPriority);
-void AISArray_Sort(void);
-void AIS_Free(struct Anim* anim);
-void AIS_Display(struct Anim* anim);
-int HandleNextAISFrame(struct Anim* anim);
-void LinkAIS(struct Anim* anim);
-void _AIS_Display(struct Anim* anim);
-void sub_8005334(struct Anim* anim, u32 instruction);
-
-EWRAM_DATA static struct Anim gUnknown_02028F78[ANIM_MAX_COUNT] = {};
-EWRAM_DATA static struct Anim* gUnknown_02029D88 = NULL;
+EWRAM_DATA static struct Anim sAnimPool[ANIM_MAX_COUNT] = {};
+EWRAM_DATA static struct Anim* sFirstAnim = NULL;
 
 void AIS_ExecAll(void)
 {
-    struct Anim* it;
+    struct Anim* anim;
     int boolNeedsSort = FALSE;
 
-    if (!gUnknown_02029D88)
+    if (!sFirstAnim)
         return;
 
-    for (it = gUnknown_02029D88;; it = it->pNext)
+    for (anim = sFirstAnim;; anim = anim->pNext)
     {
-        if (ANIM_IS_DISABLED(it))
+        if (ANIM_IS_DISABLED(anim))
             continue;
 
-        if (!(it->state & ANIM_BIT_FROZEN))
+        if (!(anim->state & ANIM_BIT_FROZEN))
         {
-            if (it->timer == 0 || --it->timer == 0)
+            if (anim->timer == 0 || --anim->timer == 0)
             {
                 do
                 {
-                    if (HandleNextAISFrame(it) == TRUE)
+                    if (HandleNextAISFrame(anim) == TRUE)
                         boolNeedsSort = TRUE;
                 }
-                while (it->timer == 0);
+                while (anim->timer == 0);
             }
 
-            if (ANIM_IS_DISABLED(it))
+            if (ANIM_IS_DISABLED(anim))
                 continue;
         }
 
-        if (!(it->state & ANIM_BIT_HIDDEN))
-            _AIS_Display(it);
+        if (!(anim->state & ANIM_BIT_HIDDEN))
+            _AIS_Display(anim);
 
-        if (!it->pNext)
+        if (!anim->pNext)
             break;
     }
 
@@ -188,14 +86,14 @@ void ClearAISArray(void)
 {
     struct Anim* it;
 
-    for (it = gUnknown_02028F78; it < gUnknown_02028F78 + ANIM_MAX_COUNT; ++it)
+    for (it = sAnimPool; it < sAnimPool + ANIM_MAX_COUNT; ++it)
     {
         it->state = 0;
         it->pPrev = NULL;
         it->pNext = NULL;
     }
 
-    gUnknown_02029D88 = NULL;
+    sFirstAnim = NULL;
 }
 
 struct Anim* sub_8004EE8(const void* frameData)
@@ -203,10 +101,10 @@ struct Anim* sub_8004EE8(const void* frameData)
     struct Anim* anim;
 
     // Find anim slot for new anim
-    for (anim = gUnknown_02028F78; (anim < gUnknown_02028F78 + ANIM_MAX_COUNT) && !ANIM_IS_DISABLED(anim); ++anim) {}
+    for (anim = sAnimPool; (anim < sAnimPool + ANIM_MAX_COUNT) && !ANIM_IS_DISABLED(anim); ++anim) {}
 
     // return null if no anim slot was found
-    if (anim == gUnknown_02028F78 + ANIM_MAX_COUNT)
+    if (anim == sAnimPool + ANIM_MAX_COUNT)
         return NULL;
 
     anim->state = ANIM_BIT_ENABLED;
@@ -238,10 +136,10 @@ struct Anim* AIS_New(const void* frameData, u16 displayPriority)
     struct Anim* anim;
 
     // Find anim slot for new anim
-    for (anim = gUnknown_02028F78; (anim < gUnknown_02028F78 + ANIM_MAX_COUNT) && !ANIM_IS_DISABLED(anim); ++anim) {}
+    for (anim = sAnimPool; (anim < sAnimPool + ANIM_MAX_COUNT) && !ANIM_IS_DISABLED(anim); ++anim) {}
 
     // return null if no anim slot was found
-    if (anim == gUnknown_02028F78 + ANIM_MAX_COUNT)
+    if (anim == sAnimPool + ANIM_MAX_COUNT)
         return NULL;
 
     anim->state = ANIM_BIT_ENABLED;
@@ -272,7 +170,7 @@ void AISArray_Sort(void)
 {
     struct Anim* anim;
 
-    for (anim = gUnknown_02028F78; anim < gUnknown_02028F78 + ANIM_MAX_COUNT; ++anim)
+    for (anim = sAnimPool; anim < sAnimPool + ANIM_MAX_COUNT; ++anim)
     {
         if (ANIM_IS_DISABLED(anim))
             continue;
@@ -281,9 +179,9 @@ void AISArray_Sort(void)
         anim->pNext = NULL;
     }
 
-    gUnknown_02029D88 = NULL;
+    sFirstAnim = NULL;
 
-    for (anim = gUnknown_02028F78; anim < gUnknown_02028F78 + ANIM_MAX_COUNT; ++anim)
+    for (anim = sAnimPool; anim < sAnimPool + ANIM_MAX_COUNT; ++anim)
     {
         if (ANIM_IS_DISABLED(anim))
             continue;
@@ -296,7 +194,7 @@ void AIS_Free(struct Anim* anim)
 {
     if (anim->pPrev == NULL)
     {
-        gUnknown_02029D88 = anim->pNext;
+        sFirstAnim = anim->pNext;
         anim->pNext->pPrev = NULL;
     }
     else
@@ -437,11 +335,11 @@ int HandleNextAISFrame(struct Anim* anim)
 
 void LinkAIS(struct Anim* anim)
 {
-    struct Anim* it = gUnknown_02029D88;
+    struct Anim* it = sFirstAnim;
 
-    if (!gUnknown_02029D88)
+    if (!sFirstAnim)
     {
-        gUnknown_02029D88 = anim;
+        sFirstAnim = anim;
         return;
     }
 
@@ -456,7 +354,7 @@ void LinkAIS(struct Anim* anim)
             it->pPrev = anim;
 
             if (!anim->pPrev)
-                gUnknown_02029D88 = anim;
+                sFirstAnim = anim;
             else
                 prev->pNext = anim;
 
