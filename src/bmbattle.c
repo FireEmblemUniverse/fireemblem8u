@@ -2053,9 +2053,9 @@ void ComputeBattleObstacleStats(void) {
 void UpdateObstacleFromBattle(struct BattleUnit* bu) {
     struct Trap* trap = GetTrapAt(bu->unit.xPos, bu->unit.yPos);
 
-    trap->data[TRAP_EXTDATA_OBSTACLE_HP] = bu->unit.curHP;
+    trap->extra = bu->unit.curHP;
 
-    if (trap->data[TRAP_EXTDATA_OBSTACLE_HP] == 0) {
+    if (trap->extra == 0) {
         int mapChangeId = GetMapChangeIdAt(bu->unit.xPos, bu->unit.yPos);
 
         if (gBmMapTerrain[bu->unit.yPos][bu->unit.xPos] == TERRAIN_SNAG)

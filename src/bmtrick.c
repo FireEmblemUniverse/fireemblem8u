@@ -96,7 +96,7 @@ struct Trap* AddTrap(int x, int y, int trapType, int meta)
     trap->xPos = x;
     trap->yPos = y;
     trap->type = trapType;
-    trap->data[0] = meta;
+    trap->extra = meta;
 
     return trap;
 }
@@ -113,8 +113,6 @@ struct Trap* AddDamagingTrap(int x, int y, int trapType, int meta, int turnCount
     return trap;
 }
 
-#ifdef NONMATCHING
-
 struct Trap* RemoveTrap(struct Trap* trap)
 {
     while (trap->type != TRAP_NONE)
@@ -124,34 +122,6 @@ struct Trap* RemoveTrap(struct Trap* trap)
 
     // return trap; // BUG
 }
-
-#else // NONMATCHING
-
-__attribute__((naked))
-struct Trap* RemoveTrap(struct Trap* trap)
-{
-    asm( // 0802E2FC
-        ".syntax unified\n"
-
-        "push {lr}\n"
-        "adds r3, r0, #0\n"
-        "b _0802E308\n"
-    "_0802E302:\n"
-        "ldr r1, [r3, #8]\n"
-        "ldr r2, [r3, #0xc]\n"
-        "stm r3!, {r1, r2}\n"
-    "_0802E308:\n"
-        "ldrb r1, [r3, #2]\n"
-        "cmp r1, #0\n"
-        "bne _0802E302\n"
-        "pop {r1}\n"
-        "bx r1\n"
-
-        ".syntax divided\n"
-    );
-}
-
-#endif // NONMATCHING
 
 void AddFireTile(int x, int y, int turnCountdown, int turnInterval)
 {
@@ -223,12 +193,12 @@ void ApplyEnabledMapChanges(void)
         {
 
         case TRAP_MAPCHANGE:
-            ApplyMapChangesById(trap->data[TRAP_EXTDATA_MAPCHANGE_ID]);
+            ApplyMapChangesById(trap->extra);
             break;
 
         case TRAP_MAPCHANGE2:
             // this is a mystery
-            ApplyMapChangesById(trap->data[0] ? trap->yPos : trap->xPos);
+            ApplyMapChangesById(trap->extra ? trap->yPos : trap->xPos);
             break;
 
         } // switch (trap->type)
@@ -258,14 +228,14 @@ int GetObstacleHpAt(int x, int y)
 
     if ((trap = GetTrapAt(x, y)) != NULL)
     {
-        return trap->data[0];
+        return trap->extra;
     }
 
     if ((gBmMapTerrain[y][x] == TERRAIN_WALL_1B) && (gBmMapTerrain[y-1][x] == TERRAIN_WALL_1B))
     {
         if ((trap = GetTrapAt(x, y-1)) != NULL)
         {
-            return trap->data[0];
+            return trap->extra;
         }
     }
 
@@ -347,7 +317,7 @@ void DisableMapChange(int id)
 
     for (trap = GetTrap(0); trap->type != TRAP_NONE; ++trap)
     {
-        if (trap->type == TRAP_MAPCHANGE && trap->data[TRAP_EXTDATA_MAPCHANGE_ID] == id)
+        if (trap->type == TRAP_MAPCHANGE && trap->extra == id)
             RemoveTrap(trap);
     }
 }
@@ -358,7 +328,7 @@ s8 IsMapChangeEnabled(int id)
 
     for (trap = GetTrap(0); trap->type != TRAP_NONE; ++trap)
     {
-        if (trap->type == TRAP_MAPCHANGE && trap->data[TRAP_EXTDATA_MAPCHANGE_ID] == id)
+        if (trap->type == TRAP_MAPCHANGE && trap->extra == id)
             return TRUE;
     }
 
@@ -531,7 +501,7 @@ void GenerateTrapDamageTargets(void)
                 break;
 
             case TRAP_GAS:
-                GenerateGasTrapTargets(trap->xPos, trap->yPos, (s8) trap->data[TRAP_EXTDATA_TRAP_DAMAGE], trap->data[TRAP_EXTDATA_GAS_FACING]);
+                GenerateGasTrapTargets(trap->xPos, trap->yPos, (s8) trap->data[TRAP_EXTDATA_TRAP_DAMAGE], trap->extra);
                 break;
 
             }
@@ -549,7 +519,7 @@ void GenerateDisplayedTrapDamageTargets(void)
 
     for (trap = GetTrap(0); trap->type != TRAP_NONE; ++trap)
     {
-        if ((s8) trap->data[TRAP_EXTDATA_TRAP_COUNTER] == 0)
+        if (trap->data[TRAP_EXTDATA_TRAP_COUNTER] == 0)
         {
             switch (trap->type)
             {
@@ -558,13 +528,13 @@ void GenerateDisplayedTrapDamageTargets(void)
                 if (gBmMapUnit[trap->yPos][trap->xPos])
                 {
                     AddTarget(trap->xPos, trap->yPos, 0, TRAP_FIRETILE);
-                    GenerateFireTileTrapTargets(trap->xPos, trap->yPos, (s8) trap->data[TRAP_EXTDATA_TRAP_DAMAGE]);
+                    GenerateFireTileTrapTargets(trap->xPos, trap->yPos, trap->data[TRAP_EXTDATA_TRAP_DAMAGE]);
                 }
 
                 break;
 
             case TRAP_GAS:
-                switch (trap->data[TRAP_EXTDATA_GAS_FACING])
+                switch (trap->extra)
                 {
 
                     // TODO: figure out
@@ -587,21 +557,21 @@ void GenerateDisplayedTrapDamageTargets(void)
 
                 } // switch (trap->data[TRAP_EXTDATA_GAS_FACING])
 
-                if (!ShouldSkipGasTrapDisplay(trap->xPos, trap->yPos, trap->data[TRAP_EXTDATA_GAS_FACING]))
+                if (!ShouldSkipGasTrapDisplay(trap->xPos, trap->yPos, trap->extra))
                 {
                     AddTarget(trap->xPos, trap->yPos, 0, specialType);
-                    GenerateGasTrapTargets(trap->xPos, trap->yPos, (s8) trap->data[TRAP_EXTDATA_TRAP_DAMAGE], trap->data[TRAP_EXTDATA_GAS_FACING]);
+                    GenerateGasTrapTargets(trap->xPos, trap->yPos, trap->data[TRAP_EXTDATA_TRAP_DAMAGE], trap->extra);
                 }
 
                 break;
 
             case TRAP_LIGHTARROW:
                 AddTarget(trap->xPos, trap->yPos, 0, TRAP_LIGHTARROW);
-                GenerateArrowTrapTargets(trap->xPos, trap->yPos, (s8) trap->data[TRAP_EXTDATA_TRAP_DAMAGE]);
+                GenerateArrowTrapTargets(trap->xPos, trap->yPos, trap->data[TRAP_EXTDATA_TRAP_DAMAGE]);
                 break;
 
             case TRAP_MAPCHANGE2:
-                AddTarget(trap->data[0] ? trap->xPos : trap->yPos, TRAP_INDEX(trap), 0, trap->type);
+                AddTarget(trap->extra ? trap->xPos : trap->yPos, TRAP_INDEX(trap), 0, trap->type);
                 break;
 
             } // switch (trap->type)
@@ -642,7 +612,7 @@ void ResetCountedDownTraps(void)
         case TRAP_GAS:
         case TRAP_LIGHTARROW:
         case TRAP_MAPCHANGE2:
-            if ((s8) trap->data[TRAP_EXTDATA_TRAP_COUNTER] == 0)
+            if (trap->data[TRAP_EXTDATA_TRAP_COUNTER] == 0)
                 trap->data[TRAP_EXTDATA_TRAP_COUNTER] = trap->data[TRAP_EXTDATA_TRAP_TURNNEXT];
 
             break;
@@ -705,9 +675,9 @@ void DecayTraps(void)
         {
 
         case TRAP_TORCHLIGHT:
-            trap->data[TRAP_EXTDATA_LIGHT_TURNSLEFT]--;
+            trap->extra--;
 
-            if (trap->data[TRAP_EXTDATA_LIGHT_TURNSLEFT] == 0)
+            if (trap->extra == 0)
             {
                 RemoveTrap(trap);
                 trap--;

@@ -615,7 +615,7 @@ void RefreshTorchlightsOnBmMap(void) {
         switch (trap->type) {
 
         case TRAP_TORCHLIGHT:
-            MapAddInRange(trap->xPos, trap->yPos, trap->data[TRAP_EXTDATA_LIGHT_TURNSLEFT], 1);
+            MapAddInRange(trap->xPos, trap->yPos, trap->extra, 1);
             break;
 
         } // switch (trap->type)
