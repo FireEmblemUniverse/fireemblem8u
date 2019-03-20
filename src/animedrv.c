@@ -42,7 +42,7 @@ typedef void (*AnimCallback_t) (struct Anim* anim);
 EWRAM_DATA static struct Anim sAnimPool[ANIM_MAX_COUNT] = {};
 EWRAM_DATA static struct Anim* sFirstAnim = NULL;
 
-void AIS_ExecAll(void)
+void AnimUpdateAll(void)
 {
     struct Anim* anim;
     int boolNeedsSort = FALSE;
@@ -61,7 +61,7 @@ void AIS_ExecAll(void)
             {
                 do
                 {
-                    if (HandleNextAISFrame(anim) == TRUE)
+                    if (AnimInterpret(anim) == TRUE)
                         boolNeedsSort = TRUE;
                 }
                 while (anim->timer == 0);
@@ -72,17 +72,17 @@ void AIS_ExecAll(void)
         }
 
         if (!(anim->state & ANIM_BIT_HIDDEN))
-            _AIS_Display(anim);
+            AnimDisplayPrivate(anim);
 
         if (!anim->pNext)
             break;
     }
 
     if (boolNeedsSort == TRUE)
-        AISArray_Sort();
+        AnimSort();
 }
 
-void ClearAISArray(void)
+void AnimClearAll(void)
 {
     struct Anim* it;
 
@@ -96,7 +96,7 @@ void ClearAISArray(void)
     sFirstAnim = NULL;
 }
 
-struct Anim* sub_8004EE8(const void* frameData)
+struct Anim* AnimCreate_unused(const void* frameData)
 {
     struct Anim* anim;
 
@@ -126,12 +126,12 @@ struct Anim* sub_8004EE8(const void* frameData)
     anim->pUnk40 = NULL;
     anim->pUnk44 = NULL;
 
-    LinkAIS(anim);
+    AnimInsert(anim);
 
     return anim;
 }
 
-struct Anim* AIS_New(const void* frameData, u16 displayPriority)
+struct Anim* AnimCreate(const void* frameData, u16 displayPriority)
 {
     struct Anim* anim;
 
@@ -161,12 +161,12 @@ struct Anim* AIS_New(const void* frameData, u16 displayPriority)
     anim->pUnk40 = NULL;
     anim->pUnk44 = NULL;
 
-    LinkAIS(anim);
+    AnimInsert(anim);
 
     return anim;
 }
 
-void AISArray_Sort(void)
+void AnimSort(void)
 {
     struct Anim* anim;
 
@@ -186,11 +186,11 @@ void AISArray_Sort(void)
         if (ANIM_IS_DISABLED(anim))
             continue;
 
-        LinkAIS(anim);
+        AnimInsert(anim);
     }
 }
 
-void AIS_Free(struct Anim* anim)
+void AnimDelete(struct Anim* anim)
 {
     if (anim->pPrev == NULL)
     {
@@ -208,12 +208,12 @@ void AIS_Free(struct Anim* anim)
     anim->pNext = NULL;
 }
 
-void AIS_Display(struct Anim* anim)
+void AnimDisplay(struct Anim* anim)
 {
-    _AIS_Display(anim);
+    AnimDisplayPrivate(anim);
 }
 
-int HandleNextAISFrame(struct Anim* anim)
+int AnimInterpret(struct Anim* anim)
 {
     int boolNeedsResort = FALSE;
 
@@ -333,7 +333,7 @@ int HandleNextAISFrame(struct Anim* anim)
     return boolNeedsResort;
 }
 
-void LinkAIS(struct Anim* anim)
+void AnimInsert(struct Anim* anim)
 {
     struct Anim* it = sFirstAnim;
 
@@ -374,7 +374,7 @@ void LinkAIS(struct Anim* anim)
     }
 }
 
-void _AIS_Display(struct Anim* anim)
+void AnimDisplayPrivate(struct Anim* anim)
 {
     unsigned baseAffineId = gUnknown_0300312C;
 
@@ -436,7 +436,7 @@ void _AIS_Display(struct Anim* anim)
     }
 }
 
-void sub_8005334(struct Anim* anim, u32 instruction)
+void Anim_8005334(struct Anim* anim, u32 instruction)
 {
     switch (ANINS_COMMAND_GET_ID(instruction))
     {

@@ -98,16 +98,16 @@ enum
 
 #define ANIM_IS_DISABLED(anim) ((anim)->state == 0)
 
-void AIS_ExecAll(void);
-void ClearAISArray(void);
-struct Anim* sub_8004EE8(const void* script);
-struct Anim* AIS_New(const void* script, u16 displayPriority);
-void AISArray_Sort(void);
-void AIS_Free(struct Anim* anim);
-void AIS_Display(struct Anim* anim);
-int HandleNextAISFrame(struct Anim* anim);
-void LinkAIS(struct Anim* anim);
-void _AIS_Display(struct Anim* anim);
-void sub_8005334(struct Anim* anim, u32 instruction);
+void AnimUpdateAll(void);
+void AnimClearAll(void);
+struct Anim* AnimCreate_unused(const void* script);
+struct Anim* AnimCreate(const void* script, u16 displayPriority);
+void AnimSort(void);
+void AnimDelete(struct Anim* anim);
+void AnimDisplay(struct Anim* anim);
+int AnimInterpret(struct Anim* anim);
+void AnimInsert(struct Anim* anim);
+void AnimDisplayPrivate(struct Anim* anim);
+void Anim_8005334(struct Anim* anim, u32 instruction);
 
 #endif // GUARD_ANIME_H
