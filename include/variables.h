@@ -795,7 +795,7 @@ extern void (*sHBlankHandler2)(void);
 // extern ??? gUnknown_03003750
 // extern ??? gUnknown_03004150
 // extern ??? gUnknown_03004154
-extern void *gUnknown_03004158;
+extern u16* gUnknown_03004158;
 // extern ??? gUnknown_03004160
 // extern ??? gUnknown_03004960
 extern struct UnknownStructCTC *gUnknown_03004970;
