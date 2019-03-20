@@ -1,13 +1,11 @@
 #### Tools ####
 
-PREFIX := $(CURDIR)/tools/binutils/bin/arm-none-eabi-
-
 CC1      := tools/agbcc/bin/agbcc
 CC1_OLD  := tools/agbcc/bin/old_agbcc
-CPP      := cpp
-AS       := $(PREFIX)as
-LD       := $(PREFIX)ld
-OBJCOPY  := $(PREFIX)objcopy
+CPP      := $(DEVKITARM)/bin/arm-none-eabi-cpp
+AS       := $(DEVKITARM)/bin/arm-none-eabi-as
+LD       := $(DEVKITARM)/bin/arm-none-eabi-ld
+OBJCOPY  := $(DEVKITARM)/bin/arm-none-eabi-objcopy
 BIN2C    := tools/bin2c/bin2c
 GBAGFX   := tools/gbagfx/gbagfx
 
