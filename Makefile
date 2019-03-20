@@ -1,11 +1,13 @@
 #### Tools ####
 
+PREFIX := $(CURDIR)/tools/binutils/bin/arm-none-eabi-
+
 CC1      := tools/agbcc/bin/agbcc
 CC1_OLD  := tools/agbcc/bin/old_agbcc
-CPP      := $(DEVKITARM)/bin/arm-none-eabi-cpp
-AS       := $(DEVKITARM)/bin/arm-none-eabi-as
-LD       := $(DEVKITARM)/bin/arm-none-eabi-ld
-OBJCOPY  := $(DEVKITARM)/bin/arm-none-eabi-objcopy
+CPP      := cpp
+AS       := $(PREFIX)as
+LD       := $(PREFIX)ld
+OBJCOPY  := $(PREFIX)objcopy
 BIN2C    := tools/bin2c/bin2c
 GBAGFX   := tools/gbagfx/gbagfx
 
@@ -30,8 +32,7 @@ DEPS_DIR     := .dep
 
 # Use the older compiler to build library code
 src/agb_sram.o: CC1FLAGS := -mthumb-interwork -Wimplicit -Wparentheses -Werror -O1
-src/m4a_2.o: CC1 := tools/agbcc/bin/old_agbcc
-src/m4a_4.o: CC1 := tools/agbcc/bin/old_agbcc
+src/m4a.o: CC1 := tools/agbcc/bin/old_agbcc
 
 # TODO: find a more elegant solution to the inlining issue
 src/bmitem.o: CC1FLAGS += -Wno-error

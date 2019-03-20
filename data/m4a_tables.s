@@ -28,8 +28,8 @@ gCgbFreqTable:  @ 0x082073A0
 gNoiseTable:  @ 0x082073B8
 	.incbin "baserom.gba", 0x2073B8, 0x3C
 
-	.global gUnknown_082073F4
-gUnknown_082073F4:  @ 0x082073F4
+	.global gCgb3Vol
+gCgb3Vol:  @ 0x082073F4
 	.incbin "baserom.gba", 0x2073F4, 0x10
 
 	.global gClockTable
