@@ -62,7 +62,7 @@ void SetSecondaryHBlankHandler(void(*)(void));
 // ??? BG_GetPriority(???);
 void SetSpecialColorEffectsParameters(u16 effect, u8 coeffA, u8 coeffB, u8 blendY);
 void sub_8001ED0(int, int, int, int, int); // SetColorEffectFirstTarget
-// ??? sub_8001F0C(???);
+void sub_8001F0C(int, int, int, int, int);
 void sub_8001F48(int); // SetColorEffectBackdropFirstTarget
 // ??? sub_8001F64(???);
 void SetDefaultColorEffects(void);

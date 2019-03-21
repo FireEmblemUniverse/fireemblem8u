@@ -137,7 +137,7 @@ struct Struct0202BCB0 // Game State Struct
     /* 3C */ u8 unk3C;
     /* 3D */ u8 unk3D;
     /* 3E */ u8 unk3E;
-    /* 3F */ u8 unk3F;
+    /* 3F */ s8 unk3F;
 };
 
 struct Struct0202BCF0 { // Chapter Data Struct
@@ -300,9 +300,9 @@ enum
     // 0x18?
     UNIT_ACTION_ARENA = 0x19,
     UNIT_ACTION_USE_ITEM = 0x1A,
-    // 0x1B?
+    UNIT_ACTION_TRADED = 0x1B,
     // 0x1C?
-    UNIT_ACTION_TRADED = 0x1D,
+    UNIT_ACTION_TRADED_1D = 0x1D,
     UNIT_ACTION_TRAPPED = 0x1E,
     // 0x1F?
     // 0x20?

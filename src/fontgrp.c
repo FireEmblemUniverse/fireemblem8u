@@ -373,25 +373,25 @@ void SetFont(struct Font *font)
         gCurrentFont = font;
 }
 
-void Text_Init(struct TextHandle *th, int b)
+void Text_Init(struct TextHandle *th, int tileWidth)
 {
     th->unk0 = gCurrentFont->unk12;
-    th->unk4 = b;
+    th->unk4 = tileWidth;
     th->unk6 = 0;
     th->unk5 = 0;
     th->unk7 = 0;
-    gCurrentFont->unk12 += b;
+    gCurrentFont->unk12 += tileWidth;
     Text_Clear(th);
 }
 
-void Text_Allocate(struct TextHandle *th, int b)
+void Text_Allocate(struct TextHandle *th, int tileWidth)
 {
     th->unk0 = gCurrentFont->unk12;
-    th->unk4 = b;
+    th->unk4 = tileWidth;
     th->unk6 = 0;
     th->unk5 = 1;
     th->unk7 = 0;
-    gCurrentFont->unk12 += b * 2;
+    gCurrentFont->unk12 += tileWidth * 2;
 }
 
 void InitTextBatch(struct TextBatch *a)
