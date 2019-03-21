@@ -1,5 +1,7 @@
 #include "global.h"
 
+#include "constants/items.h"
+
 #include "hardware.h"
 #include "icon.h"
 #include "fontgrp.h"
@@ -9,12 +11,20 @@
 
 #include "m4a.h"
 #include "soundwrapper.h"
-
 #include "proc.h"
+#include "event.h"
 
 enum { ITEMS_PER_COLUMN = UNIT_ITEM_COUNT };
 enum { UNIT_NAME_PANEL_TILE_WIDTH = 6 };
 enum { ITEM_NAME_TILE_WIDTH = 7 };
+
+enum
+{
+    TRADEMENU_UNIT_UNDEFINED = 0xFF,
+
+    TRADEMENU_UNIT_LEFT  = 0,
+    TRADEMENU_UNIT_RIGHT = 1,
+};
 
 struct TradeMenuProc
 {
@@ -23,22 +33,50 @@ struct TradeMenuProc
     /* 2C */ struct Unit* units[2];
 
     /* 34 */ s8 hasItem[2][ITEMS_PER_COLUMN + 1];
-    /* 40 */ s8 unk40;
-    /* 41 */ u8 unk41;
-    /* 42 */ u8 unk42;
-    /* 43 */ u8 unk43;
-    /* 44 */ u8 unk44;
+
+    /* 40 */ s8 hasTraded;
+
+    /* 41 */ u8 hoverColumn;
+    /* 42 */ u8 hoverLine;
+
+    /* 43 */ u8 selectedColumn;
+    /* 44 */ u8 selectedLine;
+
     /* 45 */ s8 unk45;
+
     /* 46 */ u8 unk46;
     /* 47 */ u8 unk47;
+
+    /* 48 */ u8 tradeTutorialState;
+
+    /* 49 */ u8 pad[0x4C - 0x49];
+    /* 4C */ short timer;
 };
 
 s8 sub_802DF08(struct TradeMenuProc* proc);
 
+void sub_802E168(struct TradeMenuProc* proc);
+void sub_802E1A8(struct TradeMenuProc* proc);
+void sub_802E188(struct TradeMenuProc* proc);
+void sub_802E0C0(void);
+
 extern struct TextHandle gUnknown_0200278C[2][ITEMS_PER_COLUMN];
 
-extern const struct Vec2 gUnknown_0859BADC[];
+EWRAM_DATA static struct TradeMenuProc* sTradeMenuProc = NULL;
+
+extern const struct Vec2 gUnknown_0859BADC[2][ITEMS_PER_COLUMN];
+
 extern const struct ProcCmd gUnknown_0859BBD4[];
+extern const struct ProcCmd gUnknown_0859BB1C[];
+extern const struct ProcCmd gUnknown_0859BBF4[];
+extern const struct ProcCmd gUnknown_0859BC0C[];
+extern const struct ProcCmd gUnknown_0859BC24[];
+extern const struct ProcCmd gUnknown_0859BC3C[];
+
+extern const u16 gUnknown_0859BC64[];
+extern const u16 gUnknown_0859BCA8[];
+extern const u16 gUnknown_0859BCF4[];
+extern const u16 gUnknown_0859BD40[];
 
 void sub_802D2E0(struct TradeMenuProc* proc)
 {
@@ -73,43 +111,33 @@ void sub_802D2E0(struct TradeMenuProc* proc)
     BG_EnableSyncByMask(1);
 }
 
-struct UnkTradeMenuChildProc
+void sub_802D3B8(struct TradeMenuProc* proc)
 {
-    /* 00 */ PROC_HEADER;
-
-    /* 29 */ u8 pad[0x41 - 0x29];
-
-    /* 41 */ u8 unk41;
-    /* 42 */ u8 unk42;
-};
-
-void sub_802D3B8(struct UnkTradeMenuChildProc* proc)
-{
-    proc->unk41 = 0xFF;
+    proc->hoverColumn = TRADEMENU_UNIT_UNDEFINED;
 }
 
-void sub_802D3C0(struct UnkTradeMenuChildProc* proc)
+void sub_802D3C0(struct TradeMenuProc* proc)
 {
     struct TradeMenuProc* tradeMenu = (struct TradeMenuProc*) proc->parent;
 
-    if (proc->unk41 == tradeMenu->unk41 && proc->unk42 == tradeMenu->unk42)
+    if (proc->hoverColumn == tradeMenu->hoverColumn && proc->hoverLine == tradeMenu->hoverLine)
         return;
 
-    if (proc->unk41 != 0xFF)
+    if (proc->hoverColumn != TRADEMENU_UNIT_UNDEFINED)
     {
         sub_804E90C(
-            gUnknown_0859BADC[proc->unk42 + proc->unk41*5].x,
-            gUnknown_0859BADC[proc->unk42 + proc->unk41*5].y,
+            gUnknown_0859BADC[proc->hoverColumn][proc->hoverLine].x,
+            gUnknown_0859BADC[proc->hoverColumn][proc->hoverLine].y,
             12);
     }
 
     sub_804E8A8(
-        gUnknown_0859BADC[tradeMenu->unk42 + tradeMenu->unk41*5].x,
-        gUnknown_0859BADC[tradeMenu->unk42 + tradeMenu->unk41*5].y,
+        gUnknown_0859BADC[tradeMenu->hoverColumn][tradeMenu->hoverLine].x,
+        gUnknown_0859BADC[tradeMenu->hoverColumn][tradeMenu->hoverLine].y,
         12);
 
-    proc->unk41 = tradeMenu->unk41;
-    proc->unk42 = tradeMenu->unk42;
+    proc->hoverColumn = tradeMenu->hoverColumn;
+    proc->hoverLine = tradeMenu->hoverLine;
 }
 
 int sub_802D438(struct TradeMenuProc* proc, int col, int row)
@@ -122,13 +150,13 @@ int sub_802D438(struct TradeMenuProc* proc, int col, int row)
 
 void sub_802D474(struct TradeMenuProc* proc)
 {
-    int iCol, iRow;
+    int col, row;
 
-    for (iCol = 0; iCol < 2; ++iCol)
+    for (col = 0; col < 2; ++col)
     {
-        for (iRow = 0; iRow < ITEMS_PER_COLUMN; ++iRow)
+        for (row = 0; row < ITEMS_PER_COLUMN; ++row)
         {
-            Text_Allocate(&gUnknown_0200278C[iCol][iRow], ITEM_NAME_TILE_WIDTH);
+            Text_Allocate(&gUnknown_0200278C[col][row], ITEM_NAME_TILE_WIDTH);
         }
     }
 }
@@ -138,22 +166,22 @@ void sub_802D4A8(struct TradeMenuProc* proc)
     u8 xLookup[] = {  1, 15 };
     u8 yLookup[] = {  8,  8 };
 
-    int iCol, iRow;
+    int col, row;
 
     CpuFastFill(0, gBG0TilemapBuffer + 0x120, 0x2C0);
 
-    for (iCol = 0; iCol < 2; ++iCol)
+    for (col = 0; col < 2; ++col)
     {
-        for (iRow = 0; iRow < ITEMS_PER_COLUMN; ++iRow)
+        for (row = 0; row < ITEMS_PER_COLUMN; ++row)
         {
-            int item = proc->units[iCol]->items[iRow];
+            int item = proc->units[col]->items[row];
 
-            Text_Clear(&gUnknown_0200278C[iCol][iRow]);
+            Text_Clear(&gUnknown_0200278C[col][row]);
 
             if (item)
             {
-                DrawItemMenuLine(&gUnknown_0200278C[iCol][iRow], item, IsItemDisplayUsable(proc->units[iCol], item),
-                    ((yLookup[iCol] + iRow * 2 + 1)) * 0x20 + (1 + xLookup[iCol]) + gBG0TilemapBuffer);
+                DrawItemMenuLine(&gUnknown_0200278C[col][row], item, IsItemDisplayUsable(proc->units[col], item),
+                    ((yLookup[col] + row * 2 + 1)) * 0x20 + (1 + xLookup[col]) + gBG0TilemapBuffer);
             }
         }
     }
@@ -183,15 +211,15 @@ s8 sub_802D5E8(struct TradeMenuProc* proc)
     s8 changedSelection = FALSE;
     int newSelectedRow;
 
-    if ((gKeyStatusPtr->repeatedKeys & DPAD_LEFT) && proc->unk41 == 1)
+    if ((gKeyStatusPtr->repeatedKeys & DPAD_LEFT) && proc->hoverColumn == TRADEMENU_UNIT_RIGHT)
     {
-        newSelectedRow = sub_802D438(proc, 0, proc->unk42);
+        newSelectedRow = sub_802D438(proc, TRADEMENU_UNIT_LEFT, proc->hoverLine);
 
         if (newSelectedRow < 0)
             goto end;
 
-        proc->unk41 = 0;
-        proc->unk42 = newSelectedRow;
+        proc->hoverColumn = TRADEMENU_UNIT_LEFT;
+        proc->hoverLine = newSelectedRow;
 
         changedSelection = TRUE;
 
@@ -199,15 +227,15 @@ s8 sub_802D5E8(struct TradeMenuProc* proc)
         PlaySoundEffect(0x67);
     }
 
-    if ((gKeyStatusPtr->repeatedKeys & DPAD_RIGHT) && proc->unk41 == 0)
+    if ((gKeyStatusPtr->repeatedKeys & DPAD_RIGHT) && proc->hoverColumn == TRADEMENU_UNIT_LEFT)
     {
-        newSelectedRow = sub_802D438(proc, 1, proc->unk42);
+        newSelectedRow = sub_802D438(proc, TRADEMENU_UNIT_RIGHT, proc->hoverLine);
 
         if (newSelectedRow < 0)
             goto end;
 
-        proc->unk41 = 1;
-        proc->unk42 = newSelectedRow;
+        proc->hoverColumn = TRADEMENU_UNIT_RIGHT;
+        proc->hoverLine = newSelectedRow;
 
         changedSelection = TRUE;
 
@@ -217,15 +245,15 @@ s8 sub_802D5E8(struct TradeMenuProc* proc)
 
     if ((gKeyStatusPtr->repeatedKeys & DPAD_UP))
     {
-        if (proc->unk42 == 0)
+        if (proc->hoverLine == 0)
         {
             if (gKeyStatusPtr->repeatedKeys != gKeyStatusPtr->newKeys)
                 goto end;
 
-            proc->unk42 = sub_802D438(proc, proc->unk41, ITEMS_PER_COLUMN - 1) + 1;
+            proc->hoverLine = sub_802D438(proc, proc->hoverColumn, ITEMS_PER_COLUMN - 1) + 1;
         }
 
-        proc->unk42--;
+        proc->hoverLine--;
 
         changedSelection = TRUE;
 
@@ -235,15 +263,15 @@ s8 sub_802D5E8(struct TradeMenuProc* proc)
 
     if ((gKeyStatusPtr->repeatedKeys & DPAD_DOWN))
     {
-        if (!proc->hasItem[proc->unk41][proc->unk42 + 1])
+        if (!proc->hasItem[proc->hoverColumn][proc->hoverLine + 1])
         {
             if (gKeyStatusPtr->repeatedKeys != gKeyStatusPtr->newKeys)
                 goto end;
 
-            proc->unk42 = -1;
+            proc->hoverLine = -1;
         }
 
-        proc->unk42++;
+        proc->hoverLine++;
 
         changedSelection = TRUE;
 
@@ -257,14 +285,14 @@ end:
 
 void sub_802D72C(struct TradeMenuProc* proc)
 {
-    u16* pItemA = &proc->units[proc->unk41]->items[proc->unk42];
-    u16* pItemB = &proc->units[proc->unk43]->items[proc->unk44];
+    u16* pItemA = &proc->units[proc->hoverColumn]->items[proc->hoverLine];
+    u16* pItemB = &proc->units[proc->selectedColumn]->items[proc->selectedLine];
 
     u16 swp = *pItemA;
     *pItemA = *pItemB;
     *pItemB = swp;
 
-    proc->unk40 = TRUE;
+    proc->hasTraded = TRUE;
 
     gActionData.unitActionType = UNIT_ACTION_TRADED;
 
@@ -307,16 +335,16 @@ void sub_802D834(struct TradeMenuProc* proc)
     if (sub_802DF08(proc))
     {
         sub_804E79C(
-            8 * gUnknown_0859BADC[proc->unk42 + proc->unk41*5].x,
-            8 * gUnknown_0859BADC[proc->unk42 + proc->unk41*5].y);
+            8 * gUnknown_0859BADC[proc->hoverColumn][proc->hoverLine].x,
+            8 * gUnknown_0859BADC[proc->hoverColumn][proc->hoverLine].y);
     }
     else
     {
         sub_802D5E8(proc);
 
         sub_804E79C(
-            8 * gUnknown_0859BADC[proc->unk42 + proc->unk41*5].x,
-            8 * gUnknown_0859BADC[proc->unk42 + proc->unk41*5].y);
+            8 * gUnknown_0859BADC[proc->hoverColumn][proc->hoverLine].x,
+            8 * gUnknown_0859BADC[proc->hoverColumn][proc->hoverLine].y);
 
         if (gKeyStatusPtr->newKeys & A_BUTTON)
         {
@@ -339,22 +367,22 @@ void sub_802D918(struct TradeMenuProc* proc)
 {
     int lastRow;
 
-    proc->unk43 = proc->unk41;
-    proc->unk44 = proc->unk42;
+    proc->selectedColumn = proc->hoverColumn;
+    proc->selectedLine = proc->hoverLine;
 
-    proc->unk41 = proc->unk41 ^ 1;
+    proc->hoverColumn = proc->hoverColumn ^ 1;
 
-    lastRow = sub_802D438(proc, proc->unk41, (ITEMS_PER_COLUMN - 1));
+    lastRow = sub_802D438(proc, proc->hoverColumn, (ITEMS_PER_COLUMN - 1));
 
     if (lastRow != (ITEMS_PER_COLUMN - 1))
     {
-        proc->unk42 = lastRow + 1;
-        proc->hasItem[proc->unk41][proc->unk42] = TRUE;
+        proc->hoverLine = lastRow + 1;
+        proc->hasItem[proc->hoverColumn][proc->hoverLine] = TRUE;
 
         proc->unk45 = TRUE;
 
-        proc->unk46 = proc->unk41;
-        proc->unk47 = proc->unk42;
+        proc->unk46 = proc->hoverColumn;
+        proc->unk47 = proc->hoverLine;
     }
 }
 
@@ -363,24 +391,24 @@ void sub_802D980(struct TradeMenuProc* proc)
     if (sub_802DF08(proc))
     {
         sub_804E79C(
-            8 * gUnknown_0859BADC[proc->unk42 + proc->unk41*5].x,
-            8 * gUnknown_0859BADC[proc->unk42 + proc->unk41*5].y);
+            8 * gUnknown_0859BADC[proc->hoverColumn][proc->hoverLine].x,
+            8 * gUnknown_0859BADC[proc->hoverColumn][proc->hoverLine].y);
 
         sub_804E848(
-            8 * gUnknown_0859BADC[proc->unk44 + proc->unk43*5].x,
-            8 * gUnknown_0859BADC[proc->unk44 + proc->unk43*5].y);
+            8 * gUnknown_0859BADC[proc->selectedColumn][proc->selectedLine].x,
+            8 * gUnknown_0859BADC[proc->selectedColumn][proc->selectedLine].y);
     }
     else
     {
         sub_802D5E8(proc);
 
         sub_804E79C(
-            8 * gUnknown_0859BADC[proc->unk42 + proc->unk41*5].x,
-            8 * gUnknown_0859BADC[proc->unk42 + proc->unk41*5].y);
+            8 * gUnknown_0859BADC[proc->hoverColumn][proc->hoverLine].x,
+            8 * gUnknown_0859BADC[proc->hoverColumn][proc->hoverLine].y);
 
         sub_804E848(
-            8 * gUnknown_0859BADC[proc->unk44 + proc->unk43*5].x,
-            8 * gUnknown_0859BADC[proc->unk44 + proc->unk43*5].y);
+            8 * gUnknown_0859BADC[proc->selectedColumn][proc->selectedLine].x,
+            8 * gUnknown_0859BADC[proc->selectedColumn][proc->selectedLine].y);
 
         if (gKeyStatusPtr->newKeys & A_BUTTON)
         {
@@ -403,15 +431,15 @@ void sub_802D980(struct TradeMenuProc* proc)
 
 void sub_802DAAC(struct TradeMenuProc* proc)
 {
-    proc->unk41 = proc->unk43;
-    proc->unk42 = proc->unk44;
+    proc->hoverColumn = proc->selectedColumn;
+    proc->hoverLine = proc->selectedLine;
 
     sub_802D58C(proc);
 
-    if (!proc->hasItem[proc->unk41][0])
-        proc->unk41 = proc->unk41 ^ 1;
+    if (!proc->hasItem[proc->hoverColumn][0])
+        proc->hoverColumn = proc->hoverColumn ^ 1;
 
-    proc->unk42 = sub_802D438(proc, proc->unk41, proc->unk42);
+    proc->hoverLine = sub_802D438(proc, proc->hoverColumn, proc->hoverLine);
 }
 
 s8 sub_802DAFC(struct TradeMenuProc* proc)
@@ -419,8 +447,8 @@ s8 sub_802DAFC(struct TradeMenuProc* proc)
     if (gUnknown_0202BCB0.unk3F < 0)
         return TRUE;
 
-    proc->unk41 = gUnknown_0202BCB0.unk3F / ITEMS_PER_COLUMN;
-    proc->unk42 = gUnknown_0202BCB0.unk3F % ITEMS_PER_COLUMN;
+    proc->hoverColumn = gUnknown_0202BCB0.unk3F / ITEMS_PER_COLUMN;
+    proc->hoverLine = gUnknown_0202BCB0.unk3F % ITEMS_PER_COLUMN;
 
     sub_802D58C(proc);
     Proc_GotoLabel((struct Proc*) (proc), 1);
@@ -434,14 +462,11 @@ void sub_802DB48(void)
     DeleteFaceByIndex(1);
 }
 
-void LoadDialogueBoxGfx(void* dest, int pal);
-void sub_8088E60(int x, int y, int item);
-
 void sub_802DB5C(struct Proc* proc)
 {
     struct TradeMenuProc* tradeMenu = (struct TradeMenuProc*) proc->parent;
 
-    int item = tradeMenu->units[tradeMenu->unk41]->items[tradeMenu->unk42];
+    int item = tradeMenu->units[tradeMenu->hoverColumn]->items[tradeMenu->hoverLine];
 
     if (!item)
     {
@@ -457,8 +482,8 @@ void sub_802DB5C(struct Proc* proc)
     LoadDialogueBoxGfx(NULL, -1);
 
     sub_8088E60(
-        8 * gUnknown_0859BADC[tradeMenu->unk42 + tradeMenu->unk41*5].x,
-        8 * gUnknown_0859BADC[tradeMenu->unk42 + tradeMenu->unk41*5].y,
+        8 * gUnknown_0859BADC[tradeMenu->hoverColumn][tradeMenu->hoverLine].x,
+        8 * gUnknown_0859BADC[tradeMenu->hoverColumn][tradeMenu->hoverLine].y,
         item);
 
     gKeyStatusPtr->newKeys = gKeyStatusPtr->newKeys &~ (B_BUTTON | R_BUTTON);
@@ -469,13 +494,13 @@ void sub_802DC04(struct Proc* proc)
     struct TradeMenuProc* tradeMenu = (struct TradeMenuProc*) proc->parent;
 
     s8 changedSelection = sub_802D5E8(tradeMenu);
-    int item = tradeMenu->units[tradeMenu->unk41]->items[tradeMenu->unk42];
+    int item = tradeMenu->units[tradeMenu->hoverColumn]->items[tradeMenu->hoverLine];
 
     if (changedSelection)
     {
         sub_8088E60(
-            8 * gUnknown_0859BADC[tradeMenu->unk41*5 + tradeMenu->unk42].x,
-            8 * gUnknown_0859BADC[tradeMenu->unk41*5 + tradeMenu->unk42].y,
+            8 * gUnknown_0859BADC[tradeMenu->hoverColumn][tradeMenu->hoverLine].x,
+            8 * gUnknown_0859BADC[tradeMenu->hoverColumn][tradeMenu->hoverLine].y,
             item);
     }
 
@@ -485,13 +510,299 @@ void sub_802DC04(struct Proc* proc)
     }
 
     sub_804E79C(
-        8 * gUnknown_0859BADC[tradeMenu->unk42 + tradeMenu->unk41*5].x,
-        8 * gUnknown_0859BADC[tradeMenu->unk42 + tradeMenu->unk41*5].y);
+        8 * gUnknown_0859BADC[tradeMenu->hoverColumn][tradeMenu->hoverLine].x,
+        8 * gUnknown_0859BADC[tradeMenu->hoverColumn][tradeMenu->hoverLine].y);
 
     if (tradeMenu->unk45)
     {
         sub_804E848(
-            8 * gUnknown_0859BADC[tradeMenu->unk44 + tradeMenu->unk43*5].x,
-            8 * gUnknown_0859BADC[tradeMenu->unk44 + tradeMenu->unk43*5].y);
+            8 * gUnknown_0859BADC[tradeMenu->selectedColumn][tradeMenu->selectedLine].x,
+            8 * gUnknown_0859BADC[tradeMenu->selectedColumn][tradeMenu->selectedLine].y);
     }
+}
+
+void sub_802DCD8(struct Proc* proc)
+{
+    struct TradeMenuProc* tradeMenu = (struct TradeMenuProc*) proc->parent;
+
+    if (tradeMenu->unk45)
+    {
+        tradeMenu->hasItem[tradeMenu->unk46][tradeMenu->unk47] = TRUE;
+    }
+
+    sub_8089018();
+
+    sub_804E79C(
+        8 * gUnknown_0859BADC[tradeMenu->hoverColumn][tradeMenu->hoverLine].x,
+        8 * gUnknown_0859BADC[tradeMenu->hoverColumn][tradeMenu->hoverLine].y);
+
+    if (tradeMenu->unk45)
+    {
+        sub_804E848(
+            8 * gUnknown_0859BADC[tradeMenu->selectedColumn][tradeMenu->selectedLine].x,
+            8 * gUnknown_0859BADC[tradeMenu->selectedColumn][tradeMenu->selectedLine].y);
+    }
+}
+
+struct Proc* sub_802DD6C(struct Unit* lUnit, struct Unit* rUnit, int unused)
+{
+    int itemCount;
+
+    struct TradeMenuProc* proc = (struct TradeMenuProc*) Proc_Create(gUnknown_0859BB1C, ROOT_PROC_3);
+
+    proc->units[0] = lUnit;
+    proc->units[1] = rUnit;
+
+    proc->hasTraded = FALSE;
+
+    proc->hoverColumn = TRADEMENU_UNIT_LEFT;
+    proc->hoverLine = 0;
+
+    proc->tradeTutorialState = 0;
+
+    sTradeMenuProc = proc;
+
+    if (sub_80837F8())
+    {
+        SetKeyStatus_IgnoreMask(A_BUTTON | START_BUTTON | DPAD_DOWN | DPAD_UP);
+        proc->tradeTutorialState = 1;
+    }
+
+    if (GetUnitItemCount(lUnit) == 0)
+    {
+        proc->hoverColumn = TRADEMENU_UNIT_RIGHT;
+    }
+}
+
+void sub_802DDD0(void)
+{
+    struct TradeMenuProc* tradeMenu = sTradeMenuProc;
+
+    sub_804E848(
+        8 * gUnknown_0859BADC[tradeMenu->hoverColumn][tradeMenu->hoverLine].x,
+        8 * gUnknown_0859BADC[tradeMenu->hoverColumn][tradeMenu->hoverLine].y);
+}
+
+void sub_802DE08(void)
+{
+    struct TradeMenuProc* tradeMenu = sTradeMenuProc;
+
+    sub_804E848(
+        8 * gUnknown_0859BADC[tradeMenu->hoverColumn][tradeMenu->hoverLine].x,
+        8 * gUnknown_0859BADC[tradeMenu->hoverColumn][tradeMenu->hoverLine].y);
+
+    sub_804E848(
+        8 * gUnknown_0859BADC[tradeMenu->selectedColumn][tradeMenu->selectedLine].x,
+        8 * gUnknown_0859BADC[tradeMenu->selectedColumn][tradeMenu->selectedLine].y);
+}
+
+void sub_802DE6C(void)
+{
+    Proc_Create(gUnknown_0859BBF4, ROOT_PROC_3);
+}
+
+void sub_802DE80(void)
+{
+    Proc_Create(gUnknown_0859BC0C, ROOT_PROC_3);
+}
+
+void sub_802DE94(void)
+{
+    Proc_DeleteAllWithScript(gUnknown_0859BBF4);
+}
+
+void sub_802DEA4(void)
+{
+    Proc_DeleteAllWithScript(gUnknown_0859BC0C);
+}
+
+void sub_802DEB4(struct TradeMenuProc* proc)
+{
+    proc->timer = 20;
+}
+
+void sub_802DEBC(struct TradeMenuProc* proc)
+{
+    proc->timer--;
+
+    if (proc->timer < 0)
+        Proc_ClearNativeCallback((struct Proc*) (proc));
+}
+
+void sub_802DEDC(struct Proc* ee)
+{
+    if (sTradeMenuProc->tradeTutorialState != 3 && sTradeMenuProc->tradeTutorialState != 5 && sTradeMenuProc->tradeTutorialState != 8)
+    {
+        Proc_CreateBlockingChild(gUnknown_0859BC24, ee);
+    }
+}
+
+s8 sub_802DF08(struct TradeMenuProc* proc)
+{
+    if (proc->tradeTutorialState != 4 && (gKeyStatusPtr->newKeys == 0))
+        return FALSE;
+
+    switch (sTradeMenuProc->tradeTutorialState)
+    {
+
+    case 2:
+        if (gKeyStatusPtr->newKeys & DPAD_RIGHT)
+        {
+            SetKeyStatus_IgnoreMask(START_BUTTON | DPAD_UP | DPAD_DOWN);
+            sub_802E168(proc);
+
+            return FALSE;
+        }
+
+        PlaySoundEffect(0x6C); // TODO: SONG ID DEFINITIONS
+
+        Proc_GotoLabel((struct Proc*) (proc), 0x65);
+
+        return TRUE;
+
+    case 3:
+        if (!(gKeyStatusPtr->newKeys & (B_BUTTON | DPAD_LEFT | R_BUTTON)))
+        {
+            if (!(gKeyStatusPtr->newKeys & A_BUTTON))
+                return FALSE;
+
+            if (!(gKeyStatusPtr->newKeys & (DPAD_UP | DPAD_DOWN)))
+            {
+                if (GetItemIndex(proc->units[proc->hoverColumn]->items[proc->hoverLine]) == ITEM_VULNERARY)
+                {
+                    SetKeyStatus_IgnoreMask(START_BUTTON | DPAD_UP | DPAD_DOWN);
+                    sub_802E0C0();
+
+                    return FALSE;
+                }
+            }
+        }
+
+        PlaySoundEffect(0x6C); // TODO: SONG ID DEFINITIONS
+
+        sub_802E168(proc);
+
+        return TRUE;
+
+    case 5:
+        if (gKeyStatusPtr->newKeys & A_BUTTON)
+        {
+            sub_802E1A8(proc);
+
+            return FALSE;
+        }
+
+        PlaySoundEffect(0x6C); // TODO: SONG ID DEFINITIONS
+
+        sub_802E188(proc);
+
+        return TRUE;
+
+    case 4:
+        sub_802E188(proc);
+
+        return TRUE;
+
+    case 8:
+        if (gKeyStatusPtr->newKeys & B_BUTTON)
+        {
+            SetKeyStatus_IgnoreMask(0);
+            UnsetEventId(0x87); // TODO: EID/FLAG DEFINTIONS
+
+            return FALSE;
+        }
+
+        PlaySoundEffect(0x6C); // TODO: SONG ID DEFINITIONS
+
+        sub_802E1A8(proc);
+
+        return TRUE;
+
+    default:
+        return FALSE;
+
+    } // switch (sTradeMenuProc->tradeTutorialState)
+}
+
+void sub_802E0A0(void)
+{
+    sTradeMenuProc->tradeTutorialState = 2;
+}
+
+void sub_802E0B0(void)
+{
+    sTradeMenuProc->tradeTutorialState = 3;
+}
+
+void sub_802E0C0(void)
+{
+    sTradeMenuProc->tradeTutorialState = 4;
+}
+
+void sub_802E0D0(void)
+{
+    sTradeMenuProc->tradeTutorialState = 5;
+}
+
+void sub_802E0E0(void)
+{
+    sTradeMenuProc->tradeTutorialState = 6;
+}
+
+void sub_802E0F0(void)
+{
+    sTradeMenuProc->tradeTutorialState = 7;
+}
+
+void sub_802E100(void)
+{
+    sTradeMenuProc->tradeTutorialState = 8;
+}
+
+s8 sub_802E110(void)
+{
+    if (!gKeyStatusPtr->heldKeys)
+        return FALSE;
+
+    return TRUE;
+}
+
+void sub_802E12C(struct TradeMenuProc* proc)
+{
+    Proc_CreateBlockingChild(gUnknown_0859BC3C, (struct Proc*) (proc));
+}
+
+void sub_802E140(struct TradeMenuProc* proc)
+{
+    if (proc->tradeTutorialState)
+    {
+        CallEvent(gUnknown_0859BC64, EV_EXEC_QUIET);
+
+        sub_802E12C(proc);
+        sub_802DE6C();
+    }
+}
+
+void sub_802E168(struct TradeMenuProc* proc)
+{
+    CallEvent(gUnknown_0859BCA8, EV_EXEC_QUIET);
+
+    sub_802E12C(proc);
+    sub_802DE6C();
+}
+
+void sub_802E188(struct TradeMenuProc* proc)
+{
+    CallEvent(gUnknown_0859BCF4, EV_EXEC_QUIET);
+
+    sub_802E12C(proc);
+    sub_802DE80();
+}
+
+void sub_802E1A8(struct TradeMenuProc* proc)
+{
+    CallEvent(gUnknown_0859BD40, EV_EXEC_QUIET);
+
+    sub_802E12C(proc);
+    sub_802DE6C();
 }

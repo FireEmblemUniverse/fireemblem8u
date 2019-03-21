@@ -531,8 +531,7 @@
 . = 0x03A4D0; gUnknown_0203A4D0 = .;
 . = 0x03A4D4;
 . = ALIGN(4); src/bmbattle.o(ewram_data);
-. = 0x03A610; gUnknown_0203A610 = .;
-. = 0x03A614;
+. = ALIGN(4); src/bmtrade.o(ewram_data);
 . = ALIGN(4); src/bmtrick.o(ewram_data);
 . = 0x03A81C; gUnknown_0203A81C = .;
 . = 0x03A8E4; gUnknown_0203A8E4 = .;

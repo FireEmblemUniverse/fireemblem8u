@@ -65,7 +65,7 @@ typedef u8(*EventFuncType)(struct EventEngineProc*);
 // ??? EventEngine_OnEnd(???);
 // ??? EnqueueEventCall(???);
 // ??? CallNextQueuedEvent(???);
-// ??? CallEvent(???);
+void CallEvent(const u16* events, u8 execType);
 struct EventEngineProc* EventEngine_Create(const u16* events, u8 idk);
 // ??? EventEngine_CreateBattle(???);
 // ??? EventEngineExists(???);
