@@ -1530,13 +1530,6 @@ extern const struct ProcCmd gUnknown_0859A548[]; // this is GENS/Camera Movement
 // extern ??? gUnknown_0859B9A8
 // extern ??? gUnknown_0859B9B8
 // extern ??? gUnknown_0859BA38
-// extern ??? gUnknown_0859BADC
-// extern ??? gUnknown_0859BB1C
-// extern ??? gUnknown_0859BBD4
-// extern ??? gUnknown_0859BBF4
-// extern ??? gUnknown_0859BC0C
-// extern ??? gUnknown_0859BC24
-// extern ??? gUnknown_0859BC3C
 // extern ??? gUnknown_0859BC64
 // extern ??? gUnknown_0859BCA8
 // extern ??? gUnknown_0859BCF4
