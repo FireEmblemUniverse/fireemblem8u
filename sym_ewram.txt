@@ -44,7 +44,7 @@
 . = 0x002038; gUnknown_02002038 = .;
 . = 0x002088; gUnknown_02002088 = .;
 . = 0x002774; gUnknown_02002774 = .;
-. = 0x00278C; gUnknown_0200278C = .;
+. = 0x00278C; gTradeMenuText = .;
 . = 0x0027DC; src/bmio.o(ewram_data); /* probably not actually ewram_data */
 . = 0x002FDC; gUnknown_02002FDC = .;
 . = 0x002FF4; gUnknown_02002FF4 = .;

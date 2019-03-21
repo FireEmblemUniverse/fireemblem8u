@@ -14,9 +14,20 @@
 #include "proc.h"
 #include "event.h"
 
-enum { ITEMS_PER_COLUMN = UNIT_ITEM_COUNT };
-enum { UNIT_NAME_PANEL_TILE_WIDTH = 6 };
-enum { ITEM_NAME_TILE_WIDTH = 7 };
+enum
+{
+    // MAGIC CONSTANTS
+
+    UNIT_PANEL_WIDTH = 6,
+
+    ITEM_PANEL_WIDTH = 7,
+
+    ITEM_PANEL_LEFT_X = 1,
+    ITEM_PANEL_LEFT_Y = 8,
+
+    ITEM_PANEL_RIGHT_X = 15,
+    ITEM_PANEL_RIGHT_Y = 8,
+};
 
 enum
 {
@@ -32,20 +43,20 @@ struct TradeMenuProc
 
     /* 2C */ struct Unit* units[2];
 
-    /* 34 */ s8 hasItem[2][ITEMS_PER_COLUMN + 1];
+    /* 34 */ s8 hasItem[2][UNIT_ITEM_COUNT + 1];
 
     /* 40 */ s8 hasTraded;
 
     /* 41 */ u8 hoverColumn;
-    /* 42 */ u8 hoverLine;
+    /* 42 */ u8 hoverRow;
 
     /* 43 */ u8 selectedColumn;
-    /* 44 */ u8 selectedLine;
+    /* 44 */ u8 selectedRow;
 
-    /* 45 */ s8 unk45;
+    /* 45 */ s8 extraCellEnabled;
 
-    /* 46 */ u8 unk46;
-    /* 47 */ u8 unk47;
+    /* 46 */ u8 extraColumn;
+    /* 47 */ u8 extraRow;
 
     /* 48 */ u8 tradeTutorialState;
 
@@ -77,8 +88,6 @@ static void TradeMenu_HelpBox_OnInit(struct Proc* proc);
 static void TradeMenu_HelpBox_OnLoop(struct Proc* proc);
 static void TradeMenu_HelpBox_OnEnd(struct Proc* proc);
 
-struct Proc* sub_802DD6C(struct Unit* lUnit, struct Unit* rUnit, int unused);
-
 static void TradeMenu_TutorialHandCursor_Update(void);
 static void TradeMenu_DoubleTutorialHandCursor_Update(void);
 
@@ -89,10 +98,10 @@ static void EndDoubleTradeMenuTutorialHandCursor(void);
 static void TradeMenu_TutorialWait_OnInit(struct TradeMenuProc* proc);
 static void TradeMenu_TutorialWait_OnLoop(struct TradeMenuProc* proc);
 
-void sub_802DEDC(struct Proc* ee);
-
 static s8 TradeMenu_UpdateTutorial(struct TradeMenuProc* proc);
 
+// ASMCs
+void sub_802DEDC(struct Proc* ee);
 void sub_802E0A0(void);
 void sub_802E0B0(void);
 void sub_802E0C0(void);
@@ -100,6 +109,7 @@ void sub_802E0D0(void);
 void sub_802E0E0(void);
 void sub_802E0F0(void);
 void sub_802E100(void);
+
 static s8 AreKeysHeld(void);
 
 static void TradeMenu_StartTutorialEventLock(struct TradeMenuProc* proc);
@@ -118,28 +128,26 @@ enum
 };
 
 // TODO: BM_OVERLAY_DATA?
-extern struct TextHandle gUnknown_0200278C[2][ITEMS_PER_COLUMN];
+extern struct TextHandle gTradeMenuText[2][UNIT_ITEM_COUNT];
 
 EWRAM_DATA static struct TradeMenuProc* sTradeMenuProc = NULL;
 
 CONST_DATA
-static struct Vec2 sItemDisplayTileLocation[2][ITEMS_PER_COLUMN] = {
-    // TODO: use more constants
-
+static struct Vec2 sItemDisplayTileLocation[2][UNIT_ITEM_COUNT] = {
     [TRADEMENU_UNIT_LEFT] = {
-        {  2,  9 },
-        {  2, 11 },
-        {  2, 13 },
-        {  2, 15 },
-        {  2, 17 },
+        { ITEM_PANEL_LEFT_X + 1, ITEM_PANEL_LEFT_Y + 1 },
+        { ITEM_PANEL_LEFT_X + 1, ITEM_PANEL_LEFT_Y + 3 },
+        { ITEM_PANEL_LEFT_X + 1, ITEM_PANEL_LEFT_Y + 5 },
+        { ITEM_PANEL_LEFT_X + 1, ITEM_PANEL_LEFT_Y + 7 },
+        { ITEM_PANEL_LEFT_X + 1, ITEM_PANEL_LEFT_Y + 9 },
     },
 
     [TRADEMENU_UNIT_RIGHT] = {
-        { 16,  9 },
-        { 16, 11 },
-        { 16, 13 },
-        { 16, 15 },
-        { 16, 17 },
+        { ITEM_PANEL_RIGHT_X + 1, ITEM_PANEL_RIGHT_Y + 1 },
+        { ITEM_PANEL_RIGHT_X + 1, ITEM_PANEL_RIGHT_Y + 3 },
+        { ITEM_PANEL_RIGHT_X + 1, ITEM_PANEL_RIGHT_Y + 5 },
+        { ITEM_PANEL_RIGHT_X + 1, ITEM_PANEL_RIGHT_Y + 7 },
+        { ITEM_PANEL_RIGHT_X + 1, ITEM_PANEL_RIGHT_Y + 9 },
     }
 };
 
@@ -251,26 +259,26 @@ void TradeMenu_InitUnitNameDisplay(struct TradeMenuProc* proc)
     sub_80ADBFC(0, -40, -1, 1);
     sub_80ADBFC(1, 184, -1, 0);
 
+    // TODO: special effect constants
     SetSpecialColorEffectsParameters(1, 12, 6, 0);
 
     // TODO: name functions
     sub_8001ED0(FALSE, FALSE, FALSE, FALSE, FALSE);
     sub_8001F0C(TRUE,  TRUE,  TRUE,  TRUE,  TRUE);
 
-    str = GetStringFromIndex(UNIT_NAME_ID(proc->units[0]));
-    xStart = ((8 * UNIT_NAME_PANEL_TILE_WIDTH) - GetStringTextWidth(str)) / 2;
+    // TODO: text color constants
 
-    // TODO: tile location macro
-    DrawTextInline(NULL, gBG0TilemapBuffer + 0x00, 0, xStart, UNIT_NAME_PANEL_TILE_WIDTH, str);
+    str = GetStringFromIndex(UNIT_NAME_ID(proc->units[0]));
+    xStart = ((8 * UNIT_PANEL_WIDTH) - GetStringTextWidth(str)) / 2;
+
+    DrawTextInline(NULL, TILEMAP_LOCATED(gBG0TilemapBuffer, 0, 0), 0, xStart, UNIT_PANEL_WIDTH, str);
 
     str = GetStringFromIndex(UNIT_NAME_ID(proc->units[1]));
-    xStart = ((8 * UNIT_NAME_PANEL_TILE_WIDTH) - GetStringTextWidth(str)) / 2;
+    xStart = ((8 * UNIT_PANEL_WIDTH) - GetStringTextWidth(str)) / 2;
 
-    // TODO: tile location macro
-    DrawTextInline(NULL, gBG0TilemapBuffer + 0x18, 0, xStart, UNIT_NAME_PANEL_TILE_WIDTH, str);
+    DrawTextInline(NULL, TILEMAP_LOCATED(gBG0TilemapBuffer, 24, 0), 0, xStart, UNIT_PANEL_WIDTH, str);
 
-    // TODO: bg mask definitions
-    BG_EnableSyncByMask(1);
+    BG_EnableSyncByMask(BG0_SYNC_BIT);
 }
 
 void TradeMenu_HighlightUpdater_OnInit(struct TradeMenuProc* proc)
@@ -282,24 +290,24 @@ void TradeMenu_HighlightUpdater_OnLoop(struct TradeMenuProc* proc)
 {
     struct TradeMenuProc* tradeMenu = (struct TradeMenuProc*) proc->parent;
 
-    if (proc->hoverColumn == tradeMenu->hoverColumn && proc->hoverLine == tradeMenu->hoverLine)
+    if (proc->hoverColumn == tradeMenu->hoverColumn && proc->hoverRow == tradeMenu->hoverRow)
         return;
 
     if (proc->hoverColumn != TRADEMENU_UNIT_UNDEFINED)
     {
         sub_804E90C(
-            sItemDisplayTileLocation[proc->hoverColumn][proc->hoverLine].x,
-            sItemDisplayTileLocation[proc->hoverColumn][proc->hoverLine].y,
+            sItemDisplayTileLocation[proc->hoverColumn][proc->hoverRow].x,
+            sItemDisplayTileLocation[proc->hoverColumn][proc->hoverRow].y,
             12);
     }
 
     sub_804E8A8(
-        sItemDisplayTileLocation[tradeMenu->hoverColumn][tradeMenu->hoverLine].x,
-        sItemDisplayTileLocation[tradeMenu->hoverColumn][tradeMenu->hoverLine].y,
+        sItemDisplayTileLocation[tradeMenu->hoverColumn][tradeMenu->hoverRow].x,
+        sItemDisplayTileLocation[tradeMenu->hoverColumn][tradeMenu->hoverRow].y,
         12);
 
     proc->hoverColumn = tradeMenu->hoverColumn;
-    proc->hoverLine = tradeMenu->hoverLine;
+    proc->hoverRow = tradeMenu->hoverRow;
 }
 
 int TradeMenu_GetAdjustedRow(struct TradeMenuProc* proc, int col, int row)
@@ -316,39 +324,39 @@ void TradeMenu_InitItemText(struct TradeMenuProc* proc)
 
     for (col = 0; col < 2; ++col)
     {
-        for (row = 0; row < ITEMS_PER_COLUMN; ++row)
+        for (row = 0; row < UNIT_ITEM_COUNT; ++row)
         {
-            Text_Allocate(&gUnknown_0200278C[col][row], ITEM_NAME_TILE_WIDTH);
+            Text_Allocate(&gTradeMenuText[col][row], ITEM_PANEL_WIDTH);
         }
     }
 }
 
 void TradeMenu_RefreshItemText(struct TradeMenuProc* proc)
 {
-    u8 xLookup[] = {  1, 15 };
-    u8 yLookup[] = {  8,  8 };
+    u8 xLookup[] = { ITEM_PANEL_LEFT_X, ITEM_PANEL_RIGHT_X };
+    u8 yLookup[] = { ITEM_PANEL_LEFT_Y, ITEM_PANEL_RIGHT_Y };
 
     int col, row;
 
-    CpuFastFill(0, gBG0TilemapBuffer + 0x120, 0x2C0);
+    CpuFastFill(0, TILEMAP_LOCATED(gBG0TilemapBuffer, 0, 9), 11 * 0x20 * sizeof(u16));
 
     for (col = 0; col < 2; ++col)
     {
-        for (row = 0; row < ITEMS_PER_COLUMN; ++row)
+        for (row = 0; row < UNIT_ITEM_COUNT; ++row)
         {
             int item = proc->units[col]->items[row];
 
-            Text_Clear(&gUnknown_0200278C[col][row]);
+            Text_Clear(&gTradeMenuText[col][row]);
 
             if (item)
             {
-                DrawItemMenuLine(&gUnknown_0200278C[col][row], item, IsItemDisplayUsable(proc->units[col], item),
-                    ((yLookup[col] + row * 2 + 1)) * 0x20 + (1 + xLookup[col]) + gBG0TilemapBuffer);
+                DrawItemMenuLine(&gTradeMenuText[col][row], item, IsItemDisplayUsable(proc->units[col], item),
+                    TILEMAP_LOCATED(gBG0TilemapBuffer, xLookup[col] + 1, yLookup[col] + row * 2 + 1));
             }
         }
     }
 
-    BG_EnableSyncByMask(1);
+    BG_EnableSyncByMask(BG0_SYNC_BIT);
 }
 
 void TradeMenu_RefreshSelectableCells(struct TradeMenuProc* proc)
@@ -357,15 +365,15 @@ void TradeMenu_RefreshSelectableCells(struct TradeMenuProc* proc)
 
     for (col = 0; col < 2; ++col)
     {
-        for (row = 0; row < ITEMS_PER_COLUMN; ++row)
+        for (row = 0; row < UNIT_ITEM_COUNT; ++row)
         {
             u16 item = proc->units[col]->items[row];
             proc->hasItem[col][row] = (item ? TRUE : FALSE);
         }
     }
 
-    proc->hasItem[0][ITEMS_PER_COLUMN] = 0;
-    proc->hasItem[1][ITEMS_PER_COLUMN] = 0;
+    proc->hasItem[0][UNIT_ITEM_COUNT] = 0;
+    proc->hasItem[1][UNIT_ITEM_COUNT] = 0;
 }
 
 s8 TradeMenu_UpdateSelection(struct TradeMenuProc* proc)
@@ -375,13 +383,13 @@ s8 TradeMenu_UpdateSelection(struct TradeMenuProc* proc)
 
     if ((gKeyStatusPtr->repeatedKeys & DPAD_LEFT) && proc->hoverColumn == TRADEMENU_UNIT_RIGHT)
     {
-        newSelectedRow = TradeMenu_GetAdjustedRow(proc, TRADEMENU_UNIT_LEFT, proc->hoverLine);
+        newSelectedRow = TradeMenu_GetAdjustedRow(proc, TRADEMENU_UNIT_LEFT, proc->hoverRow);
 
         if (newSelectedRow < 0)
             goto end;
 
         proc->hoverColumn = TRADEMENU_UNIT_LEFT;
-        proc->hoverLine = newSelectedRow;
+        proc->hoverRow = newSelectedRow;
 
         changedSelection = TRUE;
 
@@ -391,13 +399,13 @@ s8 TradeMenu_UpdateSelection(struct TradeMenuProc* proc)
 
     if ((gKeyStatusPtr->repeatedKeys & DPAD_RIGHT) && proc->hoverColumn == TRADEMENU_UNIT_LEFT)
     {
-        newSelectedRow = TradeMenu_GetAdjustedRow(proc, TRADEMENU_UNIT_RIGHT, proc->hoverLine);
+        newSelectedRow = TradeMenu_GetAdjustedRow(proc, TRADEMENU_UNIT_RIGHT, proc->hoverRow);
 
         if (newSelectedRow < 0)
             goto end;
 
         proc->hoverColumn = TRADEMENU_UNIT_RIGHT;
-        proc->hoverLine = newSelectedRow;
+        proc->hoverRow = newSelectedRow;
 
         changedSelection = TRUE;
 
@@ -407,15 +415,15 @@ s8 TradeMenu_UpdateSelection(struct TradeMenuProc* proc)
 
     if ((gKeyStatusPtr->repeatedKeys & DPAD_UP))
     {
-        if (proc->hoverLine == 0)
+        if (proc->hoverRow == 0)
         {
             if (gKeyStatusPtr->repeatedKeys != gKeyStatusPtr->newKeys)
                 goto end;
 
-            proc->hoverLine = TradeMenu_GetAdjustedRow(proc, proc->hoverColumn, ITEMS_PER_COLUMN - 1) + 1;
+            proc->hoverRow = TradeMenu_GetAdjustedRow(proc, proc->hoverColumn, UNIT_ITEM_COUNT - 1) + 1;
         }
 
-        proc->hoverLine--;
+        proc->hoverRow--;
 
         changedSelection = TRUE;
 
@@ -425,15 +433,15 @@ s8 TradeMenu_UpdateSelection(struct TradeMenuProc* proc)
 
     if ((gKeyStatusPtr->repeatedKeys & DPAD_DOWN))
     {
-        if (!proc->hasItem[proc->hoverColumn][proc->hoverLine + 1])
+        if (!proc->hasItem[proc->hoverColumn][proc->hoverRow + 1])
         {
             if (gKeyStatusPtr->repeatedKeys != gKeyStatusPtr->newKeys)
                 goto end;
 
-            proc->hoverLine = -1;
+            proc->hoverRow = -1;
         }
 
-        proc->hoverLine++;
+        proc->hoverRow++;
 
         changedSelection = TRUE;
 
@@ -447,8 +455,8 @@ end:
 
 void TradeMenu_ApplyItemSwap(struct TradeMenuProc* proc)
 {
-    u16* pItemA = &proc->units[proc->hoverColumn]->items[proc->hoverLine];
-    u16* pItemB = &proc->units[proc->selectedColumn]->items[proc->selectedLine];
+    u16* pItemA = &proc->units[proc->hoverColumn]->items[proc->hoverRow];
+    u16* pItemB = &proc->units[proc->selectedColumn]->items[proc->selectedRow];
 
     u16 swp = *pItemA;
     *pItemA = *pItemB;
@@ -477,19 +485,20 @@ void TradeMenu_InitItemDisplay(struct TradeMenuProc* proc)
     TradeMenu_InitItemText(proc);
     TradeMenu_RefreshItemText(proc);
 
+    // TODO: face display type (arg 5) constants
     NewFace(0, GetUnitPortraitId(proc->units[0]), 64,  -4, 3);
     NewFace(1, GetUnitPortraitId(proc->units[1]), 176, -4, 2);
 
     sub_8006458(0, 5);
     sub_8006458(1, 5);
 
-    BG_EnableSyncByMask(1 | 2); // TODO: bg bits
+    BG_EnableSyncByMask(BG0_SYNC_BIT | BG1_SYNC_BIT);
 }
 
 void TradeMenu_OnInitUnselected(struct TradeMenuProc* proc)
 {
     TradeMenu_RefreshSelectableCells(proc);
-    proc->unk45 = FALSE;
+    proc->extraCellEnabled = FALSE;
 }
 
 void TradeMenu_OnLoopUnselected(struct TradeMenuProc* proc)
@@ -497,16 +506,16 @@ void TradeMenu_OnLoopUnselected(struct TradeMenuProc* proc)
     if (TradeMenu_UpdateTutorial(proc))
     {
         sub_804E79C(
-            8 * sItemDisplayTileLocation[proc->hoverColumn][proc->hoverLine].x,
-            8 * sItemDisplayTileLocation[proc->hoverColumn][proc->hoverLine].y);
+            8 * sItemDisplayTileLocation[proc->hoverColumn][proc->hoverRow].x,
+            8 * sItemDisplayTileLocation[proc->hoverColumn][proc->hoverRow].y);
     }
     else
     {
         TradeMenu_UpdateSelection(proc);
 
         sub_804E79C(
-            8 * sItemDisplayTileLocation[proc->hoverColumn][proc->hoverLine].x,
-            8 * sItemDisplayTileLocation[proc->hoverColumn][proc->hoverLine].y);
+            8 * sItemDisplayTileLocation[proc->hoverColumn][proc->hoverRow].x,
+            8 * sItemDisplayTileLocation[proc->hoverColumn][proc->hoverRow].y);
 
         if (gKeyStatusPtr->newKeys & A_BUTTON)
         {
@@ -530,21 +539,21 @@ void TradeMenu_OnInitSelected(struct TradeMenuProc* proc)
     int lastRow;
 
     proc->selectedColumn = proc->hoverColumn;
-    proc->selectedLine = proc->hoverLine;
+    proc->selectedRow = proc->hoverRow;
 
     proc->hoverColumn = proc->hoverColumn ^ 1;
 
-    lastRow = TradeMenu_GetAdjustedRow(proc, proc->hoverColumn, (ITEMS_PER_COLUMN - 1));
+    lastRow = TradeMenu_GetAdjustedRow(proc, proc->hoverColumn, (UNIT_ITEM_COUNT - 1));
 
-    if (lastRow != (ITEMS_PER_COLUMN - 1))
+    if (lastRow != (UNIT_ITEM_COUNT - 1))
     {
-        proc->hoverLine = lastRow + 1;
-        proc->hasItem[proc->hoverColumn][proc->hoverLine] = TRUE;
+        proc->hoverRow = lastRow + 1;
+        proc->hasItem[proc->hoverColumn][proc->hoverRow] = TRUE;
 
-        proc->unk45 = TRUE;
+        proc->extraCellEnabled = TRUE;
 
-        proc->unk46 = proc->hoverColumn;
-        proc->unk47 = proc->hoverLine;
+        proc->extraColumn = proc->hoverColumn;
+        proc->extraRow = proc->hoverRow;
     }
 }
 
@@ -553,24 +562,24 @@ void TradeMenu_OnLoopSelected(struct TradeMenuProc* proc)
     if (TradeMenu_UpdateTutorial(proc))
     {
         sub_804E79C(
-            8 * sItemDisplayTileLocation[proc->hoverColumn][proc->hoverLine].x,
-            8 * sItemDisplayTileLocation[proc->hoverColumn][proc->hoverLine].y);
+            8 * sItemDisplayTileLocation[proc->hoverColumn][proc->hoverRow].x,
+            8 * sItemDisplayTileLocation[proc->hoverColumn][proc->hoverRow].y);
 
         sub_804E848(
-            8 * sItemDisplayTileLocation[proc->selectedColumn][proc->selectedLine].x,
-            8 * sItemDisplayTileLocation[proc->selectedColumn][proc->selectedLine].y);
+            8 * sItemDisplayTileLocation[proc->selectedColumn][proc->selectedRow].x,
+            8 * sItemDisplayTileLocation[proc->selectedColumn][proc->selectedRow].y);
     }
     else
     {
         TradeMenu_UpdateSelection(proc);
 
         sub_804E79C(
-            8 * sItemDisplayTileLocation[proc->hoverColumn][proc->hoverLine].x,
-            8 * sItemDisplayTileLocation[proc->hoverColumn][proc->hoverLine].y);
+            8 * sItemDisplayTileLocation[proc->hoverColumn][proc->hoverRow].x,
+            8 * sItemDisplayTileLocation[proc->hoverColumn][proc->hoverRow].y);
 
         sub_804E848(
-            8 * sItemDisplayTileLocation[proc->selectedColumn][proc->selectedLine].x,
-            8 * sItemDisplayTileLocation[proc->selectedColumn][proc->selectedLine].y);
+            8 * sItemDisplayTileLocation[proc->selectedColumn][proc->selectedRow].x,
+            8 * sItemDisplayTileLocation[proc->selectedColumn][proc->selectedRow].y);
 
         if (gKeyStatusPtr->newKeys & A_BUTTON)
         {
@@ -594,14 +603,14 @@ void TradeMenu_OnLoopSelected(struct TradeMenuProc* proc)
 void TradeMenu_OnEndSelected(struct TradeMenuProc* proc)
 {
     proc->hoverColumn = proc->selectedColumn;
-    proc->hoverLine = proc->selectedLine;
+    proc->hoverRow = proc->selectedRow;
 
     TradeMenu_RefreshSelectableCells(proc);
 
     if (!proc->hasItem[proc->hoverColumn][0])
         proc->hoverColumn = proc->hoverColumn ^ 1;
 
-    proc->hoverLine = TradeMenu_GetAdjustedRow(proc, proc->hoverColumn, proc->hoverLine);
+    proc->hoverRow = TradeMenu_GetAdjustedRow(proc, proc->hoverColumn, proc->hoverRow);
 }
 
 s8 TradeMenu_LoadForcedInitialHover(struct TradeMenuProc* proc)
@@ -609,8 +618,8 @@ s8 TradeMenu_LoadForcedInitialHover(struct TradeMenuProc* proc)
     if (gUnknown_0202BCB0.unk3F < 0)
         return TRUE;
 
-    proc->hoverColumn = gUnknown_0202BCB0.unk3F / ITEMS_PER_COLUMN;
-    proc->hoverLine   = gUnknown_0202BCB0.unk3F % ITEMS_PER_COLUMN;
+    proc->hoverColumn = gUnknown_0202BCB0.unk3F / UNIT_ITEM_COUNT;
+    proc->hoverRow   = gUnknown_0202BCB0.unk3F % UNIT_ITEM_COUNT;
 
     TradeMenu_RefreshSelectableCells(proc);
     Proc_GotoLabel((struct Proc*) (proc), L_TRADEMENU_SELECTED);
@@ -628,7 +637,7 @@ void TradeMenu_HelpBox_OnInit(struct Proc* proc)
 {
     struct TradeMenuProc* tradeMenu = (struct TradeMenuProc*) proc->parent;
 
-    int item = tradeMenu->units[tradeMenu->hoverColumn]->items[tradeMenu->hoverLine];
+    int item = tradeMenu->units[tradeMenu->hoverColumn]->items[tradeMenu->hoverRow];
 
     if (!item)
     {
@@ -636,16 +645,16 @@ void TradeMenu_HelpBox_OnInit(struct Proc* proc)
         return;
     }
 
-    if (tradeMenu->unk45)
+    if (tradeMenu->extraCellEnabled)
     {
-        tradeMenu->hasItem[tradeMenu->unk46][tradeMenu->unk47] = FALSE;
+        tradeMenu->hasItem[tradeMenu->extraColumn][tradeMenu->extraRow] = FALSE;
     }
 
     LoadDialogueBoxGfx(NULL, -1);
 
     sub_8088E60(
-        8 * sItemDisplayTileLocation[tradeMenu->hoverColumn][tradeMenu->hoverLine].x,
-        8 * sItemDisplayTileLocation[tradeMenu->hoverColumn][tradeMenu->hoverLine].y,
+        8 * sItemDisplayTileLocation[tradeMenu->hoverColumn][tradeMenu->hoverRow].x,
+        8 * sItemDisplayTileLocation[tradeMenu->hoverColumn][tradeMenu->hoverRow].y,
         item);
 
     gKeyStatusPtr->newKeys = gKeyStatusPtr->newKeys &~ (B_BUTTON | R_BUTTON);
@@ -656,13 +665,13 @@ void TradeMenu_HelpBox_OnLoop(struct Proc* proc)
     struct TradeMenuProc* tradeMenu = (struct TradeMenuProc*) proc->parent;
 
     s8 changedSelection = TradeMenu_UpdateSelection(tradeMenu);
-    int item = tradeMenu->units[tradeMenu->hoverColumn]->items[tradeMenu->hoverLine];
+    int item = tradeMenu->units[tradeMenu->hoverColumn]->items[tradeMenu->hoverRow];
 
     if (changedSelection)
     {
         sub_8088E60(
-            8 * sItemDisplayTileLocation[tradeMenu->hoverColumn][tradeMenu->hoverLine].x,
-            8 * sItemDisplayTileLocation[tradeMenu->hoverColumn][tradeMenu->hoverLine].y,
+            8 * sItemDisplayTileLocation[tradeMenu->hoverColumn][tradeMenu->hoverRow].x,
+            8 * sItemDisplayTileLocation[tradeMenu->hoverColumn][tradeMenu->hoverRow].y,
             item);
     }
 
@@ -672,14 +681,14 @@ void TradeMenu_HelpBox_OnLoop(struct Proc* proc)
     }
 
     sub_804E79C(
-        8 * sItemDisplayTileLocation[tradeMenu->hoverColumn][tradeMenu->hoverLine].x,
-        8 * sItemDisplayTileLocation[tradeMenu->hoverColumn][tradeMenu->hoverLine].y);
+        8 * sItemDisplayTileLocation[tradeMenu->hoverColumn][tradeMenu->hoverRow].x,
+        8 * sItemDisplayTileLocation[tradeMenu->hoverColumn][tradeMenu->hoverRow].y);
 
-    if (tradeMenu->unk45)
+    if (tradeMenu->extraCellEnabled)
     {
         sub_804E848(
-            8 * sItemDisplayTileLocation[tradeMenu->selectedColumn][tradeMenu->selectedLine].x,
-            8 * sItemDisplayTileLocation[tradeMenu->selectedColumn][tradeMenu->selectedLine].y);
+            8 * sItemDisplayTileLocation[tradeMenu->selectedColumn][tradeMenu->selectedRow].x,
+            8 * sItemDisplayTileLocation[tradeMenu->selectedColumn][tradeMenu->selectedRow].y);
     }
 }
 
@@ -687,26 +696,26 @@ void TradeMenu_HelpBox_OnEnd(struct Proc* proc)
 {
     struct TradeMenuProc* tradeMenu = (struct TradeMenuProc*) proc->parent;
 
-    if (tradeMenu->unk45)
+    if (tradeMenu->extraCellEnabled)
     {
-        tradeMenu->hasItem[tradeMenu->unk46][tradeMenu->unk47] = TRUE;
+        tradeMenu->hasItem[tradeMenu->extraColumn][tradeMenu->extraRow] = TRUE;
     }
 
     sub_8089018();
 
     sub_804E79C(
-        8 * sItemDisplayTileLocation[tradeMenu->hoverColumn][tradeMenu->hoverLine].x,
-        8 * sItemDisplayTileLocation[tradeMenu->hoverColumn][tradeMenu->hoverLine].y);
+        8 * sItemDisplayTileLocation[tradeMenu->hoverColumn][tradeMenu->hoverRow].x,
+        8 * sItemDisplayTileLocation[tradeMenu->hoverColumn][tradeMenu->hoverRow].y);
 
-    if (tradeMenu->unk45)
+    if (tradeMenu->extraCellEnabled)
     {
         sub_804E848(
-            8 * sItemDisplayTileLocation[tradeMenu->selectedColumn][tradeMenu->selectedLine].x,
-            8 * sItemDisplayTileLocation[tradeMenu->selectedColumn][tradeMenu->selectedLine].y);
+            8 * sItemDisplayTileLocation[tradeMenu->selectedColumn][tradeMenu->selectedRow].x,
+            8 * sItemDisplayTileLocation[tradeMenu->selectedColumn][tradeMenu->selectedRow].y);
     }
 }
 
-struct Proc* sub_802DD6C(struct Unit* lUnit, struct Unit* rUnit, int unused)
+struct Proc* StartTradeMenu(struct Unit* lUnit, struct Unit* rUnit, int unused)
 {
     int itemCount;
 
@@ -718,7 +727,7 @@ struct Proc* sub_802DD6C(struct Unit* lUnit, struct Unit* rUnit, int unused)
     proc->hasTraded = FALSE;
 
     proc->hoverColumn = TRADEMENU_UNIT_LEFT;
-    proc->hoverLine = 0;
+    proc->hoverRow = 0;
 
     proc->tradeTutorialState = 0;
 
@@ -741,8 +750,8 @@ void TradeMenu_TutorialHandCursor_Update(void)
     struct TradeMenuProc* tradeMenu = sTradeMenuProc;
 
     sub_804E848(
-        8 * sItemDisplayTileLocation[tradeMenu->hoverColumn][tradeMenu->hoverLine].x,
-        8 * sItemDisplayTileLocation[tradeMenu->hoverColumn][tradeMenu->hoverLine].y);
+        8 * sItemDisplayTileLocation[tradeMenu->hoverColumn][tradeMenu->hoverRow].x,
+        8 * sItemDisplayTileLocation[tradeMenu->hoverColumn][tradeMenu->hoverRow].y);
 }
 
 void TradeMenu_DoubleTutorialHandCursor_Update(void)
@@ -750,12 +759,12 @@ void TradeMenu_DoubleTutorialHandCursor_Update(void)
     struct TradeMenuProc* tradeMenu = sTradeMenuProc;
 
     sub_804E848(
-        8 * sItemDisplayTileLocation[tradeMenu->hoverColumn][tradeMenu->hoverLine].x,
-        8 * sItemDisplayTileLocation[tradeMenu->hoverColumn][tradeMenu->hoverLine].y);
+        8 * sItemDisplayTileLocation[tradeMenu->hoverColumn][tradeMenu->hoverRow].x,
+        8 * sItemDisplayTileLocation[tradeMenu->hoverColumn][tradeMenu->hoverRow].y);
 
     sub_804E848(
-        8 * sItemDisplayTileLocation[tradeMenu->selectedColumn][tradeMenu->selectedLine].x,
-        8 * sItemDisplayTileLocation[tradeMenu->selectedColumn][tradeMenu->selectedLine].y);
+        8 * sItemDisplayTileLocation[tradeMenu->selectedColumn][tradeMenu->selectedRow].x,
+        8 * sItemDisplayTileLocation[tradeMenu->selectedColumn][tradeMenu->selectedRow].y);
 }
 
 void StartTradeMenuTutorialHandCursor(void)
@@ -830,7 +839,7 @@ s8 TradeMenu_UpdateTutorial(struct TradeMenuProc* proc)
 
             if (!(gKeyStatusPtr->newKeys & (DPAD_UP | DPAD_DOWN)))
             {
-                if (GetItemIndex(proc->units[proc->hoverColumn]->items[proc->hoverLine]) == ITEM_VULNERARY)
+                if (GetItemIndex(proc->units[proc->hoverColumn]->items[proc->hoverRow]) == ITEM_VULNERARY)
                 {
                     SetKeyStatus_IgnoreMask(START_BUTTON | DPAD_UP | DPAD_DOWN);
                     sub_802E0C0();

@@ -47,7 +47,6 @@
 // extern ??? gUnknown_02002038
 // extern ??? gUnknown_02002088
 // extern ??? gUnknown_02002774
-// extern ??? gUnknown_0200278C
 // extern ??? gUnknown_02002FDC
 // extern ??? gUnknown_02002FF4
 // extern ??? gUnknown_0200300C

@@ -1,6 +1,20 @@
 #ifndef GUARD_HARDWARE_H
 #define GUARD_HARDWARE_H
 
+// Utility macros and constants
+
+#define TILEMAP_LOCATED(aMap, aX, aY) (0x20 * (aY) + (aX) + (aMap))
+
+enum
+{
+    BG0_SYNC_BIT = (1 << 0),
+    BG1_SYNC_BIT = (1 << 1),
+    BG2_SYNC_BIT = (1 << 2),
+    BG3_SYNC_BIT = (1 << 3),
+};
+
+// Functions
+
 void CopyToPaletteBuffer(const void* src, int b, int size);
 // ??? sub_8000E14(???);
 // ??? FlushLCDControl(???);
