@@ -1,33 +1,5 @@
     .section .data
 
-	.global gUnknown_0859BADC
-gUnknown_0859BADC:  @ 0x0859BADC
-	.incbin "baserom.gba", 0x59BADC, 0x40
-
-	.global gUnknown_0859BB1C
-gUnknown_0859BB1C:  @ 0x0859BB1C
-	.incbin "baserom.gba", 0x59BB1C, 0xB8
-
-	.global gUnknown_0859BBD4
-gUnknown_0859BBD4:  @ 0x0859BBD4
-	.incbin "baserom.gba", 0x59BBD4, 0x20
-
-	.global gUnknown_0859BBF4
-gUnknown_0859BBF4:  @ 0x0859BBF4
-	.incbin "baserom.gba", 0x59BBF4, 0x18
-
-	.global gUnknown_0859BC0C
-gUnknown_0859BC0C:  @ 0x0859BC0C
-	.incbin "baserom.gba", 0x59BC0C, 0x18
-
-	.global gUnknown_0859BC24
-gUnknown_0859BC24:  @ 0x0859BC24
-	.incbin "baserom.gba", 0x59BC24, 0x18
-
-	.global gUnknown_0859BC3C
-gUnknown_0859BC3C:  @ 0x0859BC3C
-	.incbin "baserom.gba", 0x59BC3C, 0x28
-
 	.global gUnknown_0859BC64
 gUnknown_0859BC64:  @ 0x0859BC64
 	.incbin "baserom.gba", 0x59BC64, 0x44

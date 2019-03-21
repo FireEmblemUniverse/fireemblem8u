@@ -1,6 +1,20 @@
 #ifndef GUARD_HARDWARE_H
 #define GUARD_HARDWARE_H
 
+// Utility macros and constants
+
+#define TILEMAP_LOCATED(aMap, aX, aY) (0x20 * (aY) + (aX) + (aMap))
+
+enum
+{
+    BG0_SYNC_BIT = (1 << 0),
+    BG1_SYNC_BIT = (1 << 1),
+    BG2_SYNC_BIT = (1 << 2),
+    BG3_SYNC_BIT = (1 << 3),
+};
+
+// Functions
+
 void CopyToPaletteBuffer(const void* src, int b, int size);
 // ??? sub_8000E14(???);
 // ??? FlushLCDControl(???);
@@ -27,7 +41,7 @@ void ExecMainUpdate();
 void UpdateKeyStatus(struct KeyStatusBuffer *keyStatus);
 // ??? sub_8001414(???);
 void ResetKeyStatus(struct KeyStatusBuffer *keyStatus);
-// ??? SetKeyStatus_IgnoreMask(???);
+void SetKeyStatus_IgnoreMask(int keys);
 // ??? GetKeyStatus_IgnoreMask(???);
 // ??? KeyStatusSetter_Set(???);
 // ??? NewKeyStatusSetter(???);
@@ -62,7 +76,7 @@ void SetSecondaryHBlankHandler(void(*)(void));
 // ??? BG_GetPriority(???);
 void SetSpecialColorEffectsParameters(u16 effect, u8 coeffA, u8 coeffB, u8 blendY);
 void sub_8001ED0(int, int, int, int, int); // SetColorEffectFirstTarget
-// ??? sub_8001F0C(???);
+void sub_8001F0C(int, int, int, int, int);
 void sub_8001F48(int); // SetColorEffectBackdropFirstTarget
 // ??? sub_8001F64(???);
 void SetDefaultColorEffects(void);

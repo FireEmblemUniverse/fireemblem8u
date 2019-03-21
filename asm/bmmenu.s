@@ -1285,7 +1285,7 @@ sub_8022FAC: @ 0x08022FAC
 	adds r1, r0, #0
 	adds r0, r4, #0
 	movs r2, #0
-	bl sub_802DD6C
+	bl StartTradeMenu
 	movs r0, #0x17
 	pop {r4}
 	pop {r1}
