@@ -6175,7 +6175,7 @@ _080153B6:
 	adds r0, r1, #1
 	strh r0, [r2, #0x10]
 _080153C6:
-	bl HandleSupportGains
+	bl ProcessTurnSupportExp
 _080153CA:
 	pop {r0}
 	bx r0

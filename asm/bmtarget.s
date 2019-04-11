@@ -1038,7 +1038,7 @@ MakeTargetListForSupport: @ 0x08025644
 	adds r0, r2, #0
 	bl InitTargets
 	ldr r0, [r4]
-	bl GetROMUnitSupportCount
+	bl GetUnitSupporterCount
 	adds r6, r0, #0
 	movs r5, #0
 	cmp r5, r6
@@ -1047,7 +1047,7 @@ MakeTargetListForSupport: @ 0x08025644
 _08025668:
 	ldr r0, [r7]
 	adds r1, r5, #0
-	bl GetUnitSupportingUnit
+	bl GetUnitSupporterUnit
 	adds r4, r0, #0
 	cmp r4, #0
 	beq _080256DC
@@ -1076,7 +1076,7 @@ _0802569A:
 	bne _080256DC
 	ldr r0, [r7]
 	adds r1, r5, #0
-	bl CanUnitSupportCommandWith
+	bl CanUnitSupportNow
 	lsls r0, r0, #0x18
 	cmp r0, #0
 	beq _080256DC

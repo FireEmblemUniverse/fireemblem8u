@@ -726,10 +726,10 @@ void FixROMUnitStructPtr(struct Unit* unit) {
 }
 
 void UnitLoadSupports(struct Unit* unit) {
-    int i, count = GetROMUnitSupportCount(unit);
+    int i, count = GetUnitSupporterCount(unit);
 
     for (i = 0; i < count; ++i)
-        unit->supports[i] = GetUnitStartingSupportValue(unit, i);
+        unit->supports[i] = GetUnitSupporterInitialExp(unit, i);
 }
 
 void UnitAutolevelWExp(struct Unit* unit, const struct UnitDefinition* uDef) {
@@ -951,7 +951,7 @@ void UnitKill(struct Unit* unit) {
             unit->pCharacterData = NULL;
         else {
             unit->state |= US_DEAD | US_HIDDEN;
-            UnitClearSupports(unit);
+            ClearUnitSupports(unit);
         }
     } else
         unit->pCharacterData = NULL;

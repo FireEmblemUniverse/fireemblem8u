@@ -8,9 +8,9 @@ extern const int gUnknown_0859B9A8[4];
 
 extern const struct SupportBonuses gUnknown_088B05F8[];
 
-s8 CanUnitsStillSupportThisChapter(struct Unit* unit, int num);
+s8 HasUnitGainedSupportLevel(struct Unit* unit, int num);
 
-int GetROMUnitSupportCount(struct Unit* unit)
+int GetUnitSupporterCount(struct Unit* unit)
 {
     if (!UNIT_SUPPORT_DATA(unit))
         return 0;
@@ -18,7 +18,7 @@ int GetROMUnitSupportCount(struct Unit* unit)
     return UNIT_SUPPORT_DATA(unit)->supportCount;
 }
 
-u8 GetROMUnitSupportingId(struct Unit* unit, int num)
+u8 GetUnitSupporterCharacter(struct Unit* unit, int num)
 {
     if (!UNIT_SUPPORT_DATA(unit))
         return 0;
@@ -26,9 +26,9 @@ u8 GetROMUnitSupportingId(struct Unit* unit, int num)
     return UNIT_SUPPORT_DATA(unit)->characters[num];
 }
 
-struct Unit* GetUnitSupportingUnit(struct Unit* unit, int num)
+struct Unit* GetUnitSupporterUnit(struct Unit* unit, int num)
 {
-    u8 charId = GetROMUnitSupportingId(unit, num);
+    u8 charId = GetUnitSupporterCharacter(unit, num);
 
     int i, last;
 
@@ -46,7 +46,7 @@ struct Unit* GetUnitSupportingUnit(struct Unit* unit, int num)
     return NULL;
 }
 
-int GetSupportLevelBySupportIndex(struct Unit* unit, int num)
+int GetUnitSupportLevel(struct Unit* unit, int num)
 {
     int supportExp = unit->supports[num];
 
@@ -62,27 +62,27 @@ int GetSupportLevelBySupportIndex(struct Unit* unit, int num)
     return SUPPORT_LEVEL_NONE;
 }
 
-int GetUnitTotalSupportLevels(struct Unit* unit)
+int GetUnitTotalSupportLevel(struct Unit* unit)
 {
     int i, count, result;
 
-    count = GetROMUnitSupportCount(unit);
+    count = GetUnitSupporterCount(unit);
 
     for (i = 0, result = 0; i < count; ++i)
     {
-        result += GetSupportLevelBySupportIndex(unit, i);
+        result += GetUnitSupportLevel(unit, i);
     }
 
     return result;
 }
 
-void AddSupportPoints(struct Unit* unit, int num)
+void UnitGainSupportExp(struct Unit* unit, int num)
 {
     if (UNIT_SUPPORT_DATA(unit))
     {
         int gain = UNIT_SUPPORT_DATA(unit)->supportExpGrowth[num];
         int currentExp = unit->supports[num];
-        int maxExp = gUnknown_0859B9A8[GetSupportLevelBySupportIndex(unit, num)];
+        int maxExp = gUnknown_0859B9A8[GetUnitSupportLevel(unit, num)];
 
         if (currentExp + gain > maxExp)
             gain = maxExp - currentExp;
@@ -92,15 +92,15 @@ void AddSupportPoints(struct Unit* unit, int num)
     }
 }
 
-void sub_80282DC(struct Unit* unit, int num)
+void UnitGainSupportLevel(struct Unit* unit, int num)
 {
     unit->supports[num]++;
     gUnknown_0202BCF0.chapterTotalSupportGain++;
 
-    sub_802873C(unit->pCharacterData->number, GetROMUnitSupportingId(unit, num));
+    SetSupportLevelGained(unit->pCharacterData->number, GetUnitSupporterCharacter(unit, num));
 }
 
-s8 CanUnitSupportCommandWith(struct Unit* unit, int num)
+s8 CanUnitSupportNow(struct Unit* unit, int num)
 {
     int exp, maxExp;
 
@@ -110,17 +110,17 @@ s8 CanUnitSupportCommandWith(struct Unit* unit, int num)
     if (gUnknown_0202BCF0.chapterStateBits & CHAPTER_FLAG_3)
         return FALSE;
 
-    if (CanUnitsStillSupportThisChapter(unit, num))
+    if (HasUnitGainedSupportLevel(unit, num))
         return FALSE;
 
-    if (GetUnitTotalSupportLevels(unit) >= MAX_SIMULTANEOUS_SUPPORT_COUNT)
+    if (GetUnitTotalSupportLevel(unit) >= MAX_SIMULTANEOUS_SUPPORT_COUNT)
         return FALSE;
 
-    if (GetUnitTotalSupportLevels(GetUnitSupportingUnit(unit, num)) >= MAX_SIMULTANEOUS_SUPPORT_COUNT)
+    if (GetUnitTotalSupportLevel(GetUnitSupporterUnit(unit, num)) >= MAX_SIMULTANEOUS_SUPPORT_COUNT)
         return FALSE;
 
     exp    = unit->supports[num];
-    maxExp = gUnknown_0859B9A8[GetSupportLevelBySupportIndex(unit, num)];
+    maxExp = gUnknown_0859B9A8[GetUnitSupportLevel(unit, num)];
 
     if (exp == SUPPORT_EXP_A)
         return FALSE;
@@ -128,7 +128,7 @@ s8 CanUnitSupportCommandWith(struct Unit* unit, int num)
     return (exp == maxExp) ? TRUE : FALSE;
 }
 
-int GetUnitStartingSupportValue(struct Unit* unit, int num)
+int GetUnitSupporterInitialExp(struct Unit* unit, int num)
 {
     if (!UNIT_SUPPORT_DATA(unit))
         return -1;
@@ -136,36 +136,36 @@ int GetUnitStartingSupportValue(struct Unit* unit, int num)
     return UNIT_SUPPORT_DATA(unit)->supportExpBase[num];
 }
 
-int GetSupportDataIdForOtherUnit(struct Unit* unit, u8 charId)
+int GetUnitSupporterNum(struct Unit* unit, u8 charId)
 {
-    int i, count = GetROMUnitSupportCount(unit);
+    int i, count = GetUnitSupporterCount(unit);
 
     for (i = 0; i < count; ++i)
     {
-        if (GetROMUnitSupportingId(unit, i) == charId)
+        if (GetUnitSupporterCharacter(unit, i) == charId)
             return i;
     }
 
     return -1;
 }
 
-void UnitClearSupports(struct Unit* unit)
+void ClearUnitSupports(struct Unit* unit)
 {
-    int i, count = GetROMUnitSupportCount(unit);
+    int i, count = GetUnitSupporterCount(unit);
 
     for (i = 0; i < count; ++i)
     {
-        struct Unit* other = GetUnitSupportingUnit(unit, i);
+        struct Unit* other = GetUnitSupporterUnit(unit, i);
 
         if (!other)
             continue;
 
-        other->supports[GetSupportDataIdForOtherUnit(other, unit->pCharacterData->number)] = 0;
+        other->supports[GetUnitSupporterNum(other, unit->pCharacterData->number)] = 0;
         unit->supports[i] = 0;
     }
 }
 
-void HandleSupportGains(void)
+void ProcessTurnSupportExp(void)
 {
     int i, j, jMax;
 
@@ -185,14 +185,14 @@ void HandleSupportGains(void)
         if (unit->state & US_UNAVAILABLE)
             continue;
 
-        if (GetUnitTotalSupportLevels(unit) >= MAX_SIMULTANEOUS_SUPPORT_COUNT)
+        if (GetUnitTotalSupportLevel(unit) >= MAX_SIMULTANEOUS_SUPPORT_COUNT)
             continue;
 
-        jMax = GetROMUnitSupportCount(unit);
+        jMax = GetUnitSupporterCount(unit);
 
         for (j = 0; j < jMax; ++j)
         {
-            struct Unit* other = GetUnitSupportingUnit(unit, j);
+            struct Unit* other = GetUnitSupporterUnit(unit, j);
 
             if (!other)
                 continue;
@@ -217,8 +217,8 @@ void HandleSupportGains(void)
                     break;
 
             add_support_points:
-                if (GetUnitTotalSupportLevels(other) < MAX_SIMULTANEOUS_SUPPORT_COUNT)
-                    AddSupportPoints(unit, j);
+                if (GetUnitTotalSupportLevel(other) < MAX_SIMULTANEOUS_SUPPORT_COUNT)
+                    UnitGainSupportExp(unit, j);
 
                 break;
 
@@ -227,7 +227,7 @@ void HandleSupportGains(void)
     }
 }
 
-const struct SupportBonuses* GetSupportBonusEntryPtr(int affinity)
+const struct SupportBonuses* GetAffinityBonuses(int affinity)
 {
     const struct SupportBonuses* it;
 
@@ -240,9 +240,9 @@ const struct SupportBonuses* GetSupportBonusEntryPtr(int affinity)
     // return NULL; // BUG?
 }
 
-void StoreAddedAffinityBonusesForSupportLevel(struct SupportBonuses* bonuses, int affinity, int level)
+void ApplyAffinitySupportBonuses(struct SupportBonuses* bonuses, int affinity, int level)
 {
-    const struct SupportBonuses* added = GetSupportBonusEntryPtr(affinity);
+    const struct SupportBonuses* added = GetAffinityBonuses(affinity);
 
     bonuses->bonusAttack  += level * added->bonusAttack;
     bonuses->bonusDefense += level * added->bonusDefense;
@@ -252,7 +252,7 @@ void StoreAddedAffinityBonusesForSupportLevel(struct SupportBonuses* bonuses, in
     bonuses->bonusDodge   += level * added->bonusDodge;
 }
 
-void sub_80285A0(struct SupportBonuses* bonuses)
+void InitSupportBonuses(struct SupportBonuses* bonuses)
 {
     bonuses->bonusAttack  = 0;
     bonuses->bonusDefense = 0;
@@ -267,9 +267,9 @@ int GetUnitSupportBonuses(struct Unit* unit, struct SupportBonuses* bonuses)
     int i, count;
     int result = 0;
 
-    sub_80285A0(bonuses);
+    InitSupportBonuses(bonuses);
 
-    count = GetROMUnitSupportCount(unit);
+    count = GetUnitSupporterCount(unit);
 
     for (i = 0; i < count; ++i)
     {
@@ -277,7 +277,7 @@ int GetUnitSupportBonuses(struct Unit* unit, struct SupportBonuses* bonuses)
         int level1, level2;
 
         result = result >> 1;
-        other = GetUnitSupportingUnit(unit, i);
+        other = GetUnitSupporterUnit(unit, i);
 
         if (!other)
             continue;
@@ -292,11 +292,11 @@ int GetUnitSupportBonuses(struct Unit* unit, struct SupportBonuses* bonuses)
         if (other->state & (US_UNAVAILABLE | US_RESCUED))
             continue;
 
-        level1 = GetSupportLevelBySupportIndex(other, GetSupportDataIdForOtherUnit(other, unit->pCharacterData->number));
-        StoreAddedAffinityBonusesForSupportLevel(bonuses, other->pCharacterData->affinity, level1);
+        level1 = GetUnitSupportLevel(other, GetUnitSupporterNum(other, unit->pCharacterData->number));
+        ApplyAffinitySupportBonuses(bonuses, other->pCharacterData->affinity, level1);
 
-        level2 = GetSupportLevelBySupportIndex(unit, i);
-        StoreAddedAffinityBonusesForSupportLevel(bonuses, unit->pCharacterData->affinity, level2);
+        level2 = GetUnitSupportLevel(unit, i);
+        ApplyAffinitySupportBonuses(bonuses, unit->pCharacterData->affinity, level2);
 
         if (level1 != 0 && level2 != 0)
             result += 1 << (count - 1);
@@ -312,7 +312,7 @@ int GetUnitSupportBonuses(struct Unit* unit, struct SupportBonuses* bonuses)
     return result;
 }
 
-int sub_80286BC(struct Unit* unit)
+int GetUnitAffinityIcon(struct Unit* unit)
 {
     int affinity = unit->pCharacterData->affinity;
 
@@ -322,7 +322,7 @@ int sub_80286BC(struct Unit* unit)
     return 0x79 + affinity; // TODO: ICON CONSTANTS
 }
 
-int sub_80286D4(int characterId)
+int GetCharacterAffinityIcon(int characterId)
 {
     int affinity = GetCharacterData(characterId)->affinity;
 
@@ -332,7 +332,7 @@ int sub_80286D4(int characterId)
     return 0x79 + affinity; // TODO: ICON CONSTANTS
 }
 
-int sub_80286EC(int level)
+int GetSupportLevelUiChar(int level)
 {
     u8 chars[4] = {
         // TODO: special char constant definitions
@@ -342,7 +342,7 @@ int sub_80286EC(int level)
     return chars[level];
 }
 
-char* sub_8028710(int affinity)
+char* GetAffinityName(int affinity)
 {
     int textIdLookup[] = {
         // TODO: text ids
@@ -352,36 +352,36 @@ char* sub_8028710(int affinity)
     return GetStringFromIndex(textIdLookup[affinity]);
 }
 
-void sub_802873C(u8 charA, u8 charB)
+void SetSupportLevelGained(u8 charA, u8 charB)
 {
     struct Unit* unit = GetUnitFromCharId(charA);
-    int num = GetSupportDataIdForOtherUnit(unit, charB);
+    int num = GetUnitSupporterNum(unit, charB);
 
     unit->supportBits |= (1 << num);
 
     unit = GetUnitFromCharId(charB);
-    num = GetSupportDataIdForOtherUnit(unit, charA);
+    num = GetUnitSupporterNum(unit, charA);
 
     unit->supportBits |= (1 << num);
 }
 
-s8 CanUnitsStillSupportThisChapter(struct Unit* unit, int num)
+s8 HasUnitGainedSupportLevel(struct Unit* unit, int num)
 {
     s8 result = unit->supportBits & (1 << num);
     return result ? TRUE : FALSE;
 }
 
-s8 sub_80287A4(u8 charA, u8 charB)
+s8 HaveCharactersMaxSupport(u8 charA, u8 charB)
 {
     struct Unit* unit = GetUnitFromCharId(charA);
 
-    if (GetSupportLevelBySupportIndex(unit, GetSupportDataIdForOtherUnit(unit, charB)) > 2)
+    if (GetUnitSupportLevel(unit, GetUnitSupporterNum(unit, charB)) > SUPPORT_LEVEL_B)
         return TRUE;
 
     return FALSE;
 }
 
-void sub_80287D4(struct Unit* unitA, struct Unit* unitB)
+void SwapUnitStats(struct Unit* unitA, struct Unit* unitB)
 {
     if (unitA && unitB)
     {

@@ -14513,7 +14513,7 @@ _08090B66:
 	subs r0, #1
 	strh r0, [r1, #8]
 	adds r0, r7, #0
-	bl GetROMUnitSupportCount
+	bl GetUnitSupporterCount
 	adds r5, r0, #0
 	movs r6, #0
 	movs r4, #0
@@ -14522,7 +14522,7 @@ _08090B66:
 _08090BDC:
 	adds r0, r7, #0
 	adds r1, r4, #0
-	bl CanUnitSupportCommandWith
+	bl CanUnitSupportNow
 	lsls r0, r0, #0x18
 	cmp r0, #0
 	beq _08090BEC
@@ -17956,7 +17956,7 @@ _08092756:
 	bl DrawDecNumber
 	ldr r0, [r4]
 	ldr r0, [r0]
-	bl sub_80286BC
+	bl GetUnitAffinityIcon
 	adds r1, r0, #0
 	movs r0, #1
 	negs r0, r0
@@ -18311,7 +18311,7 @@ _08092A48:
 	adds r5, r0, r1
 	ldr r0, [r5]
 	ldr r0, [r0]
-	bl GetROMUnitSupportCount
+	bl GetUnitSupporterCount
 	str r0, [sp, #0x40]
 	adds r0, r6, #0
 	adds r0, #0x10
@@ -18337,7 +18337,7 @@ _08092A92:
 	ldr r0, [r7]
 	ldr r0, [r0]
 	adds r1, r6, #0
-	bl CanUnitSupportCommandWith
+	bl CanUnitSupportNow
 	lsls r0, r0, #0x18
 	cmp r0, #0
 	beq _08092B72
@@ -18348,13 +18348,13 @@ _08092A92:
 	ldr r0, [r7]
 	ldr r0, [r0]
 	adds r1, r6, #0
-	bl GetUnitSupportingUnit
+	bl GetUnitSupporterUnit
 	cmp r0, #0
 	beq _08092B72
 	ldr r0, [r7]
 	ldr r0, [r0]
 	adds r1, r6, #0
-	bl GetUnitSupportingUnit
+	bl GetUnitSupporterUnit
 	ldr r0, [r0, #0xc]
 	movs r1, #8
 	ands r0, r1
@@ -18365,7 +18365,7 @@ _08092A92:
 	ldr r0, [r7]
 	ldr r0, [r0]
 	adds r1, r6, #0
-	bl GetROMUnitSupportingId
+	bl GetUnitSupporterCharacter
 	lsls r0, r0, #0x18
 	lsrs r0, r0, #0x18
 	bl GetCharacterData
@@ -18397,7 +18397,7 @@ _08092B18:
 	ldr r0, [r7]
 	ldr r0, [r0]
 	adds r1, r6, #0
-	bl GetROMUnitSupportingId
+	bl GetUnitSupporterCharacter
 	lsls r0, r0, #0x18
 	lsrs r0, r0, #0x18
 	bl GetCharacterData
@@ -20625,14 +20625,14 @@ _08093C82:
 	adds r6, r0, r1
 	ldr r0, [r6]
 	ldr r0, [r0]
-	bl sub_80286BC
+	bl GetUnitAffinityIcon
 	adds r4, r0, #0
 	lsls r0, r5, #2
 	mov r2, r9
 	adds r5, r0, r2
 	ldr r0, [r5]
 	ldr r0, [r0]
-	bl sub_80286BC
+	bl GetUnitAffinityIcon
 	cmp r4, r0
 	bge _08093CB2
 	ldr r1, [r5]
@@ -20690,14 +20690,14 @@ _08093D06:
 	adds r6, r0, r1
 	ldr r0, [r6]
 	ldr r0, [r0]
-	bl sub_80286BC
+	bl GetUnitAffinityIcon
 	adds r4, r0, #0
 	lsls r0, r5, #2
 	mov r2, r9
 	adds r5, r0, r2
 	ldr r0, [r5]
 	ldr r0, [r0]
-	bl sub_80286BC
+	bl GetUnitAffinityIcon
 	cmp r4, r0
 	ble _08093D36
 	ldr r1, [r5]
@@ -46826,7 +46826,7 @@ _080A0D30:
 	adds r4, r0, #0
 	adds r0, r5, #0
 	adds r1, r6, #0
-	bl GetSupportLevelBySupportIndex
+	bl GetUnitSupportLevel
 	ldr r2, [r7]
 	mov r1, r8
 	ldr r3, [r1]
@@ -91389,7 +91389,7 @@ sub_80B6A4C: @ 0x080B6A4C
 _080B6A56:
 	adds r0, r5, #0
 	adds r1, r4, #0
-	bl GetROMUnitSupportingId
+	bl GetUnitSupporterCharacter
 	lsls r0, r0, #0x18
 	lsrs r0, r0, #0x18
 	b _080B6A7A
@@ -91398,7 +91398,7 @@ _080B6A64:
 _080B6A66:
 	adds r0, r5, #0
 	adds r1, r4, #0
-	bl GetSupportLevelBySupportIndex
+	bl GetUnitSupportLevel
 	cmp r0, #3
 	beq _080B6A56
 	adds r4, #1
