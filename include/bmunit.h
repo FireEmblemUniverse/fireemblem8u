@@ -1,6 +1,8 @@
 #ifndef GUARD_BM_UNIT_H
 #define GUARD_BM_UNIT_H
 
+struct SupportData;
+
 // Config
 enum { UNIT_LEVEL_MAX = 20 };
 enum { UNIT_ITEM_COUNT = 5 };
@@ -452,6 +454,8 @@ s8 CanUnitCrossTerrain(struct Unit* unit, int terrain);
 #define UNIT_IS_PHANTOM(aUnit) ((aUnit)->pClassData->number == CLASS_PHANTOM)
 
 #define UNIT_ARENA_LEVEL(aUnit) (((aUnit)->state >> 17) & 0x7)
+
+#define UNIT_SUPPORT_DATA(aUnit) ((aUnit)->pCharacterData->pSupportData)
 
 // NOTE: if this ends up being only used in [Get|Set]UnitLeaderCharId, having this as a macro may end up being unnecessary
 #define UNIT_LEADER_CHARACTER(aUnit) ((aUnit)->supports[UNIT_SUPPORT_MAX_COUNT-1])

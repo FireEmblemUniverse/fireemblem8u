@@ -2,29 +2,7 @@
 
 #include "bmunit.h"
 
-#define UNIT_SUPPORT_DATA(aUnit) ((aUnit)->pCharacterData->pSupportData)
-
-enum {
-    // Config
-
-    MAX_SIMULTANEOUS_SUPPORT_COUNT = 5,
-    SUPPORT_BONUSES_MAX_DISTANCE = 3,
-};
-
-enum
-{
-    SUPPORT_LEVEL_NONE,
-    SUPPORT_LEVEL_C,
-    SUPPORT_LEVEL_B,
-    SUPPORT_LEVEL_A,
-};
-
-enum
-{
-    SUPPORT_EXP_C = 81,
-    SUPPORT_EXP_B = 161,
-    SUPPORT_EXP_A = 241,
-};
+#include "bmreliance.h"
 
 extern const int gUnknown_0859B9A8[4];
 
@@ -374,15 +352,15 @@ char* sub_8028710(int affinity)
     return GetStringFromIndex(textIdLookup[affinity]);
 }
 
-void sub_802873C(u8 charId1, u8 charId2)
+void sub_802873C(u8 charA, u8 charB)
 {
-    struct Unit* unit = GetUnitFromCharId(charId1);
-    int num = GetSupportDataIdForOtherUnit(unit, charId2);
+    struct Unit* unit = GetUnitFromCharId(charA);
+    int num = GetSupportDataIdForOtherUnit(unit, charB);
 
     unit->supportBits |= (1 << num);
 
-    unit = GetUnitFromCharId(charId2);
-    num = GetSupportDataIdForOtherUnit(unit, charId1);
+    unit = GetUnitFromCharId(charB);
+    num = GetSupportDataIdForOtherUnit(unit, charA);
 
     unit->supportBits |= (1 << num);
 }

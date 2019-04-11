@@ -12,6 +12,7 @@
 #include "bmmap.h"
 #include "bmidoten.h"
 #include "bmbattle.h"
+#include "bmreliance.h"
 #include "bmtrick.h"
 
 EWRAM_DATA u8 gActiveUnitId = 0;
