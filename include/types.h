@@ -400,18 +400,6 @@ struct MMSData
     const void* pAnimation;
 };
 
-struct SupportBonuses
-{
-    /* 00 */ u8 unk00;
-
-    /* 01 */ u8 bonusAttack;
-    /* 02 */ u8 bonusDefense;
-    /* 03 */ u8 bonusHit;
-    /* 04 */ u8 bonusAvoid;
-    /* 05 */ u8 bonusCrit;
-    /* 06 */ u8 bonusDodge;
-};
-
 struct ArenaData
 {
     /* 00 */ struct Unit* playerUnit;
@@ -470,6 +458,8 @@ struct MapChange
     /* 04 */ u8 ySize;
     /* 08 */ const void* data;
 };
+
+enum { UNIT_SUPPORT_MAX_COUNT = 7 };
 
 enum
 {

@@ -9,6 +9,7 @@
 #include "bmitem.h"
 #include "bmunit.h"
 #include "bmmap.h"
+#include "bmreliance.h"
 #include "chapterdata.h"
 #include "bmtrick.h"
 #include "m4a.h"
@@ -557,12 +558,12 @@ void ComputeBattleUnitSupportBonuses(struct BattleUnit* attacker, struct BattleU
 
         GetUnitSupportBonuses(&attacker->unit, &tmpBonuses);
 
-        attacker->battleAttack  += tmpBonuses.bonusAttack;
-        attacker->battleDefense += tmpBonuses.bonusDefense;
-        attacker->battleHitRate     += tmpBonuses.bonusHit;
-        attacker->battleAvoidRate   += tmpBonuses.bonusAvoid;
-        attacker->battleCritRate    += tmpBonuses.bonusCrit;
-        attacker->battleDodgeRate   += tmpBonuses.bonusDodge;
+        attacker->battleAttack    += tmpBonuses.bonusAttack;
+        attacker->battleDefense   += tmpBonuses.bonusDefense;
+        attacker->battleHitRate   += tmpBonuses.bonusHit;
+        attacker->battleAvoidRate += tmpBonuses.bonusAvoid;
+        attacker->battleCritRate  += tmpBonuses.bonusCrit;
+        attacker->battleDodgeRate += tmpBonuses.bonusDodge;
     }
 }
 

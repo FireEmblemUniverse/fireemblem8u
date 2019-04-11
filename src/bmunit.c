@@ -12,6 +12,7 @@
 #include "bmmap.h"
 #include "bmidoten.h"
 #include "bmbattle.h"
+#include "bmreliance.h"
 #include "bmtrick.h"
 
 EWRAM_DATA u8 gActiveUnitId = 0;
@@ -328,11 +329,11 @@ inline int GetUnitLeaderCharId(struct Unit* unit) {
     if (!(unit->index & 0xC0))
         return 0;
 
-    return unit->unitLeader;
+    return UNIT_LEADER_CHARACTER(unit);
 }
 
 inline void SetUnitLeaderCharId(struct Unit* unit, int charId) {
-    unit->unitLeader = charId;
+    UNIT_LEADER_CHARACTER(unit) = charId;
 }
 
 inline void SetUnitHp(struct Unit* unit, int value) {
@@ -627,7 +628,7 @@ struct Unit* LoadUnit(const struct UnitDefinition* uDef) {
                 UnitAutolevel(unit);
 
             UnitAutolevelWExp(unit, uDef);
-            unit->unitLeader = uDef->leaderCharIndex;
+            SetUnitLeaderCharId(unit, uDef->leaderCharIndex);
         }
 
         if (UNIT_IS_GORGON_EGG(unit))
@@ -725,10 +726,10 @@ void FixROMUnitStructPtr(struct Unit* unit) {
 }
 
 void UnitLoadSupports(struct Unit* unit) {
-    int i, count = GetROMUnitSupportCount(unit);
+    int i, count = GetUnitSupporterCount(unit);
 
     for (i = 0; i < count; ++i)
-        unit->supports[i] = GetUnitStartingSupportValue(unit, i);
+        unit->supports[i] = GetUnitSupporterInitialExp(unit, i);
 }
 
 void UnitAutolevelWExp(struct Unit* unit, const struct UnitDefinition* uDef) {
@@ -950,7 +951,7 @@ void UnitKill(struct Unit* unit) {
             unit->pCharacterData = NULL;
         else {
             unit->state |= US_DEAD | US_HIDDEN;
-            UnitClearSupports(unit);
+            ClearUnitSupports(unit);
         }
     } else
         unit->pCharacterData = NULL;

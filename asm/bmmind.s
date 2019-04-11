@@ -470,25 +470,25 @@ ActionSupport: @ 0x080323D4
 	ldr r0, [r0]
 	ldr r1, [r4]
 	ldrb r1, [r1, #4]
-	bl GetSupportDataIdForOtherUnit
+	bl GetUnitSupporterNum
 	adds r7, r0, #0
 	mov r1, r9
 	ldr r0, [r1]
 	ldr r0, [r0]
 	ldrb r1, [r0, #4]
 	adds r0, r4, #0
-	bl GetSupportDataIdForOtherUnit
+	bl GetUnitSupporterNum
 	mov r8, r0
 	adds r0, r4, #0
 	mov r1, r8
-	bl CanUnitSupportCommandWith
+	bl CanUnitSupportNow
 	mov r2, r9
 	ldr r0, [r2]
 	adds r1, r7, #0
-	bl sub_80282DC
+	bl UnitGainSupportLevel
 	adds r0, r4, #0
 	mov r1, r8
-	bl sub_80282DC
+	bl UnitGainSupportLevel
 	mov r1, r9
 	ldr r0, [r1]
 	ldr r1, [r0]
@@ -496,7 +496,7 @@ ActionSupport: @ 0x080323D4
 	ldr r1, [r4]
 	ldrb r5, [r1, #4]
 	adds r1, r7, #0
-	bl GetSupportLevelBySupportIndex
+	bl GetUnitSupportLevel
 	adds r2, r0, #0
 	adds r0, r6, #0
 	adds r1, r5, #0
