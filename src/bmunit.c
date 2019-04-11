@@ -328,11 +328,11 @@ inline int GetUnitLeaderCharId(struct Unit* unit) {
     if (!(unit->index & 0xC0))
         return 0;
 
-    return unit->unitLeader;
+    return UNIT_LEADER_CHARACTER(unit);
 }
 
 inline void SetUnitLeaderCharId(struct Unit* unit, int charId) {
-    unit->unitLeader = charId;
+    UNIT_LEADER_CHARACTER(unit) = charId;
 }
 
 inline void SetUnitHp(struct Unit* unit, int value) {
@@ -627,7 +627,7 @@ struct Unit* LoadUnit(const struct UnitDefinition* uDef) {
                 UnitAutolevel(unit);
 
             UnitAutolevelWExp(unit, uDef);
-            unit->unitLeader = uDef->leaderCharIndex;
+            SetUnitLeaderCharId(unit, uDef->leaderCharIndex);
         }
 
         if (UNIT_IS_GORGON_EGG(unit))
