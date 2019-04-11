@@ -240,7 +240,7 @@ static const struct SupportBonuses* GetAffinityBonuses(int affinity)
 {
     const struct SupportBonuses* it;
 
-    for (it = gUnknown_088B05F8; it->affinity; ++it)
+    for (it = gAffinityBonuses; it->affinity; ++it)
     {
         if (it->affinity == affinity)
             return it;
