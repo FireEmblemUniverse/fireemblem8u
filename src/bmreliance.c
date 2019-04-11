@@ -4,11 +4,20 @@
 
 #include "bmreliance.h"
 
-extern const int gUnknown_0859B9A8[4];
+CONST_DATA
+static int sSupportMaxExpLookup[] = {
+    [SUPPORT_LEVEL_NONE] = SUPPORT_EXP_C-1,
+    [SUPPORT_LEVEL_C]    = SUPPORT_EXP_B-1,
+    [SUPPORT_LEVEL_B]    = SUPPORT_EXP_A-1,
+    [SUPPORT_LEVEL_A]    = SUPPORT_EXP_A
+};
 
-extern const struct SupportBonuses gUnknown_088B05F8[];
+static const struct SupportBonuses* GetAffinityBonuses(int affinity);
+static void ApplyAffinitySupportBonuses(struct SupportBonuses* bonuses, int affinity, int level);
+static void InitSupportBonuses(struct SupportBonuses* bonuses);
 
-s8 HasUnitGainedSupportLevel(struct Unit* unit, int num);
+static void SetSupportLevelGained(u8 charA, u8 charB);
+static s8 HasUnitGainedSupportLevel(struct Unit* unit, int num);
 
 int GetUnitSupporterCount(struct Unit* unit)
 {
@@ -82,7 +91,7 @@ void UnitGainSupportExp(struct Unit* unit, int num)
     {
         int gain = UNIT_SUPPORT_DATA(unit)->supportExpGrowth[num];
         int currentExp = unit->supports[num];
-        int maxExp = gUnknown_0859B9A8[GetUnitSupportLevel(unit, num)];
+        int maxExp = sSupportMaxExpLookup[GetUnitSupportLevel(unit, num)];
 
         if (currentExp + gain > maxExp)
             gain = maxExp - currentExp;
@@ -120,7 +129,7 @@ s8 CanUnitSupportNow(struct Unit* unit, int num)
         return FALSE;
 
     exp    = unit->supports[num];
-    maxExp = gUnknown_0859B9A8[GetUnitSupportLevel(unit, num)];
+    maxExp = sSupportMaxExpLookup[GetUnitSupportLevel(unit, num)];
 
     if (exp == SUPPORT_EXP_A)
         return FALSE;
@@ -227,7 +236,7 @@ void ProcessTurnSupportExp(void)
     }
 }
 
-const struct SupportBonuses* GetAffinityBonuses(int affinity)
+static const struct SupportBonuses* GetAffinityBonuses(int affinity)
 {
     const struct SupportBonuses* it;
 
@@ -240,7 +249,7 @@ const struct SupportBonuses* GetAffinityBonuses(int affinity)
     // return NULL; // BUG?
 }
 
-void ApplyAffinitySupportBonuses(struct SupportBonuses* bonuses, int affinity, int level)
+static void ApplyAffinitySupportBonuses(struct SupportBonuses* bonuses, int affinity, int level)
 {
     const struct SupportBonuses* added = GetAffinityBonuses(affinity);
 
@@ -252,7 +261,7 @@ void ApplyAffinitySupportBonuses(struct SupportBonuses* bonuses, int affinity, i
     bonuses->bonusDodge   += level * added->bonusDodge;
 }
 
-void InitSupportBonuses(struct SupportBonuses* bonuses)
+static void InitSupportBonuses(struct SupportBonuses* bonuses)
 {
     bonuses->bonusAttack  = 0;
     bonuses->bonusDefense = 0;
@@ -352,7 +361,7 @@ char* GetAffinityName(int affinity)
     return GetStringFromIndex(textIdLookup[affinity]);
 }
 
-void SetSupportLevelGained(u8 charA, u8 charB)
+static void SetSupportLevelGained(u8 charA, u8 charB)
 {
     struct Unit* unit = GetUnitFromCharId(charA);
     int num = GetUnitSupporterNum(unit, charB);
@@ -365,7 +374,7 @@ void SetSupportLevelGained(u8 charA, u8 charB)
     unit->supportBits |= (1 << num);
 }
 
-s8 HasUnitGainedSupportLevel(struct Unit* unit, int num)
+static s8 HasUnitGainedSupportLevel(struct Unit* unit, int num)
 {
     s8 result = unit->supportBits & (1 << num);
     return result ? TRUE : FALSE;

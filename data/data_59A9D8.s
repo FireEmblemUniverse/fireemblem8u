@@ -259,15 +259,3 @@ gUnknown_0859B996:  @ 0x0859B996
 	.global gUnknown_0859B99E
 gUnknown_0859B99E:  @ 0x0859B99E
 	.incbin "baserom.gba", 0x59B99E, 0xA
-
-	.global gUnknown_0859B9A8
-gUnknown_0859B9A8:  @ 0x0859B9A8
-	.incbin "baserom.gba", 0x59B9A8, 0x10
-
-	.global gUnknown_0859B9B8
-gUnknown_0859B9B8:  @ 0x0859B9B8
-	.incbin "baserom.gba", 0x59B9B8, 0x80
-
-	.global gUnknown_0859BA38
-gUnknown_0859BA38:  @ 0x0859BA38
-	.incbin "baserom.gba", 0x59BA38, 0x58

@@ -56,16 +56,11 @@ int GetUnitSupporterInitialExp(struct Unit* unit, int num);
 int GetUnitSupporterNum(struct Unit* unit, u8 charId);
 void ClearUnitSupports(struct Unit* unit);
 void ProcessTurnSupportExp(void);
-const struct SupportBonuses* GetAffinityBonuses(int affinity);
-void ApplyAffinitySupportBonuses(struct SupportBonuses* bonuses, int affinity, int level);
-void InitSupportBonuses(struct SupportBonuses* bonuses);
 int GetUnitSupportBonuses(struct Unit* unit, struct SupportBonuses* bonuses);
 int GetUnitAffinityIcon(struct Unit* unit);
 int GetCharacterAffinityIcon(int characterId);
 int GetSupportLevelUiChar(int level);
-char* GetAffinityName(int affinity);
-void SetSupportLevelGained(u8 charA, u8 charB);
-s8 HasUnitGainedSupportLevel(struct Unit* unit, int num);
+char* GetAffinityName(int affinity); // unused?
 s8 HaveCharactersMaxSupport(u8 charA, u8 charB);
 void SwapUnitStats(struct Unit* unitA, struct Unit* unitB);
 
