@@ -86,7 +86,7 @@ SECTIONS
         asm/bmgold.o(.text);
         asm/bmtarget.o(.text);
         asm/bmudisp.o(.text);
-        asm/bmreliance.o(.text);
+        src/bmreliance.o(.text);
         asm/bmitemuse.o(.text);
         src/bmbattle.o(.text);
         src/bmtrade.o(.text);
@@ -198,6 +198,7 @@ SECTIONS
         . = ALIGN(4); src/bmitem.o(.rodata);
         . = ALIGN(4); src/bmunit.o(.rodata);
         . = ALIGN(4); data/const_data_D7A6C.o(.rodata);
+        . = ALIGN(4); src/bmreliance.o(.rodata);
         . = ALIGN(4); src/bmbattle.o(.rodata);
         . = ALIGN(4); src/bmtrade.o(.rodata);
         . = ALIGN(4); data/const_data_D7C44.o(.rodata);
@@ -228,6 +229,8 @@ SECTIONS
         . = ALIGN(4); src/bmunit.o(.data);
         . = ALIGN(4); src/bmmap.o(.data);
         . = ALIGN(4); data/data_59A9D8.o(.data);
+        . = ALIGN(4); src/bmreliance.o(.data);
+        . = ALIGN(4); data/data_59B9B8.o(.data);
         . = ALIGN(4); src/bmbattle.o(.data);
         . = ALIGN(4); src/bmtrade.o(.data);
         . = ALIGN(4); data/data_59BC64.o(.data);

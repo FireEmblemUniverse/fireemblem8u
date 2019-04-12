@@ -1369,7 +1369,7 @@ sub_8085128: @ 0x08085128
 	push {lr}
 	movs r0, #0
 	movs r1, #0
-	bl sub_80287A4
+	bl HaveCharactersMaxSupport
 	lsls r0, r0, #0x18
 	asrs r0, r0, #0x18
 	pop {r1}
@@ -1380,7 +1380,7 @@ sub_808513C: @ 0x0808513C
 	push {lr}
 	movs r0, #0
 	movs r1, #0
-	bl sub_80287A4
+	bl HaveCharactersMaxSupport
 	lsls r0, r0, #0x18
 	asrs r0, r0, #0x18
 	pop {r1}
@@ -1391,7 +1391,7 @@ sub_8085150: @ 0x08085150
 	push {lr}
 	movs r0, #0
 	movs r1, #0
-	bl sub_80287A4
+	bl HaveCharactersMaxSupport
 	lsls r0, r0, #0x18
 	asrs r0, r0, #0x18
 	pop {r1}
@@ -1402,7 +1402,7 @@ sub_8085164: @ 0x08085164
 	push {lr}
 	movs r0, #0
 	movs r1, #0
-	bl sub_80287A4
+	bl HaveCharactersMaxSupport
 	lsls r0, r0, #0x18
 	asrs r0, r0, #0x18
 	pop {r1}
@@ -1413,7 +1413,7 @@ sub_8085178: @ 0x08085178
 	push {lr}
 	movs r0, #0
 	movs r1, #0
-	bl sub_80287A4
+	bl HaveCharactersMaxSupport
 	lsls r0, r0, #0x18
 	asrs r0, r0, #0x18
 	pop {r1}
@@ -1424,7 +1424,7 @@ sub_808518C: @ 0x0808518C
 	push {lr}
 	movs r0, #0
 	movs r1, #0
-	bl sub_80287A4
+	bl HaveCharactersMaxSupport
 	lsls r0, r0, #0x18
 	asrs r0, r0, #0x18
 	pop {r1}
@@ -1971,7 +1971,7 @@ sub_808552C: @ 0x0808552C
 	bl GetUnitFromCharId
 	adds r1, r0, #0
 	adds r0, r5, #0
-	bl sub_80287D4
+	bl SwapUnitStats
 	pop {r4, r5}
 	pop {r0}
 	bx r0

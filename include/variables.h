@@ -1526,7 +1526,6 @@ extern const struct ProcCmd gUnknown_0859A548[]; // this is GENS/Camera Movement
 // extern ??? gUnknown_0859B98E
 // extern ??? gUnknown_0859B996
 // extern ??? gUnknown_0859B99E
-// extern ??? gUnknown_0859B9A8
 // extern ??? gUnknown_0859B9B8
 // extern ??? gUnknown_0859BA38
 // extern ??? gUnknown_0859BC64
@@ -3032,7 +3031,7 @@ extern const u8 gUnknown_088ADF39[]; // Slayer effectiveness list
 // extern ??? gUnknown_088AF880
 // extern ??? gUnknown_088AFB5A
 // extern ??? gUnknown_088AFBD8
-// extern ??? gUnknown_088B05F8
+extern const struct SupportBonuses gAffinityBonuses[];
 // extern ??? gUnknown_088B08F0
 // extern ??? gUnknown_088B39EC
 // extern ??? gUnknown_088B3AD8

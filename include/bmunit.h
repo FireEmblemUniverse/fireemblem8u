@@ -1,6 +1,8 @@
 #ifndef GUARD_BM_UNIT_H
 #define GUARD_BM_UNIT_H
 
+struct SupportData;
+
 // Config
 enum { UNIT_LEVEL_MAX = 20 };
 enum { UNIT_ITEM_COUNT = 5 };
@@ -9,7 +11,8 @@ enum { UNIT_DEFINITION_ITEM_COUNT = 4 };
 // Meaningful constants
 enum { UNIT_EXP_DISABLED = 0xFF };
 
-struct CharacterData {
+struct CharacterData
+{
     /* 00 */ u16 nameTextId;
     /* 02 */ u16 descTextId;
     /* 04 */ u8 number;
@@ -47,11 +50,12 @@ struct CharacterData {
 
     /* 28 */ u32 attributes;
 
-    /* 2C */ void* pSupportData;
+    /* 2C */ const struct SupportData* pSupportData;
     /* 30 */ void* _pU30;
 };
 
-struct ClassData {
+struct ClassData
+{
     /* 00 */ u16 nameTextId;
     /* 02 */ u16 descTextId;
     /* 04 */ u8 number;
@@ -111,7 +115,8 @@ struct ClassData {
     /* 50 */ const void* _pU50;
 };
 
-struct Unit {
+struct Unit
+{
     /* 00 */ const struct CharacterData* pCharacterData;
     /* 04 */ const struct ClassData* pClassData;
 
@@ -149,9 +154,8 @@ struct Unit {
     /* 31 */ u8 torchDuration : 4;
     /* 31 */ u8 barrierDuration : 4;
 
-    /* 32 */ u8 supports[6];
-    /* 38 */ u8 unitLeader;
-    /* 39 */ u8 supportBits;
+    /* 32 */ u8 supports[UNIT_SUPPORT_MAX_COUNT];
+    /* 39 */ s8 supportBits;
     /* 3A */ u8 _u3A;
     /* 3B */ u8 _u3B;
 
@@ -166,7 +170,8 @@ struct Unit {
     /* 47 */ u8 _u47;
 };
 
-struct UnitDefinition {
+struct UnitDefinition
+{
     /* 00 */ u8  charIndex;
     /* 01 */ u8  classIndex;
     /* 02 */ u8  leaderCharIndex;
@@ -195,7 +200,8 @@ struct UnitDefinition {
     } ai;
 };
 
-enum {
+enum
+{
     // Unit state constant masks
 
     US_NONE         = 0,
@@ -238,7 +244,8 @@ enum {
     US_UNAVAILABLE = (US_DEAD | US_NOT_DEPLOYED | US_BIT16),
 };
 
-enum {
+enum
+{
     // Unit status identifiers
 
     UNIT_STATUS_NONE = 0,
@@ -268,7 +275,8 @@ enum {
     FACTION_PURPLE = 0xC0, // link arena 4th team
 };
 
-enum {
+enum
+{
     // Character/Class attributes
 
     CA_NONE = 0,
@@ -312,7 +320,8 @@ enum {
     CA_TRIANGLEATTACK_ANY = CA_TRIANGLEATTACK_ARMORS | CA_TRIANGLEATTACK_PEGASI,
 };
 
-enum {
+enum
+{
     // To check result of GetUnit[Item]UseBits
 
     UNIT_USEBIT_WEAPON = (1 << 0),
@@ -445,5 +454,10 @@ s8 CanUnitCrossTerrain(struct Unit* unit, int terrain);
 #define UNIT_IS_PHANTOM(aUnit) ((aUnit)->pClassData->number == CLASS_PHANTOM)
 
 #define UNIT_ARENA_LEVEL(aUnit) (((aUnit)->state >> 17) & 0x7)
+
+#define UNIT_SUPPORT_DATA(aUnit) ((aUnit)->pCharacterData->pSupportData)
+
+// NOTE: if this ends up being only used in [Get|Set]UnitLeaderCharId, having this as a macro may end up being unnecessary
+#define UNIT_LEADER_CHARACTER(aUnit) ((aUnit)->supports[UNIT_SUPPORT_MAX_COUNT-1])
 
 #endif // GUARD_BM_UNIT_H
