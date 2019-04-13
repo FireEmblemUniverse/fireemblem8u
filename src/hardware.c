@@ -911,7 +911,7 @@ void SetupBackgrounds(u16 *bgConfig)
     gLCDControlBuffer.dispcnt.obj_on = 1;
 }
 
-static void *sBgTilemapBuffers[] =
+static u16* sBgTilemapBuffers[] =
 {
     gBG0TilemapBuffer,
     gBG1TilemapBuffer,
@@ -919,9 +919,9 @@ static void *sBgTilemapBuffers[] =
     gBG3TilemapBuffer,
 };
 
-void *BG_GetMapBuffer(int a)
+u16* BG_GetMapBuffer(int bg)
 {
-    return sBgTilemapBuffers[a];
+    return sBgTilemapBuffers[bg];
 }
 
 void sub_8001C5C(u8 a)

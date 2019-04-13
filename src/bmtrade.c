@@ -271,12 +271,12 @@ void TradeMenu_InitUnitNameDisplay(struct TradeMenuProc* proc)
     str = GetStringFromIndex(UNIT_NAME_ID(proc->units[0]));
     xStart = ((8 * UNIT_PANEL_WIDTH) - GetStringTextWidth(str)) / 2;
 
-    DrawTextInline(NULL, TILEMAP_LOCATED(gBG0TilemapBuffer, 0, 0), 0, xStart, UNIT_PANEL_WIDTH, str);
+    DrawTextInline(NULL, gBG0TilemapBuffer + TILEMAP_INDEX(0, 0), 0, xStart, UNIT_PANEL_WIDTH, str);
 
     str = GetStringFromIndex(UNIT_NAME_ID(proc->units[1]));
     xStart = ((8 * UNIT_PANEL_WIDTH) - GetStringTextWidth(str)) / 2;
 
-    DrawTextInline(NULL, TILEMAP_LOCATED(gBG0TilemapBuffer, 24, 0), 0, xStart, UNIT_PANEL_WIDTH, str);
+    DrawTextInline(NULL, gBG0TilemapBuffer + TILEMAP_INDEX(24, 0), 0, xStart, UNIT_PANEL_WIDTH, str);
 
     BG_EnableSyncByMask(BG0_SYNC_BIT);
 }
@@ -338,7 +338,7 @@ void TradeMenu_RefreshItemText(struct TradeMenuProc* proc)
 
     int col, row;
 
-    CpuFastFill(0, TILEMAP_LOCATED(gBG0TilemapBuffer, 0, 9), 11 * 0x20 * sizeof(u16));
+    CpuFastFill(0, gBG0TilemapBuffer + TILEMAP_INDEX(0, 9), 11 * 0x20 * sizeof(u16));
 
     for (col = 0; col < 2; ++col)
     {
@@ -351,7 +351,7 @@ void TradeMenu_RefreshItemText(struct TradeMenuProc* proc)
             if (item)
             {
                 DrawItemMenuLine(&gTradeMenuText[col][row], item, IsItemDisplayUsable(proc->units[col], item),
-                    TILEMAP_LOCATED(gBG0TilemapBuffer, xLookup[col] + 1, yLookup[col] + row * 2 + 1));
+                    gBG0TilemapBuffer + TILEMAP_INDEX(xLookup[col] + 1, yLookup[col] + row * 2 + 1));
             }
         }
     }

@@ -1,6 +1,7 @@
 #include "global.h"
 
 #include "hardware.h"
+#include "ctc.h"
 
 extern const u16* gUnknown_085B6440[];
 extern const u16* gUnknown_085B6450[];
@@ -9,7 +10,15 @@ extern const void* gUnknown_085B6470[];
 extern const u16* gUnknown_085B6480[];
 extern const u16* gUnknown_085B6430[];
 
-extern int FilterR0ForRawCopy(const void* data);
+extern struct Vec2 gUnknown_0203DDE0;
+extern int gUnknown_0203DDE4;
+extern const u8 gUnknown_085B6498[];
+extern const u16 gUnknown_085B6490[];
+
+extern const u16 gUnknown_080DA374[];
+
+extern const u8 gUnknown_085B8FF0[];
+extern const u16 gUnknown_085B9244[];
 
 void LoadOldUIPal(int palId)
 {
@@ -81,7 +90,7 @@ void WriteUIWindowTileMap(u16* tilemap, int x, int y, int width, int height, int
     {
         for (ix = x + 1; ix < xMax; ix += 2)
         {
-            u16 tilemapOffset = ix + iy*0x20;
+            u16 tilemapOffset = TILEMAP_INDEX(ix, iy);
 
             *TILEMAP_LOCATED(tilemap + tilemapOffset, 0, 0) = model[6]  + tilebase; // center tile
             *TILEMAP_LOCATED(tilemap + tilemapOffset, 1, 0) = model[6]  + tilebase; // center tile
@@ -897,3 +906,173 @@ void MakeUIWindowTileMap_BG0BG1(int x, int y, int width, int height, int style)
 }
 
 #endif // NONMATCHING
+
+void sub_804E79C(int x, int y)
+{
+    if ((GetGameClock() - 1) == gUnknown_0203DDE4)
+    {
+        x = (x + gUnknown_0203DDE0.x) >> 1;
+        y = (y + gUnknown_0203DDE0.y) >> 1;
+    }
+
+    gUnknown_0203DDE0.x = x;
+    gUnknown_0203DDE0.y = y;
+    gUnknown_0203DDE4 = GetGameClock();
+
+    x += (gUnknown_085B6498[GetGameClock() % 0x20] - 14);
+    RegisterObjectAttributes_SafeMaybe(2, x, y, gUnknown_085B6490, 0);
+}
+
+void sub_804E80C(int x, int y)
+{
+    x += (gUnknown_085B6498[GetGameClock() % 0x20] - 14);
+    RegisterObjectAttributes_SafeMaybe(2, x, y, gUnknown_085B6490, 0);
+}
+
+void sub_804E848(int x, int y)
+{
+    x -= 12;
+    RegisterObjectAttributes_SafeMaybe(3, x, y, gUnknown_085B6490, 0);
+}
+
+int sub_804E86C(void)
+{
+    return gUnknown_0203DDE0.x;
+}
+
+int sub_804E878(void)
+{
+    return gUnknown_0203DDE0.y;
+}
+
+void ClearBG0BG1(void)
+{
+    BG_Fill(gBG0TilemapBuffer, 0);
+    BG_Fill(gBG1TilemapBuffer, 0);
+
+    BG_EnableSyncByMask(BG0_SYNC_BIT | BG1_SYNC_BIT);
+}
+
+void sub_804E8A8(int x, int y, int width)
+{
+    int xMax = x + width - 1;
+    y += 1;
+
+    // TODO: meaningful constants
+
+    gBG1TilemapBuffer[TILEMAP_INDEX(x, y)] = 0x107A;
+
+    for (x += 1; x < xMax; ++x)
+        gBG1TilemapBuffer[TILEMAP_INDEX(x, y)] = 0x107B;
+
+    gBG1TilemapBuffer[TILEMAP_INDEX(x, y)] = 0x107C;
+
+    BG_EnableSyncByMask(BG1_SYNC_BIT);
+}
+
+void sub_804E90C(int x, int y, int width)
+{
+    int xMax = x + width - 1;
+    y += 1;
+
+    for (; x < xMax; x += 2)
+    {
+        gBG1TilemapBuffer[TILEMAP_INDEX(x + 0, y)] = gUnknown_080DA374[6];
+        gBG1TilemapBuffer[TILEMAP_INDEX(x + 1, y)] = gUnknown_080DA374[7];
+    }
+
+    gBG1TilemapBuffer[TILEMAP_INDEX(xMax, y)] = (width % 2)
+        ? gUnknown_080DA374[6]
+        : gUnknown_080DA374[7];
+
+    BG_EnableSyncByMask(BG1_SYNC_BIT);
+}
+
+void sub_804E98C(int bg, int base, int x, int y, int width)
+{
+    u16* tilemap;
+    int xMax;
+
+    xMax = x + width - 1;
+    y += 1;
+
+    tilemap = BG_GetMapBuffer(bg);
+
+    tilemap[TILEMAP_INDEX(x, y)] = 0x107A + base;
+
+    for (x += 1; x < xMax; ++x)
+        tilemap[TILEMAP_INDEX(x, y)] = 0x107B + base;
+
+    tilemap[TILEMAP_INDEX(x, y)] = 0x107C + base;
+
+    BG_EnableSyncByMask(1 << bg);
+}
+
+void sub_804EA08(int bg, int base, int x, int y, int width)
+{
+    u16* tilemap;
+    int xMax;
+
+    xMax = x + width - 1;
+    y += 1;
+
+    tilemap = BG_GetMapBuffer(bg);
+
+    for (; x < xMax; x += 2)
+    {
+        tilemap[TILEMAP_INDEX(x + 0, y)] = gUnknown_080DA374[6] + base;
+        tilemap[TILEMAP_INDEX(x + 1, y)] = gUnknown_080DA374[7] + base;
+    }
+
+    tilemap[TILEMAP_INDEX(xMax, y)] = (width % 2)
+        ? gUnknown_080DA374[6] + base
+        : gUnknown_080DA374[7] + base;
+
+    BG_EnableSyncByMask(1 << bg);
+}
+
+void sub_804EA8C(void* vram, int palId, int palCount)
+{
+    CopyDataWithPossibleUncomp(gUnknown_085B8FF0, vram);
+    CopyToPaletteBuffer(gUnknown_085B9244, palId*0x20, palCount*0x20);
+}
+
+void sub_804EAB8(int x, int y, unsigned objTileOffset)
+{
+    if ((GetGameClock() - 1) == gUnknown_0203DDE4)
+    {
+        x = (x + gUnknown_0203DDE0.x) >> 1;
+        y = (y + gUnknown_0203DDE0.y) >> 1;
+    }
+
+    gUnknown_0203DDE0.x = x;
+    gUnknown_0203DDE0.y = y;
+    gUnknown_0203DDE4 = GetGameClock();
+
+    x += (gUnknown_085B6498[GetGameClock() % 0x20] - 14);
+    RegisterObjectAttributes_SafeMaybe(2, x, y, gUnknown_085B6490, objTileOffset << 15 >> 20);
+}
+
+void sub_804EB2C(int x, int y, unsigned objTileOffset)
+{
+    x -= 12;
+    RegisterObjectAttributes_SafeMaybe(3, x, y, gUnknown_085B6490, objTileOffset << 15 >> 20);
+}
+
+void LoadOldUIGfx(void)
+{
+    LoadOldUIImage(NULL);
+    LoadOldUIPal(-1);
+}
+
+void LoadNewUIGraphics(void)
+{
+    LoadNewUIImage(NULL);
+    LoadNewUIPal(-1);
+}
+
+void sub_804EB7C(unsigned offset, int palId)
+{
+    LoadNewUIImage((void*)(VRAM + offset));
+    LoadNewUIPal(palId);
+}

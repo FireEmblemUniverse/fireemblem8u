@@ -3,7 +3,8 @@
 
 // Utility macros and constants
 
-#define TILEMAP_LOCATED(aMap, aX, aY) (0x20 * (aY) + (aX) + (aMap))
+#define TILEMAP_INDEX(aX, aY) (0x20 * (aY) + (aX))
+#define TILEMAP_LOCATED(aMap, aX, aY) (TILEMAP_INDEX((aX), (aY)) + (aMap))
 
 enum
 {
@@ -62,7 +63,7 @@ void BG_SetPosition(u16 a, u16 b, u16 c);
 // ??? sub_80019E8(???);
 // ??? sub_8001A6C(???);
 void SetupBackgrounds(u16 *bgConfig);
-void *BG_GetMapBuffer();
+u16* BG_GetMapBuffer(int bg);
 void sub_8001C5C(u8);
 // ??? ShouldSkipHSScreen(???);
 void SoftResetIfKeyComboPressed();
