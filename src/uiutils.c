@@ -189,7 +189,7 @@ void ClearTileMapRect(u16* tilemap, int x, int y, int width, int height)
 
 #endif // NONMATCHING
 
-/*
+#ifdef NONMATCHING
 
 void MakeUIWindowTileMap_BG0BG1(int x, int y, int width, int height, int style)
 {
@@ -334,4 +334,566 @@ void MakeUIWindowTileMap_BG0BG1(int x, int y, int width, int height, int style)
     BG_EnableSyncByMask(BG0_SYNC_BIT | BG1_SYNC_BIT);
 }
 
-*/
+#else // NONMATCHING
+
+__attribute__((naked))
+void MakeUIWindowTileMap_BG0BG1(int x, int y, int width, int height, int style)
+{
+    asm("\n\
+        .syntax unified\n\
+        push {r4, r5, r6, r7, lr}\n\
+        mov r7, sl\n\
+        mov r6, r9\n\
+        mov r5, r8\n\
+        push {r5, r6, r7}\n\
+        sub sp, #0x4c\n\
+        str r0, [sp]\n\
+        adds r5, r1, #0\n\
+        ldr r4, [sp, #0x6c]\n\
+        ldr r1, _0804E5B0  @ gUnknown_085B6430\n\
+        lsls r0, r4, #2\n\
+        adds r0, r0, r1\n\
+        ldr r0, [r0]\n\
+        mov ip, r0\n\
+        ldr r0, [sp]\n\
+        adds r2, r0, r2\n\
+        subs r2, #1\n\
+        str r2, [sp, #4]\n\
+        adds r3, r5, r3\n\
+        subs r3, #1\n\
+        str r3, [sp, #8]\n\
+        cmp r4, #3\n\
+        bne _0804E398\n\
+        b _0804E5BC\n\
+    _0804E398:\n\
+        adds r0, r5, #1\n\
+        str r0, [sp, #0x1c]\n\
+        ldr r1, [sp]\n\
+        adds r1, #1\n\
+        str r1, [sp, #0x18]\n\
+        lsls r5, r5, #5\n\
+        str r5, [sp, #0x24]\n\
+        lsls r2, r3, #5\n\
+        str r2, [sp, #0x30]\n\
+        cmp r0, r3\n\
+        bge _0804E48A\n\
+        movs r3, #0\n\
+        mov r9, r3\n\
+        ldr r4, _0804E5B4  @ gBG1TilemapBuffer\n\
+        mov r8, r4\n\
+    _0804E3B6:\n\
+        ldr r7, [sp, #0x18]\n\
+        lsls r5, r0, #5\n\
+        adds r6, r0, #1\n\
+        mov sl, r6\n\
+        adds r0, #2\n\
+        str r0, [sp, #0x20]\n\
+        ldr r0, [sp, #4]\n\
+        cmp r7, r0\n\
+        bge _0804E432\n\
+        ldr r3, _0804E5B8  @ gBG0TilemapBuffer\n\
+        movs r2, #0\n\
+        ldr r6, _0804E5B4  @ gBG1TilemapBuffer\n\
+    _0804E3CE:\n\
+        adds r0, r5, r7\n\
+        lsls r0, r0, #0x10\n\
+        lsrs r4, r0, #0x10\n\
+        lsls r1, r4, #1\n\
+        adds r0, r1, r3\n\
+        strh r2, [r0]\n\
+        adds r1, r1, r6\n\
+        str r1, [sp, #0x44]\n\
+        mov r1, ip\n\
+        ldrh r0, [r1, #0xc]\n\
+        ldr r1, [sp, #0x44]\n\
+        strh r0, [r1]\n\
+        adds r0, r4, #1\n\
+        lsls r0, r0, #0x10\n\
+        lsrs r4, r0, #0x10\n\
+        lsls r1, r4, #1\n\
+        adds r0, r1, r3\n\
+        strh r2, [r0]\n\
+        adds r1, r1, r6\n\
+        str r1, [sp, #0x44]\n\
+        mov r1, ip\n\
+        ldrh r0, [r1, #0xc]\n\
+        ldr r1, [sp, #0x44]\n\
+        strh r0, [r1]\n\
+        adds r0, r4, #0\n\
+        adds r0, #0x1f\n\
+        lsls r0, r0, #0x10\n\
+        lsrs r4, r0, #0x10\n\
+        lsls r1, r4, #1\n\
+        adds r0, r1, r3\n\
+        strh r2, [r0]\n\
+        adds r1, r1, r6\n\
+        str r1, [sp, #0x44]\n\
+        mov r1, ip\n\
+        ldrh r0, [r1, #0x12]\n\
+        ldr r1, [sp, #0x44]\n\
+        strh r0, [r1]\n\
+        adds r0, r4, #1\n\
+        lsls r0, r0, #0x10\n\
+        lsrs r0, r0, #0xf\n\
+        adds r1, r0, r3\n\
+        strh r2, [r1]\n\
+        adds r0, r0, r6\n\
+        mov r4, ip\n\
+        ldrh r1, [r4, #0x14]\n\
+        strh r1, [r0]\n\
+        adds r7, #2\n\
+        ldr r0, [sp, #4]\n\
+        cmp r7, r0\n\
+        blt _0804E3CE\n\
+    _0804E432:\n\
+        ldr r2, [sp]\n\
+        adds r1, r5, r2\n\
+        lsls r1, r1, #1\n\
+        ldr r3, _0804E5B8  @ gBG0TilemapBuffer\n\
+        adds r0, r1, r3\n\
+        mov r4, r9\n\
+        strh r4, [r0]\n\
+        add r1, r8\n\
+        mov r6, ip\n\
+        ldrh r0, [r6, #0x10]\n\
+        strh r0, [r1]\n\
+        ldr r0, [sp, #4]\n\
+        adds r1, r5, r0\n\
+        lsls r1, r1, #1\n\
+        adds r0, r1, r3\n\
+        strh r4, [r0]\n\
+        add r1, r8\n\
+        ldrh r0, [r6, #0xe]\n\
+        strh r0, [r1]\n\
+        mov r1, sl\n\
+        lsls r2, r1, #5\n\
+        ldr r3, [sp]\n\
+        adds r1, r2, r3\n\
+        lsls r1, r1, #1\n\
+        ldr r4, _0804E5B8  @ gBG0TilemapBuffer\n\
+        adds r0, r1, r4\n\
+        mov r5, r9\n\
+        strh r5, [r0]\n\
+        add r1, r8\n\
+        ldrh r0, [r6, #0x10]\n\
+        strh r0, [r1]\n\
+        ldr r6, [sp, #4]\n\
+        adds r2, r2, r6\n\
+        lsls r2, r2, #1\n\
+        adds r0, r2, r4\n\
+        strh r5, [r0]\n\
+        add r2, r8\n\
+        mov r1, ip\n\
+        ldrh r0, [r1, #0x16]\n\
+        strh r0, [r2]\n\
+        ldr r0, [sp, #0x20]\n\
+        ldr r2, [sp, #8]\n\
+        cmp r0, r2\n\
+        blt _0804E3B6\n\
+    _0804E48A:\n\
+        ldr r7, [sp, #0x18]\n\
+        ldr r3, [sp, #4]\n\
+        cmp r7, r3\n\
+        bge _0804E526\n\
+        ldr r6, _0804E5B8  @ gBG0TilemapBuffer\n\
+        ldr r4, _0804E5B4  @ gBG1TilemapBuffer\n\
+        ldr r5, [sp, #0x24]\n\
+        adds r5, #1\n\
+        str r5, [sp, #0xc]\n\
+        ldr r3, [sp, #0x30]\n\
+        adds r3, #1\n\
+        lsls r2, r7, #1\n\
+        ldr r1, [sp, #0x30]\n\
+        lsls r0, r1, #1\n\
+        adds r1, r0, r4\n\
+        adds r1, r2, r1\n\
+        str r1, [sp, #0x34]\n\
+        adds r0, r0, r6\n\
+        adds r0, r2, r0\n\
+        str r0, [sp, #0x38]\n\
+        ldr r5, [sp, #0x24]\n\
+        lsls r0, r5, #1\n\
+        adds r1, r0, r4\n\
+        adds r1, r1, r2\n\
+        mov sl, r1\n\
+        adds r0, r0, r6\n\
+        adds r0, r0, r2\n\
+        mov r9, r0\n\
+        lsls r3, r3, #1\n\
+        adds r0, r3, r4\n\
+        adds r0, r0, r2\n\
+        mov r8, r0\n\
+        adds r3, r3, r6\n\
+        adds r3, r2, r3\n\
+        ldr r0, [sp, #0xc]\n\
+        lsls r0, r0, #1\n\
+        str r0, [sp, #0x3c]\n\
+        adds r4, r0, r4\n\
+        adds r1, r2, r4\n\
+        adds r6, r0, r6\n\
+        adds r2, r2, r6\n\
+    _0804E4DC:\n\
+        movs r5, #0\n\
+        mov r4, r9\n\
+        strh r5, [r4]\n\
+        mov r6, ip\n\
+        ldrh r0, [r6, #4]\n\
+        mov r4, sl\n\
+        strh r0, [r4]\n\
+        strh r5, [r2]\n\
+        ldrh r0, [r6, #4]\n\
+        strh r0, [r1]\n\
+        ldr r6, [sp, #0x38]\n\
+        strh r5, [r6]\n\
+        mov r4, ip\n\
+        ldrh r0, [r4, #0x1a]\n\
+        ldr r5, [sp, #0x34]\n\
+        strh r0, [r5]\n\
+        movs r6, #0\n\
+        strh r6, [r3]\n\
+        ldrh r0, [r4, #0x1c]\n\
+        mov r4, r8\n\
+        strh r0, [r4]\n\
+        adds r5, #4\n\
+        str r5, [sp, #0x34]\n\
+        ldr r5, [sp, #0x38]\n\
+        adds r5, #4\n\
+        str r5, [sp, #0x38]\n\
+        movs r6, #4\n\
+        add sl, r6\n\
+        add r9, r6\n\
+        add r8, r6\n\
+        adds r3, #4\n\
+        adds r1, #4\n\
+        adds r2, #4\n\
+        adds r7, #2\n\
+        ldr r0, [sp, #4]\n\
+        cmp r7, r0\n\
+        blt _0804E4DC\n\
+    _0804E526:\n\
+        ldr r1, [sp, #0x24]\n\
+        ldr r3, [sp]\n\
+        adds r2, r1, r3\n\
+        lsls r2, r2, #1\n\
+        ldr r4, _0804E5B8  @ gBG0TilemapBuffer\n\
+        adds r0, r2, r4\n\
+        movs r1, #0\n\
+        strh r1, [r0]\n\
+        ldr r5, [sp, #0x24]\n\
+        ldr r6, [sp, #4]\n\
+        adds r5, r5, r6\n\
+        str r5, [sp, #0x10]\n\
+        lsls r6, r5, #1\n\
+        adds r0, r6, r4\n\
+        strh r1, [r0]\n\
+        ldr r0, [sp, #0x30]\n\
+        adds r4, r0, r3\n\
+        lsls r4, r4, #1\n\
+        ldr r3, _0804E5B8  @ gBG0TilemapBuffer\n\
+        adds r0, r4, r3\n\
+        strh r1, [r0]\n\
+        ldr r5, [sp, #0x30]\n\
+        ldr r0, [sp, #4]\n\
+        adds r3, r5, r0\n\
+        lsls r3, r3, #1\n\
+        ldr r5, _0804E5B8  @ gBG0TilemapBuffer\n\
+        adds r0, r3, r5\n\
+        strh r1, [r0]\n\
+        ldr r0, _0804E5B4  @ gBG1TilemapBuffer\n\
+        adds r2, r2, r0\n\
+        mov r1, ip\n\
+        ldrh r0, [r1]\n\
+        strh r0, [r2]\n\
+        ldr r0, [sp, #0x24]\n\
+        adds r0, #1\n\
+        ldr r2, [sp]\n\
+        adds r0, r0, r2\n\
+        lsls r0, r0, #1\n\
+        ldr r5, _0804E5B4  @ gBG1TilemapBuffer\n\
+        adds r0, r0, r5\n\
+        ldrh r1, [r1, #2]\n\
+        strh r1, [r0]\n\
+        ldr r1, [sp, #0x1c]\n\
+        lsls r0, r1, #5\n\
+        adds r1, r0, r2\n\
+        lsls r1, r1, #1\n\
+        adds r1, r1, r5\n\
+        mov r5, ip\n\
+        ldrh r2, [r5, #8]\n\
+        strh r2, [r1]\n\
+        adds r0, #1\n\
+        ldr r1, [sp]\n\
+        adds r0, r0, r1\n\
+        lsls r0, r0, #1\n\
+        ldr r2, _0804E5B4  @ gBG1TilemapBuffer\n\
+        adds r0, r0, r2\n\
+        ldrh r1, [r5, #0xa]\n\
+        strh r1, [r0]\n\
+        adds r6, r6, r2\n\
+        ldrh r0, [r5, #6]\n\
+        strh r0, [r6]\n\
+        adds r4, r4, r2\n\
+        ldrh r0, [r5, #0x18]\n\
+        strh r0, [r4]\n\
+        adds r3, r3, r2\n\
+        ldrh r0, [r5, #0x1e]\n\
+        strh r0, [r3]\n\
+        b _0804E76A\n\
+        .align 2, 0\n\
+    _0804E5B0: .4byte gUnknown_085B6430\n\
+    _0804E5B4: .4byte gBG1TilemapBuffer\n\
+    _0804E5B8: .4byte gBG0TilemapBuffer\n\
+    _0804E5BC:\n\
+        adds r0, r5, #1\n\
+        str r0, [sp, #0x1c]\n\
+        ldr r3, [sp]\n\
+        adds r3, #1\n\
+        str r3, [sp, #0x18]\n\
+        ldr r4, [sp, #8]\n\
+        lsls r4, r4, #5\n\
+        str r4, [sp, #0x30]\n\
+        ldr r5, [sp, #8]\n\
+        cmp r0, r5\n\
+        blt _0804E5D4\n\
+        b _0804E6F0\n\
+    _0804E5D4:\n\
+        movs r1, #0\n\
+        ldr r6, [sp, #0x1c]\n\
+        cmp r0, r6\n\
+        bne _0804E5DE\n\
+        movs r1, #1\n\
+    _0804E5DE:\n\
+        mov r9, r1\n\
+        ldr r7, [sp, #0x18]\n\
+        lsls r5, r0, #5\n\
+        adds r1, r0, #1\n\
+        mov sl, r1\n\
+        adds r0, #2\n\
+        str r0, [sp, #0x20]\n\
+        mov r2, ip\n\
+        adds r2, #0x10\n\
+        str r2, [sp, #0x28]\n\
+        mov r3, ip\n\
+        adds r3, #0x16\n\
+        str r3, [sp, #0x2c]\n\
+        ldr r4, [sp, #4]\n\
+        cmp r7, r4\n\
+        bge _0804E67C\n\
+        ldr r6, _0804E794  @ gBG0TilemapBuffer\n\
+        mov r8, r6\n\
+        movs r3, #0\n\
+        ldr r2, _0804E798  @ gBG1TilemapBuffer\n\
+        mov r0, r9\n\
+        str r0, [sp, #0x48]\n\
+    _0804E60A:\n\
+        adds r0, r5, r7\n\
+        lsls r0, r0, #0x10\n\
+        lsrs r4, r0, #0x10\n\
+        lsls r1, r4, #1\n\
+        mov r6, r8\n\
+        adds r0, r1, r6\n\
+        strh r3, [r0]\n\
+        adds r1, r1, r2\n\
+        mov r0, ip\n\
+        adds r0, #0x12\n\
+        ldr r6, [sp, #0x48]\n\
+        cmp r6, #0\n\
+        beq _0804E626\n\
+        subs r0, #8\n\
+    _0804E626:\n\
+        ldrh r0, [r0]\n\
+        strh r0, [r1]\n\
+        adds r0, r4, #1\n\
+        lsls r0, r0, #0x10\n\
+        lsrs r4, r0, #0x10\n\
+        lsls r1, r4, #1\n\
+        mov r6, r8\n\
+        adds r0, r1, r6\n\
+        strh r3, [r0]\n\
+        adds r1, r1, r2\n\
+        mov r0, ip\n\
+        adds r0, #0x14\n\
+        ldr r6, [sp, #0x48]\n\
+        cmp r6, #0\n\
+        beq _0804E646\n\
+        subs r0, #8\n\
+    _0804E646:\n\
+        ldrh r0, [r0]\n\
+        strh r0, [r1]\n\
+        adds r0, r4, #0\n\
+        adds r0, #0x1f\n\
+        lsls r0, r0, #0x10\n\
+        lsrs r4, r0, #0x10\n\
+        lsls r1, r4, #1\n\
+        mov r6, r8\n\
+        adds r0, r1, r6\n\
+        strh r3, [r0]\n\
+        adds r1, r1, r2\n\
+        mov r6, ip\n\
+        ldrh r0, [r6, #0x12]\n\
+        strh r0, [r1]\n\
+        adds r0, r4, #1\n\
+        lsls r0, r0, #0x10\n\
+        lsrs r0, r0, #0xf\n\
+        mov r4, r8\n\
+        adds r1, r0, r4\n\
+        strh r3, [r1]\n\
+        adds r0, r0, r2\n\
+        ldrh r1, [r6, #0x14]\n\
+        strh r1, [r0]\n\
+        adds r7, #2\n\
+        ldr r6, [sp, #4]\n\
+        cmp r7, r6\n\
+        blt _0804E60A\n\
+    _0804E67C:\n\
+        ldr r1, [sp]\n\
+        adds r0, r5, r1\n\
+        lsls r0, r0, #1\n\
+        ldr r2, _0804E794  @ gBG0TilemapBuffer\n\
+        adds r1, r0, r2\n\
+        movs r6, #0\n\
+        strh r6, [r1]\n\
+        ldr r3, _0804E798  @ gBG1TilemapBuffer\n\
+        adds r1, r0, r3\n\
+        mov r4, r9\n\
+        ldr r0, [sp, #0x28]\n\
+        cmp r4, #0\n\
+        beq _0804E69A\n\
+        mov r0, ip\n\
+        adds r0, #8\n\
+    _0804E69A:\n\
+        ldrh r0, [r0]\n\
+        strh r0, [r1]\n\
+        ldr r0, [sp, #4]\n\
+        adds r1, r5, r0\n\
+        lsls r1, r1, #1\n\
+        ldr r2, _0804E794  @ gBG0TilemapBuffer\n\
+        adds r0, r1, r2\n\
+        strh r6, [r0]\n\
+        ldr r3, _0804E798  @ gBG1TilemapBuffer\n\
+        adds r1, r1, r3\n\
+        ldr r0, [sp, #0x2c]\n\
+        cmp r4, #0\n\
+        beq _0804E6B8\n\
+        mov r0, ip\n\
+        adds r0, #0xe\n\
+    _0804E6B8:\n\
+        ldrh r0, [r0]\n\
+        strh r0, [r1]\n\
+        mov r4, sl\n\
+        lsls r2, r4, #5\n\
+        ldr r5, [sp]\n\
+        adds r1, r2, r5\n\
+        lsls r1, r1, #1\n\
+        ldr r3, _0804E794  @ gBG0TilemapBuffer\n\
+        adds r0, r1, r3\n\
+        strh r6, [r0]\n\
+        ldr r4, _0804E798  @ gBG1TilemapBuffer\n\
+        adds r1, r1, r4\n\
+        mov r5, ip\n\
+        ldrh r0, [r5, #0x10]\n\
+        strh r0, [r1]\n\
+        ldr r0, [sp, #4]\n\
+        adds r2, r2, r0\n\
+        lsls r2, r2, #1\n\
+        adds r0, r2, r3\n\
+        strh r6, [r0]\n\
+        adds r2, r2, r4\n\
+        ldrh r0, [r5, #0x16]\n\
+        strh r0, [r2]\n\
+        ldr r0, [sp, #0x20]\n\
+        ldr r1, [sp, #8]\n\
+        cmp r0, r1\n\
+        bge _0804E6F0\n\
+        b _0804E5D4\n\
+    _0804E6F0:\n\
+        ldr r7, [sp, #0x18]\n\
+        ldr r2, [sp, #4]\n\
+        cmp r7, r2\n\
+        bge _0804E740\n\
+        ldr r3, _0804E794  @ gBG0TilemapBuffer\n\
+        mov r9, r3\n\
+        movs r4, #0\n\
+        mov r8, r4\n\
+        ldr r3, _0804E798  @ gBG1TilemapBuffer\n\
+        ldr r2, [sp, #0x30]\n\
+        adds r2, #1\n\
+        lsls r4, r7, #1\n\
+        ldr r5, [sp, #0x30]\n\
+        lsls r0, r5, #1\n\
+        adds r1, r0, r3\n\
+        adds r5, r4, r1\n\
+        add r0, r9\n\
+        adds r6, r4, r0\n\
+        lsls r2, r2, #1\n\
+        adds r3, r2, r3\n\
+        adds r1, r4, r3\n\
+        add r2, r9\n\
+        adds r4, r4, r2\n\
+    _0804E71E:\n\
+        mov r0, r8\n\
+        strh r0, [r6]\n\
+        mov r2, ip\n\
+        ldrh r0, [r2, #0x1a]\n\
+        strh r0, [r5]\n\
+        mov r3, r8\n\
+        strh r3, [r4]\n\
+        ldrh r0, [r2, #0x1c]\n\
+        strh r0, [r1]\n\
+        adds r5, #4\n\
+        adds r6, #4\n\
+        adds r1, #4\n\
+        adds r4, #4\n\
+        adds r7, #2\n\
+        ldr r0, [sp, #4]\n\
+        cmp r7, r0\n\
+        blt _0804E71E\n\
+    _0804E740:\n\
+        ldr r1, [sp, #0x30]\n\
+        ldr r3, [sp]\n\
+        adds r2, r1, r3\n\
+        lsls r2, r2, #1\n\
+        ldr r4, _0804E794  @ gBG0TilemapBuffer\n\
+        adds r0, r2, r4\n\
+        movs r3, #0\n\
+        strh r3, [r0]\n\
+        ldr r5, [sp, #4]\n\
+        adds r1, r1, r5\n\
+        lsls r1, r1, #1\n\
+        adds r0, r1, r4\n\
+        strh r3, [r0]\n\
+        ldr r6, _0804E798  @ gBG1TilemapBuffer\n\
+        adds r2, r2, r6\n\
+        mov r3, ip\n\
+        ldrh r0, [r3, #0x18]\n\
+        strh r0, [r2]\n\
+        adds r1, r1, r6\n\
+        ldrh r0, [r3, #0x1e]\n\
+        strh r0, [r1]\n\
+    _0804E76A:\n\
+        movs r0, #0\n\
+        movs r1, #0\n\
+        movs r2, #0\n\
+        bl BG_SetPosition\n\
+        movs r0, #1\n\
+        movs r1, #0\n\
+        movs r2, #0\n\
+        bl BG_SetPosition\n\
+        movs r0, #3\n\
+        bl BG_EnableSyncByMask\n\
+        add sp, #0x4c\n\
+        pop {r3, r4, r5}\n\
+        mov r8, r3\n\
+        mov r9, r4\n\
+        mov sl, r5\n\
+        pop {r4, r5, r6, r7}\n\
+        pop {r0}\n\
+        bx r0\n\
+        .align 2, 0\n\
+    _0804E794: .4byte gBG0TilemapBuffer\n\
+    _0804E798: .4byte gBG1TilemapBuffer\n\
+        .syntax divided\n\
+    ");
+}
+
+#endif // NONMATCHING
