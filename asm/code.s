@@ -9151,7 +9151,7 @@ sub_808DF24: @ 0x0808DF24
 	movs r2, #0
 	bl BG_SetPosition
 	bl ClearBG0BG1
-	ldr r0, _0808E070  @ gUnknown_085B6BB4
+	ldr r0, _0808E070  @ gUiFramePaletteA
 	movs r1, #0x40
 	movs r2, #0x60
 	bl CopyToPaletteBuffer
@@ -9220,7 +9220,7 @@ _0808E060: .4byte gLCDControlBuffer
 _0808E064: .4byte 0x0000FFFE
 _0808E068: .4byte 0x0000FFFC
 _0808E06C: .4byte 0x0000FFDC
-_0808E070: .4byte gUnknown_085B6BB4
+_0808E070: .4byte gUiFramePaletteA
 _0808E074: .4byte gUnknown_08A2E5EC
 _0808E078: .4byte 0x06005800
 _0808E07C: .4byte gUnknown_08A2E4C4
@@ -25083,7 +25083,7 @@ _08095D0C:
 	adds r0, r7, #0
 	bl sub_8096BFC
 	bl sub_8095A1C
-	ldr r0, _08095E38  @ gUnknown_085B6BD4
+	ldr r0, _08095E38  @ gUiFramePaletteB
 	movs r1, #0x40
 	movs r2, #0x60
 	bl CopyToPaletteBuffer
@@ -25116,7 +25116,7 @@ _08095E28: .4byte gUnknown_08A1D510
 _08095E2C: .4byte 0x06016000
 _08095E30: .4byte gUnknown_08A1B154
 _08095E34: .4byte gUnknown_08A1D4C8
-_08095E38: .4byte gUnknown_085B6BD4
+_08095E38: .4byte gUiFramePaletteB
 _08095E3C: .4byte gUnknown_08A1B698
 _08095E40: .4byte gUnknown_02020188
 _08095E44: .4byte gUnknown_020235EA
@@ -30206,7 +30206,7 @@ _08098510: .4byte gUnknown_08A18944
 	THUMB_FUNC_START sub_8098514
 sub_8098514: @ 0x08098514
 	push {lr}
-	ldr r0, _08098528  @ gUnknown_085B6BB4
+	ldr r0, _08098528  @ gUiFramePaletteA
 	movs r1, #0x90
 	lsls r1, r1, #2
 	movs r2, #0x20
@@ -30214,7 +30214,7 @@ sub_8098514: @ 0x08098514
 	pop {r0}
 	bx r0
 	.align 2, 0
-_08098528: .4byte gUnknown_085B6BB4
+_08098528: .4byte gUiFramePaletteA
 
 	THUMB_FUNC_START sub_809852C
 sub_809852C: @ 0x0809852C
@@ -30411,7 +30411,7 @@ sub_8098620: @ 0x08098620
 	movs r0, #4
 	bl LoadIconPalettes
 	bl LoadNewUIGraphics
-	ldr r0, _08098980  @ gUnknown_085B6C14
+	ldr r0, _08098980  @ gUiFramePaletteD
 	movs r1, #0x40
 	movs r2, #0x20
 	bl CopyToPaletteBuffer
@@ -30711,7 +30711,7 @@ _08098970: .4byte gUnknown_08205C14
 _08098974: .4byte gUnknown_08A181E8
 _08098978: .4byte gLCDControlBuffer
 _0809897C: .4byte 0x06017800
-_08098980: .4byte gUnknown_085B6C14
+_08098980: .4byte gUiFramePaletteD
 _08098984: .4byte sub_809A274
 _08098988: .4byte gPaletteBuffer
 _0809898C: .4byte gUnknown_02013498
@@ -31067,7 +31067,7 @@ sub_8098C8C: @ 0x08098C8C
 	adds r2, r2, r1
 	adds r1, r2, #0
 	bl CopyDataWithPossibleUncomp
-	ldr r0, _08098CBC  @ gUnknown_085B6C14
+	ldr r0, _08098CBC  @ gUiFramePaletteD
 	adds r4, #0x10
 	lsls r4, r4, #5
 	adds r1, r4, #0
@@ -31079,7 +31079,7 @@ sub_8098C8C: @ 0x08098C8C
 	.align 2, 0
 _08098CB4: .4byte gUnknown_08A1D7DC
 _08098CB8: .4byte 0x06010000
-_08098CBC: .4byte gUnknown_085B6C14
+_08098CBC: .4byte gUiFramePaletteD
 
 	THUMB_FUNC_START sub_8098CC0
 sub_8098CC0: @ 0x08098CC0
@@ -31122,7 +31122,7 @@ sub_8098CC0: @ 0x08098CC0
 	lsls r2, r2, #5
 	adds r1, r4, #0
 	bl CallARM_FillTileRect
-	ldr r0, _08098D84  @ gUnknown_085B6C14
+	ldr r0, _08098D84  @ gUiFramePaletteD
 	movs r1, #0x40
 	movs r2, #0x20
 	bl CopyToPaletteBuffer
@@ -31160,7 +31160,7 @@ sub_8098CC0: @ 0x08098CC0
 _08098D78: .4byte gUnknown_08A1B8B8
 _08098D7C: .4byte gUnknown_02020188
 _08098D80: .4byte gBG1TilemapBuffer
-_08098D84: .4byte gUnknown_085B6C14
+_08098D84: .4byte gUiFramePaletteD
 _08098D88: .4byte 0x00000503
 _08098D8C: .4byte gUnknown_02013510
 _08098D90: .4byte gUnknown_02022EEC
@@ -85208,7 +85208,7 @@ _080B3852:
 	adds r1, r1, r5
 	adds r0, r4, #0
 	bl CopyDataWithPossibleUncomp
-	ldr r0, _080B3A4C  @ gUnknown_085B6BB4
+	ldr r0, _080B3A4C  @ gUiFramePaletteA
 	movs r1, #0xc0
 	movs r2, #0x20
 	bl CopyToPaletteBuffer
@@ -85314,7 +85314,7 @@ _080B3A3C: .4byte gUnknown_08A3593C
 _080B3A40: .4byte gBG3TilemapBuffer
 _080B3A44: .4byte gUnknown_08A35488
 _080B3A48: .4byte gUnknown_08A30800
-_080B3A4C: .4byte gUnknown_085B6BB4
+_080B3A4C: .4byte gUiFramePaletteA
 _080B3A50: .4byte gUnknown_08A30978
 _080B3A54: .4byte gUnknown_0201FB28
 _080B3A58:
@@ -87800,7 +87800,7 @@ sub_80B4E24: @ 0x080B4E24
 	adds r1, #2
 	ldr r0, _080B4E7C  @ 0x00004260
 	strh r0, [r1]
-	ldr r0, _080B4E80  @ gUnknown_085B6BB4
+	ldr r0, _080B4E80  @ gUiFramePaletteA
 	movs r1, #0xa0
 	lsls r1, r1, #2
 	movs r2, #0x20
@@ -87819,7 +87819,7 @@ _080B4E70: .4byte gUnknown_089AD9F8
 _080B4E74: .4byte 0x06014C00
 _080B4E78: .4byte gUnknown_08A394C0
 _080B4E7C: .4byte 0x00004260
-_080B4E80: .4byte gUnknown_085B6BB4
+_080B4E80: .4byte gUiFramePaletteA
 _080B4E84: .4byte gUnknown_02022E60
 
 	THUMB_FUNC_START sub_80B4E88
@@ -140299,7 +140299,7 @@ sub_80CECB0: @ 0x080CECB0
 	lsrs r0, r0, #0x1e
 	adds r0, #4
 	lsls r0, r0, #5
-	ldr r1, _080CEF08  @ gUnknown_085B6BB4
+	ldr r1, _080CEF08  @ gUiFramePaletteA
 	adds r0, r0, r1
 	movs r1, #0x40
 	movs r2, #0x20
@@ -140398,7 +140398,7 @@ _080CEEF8: .4byte 0x06011800
 _080CEEFC: .4byte gUnknown_08B176CC
 _080CEF00: .4byte gUnknown_02020288
 _080CEF04: .4byte gUnknown_0202BCF0
-_080CEF08: .4byte gUnknown_085B6BB4
+_080CEF08: .4byte gUiFramePaletteA
 _080CEF0C: .4byte gUnknown_08B12B1C
 
 	THUMB_FUNC_START sub_80CEF10

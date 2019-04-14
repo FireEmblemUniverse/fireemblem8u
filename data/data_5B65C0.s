@@ -2,80 +2,80 @@
 
 @ UI GRAPHICS DATA
 
-	.global gUnknown_085B65C0
-gUnknown_085B65C0:  @ 0x085B65C0
+	.global gUiFrameImage
+gUiFrameImage:  @ 0x085B65C0
 	.incbin "baserom.gba", 0x5B65C0, 0x5F4
 
-	.global gUnknown_085B6BB4
-gUnknown_085B6BB4:  @ 0x085B6BB4
+	.global gUiFramePaletteA
+gUiFramePaletteA:  @ 0x085B6BB4
 	.incbin "baserom.gba", 0x5B6BB4, 0x20
 
-	.global gUnknown_085B6BD4
-gUnknown_085B6BD4:  @ 0x085B6BD4
+	.global gUiFramePaletteB
+gUiFramePaletteB:  @ 0x085B6BD4
 	.incbin "baserom.gba", 0x5B6BD4, 0x20
 
-	.global gUnknown_085B6BF4
-gUnknown_085B6BF4:  @ 0x085B6BF4
+	.global gUiFramePaletteC
+gUiFramePaletteC:  @ 0x085B6BF4
 	.incbin "baserom.gba", 0x5B6BF4, 0x20
 
-	.global gUnknown_085B6C14
-gUnknown_085B6C14:  @ 0x085B6C14
+	.global gUiFramePaletteD
+gUiFramePaletteD:  @ 0x085B6C14
 	.incbin "baserom.gba", 0x5B6C14, 0xA0
 
-	.global gUnknown_085B6CB4
-gUnknown_085B6CB4:  @ 0x085B6CB4
+	.global gLegacyUiFrameAImage
+gLegacyUiFrameAImage:  @ 0x085B6CB4
 	.incbin "baserom.gba", 0x5B6CB4, 0x8AC
 
-	.global gUnknown_085B7560
-gUnknown_085B7560:  @ 0x085B7560
+	.global gLegacyUiFrameAPalette
+gLegacyUiFrameAPalette:  @ 0x085B7560
 	.incbin "baserom.gba", 0x5B7560, 0x20
 
-	.global gUnknown_085B7580
-gUnknown_085B7580:  @ 0x085B7580
+	.global gUiBarPaletteA
+gUiBarPaletteA:  @ 0x085B7580
 	.incbin "baserom.gba", 0x5B7580, 0x20
 
-	.global gUnknown_085B75A0
-gUnknown_085B75A0:  @ 0x085B75A0
+	.global gLegacyUiFrameBImage
+gLegacyUiFrameBImage:  @ 0x085B75A0
 	.incbin "baserom.gba", 0x5B75A0, 0x8B4
 
-	.global gUnknown_085B7E54
-gUnknown_085B7E54:  @ 0x085B7E54
+	.global gLegacyUiFrameBPalette
+gLegacyUiFrameBPalette:  @ 0x085B7E54
 	.incbin "baserom.gba", 0x5B7E54, 0x20
 
-	.global gUnknown_085B7E74
-gUnknown_085B7E74:  @ 0x085B7E74
+	.global gUiBarPaletteB
+gUiBarPaletteB:  @ 0x085B7E74
 	.incbin "baserom.gba", 0x5B7E74, 0x20
 
-	.global gUnknown_085B7E94
-gUnknown_085B7E94:  @ 0x085B7E94
+	.global gLegacyUiFrameCImage
+gLegacyUiFrameCImage:  @ 0x085B7E94
 	.incbin "baserom.gba", 0x5B7E94, 0x880
 
-	.global gUnknown_085B8714
-gUnknown_085B8714:
+	.global gLegacyUiFrameCPalette
+gLegacyUiFrameCPalette:
 	.incbin "baserom.gba", 0x5B8714, 0x20
 
-	.global gUnknown_085B8734
-gUnknown_085B8734:
+	.global gUiBarPaletteC
+gUiBarPaletteC:
 	.incbin "baserom.gba", 0x5B8734, 0x20
 
-	.global gUnknown_085B8754
-gUnknown_085B8754:
+	.global gLegacyUiFrameDImage
+gLegacyUiFrameDImage:
 	.incbin "baserom.gba", 0x5B8754, 0x83C
 
-	.global gUnknown_085B8F90
-gUnknown_085B8F90:
+	.global gLegacyUiFrameDPalette
+gLegacyUiFrameDPalette:
 	.incbin "baserom.gba", 0x5B8F90, 0x20
 
-	.global gUnknown_085B8FB0
-gUnknown_085B8FB0:
+	.global gUiBarPaletteD
+gUiBarPaletteD:
 	.incbin "baserom.gba", 0x5B8FB0, 0x40
 
-	.global gUnknown_085B8FF0
-gUnknown_085B8FF0:  @ 0x085B8FF0
+	.global gUnkUiFrameImage
+gUnkUiFrameImage:  @ 0x085B8FF0
 	.incbin "baserom.gba", 0x5B8FF0, 0x254
 
-	.global gUnknown_085B9244
-gUnknown_085B9244:  @ 0x085B9244
+	.global gUnkUiFramePalettes
+gUnkUiFramePalettes:  @ 0x085B9244
 	.incbin "baserom.gba", 0x5B9244, 0x80
 
 @ OTHER STUFF

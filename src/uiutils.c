@@ -19,38 +19,38 @@ static const u16* sUiFrameModelTilemapLookup[] = {
 };
 
 static const u16* sLegacyUiFramePaletteLookup[] = {
-    gUnknown_085B7560,
-    gUnknown_085B7E54,
-    gUnknown_085B8714,
-    gUnknown_085B8F90,
+    gLegacyUiFrameAPalette,
+    gLegacyUiFrameBPalette,
+    gLegacyUiFrameCPalette,
+    gLegacyUiFrameDPalette,
 };
 
 static const u16* sUiFramePaletteLookup[] = {
-    gUnknown_085B6BB4,
-    gUnknown_085B6BD4,
-    gUnknown_085B6BF4,
-    gUnknown_085B6C14,
+    gUiFramePaletteA,
+    gUiFramePaletteB,
+    gUiFramePaletteC,
+    gUiFramePaletteD,
 };
 
 static const void* sLegacyUiFrameImageLookup[] = {
-    gUnknown_085B6CB4,
-    gUnknown_085B75A0,
-    gUnknown_085B7E94,
-    gUnknown_085B8754,
+    gLegacyUiFrameAImage,
+    gLegacyUiFrameBImage,
+    gLegacyUiFrameCImage,
+    gLegacyUiFrameDImage,
 };
 
 static const void* sUiFrameImageLookup[] = {
-    gUnknown_085B65C0,
-    gUnknown_085B65C0,
-    gUnknown_085B65C0,
-    gUnknown_085B65C0,
+    gUiFrameImage,
+    gUiFrameImage,
+    gUiFrameImage,
+    gUiFrameImage,
 };
 
 static const u16* sStatBarPaletteLookup[] = {
-    gUnknown_085B7580,
-    gUnknown_085B7E74,
-    gUnknown_085B8734,
-    gUnknown_085B8FB0,
+    gUiBarPaletteA,
+    gUiBarPaletteB,
+    gUiBarPaletteC,
+    gUiBarPaletteD,
 };
 
 // TODO: OBJ DATA/SPRITE HELPER DEFINITIONS
@@ -75,7 +75,7 @@ void LoadOldUIPal(int palId)
     if (palId < 0)
         palId = BGPAL_UI_FRAME;
 
-    CopyToPaletteBuffer(sLegacyUiFramePaletteLookup[gUnknown_0202BCF0.cfgWindowColor], palId * 0x20, 0x20);
+    ApplyPalette(sLegacyUiFramePaletteLookup[gUnknown_0202BCF0.cfgWindowColor], palId);
 }
 
 void LoadNewUIPal(int palId)
@@ -83,13 +83,13 @@ void LoadNewUIPal(int palId)
     if (palId < 0)
         palId = BGPAL_UI_FRAME;
 
-    CopyToPaletteBuffer(sUiFramePaletteLookup[gUnknown_0202BCF0.cfgWindowColor], palId * 0x20, 0x20);
+    ApplyPalette(sUiFramePaletteLookup[gUnknown_0202BCF0.cfgWindowColor], palId);
 }
 
 void LoadOldUIImage(void* dest)
 {
     if (dest == NULL)
-        dest = (void*) BG_VRAM; // TODO: BETTER CONSTANT TYPING
+        dest = BG_CHAR_ADDR(0);
 
     CopyDataWithPossibleUncomp(sLegacyUiFrameImageLookup[gUnknown_0202BCF0.cfgWindowColor], dest);
 }
@@ -97,7 +97,7 @@ void LoadOldUIImage(void* dest)
 void LoadNewUIImage(void* dest)
 {
     if (dest == NULL)
-        dest = (void*) BG_VRAM; // TODO: BETTER CONSTANT TYPING
+        dest = BG_CHAR_ADDR(0);
 
     CopyDataWithPossibleUncomp(sUiFrameImageLookup[gUnknown_0202BCF0.cfgWindowColor], dest);
 }
@@ -105,9 +105,9 @@ void LoadNewUIImage(void* dest)
 void sub_804E138(int palId)
 {
     if (palId < 0)
-        palId = 6; // TODO: CONSTANTS
+        palId = BGPAL_UI_STATBAR;
 
-    CopyToPaletteBuffer(sStatBarPaletteLookup[gUnknown_0202BCF0.cfgWindowColor], palId * 0x20, 0x20);
+    ApplyPalette(sStatBarPaletteLookup[gUnknown_0202BCF0.cfgWindowColor], palId);
 }
 
 void sub_804E168(int id)
@@ -122,7 +122,7 @@ void sub_804E168(int id)
     bufAddr = gUnknown_02022288 - bufSize;
 
     CopyDataWithPossibleUncomp(sUiFrameImageLookup[id], bufAddr);
-    RegisterTileGraphics(bufAddr, (void*) BG_VRAM, bufSize);
+    RegisterTileGraphics(bufAddr, BG_CHAR_ADDR(0), bufSize);
 
     LoadNewUIPal(-1);
 }
@@ -397,6 +397,8 @@ void MakeUIWindowTileMap_BG0BG1(int x, int y, int width, int height, int style)
 __attribute__((naked))
 void MakeUIWindowTileMap_BG0BG1(int x, int y, int width, int height, int style)
 {
+    // :/
+
     asm("\n\
         .syntax unified\n\
         push {r4, r5, r6, r7, lr}\n\
@@ -968,13 +970,13 @@ void sub_804E79C(int x, int y)
     sPrevHandScreenPosition.y = y;
     sPrevHandClockFrame = GetGameClock();
 
-    x += (sHandHOffsetLookup[GetGameClock() % 0x20] - 14);
+    x += (sHandHOffsetLookup[GetGameClock() % ARRAY_COUNT(sHandHOffsetLookup)] - 14);
     RegisterObjectAttributes_SafeMaybe(2, x, y, sSprite_Hand, 0);
 }
 
 void sub_804E80C(int x, int y)
 {
-    x += (sHandHOffsetLookup[GetGameClock() % 0x20] - 14);
+    x += (sHandHOffsetLookup[GetGameClock() % ARRAY_COUNT(sHandHOffsetLookup)] - 14);
     RegisterObjectAttributes_SafeMaybe(2, x, y, sSprite_Hand, 0);
 }
 
@@ -1009,12 +1011,12 @@ void sub_804E8A8(int x, int y, int width)
 
     // TODO: meaningful constants
 
-    gBG1TilemapBuffer[TILEMAP_INDEX(x, y)] = 0x107A;
+    gBG1TilemapBuffer[TILEMAP_INDEX(x, y)] = TILEREF(0x7A, BGPAL_UI_FRAME);
 
     for (x += 1; x < xMax; ++x)
-        gBG1TilemapBuffer[TILEMAP_INDEX(x, y)] = 0x107B;
+        gBG1TilemapBuffer[TILEMAP_INDEX(x, y)] = TILEREF(0x7B, BGPAL_UI_FRAME);
 
-    gBG1TilemapBuffer[TILEMAP_INDEX(x, y)] = 0x107C;
+    gBG1TilemapBuffer[TILEMAP_INDEX(x, y)] = TILEREF(0x7C, BGPAL_UI_FRAME);
 
     BG_EnableSyncByMask(BG1_SYNC_BIT);
 }
@@ -1047,14 +1049,14 @@ void sub_804E98C(int bg, int base, int x, int y, int width)
 
     tilemap = BG_GetMapBuffer(bg);
 
-    tilemap[TILEMAP_INDEX(x, y)] = 0x107A + base;
+    tilemap[TILEMAP_INDEX(x, y)] = TILEREF(0x7A, BGPAL_UI_FRAME) + base;
 
     for (x += 1; x < xMax; ++x)
-        tilemap[TILEMAP_INDEX(x, y)] = 0x107B + base;
+        tilemap[TILEMAP_INDEX(x, y)] = TILEREF(0x7B, BGPAL_UI_FRAME) + base;
 
-    tilemap[TILEMAP_INDEX(x, y)] = 0x107C + base;
+    tilemap[TILEMAP_INDEX(x, y)] = TILEREF(0x7C, BGPAL_UI_FRAME) + base;
 
-    BG_EnableSyncByMask(1 << bg);
+    BG_EnableSyncByMask(BG_SYNC_BIT(bg));
 }
 
 void sub_804EA08(int bg, int base, int x, int y, int width)
@@ -1077,13 +1079,13 @@ void sub_804EA08(int bg, int base, int x, int y, int width)
         ? gUnknown_080DA374[6] + base
         : gUnknown_080DA374[7] + base;
 
-    BG_EnableSyncByMask(1 << bg);
+    BG_EnableSyncByMask(BG_SYNC_BIT(bg));
 }
 
 void sub_804EA8C(void* vram, int palId, int palCount)
 {
-    CopyDataWithPossibleUncomp(gUnknown_085B8FF0, vram);
-    CopyToPaletteBuffer(gUnknown_085B9244, palId*0x20, palCount*0x20);
+    CopyDataWithPossibleUncomp(gUnkUiFrameImage, vram);
+    ApplyPalettes(gUnkUiFramePalettes, palId, palCount);
 }
 
 void sub_804EAB8(int x, int y, unsigned objTileOffset)
@@ -1098,7 +1100,7 @@ void sub_804EAB8(int x, int y, unsigned objTileOffset)
     sPrevHandScreenPosition.y = y;
     sPrevHandClockFrame = GetGameClock();
 
-    x += (sHandHOffsetLookup[GetGameClock() % 0x20] - 14);
+    x += (sHandHOffsetLookup[GetGameClock() % ARRAY_COUNT(sHandHOffsetLookup)] - 14);
     RegisterObjectAttributes_SafeMaybe(2, x, y, sSprite_Hand, objTileOffset << 15 >> 20);
 }
 

@@ -6,13 +6,20 @@
 #define TILEMAP_INDEX(aX, aY) (0x20 * (aY) + (aX))
 #define TILEMAP_LOCATED(aMap, aX, aY) (TILEMAP_INDEX((aX), (aY)) + (aMap))
 
+#define TILEREF(aChar, aPal) ((aChar) + ((aPal) << 12))
+
+#define BG_SYNC_BIT(aBg) (1 << (aBg))
+
 enum
 {
-    BG0_SYNC_BIT = (1 << 0),
-    BG1_SYNC_BIT = (1 << 1),
-    BG2_SYNC_BIT = (1 << 2),
-    BG3_SYNC_BIT = (1 << 3),
+    BG0_SYNC_BIT = BG_SYNC_BIT(0),
+    BG1_SYNC_BIT = BG_SYNC_BIT(1),
+    BG2_SYNC_BIT = BG_SYNC_BIT(2),
+    BG3_SYNC_BIT = BG_SYNC_BIT(3),
 };
+
+#define ApplyPalettes(aSrc, aPalId, aPalCount) CopyToPaletteBuffer((aSrc), 0x20 * (aPalId), 0x20 * (aPalCount))
+#define ApplyPalette(aSrc, aPalId) ApplyPalettes((aSrc), (aPalId), 1)
 
 // Functions
 

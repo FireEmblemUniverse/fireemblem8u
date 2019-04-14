@@ -3,7 +3,8 @@
 
 enum
 {
-    BGPAL_UI_FRAME = 1,
+    BGPAL_UI_FRAME   = 1,
+	BGPAL_UI_STATBAR = 6,
 };
 
 void LoadOldUIPal(int palId);
