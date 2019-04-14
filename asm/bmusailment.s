@@ -7,7 +7,7 @@
 	THUMB_FUNC_START sub_8035AA4
 sub_8035AA4: @ 0x08035AA4
 	push {r4, r5, r6, lr}
-	bl ClearBG0BG1
+	bl ClearBg0Bg1
 	ldr r0, _08035AF8  @ gUnknown_08A032AC
 	ldr r1, _08035AFC  @ 0x06005000
 	bl CopyDataWithPossibleUncomp
@@ -397,7 +397,7 @@ _08035D94:
 	THUMB_FUNC_START sub_8035D9C
 sub_8035D9C: @ 0x08035D9C
 	push {r4, lr}
-	bl ClearBG0BG1
+	bl ClearBg0Bg1
 	ldr r4, _08035DD8  @ gLCDControlBuffer
 	ldrb r1, [r4, #1]
 	movs r0, #0x21

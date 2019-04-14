@@ -568,7 +568,7 @@ _0804EF8C:
 	ldr r4, [r7, #0x30]
 	ldrb r4, [r4, #4]
 	str r4, [sp, #8]
-	bl WriteUIWindowTileMap
+	bl DrawUiFrame
 	ldrb r0, [r5]
 	lsls r0, r0, #0x1c
 	lsrs r0, r0, #0x1e
@@ -585,7 +585,7 @@ _0804EF8C:
 	movs r4, #0
 	ldrsb r4, [r6, r4]
 	str r4, [sp]
-	bl ClearTileMapRect
+	bl ClearUiFrame
 	movs r0, #0
 	mov r8, r0
 	adds r0, r7, #0
@@ -746,7 +746,7 @@ Menu_DrawHoverThing: @ 0x0804F0E0
 	ldrh r1, [r1]
 	str r2, [sp]
 	adds r2, r5, #0
-	bl sub_804E98C
+	bl DrawUiItemHoverExt
 	b _0804F15C
 _0804F144:
 	mov r0, ip
@@ -759,7 +759,7 @@ _0804F144:
 	ldrh r1, [r1]
 	str r2, [sp]
 	adds r2, r5, #0
-	bl sub_804EA08
+	bl ClearUiItemHoverExt
 _0804F15C:
 	add sp, #4
 	pop {r4, r5}
@@ -783,7 +783,7 @@ Menu_Idle: @ 0x0804F164
 	bl Menu_GetCursorGfxCurrentPosition
 	ldr r0, [sp]
 	ldr r1, [sp, #4]
-	bl sub_804E848
+	bl DisplayFrozenUiHand
 	b _0804F286
 _0804F18A:
 	movs r0, #0x80
@@ -903,7 +903,7 @@ _0804F252:
 	bl Menu_UpdateMovingCursorGfxPosition
 	ldr r0, [sp]
 	ldr r1, [sp, #4]
-	bl sub_804E79C
+	bl DisplayUiHand
 _0804F286:
 	add sp, #8
 	pop {r4, r5, r6}
@@ -1216,7 +1216,7 @@ sub_804F4A0: @ 0x0804F4A0
 	bl Menu_UpdateMovingCursorGfxPosition
 	ldr r0, [sp]
 	ldr r1, [sp, #4]
-	bl sub_804E79C
+	bl DisplayUiHand
 	ldr r0, _0804F4E8  @ gKeyStatusPtr
 	ldr r0, [r0]
 	ldrh r1, [r0, #8]
@@ -1283,7 +1283,7 @@ sub_804F530: @ 0x0804F530
 	bl Menu_UpdateMovingCursorGfxPosition
 	ldr r0, [sp]
 	ldr r1, [sp, #4]
-	bl sub_804E848
+	bl DisplayFrozenUiHand
 	ldr r0, _0804F578  @ gKeyStatusPtr
 	ldr r0, [r0]
 	ldrh r1, [r0, #8]
@@ -1315,9 +1315,9 @@ Menu_CallTextBox: @ 0x0804F580
 	negs r1, r1
 	movs r0, #0
 	bl LoadDialogueBoxGfx
-	bl sub_804E86C
+	bl GetUiHandPrevDisplayX
 	adds r4, r0, #0
-	bl sub_804E878
+	bl GetUiHandPrevDisplayY
 	adds r1, r0, #0
 	adds r0, r4, #0
 	adds r2, r5, #0
@@ -1343,7 +1343,7 @@ sub_804F5B4: @ 0x0804F5B4
 	bl Menu_UpdateMovingCursorGfxPosition
 	ldr r0, [sp]
 	ldr r1, [sp, #4]
-	bl sub_804E848
+	bl DisplayFrozenUiHand
 	ldr r0, _0804F5F4  @ gKeyStatusPtr
 	ldr r0, [r0]
 	ldrh r1, [r0, #8]

@@ -1146,7 +1146,7 @@ void RefreshBMapDisplay_FromBattle(void) {
     LoadGameCoreGfx();
     SetupMapSpritesPalettes();
 
-    ClearBG0BG1();
+    ClearBg0Bg1();
 
     gLCDControlBuffer.dispcnt.win0_on = FALSE;
     gLCDControlBuffer.dispcnt.win1_on = FALSE;

@@ -191,7 +191,7 @@ PROC_LABEL(L_TRADEMENU_SELECTED),
 
 PROC_LABEL(L_TRADEMENU_END),
     PROC_CALL_ROUTINE(TradeMenu_ClearDisplay),
-    PROC_CALL_ROUTINE(ClearBG0BG1),
+    PROC_CALL_ROUTINE(ClearBg0Bg1),
 
     PROC_CALL_ROUTINE(SubSkipThread2),
 
@@ -296,13 +296,13 @@ void TradeMenu_HighlightUpdater_OnLoop(struct TradeMenuProc* proc)
 
     if (proc->hoverColumn != TRADEMENU_UNIT_UNDEFINED)
     {
-        sub_804E90C(
+        ClearUiItemHover(
             sItemDisplayTileLocation[proc->hoverColumn][proc->hoverRow].x,
             sItemDisplayTileLocation[proc->hoverColumn][proc->hoverRow].y,
             12);
     }
 
-    sub_804E8A8(
+    DrawUiItemHover(
         sItemDisplayTileLocation[tradeMenu->hoverColumn][tradeMenu->hoverRow].x,
         sItemDisplayTileLocation[tradeMenu->hoverColumn][tradeMenu->hoverRow].y,
         12);
@@ -475,8 +475,8 @@ void TradeMenu_ApplyItemSwap(struct TradeMenuProc* proc)
 
 void TradeMenu_InitItemDisplay(struct TradeMenuProc* proc)
 {
-    MakeUIWindowTileMap_BG0BG1(1,  8, 14, 12, 0);
-    MakeUIWindowTileMap_BG0BG1(15, 8, 14, 12, 0);
+    DrawUiFrame2(1,  8, 14, 12, 0);
+    DrawUiFrame2(15, 8, 14, 12, 0);
 
     sub_8003D20();
 
@@ -506,7 +506,7 @@ void TradeMenu_OnLoopUnselected(struct TradeMenuProc* proc)
 {
     if (TradeMenu_UpdateTutorial(proc))
     {
-        sub_804E79C(
+        DisplayUiHand(
             8 * sItemDisplayTileLocation[proc->hoverColumn][proc->hoverRow].x,
             8 * sItemDisplayTileLocation[proc->hoverColumn][proc->hoverRow].y);
     }
@@ -514,7 +514,7 @@ void TradeMenu_OnLoopUnselected(struct TradeMenuProc* proc)
     {
         TradeMenu_UpdateSelection(proc);
 
-        sub_804E79C(
+        DisplayUiHand(
             8 * sItemDisplayTileLocation[proc->hoverColumn][proc->hoverRow].x,
             8 * sItemDisplayTileLocation[proc->hoverColumn][proc->hoverRow].y);
 
@@ -562,11 +562,11 @@ void TradeMenu_OnLoopSelected(struct TradeMenuProc* proc)
 {
     if (TradeMenu_UpdateTutorial(proc))
     {
-        sub_804E79C(
+        DisplayUiHand(
             8 * sItemDisplayTileLocation[proc->hoverColumn][proc->hoverRow].x,
             8 * sItemDisplayTileLocation[proc->hoverColumn][proc->hoverRow].y);
 
-        sub_804E848(
+        DisplayFrozenUiHand(
             8 * sItemDisplayTileLocation[proc->selectedColumn][proc->selectedRow].x,
             8 * sItemDisplayTileLocation[proc->selectedColumn][proc->selectedRow].y);
     }
@@ -574,11 +574,11 @@ void TradeMenu_OnLoopSelected(struct TradeMenuProc* proc)
     {
         TradeMenu_UpdateSelection(proc);
 
-        sub_804E79C(
+        DisplayUiHand(
             8 * sItemDisplayTileLocation[proc->hoverColumn][proc->hoverRow].x,
             8 * sItemDisplayTileLocation[proc->hoverColumn][proc->hoverRow].y);
 
-        sub_804E848(
+        DisplayFrozenUiHand(
             8 * sItemDisplayTileLocation[proc->selectedColumn][proc->selectedRow].x,
             8 * sItemDisplayTileLocation[proc->selectedColumn][proc->selectedRow].y);
 
@@ -681,13 +681,13 @@ void TradeMenu_HelpBox_OnLoop(struct Proc* proc)
         Proc_ClearNativeCallback(proc);
     }
 
-    sub_804E79C(
+    DisplayUiHand(
         8 * sItemDisplayTileLocation[tradeMenu->hoverColumn][tradeMenu->hoverRow].x,
         8 * sItemDisplayTileLocation[tradeMenu->hoverColumn][tradeMenu->hoverRow].y);
 
     if (tradeMenu->extraCellEnabled)
     {
-        sub_804E848(
+        DisplayFrozenUiHand(
             8 * sItemDisplayTileLocation[tradeMenu->selectedColumn][tradeMenu->selectedRow].x,
             8 * sItemDisplayTileLocation[tradeMenu->selectedColumn][tradeMenu->selectedRow].y);
     }
@@ -704,13 +704,13 @@ void TradeMenu_HelpBox_OnEnd(struct Proc* proc)
 
     sub_8089018();
 
-    sub_804E79C(
+    DisplayUiHand(
         8 * sItemDisplayTileLocation[tradeMenu->hoverColumn][tradeMenu->hoverRow].x,
         8 * sItemDisplayTileLocation[tradeMenu->hoverColumn][tradeMenu->hoverRow].y);
 
     if (tradeMenu->extraCellEnabled)
     {
-        sub_804E848(
+        DisplayFrozenUiHand(
             8 * sItemDisplayTileLocation[tradeMenu->selectedColumn][tradeMenu->selectedRow].x,
             8 * sItemDisplayTileLocation[tradeMenu->selectedColumn][tradeMenu->selectedRow].y);
     }
@@ -750,7 +750,7 @@ void TradeMenu_TutorialHandCursor_Update(void)
 {
     struct TradeMenuProc* tradeMenu = sTradeMenuProc;
 
-    sub_804E848(
+    DisplayFrozenUiHand(
         8 * sItemDisplayTileLocation[tradeMenu->hoverColumn][tradeMenu->hoverRow].x,
         8 * sItemDisplayTileLocation[tradeMenu->hoverColumn][tradeMenu->hoverRow].y);
 }
@@ -759,11 +759,11 @@ void TradeMenu_DoubleTutorialHandCursor_Update(void)
 {
     struct TradeMenuProc* tradeMenu = sTradeMenuProc;
 
-    sub_804E848(
+    DisplayFrozenUiHand(
         8 * sItemDisplayTileLocation[tradeMenu->hoverColumn][tradeMenu->hoverRow].x,
         8 * sItemDisplayTileLocation[tradeMenu->hoverColumn][tradeMenu->hoverRow].y);
 
-    sub_804E848(
+    DisplayFrozenUiHand(
         8 * sItemDisplayTileLocation[tradeMenu->selectedColumn][tradeMenu->selectedRow].x,
         8 * sItemDisplayTileLocation[tradeMenu->selectedColumn][tradeMenu->selectedRow].y);
 }

@@ -482,7 +482,7 @@ LongPopup_PrepareGfx: @ 0x0801119C
 	movs r3, #0
 	bl Font_InitForUI
 	bl ResetIconGraphics
-	bl LoadNewUIGraphics
+	bl LoadUiFrameGraphics
 	bl SetDefaultColorEffects
 	ldr r2, _080111F0  @ gLCDControlBuffer
 	ldrb r1, [r2, #1]
@@ -643,7 +643,7 @@ _080112D6:
 	mov r1, r8
 	adds r2, r4, #0
 	movs r3, #4
-	bl MakeUIWindowTileMap_BG0BG1
+	bl DrawUiFrame2
 	movs r0, #0x37
 	adds r0, r0, r5
 	mov sl, r0

@@ -3445,7 +3445,7 @@ sub_8042FE0: @ 0x08042FE0
 	cmp r1, r0
 	ble _08042FF8
 	ldr r0, [r2, #0x2c]
-	bl sub_804E848
+	bl DisplayFrozenUiHand
 _08042FF8:
 	pop {r0}
 	bx r0
@@ -5256,7 +5256,7 @@ _08043E70:
 	lsls r1, r1, #4
 	adds r1, #0x28
 	movs r0, #0x50
-	bl sub_804E79C
+	bl DisplayUiHand
 	ldr r0, [r7, #0x38]
 	lsls r0, r0, #0x18
 	lsrs r0, r0, #0x18
@@ -5274,7 +5274,7 @@ _08043E92:
 	lsls r1, r1, #4
 	adds r1, #0x28
 	movs r0, #0x50
-	bl sub_804E79C
+	bl DisplayUiHand
 	ldr r0, _08043ED0  @ gKeyStatusPtr
 	ldr r0, [r0]
 	ldrh r1, [r0, #8]
@@ -6010,7 +6010,7 @@ _08044484:
 	ldr r1, [r4, #0x58]
 	lsls r1, r1, #3
 	adds r1, #0x20
-	bl sub_804E79C
+	bl DisplayUiHand
 	ldr r0, _080444D4  @ gKeyStatusPtr
 	ldr r0, [r0]
 	ldrh r1, [r0, #8]
@@ -7625,7 +7625,7 @@ _08045158:
 	lsls r0, r0, #3
 	adds r0, #0x50
 	movs r1, #0x60
-	bl sub_804E79C
+	bl DisplayUiHand
 	ldr r0, _08045198  @ gKeyStatusPtr
 	ldr r0, [r0]
 	ldrh r1, [r0, #8]
@@ -10958,7 +10958,7 @@ sub_8046CF0: @ 0x08046CF0
 	lsls r1, r1, #5
 	adds r1, #0x28
 	movs r0, #0x1c
-	bl sub_804E79C
+	bl DisplayUiHand
 	ldr r0, [r6, #0x48]
 	cmp r5, r0
 	beq _08046D2A
@@ -13428,7 +13428,7 @@ _080481D8:
 sub_80481E0: @ 0x080481E0
 	push {r4, lr}
 	adds r4, r0, #0
-	bl LoadNewUIGraphics
+	bl LoadUiFrameGraphics
 	ldr r0, _08048248  @ gUnknown_0203DB64
 	ldr r1, _0804824C  @ 0x06001800
 	movs r2, #0xc0
@@ -13499,7 +13499,7 @@ _0804827C: .4byte gUnknown_085A9614
 sub_8048280: @ 0x08048280
 	push {r4, lr}
 	adds r4, r0, #0
-	bl LoadOldUIGfx
+	bl LoadLegacyUiFrameGraphics
 	bl sub_8042E88
 	ldr r0, _080482CC  @ gUnknown_0203DB64
 	ldr r1, _080482D0  @ 0x06001800
@@ -14093,14 +14093,14 @@ sub_8048730: @ 0x08048730
 	push {r4, r5, lr}
 	sub sp, #0xc
 	movs r0, #6
-	bl sub_804E138
+	bl UnpackUiBarPalette
 	movs r5, #0
 	str r5, [sp]
 	movs r0, #0xd
 	movs r1, #0xb
 	movs r2, #0x10
 	movs r3, #6
-	bl MakeUIWindowTileMap_BG0BG1
+	bl DrawUiFrame2
 	ldr r0, _0804878C  @ gUnknown_0203DB64
 	bl SetFont
 	bl Font_LoadForUI
@@ -14515,7 +14515,7 @@ sub_8048A94: @ 0x08048A94
 	push {lr}
 	ldr r0, _08048AA4  @ gUnknown_085AA06C
 	bl Proc_DeleteAllWithScript
-	bl ClearBG0BG1
+	bl ClearBg0Bg1
 	pop {r0}
 	bx r0
 	.align 2, 0
@@ -17712,7 +17712,7 @@ sub_804A44C: @ 0x0804A44C
 	ldrb r0, [r0]
 	bl GetUnit
 	adds r4, r0, #0
-	bl ClearBG0BG1
+	bl ClearBg0Bg1
 	ldrb r0, [r6, #6]
 	cmp r0, #0
 	bne _0804A4D8
@@ -23030,12 +23030,12 @@ _0804CE0E:
 	adds r1, r7, #0
 	adds r1, #0x30
 	movs r0, #0x20
-	bl sub_804E848
+	bl DisplayFrozenUiHand
 	movs r2, #0x2e
 	ldrsh r0, [r5, r2]
 	movs r2, #0x30
 	ldrsh r1, [r5, r2]
-	bl sub_804E79C
+	bl DisplayUiHand
 	movs r0, #0xc0
 	movs r1, #0x10
 	bl sub_804C2B8

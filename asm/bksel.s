@@ -1133,7 +1133,7 @@ BKSEL_Destructor: @ 0x08036E1C
 	push {lr}
 	movs r0, #1
 	negs r0, r0
-	bl sub_804E168
+	bl UnpackUiFrameBuffered
 	pop {r0}
 	bx r0
 
@@ -1855,7 +1855,7 @@ sub_80373B4: @ 0x080373B4
 	asrs r0, r0, #0x18
 	cmp r0, #0
 	bne _080373E0
-	bl ClearBG0BG1
+	bl ClearBg0Bg1
 	adds r0, r4, #0
 	bl Proc_Delete
 	b _080373E8

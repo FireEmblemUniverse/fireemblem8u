@@ -1936,9 +1936,9 @@ sub_808A4C4: @ 0x0808A4C4
 	negs r1, r1
 	movs r0, #0
 	bl LoadDialogueBoxGfx
-	bl sub_804E86C
+	bl GetUiHandPrevDisplayX
 	adds r4, r0, #0
-	bl sub_804E878
+	bl GetUiHandPrevDisplayY
 	adds r1, r0, #0
 	adds r0, r4, #0
 	adds r2, r5, #0
@@ -7377,7 +7377,7 @@ DeletePlayerPhaseInterface6Cs: @ 0x0808D150
 	ldr r0, _0808D18C  @ gUnknown_08A01A44
 	bl Proc_DeleteAllWithScript
 	bl SetDefaultColorEffects
-	bl ClearBG0BG1
+	bl ClearBg0Bg1
 	pop {r0}
 	bx r0
 	.align 2, 0
@@ -9124,7 +9124,7 @@ sub_808DF24: @ 0x0808DF24
 	orrs r3, r6
 	strb r3, [r4, #0x18]
 	bl Font_InitForUIDefault
-	bl LoadNewUIGraphics
+	bl LoadUiFrameGraphics
 	movs r5, #0
 	movs r0, #0
 	strh r0, [r7, #0x3c]
@@ -9150,7 +9150,7 @@ sub_808DF24: @ 0x0808DF24
 	movs r1, #0
 	movs r2, #0
 	bl BG_SetPosition
-	bl ClearBG0BG1
+	bl ClearBg0Bg1
 	ldr r0, _0808E070  @ gUiFramePaletteA
 	movs r1, #0x40
 	movs r2, #0x60
@@ -13115,7 +13115,7 @@ _080900C6:
 	subs r0, #4
 	movs r2, #0x2e
 	ldrsh r1, [r4, r2]
-	bl sub_804E79C
+	bl DisplayUiHand
 _080900E2:
 	pop {r4, r5, r6}
 	pop {r0}
@@ -14063,7 +14063,7 @@ _080907AC:
 	ldrb r1, [r1]
 	lsls r1, r1, #4
 	adds r1, #0x28
-	bl sub_804E79C
+	bl DisplayUiHand
 	b _08090862
 	.align 2, 0
 _08090834: .4byte gUnknown_08205B84
@@ -14871,7 +14871,7 @@ _08090E88:
 	bl ResetIconGraphics_
 	movs r0, #4
 	bl LoadIconPalettes
-	bl LoadNewUIGraphics
+	bl LoadUiFrameGraphics
 	ldr r0, _08090F7C  @ gUnknown_08A1CD68
 	ldr r1, _08090F80  @ 0x06014800
 	bl CopyDataWithPossibleUncomp
@@ -24950,7 +24950,7 @@ sub_8095C84: @ 0x08095C84
 	ldr r0, _08095E00  @ gUnknown_08A181E8
 	bl SetupBackgrounds
 	bl Font_InitForUIDefault
-	bl LoadNewUIGraphics
+	bl LoadUiFrameGraphics
 	movs r0, #0
 	movs r1, #0xe
 	bl LoadDialogueBoxGfx
@@ -25262,7 +25262,7 @@ sub_8095F54: @ 0x08095F54
 	movs r0, #3
 	movs r1, #5
 	movs r2, #9
-	bl MakeUIWindowTileMap_BG0BG1
+	bl DrawUiFrame2
 	movs r4, #0
 	movs r6, #0xc0
 	lsls r6, r6, #1
@@ -27285,7 +27285,7 @@ sub_8096F44: @ 0x08096F44
 	ldrb r2, [r2]
 	lsls r2, r2, #4
 	adds r1, r1, r2
-	bl sub_804E848
+	bl DisplayFrozenUiHand
 	pop {r0}
 	bx r0
 
@@ -27582,7 +27582,7 @@ sub_8097154: @ 0x08097154
 	adds r0, r6, #0
 	adds r1, r5, #0
 	movs r2, #0xa
-	bl MakeUIWindowTileMap_BG0BG1
+	bl DrawUiFrame2
 	ldrb r0, [r4]
 	mov r9, r4
 	cmp r0, #1
@@ -29198,9 +29198,9 @@ sub_8097DA8: @ 0x08097DA8
 	bge _08097DC4
 	cmp r1, #0
 	bge _08097DC4
-	bl sub_804E86C
+	bl GetUiHandPrevDisplayX
 	adds r4, r0, #0
-	bl sub_804E878
+	bl GetUiHandPrevDisplayY
 	adds r1, r0, #0
 _08097DC4:
 	adds r0, r4, #0
@@ -30410,7 +30410,7 @@ sub_8098620: @ 0x08098620
 	bl ResetIconGraphics_
 	movs r0, #4
 	bl LoadIconPalettes
-	bl LoadNewUIGraphics
+	bl LoadUiFrameGraphics
 	ldr r0, _08098980  @ gUiFramePaletteD
 	movs r1, #0x40
 	movs r2, #0x20
@@ -31086,7 +31086,7 @@ sub_8098CC0: @ 0x08098CC0
 	push {r4, r5, r6, r7, lr}
 	sub sp, #4
 	adds r6, r0, #0
-	bl LoadNewUIGraphics
+	bl LoadUiFrameGraphics
 	movs r0, #1
 	movs r1, #0
 	movs r2, #4
@@ -34454,7 +34454,7 @@ _0809A870: .4byte gUnknown_02013630
 sub_809A874: @ 0x0809A874
 	push {r4, lr}
 	bl ResetIconGraphics_
-	bl LoadNewUIGraphics
+	bl LoadUiFrameGraphics
 	bl LoadObjUIGfx
 	movs r0, #4
 	bl LoadIconPalettes
@@ -36516,7 +36516,7 @@ sub_809B86C: @ 0x0809B86C
 	bl BG_Fill
 	bl Font_InitForUIDefault
 	bl ResetIconGraphics_
-	bl LoadNewUIGraphics
+	bl LoadUiFrameGraphics
 	bl LoadObjUIGfx
 	movs r0, #0
 	movs r1, #0
@@ -36617,13 +36617,13 @@ _0809B992:
 	movs r1, #8
 	movs r2, #0xe
 	movs r3, #0xc
-	bl MakeUIWindowTileMap_BG0BG1
+	bl DrawUiFrame2
 	str r6, [sp]
 	movs r0, #0xf
 	movs r1, #8
 	movs r2, #0xe
 	movs r3, #0xc
-	bl MakeUIWindowTileMap_BG0BG1
+	bl DrawUiFrame2
 	movs r0, #7
 	bl BG_EnableSyncByMask
 	mov r2, r8
@@ -37460,7 +37460,7 @@ sub_809C0B4: @ 0x0809C0B4
 	adds r5, r0, #0
 	mov r8, r1
 	movs r0, #2
-	bl sub_804E138
+	bl UnpackUiBarPalette
 	add r4, sp, #0xc
 	adds r0, r5, #0
 	bl GetUnitCurrentHp
@@ -38013,7 +38013,7 @@ sub_809C4E4: @ 0x0809C4E4
 	strb r0, [r4, #0x18]
 	bl Font_InitForUIDefault
 	bl ResetIconGraphics_
-	bl LoadNewUIGraphics
+	bl LoadUiFrameGraphics
 	bl LoadObjUIGfx
 	bl SetupMapSpritesPalettes
 	movs r0, #0
@@ -40414,7 +40414,7 @@ sub_809D914: @ 0x0809D914
 	bl ResetFaces
 	bl Font_InitForUIDefault
 	bl ResetIconGraphics_
-	bl LoadNewUIGraphics
+	bl LoadUiFrameGraphics
 	bl LoadObjUIGfx
 	movs r0, #0
 	movs r1, #0
@@ -42931,7 +42931,7 @@ sub_809ED8C: @ 0x0809ED8C
 	bl ResetFaces
 	bl Font_InitForUIDefault
 	bl ResetIconGraphics_
-	bl LoadNewUIGraphics
+	bl LoadUiFrameGraphics
 	bl LoadObjUIGfx
 	movs r0, #0
 	movs r1, #0
@@ -45282,7 +45282,7 @@ sub_80A00DC: @ 0x080A00DC
 	bl ResetFaces
 	bl Font_InitForUIDefault
 	bl ResetIconGraphics_
-	bl LoadNewUIGraphics
+	bl LoadUiFrameGraphics
 	bl LoadObjUIGfx
 	movs r0, #0
 	movs r1, #0
@@ -47531,7 +47531,7 @@ sub_80A1270: @ 0x080A1270
 	lsls r0, r0, #7
 	movs r1, #1
 	negs r1, r1
-	bl sub_804EB7C
+	bl LoadUiFrameGraphicsTo
 	bl LoadObjUIGfx
 	movs r0, #0xe
 	bl LoadIconPalettes
@@ -49495,7 +49495,7 @@ sub_80A2274: @ 0x080A2274
 	strb r0, [r4, #0x18]
 	bl Font_InitForUIDefault
 	bl ResetIconGraphics_
-	bl LoadNewUIGraphics
+	bl LoadUiFrameGraphics
 	bl LoadObjUIGfx
 	bl SetupMapSpritesPalettes
 	bl sub_80A221C
@@ -49919,7 +49919,7 @@ sub_80A25F8: @ 0x080A25F8
 	bl ResetFaces
 	bl Font_InitForUIDefault
 	bl ResetIconGraphics_
-	bl LoadOldUIGfx
+	bl LoadLegacyUiFrameGraphics
 	bl LoadObjUIGfx
 	ldr r0, [r5, #0x2c]
 	bl sub_80A0B44
@@ -63138,7 +63138,7 @@ sub_80A8CD4: @ 0x080A8CD4
 	sub sp, #0x10
 	mov r8, r0
 	bl sub_8003D20
-	bl LoadNewUIGraphics
+	bl LoadUiFrameGraphics
 	bl LoadObjUIGfx
 	ldr r0, _080A8EB0  @ gUnknown_08A25DCC
 	movs r6, #0x80
@@ -65953,7 +65953,7 @@ sub_80AA30C: @ 0x080AA30C
 	movs r1, #0
 	bl BG_Fill
 	bl sub_8003D20
-	bl LoadNewUIGraphics
+	bl LoadUiFrameGraphics
 	bl LoadObjUIGfx
 	ldr r0, _080AA410  @ gUnknown_08A25DCC
 	movs r5, #0x80
@@ -67847,7 +67847,7 @@ _080AB1DA:
 	muls r0, r1, r0
 	adds r0, #0x34
 	movs r1, #0x88
-	bl sub_804E79C
+	bl DisplayUiHand
 	mov r2, r8
 	ldr r0, [r2, #0x14]
 	adds r0, #0x2c
@@ -69744,7 +69744,7 @@ sub_80AC084: @ 0x080AC084
 	push {r4, r5, r6, r7, lr}
 	adds r7, r0, #0
 	bl sub_8003D20
-	bl LoadNewUIGraphics
+	bl LoadUiFrameGraphics
 	bl Font_InitForUIDefault
 	adds r4, r7, #0
 	adds r4, #0x38
@@ -72327,7 +72327,7 @@ sub_80AD43C: @ 0x080AD43C
 	adds r4, r0, #0
 	ldr r0, [r4, #0x2c]
 	ldr r1, [r4, #0x30]
-	bl sub_804E79C
+	bl DisplayUiHand
 	adds r0, r4, #0
 	adds r0, #0x35
 	ldrb r0, [r0]
@@ -76801,7 +76801,7 @@ sub_80AF524: @ 0x080AF524
 	bl sub_8003D20
 	bl Font_InitForUIDefault
 	bl LoadObjUIGfx
-	bl LoadNewUIGraphics
+	bl LoadUiFrameGraphics
 	bl Font_LoadForUI
 	ldr r7, _080AF7A4  @ gLCDControlBuffer
 	ldrb r2, [r7, #1]
@@ -79430,7 +79430,7 @@ sub_80B0ABC: @ 0x080B0ABC
 	movs r1, #6
 	movs r2, #0x18
 	movs r3, #0xc
-	bl MakeUIWindowTileMap_BG0BG1
+	bl DrawUiFrame2
 	movs r0, #3
 	bl BG_EnableSyncByMask
 	add sp, #4
@@ -79468,7 +79468,7 @@ sub_80B0ADC: @ 0x080B0ADC
 	bl CallARM_FillTileRect
 	movs r0, #8
 	bl BG_EnableSyncByMask
-	bl LoadNewUIGraphics
+	bl LoadUiFrameGraphics
 	bl Font_InitForUIDefault
 	bl ResetIconGraphics_
 	movs r0, #4
@@ -80098,7 +80098,7 @@ sub_80B1020: @ 0x080B1020
 	movs r0, #0xb
 	movs r1, #5
 	movs r2, #0xe
-	bl MakeUIWindowTileMap_BG0BG1
+	bl DrawUiFrame2
 	ldr r3, _080B113C  @ gLCDControlBuffer
 	ldrb r0, [r3, #1]
 	movs r1, #0x20
@@ -80701,7 +80701,7 @@ _080B154A:
 	mov r1, r8
 	movs r2, #0xa
 	mov r3, r9
-	bl WriteUIWindowTileMap
+	bl DrawUiFrame
 	ldr r0, _080B15E0  @ gLCDControlBuffer
 	mov ip, r0
 	ldrb r0, [r0, #1]
@@ -81214,7 +81214,7 @@ sub_80B1938: @ 0x080B1938
 	adds r4, #0x28
 	movs r0, #0x10
 	adds r1, r4, #0
-	bl sub_804E848
+	bl DisplayFrozenUiHand
 	adds r0, r5, #0
 	bl sub_80B1DE8
 	ldr r2, _080B19FC  @ gUnknown_08A2E99C
@@ -81227,7 +81227,7 @@ sub_80B1938: @ 0x080B1938
 	ldrb r0, [r0, #8]
 	subs r0, #2
 	adds r1, r4, #0
-	bl sub_804E79C
+	bl DisplayUiHand
 	ldr r0, [r6]
 	adds r0, #0x37
 	ldrb r1, [r0]
@@ -81324,7 +81324,7 @@ sub_80B1A08: @ 0x080B1A08
 	strb r0, [r1]
 	bl Font_InitForUIDefault
 	bl sub_80156BC
-	bl LoadNewUIGraphics
+	bl LoadUiFrameGraphics
 	ldr r7, _080B1C5C  @ gLCDControlBuffer
 	ldrb r0, [r7, #1]
 	movs r1, #1
@@ -81562,7 +81562,7 @@ sub_80B1C90: @ 0x080B1C90
 	beq _080B1CA4
 	movs r0, #1
 	negs r0, r0
-	bl sub_804E168
+	bl UnpackUiFrameBuffered
 _080B1CA4:
 	movs r0, #0
 	pop {r1}
@@ -86660,7 +86660,7 @@ sub_80B44A8: @ 0x080B44A8
 	subs r0, #0x48
 	subs r1, r1, r0
 	movs r0, #0x38
-	bl sub_804E79C
+	bl DisplayUiHand
 	adds r0, r5, #0
 	adds r0, #0x62
 	ldrb r0, [r0]
@@ -87039,7 +87039,7 @@ sub_80B47B4: @ 0x080B47B4
 	subs r0, #0x48
 	subs r1, r1, r0
 	movs r0, #0x38
-	bl sub_804E79C
+	bl DisplayUiHand
 	adds r0, r5, #0
 	adds r0, #0x62
 	ldrb r0, [r0]
@@ -87367,7 +87367,7 @@ sub_80B4A54: @ 0x080B4A54
 	subs r0, #0x48
 	subs r1, r1, r0
 	movs r0, #0x38
-	bl sub_804E79C
+	bl DisplayUiHand
 	adds r0, r5, #0
 	adds r0, #0x62
 	ldrb r0, [r0]
@@ -87616,7 +87616,7 @@ _080B4C14:
 	movs r1, #8
 	movs r2, #0x14
 	movs r3, #0xc
-	bl MakeUIWindowTileMap_BG0BG1
+	bl DrawUiFrame2
 	movs r0, #2
 	bl BG_EnableSyncByMask
 	adds r0, r6, #0
@@ -88410,7 +88410,7 @@ sub_80B52CC: @ 0x080B52CC
 	movs r0, #0xf
 	bl BG_EnableSyncByMask
 	bl Font_InitForUIDefault
-	bl LoadNewUIGraphics
+	bl LoadUiFrameGraphics
 	bl ResetIconGraphics_
 	movs r0, #4
 	bl LoadIconPalettes
@@ -89569,7 +89569,7 @@ sub_80B5C48: @ 0x080B5C48
 	movs r1, #9
 	movs r2, #0x10
 	movs r3, #6
-	bl MakeUIWindowTileMap_BG0BG1
+	bl DrawUiFrame2
 	movs r0, #0
 	bl SetFont
 	bl Font_LoadForUI
@@ -95718,7 +95718,7 @@ SetupGraphicSystemsForWorldMap: @ 0x080B8D5C
 	strb r0, [r4, #0x18]
 	movs r0, #6
 	bl GetSaveDataLocation
-	bl LoadOldUIGfx
+	bl LoadLegacyUiFrameGraphics
 	bl Font_InitForUIDefault
 	bl ResetFaces
 	ldr r0, _080B8E0C  @ gUnknown_08A3D728
@@ -95823,7 +95823,7 @@ sub_80B8E60: @ 0x080B8E60
 	ldr r0, _080B8F98  @ gUnknown_08A97ED8
 	ldr r1, _080B8F9C  @ 0x06005000
 	bl CopyDataWithPossibleUncomp
-	bl LoadNewUIGraphics
+	bl LoadUiFrameGraphics
 	bl Font_InitForUIDefault
 	bl sub_8003D20
 	ldr r4, _080B8FA0  @ gLCDControlBuffer
@@ -102933,7 +102933,7 @@ sub_80BC490: @ 0x080BC490
 	THUMB_FUNC_START sub_80BC4A0
 sub_80BC4A0: @ 0x080BC4A0
 	push {lr}
-	bl ClearBG0BG1
+	bl ClearBg0Bg1
 	movs r0, #0
 	pop {r1}
 	bx r1
@@ -103149,7 +103149,7 @@ sub_80BC634: @ 0x080BC634
 	THUMB_FUNC_START sub_80BC644
 sub_80BC644: @ 0x080BC644
 	push {lr}
-	bl ClearBG0BG1
+	bl ClearBg0Bg1
 	movs r0, #0
 	pop {r1}
 	bx r1
@@ -108796,7 +108796,7 @@ sub_80BF15C: @ 0x080BF15C
 	ldr r0, _080BF17C  @ gUnknown_08A3E4D4
 	bl Proc_DeleteAllWithScript
 	bl SetDefaultColorEffects
-	bl ClearBG0BG1
+	bl ClearBg0Bg1
 	pop {r0}
 	bx r0
 	.align 2, 0
@@ -114754,7 +114754,7 @@ sub_80C1F6C: @ 0x080C1F6C
 	bl BG_Fill
 	movs r0, #2
 	bl BG_EnableSyncByMask
-	bl LoadOldUIGfx
+	bl LoadLegacyUiFrameGraphics
 	ldr r2, _080C1FD8  @ gUnknown_03005280
 	ldrb r1, [r2]
 	movs r0, #9
@@ -134998,7 +134998,7 @@ sub_80CC4AC: @ 0x080CC4AC
 	bne _080CC502
 	bl ResetFaces
 	bl Font_InitForUIDefault
-	bl LoadNewUIGraphics
+	bl LoadUiFrameGraphics
 	bl LoadObjUIGfx
 	ldr r3, _080CC5B0  @ gLCDControlBuffer
 	ldrb r2, [r3, #0xc]
@@ -135043,7 +135043,7 @@ _080CC502:
 	bl sub_80ACA84
 	bl ResetFaces
 	bl Font_InitForUIDefault
-	bl LoadNewUIGraphics
+	bl LoadUiFrameGraphics
 	bl LoadObjUIGfx
 	ldr r3, _080CC5B0  @ gLCDControlBuffer
 	ldrb r2, [r3, #0xc]
@@ -135958,7 +135958,7 @@ sub_80CCC2C: @ 0x080CCC2C
 	movs r1, #2
 	movs r2, #1
 	movs r3, #0xa
-	bl WriteUIWindowTileMap
+	bl DrawUiFrame
 	movs r0, #0
 	bl SetFontGlyphSet
 	movs r0, #0
@@ -136120,7 +136120,7 @@ sub_80CCD48: @ 0x080CCD48
 	ldr r0, _080CCE88  @ gBG2TilemapBuffer
 	movs r1, #0
 	bl BG_Fill
-	bl LoadNewUIGraphics
+	bl LoadUiFrameGraphics
 	bl LoadObjUIGfx
 	movs r1, #1
 	negs r1, r1
@@ -137292,7 +137292,7 @@ _080CD6D4:
 _080CD6DC:
 	bl ResetFaces
 	bl Font_InitForUIDefault
-	bl LoadNewUIGraphics
+	bl LoadUiFrameGraphics
 	bl LoadObjUIGfx
 	ldr r4, _080CD788  @ gLCDControlBuffer
 	ldrb r2, [r4, #0xc]
@@ -138499,7 +138499,7 @@ _080CE024:
 _080CE02A:
 	lsls r1, r3, #3
 	movs r0, #0xc
-	bl sub_804E79C
+	bl DisplayUiHand
 	ldr r1, [r5]
 	adds r0, r1, #0
 	adds r0, #0x30
@@ -138571,15 +138571,15 @@ _080CE0B4: .4byte 0x000030E0
 _080CE0B8:
 	lsls r1, r3, #3
 	movs r0, #0xc
-	bl sub_804E848
+	bl DisplayFrozenUiHand
 	lsls r1, r4, #3
 	movs r0, #0x50
-	bl sub_804E79C
+	bl DisplayUiHand
 	b _080CE11A
 _080CE0CA:
 	lsls r1, r3, #3
 	movs r0, #0xc
-	bl sub_804E848
+	bl DisplayFrozenUiHand
 	ldr r1, [r5]
 	adds r0, r1, #0
 	adds r0, #0x3f
@@ -140179,7 +140179,7 @@ sub_80CECB0: @ 0x080CECB0
 	strb r2, [r0]
 	bl sub_80CEAE8
 	bl sub_80CEBA4
-	bl LoadNewUIGraphics
+	bl LoadUiFrameGraphics
 	ldr r7, _080CEED4  @ gLCDControlBuffer
 	ldrb r0, [r7, #1]
 	movs r1, #1

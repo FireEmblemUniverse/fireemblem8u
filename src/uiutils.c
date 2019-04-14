@@ -70,7 +70,7 @@ static struct Vec2 sPrevHandScreenPosition = {};
 EWRAM_DATA
 static int sPrevHandClockFrame = 0;
 
-void LoadOldUIPal(int palId)
+void UnpackLegacyUiFramePalette(int palId)
 {
     if (palId < 0)
         palId = BGPAL_UI_FRAME;
@@ -78,7 +78,7 @@ void LoadOldUIPal(int palId)
     ApplyPalette(sLegacyUiFramePaletteLookup[gUnknown_0202BCF0.cfgWindowColor], palId);
 }
 
-void LoadNewUIPal(int palId)
+void UnpackUiFramePalette(int palId)
 {
     if (palId < 0)
         palId = BGPAL_UI_FRAME;
@@ -86,7 +86,7 @@ void LoadNewUIPal(int palId)
     ApplyPalette(sUiFramePaletteLookup[gUnknown_0202BCF0.cfgWindowColor], palId);
 }
 
-void LoadOldUIImage(void* dest)
+void UnpackLegacyUiFrameImage(void* dest)
 {
     if (dest == NULL)
         dest = BG_CHAR_ADDR(0);
@@ -94,7 +94,7 @@ void LoadOldUIImage(void* dest)
     CopyDataWithPossibleUncomp(sLegacyUiFrameImageLookup[gUnknown_0202BCF0.cfgWindowColor], dest);
 }
 
-void LoadNewUIImage(void* dest)
+void UnpackUiFrameImage(void* dest)
 {
     if (dest == NULL)
         dest = BG_CHAR_ADDR(0);
@@ -102,7 +102,7 @@ void LoadNewUIImage(void* dest)
     CopyDataWithPossibleUncomp(sUiFrameImageLookup[gUnknown_0202BCF0.cfgWindowColor], dest);
 }
 
-void sub_804E138(int palId)
+void UnpackUiBarPalette(int palId)
 {
     if (palId < 0)
         palId = BGPAL_UI_STATBAR;
@@ -110,7 +110,7 @@ void sub_804E138(int palId)
     ApplyPalette(sStatBarPaletteLookup[gUnknown_0202BCF0.cfgWindowColor], palId);
 }
 
-void sub_804E168(int id)
+void UnpackUiFrameBuffered(int id)
 {
     int bufSize;
     s8* bufAddr;
@@ -124,10 +124,10 @@ void sub_804E168(int id)
     CopyDataWithPossibleUncomp(sUiFrameImageLookup[id], bufAddr);
     RegisterTileGraphics(bufAddr, BG_CHAR_ADDR(0), bufSize);
 
-    LoadNewUIPal(-1);
+    UnpackUiFramePalette(-1);
 }
 
-void WriteUIWindowTileMap(u16* tilemap, int x, int y, int width, int height, int tilebase, int style)
+void DrawUiFrame(u16* tilemap, int x, int y, int width, int height, int tilebase, int style)
 {
     const u16* model = sUiFrameModelTilemapLookup[style];
 
@@ -176,7 +176,7 @@ void WriteUIWindowTileMap(u16* tilemap, int x, int y, int width, int height, int
 
 #ifdef NONMATCHING
 
-void ClearTileMapRect(u16* tilemap, int x, int y, int width, int height)
+void ClearUiFrame(u16* tilemap, int x, int y, int width, int height)
 {
     int i;
 
@@ -192,7 +192,7 @@ void ClearTileMapRect(u16* tilemap, int x, int y, int width, int height)
 #else // NONMATCHING
 
 __attribute__((naked))
-void ClearTileMapRect(u16* tilemap, int x, int y, int width, int height)
+void ClearUiFrame(u16* tilemap, int x, int y, int width, int height)
 {
     // :/
 
@@ -249,7 +249,7 @@ void ClearTileMapRect(u16* tilemap, int x, int y, int width, int height)
 
 #ifdef NONMATCHING
 
-void MakeUIWindowTileMap_BG0BG1(int x, int y, int width, int height, int style)
+void DrawUiFrame2(int x, int y, int width, int height, int style)
 {
     const u16* model = sUiFrameModelTilemapLookup[style];
 
@@ -395,7 +395,7 @@ void MakeUIWindowTileMap_BG0BG1(int x, int y, int width, int height, int style)
 #else // NONMATCHING
 
 __attribute__((naked))
-void MakeUIWindowTileMap_BG0BG1(int x, int y, int width, int height, int style)
+void DrawUiFrame2(int x, int y, int width, int height, int style)
 {
     // :/
 
@@ -958,7 +958,7 @@ void MakeUIWindowTileMap_BG0BG1(int x, int y, int width, int height, int style)
 
 #endif // NONMATCHING
 
-void sub_804E79C(int x, int y)
+void DisplayUiHand(int x, int y)
 {
     if ((GetGameClock() - 1) == sPrevHandClockFrame)
     {
@@ -974,29 +974,29 @@ void sub_804E79C(int x, int y)
     RegisterObjectAttributes_SafeMaybe(2, x, y, sSprite_Hand, 0);
 }
 
-void sub_804E80C(int x, int y)
+void DisplayUiHand_unused(int x, int y)
 {
     x += (sHandHOffsetLookup[GetGameClock() % ARRAY_COUNT(sHandHOffsetLookup)] - 14);
     RegisterObjectAttributes_SafeMaybe(2, x, y, sSprite_Hand, 0);
 }
 
-void sub_804E848(int x, int y)
+void DisplayFrozenUiHand(int x, int y)
 {
     x -= 12;
     RegisterObjectAttributes_SafeMaybe(3, x, y, sSprite_Hand, 0);
 }
 
-int sub_804E86C(void)
+int GetUiHandPrevDisplayX(void)
 {
     return sPrevHandScreenPosition.x;
 }
 
-int sub_804E878(void)
+int GetUiHandPrevDisplayY(void)
 {
     return sPrevHandScreenPosition.y;
 }
 
-void ClearBG0BG1(void)
+void ClearBg0Bg1(void)
 {
     BG_Fill(gBG0TilemapBuffer, 0);
     BG_Fill(gBG1TilemapBuffer, 0);
@@ -1004,7 +1004,7 @@ void ClearBG0BG1(void)
     BG_EnableSyncByMask(BG0_SYNC_BIT | BG1_SYNC_BIT);
 }
 
-void sub_804E8A8(int x, int y, int width)
+void DrawUiItemHover(int x, int y, int width)
 {
     int xMax = x + width - 1;
     y += 1;
@@ -1021,7 +1021,7 @@ void sub_804E8A8(int x, int y, int width)
     BG_EnableSyncByMask(BG1_SYNC_BIT);
 }
 
-void sub_804E90C(int x, int y, int width)
+void ClearUiItemHover(int x, int y, int width)
 {
     int xMax = x + width - 1;
     y += 1;
@@ -1039,7 +1039,7 @@ void sub_804E90C(int x, int y, int width)
     BG_EnableSyncByMask(BG1_SYNC_BIT);
 }
 
-void sub_804E98C(int bg, int base, int x, int y, int width)
+void DrawUiItemHoverExt(int bg, int base, int x, int y, int width)
 {
     u16* tilemap;
     int xMax;
@@ -1059,7 +1059,7 @@ void sub_804E98C(int bg, int base, int x, int y, int width)
     BG_EnableSyncByMask(BG_SYNC_BIT(bg));
 }
 
-void sub_804EA08(int bg, int base, int x, int y, int width)
+void ClearUiItemHoverExt(int bg, int base, int x, int y, int width)
 {
     u16* tilemap;
     int xMax;
@@ -1082,13 +1082,13 @@ void sub_804EA08(int bg, int base, int x, int y, int width)
     BG_EnableSyncByMask(BG_SYNC_BIT(bg));
 }
 
-void sub_804EA8C(void* vram, int palId, int palCount)
+void UnpackUnkUiFrame(void* vram, int palId, int palCount)
 {
     CopyDataWithPossibleUncomp(gUnkUiFrameImage, vram);
     ApplyPalettes(gUnkUiFramePalettes, palId, palCount);
 }
 
-void sub_804EAB8(int x, int y, unsigned objTileOffset)
+void DisplayUiHandExt(int x, int y, unsigned objTileOffset)
 {
     if ((GetGameClock() - 1) == sPrevHandClockFrame)
     {
@@ -1104,26 +1104,26 @@ void sub_804EAB8(int x, int y, unsigned objTileOffset)
     RegisterObjectAttributes_SafeMaybe(2, x, y, sSprite_Hand, objTileOffset << 15 >> 20);
 }
 
-void sub_804EB2C(int x, int y, unsigned objTileOffset)
+void DisplayFrozenUiHandExt(int x, int y, unsigned objTileOffset)
 {
     x -= 12;
     RegisterObjectAttributes_SafeMaybe(3, x, y, sSprite_Hand, objTileOffset << 15 >> 20);
 }
 
-void LoadOldUIGfx(void)
+void LoadLegacyUiFrameGraphics(void)
 {
-    LoadOldUIImage(NULL);
-    LoadOldUIPal(-1);
+    UnpackLegacyUiFrameImage(NULL);
+    UnpackLegacyUiFramePalette(-1);
 }
 
-void LoadNewUIGraphics(void)
+void LoadUiFrameGraphics(void)
 {
-    LoadNewUIImage(NULL);
-    LoadNewUIPal(-1);
+    UnpackUiFrameImage(NULL);
+    UnpackUiFramePalette(-1);
 }
 
-void sub_804EB7C(unsigned offset, int palId)
+void LoadUiFrameGraphicsTo(unsigned vramOffset, int palId)
 {
-    LoadNewUIImage((void*)(VRAM + offset));
-    LoadNewUIPal(palId);
+    UnpackUiFrameImage((void*)(VRAM + vramOffset));
+    UnpackUiFramePalette(palId);
 }

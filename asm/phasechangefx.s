@@ -1068,7 +1068,7 @@ sub_801F490: @ 0x0801F490
 	bl Proc_Find
 	cmp r0, #0
 	bne _0801F4F4
-	bl ClearBG0BG1
+	bl ClearBg0Bg1
 	movs r0, #0
 	bl SetInterrupt_LCDVCountMatch
 	movs r0, #0

@@ -155,7 +155,7 @@ MapAnim_Cleanup: @ 0x0807A80C
 	bl sub_8003D20
 	bl DeleteBattleAnimInfoThing
 	bl SetupBackgroundForWeatherMaybe
-	bl LoadNewUIGraphics
+	bl LoadUiFrameGraphics
 	bl LoadObjUIGfx
 	bl EventEngineExists
 	lsls r0, r0, #0x18
@@ -2774,7 +2774,7 @@ sub_807BBF0: @ 0x0807BBF0
 	push {lr}
 	movs r0, #0
 	bl SetPrimaryHBlankHandler
-	bl ClearBG0BG1
+	bl ClearBg0Bg1
 	pop {r0}
 	bx r0
 
@@ -3983,7 +3983,7 @@ sub_807C568: @ 0x0807C568
 	movs r1, #0
 	movs r2, #0x1d
 	movs r3, #0x13
-	bl MakeUIWindowTileMap_BG0BG1
+	bl DrawUiFrame2
 	movs r5, #0
 	ldr r1, _0807C644  @ gUnknown_089A37E8
 	ldr r0, [r1]
@@ -4665,7 +4665,7 @@ sub_807CB04: @ 0x0807CB04
 	bl sub_8003D20
 	bl DeleteBattleAnimInfoThing
 	bl SetupBackgroundForWeatherMaybe
-	bl LoadOldUIGfx
+	bl LoadLegacyUiFrameGraphics
 	bl LoadObjUIGfx
 	pop {r0}
 	bx r0

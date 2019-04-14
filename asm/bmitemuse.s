@@ -542,7 +542,7 @@ ItemEffect_Call: @ 0x08028E60
 	push {r4, r5, lr}
 	adds r5, r0, #0
 	adds r4, r1, #0
-	bl ClearBG0BG1
+	bl ClearBg0Bg1
 	movs r0, #0
 	bl DeleteFaceByIndex
 	adds r0, r4, #0
@@ -2255,7 +2255,7 @@ _08029D24: .4byte gActiveUnit
 GenericSelection_DeleteBBAndBG: @ 0x08029D28
 	push {lr}
 	bl DeleteEach6CBB
-	bl ClearBG0BG1
+	bl ClearBg0Bg1
 	pop {r0}
 	bx r0
 
