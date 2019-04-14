@@ -3,37 +3,87 @@
 #include "hardware.h"
 #include "ctc.h"
 
-extern const u16* gUnknown_085B6440[];
-extern const u16* gUnknown_085B6450[];
-extern const void* gUnknown_085B6460[];
-extern const void* gUnknown_085B6470[];
-extern const u16* gUnknown_085B6480[];
-extern const u16* gUnknown_085B6430[];
+#include "uiutils.h"
 
-extern struct Vec2 gUnknown_0203DDE0;
-extern int gUnknown_0203DDE4;
-extern const u8 gUnknown_085B6498[];
-extern const u16 gUnknown_085B6490[];
-
+extern const u16 gUnknown_080DA2F4[];
+extern const u16 gUnknown_080DA314[];
+extern const u16 gUnknown_080DA334[];
+extern const u16 gUnknown_080DA354[];
 extern const u16 gUnknown_080DA374[];
 
-extern const u8 gUnknown_085B8FF0[];
-extern const u16 gUnknown_085B9244[];
+static const u16* sUiFrameModelTilemapLookup[] = {
+    gUnknown_080DA2F4,
+    gUnknown_080DA334,
+    gUnknown_080DA354,
+    gUnknown_080DA314,
+};
+
+static const u16* sLegacyUiFramePaletteLookup[] = {
+    gUnknown_085B7560,
+    gUnknown_085B7E54,
+    gUnknown_085B8714,
+    gUnknown_085B8F90,
+};
+
+static const u16* sUiFramePaletteLookup[] = {
+    gUnknown_085B6BB4,
+    gUnknown_085B6BD4,
+    gUnknown_085B6BF4,
+    gUnknown_085B6C14,
+};
+
+static const void* sLegacyUiFrameImageLookup[] = {
+    gUnknown_085B6CB4,
+    gUnknown_085B75A0,
+    gUnknown_085B7E94,
+    gUnknown_085B8754,
+};
+
+static const void* sUiFrameImageLookup[] = {
+    gUnknown_085B65C0,
+    gUnknown_085B65C0,
+    gUnknown_085B65C0,
+    gUnknown_085B65C0,
+};
+
+static const u16* sStatBarPaletteLookup[] = {
+    gUnknown_085B7580,
+    gUnknown_085B7E74,
+    gUnknown_085B8734,
+    gUnknown_085B8FB0,
+};
+
+// TODO: OBJ DATA/SPRITE HELPER DEFINITIONS
+static u16 sSprite_Hand[] = {
+    1,
+    0x0002, 0x4000, 0x0000
+};
+
+static u8 sHandHOffsetLookup[] = {
+    0, 0, 0, 0, 0, 0, 0, 1, 1, 2, 2, 2, 3, 3, 3, 3,
+    4, 4, 4, 4, 4, 4, 4, 3, 3, 2, 2, 2, 1, 1, 1, 1,
+};
+
+EWRAM_DATA
+static struct Vec2 sPrevHandScreenPosition = {};
+
+EWRAM_DATA
+static int sPrevHandClockFrame = 0;
 
 void LoadOldUIPal(int palId)
 {
     if (palId < 0)
-        palId = 1; // TODO: CONSTANTS
+        palId = BGPAL_UI_FRAME;
 
-    CopyToPaletteBuffer(gUnknown_085B6440[gUnknown_0202BCF0.unk41_3], palId * 0x20, 0x20);
+    CopyToPaletteBuffer(sLegacyUiFramePaletteLookup[gUnknown_0202BCF0.cfgWindowColor], palId * 0x20, 0x20);
 }
 
 void LoadNewUIPal(int palId)
 {
     if (palId < 0)
-        palId = 1; // TODO: CONSTANTS
+        palId = BGPAL_UI_FRAME;
 
-    CopyToPaletteBuffer(gUnknown_085B6450[gUnknown_0202BCF0.unk41_3], palId * 0x20, 0x20);
+    CopyToPaletteBuffer(sUiFramePaletteLookup[gUnknown_0202BCF0.cfgWindowColor], palId * 0x20, 0x20);
 }
 
 void LoadOldUIImage(void* dest)
@@ -41,7 +91,7 @@ void LoadOldUIImage(void* dest)
     if (dest == NULL)
         dest = (void*) BG_VRAM; // TODO: BETTER CONSTANT TYPING
 
-    CopyDataWithPossibleUncomp(gUnknown_085B6460[gUnknown_0202BCF0.unk41_3], dest);
+    CopyDataWithPossibleUncomp(sLegacyUiFrameImageLookup[gUnknown_0202BCF0.cfgWindowColor], dest);
 }
 
 void LoadNewUIImage(void* dest)
@@ -49,7 +99,7 @@ void LoadNewUIImage(void* dest)
     if (dest == NULL)
         dest = (void*) BG_VRAM; // TODO: BETTER CONSTANT TYPING
 
-    CopyDataWithPossibleUncomp(gUnknown_085B6470[gUnknown_0202BCF0.unk41_3], dest);
+    CopyDataWithPossibleUncomp(sUiFrameImageLookup[gUnknown_0202BCF0.cfgWindowColor], dest);
 }
 
 void sub_804E138(int palId)
@@ -57,7 +107,7 @@ void sub_804E138(int palId)
     if (palId < 0)
         palId = 6; // TODO: CONSTANTS
 
-    CopyToPaletteBuffer(gUnknown_085B6480[gUnknown_0202BCF0.unk41_3], palId * 0x20, 0x20);
+    CopyToPaletteBuffer(sStatBarPaletteLookup[gUnknown_0202BCF0.cfgWindowColor], palId * 0x20, 0x20);
 }
 
 void sub_804E168(int id)
@@ -66,12 +116,12 @@ void sub_804E168(int id)
     s8* bufAddr;
 
     if (id < 0)
-        id = gUnknown_0202BCF0.unk41_3;
+        id = gUnknown_0202BCF0.cfgWindowColor;
 
-    bufSize = FilterR0ForRawCopy(gUnknown_085B6470[id]);
+    bufSize = FilterR0ForRawCopy(sUiFrameImageLookup[id]);
     bufAddr = gUnknown_02022288 - bufSize;
 
-    CopyDataWithPossibleUncomp(gUnknown_085B6470[id], bufAddr);
+    CopyDataWithPossibleUncomp(sUiFrameImageLookup[id], bufAddr);
     RegisterTileGraphics(bufAddr, (void*) BG_VRAM, bufSize);
 
     LoadNewUIPal(-1);
@@ -79,7 +129,7 @@ void sub_804E168(int id)
 
 void WriteUIWindowTileMap(u16* tilemap, int x, int y, int width, int height, int tilebase, int style)
 {
-    const u16* model = gUnknown_085B6430[style];
+    const u16* model = sUiFrameModelTilemapLookup[style];
 
     int xMax = x + width  - 1;
     int yMax = y + height - 1;
@@ -201,7 +251,7 @@ void ClearTileMapRect(u16* tilemap, int x, int y, int width, int height)
 
 void MakeUIWindowTileMap_BG0BG1(int x, int y, int width, int height, int style)
 {
-    const u16* model = gUnknown_085B6430[style];
+    const u16* model = sUiFrameModelTilemapLookup[style];
 
     int xMax = x + width  - 1;
     int yMax = y + height - 1;
@@ -358,7 +408,7 @@ void MakeUIWindowTileMap_BG0BG1(int x, int y, int width, int height, int style)
         str r0, [sp]\n\
         adds r5, r1, #0\n\
         ldr r4, [sp, #0x6c]\n\
-        ldr r1, _0804E5B0  @ gUnknown_085B6430\n\
+        ldr r1, _0804E5B0  @ sUiFrameModelTilemapLookup\n\
         lsls r0, r4, #2\n\
         adds r0, r0, r1\n\
         ldr r0, [r0]\n\
@@ -648,7 +698,7 @@ void MakeUIWindowTileMap_BG0BG1(int x, int y, int width, int height, int style)
         strh r0, [r3]\n\
         b _0804E76A\n\
         .align 2, 0\n\
-    _0804E5B0: .4byte gUnknown_085B6430\n\
+    _0804E5B0: .4byte sUiFrameModelTilemapLookup\n\
     _0804E5B4: .4byte gBG1TilemapBuffer\n\
     _0804E5B8: .4byte gBG0TilemapBuffer\n\
     _0804E5BC:\n\
@@ -908,40 +958,40 @@ void MakeUIWindowTileMap_BG0BG1(int x, int y, int width, int height, int style)
 
 void sub_804E79C(int x, int y)
 {
-    if ((GetGameClock() - 1) == gUnknown_0203DDE4)
+    if ((GetGameClock() - 1) == sPrevHandClockFrame)
     {
-        x = (x + gUnknown_0203DDE0.x) >> 1;
-        y = (y + gUnknown_0203DDE0.y) >> 1;
+        x = (x + sPrevHandScreenPosition.x) >> 1;
+        y = (y + sPrevHandScreenPosition.y) >> 1;
     }
 
-    gUnknown_0203DDE0.x = x;
-    gUnknown_0203DDE0.y = y;
-    gUnknown_0203DDE4 = GetGameClock();
+    sPrevHandScreenPosition.x = x;
+    sPrevHandScreenPosition.y = y;
+    sPrevHandClockFrame = GetGameClock();
 
-    x += (gUnknown_085B6498[GetGameClock() % 0x20] - 14);
-    RegisterObjectAttributes_SafeMaybe(2, x, y, gUnknown_085B6490, 0);
+    x += (sHandHOffsetLookup[GetGameClock() % 0x20] - 14);
+    RegisterObjectAttributes_SafeMaybe(2, x, y, sSprite_Hand, 0);
 }
 
 void sub_804E80C(int x, int y)
 {
-    x += (gUnknown_085B6498[GetGameClock() % 0x20] - 14);
-    RegisterObjectAttributes_SafeMaybe(2, x, y, gUnknown_085B6490, 0);
+    x += (sHandHOffsetLookup[GetGameClock() % 0x20] - 14);
+    RegisterObjectAttributes_SafeMaybe(2, x, y, sSprite_Hand, 0);
 }
 
 void sub_804E848(int x, int y)
 {
     x -= 12;
-    RegisterObjectAttributes_SafeMaybe(3, x, y, gUnknown_085B6490, 0);
+    RegisterObjectAttributes_SafeMaybe(3, x, y, sSprite_Hand, 0);
 }
 
 int sub_804E86C(void)
 {
-    return gUnknown_0203DDE0.x;
+    return sPrevHandScreenPosition.x;
 }
 
 int sub_804E878(void)
 {
-    return gUnknown_0203DDE0.y;
+    return sPrevHandScreenPosition.y;
 }
 
 void ClearBG0BG1(void)
@@ -1038,24 +1088,24 @@ void sub_804EA8C(void* vram, int palId, int palCount)
 
 void sub_804EAB8(int x, int y, unsigned objTileOffset)
 {
-    if ((GetGameClock() - 1) == gUnknown_0203DDE4)
+    if ((GetGameClock() - 1) == sPrevHandClockFrame)
     {
-        x = (x + gUnknown_0203DDE0.x) >> 1;
-        y = (y + gUnknown_0203DDE0.y) >> 1;
+        x = (x + sPrevHandScreenPosition.x) >> 1;
+        y = (y + sPrevHandScreenPosition.y) >> 1;
     }
 
-    gUnknown_0203DDE0.x = x;
-    gUnknown_0203DDE0.y = y;
-    gUnknown_0203DDE4 = GetGameClock();
+    sPrevHandScreenPosition.x = x;
+    sPrevHandScreenPosition.y = y;
+    sPrevHandClockFrame = GetGameClock();
 
-    x += (gUnknown_085B6498[GetGameClock() % 0x20] - 14);
-    RegisterObjectAttributes_SafeMaybe(2, x, y, gUnknown_085B6490, objTileOffset << 15 >> 20);
+    x += (sHandHOffsetLookup[GetGameClock() % 0x20] - 14);
+    RegisterObjectAttributes_SafeMaybe(2, x, y, sSprite_Hand, objTileOffset << 15 >> 20);
 }
 
 void sub_804EB2C(int x, int y, unsigned objTileOffset)
 {
     x -= 12;
-    RegisterObjectAttributes_SafeMaybe(3, x, y, gUnknown_085B6490, objTileOffset << 15 >> 20);
+    RegisterObjectAttributes_SafeMaybe(3, x, y, sSprite_Hand, objTileOffset << 15 >> 20);
 }
 
 void LoadOldUIGfx(void)

@@ -2,6 +2,7 @@
 
 #include "proc.h"
 #include "fontgrp.h"
+#include "uiutils.h"
 #include "mu.h"
 #include "bmio.h"
 #include "bmunit.h"

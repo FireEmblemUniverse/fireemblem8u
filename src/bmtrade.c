@@ -5,6 +5,7 @@
 #include "hardware.h"
 #include "icon.h"
 #include "fontgrp.h"
+#include "uiutils.h"
 
 #include "bmitem.h"
 #include "bmunit.h"
