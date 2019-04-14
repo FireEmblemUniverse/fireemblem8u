@@ -257,133 +257,135 @@ void DrawUiFrame2(int x, int y, int width, int height, int style)
     int yMax = y + height - 1;
 
     int iy, ix;
+
     u16 tilemapOffset;
+    s8 r9;
 
     if (style != 3)
     {
-        for (iy = y + 1; iy < yMax; ++iy)
+        for (iy = y + 1; iy < yMax; iy += 2)
         {
-            for (ix = x + 1; ix < xMax; ++ix)
+            for (ix = x + 1; ix < xMax; ix += 2)
             {
-                tilemapOffset = ix + iy*0x20;
+                tilemapOffset = TILEMAP_INDEX(ix, iy);
 
-                *TILEMAP_LOCATED(gBG0TilemapBuffer + tilemapOffset, 0, 0) = 0;
-                *TILEMAP_LOCATED(gBG1TilemapBuffer + tilemapOffset, 0, 0) = model[6];
+                gBG0TilemapBuffer[tilemapOffset] = 0;
+                gBG1TilemapBuffer[tilemapOffset] = model[6];
 
-                tilemapOffset = tilemapOffset + 1;
+                tilemapOffset += TILEMAP_INDEX(1, 0);
 
-                *TILEMAP_LOCATED(gBG0TilemapBuffer + tilemapOffset, 0, 0) = 0;
-                *TILEMAP_LOCATED(gBG1TilemapBuffer + tilemapOffset, 0, 0) = model[6];
+                gBG0TilemapBuffer[tilemapOffset] = 0;
+                gBG1TilemapBuffer[tilemapOffset] = model[6];
 
-                tilemapOffset = tilemapOffset + 0x1F;
+                tilemapOffset += TILEMAP_INDEX(-1, 1);
 
-                *TILEMAP_LOCATED(gBG0TilemapBuffer + tilemapOffset, 0, 0) = 0;
-                *TILEMAP_LOCATED(gBG1TilemapBuffer + tilemapOffset, 0, 0) = model[9];
+                gBG0TilemapBuffer[tilemapOffset] = 0;
+                gBG1TilemapBuffer[tilemapOffset] = model[9];
 
-                tilemapOffset = tilemapOffset + 1;
+                tilemapOffset += TILEMAP_INDEX(1, 0);
 
-                *TILEMAP_LOCATED(gBG0TilemapBuffer + tilemapOffset, 0, 0) = 0;
-                *TILEMAP_LOCATED(gBG1TilemapBuffer + tilemapOffset, 0, 0) = model[10];
+                gBG0TilemapBuffer[tilemapOffset] = 0;
+                gBG1TilemapBuffer[tilemapOffset] = model[10];
             }
 
-            *TILEMAP_LOCATED(gBG0TilemapBuffer, x,    iy+0) = 0;
-            *TILEMAP_LOCATED(gBG1TilemapBuffer, x,    iy+0) = model[8]; // left center tile
+            gBG0TilemapBuffer[TILEMAP_INDEX(x,    iy+0)] = 0;
+            gBG1TilemapBuffer[TILEMAP_INDEX(x,    iy+0)] = model[8]; // left center tile
 
-            *TILEMAP_LOCATED(gBG0TilemapBuffer, xMax, iy+0) = 0;
-            *TILEMAP_LOCATED(gBG1TilemapBuffer, xMax, iy+0) = model[7]; // right center tile 0
+            gBG0TilemapBuffer[TILEMAP_INDEX(xMax, iy+0)] = 0;
+            gBG1TilemapBuffer[TILEMAP_INDEX(xMax, iy+0)] = model[7]; // right center tile 0
 
-            *TILEMAP_LOCATED(gBG0TilemapBuffer, x,    iy+1) = 0;
-            *TILEMAP_LOCATED(gBG1TilemapBuffer, x,    iy+1) = model[8]; // left center tile
+            gBG0TilemapBuffer[TILEMAP_INDEX(x,    iy+1)] = 0;
+            gBG1TilemapBuffer[TILEMAP_INDEX(x,    iy+1)] = model[8]; // left center tile
 
-            *TILEMAP_LOCATED(gBG0TilemapBuffer, xMax, iy+1) = 0;
-            *TILEMAP_LOCATED(gBG1TilemapBuffer, xMax, iy+1) = model[11]; // right center tile 1
+            gBG0TilemapBuffer[TILEMAP_INDEX(xMax, iy+1)] = 0;
+            gBG1TilemapBuffer[TILEMAP_INDEX(xMax, iy+1)] = model[11]; // right center tile 1
         }
 
         for (ix = x + 1; ix < xMax; ix += 2)
         {
-            *TILEMAP_LOCATED(gBG0TilemapBuffer, ix+0, y)    = 0;
-            *TILEMAP_LOCATED(gBG1TilemapBuffer, ix+0, y)    = model[2]; // top center tile
+            gBG0TilemapBuffer[TILEMAP_INDEX(ix+0, y)]    = 0;
+            gBG1TilemapBuffer[TILEMAP_INDEX(ix+0, y)]    = model[2]; // top center tile
 
-            *TILEMAP_LOCATED(gBG0TilemapBuffer, ix+1, y)    = 0;
-            *TILEMAP_LOCATED(gBG1TilemapBuffer, ix+1, y)    = model[2]; // top centertile
+            gBG0TilemapBuffer[TILEMAP_INDEX(ix+1, y)]    = 0;
+            gBG1TilemapBuffer[TILEMAP_INDEX(ix+1, y)]    = model[2]; // top centertile
 
-            *TILEMAP_LOCATED(gBG0TilemapBuffer, ix+0, yMax) = 0;
-            *TILEMAP_LOCATED(gBG1TilemapBuffer, ix+0, yMax) = model[13]; // bottom center tile (0, 1)
+            gBG0TilemapBuffer[TILEMAP_INDEX(ix+0, yMax)] = 0;
+            gBG1TilemapBuffer[TILEMAP_INDEX(ix+0, yMax)] = model[13]; // bottom center tile (0, 1)
 
-            *TILEMAP_LOCATED(gBG0TilemapBuffer, ix+1, yMax) = 0;
-            *TILEMAP_LOCATED(gBG1TilemapBuffer, ix+1, yMax) = model[14]; // bottom center tile (1, 1)
+            gBG0TilemapBuffer[TILEMAP_INDEX(ix+1, yMax)] = 0;
+            gBG1TilemapBuffer[TILEMAP_INDEX(ix+1, yMax)] = model[14]; // bottom center tile (1, 1)
         }
 
-        *TILEMAP_LOCATED(gBG0TilemapBuffer, x,    y)    = 0;
-        *TILEMAP_LOCATED(gBG0TilemapBuffer, xMax, y)    = 0;
-        *TILEMAP_LOCATED(gBG0TilemapBuffer, x,    yMax) = 0;
-        *TILEMAP_LOCATED(gBG0TilemapBuffer, xMax, yMax) = 0;
+        gBG0TilemapBuffer[TILEMAP_INDEX(x,    y)]    = 0;
+        gBG0TilemapBuffer[TILEMAP_INDEX(xMax, y)]    = 0;
+        gBG0TilemapBuffer[TILEMAP_INDEX(x,    yMax)] = 0;
+        gBG0TilemapBuffer[TILEMAP_INDEX(xMax, yMax)] = 0;
 
-        *TILEMAP_LOCATED(gBG1TilemapBuffer, x+0, y+0) = model[0]; // top left tile (0, 0)
-        *TILEMAP_LOCATED(gBG1TilemapBuffer, x+1, y+0) = model[1]; // top left tile (1, 0)
-        *TILEMAP_LOCATED(gBG1TilemapBuffer, x+0, y+1) = model[4]; // top left tile (0, 1)
-        *TILEMAP_LOCATED(gBG1TilemapBuffer, x+1, y+1) = model[5]; // top left tile (1, 1)
+        gBG1TilemapBuffer[TILEMAP_INDEX(x+0, y+0)] = model[0]; // top left tile (0, 0)
+        gBG1TilemapBuffer[TILEMAP_INDEX(x+1, y+0)] = model[1]; // top left tile (1, 0)
+        gBG1TilemapBuffer[TILEMAP_INDEX(x+0, y+1)] = model[4]; // top left tile (0, 1)
+        gBG1TilemapBuffer[TILEMAP_INDEX(x+1, y+1)] = model[5]; // top left tile (1, 1)
 
-        *TILEMAP_LOCATED(gBG1TilemapBuffer, xMax, y)    = model[3];  // top right tile
-        *TILEMAP_LOCATED(gBG1TilemapBuffer, x,    yMax) = model[12]; // bottom left tile
-        *TILEMAP_LOCATED(gBG1TilemapBuffer, xMax, yMax) = model[15]; // bottom right tile
+        gBG1TilemapBuffer[TILEMAP_INDEX(xMax, y)]    = model[3];  // top right tile
+        gBG1TilemapBuffer[TILEMAP_INDEX(x,    yMax)] = model[12]; // bottom left tile
+        gBG1TilemapBuffer[TILEMAP_INDEX(xMax, yMax)] = model[15]; // bottom right tile
     }
     else
     {
-        for (iy = y + 1; iy < yMax; ++iy)
+        for (iy = y + 1; iy < yMax; iy += 2)
         {
-            int r9 = (iy == y + 1) ? 1 : 0;
+            r9 = (iy == y + 1);
 
-            for (ix = x + 1; ix < xMax; ++ix)
+            for (ix = x + 1; ix < xMax; ix += 2)
             {
-                tilemapOffset = ix + iy*0x20;
+                tilemapOffset = TILEMAP_INDEX(ix, iy);
 
-                *TILEMAP_LOCATED(gBG0TilemapBuffer + tilemapOffset, 0, 0) = 0;
-                *TILEMAP_LOCATED(gBG1TilemapBuffer + tilemapOffset, 0, 0) = r9 ? model[5] : model[9];
+                gBG0TilemapBuffer[tilemapOffset] = 0;
+                gBG1TilemapBuffer[tilemapOffset] = model[r9 ? 5 : 9];
 
-                tilemapOffset = tilemapOffset + 1;
+                tilemapOffset += TILEMAP_INDEX(1, 0);
 
-                *TILEMAP_LOCATED(gBG0TilemapBuffer + tilemapOffset, 0, 0) = 0;
-                *TILEMAP_LOCATED(gBG1TilemapBuffer + tilemapOffset, 0, 0) = r9 ? model[6] : model[10];
+                gBG0TilemapBuffer[tilemapOffset] = 0;
+                gBG1TilemapBuffer[tilemapOffset] = model[r9 ? 6 : 10];
 
-                tilemapOffset = tilemapOffset + 0x1F;
+                tilemapOffset += TILEMAP_INDEX(-1, 1);
 
-                *TILEMAP_LOCATED(gBG0TilemapBuffer + tilemapOffset, 0, 0) = 0;
-                *TILEMAP_LOCATED(gBG1TilemapBuffer + tilemapOffset, 0, 0) = model[9];
+                gBG0TilemapBuffer[tilemapOffset] = 0;
+                gBG1TilemapBuffer[tilemapOffset] = model[9];
 
-                tilemapOffset = tilemapOffset + 1;
+                tilemapOffset += TILEMAP_INDEX(1, 0);
 
-                *TILEMAP_LOCATED(gBG0TilemapBuffer + tilemapOffset, 0, 0) = 0;
-                *TILEMAP_LOCATED(gBG1TilemapBuffer + tilemapOffset, 0, 0) = model[10];
+                gBG0TilemapBuffer[tilemapOffset] = 0;
+                gBG1TilemapBuffer[tilemapOffset] = model[10];
             }
 
-            *TILEMAP_LOCATED(gBG0TilemapBuffer, x,    iy+0) = 0;
-            *TILEMAP_LOCATED(gBG1TilemapBuffer, x,    iy+0) = r9 ? model[4] : model[8]; // left center tile
+            gBG0TilemapBuffer[TILEMAP_INDEX(x,    iy+0)] = 0;
+            gBG1TilemapBuffer[TILEMAP_INDEX(x,    iy+0)] = model[r9 ? 4 : 8]; // left center tile
 
-            *TILEMAP_LOCATED(gBG0TilemapBuffer, xMax, iy+0) = 0;
-            *TILEMAP_LOCATED(gBG1TilemapBuffer, xMax, iy+0) = r9 ? model[7] : model[11]; // right center tile 0
+            gBG0TilemapBuffer[TILEMAP_INDEX(xMax, iy+0)] = 0;
+            gBG1TilemapBuffer[TILEMAP_INDEX(xMax, iy+0)] = model[r9 ? 7 : 11]; // right center tile 0
 
-            *TILEMAP_LOCATED(gBG0TilemapBuffer, x,    iy+1) = 0;
-            *TILEMAP_LOCATED(gBG1TilemapBuffer, x,    iy+1) = model[8]; // left center tile
+            gBG0TilemapBuffer[TILEMAP_INDEX(x,    iy+1)] = 0;
+            gBG1TilemapBuffer[TILEMAP_INDEX(x,    iy+1)] = model[8]; // left center tile
 
-            *TILEMAP_LOCATED(gBG0TilemapBuffer, xMax, iy+1) = 0;
-            *TILEMAP_LOCATED(gBG1TilemapBuffer, xMax, iy+1) = model[11]; // right center tile 1
+            gBG0TilemapBuffer[TILEMAP_INDEX(xMax, iy+1)] = 0;
+            gBG1TilemapBuffer[TILEMAP_INDEX(xMax, iy+1)] = model[11]; // right center tile 1
         }
 
         for (ix = x + 1; ix < xMax; ix += 2)
         {
-            *TILEMAP_LOCATED(gBG0TilemapBuffer, ix+0, yMax) = 0;
-            *TILEMAP_LOCATED(gBG1TilemapBuffer, ix+0, yMax) = model[13]; // bottom center tile (0, 1)
+            gBG0TilemapBuffer[TILEMAP_INDEX(ix+0, yMax)] = 0;
+            gBG1TilemapBuffer[TILEMAP_INDEX(ix+0, yMax)] = model[13]; // bottom center tile (0, 1)
 
-            *TILEMAP_LOCATED(gBG0TilemapBuffer, ix+1, yMax) = 0;
-            *TILEMAP_LOCATED(gBG1TilemapBuffer, ix+1, yMax) = model[14]; // bottom center tile (1, 1)
+            gBG0TilemapBuffer[TILEMAP_INDEX(ix+1, yMax)] = 0;
+            gBG1TilemapBuffer[TILEMAP_INDEX(ix+1, yMax)] = model[14]; // bottom center tile (1, 1)
         }
 
-        *TILEMAP_LOCATED(gBG0TilemapBuffer, x,    yMax) = 0;
-        *TILEMAP_LOCATED(gBG0TilemapBuffer, xMax, yMax) = 0;
+        gBG0TilemapBuffer[TILEMAP_INDEX(x,    yMax)] = 0;
+        gBG0TilemapBuffer[TILEMAP_INDEX(xMax, yMax)] = 0;
 
-        *TILEMAP_LOCATED(gBG1TilemapBuffer, x,    yMax) = model[12]; // bottom left tile
-        *TILEMAP_LOCATED(gBG1TilemapBuffer, xMax, yMax) = model[15]; // bottom right tile
+        gBG1TilemapBuffer[TILEMAP_INDEX(x,    yMax)] = model[12]; // bottom left tile
+        gBG1TilemapBuffer[TILEMAP_INDEX(xMax, yMax)] = model[15]; // bottom right tile
     }
 
     BG_SetPosition(0, 0, 0);
