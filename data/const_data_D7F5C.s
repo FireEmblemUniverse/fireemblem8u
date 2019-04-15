@@ -283,23 +283,3 @@ gUnknown_080DA27E:  @ 0x080DA27E
 	.global gUnknown_080DA2B0
 gUnknown_080DA2B0:  @ 0x080DA2B0
 	.incbin "baserom.gba", 0xDA2B0, 0x44
-
-	.global gUnknown_080DA2F4
-gUnknown_080DA2F4:  @ 0x080DA2F4
-	.incbin "baserom.gba", 0xDA2F4, 0x20
-
-	.global gUnknown_080DA314
-gUnknown_080DA314:  @ 0x080DA314
-	.incbin "baserom.gba", 0xDA314, 0x20
-
-	.global gUnknown_080DA334
-gUnknown_080DA334:  @ 0x080DA334
-	.incbin "baserom.gba", 0xDA334, 0x20
-
-	.global gUnknown_080DA354
-gUnknown_080DA354:  @ 0x080DA354
-	.incbin "baserom.gba", 0xDA354, 0x20
-
-	.global gUnknown_080DA374
-gUnknown_080DA374:  @ 0x080DA374
-	.incbin "baserom.gba", 0xDA374, 0x28
