@@ -5820,8 +5820,8 @@ gUnknown_088AFB5A:  @ 0x088AFB5A
 gUnknown_088AFBD8:  @ 0x088AFBD8
 	.incbin "baserom.gba", 0x8AFBD8, 0xA20
 
-	.global gUnknown_088B05F8
-gUnknown_088B05F8:  @ 0x088B05F8
+	.global gAffinityBonuses
+gAffinityBonuses:  @ 0x088B05F8
 	.incbin "baserom.gba", 0x8B05F8, 0x298
 
 	.global gChapterDataTable

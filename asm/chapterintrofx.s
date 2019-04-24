@@ -1755,7 +1755,7 @@ sub_8020B30: @ 0x08020B30
 	ldr r4, _08020C24  @ gUnknown_0202BCF0
 	movs r0, #0xe
 	ldrsb r0, [r4, r0]
-	bl LoadChapterMapGfx
+	bl UnpackChapterMapGraphics
 	bl SetupMapSpritesPalettes
 	bl LoadObjUIGfx
 	movs r0, #0xe
@@ -1785,8 +1785,8 @@ sub_8020B30: @ 0x08020B30
 	lsls r1, r1, #2
 	ands r0, r1
 	strh r0, [r5, #0xe]
-	bl RefreshFogAndUnitMaps
-	bl UpdateGameTilesGraphics
+	bl RefreshEntityBmMaps
+	bl RenderBmMap
 	add sp, #8
 	pop {r4, r5}
 	pop {r0}

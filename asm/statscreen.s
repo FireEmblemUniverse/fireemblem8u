@@ -102,7 +102,7 @@ sub_8086E44: @ 0x08086E44
 	lsls r1, r1, #0x18
 	asrs r1, r1, #0x18
 	adds r0, r4, #0
-	bl SetupBattleStructFromUnitAndWeapon
+	bl BattleGenerateUiStats
 	adds r0, r7, #0
 	adds r0, #0x18
 	ldr r1, _08086F30  @ 0x00000286
@@ -777,7 +777,7 @@ _08087458:
 	ldr r4, _0808747C  @ gUnknown_02003F84
 	ldr r0, _08087480  @ gUnknown_02003BFC
 	ldr r0, [r0, #0xc]
-	bl sub_80286BC
+	bl GetUnitAffinityIcon
 	adds r1, r0, #0
 	movs r2, #0xa0
 	lsls r2, r2, #7
@@ -918,7 +918,7 @@ _0808757C:
 	cmp r0, #0x34
 	beq _080875F8
 	ldr r4, _080875F0  @ gUnknown_0200407C
-	ldr r6, _080875F4  @ gUnknown_0203A4EC
+	ldr r6, _080875F4  @ gBattleActor
 	adds r0, r6, #0
 	adds r0, #0x5a
 	movs r1, #0
@@ -959,7 +959,7 @@ _080875E4: .4byte gUnknown_02003D4C
 _080875E8: .4byte gUnknown_0200472E
 _080875EC: .4byte gUnknown_08A02250
 _080875F0: .4byte gUnknown_0200407C
-_080875F4: .4byte gUnknown_0203A4EC
+_080875F4: .4byte gBattleActor
 _080875F8:
 	ldr r4, _0808767C  @ gUnknown_0200407C
 	adds r0, r4, #0
@@ -977,7 +977,7 @@ _080875F8:
 	movs r2, #0xff
 	bl DrawDecNumber
 	adds r4, #0x8e
-	ldr r0, _08087680  @ gUnknown_0203A4EC
+	ldr r0, _08087680  @ gBattleActor
 	adds r0, #0x62
 	movs r1, #0
 	ldrsh r2, [r0, r1]
@@ -1024,7 +1024,7 @@ _08087660:
 	bx r0
 	.align 2, 0
 _0808767C: .4byte gUnknown_0200407C
-_08087680: .4byte gUnknown_0203A4EC
+_08087680: .4byte gBattleActor
 _08087684: .4byte gUnknown_02003CB4
 _08087688: .4byte gUnknown_02003D2C
 _0808768C: .4byte 0x00007060
@@ -1043,7 +1043,7 @@ DrawUnitScreenSupportList: @ 0x08087698
 	str r0, [sp, #8]
 	ldr r4, _08087780  @ gUnknown_02003BFC
 	ldr r0, [r4, #0xc]
-	bl GetUnitTotalSupportLevels
+	bl GetUnitTotalSupportLevel
 	movs r1, #0
 	str r1, [sp, #0xc]
 	cmp r0, #5
@@ -1052,7 +1052,7 @@ DrawUnitScreenSupportList: @ 0x08087698
 	str r0, [sp, #0xc]
 _080876BC:
 	ldr r0, [r4, #0xc]
-	bl GetROMUnitSupportCount
+	bl GetUnitSupporterCount
 	mov sl, r0
 	movs r1, #0
 	mov r9, r1
@@ -1068,14 +1068,14 @@ _080876D8:
 	ldr r1, _08087780  @ gUnknown_02003BFC
 	ldr r0, [r1, #0xc]
 	mov r1, r9
-	bl GetSupportLevelBySupportIndex
+	bl GetUnitSupportLevel
 	adds r7, r0, #0
 	cmp r7, #0
 	beq _08087768
 	ldr r1, _08087780  @ gUnknown_02003BFC
 	ldr r0, [r1, #0xc]
 	mov r1, r9
-	bl GetROMUnitSupportingId
+	bl GetUnitSupporterCharacter
 	adds r4, r0, #0
 	lsls r4, r4, #0x18
 	lsrs r4, r4, #0x18
@@ -1085,7 +1085,7 @@ _080876D8:
 	mov r8, r1
 	adds r5, r6, r1
 	adds r0, r4, #0
-	bl sub_80286D4
+	bl GetCharacterAffinityIcon
 	adds r1, r0, #0
 	adds r0, r5, #0
 	movs r2, #0xa0
@@ -1119,7 +1119,7 @@ _08087746:
 	adds r4, #0x12
 	adds r4, r6, r4
 	adds r0, r7, #0
-	bl sub_80286EC
+	bl GetSupportLevelUiChar
 	adds r2, r0, #0
 	adds r0, r4, #0
 	adds r1, r5, #0
@@ -3698,7 +3698,7 @@ sub_8088C14: @ 0x08088C14
 	adds r4, r0, #0
 	ldr r0, _08088C38  @ gUnknown_02003BFC
 	ldr r0, [r0, #0xc]
-	bl GetUnitTotalSupportLevels
+	bl GetUnitTotalSupportLevel
 	cmp r0, #0
 	bne _08088C42
 	adds r0, r4, #0

@@ -229,13 +229,13 @@ _0800BAC6:
 	asrs r4, r0, #0x18
 	cmp r4, #1
 	bne _0800BAD2
-	bl sub_8019CBC
+	bl RenderBmMapOnBg2
 _0800BAD2:
 	ldr r0, _0800BAF4  @ gUnknown_0202BCF0
 	strb r5, [r0, #0xd]
-	bl RefreshFogAndUnitMaps
+	bl RefreshEntityBmMaps
 	bl SMS_UpdateFromGameData
-	bl UpdateGameTilesGraphics
+	bl RenderBmMap
 	cmp r4, #1
 	bne _0800BAEE
 	movs r0, #1
@@ -257,7 +257,7 @@ TriggerMapChanges: @ 0x0800BAF8
 	adds r4, r0, #0
 	lsls r1, r1, #0x18
 	lsrs r5, r1, #0x18
-	bl AreMapChangeTriggered
+	bl IsMapChangeEnabled
 	lsls r0, r0, #0x18
 	cmp r0, #0
 	bne _0800BB40
@@ -265,15 +265,15 @@ TriggerMapChanges: @ 0x0800BAF8
 	asrs r5, r0, #0x18
 	cmp r5, #1
 	bne _0800BB1C
-	bl sub_8019CBC
+	bl RenderBmMapOnBg2
 _0800BB1C:
 	adds r0, r4, #0
 	bl ApplyMapChangesById
 	adds r0, r4, #0
-	bl AddMapChange
-	bl FlushTerrainData
-	bl sub_802E690
-	bl UpdateGameTilesGraphics
+	bl EnableMapChange
+	bl RefreshTerrainBmMap
+	bl UpdateRoofedUnits
+	bl RenderBmMap
 	cmp r5, #1
 	bne _0800BB40
 	movs r0, #1
@@ -293,7 +293,7 @@ sub_800BB48: @ 0x0800BB48
 	adds r4, r0, #0
 	lsls r1, r1, #0x18
 	lsrs r5, r1, #0x18
-	bl AreMapChangeTriggered
+	bl IsMapChangeEnabled
 	lsls r0, r0, #0x18
 	asrs r0, r0, #0x18
 	cmp r0, #1
@@ -302,15 +302,15 @@ sub_800BB48: @ 0x0800BB48
 	asrs r5, r0, #0x18
 	cmp r5, #1
 	bne _0800BB6E
-	bl sub_8019CBC
+	bl RenderBmMapOnBg2
 _0800BB6E:
 	adds r0, r4, #0
-	bl RevertMapChangesById
+	bl RevertMapChange
 	adds r0, r4, #0
-	bl UntriggerMapChange
-	bl FlushTerrainData
-	bl sub_802E690
-	bl UpdateGameTilesGraphics
+	bl DisableMapChange
+	bl RefreshTerrainBmMap
+	bl UpdateRoofedUnits
+	bl RenderBmMap
 	cmp r5, #1
 	bne _0800BB92
 	movs r0, #1
@@ -465,7 +465,7 @@ _0800BC8C: .4byte gEventSlots
 _0800BC90:
 	ldr r2, _0800BCB0  @ gUnknown_030004E6
 	ldrh r1, [r2]
-	ldr r0, _0800BCB4  @ gUnknown_0202E4D8
+	ldr r0, _0800BCB4  @ gBmMapUnit
 	ldr r0, [r0]
 	lsls r1, r1, #2
 	adds r1, r1, r0
@@ -480,7 +480,7 @@ _0800BC90:
 	b _0800BCD8
 	.align 2, 0
 _0800BCB0: .4byte gUnknown_030004E6
-_0800BCB4: .4byte gUnknown_0202E4D8
+_0800BCB4: .4byte gBmMapUnit
 _0800BCB8:
 	movs r0, #0
 	b _0800BCD8

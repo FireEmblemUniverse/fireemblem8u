@@ -16,14 +16,14 @@ sub_8039AC8: @ 0x08039AC8
 	ands r0, r1
 	cmp r0, #0
 	bne _08039AEC
-	ldr r1, _08039AE8  @ gUnknown_0203A958
+	ldr r1, _08039AE8  @ gActionData
 	movs r0, #3
 	b _08039AF0
 	.align 2, 0
 _08039AE4: .4byte gActiveUnit
-_08039AE8: .4byte gUnknown_0203A958
+_08039AE8: .4byte gActionData
 _08039AEC:
-	ldr r1, _08039AFC  @ gUnknown_0203A958
+	ldr r1, _08039AFC  @ gActionData
 	movs r0, #2
 _08039AF0:
 	strb r0, [r1, #0x16]
@@ -32,7 +32,7 @@ _08039AF0:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_08039AFC: .4byte gUnknown_0203A958
+_08039AFC: .4byte gActionData
 
 	THUMB_FUNC_START Call6C_E_CPDECIDE
 Call6C_E_CPDECIDE: @ 0x08039B00
@@ -77,8 +77,8 @@ _08039B48: .4byte gUnknown_0203AA04
 _08039B4C: .4byte gActiveUnitId
 _08039B50: .4byte gActiveUnit
 _08039B54:
-	bl RefreshFogAndUnitMaps
-	bl UpdateGameTilesGraphics
+	bl RefreshEntityBmMaps
+	bl RenderBmMap
 	bl SMS_UpdateFromGameData
 	ldr r0, [r6]
 	bl sub_8041090

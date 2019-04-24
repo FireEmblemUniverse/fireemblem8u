@@ -5,13 +5,18 @@
 #include "constants/items.h"
 #include "constants/classes.h"
 #include "constants/characters.h"
+#include "constants/terrains.h"
 
 #include "bmitem.h"
-
 #include "bmunit.h"
+#include "bmmap.h"
+#include "bmidoten.h"
+#include "bmbattle.h"
+#include "bmreliance.h"
+#include "bmtrick.h"
 
 EWRAM_DATA u8 gActiveUnitId = 0;
-EWRAM_DATA struct { short x, y; } gActiveUnitMoveOrigin = {}; // TODO: struct Vec2?
+EWRAM_DATA struct Vec2 gActiveUnitMoveOrigin = {};
 
 EWRAM_DATA struct Unit gUnitArrayBlue[62]  = {}; // Player units
 EWRAM_DATA struct Unit gUnitArrayRed[50]   = {}; // Red units
@@ -29,7 +34,7 @@ CONST_DATA static int sStatusNameTextIdLookup[] = {
     [UNIT_STATUS_ATTACK]   = 0x51B,
     [UNIT_STATUS_DEFENSE]  = 0x51C,
     [UNIT_STATUS_CRIT]     = 0x51D,
-    [UNIT_STATUS_DODGE]    = 0x51E,
+    [UNIT_STATUS_AVOID]    = 0x51E,
     [UNIT_STATUS_SICK]     = 0x518,
     [UNIT_STATUS_RECOVER]  = 0x519,
     [UNIT_STATUS_PETRIFY]  = 0x51A,
@@ -324,11 +329,11 @@ inline int GetUnitLeaderCharId(struct Unit* unit) {
     if (!(unit->index & 0xC0))
         return 0;
 
-    return unit->unitLeader;
+    return UNIT_LEADER_CHARACTER(unit);
 }
 
 inline void SetUnitLeaderCharId(struct Unit* unit, int charId) {
-    unit->unitLeader = charId;
+    UNIT_LEADER_CHARACTER(unit) = charId;
 }
 
 inline void SetUnitHp(struct Unit* unit, int value) {
@@ -355,7 +360,7 @@ inline void AddUnitHp(struct Unit* unit, int amount) {
 int GetUnitFogViewRange(struct Unit* unit) {
     int result = gUnknown_0202BCF0.chapterVisionRange;
 
-    if (UNIT_CATTRIBUTES(unit) & CA_LOCKPICK)
+    if (UNIT_CATTRIBUTES(unit) & CA_THIEF)
         result += 5;
 
     return result + unit->torchDuration;
@@ -384,7 +389,7 @@ int GetUnitSMSId(struct Unit* unit) {
     if (!(unit->state & US_IN_BALLISTA))
         return unit->pClassData->SMSId;
 
-    switch (GetTrap(unit->ballistaIndex)->data[TRAP_EXTDATA_BLST_ITEMID]) {
+    switch (GetTrap(unit->ballistaIndex)->extra) {
 
         // TODO: SMS id definitions
 
@@ -623,7 +628,7 @@ struct Unit* LoadUnit(const struct UnitDefinition* uDef) {
                 UnitAutolevel(unit);
 
             UnitAutolevelWExp(unit, uDef);
-            unit->unitLeader = uDef->leaderCharIndex;
+            SetUnitLeaderCharId(unit, uDef->leaderCharIndex);
         }
 
         if (UNIT_IS_GORGON_EGG(unit))
@@ -721,10 +726,10 @@ void FixROMUnitStructPtr(struct Unit* unit) {
 }
 
 void UnitLoadSupports(struct Unit* unit) {
-    int i, count = GetROMUnitSupportCount(unit);
+    int i, count = GetUnitSupporterCount(unit);
 
     for (i = 0; i < count; ++i)
-        unit->supports[i] = GetUnitStartingSupportValue(unit, i);
+        unit->supports[i] = GetUnitSupporterInitialExp(unit, i);
 }
 
 void UnitAutolevelWExp(struct Unit* unit, const struct UnitDefinition* uDef) {
@@ -760,13 +765,13 @@ void UnitAutolevelWExp(struct Unit* unit, const struct UnitDefinition* uDef) {
 
 void UnitAutolevelCore(struct Unit* unit, u8 classId, int levelCount) {
     if (levelCount) {
-        unit->maxHP += GetAutoleveledStat(unit->pClassData->growthHP,  levelCount);
-        unit->pow   += GetAutoleveledStat(unit->pClassData->growthPow, levelCount);
-        unit->skl   += GetAutoleveledStat(unit->pClassData->growthSkl, levelCount);
-        unit->spd   += GetAutoleveledStat(unit->pClassData->growthSpd, levelCount);
-        unit->def   += GetAutoleveledStat(unit->pClassData->growthDef, levelCount);
-        unit->res   += GetAutoleveledStat(unit->pClassData->growthRes, levelCount);
-        unit->lck   += GetAutoleveledStat(unit->pClassData->growthLck, levelCount);
+        unit->maxHP += GetAutoleveledStatIncrease(unit->pClassData->growthHP,  levelCount);
+        unit->pow   += GetAutoleveledStatIncrease(unit->pClassData->growthPow, levelCount);
+        unit->skl   += GetAutoleveledStatIncrease(unit->pClassData->growthSkl, levelCount);
+        unit->spd   += GetAutoleveledStatIncrease(unit->pClassData->growthSpd, levelCount);
+        unit->def   += GetAutoleveledStatIncrease(unit->pClassData->growthDef, levelCount);
+        unit->res   += GetAutoleveledStatIncrease(unit->pClassData->growthRes, levelCount);
+        unit->lck   += GetAutoleveledStatIncrease(unit->pClassData->growthLck, levelCount);
     }
 }
 
@@ -822,12 +827,12 @@ void UnitAutolevelRealistic(struct Unit* unit) {
 
     if (levelsLeft) {
         for (unit->level -= levelsLeft; levelsLeft > 0; --levelsLeft) {
-            CopyUnitToBattleStruct(&tmpBattleUnit, unit);
+            InitBattleUnit(&tmpBattleUnit, unit);
 
             tmpBattleUnit.unit.exp += 100;
-            CheckForLevelUp(&tmpBattleUnit);
+            CheckBattleUnitLevelUp(&tmpBattleUnit);
 
-            SaveUnitFromBattle(unit, &tmpBattleUnit);
+            UpdateUnitFromBattle(unit, &tmpBattleUnit);
         }
     }
 }
@@ -946,7 +951,7 @@ void UnitKill(struct Unit* unit) {
             unit->pCharacterData = NULL;
         else {
             unit->state |= US_DEAD | US_HIDDEN;
-            UnitClearSupports(unit);
+            ClearUnitSupports(unit);
         }
     } else
         unit->pCharacterData = NULL;
@@ -1000,28 +1005,28 @@ void UnitGetDeathDropLocation(struct Unit* unit, int* xOut, int* yOut) {
     struct Unit* rescuee = GetUnit(unit->rescueOtherUnit);
 
     // Fill the movement map
-    FillMovementMapSomehow(unit->xPos, unit->yPos, gUnknown_0880BB96);
+    GenerateExtendedMovementMap(unit->xPos, unit->yPos, gUnknown_0880BB96);
 
     // Put the active unit on the unit map (kinda, just marking its spot)
-    gUnknown_0202E4D8[gActiveUnit->yPos][gActiveUnit->xPos] = 0xFF;
+    gBmMapUnit[gActiveUnit->yPos][gActiveUnit->xPos] = 0xFF;
 
     // Remove the actor unit from the unit map (why?)
-    gUnknown_0202E4D8[unit->yPos][unit->xPos] = 0;
+    gBmMapUnit[unit->yPos][unit->xPos] = 0;
 
-    for (iy = gUnknown_0202E4D4.height - 1; iy >= 0; --iy) {
-        for (ix = gUnknown_0202E4D4.width - 1; ix >= 0; --ix) {
+    for (iy = gBmMapSize.y - 1; iy >= 0; --iy) {
+        for (ix = gBmMapSize.x - 1; ix >= 0; --ix) {
             int distance;
 
-            if (gUnknown_0202E4E0[iy][ix] > MAP_MOVEMENT_MAX)
+            if (gBmMapMovement[iy][ix] > MAP_MOVEMENT_MAX)
                 continue;
 
-            if (gUnknown_0202E4D8[iy][ix] != 0)
+            if (gBmMapUnit[iy][ix] != 0)
                 continue;
 
-            if (gUnknown_0202E4EC[iy][ix] & HIDDEN_BIT_UNIT)
+            if (gBmMapHidden[iy][ix] & HIDDEN_BIT_UNIT)
                 continue;
 
-            if (!CanUnitCrossTerrain(rescuee, gUnknown_0202E4DC[iy][ix]))
+            if (!CanUnitCrossTerrain(rescuee, gBmMapTerrain[iy][ix]))
                 continue;
 
             distance = RECT_DISTANCE(ix, iy, unit->xPos, unit->yPos);
@@ -1036,7 +1041,7 @@ void UnitGetDeathDropLocation(struct Unit* unit, int* xOut, int* yOut) {
     }
 
     // Remove the active unit from the unit map again
-    gUnknown_0202E4D8[gActiveUnit->yPos][gActiveUnit->xPos] = 0;
+    gBmMapUnit[gActiveUnit->yPos][gActiveUnit->xPos] = 0;
 }
 
 void UnitBeginAction(struct Unit* unit) {
@@ -1046,17 +1051,17 @@ void UnitBeginAction(struct Unit* unit) {
     gActiveUnitMoveOrigin.x = unit->xPos;
     gActiveUnitMoveOrigin.y = unit->yPos;
 
-    gUnknown_0203A958.subjectIndex = unit->index;
-    gUnknown_0203A958.unitActionType = 0;
-    gUnknown_0203A958.moveCount = 0;
+    gActionData.subjectIndex = unit->index;
+    gActionData.unitActionType = 0;
+    gActionData.moveCount = 0;
 
     gUnknown_0202BCB0.unk3D = 0;
     gUnknown_0202BCB0.unk3F = 0xFF;
 
-    NullSomeStuff();
+    sub_802C334();
 
     gActiveUnit->state |= US_HIDDEN;
-    gUnknown_0202E4D8[unit->yPos][unit->xPos] = 0;
+    gBmMapUnit[unit->yPos][unit->xPos] = 0;
 }
 
 void UnitBeginCantoAction(struct Unit* unit) {
@@ -1066,14 +1071,14 @@ void UnitBeginCantoAction(struct Unit* unit) {
     gActiveUnitMoveOrigin.x = unit->xPos;
     gActiveUnitMoveOrigin.y = unit->yPos;
 
-    gUnknown_0203A958.unitActionType = 0;
+    gActionData.unitActionType = 0;
 
     gUnknown_0202BCB0.unk3D = 0;
 
-    NullSomeStuff();
+    sub_802C334();
 
     gActiveUnit->state |= US_HIDDEN;
-    gUnknown_0202E4D8[unit->yPos][unit->xPos] = 0;
+    gBmMapUnit[unit->yPos][unit->xPos] = 0;
 }
 
 void MoveActiveUnit(int x, int y) {
@@ -1082,7 +1087,7 @@ void MoveActiveUnit(int x, int y) {
 
     gActiveUnit->state |= US_UNSELECTABLE;
 
-    BWL_AddTilesMoved(gActiveUnit->pCharacterData->number, gUnknown_0203A958.moveCount);
+    BWL_AddTilesMoved(gActiveUnit->pCharacterData->number, gActionData.moveCount);
 
     if (GetUnitCurrentHp(gActiveUnit) != 0)
         gActiveUnit->state = gActiveUnit->state &~ US_HIDDEN;
@@ -1152,9 +1157,9 @@ void TickActiveFactionTurn(void) {
     }
 
     if (displayMapChange) {
-        sub_8019CBC();
-        RefreshFogAndUnitMaps();
-        UpdateGameTilesGraphics();
+        RenderBmMapOnBg2();
+        RefreshEntityBmMaps();
+        RenderBmMap();
         NewBMXFADE(TRUE);
         SMS_UpdateFromGameData();
     }
@@ -1224,7 +1229,7 @@ void sub_8018A7C(struct Unit* unit, int x, int y) {
 int GetUnitKeyItemSlotForTerrain(struct Unit* unit, int terrain) {
     int slot, item = 0;
 
-    if (UNIT_CATTRIBUTES(unit) & CA_LOCKPICK) {
+    if (UNIT_CATTRIBUTES(unit) & CA_THIEF) {
         int slot = GetUnitItemSlot(unit, ITEM_LOCKPICK);
 
         if (slot >= 0)
@@ -1233,9 +1238,7 @@ int GetUnitKeyItemSlotForTerrain(struct Unit* unit, int terrain) {
 
     switch (terrain) {
 
-        // TODO: terrain id constants
-
-    case 0x21:
+    case TERRAIN_CHEST_21:
         slot = GetUnitItemSlot(unit, ITEM_CHESTKEY);
 
         if (slot < 0)
@@ -1243,7 +1246,7 @@ int GetUnitKeyItemSlotForTerrain(struct Unit* unit, int terrain) {
 
         return slot;
 
-    case 0x1E:
+    case TERRAIN_DOOR:
         item = ITEM_DOORKEY;
         break;
 
@@ -1302,7 +1305,7 @@ s8 CanUnitMove(void) {
         0, +1,
     };
 
-    int move = UNIT_MOV(gActiveUnit) - gUnknown_0203A958.moveCount;
+    int move = UNIT_MOV(gActiveUnit) - gActionData.moveCount;
 
     int xUnit = gActiveUnit->xPos;
     int yUnit = gActiveUnit->yPos;
@@ -1315,10 +1318,10 @@ s8 CanUnitMove(void) {
 
         int cost;
 
-        if (gUnknown_0202E4D8[yLocal][xLocal] & FACTION_RED)
+        if (gBmMapUnit[yLocal][xLocal] & FACTION_RED)
             continue;
 
-        cost = GetUnitMovementCost(gActiveUnit)[gUnknown_0202E4DC[yLocal][xLocal]];
+        cost = GetUnitMovementCost(gActiveUnit)[gBmMapTerrain[yLocal][xLocal]];
 
         if ((cost < 0) || (cost > move))
             continue;
@@ -1472,7 +1475,7 @@ void ClearTemporaryUnits(void) {
             ClearUnit(unit);
     }
 
-    RefreshFogAndUnitMaps();
+    RefreshEntityBmMaps();
     SMS_UpdateFromGameData();
 }
 
@@ -1515,7 +1518,7 @@ void sub_8018FC0(void) {
     }
 }
 
-int CountAvailableBlueUnits(void) {
+u16 CountAvailableBlueUnits(void) {
     int i;
 
     u16 result = 0;
@@ -1608,6 +1611,6 @@ void sub_8019108(void) {
         SetUnitStatus(unit, 0);
     }
 
-    RefreshFogAndUnitMaps();
+    RefreshEntityBmMaps();
     SMS_UpdateFromGameData();
 }

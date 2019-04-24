@@ -3254,10 +3254,10 @@ _0800EE88:
 	ldr r4, _0800EEB8  @ gUnknown_0202BCF0
 	movs r0, #0xe
 	ldrsb r0, [r4, r0]
-	bl LoadChapterMapGfx
+	bl UnpackChapterMapGraphics
 	ldrb r0, [r4, #0x15]
 	bl AllocWeatherParticles
-	bl UpdateGameTilesGraphics
+	bl RenderBmMap
 	bl SMS_UpdateFromGameData
 	ldr r0, [r5, #0x34]
 	adds r0, #0x44
@@ -3634,8 +3634,8 @@ _0800F198:
 	lsls r0, r7, #4
 	bl sub_8015A6C
 	strh r0, [r4, #0xe]
-	bl RefreshFogAndUnitMaps
-	bl UpdateGameTilesGraphics
+	bl RefreshEntityBmMaps
+	bl RenderBmMap
 	bl SMS_UpdateFromGameData
 	bl RefreshBMapGraphics
 	adds r0, r5, #0
@@ -3735,7 +3735,7 @@ _0800F27A:
 	adds r0, r4, #0
 	adds r1, r5, #0
 	bl SetCursorMapPosition
-	bl UpdateGameTilesGraphics
+	bl RenderBmMap
 	movs r0, #0
 	b _0800F2CA
 _0800F29C:
@@ -3809,7 +3809,7 @@ _0800F314:
 	ldrb r0, [r1, #0x10]
 	ldrb r1, [r1, #0x11]
 _0800F31C:
-	bl GetMapChangesIdAt
+	bl GetMapChangeIdAt
 	lsls r0, r0, #0x10
 	lsrs r2, r0, #0x10
 	cmp r0, #0
@@ -4127,7 +4127,7 @@ _0800F564:
 	ldrh r0, [r4, #4]
 	lsls r0, r0, #0x14
 	lsrs r0, r0, #0x1a
-	ldr r1, _0800F5AC  @ gUnknown_0202E4D8
+	ldr r1, _0800F5AC  @ gBmMapUnit
 	ldr r1, [r1]
 	lsls r0, r0, #2
 	adds r0, r0, r1
@@ -4150,7 +4150,7 @@ _0800F5A2:
 	b _0800F5B2
 	.align 2, 0
 _0800F5A8: .4byte 0xFF004000
-_0800F5AC: .4byte gUnknown_0202E4D8
+_0800F5AC: .4byte gBmMapUnit
 _0800F5B0:
 	movs r0, #1
 _0800F5B2:
@@ -5021,10 +5021,10 @@ _0800FBFA:
 	mov r1, r9
 	bl sub_800F914
 	adds r5, r0, #0
-	ldr r0, _0800FC48  @ gUnknown_0202E4F0
+	ldr r0, _0800FC48  @ gBmMapUnk
 	ldr r0, [r0]
 	movs r1, #0
-	bl ClearMapWith
+	bl BmMapFill
 	ldrh r2, [r6, #0x3c]
 	lsrs r0, r2, #2
 	movs r1, #1
@@ -5050,7 +5050,7 @@ _0800FC2E:
 	strb r2, [r0]
 	b _0800FC72
 	.align 2, 0
-_0800FC48: .4byte gUnknown_0202E4F0
+_0800FC48: .4byte gBmMapUnk
 _0800FC4C:
 	str r5, [r6, #0x48]
 	adds r0, r6, #0
@@ -5189,7 +5189,7 @@ Event2E_CheckAt: @ 0x0800FD28
 	beq _0800FD60
 	b _0800FD64
 _0800FD42:
-	ldr r0, _0800FD5C  @ gUnknown_0202E4D8
+	ldr r0, _0800FD5C  @ gBmMapUnit
 	ldr r1, [r0]
 	lsls r0, r3, #2
 	adds r0, r0, r1
@@ -5202,7 +5202,7 @@ _0800FD42:
 	adds r4, r0, #0
 	b _0800FD64
 	.align 2, 0
-_0800FD5C: .4byte gUnknown_0202E4D8
+_0800FD5C: .4byte gBmMapUnit
 _0800FD60:
 	ldr r0, _0800FD70  @ gActiveUnit
 	ldr r4, [r0]
@@ -5371,10 +5371,10 @@ _0800FE7C:
 	bl GetSomeEventEngineMoveRelatedBitfield
 	lsls r0, r0, #0x10
 	lsrs r4, r0, #0x10
-	ldr r0, _0800FEBC  @ gUnknown_0202E4F0
+	ldr r0, _0800FEBC  @ gBmMapUnk
 	ldr r0, [r0]
 	movs r1, #0
-	bl ClearMapWith
+	bl BmMapFill
 	ldrh r0, [r7, #0x3c]
 	lsrs r0, r0, #2
 	movs r1, #1
@@ -5396,7 +5396,7 @@ _0800FEA6:
 	b _0800FF0C
 	.align 2, 0
 _0800FEB8: .4byte gEventSlotQueue
-_0800FEBC: .4byte gUnknown_0202E4F0
+_0800FEBC: .4byte gBmMapUnk
 _0800FEC0:
 	mov r0, r9
 	lsls r1, r0, #0x18
@@ -5465,17 +5465,17 @@ _0800FF36:
 	asrs r0, r0, #0x18
 	cmp r0, #1
 	beq _0800FF60
-	bl RefreshFogAndUnitMaps
+	bl RefreshEntityBmMaps
 	bl SMS_UpdateFromGameData
-	bl UpdateGameTilesGraphics
-	ldr r0, _0800FF5C  @ gUnknown_0202E4F0
+	bl RenderBmMap
+	ldr r0, _0800FF5C  @ gBmMapUnk
 	ldr r0, [r0]
 	movs r1, #0
-	bl ClearMapWith
+	bl BmMapFill
 	movs r0, #2
 	b _0800FF62
 	.align 2, 0
-_0800FF5C: .4byte gUnknown_0202E4F0
+_0800FF5C: .4byte gBmMapUnk
 _0800FF60:
 	movs r0, #3
 _0800FF62:
@@ -6147,9 +6147,9 @@ _08010494:
 	adds r0, r5, #0
 	bl ClearUnit
 _0801049A:
-	bl RefreshFogAndUnitMaps
+	bl RefreshEntityBmMaps
 	bl SMS_UpdateFromGameData
-	bl UpdateGameTilesGraphics
+	bl RenderBmMap
 _080104A6:
 	movs r0, #0
 _080104A8:
@@ -6217,9 +6217,9 @@ _08010518:
 	bl GetClassData
 	str r0, [r5, #4]
 _08010522:
-	bl RefreshFogAndUnitMaps
+	bl RefreshEntityBmMaps
 	bl SMS_UpdateFromGameData
-	bl UpdateGameTilesGraphics
+	bl RenderBmMap
 _0801052E:
 	movs r0, #0
 	pop {r4, r5, r6, r7}
@@ -6430,7 +6430,7 @@ _080106A0:
 	lsrs r1, r0, #0x18
 _080106AC:
 	lsls r1, r1, #0x18
-	ldr r0, _080106CC  @ gUnknown_0202E4D8
+	ldr r0, _080106CC  @ gBmMapUnit
 	ldr r0, [r0]
 	asrs r1, r1, #0x16
 	adds r1, r1, r0
@@ -6444,7 +6444,7 @@ _080106AC:
 	bl GetUnit
 	b _080106D2
 	.align 2, 0
-_080106CC: .4byte gUnknown_0202E4D8
+_080106CC: .4byte gBmMapUnit
 _080106D0:
 	movs r0, #0
 _080106D2:
@@ -7034,7 +7034,7 @@ _08010B06:
 _08010B28: .4byte gUnknown_08591F18
 _08010B2C:
 	mov r0, r8
-	bl sub_802CEBC
+	bl SetScriptedBattle
 	movs r0, #0
 	b _08010B38
 _08010B36:

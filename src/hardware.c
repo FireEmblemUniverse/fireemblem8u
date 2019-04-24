@@ -1007,15 +1007,15 @@ void SetSecondaryHBlankHandler(void (*hblankHandler)(void))
     UpdateHBlankHandlerState();
 }
 
-int GetBackgroundFromBufferPointer(u8 *ptr)
+int GetBackgroundFromBufferPointer(u16 *ptr)
 {
-    if (ptr >= gBG0TilemapBuffer && ptr < gBG0TilemapBuffer + 0x800)
+    if (ptr >= gBG0TilemapBuffer && ptr < gBG0TilemapBuffer + 0x400)
         return 0;
-    if (ptr >= gBG1TilemapBuffer && ptr < gBG1TilemapBuffer + 0x800)
+    if (ptr >= gBG1TilemapBuffer && ptr < gBG1TilemapBuffer + 0x400)
         return 1;
-    if (ptr >= gBG2TilemapBuffer && ptr < gBG2TilemapBuffer + 0x800)
+    if (ptr >= gBG2TilemapBuffer && ptr < gBG2TilemapBuffer + 0x400)
         return 2;
-    if (ptr >= gBG3TilemapBuffer && ptr < gBG3TilemapBuffer + 0x800)
+    if (ptr >= gBG3TilemapBuffer && ptr < gBG3TilemapBuffer + 0x400)
         return 3;
     return -1;
 }

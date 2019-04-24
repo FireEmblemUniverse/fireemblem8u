@@ -305,7 +305,7 @@ MuCtr_SetupWithEventMoveBuffer: @ 0x08079E78
 	str r0, [r7, #0xc]
 	movs r0, #0x11
 	ldrsb r0, [r7, r0]
-	ldr r1, _08079F7C  @ gUnknown_0202E4D8
+	ldr r1, _08079F7C  @ gBmMapUnit
 	ldr r1, [r1]
 	lsls r0, r0, #2
 	adds r0, r0, r1
@@ -322,7 +322,7 @@ MuCtr_SetupWithEventMoveBuffer: @ 0x08079E78
 _08079F30:
 	mov r1, sl
 	lsls r0, r1, #0x18
-	ldr r2, _08079F80  @ gUnknown_0202E4F0
+	ldr r2, _08079F80  @ gBmMapUnk
 	ldr r1, [r2]
 	asrs r0, r0, #0x16
 	adds r0, r0, r1
@@ -358,8 +358,8 @@ _08079F30:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_08079F7C: .4byte gUnknown_0202E4D8
-_08079F80: .4byte gUnknown_0202E4F0
+_08079F7C: .4byte gBmMapUnit
+_08079F80: .4byte gBmMapUnk
 
 	THUMB_FUNC_START MuCtrExists
 MuCtrExists: @ 0x08079F84
@@ -428,7 +428,7 @@ sub_8079FA8: @ 0x08079FA8
 	negs r0, r0
 	ands r1, r0
 	str r1, [r5, #0xc]
-	bl RefreshFogAndUnitMaps
+	bl RefreshEntityBmMaps
 	bl SMS_UpdateFromGameData
 _0807A00C:
 	add sp, #4
@@ -612,7 +612,7 @@ _0807A14C:
 	bl MU_Hide
 	movs r0, #0x11
 	ldrsb r0, [r4, r0]
-	ldr r1, _0807A190  @ gUnknown_0202E4D8
+	ldr r1, _0807A190  @ gBmMapUnit
 	ldr r1, [r1]
 	lsls r0, r0, #2
 	adds r0, r0, r1
@@ -630,7 +630,7 @@ _0807A188:
 	pop {r1}
 	bx r1
 	.align 2, 0
-_0807A190: .4byte gUnknown_0202E4D8
+_0807A190: .4byte gBmMapUnit
 
 	THUMB_FUNC_START sub_807A194
 sub_807A194: @ 0x0807A194
@@ -735,7 +735,7 @@ _0807A234:
 	str r0, [r4, #0xc]
 	movs r0, #0x11
 	ldrsb r0, [r4, r0]
-	ldr r1, _0807A290  @ gUnknown_0202E4D8
+	ldr r1, _0807A290  @ gBmMapUnit
 	ldr r1, [r1]
 	lsls r0, r0, #2
 	adds r0, r0, r1
@@ -745,7 +745,7 @@ _0807A234:
 	adds r0, r0, r1
 	ldrb r1, [r4, #0xb]
 	strb r1, [r0]
-	bl RefreshFogAndUnitMaps
+	bl RefreshEntityBmMaps
 	bl SMS_UpdateFromGameData
 _0807A27A:
 	adds r0, r6, #0
@@ -757,7 +757,7 @@ _0807A27A:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_0807A290: .4byte gUnknown_0202E4D8
+_0807A290: .4byte gBmMapUnit
 
 	THUMB_FUNC_START sub_807A294
 sub_807A294: @ 0x0807A294
@@ -878,7 +878,7 @@ sub_807A358: @ 0x0807A358
 	mov ip, r0
 	movs r1, #0
 	ldrsb r1, [r0, r1]
-	ldr r0, _0807A3C0  @ gUnknown_0202E4F0
+	ldr r0, _0807A3C0  @ gBmMapUnk
 	ldr r0, [r0]
 	lsls r1, r1, #2
 	adds r1, r1, r0
@@ -913,7 +913,7 @@ sub_807A358: @ 0x0807A358
 	str r1, [sp]
 	b _0807A3E8
 	.align 2, 0
-_0807A3C0: .4byte gUnknown_0202E4F0
+_0807A3C0: .4byte gBmMapUnk
 _0807A3C4: .4byte 0xFFFF0000
 _0807A3C8: .4byte 0x0000FFFF
 _0807A3CC:
@@ -947,7 +947,7 @@ _0807A3EC:
 	adds r0, #0x41
 	movs r1, #0
 	ldrsb r1, [r0, r1]
-	ldr r0, _0807A488  @ gUnknown_0202E4F0
+	ldr r0, _0807A488  @ gBmMapUnk
 	ldr r0, [r0]
 	lsls r1, r1, #2
 	adds r1, r1, r0
@@ -1010,7 +1010,7 @@ _0807A46E:
 	b _0807A492
 	.align 2, 0
 _0807A484: .4byte 0x0000FFFE
-_0807A488: .4byte gUnknown_0202E4F0
+_0807A488: .4byte gBmMapUnk
 _0807A48C:
 	adds r0, r4, #0
 	bl MU_DisableAttractCamera
@@ -1023,7 +1023,7 @@ _0807A492:
 	str r0, [r6, #0xc]
 	movs r0, #0x11
 	ldrsb r0, [r6, r0]
-	ldr r1, _0807A4E4  @ gUnknown_0202E4D8
+	ldr r1, _0807A4E4  @ gBmMapUnit
 	ldr r1, [r1]
 	lsls r0, r0, #2
 	adds r0, r0, r1
@@ -1057,7 +1057,7 @@ _0807A4D4:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_0807A4E4: .4byte gUnknown_0202E4D8
+_0807A4E4: .4byte gBmMapUnit
 
 	THUMB_FUNC_START GetAdjustedPositionForNewUnit
 GetAdjustedPositionForNewUnit: @ 0x0807A4E8
@@ -1088,7 +1088,7 @@ _0807A506:
 	adds r2, r0, #0
 	adds r0, r4, #0
 	adds r1, r5, #0
-	bl FillMovementRangeMapSomehow
+	bl GenerateExtendedMovementMapOnRange
 	movs r2, #0xff
 	ldrb r3, [r6]
 	mov sl, r3
@@ -1119,7 +1119,7 @@ _0807A542:
 _0807A554:
 	mov r0, r9
 	asrs r4, r0, #0x18
-	ldr r0, _0807A5F4  @ gUnknown_0202E4D8
+	ldr r0, _0807A5F4  @ gBmMapUnit
 	ldr r1, [r0]
 	lsls r3, r4, #2
 	adds r1, r3, r1
@@ -1130,7 +1130,7 @@ _0807A554:
 	ldrb r0, [r0]
 	cmp r0, #0
 	bne _0807A5B6
-	ldr r0, _0807A5F8  @ gUnknown_0202E4F0
+	ldr r0, _0807A5F8  @ gBmMapUnk
 	ldr r0, [r0]
 	adds r0, r3, r0
 	ldr r0, [r0]
@@ -1138,7 +1138,7 @@ _0807A554:
 	ldrb r0, [r0]
 	cmp r0, #0
 	bne _0807A5B6
-	ldr r0, _0807A5FC  @ gUnknown_0202E4EC
+	ldr r0, _0807A5FC  @ gBmMapHidden
 	ldr r0, [r0]
 	adds r0, r3, r0
 	ldr r0, [r0]
@@ -1146,7 +1146,7 @@ _0807A554:
 	ldrb r0, [r0]
 	cmp r0, #0
 	bne _0807A5B6
-	ldr r0, _0807A600  @ gUnknown_0202E4E4
+	ldr r0, _0807A600  @ gBmMapRange
 	ldr r0, [r0]
 	adds r0, r3, r0
 	ldr r0, [r0]
@@ -1197,10 +1197,10 @@ _0807A5B6:
 	strh r0, [r6, #2]
 	b _0807A62E
 	.align 2, 0
-_0807A5F4: .4byte gUnknown_0202E4D8
-_0807A5F8: .4byte gUnknown_0202E4F0
-_0807A5FC: .4byte gUnknown_0202E4EC
-_0807A600: .4byte gUnknown_0202E4E4
+_0807A5F4: .4byte gBmMapUnit
+_0807A5F8: .4byte gBmMapUnk
+_0807A5FC: .4byte gBmMapHidden
+_0807A600: .4byte gBmMapRange
 _0807A604:
 	movs r0, #1
 	ands r0, r2
@@ -1208,7 +1208,7 @@ _0807A604:
 	beq _0807A62E
 	movs r2, #2
 	ldrsb r2, [r6, r2]
-	ldr r0, _0807A640  @ gUnknown_0202E4DC
+	ldr r0, _0807A640  @ gBmMapTerrain
 	ldr r1, [r0]
 	lsls r0, r2, #2
 	adds r0, r0, r1
@@ -1232,7 +1232,7 @@ _0807A62E:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_0807A640: .4byte gUnknown_0202E4DC
+_0807A640: .4byte gBmMapTerrain
 
 	THUMB_FUNC_START sub_807A644
 sub_807A644: @ 0x0807A644
@@ -1252,21 +1252,21 @@ sub_807A644: @ 0x0807A644
 	ldrsb r1, [r4, r1]
 	ldr r2, [r4, #4]
 	ldr r2, [r2, #0x38]
-	bl FillMovementRangeMapSomehow
+	bl GenerateExtendedMovementMapOnRange
 	lsls r0, r7, #0x18
 	asrs r0, r0, #0x18
 	lsls r1, r6, #0x18
 	asrs r1, r1, #0x18
-	ldr r2, _0807A678  @ gUnknown_02033EFC
-	bl sub_801A640
+	ldr r2, _0807A678  @ gWorkingMovementScript
+	bl GenerateBestMovementScript
 	b _0807A6F4
 	.align 2, 0
-_0807A678: .4byte gUnknown_02033EFC
+_0807A678: .4byte gWorkingMovementScript
 _0807A67C:
-	bl BattleSomethingTrapChangeTerrain
+	bl DisableAllLightRunes
 	lsls r0, r6, #0x18
 	asrs r2, r0, #0x18
-	ldr r0, _0807A6A4  @ gUnknown_0202E4DC
+	ldr r0, _0807A6A4  @ gBmMapTerrain
 	ldr r1, [r0]
 	lsls r0, r2, #2
 	adds r0, r0, r1
@@ -1282,7 +1282,7 @@ _0807A67C:
 	movs r0, #1
 	b _0807A6B6
 	.align 2, 0
-_0807A6A4: .4byte gUnknown_0202E4DC
+_0807A6A4: .4byte gBmMapTerrain
 _0807A6A8:
 	adds r0, r4, #0
 	adds r3, r5, #0
@@ -1298,19 +1298,19 @@ _0807A6B6:
 	ldrsb r1, [r4, r1]
 	ldr r2, [r4, #4]
 	ldr r2, [r2, #0x38]
-	bl FillMovementRangeMapSomehow
+	bl GenerateExtendedMovementMapOnRange
 	lsls r0, r7, #0x18
 	asrs r5, r0, #0x18
 	lsls r0, r6, #0x18
 	asrs r4, r0, #0x18
-	ldr r2, _0807A700  @ gUnknown_02033EFC
+	ldr r2, _0807A700  @ gWorkingMovementScript
 	adds r0, r5, #0
 	adds r1, r4, #0
-	bl sub_801A640
+	bl GenerateBestMovementScript
 	mov r0, r8
 	cmp r0, #0
 	beq _0807A6F0
-	ldr r0, _0807A704  @ gUnknown_0202E4DC
+	ldr r0, _0807A704  @ gBmMapTerrain
 	ldr r1, [r0]
 	lsls r0, r4, #2
 	adds r0, r0, r1
@@ -1319,16 +1319,16 @@ _0807A6B6:
 	movs r1, #0
 	strb r1, [r0]
 _0807A6F0:
-	bl NullAllLightRunesTerrain
+	bl EnableAllLightRunes
 _0807A6F4:
-	ldr r0, _0807A700  @ gUnknown_02033EFC
+	ldr r0, _0807A700  @ gWorkingMovementScript
 	pop {r3}
 	mov r8, r3
 	pop {r4, r5, r6, r7}
 	pop {r1}
 	bx r1
 	.align 2, 0
-_0807A700: .4byte gUnknown_02033EFC
-_0807A704: .4byte gUnknown_0202E4DC
+_0807A700: .4byte gWorkingMovementScript
+_0807A704: .4byte gBmMapTerrain
 
 .align 2, 0

@@ -10,6 +10,7 @@ struct BattleUnit; // currently in bmunit.h
 struct UnitDefinition; // currently in bmunit.h
 
 // Type definitions for types without any other home :/
+struct BattleHit;
 
 struct BgCoords
 {
@@ -99,6 +100,9 @@ struct KeyStatusBuffer
 
 typedef void (*InterruptHandler)(void);
 
+struct Vec2 { short x, y; };
+struct Vec2u { u16 x, y; };
+
 struct Struct0202BCB0 // Game State Struct
 {
     /* 00 */ u8  mainLoopEndedFlag;
@@ -116,27 +120,14 @@ struct Struct0202BCB0 // Game State Struct
 
     /* 08 */ u32 _unk08;
 
-    /* 0C */ short xCameraReal;
-    /* 0E */ short yCameraReal;
-
-    /* 10 */ u32 _unk10;
-
-    /* 14 */ short xPlayerCursor;
-    /* 16 */ short yPlayerCursor;
-
-    /* 18 */ u32 _unk18;
-
-    /* 1C */ short xUnk1C;
-    /* 1E */ short yUnk1C;
-
-    /* 20 */ short xPlayerCursorDisplay;
-    /* 22 */ short yPlayerCursorDisplay;
-
-    /* 24 */ short xUnk24;
-    /* 26 */ short yUnk24;
-
-    /* 28 */ short xUnk28;
-    /* 2A */ short yUnk28;
+    /* 0C */ struct Vec2 camera;
+    /* 10 */ struct Vec2 cameraPrevious;
+    /* 14 */ struct Vec2 playerCursor;
+    /* 18 */ struct Vec2 unk18;
+    /* 1C */ struct Vec2 unk1C;
+    /* 20 */ struct Vec2 playerCursorDisplay;
+    /* 24 */ struct Vec2u mapRenderOrigin;
+    /* 28 */ struct Vec2 unk28;
 
     /* 2C */ u16 itemUnk2C;
     /* 2E */ u16 itemUnk2E;
@@ -146,7 +137,7 @@ struct Struct0202BCB0 // Game State Struct
     /* 3C */ u8 unk3C;
     /* 3D */ u8 unk3D;
     /* 3E */ u8 unk3E;
-    /* 3F */ u8 unk3F;
+    /* 3F */ s8 unk3F;
 };
 
 struct Struct0202BCF0 { // Chapter Data Struct
@@ -217,7 +208,8 @@ struct Struct0202BCF0 { // Chapter Data Struct
 /**
  * Use with Struct0202BCF0 field chapterStateBits
  */
-enum {
+enum
+{
     CHAPTER_FLAG_0          = (1 << 0),
     CHAPTER_FLAG_1          = (1 << 1),
     CHAPTER_FLAG_POSTGAME   = (1 << 2),
@@ -266,10 +258,21 @@ struct ActionData
 
     /* 16 */ u8 suspendPointType;
 
-    /* 17+ TODO (sizeof(struct ActionData) == 0x38) */
+    /* 18 */ struct BattleHit* scriptedBattleHits;
+
+    /* 1C+ TODO (sizeof(struct ActionData) == 0x38) */
 };
 
-enum {
+enum
+{
+    FACING_LEFT  = 0,
+    FACING_RIGHT = 1,
+    FACING_DOWN  = 2,
+    FACING_UP    = 3,
+};
+
+enum
+{
     // 0x00?
     UNIT_ACTION_WAIT = 0x01,
     UNIT_ACTION_COMBAT = 0x02,
@@ -297,17 +300,18 @@ enum {
     // 0x18?
     UNIT_ACTION_ARENA = 0x19,
     UNIT_ACTION_USE_ITEM = 0x1A,
-    // 0x1B?
+    UNIT_ACTION_TRADED = 0x1B,
     // 0x1C?
-    UNIT_ACTION_TRADED = 0x1D,
-    // 0x1E?
+    UNIT_ACTION_TRADED_1D = 0x1D,
+    UNIT_ACTION_TRAPPED = 0x1E,
     // 0x1F?
     // 0x20?
     UNIT_ACTION_RIDE_BALLISTA = 0x21,
     UNIT_ACTION_EXIT_BALLISTA = 0x22
 };
 
-enum {
+enum
+{
     SUSPEND_POINT_PLAYERIDLE = 0,
     SUSPEND_POINT_DURINGACTION = 1,
     SUSPEND_POINT_CPPHASE = 2,
@@ -320,11 +324,13 @@ enum {
     SUSPEND_POINT_PHASECHANGE = 9
 };
 
-enum {
+enum
+{
     GAME_ACTION_3 = 3
 };
 
-enum {
+enum
+{
     WEATHER_NONE = 0,
     WEATHER_SNOW = 1,
     WEATHER_SNOWSTORM = 2,
@@ -345,7 +351,8 @@ struct UnknownStructCTC
     const void *unkC;
 };
 
-struct SMSHandle {
+struct SMSHandle
+{
     /* 00 */ struct SMSHandle* pNext;
 
     /* 04 */ short xDisplay;
@@ -357,42 +364,8 @@ struct SMSHandle {
     /* 0B */ s8 config;
 };
 
-enum {
-    // Ballista extdata definitions
-    TRAP_EXTDATA_BLST_ITEMID   = 0, // ballista item id
-    TRAP_EXTDATA_BLST_RIDDEN   = 2, // "is ridden" boolean
-    TRAP_EXTDATA_BLST_ITEMUSES = 3, // ballista item uses
-
-    // Obstacle (Snags and Walls) extdata definitions
-    TRAP_EXTDATA_OBSTACLE_HP = 0, // hp left
-
-    // Map Change extdata definitions
-    TRAP_EXTDATA_MAPCHANGE_ID = 0, // map change id
-
-    // Trap (Fire/Gas/Arrow) extdata definitions
-    TRAP_EXTDATA_TRAP_TURNFIRST = 1, // start turn countdown
-    TRAP_EXTDATA_TRAP_TURNNEXT  = 2, // repeat turn countdown
-    TRAP_EXTDATA_TRAP_COUNTER   = 3, // turn counter
-    TRAP_EXTDATA_TRAP_DAMAGE    = 4, // trap damage (needs confirmation)
-
-    // Torchlight extdata definitions
-    TRAP_EXTDATA_LIGHT_TURNSLEFT = 0, // turns left before wearing out
-
-    // Light Rune extdata definitions
-    TRAP_EXTDATA_RUNE_REPLACINGTERRAIN = 0, // terrain id of the replaced tile
-    TRAP_EXTDATA_RUNE_TURNSLEFT        = 3, // turns left beofre wearing out
-};
-
-struct Trap {
-    /* 00 */ u8 xPos;
-    /* 01 */ u8 yPos;
-
-    /* 02 */ u8 type;
-
-    /* 03 */ u8 data[5]; // extdata (see above enum for per trap type entry allocations)
-};
-
-struct MapAnimActorState {
+struct MapAnimActorState
+{
     /* 00 */ struct Unit* pUnit;
     /* 04 */ struct BattleUnit* pBattleUnit;
     /* 08 */ struct MUProc* pMUProc;
@@ -405,7 +378,8 @@ struct MapAnimActorState {
     /* 13 */ u8 u13;
 };
 
-struct MapAnimState {
+struct MapAnimState
+{
     /* 00 */ struct MapAnimActorState actors[4];
 
     /* 50 */ u32* pCurrentRound;
@@ -420,20 +394,87 @@ struct MapAnimState {
     /* 61 */ u8 u61;
 };
 
-struct MMSData {
+struct MMSData
+{
     const void* pGraphics;
     const void* pAnimation;
 };
 
+struct ArenaData
+{
+    /* 00 */ struct Unit* playerUnit;
+    /* 04 */ struct Unit* opponentUnit;
+    /* 08 */ short unk08;
+    /* 0A */ u8 unk0A;
+    /* 0B */ u8 unk0B;
+    /* 0C */ u8 range;
+    /* 0D */ u8 playerWpnType;
+    /* 0E */ u8 opponentWpnType;
+    /* 0F */ u8 playerClassId;
+    /* 10 */ u8 opponentClassId;
+    /* 11 */ u8 playerLevel;
+    /* 12 */ u8 oppenentLevel;
+    /* 13 */ s8 playerIsMagic;
+    /* 14 */ s8 opponentIsMagic;
+    /* 16 */ short playerPowerWeight;
+    /* 18 */ short opponentPowerWeight;
+    /* 1A */ u16 playerWeapon;
+    /* 1C */ u16 opponentWeapon;
+};
+
+struct GMapData
+{
+    /* 00 */ u8 state;
+    /* 01 */ u8 unk01;
+    /* 02 */ short xCamera;
+    /* 04 */ short yCamera;
+    /* 08 */ u32 unk08;
+    /* 0C */ u32 unk0C;
+    /* 10 */ struct { u8 state, location; u16 unk; } unk10[4];
+    /* 20 */ struct { u8 state, location; u16 unk; } unk20[4];
+    /* 30 */ struct { u8 unk; } unk30[0x1D];
+};
+
+enum
+{
+    // For use with GMapData:state
+
+    GMAP_STATE_BIT0 = (1 << 0),
+    GMAP_STATE_BIT1 = (1 << 1),
+    GMAP_STATE_BIT2 = (1 << 2),
+    GMAP_STATE_BIT3 = (1 << 3),
+    GMAP_STATE_BIT4 = (1 << 4),
+    GMAP_STATE_BIT5 = (1 << 5),
+    GMAP_STATE_BIT6 = (1 << 6),
+    GMAP_STATE_BIT7 = (1 << 7),
+};
+
+struct MapChange
+{
+    /* 00 */ s8 id;
+    /* 01 */ u8 xOrigin;
+    /* 02 */ u8 yOrigin;
+    /* 03 */ u8 xSize;
+    /* 04 */ u8 ySize;
+    /* 08 */ const void* data;
+};
+
+enum { UNIT_SUPPORT_MAX_COUNT = 7 };
+
+enum
+{
+    SAVE_BLOCK_SAVE_BASE      = 0,
+    SAVE_BLOCK_SAVE1          = SAVE_BLOCK_SAVE_BASE + 0,
+    SAVE_BLOCK_SAVE2          = SAVE_BLOCK_SAVE_BASE + 1,
+    SAVE_BLOCK_SAVE3          = SAVE_BLOCK_SAVE_BASE + 2,
+
+    SAVE_BLOCK_SUSPEND_BASE   = 3,
+    SAVE_BLOCK_SUSPEND        = SAVE_BLOCK_SUSPEND_BASE + 0,
+    SAVE_BLOCK_SUSPEND_BACKUP = SAVE_BLOCK_SUSPEND_BASE + 1,
+    // TODO: 5 & 6
+};
+
 // TODO: move to bmcontainer.h
 enum { CONVOY_ITEM_COUNT = 100 };
-
-// TODO: move to bmmap.h
-enum { MAP_MOVEMENT_MAX = 120 };
-
-enum {
-    HIDDEN_BIT_UNIT = (1 << 0),
-    HIDDEN_BIT_TRAP = (1 << 1),
-};
 
 #endif // GUARD_TYPES_H

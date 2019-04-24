@@ -11,8 +11,10 @@
 #include "rng.h"
 #include "ctc.h"
 #include "bmunit.h"
+#include "bmmap.h"
+#include "bmbattle.h"
+#include "bmtrick.h"
 #include "mu.h"
-
 #include "bmio.h"
 
 // General Battle Map System Stuff, mostly low level hardware stuff but also more
@@ -137,7 +139,7 @@ CONST_DATA struct ProcCmd gProc_MapTask[] = { // gProc_MapTask
 PROC_LABEL(0),
     PROC_CALL_ROUTINE(SMS_DisplayAllFromInfoStructs),
     PROC_CALL_ROUTINE(WfxUpdate),
-    PROC_CALL_ROUTINE(sub_8019D28),
+    PROC_CALL_ROUTINE(UpdateBmMapDisplay),
 
     PROC_SLEEP(0),
     PROC_GOTO(0)
@@ -378,14 +380,14 @@ void WfxSnow_VSync(void) {
 
         struct WeatherParticle* it = sWeatherEffect.particles + ((GetGameClock() % 2) * 0x20);
 
-        origins[0].x = (gUnknown_0202BCB0.xCameraReal * 12) / 16;
-        origins[0].y = gUnknown_0202BCB0.yCameraReal;
+        origins[0].x = (gUnknown_0202BCB0.camera.x * 12) / 16;
+        origins[0].y = gUnknown_0202BCB0.camera.y;
 
-        origins[1].x = gUnknown_0202BCB0.xCameraReal;
-        origins[1].y = gUnknown_0202BCB0.yCameraReal;
+        origins[1].x = gUnknown_0202BCB0.camera.x;
+        origins[1].y = gUnknown_0202BCB0.camera.y;
 
-        origins[2].x = (gUnknown_0202BCB0.xCameraReal * 20) / 16;
-        origins[2].y = gUnknown_0202BCB0.yCameraReal;
+        origins[2].x = (gUnknown_0202BCB0.camera.x * 20) / 16;
+        origins[2].y = gUnknown_0202BCB0.camera.y;
 
         for (i = 0; i < 0x20; ++i) {
             it->xPosition += it->xSpeed;
@@ -431,8 +433,8 @@ void WfxRain_VSync(void) {
             it->yPosition += it->ySpeed;
 
             CallARM_PushToPrimaryOAM(
-                ((it->xPosition >> 8) - gUnknown_0202BCB0.xCameraReal) & 0xFF,
-                ((it->yPosition >> 8) - gUnknown_0202BCB0.yCameraReal) & 0xFF,
+                ((it->xPosition >> 8) - gUnknown_0202BCB0.camera.x) & 0xFF,
+                ((it->yPosition >> 8) - gUnknown_0202BCB0.camera.y) & 0xFF,
                 sRainParticleObjLookup[it->gfxIndex],
                 0
             );
@@ -524,8 +526,8 @@ void WfxSnowStorm_VSync(void) {
             it->yPosition += it->ySpeed;
 
             CallARM_PushToPrimaryOAM(
-                ((it->xPosition >> 8) - gUnknown_0202BCB0.xCameraReal) & 0xFF,
-                ((it->yPosition >> 8) - gUnknown_0202BCB0.yCameraReal) & 0xFF,
+                ((it->xPosition >> 8) - gUnknown_0202BCB0.camera.x) & 0xFF,
+                ((it->yPosition >> 8) - gUnknown_0202BCB0.camera.y) & 0xFF,
                 gUnknown_08590F54,
                 (BM_OBJPAL_1 << 12) + 0x18 + (it->gfxIndex * 4)
             );
@@ -542,7 +544,7 @@ void WfxBlueHSync(void) {
     if (nextLine > 160)
         nextLine = 0;
 
-    nextLine += gUnknown_0202BCB0.yCameraReal / 2;
+    nextLine += gUnknown_0202BCB0.camera.y / 2;
 
     if (nextLine >= 320)
         ((u16*)(PLTT))[0] = 0;
@@ -613,7 +615,7 @@ void WfxFlamesInitGradientPublic(void) {
 void WfxFlamesInitGradient(void) {
     int i, j, k;
 
-    sub_8019974();
+    UnpackChapterMapPalette();
 
     for (i = 0; i < 4; ++i) {
         for (j = 0; j < 0x10; ++j) {
@@ -702,7 +704,7 @@ void WfxFlamesUpdateParticles(void) {
             it->xPosition += it->xSpeed;
             it->yPosition += it->ySpeed;
 
-            yDisplay = ((it->yPosition >> 8) - gUnknown_0202BCB0.yCameraReal) & 0xFF;
+            yDisplay = ((it->yPosition >> 8) - gUnknown_0202BCB0.camera.y) & 0xFF;
 
             if (yDisplay < 0x40)
                 continue;
@@ -716,7 +718,7 @@ void WfxFlamesUpdateParticles(void) {
                 objTile = 24;
 
             CallARM_PushToPrimaryOAM(
-                ((it->xPosition >> 8) - gUnknown_0202BCB0.xCameraReal) & 0xFF,
+                ((it->xPosition >> 8) - gUnknown_0202BCB0.camera.x) & 0xFF,
                 yDisplay,
                 gUnknown_08590F44,
                 (BM_OBJPAL_10 << 12) + objTile
@@ -804,7 +806,7 @@ void WfxClouds_VSync(void) {
 }
 
 void WfxClouds_Update(void) {
-    int y = gUnknown_0202BCB0.yCameraReal;
+    int y = gUnknown_0202BCB0.camera.y;
 
     RegisterObjectAttributes_SafeMaybe(
         14,
@@ -853,8 +855,6 @@ void WfxInit(void) {
 }
 
 void WfxVSync(void) {
-    // TODO: USE WEATHER DEFINITIONS
-
     switch (gUnknown_0202BCF0.chapterWeatherId) {
 
     case WEATHER_SNOW:
@@ -979,7 +979,7 @@ void StartBattleMap(struct GameCtrlProc* gameCtrl) {
     ClearLocalEvents();
     SMS_ClearUsageTable();
     ClearMenuRelatedList();
-    ResetTraps();
+    ClearTraps();
 
     gUnknown_0202BCF0.chapterPhaseIndex = FACTION_GREEN; // TODO: PHASE/ALLEGIANCE DEFINITIONS
     gUnknown_0202BCF0.chapterTurnNumber = 0;
@@ -998,7 +998,7 @@ void StartBattleMap(struct GameCtrlProc* gameCtrl) {
 
     SetupBackgroundForWeatherMaybe();
     InitChapterMap(gUnknown_0202BCF0.chapterIndex);
-    AddSnagsAndWalls();
+    InitMapObstacles();
 
     gUnknown_0202BCF0.unk4 = GetGameClock();
     gUnknown_0202BCF0.chapterTotalSupportGain = 0;
@@ -1045,7 +1045,7 @@ void RestartBattleMap(void) {
     SetupMapSpritesPalettes();
     SMS_ClearUsageTable();
 
-    ResetTraps();
+    ClearTraps();
 
     gUnknown_0202BCF0.chapterWeatherId =
         GetROMChapterStruct(gUnknown_0202BCF0.chapterIndex)->initialWeather;
@@ -1054,7 +1054,7 @@ void RestartBattleMap(void) {
 
     InitChapterMap(gUnknown_0202BCF0.chapterIndex);
 
-    AddSnagsAndWalls();
+    InitMapObstacles();
     LoadChapterBallistae();
     BMapVSync_End();
     BMapVSync_Start();
@@ -1104,10 +1104,10 @@ void GameCtrl_StartResumedGame(struct GameCtrlProc* gameCtrl) {
 
     mapMain = StartBMapMain(gameCtrl);
 
-    gUnknown_0202BCB0.xCameraReal = sub_8015A40(16 * gUnknown_0202BCB0.xPlayerCursor);
-    gUnknown_0202BCB0.yCameraReal = sub_8015A6C(16 * gUnknown_0202BCB0.yPlayerCursor);
+    gUnknown_0202BCB0.camera.x = sub_8015A40(16 * gUnknown_0202BCB0.playerCursor.x);
+    gUnknown_0202BCB0.camera.y = sub_8015A6C(16 * gUnknown_0202BCB0.playerCursor.y);
 
-    switch (gUnknown_0203A958.suspendPointType) {
+    switch (gActionData.suspendPointType) {
 
     case SUSPEND_POINT_DURINGACTION:
         MapMain_ResumeFromAction(mapMain);
@@ -1130,7 +1130,7 @@ void GameCtrl_StartResumedGame(struct GameCtrlProc* gameCtrl) {
         MapMain_ResumeFromPhaseChange(mapMain);
         break;
 
-    } // switch (gUnknown_0203A958.suspendPointType)
+    } // switch (gActionData.suspendPointType)
 
     sub_8001ED0(TRUE, TRUE, TRUE, TRUE, TRUE);
     sub_8001F48(TRUE);
@@ -1162,16 +1162,16 @@ void RefreshBMapDisplay_FromBattle(void) {
 void BMapDispResume_FromBattleDelayed(void) {
     LoadObjUIGfx();
 
-    MU_Create(&gUnknown_0203A4EC.unit);
+    MU_Create(&gBattleActor.unit);
     MU_SetDefaultFacing_Auto();
 
     Proc_Create(sProc_DelayedBMapDispResume, ROOT_PROC_3);
 }
 
 void InitMoreBMapGraphics(void) {
-    LoadChapterMapGfx(gUnknown_0202BCF0.chapterIndex);
+    UnpackChapterMapGraphics(gUnknown_0202BCF0.chapterIndex);
     AllocWeatherParticles(gUnknown_0202BCF0.chapterWeatherId);
-    UpdateGameTilesGraphics();
+    RenderBmMap();
     SMS_UpdateFromGameData();
     SetupMapSpritesPalettes();
     SMS_FlushIndirect();
@@ -1263,7 +1263,7 @@ void ChapterChangeUnitCleanup(void) {
 }
 
 void MapMain_ResumeFromPhaseIdle(struct BMapMainProc* mapMain) {
-    RefreshFogAndUnitMaps();
+    RefreshEntityBmMaps();
     SMS_UpdateFromGameData();
 
     gLCDControlBuffer.dispcnt.bg0_on = FALSE;
@@ -1276,7 +1276,7 @@ void MapMain_ResumeFromPhaseIdle(struct BMapMainProc* mapMain) {
 }
 
 void MapMain_ResumeFromAction(struct BMapMainProc* mapMain) {
-    RefreshFogAndUnitMaps();
+    RefreshEntityBmMaps();
     SMS_UpdateFromGameData();
 
     gLCDControlBuffer.dispcnt.bg0_on = FALSE;
@@ -1287,17 +1287,17 @@ void MapMain_ResumeFromAction(struct BMapMainProc* mapMain) {
 
     Proc_GotoLabel((struct Proc*)(mapMain), 6);
 
-    gActiveUnit = GetUnit(gUnknown_0203A958.subjectIndex);
-    gUnknown_0202E4D8[gActiveUnit->yPos][gActiveUnit->xPos] = 0;
+    gActiveUnit = GetUnit(gActionData.subjectIndex);
+    gBmMapUnit[gActiveUnit->yPos][gActiveUnit->xPos] = 0;
 
-    HideUnitSMS(GetUnit(gUnknown_0203A958.subjectIndex));
+    HideUnitSMS(GetUnit(gActionData.subjectIndex));
 
     MU_Create(gActiveUnit);
     MU_SetDefaultFacing_Auto();
 }
 
 void MapMain_ResumeFromBskPhase(struct BMapMainProc* mapMain) {
-    RefreshFogAndUnitMaps();
+    RefreshEntityBmMaps();
     SMS_UpdateFromGameData();
 
     gLCDControlBuffer.dispcnt.bg0_on = FALSE;
@@ -1310,11 +1310,11 @@ void MapMain_ResumeFromBskPhase(struct BMapMainProc* mapMain) {
 }
 
 void MapMain_ResumeFromArenaFight(struct BMapMainProc* mapMain) {
-    gActiveUnit = GetUnit(gUnknown_0203A958.subjectIndex);
+    gActiveUnit = GetUnit(gActionData.subjectIndex);
 
     PrepareArena2(gActiveUnit);
 
-    sub_802CD64(gActiveUnit);
+    BattleGenerateArena(gActiveUnit);
     BeginBattleAnimations();
 
     gLCDControlBuffer.dispcnt.bg0_on = FALSE;
@@ -1323,9 +1323,9 @@ void MapMain_ResumeFromArenaFight(struct BMapMainProc* mapMain) {
     gLCDControlBuffer.dispcnt.bg3_on = FALSE;
     gLCDControlBuffer.dispcnt.obj_on = FALSE;
 
-    RefreshFogAndUnitMaps();
+    RefreshEntityBmMaps();
 
-    gUnknown_0202E4D8[gUnknown_0203A958.yMove][gUnknown_0203A958.xMove] = 0;
+    gBmMapUnit[gActionData.yMove][gActionData.xMove] = 0;
 
     SMS_UpdateFromGameData();
 
@@ -1335,7 +1335,7 @@ void MapMain_ResumeFromArenaFight(struct BMapMainProc* mapMain) {
 }
 
 void MapMain_ResumeFromPhaseChange(struct BMapMainProc* mapMain) {
-    RefreshFogAndUnitMaps();
+    RefreshEntityBmMaps();
     SMS_UpdateFromGameData();
 
     gLCDControlBuffer.dispcnt.bg0_on = FALSE;

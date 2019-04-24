@@ -212,7 +212,7 @@ sub_8022528: @ 0x08022528
 	ldr r4, _080225A4  @ gUnknown_0202BCF0
 	movs r0, #0xe
 	ldrsb r0, [r4, r0]
-	bl LoadChapterMapGfx
+	bl UnpackChapterMapGraphics
 	bl SetupMapSpritesPalettes
 	bl LoadObjUIGfx
 	movs r0, #0xe
@@ -242,8 +242,8 @@ sub_8022528: @ 0x08022528
 	lsls r1, r1, #2
 	ands r0, r1
 	strh r0, [r5, #0xe]
-	bl RefreshFogAndUnitMaps
-	bl UpdateGameTilesGraphics
+	bl RefreshEntityBmMaps
+	bl RenderBmMap
 	pop {r4, r5}
 	pop {r0}
 	bx r0

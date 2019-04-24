@@ -1,6 +1,8 @@
 #ifndef GUARD_BM_UNIT_H
 #define GUARD_BM_UNIT_H
 
+struct SupportData;
+
 // Config
 enum { UNIT_LEVEL_MAX = 20 };
 enum { UNIT_ITEM_COUNT = 5 };
@@ -9,7 +11,8 @@ enum { UNIT_DEFINITION_ITEM_COUNT = 4 };
 // Meaningful constants
 enum { UNIT_EXP_DISABLED = 0xFF };
 
-struct CharacterData {
+struct CharacterData
+{
     /* 00 */ u16 nameTextId;
     /* 02 */ u16 descTextId;
     /* 04 */ u8 number;
@@ -31,13 +34,13 @@ struct CharacterData {
 
     /* 14 */ u8 baseRanks[8];
 
-    /* 1C */ s8 growthHP;
-    /* 1D */ s8 growthPow;
-    /* 1E */ s8 growthSkl;
-    /* 1F */ s8 growthSpd;
-    /* 20 */ s8 growthDef;
-    /* 21 */ s8 growthRes;
-    /* 22 */ s8 growthLck;
+    /* 1C */ u8 growthHP;
+    /* 1D */ u8 growthPow;
+    /* 1E */ u8 growthSkl;
+    /* 1F */ u8 growthSpd;
+    /* 20 */ u8 growthDef;
+    /* 21 */ u8 growthRes;
+    /* 22 */ u8 growthLck;
 
     /* 23 */ u8 _u23;
     /* 24 */ u8 _u24;
@@ -47,11 +50,12 @@ struct CharacterData {
 
     /* 28 */ u32 attributes;
 
-    /* 2C */ void* pSupportData;
+    /* 2C */ const struct SupportData* pSupportData;
     /* 30 */ void* _pU30;
 };
 
-struct ClassData {
+struct ClassData
+{
     /* 00 */ u16 nameTextId;
     /* 02 */ u16 descTextId;
     /* 04 */ u8 number;
@@ -78,7 +82,7 @@ struct ClassData {
     /* 18 */ s8 maxRes;
     /* 19 */ s8 maxCon;
 
-    /* 1A */ u8 classRelativePower;
+    /* 1A */ s8 classRelativePower;
 
     /* 1B */ s8 growthHP;
     /* 1C */ s8 growthPow;
@@ -88,7 +92,7 @@ struct ClassData {
     /* 20 */ s8 growthRes;
     /* 21 */ s8 growthLck;
 
-    /* 22 */ u8 promotionHP;
+    /* 22 */ u8 promotionHp;
     /* 23 */ u8 promotionPow;
     /* 24 */ u8 promotionSkl;
     /* 25 */ u8 promotionSpd;
@@ -100,13 +104,19 @@ struct ClassData {
     /* 2C */ u8 baseRanks[8];
 
     /* 34 */ const void* pBattleAnimDef;
-    /* 38 */ const u8* pMovCostTable[3]; // standard, rain, snow
-    /* 44 */ const u8* pTerrainBonusTables[3]; // def, avo, res
+    /* 38 */ const s8* pMovCostTable[3]; // standard, rain, snow
+
+    /* 44 */ const s8* pTerrainAvoidLookup;
+    /* 48 */ const s8* pTerrainDefenseLookup;
+    /* 4C */ const s8* pTerrainResistanceLookup;
+
+    //* 44 */ const s8* pTerrainBonusTables[3]; // def, avo, res
 
     /* 50 */ const void* _pU50;
 };
 
-struct Unit {
+struct Unit
+{
     /* 00 */ const struct CharacterData* pCharacterData;
     /* 04 */ const struct ClassData* pClassData;
 
@@ -144,9 +154,8 @@ struct Unit {
     /* 31 */ u8 torchDuration : 4;
     /* 31 */ u8 barrierDuration : 4;
 
-    /* 32 */ u8 supports[6];
-    /* 38 */ u8 unitLeader;
-    /* 39 */ u8 supportBits;
+    /* 32 */ u8 supports[UNIT_SUPPORT_MAX_COUNT];
+    /* 39 */ s8 supportBits;
     /* 3A */ u8 _u3A;
     /* 3B */ u8 _u3B;
 
@@ -161,7 +170,8 @@ struct Unit {
     /* 47 */ u8 _u47;
 };
 
-struct UnitDefinition {
+struct UnitDefinition
+{
     /* 00 */ u8  charIndex;
     /* 01 */ u8  classIndex;
     /* 02 */ u8  leaderCharIndex;
@@ -190,7 +200,8 @@ struct UnitDefinition {
     } ai;
 };
 
-enum {
+enum
+{
     // Unit state constant masks
 
     US_NONE         = 0,
@@ -204,8 +215,8 @@ enum {
     US_HAS_MOVED    = (1 << 6), // Bad name?
     US_CANTOING     = US_HAS_MOVED, // Alias
     US_UNDER_A_ROOF = (1 << 7),
-    US_BIT8 = (1 << 8),
-    // = (1 << 9),
+    US_BIT8 = (1 << 8), // has been seen?
+    US_BIT9 = (1 << 9), // hidden by fog?
     US_HAS_MOVED_AI = (1 << 10),
     US_IN_BALLISTA  = (1 << 11),
     US_DROP_ITEM    = (1 << 12),
@@ -213,9 +224,9 @@ enum {
     US_SOLOANIM_1   = (1 << 14),
     US_SOLOANIM_2   = (1 << 15),
     US_BIT16        = (1 << 16),
-    // = (1 << 17),
-    // = (1 << 18),
-    // = (1 << 19),
+    US_BIT17        = (1 << 17),
+    US_BIT18        = (1 << 18),
+    US_BIT19        = (1 << 19),
     US_BIT20        = (1 << 20),
     US_BIT21        = (1 << 21),
     US_BIT22        = (1 << 22),
@@ -233,7 +244,8 @@ enum {
     US_UNAVAILABLE = (US_DEAD | US_NOT_DEPLOYED | US_BIT16),
 };
 
-enum {
+enum
+{
     // Unit status identifiers
 
     UNIT_STATUS_NONE = 0,
@@ -246,7 +258,7 @@ enum {
     UNIT_STATUS_ATTACK = 5,
     UNIT_STATUS_DEFENSE = 6,
     UNIT_STATUS_CRIT = 7,
-    UNIT_STATUS_DODGE = 8,
+    UNIT_STATUS_AVOID = 8,
 
     UNIT_STATUS_SICK = 9,
     UNIT_STATUS_RECOVER = 10,
@@ -263,7 +275,8 @@ enum {
     FACTION_PURPLE = 0xC0, // link arena 4th team
 };
 
-enum {
+enum
+{
     // Character/Class attributes
 
     CA_NONE = 0,
@@ -271,7 +284,7 @@ enum {
     CA_MOUNTEDAID = (1 << 0),
     CA_CANTO = (1 << 1),
     CA_STEAL = (1 << 2),
-    CA_LOCKPICK = (1 << 3),
+    CA_THIEF = (1 << 3),
     CA_DANCE = (1 << 4),
     CA_PLAY = (1 << 5),
     CA_CRITBONUS = (1 << 6),
@@ -291,81 +304,28 @@ enum {
     CA_UNSELECTABLE = (1 << 20),
     CA_TRIANGLEATTACK_PEGASI = (1 << 21),
     CA_TRIANGLEATTACK_ARMORS = (1 << 22),
-    CA_BIT_23 = 0x00800000,
-    // = 0x01000000,
-    CA_LETHALITY = 0x02000000,
-    CA_MAGICSEAL = 0x04000000,
-    CA_SUMMON = 0x08000000,
-    CA_LOCK_4 = 0x10000000,
-    CA_LOCK_5 = 0x20000000,
-    CA_LOCK_6 = 0x40000000,
-    CA_LOCK_7 = 0x80000000,
+    CA_BIT_23 = (1 << 23),
+    CA_NEGATE_LETHALITY = (1 << 24),
+    CA_ASSASSIN = (1 << 25),
+    CA_MAGICSEAL = (1 << 26),
+    CA_SUMMON = (1 << 27),
+    CA_LOCK_4 = (1 << 28),
+    CA_LOCK_5 = (1 << 29),
+    CA_LOCK_6 = (1 << 30),
+    CA_LOCK_7 = (1 << 31),
 
     // Helpers
     CA_REFRESHER = CA_DANCE | CA_PLAY,
+    CA_FLYER = CA_WYVERN | CA_PEGASUS,
+    CA_TRIANGLEATTACK_ANY = CA_TRIANGLEATTACK_ARMORS | CA_TRIANGLEATTACK_PEGASI,
 };
 
-enum {
+enum
+{
     // To check result of GetUnit[Item]UseBits
 
     UNIT_USEBIT_WEAPON = (1 << 0),
     UNIT_USEBIT_STAFF  = (1 << 1),
-};
-
-// TODO: MOVE ELSEWHERE (bmbattle?)
-struct BattleUnit {
-    /* 00 */ struct Unit unit;
-
-    /* 48 */ u16 weaponAfter;
-    /* 4A */ u16 weaponBefore;
-    /* 4C */ u32 weaponAttributes;
-    /* 50 */ u8 weaponType;
-    /* 51 */ u8 weaponSlotIndex;
-
-    /* 52 */ u8 canCounter;
-
-    /* 53 */ s8 WTHitModifier;
-    /* 54 */ s8 WTAtkModifier;
-
-    /* 55 */ u8 terrainIndex;
-    /* 56 */ u8 terrainDefense;
-    /* 57 */ u8 terrainAvoid;
-    /* 58 */ u8 terrainResistance;
-    /* 59 */ u8 _u59;
-
-    /* 5A */ u16 battleAttack;
-    /* 5C */ u16 battleDefense;
-    /* 5E */ u16 battleAttackSpeed;
-    /* 60 */ u16 battleHit;
-    /* 62 */ u16 battleAvoid;
-    /* 64 */ u16 battleEffectiveHit;
-    /* 66 */ u16 battleCrit;
-    /* 68 */ u16 battleDodge;
-    /* 6A */ u16 battleEffectiveCrit;
-    /* 6C */ u16 battleSilencerRate;
-
-    /* 6E */ u8 expGain;
-    /* 6F */ u8 statusOut;
-    /* 70 */ u8 levelPrevious;
-    /* 71 */ u8 expPrevious;
-
-    /* 72 */ u8 currentHP;
-
-    /* 73 */ s8 changeHP;
-    /* 74 */ s8 changePow;
-    /* 75 */ s8 changeSkl;
-    /* 76 */ s8 changeSpd;
-    /* 77 */ s8 changeDef;
-    /* 78 */ s8 changeRes;
-    /* 79 */ s8 changeLck;
-    /* 7A */ s8 changeCon;
-
-    /* 7B */ s8 wexpMultiplier;
-    /* 7C */ u8 nonZeroDamage;
-    /* 7D */ u8 weaponBroke;
-
-    /* 7E */ u8 _u7E;
-    /* 7F */ u8 _u7F;
 };
 
 // TODO: MOVE ELSEWHERE
@@ -439,7 +399,7 @@ void ClearTemporaryUnits(void);
 s8 IsUnitSlotAvailable(int faction);
 void sub_8018F80(void);
 void sub_8018FC0(void);
-int CountAvailableBlueUnits(void);
+u16 CountAvailableBlueUnits(void);
 int CountRedUnits(void);
 int CountGreenUnits(void);
 void ClearCutsceneUnits(void);
@@ -472,6 +432,8 @@ s8 CanUnitCrossTerrain(struct Unit* unit, int terrain);
 
 #define UNIT_CATTRIBUTES(aUnit) ((aUnit)->pCharacterData->attributes | (aUnit)->pClassData->attributes)
 
+#define UNIT_NAME_ID(aUnit) ((aUnit)->pCharacterData->nameTextId)
+
 #define UNIT_MHP_MAX(aUnit) (UNIT_FACTION(unit) == FACTION_RED ? 120 : 60)
 #define UNIT_POW_MAX(aUnit) ((aUnit)->pClassData->maxPow)
 #define UNIT_SKL_MAX(aUnit) ((aUnit)->pClassData->maxSkl)
@@ -490,5 +452,12 @@ s8 CanUnitCrossTerrain(struct Unit* unit, int terrain);
 
 #define UNIT_IS_GORGON_EGG(aUnit) (((aUnit)->pClassData->number == CLASS_GORGONEGG) || ((aUnit)->pClassData->number == CLASS_GORGONEGG2))
 #define UNIT_IS_PHANTOM(aUnit) ((aUnit)->pClassData->number == CLASS_PHANTOM)
+
+#define UNIT_ARENA_LEVEL(aUnit) (((aUnit)->state >> 17) & 0x7)
+
+#define UNIT_SUPPORT_DATA(aUnit) ((aUnit)->pCharacterData->pSupportData)
+
+// NOTE: if this ends up being only used in [Get|Set]UnitLeaderCharId, having this as a macro may end up being unnecessary
+#define UNIT_LEADER_CHARACTER(aUnit) ((aUnit)->supports[UNIT_SUPPORT_MAX_COUNT-1])
 
 #endif // GUARD_BM_UNIT_H

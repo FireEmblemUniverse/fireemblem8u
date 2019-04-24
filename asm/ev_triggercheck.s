@@ -911,7 +911,7 @@ ShouldCallBattleQuote: @ 0x080834B0
 	bl GetChapterThing
 	cmp r0, #2
 	beq _080834F2
-	ldr r0, _080834F8  @ gUnknown_0203A958
+	ldr r0, _080834F8  @ gActionData
 	ldrb r0, [r0, #0x11]
 	cmp r0, #2
 	bne _080834F2
@@ -934,7 +934,7 @@ _080834F2:
 	movs r0, #0
 	b _080834FE
 	.align 2, 0
-_080834F8: .4byte gUnknown_0203A958
+_080834F8: .4byte gActionData
 _080834FC:
 	movs r0, #1
 _080834FE:
@@ -952,7 +952,7 @@ CallBattleQuoteEventsIfAny: @ 0x08083504
 	bl GetChapterThing
 	cmp r0, #2
 	beq _08083568
-	ldr r0, _08083554  @ gUnknown_0203A958
+	ldr r0, _08083554  @ gActionData
 	ldrb r0, [r0, #0x11]
 	cmp r0, #2
 	bne _08083568
@@ -981,7 +981,7 @@ _08083548:
 	bl CallBattleQuoteEventInBattle
 	b _08083562
 	.align 2, 0
-_08083554: .4byte gUnknown_0203A958
+_08083554: .4byte gActionData
 _08083558:
 	ldr r0, [r4, #0xc]
 	cmp r0, #0
@@ -1150,7 +1150,7 @@ _0808365E:
 	adds r0, r4, #0
 	movs r1, #0
 	bl SetUnitHp
-	ldr r2, _08083704  @ gUnknown_0203A4EC
+	ldr r2, _08083704  @ gBattleActor
 	movs r1, #0xb
 	ldrsb r1, [r2, r1]
 	movs r0, #0xb
@@ -1162,7 +1162,7 @@ _0808365E:
 	movs r2, #0x48
 	bl memcpy
 _080836B2:
-	ldr r2, _08083708  @ gUnknown_0203A56C
+	ldr r2, _08083708  @ gBattleTarget
 	movs r1, #0xb
 	ldrsb r1, [r2, r1]
 	movs r0, #0xb
@@ -1200,8 +1200,8 @@ _080836E2:
 	bl UnitDrop
 	b _08083712
 	.align 2, 0
-_08083704: .4byte gUnknown_0203A4EC
-_08083708: .4byte gUnknown_0203A56C
+_08083704: .4byte gBattleActor
+_08083708: .4byte gBattleTarget
 _0808370C:
 	adds r5, #1
 	cmp r5, #0x3f
@@ -2666,7 +2666,7 @@ _0808410C: @ jump table
 	.4byte _080841D4 @ case 32
 _08084190:
 	lsls r1, r4, #0x18
-	ldr r0, _080841CC  @ gUnknown_0202E4D8
+	ldr r0, _080841CC  @ gBmMapUnit
 	ldr r0, [r0]
 	asrs r1, r1, #0x16
 	adds r1, r1, r0
@@ -2696,7 +2696,7 @@ _080841B6:
 _080841CA:
 	b _080841DE
 	.align 2, 0
-_080841CC: .4byte gUnknown_0202E4D8
+_080841CC: .4byte gBmMapUnit
 _080841D0: .4byte gActiveUnit
 _080841D4:
 	bl GetChapterThing
@@ -2712,7 +2712,7 @@ _080841DE:
 	ldrb r1, [r1, #0x19]
 	lsls r1, r1, #0x18
 	asrs r1, r1, #0x18
-	bl GetMapChangesIdAt
+	bl GetMapChangeIdAt
 	lsls r0, r0, #0x10
 	lsrs r0, r0, #0x10
 	bl CallTileChangeEvent
@@ -2734,7 +2734,7 @@ _08084206:
 	ldrb r1, [r1, #0x19]
 	lsls r1, r1, #0x18
 	asrs r1, r1, #0x18
-	bl GetMapChangesIdAt
+	bl GetMapChangeIdAt
 	lsls r0, r0, #0x10
 	lsrs r0, r0, #0x10
 	bl CallTileChangeEvent
@@ -2797,7 +2797,7 @@ _0808427C:
 	ldrb r1, [r1, #0x19]
 	lsls r1, r1, #0x18
 	asrs r1, r1, #0x18
-	bl GetMapChangesIdAt
+	bl GetMapChangeIdAt
 	lsls r0, r0, #0x10
 	lsrs r0, r0, #0x10
 	ldr r1, [sp, #0x14]
@@ -2814,7 +2814,7 @@ _080842AE:
 	ldrb r1, [r1, #0x19]
 	lsls r1, r1, #0x18
 	asrs r1, r1, #0x18
-	bl GetMapChangesIdAt
+	bl GetMapChangeIdAt
 	lsls r0, r0, #0x10
 	lsrs r0, r0, #0x10
 	ldr r1, [sp, #0x10]
@@ -3304,7 +3304,7 @@ _08084662:
 	beq _08084686
 	cmp r1, #0xfe
 	bne _080846D4
-	bl IsCurrentBattleTriangleAttack
+	bl BattleIsTriangleAttack
 	lsls r0, r0, #0x18
 	asrs r0, r0, #0x18
 	cmp r0, #1
