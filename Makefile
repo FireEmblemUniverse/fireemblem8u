@@ -1,13 +1,13 @@
 #### Tools ####
 
-CC1      := tools/agbcc/bin/agbcc.exe
-CC1_OLD  := tools/agbcc/bin/old_agbcc.exe
+CC1      := tools/agbcc/bin/agbcc
+CC1_OLD  := tools/agbcc/bin/old_agbcc
 CPP      := $(DEVKITARM)/bin/arm-none-eabi-cpp
 AS       := $(DEVKITARM)/bin/arm-none-eabi-as
 LD       := $(DEVKITARM)/bin/arm-none-eabi-ld
 OBJCOPY  := $(DEVKITARM)/bin/arm-none-eabi-objcopy
-BIN2C    := tools/bin2c/bin2c.exe
-GBAGFX   := tools/gbagfx/gbagfx.exe
+BIN2C    := tools/bin2c/bin2c
+GBAGFX   := tools/gbagfx/gbagfx
 
 CC1FLAGS := -mthumb-interwork -Wimplicit -Wparentheses -Werror -O2 -fhex-asm
 CPPFLAGS := -I tools/agbcc/include -iquote include -iquote . -nostdinc -undef
