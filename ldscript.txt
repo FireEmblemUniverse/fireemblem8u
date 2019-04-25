@@ -241,7 +241,8 @@ SECTIONS
         . = ALIGN(4); tools/agbcc/lib/libc.a:locale.o(.data);
         . = ALIGN(4); tools/agbcc/lib/libc.a:mallocr.o(.data);
         . = ALIGN(4); data/data_B1FE7C.o(.data);
-        . = ALIGN(4); data/data_C00008.o(.data);
+        . = ALIGN(4); data/data_banim.o(.data);
+        . = ALIGN(4); data/data_E45ED4.o(.data);
     } = 0
 
     /* Discard everything not specifically mentioned above. */
