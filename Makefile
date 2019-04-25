@@ -55,7 +55,8 @@ compare: $(ROM)
 	sha1sum -c checksum.sha1
 
 clean:
-	$(RM) $(ROM) $(ELF) $(MAP) $(ALL_OBJECTS) src/*.s graphics/*.h graphics/*.4bpp graphics/*.4bpp.lz -r $(DEPS_DIR)
+	find . \( -iname '*.1bpp' -o -iname '*.4bpp' -o -iname '*.8bpp' -o -iname '*.gbapal' -o -iname '*.lz' -o -iname '*.latfont' -o -iname '*.hwjpnfont' -o -iname '*.fwjpnfont' \) -exec rm {} +
+	$(RM) $(ROM) $(ELF) $(MAP) $(ALL_OBJECTS) src/*.s graphics/*.h -r $(DEPS_DIR)
 
 # Graphics Recipes
 
