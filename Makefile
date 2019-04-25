@@ -1,20 +1,31 @@
 #### Tools ####
 
-CC1      := tools/agbcc/bin/agbcc
-CC1_OLD  := tools/agbcc/bin/old_agbcc
+ifeq ($(OS),Windows_NT)
+EXE := .exe
+else
+EXE :=
+endif
+
+CC1      := tools/agbcc/bin/agbcc$(EXE)
+CC1_OLD  := tools/agbcc/bin/old_agbcc$(EXE)
 CPP      := $(DEVKITARM)/bin/arm-none-eabi-cpp
 AS       := $(DEVKITARM)/bin/arm-none-eabi-as
 LD       := $(DEVKITARM)/bin/arm-none-eabi-ld
 OBJCOPY  := $(DEVKITARM)/bin/arm-none-eabi-objcopy
-BIN2C    := tools/bin2c/bin2c
-GBAGFX   := tools/gbagfx/gbagfx
+BIN2C    := tools/bin2c/bin2c$(EXE)
+GBAGFX   := tools/gbagfx/gbagfx$(EXE)
+SCANINC  := tools/scaninc/scaninc$(EXE)
+PREPROC  := tools/preproc/preproc$(EXE)
 
 CC1FLAGS := -mthumb-interwork -Wimplicit -Wparentheses -Werror -O2 -fhex-asm
 CPPFLAGS := -I tools/agbcc/include -iquote include -iquote . -nostdinc -undef
 ASFLAGS  := -mcpu=arm7tdmi -mthumb-interwork -I include
 
-
 #### Files ####
+
+C_SUBDIR = src
+ASM_SUBDIR = asm
+DATA_ASM_SUBDIR = data
 
 ROM          := fireemblem8.gba
 ELF          := $(ROM:.gba=.elf)
@@ -22,7 +33,10 @@ MAP          := $(ROM:.gba=.map)
 LDSCRIPT     := ldscript.txt
 SYM_FILES    := sym_iwram.txt sym_ewram.txt
 CFILES       := $(wildcard src/*.c)
-SFILES       := $(wildcard asm/*.s) $(wildcard asm/libc/*.s) $(wildcard data/*.s)
+ASM_S_FILES  := $(wildcard asm/*.s)
+LIBC_S_FILES := $(wildcard asm/libc/*.s)
+DATA_S_FILES := $(wildcard data/*.s)
+SFILES       := $(ASM_S_FILES) $(LIBC_S_FILES) $(DATA_S_FILES)
 C_OBJECTS    := $(CFILES:.c=.o)
 ASM_OBJECTS  := $(SFILES:.s=.o)
 ALL_OBJECTS  := $(C_OBJECTS) $(ASM_OBJECTS)
@@ -41,8 +55,25 @@ compare: $(ROM)
 	sha1sum -c checksum.sha1
 
 clean:
-	$(RM) $(ROM) $(ELF) $(MAP) $(ALL_OBJECTS) src/*.s graphics/*.h -r $(DEPS_DIR)
+	$(RM) $(ROM) $(ELF) $(MAP) $(ALL_OBJECTS) src/*.s graphics/*.h graphics/*.4bpp graphics/*.4bpp.lz -r $(DEPS_DIR)
 
+# Graphics Recipes
+
+%.s: ;
+%.png: ;
+%.pal: ;
+%.aif: ;
+
+%.1bpp: %.png  ; $(GBAGFX) $< $@
+%.4bpp: %.png  ; $(GBAGFX) $< $@
+%.8bpp: %.png  ; $(GBAGFX) $< $@
+%.gbapal: %.pal ; $(GBAGFX) $< $@
+%.gbapal: %.png ; $(GBAGFX) $< $@
+%.lz: % ; $(GBAGFX) $< $@
+%.rl: % ; $(GBAGFX) $< $@
+
+%.4bpp.h: %.4bpp
+	$(BIN2C) $< $(subst .,_,$(notdir $<)) | sed 's/^const //' > $@
 
 #### Recipes ####
 
@@ -66,13 +97,30 @@ $(C_OBJECTS): %.o: %.c $(DEPS_DIR)/%.d
 	echo '.ALIGN 2, 0' >> $*.s
 	$(AS) $(ASFLAGS) $*.s -o $@
 
-$(ASM_OBJECTS): %.o: %.s
+ifeq ($(NODEP),1)
+asm/%.o:      data_dep :=
+else
+asm/%.o:      data_dep = $(shell $(SCANINC) -I include -I "" $*.s)
+endif
+
+ifeq ($(NODEP),1)
+src/%.o:      data_dep :=
+else
+src/%.o:      data_dep = $(shell $(SCANINC) -I include -I "" $*.s)
+endif
+
+ifeq ($(NODEP),1)
+data/%.o:     data_dep :=
+else
+data/%.o:     data_dep = $(shell $(SCANINC) -I include -I "" $*.s)
+endif
+
+.SECONDEXPANSION:
+$(ASM_OBJECTS): %.o: %.s $$(data_dep)
 	$(AS) $(ASFLAGS) $< -o $@
 
-# Graphics Recipes
+# Don't delete intermediate files
+.SECONDARY:
 
-%.4bpp: %.png; $(GBAGFX) $< $@
-%.8bpp: %.png; $(GBAGFX) $< $@
-
-%.4bpp.h: %.4bpp
-	$(BIN2C) $< $(subst .,_,$(notdir $<)) | sed 's/^const //' > $@
+# debug print, to use, call "make print-(your label here)"
+print-% : ; $(info $* is a $(flavor $*) variable set to [$($*)]) @true
