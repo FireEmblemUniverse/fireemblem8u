@@ -8,10 +8,16 @@ endif
 
 CC1      := tools/agbcc/bin/agbcc$(EXE)
 CC1_OLD  := tools/agbcc/bin/old_agbcc$(EXE)
-CPP      := $(DEVKITARM)/bin/arm-none-eabi-cpp
-AS       := $(DEVKITARM)/bin/arm-none-eabi-as
-LD       := $(DEVKITARM)/bin/arm-none-eabi-ld
-OBJCOPY  := $(DEVKITARM)/bin/arm-none-eabi-objcopy
+include $(DEVKITARM)
+PREFIX = arm-none-eabi-
+export CPP := cpp
+export AS := $(PREFIX)as
+export LD := $(PREFIX)ld
+export OBJCOPY := $(PREFIX)objcopy
+#CPP      := $(DEVKITARM)/bin/arm-none-eabi-cpp
+#AS       := $(DEVKITARM)/bin/arm-none-eabi-as
+#LD       := $(DEVKITARM)/bin/arm-none-eabi-ld
+#OBJCOPY  := $(DEVKITARM)/bin/arm-none-eabi-objcopy
 BIN2C    := tools/bin2c/bin2c$(EXE)
 GBAGFX   := tools/gbagfx/gbagfx$(EXE)
 SCANINC  := tools/scaninc/scaninc$(EXE)
