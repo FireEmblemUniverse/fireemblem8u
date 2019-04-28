@@ -590,9 +590,15 @@
 .macro banim_code_sound_951
     .word 0x85000060
 .endm
+.macro banim_code_sound_gorgon_1
+    .word 0x85000060
+.endm
 
 @ 溜めるSFE
 .macro banim_code_sound_815
+    .word 0x85000061
+.endm
+.macro banim_code_sound_gorgon_2
     .word 0x85000061
 .endm
 
@@ -600,9 +606,15 @@
 .macro banim_code_sound_816
     .word 0x85000062
 .endm
+.macro banim_code_sound_gorgon_3
+    .word 0x85000062
+.endm
 
 @ 鳴き声？SFE
 .macro banim_code_sound_817
+    .word 0x85000063
+.endm
+.macro banim_code_sound_gorgon_scream
     .word 0x85000063
 .endm
 
@@ -610,9 +622,15 @@
 .macro banim_code_sound_800
     .word 0x85000064
 .endm
+.macro banim_code_sound_revenant_1
+    .word 0x85000064
+.endm
 
 @ 風切り音SFE
 .macro banim_code_sound_801
+    .word 0x85000065
+.endm
+.macro banim_code_sound_revenant_2
     .word 0x85000065
 .endm
 
@@ -685,6 +703,9 @@
 .macro banim_code_sound_802
     .word 0x85000073
 .endm
+.macro banim_code_sound_revenant_laugh
+    .word 0x85000073
+.endm
 
 @ ｺﾁｯSFE
 .macro banim_code_sound_893
@@ -698,9 +719,15 @@
 .macro banim_code_sound_809
     .word 0x85000075
 .endm
+.macro banim_code_sound_mauthedoog_roar
+    .word 0x85000075
+.endm
 
 @ 燃えるﾌﾞｫｫSFE
 .macro banim_code_sound_890
+    .word 0x85000076
+.endm
+.macro banim_code_sound_demon_king_1
     .word 0x85000076
 .endm
 
@@ -708,12 +735,15 @@
 .macro banim_code_sound_891
     .word 0x85000077
 .endm
-.macro banim_code_sound_draco_zombie_scream
+.macro banim_code_sound_demon_king_scream
     .word 0x85000077
 .endm
 
 @ ｼﾞｼﾞｼﾞSFE
 .macro banim_code_sound_740
+    .word 0x85000078
+.endm
+.macro banim_code_sound_magic_dark_spell
     .word 0x85000078
 .endm
 
