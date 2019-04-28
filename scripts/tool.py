@@ -36,7 +36,7 @@ class CompTypeError(Error):
 
     Attributes:
         offset -- file offset
-        comp_type -- compression type 
+        comp_type -- compression type
     """
 
     def __init__(self, offset, comp_type):
@@ -85,7 +85,7 @@ class CompData:
         head = struct.unpack('<I', fp.read(4))[0]
         # decide compression type
         if comp_type is None:
-            self.comp_type = (head & 0xf0) >> 4 
+            self.comp_type = (head & 0xf0) >> 4
         elif type(comp_type) is str:
             self.comp_type = CompType.index(comp_type)
         elif comp_type > len(CompType):
@@ -275,6 +275,32 @@ def read_rom_offset_here(fp):
     if pointer >= 0x8000000:
         return pointer - 0x8000000
     return None
+
+def read_asm_macro(fp):
+    """
+    make dict: value -> name from assembler macro.
+    if several macros are equal, the last macro name is recorded.
+    """
+    result = {}
+    lines = fp.readlines()
+    for i in range(len(lines)):
+        '''
+        .macro name
+            .word value
+        .endm
+        '''
+        if '.macro' in lines[i] and '.word' in lines[i + 1] \
+                and ',' not in lines[i + 1] and '.endm' in  lines[i + 2]:
+            name = lines[i].split(".macro")[1].strip()
+            name = name.split()[0]
+            value = lines[i + 1].split(".word")[1].strip()
+            value = value.split()[0]
+            if '0x' in value:
+                value = int(value, 16)
+            else:
+                value = int(value)
+            result[value] = name
+    return result
 
 def main():
     with open('../baserom.gba', 'rb') as fp_rom:
