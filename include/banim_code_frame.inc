@@ -14,7 +14,7 @@
     .else
         .hword 0
     .endif
-    .hword \pa, \pb, \pc, \pd
+    .hword \pa, \pb, \pcc, \pd
 .endm
 
 .macro banim_frame_end

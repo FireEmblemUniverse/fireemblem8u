@@ -204,7 +204,7 @@ def make_headers():
             n_oam_r = 'banim_%s_oam_r' % abbr
             n_oam_l = 'banim_%s_oam_l' % abbr
             n_pal = 'banim_%s_pal' % abbr
-            f_data.write('\t{"%s", %s, %s, %s, %s, %s}, // 0x%X\n' %
+            f_data.write('\t{"%s", &%s, &%s_lz, &%s_lz, &%s_lz, &%s_lz}, // 0x%X\n' %
                          (abbr_ori, n_modes, n_script, n_oam_r, n_oam_l,
                           n_pal, i))
             f_ptr.write('// battle animation 0x%X\n' % i)
@@ -364,9 +364,9 @@ def scan_banim_data_area():
     with open('out/data_banim.s', 'w') as f_asm:
         f_asm.write('@ vim:ft=armv4\n')
         f_asm.write('@ range: 0xC02000 ~ 0xE47180\n')
-        f_asm.write('\t.include "../include/banim_script.inc"\n')
-        f_asm.write(
-            '.macro banim_modes_end\n\t.rept 12\n\t.word 0\n\t.endr\n.endm\n')
+#        f_asm.write('\t.include "../include/banim_script.inc"\n')
+#        f_asm.write(
+#            '.macro banim_modes_end\n\t.rept 12\n\t.word 0\n\t.endr\n.endm\n')
         f_asm.write('\t.section .data\n')
         p = 0xC02000
         while p < 0xE47180:
@@ -381,11 +381,11 @@ def scan_banim_data_area():
                 f_asm.write('\t.global %s\n' % name)
                 f_asm.write('%s:\n' % name)
                 if data_type == 'modes':
-                    for i in range(12):
-                        f_asm.write(
-                            '\t.word banim_%s_mode_%s - banim_%s_script @ mode %d\n'
-                            % (abbr, banim_mode_name[i], abbr, i + 1))
-                    f_asm.write('\tbanim_modes_end\n')
+#                    for i in range(12):
+#                        f_asm.write(
+#                            '\t.word banim_%s_mode_%s - banim_%s_script @ mode %d\n'
+#                            % (abbr, banim_mode_name[i], abbr, i + 1))
+                    f_asm.write('\t.incbin "banim/%s.bin"\n' % name)
                     p += 96
                 elif data_type == 'sheet':
                     f_asm.write('\t.incbin "graphics/banim/%s.4bpp.lz"\n'

@@ -38,11 +38,12 @@ ELF          := $(ROM:.gba=.elf)
 MAP          := $(ROM:.gba=.map)
 LDSCRIPT     := ldscript.txt
 SYM_FILES    := sym_iwram.txt sym_ewram.txt
+#CFILES       := $(wildcard src/*.c) data/banim_data.c
 CFILES       := $(wildcard src/*.c)
 ASM_S_FILES  := $(wildcard asm/*.s)
 LIBC_S_FILES := $(wildcard asm/libc/*.s)
 DATA_S_FILES := $(wildcard data/*.s)
-TOLZ_S_FILES := $(wildcard banim/*.s)
+TOLZ_S_FILES := $(wildcard banim/*_pal.s)
 SFILES       := $(ASM_S_FILES) $(LIBC_S_FILES) $(DATA_S_FILES)
 C_OBJECTS    := $(CFILES:.c=.o)
 ASM_OBJECTS  := $(SFILES:.s=.o)
@@ -67,6 +68,7 @@ compare: $(ROM)
 .PHONY: battleanim
 
 battleanim: data/data_banim.o
+	scripts/compile_battle_animation_motion.sh
 
 clean:
 	find . \( -iname '*.1bpp' -o -iname '*.4bpp' -o -iname '*.8bpp' -o -iname '*.gbapal' -o -iname '*.lz' -o -iname '*.latfont' -o -iname '*.hwjpnfont' -o -iname '*.fwjpnfont' \) -exec rm {} +

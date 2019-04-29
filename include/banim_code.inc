@@ -10,12 +10,12 @@
 
 @ 0x86 Command: load the tileset and oam data to combine each frame
 .macro banim_code_frame duration, sheet_addr, frame_number, oam_offset
-    .word 0x86000000 | (\frame_number << 16) | \duration, \sheet_addr, \oam_offset
+    .word 0x86000000 + (\frame_number << 16) + \duration, \sheet_addr, \oam_offset
 .endm
 
 @ XX 00 00 85 series
 .macro banim_code_85 number
-    .word 0x85000000 | number
+    .word 0x85000000 + number
 .endm
 
 @ reference: "0x85 Command Usage.txt" in FEditor Doc

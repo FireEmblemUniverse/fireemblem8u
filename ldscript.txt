@@ -241,10 +241,9 @@ SECTIONS
         . = ALIGN(4); tools/agbcc/lib/libc.a:locale.o(.data);
         . = ALIGN(4); tools/agbcc/lib/libc.a:mallocr.o(.data);
         . = ALIGN(4); data/data_B1FE7C.o(.data);
-        . = 0x8C00000; data/banim_data.o(.data.banim_array_len);
-        . = 0x8C00008; data/banim_data.o(.data.banim_array);
-        . = 0x8C02000; data/data_banim.o(.data);
-        . = ALIGN(4); data/data_banim.o(.data);
+        . = 0xC00000; src/banim_data.o(.data.banim_array_len);
+        . = 0xC00008; src/banim_data.o(.data.banim_array);
+        . = 0xC02000; data/data_banim.o(.data);
         . = ALIGN(4); data/data_E47180.o(.data);
     } = 0
 
