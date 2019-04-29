@@ -1,0 +1,655 @@
+@ vim:ft=armv4
+	.include "../include/banim_code_frame.inc"
+@ battle animation 0x95
+	.global banim_pbrf_sp1_oam_frame_0_r
+	.global banim_pbrf_sp1_oam_frame_21_r
+	.global banim_pbrf_sp1_oam_frame_74_r
+	.global banim_pbrf_sp1_oam_frame_50_r
+	.global banim_pbrf_sp1_oam_frame_57_r
+	.global banim_pbrf_sp1_oam_frame_43_r
+	.global banim_pbrf_sp1_oam_frame_62_r
+	.global banim_pbrf_sp1_oam_frame_18_r
+	.global banim_pbrf_sp1_oam_frame_60_r
+	.global banim_pbrf_sp1_oam_frame_63_r
+	.global banim_pbrf_sp1_oam_frame_20_r
+	.global banim_pbrf_sp1_oam_frame_40_r
+	.global banim_pbrf_sp1_oam_frame_35_r
+	.global banim_pbrf_sp1_oam_frame_58_r
+	.global banim_pbrf_sp1_oam_frame_24_r
+	.global banim_pbrf_sp1_oam_frame_66_r
+	.global banim_pbrf_sp1_oam_frame_69_r
+	.global banim_pbrf_sp1_oam_frame_2_r
+	.global banim_pbrf_sp1_oam_frame_11_r
+	.global banim_pbrf_sp1_oam_frame_27_r
+	.global banim_pbrf_sp1_oam_frame_48_r
+	.global banim_pbrf_sp1_oam_frame_54_r
+	.global banim_pbrf_sp1_oam_frame_8_r
+	.global banim_pbrf_sp1_oam_frame_16_r
+	.global banim_pbrf_sp1_oam_frame_14_r
+	.global banim_pbrf_sp1_oam_frame_25_r
+	.global banim_pbrf_sp1_oam_frame_65_r
+	.global banim_pbrf_sp1_oam_frame_5_r
+	.global banim_pbrf_sp1_oam_frame_19_r
+	.global banim_pbrf_sp1_oam_frame_41_r
+	.global banim_pbrf_sp1_oam_frame_72_r
+	.global banim_pbrf_sp1_oam_frame_29_r
+	.global banim_pbrf_sp1_oam_frame_55_r
+	.global banim_pbrf_sp1_oam_frame_31_r
+	.global banim_pbrf_sp1_oam_frame_12_r
+	.global banim_pbrf_sp1_oam_frame_70_r
+	.global banim_pbrf_sp1_oam_frame_1_r
+	.global banim_pbrf_sp1_oam_frame_67_r
+	.global banim_pbrf_sp1_oam_frame_59_r
+	.global banim_pbrf_sp1_oam_frame_46_r
+	.global banim_pbrf_sp1_oam_frame_34_r
+	.global banim_pbrf_sp1_oam_frame_9_r
+	.global banim_pbrf_sp1_oam_frame_68_r
+	.global banim_pbrf_sp1_oam_frame_71_r
+	.global banim_pbrf_sp1_oam_frame_61_r
+	.global banim_pbrf_sp1_oam_frame_47_r
+	.global banim_pbrf_sp1_oam_frame_15_r
+	.global banim_pbrf_sp1_oam_frame_32_r
+	.global banim_pbrf_sp1_oam_frame_10_r
+	.global banim_pbrf_sp1_oam_frame_23_r
+	.global banim_pbrf_sp1_oam_frame_45_r
+	.global banim_pbrf_sp1_oam_frame_39_r
+	.global banim_pbrf_sp1_oam_frame_37_r
+	.global banim_pbrf_sp1_oam_frame_44_r
+	.global banim_pbrf_sp1_oam_frame_4_r
+	.global banim_pbrf_sp1_oam_frame_7_r
+	.global banim_pbrf_sp1_oam_frame_33_r
+	.global banim_pbrf_sp1_oam_frame_52_r
+	.global banim_pbrf_sp1_oam_frame_42_r
+	.global banim_pbrf_sp1_oam_frame_49_r
+	.global banim_pbrf_sp1_oam_frame_36_r
+	.global banim_pbrf_sp1_oam_frame_30_r
+	.global banim_pbrf_sp1_oam_frame_73_r
+	.global banim_pbrf_sp1_oam_frame_6_r
+	.global banim_pbrf_sp1_oam_frame_51_r
+	.global banim_pbrf_sp1_oam_frame_13_r
+	.global banim_pbrf_sp1_oam_frame_56_r
+	.global banim_pbrf_sp1_oam_frame_26_r
+	.global banim_pbrf_sp1_oam_frame_53_r
+	.global banim_pbrf_sp1_oam_frame_38_r
+	.global banim_pbrf_sp1_oam_frame_28_r
+	.global banim_pbrf_sp1_oam_frame_17_r
+	.global banim_pbrf_sp1_oam_frame_64_r
+	.global banim_pbrf_sp1_oam_frame_3_r
+	.global banim_pbrf_sp1_oam_frame_22_r
+	.section .data
+banim_pbrf_sp1_oam_r:
+banim_pbrf_sp1_oam_frame_0_r:
+	banim_frame_oam 0xF000, 0xF000, 0x1, 0, -32
+	banim_frame_oam 0x0, 0x4000, 0x81, 0, 0
+	banim_frame_oam 0xF000, 0x4000, 0x40, -8, -16
+	banim_frame_oam 0xF000, 0x0, 0xC0, -16, 0
+	banim_frame_end
+banim_pbrf_sp1_oam_frame_1_r:
+	banim_frame_oam 0x0, 0x4000, 0x43, -8, -24
+	banim_frame_oam 0x4000, 0x0, 0x83, -8, -8
+	banim_frame_oam 0x0, 0x4000, 0x3, 0, -40
+	banim_frame_oam 0x0, 0x4000, 0xC1, -16, 0
+	banim_frame_oam 0x0, 0x4000, 0x81, 0, 0
+	banim_frame_oam 0xF000, 0x0, 0x22, 8, -24
+	banim_frame_oam 0x0, 0x0, 0x62, 8, -8
+	banim_frame_end
+banim_pbrf_sp1_oam_frame_2_r:
+	banim_frame_oam 0xF000, 0xF000, 0x5, -8, -24
+	banim_frame_oam 0xF000, 0x4000, 0x7, 8, -24
+	banim_frame_oam 0x4000, 0x0, 0x85, -8, 8
+	banim_frame_oam 0x0, 0x0, 0x87, 8, 8
+	banim_frame_oam 0xF000, 0x0, 0xA5, -16, -24
+	banim_frame_oam 0x0, 0x4000, 0xA3, -24, -40
+	banim_frame_oam 0x0, 0x0, 0xE4, -16, 8
+	banim_frame_end
+banim_pbrf_sp1_oam_frame_3_r:
+	banim_frame_oam 0x4000, 0xF000, 0x48, -16, -16
+	banim_frame_oam 0x0, 0x4000, 0x89, -8, 0
+	banim_frame_oam 0xF000, 0x0, 0x8B, 8, 0
+	banim_frame_oam 0x0, 0x0, 0xA8, -16, 8
+	banim_frame_oam 0x4000, 0x0, 0x2A, -32, 8
+	banim_frame_oam 0x0, 0x0, 0xA, 0, -24
+	banim_frame_oam 0x0, 0x4000, 0x8, -32, -24
+	banim_frame_end
+banim_pbrf_sp1_oam_frame_4_r:
+	banim_frame_oam 0x0, 0x4000, 0xC6, -8, -16
+	banim_frame_oam 0xF000, 0x0, 0xC8, 8, -16
+	banim_frame_oam 0x0, 0x4000, 0xC9, -8, 0
+	banim_frame_oam 0xF000, 0x0, 0xCB, 8, 0
+	banim_frame_oam 0x0, 0x4000, 0xCC, -32, 0
+	banim_frame_oam 0xF000, 0x0, 0xCE, -16, 0
+	banim_frame_end
+banim_pbrf_sp1_oam_frame_5_r:
+	banim_frame_oam 0xF000, 0xF000, 0xC, -8, -16
+	banim_frame_oam 0xF000, 0x4000, 0xE, 8, -16
+	banim_frame_oam 0x0, 0x4000, 0x8C, -32, 0
+	banim_frame_oam 0xF000, 0x0, 0x8E, -16, 0
+	banim_frame_end
+banim_pbrf_sp1_oam_frame_6_r:
+	banim_frame_oam 0xF000, 0xF000, 0xF, -8, -16
+	banim_frame_oam 0xF000, 0x0, 0x31, 8, -8
+	banim_frame_oam 0x0, 0x0, 0x71, 8, 8
+	banim_frame_oam 0x0, 0x4000, 0x8F, -32, 0
+	banim_frame_oam 0xF000, 0x0, 0x91, -16, 0
+	banim_frame_oam 0x0, 0x0, 0x11, -40, 8
+	banim_frame_end
+banim_pbrf_sp1_oam_frame_7_r:
+	banim_frame_oam 0xF000, 0xF000, 0x12, -8, -16
+	banim_frame_oam 0xF000, 0x4000, 0x14, 8, -16
+	banim_frame_oam 0x0, 0x4000, 0xCF, -32, 0
+	banim_frame_oam 0xF000, 0x0, 0xD1, -16, 0
+	banim_frame_end
+banim_pbrf_sp1_oam_frame_8_r:
+	banim_frame_oam 0x0, 0xF000, 0x94, -16, -16
+	banim_frame_oam 0x0, 0x4000, 0xD2, -32, 0
+	banim_frame_oam 0x0, 0x0, 0xB3, -40, 8
+	banim_frame_end
+banim_pbrf_sp1_oam_frame_71_r:
+	banim_frame_oam 0x4000, 0xF000, 0x15, -56, -8
+	banim_frame_oam 0x4000, 0xF000, 0x19, -24, -8
+	banim_frame_oam 0x4000, 0x4000, 0x55, -56, 8
+	banim_frame_oam 0x4000, 0x4000, 0x59, -24, 8
+	banim_frame_oam 0x4000, 0x4000, 0x75, -32, -16
+	banim_frame_end
+banim_pbrf_sp1_oam_frame_72_r:
+	banim_frame_oam 0x0, 0xF000, 0x7A, -40, -16
+	banim_frame_oam 0x0, 0x4000, 0x98, -56, -16
+	banim_frame_oam 0x4000, 0x0, 0xD8, -56, 8
+	banim_frame_oam 0x0, 0x0, 0x79, -8, 0
+	banim_frame_end
+banim_pbrf_sp1_oam_frame_73_r:
+	banim_frame_oam 0xF000, 0x4000, 0x7D, -16, -16
+	banim_frame_oam 0xF000, 0x4000, 0x7A, -40, -16
+	banim_frame_oam 0x0, 0x4000, 0x98, -56, -16
+	banim_frame_oam 0x4000, 0x0, 0xD8, -56, 8
+	banim_frame_oam 0xF000, 0xF000, 0x3E, -32, -16
+	banim_frame_oam 0x0, 0x0, 0x79, -8, 0
+	banim_frame_end
+banim_pbrf_sp1_oam_frame_74_r:
+	banim_frame_oam 0xF000, 0x4000, 0x7D, -16, -16
+	banim_frame_oam 0xF000, 0x4000, 0x7A, -40, -16
+	banim_frame_oam 0x0, 0x4000, 0x98, -56, -16
+	banim_frame_oam 0x4000, 0x0, 0xD8, -56, 8
+	banim_frame_oam 0x0, 0x4000, 0xBE, -32, -16
+	banim_frame_oam 0x4000, 0x0, 0xFE, -32, 0
+	banim_frame_oam 0x4000, 0x0, 0xFC, -32, 8
+	banim_frame_oam 0x0, 0x0, 0x79, -8, 0
+	banim_frame_end
+banim_pbrf_sp1_oam_frame_13_r:
+	banim_frame_oam 0xF000, 0xF000, 0x3, -32, -16
+	banim_frame_oam 0xF000, 0x0, 0x25, -16, -8
+	banim_frame_oam 0x0, 0x0, 0x65, -16, 8
+	banim_frame_oam 0x0, 0x0, 0x5, -8, 0
+	banim_frame_oam 0x0, 0x4000, 0x0, -56, -16
+	banim_frame_oam 0xF000, 0x0, 0x2, -40, -16
+	banim_frame_oam 0x4000, 0x0, 0x40, -56, 8
+	banim_frame_oam 0x0, 0x0, 0x42, -40, 8
+	banim_frame_end
+banim_pbrf_sp1_oam_frame_14_r:
+	banim_frame_oam 0xF000, 0xF000, 0x80, -32, -16
+	banim_frame_oam 0xF000, 0x4000, 0x82, -16, -16
+	banim_frame_oam 0x4000, 0x0, 0xE3, -56, 8
+	banim_frame_oam 0x0, 0x0, 0xE5, -40, 8
+	banim_frame_oam 0x0, 0x4000, 0xA3, -56, -24
+	banim_frame_oam 0xF000, 0x0, 0xA5, -40, -24
+	banim_frame_oam 0x0, 0x0, 0x83, -8, 0
+	banim_frame_oam 0x4000, 0x0, 0x61, -24, -24
+	banim_frame_end
+banim_pbrf_sp1_oam_frame_15_r:
+	banim_frame_oam 0xF000, 0xF000, 0x6, -24, -24
+	banim_frame_oam 0x4000, 0x0, 0x86, -24, 8
+	banim_frame_oam 0x0, 0x4000, 0xA6, -32, -40
+	banim_frame_oam 0xF000, 0x0, 0xC8, -8, 0
+	banim_frame_oam 0x0, 0x0, 0x84, -32, -24
+	banim_frame_oam 0x4000, 0x0, 0xE6, -40, 8
+	banim_frame_oam 0x0, 0x0, 0x85, -8, -16
+	banim_frame_end
+banim_pbrf_sp1_oam_frame_16_r:
+	banim_frame_oam 0xF000, 0xF000, 0x8, -16, -24
+	banim_frame_oam 0x4000, 0x0, 0x88, -16, 8
+	banim_frame_oam 0xF000, 0x0, 0xA, 0, -32
+	banim_frame_oam 0x0, 0x0, 0x4A, 0, -16
+	banim_frame_oam 0x0, 0x0, 0x6A, 8, -32
+	banim_frame_oam 0x0, 0x0, 0x8A, 0, 8
+	banim_frame_oam 0x0, 0x0, 0xCA, -24, 8
+	banim_frame_oam 0x0, 0x0, 0xAA, -32, 8
+	banim_frame_end
+banim_pbrf_sp1_oam_frame_17_r:
+	banim_frame_oam 0x0, 0x4000, 0x6B, -16, -8
+	banim_frame_oam 0xF000, 0x0, 0x6D, 0, -8
+	banim_frame_oam 0x4000, 0x0, 0xAB, -16, 8
+	banim_frame_oam 0x0, 0x0, 0xAD, 0, 8
+	banim_frame_oam 0x0, 0x0, 0xB, -24, 8
+	banim_frame_oam 0x0, 0x0, 0xC, 8, 8
+	banim_frame_oam 0x0, 0x4000, 0x2B, -8, -24
+	banim_frame_oam 0xF000, 0x0, 0xD, 8, -32
+	banim_frame_oam 0x0, 0x0, 0x4D, 8, -16
+	banim_frame_end
+banim_pbrf_sp1_oam_frame_18_r:
+	banim_frame_oam 0xF000, 0xF000, 0xE, -8, -16
+	banim_frame_oam 0xF000, 0x4000, 0x10, 8, -16
+	banim_frame_oam 0x0, 0x4000, 0x8E, 8, -32
+	banim_frame_oam 0x0, 0x0, 0xB0, -16, 8
+	banim_frame_end
+banim_pbrf_sp1_oam_frame_19_r:
+	banim_frame_oam 0xF000, 0xF000, 0x11, -8, -16
+	banim_frame_oam 0xF000, 0x4000, 0x13, 8, -16
+	banim_frame_oam 0x0, 0x4000, 0x91, 8, -32
+	banim_frame_oam 0x0, 0x0, 0x93, 16, -16
+	banim_frame_oam 0x0, 0x0, 0xB3, -16, 8
+	banim_frame_end
+banim_pbrf_sp1_oam_frame_20_r:
+	banim_frame_oam 0xF000, 0xF000, 0x14, 0, -32
+	banim_frame_oam 0x0, 0x4000, 0x94, 0, 0
+	banim_frame_oam 0xF000, 0x0, 0x16, -8, -8
+	banim_frame_oam 0x0, 0x0, 0x56, -8, 8
+	banim_frame_oam 0x0, 0x0, 0xD4, -16, 8
+	banim_frame_oam 0x0, 0x0, 0xD5, 16, 8
+	banim_frame_end
+banim_pbrf_sp1_oam_frame_44_r:
+	banim_frame_oam 0x0, 0x4000, 0xCB, 0, -32
+	banim_frame_oam 0x0, 0x4000, 0xCD, 0, -16
+	banim_frame_oam 0x0, 0x4000, 0xCF, 0, 0
+	banim_frame_oam 0xF000, 0x0, 0xD1, -8, -16
+	banim_frame_oam 0x0, 0x4000, 0xD2, -16, 0
+	banim_frame_end
+banim_pbrf_sp1_oam_frame_25_r:
+	banim_frame_oam 0xF000, 0xF000, 0x0, -8, -16
+	banim_frame_oam 0xF000, 0x0, 0x22, 8, -8
+	banim_frame_oam 0x0, 0x0, 0x62, 8, 8
+	banim_frame_oam 0x0, 0x4000, 0x80, -32, 0
+	banim_frame_oam 0xF000, 0x0, 0x82, -16, 0
+	banim_frame_end
+banim_pbrf_sp1_oam_frame_26_r:
+	banim_frame_oam 0xF000, 0xF000, 0x3, -8, -16
+	banim_frame_oam 0xF000, 0x4000, 0x5, 8, -16
+	banim_frame_oam 0x0, 0x4000, 0x83, -32, 0
+	banim_frame_oam 0xF000, 0x0, 0x85, -16, 0
+	banim_frame_end
+banim_pbrf_sp1_oam_frame_27_r:
+	banim_frame_oam 0xF000, 0xF000, 0x6, -8, -16
+	banim_frame_oam 0xF000, 0x0, 0x28, 8, -8
+	banim_frame_oam 0x0, 0x0, 0x68, 8, 8
+	banim_frame_oam 0x0, 0x4000, 0x86, -32, 0
+	banim_frame_oam 0xF000, 0x0, 0x88, -16, 0
+	banim_frame_end
+banim_pbrf_sp1_oam_frame_28_r:
+	banim_frame_oam 0xF000, 0xF000, 0x9, -8, -16
+	banim_frame_oam 0xF000, 0x4000, 0xB, 8, -16
+	banim_frame_oam 0x0, 0x4000, 0x89, -32, 0
+	banim_frame_oam 0xF000, 0x0, 0x8B, -16, 0
+	banim_frame_end
+banim_pbrf_sp1_oam_frame_29_r:
+	banim_frame_oam 0xF000, 0xF000, 0xD, 0, -16
+	banim_frame_oam 0xF000, 0x0, 0x2C, -8, -8
+	banim_frame_oam 0x0, 0x0, 0x6C, -8, 8
+	banim_frame_oam 0x0, 0x4000, 0x8C, -32, 0
+	banim_frame_oam 0xF000, 0x0, 0x8E, -16, 0
+	banim_frame_end
+banim_pbrf_sp1_oam_frame_30_r:
+	banim_frame_oam 0xF000, 0xF000, 0xF, -8, -16
+	banim_frame_oam 0xF000, 0x4000, 0x11, 8, -16
+	banim_frame_oam 0x0, 0x4000, 0x8F, -32, 0
+	banim_frame_oam 0xF000, 0x0, 0x91, -16, 0
+	banim_frame_end
+banim_pbrf_sp1_oam_frame_31_r:
+	banim_frame_oam 0xF000, 0xF000, 0x12, -8, -16
+	banim_frame_oam 0xF000, 0x0, 0x34, 8, -8
+	banim_frame_oam 0x0, 0x0, 0x74, 8, 8
+	banim_frame_oam 0x0, 0x4000, 0x92, -32, 0
+	banim_frame_oam 0xF000, 0x0, 0x94, -16, 0
+	banim_frame_oam 0x0, 0x0, 0x14, -40, 8
+	banim_frame_end
+banim_pbrf_sp1_oam_frame_32_r:
+	banim_frame_oam 0xF000, 0xF000, 0x15, -8, -16
+	banim_frame_oam 0xF000, 0x0, 0x37, 8, -8
+	banim_frame_oam 0x0, 0x0, 0x77, 8, 8
+	banim_frame_oam 0x0, 0x4000, 0x96, -24, 0
+	banim_frame_oam 0x0, 0x0, 0xB5, -32, 8
+	banim_frame_oam 0x0, 0x0, 0x95, -40, 8
+	banim_frame_end
+banim_pbrf_sp1_oam_frame_33_r:
+	banim_frame_oam 0xF000, 0xF000, 0x18, -16, -16
+	banim_frame_oam 0xF000, 0x4000, 0x1A, 0, -16
+	banim_frame_oam 0xF000, 0x0, 0x9A, -24, 0
+	banim_frame_oam 0x0, 0x0, 0xDA, 8, 8
+	banim_frame_oam 0xF000, 0x0, 0x99, -32, 0
+	banim_frame_oam 0x0, 0x0, 0xB8, -40, 8
+	banim_frame_oam 0x0, 0x0, 0x98, 8, -8
+	banim_frame_end
+banim_pbrf_sp1_oam_frame_34_r:
+	banim_frame_oam 0x4000, 0x4000, 0xC0, -56, -16
+	banim_frame_oam 0x4000, 0x0, 0xC4, -24, -16
+	banim_frame_oam 0x4000, 0x4000, 0xE3, -32, -8
+	banim_frame_oam 0x4000, 0x0, 0xE1, -24, -24
+	banim_frame_oam 0x4000, 0xF000, 0xC7, -24, 0
+	banim_frame_oam 0x4000, 0x4000, 0xCB, -56, 8
+	banim_frame_end
+banim_pbrf_sp1_oam_frame_35_r:
+	banim_frame_oam 0x4000, 0x4000, 0xCF, -56, -16
+	banim_frame_oam 0x4000, 0x0, 0xD3, -24, -16
+	banim_frame_oam 0x4000, 0x4000, 0xF1, -40, -8
+	banim_frame_oam 0x0, 0x0, 0xF5, -8, -8
+	banim_frame_oam 0x4000, 0xF000, 0xD6, -24, 0
+	banim_frame_oam 0x4000, 0x0, 0xEF, -24, -24
+	banim_frame_end
+banim_pbrf_sp1_oam_frame_36_r:
+	banim_frame_oam 0x4000, 0x4000, 0xC0, -56, -16
+	banim_frame_oam 0x4000, 0x0, 0xC4, -24, -16
+	banim_frame_oam 0x4000, 0x4000, 0xE2, -40, -8
+	banim_frame_oam 0x0, 0x0, 0xE6, -8, -8
+	banim_frame_oam 0x0, 0x0, 0xE1, -24, -24
+	banim_frame_oam 0x0, 0x4000, 0xC7, -24, 0
+	banim_frame_oam 0xF000, 0x0, 0xC9, -8, 0
+	banim_frame_oam 0x4000, 0x4000, 0xEA, -56, 8
+	banim_frame_end
+banim_pbrf_sp1_oam_frame_37_r:
+	banim_frame_oam 0x4000, 0xF000, 0x2, -48, -16
+	banim_frame_oam 0x0, 0x4000, 0x6, -16, -16
+	banim_frame_oam 0x4000, 0xF000, 0x44, -32, 0
+	banim_frame_oam 0x4000, 0x4000, 0x40, -64, 8
+	banim_frame_oam 0x4000, 0x0, 0x62, -32, -24
+	banim_frame_end
+banim_pbrf_sp1_oam_frame_47_r:
+	banim_frame_oam 0x0, 0x4000, 0x0, -64, -16
+	banim_frame_end
+banim_pbrf_sp1_oam_frame_38_r:
+	banim_frame_oam 0x4000, 0x0, 0x81, -40, -16
+	banim_frame_oam 0x0, 0x0, 0x83, -24, -16
+	banim_frame_oam 0x4000, 0x0, 0xA4, -32, -8
+	banim_frame_oam 0x0, 0x0, 0xA6, -16, -8
+	banim_frame_oam 0x0, 0x4000, 0x87, -32, 0
+	banim_frame_oam 0xF000, 0x0, 0x89, -16, 0
+	banim_frame_oam 0x4000, 0x4000, 0xCA, -64, 8
+	banim_frame_oam 0x4000, 0x0, 0xA2, -48, -8
+	banim_frame_end
+banim_pbrf_sp1_oam_frame_48_r:
+	banim_frame_oam 0x4000, 0x0, 0xA0, -64, -8
+	banim_frame_end
+banim_pbrf_sp1_oam_frame_39_r:
+	banim_frame_oam 0x4000, 0xF000, 0xA, -48, -16
+	banim_frame_oam 0x0, 0x0, 0x2E, -16, -8
+	banim_frame_oam 0x0, 0x4000, 0x48, -32, 0
+	banim_frame_oam 0xF000, 0x0, 0x4A, -16, 0
+	banim_frame_oam 0x4000, 0x4000, 0x4B, -64, 8
+	banim_frame_end
+banim_pbrf_sp1_oam_frame_49_r:
+	banim_frame_oam 0x0, 0x4000, 0x8, -64, -16
+	banim_frame_end
+banim_pbrf_sp1_oam_frame_40_r:
+	banim_frame_oam 0x0, 0x4000, 0x6F, -32, -16
+	banim_frame_oam 0x0, 0x0, 0x91, -16, -8
+	banim_frame_oam 0x0, 0x4000, 0xAF, -40, 0
+	banim_frame_oam 0xF000, 0x0, 0xB1, -24, 0
+	banim_frame_oam 0x4000, 0x0, 0xAC, -64, 8
+	banim_frame_oam 0x0, 0x0, 0xAE, -48, 8
+	banim_frame_oam 0x0, 0x0, 0xEE, -16, 0
+	banim_frame_oam 0x0, 0x4000, 0x6D, -48, -16
+	banim_frame_end
+banim_pbrf_sp1_oam_frame_50_r:
+	banim_frame_oam 0x0, 0x4000, 0x6B, -64, -16
+	banim_frame_end
+banim_pbrf_sp1_oam_frame_41_r:
+	banim_frame_oam 0x0, 0xF000, 0x13, -48, -16
+	banim_frame_oam 0xF000, 0x4000, 0x17, -16, -16
+	banim_frame_oam 0x4000, 0x0, 0x71, -64, 8
+	banim_frame_end
+banim_pbrf_sp1_oam_frame_51_r:
+	banim_frame_oam 0x0, 0x4000, 0x11, -64, -16
+	banim_frame_end
+banim_pbrf_sp1_oam_frame_42_r:
+	banim_frame_oam 0x0, 0xF000, 0x94, -48, -16
+	banim_frame_oam 0x0, 0x0, 0xD8, -16, 0
+	banim_frame_oam 0x4000, 0x0, 0xF2, -64, 8
+	banim_frame_end
+banim_pbrf_sp1_oam_frame_52_r:
+	banim_frame_oam 0x0, 0x4000, 0x92, -64, -16
+	banim_frame_end
+banim_pbrf_sp1_oam_frame_43_r:
+	banim_frame_oam 0x0, 0xF000, 0x1B, -40, -24
+	banim_frame_oam 0x4000, 0x4000, 0x9B, -40, 8
+	banim_frame_oam 0x4000, 0x0, 0x98, -64, 8
+	banim_frame_oam 0x0, 0x0, 0x9A, -48, 8
+	banim_frame_oam 0xF000, 0x0, 0x3A, -48, -16
+	banim_frame_end
+banim_pbrf_sp1_oam_frame_53_r:
+	banim_frame_oam 0xF000, 0x0, 0x39, -56, -16
+	banim_frame_oam 0xF000, 0x0, 0x38, -64, -16
+	banim_frame_end
+	banim_frame_end
+banim_pbrf_sp1_oam_frame_54_r:
+	banim_frame_oam 0xF000, 0xF000, 0x0, 0, -32
+	banim_frame_oam 0x0, 0x4000, 0x80, 0, 0
+	banim_frame_oam 0xF000, 0x4000, 0x2, -8, -16
+	banim_frame_oam 0xF000, 0x0, 0x82, -16, 0
+	banim_frame_end
+banim_pbrf_sp1_oam_frame_55_r:
+	banim_frame_oam 0x4000, 0xF000, 0xC0, -16, 0
+	banim_frame_oam 0x0, 0x0, 0xC4, 8, -8
+	banim_frame_oam 0xF000, 0x4000, 0x43, 0, -32
+	banim_frame_oam 0xF000, 0x4000, 0x44, 8, -40
+	banim_frame_oam 0xF000, 0x0, 0x3, -8, -16
+	banim_frame_end
+banim_pbrf_sp1_oam_frame_56_r:
+	banim_frame_oam 0xF000, 0xF000, 0x5, -8, -24
+	banim_frame_oam 0xF000, 0x4000, 0x7, 8, -24
+	banim_frame_oam 0x4000, 0x0, 0x85, -8, 8
+	banim_frame_oam 0x0, 0x0, 0x87, 8, 8
+	banim_frame_oam 0x0, 0x4000, 0xA5, -24, -40
+	banim_frame_oam 0x0, 0x0, 0xE5, -16, 8
+	banim_frame_oam 0xF000, 0x0, 0xA7, -16, -24
+	banim_frame_end
+banim_pbrf_sp1_oam_frame_57_r:
+	banim_frame_oam 0xF000, 0xF000, 0x8, -8, -24
+	banim_frame_oam 0xF000, 0x4000, 0xA, 8, -24
+	banim_frame_oam 0x4000, 0x0, 0x88, -8, 8
+	banim_frame_oam 0x0, 0x0, 0x8A, 8, 8
+	banim_frame_oam 0x0, 0x4000, 0xA8, -32, -24
+	banim_frame_oam 0xF000, 0x0, 0xAA, -16, -16
+	banim_frame_oam 0x4000, 0x0, 0xE8, -32, 8
+	banim_frame_oam 0x0, 0x0, 0xEA, -16, 8
+	banim_frame_end
+banim_pbrf_sp1_oam_frame_58_r:
+	banim_frame_oam 0x4000, 0x4000, 0xB, -24, -24
+	banim_frame_oam 0x4000, 0x0, 0xF, 8, -24
+	banim_frame_oam 0x0, 0x0, 0x11, 24, -24
+	banim_frame_oam 0x4000, 0x4000, 0x2B, -24, 8
+	banim_frame_oam 0x4000, 0x0, 0x2F, 8, 8
+	banim_frame_oam 0x0, 0x0, 0x31, 24, 8
+	banim_frame_oam 0x0, 0x4000, 0x4B, -8, -16
+	banim_frame_oam 0xF000, 0x0, 0x4D, 8, -16
+	banim_frame_oam 0x4000, 0x0, 0x8B, -8, 0
+	banim_frame_oam 0x0, 0x0, 0x8D, 8, 0
+	banim_frame_end
+banim_pbrf_sp1_oam_frame_59_r:
+	banim_frame_oam 0x4000, 0x4000, 0xAB, -24, -24
+	banim_frame_oam 0x4000, 0x0, 0xAF, 8, -24
+	banim_frame_oam 0x0, 0x0, 0xB1, 24, -24
+	banim_frame_oam 0x4000, 0x4000, 0xCB, -24, 8
+	banim_frame_oam 0x4000, 0x0, 0xCF, 8, 8
+	banim_frame_oam 0x0, 0x0, 0xD1, 24, 8
+	banim_frame_oam 0x0, 0x4000, 0x4E, -8, -16
+	banim_frame_oam 0xF000, 0x0, 0x50, 8, -16
+	banim_frame_oam 0x4000, 0x0, 0x8E, -8, 0
+	banim_frame_oam 0x0, 0x0, 0x90, 8, 0
+	banim_frame_end
+banim_pbrf_sp1_oam_frame_60_r:
+	banim_frame_oam 0x4000, 0x4000, 0xEB, -32, -24
+	banim_frame_oam 0x4000, 0x0, 0xEF, 0, -24
+	banim_frame_oam 0x0, 0x0, 0xF1, 16, -24
+	banim_frame_oam 0x0, 0xF000, 0x12, -24, -16
+	banim_frame_oam 0x4000, 0x0, 0x92, 8, 8
+	banim_frame_end
+banim_pbrf_sp1_oam_frame_61_r:
+	banim_frame_oam 0x4000, 0xF000, 0x16, -24, -16
+	banim_frame_oam 0x0, 0x4000, 0x56, -16, 0
+	banim_frame_oam 0xF000, 0x0, 0x58, 0, 0
+	banim_frame_oam 0x0, 0x0, 0x59, 8, 8
+	banim_frame_end
+banim_pbrf_sp1_oam_frame_62_r:
+	banim_frame_oam 0x4000, 0xF000, 0x94, -32, -24
+	banim_frame_oam 0xF000, 0x0, 0x98, 0, -24
+	banim_frame_oam 0x0, 0x4000, 0xD2, -8, -8
+	banim_frame_oam 0xF000, 0x0, 0xD4, 8, -8
+	banim_frame_oam 0x4000, 0x4000, 0xD5, -8, 8
+	banim_frame_oam 0x4000, 0x0, 0xF5, -32, 8
+	banim_frame_oam 0x0, 0x0, 0xF7, -16, 8
+	banim_frame_oam 0x0, 0x0, 0xB9, 8, -16
+	banim_frame_end
+banim_pbrf_sp1_oam_frame_63_r:
+	banim_frame_oam 0xF000, 0xF000, 0x1A, -8, -24
+	banim_frame_oam 0xF000, 0x4000, 0x1C, 8, -24
+	banim_frame_oam 0x4000, 0x0, 0x9A, -8, 8
+	banim_frame_oam 0x0, 0x0, 0x9C, 8, 8
+	banim_frame_oam 0x0, 0x4000, 0xBA, -32, -24
+	banim_frame_oam 0xF000, 0x0, 0xBC, -16, -24
+	banim_frame_oam 0x4000, 0x0, 0xFA, -32, 8
+	banim_frame_oam 0x0, 0x0, 0xFC, -16, 8
+	banim_frame_oam 0xF000, 0x0, 0xD9, 16, -8
+	banim_frame_oam 0x0, 0x0, 0x99, 16, 8
+	banim_frame_end
+banim_pbrf_sp1_oam_frame_64_r:
+	banim_frame_oam 0xF000, 0xF000, 0x0, -8, -40
+	banim_frame_oam 0xF000, 0x4000, 0x2, 8, -40
+	banim_frame_oam 0x0, 0x4000, 0x80, -8, -8
+	banim_frame_oam 0xF000, 0x0, 0x82, 8, -8
+	banim_frame_oam 0x4000, 0x0, 0xC0, -8, 8
+	banim_frame_oam 0x0, 0x0, 0xC2, 8, 8
+	banim_frame_oam 0x0, 0x0, 0xE0, -32, -24
+	banim_frame_oam 0x0, 0x4000, 0x3, -24, -40
+	banim_frame_oam 0x4000, 0x0, 0x43, -24, -24
+	banim_frame_oam 0x0, 0x4000, 0x63, -24, 0
+	banim_frame_end
+banim_pbrf_sp1_oam_frame_65_r:
+	banim_frame_oam 0x0, 0x4000, 0xA3, -24, -32
+	banim_frame_oam 0xF000, 0x0, 0xA5, -8, -32
+	banim_frame_oam 0x4000, 0x0, 0xE3, -24, -16
+	banim_frame_oam 0x0, 0x0, 0xE5, -8, -16
+	banim_frame_oam 0x4000, 0xF000, 0x5, 0, -24
+	banim_frame_oam 0xF000, 0x0, 0x9, 32, -24
+	banim_frame_oam 0x0, 0x4000, 0x45, -8, -8
+	banim_frame_oam 0xF000, 0x0, 0x47, 8, -8
+	banim_frame_oam 0x4000, 0x4000, 0xE6, -24, 8
+	banim_frame_oam 0x4000, 0x0, 0xEA, 8, 8
+	banim_frame_oam 0x0, 0x0, 0xEC, 24, 8
+	banim_frame_end
+banim_pbrf_sp1_oam_frame_66_r:
+	banim_frame_oam 0xF000, 0xF000, 0xA, -8, -32
+	banim_frame_oam 0xF000, 0x4000, 0xC, 8, -32
+	banim_frame_oam 0x0, 0x4000, 0x8A, -8, 0
+	banim_frame_oam 0xF000, 0x0, 0x8C, 8, 0
+	banim_frame_oam 0x4000, 0x0, 0xA8, -24, 8
+	banim_frame_oam 0x4000, 0x0, 0xC8, 16, 8
+	banim_frame_oam 0xF000, 0x0, 0x49, -16, -32
+	banim_frame_oam 0x0, 0x0, 0x89, 16, -32
+	banim_frame_end
+banim_pbrf_sp1_oam_frame_67_r:
+	banim_frame_oam 0x4000, 0xF000, 0xD, -24, -32
+	banim_frame_oam 0x4000, 0xF000, 0x11, 8, -32
+	banim_frame_oam 0x0, 0x4000, 0x51, -8, -8
+	banim_frame_oam 0xF000, 0x0, 0x53, 8, -8
+	banim_frame_oam 0x4000, 0x4000, 0x4D, 0, -16
+	banim_frame_oam 0x4000, 0x4000, 0x8D, -24, 8
+	banim_frame_oam 0x4000, 0x0, 0x91, 8, 8
+	banim_frame_oam 0x0, 0x0, 0x93, 24, 8
+	banim_frame_end
+banim_pbrf_sp1_oam_frame_68_r:
+	banim_frame_oam 0x4000, 0xF000, 0xAE, 0, -32
+	banim_frame_oam 0x4000, 0x4000, 0xEE, 0, -16
+	banim_frame_oam 0x0, 0x4000, 0xD5, -16, -24
+	banim_frame_oam 0x0, 0x4000, 0xB2, -8, -8
+	banim_frame_oam 0xF000, 0x0, 0xB4, 8, -8
+	banim_frame_oam 0x4000, 0x0, 0xF2, -8, 8
+	banim_frame_oam 0x0, 0x0, 0xF4, 8, 8
+	banim_frame_oam 0x4000, 0x0, 0xB5, 16, 8
+	banim_frame_oam 0x4000, 0x0, 0x95, -24, 8
+	banim_frame_end
+	banim_frame_oam 0xF000, 0xF000, 0x0, -8, -24
+	banim_frame_oam 0xF000, 0x4000, 0x2, 8, -24
+	banim_frame_oam 0x4000, 0x0, 0x80, -8, 8
+	banim_frame_oam 0x0, 0x0, 0x82, 8, 8
+	banim_frame_end
+	banim_frame_oam 0xF000, 0xF000, 0x3, -8, -24
+	banim_frame_oam 0xF000, 0x4000, 0x5, 8, -24
+	banim_frame_oam 0x4000, 0x0, 0x83, -8, 8
+	banim_frame_oam 0x0, 0x0, 0x85, 8, 8
+	banim_frame_end
+	banim_frame_oam 0xF000, 0xF000, 0x6, -8, -24
+	banim_frame_oam 0xF000, 0x4000, 0x8, 8, -24
+	banim_frame_oam 0x4000, 0x0, 0x86, -8, 8
+	banim_frame_oam 0x0, 0x0, 0x88, 8, 8
+	banim_frame_end
+banim_pbrf_sp1_oam_frame_69_r:
+	banim_frame_oam 0xF000, 0xF000, 0x1A, 0, -32
+	banim_frame_oam 0x0, 0x4000, 0x9A, 0, 0
+	banim_frame_oam 0xF000, 0xF000, 0x58, -16, -16
+	banim_frame_end
+banim_pbrf_sp1_oam_frame_70_r:
+	banim_frame_oam 0xF000, 0xF000, 0x1C, 0, -40
+	banim_frame_oam 0x0, 0x4000, 0x9C, 0, -8
+	banim_frame_oam 0x4000, 0x0, 0xDC, 0, 8
+	banim_frame_oam 0x0, 0x0, 0x1E, 16, 8
+	banim_frame_oam 0x0, 0x0, 0x5E, -8, 8
+	banim_frame_end
+banim_pbrf_sp1_oam_frame_21_r:
+	banim_frame_oam 0x0, 0x0, 0x1F, 0, -8
+	banim_frame_end
+banim_pbrf_sp1_oam_frame_24_r:
+	banim_frame_oam 0x0, 0x0, 0x1F, 0, -8
+	banim_frame_end
+banim_pbrf_sp1_oam_frame_45_r:
+	banim_frame_oam 0x0, 0x0, 0x1F, 0, -8
+	banim_frame_end
+banim_pbrf_sp1_oam_frame_46_r:
+	banim_frame_oam 0x0, 0x0, 0x1F, 0, -8
+	banim_frame_end
+banim_pbrf_sp1_oam_frame_9_r:
+	banim_frame_oam 0x4000, 0xF000, 0x16, -48, -8
+	banim_frame_oam 0x0, 0x4000, 0x1A, -16, -8
+	banim_frame_oam 0xF000, 0x0, 0x1C, 0, -8
+	banim_frame_oam 0x4000, 0x4000, 0x56, -48, 8
+	banim_frame_oam 0x4000, 0x0, 0x5A, -16, 8
+	banim_frame_oam 0x0, 0x0, 0x5C, 0, 8
+	banim_frame_oam 0x0, 0x0, 0x55, -56, 8
+	banim_frame_oam 0x4000, 0x4000, 0x75, -32, -16
+	banim_frame_end
+banim_pbrf_sp1_oam_frame_10_r:
+	banim_frame_oam 0x4000, 0x0, 0xD8, -56, 8
+	banim_frame_oam 0x0, 0x0, 0x79, -8, 0
+	banim_frame_oam 0xF000, 0x4000, 0x7A, -40, -16
+	banim_frame_oam 0xF000, 0x4000, 0x7D, -16, -16
+	banim_frame_oam 0xF000, 0xF000, 0x7B, -32, -16
+	banim_frame_oam 0xF000, 0x0, 0x99, -48, -16
+	banim_frame_end
+banim_pbrf_sp1_oam_frame_11_r:
+	banim_frame_oam 0x4000, 0x0, 0xD8, -56, 8
+	banim_frame_oam 0x0, 0x0, 0x79, -8, 0
+	banim_frame_oam 0xF000, 0x4000, 0x7A, -40, -16
+	banim_frame_oam 0xF000, 0x4000, 0x7D, -16, -16
+	banim_frame_oam 0xF000, 0x0, 0x99, -48, -16
+	banim_frame_oam 0xF000, 0xF000, 0x3E, -32, -16
+	banim_frame_end
+banim_pbrf_sp1_oam_frame_12_r:
+	banim_frame_oam 0x4000, 0x0, 0xD8, -56, 8
+	banim_frame_oam 0x0, 0x0, 0x79, -8, 0
+	banim_frame_oam 0xF000, 0x4000, 0x7A, -40, -16
+	banim_frame_oam 0xF000, 0x4000, 0x7D, -16, -16
+	banim_frame_oam 0xF000, 0x0, 0x99, -48, -16
+	banim_frame_oam 0x0, 0x4000, 0xBE, -32, -16
+	banim_frame_oam 0x4000, 0x0, 0xFE, -32, 0
+	banim_frame_oam 0x4000, 0x0, 0xFC, -32, 8
+	banim_frame_end
+banim_pbrf_sp1_oam_frame_22_r:
+	banim_frame_oam 0xF000, 0x0, 0x15, -56, -8
+	banim_frame_end
+banim_pbrf_sp1_oam_frame_23_r:
+	banim_frame_oam 0xF000, 0x0, 0x98, -56, -16
+	banim_frame_end
+	banim_frame_oam 0xF000, 0xF000, 0x1B, -8, -16
+	banim_frame_oam 0xF000, 0x0, 0x3D, 8, -8
+	banim_frame_oam 0x0, 0x0, 0x7D, 8, 8
+	banim_frame_oam 0x0, 0x4000, 0x9B, -32, 0
+	banim_frame_oam 0xF000, 0x0, 0x9D, -16, 0
+	banim_frame_end
+	banim_frame_end
+	banim_frame_end
