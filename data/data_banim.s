@@ -501,9 +501,11 @@ banim_merm_sw1_sheet_2:
 	.incbin "graphics/banim/banim_merm_sw1_sheet_2.4bpp.lz"
 	.align 2, 0
 
-	.global gUnknown_C258A4
-gUnknown_C258A4:
-	.incbin "baserom.gba", 0xC258A4, 0x3D0
+@ battle animation 0xA
+	.global banim_merm_sw1_sheet_blank
+banim_merm_sw1_sheet_blank:
+	.incbin "graphics/banim/banim_merm_sw1_sheet_blank.4bpp.lz"
+	.align 2, 0
 
 @ battle animation 0xA
 	.global banim_merm_sw1_pal_lz
@@ -2816,9 +2818,17 @@ banim_genm_al1_sheet_6:
 	.incbin "graphics/banim/banim_genm_al1_sheet_6.4bpp.lz"
 	.align 2, 0
 
-	.global gUnknown_CBFAD8
-gUnknown_CBFAD8:
-	.incbin "baserom.gba", 0xCBFAD8, 0x7A0
+@ battle animation 0x44
+	.global banim_genm_al1_sheet_blank
+banim_genm_al1_sheet_blank:
+	.incbin "graphics/banim/banim_genm_al1_sheet_blank.4bpp.lz"
+	.align 2, 0
+
+@ battle animation 0x44
+	.global banim_genm_al1_sheet_blank_2
+banim_genm_al1_sheet_blank_2:
+	.incbin "graphics/banim/banim_genm_al1_sheet_blank_2.4bpp.lz"
+	.align 2, 0
 
 @ battle animation 0x44
 	.global banim_genm_al1_sheet_8
@@ -4087,9 +4097,11 @@ banim_wykm_sp1_sheet_12:
 	.incbin "graphics/banim/banim_wykm_sp1_sheet_12.4bpp.lz"
 	.align 2, 0
 
-	.global gUnknown_D2B5F0
-gUnknown_D2B5F0:
-	.incbin "baserom.gba", 0xD2B5F0, 0x3D0
+@ battle animation 0x61
+	.global banim_wykm_sp1_sheet_blank
+banim_wykm_sp1_sheet_blank:
+	.incbin "graphics/banim/banim_wykm_sp1_sheet_blank.4bpp.lz"
+	.align 2, 0
 
 @ battle animation 0x61
 	.global banim_wykm_sp1_sheet_6
@@ -4103,9 +4115,10 @@ banim_wykm_sp1_sheet_5:
 	.incbin "graphics/banim/banim_wykm_sp1_sheet_5.4bpp.lz"
 	.align 2, 0
 
-	.global gUnknown_D2D080
-gUnknown_D2D080:
-	.incbin "baserom.gba", 0xD2D080, 0x3D0
+    .global banim_wykm_sp1_sheet_blank_2
+banim_wykm_sp1_sheet_blank_2:
+    .incbin "graphics/banim/banim_wykm_sp1_sheet_blank_2.4bpp.lz"
+    .align 2, 0
 
 @ battle animation 0x61
 	.global banim_wykm_sp1_pal_lz
@@ -5250,9 +5263,15 @@ banim_monm_mg1_sheet_1:
 	.incbin "graphics/banim/banim_monm_mg1_sheet_1.4bpp.lz"
 	.align 2, 0
 
-	.global gUnknown_D7E080
-gUnknown_D7E080:
-	.incbin "baserom.gba", 0xD7E080, 0x7A0
+    .global banim_monm_mg1_sheet_blank
+banim_monm_mg1_sheet_blank:
+    .incbin "graphics/banim/banim_monm_mg1_sheet_blank.4bpp.lz"
+    .align 2, 0
+
+    .global banim_monm_mg1_sheet_blank_2
+banim_monm_mg1_sheet_blank_2:
+    .incbin "graphics/banim/banim_monm_mg1_sheet_blank_2.4bpp.lz"
+    .align 2, 0
 
 @ battle animation 0x7C
 	.global banim_monm_mg1_pal_lz
@@ -5703,9 +5722,10 @@ banim_thim_sw1_sheet_2:
 	.incbin "graphics/banim/banim_thim_sw1_sheet_2.4bpp.lz"
 	.align 2, 0
 
-	.global gUnknown_D914A0
-gUnknown_D914A0:
-	.incbin "baserom.gba", 0xD914A0, 0x3D0
+    .global banim_thim_sw1_sheet_blank
+banim_thim_sw1_sheet_blank:
+    .incbin "graphics/banim/banim_thim_sw1_sheet_blank.4bpp.lz"
+    .align 2, 0
 
 @ battle animation 0x88
 	.global banim_thim_sw1_pal_lz
@@ -6698,9 +6718,10 @@ banim_zom_at1_sheet_2:
 	.incbin "graphics/banim/banim_zom_at1_sheet_2.4bpp.lz"
 	.align 2, 0
 
-	.global gUnknown_DCB4B0
-gUnknown_DCB4B0:
-	.incbin "baserom.gba", 0xDCB4B0, 0x3D0
+    .global banim_zom_at1_sheet_blank
+banim_zom_at1_sheet_blank:
+    .incbin "graphics/banim/banim_zom_at1_sheet_blank.4bpp.lz"
+    .align 2, 0
 
 @ battle animation 0x9F
 	.global banim_zom_at1_pal_lz
@@ -6924,9 +6945,10 @@ banim_ska_ar1_sheet_1:
 	.incbin "graphics/banim/banim_ska_ar1_sheet_1.4bpp.lz"
 	.align 2, 0
 
-	.global gUnknown_DD8604
-gUnknown_DD8604:
-	.incbin "baserom.gba", 0xDD8604, 0x7D8
+    .global banim_ska_ar1_sheet_discarded
+banim_ska_ar1_sheet_discarded:
+    .incbin "graphics/banim/banim_ska_ar1_sheet_discarded.4bpp.lz"
+    .align 2, 0
 
 @ battle animation 0xA4
 	.global banim_ska_ar1_sheet_2
@@ -7497,9 +7519,10 @@ banim_cer_at1_sheet_5:
 	.incbin "graphics/banim/banim_cer_at1_sheet_5.4bpp.lz"
 	.align 2, 0
 
-	.global gUnknown_DFB6D8
-gUnknown_DFB6D8:
-	.incbin "baserom.gba", 0xDFB6D8, 0x3D0
+    .global banim_cer_at1_sheet_blank
+banim_cer_at1_sheet_blank:
+    .incbin "graphics/banim/banim_cer_at1_sheet_blank.4bpp.lz"
+    .align 2, 0
 
 @ battle animation 0xB1
 	.global banim_cer_at1_pal_lz
