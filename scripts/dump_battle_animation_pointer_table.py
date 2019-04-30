@@ -364,6 +364,10 @@ def parse_banim_all(code_dict=None):
         parse_pal_group(i)
 
 def scan_banim_data_area():
+    # save offset_dict to text to compare with the rebuilt data later
+    with open('out/address_list.txt', 'w') as f_addr:
+        for offset, info in sorted(offset_dict.items(), key=lambda x:x[0]):
+            f_addr.write('0x%x\t%s\n' % (offset + 0x8000000, info['name']))
     with open('out/data_banim.s', 'w') as f_asm:
         f_asm.write('@ vim:ft=armv4\n')
         f_asm.write('@ range: 0xC02000 ~ 0xE47180\n')
