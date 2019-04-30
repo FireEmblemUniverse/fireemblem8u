@@ -1336,9 +1336,10 @@ banim_warm_ax1_3_script_lz:
 banim_warm_ax1_3_modes:
 	.incbin "banim/banim_warm_ax1_3_modes.bin"
 
-	.global gUnknown_C60330
-gUnknown_C60330:
-	.incbin "baserom.gba", 0xC60330, 0x1250
+	.global banim_banm_ax1_sheet_0
+banim_banm_ax1_sheet_0:
+	.incbin "graphics/banim/banim_banm_ax1_sheet_0.4bpp.lz"
+	.align 2, 0
 
 @ battle animation 0x1F
 	.global banim_banm_ax1_sheet_1
@@ -6829,9 +6830,10 @@ banim_sks_sp1_sheet_0:
 	.incbin "graphics/banim/banim_sks_sp1_sheet_0.4bpp.lz"
 	.align 2, 0
 
-	.global gUnknown_DD2CA8
-gUnknown_DD2CA8:
-	.incbin "baserom.gba", 0xDD2CA8, 0xCB0
+	.global banim_sks_sp1_sheet_1
+banim_sks_sp1_sheet_1:
+	.incbin "graphics/banim/banim_sks_sp1_sheet_1.4bpp.lz"
+	.align 2, 0
 
 @ battle animation 0xA2
 	.global banim_sks_sp1_sheet_2

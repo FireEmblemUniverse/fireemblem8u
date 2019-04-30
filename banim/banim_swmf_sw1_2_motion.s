@@ -10,13 +10,13 @@
 	.section .data.oam_l
 banim_swmf_sw1_2_oam_l:
 banim_swmf_sw1_2_oam_frame_0_l:
-	banim_frame_oam 0xF000, 0xF000, 0x9C, -8, -16
+	banim_frame_oam 0x8000, 0xF000, 0x9C, -8, -16
 	banim_frame_oam 0x4000, 0x1000, 0xDA, -8, -24
 	banim_frame_oam 0x0, 0x1000, 0x19, -16, 0
 	banim_frame_oam 0x0, 0x1000, 0x1A, -16, 8
 	banim_frame_end
 banim_swmf_sw1_2_oam_frame_1_l:
-	banim_frame_oam 0xF000, 0xF000, 0x9E, -8, -16
+	banim_frame_oam 0x8000, 0xF000, 0x9E, -8, -16
 	banim_frame_oam 0x4000, 0x1000, 0xFA, -8, -24
 	banim_frame_oam 0x0, 0x1000, 0xD9, -16, 8
 	banim_frame_end
@@ -36,13 +36,13 @@ banim_swmf_sw1_2_oam_frame_1_l:
 	.section .data.oam_r
 banim_swmf_sw1_2_oam_r:
 banim_swmf_sw1_2_oam_frame_0_r:
-	banim_frame_oam 0xF000, 0xF000, 0x9C, -8, -16
+	banim_frame_oam 0x8000, 0x8000, 0x9C, -8, -16
 	banim_frame_oam 0x4000, 0x0, 0xDA, -8, -24
 	banim_frame_oam 0x0, 0x0, 0x19, 8, 0
 	banim_frame_oam 0x0, 0x0, 0x1A, 8, 8
 	banim_frame_end
 banim_swmf_sw1_2_oam_frame_1_r:
-	banim_frame_oam 0xF000, 0xF000, 0x9E, -8, -16
+	banim_frame_oam 0x8000, 0x8000, 0x9E, -8, -16
 	banim_frame_oam 0x4000, 0x0, 0xFA, -8, -24
 	banim_frame_oam 0x0, 0x0, 0xD9, 8, 8
 	banim_frame_end

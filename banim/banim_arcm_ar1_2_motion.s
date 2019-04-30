@@ -13,7 +13,7 @@ banim_arcm_ar1_2_oam_frame_0_l:
 	banim_frame_oam 0x4000, 0x1000, 0x8E, -8, -16
 	banim_frame_oam 0x4000, 0x1000, 0xAE, -10, -8
 	banim_frame_oam 0x0, 0x5000, 0xCE, -8, 0
-	banim_frame_oam 0xF000, 0x1000, 0xD0, -16, 0
+	banim_frame_oam 0x8000, 0x1000, 0xD0, -16, 0
 	banim_frame_oam 0x0, 0x1000, 0x2, -4, -24
 	banim_frame_end
 banim_arcm_ar1_2_oam_frame_1_l:
@@ -64,7 +64,7 @@ banim_arcm_ar1_2_oam_frame_0_r:
 	banim_frame_oam 0x4000, 0x0, 0x8E, -8, -16
 	banim_frame_oam 0x4000, 0x0, 0xAE, -6, -8
 	banim_frame_oam 0x0, 0x4000, 0xCE, -8, 0
-	banim_frame_oam 0xF000, 0x0, 0xD0, 8, 0
+	banim_frame_oam 0x8000, 0x0, 0xD0, 8, 0
 	banim_frame_oam 0x0, 0x0, 0x2, -4, -24
 	banim_frame_end
 banim_arcm_ar1_2_oam_frame_1_r:
