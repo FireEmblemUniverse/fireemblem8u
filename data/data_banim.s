@@ -5320,7 +5320,8 @@ banim_prim_ro1_modes:
 
 	.global banim_prim_ro1_2_pal_lz
 banim_prim_ro1_2_pal_lz:
-	.incbin "baserom.gba", 0xD802D0, 0x68
+	.incbin "banim/banim_prim_ro1_2_pal.bin.lz"
+	.align 2, 0
 
 @ battle animation 0x7E
 	.global banim_prim_ro1_2_oam_l_lz
@@ -6825,14 +6826,14 @@ banim_sks_sw1_modes:
 	.incbin "banim/banim_sks_sw1_modes.bin"
 
 @ battle animation 0xA2
-	.global banim_sks_sp1_sheet_0_discarded
+	.global banim_sks_sp1_sheet_0
 banim_sks_sp1_sheet_0:
-	.incbin "graphics/banim/banim_sks_sp1_sheet_0_discarded.4bpp.lz"
+	.incbin "graphics/banim/banim_sks_sp1_sheet_0.4bpp.lz"
 	.align 2, 0
 
-	.global banim_sks_sp1_sheet_1
-banim_sks_sp1_sheet_1:
-	.incbin "graphics/banim/banim_sks_sp1_sheet_1.4bpp.lz"
+	.global banim_sks_sp1_sheet_1_discarded
+banim_sks_sp1_sheet_1_discarded:
+	.incbin "graphics/banim/banim_sks_sp1_sheet_1_discarded.4bpp.lz"
 	.align 2, 0
 
 @ battle animation 0xA2
@@ -8589,7 +8590,8 @@ banim_prif_ro1_2_modes:
 
 	.global banim_fifd_mg1_2_pal_lz
 banim_fifd_mg1_2_pal_lz:
-	.incbin "baserom.gba", 0xE463E0, 0x38
+	.incbin "banim/banim_fifd_mg1_2_pal.bin.lz"
+	.align 2, 0
 
 @ battle animation 0xC8
 	.global banim_fifd_mg1_2_oam_l_lz
