@@ -6825,9 +6825,9 @@ banim_sks_sw1_modes:
 	.incbin "banim/banim_sks_sw1_modes.bin"
 
 @ battle animation 0xA2
-	.global banim_sks_sp1_sheet_0
+	.global banim_sks_sp1_sheet_0_discarded
 banim_sks_sp1_sheet_0:
-	.incbin "graphics/banim/banim_sks_sp1_sheet_0.4bpp.lz"
+	.incbin "graphics/banim/banim_sks_sp1_sheet_0_discarded.4bpp.lz"
 	.align 2, 0
 
 	.global banim_sks_sp1_sheet_1
