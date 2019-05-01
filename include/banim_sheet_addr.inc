@@ -461,11 +461,11 @@
 
     .equ banim_merm_sw1_sheet_blank, 0x8C258A4
     .equ banim_genm_al1_sheet_blank, 0x8CBFAD8
-    .equ banim_genm_al1_sheet_blank_2, banim_genm_al1_sheet_blank + 0x83D0
+    .equ banim_genm_al1_sheet_blank_2, banim_genm_al1_sheet_blank + 0x3D0
     .equ banim_wykm_sp1_sheet_blank, 0x8D2B5F0
     .equ banim_wykm_sp1_sheet_blank_2, 0x8D2D080
     .equ banim_monm_mg1_sheet_blank, 0x8D7E080
-    .equ banim_monm_mg1_sheet_blank_2, banim_monm_mg1_sheet_blank + 0x83D0
+    .equ banim_monm_mg1_sheet_blank_2, banim_monm_mg1_sheet_blank + 0x3D0
     .equ banim_thim_sw1_sheet_blank, 0x8D914A0
     .equ banim_zom_at1_sheet_blank, 0x8DCB4B0
     .equ banim_cer_at1_sheet_blank, 0x8DFB6D8
