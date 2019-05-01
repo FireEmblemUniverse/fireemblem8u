@@ -31,7 +31,7 @@ banim_bism_mg1_oam_frame_1_l:
 	banim_frame_end
 banim_bism_mg1_oam_frame_2_l:
 	banim_frame_oam 0x0, 0x1000, 0x0, -8, -11
-	banim_frame_oam 0x8000, 0xF000, 0x20, 0, -18
+	banim_frame_oam 0x8000, 0x9000, 0x20, 0, -18
 	banim_frame_oam 0x8000, 0x5000, 0x22, -8, -18
 	banim_frame_oam 0x4000, 0x1000, 0x1, -8, -26
 	banim_frame_oam 0x8000, 0x1000, 0x23, -16, -19

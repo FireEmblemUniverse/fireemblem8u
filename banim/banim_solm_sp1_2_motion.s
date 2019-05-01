@@ -20,7 +20,7 @@ banim_solm_sp1_2_oam_frame_0_l:
 banim_solm_sp1_2_oam_frame_1_l:
 	banim_frame_oam 0x0, 0x5000, 0x3, -11, -21
 	banim_frame_oam 0x0, 0x1000, 0x25, -19, -13
-	banim_frame_oam 0x4000, 0xF000, 0x43, -26, -5
+	banim_frame_oam 0x4000, 0x9000, 0x43, -26, -5
 	banim_frame_oam 0x4000, 0x5000, 0x83, -26, 11
 	banim_frame_oam 0x0, 0x1000, 0x1, -34, 3
 	banim_frame_end

@@ -16,7 +16,7 @@ banim_prim_ro1_oam_frame_0_l:
 	banim_frame_oam 0x4000, 0x1000, 0x4, -5, -24
 	banim_frame_end
 banim_prim_ro1_oam_frame_1_l:
-	banim_frame_oam 0x8000, 0xF000, 0x10, -3, -18
+	banim_frame_oam 0x8000, 0x9000, 0x10, -3, -18
 	banim_frame_oam 0x8000, 0x5000, 0x12, -11, -18
 	banim_frame_oam 0x4000, 0x1000, 0x4, -5, -26
 	banim_frame_end
@@ -74,6 +74,7 @@ banim_prim_ro1_oam_frame_2_r:
 	.section .data.script
 banim_prim_ro1_script:
 banim_prim_ro1_mode_attack_close:
+banim_prim_ro1_mode_attack_miss:
 	banim_code_dodge_to_back
 	banim_code_frame 1, banim_prim_ro1_sheet_0, 0, banim_prim_ro1_oam_frame_0_r - banim_prim_ro1_oam_r
 	banim_code_start_dodge
@@ -178,7 +179,7 @@ banim_prim_ro1_modes:
 	.word banim_prim_ro1_mode_stand_close - banim_prim_ro1_script
 	.word banim_prim_ro1_mode_stand - banim_prim_ro1_script
 	.word banim_prim_ro1_mode_stand_range - banim_prim_ro1_script
-@	.word banim_prim_ro1_mode_attack_miss - banim_prim_ro1_script
+	.word banim_prim_ro1_mode_attack_miss - banim_prim_ro1_script
 	.word 0
 	.word 0
 	.word 0
@@ -189,6 +190,4 @@ banim_prim_ro1_modes:
 	.word 0
 	.word 0
 	.word 0
-	.word 0
-@	.word 0
 

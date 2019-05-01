@@ -20,7 +20,7 @@ banim_myrm_sw1_2_oam_frame_0_l:
 	banim_frame_oam 0x0, 0x1000, 0xDF, -13, -5
 	banim_frame_end
 banim_myrm_sw1_2_oam_frame_1_l:
-	banim_frame_oam 0x8000, 0xF000, 0x8D, -6, -16
+	banim_frame_oam 0x8000, 0x9000, 0x8D, -6, -16
 	banim_frame_oam 0x0, 0x5000, 0x95, -22, -16
 	banim_frame_oam 0x4000, 0x1000, 0xD5, -22, 0
 	banim_frame_oam 0x4000, 0x1000, 0xEF, -22, 8

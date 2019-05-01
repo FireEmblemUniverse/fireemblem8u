@@ -85,9 +85,6 @@ def dump_raw_binary(fp):
             f_modes.write(fp.read(96))
         with open('out/banim_' + abbr + '_script.bin.lz', 'wb') as f_script:
             data_script = tool.CompData(fp, offset=script, comp_type=tool.lz77)
-            if i == 0x1E:
-                print('0x%X %d %d' % (script,
-                                      data_script.length, data_script.size))
             data_script.write_comp_data(f_script)
         tool.decomp_file('out/banim_' + abbr + '_script.bin.lz',
                          'out/banim_' + abbr + '_script.bin')
@@ -229,6 +226,9 @@ def make_headers():
     with open('out/banim_sheet.inc', 'w') as f_sheet:
         for i in sheet_dict:
             f_sheet.write('\t.extern %s\n' % sheet_dict[i])
+    with open('out/banim_sheet_addr.inc', 'w') as f_sheet:
+        for i in sheet_dict:
+            f_sheet.write('\t.equ %s, 0x%X\n' % (sheet_dict[i], i))
 
 def parse_frame(animation_id, side='r'):
     anim = banim_table[animation_id]
@@ -271,19 +271,19 @@ def parse_frame(animation_id, side='r'):
                     if total > 1:
                         for i in range(total - 1):
                             element = f_bin.read(12)
-                            _, _, pa, pb, pcc, pd = struct.unpack(
+                            n, _, pa, pb, pcc, pd = struct.unpack(
                                 '<6h', element)
-                            f_asm.write('\tbanim_frame_affine %d, %d, %d, %d\n'
-                                        % (pa, pb, pcc, pd))
+                            f_asm.write('\tbanim_frame_affine %d, %d, %d, %d, %d\n'
+                                        % (pa, pb, pcc, pd, n))
                             p += 12
                 elif element[5] == 0:
                     attr0, attr1, attr2, dx, dy, _ = element
                     if attr0 < 0:
-                        attr0 = abs(attr0) | 0x8000
+                        attr0 = struct.unpack('<H', struct.pack('<h', attr0))[0]
                     if attr1 < 0:
-                        attr1 = abs(attr1) | 0x8000
+                        attr1 = struct.unpack('<H', struct.pack('<h', attr1))[0]
                     if attr2 < 0:
-                        attr2 = abs(attr2) | 0x8000
+                        attr2 = struct.unpack('<H', struct.pack('<h', attr2))[0]
                     f_asm.write('\tbanim_frame_oam 0x%X, 0x%X, 0x%X, %d, %d\n'
                                 % (attr0, attr1, attr2, dx, dy))
                 else:

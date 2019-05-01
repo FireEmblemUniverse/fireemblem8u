@@ -18,7 +18,7 @@ banim_snif_ar1_2_oam_frame_0_l:
 	banim_frame_oam 0x0, 0x1000, 0x3, -3, -24
 	banim_frame_end
 banim_snif_ar1_2_oam_frame_1_l:
-	banim_frame_oam 0x8000, 0xF000, 0xA, 0, -13
+	banim_frame_oam 0x8000, 0x9000, 0xA, 0, -13
 	banim_frame_oam 0x8000, 0x5000, 0xC, -8, -13
 	banim_frame_oam 0x0, 0x1000, 0x6D, -16, -7
 	banim_frame_oam 0x0, 0x1000, 0x6E, -16, 11

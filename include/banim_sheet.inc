@@ -456,3 +456,25 @@
 	.extern banim_sks_sw1_sheet_3
 	.extern banim_gar_sp1_sheet_7
 	.extern banim_drmm_sp1_sheet_5
+
+    @ blank sheet images
+
+    .extern banim_merm_sw1_sheet_blank
+    .extern banim_genm_al1_sheet_blank
+    .extern banim_genm_al1_sheet_blank_2
+    .extern banim_wykm_sp1_sheet_blank
+    .extern banim_wykm_sp1_sheet_blank_2
+    .extern banim_monm_mg1_sheet_blank
+    .extern banim_monm_mg1_sheet_blank_2
+    .extern banim_thim_sw1_sheet_blank
+    .extern banim_zom_at1_sheet_blank
+    .extern banim_cer_at1_sheet_blank
+
+    @ discarded sheet images
+
+    .extern banim_ska_ar1_sheet_discarded
+    .extern banim_sks_sp1_sheet_1_discarded
+
+    @ test: replace pointers to sheet images with absolute addresses
+    .include "../include/banim_sheet_addr.inc"
+

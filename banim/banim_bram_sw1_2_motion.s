@@ -15,7 +15,7 @@ banim_bram_sw1_2_oam_frame_0_l:
 	banim_frame_oam 0x0, 0x5000, 0x1B, -17, -17
 	banim_frame_oam 0x0, 0x1000, 0x5C, -1, -9
 	banim_frame_oam 0x0, 0x1000, 0x5B, -9, -1
-	banim_frame_oam 0x8000, 0xF000, 0x20, -8, -16
+	banim_frame_oam 0x8000, 0x9000, 0x20, -8, -16
 	banim_frame_oam 0x8000, 0x5000, 0x22, -16, -16
 	banim_frame_oam 0x4000, 0x1000, 0x0, -8, -24
 	banim_frame_oam 0x0, 0x1000, 0x3, 8, -7
@@ -27,7 +27,7 @@ banim_bram_sw1_2_oam_frame_1_l:
 	banim_frame_oam 0x0, 0x5000, 0x1B, -15, -17
 	banim_frame_oam 0x0, 0x1000, 0x5C, 1, -9
 	banim_frame_oam 0x0, 0x1000, 0x5B, -7, -1
-	banim_frame_oam 0x8000, 0xF000, 0x20, -8, -16
+	banim_frame_oam 0x8000, 0x9000, 0x20, -8, -16
 	banim_frame_oam 0x8000, 0x5000, 0x22, -16, -16
 	banim_frame_oam 0x4000, 0x1000, 0x0, -8, -24
 	banim_frame_oam 0x0, 0x1000, 0x3, 8, -7
@@ -39,7 +39,7 @@ banim_bram_sw1_2_oam_frame_2_l:
 	banim_frame_oam 0x0, 0x5000, 0x1B, -12, -18
 	banim_frame_oam 0x0, 0x1000, 0x5C, 4, -10
 	banim_frame_oam 0x0, 0x1000, 0x5B, -4, -2
-	banim_frame_oam 0x8000, 0xF000, 0x20, -8, -16
+	banim_frame_oam 0x8000, 0x9000, 0x20, -8, -16
 	banim_frame_oam 0x8000, 0x5000, 0x22, -16, -16
 	banim_frame_oam 0x4000, 0x1000, 0x0, -8, -24
 	banim_frame_oam 0x0, 0x1000, 0x3, 8, -7
@@ -60,7 +60,7 @@ banim_bram_sw1_2_oam_frame_3_l:
 	banim_frame_end
 banim_bram_sw1_2_oam_frame_4_l:
 	banim_frame_affine -237, 95, 95, 237, 1
-	banim_frame_oam 0xFF00, 0x8000, 0x9A, -1, -22
+	banim_frame_oam 0x8100, 0x8000, 0x9A, -1, -22
 	banim_frame_oam 0x0, 0x5000, 0x61, -16, 0
 	banim_frame_oam 0x0, 0x1000, 0x80, 0, 8
 	banim_frame_oam 0x0, 0x1000, 0x2, 8, 8
@@ -79,7 +79,7 @@ banim_bram_sw1_2_oam_frame_5_l:
 	banim_frame_oam 0x0, 0x1000, 0x80, 0, 8
 	banim_frame_oam 0x0, 0x1000, 0x2, 8, 8
 	banim_frame_oam 0x0, 0x1000, 0x4, 0, 0
-	banim_frame_oam 0x4000, 0xF000, 0xA1, -19, -24
+	banim_frame_oam 0x4000, 0x9000, 0xA1, -19, -24
 	banim_frame_oam 0x8000, 0x1000, 0xA5, -27, -24
 	banim_frame_oam 0x4000, 0x1000, 0xE0, -3, -8
 	banim_frame_oam 0x0, 0x1000, 0xE2, -11, -8
@@ -151,7 +151,7 @@ banim_bram_sw1_2_oam_frame_9_l:
 	banim_frame_oam 0x0, 0x1000, 0x57, -17, -19
 	banim_frame_end
 banim_bram_sw1_2_oam_frame_10_l:
-	banim_frame_oam 0x0, 0xF000, 0x9C, 0, -22
+	banim_frame_oam 0x0, 0x9000, 0x9C, 0, -22
 	banim_frame_oam 0x0, 0x5000, 0x61, -16, 0
 	banim_frame_oam 0x0, 0x1000, 0x80, 0, 8
 	banim_frame_oam 0x0, 0x1000, 0x2, 8, 8
@@ -196,7 +196,7 @@ banim_bram_sw1_2_oam_frame_12_l:
 	banim_frame_end
 banim_bram_sw1_2_oam_frame_13_l:
 	banim_frame_affine -252, 44, 44, 252, 1
-	banim_frame_oam 0xFF00, 0x8000, 0x9A, 6, -19
+	banim_frame_oam 0x8100, 0x8000, 0x9A, 6, -19
 	banim_frame_oam 0x0, 0x5000, 0x61, -16, 0
 	banim_frame_oam 0x0, 0x1000, 0x80, 0, 8
 	banim_frame_oam 0x0, 0x1000, 0x2, 8, 8
@@ -211,7 +211,7 @@ banim_bram_sw1_2_oam_frame_13_l:
 	banim_frame_end
 banim_bram_sw1_2_oam_frame_14_l:
 	banim_frame_affine -255, 17, 17, 255, 1
-	banim_frame_oam 0xFF00, 0x8000, 0x9A, 5, -18
+	banim_frame_oam 0x8100, 0x8000, 0x9A, 5, -18
 	banim_frame_oam 0x0, 0x5000, 0x61, -16, 0
 	banim_frame_oam 0x0, 0x1000, 0x80, 0, 8
 	banim_frame_oam 0x0, 0x1000, 0x2, 8, 8
@@ -226,7 +226,7 @@ banim_bram_sw1_2_oam_frame_14_l:
 	banim_frame_end
 banim_bram_sw1_2_oam_frame_15_l:
 	banim_frame_affine -249, -58, -58, 249, 1
-	banim_frame_oam 0xFF00, 0x8000, 0x9A, 4, -18
+	banim_frame_oam 0x8100, 0x8000, 0x9A, 4, -18
 	banim_frame_oam 0x0, 0x5000, 0x61, -16, 0
 	banim_frame_oam 0x0, 0x1000, 0x80, 0, 8
 	banim_frame_oam 0x0, 0x1000, 0x2, 8, 8
@@ -241,9 +241,9 @@ banim_bram_sw1_2_oam_frame_15_l:
 	banim_frame_end
 banim_bram_sw1_2_oam_frame_16_l:
 	banim_frame_oam 0x0, 0x5000, 0x45, -29, -40
-	banim_frame_oam 0x4000, 0xF000, 0x7, 35, -16
-	banim_frame_oam 0x4000, 0xF000, 0xB, 3, -16
-	banim_frame_oam 0x4000, 0xF000, 0xF, -29, -16
+	banim_frame_oam 0x4000, 0x9000, 0x7, 35, -16
+	banim_frame_oam 0x4000, 0x9000, 0xB, 3, -16
+	banim_frame_oam 0x4000, 0x9000, 0xF, -29, -16
 	banim_frame_oam 0x4000, 0x5000, 0x47, 35, 0
 	banim_frame_oam 0x4000, 0x5000, 0x4B, 3, 0
 	banim_frame_oam 0x4000, 0x5000, 0x4F, -29, 0
@@ -356,14 +356,14 @@ banim_bram_sw1_2_oam_frame_23_l:
 	banim_frame_oam 0x0, 0x5000, 0x2, 26, -16
 	banim_frame_oam 0x0, 0x1000, 0x40, 18, -15
 	banim_frame_oam 0x0, 0x1000, 0x82, 53, -24
-	banim_frame_oam 0x0, 0xF000, 0x9C, 9, -22
+	banim_frame_oam 0x0, 0x9000, 0x9C, 9, -22
 	banim_frame_end
 banim_bram_sw1_2_oam_frame_24_l:
 	banim_frame_affine -232, 108, 108, 232, 1
 	banim_frame_oam 0x0, 0x5000, 0x4, 50, -16
 	banim_frame_oam 0x8000, 0x1000, 0x6, 42, -16
 	banim_frame_oam 0x4000, 0x1000, 0x44, 50, 0
-	banim_frame_oam 0x8000, 0xF000, 0x9, 26, -16
+	banim_frame_oam 0x8000, 0x9000, 0x9, 26, -16
 	banim_frame_oam 0x0, 0x5000, 0x47, 42, 0
 	banim_frame_oam 0x0, 0x1000, 0x82, 53, -24
 	banim_frame_oam 0x100, 0x8000, 0x9C, 21, -18
@@ -373,13 +373,13 @@ banim_bram_sw1_2_oam_frame_25_l:
 	banim_frame_oam 0x0, 0x5000, 0x4, 50, -16
 	banim_frame_oam 0x8000, 0x1000, 0x6, 42, -16
 	banim_frame_oam 0x4000, 0x1000, 0x44, 50, 0
-	banim_frame_oam 0x8000, 0xF000, 0x9, 26, -16
+	banim_frame_oam 0x8000, 0x9000, 0x9, 26, -16
 	banim_frame_oam 0x0, 0x5000, 0x47, 42, 0
 	banim_frame_oam 0x0, 0x1000, 0x82, 53, -24
 	banim_frame_oam 0x100, 0x8000, 0x9C, 22, -17
 	banim_frame_end
 banim_bram_sw1_2_oam_frame_26_l:
-	banim_frame_oam 0x0, 0xF000, 0x8D, 25, -12
+	banim_frame_oam 0x0, 0x9000, 0x8D, 25, -12
 	banim_frame_oam 0x4000, 0x1000, 0x6C, 41, -20
 	banim_frame_oam 0x0, 0x1000, 0x6E, 33, -20
 	banim_frame_oam 0x8000, 0x1000, 0x8C, 57, -4
@@ -570,7 +570,7 @@ banim_bram_sw1_2_oam_frame_37_l:
 	banim_frame_end
 banim_bram_sw1_2_oam_frame_38_l:
 	banim_frame_affine -116, 228, 228, 116, 1
-	banim_frame_oam 0x8000, 0xF000, 0x11, 5, -89
+	banim_frame_oam 0x8000, 0x9000, 0x11, 5, -89
 	banim_frame_oam 0x8000, 0x5000, 0x13, -3, -89
 	banim_frame_oam 0x0, 0x5000, 0x91, 5, -57
 	banim_frame_oam 0x0, 0x1000, 0x93, -3, -57
@@ -738,13 +738,13 @@ banim_bram_sw1_2_oam_frame_52_l:
 	banim_frame_oam 0x0, 0x1000, 0x6, -7, 8
 	banim_frame_end
 banim_bram_sw1_2_oam_frame_53_l:
-	banim_frame_oam 0x4000, 0xF000, 0x23, -11, -58
+	banim_frame_oam 0x4000, 0x9000, 0x23, -11, -58
 	banim_frame_oam 0x4000, 0x5000, 0x63, -11, -42
 	banim_frame_oam 0x4000, 0x1000, 0x4, 0, 8
 	banim_frame_oam 0x0, 0x1000, 0x6, -8, 8
 	banim_frame_end
 banim_bram_sw1_2_oam_frame_54_l:
-	banim_frame_oam 0x4000, 0xF000, 0x23, -12, -57
+	banim_frame_oam 0x4000, 0x9000, 0x23, -12, -57
 	banim_frame_oam 0x4000, 0x5000, 0x63, -12, -41
 	banim_frame_oam 0x4000, 0x1000, 0x4, -1, 8
 	banim_frame_oam 0x0, 0x1000, 0x6, -9, 8
@@ -834,7 +834,7 @@ banim_bram_sw1_2_oam_frame_60_l:
 	banim_frame_oam 0x100, 0x8000, 0x9C, -19, -47
 	banim_frame_end
 banim_bram_sw1_2_oam_frame_61_l:
-	banim_frame_oam 0x8000, 0xF000, 0x7, -8, -16
+	banim_frame_oam 0x8000, 0x9000, 0x7, -8, -16
 	banim_frame_oam 0x8000, 0x1000, 0x29, -16, -8
 	banim_frame_oam 0x0, 0x1000, 0x69, -16, 8
 	banim_frame_oam 0x0, 0x1000, 0xE6, 8, -2
@@ -845,7 +845,7 @@ banim_bram_sw1_2_oam_frame_61_l:
 	banim_frame_end
 banim_bram_sw1_2_oam_frame_62_l:
 	banim_frame_affine -120, 225, 225, 120, 2
-	banim_frame_affine 235, -99, -99, -235
+	banim_frame_affine 235, -99, -99, -235, 2
 	banim_frame_oam 0x0, 0x1000, 0xE6, 8, -2
 	banim_frame_oam 0x0, 0x5000, 0xA, -8, -16
 	banim_frame_oam 0x4000, 0x1000, 0x4A, -8, 0
@@ -853,11 +853,11 @@ banim_bram_sw1_2_oam_frame_62_l:
 	banim_frame_oam 0x4000, 0x1000, 0x67, -8, 8
 	banim_frame_oam 0x0, 0x1000, 0x69, -16, 8
 	banim_frame_oam 0x100, 0x4000, 0x87, -3, -5
-	banim_frame_oam 0x100, 0xFE00, 0x9C, -13, -16
+	banim_frame_oam 0x100, 0x8200, 0x9C, -13, -16
 	banim_frame_end
 banim_bram_sw1_2_oam_frame_63_l:
 	banim_frame_affine -120, 225, 225, 120, 2
-	banim_frame_affine 235, -99, -99, -235
+	banim_frame_affine 235, -99, -99, -235, 2
 	banim_frame_oam 0x0, 0x1000, 0xE6, 8, -2
 	banim_frame_oam 0x0, 0x5000, 0xA, -8, -16
 	banim_frame_oam 0x4000, 0x1000, 0x4A, -8, 0
@@ -865,11 +865,11 @@ banim_bram_sw1_2_oam_frame_63_l:
 	banim_frame_oam 0x4000, 0x1000, 0x67, -8, 8
 	banim_frame_oam 0x0, 0x1000, 0x69, -16, 8
 	banim_frame_oam 0x100, 0x4000, 0x87, -1, -3
-	banim_frame_oam 0x100, 0xFE00, 0x9C, -11, -14
+	banim_frame_oam 0x100, 0x8200, 0x9C, -11, -14
 	banim_frame_end
 banim_bram_sw1_2_oam_frame_64_l:
 	banim_frame_affine -225, -120, -120, 225, 2
-	banim_frame_affine 255, 0, 0, -255
+	banim_frame_affine 255, 0, 0, -255, 2
 	banim_frame_oam 0x100, 0x8000, 0x1C, -11, -9
 	banim_frame_oam 0x100, 0x4200, 0x87, 0, -6
 	banim_frame_oam 0x0, 0x1000, 0xE6, 8, -2
@@ -885,7 +885,7 @@ banim_bram_sw1_2_oam_frame_65_l:
 	banim_frame_oam 0x0, 0x5000, 0x1B, -7, -17
 	banim_frame_oam 0x0, 0x1000, 0x5C, 9, -9
 	banim_frame_oam 0x0, 0x1000, 0x5B, 1, -1
-	banim_frame_oam 0x8000, 0xF000, 0x20, -8, -16
+	banim_frame_oam 0x8000, 0x9000, 0x20, -8, -16
 	banim_frame_oam 0x8000, 0x5000, 0x22, -16, -16
 	banim_frame_oam 0x4000, 0x1000, 0x0, -8, -24
 	banim_frame_oam 0x0, 0x1000, 0x3, 8, -7
@@ -897,7 +897,7 @@ banim_bram_sw1_2_oam_frame_66_l:
 	banim_frame_oam 0x0, 0x5000, 0x1B, -11, -17
 	banim_frame_oam 0x0, 0x1000, 0x5C, 5, -9
 	banim_frame_oam 0x0, 0x1000, 0x5B, -3, -1
-	banim_frame_oam 0x8000, 0xF000, 0x20, -8, -16
+	banim_frame_oam 0x8000, 0x9000, 0x20, -8, -16
 	banim_frame_oam 0x8000, 0x5000, 0x22, -16, -16
 	banim_frame_oam 0x4000, 0x1000, 0x0, -8, -24
 	banim_frame_oam 0x0, 0x1000, 0x3, 8, -7
@@ -909,14 +909,14 @@ banim_bram_sw1_2_oam_frame_67_l:
 	banim_frame_oam 0x0, 0x5000, 0x1B, -15, -17
 	banim_frame_oam 0x0, 0x1000, 0x5C, 1, -9
 	banim_frame_oam 0x0, 0x1000, 0x5B, -7, -1
-	banim_frame_oam 0x8000, 0xF000, 0x20, -8, -16
+	banim_frame_oam 0x8000, 0x9000, 0x20, -8, -16
 	banim_frame_oam 0x8000, 0x5000, 0x22, -16, -16
 	banim_frame_oam 0x4000, 0x1000, 0x0, -8, -24
 	banim_frame_oam 0x0, 0x1000, 0x3, 8, -7
 	banim_frame_oam 0x0, 0x1000, 0x2, 8, 8
 	banim_frame_end
 banim_bram_sw1_2_oam_frame_74_l:
-	banim_frame_oam 0x0, 0xF000, 0x1C, -29, -15
+	banim_frame_oam 0x0, 0x9000, 0x1C, -29, -15
 	banim_frame_oam 0x0, 0x5000, 0xDA, -21, -15
 	banim_frame_oam 0x0, 0x5000, 0xC9, -8, 0
 	banim_frame_oam 0x8000, 0x1000, 0xCB, -16, 0
@@ -927,7 +927,7 @@ banim_bram_sw1_2_oam_frame_74_l:
 	banim_frame_end
 banim_bram_sw1_2_oam_frame_75_l:
 	banim_frame_affine -231, -108, -108, 231, 2
-	banim_frame_affine -216, -136, -136, 216
+	banim_frame_affine -216, -136, -136, 216, 2
 	banim_frame_oam 0x100, 0x8000, 0x1C, -32, -17
 	banim_frame_oam 0x100, 0x4200, 0xDA, -21, -17
 	banim_frame_oam 0x0, 0x5000, 0xC9, -8, 0
@@ -939,7 +939,7 @@ banim_bram_sw1_2_oam_frame_75_l:
 	banim_frame_end
 banim_bram_sw1_2_oam_frame_76_l:
 	banim_frame_affine -209, -147, -147, 209, 2
-	banim_frame_affine -195, -165, -165, 195
+	banim_frame_affine -195, -165, -165, 195, 2
 	banim_frame_oam 0x100, 0x8000, 0x1C, -33, -18
 	banim_frame_oam 0x100, 0x4200, 0xDA, -20, -17
 	banim_frame_oam 0x0, 0x5000, 0xC9, -8, 0
@@ -962,7 +962,7 @@ banim_bram_sw1_2_oam_frame_77_l:
 	banim_frame_end
 banim_bram_sw1_2_oam_frame_78_l:
 	banim_frame_affine -153, -204, -204, 153, 2
-	banim_frame_affine -174, -187, -187, 174
+	banim_frame_affine -174, -187, -187, 174, 2
 	banim_frame_oam 0x100, 0x8000, 0x1C, -36, -22
 	banim_frame_oam 0x100, 0x4200, 0xDA, -23, -19
 	banim_frame_oam 0x0, 0x5000, 0xC9, -8, 0
@@ -974,7 +974,7 @@ banim_bram_sw1_2_oam_frame_78_l:
 	banim_frame_end
 banim_bram_sw1_2_oam_frame_79_l:
 	banim_frame_affine -123, -224, -224, 123, 2
-	banim_frame_affine -115, -228, -228, 115
+	banim_frame_affine -115, -228, -228, 115, 2
 	banim_frame_oam 0x100, 0x8000, 0x1C, -38, -23
 	banim_frame_oam 0x100, 0x4200, 0xDA, -23, -19
 	banim_frame_oam 0x0, 0x5000, 0xC9, -8, 0
@@ -986,7 +986,7 @@ banim_bram_sw1_2_oam_frame_79_l:
 	banim_frame_end
 banim_bram_sw1_2_oam_frame_80_l:
 	banim_frame_affine -48, -251, -251, 48, 2
-	banim_frame_affine -35, -253, -253, 35
+	banim_frame_affine -35, -253, -253, 35, 2
 	banim_frame_oam 0x100, 0x8000, 0x1C, -41, -26
 	banim_frame_oam 0x100, 0x4200, 0xDA, -25, -20
 	banim_frame_oam 0x0, 0x5000, 0xC9, -8, 0
@@ -1053,7 +1053,7 @@ banim_bram_sw1_2_oam_frame_85_l:
 	banim_frame_end
 banim_bram_sw1_2_oam_frame_86_l:
 	banim_frame_affine -199, 161, 161, 199, 2
-	banim_frame_affine -157, 201, 201, 157
+	banim_frame_affine -157, 201, 201, 157, 2
 	banim_frame_oam 0x100, 0x8000, 0x1C, -2, -34
 	banim_frame_oam 0x100, 0x4200, 0xDA, 2, -30
 	banim_frame_oam 0x0, 0x5000, 0xCC, -7, -16
@@ -1065,7 +1065,7 @@ banim_bram_sw1_2_oam_frame_86_l:
 	banim_frame_end
 banim_bram_sw1_2_oam_frame_87_l:
 	banim_frame_affine -108, 231, 231, 108, 2
-	banim_frame_affine -157, 201, 201, 157
+	banim_frame_affine -157, 201, 201, 157, 2
 	banim_frame_oam 0x100, 0x8000, 0x1C, 0, -37
 	banim_frame_oam 0x100, 0x4200, 0xDA, 1, -32
 	banim_frame_oam 0x0, 0x5000, 0xCC, -7, -16
@@ -1077,7 +1077,7 @@ banim_bram_sw1_2_oam_frame_87_l:
 	banim_frame_end
 banim_bram_sw1_2_oam_frame_88_l:
 	banim_frame_affine -26, 254, 254, 26, 2
-	banim_frame_affine -40, 252, 252, 40
+	banim_frame_affine -40, 252, 252, 40, 2
 	banim_frame_oam 0x100, 0x8000, 0x1C, 1, -42
 	banim_frame_oam 0x100, 0x4200, 0xDA, 2, -34
 	banim_frame_oam 0x0, 0x5000, 0xCC, -7, -16
@@ -1100,7 +1100,7 @@ banim_bram_sw1_2_oam_frame_89_l:
 	banim_frame_end
 banim_bram_sw1_2_oam_frame_90_l:
 	banim_frame_affine 223, 124, 124, -223, 2
-	banim_frame_affine 221, 128, 128, -221
+	banim_frame_affine 221, 128, 128, -221, 2
 	banim_frame_oam 0x100, 0x8000, 0x1C, -5, -53
 	banim_frame_oam 0x100, 0x4200, 0xDA, 0, -37
 	banim_frame_oam 0x0, 0x5000, 0xCC, -7, -16
@@ -1157,11 +1157,11 @@ banim_bram_sw1_2_oam_frame_94_l:
 	banim_frame_end
 banim_bram_sw1_2_oam_frame_95_l:
 	banim_frame_oam 0x4000, 0x1000, 0x40, -3, -54
-	banim_frame_oam 0x8000, 0xF000, 0x60, -2, -46
+	banim_frame_oam 0x8000, 0x9000, 0x60, -2, -46
 	banim_frame_oam 0x8000, 0x5000, 0x62, -10, -46
 	banim_frame_oam 0x4000, 0x1000, 0xE0, -10, -14
-	banim_frame_oam 0x4000, 0xF000, 0x2, -2, -6
-	banim_frame_oam 0x4000, 0xF000, 0x6, -34, -6
+	banim_frame_oam 0x4000, 0x9000, 0x2, -2, -6
+	banim_frame_oam 0x4000, 0x9000, 0x6, -34, -6
 	banim_frame_oam 0x4000, 0x5000, 0x42, -10, 10
 	banim_frame_oam 0x4000, 0x1000, 0x46, -26, 10
 	banim_frame_oam 0x0, 0x1000, 0x1, -42, -6
@@ -1224,10 +1224,10 @@ banim_bram_sw1_2_oam_frame_100_l:
 	banim_frame_oam 0x0, 0x1000, 0x2A, 63, -92
 	banim_frame_oam 0x4000, 0x1000, 0xA, 31, -116
 	banim_frame_oam 0x0, 0x5000, 0x49, 31, -108
-	banim_frame_oam 0x8000, 0xF000, 0x88, 39, -92
+	banim_frame_oam 0x8000, 0x9000, 0x88, 39, -92
 	banim_frame_oam 0x8000, 0x5000, 0x8A, 31, -92
 	banim_frame_oam 0x0, 0x1000, 0x48, 32, -124
-	banim_frame_oam 0x0, 0xF000, 0x84, 24, -52
+	banim_frame_oam 0x0, 0x9000, 0x84, 24, -52
 	banim_frame_oam 0x4000, 0x1000, 0x64, 40, -60
 	banim_frame_oam 0x0, 0x1000, 0x66, 32, -60
 	banim_frame_oam 0x8000, 0x1000, 0x63, 56, -44
@@ -1249,7 +1249,7 @@ banim_bram_sw1_2_oam_frame_101_l:
 	banim_frame_oam 0x0, 0x1000, 0x58, 46, -10
 	banim_frame_end
 banim_bram_sw1_2_oam_frame_102_l:
-	banim_frame_oam 0x8000, 0xF000, 0x73, 36, -26
+	banim_frame_oam 0x8000, 0x9000, 0x73, 36, -26
 	banim_frame_oam 0x4000, 0x1000, 0xF3, 36, 6
 	banim_frame_oam 0x0, 0x1000, 0x92, 52, -18
 	banim_frame_oam 0x0, 0x1000, 0x72, 52, -10
@@ -1260,7 +1260,7 @@ banim_bram_sw1_2_oam_frame_102_l:
 	banim_frame_oam 0x0, 0x1000, 0x58, 46, -10
 	banim_frame_end
 banim_bram_sw1_2_oam_frame_103_l:
-	banim_frame_oam 0x8000, 0xF000, 0x76, 36, -24
+	banim_frame_oam 0x8000, 0x9000, 0x76, 36, -24
 	banim_frame_oam 0x4000, 0x1000, 0xF5, 42, 8
 	banim_frame_oam 0x0, 0x1000, 0xF7, 34, 8
 	banim_frame_oam 0x8000, 0x1000, 0x75, 52, -16
@@ -1273,7 +1273,7 @@ banim_bram_sw1_2_oam_frame_103_l:
 banim_bram_sw1_2_oam_frame_104_l:
 	banim_frame_affine 230, -111, -111, -230, 1
 	banim_frame_oam 0x100, 0x8000, 0x1C, 31, -53
-	banim_frame_oam 0x8000, 0xF000, 0x76, 36, -24
+	banim_frame_oam 0x8000, 0x9000, 0x76, 36, -24
 	banim_frame_oam 0x4000, 0x1000, 0xF5, 42, 8
 	banim_frame_oam 0x0, 0x1000, 0xF7, 34, 8
 	banim_frame_oam 0x8000, 0x1000, 0x75, 52, -16
@@ -1286,7 +1286,7 @@ banim_bram_sw1_2_oam_frame_104_l:
 banim_bram_sw1_2_oam_frame_105_l:
 	banim_frame_affine 255, -4, -4, -255, 1
 	banim_frame_oam 0x100, 0x8000, 0x1C, 32, -49
-	banim_frame_oam 0x8000, 0xF000, 0x76, 36, -24
+	banim_frame_oam 0x8000, 0x9000, 0x76, 36, -24
 	banim_frame_oam 0x4000, 0x1000, 0xF5, 42, 8
 	banim_frame_oam 0x0, 0x1000, 0xF7, 34, 8
 	banim_frame_oam 0x8000, 0x1000, 0x75, 52, -16
@@ -1299,7 +1299,7 @@ banim_bram_sw1_2_oam_frame_105_l:
 banim_bram_sw1_2_oam_frame_106_l:
 	banim_frame_affine 206, 150, 150, -206, 1
 	banim_frame_oam 0x100, 0x8000, 0x1C, 36, -46
-	banim_frame_oam 0x8000, 0xF000, 0x76, 36, -24
+	banim_frame_oam 0x8000, 0x9000, 0x76, 36, -24
 	banim_frame_oam 0x4000, 0x1000, 0xF5, 42, 8
 	banim_frame_oam 0x0, 0x1000, 0xF7, 34, 8
 	banim_frame_oam 0x8000, 0x1000, 0x75, 52, -16
@@ -1313,7 +1313,7 @@ banim_bram_sw1_2_oam_frame_107_l:
 	banim_frame_affine 35, 253, 253, -35, 1
 	banim_frame_oam 0x100, 0x8000, 0x1C, 16, -28
 	banim_frame_oam 0x8000, 0x1000, 0x6, 42, -16
-	banim_frame_oam 0x8000, 0xF000, 0x2, 26, -16
+	banim_frame_oam 0x8000, 0x9000, 0x2, 26, -16
 	banim_frame_oam 0x8000, 0x1000, 0x41, 42, 0
 	banim_frame_oam 0x0, 0x1000, 0x40, 18, -15
 	banim_frame_oam 0x8000, 0x1000, 0x88, 50, -15
@@ -1323,7 +1323,7 @@ banim_bram_sw1_2_oam_frame_108_l:
 	banim_frame_affine -139, 214, 214, 139, 1
 	banim_frame_oam 0x100, 0x8000, 0x1C, 16, -24
 	banim_frame_oam 0x8000, 0x1000, 0x6, 42, -16
-	banim_frame_oam 0x8000, 0xF000, 0x2, 26, -16
+	banim_frame_oam 0x8000, 0x9000, 0x2, 26, -16
 	banim_frame_oam 0x8000, 0x1000, 0x41, 42, 0
 	banim_frame_oam 0x0, 0x1000, 0x40, 18, -15
 	banim_frame_oam 0x8000, 0x1000, 0x88, 50, -15
@@ -1333,7 +1333,7 @@ banim_bram_sw1_2_oam_frame_109_l:
 	banim_frame_affine -219, 131, 131, 219, 1
 	banim_frame_oam 0x100, 0x8000, 0x1C, 14, -23
 	banim_frame_oam 0x8000, 0x1000, 0x6, 42, -16
-	banim_frame_oam 0x8000, 0xF000, 0x2, 26, -16
+	banim_frame_oam 0x8000, 0x9000, 0x2, 26, -16
 	banim_frame_oam 0x8000, 0x1000, 0x41, 42, 0
 	banim_frame_oam 0x0, 0x1000, 0x40, 18, -15
 	banim_frame_oam 0x8000, 0x1000, 0x88, 50, -15
@@ -1343,7 +1343,7 @@ banim_bram_sw1_2_oam_frame_110_l:
 	banim_frame_affine -251, -49, -49, 251, 1
 	banim_frame_oam 0x100, 0x8000, 0x1C, 8, -23
 	banim_frame_oam 0x8000, 0x1000, 0x6, 42, -16
-	banim_frame_oam 0x8000, 0xF000, 0x2, 26, -16
+	banim_frame_oam 0x8000, 0x9000, 0x2, 26, -16
 	banim_frame_oam 0x8000, 0x1000, 0x41, 42, 0
 	banim_frame_oam 0x0, 0x1000, 0x40, 18, -15
 	banim_frame_oam 0x8000, 0x1000, 0x88, 50, -15
@@ -1353,7 +1353,7 @@ banim_bram_sw1_2_oam_frame_111_l:
 	banim_frame_affine -99, -235, -235, 99, 1
 	banim_frame_oam 0x100, 0x8000, 0x1C, 4, -24
 	banim_frame_oam 0x8000, 0x1000, 0x6, 42, -16
-	banim_frame_oam 0x8000, 0xF000, 0x2, 26, -16
+	banim_frame_oam 0x8000, 0x9000, 0x2, 26, -16
 	banim_frame_oam 0x8000, 0x1000, 0x41, 42, 0
 	banim_frame_oam 0x0, 0x1000, 0x40, 18, -15
 	banim_frame_oam 0x8000, 0x1000, 0x88, 50, -15
@@ -1363,7 +1363,7 @@ banim_bram_sw1_2_oam_frame_112_l:
 	banim_frame_affine -8, -255, -255, 8, 1
 	banim_frame_oam 0x100, 0x8000, 0x1C, 4, -26
 	banim_frame_oam 0x8000, 0x1000, 0x6, 42, -16
-	banim_frame_oam 0x8000, 0xF000, 0x2, 26, -16
+	banim_frame_oam 0x8000, 0x9000, 0x2, 26, -16
 	banim_frame_oam 0x8000, 0x1000, 0x41, 42, 0
 	banim_frame_oam 0x0, 0x1000, 0x40, 18, -15
 	banim_frame_oam 0x8000, 0x1000, 0x88, 50, -15
@@ -1373,7 +1373,7 @@ banim_bram_sw1_2_oam_frame_113_l:
 	banim_frame_affine 96, -237, -237, -96, 1
 	banim_frame_oam 0x100, 0x8000, 0x1C, 4, -28
 	banim_frame_oam 0x8000, 0x1000, 0x6, 42, -16
-	banim_frame_oam 0x8000, 0xF000, 0x2, 26, -16
+	banim_frame_oam 0x8000, 0x9000, 0x2, 26, -16
 	banim_frame_oam 0x8000, 0x1000, 0x41, 42, 0
 	banim_frame_oam 0x0, 0x1000, 0x40, 18, -15
 	banim_frame_oam 0x8000, 0x1000, 0x88, 50, -15
@@ -1383,7 +1383,7 @@ banim_bram_sw1_2_oam_frame_114_l:
 	banim_frame_affine 187, -174, -174, -187, 1
 	banim_frame_oam 0x100, 0x8000, 0x1C, 5, -32
 	banim_frame_oam 0x8000, 0x1000, 0x6, 42, -16
-	banim_frame_oam 0x8000, 0xF000, 0x2, 26, -16
+	banim_frame_oam 0x8000, 0x9000, 0x2, 26, -16
 	banim_frame_oam 0x8000, 0x1000, 0x41, 42, 0
 	banim_frame_oam 0x0, 0x1000, 0x40, 18, -15
 	banim_frame_oam 0x8000, 0x1000, 0x88, 50, -15
@@ -1393,7 +1393,7 @@ banim_bram_sw1_2_oam_frame_115_l:
 	banim_frame_affine 255, -17, -17, -255, 1
 	banim_frame_oam 0x100, 0x8000, 0x1C, 7, -33
 	banim_frame_oam 0x8000, 0x1000, 0x6, 42, -16
-	banim_frame_oam 0x8000, 0xF000, 0x2, 26, -16
+	banim_frame_oam 0x8000, 0x9000, 0x2, 26, -16
 	banim_frame_oam 0x8000, 0x1000, 0x41, 42, 0
 	banim_frame_oam 0x0, 0x1000, 0x40, 18, -15
 	banim_frame_oam 0x8000, 0x1000, 0x88, 50, -15
@@ -1403,7 +1403,7 @@ banim_bram_sw1_2_oam_frame_116_l:
 	banim_frame_affine 240, 87, 87, -240, 1
 	banim_frame_oam 0x100, 0x8000, 0x1C, 9, -35
 	banim_frame_oam 0x8000, 0x1000, 0x6, 42, -16
-	banim_frame_oam 0x8000, 0xF000, 0x2, 26, -16
+	banim_frame_oam 0x8000, 0x9000, 0x2, 26, -16
 	banim_frame_oam 0x8000, 0x1000, 0x41, 42, 0
 	banim_frame_oam 0x0, 0x1000, 0x40, 18, -15
 	banim_frame_oam 0x8000, 0x1000, 0x88, 50, -15
@@ -1413,7 +1413,7 @@ banim_bram_sw1_2_oam_frame_117_l:
 	banim_frame_affine 177, 184, 184, -177, 1
 	banim_frame_oam 0x100, 0x8000, 0x1C, 12, -34
 	banim_frame_oam 0x8000, 0x1000, 0x6, 42, -16
-	banim_frame_oam 0x8000, 0xF000, 0x2, 26, -16
+	banim_frame_oam 0x8000, 0x9000, 0x2, 26, -16
 	banim_frame_oam 0x8000, 0x1000, 0x41, 42, 0
 	banim_frame_oam 0x0, 0x1000, 0x40, 18, -15
 	banim_frame_oam 0x8000, 0x1000, 0x88, 50, -15
@@ -1423,7 +1423,7 @@ banim_bram_sw1_2_oam_frame_118_l:
 	banim_frame_affine -31, 254, 254, 31, 1
 	banim_frame_oam 0x100, 0x8000, 0x1C, 16, -29
 	banim_frame_oam 0x8000, 0x1000, 0x6, 42, -16
-	banim_frame_oam 0x8000, 0xF000, 0x2, 26, -16
+	banim_frame_oam 0x8000, 0x9000, 0x2, 26, -16
 	banim_frame_oam 0x8000, 0x1000, 0x41, 42, 0
 	banim_frame_oam 0x0, 0x1000, 0x40, 18, -15
 	banim_frame_oam 0x8000, 0x1000, 0x88, 50, -15
@@ -1433,7 +1433,7 @@ banim_bram_sw1_2_oam_frame_119_l:
 	banim_frame_affine -214, 139, 139, 214, 1
 	banim_frame_oam 0x100, 0x8000, 0x1C, 15, -23
 	banim_frame_oam 0x8000, 0x1000, 0x6, 42, -16
-	banim_frame_oam 0x8000, 0xF000, 0x2, 26, -16
+	banim_frame_oam 0x8000, 0x9000, 0x2, 26, -16
 	banim_frame_oam 0x8000, 0x1000, 0x41, 42, 0
 	banim_frame_oam 0x0, 0x1000, 0x40, 18, -15
 	banim_frame_oam 0x8000, 0x1000, 0x88, 50, -15
@@ -1443,7 +1443,7 @@ banim_bram_sw1_2_oam_frame_120_l:
 	banim_frame_affine -251, -49, -49, 251, 1
 	banim_frame_oam 0x100, 0x8000, 0x1C, 11, -21
 	banim_frame_oam 0x8000, 0x1000, 0x6, 42, -16
-	banim_frame_oam 0x8000, 0xF000, 0x2, 26, -16
+	banim_frame_oam 0x8000, 0x9000, 0x2, 26, -16
 	banim_frame_oam 0x8000, 0x1000, 0x41, 42, 0
 	banim_frame_oam 0x0, 0x1000, 0x40, 18, -15
 	banim_frame_oam 0x8000, 0x1000, 0x88, 50, -15
@@ -1453,7 +1453,7 @@ banim_bram_sw1_2_oam_frame_121_l:
 	banim_frame_affine -174, -187, -187, 174, 1
 	banim_frame_oam 0x100, 0x8000, 0x1C, 6, -23
 	banim_frame_oam 0x8000, 0x1000, 0x6, 42, -16
-	banim_frame_oam 0x8000, 0xF000, 0x2, 26, -16
+	banim_frame_oam 0x8000, 0x9000, 0x2, 26, -16
 	banim_frame_oam 0x8000, 0x1000, 0x41, 42, 0
 	banim_frame_oam 0x0, 0x1000, 0x40, 18, -15
 	banim_frame_oam 0x8000, 0x1000, 0x88, 50, -15
@@ -1462,7 +1462,7 @@ banim_bram_sw1_2_oam_frame_121_l:
 banim_bram_sw1_2_oam_frame_122_l:
 	banim_frame_affine -99, -235, -235, 99, 1
 	banim_frame_oam 0x8000, 0x1000, 0x6, 42, -16
-	banim_frame_oam 0x8000, 0xF000, 0x2, 26, -16
+	banim_frame_oam 0x8000, 0x9000, 0x2, 26, -16
 	banim_frame_oam 0x8000, 0x1000, 0x41, 42, 0
 	banim_frame_oam 0x0, 0x1000, 0x40, 18, -15
 	banim_frame_oam 0x8000, 0x1000, 0x88, 50, -15
@@ -1472,7 +1472,7 @@ banim_bram_sw1_2_oam_frame_122_l:
 banim_bram_sw1_2_oam_frame_123_l:
 	banim_frame_affine 100, -235, -235, -100, 1
 	banim_frame_oam 0x8000, 0x1000, 0x6, 42, -16
-	banim_frame_oam 0x8000, 0xF000, 0x2, 26, -16
+	banim_frame_oam 0x8000, 0x9000, 0x2, 26, -16
 	banim_frame_oam 0x8000, 0x1000, 0x41, 42, 0
 	banim_frame_oam 0x0, 0x1000, 0x40, 18, -15
 	banim_frame_oam 0x8000, 0x1000, 0x88, 50, -15
@@ -1482,7 +1482,7 @@ banim_bram_sw1_2_oam_frame_123_l:
 banim_bram_sw1_2_oam_frame_124_l:
 	banim_frame_affine 228, -115, -115, -228, 1
 	banim_frame_oam 0x8000, 0x1000, 0x6, 42, -16
-	banim_frame_oam 0x8000, 0xF000, 0x2, 26, -16
+	banim_frame_oam 0x8000, 0x9000, 0x2, 26, -16
 	banim_frame_oam 0x8000, 0x1000, 0x41, 42, 0
 	banim_frame_oam 0x0, 0x1000, 0x40, 18, -15
 	banim_frame_oam 0x8000, 0x1000, 0x88, 50, -15
@@ -1492,7 +1492,7 @@ banim_bram_sw1_2_oam_frame_124_l:
 banim_bram_sw1_2_oam_frame_125_l:
 	banim_frame_affine 235, 100, 100, -235, 1
 	banim_frame_oam 0x8000, 0x1000, 0x6, 42, -16
-	banim_frame_oam 0x8000, 0xF000, 0x2, 26, -16
+	banim_frame_oam 0x8000, 0x9000, 0x2, 26, -16
 	banim_frame_oam 0x8000, 0x1000, 0x41, 42, 0
 	banim_frame_oam 0x0, 0x1000, 0x40, 18, -15
 	banim_frame_oam 0x8000, 0x1000, 0x88, 50, -15
@@ -1502,7 +1502,7 @@ banim_bram_sw1_2_oam_frame_125_l:
 banim_bram_sw1_2_oam_frame_126_l:
 	banim_frame_affine 48, 251, 251, -48, 1
 	banim_frame_oam 0x8000, 0x1000, 0x6, 42, -16
-	banim_frame_oam 0x8000, 0xF000, 0x2, 26, -16
+	banim_frame_oam 0x8000, 0x9000, 0x2, 26, -16
 	banim_frame_oam 0x8000, 0x1000, 0x41, 42, 0
 	banim_frame_oam 0x0, 0x1000, 0x40, 18, -15
 	banim_frame_oam 0x8000, 0x1000, 0x88, 50, -15
@@ -1512,7 +1512,7 @@ banim_bram_sw1_2_oam_frame_126_l:
 banim_bram_sw1_2_oam_frame_127_l:
 	banim_frame_affine -100, 235, 235, 100, 1
 	banim_frame_oam 0x8000, 0x1000, 0x6, 42, -16
-	banim_frame_oam 0x8000, 0xF000, 0x2, 26, -16
+	banim_frame_oam 0x8000, 0x9000, 0x2, 26, -16
 	banim_frame_oam 0x8000, 0x1000, 0x41, 42, 0
 	banim_frame_oam 0x0, 0x1000, 0x40, 18, -15
 	banim_frame_oam 0x8000, 0x1000, 0x88, 50, -15
@@ -1522,7 +1522,7 @@ banim_bram_sw1_2_oam_frame_127_l:
 banim_bram_sw1_2_oam_frame_128_l:
 	banim_frame_affine -235, 99, 99, 235, 1
 	banim_frame_oam 0x8000, 0x1000, 0x6, 42, -16
-	banim_frame_oam 0x8000, 0xF000, 0x2, 26, -16
+	banim_frame_oam 0x8000, 0x9000, 0x2, 26, -16
 	banim_frame_oam 0x8000, 0x1000, 0x41, 42, 0
 	banim_frame_oam 0x0, 0x1000, 0x40, 18, -15
 	banim_frame_oam 0x8000, 0x1000, 0x88, 50, -15
@@ -1532,7 +1532,7 @@ banim_bram_sw1_2_oam_frame_128_l:
 banim_bram_sw1_2_oam_frame_129_l:
 	banim_frame_affine -243, -79, -79, 243, 1
 	banim_frame_oam 0x8000, 0x1000, 0x6, 42, -16
-	banim_frame_oam 0x8000, 0xF000, 0x2, 26, -16
+	banim_frame_oam 0x8000, 0x9000, 0x2, 26, -16
 	banim_frame_oam 0x8000, 0x1000, 0x41, 42, 0
 	banim_frame_oam 0x0, 0x1000, 0x40, 18, -15
 	banim_frame_oam 0x8000, 0x1000, 0x88, 50, -15
@@ -1542,7 +1542,7 @@ banim_bram_sw1_2_oam_frame_129_l:
 banim_bram_sw1_2_oam_frame_130_l:
 	banim_frame_affine -183, -178, -178, 183, 1
 	banim_frame_oam 0x8000, 0x1000, 0x6, 42, -16
-	banim_frame_oam 0x8000, 0xF000, 0x2, 26, -16
+	banim_frame_oam 0x8000, 0x9000, 0x2, 26, -16
 	banim_frame_oam 0x8000, 0x1000, 0x41, 42, 0
 	banim_frame_oam 0x0, 0x1000, 0x40, 18, -15
 	banim_frame_oam 0x8000, 0x1000, 0x88, 50, -15
@@ -1552,7 +1552,7 @@ banim_bram_sw1_2_oam_frame_130_l:
 banim_bram_sw1_2_oam_frame_131_l:
 	banim_frame_affine -107, -232, -232, 107, 1
 	banim_frame_oam 0x8000, 0x1000, 0x6, 42, -16
-	banim_frame_oam 0x8000, 0xF000, 0x2, 26, -16
+	banim_frame_oam 0x8000, 0x9000, 0x2, 26, -16
 	banim_frame_oam 0x8000, 0x1000, 0x41, 42, 0
 	banim_frame_oam 0x0, 0x1000, 0x40, 18, -15
 	banim_frame_oam 0x8000, 0x1000, 0x88, 50, -15
@@ -1562,7 +1562,7 @@ banim_bram_sw1_2_oam_frame_131_l:
 banim_bram_sw1_2_oam_frame_132_l:
 	banim_frame_affine -177, -184, -184, 177, 1
 	banim_frame_oam 0x8000, 0x1000, 0x6, 42, -16
-	banim_frame_oam 0x8000, 0xF000, 0x2, 26, -16
+	banim_frame_oam 0x8000, 0x9000, 0x2, 26, -16
 	banim_frame_oam 0x8000, 0x1000, 0x41, 42, 0
 	banim_frame_oam 0x0, 0x1000, 0x40, 18, -15
 	banim_frame_oam 0x8000, 0x1000, 0x88, 50, -15
@@ -1572,7 +1572,7 @@ banim_bram_sw1_2_oam_frame_132_l:
 banim_bram_sw1_2_oam_frame_133_l:
 	banim_frame_affine -206, -151, -151, 206, 1
 	banim_frame_oam 0x8000, 0x1000, 0x6, 42, -16
-	banim_frame_oam 0x8000, 0xF000, 0x2, 26, -16
+	banim_frame_oam 0x8000, 0x9000, 0x2, 26, -16
 	banim_frame_oam 0x8000, 0x1000, 0x41, 42, 0
 	banim_frame_oam 0x0, 0x1000, 0x40, 18, -15
 	banim_frame_oam 0x8000, 0x1000, 0x88, 50, -15
@@ -1582,7 +1582,7 @@ banim_bram_sw1_2_oam_frame_133_l:
 banim_bram_sw1_2_oam_frame_134_l:
 	banim_frame_affine -227, -116, -116, 227, 1
 	banim_frame_oam 0x8000, 0x1000, 0x6, 42, -16
-	banim_frame_oam 0x8000, 0xF000, 0x2, 26, -16
+	banim_frame_oam 0x8000, 0x9000, 0x2, 26, -16
 	banim_frame_oam 0x8000, 0x1000, 0x41, 42, 0
 	banim_frame_oam 0x0, 0x1000, 0x40, 18, -15
 	banim_frame_oam 0x8000, 0x1000, 0x88, 50, -15
@@ -1592,7 +1592,7 @@ banim_bram_sw1_2_oam_frame_134_l:
 banim_bram_sw1_2_oam_frame_135_l:
 	banim_frame_affine -248, -62, -62, 248, 1
 	banim_frame_oam 0x8000, 0x1000, 0x6, 42, -16
-	banim_frame_oam 0x8000, 0xF000, 0x2, 26, -16
+	banim_frame_oam 0x8000, 0x9000, 0x2, 26, -16
 	banim_frame_oam 0x8000, 0x1000, 0x41, 42, 0
 	banim_frame_oam 0x0, 0x1000, 0x40, 18, -15
 	banim_frame_oam 0x8000, 0x1000, 0x88, 50, -15
@@ -1601,16 +1601,16 @@ banim_bram_sw1_2_oam_frame_135_l:
 	banim_frame_end
 banim_bram_sw1_2_oam_frame_136_l:
 	banim_frame_oam 0x8000, 0x1000, 0x6, 42, -16
-	banim_frame_oam 0x8000, 0xF000, 0x2, 26, -16
+	banim_frame_oam 0x8000, 0x9000, 0x2, 26, -16
 	banim_frame_oam 0x8000, 0x1000, 0x41, 42, 0
 	banim_frame_oam 0x0, 0x1000, 0x40, 18, -15
 	banim_frame_oam 0x8000, 0x1000, 0x88, 50, -15
 	banim_frame_oam 0x0, 0x1000, 0xC8, 50, 1
-	banim_frame_oam 0x0, 0xF000, 0x9C, 9, -22
+	banim_frame_oam 0x0, 0x9000, 0x9C, 9, -22
 	banim_frame_end
 banim_bram_sw1_2_oam_frame_137_l:
 	banim_frame_affine -232, 108, 108, 232, 1
-	banim_frame_oam 0x8000, 0xF000, 0x9, 26, -16
+	banim_frame_oam 0x8000, 0x9000, 0x9, 26, -16
 	banim_frame_oam 0x0, 0x5000, 0x47, 42, 0
 	banim_frame_oam 0x8000, 0x1000, 0x6, 42, -16
 	banim_frame_oam 0x8000, 0x1000, 0x88, 50, -15
@@ -1619,7 +1619,7 @@ banim_bram_sw1_2_oam_frame_137_l:
 	banim_frame_end
 banim_bram_sw1_2_oam_frame_138_l:
 	banim_frame_affine -184, 177, 177, 184, 1
-	banim_frame_oam 0x8000, 0xF000, 0x9, 26, -16
+	banim_frame_oam 0x8000, 0x9000, 0x9, 26, -16
 	banim_frame_oam 0x0, 0x5000, 0x47, 42, 0
 	banim_frame_oam 0x8000, 0x1000, 0x6, 42, -16
 	banim_frame_oam 0x8000, 0x1000, 0x88, 50, -15
@@ -1639,7 +1639,7 @@ banim_bram_sw1_2_oam_frame_71_l:
 	banim_frame_oam 0x0, 0x1000, 0x1F, -8, -8
 	banim_frame_end
 banim_bram_sw1_2_oam_frame_141_l:
-	banim_frame_oam 0x4000, 0xF000, 0xA1, -29, -10
+	banim_frame_oam 0x4000, 0x9000, 0xA1, -29, -10
 	banim_frame_oam 0x4000, 0x5000, 0xE1, -29, 6
 	banim_frame_oam 0x0, 0x1000, 0xA0, 3, -10
 	banim_frame_oam 0x0, 0x1000, 0xE0, 3, 6
@@ -1651,7 +1651,7 @@ banim_bram_sw1_2_oam_frame_141_l:
 	banim_frame_end
 banim_bram_sw1_2_oam_frame_142_l:
 	banim_frame_oam 0x4000, 0x5000, 0x13, -32, -9
-	banim_frame_oam 0x4000, 0xF000, 0x33, -33, -1
+	banim_frame_oam 0x4000, 0x9000, 0x33, -33, -1
 	banim_frame_oam 0x4000, 0x5000, 0x73, -33, 15
 	banim_frame_oam 0x4000, 0x1000, 0x70, -16, -17
 	banim_frame_oam 0x0, 0x1000, 0x72, -24, -17
@@ -1773,7 +1773,7 @@ banim_bram_sw1_2_oam_frame_3_r:
 	banim_frame_end
 banim_bram_sw1_2_oam_frame_4_r:
 	banim_frame_affine 237, 95, -95, 237, 1
-	banim_frame_oam 0xFF00, 0x8000, 0x9A, -15, -22
+	banim_frame_oam 0x8100, 0x8000, 0x9A, -15, -22
 	banim_frame_oam 0x0, 0x4000, 0x61, 0, 0
 	banim_frame_oam 0x0, 0x0, 0x80, -8, 8
 	banim_frame_oam 0x0, 0x0, 0x2, -16, 8
@@ -1909,7 +1909,7 @@ banim_bram_sw1_2_oam_frame_12_r:
 	banim_frame_end
 banim_bram_sw1_2_oam_frame_13_r:
 	banim_frame_affine 252, 44, -44, 252, 1
-	banim_frame_oam 0xFF00, 0x8000, 0x9A, -22, -19
+	banim_frame_oam 0x8100, 0x8000, 0x9A, -22, -19
 	banim_frame_oam 0x0, 0x4000, 0x61, 0, 0
 	banim_frame_oam 0x0, 0x0, 0x80, -8, 8
 	banim_frame_oam 0x0, 0x0, 0x2, -16, 8
@@ -1924,7 +1924,7 @@ banim_bram_sw1_2_oam_frame_13_r:
 	banim_frame_end
 banim_bram_sw1_2_oam_frame_14_r:
 	banim_frame_affine 255, 17, -17, 255, 1
-	banim_frame_oam 0xFF00, 0x8000, 0x9A, -21, -18
+	banim_frame_oam 0x8100, 0x8000, 0x9A, -21, -18
 	banim_frame_oam 0x0, 0x4000, 0x61, 0, 0
 	banim_frame_oam 0x0, 0x0, 0x80, -8, 8
 	banim_frame_oam 0x0, 0x0, 0x2, -16, 8
@@ -1939,7 +1939,7 @@ banim_bram_sw1_2_oam_frame_14_r:
 	banim_frame_end
 banim_bram_sw1_2_oam_frame_15_r:
 	banim_frame_affine 249, -58, 58, 249, 1
-	banim_frame_oam 0xFF00, 0x8000, 0x9A, -20, -18
+	banim_frame_oam 0x8100, 0x8000, 0x9A, -20, -18
 	banim_frame_oam 0x0, 0x4000, 0x61, 0, 0
 	banim_frame_oam 0x0, 0x0, 0x80, -8, 8
 	banim_frame_oam 0x0, 0x0, 0x2, -16, 8
@@ -2558,7 +2558,7 @@ banim_bram_sw1_2_oam_frame_61_r:
 	banim_frame_end
 banim_bram_sw1_2_oam_frame_62_r:
 	banim_frame_affine 120, 225, -225, 120, 2
-	banim_frame_affine -235, -99, 99, -235
+	banim_frame_affine -235, -99, 99, -235, 2
 	banim_frame_oam 0x0, 0x0, 0xE6, -16, -2
 	banim_frame_oam 0x0, 0x4000, 0xA, -8, -16
 	banim_frame_oam 0x4000, 0x0, 0x4A, -8, 0
@@ -2566,11 +2566,11 @@ banim_bram_sw1_2_oam_frame_62_r:
 	banim_frame_oam 0x4000, 0x0, 0x67, -8, 8
 	banim_frame_oam 0x0, 0x0, 0x69, 8, 8
 	banim_frame_oam 0x100, 0x4000, 0x87, -13, -5
-	banim_frame_oam 0x100, 0xFE00, 0x9C, -19, -16
+	banim_frame_oam 0x100, 0x8200, 0x9C, -19, -16
 	banim_frame_end
 banim_bram_sw1_2_oam_frame_63_r:
 	banim_frame_affine 120, 225, -225, 120, 2
-	banim_frame_affine -235, -99, 99, -235
+	banim_frame_affine -235, -99, 99, -235, 2
 	banim_frame_oam 0x0, 0x0, 0xE6, -16, -2
 	banim_frame_oam 0x0, 0x4000, 0xA, -8, -16
 	banim_frame_oam 0x4000, 0x0, 0x4A, -8, 0
@@ -2578,11 +2578,11 @@ banim_bram_sw1_2_oam_frame_63_r:
 	banim_frame_oam 0x4000, 0x0, 0x67, -8, 8
 	banim_frame_oam 0x0, 0x0, 0x69, 8, 8
 	banim_frame_oam 0x100, 0x4000, 0x87, -15, -3
-	banim_frame_oam 0x100, 0xFE00, 0x9C, -21, -14
+	banim_frame_oam 0x100, 0x8200, 0x9C, -21, -14
 	banim_frame_end
 banim_bram_sw1_2_oam_frame_64_r:
 	banim_frame_affine 225, -120, 120, 225, 2
-	banim_frame_affine -255, 0, 0, -255
+	banim_frame_affine -255, 0, 0, -255, 2
 	banim_frame_oam 0x100, 0x8000, 0x1C, -21, -9
 	banim_frame_oam 0x100, 0x4200, 0x87, -16, -6
 	banim_frame_oam 0x0, 0x0, 0xE6, -16, -2
@@ -2640,7 +2640,7 @@ banim_bram_sw1_2_oam_frame_74_r:
 	banim_frame_end
 banim_bram_sw1_2_oam_frame_75_r:
 	banim_frame_affine 231, -108, 108, 231, 2
-	banim_frame_affine 216, -136, 136, 216
+	banim_frame_affine 216, -136, 136, 216, 2
 	banim_frame_oam 0x100, 0x8000, 0x1C, 0, -17
 	banim_frame_oam 0x100, 0x4200, 0xDA, 5, -17
 	banim_frame_oam 0x0, 0x4000, 0xC9, -8, 0
@@ -2652,7 +2652,7 @@ banim_bram_sw1_2_oam_frame_75_r:
 	banim_frame_end
 banim_bram_sw1_2_oam_frame_76_r:
 	banim_frame_affine 209, -147, 147, 209, 2
-	banim_frame_affine 195, -165, 165, 195
+	banim_frame_affine 195, -165, 165, 195, 2
 	banim_frame_oam 0x100, 0x8000, 0x1C, 1, -18
 	banim_frame_oam 0x100, 0x4200, 0xDA, 4, -17
 	banim_frame_oam 0x0, 0x4000, 0xC9, -8, 0
@@ -2675,7 +2675,7 @@ banim_bram_sw1_2_oam_frame_77_r:
 	banim_frame_end
 banim_bram_sw1_2_oam_frame_78_r:
 	banim_frame_affine 153, -204, 204, 153, 2
-	banim_frame_affine 174, -187, 187, 174
+	banim_frame_affine 174, -187, 187, 174, 2
 	banim_frame_oam 0x100, 0x8000, 0x1C, 4, -22
 	banim_frame_oam 0x100, 0x4200, 0xDA, 7, -19
 	banim_frame_oam 0x0, 0x4000, 0xC9, -8, 0
@@ -2687,7 +2687,7 @@ banim_bram_sw1_2_oam_frame_78_r:
 	banim_frame_end
 banim_bram_sw1_2_oam_frame_79_r:
 	banim_frame_affine 123, -224, 224, 123, 2
-	banim_frame_affine 115, -228, 228, 115
+	banim_frame_affine 115, -228, 228, 115, 2
 	banim_frame_oam 0x100, 0x8000, 0x1C, 6, -23
 	banim_frame_oam 0x100, 0x4200, 0xDA, 7, -19
 	banim_frame_oam 0x0, 0x4000, 0xC9, -8, 0
@@ -2699,7 +2699,7 @@ banim_bram_sw1_2_oam_frame_79_r:
 	banim_frame_end
 banim_bram_sw1_2_oam_frame_80_r:
 	banim_frame_affine 48, -251, 251, 48, 2
-	banim_frame_affine 35, -253, 253, 35
+	banim_frame_affine 35, -253, 253, 35, 2
 	banim_frame_oam 0x100, 0x8000, 0x1C, 9, -26
 	banim_frame_oam 0x100, 0x4200, 0xDA, 9, -20
 	banim_frame_oam 0x0, 0x4000, 0xC9, -8, 0
@@ -2766,7 +2766,7 @@ banim_bram_sw1_2_oam_frame_85_r:
 	banim_frame_end
 banim_bram_sw1_2_oam_frame_86_r:
 	banim_frame_affine 199, 161, -161, 199, 2
-	banim_frame_affine 157, 201, -201, 157
+	banim_frame_affine 157, 201, -201, 157, 2
 	banim_frame_oam 0x100, 0x8000, 0x1C, -30, -34
 	banim_frame_oam 0x100, 0x4200, 0xDA, -18, -30
 	banim_frame_oam 0x0, 0x4000, 0xCC, -9, -16
@@ -2778,7 +2778,7 @@ banim_bram_sw1_2_oam_frame_86_r:
 	banim_frame_end
 banim_bram_sw1_2_oam_frame_87_r:
 	banim_frame_affine 108, 231, -231, 108, 2
-	banim_frame_affine 157, 201, -201, 157
+	banim_frame_affine 157, 201, -201, 157, 2
 	banim_frame_oam 0x100, 0x8000, 0x1C, -32, -37
 	banim_frame_oam 0x100, 0x4200, 0xDA, -17, -32
 	banim_frame_oam 0x0, 0x4000, 0xCC, -9, -16
@@ -2790,7 +2790,7 @@ banim_bram_sw1_2_oam_frame_87_r:
 	banim_frame_end
 banim_bram_sw1_2_oam_frame_88_r:
 	banim_frame_affine 26, 254, -254, 26, 2
-	banim_frame_affine 40, 252, -252, 40
+	banim_frame_affine 40, 252, -252, 40, 2
 	banim_frame_oam 0x100, 0x8000, 0x1C, -33, -42
 	banim_frame_oam 0x100, 0x4200, 0xDA, -18, -34
 	banim_frame_oam 0x0, 0x4000, 0xCC, -9, -16
@@ -2813,7 +2813,7 @@ banim_bram_sw1_2_oam_frame_89_r:
 	banim_frame_end
 banim_bram_sw1_2_oam_frame_90_r:
 	banim_frame_affine -223, 124, -124, -223, 2
-	banim_frame_affine -221, 128, -128, -221
+	banim_frame_affine -221, 128, -128, -221, 2
 	banim_frame_oam 0x100, 0x8000, 0x1C, -27, -53
 	banim_frame_oam 0x100, 0x4200, 0xDA, -16, -37
 	banim_frame_oam 0x0, 0x4000, 0xCC, -9, -16

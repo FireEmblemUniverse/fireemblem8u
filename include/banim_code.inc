@@ -15,7 +15,7 @@
 
 @ XX 00 00 85 series
 .macro banim_code_85 number
-    .word 0x85000000 + number
+    .word 0x85000000 + \number
 .endm
 
 @ reference: "0x85 Command Usage.txt" in FEditor Doc

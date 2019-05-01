@@ -10,7 +10,7 @@
 	.section .data.oam_l
 banim_figm_ax1_3_oam_l:
 banim_figm_ax1_3_oam_frame_0_l:
-	banim_frame_oam 0x8000, 0xF000, 0x43, -19, -14
+	banim_frame_oam 0x8000, 0x9000, 0x43, -19, -14
 	banim_frame_oam 0x0, 0x5000, 0xCF, -3, 2
 	banim_frame_oam 0x0, 0x5000, 0xCD, -3, -14
 	banim_frame_oam 0x4000, 0x1000, 0xC2, -10, -22
