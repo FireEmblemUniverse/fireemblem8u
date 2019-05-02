@@ -67,7 +67,7 @@ compare: $(ROM)
 
 .PHONY: battleanim
 
-battleanim: data/data_banim.o
+battleanim:
 	scripts/compile_battle_animation_motion.sh
 
 clean:
