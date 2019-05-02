@@ -64,7 +64,7 @@ clean:
 	find . \( -iname '*.1bpp' -o -iname '*.4bpp' -o -iname '*.8bpp' -o -iname '*.gbapal' -o -iname '*.lz' -o -iname '*.latfont' -o -iname '*.hwjpnfont' -o -iname '*.fwjpnfont' \) -exec rm {} +
 	$(RM) $(ROM) $(ELF) $(MAP) $(ALL_OBJECTS) src/*.s graphics/*.h -r $(DEPS_DIR)
 	# Remove battle animation binaries
-	$(RM) data/banim/*.bin
+	$(RM) data/banim/*.bin data/banim/*.o
 
 # Graphics Recipes
 
