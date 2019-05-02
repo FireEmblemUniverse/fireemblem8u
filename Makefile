@@ -38,19 +38,14 @@ ELF          := $(ROM:.gba=.elf)
 MAP          := $(ROM:.gba=.map)
 LDSCRIPT     := ldscript.txt
 SYM_FILES    := sym_iwram.txt sym_ewram.txt
-#CFILES       := $(wildcard src/*.c) data/banim_data.c
 CFILES       := $(wildcard src/*.c)
 ASM_S_FILES  := $(wildcard asm/*.s)
 LIBC_S_FILES := $(wildcard asm/libc/*.s)
 DATA_S_FILES := $(wildcard data/*.s)
-TOLZ_S_FILES := $(wildcard banim/*_pal.s)
 SFILES       := $(ASM_S_FILES) $(LIBC_S_FILES) $(DATA_S_FILES)
 C_OBJECTS    := $(CFILES:.c=.o)
 ASM_OBJECTS  := $(SFILES:.s=.o)
-TOLZ_OBJECTS := $(TOLZ_S_FILES:.s=.o)
-TOLZ_BINARIES := $(TOLZ_S_FILES:.s=.bin)
-TOLZ_LZS	 := $(TOLZ_S_FILES:.s=.bin.lz)
-ALL_OBJECTS  := $(C_OBJECTS) $(ASM_OBJECTS) $(TOLZ_OBJECTS)
+ALL_OBJECTS  := $(C_OBJECTS) $(ASM_OBJECTS)
 DEPS_DIR     := .dep
 
 # Use the older compiler to build library code
@@ -72,7 +67,7 @@ battleanim:
 
 clean:
 	find . \( -iname '*.1bpp' -o -iname '*.4bpp' -o -iname '*.8bpp' -o -iname '*.gbapal' -o -iname '*.lz' -o -iname '*.latfont' -o -iname '*.hwjpnfont' -o -iname '*.fwjpnfont' \) -exec rm {} +
-	$(RM) $(ROM) $(ELF) $(MAP) $(ALL_OBJECTS) $(TOLZ_LZS) $(TOLZ_BINARIES) src/*.s graphics/*.h -r $(DEPS_DIR)
+	$(RM) $(ROM) $(ELF) $(MAP) $(ALL_OBJECTS) src/*.s graphics/*.h -r $(DEPS_DIR)
 
 # Graphics Recipes
 
@@ -113,15 +108,6 @@ $(C_OBJECTS): %.o: %.c $(DEPS_DIR)/%.d
 	$(CPP) $(CPPFLAGS) $< | $(CC1) $(CC1FLAGS) -o $*.s
 	echo '.ALIGN 2, 0' >> $*.s
 	$(AS) $(ASFLAGS) $*.s -o $@
-
-$(TOLZ_LZS): %.bin.lz: %.bin
-	$(GBAGFX) $< $@
-
-$(TOLZ_BINARIES): %.bin: %.o
-	$(OBJCOPY) -O binary $< $@
-
-$(TOLZ_OBJECTS): %.o: %.s
-	$(AS) $(ASFLAGS) $< -o $@
 
 ifeq ($(NODEP),1)
 asm/%.o:      data_dep :=

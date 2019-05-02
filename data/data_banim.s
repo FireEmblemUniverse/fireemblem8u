@@ -76,7 +76,7 @@ banim_lorm_sp1_sheet_7:
 @ battle animation 0x0
 	.global banim_lorm_sp1_pal_lz
 banim_lorm_sp1_pal_lz:
-	.incbin "banim/banim_lorm_sp1_pal.bin.lz"
+	.incbin "graphics/banim/banim_lorm_sp1.agbpal.lz"
 	.align 2, 0
 
 @ battle animation 0x0
@@ -105,7 +105,7 @@ banim_lorm_sp1_modes:
 @ battle animation 0x1
 	.global banim_lorm_sp1_2_pal_lz
 banim_lorm_sp1_2_pal_lz:
-	.incbin "banim/banim_lorm_sp1_2_pal.bin.lz"
+	.incbin "graphics/banim/banim_lorm_sp1_2.agbpal.lz"
 	.align 2, 0
 
 @ battle animation 0x1
@@ -164,7 +164,7 @@ banim_lorf_sw1_sheet_4:
 @ battle animation 0x2
 	.global banim_lorf_sw1_pal_lz
 banim_lorf_sw1_pal_lz:
-	.incbin "banim/banim_lorf_sw1_pal.bin.lz"
+	.incbin "graphics/banim/banim_lorf_sw1.agbpal.lz"
 	.align 2, 0
 
 @ battle animation 0x2
@@ -193,7 +193,7 @@ banim_lorf_sw1_modes:
 @ battle animation 0x3
 	.global banim_lorf_sw1_2_pal_lz
 banim_lorf_sw1_2_pal_lz:
-	.incbin "banim/banim_lorf_sw1_2_pal.bin.lz"
+	.incbin "graphics/banim/banim_lorf_sw1_2.agbpal.lz"
 	.align 2, 0
 
 @ battle animation 0x3
@@ -270,7 +270,7 @@ banim_lomm_sp1_sheet_3:
 @ battle animation 0x4
 	.global banim_lomm_sp1_pal_lz
 banim_lomm_sp1_pal_lz:
-	.incbin "banim/banim_lomm_sp1_pal.bin.lz"
+	.incbin "graphics/banim/banim_lomm_sp1.agbpal.lz"
 	.align 2, 0
 
 @ battle animation 0x4
@@ -299,7 +299,7 @@ banim_lomm_sp1_modes:
 @ battle animation 0x5
 	.global banim_lorf_sw1_3_pal_lz
 banim_lorf_sw1_3_pal_lz:
-	.incbin "banim/banim_lorf_sw1_3_pal.bin.lz"
+	.incbin "graphics/banim/banim_lorf_sw1_3.agbpal.lz"
 	.align 2, 0
 
 @ battle animation 0x5
@@ -328,7 +328,7 @@ banim_lorf_sw1_3_modes:
 @ battle animation 0x6
 	.global banim_lomm_sp1_2_pal_lz
 banim_lomm_sp1_2_pal_lz:
-	.incbin "banim/banim_lomm_sp1_2_pal.bin.lz"
+	.incbin "graphics/banim/banim_lomm_sp1_2.agbpal.lz"
 	.align 2, 0
 
 @ battle animation 0x6
@@ -399,7 +399,7 @@ banim_lomf_sw1_sheet_1:
 @ battle animation 0x7
 	.global banim_lomf_sw1_pal_lz
 banim_lomf_sw1_pal_lz:
-	.incbin "banim/banim_lomf_sw1_pal.bin.lz"
+	.incbin "graphics/banim/banim_lomf_sw1.agbpal.lz"
 	.align 2, 0
 
 @ battle animation 0x7
@@ -428,7 +428,7 @@ banim_lomf_sw1_modes:
 @ battle animation 0x8
 	.global banim_lorf_sw1_4_pal_lz
 banim_lorf_sw1_4_pal_lz:
-	.incbin "banim/banim_lorf_sw1_4_pal.bin.lz"
+	.incbin "graphics/banim/banim_lorf_sw1_4.agbpal.lz"
 	.align 2, 0
 
 @ battle animation 0x8
@@ -457,7 +457,7 @@ banim_lorf_sw1_4_modes:
 @ battle animation 0x9
 	.global banim_lomf_sw1_2_pal_lz
 banim_lomf_sw1_2_pal_lz:
-	.incbin "banim/banim_lomf_sw1_2_pal.bin.lz"
+	.incbin "graphics/banim/banim_lomf_sw1_2.agbpal.lz"
 	.align 2, 0
 
 @ battle animation 0x9
@@ -510,7 +510,7 @@ banim_merm_sw1_sheet_blank:
 @ battle animation 0xA
 	.global banim_merm_sw1_pal_lz
 banim_merm_sw1_pal_lz:
-	.incbin "banim/banim_merm_sw1_pal.bin.lz"
+	.incbin "graphics/banim/banim_merm_sw1.agbpal.lz"
 	.align 2, 0
 
 @ battle animation 0xA
@@ -539,7 +539,7 @@ banim_merm_sw1_modes:
 @ battle animation 0xB
 	.global banim_merm_sw1_2_pal_lz
 banim_merm_sw1_2_pal_lz:
-	.incbin "banim/banim_merm_sw1_2_pal.bin.lz"
+	.incbin "graphics/banim/banim_merm_sw1_2.agbpal.lz"
 	.align 2, 0
 
 @ battle animation 0xB
@@ -592,7 +592,7 @@ banim_bram_sw1_sheet_2:
 @ battle animation 0xC
 	.global banim_bram_sw1_pal_lz
 banim_bram_sw1_pal_lz:
-	.incbin "banim/banim_bram_sw1_pal.bin.lz"
+	.incbin "graphics/banim/banim_bram_sw1.agbpal.lz"
 	.align 2, 0
 
 @ battle animation 0xC
@@ -621,7 +621,7 @@ banim_bram_sw1_modes:
 @ battle animation 0xD
 	.global banim_bram_sw1_2_pal_lz
 banim_bram_sw1_2_pal_lz:
-	.incbin "banim/banim_bram_sw1_2_pal.bin.lz"
+	.incbin "graphics/banim/banim_bram_sw1_2.agbpal.lz"
 	.align 2, 0
 
 @ battle animation 0xD
@@ -656,7 +656,7 @@ banim_bram_sw1_3_sheet_0:
 @ battle animation 0xE
 	.global banim_bram_sw1_3_pal_lz
 banim_bram_sw1_3_pal_lz:
-	.incbin "banim/banim_bram_sw1_3_pal.bin.lz"
+	.incbin "graphics/banim/banim_bram_sw1_3.agbpal.lz"
 	.align 2, 0
 
 @ battle animation 0xE
@@ -685,7 +685,7 @@ banim_bram_sw1_3_modes:
 @ battle animation 0xF
 	.global banim_bram_sw1_4_pal_lz
 banim_bram_sw1_4_pal_lz:
-	.incbin "banim/banim_bram_sw1_4_pal.bin.lz"
+	.incbin "graphics/banim/banim_bram_sw1_4.agbpal.lz"
 	.align 2, 0
 
 @ battle animation 0xF
@@ -738,7 +738,7 @@ banim_myrm_sw1_sheet_3:
 @ battle animation 0x10
 	.global banim_myrm_sw1_pal_lz
 banim_myrm_sw1_pal_lz:
-	.incbin "banim/banim_myrm_sw1_pal.bin.lz"
+	.incbin "graphics/banim/banim_myrm_sw1.agbpal.lz"
 	.align 2, 0
 
 @ battle animation 0x10
@@ -767,7 +767,7 @@ banim_myrm_sw1_modes:
 @ battle animation 0x11
 	.global banim_myrm_sw1_2_pal_lz
 banim_myrm_sw1_2_pal_lz:
-	.incbin "banim/banim_myrm_sw1_2_pal.bin.lz"
+	.incbin "graphics/banim/banim_myrm_sw1_2.agbpal.lz"
 	.align 2, 0
 
 @ battle animation 0x11
@@ -820,7 +820,7 @@ banim_myrf_sw1_sheet_3:
 @ battle animation 0x12
 	.global banim_myrf_sw1_pal_lz
 banim_myrf_sw1_pal_lz:
-	.incbin "banim/banim_myrf_sw1_pal.bin.lz"
+	.incbin "graphics/banim/banim_myrf_sw1.agbpal.lz"
 	.align 2, 0
 
 @ battle animation 0x12
@@ -849,7 +849,7 @@ banim_myrf_sw1_modes:
 @ battle animation 0x13
 	.global banim_myrf_sw1_2_pal_lz
 banim_myrf_sw1_2_pal_lz:
-	.incbin "banim/banim_myrf_sw1_2_pal.bin.lz"
+	.incbin "graphics/banim/banim_myrf_sw1_2.agbpal.lz"
 	.align 2, 0
 
 @ battle animation 0x13
@@ -902,7 +902,7 @@ banim_swmm_sw1_sheet_3:
 @ battle animation 0x14
 	.global banim_swmm_sw1_pal_lz
 banim_swmm_sw1_pal_lz:
-	.incbin "banim/banim_swmm_sw1_pal.bin.lz"
+	.incbin "graphics/banim/banim_swmm_sw1.agbpal.lz"
 	.align 2, 0
 
 @ battle animation 0x14
@@ -931,7 +931,7 @@ banim_swmm_sw1_modes:
 @ battle animation 0x15
 	.global banim_swmm_sw1_2_pal_lz
 banim_swmm_sw1_2_pal_lz:
-	.incbin "banim/banim_swmm_sw1_2_pal.bin.lz"
+	.incbin "graphics/banim/banim_swmm_sw1_2.agbpal.lz"
 	.align 2, 0
 
 @ battle animation 0x15
@@ -984,7 +984,7 @@ banim_swmf_sw1_sheet_3:
 @ battle animation 0x16
 	.global banim_swmf_sw1_pal_lz
 banim_swmf_sw1_pal_lz:
-	.incbin "banim/banim_swmf_sw1_pal.bin.lz"
+	.incbin "graphics/banim/banim_swmf_sw1.agbpal.lz"
 	.align 2, 0
 
 @ battle animation 0x16
@@ -1013,7 +1013,7 @@ banim_swmf_sw1_modes:
 @ battle animation 0x17
 	.global banim_swmf_sw1_2_pal_lz
 banim_swmf_sw1_2_pal_lz:
-	.incbin "banim/banim_swmf_sw1_2_pal.bin.lz"
+	.incbin "graphics/banim/banim_swmf_sw1_2.agbpal.lz"
 	.align 2, 0
 
 @ battle animation 0x17
@@ -1066,7 +1066,7 @@ banim_figm_ax1_sheet_3:
 @ battle animation 0x18
 	.global banim_figm_ax1_pal_lz
 banim_figm_ax1_pal_lz:
-	.incbin "banim/banim_figm_ax1_pal.bin.lz"
+	.incbin "graphics/banim/banim_figm_ax1.agbpal.lz"
 	.align 2, 0
 
 @ battle animation 0x18
@@ -1095,7 +1095,7 @@ banim_figm_ax1_modes:
 @ battle animation 0x19
 	.global banim_figm_ax1_2_pal_lz
 banim_figm_ax1_2_pal_lz:
-	.incbin "banim/banim_figm_ax1_2_pal.bin.lz"
+	.incbin "graphics/banim/banim_figm_ax1_2.agbpal.lz"
 	.align 2, 0
 
 @ battle animation 0x19
@@ -1124,7 +1124,7 @@ banim_figm_ax1_2_modes:
 @ battle animation 0x1A
 	.global banim_figm_ax1_3_pal_lz
 banim_figm_ax1_3_pal_lz:
-	.incbin "banim/banim_figm_ax1_3_pal.bin.lz"
+	.incbin "graphics/banim/banim_figm_ax1_3.agbpal.lz"
 	.align 2, 0
 
 @ battle animation 0x1A
@@ -1201,7 +1201,7 @@ banim_warm_ax1_sheet_7:
 @ battle animation 0x1B
 	.global banim_warm_ax1_pal_lz
 banim_warm_ax1_pal_lz:
-	.incbin "banim/banim_warm_ax1_pal.bin.lz"
+	.incbin "graphics/banim/banim_warm_ax1.agbpal.lz"
 	.align 2, 0
 
 @ battle animation 0x1B
@@ -1230,7 +1230,7 @@ banim_warm_ax1_modes:
 @ battle animation 0x1C
 	.global banim_warm_ax1_2_pal_lz
 banim_warm_ax1_2_pal_lz:
-	.incbin "banim/banim_warm_ax1_2_pal.bin.lz"
+	.incbin "graphics/banim/banim_warm_ax1_2.agbpal.lz"
 	.align 2, 0
 
 @ battle animation 0x1C
@@ -1283,7 +1283,7 @@ banim_warm_ar1_sheet_3:
 @ battle animation 0x1D
 	.global banim_warm_ar1_pal_lz
 banim_warm_ar1_pal_lz:
-	.incbin "banim/banim_warm_ar1_pal.bin.lz"
+	.incbin "graphics/banim/banim_warm_ar1.agbpal.lz"
 	.align 2, 0
 
 @ battle animation 0x1D
@@ -1312,7 +1312,7 @@ banim_warm_ar1_modes:
 @ battle animation 0x1E
 	.global banim_warm_ax1_3_pal_lz
 banim_warm_ax1_3_pal_lz:
-	.incbin "banim/banim_warm_ax1_3_pal.bin.lz"
+	.incbin "graphics/banim/banim_warm_ax1_3.agbpal.lz"
 	.align 2, 0
 
 @ battle animation 0x1E
@@ -1358,7 +1358,7 @@ banim_banm_ax1_2_sheet_0:
 @ battle animation 0x1F
 	.global banim_banm_ax1_pal_lz
 banim_banm_ax1_pal_lz:
-	.incbin "banim/banim_banm_ax1_pal.bin.lz"
+	.incbin "graphics/banim/banim_banm_ax1.agbpal.lz"
 	.align 2, 0
 
 @ battle animation 0x1F
@@ -1387,7 +1387,7 @@ banim_banm_ax1_modes:
 @ battle animation 0x20
 	.global banim_banm_ax1_2_pal_lz
 banim_banm_ax1_2_pal_lz:
-	.incbin "banim/banim_banm_ax1_2_pal.bin.lz"
+	.incbin "graphics/banim/banim_banm_ax1_2.agbpal.lz"
 	.align 2, 0
 
 @ battle animation 0x20
@@ -1416,7 +1416,7 @@ banim_banm_ax1_2_modes:
 @ battle animation 0x21
 	.global banim_banm_ax1_3_pal_lz
 banim_banm_ax1_3_pal_lz:
-	.incbin "banim/banim_banm_ax1_3_pal.bin.lz"
+	.incbin "graphics/banim/banim_banm_ax1_3.agbpal.lz"
 	.align 2, 0
 
 @ battle animation 0x21
@@ -1457,7 +1457,7 @@ banim_brsm_ax1_sheet_1:
 @ battle animation 0x22
 	.global banim_brsm_ax1_pal_lz
 banim_brsm_ax1_pal_lz:
-	.incbin "banim/banim_brsm_ax1_pal.bin.lz"
+	.incbin "graphics/banim/banim_brsm_ax1.agbpal.lz"
 	.align 2, 0
 
 @ battle animation 0x22
@@ -1492,7 +1492,7 @@ banim_brsm_ax1_2_sheet_0:
 @ battle animation 0x23
 	.global banim_brsm_ax1_2_pal_lz
 banim_brsm_ax1_2_pal_lz:
-	.incbin "banim/banim_brsm_ax1_2_pal.bin.lz"
+	.incbin "graphics/banim/banim_brsm_ax1_2.agbpal.lz"
 	.align 2, 0
 
 @ battle animation 0x23
@@ -1521,7 +1521,7 @@ banim_brsm_ax1_2_modes:
 @ battle animation 0x24
 	.global banim_brsm_ax1_3_pal_lz
 banim_brsm_ax1_3_pal_lz:
-	.incbin "banim/banim_brsm_ax1_3_pal.bin.lz"
+	.incbin "graphics/banim/banim_brsm_ax1_3.agbpal.lz"
 	.align 2, 0
 
 @ battle animation 0x24
@@ -1568,7 +1568,7 @@ banim_arcm_ar1_sheet_2:
 @ battle animation 0x25
 	.global banim_arcm_ar1_pal_lz
 banim_arcm_ar1_pal_lz:
-	.incbin "banim/banim_arcm_ar1_pal.bin.lz"
+	.incbin "graphics/banim/banim_arcm_ar1.agbpal.lz"
 	.align 2, 0
 
 @ battle animation 0x25
@@ -1597,7 +1597,7 @@ banim_arcm_ar1_modes:
 @ battle animation 0x26
 	.global banim_arcm_ar1_2_pal_lz
 banim_arcm_ar1_2_pal_lz:
-	.incbin "banim/banim_arcm_ar1_2_pal.bin.lz"
+	.incbin "graphics/banim/banim_arcm_ar1_2.agbpal.lz"
 	.align 2, 0
 
 @ battle animation 0x26
@@ -1644,7 +1644,7 @@ banim_arcf_ar1_sheet_2:
 @ battle animation 0x27
 	.global banim_arcf_ar1_pal_lz
 banim_arcf_ar1_pal_lz:
-	.incbin "banim/banim_arcf_ar1_pal.bin.lz"
+	.incbin "graphics/banim/banim_arcf_ar1.agbpal.lz"
 	.align 2, 0
 
 @ battle animation 0x27
@@ -1673,7 +1673,7 @@ banim_arcf_ar1_modes:
 @ battle animation 0x28
 	.global banim_arcf_ar1_2_pal_lz
 banim_arcf_ar1_2_pal_lz:
-	.incbin "banim/banim_arcf_ar1_2_pal.bin.lz"
+	.incbin "graphics/banim/banim_arcf_ar1_2.agbpal.lz"
 	.align 2, 0
 
 @ battle animation 0x28
@@ -1720,7 +1720,7 @@ banim_snim_ar1_sheet_2:
 @ battle animation 0x29
 	.global banim_snim_ar1_pal_lz
 banim_snim_ar1_pal_lz:
-	.incbin "banim/banim_snim_ar1_pal.bin.lz"
+	.incbin "graphics/banim/banim_snim_ar1.agbpal.lz"
 	.align 2, 0
 
 @ battle animation 0x29
@@ -1749,7 +1749,7 @@ banim_snim_ar1_modes:
 @ battle animation 0x2A
 	.global banim_snim_ar1_2_pal_lz
 banim_snim_ar1_2_pal_lz:
-	.incbin "banim/banim_snim_ar1_2_pal.bin.lz"
+	.incbin "graphics/banim/banim_snim_ar1_2.agbpal.lz"
 	.align 2, 0
 
 @ battle animation 0x2A
@@ -1796,7 +1796,7 @@ banim_snif_ar1_sheet_2:
 @ battle animation 0x2B
 	.global banim_snif_ar1_pal_lz
 banim_snif_ar1_pal_lz:
-	.incbin "banim/banim_snif_ar1_pal.bin.lz"
+	.incbin "graphics/banim/banim_snif_ar1.agbpal.lz"
 	.align 2, 0
 
 @ battle animation 0x2B
@@ -1825,7 +1825,7 @@ banim_snif_ar1_modes:
 @ battle animation 0x2C
 	.global banim_snif_ar1_2_pal_lz
 banim_snif_ar1_2_pal_lz:
-	.incbin "banim/banim_snif_ar1_2_pal.bin.lz"
+	.incbin "graphics/banim/banim_snif_ar1_2.agbpal.lz"
 	.align 2, 0
 
 @ battle animation 0x2C
@@ -1878,7 +1878,7 @@ banim_form_sw1_sheet_2:
 @ battle animation 0x2D
 	.global banim_form_sw1_pal_lz
 banim_form_sw1_pal_lz:
-	.incbin "banim/banim_form_sw1_pal.bin.lz"
+	.incbin "graphics/banim/banim_form_sw1.agbpal.lz"
 	.align 2, 0
 
 @ battle animation 0x2D
@@ -1925,7 +1925,7 @@ banim_form_ar1_sheet_2:
 @ battle animation 0x2E
 	.global banim_form_ar1_pal_lz
 banim_form_ar1_pal_lz:
-	.incbin "banim/banim_form_ar1_pal.bin.lz"
+	.incbin "graphics/banim/banim_form_ar1.agbpal.lz"
 	.align 2, 0
 
 @ battle animation 0x2E
@@ -1954,7 +1954,7 @@ banim_form_ar1_modes:
 @ battle animation 0x2F
 	.global banim_form_sw1_2_pal_lz
 banim_form_sw1_2_pal_lz:
-	.incbin "banim/banim_form_sw1_2_pal.bin.lz"
+	.incbin "graphics/banim/banim_form_sw1_2.agbpal.lz"
 	.align 2, 0
 
 @ battle animation 0x2F
@@ -2007,7 +2007,7 @@ banim_forf_sw1_sheet_2:
 @ battle animation 0x30
 	.global banim_forf_sw1_pal_lz
 banim_forf_sw1_pal_lz:
-	.incbin "banim/banim_forf_sw1_pal.bin.lz"
+	.incbin "graphics/banim/banim_forf_sw1.agbpal.lz"
 	.align 2, 0
 
 @ battle animation 0x30
@@ -2054,7 +2054,7 @@ banim_forf_ar1_sheet_2:
 @ battle animation 0x31
 	.global banim_forf_ar1_pal_lz
 banim_forf_ar1_pal_lz:
-	.incbin "banim/banim_forf_ar1_pal.bin.lz"
+	.incbin "graphics/banim/banim_forf_ar1.agbpal.lz"
 	.align 2, 0
 
 @ battle animation 0x31
@@ -2083,7 +2083,7 @@ banim_forf_ar1_modes:
 @ battle animation 0x32
 	.global banim_forf_sw1_2_pal_lz
 banim_forf_sw1_2_pal_lz:
-	.incbin "banim/banim_forf_sw1_2_pal.bin.lz"
+	.incbin "graphics/banim/banim_forf_sw1_2.agbpal.lz"
 	.align 2, 0
 
 @ battle animation 0x32
@@ -2136,7 +2136,7 @@ banim_sokm_sp1_sheet_3:
 @ battle animation 0x33
 	.global banim_sokm_sp1_pal_lz
 banim_sokm_sp1_pal_lz:
-	.incbin "banim/banim_sokm_sp1_pal.bin.lz"
+	.incbin "graphics/banim/banim_sokm_sp1.agbpal.lz"
 	.align 2, 0
 
 @ battle animation 0x33
@@ -2165,7 +2165,7 @@ banim_sokm_sp1_modes:
 @ battle animation 0x34
 	.global banim_sokm_sp1_2_pal_lz
 banim_sokm_sp1_2_pal_lz:
-	.incbin "banim/banim_sokm_sp1_2_pal.bin.lz"
+	.incbin "graphics/banim/banim_sokm_sp1_2.agbpal.lz"
 	.align 2, 0
 
 @ battle animation 0x34
@@ -2194,7 +2194,7 @@ banim_sokm_sp1_2_modes:
 @ battle animation 0x35
 	.global banim_sokm_sp1_3_pal_lz
 banim_sokm_sp1_3_pal_lz:
-	.incbin "banim/banim_sokm_sp1_3_pal.bin.lz"
+	.incbin "graphics/banim/banim_sokm_sp1_3.agbpal.lz"
 	.align 2, 0
 
 @ battle animation 0x35
@@ -2247,7 +2247,7 @@ banim_sokf_sp1_sheet_3:
 @ battle animation 0x36
 	.global banim_sokf_sp1_pal_lz
 banim_sokf_sp1_pal_lz:
-	.incbin "banim/banim_sokf_sp1_pal.bin.lz"
+	.incbin "graphics/banim/banim_sokf_sp1.agbpal.lz"
 	.align 2, 0
 
 @ battle animation 0x36
@@ -2276,7 +2276,7 @@ banim_sokf_sp1_modes:
 @ battle animation 0x37
 	.global banim_sokf_sp1_2_pal_lz
 banim_sokf_sp1_2_pal_lz:
-	.incbin "banim/banim_sokf_sp1_2_pal.bin.lz"
+	.incbin "graphics/banim/banim_sokf_sp1_2.agbpal.lz"
 	.align 2, 0
 
 @ battle animation 0x37
@@ -2305,7 +2305,7 @@ banim_sokf_sp1_2_modes:
 @ battle animation 0x38
 	.global banim_sokf_sp1_3_pal_lz
 banim_sokf_sp1_3_pal_lz:
-	.incbin "banim/banim_sokf_sp1_3_pal.bin.lz"
+	.incbin "graphics/banim/banim_sokf_sp1_3.agbpal.lz"
 	.align 2, 0
 
 @ battle animation 0x38
@@ -2376,7 +2376,7 @@ banim_pakm_sw1_sheet_6:
 @ battle animation 0x39
 	.global banim_pakm_sw1_pal_lz
 banim_pakm_sw1_pal_lz:
-	.incbin "banim/banim_pakm_sw1_pal.bin.lz"
+	.incbin "graphics/banim/banim_pakm_sw1.agbpal.lz"
 	.align 2, 0
 
 @ battle animation 0x39
@@ -2405,7 +2405,7 @@ banim_pakm_sw1_modes:
 @ battle animation 0x3A
 	.global banim_pakm_sw1_2_pal_lz
 banim_pakm_sw1_2_pal_lz:
-	.incbin "banim/banim_pakm_sw1_2_pal.bin.lz"
+	.incbin "graphics/banim/banim_pakm_sw1_2.agbpal.lz"
 	.align 2, 0
 
 @ battle animation 0x3A
@@ -2434,7 +2434,7 @@ banim_pakm_sw1_2_modes:
 @ battle animation 0x3B
 	.global banim_pakm_sw1_3_pal_lz
 banim_pakm_sw1_3_pal_lz:
-	.incbin "banim/banim_pakm_sw1_3_pal.bin.lz"
+	.incbin "graphics/banim/banim_pakm_sw1_3.agbpal.lz"
 	.align 2, 0
 
 @ battle animation 0x3B
@@ -2505,7 +2505,7 @@ banim_paif_sw1_sheet_6:
 @ battle animation 0x3C
 	.global banim_paif_sw1_pal_lz
 banim_paif_sw1_pal_lz:
-	.incbin "banim/banim_paif_sw1_pal.bin.lz"
+	.incbin "graphics/banim/banim_paif_sw1.agbpal.lz"
 	.align 2, 0
 
 @ battle animation 0x3C
@@ -2534,7 +2534,7 @@ banim_paif_sw1_modes:
 @ battle animation 0x3D
 	.global banim_paif_sw1_2_pal_lz
 banim_paif_sw1_2_pal_lz:
-	.incbin "banim/banim_paif_sw1_2_pal.bin.lz"
+	.incbin "graphics/banim/banim_paif_sw1_2.agbpal.lz"
 	.align 2, 0
 
 @ battle animation 0x3D
@@ -2563,7 +2563,7 @@ banim_paif_sw1_2_modes:
 @ battle animation 0x3E
 	.global banim_paif_sw1_3_pal_lz
 banim_paif_sw1_3_pal_lz:
-	.incbin "banim/banim_paif_sw1_3_pal.bin.lz"
+	.incbin "graphics/banim/banim_paif_sw1_3.agbpal.lz"
 	.align 2, 0
 
 @ battle animation 0x3E
@@ -2610,7 +2610,7 @@ banim_armm_sp1_sheet_2:
 @ battle animation 0x3F
 	.global banim_armm_sp1_pal_lz
 banim_armm_sp1_pal_lz:
-	.incbin "banim/banim_armm_sp1_pal.bin.lz"
+	.incbin "graphics/banim/banim_armm_sp1.agbpal.lz"
 	.align 2, 0
 
 @ battle animation 0x3F
@@ -2639,7 +2639,7 @@ banim_armm_sp1_modes:
 @ battle animation 0x40
 	.global banim_armm_sp1_2_pal_lz
 banim_armm_sp1_2_pal_lz:
-	.incbin "banim/banim_armm_sp1_2_pal.bin.lz"
+	.incbin "graphics/banim/banim_armm_sp1_2.agbpal.lz"
 	.align 2, 0
 
 @ battle animation 0x40
@@ -2668,7 +2668,7 @@ banim_armm_sp1_2_modes:
 @ battle animation 0x41
 	.global banim_armm_sp1_3_pal_lz
 banim_armm_sp1_3_pal_lz:
-	.incbin "banim/banim_armm_sp1_3_pal.bin.lz"
+	.incbin "graphics/banim/banim_armm_sp1_3.agbpal.lz"
 	.align 2, 0
 
 @ battle animation 0x41
@@ -2697,7 +2697,7 @@ banim_armm_sp1_3_modes:
 @ battle animation 0x42
 	.global banim_armm_sp1_4_pal_lz
 banim_armm_sp1_4_pal_lz:
-	.incbin "banim/banim_armm_sp1_4_pal.bin.lz"
+	.incbin "graphics/banim/banim_armm_sp1_4.agbpal.lz"
 	.align 2, 0
 
 @ battle animation 0x42
@@ -2750,7 +2750,7 @@ banim_genm_sw1_sheet_2:
 @ battle animation 0x43
 	.global banim_genm_sw1_pal_lz
 banim_genm_sw1_pal_lz:
-	.incbin "banim/banim_genm_sw1_pal.bin.lz"
+	.incbin "graphics/banim/banim_genm_sw1.agbpal.lz"
 	.align 2, 0
 
 @ battle animation 0x43
@@ -2845,7 +2845,7 @@ banim_genm_al1_sheet_7:
 @ battle animation 0x44
 	.global banim_genm_al1_pal_lz
 banim_genm_al1_pal_lz:
-	.incbin "banim/banim_genm_al1_pal.bin.lz"
+	.incbin "graphics/banim/banim_genm_al1.agbpal.lz"
 	.align 2, 0
 
 @ battle animation 0x44
@@ -2874,7 +2874,7 @@ banim_genm_al1_modes:
 @ battle animation 0x45
 	.global banim_genm_al1_2_pal_lz
 banim_genm_al1_2_pal_lz:
-	.incbin "banim/banim_genm_al1_2_pal.bin.lz"
+	.incbin "graphics/banim/banim_genm_al1_2.agbpal.lz"
 	.align 2, 0
 
 @ battle animation 0x45
@@ -2903,7 +2903,7 @@ banim_genm_al1_2_modes:
 @ battle animation 0x46
 	.global banim_genm_al1_3_pal_lz
 banim_genm_al1_3_pal_lz:
-	.incbin "banim/banim_genm_al1_3_pal.bin.lz"
+	.incbin "graphics/banim/banim_genm_al1_3.agbpal.lz"
 	.align 2, 0
 
 @ battle animation 0x46
@@ -2932,7 +2932,7 @@ banim_genm_al1_3_modes:
 @ battle animation 0x47
 	.global banim_genm_al1_4_pal_lz
 banim_genm_al1_4_pal_lz:
-	.incbin "banim/banim_genm_al1_4_pal.bin.lz"
+	.incbin "graphics/banim/banim_genm_al1_4.agbpal.lz"
 	.align 2, 0
 
 @ battle animation 0x47
@@ -2961,7 +2961,7 @@ banim_genm_al1_4_modes:
 @ battle animation 0x48
 	.global banim_genm_sw1_2_pal_lz
 banim_genm_sw1_2_pal_lz:
-	.incbin "banim/banim_genm_sw1_2_pal.bin.lz"
+	.incbin "graphics/banim/banim_genm_sw1_2.agbpal.lz"
 	.align 2, 0
 
 @ battle animation 0x48
@@ -2990,7 +2990,7 @@ banim_genm_sw1_2_modes:
 @ battle animation 0x49
 	.global banim_genm_al1_5_pal_lz
 banim_genm_al1_5_pal_lz:
-	.incbin "banim/banim_genm_al1_5_pal.bin.lz"
+	.incbin "graphics/banim/banim_genm_al1_5.agbpal.lz"
 	.align 2, 0
 
 @ battle animation 0x49
@@ -3019,7 +3019,7 @@ banim_genm_al1_5_modes:
 @ battle animation 0x4A
 	.global banim_genm_al1_6_pal_lz
 banim_genm_al1_6_pal_lz:
-	.incbin "banim/banim_genm_al1_6_pal.bin.lz"
+	.incbin "graphics/banim/banim_genm_al1_6.agbpal.lz"
 	.align 2, 0
 
 @ battle animation 0x4A
@@ -3048,7 +3048,7 @@ banim_genm_al1_6_modes:
 @ battle animation 0x4B
 	.global banim_genm_al1_7_pal_lz
 banim_genm_al1_7_pal_lz:
-	.incbin "banim/banim_genm_al1_7_pal.bin.lz"
+	.incbin "graphics/banim/banim_genm_al1_7.agbpal.lz"
 	.align 2, 0
 
 @ battle animation 0x4B
@@ -3077,7 +3077,7 @@ banim_genm_al1_7_modes:
 @ battle animation 0x4C
 	.global banim_genm_al1_8_pal_lz
 banim_genm_al1_8_pal_lz:
-	.incbin "banim/banim_genm_al1_8_pal.bin.lz"
+	.incbin "graphics/banim/banim_genm_al1_8.agbpal.lz"
 	.align 2, 0
 
 @ battle animation 0x4C
@@ -3178,7 +3178,7 @@ banim_grkm_sw1_sheet_7:
 @ battle animation 0x4D
 	.global banim_grkm_sw1_pal_lz
 banim_grkm_sw1_pal_lz:
-	.incbin "banim/banim_grkm_sw1_pal.bin.lz"
+	.incbin "graphics/banim/banim_grkm_sw1.agbpal.lz"
 	.align 2, 0
 
 @ battle animation 0x4D
@@ -3297,7 +3297,7 @@ banim_grkm_sp1_sheet_12:
 @ battle animation 0x4E
 	.global banim_grkm_sp1_pal_lz
 banim_grkm_sp1_pal_lz:
-	.incbin "banim/banim_grkm_sp1_pal.bin.lz"
+	.incbin "graphics/banim/banim_grkm_sp1.agbpal.lz"
 	.align 2, 0
 
 @ battle animation 0x4E
@@ -3410,7 +3410,7 @@ banim_grkm_ax1_sheet_10:
 @ battle animation 0x4F
 	.global banim_grkm_ax1_pal_lz
 banim_grkm_ax1_pal_lz:
-	.incbin "banim/banim_grkm_ax1_pal.bin.lz"
+	.incbin "graphics/banim/banim_grkm_ax1.agbpal.lz"
 	.align 2, 0
 
 @ battle animation 0x4F
@@ -3439,7 +3439,7 @@ banim_grkm_ax1_modes:
 @ battle animation 0x50
 	.global banim_grkm_ax1_2_pal_lz
 banim_grkm_ax1_2_pal_lz:
-	.incbin "banim/banim_grkm_ax1_2_pal.bin.lz"
+	.incbin "graphics/banim/banim_grkm_ax1_2.agbpal.lz"
 	.align 2, 0
 
 @ battle animation 0x50
@@ -3468,7 +3468,7 @@ banim_grkm_ax1_2_modes:
 @ battle animation 0x51
 	.global banim_grkm_sw1_2_pal_lz
 banim_grkm_sw1_2_pal_lz:
-	.incbin "banim/banim_grkm_sw1_2_pal.bin.lz"
+	.incbin "graphics/banim/banim_grkm_sw1_2.agbpal.lz"
 	.align 2, 0
 
 @ battle animation 0x51
@@ -3497,7 +3497,7 @@ banim_grkm_sw1_2_modes:
 @ battle animation 0x52
 	.global banim_grkm_sw1_3_pal_lz
 banim_grkm_sw1_3_pal_lz:
-	.incbin "banim/banim_grkm_sw1_3_pal.bin.lz"
+	.incbin "graphics/banim/banim_grkm_sw1_3.agbpal.lz"
 	.align 2, 0
 
 @ battle animation 0x52
@@ -3526,7 +3526,7 @@ banim_grkm_sw1_3_modes:
 @ battle animation 0x53
 	.global banim_grkm_sp1_2_pal_lz
 banim_grkm_sp1_2_pal_lz:
-	.incbin "banim/banim_grkm_sp1_2_pal.bin.lz"
+	.incbin "graphics/banim/banim_grkm_sp1_2.agbpal.lz"
 	.align 2, 0
 
 @ battle animation 0x53
@@ -3555,7 +3555,7 @@ banim_grkm_sp1_2_modes:
 @ battle animation 0x54
 	.global banim_grkm_ax1_3_pal_lz
 banim_grkm_ax1_3_pal_lz:
-	.incbin "banim/banim_grkm_ax1_3_pal.bin.lz"
+	.incbin "graphics/banim/banim_grkm_ax1_3.agbpal.lz"
 	.align 2, 0
 
 @ battle animation 0x54
@@ -3584,7 +3584,7 @@ banim_grkm_ax1_3_modes:
 @ battle animation 0x55
 	.global banim_grkm_ax1_4_pal_lz
 banim_grkm_ax1_4_pal_lz:
-	.incbin "banim/banim_grkm_ax1_4_pal.bin.lz"
+	.incbin "graphics/banim/banim_grkm_ax1_4.agbpal.lz"
 	.align 2, 0
 
 @ battle animation 0x55
@@ -3613,7 +3613,7 @@ banim_grkm_ax1_4_modes:
 @ battle animation 0x56
 	.global banim_grkm_sw1_4_pal_lz
 banim_grkm_sw1_4_pal_lz:
-	.incbin "banim/banim_grkm_sw1_4_pal.bin.lz"
+	.incbin "graphics/banim/banim_grkm_sw1_4.agbpal.lz"
 	.align 2, 0
 
 @ battle animation 0x56
@@ -3678,7 +3678,7 @@ banim_drkm_sp1_sheet_5:
 @ battle animation 0x57
 	.global banim_drkm_sp1_pal_lz
 banim_drkm_sp1_pal_lz:
-	.incbin "banim/banim_drkm_sp1_pal.bin.lz"
+	.incbin "graphics/banim/banim_drkm_sp1.agbpal.lz"
 	.align 2, 0
 
 @ battle animation 0x57
@@ -3707,7 +3707,7 @@ banim_drkm_sp1_modes:
 @ battle animation 0x58
 	.global banim_drkm_sp1_2_pal_lz
 banim_drkm_sp1_2_pal_lz:
-	.incbin "banim/banim_drkm_sp1_2_pal.bin.lz"
+	.incbin "graphics/banim/banim_drkm_sp1_2.agbpal.lz"
 	.align 2, 0
 
 @ battle animation 0x58
@@ -3736,7 +3736,7 @@ banim_drkm_sp1_2_modes:
 @ battle animation 0x59
 	.global banim_drkm_sp1_3_pal_lz
 banim_drkm_sp1_3_pal_lz:
-	.incbin "banim/banim_drkm_sp1_3_pal.bin.lz"
+	.incbin "graphics/banim/banim_drkm_sp1_3.agbpal.lz"
 	.align 2, 0
 
 @ battle animation 0x59
@@ -3765,7 +3765,7 @@ banim_drkm_sp1_3_modes:
 @ battle animation 0x5A
 	.global banim_drkm_sp1_4_pal_lz
 banim_drkm_sp1_4_pal_lz:
-	.incbin "banim/banim_drkm_sp1_4_pal.bin.lz"
+	.incbin "graphics/banim/banim_drkm_sp1_4.agbpal.lz"
 	.align 2, 0
 
 @ battle animation 0x5A
@@ -3860,7 +3860,7 @@ banim_drmm_sp1_sheet_9:
 @ battle animation 0x5B
 	.global banim_drmm_sp1_pal_lz
 banim_drmm_sp1_pal_lz:
-	.incbin "banim/banim_drmm_sp1_pal.bin.lz"
+	.incbin "graphics/banim/banim_drmm_sp1.agbpal.lz"
 	.align 2, 0
 
 @ battle animation 0x5B
@@ -3889,7 +3889,7 @@ banim_drmm_sp1_modes:
 @ battle animation 0x5C
 	.global banim_drmm_sp1_2_pal_lz
 banim_drmm_sp1_2_pal_lz:
-	.incbin "banim/banim_drmm_sp1_2_pal.bin.lz"
+	.incbin "graphics/banim/banim_drmm_sp1_2.agbpal.lz"
 	.align 2, 0
 
 @ battle animation 0x5C
@@ -3918,7 +3918,7 @@ banim_drmm_sp1_2_modes:
 @ battle animation 0x5D
 	.global banim_drmm_sp1_3_pal_lz
 banim_drmm_sp1_3_pal_lz:
-	.incbin "banim/banim_drmm_sp1_3_pal.bin.lz"
+	.incbin "graphics/banim/banim_drmm_sp1_3.agbpal.lz"
 	.align 2, 0
 
 @ battle animation 0x5D
@@ -3947,7 +3947,7 @@ banim_drmm_sp1_3_modes:
 @ battle animation 0x5E
 	.global banim_drmm_sp1_4_pal_lz
 banim_drmm_sp1_4_pal_lz:
-	.incbin "banim/banim_drmm_sp1_4_pal.bin.lz"
+	.incbin "graphics/banim/banim_drmm_sp1_4.agbpal.lz"
 	.align 2, 0
 
 @ battle animation 0x5E
@@ -3976,7 +3976,7 @@ banim_drmm_sp1_4_modes:
 @ battle animation 0x5F
 	.global banim_drmm_sp1_5_pal_lz
 banim_drmm_sp1_5_pal_lz:
-	.incbin "banim/banim_drmm_sp1_5_pal.bin.lz"
+	.incbin "graphics/banim/banim_drmm_sp1_5.agbpal.lz"
 	.align 2, 0
 
 @ battle animation 0x5F
@@ -4005,7 +4005,7 @@ banim_drmm_sp1_5_modes:
 @ battle animation 0x60
 	.global banim_drmm_sp1_6_pal_lz
 banim_drmm_sp1_6_pal_lz:
-	.incbin "banim/banim_drmm_sp1_6_pal.bin.lz"
+	.incbin "graphics/banim/banim_drmm_sp1_6.agbpal.lz"
 	.align 2, 0
 
 @ battle animation 0x60
@@ -4123,7 +4123,7 @@ banim_wykm_sp1_sheet_blank_2:
 @ battle animation 0x61
 	.global banim_wykm_sp1_pal_lz
 banim_wykm_sp1_pal_lz:
-	.incbin "banim/banim_wykm_sp1_pal.bin.lz"
+	.incbin "graphics/banim/banim_wykm_sp1.agbpal.lz"
 	.align 2, 0
 
 @ battle animation 0x61
@@ -4152,7 +4152,7 @@ banim_wykm_sp1_modes:
 @ battle animation 0x62
 	.global banim_wykm_sp1_2_pal_lz
 banim_wykm_sp1_2_pal_lz:
-	.incbin "banim/banim_wykm_sp1_2_pal.bin.lz"
+	.incbin "graphics/banim/banim_wykm_sp1_2.agbpal.lz"
 	.align 2, 0
 
 @ battle animation 0x62
@@ -4181,7 +4181,7 @@ banim_wykm_sp1_2_modes:
 @ battle animation 0x63
 	.global banim_wykm_sp1_3_pal_lz
 banim_wykm_sp1_3_pal_lz:
-	.incbin "banim/banim_wykm_sp1_3_pal.bin.lz"
+	.incbin "graphics/banim/banim_wykm_sp1_3.agbpal.lz"
 	.align 2, 0
 
 @ battle animation 0x63
@@ -4210,7 +4210,7 @@ banim_wykm_sp1_3_modes:
 @ battle animation 0x64
 	.global banim_wykm_sp1_4_pal_lz
 banim_wykm_sp1_4_pal_lz:
-	.incbin "banim/banim_wykm_sp1_4_pal.bin.lz"
+	.incbin "graphics/banim/banim_wykm_sp1_4.agbpal.lz"
 	.align 2, 0
 
 @ battle animation 0x64
@@ -4287,7 +4287,7 @@ banim_pekf_sp1_sheet_7:
 @ battle animation 0x65
 	.global banim_pekf_sp1_pal_lz
 banim_pekf_sp1_pal_lz:
-	.incbin "banim/banim_pekf_sp1_pal.bin.lz"
+	.incbin "graphics/banim/banim_pekf_sp1.agbpal.lz"
 	.align 2, 0
 
 @ battle animation 0x65
@@ -4316,7 +4316,7 @@ banim_pekf_sp1_modes:
 @ battle animation 0x66
 	.global banim_pekf_sp1_2_pal_lz
 banim_pekf_sp1_2_pal_lz:
-	.incbin "banim/banim_pekf_sp1_2_pal.bin.lz"
+	.incbin "graphics/banim/banim_pekf_sp1_2.agbpal.lz"
 	.align 2, 0
 
 @ battle animation 0x66
@@ -4393,7 +4393,7 @@ banim_fakf_sp1_sheet_7:
 @ battle animation 0x67
 	.global banim_fakf_sp1_pal_lz
 banim_fakf_sp1_pal_lz:
-	.incbin "banim/banim_fakf_sp1_pal.bin.lz"
+	.incbin "graphics/banim/banim_fakf_sp1.agbpal.lz"
 	.align 2, 0
 
 @ battle animation 0x67
@@ -4422,7 +4422,7 @@ banim_fakf_sp1_modes:
 @ battle animation 0x68
 	.global banim_fakf_sp1_2_pal_lz
 banim_fakf_sp1_2_pal_lz:
-	.incbin "banim/banim_fakf_sp1_2_pal.bin.lz"
+	.incbin "graphics/banim/banim_fakf_sp1_2.agbpal.lz"
 	.align 2, 0
 
 @ battle animation 0x68
@@ -4451,7 +4451,7 @@ banim_fakf_sp1_2_modes:
 @ battle animation 0x69
 	.global banim_fakf_sp1_3_pal_lz
 banim_fakf_sp1_3_pal_lz:
-	.incbin "banim/banim_fakf_sp1_3_pal.bin.lz"
+	.incbin "graphics/banim/banim_fakf_sp1_3.agbpal.lz"
 	.align 2, 0
 
 @ battle animation 0x69
@@ -4498,7 +4498,7 @@ banim_magm_mg1_sheet_2:
 @ battle animation 0x6A
 	.global banim_magm_mg1_pal_lz
 banim_magm_mg1_pal_lz:
-	.incbin "banim/banim_magm_mg1_pal.bin.lz"
+	.incbin "graphics/banim/banim_magm_mg1.agbpal.lz"
 	.align 2, 0
 
 @ battle animation 0x6A
@@ -4545,7 +4545,7 @@ banim_magf_mg1_sheet_2:
 @ battle animation 0x6B
 	.global banim_magf_mg1_pal_lz
 banim_magf_mg1_pal_lz:
-	.incbin "banim/banim_magf_mg1_pal.bin.lz"
+	.incbin "graphics/banim/banim_magf_mg1.agbpal.lz"
 	.align 2, 0
 
 @ battle animation 0x6B
@@ -4598,7 +4598,7 @@ banim_sagm_mg1_sheet_2:
 @ battle animation 0x6C
 	.global banim_sagm_mg1_pal_lz
 banim_sagm_mg1_pal_lz:
-	.incbin "banim/banim_sagm_mg1_pal.bin.lz"
+	.incbin "graphics/banim/banim_sagm_mg1.agbpal.lz"
 	.align 2, 0
 
 @ battle animation 0x6C
@@ -4627,7 +4627,7 @@ banim_sagm_mg1_modes:
 @ battle animation 0x6D
 	.global banim_sagm_mg1_2_pal_lz
 banim_sagm_mg1_2_pal_lz:
-	.incbin "banim/banim_sagm_mg1_2_pal.bin.lz"
+	.incbin "graphics/banim/banim_sagm_mg1_2.agbpal.lz"
 	.align 2, 0
 
 @ battle animation 0x6D
@@ -4680,7 +4680,7 @@ banim_sagf_mg1_sheet_2:
 @ battle animation 0x6E
 	.global banim_sagf_mg1_pal_lz
 banim_sagf_mg1_pal_lz:
-	.incbin "banim/banim_sagf_mg1_pal.bin.lz"
+	.incbin "graphics/banim/banim_sagf_mg1.agbpal.lz"
 	.align 2, 0
 
 @ battle animation 0x6E
@@ -4709,7 +4709,7 @@ banim_sagf_mg1_modes:
 @ battle animation 0x6F
 	.global banim_sagf_mg1_2_pal_lz
 banim_sagf_mg1_2_pal_lz:
-	.incbin "banim/banim_sagf_mg1_2_pal.bin.lz"
+	.incbin "graphics/banim/banim_sagf_mg1_2.agbpal.lz"
 	.align 2, 0
 
 @ battle animation 0x6F
@@ -4762,7 +4762,7 @@ banim_mgkm_mg1_sheet_1:
 @ battle animation 0x70
 	.global banim_mgkm_mg1_pal_lz
 banim_mgkm_mg1_pal_lz:
-	.incbin "banim/banim_mgkm_mg1_pal.bin.lz"
+	.incbin "graphics/banim/banim_mgkm_mg1.agbpal.lz"
 	.align 2, 0
 
 @ battle animation 0x70
@@ -4791,7 +4791,7 @@ banim_mgkm_mg1_modes:
 @ battle animation 0x71
 	.global banim_mgkm_mg1_2_pal_lz
 banim_mgkm_mg1_2_pal_lz:
-	.incbin "banim/banim_mgkm_mg1_2_pal.bin.lz"
+	.incbin "graphics/banim/banim_mgkm_mg1_2.agbpal.lz"
 	.align 2, 0
 
 @ battle animation 0x71
@@ -4844,7 +4844,7 @@ banim_mgkf_mg1_sheet_1:
 @ battle animation 0x72
 	.global banim_mgkf_mg1_pal_lz
 banim_mgkf_mg1_pal_lz:
-	.incbin "banim/banim_mgkf_mg1_pal.bin.lz"
+	.incbin "graphics/banim/banim_mgkf_mg1.agbpal.lz"
 	.align 2, 0
 
 @ battle animation 0x72
@@ -4873,7 +4873,7 @@ banim_mgkf_mg1_modes:
 @ battle animation 0x73
 	.global banim_mgkf_mg1_2_pal_lz
 banim_mgkf_mg1_2_pal_lz:
-	.incbin "banim/banim_mgkf_mg1_2_pal.bin.lz"
+	.incbin "graphics/banim/banim_mgkf_mg1_2.agbpal.lz"
 	.align 2, 0
 
 @ battle animation 0x73
@@ -4926,7 +4926,7 @@ banim_sham_mg1_sheet_3:
 @ battle animation 0x74
 	.global banim_sham_mg1_pal_lz
 banim_sham_mg1_pal_lz:
-	.incbin "banim/banim_sham_mg1_pal.bin.lz"
+	.incbin "graphics/banim/banim_sham_mg1.agbpal.lz"
 	.align 2, 0
 
 @ battle animation 0x74
@@ -4979,7 +4979,7 @@ banim_shaf_mg1_sheet_3:
 @ battle animation 0x75
 	.global banim_shaf_mg1_pal_lz
 banim_shaf_mg1_pal_lz:
-	.incbin "banim/banim_shaf_mg1_pal.bin.lz"
+	.incbin "graphics/banim/banim_shaf_mg1.agbpal.lz"
 	.align 2, 0
 
 @ battle animation 0x75
@@ -5032,7 +5032,7 @@ banim_drum_mg1_sheet_3:
 @ battle animation 0x76
 	.global banim_drum_mg1_pal_lz
 banim_drum_mg1_pal_lz:
-	.incbin "banim/banim_drum_mg1_pal.bin.lz"
+	.incbin "graphics/banim/banim_drum_mg1.agbpal.lz"
 	.align 2, 0
 
 @ battle animation 0x76
@@ -5061,7 +5061,7 @@ banim_drum_mg1_modes:
 @ battle animation 0x77
 	.global banim_drum_mg1_2_pal_lz
 banim_drum_mg1_2_pal_lz:
-	.incbin "banim/banim_drum_mg1_2_pal.bin.lz"
+	.incbin "graphics/banim/banim_drum_mg1_2.agbpal.lz"
 	.align 2, 0
 
 @ battle animation 0x77
@@ -5114,7 +5114,7 @@ banim_druf_mg1_sheet_3:
 @ battle animation 0x78
 	.global banim_druf_mg1_pal_lz
 banim_druf_mg1_pal_lz:
-	.incbin "banim/banim_druf_mg1_pal.bin.lz"
+	.incbin "graphics/banim/banim_druf_mg1.agbpal.lz"
 	.align 2, 0
 
 @ battle animation 0x78
@@ -5143,7 +5143,7 @@ banim_druf_mg1_modes:
 @ battle animation 0x79
 	.global banim_druf_mg1_2_pal_lz
 banim_druf_mg1_2_pal_lz:
-	.incbin "banim/banim_druf_mg1_2_pal.bin.lz"
+	.incbin "graphics/banim/banim_druf_mg1_2.agbpal.lz"
 	.align 2, 0
 
 @ battle animation 0x79
@@ -5196,7 +5196,7 @@ banim_smnm_ro1_sheet_3:
 @ battle animation 0x7A
 	.global banim_smnm_ro1_pal_lz
 banim_smnm_ro1_pal_lz:
-	.incbin "banim/banim_smnm_ro1_pal.bin.lz"
+	.incbin "graphics/banim/banim_smnm_ro1.agbpal.lz"
 	.align 2, 0
 
 @ battle animation 0x7A
@@ -5225,7 +5225,7 @@ banim_smnm_ro1_modes:
 @ battle animation 0x7B
 	.global banim_smnm_ro1_2_pal_lz
 banim_smnm_ro1_2_pal_lz:
-	.incbin "banim/banim_smnm_ro1_2_pal.bin.lz"
+	.incbin "graphics/banim/banim_smnm_ro1_2.agbpal.lz"
 	.align 2, 0
 
 @ battle animation 0x7B
@@ -5276,7 +5276,7 @@ banim_monm_mg1_sheet_blank_2:
 @ battle animation 0x7C
 	.global banim_monm_mg1_pal_lz
 banim_monm_mg1_pal_lz:
-	.incbin "banim/banim_monm_mg1_pal.bin.lz"
+	.incbin "graphics/banim/banim_monm_mg1.agbpal.lz"
 	.align 2, 0
 
 @ battle animation 0x7C
@@ -5311,7 +5311,7 @@ banim_prim_ro1_sheet_0:
 @ battle animation 0x7D
 	.global banim_prim_ro1_pal_lz
 banim_prim_ro1_pal_lz:
-	.incbin "banim/banim_prim_ro1_pal.bin.lz"
+	.incbin "graphics/banim/banim_prim_ro1.agbpal.lz"
 	.align 2, 0
 
 @ battle animation 0x7D
@@ -5339,7 +5339,7 @@ banim_prim_ro1_modes:
 
 	.global banim_prim_ro1_2_pal_lz
 banim_prim_ro1_2_pal_lz:
-	.incbin "banim/banim_prim_ro1_2_pal.bin.lz"
+	.incbin "graphics/banim/banim_prim_ro1_2.agbpal.lz"
 	.align 2, 0
 
 @ battle animation 0x7E
@@ -5374,7 +5374,7 @@ banim_prif_ro1_sheet_0:
 @ battle animation 0x7F
 	.global banim_prif_ro1_pal_lz
 banim_prif_ro1_pal_lz:
-	.incbin "banim/banim_prif_ro1_pal.bin.lz"
+	.incbin "graphics/banim/banim_prif_ro1.agbpal.lz"
 	.align 2, 0
 
 @ battle animation 0x7F
@@ -5421,7 +5421,7 @@ banim_bism_mg1_sheet_2:
 @ battle animation 0x80
 	.global banim_bism_mg1_pal_lz
 banim_bism_mg1_pal_lz:
-	.incbin "banim/banim_bism_mg1_pal.bin.lz"
+	.incbin "graphics/banim/banim_bism_mg1.agbpal.lz"
 	.align 2, 0
 
 @ battle animation 0x80
@@ -5450,7 +5450,7 @@ banim_bism_mg1_modes:
 @ battle animation 0x81
 	.global banim_bism_mg1_2_pal_lz
 banim_bism_mg1_2_pal_lz:
-	.incbin "banim/banim_bism_mg1_2_pal.bin.lz"
+	.incbin "graphics/banim/banim_bism_mg1_2.agbpal.lz"
 	.align 2, 0
 
 @ battle animation 0x81
@@ -5491,7 +5491,7 @@ banim_bisf_mg1_sheet_1:
 @ battle animation 0x82
 	.global banim_bisf_mg1_pal_lz
 banim_bisf_mg1_pal_lz:
-	.incbin "banim/banim_bisf_mg1_pal.bin.lz"
+	.incbin "graphics/banim/banim_bisf_mg1.agbpal.lz"
 	.align 2, 0
 
 @ battle animation 0x82
@@ -5520,7 +5520,7 @@ banim_bisf_mg1_modes:
 @ battle animation 0x83
 	.global banim_bisf_mg1_2_pal_lz
 banim_bisf_mg1_2_pal_lz:
-	.incbin "banim/banim_bisf_mg1_2_pal.bin.lz"
+	.incbin "graphics/banim/banim_bisf_mg1_2.agbpal.lz"
 	.align 2, 0
 
 @ battle animation 0x83
@@ -5567,7 +5567,7 @@ banim_trof_ro1_sheet_0:
 @ battle animation 0x84
 	.global banim_trof_ro1_pal_lz
 banim_trof_ro1_pal_lz:
-	.incbin "banim/banim_trof_ro1_pal.bin.lz"
+	.incbin "graphics/banim/banim_trof_ro1.agbpal.lz"
 	.align 2, 0
 
 @ battle animation 0x84
@@ -5596,7 +5596,7 @@ banim_trof_ro1_modes:
 @ battle animation 0x85
 	.global banim_trof_ro1_2_pal_lz
 banim_trof_ro1_2_pal_lz:
-	.incbin "banim/banim_trof_ro1_2_pal.bin.lz"
+	.incbin "graphics/banim/banim_trof_ro1_2.agbpal.lz"
 	.align 2, 0
 
 @ battle animation 0x85
@@ -5649,7 +5649,7 @@ banim_valf_mg1_sheet_1:
 @ battle animation 0x86
 	.global banim_valf_mg1_pal_lz
 banim_valf_mg1_pal_lz:
-	.incbin "banim/banim_valf_mg1_pal.bin.lz"
+	.incbin "graphics/banim/banim_valf_mg1.agbpal.lz"
 	.align 2, 0
 
 @ battle animation 0x86
@@ -5678,7 +5678,7 @@ banim_valf_mg1_modes:
 @ battle animation 0x87
 	.global banim_valf_mg1_2_pal_lz
 banim_valf_mg1_2_pal_lz:
-	.incbin "banim/banim_valf_mg1_2_pal.bin.lz"
+	.incbin "graphics/banim/banim_valf_mg1_2.agbpal.lz"
 	.align 2, 0
 
 @ battle animation 0x87
@@ -5730,7 +5730,7 @@ banim_thim_sw1_sheet_blank:
 @ battle animation 0x88
 	.global banim_thim_sw1_pal_lz
 banim_thim_sw1_pal_lz:
-	.incbin "banim/banim_thim_sw1_pal.bin.lz"
+	.incbin "graphics/banim/banim_thim_sw1.agbpal.lz"
 	.align 2, 0
 
 @ battle animation 0x88
@@ -5759,7 +5759,7 @@ banim_thim_sw1_modes:
 @ battle animation 0x89
 	.global banim_thim_sw1_2_pal_lz
 banim_thim_sw1_2_pal_lz:
-	.incbin "banim/banim_thim_sw1_2_pal.bin.lz"
+	.incbin "graphics/banim/banim_thim_sw1_2.agbpal.lz"
 	.align 2, 0
 
 @ battle animation 0x89
@@ -5812,7 +5812,7 @@ banim_asnm_sw1_sheet_1:
 @ battle animation 0x8A
 	.global banim_asnm_sw1_pal_lz
 banim_asnm_sw1_pal_lz:
-	.incbin "banim/banim_asnm_sw1_pal.bin.lz"
+	.incbin "graphics/banim/banim_asnm_sw1.agbpal.lz"
 	.align 2, 0
 
 @ battle animation 0x8A
@@ -5841,7 +5841,7 @@ banim_asnm_sw1_modes:
 @ battle animation 0x8B
 	.global banim_asnm_sw1_2_pal_lz
 banim_asnm_sw1_2_pal_lz:
-	.incbin "banim/banim_asnm_sw1_2_pal.bin.lz"
+	.incbin "graphics/banim/banim_asnm_sw1_2.agbpal.lz"
 	.align 2, 0
 
 @ battle animation 0x8B
@@ -5870,7 +5870,7 @@ banim_asnm_sw1_2_modes:
 @ battle animation 0x8C
 	.global banim_asnm_sw1_3_pal_lz
 banim_asnm_sw1_3_pal_lz:
-	.incbin "banim/banim_asnm_sw1_3_pal.bin.lz"
+	.incbin "graphics/banim/banim_asnm_sw1_3.agbpal.lz"
 	.align 2, 0
 
 @ battle animation 0x8C
@@ -5899,7 +5899,7 @@ banim_asnm_sw1_3_modes:
 @ battle animation 0x8D
 	.global banim_asnm_sw1_4_pal_lz
 banim_asnm_sw1_4_pal_lz:
-	.incbin "banim/banim_asnm_sw1_4_pal.bin.lz"
+	.incbin "graphics/banim/banim_asnm_sw1_4.agbpal.lz"
 	.align 2, 0
 
 @ battle animation 0x8D
@@ -5952,7 +5952,7 @@ banim_rogm_sw1_sheet_3:
 @ battle animation 0x8E
 	.global banim_rogm_sw1_pal_lz
 banim_rogm_sw1_pal_lz:
-	.incbin "banim/banim_rogm_sw1_pal.bin.lz"
+	.incbin "graphics/banim/banim_rogm_sw1.agbpal.lz"
 	.align 2, 0
 
 @ battle animation 0x8E
@@ -5981,7 +5981,7 @@ banim_rogm_sw1_modes:
 @ battle animation 0x8F
 	.global banim_rogm_sw1_2_pal_lz
 banim_rogm_sw1_2_pal_lz:
-	.incbin "banim/banim_rogm_sw1_2_pal.bin.lz"
+	.incbin "graphics/banim/banim_rogm_sw1_2.agbpal.lz"
 	.align 2, 0
 
 @ battle animation 0x8F
@@ -6046,7 +6046,7 @@ banim_danf_da1_sheet_5:
 @ battle animation 0x90
 	.global banim_danf_da1_pal_lz
 banim_danf_da1_pal_lz:
-	.incbin "banim/banim_danf_da1_pal.bin.lz"
+	.incbin "graphics/banim/banim_danf_da1.agbpal.lz"
 	.align 2, 0
 
 @ battle animation 0x90
@@ -6099,7 +6099,7 @@ banim_pbfm_ax1_sheet_1:
 @ battle animation 0x91
 	.global banim_pbfm_ax1_pal_lz
 banim_pbfm_ax1_pal_lz:
-	.incbin "banim/banim_pbfm_ax1_pal.bin.lz"
+	.incbin "graphics/banim/banim_pbfm_ax1.agbpal.lz"
 	.align 2, 0
 
 @ battle animation 0x91
@@ -6140,7 +6140,7 @@ banim_pbfm_ax1_2_sheet_1:
 @ battle animation 0x92
 	.global banim_pbfm_ax1_2_pal_lz
 banim_pbfm_ax1_2_pal_lz:
-	.incbin "banim/banim_pbfm_ax1_2_pal.bin.lz"
+	.incbin "graphics/banim/banim_pbfm_ax1_2.agbpal.lz"
 	.align 2, 0
 
 @ battle animation 0x92
@@ -6169,7 +6169,7 @@ banim_pbfm_ax1_2_modes:
 @ battle animation 0x93
 	.global banim_pbfm_ax1_3_pal_lz
 banim_pbfm_ax1_3_pal_lz:
-	.incbin "banim/banim_pbfm_ax1_3_pal.bin.lz"
+	.incbin "graphics/banim/banim_pbfm_ax1_3.agbpal.lz"
 	.align 2, 0
 
 @ battle animation 0x93
@@ -6222,7 +6222,7 @@ banim_pbmm_mg1_sheet_2:
 @ battle animation 0x94
 	.global banim_pbmm_mg1_pal_lz
 banim_pbmm_mg1_pal_lz:
-	.incbin "banim/banim_pbmm_mg1_pal.bin.lz"
+	.incbin "graphics/banim/banim_pbmm_mg1.agbpal.lz"
 	.align 2, 0
 
 @ battle animation 0x94
@@ -6287,7 +6287,7 @@ banim_pbrf_sp1_sheet_5:
 @ battle animation 0x95
 	.global banim_pbrf_sp1_pal_lz
 banim_pbrf_sp1_pal_lz:
-	.incbin "banim/banim_pbrf_sp1_pal.bin.lz"
+	.incbin "graphics/banim/banim_pbrf_sp1.agbpal.lz"
 	.align 2, 0
 
 @ battle animation 0x95
@@ -6322,7 +6322,7 @@ banim_pbrf_sp1_2_sheet_0:
 @ battle animation 0x96
 	.global banim_pbrf_sp1_2_pal_lz
 banim_pbrf_sp1_2_pal_lz:
-	.incbin "banim/banim_pbrf_sp1_2_pal.bin.lz"
+	.incbin "graphics/banim/banim_pbrf_sp1_2.agbpal.lz"
 	.align 2, 0
 
 @ battle animation 0x96
@@ -6369,7 +6369,7 @@ banim_solm_sp1_2_sheet_0:
 @ battle animation 0x97
 	.global banim_solm_sp1_pal_lz
 banim_solm_sp1_pal_lz:
-	.incbin "banim/banim_solm_sp1_pal.bin.lz"
+	.incbin "graphics/banim/banim_solm_sp1.agbpal.lz"
 	.align 2, 0
 
 @ battle animation 0x97
@@ -6398,7 +6398,7 @@ banim_solm_sp1_modes:
 @ battle animation 0x98
 	.global banim_solm_sp1_2_pal_lz
 banim_solm_sp1_2_pal_lz:
-	.incbin "banim/banim_solm_sp1_2_pal.bin.lz"
+	.incbin "graphics/banim/banim_solm_sp1_2.agbpal.lz"
 	.align 2, 0
 
 @ battle animation 0x98
@@ -6439,7 +6439,7 @@ banim_pirm_ax1_sheet_1:
 @ battle animation 0x99
 	.global banim_pirm_ax1_pal_lz
 banim_pirm_ax1_pal_lz:
-	.incbin "banim/banim_pirm_ax1_pal.bin.lz"
+	.incbin "graphics/banim/banim_pirm_ax1.agbpal.lz"
 	.align 2, 0
 
 @ battle animation 0x99
@@ -6468,7 +6468,7 @@ banim_pirm_ax1_modes:
 @ battle animation 0x9A
 	.global banim_pirm_ax1_2_pal_lz
 banim_pirm_ax1_2_pal_lz:
-	.incbin "banim/banim_pirm_ax1_2_pal.bin.lz"
+	.incbin "graphics/banim/banim_pirm_ax1_2.agbpal.lz"
 	.align 2, 0
 
 @ battle animation 0x9A
@@ -6497,7 +6497,7 @@ banim_pirm_ax1_2_modes:
 @ battle animation 0x9B
 	.global banim_pirm_ax1_3_pal_lz
 banim_pirm_ax1_3_pal_lz:
-	.incbin "banim/banim_pirm_ax1_3_pal.bin.lz"
+	.incbin "graphics/banim/banim_pirm_ax1_3.agbpal.lz"
 	.align 2, 0
 
 @ battle animation 0x9B
@@ -6574,7 +6574,7 @@ banim_necm_mg1_sheet_7:
 @ battle animation 0x9C
 	.global banim_necm_mg1_pal_lz
 banim_necm_mg1_pal_lz:
-	.incbin "banim/banim_necm_mg1_pal.bin.lz"
+	.incbin "graphics/banim/banim_necm_mg1.agbpal.lz"
 	.align 2, 0
 
 @ battle animation 0x9C
@@ -6639,7 +6639,7 @@ banim_necm_ro1_sheet_5:
 @ battle animation 0x9D
 	.global banim_necm_ro1_pal_lz
 banim_necm_ro1_pal_lz:
-	.incbin "banim/banim_necm_ro1_pal.bin.lz"
+	.incbin "graphics/banim/banim_necm_ro1.agbpal.lz"
 	.align 2, 0
 
 @ battle animation 0x9D
@@ -6674,7 +6674,7 @@ banim_stam_ar1_sheet_0:
 @ battle animation 0x9E
 	.global banim_stam_ar1_pal_lz
 banim_stam_ar1_pal_lz:
-	.incbin "banim/banim_stam_ar1_pal.bin.lz"
+	.incbin "graphics/banim/banim_stam_ar1.agbpal.lz"
 	.align 2, 0
 
 @ battle animation 0x9E
@@ -6726,7 +6726,7 @@ banim_zom_at1_sheet_blank:
 @ battle animation 0x9F
 	.global banim_zom_at1_pal_lz
 banim_zom_at1_pal_lz:
-	.incbin "banim/banim_zom_at1_pal.bin.lz"
+	.incbin "graphics/banim/banim_zom_at1.agbpal.lz"
 	.align 2, 0
 
 @ battle animation 0x9F
@@ -6755,7 +6755,7 @@ banim_zom_at1_modes:
 @ battle animation 0xA0
 	.global banim_zom_at1_2_pal_lz
 banim_zom_at1_2_pal_lz:
-	.incbin "banim/banim_zom_at1_2_pal.bin.lz"
+	.incbin "graphics/banim/banim_zom_at1_2.agbpal.lz"
 	.align 2, 0
 
 @ battle animation 0xA0
@@ -6820,7 +6820,7 @@ banim_sks_sw1_sheet_5:
 @ battle animation 0xA1
 	.global banim_sks_sw1_pal_lz
 banim_sks_sw1_pal_lz:
-	.incbin "banim/banim_sks_sw1_pal.bin.lz"
+	.incbin "graphics/banim/banim_sks_sw1.agbpal.lz"
 	.align 2, 0
 
 @ battle animation 0xA1
@@ -6878,7 +6878,7 @@ banim_sks_sp1_sheet_1:
 @ battle animation 0xA2
 	.global banim_sks_sp1_pal_lz
 banim_sks_sp1_pal_lz:
-	.incbin "banim/banim_sks_sp1_pal.bin.lz"
+	.incbin "graphics/banim/banim_sks_sp1.agbpal.lz"
 	.align 2, 0
 
 @ battle animation 0xA2
@@ -6907,7 +6907,7 @@ banim_sks_sp1_modes:
 @ battle animation 0xA3
 	.global banim_sks_sw1_2_pal_lz
 banim_sks_sw1_2_pal_lz:
-	.incbin "banim/banim_sks_sw1_2_pal.bin.lz"
+	.incbin "graphics/banim/banim_sks_sw1_2.agbpal.lz"
 	.align 2, 0
 
 @ battle animation 0xA3
@@ -6959,7 +6959,7 @@ banim_ska_ar1_sheet_2:
 @ battle animation 0xA4
 	.global banim_ska_ar1_pal_lz
 banim_ska_ar1_pal_lz:
-	.incbin "banim/banim_ska_ar1_pal.bin.lz"
+	.incbin "graphics/banim/banim_ska_ar1.agbpal.lz"
 	.align 2, 0
 
 @ battle animation 0xA4
@@ -6988,7 +6988,7 @@ banim_ska_ar1_modes:
 @ battle animation 0xA5
 	.global banim_sks_sw1_3_pal_lz
 banim_sks_sw1_3_pal_lz:
-	.incbin "banim/banim_sks_sw1_3_pal.bin.lz"
+	.incbin "graphics/banim/banim_sks_sw1_3.agbpal.lz"
 	.align 2, 0
 
 @ battle animation 0xA5
@@ -7017,7 +7017,7 @@ banim_sks_sw1_3_modes:
 @ battle animation 0xA6
 	.global banim_sks_sw1_4_pal_lz
 banim_sks_sw1_4_pal_lz:
-	.incbin "banim/banim_sks_sw1_4_pal.bin.lz"
+	.incbin "graphics/banim/banim_sks_sw1_4.agbpal.lz"
 	.align 2, 0
 
 @ battle animation 0xA6
@@ -7046,7 +7046,7 @@ banim_sks_sw1_4_modes:
 @ battle animation 0xA7
 	.global banim_sks_sp1_2_pal_lz
 banim_sks_sp1_2_pal_lz:
-	.incbin "banim/banim_sks_sp1_2_pal.bin.lz"
+	.incbin "graphics/banim/banim_sks_sp1_2.agbpal.lz"
 	.align 2, 0
 
 @ battle animation 0xA7
@@ -7075,7 +7075,7 @@ banim_sks_sp1_2_modes:
 @ battle animation 0xA8
 	.global banim_sks_sw1_5_pal_lz
 banim_sks_sw1_5_pal_lz:
-	.incbin "banim/banim_sks_sw1_5_pal.bin.lz"
+	.incbin "graphics/banim/banim_sks_sw1_5.agbpal.lz"
 	.align 2, 0
 
 @ battle animation 0xA8
@@ -7104,7 +7104,7 @@ banim_sks_sw1_5_modes:
 @ battle animation 0xA9
 	.global banim_ska_ar1_2_pal_lz
 banim_ska_ar1_2_pal_lz:
-	.incbin "banim/banim_ska_ar1_2_pal.bin.lz"
+	.incbin "graphics/banim/banim_ska_ar1_2.agbpal.lz"
 	.align 2, 0
 
 @ battle animation 0xA9
@@ -7133,7 +7133,7 @@ banim_ska_ar1_2_modes:
 @ battle animation 0xAA
 	.global banim_sks_sw1_6_pal_lz
 banim_sks_sw1_6_pal_lz:
-	.incbin "banim/banim_sks_sw1_6_pal.bin.lz"
+	.incbin "graphics/banim/banim_sks_sw1_6.agbpal.lz"
 	.align 2, 0
 
 @ battle animation 0xAA
@@ -7210,7 +7210,7 @@ banim_bae_at1_sheet_3:
 @ battle animation 0xAB
 	.global banim_bae_at1_pal_lz
 banim_bae_at1_pal_lz:
-	.incbin "banim/banim_bae_at1_pal.bin.lz"
+	.incbin "graphics/banim/banim_bae_at1.agbpal.lz"
 	.align 2, 0
 
 @ battle animation 0xAB
@@ -7239,7 +7239,7 @@ banim_bae_at1_modes:
 @ battle animation 0xAC
 	.global banim_bae_at1_2_pal_lz
 banim_bae_at1_2_pal_lz:
-	.incbin "banim/banim_bae_at1_2_pal.bin.lz"
+	.incbin "graphics/banim/banim_bae_at1_2.agbpal.lz"
 	.align 2, 0
 
 @ battle animation 0xAC
@@ -7340,7 +7340,7 @@ banim_cyc_ax1_sheet_7:
 @ battle animation 0xAD
 	.global banim_cyc_ax1_pal_lz
 banim_cyc_ax1_pal_lz:
-	.incbin "banim/banim_cyc_ax1_pal.bin.lz"
+	.incbin "graphics/banim/banim_cyc_ax1.agbpal.lz"
 	.align 2, 0
 
 @ battle animation 0xAD
@@ -7369,7 +7369,7 @@ banim_cyc_ax1_modes:
 @ battle animation 0xAE
 	.global banim_cyc_ax1_2_pal_lz
 banim_cyc_ax1_2_pal_lz:
-	.incbin "banim/banim_cyc_ax1_2_pal.bin.lz"
+	.incbin "graphics/banim/banim_cyc_ax1_2.agbpal.lz"
 	.align 2, 0
 
 @ battle animation 0xAE
@@ -7398,7 +7398,7 @@ banim_cyc_ax1_2_modes:
 @ battle animation 0xAF
 	.global banim_cyc_ax1_3_pal_lz
 banim_cyc_ax1_3_pal_lz:
-	.incbin "banim/banim_cyc_ax1_3_pal.bin.lz"
+	.incbin "graphics/banim/banim_cyc_ax1_3.agbpal.lz"
 	.align 2, 0
 
 @ battle animation 0xAF
@@ -7451,7 +7451,7 @@ banim_mdg_at1_sheet_3:
 @ battle animation 0xB0
 	.global banim_mdg_at1_pal_lz
 banim_mdg_at1_pal_lz:
-	.incbin "banim/banim_mdg_at1_pal.bin.lz"
+	.incbin "graphics/banim/banim_mdg_at1.agbpal.lz"
 	.align 2, 0
 
 @ battle animation 0xB0
@@ -7527,7 +7527,7 @@ banim_cer_at1_sheet_blank:
 @ battle animation 0xB1
 	.global banim_cer_at1_pal_lz
 banim_cer_at1_pal_lz:
-	.incbin "banim/banim_cer_at1_pal.bin.lz"
+	.incbin "graphics/banim/banim_cer_at1.agbpal.lz"
 	.align 2, 0
 
 @ battle animation 0xB1
@@ -7598,7 +7598,7 @@ banim_mcd_ax1_sheet_6:
 @ battle animation 0xB2
 	.global banim_mcd_ax1_pal_lz
 banim_mcd_ax1_pal_lz:
-	.incbin "banim/banim_mcd_ax1_pal.bin.lz"
+	.incbin "graphics/banim/banim_mcd_ax1.agbpal.lz"
 	.align 2, 0
 
 @ battle animation 0xB2
@@ -7651,7 +7651,7 @@ banim_mcd_ax1_2_sheet_2:
 @ battle animation 0xB3
 	.global banim_mcd_ax1_2_pal_lz
 banim_mcd_ax1_2_pal_lz:
-	.incbin "banim/banim_mcd_ax1_2_pal.bin.lz"
+	.incbin "graphics/banim/banim_mcd_ax1_2.agbpal.lz"
 	.align 2, 0
 
 @ battle animation 0xB3
@@ -7680,7 +7680,7 @@ banim_mcd_ax1_2_modes:
 @ battle animation 0xB4
 	.global banim_mcd_ax1_3_pal_lz
 banim_mcd_ax1_3_pal_lz:
-	.incbin "banim/banim_mcd_ax1_3_pal.bin.lz"
+	.incbin "graphics/banim/banim_mcd_ax1_3.agbpal.lz"
 	.align 2, 0
 
 @ battle animation 0xB4
@@ -7709,7 +7709,7 @@ banim_mcd_ax1_3_modes:
 @ battle animation 0xB5
 	.global banim_mcd_ax1_4_pal_lz
 banim_mcd_ax1_4_pal_lz:
-	.incbin "banim/banim_mcd_ax1_4_pal.bin.lz"
+	.incbin "graphics/banim/banim_mcd_ax1_4.agbpal.lz"
 	.align 2, 0
 
 @ battle animation 0xB5
@@ -7738,7 +7738,7 @@ banim_mcd_ax1_4_modes:
 @ battle animation 0xB6
 	.global banim_mcd_ax1_5_pal_lz
 banim_mcd_ax1_5_pal_lz:
-	.incbin "banim/banim_mcd_ax1_5_pal.bin.lz"
+	.incbin "graphics/banim/banim_mcd_ax1_5.agbpal.lz"
 	.align 2, 0
 
 @ battle animation 0xB6
@@ -7809,7 +7809,7 @@ banim_mcd_ar1_sheet_5:
 @ battle animation 0xB7
 	.global banim_mcd_ar1_pal_lz
 banim_mcd_ar1_pal_lz:
-	.incbin "banim/banim_mcd_ar1_pal.bin.lz"
+	.incbin "graphics/banim/banim_mcd_ar1.agbpal.lz"
 	.align 2, 0
 
 @ battle animation 0xB7
@@ -7838,7 +7838,7 @@ banim_mcd_ar1_modes:
 @ battle animation 0xB8
 	.global banim_mcd_ax1_6_pal_lz
 banim_mcd_ax1_6_pal_lz:
-	.incbin "banim/banim_mcd_ax1_6_pal.bin.lz"
+	.incbin "graphics/banim/banim_mcd_ax1_6.agbpal.lz"
 	.align 2, 0
 
 @ battle animation 0xB8
@@ -7891,7 +7891,7 @@ banim_bgl_mg1_sheet_2:
 @ battle animation 0xB9
 	.global banim_bgl_mg1_pal_lz
 banim_bgl_mg1_pal_lz:
-	.incbin "banim/banim_bgl_mg1_pal.bin.lz"
+	.incbin "graphics/banim/banim_bgl_mg1.agbpal.lz"
 	.align 2, 0
 
 @ battle animation 0xB9
@@ -7920,7 +7920,7 @@ banim_bgl_mg1_modes:
 @ battle animation 0xBA
 	.global banim_bgl_mg1_2_pal_lz
 banim_bgl_mg1_2_pal_lz:
-	.incbin "banim/banim_bgl_mg1_2_pal.bin.lz"
+	.incbin "graphics/banim/banim_bgl_mg1_2.agbpal.lz"
 	.align 2, 0
 
 @ battle animation 0xBA
@@ -7997,7 +7997,7 @@ banim_gog_mg1_sheet_6:
 @ battle animation 0xBB
 	.global banim_gog_mg1_pal_lz
 banim_gog_mg1_pal_lz:
-	.incbin "banim/banim_gog_mg1_pal.bin.lz"
+	.incbin "graphics/banim/banim_gog_mg1.agbpal.lz"
 	.align 2, 0
 
 @ battle animation 0xBB
@@ -8098,7 +8098,7 @@ banim_gar_sp1_sheet_10:
 @ battle animation 0xBC
 	.global banim_gar_sp1_pal_lz
 banim_gar_sp1_pal_lz:
-	.incbin "banim/banim_gar_sp1_pal.bin.lz"
+	.incbin "graphics/banim/banim_gar_sp1.agbpal.lz"
 	.align 2, 0
 
 @ battle animation 0xBC
@@ -8127,7 +8127,7 @@ banim_gar_sp1_modes:
 @ battle animation 0xBD
 	.global banim_gar_sp1_2_pal_lz
 banim_gar_sp1_2_pal_lz:
-	.incbin "banim/banim_gar_sp1_2_pal.bin.lz"
+	.incbin "graphics/banim/banim_gar_sp1_2.agbpal.lz"
 	.align 2, 0
 
 @ battle animation 0xBD
@@ -8156,7 +8156,7 @@ banim_gar_sp1_2_modes:
 @ battle animation 0xBE
 	.global banim_gar_sp1_3_pal_lz
 banim_gar_sp1_3_pal_lz:
-	.incbin "banim/banim_gar_sp1_3_pal.bin.lz"
+	.incbin "graphics/banim/banim_gar_sp1_3.agbpal.lz"
 	.align 2, 0
 
 @ battle animation 0xBE
@@ -8185,7 +8185,7 @@ banim_gar_sp1_3_modes:
 @ battle animation 0xBF
 	.global banim_gar_sp1_4_pal_lz
 banim_gar_sp1_4_pal_lz:
-	.incbin "banim/banim_gar_sp1_4_pal.bin.lz"
+	.incbin "graphics/banim/banim_gar_sp1_4.agbpal.lz"
 	.align 2, 0
 
 @ battle animation 0xBF
@@ -8220,7 +8220,7 @@ banim_drz_mg1_sheet_0:
 @ battle animation 0xC0
 	.global banim_drz_mg1_pal_lz
 banim_drz_mg1_pal_lz:
-	.incbin "banim/banim_drz_mg1_pal.bin.lz"
+	.incbin "graphics/banim/banim_drz_mg1.agbpal.lz"
 	.align 2, 0
 
 @ battle animation 0xC0
@@ -8309,7 +8309,7 @@ banim_bos_at1_sheet_9:
 @ battle animation 0xC1
 	.global banim_bos_at1_pal_lz
 banim_bos_at1_pal_lz:
-	.incbin "banim/banim_bos_at1_pal.bin.lz"
+	.incbin "graphics/banim/banim_bos_at1.agbpal.lz"
 	.align 2, 0
 
 @ battle animation 0xC1
@@ -8338,7 +8338,7 @@ banim_bos_at1_modes:
 @ battle animation 0xC2
 	.global banim_bos_at1_2_pal_lz
 banim_bos_at1_2_pal_lz:
-	.incbin "banim/banim_bos_at1_2_pal.bin.lz"
+	.incbin "graphics/banim/banim_bos_at1_2.agbpal.lz"
 	.align 2, 0
 
 @ battle animation 0xC2
@@ -8415,7 +8415,7 @@ banim_fifd_mg1_sheet_6:
 @ battle animation 0xC3
 	.global banim_fifd_mg1_pal_lz
 banim_fifd_mg1_pal_lz:
-	.incbin "banim/banim_fifd_mg1_pal.bin.lz"
+	.incbin "graphics/banim/banim_fifd_mg1.agbpal.lz"
 	.align 2, 0
 
 @ battle animation 0xC3
@@ -8468,7 +8468,7 @@ banim_fifd_he1_sheet_3:
 @ battle animation 0xC4
 	.global banim_fifd_he1_pal_lz
 banim_fifd_he1_pal_lz:
-	.incbin "banim/banim_fifd_he1_pal.bin.lz"
+	.incbin "graphics/banim/banim_fifd_he1.agbpal.lz"
 	.align 2, 0
 
 @ battle animation 0xC4
@@ -8521,7 +8521,7 @@ banim_fifd_hk1_sheet_3:
 @ battle animation 0xC5
 	.global banim_fifd_hk1_pal_lz
 banim_fifd_hk1_pal_lz:
-	.incbin "banim/banim_fifd_hk1_pal.bin.lz"
+	.incbin "graphics/banim/banim_fifd_hk1.agbpal.lz"
 	.align 2, 0
 
 @ battle animation 0xC5
@@ -8556,7 +8556,7 @@ banim_mf_mi1_sheet_0:
 @ battle animation 0xC6
 	.global banim_mf_mi1_pal_lz
 banim_mf_mi1_pal_lz:
-	.incbin "banim/banim_mf_mi1_pal.bin.lz"
+	.incbin "graphics/banim/banim_mf_mi1.agbpal.lz"
 	.align 2, 0
 
 @ battle animation 0xC6
@@ -8585,7 +8585,7 @@ banim_mf_mi1_modes:
 @ battle animation 0xC7
 	.global banim_prif_ro1_2_pal_lz
 banim_prif_ro1_2_pal_lz:
-	.incbin "banim/banim_prif_ro1_2_pal.bin.lz"
+	.incbin "graphics/banim/banim_prif_ro1_2.agbpal.lz"
 	.align 2, 0
 
 @ battle animation 0xC7
@@ -8613,7 +8613,7 @@ banim_prif_ro1_2_modes:
 
 	.global banim_fifd_mg1_2_pal_lz
 banim_fifd_mg1_2_pal_lz:
-	.incbin "banim/banim_fifd_mg1_2_pal.bin.lz"
+	.incbin "graphics/banim/banim_fifd_mg1_2.agbpal.lz"
 	.align 2, 0
 
 @ battle animation 0xC8
