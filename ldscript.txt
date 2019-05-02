@@ -208,7 +208,8 @@ SECTIONS
         . = ALIGN(4); src/mu.o(.rodata);
         . = ALIGN(4); data/muctrl_rodata.o(.rodata);
         . = ALIGN(4); data/const_data_205714.o(.rodata);
-        . = ALIGN(4); data/m4a_tables.o(.rodata);
+        . = ALIGN(4); src/m4a_tables.o(.rodata);
+        . = ALIGN(4); data/sound_data.o(.rodata);
         . = ALIGN(4); tools/agbcc/lib/libc.a:vfprintf.o(.rodata);
         . = ALIGN(4); tools/agbcc/lib/libc.a:dtoa.o(.rodata);
         . = ALIGN(4); tools/agbcc/lib/libc.a:impure.o(.rodata);
