@@ -241,8 +241,10 @@ SECTIONS
         . = ALIGN(4); tools/agbcc/lib/libc.a:locale.o(.data);
         . = ALIGN(4); tools/agbcc/lib/libc.a:mallocr.o(.data);
         . = ALIGN(4); data/data_B1FE7C.o(.data);
-        . = ALIGN(4); data/data_banim.o(.data);
-        . = ALIGN(4); data/data_E45ED4.o(.data);
+        . = 0xC00000; src/banim_data.o(.data.banim_array_len);
+        . = 0xC00008; src/banim_data.o(.data.banim_array);
+        . = 0xC02000; data/data_banim.o(.data);
+        . = ALIGN(4); data/data_E47180.o(.data);
     } = 0
 
     /* Discard everything not specifically mentioned above. */

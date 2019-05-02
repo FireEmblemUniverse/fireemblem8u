@@ -19554,7 +19554,7 @@ sub_80599E8: @ 0x080599E8
 	mov r5, r8
 	push {r5, r6, r7}
 	sub sp, #4
-	ldr r0, _08059BD8  @ banim_table
+	ldr r0, _08059BD8  @ banim_data
 	mov sl, r0
 	ldr r1, _08059BDC  @ gUnknown_0201FB1C
 	movs r0, #0
@@ -19784,7 +19784,7 @@ _08059B88:
 	str r0, [r2]
 	b _08059C72
 	.align 2, 0
-_08059BD8: .4byte banim_table
+_08059BD8: .4byte banim_data
 _08059BDC: .4byte gUnknown_0201FB1C
 _08059BE0: .4byte gUnknown_0203E104
 _08059BE4: .4byte gUnknown_0203E182
@@ -20956,7 +20956,7 @@ sub_805A5A8: @ 0x0805A5A8
 	push {r4, r5, r6, lr}
 	adds r6, r0, #0
 	ldr r5, [r6, #0x44]
-	ldr r4, _0805A600  @ banim_table
+	ldr r4, _0805A600  @ banim_data
 	bl sub_805A154
 	cmp r0, #0
 	bne _0805A5FA
@@ -20997,7 +20997,7 @@ _0805A5FA:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_0805A600: .4byte banim_table
+_0805A600: .4byte banim_data
 _0805A604: .4byte gUnknown_080DAEF0
 _0805A608: .4byte 0x000057F0
 
@@ -21010,7 +21010,7 @@ sub_805A60C: @ 0x0805A60C
 	push {r5, r6, r7}
 	sub sp, #4
 	adds r4, r0, #0
-	ldr r0, _0805A694  @ banim_table
+	ldr r0, _0805A694  @ banim_data
 	mov r9, r0
 	ldr r2, _0805A698  @ gUnknown_080DAEF0
 	ldrh r1, [r4, #0xa]
@@ -21071,7 +21071,7 @@ _0805A67C:
 	adds r1, r5, r2
 	b _0805A6B2
 	.align 2, 0
-_0805A694: .4byte banim_table
+_0805A694: .4byte banim_data
 _0805A698: .4byte gUnknown_080DAEF0
 _0805A69C: .4byte gUnknown_085B9D5C
 _0805A6A0: .4byte 0x000057F0
@@ -21217,7 +21217,7 @@ sub_805A7B4: @ 0x0805A7B4
 	mov r5, r8
 	push {r5, r6, r7}
 	adds r7, r0, #0
-	ldr r0, _0805A82C  @ banim_table
+	ldr r0, _0805A82C  @ banim_data
 	mov sl, r0
 	ldr r2, _0805A830  @ gUnknown_080DAEF0
 	ldrh r0, [r7, #0xa]
@@ -21272,7 +21272,7 @@ _0805A816:
 	adds r1, r4, r2
 	b _0805A84A
 	.align 2, 0
-_0805A82C: .4byte banim_table
+_0805A82C: .4byte banim_data
 _0805A830: .4byte gUnknown_080DAEF0
 _0805A834: .4byte gUnknown_085B9D5C
 _0805A838: .4byte 0x000057F0
@@ -62103,7 +62103,7 @@ _0806F664: .4byte gUnknown_085D99C4
 sub_806F668: @ 0x0806F668
 	push {r4, r5, r6, lr}
 	adds r6, r0, #0
-	ldr r0, _0806F6A8  @ banim_table
+	ldr r0, _0806F6A8  @ banim_data
 	movs r1, #0xc4
 	lsls r1, r1, #5
 	adds r0, r0, r1
@@ -62129,7 +62129,7 @@ sub_806F668: @ 0x0806F668
 	pop {r0}
 	bx r0
 	.align 2, 0
-_0806F6A8: .4byte banim_table
+_0806F6A8: .4byte banim_data
 _0806F6AC: .4byte gUnknown_0201C790
 _0806F6B0: .4byte gUnknown_02022AE8
 
@@ -64429,7 +64429,7 @@ _080708F8: .4byte gUnknown_08758754
 sub_80708FC: @ 0x080708FC
 	push {r4, r5, r6, lr}
 	adds r6, r0, #0
-	ldr r4, _08070940  @ banim_table
+	ldr r4, _08070940  @ banim_data
 	ldr r5, [r6, #0x5c]
 	movs r0, #0
 	strh r0, [r6, #0x2c]
@@ -64456,7 +64456,7 @@ sub_80708FC: @ 0x080708FC
 	bl CpuFastSet
 	b _08070956
 	.align 2, 0
-_08070940: .4byte banim_table
+_08070940: .4byte banim_data
 _08070944: .4byte gUnknown_0201C790
 _08070948: .4byte gUnknown_02022B88
 _0807094C:
@@ -64561,7 +64561,7 @@ sub_8070A14: @ 0x08070A14
 	push {r4, r5, r6, r7, lr}
 	adds r6, r0, #0
 	ldr r5, [r6, #0x5c]
-	ldr r7, _08070A60  @ banim_table
+	ldr r7, _08070A60  @ banim_data
 	adds r0, r5, #0
 	bl GetAISSubjectId
 	adds r4, r0, #0
@@ -64591,7 +64591,7 @@ sub_8070A14: @ 0x08070A14
 	bl Proc_ClearNativeCallback
 	b _08070ADA
 	.align 2, 0
-_08070A60: .4byte banim_table
+_08070A60: .4byte banim_data
 _08070A64: .4byte gUnknown_0203E152
 _08070A68: .4byte gUnknown_0203E118
 _08070A6C: .4byte 0x0000FFFF
