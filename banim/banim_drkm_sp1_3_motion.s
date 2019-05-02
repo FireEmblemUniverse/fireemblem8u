@@ -1,5 +1,4 @@
 @ vim:ft=armv4
-	.global banim_drkm_sp1_3_modes
 	.global banim_drkm_sp1_3_script
 	.global banim_drkm_sp1_3_oam_r
 	.global banim_drkm_sp1_3_oam_l
@@ -2553,7 +2552,6 @@ banim_drkm_sp1_3_mode_attack_miss:
 	banim_code_end_dodge
 	banim_code_end_mode
 	.section .data.modes
-banim_drkm_sp1_3_modes:
 	.word banim_drkm_sp1_3_mode_attack_close - banim_drkm_sp1_3_script
 	.word banim_drkm_sp1_3_mode_attack_close_back - banim_drkm_sp1_3_script
 	.word banim_drkm_sp1_3_mode_attack_close_critical - banim_drkm_sp1_3_script

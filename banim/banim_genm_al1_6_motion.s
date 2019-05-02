@@ -1,5 +1,4 @@
 @ vim:ft=armv4
-	.global banim_genm_al1_6_modes
 	.global banim_genm_al1_6_script
 	.global banim_genm_al1_6_oam_r
 	.global banim_genm_al1_6_oam_l
@@ -1978,7 +1977,6 @@ banim_genm_al1_6_mode_attack_miss:
 	banim_code_end_dodge
 	banim_code_end_mode
 	.section .data.modes
-banim_genm_al1_6_modes:
 	.word banim_genm_al1_6_mode_attack_close - banim_genm_al1_6_script
 	.word banim_genm_al1_6_mode_attack_close_back - banim_genm_al1_6_script
 	.word banim_genm_al1_6_mode_attack_close_critical - banim_genm_al1_6_script

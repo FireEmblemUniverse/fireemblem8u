@@ -1,5 +1,4 @@
 @ vim:ft=armv4
-	.global banim_warm_ar1_modes
 	.global banim_warm_ar1_script
 	.global banim_warm_ar1_oam_r
 	.global banim_warm_ar1_oam_l
@@ -892,7 +891,6 @@ banim_warm_ar1_mode_attack_miss:
 	banim_code_end_dodge
 	banim_code_end_mode
 	.section .data.modes
-banim_warm_ar1_modes:
 	.word banim_warm_ar1_mode_attack_close - banim_warm_ar1_script
 	.word banim_warm_ar1_mode_attack_close_back - banim_warm_ar1_script
 	.word banim_warm_ar1_mode_attack_close_critical - banim_warm_ar1_script

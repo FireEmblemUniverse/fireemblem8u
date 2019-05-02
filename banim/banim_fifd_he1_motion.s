@@ -1,5 +1,4 @@
 @ vim:ft=armv4
-	.global banim_fifd_he1_modes
 	.global banim_fifd_he1_script
 	.global banim_fifd_he1_oam_r
 	.global banim_fifd_he1_oam_l
@@ -423,7 +422,6 @@ banim_fifd_he1_mode_attack_miss:
 	banim_code_frame 4, banim_fifd_he1_sheet_0, 0, banim_fifd_he1_oam_frame_0_r - banim_fifd_he1_oam_r
 	banim_code_end_mode
 	.section .data.modes
-banim_fifd_he1_modes:
 	.word banim_fifd_he1_mode_attack_close - banim_fifd_he1_script
 	.word banim_fifd_he1_mode_attack_close_back - banim_fifd_he1_script
 	.word banim_fifd_he1_mode_attack_close_critical - banim_fifd_he1_script

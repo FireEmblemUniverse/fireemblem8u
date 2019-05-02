@@ -1,5 +1,4 @@
 @ vim:ft=armv4
-	.global banim_mcd_ax1_3_modes
 	.global banim_mcd_ax1_3_script
 	.global banim_mcd_ax1_3_oam_r
 	.global banim_mcd_ax1_3_oam_l
@@ -159,7 +158,6 @@ banim_mcd_ax1_3_mode_attack_miss:
 	banim_code_wait_hp_deplete
 	banim_code_end_mode
 	.section .data.modes
-banim_mcd_ax1_3_modes:
 	.word banim_mcd_ax1_3_mode_attack_close - banim_mcd_ax1_3_script
 	.word banim_mcd_ax1_3_mode_attack_close_back - banim_mcd_ax1_3_script
 	.word banim_mcd_ax1_3_mode_attack_close_critical - banim_mcd_ax1_3_script

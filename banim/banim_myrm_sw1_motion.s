@@ -1,5 +1,4 @@
 @ vim:ft=armv4
-	.global banim_myrm_sw1_modes
 	.global banim_myrm_sw1_script
 	.global banim_myrm_sw1_oam_r
 	.global banim_myrm_sw1_oam_l
@@ -1742,7 +1741,6 @@ banim_myrm_sw1_mode_attack_miss:
 	banim_code_end_dodge
 	banim_code_end_mode
 	.section .data.modes
-banim_myrm_sw1_modes:
 	.word banim_myrm_sw1_mode_attack_close - banim_myrm_sw1_script
 	.word banim_myrm_sw1_mode_attack_close_back - banim_myrm_sw1_script
 	.word banim_myrm_sw1_mode_attack_close_critical - banim_myrm_sw1_script

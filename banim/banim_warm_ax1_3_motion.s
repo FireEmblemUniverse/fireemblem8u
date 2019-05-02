@@ -1,5 +1,4 @@
 @ vim:ft=armv4
-	.global banim_warm_ax1_3_modes
 	.global banim_warm_ax1_3_script
 	.global banim_warm_ax1_3_oam_r
 	.global banim_warm_ax1_3_oam_l
@@ -179,7 +178,6 @@ banim_warm_ax1_3_mode_stand_range:
 	banim_code_wait_hp_deplete
 	banim_code_end_mode
 	.section .data.modes
-banim_warm_ax1_3_modes:
 	.word banim_warm_ax1_3_mode_attack_close - banim_warm_ax1_3_script
 	.word banim_warm_ax1_3_mode_attack_close_back - banim_warm_ax1_3_script
 	.word banim_warm_ax1_3_mode_attack_close_critical - banim_warm_ax1_3_script

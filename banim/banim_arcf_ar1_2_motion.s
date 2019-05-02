@@ -1,5 +1,4 @@
 @ vim:ft=armv4
-	.global banim_arcf_ar1_2_modes
 	.global banim_arcf_ar1_2_script
 	.global banim_arcf_ar1_2_oam_r
 	.global banim_arcf_ar1_2_oam_l
@@ -169,7 +168,6 @@ banim_arcf_ar1_2_mode_attack_miss:
 	banim_code_frame 4, banim_arcf_ar1_sheet_0, 0, banim_arcf_ar1_2_oam_frame_0_r - banim_arcf_ar1_2_oam_r
 	banim_code_end_mode
 	.section .data.modes
-banim_arcf_ar1_2_modes:
 	.word banim_arcf_ar1_2_mode_attack_close - banim_arcf_ar1_2_script
 	.word banim_arcf_ar1_2_mode_attack_close_back - banim_arcf_ar1_2_script
 	.word banim_arcf_ar1_2_mode_attack_close_critical - banim_arcf_ar1_2_script

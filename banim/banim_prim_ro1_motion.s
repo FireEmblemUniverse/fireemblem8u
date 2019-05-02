@@ -1,5 +1,4 @@
 @ vim:ft=armv4
-	.global banim_prim_ro1_modes
 	.global banim_prim_ro1_script
 	.global banim_prim_ro1_oam_r
 	.global banim_prim_ro1_oam_l
@@ -167,7 +166,6 @@ banim_prim_ro1_mode_stand_range:
 	banim_code_wait_hp_deplete
 	banim_code_end_mode
 	.section .data.modes
-banim_prim_ro1_modes:
 	.word banim_prim_ro1_mode_attack_close - banim_prim_ro1_script
 	.word banim_prim_ro1_mode_attack_close_back - banim_prim_ro1_script
 	.word banim_prim_ro1_mode_attack_close_critical - banim_prim_ro1_script

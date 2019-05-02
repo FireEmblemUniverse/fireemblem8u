@@ -1,5 +1,4 @@
 @ vim:ft=armv4
-	.global banim_sagf_mg1_modes
 	.global banim_sagf_mg1_script
 	.global banim_sagf_mg1_oam_r
 	.global banim_sagf_mg1_oam_l
@@ -1277,7 +1276,6 @@ banim_sagf_mg1_mode_attack_miss:
 	banim_code_end_dodge
 	banim_code_end_mode
 	.section .data.modes
-banim_sagf_mg1_modes:
 	.word banim_sagf_mg1_mode_attack_close - banim_sagf_mg1_script
 	.word banim_sagf_mg1_mode_attack_close_back - banim_sagf_mg1_script
 	.word banim_sagf_mg1_mode_attack_close_critical - banim_sagf_mg1_script

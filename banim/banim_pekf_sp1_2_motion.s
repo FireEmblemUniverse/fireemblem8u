@@ -1,5 +1,4 @@
 @ vim:ft=armv4
-	.global banim_pekf_sp1_2_modes
 	.global banim_pekf_sp1_2_script
 	.global banim_pekf_sp1_2_oam_r
 	.global banim_pekf_sp1_2_oam_l
@@ -290,7 +289,6 @@ banim_pekf_sp1_2_mode_attack_miss:
 	banim_code_end_dodge
 	banim_code_end_mode
 	.section .data.modes
-banim_pekf_sp1_2_modes:
 	.word banim_pekf_sp1_2_mode_attack_close - banim_pekf_sp1_2_script
 	.word banim_pekf_sp1_2_mode_attack_close_back - banim_pekf_sp1_2_script
 	.word banim_pekf_sp1_2_mode_attack_close_critical - banim_pekf_sp1_2_script

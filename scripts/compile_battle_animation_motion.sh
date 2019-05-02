@@ -8,6 +8,7 @@ cd banim
 if [ $# -eq 0 ]
 then
     PATH=$PATH:$DEVKITARM:$DEVKITPRO
+    echo $PATH
     as=arm-none-eabi-as
     objcopy=arm-none-eabi-objcopy
 else

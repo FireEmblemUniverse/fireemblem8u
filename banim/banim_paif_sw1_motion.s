@@ -1,5 +1,4 @@
 @ vim:ft=armv4
-	.global banim_paif_sw1_modes
 	.global banim_paif_sw1_script
 	.global banim_paif_sw1_oam_r
 	.global banim_paif_sw1_oam_l
@@ -2142,7 +2141,6 @@ banim_paif_sw1_mode_attack_miss:
 	banim_code_end_dodge
 	banim_code_end_mode
 	.section .data.modes
-banim_paif_sw1_modes:
 	.word banim_paif_sw1_mode_attack_close - banim_paif_sw1_script
 	.word banim_paif_sw1_mode_attack_close_back - banim_paif_sw1_script
 	.word banim_paif_sw1_mode_attack_close_critical - banim_paif_sw1_script
