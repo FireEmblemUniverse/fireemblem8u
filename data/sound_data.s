@@ -1,7 +1,7 @@
 	.section .rodata
 
-    .align 4
-    .incbin "baserom.gba", 0x207470, 0x1CF94 @ voicegroup data
+	.align 4
+	.incbin "baserom.gba", 0x207470, 0x1CF94 @ voicegroup data
 
 	.global gMPlayTable
 gMPlayTable:  @ 0x08224404
