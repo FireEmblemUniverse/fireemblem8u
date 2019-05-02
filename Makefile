@@ -11,9 +11,9 @@ CC1_OLD  := tools/agbcc/bin/old_agbcc$(EXE)
 #include $(DEVKITARM)
 PREFIX = arm-none-eabi-
 export CPP := cpp
-export AS := $(PREFIX)as
-export LD := $(PREFIX)ld
-export OBJCOPY := $(PREFIX)objcopy
+export AS := $(PREFIX)as$(EXE)
+export LD := $(PREFIX)ld$(EXE)
+export OBJCOPY := $(PREFIX)objcopy$(EXE)
 #CPP      := $(DEVKITARM)/bin/arm-none-eabi-cpp
 #AS       := $(DEVKITARM)/bin/arm-none-eabi-as
 #LD       := $(DEVKITARM)/bin/arm-none-eabi-ld
