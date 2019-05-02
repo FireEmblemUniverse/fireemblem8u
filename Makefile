@@ -41,7 +41,7 @@ SYM_FILES    := sym_iwram.txt sym_ewram.txt
 CFILES       := $(wildcard src/*.c)
 ASM_S_FILES  := $(wildcard asm/*.s)
 LIBC_S_FILES := $(wildcard asm/libc/*.s)
-DATA_S_FILES := $(wildcard data/*.s)
+DATA_S_FILES := $(wildcard data/*.s) 
 SFILES       := $(ASM_S_FILES) $(LIBC_S_FILES) $(DATA_S_FILES)
 C_OBJECTS    := $(CFILES:.c=.o)
 ASM_OBJECTS  := $(SFILES:.s=.o)
@@ -60,14 +60,11 @@ src/bmitem.o: CC1FLAGS += -Wno-error
 compare: $(ROM)
 	sha1sum -c checksum.sha1
 
-.PHONY: battleanim
-
-battleanim:
-	./scripts/compile_battle_animation_motion.sh $(AS) $(OBJCOPY)
-
 clean:
 	find . \( -iname '*.1bpp' -o -iname '*.4bpp' -o -iname '*.8bpp' -o -iname '*.gbapal' -o -iname '*.lz' -o -iname '*.latfont' -o -iname '*.hwjpnfont' -o -iname '*.fwjpnfont' \) -exec rm {} +
 	$(RM) $(ROM) $(ELF) $(MAP) $(ALL_OBJECTS) src/*.s graphics/*.h -r $(DEPS_DIR)
+	# Remove battle animation binaries
+	$(RM) data/banim/*.bin
 
 # Graphics Recipes
 
@@ -86,6 +83,20 @@ clean:
 
 %.4bpp.h: %.4bpp
 	$(BIN2C) $< $(subst .,_,$(notdir $<)) | sed 's/^const //' > $@
+
+# Battle Animation Recipes
+
+%_script.bin: %_motion.o
+	$(OBJCOPY) -O binary -j .data.script $< $@
+
+%_modes.bin: %_motion.o
+	$(OBJCOPY) -O binary -j .data.modes $< $@
+
+%_oam_l.bin: %_motion.o
+	$(OBJCOPY) -O binary -j .data.oam_l $< $@
+
+%_oam_r.bin: %_motion.o
+	$(OBJCOPY) -O binary -j .data.oam_r $< $@
 
 #### Recipes ####
 
