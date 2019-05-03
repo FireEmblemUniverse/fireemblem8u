@@ -8,8 +8,8 @@
     .incbin "baserom.gba", 0x224150, 0x204 @ keysplit_tables.inc [unused]
     .incbin "baserom.gba", 0x224354, 0xB0 @ programmable_wave_data.inc
 
-	.include "sound/music_player_table.inc"
-	.include "sound/song_table.inc"
+    .include "sound/music_player_table.inc"
+    .include "sound/song_table.inc"
     
     .incbin "baserom.gba", 0x2263B4, 0x31FED4 @ direct_sound_data.inc
 

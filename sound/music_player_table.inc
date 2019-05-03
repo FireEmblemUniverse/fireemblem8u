@@ -2,7 +2,7 @@
 
 	.global gMPlayTable
 gMPlayTable:  @ 0x08224404
-	music_player gUnknown_03006440, gUnknown_03001E38, 8, 0
+    music_player gUnknown_03006440, gUnknown_03001E38, 8, 0
     music_player gUnknown_03006650, gUnknown_030020B8, 8, 0
     music_player gUnknown_03006690, gUnknown_03002338, 2, 1
     music_player gUnknown_03006760, gUnknown_030023D8, 2, 1
