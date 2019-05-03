@@ -475,6 +475,3 @@
     .extern banim_ska_ar1_sheet_discarded
     .extern banim_sks_sp1_sheet_1_discarded
 
-    @ test: replace pointers to sheet images with absolute addresses
-    .include "../include/banim_sheet_addr.inc"
-

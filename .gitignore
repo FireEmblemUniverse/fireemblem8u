@@ -67,7 +67,7 @@ tools/agbcc
 *.4bpp.h
 *.8bpp.h
 *.lz
-banim/*.bin
+data/banim/*.bin
 
 # =========================
 # Dump Scripts Output

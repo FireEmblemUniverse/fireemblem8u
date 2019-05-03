@@ -45,7 +45,7 @@ DATA_S_FILES := $(wildcard data/*.s)
 SFILES       := $(ASM_S_FILES) $(LIBC_S_FILES) $(DATA_S_FILES)
 C_OBJECTS    := $(CFILES:.c=.o)
 ASM_OBJECTS  := $(SFILES:.s=.o)
-ALL_OBJECTS  := $(C_OBJECTS) $(ASM_OBJECTS)
+ALL_OBJECTS  := $(C_OBJECTS) $(ASM_OBJECTS) data/banim/data_banim.o
 DEPS_DIR     := .dep
 
 # Use the older compiler to build library code
@@ -64,7 +64,7 @@ clean:
 	find . \( -iname '*.1bpp' -o -iname '*.4bpp' -o -iname '*.8bpp' -o -iname '*.gbapal' -o -iname '*.lz' -o -iname '*.latfont' -o -iname '*.hwjpnfont' -o -iname '*.fwjpnfont' \) -exec rm {} +
 	$(RM) $(ROM) $(ELF) $(MAP) $(ALL_OBJECTS) src/*.s graphics/*.h -r $(DEPS_DIR)
 	# Remove battle animation binaries
-	$(RM) data/banim/*.bin data/banim/*.o
+	$(RM) data/banim/*.bin data/banim/*.o data/banim/*.lz data/banim/*.bak
 
 # Graphics Recipes
 
@@ -86,8 +86,8 @@ clean:
 
 # Battle Animation Recipes
 
-%_script.bin: %_motion.o
-	$(OBJCOPY) -O binary -j .data.script $< $@
+data/banim/data_banim.o: $(shell ./scripts/arm_compressing_linker.py -t linker_script_banim.txt -m)
+	./scripts/arm_compressing_linker.py -o $@ -t linker_script_banim.txt -b 0x8c02000 -l $(LD) --objcopy $(OBJCOPY) -c ./scripts/compressor.py
 
 %_modes.bin: %_motion.o
 	$(OBJCOPY) -O binary -j .data.modes $< $@
