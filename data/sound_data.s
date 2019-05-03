@@ -5,12 +5,12 @@
 
     .align 4
     .incbin "baserom.gba", 0x207470, 0x1CCE0 @ voice_groups.inc
-    .incbin "baserom.gba", 0x224150, 0x204 @ keysplit_tables.inc [unused]
-    .incbin "baserom.gba", 0x224354, 0xB0 @ programmable_wave_data.inc
 
+    .include "sound/keysplit_tables.inc" @ unused
+    .include "sound/programmable_wave_data.inc"
     .include "sound/music_player_table.inc"
     .include "sound/song_table.inc"
-    
+
     .incbin "baserom.gba", 0x2263B4, 0x31FED4 @ direct_sound_data.inc
 
 @ TODO: Disassemble and link these songs in via linker script like other repositories.
