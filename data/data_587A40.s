@@ -1,4 +1,5 @@
 	.include "proc.inc"
+    .include "macro.inc"
 
 	.section .data
 
@@ -96,11 +97,51 @@ gUnknown_08591122:  @ 0x08591122
 
 	.global gUnknown_08591154
 gUnknown_08591154:  @ 0x08591154
-	.incbin "baserom.gba", 0x591154, 0x38
+    .2byte 1
+    .2byte 0
+    .word gUnknown_080D77B4
+    .2byte 8
+    .2byte 0
+    .word gUnknown_0859A548
+    .2byte 14
+    .2byte 0
+    .word NULL
+    .2byte 2
+    .2byte 0
+    .word Load6CFACEGraphics
+    .2byte 2
+    .2byte 0
+    .word sub_80055BC
+    .2byte 3
+    .2byte 0
+    .word sub_80055BC
+    .2byte 0
+    .2byte 0
+    .word NULL
 
 	.global gUnknown_0859118C
 gUnknown_0859118C:  @ 0x0859118C
-	.incbin "baserom.gba", 0x59118C, 0x38
+    .2byte 1
+    .2byte 0
+    .word gUnknown_080D77B4
+    .2byte 8
+    .2byte 0
+    .word gUnknown_0859A548
+    .2byte 14
+    .2byte 1
+    .word NULL
+    .2byte 2
+    .2byte 0
+    .word Load6CFACEGraphics
+    .2byte 2
+    .2byte 0
+    .word sub_80055BC
+    .2byte 3
+    .2byte 0
+    .word sub_80055BC
+    .2byte 0
+    .2byte 0
+    .word NULL
 
 	.global gUnknown_085911C4
 gUnknown_085911C4:  @ 0x085911C4

@@ -2,7 +2,35 @@
 
     .global gUnknown_08599714
 gUnknown_08599714:  @ 0x08599714
-	.incbin "baserom.gba", 0x599714, 0x8A0
+	.incbin "baserom.gba", 0x599714, 0x20
+
+    .global gUnknown_08599734
+gUnknown_08599734:  @ 0x08599734
+	.incbin "baserom.gba", 0x599734, 0x200
+
+    .global gUnknown_08599934
+gUnknown_08599934:  @ 0x08599934
+	.incbin "baserom.gba", 0x599934, 0x200
+
+    .global gUnknown_08599B34
+gUnknown_08599B34:  @ 0x08599B34
+	.incbin "baserom.gba", 0x599B34, 0x200
+
+    .global gUnknown_08599D34
+gUnknown_08599D34:  @ 0x08599D34
+	.incbin "baserom.gba", 0x599D34, 0x200
+
+    .global gUnknown_08599F34
+gUnknown_08599F34:  @ 0x08599F34
+	.incbin "baserom.gba", 0x599F34, 0x20
+
+    .global gUnknown_08599F54
+gUnknown_08599F54:  @ 0x08599F54
+	.incbin "baserom.gba", 0x599F54, 0x20
+
+    .global gUnknown_08599F74
+gUnknown_08599F74:  @ 0x08599F74
+	.incbin "baserom.gba", 0x599F74, 0x40
 
 	.global gUnknown_08599FB4
 gUnknown_08599FB4:  @ 0x08599FB4
