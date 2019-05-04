@@ -9,6 +9,7 @@
 	.SIZE \name, .-\name
 .ENDM
 
+.set NULL, 0
 
 .MACRO THUMB_FUNC_START name
 	.ALIGN 2, 0
@@ -17,7 +18,6 @@
 	.THUMB_FUNC
 	.TYPE \name, function
 .ENDM
-
 
 .MACRO THUMB_FUNC_END name
 	.SIZE \name, .-\name
