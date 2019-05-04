@@ -23,12 +23,12 @@ void ResetIconGraphics()
 
 void LoadIconPalettes(u32 Dest)
 {
-    CopyToPaletteBuffer(gUnknown_085996F4, Dest << 5, 0x40);
+    CopyToPaletteBuffer(item_icon_palette, Dest << 5, 0x40);
 }
 
 void LoadIconPalette(u32 Index, u32 Dest)
 {
-    CopyToPaletteBuffer((gUnknown_085996F4 + (Index << 3)), Dest << 5, 0x20);
+    CopyToPaletteBuffer((item_icon_palette + (Index << 3)), Dest << 5, 0x20);
 }
 
 int GetNextFreeIcon() // Unused
@@ -76,7 +76,7 @@ u16 GetIconTileIndex(int Index)
         DrawnIconLookupTable[Index].Index = GetIconGfxIndex(Index) + 1;
 
         RegisterTileGraphics(
-            gUnknown_085926F4 + (Index * 0x80),
+            item_icon_tiles + (Index * 0x80),
             (void*)(VRAM + (0x1FFE0 & (VRAM + 0x20 * GetIconGfxTileIndex(DrawnIconLookupTable[Index].Index)))),
             0x80
         );
@@ -121,7 +121,7 @@ void LoadIconObjectGraphics(int Index, int b)
     } else {
         void* pSource;
 
-        pSource = (void *)gUnknown_085926F4;
+        pSource = (void *)item_icon_tiles;
         pSource += Index * 0x80;
 
         RegisterTileGraphics(pSource,        pTarget,         0x40);

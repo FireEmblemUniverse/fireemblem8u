@@ -67,6 +67,7 @@ tools/agbcc
 *.4bpp.h
 *.8bpp.h
 *.lz
+*.fk
 data/banim/*.bin
 
 # =========================
