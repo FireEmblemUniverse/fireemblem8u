@@ -80,6 +80,7 @@ clean:
 %.gbapal: %.png ; $(GBAGFX) $< $@
 %.lz: % ; $(GBAGFX) $< $@
 %.rl: % ; $(GBAGFX) $< $@
+%.fk: % ; ./scripts/compressor.py $< fk
 
 %.4bpp.h: %.4bpp
 	$(BIN2C) $< $(subst .,_,$(notdir $<)) | sed 's/^const //' > $@
