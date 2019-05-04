@@ -1,0 +1,25 @@
+    .section .rodata
+
+	.global gUnknown_080D792C
+gUnknown_080D792C:  @ 0x080D792C
+	.incbin "baserom.gba", 0xD792C, 0x10
+
+	.global gUnknown_080D793C
+gUnknown_080D793C:  @ 0x080D793C
+	.incbin "baserom.gba", 0xD793C, 0x3
+
+	.global gUnknown_080D793F
+gUnknown_080D793F:  @ 0x080D793F
+	.incbin "baserom.gba", 0xD793F, 0xF
+
+	.global gUnknown_080D794E
+gUnknown_080D794E:  @ 0x080D794E
+	.incbin "baserom.gba", 0xD794E, 0x6
+
+	.global gUnknown_080D7954
+gUnknown_080D7954:  @ 0x080D7954
+	.incbin "baserom.gba", 0xD7954, 0x10
+
+	.global gUnknown_080D7964
+gUnknown_080D7964:  @ 0x080D7964
+	.incbin "baserom.gba", 0xD7964, 0x74
