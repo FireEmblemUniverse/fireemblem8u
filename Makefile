@@ -63,8 +63,10 @@ compare: $(ROM)
 clean:
 	find . \( -iname '*.1bpp' -o -iname '*.4bpp' -o -iname '*.8bpp' -o -iname '*.gbapal' -o -iname '*.lz' -o -iname '*.fk' -o -iname '*.latfont' -o -iname '*.hwjpnfont' -o -iname '*.fwjpnfont' \) -exec rm {} +
 	$(RM) $(ROM) $(ELF) $(MAP) $(ALL_OBJECTS) src/*.s graphics/*.h -r $(DEPS_DIR)
+	# Delete all .o files otherwise some object files won't be deleted if you rename the source files
+	find . -name '*.o' -type f -exec rm -rf {} \;
 	# Remove battle animation binaries
-	$(RM) data/banim/*.bin data/banim/*.o data/banim/*.lz data/banim/*.bak
+	$(RM) data/banim/*.bin data/banim/*.bak
 
 # Graphics Recipes
 
