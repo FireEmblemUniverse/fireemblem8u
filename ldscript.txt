@@ -252,10 +252,15 @@ SECTIONS
         . = ALIGN(4); tools/agbcc/lib/libc.a:locale.o(.data);
         . = ALIGN(4); tools/agbcc/lib/libc.a:mallocr.o(.data);
         . = ALIGN(4); data/data_B1FE7C.o(.data);
+        FILL(0xFF);
         . = 0xC00000; src/banim_data.o(.data.banim_array_len);
         . = 0xC00008; src/banim_data.o(.data.banim_array);
+        FILL(0x00); /* TODO: This padding is handled by banim linking process itself? */
         . = 0xC02000; data/banim/data_banim.o(.data);
-        . = ALIGN(4); data/data_E47180.o(.data);
+        FILL(0xFF);
+        . = 0xEE0000; data/data_E47180.o(.data);
+        . = 0xFE0000; data/data_FE0000.o(.data);
+        . = 0xFFF000; data/data_FFF000.o(.data);
     } = 0
 
     /* Discard everything not specifically mentioned above. */
