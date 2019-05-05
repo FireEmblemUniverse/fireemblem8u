@@ -64,6 +64,7 @@ tools/agbcc
 .dep
 *.4bpp
 *.8bpp
+*.gbapal
 *.4bpp.h
 *.8bpp.h
 *.lz

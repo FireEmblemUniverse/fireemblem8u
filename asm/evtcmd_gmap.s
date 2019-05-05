@@ -525,12 +525,12 @@ _0800BD00:
 	beq _0800BD24
 	b _0800BD30
 _0800BD06:
-	ldr r0, _0800BD0C  @ gUnknown_0859EE40
+	ldr r0, _0800BD0C  @ unit_icon_pal_enemy
 	b _0800BD12
 	.align 2, 0
-_0800BD0C: .4byte gUnknown_0859EE40
+_0800BD0C: .4byte unit_icon_pal_enemy
 _0800BD10:
-	ldr r0, _0800BD20  @ gUnknown_0859EE60
+	ldr r0, _0800BD20  @ unit_icon_pal_npc
 _0800BD12:
 	movs r1, #0xe0
 	lsls r1, r1, #2
@@ -538,7 +538,7 @@ _0800BD12:
 	bl CopyToPaletteBuffer
 	b _0800BD30
 	.align 2, 0
-_0800BD20: .4byte gUnknown_0859EE60
+_0800BD20: .4byte unit_icon_pal_npc
 _0800BD24:
 	ldr r0, _0800BD44  @ gUnknown_0859EEE0
 	movs r1, #0xe0
@@ -563,12 +563,12 @@ _0800BD48:
 	beq _0800BD6C
 	b _0800BD78
 _0800BD4E:
-	ldr r0, _0800BD54  @ gUnknown_0859EE20
+	ldr r0, _0800BD54  @ unit_icon_pal_player
 	b _0800BD5A
 	.align 2, 0
-_0800BD54: .4byte gUnknown_0859EE20
+_0800BD54: .4byte unit_icon_pal_player
 _0800BD58:
-	ldr r0, _0800BD68  @ gUnknown_0859EE60
+	ldr r0, _0800BD68  @ unit_icon_pal_npc
 _0800BD5A:
 	movs r1, #0xe8
 	lsls r1, r1, #2
@@ -576,7 +576,7 @@ _0800BD5A:
 	bl CopyToPaletteBuffer
 	b _0800BD78
 	.align 2, 0
-_0800BD68: .4byte gUnknown_0859EE60
+_0800BD68: .4byte unit_icon_pal_npc
 _0800BD6C:
 	ldr r0, _0800BD8C  @ gUnknown_0859EEE0
 	movs r1, #0xe8
@@ -601,12 +601,12 @@ _0800BD90:
 	beq _0800BDB4
 	b _0800BDC0
 _0800BD96:
-	ldr r0, _0800BD9C  @ gUnknown_0859EE20
+	ldr r0, _0800BD9C  @ unit_icon_pal_player
 	b _0800BDA2
 	.align 2, 0
-_0800BD9C: .4byte gUnknown_0859EE20
+_0800BD9C: .4byte unit_icon_pal_player
 _0800BDA0:
-	ldr r0, _0800BDB0  @ gUnknown_0859EE40
+	ldr r0, _0800BDB0  @ unit_icon_pal_enemy
 _0800BDA2:
 	movs r1, #0xf0
 	lsls r1, r1, #2
@@ -614,7 +614,7 @@ _0800BDA2:
 	bl CopyToPaletteBuffer
 	b _0800BDC0
 	.align 2, 0
-_0800BDB0: .4byte gUnknown_0859EE40
+_0800BDB0: .4byte unit_icon_pal_enemy
 _0800BDB4:
 	ldr r0, _0800BDC8  @ gUnknown_0859EEE0
 	movs r1, #0xf0
