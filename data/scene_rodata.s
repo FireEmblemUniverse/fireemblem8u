@@ -12,4 +12,4 @@ gUnknown_080D78EC:  @ 0x080D78EC
 
 	.global gUnknown_080D7908
 gUnknown_080D7908:  @ 0x080D7908
-	.incbin "baserom.gba", 0xD7908, 0x24-0x10
+	.incbin "baserom.gba", 0xD7908, 0x14
