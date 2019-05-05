@@ -192,6 +192,7 @@ SECTIONS
 		. = ALIGN(4); data/trig_rodata.o(.rodata);
 		. = ALIGN(4); src/fontgrp.o(.rodata);
         . = ALIGN(4); data/face_rodata.o(.rodata);
+        . = ALIGN(4); data/scene_rodata.o(.rodata);
         . = ALIGN(4); src/messdecode.o(.rodata);
         . = ALIGN(4); data/const_data_D792C.o(.rodata);
         . = ALIGN(4); src/bmitem.o(.rodata);

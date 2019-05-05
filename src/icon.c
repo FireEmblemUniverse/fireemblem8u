@@ -23,12 +23,12 @@ void ResetIconGraphics()
 
 void LoadIconPalettes(u32 Dest)
 {
-    CopyToPaletteBuffer(item_icon_palette, Dest << 5, 0x40);
+    CopyToPaletteBuffer(&item_icon_palette, Dest << 5, sizeof(item_icon_palette));
 }
 
 void LoadIconPalette(u32 Index, u32 Dest)
 {
-    CopyToPaletteBuffer((item_icon_palette + (Index << 3)), Dest << 5, 0x20);
+    CopyToPaletteBuffer(item_icon_palette[Index], Dest << 5, 0x20);
 }
 
 int GetNextFreeIcon() // Unused
