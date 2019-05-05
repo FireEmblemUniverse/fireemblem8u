@@ -99656,6 +99656,8 @@ NewMapScreen: @ 0x080BABF0
 _080BAC14: .4byte gUnknown_08A3DE84
 _080BAC18: .4byte gUnknown_03005324
 
+.equ gMMSDataTable, unit_icon_move_table
+
 	THUMB_FUNC_START MMS_GetGfx
 MMS_GetGfx: @ 0x080BAC1C
 	lsls r0, r0, #0x10
