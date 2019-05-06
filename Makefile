@@ -78,7 +78,11 @@ include graphics_file_rules.mk
 %.1bpp: %.png  ; $(GBAGFX) $< $@
 %.4bpp: %.png  ; $(GBAGFX) $< $@
 %.8bpp: %.png  ; $(GBAGFX) $< $@
-%.gbapal: %.pal ; $(GBAGFX) $< $@
+%.gbapal: %.pal
+ifneq ($(OS),Windows_NT)
+	unix2dos $<
+endif
+	$(GBAGFX) $< $@
 %.gbapal: %.png ; $(GBAGFX) $< $@
 %.lz: % ; $(GBAGFX) $< $@
 %.rl: % ; $(GBAGFX) $< $@
