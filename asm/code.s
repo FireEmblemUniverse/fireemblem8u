@@ -81,7 +81,7 @@ _08089634:
 	adds r0, r4, #0
 	ands r0, r1
 	strh r0, [r2, #2]
-	ldr r1, _08089668  @ gUnknown_08A01208
+	ldr r1, _08089668  @ chap_title_data
 	lsls r0, r3, #1
 	adds r0, r0, r3
 	lsls r0, r0, #2
@@ -98,7 +98,7 @@ _08089634:
 	.align 2, 0
 _08089660: .4byte gUnknown_0203E78C
 _08089664: .4byte 0x000003FF
-_08089668: .4byte gUnknown_08A01208
+_08089668: .4byte chap_title_data
 
 	THUMB_FUNC_START sub_808966C
 sub_808966C: @ 0x0808966C
