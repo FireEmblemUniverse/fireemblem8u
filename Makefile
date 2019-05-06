@@ -113,7 +113,7 @@ $(ELF): $(ALL_OBJECTS) $(LDSCRIPT) $(SYM_FILES)
 	$(LD) -T $(LDSCRIPT) -Map $(MAP) $(ALL_OBJECTS) tools/agbcc/lib/libgcc.a tools/agbcc/lib/libc.a -o $@
 
 %.gba: %.elf
-	$(OBJCOPY) -O binary --pad-to 0x9000000 $< $@
+	$(OBJCOPY) -O binary --pad-to 0x9000000 --gap-fill=0xff $< $@
 
 $(C_OBJECTS): %.o: %.c $(DEPS_DIR)/%.d
 	@$(MAKEDEP)
