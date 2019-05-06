@@ -15,3 +15,7 @@ typedef struct {
 #define UNIT_ICON_SIZE_16x32 1
 #define UNIT_ICON_SIZE_32x32 2
 
+typedef struct {
+    char *sheet; // animation sheet
+    char *motion; // frames and scripts for different modes
+} UnitIconMove, *pUnitIconMove;

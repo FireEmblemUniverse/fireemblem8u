@@ -208,6 +208,7 @@ SECTIONS
         . = ALIGN(4); data/const_data_1609BC.o(.rodata);
         . = ALIGN(4); data/const_data_unit_icon_wait.o(.rodata);
         . = ALIGN(4); data/const_data_1C0AFC.o(.rodata);
+        . = ALIGN(4); data/const_data_unit_icon_move.o(.rodata);
         . = ALIGN(4); src/mu.o(.rodata);
         . = ALIGN(4); data/muctrl_rodata.o(.rodata);
         . = ALIGN(4); data/const_data_205714.o(.rodata);
@@ -248,6 +249,12 @@ SECTIONS
         . = ALIGN(4); data/data_8AFBD8.o(.data);
         . = ALIGN(4); src/mu.o(.data);
         . = ALIGN(4); data/data_9A2DB0.o(.data);
+        . = ALIGN(4); src/unit_icon_move_data.o(.data);
+        . = ALIGN(4); data/data_9A31F8.o(.data);
+        . = ALIGN(4); src/chap_title_data.o(.data);
+        . = ALIGN(4); data/data_A01628.o(.data);
+        . = ALIGN(4); data/data_chap_title.o(.data);
+        . = ALIGN(4); data/data_A167C8.o(.data);
         . = ALIGN(4); tools/agbcc/lib/libc.a:impure.o(.data);
         . = ALIGN(4); tools/agbcc/lib/libc.a:locale.o(.data);
         . = ALIGN(4); tools/agbcc/lib/libc.a:mallocr.o(.data);

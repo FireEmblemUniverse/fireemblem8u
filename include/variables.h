@@ -3087,6 +3087,7 @@ extern const struct SupportBonuses gAffinityBonuses[];
 // extern ??? gUnknown_089A2D10
 // extern ??? gUnknown_089A2D98
 // extern ??? gUnknown_089A2DB0
+#define gMMSDataTable unit_icon_move_table
 extern const struct MMSData gMMSDataTable[]; // Moving Map Sprite Table
 // extern ??? gUnknown_089A31F8
 // extern ??? gUnknown_089A3238

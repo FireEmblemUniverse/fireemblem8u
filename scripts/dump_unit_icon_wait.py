@@ -36,7 +36,7 @@ def dump_unit_icon_table():
             if size < 3:
                 size = icon_size[size]
             if pSheet in pointers:
-                pSheet = pointers[pSheet]
+                pSheetName = pointers[pSheet]
             else:
                 pSheetName = 'unit_icon_wait_%d_sheet' % i
                 pointers[pSheet] = pSheetName

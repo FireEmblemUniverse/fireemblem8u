@@ -68,6 +68,8 @@ clean:
 
 # Graphics Recipes
 
+include graphics_file_rules.mk
+
 %.s: ;
 %.png: ;
 %.pal: ;
