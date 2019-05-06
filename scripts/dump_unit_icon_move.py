@@ -40,8 +40,11 @@ def dump_unit_icon_move_table():
 def dump_move_animation():
     with open(rom, 'rb') as f_rom, \
         open('out/unit_icon_move_pointer.h', 'w') as f_h, \
+        open('out/unit_icon_move_makefile.mk', 'w') as f_m, \
         open('out/const_data_unit_icon_move.s', 'w') as f_s:
         f_s.write('\t.section .rodata\n')
+        f_m.write('MOVEUNITGFXDIR := graphics/unit_icon/move\n\n')
+        f_m.write('### Move Unit Icon Animation Sheets ###\n\n')
         p_name_pair = sorted(pointers.items(), key=lambda x: x[0])
         i = 0
         for p, name in p_name_pair:
@@ -58,6 +61,10 @@ graphics/unit_icon/move/{0}.4bpp.lz"\n\
                     data.write_uncomp_data(f)
                 tool.save_image('out/{}.4bpp'.format(name), width=4,
                                 palfile='out/unit_icon.gbapal')
+                if data.size != 0x1E00:
+                    tiles = data.size // 32
+                    f_m.write('$(MOVEUNITGFXDIR)/{}.4bpp: %.4bpp: %.png\n\
+\t$(GBAGFX) $< $@ -num_tiles {}\n\n'.format(name, tiles))
             else:
                 if i >= len(p_name_pair):
                     p_next = 0x205700 # end address
