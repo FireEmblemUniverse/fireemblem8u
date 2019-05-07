@@ -17,3 +17,10 @@ typedef struct {
     char abbr[12];
     char *pal;
 } BattleAnimCharaPal, *pBattleAnimCharaPal;
+
+typedef struct {
+    char abbr[12];
+    char *tileset;
+    short *palette;
+    int null_1; // useless, always 00
+} BattleAnimTerrain, *pBattleAnimTerrain;

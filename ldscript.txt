@@ -265,7 +265,10 @@ SECTIONS
         FILL(0x00); /* TODO: This padding is handled by banim linking process itself? */
         . = 0xC02000; data/banim/data_banim.o(.data);
         FILL(0xFF);
-        . = 0xEE0000; data/data_E47180.o(.data);
+        . = 0xEE0000; src/banim_terrain_data.o(.data.banim_terrain_head); src/banim_terrain_data.o(.data.banim_terrain_ptr_table);
+        FILL(0x00);
+        . = 0xEE0C00; data/data_banim_terrain.o(.data);
+        FILL(0xFF);
         _banim_pal_start = 0xEF8000;
         . = _banim_pal_start; 
         src/banim_pal_chara.o(.data.banim_pal_head);
