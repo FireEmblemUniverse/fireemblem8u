@@ -19597,7 +19597,7 @@ sub_80599E8: @ 0x080599E8
 	cmp r5, r0
 	beq _08059A64
 	lsls r0, r5, #4
-	ldr r2, _08059BFC  @ gUnknown_08EF8008
+	ldr r2, _08059BFC  @ character_battle_animation_palette_table
 	adds r0, r0, r2
 	ldr r0, [r0, #0xc]
 	adds r1, r4, #0
@@ -19705,7 +19705,7 @@ _08059ADE:
 	cmp r5, r0
 	beq _08059B46
 	lsls r0, r5, #4
-	ldr r2, _08059BFC  @ gUnknown_08EF8008
+	ldr r2, _08059BFC  @ character_battle_animation_palette_table
 	adds r0, r0, r2
 	ldr r0, [r0, #0xc]
 	adds r1, r4, #0
@@ -19777,7 +19777,7 @@ _08059B88:
 	adds r0, r1, r0
 	ldrb r0, [r0]
 	lsls r0, r0, #4
-	ldr r1, _08059BFC  @ gUnknown_08EF8008
+	ldr r1, _08059BFC  @ character_battle_animation_palette_table
 	adds r0, r0, r1
 	subs r0, #0x10
 	ldr r0, [r0, #0xc]
@@ -19793,7 +19793,7 @@ _08059BEC: .4byte gUnknown_0203E110
 _08059BF0: .4byte gUnknown_0200F1C8
 _08059BF4: .4byte gUnknown_0200005C
 _08059BF8: .4byte gUnknown_02004088
-_08059BFC: .4byte gUnknown_08EF8008
+_08059BFC: .4byte character_battle_animation_palette_table
 _08059C00: .4byte gUnknown_02000054
 _08059C04: .4byte gUnknown_02022B88
 _08059C08: .4byte gUnknown_0203E19C
@@ -19830,7 +19830,7 @@ _08059C44:
 	adds r0, r2, r0
 	ldrb r0, [r0]
 	lsls r0, r0, #4
-	ldr r2, _08059CD0  @ gUnknown_08EF8008
+	ldr r2, _08059CD0  @ character_battle_animation_palette_table
 	adds r0, r0, r2
 	subs r0, #0x10
 	ldr r0, [r0, #0xc]
@@ -19869,7 +19869,7 @@ _08059C72:
 	adds r0, r1, r0
 	ldrb r0, [r0]
 	lsls r0, r0, #4
-	ldr r1, _08059CD0  @ gUnknown_08EF8008
+	ldr r1, _08059CD0  @ character_battle_animation_palette_table
 	adds r0, r0, r1
 	subs r0, #0x10
 	ldr r0, [r0, #0xc]
@@ -19879,7 +19879,7 @@ _08059C72:
 _08059CC4: .4byte gUnknown_0895E0A4
 _08059CC8: .4byte gUnknown_0203E19C
 _08059CCC: .4byte gUnknown_0895EEA4
-_08059CD0: .4byte gUnknown_08EF8008
+_08059CD0: .4byte character_battle_animation_palette_table
 _08059CD4: .4byte gUnknown_0203E194
 _08059CD8:
 	adds r0, r3, #1
@@ -19900,7 +19900,7 @@ _08059CD8:
 	adds r0, r2, r0
 	ldrb r0, [r0]
 	lsls r0, r0, #4
-	ldr r2, _08059D24  @ gUnknown_08EF8008
+	ldr r2, _08059D24  @ character_battle_animation_palette_table
 	adds r0, r0, r2
 	subs r0, #0x10
 	ldr r0, [r0, #0xc]
@@ -19918,7 +19918,7 @@ _08059D06:
 _08059D18: .4byte gUnknown_0895E0A4
 _08059D1C: .4byte gUnknown_0203E19C
 _08059D20: .4byte gUnknown_0895EEA4
-_08059D24: .4byte gUnknown_08EF8008
+_08059D24: .4byte character_battle_animation_palette_table
 
 	THUMB_FUNC_START sub_8059D28
 sub_8059D28: @ 0x08059D28
@@ -21178,7 +21178,7 @@ _0805A752:
 	beq _0805A77E
 	adds r0, r1, #0
 	lsls r0, r0, #4
-	ldr r1, _0805A7AC  @ gUnknown_08EF8008
+	ldr r1, _0805A7AC  @ character_battle_animation_palette_table
 	adds r0, r0, r1
 	ldr r0, [r0, #0xc]
 	ldr r1, [r4, #0x20]
@@ -21206,7 +21206,7 @@ _0805A77E:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_0805A7AC: .4byte gUnknown_08EF8008
+_0805A7AC: .4byte character_battle_animation_palette_table
 _0805A7B0: .4byte gUnknown_02022AA8
 
 	THUMB_FUNC_START sub_805A7B4
@@ -21365,7 +21365,7 @@ _0805A84A:
 	beq _0805A8FA
 	adds r0, r1, #0
 	lsls r0, r0, #4
-	ldr r2, _0805A928  @ gUnknown_08EF8008
+	ldr r2, _0805A928  @ character_battle_animation_palette_table
 	adds r0, r0, r2
 	ldr r0, [r0, #0xc]
 	ldr r1, [r7, #0x20]
@@ -21391,7 +21391,7 @@ _0805A8FA:
 	bx r0
 	.align 2, 0
 _0805A924: .4byte 0x000057F0
-_0805A928: .4byte gUnknown_08EF8008
+_0805A928: .4byte character_battle_animation_palette_table
 _0805A92C: .4byte gUnknown_02022AA8
 
 	THUMB_FUNC_START sub_805A930
