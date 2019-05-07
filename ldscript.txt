@@ -266,6 +266,15 @@ SECTIONS
         . = 0xC02000; data/banim/data_banim.o(.data);
         FILL(0xFF);
         . = 0xEE0000; data/data_E47180.o(.data);
+        _banim_pal_start = 0xEF8000;
+        . = _banim_pal_start; 
+        src/banim_pal_chara.o(.data.banim_pal_head);
+        src/banim_pal_chara.o(.data.banim_pal_ptr_table);
+        FILL(0x00);
+        . = _banim_pal_start + 0x1000; data/data_banim_pal.o(.data);
+        _banim_pal_end = .;
+        _banim_pal_size = . - _banim_pal_start;
+        FILL(0xFF);
         . = 0xFE0000; data/data_FE0000.o(.data);
         . = 0xFFF000; data/data_FFF000.o(.data);
     } = 0
