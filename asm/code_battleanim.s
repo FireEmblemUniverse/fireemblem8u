@@ -4184,7 +4184,7 @@ sub_8051E00: @ 0x08051E00
 	lsls r0, r1, #1
 	adds r0, r0, r1
 	lsls r0, r0, #3
-	ldr r3, _08051E48  @ gUnknown_08EE0008
+	ldr r3, _08051E48  @ battle_terrain_table
 	adds r5, r0, r3
 	movs r6, #2
 	ldrsh r1, [r2, r6]
@@ -4208,7 +4208,7 @@ sub_8051E00: @ 0x08051E00
 	.align 2, 0
 _08051E40: .4byte gUnknown_0201FADC
 _08051E44: .4byte gUnknown_0203E11C
-_08051E48: .4byte gUnknown_08EE0008
+_08051E48: .4byte battle_terrain_table
 _08051E4C: .4byte gUnknown_0203E120
 _08051E50: .4byte gUnknown_020145C8
 _08051E54:
@@ -21581,7 +21581,7 @@ sub_805AA68: @ 0x0805AA68
 	lsls r0, r1, #1
 	adds r0, r0, r1
 	lsls r0, r0, #3
-	ldr r2, _0805AAD0  @ gUnknown_08EE0008
+	ldr r2, _0805AAD0  @ battle_terrain_table
 	adds r0, r0, r2
 	mov r8, r0
 	movs r0, #6
@@ -21622,7 +21622,7 @@ _0805AABC:
 	beq _0805AAD8
 	b _0805AAE2
 	.align 2, 0
-_0805AAD0: .4byte gUnknown_08EE0008
+_0805AAD0: .4byte battle_terrain_table
 _0805AAD4:
 	cmp r0, #4
 	bne _0805AAE2
