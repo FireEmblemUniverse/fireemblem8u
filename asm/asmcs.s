@@ -3967,7 +3967,7 @@ CallRouteSplitMenu: @ 0x080864CC
 	bl LoadUiFrameGraphics
 	ldr r0, _08086510  @ gUnknown_089F36A0
 	adds r1, r4, #0
-	bl NewMenu_DefaultChild
+	bl StartMenu
 	pop {r4}
 	pop {r0}
 	bx r0

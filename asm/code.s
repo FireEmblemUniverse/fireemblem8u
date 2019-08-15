@@ -56784,7 +56784,7 @@ _080A5AEE:
 	adds r0, r7, r2
 	bl SaveTrapStructs
 	mov r0, sl
-	bl sub_804F714
+	bl GetForceDisabledMenuItems
 	ldr r0, _080A5BF8  @ 0x00001F14
 	adds r1, r7, r0
 	mov r0, sl
@@ -56960,7 +56960,7 @@ _080A5C96:
 	movs r2, #0x10
 	bl _call_via_r3
 	mov r0, sp
-	bl sub_804F754
+	bl SetForceDisabledMenuItems
 	ldr r1, _080A5D98  @ 0x00001F44
 	adds r0, r6, r1
 	ldr r1, _080A5D9C  @ gUnknown_03005280
@@ -102912,7 +102912,7 @@ sub_80BC454: @ 0x080BC454
 	ldr r1, _080BC48C  @ gUnknown_08A3E148
 	ldr r1, [r1]
 	adds r2, r4, #0
-	bl NewMenu_BG0BG1
+	bl StartMenuAt
 	pop {r4}
 	pop {r1}
 	bx r1
@@ -103111,7 +103111,7 @@ _080BC5F4:
 _080BC5F8:
 	ldr r1, [r1]
 	adds r2, r5, #0
-	bl NewMenu_BG0BG1
+	bl StartMenuAt
 	adds r3, r0, #0
 	ldr r0, _080BC620  @ gUnknown_03005280
 	adds r0, #0xcd
@@ -137773,7 +137773,7 @@ _080CDA74:
 	THUMB_FUNC_START sub_80CDA84
 sub_80CDA84: @ 0x080CDA84
 	push {lr}
-	bl sub_804F82C
+	bl SyncMenuBgs
 	movs r0, #0
 	pop {r1}
 	bx r1
@@ -137797,9 +137797,9 @@ sub_80CDA90: @ 0x080CDA90
 	ldr r0, [r4, #0x14]
 	bl sub_80CDA4C
 	ldr r0, [r4, #0x14]
-	bl Menu_Draw
+	bl RedrawMenu
 	adds r0, r4, #0
-	bl sub_804F82C
+	bl SyncMenuBgs
 	movs r0, #0
 	pop {r4}
 	pop {r1}
@@ -137846,7 +137846,7 @@ sub_80CDB18: @ 0x080CDB18
 	THUMB_FUNC_START sub_80CDB1C
 sub_80CDB1C: @ 0x080CDB1C
 	push {lr}
-	bl sub_804F82C
+	bl SyncMenuBgs
 	movs r0, #0
 	pop {r1}
 	bx r1
@@ -137854,7 +137854,7 @@ sub_80CDB1C: @ 0x080CDB1C
 	THUMB_FUNC_START sub_80CDB28
 sub_80CDB28: @ 0x080CDB28
 	push {lr}
-	bl sub_804F82C
+	bl SyncMenuBgs
 	movs r0, #0
 	pop {r1}
 	bx r1
@@ -137960,7 +137960,7 @@ _080CDBCA:
 	movs r1, #2
 	movs r2, #0
 	movs r3, #0
-	bl NewMenu_804EC34
+	bl StartMenuExt
 _080CDBFA:
 	movs r0, #0
 	add sp, #8
@@ -138182,7 +138182,7 @@ sub_80CDD78: @ 0x080CDD78
 	str r6, [sp, #8]
 	movs r2, #2
 	movs r3, #0
-	bl NewMenu
+	bl StartMenuCore
 	str r0, [r6, #0x50]
 	add sp, #0xc
 	pop {r4, r5, r6}

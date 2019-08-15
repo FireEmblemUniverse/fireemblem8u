@@ -43,7 +43,7 @@ sub_80225D0: @ 0x080225D0
 _080225E4:
 	ldr r1, _080225F4  @ 0x00000864
 	adds r0, r2, #0
-	bl Menu_CallTextBox
+	bl MenuFrozenHelpBox
 	movs r0, #8
 _080225EE:
 	pop {r1}
@@ -255,7 +255,7 @@ GenericSelection_BackToUM: @ 0x08022748
 	subs r1, r1, r2
 	movs r2, #1
 	movs r3, #0x16
-	bl NewMenu_AndDoSomethingCommands
+	bl StartSemiCenteredOrphanMenu
 	ldr r1, _080227A0  @ gActiveUnit
 	ldr r2, [r1]
 	movs r1, #0x10
@@ -334,7 +334,7 @@ sub_8022808: @ 0x08022808
 	subs r1, r1, r2
 	movs r2, #1
 	movs r3, #0x16
-	bl NewMenu_AndDoSomethingCommands
+	bl StartSemiCenteredOrphanMenu
 	pop {r0}
 	bx r0
 	.align 2, 0
@@ -380,7 +380,7 @@ sub_8022860: @ 0x08022860
 	subs r1, r1, r2
 	movs r2, #1
 	movs r3, #0x16
-	bl NewMenu_AndDoSomethingCommands
+	bl StartSemiCenteredOrphanMenu
 	bl HideMoveRangeGraphics
 	movs r0, #0x3b
 	pop {r1}
@@ -724,7 +724,7 @@ sub_8022B30: @ 0x08022B30
 	bne _08022B50
 	ldr r1, _08022B4C  @ 0x00000858
 	adds r0, r5, #0
-	bl Menu_CallTextBox
+	bl MenuFrozenHelpBox
 	movs r0, #8
 	b _08022B84
 	.align 2, 0
@@ -764,7 +764,7 @@ sub_8022B8C: @ 0x08022B8C
 	push {r4, r5, lr}
 	sub sp, #4
 	ldr r0, _08022BD0  @ gUnknown_0859D1A8
-	bl NewMenu_Default
+	bl StartOrphanMenu
 	adds r5, r0, #0
 	ldr r4, _08022BD4  @ gActiveUnit
 	ldr r0, [r4]
@@ -798,7 +798,7 @@ sub_8022BD8: @ 0x08022BD8
 	push {r4, r5, lr}
 	sub sp, #4
 	ldr r0, _08022C28  @ gUnknown_0859D1CC
-	bl NewMenu_Default
+	bl StartOrphanMenu
 	adds r4, r0, #0
 	ldr r5, _08022C2C  @ gActiveUnit
 	ldr r1, [r5]
@@ -1436,7 +1436,7 @@ _080230D8: .4byte gActionData
 _080230DC:
 	ldr r1, _080230EC  @ 0x0000084C
 	adds r0, r2, #0
-	bl Menu_CallTextBox
+	bl MenuFrozenHelpBox
 	movs r0, #8
 _080230E6:
 	pop {r1}
@@ -1626,7 +1626,7 @@ _0802322E:
 _08023248: .4byte gActiveUnit
 _0802324C:
 	ldr r0, _0802329C  @ gUnknown_0859D13C
-	bl NewMenu_Default
+	bl StartOrphanMenu
 	adds r5, r0, #0
 	ldr r4, _080232A0  @ gActiveUnit
 	ldr r0, [r4]
@@ -1715,7 +1715,7 @@ ItemCommandEffect: @ 0x080232E8
 	bl LoadIconPalettes
 	bl sub_8003D20
 	ldr r0, _0802333C  @ gUnknown_0859D184
-	bl NewMenu_Default
+	bl StartOrphanMenu
 	adds r5, r0, #0
 	ldr r4, _08023340  @ gActiveUnit
 	ldr r0, [r4]
@@ -1896,7 +1896,7 @@ ItemSelectMenu_Effect: @ 0x08023428
 	ldr r0, _08023494  @ gUnknown_0859D118
 	adds r1, r5, #0
 	adds r2, r4, #0
-	bl NewMenu_BG0BG1
+	bl StartMenuAt
 	movs r0, #4
 	pop {r4, r5}
 	pop {r1}
@@ -2006,7 +2006,7 @@ sub_8023550: @ 0x08023550
 	adds r0, r4, #0
 	bl sub_80234FC
 	ldr r0, _080235A0  @ gUnknown_0859D184
-	bl NewMenu_Default
+	bl StartOrphanMenu
 	adds r5, r0, #0
 	ldr r4, _080235A4  @ gActiveUnit
 	ldr r0, [r4]
@@ -2072,7 +2072,7 @@ sub_80235A8: @ 0x080235A8
 	movs r0, #3
 	bl BG_EnableSyncByMask
 	ldr r0, _08023644  @ gUnknown_0859D184
-	bl NewMenu_Default
+	bl StartOrphanMenu
 	adds r4, r0, #0
 	ldr r0, [r6]
 	bl GetUnitPortraitId
@@ -2113,7 +2113,7 @@ _08023648:
 	subs r1, r1, r2
 	movs r2, #1
 	movs r3, #0x16
-	bl NewMenu_AndDoSomethingCommands
+	bl StartSemiCenteredOrphanMenu
 	movs r0, #0x1b
 _0802366A:
 	add sp, #4
@@ -2269,7 +2269,7 @@ sub_8023770: @ 0x08023770
 	bl sub_8028C0C
 	adds r1, r0, #0
 	adds r0, r4, #0
-	bl Menu_CallTextBox
+	bl MenuFrozenHelpBox
 	movs r0, #8
 	b _080237E4
 	.align 2, 0
@@ -2334,7 +2334,7 @@ _08023820: .4byte gActionData
 _08023824:
 	ldr r1, _08023834  @ 0x0000084D
 	adds r0, r4, #0
-	bl Menu_CallTextBox
+	bl MenuFrozenHelpBox
 	movs r0, #8
 _0802382E:
 	pop {r4}
@@ -2401,7 +2401,7 @@ sub_802386C: @ 0x0802386C
 	ldr r0, _080238C8  @ gUnknown_0859D0F4
 	adds r1, r3, #0
 	adds r2, r4, #0
-	bl NewMenu_BG0BG1
+	bl StartMenuAt
 	adds r0, #0x61
 	movs r1, #1
 	strb r1, [r0]
@@ -2416,7 +2416,7 @@ _080238C8: .4byte gUnknown_0859D0F4
 _080238CC:
 	ldr r1, _080238DC  @ 0x0000084F
 	adds r0, r4, #0
-	bl Menu_CallTextBox
+	bl MenuFrozenHelpBox
 	movs r0, #8
 _080238D6:
 	pop {r4}
@@ -2682,7 +2682,7 @@ StaffCommandEffect: @ 0x08023ACC
 	movs r0, #4
 	bl LoadIconPalettes
 	ldr r0, _08023B1C  @ gUnknown_0859D160
-	bl NewMenu_Default
+	bl StartOrphanMenu
 	adds r5, r0, #0
 	ldr r4, _08023B20  @ gActiveUnit
 	ldr r0, [r4]
@@ -2710,7 +2710,7 @@ _08023B20: .4byte gActiveUnit
 _08023B24:
 	ldr r1, _08023B38  @ 0x00000851
 	adds r0, r2, #0
-	bl Menu_CallTextBox
+	bl MenuFrozenHelpBox
 	movs r0, #8
 _08023B2E:
 	add sp, #4
@@ -2937,7 +2937,7 @@ _08023CE8: .4byte gUnknown_0859D398
 _08023CEC:
 	ldr r1, _08023CFC  @ 0x00000852
 	adds r0, r2, #0
-	bl Menu_CallTextBox
+	bl MenuFrozenHelpBox
 	movs r0, #8
 _08023CF6:
 	pop {r1}
@@ -3020,7 +3020,7 @@ _08023D88: .4byte gUnknown_0859D378
 _08023D8C:
 	ldr r1, _08023D9C  @ 0x00000852
 	adds r0, r2, #0
-	bl Menu_CallTextBox
+	bl MenuFrozenHelpBox
 	movs r0, #8
 _08023D96:
 	pop {r1}
@@ -3558,7 +3558,7 @@ sub_8024144: @ 0x08024144
 	beq _08024170
 	ldr r1, _0802416C  @ 0x00000853
 	adds r0, r4, #0
-	bl Menu_CallTextBox
+	bl MenuFrozenHelpBox
 	b _08024178
 	.align 2, 0
 _08024168: .4byte gActiveUnit
@@ -3566,7 +3566,7 @@ _0802416C: .4byte 0x00000853
 _08024170:
 	ldr r1, _0802417C  @ 0x00000854
 	adds r0, r4, #0
-	bl Menu_CallTextBox
+	bl MenuFrozenHelpBox
 _08024178:
 	movs r0, #8
 	b _08024186
@@ -3645,7 +3645,7 @@ _08024204: .4byte gUnknown_0859D318
 _08024208:
 	ldr r1, _08024218  @ 0x00000862
 	adds r0, r2, #0
-	bl Menu_CallTextBox
+	bl MenuFrozenHelpBox
 	movs r0, #8
 _08024212:
 	pop {r1}
@@ -3698,7 +3698,7 @@ sub_8024260: @ 0x08024260
 	movs r0, #4
 	bl LoadIconPalettes
 	ldr r0, _080242F4  @ gUnknown_0859D088
-	bl NewMenu_Default
+	bl StartOrphanMenu
 	adds r0, r4, #0
 	bl EndTargetSelection
 	ldr r0, _080242F8  @ gUnknown_0202352C
@@ -3854,7 +3854,7 @@ _080243C0: .4byte gActionData
 _080243C4:
 	ldr r1, _080243D4  @ 0x00000855
 	adds r0, r3, #0
-	bl Menu_CallTextBox
+	bl MenuFrozenHelpBox
 	movs r0, #8
 _080243CE:
 	pop {r1}

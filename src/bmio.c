@@ -16,6 +16,8 @@
 #include "bmbattle.h"
 #include "bmtrick.h"
 #include "mu.h"
+#include "uimenu.h"
+
 #include "bmio.h"
 
 // General Battle Map System Stuff, mostly low level hardware stuff but also more
@@ -979,7 +981,7 @@ void StartBattleMap(struct GameCtrlProc* gameCtrl) {
     SetupMapSpritesPalettes();
     ClearLocalEvents();
     SMS_ClearUsageTable();
-    ClearMenuRelatedList();
+    ResetMenuOverrides();
     ClearTraps();
 
     gUnknown_0202BCF0.chapterPhaseIndex = FACTION_GREEN; // TODO: PHASE/ALLEGIANCE DEFINITIONS
