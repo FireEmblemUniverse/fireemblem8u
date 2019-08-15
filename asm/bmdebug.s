@@ -177,7 +177,7 @@ sub_801BB1C: @ 0x0801BB1C
 	bl EndMenu
 	bl ClearBg0Bg1
 	ldr r0, _0801BB3C  @ gUnknown_0859D040
-	bl NewMenu_Default
+	bl StartOrphanMenu
 	movs r0, #2
 	movs r1, #0
 	bl SetupDebugFontForBG
@@ -801,7 +801,7 @@ DebugMenu_ErasedEffect: @ 0x0801C018
 	push {lr}
 	bl ClearBg0Bg1
 	ldr r0, _0801C02C  @ gUnknown_0859CFB0
-	bl NewMenu_Default
+	bl StartOrphanMenu
 	movs r0, #7
 	pop {r1}
 	bx r1
@@ -864,7 +864,7 @@ DEBUGONLY_Startup: @ 0x0801C090
 	ldr r0, _0801C0E8  @ gUnknown_080D7A7C
 	bl sub_8008A24
 	ldr r0, _0801C0EC  @ gUnknown_0859CFF8
-	bl NewMenu_Default
+	bl StartOrphanMenu
 	ldr r4, _0801C0F0  @ gUnknown_0202BCB0
 	ldrb r2, [r4, #4]
 	movs r1, #0x40
@@ -1112,7 +1112,7 @@ _0801C2CC: .4byte gUnknown_03001780
 sub_801C2D0: @ 0x0801C2D0
 	push {lr}
 	ldr r0, _0801C2E0  @ gUnknown_0859D01C
-	bl NewMenu_Default
+	bl StartOrphanMenu
 	movs r0, #0x17
 	pop {r1}
 	bx r1
@@ -1123,7 +1123,7 @@ _0801C2E0: .4byte gUnknown_0859D01C
 sub_801C2E4: @ 0x0801C2E4
 	push {lr}
 	ldr r0, _0801C2F4  @ gUnknown_0859CFD4
-	bl NewMenu_Default
+	bl StartOrphanMenu
 	movs r0, #0x17
 	pop {r1}
 	bx r1

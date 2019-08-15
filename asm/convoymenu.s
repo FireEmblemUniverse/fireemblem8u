@@ -22,7 +22,7 @@ sub_801DF94: @ 0x0801DF94
 	bhi _0801DFC8
 	ldr r0, _0801DFC4  @ gUnknown_0859D0D0
 	adds r1, r4, #0
-	bl NewMenu_DefaultChild
+	bl StartMenu
 	b _0801DFD0
 	.align 2, 0
 _0801DFC0: .4byte gUnknown_02001F70
@@ -30,7 +30,7 @@ _0801DFC4: .4byte gUnknown_0859D0D0
 _0801DFC8:
 	ldr r0, _0801DFD8  @ gUnknown_0859D0AC
 	adds r1, r4, #0
-	bl NewMenu_DefaultChild
+	bl StartMenu
 _0801DFD0:
 	movs r0, #0
 	pop {r4, r5}

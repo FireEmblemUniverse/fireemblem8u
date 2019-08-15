@@ -12,17 +12,17 @@
 
 // data
 
-CONST_DATA
-struct ProcCmd gUnknown_085B64B8[] =
+static CONST_DATA
+struct ProcCmd sProc_MenuMain[] =
 {
-    PROC_LOOP_ROUTINE(Menu_Idle),
-    PROC_CALL_ROUTINE(EndGreenTextColorManager),
+    PROC_LOOP_ROUTINE(Menu_OnIdle),
 
+    PROC_CALL_ROUTINE(EndGreenTextColorManager),
     PROC_END
 };
 
-CONST_DATA
-struct ProcCmd gUnknown_085B64D0[] =
+static CONST_DATA
+struct ProcCmd sProc_Menu[] =
 {
     PROC_SET_NAME("E_Menu"),
     PROC_SLEEP(0),
@@ -30,60 +30,52 @@ struct ProcCmd gUnknown_085B64D0[] =
     PROC_WHILE_EXISTS(gUnknown_0859A548),
 
     PROC_CALL_ROUTINE(NewGreenTextColorManager),
-    PROC_CALL_ROUTINE(Menu_Draw),
-    PROC_CALL_ROUTINE(Menu_CallDefinedConstructors),
+    PROC_CALL_ROUTINE(RedrawMenu),
 
-    PROC_JUMP(gUnknown_085B64B8),
+    PROC_CALL_ROUTINE(Menu_OnInit),
+
+    PROC_JUMP(sProc_MenuMain),
     PROC_END
 };
 
-CONST_DATA
-struct ProcCmd gUnknown_085B6510[] =
+static CONST_DATA
+struct ProcCmd sProc_MenuItem[] =
 {
     PROC_BLOCK
 };
 
-CONST_DATA
-struct ProcCmd gUnknown_085B6518[] =
+static void Menu_AutoHelpBox_OnInit(struct MenuProc* proc);
+static void Menu_AutoHelpBox_OnLoop(struct MenuProc* proc);
+
+static CONST_DATA
+struct ProcCmd sProc_MenuAutoHelpBox[] =
 {
-    PROC_CALL_ROUTINE(sub_804F474),
-    PROC_LOOP_ROUTINE(sub_804F4A0),
+    PROC_CALL_ROUTINE(Menu_AutoHelpBox_OnInit),
+    PROC_LOOP_ROUTINE(Menu_AutoHelpBox_OnLoop),
     PROC_END
 };
 
-CONST_DATA
-struct ProcCmd gUnknown_085B6530[] =
+static void Menu_FrozenHelpBox_OnLoop(struct MenuProc* proc);
+
+static CONST_DATA
+struct ProcCmd sProc_MenuFrozenHelpBox[] =
 {
-    PROC_LOOP_ROUTINE(sub_804F530),
+    PROC_LOOP_ROUTINE(Menu_FrozenHelpBox_OnLoop),
     PROC_END
 };
 
-CONST_DATA
-struct ProcCmd gUnknown_085B6540[] =
-{
-    PROC_LOOP_ROUTINE(sub_804F5B4),
-    PROC_END
-};
+static void Menu_Frozen_OnLoop(struct MenuProc* proc);
 
-CONST_DATA
-u8 gUnknown_085B6550[12] = {
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    1,
-    2,
-    3,
-    3,
-    3,
+static CONST_DATA
+struct ProcCmd sProc_MenuFrozen[] =
+{
+    PROC_LOOP_ROUTINE(Menu_Frozen_OnLoop),
+    PROC_END
 };
 
 // functions
 
-struct MenuProc* NewMenu_DefaultAdjusted(
+struct MenuProc* StartOrphanMenuAdjusted(
     const struct MenuDef* def,
     int xSubject, int xTileLeft, int xTileRight)
 {
@@ -94,25 +86,25 @@ struct MenuProc* NewMenu_DefaultAdjusted(
     else
         rect.x = xTileLeft;
 
-    return NewMenu_BG0BG1(def, rect, NULL);
+    return StartMenuAt(def, rect, NULL);
 }
 
-struct MenuProc* NewMenu_DefaultChild(const struct MenuDef* def, struct Proc* parent)
+struct MenuProc* StartMenu(const struct MenuDef* def, struct Proc* parent)
 {
-    return NewMenu_BG0BG1(def, def->rect, parent);
+    return StartMenuAt(def, def->rect, parent);
 }
 
-struct MenuProc* sub_804EBD8(const struct MenuDef* def, struct MenuRect rect)
+struct MenuProc* StartOrphanMenuAt(const struct MenuDef* def, struct MenuRect rect)
 {
-    return NewMenu_BG0BG1(def, rect, NULL);
+    return StartMenuAt(def, rect, NULL);
 }
 
-struct MenuProc* NewMenu_Default(const struct MenuDef* def)
+struct MenuProc* StartOrphanMenu(const struct MenuDef* def)
 {
-    return NewMenu_BG0BG1(def, def->rect, NULL);
+    return StartMenuAt(def, def->rect, NULL);
 }
 
-struct MenuProc* sub_804EBF4(
+struct MenuProc* StartOrphanMenuAdjustedExt(
     const struct MenuDef* def,
     int xSubject, int xTileLeft, int xTileRight,
     int backBg,
@@ -127,10 +119,10 @@ struct MenuProc* sub_804EBF4(
     else
         rect.x = xTileLeft;
 
-    return NewMenu(def, rect, backBg, tileref, frontBg, unk, NULL);
+    return StartMenuCore(def, rect, backBg, tileref, frontBg, unk, NULL);
 }
 
-struct MenuProc* NewMenu_804EC34(
+struct MenuProc* StartMenuExt(
     const struct MenuDef* def,
     int backBg,
     int tileref,
@@ -138,10 +130,10 @@ struct MenuProc* NewMenu_804EC34(
     int unk,
     struct Proc* parent)
 {
-    return NewMenu(def, def->rect, backBg, tileref, frontBg, unk, parent);
+    return StartMenuCore(def, def->rect, backBg, tileref, frontBg, unk, parent);
 }
 
-struct MenuProc* sub_804EC58(
+struct MenuProc* StartOrphanMenuAtExt(
     const struct MenuDef* def,
     struct MenuRect rect,
     int backBg,
@@ -149,28 +141,28 @@ struct MenuProc* sub_804EC58(
     int frontBg,
     int unk)
 {
-    return NewMenu(def, rect, backBg, tileref, frontBg, unk, NULL);
+    return StartMenuCore(def, rect, backBg, tileref, frontBg, unk, NULL);
 }
 
-struct MenuProc* sub_804EC74(
+struct MenuProc* StartOrphanMenuExt(
     const struct MenuDef* def,
     int backBg,
     int tileref,
     int frontBg,
     int unk)
 {
-    return NewMenu(def, def->rect, backBg, tileref, frontBg, unk, NULL);
+    return StartMenuCore(def, def->rect, backBg, tileref, frontBg, unk, NULL);
 }
 
-struct MenuProc* NewMenu_BG0BG1(
+struct MenuProc* StartMenuAt(
     const struct MenuDef* def,
     struct MenuRect rect,
     struct Proc* parent)
 {
-    return NewMenu(def, rect, 1, TILEREF(0, 0), 0, 0, parent);
+    return StartMenuCore(def, rect, 1, TILEREF(0, 0), 0, 0, parent);
 }
 
-struct MenuProc* NewMenu(
+struct MenuProc* StartMenuCore(
     const struct MenuDef* def,
     struct MenuRect rect,
     int backBg,
@@ -192,30 +184,30 @@ struct MenuProc* NewMenu(
 
     if (parent)
     {
-        proc = (struct MenuProc*) Proc_CreateBlockingChild(gUnknown_085B64D0, parent);
+        proc = (struct MenuProc*) Proc_CreateBlockingChild(sProc_Menu, parent);
         proc->state = 0;
     }
     else
     {
         AddSkipThread2();
 
-        proc = (struct MenuProc*) Proc_Create(gUnknown_085B64D0, ROOT_PROC_3);
-        proc->state = MENU_STATE_BIT0;
+        proc = (struct MenuProc*) Proc_Create(sProc_Menu, ROOT_PROC_3);
+        proc->state = MENU_STATE_GAMELOCKING;
     }
 
     if (rect.h < 0)
-        proc->state |= MENU_STATE_BIT3;
+        proc->state |= MENU_STATE_NOTSHOWN;
 
     for (i = 0, itemCount = 0; def->menuItems[i].isAvailable; ++i)
     {
-        int availability = sub_804F7AC(&def->menuItems[i], i);
+        int availability = OverriddenMenuAvailability(&def->menuItems[i], i);
 
         if (!availability)
             availability = def->menuItems[i].isAvailable(&def->menuItems[i], i);
 
         if (availability != MENU_NOTSHOWN)
         {
-            struct MenuItemProc* item = (struct MenuItemProc*) Proc_Create(gUnknown_085B6510, (struct Proc*) proc);
+            struct MenuItemProc* item = (struct MenuItemProc*) Proc_Create(sProc_MenuItem, (struct Proc*) proc);
             proc->menuItems[itemCount++] = item;
 
             item->def = &def->menuItems[i];
@@ -225,7 +217,7 @@ struct MenuProc* NewMenu(
             item->xTile = xTileInner;
             item->yTile = yTileInner;
 
-            if (!(proc->state & MENU_STATE_BIT3))
+            if (!(proc->state & MENU_STATE_NOTSHOWN))
                 Text_Init(&item->text, rect.w - 1);
 
             yTileInner += 2;
@@ -242,9 +234,9 @@ struct MenuProc* NewMenu(
         proc->rect.h = yTileInner + 1 - rect.y;
 
     proc->backBg  = backBg & 3;
-    proc->tileref   = tileref;
+    proc->tileref = tileref;
     proc->frontBg = frontBg & 3;
-    proc->unk68     = unk;
+    proc->unk68   = unk;
 
     gKeyStatusPtr->newKeys = 0;
 
@@ -255,7 +247,7 @@ struct Proc* EndMenu(struct MenuProc* proc)
 {
     struct MenuItemProc* item = proc->menuItems[proc->itemCurrent];
 
-    proc->state |= MENU_STATE_BIT2;
+    proc->state |= MENU_STATE_ENDING;
 
     if (item->def->onSwitchOut)
         item->def->onSwitchOut(proc, item);
@@ -263,7 +255,7 @@ struct Proc* EndMenu(struct MenuProc* proc)
     if (proc->def->onEnd)
         proc->def->onEnd(proc);
 
-    if (proc->state & MENU_STATE_BIT0)
+    if (proc->state & MENU_STATE_GAMELOCKING)
         SubSkipThread2();
 
     Proc_Delete((struct Proc*) proc);
@@ -276,31 +268,31 @@ struct Proc* EndMenu(struct MenuProc* proc)
 
 void EndAllMenus(void)
 {
-    Proc_ForEachWithScript(gUnknown_085B64D0, (ProcFunc) EndMenu);
+    Proc_ForEachWithScript(sProc_Menu, (ProcFunc) EndMenu);
 }
 
 inline
-void sub_804F82C(struct MenuProc* proc)
+void SyncMenuBgs(struct MenuProc* proc)
 {
     BG_EnableSyncByMask(BG_SYNC_BIT(proc->backBg) + BG_SYNC_BIT(proc->frontBg));
 }
 
 inline
-void sub_804F84C(struct MenuProc* proc)
+void ClearMenuBgs(struct MenuProc* proc)
 {
     BG_Fill(BG_GetMapBuffer(proc->frontBg), 0);
     BG_Fill(BG_GetMapBuffer(proc->backBg), 0);
 
-    sub_804F82C(proc);
+    SyncMenuBgs(proc);
 }
 
 inline
-s8 sub_804F890(struct MenuProc* proc)
+s8 HasMenuChangedItem(struct MenuProc* proc)
 {
     return proc->itemCurrent != proc->itemPrevious;
 }
 
-void Menu_CallDefinedConstructors(struct MenuProc* proc)
+void Menu_OnInit(struct MenuProc* proc)
 {
     if (proc->def->onInit)
         proc->def->onInit(proc);
@@ -309,11 +301,11 @@ void Menu_CallDefinedConstructors(struct MenuProc* proc)
         proc->menuItems[proc->itemCurrent]->def->onSwitchIn(proc, proc->menuItems[proc->itemCurrent]);
 }
 
-void Menu_Draw(struct MenuProc* proc)
+void RedrawMenu(struct MenuProc* proc)
 {
     int i;
 
-    if (proc->state & MENU_STATE_BIT3)
+    if (proc->state & MENU_STATE_NOTSHOWN)
         return;
 
     DrawUiFrame(
@@ -351,15 +343,15 @@ void Menu_Draw(struct MenuProc* proc)
             TILEMAP_LOCATED(BG_GetMapBuffer(proc->frontBg), item->xTile, item->yTile));
     }
 
-    Menu_DrawHoverThing(proc, proc->itemCurrent, TRUE);
-    sub_804F82C(proc);
+    DrawMenuItemHover(proc, proc->itemCurrent, TRUE);
+    SyncMenuBgs(proc);
 }
 
-void Menu_DrawHoverThing(struct MenuProc* proc, int item, s8 boolHover)
+void DrawMenuItemHover(struct MenuProc* proc, int item, s8 boolHover)
 {
     int x, y, w;
 
-    if (proc->state & MENU_STATE_BIT4)
+    if (proc->state & MENU_STATE_FLAT)
         return;
 
     x = proc->rect.x + 1;
@@ -380,26 +372,26 @@ void Menu_DrawHoverThing(struct MenuProc* proc, int item, s8 boolHover)
     }
 }
 
-void Menu_Idle(struct MenuProc* proc)
+void Menu_OnIdle(struct MenuProc* proc)
 {
     int x, y, actions;
 
-    if (proc->state & MENU_STATE_BIT6)
+    if (proc->state & MENU_STATE_FROZEN)
     {
-        Menu_GetCursorGfxCurrentPosition(proc, &x, &y);
+        GetMenuCursorPosition(proc, &x, &y);
         DisplayFrozenUiHand(x, y);
 
         return;
     }
 
-    if (proc->state & MENU_STATE_BIT7)
+    if (proc->state & MENU_STATE_DOOMED)
     {
         EndMenu(proc);
         return;
     }
 
-    Menu_HandleDirectionInputs(proc);
-    actions = Menu_HandleSelectInputs(proc);
+    ProcessMenuDpadInput(proc);
+    actions = ProcessMenuSelectInput(proc);
 
     if (actions & MENU_ACT_END)
         EndMenu(proc);
@@ -411,27 +403,27 @@ void Menu_Idle(struct MenuProc* proc)
         PlaySoundEffect(0x6B); // TODO: song ids!
 
     if (actions & MENU_ACT_CLEAR)
-        sub_804F84C(proc);
+        ClearMenuBgs(proc);
 
     if (actions & MENU_ACT_ENDFACE)
         DeleteFaceByIndex(0);
 
-    if (actions & MENU_ACTION7)
-        proc->state |= MENU_STATE_BIT7;
+    if (actions & MENU_ACT_DOOM)
+        proc->state |= MENU_STATE_DOOMED;
 
-    if (actions & MENU_ACTION0)
+    if (actions & MENU_ACT_SKIPCURSOR)
         return;
 
-    if (proc->state & MENU_STATE_BIT5)
+    if (proc->state & MENU_STATE_NOCURSOR)
         return;
 
-    Menu_GetCursorGfxCurrentPosition(proc, &x, &y);
-    Menu_UpdateMovingCursorGfxPosition(proc, &x, &y);
+    GetMenuCursorPosition(proc, &x, &y);
+    ApplyMenuCursorVScroll(proc, &x, &y);
 
     DisplayUiHand(x, y);
 }
 
-void Menu_HandleDirectionInputs(struct MenuProc* proc)
+void ProcessMenuDpadInput(struct MenuProc* proc)
 {
     proc->itemPrevious = proc->itemCurrent;
 
@@ -469,15 +461,15 @@ void Menu_HandleDirectionInputs(struct MenuProc* proc)
 
     if (proc->itemPrevious != proc->itemCurrent)
     {
-        Menu_DrawHoverThing(proc, proc->itemPrevious, FALSE);
-        Menu_DrawHoverThing(proc, proc->itemCurrent, TRUE);
+        DrawMenuItemHover(proc, proc->itemPrevious, FALSE);
+        DrawMenuItemHover(proc, proc->itemCurrent, TRUE);
 
         PlaySoundEffect(0x66); // TODO: song ids!
     }
 
     // Call def's switch in/out funcs
 
-    if (sub_804F890(proc))
+    if (HasMenuChangedItem(proc))
     {
         if (proc->menuItems[proc->itemPrevious]->def->onSwitchOut)
             proc->menuItems[proc->itemPrevious]->def->onSwitchOut(proc, proc->menuItems[proc->itemPrevious]);
@@ -487,7 +479,7 @@ void Menu_HandleDirectionInputs(struct MenuProc* proc)
     }
 }
 
-int Menu_HandleSelectInputs(struct MenuProc* proc)
+int ProcessMenuSelectInput(struct MenuProc* proc)
 {
     int result = 0;
 
@@ -501,7 +493,7 @@ int Menu_HandleSelectInputs(struct MenuProc* proc)
     {
         // A Button press
 
-        result = sub_804F7E8(proc, item);
+        result = OverriddenMenuSelected(proc, item);
 
         if ((result == 0xFF) && itemDef->onSelected)
             result = itemDef->onSelected(proc, item);
@@ -524,7 +516,7 @@ int Menu_HandleSelectInputs(struct MenuProc* proc)
     return result;
 }
 
-void Menu_GetCursorGfxCurrentPosition(struct MenuProc* proc, int* xResult, int* yResult)
+void GetMenuCursorPosition(struct MenuProc* proc, int* xResult, int* yResult)
 {
     *xResult = proc->menuItems[proc->itemCurrent]->xTile*8;
     *yResult = proc->menuItems[proc->itemCurrent]->yTile*8;
@@ -533,143 +525,146 @@ void Menu_GetCursorGfxCurrentPosition(struct MenuProc* proc, int* xResult, int* 
         *xResult -= 4;
 }
 
-u8 MenuCommand_UsabilityAlways(const struct MenuItemDef* def, int number)
+u8 MenuAlwaysEnabled(const struct MenuItemDef* def, int number)
 {
     return MENU_ENABLED;
 }
 
-u8 UsabilityGrayed(const struct MenuItemDef* def, int number)
+u8 MenuAlwaysDisabled(const struct MenuItemDef* def, int number)
 {
     return MENU_DISABLED;
 }
 
-u8 UsabilityNever(const struct MenuItemDef* def, int number)
+u8 MenuAlwaysNotShown(const struct MenuItemDef* def, int number)
 {
     return MENU_NOTSHOWN;
 }
 
-u8 sub_804F454(struct MenuProc* menu, struct MenuItemProc* item)
+u8 MenuCancelSelect(struct MenuProc* menu, struct MenuItemProc* item)
 {
-    return MENU_ACTION0 | MENU_ACT_CLEAR | MENU_ACT_END | MENU_ACT_SND6B;
+    return MENU_ACT_SKIPCURSOR | MENU_ACT_CLEAR | MENU_ACT_END | MENU_ACT_SND6B;
 }
 
-u8 sub_804F458(struct MenuProc* menu, struct MenuItemProc* item)
+u8 MenuStdHelpBox(struct MenuProc* menu, struct MenuItemProc* item)
 {
     sub_8088DE0(item->xTile*8, item->yTile*8, item->def->helpMsgId);
 }
 
-void sub_804F474(struct MenuProc* proc)
+void Menu_AutoHelpBox_OnInit(struct MenuProc* proc)
 {
     LoadDialogueBoxGfx(NULL, -1); // TODO: NOPAL constant?
     proc->def->onHelpBox(proc, proc->menuItems[proc->itemCurrent]);
 }
 
-void sub_804F4A0(struct MenuProc* proc)
+void Menu_AutoHelpBox_OnLoop(struct MenuProc* proc)
 {
     int x, y;
 
-    Menu_HandleDirectionInputs(proc);
+    ProcessMenuDpadInput(proc);
 
-    Menu_GetCursorGfxCurrentPosition(proc, &x, &y);
-    Menu_UpdateMovingCursorGfxPosition(proc, &x, &y);
+    GetMenuCursorPosition(proc, &x, &y);
+    ApplyMenuCursorVScroll(proc, &x, &y);
 
     DisplayUiHand(x, y);
 
     if (gKeyStatusPtr->newKeys & (B_BUTTON | R_BUTTON))
     {
         sub_8089018();
-        Proc_JumpToPointer((struct Proc*) proc, gUnknown_085B64B8);
+        Proc_JumpToPointer((struct Proc*) proc, sProc_MenuMain);
 
         return;
     }
 
-    if (sub_804F890(proc))
+    if (HasMenuChangedItem(proc))
     {
         proc->def->onHelpBox(proc, proc->menuItems[proc->itemCurrent]);
     }
 }
 
-u8 sub_804F520(struct MenuProc* menu, struct MenuItemProc* item)
+u8 MenuAutoHelpBoxSelect(struct MenuProc* menu, struct MenuItemProc* item)
 {
-    Proc_JumpToPointer((struct Proc*) menu, gUnknown_085B6518);
+    Proc_JumpToPointer((struct Proc*) menu, sProc_MenuAutoHelpBox);
 }
 
-void sub_804F530(struct MenuProc* proc)
+void Menu_FrozenHelpBox_OnLoop(struct MenuProc* proc)
 {
     int x, y;
 
-    Menu_GetCursorGfxCurrentPosition(proc, &x, &y);
-    Menu_UpdateMovingCursorGfxPosition(proc, &x, &y);
+    GetMenuCursorPosition(proc, &x, &y);
+    ApplyMenuCursorVScroll(proc, &x, &y);
 
     DisplayFrozenUiHand(x, y);
 
     if (gKeyStatusPtr->newKeys & (B_BUTTON | R_BUTTON))
     {
         sub_8089018();
-        Proc_JumpToPointer((struct Proc*) proc, gUnknown_085B64B8);
+        Proc_JumpToPointer((struct Proc*) proc, sProc_MenuMain);
     }
 }
 
-u8 Menu_CallTextBox(struct MenuProc* proc, int msgid)
+u8 MenuFrozenHelpBox(struct MenuProc* proc, int msgid)
 {
-    Proc_JumpToPointer((struct Proc*) proc, gUnknown_085B6530);
+    Proc_JumpToPointer((struct Proc*) proc, sProc_MenuFrozenHelpBox);
 
     LoadDialogueBoxGfx(NULL, -1); // TODO: default constants?
     sub_8088DE0(GetUiHandPrevDisplayX(), GetUiHandPrevDisplayY(), msgid);
 }
 
-void sub_804F5B4(struct MenuProc* proc)
+void Menu_Frozen_OnLoop(struct MenuProc* proc)
 {
     int x, y;
 
-    Menu_GetCursorGfxCurrentPosition(proc, &x, &y);
-    Menu_UpdateMovingCursorGfxPosition(proc, &x, &y);
+    GetMenuCursorPosition(proc, &x, &y);
+    ApplyMenuCursorVScroll(proc, &x, &y);
 
     DisplayFrozenUiHand(x, y);
 
     if (gKeyStatusPtr->newKeys & (A_BUTTON | B_BUTTON))
-        Proc_JumpToPointer((struct Proc*) proc, gUnknown_085B64B8);
+        Proc_JumpToPointer((struct Proc*) proc, sProc_MenuMain);
 }
 
-u8 sub_804F5FC(struct MenuProc* proc)
+u8 MenuFrozen(struct MenuProc* proc)
 {
-    Proc_JumpToPointer((struct Proc*) proc, gUnknown_085B6540);
+    Proc_JumpToPointer((struct Proc*) proc, sProc_MenuFrozen);
 }
 
-void MarkSomethingInMenu(void)
+void FreezeMenu(void)
 {
-    struct MenuProc* proc = (struct MenuProc*) Proc_Find(gUnknown_085B64D0);
+    struct MenuProc* proc = (struct MenuProc*) Proc_Find(sProc_Menu);
 
     if (proc)
-        proc->state |= MENU_STATE_BIT6;
+        proc->state |= MENU_STATE_FROZEN;
 }
 
-void sub_804F62C(void)
+void ResumeMenu(void)
 {
-    struct MenuProc* proc = (struct MenuProc*) Proc_Find(gUnknown_085B64D0);
+    struct MenuProc* proc = (struct MenuProc*) Proc_Find(sProc_Menu);
 
     if (proc)
-        proc->state &= ~MENU_STATE_BIT6;
+        proc->state &= ~MENU_STATE_FROZEN;
 }
 
-struct MenuProc* NewMenu_AndDoSomethingCommands(
+static CONST_DATA
+u8 sItemCountYOffsetLookup[12] = { 0, 0, 0, 0, 0, 0, 0, 1, 2, 3, 3, 3 };
+
+struct MenuProc* StartSemiCenteredOrphanMenu(
     const struct MenuDef* def, int xSubject, int xTileLeft, int xTileRight)
 {
-    struct MenuProc* result = NewMenu_DefaultAdjusted(def, xSubject, xTileLeft, xTileRight);
+    struct MenuProc* result = StartOrphanMenuAdjusted(def, xSubject, xTileLeft, xTileRight);
     int i;
 
     if (result->itemCount <= 6)
         return result;
 
-    result->rect.y -= gUnknown_085B6550[result->itemCount];
+    result->rect.y -= sItemCountYOffsetLookup[result->itemCount];
 
     for (i = 0; i < result->itemCount; ++i)
-        result->menuItems[i]->yTile -= gUnknown_085B6550[result->itemCount];
+        result->menuItems[i]->yTile -= sItemCountYOffsetLookup[result->itemCount];
 
     return result;
 }
 
-void Menu_UpdateMovingCursorGfxPosition(struct MenuProc* proc, int* xRef, int* yRef)
+void ApplyMenuCursorVScroll(struct MenuProc* proc, int* xRef, int* yRef)
 {
     int off;
 
@@ -698,41 +693,42 @@ struct MenuItemOverride
     /* 04 */ void* func;
 };
 
-extern struct MenuItemOverride gUnknown_03001870[MENU_OVERRIDE_MAX];
+static
+struct MenuItemOverride sMenuOverrides[MENU_OVERRIDE_MAX];
 
-void ClearMenuRelatedList(void)
+void ResetMenuOverrides(void)
 {
     int i;
 
     for (i = 0; i < MENU_OVERRIDE_MAX; ++i)
-        gUnknown_03001870[i].kind = MENU_OVERRIDE_NONE;
+        sMenuOverrides[i].kind = MENU_OVERRIDE_NONE;
 }
 
-void sub_804F714(u8 list[MENU_OVERRIDE_MAX])
+void GetForceDisabledMenuItems(u8 list[MENU_OVERRIDE_MAX])
 {
     int i;
 
     for (i = 0; i < MENU_OVERRIDE_MAX; ++i)
     {
-        if (gUnknown_03001870[i].kind && gUnknown_03001870[i].func == UsabilityNever)
-            list[i] = gUnknown_03001870[i].cmdid;
+        if (sMenuOverrides[i].kind && sMenuOverrides[i].func == MenuAlwaysNotShown)
+            list[i] = sMenuOverrides[i].cmdid;
         else
             list[i] = MENU_ITEM_NONE;
     }
 }
 
-void sub_804F754(u8 list[MENU_OVERRIDE_MAX])
+void SetForceDisabledMenuItems(u8 list[MENU_OVERRIDE_MAX])
 {
     int i;
 
     for (i = 0; i < MENU_OVERRIDE_MAX; ++i)
         if (list[i])
-            sub_804F77C(list[i], MENU_OVERRIDE_ISAVAILABLE, UsabilityNever);
+            AddMenuOverride(list[i], MENU_OVERRIDE_ISAVAILABLE, MenuAlwaysNotShown);
 }
 
-void sub_804F77C(int cmdid, int kind, void* func)
+void AddMenuOverride(int cmdid, int kind, void* func)
 {
-    struct MenuItemOverride* it = gUnknown_03001870;
+    struct MenuItemOverride* it = sMenuOverrides;
 
     while ((it->kind != 0) && !((it->kind == kind) && (it->cmdid == cmdid)))
         ++it;
@@ -742,16 +738,16 @@ void sub_804F77C(int cmdid, int kind, void* func)
     it->func = func;
 }
 
-u8 sub_804F7AC(const struct MenuItemDef* def, int number)
+u8 OverriddenMenuAvailability(const struct MenuItemDef* def, int number)
 {
-    struct MenuItemOverride* it = gUnknown_03001870;
+    struct MenuItemOverride* it = sMenuOverrides;
 
     for (; it->kind != 0; ++it)
     {
         if (it->kind != MENU_OVERRIDE_ISAVAILABLE)
             continue;
 
-        if (it->cmdid != def->unk09)
+        if (it->cmdid != def->overrideId)
             continue;
 
         return ((MenuAvailabilityFunc)(it->func))(def, number);
@@ -760,16 +756,16 @@ u8 sub_804F7AC(const struct MenuItemDef* def, int number)
     return 0;
 }
 
-u8 sub_804F7E8(struct MenuProc* proc, struct MenuItemProc* item)
+u8 OverriddenMenuSelected(struct MenuProc* proc, struct MenuItemProc* item)
 {
-    struct MenuItemOverride* it = gUnknown_03001870;
+    struct MenuItemOverride* it = sMenuOverrides;
 
     for (; it->kind != 0; ++it)
     {
         if (it->kind != MENU_OVERRIDE_ONSELECT)
             continue;
 
-        if (it->cmdid != item->def->unk09)
+        if (it->cmdid != item->def->overrideId)
             continue;
 
         return ((MenuSelectFunc)(it->func))(proc, item);

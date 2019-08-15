@@ -981,7 +981,7 @@ void StartBattleMap(struct GameCtrlProc* gameCtrl) {
     SetupMapSpritesPalettes();
     ClearLocalEvents();
     SMS_ClearUsageTable();
-    ClearMenuRelatedList();
+    ResetMenuOverrides();
     ClearTraps();
 
     gUnknown_0202BCF0.chapterPhaseIndex = FACTION_GREEN; // TODO: PHASE/ALLEGIANCE DEFINITIONS

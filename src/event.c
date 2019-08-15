@@ -152,7 +152,7 @@ extern const u16 gEvent_GameOver[]; /* Game Over Events?
 extern const struct ProcCmd gUnknown_08591540[]; // extern
 
 void _MarkSomethingInMenu(void) {
-    MarkSomethingInMenu();
+    FreezeMenu();
 }
 
 void EventEngine_OnUpdate(struct EventEngineProc* proc) {
@@ -231,7 +231,7 @@ void EventEngine_OnEnd(struct EventEngineProc* proc) {
 
     case EV_EXEC_GAMEPLAY:
         SubSkipThread2();
-        sub_804F62C();
+        ResumeMenu();
         sub_800BB98();
         ClearCutsceneUnits();
 

@@ -17330,7 +17330,7 @@ sub_804A108: @ 0x0804A108
 	movs r0, #4
 	bl LoadIconPalettes
 	ldr r0, _0804A154  @ gUnknown_085AADA0
-	bl NewMenu_Default
+	bl StartOrphanMenu
 	pop {r4}
 	pop {r0}
 	bx r0

@@ -1794,7 +1794,7 @@ HammerneTargetSelection_OnSelect: @ 0x08029944
 	ldrb r0, [r4, #2]
 	strb r0, [r5, #0xd]
 	ldr r0, _080299B4  @ gUnknown_0859D064
-	bl NewMenu_Default
+	bl StartOrphanMenu
 	adds r4, r0, #0
 	ldrb r0, [r5, #0xd]
 	bl GetUnit
@@ -2042,7 +2042,7 @@ _08029B54:
 _08029B58:
 	adds r0, r7, #0
 	adds r1, r6, #0
-	bl Menu_CallTextBox
+	bl MenuFrozenHelpBox
 _08029B60:
 	movs r0, #8
 	b _08029B7C

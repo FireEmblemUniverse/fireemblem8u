@@ -244,7 +244,7 @@ _0801CA78:
 	subs r1, r1, r2
 	movs r2, #1
 	movs r3, #0x17
-	bl NewMenu_DefaultAdjusted
+	bl StartOrphanMenuAdjusted
 	bl sub_80832CC
 	b _0801CB20
 	.align 2, 0
@@ -1391,7 +1391,7 @@ sub_801D434: @ 0x0801D434
 	subs r1, r1, r2
 	movs r2, #1
 	movs r3, #0x16
-	bl NewMenu_AndDoSomethingCommands
+	bl StartSemiCenteredOrphanMenu
 _0801D456:
 	adds r0, r4, #0
 	bl Proc_ClearNativeCallback
@@ -1470,7 +1470,7 @@ _0801D4E4:
 	subs r1, r1, r2
 	movs r2, #1
 	movs r3, #0x16
-	bl NewMenu_AndDoSomethingCommands
+	bl StartSemiCenteredOrphanMenu
 _0801D502:
 	adds r0, r6, #0
 	bl Proc_ClearNativeCallback
