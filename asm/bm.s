@@ -45,7 +45,7 @@ _080156D0: .4byte gUnknown_0859ED70
 sub_80156D4: @ 0x080156D4
 	push {lr}
 	bl Font_InitForUIDefault
-	bl LoadOldUIGfx
+	bl LoadLegacyUiFrameGraphics
 	bl ResetFaces
 	bl ResetIconGraphics_
 	movs r0, #4
@@ -58,7 +58,7 @@ sub_80156D4: @ 0x080156D4
 LoadGameCoreGfx: @ 0x080156F4
 	push {lr}
 	bl Font_InitForUIDefault
-	bl LoadNewUIGraphics
+	bl LoadUiFrameGraphics
 	bl ResetFaces
 	bl ResetIconGraphics_
 	movs r0, #4

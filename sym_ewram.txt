@@ -580,9 +580,8 @@
 . = 0x03DD9F; gUnknown_0203DD9F = .;
 . = 0x03DDB4; gUnknown_0203DDB4 = .;
 . = 0x03DDDC; gUnknown_0203DDDC = .;
-. = 0x03DDE0; gUnknown_0203DDE0 = .;
-. = 0x03DDE4; gUnknown_0203DDE4 = .;
-. = 0x03DDE8; gUnknown_0203DDE8 = .;
+. = 0x03DDE0; src/uiutils.o(ewram_data);
+. = ALIGN(4); gUnknown_0203DDE8 = .;
 . = 0x03DDEC; gUnknown_0203DDEC = .;
 . = 0x03E0EC; gUnknown_0203E0EC = .;
 . = 0x03E0F0; gUnknown_0203E0F0 = .;

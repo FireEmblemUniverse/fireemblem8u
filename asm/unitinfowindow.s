@@ -169,7 +169,7 @@ UnitInfoWindow_DrawBase: @ 0x0803483C
 	ldr r0, _080349C0  @ gUnknown_0859E13C
 	bl Proc_Find
 	mov r8, r0
-	bl ClearBG0BG1
+	bl ClearBg0Bg1
 _08034862:
 	ldr r0, [sp, #4]
 	mov r1, r8
@@ -190,7 +190,7 @@ _08034862:
 	adds r0, r7, #0
 	adds r1, r5, #0
 	adds r2, r6, #0
-	bl MakeUIWindowTileMap_BG0BG1
+	bl DrawUiFrame2
 	mov r3, r9
 	lsls r4, r3, #5
 	adds r0, r4, r7
@@ -1346,7 +1346,7 @@ SetupUnitRescueWindow: @ 0x08035204
 	movs r1, #0xa
 	bl GetUnitInfoWindowX
 	adds r4, r0, #0
-	bl ClearBG0BG1
+	bl ClearBg0Bg1
 	ldr r6, _080352AC  @ gUnknown_0203A9FC
 	ldr r0, [r6]
 	ldr r5, _080352B0  @ gActiveUnit
@@ -1427,7 +1427,7 @@ sub_80352BC: @ 0x080352BC
 	movs r1, #0xa
 	bl GetUnitInfoWindowX
 	adds r4, r0, #0
-	bl ClearBG0BG1
+	bl ClearBg0Bg1
 	ldrb r0, [r5, #0x1b]
 	bl GetUnit
 	adds r7, r0, #0
@@ -1544,7 +1544,7 @@ sub_80353B8: @ 0x080353B8
 	ldrb r0, [r0, #0x1b]
 	bl GetUnit
 	adds r6, r0, #0
-	bl ClearBG0BG1
+	bl ClearBg0Bg1
 	ldr r5, _08035470  @ gUnknown_0203A9FC
 	ldr r0, [r5]
 	movs r1, #0xa

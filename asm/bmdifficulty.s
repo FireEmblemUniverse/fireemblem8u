@@ -993,7 +993,7 @@ sub_8038240: @ 0x08038240
 	movs r1, #3
 	orrs r0, r1
 	strb r0, [r4, #0x18]
-	bl LoadOldUIGfx
+	bl LoadLegacyUiFrameGraphics
 	ldrb r0, [r4, #1]
 	orrs r0, r6
 	orrs r0, r5

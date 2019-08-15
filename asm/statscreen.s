@@ -2813,7 +2813,7 @@ sub_80884B0: @ 0x080884B0
 	mov r0, sp
 	bl SetupBackgrounds
 	movs r0, #3
-	bl LoadNewUIPal
+	bl UnpackUiFramePalette
 	movs r0, #0x80
 	lsls r0, r0, #3
 	bl RegisterBlankTile
@@ -2923,7 +2923,7 @@ sub_80884B0: @ 0x080884B0
 	movs r0, #4
 	bl LoadIconPalettes
 	movs r0, #6
-	bl sub_804E138
+	bl UnpackUiBarPalette
 	movs r0, #1
 	movs r1, #0x13
 	bl LoadIconPalette
@@ -3964,9 +3964,9 @@ sub_8088E14: @ 0x08088E14
 	bge _08088E30
 	cmp r3, #0
 	bge _08088E30
-	bl sub_804E86C
+	bl GetUiHandPrevDisplayX
 	adds r4, r0, #0
-	bl sub_804E878
+	bl GetUiHandPrevDisplayY
 	adds r3, r0, #0
 _08088E30:
 	ldr r0, _08088E58  @ gUnknown_0203E768
@@ -4137,9 +4137,9 @@ sub_8088F68: @ 0x08088F68
 	bge _08088F9E
 	cmp r6, #0
 	bge _08088F9E
-	bl sub_804E86C
+	bl GetUiHandPrevDisplayX
 	adds r7, r0, #0
-	bl sub_804E878
+	bl GetUiHandPrevDisplayY
 	adds r6, r0, #0
 _08088F9E:
 	adds r0, r5, #0
@@ -4271,7 +4271,7 @@ sub_8089088: @ 0x08089088
 	lsls r1, r1, #3
 	ldrb r2, [r2, #0x11]
 	adds r1, r1, r2
-	bl sub_804E79C
+	bl DisplayUiHand
 	ldr r6, _08089124  @ gKeyStatusPtr
 	ldr r0, [r6]
 	ldrh r1, [r0, #6]
@@ -4793,9 +4793,9 @@ sub_8089454: @ 0x08089454
 	negs r1, r1
 	movs r0, #0
 	bl LoadDialogueBoxGfx
-	bl sub_804E86C
+	bl GetUiHandPrevDisplayX
 	adds r4, r0, #0
-	bl sub_804E878
+	bl GetUiHandPrevDisplayY
 	adds r1, r0, #0
 	adds r0, r4, #0
 	adds r2, r5, #0

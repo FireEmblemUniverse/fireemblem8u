@@ -7,6 +7,7 @@
 #include "proc.h"
 #include "hardware.h"
 #include "fontgrp.h"
+#include "uiutils.h"
 #include "chapterdata.h"
 #include "rng.h"
 #include "ctc.h"
@@ -917,7 +918,7 @@ void SetWeather(unsigned weatherId) {
 
 u8 GetTextDisplaySpeed(void) {
     u8 speedLookup[4] = { 8, 4, 1, 0 };
-    return speedLookup[gUnknown_0202BCF0.unk40_6];
+    return speedLookup[gUnknown_0202BCF0.cfgTextSpeed];
 }
 
 int IsFirstPlaythrough(void) {
@@ -944,11 +945,11 @@ void InitPlaythroughState(int isDifficult, s8 unk) {
     gUnknown_0202BCF0.unk40_2 = 0;
     gUnknown_0202BCF0.unk40_3 = 0;
     gUnknown_0202BCF0.unk40_5 = 0;
-    gUnknown_0202BCF0.unk40_6 = 1; // TODO: (DEFAULT?) TEXT SPEED DEFINITIONS
+    gUnknown_0202BCF0.cfgTextSpeed = 1; // TODO: (DEFAULT?) TEXT SPEED DEFINITIONS
     gUnknown_0202BCF0.unk40_8 = 0;
     gUnknown_0202BCF0.unk41_1 = 0;
     gUnknown_0202BCF0.unk41_2 = 0;
-    gUnknown_0202BCF0.unk41_3 = 0;
+    gUnknown_0202BCF0.cfgWindowColor = 0;
     gUnknown_0202BCF0.unk41_7 = 0;
     gUnknown_0202BCF0.unk41_8 = 0;
     gUnknown_0202BCF0.unk42_4 = 0;
@@ -1145,7 +1146,7 @@ void RefreshBMapDisplay_FromBattle(void) {
     LoadGameCoreGfx();
     SetupMapSpritesPalettes();
 
-    ClearBG0BG1();
+    ClearBg0Bg1();
 
     gLCDControlBuffer.dispcnt.win0_on = FALSE;
     gLCDControlBuffer.dispcnt.win1_on = FALSE;

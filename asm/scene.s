@@ -2981,7 +2981,7 @@ _08007F70:
 	subs r0, #4
 	movs r2, #0x2e
 	ldrsh r1, [r4, r2]
-	bl sub_804E79C
+	bl DisplayUiHand
 _08007F8C:
 	pop {r4, r5}
 	pop {r0}

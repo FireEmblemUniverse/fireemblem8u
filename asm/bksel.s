@@ -1016,27 +1016,27 @@ _08036D1E:
 	beq _08036D40
 	b _08036D42
 _08036D28:
-	ldr r0, _08036D2C  @ gUnknown_085B6BB4
+	ldr r0, _08036D2C  @ gUiFramePaletteA
 	b _08036D42
 	.align 2, 0
-_08036D2C: .4byte gUnknown_085B6BB4
+_08036D2C: .4byte gUiFramePaletteA
 _08036D30:
-	ldr r0, _08036D34  @ gUnknown_085B6BD4
+	ldr r0, _08036D34  @ gUiFramePaletteB
 	b _08036D42
 	.align 2, 0
-_08036D34: .4byte gUnknown_085B6BD4
+_08036D34: .4byte gUiFramePaletteB
 _08036D38:
-	ldr r0, _08036D3C  @ gUnknown_085B6BF4
+	ldr r0, _08036D3C  @ gUiFramePaletteC
 	b _08036D42
 	.align 2, 0
-_08036D3C: .4byte gUnknown_085B6BF4
+_08036D3C: .4byte gUiFramePaletteC
 _08036D40:
-	ldr r0, _08036D48  @ gUnknown_085B6C14
+	ldr r0, _08036D48  @ gUiFramePaletteD
 _08036D42:
 	pop {r1}
 	bx r1
 	.align 2, 0
-_08036D48: .4byte gUnknown_085B6C14
+_08036D48: .4byte gUiFramePaletteD
 
 	THUMB_FUNC_START sub_8036D4C
 sub_8036D4C: @ 0x08036D4C
@@ -1133,7 +1133,7 @@ BKSEL_Destructor: @ 0x08036E1C
 	push {lr}
 	movs r0, #1
 	negs r0, r0
-	bl sub_804E168
+	bl UnpackUiFrameBuffered
 	pop {r0}
 	bx r0
 
@@ -1855,7 +1855,7 @@ sub_80373B4: @ 0x080373B4
 	asrs r0, r0, #0x18
 	cmp r0, #0
 	bne _080373E0
-	bl ClearBG0BG1
+	bl ClearBg0Bg1
 	adds r0, r4, #0
 	bl Proc_Delete
 	b _080373E8

@@ -2,6 +2,7 @@
 
 #include "proc.h"
 #include "fontgrp.h"
+#include "uiutils.h"
 #include "mu.h"
 #include "bmio.h"
 #include "bmunit.h"
@@ -210,7 +211,7 @@ void EventEngine_OnUpdate(struct EventEngineProc* proc) {
 void EventEngine_OnEnd(struct EventEngineProc* proc) {
     SetFont(NULL);
     Font_LoadForUI();
-    LoadNewUIGraphics();
+    LoadUiFrameGraphics();
 
     switch (proc->execType) {
     case EV_EXEC_UNK4:

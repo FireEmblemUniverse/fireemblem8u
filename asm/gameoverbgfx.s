@@ -187,7 +187,7 @@ sub_80212C0: @ 0x080212C0
 	movs r1, #0
 	movs r2, #0
 	bl BG_SetPosition
-	bl ClearBG0BG1
+	bl ClearBg0Bg1
 	ldr r0, _080213E4  @ gUnknown_02022EF6
 	ldr r1, _080213E8  @ gUnknown_08A0AE84
 	movs r2, #0x80

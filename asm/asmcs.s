@@ -3947,7 +3947,7 @@ _080864C8: .4byte 0xFFFEFFFE
 CallRouteSplitMenu: @ 0x080864CC
 	push {r4, lr}
 	adds r4, r0, #0
-	bl ClearBG0BG1
+	bl ClearBg0Bg1
 	ldr r2, _0808650C  @ gLCDControlBuffer
 	ldrb r0, [r2, #1]
 	movs r1, #1
@@ -3964,7 +3964,7 @@ CallRouteSplitMenu: @ 0x080864CC
 	movs r0, #0
 	bl SetFont
 	bl Font_LoadForUI
-	bl LoadNewUIGraphics
+	bl LoadUiFrameGraphics
 	ldr r0, _08086510  @ gUnknown_089F36A0
 	adds r1, r4, #0
 	bl NewMenu_DefaultChild

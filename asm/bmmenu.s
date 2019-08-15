@@ -941,7 +941,7 @@ sub_8022CF0: @ 0x08022CF0
 	ldr r1, _08022D2C  @ gActionData
 	movs r0, #0
 	strb r0, [r1, #0x12]
-	bl ClearBG0BG1
+	bl ClearBg0Bg1
 	ldr r0, [r4]
 	ldrh r1, [r0, #0x1e]
 	bl MakeTargetListForWeapon
@@ -1258,7 +1258,7 @@ _08022F82:
 	THUMB_FUNC_START sub_8022F88
 sub_8022F88: @ 0x08022F88
 	push {lr}
-	bl ClearBG0BG1
+	bl ClearBg0Bg1
 	ldr r0, _08022FA4  @ gActiveUnit
 	ldr r0, [r0]
 	bl MakeTradeTargetList
@@ -2101,7 +2101,7 @@ _0802363C: .4byte gUnknown_0200422C
 _08023640: .4byte gUnknown_020234FE
 _08023644: .4byte gUnknown_0859D184
 _08023648:
-	bl ClearBG0BG1
+	bl ClearBg0Bg1
 	movs r0, #0
 	bl DeleteFaceByIndex
 	ldr r0, _08023674  @ gUnknown_0859D1F0
@@ -2276,7 +2276,7 @@ sub_8023770: @ 0x08023770
 _080237A0: .4byte gActiveUnit
 _080237A4: .4byte gActionData
 _080237A8:
-	bl ClearBG0BG1
+	bl ClearBg0Bg1
 	ldr r0, _080237EC  @ gActiveUnit
 	ldr r0, [r0]
 	ldr r1, _080237F0  @ gActionData
@@ -2529,7 +2529,7 @@ _0802399C: .4byte gBG0TilemapBuffer
 	THUMB_FUNC_START sub_80239A0
 sub_80239A0: @ 0x080239A0
 	push {lr}
-	bl ClearBG0BG1
+	bl ClearBg0Bg1
 	ldr r1, _080239C0  @ gActionData
 	movs r0, #8
 	strb r0, [r1, #0x12]
@@ -2803,7 +2803,7 @@ StaffItemSelect_Effect: @ 0x08023BC8
 	ldr r4, _08023C04  @ gActionData
 	movs r0, #0
 	strb r0, [r4, #0x12]
-	bl ClearBG0BG1
+	bl ClearBg0Bg1
 	ldr r0, [r5]
 	ldrb r2, [r4, #0x12]
 	lsls r2, r2, #1
@@ -3631,7 +3631,7 @@ StealCommandEffect: @ 0x080241DC
 	ldrb r0, [r1]
 	cmp r0, #2
 	beq _08024208
-	bl ClearBG0BG1
+	bl ClearBg0Bg1
 	ldr r0, _08024200  @ gActiveUnit
 	ldr r0, [r0]
 	bl MakeTargetListForSteal
@@ -4890,7 +4890,7 @@ sub_8024B9C: @ 0x08024B9C
 	ldrb r0, [r1]
 	subs r0, #1
 	strb r0, [r4, #0x12]
-	bl ClearBG0BG1
+	bl ClearBg0Bg1
 	ldr r0, _08024BCC  @ gActiveUnit
 	ldr r0, [r0]
 	ldrb r2, [r4, #0x12]

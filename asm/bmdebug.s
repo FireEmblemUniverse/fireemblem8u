@@ -123,7 +123,7 @@ sub_801BA88: @ 0x0801BA88
 	adds r1, r4, #0
 	adds r2, r5, #0
 	movs r3, #4
-	bl MakeUIWindowTileMap_BG0BG1
+	bl DrawUiFrame2
 	adds r4, #1
 	lsls r4, r4, #5
 	adds r4, #1
@@ -175,7 +175,7 @@ _0801BB18: .4byte gUnknown_0859AA64
 sub_801BB1C: @ 0x0801BB1C
 	push {lr}
 	bl EndMenu
-	bl ClearBG0BG1
+	bl ClearBg0Bg1
 	ldr r0, _0801BB3C  @ gUnknown_0859D040
 	bl NewMenu_Default
 	movs r0, #2
@@ -391,7 +391,7 @@ sub_801BCCC: @ 0x0801BCCC
 	bl EndMenu
 	movs r0, #0
 	bl DeleteFaceByIndex
-	bl ClearBG0BG1
+	bl ClearBg0Bg1
 	movs r0, #1
 	pop {r1}
 	bx r1
@@ -799,7 +799,7 @@ DebugMenu_ClearEffect: @ 0x0801C014
 	THUMB_FUNC_START DebugMenu_ErasedEffect
 DebugMenu_ErasedEffect: @ 0x0801C018
 	push {lr}
-	bl ClearBG0BG1
+	bl ClearBg0Bg1
 	ldr r0, _0801C02C  @ gUnknown_0859CFB0
 	bl NewMenu_Default
 	movs r0, #7

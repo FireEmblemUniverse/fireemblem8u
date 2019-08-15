@@ -349,7 +349,7 @@ sub_801E748: @ 0x0801E748
 	str r2, [sp]
 	movs r2, #0xe
 	movs r3, #8
-	bl MakeUIWindowTileMap_BG0BG1
+	bl DrawUiFrame2
 	cmp r5, #0
 	blt _0801E7E0
 	cmp r5, #4

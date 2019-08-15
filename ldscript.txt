@@ -114,8 +114,10 @@ SECTIONS
         asm/cpperform.o(.text);
         asm/code_cpextra.o(.text);
         asm/code_sio.o(.text);
-        asm/ui_general.o(.text);
+        src/uiutils.o(.text);
+        src/uimenu.o(.text);
         asm/ui_menu.o(.text);
+        src/uitarget.o(.text);
         asm/ui_targetselection.o(.text);
         asm/code_battleanim.o(.text);
         asm/monstergen.o(.text);
@@ -204,6 +206,10 @@ SECTIONS
         . = ALIGN(4); data/const_data_D7C44.o(.rodata);
         . = ALIGN(4); src/bmio.o(.rodata);
         . = ALIGN(4); data/const_data_D7F5C.o(.rodata);
+        . = ALIGN(4); src/uiutils.o(.rodata);
+        . = ALIGN(4); src/uimenu.o(.rodata);
+        . = ALIGN(4); src/uitarget.o(.rodata);
+        . = ALIGN(4); data/const_data_DA3A4.o(.rodata);
         . = ALIGN(4); data/text.o(.rodata);
         . = ALIGN(4); data/const_data_1609BC.o(.rodata);
         . = ALIGN(4); data/const_data_unit_icon_wait.o(.rodata);
@@ -242,6 +248,10 @@ SECTIONS
         . = ALIGN(4); data/data_59BC64.o(.data);
         . = ALIGN(4); src/bmio.o(.data);
         . = ALIGN(4); data/data_59D9FC.o(.data);
+        . = ALIGN(4); src/uiutils.o(.data);
+        . = ALIGN(4); src/uimenu.o(.data);
+        . = ALIGN(4); src/uitarget.o(.data);
+        . = ALIGN(4); data/data_5B65C0.o(.data);
         . = ALIGN(4); data/data_portrait.o(.data);
         . = ALIGN(4); src/portrait_data.o(.data);
         . = ALIGN(4); data/data_8ADEB0.o(.data);

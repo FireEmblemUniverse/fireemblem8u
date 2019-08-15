@@ -177,11 +177,11 @@ struct Struct0202BCF0 { // Chapter Data Struct
     u32 unk40_2:1; // 1
     u32 unk40_3:2; // 2
     u32 unk40_5:1; // 1
-    u32 unk40_6:2; // 2, text speed
+    u32 cfgTextSpeed:2;
     u32 unk40_8:1; // 1
     u32 unk41_1:1; // 1
     u32 unk41_2:1; // 1
-    u32 unk41_3:2; // 2
+    u32 cfgWindowColor:2;
     u32 unk41_5:1; // 1
     u32 unk41_6:1; // unk
     u32 unk41_7:1; // 1
