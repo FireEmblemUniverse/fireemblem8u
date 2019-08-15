@@ -116,7 +116,6 @@ SECTIONS
         asm/code_sio.o(.text);
         src/uiutils.o(.text);
         src/uimenu.o(.text);
-        asm/ui_menu.o(.text);
         src/uitarget.o(.text);
         asm/ui_targetselection.o(.text);
         asm/code_battleanim.o(.text);

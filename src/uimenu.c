@@ -10,13 +10,16 @@
 
 // type decls
 
+struct MenuDef;
+struct MenuItemDef;
+
 struct MenuProc;
 struct MenuItemProc;
 
-struct MenuRect
-{
-    s8 x, y, w, h;
-};
+struct MenuRect { s8 x, y, w, h; };
+
+typedef u8(*MenuAvailabilityFunc)(const struct MenuItemDef*, int);
+typedef u8(*MenuSelectFunc)(struct MenuProc*, struct MenuItemProc*);
 
 struct MenuItemDef
 {
@@ -29,8 +32,8 @@ struct MenuItemDef
 
     /* 10 */ void(*onDraw)(struct MenuProc*, struct MenuItemProc*);
 
-    /* 14 */ int(*onSelected)(struct MenuProc*, struct MenuItemProc*);
-    /* 18 */ int(*onIdle)(struct MenuProc*, struct MenuItemProc*);
+    /* 14 */ u8(*onSelected)(struct MenuProc*, struct MenuItemProc*);
+    /* 18 */ u8(*onIdle)(struct MenuProc*, struct MenuItemProc*);
 
     /* 1C */ void(*onSwitchIn)(struct MenuProc*, struct MenuItemProc*);
     /* 20 */ void(*onSwitchOut)(struct MenuProc*, struct MenuItemProc*);
@@ -45,8 +48,8 @@ struct MenuDef
     /* 0C */ void(*onInit)(struct MenuProc*);
     /* 10 */ void(*onEnd)(struct MenuProc*);
     /* 14 */ void(*_u14)(struct MenuProc*);
-    /* 18 */ void(*onBPress)(struct MenuProc*, struct MenuItemProc*);
-    /* 1C */ void(*onRPress)(struct MenuProc*);
+    /* 18 */ u8(*onBPress)(struct MenuProc*, struct MenuItemProc*);
+    /* 1C */ u8(*onRPress)(struct MenuProc*);
     /* 20 */ void(*onHelpBox)(struct MenuProc*, struct MenuItemProc*);
 };
 
@@ -86,8 +89,6 @@ struct MenuItemProc
     /* 3D */ u8 availability;
 };
 
-// typedef int(*MenuItemAvailableFunc)(struct MenuItemDef*, int);
-
 enum
 {
     // Menu availability identifiers
@@ -125,6 +126,34 @@ enum
     MENU_ACTION7 = (1 << 7),
 };
 
+enum
+{
+    // Menu item identifiers
+
+    MENU_ITEM_NONE = 0,
+};
+
+enum
+{
+    MENU_OVERRIDE_COUNT = 0x10
+};
+
+enum
+{
+    MENU_OVERRIDE_NONE = 0,
+    MENU_OVERRIDE_ISAVAILABLE,
+    MENU_OVERRIDE_ONSELECT,
+};
+
+struct MenuItemOverride
+{
+    /* 00 */ short cmdid;
+    /* 02 */ short kind;
+    /* 04 */ void* func;
+};
+
+extern struct MenuItemOverride gUnknown_03001870[MENU_OVERRIDE_COUNT];
+
 // function decls
 
 struct MenuProc* NewMenu_BG0BG1(
@@ -142,6 +171,10 @@ struct MenuProc* NewMenu(
     struct Proc* parent);
 
 void Menu_DrawHoverThing(struct MenuProc* proc, int item, s8 boolHover);
+void Menu_GetCursorGfxCurrentPosition(struct MenuProc* proc, int* xResult, int* yResult);
+void Menu_UpdateMovingCursorGfxPosition(struct MenuProc* proc, int* xRef, int* yRef);
+void Menu_HandleDirectionInputs(struct MenuProc* proc);
+int Menu_HandleSelectInputs(struct MenuProc* proc);
 
 void Menu_Idle();
 void Menu_Draw();
@@ -151,7 +184,10 @@ void sub_804F4A0();
 void sub_804F530();
 void sub_804F5B4();
 
-u8 sub_804F7AC(const struct MenuItemDef*, int);
+void sub_804F77C(int cmdid, int kind, void* func);
+
+u8 sub_804F7AC(const struct MenuItemDef* def, int number);
+u8 sub_804F7E8(struct MenuProc* proc, struct MenuItemProc* item);
 
 // data
 
@@ -422,6 +458,27 @@ void EndAllMenus(void)
     Proc_ForEachWithScript(gUnknown_085B64D0, (ProcFunc) EndMenu);
 }
 
+inline
+void sub_804F82C(struct MenuProc* proc)
+{
+    BG_EnableSyncByMask(BG_SYNC_BIT(proc->backBg) + BG_SYNC_BIT(proc->frontBg));
+}
+
+inline
+void sub_804F84C(struct MenuProc* proc)
+{
+    BG_Fill(BG_GetMapBuffer(proc->frontBg), 0);
+    BG_Fill(BG_GetMapBuffer(proc->backBg), 0);
+
+    sub_804F82C(proc);
+}
+
+inline
+s8 sub_804F890(struct MenuProc* proc)
+{
+    return proc->itemCurrent != proc->itemPrevious;
+}
+
 void Menu_CallDefinedConstructors(struct MenuProc* proc)
 {
     if (proc->def->onInit)
@@ -474,8 +531,7 @@ void Menu_Draw(struct MenuProc* proc)
     }
 
     Menu_DrawHoverThing(proc, proc->itemCurrent, TRUE);
-
-    BG_EnableSyncByMask(BG_SYNC_BIT(proc->backBg) + BG_SYNC_BIT(proc->frontBg));
+    sub_804F82C(proc);
 }
 
 void Menu_DrawHoverThing(struct MenuProc* proc, int item, s8 boolHover)
@@ -502,11 +558,6 @@ void Menu_DrawHoverThing(struct MenuProc* proc, int item, s8 boolHover)
 
     }
 }
-
-void Menu_GetCursorGfxCurrentPosition(struct MenuProc* proc, int* xResult, int* yResult);
-void Menu_UpdateMovingCursorGfxPosition(struct MenuProc* proc, int* xRef, int* yRef);
-void Menu_HandleDirectionInputs(struct MenuProc* proc);
-int Menu_HandleSelectInputs(struct MenuProc* proc);
 
 void Menu_Idle(struct MenuProc* proc)
 {
@@ -539,12 +590,7 @@ void Menu_Idle(struct MenuProc* proc)
         PlaySoundEffect(0x6B); // TODO: song ids!
 
     if (actions & MENU_ACT_CLEAR)
-    {
-        BG_Fill(BG_GetMapBuffer(proc->frontBg), 0);
-        BG_Fill(BG_GetMapBuffer(proc->backBg), 0);
-
-        BG_EnableSyncByMask(BG_SYNC_BIT(proc->backBg) + BG_SYNC_BIT(proc->frontBg));
-    }
+        sub_804F84C(proc);
 
     if (actions & MENU_ACT_ENDFACE)
         DeleteFaceByIndex(0);
@@ -564,152 +610,333 @@ void Menu_Idle(struct MenuProc* proc)
     DisplayUiHand(x, y);
 }
 
-/*
+void Menu_HandleDirectionInputs(struct MenuProc* proc)
+{
+    proc->itemPrevious = proc->itemCurrent;
 
-	THUMB_FUNC_START Menu_Idle
-Menu_Idle: @ 0x0804F164
-	push {r4, r5, r6, lr}
-	sub sp, #8
-	adds r5, r0, #0
-	adds r0, #0x63
-	ldrb r1, [r0]
-	movs r0, #0x40
-	ands r0, r1
-	cmp r0, #0
-	beq _0804F18A
-	add r2, sp, #4
-	adds r0, r5, #0
-	mov r1, sp
-	bl Menu_GetCursorGfxCurrentPosition
-	ldr r0, [sp]
-	ldr r1, [sp, #4]
-	bl DisplayFrozenUiHand
-	b _0804F286
-_0804F18A:
-	movs r0, #0x80
-	ands r0, r1
-	cmp r0, #0
-	beq _0804F19A
-	adds r0, r5, #0
-	bl EndMenu
-	b _0804F286
-_0804F19A:
-	adds r0, r5, #0
-	bl Menu_HandleDirectionInputs
-	adds r0, r5, #0
-	bl Menu_HandleSelectInputs
-	adds r6, r0, #0
-	movs r0, #2
-	ands r0, r6
-	cmp r0, #0
-	beq _0804F1B6
-	adds r0, r5, #0
-	bl EndMenu
-_0804F1B6:
-	movs r0, #4
-	ands r0, r6
-	cmp r0, #0
-	beq _0804F1D0
-	ldr r0, _0804F290  @ gUnknown_0202BCF0
-	adds r0, #0x41
-	ldrb r0, [r0]
-	lsls r0, r0, #0x1e
-	cmp r0, #0
-	blt _0804F1D0
-	movs r0, #0x6a
-	bl m4aSongNumStart
-_0804F1D0:
-	movs r0, #8
-	ands r0, r6
-	cmp r0, #0
-	beq _0804F1EA
-	ldr r0, _0804F290  @ gUnknown_0202BCF0
-	adds r0, #0x41
-	ldrb r0, [r0]
-	lsls r0, r0, #0x1e
-	cmp r0, #0
-	blt _0804F1EA
-	movs r0, #0x6b
-	bl m4aSongNumStart
-_0804F1EA:
-	movs r0, #0x10
-	ands r0, r6
-	cmp r0, #0
-	beq _0804F22E
-	adds r4, r5, #0
-	adds r4, #0x64
-	ldrb r0, [r4]
-	lsls r0, r0, #0x1c
-	lsrs r0, r0, #0x1e
-	bl BG_GetMapBuffer
-	movs r1, #0
-	bl BG_Fill
-	ldrb r0, [r4]
-	lsls r0, r0, #0x1e
-	lsrs r0, r0, #0x1e
-	bl BG_GetMapBuffer
-	movs r1, #0
-	bl BG_Fill
-	ldrb r3, [r4]
-	lsls r1, r3, #0x1e
-	lsrs r1, r1, #0x1e
-	movs r2, #1
-	adds r0, r2, #0
-	lsls r0, r1
-	lsls r3, r3, #0x1c
-	lsrs r3, r3, #0x1e
-	lsls r2, r3
-	adds r0, r0, r2
-	bl BG_EnableSyncByMask
-_0804F22E:
-	movs r4, #0x20
-	adds r0, r6, #0
-	ands r0, r4
-	cmp r0, #0
-	beq _0804F23E
-	movs r0, #0
-	bl DeleteFaceByIndex
-_0804F23E:
-	movs r0, #0x80
-	ands r0, r6
-	cmp r0, #0
-	beq _0804F252
-	adds r2, r5, #0
-	adds r2, #0x63
-	ldrb r1, [r2]
-	movs r0, #0x80
-	orrs r0, r1
-	strb r0, [r2]
-_0804F252:
-	movs r0, #1
-	ands r0, r6
-	cmp r0, #0
-	bne _0804F286
-	adds r0, r5, #0
-	adds r0, #0x63
-	ldrb r1, [r0]
-	adds r0, r4, #0
-	ands r0, r1
-	cmp r0, #0
-	bne _0804F286
-	add r4, sp, #4
-	adds r0, r5, #0
-	mov r1, sp
-	adds r2, r4, #0
-	bl Menu_GetCursorGfxCurrentPosition
-	adds r0, r5, #0
-	mov r1, sp
-	adds r2, r4, #0
-	bl Menu_UpdateMovingCursorGfxPosition
-	ldr r0, [sp]
-	ldr r1, [sp, #4]
-	bl DisplayUiHand
-_0804F286:
-	add sp, #8
-	pop {r4, r5, r6}
-	pop {r0}
-	bx r0
-	.align 2, 0
-_0804F290: .4byte gUnknown_0202BCF0
+    // Handle Up keyin
 
-*/
+    if (gKeyStatusPtr->repeatedKeys & DPAD_UP)
+    {
+        if (proc->itemCurrent == 0)
+        {
+            if (gKeyStatusPtr->repeatedKeys != gKeyStatusPtr->newKeys)
+                return;
+
+            proc->itemCurrent = proc->itemCount;
+        }
+
+        proc->itemCurrent--;
+    }
+
+    // Handle down keyin
+
+    if (gKeyStatusPtr->repeatedKeys & DPAD_DOWN)
+    {
+        if (proc->itemCurrent == (proc->itemCount - 1))
+        {
+            if (gKeyStatusPtr->repeatedKeys != gKeyStatusPtr->newKeys)
+                return;
+
+            proc->itemCurrent = -1;
+        }
+
+        proc->itemCurrent++;
+    }
+
+    // Update hover display
+
+    if (proc->itemPrevious != proc->itemCurrent)
+    {
+        Menu_DrawHoverThing(proc, proc->itemPrevious, FALSE);
+        Menu_DrawHoverThing(proc, proc->itemCurrent, TRUE);
+
+        PlaySoundEffect(0x66); // TODO: song ids!
+    }
+
+    // Call def's switch in/out funcs
+
+    if (sub_804F890(proc))
+    {
+        if (proc->menuItems[proc->itemPrevious]->def->onSwitchOut)
+            proc->menuItems[proc->itemPrevious]->def->onSwitchOut(proc, proc->menuItems[proc->itemPrevious]);
+
+        if (proc->menuItems[proc->itemCurrent]->def->onSwitchIn)
+            proc->menuItems[proc->itemCurrent]->def->onSwitchIn(proc, proc->menuItems[proc->itemCurrent]);
+    }
+}
+
+int Menu_HandleSelectInputs(struct MenuProc* proc)
+{
+    int result = 0;
+
+    struct MenuItemProc* item = proc->menuItems[proc->itemCurrent];
+    const struct MenuItemDef* itemDef = item->def;
+
+    if (itemDef->onIdle)
+        result = itemDef->onIdle(proc, item);
+
+    if (gKeyStatusPtr->newKeys & A_BUTTON)
+    {
+        // A Button press
+
+        result = sub_804F7E8(proc, item);
+
+        if ((result == 0xFF) && itemDef->onSelected)
+            result = itemDef->onSelected(proc, item);
+    }
+    else if (gKeyStatusPtr->newKeys & B_BUTTON)
+    {
+        // B Button press
+
+        if (proc->def->onBPress)
+            result = proc->def->onBPress(proc, item);
+    }
+    else if (gKeyStatusPtr->newKeys & R_BUTTON)
+    {
+        // R Button press
+
+        if (proc->def->onRPress)
+            proc->def->onRPress(proc);
+    }
+
+    return result;
+}
+
+void Menu_GetCursorGfxCurrentPosition(struct MenuProc* proc, int* xResult, int* yResult)
+{
+    *xResult = proc->menuItems[proc->itemCurrent]->xTile*8;
+    *yResult = proc->menuItems[proc->itemCurrent]->yTile*8;
+
+    if (proc->def->style != 0)
+        *xResult -= 4;
+}
+
+u8 MenuCommand_UsabilityAlways(const struct MenuItemDef* def, int number)
+{
+    return MENU_ENABLED;
+}
+
+u8 UsabilityGrayed(const struct MenuItemDef* def, int number)
+{
+    return MENU_DISABLED;
+}
+
+u8 UsabilityNever(const struct MenuItemDef* def, int number)
+{
+    return MENU_NOTSHOWN;
+}
+
+u8 sub_804F454(struct MenuProc* menu, struct MenuItemProc* item)
+{
+    return MENU_ACTION0 | MENU_ACT_CLEAR | MENU_ACT_END | MENU_ACT_SND6B;
+}
+
+u8 sub_804F458(struct MenuProc* menu, struct MenuItemProc* item)
+{
+    sub_8088DE0(item->xTile*8, item->yTile*8, item->def->helpMsgId);
+}
+
+void sub_804F474(struct MenuProc* proc)
+{
+    LoadDialogueBoxGfx(NULL, -1); // TODO: NOPAL constant?
+    proc->def->onHelpBox(proc, proc->menuItems[proc->itemCurrent]);
+}
+
+void sub_804F4A0(struct MenuProc* proc)
+{
+    int x, y;
+
+    Menu_HandleDirectionInputs(proc);
+
+    Menu_GetCursorGfxCurrentPosition(proc, &x, &y);
+    Menu_UpdateMovingCursorGfxPosition(proc, &x, &y);
+
+    DisplayUiHand(x, y);
+
+    if (gKeyStatusPtr->newKeys & (B_BUTTON | R_BUTTON))
+    {
+        sub_8089018();
+        Proc_JumpToPointer((struct Proc*) proc, gUnknown_085B64B8);
+
+        return;
+    }
+
+    if (sub_804F890(proc))
+    {
+        proc->def->onHelpBox(proc, proc->menuItems[proc->itemCurrent]);
+    }
+}
+
+u8 sub_804F520(struct MenuProc* menu, struct MenuItemProc* item)
+{
+    Proc_JumpToPointer((struct Proc*) menu, gUnknown_085B6518);
+}
+
+void sub_804F530(struct MenuProc* proc)
+{
+    int x, y;
+
+    Menu_GetCursorGfxCurrentPosition(proc, &x, &y);
+    Menu_UpdateMovingCursorGfxPosition(proc, &x, &y);
+
+    DisplayFrozenUiHand(x, y);
+
+    if (gKeyStatusPtr->newKeys & (B_BUTTON | R_BUTTON))
+    {
+        sub_8089018();
+        Proc_JumpToPointer((struct Proc*) proc, gUnknown_085B64B8);
+    }
+}
+
+u8 Menu_CallTextBox(struct MenuProc* proc, int msgid)
+{
+    Proc_JumpToPointer((struct Proc*) proc, gUnknown_085B6530);
+
+    LoadDialogueBoxGfx(NULL, -1); // TODO: default constants?
+    sub_8088DE0(GetUiHandPrevDisplayX(), GetUiHandPrevDisplayY(), msgid);
+}
+
+void sub_804F5B4(struct MenuProc* proc)
+{
+    int x, y;
+
+    Menu_GetCursorGfxCurrentPosition(proc, &x, &y);
+    Menu_UpdateMovingCursorGfxPosition(proc, &x, &y);
+
+    DisplayFrozenUiHand(x, y);
+
+    if (gKeyStatusPtr->newKeys & (A_BUTTON | B_BUTTON))
+        Proc_JumpToPointer((struct Proc*) proc, gUnknown_085B64B8);
+}
+
+u8 sub_804F5FC(struct MenuProc* proc)
+{
+    Proc_JumpToPointer((struct Proc*) proc, gUnknown_085B6540);
+}
+
+void MarkSomethingInMenu(void)
+{
+    struct MenuProc* proc = (struct MenuProc*) Proc_Find(gUnknown_085B64D0);
+
+    if (proc)
+        proc->state |= MENU_STATE_BIT6;
+}
+
+void sub_804F62C(void)
+{
+    struct MenuProc* proc = (struct MenuProc*) Proc_Find(gUnknown_085B64D0);
+
+    if (proc)
+        proc->state &= ~MENU_STATE_BIT6;
+}
+
+struct MenuProc* NewMenu_AndDoSomethingCommands(
+    const struct MenuDef* def, int xSubject, int xTileLeft, int xTileRight)
+{
+    struct MenuProc* result = NewMenu_DefaultAdjusted(def, xSubject, xTileLeft, xTileRight);
+    int i;
+
+    if (result->itemCount <= 6)
+        return result;
+
+    result->rect.y -= gUnknown_085B6550[result->itemCount];
+
+    for (i = 0; i < result->itemCount; ++i)
+        result->menuItems[i]->yTile -= gUnknown_085B6550[result->itemCount];
+
+    return result;
+}
+
+void Menu_UpdateMovingCursorGfxPosition(struct MenuProc* proc, int* xRef, int* yRef)
+{
+    int off;
+
+    if (proc->itemCount <= 9)
+        return;
+
+    off = (proc->itemCount*16 - 9*16) * proc->itemCurrent / 9;
+
+    BG_SetPosition(proc->frontBg, 0, off);
+    BG_SetPosition(proc->backBg, 0, off);
+
+    *yRef -= off;
+}
+
+void ClearMenuRelatedList(void)
+{
+    int i;
+
+    for (i = 0; i < MENU_OVERRIDE_COUNT; ++i)
+        gUnknown_03001870[i].kind = MENU_OVERRIDE_NONE;
+}
+
+void sub_804F714(u8 list[MENU_OVERRIDE_COUNT])
+{
+    int i;
+
+    for (i = 0; i < MENU_OVERRIDE_COUNT; ++i)
+    {
+        if (gUnknown_03001870[i].kind && gUnknown_03001870[i].func == UsabilityNever)
+            list[i] = gUnknown_03001870[i].cmdid;
+        else
+            list[i] = MENU_ITEM_NONE;
+    }
+}
+
+void sub_804F754(u8 list[MENU_OVERRIDE_COUNT])
+{
+    int i;
+
+    for (i = 0; i < MENU_OVERRIDE_COUNT; ++i)
+        if (list[i])
+            sub_804F77C(list[i], MENU_OVERRIDE_ISAVAILABLE, UsabilityNever);
+}
+
+void sub_804F77C(int cmdid, int kind, void* func)
+{
+    struct MenuItemOverride* it = gUnknown_03001870;
+
+    while ((it->kind != 0) && !((it->kind == kind) && (it->cmdid == cmdid)))
+        ++it;
+
+    it->cmdid = cmdid;
+    it->kind = kind;
+    it->func = func;
+}
+
+u8 sub_804F7AC(const struct MenuItemDef* def, int number)
+{
+    struct MenuItemOverride* it = gUnknown_03001870;
+
+    for (; it->kind != 0; ++it)
+    {
+        if (it->kind != MENU_OVERRIDE_ISAVAILABLE)
+            continue;
+
+        if (it->cmdid != def->unk09)
+            continue;
+
+        return ((MenuAvailabilityFunc)(it->func))(def, number);
+    }
+
+    return 0;
+}
+
+u8 sub_804F7E8(struct MenuProc* proc, struct MenuItemProc* item)
+{
+    struct MenuItemOverride* it = gUnknown_03001870;
+
+    for (; it->kind != 0; ++it)
+    {
+        if (it->kind != MENU_OVERRIDE_ONSELECT)
+            continue;
+
+        if (it->cmdid != item->def->unk09)
+            continue;
+
+        return ((MenuSelectFunc)(it->func))(proc, item);
+    }
+
+    return 0xFF;
+}
