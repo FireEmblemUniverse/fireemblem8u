@@ -16,6 +16,8 @@
 #include "bmbattle.h"
 #include "bmtrick.h"
 #include "mu.h"
+#include "uimenu.h"
+
 #include "bmio.h"
 
 // General Battle Map System Stuff, mostly low level hardware stuff but also more

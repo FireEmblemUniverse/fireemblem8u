@@ -8,186 +8,7 @@
 #include "bmio.h"
 #include "uiutils.h"
 
-// type decls
-
-struct MenuDef;
-struct MenuItemDef;
-
-struct MenuProc;
-struct MenuItemProc;
-
-struct MenuRect { s8 x, y, w, h; };
-
-typedef u8(*MenuAvailabilityFunc)(const struct MenuItemDef*, int);
-typedef u8(*MenuSelectFunc)(struct MenuProc*, struct MenuItemProc*);
-
-struct MenuItemDef
-{
-    /* 00 */ const char* name;
-
-    /* 04 */ u16 nameMsgId, helpMsgId;
-    /* 08 */ u8 color, unk09;
-
-    /* 0C */ u8(*isAvailable)(const struct MenuItemDef*, int number);
-
-    /* 10 */ void(*onDraw)(struct MenuProc*, struct MenuItemProc*);
-
-    /* 14 */ u8(*onSelected)(struct MenuProc*, struct MenuItemProc*);
-    /* 18 */ u8(*onIdle)(struct MenuProc*, struct MenuItemProc*);
-
-    /* 1C */ void(*onSwitchIn)(struct MenuProc*, struct MenuItemProc*);
-    /* 20 */ void(*onSwitchOut)(struct MenuProc*, struct MenuItemProc*);
-};
-
-struct MenuDef
-{
-    /* 00 */ struct MenuRect rect;
-    /* 04 */ u8 style;
-    /* 08 */ const struct MenuItemDef* menuItems;
-
-    /* 0C */ void(*onInit)(struct MenuProc*);
-    /* 10 */ void(*onEnd)(struct MenuProc*);
-    /* 14 */ void(*_u14)(struct MenuProc*);
-    /* 18 */ u8(*onBPress)(struct MenuProc*, struct MenuItemProc*);
-    /* 1C */ u8(*onRPress)(struct MenuProc*);
-    /* 20 */ void(*onHelpBox)(struct MenuProc*, struct MenuItemProc*);
-};
-
-struct MenuProc
-{
-    /* 00 */ PROC_HEADER;
-
-    /* 2C */ struct MenuRect rect;
-    /* 30 */ const struct MenuDef* def;
-
-    /* 34 */ struct MenuItemProc* menuItems[11];
-
-    /* 60 */ u8 itemCount;
-    /* 61 */ u8 itemCurrent;
-    /* 62 */ u8 itemPrevious;
-    /* 63 */ u8 state;
-
-    /* 64 */ u8 backBg : 2;
-    /* 64 */ u8 frontBg : 2;
-
-    /* 66 */ u16 tileref;
-    /* 68 */ u16 unk68;
-};
-
-struct MenuItemProc
-{
-    /* 00 */ PROC_HEADER;
-
-    /* 2A */ short xTile;
-    /* 2C */ short yTile;
-
-    /* 30 */ const struct MenuItemDef* def;
-
-    /* 34 */ struct TextHandle text;
-
-    /* 3C */ u8 itemNumber;
-    /* 3D */ u8 availability;
-};
-
-enum
-{
-    // Menu availability identifiers
-
-    MENU_ENABLED  = 1,
-    MENU_DISABLED = 2,
-    MENU_NOTSHOWN = 3,
-};
-
-enum
-{
-    // Menu state bits
-
-    MENU_STATE_BIT0 = (1 << 0),
-    MENU_STATE_BIT1 = (1 << 1),
-    MENU_STATE_BIT2 = (1 << 2),
-    MENU_STATE_BIT3 = (1 << 3),
-    MENU_STATE_BIT4 = (1 << 4),
-    MENU_STATE_BIT5 = (1 << 5),
-    MENU_STATE_BIT6 = (1 << 6),
-    MENU_STATE_BIT7 = (1 << 7),
-};
-
-enum
-{
-    // Menu action bits
-
-    MENU_ACTION0 = (1 << 0),
-    MENU_ACT_END = (1 << 1),
-    MENU_ACT_SND6A = (1 << 2),
-    MENU_ACT_SND6B = (1 << 3),
-    MENU_ACT_CLEAR = (1 << 4),
-    MENU_ACT_ENDFACE = (1 << 5),
-    MENU_ACTION6 = (1 << 6),
-    MENU_ACTION7 = (1 << 7),
-};
-
-enum
-{
-    // Menu item identifiers
-
-    MENU_ITEM_NONE = 0,
-};
-
-enum
-{
-    MENU_OVERRIDE_COUNT = 0x10
-};
-
-enum
-{
-    MENU_OVERRIDE_NONE = 0,
-    MENU_OVERRIDE_ISAVAILABLE,
-    MENU_OVERRIDE_ONSELECT,
-};
-
-struct MenuItemOverride
-{
-    /* 00 */ short cmdid;
-    /* 02 */ short kind;
-    /* 04 */ void* func;
-};
-
-extern struct MenuItemOverride gUnknown_03001870[MENU_OVERRIDE_COUNT];
-
-// function decls
-
-struct MenuProc* NewMenu_BG0BG1(
-    const struct MenuDef* def,
-    struct MenuRect rect,
-    struct Proc* parent);
-
-struct MenuProc* NewMenu(
-    const struct MenuDef* def,
-    struct MenuRect rect,
-    int backBg,
-    int tileref,
-    int frontBg,
-    int unk,
-    struct Proc* parent);
-
-void Menu_DrawHoverThing(struct MenuProc* proc, int item, s8 boolHover);
-void Menu_GetCursorGfxCurrentPosition(struct MenuProc* proc, int* xResult, int* yResult);
-void Menu_UpdateMovingCursorGfxPosition(struct MenuProc* proc, int* xRef, int* yRef);
-void Menu_HandleDirectionInputs(struct MenuProc* proc);
-int Menu_HandleSelectInputs(struct MenuProc* proc);
-
-void Menu_Idle();
-void Menu_Draw();
-void Menu_CallDefinedConstructors();
-void sub_804F474();
-void sub_804F4A0();
-void sub_804F530();
-void sub_804F5B4();
-
-void sub_804F77C(int cmdid, int kind, void* func);
-
-u8 sub_804F7AC(const struct MenuItemDef* def, int number);
-u8 sub_804F7E8(struct MenuProc* proc, struct MenuItemProc* item);
+#include "uimenu.h"
 
 // data
 
@@ -863,19 +684,35 @@ void Menu_UpdateMovingCursorGfxPosition(struct MenuProc* proc, int* xRef, int* y
     *yRef -= off;
 }
 
+enum
+{
+    MENU_OVERRIDE_NONE = 0,
+    MENU_OVERRIDE_ISAVAILABLE,
+    MENU_OVERRIDE_ONSELECT,
+};
+
+struct MenuItemOverride
+{
+    /* 00 */ short cmdid;
+    /* 02 */ short kind;
+    /* 04 */ void* func;
+};
+
+extern struct MenuItemOverride gUnknown_03001870[MENU_OVERRIDE_MAX];
+
 void ClearMenuRelatedList(void)
 {
     int i;
 
-    for (i = 0; i < MENU_OVERRIDE_COUNT; ++i)
+    for (i = 0; i < MENU_OVERRIDE_MAX; ++i)
         gUnknown_03001870[i].kind = MENU_OVERRIDE_NONE;
 }
 
-void sub_804F714(u8 list[MENU_OVERRIDE_COUNT])
+void sub_804F714(u8 list[MENU_OVERRIDE_MAX])
 {
     int i;
 
-    for (i = 0; i < MENU_OVERRIDE_COUNT; ++i)
+    for (i = 0; i < MENU_OVERRIDE_MAX; ++i)
     {
         if (gUnknown_03001870[i].kind && gUnknown_03001870[i].func == UsabilityNever)
             list[i] = gUnknown_03001870[i].cmdid;
@@ -884,11 +721,11 @@ void sub_804F714(u8 list[MENU_OVERRIDE_COUNT])
     }
 }
 
-void sub_804F754(u8 list[MENU_OVERRIDE_COUNT])
+void sub_804F754(u8 list[MENU_OVERRIDE_MAX])
 {
     int i;
 
-    for (i = 0; i < MENU_OVERRIDE_COUNT; ++i)
+    for (i = 0; i < MENU_OVERRIDE_MAX; ++i)
         if (list[i])
             sub_804F77C(list[i], MENU_OVERRIDE_ISAVAILABLE, UsabilityNever);
 }

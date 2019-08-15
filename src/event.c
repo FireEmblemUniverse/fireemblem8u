@@ -7,6 +7,7 @@
 #include "bmio.h"
 #include "bmunit.h"
 #include "bmmap.h"
+#include "uimenu.h"
 
 #include "event.h"
 
