@@ -81,7 +81,7 @@ def link_to_output(outputfile, filename, section, base_addr, ld,
     if is_debug:
         print(cmd)
     os.system(cmd)
-    cmd = '%s -e 0x%X -Tdata 0x%X%s -o %s %s.bak.o %s' % (
+    cmd = '%s --no-warn-mismatch -e 0x%X -Tdata 0x%X%s -o %s %s.bak.o %s' % (
         ld, base_addr, base_addr, unique_section, outputfile, outputfile,
         filename)
     if is_debug:
@@ -107,7 +107,7 @@ def remove_section_in_object(filename, section, objcopy, is_debug):
     if is_debug:
         print(cmd)
     os.system(cmd)
-    cmd = '%s -O elf32-littlearm -R %s %s.bak.o %s' % (
+    cmd = '%s -O elf32-littlearm -B armv4t -R %s %s.bak.o %s' % (
         objcopy, section, filename, filename)
     if is_debug:
         print(cmd)
