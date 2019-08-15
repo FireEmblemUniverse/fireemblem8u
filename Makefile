@@ -80,7 +80,8 @@ include graphics_file_rules.mk
 %.8bpp: %.png  ; $(GBAGFX) $< $@
 %.gbapal: %.pal
 ifneq ($(OS),Windows_NT)
-	unix2dos $<
+	# unix2dos $< # not standard unix! =(
+	sed -i -e 's/\r*$$/\r/' $<
 endif
 	$(GBAGFX) $< $@
 %.gbapal: %.png ; $(GBAGFX) $< $@

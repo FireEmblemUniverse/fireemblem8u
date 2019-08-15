@@ -107,7 +107,7 @@ def remove_section_in_object(filename, section, objcopy, is_debug):
     if is_debug:
         print(cmd)
     os.system(cmd)
-    cmd = '%s -O elf32-littlearm -R %s %s.bak.o %s' % (
+    cmd = '%s -O elf32-littlearm -B armv4t -R %s %s.bak.o %s' % (
         objcopy, section, filename, filename)
     if is_debug:
         print(cmd)
