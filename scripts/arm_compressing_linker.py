@@ -81,7 +81,7 @@ def link_to_output(outputfile, filename, section, base_addr, ld,
     if is_debug:
         print(cmd)
     os.system(cmd)
-    cmd = '%s -e 0x%X -Tdata 0x%X%s -o %s %s.bak.o %s' % (
+    cmd = '%s --no-warn-mismatch -e 0x%X -Tdata 0x%X%s -o %s %s.bak.o %s' % (
         ld, base_addr, base_addr, unique_section, outputfile, outputfile,
         filename)
     if is_debug:
