@@ -81,7 +81,7 @@ _08089634:
 	adds r0, r4, #0
 	ands r0, r1
 	strh r0, [r2, #2]
-	ldr r1, _08089668  @ gUnknown_08A01208
+	ldr r1, _08089668  @ chap_title_data
 	lsls r0, r3, #1
 	adds r0, r0, r3
 	lsls r0, r0, #2
@@ -98,7 +98,7 @@ _08089634:
 	.align 2, 0
 _08089660: .4byte gUnknown_0203E78C
 _08089664: .4byte 0x000003FF
-_08089668: .4byte gUnknown_08A01208
+_08089668: .4byte chap_title_data
 
 	THUMB_FUNC_START sub_808966C
 sub_808966C: @ 0x0808966C
@@ -98298,7 +98298,7 @@ sub_80BA198: @ 0x080BA198
 	str r4, [r5, #0x30]
 	movs r0, #0
 	str r0, [r5, #0x2c]
-	ldr r0, _080BA1EC  @ gUnknown_0859EE20
+	ldr r0, _080BA1EC  @ unit_icon_pal_player
 	movs r1, #0xe0
 	lsls r1, r1, #2
 	movs r2, #0x80
@@ -98323,7 +98323,7 @@ _080BA1CE:
 	.align 2, 0
 _080BA1E4: .4byte gUnknown_08A3D748
 _080BA1E8: .4byte gUnknown_08A3DD20
-_080BA1EC: .4byte gUnknown_0859EE20
+_080BA1EC: .4byte unit_icon_pal_player
 _080BA1F0: .4byte gPaletteBuffer
 
 	THUMB_FUNC_START sub_80BA1F4
@@ -98418,7 +98418,7 @@ sub_80BA288: @ 0x080BA288
 	str r4, [r5, #0x30]
 	movs r0, #0
 	str r0, [r5, #0x2c]
-	ldr r0, _080BA2DC  @ gUnknown_0859EE20
+	ldr r0, _080BA2DC  @ unit_icon_pal_player
 	movs r1, #0xe0
 	lsls r1, r1, #2
 	movs r2, #0x80
@@ -98443,7 +98443,7 @@ _080BA2BE:
 	.align 2, 0
 _080BA2D4: .4byte gUnknown_08A3D748
 _080BA2D8: .4byte gUnknown_08A3DD38
-_080BA2DC: .4byte gUnknown_0859EE20
+_080BA2DC: .4byte unit_icon_pal_player
 _080BA2E0: .4byte gPaletteBuffer
 
 	THUMB_FUNC_START NewWorldMap
@@ -99655,6 +99655,8 @@ NewMapScreen: @ 0x080BABF0
 	.align 2, 0
 _080BAC14: .4byte gUnknown_08A3DE84
 _080BAC18: .4byte gUnknown_03005324
+
+.equ gMMSDataTable, unit_icon_move_table
 
 	THUMB_FUNC_START MMS_GetGfx
 MMS_GetGfx: @ 0x080BAC1C

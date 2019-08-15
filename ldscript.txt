@@ -194,6 +194,7 @@ SECTIONS
 		. = ALIGN(4); data/trig_rodata.o(.rodata);
 		. = ALIGN(4); src/fontgrp.o(.rodata);
         . = ALIGN(4); data/face_rodata.o(.rodata);
+        . = ALIGN(4); data/scene_rodata.o(.rodata);
         . = ALIGN(4); src/messdecode.o(.rodata);
         . = ALIGN(4); data/const_data_D792C.o(.rodata);
         . = ALIGN(4); src/bmitem.o(.rodata);
@@ -211,10 +212,14 @@ SECTIONS
         . = ALIGN(4); data/const_data_DA3A4.o(.rodata);
         . = ALIGN(4); data/text.o(.rodata);
         . = ALIGN(4); data/const_data_1609BC.o(.rodata);
+        . = ALIGN(4); data/const_data_unit_icon_wait.o(.rodata);
+        . = ALIGN(4); data/const_data_1C0AFC.o(.rodata);
+        . = ALIGN(4); data/const_data_unit_icon_move.o(.rodata);
         . = ALIGN(4); src/mu.o(.rodata);
         . = ALIGN(4); data/muctrl_rodata.o(.rodata);
         . = ALIGN(4); data/const_data_205714.o(.rodata);
-        . = ALIGN(4); data/m4a_tables.o(.rodata);
+        . = ALIGN(4); src/m4a_tables.o(.rodata);
+        . = ALIGN(4); data/sound_data.o(.rodata);
         . = ALIGN(4); tools/agbcc/lib/libc.a:vfprintf.o(.rodata);
         . = ALIGN(4); tools/agbcc/lib/libc.a:dtoa.o(.rodata);
         . = ALIGN(4); tools/agbcc/lib/libc.a:impure.o(.rodata);
@@ -231,6 +236,8 @@ SECTIONS
         . = ALIGN(4); data/data_587A40.o(.data);
         . = ALIGN(4); src/messdecode.o(.data);
         . = ALIGN(4); data/data_591AB4.o(.data);
+        . = ALIGN(4); data/data_item_icon.o(.data);
+        . = ALIGN(4); data/data_599714.o(.data);
         . = ALIGN(4); src/bmunit.o(.data);
         . = ALIGN(4); src/bmmap.o(.data);
         . = ALIGN(4); data/data_59A9D8.o(.data);
@@ -245,13 +252,44 @@ SECTIONS
         . = ALIGN(4); src/uimenu.o(.data);
         . = ALIGN(4); src/uitarget.o(.data);
         . = ALIGN(4); data/data_5B65C0.o(.data);
+        . = ALIGN(4); data/data_portrait.o(.data);
+        . = ALIGN(4); src/portrait_data.o(.data);
+        . = ALIGN(4); data/data_8ADEB0.o(.data);
+        . = ALIGN(4); src/unit_icon_wait_data.o(.data);
+        . = ALIGN(4); data/data_8AFBD8.o(.data);
         . = ALIGN(4); src/mu.o(.data);
         . = ALIGN(4); data/data_9A2DB0.o(.data);
+        . = ALIGN(4); src/unit_icon_move_data.o(.data);
+        . = ALIGN(4); data/data_9A31F8.o(.data);
+        . = ALIGN(4); src/chap_title_data.o(.data);
+        . = ALIGN(4); data/data_A01628.o(.data);
+        . = ALIGN(4); data/data_chap_title.o(.data);
+        . = ALIGN(4); data/data_A167C8.o(.data);
         . = ALIGN(4); tools/agbcc/lib/libc.a:impure.o(.data);
         . = ALIGN(4); tools/agbcc/lib/libc.a:locale.o(.data);
         . = ALIGN(4); tools/agbcc/lib/libc.a:mallocr.o(.data);
         . = ALIGN(4); data/data_B1FE7C.o(.data);
-        . = ALIGN(4); data/data_C00008.o(.data);
+        FILL(0xFF);
+        . = 0xC00000; src/banim_data.o(.data.banim_array_len);
+        . = 0xC00008; src/banim_data.o(.data.banim_array);
+        FILL(0x00); /* TODO: This padding is handled by banim linking process itself? */
+        . = 0xC02000; data/banim/data_banim.o(.data);
+        FILL(0xFF);
+        . = 0xEE0000; src/banim_terrain_data.o(.data.banim_terrain_head); src/banim_terrain_data.o(.data.banim_terrain_ptr_table);
+        FILL(0x00);
+        . = 0xEE0C00; data/data_banim_terrain.o(.data);
+        FILL(0xFF);
+        _banim_pal_start = 0xEF8000;
+        . = _banim_pal_start; 
+        src/banim_pal_chara.o(.data.banim_pal_head);
+        src/banim_pal_chara.o(.data.banim_pal_ptr_table);
+        FILL(0x00);
+        . = _banim_pal_start + 0x1000; data/data_banim_pal.o(.data);
+        _banim_pal_end = .;
+        _banim_pal_size = . - _banim_pal_start;
+        FILL(0xFF);
+        . = 0xFE0000; data/data_FE0000.o(.data);
+        . = 0xFFF000; data/data_FFF000.o(.data);
     } = 0
 
     /* Discard everything not specifically mentioned above. */

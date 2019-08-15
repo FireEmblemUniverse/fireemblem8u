@@ -4184,7 +4184,7 @@ sub_8051E00: @ 0x08051E00
 	lsls r0, r1, #1
 	adds r0, r0, r1
 	lsls r0, r0, #3
-	ldr r3, _08051E48  @ gUnknown_08EE0008
+	ldr r3, _08051E48  @ battle_terrain_table
 	adds r5, r0, r3
 	movs r6, #2
 	ldrsh r1, [r2, r6]
@@ -4208,7 +4208,7 @@ sub_8051E00: @ 0x08051E00
 	.align 2, 0
 _08051E40: .4byte gUnknown_0201FADC
 _08051E44: .4byte gUnknown_0203E11C
-_08051E48: .4byte gUnknown_08EE0008
+_08051E48: .4byte battle_terrain_table
 _08051E4C: .4byte gUnknown_0203E120
 _08051E50: .4byte gUnknown_020145C8
 _08051E54:
@@ -19554,7 +19554,7 @@ sub_80599E8: @ 0x080599E8
 	mov r5, r8
 	push {r5, r6, r7}
 	sub sp, #4
-	ldr r0, _08059BD8  @ gUnknown_08C00008
+	ldr r0, _08059BD8  @ banim_data
 	mov sl, r0
 	ldr r1, _08059BDC  @ gUnknown_0201FB1C
 	movs r0, #0
@@ -19597,7 +19597,7 @@ sub_80599E8: @ 0x080599E8
 	cmp r5, r0
 	beq _08059A64
 	lsls r0, r5, #4
-	ldr r2, _08059BFC  @ gUnknown_08EF8008
+	ldr r2, _08059BFC  @ character_battle_animation_palette_table
 	adds r0, r0, r2
 	ldr r0, [r0, #0xc]
 	adds r1, r4, #0
@@ -19705,7 +19705,7 @@ _08059ADE:
 	cmp r5, r0
 	beq _08059B46
 	lsls r0, r5, #4
-	ldr r2, _08059BFC  @ gUnknown_08EF8008
+	ldr r2, _08059BFC  @ character_battle_animation_palette_table
 	adds r0, r0, r2
 	ldr r0, [r0, #0xc]
 	adds r1, r4, #0
@@ -19777,14 +19777,14 @@ _08059B88:
 	adds r0, r1, r0
 	ldrb r0, [r0]
 	lsls r0, r0, #4
-	ldr r1, _08059BFC  @ gUnknown_08EF8008
+	ldr r1, _08059BFC  @ character_battle_animation_palette_table
 	adds r0, r0, r1
 	subs r0, #0x10
 	ldr r0, [r0, #0xc]
 	str r0, [r2]
 	b _08059C72
 	.align 2, 0
-_08059BD8: .4byte gUnknown_08C00008
+_08059BD8: .4byte banim_data
 _08059BDC: .4byte gUnknown_0201FB1C
 _08059BE0: .4byte gUnknown_0203E104
 _08059BE4: .4byte gUnknown_0203E182
@@ -19793,7 +19793,7 @@ _08059BEC: .4byte gUnknown_0203E110
 _08059BF0: .4byte gUnknown_0200F1C8
 _08059BF4: .4byte gUnknown_0200005C
 _08059BF8: .4byte gUnknown_02004088
-_08059BFC: .4byte gUnknown_08EF8008
+_08059BFC: .4byte character_battle_animation_palette_table
 _08059C00: .4byte gUnknown_02000054
 _08059C04: .4byte gUnknown_02022B88
 _08059C08: .4byte gUnknown_0203E19C
@@ -19830,7 +19830,7 @@ _08059C44:
 	adds r0, r2, r0
 	ldrb r0, [r0]
 	lsls r0, r0, #4
-	ldr r2, _08059CD0  @ gUnknown_08EF8008
+	ldr r2, _08059CD0  @ character_battle_animation_palette_table
 	adds r0, r0, r2
 	subs r0, #0x10
 	ldr r0, [r0, #0xc]
@@ -19869,7 +19869,7 @@ _08059C72:
 	adds r0, r1, r0
 	ldrb r0, [r0]
 	lsls r0, r0, #4
-	ldr r1, _08059CD0  @ gUnknown_08EF8008
+	ldr r1, _08059CD0  @ character_battle_animation_palette_table
 	adds r0, r0, r1
 	subs r0, #0x10
 	ldr r0, [r0, #0xc]
@@ -19879,7 +19879,7 @@ _08059C72:
 _08059CC4: .4byte gUnknown_0895E0A4
 _08059CC8: .4byte gUnknown_0203E19C
 _08059CCC: .4byte gUnknown_0895EEA4
-_08059CD0: .4byte gUnknown_08EF8008
+_08059CD0: .4byte character_battle_animation_palette_table
 _08059CD4: .4byte gUnknown_0203E194
 _08059CD8:
 	adds r0, r3, #1
@@ -19900,7 +19900,7 @@ _08059CD8:
 	adds r0, r2, r0
 	ldrb r0, [r0]
 	lsls r0, r0, #4
-	ldr r2, _08059D24  @ gUnknown_08EF8008
+	ldr r2, _08059D24  @ character_battle_animation_palette_table
 	adds r0, r0, r2
 	subs r0, #0x10
 	ldr r0, [r0, #0xc]
@@ -19918,7 +19918,7 @@ _08059D06:
 _08059D18: .4byte gUnknown_0895E0A4
 _08059D1C: .4byte gUnknown_0203E19C
 _08059D20: .4byte gUnknown_0895EEA4
-_08059D24: .4byte gUnknown_08EF8008
+_08059D24: .4byte character_battle_animation_palette_table
 
 	THUMB_FUNC_START sub_8059D28
 sub_8059D28: @ 0x08059D28
@@ -20956,7 +20956,7 @@ sub_805A5A8: @ 0x0805A5A8
 	push {r4, r5, r6, lr}
 	adds r6, r0, #0
 	ldr r5, [r6, #0x44]
-	ldr r4, _0805A600  @ gUnknown_08C00008
+	ldr r4, _0805A600  @ banim_data
 	bl sub_805A154
 	cmp r0, #0
 	bne _0805A5FA
@@ -20997,7 +20997,7 @@ _0805A5FA:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_0805A600: .4byte gUnknown_08C00008
+_0805A600: .4byte banim_data
 _0805A604: .4byte gUnknown_080DAEF0
 _0805A608: .4byte 0x000057F0
 
@@ -21010,7 +21010,7 @@ sub_805A60C: @ 0x0805A60C
 	push {r5, r6, r7}
 	sub sp, #4
 	adds r4, r0, #0
-	ldr r0, _0805A694  @ gUnknown_08C00008
+	ldr r0, _0805A694  @ banim_data
 	mov r9, r0
 	ldr r2, _0805A698  @ gUnknown_080DAEF0
 	ldrh r1, [r4, #0xa]
@@ -21071,7 +21071,7 @@ _0805A67C:
 	adds r1, r5, r2
 	b _0805A6B2
 	.align 2, 0
-_0805A694: .4byte gUnknown_08C00008
+_0805A694: .4byte banim_data
 _0805A698: .4byte gUnknown_080DAEF0
 _0805A69C: .4byte gUnknown_085B9D5C
 _0805A6A0: .4byte 0x000057F0
@@ -21178,7 +21178,7 @@ _0805A752:
 	beq _0805A77E
 	adds r0, r1, #0
 	lsls r0, r0, #4
-	ldr r1, _0805A7AC  @ gUnknown_08EF8008
+	ldr r1, _0805A7AC  @ character_battle_animation_palette_table
 	adds r0, r0, r1
 	ldr r0, [r0, #0xc]
 	ldr r1, [r4, #0x20]
@@ -21206,7 +21206,7 @@ _0805A77E:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_0805A7AC: .4byte gUnknown_08EF8008
+_0805A7AC: .4byte character_battle_animation_palette_table
 _0805A7B0: .4byte gUnknown_02022AA8
 
 	THUMB_FUNC_START sub_805A7B4
@@ -21217,7 +21217,7 @@ sub_805A7B4: @ 0x0805A7B4
 	mov r5, r8
 	push {r5, r6, r7}
 	adds r7, r0, #0
-	ldr r0, _0805A82C  @ gUnknown_08C00008
+	ldr r0, _0805A82C  @ banim_data
 	mov sl, r0
 	ldr r2, _0805A830  @ gUnknown_080DAEF0
 	ldrh r0, [r7, #0xa]
@@ -21272,7 +21272,7 @@ _0805A816:
 	adds r1, r4, r2
 	b _0805A84A
 	.align 2, 0
-_0805A82C: .4byte gUnknown_08C00008
+_0805A82C: .4byte banim_data
 _0805A830: .4byte gUnknown_080DAEF0
 _0805A834: .4byte gUnknown_085B9D5C
 _0805A838: .4byte 0x000057F0
@@ -21365,7 +21365,7 @@ _0805A84A:
 	beq _0805A8FA
 	adds r0, r1, #0
 	lsls r0, r0, #4
-	ldr r2, _0805A928  @ gUnknown_08EF8008
+	ldr r2, _0805A928  @ character_battle_animation_palette_table
 	adds r0, r0, r2
 	ldr r0, [r0, #0xc]
 	ldr r1, [r7, #0x20]
@@ -21391,7 +21391,7 @@ _0805A8FA:
 	bx r0
 	.align 2, 0
 _0805A924: .4byte 0x000057F0
-_0805A928: .4byte gUnknown_08EF8008
+_0805A928: .4byte character_battle_animation_palette_table
 _0805A92C: .4byte gUnknown_02022AA8
 
 	THUMB_FUNC_START sub_805A930
@@ -21581,7 +21581,7 @@ sub_805AA68: @ 0x0805AA68
 	lsls r0, r1, #1
 	adds r0, r0, r1
 	lsls r0, r0, #3
-	ldr r2, _0805AAD0  @ gUnknown_08EE0008
+	ldr r2, _0805AAD0  @ battle_terrain_table
 	adds r0, r0, r2
 	mov r8, r0
 	movs r0, #6
@@ -21622,7 +21622,7 @@ _0805AABC:
 	beq _0805AAD8
 	b _0805AAE2
 	.align 2, 0
-_0805AAD0: .4byte gUnknown_08EE0008
+_0805AAD0: .4byte battle_terrain_table
 _0805AAD4:
 	cmp r0, #4
 	bne _0805AAE2
@@ -62103,7 +62103,7 @@ _0806F664: .4byte gUnknown_085D99C4
 sub_806F668: @ 0x0806F668
 	push {r4, r5, r6, lr}
 	adds r6, r0, #0
-	ldr r0, _0806F6A8  @ gUnknown_08C00008
+	ldr r0, _0806F6A8  @ banim_data
 	movs r1, #0xc4
 	lsls r1, r1, #5
 	adds r0, r0, r1
@@ -62129,7 +62129,7 @@ sub_806F668: @ 0x0806F668
 	pop {r0}
 	bx r0
 	.align 2, 0
-_0806F6A8: .4byte gUnknown_08C00008
+_0806F6A8: .4byte banim_data
 _0806F6AC: .4byte gUnknown_0201C790
 _0806F6B0: .4byte gUnknown_02022AE8
 
@@ -64429,7 +64429,7 @@ _080708F8: .4byte gUnknown_08758754
 sub_80708FC: @ 0x080708FC
 	push {r4, r5, r6, lr}
 	adds r6, r0, #0
-	ldr r4, _08070940  @ gUnknown_08C00008
+	ldr r4, _08070940  @ banim_data
 	ldr r5, [r6, #0x5c]
 	movs r0, #0
 	strh r0, [r6, #0x2c]
@@ -64456,7 +64456,7 @@ sub_80708FC: @ 0x080708FC
 	bl CpuFastSet
 	b _08070956
 	.align 2, 0
-_08070940: .4byte gUnknown_08C00008
+_08070940: .4byte banim_data
 _08070944: .4byte gUnknown_0201C790
 _08070948: .4byte gUnknown_02022B88
 _0807094C:
@@ -64561,7 +64561,7 @@ sub_8070A14: @ 0x08070A14
 	push {r4, r5, r6, r7, lr}
 	adds r6, r0, #0
 	ldr r5, [r6, #0x5c]
-	ldr r7, _08070A60  @ gUnknown_08C00008
+	ldr r7, _08070A60  @ banim_data
 	adds r0, r5, #0
 	bl GetAISSubjectId
 	adds r4, r0, #0
@@ -64591,7 +64591,7 @@ sub_8070A14: @ 0x08070A14
 	bl Proc_ClearNativeCallback
 	b _08070ADA
 	.align 2, 0
-_08070A60: .4byte gUnknown_08C00008
+_08070A60: .4byte banim_data
 _08070A64: .4byte gUnknown_0203E152
 _08070A68: .4byte gUnknown_0203E118
 _08070A6C: .4byte 0x0000FFFF

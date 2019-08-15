@@ -95,6 +95,15 @@
 . = 0x001DA8; gUnknown_03001DA8 = .;
 . = 0x001DE8; gUnknown_03001DE8 = .;
 . = 0x001E30; gUnknown_03001E30 = .;
+. = 0x001E38; gUnknown_03001E38 = .;
+. = 0x0020B8; gUnknown_030020B8 = .;
+. = 0x002338; gUnknown_03002338 = .;
+. = 0x0023D8; gUnknown_030023D8 = .;
+. = 0x002478; gUnknown_03002478 = .;
+. = 0x0025B8; gUnknown_030025B8 = .;
+. = 0x0026F8; gUnknown_030026F8 = .;
+. = 0x002888; gUnknown_03002888 = .;
+. = 0x0029C8; gUnknown_030029C8 = .;
 
 . = 0x002A68;
 . = ALIGN(4); src/agb_sram.o(.bss);

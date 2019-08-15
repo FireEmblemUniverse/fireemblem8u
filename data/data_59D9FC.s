@@ -70,7 +70,23 @@ gUnknown_0859E1B8:  @ 0x0859E1B8
 
 	.global gUnknown_0859E2D0
 gUnknown_0859E2D0:  @ 0x0859E2D0
-	.incbin "baserom.gba", 0x59E2D0, 0x228
+	.incbin "baserom.gba", 0x59E2D0, 0x38
+
+	.global gUnknown_0859E308
+gUnknown_0859E308:  @ 0x0859E308
+	.incbin "baserom.gba", 0x59E308, 0x60
+
+	.global gUnknown_0859E368
+gUnknown_0859E368:  @ 0x0859E368
+	.incbin "baserom.gba", 0x59E368, 0x68
+
+	.global gUnknown_0859E3D0
+gUnknown_0859E3D0:  @ 0x0859E3D0
+	.incbin "baserom.gba", 0x59E3D0, 0x68
+
+	.global gUnknown_0859E438
+gUnknown_0859E438:  @ 0x0859E438
+	.incbin "baserom.gba", 0x59E438, 0xC0
 
 	.global gUnknown_0859E4F8
 gUnknown_0859E4F8:  @ 0x0859E4F8
@@ -148,21 +164,25 @@ gUnknown_0859EDB0:  @ 0x0859EDB0
 gUnknown_0859EDEC:  @ 0x0859EDEC
 	.incbin "baserom.gba", 0x59EDEC, 0x34
 
-	.global gUnknown_0859EE20
-gUnknown_0859EE20:  @ 0x0859EE20
-	.incbin "baserom.gba", 0x59EE20, 0x20
+	.global unit_icon_pal_player
+unit_icon_pal_player:
+	.incbin "graphics/unit_icon/palette/unit_icon_pal_player.agbpal"
 
-	.global gUnknown_0859EE40
-gUnknown_0859EE40:  @ 0x0859EE40
-	.incbin "baserom.gba", 0x59EE40, 0x20
+	.global unit_icon_pal_enemy
+unit_icon_pal_enemy:
+	.incbin "graphics/unit_icon/palette/unit_icon_pal_enemy.agbpal"
 
-	.global gUnknown_0859EE60
-gUnknown_0859EE60:  @ 0x0859EE60
-	.incbin "baserom.gba", 0x59EE60, 0x40
+	.global unit_icon_pal_npc
+unit_icon_pal_npc:
+	.incbin "graphics/unit_icon/palette/unit_icon_pal_npc.agbpal"
 
-	.global gUnknown_0859EEA0
-gUnknown_0859EEA0:  @ 0x0859EEA0
-	.incbin "baserom.gba", 0x59EEA0, 0x20
+	.global unit_icon_pal_after_action
+unit_icon_pal_after_action:
+	.incbin "graphics/unit_icon/palette/unit_icon_pal_after_action.agbpal"
+
+	.global unit_icon_pal_p4
+unit_icon_pal_p4:
+	.incbin "graphics/unit_icon/palette/unit_icon_pal_p4.agbpal"
 
 	.global gUnknown_0859EEC0
 gUnknown_0859EEC0:  @ 0x0859EEC0
