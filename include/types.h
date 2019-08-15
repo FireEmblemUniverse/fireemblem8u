@@ -382,16 +382,18 @@ struct MapAnimState
 {
     /* 00 */ struct MapAnimActorState actors[4];
 
-    /* 50 */ u32* pCurrentRound;
+    /* 50 */ struct BattleHit* pCurrentRound;
     /* 54 */ const struct ProcCmd* pItemMapAnimProcScript;
     /* 58 */ u8 subjectActorId;
     /* 59 */ u8 targetActorId;
-    /* 5A */ u16 roundBits;
-    /* 5C */ u16 u5C;
+    /* 5A */ u16 hitAttributes; /* NOTE: this is a bug! hit attribures are 19bits */
+    /* 5C */ u8 hitInfo;
+    /* 5D */ s8 hitDamage;
     /* 5E */ u8 actorCount_maybe;
     /* 5F */ u8 u5F;
     /* 60 */ u8 u60;
     /* 61 */ u8 u61;
+    /* 62 */ u8 u62;
 };
 
 struct MMSData

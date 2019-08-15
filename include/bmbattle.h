@@ -48,7 +48,7 @@ struct BattleUnit {
     /* 6E */ s8 expGain;
     /* 6F */ s8 statusOut;
     /* 70 */ u8 levelPrevious;
-    /* 71 */ u8 expPrevious;
+    /* 71 */ s8 expPrevious;
 
     /* 72 */ u8 hpInitial;
 
