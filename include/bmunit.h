@@ -434,6 +434,9 @@ s8 CanUnitCrossTerrain(struct Unit* unit, int terrain);
 
 #define UNIT_NAME_ID(aUnit) ((aUnit)->pCharacterData->nameTextId)
 
+#define UNIT_CLASS_ID(aUnit) ((aUnit)->pClassData->number)
+#define UNIT_CHAR_ID(aUnit) ((aUnit)->pCharacterData->number)
+
 #define UNIT_MHP_MAX(aUnit) (UNIT_FACTION(unit) == FACTION_RED ? 120 : 60)
 #define UNIT_POW_MAX(aUnit) ((aUnit)->pClassData->maxPow)
 #define UNIT_SKL_MAX(aUnit) ((aUnit)->pClassData->maxSkl)
@@ -450,8 +453,8 @@ s8 CanUnitCrossTerrain(struct Unit* unit, int terrain);
 #define UNIT_CON(aUnit) (UNIT_CON_BASE(aUnit) + (aUnit)->conBonus)
 #define UNIT_MOV(aUnit) ((aUnit)->movBonus + UNIT_MOV_BASE(aUnit))
 
-#define UNIT_IS_GORGON_EGG(aUnit) (((aUnit)->pClassData->number == CLASS_GORGONEGG) || ((aUnit)->pClassData->number == CLASS_GORGONEGG2))
-#define UNIT_IS_PHANTOM(aUnit) ((aUnit)->pClassData->number == CLASS_PHANTOM)
+#define UNIT_IS_GORGON_EGG(aUnit) ((UNIT_CLASS_ID(aUnit) == CLASS_GORGONEGG) || (UNIT_CLASS_ID(aUnit) == CLASS_GORGONEGG2))
+#define UNIT_IS_PHANTOM(aUnit) (UNIT_CLASS_ID(aUnit) == CLASS_PHANTOM)
 
 #define UNIT_ARENA_LEVEL(aUnit) (((aUnit)->state >> 17) & 0x7)
 

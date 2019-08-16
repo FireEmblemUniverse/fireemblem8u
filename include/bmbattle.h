@@ -213,4 +213,6 @@ void UnitLevelUp(struct Unit* unit);
 void BattleHitAdvance(void);
 void BattleHitTerminate(void);
 
+#define BUNIT_IS_OBSTACLE(aBu) (((aBu)->terrainId == TERRAIN_WALL_1B) || ((aBu)->terrainId == TERRAIN_SNAG))
+
 #endif // GUARD_BMBATTLE_H

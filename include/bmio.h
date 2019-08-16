@@ -9,6 +9,8 @@ enum {
 enum {
     BM_OBJPAL_1  = 1,
     BM_OBJPAL_10 = 10,
+
+    BM_OBJPAL_BANIM_SPECIALMU = 8, /* size: 2 */
 };
 
 struct TileGfxAnim {

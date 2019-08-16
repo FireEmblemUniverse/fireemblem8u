@@ -366,9 +366,9 @@ struct SMSHandle
 
 struct MapAnimActorState
 {
-    /* 00 */ struct Unit* pUnit;
-    /* 04 */ struct BattleUnit* pBattleUnit;
-    /* 08 */ struct MUProc* pMUProc;
+    /* 00 */ struct Unit* unit;
+    /* 04 */ struct BattleUnit* bu;
+    /* 08 */ struct MUProc* mu;
     /* 0C */ u8 u0C;
     /* 0D */ u8 u0D;
     /* 0E */ u16 u0E;
@@ -380,12 +380,12 @@ struct MapAnimActorState
 
 struct MapAnimState
 {
-    /* 00 */ struct MapAnimActorState actors[4];
+    /* 00 */ struct MapAnimActorState actor[4];
 
-    /* 50 */ struct BattleHit* pCurrentRound;
-    /* 54 */ const struct ProcCmd* pItemMapAnimProcScript;
-    /* 58 */ u8 subjectActorId;
-    /* 59 */ u8 targetActorId;
+    /* 50 */ struct BattleHit* hitIt;
+    /* 54 */ const struct ProcCmd* specialProcScr;
+    /* 58 */ u8 attackerActorNum;
+    /* 59 */ u8 defenderActorNum;
     /* 5A */ u16 hitAttributes; /* NOTE: this is a bug! hit attribures are 19bits */
     /* 5C */ u8 hitInfo;
     /* 5D */ s8 hitDamage;
