@@ -280,7 +280,7 @@ void Proc_GotoLabel(struct Proc* proc_arg, int label)
     }
 }
 
-void Proc_JumpToPointer(struct Proc *proc, struct ProcCmd *ptr)
+void Proc_JumpToPointer(struct Proc *proc, const struct ProcCmd *ptr)
 {
     proc->currCmd = ptr;
     proc->nativeFunc = NULL;

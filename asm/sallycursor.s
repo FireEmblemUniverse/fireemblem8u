@@ -288,7 +288,7 @@ sub_8033468: @ 0x08033468
 	str r0, [r4, #0x58]
 	bl sub_803334C
 	ldr r0, _08033488  @ gUnknown_0859D040
-	bl NewMenu_Default
+	bl StartOrphanMenu
 	adds r0, r4, #0
 	movs r1, #0x3a
 	bl Proc_GotoLabel

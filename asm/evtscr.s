@@ -6732,7 +6732,7 @@ Event3D_: @ 0x080108AC
 	movs r5, #0xf
 	ands r5, r0
 	ldrh r7, [r1, #2]
-	bl ClearMenuRelatedList
+	bl ResetMenuOverrides
 	movs r6, #1
 	mov r8, r4
 	cmp r5, #1
@@ -6751,8 +6751,8 @@ _080108EC:
 	adds r0, r1, r5
 	ldrb r0, [r0]
 	movs r1, #1
-	ldr r2, _0801091C  @ UsabilityNever
-	bl sub_804F77C
+	ldr r2, _0801091C  @ MenuAlwaysNotShown
+	bl AddMenuOverride
 _08010902:
 	lsls r0, r6, #0x11
 	lsrs r6, r0, #0x10
@@ -6765,7 +6765,7 @@ _08010902:
 	.align 2, 0
 _08010914: .4byte gUnknown_080D793F
 _08010918: .4byte gUnknown_080D794E
-_0801091C: .4byte UsabilityNever
+_0801091C: .4byte MenuAlwaysNotShown
 _08010920:
 	movs r5, #0
 _08010922:
@@ -6777,12 +6777,12 @@ _08010922:
 	adds r4, r0, r5
 	ldrb r0, [r4]
 	movs r1, #1
-	ldr r2, _08010960  @ UsabilityGrayed
-	bl sub_804F77C
+	ldr r2, _08010960  @ MenuAlwaysDisabled
+	bl AddMenuOverride
 	ldrb r0, [r4]
 	movs r1, #2
 	ldr r2, _08010964  @ Get8
-	bl sub_804F77C
+	bl AddMenuOverride
 _08010942:
 	lsls r0, r6, #0x11
 	lsrs r6, r0, #0x10
@@ -6800,7 +6800,7 @@ _08010950:
 	pop {r1}
 	bx r1
 	.align 2, 0
-_08010960: .4byte UsabilityGrayed
+_08010960: .4byte MenuAlwaysDisabled
 _08010964: .4byte Get8
 
 	THUMB_FUNC_START Event3E_PrepScreenCall

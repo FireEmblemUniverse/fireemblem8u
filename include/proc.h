@@ -104,7 +104,7 @@ struct Proc *Proc_Find(const struct ProcCmd *script);
 // ??? Proc_FindNonBlocked(???);
 // ??? Proc_FindWithMark(???);
 void Proc_GotoLabel(struct Proc* proc_arg, int label);
-// ??? Proc_JumpToPointer(???);
+void Proc_JumpToPointer(struct Proc *proc, const struct ProcCmd *ptr);
 // ??? Proc_SetMark(???);
 // ??? Proc_SetDestructor(???);
 // ??? Proc_ForEach(???);

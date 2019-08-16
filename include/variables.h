@@ -734,7 +734,6 @@ extern struct OamDataTransfer gUnknown_03000030;
 // extern ??? gUnknown_03001850
 // extern ??? gUnknown_03001860
 // extern ??? gUnknown_03001864
-// extern ??? gUnknown_03001870
 // extern ??? gUnknown_030018F0
 // extern ??? gUnknown_03001A30
 // extern ??? gUnknown_03001A34
@@ -1822,13 +1821,6 @@ extern const u16 gUnknown_085A401C[]; // clouds palette
 // extern ??? gUnknown_085B089C
 // extern ??? gUnknown_085B0DE8
 // extern ??? gUnknown_085B0F2C
-// extern ??? gUnknown_085B64B8
-// extern ??? gUnknown_085B64D0
-// extern ??? gUnknown_085B6510
-// extern ??? gUnknown_085B6518
-// extern ??? gUnknown_085B6530
-// extern ??? gUnknown_085B6540
-// extern ??? gUnknown_085B6550
 // extern ??? gUnknown_085B655C
 // extern ??? gUnknown_085B658C
 extern const u8  gUiFrameImage[];

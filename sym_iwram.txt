@@ -71,7 +71,8 @@
 . = 0x001850; gUnknown_03001850 = .;
 . = 0x001860; gUnknown_03001860 = .;
 . = 0x001864; gUnknown_03001864 = .;
-. = 0x001870; gUnknown_03001870 = .;
+. = 0x001870;
+. = ALIGN(4); src/uimenu.o(.bss);
 . = 0x0018F0; gUnknown_030018F0 = .;
 . = 0x0018F8;
 . = ALIGN(4); src/mu.o(.bss);
