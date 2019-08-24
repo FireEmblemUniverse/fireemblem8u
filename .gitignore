@@ -77,3 +77,9 @@ data/banim/*.bin
 
 scripts/out/*
 scripts/__pycache__/*
+
+# =========================
+# Game Save Files
+# =========================
+
+*.sav
