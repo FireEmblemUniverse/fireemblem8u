@@ -63,7 +63,11 @@ src/bmitem.o: CC1FLAGS += -Wno-error
 #### Main Targets ####
 
 compare: $(ROM)
+ifeq ($(UNAME),Darwin)
+	shasum -c checksum.sha1
+else
 	sha1sum -c checksum.sha1
+endif
 
 clean:
 	find . \( -iname '*.1bpp' -o -iname '*.4bpp' -o -iname '*.8bpp' -o -iname '*.gbapal' -o -iname '*.lz' -o -iname '*.fk' -o -iname '*.latfont' -o -iname '*.hwjpnfont' -o -iname '*.fwjpnfont' \) -exec rm {} +
@@ -85,8 +89,11 @@ include graphics_file_rules.mk
 %.8bpp: %.png  ; $(GBAGFX) $< $@
 %.gbapal: %.pal
 ifneq ($(OS),Windows_NT)
-	# unix2dos $< # not standard unix! =(
+ifeq ($(UNAME),Darwin)
+	sed -i '' $$'s/\r*$$/\r/' $<
+else
 	sed -i -e 's/\r*$$/\r/' $<
+endif
 endif
 	$(GBAGFX) $< $@
 %.gbapal: %.png ; $(GBAGFX) $< $@
