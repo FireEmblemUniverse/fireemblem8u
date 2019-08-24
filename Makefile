@@ -13,7 +13,7 @@ CC1_OLD  := tools/agbcc/bin/old_agbcc$(EXE)
 #include $(DEVKITARM)
 PREFIX = arm-none-eabi-
 export CPP := cpp
-ifeq($(UNAME),Darwin)
+ifeq ($(UNAME),Darwin)
 export CPP := $(PREFIX)$(CPP)
 endif
 export AS := $(PREFIX)as$(EXE)
