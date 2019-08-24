@@ -6,11 +6,16 @@ else
 EXE :=
 endif
 
+UNAME := $(shell uname)
+
 CC1      := tools/agbcc/bin/agbcc$(EXE)
 CC1_OLD  := tools/agbcc/bin/old_agbcc$(EXE)
 #include $(DEVKITARM)
 PREFIX = arm-none-eabi-
 export CPP := cpp
+ifeq($(UNAME),Darwin)
+export CPP := $(PREFIX)$(CPP)
+endif
 export AS := $(PREFIX)as$(EXE)
 export LD := $(PREFIX)ld$(EXE)
 export OBJCOPY := $(PREFIX)objcopy$(EXE)
