@@ -1,6 +1,5 @@
 #include "global.h"
 
-#include "rng.h"
 #include "m4a.h"
 #include "soundwrapper.h"
 #include "hardware.h"
@@ -63,9 +62,6 @@ extern const struct ProcCmd gUnknown_089A35B0[];
 extern const struct ProcCmd gUnknown_089A36F8[];
 
 extern const u16 gUnknown_089A8F74[];
-
-extern u8 gUnknown_0895F5A4[][2];
-extern struct UnitDefinition gUnknown_03001C38;
 
 void sub_807A708(struct Proc* proc)
 {
@@ -444,6 +440,19 @@ void sub_807ACEC(void)
 {
     PlaySoundEffect(0xA0); // TODO: song ids!
 }
+
+// ==============================
+// NOTE: this may be a file split
+// ==============================
+
+#include "rng.h"
+#include "bmmap.h"
+
+extern u8 gUnknown_0895F5A4[][2];
+extern struct UnitDefinition gUnknown_03001C38;
+
+extern const struct UnitDefinition gUnknown_088D1F54[];
+extern struct UnitDefinition gUnknown_03001C50;
 
 void New6C_SummonGfx_FromActionPos(struct Proc* proc)
 {
@@ -938,3 +947,641 @@ void sub_807AD1C(void)
 }
 
 #endif // NONMATCHING
+
+struct SumProc
+{
+    /* 00 */ PROC_HEADER;
+
+    /* 29 */ u8 pad29[0x3C - 0x29];
+
+    /* 3C */ int unk3C;
+    /* 40 */ int unk40;
+
+    /* 44 */ u8 pad44[0x64 - 0x44];
+
+    /* 64 */ short unk64;
+    /* 66 */ short unk66;
+};
+
+void sub_807AFD0(struct SumProc* proc)
+{
+    proc->unk64 = 0;
+    proc->unk66 = 0;
+}
+
+void sub_807AFE0(struct SumProc* proc)
+{
+    if (proc->unk64 < 8)
+        Proc_GotoLabel((struct Proc*) proc, 0); // TODO: this proc's label enum
+}
+
+s8 sub_807AFFC(struct SumProc* proc)
+{
+    s8 count = 0;
+    int i;
+
+    for (i = FACTION_RED + 1; i < FACTION_RED + 0x40; ++i)
+    {
+        struct Unit* unit = GetUnit(i);
+
+        if (UNIT_IS_VALID(unit))
+        {
+            if (count >= 40)
+            {
+                Proc_GotoLabel((struct Proc*) proc, 1); // TODO: this proc's label enum
+                return TRUE;
+            }
+
+            count++;
+        }
+    }
+
+    if (proc->unk64 < 8 && proc->unk66 < 4)
+        return FALSE;
+
+    Proc_GotoLabel((struct Proc*) proc, 1); // TODO: this proc's label enum
+    return TRUE;
+}
+
+void sub_807B054(void)
+{
+    PlaySoundEffect(0xA0); // TODO: song ids!
+}
+
+void sub_807B070(struct SumProc* proc)
+{
+    proc->unk64++;
+    proc->unk66 = 0;
+
+    New6C_SummonGfx(
+        (struct Proc*) proc,
+        proc->unk3C, proc->unk40);
+}
+
+struct SumThing
+{
+    s8 x, y;
+    s8 boolAvailable;
+    u32 unk04, unk08;
+};
+
+s8 sub_807B090(int x, int y, struct SumThing* result)
+{
+    struct SumThing array[9];
+    u8 chosen, count = 0;
+
+    short iy, ix;
+
+    for (iy = y - 1; iy < y + 2; ++iy)
+    {
+        if (iy < 0 || gBmMapSize.y <= iy)
+            continue;
+
+        for (ix = x - 1; ix < x + 2; ++ix)
+        {
+            if (ix < 0 || gBmMapSize.x <= ix)
+                continue;
+
+            if (gBmMapUnit[iy][ix] != 0)
+                continue; // there's a unit here!
+
+            if (gUnknown_0202BCF0.chapterVisionRange && gBmMapFog[iy][ix] == 0)
+                continue; // there's fog here!
+
+            if (!CanUnitCrossTerrain(&gBattleActor.unit, gBmMapTerrain[iy][ix]))
+                continue; // can't cross terrain!
+
+            array[count].x = ix;
+            array[count].y = iy;
+            array[count].boolAvailable = TRUE;
+
+            count++;
+        }
+    }
+
+    if (!count)
+        return -1;
+
+    chosen = NextRN_N(count);
+
+    *result = array[chosen];
+    return 1;
+}
+
+void sub_807B1C0(struct SumProc* proc, s8 x, s8 y, short arg3)
+{
+    struct SumThing thing;
+
+    if (sub_807AFFC(proc))
+        return;
+
+    if (sub_807B090(x, y, &thing) == -1 || thing.boolAvailable == -1)
+    {
+        proc->unk66++;
+        Proc_GotoLabel((struct Proc*) proc, arg3);
+    }
+    else
+    {
+        proc->unk3C = thing.x;
+        proc->unk40 = thing.y;
+
+        EnsureCameraOntoPosition(
+            (struct Proc*) proc,
+            proc->unk3C, proc->unk40);
+    }
+}
+
+void sub_807B234(struct SumProc* proc)
+{
+    sub_807B1C0(proc,
+        gBattleActor.unit.xPos, gBattleActor.unit.yPos + 4,
+        3); // TODO: proc label enums!
+}
+
+void sub_807B254(struct SumProc* proc)
+{
+    sub_807B1C0(proc,
+        gBattleActor.unit.xPos + 4, gBattleActor.unit.yPos,
+        4); // TODO: proc label enums!
+}
+
+void sub_807B274(struct SumProc* proc)
+{
+    sub_807B1C0(proc,
+        gBattleActor.unit.xPos - 4, gBattleActor.unit.yPos,
+        5); // TODO: proc label enums!
+}
+
+void sub_807B294(struct SumProc* proc)
+{
+    sub_807B1C0(proc,
+        gBattleActor.unit.xPos, gBattleActor.unit.yPos - 4,
+        6); // TODO: proc label enums!
+}
+
+void sub_807B2B4(struct SumProc* proc)
+{
+    u8 num = DivRem(AdvanceGetLCGRNValue(), 11);
+
+    gUnknown_03001C50 = gUnknown_088D1F54[num];
+
+    gUnknown_03001C50.autolevel = TRUE;
+    gUnknown_03001C50.allegiance = 2;
+    gUnknown_03001C50.level = 5 + num;
+
+    gUnknown_03001C50.xPosition = proc->unk3C;
+    gUnknown_03001C50.yPosition = proc->unk40;
+
+    LoadUnits(&gUnknown_03001C50);
+}
+
+// ==============================
+// NOTE: this may be a file split
+// ==============================
+
+#include "ap.h"
+
+enum
+{
+    MA_FACING_OPPONENT,
+    MA_FACING_DEFAULT,
+    MA_FACING_UNK,
+    MA_FACING_STANDING,
+};
+
+int GetFacingDirection(int xFrom, int yFrom, int xTo, int yTo);
+void MapAnim_AdvanceBattleRound(void);
+void SetupMapBattleAnim(struct BattleUnit* actor, struct BattleUnit* target, struct BattleHit* hit);
+void sub_807B4D0(void);
+void SetupMapAnimSpellData(struct BattleUnit* actor, struct BattleUnit* target, struct BattleHit* hit);
+int GetSpellAssocCharCount(int item);
+
+extern const u8 gUnknown_08205714[4];
+
+extern const struct ProcCmd gUnknown_089A31F8[];
+extern const struct ProcCmd gUnknown_089A3238[];
+extern const struct ProcCmd gUnknown_089A3288[];
+extern const struct ProcCmd gUnknown_089A32C8[];
+extern const struct ProcCmd gUnknown_089A3398[];
+extern const struct ProcCmd gUnknown_089A33C0[];
+extern const struct ProcCmd gUnknown_089A34B0[];
+extern const struct ProcCmd gUnknown_089A3508[];
+extern const struct ProcCmd gUnknown_089A3874[];
+
+void MakeBattleMOVEUNIT(int maActor, struct BattleUnit* bu, struct Unit* unit)
+{
+    if (!bu)
+        return;
+
+    gMapBattle.actor[maActor].unit = unit;
+    gMapBattle.actor[maActor].bu   = bu;
+    gMapBattle.actor[maActor].mu   = MU_Create(unit);
+
+    gMapBattle.actor[maActor].mu->pAPHandle->frameTimer    = 0;
+    gMapBattle.actor[maActor].mu->pAPHandle->frameInterval = 0;
+
+    if (BUNIT_IS_OBSTACLE(bu))
+        MU_Hide(gMapBattle.actor[maActor].mu);
+
+    switch (unit->statusIndex)
+    {
+
+    case UNIT_STATUS_PETRIFY:
+    case UNIT_STATUS_13:
+        MU_SetPaletteId(gMapBattle.actor[maActor].mu, BM_OBJPAL_UNIT_GRAYED);
+        break;
+
+    } // switch (unit->statusIndex)
+}
+
+void SetBattleAnimFacing(int maActor, int maOpponent, int facing)
+{
+    int muFacing;
+
+    switch (facing)
+    {
+
+    case MA_FACING_OPPONENT:
+        muFacing = GetFacingDirection(
+            gMapBattle.actor[maActor].unit->xPos,    gMapBattle.actor[maActor].unit->yPos,
+            gMapBattle.actor[maOpponent].unit->xPos, gMapBattle.actor[maOpponent].unit->yPos);
+
+        MU_SetFacing(gMapBattle.actor[maActor].mu, muFacing);
+
+        break;
+
+    case MA_FACING_DEFAULT:
+        MU_SetDefaultFacing(gMapBattle.actor[maActor].mu);
+        break;
+
+    case MA_FACING_UNK:
+        muFacing = GetFacingDirection(
+            gMapBattle.actor[maActor].unit->xPos, gMapBattle.actor[maActor].unit->yPos, 0, 0);
+
+        MU_SetFacing(gMapBattle.actor[maActor].mu, muFacing);
+
+        break;
+
+    } // switch (facing)
+}
+
+void SetupBattleMOVEUNITs(void)
+{
+    int maFacing = GetSpellAssocFacing(gMapBattle.actor[0].bu->weaponBefore);
+
+    sub_807B4D0();
+
+    switch (gMapBattle.actorCount_maybe)
+    {
+
+    case 2:
+        if (gBattleHitArray[0].attributes & BATTLE_HIT_ATTR_TATTACK)
+        {
+            // In triangle attacks, both partners face the opponent too
+
+            SetBattleAnimFacing(2, 1, maFacing);
+            SetBattleAnimFacing(3, 1, maFacing);
+        }
+
+        SetBattleAnimFacing(1, 0, maFacing);
+
+        // fallthrough
+
+    case 1:
+        SetBattleAnimFacing(0, 1, maFacing);
+        break;
+
+    } // switch (gMapBattle.actorCount_maybe)
+}
+
+void sub_807B4D0(void)
+{
+    u8 array[4];
+    int i, j;
+
+    int count = gMapBattle.actorCount_maybe;
+
+    switch (gMapBattle.actorCount_maybe)
+    {
+
+    case 2:
+        if (gBattleHitArray[0].attributes & BATTLE_HIT_ATTR_TATTACK)
+            count += 2;
+
+        break;
+
+    case 1:
+        break;
+
+    } // switch (gMapBattle.actorCount_maybe)
+
+    // Init ref array
+
+    for (i = 0; i < count; ++i)
+        array[i] = i;
+
+    // Sort ref array
+
+    for (i = 0; i < count-1; ++i)
+    {
+        for (j = i+1; j < count; ++j)
+        {
+            int swap = FALSE;
+
+            if (gMapBattle.actor[array[i]].unit->yPos == gMapBattle.actor[array[j]].unit->yPos)
+            {
+                if (gMapBattle.actor[array[i]].unit->xPos >= gMapBattle.actor[array[j]].unit->xPos)
+                    swap = TRUE;
+            }
+            else if (gMapBattle.actor[array[i]].unit->yPos >= gMapBattle.actor[array[j]].unit->yPos)
+                swap = TRUE;
+
+            if (swap)
+            {
+                u8 tmp = array[i];
+                array[i] = array[j];
+                array[j] = tmp;
+            }
+        }
+    }
+
+    // Apply
+
+    for (i = 0; i < count; ++i)
+        gMapBattle.actor[array[i]].mu->pAPHandle->objLayer = gUnknown_08205714[i];
+}
+
+void sub_807B5DC(void)
+{
+    gBattleActor.weaponBefore = ITEM_VULNERARY;
+
+    gMapBattle.u5F = 0;
+    gMapBattle.u62 = 0;
+    gMapBattle.actorCount_maybe = 1;
+
+    gMapBattle.hitIt = gBattleHitArray;
+    MapAnim_AdvanceBattleRound();
+
+    SetupMapBattleAnim(&gBattleActor, &gBattleTarget, gBattleHitArray);
+    Proc_Create(gUnknown_089A31F8, ROOT_PROC_3);
+}
+
+void sub_807B634(void)
+{
+    gBattleActor.weaponBefore = ITEM_VULNERARY;
+
+    gMapBattle.u5F = 0;
+    gMapBattle.u62 = 0;
+    gMapBattle.actorCount_maybe = 1;
+
+    gMapBattle.hitIt = gBattleHitArray;
+    MapAnim_AdvanceBattleRound();
+
+    SetupMapBattleAnim(&gBattleActor, &gBattleTarget, gBattleHitArray);
+    Proc_Create(gUnknown_089A3238, ROOT_PROC_3);
+}
+
+void sub_807B68C(void)
+{
+    gBattleActor.weaponBefore = ITEM_VULNERARY;
+
+    gMapBattle.u5F = 0;
+    gMapBattle.u62 = 0;
+    gMapBattle.actorCount_maybe = 1;
+
+    gMapBattle.hitIt = gBattleHitArray;
+    MapAnim_AdvanceBattleRound();
+
+    SetupMapBattleAnim(&gBattleActor, &gBattleTarget, gBattleHitArray);
+    Proc_Create(gUnknown_089A3288, ROOT_PROC_3);
+}
+
+void BeginMapAnimForSteal(void)
+{
+    gBattleActor.weaponBefore = ITEM_SWORD_IRON;
+
+    gMapBattle.u5F = 0;
+    gMapBattle.u62 = 1;
+    gMapBattle.actorCount_maybe = 2;
+
+    gMapBattle.attackerActorNum = 0;
+    gMapBattle.defenderActorNum = 1;
+
+    SetupMapBattleAnim(&gBattleActor, &gBattleTarget, gBattleHitArray);
+    Proc_Create(gUnknown_089A32C8, ROOT_PROC_3);
+}
+
+void BeginMapAnimForSummon(void)
+{
+    gBattleActor.weaponBefore = ITEM_STAFF_FORTIFY;
+
+    gMapBattle.u5F = 0;
+    gMapBattle.u62 = 2;
+    gMapBattle.actorCount_maybe = 1;
+
+    gMapBattle.attackerActorNum = 0;
+    gMapBattle.defenderActorNum = 1;
+
+    SetupMapBattleAnim(&gBattleActor, &gBattleTarget, gBattleHitArray);
+    Proc_Create(gUnknown_089A3398, ROOT_PROC_3);
+}
+
+void BeginMapAnimForSummonDK(void)
+{
+    gBattleActor.weaponBefore = ITEM_STAFF_FORTIFY;
+
+    gMapBattle.u5F = 0;
+    gMapBattle.u62 = 2;
+    gMapBattle.actorCount_maybe = 1;
+
+    gMapBattle.attackerActorNum = 0;
+    gMapBattle.defenderActorNum = 1;
+
+    SetupMapBattleAnim(&gBattleActor, &gBattleTarget, gBattleHitArray);
+    Proc_Create(gUnknown_089A33C0, ROOT_PROC_3);
+}
+
+void sub_807B7F0(void)
+{
+    gBattleActor.weaponBefore = ITEM_STAFF_FORTIFY;
+
+    gMapBattle.u5F = 0;
+    gMapBattle.u62 = 2;
+    gMapBattle.actorCount_maybe = 1;
+
+    gMapBattle.attackerActorNum = 0;
+    gMapBattle.defenderActorNum = 0;
+
+    SetupMapBattleAnim(&gBattleActor, &gBattleTarget, gBattleHitArray);
+    Proc_Create(gUnknown_089A34B0, ROOT_PROC_3);
+}
+
+void BeginBattleMapAnims(void)
+{
+    if (gBattleStats.config & (BATTLE_CONFIG_REFRESH | BATTLE_CONFIG_DANCERING))
+    {
+        sub_807B7F0();
+        return;
+    }
+
+    gMapBattle.u5F = 0;
+    gMapBattle.u62 = 0;
+
+    SetupMapAnimSpellData(&gBattleActor, &gBattleTarget, gBattleHitArray);
+    SetupMapBattleAnim(&gBattleActor, &gBattleTarget, gBattleHitArray);
+
+    if (!EventEngineExists())
+        Proc_Create(gUnknown_089A3508, ROOT_PROC_3);
+    else
+        Proc_Create(gUnknown_089A3874, ROOT_PROC_3);
+}
+
+void SetupMapAnimSpellData(struct BattleUnit* actor, struct BattleUnit* target, struct BattleHit* hit)
+{
+    gMapBattle.actorCount_maybe = GetSpellAssocCharCount(actor->weaponBefore);
+    gMapBattle.hitIt            = hit;
+    gMapBattle.specialProcScr   = GetSpellAssocAlt6CPointer(actor->weaponBefore);
+}
+
+void SetupMapBattleAnim(struct BattleUnit* actor, struct BattleUnit* target, struct BattleHit* hit)
+{
+    int i;
+
+    MakeBattleMOVEUNIT(0, actor, &actor->unit);
+
+    if (gMapBattle.actorCount_maybe > 1)
+    {
+        HideUnitSMS(&gBattleTarget.unit); // NOTE: uses gBattleTarget instead of target argument
+        MakeBattleMOVEUNIT(1, target, &target->unit);
+    }
+
+    if (gBattleHitArray[0].attributes & BATTLE_HIT_ATTR_TATTACK)
+    {
+        MakeBattleMOVEUNIT(2, actor, gBattleStats.taUnitA);
+        MakeBattleMOVEUNIT(3, actor, gBattleStats.taUnitB);
+
+        HideUnitSMS(gBattleStats.taUnitA);
+        HideUnitSMS(gBattleStats.taUnitB);
+    }
+
+    SetupBattleMOVEUNITs();
+
+    for (i = 0; i < gMapBattle.actorCount_maybe; ++i)
+    {
+        gMapBattle.actor[i].u0D = gMapBattle.actor[i].bu->hpInitial;
+        gMapBattle.actor[i].u0C = GetUnitMaxHp(gMapBattle.actor[i].unit);
+    }
+
+    SetDefaultColorEffects();
+}
+
+int GetFacingDirection(int xFrom, int yFrom, int xTo, int yTo)
+{
+    if (ABS(xTo - xFrom)*2 < ABS(yTo - yFrom))
+    {
+        if (yFrom < yTo)
+            return MU_FACING_DOWN;
+        else
+            return MU_FACING_UP;
+    }
+    else
+    {
+        if (xFrom < xTo)
+            return MU_FACING_RIGHT;
+        else
+            return MU_FACING_LEFT;
+    }
+}
+
+// =============================
+// NOTE: Start Map Anim Info box
+// =============================
+
+void sub_8013168(u16* arg0, u8* arg1, int arg2, int arg3, int arg4);
+
+extern const u8 gUnknown_089AD868[];
+
+extern const u16 gUnknown_08A1D79C[];
+
+void sub_807B9F8(int tileNum)
+{
+    CopyDataWithPossibleUncomp(
+        gUnknown_089AD868,
+        (u8*)(VRAM) + GetBackgroundTileDataOffset(0) + 0x20*(tileNum & 0x3FF));
+}
+
+void sub_807BA28(u16* tilemap, int num, int tileref, int arg3, u16 arg4, int arg5)
+{
+    char buf[8];
+    int i, j;
+
+    for (i = sizeof(buf)-1; i >= 0; --i)
+    {
+        buf[i] = '0' + num % 10;
+        num = num / 10;
+
+        if (num == 0)
+        {
+            for (j = i - 1; j >= 0; --j)
+                buf[j] = ' ';
+
+            break;
+        }
+    }
+
+    sub_8013168(tilemap, buf + sizeof(buf)-1, tileref, arg3, arg5);
+
+    for (i = arg3 - 1; i > 0 && buf[7 - i] == ' '; --i)
+        tilemap[-i] = arg4;
+}
+
+void sub_807BAE4(const u8* src)
+{
+    sub_807B9F8(0x20);
+    CopyDataWithPossibleUncomp(src, (u8*)(VRAM + 0x20 * 0x2B)); // TODO: named constants
+    ApplyPalette(gUnknown_08A1D79C, 5);
+}
+
+void sub_807BB10(u16* arg0, int* arg1, int arg2, int arg3, int arg4)
+{
+    int r1;
+
+    if (*arg1 > arg3)
+        r1 = arg3;
+    else
+        r1 = *arg1;
+
+    *arg0 = TILEREF(arg4 + r1, arg2);
+    *arg1 += 1 - arg3;
+
+    if (*arg1 < 0)
+        *arg1 = 0;
+}
+
+/*
+
+extern const int gUnknown_089A3668[];
+
+void sub_807BB40(u16* tilemap, int arg1, int arg2, int arg3, u16 arg4[][2])
+{
+    int i, count = 0;
+    int unk4;
+
+    for (i = 0; arg4[i][0]; ++i)
+        count += arg4[i][0] - 1;
+
+    count += 1;
+
+    if (arg1 == arg2)
+        unk4 = count;
+    else
+        unk4 = ((count<<8) / arg1 * arg2) >> 8;
+
+    if (unk4 && arg2 > 0)
+        unk4 = 1;
+
+    for (i = 0; arg4[i][0]; ++i)
+        sub_807BB10(tilemap + i, &unk4, gUnknown_089A3668[arg3], arg4[i][0], arg4[i][1]);
+}
+
+*/

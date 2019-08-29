@@ -979,7 +979,7 @@ void UnitChangeFaction(struct Unit* unit, int faction) {
         GetUnit(newUnit->rescueOtherUnit)->rescueOtherUnit = newUnit->index;
 }
 
-inline s8 CanUnitCrossTerrain(struct Unit* unit, int terrain) {
+inline int CanUnitCrossTerrain(struct Unit* unit, int terrain) {
     const s8* lookup = GetUnitMovementCost(unit);
     return (lookup[terrain] > 0) ? TRUE : FALSE;
 }

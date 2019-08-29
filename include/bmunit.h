@@ -419,7 +419,7 @@ struct Unit* GetUnit(int id);
 const struct ClassData* GetClassData(int classId);
 const struct CharacterData* GetCharacterData(int charId);
 void UnitRemoveItem(struct Unit* unit, int slot);
-s8 CanUnitCrossTerrain(struct Unit* unit, int terrain);
+int CanUnitCrossTerrain(struct Unit* unit, int terrain);
 
 #define UNIT_IS_VALID(aUnit) ((aUnit) && (aUnit)->pCharacterData)
 

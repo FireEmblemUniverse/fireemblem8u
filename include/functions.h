@@ -4003,7 +4003,7 @@ void BeginAnimsOnBattleAnimations(void);
 // ??? sub_8078258(???);
 // ??? GetSpellAssocAlt6CPointer(???);
 // ??? GetSpellAssocReturnBool(???);
-int GetSpellAssocFacing(u16 item);
+u8 GetSpellAssocFacing(u16 item);
 // ??? GetSpellAssocFlashColor(???);
 // ??? sub_80782A8(???);
 int GenerateMonsterLevel(u8 baseLevel);
@@ -4065,7 +4065,7 @@ void GetPreferredPositionForUNIT(const struct UnitDefinition* uDef, u8* xOut, u8
 // ??? sub_807B294(???);
 // ??? sub_807B2B4(???);
 // ??? MakeBattleMOVEUNIT(???);
-void SetBattleAnimFacing(int actorId1, int actorId2, u8 facing);
+void SetBattleAnimFacing(int actorId1, int actorId2, int facing);
 // ??? SetupBattleMOVEUNITs(???);
 // ??? sub_807B4D0(???);
 // ??? sub_807B5DC(???);
