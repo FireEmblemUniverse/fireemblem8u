@@ -1967,10 +1967,12 @@ struct MADebugInfo
 
 struct Unk089A3798
 {
-    /* 00 */ u8 a, b, c, d, e;
+    /* 00 */ u8 a; s8 b, c, d, e; u8 f, g;
 };
 
 void sub_801443C(u16* tilemap, int color, const char* cstring);
+
+s8 sub_807C8FC(void);
 
 extern struct Unk089A3798 CONST_DATA gUnknown_089A3798[];
 
@@ -2165,4 +2167,572 @@ void sub_807C568(struct MADebugProc* proc)
     }
 
     BG_EnableSyncByMask(BG0_SYNC_BIT);
+}
+
+void sub_807C680(struct MADebugProc* proc)
+{
+    int inc;
+
+    int oldActor = proc->unk64;
+    int oldField = proc->unk66;
+
+    if (gKeyStatusPtr->newKeys & START_BUTTON)
+    {
+        if (!sub_807C8FC())
+            return;
+
+        Proc_ClearNativeCallback((struct Proc*) proc);
+    }
+
+    inc = (gKeyStatusPtr->heldKeys & R_BUTTON) ? 10 : 1;
+
+    if (gKeyStatusPtr->repeatedKeys & A_BUTTON)
+    {
+        gUnknown_089A3810->e[proc->unk64].data[proc->unk66] += inc;
+
+        if (gUnknown_089A3810->e[proc->unk64].data[proc->unk66] >= gUnknown_089A3798[proc->unk66].g)
+        {
+            if (inc == 1)
+                gUnknown_089A3810->e[proc->unk64].data[proc->unk66] = gUnknown_089A3798[proc->unk66].f;
+            else
+                gUnknown_089A3810->e[proc->unk64].data[proc->unk66] = gUnknown_089A3798[proc->unk66].g - 1;
+        }
+    }
+
+    if (gKeyStatusPtr->repeatedKeys & B_BUTTON)
+    {
+        gUnknown_089A3810->e[proc->unk64].data[proc->unk66] -= inc;
+
+        if (gUnknown_089A3810->e[proc->unk64].data[proc->unk66] < gUnknown_089A3798[proc->unk66].f)
+        {
+            if (inc == 1)
+                gUnknown_089A3810->e[proc->unk64].data[proc->unk66] = gUnknown_089A3798[proc->unk66].g - 1;
+            else
+                gUnknown_089A3810->e[proc->unk64].data[proc->unk66] = gUnknown_089A3798[proc->unk66].f;
+        }
+    }
+
+    if (gKeyStatusPtr->repeatedKeys & DPAD_LEFT)
+    {
+        if (proc->unk66 != 2)
+            proc->unk64 = 1 - proc->unk64;
+
+        proc->unk66 = gUnknown_089A3798[proc->unk66].d;
+    }
+
+    if (gKeyStatusPtr->repeatedKeys & DPAD_RIGHT)
+    {
+        if (proc->unk66 != 1)
+            proc->unk64 = 1 - proc->unk64;
+
+        proc->unk66 = gUnknown_089A3798[proc->unk66].e;
+    }
+
+    if (gKeyStatusPtr->repeatedKeys & DPAD_UP)
+        proc->unk66 = gUnknown_089A3798[proc->unk66].b;
+
+    if (gKeyStatusPtr->repeatedKeys & DPAD_DOWN)
+        proc->unk66 = gUnknown_089A3798[proc->unk66].c;
+
+    if (gKeyStatusPtr->repeatedKeys & DPAD_ANY)
+        sub_807C244(oldActor, oldField, TEXT_COLOR_GRAY);
+
+    if (gKeyStatusPtr->repeatedKeys & (DPAD_ANY | A_BUTTON | B_BUTTON))
+        sub_807C244(proc->unk64, proc->unk66, TEXT_COLOR_NORMAL);
+}
+
+void sub_807C8A0(struct BattleUnit* bu, int dActor)
+{
+    bu->hpInitial  = 30;
+    bu->unit.maxHP = 60;
+
+    bu->unit.pCharacterData = GetCharacterData(gUnknown_089A3810->e[dActor].data[0]);
+    bu->unit.pClassData     = GetClassData(gUnknown_089A3810->e[dActor].data[3]);
+
+    bu->unit.xPos = gUnknown_089A3810->e[dActor].data[1];
+    bu->unit.yPos = gUnknown_089A3810->e[dActor].data[2];
+
+    bu->weaponBefore = gUnknown_089A3810->e[dActor].data[4];
+    bu->expGain = 0;
+}
+
+s8 sub_807C8FC(void)
+{
+    // There's some gross variable reuse going on here
+
+    int hitnum, actnum, unk, i;
+
+    struct BattleHit* hit = gBattleHitArray;
+
+    sub_807C8A0(&gBattleActor, 0);
+    sub_807C8A0(&gBattleTarget, 1);
+
+    ClearBattleHits();
+
+    unk = 0;
+
+    for (hitnum = 0; hitnum < 5; ++hitnum)
+    {
+        for (actnum = 0; actnum < 2; ++actnum)
+        {
+            if (gUnknown_089A3810->e[actnum].data[5 + hitnum] != 0)
+            {
+                unk = 1;
+                break;
+            }
+        }
+
+        if (unk)
+            break;
+    }
+
+    if (hitnum == 5 && actnum == 2)
+        return FALSE;
+
+    for (i = hitnum*2+actnum; i < 10; ++i)
+    {
+        hitnum = i / 2;
+        actnum = i & 1;
+
+        hit->info = actnum<<3;
+
+        unk = gUnknown_089A3810->e[actnum].data[5 + hitnum];
+
+        switch (unk)
+        {
+
+        case 5 ... 8:
+            hit->attributes |= BATTLE_HIT_ATTR_CRIT;
+            hit->hpChange = 20;
+            break;
+
+        case 1 ... 4:
+            hit->hpChange = 10;
+            break;
+
+        case 9:
+            hit->attributes |= BATTLE_HIT_ATTR_MISS;
+            break;
+
+        } // switch (unk)
+
+        switch (unk)
+        {
+
+        case 2:
+        case 6:
+            hit->attributes |= BATTLE_HIT_ATTR_DEVIL;
+            break;
+
+        case 3:
+        case 7:
+            hit->attributes |= BATTLE_HIT_ATTR_HPSTEAL;
+            break;
+
+        case 4:
+        case 8:
+            hit->attributes |= BATTLE_HIT_ATTR_POISON;
+            break;
+
+        } // switch (unk)
+
+        if (unk != 0)
+            ++hit;
+    }
+
+    hit->info |= BATTLE_HIT_INFO_END;
+    return TRUE;
+}
+
+void sub_807CAA8(void)
+{
+    BG_Fill(gBG0TilemapBuffer, TILEREF(0, 0));
+    BG_Fill(gBG1TilemapBuffer, TILEREF(0, 0));
+    BG_EnableSyncByMask(BG0_SYNC_BIT | BG1_SYNC_BIT);
+
+    BeginBattleMapAnims();
+}
+
+// ============================================
+// NOTE: We back to your regular map anim stuff
+// ============================================
+
+#include "ap.h"
+#include "bmtrick.h"
+
+struct MAEffectProc
+{
+    /* 00 */ PROC_HEADER;
+    /* 2C */ struct Unit* unit;
+    /* 30 */ int xDisplay;
+    /* 34 */ int yDisplay;
+    /* 38 */ u8 pad38[0x40 - 0x38];
+    /* 40 */ u16 unk40;
+    /* 42 */ u16 unk42;
+    /* 44 */ u32 pad44;
+    /* 48 */ short unk48;
+};
+
+void sub_807CF30(struct MAEffectProc* proc);
+void sub_807E978(void);
+void sub_80144CC(const u16* pal, int off, int len, int unk, struct Proc* proc);
+
+extern u8 CONST_DATA gUnknown_089AC0A4[]; // ma miss img
+extern u16 CONST_DATA gUnknown_089AC194[]; // ma miss ap
+
+extern u8 CONST_DATA gUnknown_089AC2FC[]; // ma no damage img
+extern u16 CONST_DATA gUnknown_089AC440[]; // ma no damage ap
+
+extern struct ProcCmd CONST_DATA gUnknown_089A3924[]; // ma wall break proc scr
+
+extern u8 CONST_DATA gUnknown_089ADA80[]; // ma wall break img
+extern u16 CONST_DATA gUnknown_089ADD0C[]; // ma wall break pal
+extern u16 CONST_DATA gUnknown_089A6FD8[]; // ma wall break ap
+
+extern struct ProcCmd CONST_DATA gUnknown_089A3944[]; // ma poison proc scr
+
+extern u8 CONST_DATA gUnknown_089ADEB0[]; // ma poison img
+extern u16 CONST_DATA gUnknown_089AE204[]; // ma poison pal
+extern u16 CONST_DATA gUnknown_089A6F40[]; // ma poison ap
+
+extern struct ProcCmd CONST_DATA gUnknown_089A3964[]; // ma another poison proc scr?
+
+extern struct ProcCmd CONST_DATA gUnknown_089A398C[];
+
+extern u8 CONST_DATA gUnknown_089B7610[];
+extern u16 CONST_DATA gUnknown_089B80C4[];
+
+extern const u8* CONST_DATA gUnknown_089A39C4[];
+
+extern struct UnitDefinition gUnknown_03001C68; // egg hatching unit buf
+
+extern struct ProcCmd CONST_DATA gUnknown_089A39E0[];
+
+extern u8 CONST_DATA gUnknown_089AF950[];
+
+extern u16 CONST_DATA gUnknown_089AFFB8[];
+extern u16 CONST_DATA gUnknown_089AFF78[];
+
+void sub_807CAD0(struct Proc* proc)
+{
+    if (gMapBattle.hitIt->info & BATTLE_HIT_INFO_END)
+    {
+        Proc_GotoLabel(proc, 1); // TODO: label definitions
+        return;
+    }
+
+    MapAnim_AdvanceBattleRound();
+    Proc_ClearNativeCallback(proc);
+}
+
+void sub_807CB04(void)
+{
+    MU_AllRestartAnimations();
+    sub_8003D20();
+    DeleteBattleAnimInfoThing();
+    SetupBackgroundForWeatherMaybe();
+    LoadLegacyUiFrameGraphics();
+    LoadObjUIGfx();
+}
+
+void MapAnim_BeginMISSAnim(struct Unit* unit)
+{
+    CopyDataWithPossibleUncomp(
+        gUnknown_089AC0A4,
+        OBJ_VRAM0 + 0x20 * BM_OBJCHR_BANIM_EFFECT);
+
+    APProc_Create(
+        gUnknown_089AC194,
+        16*(unit->xPos - (gUnknown_0202BCB0.camera.x>>4)) + 8,
+        16*(unit->yPos - (gUnknown_0202BCB0.camera.y>>4)) + 16,
+        TILEREF(BM_OBJCHR_BANIM_EFFECT, 0), 0, 2);
+}
+
+void MapAnim_BeginNODAMAGEAnim(struct Unit* unit)
+{
+    CopyDataWithPossibleUncomp(
+        gUnknown_089AC2FC,
+        OBJ_VRAM0 + 0x20 * BM_OBJCHR_BANIM_EFFECT);
+
+    APProc_Create(
+        gUnknown_089AC440,
+        16*(unit->xPos - (gUnknown_0202BCB0.camera.x>>4)) + 8,
+        16*(unit->yPos - (gUnknown_0202BCB0.camera.y>>4)) + 16,
+        TILEREF(BM_OBJCHR_BANIM_EFFECT, 0), 0, 2);
+}
+
+void MapAnim_BeginWallBreakAnim(struct Unit* unit, int unk)
+{
+    struct MAEffectProc* proc =
+        (struct MAEffectProc*) Proc_Create(gUnknown_089A3924, ROOT_PROC_3);
+
+    proc->unit = unit;
+
+    proc->xDisplay = 16*(unit->xPos - (gUnknown_0202BCB0.camera.x>>4)) + 8;
+    proc->yDisplay = 16*(unit->yPos - (gUnknown_0202BCB0.camera.y>>4)) - 8;
+
+    proc->unk48 = unk ^ 1;
+}
+
+void WallBreakAnim_Init(struct MAEffectProc* proc)
+{
+    CopyDataWithPossibleUncomp(
+        gUnknown_089ADA80,
+        OBJ_VRAM0 + 0x20 * BM_OBJCHR_BANIM_EFFECT);
+
+    ApplyPalette(
+        gUnknown_089ADD0C,
+        16 + BM_OBJPAL_BANIM_EFFECT1);
+
+    APProc_Create(
+        gUnknown_089A6FD8,
+        proc->xDisplay, proc->yDisplay + 16,
+        TILEREF(BM_OBJCHR_BANIM_EFFECT, BM_OBJPAL_BANIM_EFFECT1),
+        proc->unk48, 2);
+}
+
+void NewMapPoisonEffect(struct Unit* unit)
+{
+    struct MAEffectProc* proc =
+        (struct MAEffectProc*) Proc_Create(gUnknown_089A3944, ROOT_PROC_3);
+
+    proc->unit = unit;
+
+    proc->xDisplay = 8*(1+2*(unit->xPos - (gUnknown_0202BCB0.camera.x>>4)));
+    proc->yDisplay = 8*(1+2*(unit->yPos - (gUnknown_0202BCB0.camera.y>>4)));
+}
+
+void MapAnim_BeginPoisonAnim(struct MAEffectProc* proc)
+{
+    PlaySpacialSoundMaybe(0xB7, proc->xDisplay); // TODO: song ids
+
+    CopyDataWithPossibleUncomp(
+        gUnknown_089ADEB0,
+        OBJ_VRAM0 + 0x20 * BM_OBJCHR_BANIM_EFFECT2);
+
+    ApplyPalette(
+        gUnknown_089AE204,
+        16 + BM_OBJPAL_BANIM_EFFECT2);
+
+    APProc_Create(
+        gUnknown_089A6F40,
+        proc->xDisplay - 8, proc->yDisplay + 8,
+        TILEREF(BM_OBJCHR_BANIM_EFFECT2, BM_OBJPAL_BANIM_EFFECT2),
+        0, 2);
+}
+
+void sub_807CD18(struct Unit* unit)
+{
+    struct MAEffectProc* proc =
+        (struct MAEffectProc*) Proc_Create(gUnknown_089A3964, ROOT_PROC_3);
+
+    proc->unit = unit;
+
+    proc->xDisplay = 8*(1+2*(unit->xPos - (gUnknown_0202BCB0.camera.x>>4)));
+    proc->yDisplay = 8*(1+2*(unit->yPos - (gUnknown_0202BCB0.camera.y>>4)));
+}
+
+void sub_807CD60(struct MAEffectProc* proc)
+{
+    PlaySpacialSoundMaybe(0xB7, proc->xDisplay); // TODO: song ids
+
+    CopyDataWithPossibleUncomp(
+        gUnknown_089ADEB0,
+        OBJ_VRAM0 + 0x20 * BM_OBJCHR_BANIM_EFFECT2);
+
+    ApplyPalette(
+        gUnknown_089AE204,
+        16 + BM_OBJPAL_BANIM_EFFECT2);
+
+    APProc_Create(
+        gUnknown_089A6F40,
+        proc->xDisplay - 8, proc->yDisplay + 8,
+        TILEREF(BM_OBJCHR_BANIM_EFFECT2, BM_OBJPAL_BANIM_EFFECT2),
+        0, 2);
+}
+
+void sub_807CDB8(void)
+{
+    RefreshEntityBmMaps();
+    RenderBmMap();
+    SMS_UpdateFromGameData();
+    MU_EndAll();
+}
+
+void sub_807CDD0(struct Unit* unit)
+{
+    struct MAEffectProc* proc =
+        (struct MAEffectProc*) Proc_Create(gUnknown_089A398C, ROOT_PROC_3);
+
+    proc->unit = unit;
+
+    proc->xDisplay = 8*(1+2*(unit->xPos - (gUnknown_0202BCB0.camera.x>>4)));
+    proc->yDisplay = 8*(1+2*(unit->yPos - (gUnknown_0202BCB0.camera.y>>4)));
+}
+
+void sub_807CE18(struct MAEffectProc* proc)
+{
+    sub_807E978();
+
+    BG_SetPosition(2, 0, 0);
+
+    // TODO: BM_BANIM_BGCHR_...
+    CopyDataWithPossibleUncomp(
+        gUnknown_089B7610,
+        (void*)(VRAM) + GetBackgroundTileDataOffset(2) + 352 * 0x20);
+
+    ApplyPalette(
+        gUnknown_089B80C4,
+        BM_BGPAL_BANIM_UNK4);
+
+    SetSpecialColorEffectsParameters(1, 16, 16, 0);
+
+    proc->unk40 = 0;
+    proc->unk42 = 0;
+
+    EnablePaletteSync();
+}
+
+void sub_807CE78(struct MAEffectProc* proc)
+{
+    if (proc->unk42 == 0)
+    {
+        if (proc->unk40 == 0)
+            PlaySpacialSoundMaybe(0x3CA, proc->xDisplay); // TODO: song ids
+
+        else if (proc->unk40 == 1)
+            sub_807CF30(proc);
+
+        else if (proc->unk40 > 6)
+        {
+            Proc_ClearNativeCallback((struct Proc*) proc);
+            return;
+        }
+
+        CopyDataWithPossibleUncomp(
+            gUnknown_089A39C4[proc->unk40],
+            gUnknown_02020188);
+
+        sub_800159C(
+            gBG2TilemapBuffer,
+            (u16*) gUnknown_02020188,
+            proc->xDisplay/8 - 8,
+            proc->yDisplay/8 - 7,
+            TILEREF(352, BM_BGPAL_BANIM_UNK4));
+
+        BG_EnableSyncByMask(BG2_SYNC_BIT);
+
+        proc->unk40++;
+        proc->unk42 = 5;
+    }
+
+    proc->unk42--;
+}
+
+void sub_807CF30(struct MAEffectProc* proc)
+{
+    int unused = DivRem(AdvanceGetLCGRNValue(), 101);
+
+    struct Trap* trap = GetTrapAt(proc->unit->xPos, proc->unit->yPos);
+
+    int level = trap
+        ? (u8) trap->data[TRAP_EXTDATA_EGG_LEVEL]
+        : 1;
+
+    u8 i;
+
+    gUnknown_03001C68.charIndex = CHARACTER_MONSTER_BA;
+    gUnknown_03001C68.classIndex = CLASS_GORGON;
+    gUnknown_03001C68.leaderCharIndex = 0;
+    gUnknown_03001C68.autolevel = TRUE;
+
+    if (UNIT_FACTION(proc->unit) == FACTION_BLUE)
+        gUnknown_03001C68.allegiance = 0;
+
+    else if (UNIT_FACTION(proc->unit) == FACTION_RED)
+        gUnknown_03001C68.allegiance = 2;
+
+    else if (UNIT_FACTION(proc->unit) == FACTION_GREEN)
+        gUnknown_03001C68.allegiance = 1;
+
+    gUnknown_03001C68.level = level;
+
+    gUnknown_03001C68.xPosition = proc->unit->xPos;
+    gUnknown_03001C68.yPosition = proc->unit->yPos;
+
+    gUnknown_03001C68.redaCount = 0;
+    gUnknown_03001C68.redas = NULL;
+
+    gUnknown_03001C68.genMonster = FALSE;
+    gUnknown_03001C68.itemDrop = FALSE;
+
+    for (i = 0; i < UNIT_DEFINITION_ITEM_COUNT; ++i)
+        gUnknown_03001C68.items[i] = 0;
+
+    for (i = 0; i < UNIT_DEFINITION_ITEM_COUNT; ++i)
+        if (proc->unit->items[i+1])
+            gUnknown_03001C68.items[i] = proc->unit->items[i+1];
+
+    if (proc->unit->state & US_DROP_ITEM)
+        gUnknown_03001C68.itemDrop = TRUE;
+
+    gUnknown_03001C68.ai[0] = proc->unit->ai1;
+    gUnknown_03001C68.ai[1] = proc->unit->ai2;
+    gUnknown_03001C68.ai[2] = proc->unit->ai1data; // this looks incorrect
+    gUnknown_03001C68.ai[3] = proc->unit->ai1data>>8; // this is 0
+
+    LoadUnits(&gUnknown_03001C68);
+    GetUnitFromCharId(CHARACTER_MONSTER_BA);
+
+    ClearUnit(GetUnit(proc->unit->index));
+
+    RefreshEntityBmMaps();
+    RenderBmMap();
+    SMS_UpdateFromGameData();
+    MU_EndAll();
+}
+
+void sub_807D09C(void)
+{
+    BG_Fill(gBG2TilemapBuffer, 0);
+    BG_EnableSyncByMask(BG2_SYNC_BIT);
+}
+
+void sub_807D0B4(struct Unit* unit)
+{
+    struct MAEffectProc* proc =
+        (struct MAEffectProc*) Proc_Create(gUnknown_089A39E0, ROOT_PROC_3);
+
+    proc->unit = unit;
+
+    proc->xDisplay = 8*(1+2*(unit->xPos - (gUnknown_0202BCB0.camera.x>>4)));
+    proc->yDisplay = 8*(1+2*(unit->yPos - (gUnknown_0202BCB0.camera.y>>4)));
+}
+
+void sub_807D0FC(struct MAEffectProc* proc)
+{
+    sub_807E978();
+
+    BG_SetPosition(2, 0, 0);
+
+    // TODO: BM_BANIM_BGCHR_...
+    CopyDataWithPossibleUncomp(
+        gUnknown_089AF950,
+        (void*)(VRAM) + GetBackgroundTileDataOffset(2) + 352 * 0x20);
+
+    SetSpecialColorEffectsParameters(1, 16, 16, 0);
+
+    sub_8001ED0(0, 0, 1, 0, 0);
+    sub_8001F48(0);
+
+    sub_8001F0C(0, 0, 0, 1, 1);
+    sub_8001F64(1);
+
+    proc->unk40 = 0;
+    proc->unk42 = 0;
+
+    if (GetItemIndex(gMapBattle.actor[0].bu->weaponBefore) == ITEM_STAFF_LATONA)
+        sub_80144CC(gUnknown_089AFFB8, 0x80, 0x20, 2, (struct Proc*) proc);
+    else
+        sub_80144CC(gUnknown_089AFF78, 0x80, 0x20, 2, (struct Proc*) proc);
 }

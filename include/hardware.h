@@ -92,7 +92,7 @@ void BG_SetPosition(u16 a, u16 b, u16 c);
 // ??? sub_800151C(???);
 // ??? sub_8001530(???);
 // ??? sub_800154C(???);
-// ??? sub_800159C(???);
+void sub_800159C(u16 *a, u16 *b, s16 c, s16 d, u16 e);
 // ??? sub_80016C4(???);
 // ??? sub_8001710(???);
 // ??? sub_800172C(???);
@@ -120,7 +120,7 @@ void SetSpecialColorEffectsParameters(u16 effect, u8 coeffA, u8 coeffB, u8 blend
 void sub_8001ED0(int, int, int, int, int); // SetColorEffectFirstTarget
 void sub_8001F0C(int, int, int, int, int);
 void sub_8001F48(int); // SetColorEffectBackdropFirstTarget
-// ??? sub_8001F64(???);
+void sub_8001F64(int);
 void SetDefaultColorEffects(void);
 void EnablePaletteSync(void);
 void DisablePaletteSync(void);
