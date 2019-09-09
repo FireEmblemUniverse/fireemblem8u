@@ -148,12 +148,6 @@ extern u8 gMUGfxBuffer[MU_GFX_MAX_SIZE * MU_MAX_COUNT];
 
 static struct MUConfig sMUConfigArray[MU_MAX_COUNT];
 
-// CONST DATA
-
-#ifndef CONST_DATA
-#   define CONST_DATA const __attribute__((section(".data")))
-#endif // CONST_DATA
-
 static CONST_DATA u16* sMUFlashColorLookup[] = {
     gUnknown_0859A140,
     gUnknown_0859A120,

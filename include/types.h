@@ -28,9 +28,9 @@ struct Struct03003080
     /*0x14*/ struct BgCnt bg2cnt;
     /*0x18*/ struct BgCnt bg3cnt;
     /*0x1C*/ struct BgCoords bgoffset[4];
-    /*0x2C*/ u16 win0h;
+    /*0x2C*/ u8 win0_right, win0_left;
     /*0x2C*/ u16 win1h;
-    /*0x30*/ u16 win0v;
+    /*0x30*/ u8 win0_bottom, win0_top;
     /*0x30*/ u16 win1v;
     /*0x34*/ struct WinCnt wincnt;
     /*0x38*/ u16 mosaic;

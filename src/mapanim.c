@@ -23,14 +23,15 @@ struct MapAnimProc
     /* 00 */ PROC_HEADER;
 };
 
-struct MapAnimExpProc
+struct MAExpBarProc
 {
     /* 00 */ PROC_HEADER;
 
-    /* 29 */ u8  pad29[0x64 - 0x29];
-    /* 64 */ u16 expFrom;
-    /* 66 */ u16 expTo;
-    /* 68 */ u16 actorId;
+    /* 29 */ u8    pad29[0x64 - 0x29];
+    /* 64 */ short expFrom;
+    /* 66 */ short expTo;
+    /* 68 */ short actorId;
+    /* 6A */ short unk6A;
 };
 
 void sub_8011694(int item, struct Proc* parent);
@@ -294,7 +295,7 @@ void sub_807AA4C(struct Proc* proc)
 
     if (actorNum >= 0)
     {
-        struct MapAnimExpProc* expProc = (struct MapAnimExpProc*) Proc_CreateBlockingChild(gUnknown_089A36F8, proc);
+        struct MAExpBarProc* expProc = (struct MAExpBarProc*) Proc_CreateBlockingChild(gUnknown_089A36F8, proc);
 
         expProc->expFrom = gMapBattle.actor[actorNum].bu->expPrevious;
         expProc->expTo   = gMapBattle.actor[actorNum].bu->expPrevious + gMapBattle.actor[actorNum].bu->expGain;
@@ -1497,11 +1498,57 @@ int GetFacingDirection(int xFrom, int yFrom, int xTo, int yTo)
 // NOTE: Start Map Anim Info box
 // =============================
 
+struct MAInfoFrameProc
+{
+    PROC_HEADER;
+
+    /* 2A */ short unk2A;
+    /* 2C */ u16 unk2C;
+    /* 2E */ u8 unk2E;
+    /* 2F */ u8 unk2F;
+    /* 30 */ struct Proc* maMain;
+};
+
 void sub_8013168(u16* arg0, u8* arg1, int arg2, int arg3, int arg4);
+
+void sub_807BD54(struct MAInfoFrameProc* proc, int actor);
+void sub_807BE1C(struct MAInfoFrameProc* proc, int, int);
+void sub_8081E78(void);
+void sub_80820D8(u16, u16, u16, u16);
+
+void CallARM_FillTileRect(u16* tilemap, u16* tsa, u16 tileref);
+void sub_80143D8(u16* tilemap, int arg1, int arg2, const char* cstring);
+
+void sub_807BF54(struct MAInfoFrameProc* proc);
+
+extern u8 gUnknown_089AD500[];
+
+extern int gUnknown_089A3668[];
+
+extern const struct ProcCmd gUnknown_089A3688[];
 
 extern const u8 gUnknown_089AD868[];
 
 extern const u16 gUnknown_08A1D79C[];
+
+extern u8 gUnknown_089AD78C[];
+
+extern u16 gUnknown_089A3648[];
+
+// Those are palettes
+extern u16 gUnknown_089AD648[];
+extern u16 gUnknown_089AD668[];
+extern u16 gUnknown_089AD688[];
+extern u16 gUnknown_089AD6A8[];
+
+extern u8* gUnknown_089A3670[][2];
+
+extern u16 gUnknown_089A36C0[];
+extern u8 gUnknown_08802D44[];
+extern u8 gUnknown_088030C4[];
+extern u8 gUnknown_088033C4[];
+extern u16 gUnknown_08803590[];
+extern u16 gUnknown_089AD498[];
 
 void sub_807B9F8(int tileNum)
 {
@@ -1510,7 +1557,7 @@ void sub_807B9F8(int tileNum)
         (u8*)(VRAM) + GetBackgroundTileDataOffset(0) + 0x20*(tileNum & 0x3FF));
 }
 
-void sub_807BA28(u16* tilemap, int num, int tileref, int arg3, u16 arg4, int arg5)
+void sub_807BA28(u16* tilemap, int num, int tileref, int len, u16 blankref, int arg5)
 {
     char buf[8];
     int i, j;
@@ -1529,16 +1576,16 @@ void sub_807BA28(u16* tilemap, int num, int tileref, int arg3, u16 arg4, int arg
         }
     }
 
-    sub_8013168(tilemap, buf + sizeof(buf)-1, tileref, arg3, arg5);
+    sub_8013168(tilemap, buf + sizeof(buf)-1, tileref, len, arg5);
 
-    for (i = arg3 - 1; i > 0 && buf[7 - i] == ' '; --i)
-        tilemap[-i] = arg4;
+    for (i = len - 1; i > 0 && buf[7 - i] == ' '; --i)
+        tilemap[-i] = blankref;
 }
 
 void sub_807BAE4(const u8* src)
 {
     sub_807B9F8(0x20);
-    CopyDataWithPossibleUncomp(src, (u8*)(VRAM + 0x20 * 0x2B)); // TODO: named constants
+    CopyDataWithPossibleUncomp(src, (u8*)(VRAM + 0x20 * 43)); // TODO: named constants
     ApplyPalette(gUnknown_08A1D79C, 5);
 }
 
@@ -1558,17 +1605,13 @@ void sub_807BB10(u16* arg0, int* arg1, int arg2, int arg3, int arg4)
         *arg1 = 0;
 }
 
-/*
-
-extern const int gUnknown_089A3668[];
-
-void sub_807BB40(u16* tilemap, int arg1, int arg2, int arg3, u16 arg4[][2])
+void sub_807BB40(u16* tilemap, int arg1, int arg2, int arg3, u16* arg4)
 {
-    int i, count = 0;
-    int unk4;
+    int unk4, count = 0;
+    u16* it;
 
-    for (i = 0; arg4[i][0]; ++i)
-        count += arg4[i][0] - 1;
+    for (it = arg4; it[0]; it += 2)
+        count -= 1 - it[0];
 
     count += 1;
 
@@ -1577,11 +1620,549 @@ void sub_807BB40(u16* tilemap, int arg1, int arg2, int arg3, u16 arg4[][2])
     else
         unk4 = ((count<<8) / arg1 * arg2) >> 8;
 
-    if (unk4 && arg2 > 0)
+    if (unk4 == 0 && arg2 > 0)
         unk4 = 1;
 
-    for (i = 0; arg4[i][0]; ++i)
-        sub_807BB10(tilemap + i, &unk4, gUnknown_089A3668[arg3], arg4[i][0], arg4[i][1]);
+    for (it = arg4; it[0]; ++tilemap, it += 2)
+        sub_807BB10(tilemap, &unk4, gUnknown_089A3668[arg3], it[0], it[1]);
 }
 
-*/
+void DeleteBattleAnimInfoThing(void)
+{
+    Proc_DeleteAllWithScript(gUnknown_089A3688);
+}
+
+void NewMapBattleInfoThing(int arg0, int arg1, struct Proc* parent)
+{
+    struct MAInfoFrameProc* proc = (struct MAInfoFrameProc*) Proc_Create(gUnknown_089A3688, ROOT_PROC_3);
+
+    proc->unk2E = arg0;
+    proc->unk2F = arg1;
+
+    proc->maMain = parent;
+}
+
+void sub_807BBF0(void)
+{
+    SetPrimaryHBlankHandler(NULL);
+    ClearBg0Bg1();
+}
+
+void sub_807BC00(struct MAInfoFrameProc* proc)
+{
+    BG_SetPosition(0, 0, 0);
+    BG_SetPosition(1, 0, 0);
+
+    CopyDataWithPossibleUncomp(
+        gUnknown_089AD500,
+        (void*)(VRAM) + GetBackgroundTileDataOffset(1) + BM_BGCHR_BANIM_IFBACK * 0x20); //< TODO: put in macro?
+
+    sub_807BAE4(gUnknown_089AD78C);
+
+    switch (gMapBattle.actorCount_maybe)
+    {
+
+    case 1:
+        sub_807BE1C(proc, 0, -5);
+        break;
+
+    case 2:
+        sub_807BE1C(proc, 0, -1);
+        sub_807BE1C(proc, 1, -11);
+        break;
+
+    } // switch (gMapBattle.actorCount_maybe)
+
+    sub_8081E78();
+
+    sub_80820D8(
+        gMapBattle.actor[0].u11*8,
+        gMapBattle.actor[0].u11*8 + 0x20,
+        gPaletteBuffer[0x11],
+        gPaletteBuffer[0x21]);
+}
+
+void sub_807BCA8(struct MAInfoFrameProc* proc)
+{
+    s8 updated = FALSE;
+    int i;
+
+    for (i = 0; i < gMapBattle.actorCount_maybe; ++i)
+    {
+        u16 r4 = gMapBattle.actor[i].u0E;
+
+        if (r4 > gMapBattle.actor[i].u0D*16)
+            r4 = r4 - 16;
+
+        if (r4 < gMapBattle.actor[i].u0D*16)
+        {
+            r4 = r4 + 4;
+
+            if (r4 % 16 == 0)
+                PlaySoundEffect(0x75); // TODO: song ids
+        }
+
+        if (r4 != gMapBattle.actor[i].u0E)
+        {
+            gMapBattle.actor[i].u0E = r4;
+            sub_807BD54(proc, i);
+            updated = TRUE;
+        }
+    }
+
+    if (!updated && gMapBattle.u5F)
+        gMapBattle.u5F = FALSE;
+}
+
+void sub_807BD54(struct MAInfoFrameProc* proc, int a)
+{
+    int dummy = gMapBattle.actor[a].u0E/16;
+    int r6 = (dummy >= 100);
+
+    sub_807BA28(
+        gBG0TilemapBuffer + TILEMAP_INDEX(
+            gMapBattle.actor[a].u10 + 3,
+            gMapBattle.actor[a].u11 + 3),
+        gMapBattle.actor[a].u0E/16,
+        TILEREF(32, BM_BGPAL_BANIM_UNK5), 3, 0, r6);
+
+    sub_807BB40(
+        gBG0TilemapBuffer + TILEMAP_INDEX(
+            gMapBattle.actor[a].u10 + 4,
+            gMapBattle.actor[a].u11 + 3),
+        gMapBattle.actor[a].u0C,
+        gMapBattle.actor[a].u0E/16,
+        0, gUnknown_089A3648);
+
+    BG_EnableSyncByMask(BG0_SYNC_BIT);
+}
+
+u16* sub_807BDD0(struct Unit* unit)
+{
+    switch (UNIT_FACTION(unit))
+    {
+
+    case FACTION_BLUE:
+        return gUnknown_089AD648;
+
+    case FACTION_RED:
+        return gUnknown_089AD668;
+
+    case FACTION_GREEN:
+        return gUnknown_089AD688;
+
+    case FACTION_PURPLE:
+        return gUnknown_089AD6A8;
+
+    } // switch (UNIT_FACTION(unit))
+
+    return NULL;
+}
+
+void sub_807BE1C(struct MAInfoFrameProc* proc, int a, int arg2)
+{
+    gMapBattle.actor[a].u10 = proc->unk2E + arg2;
+    gMapBattle.actor[a].u11 = proc->unk2F;
+
+    ApplyPalette(
+        sub_807BDD0(gMapBattle.actor[a].unit),
+        BM_BGPAL_BANIM_IFBACK + a);
+
+    CopyDataWithPossibleUncomp(
+        gUnknown_089A3670[gMapBattle.actorCount_maybe][a], gUnknown_02020188);
+
+    CallARM_FillTileRect(
+        TILEMAP_LOCATED(gBG1TilemapBuffer,
+            gMapBattle.actor[a].u10,
+            gMapBattle.actor[a].u11),
+        (u16*) gUnknown_02020188,
+        BM_BGCHR_BANIM_IFBACK | TILEREF(0, BM_BGPAL_BANIM_IFBACK + a));
+
+    BG_EnableSyncByMask(BG1_SYNC_BIT);
+
+    sub_80143D8(
+        TILEMAP_LOCATED(gBG0TilemapBuffer,
+            gMapBattle.actor[a].u10 + 2,
+            gMapBattle.actor[a].u11 + 1),
+        0, 9,
+        GetStringFromIndex(UNIT_NAME_ID(gMapBattle.actor[a].unit)));
+
+    BG_EnableSyncByMask(BG0_SYNC_BIT);
+
+    gMapBattle.actor[a].u0E = gMapBattle.actor[a].u0D*16;
+
+    sub_807BD54(proc, a);
+}
+
+void sub_807BEF8(struct MAInfoFrameProc* proc)
+{
+    proc->unk2A = 0;
+
+    sub_807BF54(proc);
+
+    SetWinEnable(1, 0, 0);
+
+    SetWin0Layers(1, 1, 1, 1, 1);
+    SetWOutLayers(0, 0, 1, 1, 1);
+}
+
+void sub_807BF54(struct MAInfoFrameProc* proc)
+{
+    // TODO: SetWin0PtA macro?
+    gLCDControlBuffer.win0_left   = 0;
+    gLCDControlBuffer.win0_top    = (proc->unk2F+2)*8 - proc->unk2A;
+
+    // TODO: SetWin0PtB macro?
+    gLCDControlBuffer.win0_right  = 240; // TODO: SCREEN_WIDTH?
+    gLCDControlBuffer.win0_bottom = (proc->unk2F+2)*8 + proc->unk2A;
+
+    proc->unk2A += 2;
+
+    if (proc->unk2A > 0x10)
+    {
+        SetWinEnable(0, 0, 0);
+        Proc_ClearNativeCallback((struct Proc*) proc);
+    }
+}
+
+// ============================
+// NOTE: Start Map Anim Exp bar
+// ============================
+
+void sub_807C1AC(struct MAExpBarProc* proc);
+void sub_807F10C(int actor, struct MAExpBarProc* proc);
+
+void sub_807BFC4(int arg0, int arg1, int arg2)
+{
+    sub_807BA28(
+        TILEMAP_LOCATED(gBG0TilemapBuffer,
+            arg0 + 2,
+            arg1 + 1),
+        arg2, 0x5225, 2, 0x522F, FALSE);
+
+    sub_807BB40(
+        TILEMAP_LOCATED(gBG0TilemapBuffer,
+            arg0 + 3,
+            arg1 + 1),
+        99, arg2, 0, gUnknown_089A36C0);
+
+    BG_EnableSyncByMask(BG0_SYNC_BIT);
+}
+
+void sub_807C02C(struct MAExpBarProc* proc)
+{
+    BG_SetPosition(0, 0, 0);
+    BG_SetPosition(1, 0, 0);
+
+    // TODO: ApplyTileImages macros?
+    // TODO: BM_BGCHR_...?
+
+    RegisterTileGraphics(
+        gUnknown_08802D44,
+        (void*)(VRAM) + GetBackgroundTileDataOffset(0) + 512 * 0x20,
+        13 * 0x20);
+
+    RegisterTileGraphics(
+        gUnknown_088030C4,
+        (void*)(VRAM) + GetBackgroundTileDataOffset(0) + 525 * 0x20,
+        24 * 0x20);
+
+    RegisterTileGraphics(
+        gUnknown_088033C4,
+        (void*)(VRAM) + GetBackgroundTileDataOffset(0) + 549 * 0x20,
+        11 * 0x20);
+
+    ApplyPalette(gUnknown_08803590, BM_BGPAL_BANIM_UNK5);
+
+    CallARM_FillTileRect(
+        TILEMAP_LOCATED(gBG0TilemapBuffer, 6, 8),
+        gUnknown_089AD498,
+        TILEREF(512, BM_BGPAL_BANIM_UNK5));
+
+    sub_807BFC4(6, 8, proc->expFrom);
+}
+
+void sub_807C0DC(void)
+{
+    PlaySoundEffect(0x74); // TODO: song ids
+}
+
+void sub_807C0F8(struct MAExpBarProc* proc)
+{
+    proc->expFrom++;
+
+    if (proc->expFrom >= 100)
+        proc->expFrom = 0;
+
+    sub_807BFC4(6, 8, proc->expFrom);
+
+    if (proc->expFrom == proc->expTo % 100)
+    {
+        Proc_ClearNativeCallback((struct Proc*) proc);
+        m4aSongNumStop(0x74); // TODO: song ids
+    }
+}
+
+void sub_807C14C(struct MAExpBarProc* proc)
+{
+    proc->unk6A = 0;
+
+    sub_807C1AC(proc);
+
+    SetWinEnable(1, 0, 0);
+
+    SetWin0Layers(1, 1, 1, 1, 1);
+    SetWOutLayers(0, 0, 1, 1, 1);
+}
+
+void sub_807C1AC(struct MAExpBarProc* proc)
+{
+    // TODO: SetWin0PtA macro?
+    gLCDControlBuffer.win0_left   = 0;
+    gLCDControlBuffer.win0_top    = 76 - proc->unk6A;
+
+    // TODO: SetWin0PtB macro?
+    gLCDControlBuffer.win0_right  = 240; // TODO: SCREEN_WIDTH?
+    gLCDControlBuffer.win0_bottom = 76 + proc->unk6A;
+
+    proc->unk6A += 2;
+
+    if (proc->unk6A > 12)
+    {
+        SetWinEnable(0, 0, 0);
+        Proc_ClearNativeCallback((struct Proc*) proc);
+    }
+}
+
+void sub_807C210(struct MAExpBarProc* proc)
+{
+    if (proc->expTo >= 100)
+        sub_807F10C(proc->actorId, proc);
+}
+
+// ===================================================
+// NOTE: Start Oh fcuk debug stuff I didn't know about
+// ===================================================
+
+struct MADebugProc
+{
+    PROC_HEADER;
+
+    /* 29 */ u8 pad29[0x64 - 0x29];
+    /* 64 */ short unk64;
+    /* 66 */ short unk66;
+};
+
+struct MADebugInfoEntry
+{
+    /* 00 */ short data[10];
+    /* 14 */ struct TextHandle text[10];
+};
+
+struct MADebugInfo
+{
+    /* 00 */ u8 pad00[8];
+    /* 08 */ struct MADebugInfoEntry e[2];
+};
+
+struct Unk089A3798
+{
+    /* 00 */ u8 a, b, c, d, e;
+};
+
+void sub_801443C(u16* tilemap, int color, const char* cstring);
+
+extern struct Unk089A3798 CONST_DATA gUnknown_089A3798[];
+
+extern CONST_DATA struct MADebugInfo* gUnknown_089A3810;
+
+extern CONST_DATA struct ProcCmd gUnknown_089A3814[];
+
+extern char* CONST_DATA gUnknown_089A3770[];
+extern char* CONST_DATA gUnknown_089A37E8[];
+
+void sub_807C230(void)
+{
+    Proc_Create(gUnknown_089A3814, ROOT_PROC_3);
+}
+
+void sub_807C244(int num, int arg1, int arg2)
+{
+    const struct CharacterData* charData = GetCharacterData(gUnknown_089A3810->e[num].data[0]);
+    const struct ClassData* classData = GetClassData(gUnknown_089A3810->e[num].data[3]);
+
+    int charId = gUnknown_089A3810->e[num].data[0];
+    int classId = gUnknown_089A3810->e[num].data[3];
+    int unk = gUnknown_089A3810->e[num].data[4];
+
+    switch (arg1)
+    {
+
+    case 0:
+        Text_Clear(&gUnknown_089A3810->e[num].text[0]);
+
+        Text_InsertNumberOr2Dashes(
+            &gUnknown_089A3810->e[num].text[0],
+            16, arg2, charId);
+
+        DrawTextInline(
+            &gUnknown_089A3810->e[num].text[0],
+            TILEMAP_LOCATED(gBG0TilemapBuffer, num*12 + 6, 0),
+            arg2, 24, 0, GetStringFromIndex(charData->nameTextId));
+
+        BG_EnableSyncByMask(BG0_SYNC_BIT);
+
+        break;
+
+    case 1:
+        Text_Clear(&gUnknown_089A3810->e[num].text[1]);
+
+        Text_InsertNumberOr2Dashes(
+            &gUnknown_089A3810->e[num].text[1],
+            8, arg2, gUnknown_089A3810->e[num].data[1]);
+
+        Text_Draw(
+            &gUnknown_089A3810->e[num].text[1],
+            TILEMAP_LOCATED(gBG0TilemapBuffer, num*12 + 7, 2));
+
+        BG_EnableSyncByMask(BG0_SYNC_BIT);
+
+        break;
+
+    case 2:
+        Text_Clear(&gUnknown_089A3810->e[num].text[2]);
+
+        Text_InsertNumberOr2Dashes(
+            &gUnknown_089A3810->e[num].text[2],
+            8, arg2, gUnknown_089A3810->e[num].data[2]);
+
+        Text_Draw(
+            &gUnknown_089A3810->e[num].text[2],
+            TILEMAP_LOCATED(gBG0TilemapBuffer, num*12 + 10, 2));
+
+        BG_EnableSyncByMask(BG0_SYNC_BIT);
+
+        break;
+
+    case 3:
+        Text_Clear(&gUnknown_089A3810->e[num].text[3]);
+
+        Text_InsertNumberOr2Dashes(
+            &gUnknown_089A3810->e[num].text[3],
+            16, arg2, classId);
+
+        DrawTextInline(
+            &gUnknown_089A3810->e[num].text[3],
+            TILEMAP_LOCATED(gBG0TilemapBuffer, num*12 + 6, 4),
+            arg2, 24, 0, GetStringFromIndex(classData->nameTextId));
+
+        BG_EnableSyncByMask(BG0_SYNC_BIT);
+
+        break;
+
+    case 4:
+        Text_Clear(&gUnknown_089A3810->e[num].text[4]);
+
+        Text_InsertNumberOr2Dashes(
+            &gUnknown_089A3810->e[num].text[4],
+            16, arg2, unk);
+
+        DrawTextInline(
+            &gUnknown_089A3810->e[num].text[4],
+            TILEMAP_LOCATED(gBG0TilemapBuffer, num*12 + 6, 6),
+            arg2, 24, 0, GetItemName(gUnknown_089A3810->e[num].data[4]));
+
+        BG_EnableSyncByMask(BG0_SYNC_BIT);
+
+        break;
+
+    case 5 ... 9:
+        Text_Clear(&gUnknown_089A3810->e[num].text[arg1]);
+
+        Text_InsertNumberOr2Dashes(
+            &gUnknown_089A3810->e[num].text[arg1],
+            8, arg2, gUnknown_089A3810->e[num].data[arg1]);
+
+        DrawTextInline(
+            &gUnknown_089A3810->e[num].text[arg1],
+            TILEMAP_LOCATED(gBG0TilemapBuffer, num*12 - 57, arg1*2),
+            arg2, 16, 0,
+            gUnknown_089A3770[gUnknown_089A3810->e[num].data[arg1]]);
+
+        BG_EnableSyncByMask(BG0_SYNC_BIT);
+
+        break;
+
+    } // switch (arg1)
+}
+
+void sub_807C4F0(struct MADebugProc* proc)
+{
+    Proc_DeleteAllWithScript(gUnknown_0859AA5C);
+
+    proc->unk64 = 0;
+    proc->unk66 = 0;
+
+    gUnknown_089A3810->e[0].data[3] = 1;
+    gUnknown_089A3810->e[0].data[0] = 1;
+    gUnknown_089A3810->e[0].data[4] = 1;
+    gUnknown_089A3810->e[0].data[1] = 4;
+    gUnknown_089A3810->e[0].data[2] = 8;
+
+    gUnknown_089A3810->e[1].data[3] = 1;
+    gUnknown_089A3810->e[1].data[0] = 2;
+    gUnknown_089A3810->e[1].data[4] = 2;
+    gUnknown_089A3810->e[1].data[1] = 5;
+    gUnknown_089A3810->e[1].data[2] = 8;
+
+    gUnknown_089A3810->e[0].data[5] = 1;
+    gUnknown_089A3810->e[0].data[6] = 5;
+    gUnknown_089A3810->e[0].data[7] = 0;
+    gUnknown_089A3810->e[0].data[8] = 0;
+    gUnknown_089A3810->e[0].data[9] = 0;
+
+    gUnknown_089A3810->e[1].data[5] = 1;
+    gUnknown_089A3810->e[1].data[6] = 0;
+    gUnknown_089A3810->e[1].data[7] = 0;
+    gUnknown_089A3810->e[1].data[8] = 0;
+    gUnknown_089A3810->e[1].data[9] = 0;
+}
+
+void sub_807C568(struct MADebugProc* proc)
+{
+    int i, j;
+
+    MU_EndAll();
+    Font_InitForUIDefault();
+
+    SetSpecialColorEffectsParameters(2, 8, 8, 0);
+
+    sub_8001ED0(0, 1, 0, 0, 0);
+    sub_8001F0C(0, 0, 1, 1, 1);
+
+    // TODO: SetWinEnable macro?
+    gLCDControlBuffer.dispcnt.win0_on   = FALSE;
+    gLCDControlBuffer.dispcnt.win1_on   = FALSE;
+    gLCDControlBuffer.dispcnt.objWin_on = FALSE;
+
+    DrawUiFrame2(0, 0, 29, 19, 1); // TODO: UI_STYLE...
+
+    for (i = 0; gUnknown_089A37E8[i]; ++i)
+        sub_801443C(
+            TILEMAP_LOCATED(gBG0TilemapBuffer, 1, i*2), 0, gUnknown_089A37E8[i]);
+
+    for (i = 0; i < 10; ++i)
+    {
+        for (j = 0; j < 2; ++j)
+        {
+            Text_Allocate(&gUnknown_089A3810->e[j].text[i], gUnknown_089A3798[i].a);
+
+            if (j == proc->unk64 && i == proc->unk66)
+                sub_807C244(j, i, TEXT_COLOR_NORMAL);
+            else
+                sub_807C244(j, i, TEXT_COLOR_GRAY);
+        }
+    }
+
+    BG_EnableSyncByMask(BG0_SYNC_BIT);
+}
