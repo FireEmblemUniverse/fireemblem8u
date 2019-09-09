@@ -39,7 +39,7 @@ struct APProc* APProc_Create(const void* apDefinition, int xPos, int yPos, int t
 // ??? APProc_OnEnd(???);
 // ??? APProc_SetParameters(???);
 // ??? APProc_Delete(???);
-// ??? APProc_DeleteAll(???);
+void APProc_DeleteAll(void);
 // ??? APProc_Exists(???);
 
 #endif // GUARD_AP_H
