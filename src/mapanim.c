@@ -460,39 +460,54 @@ void New6C_SummonGfx_FromActionPos(struct Proc* proc)
     New6C_SummonGfx(proc, gActionData.xOther, gActionData.yOther);
 }
 
-#ifdef NONMATCHING
-
 void sub_807AD1C(void)
 {
-    u8 r7 = DivRem(AdvanceGetLCGRNValue(), 101);
-    short r6 = -1, r4;
-    struct Unit* unit;
-    int i;
+    u8 rand100 = DivRem(AdvanceGetLCGRNValue(), 101);
 
-    for (r4 = 0; r4 < 3; ++r4) // TODO: sizeof(gUnknown_0895F5A4) / 2
+    struct Unit* unit;
+    short summonerNum, i;
+
+    // 1. Find summoner number from active unit
+
+    summonerNum = -1;
+
+    for (i = 0; i < 3; ++i) // TODO: sizeof(gUnknown_0895F5A4) / 2
     {
-        if (UNIT_CHAR_ID(gActiveUnit) == gUnknown_0895F5A4[r4][0])
+        if (UNIT_CHAR_ID(gActiveUnit) == gUnknown_0895F5A4[i][0])
         {
-            r6 = r4;
+            summonerNum = i;
             break;
         }
     }
 
-    if (r6 == -1)
+    if (summonerNum == -1)
         return;
 
-    for (i = 1; i < 0x40; ++i)
-    {
-        struct Unit* unit = GetUnit(i);
+    // 2. Clear existing summon
 
-        if (UNIT_IS_VALID(unit))
+    // NOTE: this may have been a macro? (because of different i and unit?)
+    {
+        int i;
+
+        for (i = 1; i < 0x40; ++i)
         {
-            if (UNIT_CHAR_ID(unit) == gUnknown_0895F5A4[r6][1])
-                ClearUnit(unit);
+            struct Unit* unit = GetUnit(i);
+
+            if (UNIT_IS_VALID(unit))
+            {
+                if (UNIT_CHAR_ID(unit) == gUnknown_0895F5A4[summonerNum][1])
+                    ClearUnit(unit);
+            }
         }
     }
 
-    gUnknown_03001C38.charIndex       = gUnknown_0895F5A4[r6][1];
+    // 3. Set up unit definition
+
+    unit = NULL;
+
+    // 3.1. Character/Class/Faction/Level/Position
+
+    gUnknown_03001C38.charIndex       = gUnknown_0895F5A4[summonerNum][1];
     gUnknown_03001C38.classIndex      = CLASS_PHANTOM;
     gUnknown_03001C38.leaderCharIndex = CHARACTER_NONE;
     gUnknown_03001C38.autolevel       = TRUE;
@@ -517,8 +532,10 @@ void sub_807AD1C(void)
     gUnknown_03001C38.genMonster = FALSE;
     gUnknown_03001C38.itemDrop = FALSE;
 
-    for (r4 = 0; r4 < UNIT_DEFINITION_ITEM_COUNT; ++r4)
-        gUnknown_03001C38.items[r4] = ITEM_NONE;
+    // 3.2. Items (generated from random number)
+
+    for (i = 0; i < UNIT_DEFINITION_ITEM_COUNT; ++i)
+        gUnknown_03001C38.items[i] = ITEM_NONE;
 
     if (gActiveUnit->level <= 5)
     {
@@ -526,36 +543,45 @@ void sub_807AD1C(void)
     }
     else if (gActiveUnit->level <= 10)
     {
-        if (r7 < 6)
+        if (rand100 < 6)
             gUnknown_03001C38.items[0] = ITEM_AXE_DEVIL;
         else
             gUnknown_03001C38.items[0] = ITEM_AXE_IRON;
     }
     else if (gActiveUnit->level <= 15)
     {
-        if (r7 < 6)
+        if (rand100 < 6)
             gUnknown_03001C38.items[0] = ITEM_AXE_DEVIL;
-        else if (r7 >= 6 && r7 < 26)
+
+        else if (rand100 >= 6 && rand100 < 26)
             gUnknown_03001C38.items[0] = ITEM_AXE_KILLER;
+
         else
             gUnknown_03001C38.items[0] = ITEM_AXE_IRON;
     }
     else if (gActiveUnit->level <= 20)
     {
-        if (r7 < 6)
+        if (rand100 < 6)
             gUnknown_03001C38.items[0] = ITEM_AXE_DEVIL;
-        else if (r7 >= 6 && r7 < 26)
+
+        else if (rand100 >= 6 && rand100 < 26)
             gUnknown_03001C38.items[0] = ITEM_AXE_KILLER;
-        else if (r7 >= 26 && r7 < 37)
+
+        else if (rand100 >= 26 && rand100 < 37)
             gUnknown_03001C38.items[0] = ITEM_AXE_TOMAHAWK;
+
         else
             gUnknown_03001C38.items[0] = ITEM_AXE_IRON;
     }
 
-    for (r4 = 0; r4 < 4; ++r4)
-        gUnknown_03001C38.ai[r4] = 0;
+    // 3.3. Ai (is null)
 
-    unit = GetUnitFromCharId(gUnknown_0895F5A4[r6][1]);
+    for (i = 0; i < 4; ++i)
+        gUnknown_03001C38.ai[i] = 0;
+
+    // 4. Load unit
+
+    unit = GetUnitFromCharId(gUnknown_0895F5A4[summonerNum][1]);
 
     if (unit == NULL)
     {
@@ -564,10 +590,12 @@ void sub_807AD1C(void)
         gBattleActor = bu;
     }
 
-    unit = GetUnitFromCharId(gUnknown_0895F5A4[r6][1]);
+    // 5. Set level and weapon ranks
 
-    for (r4 = 0; r4 < 4; ++r4)
-        unit->ranks[r4] = 0;
+    unit = GetUnitFromCharId(gUnknown_0895F5A4[summonerNum][1]);
+
+    for (i = 0; i < 4; ++i)
+        unit->ranks[i] = 0;
 
     unit->level = gActiveUnit->level;
     unit->exp   = UNIT_EXP_DISABLED;
@@ -581,373 +609,6 @@ void sub_807AD1C(void)
     else if (gActiveUnit->level <= 20)
         unit->ranks[ITYPE_AXE] = WPN_EXP_A;
 }
-
-#else // NONMATCHING
-
-__attribute__((naked))
-void sub_807AD1C(void)
-{
-    asm("\n\
-        .syntax unified\n\
-        push {r4, r5, r6, r7, lr}\n\
-        mov r7, r9\n\
-        mov r6, r8\n\
-        push {r6, r7}\n\
-        sub sp, #0x80\n\
-        bl AdvanceGetLCGRNValue\n\
-        movs r1, #0x65\n\
-        bl DivRem\n\
-        lsls r0, r0, #0x18\n\
-        lsrs r7, r0, #0x18\n\
-        ldr r6, _0807AD4C  @ 0x0000FFFF\n\
-        movs r4, #0\n\
-        ldr r0, _0807AD50  @ gActiveUnit\n\
-        ldr r0, [r0]\n\
-        ldr r0, [r0]\n\
-        ldr r1, _0807AD54  @ gUnknown_0895F5A4\n\
-        ldrb r0, [r0, #4]\n\
-        ldrb r1, [r1]\n\
-        cmp r0, r1\n\
-        bne _0807AD58\n\
-        movs r6, #0\n\
-        b _0807AD80\n\
-        .align 2, 0\n\
-    _0807AD4C: .4byte 0x0000FFFF\n\
-    _0807AD50: .4byte gActiveUnit\n\
-    _0807AD54: .4byte gUnknown_0895F5A4\n\
-    _0807AD58:\n\
-        lsls r0, r4, #0x10\n\
-        movs r1, #0x80\n\
-        lsls r1, r1, #9\n\
-        adds r0, r0, r1\n\
-        lsrs r4, r0, #0x10\n\
-        lsls r5, r4, #0x10\n\
-        asrs r3, r5, #0x10\n\
-        cmp r3, #2\n\
-        bgt _0807AD80\n\
-        ldr r0, _0807ADFC  @ gActiveUnit\n\
-        ldr r0, [r0]\n\
-        ldr r2, [r0]\n\
-        ldr r1, _0807AE00  @ gUnknown_0895F5A4\n\
-        lsls r0, r3, #1\n\
-        adds r0, r0, r1\n\
-        ldrb r1, [r2, #4]\n\
-        ldrb r0, [r0]\n\
-        cmp r1, r0\n\
-        bne _0807AD58\n\
-        lsrs r6, r5, #0x10\n\
-    _0807AD80:\n\
-        lsls r0, r6, #0x10\n\
-        asrs r2, r0, #0x10\n\
-        movs r1, #1\n\
-        negs r1, r1\n\
-        mov r8, r0\n\
-        cmp r2, r1\n\
-        bne _0807AD90\n\
-        b _0807AFC0\n\
-    _0807AD90:\n\
-        movs r4, #1\n\
-        lsls r1, r2, #1\n\
-        ldr r0, _0807AE04  @ gUnknown_0895F5A5\n\
-        adds r5, r1, r0\n\
-    _0807AD98:\n\
-        adds r0, r4, #0\n\
-        bl GetUnit\n\
-        adds r1, r0, #0\n\
-        cmp r1, #0\n\
-        beq _0807ADB8\n\
-        ldr r0, [r1]\n\
-        cmp r0, #0\n\
-        beq _0807ADB8\n\
-        ldrb r0, [r0, #4]\n\
-        ldrb r2, [r5]\n\
-        cmp r0, r2\n\
-        bne _0807ADB8\n\
-        adds r0, r1, #0\n\
-        bl ClearUnit\n\
-    _0807ADB8:\n\
-        adds r4, #1\n\
-        cmp r4, #0x3f\n\
-        ble _0807AD98\n\
-        movs r5, #0\n\
-        ldr r2, _0807AE08  @ gUnknown_03001C38\n\
-        ldr r3, _0807AE00  @ gUnknown_0895F5A4\n\
-        mov r1, r8\n\
-        asrs r0, r1, #0xf\n\
-        adds r1, r3, #1\n\
-        adds r0, r0, r1\n\
-        ldrb r0, [r0]\n\
-        strb r0, [r2]\n\
-        movs r0, #0x51\n\
-        strb r0, [r2, #1]\n\
-        strb r5, [r2, #2]\n\
-        ldrb r1, [r2, #3]\n\
-        movs r0, #1\n\
-        adds r4, r1, #0\n\
-        orrs r4, r0\n\
-        strb r4, [r2, #3]\n\
-        ldr r1, _0807ADFC  @ gActiveUnit\n\
-        ldr r0, [r1]\n\
-        movs r5, #0xb\n\
-        ldrsb r5, [r0, r5]\n\
-        movs r0, #0xc0\n\
-        ands r5, r0\n\
-        mov ip, r1\n\
-        mov r9, r3\n\
-        adds r6, r2, #0\n\
-        cmp r5, #0\n\
-        bne _0807AE0C\n\
-        subs r0, #0xc7\n\
-        ands r4, r0\n\
-        b _0807AE28\n\
-        .align 2, 0\n\
-    _0807ADFC: .4byte gActiveUnit\n\
-    _0807AE00: .4byte gUnknown_0895F5A4\n\
-    _0807AE04: .4byte gUnknown_0895F5A5\n\
-    _0807AE08: .4byte gUnknown_03001C38\n\
-    _0807AE0C:\n\
-        cmp r5, #0x80\n\
-        bne _0807AE1A\n\
-        movs r0, #7\n\
-        negs r0, r0\n\
-        ands r4, r0\n\
-        movs r0, #4\n\
-        b _0807AE26\n\
-    _0807AE1A:\n\
-        cmp r5, #0x40\n\
-        bne _0807AE2A\n\
-        movs r0, #7\n\
-        negs r0, r0\n\
-        ands r4, r0\n\
-        movs r0, #2\n\
-    _0807AE26:\n\
-        orrs r4, r0\n\
-    _0807AE28:\n\
-        strb r4, [r6, #3]\n\
-    _0807AE2A:\n\
-        mov r2, ip\n\
-        ldr r0, [r2]\n\
-        ldrb r1, [r0, #8]\n\
-        lsls r1, r1, #3\n\
-        ldrb r2, [r6, #3]\n\
-        movs r0, #7\n\
-        ands r0, r2\n\
-        orrs r0, r1\n\
-        strb r0, [r6, #3]\n\
-        ldr r3, _0807AEAC  @ gActionData\n\
-        movs r0, #0x3f\n\
-        ldrb r1, [r3, #0x13]\n\
-        ands r1, r0\n\
-        ldrb r2, [r6, #4]\n\
-        movs r0, #0x40\n\
-        negs r0, r0\n\
-        ands r0, r2\n\
-        orrs r0, r1\n\
-        strb r0, [r6, #4]\n\
-        ldrb r1, [r3, #0x14]\n\
-        movs r0, #0x3f\n\
-        ands r1, r0\n\
-        lsls r1, r1, #6\n\
-        ldrh r2, [r6, #4]\n\
-        ldr r0, _0807AEB0  @ 0xFFFFF03F\n\
-        ands r0, r2\n\
-        orrs r0, r1\n\
-        strh r0, [r6, #4]\n\
-        movs r0, #0\n\
-        strb r0, [r6, #7]\n\
-        str r0, [r6, #8]\n\
-        ldrb r1, [r6, #5]\n\
-        subs r0, #0x11\n\
-        ands r0, r1\n\
-        movs r1, #0x21\n\
-        negs r1, r1\n\
-        ands r0, r1\n\
-        strb r0, [r6, #5]\n\
-        movs r4, #0\n\
-        adds r3, r6, #0\n\
-        adds r3, #0xc\n\
-        movs r2, #0\n\
-    _0807AE7E:\n\
-        lsls r0, r4, #0x10\n\
-        asrs r0, r0, #0x10\n\
-        adds r1, r0, r3\n\
-        strb r2, [r1]\n\
-        adds r0, #1\n\
-        lsls r0, r0, #0x10\n\
-        lsrs r4, r0, #0x10\n\
-        asrs r0, r0, #0x10\n\
-        cmp r0, #3\n\
-        ble _0807AE7E\n\
-        mov r1, ip\n\
-        ldr r0, [r1]\n\
-        ldrb r0, [r0, #8]\n\
-        lsls r0, r0, #0x18\n\
-        asrs r0, r0, #0x18\n\
-        cmp r0, #5\n\
-        ble _0807AEF8\n\
-        cmp r0, #0xa\n\
-        bgt _0807AEB4\n\
-        cmp r7, #5\n\
-        bhi _0807AEF8\n\
-        movs r0, #0x27\n\
-        b _0807AEFA\n\
-        .align 2, 0\n\
-    _0807AEAC: .4byte gActionData\n\
-    _0807AEB0: .4byte 0xFFFFF03F\n\
-    _0807AEB4:\n\
-        cmp r0, #0xf\n\
-        bgt _0807AECE\n\
-        cmp r7, #5\n\
-        bhi _0807AEC0\n\
-        movs r0, #0x27\n\
-        b _0807AEFA\n\
-    _0807AEC0:\n\
-        subs r0, r7, #6\n\
-        lsls r0, r0, #0x18\n\
-        lsrs r0, r0, #0x18\n\
-        cmp r0, #0x13\n\
-        bhi _0807AEF8\n\
-        movs r0, #0x24\n\
-        b _0807AEFA\n\
-    _0807AECE:\n\
-        cmp r0, #0x14\n\
-        bgt _0807AEFC\n\
-        cmp r7, #5\n\
-        bhi _0807AEDA\n\
-        movs r0, #0x27\n\
-        b _0807AEFA\n\
-    _0807AEDA:\n\
-        subs r0, r7, #6\n\
-        lsls r0, r0, #0x18\n\
-        lsrs r0, r0, #0x18\n\
-        cmp r0, #0x13\n\
-        bhi _0807AEE8\n\
-        movs r0, #0x24\n\
-        b _0807AEFA\n\
-    _0807AEE8:\n\
-        adds r0, r7, #0\n\
-        subs r0, #0x1a\n\
-        lsls r0, r0, #0x18\n\
-        lsrs r0, r0, #0x18\n\
-        cmp r0, #0xa\n\
-        bhi _0807AEF8\n\
-        movs r0, #0x29\n\
-        b _0807AEFA\n\
-    _0807AEF8:\n\
-        movs r0, #0x1f\n\
-    _0807AEFA:\n\
-        strb r0, [r6, #0xc]\n\
-    _0807AEFC:\n\
-        movs r4, #0\n\
-        ldr r3, _0807AF8C  @ gUnknown_03001C48\n\
-        movs r2, #0\n\
-    _0807AF02:\n\
-        lsls r0, r4, #0x10\n\
-        asrs r0, r0, #0x10\n\
-        adds r1, r0, r3\n\
-        strb r2, [r1]\n\
-        adds r0, #1\n\
-        lsls r0, r0, #0x10\n\
-        lsrs r4, r0, #0x10\n\
-        asrs r0, r0, #0x10\n\
-        cmp r0, #3\n\
-        ble _0807AF02\n\
-        mov r2, r8\n\
-        asrs r0, r2, #0xf\n\
-        mov r1, r9\n\
-        adds r1, #1\n\
-        adds r6, r0, r1\n\
-        ldrb r0, [r6]\n\
-        bl GetUnitFromCharId\n\
-        adds r5, r0, #0\n\
-        cmp r5, #0\n\
-        bne _0807AF48\n\
-        ldr r4, _0807AF90  @ gBattleActor\n\
-        mov r0, sp\n\
-        adds r1, r4, #0\n\
-        movs r2, #0x80\n\
-        bl memcpy\n\
-        ldr r0, _0807AF94  @ gUnknown_03001C38\n\
-        bl LoadUnits\n\
-        adds r0, r4, #0\n\
-        mov r1, sp\n\
-        movs r2, #0x80\n\
-        bl memcpy\n\
-    _0807AF48:\n\
-        ldrb r0, [r6]\n\
-        bl GetUnitFromCharId\n\
-        adds r5, r0, #0\n\
-        movs r4, #0\n\
-        adds r2, r5, #0\n\
-        adds r2, #0x28\n\
-        movs r3, #0\n\
-    _0807AF58:\n\
-        lsls r0, r4, #0x10\n\
-        asrs r0, r0, #0x10\n\
-        adds r1, r2, r0\n\
-        strb r3, [r1]\n\
-        adds r0, #1\n\
-        lsls r0, r0, #0x10\n\
-        lsrs r4, r0, #0x10\n\
-        asrs r0, r0, #0x10\n\
-        cmp r0, #3\n\
-        ble _0807AF58\n\
-        ldr r1, _0807AF98  @ gActiveUnit\n\
-        ldr r0, [r1]\n\
-        ldrb r0, [r0, #8]\n\
-        strb r0, [r5, #8]\n\
-        movs r0, #0xff\n\
-        strb r0, [r5, #9]\n\
-        ldr r0, [r1]\n\
-        ldrb r0, [r0, #8]\n\
-        lsls r0, r0, #0x18\n\
-        asrs r0, r0, #0x18\n\
-        cmp r0, #5\n\
-        bgt _0807AF9C\n\
-        adds r1, r5, #0\n\
-        adds r1, #0x2a\n\
-        movs r0, #0x1f\n\
-        b _0807AFBE\n\
-        .align 2, 0\n\
-    _0807AF8C: .4byte gUnknown_03001C48\n\
-    _0807AF90: .4byte gBattleActor\n\
-    _0807AF94: .4byte gUnknown_03001C38\n\
-    _0807AF98: .4byte gActiveUnit\n\
-    _0807AF9C:\n\
-        cmp r0, #0xa\n\
-        bgt _0807AFA8\n\
-        adds r1, r5, #0\n\
-        adds r1, #0x2a\n\
-        movs r0, #0x47\n\
-        b _0807AFBE\n\
-    _0807AFA8:\n\
-        cmp r0, #0xf\n\
-        bgt _0807AFB4\n\
-        adds r1, r5, #0\n\
-        adds r1, #0x2a\n\
-        movs r0, #0x79\n\
-        b _0807AFBE\n\
-    _0807AFB4:\n\
-        cmp r0, #0x14\n\
-        bgt _0807AFC0\n\
-        adds r1, r5, #0\n\
-        adds r1, #0x2a\n\
-        movs r0, #0xb5\n\
-    _0807AFBE:\n\
-        strb r0, [r1]\n\
-    _0807AFC0:\n\
-        add sp, #0x80\n\
-        pop {r3, r4}\n\
-        mov r8, r3\n\
-        mov r9, r4\n\
-        pop {r4, r5, r6, r7}\n\
-        pop {r0}\n\
-        bx r0\n\
-        .syntax divided\n\
-    ");
-}
-
-#endif // NONMATCHING
 
 struct SumProc
 {
@@ -2369,9 +2030,10 @@ struct MAEffectProc
     /* 38 */ u8 pad38[0x40 - 0x38];
     /* 40 */ u16 unk40;
     /* 42 */ u16 unk42;
-    /* 44 */ u32 pad44;
+    /* 44 */ u8 pad44[0x48 - 0x44];
     /* 48 */ short unk48;
-    /* 4A */ u8 pad4A[0x50 - 0x4A];
+    /* 4A */ short unk4A;
+    /* 4C */ u8 pad4C[0x50 - 0x4C];
     /* 50 */ const void* img;
     /* 54 */ const void* pal;
     /* 58 */ u16 unk58;
@@ -2397,6 +2059,7 @@ void sub_8013AA4(int);
 void sub_80144CC(const u16* pal, int off, int len, int unk, struct Proc* proc);
 void sub_8014560(u16* tilemap, int x, int y, int tileref, int, int);
 void sub_80146A0(u16* tilemap, int x, int y, int tileref, int, int, const void*, int);
+void sub_801474C(u16* tilemap, int x, int y, int tileref, int, int, const void*, int);
 void sub_8014930(void* vram, int, int);
 
 void NewPaletteAnimator_(const u16* pal, int off, int len, int unk, struct Proc* proc);
@@ -2486,6 +2149,20 @@ extern struct ProcCmd CONST_DATA gUnknown_089A3C24[];
 extern u8 CONST_DATA gUnknown_089B03D4[];
 extern u16 CONST_DATA gUnknown_089B068C[];
 extern u16 CONST_DATA gUnknown_089A61F8[]; // ap
+
+extern struct ProcCmd CONST_DATA gUnknown_089A3C6C[];
+
+extern u8 CONST_DATA gUnknown_089B1E10[];
+extern u16 CONST_DATA gUnknown_089B20E8[];
+extern u16 CONST_DATA gUnknown_089B2108[];
+
+extern struct ProcCmd CONST_DATA gUnknown_089A3C94[];
+
+extern u8 CONST_DATA gUnknown_089B0AD0[];
+extern u16 CONST_DATA gUnknown_086810B8[];
+
+extern u8 CONST_DATA gUnknown_089B17A4[];
+extern u8 CONST_DATA gUnknown_08205824[]; // actual array of u8s
 
 void sub_807CAD0(struct Proc* proc)
 {
@@ -3376,4 +3053,89 @@ void sub_807DD0C(struct MAEffectProc* proc)
 void sub_807DD74(void)
 {
     sub_8081F58();
+}
+
+void sub_807DD80(struct Unit* unit)
+{
+    struct MAEffectProc* proc =
+        (struct MAEffectProc*) Proc_Create(gUnknown_089A3C6C, ROOT_PROC_3);
+
+    proc->unit = unit;
+
+    proc->xDisplay = 8*(1+2*(unit->xPos - (gUnknown_0202BCB0.camera.x>>4)));
+    proc->yDisplay = 8*(1+2*(unit->yPos - (gUnknown_0202BCB0.camera.y>>4)));
+}
+
+void sub_807DDC8(struct MAEffectProc* proc)
+{
+    PlaySpacialSoundMaybe(0x87, proc->xDisplay); // TODO: song ids
+
+    BG_SetPosition(2, 0, 0);
+    sub_807E978();
+
+    CopyDataWithPossibleUncomp(
+        gUnknown_089B1E10,
+        OBJ_VRAM0 + 0x20 * BM_OBJCHR_BANIM_EFFECT2);
+
+    ApplyPalette(
+        gUnknown_089B20E8,
+        16 + BM_OBJPAL_BANIM_EFFECT2);
+
+    APProc_Create(
+        gUnknown_089B2108,
+        proc->xDisplay, proc->yDisplay,
+        TILEREF(BM_OBJCHR_BANIM_EFFECT2, BM_OBJPAL_BANIM_EFFECT2),
+        0, 2);
+
+    proc->unk48 = 1;
+}
+
+void sub_807DE30(struct Unit* unit)
+{
+    struct MAEffectProc* proc =
+        (struct MAEffectProc*) Proc_Create(gUnknown_089A3C94, ROOT_PROC_3);
+
+    proc->xDisplay = 16*(unit->xPos - (gUnknown_0202BCB0.camera.x>>4)) + 8;
+    proc->yDisplay = 16*(unit->yPos - (gUnknown_0202BCB0.camera.y>>4)) + 8;
+}
+
+void sub_807DE70(struct MAEffectProc* proc)
+{
+    PlaySpacialSoundMaybe(0x86, proc->xDisplay);
+}
+
+void sub_807DE80(struct MAEffectProc* proc)
+{
+    BG_SetPosition(2, 0, 0);
+    sub_807E978();
+
+    SetSpecialColorEffectsParameters(1, 0x10, 0x10, 0);
+
+    CopyDataWithPossibleUncomp(
+        gUnknown_089B0AD0,
+        (void*)(VRAM) + GetBackgroundTileDataOffset(2) + BM_BGCHR_BANIM_UNK160 * 0x20);
+
+    ApplyPalette(
+        gUnknown_086810B8,
+        BM_BGPAL_BANIM_UNK4);
+
+    proc->unk48 = 0;
+    proc->unk4A = 0;
+}
+
+void sub_807DEDC(struct MAEffectProc* proc)
+{
+    sub_801474C(
+        gBG2TilemapBuffer,
+        proc->xDisplay/8 - 2,
+        proc->yDisplay/8 - 9,
+        TILEREF(BM_BGCHR_BANIM_UNK160, BM_BGPAL_BANIM_UNK4),
+        4, 11,
+        gUnknown_089B17A4,
+        gUnknown_08205824[proc->unk48++]);
+
+    BG_EnableSyncByMask(BG2_SYNC_BIT);
+
+    if (gUnknown_08205824[proc->unk48] == 0xFF)
+        Proc_ClearNativeCallback((struct Proc*) proc);
 }
