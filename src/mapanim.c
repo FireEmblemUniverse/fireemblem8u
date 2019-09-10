@@ -2018,6 +2018,8 @@ void sub_807CAA8(void)
 // NOTE: We back to your regular map anim stuff
 // ============================================
 
+#include <stdlib.h>
+
 #include "ap.h"
 #include "bmtrick.h"
 
@@ -2070,11 +2072,14 @@ void sub_807D328(struct MAEffectProc* proc);
 void sub_807D360(int, int, int, int, int, struct Proc* parent);
 void sub_807E978(void);
 void sub_807E978(void);
+void sub_807EA20(int, int, int, struct Proc* proc);
 void LoadSparkGfx(void);
 void sub_8081E78(void);
 void sub_8081EAC(void);
 void sub_8081F24(int, int, int);
 void sub_8081F58(void);
+void sub_8081FA8(void);
+void sub_808218C(int, int, int, int, const void*);
 
 extern u8 CONST_DATA gUnknown_089AC0A4[]; // ma miss img
 extern u16 CONST_DATA gUnknown_089AC194[]; // ma miss ap
@@ -2163,6 +2168,51 @@ extern u16 CONST_DATA gUnknown_086810B8[];
 
 extern u8 CONST_DATA gUnknown_089B17A4[];
 extern u8 CONST_DATA gUnknown_08205824[]; // actual array of u8s
+
+extern const u8 gUnknown_08205833[];
+
+extern struct ProcCmd CONST_DATA gUnknown_089A3CD4[];
+
+extern u16 CONST_DATA gUnknown_0867B5A4[];
+
+extern u8 CONST_DATA gUnknown_089B0864[];
+extern const u8 gUnknown_08205846[];
+
+extern struct ProcCmd CONST_DATA gUnknown_089A3D14[];
+
+extern u8 CONST_DATA gUnknown_08686F84[];
+extern u16 CONST_DATA gUnknown_0868716C[];
+extern u16 CONST_DATA gUnknown_089B1A10[];
+
+extern struct ProcCmd CONST_DATA gUnknown_089A3D54[];
+
+extern u8 CONST_DATA gUnknown_089B6AA0[];
+extern u16 CONST_DATA gUnknown_089B73D4[];
+
+extern u8 CONST_DATA* CONST_DATA gUnknown_089A3D8C[];
+
+extern struct ProcCmd CONST_DATA gUnknown_089A3DB4[];
+
+extern struct ProcCmd CONST_DATA gUnknown_089A52FC[];
+
+extern u8 CONST_DATA gUnknown_089A3DFC[];
+
+extern struct ProcCmd CONST_DATA gUnknown_089A3E04[];
+
+extern u8 CONST_DATA gUnknown_089B2618[]; // img (1d)
+extern u8 CONST_DATA gUnknown_089B21D8[]; // img (2d)
+extern u16 CONST_DATA gUnknown_089B2728[]; // pal
+extern u16 CONST_DATA gUnknown_089B2748[]; // ap
+
+extern struct ProcCmd CONST_DATA gUnknown_089A3E44[];
+
+extern u8 CONST_DATA gUnknown_089B2880[]; // img
+extern u16 CONST_DATA gUnknown_0868DF5C[]; // pal
+
+extern u8 CONST_DATA gUnknown_089B343C[];
+extern const u8 gUnknown_08205855[];
+
+extern struct ProcCmd CONST_DATA gUnknown_089A3E6C[];
 
 void sub_807CAD0(struct Proc* proc)
 {
@@ -2330,7 +2380,7 @@ void sub_807CE18(struct MAEffectProc* proc)
     // TODO: BM_BANIM_BGCHR_...
     CopyDataWithPossibleUncomp(
         gUnknown_089B7610,
-        (void*)(VRAM) + GetBackgroundTileDataOffset(2) + 352 * 0x20);
+        (void*)(VRAM) + GetBackgroundTileDataOffset(2) + BM_BGCHR_BANIM_UNK160 * 0x20);
 
     ApplyPalette(
         gUnknown_089B80C4,
@@ -2369,7 +2419,7 @@ void sub_807CE78(struct MAEffectProc* proc)
             (u16*) gUnknown_02020188,
             proc->xDisplay/8 - 8,
             proc->yDisplay/8 - 7,
-            TILEREF(352, BM_BGPAL_BANIM_UNK4));
+            TILEREF(BM_BGCHR_BANIM_UNK160, BM_BGPAL_BANIM_UNK4));
 
         BG_EnableSyncByMask(BG2_SYNC_BIT);
 
@@ -2469,7 +2519,7 @@ void sub_807D0FC(struct MAEffectProc* proc)
     // TODO: BM_BANIM_BGCHR_...
     CopyDataWithPossibleUncomp(
         gUnknown_089AF950,
-        (void*)(VRAM) + GetBackgroundTileDataOffset(2) + 352 * 0x20);
+        (void*)(VRAM) + GetBackgroundTileDataOffset(2) + BM_BGCHR_BANIM_UNK160 * 0x20);
 
     SetSpecialColorEffectsParameters(1, 16, 16, 0);
 
@@ -2502,7 +2552,7 @@ void sub_807D1B4(struct MAEffectProc* proc)
 
         CopyDataWithPossibleUncomp(
             gUnknown_089AFFF8,
-            (void*)(VRAM) + GetBackgroundTileDataOffset(2) + 352 * 0x20);
+            (void*)(VRAM) + GetBackgroundTileDataOffset(2) + BM_BGCHR_BANIM_UNK160 * 0x20);
 
         sub_807D360(
             proc->xDisplay/8 - 4,
@@ -2704,7 +2754,7 @@ void sub_807D57C(struct MAEffectProc* proc)
                 (u16*) gUnknown_02020188,
                 proc->xDisplay/8 - 9,
                 proc->yDisplay/8 - 9,
-                TILEREF(352, BM_BGPAL_BANIM_UNK4));
+                TILEREF(BM_BGCHR_BANIM_UNK160, BM_BGPAL_BANIM_UNK4));
 
             BG_EnableSyncByMask(BG2_SYNC_BIT);
         }
@@ -3138,4 +3188,380 @@ void sub_807DEDC(struct MAEffectProc* proc)
 
     if (gUnknown_08205824[proc->unk48] == 0xFF)
         Proc_ClearNativeCallback((struct Proc*) proc);
+}
+
+void sub_807DF5C(struct MAEffectProc* proc)
+{
+    u8 array[0x13];
+    memcpy(array, gUnknown_08205833, sizeof array); // TODO: inline array
+
+    SetSpecialColorEffectsParameters(1, array[proc->unk4A++], 0x10, 0);
+
+    if (array[proc->unk4A] == 0xFF)
+    {
+        proc->unk4A = 0;
+        Proc_ClearNativeCallback((struct Proc*) proc);
+    }
+}
+
+void sub_807DFAC(struct MAEffectProc* proc)
+{
+    SetSpecialColorEffectsParameters(1, sub_8012DCC(0, 0x10, 0, proc->unk4A++, 30), 0x10, 0);
+
+    if (proc->unk4A > 30)
+        Proc_ClearNativeCallback((struct Proc*) proc);
+}
+
+void sub_807DFF4(struct Unit* unit)
+{
+    struct MAEffectProc* proc =
+        (struct MAEffectProc*) Proc_Create(gUnknown_089A3CD4, ROOT_PROC_3);
+
+    proc->xDisplay = 8*(1+2*(unit->xPos - (gUnknown_0202BCB0.camera.x>>4)));
+    proc->yDisplay = 8*(1+2*(unit->yPos - (gUnknown_0202BCB0.camera.y>>4)));
+}
+
+void sub_807E038(struct MAEffectProc* proc)
+{
+    PlaySpacialSoundMaybe(0x82, proc->xDisplay);
+
+    ApplyPalette(
+        gUnknown_0867B5A4,
+        BM_BGPAL_BANIM_UNK4);
+}
+
+void sub_807E054(struct MAEffectProc* proc)
+{
+    sub_801474C(
+        gBG2TilemapBuffer,
+        proc->xDisplay/8 - 2,
+        proc->yDisplay/8 - 9,
+        TILEREF(BM_BGCHR_BANIM_UNK160, BM_BGPAL_BANIM_UNK4),
+        4, 11,
+        gUnknown_089B0864,
+        gUnknown_08205846[proc->unk48++]);
+
+    BG_EnableSyncByMask(BG2_SYNC_BIT);
+
+    if (gUnknown_08205846[proc->unk48] == 0xFF)
+        Proc_ClearNativeCallback((struct Proc*) proc);
+}
+
+void sub_807E0D4(struct Unit* unit)
+{
+    struct MAEffectProc* proc =
+        (struct MAEffectProc*) Proc_Create(gUnknown_089A3D14, ROOT_PROC_3);
+
+    proc->xDisplay = 8*(1+2*(unit->xPos - (gUnknown_0202BCB0.camera.x>>4)));
+    proc->yDisplay = 8*(1+2*(unit->yPos - (gUnknown_0202BCB0.camera.y>>4)));
+}
+
+void sub_807E118(struct MAEffectProc* proc)
+{
+    PlaySpacialSoundMaybe(0x85, proc->xDisplay); // TODO: song ids
+
+    BG_SetPosition(2, 0, 0);
+    sub_807E978();
+
+    CopyDataWithPossibleUncomp(
+        gUnknown_08686F84,
+        OBJ_VRAM0 + 0x20 * BM_OBJCHR_BANIM_EFFECT2);
+
+    ApplyPalette(
+        gUnknown_0868716C,
+        16 + BM_OBJPAL_BANIM_EFFECT2);
+
+    APProc_Create(
+        gUnknown_089B1A10,
+        proc->xDisplay, proc->yDisplay - 16,
+        TILEREF(BM_OBJCHR_BANIM_EFFECT2, BM_OBJPAL_BANIM_EFFECT2),
+        0, 2);
+}
+
+void sub_807E17C(struct MAEffectProc* proc)
+{
+    PlaySpacialSoundMaybe(0x85, proc->xDisplay); // TODO: song ids
+
+    APProc_Create(
+        gUnknown_089B1A10,
+        proc->xDisplay, proc->yDisplay - 8,
+        TILEREF(BM_OBJCHR_BANIM_EFFECT2, BM_OBJPAL_BANIM_EFFECT2),
+        0, 2);
+}
+
+void sub_807E1B0(struct MAEffectProc* proc)
+{
+    PlaySpacialSoundMaybe(0x85, proc->xDisplay); // TODO: song ids
+
+    APProc_Create(
+        gUnknown_089B1A10,
+        proc->xDisplay, proc->yDisplay,
+        TILEREF(BM_OBJCHR_BANIM_EFFECT2, BM_OBJPAL_BANIM_EFFECT2),
+        0, 2);
+}
+
+void sub_807E1E4(struct Unit* unit)
+{
+    struct MAEffectProc* proc =
+        (struct MAEffectProc*) Proc_Create(gUnknown_089A3D54, ROOT_PROC_3);
+
+    proc->unit = unit;
+
+    proc->xDisplay = 8*(1+2*(unit->xPos - (gUnknown_0202BCB0.camera.x>>4)));
+    proc->yDisplay = 8*(1+2*(unit->yPos - (gUnknown_0202BCB0.camera.y>>4)));
+}
+
+void sub_807E22C(struct MAEffectProc* proc)
+{
+    sub_807E978();
+
+    BG_SetPosition(2, 0, 0);
+
+    CopyDataWithPossibleUncomp(
+        gUnknown_089B6AA0,
+        (void*)(VRAM) + GetBackgroundTileDataOffset(2) + BM_BGCHR_BANIM_UNK160 * 0x20);
+
+    ApplyPalette(
+        gUnknown_089B73D4,
+        BM_BGPAL_BANIM_UNK4);
+
+    SetSpecialColorEffectsParameters(1, 0x10, 0x10, 0);
+
+    proc->unk40 = 0;
+    proc->unk42 = 0;
+
+    EnablePaletteSync();
+}
+
+void sub_807E28C(struct MAEffectProc* proc)
+{
+    if (proc->unk42 == 0)
+    {
+        if (proc->unk40 == 0)
+            PlaySpacialSoundMaybe(0x3BA, proc->xDisplay); // TODO: song ids
+
+        else if (proc->unk40 >= 10)
+            Proc_ClearNativeCallback((struct Proc*) proc);
+
+        CopyDataWithPossibleUncomp(
+            gUnknown_089A3D8C[proc->unk40],
+            gUnknown_02020188);
+
+        sub_800159C(
+            gBG2TilemapBuffer,
+            (u16*) gUnknown_02020188,
+            proc->xDisplay/8 - 4,
+            proc->yDisplay/8 - 4,
+            TILEREF(BM_BGCHR_BANIM_UNK160, BM_BGPAL_BANIM_UNK4));
+
+        BG_EnableSyncByMask(BG2_SYNC_BIT);
+
+        proc->unk40++;
+        proc->unk42 = 4;
+    }
+
+    proc->unk42--;
+}
+
+void sub_807E334(void)
+{
+    BG_Fill(gBG2TilemapBuffer, 0);
+    BG_EnableSyncByMask(BG2_SYNC_BIT);
+}
+
+void sub_807E34C(struct Unit* unit)
+{
+    struct MAEffectProc* proc =
+        (struct MAEffectProc*) Proc_Create(gUnknown_089A3DB4, ROOT_PROC_3);
+
+    proc->xDisplay = 8*(1+2*(unit->xPos - (gUnknown_0202BCB0.camera.x>>4)));
+    proc->yDisplay = 16*(unit->yPos - (gUnknown_0202BCB0.camera.y>>4)) + 18;
+}
+
+void sub_807E390(struct MAEffectProc* proc)
+{
+    PlaySpacialSoundMaybe(0xFD, proc->xDisplay); // TODO: song ids
+
+    sub_8081E78();
+    sub_8081EAC();
+
+    SetPrimaryHBlankHandler(sub_8081FA8);
+
+    sub_807E978();
+
+    SetSpecialColorEffectsParameters(1, 0x10, 0x10, 0);
+
+    CallARM_FillTileRect(
+        gBG2TilemapBuffer,
+        (u16*) gUnknown_02020188,
+        TILEREF(BM_BGCHR_BANIM_UNK160, BM_BGPAL_BANIM_UNK4));
+
+    BG_EnableSyncByMask(BG2_SYNC_BIT);
+
+    sub_807EA20(2, 0, 1, (struct Proc*) proc);
+    Proc_Create(gUnknown_089A52FC, (struct Proc*) proc);
+
+    proc->unk48 = 0;
+    proc->unk4A = 0;
+}
+
+void sub_807E404(struct MAEffectProc* proc)
+{
+    if (proc->unk48 >= 12)
+    {
+        proc->unk48--;
+        Proc_ClearNativeCallback((struct Proc*) proc);
+    }
+
+    sub_808218C(
+        proc->xDisplay,
+        proc->yDisplay,
+        ++proc->unk48, 12,
+        gUnknown_089A3DFC);
+}
+
+void sub_807E448(struct MAEffectProc* proc)
+{
+    if (proc->unk48 <= 0)
+    {
+        proc->unk48++;
+        Proc_ClearNativeCallback((struct Proc*) proc);
+    }
+
+    sub_808218C(
+        proc->xDisplay,
+        proc->yDisplay,
+        --proc->unk48, 12,
+        gUnknown_089A3DFC);
+}
+
+void sub_807E48C(struct Unit* unit)
+{
+    struct MAEffectProc* proc =
+        (struct MAEffectProc*) Proc_Create(gUnknown_089A3E04, ROOT_PROC_3);
+
+    proc->xDisplay = 8*(1+2*(unit->xPos - (gUnknown_0202BCB0.camera.x>>4)));
+    proc->yDisplay = 8*(1+2*(unit->yPos - (gUnknown_0202BCB0.camera.y>>4)));
+}
+
+void sub_807E4D0(struct MAEffectProc* proc)
+{
+    PlaySpacialSoundMaybe(0x83, proc->xDisplay); // TODO: song ids
+
+    BG_SetPosition(2, 0, 0);
+
+    sub_807E978();
+
+    CopyDataWithPossibleUncomp(
+        gUnknown_089B2618,
+        (void*)(VRAM) + GetBackgroundTileDataOffset(2) + BM_BGCHR_BANIM_UNK160 * 0x20);
+
+    CopyDataWithPossibleUncomp(
+        gUnknown_089B21D8,
+        OBJ_VRAM0 + BM_OBJCHR_BANIM_EFFECT2 * 0x20);
+
+    ApplyPalette(
+        gUnknown_089B2728,
+        BM_BGPAL_BANIM_UNK4);
+
+    ApplyPalette(
+        gUnknown_089B2728,
+        16 + BM_OBJPAL_BANIM_EFFECT2);
+
+    APProc_Create(
+        gUnknown_089B2748,
+        proc->xDisplay, proc->yDisplay | 0x400,
+        TILEREF(BM_OBJCHR_BANIM_EFFECT2, BM_OBJPAL_BANIM_EFFECT2),
+        0, 2);
+
+    proc->unk48 = 0;
+
+    sub_8001ED0(0, 0, 0, 0, 1);
+    sub_8001F48(0);
+
+    SetSpecialColorEffectsParameters(0, 0x10, 0x10, 0);
+}
+
+void sub_807E584(struct MAEffectProc* proc)
+{
+    PlaySpacialSoundMaybe(0x84, proc->xDisplay);
+
+    sub_8014560(
+        gBG2TilemapBuffer,
+        proc->xDisplay/8 - 2,
+        proc->yDisplay/8 - 2,
+        TILEREF(BM_BGCHR_BANIM_UNK160, BM_BGPAL_BANIM_UNK4),
+        4, 4);
+
+    BG_EnableSyncByMask(BG2_SYNC_BIT);
+
+    sub_8001ED0(0, 0, 1, 0, 0);
+    sub_8001F48(0);
+
+    SetSpecialColorEffectsParameters(1, 0x10, 0x10, 0);
+}
+
+void sub_807E5F0(struct MAEffectProc* proc)
+{
+    SetSpecialColorEffectsParameters(1, sub_8012DCC(0, 0x10, 0, proc->unk48++, 30), 0x10, 0);
+
+    if (proc->unk48 >= 30)
+        Proc_ClearNativeCallback((struct Proc*) proc);
+}
+
+void sub_807E638(struct Unit* unit)
+{
+    struct MAEffectProc* proc =
+        (struct MAEffectProc*) Proc_Create(gUnknown_089A3E44, ROOT_PROC_3);
+
+    proc->xDisplay = 8*(1+2*(unit->xPos - (gUnknown_0202BCB0.camera.x>>4)));
+    proc->yDisplay = 8*(1+2*(unit->yPos - (gUnknown_0202BCB0.camera.y>>4)));
+}
+
+void sub_807E67C(struct MAEffectProc* proc)
+{
+    PlaySpacialSoundMaybe(0x88, proc->xDisplay);
+
+    BG_SetPosition(2, 0, 0);
+
+    sub_807E978();
+
+    SetSpecialColorEffectsParameters(1, 0x10, 0x10, 0);
+
+    CopyDataWithPossibleUncomp(
+        gUnknown_089B2880,
+        (void*)(VRAM) + GetBackgroundTileDataOffset(2) + BM_BGCHR_BANIM_UNK160 * 0x20);
+
+    ApplyPalette(
+        gUnknown_0868DF5C,
+        BM_BGPAL_BANIM_UNK4);
+
+    proc->unk48 = 0;
+    proc->unk4A = 0;
+}
+
+void sub_807E6E0(struct MAEffectProc* proc)
+{
+    sub_801474C(
+        gBG2TilemapBuffer,
+        proc->xDisplay/8 - 2,
+        proc->yDisplay/8 - 8,
+        TILEREF(BM_BGCHR_BANIM_UNK160, BM_BGPAL_BANIM_UNK4),
+        4, 10,
+        gUnknown_089B343C,
+        gUnknown_08205855[proc->unk48++]);
+
+    BG_EnableSyncByMask(BG2_SYNC_BIT);
+
+    if (gUnknown_08205855[proc->unk48] == 0xFF)
+        Proc_ClearNativeCallback((struct Proc*) proc);
+}
+
+void sub_807E760(int xMap, int yMap)
+{
+    struct MAEffectProc* proc =
+        (struct MAEffectProc*) Proc_Create(gUnknown_089A3E6C, ROOT_PROC_3);
+
+    proc->xDisplay = 16*(xMap - (gUnknown_0202BCB0.camera.x>>4)) + 8;
+    proc->yDisplay = 16*(yMap - (gUnknown_0202BCB0.camera.y>>4)) + 8;
 }
