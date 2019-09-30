@@ -2080,6 +2080,7 @@ void sub_8081F24(int, int, int);
 void sub_8081F58(void);
 void sub_8081FA8(void);
 void sub_808218C(int, int, int, int, const void*);
+void sub_808320C(int, int);
 
 extern u8 CONST_DATA gUnknown_089AC0A4[]; // ma miss img
 extern u16 CONST_DATA gUnknown_089AC194[]; // ma miss ap
@@ -2213,6 +2214,14 @@ extern u8 CONST_DATA gUnknown_089B343C[];
 extern const u8 gUnknown_08205855[];
 
 extern struct ProcCmd CONST_DATA gUnknown_089A3E6C[];
+
+extern u8 CONST_DATA gUnknown_089B0720[];
+extern u8 CONST_DATA gUnknown_089B0840[];
+extern u8 CONST_DATA gUnknown_089B06AC[];
+extern u16 CONST_DATA gUnknown_089B0700[];
+extern u16 CONST_DATA gUnknown_089B0820[];
+
+extern u16 CONST_DATA gUnknown_089A6254[]; // ap
 
 void sub_807CAD0(struct Proc* proc)
 {
@@ -3564,4 +3573,406 @@ void sub_807E760(int xMap, int yMap)
 
     proc->xDisplay = 16*(xMap - (gUnknown_0202BCB0.camera.x>>4)) + 8;
     proc->yDisplay = 16*(yMap - (gUnknown_0202BCB0.camera.y>>4)) + 8;
+}
+
+void sub_807E79C(void)
+{
+    GetUnit(gActionData.subjectIndex)->state |= US_HIDDEN;
+    sub_808320C((s8) gActionData.xOther, (s8) gActionData.yOther);
+}
+
+void sub_807E7C4(void)
+{
+    GetUnit(gActionData.subjectIndex)->state &= ~US_HIDDEN;
+}
+
+void sub_807E7E0(struct MAEffectProc* proc)
+{
+    PlaySpacialSoundMaybe(0x8D, proc->xDisplay); // TODO: song ids!
+
+    BG_SetPosition(2, 0, 0);
+
+    CopyDataWithPossibleUncomp(
+        gUnknown_089B0720,
+        (void*)(VRAM) + GetBackgroundTileDataOffset(2) + BM_BGCHR_BANIM_UNK160 * 0x20);
+
+    sub_801474C(
+        gBG2TilemapBuffer,
+        proc->xDisplay/8 - 2,
+        proc->yDisplay/8 - 2,
+        TILEREF(BM_BGCHR_BANIM_UNK160, BM_BGPAL_BANIM_UNK4),
+        4, 4,
+        gUnknown_089B0840,
+        0);
+
+    BG_EnableSyncByMask(BG2_SYNC_BIT);
+
+    CopyDataWithPossibleUncomp(
+        gUnknown_089B06AC,
+        OBJ_VRAM0 + BM_OBJCHR_BANIM_EFFECT2 * 0x20);
+
+    ApplyPalette(
+        gUnknown_089B0700,
+        16 + BM_OBJPAL_BANIM_EFFECT2);
+
+    sub_80144CC(gUnknown_089B0820, 0x80, 0x20, 4, (struct Proc*) proc);
+
+    sub_8081E78();
+    sub_8081EAC();
+    sub_807E978();
+
+    SetSpecialColorEffectsParameters(1, 0x10, 0x10, 0);
+
+    proc->unk48 = 1;
+}
+
+void sub_807E8B0(struct MAEffectProc* proc)
+{
+    int unk = sub_8012DCC(5, 1, 0x10, proc->unk48, 30);
+
+    proc->unk48++;
+
+    sub_8081F24(proc->xDisplay, proc->yDisplay, unk);
+
+    if (proc->unk48 >= 30)
+    {
+        proc->unk48 = 0;
+
+        Proc_ClearNativeCallback((struct Proc*) proc);
+
+        APProc_Create(
+            gUnknown_089A6254,
+            proc->xDisplay, proc->yDisplay,
+            TILEREF(BM_OBJCHR_BANIM_EFFECT2, BM_OBJPAL_BANIM_EFFECT2),
+            0, 2);
+
+        APProc_Create(
+            gUnknown_089A6254,
+            proc->xDisplay, proc->yDisplay,
+            TILEREF(BM_OBJCHR_BANIM_EFFECT2, BM_OBJPAL_BANIM_EFFECT2),
+            1, 2);
+    }
+}
+
+void sub_807E934(struct MAEffectProc* proc)
+{
+    int unk = sub_8012DCC(5, 0x10, 0, proc->unk48, 30);
+
+    proc->unk48++;
+
+    sub_8081F24(proc->xDisplay, proc->yDisplay, unk);
+
+    if (proc->unk48 >= 30)
+        Proc_ClearNativeCallback((struct Proc*) proc);
+}
+
+void sub_807E978(void)
+{
+    gLCDControlBuffer.bg0cnt.priority = 0;
+    gLCDControlBuffer.bg1cnt.priority = 0;
+    gLCDControlBuffer.bg2cnt.priority = 0;
+    gLCDControlBuffer.bg3cnt.priority = 2;
+
+    sub_8001ED0(0, 0, 1, 0, 0);
+    sub_8001F48(0);
+
+    sub_8001F0C(0, 0, 0, 1, 1);
+    sub_8001F64(1);
+
+    gLCDControlBuffer.wincnt.win0_enableBlend = 1;
+    gLCDControlBuffer.wincnt.wout_enableBlend = 0;
+
+    SetWin0Layers(1, 1, 1, 1, 1);
+    SetWOutLayers(1, 1, 0, 1, 1);
+}
+
+// =========================================
+// NOTE: this may be the start of a new file
+// =========================================
+
+struct MAUnkProc
+{
+    /* 00 */ PROC_HEADER;
+
+    /* 29 */ u8 pad29[0x58 - 0x29];
+    /* 58 */ int unk58;
+    /* 5C */ u8 pad5C[0x64 - 0x5C];
+    /* 64 */ short unk64;
+    /* 66 */ short unk66;
+    /* 68 */ short unk68;
+    /* 6A */ short unk6A;
+};
+
+extern struct ProcCmd CONST_DATA gUnknown_089A3EC4[];
+
+void sub_807EA20(int a, int b, int c, struct Proc* parent)
+{
+    struct MAUnkProc* proc =
+        (struct MAUnkProc*) Proc_Create(gUnknown_089A3EC4, parent);
+
+    proc->unk58 = a;
+    proc->unk64 = 0;
+    proc->unk66 = b;
+    proc->unk68 = 0;
+    proc->unk6A = c;
+}
+
+void sub_807EA50(void)
+{
+    Proc_DeleteAllWithScript(gUnknown_089A3EC4);
+}
+
+void sub_807EA60(struct MAUnkProc* proc)
+{
+    BG_SetPosition(proc->unk58, proc->unk64, proc->unk68);
+
+    proc->unk64 += proc->unk66;
+    proc->unk68 += proc->unk6A;
+}
+
+extern u8 CONST_DATA gUnknown_088035B0[]; // img
+extern u8 CONST_DATA gUnknown_088039E8[]; // ???
+extern u16 CONST_DATA gUnknown_08803B10[]; // pal
+
+void sub_80149F0(const void*, u16* tilemap, int, int tileref);
+
+struct Unk089A3ED4
+{
+    u8 x, y;
+    const int* msgid[2];
+};
+
+extern struct Unk089A3ED4 CONST_DATA gUnknown_089A3ED4[];
+
+int GetSomeStatBase(int actor, int statid);
+int GetSomeStatUp(int actor, int statid);
+
+struct MAStatGainEffectProc
+{
+    /* 00 */ PROC_HEADER;
+    /* 2A */ u16 unk2A;
+    /* 2C */ u16 unk2C;
+    /* 2E */ u16 unk2E;
+};
+
+extern struct ProcCmd CONST_DATA gUnknown_089A3F4C[];
+
+extern u8 CONST_DATA gUnknown_089ACA08[]; // img
+extern u16 CONST_DATA gUnknown_089AC9A8[]; // pal
+
+extern struct ProcCmd CONST_DATA gUnknown_089A3F5C[];
+
+void sub_807EA98(int actor, int xTile, int yTile)
+{
+    int i;
+
+    BG_Fill(gBG1TilemapBuffer, 0);
+
+    CopyDataWithPossibleUncomp(
+        gUnknown_088035B0,
+        (void*)(VRAM) + GetBackgroundTileDataOffset(1) + BM_BGCHR_BANIM_UNK200 * 0x20);
+
+    CopyDataWithPossibleUncomp(
+        gUnknown_088039E8,
+        gUnknown_02020188);
+
+    sub_80149F0(
+        gUnknown_02020188,
+        gBG1TilemapBuffer,
+        0x380, // TODO: ???
+        TILEREF(BM_BGCHR_BANIM_UNK200, BM_BGPAL_BANIM_UNK5));
+
+    ApplyPalette(
+        gUnknown_08803B10,
+        BM_BGPAL_BANIM_UNK5);
+
+    sub_801443C(
+        TILEMAP_LOCATED(
+            gBG0TilemapBuffer,
+            xTile + 2, yTile),
+        TEXT_COLOR_NORMAL,
+        GetStringFromIndex(UNIT_CLASS_NAME_ID(gMapBattle.actor[actor].unit)));
+
+    for (i = 0; gUnknown_089A3ED4[i].x != 0xFF; ++i)
+    {
+        // whew
+        sub_80143D8(
+            TILEMAP_LOCATED(
+                gBG0TilemapBuffer,
+                xTile + gUnknown_089A3ED4[i].x,
+                yTile + gUnknown_089A3ED4[i].y),
+            3, 3,
+            GetStringFromIndex(
+                *(gUnknown_089A3ED4[i].msgid[
+                    UnitHasMagicRank(gMapBattle.actor[actor].unit) == TRUE
+                        ? 1 : 0])));
+    }
+
+    BG_EnableSyncByMask(BG0_SYNC_BIT | BG1_SYNC_BIT);
+}
+
+void sub_807EBA4(int actor, int xTile, int yTile, int statid, s8 isPostGain)
+{
+    u16* const tilemap = TILEMAP_LOCATED(
+        gBG0TilemapBuffer,
+        xTile + gUnknown_089A3ED4[statid].x + 4,
+        yTile + gUnknown_089A3ED4[statid].y);
+
+    int stat = GetSomeStatBase(actor, statid);
+
+    if (isPostGain)
+        stat += GetSomeStatUp(actor, statid);
+
+    DrawDecNumber(tilemap, 2, stat);
+}
+
+int GetSomeStatUp(int actor, int statid)
+{
+    switch (statid)
+    {
+
+    case 0: return 1;
+    case 1: return gMapBattle.actor[actor].bu->changeHP;
+    case 2: return gMapBattle.actor[actor].bu->changePow;
+    case 3: return gMapBattle.actor[actor].bu->changeSkl;
+    case 4: return gMapBattle.actor[actor].bu->changeSpd;
+    case 5: return gMapBattle.actor[actor].bu->changeLck;
+    case 6: return gMapBattle.actor[actor].bu->changeDef;
+    case 7: return gMapBattle.actor[actor].bu->changeRes;
+    case 8: return gMapBattle.actor[actor].bu->changeCon;
+
+    default:
+        return 0;
+
+    } // switch (statid)
+}
+
+int GetSomeStatBase(int actor, int statid)
+{
+    // ?? this seems unnecessary but maybe I'm missing something
+    struct Unit* const unit = GetUnit(gMapBattle.actor[actor].unit->index);
+
+    switch (statid)
+    {
+
+    case 0: return gMapBattle.actor[actor].bu->levelPrevious;
+    case 1: return unit->maxHP;
+    case 2: return unit->pow;
+    case 3: return unit->skl;
+    case 4: return unit->spd;
+    case 5: return unit->lck;
+    case 6: return unit->def;
+    case 7: return unit->res;
+    case 8: return UNIT_CON_BASE(unit);
+
+    default:
+        return 0;
+
+    } // switch (statid)
+}
+
+void sub_807EDEC(void)
+{
+    APProc_DeleteAll();
+}
+
+void sub_807EDF8(int chr, int pal, int unk, struct Proc* parent)
+{
+    struct MAStatGainEffectProc* proc =
+        (struct MAStatGainEffectProc*) Proc_Create(gUnknown_089A3F4C, parent);
+
+    proc->unk2A = chr;
+    proc->unk2C = pal;
+    proc->unk2E = unk;
+
+    CopyDataWithPossibleUncomp(
+        gUnknown_089ACA08,
+        OBJ_VRAM0 + (0x3FF & chr) * 0x20);
+
+    ApplyPalette(
+        gUnknown_089AC9A8,
+        16 + pal);
+
+    ApplyPalette(
+        gUnknown_089AC9A8,
+        16 + pal + 1);
+
+    ((struct MAUnkProc*) Proc_Create(gUnknown_089A3F5C, (struct Proc*) proc))->unk64 = pal;
+}
+
+void sub_807EE74(void)
+{
+    Proc_DeleteAllWithScript(gUnknown_089A3F4C);
+}
+
+extern u16 CONST_DATA gUnknown_089A5314[]; // ap
+extern u8 CONST_DATA gUnknown_089ACC98[];
+
+void sub_801498C(const void*, void*, int);
+
+void sub_807EE84(int arg0, int arg1, int arg2, int arg3)
+{
+    int r6;
+    const u8* unk = gUnknown_089ACC98;
+
+    struct MAStatGainEffectProc* proc =
+        (struct MAStatGainEffectProc*) Proc_Find(gUnknown_089A3F4C);
+
+    int chrBase = proc->unk2A;
+    int chr     = proc->unk2A + 2*(arg2-1);
+
+    if (arg2 == 0)
+    {
+        APProc_Create(
+            gUnknown_089A5314,
+            arg0 - 18, arg1 - 4,
+            chrBase + ((u16)(proc->unk2C & 0xF)) * 0x1000 + ((u16)(proc->unk2E & 3)) * 0x400,
+            0, 2);
+    }
+    else
+    {
+        if (arg3 > 0)
+            r6 = 0;
+        else
+            r6 = 1;
+
+        APProc_Create(
+            gUnknown_089A5314,
+            arg0, arg1,
+            chrBase + (0xF & (proc->unk2C + r6)) * 0x1000 + ((u16)(proc->unk2E & 3)) * 0x400,
+            r6 + 1, 2);
+
+        APProc_Create(
+            gUnknown_089A5314,
+            arg0 - 3, arg1,
+            chr + ((u16)(proc->unk2C & 0xF)) * 0x1000 + ((u16)(proc->unk2E & 3)) * 0x400,
+            r6 + 3, 2);
+
+        if (arg3 > 0)
+        {
+            APProc_Create(
+                gUnknown_089A5314,
+                arg0 - 18, arg1 - 4,
+                chrBase + ((u16)(proc->unk2C & 0xF)) * 0x1000 + ((u16)(proc->unk2E & 3)) * 0x400,
+                0, 2);
+        }
+
+        if (arg3 < 0)
+        {
+            sub_801498C(
+                &unk[32 << 5],
+                OBJ_VRAM0 + (((chr + 0x4C) & 0x3FF) << 5),
+                0x20);
+        }
+
+        sub_801498C(
+            &unk[(abs(arg3) & 0x3FF) << 5],
+            OBJ_VRAM0 + (((chr + 0x2D) & 0x3FF) << 5),
+            0x20);
+
+        sub_801498C(
+            &unk[((abs(arg3) + 32) & 0x3FF) << 5],
+            OBJ_VRAM0 + ((0x3FF & (chr + 0x4D)) << 5),
+            0x20);
+    }
 }

@@ -201,7 +201,7 @@ enum
 
     US_NONE         = 0,
 
-    US_HIDDEN       = (1 << 0),
+    US_HIDDEN       = (1 << 0), // Bad name? US_BUSY?
     US_UNSELECTABLE = (1 << 1),
     US_DEAD         = (1 << 2),
     US_NOT_DEPLOYED = (1 << 3),
@@ -428,6 +428,7 @@ int CanUnitCrossTerrain(struct Unit* unit, int terrain);
 #define UNIT_CATTRIBUTES(aUnit) ((aUnit)->pCharacterData->attributes | (aUnit)->pClassData->attributes)
 
 #define UNIT_NAME_ID(aUnit) ((aUnit)->pCharacterData->nameTextId)
+#define UNIT_CLASS_NAME_ID(aUnit) ((aUnit->pClassData->nameTextId))
 
 #define UNIT_CLASS_ID(aUnit) ((aUnit)->pClassData->number)
 #define UNIT_CHAR_ID(aUnit) ((aUnit)->pCharacterData->number)
