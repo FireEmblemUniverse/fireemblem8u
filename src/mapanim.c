@@ -1491,7 +1491,7 @@ void sub_807BF54(struct MAInfoFrameProc* proc)
 // ============================
 
 void sub_807C1AC(struct MAExpBarProc* proc);
-void sub_807F10C(int actor, struct MAExpBarProc* proc);
+void sub_807F10C(int actor, struct Proc* parent);
 
 void sub_807BFC4(int arg0, int arg1, int arg2)
 {
@@ -1598,7 +1598,7 @@ void sub_807C1AC(struct MAExpBarProc* proc)
 void sub_807C210(struct MAExpBarProc* proc)
 {
     if (proc->expTo >= 100)
-        sub_807F10C(proc->actorId, proc);
+        sub_807F10C(proc->actorId, (struct Proc*) proc);
 }
 
 // ===================================================
@@ -2022,6 +2022,7 @@ void sub_807CAA8(void)
 
 #include "ap.h"
 #include "bmtrick.h"
+#include "face.h"
 
 struct MAEffectProc
 {
@@ -2222,6 +2223,41 @@ extern u16 CONST_DATA gUnknown_089B0700[];
 extern u16 CONST_DATA gUnknown_089B0820[];
 
 extern u16 CONST_DATA gUnknown_089A6254[]; // ap
+
+extern u16 CONST_DATA gUnknown_089A5314[]; // ap
+extern u8 CONST_DATA gUnknown_089ACC98[];
+
+void sub_801498C(const void*, void*, int);
+
+extern struct ProcCmd CONST_DATA gUnknown_089A3F74[]; // MALevelUp
+
+extern u8 gUnknown_02022968[];
+extern u16 gUnknown_03005110[];
+extern u16 CONST_DATA gUnknown_0859A120[];
+
+struct MALevelUpProc
+{
+    /* 00 */ PROC_HEADER;
+
+    /* 2A */ short pad2A;
+    /* 2C */ short pad2C;
+    /* 2E */ short actor;
+    /* 30 */ u8 unk30;
+    /* 31 */ u8 unk31;
+    /* 32 */ short unk32;
+};
+
+extern u16 CONST_DATA gUnknown_089AC5CC[];
+
+extern u8 CONST_DATA gUnknown_089AC794[]; // spr img
+extern u16 CONST_DATA gUnknown_089AC9A8[]; // 3 palettes
+extern u16 CONST_DATA gUnknown_089A5A6C[]; // ap
+
+extern struct ProcCmd CONST_DATA gUnknown_089A4034[];
+
+// TODO: use those also elsewhere
+#define UNIT_XTILE(aUnit) (((aUnit)->xPos - (gUnknown_0202BCB0.camera.x >> 4))*2)
+#define UNIT_YTILE(aUnit) (((aUnit)->yPos - (gUnknown_0202BCB0.camera.y >> 4))*2)
 
 void sub_807CAD0(struct Proc* proc)
 {
@@ -3694,7 +3730,8 @@ struct MAUnkProc
 {
     /* 00 */ PROC_HEADER;
 
-    /* 29 */ u8 pad29[0x58 - 0x29];
+    /* 29 */ u8 pad29[0x54 - 0x29];
+    /* 54 */ int unk54;
     /* 58 */ int unk58;
     /* 5C */ u8 pad5C[0x64 - 0x5C];
     /* 64 */ short unk64;
@@ -3905,11 +3942,6 @@ void sub_807EE74(void)
     Proc_DeleteAllWithScript(gUnknown_089A3F4C);
 }
 
-extern u16 CONST_DATA gUnknown_089A5314[]; // ap
-extern u8 CONST_DATA gUnknown_089ACC98[];
-
-void sub_801498C(const void*, void*, int);
-
 void sub_807EE84(int arg0, int arg1, int arg2, int arg3)
 {
     int r6;
@@ -3975,4 +4007,307 @@ void sub_807EE84(int arg0, int arg1, int arg2, int arg3)
             OBJ_VRAM0 + ((0x3FF & (chr + 0x4D)) << 5),
             0x20);
     }
+}
+
+void sub_807EFF0(int arg0, int arg1, int arg2)
+{
+    const u8* unk = gUnknown_089ACC98;
+
+    int r9 = abs(arg2);
+
+    struct MAStatGainEffectProc* proc =
+        (struct MAStatGainEffectProc*) Proc_Find(gUnknown_089A3F4C);
+
+    int r6 = proc->unk2A;
+
+    int sp8;
+    int r2;
+
+    if (arg2 >= 0)
+    {
+        sp8 = r6 + (r9-1)*2;
+        r2 = 5;
+    }
+    else
+    {
+        sp8 = r6 + 16;
+        r2 = 6;
+    }
+
+    APProc_Create(
+        gUnknown_089A5314,
+        arg0, arg1,
+        r6 + (0xF & (proc->unk2C)) * 0x1000 + ((u16)(proc->unk2E & 3)) * 0x400,
+        r2, 2);
+
+    APProc_Create(
+        gUnknown_089A5314,
+        arg0 - 3, arg1,
+        sp8 + (0xF & (proc->unk2C)) * 0x1000 + ((u16)(proc->unk2E & 3)) * 0x400,
+        3, 2);
+
+    APProc_Create(
+        gUnknown_089A5314,
+        arg0 - 18, arg1 - 4,
+        r6 + (0xF & (proc->unk2C)) * 0x1000 + ((u16)(proc->unk2E & 3)) * 0x400,
+        0, 2);
+
+    sub_801498C(
+        &unk[(r9 & 0x3FF) << 5],
+        OBJ_VRAM0 + ((0x3FF & (sp8 + 0x2D)) << 5),
+        0x20);
+
+    sub_801498C(
+        &unk[((r9 + 0x20) & 0x3FF) << 5],
+        OBJ_VRAM0 + ((0x3FF & (sp8 + 0x4D)) << 5),
+        0x20);
+}
+
+void sub_807F10C(int actor, struct Proc* parent)
+{
+    // TODO
+    struct MALevelUpProc* proc =
+        (struct MALevelUpProc*) Proc_CreateBlockingChild(gUnknown_089A3F74, parent);
+
+    proc->actor = actor;
+}
+
+void sub_807F124(void)
+{
+    SetWinEnable(1, 0, 0);
+
+    // TODO: SetWin0PtA macro?
+    gLCDControlBuffer.win0_left   = 0;
+    gLCDControlBuffer.win0_top    = 0;
+
+    // TODO: SetWin0PtB macro?
+    gLCDControlBuffer.win0_right  = 240; // TODO: SCREEN_WIDTH?
+    gLCDControlBuffer.win0_bottom = 48;
+
+    SetWin0Layers(0, 0, 1, 1, 1);
+    SetWOutLayers(1, 1, 1, 1, 1);
+}
+
+void sub_807F190(void)
+{
+    SetWinEnable(0, 0, 0);
+}
+
+void sub_807F1AC(struct MALevelUpProc* proc)
+{
+    int i;
+
+    sub_8003D20();
+
+    BG_Fill(gBG0TilemapBuffer, 0);
+
+    sub_807EA98(proc->actor, 1, 1);
+
+    for (i = 0; i < 9; ++i)
+        sub_807EBA4(proc->actor, 1, 1, i, FALSE);
+
+    BG_EnableSyncByMask(BG0_SYNC_BIT);
+
+    proc->unk30 = 0;
+    proc->unk31 = 0;
+
+    proc->unk32 = -144;
+
+    gLCDControlBuffer.bg0cnt.priority = 0;
+    gLCDControlBuffer.bg1cnt.priority = 1;
+    gLCDControlBuffer.bg2cnt.priority = 1;
+    gLCDControlBuffer.bg3cnt.priority = 2;
+
+    SetDefaultColorEffects();
+
+    SetWinEnable(0, 0, 0);
+
+    BG_SetPosition(0, 0, proc->unk32);
+    BG_SetPosition(1, 0, proc->unk32);
+
+    NewFace(0, gMapBattle.actor[proc->actor].unit->pCharacterData->portraitId, 184, 32 - proc->unk32, 0x1042);
+    gUnknown_03004980[0]->yDisplay = 32 - proc->unk32;
+
+    sub_807EDF8(BM_BGCHR_BANIM_UNK200, 3, 1, (struct Proc*) proc);
+}
+
+void sub_807F2B4(struct MAUnkProc* proc)
+{
+    proc->unk54 = 0;
+}
+
+void sub_807F2BC(struct MAUnkProc* proc)
+{
+    const u16* unk = gUnknown_089AC5CC;
+
+    proc->unk54++;
+
+    if ((proc->unk54 % 4) == 0)
+    {
+        int color = ((proc->unk54 >> 2) & 0xF);
+
+        CopyToPaletteBuffer(unk + color,        (proc->unk64 + 0x10) * 0x20 + 9*sizeof(u16), 14);
+        CopyToPaletteBuffer(unk + color + 0x20, (proc->unk64 + 0x11) * 0x20 + 9*sizeof(u16), 14);
+    }
+}
+
+void sub_807F30C(struct MALevelUpProc* proc)
+{
+    proc->unk32 += 8;
+
+    BG_SetPosition(0, 0, proc->unk32);
+    BG_SetPosition(1, 0, proc->unk32);
+
+    gUnknown_03004980[0]->yDisplay = 32 - proc->unk32;
+
+    if (proc->unk32 >= -48)
+        Proc_ClearNativeCallback((struct Proc*) proc);
+}
+
+void sub_807F354(struct MALevelUpProc* proc)
+{
+    proc->unk32 -= 8;
+
+    BG_SetPosition(0, 0, proc->unk32);
+    BG_SetPosition(1, 0, proc->unk32);
+
+    gUnknown_03004980[0]->yDisplay = 32 - proc->unk32;
+
+    if (proc->unk32 <= -144)
+        Proc_ClearNativeCallback((struct Proc*) proc);
+}
+
+void sub_807F39C(struct MALevelUpProc* proc)
+{
+    int statid;
+
+    if (proc->unk31 != 0)
+    {
+        proc->unk31--;
+        return;
+    }
+
+    for (statid = proc->unk30; statid < 9; ++statid)
+    {
+        if (GetSomeStatUp(proc->actor, statid) != 0)
+            break;
+    }
+
+    if (statid >= 9)
+    {
+        Proc_ClearNativeCallback((struct Proc*) proc);
+        return;
+    }
+
+    sub_807EBA4(proc->actor, 1, 1, statid, TRUE);
+    BG_EnableSyncByMask(BG0_SYNC_BIT);
+
+    sub_807EE84(
+        0x3E + gUnknown_089A3ED4[statid].x * 8,
+        0x17 + gUnknown_089A3ED4[statid].y * 8 - proc->unk32,
+        statid, GetSomeStatUp(proc->actor, statid));
+
+    if (statid == 0)
+    {
+        PlaySoundEffect(0x02CD); // TODO: song ids
+    }
+    else
+    {
+        PlaySoundEffect(0x0076); // TODO: song ids
+    }
+
+    proc->unk30 = statid+1;
+    proc->unk31 = 20;
+}
+
+void sub_807F478(struct MALevelUpProc* proc)
+{
+    ISuspectThisToBeMusicRelated_8002730(0x100, 0x80, 0x10, (struct Proc*) proc);
+}
+
+void sub_807F48C(struct MALevelUpProc* proc)
+{
+    int x, y;
+
+    CopyDataWithPossibleUncomp(
+        gUnknown_089AC794,
+        OBJ_VRAM0 + BM_OBJCHR_BANIM_EFFECT2*0x20);
+
+    ApplyPalettes(gUnknown_089AC9A8, 0x10 + BM_OBJPAL_BANIM_EFFECT1, 3);
+
+    x = (UNIT_XTILE(gMapBattle.actor[proc->actor].unit) << 3) + 16;
+    y = (UNIT_YTILE(gMapBattle.actor[proc->actor].unit) << 3) - 8;
+
+    if (UNIT_YTILE(gMapBattle.actor[proc->actor].unit) < 4)
+        y += 32;
+
+    if (UNIT_XTILE(gMapBattle.actor[proc->actor].unit) < 4)
+        x = 48;
+
+    if (UNIT_XTILE(gMapBattle.actor[proc->actor].unit) > 25)
+        x = 208;
+
+    APProc_Create(
+        gUnknown_089A5A6C,
+        x, y, TILEREF(BM_OBJCHR_BANIM_EFFECT2, BM_OBJPAL_BANIM_EFFECT1),
+        0, 2);
+
+    PlaySoundEffect(0x5B);
+}
+
+void sub_807F53C(void)
+{
+    APProc_DeleteAll();
+}
+
+void sub_807F548(struct Proc* proc)
+{
+    ISuspectThisToBeMusicRelated_8002730(0x80, 0x100, 0x10, proc);
+}
+
+void sub_807F55C(void)
+{
+    sub_8010E50();
+}
+
+void sub_807F568(struct Proc* parent)
+{
+    if (parent)
+        Proc_CreateBlockingChild(gUnknown_089A4034, parent);
+    else
+        Proc_Create(gUnknown_089A4034, ROOT_PROC_3);
+}
+
+void sub_807F58C(struct Proc* proc)
+{
+    int i;
+
+    CpuFastCopy(gUnknown_02022968, gUnknown_03005110, 0x140);
+
+    for (i = 0; i < 10; ++i)
+        sub_8013998(sub_8013928(gUnknown_0859A120, i + 6, 0x3C, proc), 15);
+}
+
+extern struct ProcCmd CONST_DATA gUnknown_089A404C[];
+extern struct ProcCmd CONST_DATA gUnknown_089A4064[]; // shakes bg0
+
+void sub_807F5C8(struct Proc* parent)
+{
+    if (parent)
+        Proc_CreateBlockingChild(gUnknown_089A404C, parent);
+    else
+        Proc_Create(gUnknown_089A404C, ROOT_PROC_3);
+}
+
+void sub_807F5EC(struct Proc* proc)
+{
+    int i;
+
+    for (i = 0; i < 10; ++i)
+        sub_8013928(gUnknown_03005110 + 0x10*i, i + 6, 15, proc);
+}
+
+void NewBG0Shaker(void)
+{
+    Proc_Create(gUnknown_089A4064, ROOT_PROC_3);
 }
