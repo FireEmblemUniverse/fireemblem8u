@@ -2058,6 +2058,52 @@ struct MAAnotherProc
     /* 64 */ short unk64;
 };
 
+struct MALevelUpProc
+{
+    /* 00 */ PROC_HEADER;
+
+    /* 2A */ short pad2A;
+    /* 2C */ short pad2C;
+    /* 2E */ short actor;
+    /* 30 */ u8 unk30;
+    /* 31 */ u8 unk31;
+    /* 32 */ short unk32;
+};
+
+struct MAFrameShakeProc
+{
+    PROC_HEADER;
+
+    /* 29 */ u8 pad29[0x64 - 0x29];
+    /* 64 */ short unk64;
+};
+
+struct MAStarProc
+{
+    PROC_HEADER;
+
+    /* 2A */ short xCenter;
+    /* 2C */ short yCenter;
+    /* 2E */ short unk2E;
+    /* 30 */ short unk30;
+
+    /* 29 */ u8    pad32[0x36 - 0x32];
+
+    /* 36 */ u16 unk36;
+    /* 38 */ u16 unk38;
+    /* 3A */ u16 unk3A;
+    /* 3C */ u16 unk3C;
+    /* 3E */ u16 unk3E;
+    /* 40 */ u16 unk40;
+};
+
+struct Unk03005090
+{
+    /* 00 */ u16 unk00;
+    /* 02 */ u16 unk02;
+    /* 04 */ int pad04;
+};
+
 void sub_8013AA4(int);
 void sub_80144CC(const u16* pal, int off, int len, int unk, struct Proc* proc);
 void sub_8014560(u16* tilemap, int x, int y, int tileref, int, int);
@@ -2235,18 +2281,6 @@ extern u8 gUnknown_02022968[];
 extern u16 gUnknown_03005110[];
 extern u16 CONST_DATA gUnknown_0859A120[];
 
-struct MALevelUpProc
-{
-    /* 00 */ PROC_HEADER;
-
-    /* 2A */ short pad2A;
-    /* 2C */ short pad2C;
-    /* 2E */ short actor;
-    /* 30 */ u8 unk30;
-    /* 31 */ u8 unk31;
-    /* 32 */ short unk32;
-};
-
 extern u16 CONST_DATA gUnknown_089AC5CC[];
 
 extern u8 CONST_DATA gUnknown_089AC794[]; // spr img
@@ -2254,6 +2288,16 @@ extern u16 CONST_DATA gUnknown_089AC9A8[]; // 3 palettes
 extern u16 CONST_DATA gUnknown_089A5A6C[]; // ap
 
 extern struct ProcCmd CONST_DATA gUnknown_089A4034[];
+
+extern struct ProcCmd CONST_DATA gUnknown_089A404C[];
+extern struct ProcCmd CONST_DATA gUnknown_089A4064[]; // shakes bg0
+
+extern u8 CONST_DATA gUnknown_089AE7A4[]; // spark img
+extern u16 CONST_DATA gUnknown_089AE7C4[]; // spark pal
+
+extern struct Unk03005090 gUnknown_03005090[];
+
+extern struct ProcCmd CONST_DATA gUnknown_089A407C[]; // wrap star effect thingy
 
 // TODO: use those also elsewhere
 #define UNIT_XTILE(aUnit) (((aUnit)->xPos - (gUnknown_0202BCB0.camera.x >> 4))*2)
@@ -4288,9 +4332,6 @@ void sub_807F58C(struct Proc* proc)
         sub_8013998(sub_8013928(gUnknown_0859A120, i + 6, 0x3C, proc), 15);
 }
 
-extern struct ProcCmd CONST_DATA gUnknown_089A404C[];
-extern struct ProcCmd CONST_DATA gUnknown_089A4064[]; // shakes bg0
-
 void sub_807F5C8(struct Proc* parent)
 {
     if (parent)
@@ -4310,4 +4351,245 @@ void sub_807F5EC(struct Proc* proc)
 void NewBG0Shaker(void)
 {
     Proc_Create(gUnknown_089A4064, ROOT_PROC_3);
+}
+
+void BG0Shaker_Init(struct MAFrameShakeProc* proc)
+{
+    proc->unk64 = 0;
+}
+
+void BG0Shaker_Loop(struct MAFrameShakeProc* proc)
+{
+    BG_SetPosition(0,
+        DivRem(AdvanceGetLCGRNValue(), 9) - 4,
+        DivRem(AdvanceGetLCGRNValue(), 9) - 4);
+
+    BG_SetPosition(1,
+        DivRem(AdvanceGetLCGRNValue(), 9) - 4,
+        DivRem(AdvanceGetLCGRNValue(), 9) - 4);
+
+    if (proc->unk64++ > 15)
+    {
+        BG_SetPosition(0, 0, 0);
+        BG_SetPosition(1, 0, 0);
+
+        Proc_ClearNativeCallback((struct Proc*) proc);
+    }
+}
+
+void LoadSparkGfx(void)
+{
+    CopyDataWithPossibleUncomp(
+        gUnknown_089AE7A4,
+        OBJ_VRAM0 + BM_OBJCHR_BANIM_EFFECT2*0x20);
+
+    ApplyPalette(gUnknown_089AE7C4, 0x10 + BM_OBJPAL_BANIM_EFFECT2);
+}
+
+void sub_807F6E8(int x, int y)
+{
+    if (x < -4)
+        return;
+
+    if (x > 235)
+        return;
+
+    if (y < -4)
+        return;
+
+    if (y > 155)
+        return;
+
+    CallARM_PushToSecondaryOAM(
+        (x - 4) & 0x1FF,
+        (y - 4) & 0xFF,
+        gUnknown_08590F44,
+        TILEREF(BM_OBJCHR_BANIM_EFFECT2, BM_OBJPAL_BANIM_EFFECT2));
+}
+
+void sub_807F724(int xCenter, int yCenter, int distance, int angle)
+{
+    sub_807F6E8(
+        xCenter + ((SIN(angle)*distance) >> 12),
+        yCenter + ((COS(angle)*distance) >> 12));
+}
+
+void sub_807F758(struct MAStarProc* proc)
+{
+    int i;
+
+    LoadSparkGfx();
+
+    for (i = 0; i < 16; ++i)
+    {
+        gUnknown_03005090[i].unk00 = 0x10;
+        gUnknown_03005090[i].unk02 = i << 8;
+    }
+
+    proc->unk36 = 0;
+    proc->unk38 = 0;
+    proc->unk3A = proc->unk3C;
+}
+
+void sub_807F788(struct MAStarProc* proc)
+{
+    int i, unk = sub_8012DCC(5, proc->unk2E, proc->unk30, proc->unk3A, proc->unk3E) * 16;
+
+    proc->unk36 = unk;
+    proc->unk38 = unk >> 1;
+
+    for (i = 0; i < 16; ++i)
+    {
+        sub_807F724(
+            proc->xCenter, proc->yCenter,
+            (proc->unk36 + gUnknown_03005090[i].unk00) >> 4,
+            (proc->unk38 + gUnknown_03005090[i].unk02) >> 4);
+    }
+
+    proc->unk3A++;
+
+    if (proc->unk3A > proc->unk40)
+        Proc_ClearNativeCallback((struct Proc*) proc);
+}
+
+void StartStarRotationEffect(int arg0, int arg1, int arg2, int arg3, int arg4, int arg5, int arg6)
+{
+    struct MAStarProc* proc =
+        (struct MAStarProc*) Proc_Create(gUnknown_089A407C, ROOT_PROC_3);
+
+    proc->xCenter = arg0;
+    proc->yCenter = arg1;
+    proc->unk2E = arg2;
+    proc->unk30 = arg3;
+    proc->unk3C = arg4;
+    proc->unk3E = arg5;
+    proc->unk40 = arg6;
+}
+
+void StartStarExplosionEffect(int x, int y)
+{
+    StartStarRotationEffect(x, y, 1, 0xC8, 0, 0x50, 0x28);
+}
+
+void StartStarImplosionEffect(int x, int y)
+{
+    StartStarRotationEffect(x, y, 0xC8, 1, 0, 0x3C, 0x37);
+}
+
+extern struct ProcCmd CONST_DATA gUnknown_089A434C[];
+
+struct MAUnk807F878Proc
+{
+    PROC_HEADER;
+
+    /* 29 */ u8 pad29[0x30 - 0x29];
+
+    /* 30 */ int unk30;
+    /* 34 */ u8 pad34[0x40 - 0x34];
+
+    /* 40 */ u16 unk40;
+    /* 42 */ u16 unk42;
+    /* 44 */ u16 unk44;
+};
+
+void sub_807F878(struct Proc* parent)
+{
+    if (parent)
+        Proc_CreateBlockingChild(gUnknown_089A434C, parent);
+    else
+        Proc_Create(gUnknown_089A434C, ROOT_PROC_3);
+}
+
+void sub_807F89C(struct MAUnk807F878Proc* proc)
+{
+    gLCDControlBuffer.bg0cnt.priority = 0;
+    gLCDControlBuffer.bg1cnt.priority = 0;
+    gLCDControlBuffer.bg2cnt.priority = 0;
+    gLCDControlBuffer.bg3cnt.priority = 2;
+
+    gLCDControlBuffer.dispcnt.bg0_on = 0;
+    gLCDControlBuffer.dispcnt.bg1_on = 0;
+    gLCDControlBuffer.dispcnt.bg2_on = 1;
+    gLCDControlBuffer.dispcnt.bg3_on = 0;
+    gLCDControlBuffer.dispcnt.obj_on = 0;
+
+    gLCDControlBuffer.wincnt.win0_enableBlend = 0;
+    gLCDControlBuffer.wincnt.win1_enableBlend = 0;
+
+    sub_8001ED0(1, 0, 0, 0, 0);
+    sub_8001F48(0);
+
+    sub_8001F0C(0, 0, 1, 0, 0);
+    sub_8001F64(1);
+
+    SetSpecialColorEffectsParameters(1, 0x10, 0x10, 0);
+
+    BG_SetPosition(0, 0, 0);
+    BG_SetPosition(2, 0, 0);
+
+    proc->unk40 = 0;
+    proc->unk42 = 0;
+    proc->unk44 = 0;
+}
+
+struct Unk089A40AC
+{
+    /* 00 */ const void* unk00;
+    /* 04 */ const void* unk04;
+    /* 08 */ const void* unk08;
+};
+
+extern struct Unk089A40AC CONST_DATA gUnknown_089A40AC[];
+extern int const gUnknown_08205884[];
+extern u8 const gUnknown_0820588C[];
+
+void sub_807F964(struct MAUnk807F878Proc* proc)
+{
+    if (proc->unk42 == 0)
+    {
+        if (proc->unk40 == 0)
+        {
+            PlaySpacialSoundMaybe(0x140, proc->unk30);
+        }
+        else if (proc->unk40 > 0x13)
+        {
+            proc->unk40 = 0;
+            proc->unk42 = 0;
+            proc->unk44 = 1;
+
+            gLCDControlBuffer.dispcnt.bg0_on = 0;
+            gLCDControlBuffer.dispcnt.bg1_on = 0;
+            gLCDControlBuffer.dispcnt.bg2_on = 0;
+            gLCDControlBuffer.dispcnt.bg3_on = 0;
+            gLCDControlBuffer.dispcnt.obj_on = 0;
+
+            Proc_ClearNativeCallback((struct Proc*) proc);
+            return;
+        }
+
+        CopyDataWithPossibleUncomp(
+            gUnknown_089A40AC[proc->unk40].unk00,
+            (void*) VRAM + gUnknown_08205884[proc->unk44]*0x20);
+
+        CopyDataWithPossibleUncomp(
+            gUnknown_089A40AC[proc->unk40].unk08,
+            gUnknown_02020188);
+
+        sub_800159C(
+            gBG2TilemapBuffer,
+            (u16*) gUnknown_02020188,
+            0, 0,
+            gUnknown_08205884[proc->unk44] | (gUnknown_0820588C[proc->unk44] << 12));
+
+        BG_EnableSyncByMask(BG2_SYNC_BIT);
+
+        ApplyPalette(gUnknown_089A40AC[proc->unk40].unk04, gUnknown_0820588C[proc->unk44]);
+        EnablePaletteSync();
+
+        proc->unk40++;
+        proc->unk42 = 3;
+        proc->unk44 = proc->unk44 ^ 1;
+    }
+
+    proc->unk42--;
 }
