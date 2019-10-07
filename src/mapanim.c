@@ -4540,8 +4540,10 @@ struct Unk089A40AC
 };
 
 extern struct Unk089A40AC CONST_DATA gUnknown_089A40AC[];
+extern struct Unk089A40AC CONST_DATA gUnknown_089A419C[];
 extern int const gUnknown_08205884[];
 extern u8 const gUnknown_0820588C[];
+extern u8 const gUnknown_0820588E[];
 
 void sub_807F964(struct MAUnk807F878Proc* proc)
 {
@@ -4589,6 +4591,77 @@ void sub_807F964(struct MAUnk807F878Proc* proc)
         proc->unk40++;
         proc->unk42 = 3;
         proc->unk44 = proc->unk44 ^ 1;
+    }
+
+    proc->unk42--;
+}
+
+void sub_807FAA0(struct MAUnk807F878Proc* proc)
+{
+    if (proc->unk42 == 0)
+    {
+        CopyDataWithPossibleUncomp(
+            gUnknown_089A419C[proc->unk40].unk00,
+            (void*) VRAM + gUnknown_08205884[proc->unk44]*0x20);
+
+        CopyDataWithPossibleUncomp(
+            gUnknown_089A419C[proc->unk40].unk08,
+            gUnknown_02020188);
+
+        sub_800159C(
+            gBG2TilemapBuffer,
+            (u16*) gUnknown_02020188,
+            0, 0,
+            gUnknown_08205884[proc->unk44] | (gUnknown_0820588C[proc->unk44] << 12));
+
+        BG_EnableSyncByMask(BG2_SYNC_BIT);
+
+        ApplyPalette(gUnknown_089A419C[proc->unk40].unk04, gUnknown_0820588C[proc->unk44]);
+        EnablePaletteSync();
+
+        if (proc->unk40 == 0)
+        {
+            gLCDControlBuffer.dispcnt.bg0_on = 0;
+            gLCDControlBuffer.dispcnt.bg1_on = 0;
+            gLCDControlBuffer.dispcnt.bg2_on = 1;
+            gLCDControlBuffer.dispcnt.bg3_on = 0;
+            gLCDControlBuffer.dispcnt.obj_on = 0;
+        }
+        else if (proc->unk40 > 0x16)
+        {
+            Proc_ClearNativeCallback((struct Proc*) proc);
+        }
+
+        proc->unk42 = gUnknown_0820588E[proc->unk40];
+        proc->unk40++;
+        proc->unk44 = proc->unk44 ^ 1;
+    }
+
+    proc->unk42--;
+}
+
+void sub_807FBCC(struct MAUnk807F878Proc* proc)
+{
+    if (proc->unk42 == 0)
+    {
+        proc->unk40 = 0;
+
+        CpuFastFill(-1,
+            (void*) VRAM + 0x20*0x2FF, 0x20);
+
+        TileMap_FillRect(gBG0TilemapBuffer, 30, 20, TILEREF(0x2FF, 3));
+        BG_EnableSyncByMask(BG0_SYNC_BIT);
+
+        gPaletteBuffer[0x3F] = 0;
+        EnablePaletteSync();
+
+        gLCDControlBuffer.dispcnt.bg0_on = 1;
+        gLCDControlBuffer.dispcnt.bg1_on = 0;
+        gLCDControlBuffer.dispcnt.bg2_on = 1;
+        gLCDControlBuffer.dispcnt.bg3_on = 0;
+        gLCDControlBuffer.dispcnt.obj_on = 0;
+
+        Proc_ClearNativeCallback((struct Proc*) proc);
     }
 
     proc->unk42--;
