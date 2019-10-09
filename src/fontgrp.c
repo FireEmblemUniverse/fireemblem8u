@@ -394,7 +394,7 @@ void Text_Allocate(struct TextHandle *th, int tileWidth)
     gCurrentFont->unk12 += tileWidth * 2;
 }
 
-void InitTextBatch(struct TextBatch *a)
+void InitTextBatch(const struct TextBatch *a)
 {
     while (a->unk0 != NULL)
     {
@@ -537,7 +537,7 @@ char *GetCharTextWidth(char *str, u32 *pWidth)
     return str;
 }
 
-int GetStringTextCenteredPos(int x, char *str)
+int GetStringTextCenteredPos(int x, const char* str)
 {
     return (x - GetStringTextWidth(str)) / 2;
 }
@@ -877,7 +877,7 @@ void Font_SetSomeSpecialDrawingRoutine(void)
     gCurrentFont->drawGlyph = Font_SpecializedGlyphDrawer;
 }
 
-void DrawTextInline(struct TextHandle *th, u16 *dest, int colorId, int x, int e, char *f)
+void DrawTextInline(struct TextHandle *th, u16 *dest, int colorId, int x, int e, const char *f)
 {
     struct TextHandle tempTextHandle;
 
@@ -892,7 +892,7 @@ void DrawTextInline(struct TextHandle *th, u16 *dest, int colorId, int x, int e,
     Text_Draw(th, dest);
 }
 
-void Text_InsertString(struct TextHandle *th, int x, int colorId, char *str)
+void Text_InsertString(struct TextHandle *th, int x, int colorId, const char *str)
 {
     Text_SetXCursor(th, x);
     Text_SetColorId(th, colorId);
