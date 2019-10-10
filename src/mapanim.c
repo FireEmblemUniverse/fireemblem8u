@@ -2033,7 +2033,8 @@ struct MAEffectProc
     /* 38 */ u8 pad38[0x40 - 0x38];
     /* 40 */ u16 unk40;
     /* 42 */ u16 unk42;
-    /* 44 */ u8 pad44[0x48 - 0x44];
+    /* 44 */ u16 unk44;
+    /* 44 */ u8 pad46[0x48 - 0x46];
     /* 48 */ short unk48;
     /* 4A */ short unk4A;
     /* 4C */ u8 pad4C[0x50 - 0x4C];
@@ -2298,6 +2299,8 @@ extern u16 CONST_DATA gUnknown_089AE7C4[]; // spark pal
 extern struct Unk03005090 gUnknown_03005090[];
 
 extern struct ProcCmd CONST_DATA gUnknown_089A407C[]; // wrap star effect thingy
+
+extern struct ProcCmd CONST_DATA gUnknown_089A4394[]; // unk
 
 // TODO: use those also elsewhere
 #define UNIT_XTILE(aUnit) (((aUnit)->xPos - (gUnknown_0202BCB0.camera.x >> 4))*2)
@@ -4478,20 +4481,6 @@ void StartStarImplosionEffect(int x, int y)
 
 extern struct ProcCmd CONST_DATA gUnknown_089A434C[];
 
-struct MAUnk807F878Proc
-{
-    PROC_HEADER;
-
-    /* 29 */ u8 pad29[0x30 - 0x29];
-
-    /* 30 */ int unk30;
-    /* 34 */ u8 pad34[0x40 - 0x34];
-
-    /* 40 */ u16 unk40;
-    /* 42 */ u16 unk42;
-    /* 44 */ u16 unk44;
-};
-
 void sub_807F878(struct Proc* parent)
 {
     if (parent)
@@ -4500,7 +4489,7 @@ void sub_807F878(struct Proc* parent)
         Proc_Create(gUnknown_089A434C, ROOT_PROC_3);
 }
 
-void sub_807F89C(struct MAUnk807F878Proc* proc)
+void sub_807F89C(struct MAEffectProc* proc)
 {
     gLCDControlBuffer.bg0cnt.priority = 0;
     gLCDControlBuffer.bg1cnt.priority = 0;
@@ -4545,13 +4534,13 @@ extern int const gUnknown_08205884[];
 extern u8 const gUnknown_0820588C[];
 extern u8 const gUnknown_0820588E[];
 
-void sub_807F964(struct MAUnk807F878Proc* proc)
+void sub_807F964(struct MAEffectProc* proc)
 {
     if (proc->unk42 == 0)
     {
         if (proc->unk40 == 0)
         {
-            PlaySpacialSoundMaybe(0x140, proc->unk30);
+            PlaySpacialSoundMaybe(0x140, proc->xDisplay);
         }
         else if (proc->unk40 > 0x13)
         {
@@ -4596,7 +4585,7 @@ void sub_807F964(struct MAUnk807F878Proc* proc)
     proc->unk42--;
 }
 
-void sub_807FAA0(struct MAUnk807F878Proc* proc)
+void sub_807FAA0(struct MAEffectProc* proc)
 {
     if (proc->unk42 == 0)
     {
@@ -4640,7 +4629,7 @@ void sub_807FAA0(struct MAUnk807F878Proc* proc)
     proc->unk42--;
 }
 
-void sub_807FBCC(struct MAUnk807F878Proc* proc)
+void sub_807FBCC(struct MAEffectProc* proc)
 {
     if (proc->unk42 == 0)
     {
@@ -4665,4 +4654,91 @@ void sub_807FBCC(struct MAUnk807F878Proc* proc)
     }
 
     proc->unk42--;
+}
+
+void sub_807FC58(struct MAEffectProc* proc)
+{
+    u16 brightness = proc->unk40*4;
+
+    if (proc->unk40 < 8)
+    {
+        gPaletteBuffer[0x3F] = RGB(brightness, brightness, brightness);
+    }
+    else
+    {
+        gPaletteBuffer[0x3F] = RGB(31, 31, 31);
+        Proc_ClearNativeCallback((struct Proc*) proc);
+    }
+
+    EnablePaletteSync();
+
+    proc->unk40++;
+}
+
+void sub_807FCA8(void)
+{
+    BG_Fill(gBG2TilemapBuffer, 0);
+    BG_EnableSyncByMask(BG2_SYNC_BIT);
+}
+
+void sub_807FCC0(struct Proc* parent)
+{
+    if (parent)
+    {
+        Proc_CreateBlockingChild(gUnknown_089A4394, parent);
+    }
+    else
+    {
+        Proc_Create(gUnknown_089A4394, ROOT_PROC_3);
+    }
+}
+
+void sub_807FCE4(struct MAEffectProc* proc)
+{
+    gLCDControlBuffer.bg0cnt.priority = 0;
+    gLCDControlBuffer.bg1cnt.priority = 0;
+    gLCDControlBuffer.bg2cnt.priority = 0;
+    gLCDControlBuffer.bg3cnt.priority = 2;
+
+    gLCDControlBuffer.dispcnt.bg0_on = 1;
+    gLCDControlBuffer.dispcnt.bg1_on = 0;
+    gLCDControlBuffer.dispcnt.bg2_on = 1;
+    gLCDControlBuffer.dispcnt.bg3_on = 1;
+    gLCDControlBuffer.dispcnt.obj_on = 1;
+
+    gLCDControlBuffer.wincnt.win0_enableBlend = 0;
+    gLCDControlBuffer.wincnt.win1_enableBlend = 0;
+
+    sub_8001ED0(1, 0, 1, 0, 0);
+    sub_8001F48(0);
+
+    sub_8001F0C(0, 0, 0, 1, 1);
+    sub_8001F64(1);
+
+    SetSpecialColorEffectsParameters(1, 0x10, 0x10, 0);
+
+    BG_SetPosition(0, 0, 0);
+    BG_SetPosition(2, 0, 0);
+
+    gPaletteBuffer[0x3F] = RGB(31, 31, 31);
+    EnablePaletteSync();
+
+    proc->unk40 = 0;
+    proc->unk42 = 0;
+    proc->unk44 = 0;
+
+    proc->unk48 = 119;
+}
+
+void sub_807FDC8(struct MAEffectProc* proc)
+{
+    int brightness = proc->unk48 * 32 / 120;
+    gPaletteBuffer[0x3F] = RGB(brightness, brightness, brightness);
+
+    EnablePaletteSync();
+
+    proc->unk48--;
+
+    if (proc->unk48 < 31)
+        Proc_ClearNativeCallback((struct Proc*) proc);
 }
