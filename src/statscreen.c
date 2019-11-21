@@ -1,8 +1,14 @@
 
 #include "global.h"
 
+#include <stdlib.h>
+#include <string.h> // TODO: remove
+
 #include "proc.h"
 #include "hardware.h"
+#include "m4a.h"
+#include "soundwrapper.h"
+#include "ctc.h"
 #include "icon.h"
 #include "fontgrp.h"
 #include "bmio.h"
@@ -96,8 +102,8 @@ struct StatScreenSt
 	/* 00 */ u8 page;
 	/* 01 */ u8 pageAmt;
 	/* 02 */ u16 unk02;
-	/* 04 */ u16 unk04;
-	/* 06 */ u16 yDispOff;
+	/* 04 */ short unk04;
+	/* 06 */ short yDispOff;
 	/* 08 */ u8 inTransition;
 	/* 0C */ struct Unit* unit;
 	/* 10 */ struct MUProc* mu;
@@ -105,13 +111,48 @@ struct StatScreenSt
 	/* 18 */ struct TextHandle text[STATSCREEN_TEXT_MAX];
 };
 
+struct StatScreenTransitionProc
+{
+	PROC_HEADER;
+
+	/* 29 */ u8 pad29[0x38 - 0x29];
+
+	/* 38 */ int unk38;
+	/* 3C */ int unk3C;
+	/* 40 */ int unk40;
+
+	/* 44 */ u8 pad44[0x4A - 0x44];
+
+	/* 4A */ short unk4A;
+	/* 4C */ short unk4C;
+	/* 4E */ short unk4E;
+	/* 50 */ short unk50;
+	/* 52 */ u16   unk52;
+};
+
 extern struct StatScreenSt gUnknown_02003BFC; // statscreen state
-extern u16 gUnknown_02003D2C[]; // bg0 tilemap buffer for stat screen page
-extern u16 gUnknown_0200472C[]; // bg2 tilemap buffer for stat screen page
+extern u16 gUnknown_02003D2C[0x280]; // bg0 tilemap buffer for stat screen page
+extern u16 gUnknown_0200472C[0x240]; // bg2 tilemap buffer for stat screen page
 
 extern struct Unk0203E764 gUnknown_0203E764; // big unk
 
 extern struct TextBatch CONST_DATA gUnknown_08A006FC[];
+
+extern s8 CONST_DATA gUnknown_08A0081C[]; /* stat screen page transition draw offset lut */
+
+extern struct ProcCmd CONST_DATA gUnknown_08A0082C[]; // page transition proc
+extern struct ProcCmd CONST_DATA gUnknown_08A00844[]; // unk
+extern struct ProcCmd CONST_DATA gUnknown_08A00864[]; // unit transition proc
+extern struct ProcCmd CONST_DATA gUnknown_08A009D8[]; // main proc
+
+extern u16 CONST_DATA gUnknown_08A008FE[]; // obj for page name bg
+
+extern u16 const* CONST_DATA gUnknown_08A00924[]; // objs for page names
+extern u16 CONST_DATA gUnknown_08A00930[]; // tile offsets within an image
+
+extern u16 CONST_DATA gUnknown_08A027FC[][0x10]; // color animation for each page
+
+void sub_8088670(struct Proc* proc);
 
 int GetSomeUnitId(void)
 {
@@ -282,7 +323,7 @@ void sub_8086FAC(void)
 
 #ifdef NONMATCHING
 
-void DrawStatScreenBar(int arg0, int x, int y, int base, int total, int max)
+void DrawStatScreenBar(int num, int x, int y, int base, int total, int max)
 {
 	int diff = total - base;
 
@@ -294,7 +335,7 @@ void DrawStatScreenBar(int arg0, int x, int y, int base, int total, int max)
 	if (total > 30)
 		diff = 30 - base;
 
-	sub_8086B2C(0x401 + arg0*3, 6,
+	sub_8086B2C(0x401 + num*6, 6,
 		gUnknown_0200472C + TILEMAP_INDEX(x - 2, y + 1),
 		TILEREF(0, STATSCREEN_BGPAL_3), max * 41 / 30, base * 41 / 30, diff * 41 / 30);
 }
@@ -302,7 +343,7 @@ void DrawStatScreenBar(int arg0, int x, int y, int base, int total, int max)
 #else // NONMATCHING
 
 __attribute__((naked))
-void DrawStatScreenBar(int arg0, int x, int y, int base, int total, int max)
+void DrawStatScreenBar(int num, int x, int y, int base, int total, int max)
 {
 	asm("\n\
 		.syntax unified\n\
@@ -730,4 +771,380 @@ void DrawUnitScreenSupportList(void)
 
 		supportId++;
 	}
+}
+
+void DrawUnitWeaponRank(int num, int x, int y, int wtype)
+{
+	int progress, progressMax, color;
+
+	int wexp = gUnknown_02003BFC.unit->ranks[wtype];
+
+	// Display weapon type icon
+	DrawIcon(gUnknown_02003D2C + TILEMAP_INDEX(x, y),
+		0x70 + wtype, // TODO: icon id definitions
+		TILEREF(0, STATSCREEN_BGPAL_EXTICONS));
+
+	color = wexp >= WPN_EXP_S
+		? TEXT_COLOR_GREEN
+		: TEXT_COLOR_BLUE;
+
+	// Display rank letter
+	sub_8004B0C(gUnknown_02003D2C + TILEMAP_INDEX(x + 4, y),
+		color,
+		GetDisplayRankStringFromExp(wexp));
+
+	GetWeaponExpProgressState(wexp, &progress, &progressMax);
+
+	sub_8086B2C(0x401 + num*6, 5,
+		gUnknown_0200472C + TILEMAP_INDEX(x + 2, y + 1), TILEREF(0, STATSCREEN_BGPAL_6),
+		0x22, (progress*34)/(progressMax-1), 0);
+}
+
+void DrawUnitWeaponScreen(void)
+{
+	if (UnitHasMagicRank(gUnknown_02003BFC.unit))
+	{
+		DrawUnitWeaponRank(0, 1, 1, ITYPE_ANIMA);
+		DrawUnitWeaponRank(1, 1, 3, ITYPE_LIGHT);
+		DrawUnitWeaponRank(2, 9, 1, ITYPE_DARK);
+		DrawUnitWeaponRank(3, 9, 3, ITYPE_STAFF);
+	}
+	else
+	{
+		DrawUnitWeaponRank(0, 1, 1, ITYPE_SWORD);
+		DrawUnitWeaponRank(1, 1, 3, ITYPE_LANCE);
+		DrawUnitWeaponRank(2, 9, 1, ITYPE_AXE);
+		DrawUnitWeaponRank(3, 9, 3, ITYPE_BOW);
+	}
+
+	DrawUnitScreenSupportList();
+}
+
+void sub_80878CC(int pageid)
+{
+	typedef void(*func_type)(void);
+
+	// TODO: fix this hack
+	extern const func_type gUnknown_08205B24[];
+	func_type hack[4];
+	memcpy(hack, gUnknown_08205B24, sizeof(hack));
+
+	CpuFastFill(0, gUnknown_02003D2C, sizeof(gUnknown_02003D2C));
+	CpuFastFill(0, gUnknown_0200472C, sizeof(gUnknown_0200472C));
+
+	hack[pageid]();
+}
+
+struct Unit* sub_8087920(struct Unit* u, int direction)
+{
+	int faction = UNIT_FACTION(u);
+	int i       = u->index;
+
+	struct Unit* unit;
+
+	while (TRUE)
+	{
+		i = (i + direction) & 0x3F;
+		unit = GetUnit(faction + i);
+
+		if (!UNIT_IS_VALID(unit))
+			continue;
+
+		if ((gUnknown_0203E764.unk02 & 1) && (unit->state & US_DEAD))
+			continue;
+
+		if ((gUnknown_0203E764.unk02 & 2) && (unit->state & US_NOT_DEPLOYED))
+			continue;
+
+		if ((gUnknown_0203E764.unk02 & 4) && (unit->state & US_BIT9))
+			continue;
+
+		if ((gUnknown_0203E764.unk02 & 8) && (unit->state & US_UNDER_A_ROOF))
+			continue;
+
+		if ((gUnknown_0203E764.unk02 & 0x10) && (unit->state & US_BIT16))
+			continue;
+
+		if ((gUnknown_0203E764.unk02 & 0x20) && (UNIT_CATTRIBUTES(unit) & CA_SUPPLY))
+			continue;
+
+		if (UNIT_IS_GORGON_EGG(unit))
+			continue;
+
+		return unit;
+	}
+}
+
+void sub_80879DC(struct StatScreenTransitionProc* proc)
+{
+	int off;
+
+	int len, dstOff, srcOff;
+
+	// clear bg0, bg2 page area
+	TileMap_FillRect(gBG0TilemapBuffer + TILEMAP_INDEX(12, 2), 18, 18, 0);
+	TileMap_FillRect(gBG2TilemapBuffer + TILEMAP_INDEX(12, 2), 18, 18, 0);
+
+	off = gUnknown_08A0081C[proc->unk4C];
+
+	if (off == INT8_MAX)
+	{
+		// INT8_MAX offset means switch to displaying next page
+
+		sub_80878CC(proc->unk4A);
+
+		proc->unk4C++;
+		off = gUnknown_08A0081C[proc->unk4C];
+	}
+
+	// compute len, dstOff and srcOff
+	// len is the length of the display bit of the page
+	// dstOff is the x offset to which to copy the page to
+	// srcOff is the x offset from which to copy the page from
+
+	if (proc->unk52 & 0x20)
+		off = -off;
+
+	len = 18 - abs(off);
+
+	if (off < 0)
+	{
+		dstOff = 0;
+		srcOff = -off;
+	}
+	else
+	{
+		dstOff = off;
+		srcOff = 0;
+	}
+
+	TileMap_CopyRect(
+		gUnknown_02003D2C + srcOff,
+		gBG0TilemapBuffer + dstOff + TILEMAP_INDEX(12, 2),
+		len, 18);
+
+	TileMap_CopyRect(
+		gUnknown_0200472C + srcOff,
+		gBG2TilemapBuffer + dstOff + TILEMAP_INDEX(12, 2),
+		len, 18);
+
+	BG_EnableSyncByMask(BG0_SYNC_BIT + BG1_SYNC_BIT + BG2_SYNC_BIT);
+
+	proc->unk4C++;
+	off = gUnknown_08A0081C[proc->unk4C];
+
+	if (off == INT8_MIN)
+		Proc_ClearNativeCallback((struct Proc*) proc);
+}
+
+void sub_8087ACC(void)
+{
+	gUnknown_02003BFC.inTransition = FALSE;
+}
+
+void sub_8087AD8(u16 config, int newPage, struct Proc* parent)
+{
+	struct StatScreenTransitionProc* proc;
+
+	if (Proc_Find(gUnknown_08A0082C))
+		return;
+
+	PlaySoundEffect(0x6F); // TODO: song ids
+
+	proc = (void*) Proc_CreateBlockingChild(gUnknown_08A0082C, parent);
+
+	proc->unk4C = 0;
+	proc->unk4A = newPage;
+	proc->unk52 = config;
+
+	gUnknown_02003BFC.unk02 = config;
+	gUnknown_02003BFC.help = NULL;
+	gUnknown_02003BFC.inTransition = TRUE;
+}
+
+void sub_8087B40(struct StatScreenTransitionProc* proc)
+{
+	gLCDControlBuffer.dispcnt.bg0_on = TRUE;
+	gLCDControlBuffer.dispcnt.bg1_on = TRUE;
+	gLCDControlBuffer.dispcnt.bg2_on = TRUE;
+	gLCDControlBuffer.dispcnt.bg3_on = TRUE;
+	gLCDControlBuffer.dispcnt.obj_on = TRUE;
+
+	proc->unk4C = 0;
+	proc->unk4E = 0;
+
+	SetSpecialColorEffectsParameters(1, proc->unk4C, 0x10, 0);
+
+	sub_8001ED0(0, 1, 0, 0, 0);
+	sub_8001F0C(0, 0, 0, 1, 0);
+}
+
+void sub_8087BA0(struct StatScreenTransitionProc* proc)
+{
+	if (proc->unk4E == 0)
+	{
+		if (++proc->unk4C >= 0x40)
+			proc->unk4E++;
+	}
+	else
+	{
+		if (--proc->unk4C <= 0)
+			proc->unk4E = 0;
+	}
+
+	SetSpecialColorEffectsParameters(1, proc->unk4C >> 3, 0x10, 0);
+}
+
+void sub_8087BF0(void)
+{
+	Proc_Create(gUnknown_08A00844, ROOT_PROC_3);
+}
+
+void sub_8087C04(void)
+{
+	Proc_DeleteAllWithScript(gUnknown_08A00844);
+
+	gLCDControlBuffer.dispcnt.bg0_on = TRUE;
+	gLCDControlBuffer.dispcnt.bg1_on = FALSE;
+	gLCDControlBuffer.dispcnt.bg2_on = TRUE;
+	gLCDControlBuffer.dispcnt.bg3_on = TRUE;
+	gLCDControlBuffer.dispcnt.obj_on = TRUE;
+}
+
+void sub_8087C34(struct StatScreenTransitionProc* proc)
+{
+	gUnknown_02003BFC.inTransition = TRUE;
+
+	proc->unk4C = 4;
+
+	gLCDControlBuffer.bg0cnt.priority = 1;
+	gLCDControlBuffer.bg1cnt.priority = 3;
+	gLCDControlBuffer.bg2cnt.priority = 2;
+	gLCDControlBuffer.bg3cnt.priority = 0;
+
+	sub_8001ED0(0, 0, 0, 1, 0);
+	sub_8001F0C(1, 1, 1, 0, 1);
+
+	sub_8001F64(0);
+
+	if (proc->unk38 > 0)
+	{
+		proc->unk3C = 0;
+		proc->unk40 = -60;
+	}
+	else
+	{
+		proc->unk3C = 0;
+		proc->unk40 = +60;
+	}
+}
+
+void sub_8087CC0(struct StatScreenTransitionProc* proc)
+{
+	SetSpecialColorEffectsParameters(1, proc->unk4C, 0x10 - proc->unk4C, 0);
+
+	MU_SetDisplayPosition(gUnknown_02003BFC.mu,
+		80, 138 + gUnknown_02003BFC.yDispOff);
+
+	gUnknown_02003BFC.yDispOff = sub_8012DCC(2, proc->unk3C, proc->unk40, proc->unk4C, 0x10);
+
+	proc->unk4C += 3;
+
+	if (proc->unk4C > 0x10)
+		Proc_ClearNativeCallback((struct Proc*) proc);
+}
+
+void sub_8087D24(struct StatScreenTransitionProc* proc)
+{
+	proc->unk4C = 1;
+
+	gLCDControlBuffer.bg0cnt.priority = 1;
+	gLCDControlBuffer.bg1cnt.priority = 3;
+	gLCDControlBuffer.bg2cnt.priority = 2;
+	gLCDControlBuffer.bg3cnt.priority = 0;
+
+	sub_8001ED0(0, 0, 0, 1, 0);
+	sub_8001F0C(1, 1, 1, 0, 1);
+
+	if (proc->unk38 > 0)
+	{
+		proc->unk3C = +60;
+		proc->unk40 = 0;
+	}
+	else
+	{
+		proc->unk3C = -60;
+		proc->unk40 = 0;
+	}
+}
+
+void sub_8087D98(struct StatScreenTransitionProc* proc)
+{
+	SetSpecialColorEffectsParameters(1, 0x10 - proc->unk4C, proc->unk4C, 0);
+
+	MU_SetDisplayPosition(gUnknown_02003BFC.mu,
+		80, 138 + gUnknown_02003BFC.yDispOff);
+
+	gUnknown_02003BFC.yDispOff = sub_8012DCC(5, proc->unk3C, proc->unk40, proc->unk4C, 0x10);
+
+	proc->unk4C += 3;
+
+	if (proc->unk4C >= 0x10)
+		Proc_ClearNativeCallback((struct Proc*) proc);
+}
+
+void sub_8087DF8(struct StatScreenTransitionProc* proc)
+{
+	gUnknown_02003BFC.unit = GetUnit(proc->unk4A);
+
+	sub_8088670(Proc_Find(gUnknown_08A009D8));
+	Proc_ClearNativeCallback((struct Proc*) proc);
+}
+
+void sub_8087E28(void)
+{
+	if (gUnknown_02003BFC.mu)
+		MU_SetDisplayPosition(gUnknown_02003BFC.mu,
+			80, 138);
+
+	gLCDControlBuffer.bg0cnt.priority = 1;
+	gLCDControlBuffer.bg1cnt.priority = 3;
+	gLCDControlBuffer.bg2cnt.priority = 2;
+	gLCDControlBuffer.bg3cnt.priority = 3;
+
+	SetDefaultColorEffects();
+
+	gUnknown_02003BFC.inTransition = FALSE;
+}
+
+void sub_8087E7C(struct Unit* unit, int direction, struct Proc* parent)
+{
+	struct StatScreenTransitionProc* proc = (void*) Proc_CreateBlockingChild(gUnknown_08A00864, parent);
+
+	proc->unk4A = unit->index;
+	proc->unk38 = direction;
+
+	PlaySoundEffect(0xC8); // TODO: song ids
+}
+
+void sub_8087EB8(int pageid)
+{
+	int colorid;
+
+	RegisterObjectAttributes_SafeMaybe(4,
+		111 + gUnknown_02003BFC.unk04, 1 + gUnknown_02003BFC.yDispOff,
+		gUnknown_08A008FE, TILEREF(0x293, 4) + 0xC00);
+
+	RegisterObjectAttributes_SafeMaybe(4,
+		114 + gUnknown_02003BFC.unk04, 0 + gUnknown_02003BFC.yDispOff,
+		gUnknown_08A00924[pageid], TILEREF(0x240 + gUnknown_08A00930[pageid], 3) + 0xC00);
+
+	colorid = (GetGameClock()/4) % 16;
+
+	CpuCopy16(
+		gUnknown_08A027FC[pageid] + colorid,
+		gPaletteBuffer + 0x13E,
+		sizeof(u16));
+
+	EnablePaletteSync();
 }
