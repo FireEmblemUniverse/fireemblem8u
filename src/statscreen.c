@@ -16,17 +16,22 @@
 #include "bmunit.h"
 #include "bmbattle.h"
 #include "bmreliance.h"
+#include "uiutils.h"
 #include "mu.h"
 
 #include "constants/classes.h"
 
 enum
 {
+	STATSCREEN_BGPAL_HALO = 1,
 	STATSCREEN_BGPAL_3 = 3,
 	STATSCREEN_BGPAL_ITEMICONS = 4,
 	STATSCREEN_BGPAL_EXTICONS = 5,
 	STATSCREEN_BGPAL_6 = 6,
 	STATSCREEN_BGPAL_7 = 7,
+	STATSCREEN_BGPAL_BACKGROUND = 12, // 4 palettes
+
+	STATSCREEN_OBJPAL_4 = 4,
 };
 
 __attribute__((packed, aligned(4)))
@@ -104,7 +109,7 @@ struct StatScreenSt
 	/* 02 */ u16 unk02;
 	/* 04 */ short unk04;
 	/* 06 */ short yDispOff;
-	/* 08 */ u8 inTransition;
+	/* 08 */ s8 inTransition;
 	/* 0C */ struct Unit* unit;
 	/* 10 */ struct MUProc* mu;
 	/* 14 */ void* help;
@@ -130,6 +135,32 @@ struct StatScreenTransitionProc
 	/* 52 */ u16   unk52;
 };
 
+struct StatScreenPageNameProc
+{
+	PROC_HEADER;
+
+	/* 29 */ u8 pad29[0x36 - 0x29];
+	/* 36 */ u8 unk36;
+	/* 38 */ short unk38;
+};
+
+struct StatScreenUnkProc
+{
+	PROC_HEADER;
+
+	/* 2A */ short unk2A;
+	/* 2C */ short unk2C;
+	/* 2E */ u16 unk2E;
+	/* 30 */ u16 unk30;
+	/* 32 */ short unk32;
+	/* 34 */ short unk34;
+};
+
+struct StatScreenProc
+{
+	PROC_HEADER;
+};
+
 extern struct StatScreenSt gUnknown_02003BFC; // statscreen state
 extern u16 gUnknown_02003D2C[0x280]; // bg0 tilemap buffer for stat screen page
 extern u16 gUnknown_0200472C[0x240]; // bg2 tilemap buffer for stat screen page
@@ -151,6 +182,19 @@ extern u16 const* CONST_DATA gUnknown_08A00924[]; // objs for page names
 extern u16 CONST_DATA gUnknown_08A00930[]; // tile offsets within an image
 
 extern u16 CONST_DATA gUnknown_08A027FC[][0x10]; // color animation for each page
+
+extern u8  CONST_DATA gUnknown_08A064E0[]; // halo img
+extern u16 CONST_DATA gUnknown_08A0731C[]; // halo pal
+extern u8  CONST_DATA gUnknown_08A071FC[]; // halo tsa
+
+extern u8  CONST_DATA gUnknown_08A03368[]; // background img
+extern u16 CONST_DATA gUnknown_08A06460[]; // background pal
+extern u8  CONST_DATA gUnknown_08A05F10[]; // background tsa
+
+extern u8  CONST_DATA gUnknown_08A02274[]; // img objects
+extern u8  CONST_DATA gUnknown_08A01F24[]; // img?
+extern u16 CONST_DATA gUnknown_08A021E4[]; // pal
+extern u8  CONST_DATA gUnknown_08A020F0[]; // img?
 
 void sub_8088670(struct Proc* proc);
 
@@ -1101,7 +1145,7 @@ void sub_8087DF8(struct StatScreenTransitionProc* proc)
 	Proc_ClearNativeCallback((struct Proc*) proc);
 }
 
-void sub_8087E28(void)
+void sub_8087E28(struct StatScreenProc* proc)
 {
 	if (gUnknown_02003BFC.mu)
 		MU_SetDisplayPosition(gUnknown_02003BFC.mu,
@@ -1147,4 +1191,325 @@ void sub_8087EB8(int pageid)
 		sizeof(u16));
 
 	EnablePaletteSync();
+}
+
+void sub_8087F48(struct StatScreenPageNameProc* proc)
+{
+	// TODO: maybe a macro that takes angle/xScale/yScale?
+
+	WriteOAMRotScaleData(
+		8,  // oam rotscale index
+
+		Div(+COS(0) * 16, 0x100), // pa
+		Div(-SIN(0) * 16, 0x100), // pb
+		Div(+SIN(0) * 16, 0x100), // pc
+		Div(+COS(0) * 16, 0x100)  // pd
+	);
+
+	proc->unk36 = gUnknown_02003BFC.page;
+}
+
+void sub_8087FE0(struct StatScreenPageNameProc* proc)
+{
+	sub_8087EB8(proc->unk36);
+
+	if (gUnknown_02003BFC.unk02)
+	{
+		proc->unk38 = 5;
+
+		Proc_ClearNativeCallback((struct Proc*) proc);
+		return;
+	}
+
+	proc->unk36 = gUnknown_02003BFC.page;
+}
+
+void sub_8088014(struct StatScreenPageNameProc* proc)
+{
+	// TODO: maybe a macro that takes angle/xScale/yScale?
+
+	WriteOAMRotScaleData(
+		8,  // oam rotscale index
+
+		Div(+COS(0) * 16, 0x100), // pa
+		Div(-SIN(0) * 16, proc->unk38 * 0x100 / 6), // pb
+		Div(+SIN(0) * 16, 0x100), // pc
+		Div(+COS(0) * 16, proc->unk38 * 0x100 / 6)  // pd
+	);
+
+	sub_8087EB8(proc->unk36);
+
+	proc->unk38--;
+
+	if (proc->unk38 == 0)
+	{
+		proc->unk38 = 1;
+		Proc_ClearNativeCallback((struct Proc*) proc);
+	}
+}
+
+void sub_80880DC(struct StatScreenPageNameProc* proc)
+{
+	// TODO: maybe a macro that takes angle/xScale/yScale?
+
+	WriteOAMRotScaleData(
+		8,  // oam rotscale index
+
+		Div(+COS(0) * 16, 0x100), // pa
+		Div(-SIN(0) * 16, proc->unk38 * 0x100 / 6), // pb
+		Div(+SIN(0) * 16, 0x100), // pc
+		Div(+COS(0) * 16, proc->unk38 * 0x100 / 6)  // pd
+	);
+
+	sub_8087EB8(gUnknown_02003BFC.page);
+
+	proc->unk38++;
+
+	if (proc->unk38 > 6)
+	{
+		proc->unk36 = gUnknown_02003BFC.page;
+		Proc_ClearNativeCallback((struct Proc*) proc);
+	}
+}
+
+void sub_80881AC(struct StatScreenUnkProc* proc)
+{
+	proc->unk2A = 103;
+	proc->unk2C = 217;
+
+	proc->unk30 = 0;
+	proc->unk2E = 0;
+
+	proc->unk34 = 4;
+	proc->unk32 = 4;
+}
+
+void sub_80881C4(struct StatScreenUnkProc* proc)
+{
+	if (gUnknown_02003BFC.unk02 & 0x20)
+	{
+		proc->unk32 = 31;
+		proc->unk2A = 97;
+	}
+
+	if (gUnknown_02003BFC.unk02 & 0x10)
+	{
+		proc->unk34 = 31;
+		proc->unk2C = 223;
+	}
+
+	gUnknown_02003BFC.unk02 = 0;
+}
+
+void sub_80881FC(struct StatScreenUnkProc* proc)
+{
+	int baseref = TILEREF(0x240, STATSCREEN_OBJPAL_4) + OAM2_PRIORITY(1);
+
+	proc->unk2E += proc->unk32;
+	proc->unk30 += proc->unk34;
+
+	if (proc->unk32 > 4)
+		proc->unk32--;
+
+	if (proc->unk34 > 4)
+		proc->unk34--;
+
+	if ((GetGameClock() % 4) == 0)
+	{
+		if (proc->unk2A < 103)
+			proc->unk2A++;
+
+		if (proc->unk2C > 217)
+			proc->unk2C--;
+	}
+
+	RegisterObjectAttributes_SafeMaybe(0,
+		gUnknown_02003BFC.unk04 + proc->unk2A,
+		gUnknown_02003BFC.yDispOff + 3,
+		gUnknown_08590F64, baseref + 0x5A + (proc->unk2E >> 5) % 6);
+
+	RegisterObjectAttributes_SafeMaybe(0,
+		gUnknown_02003BFC.unk04 + proc->unk2C,
+		gUnknown_02003BFC.yDispOff + 3,
+		gUnknown_08590FB4, baseref + 0x5A + (proc->unk30 >> 5) % 6);
+}
+
+void sub_80882E4(void)
+{
+	int chr = 0x289;
+
+	// page amt
+	RegisterObjectAttributes_SafeMaybe(2,
+		gUnknown_02003BFC.unk04 + 228,
+		gUnknown_02003BFC.yDispOff + 17,
+		gUnknown_08590F44, TILEREF(chr, STATSCREEN_OBJPAL_4) + OAM2_PRIORITY(3) + gUnknown_02003BFC.pageAmt);
+
+	// '/'
+	RegisterObjectAttributes_SafeMaybe(2,
+		gUnknown_02003BFC.unk04 + 222,
+		gUnknown_02003BFC.yDispOff + 17,
+		gUnknown_08590F44, TILEREF(chr, STATSCREEN_OBJPAL_4) + OAM2_PRIORITY(3));
+
+	// page num
+	RegisterObjectAttributes_SafeMaybe(2,
+		gUnknown_02003BFC.unk04 + 215,
+		gUnknown_02003BFC.yDispOff + 17,
+		gUnknown_08590F44, TILEREF(chr, STATSCREEN_OBJPAL_4) + OAM2_PRIORITY(3) + gUnknown_02003BFC.page + 1);
+}
+
+void sub_8088354(void)
+{
+	RegisterObjectAttributes_SafeMaybe(11,
+		gUnknown_02003BFC.unk04 + 64,
+		gUnknown_02003BFC.yDispOff + 131,
+		gUnknown_08590F8C, TILEREF(0x28F, STATSCREEN_OBJPAL_4) + OAM2_PRIORITY(3));
+}
+
+void sub_8088384(void)
+{
+	s8 displayIcon = (GetGameClock() % 32) < 20;
+
+	extern u16 const gUnknown_08205B34[];
+	u16 hack[3]; // FIXME
+	memcpy(hack, gUnknown_08205B34, sizeof(hack));
+
+	if (!gUnknown_02003BFC.inTransition)
+	{
+		if ((gUnknown_02003BFC.page == 0) && (gUnknown_02003BFC.unit->state & US_RESCUING))
+		{
+			sub_8015BD4(120, 40, 1);
+			sub_8015BD4(120, 56, 1);
+
+			if (displayIcon)
+			{
+				RegisterObjectAttributes_SafeMaybe(4,
+					184, 78, gUnknown_08590F44,
+					TILEREF(3, 0xF & hack[gUnknown_02003BFC.unit->rescueOtherUnit>>6]) + OAM2_PRIORITY(2));
+			}
+		}
+
+		if (gUnknown_02003BFC.unit->state & US_RESCUED)
+		{
+			if (displayIcon)
+			{
+				RegisterObjectAttributes_SafeMaybe(4,
+					10, 86, gUnknown_08590F44,
+					TILEREF(3, 0xF & hack[gUnknown_02003BFC.unit->rescueOtherUnit>>6]) + OAM2_PRIORITY(2));
+			}
+		}
+	}
+}
+
+void sub_808844C(void)
+{
+	gLCDControlBuffer.dispcnt.bg0_on = FALSE;
+	gLCDControlBuffer.dispcnt.bg1_on = FALSE;
+	gLCDControlBuffer.dispcnt.bg2_on = FALSE;
+	gLCDControlBuffer.dispcnt.bg3_on = FALSE;
+	gLCDControlBuffer.dispcnt.obj_on = FALSE;
+
+	SetSpecialColorEffectsParameters(3, 0, 0, 0x10);
+
+	sub_8001ED0(0, 0, 0, 0, 0);
+	sub_8001F48(1);
+	sub_8001F64(0);
+
+	// TODO: ResetBackdrop macro?
+	gPaletteBuffer[0] = 0;
+	EnablePaletteSync();
+}
+
+void sub_80884B0(struct StatScreenProc* proc)
+{
+	extern u16 const gUnknown_08205B3A[];
+	u16 hack[12];
+	memcpy(hack, gUnknown_08205B3A, sizeof(hack));
+
+	SetupBackgrounds(hack);
+
+	UnpackUiFramePalette(STATSCREEN_BGPAL_3);
+	RegisterBlankTile(0x400);
+
+	BG_Fill(gBG2TilemapBuffer, 0);
+	BG_EnableSyncByMask(BG2_SYNC_BIT);
+
+	sub_80156D4();
+	SetupMapSpritesPalettes();
+
+	// TODO: port the macros from mapanim wip
+
+	gLCDControlBuffer.dispcnt.win0_on   = TRUE;
+	gLCDControlBuffer.dispcnt.win1_on   = FALSE;
+	gLCDControlBuffer.dispcnt.objWin_on = FALSE;
+
+	gLCDControlBuffer.win0_left   = 96;
+	gLCDControlBuffer.win0_top    = 0;
+	gLCDControlBuffer.win0_right  = 98;
+	gLCDControlBuffer.win0_bottom = 160;
+
+	gLCDControlBuffer.wincnt.win0_enableBg0 = FALSE;
+	gLCDControlBuffer.wincnt.win0_enableBg1 = FALSE;
+	gLCDControlBuffer.wincnt.win0_enableBg2 = FALSE;
+	gLCDControlBuffer.wincnt.win0_enableBg3 = TRUE;
+	gLCDControlBuffer.wincnt.win0_enableObj = TRUE;
+
+	gLCDControlBuffer.wincnt.wout_enableBg0 = TRUE;
+	gLCDControlBuffer.wincnt.wout_enableBg1 = TRUE;
+	gLCDControlBuffer.wincnt.wout_enableBg2 = TRUE;
+	gLCDControlBuffer.wincnt.wout_enableBg3 = TRUE;
+	gLCDControlBuffer.wincnt.wout_enableObj = TRUE;
+
+	gLCDControlBuffer.wincnt.win0_enableBlend = TRUE;
+	gLCDControlBuffer.wincnt.win1_enableBlend = TRUE;
+	gLCDControlBuffer.wincnt.wout_enableBlend = TRUE;
+
+	// Load and display Halo
+
+	CopyDataWithPossibleUncomp(
+		gUnknown_08A064E0, (void*)(VRAM + 0x220 * 0x20));
+
+	ApplyPalette(gUnknown_08A0731C, STATSCREEN_BGPAL_HALO);
+
+	CopyDataWithPossibleUncomp(
+		gUnknown_08A071FC, gUnknown_02020188);
+
+	CallARM_FillTileRect(gBG1TilemapBuffer + TILEMAP_INDEX(12, 0),
+		gUnknown_02020188, TILEREF(0x220, STATSCREEN_BGPAL_HALO));
+
+	// Load and display Background
+
+	CopyDataWithPossibleUncomp(
+		gUnknown_08A03368, (void*)(VRAM + 0x580 * 0x20));
+
+	ApplyPalettes(gUnknown_08A06460, STATSCREEN_BGPAL_BACKGROUND, 4);
+
+	CopyDataWithPossibleUncomp(gUnknown_08A05F10, gUnknown_02020188);
+
+	CallARM_FillTileRect(gBG3TilemapBuffer, gUnknown_02020188,
+		TILEREF(0x180, 12));
+
+	// Load object graphics
+
+	CopyDataWithPossibleUncomp(
+		gUnknown_08A02274, (void*)(VRAM + 0x10000 + 0x240 * 0x20));
+
+	LoadIconPalettes(STATSCREEN_BGPAL_ITEMICONS);
+
+	UnpackUiBarPalette(STATSCREEN_BGPAL_6);
+
+	LoadIconPalette(1, 0x13);
+
+	CopyDataWithPossibleUncomp(
+		gUnknown_08A01F24, (void*)(VRAM + 0x440 * 0x20));
+
+	ApplyPalette(gUnknown_08A021E4, STATSCREEN_BGPAL_7);
+
+	LoadIconPalette(1, 0x14);
+
+	CopyDataWithPossibleUncomp(
+		gUnknown_08A020F0, (void*)(VRAM + 0x60 * 0x20));
+
+	gUnknown_02003BFC.mu = NULL;
+
+	sub_8087E28(proc);
 }

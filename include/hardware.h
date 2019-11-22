@@ -8,6 +8,8 @@
 
 #define TILEREF(aChar, aPal) ((aChar) + ((aPal) << 12))
 
+#define OAM2_PRIORITY(aValue) (((aValue) & 0x3) << 10)
+
 #define BG_SYNC_BIT(aBg) (1 << (aBg))
 
 enum

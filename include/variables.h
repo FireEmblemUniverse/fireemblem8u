@@ -1316,14 +1316,14 @@ extern struct Glyph *gUnknown_08590B44[];
 extern const u16 gUnknown_08590F44[]; // 8x8 obj data
 // extern ??? gUnknown_08590F4C
 extern const u16 gUnknown_08590F54[]; // 32x32 obj data
-// extern ??? gUnknown_08590F64
+extern const u16 gUnknown_08590F64[]; // 8x16 obj data
 // extern ??? gUnknown_08590F6C
 // extern ??? gUnknown_08590F7C
-// extern ??? gUnknown_08590F8C
+extern const u16 gUnknown_08590F8C[]; // ?? obj data
 // extern ??? gUnknown_08590F94
 // extern ??? gUnknown_08590F9C
 // extern ??? gUnknown_08590FA4
-// extern ??? gUnknown_08590FB4
+extern const u16 gUnknown_08590FB4[]; // ?? obj data
 // extern ??? gUnknown_08590FBC
 // extern ??? gUnknown_08590FD4
 extern struct ProcCmd gUnknown_08590FDC[];
