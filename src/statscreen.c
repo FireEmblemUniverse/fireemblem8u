@@ -24,11 +24,13 @@
 enum
 {
 	STATSCREEN_BGPAL_HALO = 1,
+	STATSCREEN_BGPAL_2 = 2,
 	STATSCREEN_BGPAL_3 = 3,
 	STATSCREEN_BGPAL_ITEMICONS = 4,
 	STATSCREEN_BGPAL_EXTICONS = 5,
 	STATSCREEN_BGPAL_6 = 6,
 	STATSCREEN_BGPAL_7 = 7,
+	STATSCREEN_BGPAL_FACE = 11,
 	STATSCREEN_BGPAL_BACKGROUND = 12, // 4 palettes
 
 	STATSCREEN_OBJPAL_4 = 4,
@@ -196,7 +198,12 @@ extern u8  CONST_DATA gUnknown_08A01F24[]; // img?
 extern u16 CONST_DATA gUnknown_08A021E4[]; // pal
 extern u8  CONST_DATA gUnknown_08A020F0[]; // img?
 
+extern u16 CONST_DATA gUnknown_08A01EE4[]; // some face-related palette (if portrait)
+extern u16 CONST_DATA gUnknown_08A01F04[]; // some face-related palette (if card)
+
 void sub_8088670(struct Proc* proc);
+void MakeStatScreenRText6C(int pageid, struct Proc* proc);
+void* sub_80895A8(void);
 
 int GetSomeUnitId(void)
 {
@@ -1414,7 +1421,7 @@ void sub_808844C(void)
 	sub_8001F48(1);
 	sub_8001F64(0);
 
-	// TODO: ResetBackdrop macro?
+	// TODO: ResetBackdropColor macro?
 	gPaletteBuffer[0] = 0;
 	EnablePaletteSync();
 }
@@ -1512,4 +1519,160 @@ void sub_80884B0(struct StatScreenProc* proc)
 	gUnknown_02003BFC.mu = NULL;
 
 	sub_8087E28(proc);
+}
+
+void sub_8088670(struct Proc* proc)
+{
+	// Get portrait id
+
+	int fid = GetUnitPortraitId(gUnknown_02003BFC.unit);
+
+	if (gUnknown_02003BFC.unit->state & US_BIT23)
+		fid++;
+
+	// Set page amount (in FE6, this was dependant on whether this is ally or enemy)
+	gUnknown_02003BFC.pageAmt = 3;
+
+	// Init text and icons
+
+	Font_InitForUIDefault();
+	ResetIconGraphics_();
+
+	sub_8086DF0();
+
+	// Display portrait
+
+	sub_8005E98(proc, gBG2TilemapBuffer + TILEMAP_INDEX(1, 1), fid,
+		0x4E0, STATSCREEN_BGPAL_FACE);
+
+	if (GetPortraitStructPointer(fid)->img)
+		ApplyPalette(gUnknown_08A01EE4, STATSCREEN_BGPAL_2);
+	else
+		ApplyPalette(gUnknown_08A01F04, STATSCREEN_BGPAL_2);
+
+	// Display Map Sprite
+
+	MU_EndAll();
+	gUnknown_02003BFC.mu = MU_CreateForUI(gUnknown_02003BFC.unit, 80, 138);
+
+	// Draw left panel labels and info
+
+	sub_8086E44();
+
+	// Draw page content
+
+	sub_80878CC(gUnknown_02003BFC.page);
+
+	TileMap_CopyRect(gUnknown_02003D2C, gBG0TilemapBuffer + TILEMAP_INDEX(12, 2), 18, 18);
+	TileMap_CopyRect(gUnknown_0200472C, gBG2TilemapBuffer + TILEMAP_INDEX(12, 2), 18, 18);
+
+	BG_EnableSyncByMask(BG0_SYNC_BIT | BG1_SYNC_BIT | BG2_SYNC_BIT);
+}
+
+void sub_808873C(struct Proc* proc)
+{
+	struct Unit* unit;
+
+	if (gKeyStatusPtr->newKeys & B_BUTTON)
+	{
+		gLCDControlBuffer.dispcnt.bg0_on = TRUE;
+		gLCDControlBuffer.dispcnt.bg1_on = FALSE;
+		gLCDControlBuffer.dispcnt.bg2_on = TRUE;
+		gLCDControlBuffer.dispcnt.bg3_on = TRUE;
+		gLCDControlBuffer.dispcnt.obj_on = TRUE;
+
+		SetSpecialColorEffectsParameters(3, 0, 0, 0x10);
+
+		sub_8001ED0(0, 0, 0, 0, 0);
+		sub_8001F48(1);
+
+		// TODO: ResetBackdropColor macro?
+		gPaletteBuffer[0] = 0;
+		EnablePaletteSync();
+
+		Proc_ClearNativeCallback(proc);
+
+		PlaySoundEffect(0x6B); // TODO: song ids
+	}
+
+	else if (gKeyStatusPtr->repeatedKeys & DPAD_LEFT)
+	{
+		gUnknown_02003BFC.page = (gUnknown_02003BFC.page + gUnknown_02003BFC.pageAmt - 1) % gUnknown_02003BFC.pageAmt;
+		sub_8087AD8(0x20, gUnknown_02003BFC.page, proc);
+		return;
+	}
+
+	else if (gKeyStatusPtr->repeatedKeys & DPAD_RIGHT)
+	{
+		gUnknown_02003BFC.page = (gUnknown_02003BFC.page + gUnknown_02003BFC.pageAmt + 1) % gUnknown_02003BFC.pageAmt;
+		sub_8087AD8(0x10, gUnknown_02003BFC.page, proc);
+	}
+
+	else if (gKeyStatusPtr->repeatedKeys & DPAD_UP)
+	{
+		unit = sub_8087920(gUnknown_02003BFC.unit, -1);
+		sub_8087E7C(unit, -1, proc);
+	}
+
+	else if (gKeyStatusPtr->repeatedKeys & DPAD_DOWN)
+	{
+		unit = sub_8087920(gUnknown_02003BFC.unit, +1);
+		sub_8087E7C(unit, +1, proc);
+	}
+
+	else if ((gKeyStatusPtr->repeatedKeys & A_BUTTON) && (gUnknown_02003BFC.unit->rescueOtherUnit))
+	{
+		unit = GetUnit(gUnknown_02003BFC.unit->rescueOtherUnit);
+		sub_8087E7C(unit, (gUnknown_02003BFC.unit->state & US_RESCUING) ? +1 : -1, proc);
+	}
+
+	else if (gKeyStatusPtr->newKeys & R_BUTTON)
+	{
+		Proc_GotoLabel(proc, 0); // TODO: label name
+		MakeStatScreenRText6C(gUnknown_02003BFC.page, proc);
+	}
+}
+
+void sub_80888B4(void)
+{
+	gUnknown_0202BCF0.chapterStateBits = (gUnknown_0202BCF0.chapterStateBits &~ 3) | (gUnknown_02003BFC.page & 3);
+	gUnknown_0203E764.uid01 = gUnknown_02003BFC.unit->index;
+
+	SetInterrupt_LCDVCountMatch(NULL);
+
+	gLCDControlBuffer.dispcnt.bg0_on = FALSE;
+	gLCDControlBuffer.dispcnt.bg1_on = FALSE;
+	gLCDControlBuffer.dispcnt.bg2_on = FALSE;
+	gLCDControlBuffer.dispcnt.bg3_on = FALSE;
+	gLCDControlBuffer.dispcnt.obj_on = FALSE;
+}
+
+void sub_808890C(void)
+{
+	gUnknown_02003BFC.help = sub_80895A8();
+}
+
+void sub_8088920(void)
+{
+	int yBg = 0xFF & -gUnknown_02003BFC.yDispOff;
+
+	BG_SetPosition(0, 0, yBg);
+	BG_SetPosition(2, 0, yBg);
+}
+
+void sub_808894C(struct Unit* unit, struct Proc* parent)
+{
+	gUnknown_02003BFC.unk04 = 0;
+	gUnknown_02003BFC.yDispOff = 0;
+	gUnknown_02003BFC.page = gUnknown_0202BCF0.chapterStateBits & 3;
+	gUnknown_02003BFC.unit = unit;
+	gUnknown_02003BFC.help = NULL;
+	gUnknown_02003BFC.unk02 = 0;
+	gUnknown_02003BFC.inTransition = FALSE;
+
+	BWL_IncrementStatScreenViews(unit->pCharacterData->number);
+
+	PlaySoundEffect(0x6A); // TODO: song ids
+
+	Proc_CreateBlockingChild(gUnknown_08A009D8, parent);
 }

@@ -42,7 +42,7 @@ void SetBackgroundScreenSize(int bg, int size);
 void BG_Fill(void *dest, int b);
 void RegisterBlankTile(int a);
 void SetInterrupt_LCDVBlank(InterruptHandler handler);
-// ??? SetInterrupt_LCDVCountMatch(???);
+void SetInterrupt_LCDVCountMatch(InterruptHandler handler);
 // ??? sub_8001308(???);
 // ??? SetLCDVCountSetting(???);
 void SetMainUpdateRoutine(void(*)(void));

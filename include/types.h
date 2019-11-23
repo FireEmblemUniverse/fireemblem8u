@@ -477,4 +477,22 @@ enum
 // TODO: move to bmcontainer.h
 enum { CONVOY_ITEM_COUNT = 100 };
 
+enum
+{
+    FACE_BLINK_NORMAL = 1,
+    FACE_BLINK_CLOSED = 6,
+};
+
+struct FaceData
+{
+    /* 00 */ const u8*  img;
+    /* 04 */ const u8*  imgChibi;
+    /* 08 */ const u16* pal;
+    /* 0C */ const u8*  imgMouth;
+    /* 10 */ const u8*  imgCard;
+    /* 14 */ u8 xMouth, yMouth;
+    /* 16 */ u8 xEyes,  yEyes;
+    /* 18 */ u8 blinkKind;
+};
+
 #endif // GUARD_TYPES_H
