@@ -542,7 +542,7 @@ int GetStringTextCenteredPos(int x, const char* str)
     return (x - GetStringTextWidth(str)) / 2;
 }
 
-void sub_8003FAC(int unused, int *b, int *c)
+void sub_8003FAC(const char* unused, int *b, int *c)
 {
     char *str;
 

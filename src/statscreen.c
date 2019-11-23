@@ -36,6 +36,15 @@ enum
 	STATSCREEN_OBJPAL_4 = 4,
 };
 
+enum
+{
+	STATSCREEN_PAGE_0,
+	STATSCREEN_PAGE_1,
+	STATSCREEN_PAGE_2,
+
+	STATSCREEN_PAGE_MAX,
+};
+
 __attribute__((packed, aligned(4)))
 struct UnitUsageStats
 {
@@ -114,7 +123,7 @@ struct StatScreenSt
 	/* 08 */ s8 inTransition;
 	/* 0C */ struct Unit* unit;
 	/* 10 */ struct MUProc* mu;
-	/* 14 */ void* help;
+	/* 14 */ const void* help;
 	/* 18 */ struct TextHandle text[STATSCREEN_TEXT_MAX];
 };
 
@@ -139,7 +148,7 @@ struct StatScreenTransitionProc
 
 struct StatScreenPageNameProc
 {
-	PROC_HEADER;
+	/* 00 */ PROC_HEADER;
 
 	/* 29 */ u8 pad29[0x36 - 0x29];
 	/* 36 */ u8 unk36;
@@ -148,7 +157,7 @@ struct StatScreenPageNameProc
 
 struct StatScreenUnkProc
 {
-	PROC_HEADER;
+	/* 00 */ PROC_HEADER;
 
 	/* 2A */ short unk2A;
 	/* 2C */ short unk2C;
@@ -158,9 +167,59 @@ struct StatScreenUnkProc
 	/* 34 */ short unk34;
 };
 
-struct StatScreenProc
+struct HelpBoxInfo;
+
+struct HelpBoxProc
+{
+	/* 00 */ PROC_HEADER;
+
+	/* 2C */ const struct HelpBoxInfo* info;
+
+	/* 30 */ short unk30;
+	/* 32 */ short unk32;
+	/* 34 */ short unk34;
+	/* 36 */ short unk36;
+	/* 38 */ short unk38;
+	/* 3A */ short unk3A;
+	/* 3C */ short unk3C;
+	/* 3E */ short unk3E;
+	/* 40 */ short unk40;
+	/* 42 */ short unk42;
+	/* 44 */ short unk44;
+	/* 46 */ short unk46;
+	/* 48 */ short unk48;
+	/* 4A */ short unk4A;
+
+	/* 4C */ u16 msgId_maybe;
+	/* 4E */ u16 item_maybe;
+
+	/* 50 */ u16 pad50;
+
+	/* 52 */ u8 unk52;
+};
+
+struct HelpBoxMoverProc
 {
 	PROC_HEADER;
+
+	/* 2C */ const struct HelpBoxInfo* info;
+
+	/* 30 */ u8 pad30[0x50 - 0x30];
+
+	/* 50 */ u16 unk50;
+};
+
+struct HelpBoxInfo
+{
+	/* 00 */ const struct HelpBoxInfo* adj1;
+	/* 04 */ const struct HelpBoxInfo* adj2;
+	/* 08 */ const struct HelpBoxInfo* adj3;
+	/* 0C */ const struct HelpBoxInfo* adj4;
+	/* 10 */ u8 xDisplay;
+	/* 11 */ u8 yDisplay;
+	/* 12 */ u16 msgId;
+	/* 14 */ void(*onInitMoveable)(struct HelpBoxMoverProc* proc);
+	/* 18 */ void(*onInit)(struct HelpBoxProc* proc);
 };
 
 extern struct StatScreenSt gUnknown_02003BFC; // statscreen state
@@ -168,6 +227,8 @@ extern u16 gUnknown_02003D2C[0x280]; // bg0 tilemap buffer for stat screen page
 extern u16 gUnknown_0200472C[0x240]; // bg2 tilemap buffer for stat screen page
 
 extern struct Unk0203E764 gUnknown_0203E764; // big unk
+
+extern const struct HelpBoxInfo* gUnknown_0203E784;
 
 extern struct TextBatch CONST_DATA gUnknown_08A006FC[];
 
@@ -201,9 +262,28 @@ extern u8  CONST_DATA gUnknown_08A020F0[]; // img?
 extern u16 CONST_DATA gUnknown_08A01EE4[]; // some face-related palette (if portrait)
 extern u16 CONST_DATA gUnknown_08A01F04[]; // some face-related palette (if card)
 
+extern struct HelpBoxInfo CONST_DATA gUnknown_08A00BC4; // page 0 root help
+extern struct HelpBoxInfo CONST_DATA gUnknown_08A00DA0; // page 1 root help
+extern struct HelpBoxInfo CONST_DATA gUnknown_08A00F44; // page 2 root help
+
+extern struct ProcCmd CONST_DATA gUnknown_08A00B20[]; // proc displaying 'R is Info'
+
 void sub_8088670(struct Proc* proc);
 void MakeStatScreenRText6C(int pageid, struct Proc* proc);
 void* sub_80895A8(void);
+void Create6CRText(const struct HelpBoxInfo* helpinfo, struct Proc* parent); // StartMoveableHelpBox
+void sub_80893B4(struct HelpBoxMoverProc* proc);
+void sub_8089354(struct HelpBoxMoverProc* proc);
+void sub_8089384(struct HelpBoxMoverProc* proc);
+void sub_8089980(int a, int b, int c, int d, int e);
+void sub_80892C0(struct HelpBoxProc* proc);
+void sub_808929C(struct HelpBoxProc* proc, int x, int y);
+
+void sub_80891AC(struct HelpBoxProc* proc, int width, int height);
+void sub_8089210(struct HelpBoxProc* proc, int x, int y);
+void sub_808A118(void);
+
+void sub_808A0FC(int item, int msgid);
 
 int GetSomeUnitId(void)
 {
@@ -1152,7 +1232,7 @@ void sub_8087DF8(struct StatScreenTransitionProc* proc)
 	Proc_ClearNativeCallback((struct Proc*) proc);
 }
 
-void sub_8087E28(struct StatScreenProc* proc)
+void sub_8087E28(struct Proc* proc)
 {
 	if (gUnknown_02003BFC.mu)
 		MU_SetDisplayPosition(gUnknown_02003BFC.mu,
@@ -1382,7 +1462,7 @@ void sub_8088384(void)
 
 	if (!gUnknown_02003BFC.inTransition)
 	{
-		if ((gUnknown_02003BFC.page == 0) && (gUnknown_02003BFC.unit->state & US_RESCUING))
+		if ((gUnknown_02003BFC.page == STATSCREEN_PAGE_0) && (gUnknown_02003BFC.unit->state & US_RESCUING))
 		{
 			sub_8015BD4(120, 40, 1);
 			sub_8015BD4(120, 56, 1);
@@ -1426,7 +1506,7 @@ void sub_808844C(void)
 	EnablePaletteSync();
 }
 
-void sub_80884B0(struct StatScreenProc* proc)
+void sub_80884B0(struct Proc* proc)
 {
 	extern u16 const gUnknown_08205B3A[];
 	u16 hack[12];
@@ -1531,7 +1611,7 @@ void sub_8088670(struct Proc* proc)
 		fid++;
 
 	// Set page amount (in FE6, this was dependant on whether this is ally or enemy)
-	gUnknown_02003BFC.pageAmt = 3;
+	gUnknown_02003BFC.pageAmt = STATSCREEN_PAGE_MAX;
 
 	// Init text and icons
 
@@ -1675,4 +1755,390 @@ void sub_808894C(struct Unit* unit, struct Proc* parent)
 	PlaySoundEffect(0x6A); // TODO: song ids
 
 	Proc_CreateBlockingChild(gUnknown_08A009D8, parent);
+}
+
+void MakeStatScreenRText6C(int pageid, struct Proc* proc)
+{
+	LoadDialogueBoxGfx(NULL, -1); // default
+
+	if (!gUnknown_02003BFC.help)
+	{
+		switch (pageid)
+		{
+
+		case STATSCREEN_PAGE_0:
+			gUnknown_02003BFC.help = &gUnknown_08A00BC4;
+			break;
+		
+		case STATSCREEN_PAGE_1:
+			gUnknown_02003BFC.help = &gUnknown_08A00DA0;
+			break;
+
+		case STATSCREEN_PAGE_2:
+			gUnknown_02003BFC.help = &gUnknown_08A00F44;
+			break;
+
+		} // switch (pageid)
+	}
+
+	Create6CRText(gUnknown_02003BFC.help, proc);
+}
+
+void sub_8088A00(struct HelpBoxProc* proc)
+{
+	int item = gUnknown_02003BFC.unit->items[proc->info->msgId];
+
+	proc->item_maybe  = item;
+	proc->msgId_maybe = GetItemDescId(item);
+}
+
+void sub_8088A2C(struct HelpBoxProc* proc)
+{
+	switch (gUnknown_02003BFC.unit->statusIndex)
+	{
+
+	case UNIT_STATUS_NONE:
+		proc->msgId_maybe = 0x552; // TODO: mid constants
+		break;
+
+	case UNIT_STATUS_POISON:
+		proc->msgId_maybe = 0x553; // TODO: mid constants
+		break;
+
+	case UNIT_STATUS_SLEEP:
+		proc->msgId_maybe = 0x554; // TODO: mid constants
+		break;
+
+	case UNIT_STATUS_SILENCED:
+		proc->msgId_maybe = 0x556; // TODO: mid constants
+		break;
+
+	case UNIT_STATUS_BERSERK:
+		proc->msgId_maybe = 0x555; // TODO: mid constants
+		break;
+
+	case UNIT_STATUS_ATTACK:
+		proc->msgId_maybe = 0x558; // TODO: mid constants
+		break;
+
+	case UNIT_STATUS_DEFENSE:
+		proc->msgId_maybe = 0x559; // TODO: mid constants
+		break;
+
+	case UNIT_STATUS_CRIT:
+		proc->msgId_maybe = 0x55A; // TODO: mid constants
+		break;
+
+	case UNIT_STATUS_AVOID:
+		proc->msgId_maybe = 0x55B; // TODO: mid constants
+		break;
+
+	case UNIT_STATUS_PETRIFY:
+	case UNIT_STATUS_13:
+		proc->msgId_maybe = 0x557; // TODO: mid constants
+		break;
+
+	} // switch (gUnknown_02003BFC.unit->statusIndex)
+}
+
+void sub_8088B08(struct HelpBoxProc* proc)
+{
+	if (UnitHasMagicRank(gUnknown_02003BFC.unit))
+		proc->msgId_maybe = 0x547; // TODO: mid constants
+	else
+		proc->msgId_maybe = 0x546; // TODO: mid constants
+}
+
+void sub_8088B40(struct HelpBoxMoverProc* proc)
+{
+	if (!gUnknown_02003BFC.unit->items[0])
+		sub_80893B4(proc);
+
+	if (!gUnknown_02003BFC.unit->items[proc->info->msgId])
+	{
+		if (proc->unk50 == 0 || proc->unk50 == 0x10 || proc->unk50 == 0x40)
+			sub_8089354(proc);
+		else if (proc->unk50 == 0x80)
+			sub_8089384(proc);
+	}
+}
+
+void sub_8088B94(struct HelpBoxProc* proc)
+{
+	int itemKind;
+
+	// FIXME
+	extern const u16 gUnknown_08205B52[];
+	u16 hack[8];
+	memcpy(hack, gUnknown_08205B52, sizeof(hack));
+
+	itemKind = proc->info->msgId;
+
+	if (UnitHasMagicRank(gUnknown_02003BFC.unit))
+		itemKind += 4;
+
+	proc->msgId_maybe = hack[itemKind];
+}
+
+void sub_8088BD4(struct HelpBoxProc* proc)
+{
+	int midDesc = gUnknown_02003BFC.unit->pCharacterData->descTextId;
+
+	if (midDesc)
+		proc->msgId_maybe = midDesc;
+	else
+		proc->msgId_maybe = 0x6BE; // TODO: mid constants
+}
+
+void sub_8088C00(struct HelpBoxProc* proc)
+{
+	proc->msgId_maybe = gUnknown_02003BFC.unit->pClassData->descTextId;
+}
+
+void sub_8088C14(struct HelpBoxMoverProc* proc)
+{
+	if (GetUnitTotalSupportLevel(gUnknown_02003BFC.unit) == 0)
+	{
+		if (proc->unk50 == 0x80)
+			sub_8089384(proc);
+		else
+			sub_8089354(proc);
+	}
+}
+
+void sub_8088C48(struct HelpBoxProc* proc, int arg1)
+{
+	proc->unk30 = sub_8012DCC(arg1, proc->unk38, proc->unk3C, proc->unk48, proc->unk4A);
+	proc->unk32 = sub_8012DCC(arg1, proc->unk3A, proc->unk3E, proc->unk48, proc->unk4A);
+	proc->unk34 = sub_8012DCC(arg1, proc->unk40, proc->unk44, proc->unk48, proc->unk4A);
+	proc->unk36 = sub_8012DCC(arg1, proc->unk42, proc->unk46, proc->unk48, proc->unk4A);
+
+	sub_8089980(proc->unk30, proc->unk32, proc->unk34, proc->unk36, proc->unk52);
+}
+
+void sub_8088CFC(struct HelpBoxProc* proc)
+{
+	struct Proc* found = Proc_Find(gUnknown_08A00B20);
+
+	if (found)
+		found->blockSemaphore = 1; // lock (disabled) proc
+
+	if (proc->unk52 == 0)
+		PlaySoundEffect(0x70); // TODO: song ids
+}
+
+void sub_8088D3C(struct HelpBoxProc* proc)
+{
+	sub_8088C48(proc, 5);
+
+	if (proc->unk48 < proc->unk4A)
+		proc->unk48++;
+}
+
+void sub_8088D64(struct HelpBoxProc* proc)
+{
+	struct Proc* found = Proc_Find(gUnknown_08A00B20);
+
+	if (found)
+		found->blockSemaphore = 0; // unlock (enable) proc
+
+	if (proc->unk52 == 0)
+	{
+		PlaySoundEffect(0x71); // TODO: song ids
+
+		sub_80892C0(proc);
+		sub_808929C(proc, proc->info->xDisplay, proc->info->yDisplay);
+	}
+}
+
+void sub_8088DB8(struct HelpBoxProc* proc)
+{
+	sub_8088C48(proc, 0);
+
+	proc->unk48 -= 3;
+
+	if (proc->unk48 < 0)
+		Proc_ClearNativeCallback((struct Proc*) proc);
+}
+
+void sub_8088E9C(const struct HelpBoxInfo* info, int unk);
+void sub_8089320(struct HelpBoxProc* proc);
+
+extern struct HelpBoxInfo gUnknown_0203E768;
+extern struct Vec2 gUnknown_0203E788;
+
+extern struct ProcCmd CONST_DATA gUnknown_08A00A98[];
+
+void sub_8088DE0(int x, int y, int msgid)
+{
+	gUnknown_0203E768.adj1 = NULL;
+	gUnknown_0203E768.adj2 = NULL;
+	gUnknown_0203E768.adj3 = NULL;
+	gUnknown_0203E768.adj4 = NULL;
+
+	gUnknown_0203E768.xDisplay = x;
+	gUnknown_0203E768.yDisplay = y;
+	gUnknown_0203E768.msgId    = msgid;
+
+	gUnknown_0203E768.onInitMoveable = NULL;
+	gUnknown_0203E768.onInit = NULL;
+
+	gUnknown_0203E788.x = 0;
+	gUnknown_0203E788.y = 0;
+
+	sub_8088E9C(&gUnknown_0203E768, FALSE);
+}
+
+void sub_8088E14(int x, int y, int msgid)
+{
+	if (x < 0 && y < 0)
+	{
+		x = GetUiHandPrevDisplayX();
+		y = GetUiHandPrevDisplayY();
+	}
+
+	gUnknown_0203E768.adj1 = NULL;
+	gUnknown_0203E768.adj2 = NULL;
+	gUnknown_0203E768.adj3 = NULL;
+	gUnknown_0203E768.adj4 = NULL;
+
+	gUnknown_0203E768.xDisplay = x;
+	gUnknown_0203E768.yDisplay = y;
+	gUnknown_0203E768.msgId    = msgid;
+
+	gUnknown_0203E768.onInitMoveable = NULL;
+	gUnknown_0203E768.onInit = NULL;
+
+	gUnknown_0203E788.x = 0;
+	gUnknown_0203E788.y = 0;
+
+	sub_8088E9C(&gUnknown_0203E768, TRUE);
+}
+
+void sub_8088E60(int x, int y, int item)
+{
+	gUnknown_0203E768.adj1 = NULL;
+	gUnknown_0203E768.adj2 = NULL;
+	gUnknown_0203E768.adj3 = NULL;
+	gUnknown_0203E768.adj4 = NULL;
+
+	gUnknown_0203E768.xDisplay = x;
+	gUnknown_0203E768.yDisplay = y;
+	gUnknown_0203E768.msgId    = item;
+
+	gUnknown_0203E768.onInitMoveable = NULL;
+	gUnknown_0203E768.onInit = sub_8089320;
+
+	gUnknown_0203E788.x = 0;
+	gUnknown_0203E788.y = 0;
+
+	sub_8088E9C(&gUnknown_0203E768, FALSE);
+}
+
+void sub_8088E9C(const struct HelpBoxInfo* info, int unk)
+{
+	struct HelpBoxProc* proc;
+	int wBox, hBox;
+
+	proc = (void*) Proc_Find(gUnknown_08A00A98);
+
+	if (!proc)
+	{
+		proc = (void*) Proc_Create(gUnknown_08A00A98, ROOT_PROC_3);
+
+		proc->unk52 = unk;
+
+		sub_808929C(proc, info->xDisplay, info->yDisplay);
+		sub_80892C0(proc);
+	}
+	else
+	{
+		proc->unk38 = proc->unk30;
+		proc->unk3A = proc->unk32;
+		proc->unk40 = proc->unk34;
+		proc->unk42 = proc->unk36;
+	}
+
+	proc->info = info;
+
+	proc->unk48 = 0;
+	proc->unk4A = 12;
+
+	proc->item_maybe = 0;
+	proc->msgId_maybe = info->msgId;
+
+	if (proc->info->onInit)
+		proc->info->onInit(proc);
+
+	SetFontGlyphSet(1);
+	sub_8003FAC(GetStringFromIndex(proc->msgId_maybe), &wBox, &hBox);
+	SetFontGlyphSet(0);
+
+	sub_80891AC(proc, wBox, hBox);
+	sub_8089210(proc, info->xDisplay, info->yDisplay);
+
+	sub_808A118();
+	sub_808A0FC(proc->item_maybe, proc->msgId_maybe);
+
+	gUnknown_0203E784 = info;
+}
+
+void sub_8088F68(int x, int y, int msgid)
+{
+	struct HelpBoxProc* proc;
+	int wBox, hBox;
+
+	proc = (void*) Proc_Create(gUnknown_08A00A98, ROOT_PROC_3);
+
+	proc->unk52 = TRUE;
+
+	if (x < 0 && y < 0)
+	{
+		x = GetUiHandPrevDisplayX();
+		y = GetUiHandPrevDisplayY();
+	}
+
+	proc->unk48 = 0;
+	proc->unk4A = 12;
+
+	proc->item_maybe = 0;
+	proc->msgId_maybe = msgid;
+
+	SetFontGlyphSet(1);
+	sub_8003FAC(GetStringFromIndex(proc->msgId_maybe), &wBox, &hBox);
+	SetFontGlyphSet(0);
+
+	sub_80892C0(proc);
+	sub_80891AC(proc, wBox, hBox);
+
+	proc->unk38 = x + 8;
+	proc->unk3A = y + 8;
+
+	proc->unk3C = x + 8;
+	proc->unk3E = y + 8;
+
+	sub_808A118();
+	sub_808A0FC(proc->item_maybe, proc->msgId_maybe);
+}
+
+void sub_8089018(void)
+{
+	struct HelpBoxProc* proc = (void*) Proc_Find(gUnknown_08A00A98);
+
+	if (proc)
+	{
+		sub_808A118();
+		Proc_GotoLabel((struct Proc*) proc, 0x63);
+	}
+}
+
+void sub_808903C(void)
+{
+	struct HelpBoxProc* proc = (void*) Proc_Find(gUnknown_08A00A98);
+
+	if (proc)
+	{
+		sub_808A118();
+		Proc_Delete((struct Proc*) proc);
+	}
 }
