@@ -1179,12 +1179,6 @@ extern const char *const gUnknown_0815D48C[];
 // extern ??? gUnknown_082058F8
 // extern ??? gUnknown_08205918
 // extern ??? gUnknown_08205938
-// extern ??? gUnknown_08205964
-// extern ??? gUnknown_08205A24
-// extern ??? gUnknown_08205B24
-// extern ??? gUnknown_08205B34
-// extern ??? gUnknown_08205B3A
-// extern ??? gUnknown_08205B52
 // extern ??? gUnknown_08205B84
 // extern ??? gUnknown_08205B94
 // extern ??? gUnknown_08205BB0

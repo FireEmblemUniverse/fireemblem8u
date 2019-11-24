@@ -33,57 +33,89 @@ extern const struct HelpBoxInfo* gUnknown_0203E784;
 extern struct HelpBoxInfo gUnknown_0203E768;
 extern struct Vec2 gUnknown_0203E788;
 
-extern const struct Unk8086E00 gUnknown_08205A24[];
+const struct Unk8086E00 gUnknown_08205964[] =
+{
+	{ gUnknown_02003BFC.text + 4,  gUnknown_02003D2C + TILEMAP_INDEX(1, 3),  TEXT_COLOR_GOLD, 0, (void*) 0x8A0116C },
+	{ gUnknown_02003BFC.text + 5,  gUnknown_02003D2C + TILEMAP_INDEX(1, 5),  TEXT_COLOR_GOLD, 0, (void*) 0x8A01170 },
+	{ gUnknown_02003BFC.text + 6,  gUnknown_02003D2C + TILEMAP_INDEX(1, 7),  TEXT_COLOR_GOLD, 0, (void*) 0x8A0117C },
+	{ gUnknown_02003BFC.text + 7,  gUnknown_02003D2C + TILEMAP_INDEX(1, 9),  TEXT_COLOR_GOLD, 0, (void*) 0x8A01174 },
+	{ gUnknown_02003BFC.text + 8,  gUnknown_02003D2C + TILEMAP_INDEX(1, 11), TEXT_COLOR_GOLD, 0, (void*) 0x8A01178 },
+	{ gUnknown_02003BFC.text + 9,  gUnknown_02003D2C + TILEMAP_INDEX(9, 1),  TEXT_COLOR_GOLD, 0, (void*) 0x8A01188 },
+	{ gUnknown_02003BFC.text + 10, gUnknown_02003D2C + TILEMAP_INDEX(9, 3),  TEXT_COLOR_GOLD, 0, (void*) 0x8A01180 },
+	{ gUnknown_02003BFC.text + 11, gUnknown_02003D2C + TILEMAP_INDEX(9, 5),  TEXT_COLOR_GOLD, 0, (void*) 0x8A01184 },
+	{ gUnknown_02003BFC.text + 12, gUnknown_02003D2C + TILEMAP_INDEX(9, 7),  TEXT_COLOR_GOLD, 0, (void*) 0x8A0118C },
+	{ gUnknown_02003BFC.text + 13, gUnknown_02003D2C + TILEMAP_INDEX(9, 9),  TEXT_COLOR_GOLD, 0, (void*) 0x8A01190 },
+	{ gUnknown_02003BFC.text + 14, gUnknown_02003D2C + TILEMAP_INDEX(9, 11), TEXT_COLOR_GOLD, 0, (void*) 0x8A011A8 },
+
+	{ }, // end
+};
+
+const struct Unk8086E00 gUnknown_08205A24[] =
+{
+	{ gUnknown_02003BFC.text + 21, gUnknown_02003D2C + TILEMAP_INDEX(2, 13), TEXT_COLOR_GOLD, 6, (void*) 0x8A01198 },
+	{ gUnknown_02003BFC.text + 22, gUnknown_02003D2C + TILEMAP_INDEX(2, 15), TEXT_COLOR_GOLD, 6, (void*) 0x8A0119C },
+	{ gUnknown_02003BFC.text + 20, gUnknown_02003D2C + TILEMAP_INDEX(9, 11), TEXT_COLOR_GOLD, 6, (void*) 0x8A01194 },
+	{ gUnknown_02003BFC.text + 23, gUnknown_02003D2C + TILEMAP_INDEX(9, 13), TEXT_COLOR_GOLD, 6, (void*) 0x8A011A0 },
+	{ gUnknown_02003BFC.text + 24, gUnknown_02003D2C + TILEMAP_INDEX(9, 15), TEXT_COLOR_GOLD, 6, (void*) 0x8A011A4 },
+
+	{ }, // end
+};
+
+const struct Unk8086E00 gUnused_08205A84[] =
+{
+	{ gUnknown_02003BFC.text + 25, gUnknown_02003D2C + TILEMAP_INDEX(3,  1), TEXT_COLOR_NORMAL, 0, (void*) 0x8A011E8 },
+	{ gUnknown_02003BFC.text + 26, gUnknown_02003D2C + TILEMAP_INDEX(3,  3), TEXT_COLOR_NORMAL, 0, (void*) 0x8A011EC },
+	{ gUnknown_02003BFC.text + 27, gUnknown_02003D2C + TILEMAP_INDEX(11, 1), TEXT_COLOR_NORMAL, 0, (void*) 0x8A011F0 },
+	{ gUnknown_02003BFC.text + 28, gUnknown_02003D2C + TILEMAP_INDEX(11, 3), TEXT_COLOR_NORMAL, 0, (void*) 0x8A011F4 },
+
+	{ }, // end
+};
+
+const struct Unk8086E00 gUnused_08205AD4[] =
+{
+	{ gUnknown_02003BFC.text + 25, gUnknown_02003D2C + TILEMAP_INDEX(3,  1), TEXT_COLOR_NORMAL, 0, (void*) 0x8A011FC },
+	{ gUnknown_02003BFC.text + 26, gUnknown_02003D2C + TILEMAP_INDEX(3,  3), TEXT_COLOR_NORMAL, 0, (void*) 0x8A01200 },
+	{ gUnknown_02003BFC.text + 27, gUnknown_02003D2C + TILEMAP_INDEX(11, 1), TEXT_COLOR_NORMAL, 0, (void*) 0x8A01204 },
+	{ gUnknown_02003BFC.text + 28, gUnknown_02003D2C + TILEMAP_INDEX(11, 3), TEXT_COLOR_NORMAL, 0, (void*) 0x8A011F8 },
+
+	{ }, // end
+};
 
 extern struct TextBatch CONST_DATA gUnknown_08A006FC[];
-
 extern s8 CONST_DATA gUnknown_08A0081C[]; /* stat screen page transition draw offset lut */
-
 extern struct ProcCmd CONST_DATA gUnknown_08A0082C[]; // page transition proc
 extern struct ProcCmd CONST_DATA gUnknown_08A00844[]; // unk
 extern struct ProcCmd CONST_DATA gUnknown_08A00864[]; // unit transition proc
-extern struct ProcCmd CONST_DATA gUnknown_08A009D8[]; // main proc
-
 extern u16 CONST_DATA gUnknown_08A008FE[]; // obj for page name bg
-
 extern u16 const* CONST_DATA gUnknown_08A00924[]; // objs for page names
 extern u16 CONST_DATA gUnknown_08A00930[]; // tile offsets within an image
-
-extern u8 CONST_DATA gUnknown_08A02204[]; // tsa
-extern u8 CONST_DATA gUnknown_08A02250[]; // tsa
-
-extern u16 CONST_DATA gUnknown_08A027FC[][0x10]; // color animation for each page
-
-extern u8  CONST_DATA gUnknown_08A064E0[]; // halo img
-extern u16 CONST_DATA gUnknown_08A0731C[]; // halo pal
-extern u8  CONST_DATA gUnknown_08A071FC[]; // halo tsa
-
-extern u8  CONST_DATA gUnknown_08A03368[]; // background img
-extern u16 CONST_DATA gUnknown_08A06460[]; // background pal
-extern u8  CONST_DATA gUnknown_08A05F10[]; // background tsa
-
-extern u8  CONST_DATA gUnknown_08A02274[]; // img objects
-extern u8  CONST_DATA gUnknown_08A01F24[]; // img?
-extern u16 CONST_DATA gUnknown_08A021E4[]; // pal
-extern u8  CONST_DATA gUnknown_08A020F0[]; // img?
-
-extern u16 CONST_DATA gUnknown_08A01EE4[]; // some face-related palette (if portrait)
-extern u16 CONST_DATA gUnknown_08A01F04[]; // some face-related palette (if card)
-
+extern struct ProcCmd CONST_DATA gUnknown_08A009D8[]; // main proc
+extern struct ProcCmd CONST_DATA gUnknown_08A00A98[]; // help box core proc
+extern struct ProcCmd CONST_DATA gUnknown_08A00AD0[]; // help box mover proc
+extern u16 CONST_DATA gUnknown_08A00B10[]; // 'R is info' object
+extern struct ProcCmd CONST_DATA gUnknown_08A00B20[]; // proc displaying 'R is Info'
 extern struct HelpBoxInfo CONST_DATA gUnknown_08A00BC4; // page 0 root help
+extern struct HelpBoxInfo CONST_DATA gUnknown_08A00D14; // hardcoded thing bad
 extern struct HelpBoxInfo CONST_DATA gUnknown_08A00DA0; // page 1 root help
 extern struct HelpBoxInfo CONST_DATA gUnknown_08A00F44; // page 2 root help
 
-extern struct ProcCmd CONST_DATA gUnknown_08A00B20[]; // proc displaying 'R is Info'
+extern u16 CONST_DATA gUnknown_08A01EE4[]; // some face-related palette (if portrait)
+extern u16 CONST_DATA gUnknown_08A01F04[]; // some face-related palette (if card)
+extern u8  CONST_DATA gUnknown_08A01F24[]; // img?
+extern u8  CONST_DATA gUnknown_08A020F0[]; // img?
+extern u16 CONST_DATA gUnknown_08A021E4[]; // pal
+extern u8  CONST_DATA gUnknown_08A02204[]; // tsa
+extern u8  CONST_DATA gUnknown_08A02250[]; // tsa
+extern u8  CONST_DATA gUnknown_08A02274[]; // img objects
+extern u16 CONST_DATA gUnknown_08A027FC[][0x10]; // color animation for each page
+extern u8  CONST_DATA gUnknown_08A064E0[]; // halo img
+extern u8  CONST_DATA gUnknown_08A071FC[]; // halo tsa
+extern u16 CONST_DATA gUnknown_08A0731C[]; // halo pal
+extern u8  CONST_DATA gUnknown_08A03368[]; // background img
+extern u8  CONST_DATA gUnknown_08A05F10[]; // background tsa
+extern u16 CONST_DATA gUnknown_08A06460[]; // background pal
 
-extern struct ProcCmd CONST_DATA gUnknown_08A00AD0[]; // help box mover proc
-
-extern struct ProcCmd CONST_DATA gUnknown_08A00A98[]; // help box core proc
-
-extern u16 CONST_DATA gUnknown_08A00B10[]; // 'R is info' object
 extern u16 CONST_DATA gUnknown_08A1D79C[]; // 'R is info' palette
-
-extern struct HelpBoxInfo CONST_DATA gUnknown_08A00D14; // hardcoded thing bad
 
 void sub_8088670(struct Proc* proc);
 void MakeStatScreenRText6C(int pageid, struct Proc* proc);
@@ -399,8 +431,6 @@ void DrawStatScreenBar(int num, int x, int y, int base, int total, int max)
 }
 
 #endif // NONMATCHING
-
-extern const struct Unk8086E00 gUnknown_08205964[];
 
 void DrawUnitStatScreen(void)
 {
@@ -770,15 +800,18 @@ void sub_80878CC(int pageid)
 {
 	typedef void(*func_type)(void);
 
-	// TODO: fix this hack
-	extern const func_type gUnknown_08205B24[];
-	func_type hack[4];
-	memcpy(hack, gUnknown_08205B24, sizeof(hack));
+	func_type funcLut[4] =
+	{
+		DrawUnitStatScreen,
+		DrawUnitItemScreen,
+		DrawUnitWeaponScreen,
+		DrawUnitStatScreen,
+	};
 
 	CpuFastFill(0, gUnknown_02003D2C, sizeof(gUnknown_02003D2C));
 	CpuFastFill(0, gUnknown_0200472C, sizeof(gUnknown_0200472C));
 
-	hack[pageid]();
+	funcLut[pageid]();
 }
 
 struct Unit* sub_8087920(struct Unit* u, int direction)
@@ -1271,9 +1304,7 @@ void sub_8088384(void)
 {
 	s8 displayIcon = (GetGameClock() % 32) < 20;
 
-	extern u16 const gUnknown_08205B34[];
-	u16 hack[3]; // FIXME
-	memcpy(hack, gUnknown_08205B34, sizeof(hack));
+	u16 palidLut[3] = { 0xC, 0xE, 0xD }; // TODO: palid constants
 
 	if (!gUnknown_02003BFC.inTransition)
 	{
@@ -1286,7 +1317,7 @@ void sub_8088384(void)
 			{
 				RegisterObjectAttributes_SafeMaybe(4,
 					184, 78, gUnknown_08590F44,
-					TILEREF(3, 0xF & hack[gUnknown_02003BFC.unit->rescueOtherUnit>>6]) + OAM2_PRIORITY(2));
+					TILEREF(3, 0xF & palidLut[gUnknown_02003BFC.unit->rescueOtherUnit>>6]) + OAM2_PRIORITY(2));
 			}
 		}
 
@@ -1296,7 +1327,7 @@ void sub_8088384(void)
 			{
 				RegisterObjectAttributes_SafeMaybe(4,
 					10, 86, gUnknown_08590F44,
-					TILEREF(3, 0xF & hack[gUnknown_02003BFC.unit->rescueOtherUnit>>6]) + OAM2_PRIORITY(2));
+					TILEREF(3, 0xF & palidLut[gUnknown_02003BFC.unit->rescueOtherUnit>>6]) + OAM2_PRIORITY(2));
 			}
 		}
 	}
@@ -1323,11 +1354,15 @@ void sub_808844C(void)
 
 void sub_80884B0(struct Proc* proc)
 {
-	extern u16 const gUnknown_08205B3A[];
-	u16 hack[12];
-	memcpy(hack, gUnknown_08205B3A, sizeof(hack));
+	u16 bgConfig[12] =
+	{
+		0x0000, 0x6000, 0,
+		0x0000, 0x6800, 0,
+		0x8000, 0x7000, 0,
+		0x8000, 0x7800, 0,
+	};
 
-	SetupBackgrounds(hack);
+	SetupBackgrounds(bgConfig);
 
 	UnpackUiFramePalette(STATSCREEN_BGPAL_3);
 	RegisterBlankTile(0x400);
@@ -1680,19 +1715,17 @@ void sub_8088B40(struct HelpBoxProc* proc)
 
 void sub_8088B94(struct HelpBoxProc* proc)
 {
-	int itemKind;
+	u16 rankMsgLut[8] =
+	{
+		0x561, 0x562, 0x563, 0x564, 0x565, 0x566, 0x567, 0x568
+	};
 
-	// FIXME
-	extern const u16 gUnknown_08205B52[];
-	u16 hack[8];
-	memcpy(hack, gUnknown_08205B52, sizeof(hack));
-
-	itemKind = proc->info->msgId;
+	int itemKind = proc->info->msgId;
 
 	if (UnitHasMagicRank(gUnknown_02003BFC.unit))
 		itemKind += 4;
 
-	proc->msgId_maybe = hack[itemKind];
+	proc->msgId_maybe = rankMsgLut[itemKind];
 }
 
 void sub_8088BD4(struct HelpBoxProc* proc)
