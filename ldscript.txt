@@ -128,7 +128,6 @@ SECTIONS
         asm/code_8086934.o(.text);
         asm/fx_slidingwallbg.o(.text);
         src/statscreen.o(.text);
-        asm/statscreen.o(.text);
         asm/code.o(.text);
         asm/m4a_1.o(.text);
         src/m4a.o(.text);
