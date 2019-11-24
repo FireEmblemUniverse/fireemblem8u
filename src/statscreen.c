@@ -2308,3 +2308,73 @@ const struct HelpBoxInfo* sub_80895A8(void)
 {
 	return gUnknown_0203E784;
 }
+
+// =================
+// = HELP BOX INFO =
+// =================
+
+#define DECL_INFO struct HelpBoxInfo CONST_DATA
+
+// TODO (maybe, eventually): maybe generate this from file(s)?
+
+// BKSEL (Select Battle Target Window) HELP INFOS
+
+void sub_8037494(struct HelpBoxProc* proc);
+void sub_80374C4(struct HelpBoxProc* proc);
+
+static DECL_INFO sHelpInfo_08A01078;
+extern DECL_INFO gUnknown_08A01094;
+static DECL_INFO sHelpInfo_08A010B0;
+static DECL_INFO sHelpInfo_08A010CC;
+static DECL_INFO sHelpInfo_08A010E8;
+static DECL_INFO sHelpInfo_08A01104;
+static DECL_INFO sHelpInfo_08A01120;
+static DECL_INFO sHelpInfo_08A0113C;
+
+static DECL_INFO sHelpInfo_08A01078 =
+{
+	NULL, &gUnknown_08A01094, NULL, NULL,
+	8, 8, 0, NULL, sub_8037494,
+};
+
+DECL_INFO gUnknown_08A01094 =
+{
+	&sHelpInfo_08A01078, &sHelpInfo_08A010B0, NULL, NULL,
+	28, 24, 0x544,
+};
+
+static DECL_INFO sHelpInfo_08A010B0 =
+{
+	&gUnknown_08A01094, &sHelpInfo_08A010CC, NULL, NULL,
+	28, 40, 0x55C,
+};
+
+static DECL_INFO sHelpInfo_08A010CC =
+{
+	&sHelpInfo_08A010B0, &sHelpInfo_08A010E8, NULL, NULL,
+	28, 56, 0x573,
+};
+
+static DECL_INFO sHelpInfo_08A010E8 =
+{
+	&sHelpInfo_08A010CC, &sHelpInfo_08A01104, NULL, NULL,
+	28, 72, 0x55D,
+};
+
+static DECL_INFO sHelpInfo_08A01104 =
+{
+	&sHelpInfo_08A010E8, &sHelpInfo_08A01120, NULL, NULL,
+	28, 88, 0x55F,
+};
+
+static DECL_INFO sHelpInfo_08A01120 =
+{
+	&sHelpInfo_08A01104, &sHelpInfo_08A0113C, NULL, NULL,
+	28, 104, 0x572,
+};
+
+static DECL_INFO sHelpInfo_08A0113C =
+{
+	&sHelpInfo_08A01120, NULL, NULL, NULL,
+	56, 120, 0, NULL, sub_80374C4,
+};
