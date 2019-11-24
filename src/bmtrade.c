@@ -2,17 +2,18 @@
 
 #include "constants/items.h"
 
+#include "proc.h"
 #include "hardware.h"
 #include "icon.h"
 #include "fontgrp.h"
 #include "uiutils.h"
+#include "statscreen.h"
 
 #include "bmitem.h"
 #include "bmunit.h"
 
 #include "m4a.h"
 #include "soundwrapper.h"
-#include "proc.h"
 #include "event.h"
 
 enum

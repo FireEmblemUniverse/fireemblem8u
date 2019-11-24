@@ -7,6 +7,7 @@
 #include "proc.h"
 #include "bmio.h"
 #include "uiutils.h"
+#include "statscreen.h"
 
 #include "uimenu.h"
 
