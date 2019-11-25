@@ -2316,6 +2316,128 @@ const struct HelpBoxInfo* sub_80895A8(void)
 
 // TODO (maybe, eventually): maybe generate this from file(s)?
 
+// Stat Screen Page 0 (Core stats & status)
+
+static DECL_INFO sHelpInfo_08A00B38;
+static DECL_INFO sHelpInfo_08A00B54;
+static DECL_INFO sHelpInfo_08A00B70;
+static DECL_INFO sHelpInfo_08A00B8C;
+static DECL_INFO sHelpInfo_08A00BA8;
+extern DECL_INFO gUnknown_08A00BC4;
+static DECL_INFO sHelpInfo_08A00BE0;
+static DECL_INFO sHelpInfo_08A00BFC;
+static DECL_INFO sHelpInfo_08A00C18;
+static DECL_INFO sHelpInfo_08A00C34;
+static DECL_INFO sHelpInfo_08A00C50;
+static DECL_INFO sHelpInfo_08A00C6C;
+static DECL_INFO sHelpInfo_08A00C88;
+static DECL_INFO sHelpInfo_08A00CA4;
+static DECL_INFO sHelpInfo_08A00CC0;
+static DECL_INFO sHelpInfo_08A00CDC;
+static DECL_INFO sHelpInfo_08A00CF8;
+
+static DECL_INFO sHelpInfo_08A00B38 =
+{
+	NULL, &sHelpInfo_08A00B54, NULL, &sHelpInfo_08A00C18,
+	24, 80, 0, NULL, sub_8088BD4,
+};
+
+static DECL_INFO sHelpInfo_08A00B54 =
+{
+	&sHelpInfo_08A00B38, &sHelpInfo_08A00B70, NULL, &sHelpInfo_08A00C50,
+	6, 104, 0x6E8, NULL, sub_8088C00,
+};
+
+static DECL_INFO sHelpInfo_08A00B70 =
+{
+	&sHelpInfo_08A00B54, &sHelpInfo_08A00BA8, NULL, &sHelpInfo_08A00B8C,
+	6, 120, 0x542,
+};
+
+static DECL_INFO sHelpInfo_08A00B8C =
+{
+	&sHelpInfo_08A00B54, &sHelpInfo_08A00BA8, &sHelpInfo_08A00B70, &sHelpInfo_08A00C50,
+	38, 120, 0x543,
+};
+
+static DECL_INFO sHelpInfo_08A00BA8 =
+{
+	&sHelpInfo_08A00B70, NULL, NULL, &sHelpInfo_08A00C50,
+	6, 136, 0x544,
+};
+
+DECL_INFO gUnknown_08A00BC4 =
+{
+	NULL, &sHelpInfo_08A00BE0, &sHelpInfo_08A00B38, &sHelpInfo_08A00C6C,
+	102, 24, 0x546, NULL, sub_8088B08,
+};
+
+static DECL_INFO sHelpInfo_08A00BE0 =
+{
+	&gUnknown_08A00BC4, &sHelpInfo_08A00BFC, &sHelpInfo_08A00B38, &sHelpInfo_08A00C88,
+	105, 40, 0x548,
+};
+
+static DECL_INFO sHelpInfo_08A00BFC =
+{
+	&sHelpInfo_08A00BE0, &sHelpInfo_08A00C18, &sHelpInfo_08A00B38, &sHelpInfo_08A00CA4,
+	102, 56, 0x549,
+};
+
+static DECL_INFO sHelpInfo_08A00C18 =
+{
+	&sHelpInfo_08A00BFC, &sHelpInfo_08A00C34, &sHelpInfo_08A00B38, &sHelpInfo_08A00CC0,
+	102, 72, 0x54A,
+};
+
+static DECL_INFO sHelpInfo_08A00C34 =
+{
+	&sHelpInfo_08A00C18, &sHelpInfo_08A00C50, &sHelpInfo_08A00B38, &sHelpInfo_08A00CDC,
+	102, 88, 0x54B,
+};
+
+static DECL_INFO sHelpInfo_08A00C50 =
+{
+	&sHelpInfo_08A00C34, NULL, &sHelpInfo_08A00B54, &sHelpInfo_08A00CF8,
+	102, 104, 0x54C,
+};
+
+static DECL_INFO sHelpInfo_08A00C6C =
+{
+	NULL, &sHelpInfo_08A00C88, &gUnknown_08A00BC4, NULL,
+	166, 24, 0x54D,
+};
+
+static DECL_INFO sHelpInfo_08A00C88 =
+{
+	&sHelpInfo_08A00C6C, &sHelpInfo_08A00CA4, &sHelpInfo_08A00BE0, NULL,
+	166, 40, 0x54E,
+};
+
+static DECL_INFO sHelpInfo_08A00CA4 =
+{
+	&sHelpInfo_08A00C88, &sHelpInfo_08A00CC0, &sHelpInfo_08A00BFC, NULL,
+	166, 56, 0x54F,
+};
+
+static DECL_INFO sHelpInfo_08A00CC0 =
+{
+	&sHelpInfo_08A00CA4, &sHelpInfo_08A00CDC, &sHelpInfo_08A00C18, NULL,
+	166, 72, 0x550,
+};
+
+static DECL_INFO sHelpInfo_08A00CDC =
+{
+	&sHelpInfo_08A00CC0, &sHelpInfo_08A00CF8, &sHelpInfo_08A00C34, NULL,
+	166, 88, 0x551,
+};
+
+static DECL_INFO sHelpInfo_08A00CF8 =
+{
+	&sHelpInfo_08A00CDC, NULL, &sHelpInfo_08A00C50, NULL,
+	166, 104, 0, NULL, sub_8088A2C,
+};
+
 // Stat Screen Page 1 (Items & battle stats)
 
 extern DECL_INFO gUnknown_08A00D14;

@@ -816,10 +816,6 @@ gUnknown_08A00B10:  @ 0x08A00B10
 
 	.global gUnknown_08A00B20
 gUnknown_08A00B20:  @ 0x08A00B20
-	.incbin "baserom.gba", 0xA00B20, 0xA4
-
-	.global gUnknown_08A00BC4
-gUnknown_08A00BC4:  @ 0x08A00BC4
-	.incbin "baserom.gba", 0xA00BC4, 0x150
+	.incbin "baserom.gba", 0xA00B20, (0x08A00B38 - 0x08A00B20)
 
 	@ STATSCREEN END
