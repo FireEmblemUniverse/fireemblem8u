@@ -92,6 +92,7 @@ extern u16 CONST_DATA gUnknown_08A00930[]; // tile offsets within an image
 extern struct ProcCmd CONST_DATA gUnknown_08A009D8[]; // main proc
 extern struct ProcCmd CONST_DATA gUnknown_08A00A98[]; // help box core proc
 extern struct ProcCmd CONST_DATA gUnknown_08A00AD0[]; // help box mover proc
+extern struct ProcCmd CONST_DATA gUnknown_08A00B00[];
 extern u16 CONST_DATA gUnknown_08A00B10[]; // 'R is info' object
 extern struct ProcCmd CONST_DATA gUnknown_08A00B20[]; // proc displaying 'R is Info'
 extern struct HelpBoxInfo CONST_DATA gUnknown_08A00BC4; // page 0 root help
@@ -2216,8 +2217,6 @@ int sub_80893E4(struct HelpBoxProc* proc)
 	return TRUE;
 }
 
-extern struct ProcCmd CONST_DATA gUnknown_08A00B00[];
-
 void sub_8089430(struct Proc* proc)
 {
 	if (gKeyStatusPtr->newKeys & (B_BUTTON | R_BUTTON))
@@ -2317,10 +2316,238 @@ const struct HelpBoxInfo* sub_80895A8(void)
 
 // TODO (maybe, eventually): maybe generate this from file(s)?
 
+// Stat Screen Page 1 (Items & battle stats)
+
+extern DECL_INFO gUnknown_08A00D14;
+static DECL_INFO sHelpInfo_08A00D30;
+static DECL_INFO sHelpInfo_08A00D4C;
+static DECL_INFO sHelpInfo_08A00D68;
+static DECL_INFO sHelpInfo_08A00D84;
+extern DECL_INFO gUnknown_08A00DA0;
+static DECL_INFO sHelpInfo_08A00DBC;
+static DECL_INFO sHelpInfo_08A00DD8;
+static DECL_INFO sHelpInfo_08A00DF4;
+static DECL_INFO sHelpInfo_08A00E10;
+static DECL_INFO sHelpInfo_08A00E2C;
+static DECL_INFO sHelpInfo_08A00E48;
+static DECL_INFO sHelpInfo_08A00E64;
+static DECL_INFO sHelpInfo_08A00E80;
+static DECL_INFO sHelpInfo_08A00E9C;
+
+DECL_INFO gUnknown_08A00D14 =
+{
+	NULL, &sHelpInfo_08A00D30, NULL, &sHelpInfo_08A00DF4,
+	24, 80, 0, NULL, sub_8088BD4,
+};
+
+static DECL_INFO sHelpInfo_08A00D30 =
+{
+	&gUnknown_08A00D14, &sHelpInfo_08A00D4C, NULL, &sHelpInfo_08A00E2C,
+	6, 104, 0x6E8, NULL, sub_8088C00,
+};
+
+static DECL_INFO sHelpInfo_08A00D4C =
+{
+	&sHelpInfo_08A00D30, &sHelpInfo_08A00D84, NULL, &sHelpInfo_08A00D68,
+	6, 120, 0x542,
+};
+
+static DECL_INFO sHelpInfo_08A00D68 =
+{
+	&sHelpInfo_08A00D30, &sHelpInfo_08A00D84, &sHelpInfo_08A00D4C, &sHelpInfo_08A00E2C,
+	38, 120, 0x543,
+};
+
+static DECL_INFO sHelpInfo_08A00D84 =
+{
+	&sHelpInfo_08A00D4C, NULL, NULL, &sHelpInfo_08A00E48,
+	6, 136, 0x544,
+};
+
+DECL_INFO gUnknown_08A00DA0 =
+{
+	NULL, &sHelpInfo_08A00DBC, &gUnknown_08A00D14, NULL,
+	104, 24, 0, sub_8088B40, sub_8088A00,
+};
+
+static DECL_INFO sHelpInfo_08A00DBC =
+{
+	&gUnknown_08A00DA0, &sHelpInfo_08A00DD8, &gUnknown_08A00D14, NULL,
+	104, 40, 1, sub_8088B40, sub_8088A00,
+};
+
+static DECL_INFO sHelpInfo_08A00DD8 =
+{
+	&sHelpInfo_08A00DBC, &sHelpInfo_08A00DF4, &gUnknown_08A00D14, NULL,
+	104, 56, 2, sub_8088B40, sub_8088A00,
+};
+
+static DECL_INFO sHelpInfo_08A00DF4 =
+{
+	&sHelpInfo_08A00DD8, &sHelpInfo_08A00E10, &gUnknown_08A00D14, NULL,
+	104, 72, 3, sub_8088B40, sub_8088A00,
+};
+
+static DECL_INFO sHelpInfo_08A00E10 =
+{
+	&sHelpInfo_08A00DF4, &sHelpInfo_08A00E2C, &gUnknown_08A00D14, &sHelpInfo_08A00E64,
+	104, 88, 4, sub_8088B40, sub_8088A00,
+};
+
+static DECL_INFO sHelpInfo_08A00E2C =
+{
+	&sHelpInfo_08A00E10, &sHelpInfo_08A00E48, &sHelpInfo_08A00D68, &sHelpInfo_08A00E80,
+	118, 120, 0x55C,
+};
+
+static DECL_INFO sHelpInfo_08A00E48 =
+{
+	&sHelpInfo_08A00E2C, NULL, &sHelpInfo_08A00D84, &sHelpInfo_08A00E9C,
+	118, 136, 0x55D,
+};
+
+static DECL_INFO sHelpInfo_08A00E64 =
+{
+	&sHelpInfo_08A00E10, &sHelpInfo_08A00E80, &sHelpInfo_08A00E2C, NULL,
+	174, 104, 0x55E,
+};
+
+static DECL_INFO sHelpInfo_08A00E80 =
+{
+	&sHelpInfo_08A00E64, &sHelpInfo_08A00E9C, &sHelpInfo_08A00E2C, NULL,
+	174, 120, 0x55F,
+};
+
+static DECL_INFO sHelpInfo_08A00E9C =
+{
+	&sHelpInfo_08A00E80, NULL, &sHelpInfo_08A00E48, NULL,
+	174, 136, 0x560,
+};
+
+// Stat Screen Page 2 (Weapon ranks & supports)
+
+static DECL_INFO sHelpInfo_08A00EB8;
+static DECL_INFO sHelpInfo_08A00ED4;
+static DECL_INFO sHelpInfo_08A00EF0;
+static DECL_INFO sHelpInfo_08A00F0C;
+static DECL_INFO sHelpInfo_08A00F28;
+extern DECL_INFO gUnknown_08A00F44;
+static DECL_INFO sHelpInfo_08A00F60;
+static DECL_INFO sHelpInfo_08A00F7C;
+static DECL_INFO sHelpInfo_08A00F98;
+static DECL_INFO sHelpInfo_08A00FB4;
+
+static DECL_INFO sHelpInfo_08A00EB8 =
+{
+	NULL, &sHelpInfo_08A00ED4, NULL, &sHelpInfo_08A00FB4,
+	24, 80, 0, NULL, sub_8088BD4,
+};
+
+static DECL_INFO sHelpInfo_08A00ED4 =
+{
+	&sHelpInfo_08A00EB8, &sHelpInfo_08A00EF0, NULL, &sHelpInfo_08A00FB4,
+	6, 104, 0x6E8, NULL, sub_8088C00,
+};
+
+static DECL_INFO sHelpInfo_08A00EF0 =
+{
+	&sHelpInfo_08A00ED4, &sHelpInfo_08A00F28, NULL, &sHelpInfo_08A00F0C,
+	6, 120, 0x542,
+};
+
+static DECL_INFO sHelpInfo_08A00F0C =
+{
+	&sHelpInfo_08A00ED4, &sHelpInfo_08A00F28, &sHelpInfo_08A00EF0, &sHelpInfo_08A00FB4,
+	38, 120, 0x543,
+};
+
+static DECL_INFO sHelpInfo_08A00F28 =
+{
+	&sHelpInfo_08A00EF0, NULL, NULL, &sHelpInfo_08A00FB4,
+	6, 136, 0x544,
+};
+
+DECL_INFO gUnknown_08A00F44 =
+{
+	NULL, &sHelpInfo_08A00F60, &sHelpInfo_08A00EB8, &sHelpInfo_08A00F7C,
+	104, 24, 0, NULL, sub_8088B94,
+};
+
+static DECL_INFO sHelpInfo_08A00F60 =
+{
+	&gUnknown_08A00F44, &sHelpInfo_08A00FB4, &sHelpInfo_08A00EB8, &sHelpInfo_08A00F98,
+	104, 40, 1, NULL, sub_8088B94,
+};
+
+static DECL_INFO sHelpInfo_08A00F7C =
+{
+	NULL, &sHelpInfo_08A00F98, &gUnknown_08A00F44, NULL,
+	168, 24, 2, NULL, sub_8088B94,
+};
+
+static DECL_INFO sHelpInfo_08A00F98 =
+{
+	&sHelpInfo_08A00F7C, &sHelpInfo_08A00FB4, &sHelpInfo_08A00F60, NULL,
+	168, 40, 3, NULL, sub_8088B94,
+};
+
+static DECL_INFO sHelpInfo_08A00FB4 =
+{
+	&sHelpInfo_08A00F60, &sHelpInfo_08A00EB8, &sHelpInfo_08A00EB8, NULL,
+	128, 64, 0x569, sub_8088C14, NULL,
+};
+
 // BKSEL (Select Battle Target Window) HELP INFOS
 
 void sub_8037494(struct HelpBoxProc* proc);
 void sub_80374C4(struct HelpBoxProc* proc);
+
+// Simple/Modern mode
+
+static DECL_INFO sHelpInfo_08A00FD0;
+extern DECL_INFO gUnknown_08A00FEC;
+static DECL_INFO sHelpInfo_08A01008;
+static DECL_INFO sHelpInfo_08A01024;
+static DECL_INFO sHelpInfo_08A01040;
+static DECL_INFO sHelpInfo_08A0105C;
+
+static DECL_INFO sHelpInfo_08A00FD0 =
+{
+	NULL, &gUnknown_08A00FEC, NULL, NULL,
+	8, 8, 0, NULL, sub_8037494,
+};
+
+DECL_INFO gUnknown_08A00FEC =
+{
+	&sHelpInfo_08A00FD0, &sHelpInfo_08A01008, NULL, NULL,
+	28, 24, 0x544,
+};
+
+static DECL_INFO sHelpInfo_08A01008 =
+{
+	&gUnknown_08A00FEC, &sHelpInfo_08A01024, NULL, NULL,
+	28, 40, 0x571,
+};
+
+static DECL_INFO sHelpInfo_08A01024 =
+{
+	&sHelpInfo_08A01008, &sHelpInfo_08A01040, NULL, NULL,
+	28, 56, 0x55D,
+};
+
+static DECL_INFO sHelpInfo_08A01040 =
+{
+	&sHelpInfo_08A01024, &sHelpInfo_08A0105C, NULL, NULL,
+	28, 72, 0x55F,
+};
+
+static DECL_INFO sHelpInfo_08A0105C =
+{
+	&sHelpInfo_08A01040, NULL, NULL, NULL,
+	56, 88, 0, NULL, sub_80374C4,
+};
+
+// Detailed/Classic mode
 
 static DECL_INFO sHelpInfo_08A01078;
 extern DECL_INFO gUnknown_08A01094;

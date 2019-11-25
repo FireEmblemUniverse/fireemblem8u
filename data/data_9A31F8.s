@@ -822,20 +822,4 @@ gUnknown_08A00B20:  @ 0x08A00B20
 gUnknown_08A00BC4:  @ 0x08A00BC4
 	.incbin "baserom.gba", 0xA00BC4, 0x150
 
-	.global gUnknown_08A00D14
-gUnknown_08A00D14:  @ 0x08A00D14
-	.incbin "baserom.gba", 0xA00D14, 0x8C
-
-	.global gUnknown_08A00DA0
-gUnknown_08A00DA0:  @ 0x08A00DA0
-	.incbin "baserom.gba", 0xA00DA0, 0x1A4
-
-	.global gUnknown_08A00F44
-gUnknown_08A00F44:  @ 0x08A00F44
-	.incbin "baserom.gba", 0xA00F44, 0xA8
-
-	.global gUnknown_08A00FEC
-gUnknown_08A00FEC:  @ 0x08A00FEC
-	.incbin "baserom.gba", 0xA00FEC, (0x08A01078 - 0x08A00FEC)
-
 	@ STATSCREEN END
