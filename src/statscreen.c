@@ -81,20 +81,275 @@ const struct Unk8086E00 gUnused_08205AD4[] =
 	{ }, // end
 };
 
-extern struct TextBatch CONST_DATA gUnknown_08A006FC[];
-extern s8 CONST_DATA gUnknown_08A0081C[]; /* stat screen page transition draw offset lut */
-extern struct ProcCmd CONST_DATA gUnknown_08A0082C[]; // page transition proc
-extern struct ProcCmd CONST_DATA gUnknown_08A00844[]; // unk
-extern struct ProcCmd CONST_DATA gUnknown_08A00864[]; // unit transition proc
-extern u16 CONST_DATA gUnknown_08A008FE[]; // obj for page name bg
-extern u16 const* CONST_DATA gUnknown_08A00924[]; // objs for page names
-extern u16 CONST_DATA gUnknown_08A00930[]; // tile offsets within an image
-extern struct ProcCmd CONST_DATA gUnknown_08A009D8[]; // main proc
-extern struct ProcCmd CONST_DATA gUnknown_08A00A98[]; // help box core proc
-extern struct ProcCmd CONST_DATA gUnknown_08A00AD0[]; // help box mover proc
-extern struct ProcCmd CONST_DATA gUnknown_08A00B00[];
-extern u16 CONST_DATA gUnknown_08A00B10[]; // 'R is info' object
-extern struct ProcCmd CONST_DATA gUnknown_08A00B20[]; // proc displaying 'R is Info'
+struct TextBatch CONST_DATA gUnknown_08A006FC[] =
+{
+	{ gUnknown_02003BFC.text + 0,  7  },
+	{ gUnknown_02003BFC.text + 1,  8  },
+	{ gUnknown_02003BFC.text + 2,  3  },
+	{ gUnknown_02003BFC.text + 3,  3  },
+	{ gUnknown_02003BFC.text + 4,  3  },
+	{ gUnknown_02003BFC.text + 5,  3  },
+	{ gUnknown_02003BFC.text + 6,  3  },
+	{ gUnknown_02003BFC.text + 7,  3  },
+	{ gUnknown_02003BFC.text + 8,  3  },
+	{ gUnknown_02003BFC.text + 9,  3  },
+	{ gUnknown_02003BFC.text + 10, 3  },
+	{ gUnknown_02003BFC.text + 11, 3  },
+	{ gUnknown_02003BFC.text + 12, 9  },
+	{ gUnknown_02003BFC.text + 13, 7  },
+	{ gUnknown_02003BFC.text + 14, 9  },
+	{ gUnknown_02003BFC.text + 15, 7  },
+	{ gUnknown_02003BFC.text + 16, 7  },
+	{ gUnknown_02003BFC.text + 17, 7  },
+	{ gUnknown_02003BFC.text + 18, 7  },
+	{ gUnknown_02003BFC.text + 19, 7  },
+	{ gUnknown_02003BFC.text + 20, 7  },
+	{ gUnknown_02003BFC.text + 21, 3  },
+	{ gUnknown_02003BFC.text + 22, 3  },
+	{ gUnknown_02003BFC.text + 23, 3  },
+	{ gUnknown_02003BFC.text + 24, 4  },
+	{ gUnknown_02003BFC.text + 25, 2  },
+	{ gUnknown_02003BFC.text + 26, 2  },
+	{ gUnknown_02003BFC.text + 27, 2  },
+	{ gUnknown_02003BFC.text + 28, 2  },
+	{ gUnknown_02003BFC.text + 29, 7  },
+	{ gUnknown_02003BFC.text + 30, 7  },
+	{ gUnknown_02003BFC.text + 31, 7  },
+	{ gUnknown_02003BFC.text + 32, 7  },
+	{ gUnknown_02003BFC.text + 33, 7  },
+	{ gUnknown_02003BFC.text + 34, 16 },
+
+	{ }, // end
+};
+
+s8 CONST_DATA gUnknown_08A0081C[] = // stat screen page transition draw offset lut
+{
+	// transition page out
+	-4, -7, -10, -12, -14,
+
+	INT8_MAX, // draw new page
+
+	// transition page in
+	13, 9, 7, 5, 3, 2, 1, 0,
+
+	INT8_MIN, // end
+};
+
+struct ProcCmd CONST_DATA gUnknown_08A0082C[] = // page transition proc
+{
+	PROC_LOOP_ROUTINE(sub_80879DC),
+	PROC_CALL_ROUTINE(sub_8087ACC),
+
+	PROC_END,
+};
+
+struct ProcCmd CONST_DATA gUnknown_08A00844[] = // unk
+{
+	PROC_SLEEP(0),
+
+	PROC_CALL_ROUTINE(sub_8087B40),
+	PROC_LOOP_ROUTINE(sub_8087BA0),
+
+	PROC_END,
+};
+
+struct ProcCmd CONST_DATA gUnknown_08A00864[] = // unit transition proc
+{
+	PROC_SLEEP(0),
+
+	PROC_CALL_ROUTINE(sub_8087C04),
+	PROC_CALL_ROUTINE(sub_8087C34),
+
+	PROC_LOOP_ROUTINE(sub_8087CC0),
+
+	PROC_CALL_ROUTINE(sub_8087DF8),
+	PROC_CALL_ROUTINE(sub_8087D24),
+
+	PROC_LOOP_ROUTINE(sub_8087D98),
+	PROC_SLEEP(0),
+
+	PROC_CALL_ROUTINE(sub_8087BF0),
+	PROC_CALL_ROUTINE(sub_8087E28),
+
+	PROC_END,
+};
+
+static u16 CONST_DATA sSprite_Page0Name[] =
+{
+	3,
+	0x4104, 0x9008, TILEREF(0, 0),
+	0x4104, 0x9028, TILEREF(4, 0),
+	0x4104, 0x9048, TILEREF(8, 0),
+};
+
+static u16 CONST_DATA sSprite_Page1Name[] =
+{
+	2,
+	0x4104, 0x901E, TILEREF(0, 0),
+	0x4104, 0x903E, TILEREF(4, 0),
+};
+
+static u16 CONST_DATA sSprite_Page2Name[] =
+{
+	5,
+	0x4108, 0x9004, TILEREF(6,  0),
+	0x4108, 0x9024, TILEREF(10, 0),
+	0x4108, 0x9044, TILEREF(14, 0),
+	0x4100, 0x9000, TILEREF(0,  0),
+	0x0100, 0x5020, TILEREF(4,  0),
+};
+
+u16 CONST_DATA gUnknown_08A008FE[] = // obj for page name bg
+{
+	6,
+	0x4002, 0x8000, TILEREF(0, 0),
+	0x0002, 0x4020, TILEREF(4, 0),
+	0x8002, 0x0030, TILEREF(6, 0),
+	0x8002, 0x1032, TILEREF(6, 0),
+	0x0002, 0x503A, TILEREF(4, 0),
+	0x4002, 0x904A, TILEREF(0, 0),
+};
+
+u16 const* CONST_DATA gUnknown_08A00924[] = // objs for page names
+{
+	sSprite_Page0Name,
+	sSprite_Page1Name,
+	sSprite_Page2Name,
+};
+
+u16 CONST_DATA gUnknown_08A00930[] = { 0, 64, 14 }; // tile offsets within an image
+
+struct ProcCmd CONST_DATA gUnknown_08A00938[] =
+{
+	PROC_CALL_ROUTINE(sub_8087F48),
+
+PROC_LABEL(0),
+	PROC_LOOP_ROUTINE(sub_8087FE0),
+	PROC_LOOP_ROUTINE(sub_8088014),
+
+	PROC_SLEEP(1),
+
+	PROC_LOOP_ROUTINE(sub_80880DC),
+
+	PROC_GOTO(0),
+
+	PROC_END,
+};
+
+struct ProcCmd CONST_DATA gUnknown_08A00978[] =
+{
+	PROC_CALL_ROUTINE(sub_80881AC),
+
+PROC_LABEL(0),
+	PROC_SLEEP(0),
+
+	PROC_CALL_ROUTINE(sub_80881C4),
+	PROC_CALL_ROUTINE(sub_80881FC),
+	PROC_CALL_ROUTINE(sub_80882E4),
+	PROC_CALL_ROUTINE(sub_8088354),
+	PROC_CALL_ROUTINE(sub_8088384),
+
+	PROC_GOTO(0),
+
+	PROC_END,
+};
+
+struct ProcCmd CONST_DATA gUnknown_08A009C8[] =
+{
+	PROC_LOOP_ROUTINE(sub_8088920),
+	PROC_END,
+};
+
+struct ProcCmd CONST_DATA gUnknown_08A009D8[] = // main proc
+{
+	PROC_CALL_ROUTINE(sub_808844C),
+	PROC_CALL_ROUTINE(BMapDispSuspend),
+
+	PROC_SLEEP(2),
+
+	PROC_CALL_ROUTINE(sub_80884B0),
+	PROC_CALL_ROUTINE(NewGreenTextColorManager),
+
+	PROC_CALL_ROUTINE(sub_8088670),
+
+	PROC_NEW_CHILD(gUnknown_08A00844),
+	PROC_NEW_CHILD(gUnknown_08A00938),
+	PROC_NEW_CHILD(gUnknown_08A00978),
+	PROC_NEW_CHILD(gUnknown_08A009C8),
+
+	PROC_GOTO(1),
+
+PROC_LABEL(0),
+	PROC_CALL_ROUTINE(sub_808890C),
+
+	// fallthrough
+
+PROC_LABEL(1),
+	PROC_SLEEP(2),
+
+	PROC_LOOP_ROUTINE(sub_808873C),
+
+PROC_LABEL(10),
+	PROC_SLEEP(2),
+
+	PROC_END_ALL(gUnknown_08A00844),
+
+	PROC_CALL_ROUTINE(sub_80888B4),
+
+	PROC_CALL_ROUTINE(BMapDispResume),
+	PROC_CALL_ROUTINE(MU_EndAll),
+	PROC_CALL_ROUTINE(EndGreenTextColorManager),
+
+	PROC_END,
+};
+
+struct ProcCmd CONST_DATA gUnknown_08A00A98[] = // help box core proc
+{
+	PROC_SLEEP(0),
+
+	PROC_CALL_ROUTINE(sub_8088CFC),
+	PROC_LOOP_ROUTINE(sub_8088D3C),
+
+PROC_LABEL(0x63),
+	PROC_CALL_ROUTINE(sub_8088D64),
+	PROC_LOOP_ROUTINE(sub_8088DB8),
+
+	PROC_END,
+};
+
+struct ProcCmd CONST_DATA gUnknown_08A00AD0[] = // help box mover proc
+{
+	PROC_SLEEP(1),
+
+PROC_LABEL(0),
+	PROC_CALL_ROUTINE(sub_8089060),
+	PROC_LOOP_ROUTINE(sub_8089088),
+	PROC_CALL_ROUTINE(sub_8089018),
+
+	PROC_END,
+};
+
+struct ProcCmd CONST_DATA gUnknown_08A00B00[] =
+{
+	PROC_LOOP_ROUTINE(sub_8089430),
+	PROC_END,
+};
+
+u16 CONST_DATA gUnknown_08A00B10[] = // 'R is info' object
+{
+	2,
+	0x4000, 0x8000, TILEREF(11, 0),
+	0x8000, 0x0020, TILEREF(15, 0),
+};
+
+struct ProcCmd CONST_DATA gUnknown_08A00B20[] = // proc displaying 'R is Info'
+{
+	PROC_SLEEP(0),
+
+	PROC_LOOP_ROUTINE(Loop6C_8A00B20_UpdateOAMData),
+	PROC_END,
+};
+
 extern struct HelpBoxInfo CONST_DATA gUnknown_08A00BC4; // page 0 root help
 extern struct HelpBoxInfo CONST_DATA gUnknown_08A00D14; // hardcoded thing bad
 extern struct HelpBoxInfo CONST_DATA gUnknown_08A00DA0; // page 1 root help
@@ -2727,3 +2982,5 @@ static DECL_INFO sHelpInfo_08A0113C =
 	&sHelpInfo_08A01120, NULL, NULL, NULL,
 	56, 120, 0, NULL, sub_80374C4,
 };
+
+#undef DECL_INFO
