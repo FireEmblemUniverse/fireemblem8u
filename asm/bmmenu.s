@@ -4108,7 +4108,7 @@ sub_8024588: @ 0x08024588
 	lsls r1, r1, #3
 	ldr r2, _080245B0  @ gUnknown_0202BCB0
 	ldrh r2, [r2, #0x2c]
-	bl sub_8088E60
+	bl StartItemHelpBox
 	movs r0, #0
 	b _080245D4
 	.align 2, 0
@@ -4128,7 +4128,7 @@ _080245B4:
 	adds r3, #0x1e
 	adds r3, r3, r2
 	ldrh r2, [r3]
-	bl sub_8088E60
+	bl StartItemHelpBox
 _080245D4:
 	pop {r4}
 	pop {r1}
@@ -4157,7 +4157,7 @@ sub_80245E0: @ 0x080245E0
 	adds r0, r0, r2
 	ldrh r2, [r0]
 	adds r0, r3, #0
-	bl sub_8088E60
+	bl StartItemHelpBox
 	pop {r4}
 	pop {r1}
 	bx r1
@@ -4184,7 +4184,7 @@ sub_8024618: @ 0x08024618
 	adds r2, r0, #0
 	adds r0, r5, #0
 	adds r1, r4, #0
-	bl sub_8088E60
+	bl StartItemHelpBox
 	pop {r4, r5}
 	pop {r1}
 	bx r1
@@ -4964,7 +4964,7 @@ _08024C26:
 	movs r4, #0x2c
 	ldrsh r1, [r3, r4]
 	lsls r1, r1, #3
-	bl sub_8088E60
+	bl StartItemHelpBox
 	pop {r4}
 	pop {r1}
 	bx r1

@@ -39,6 +39,74 @@ struct SSTextDispInfo
     /* 0C */ const unsigned* mid;
 };
 
+struct HelpPromptSprProc
+{
+    PROC_HEADER;
+
+    /* 2C */ int xDisplay;
+    /* 30 */ int yDisplay;
+    /* 34 */ int tileref;
+};
+
+static void InitTexts(void);
+static void DisplayTexts(const struct SSTextDispInfo* unk);
+static void DisplayLeftPanel(void);
+static void DisplayBwl(void);
+static void DrawStatWithBar(int num, int x, int y, int base, int total, int max);
+static void DisplayPage0(void);
+static void DisplayPage1(void);
+static void DisplaySupportList(void);
+static void DisplayWeaponExp(int num, int x, int y, int wtype);
+static void DisplayPage2(void);
+static void DisplayPage(int pageid);
+static struct Unit* FindNextUnit(struct Unit* u, int direction);
+static void PageSlide_OnLoop(struct StatScreenEffectProc* proc);
+static void PageSlide_OnEnd(struct StatScreenEffectProc* proc);
+static void StartPageSlide(u16 config, int newPage, struct Proc* parent);
+static void GlowBlendCtrl_OnInit(struct StatScreenEffectProc* proc);
+static void GlowBlendCtrl_OnLoop(struct StatScreenEffectProc* proc);
+static void StartGlowBlendCtrl(void);
+static void EndGlowBlendCtrl(struct StatScreenEffectProc* proc);
+static void UnitSlide_InitFadeOut(struct StatScreenEffectProc* proc);
+static void UnitSlide_FadeOutLoop(struct StatScreenEffectProc* proc);
+static void UnitSlide_InitFadeIn(struct StatScreenEffectProc* proc);
+static void UnitSlide_FadeInLoop(struct StatScreenEffectProc* proc);
+static void UnitSlide_SetNewUnit(struct StatScreenEffectProc* proc);
+static void ClearSlide(struct Proc* proc);
+static void StartUnitSlide(struct Unit* unit, int direction, struct Proc* parent);
+static void DisplayPageNameSprite(int pageid);
+static void PageNameCtrl_OnInit(struct StatScreenPageNameProc* proc);
+static void PageNameCtrl_OnIdle(struct StatScreenPageNameProc* proc);
+static void PageNameCtrl_AnimOut(struct StatScreenPageNameProc* proc);
+static void PageNameCtrl_AnimIn(struct StatScreenPageNameProc* proc);
+static void PageNumCtrl_OnInit(struct StatScreenPageNameProc* proc);
+static void PageNumCtrl_CheckSlide(struct StatScreenPageNameProc* proc);
+static void PageNumCtrl_UpdateArrows(struct StatScreenPageNameProc* proc);
+static void PageNumCtrl_UpdatePageNum(struct StatScreenPageNameProc* proc);
+static void PageNumCtrl_DisplayMuPlatform(struct StatScreenPageNameProc* proc);
+static void PageNumCtrl_DisplayBlinkIcons(struct StatScreenPageNameProc* proc);
+static void StatScreen_BlackenScreen(void);
+static void StatScreen_InitDisplay(struct Proc* proc);
+static void StatScreen_Display(struct Proc* proc);
+static void StatScreen_OnIdle(struct Proc* proc);
+static void StatScreen_OnClose(void);
+static void StatScreen_ResumeFromHelp(void);
+static void BgOffCtrl_OnLoop(void);
+static void StartStatScreenHelp(int pageid, struct Proc* proc);
+
+static void HelpBox_OnOpen(struct HelpBoxProc* proc);
+static void HelpBox_OnLoop(struct HelpBoxProc* proc);
+static void HelpBox_OnClose(struct HelpBoxProc* proc);
+static void HelpBox_WaitClose(struct HelpBoxProc* proc);
+static void HbMoveCtrl_OnInitBox(struct HelpBoxProc* proc);
+static void HbMoveCtrl_OnIdle(struct HelpBoxProc* proc);
+static void HbMoveCtrl_OnEnd(struct HelpBoxProc* proc);
+static void ApplyHelpBoxContentSize(struct HelpBoxProc* proc, int width, int height);
+static void ApplyHelpBoxPosition(struct HelpBoxProc* proc, int x, int y);
+static void HbPopulate_AutoItem(struct HelpBoxProc* proc);
+static void HbLock_OnIdle(struct Proc* proc);
+static void HelpPrompt_OnIdle(struct HelpPromptSprProc* proc);
+
 // TODO: figure out what to do with those
 // (It's in the weird EWRAM overlay area)
 
@@ -162,8 +230,8 @@ s8 CONST_DATA sPageSlideOffsetLut[] = // stat screen page transition draw offset
 
 struct ProcCmd CONST_DATA gProcScr_SSPageSlide[] =
 {
-    PROC_LOOP_ROUTINE(sub_80879DC),
-    PROC_CALL_ROUTINE(sub_8087ACC),
+    PROC_LOOP_ROUTINE(PageSlide_OnLoop),
+    PROC_CALL_ROUTINE(PageSlide_OnEnd),
 
     PROC_END,
 };
@@ -172,8 +240,8 @@ struct ProcCmd CONST_DATA gProcScr_SSGlowyBlendCtrl[] =
 {
     PROC_SLEEP(0),
 
-    PROC_CALL_ROUTINE(sub_8087B40),
-    PROC_LOOP_ROUTINE(sub_8087BA0),
+    PROC_CALL_ROUTINE(GlowBlendCtrl_OnInit),
+    PROC_LOOP_ROUTINE(GlowBlendCtrl_OnLoop),
 
     PROC_END,
 };
@@ -182,19 +250,19 @@ struct ProcCmd CONST_DATA gProcScr_SSUnitSlide[] =
 {
     PROC_SLEEP(0),
 
-    PROC_CALL_ROUTINE(sub_8087C04),
-    PROC_CALL_ROUTINE(sub_8087C34),
+    PROC_CALL_ROUTINE(EndGlowBlendCtrl),
+    PROC_CALL_ROUTINE(UnitSlide_InitFadeOut),
 
-    PROC_LOOP_ROUTINE(sub_8087CC0),
+    PROC_LOOP_ROUTINE(UnitSlide_FadeOutLoop),
 
-    PROC_CALL_ROUTINE(sub_8087DF8),
-    PROC_CALL_ROUTINE(sub_8087D24),
+    PROC_CALL_ROUTINE(UnitSlide_SetNewUnit),
+    PROC_CALL_ROUTINE(UnitSlide_InitFadeIn),
 
-    PROC_LOOP_ROUTINE(sub_8087D98),
+    PROC_LOOP_ROUTINE(UnitSlide_FadeInLoop),
     PROC_SLEEP(0),
 
-    PROC_CALL_ROUTINE(sub_8087BF0),
-    PROC_CALL_ROUTINE(sub_8087E28),
+    PROC_CALL_ROUTINE(StartGlowBlendCtrl),
+    PROC_CALL_ROUTINE(ClearSlide),
 
     PROC_END,
 };
@@ -246,15 +314,15 @@ static u16 CONST_DATA sPageNameChrOffsetLut[] = { 0, 64, 14 }; // tile offsets w
 
 struct ProcCmd CONST_DATA gProcScr_SSPageNameCtrl[] =
 {
-    PROC_CALL_ROUTINE(sub_8087F48),
+    PROC_CALL_ROUTINE(PageNameCtrl_OnInit),
 
 PROC_LABEL(0),
-    PROC_LOOP_ROUTINE(sub_8087FE0),
-    PROC_LOOP_ROUTINE(sub_8088014),
+    PROC_LOOP_ROUTINE(PageNameCtrl_OnIdle),
+    PROC_LOOP_ROUTINE(PageNameCtrl_AnimOut),
 
     PROC_SLEEP(1),
 
-    PROC_LOOP_ROUTINE(sub_80880DC),
+    PROC_LOOP_ROUTINE(PageNameCtrl_AnimIn),
 
     PROC_GOTO(0),
 
@@ -263,16 +331,16 @@ PROC_LABEL(0),
 
 struct ProcCmd CONST_DATA gProcScr_SSPageNumCtrl[] =
 {
-    PROC_CALL_ROUTINE(sub_80881AC),
+    PROC_CALL_ROUTINE(PageNumCtrl_OnInit),
 
 PROC_LABEL(0),
     PROC_SLEEP(0),
 
-    PROC_CALL_ROUTINE(sub_80881C4),
-    PROC_CALL_ROUTINE(sub_80881FC),
-    PROC_CALL_ROUTINE(sub_80882E4),
-    PROC_CALL_ROUTINE(sub_8088354),
-    PROC_CALL_ROUTINE(sub_8088384),
+    PROC_CALL_ROUTINE(PageNumCtrl_CheckSlide),
+    PROC_CALL_ROUTINE(PageNumCtrl_UpdateArrows),
+    PROC_CALL_ROUTINE(PageNumCtrl_UpdatePageNum),
+    PROC_CALL_ROUTINE(PageNumCtrl_DisplayMuPlatform),
+    PROC_CALL_ROUTINE(PageNumCtrl_DisplayBlinkIcons),
 
     PROC_GOTO(0),
 
@@ -281,21 +349,21 @@ PROC_LABEL(0),
 
 struct ProcCmd CONST_DATA gProcScr_SSBgOffsetCtrl[] =
 {
-    PROC_LOOP_ROUTINE(sub_8088920),
+    PROC_LOOP_ROUTINE(BgOffCtrl_OnLoop),
     PROC_END,
 };
 
 struct ProcCmd CONST_DATA gProcScr_StatScreen[] =
 {
-    PROC_CALL_ROUTINE(sub_808844C),
+    PROC_CALL_ROUTINE(StatScreen_BlackenScreen),
     PROC_CALL_ROUTINE(BMapDispSuspend),
 
     PROC_SLEEP(2),
 
-    PROC_CALL_ROUTINE(sub_80884B0),
+    PROC_CALL_ROUTINE(StatScreen_InitDisplay),
     PROC_CALL_ROUTINE(NewGreenTextColorManager),
 
-    PROC_CALL_ROUTINE(sub_8088670),
+    PROC_CALL_ROUTINE(StatScreen_Display),
 
     PROC_NEW_CHILD(gProcScr_SSGlowyBlendCtrl),
     PROC_NEW_CHILD(gProcScr_SSPageNameCtrl),
@@ -305,21 +373,21 @@ struct ProcCmd CONST_DATA gProcScr_StatScreen[] =
     PROC_GOTO(1),
 
 PROC_LABEL(0),
-    PROC_CALL_ROUTINE(sub_808890C),
+    PROC_CALL_ROUTINE(StatScreen_ResumeFromHelp),
 
     // fallthrough
 
 PROC_LABEL(1),
     PROC_SLEEP(2),
 
-    PROC_LOOP_ROUTINE(sub_808873C),
+    PROC_LOOP_ROUTINE(StatScreen_OnIdle),
 
 PROC_LABEL(10),
     PROC_SLEEP(2),
 
     PROC_END_ALL(gProcScr_SSGlowyBlendCtrl),
 
-    PROC_CALL_ROUTINE(sub_80888B4),
+    PROC_CALL_ROUTINE(StatScreen_OnClose),
 
     PROC_CALL_ROUTINE(BMapDispResume),
     PROC_CALL_ROUTINE(MU_EndAll),
@@ -332,12 +400,12 @@ struct ProcCmd CONST_DATA gProcScr_HelpBox[] =
 {
     PROC_SLEEP(0),
 
-    PROC_CALL_ROUTINE(sub_8088CFC),
-    PROC_LOOP_ROUTINE(sub_8088D3C),
+    PROC_CALL_ROUTINE(HelpBox_OnOpen),
+    PROC_LOOP_ROUTINE(HelpBox_OnLoop),
 
 PROC_LABEL(0x63),
-    PROC_CALL_ROUTINE(sub_8088D64),
-    PROC_LOOP_ROUTINE(sub_8088DB8),
+    PROC_CALL_ROUTINE(HelpBox_OnClose),
+    PROC_LOOP_ROUTINE(HelpBox_WaitClose),
 
     PROC_END,
 };
@@ -347,16 +415,16 @@ struct ProcCmd CONST_DATA gProcScr_HelpBoxMoveCtrl[] =
     PROC_SLEEP(1),
 
 PROC_LABEL(0),
-    PROC_CALL_ROUTINE(sub_8089060),
-    PROC_LOOP_ROUTINE(sub_8089088),
-    PROC_CALL_ROUTINE(sub_8089018),
+    PROC_CALL_ROUTINE(HbMoveCtrl_OnInitBox),
+    PROC_LOOP_ROUTINE(HbMoveCtrl_OnIdle),
+    PROC_CALL_ROUTINE(CloseHelpBox),
 
     PROC_END,
 };
 
 struct ProcCmd CONST_DATA gProcScr_HelpBoxLock[] =
 {
-    PROC_LOOP_ROUTINE(sub_8089430),
+    PROC_LOOP_ROUTINE(HbLock_OnIdle),
     PROC_END,
 };
 
@@ -368,11 +436,11 @@ u16 CONST_DATA sSprite_MetaHelp[] = // 'R is info'
     0x8000, 0x0020, TILEREF(15, 0),
 };
 
-struct ProcCmd CONST_DATA gProcScr_MetaHelpSprCtrl[] = // proc displaying 'R is Info'
+struct ProcCmd CONST_DATA gProcScr_HelpPromptSpr[] = // proc displaying 'R is Info'
 {
     PROC_SLEEP(0),
 
-    PROC_LOOP_ROUTINE(Loop6C_8A00B20_UpdateOAMData),
+    PROC_LOOP_ROUTINE(HelpPrompt_OnIdle),
     PROC_END,
 };
 
@@ -399,73 +467,72 @@ extern u16 CONST_DATA gUnknown_08A06460[]; // background pal
 
 extern u16 CONST_DATA gUnknown_08A1D79C[]; // 'R is info' palette
 
-static void sub_8086E00(const struct SSTextDispInfo* unk);
-
-void sub_8088670(struct Proc* proc);
-void MakeStatScreenRText6C(int pageid, struct Proc* proc);
-const struct HelpBoxInfo* sub_80895A8(void);
-void Create6CRText(const struct HelpBoxInfo* helpinfo, struct Proc* parent); // StartMoveableHelpBox
-int sub_8089354(struct HelpBoxProc* proc);
-int sub_8089384(struct HelpBoxProc* proc);
-int sub_80893B4(struct HelpBoxProc* proc);
-int sub_80893E4(struct HelpBoxProc* proc);
+const struct HelpBoxInfo* GetLastHelpBoxInfo(void);
+void StartMovingHelpBox(const struct HelpBoxInfo* helpinfo, struct Proc* parent); // StartMoveableHelpBox
+int TryRelocateHbUp(struct HelpBoxProc* proc);
+int TryRelocateHbDown(struct HelpBoxProc* proc);
+int TryRelocateHbLeft(struct HelpBoxProc* proc);
+int TryRelocateHbRight(struct HelpBoxProc* proc);
 void sub_8089980(int a, int b, int c, int d, int e);
-void sub_80892C0(struct HelpBoxProc* proc);
-void sub_808929C(struct HelpBoxProc* proc, int x, int y);
-void sub_80891AC(struct HelpBoxProc* proc, int width, int height);
-void sub_8089210(struct HelpBoxProc* proc, int x, int y);
+void ResetHelpBoxInitSize(struct HelpBoxProc* proc);
+void SetHelpBoxInitPosition(struct HelpBoxProc* proc, int x, int y);
+void ApplyHelpBoxContentSize(struct HelpBoxProc* proc, int width, int height);
+void ApplyHelpBoxPosition(struct HelpBoxProc* proc, int x, int y);
 void sub_808A118(void);
 
 void sub_808A0FC(int item, int mid);
 
-void sub_8088E9C(const struct HelpBoxInfo* info, int unk);
-void sub_8089320(struct HelpBoxProc* proc);
+void StartHelpBoxExt(const struct HelpBoxInfo* info, int unk);
+void HbPopulate_AutoItem(struct HelpBoxProc* proc);
 
-int sub_80892D0(int item);
+int GetHelpBoxItemInfoKind(int item);
 
-int GetSomeUnitId(void)
+int GetLastStatScreenUid(void)
 {
     return sStatScreenInfo.unitId;
 }
 
-void sub_8086DD8(int uid)
+void SetLastStatScreenUid(int uid)
 {
     sStatScreenInfo.unitId = uid;
 }
 
-void sub_8086DE4(int config)
+void SetStatScreenConfig(int config)
 {
     sStatScreenInfo.config = config;
 }
 
-void sub_8086DF0(void)
+static
+void InitTexts(void)
 {
     InitTextBatch(sSSMasterTextBatch);
 }
 
-static void sub_8086E00(const struct SSTextDispInfo* unk)
+static
+void DisplayTexts(const struct SSTextDispInfo* infos)
 {
-    while (unk->text)
+    while (infos->text)
     {
-        if (unk->mid)
+        if (infos->mid)
         {
             DrawTextInline(
-                unk->text,
-                unk->tilemap,
-                unk->color,
-                unk->xoff, 0,
-                GetStringFromIndex(*unk->mid));
+                infos->text,
+                infos->tilemap,
+                infos->color,
+                infos->xoff, 0,
+                GetStringFromIndex(*infos->mid));
         }
         else
         {
-            Text_Draw(unk->text, unk->tilemap);
+            Text_Draw(infos->text, infos->tilemap);
         }
 
-        ++unk;
+        ++infos;
     }
 }
 
-void sub_8086E44(void)
+static
+void DisplayLeftPanel(void)
 {
     const char* namestr = GetStringFromIndex(UNIT_NAME_ID(gStatScreen.unit));
     unsigned namexoff = GetStringTextCenteredPos(0x30, namestr);
@@ -537,7 +604,8 @@ void sub_8086E44(void)
     }
 }
 
-void sub_8086FAC(void)
+static
+void DisplayBwl(void)
 {
     struct UnitUsageStats* stats = BWL_GetEntry(gStatScreen.unit->pCharacterData->number);
 
@@ -590,7 +658,8 @@ void sub_8086FAC(void)
         TEXT_COLOR_BLUE, stats->lossAmt);
 }
 
-void DrawStatScreenBar(int num, int x, int y, int base, int total, int max)
+static
+void DrawStatWithBar(int num, int x, int y, int base, int total, int max)
 {
     int diff = total - base;
 
@@ -610,9 +679,10 @@ void DrawStatScreenBar(int num, int x, int y, int base, int total, int max)
         TILEREF(0, STATSCREEN_BGPAL_6), max * 41 / 30, base * 41 / 30, diff * 41 / 30);
 }
 
-void DrawUnitStatScreen(void)
+static
+void DisplayPage0(void)
 {
-    sub_8086E00(sPage0TextInfo);
+    DisplayTexts(sPage0TextInfo);
 
     // Displaying str/mag label
     if (UnitHasMagicRank(gStatScreen.unit))
@@ -635,13 +705,13 @@ void DrawUnitStatScreen(void)
     }
 
     // displaying str/mag stat value
-    DrawStatScreenBar(0, 5, 1,
+    DrawStatWithBar(0, 5, 1,
         gStatScreen.unit->pow,
         GetUnitPower(gStatScreen.unit),
         UNIT_POW_MAX(gStatScreen.unit));
 
     // displaying skl stat value
-    DrawStatScreenBar(1, 5, 3,
+    DrawStatWithBar(1, 5, 3,
         gStatScreen.unit->state & US_RESCUING
             ? gStatScreen.unit->skl/2
             : gStatScreen.unit->skl,
@@ -651,7 +721,7 @@ void DrawUnitStatScreen(void)
             : UNIT_SKL_MAX(gStatScreen.unit));
 
     // displaying spd stat value
-    DrawStatScreenBar(2, 5, 5,
+    DrawStatWithBar(2, 5, 5,
         gStatScreen.unit->state & US_RESCUING
             ? gStatScreen.unit->spd/2
             : gStatScreen.unit->spd,
@@ -661,31 +731,31 @@ void DrawUnitStatScreen(void)
             : UNIT_SPD_MAX(gStatScreen.unit));
 
     // displaying lck stat value
-    DrawStatScreenBar(3, 5, 7,
+    DrawStatWithBar(3, 5, 7,
         gStatScreen.unit->lck,
         GetUnitLuck(gStatScreen.unit),
         UNIT_LCK_MAX(gStatScreen.unit));
 
     // displaying def stat value
-    DrawStatScreenBar(4, 5, 9,
+    DrawStatWithBar(4, 5, 9,
         gStatScreen.unit->def,
         GetUnitDefense(gStatScreen.unit),
         UNIT_DEF_MAX(gStatScreen.unit));
 
     // displaying res stat value
-    DrawStatScreenBar(5, 5, 11,
+    DrawStatWithBar(5, 5, 11,
         gStatScreen.unit->res,
         GetUnitResistance(gStatScreen.unit),
         UNIT_RES_MAX(gStatScreen.unit));
 
     // displaying mov stat value
-    DrawStatScreenBar(6, 13, 1,
+    DrawStatWithBar(6, 13, 1,
         UNIT_MOV_BASE(gStatScreen.unit),
         UNIT_MOV(gStatScreen.unit),
         UNIT_MOV_MAX(gStatScreen.unit));
 
     // displaying con stat value
-    DrawStatScreenBar(7, 13, 3,
+    DrawStatWithBar(7, 13, 3,
         UNIT_CON_BASE(gStatScreen.unit),
         UNIT_CON(gStatScreen.unit),
         UNIT_CON_MAX(gStatScreen.unit));
@@ -766,10 +836,11 @@ void DrawUnitStatScreen(void)
         GetUnitAffinityIcon(gStatScreen.unit),
         TILEREF(0, STATSCREEN_BGPAL_EXTICONS));
 
-    sub_8086FAC();
+    DisplayBwl();
 }
 
-void DrawUnitItemScreen(void)
+static
+void DisplayPage1(void)
 {
     int i, item;
     const char* str;
@@ -782,7 +853,7 @@ void DrawUnitItemScreen(void)
         gBmFrameTmap1 + TILEMAP_INDEX(1, 11),
         gUnknown_02020188, TILEREF(0x40, STATSCREEN_BGPAL_3));
 
-    sub_8086E00(sPage1TextInfo);
+    DisplayTexts(sPage1TextInfo);
 
     if (!UNIT_IS_GORGON_EGG(gStatScreen.unit))
     {
@@ -877,7 +948,8 @@ void DrawUnitItemScreen(void)
     }
 }
 
-void DrawUnitScreenSupportList(void)
+static
+void DisplaySupportList(void)
 {
     int yTile = 6, lineNum = 0;
 
@@ -927,7 +999,8 @@ void DrawUnitScreenSupportList(void)
     }
 }
 
-void DrawUnitWeaponRank(int num, int x, int y, int wtype)
+static
+void DisplayWeaponExp(int num, int x, int y, int wtype)
 {
     int progress, progressMax, color;
 
@@ -954,42 +1027,44 @@ void DrawUnitWeaponRank(int num, int x, int y, int wtype)
         0x22, (progress*34)/(progressMax-1), 0);
 }
 
-void DrawUnitWeaponScreen(void)
+static
+void DisplayPage2(void)
 {
     if (UnitHasMagicRank(gStatScreen.unit))
     {
         // NOTE: this was likely present in the J version
-        // sub_8086E00(sPage2TextInfo_Magical);
+        // DisplayTexts(sPage2TextInfo_Magical);
 
-        DrawUnitWeaponRank(0, 1, 1, ITYPE_ANIMA);
-        DrawUnitWeaponRank(1, 1, 3, ITYPE_LIGHT);
-        DrawUnitWeaponRank(2, 9, 1, ITYPE_DARK);
-        DrawUnitWeaponRank(3, 9, 3, ITYPE_STAFF);
+        DisplayWeaponExp(0, 1, 1, ITYPE_ANIMA);
+        DisplayWeaponExp(1, 1, 3, ITYPE_LIGHT);
+        DisplayWeaponExp(2, 9, 1, ITYPE_DARK);
+        DisplayWeaponExp(3, 9, 3, ITYPE_STAFF);
     }
     else
     {
         // NOTE: this was likely present in the J version
-        // sub_8086E00(sPage2TextInfo_Physical);
+        // DisplayTexts(sPage2TextInfo_Physical);
 
-        DrawUnitWeaponRank(0, 1, 1, ITYPE_SWORD);
-        DrawUnitWeaponRank(1, 1, 3, ITYPE_LANCE);
-        DrawUnitWeaponRank(2, 9, 1, ITYPE_AXE);
-        DrawUnitWeaponRank(3, 9, 3, ITYPE_BOW);
+        DisplayWeaponExp(0, 1, 1, ITYPE_SWORD);
+        DisplayWeaponExp(1, 1, 3, ITYPE_LANCE);
+        DisplayWeaponExp(2, 9, 1, ITYPE_AXE);
+        DisplayWeaponExp(3, 9, 3, ITYPE_BOW);
     }
 
-    DrawUnitScreenSupportList();
+    DisplaySupportList();
 }
 
-void sub_80878CC(int pageid)
+static
+void DisplayPage(int pageid)
 {
     typedef void(*func_type)(void);
 
     func_type funcLut[4] =
     {
-        DrawUnitStatScreen,
-        DrawUnitItemScreen,
-        DrawUnitWeaponScreen,
-        DrawUnitStatScreen,
+        DisplayPage0,
+        DisplayPage1,
+        DisplayPage2,
+        DisplayPage0,
     };
 
     CpuFastFill(0, gBmFrameTmap0, sizeof(gBmFrameTmap0));
@@ -998,7 +1073,8 @@ void sub_80878CC(int pageid)
     funcLut[pageid]();
 }
 
-struct Unit* sub_8087920(struct Unit* u, int direction)
+static
+struct Unit* FindNextUnit(struct Unit* u, int direction)
 {
     int faction = UNIT_FACTION(u);
     int i       = u->index;
@@ -1013,22 +1089,22 @@ struct Unit* sub_8087920(struct Unit* u, int direction)
         if (!UNIT_IS_VALID(unit))
             continue;
 
-        if ((sStatScreenInfo.config & 1) && (unit->state & US_DEAD))
+        if ((sStatScreenInfo.config & STATSCREEN_CONFIG_NONDEAD) && (unit->state & US_DEAD))
             continue;
 
-        if ((sStatScreenInfo.config & 2) && (unit->state & US_NOT_DEPLOYED))
+        if ((sStatScreenInfo.config & STATSCREEN_CONFIG_NONBENCHED) && (unit->state & US_NOT_DEPLOYED))
             continue;
 
-        if ((sStatScreenInfo.config & 4) && (unit->state & US_BIT9))
+        if ((sStatScreenInfo.config & STATSCREEN_CONFIG_NONUNK9) && (unit->state & US_BIT9))
             continue;
 
-        if ((sStatScreenInfo.config & 8) && (unit->state & US_UNDER_A_ROOF))
+        if ((sStatScreenInfo.config & STATSCREEN_CONFIG_NONROOFED) && (unit->state & US_UNDER_A_ROOF))
             continue;
 
-        if ((sStatScreenInfo.config & 0x10) && (unit->state & US_BIT16))
+        if ((sStatScreenInfo.config & STATSCREEN_CONFIG_NONUNK16) && (unit->state & US_BIT16))
             continue;
 
-        if ((sStatScreenInfo.config & 0x20) && (UNIT_CATTRIBUTES(unit) & CA_SUPPLY))
+        if ((sStatScreenInfo.config & STATSCREEN_CONFIG_NONSUPPLY) && (UNIT_CATTRIBUTES(unit) & CA_SUPPLY))
             continue;
 
         if (UNIT_IS_GORGON_EGG(unit))
@@ -1038,7 +1114,8 @@ struct Unit* sub_8087920(struct Unit* u, int direction)
     }
 }
 
-void sub_80879DC(struct StatScreenEffectProc* proc)
+static
+void PageSlide_OnLoop(struct StatScreenEffectProc* proc)
 {
     int off;
 
@@ -1054,7 +1131,7 @@ void sub_80879DC(struct StatScreenEffectProc* proc)
     {
         // INT8_MAX offset means switch to displaying next page
 
-        sub_80878CC(proc->newItem);
+        DisplayPage(proc->newItem);
 
         proc->timer++;
         off = sPageSlideOffsetLut[proc->timer];
@@ -1100,12 +1177,14 @@ void sub_80879DC(struct StatScreenEffectProc* proc)
         Proc_ClearNativeCallback((struct Proc*) proc);
 }
 
-void sub_8087ACC(void)
+static
+void PageSlide_OnEnd(struct StatScreenEffectProc* proc)
 {
     gStatScreen.inTransition = FALSE;
 }
 
-void sub_8087AD8(u16 key, int newPage, struct Proc* parent)
+static
+void StartPageSlide(u16 key, int newPage, struct Proc* parent)
 {
     struct StatScreenEffectProc* proc;
 
@@ -1125,7 +1204,8 @@ void sub_8087AD8(u16 key, int newPage, struct Proc* parent)
     gStatScreen.inTransition = TRUE;
 }
 
-void sub_8087B40(struct StatScreenEffectProc* proc)
+static
+void GlowBlendCtrl_OnInit(struct StatScreenEffectProc* proc)
 {
     gLCDControlBuffer.dispcnt.bg0_on = TRUE;
     gLCDControlBuffer.dispcnt.bg1_on = TRUE;
@@ -1142,7 +1222,8 @@ void sub_8087B40(struct StatScreenEffectProc* proc)
     sub_8001F0C(0, 0, 0, 1, 0);
 }
 
-void sub_8087BA0(struct StatScreenEffectProc* proc)
+static
+void GlowBlendCtrl_OnLoop(struct StatScreenEffectProc* proc)
 {
     if (proc->blendDirection == 0)
     {
@@ -1158,12 +1239,14 @@ void sub_8087BA0(struct StatScreenEffectProc* proc)
     SetSpecialColorEffectsParameters(1, proc->timer >> 3, 0x10, 0);
 }
 
-void sub_8087BF0(void)
+static
+void StartGlowBlendCtrl(void)
 {
     Proc_Create(gProcScr_SSGlowyBlendCtrl, ROOT_PROC_3);
 }
 
-void sub_8087C04(void)
+static
+void EndGlowBlendCtrl(struct StatScreenEffectProc* proc)
 {
     Proc_DeleteAllWithScript(gProcScr_SSGlowyBlendCtrl);
 
@@ -1174,7 +1257,8 @@ void sub_8087C04(void)
     gLCDControlBuffer.dispcnt.obj_on = TRUE;
 }
 
-void sub_8087C34(struct StatScreenEffectProc* proc)
+static
+void UnitSlide_InitFadeOut(struct StatScreenEffectProc* proc)
 {
     gStatScreen.inTransition = TRUE;
 
@@ -1202,7 +1286,8 @@ void sub_8087C34(struct StatScreenEffectProc* proc)
     }
 }
 
-void sub_8087CC0(struct StatScreenEffectProc* proc)
+static
+void UnitSlide_FadeOutLoop(struct StatScreenEffectProc* proc)
 {
     SetSpecialColorEffectsParameters(1, proc->timer, 0x10 - proc->timer, 0);
 
@@ -1217,7 +1302,8 @@ void sub_8087CC0(struct StatScreenEffectProc* proc)
         Proc_ClearNativeCallback((struct Proc*) proc);
 }
 
-void sub_8087D24(struct StatScreenEffectProc* proc)
+static
+void UnitSlide_InitFadeIn(struct StatScreenEffectProc* proc)
 {
     proc->timer = 1;
 
@@ -1241,7 +1327,8 @@ void sub_8087D24(struct StatScreenEffectProc* proc)
     }
 }
 
-void sub_8087D98(struct StatScreenEffectProc* proc)
+static
+void UnitSlide_FadeInLoop(struct StatScreenEffectProc* proc)
 {
     SetSpecialColorEffectsParameters(1, 0x10 - proc->timer, proc->timer, 0);
 
@@ -1256,15 +1343,17 @@ void sub_8087D98(struct StatScreenEffectProc* proc)
         Proc_ClearNativeCallback((struct Proc*) proc);
 }
 
-void sub_8087DF8(struct StatScreenEffectProc* proc)
+static
+void UnitSlide_SetNewUnit(struct StatScreenEffectProc* proc)
 {
     gStatScreen.unit = GetUnit(proc->newItem);
 
-    sub_8088670(Proc_Find(gProcScr_StatScreen));
+    StatScreen_Display(Proc_Find(gProcScr_StatScreen));
     Proc_ClearNativeCallback((struct Proc*) proc);
 }
 
-void sub_8087E28(struct Proc* proc)
+static
+void ClearSlide(struct Proc* proc)
 {
     if (gStatScreen.mu)
         MU_SetDisplayPosition(gStatScreen.mu,
@@ -1280,7 +1369,8 @@ void sub_8087E28(struct Proc* proc)
     gStatScreen.inTransition = FALSE;
 }
 
-void sub_8087E7C(struct Unit* unit, int direction, struct Proc* parent)
+static
+void StartUnitSlide(struct Unit* unit, int direction, struct Proc* parent)
 {
     struct StatScreenEffectProc* proc = (void*) Proc_CreateBlockingChild(gProcScr_SSUnitSlide, parent);
 
@@ -1288,28 +1378,6 @@ void sub_8087E7C(struct Unit* unit, int direction, struct Proc* parent)
     proc->direction = direction;
 
     PlaySoundEffect(0xC8); // TODO: song ids
-}
-
-void sub_8087EB8(int pageid)
-{
-    int colorid;
-
-    RegisterObjectAttributes_SafeMaybe(4,
-        111 + gStatScreen.xDispOff, 1 + gStatScreen.yDispOff,
-        sSprite_PageNameBack, TILEREF(0x293, 4) + 0xC00);
-
-    RegisterObjectAttributes_SafeMaybe(4,
-        114 + gStatScreen.xDispOff, 0 + gStatScreen.yDispOff,
-        sPageNameSpriteLut[pageid], TILEREF(0x240 + sPageNameChrOffsetLut[pageid], 3) + 0xC00);
-
-    colorid = (GetGameClock()/4) % 16;
-
-    CpuCopy16(
-        gUnknown_08A027FC[pageid] + colorid,
-        gPaletteBuffer + 0x13E,
-        sizeof(u16));
-
-    EnablePaletteSync();
 }
 
 enum
@@ -1338,7 +1406,31 @@ enum
     PAGENAME_SCALE_TIME = 6,
 };
 
-void sub_8087F48(struct StatScreenPageNameProc* proc)
+static
+void DisplayPageNameSprite(int pageid)
+{
+    int colorid;
+
+    RegisterObjectAttributes_SafeMaybe(4,
+        111 + gStatScreen.xDispOff, 1 + gStatScreen.yDispOff,
+        sSprite_PageNameBack, TILEREF(0x293, 4) + 0xC00);
+
+    RegisterObjectAttributes_SafeMaybe(4,
+        114 + gStatScreen.xDispOff, 0 + gStatScreen.yDispOff,
+        sPageNameSpriteLut[pageid], TILEREF(0x240 + sPageNameChrOffsetLut[pageid], 3) + 0xC00);
+
+    colorid = (GetGameClock()/4) % 16;
+
+    CpuCopy16(
+        gUnknown_08A027FC[pageid] + colorid,
+        gPaletteBuffer + 0x13E,
+        sizeof(u16));
+
+    EnablePaletteSync();
+}
+
+static
+void PageNameCtrl_OnInit(struct StatScreenPageNameProc* proc)
 {
     // TODO: maybe a macro that takes angle/xScale/yScale?
 
@@ -1354,9 +1446,10 @@ void sub_8087F48(struct StatScreenPageNameProc* proc)
     proc->pageNum = gStatScreen.page;
 }
 
-void sub_8087FE0(struct StatScreenPageNameProc* proc)
+static
+void PageNameCtrl_OnIdle(struct StatScreenPageNameProc* proc)
 {
-    sub_8087EB8(proc->pageNum);
+    DisplayPageNameSprite(proc->pageNum);
 
     if (gStatScreen.pageSlideKey)
     {
@@ -1369,7 +1462,8 @@ void sub_8087FE0(struct StatScreenPageNameProc* proc)
     proc->pageNum = gStatScreen.page;
 }
 
-void sub_8088014(struct StatScreenPageNameProc* proc)
+static
+void PageNameCtrl_AnimOut(struct StatScreenPageNameProc* proc)
 {
     // TODO: maybe a macro that takes angle/xScale/yScale?
 
@@ -1382,7 +1476,7 @@ void sub_8088014(struct StatScreenPageNameProc* proc)
         Div(+COS(0) * 16, proc->yScale * 0x100 / PAGENAME_SCALE_TIME)  // pd
     );
 
-    sub_8087EB8(proc->pageNum);
+    DisplayPageNameSprite(proc->pageNum);
 
     proc->yScale--;
 
@@ -1393,7 +1487,8 @@ void sub_8088014(struct StatScreenPageNameProc* proc)
     }
 }
 
-void sub_80880DC(struct StatScreenPageNameProc* proc)
+static
+void PageNameCtrl_AnimIn(struct StatScreenPageNameProc* proc)
 {
     // TODO: maybe a macro that takes angle/xScale/yScale?
 
@@ -1406,7 +1501,7 @@ void sub_80880DC(struct StatScreenPageNameProc* proc)
         Div(+COS(0) * 16, proc->yScale * 0x100 / PAGENAME_SCALE_TIME)  // pd
     );
 
-    sub_8087EB8(gStatScreen.page);
+    DisplayPageNameSprite(gStatScreen.page);
 
     proc->yScale++;
 
@@ -1417,7 +1512,8 @@ void sub_80880DC(struct StatScreenPageNameProc* proc)
     }
 }
 
-void sub_80881AC(struct StatScreenPageNameProc* proc)
+static
+void PageNumCtrl_OnInit(struct StatScreenPageNameProc* proc)
 {
     proc->xLeftCursor  = PAGENUM_LEFTARROW_X;
     proc->xRightCursor = PAGENUM_RIGHTARROW_X;
@@ -1429,7 +1525,8 @@ void sub_80881AC(struct StatScreenPageNameProc* proc)
     proc->animSpeedLeft = PAGENUM_ANIMSPEED;
 }
 
-void sub_80881C4(struct StatScreenPageNameProc* proc)
+static
+void PageNumCtrl_CheckSlide(struct StatScreenPageNameProc* proc)
 {
     if (gStatScreen.pageSlideKey & DPAD_LEFT)
     {
@@ -1446,7 +1543,8 @@ void sub_80881C4(struct StatScreenPageNameProc* proc)
     gStatScreen.pageSlideKey = 0;
 }
 
-void sub_80881FC(struct StatScreenPageNameProc* proc)
+static
+void PageNumCtrl_UpdateArrows(struct StatScreenPageNameProc* proc)
 {
     int baseref = TILEREF(0x240, STATSCREEN_OBJPAL_4) + OAM2_PRIORITY(1);
 
@@ -1479,7 +1577,8 @@ void sub_80881FC(struct StatScreenPageNameProc* proc)
         gUnknown_08590FB4, baseref + 0x5A + (proc->animTimerRight >> 5) % 6);
 }
 
-void sub_80882E4(void)
+static
+void PageNumCtrl_UpdatePageNum(struct StatScreenPageNameProc* proc)
 {
     int chr = 0x289;
 
@@ -1502,7 +1601,8 @@ void sub_80882E4(void)
         gUnknown_08590F44, TILEREF(chr, STATSCREEN_OBJPAL_4) + OAM2_PRIORITY(3) + gStatScreen.page + 1);
 }
 
-void sub_8088354(void)
+static
+void PageNumCtrl_DisplayMuPlatform(struct StatScreenPageNameProc* proc)
 {
     RegisterObjectAttributes_SafeMaybe(11,
         gStatScreen.xDispOff + 64,
@@ -1510,7 +1610,8 @@ void sub_8088354(void)
         gUnknown_08590F8C, TILEREF(0x28F, STATSCREEN_OBJPAL_4) + OAM2_PRIORITY(3));
 }
 
-void sub_8088384(void)
+static
+void PageNumCtrl_DisplayBlinkIcons(struct StatScreenPageNameProc* proc)
 {
     s8 displayIcon = (GetGameClock() % 32) < 20;
 
@@ -1527,7 +1628,7 @@ void sub_8088384(void)
             {
                 RegisterObjectAttributes_SafeMaybe(4,
                     184, 78, gUnknown_08590F44,
-                    TILEREF(3, 0xF & palidLut[gStatScreen.unit->rescueOtherUnit>>6]) + OAM2_PRIORITY(2));
+                    TILEREF(3, 0xF & palidLut[gStatScreen.unit->rescueOtherUnit >> 6]) + OAM2_PRIORITY(2));
             }
         }
 
@@ -1543,7 +1644,8 @@ void sub_8088384(void)
     }
 }
 
-void sub_808844C(void)
+static
+void StatScreen_BlackenScreen(void)
 {
     gLCDControlBuffer.dispcnt.bg0_on = FALSE;
     gLCDControlBuffer.dispcnt.bg1_on = FALSE;
@@ -1562,7 +1664,8 @@ void sub_808844C(void)
     EnablePaletteSync();
 }
 
-void sub_80884B0(struct Proc* proc)
+static
+void StatScreen_InitDisplay(struct Proc* proc)
 {
     u16 bgConfig[12] =
     {
@@ -1658,10 +1761,11 @@ void sub_80884B0(struct Proc* proc)
 
     gStatScreen.mu = NULL;
 
-    sub_8087E28(proc);
+    ClearSlide(proc);
 }
 
-void sub_8088670(struct Proc* proc)
+static
+void StatScreen_Display(struct Proc* proc)
 {
     // Get portrait id
 
@@ -1678,7 +1782,7 @@ void sub_8088670(struct Proc* proc)
     Font_InitForUIDefault();
     ResetIconGraphics_();
 
-    sub_8086DF0();
+    InitTexts();
 
     // Display portrait
 
@@ -1697,11 +1801,11 @@ void sub_8088670(struct Proc* proc)
 
     // Draw left panel labels and info
 
-    sub_8086E44();
+    DisplayLeftPanel();
 
     // Draw page content
 
-    sub_80878CC(gStatScreen.page);
+    DisplayPage(gStatScreen.page);
 
     TileMap_CopyRect(gBmFrameTmap0, gBG0TilemapBuffer + TILEMAP_INDEX(12, 2), 18, 18);
     TileMap_CopyRect(gBmFrameTmap1, gBG2TilemapBuffer + TILEMAP_INDEX(12, 2), 18, 18);
@@ -1709,7 +1813,8 @@ void sub_8088670(struct Proc* proc)
     BG_EnableSyncByMask(BG0_SYNC_BIT | BG1_SYNC_BIT | BG2_SYNC_BIT);
 }
 
-void sub_808873C(struct Proc* proc)
+static
+void StatScreen_OnIdle(struct Proc* proc)
 {
     struct Unit* unit;
 
@@ -1738,42 +1843,43 @@ void sub_808873C(struct Proc* proc)
     else if (gKeyStatusPtr->repeatedKeys & DPAD_LEFT)
     {
         gStatScreen.page = (gStatScreen.page + gStatScreen.pageAmt - 1) % gStatScreen.pageAmt;
-        sub_8087AD8(DPAD_LEFT, gStatScreen.page, proc);
+        StartPageSlide(DPAD_LEFT, gStatScreen.page, proc);
         return;
     }
 
     else if (gKeyStatusPtr->repeatedKeys & DPAD_RIGHT)
     {
         gStatScreen.page = (gStatScreen.page + gStatScreen.pageAmt + 1) % gStatScreen.pageAmt;
-        sub_8087AD8(DPAD_RIGHT, gStatScreen.page, proc);
+        StartPageSlide(DPAD_RIGHT, gStatScreen.page, proc);
     }
 
     else if (gKeyStatusPtr->repeatedKeys & DPAD_UP)
     {
-        unit = sub_8087920(gStatScreen.unit, -1);
-        sub_8087E7C(unit, -1, proc);
+        unit = FindNextUnit(gStatScreen.unit, -1);
+        StartUnitSlide(unit, -1, proc);
     }
 
     else if (gKeyStatusPtr->repeatedKeys & DPAD_DOWN)
     {
-        unit = sub_8087920(gStatScreen.unit, +1);
-        sub_8087E7C(unit, +1, proc);
+        unit = FindNextUnit(gStatScreen.unit, +1);
+        StartUnitSlide(unit, +1, proc);
     }
 
     else if ((gKeyStatusPtr->repeatedKeys & A_BUTTON) && (gStatScreen.unit->rescueOtherUnit))
     {
         unit = GetUnit(gStatScreen.unit->rescueOtherUnit);
-        sub_8087E7C(unit, (gStatScreen.unit->state & US_RESCUING) ? +1 : -1, proc);
+        StartUnitSlide(unit, (gStatScreen.unit->state & US_RESCUING) ? +1 : -1, proc);
     }
 
     else if (gKeyStatusPtr->newKeys & R_BUTTON)
     {
         Proc_GotoLabel(proc, 0); // TODO: label name
-        MakeStatScreenRText6C(gStatScreen.page, proc);
+        StartStatScreenHelp(gStatScreen.page, proc);
     }
 }
 
-void sub_80888B4(void)
+static
+void StatScreen_OnClose(void)
 {
     gUnknown_0202BCF0.chapterStateBits = (gUnknown_0202BCF0.chapterStateBits &~ 3) | (gStatScreen.page & 3);
     sStatScreenInfo.unitId = gStatScreen.unit->index;
@@ -1787,12 +1893,14 @@ void sub_80888B4(void)
     gLCDControlBuffer.dispcnt.obj_on = FALSE;
 }
 
-void sub_808890C(void)
+static
+void StatScreen_ResumeFromHelp(void)
 {
-    gStatScreen.help = sub_80895A8();
+    gStatScreen.help = GetLastHelpBoxInfo();
 }
 
-void sub_8088920(void)
+static
+void BgOffCtrl_OnLoop(void)
 {
     int yBg = 0xFF & -gStatScreen.yDispOff;
 
@@ -1800,7 +1908,7 @@ void sub_8088920(void)
     BG_SetPosition(2, 0, yBg);
 }
 
-void sub_808894C(struct Unit* unit, struct Proc* parent)
+void StartStatScreen(struct Unit* unit, struct Proc* parent)
 {
     gStatScreen.xDispOff = 0;
     gStatScreen.yDispOff = 0;
@@ -1817,7 +1925,7 @@ void sub_808894C(struct Unit* unit, struct Proc* parent)
     Proc_CreateBlockingChild(gProcScr_StatScreen, parent);
 }
 
-void MakeStatScreenRText6C(int pageid, struct Proc* proc)
+void StartStatScreenHelp(int pageid, struct Proc* proc)
 {
     LoadDialogueBoxGfx(NULL, -1); // default
 
@@ -1841,10 +1949,10 @@ void MakeStatScreenRText6C(int pageid, struct Proc* proc)
         } // switch (pageid)
     }
 
-    Create6CRText(gStatScreen.help, proc);
+    StartMovingHelpBox(gStatScreen.help, proc);
 }
 
-void sub_8088A00(struct HelpBoxProc* proc)
+void HbPopulate_SSItem(struct HelpBoxProc* proc)
 {
     int item = gStatScreen.unit->items[proc->info->mid];
 
@@ -1852,7 +1960,7 @@ void sub_8088A00(struct HelpBoxProc* proc)
     proc->mid  = GetItemDescId(item);
 }
 
-void sub_8088A2C(struct HelpBoxProc* proc)
+void HbPopulate_SSStatus(struct HelpBoxProc* proc)
 {
     switch (gStatScreen.unit->statusIndex)
     {
@@ -1901,7 +2009,7 @@ void sub_8088A2C(struct HelpBoxProc* proc)
     } // switch (gStatScreen.unit->statusIndex)
 }
 
-void sub_8088B08(struct HelpBoxProc* proc)
+void HbPopulate_SSPower(struct HelpBoxProc* proc)
 {
     if (UnitHasMagicRank(gStatScreen.unit))
         proc->mid = 0x547; // TODO: mid constants
@@ -1909,21 +2017,21 @@ void sub_8088B08(struct HelpBoxProc* proc)
         proc->mid = 0x546; // TODO: mid constants
 }
 
-void sub_8088B40(struct HelpBoxProc* proc)
+void HbRedirect_SSItem(struct HelpBoxProc* proc)
 {
     if (!gStatScreen.unit->items[0])
-        sub_80893B4(proc);
+        TryRelocateHbLeft(proc);
 
     if (!gStatScreen.unit->items[proc->info->mid])
     {
         if (proc->moveKey == 0 || proc->moveKey == DPAD_RIGHT || proc->moveKey == DPAD_UP)
-            sub_8089354(proc);
+            TryRelocateHbUp(proc);
         else if (proc->moveKey == DPAD_DOWN)
-            sub_8089384(proc);
+            TryRelocateHbDown(proc);
     }
 }
 
-void sub_8088B94(struct HelpBoxProc* proc)
+void HbPopulate_SSWExp(struct HelpBoxProc* proc)
 {
     u16 rankMsgLut[8] =
     {
@@ -1938,7 +2046,7 @@ void sub_8088B94(struct HelpBoxProc* proc)
     proc->mid = rankMsgLut[itemKind];
 }
 
-void sub_8088BD4(struct HelpBoxProc* proc)
+void HbPopulate_SSCharacter(struct HelpBoxProc* proc)
 {
     int midDesc = gStatScreen.unit->pCharacterData->descTextId;
 
@@ -1948,23 +2056,23 @@ void sub_8088BD4(struct HelpBoxProc* proc)
         proc->mid = 0x6BE; // TODO: mid constants
 }
 
-void sub_8088C00(struct HelpBoxProc* proc)
+void HbPopulate_SSClass(struct HelpBoxProc* proc)
 {
     proc->mid = gStatScreen.unit->pClassData->descTextId;
 }
 
-void sub_8088C14(struct HelpBoxProc* proc)
+void HbRedirect_SSSupports(struct HelpBoxProc* proc)
 {
     if (GetUnitTotalSupportLevel(gStatScreen.unit) == 0)
     {
         if (proc->moveKey == DPAD_DOWN)
-            sub_8089384(proc);
+            TryRelocateHbDown(proc);
         else
-            sub_8089354(proc);
+            TryRelocateHbUp(proc);
     }
 }
 
-void sub_8088C48(struct HelpBoxProc* proc, int arg1)
+void UpdateHelpBoxDisplay(struct HelpBoxProc* proc, int arg1)
 {
     proc->xBox = sub_8012DCC(arg1, proc->xBoxInit, proc->xBoxFinal, proc->timer, proc->timerMax);
     proc->yBox = sub_8012DCC(arg1, proc->yBoxInit, proc->yBoxFinal, proc->timer, proc->timerMax);
@@ -1974,9 +2082,10 @@ void sub_8088C48(struct HelpBoxProc* proc, int arg1)
     sub_8089980(proc->xBox, proc->yBox, proc->wBox, proc->hBox, proc->unk52);
 }
 
-void sub_8088CFC(struct HelpBoxProc* proc)
+static
+void HelpBox_OnOpen(struct HelpBoxProc* proc)
 {
-    struct Proc* found = Proc_Find(gProcScr_MetaHelpSprCtrl);
+    struct Proc* found = Proc_Find(gProcScr_HelpPromptSpr);
 
     if (found)
         found->blockSemaphore = 1; // lock (disabled) proc
@@ -1985,17 +2094,19 @@ void sub_8088CFC(struct HelpBoxProc* proc)
         PlaySoundEffect(0x70); // TODO: song ids
 }
 
-void sub_8088D3C(struct HelpBoxProc* proc)
+static
+void HelpBox_OnLoop(struct HelpBoxProc* proc)
 {
-    sub_8088C48(proc, 5);
+    UpdateHelpBoxDisplay(proc, 5);
 
     if (proc->timer < proc->timerMax)
         proc->timer++;
 }
 
-void sub_8088D64(struct HelpBoxProc* proc)
+static
+void HelpBox_OnClose(struct HelpBoxProc* proc)
 {
-    struct Proc* found = Proc_Find(gProcScr_MetaHelpSprCtrl);
+    struct Proc* found = Proc_Find(gProcScr_HelpPromptSpr);
 
     if (found)
         found->blockSemaphore = 0; // unlock (enable) proc
@@ -2004,14 +2115,15 @@ void sub_8088D64(struct HelpBoxProc* proc)
     {
         PlaySoundEffect(0x71); // TODO: song ids
 
-        sub_80892C0(proc);
-        sub_808929C(proc, proc->info->xDisplay, proc->info->yDisplay);
+        ResetHelpBoxInitSize(proc);
+        SetHelpBoxInitPosition(proc, proc->info->xDisplay, proc->info->yDisplay);
     }
 }
 
-void sub_8088DB8(struct HelpBoxProc* proc)
+static
+void HelpBox_WaitClose(struct HelpBoxProc* proc)
 {
-    sub_8088C48(proc, 0);
+    UpdateHelpBoxDisplay(proc, 0);
 
     proc->timer -= 3;
 
@@ -2019,7 +2131,7 @@ void sub_8088DB8(struct HelpBoxProc* proc)
         Proc_ClearNativeCallback((struct Proc*) proc);
 }
 
-void sub_8088DE0(int x, int y, int mid)
+void StartHelpBox(int x, int y, int mid)
 {
     sMutableHbi.adjUp    = NULL;
     sMutableHbi.adjDown  = NULL;
@@ -2036,10 +2148,10 @@ void sub_8088DE0(int x, int y, int mid)
     sHbOrigin.x = 0;
     sHbOrigin.y = 0;
 
-    sub_8088E9C(&sMutableHbi, FALSE);
+    StartHelpBoxExt(&sMutableHbi, FALSE);
 }
 
-void sub_8088E14(int x, int y, int mid)
+void StartHelpBox_Unk(int x, int y, int mid)
 {
     if (x < 0 && y < 0)
     {
@@ -2062,10 +2174,10 @@ void sub_8088E14(int x, int y, int mid)
     sHbOrigin.x = 0;
     sHbOrigin.y = 0;
 
-    sub_8088E9C(&sMutableHbi, TRUE);
+    StartHelpBoxExt(&sMutableHbi, TRUE);
 }
 
-void sub_8088E60(int x, int y, int item)
+void StartItemHelpBox(int x, int y, int item)
 {
     sMutableHbi.adjUp    = NULL;
     sMutableHbi.adjDown  = NULL;
@@ -2077,15 +2189,15 @@ void sub_8088E60(int x, int y, int item)
     sMutableHbi.mid      = item;
 
     sMutableHbi.redirect = NULL;
-    sMutableHbi.populate = sub_8089320;
+    sMutableHbi.populate = HbPopulate_AutoItem;
 
     sHbOrigin.x = 0;
     sHbOrigin.y = 0;
 
-    sub_8088E9C(&sMutableHbi, FALSE);
+    StartHelpBoxExt(&sMutableHbi, FALSE);
 }
 
-void sub_8088E9C(const struct HelpBoxInfo* info, int unk)
+void StartHelpBoxExt(const struct HelpBoxInfo* info, int unk)
 {
     struct HelpBoxProc* proc;
     int wContent, hContent;
@@ -2098,8 +2210,8 @@ void sub_8088E9C(const struct HelpBoxInfo* info, int unk)
 
         proc->unk52 = unk;
 
-        sub_808929C(proc, info->xDisplay, info->yDisplay);
-        sub_80892C0(proc);
+        SetHelpBoxInitPosition(proc, info->xDisplay, info->yDisplay);
+        ResetHelpBoxInitSize(proc);
     }
     else
     {
@@ -2125,8 +2237,8 @@ void sub_8088E9C(const struct HelpBoxInfo* info, int unk)
     sub_8003FAC(GetStringFromIndex(proc->mid), &wContent, &hContent);
     SetFontGlyphSet(0);
 
-    sub_80891AC(proc, wContent, hContent);
-    sub_8089210(proc, info->xDisplay, info->yDisplay);
+    ApplyHelpBoxContentSize(proc, wContent, hContent);
+    ApplyHelpBoxPosition(proc, info->xDisplay, info->yDisplay);
 
     sub_808A118();
     sub_808A0FC(proc->item, proc->mid);
@@ -2134,7 +2246,7 @@ void sub_8088E9C(const struct HelpBoxInfo* info, int unk)
     sLastHbi = info;
 }
 
-void sub_8088F68(int x, int y, int mid)
+void StartHelpBoxExt_Unk(int x, int y, int mid)
 {
     struct HelpBoxProc* proc;
     int wContent, hContent;
@@ -2159,8 +2271,8 @@ void sub_8088F68(int x, int y, int mid)
     sub_8003FAC(GetStringFromIndex(proc->mid), &wContent, &hContent);
     SetFontGlyphSet(0);
 
-    sub_80892C0(proc);
-    sub_80891AC(proc, wContent, hContent);
+    ResetHelpBoxInitSize(proc);
+    ApplyHelpBoxContentSize(proc, wContent, hContent);
 
     proc->xBoxInit = x + 8;
     proc->yBoxInit = y + 8;
@@ -2172,7 +2284,7 @@ void sub_8088F68(int x, int y, int mid)
     sub_808A0FC(proc->item, proc->mid);
 }
 
-void sub_8089018(void)
+void CloseHelpBox(void)
 {
     struct HelpBoxProc* proc = (void*) Proc_Find(gProcScr_HelpBox);
 
@@ -2183,7 +2295,7 @@ void sub_8089018(void)
     }
 }
 
-void sub_808903C(void)
+void EndHelpBox(void)
 {
     struct HelpBoxProc* proc = (void*) Proc_Find(gProcScr_HelpBox);
 
@@ -2194,17 +2306,19 @@ void sub_808903C(void)
     }
 }
 
-void sub_8089060(struct HelpBoxProc* proc)
+static
+void HbMoveCtrl_OnInitBox(struct HelpBoxProc* proc)
 {
     proc->moveKey = 0;
 
     if (proc->info->redirect)
         proc->info->redirect(proc);
 
-    sub_8088E9C(proc->info, FALSE);
+    StartHelpBoxExt(proc->info, FALSE);
 }
 
-void sub_8089088(struct HelpBoxProc* proc)
+static
+void HbMoveCtrl_OnIdle(struct HelpBoxProc* proc)
 {
     u8 boxMoved = FALSE;
 
@@ -2213,16 +2327,16 @@ void sub_8089088(struct HelpBoxProc* proc)
         sHbOrigin.y*8 + proc->info->yDisplay);
 
     if (gKeyStatusPtr->repeatedKeys & DPAD_UP)
-        boxMoved |= sub_8089354(proc);
+        boxMoved |= TryRelocateHbUp(proc);
 
     if (gKeyStatusPtr->repeatedKeys & DPAD_DOWN)
-        boxMoved |= sub_8089384(proc);
+        boxMoved |= TryRelocateHbDown(proc);
 
     if (gKeyStatusPtr->repeatedKeys & DPAD_LEFT)
-        boxMoved |= sub_80893B4(proc);
+        boxMoved |= TryRelocateHbLeft(proc);
 
     if (gKeyStatusPtr->repeatedKeys & DPAD_RIGHT)
-        boxMoved |= sub_80893E4(proc);
+        boxMoved |= TryRelocateHbRight(proc);
 
     if (gKeyStatusPtr->newKeys & (B_BUTTON | R_BUTTON))
     {
@@ -2237,13 +2351,14 @@ void sub_8089088(struct HelpBoxProc* proc)
     }
 }
 
-void sub_8089150(struct HelpBoxProc* proc)
+static
+void HbMoveCtrl_OnEnd(struct HelpBoxProc* proc)
 {
-    sub_8089018();
+    CloseHelpBox();
     Proc_Delete((void*) proc);
 }
 
-void Create6CRText(const struct HelpBoxInfo* info, struct Proc* parent)
+void StartMovingHelpBox(const struct HelpBoxInfo* info, struct Proc* parent)
 {
     struct HelpBoxProc* proc = (void*) Proc_CreateBlockingChild(gProcScr_HelpBoxMoveCtrl, parent);
 
@@ -2253,7 +2368,7 @@ void Create6CRText(const struct HelpBoxInfo* info, struct Proc* parent)
     proc->info = info;
 }
 
-void sub_8089188(const struct HelpBoxInfo* info, struct Proc* parent, int x, int y)
+void StartMovingHelpBoxExt(const struct HelpBoxInfo* info, struct Proc* parent, int x, int y)
 {
     struct HelpBoxProc* proc = (void*) Proc_CreateBlockingChild(gProcScr_HelpBoxMoveCtrl, parent);
 
@@ -2263,11 +2378,12 @@ void sub_8089188(const struct HelpBoxInfo* info, struct Proc* parent, int x, int
     proc->info = info;
 }
 
-void sub_80891AC(struct HelpBoxProc* proc, int width, int height)
+static
+void ApplyHelpBoxContentSize(struct HelpBoxProc* proc, int width, int height)
 {
     width = 0xF0 & (width + 15); // align to 16 pixel multiple
 
-    switch (sub_80892D0(proc->item))
+    switch (GetHelpBoxItemInfoKind(proc->item))
     {
 
     case 1: // weapon
@@ -2295,13 +2411,14 @@ void sub_80891AC(struct HelpBoxProc* proc, int width, int height)
 
         break;
 
-    } // switch (sub_80892D0(proc->item))
+    } // switch (GetHelpBoxItemInfoKind(proc->item))
 
     proc->wBoxFinal = width;
     proc->hBoxFinal = height;
 }
 
-void sub_8089210(struct HelpBoxProc* proc, int x, int y)
+static
+void ApplyHelpBoxPosition(struct HelpBoxProc* proc, int x, int y)
 {
     int xSpan = proc->wBoxFinal + 0x10;
     int ySpan = proc->hBoxFinal + 0x10;
@@ -2326,7 +2443,7 @@ void sub_8089210(struct HelpBoxProc* proc, int x, int y)
     proc->yBoxFinal += 8;
 }
 
-void sub_808929C(struct HelpBoxProc* proc, int x, int y)
+void SetHelpBoxInitPosition(struct HelpBoxProc* proc, int x, int y)
 {
     x += sHbOrigin.x*8;
     y += sHbOrigin.y*8;
@@ -2335,42 +2452,42 @@ void sub_808929C(struct HelpBoxProc* proc, int x, int y)
     proc->yBoxInit = y;
 }
 
-void sub_80892C0(struct HelpBoxProc* proc)
+void ResetHelpBoxInitSize(struct HelpBoxProc* proc)
 {
     proc->wBoxInit = 32;
     proc->hBoxInit = 16;
 }
 
-int sub_80892D0(int item)
+int GetHelpBoxItemInfoKind(int item)
 {
     if (item == 0xFFFE)
-        return 3;
+        return HB_EXTINFO_SAVEINFO;
 
     if (GetItemAttributes(item) & IA_LOCK_3)
-        return 0;
+        return HB_EXTINFO_NONE;
 
     if (GetItemAttributes(item) & IA_WEAPON)
-        return 1;
+        return HB_EXTINFO_WEAPON;
 
     if (GetItemAttributes(item) & IA_STAFF)
-        return 2;
+        return HB_EXTINFO_STAFF;
 
-    return 0;
+    return HB_EXTINFO_NONE;
 }
 
-void sub_8089320(struct HelpBoxProc* proc)
+void HbPopulate_AutoItem(struct HelpBoxProc* proc)
 {
     int item = proc->info->mid;
 
     proc->item = item;
 
-    if (sub_80892D0(proc->item) == 3)
+    if (GetHelpBoxItemInfoKind(proc->item) == HB_EXTINFO_SAVEINFO)
         proc->mid = 0;
     else
         proc->mid = GetItemDescId(item);
 }
 
-int sub_8089354(struct HelpBoxProc* proc)
+int TryRelocateHbUp(struct HelpBoxProc* proc)
 {
     if (!proc->info->adjUp)
         return FALSE;
@@ -2384,7 +2501,7 @@ int sub_8089354(struct HelpBoxProc* proc)
     return TRUE;
 }
 
-int sub_8089384(struct HelpBoxProc* proc)
+int TryRelocateHbDown(struct HelpBoxProc* proc)
 {
     if (!proc->info->adjDown)
         return FALSE;
@@ -2398,7 +2515,7 @@ int sub_8089384(struct HelpBoxProc* proc)
     return TRUE;
 }
 
-int sub_80893B4(struct HelpBoxProc* proc)
+int TryRelocateHbLeft(struct HelpBoxProc* proc)
 {
     if (!proc->info->adjLeft)
         return FALSE;
@@ -2412,7 +2529,7 @@ int sub_80893B4(struct HelpBoxProc* proc)
     return TRUE;
 }
 
-int sub_80893E4(struct HelpBoxProc* proc)
+int TryRelocateHbRight(struct HelpBoxProc* proc)
 {
     // whoa bad hardcoded thing!
     if (!proc->info->adjRight || (proc->info == &gHelpInfo_Ss1CharName && !gStatScreen.unit->items[0]))
@@ -2427,35 +2544,36 @@ int sub_80893E4(struct HelpBoxProc* proc)
     return TRUE;
 }
 
-void sub_8089430(struct Proc* proc)
+static
+void HbLock_OnIdle(struct Proc* proc)
 {
     if (gKeyStatusPtr->newKeys & (B_BUTTON | R_BUTTON))
         Proc_ClearNativeCallback(proc);
 }
 
-int sub_8089454(int mid, struct Proc* parent)
+int StartLockingHelpBox_Unused(int mid, struct Proc* parent)
 {
     LoadDialogueBoxGfx(NULL, -1);
 
-    sub_8088DE0(GetUiHandPrevDisplayX(), GetUiHandPrevDisplayY(), mid);
+    StartHelpBox(GetUiHandPrevDisplayX(), GetUiHandPrevDisplayY(), mid);
     Proc_CreateBlockingChild(gProcScr_HelpBoxLock, parent);
 
     return TRUE;
 }
 
-void Loop6C_8A00B20_UpdateOAMData(struct HelpPromptObjectProc* proc)
+void HelpPrompt_OnIdle(struct HelpPromptSprProc* proc)
 {
     RegisterObjectAttributes_SafeMaybe(0,
         proc->xDisplay, proc->yDisplay,
         sSprite_MetaHelp, proc->tileref);
 }
 
-struct Proc* sub_80894AC(int x, int y, struct Proc* parent)
+struct Proc* StartHelpPromptSprite_Unused(int x, int y, struct Proc* parent)
 {
-    struct HelpPromptObjectProc* proc = (void*) Proc_Find(gProcScr_MetaHelpSprCtrl);
+    struct HelpPromptSprProc* proc = (void*) Proc_Find(gProcScr_HelpPromptSpr);
 
     if (!proc)
-        proc = (void*) Proc_Create(gProcScr_MetaHelpSprCtrl, parent);
+        proc = (void*) Proc_Create(gProcScr_HelpPromptSpr, parent);
 
     proc->xDisplay = x;
     proc->yDisplay = y;
@@ -2464,14 +2582,14 @@ struct Proc* sub_80894AC(int x, int y, struct Proc* parent)
     return (void*) proc;
 }
 
-struct Proc* sub_80894E0(int x, int y, int palid, struct Proc* parent)
+struct Proc* StartHelpPromptSprite(int x, int y, int palid, struct Proc* parent)
 {
-    struct HelpPromptObjectProc* proc = (void*) Proc_Find(gProcScr_MetaHelpSprCtrl);
+    struct HelpPromptSprProc* proc = (void*) Proc_Find(gProcScr_HelpPromptSpr);
 
     ApplyPalette(gUnknown_08A1D79C, palid + 0x10);
 
     if (!proc)
-        proc = (void*) Proc_Create(gProcScr_MetaHelpSprCtrl, parent);
+        proc = (void*) Proc_Create(gProcScr_HelpPromptSpr, parent);
 
     proc->xDisplay = x;
     proc->yDisplay = y;
@@ -2480,12 +2598,12 @@ struct Proc* sub_80894E0(int x, int y, int palid, struct Proc* parent)
     return (void*) proc;
 }
 
-struct Proc* sub_808953C(int x, int y, struct Proc* parent)
+struct Proc* StartHelpPromptSprite_Unused2(int x, int y, struct Proc* parent)
 {
-    struct HelpPromptObjectProc* proc = (void*) Proc_Find(gProcScr_MetaHelpSprCtrl);
+    struct HelpPromptSprProc* proc = (void*) Proc_Find(gProcScr_HelpPromptSpr);
 
     if (!proc)
-        proc = (void*) Proc_CreateBlockingChild(gProcScr_MetaHelpSprCtrl, parent);
+        proc = (void*) Proc_CreateBlockingChild(gProcScr_HelpPromptSpr, parent);
 
     proc->xDisplay = x;
     proc->yDisplay = y;
@@ -2494,17 +2612,17 @@ struct Proc* sub_808953C(int x, int y, struct Proc* parent)
     return (void*) proc;
 }
 
-void sub_8089570(void)
+void EndHelpPromptSprite(void)
 {
-    struct Proc* proc = Proc_Find(gProcScr_MetaHelpSprCtrl);
+    struct Proc* proc = Proc_Find(gProcScr_HelpPromptSpr);
 
     if (proc)
         Proc_Delete(proc);
 }
 
-void sub_8089588(int x, int y)
+void MoveHelpPromptSprite(int x, int y)
 {
-    struct HelpPromptObjectProc* proc = (void*) Proc_Find(gProcScr_MetaHelpSprCtrl);
+    struct HelpPromptSprProc* proc = (void*) Proc_Find(gProcScr_HelpPromptSpr);
 
     if (proc)
     {
@@ -2513,7 +2631,7 @@ void sub_8089588(int x, int y)
     }
 }
 
-const struct HelpBoxInfo* sub_80895A8(void)
+const struct HelpBoxInfo* GetLastHelpBoxInfo(void)
 {
     return sLastHbi;
 }
@@ -2549,13 +2667,13 @@ static DECL_INFO sHelpInfo_08A00CF8;
 static DECL_INFO sHelpInfo_08A00B38 =
 {
     NULL, &sHelpInfo_08A00B54, NULL, &sHelpInfo_08A00C18,
-    24, 80, 0, NULL, sub_8088BD4,
+    24, 80, 0, NULL, HbPopulate_SSCharacter,
 };
 
 static DECL_INFO sHelpInfo_08A00B54 =
 {
     &sHelpInfo_08A00B38, &sHelpInfo_08A00B70, NULL, &sHelpInfo_08A00C50,
-    6, 104, 0x6E8, NULL, sub_8088C00,
+    6, 104, 0x6E8, NULL, HbPopulate_SSClass,
 };
 
 static DECL_INFO sHelpInfo_08A00B70 =
@@ -2579,7 +2697,7 @@ static DECL_INFO sHelpInfo_08A00BA8 =
 DECL_INFO gHelpInfo_Ss0Pow =
 {
     NULL, &sHelpInfo_08A00BE0, &sHelpInfo_08A00B38, &sHelpInfo_08A00C6C,
-    102, 24, 0x546, NULL, sub_8088B08,
+    102, 24, 0x546, NULL, HbPopulate_SSPower,
 };
 
 static DECL_INFO sHelpInfo_08A00BE0 =
@@ -2645,7 +2763,7 @@ static DECL_INFO sHelpInfo_08A00CDC =
 static DECL_INFO sHelpInfo_08A00CF8 =
 {
     &sHelpInfo_08A00CDC, NULL, &sHelpInfo_08A00C50, NULL,
-    166, 104, 0, NULL, sub_8088A2C,
+    166, 104, 0, NULL, HbPopulate_SSStatus,
 };
 
 // Stat Screen Page 1 (Items & battle stats) (Ss1)
@@ -2669,13 +2787,13 @@ static DECL_INFO sHelpInfo_08A00E9C;
 DECL_INFO gHelpInfo_Ss1CharName =
 {
     NULL, &sHelpInfo_08A00D30, NULL, &sHelpInfo_08A00DF4,
-    24, 80, 0, NULL, sub_8088BD4,
+    24, 80, 0, NULL, HbPopulate_SSCharacter,
 };
 
 static DECL_INFO sHelpInfo_08A00D30 =
 {
     &gHelpInfo_Ss1CharName, &sHelpInfo_08A00D4C, NULL, &sHelpInfo_08A00E2C,
-    6, 104, 0x6E8, NULL, sub_8088C00,
+    6, 104, 0x6E8, NULL, HbPopulate_SSClass,
 };
 
 static DECL_INFO sHelpInfo_08A00D4C =
@@ -2699,31 +2817,31 @@ static DECL_INFO sHelpInfo_08A00D84 =
 DECL_INFO gHelpInfo_Ss1Item0 =
 {
     NULL, &sHelpInfo_08A00DBC, &gHelpInfo_Ss1CharName, NULL,
-    104, 24, 0, sub_8088B40, sub_8088A00,
+    104, 24, 0, HbRedirect_SSItem, HbPopulate_SSItem,
 };
 
 static DECL_INFO sHelpInfo_08A00DBC =
 {
     &gHelpInfo_Ss1Item0, &sHelpInfo_08A00DD8, &gHelpInfo_Ss1CharName, NULL,
-    104, 40, 1, sub_8088B40, sub_8088A00,
+    104, 40, 1, HbRedirect_SSItem, HbPopulate_SSItem,
 };
 
 static DECL_INFO sHelpInfo_08A00DD8 =
 {
     &sHelpInfo_08A00DBC, &sHelpInfo_08A00DF4, &gHelpInfo_Ss1CharName, NULL,
-    104, 56, 2, sub_8088B40, sub_8088A00,
+    104, 56, 2, HbRedirect_SSItem, HbPopulate_SSItem,
 };
 
 static DECL_INFO sHelpInfo_08A00DF4 =
 {
     &sHelpInfo_08A00DD8, &sHelpInfo_08A00E10, &gHelpInfo_Ss1CharName, NULL,
-    104, 72, 3, sub_8088B40, sub_8088A00,
+    104, 72, 3, HbRedirect_SSItem, HbPopulate_SSItem,
 };
 
 static DECL_INFO sHelpInfo_08A00E10 =
 {
     &sHelpInfo_08A00DF4, &sHelpInfo_08A00E2C, &gHelpInfo_Ss1CharName, &sHelpInfo_08A00E64,
-    104, 88, 4, sub_8088B40, sub_8088A00,
+    104, 88, 4, HbRedirect_SSItem, HbPopulate_SSItem,
 };
 
 static DECL_INFO sHelpInfo_08A00E2C =
@@ -2772,13 +2890,13 @@ static DECL_INFO sHelpInfo_08A00FB4;
 static DECL_INFO sHelpInfo_08A00EB8 =
 {
     NULL, &sHelpInfo_08A00ED4, NULL, &sHelpInfo_08A00FB4,
-    24, 80, 0, NULL, sub_8088BD4,
+    24, 80, 0, NULL, HbPopulate_SSCharacter,
 };
 
 static DECL_INFO sHelpInfo_08A00ED4 =
 {
     &sHelpInfo_08A00EB8, &sHelpInfo_08A00EF0, NULL, &sHelpInfo_08A00FB4,
-    6, 104, 0x6E8, NULL, sub_8088C00,
+    6, 104, 0x6E8, NULL, HbPopulate_SSClass,
 };
 
 static DECL_INFO sHelpInfo_08A00EF0 =
@@ -2802,31 +2920,31 @@ static DECL_INFO sHelpInfo_08A00F28 =
 DECL_INFO gHelpInfo_Ss2Rank0 =
 {
     NULL, &sHelpInfo_08A00F60, &sHelpInfo_08A00EB8, &sHelpInfo_08A00F7C,
-    104, 24, 0, NULL, sub_8088B94,
+    104, 24, 0, NULL, HbPopulate_SSWExp,
 };
 
 static DECL_INFO sHelpInfo_08A00F60 =
 {
     &gHelpInfo_Ss2Rank0, &sHelpInfo_08A00FB4, &sHelpInfo_08A00EB8, &sHelpInfo_08A00F98,
-    104, 40, 1, NULL, sub_8088B94,
+    104, 40, 1, NULL, HbPopulate_SSWExp,
 };
 
 static DECL_INFO sHelpInfo_08A00F7C =
 {
     NULL, &sHelpInfo_08A00F98, &gHelpInfo_Ss2Rank0, NULL,
-    168, 24, 2, NULL, sub_8088B94,
+    168, 24, 2, NULL, HbPopulate_SSWExp,
 };
 
 static DECL_INFO sHelpInfo_08A00F98 =
 {
     &sHelpInfo_08A00F7C, &sHelpInfo_08A00FB4, &sHelpInfo_08A00F60, NULL,
-    168, 40, 3, NULL, sub_8088B94,
+    168, 40, 3, NULL, HbPopulate_SSWExp,
 };
 
 static DECL_INFO sHelpInfo_08A00FB4 =
 {
     &sHelpInfo_08A00F60, &sHelpInfo_08A00EB8, &sHelpInfo_08A00EB8, NULL,
-    128, 64, 0x569, sub_8088C14, NULL,
+    128, 64, 0x569, HbRedirect_SSSupports, NULL,
 };
 
 // BKSEL (Select Battle Target Window) HELP INFOS

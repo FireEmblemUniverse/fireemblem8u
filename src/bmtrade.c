@@ -654,7 +654,7 @@ void TradeMenu_HelpBox_OnInit(struct Proc* proc)
 
     LoadDialogueBoxGfx(NULL, -1);
 
-    sub_8088E60(
+    StartItemHelpBox(
         8 * sItemDisplayTileLocation[tradeMenu->hoverColumn][tradeMenu->hoverRow].x,
         8 * sItemDisplayTileLocation[tradeMenu->hoverColumn][tradeMenu->hoverRow].y,
         item);
@@ -671,7 +671,7 @@ void TradeMenu_HelpBox_OnLoop(struct Proc* proc)
 
     if (changedSelection)
     {
-        sub_8088E60(
+        StartItemHelpBox(
             8 * sItemDisplayTileLocation[tradeMenu->hoverColumn][tradeMenu->hoverRow].x,
             8 * sItemDisplayTileLocation[tradeMenu->hoverColumn][tradeMenu->hoverRow].y,
             item);
@@ -703,7 +703,7 @@ void TradeMenu_HelpBox_OnEnd(struct Proc* proc)
         tradeMenu->hasItem[tradeMenu->extraColumn][tradeMenu->extraRow] = TRUE;
     }
 
-    sub_8089018();
+    CloseHelpBox();
 
     DisplayUiHand(
         8 * sItemDisplayTileLocation[tradeMenu->hoverColumn][tradeMenu->hoverRow].x,

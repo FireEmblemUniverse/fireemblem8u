@@ -3266,7 +3266,7 @@ extern const u8 gUnknown_089ADD4C[];
 // extern ??? gProcScr_HelpBox
 // extern ??? gProcScr_HelpBoxMoveCtrl
 // extern ??? gProcScr_HelpBoxLock
-// extern ??? gProcScr_MetaHelpSprCtrl
+// extern ??? gProcScr_HelpPromptSpr
 // extern ??? gHelpInfo_Ss0Pow
 // extern ??? gHelpInfo_Ss1CharName
 // extern ??? gHelpInfo_Ss1Item0

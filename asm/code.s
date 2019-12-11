@@ -1224,7 +1224,7 @@ sub_8089F58: @ 0x08089F58
 	movs r0, #0
 	bl SetFontGlyphSet
 	adds r0, r4, #0
-	bl sub_80892D0
+	bl GetHelpBoxItemInfoKind
 	adds r1, r0, #0
 	cmp r1, #1
 	beq _08089F96
@@ -1282,7 +1282,7 @@ sub_8089FCC: @ 0x08089FCC
 	ldr r0, _08089FE8  @ gUnknown_0203E794
 	bl SetFont
 	adds r0, r4, #0
-	bl sub_80892D0
+	bl GetHelpBoxItemInfoKind
 	cmp r0, #1
 	beq _08089FEC
 	cmp r0, #3
@@ -1472,7 +1472,7 @@ sub_808A160: @ 0x0808A160
 	push {r4, r5, lr}
 	adds r4, r0, #0
 	movs r1, #5
-	bl sub_8088C48
+	bl UpdateHelpBoxDisplay
 	adds r2, r4, #0
 	adds r2, #0x48
 	adds r4, #0x4a
@@ -1518,7 +1518,7 @@ sub_808A1B8: @ 0x0808A1B8
 	push {r4, lr}
 	adds r4, r0, #0
 	movs r1, #0
-	bl sub_8088C48
+	bl UpdateHelpBoxDisplay
 	adds r1, r4, #0
 	adds r1, #0x48
 	ldrh r0, [r1]
@@ -2543,7 +2543,7 @@ _0808A996:
 sub_808A99C: @ 0x0808A99C
 	push {r4, r5, lr}
 	adds r4, r0, #0
-	bl sub_80892C0
+	bl ResetHelpBoxInitSize
 	adds r5, r4, #0
 	adds r5, #0x4a
 	movs r1, #0
@@ -2900,9 +2900,9 @@ sub_808AC0C: @ 0x0808AC0C
 	adds r4, r0, #0
 	adds r1, r6, #0
 	adds r2, r7, #0
-	bl sub_808929C
+	bl SetHelpBoxInitPosition
 	adds r0, r4, #0
-	bl sub_80892C0
+	bl ResetHelpBoxInitSize
 	str r5, [r4, #0x2c]
 	adds r0, r4, #0
 	adds r0, #0x48
@@ -8759,7 +8759,7 @@ sub_808DCAC: @ 0x0808DCAC
 	bl LoadDialogueBoxGfx
 	ldr r0, _0808DCCC  @ gUnknown_08A01D18
 	adds r1, r4, #0
-	bl Create6CRText
+	bl StartMovingHelpBox
 	pop {r4}
 	pop {r0}
 	bx r0
@@ -9323,7 +9323,7 @@ _0808E0D4:
 	movs r1, #0x12
 	movs r2, #2
 	adds r3, r7, #0
-	bl sub_80894E0
+	bl StartHelpPromptSprite
 	ldr r0, _0808E198  @ gUnknown_08A01CA4
 	adds r1, r7, #0
 	bl Proc_Create
@@ -9884,7 +9884,7 @@ _0808E63C:
 	bne _0808E670
 	movs r0, #0xb
 	ldrsb r0, [r2, r0]
-	bl sub_8086DD8
+	bl SetLastStatScreenUid
 	adds r1, r5, #0
 	adds r1, #0x2a
 	movs r0, #1
@@ -9983,7 +9983,7 @@ sub_808E71C: @ 0x0808E71C
 	adds r4, r0, #0
 	ldr r0, _0808E744  @ gUnknown_08A01CA4
 	bl Proc_DeleteAllWithScript
-	bl sub_8089570
+	bl EndHelpPromptSprite
 	adds r0, r4, #0
 	adds r0, #0x29
 	ldrb r0, [r0]
@@ -13568,7 +13568,7 @@ _0809044E:
 	strh r7, [r4, #0x3e]
 	b _08090508
 _0809045A:
-	bl GetSomeUnitId
+	bl GetLastStatScreenUid
 _0809045E:
 	adds r1, r0, #0
 	movs r3, #0
@@ -13832,13 +13832,13 @@ sub_8090620: @ 0x08090620
 	cmp r0, #1
 	bne _08090664
 	movs r0, #0x11
-	bl sub_8086DE4
+	bl SetStatScreenConfig
 	b _0809066A
 	.align 2, 0
 _08090660: .4byte gLCDControlBuffer
 _08090664:
 	movs r0, #0x1f
-	bl sub_8086DE4
+	bl SetStatScreenConfig
 _0809066A:
 	ldr r1, _080906A4  @ gUnknown_0200D6E0
 	adds r0, r4, #0
@@ -13849,7 +13849,7 @@ _0809066A:
 	ldr r0, [r0]
 	ldr r0, [r0]
 	adds r1, r4, #0
-	bl sub_808894C
+	bl StartStatScreen
 	ldr r1, _080906A8  @ gUnknown_0202BCF0
 	adds r0, r4, #0
 	adds r0, #0x34
@@ -15627,7 +15627,7 @@ _080914D0:
 	ldrb r0, [r0, #0xb]
 	lsls r0, r0, #0x18
 	asrs r0, r0, #0x18
-	bl sub_8086DD8
+	bl SetLastStatScreenUid
 	ldr r0, _08091508  @ gUnknown_0202BCF0
 	adds r0, #0x41
 	ldrb r0, [r0]
@@ -16026,7 +16026,7 @@ sub_80917D8: @ 0x080917D8
 	ands r0, r1
 	cmp r0, #0
 	beq _08091810
-	bl sub_8089018
+	bl CloseHelpBox
 	movs r0, #0
 	strb r0, [r4]
 	b _08091AA0
@@ -16364,7 +16364,7 @@ _08091A60:
 	adds r1, r1, r2
 	ldr r2, [r1]
 	movs r1, #0x28
-	bl sub_8088DE0
+	bl StartHelpBox
 _08091AA0:
 	add sp, #0xc
 	pop {r3, r4, r5}
@@ -16432,7 +16432,7 @@ sub_8091AEC: @ 0x08091AEC
 	bl m4aSongNumStart
 _08091B1E:
 	movs r0, #0
-	bl sub_8086DD8
+	bl SetLastStatScreenUid
 	adds r0, r4, #0
 	bl Proc_ClearNativeCallback
 	b _08091BF6
@@ -16535,7 +16535,7 @@ _08091BC4:
 	adds r1, r1, r2
 	ldr r2, [r1]
 	movs r1, #0x28
-	bl sub_8088DE0
+	bl StartHelpBox
 _08091BF6:
 	pop {r4, r5, r6}
 	pop {r0}
@@ -24154,7 +24154,7 @@ sub_8095674: @ 0x08095674
 	movs r5, #0
 	b _08095696
 _0809567A:
-	bl GetSomeUnitId
+	bl GetLastStatScreenUid
 	adds r4, r0, #0
 	adds r0, r5, #0
 	bl sub_8095354
@@ -25388,7 +25388,7 @@ sub_809602C: @ 0x0809602C
 	bne _08096076
 	b _08096184
 _08096076:
-	bl sub_8089018
+	bl CloseHelpBox
 	movs r0, #0
 	strb r0, [r4]
 	b _08096246
@@ -25458,7 +25458,7 @@ _080960E4:
 	ldr r2, [r0]
 	movs r0, #0x1c
 	adds r1, r6, #0
-	bl sub_8088DE0
+	bl StartHelpBox
 	b _08096246
 _08096110:
 	movs r0, #2
@@ -25589,7 +25589,7 @@ _080961F4:
 	ldr r2, [r0]
 	mov r0, sl
 	adds r1, r6, #0
-	bl sub_8088DE0
+	bl StartHelpBox
 _08096226:
 	movs r3, #0x80
 	lsls r3, r3, #3
@@ -27034,7 +27034,7 @@ sub_8096D10: @ 0x08096D10
 	bne _08096D74
 	b _08096E8C
 _08096D74:
-	bl sub_8089018
+	bl CloseHelpBox
 	movs r0, #0
 	strb r0, [r6]
 	b _08096F34
@@ -27057,7 +27057,7 @@ _08096D84:
 _08096D9E:
 	mov r0, r8
 	adds r1, r7, #0
-	bl sub_8088DE0
+	bl StartHelpBox
 	movs r0, #1
 	strb r0, [r6]
 	b _08096F34
@@ -27257,7 +27257,7 @@ _08096EFE:
 	adds r2, r2, r3
 	ldr r5, [r2]
 	ldr r2, [r5, #0x30]
-	bl sub_8088DE0
+	bl StartHelpBox
 _08096F34:
 	pop {r3, r4}
 	mov r8, r3
@@ -29178,7 +29178,7 @@ sub_8097D80: @ 0x08097D80
 	ands r0, r1
 	cmp r0, #0
 	beq _08097D9C
-	bl sub_8089018
+	bl CloseHelpBox
 	adds r0, r4, #0
 	bl Proc_ClearNativeCallback
 _08097D9C:
@@ -29205,7 +29205,7 @@ sub_8097DA8: @ 0x08097DA8
 _08097DC4:
 	adds r0, r4, #0
 	adds r2, r5, #0
-	bl sub_8088DE0
+	bl StartHelpBox
 	ldr r0, _08097DDC  @ gUnknown_08A188A8
 	adds r1, r6, #0
 	bl Proc_CreateBlockingChild
@@ -30744,7 +30744,7 @@ sub_80989BC: @ 0x080989BC
 	movs r0, #1
 	bl sub_8099F50
 	bl EndBG3Slider_
-	bl sub_8089570
+	bl EndHelpPromptSprite
 	bl Delete6CMenuScroll
 	bl sub_8098500
 	bl sub_80985A4
@@ -31207,7 +31207,7 @@ _08098DA0:
 	movs r1, #0x8c
 	movs r2, #9
 	adds r3, r6, #0
-	bl sub_80894E0
+	bl StartHelpPromptSprite
 	bl sub_8098BE8
 	ldr r0, _08098E14  @ gUnknown_03005280
 	ldrb r1, [r0]
@@ -31562,13 +31562,13 @@ sub_80990D4: @ 0x080990D4
 	adds r4, r0, #0
 	bl sub_80989BC
 	movs r0, #0x31
-	bl sub_8086DE4
+	bl SetStatScreenConfig
 	adds r0, r4, #0
 	adds r0, #0x2a
 	ldrb r0, [r0]
 	bl sub_8095354
 	adds r1, r4, #0
-	bl sub_808894C
+	bl StartStatScreen
 	adds r0, r4, #0
 	bl Proc_ClearNativeCallback
 	pop {r4}
@@ -32210,7 +32210,7 @@ sub_8099654: @ 0x08099654
 	movs r1, #0x8c
 	movs r2, #9
 	adds r3, r4, #0
-	bl sub_80894E0
+	bl StartHelpPromptSprite
 	adds r4, #0x2e
 	ldrb r1, [r4]
 	movs r0, #1
@@ -32546,7 +32546,7 @@ _08099930:
 	ands r0, r1
 	cmp r0, #0
 	beq _08099948
-	bl sub_8089018
+	bl CloseHelpBox
 	movs r0, #0xff
 	strb r0, [r4]
 _08099948:
@@ -32700,7 +32700,7 @@ _08099A54:
 	lsls r2, r2, #2
 	adds r2, r2, r3
 	ldr r2, [r2]
-	bl sub_8088DE0
+	bl StartHelpBox
 	b _08099A90
 	.align 2, 0
 _08099A64: .4byte gUnknown_0202BCF0
@@ -32721,7 +32721,7 @@ _08099A70:
 	lsls r2, r2, #2
 	adds r2, r2, r3
 	ldr r2, [r2]
-	bl sub_8088DE0
+	bl StartHelpBox
 _08099A90:
 	pop {r3}
 	mov r8, r3
@@ -32899,7 +32899,7 @@ sub_8099AF8: @ 0x08099AF8
 	bl sub_80ACE20
 	bl sub_80ACAE4
 	bl sub_8098590
-	bl sub_8089570
+	bl EndHelpPromptSprite
 	add sp, #4
 	pop {r3}
 	mov r8, r3
@@ -35321,7 +35321,7 @@ sub_809AE7C: @ 0x0809AE7C
 	movs r1, #0x8f
 	movs r2, #9
 	adds r3, r5, #0
-	bl sub_80894E0
+	bl StartHelpPromptSprite
 	ldrh r0, [r5, #0x2e]
 	bl sub_8095354
 	bl sub_809A9F8
@@ -35367,7 +35367,7 @@ sub_809B014: @ 0x0809B014
 	bl DeleteEach6CDifferedLoop
 	bl sub_80AD2D4
 	bl sub_80AD580
-	bl sub_8089570
+	bl EndHelpPromptSprite
 	bl sub_80ACDDC
 	bl EndBG3Slider_
 	pop {r0}
@@ -36006,11 +36006,11 @@ sub_809B504: @ 0x0809B504
 	push {r4, lr}
 	adds r4, r0, #0
 	movs r0, #0x11
-	bl sub_8086DE4
+	bl SetStatScreenConfig
 	ldrh r0, [r4, #0x2e]
 	bl sub_8095354
 	adds r1, r4, #0
-	bl sub_808894C
+	bl StartStatScreen
 	pop {r4}
 	pop {r0}
 	bx r0
@@ -36712,7 +36712,7 @@ _0809B992:
 	movs r1, #0x93
 	movs r2, #2
 	mov r3, r8
-	bl sub_80894E0
+	bl StartHelpPromptSprite
 	movs r1, #0xe0
 	lsls r1, r1, #4
 	movs r3, #0xc0
@@ -36787,7 +36787,7 @@ sub_809BB34: @ 0x0809BB34
 	bne _0809BB54
 	b _0809BDB8
 _0809BB54:
-	bl sub_8089018
+	bl CloseHelpBox
 	movs r0, #0xff
 	b _0809BE18
 	.align 2, 0
@@ -37132,7 +37132,7 @@ _0809BDB8:
 	lsls r1, r3, #4
 _0809BE10:
 	adds r1, #0x48
-	bl sub_8088E60
+	bl StartItemHelpBox
 	ldr r0, [r6, #0x34]
 _0809BE18:
 	str r0, [r6, #0x3c]
@@ -38241,7 +38241,7 @@ _0809C5CA:
 	movs r1, #0x90
 	movs r2, #9
 	adds r3, r7, #0
-	bl sub_80894E0
+	bl StartHelpPromptSprite
 	ldr r0, [r7, #0x2c]
 	ldr r1, [r7, #0x30]
 	bl sub_809C3EC
@@ -38310,7 +38310,7 @@ sub_809C820: @ 0x0809C820
 	ands r0, r1
 	cmp r0, #0
 	beq _0809C8F0
-	bl sub_8089018
+	bl CloseHelpBox
 	movs r0, #0xff
 	b _0809C938
 	.align 2, 0
@@ -38427,7 +38427,7 @@ _0809C91C:
 	lsls r1, r3, #4
 	adds r1, #0x48
 	movs r0, #0x10
-	bl sub_8088E60
+	bl StartItemHelpBox
 	ldr r0, [r4, #0x30]
 _0809C938:
 	str r0, [r4, #0x38]
@@ -38745,7 +38745,7 @@ sub_809CBA8: @ 0x0809CBA8
 	lsrs r0, r0, #0x18
 	str r0, [r4, #0x40]
 	bl ResetFaces
-	bl sub_8089570
+	bl EndHelpPromptSprite
 	ldr r2, _0809CC38  @ gLCDControlBuffer
 	ldrb r1, [r2, #1]
 	movs r0, #0x21
@@ -40596,7 +40596,7 @@ sub_809DA00: @ 0x0809DA00
 	movs r1, #0x93
 	movs r2, #9
 	adds r3, r7, #0
-	bl sub_80894E0
+	bl StartHelpPromptSprite
 	ldr r4, _0809DC4C  @ gUnknown_02013660
 	adds r0, r4, #0
 	movs r1, #4
@@ -40926,7 +40926,7 @@ _0809DE10:
 	adds r0, r0, r2
 	ldr r2, [r0]
 	movs r0, #0x44
-	bl sub_8088DE0
+	bl StartHelpBox
 	strh r7, [r5, #0x38]
 	b _0809DEEC
 	.align 2, 0
@@ -40941,7 +40941,7 @@ _0809DE34:
 	mov ip, r2
 	cmp r0, #0
 	beq _0809DE54
-	bl sub_8089018
+	bl CloseHelpBox
 	movs r0, #0
 	strh r0, [r5, #0x38]
 	b _0809DEEC
@@ -41027,7 +41027,7 @@ _0809DEC0:
 	adds r0, r0, r2
 	ldr r2, [r0]
 	movs r0, #0x44
-	bl sub_8088DE0
+	bl StartHelpBox
 _0809DEEC:
 	pop {r4, r5, r6, r7}
 	pop {r0}
@@ -41100,7 +41100,7 @@ sub_809DEFC: @ 0x0809DEFC
 	subs r0, #0x28
 	subs r1, r1, r0
 	movs r0, #0x80
-	bl sub_8088E60
+	bl StartItemHelpBox
 	movs r0, #1
 	b _0809DFA6
 	.align 2, 0
@@ -41110,7 +41110,7 @@ _0809DF94: .4byte gUnknown_02022EEC
 _0809DF98: .4byte gUnknown_02012F56
 _0809DF9C: .4byte gUnknown_020122D4
 _0809DFA0:
-	bl sub_8089018
+	bl CloseHelpBox
 	movs r0, #0xff
 _0809DFA6:
 	strh r0, [r4, #0x38]
@@ -41743,7 +41743,7 @@ _0809E462:
 	subs r0, #0x28
 	subs r1, r1, r0
 	movs r0, #0x80
-	bl sub_8088E60
+	bl StartItemHelpBox
 	movs r0, #1
 	strh r0, [r4, #0x38]
 	b _0809E79A
@@ -41805,7 +41805,7 @@ _0809E500:
 	mov r8, r2
 	cmp r0, #0
 	beq _0809E520
-	bl sub_8089018
+	bl CloseHelpBox
 	mov r2, r9
 	strh r2, [r4, #0x38]
 	b _0809E79A
@@ -42052,7 +42052,7 @@ _0809E6D0:
 	adds r1, #0x10
 	movs r0, #0x80
 	mov r2, r8
-	bl sub_8088E60
+	bl StartItemHelpBox
 _0809E702:
 	adds r0, r4, #0
 	adds r0, #0x32
@@ -42086,7 +42086,7 @@ _0809E718:
 	subs r1, #0x10
 	movs r0, #0x80
 	mov r2, r8
-	bl sub_8088E60
+	bl StartItemHelpBox
 _0809E748:
 	adds r0, r4, #0
 	adds r0, #0x32
@@ -42113,7 +42113,7 @@ _0809E75C:
 	subs r1, r1, r0
 	movs r0, #0x80
 	mov r2, r8
-	bl sub_8088E60
+	bl StartItemHelpBox
 _0809E77C:
 	ldrb r0, [r6]
 	lsls r0, r0, #1
@@ -42375,7 +42375,7 @@ sub_809E974: @ 0x0809E974
 	ands r0, r1
 	cmp r0, #0
 	beq _0809EA34
-	bl sub_8089018
+	bl CloseHelpBox
 	movs r0, #0
 	strh r0, [r4, #0x38]
 	b _0809EA76
@@ -42403,7 +42403,7 @@ _0809E99C:
 	lsls r1, r3, #4
 	adds r1, #0x48
 	movs r0, #0x10
-	bl sub_8088E60
+	bl StartItemHelpBox
 	movs r0, #1
 	strh r0, [r4, #0x38]
 	b _0809EA76
@@ -42484,7 +42484,7 @@ _0809EA34:
 	lsls r1, r3, #4
 	adds r1, #0x48
 	movs r0, #0x10
-	bl sub_8088E60
+	bl StartItemHelpBox
 _0809EA76:
 	pop {r4, r5}
 	pop {r0}
@@ -43037,7 +43037,7 @@ sub_809ED8C: @ 0x0809ED8C
 	movs r1, #0x93
 	movs r2, #9
 	adds r3, r7, #0
-	bl sub_80894E0
+	bl StartHelpPromptSprite
 	ldr r4, _0809F0D4  @ gUnknown_02013660
 	adds r0, r4, #0
 	movs r1, #6
@@ -43353,7 +43353,7 @@ sub_809F150: @ 0x0809F150
 	subs r0, #0x28
 	subs r1, r1, r0
 	movs r0, #0x80
-	bl sub_8088E60
+	bl StartItemHelpBox
 	movs r0, #1
 	b _0809F20E
 	.align 2, 0
@@ -43364,7 +43364,7 @@ _0809F1FC: .4byte sub_809EC38
 _0809F200: .4byte gUnknown_02012F56
 _0809F204: .4byte gUnknown_020122D4
 _0809F208:
-	bl sub_8089018
+	bl CloseHelpBox
 	movs r0, #0xff
 _0809F20E:
 	strh r0, [r4, #0x36]
@@ -44000,7 +44000,7 @@ _0809F6CC:
 	subs r0, #0x28
 	subs r1, r1, r0
 	movs r0, #0x80
-	bl sub_8088E60
+	bl StartItemHelpBox
 	movs r0, #1
 	strh r0, [r4, #0x36]
 	b _0809FA7A
@@ -44103,7 +44103,7 @@ _0809F7C0:
 	mov r8, r2
 	cmp r0, #0
 	beq _0809F7E0
-	bl sub_8089018
+	bl CloseHelpBox
 	mov r1, sl
 	strh r1, [r4, #0x36]
 	b _0809FA7A
@@ -44367,7 +44367,7 @@ _0809F9B0:
 	adds r1, #0x10
 	movs r0, #0x80
 	mov r2, r8
-	bl sub_8088E60
+	bl StartItemHelpBox
 _0809F9E2:
 	adds r0, r4, #0
 	adds r0, #0x31
@@ -44401,7 +44401,7 @@ _0809F9F8:
 	subs r1, #0x10
 	movs r0, #0x80
 	mov r2, r8
-	bl sub_8088E60
+	bl StartItemHelpBox
 _0809FA28:
 	adds r0, r4, #0
 	adds r0, #0x31
@@ -44428,7 +44428,7 @@ _0809FA3C:
 	subs r1, r1, r0
 	movs r0, #0x80
 	mov r2, r8
-	bl sub_8088E60
+	bl StartItemHelpBox
 _0809FA5C:
 	ldrb r0, [r6]
 	lsls r0, r0, #1
@@ -44676,7 +44676,7 @@ sub_809FC24: @ 0x0809FC24
 	ands r0, r1
 	cmp r0, #0
 	beq _0809FD0C
-	bl sub_8089018
+	bl CloseHelpBox
 	movs r0, #0
 	strh r0, [r5, #0x36]
 	b _0809FD4E
@@ -44704,7 +44704,7 @@ _0809FC4C:
 	lsls r1, r3, #4
 	adds r1, #0x48
 	movs r0, #0x10
-	bl sub_8088E60
+	bl StartItemHelpBox
 	movs r0, #1
 	strh r0, [r5, #0x36]
 	b _0809FD4E
@@ -44802,7 +44802,7 @@ _0809FD0C:
 	lsls r1, r3, #4
 	adds r1, #0x48
 	movs r0, #0x10
-	bl sub_8088E60
+	bl StartItemHelpBox
 _0809FD4E:
 	pop {r4, r5}
 	pop {r0}
@@ -45401,7 +45401,7 @@ sub_80A00DC: @ 0x080A00DC
 	movs r1, #0x8c
 	movs r2, #2
 	adds r3, r7, #0
-	bl sub_80894E0
+	bl StartHelpPromptSprite
 	movs r0, #0xa5
 	movs r1, #0x80
 	movs r2, #0xa
@@ -45614,7 +45614,7 @@ sub_80A0424: @ 0x080A0424
 	ands r0, r1
 	cmp r0, #0
 	beq _080A0518
-	bl sub_8089018
+	bl CloseHelpBox
 	movs r0, #0
 	strh r0, [r4, #0x34]
 	b _080A056A
@@ -45644,7 +45644,7 @@ _080A0472:
 	lsls r1, r3, #4
 	adds r1, #0x48
 	movs r0, #0x10
-	bl sub_8088E60
+	bl StartItemHelpBox
 	movs r0, #1
 	strh r0, [r4, #0x34]
 	b _080A056A
@@ -45755,7 +45755,7 @@ _080A0518:
 	lsls r1, r3, #4
 	adds r1, #0x48
 	movs r0, #0x10
-	bl sub_8088E60
+	bl StartItemHelpBox
 _080A056A:
 	pop {r4, r5, r6}
 	pop {r0}
@@ -47700,7 +47700,7 @@ _080A1456:
 	movs r1, #1
 	movs r2, #9
 	adds r3, r6, #0
-	bl sub_80894E0
+	bl StartHelpPromptSprite
 _080A1476:
 	movs r0, #0x88
 	movs r1, #9
@@ -47896,7 +47896,7 @@ _080A15FA:
 	ands r0, r1
 	cmp r0, #0
 	beq _080A16DC
-	bl sub_8089018
+	bl CloseHelpBox
 	mov r1, r9
 	strb r7, [r1]
 	b _080A1900
@@ -47940,7 +47940,7 @@ _080A1654:
 	ldrh r2, [r0, #2]
 	mov r0, r8
 	adds r1, r4, #0
-	bl sub_8088DE0
+	bl StartHelpBox
 	movs r0, #1
 	mov r1, r9
 	strb r0, [r1]
@@ -48174,7 +48174,7 @@ _080A182E:
 	ldrh r2, [r0, #2]
 	mov r0, r9
 	adds r1, r4, #0
-	bl sub_8088DE0
+	bl StartHelpBox
 _080A185A:
 	mov r1, r8
 	movs r0, #0
@@ -62642,7 +62642,7 @@ sub_80A88E0: @ 0x080A88E0
 	cmp r1, #0
 	bne _080A8904
 _080A88F6:
-	bl sub_8089018
+	bl CloseHelpBox
 	adds r1, r4, #0
 	adds r1, #0x3e
 	movs r0, #0
@@ -62676,7 +62676,7 @@ _080A891C:
 	ldr r2, _080A894C  @ 0x00000882
 	movs r0, #0x30
 	movs r1, #0x30
-	bl sub_8088F68
+	bl StartHelpBoxExt_Unk
 	movs r0, #1
 	strb r0, [r4]
 _080A8940:
@@ -62782,7 +62782,7 @@ sub_80A89E4: @ 0x080A89E4
 	ands r0, r1
 	cmp r0, #0
 	beq _080A8A70
-	bl sub_8089018
+	bl CloseHelpBox
 	movs r0, #7
 	strb r0, [r5]
 	b _080A8A70
@@ -62828,7 +62828,7 @@ _080A8A50:
 	adds r1, #0x2c
 	ldr r2, _080A8A90  @ 0x0000FFFE
 	movs r0, #0x50
-	bl sub_8088E60
+	bl StartItemHelpBox
 	strb r7, [r5]
 _080A8A70:
 	adds r1, r6, #0
@@ -65225,7 +65225,7 @@ sub_80A9D84: @ 0x080A9D84
 	ldr r0, [r4, #0x2c]
 	ldr r1, [r4, #0x30]
 	ldr r2, [r4, #0x58]
-	bl sub_8088F68
+	bl StartHelpBoxExt_Unk
 	ldr r0, _080A9DB8  @ gUnknown_0202BCF0
 	adds r0, #0x41
 	ldrb r0, [r0]
@@ -65262,7 +65262,7 @@ sub_80A9DBC: @ 0x080A9DBC
 	movs r0, #0x71
 	bl m4aSongNumStart
 _080A9DE0:
-	bl sub_8089018
+	bl CloseHelpBox
 	adds r0, r4, #0
 	bl Proc_ClearNativeCallback
 _080A9DEA:
@@ -66100,7 +66100,7 @@ sub_80AA47C: @ 0x080AA47C
 	movs r0, #0xc0
 	movs r1, #8
 	movs r2, #8
-	bl sub_80894E0
+	bl StartHelpPromptSprite
 _080AA496:
 	pop {r0}
 	bx r0
@@ -66122,7 +66122,7 @@ _080AA4AE:
 	THUMB_FUNC_START sub_80AA4B4
 sub_80AA4B4: @ 0x080AA4B4
 	push {lr}
-	bl sub_8089570
+	bl EndHelpPromptSprite
 	pop {r0}
 	bx r0
 
@@ -66318,7 +66318,7 @@ sub_80AA614: @ 0x080AA614
 	ldr r2, _080AA644  @ 0x00000893
 	movs r0, #0x40
 	movs r1, #0x30
-	bl sub_8088F68
+	bl StartHelpBoxExt_Unk
 	ldr r0, _080AA648  @ gUnknown_0202BCF0
 	adds r0, #0x41
 	ldrb r0, [r0]
@@ -66352,7 +66352,7 @@ sub_80AA658: @ 0x080AA658
 	ldr r2, _080AA688  @ 0x00000894
 	movs r0, #0x40
 	movs r1, #0x30
-	bl sub_8088F68
+	bl StartHelpBoxExt_Unk
 	ldr r0, _080AA68C  @ gUnknown_0202BCF0
 	adds r0, #0x41
 	ldrb r0, [r0]
@@ -66391,7 +66391,7 @@ sub_80AA69C: @ 0x080AA69C
 	ands r0, r1
 	cmp r0, #0
 	beq _080AA6D0
-	bl sub_8089018
+	bl CloseHelpBox
 	adds r0, r4, #0
 	bl Proc_ClearNativeCallback
 	b _080AA6D0
@@ -75460,7 +75460,7 @@ _080AEB76:
 	ldr r0, [r4, #0x2c]
 	ldr r1, [r4, #0x30]
 	ldr r2, [r4, #0x58]
-	bl sub_8088E14
+	bl StartHelpBox_Unk
 	pop {r4}
 	pop {r0}
 	bx r0
@@ -75489,7 +75489,7 @@ sub_80AEB8C: @ 0x080AEB8C
 	movs r0, #0x71
 	bl m4aSongNumStart
 _080AEBB6:
-	bl sub_8089018
+	bl CloseHelpBox
 _080AEBBA:
 	pop {r0}
 	bx r0
@@ -86680,7 +86680,7 @@ sub_80B44A8: @ 0x080B44A8
 	adds r0, r0, r2
 	ldrh r2, [r0]
 	movs r0, #0x38
-	bl sub_8088E60
+	bl StartItemHelpBox
 _080B4532:
 	bl sub_80B5384
 	bl sub_80B56CC
@@ -86702,7 +86702,7 @@ _080B4532:
 	cmp r0, #0
 	beq _080B4626
 	strb r3, [r2]
-	bl sub_8089018
+	bl CloseHelpBox
 	b _080B4626
 	.align 2, 0
 _080B4564: .4byte gKeyStatusPtr
@@ -86732,7 +86732,7 @@ _080B4568:
 	adds r0, r0, r2
 	ldrh r2, [r0]
 	movs r0, #0x38
-	bl sub_8088E60
+	bl StartItemHelpBox
 	b _080B4626
 	.align 2, 0
 _080B45A0: .4byte gKeyStatusPtr
@@ -87059,7 +87059,7 @@ sub_80B47B4: @ 0x080B47B4
 	adds r0, r0, r2
 	ldrh r2, [r0]
 	movs r0, #0x38
-	bl sub_8088E60
+	bl StartItemHelpBox
 _080B4830:
 	bl sub_80B56CC
 	lsls r0, r0, #0x18
@@ -87080,7 +87080,7 @@ _080B4830:
 	cmp r0, #0
 	beq _080B4926
 	strb r3, [r2]
-	bl sub_8089018
+	bl CloseHelpBox
 	b _080B4926
 	.align 2, 0
 _080B4860: .4byte gKeyStatusPtr
@@ -87110,7 +87110,7 @@ _080B4864:
 	adds r0, r0, r2
 	ldrh r2, [r0]
 	movs r0, #0x38
-	bl sub_8088E60
+	bl StartItemHelpBox
 	b _080B4926
 	.align 2, 0
 _080B489C: .4byte gKeyStatusPtr
@@ -87387,7 +87387,7 @@ sub_80B4A54: @ 0x080B4A54
 	adds r0, r0, r2
 	ldrh r2, [r0]
 	movs r0, #0x38
-	bl sub_8088E60
+	bl StartItemHelpBox
 _080B4ADE:
 	bl sub_80B5384
 	bl sub_80B56CC
@@ -87409,7 +87409,7 @@ _080B4ADE:
 	cmp r0, #0
 	beq _080B4B72
 	strb r3, [r2]
-	bl sub_8089018
+	bl CloseHelpBox
 	b _080B4B72
 	.align 2, 0
 _080B4B10: .4byte gKeyStatusPtr
@@ -87439,7 +87439,7 @@ _080B4B14:
 	adds r0, r0, r2
 	ldrh r2, [r0]
 	movs r0, #0x38
-	bl sub_8088E60
+	bl StartItemHelpBox
 	b _080B4B72
 	.align 2, 0
 _080B4B4C: .4byte gKeyStatusPtr
@@ -112015,7 +112015,7 @@ sub_80C09EC: @ 0x080C09EC
 	bl LoadDialogueBoxGfx
 	ldr r0, _080C0A0C  @ gUnknown_08A3E78C
 	adds r1, r4, #0
-	bl Create6CRText
+	bl StartMovingHelpBox
 	pop {r4}
 	pop {r0}
 	bx r0
@@ -135036,7 +135036,7 @@ _080CC502:
 	lsls r0, r0, #0x18
 	lsrs r0, r0, #0x18
 	str r0, [r4, #0x40]
-	bl sub_8089570
+	bl EndHelpPromptSprite
 	bl sub_80ADC90
 	bl DeleteEach6CDifferedLoop
 	movs r0, #0

@@ -3,6 +3,7 @@
 
 enum
 {
+    // BG palette allocation
     STATSCREEN_BGPAL_HALO = 1,
     STATSCREEN_BGPAL_2 = 2,
     STATSCREEN_BGPAL_3 = 3,
@@ -13,7 +14,18 @@ enum
     STATSCREEN_BGPAL_FACE = 11,
     STATSCREEN_BGPAL_BACKGROUND = 12, // 4 palettes
 
+    // OBJ palette allocation
     STATSCREEN_OBJPAL_4 = 4,
+};
+
+enum
+{
+    STATSCREEN_CONFIG_NONDEAD    = (1 << 0),
+    STATSCREEN_CONFIG_NONBENCHED = (1 << 1),
+    STATSCREEN_CONFIG_NONUNK9    = (1 << 2),
+    STATSCREEN_CONFIG_NONROOFED  = (1 << 3),
+    STATSCREEN_CONFIG_NONUNK16   = (1 << 4),
+    STATSCREEN_CONFIG_NONSUPPLY  = (1 << 5),
 };
 
 enum
@@ -129,6 +141,14 @@ struct StatScreenPageNameProc
     /* 38 */ short yScale; // 6 == times 1
 };
 
+enum
+{
+    HB_EXTINFO_NONE,
+    HB_EXTINFO_WEAPON,
+    HB_EXTINFO_STAFF,
+    HB_EXTINFO_SAVEINFO,
+};
+
 struct HelpBoxProc
 {
     /* 00 */ PROC_HEADER;
@@ -173,107 +193,52 @@ struct HelpBoxInfo
     /* 18 */ void(*populate)(struct HelpBoxProc* proc);
 };
 
-struct HelpPromptObjectProc
-{
-    PROC_HEADER;
+int GetLastStatScreenUid(void);
+void SetLastStatScreenUid(int uid);
+void SetStatScreenConfig(int unk);
+void StartStatScreen(struct Unit* unit, struct Proc* parent);
 
-    /* 2C */ int xDisplay;
-    /* 30 */ int yDisplay;
-    /* 34 */ int tileref;
-};
+void HbPopulate_SSItem(struct HelpBoxProc* proc);
+void HbPopulate_SSStatus(struct HelpBoxProc* proc);
+void HbPopulate_SSPower(struct HelpBoxProc* proc);
+void HbRedirect_SSItem(struct HelpBoxProc* proc);
+void HbPopulate_SSWExp(struct HelpBoxProc* proc);
+void HbPopulate_SSCharacter(struct HelpBoxProc* proc);
+void HbPopulate_SSClass(struct HelpBoxProc* proc);
+void HbRedirect_SSSupports(struct HelpBoxProc* proc);
 
-int GetSomeUnitId(void);
-void sub_8086DD8(int uid);
-void sub_8086DE4(int unk);
-void sub_8086DF0(void);
-void sub_8086E44(void);
-void sub_8086FAC(void);
-void DrawStatScreenBar(int num, int x, int y, int base, int total, int max);
-void DrawUnitStatScreen(void);
-void DrawUnitItemScreen(void);
-void DrawUnitScreenSupportList(void);
-void DrawUnitWeaponRank(int num, int x, int y, int wtype);
-void DrawUnitWeaponScreen(void);
-void sub_80878CC(int pageid);
-struct Unit* sub_8087920(struct Unit* u, int direction);
-void sub_80879DC(struct StatScreenEffectProc* proc);
-void sub_8087ACC(void);
-void sub_8087AD8(u16 config, int newPage, struct Proc* parent);
-void sub_8087B40(struct StatScreenEffectProc* proc);
-void sub_8087BA0(struct StatScreenEffectProc* proc);
-void sub_8087BF0(void);
-void sub_8087C04(void);
-void sub_8087C34(struct StatScreenEffectProc* proc);
-void sub_8087CC0(struct StatScreenEffectProc* proc);
-void sub_8087D24(struct StatScreenEffectProc* proc);
-void sub_8087D98(struct StatScreenEffectProc* proc);
-void sub_8087DF8(struct StatScreenEffectProc* proc);
-void sub_8087E28(struct Proc* proc);
-void sub_8087E7C(struct Unit* unit, int direction, struct Proc* parent);
-void sub_8087EB8(int pageid);
-void sub_8087F48(struct StatScreenPageNameProc* proc);
-void sub_8087FE0(struct StatScreenPageNameProc* proc);
-void sub_8088014(struct StatScreenPageNameProc* proc);
-void sub_80880DC(struct StatScreenPageNameProc* proc);
-void sub_80881AC(struct StatScreenPageNameProc* proc);
-void sub_80881C4(struct StatScreenPageNameProc* proc);
-void sub_80881FC(struct StatScreenPageNameProc* proc);
-void sub_80882E4(void);
-void sub_8088354(void);
-void sub_8088384(void);
-void sub_808844C(void);
-void sub_80884B0(struct Proc* proc);
-void sub_8088670(struct Proc* proc);
-void sub_808873C(struct Proc* proc);
-void sub_80888B4(void);
-void sub_808890C(void);
-void sub_8088920(void);
-void sub_808894C(struct Unit* unit, struct Proc* parent);
-void MakeStatScreenRText6C(int pageid, struct Proc* proc);
-void sub_8088A00(struct HelpBoxProc* proc);
-void sub_8088A2C(struct HelpBoxProc* proc);
-void sub_8088B08(struct HelpBoxProc* proc);
-void sub_8088B40(struct HelpBoxProc* proc);
-void sub_8088B94(struct HelpBoxProc* proc);
-void sub_8088BD4(struct HelpBoxProc* proc);
-void sub_8088C00(struct HelpBoxProc* proc);
-void sub_8088C14(struct HelpBoxProc* proc);
-void sub_8088C48(struct HelpBoxProc* proc, int arg1);
-void sub_8088CFC(struct HelpBoxProc* proc);
-void sub_8088D3C(struct HelpBoxProc* proc);
-void sub_8088D64(struct HelpBoxProc* proc);
-void sub_8088DB8(struct HelpBoxProc* proc);
-void sub_8088DE0(int x, int y, int mid);
-void sub_8088E14(int x, int y, int mid);
-void sub_8088E60(int x, int y, int item);
-void sub_8088E9C(const struct HelpBoxInfo* info, int unk);
-void sub_8088F68(int x, int y, int mid);
-void sub_8089018(void);
-void sub_8089018(void);
-void sub_808903C(void);
-void sub_8089060(struct HelpBoxProc* proc);
-void sub_8089088(struct HelpBoxProc* proc);
-void sub_8089150(struct HelpBoxProc* proc);
-void Create6CRText(const struct HelpBoxInfo* helpinfo, struct Proc* parent);
-void sub_8089188(const struct HelpBoxInfo* info, struct Proc* parent, int x, int y);
-void sub_80891AC(struct HelpBoxProc* proc, int width, int height);
-void sub_8089210(struct HelpBoxProc* proc, int x, int y);
-void sub_808929C(struct HelpBoxProc* proc, int x, int y);
-void sub_80892C0(struct HelpBoxProc* proc);
-int sub_80892D0(int item);
-void sub_8089320(struct HelpBoxProc* proc);
-int sub_8089354(struct HelpBoxProc* proc);
-int sub_8089384(struct HelpBoxProc* proc);
-int sub_80893B4(struct HelpBoxProc* proc);
-int sub_80893E4(struct HelpBoxProc* proc);
-void sub_8089430(struct Proc* proc);
-int sub_8089454(int mid, struct Proc* parent);
-void Loop6C_8A00B20_UpdateOAMData(struct HelpPromptObjectProc* proc);
-struct Proc* sub_80894AC(int x, int y, struct Proc* parent);
-struct Proc* sub_80894E0(int x, int y, int palid, struct Proc* parent);
-struct Proc* sub_808953C(int x, int y, struct Proc* parent);
-void sub_8089570(void);
-void sub_8089588(int x, int y);
-const struct HelpBoxInfo* sub_80895A8(void);
+// static
+void UpdateHelpBoxDisplay(struct HelpBoxProc* proc, int arg1);
+
+void StartHelpBox(int x, int y, int mid);
+void StartHelpBox_Unk(int x, int y, int mid);
+void StartItemHelpBox(int x, int y, int item);
+void StartHelpBoxExt(const struct HelpBoxInfo* info, int unk);
+void StartHelpBoxExt_Unk(int x, int y, int mid);
+void CloseHelpBox(void);
+void CloseHelpBox(void);
+void EndHelpBox(void);
+void StartMovingHelpBox(const struct HelpBoxInfo* info, struct Proc* parent);
+void StartMovingHelpBoxExt(const struct HelpBoxInfo* info, struct Proc* parent, int x, int y);
+
+// static
+void SetHelpBoxInitPosition(struct HelpBoxProc* proc, int x, int y);
+void ResetHelpBoxInitSize(struct HelpBoxProc* proc);
+int GetHelpBoxItemInfoKind(int item);
+
+int TryRelocateHbUp(struct HelpBoxProc* proc);
+int TryRelocateHbDown(struct HelpBoxProc* proc);
+int TryRelocateHbLeft(struct HelpBoxProc* proc);
+int TryRelocateHbRight(struct HelpBoxProc* proc);
+
+int StartLockingHelpBox_Unused(int mid, struct Proc* parent);
+
+struct Proc* StartHelpPromptSprite_Unused(int x, int y, struct Proc* parent);
+struct Proc* StartHelpPromptSprite(int x, int y, int palid, struct Proc* parent);
+struct Proc* StartHelpPromptSprite_Unused2(int x, int y, struct Proc* parent);
+void EndHelpPromptSprite(void);
+void MoveHelpPromptSprite(int x, int y);
+
+const struct HelpBoxInfo* GetLastHelpBoxInfo(void);
 
 #endif // GUARD_STATSCREEN_H

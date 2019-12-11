@@ -1915,7 +1915,7 @@ _08037440:
 	adds r1, r6, #0
 	adds r2, r5, #0
 	movs r3, #0
-	bl sub_8089188
+	bl StartMovingHelpBoxExt
 	b _08037460
 	.align 2, 0
 _08037450: .4byte gHelpInfo_MbpHp
@@ -1924,7 +1924,7 @@ _08037454:
 	adds r1, r6, #0
 	adds r2, r5, #0
 	movs r3, #0
-	bl sub_8089188
+	bl StartMovingHelpBoxExt
 _08037460:
 	movs r0, #0
 	pop {r4, r5, r6}
