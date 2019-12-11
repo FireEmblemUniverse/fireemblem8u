@@ -167,7 +167,7 @@ _0801DF5A:
 ADJUSTFROMXI_MoveCameraOnSomeUnit: @ 0x0801DF64
 	push {r4, r5, r6, lr}
 	adds r6, r0, #0
-	bl GetSomeUnitId
+	bl GetLastStatScreenUid
 	bl GetUnit
 	cmp r0, #0
 	beq _0801DF8E

@@ -128,7 +128,7 @@ SECTIONS
         asm/asmcs.o(.text);
         asm/code_8086934.o(.text);
         asm/fx_slidingwallbg.o(.text);
-        asm/statscreen.o(.text);
+        src/statscreen.o(.text);
         asm/code.o(.text);
         asm/m4a_1.o(.text);
         src/m4a.o(.text);
@@ -219,6 +219,8 @@ SECTIONS
         . = ALIGN(4); src/mu.o(.rodata);
         . = ALIGN(4); data/muctrl_rodata.o(.rodata);
         . = ALIGN(4); data/const_data_205714.o(.rodata);
+        . = ALIGN(4); src/statscreen.o(.rodata);
+        . = ALIGN(4); data/const_data_205B84.o(.rodata);
         . = ALIGN(4); src/m4a_tables.o(.rodata);
         . = ALIGN(4); data/sound_data.o(.rodata);
         . = ALIGN(4); tools/agbcc/lib/libc.a:vfprintf.o(.rodata);
@@ -262,6 +264,7 @@ SECTIONS
         . = ALIGN(4); data/data_9A2DB0.o(.data);
         . = ALIGN(4); src/unit_icon_move_data.o(.data);
         . = ALIGN(4); data/data_9A31F8.o(.data);
+        . = ALIGN(4); src/statscreen.o(.data);
         . = ALIGN(4); src/chap_title_data.o(.data);
         . = ALIGN(4); data/data_A01628.o(.data);
         . = ALIGN(4); data/data_chap_title.o(.data);

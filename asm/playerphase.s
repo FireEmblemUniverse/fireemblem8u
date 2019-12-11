@@ -166,7 +166,7 @@ _0801C994:
 	bl MU_EndAll
 	bl DeletePlayerPhaseInterface6Cs
 	movs r0, #0x1f
-	bl sub_8086DE4
+	bl SetStatScreenConfig
 	movs r3, #0x16
 	ldrsh r0, [r4, r3]
 	ldr r1, [r5]
@@ -179,7 +179,7 @@ _0801C994:
 	ldrb r0, [r0]
 	bl GetUnit
 	adds r1, r6, #0
-	bl sub_808894C
+	bl StartStatScreen
 	adds r0, r6, #0
 	movs r1, #5
 	bl Proc_GotoLabel
@@ -796,11 +796,11 @@ _0801CF08:
 	beq _0801CFC0
 	bl MU_EndAll
 	movs r0, #0x1f
-	bl sub_8086DE4
+	bl SetStatScreenConfig
 	adds r0, r4, #0
 	bl GetUnit
 	adds r1, r5, #0
-	bl sub_808894C
+	bl StartStatScreen
 	adds r0, r5, #0
 	movs r1, #6
 	bl Proc_GotoLabel

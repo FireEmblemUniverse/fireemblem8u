@@ -61,9 +61,9 @@ void FlushLCDControl(void)
     COPY_REG(u32, BG3HOFS, &gLCDControlBuffer.bgoffset[3])
 
     // set both WIN0H and WIN1H with a single 32-bit copy
-    COPY_REG(u32, WIN0H, &gLCDControlBuffer.win0h)
+    COPY_REG(u32, WIN0H, &gLCDControlBuffer.win0_right)
     // set both WIN0V and WIN1V with a single 32-bit copy
-    COPY_REG(u32, WIN0V, &gLCDControlBuffer.win0v)
+    COPY_REG(u32, WIN0V, &gLCDControlBuffer.win0_bottom)
     // set both WININ and WINOUT with a single 32-bit copy
     COPY_REG(u32, WININ, &gLCDControlBuffer.wincnt)
 

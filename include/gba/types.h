@@ -72,21 +72,37 @@ struct BgCnt
 
 struct WinCnt
 {
-    u8  win0_bg0_on:1;
-    u8  win0_bg1_on:1;
-    u8  win0_bg2_on:1;
-    u8  win0_bg3_on:1;
-    u8  win0_obj_on:1;
-    u8  win0_blend_on:1;
-    u8  dummy1:2;
+    u8 win0_enableBg0 : 1;
+    u8 win0_enableBg1 : 1;
+    u8 win0_enableBg2 : 1;
+    u8 win0_enableBg3 : 1;
+    u8 win0_enableObj : 1;
+    u8 win0_enableBlend : 1;
+    u8 : 2;
 
-    u8  win1_bg0_on:1;
-    u8  win1_bg1_on:1;
-    u8  win1_bg2_on:1;
-    u8  win1_bg3_on:1;
-    u8  win1_obj_on:1;
-    u8  win1_blend_on:1;
-    u8  dummy2:2;
+    u8 win1_enableBg0 : 1;
+    u8 win1_enableBg1 : 1;
+    u8 win1_enableBg2 : 1;
+    u8 win1_enableBg3 : 1;
+    u8 win1_enableObj : 1;
+    u8 win1_enableBlend : 1;
+    u8 : 2;
+
+    u8 wout_enableBg0 : 1;
+    u8 wout_enableBg1 : 1;
+    u8 wout_enableBg2 : 1;
+    u8 wout_enableBg3 : 1;
+    u8 wout_enableObj : 1;
+    u8 wout_enableBlend : 1;
+    u8 : 2;
+
+    u8 wobj_enableBg0 : 1;
+    u8 wobj_enableBg1 : 1;
+    u8 wobj_enableBg2 : 1;
+    u8 wobj_enableBg3 : 1;
+    u8 wobj_enableObj : 1;
+    u8 wobj_enableBlend : 1;
+    u8 : 2;
 };
 
 struct BlendCnt
