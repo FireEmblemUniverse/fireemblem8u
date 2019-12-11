@@ -3,179 +3,179 @@
 
 enum
 {
-	STATSCREEN_BGPAL_HALO = 1,
-	STATSCREEN_BGPAL_2 = 2,
-	STATSCREEN_BGPAL_3 = 3,
-	STATSCREEN_BGPAL_ITEMICONS = 4,
-	STATSCREEN_BGPAL_EXTICONS = 5,
-	STATSCREEN_BGPAL_6 = 6,
-	STATSCREEN_BGPAL_7 = 7,
-	STATSCREEN_BGPAL_FACE = 11,
-	STATSCREEN_BGPAL_BACKGROUND = 12, // 4 palettes
+    STATSCREEN_BGPAL_HALO = 1,
+    STATSCREEN_BGPAL_2 = 2,
+    STATSCREEN_BGPAL_3 = 3,
+    STATSCREEN_BGPAL_ITEMICONS = 4,
+    STATSCREEN_BGPAL_EXTICONS = 5,
+    STATSCREEN_BGPAL_6 = 6,
+    STATSCREEN_BGPAL_7 = 7,
+    STATSCREEN_BGPAL_FACE = 11,
+    STATSCREEN_BGPAL_BACKGROUND = 12, // 4 palettes
 
-	STATSCREEN_OBJPAL_4 = 4,
+    STATSCREEN_OBJPAL_4 = 4,
 };
 
 enum
 {
-	STATSCREEN_PAGE_0,
-	STATSCREEN_PAGE_1,
-	STATSCREEN_PAGE_2,
+    STATSCREEN_PAGE_0,
+    STATSCREEN_PAGE_1,
+    STATSCREEN_PAGE_2,
 
-	STATSCREEN_PAGE_MAX,
+    STATSCREEN_PAGE_MAX,
 };
 
 struct Unk0203E764
 {
-	/* 00 */ u8  unk00;
-	/* 01 */ u8  uid01;
-	/* 02 */ u16 unk02;
+    /* 00 */ u8  unk00;
+    /* 01 */ u8  uid01;
+    /* 02 */ u16 unk02;
 };
 
 struct Unk8086E00
 {
-	/* 00 */ struct TextHandle* text;
-	/* 04 */ u16* tilemap;
-	/* 08 */ u8 color;
-	/* 09 */ u8 xoff;
-	/* 0C */ const unsigned* mid;
+    /* 00 */ struct TextHandle* text;
+    /* 04 */ u16* tilemap;
+    /* 08 */ u8 color;
+    /* 09 */ u8 xoff;
+    /* 0C */ const unsigned* mid;
 };
 
 enum
 {
-	// Enumerate stat screen texts
+    // Enumerate stat screen texts
 
-	STATSCREEN_TEXT_CHARANAME, // 0
-	STATSCREEN_TEXT_CLASSNAME, // 1
+    STATSCREEN_TEXT_CHARANAME, // 0
+    STATSCREEN_TEXT_CLASSNAME, // 1
 
-	STATSCREEN_TEXT_POWLABEL = 3,
-	STATSCREEN_TEXT_RESCUENAME = 12,
-	STATSCREEN_TEXT_STATUS = 14,
+    STATSCREEN_TEXT_POWLABEL = 3,
+    STATSCREEN_TEXT_RESCUENAME = 12,
+    STATSCREEN_TEXT_STATUS = 14,
 
-	STATSCREEN_TEXT_ITEM0, // 15
-	STATSCREEN_TEXT_ITEM1, // 16
-	STATSCREEN_TEXT_ITEM2, // 17
-	STATSCREEN_TEXT_ITEM3, // 18
-	STATSCREEN_TEXT_ITEM4, // 19
+    STATSCREEN_TEXT_ITEM0, // 15
+    STATSCREEN_TEXT_ITEM1, // 16
+    STATSCREEN_TEXT_ITEM2, // 17
+    STATSCREEN_TEXT_ITEM3, // 18
+    STATSCREEN_TEXT_ITEM4, // 19
 
-	STATSCREEN_TEXT_BSRANGE, // 20
+    STATSCREEN_TEXT_BSRANGE, // 20
 
-	STATSCREEN_TEXT_SUPPORT0 = 29,
-	STATSCREEN_TEXT_SUPPORT1, // 30
-	STATSCREEN_TEXT_SUPPORT2, // 31
-	STATSCREEN_TEXT_SUPPORT3, // 32
-	STATSCREEN_TEXT_SUPPORT4, // 33
+    STATSCREEN_TEXT_SUPPORT0 = 29,
+    STATSCREEN_TEXT_SUPPORT1, // 30
+    STATSCREEN_TEXT_SUPPORT2, // 31
+    STATSCREEN_TEXT_SUPPORT3, // 32
+    STATSCREEN_TEXT_SUPPORT4, // 33
 
-	STATSCREEN_TEXT_BWL, // 34
+    STATSCREEN_TEXT_BWL, // 34
 
-	STATSCREEN_TEXT_MAX
+    STATSCREEN_TEXT_MAX
 };
 
 struct HelpBoxInfo;
 
 struct StatScreenSt
 {
-	/* 00 */ u8 page;
-	/* 01 */ u8 pageAmt;
-	/* 02 */ u16 unk02;
-	/* 04 */ short unk04;
-	/* 06 */ short yDispOff;
-	/* 08 */ s8 inTransition;
-	/* 0C */ struct Unit* unit;
-	/* 10 */ struct MUProc* mu;
-	/* 14 */ const struct HelpBoxInfo* help;
-	/* 18 */ struct TextHandle text[STATSCREEN_TEXT_MAX];
+    /* 00 */ u8 page;
+    /* 01 */ u8 pageAmt;
+    /* 02 */ u16 unk02;
+    /* 04 */ short unk04;
+    /* 06 */ short yDispOff;
+    /* 08 */ s8 inTransition;
+    /* 0C */ struct Unit* unit;
+    /* 10 */ struct MUProc* mu;
+    /* 14 */ const struct HelpBoxInfo* help;
+    /* 18 */ struct TextHandle text[STATSCREEN_TEXT_MAX];
 };
 
 struct StatScreenTransitionProc
 {
-	PROC_HEADER;
+    PROC_HEADER;
 
-	/* 29 */ u8 pad29[0x38 - 0x29];
+    /* 29 */ u8 pad29[0x38 - 0x29];
 
-	/* 38 */ int unk38;
-	/* 3C */ int unk3C;
-	/* 40 */ int unk40;
+    /* 38 */ int unk38;
+    /* 3C */ int unk3C;
+    /* 40 */ int unk40;
 
-	/* 44 */ u8 pad44[0x4A - 0x44];
+    /* 44 */ u8 pad44[0x4A - 0x44];
 
-	/* 4A */ short unk4A;
-	/* 4C */ short unk4C;
-	/* 4E */ short unk4E;
-	/* 50 */ short unk50;
-	/* 52 */ u16   unk52;
+    /* 4A */ short unk4A;
+    /* 4C */ short unk4C;
+    /* 4E */ short unk4E;
+    /* 50 */ short unk50;
+    /* 52 */ u16   unk52;
 };
 
 struct StatScreenPageNameProc
 {
-	/* 00 */ PROC_HEADER;
+    /* 00 */ PROC_HEADER;
 
-	/* 29 */ u8 pad29[0x36 - 0x29];
-	/* 36 */ u8 unk36;
-	/* 38 */ short unk38;
+    /* 29 */ u8 pad29[0x36 - 0x29];
+    /* 36 */ u8 unk36;
+    /* 38 */ short unk38;
 };
 
 struct StatScreenUnkProc
 {
-	/* 00 */ PROC_HEADER;
+    /* 00 */ PROC_HEADER;
 
-	/* 2A */ short unk2A;
-	/* 2C */ short unk2C;
-	/* 2E */ u16 unk2E;
-	/* 30 */ u16 unk30;
-	/* 32 */ short unk32;
-	/* 34 */ short unk34;
+    /* 2A */ short unk2A;
+    /* 2C */ short unk2C;
+    /* 2E */ u16 unk2E;
+    /* 30 */ u16 unk30;
+    /* 32 */ short unk32;
+    /* 34 */ short unk34;
 };
 
 struct HelpBoxProc
 {
-	/* 00 */ PROC_HEADER;
+    /* 00 */ PROC_HEADER;
 
-	/* 2C */ const struct HelpBoxInfo* info;
+    /* 2C */ const struct HelpBoxInfo* info;
 
-	/* 30 */ short unk30;
-	/* 32 */ short unk32;
-	/* 34 */ short unk34;
-	/* 36 */ short unk36;
-	/* 38 */ short unk38;
-	/* 3A */ short unk3A;
-	/* 3C */ short unk3C;
-	/* 3E */ short unk3E;
-	/* 40 */ short unk40;
-	/* 42 */ short unk42;
-	/* 44 */ short unk44;
-	/* 46 */ short unk46;
-	/* 48 */ short unk48;
-	/* 4A */ short unk4A;
+    /* 30 */ short unk30;
+    /* 32 */ short unk32;
+    /* 34 */ short unk34;
+    /* 36 */ short unk36;
+    /* 38 */ short unk38;
+    /* 3A */ short unk3A;
+    /* 3C */ short unk3C;
+    /* 3E */ short unk3E;
+    /* 40 */ short unk40;
+    /* 42 */ short unk42;
+    /* 44 */ short unk44;
+    /* 46 */ short unk46;
+    /* 48 */ short unk48;
+    /* 4A */ short unk4A;
 
-	/* 4C */ u16 msgId_maybe;
-	/* 4E */ u16 item_maybe;
+    /* 4C */ u16 msgId_maybe;
+    /* 4E */ u16 item_maybe;
 
-	/* 50 */ u16 unk50;
+    /* 50 */ u16 unk50;
 
-	/* 52 */ u8 unk52;
+    /* 52 */ u8 unk52;
 };
 
 struct HelpBoxInfo
 {
-	/* 00 */ const struct HelpBoxInfo* adj1;
-	/* 04 */ const struct HelpBoxInfo* adj2;
-	/* 08 */ const struct HelpBoxInfo* adj3;
-	/* 0C */ const struct HelpBoxInfo* adj4;
-	/* 10 */ u8 xDisplay;
-	/* 11 */ u8 yDisplay;
-	/* 12 */ u16 msgId;
-	/* 14 */ void(*onInitMoveable)(struct HelpBoxProc* proc);
-	/* 18 */ void(*onInit)(struct HelpBoxProc* proc);
+    /* 00 */ const struct HelpBoxInfo* adj1;
+    /* 04 */ const struct HelpBoxInfo* adj2;
+    /* 08 */ const struct HelpBoxInfo* adj3;
+    /* 0C */ const struct HelpBoxInfo* adj4;
+    /* 10 */ u8 xDisplay;
+    /* 11 */ u8 yDisplay;
+    /* 12 */ u16 msgId;
+    /* 14 */ void(*onInitMoveable)(struct HelpBoxProc* proc);
+    /* 18 */ void(*onInit)(struct HelpBoxProc* proc);
 };
 
 struct HelpPromptObjectProc
 {
-	PROC_HEADER;
+    PROC_HEADER;
 
-	/* 2C */ int xDisplay;
-	/* 30 */ int yDisplay;
-	/* 34 */ int tileref;
+    /* 2C */ int xDisplay;
+    /* 30 */ int yDisplay;
+    /* 34 */ int tileref;
 };
 
 int GetSomeUnitId(void);
