@@ -17,7 +17,7 @@ sub_80219F8: @ 0x080219F8
 	movs r2, #0x20
 	bl CopyToPaletteBuffer
 	ldr r0, _08021A88  @ gUnknown_085A7A64
-	ldr r4, _08021A8C  @ gUnknown_02003D2C
+	ldr r4, _08021A8C  @ gBmFrameTmap0
 	adds r1, r4, #0
 	bl CopyDataWithPossibleUncomp
 	movs r0, #0x84
@@ -69,7 +69,7 @@ _08021A7C: .4byte gUnknown_085A6C80
 _08021A80: .4byte 0x06002000
 _08021A84: .4byte gUnknown_085A7CA0
 _08021A88: .4byte gUnknown_085A7A64
-_08021A8C: .4byte gUnknown_02003D2C
+_08021A8C: .4byte gBmFrameTmap0
 _08021A90: .4byte gBG0TilemapBuffer
 
 	THUMB_FUNC_START sub_8021A94
@@ -106,7 +106,7 @@ _08021AD0:
 	lsls r0, r0, #5
 	adds r0, r0, r1
 	lsls r0, r0, #1
-	ldr r1, _08021AF4  @ gUnknown_02003D2C
+	ldr r1, _08021AF4  @ gBmFrameTmap0
 	adds r0, r0, r1
 	ldr r1, _08021AF8  @ gBG0TilemapBuffer
 	movs r2, #6
@@ -120,7 +120,7 @@ _08021AEA:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_08021AF4: .4byte gUnknown_02003D2C
+_08021AF4: .4byte gBmFrameTmap0
 _08021AF8: .4byte gBG0TilemapBuffer
 
 	THUMB_FUNC_START sub_8021AFC

@@ -19632,11 +19632,11 @@ sub_804B3B0: @ 0x0804B3B0
 	push {r4, lr}
 	adds r4, r0, #0
 	movs r0, #0x1f
-	bl sub_8086DE4
+	bl SetStatScreenConfig
 	ldr r0, _0804B3CC  @ gActiveUnit
 	ldr r0, [r0]
 	adds r1, r4, #0
-	bl sub_808894C
+	bl StartStatScreen
 	pop {r4}
 	pop {r0}
 	bx r0
@@ -20084,7 +20084,7 @@ sub_804B71C: @ 0x0804B71C
 	ldr r2, _0804B764  @ 0x00000756
 	movs r0, #0x40
 	movs r1, #0x38
-	bl sub_8088F68
+	bl StartHelpBoxExt_Unk
 	movs r4, #0
 	ldr r6, _0804B768  @ gUnknown_0203DD9A
 _0804B736:
@@ -20121,7 +20121,7 @@ _0804B770:
 	ldr r1, [r4, #0x5c]
 	cmp r1, #4
 	ble _0804B782
-	bl sub_8089018
+	bl CloseHelpBox
 	adds r0, r4, #0
 	bl Proc_ClearNativeCallback
 	b _0804B7DA

@@ -403,7 +403,7 @@ sub_8033548: @ 0x08033548
 	movs r1, #0x8c
 	movs r2, #2
 	adds r3, r4, #0
-	bl sub_80894E0
+	bl StartHelpPromptSprite
 	ldr r0, _0803356C  @ gUnknown_08A199C8
 	ldr r1, _08033570  @ 0x06017000
 	bl CopyDataWithPossibleUncomp
@@ -505,7 +505,7 @@ _08033630: .4byte gUnknown_0859DBA4
 	THUMB_FUNC_START sub_8033634
 sub_8033634: @ 0x08033634
 	push {lr}
-	bl sub_8089570
+	bl EndHelpPromptSprite
 	ldr r0, _08033644  @ gUnknown_0859DBA4
 	bl Proc_DeleteAllWithScript
 	pop {r0}
@@ -966,7 +966,7 @@ _080339CC:
 	bl MU_EndAll
 	bl DeletePlayerPhaseInterface6Cs
 	movs r0, #0x1f
-	bl sub_8086DE4
+	bl SetStatScreenConfig
 	movs r3, #0x16
 	ldrsh r0, [r4, r3]
 	ldr r1, [r6]
@@ -979,7 +979,7 @@ _080339CC:
 	ldrb r0, [r0]
 	bl GetUnit
 	adds r1, r5, #0
-	bl sub_808894C
+	bl StartStatScreen
 	adds r0, r5, #0
 	movs r1, #5
 	bl Proc_GotoLabel
@@ -1678,11 +1678,11 @@ _08033FD2:
 	beq _08034002
 	bl MU_EndAll
 	movs r0, #0x1f
-	bl sub_8086DE4
+	bl SetStatScreenConfig
 	adds r0, r4, #0
 	bl GetUnit
 	adds r1, r5, #0
-	bl sub_808894C
+	bl StartStatScreen
 	adds r0, r5, #0
 	movs r1, #6
 	bl Proc_GotoLabel

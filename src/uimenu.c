@@ -7,6 +7,7 @@
 #include "proc.h"
 #include "bmio.h"
 #include "uiutils.h"
+#include "statscreen.h"
 
 #include "uimenu.h"
 
@@ -547,7 +548,7 @@ u8 MenuCancelSelect(struct MenuProc* menu, struct MenuItemProc* item)
 
 u8 MenuStdHelpBox(struct MenuProc* menu, struct MenuItemProc* item)
 {
-    sub_8088DE0(item->xTile*8, item->yTile*8, item->def->helpMsgId);
+    StartHelpBox(item->xTile*8, item->yTile*8, item->def->helpMsgId);
 }
 
 void Menu_AutoHelpBox_OnInit(struct MenuProc* proc)
@@ -569,7 +570,7 @@ void Menu_AutoHelpBox_OnLoop(struct MenuProc* proc)
 
     if (gKeyStatusPtr->newKeys & (B_BUTTON | R_BUTTON))
     {
-        sub_8089018();
+        CloseHelpBox();
         Proc_JumpToPointer((struct Proc*) proc, sProc_MenuMain);
 
         return;
@@ -597,7 +598,7 @@ void Menu_FrozenHelpBox_OnLoop(struct MenuProc* proc)
 
     if (gKeyStatusPtr->newKeys & (B_BUTTON | R_BUTTON))
     {
-        sub_8089018();
+        CloseHelpBox();
         Proc_JumpToPointer((struct Proc*) proc, sProc_MenuMain);
     }
 }
@@ -607,7 +608,7 @@ u8 MenuFrozenHelpBox(struct MenuProc* proc, int msgid)
     Proc_JumpToPointer((struct Proc*) proc, sProc_MenuFrozenHelpBox);
 
     LoadDialogueBoxGfx(NULL, -1); // TODO: default constants?
-    sub_8088DE0(GetUiHandPrevDisplayX(), GetUiHandPrevDisplayY(), msgid);
+    StartHelpBox(GetUiHandPrevDisplayX(), GetUiHandPrevDisplayY(), msgid);
 }
 
 void Menu_Frozen_OnLoop(struct MenuProc* proc)

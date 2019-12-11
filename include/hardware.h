@@ -8,6 +8,8 @@
 
 #define TILEREF(aChar, aPal) ((aChar) + ((aPal) << 12))
 
+#define OAM2_PRIORITY(aValue) (((aValue) & 0x3) << 10)
+
 #define BG_SYNC_BIT(aBg) (1 << (aBg))
 
 enum
@@ -40,7 +42,7 @@ void SetBackgroundScreenSize(int bg, int size);
 void BG_Fill(void *dest, int b);
 void RegisterBlankTile(int a);
 void SetInterrupt_LCDVBlank(InterruptHandler handler);
-// ??? SetInterrupt_LCDVCountMatch(???);
+void SetInterrupt_LCDVCountMatch(InterruptHandler handler);
 // ??? sub_8001308(???);
 // ??? SetLCDVCountSetting(???);
 void SetMainUpdateRoutine(void(*)(void));
@@ -86,7 +88,7 @@ void SetSpecialColorEffectsParameters(u16 effect, u8 coeffA, u8 coeffB, u8 blend
 void sub_8001ED0(int, int, int, int, int); // SetColorEffectFirstTarget
 void sub_8001F0C(int, int, int, int, int);
 void sub_8001F48(int); // SetColorEffectBackdropFirstTarget
-// ??? sub_8001F64(???);
+void sub_8001F64(int a);
 void SetDefaultColorEffects(void);
 void EnablePaletteSync(void);
 void DisablePaletteSync(void);

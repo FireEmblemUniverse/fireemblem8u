@@ -440,7 +440,7 @@ sub_8036818: @ 0x08036818
 	movs r2, #0x80
 	lsls r2, r2, #5
 	bl CallARM_FillTileRect
-	ldr r4, _080368A4  @ gUnknown_02003D2C
+	ldr r4, _080368A4  @ gBmFrameTmap0
 	adds r0, r4, #0
 	movs r1, #0xa
 	movs r2, #0xf
@@ -494,7 +494,7 @@ sub_8036818: @ 0x08036818
 	.align 2, 0
 _0803689C: .4byte gUnknown_0200422C
 _080368A0: .4byte gUnknown_085A09A8
-_080368A4: .4byte gUnknown_02003D2C
+_080368A4: .4byte gBmFrameTmap0
 _080368A8: .4byte gBattleActor
 _080368AC: .4byte 0x000002C2
 _080368B0: .4byte gBattleTarget
@@ -710,7 +710,7 @@ sub_8036A70: @ 0x08036A70
 	movs r2, #0x80
 	lsls r2, r2, #5
 	bl CallARM_FillTileRect
-	ldr r4, _08036B0C  @ gUnknown_02003D2C
+	ldr r4, _08036B0C  @ gBmFrameTmap0
 	adds r0, r4, #0
 	movs r1, #0xa
 	movs r2, #0x13
@@ -774,7 +774,7 @@ _08036AE8:
 	.align 2, 0
 _08036B04: .4byte gUnknown_0200422C
 _08036B08: .4byte gUnknown_085A0AEC
-_08036B0C: .4byte gUnknown_02003D2C
+_08036B0C: .4byte gBmFrameTmap0
 _08036B10: .4byte gBattleActor
 _08036B14: .4byte 0x000003C2
 _08036B18: .4byte gBattleTarget
@@ -1155,7 +1155,7 @@ _08036E3C:
 	asrs r0, r0, #0x18
 	cmp r0, #0
 	bge _08036E74
-	ldr r0, _08036E64  @ gUnknown_02003D2C
+	ldr r0, _08036E64  @ gBmFrameTmap0
 	ldr r1, _08036E68  @ gBG0TilemapBuffer
 	movs r2, #0xa
 	adds r3, r4, #0
@@ -1167,12 +1167,12 @@ _08036E3C:
 	bl TileMap_CopyRect
 	b _08036E8C
 	.align 2, 0
-_08036E64: .4byte gUnknown_02003D2C
+_08036E64: .4byte gBmFrameTmap0
 _08036E68: .4byte gBG0TilemapBuffer
 _08036E6C: .4byte gUnknown_0200422C
 _08036E70: .4byte gBG1TilemapBuffer
 _08036E74:
-	ldr r0, _08036E98  @ gUnknown_02003D2C
+	ldr r0, _08036E98  @ gBmFrameTmap0
 	ldr r1, _08036E9C  @ gUnknown_02022CD0
 	movs r2, #0xa
 	adds r3, r4, #0
@@ -1189,7 +1189,7 @@ _08036E8C:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_08036E98: .4byte gUnknown_02003D2C
+_08036E98: .4byte gBmFrameTmap0
 _08036E9C: .4byte gUnknown_02022CD0
 _08036EA0: .4byte gUnknown_0200422C
 _08036EA4: .4byte gUnknown_020234D0
@@ -1556,7 +1556,7 @@ _08037128:
 	movs r4, #0xa
 	subs r4, r4, r5
 	lsls r4, r4, #1
-	ldr r0, _08037198  @ gUnknown_02003D2C
+	ldr r0, _08037198  @ gBmFrameTmap0
 	adds r0, r4, r0
 	mov r1, r8
 	adds r2, r5, #0
@@ -1574,10 +1574,10 @@ _08037128:
 _0803718C: .4byte gBG0TilemapBuffer
 _08037190: .4byte gBG1TilemapBuffer
 _08037194: .4byte gUnknown_0859E518
-_08037198: .4byte gUnknown_02003D2C
+_08037198: .4byte gBmFrameTmap0
 _0803719C: .4byte gUnknown_0200422C
 _080371A0:
-	ldr r0, _080371E8  @ gUnknown_02003D2C
+	ldr r0, _080371E8  @ gBmFrameTmap0
 	movs r4, #0x1e
 	subs r4, r4, r5
 	lsls r4, r4, #1
@@ -1613,7 +1613,7 @@ _080371DA:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_080371E8: .4byte gUnknown_02003D2C
+_080371E8: .4byte gBmFrameTmap0
 _080371EC: .4byte gUnknown_0200422C
 
 	THUMB_FUNC_START sub_80371F0
@@ -1663,7 +1663,7 @@ _0803720C:
 	movs r4, #0xa
 	subs r4, r4, r5
 	lsls r4, r4, #1
-	ldr r0, _0803727C  @ gUnknown_02003D2C
+	ldr r0, _0803727C  @ gBmFrameTmap0
 	adds r0, r4, r0
 	mov r1, r8
 	adds r2, r5, #0
@@ -1681,10 +1681,10 @@ _0803720C:
 _08037270: .4byte gBG0TilemapBuffer
 _08037274: .4byte gBG1TilemapBuffer
 _08037278: .4byte gUnknown_0859E51C
-_0803727C: .4byte gUnknown_02003D2C
+_0803727C: .4byte gBmFrameTmap0
 _08037280: .4byte gUnknown_0200422C
 _08037284:
-	ldr r0, _080372CC  @ gUnknown_02003D2C
+	ldr r0, _080372CC  @ gBmFrameTmap0
 	movs r4, #0x1e
 	subs r4, r4, r5
 	lsls r4, r4, #1
@@ -1720,7 +1720,7 @@ _080372BE:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_080372CC: .4byte gUnknown_02003D2C
+_080372CC: .4byte gBmFrameTmap0
 _080372D0: .4byte gUnknown_0200422C
 
 	THUMB_FUNC_START MapEventEngineExists_
@@ -1911,26 +1911,26 @@ _08037420:
 	.align 2, 0
 _0803743C: .4byte gUnknown_0859E520
 _08037440:
-	ldr r0, _08037450  @ gUnknown_08A00FEC
+	ldr r0, _08037450  @ gHelpInfo_MbpHp
 	adds r1, r6, #0
 	adds r2, r5, #0
 	movs r3, #0
-	bl sub_8089188
+	bl StartMovingHelpBoxExt
 	b _08037460
 	.align 2, 0
-_08037450: .4byte gUnknown_08A00FEC
+_08037450: .4byte gHelpInfo_MbpHp
 _08037454:
-	ldr r0, _08037468  @ gUnknown_08A01094
+	ldr r0, _08037468  @ gHelpInfo_CbpHp
 	adds r1, r6, #0
 	adds r2, r5, #0
 	movs r3, #0
-	bl sub_8089188
+	bl StartMovingHelpBoxExt
 _08037460:
 	movs r0, #0
 	pop {r4, r5, r6}
 	pop {r1}
 	bx r1
 	.align 2, 0
-_08037468: .4byte gUnknown_08A01094
+_08037468: .4byte gHelpInfo_CbpHp
 
 .align 2, 0
