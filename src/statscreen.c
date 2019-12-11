@@ -590,8 +590,6 @@ void sub_8086FAC(void)
         TEXT_COLOR_BLUE, stats->lossAmt);
 }
 
-#ifdef NONMATCHING
-
 void DrawStatScreenBar(int num, int x, int y, int base, int total, int max)
 {
     int diff = total - base;
@@ -602,119 +600,15 @@ void DrawStatScreenBar(int num, int x, int y, int base, int total, int max)
     sub_8004BF0(diff, gBmFrameTmap0 + TILEMAP_INDEX(x + 1, y));
 
     if (total > 30)
-        diff = 30 - base;
+    {
+        total = 30;
+        diff = total - base;
+    }
 
     sub_8086B2C(0x401 + num*6, 6,
         gBmFrameTmap1 + TILEMAP_INDEX(x - 2, y + 1),
-        TILEREF(0, STATSCREEN_BGPAL_3), max * 41 / 30, base * 41 / 30, diff * 41 / 30);
+        TILEREF(0, STATSCREEN_BGPAL_6), max * 41 / 30, base * 41 / 30, diff * 41 / 30);
 }
-
-#else // NONMATCHING
-
-__attribute__((naked))
-void DrawStatScreenBar(int num, int x, int y, int base, int total, int max)
-{
-    asm("\n\
-        .syntax unified\n\
-        push {r4, r5, r6, r7, lr}\n\
-        mov r7, sl\n\
-        mov r6, r9\n\
-        mov r5, r8\n\
-        push {r5, r6, r7}\n\
-        sub sp, #0x10\n\
-        mov sl, r0\n\
-        mov r8, r1\n\
-        str r2, [sp, #0xc]\n\
-        adds r7, r3, #0\n\
-        ldr r5, [sp, #0x30]\n\
-        subs r0, r5, r7\n\
-        mov r9, r0\n\
-        lsls r6, r2, #5\n\
-        adds r0, r6, r1\n\
-        lsls r0, r0, #1\n\
-        ldr r4, _08087178  @ gBmFrameTmap0\n\
-        adds r0, r0, r4\n\
-        movs r1, #2\n\
-        ldr r2, [sp, #0x34]\n\
-        cmp r7, r2\n\
-        bne _080870EA\n\
-        movs r1, #4\n\
-    _080870EA:\n\
-        adds r2, r7, #0\n\
-        bl DrawDecNumber\n\
-        adds r1, r6, #1\n\
-        add r1, r8\n\
-        lsls r1, r1, #1\n\
-        adds r1, r1, r4\n\
-        mov r0, r9\n\
-        bl sub_8004BF0\n\
-        cmp r5, #0x1e\n\
-        ble _08087108\n\
-        movs r5, #0x1e\n\
-        subs r5, r5, r7\n\
-        mov r9, r5\n\
-    _08087108:\n\
-        mov r0, sl\n\
-        lsls r5, r0, #1\n\
-        add r5, sl\n\
-        lsls r5, r5, #1\n\
-        ldr r1, _0808717C  @ 0x00000401\n\
-        adds r5, r5, r1\n\
-        ldr r4, [sp, #0xc]\n\
-        adds r4, #1\n\
-        lsls r4, r4, #5\n\
-        subs r4, #2\n\
-        add r4, r8\n\
-        lsls r4, r4, #1\n\
-        ldr r0, _08087180  @ gBmFrameTmap1\n\
-        adds r4, r4, r0\n\
-        movs r6, #0xc0\n\
-        lsls r6, r6, #7\n\
-        ldr r2, [sp, #0x34]\n\
-        lsls r0, r2, #2\n\
-        adds r0, r0, r2\n\
-        lsls r0, r0, #3\n\
-        adds r0, r0, r2\n\
-        movs r1, #0x1e\n\
-        bl __divsi3\n\
-        str r0, [sp]\n\
-        lsls r0, r7, #2\n\
-        adds r0, r0, r7\n\
-        lsls r0, r0, #3\n\
-        adds r0, r0, r7\n\
-        movs r1, #0x1e\n\
-        bl __divsi3\n\
-        str r0, [sp, #4]\n\
-        mov r1, r9\n\
-        lsls r0, r1, #2\n\
-        add r0, r9\n\
-        lsls r0, r0, #3\n\
-        add r0, r9\n\
-        movs r1, #0x1e\n\
-        bl __divsi3\n\
-        str r0, [sp, #8]\n\
-        adds r0, r5, #0\n\
-        movs r1, #6\n\
-        adds r2, r4, #0\n\
-        adds r3, r6, #0\n\
-        bl sub_8086B2C\n\
-        add sp, #0x10\n\
-        pop {r3, r4, r5}\n\
-        mov r8, r3\n\
-        mov r9, r4\n\
-        mov sl, r5\n\
-        pop {r4, r5, r6, r7}\n\
-        pop {r0}\n\
-        bx r0\n\
-        .align 2, 0\n\
-    _08087178: .4byte gBmFrameTmap0\n\
-    _0808717C: .4byte 0x00000401\n\
-    _08087180: .4byte gBmFrameTmap1\n\
-        .syntax divided\n\
-    ");
-}
-
-#endif // NONMATCHING
 
 void DrawUnitStatScreen(void)
 {
