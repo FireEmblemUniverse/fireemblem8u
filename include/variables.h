@@ -3370,15 +3370,15 @@ extern unsigned CONST_DATA gMid_Dark;
 // extern ??? gUnknown_08A01E5C
 // extern ??? gUnknown_08A01E64
 // extern ??? gUnknown_08A01EC4
-// extern ??? gUnknown_08A01EE4
-// extern ??? gUnknown_08A01F04
-// extern ??? gUnknown_08A01F24
-// extern ??? gUnknown_08A020F0
-// extern ??? gUnknown_08A021E4
-// extern ??? gUnknown_08A02204
-// extern ??? gUnknown_08A02250
-// extern ??? gUnknown_08A02274
-// extern ??? gUnknown_08A027FC
+extern u16 CONST_DATA gUnknown_08A01EE4[]; // some face-related palette (if portrait)
+extern u16 CONST_DATA gUnknown_08A01F04[]; // some face-related palette (if card)
+extern u8  CONST_DATA gUnknown_08A01F24[]; // img?
+extern u8  CONST_DATA gUnknown_08A020F0[]; // img?
+extern u16 CONST_DATA gUnknown_08A021E4[]; // pal
+extern u8  CONST_DATA gUnknown_08A02204[]; // tsa
+extern u8  CONST_DATA gUnknown_08A02250[]; // tsa
+extern u8  CONST_DATA gUnknown_08A02274[]; // img objects
+extern u16 CONST_DATA gUnknown_08A027FC[][0x10]; // color animation for each page
 // extern ??? gUnknown_08A0285C
 // extern ??? gUnknown_08A02884
 // extern ??? gUnknown_08A028AC
@@ -3398,12 +3398,12 @@ extern unsigned CONST_DATA gMid_Dark;
 // extern ??? gUnknown_08A032AC
 // extern ??? gUnknown_08A03334
 // extern ??? gUnknown_08A03354
-// extern ??? gUnknown_08A03368
-// extern ??? gUnknown_08A05F10
-// extern ??? gUnknown_08A06460
-// extern ??? gUnknown_08A064E0
-// extern ??? gUnknown_08A071FC
-// extern ??? gUnknown_08A0731C
+extern u8  CONST_DATA gUnknown_08A03368[]; // stat screen background img
+extern u8  CONST_DATA gUnknown_08A05F10[]; // stat screen background tsa
+extern u16 CONST_DATA gUnknown_08A06460[]; // stat screen background pal
+extern u8  CONST_DATA gUnknown_08A064E0[]; // halo img
+extern u8  CONST_DATA gUnknown_08A071FC[]; // halo tsa
+extern u16 CONST_DATA gUnknown_08A0731C[]; // halo pal
 // extern ??? gUnknown_08A0733C
 // extern ??? gUnknown_08A0754C
 // extern ??? gUnknown_08A079B4
@@ -3560,7 +3560,7 @@ extern unsigned CONST_DATA gMid_Dark;
 // extern ??? gUnknown_08A1D4C8
 // extern ??? gUnknown_08A1D4E8
 // extern ??? gUnknown_08A1D510
-// extern ??? gUnknown_08A1D79C
+extern u16 CONST_DATA gUnknown_08A1D79C[]; // 'R is info' palette
 // extern ??? gUnknown_08A1D7DC
 // extern ??? gUnknown_08A1D8D0
 // extern ??? gUnknown_08A1DB80

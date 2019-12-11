@@ -2,7 +2,6 @@
 #include "global.h"
 
 #include <stdlib.h>
-#include <string.h> // TODO: remove
 
 #include "proc.h"
 #include "hardware.h"
@@ -22,6 +21,44 @@
 #include "constants/classes.h"
 
 #include "statscreen.h"
+
+struct StatScreenEffectProc
+{
+    /* 00 */ PROC_HEADER;
+
+    /* 29 */ u8 pad29[0x38 - 0x29];
+
+    /* 38 */ int direction;
+    /* 3C */ int yDispInit;
+    /* 40 */ int yDispFinal;
+
+    /* 44 */ u8 pad44[0x4A - 0x44];
+
+    /* 4A */ short newItem; // page or unit depending on slide
+    /* 4C */ short timer;
+    /* 4E */ short blendDirection;
+
+    /* 50 */ u8 pad50[0x52 - 0x50];
+
+    /* 52 */ u16   key;
+};
+
+struct StatScreenPageNameProc
+{
+    /* 00 */ PROC_HEADER;
+
+    // Page Num Sprite Control proc only
+    /* 2A */ short xLeftCursor;
+    /* 2C */ short xRightCursor;
+    /* 2E */ u16 animTimerLeft;
+    /* 30 */ u16 animTimerRight;
+    /* 32 */ short animSpeedLeft;
+    /* 34 */ short animSpeedRight;
+
+    // Page Name Sprite Control proc only
+    /* 36 */ u8 pageNum;
+    /* 38 */ short yScale; // 6 == times 1
+};
 
 struct StatScreenInfo
 {
@@ -443,49 +480,6 @@ struct ProcCmd CONST_DATA gProcScr_HelpPromptSpr[] = // proc displaying 'R is In
     PROC_LOOP_ROUTINE(HelpPrompt_OnIdle),
     PROC_END,
 };
-
-extern struct HelpBoxInfo CONST_DATA gHelpInfo_Ss0Pow; // page 0 root help
-extern struct HelpBoxInfo CONST_DATA gHelpInfo_Ss1CharName; // hardcoded thing bad
-extern struct HelpBoxInfo CONST_DATA gHelpInfo_Ss1Item0; // page 1 root help
-extern struct HelpBoxInfo CONST_DATA gHelpInfo_Ss2Rank0; // page 2 root help
-
-extern u16 CONST_DATA gUnknown_08A01EE4[]; // some face-related palette (if portrait)
-extern u16 CONST_DATA gUnknown_08A01F04[]; // some face-related palette (if card)
-extern u8  CONST_DATA gUnknown_08A01F24[]; // img?
-extern u8  CONST_DATA gUnknown_08A020F0[]; // img?
-extern u16 CONST_DATA gUnknown_08A021E4[]; // pal
-extern u8  CONST_DATA gUnknown_08A02204[]; // tsa
-extern u8  CONST_DATA gUnknown_08A02250[]; // tsa
-extern u8  CONST_DATA gUnknown_08A02274[]; // img objects
-extern u16 CONST_DATA gUnknown_08A027FC[][0x10]; // color animation for each page
-extern u8  CONST_DATA gUnknown_08A064E0[]; // halo img
-extern u8  CONST_DATA gUnknown_08A071FC[]; // halo tsa
-extern u16 CONST_DATA gUnknown_08A0731C[]; // halo pal
-extern u8  CONST_DATA gUnknown_08A03368[]; // background img
-extern u8  CONST_DATA gUnknown_08A05F10[]; // background tsa
-extern u16 CONST_DATA gUnknown_08A06460[]; // background pal
-
-extern u16 CONST_DATA gUnknown_08A1D79C[]; // 'R is info' palette
-
-const struct HelpBoxInfo* GetLastHelpBoxInfo(void);
-void StartMovingHelpBox(const struct HelpBoxInfo* helpinfo, struct Proc* parent); // StartMoveableHelpBox
-int TryRelocateHbUp(struct HelpBoxProc* proc);
-int TryRelocateHbDown(struct HelpBoxProc* proc);
-int TryRelocateHbLeft(struct HelpBoxProc* proc);
-int TryRelocateHbRight(struct HelpBoxProc* proc);
-void sub_8089980(int a, int b, int c, int d, int e);
-void ResetHelpBoxInitSize(struct HelpBoxProc* proc);
-void SetHelpBoxInitPosition(struct HelpBoxProc* proc, int x, int y);
-void ApplyHelpBoxContentSize(struct HelpBoxProc* proc, int width, int height);
-void ApplyHelpBoxPosition(struct HelpBoxProc* proc, int x, int y);
-void sub_808A118(void);
-
-void sub_808A0FC(int item, int mid);
-
-void StartHelpBoxExt(const struct HelpBoxInfo* info, int unk);
-void HbPopulate_AutoItem(struct HelpBoxProc* proc);
-
-int GetHelpBoxItemInfoKind(int item);
 
 int GetLastStatScreenUid(void)
 {

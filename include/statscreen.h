@@ -103,44 +103,6 @@ struct StatScreenSt
     /* 18 */ struct TextHandle text[STATSCREEN_TEXT_MAX];
 };
 
-struct StatScreenEffectProc
-{
-    PROC_HEADER;
-
-    /* 29 */ u8 pad29[0x38 - 0x29];
-
-    /* 38 */ int direction;
-    /* 3C */ int yDispInit;
-    /* 40 */ int yDispFinal;
-
-    /* 44 */ u8 pad44[0x4A - 0x44];
-
-    /* 4A */ short newItem; // page or unit depending on slide
-    /* 4C */ short timer;
-    /* 4E */ short blendDirection;
-
-    /* 50 */ u8 pad50[0x52 - 0x50];
-
-    /* 52 */ u16   key;
-};
-
-struct StatScreenPageNameProc
-{
-    /* 00 */ PROC_HEADER;
-
-    // Page Num Sprite Control proc only
-    /* 2A */ short xLeftCursor;
-    /* 2C */ short xRightCursor;
-    /* 2E */ u16 animTimerLeft;
-    /* 30 */ u16 animTimerRight;
-    /* 32 */ short animSpeedLeft;
-    /* 34 */ short animSpeedRight;
-
-    // Page Name Sprite Control proc only
-    /* 36 */ u8 pageNum;
-    /* 38 */ short yScale; // 6 == times 1
-};
-
 enum
 {
     HB_EXTINFO_NONE,
@@ -240,5 +202,10 @@ void EndHelpPromptSprite(void);
 void MoveHelpPromptSprite(int x, int y);
 
 const struct HelpBoxInfo* GetLastHelpBoxInfo(void);
+
+extern struct HelpBoxInfo CONST_DATA gHelpInfo_Ss0Pow; // page 0 root help
+extern struct HelpBoxInfo CONST_DATA gHelpInfo_Ss1CharName; // hardcoded thing bad
+extern struct HelpBoxInfo CONST_DATA gHelpInfo_Ss1Item0; // page 1 root help
+extern struct HelpBoxInfo CONST_DATA gHelpInfo_Ss2Rank0; // page 2 root help
 
 #endif // GUARD_STATSCREEN_H
