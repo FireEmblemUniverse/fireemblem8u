@@ -38,17 +38,15 @@
 // extern ??? gUnknown_02000C60
 // extern ??? gUnknown_02000C78
 // extern ??? gUnknown_02000F00
-// extern ??? gUnknown_02001000
+// extern ??? gBmMapBuffer
 // extern ??? gUnknown_02001088
 // extern ??? gUnknown_02001180
 // extern ??? gUnknown_02001184
 // extern ??? gUnknown_02001188
-// extern ??? gUnknown_02001808
 // extern ??? gUnknown_02001F70
 // extern ??? gUnknown_02002038
 // extern ??? gUnknown_02002088
 // extern ??? gUnknown_02002774
-// extern ??? gUnknown_0200278C
 // extern ??? gUnknown_02002FDC
 // extern ??? gUnknown_02002FF4
 // extern ??? gUnknown_0200300C
@@ -340,7 +338,7 @@ extern u16 gPaletteBuffer[];
 // extern ??? gUnknown_02022C28
 // extern ??? gUnknown_02022C48
 // extern ??? gUnknown_02022C68
-extern u8 gBG0TilemapBuffer[];
+extern u16 gBG0TilemapBuffer[];
 // extern ??? gUnknown_02022CAA
 // extern ??? gUnknown_02022CAC
 // extern ??? gUnknown_02022CAE
@@ -419,7 +417,7 @@ extern u8 gBG0TilemapBuffer[];
 // extern ??? gUnknown_02023116
 // extern ??? gUnknown_02023130
 // extern ??? gUnknown_02023136
-extern u8 gBG1TilemapBuffer[];
+extern u16 gBG1TilemapBuffer[];
 // extern ??? gUnknown_020234AC
 // extern ??? gUnknown_020234AE
 // extern ??? gUnknown_020234B0
@@ -456,7 +454,7 @@ extern u8 gBG1TilemapBuffer[];
 // I'm not sure if this is u8 or u16.
 // In text mode, the tilemap entries are 16 bits,
 // while in affine mode, they are 8 bits.
-extern u8 gBG2TilemapBuffer[];
+extern u16 gBG2TilemapBuffer[];
 // extern ??? gUnknown_02023CAA
 // extern ??? gUnknown_02023CAE
 // extern ??? gUnknown_02023CB6
@@ -490,7 +488,7 @@ extern u8 gBG2TilemapBuffer[];
 // extern ??? gUnknown_0202400A
 // extern ??? gUnknown_02024044
 // extern ??? gUnknown_0202404A
-extern u8 gBG3TilemapBuffer[];
+extern u16 gBG3TilemapBuffer[];
 extern void *gBGVramTilemapPointers[];
 extern void (*gMainCallback)(void);
 extern struct Struct02024CD4 gUnknown_02024CD4;
@@ -520,26 +518,13 @@ extern struct Struct0202BCF0 gUnknown_0202BCF0;
 // extern ??? gUnknown_0202BD3C
 // extern ??? gUnknown_0202BD40
 // extern ??? gUnknown_0202BD44
-// extern ??? gUnknown_0202BE44
-// extern ??? gUnknown_0202BE48
-// extern ??? gUnknown_0202BE4C
-// extern ??? gUnknown_0202CFBC
-// extern ??? gUnknown_0202DDCC
-extern struct { short width, height; } gUnknown_0202E4D4; // gMapSize
-extern u8** gUnknown_0202E4D8; // gMapUnit
-extern u8** gUnknown_0202E4DC; // gMapTerrain
-extern u8** gUnknown_0202E4E0; // gMapMovement
-extern u8** gUnknown_0202E4E4; // gMapRange
-extern u8** gUnknown_0202E4E8; // gMapFog
-extern u8** gUnknown_0202E4EC; // gMapHidden
-extern u8** gUnknown_0202E4F0; // gMapOther
-// extern ??? gUnknown_0202E4F4
-// extern ??? gUnknown_0202ECAC
-// extern ??? gUnknown_0202F464
-// extern ??? gUnknown_0202FC1C
-// extern ??? gUnknown_020303D4
+// extern ??? gActiveUnitId
+// extern ??? gActiveUnitMoveOrigin
+// extern ??? gUnitArrayBlue
+// extern ??? gUnitArrayRed
+// extern ??? gUnitArrayGreen
 // extern ??? gUnknown_02030B8C
-// extern ??? gUnknown_02033EFC
+extern u8 gWorkingMovementScript[];
 // extern ??? gUnknown_02033F3C
 // extern ??? gUnknown_02033F40
 // extern ??? gUnknown_02034010
@@ -551,22 +536,13 @@ extern u8** gUnknown_0202E4F0; // gMapOther
 // extern ??? gUnknown_0203A4C8
 // extern ??? gUnknown_0203A4CC
 // extern ??? gUnknown_0203A4D0
-// extern ??? gUnknown_0203A4D4
-extern struct BattleUnit gUnknown_0203A4EC;
-// extern ??? gUnknown_0203A56C
-// extern ??? gUnknown_0203A5EC
-// extern ??? gUnknown_0203A608
-// extern ??? gUnknown_0203A60C
-// extern ??? gUnknown_0203A610
-// extern ??? gUnknown_0203A614
-// extern ??? gUnknown_0203A814
 // extern ??? gUnknown_0203A81C
 // extern ??? gUnknown_0203A8E4
 // extern ??? gUnknown_0203A8E8
 // extern ??? gUnknown_0203A8EC
-// extern ??? gUnknown_0203A8F0
-// extern ??? gUnknown_0203A910
-extern struct ActionData gUnknown_0203A958;
+extern struct ArenaData gUnknown_0203A8F0;
+extern struct Unit gUnknown_0203A910; // arena opponent unit
+extern struct ActionData gActionData;
 // extern ??? gUnknown_0203A95E
 // extern ??? gUnknown_0203A974
 // extern ??? gUnknown_0203A9FC
@@ -607,8 +583,6 @@ extern struct ActionData gUnknown_0203A958;
 // extern ??? gUnknown_0203DD9F
 // extern ??? gUnknown_0203DDB4
 // extern ??? gUnknown_0203DDDC
-// extern ??? gUnknown_0203DDE0
-// extern ??? gUnknown_0203DDE4
 // extern ??? gUnknown_0203DDE8
 // extern ??? gUnknown_0203DDEC
 // extern ??? gUnknown_0203E0EC
@@ -731,8 +705,6 @@ extern struct OamDataTransfer gUnknown_03000030;
 // extern ??? gUnknown_03000700
 // extern ??? gUnknown_03000800
 // extern ??? gUnknown_03000808
-// extern ??? gUnknown_03000810
-// extern ??? gUnknown_03000FC8
 // extern ??? gUnknown_03001780
 // extern ??? gUnknown_03001788
 // extern ??? gUnknown_030017A0
@@ -762,7 +734,6 @@ extern struct OamDataTransfer gUnknown_03000030;
 // extern ??? gUnknown_03001850
 // extern ??? gUnknown_03001860
 // extern ??? gUnknown_03001864
-// extern ??? gUnknown_03001870
 // extern ??? gUnknown_030018F0
 // extern ??? gUnknown_03001A30
 // extern ??? gUnknown_03001A34
@@ -791,8 +762,8 @@ extern struct OamDataTransfer gUnknown_03000030;
 // extern ??? gUnknown_03002B98
 // extern ??? SoundMainRAM_Buffer
 // extern ??? gUnknown_03002C61
-// extern ??? gUnknown_03003060
-extern void *gUnknown_03003070;
+extern u8 gUnknown_03003060;
+extern void* gUnknown_03003070;
 extern struct Struct03003080 gLCDControlBuffer;
 //extern u16 gUnknown_0300308C[];
 // extern ??? gUnknown_03003090
@@ -817,19 +788,14 @@ extern void (*sHBlankHandler2)(void);
 // extern ??? gUnknown_03003750
 // extern ??? gUnknown_03004150
 // extern ??? gUnknown_03004154
-extern void *gUnknown_03004158;
+extern u16* gUnknown_03004158;
 // extern ??? gUnknown_03004160
 // extern ??? gUnknown_03004960
 extern struct UnknownStructCTC *gUnknown_03004970;
 // extern ??? gUnknown_03004980
 // extern ??? gUnknown_03004990
-// extern ??? gUnknown_030049A0
-// extern ??? gUnknown_030049B0
-// extern ??? gUnknown_03004BB0
 // extern ??? gUnknown_03004C00
-// extern ??? gUnknown_03004C50
-extern struct Unit* gUnknown_03004E50; // gActiveUnit // Active Unit
-// extern ??? gUnknown_03004E60
+extern struct Unit* gActiveUnit;
 // extern ??? gUnknown_03004E70
 // extern ??? gUnknown_03004E74
 // extern ??? gUnknown_03004E80
@@ -847,7 +813,7 @@ extern struct Unit* gUnknown_03004E50; // gActiveUnit // Active Unit
 // extern ??? gUnknown_03005110
 // extern ??? gUnknown_03005250
 // extern ??? gUnknown_03005270
-// extern ??? gUnknown_03005280
+extern struct GMapData gUnknown_03005280;
 // extern ??? gUnknown_03005324
 // extern ??? gUnknown_03005349
 // extern ??? gUnknown_0300534E
@@ -901,7 +867,6 @@ extern short gSinLookup[]; // gSinTable; needs to be non-const to match?
 // extern ??? gUnknown_080D7964
 // extern ??? gUnknown_080D79D8
 // extern ??? gUnknown_080D79E0
-// extern ??? gUnknown_080D79E8
 // extern ??? gUnknown_080D7A10
 // extern ??? gUnknown_080D7A30
 // extern ??? gUnknown_080D7A38
@@ -920,7 +885,6 @@ extern short gSinLookup[]; // gSinTable; needs to be non-const to match?
 // extern ??? gUnknown_080D7C0C
 // extern ??? gUnknown_080D7C14
 // extern ??? gUnknown_080D7C18
-// extern ??? gUnknown_080D7C38
 // extern ??? gUnknown_080D7C40
 // extern ??? gUnknown_080D7C42
 // extern ??? gUnknown_080D7C44
@@ -997,7 +961,6 @@ extern short gSinLookup[]; // gSinTable; needs to be non-const to match?
 // extern ??? gUnknown_080DA26A
 // extern ??? gUnknown_080DA27E
 // extern ??? gUnknown_080DA2B0
-// extern ??? gUnknown_080DA374
 // extern ??? gUnknown_080DA438
 // extern ??? gUnknown_080DA4BA
 // extern ??? gUnknown_080DA4DC
@@ -1491,10 +1454,10 @@ extern const u16 gUnknown_0859A1C0[];
 extern const struct ProcCmd gUnknown_0859A548[]; // this is GENS/Camera Movement proc
 // extern ??? gUnknown_0859A570
 // extern ??? gUnknown_0859A580
-// extern ??? gUnknown_0859A598
-// extern ??? gUnknown_0859A5D0
-// extern ??? gUnknown_0859A9D0
-// extern ??? gUnknown_0859A9D4
+// extern ??? gStatusNameTextIdLookup
+// extern ??? gUnitLookup
+// extern ??? gTilesetTerrainLookup
+// extern ??? gBmMapBaseTiles
 // extern ??? gUnknown_0859AA5C
 // extern ??? gUnknown_0859AA64
 // extern ??? gUnknown_0859AA7C
@@ -1559,18 +1522,8 @@ extern const struct ProcCmd gUnknown_0859A548[]; // this is GENS/Camera Movement
 // extern ??? gUnknown_0859B98E
 // extern ??? gUnknown_0859B996
 // extern ??? gUnknown_0859B99E
-// extern ??? gUnknown_0859B9A8
 // extern ??? gUnknown_0859B9B8
 // extern ??? gUnknown_0859BA38
-// extern ??? gUnknown_0859BA90
-// extern ??? gUnknown_0859BAC4
-// extern ??? gUnknown_0859BADC
-// extern ??? gUnknown_0859BB1C
-// extern ??? gUnknown_0859BBD4
-// extern ??? gUnknown_0859BBF4
-// extern ??? gUnknown_0859BC0C
-// extern ??? gUnknown_0859BC24
-// extern ??? gUnknown_0859BC3C
 // extern ??? gUnknown_0859BC64
 // extern ??? gUnknown_0859BCA8
 // extern ??? gUnknown_0859BCF4
@@ -1868,29 +1821,27 @@ extern const u16 gUnknown_085A401C[]; // clouds palette
 // extern ??? gUnknown_085B089C
 // extern ??? gUnknown_085B0DE8
 // extern ??? gUnknown_085B0F2C
-// extern ??? gUnknown_085B6430
-// extern ??? gUnknown_085B6440
-// extern ??? gUnknown_085B6450
-// extern ??? gUnknown_085B6460
-// extern ??? gUnknown_085B6470
-// extern ??? gUnknown_085B6480
-// extern ??? gUnknown_085B6490
-// extern ??? gUnknown_085B6498
-// extern ??? gUnknown_085B64B8
-// extern ??? gUnknown_085B64D0
-// extern ??? gUnknown_085B6510
-// extern ??? gUnknown_085B6518
-// extern ??? gUnknown_085B6530
-// extern ??? gUnknown_085B6540
-// extern ??? gUnknown_085B6550
 // extern ??? gUnknown_085B655C
 // extern ??? gUnknown_085B658C
-// extern ??? gUnknown_085B6BB4
-// extern ??? gUnknown_085B6BD4
-// extern ??? gUnknown_085B6BF4
-// extern ??? gUnknown_085B6C14
-// extern ??? gUnknown_085B8FF0
-// extern ??? gUnknown_085B9244
+extern const u8  gUiFrameImage[];
+extern const u16 gUiFramePaletteA[];
+extern const u16 gUiFramePaletteB[];
+extern const u16 gUiFramePaletteC[];
+extern const u16 gUiFramePaletteD[];
+extern const u8  gLegacyUiFrameAImage[];
+extern const u16 gLegacyUiFrameAPalette[];
+extern const u16 gUiBarPaletteA[];
+extern const u8  gLegacyUiFrameBImage[];
+extern const u16 gLegacyUiFrameBPalette[];
+extern const u16 gUiBarPaletteB[];
+extern const u8  gLegacyUiFrameCImage[];
+extern const u16 gLegacyUiFrameCPalette[];
+extern const u16 gUiBarPaletteC[];
+extern const u8  gLegacyUiFrameDImage[];
+extern const u16 gLegacyUiFrameDPalette[];
+extern const u16 gUiBarPaletteD[];
+extern const u8  gUnkUiFrameImage[];
+extern const u16 gUnkUiFramePalettes[];
 // extern ??? gUnknown_085B92C4
 // extern ??? gUnknown_085B9354
 // extern ??? gUnknown_085B9358
@@ -3003,18 +2954,15 @@ extern const u16 gUnknown_085A401C[]; // clouds palette
 // extern ??? gUnknown_08803BD0
 // extern ??? gUnknown_08803CB0
 // extern ??? gUnknown_08803CD0
-// extern ??? gUnknown_08803D30
-// extern ??? gUnknown_08803D64
-// extern ??? gUnknown_08803D90
-// extern ??? gUnknown_08807110
+// extern ??? gCharacterData
 extern const struct ItemData gItemData[];
 // extern ??? gUnknown_0880B90C
-// extern ??? gUnknown_0880BB96
-// extern ??? gUnknown_0880BC18
+extern const s8 gUnknown_0880BB96[]; // Unit drop movement cost table
+extern const s8 gUnknown_0880BC18[]; // Ballista mov cost table
 // extern ??? gUnknown_0880C479
 // extern ??? gUnknown_0880C4BA
-// extern ??? gUnknown_0880C744
-// extern ??? gUnknown_0880C785
+extern const s8 gUnknown_0880C744[]; // terrainid-to-healamount lookup
+extern const s8 gUnknown_0880C785[]; // terrainid-to-something lookup
 // extern ??? gUnknown_0880C7C6
 // extern ??? gUnknown_0880C807
 // extern ??? gUnknown_0880C848
@@ -3057,11 +3005,11 @@ extern const struct ItemData gItemData[];
 // extern ??? gUnknown_0880D1AD
 // extern ??? gUnknown_0880D1EE
 // extern ??? gUnknown_0880D22F
-// extern ??? gUnknown_0880D374
+extern const u16 gUnknown_0880D374[]; // terrainid-to-textid lookup
 // extern ??? gUnknown_088ACBC4
-// extern ??? gUnknown_088ADEF1
-// extern ??? gUnknown_088ADF2A
-// extern ??? gUnknown_088ADF39
+extern const u8 gUnknown_088ADEF1[]; // Some bow effectiveness list
+extern const u8 gUnknown_088ADF2A[]; // Some bow effectiveness list
+extern const u8 gUnknown_088ADF39[]; // Slayer effectiveness list
 // extern ??? gUnknown_088ADF57
 // extern ??? gUnknown_088ADF5E
 // extern ??? gUnknown_088ADF64
@@ -3077,7 +3025,7 @@ extern const struct ItemData gItemData[];
 // extern ??? gUnknown_088AF880
 // extern ??? gUnknown_088AFB5A
 // extern ??? gUnknown_088AFBD8
-// extern ??? gUnknown_088B05F8
+extern const struct SupportBonuses gAffinityBonuses[];
 // extern ??? gUnknown_088B08F0
 // extern ??? gUnknown_088B39EC
 // extern ??? gUnknown_088B3AD8
@@ -3133,6 +3081,7 @@ extern const struct ItemData gItemData[];
 // extern ??? gUnknown_089A2D10
 // extern ??? gUnknown_089A2D98
 // extern ??? gUnknown_089A2DB0
+#define gMMSDataTable unit_icon_move_table
 extern const struct MMSData gMMSDataTable[]; // Moving Map Sprite Table
 // extern ??? gUnknown_089A31F8
 // extern ??? gUnknown_089A3238

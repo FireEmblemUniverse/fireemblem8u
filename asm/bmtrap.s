@@ -36,7 +36,7 @@ sub_8037494: @ 0x08037494
 	adds r4, r0, #0
 	ldr r0, _080374BC  @ gUnknown_0859E520
 	bl Proc_Find
-	ldr r1, _080374C0  @ gUnknown_0203A4EC
+	ldr r1, _080374C0  @ gBattleActor
 	adds r1, #0x53
 	movs r2, #0
 	ldrsb r2, [r1, r2]
@@ -52,7 +52,7 @@ sub_8037494: @ 0x08037494
 	bx r0
 	.align 2, 0
 _080374BC: .4byte gUnknown_0859E520
-_080374C0: .4byte gUnknown_0203A4EC
+_080374C0: .4byte gBattleActor
 
 	THUMB_FUNC_START sub_80374C4
 sub_80374C4: @ 0x080374C4
@@ -60,7 +60,7 @@ sub_80374C4: @ 0x080374C4
 	adds r4, r0, #0
 	ldr r0, _080374EC  @ gUnknown_0859E520
 	bl Proc_Find
-	ldr r1, _080374F0  @ gUnknown_0203A56C
+	ldr r1, _080374F0  @ gBattleTarget
 	adds r1, #0x53
 	movs r2, #0
 	ldrsb r2, [r1, r2]
@@ -76,14 +76,14 @@ sub_80374C4: @ 0x080374C4
 	bx r0
 	.align 2, 0
 _080374EC: .4byte gUnknown_0859E520
-_080374F0: .4byte gUnknown_0203A56C
+_080374F0: .4byte gBattleTarget
 
 	THUMB_FUNC_START sub_80374F4
 sub_80374F4: @ 0x080374F4
 	push {r4, lr}
 	ldr r4, [r0, #0x54]
 	adds r0, r4, #0
-	bl GetUnitCurrentHP
+	bl GetUnitCurrentHp
 	cmp r0, #0xa
 	bgt _0803750A
 	ldr r0, [r4]
@@ -143,19 +143,19 @@ _0803755E:
 	b _08037586
 _08037564:
 	bl MU_EndAll
-	ldr r0, _08037578  @ gUnknown_03004E50
+	ldr r0, _08037578  @ gActiveUnit
 	ldr r0, [r0]
 	bl MU_Create
 	bl MU_SetDefaultFacing_Auto
 	b _08037586
 	.align 2, 0
-_08037578: .4byte gUnknown_03004E50
+_08037578: .4byte gActiveUnit
 _0803757C:
 	adds r0, r4, #0
 	bl MU_GetByUnit
 	bl MU_End
 _08037586:
-	ldr r1, _0803759C  @ gUnknown_0203A958
+	ldr r1, _0803759C  @ gActionData
 	movs r0, #0xa
 	strb r0, [r1, #0x15]
 	adds r0, r4, #0
@@ -165,7 +165,7 @@ _08037586:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_0803759C: .4byte gUnknown_0203A958
+_0803759C: .4byte gActionData
 
 	THUMB_FUNC_START sub_80375A0
 sub_80375A0: @ 0x080375A0
@@ -178,10 +178,10 @@ sub_80375A0: @ 0x080375A0
 	adds r1, r4, #0
 	bl sub_80357A8
 	adds r0, r4, #0
-	bl GetUnitCurrentHP
+	bl GetUnitCurrentHp
 	cmp r0, #0
 	bne _080375DE
-	ldr r5, _080375E4  @ gUnknown_03004E50
+	ldr r5, _080375E4  @ gActiveUnit
 	ldr r6, [r5]
 	str r4, [r5]
 	ldr r0, [r4]
@@ -201,7 +201,7 @@ _080375DE:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_080375E4: .4byte gUnknown_03004E50
+_080375E4: .4byte gActiveUnit
 
 	THUMB_FUNC_START GetPickTrapType
 GetPickTrapType: @ 0x080375E8
@@ -302,7 +302,7 @@ _08037690:
 	movs r1, #0x11
 	ldrsb r1, [r5, r1]
 	movs r2, #0xb
-	bl GetSpecificTrapAt
+	bl GetTypedTrapAt
 	bl RemoveTrap
 	ldr r0, _080376B4  @ gUnknown_0859E5FC
 _080376A4:
@@ -367,7 +367,7 @@ _08037716:
 	adds r1, r4, #0
 	bl sub_801F9FC
 	movs r0, #0x7a
-	bl MakeItemShort
+	bl MakeNewItem
 	adds r1, r0, #0
 	adds r0, r5, #0
 	bl UnitAddItem
@@ -383,9 +383,9 @@ _08037740: .4byte gUnknown_0202BCF0
 HandlePostActionTraps: @ 0x08037744
 	push {r4, r5, lr}
 	adds r5, r0, #0
-	ldr r4, _08037790  @ gUnknown_03004E50
+	ldr r4, _08037790  @ gActiveUnit
 	ldr r0, [r4]
-	bl GetUnitCurrentHP
+	bl GetUnitCurrentHp
 	cmp r0, #0
 	ble _0803778A
 	ldr r2, [r4]
@@ -403,14 +403,14 @@ HandlePostActionTraps: @ 0x08037744
 	ands r0, r1
 	cmp r0, #0
 	bne _0803777E
-	ldr r0, _08037794  @ gUnknown_0203A958
+	ldr r0, _08037794  @ gActionData
 	ldrb r0, [r0, #0x11]
 	cmp r0, #3
 	bgt _0803778A
 	cmp r0, #1
 	blt _0803778A
 _0803777E:
-	ldr r4, _08037790  @ gUnknown_03004E50
+	ldr r4, _08037790  @ gActiveUnit
 	ldr r0, [r4]
 	bl GetPickTrapType
 	cmp r0, #0
@@ -419,16 +419,16 @@ _0803778A:
 	movs r0, #1
 	b _080377C0
 	.align 2, 0
-_08037790: .4byte gUnknown_03004E50
-_08037794: .4byte gUnknown_0203A958
+_08037790: .4byte gActiveUnit
+_08037794: .4byte gActionData
 _08037798:
-	ldr r1, _080377C8  @ gUnknown_0203A958
+	ldr r1, _080377C8  @ gActionData
 	movs r0, #1
 	strb r0, [r1, #0x16]
 	strb r0, [r1, #0x11]
 	movs r0, #3
 	bl SaveSuspendedGame
-	bl sub_802CA98
+	bl GetBattleAnimType
 	cmp r0, #1
 	bne _080377B2
 	bl SMS_UpdateFromGameData
@@ -444,15 +444,15 @@ _080377C0:
 	pop {r1}
 	bx r1
 	.align 2, 0
-_080377C8: .4byte gUnknown_0203A958
+_080377C8: .4byte gActionData
 
 	THUMB_FUNC_START sub_80377CC
 sub_80377CC: @ 0x080377CC
 	push {r4, lr}
 	adds r4, r0, #0
-	ldr r0, _080377EC  @ gUnknown_0203A958
+	ldr r0, _080377EC  @ gActionData
 	ldrb r0, [r0, #0xd]
-	bl GetUnitStruct
+	bl GetUnit
 	adds r1, r0, #0
 	adds r0, r4, #0
 	movs r2, #1
@@ -463,7 +463,7 @@ sub_80377CC: @ 0x080377CC
 	pop {r1}
 	bx r1
 	.align 2, 0
-_080377EC: .4byte gUnknown_0203A958
+_080377EC: .4byte gActionData
 
 	THUMB_FUNC_START sub_80377F0
 sub_80377F0: @ 0x080377F0
@@ -485,8 +485,8 @@ _08037810:
 	adds r0, r4, #0
 	bl MU_GetByUnit
 	bl MU_End
-	bl UpdateGameTilesGraphics
-	bl RefreshFogAndUnitMaps
+	bl RenderBmMap
+	bl RefreshEntityBmMaps
 	bl SMS_FlushIndirect
 	movs r0, #1
 _08037828:
@@ -549,7 +549,7 @@ _080378A0:
 	ldrb r1, [r5, #2]
 	ldrb r2, [r5, #4]
 	ldrb r3, [r5, #5]
-	bl AddFireTrap
+	bl AddFireTile
 	b _08037900
 _080378AE:
 	ldrb r0, [r5, #1]
@@ -636,7 +636,7 @@ AddGorgonEggTrap: @ 0x08037928
 	str r4, [sp, #8]
 	movs r2, #0xc
 	adds r3, r5, #0
-	bl AddTrapExt
+	bl AddDamagingTrap
 	add sp, #0xc
 	pop {r4, r5}
 	pop {r0}

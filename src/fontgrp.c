@@ -211,7 +211,7 @@ void FlushDBGToBG2(void)
     BG_Fill(gBG2TilemapBuffer, 0);
     for (i = 0; i < 20; i++)
     {
-        u16 *r3 = (u16 *)(gBG2TilemapBuffer + i * 64);
+        u16* r3 = gBG2TilemapBuffer + i * 0x20;
 
         if (gUnknown_02026E30.unk14[(i + gUnknown_02026E30.unk10) & 0xFF][0] != 0)
         {
@@ -373,25 +373,25 @@ void SetFont(struct Font *font)
         gCurrentFont = font;
 }
 
-void Text_Init(struct TextHandle *th, int b)
+void Text_Init(struct TextHandle *th, int tileWidth)
 {
     th->unk0 = gCurrentFont->unk12;
-    th->unk4 = b;
+    th->unk4 = tileWidth;
     th->unk6 = 0;
     th->unk5 = 0;
     th->unk7 = 0;
-    gCurrentFont->unk12 += b;
+    gCurrentFont->unk12 += tileWidth;
     Text_Clear(th);
 }
 
-void Text_Allocate(struct TextHandle *th, int b)
+void Text_Allocate(struct TextHandle *th, int tileWidth)
 {
     th->unk0 = gCurrentFont->unk12;
-    th->unk4 = b;
+    th->unk4 = tileWidth;
     th->unk6 = 0;
     th->unk5 = 1;
     th->unk7 = 0;
-    gCurrentFont->unk12 += b * 2;
+    gCurrentFont->unk12 += tileWidth * 2;
 }
 
 void InitTextBatch(struct TextBatch *a)
@@ -577,7 +577,7 @@ char* String_GetEnd(char* str)
     return str;
 }
 
-void Text_AppendString(struct TextHandle *th, char *str)
+void Text_AppendString(struct TextHandle *th, const char* str)
 {
     struct Glyph *glyph;
     char byte1;
@@ -906,7 +906,7 @@ void Text_InsertNumberOr2Dashes(struct TextHandle *th, int x, int colorId, int n
     Text_AppendNumberOr2Dashes(th, n);
 }
 
-void Text_AppendStringASCII(struct TextHandle *th, const char *str)
+void Text_AppendStringASCII(struct TextHandle *th, const char* str)
 {
     while (*str != 0 && *str != CHAR_NEWLINE)
     {

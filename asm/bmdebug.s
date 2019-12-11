@@ -2,6 +2,191 @@
 
 	.SYNTAX UNIFIED
 
+	THUMB_FUNC_START sub_801B9EC
+sub_801B9EC: @ 0x0801B9EC
+	push {r4, lr}
+	sub sp, #8
+	bl GetGameClock
+	mov r2, sp
+	adds r2, #2
+	add r4, sp, #4
+	mov r1, sp
+	adds r3, r4, #0
+	bl ComputeDisplayTime
+	ldrh r1, [r4]
+	movs r0, #1
+	ands r0, r1
+	movs r1, #3
+	cmp r0, #0
+	bne _0801BA10
+	movs r1, #2
+_0801BA10:
+	adds r0, r1, #0
+	add sp, #8
+	pop {r4}
+	pop {r1}
+	bx r1
+
+	THUMB_FUNC_START sub_801BA1C
+sub_801BA1C: @ 0x0801BA1C
+	push {r4, lr}
+	sub sp, #8
+	bl GetGameClock
+	mov r2, sp
+	adds r2, #2
+	add r4, sp, #4
+	mov r1, sp
+	adds r3, r4, #0
+	bl ComputeDisplayTime
+	ldrh r1, [r4]
+	movs r0, #1
+	ands r0, r1
+	movs r1, #3
+	cmp r0, #0
+	beq _0801BA40
+	movs r1, #2
+_0801BA40:
+	adds r0, r1, #0
+	add sp, #8
+	pop {r4}
+	pop {r1}
+	bx r1
+
+	THUMB_FUNC_START Get8
+Get8: @ 0x0801BA4C
+	movs r0, #8
+	bx lr
+
+	THUMB_FUNC_START sub_801BA50
+sub_801BA50: @ 0x0801BA50
+	movs r0, #0x17
+	bx lr
+
+	THUMB_FUNC_START sub_801BA54
+sub_801BA54: @ 0x0801BA54
+	bx lr
+
+	THUMB_FUNC_START Loop6C_WaitForSelectPress
+Loop6C_WaitForSelectPress: @ 0x0801BA58
+	push {lr}
+	adds r2, r0, #0
+	ldr r0, _0801BA74  @ gKeyStatusPtr
+	ldr r0, [r0]
+	ldrh r1, [r0, #8]
+	movs r0, #4
+	ands r0, r1
+	cmp r0, #0
+	beq _0801BA70
+	adds r0, r2, #0
+	bl Proc_ClearNativeCallback
+_0801BA70:
+	pop {r0}
+	bx r0
+	.align 2, 0
+_0801BA74: .4byte gKeyStatusPtr
+
+	THUMB_FUNC_START sub_801BA78
+sub_801BA78: @ 0x0801BA78
+	push {lr}
+	movs r0, #0x10
+	bl NewKeyStatusSetter
+	pop {r0}
+	bx r0
+
+	THUMB_FUNC_START sub_801BA84
+sub_801BA84: @ 0x0801BA84
+	bx lr
+
+	THUMB_FUNC_START sub_801BA88
+sub_801BA88: @ 0x0801BA88
+	push {r4, r5, r6, lr}
+	mov r6, r8
+	push {r6}
+	sub sp, #0xc
+	ldr r1, [r0, #0x2c]
+	mov r8, r1
+	ldr r4, [r0, #0x30]
+	adds r1, r0, #0
+	adds r1, #0x52
+	ldrh r5, [r1]
+	ldr r6, [r0, #0x54]
+	add r0, sp, #4
+	adds r1, r5, #0
+	bl Text_Init
+	add r0, sp, #4
+	adds r1, r6, #0
+	bl Text_AppendString
+	adds r5, #2
+	movs r0, #0
+	str r0, [sp]
+	mov r0, r8
+	adds r1, r4, #0
+	adds r2, r5, #0
+	movs r3, #4
+	bl DrawUiFrame2
+	adds r4, #1
+	lsls r4, r4, #5
+	adds r4, #1
+	add r4, r8
+	lsls r4, r4, #1
+	ldr r0, _0801BAE8  @ gBG0TilemapBuffer
+	adds r4, r4, r0
+	add r0, sp, #4
+	adds r1, r4, #0
+	bl Text_Draw
+	movs r0, #3
+	bl BG_EnableSyncByMask
+	add sp, #0xc
+	pop {r3}
+	mov r8, r3
+	pop {r4, r5, r6}
+	pop {r0}
+	bx r0
+	.align 2, 0
+_0801BAE8: .4byte gBG0TilemapBuffer
+
+	THUMB_FUNC_START sub_801BAEC
+sub_801BAEC: @ 0x0801BAEC
+	push {r4, r5, r6, lr}
+	mov r6, r8
+	push {r6}
+	adds r5, r0, #0
+	adds r6, r1, #0
+	mov r8, r2
+	adds r4, r3, #0
+	ldr r0, _0801BB18  @ gUnknown_0859AA64
+	movs r1, #3
+	bl Proc_Create
+	str r5, [r0, #0x2c]
+	str r6, [r0, #0x30]
+	str r4, [r0, #0x54]
+	adds r0, #0x52
+	mov r1, r8
+	strh r1, [r0]
+	pop {r3}
+	mov r8, r3
+	pop {r4, r5, r6}
+	pop {r0}
+	bx r0
+	.align 2, 0
+_0801BB18: .4byte gUnknown_0859AA64
+
+	THUMB_FUNC_START sub_801BB1C
+sub_801BB1C: @ 0x0801BB1C
+	push {lr}
+	bl EndMenu
+	bl ClearBg0Bg1
+	ldr r0, _0801BB3C  @ gUnknown_0859D040
+	bl StartOrphanMenu
+	movs r0, #2
+	movs r1, #0
+	bl SetupDebugFontForBG
+	movs r0, #1
+	pop {r1}
+	bx r1
+	.align 2, 0
+_0801BB3C: .4byte gUnknown_0859D040
+
 	THUMB_FUNC_START DebugMenu_MapIdle
 DebugMenu_MapIdle: @ 0x0801BB40
 	push {lr}
@@ -206,7 +391,7 @@ sub_801BCCC: @ 0x0801BCCC
 	bl EndMenu
 	movs r0, #0
 	bl DeleteFaceByIndex
-	bl ClearBG0BG1
+	bl ClearBg0Bg1
 	movs r0, #1
 	pop {r1}
 	bx r1
@@ -614,9 +799,9 @@ DebugMenu_ClearEffect: @ 0x0801C014
 	THUMB_FUNC_START DebugMenu_ErasedEffect
 DebugMenu_ErasedEffect: @ 0x0801C018
 	push {lr}
-	bl ClearBG0BG1
+	bl ClearBg0Bg1
 	ldr r0, _0801C02C  @ gUnknown_0859CFB0
-	bl NewMenu_Default
+	bl StartOrphanMenu
 	movs r0, #7
 	pop {r1}
 	bx r1
@@ -679,7 +864,7 @@ DEBUGONLY_Startup: @ 0x0801C090
 	ldr r0, _0801C0E8  @ gUnknown_080D7A7C
 	bl sub_8008A24
 	ldr r0, _0801C0EC  @ gUnknown_0859CFF8
-	bl NewMenu_Default
+	bl StartOrphanMenu
 	ldr r4, _0801C0F0  @ gUnknown_0202BCB0
 	ldrb r2, [r4, #4]
 	movs r1, #0x40
@@ -927,7 +1112,7 @@ _0801C2CC: .4byte gUnknown_03001780
 sub_801C2D0: @ 0x0801C2D0
 	push {lr}
 	ldr r0, _0801C2E0  @ gUnknown_0859D01C
-	bl NewMenu_Default
+	bl StartOrphanMenu
 	movs r0, #0x17
 	pop {r1}
 	bx r1
@@ -938,7 +1123,7 @@ _0801C2E0: .4byte gUnknown_0859D01C
 sub_801C2E4: @ 0x0801C2E4
 	push {lr}
 	ldr r0, _0801C2F4  @ gUnknown_0859CFD4
-	bl NewMenu_Default
+	bl StartOrphanMenu
 	movs r0, #0x17
 	pop {r1}
 	bx r1

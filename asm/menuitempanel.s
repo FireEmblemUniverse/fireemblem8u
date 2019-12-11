@@ -25,11 +25,11 @@ _0801E506:
 	bge _0801E516
 	b _0801E672
 _0801E516:
-	ldr r6, _0801E67C  @ gUnknown_0203A4EC
+	ldr r6, _0801E67C  @ gBattleActor
 	movs r0, #0x5a
 	adds r0, r0, r6
 	mov r8, r0
-	ldr r5, _0801E680  @ gUnknown_0203A56C
+	ldr r5, _0801E680  @ gBattleTarget
 	adds r7, r5, #0
 	adds r7, #0x5a
 	movs r2, #0
@@ -205,8 +205,8 @@ _0801E672:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_0801E67C: .4byte gUnknown_0203A4EC
-_0801E680: .4byte gUnknown_0203A56C
+_0801E67C: .4byte gBattleActor
+_0801E680: .4byte gBattleTarget
 
 	THUMB_FUNC_START sub_801E684
 sub_801E684: @ 0x0801E684
@@ -262,9 +262,9 @@ sub_801E684: @ 0x0801E684
 	ldr r0, [r4, #0x2c]
 	movs r1, #1
 	negs r1, r1
-	bl SetupBattleStructFromUnitAndWeapon
-	ldr r3, _0801E740  @ gUnknown_0203A56C
-	ldr r2, _0801E744  @ gUnknown_0203A4EC
+	bl BattleGenerateUiStats
+	ldr r3, _0801E740  @ gBattleTarget
+	ldr r2, _0801E744  @ gBattleActor
 	adds r0, r2, #0
 	adds r0, #0x5a
 	ldrh r0, [r0]
@@ -297,8 +297,8 @@ _0801E732:
 	bx r0
 	.align 2, 0
 _0801E73C: .4byte gUnknown_0859AE88
-_0801E740: .4byte gUnknown_0203A56C
-_0801E744: .4byte gUnknown_0203A4EC
+_0801E740: .4byte gBattleTarget
+_0801E744: .4byte gBattleActor
 
 	THUMB_FUNC_START sub_801E748
 sub_801E748: @ 0x0801E748
@@ -349,7 +349,7 @@ sub_801E748: @ 0x0801E748
 	str r2, [sp]
 	movs r2, #0xe
 	movs r3, #8
-	bl MakeUIWindowTileMap_BG0BG1
+	bl DrawUiFrame2
 	cmp r5, #0
 	blt _0801E7E0
 	cmp r5, #4
@@ -377,7 +377,7 @@ _0801E7E0:
 	movs r5, #8
 _0801E7E4:
 	adds r0, r4, #0
-	bl GetItemWType
+	bl GetItemType
 	cmp r0, #9
 	beq _0801E800
 	cmp r0, #9
@@ -424,8 +424,8 @@ _0801E82A:
 	ldrb r0, [r4]
 	cmp r0, #0
 	bne _0801E826
-	ldr r3, _0801E89C  @ gUnknown_0203A4EC
-	ldr r2, _0801E8A0  @ gUnknown_0203A56C
+	ldr r3, _0801E89C  @ gBattleActor
+	ldr r2, _0801E8A0  @ gBattleTarget
 	adds r0, r2, #0
 	adds r0, #0x5a
 	ldrh r0, [r0]
@@ -464,17 +464,17 @@ _0801E82A:
 	bl Text_Draw
 	b _0801EA1C
 	.align 2, 0
-_0801E89C: .4byte gUnknown_0203A4EC
-_0801E8A0: .4byte gUnknown_0203A56C
+_0801E89C: .4byte gBattleActor
+_0801E8A0: .4byte gBattleTarget
 _0801E8A4:
 	lsls r1, r5, #0x18
 	asrs r1, r1, #0x18
 	mov r0, r9
-	bl SetupBattleStructFromUnitAndWeapon
+	bl BattleGenerateUiStats
 	cmp r5, #8
 	bne _0801E8E6
-	ldr r3, _0801EA34  @ gUnknown_0203A56C
-	ldr r2, _0801EA38  @ gUnknown_0203A4EC
+	ldr r3, _0801EA34  @ gBattleTarget
+	ldr r2, _0801EA38  @ gBattleActor
 	adds r0, r2, #0
 	adds r0, #0x5a
 	ldrh r0, [r0]
@@ -500,14 +500,14 @@ _0801E8A4:
 	adds r0, #0x62
 	strh r1, [r0]
 _0801E8E6:
-	ldr r0, _0801EA38  @ gUnknown_0203A4EC
+	ldr r0, _0801EA38  @ gBattleActor
 	mov r8, r0
 	movs r1, #0x48
 	add r1, r8
 	mov sl, r1
 	ldrh r1, [r1]
 	mov r0, r9
-	bl CanUnitUseAsWeapon
+	bl CanUnitUseWeapon
 	lsls r0, r0, #0x18
 	movs r2, #1
 	mov r9, r2
@@ -629,7 +629,7 @@ _0801E906:
 	adds r4, #0x50
 	mov r1, sl
 	ldrh r0, [r1]
-	bl GetItemWType
+	bl GetItemType
 	adds r1, r0, #0
 	adds r1, #0x70
 	ldr r0, [sp, #8]
@@ -648,8 +648,8 @@ _0801EA1C:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_0801EA34: .4byte gUnknown_0203A56C
-_0801EA38: .4byte gUnknown_0203A4EC
+_0801EA34: .4byte gBattleTarget
+_0801EA38: .4byte gBattleActor
 _0801EA3C: .4byte 0x000004F1
 _0801EA40: .4byte 0x000004F3
 _0801EA44: .4byte 0x000004F4

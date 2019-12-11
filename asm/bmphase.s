@@ -13,7 +13,7 @@ GetPhaseAbleUnitCount: @ 0x08024CEC
 	b _08024D3C
 _08024CF6:
 	adds r0, r4, #0
-	bl GetUnitStruct
+	bl GetUnit
 	adds r2, r0, #0
 	cmp r2, #0
 	beq _08024D38
@@ -68,7 +68,7 @@ sub_8024D50: @ 0x08024D50
 	b _08024D7C
 _08024D5C:
 	adds r0, r4, #0
-	bl GetUnitStruct
+	bl GetUnit
 	adds r1, r0, #0
 	cmp r1, #0
 	beq _08024D78

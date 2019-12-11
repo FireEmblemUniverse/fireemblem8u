@@ -280,7 +280,7 @@ _08011014: .4byte gUnknown_030005F0
 _08011018:
 	ldr r0, _08011028  @ gUnknown_030005F4
 	ldrh r0, [r0]
-	bl GetItemNameString
+	bl GetItemName
 	bl GetStringTextWidth
 	b _08011056
 	.align 2, 0
@@ -398,7 +398,7 @@ _08011110:
 	add r4, sp, #0x10
 	ldr r0, _0801111C  @ gUnknown_030005F4
 	ldrh r0, [r0]
-	bl GetItemNameString
+	bl GetItemName
 	b _0801113C
 	.align 2, 0
 _0801111C: .4byte gUnknown_030005F4
@@ -482,7 +482,7 @@ LongPopup_PrepareGfx: @ 0x0801119C
 	movs r3, #0
 	bl Font_InitForUI
 	bl ResetIconGraphics
-	bl LoadNewUIGraphics
+	bl LoadUiFrameGraphics
 	bl SetDefaultColorEffects
 	ldr r2, _080111F0  @ gLCDControlBuffer
 	ldrb r1, [r2, #1]
@@ -643,7 +643,7 @@ _080112D6:
 	mov r1, r8
 	adds r2, r4, #0
 	movs r3, #4
-	bl MakeUIWindowTileMap_BG0BG1
+	bl DrawUiFrame2
 	movs r0, #0x37
 	adds r0, r0, r5
 	mov sl, r0
@@ -950,7 +950,7 @@ ItemGot_GotLeItem: @ 0x08011538
 	adds r4, r0, #0
 	ldr r5, [r4, #0x54]
 	ldr r0, [r4, #0x58]
-	bl MakeItemShort
+	bl MakeNewItem
 	adds r1, r0, #0
 	adds r0, r5, #0
 	adds r2, r4, #0
@@ -1038,7 +1038,7 @@ sub_80115DC: @ 0x080115DC
 	push {r4, lr}
 	adds r4, r1, #0
 	bl SetPopupNumber
-	ldr r0, _08011604  @ gUnknown_03004E50
+	ldr r0, _08011604  @ gActiveUnit
 	ldr r0, [r0]
 	ldrb r0, [r0, #0xb]
 	lsls r0, r0, #0x18
@@ -1054,7 +1054,7 @@ sub_80115DC: @ 0x080115DC
 	bl NewPopupSimple
 	b _08011618
 	.align 2, 0
-_08011604: .4byte gUnknown_03004E50
+_08011604: .4byte gActiveUnit
 _08011608: .4byte gUnknown_08592300
 _0801160C:
 	ldr r0, _08011620  @ gUnknown_08592348
@@ -1131,7 +1131,7 @@ sub_8011694: @ 0x08011694
 	lsls r0, r0, #0x10
 	lsrs r0, r0, #0x10
 	bl SetPopupItem
-	ldr r0, _080116C0  @ gUnknown_03004E50
+	ldr r0, _080116C0  @ gActiveUnit
 	ldr r0, [r0]
 	ldrb r0, [r0, #0xb]
 	lsls r0, r0, #0x18
@@ -1147,7 +1147,7 @@ sub_8011694: @ 0x08011694
 	bl NewPopupSimple
 	b _080116D4
 	.align 2, 0
-_080116C0: .4byte gUnknown_03004E50
+_080116C0: .4byte gActiveUnit
 _080116C4: .4byte gUnknown_08592380
 _080116C8:
 	ldr r0, _080116DC  @ gUnknown_085923D8
@@ -1204,7 +1204,7 @@ sub_8011728: @ 0x08011728
 	adds r4, r0, #0
 	lsls r0, r1, #0x18
 	lsrs r0, r0, #0x18
-	bl GetUnitByCharId
+	bl GetUnitFromCharId
 	bl SetPopupUnit
 	ldr r0, _0801174C  @ gUnknown_08592490
 	movs r1, #0x60

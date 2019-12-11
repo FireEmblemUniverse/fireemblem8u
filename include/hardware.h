@@ -1,6 +1,28 @@
 #ifndef GUARD_HARDWARE_H
 #define GUARD_HARDWARE_H
 
+// Utility macros and constants
+
+#define TILEMAP_INDEX(aX, aY) (0x20 * (aY) + (aX))
+#define TILEMAP_LOCATED(aMap, aX, aY) (TILEMAP_INDEX((aX), (aY)) + (aMap))
+
+#define TILEREF(aChar, aPal) ((aChar) + ((aPal) << 12))
+
+#define BG_SYNC_BIT(aBg) (1 << (aBg))
+
+enum
+{
+    BG0_SYNC_BIT = BG_SYNC_BIT(0),
+    BG1_SYNC_BIT = BG_SYNC_BIT(1),
+    BG2_SYNC_BIT = BG_SYNC_BIT(2),
+    BG3_SYNC_BIT = BG_SYNC_BIT(3),
+};
+
+#define ApplyPalettes(aSrc, aPalId, aPalCount) CopyToPaletteBuffer((aSrc), 0x20 * (aPalId), 0x20 * (aPalCount))
+#define ApplyPalette(aSrc, aPalId) ApplyPalettes((aSrc), (aPalId), 1)
+
+// Functions
+
 void CopyToPaletteBuffer(const void* src, int b, int size);
 // ??? sub_8000E14(???);
 // ??? FlushLCDControl(???);
@@ -27,7 +49,7 @@ void ExecMainUpdate();
 void UpdateKeyStatus(struct KeyStatusBuffer *keyStatus);
 // ??? sub_8001414(???);
 void ResetKeyStatus(struct KeyStatusBuffer *keyStatus);
-void SetKeyStatus_IgnoreMask(int mask);
+void SetKeyStatus_IgnoreMask(int keys);
 // ??? GetKeyStatus_IgnoreMask(???);
 // ??? KeyStatusSetter_Set(???);
 // ??? NewKeyStatusSetter(???);
@@ -48,7 +70,7 @@ void BG_SetPosition(u16 a, u16 b, u16 c);
 // ??? sub_80019E8(???);
 // ??? sub_8001A6C(???);
 void SetupBackgrounds(u16 *bgConfig);
-void *BG_GetMapBuffer();
+u16* BG_GetMapBuffer(int bg);
 void sub_8001C5C(u8);
 // ??? ShouldSkipHSScreen(???);
 void SoftResetIfKeyComboPressed();

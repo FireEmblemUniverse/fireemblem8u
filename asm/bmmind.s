@@ -7,37 +7,37 @@
 	THUMB_FUNC_START StoreRNStateToActionStruct
 StoreRNStateToActionStruct: @ 0x08031FEC
 	push {lr}
-	ldr r0, _08031FF8  @ gUnknown_0203A958
+	ldr r0, _08031FF8  @ gActionData
 	bl StoreRNState
 	pop {r0}
 	bx r0
 	.align 2, 0
-_08031FF8: .4byte gUnknown_0203A958
+_08031FF8: .4byte gActionData
 
 	THUMB_FUNC_START LoadRNStateFromActionStruct
 LoadRNStateFromActionStruct: @ 0x08031FFC
 	push {lr}
-	ldr r0, _08032008  @ gUnknown_0203A958
+	ldr r0, _08032008  @ gActionData
 	bl LoadRNState
 	pop {r0}
 	bx r0
 	.align 2, 0
-_08032008: .4byte gUnknown_0203A958
+_08032008: .4byte gActionData
 
 	THUMB_FUNC_START ApplyUnitAction
 ApplyUnitAction: @ 0x0803200C
 	push {r4, r5, lr}
 	adds r4, r0, #0
-	ldr r5, _08032054  @ gUnknown_0203A958
+	ldr r5, _08032054  @ gActionData
 	ldrb r0, [r5, #0xc]
-	bl GetUnitStruct
-	ldr r1, _08032058  @ gUnknown_03004E50
+	bl GetUnit
+	ldr r1, _08032058  @ gActiveUnit
 	str r0, [r1]
 	ldrb r0, [r5, #0x11]
 	cmp r0, #2
 	bne _0803203C
 	ldrb r0, [r5, #0xc]
-	bl GetUnitStruct
+	bl GetUnit
 	ldrb r1, [r5, #0x12]
 	lsls r1, r1, #1
 	adds r0, #0x1e
@@ -48,7 +48,7 @@ ApplyUnitAction: @ 0x0803200C
 	bne _0803203C
 	b _08032148
 _0803203C:
-	ldr r0, _08032054  @ gUnknown_0203A958
+	ldr r0, _08032054  @ gActionData
 	ldrb r0, [r0, #0x11]
 	subs r0, #1
 	cmp r0, #0x1d
@@ -61,8 +61,8 @@ _08032048:
 	ldr r0, [r0]
 	mov pc, r0
 	.align 2, 0
-_08032054: .4byte gUnknown_0203A958
-_08032058: .4byte gUnknown_03004E50
+_08032054: .4byte gActionData
+_08032058: .4byte gActiveUnit
 _0803205C: .4byte _08032060
 _08032060: @ jump table
 	.4byte _080320D8 @ case 0
@@ -96,7 +96,7 @@ _08032060: @ jump table
 	.4byte _0803215C @ case 28
 	.4byte _080320D8 @ case 29
 _080320D8:
-	ldr r0, _080320E8  @ gUnknown_03004E50
+	ldr r0, _080320E8  @ gActiveUnit
 	ldr r2, [r0]
 	ldr r0, [r2, #0xc]
 	movs r1, #0x40
@@ -104,7 +104,7 @@ _080320D8:
 	str r0, [r2, #0xc]
 	b _0803215C
 	.align 2, 0
-_080320E8: .4byte gUnknown_03004E50
+_080320E8: .4byte gActiveUnit
 _080320EC:
 	adds r0, r4, #0
 	bl ActionRescue
@@ -173,12 +173,12 @@ _0803215E:
 ActionRescue: @ 0x08032164
 	push {r4, r5, r6, lr}
 	adds r6, r0, #0
-	ldr r4, _080321B4  @ gUnknown_0203A958
+	ldr r4, _080321B4  @ gActionData
 	ldrb r0, [r4, #0xc]
-	bl GetUnitStruct
+	bl GetUnit
 	adds r5, r0, #0
 	ldrb r0, [r4, #0xd]
-	bl GetUnitStruct
+	bl GetUnit
 	adds r4, r0, #0
 	bl TryRemoveUnitFromBallista
 	movs r0, #0x10
@@ -205,7 +205,7 @@ ActionRescue: @ 0x08032164
 	pop {r1}
 	bx r1
 	.align 2, 0
-_080321B4: .4byte gUnknown_0203A958
+_080321B4: .4byte gActionData
 
 	THUMB_FUNC_START sub_80321B8
 sub_80321B8: @ 0x080321B8
@@ -220,8 +220,8 @@ sub_80321B8: @ 0x080321B8
 	THUMB_FUNC_START sub_80321C8
 sub_80321C8: @ 0x080321C8
 	push {lr}
-	bl RefreshFogAndUnitMaps
-	bl UpdateGameTilesGraphics
+	bl RefreshEntityBmMaps
+	bl RenderBmMap
 	bl SMS_UpdateFromGameData
 	bl SMS_FlushIndirect
 	pop {r1}
@@ -231,12 +231,12 @@ sub_80321C8: @ 0x080321C8
 ActionDrop: @ 0x080321E0
 	push {r4, r5, r6, lr}
 	adds r6, r0, #0
-	ldr r4, _08032248  @ gUnknown_0203A958
+	ldr r4, _08032248  @ gActionData
 	ldrb r0, [r4, #0xd]
-	bl GetUnitStruct
+	bl GetUnit
 	adds r5, r0, #0
 	ldrb r0, [r4, #0x14]
-	ldr r1, _0803224C  @ gUnknown_0202E4EC
+	ldr r1, _0803224C  @ gBmMapHidden
 	ldr r1, [r1]
 	lsls r0, r0, #2
 	adds r0, r0, r1
@@ -249,8 +249,8 @@ ActionDrop: @ 0x080321E0
 	cmp r0, #0
 	bne _08032254
 	ldrb r0, [r4, #0xc]
-	bl GetUnitStruct
-	bl ApplyUnitMovement
+	bl GetUnit
+	bl UnitFinalizeMovement
 	ldrb r0, [r4, #0x13]
 	ldrb r1, [r4, #0x14]
 	movs r2, #0x10
@@ -264,21 +264,21 @@ ActionDrop: @ 0x080321E0
 	adds r3, r6, #0
 	bl Make6CKOIDO
 	ldrb r0, [r4, #0xc]
-	bl GetUnitStruct
+	bl GetUnit
 	ldrb r1, [r4, #0x13]
 	ldrb r2, [r4, #0x14]
-	bl UpdateRescuingData
+	bl UnitDrop
 	ldr r0, _08032250  @ gUnknown_0859DA6C
 	adds r1, r6, #0
 	bl Proc_CreateBlockingChild
 	str r5, [r0, #0x54]
 	b _08032262
 	.align 2, 0
-_08032248: .4byte gUnknown_0203A958
-_0803224C: .4byte gUnknown_0202E4EC
+_08032248: .4byte gActionData
+_0803224C: .4byte gBmMapHidden
 _08032250: .4byte gUnknown_0859DA6C
 _08032254:
-	ldr r0, _0803226C  @ gUnknown_02033EFC
+	ldr r0, _0803226C  @ gWorkingMovementScript
 	movs r1, #0xa
 	strb r1, [r0]
 	movs r1, #4
@@ -290,18 +290,18 @@ _08032262:
 	pop {r1}
 	bx r1
 	.align 2, 0
-_0803226C: .4byte gUnknown_02033EFC
+_0803226C: .4byte gWorkingMovementScript
 
 	THUMB_FUNC_START ActionVisitAndSieze
 ActionVisitAndSieze: @ 0x08032270
 	push {r4, r5, lr}
-	ldr r5, _08032298  @ gUnknown_0203A958
+	ldr r5, _08032298  @ gActionData
 	ldrb r0, [r5, #0xc]
-	bl GetUnitStruct
+	bl GetUnit
 	movs r4, #0x10
 	ldrsb r4, [r0, r4]
 	ldrb r0, [r5, #0xc]
-	bl GetUnitStruct
+	bl GetUnit
 	movs r1, #0x11
 	ldrsb r1, [r0, r1]
 	adds r0, r4, #0
@@ -311,32 +311,32 @@ ActionVisitAndSieze: @ 0x08032270
 	pop {r1}
 	bx r1
 	.align 2, 0
-_08032298: .4byte gUnknown_0203A958
+_08032298: .4byte gActionData
 
 	THUMB_FUNC_START ActionCombat
 ActionCombat: @ 0x0803229C
 	push {r4, r5, r6, r7, lr}
 	adds r7, r0, #0
-	ldr r4, _0803231C  @ gUnknown_0203A958
+	ldr r4, _0803231C  @ gActionData
 	ldrb r0, [r4, #0xd]
-	bl GetUnitStruct
+	bl GetUnit
 	adds r6, r0, #0
 	ldrb r0, [r4, #0xc]
-	bl GetUnitStruct
+	bl GetUnit
 	ldrb r1, [r4, #0x12]
 	lsls r1, r1, #1
 	adds r0, #0x1e
 	adds r0, r0, r1
 	ldrh r0, [r0]
 	bl GetItemIndex
-	ldr r1, _08032320  @ gUnknown_0203A4EC
+	ldr r1, _08032320  @ gBattleActor
 	adds r1, #0x7e
 	movs r2, #0
 	strb r2, [r1]
 	cmp r0, #0xa6
 	bne _080322FC
 	ldrb r0, [r4, #0xc]
-	bl GetUnitStruct
+	bl GetUnit
 	bl MakeTargetListForFuckingNightmare
 	bl sub_804FD28
 	adds r5, r0, #0
@@ -349,34 +349,34 @@ _080322E0:
 	ldrb r0, [r0, #2]
 	lsls r0, r0, #0x18
 	asrs r0, r0, #0x18
-	bl GetUnitStruct
+	bl GetUnit
 	movs r1, #2
-	bl SetUnitNewStatus
+	bl SetUnitStatus
 	adds r4, #1
 	cmp r4, r5
 	blt _080322E0
 _080322FC:
 	cmp r6, #0
 	bne _08032304
-	bl MakeSnagBattleTarget
+	bl InitObstacleBattleUnit
 _08032304:
-	ldr r1, _0803231C  @ gUnknown_0203A958
+	ldr r1, _0803231C  @ gActionData
 	ldrb r0, [r1, #0x12]
 	cmp r0, #8
 	bne _08032324
 	ldrb r0, [r1, #0xc]
-	bl GetUnitStruct
+	bl GetUnit
 	adds r1, r6, #0
-	bl sub_802A384
+	bl BattleGenerateBallistaReal
 	b _08032330
 	.align 2, 0
-_0803231C: .4byte gUnknown_0203A958
-_08032320: .4byte gUnknown_0203A4EC
+_0803231C: .4byte gActionData
+_08032320: .4byte gBattleActor
 _08032324:
 	ldrb r0, [r1, #0xc]
-	bl GetUnitStruct
+	bl GetUnit
 	adds r1, r6, #0
-	bl sub_802A350
+	bl BattleGenerateReal
 _08032330:
 	ldr r0, _08032340  @ gUnknown_0859DABC
 	adds r1, r7, #0
@@ -404,46 +404,46 @@ _08032354: .4byte gUnknown_0859DB24
 ActionDance: @ 0x08032358
 	push {r4, r5, lr}
 	adds r5, r0, #0
-	ldr r4, _0803239C  @ gUnknown_0203A958
+	ldr r4, _0803239C  @ gActionData
 	ldrb r0, [r4, #0xd]
-	bl GetUnitStruct
+	bl GetUnit
 	ldr r1, [r0, #0xc]
 	ldr r2, _080323A0  @ 0xFFFFFBBD
 	ands r1, r2
 	str r1, [r0, #0xc]
 	ldrb r0, [r4, #0xc]
-	bl GetUnitStruct
+	bl GetUnit
 	movs r1, #1
 	negs r1, r1
-	bl sub_802CB24
+	bl BattleInitItemEffect
 	ldrb r0, [r4, #0xd]
-	bl GetUnitStruct
-	bl sub_802CBC8
-	ldr r1, _080323A4  @ gUnknown_0203A4D4
+	bl GetUnit
+	bl BattleInitItemEffectTarget
+	ldr r1, _080323A4  @ gBattleStats
 	movs r0, #0x40
 	strh r0, [r1]
 	adds r0, r5, #0
-	bl SaveInstigatorWith10ExtraExp
+	bl BattleApplyMiscAction
 	bl BeginBattleAnimations
 	movs r0, #0
 	pop {r4, r5}
 	pop {r1}
 	bx r1
 	.align 2, 0
-_0803239C: .4byte gUnknown_0203A958
+_0803239C: .4byte gActionData
 _080323A0: .4byte 0xFFFFFBBD
-_080323A4: .4byte gUnknown_0203A4D4
+_080323A4: .4byte gBattleStats
 
 	THUMB_FUNC_START ActionTalk
 ActionTalk: @ 0x080323A8
 	push {r4, r5, lr}
-	ldr r4, _080323D0  @ gUnknown_0203A958
+	ldr r4, _080323D0  @ gActionData
 	ldrb r0, [r4, #0xc]
-	bl GetUnitStruct
+	bl GetUnit
 	ldr r0, [r0]
 	ldrb r5, [r0, #4]
 	ldrb r0, [r4, #0xd]
-	bl GetUnitStruct
+	bl GetUnit
 	ldr r0, [r0]
 	ldrb r1, [r0, #4]
 	adds r0, r5, #0
@@ -453,7 +453,7 @@ ActionTalk: @ 0x080323A8
 	pop {r1}
 	bx r1
 	.align 2, 0
-_080323D0: .4byte gUnknown_0203A958
+_080323D0: .4byte gActionData
 
 	THUMB_FUNC_START ActionSupport
 ActionSupport: @ 0x080323D4
@@ -461,34 +461,34 @@ ActionSupport: @ 0x080323D4
 	mov r7, r9
 	mov r6, r8
 	push {r6, r7}
-	ldr r0, _08032474  @ gUnknown_0203A958
+	ldr r0, _08032474  @ gActionData
 	ldrb r0, [r0, #0xd]
-	bl GetUnitStruct
+	bl GetUnit
 	adds r4, r0, #0
-	ldr r0, _08032478  @ gUnknown_03004E50
+	ldr r0, _08032478  @ gActiveUnit
 	mov r9, r0
 	ldr r0, [r0]
 	ldr r1, [r4]
 	ldrb r1, [r1, #4]
-	bl GetSupportDataIdForOtherUnit
+	bl GetUnitSupporterNum
 	adds r7, r0, #0
 	mov r1, r9
 	ldr r0, [r1]
 	ldr r0, [r0]
 	ldrb r1, [r0, #4]
 	adds r0, r4, #0
-	bl GetSupportDataIdForOtherUnit
+	bl GetUnitSupporterNum
 	mov r8, r0
 	adds r0, r4, #0
 	mov r1, r8
-	bl CanUnitSupportCommandWith
+	bl CanUnitSupportNow
 	mov r2, r9
 	ldr r0, [r2]
 	adds r1, r7, #0
-	bl sub_80282DC
+	bl UnitGainSupportLevel
 	adds r0, r4, #0
 	mov r1, r8
-	bl sub_80282DC
+	bl UnitGainSupportLevel
 	mov r1, r9
 	ldr r0, [r1]
 	ldr r1, [r0]
@@ -496,7 +496,7 @@ ActionSupport: @ 0x080323D4
 	ldr r1, [r4]
 	ldrb r5, [r1, #4]
 	adds r1, r7, #0
-	bl GetSupportLevelBySupportIndex
+	bl GetUnitSupportLevel
 	adds r2, r0, #0
 	adds r0, r6, #0
 	adds r1, r5, #0
@@ -531,16 +531,16 @@ _08032464:
 	pop {r1}
 	bx r1
 	.align 2, 0
-_08032474: .4byte gUnknown_0203A958
-_08032478: .4byte gUnknown_03004E50
+_08032474: .4byte gActionData
+_08032478: .4byte gActiveUnit
 
 	THUMB_FUNC_START ActionSteal
 ActionSteal: @ 0x0803247C
 	push {r4, r5, r6, r7, lr}
 	adds r7, r0, #0
-	ldr r4, _080324F4  @ gUnknown_0203A958
+	ldr r4, _080324F4  @ gActionData
 	ldrb r0, [r4, #0xd]
-	bl GetUnitStruct
+	bl GetUnit
 	adds r5, r0, #0
 	ldr r0, [r5, #0xc]
 	movs r1, #0x80
@@ -559,16 +559,16 @@ ActionSteal: @ 0x0803247C
 	ands r0, r1
 	str r0, [r5, #0xc]
 _080324AC:
-	ldr r4, _080324F4  @ gUnknown_0203A958
+	ldr r4, _080324F4  @ gActionData
 	ldrb r0, [r4, #0xd]
-	bl GetUnitStruct
+	bl GetUnit
 	ldrb r1, [r4, #0x12]
 	lsls r1, r1, #1
 	adds r0, #0x1e
 	adds r0, r0, r1
 	ldrh r6, [r0]
 	ldrb r0, [r4, #0xd]
-	bl GetUnitStruct
+	bl GetUnit
 	ldrb r1, [r4, #0x12]
 	bl UnitRemoveItem
 	movs r0, #0xff
@@ -591,35 +591,35 @@ _080324DE:
 	bl SetPartyGoldAmount
 	b _0803250A
 	.align 2, 0
-_080324F4: .4byte gUnknown_0203A958
+_080324F4: .4byte gActionData
 _080324F8: .4byte 0xFFFFEFFF
 _080324FC:
-	ldr r0, _0803254C  @ gUnknown_0203A958
+	ldr r0, _0803254C  @ gActionData
 	ldrb r0, [r0, #0xc]
-	bl GetUnitStruct
+	bl GetUnit
 	adds r1, r6, #0
 	bl UnitAddItem
 _0803250A:
-	ldr r5, _0803254C  @ gUnknown_0203A958
+	ldr r5, _0803254C  @ gActionData
 	ldrb r0, [r5, #0xc]
-	bl GetUnitStruct
+	bl GetUnit
 	movs r1, #1
 	negs r1, r1
-	bl sub_802CB24
-	ldr r4, _08032550  @ gUnknown_0203A56C
+	bl BattleInitItemEffect
+	ldr r4, _08032550  @ gBattleTarget
 	adds r1, r4, #0
 	adds r1, #0x55
 	movs r0, #1
 	strb r0, [r1]
 	ldrb r0, [r5, #0xd]
-	bl GetUnitStruct
+	bl GetUnit
 	adds r1, r0, #0
 	adds r0, r4, #0
-	bl CopyUnitToBattleStruct
+	bl InitBattleUnit
 	adds r4, #0x48
 	strh r6, [r4]
 	adds r0, r7, #0
-	bl SaveInstigatorWith10ExtraExp
+	bl BattleApplyMiscAction
 	bl MU_EndAll
 	bl BeginMapAnimForSteal
 	movs r0, #0
@@ -627,19 +627,19 @@ _0803250A:
 	pop {r1}
 	bx r1
 	.align 2, 0
-_0803254C: .4byte gUnknown_0203A958
-_08032550: .4byte gUnknown_0203A56C
+_0803254C: .4byte gActionData
+_08032550: .4byte gBattleTarget
 
 	THUMB_FUNC_START ActionSummon
 ActionSummon: @ 0x08032554
 	push {r4, lr}
 	adds r4, r0, #0
-	ldr r0, _08032578  @ gUnknown_0203A4EC
-	ldr r1, _0803257C  @ gUnknown_03004E50
+	ldr r0, _08032578  @ gBattleActor
+	ldr r1, _0803257C  @ gActiveUnit
 	ldr r1, [r1]
-	bl CopyUnitToBattleStruct
+	bl InitBattleUnit
 	adds r0, r4, #0
-	bl SaveInstigatorWith10ExtraExp
+	bl BattleApplyMiscAction
 	bl MU_EndAll
 	bl BeginMapAnimForSummon
 	movs r0, #0
@@ -647,19 +647,19 @@ ActionSummon: @ 0x08032554
 	pop {r1}
 	bx r1
 	.align 2, 0
-_08032578: .4byte gUnknown_0203A4EC
-_0803257C: .4byte gUnknown_03004E50
+_08032578: .4byte gBattleActor
+_0803257C: .4byte gActiveUnit
 
 	THUMB_FUNC_START ActionSummonDK
 ActionSummonDK: @ 0x08032580
 	push {r4, lr}
 	adds r4, r0, #0
-	ldr r0, _080325A4  @ gUnknown_0203A4EC
-	ldr r1, _080325A8  @ gUnknown_03004E50
+	ldr r0, _080325A4  @ gBattleActor
+	ldr r1, _080325A8  @ gActiveUnit
 	ldr r1, [r1]
-	bl CopyUnitToBattleStruct
+	bl InitBattleUnit
 	adds r0, r4, #0
-	bl SaveInstigatorWith10ExtraExp
+	bl BattleApplyMiscAction
 	bl MU_EndAll
 	bl BeginMapAnimForSummonDK
 	movs r0, #0
@@ -667,8 +667,8 @@ ActionSummonDK: @ 0x08032580
 	pop {r1}
 	bx r1
 	.align 2, 0
-_080325A4: .4byte gUnknown_0203A4EC
-_080325A8: .4byte gUnknown_03004E50
+_080325A4: .4byte gBattleActor
+_080325A8: .4byte gActiveUnit
 
 	THUMB_FUNC_START sub_80325AC
 sub_80325AC: @ 0x080325AC
@@ -766,7 +766,7 @@ sub_8032658: @ 0x08032658
 	THUMB_FUNC_START sub_8032664
 sub_8032664: @ 0x08032664
 	push {lr}
-	bl RefreshFogAndUnitMaps
+	bl RefreshEntityBmMaps
 	bl SMS_UpdateFromGameData
 	pop {r0}
 	bx r0
@@ -777,7 +777,7 @@ sub_8032674: @ 0x08032674
 	adds r4, r0, #0
 	adds r5, r1, #0
 	adds r0, r5, #0
-	bl GetUnitCurrentHP
+	bl GetUnitCurrentHp
 	adds r6, r0, #0
 	cmp r6, #0
 	bne _08032716
@@ -791,18 +791,18 @@ sub_8032674: @ 0x08032674
 	bl Proc_CreateBlockingChild
 	adds r4, r0, #0
 	ldrb r0, [r5, #0x1b]
-	bl GetUnitStruct
+	bl GetUnit
 	str r0, [r4, #0x2c]
 	adds r1, r4, #0
 	adds r1, #0x30
 	adds r2, r4, #0
 	adds r2, #0x34
 	adds r0, r5, #0
-	bl sub_80184E0
+	bl UnitGetDeathDropLocation
 	ldr r1, [r4, #0x30]
 	ldr r2, [r4, #0x34]
 	adds r0, r5, #0
-	bl UpdateRescuingData
+	bl UnitDrop
 	movs r0, #0x10
 	ldrsb r0, [r5, r0]
 	lsls r0, r0, #4
@@ -834,7 +834,7 @@ sub_8032674: @ 0x08032674
 	movs r0, #0xb
 	strh r0, [r1]
 	ldr r0, [r4, #0x2c]
-	bl GetUnitSMSIndex
+	bl GetUnitSMSId
 	bl SMS_RegisterUsage
 	bl SMS_FlushIndirect
 	ldr r0, _08032724  @ gUnknown_0202BCF0
@@ -859,7 +859,7 @@ sub_8032728: @ 0x08032728
 	push {r4, r5, lr}
 	adds r4, r0, #0
 	adds r5, r1, #0
-	bl GetUnitCurrentHP
+	bl GetUnitCurrentHp
 	cmp r0, #0
 	bne _0803274A
 	ldr r0, [r4]
@@ -869,7 +869,7 @@ sub_8032728: @ 0x08032728
 	movs r2, #2
 	bl BWL_AddWinOrLossIdk
 	adds r0, r4, #0
-	bl sub_80183FC
+	bl UnitKill
 _0803274A:
 	pop {r4, r5}
 	pop {r0}
@@ -879,11 +879,11 @@ _0803274A:
 sub_8032750: @ 0x08032750
 	push {r4, lr}
 	adds r4, r0, #0
-	bl GetUnitCurrentHP
+	bl GetUnitCurrentHp
 	cmp r0, #0
 	bne _0803276E
 	adds r0, r4, #0
-	bl sub_80183FC
+	bl UnitKill
 	ldr r0, [r4]
 	ldrb r0, [r0, #4]
 	movs r1, #0
@@ -898,19 +898,19 @@ _0803276E:
 BATTLE_GOTO1_IfNobodyIsDead: @ 0x08032774
 	push {lr}
 	adds r2, r0, #0
-	ldr r0, _080327A8  @ gUnknown_0203A4D4
+	ldr r0, _080327A8  @ gBattleStats
 	ldrh r1, [r0]
 	movs r0, #0x80
 	ands r0, r1
 	cmp r0, #0
 	bne _0803279C
-	ldr r0, _080327AC  @ gUnknown_0203A4EC
+	ldr r0, _080327AC  @ gBattleActor
 	ldrb r0, [r0, #0x13]
 	lsls r0, r0, #0x18
 	asrs r0, r0, #0x18
 	cmp r0, #0
 	beq _080327A4
-	ldr r0, _080327B0  @ gUnknown_0203A56C
+	ldr r0, _080327B0  @ gBattleTarget
 	ldrb r0, [r0, #0x13]
 	lsls r0, r0, #0x18
 	asrs r0, r0, #0x18
@@ -924,14 +924,14 @@ _080327A4:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_080327A8: .4byte gUnknown_0203A4D4
-_080327AC: .4byte gUnknown_0203A4EC
-_080327B0: .4byte gUnknown_0203A56C
+_080327A8: .4byte gBattleStats
+_080327AC: .4byte gBattleActor
+_080327B0: .4byte gBattleTarget
 
 	THUMB_FUNC_START DidUnitDie
 DidUnitDie: @ 0x080327B4
 	push {lr}
-	bl GetUnitCurrentHP
+	bl GetUnitCurrentHp
 	cmp r0, #0
 	bne _080327C2
 	movs r0, #1
@@ -948,7 +948,7 @@ BATTLE_ProbablyMakesTheDeadUnitDissapear: @ 0x080327C8
 	adds r6, r0, #0
 	movs r0, #0
 	str r0, [r6, #0x54]
-	ldr r7, _08032850  @ gUnknown_0203A4EC
+	ldr r7, _08032850  @ gBattleActor
 	adds r0, r7, #0
 	bl DidUnitDie
 	lsls r0, r0, #0x18
@@ -962,7 +962,7 @@ BATTLE_ProbablyMakesTheDeadUnitDissapear: @ 0x080327C8
 	adds r0, r7, #0
 	bl TryRemoveUnitFromBallista
 _080327F2:
-	ldr r5, _08032858  @ gUnknown_0203A56C
+	ldr r5, _08032858  @ gBattleTarget
 	adds r0, r5, #0
 	bl DidUnitDie
 	lsls r0, r0, #0x18
@@ -970,7 +970,7 @@ _080327F2:
 	beq _0803284A
 	movs r0, #0xb
 	ldrsb r0, [r5, r0]
-	bl GetUnitStruct
+	bl GetUnit
 	ldr r1, [r0, #0xc]
 	movs r2, #1
 	orrs r1, r2
@@ -989,7 +989,7 @@ _080327F2:
 	movs r3, #0x11
 	ldrsb r3, [r5, r3]
 	bl GetFacingDirection
-	ldr r1, _0803285C  @ gUnknown_02033EFC
+	ldr r1, _0803285C  @ gWorkingMovementScript
 	strb r0, [r1]
 	movs r0, #4
 	strb r0, [r1, #1]
@@ -1003,10 +1003,10 @@ _0803284A:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_08032850: .4byte gUnknown_0203A4EC
+_08032850: .4byte gBattleActor
 _08032854: .4byte gProcScr_MoveUnit
-_08032858: .4byte gUnknown_0203A56C
-_0803285C: .4byte gUnknown_02033EFC
+_08032858: .4byte gBattleTarget
+_0803285C: .4byte gWorkingMovementScript
 
 	THUMB_FUNC_START BATTLE_DeleteLinkedMOVEUNIT
 BATTLE_DeleteLinkedMOVEUNIT: @ 0x08032860
@@ -1023,13 +1023,13 @@ sub_803286C: @ 0x0803286C
 	adds r0, #0x64
 	movs r1, #0
 	ldrsh r0, [r0, r1]
-	bl GetUnitStruct
+	bl GetUnit
 	adds r6, r0, #0
 	adds r0, r5, #0
 	adds r0, #0x66
 	movs r1, #0
 	ldrsh r0, [r0, r1]
-	bl GetUnitStruct
+	bl GetUnit
 	adds r4, r0, #0
 	adds r0, r5, #0
 	adds r1, r6, #0
@@ -1071,12 +1071,12 @@ BATTLE_HandleItemDrop: @ 0x080328D0
 	push {r7}
 	mov r8, r0
 	movs r7, #0
-	ldr r6, _08032960  @ gUnknown_0203A4EC
+	ldr r6, _08032960  @ gBattleActor
 	movs r1, #0xb
 	ldrsb r1, [r6, r1]
 	adds r0, #0x64
 	strh r1, [r0]
-	ldr r4, _08032964  @ gUnknown_0203A56C
+	ldr r4, _08032964  @ gBattleTarget
 	movs r0, #0xb
 	ldrsb r0, [r4, r0]
 	mov r1, r8
@@ -1088,11 +1088,11 @@ BATTLE_HandleItemDrop: @ 0x080328D0
 	bne _0803290C
 	movs r0, #0xb
 	ldrsb r0, [r6, r0]
-	bl GetUnitStruct
+	bl GetUnit
 	adds r7, r0, #0
 	movs r0, #0xb
 	ldrsb r0, [r4, r0]
-	bl GetUnitStruct
+	bl GetUnit
 	adds r5, r0, #0
 _0803290C:
 	movs r0, #0x13
@@ -1101,11 +1101,11 @@ _0803290C:
 	bne _08032928
 	movs r0, #0xb
 	ldrsb r0, [r4, r0]
-	bl GetUnitStruct
+	bl GetUnit
 	adds r7, r0, #0
 	movs r0, #0xb
 	ldrsb r0, [r6, r0]
-	bl GetUnitStruct
+	bl GetUnit
 	adds r5, r0, #0
 _08032928:
 	cmp r7, #0
@@ -1134,8 +1134,8 @@ _08032928:
 	movs r0, #0
 	b _0803296A
 	.align 2, 0
-_08032960: .4byte gUnknown_0203A4EC
-_08032964: .4byte gUnknown_0203A56C
+_08032960: .4byte gBattleActor
+_08032964: .4byte gBattleTarget
 _08032968:
 	movs r0, #1
 _0803296A:
@@ -1149,11 +1149,11 @@ _0803296A:
 sub_8032974: @ 0x08032974
 	push {lr}
 	adds r2, r0, #0
-	ldr r1, _08032998  @ gUnknown_0203A56C
+	ldr r1, _08032998  @ gBattleTarget
 	movs r0, #1
 	strb r0, [r1, #0x12]
 	strb r0, [r1, #0x13]
-	ldr r0, _0803299C  @ gUnknown_0203A4EC
+	ldr r0, _0803299C  @ gBattleActor
 	ldrb r0, [r0, #0x13]
 	lsls r0, r0, #0x18
 	asrs r0, r0, #0x18
@@ -1166,14 +1166,14 @@ _08032994:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_08032998: .4byte gUnknown_0203A56C
-_0803299C: .4byte gUnknown_0203A4EC
+_08032998: .4byte gBattleTarget
+_0803299C: .4byte gBattleActor
 
 	THUMB_FUNC_START sub_80329A0
 sub_80329A0: @ 0x080329A0
 	push {r4, r5, lr}
 	adds r5, r0, #0
-	ldr r4, _080329BC  @ gUnknown_03004E50
+	ldr r4, _080329BC  @ gActiveUnit
 	ldr r0, [r4]
 	bl sub_8032750
 	ldr r1, [r4]
@@ -1183,7 +1183,7 @@ sub_80329A0: @ 0x080329A0
 	pop {r0}
 	bx r0
 	.align 2, 0
-_080329BC: .4byte gUnknown_03004E50
+_080329BC: .4byte gActiveUnit
 
 	THUMB_FUNC_START sub_80329C0
 sub_80329C0: @ 0x080329C0

@@ -177,7 +177,7 @@ _0804F9E4:
 	ands r0, r5
 	cmp r0, #0
 	beq _0804F9F0
-	bl ClearBG0BG1
+	bl ClearBg0Bg1
 _0804F9F0:
 	movs r0, #0x20
 	ands r0, r5

@@ -15,6 +15,14 @@ struct CtCProc
     void *unk54;
 };
 
+void sub_8005370(int id, int pa, int pb, int pc, int pd)
+{
+    gUnknown_03003140[id*0x10 + 0x03] = pa;
+    gUnknown_03003140[id*0x10 + 0x07] = pb;
+    gUnknown_03003140[id*0x10 + 0x0B] = pc;
+    gUnknown_03003140[id*0x10 + 0x0F] = pd;
+}
+
 void ClearIntermediateOAMBuffers(void)
 {
     int i;

@@ -1,25 +1,24 @@
 #include "global.h"
 
+#include "constants/items.h"
+#include "constants/classes.h"
+
 #include "proc.h"
 #include "ap.h"
-#include "items.h"
 #include "m4a.h"
 #include "soundwrapper.h"
 #include "hardware.h"
 #include "bmio.h"
-
+#include "bmunit.h"
+#include "bmmap.h"
+#include "bmtrick.h"
+#include "bmbattle.h"
 #include "mu.h"
 
 /*
     "MOVEUNIT" proc and related functions.
     Handles managing and displaying moving map sprites.
 */
-
-// TODO: move this elsewhere
-// I can't move this to functions.h because signatures contain types that would be not defined
-// So we'll have to wait for the corresponding files to be decompiled/get a header
-void sub_8013928(const u16*, int, int, struct Proc* proc);
-int GetSpellAssocFacing(Item item);
 
 struct MUStepSoundProc {
     PROC_HEADER;
@@ -598,23 +597,21 @@ struct MUProc* MU_Create(struct Unit* pUnit) {
     if (pUnit->state & US_IN_BALLISTA) {
         struct Trap* blst = GetTrap(pUnit->ballistaIndex);
 
-        // TODO: FIXME: use class id definitions
+        switch (blst->extra) {
 
-        switch (blst->data[TRAP_EXTDATA_BLST_ITEMID]) {
-
-        case Ballista:
-            classIndex = 0x67;
+        case ITEM_BALLISTA_REGULAR:
+            classIndex = CLASS_BLST_REGULAR_USED;
             break;
 
-        case IronBallista:
-            classIndex = 0x68;
+        case ITEM_BALLISTA_LONG:
+            classIndex = CLASS_BLST_LONG_USED;
             break;
 
-        case KillerBallista:
-            classIndex = 0x69;
+        case ITEM_BALLISTA_KILLER:
+            classIndex = CLASS_BLST_KILLER_USED;
             break;
 
-        } // switch (blst->data[TRAP_EXTDATA_BLST_ITEMID])
+        } // switch (blst->extra)
     }
 
     proc = MU_CreateInternal(
@@ -661,7 +658,7 @@ struct MUProc* MU_CreateForUI(struct Unit* pUnit, int x, int y) {
 
 void MU_8078524(struct MUProc* proc) {
     SMS_80266F0(
-        GetClassStandingMapSpriteId(proc->displayedClassId),
+        GetClassSMSId(proc->displayedClassId),
         proc->muIndex
     );
 }
@@ -747,7 +744,7 @@ void MU_SetFacing(struct MUProc* proc, int facingId) {
 }
 
 void MU_SetDefaultFacing(struct MUProc* proc) {
-    if (GetROMClassStruct(proc->displayedClassId)->attributes & CA_MOUNTEDAID)
+    if (GetClassData(proc->displayedClassId)->attributes & CA_MOUNTEDAID)
         MU_SetFacing(proc, 1);
     else
         MU_SetFacing(proc, 2);
@@ -923,8 +920,8 @@ static void MU_InterpretCommandScript(struct MUProc* proc) {
             proc->stateId = MU_STATE_BUMPING;
 
             MU_StartFogBumpFx(
-                (proc->xSubPosition >> MU_SUBPIXEL_PRECISION) - gUnknown_0202BCB0.xCameraReal,
-                (proc->ySubPosition >> MU_SUBPIXEL_PRECISION) - gUnknown_0202BCB0.yCameraReal
+                (proc->xSubPosition >> MU_SUBPIXEL_PRECISION) - gUnknown_0202BCB0.camera.x,
+                (proc->ySubPosition >> MU_SUBPIXEL_PRECISION) - gUnknown_0202BCB0.camera.y
             );
 
             return;
@@ -1105,8 +1102,8 @@ static void MU_State_DuringMovement(struct MUProc* proc) {
     }
 
     if (proc->boolAttractCamera && !Proc_Find(gUnknown_0859A548)) {
-        gUnknown_0202BCB0.xCameraReal = GetSomeAdjustedCameraX(proc->xSubPosition >> MU_SUBPIXEL_PRECISION);
-        gUnknown_0202BCB0.yCameraReal = GetSomeAdjustedCameraY(proc->ySubPosition >> MU_SUBPIXEL_PRECISION);
+        gUnknown_0202BCB0.camera.x = GetSomeAdjustedCameraX(proc->xSubPosition >> MU_SUBPIXEL_PRECISION);
+        gUnknown_0202BCB0.camera.y = GetSomeAdjustedCameraY(proc->ySubPosition >> MU_SUBPIXEL_PRECISION);
     }
 
     if (!(proc->moveConfig & 0x80))
@@ -1114,32 +1111,30 @@ static void MU_State_DuringMovement(struct MUProc* proc) {
 }
 
 static void MU_AdvanceStepSfx(struct MUProc* proc) {
-    // TODO: USE CLASS DEFINITIONS
-
     const u16* pStepSoundDefinition;
 
     unsigned cursor;
-    struct PositionS16 position;
+    struct Vec2 position;
 
-    if (GetROMClassStruct(proc->displayedClassId)->attributes & CA_MOUNTEDAID) {
+    if (GetClassData(proc->displayedClassId)->attributes & CA_MOUNTEDAID) {
         switch (proc->displayedClassId) {
 
-        case 0x1F: // CLASS_WYVERNRIDER
-        case 0x20: // CLASS_WYVERNRIDER_F
-        case 0x21: // CLASS_WYVERNLORD
-        case 0x22: // CLASS_WYVERNLORD_F
-        case 0x23: // CLASS_WYVERNKNIGHT
-        case 0x24: // CLASS_WYVERNKNIGHT_F
+        case CLASS_WYVERN_RIDER:
+        case CLASS_WYVERN_RIDER_F:
+        case CLASS_WYVERN_LORD:
+        case CLASS_WYVERN_LORD_F:
+        case CLASS_WYVERN_KNIGHT:
+        case CLASS_WYVERN_KNIGHT_F:
             pStepSoundDefinition = gMUSfxDef_Wyvern;
             break;
 
-        case 0x5F: // CLASS_MOGALL
-        case 0x60: // CLASS_ARCHMOGALL
+        case CLASS_MOGALL:
+        case CLASS_ARCH_MOGALL:
             pStepSoundDefinition = gMUSfxDef_Mogall;
             break;
 
-        case 0x48: // CLASS_PEGASUSKNIGHT
-        case 0x49: // CLASS_FALCOKNIGHT
+        case CLASS_PEGASUS_KNIGHT:
+        case CLASS_FALCON_KNIGHT:
             pStepSoundDefinition = gMUSfxDef_Pegasus;
             break;
 
@@ -1151,71 +1146,71 @@ static void MU_AdvanceStepSfx(struct MUProc* proc) {
     } else {
         switch (proc->displayedClassId) {
 
-        case 0x52: // CLASS_REVENANT
-        case 0x53: // CLASS_ENTOUMBED
+        case CLASS_REVENANT:
+        case CLASS_ENTOUMBED:
             pStepSoundDefinition = gMUSfxDef_Zombie;
             break;
 
-        case 0x54: // CLASS_BONEWALKER
-        case 0x55: // CLASS_BONEWALKER_BOW
-        case 0x56: // CLASS_WIGHT
-        case 0x57: // CLASS_WIGHT_BOW
+        case CLASS_BONEWALKER:
+        case CLASS_BONEWALKER_BOW:
+        case CLASS_WIGHT:
+        case CLASS_WIGHT_BOW:
             pStepSoundDefinition = gMUSfxDef_Skeleton;
             break;
 
-        case 0x58: // CLASS_BAEL
-        case 0x59: // CLASS_ELDERBAEL
+        case CLASS_BAEL:
+        case CLASS_ELDER_BAEL:
             pStepSoundDefinition = gMUSfxDef_Spider;
             break;
 
-        case 0x5B: // CLASS_MAUTHEDOOG
-        case 0x5C: // CLASS_GWYLLGI
+        case CLASS_MAUTHEDOOG:
+        case CLASS_GWYLLGI:
             pStepSoundDefinition = gMUSfxDef_Dog;
             break;
 
-        case 0x5D: // CLASS_TARVOS
-        case 0x5E: // CLASS_MAELDUIN
+        case CLASS_TARVOS:
+        case CLASS_MAELDUIN:
             pStepSoundDefinition = gMUSfxDef_Mounted;
             break;
 
-        case 0x5F: // CLASS_MOGALL
-        case 0x60: // CLASS_ARCHMOGALL
+        case CLASS_MOGALL:
+        case CLASS_ARCH_MOGALL:
             pStepSoundDefinition = gMUSfxDef_Mogall;
             break;
 
-        case 0x61: // CLASS_GORGON
+        case CLASS_GORGON:
             pStepSoundDefinition = gMUSfxDef_Gorgon;
             break;
 
-        case 0x63: // CLASS_GARGOYLE
-        case 0x64: // CLASS_DEATHGOYLE
+        case CLASS_GARGOYLE:
+        case CLASS_DEATHGOYLE:
             pStepSoundDefinition = gMUSfxDef_Wyvern;
             break;
 
-        case 0x09: // CLASS_ARMORKNIGHT
-        case 0x0A: // CLASS_ARMORKNIGHT_F
-        case 0x0B: // CLASS_GENERAL
-        case 0x0C: // CLASS_GENERAL_F
-        case 0x3B: // CLASS_MANAKETE?
-        case 0x5A: // CLASS_CYCLOPS
-        case 0x65: // CLASS_DRACOZOMBIE
-        case 0x66: // CLASS_DEMONKING
-        case 0x67: // CLASS_BALLISTA
-        case 0x68: // CLASS_IRONBALLISTA
-        case 0x69: // CLASS_KILLERBALLISTA
+        case CLASS_ARMOR_KNIGHT:
+        case CLASS_ARMOR_KNIGHT_F:
+        case CLASS_GENERAL:
+        case CLASS_GENERAL_F:
+        case CLASS_MANAKETE_2:
+        case CLASS_CYCLOPS:
+        case CLASS_DRACO_ZOMBIE:
+        case CLASS_DEMON_KING:
+        case CLASS_BLST_REGULAR_USED:
+        case CLASS_BLST_LONG_USED:
+        case CLASS_BLST_KILLER_USED:
             pStepSoundDefinition = gMUSfxDef_Heavy;
             break;
 
-        case 0x50: // CLASS_FLEET
+        case CLASS_FLEET:
             pStepSoundDefinition = gMUSfxDef_Boat;
             break;
 
-        case 0x3C: // CLASS_MYRRHMANAKETE
+        case CLASS_MANAKETE_MYRRH:
             pStepSoundDefinition = gMUSfxDef_Myrrh;
             break;
 
-        case 0x78: // CLASS_FALLENPRINCE
-        case 0x7B: // CLASS_FALLENPEER
+        case CLASS_FALLEN_PRINCE:
+        case CLASS_FALLEN_PEER:
             return; // no sounds
 
         default: // Any other non-mounted class
@@ -1373,13 +1368,13 @@ static struct MUConfig* MU_GenerateConfigOther(int objTileId, u8* outIndex) {
     return NULL;
 }
 
-u8 MU_ComputeDisplayPosition(struct MUProc* proc, struct PositionS16* out) {
+u8 MU_ComputeDisplayPosition(struct MUProc* proc, struct Vec2* out) {
     if (proc->stateId == MU_STATE_UI_DISPLAY) {
         out->x = (proc->xSubPosition + proc->xSubOffset) >> MU_SUBPIXEL_PRECISION;
         out->y = (proc->ySubPosition + proc->ySubOffset) >> MU_SUBPIXEL_PRECISION;
     } else {
-        short x = ((proc->xSubPosition + proc->xSubOffset) >> MU_SUBPIXEL_PRECISION) - gUnknown_0202BCB0.xCameraReal + 8;
-        short y = ((proc->ySubPosition + proc->ySubOffset) >> MU_SUBPIXEL_PRECISION) - gUnknown_0202BCB0.yCameraReal + 8;
+        short x = ((proc->xSubPosition + proc->xSubOffset) >> MU_SUBPIXEL_PRECISION) - gUnknown_0202BCB0.camera.x + 8;
+        short y = ((proc->ySubPosition + proc->ySubOffset) >> MU_SUBPIXEL_PRECISION) - gUnknown_0202BCB0.camera.y + 8;
 
         out->x = x;
         out->y = y + 8;
@@ -1399,7 +1394,7 @@ u8 MU_ComputeDisplayPosition(struct MUProc* proc, struct PositionS16* out) {
 
 static void MU_DisplayAsSMS(struct MUProc* proc) {
     if (!proc->boolIsHidden) {
-        struct PositionS16 position;
+        struct Vec2 position;
 
         if (!MU_ComputeDisplayPosition(proc, &position))
             return;
@@ -1433,7 +1428,7 @@ static void MU_DisplayAsSMS(struct MUProc* proc) {
 
 static void MU_DisplayAsMMS(struct MUProc* proc) {
     if (!proc->boolIsHidden) {
-        struct PositionS16 position;
+        struct Vec2 position;
 
         if (!MU_ComputeDisplayPosition(proc, &position))
             return;
@@ -1442,9 +1437,9 @@ static void MU_DisplayAsMMS(struct MUProc* proc) {
         position.y &= 0x00FF;
 
         if (proc->stateId != MU_STATE_UI_DISPLAY)
-            if (proc->pUnit && (proc->pUnit->index & 0xC0) == 0x80) // TODO: UNIT ALLEGIANCE DEFINITIONS
+            if (proc->pUnit && UNIT_FACTION(proc->pUnit) == FACTION_RED)
                 if (gUnknown_0202BCF0.chapterVisionRange != 0)
-                    if (!gUnknown_0202E4E8[MU_GetDisplayYOrg(proc) >> 4][MU_GetDisplayXOrg(proc) >> 4])
+                    if (!gBmMapFog[MU_GetDisplayYOrg(proc) >> 4][MU_GetDisplayXOrg(proc) >> 4])
                         return; // whew
 
         if (proc->stateId == MU_STATE_DEATHFADE)
@@ -1490,7 +1485,7 @@ static u16 MU_GetMovementSpeed(struct MUProc* proc) {
             return 0x40;
     }
 
-    return 16 * sMUBaseMoveSpeedLookup[GetROMClassStruct(proc->displayedClassId)->slowWalking];
+    return 16 * sMUBaseMoveSpeedLookup[GetClassData(proc->displayedClassId)->slowWalking];
 }
 
 void MU_SetMoveConfig(struct MUProc* proc, u16 config) {

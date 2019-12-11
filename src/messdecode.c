@@ -2,6 +2,8 @@
 
 #include "proc.h"
 #include "bmio.h"
+#include "bmitem.h"
+#include "bmunit.h"
 
 const char *gUnknown_08591AA4[][2] =
 {
@@ -130,14 +132,14 @@ char *sub_800A2A4(void)
                 CopyString(r4, GetTacticianName());
                 goto label;
             case 0x22:
-                CopyString(r4, GetItemNameString(gUnknown_0203A958.unk6));
+                CopyString(r4, GetItemName(gActionData.unk6));
                 goto label;
             default:
                 *r4++ = 0x80;
                 *r4++ = *r5++;
                 continue;
             }
-            CopyString(r4, GetStringFromIndex(GetROMCharStruct(gUnknown_0202BCF0.unk1C[r1])->nameTextId));
+            CopyString(r4, GetStringFromIndex(GetCharacterData(gUnknown_0202BCF0.unk1C[r1])->nameTextId));
         label:
             while (*r4 != 0)
                 r4++;
@@ -190,7 +192,7 @@ void *FilterSomeTextFromStandardBuffer(void)
 }
 #else
 __attribute__((naked))
-void *FilterSomeTextFromStandardBuffer(void)
+char *FilterSomeTextFromStandardBuffer(void)
 {
     asm(".syntax unified\n\
     push {r4, r5, lr}\n\

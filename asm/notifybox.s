@@ -65,7 +65,7 @@ _0801FA2A:
 	adds r0, r4, #0
 	movs r1, #8
 	movs r3, #4
-	bl MakeUIWindowTileMap_BG0BG1
+	bl DrawUiFrame2
 	cmp r5, #0
 	blt _0801FA5A
 	bl ResetIconGraphics_
@@ -163,7 +163,7 @@ _0801FAEC:
 	movs r1, #8
 	adds r2, r5, #0
 	movs r3, #4
-	bl MakeUIWindowTileMap_BG0BG1
+	bl DrawUiFrame2
 	cmp r7, #0
 	blt _0801FB1E
 	bl ResetIconGraphics_
@@ -254,7 +254,7 @@ sub_801FBAC: @ 0x0801FBAC
 	movs r1, #2
 	bl Text_SetColorId
 	adds r0, r7, #0
-	bl GetItemNameString
+	bl GetItemName
 	adds r1, r0, #0
 	add r0, sp, #4
 	bl Text_AppendString
@@ -291,7 +291,7 @@ _0801FC18:
 	adds r0, r5, #0
 	movs r1, #8
 	movs r3, #4
-	bl MakeUIWindowTileMap_BG0BG1
+	bl DrawUiFrame2
 	lsls r5, r5, #1
 	ldr r4, _0801FC60  @ gUnknown_02022EEA
 	adds r6, r5, r4
@@ -409,7 +409,7 @@ _0801FD1A:
 	adds r0, r6, #0
 	movs r1, #8
 	movs r3, #4
-	bl MakeUIWindowTileMap_BG0BG1
+	bl DrawUiFrame2
 	lsls r1, r6, #1
 	ldr r5, _0801FD68  @ gUnknown_02022EEA
 	adds r1, r1, r5

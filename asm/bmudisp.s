@@ -17,7 +17,7 @@ _08026624: .4byte gUnknown_0203A4CC
 	THUMB_FUNC_START SetupMapSpritesPalettes
 SetupMapSpritesPalettes: @ 0x08026628
 	push {lr}
-	ldr r0, _08026650  @ gUnknown_0859EE20
+	ldr r0, _08026650  @ unit_icon_pal_player
 	movs r1, #0xe0
 	lsls r1, r1, #2
 	movs r2, #0x80
@@ -28,16 +28,16 @@ SetupMapSpritesPalettes: @ 0x08026628
 	ands r0, r1
 	cmp r0, #0
 	beq _0802665C
-	ldr r0, _08026658  @ gUnknown_0859EEA0
+	ldr r0, _08026658  @ unit_icon_pal_p4
 	movs r1, #0xd8
 	lsls r1, r1, #2
 	movs r2, #0x20
 	bl CopyToPaletteBuffer
 	b _08026668
 	.align 2, 0
-_08026650: .4byte gUnknown_0859EE20
+_08026650: .4byte unit_icon_pal_player
 _08026654: .4byte gUnknown_0202BCB0
-_08026658: .4byte gUnknown_0859EEA0
+_08026658: .4byte unit_icon_pal_p4
 _0802665C:
 	ldr r0, _0802666C  @ gUnknown_0859EEC0
 	movs r1, #0xd8
@@ -131,7 +131,7 @@ SMS_80266F0: @ 0x080266F0
 	lsls r0, r2, #2
 	adds r0, r0, r1
 	ldr r6, [r0]
-	ldr r5, _08026730  @ gUnknown_088AF880
+	ldr r5, _08026730  @ unit_icon_wait_table
 	movs r4, #0x7f
 	ands r4, r7
 	lsls r4, r4, #3
@@ -152,7 +152,7 @@ SMS_80266F0: @ 0x080266F0
 	b _08026766
 	.align 2, 0
 _0802672C: .4byte gUnknown_0859B66C
-_08026730: .4byte gUnknown_088AF880
+_08026730: .4byte unit_icon_wait_table
 _08026734: .4byte gUnknown_0859B668
 _08026738:
 	cmp r0, #2
@@ -200,7 +200,7 @@ SMS_SomethingGmapUnit: @ 0x0802677C
 	adds r6, r0, #0
 	mov r8, r1
 	adds r7, r2, #0
-	ldr r5, _080267B0  @ gUnknown_088AF880
+	ldr r5, _080267B0  @ unit_icon_wait_table
 	movs r4, #0x7f
 	ands r4, r6
 	lsls r4, r4, #3
@@ -220,7 +220,7 @@ SMS_SomethingGmapUnit: @ 0x0802677C
 	beq _080267BE
 	b _080267E6
 	.align 2, 0
-_080267B0: .4byte gUnknown_088AF880
+_080267B0: .4byte unit_icon_wait_table
 _080267B4: .4byte gUnknown_0859B668
 _080267B8:
 	cmp r0, #2
@@ -269,7 +269,7 @@ SMS_RegisterUsage: @ 0x080267FC
 	ldrb r1, [r7]
 	cmp r1, #0xff
 	bne _080268B0
-	ldr r5, _08026838  @ gUnknown_088AF880
+	ldr r5, _08026838  @ unit_icon_wait_table
 	movs r4, #0x7f
 	ands r4, r6
 	lsls r4, r4, #3
@@ -290,7 +290,7 @@ SMS_RegisterUsage: @ 0x080267FC
 	b _080268A6
 	.align 2, 0
 _08026834: .4byte gUnknown_02033F40
-_08026838: .4byte gUnknown_088AF880
+_08026838: .4byte unit_icon_wait_table
 _0802683C: .4byte gUnknown_0859B668
 _08026840:
 	cmp r0, #2
@@ -787,7 +787,7 @@ sub_8026C1C: @ 0x08026C1C
 	push {r5, r6, r7}
 	sub sp, #0xc
 	str r1, [sp]
-	bl GetUnitSMSIndex
+	bl GetUnitSMSId
 	str r0, [sp, #4]
 	bl SMS_RegisterUsage
 	lsls r7, r0, #5
@@ -817,7 +817,7 @@ _08026C60:
 	blt _08026C66
 	movs r4, #0
 _08026C66:
-	ldr r1, _08026C88  @ gUnknown_088AF880
+	ldr r1, _08026C88  @ unit_icon_wait_table
 	movs r0, #0x7f
 	ldr r2, [sp, #4]
 	ands r0, r2
@@ -833,7 +833,7 @@ _08026C66:
 	b _08026EF2
 	.align 2, 0
 _08026C84: .4byte gUnknown_0859B73C
-_08026C88: .4byte gUnknown_088AF880
+_08026C88: .4byte unit_icon_wait_table
 _08026C8C:
 	cmp r0, #2
 	bne _08026C92
@@ -1519,7 +1519,7 @@ SMS_UpdateFromGameData: @ 0x080271A0
 	movs r7, #1
 _080271C0:
 	adds r0, r7, #0
-	bl GetUnitStruct
+	bl GetUnit
 	adds r6, r0, #0
 	cmp r6, #0
 	beq _08027282
@@ -1535,7 +1535,7 @@ _080271C0:
 	bne _08027282
 	movs r2, #0x11
 	ldrsb r2, [r6, r2]
-	ldr r0, _080272CC  @ gUnknown_0202E4D8
+	ldr r0, _080272CC  @ gBmMapUnit
 	ldr r1, [r0]
 	lsls r0, r2, #2
 	adds r0, r0, r1
@@ -1572,7 +1572,7 @@ _08027212:
 	lsls r0, r0, #4
 	strh r0, [r5, #4]
 	adds r0, r6, #0
-	bl GetUnitSMSIndex
+	bl GetUnitSMSId
 	bl SMS_RegisterUsage
 	adds r4, r0, #0
 	adds r0, r6, #0
@@ -1584,8 +1584,8 @@ _08027212:
 	adds r4, r4, r1
 	strh r4, [r5, #8]
 	adds r0, r6, #0
-	bl GetUnitSMSIndex
-	ldr r2, _080272D0  @ gUnknown_088AF880
+	bl GetUnitSMSId
+	ldr r2, _080272D0  @ unit_icon_wait_table
 	movs r1, #0x7f
 	ands r1, r0
 	lsls r1, r1, #3
@@ -1625,7 +1625,7 @@ _08027282:
 	beq _0802734C
 	ldr r1, _080272D4  @ 0xFFFFC080
 	adds r6, r1, #0
-	ldr r7, _080272D8  @ gUnknown_088AFB5A
+	ldr r7, _080272D8  @ unit_icon_wait_table + 0x2DA @ [91].size ballista
 	movs r2, #0x58
 	adds r2, r2, r7
 	mov r9, r2
@@ -1648,10 +1648,10 @@ _080272A2:
 _080272C0: .4byte gUnknown_0203A4C8
 _080272C4: .4byte gUnknown_0203A018
 _080272C8: .4byte 0x00000201
-_080272CC: .4byte gUnknown_0202E4D8
-_080272D0: .4byte gUnknown_088AF880
+_080272CC: .4byte gBmMapUnit
+_080272D0: .4byte unit_icon_wait_table
 _080272D4: .4byte 0xFFFFC080
-_080272D8: .4byte gUnknown_088AFB5A
+_080272D8: .4byte unit_icon_wait_table + 0x2DA @ [91].size ballista
 _080272DC:
 	cmp r0, #0x37
 	beq _080272EA
@@ -1988,7 +1988,7 @@ _0802755C:
 	beq _080275C6
 	cmp r2, #0
 	beq _080275C6
-	ldr r0, _080275D0  @ gUnknown_0202E4E8
+	ldr r0, _080275D0  @ gBmMapFog
 	ldr r0, [r0]
 	lsls r1, r4, #2
 	adds r0, r1, r0
@@ -1997,7 +1997,7 @@ _0802755C:
 	ldrb r0, [r0]
 	cmp r0, #0
 	beq _080275C6
-	ldr r0, _080275D4  @ gUnknown_0202E4DC
+	ldr r0, _080275D4  @ gBmMapTerrain
 	ldr r0, [r0]
 	adds r0, r1, r0
 	ldr r0, [r0]
@@ -2042,8 +2042,8 @@ _080275C6:
 	bx r0
 	.align 2, 0
 _080275CC: .4byte gUnknown_0202BCF0
-_080275D0: .4byte gUnknown_0202E4E8
-_080275D4: .4byte gUnknown_0202E4DC
+_080275D0: .4byte gBmMapFog
+_080275D4: .4byte gBmMapTerrain
 _080275D8: .4byte gUnknown_0202BCB0
 _080275DC: .4byte 0x00000107
 _080275E0: .4byte gUnknown_08590F44
@@ -2120,7 +2120,7 @@ _0802767C:
 	mov r8, r1
 _08027684:
 	mov r0, r8
-	bl GetUnitStruct
+	bl GetUnit
 	adds r4, r0, #0
 	cmp r4, #0
 	bne _08027692
@@ -2599,7 +2599,7 @@ sub_8027A4C: @ 0x08027A4C
 	ldr r2, _08027AB4  @ gUnknown_0202BCB0
 	movs r1, #0x16
 	ldrsh r0, [r2, r1]
-	ldr r1, _08027AB8  @ gUnknown_0202E4D8
+	ldr r1, _08027AB8  @ gBmMapUnit
 	ldr r1, [r1]
 	lsls r0, r0, #2
 	adds r0, r0, r1
@@ -2608,7 +2608,7 @@ sub_8027A4C: @ 0x08027A4C
 	ldr r0, [r0]
 	adds r0, r0, r1
 	ldrb r0, [r0]
-	bl GetUnitStruct
+	bl GetUnit
 	adds r4, r0, #0
 	cmp r4, #0
 	beq _08027AC0
@@ -2645,7 +2645,7 @@ sub_8027A4C: @ 0x08027A4C
 	b _08027AFA
 	.align 2, 0
 _08027AB4: .4byte gUnknown_0202BCB0
-_08027AB8: .4byte gUnknown_0202E4D8
+_08027AB8: .4byte gBmMapUnit
 _08027ABC: .4byte gUnknown_0203A4D0
 _08027AC0:
 	ldr r2, _08027B00  @ gUnknown_0202BCB0
@@ -2658,7 +2658,7 @@ _08027AC0:
 	str r0, [r1]
 	movs r1, #0x1a
 	ldrsh r0, [r2, r1]
-	ldr r1, _08027B08  @ gUnknown_0202E4D8
+	ldr r1, _08027B08  @ gBmMapUnit
 	ldr r1, [r1]
 	lsls r0, r0, #2
 	adds r0, r0, r1
@@ -2667,7 +2667,7 @@ _08027AC0:
 	ldr r0, [r0]
 	adds r0, r0, r1
 	ldrb r0, [r0]
-	bl GetUnitStruct
+	bl GetUnit
 	adds r4, r0, #0
 	cmp r4, #0
 	beq _08027AFA
@@ -2681,19 +2681,19 @@ _08027AFA:
 	.align 2, 0
 _08027B00: .4byte gUnknown_0202BCB0
 _08027B04: .4byte gUnknown_0203A4D0
-_08027B08: .4byte gUnknown_0202E4D8
+_08027B08: .4byte gBmMapUnit
 
 	THUMB_FUNC_START sub_8027B0C
 sub_8027B0C: @ 0x08027B0C
 	push {lr}
-	ldr r2, _08027B54  @ gUnknown_0202E4D8
+	ldr r2, _08027B54  @ gBmMapUnit
 	ldr r2, [r2]
 	lsls r1, r1, #2
 	adds r1, r1, r2
 	ldr r1, [r1]
 	adds r1, r1, r0
 	ldrb r0, [r1]
-	bl GetUnitStruct
+	bl GetUnit
 	adds r2, r0, #0
 	cmp r2, #0
 	beq _08027B58
@@ -2720,7 +2720,7 @@ sub_8027B0C: @ 0x08027B0C
 	movs r0, #1
 	b _08027B5A
 	.align 2, 0
-_08027B54: .4byte gUnknown_0202E4D8
+_08027B54: .4byte gBmMapUnit
 _08027B58:
 	movs r0, #0
 _08027B5A:
@@ -2739,7 +2739,7 @@ sub_8027B60: @ 0x08027B60
 	adds r7, r2, #0
 	adds r4, r3, #0
 	adds r0, r4, #0
-	bl GetUnitSMSIndex
+	bl GetUnitSMSId
 	adds r5, r0, #0
 	bl SMS_RegisterUsage
 	adds r6, r0, #0
@@ -2753,7 +2753,7 @@ sub_8027B60: @ 0x08027B60
 	adds r0, #0x20
 	cmp r0, #0xc0
 	bhi _08027C36
-	ldr r1, _08027BB0  @ gUnknown_088AF880
+	ldr r1, _08027BB0  @ unit_icon_wait_table
 	movs r0, #0x7f
 	ands r0, r5
 	lsls r0, r0, #3
@@ -2767,7 +2767,7 @@ sub_8027B60: @ 0x08027B60
 	beq _08027BBA
 	b _08027C36
 	.align 2, 0
-_08027BB0: .4byte gUnknown_088AF880
+_08027BB0: .4byte unit_icon_wait_table
 _08027BB4:
 	cmp r0, #2
 	beq _08027C10
@@ -2853,7 +2853,7 @@ sub_8027C48: @ 0x08027C48
 	ldr r0, [sp, #0x20]
 	lsls r3, r3, #0x10
 	lsrs r7, r3, #0x10
-	bl GetClassStandingMapSpriteId
+	bl GetClassSMSId
 	mov r8, r0
 	bl SMS_RegisterUsage
 	adds r4, r0, #0
@@ -2868,7 +2868,7 @@ sub_8027C48: @ 0x08027C48
 	adds r0, #0x20
 	cmp r0, #0xc0
 	bhi _08027CE8
-	ldr r1, _08027C9C  @ gUnknown_088AF880
+	ldr r1, _08027C9C  @ unit_icon_wait_table
 	movs r0, #0x7f
 	mov r2, r8
 	ands r0, r2
@@ -2883,7 +2883,7 @@ sub_8027C48: @ 0x08027C48
 	beq _08027CA6
 	b _08027CE8
 	.align 2, 0
-_08027C9C: .4byte gUnknown_088AF880
+_08027C9C: .4byte unit_icon_wait_table
 _08027CA0:
 	cmp r0, #2
 	beq _08027CD4
@@ -2942,7 +2942,7 @@ sub_8027CFC: @ 0x08027CFC
 	adds r5, r1, #0
 	adds r4, r2, #0
 	adds r0, r3, #0
-	bl GetClassStandingMapSpriteId
+	bl GetClassSMSId
 	adds r6, r0, #0
 	bl SMS_RegisterUsage
 	adds r7, r0, #0
@@ -2957,7 +2957,7 @@ sub_8027CFC: @ 0x08027CFC
 	adds r0, #0x20
 	cmp r0, #0xc0
 	bhi _08027DA0
-	ldr r1, _08027D48  @ gUnknown_088AF880
+	ldr r1, _08027D48  @ unit_icon_wait_table
 	movs r0, #0x7f
 	ands r0, r6
 	lsls r0, r0, #3
@@ -2971,7 +2971,7 @@ sub_8027CFC: @ 0x08027CFC
 	beq _08027D52
 	b _08027DA0
 	.align 2, 0
-_08027D48: .4byte gUnknown_088AF880
+_08027D48: .4byte unit_icon_wait_table
 _08027D4C:
 	cmp r0, #2
 	beq _08027D80
@@ -3041,7 +3041,7 @@ sub_8027DB4: @ 0x08027DB4
 	ldr r4, [sp, #0x20]
 	lsls r3, r3, #0x10
 	lsrs r7, r3, #0x10
-	bl GetClassStandingMapSpriteId
+	bl GetClassSMSId
 	adds r2, r0, #0
 	ldr r0, _08027E08  @ gUnknown_0859B66C
 	lsls r4, r4, #2
@@ -3058,7 +3058,7 @@ sub_8027DB4: @ 0x08027DB4
 	adds r0, #0x20
 	cmp r0, #0xc0
 	bhi _08027E3C
-	ldr r1, _08027E0C  @ gUnknown_088AF880
+	ldr r1, _08027E0C  @ unit_icon_wait_table
 	movs r0, #0x7f
 	ands r0, r2
 	lsls r0, r0, #3
@@ -3073,7 +3073,7 @@ sub_8027DB4: @ 0x08027DB4
 	b _08027E3C
 	.align 2, 0
 _08027E08: .4byte gUnknown_0859B66C
-_08027E0C: .4byte gUnknown_088AF880
+_08027E0C: .4byte unit_icon_wait_table
 _08027E10:
 	adds r2, r5, #0
 	subs r2, #0x10
@@ -3118,7 +3118,7 @@ sub_8027E4C: @ 0x08027E4C
 	adds r6, r2, #0
 	adds r7, r3, #0
 	ldr r0, [sp, #0x20]
-	bl GetUnitSMSIndex
+	bl GetUnitSMSId
 	adds r4, r0, #0
 	bl SMS_RegisterUsage
 	adds r5, r0, #0
@@ -3133,7 +3133,7 @@ sub_8027E4C: @ 0x08027E4C
 	adds r0, #0x20
 	cmp r0, #0xc0
 	bhi _08027F16
-	ldr r1, _08027E9C  @ gUnknown_088AF880
+	ldr r1, _08027E9C  @ unit_icon_wait_table
 	movs r0, #0x7f
 	ands r0, r4
 	lsls r0, r0, #3
@@ -3147,7 +3147,7 @@ sub_8027E4C: @ 0x08027E4C
 	beq _08027EA6
 	b _08027F16
 	.align 2, 0
-_08027E9C: .4byte gUnknown_088AF880
+_08027E9C: .4byte unit_icon_wait_table
 _08027EA0:
 	cmp r0, #2
 	beq _08027EF4
@@ -3237,9 +3237,9 @@ SMS_DisplayOne: @ 0x08027F28
 	adds r0, #0x20
 	cmp r0, #0xe0
 	bhi _08027FFE
-	ldr r4, _08027F74  @ gUnknown_088AF880
+	ldr r4, _08027F74  @ unit_icon_wait_table
 	mov r0, ip
-	bl GetClassStandingMapSpriteId
+	bl GetClassSMSId
 	movs r1, #0x7f
 	ands r1, r0
 	lsls r1, r1, #3
@@ -3253,7 +3253,7 @@ SMS_DisplayOne: @ 0x08027F28
 	beq _08027F7E
 	b _08027FFE
 	.align 2, 0
-_08027F74: .4byte gUnknown_088AF880
+_08027F74: .4byte unit_icon_wait_table
 _08027F78:
 	cmp r0, #2
 	beq _08027FD8
@@ -3348,7 +3348,7 @@ sub_8028014: @ 0x08028014
 	adds r6, r2, #0
 	mov r8, r3
 	ldr r0, [sp, #0x20]
-	bl GetUnitSMSIndex
+	bl GetUnitSMSId
 	adds r5, r0, #0
 	bl SMS_RegisterUsage
 	adds r4, r0, #0
@@ -3363,7 +3363,7 @@ sub_8028014: @ 0x08028014
 	adds r0, #0x20
 	cmp r0, #0xc0
 	bhi _080280E8
-	ldr r1, _08028064  @ gUnknown_088AF880
+	ldr r1, _08028064  @ unit_icon_wait_table
 	movs r0, #0x7f
 	ands r0, r5
 	lsls r0, r0, #3
@@ -3377,7 +3377,7 @@ sub_8028014: @ 0x08028014
 	beq _0802806E
 	b _080280E8
 	.align 2, 0
-_08028064: .4byte gUnknown_088AF880
+_08028064: .4byte unit_icon_wait_table
 _08028068:
 	cmp r0, #2
 	beq _080280C4

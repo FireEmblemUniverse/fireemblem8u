@@ -7,6 +7,11 @@
 #include "m4a.h"
 #include "soundwrapper.h"
 #include "bmio.h"
+#include "bmunit.h"
+#include "bmmap.h"
+#include "bmitem.h"
+#include "bmtrick.h"
+#include "bmidoten.h"
 
 // temp rodata (TODO: move directly into the various functions that use those)
 const u8 gUnknown_080D793C[3] = { 0x00, 0x40, 0x80 };
@@ -28,9 +33,8 @@ void Font_LoadForUI(void);
 void sub_80156D4(void);
 void sub_800BA34(void);
 
-void LoadChapterMapGfx(s8);
 void AllocWeatherParticles(unsigned);
-void UpdateGameTilesGraphics(void);
+void RenderBmMap(void);
 void SMS_UpdateFromGameData(void);
 void SMS_FlushIndirect(void);
 
@@ -38,8 +42,6 @@ void RestartBattleMap(void);
 
 int sub_8015A40(int);
 int sub_8015A6C(int);
-
-void RefreshFogAndUnitMaps(void);
 
 struct Unit* GetUnitStructFromEventParameter(s16 param);
 
@@ -49,12 +51,12 @@ void SetCursorMapPosition(int x, int y);
 u8 EnsureCameraOntoPosition(struct Proc*, int x, int y);
 void sub_8015D84(struct Proc*, s8 x, s8 y);
 
-int GetMapChangesIdAt(int, int);
+int GetMapChangeIdAt(int, int);
 
 void TriggerMapChanges(u16 mapChangeId, u8 displayFlag, struct Proc* parent);
 void sub_800BB48(u16 mapChangeId, u8 displayFlag, struct Proc* parent);
 
-extern struct Unit* gUnknown_03004E50; // TODO: gActiveUnit
+extern struct Unit* gActiveUnit; // TODO: gActiveUnit
 
 // void SetWeather(u16 id);
 
@@ -65,9 +67,7 @@ void GotoChapterWithoutSave(u16 chIndex);
 
 void HandleAllegianceChange(struct Unit*, u8 allegiance);
 struct Unit* LoadUnit(const struct UnitDefinition* def);
-void GetPreferredPositionForUNIT(const struct UnitDefinition* def, s8* xOut, s8* yOut, u8 unk);
-
-struct Unit* GetNonAllyUnitStructById(unsigned index, u8 all);
+void GetPreferredPositionForUNIT(const struct UnitDefinition* uDef, u8* xOut, u8* yOut, s8 findNearest);
 
 #include "chapterdata.h"
 
@@ -80,11 +80,9 @@ void sub_800F698(const struct UnitDefinition* def, s16 count, u8 param);
 u8 TryPrepareEventUnitMovement(struct EventEngineProc* proc, int x, int y);
 void LoadUnit_800F704(const struct UnitDefinition* def, u16 b, s8 quiet, s8 d);
 
-struct Unit* GetUnitByCharId(int);
+struct Unit* GetUnitFromCharId(int);
 int IsSethLArachelMyrrhInnes(int);
-u8 IsUnitSlotAvailable(u8);
-
-extern u8** gUnknown_0202E4D8; // gMapUnit
+s8 IsUnitSlotAvailable(int faction);
 
 void MoveUnit_(struct Unit* unit, s8 x, s8 y, u16 flags);
 void sub_8079FA8(struct Unit* unit, const void* redas, unsigned count, u16 flags);
@@ -998,11 +996,11 @@ u8 Event19_(struct EventEngineProc* proc) {
 		break;
 
 	case 4: // Check ?
-		gEventSlots[0xC] = sub_8019034();
+		gEventSlots[0xC] = CountRedUnits();
 		break;
 
 	case 5: // Check ?
-		gEventSlots[0xC] = sub_8019074();
+		gEventSlots[0xC] = CountGreenUnits();
 		break;
 
 	case 6: // Check Chapter Type?
@@ -1080,8 +1078,8 @@ void sub_800E210(struct EventEngineProc* proc, u16 stringIndex, s8 b) {
 		sub_800680C(0x80, 2, 1);
 
 	if ((proc->evStateBits & EV_STATE_0040) == 1) { // ?????
-		proc->overwrittenTextSpeed = gUnknown_0202BCF0.unk40_6;
-		gUnknown_0202BCF0.unk40_6 = 1;
+		proc->overwrittenTextSpeed = gUnknown_0202BCF0.cfgTextSpeed;
+		gUnknown_0202BCF0.cfgTextSpeed = 1;
 	} else {
 		proc->overwrittenTextSpeed = 0xFF;
 	}
@@ -1515,7 +1513,7 @@ u8 Event1D_TEXTEND(struct EventEngineProc* proc) {
 	}
 
 	if (proc->overwrittenTextSpeed != -1)
-		gUnknown_0202BCF0.unk40_6 = proc->overwrittenTextSpeed;
+		gUnknown_0202BCF0.cfgTextSpeed = proc->overwrittenTextSpeed;
 
 	return EVC_ADVANCE_YIELD;
 }
@@ -2038,9 +2036,9 @@ void sub_800EE54(struct ConvoBackgroundFadeProc* proc) {
 	case 3:
 	case 4:
 	case 5:
-		LoadChapterMapGfx(gUnknown_0202BCF0.chapterIndex);
+		UnpackChapterMapGraphics(gUnknown_0202BCF0.chapterIndex);
 		AllocWeatherParticles(gUnknown_0202BCF0.chapterWeatherId);
-		UpdateGameTilesGraphics();
+		RenderBmMap();
 		SMS_UpdateFromGameData();
 
 		sub_800BCDC(proc->pEventEngine->mapSpritePalIdOverride);
@@ -2209,11 +2207,11 @@ u8 Event25_(struct EventEngineProc* proc) {
 
 	RestartBattleMap();
 
-	gUnknown_0202BCB0.xCameraReal = sub_8015A40(x * 16);
-	gUnknown_0202BCB0.yCameraReal = sub_8015A6C(y * 16);
+	gUnknown_0202BCB0.camera.x = sub_8015A40(x * 16);
+	gUnknown_0202BCB0.camera.y = sub_8015A6C(y * 16);
 
-	RefreshFogAndUnitMaps();
-	UpdateGameTilesGraphics();
+	RefreshEntityBmMaps();
+	RenderBmMap();
 	SMS_UpdateFromGameData();
 	RefreshBMapGraphics();
 
@@ -2264,7 +2262,7 @@ u8 Event26_CameraControlMaybe(struct EventEngineProc* proc) {
 	if (((proc->evStateBits >> 2) & 1) || (proc->evStateBits & EV_STATE_FADEDIN)) {
 		SetSomeRealCamPos(x, y, sc2);
 		SetCursorMapPosition(x, y);
-		UpdateGameTilesGraphics();
+		RenderBmMap();
 
 		return EVC_ADVANCE_CONTINUE;
 	} else {
@@ -2291,7 +2289,7 @@ u8 Event27_MapChange(struct EventEngineProc* proc) {
 	switch (mapChangeId) {
 
 	case (-1): // "at position in Slot B"
-		mapChangeId = GetMapChangesIdAt(
+		mapChangeId = GetMapChangeIdAt(
 			((u16*)(gEventSlots + 0xB))[0],
 			((u16*)(gEventSlots + 0xB))[1]
 		);
@@ -2302,9 +2300,9 @@ u8 Event27_MapChange(struct EventEngineProc* proc) {
 		break;
 
 	case (-2): // "at position of active unit"
-		mapChangeId = GetMapChangesIdAt(
-			(u8)(gUnknown_03004E50->xPos),
-			(u8)(gUnknown_03004E50->yPos)
+		mapChangeId = GetMapChangeIdAt(
+			(u8)(gActiveUnit->xPos),
+			(u8)(gActiveUnit->yPos)
 		);
 
 		if (mapChangeId < 0)
@@ -2507,7 +2505,7 @@ s8 ShouldUNITBeLoaded(const struct UnitDefinition* unitDefinition, u8 unk) {
 	const u8 tmp = unk; // needed to match :/
 
 	if (unitDefinition->allegiance == 0 && tmp != 1) {
-		struct Unit* unit = GetUnitByCharId(unitDefinition->charIndex);
+		struct Unit* unit = GetUnitFromCharId(unitDefinition->charIndex);
 
 		if (unit && (unit->state & 0x00000004)) {
 			switch (tmp) {
@@ -2529,7 +2527,7 @@ s8 ShouldUNITBeLoaded(const struct UnitDefinition* unitDefinition, u8 unk) {
 		return TRUE;
 
 	if (!unitDefinition->sumFlag && !unitDefinition->redaCount) {
-		if (gUnknown_0202E4D8[unitDefinition->yPosition][unitDefinition->xPosition])
+		if (gBmMapUnit[unitDefinition->yPosition][unitDefinition->xPosition])
 			return FALSE;
 	}
 
@@ -2599,13 +2597,13 @@ void LoadUnit_800F704(const struct UnitDefinition* def, u16 b, s8 quiet, s8 d) {
 	// u8 allegianceLookup[] = { 0x00, 0x40, 0x80 }; // TODO
 
 	if (def->allegiance == 0) {
-		unit = GetNonAllyUnitStructById(def->charIndex, 0x00);
+		unit = GetUnitFromCharIdAndFaction(def->charIndex, 0x00);
 	} else {
-		unit = GetNonAllyUnitStructById(def->charIndex, 0x00);
+		unit = GetUnitFromCharIdAndFaction(def->charIndex, 0x00);
 
 		if (unit) {
-			HandleAllegianceChange(unit, allegianceLookup[def->allegiance]);
-			unit = GetUnitByCharId(def->charIndex);
+			UnitChangeFaction(unit, allegianceLookup[def->allegiance]);
+			unit = GetUnitFromCharId(def->charIndex);
 		}
 	}
 
@@ -2639,7 +2637,7 @@ void LoadUnit_800F704(const struct UnitDefinition* def, u16 b, s8 quiet, s8 d) {
 	if (def->allegiance == 2 && unit->pCharacterData->number >= 0x3C) {
 		if (!gUnknown_0202BCF0.unk42_6) {
 			if (!(gUnknown_0202BCF0.chapterStateBits & 0x40))
-				sub_80180CC(
+				UnitApplyBonusLevels(
 					unit,
 					-GetROMChapterStruct(gUnknown_0202BCF0.chapterIndex)->easyModeLevelMalus
 				);
@@ -2648,12 +2646,12 @@ void LoadUnit_800F704(const struct UnitDefinition* def, u16 b, s8 quiet, s8 d) {
 		} else {
 			if (gUnknown_0202BCF0.chapterStateBits & 0x40)
 			hard_mode:
-				sub_80180CC(
+				UnitApplyBonusLevels(
 					unit,
 					GetROMChapterStruct(gUnknown_0202BCF0.chapterIndex)->difficultModeLevelBonus
 				);
 			else
-				sub_80180CC(
+				UnitApplyBonusLevels(
 					unit,
 					-GetROMChapterStruct(gUnknown_0202BCF0.chapterIndex)->normalModeLevelMalus
 				);
@@ -3146,7 +3144,7 @@ u8 Event2C_LoadUnits(struct EventEngineProc* proc) {
 
 	ud = sub_800F914(ud, count, proc->idk4E, subcode == 2, proc->unk4F_7);
 
-	ClearMapWith(gUnknown_0202E4F0, 0);
+	BmMapFill(gBmMapUnk, 0);
 
 	if (EVENT_IS_SKIPPING(proc) || (proc->evStateBits & EV_STATE_FADEDIN)) {
 		sub_800F698(ud, count, argument);
@@ -3235,7 +3233,7 @@ u8 Event2E_CheckAt(struct EventEngineProc* proc) {
 	switch (subcode) {
 
 	case 0: {
-		unsigned unitId = gUnknown_0202E4D8[y][x];
+		unsigned unitId = gBmMapUnit[y][x];
 
 		if (unitId == 0) {
 			gEventSlots[0xC] = 0;
@@ -3247,7 +3245,7 @@ u8 Event2E_CheckAt(struct EventEngineProc* proc) {
 	}
 
 	case 1: {
-		unit = gUnknown_03004E50;
+		unit = gActiveUnit;
 		break;
 	}
 

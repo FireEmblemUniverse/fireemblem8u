@@ -82,11 +82,11 @@ int NextRN_N(int max) {
     return NextRN() * max / 0x10000;
 }
 
-int Roll1RN(int threshold) {
+s8 Roll1RN(int threshold) {
     return (threshold > NextRN_100());
 }
 
-int Roll2RN(int threshold) {
+s8 Roll2RN(int threshold) {
     int average = (NextRN_100() + NextRN_100()) / 2;
 
     return (threshold > average);

@@ -151,7 +151,7 @@ sub_8082F84: @ 0x08082F84
 	push {r4, r5, lr}
 	adds r5, r1, #0
 	adds r4, r2, #0
-	ldr r1, _08082FAC  @ gUnknown_03004E50
+	ldr r1, _08082FAC  @ gActiveUnit
 	ldr r2, [r1]
 	movs r1, #0x10
 	ldrsb r1, [r2, r1]
@@ -168,7 +168,7 @@ sub_8082F84: @ 0x08082F84
 	movs r0, #1
 	b _08082FB2
 	.align 2, 0
-_08082FAC: .4byte gUnknown_03004E50
+_08082FAC: .4byte gActiveUnit
 _08082FB0:
 	movs r0, #0
 _08082FB2:
@@ -188,7 +188,7 @@ sub_8082FB8: @ 0x08082FB8
 	movs r4, #1
 _08082FC8:
 	adds r0, r4, #0
-	bl GetUnitStruct
+	bl GetUnit
 	adds r2, r0, #0
 	cmp r2, #0
 	beq _08083004
@@ -412,7 +412,7 @@ sub_808314C: @ 0x0808314C
 	movs r4, #0x81
 _0808315C:
 	adds r0, r4, #0
-	bl GetUnitStruct
+	bl GetUnit
 	adds r2, r0, #0
 	cmp r2, #0
 	beq _08083198
@@ -911,7 +911,7 @@ ShouldCallBattleQuote: @ 0x080834B0
 	bl GetChapterThing
 	cmp r0, #2
 	beq _080834F2
-	ldr r0, _080834F8  @ gUnknown_0203A958
+	ldr r0, _080834F8  @ gActionData
 	ldrb r0, [r0, #0x11]
 	cmp r0, #2
 	bne _080834F2
@@ -934,7 +934,7 @@ _080834F2:
 	movs r0, #0
 	b _080834FE
 	.align 2, 0
-_080834F8: .4byte gUnknown_0203A958
+_080834F8: .4byte gActionData
 _080834FC:
 	movs r0, #1
 _080834FE:
@@ -952,7 +952,7 @@ CallBattleQuoteEventsIfAny: @ 0x08083504
 	bl GetChapterThing
 	cmp r0, #2
 	beq _08083568
-	ldr r0, _08083554  @ gUnknown_0203A958
+	ldr r0, _08083554  @ gActionData
 	ldrb r0, [r0, #0x11]
 	cmp r0, #2
 	bne _08083568
@@ -981,7 +981,7 @@ _08083548:
 	bl CallBattleQuoteEventInBattle
 	b _08083562
 	.align 2, 0
-_08083554: .4byte gUnknown_0203A958
+_08083554: .4byte gActionData
 _08083558:
 	ldr r0, [r4, #0xc]
 	cmp r0, #0
@@ -1085,7 +1085,7 @@ sub_80835DC: @ 0x080835DC
 _08083610: .4byte gUnknown_0202BCF0
 _08083614:
 	adds r0, r5, #0
-	bl GetUnitByCharId
+	bl GetUnitFromCharId
 	ldrb r0, [r0, #0xb]
 	lsls r0, r0, #0x18
 	asrs r0, r0, #0x18
@@ -1125,7 +1125,7 @@ sub_8083654: @ 0x08083654
 	movs r5, #1
 _0808365E:
 	adds r0, r5, #0
-	bl GetUnitStruct
+	bl GetUnit
 	adds r4, r0, #0
 	cmp r4, #0
 	beq _0808370C
@@ -1146,11 +1146,11 @@ _0808365E:
 	movs r2, #7
 	bl BWL_AddWinOrLossIdk
 	adds r0, r4, #0
-	bl sub_80183FC
+	bl UnitKill
 	adds r0, r4, #0
 	movs r1, #0
-	bl SetUnitHP
-	ldr r2, _08083704  @ gUnknown_0203A4EC
+	bl SetUnitHp
+	ldr r2, _08083704  @ gBattleActor
 	movs r1, #0xb
 	ldrsb r1, [r2, r1]
 	movs r0, #0xb
@@ -1162,7 +1162,7 @@ _0808365E:
 	movs r2, #0x48
 	bl memcpy
 _080836B2:
-	ldr r2, _08083708  @ gUnknown_0203A56C
+	ldr r2, _08083708  @ gBattleTarget
 	movs r1, #0xb
 	ldrsb r1, [r2, r1]
 	movs r0, #0xb
@@ -1180,10 +1180,10 @@ _080836CA:
 	cmp r0, #0
 	beq _080836E2
 	ldrb r0, [r4, #0x1b]
-	bl GetUnitStruct
+	bl GetUnit
 	movs r1, #0
 	movs r2, #0
-	bl UpdateRescuingData
+	bl UnitDrop
 _080836E2:
 	ldr r0, [r4, #0xc]
 	movs r1, #0x10
@@ -1193,15 +1193,15 @@ _080836E2:
 	adds r0, r4, #0
 	mov r1, sp
 	add r2, sp, #4
-	bl sub_80184E0
+	bl UnitGetDeathDropLocation
 	ldr r1, [sp]
 	ldr r2, [sp, #4]
 	adds r0, r4, #0
-	bl UpdateRescuingData
+	bl UnitDrop
 	b _08083712
 	.align 2, 0
-_08083704: .4byte gUnknown_0203A4EC
-_08083708: .4byte gUnknown_0203A56C
+_08083704: .4byte gBattleActor
+_08083708: .4byte gBattleTarget
 _0808370C:
 	adds r5, #1
 	cmp r5, #0x3f
@@ -1694,7 +1694,7 @@ CheckSHOP: @ 0x08083A58
 	bne _08083A9C
 	cmp r6, #0x18
 	bne _08083A8A
-	ldr r0, _08083A98  @ gUnknown_03004E50
+	ldr r0, _08083A98  @ gActiveUnit
 	ldr r0, [r0]
 	movs r1, #0x72
 	bl GetUnitItemSlot
@@ -1711,7 +1711,7 @@ _08083A8A:
 	movs r0, #1
 	b _08083A9E
 	.align 2, 0
-_08083A98: .4byte gUnknown_03004E50
+_08083A98: .4byte gActiveUnit
 _08083A9C:
 	movs r0, #0
 _08083A9E:
@@ -1723,7 +1723,7 @@ _08083A9E:
 CheckAREA: @ 0x08083AA4
 	push {r4, r5, r6, r7, lr}
 	adds r4, r0, #0
-	ldr r0, _08083B18  @ gUnknown_03004E50
+	ldr r0, _08083B18  @ gActiveUnit
 	ldr r3, [r0]
 	ldrb r0, [r3, #0x11]
 	mov ip, r0
@@ -1783,7 +1783,7 @@ _08083B08:
 	movs r0, #1
 	b _08083B1E
 	.align 2, 0
-_08083B18: .4byte gUnknown_03004E50
+_08083B18: .4byte gActiveUnit
 _08083B1C:
 	movs r0, #0
 _08083B1E:
@@ -2510,7 +2510,7 @@ _0808401E:
 	movs r7, #1
 _08084020:
 	adds r0, r7, #0
-	bl GetUnitStruct
+	bl GetUnit
 	adds r6, r0, #0
 	cmp r6, #0
 	beq _08084066
@@ -2666,7 +2666,7 @@ _0808410C: @ jump table
 	.4byte _080841D4 @ case 32
 _08084190:
 	lsls r1, r4, #0x18
-	ldr r0, _080841CC  @ gUnknown_0202E4D8
+	ldr r0, _080841CC  @ gBmMapUnit
 	ldr r0, [r0]
 	asrs r1, r1, #0x16
 	adds r1, r1, r0
@@ -2674,7 +2674,7 @@ _08084190:
 	asrs r0, r0, #0x18
 	ldr r1, [r1]
 	adds r1, r1, r0
-	ldr r0, _080841D0  @ gUnknown_03004E50
+	ldr r0, _080841D0  @ gActiveUnit
 	ldr r0, [r0]
 	ldr r0, [r0]
 	ldrb r0, [r0, #4]
@@ -2696,8 +2696,8 @@ _080841B6:
 _080841CA:
 	b _080841DE
 	.align 2, 0
-_080841CC: .4byte gUnknown_0202E4D8
-_080841D0: .4byte gUnknown_03004E50
+_080841CC: .4byte gBmMapUnit
+_080841D0: .4byte gActiveUnit
 _080841D4:
 	bl GetChapterThing
 	cmp r0, #2
@@ -2712,7 +2712,7 @@ _080841DE:
 	ldrb r1, [r1, #0x19]
 	lsls r1, r1, #0x18
 	asrs r1, r1, #0x18
-	bl GetMapChangesIdAt
+	bl GetMapChangeIdAt
 	lsls r0, r0, #0x10
 	lsrs r0, r0, #0x10
 	bl CallTileChangeEvent
@@ -2734,7 +2734,7 @@ _08084206:
 	ldrb r1, [r1, #0x19]
 	lsls r1, r1, #0x18
 	asrs r1, r1, #0x18
-	bl GetMapChangesIdAt
+	bl GetMapChangeIdAt
 	lsls r0, r0, #0x10
 	lsrs r0, r0, #0x10
 	bl CallTileChangeEvent
@@ -2797,7 +2797,7 @@ _0808427C:
 	ldrb r1, [r1, #0x19]
 	lsls r1, r1, #0x18
 	asrs r1, r1, #0x18
-	bl GetMapChangesIdAt
+	bl GetMapChangeIdAt
 	lsls r0, r0, #0x10
 	lsrs r0, r0, #0x10
 	ldr r1, [sp, #0x14]
@@ -2814,7 +2814,7 @@ _080842AE:
 	ldrb r1, [r1, #0x19]
 	lsls r1, r1, #0x18
 	asrs r1, r1, #0x18
-	bl GetMapChangesIdAt
+	bl GetMapChangeIdAt
 	lsls r0, r0, #0x10
 	lsrs r0, r0, #0x10
 	ldr r1, [sp, #0x10]
@@ -2829,35 +2829,35 @@ _080842D8:
 	bl GetChapterThing
 	cmp r0, #2
 	beq _08084326
-	ldr r0, _080842EC  @ gUnknown_03004E50
+	ldr r0, _080842EC  @ gActiveUnit
 	ldr r0, [r0]
 	ldr r1, [sp, #4]
 	bl sub_80B41D0
 	b _08084326
 	.align 2, 0
-_080842EC: .4byte gUnknown_03004E50
+_080842EC: .4byte gActiveUnit
 _080842F0:
 	bl GetChapterThing
 	cmp r0, #2
 	beq _08084326
-	ldr r0, _08084304  @ gUnknown_03004E50
+	ldr r0, _08084304  @ gActiveUnit
 	ldr r0, [r0]
 	ldr r1, [sp, #4]
 	bl sub_80B41F0
 	b _08084326
 	.align 2, 0
-_08084304: .4byte gUnknown_03004E50
+_08084304: .4byte gActiveUnit
 _08084308:
 	bl GetChapterThing
 	cmp r0, #2
 	beq _08084326
-	ldr r0, _0808431C  @ gUnknown_03004E50
+	ldr r0, _0808431C  @ gActiveUnit
 	ldr r0, [r0]
 	ldr r1, [sp, #4]
 	bl sub_80B4210
 	b _08084326
 	.align 2, 0
-_0808431C: .4byte gUnknown_03004E50
+_0808431C: .4byte gActiveUnit
 _08084320:
 	mov r8, r8
 	b _08084326
@@ -2891,7 +2891,7 @@ _08084352:
 	lsls r0, r0, #0x18
 	cmp r0, #0
 	bne _080843B4
-	bl sub_8018FF0
+	bl CountAvailableBlueUnits
 	lsls r0, r0, #0x10
 	cmp r0, #0
 	beq _080843B4
@@ -2913,7 +2913,7 @@ _08084374:
 	ldr r0, [r0, #0xc]
 	str r0, [sp]
 	mov r1, sp
-	ldr r0, _080843B0  @ gUnknown_03004E50
+	ldr r0, _080843B0  @ gActiveUnit
 	ldr r2, [r0]
 	ldrb r0, [r2, #0x10]
 	strb r0, [r1, #0x18]
@@ -2928,7 +2928,7 @@ _08084374:
 	b _080843B6
 	.align 2, 0
 _080843AC: .4byte gUnknown_0202BCF0
-_080843B0: .4byte gUnknown_03004E50
+_080843B0: .4byte gActiveUnit
 _080843B4:
 	movs r0, #1
 _080843B6:
@@ -2960,7 +2960,7 @@ _080843E6:
 	lsls r0, r0, #0x18
 	cmp r0, #0
 	bne _080843FC
-	bl sub_8018FF0
+	bl CountAvailableBlueUnits
 	lsls r0, r0, #0x10
 	cmp r0, #0
 	bne _08084402
@@ -2981,7 +2981,7 @@ _08084402:
 	ldr r0, [r0, #0xc]
 	str r0, [sp]
 	mov r1, sp
-	ldr r0, _08084458  @ gUnknown_03004E50
+	ldr r0, _08084458  @ gActiveUnit
 	ldr r2, [r0]
 	ldrb r0, [r2, #0x10]
 	strb r0, [r1, #0x18]
@@ -3006,7 +3006,7 @@ _0808444E:
 	bx r0
 	.align 2, 0
 _08084454: .4byte gUnknown_0202BCF0
-_08084458: .4byte gUnknown_03004E50
+_08084458: .4byte gActiveUnit
 
 	THUMB_FUNC_START TryCallSelectEvents
 TryCallSelectEvents: @ 0x0808445C
@@ -3304,7 +3304,7 @@ _08084662:
 	beq _08084686
 	cmp r1, #0xfe
 	bne _080846D4
-	bl IsCurrentBattleTriangleAttack
+	bl BattleIsTriangleAttack
 	lsls r0, r0, #0x18
 	asrs r0, r0, #0x18
 	cmp r0, #1

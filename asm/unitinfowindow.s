@@ -169,7 +169,7 @@ UnitInfoWindow_DrawBase: @ 0x0803483C
 	ldr r0, _080349C0  @ gUnknown_0859E13C
 	bl Proc_Find
 	mov r8, r0
-	bl ClearBG0BG1
+	bl ClearBg0Bg1
 _08034862:
 	ldr r0, [sp, #4]
 	mov r1, r8
@@ -190,7 +190,7 @@ _08034862:
 	adds r0, r7, #0
 	adds r1, r5, #0
 	adds r2, r6, #0
-	bl MakeUIWindowTileMap_BG0BG1
+	bl DrawUiFrame2
 	mov r3, r9
 	lsls r4, r3, #5
 	adds r0, r4, r7
@@ -394,14 +394,14 @@ sub_80349FC: @ 0x080349FC
 	movs r2, #3
 	bl Text_InsertString
 	adds r0, r5, #0
-	bl GetUnitCurrentHP
+	bl GetUnitCurrentHp
 	adds r3, r0, #0
 	adds r0, r4, #0
 	movs r1, #0x20
 	movs r2, #2
 	bl Text_InsertNumberOr2Dashes
 	adds r0, r5, #0
-	bl GetUnitMaxHP
+	bl GetUnitMaxHp
 	adds r3, r0, #0
 	adds r0, r4, #0
 	movs r1, #0x38
@@ -487,7 +487,7 @@ sub_8034ADC: @ 0x08034ADC
 	ldr r0, [r1, #0x28]
 	ldr r1, [r2, #0x28]
 	orrs r0, r1
-	bl sub_8018AF0
+	bl GetUnitAidIconId
 	adds r1, r0, #0
 	movs r2, #0xa0
 	lsls r2, r2, #7
@@ -513,7 +513,7 @@ sub_8034B10: @ 0x08034B10
 	movs r2, #3
 	bl Text_InsertString
 	adds r0, r5, #0
-	bl WriteStatusTextToRAM
+	bl GetUnitStatusName
 	adds r3, r0, #0
 	adds r0, r4, #0
 	movs r1, #0x18
@@ -721,7 +721,7 @@ _08034CD8:
 	adds r0, r5, #0
 	bl Text_Clear
 	adds r0, r4, #0
-	bl GetItemNameString
+	bl GetItemName
 	adds r1, r0, #0
 	adds r0, r5, #0
 	bl Text_AppendString
@@ -826,7 +826,7 @@ _08034DC4:
 	adds r0, r7, #0
 	bl Text_SetColorId
 	adds r0, r6, #0
-	bl GetItemNameString
+	bl GetItemName
 	adds r1, r0, #0
 	adds r0, r7, #0
 	bl Text_AppendString
@@ -953,7 +953,7 @@ _08034EC8:
 	adds r1, r5, #0
 	bl Text_SetColorId
 	adds r0, r6, #0
-	bl GetItemNameString
+	bl GetItemName
 	adds r1, r0, #0
 	adds r0, r7, #0
 	bl Text_AppendString
@@ -1346,10 +1346,10 @@ SetupUnitRescueWindow: @ 0x08035204
 	movs r1, #0xa
 	bl GetUnitInfoWindowX
 	adds r4, r0, #0
-	bl ClearBG0BG1
+	bl ClearBg0Bg1
 	ldr r6, _080352AC  @ gUnknown_0203A9FC
 	ldr r0, [r6]
-	ldr r5, _080352B0  @ gUnknown_03004E50
+	ldr r5, _080352B0  @ gActiveUnit
 	ldr r1, [r5]
 	movs r7, #0xa
 	str r7, [sp]
@@ -1411,7 +1411,7 @@ SetupUnitRescueWindow: @ 0x08035204
 	bx r0
 	.align 2, 0
 _080352AC: .4byte gUnknown_0203A9FC
-_080352B0: .4byte gUnknown_03004E50
+_080352B0: .4byte gActiveUnit
 _080352B4: .4byte gBG0TilemapBuffer
 _080352B8: .4byte 0x00000121
 
@@ -1427,13 +1427,13 @@ sub_80352BC: @ 0x080352BC
 	movs r1, #0xa
 	bl GetUnitInfoWindowX
 	adds r4, r0, #0
-	bl ClearBG0BG1
+	bl ClearBg0Bg1
 	ldrb r0, [r5, #0x1b]
-	bl GetUnitStruct
+	bl GetUnit
 	adds r7, r0, #0
 	ldr r6, _08035370  @ gUnknown_0203A9FC
 	ldr r0, [r6]
-	ldr r5, _08035374  @ gUnknown_03004E50
+	ldr r5, _08035374  @ gActiveUnit
 	ldr r1, [r5]
 	movs r2, #0xa
 	mov sl, r2
@@ -1497,7 +1497,7 @@ sub_80352BC: @ 0x080352BC
 	bx r0
 	.align 2, 0
 _08035370: .4byte gUnknown_0203A9FC
-_08035374: .4byte gUnknown_03004E50
+_08035374: .4byte gActiveUnit
 _08035378: .4byte gBG0TilemapBuffer
 _0803537C: .4byte 0x00000121
 
@@ -1539,12 +1539,12 @@ sub_80353B8: @ 0x080353B8
 	movs r1, #0xa
 	bl GetUnitInfoWindowX
 	adds r4, r0, #0
-	ldr r0, _0803546C  @ gUnknown_03004E50
+	ldr r0, _0803546C  @ gActiveUnit
 	ldr r0, [r0]
 	ldrb r0, [r0, #0x1b]
-	bl GetUnitStruct
+	bl GetUnit
 	adds r6, r0, #0
-	bl ClearBG0BG1
+	bl ClearBg0Bg1
 	ldr r5, _08035470  @ gUnknown_0203A9FC
 	ldr r0, [r5]
 	movs r1, #0xa
@@ -1608,7 +1608,7 @@ sub_80353B8: @ 0x080353B8
 	pop {r0}
 	bx r0
 	.align 2, 0
-_0803546C: .4byte gUnknown_03004E50
+_0803546C: .4byte gActiveUnit
 _08035470: .4byte gUnknown_0203A9FC
 _08035474: .4byte gBG0TilemapBuffer
 _08035478: .4byte 0x00000121

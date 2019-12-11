@@ -7,7 +7,7 @@
 	THUMB_FUNC_START ClearActionAndSave
 ClearActionAndSave: @ 0x0801C894
 	push {lr}
-	ldr r1, _0801C8A8  @ gUnknown_0203A958
+	ldr r1, _0801C8A8  @ gActionData
 	movs r0, #0
 	strb r0, [r1, #0x16]
 	movs r0, #3
@@ -15,7 +15,7 @@ ClearActionAndSave: @ 0x0801C894
 	pop {r0}
 	bx r0
 	.align 2, 0
-_0801C8A8: .4byte gUnknown_0203A958
+_0801C8A8: .4byte gActionData
 
 	THUMB_FUNC_START HandlePlayerCursorMovement
 HandlePlayerCursorMovement: @ 0x0801C8AC
@@ -147,7 +147,7 @@ _0801C994:
 	ldr r4, _0801CA04  @ gUnknown_0202BCB0
 	movs r1, #0x16
 	ldrsh r0, [r4, r1]
-	ldr r5, _0801CA08  @ gUnknown_0202E4D8
+	ldr r5, _0801CA08  @ gBmMapUnit
 	ldr r1, [r5]
 	lsls r0, r0, #2
 	adds r0, r0, r1
@@ -158,7 +158,7 @@ _0801C994:
 	ldrb r0, [r1]
 	cmp r0, #0
 	beq _0801CA0C
-	bl GetUnitStruct
+	bl GetUnit
 	bl sub_801C928
 	lsls r0, r0, #0x18
 	cmp r0, #0
@@ -177,7 +177,7 @@ _0801C994:
 	ldr r0, [r0]
 	adds r0, r0, r1
 	ldrb r0, [r0]
-	bl GetUnitStruct
+	bl GetUnit
 	adds r1, r6, #0
 	bl sub_808894C
 	adds r0, r6, #0
@@ -186,7 +186,7 @@ _0801C994:
 	b _0801CB64
 	.align 2, 0
 _0801CA04: .4byte gUnknown_0202BCB0
-_0801CA08: .4byte gUnknown_0202E4D8
+_0801CA08: .4byte gBmMapUnit
 _0801CA0C:
 	ldr r0, _0801CA4C  @ gKeyStatusPtr
 	ldr r0, [r0]
@@ -198,7 +198,7 @@ _0801CA0C:
 	ldr r5, _0801CA50  @ gUnknown_0202BCB0
 	movs r3, #0x16
 	ldrsh r0, [r5, r3]
-	ldr r1, _0801CA54  @ gUnknown_0202E4D8
+	ldr r1, _0801CA54  @ gBmMapUnit
 	ldr r1, [r1]
 	lsls r0, r0, #2
 	adds r0, r0, r1
@@ -207,7 +207,7 @@ _0801CA0C:
 	ldr r0, [r0]
 	adds r0, r0, r1
 	ldrb r0, [r0]
-	bl GetUnitStruct
+	bl GetUnit
 	adds r4, r0, #0
 	bl GetUnitSelectionValueThing
 	cmp r0, #2
@@ -220,7 +220,7 @@ _0801CA0C:
 	.align 2, 0
 _0801CA4C: .4byte gKeyStatusPtr
 _0801CA50: .4byte gUnknown_0202BCB0
-_0801CA54: .4byte gUnknown_0202E4D8
+_0801CA54: .4byte gBmMapUnit
 _0801CA58:
 	cmp r0, #0
 	blt _0801CAD4
@@ -244,7 +244,7 @@ _0801CA78:
 	subs r1, r1, r2
 	movs r2, #1
 	movs r3, #0x17
-	bl NewMenu_DefaultAdjusted
+	bl StartOrphanMenuAdjusted
 	bl sub_80832CC
 	b _0801CB20
 	.align 2, 0
@@ -252,8 +252,8 @@ _0801CA94: .4byte gUnknown_0202BCF0
 _0801CA98: .4byte gUnknown_0859D214
 _0801CA9C:
 	adds r0, r4, #0
-	bl SetupActiveUnit
-	ldr r0, _0801CAB8  @ gUnknown_03004E50
+	bl UnitBeginAction
+	ldr r0, _0801CAB8  @ gActiveUnit
 	ldr r0, [r0]
 	ldr r0, [r0]
 	ldrb r0, [r0, #4]
@@ -262,10 +262,10 @@ _0801CA9C:
 	bl Proc_ClearNativeCallback
 	b _0801CB38
 	.align 2, 0
-_0801CAB8: .4byte gUnknown_03004E50
+_0801CAB8: .4byte gActiveUnit
 _0801CABC:
 	adds r0, r4, #0
-	bl SetupActiveUnit
+	bl UnitBeginAction
 	adds r1, r5, #0
 	adds r1, #0x3e
 	movs r0, #0
@@ -290,7 +290,7 @@ _0801CAD4:
 	ldr r2, _0801CB30  @ gUnknown_0202BCB0
 	movs r1, #0x16
 	ldrsh r0, [r2, r1]
-	ldr r1, _0801CB34  @ gUnknown_0202E4D8
+	ldr r1, _0801CB34  @ gBmMapUnit
 	ldr r1, [r1]
 	lsls r0, r0, #2
 	adds r0, r0, r1
@@ -299,7 +299,7 @@ _0801CAD4:
 	ldr r0, [r0]
 	adds r0, r0, r1
 	ldrb r0, [r0]
-	bl GetUnitStruct
+	bl GetUnit
 	adds r4, r0, #0
 	cmp r4, #0
 	beq _0801CB18
@@ -317,7 +317,7 @@ _0801CB20:
 	.align 2, 0
 _0801CB2C: .4byte gKeyStatusPtr
 _0801CB30: .4byte gUnknown_0202BCB0
-_0801CB34: .4byte gUnknown_0202E4D8
+_0801CB34: .4byte gBmMapUnit
 _0801CB38:
 	bl sub_8027A4C
 	ldr r1, _0801CB6C  @ gUnknown_0202BCB0
@@ -351,42 +351,42 @@ DisplayUnitEffectRange: @ 0x0801CB70
 	push {r4, r5, r6, lr}
 	adds r6, r0, #0
 	movs r4, #1
-	ldr r5, _0801CBD8  @ gUnknown_03004E50
+	ldr r5, _0801CBD8  @ gActiveUnit
 	ldr r0, [r5]
 	ldr r1, [r0, #4]
 	ldrb r1, [r1, #0x12]
 	ldrb r2, [r0, #0x1d]
 	adds r1, r1, r2
-	ldr r2, _0801CBDC  @ gUnknown_0203A958
+	ldr r2, _0801CBDC  @ gActionData
 	ldrb r2, [r2, #0x10]
 	subs r1, r1, r2
 	lsls r1, r1, #0x18
 	asrs r1, r1, #0x18
-	bl FillMovementMapForUnitAndMovement
+	bl GenerateUnitMovementMapExt
 	ldr r0, [r5]
 	ldr r0, [r0, #0xc]
 	movs r1, #0x40
 	ands r0, r1
 	cmp r0, #0
 	bne _0801CC10
-	ldr r0, _0801CBE0  @ gUnknown_0202E4F0
+	ldr r0, _0801CBE0  @ gBmMapUnk
 	ldr r0, [r0]
 	movs r1, #0
-	bl ClearMapWith
+	bl BmMapFill
 	adds r0, r6, #0
 	bl UnitHasMagicRank
 	lsls r0, r0, #0x18
 	cmp r0, #0
 	beq _0801CBB8
 	movs r0, #1
-	bl sub_801B950
+	bl GenerateMagicSealMap
 _0801CBB8:
-	ldr r0, _0801CBE4  @ gUnknown_0202E4E4
+	ldr r0, _0801CBE4  @ gBmMapRange
 	ldr r0, [r0]
 	movs r1, #0
-	bl ClearMapWith
+	bl BmMapFill
 	ldr r0, [r5]
-	bl GetUnitUseFlags
+	bl GetUnitWeaponUsabilityBits
 	cmp r0, #2
 	beq _0801CBF8
 	cmp r0, #2
@@ -395,10 +395,10 @@ _0801CBB8:
 	beq _0801CC08
 	b _0801CC10
 	.align 2, 0
-_0801CBD8: .4byte gUnknown_03004E50
-_0801CBDC: .4byte gUnknown_0203A958
-_0801CBE0: .4byte gUnknown_0202E4F0
-_0801CBE4: .4byte gUnknown_0202E4E4
+_0801CBD8: .4byte gActiveUnit
+_0801CBDC: .4byte gActionData
+_0801CBE0: .4byte gBmMapUnk
+_0801CBE4: .4byte gBmMapRange
 _0801CBE8:
 	cmp r0, #3
 	bne _0801CC10
@@ -410,14 +410,14 @@ _0801CBE8:
 	beq _0801CC08
 _0801CBF8:
 	ldr r0, [r5]
-	bl FillMapStaffRangeForUnit
+	bl GenerateUnitCompleteStaffRange
 	movs r4, #5
 	b _0801CC10
 	.align 2, 0
 _0801CC04: .4byte gUnknown_0202BCB0
 _0801CC08:
 	ldr r0, [r5]
-	bl FillMapAttackRangeForUnit
+	bl GenerateUnitCompleteAttackRange
 	movs r4, #3
 _0801CC10:
 	adds r0, r4, #0
@@ -434,7 +434,7 @@ sub_801CC1C: @ 0x0801CC1C
 	movs r0, #2
 	orrs r0, r1
 	strb r0, [r5, #4]
-	ldr r4, _0801CC68  @ gUnknown_03004E50
+	ldr r4, _0801CC68  @ gActiveUnit
 	ldr r0, [r4]
 	bl DisplayUnitEffectRange
 	ldr r4, [r4]
@@ -463,7 +463,7 @@ sub_801CC1C: @ 0x0801CC1C
 	b _0801CC76
 	.align 2, 0
 _0801CC64: .4byte gUnknown_0202BCB0
-_0801CC68: .4byte gUnknown_03004E50
+_0801CC68: .4byte gActiveUnit
 _0801CC6C: .4byte gUnknown_0202BCF0
 _0801CC70:
 	movs r0, #1
@@ -490,7 +490,7 @@ _0801CC90:
 	movs r0, #0xfd
 	ands r0, r1
 	strb r0, [r2, #4]
-	ldr r0, _0801CCB0  @ gUnknown_03004E50
+	ldr r0, _0801CCB0  @ gActiveUnit
 	ldr r0, [r0]
 	bl DisplayUnitEffectRange
 	pop {r0}
@@ -498,7 +498,7 @@ _0801CC90:
 	.align 2, 0
 _0801CCA8: .4byte gUnknown_0202BCF0
 _0801CCAC: .4byte gUnknown_0202BCB0
-_0801CCB0: .4byte gUnknown_03004E50
+_0801CCB0: .4byte gActiveUnit
 
 	THUMB_FUNC_START sub_801CCB4
 sub_801CCB4: @ 0x0801CCB4
@@ -513,12 +513,12 @@ sub_801CCB4: @ 0x0801CCB4
 	movs r6, #1
 	adds r0, r6, #0
 	ands r0, r1
-	bl ApplyStuffToRangeMaps
-	ldr r0, _0801CD08  @ gUnknown_0202E4E0
+	bl GenerateDangerZoneRange
+	ldr r0, _0801CD08  @ gBmMapMovement
 	ldr r0, [r0]
 	movs r1, #1
 	negs r1, r1
-	bl ClearMapWith
+	bl BmMapFill
 	ldr r0, _0801CD0C  @ gUnknown_0202BCF0
 	adds r0, #0x41
 	ldrb r0, [r0]
@@ -544,7 +544,7 @@ _0801CCE6:
 	b _0801CD16
 	.align 2, 0
 _0801CD04: .4byte gUnknown_0202BCB0
-_0801CD08: .4byte gUnknown_0202E4E0
+_0801CD08: .4byte gBmMapMovement
 _0801CD0C: .4byte gUnknown_0202BCF0
 _0801CD10:
 	movs r0, #3
@@ -570,15 +570,15 @@ sub_801CD1C: @ 0x0801CD1C
 	ands r0, r1
 	cmp r0, #0
 	beq _0801CD98
-	ldr r4, _0801CD48  @ gUnknown_03004E50
+	ldr r4, _0801CD48  @ gActiveUnit
 	ldr r0, [r4]
 	cmp r0, #0
 	bne _0801CD4C
-	bl sub_8018BA0
+	bl GetCombinedEnemyWeaponUsabilityBits
 	b _0801CD76
 	.align 2, 0
 _0801CD44: .4byte gKeyStatusPtr
-_0801CD48: .4byte gUnknown_03004E50
+_0801CD48: .4byte gActiveUnit
 _0801CD4C:
 	bl sub_80844B0
 	lsls r0, r0, #0x18
@@ -598,7 +598,7 @@ _0801CD5A:
 	cmp r0, #0
 	bne _0801CD80
 	adds r0, r2, #0
-	bl GetUnitUseFlags
+	bl GetUnitWeaponUsabilityBits
 _0801CD76:
 	movs r4, #2
 	cmp r0, #3
@@ -625,7 +625,7 @@ _0801CD98:
 	ands r0, r1
 	cmp r0, #0
 	beq _0801CDC8
-	ldr r0, _0801CDC4  @ gUnknown_03004E50
+	ldr r0, _0801CDC4  @ gActiveUnit
 	ldr r0, [r0]
 	ldr r0, [r0, #0xc]
 	movs r1, #0x40
@@ -638,7 +638,7 @@ _0801CD98:
 	.align 2, 0
 _0801CDBC: .4byte gUnknown_0202BCB0
 _0801CDC0: .4byte gKeyStatusPtr
-_0801CDC4: .4byte gUnknown_03004E50
+_0801CDC4: .4byte gActiveUnit
 _0801CDC8:
 	movs r0, #0x80
 	lsls r0, r0, #1
@@ -689,7 +689,7 @@ _0801CE22:
 	.align 2, 0
 _0801CE2C: .4byte gUnknown_0202BCF0
 _0801CE30:
-	ldr r0, _0801CE4C  @ gUnknown_0202BE48
+	ldr r0, _0801CE4C  @ gActiveUnitMoveOrigin
 	movs r2, #0
 	ldrsh r1, [r0, r2]
 	movs r3, #2
@@ -701,9 +701,9 @@ _0801CE30:
 	bl Proc_ClearNativeCallback
 	b _0801CFE0
 	.align 2, 0
-_0801CE4C: .4byte gUnknown_0202BE48
+_0801CE4C: .4byte gActiveUnitMoveOrigin
 _0801CE50:
-	ldr r4, _0801CEC4  @ gUnknown_03004E50
+	ldr r4, _0801CEC4  @ gActiveUnit
 	ldr r0, [r4]
 	cmp r0, #0
 	beq _0801CE90
@@ -720,7 +720,7 @@ _0801CE50:
 	ands r0, r1
 	cmp r0, #0
 	bne _0801CE90
-	ldr r4, _0801CEC8  @ gUnknown_0202BE48
+	ldr r4, _0801CEC8  @ gActiveUnitMoveOrigin
 	movs r0, #0
 	ldrsh r1, [r4, r0]
 	movs r3, #2
@@ -739,7 +739,7 @@ _0801CE90:
 	ands r0, r1
 	strb r0, [r2, #4]
 	bl HideMoveRangeGraphics
-	bl RefreshFogAndUnitMaps
+	bl RefreshEntityBmMaps
 	bl SMS_UpdateFromGameData
 	ldr r0, _0801CED0  @ gUnknown_0202BCF0
 	adds r0, #0x41
@@ -755,8 +755,8 @@ _0801CEB8:
 	bl Proc_GotoLabel
 	b _0801CFE0
 	.align 2, 0
-_0801CEC4: .4byte gUnknown_03004E50
-_0801CEC8: .4byte gUnknown_0202BE48
+_0801CEC4: .4byte gActiveUnit
+_0801CEC8: .4byte gActiveUnitMoveOrigin
 _0801CECC: .4byte gUnknown_0202BCB0
 _0801CED0: .4byte gUnknown_0202BCF0
 _0801CED4:
@@ -768,7 +768,7 @@ _0801CED4:
 	ldr r2, _0801CF3C  @ gUnknown_0202BCB0
 	movs r3, #0x16
 	ldrsh r0, [r2, r3]
-	ldr r1, _0801CF40  @ gUnknown_0202E4D8
+	ldr r1, _0801CF40  @ gBmMapUnit
 	ldr r1, [r1]
 	lsls r0, r0, #2
 	adds r0, r0, r1
@@ -777,19 +777,19 @@ _0801CED4:
 	ldr r0, [r0]
 	adds r0, r0, r1
 	ldrb r4, [r0]
-	ldr r0, _0801CF44  @ gUnknown_0202BE48
+	ldr r0, _0801CF44  @ gActiveUnitMoveOrigin
 	ldr r1, [r0]
 	ldr r0, [r2, #0x14]
 	cmp r1, r0
 	bne _0801CF08
-	ldr r0, _0801CF48  @ gUnknown_03004E50
+	ldr r0, _0801CF48  @ gActiveUnit
 	ldr r0, [r0]
 	ldrb r4, [r0, #0xb]
 _0801CF08:
 	cmp r4, #0
 	beq _0801CFC0
 	adds r0, r4, #0
-	bl GetUnitStruct
+	bl GetUnit
 	bl sub_801C928
 	lsls r0, r0, #0x18
 	cmp r0, #0
@@ -798,7 +798,7 @@ _0801CF08:
 	movs r0, #0x1f
 	bl sub_8086DE4
 	adds r0, r4, #0
-	bl GetUnitStruct
+	bl GetUnit
 	adds r1, r5, #0
 	bl sub_808894C
 	adds r0, r5, #0
@@ -807,15 +807,15 @@ _0801CF08:
 	b _0801CFE0
 	.align 2, 0
 _0801CF3C: .4byte gUnknown_0202BCB0
-_0801CF40: .4byte gUnknown_0202E4D8
-_0801CF44: .4byte gUnknown_0202BE48
-_0801CF48: .4byte gUnknown_03004E50
+_0801CF40: .4byte gBmMapUnit
+_0801CF44: .4byte gActiveUnitMoveOrigin
+_0801CF48: .4byte gActiveUnit
 _0801CF4C:
-	ldr r0, _0801CF84  @ gUnknown_03004E50
+	ldr r0, _0801CF84  @ gActiveUnit
 	ldr r0, [r0]
 	cmp r0, #0
 	beq _0801CFC0
-	ldr r4, _0801CF88  @ gUnknown_0202BE48
+	ldr r4, _0801CF88  @ gActiveUnitMoveOrigin
 	movs r0, #0
 	ldrsh r1, [r4, r0]
 	movs r3, #2
@@ -837,8 +837,8 @@ _0801CF4C:
 	bl m4aSongNumStart
 	b _0801CFC0
 	.align 2, 0
-_0801CF84: .4byte gUnknown_03004E50
-_0801CF88: .4byte gUnknown_0202BE48
+_0801CF84: .4byte gActiveUnit
+_0801CF88: .4byte gActiveUnitMoveOrigin
 _0801CF8C: .4byte gUnknown_0202BCF0
 _0801CF90:
 	ldr r4, _0801CFB4  @ gUnknown_0202BCB0
@@ -864,7 +864,7 @@ _0801CFB8:
 	movs r1, #0xb
 	bl Proc_GotoLabel
 _0801CFC0:
-	ldr r0, _0801CFE8  @ gUnknown_03004E50
+	ldr r0, _0801CFE8  @ gActiveUnit
 	ldr r0, [r0]
 	bl GetUnitSelectionValueThing
 	cmp r0, #2
@@ -883,7 +883,7 @@ _0801CFE0:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_0801CFE8: .4byte gUnknown_03004E50
+_0801CFE8: .4byte gActiveUnit
 _0801CFEC: .4byte gUnknown_0202BCB0
 
 	THUMB_FUNC_START sub_801CFF0
@@ -892,7 +892,7 @@ sub_801CFF0: @ 0x0801CFF0
 	@ Player Phase Action Cancel
 
 	push {lr}
-	ldr r2, _0801D004  @ gUnknown_0203A958
+	ldr r2, _0801D004  @ gActionData
 	movs r1, #0
 	strb r1, [r2, #0x11]
 	movs r1, #2
@@ -900,30 +900,30 @@ sub_801CFF0: @ 0x0801CFF0
 	pop {r0}
 	bx r0
 	.align 2, 0
-_0801D004: .4byte gUnknown_0203A958
+_0801D004: .4byte gActionData
 
 	THUMB_FUNC_START sub_801D008
 sub_801D008: @ 0x0801D008
 	push {r4, r5, lr}
 	adds r5, r0, #0
-	ldr r4, _0801D050  @ gUnknown_03004E50
+	ldr r4, _0801D050  @ gActiveUnit
 	ldr r1, [r4]
-	ldr r2, _0801D054  @ gUnknown_0202BE48
+	ldr r2, _0801D054  @ gActiveUnitMoveOrigin
 	ldrh r0, [r2]
 	strb r0, [r1, #0x10]
 	ldr r1, [r4]
 	ldrh r0, [r2, #2]
 	strb r0, [r1, #0x11]
 	ldr r0, [r4]
-	bl ApplyUnitMovement
+	bl UnitFinalizeMovement
 	ldr r2, [r4]
 	ldr r0, [r2, #0xc]
 	movs r1, #2
 	negs r1, r1
 	ands r0, r1
 	str r0, [r2, #0xc]
-	bl RefreshFogAndUnitMaps
-	bl UpdateGameTilesGraphics
+	bl RefreshEntityBmMaps
+	bl RenderBmMap
 	bl SMS_UpdateFromGameData
 	ldr r4, [r4]
 	ldr r0, [r4, #0xc]
@@ -932,16 +932,16 @@ sub_801D008: @ 0x0801D008
 	cmp r0, #0
 	bne _0801D058
 	adds r0, r4, #0
-	bl SetupActiveUnit
+	bl UnitBeginAction
 	b _0801D05E
 	.align 2, 0
-_0801D050: .4byte gUnknown_03004E50
-_0801D054: .4byte gUnknown_0202BE48
+_0801D050: .4byte gActiveUnit
+_0801D054: .4byte gActiveUnitMoveOrigin
 _0801D058:
 	adds r0, r4, #0
-	bl SetActiveUnit
+	bl UnitBeginCantoAction
 _0801D05E:
-	ldr r4, _0801D080  @ gUnknown_03004E50
+	ldr r4, _0801D080  @ gActiveUnit
 	ldr r0, [r4]
 	bl HideUnitSMS
 	bl MU_EndAll
@@ -954,19 +954,19 @@ _0801D05E:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_0801D080: .4byte gUnknown_03004E50
+_0801D080: .4byte gActiveUnit
 
 	THUMB_FUNC_START _6CE_PLAYERPAHSE_PrepareAction
 _6CE_PLAYERPAHSE_PrepareAction: @ 0x0801D084
 	push {r4, r5, r6, lr}
 	adds r6, r0, #0
-	ldr r4, _0801D0C4  @ gUnknown_0203A958
+	ldr r4, _0801D0C4  @ gActionData
 	ldrb r0, [r4, #0xc]
-	bl GetUnitStruct
+	bl GetUnit
 	movs r5, #0x10
 	ldrsb r5, [r0, r5]
 	ldrb r0, [r4, #0xc]
-	bl GetUnitStruct
+	bl GetUnit
 	movs r2, #0x11
 	ldrsb r2, [r0, r2]
 	adds r0, r6, #0
@@ -988,7 +988,7 @@ _0801D0B8:
 	ldr r0, [r0]
 	mov pc, r0
 	.align 2, 0
-_0801D0C4: .4byte gUnknown_0203A958
+_0801D0C4: .4byte gActionData
 _0801D0C8: .4byte _0801D0CC
 _0801D0CC: @ jump table
 	.4byte _0801D158 @ case 0
@@ -1032,13 +1032,13 @@ _0801D158:
 	ldrb r0, [r0]
 	cmp r0, #0
 	beq _0801D174
-	ldr r1, _0801D170  @ gUnknown_0203A958
+	ldr r1, _0801D170  @ gActionData
 	movs r0, #0x1f
 	strb r0, [r1, #0x11]
 	b _0801D1C8
 	.align 2, 0
 _0801D16C: .4byte gUnknown_0202BCB0
-_0801D170: .4byte gUnknown_0203A958
+_0801D170: .4byte gActionData
 _0801D174:
 	adds r0, r6, #0
 	bl sub_801D008
@@ -1084,9 +1084,9 @@ _0801D1B8:
 	.align 2, 0
 _0801D1C4: .4byte gUnknown_0202BCB0
 _0801D1C8:
-	ldr r4, _0801D200  @ gUnknown_0203A958
+	ldr r4, _0801D200  @ gActionData
 	ldrb r0, [r4, #0xc]
-	bl GetUnitStruct
+	bl GetUnit
 	ldrb r1, [r4, #0x12]
 	lsls r1, r1, #1
 	adds r0, #0x1e
@@ -1094,7 +1094,7 @@ _0801D1C8:
 	ldrh r0, [r0]
 	bl GetItemIndex
 	adds r2, r0, #0
-	ldr r0, _0801D204  @ gUnknown_0203A4EC
+	ldr r0, _0801D204  @ gBattleActor
 	adds r0, #0x7e
 	movs r1, #0
 	strb r1, [r0]
@@ -1110,8 +1110,8 @@ _0801D1C8:
 	beq _0801D230
 	b _0801D214
 	.align 2, 0
-_0801D200: .4byte gUnknown_0203A958
-_0801D204: .4byte gUnknown_0203A4EC
+_0801D200: .4byte gActionData
+_0801D204: .4byte gBattleActor
 _0801D208:
 	cmp r2, #0x97
 	blt _0801D214
@@ -1120,7 +1120,7 @@ _0801D208:
 	cmp r2, #0xc1
 	beq _0801D230
 _0801D214:
-	ldr r1, _0801D23C  @ gUnknown_0203A958
+	ldr r1, _0801D23C  @ gActionData
 	ldrb r0, [r1, #0x11]
 	cmp r0, #1
 	beq _0801D230
@@ -1141,14 +1141,14 @@ _0801D234:
 	pop {r1}
 	bx r1
 	.align 2, 0
-_0801D23C: .4byte gUnknown_0203A958
+_0801D23C: .4byte gActionData
 _0801D240: .4byte gUnknown_0202BCB0
 
 	THUMB_FUNC_START TryMakeCantoUnit
 TryMakeCantoUnit: @ 0x0801D244
 	push {r4, r5, lr}
 	adds r5, r0, #0
-	ldr r2, _0801D29C  @ gUnknown_03004E50
+	ldr r2, _0801D29C  @ gActiveUnit
 	ldr r3, [r2]
 	ldr r0, [r3]
 	ldr r1, [r3, #4]
@@ -1165,7 +1165,7 @@ TryMakeCantoUnit: @ 0x0801D244
 	ands r0, r1
 	cmp r0, #0
 	bne _0801D298
-	ldr r0, _0801D2A4  @ gUnknown_0203A958
+	ldr r0, _0801D2A4  @ gActionData
 	ldrb r1, [r0, #0x11]
 	adds r2, r0, #0
 	cmp r1, #3
@@ -1192,16 +1192,16 @@ _0801D298:
 	movs r0, #0
 	b _0801D2FA
 	.align 2, 0
-_0801D29C: .4byte gUnknown_03004E50
+_0801D29C: .4byte gActiveUnit
 _0801D2A0: .4byte 0x00010044
-_0801D2A4: .4byte gUnknown_0203A958
+_0801D2A4: .4byte gActionData
 _0801D2A8:
-	ldr r0, _0801D2E8  @ gUnknown_0202E4E4
+	ldr r0, _0801D2E8  @ gBmMapRange
 	ldr r0, [r0]
 	movs r1, #0
-	bl ClearMapWith
+	bl BmMapFill
 	ldr r0, [r4]
-	bl SetActiveUnit
+	bl UnitBeginCantoAction
 	ldr r2, [r4]
 	ldr r0, [r2, #0xc]
 	movs r1, #0x40
@@ -1222,7 +1222,7 @@ _0801D2A8:
 	bl Proc_GotoLabel
 	b _0801D2F8
 	.align 2, 0
-_0801D2E8: .4byte gUnknown_0202E4E4
+_0801D2E8: .4byte gBmMapRange
 _0801D2EC: .4byte gUnknown_0202BCF0
 _0801D2F0:
 	adds r0, r5, #0
@@ -1254,7 +1254,7 @@ _0801D316:
 	THUMB_FUNC_START EnsureCameraOntoActiveUnitPosition
 EnsureCameraOntoActiveUnitPosition: @ 0x0801D31C
 	push {lr}
-	ldr r1, _0801D340  @ gUnknown_03004E50
+	ldr r1, _0801D340  @ gActiveUnit
 	ldr r2, [r1]
 	movs r1, #0x10
 	ldrsb r1, [r2, r1]
@@ -1272,7 +1272,7 @@ _0801D33A:
 	pop {r1}
 	bx r1
 	.align 2, 0
-_0801D340: .4byte gUnknown_03004E50
+_0801D340: .4byte gActiveUnit
 
 	THUMB_FUNC_START sub_801D344
 sub_801D344: @ 0x0801D344
@@ -1282,29 +1282,29 @@ sub_801D344: @ 0x0801D344
 	ldrb r0, [r0, #0xd]
 	cmp r0, #0
 	beq _0801D37C
-	bl sub_8019CBC
-	ldr r1, _0801D378  @ gUnknown_0203A958
+	bl RenderBmMapOnBg2
+	ldr r1, _0801D378  @ gActionData
 	ldrb r0, [r1, #0xe]
 	ldrb r1, [r1, #0xf]
 	bl MoveActiveUnit
-	bl RefreshFogAndUnitMaps
-	bl UpdateGameTilesGraphics
+	bl RefreshEntityBmMaps
+	bl RenderBmMap
 	movs r0, #0
 	bl NewBMXFADE
 	bl SMS_UpdateFromGameData
 	b _0801D38E
 	.align 2, 0
 _0801D374: .4byte gUnknown_0202BCF0
-_0801D378: .4byte gUnknown_0203A958
+_0801D378: .4byte gActionData
 _0801D37C:
-	ldr r1, _0801D3C0  @ gUnknown_0203A958
+	ldr r1, _0801D3C0  @ gActionData
 	ldrb r0, [r1, #0xe]
 	ldrb r1, [r1, #0xf]
 	bl MoveActiveUnit
-	bl RefreshFogAndUnitMaps
-	bl UpdateGameTilesGraphics
+	bl RefreshEntityBmMaps
+	bl RenderBmMap
 _0801D38E:
-	ldr r4, _0801D3C4  @ gUnknown_03004E50
+	ldr r4, _0801D3C4  @ gActiveUnit
 	ldr r1, [r4]
 	movs r0, #0x10
 	ldrsb r0, [r1, r0]
@@ -1327,8 +1327,8 @@ _0801D38E:
 	bl HideUnitSMS
 	b _0801D3FC
 	.align 2, 0
-_0801D3C0: .4byte gUnknown_0203A958
-_0801D3C4: .4byte gUnknown_03004E50
+_0801D3C0: .4byte gActionData
+_0801D3C4: .4byte gActiveUnit
 _0801D3C8: .4byte gUnknown_0202BCF0
 _0801D3CC: .4byte gUnknown_0202BCB0
 _0801D3D0:
@@ -1337,8 +1337,8 @@ _0801D3D0:
 	cmp r0, #0
 	beq _0801D3F8
 	bl MU_EndAll
-	bl RefreshFogAndUnitMaps
-	bl UpdateGameTilesGraphics
+	bl RefreshEntityBmMaps
+	bl RenderBmMap
 	bl SMS_UpdateFromGameData
 	bl sub_808326C
 	adds r0, r5, #0
@@ -1359,12 +1359,12 @@ sub_801D404: @ 0x0801D404
 	ldrb r0, [r0, #0xf]
 	cmp r0, #0
 	bne _0801D428
-	ldr r1, _0801D430  @ gUnknown_0203A958
+	ldr r1, _0801D430  @ gActionData
 	ldrb r0, [r1, #0xe]
 	ldrb r1, [r1, #0xf]
 	bl MoveActiveUnit
-	bl RefreshFogAndUnitMaps
-	bl UpdateGameTilesGraphics
+	bl RefreshEntityBmMaps
+	bl RenderBmMap
 	bl SMS_UpdateFromGameData
 	bl MU_EndAll
 _0801D428:
@@ -1372,13 +1372,13 @@ _0801D428:
 	bx r0
 	.align 2, 0
 _0801D42C: .4byte gUnknown_0202BCF0
-_0801D430: .4byte gUnknown_0203A958
+_0801D430: .4byte gActionData
 
 	THUMB_FUNC_START sub_801D434
 sub_801D434: @ 0x0801D434
 	push {r4, lr}
 	adds r4, r0, #0
-	ldr r0, _0801D464  @ gUnknown_0203A958
+	ldr r0, _0801D464  @ gActionData
 	ldrb r0, [r0, #0x11]
 	cmp r0, #0x1e
 	beq _0801D456
@@ -1391,7 +1391,7 @@ sub_801D434: @ 0x0801D434
 	subs r1, r1, r2
 	movs r2, #1
 	movs r3, #0x16
-	bl NewMenu_AndDoSomethingCommands
+	bl StartSemiCenteredOrphanMenu
 _0801D456:
 	adds r0, r4, #0
 	bl Proc_ClearNativeCallback
@@ -1399,7 +1399,7 @@ _0801D456:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_0801D464: .4byte gUnknown_0203A958
+_0801D464: .4byte gActionData
 _0801D468: .4byte gUnknown_0859D1F0
 _0801D46C: .4byte gUnknown_0202BCB0
 
@@ -1407,16 +1407,16 @@ _0801D46C: .4byte gUnknown_0202BCB0
 PlayerPhase_ApplyUnitMovement: @ 0x0801D470
 	push {r4, r5, r6, lr}
 	adds r6, r0, #0
-	ldr r4, _0801D4D4  @ gUnknown_03004E50
+	ldr r4, _0801D4D4  @ gActiveUnit
 	ldr r1, [r4]
-	ldr r5, _0801D4D8  @ gUnknown_0203A958
+	ldr r5, _0801D4D8  @ gActionData
 	ldrb r0, [r5, #0xe]
 	strb r0, [r1, #0x10]
 	ldr r1, [r4]
 	ldrb r0, [r5, #0xf]
 	strb r0, [r1, #0x11]
 	ldr r0, [r4]
-	bl ApplyUnitMovement
+	bl UnitFinalizeMovement
 	ldr r0, [r4]
 	ldr r0, [r0, #0xc]
 	movs r1, #0x40
@@ -1432,7 +1432,7 @@ PlayerPhase_ApplyUnitMovement: @ 0x0801D470
 	cmp r0, #0
 	bne _0801D4BA
 	ldrb r0, [r5, #0xf]
-	ldr r1, _0801D4E0  @ gUnknown_0202E4E0
+	ldr r1, _0801D4E0  @ gBmMapMovement
 	ldr r1, [r1]
 	lsls r0, r0, #2
 	adds r0, r0, r1
@@ -1452,12 +1452,12 @@ _0801D4BA:
 	bl sub_801D434
 	b _0801D508
 	.align 2, 0
-_0801D4D4: .4byte gUnknown_03004E50
-_0801D4D8: .4byte gUnknown_0203A958
+_0801D4D4: .4byte gActiveUnit
+_0801D4D8: .4byte gActionData
 _0801D4DC: .4byte gUnknown_0202BCB0
-_0801D4E0: .4byte gUnknown_0202E4E0
+_0801D4E0: .4byte gBmMapMovement
 _0801D4E4:
-	ldr r0, _0801D510  @ gUnknown_0203A958
+	ldr r0, _0801D510  @ gActionData
 	ldrb r0, [r0, #0x11]
 	cmp r0, #0x1e
 	beq _0801D502
@@ -1470,7 +1470,7 @@ _0801D4E4:
 	subs r1, r1, r2
 	movs r2, #1
 	movs r3, #0x16
-	bl NewMenu_AndDoSomethingCommands
+	bl StartSemiCenteredOrphanMenu
 _0801D502:
 	adds r0, r6, #0
 	bl Proc_ClearNativeCallback
@@ -1479,7 +1479,7 @@ _0801D508:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_0801D510: .4byte gUnknown_0203A958
+_0801D510: .4byte gActionData
 _0801D514: .4byte gUnknown_0859D1F0
 _0801D518: .4byte gUnknown_0202BCB0
 
@@ -1565,7 +1565,7 @@ sub_801D5A8: @ 0x0801D5A8
 	push {r4, r5, lr}
 	adds r4, r0, #0
 	adds r5, r1, #0
-	ldr r0, _0801D60C  @ gUnknown_0202E4D8
+	ldr r0, _0801D60C  @ gBmMapUnit
 	ldr r0, [r0]
 	lsls r1, r5, #2
 	adds r0, r1, r0
@@ -1574,7 +1574,7 @@ sub_801D5A8: @ 0x0801D5A8
 	ldrb r0, [r0]
 	cmp r0, #0
 	bne _0801D606
-	ldr r0, _0801D610  @ gUnknown_0202E4E0
+	ldr r0, _0801D610  @ gBmMapMovement
 	ldr r0, [r0]
 	adds r0, r1, r0
 	ldr r0, [r0]
@@ -1582,7 +1582,7 @@ sub_801D5A8: @ 0x0801D5A8
 	ldrb r0, [r0]
 	cmp r0, #0x77
 	bhi _0801D606
-	ldr r0, _0801D614  @ gUnknown_03004E50
+	ldr r0, _0801D614  @ gActiveUnit
 	ldr r0, [r0]
 	ldr r0, [r0, #0xc]
 	movs r1, #0x80
@@ -1594,7 +1594,7 @@ sub_801D5A8: @ 0x0801D5A8
 	adds r1, r5, #0
 	bl GetTrapAt
 	adds r2, r0, #0
-	ldr r1, _0801D618  @ gUnknown_0202BE48
+	ldr r1, _0801D618  @ gActiveUnitMoveOrigin
 	movs r3, #0
 	ldrsh r0, [r1, r3]
 	cmp r4, r0
@@ -1613,10 +1613,10 @@ _0801D606:
 	movs r0, #0
 	b _0801D61E
 	.align 2, 0
-_0801D60C: .4byte gUnknown_0202E4D8
-_0801D610: .4byte gUnknown_0202E4E0
-_0801D614: .4byte gUnknown_03004E50
-_0801D618: .4byte gUnknown_0202BE48
+_0801D60C: .4byte gBmMapUnit
+_0801D610: .4byte gBmMapMovement
+_0801D614: .4byte gActiveUnit
+_0801D618: .4byte gActiveUnitMoveOrigin
 _0801D61C:
 	movs r0, #1
 _0801D61E:
@@ -1628,20 +1628,20 @@ _0801D61E:
 sub_801D624: @ 0x0801D624
 	push {lr}
 	bl sub_8032C88
-	ldr r0, _0801D644  @ gUnknown_03004E50
+	ldr r0, _0801D644  @ gActiveUnit
 	ldr r0, [r0]
 	movs r1, #0x10
 	ldrsb r1, [r0, r1]
 	movs r2, #0x11
 	ldrsb r2, [r0, r2]
-	bl sub_801A82C
-	ldr r0, _0801D648  @ gUnknown_02033EFC
+	bl UnitApplyWorkingMovementScript
+	ldr r0, _0801D648  @ gWorkingMovementScript
 	bl MU_StartMoveScript_Auto
 	pop {r0}
 	bx r0
 	.align 2, 0
-_0801D644: .4byte gUnknown_03004E50
-_0801D648: .4byte gUnknown_02033EFC
+_0801D644: .4byte gActiveUnit
+_0801D648: .4byte gWorkingMovementScript
 
 	THUMB_FUNC_START PlayerPhase_WaitForUnitMovement
 PlayerPhase_WaitForUnitMovement: @ 0x0801D64C
@@ -1662,7 +1662,7 @@ _0801D660:
 sub_801D668: @ 0x0801D668
 	push {r4, r5, r6, lr}
 	adds r6, r0, #0
-	ldr r5, _0801D684  @ gUnknown_03004E50
+	ldr r5, _0801D684  @ gActiveUnit
 	ldr r2, [r5]
 	cmp r2, #0
 	bne _0801D688
@@ -1672,11 +1672,11 @@ sub_801D668: @ 0x0801D668
 	bl Proc_GotoLabel
 	b _0801D6F4
 	.align 2, 0
-_0801D684: .4byte gUnknown_03004E50
+_0801D684: .4byte gActiveUnit
 _0801D688:
 	movs r0, #0x11
 	ldrsb r0, [r2, r0]
-	ldr r4, _0801D6E0  @ gUnknown_0202E4D8
+	ldr r4, _0801D6E0  @ gBmMapUnit
 	ldr r1, [r4]
 	lsls r0, r0, #2
 	adds r0, r0, r1
@@ -1717,7 +1717,7 @@ _0801D688:
 	beq _0801D6EC
 	b _0801D6F4
 	.align 2, 0
-_0801D6E0: .4byte gUnknown_0202E4D8
+_0801D6E0: .4byte gBmMapUnit
 _0801D6E4:
 	ldr r0, [r5]
 	bl HideUnitSMS
@@ -1746,7 +1746,7 @@ MakeMoveunitForActiveUnit: @ 0x0801D70C
 	lsls r0, r0, #0x18
 	cmp r0, #0
 	bne _0801D74A
-	ldr r4, _0801D754  @ gUnknown_03004E50
+	ldr r4, _0801D754  @ gActiveUnit
 	ldr r2, [r4]
 	movs r0, #0xb
 	ldrsb r0, [r2, r0]
@@ -1775,7 +1775,7 @@ _0801D74A:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_0801D754: .4byte gUnknown_03004E50
+_0801D754: .4byte gActiveUnit
 _0801D758: .4byte gUnknown_0202BCF0
 
 	THUMB_FUNC_START ClearActiveUnit
@@ -1788,7 +1788,7 @@ ClearActiveUnit: @ 0x0801D75C
 	beq _0801D7D2
 	movs r1, #9
 	bl Proc_GotoLabel
-	ldr r4, _0801D7DC  @ gUnknown_03004E50
+	ldr r4, _0801D7DC  @ gActiveUnit
 	ldr r0, [r4]
 	cmp r0, #0
 	beq _0801D788
@@ -1806,17 +1806,17 @@ _0801D788:
 	ands r0, r1
 	strb r0, [r2, #4]
 	bl HideMoveRangeGraphics
-	bl RefreshFogAndUnitMaps
+	bl RefreshEntityBmMaps
 	bl SMS_UpdateFromGameData
 	adds r0, r5, #0
-	bl SetupActiveUnit
+	bl UnitBeginAction
 	ldr r2, [r4]
 	ldr r0, [r2, #0xc]
 	movs r1, #2
 	negs r1, r1
 	ands r0, r1
 	str r0, [r2, #0xc]
-	ldr r1, _0801D7E4  @ gUnknown_0202BE48
+	ldr r1, _0801D7E4  @ gActiveUnitMoveOrigin
 	movs r0, #0x10
 	ldrsb r0, [r2, r0]
 	strh r0, [r1]
@@ -1828,7 +1828,7 @@ _0801D788:
 	movs r2, #2
 	ldrsh r1, [r1, r2]
 	bl SetCursorMapPosition
-	bl RefreshFogAndUnitMaps
+	bl RefreshEntityBmMaps
 	bl SMS_UpdateFromGameData
 _0801D7D2:
 	pop {r4, r5}
@@ -1836,9 +1836,9 @@ _0801D7D2:
 	bx r0
 	.align 2, 0
 _0801D7D8: .4byte gUnknown_0859AAD8
-_0801D7DC: .4byte gUnknown_03004E50
+_0801D7DC: .4byte gActiveUnit
 _0801D7E0: .4byte gUnknown_0202BCB0
-_0801D7E4: .4byte gUnknown_0202BE48
+_0801D7E4: .4byte gActiveUnitMoveOrigin
 
 	THUMB_FUNC_START sub_801D7E8
 sub_801D7E8: @ 0x0801D7E8
@@ -1881,7 +1881,7 @@ _0801D830: .4byte gKeyStatusPtr
 	THUMB_FUNC_START sub_801D834
 sub_801D834: @ 0x0801D834
 	push {r4, r5, lr}
-	ldr r5, _0801D890  @ gUnknown_03004E50
+	ldr r5, _0801D890  @ gActiveUnit
 	ldr r2, [r5]
 	ldr r0, [r2]
 	ldr r3, [r2, #4]
@@ -1897,7 +1897,7 @@ sub_801D834: @ 0x0801D834
 	ands r0, r1
 	cmp r0, #0
 	bne _0801D888
-	ldr r4, _0801D898  @ gUnknown_0203A958
+	ldr r4, _0801D898  @ gActionData
 	ldrb r0, [r4, #0x11]
 	subs r0, #2
 	lsls r0, r0, #0x18
@@ -1926,9 +1926,9 @@ _0801D888:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_0801D890: .4byte gUnknown_03004E50
+_0801D890: .4byte gActiveUnit
 _0801D894: .4byte 0x00010044
-_0801D898: .4byte gUnknown_0203A958
+_0801D898: .4byte gActionData
 
 	THUMB_FUNC_START Load6CRangeDisplaySquareGfx
 Load6CRangeDisplaySquareGfx: @ 0x0801D89C
@@ -2020,7 +2020,7 @@ Setup6CRangeDisplayGfx: @ 0x0801D92C
 	movs r0, #1
 	orrs r0, r1
 	strb r0, [r4, #4]
-	bl UpdateGameTilesGraphics
+	bl RenderBmMap
 	movs r5, #9
 	adds r7, r4, #0
 _0801D958:
@@ -2036,7 +2036,7 @@ _0801D95C:
 	str r5, [sp]
 	ldr r0, _0801D9D8  @ gBG2TilemapBuffer
 	adds r3, r4, #0
-	bl sub_8019B8C
+	bl DisplayMovementViewTile
 	subs r4, #1
 	cmp r4, #0
 	bge _0801D95C
@@ -2212,7 +2212,7 @@ _0801DAD8: .4byte gUnknown_0859AD50
 	THUMB_FUNC_START sub_801DADC
 sub_801DADC: @ 0x0801DADC
 	push {r4, lr}
-	bl GetUnitStruct
+	bl GetUnit
 	adds r4, r0, #0
 	cmp r4, #0
 	beq _0801DB0A
@@ -2268,7 +2268,7 @@ _0801DB48: .4byte gUnknown_0859DBBC
 	THUMB_FUNC_START sub_801DB4C
 sub_801DB4C: @ 0x0801DB4C
 	push {r4, r5, lr}
-	ldr r2, _0801DBA0  @ gUnknown_0202E4D8
+	ldr r2, _0801DBA0  @ gBmMapUnit
 	ldr r2, [r2]
 	lsls r1, r1, #2
 	adds r1, r1, r2
@@ -2312,7 +2312,7 @@ _0801DB98:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_0801DBA0: .4byte gUnknown_0202E4D8
+_0801DBA0: .4byte gBmMapUnit
 
 	THUMB_FUNC_START Goto3IfPhaseHasNoAbleUnits
 Goto3IfPhaseHasNoAbleUnits: @ 0x0801DBA4

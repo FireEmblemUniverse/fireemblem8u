@@ -7,7 +7,7 @@
 	THUMB_FUNC_START sub_8039AC8
 sub_8039AC8: @ 0x08039AC8
 	push {lr}
-	ldr r0, _08039AE4  @ gUnknown_03004E50
+	ldr r0, _08039AE4  @ gActiveUnit
 	ldr r0, [r0]
 	ldrb r0, [r0, #0xb]
 	lsls r0, r0, #0x18
@@ -16,14 +16,14 @@ sub_8039AC8: @ 0x08039AC8
 	ands r0, r1
 	cmp r0, #0
 	bne _08039AEC
-	ldr r1, _08039AE8  @ gUnknown_0203A958
+	ldr r1, _08039AE8  @ gActionData
 	movs r0, #3
 	b _08039AF0
 	.align 2, 0
-_08039AE4: .4byte gUnknown_03004E50
-_08039AE8: .4byte gUnknown_0203A958
+_08039AE4: .4byte gActiveUnit
+_08039AE8: .4byte gActionData
 _08039AEC:
-	ldr r1, _08039AFC  @ gUnknown_0203A958
+	ldr r1, _08039AFC  @ gActionData
 	movs r0, #2
 _08039AF0:
 	strb r0, [r1, #0x16]
@@ -32,7 +32,7 @@ _08039AF0:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_08039AFC: .4byte gUnknown_0203A958
+_08039AFC: .4byte gActionData
 
 	THUMB_FUNC_START Call6C_E_CPDECIDE
 Call6C_E_CPDECIDE: @ 0x08039B00
@@ -51,13 +51,13 @@ _08039B04:
 	adds r0, r4, #0
 	adds r0, #0x7c
 	strb r1, [r0]
-	ldr r1, _08039B4C  @ gUnknown_0202BE44
+	ldr r1, _08039B4C  @ gActiveUnitId
 	ldrb r0, [r2]
 	strb r0, [r1]
 	ldrb r0, [r1]
-	bl GetUnitStruct
+	bl GetUnit
 	adds r1, r0, #0
-	ldr r6, _08039B50  @ gUnknown_03004E50
+	ldr r6, _08039B50  @ gActiveUnit
 	str r1, [r6]
 	ldr r5, [r1, #0xc]
 	movs r0, #6
@@ -74,11 +74,11 @@ _08039B3E:
 	b _08039B04
 	.align 2, 0
 _08039B48: .4byte gUnknown_0203AA04
-_08039B4C: .4byte gUnknown_0202BE44
-_08039B50: .4byte gUnknown_03004E50
+_08039B4C: .4byte gActiveUnitId
+_08039B50: .4byte gActiveUnit
 _08039B54:
-	bl RefreshFogAndUnitMaps
-	bl UpdateGameTilesGraphics
+	bl RefreshEntityBmMaps
+	bl RenderBmMap
 	bl SMS_UpdateFromGameData
 	ldr r0, [r6]
 	bl sub_8041090
@@ -185,7 +185,7 @@ sub_8039C20: @ 0x08039C20
 	ldr r4, [sp, #0x20]
 	mov r9, r4
 	ldr r4, _08039C5C  @ gUnknown_0203AA94
-	ldr r5, _08039C60  @ gUnknown_0202BE44
+	ldr r5, _08039C60  @ gActiveUnitId
 	ldrb r5, [r5]
 	strb r5, [r4, #1]
 	strb r0, [r4, #2]
@@ -207,7 +207,7 @@ sub_8039C20: @ 0x08039C20
 	bx r0
 	.align 2, 0
 _08039C5C: .4byte gUnknown_0203AA94
-_08039C60: .4byte gUnknown_0202BE44
+_08039C60: .4byte gActiveUnitId
 
 	THUMB_FUNC_START sub_8039C64
 sub_8039C64: @ 0x08039C64
@@ -314,7 +314,7 @@ sub_8039D10: @ 0x08039D10
 	ands r0, r1
 	cmp r0, #0
 	bne _08039DBC
-	ldr r4, _08039D60  @ gUnknown_03004E50
+	ldr r4, _08039D60  @ gActiveUnit
 	ldr r0, [r4]
 	bl UpdateUnitHealingAIStatus
 	lsls r0, r0, #0x18
@@ -341,7 +341,7 @@ sub_8039D10: @ 0x08039D10
 	b _08039DBC
 	.align 2, 0
 _08039D5C: .4byte gUnknown_0203AA04
-_08039D60: .4byte gUnknown_03004E50
+_08039D60: .4byte gActiveUnit
 _08039D64:
 	add r4, sp, #4
 	adds r0, r4, #0
@@ -409,7 +409,7 @@ _08039DDC: .4byte gUnknown_0203AA04
 sub_8039DE0: @ 0x08039DE0
 	push {r4, lr}
 	movs r4, #0
-	ldr r0, _08039E08  @ gUnknown_03004E50
+	ldr r0, _08039E08  @ gActiveUnit
 	ldr r0, [r0]
 	ldr r0, [r0, #4]
 	ldrb r0, [r0, #4]
@@ -427,7 +427,7 @@ sub_8039DE0: @ 0x08039DE0
 	bl sub_803D3E4
 	b _08039E26
 	.align 2, 0
-_08039E08: .4byte gUnknown_03004E50
+_08039E08: .4byte gActiveUnit
 _08039E0C: .4byte gUnknown_0203AA04
 _08039E10:
 	bl sub_803C4BC
@@ -448,7 +448,7 @@ _08039E26:
 sub_8039E2C: @ 0x08039E2C
 	push {r4, lr}
 	movs r4, #0
-	ldr r0, _08039E64  @ gUnknown_03004E50
+	ldr r0, _08039E64  @ gActiveUnit
 	ldr r2, [r0]
 	ldr r0, [r2, #0xc]
 	movs r1, #0x80
@@ -474,7 +474,7 @@ _08039E50:
 	bl sub_803D404
 	b _08039E82
 	.align 2, 0
-_08039E64: .4byte gUnknown_03004E50
+_08039E64: .4byte gActiveUnit
 _08039E68: .4byte gUnknown_0203AA04
 _08039E6C:
 	bl sub_803C54C

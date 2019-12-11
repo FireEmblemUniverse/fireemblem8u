@@ -45,6 +45,16 @@ struct TextBatch
     u8 unk4;
 };
 
+enum {
+    // TODO: maybe use names that also reflect meaning for dialogue colors (this is ui colors)
+
+    TEXT_COLOR_NORMAL = 0,
+    TEXT_COLOR_GRAY   = 1,
+    TEXT_COLOR_BLUE   = 2,
+    TEXT_COLOR_GOLD   = 3,
+    TEXT_COLOR_GREEN  = 4,
+    TEXT_COLOR_BLACK  = 5,
+};
 
 extern char gUnknown_02028E44[9];
 
@@ -72,28 +82,28 @@ void SetSomeByte(int);
 void Font_InitForUIDefault(void);
 void Font_InitForUI(struct Font *a, void *b, int c, int d);
 // ??? SetFontGlyphSet(???);
-// ??? sub_8003D20(???);
+void sub_8003D20(void);
 void SetFont(struct Font *a);
-void Text_Init(struct TextHandle *a, int b);
-// ??? Text_Allocate(???);
+void Text_Init(struct TextHandle *a, int tileWidth);
+void Text_Allocate(struct TextHandle *th, int tileWidth);
 // ??? InitTextBatch(???);
 void Text_Clear(struct TextHandle *a);
 // ??? sub_8003E00(???);
 // ??? sub_8003E40(???);
 // ??? Text_GetXCursor(???);
-// ??? Text_SetXCursor(???);
+void Text_SetXCursor(struct TextHandle *th, int x);
 // ??? Text_Advance(???);
-// ??? Text_SetColorId(???);
-// ??? Text_GetColorId(???);
-// ??? Text_SetParameters(???);
-// ??? Text_Draw(???);
+void Text_SetColorId(struct TextHandle *th, int colorId);
+int Text_GetColorId(struct TextHandle *th);
+void Text_SetParameters(struct TextHandle* th, int x, int colorId);
+void Text_Draw(struct TextHandle* th, u16* dest);
 // ??? Text_DrawBlank(???);
-// ??? GetStringTextWidth(???);
+int GetStringTextWidth(const char *str);
 // ??? GetCharTextWidth(???);
 // ??? GetStringTextCenteredPos(???);
 // ??? sub_8003FAC(???);
 char *String_GetEnd(char *);
-// ??? Text_AppendString(???);
+void Text_AppendString(struct TextHandle *th, const char* str);
 // ??? Text_AppendDecNumber(???);
 // ??? sub_80040C0(???);
 // ??? Text_AppendNumberOr2Dashes(???);
@@ -105,7 +115,7 @@ void *GetVRAMPointerForTextMaybe(struct TextHandle *a);
 void Font_LoadForUI(void);
 // ??? Font_LoadForDialogue(???);
 // ??? Font_SetSomeSpecialDrawingRoutine(???);
-// ??? DrawTextInline(???);
+void DrawTextInline(struct TextHandle* text, u16* dest, int colorId, int x, int tileWidth, char* string);
 // ??? Text_InsertString(???);
 // ??? Text_InsertNumberOr2Dashes(???);
 void Text_AppendStringASCII(struct TextHandle *text, const char *str);
@@ -125,16 +135,16 @@ void sub_8004700(struct TextHandle *, struct Glyph *);
 // ??? sub_800496C(???);
 // ??? sub_8004974(???);
 // ??? sub_8004984(???);
-// ??? NewGreenTextColorManager(???);
-// ??? EndGreenTextColorManager(???);
+void NewGreenTextColorManager(struct Proc* parent);
+void EndGreenTextColorManager(void);
 // ??? sub_80049E0(???);
 // ??? sub_8004A34(???);
 // ??? sub_8004A90(???);
 // ??? sub_8004ACC(???);
-// ??? sub_8004B0C(???);
+void sub_8004B0C(u16 *a, int b, int c);
 // ??? sub_8004B48(???);
 // ??? sub_8004B88(???);
-// ??? DrawDecNumber(???);
+void DrawDecNumber(u16* a, int b, int c);
 // ??? sub_8004BB4(???);
 // ??? sub_8004BE4(???);
 // ??? sub_8004BF0(???);

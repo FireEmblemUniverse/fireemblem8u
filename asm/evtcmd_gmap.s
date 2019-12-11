@@ -229,13 +229,13 @@ _0800BAC6:
 	asrs r4, r0, #0x18
 	cmp r4, #1
 	bne _0800BAD2
-	bl sub_8019CBC
+	bl RenderBmMapOnBg2
 _0800BAD2:
 	ldr r0, _0800BAF4  @ gUnknown_0202BCF0
 	strb r5, [r0, #0xd]
-	bl RefreshFogAndUnitMaps
+	bl RefreshEntityBmMaps
 	bl SMS_UpdateFromGameData
-	bl UpdateGameTilesGraphics
+	bl RenderBmMap
 	cmp r4, #1
 	bne _0800BAEE
 	movs r0, #1
@@ -257,7 +257,7 @@ TriggerMapChanges: @ 0x0800BAF8
 	adds r4, r0, #0
 	lsls r1, r1, #0x18
 	lsrs r5, r1, #0x18
-	bl AreMapChangeTriggered
+	bl IsMapChangeEnabled
 	lsls r0, r0, #0x18
 	cmp r0, #0
 	bne _0800BB40
@@ -265,15 +265,15 @@ TriggerMapChanges: @ 0x0800BAF8
 	asrs r5, r0, #0x18
 	cmp r5, #1
 	bne _0800BB1C
-	bl sub_8019CBC
+	bl RenderBmMapOnBg2
 _0800BB1C:
 	adds r0, r4, #0
 	bl ApplyMapChangesById
 	adds r0, r4, #0
-	bl AddMapChange
-	bl FlushTerrainData
-	bl sub_802E690
-	bl UpdateGameTilesGraphics
+	bl EnableMapChange
+	bl RefreshTerrainBmMap
+	bl UpdateRoofedUnits
+	bl RenderBmMap
 	cmp r5, #1
 	bne _0800BB40
 	movs r0, #1
@@ -293,7 +293,7 @@ sub_800BB48: @ 0x0800BB48
 	adds r4, r0, #0
 	lsls r1, r1, #0x18
 	lsrs r5, r1, #0x18
-	bl AreMapChangeTriggered
+	bl IsMapChangeEnabled
 	lsls r0, r0, #0x18
 	asrs r0, r0, #0x18
 	cmp r0, #1
@@ -302,15 +302,15 @@ sub_800BB48: @ 0x0800BB48
 	asrs r5, r0, #0x18
 	cmp r5, #1
 	bne _0800BB6E
-	bl sub_8019CBC
+	bl RenderBmMapOnBg2
 _0800BB6E:
 	adds r0, r4, #0
-	bl RevertMapChangesById
+	bl RevertMapChange
 	adds r0, r4, #0
-	bl UntriggerMapChange
-	bl FlushTerrainData
-	bl sub_802E690
-	bl UpdateGameTilesGraphics
+	bl DisableMapChange
+	bl RefreshTerrainBmMap
+	bl UpdateRoofedUnits
+	bl RenderBmMap
 	cmp r5, #1
 	bne _0800BB92
 	movs r0, #1
@@ -345,7 +345,7 @@ sub_800BBB4: @ 0x0800BBB4
 	movs r4, #1
 _0800BBBC:
 	adds r0, r4, #0
-	bl GetUnitStruct
+	bl GetUnit
 	cmp r0, #0
 	beq _0800BBD6
 	ldr r0, [r0]
@@ -373,7 +373,7 @@ sub_800BBE4: @ 0x0800BBE4
 	movs r4, #1
 _0800BBEA:
 	adds r0, r4, #0
-	bl GetUnitStruct
+	bl GetUnit
 	adds r1, r0, #0
 	cmp r1, #0
 	beq _0800BC0C
@@ -403,7 +403,7 @@ HideAllUnits: @ 0x0800BC1C
 	movs r4, #1
 _0800BC20:
 	adds r0, r4, #0
-	bl GetUnitStruct
+	bl GetUnit
 	adds r2, r0, #0
 	cmp r2, #0
 	beq _0800BC42
@@ -465,7 +465,7 @@ _0800BC8C: .4byte gEventSlots
 _0800BC90:
 	ldr r2, _0800BCB0  @ gUnknown_030004E6
 	ldrh r1, [r2]
-	ldr r0, _0800BCB4  @ gUnknown_0202E4D8
+	ldr r0, _0800BCB4  @ gBmMapUnit
 	ldr r0, [r0]
 	lsls r1, r1, #2
 	adds r1, r1, r0
@@ -476,20 +476,20 @@ _0800BC90:
 	ldrb r0, [r1]
 	cmp r0, #0
 	beq _0800BCB8
-	bl GetUnitStruct
+	bl GetUnit
 	b _0800BCD8
 	.align 2, 0
 _0800BCB0: .4byte gUnknown_030004E6
-_0800BCB4: .4byte gUnknown_0202E4D8
+_0800BCB4: .4byte gBmMapUnit
 _0800BCB8:
 	movs r0, #0
 	b _0800BCD8
 _0800BCBC:
-	ldr r0, _0800BCC4  @ gUnknown_03004E50
+	ldr r0, _0800BCC4  @ gActiveUnit
 	ldr r0, [r0]
 	b _0800BCD8
 	.align 2, 0
-_0800BCC4: .4byte gUnknown_03004E50
+_0800BCC4: .4byte gActiveUnit
 _0800BCC8:
 	bl GetPlayerLeaderUnitId
 	lsls r0, r0, #0x10
@@ -497,7 +497,7 @@ _0800BCC8:
 _0800BCD0:
 	lsls r0, r2, #0x10
 	asrs r0, r0, #0x10
-	bl GetUnitByCharId
+	bl GetUnitFromCharId
 _0800BCD8:
 	pop {r1}
 	bx r1
@@ -525,12 +525,12 @@ _0800BD00:
 	beq _0800BD24
 	b _0800BD30
 _0800BD06:
-	ldr r0, _0800BD0C  @ gUnknown_0859EE40
+	ldr r0, _0800BD0C  @ unit_icon_pal_enemy
 	b _0800BD12
 	.align 2, 0
-_0800BD0C: .4byte gUnknown_0859EE40
+_0800BD0C: .4byte unit_icon_pal_enemy
 _0800BD10:
-	ldr r0, _0800BD20  @ gUnknown_0859EE60
+	ldr r0, _0800BD20  @ unit_icon_pal_npc
 _0800BD12:
 	movs r1, #0xe0
 	lsls r1, r1, #2
@@ -538,7 +538,7 @@ _0800BD12:
 	bl CopyToPaletteBuffer
 	b _0800BD30
 	.align 2, 0
-_0800BD20: .4byte gUnknown_0859EE60
+_0800BD20: .4byte unit_icon_pal_npc
 _0800BD24:
 	ldr r0, _0800BD44  @ gUnknown_0859EEE0
 	movs r1, #0xe0
@@ -563,12 +563,12 @@ _0800BD48:
 	beq _0800BD6C
 	b _0800BD78
 _0800BD4E:
-	ldr r0, _0800BD54  @ gUnknown_0859EE20
+	ldr r0, _0800BD54  @ unit_icon_pal_player
 	b _0800BD5A
 	.align 2, 0
-_0800BD54: .4byte gUnknown_0859EE20
+_0800BD54: .4byte unit_icon_pal_player
 _0800BD58:
-	ldr r0, _0800BD68  @ gUnknown_0859EE60
+	ldr r0, _0800BD68  @ unit_icon_pal_npc
 _0800BD5A:
 	movs r1, #0xe8
 	lsls r1, r1, #2
@@ -576,7 +576,7 @@ _0800BD5A:
 	bl CopyToPaletteBuffer
 	b _0800BD78
 	.align 2, 0
-_0800BD68: .4byte gUnknown_0859EE60
+_0800BD68: .4byte unit_icon_pal_npc
 _0800BD6C:
 	ldr r0, _0800BD8C  @ gUnknown_0859EEE0
 	movs r1, #0xe8
@@ -601,12 +601,12 @@ _0800BD90:
 	beq _0800BDB4
 	b _0800BDC0
 _0800BD96:
-	ldr r0, _0800BD9C  @ gUnknown_0859EE20
+	ldr r0, _0800BD9C  @ unit_icon_pal_player
 	b _0800BDA2
 	.align 2, 0
-_0800BD9C: .4byte gUnknown_0859EE20
+_0800BD9C: .4byte unit_icon_pal_player
 _0800BDA0:
-	ldr r0, _0800BDB0  @ gUnknown_0859EE40
+	ldr r0, _0800BDB0  @ unit_icon_pal_enemy
 _0800BDA2:
 	movs r1, #0xf0
 	lsls r1, r1, #2
@@ -614,7 +614,7 @@ _0800BDA2:
 	bl CopyToPaletteBuffer
 	b _0800BDC0
 	.align 2, 0
-_0800BDB0: .4byte gUnknown_0859EE40
+_0800BDB0: .4byte unit_icon_pal_enemy
 _0800BDB4:
 	ldr r0, _0800BDC8  @ gUnknown_0859EEE0
 	movs r1, #0xf0

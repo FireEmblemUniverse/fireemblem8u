@@ -17,7 +17,7 @@ CanUnitUseItem: @ 0x08028870
 	beq _08028894
 	adds r0, r4, #0
 	adds r1, r5, #0
-	bl CanUnitUseAsStaff
+	bl CanUnitUseStaff
 	lsls r0, r0, #0x18
 	cmp r0, #0
 	bne _08028894
@@ -482,7 +482,7 @@ _08028DEC:
 	.align 2, 0
 _08028DF0: .4byte 0x0000085D
 _08028DF4:
-	ldr r0, _08028E10  @ gUnknown_03004E50
+	ldr r0, _08028E10  @ gActiveUnit
 	ldr r0, [r0]
 	ldr r1, [r0]
 	ldr r2, [r0, #4]
@@ -496,7 +496,7 @@ _08028DF4:
 	ldr r0, _08028E14  @ 0x00000861
 	b _08028E56
 	.align 2, 0
-_08028E10: .4byte gUnknown_03004E50
+_08028E10: .4byte gActiveUnit
 _08028E14: .4byte 0x00000861
 _08028E18:
 	ldr r0, _08028E1C  @ 0x0000085F
@@ -504,7 +504,7 @@ _08028E18:
 	.align 2, 0
 _08028E1C: .4byte 0x0000085F
 _08028E20:
-	ldr r4, _08028E44  @ gUnknown_03004E50
+	ldr r4, _08028E44  @ gActiveUnit
 	ldr r1, [r4]
 	movs r5, #8
 	ldrsb r5, [r1, r5]
@@ -521,7 +521,7 @@ _08028E20:
 	ldr r0, _08028E48  @ 0x0000085B
 	b _08028E56
 	.align 2, 0
-_08028E44: .4byte gUnknown_03004E50
+_08028E44: .4byte gActiveUnit
 _08028E48: .4byte 0x0000085B
 _08028E4C:
 	ldr r0, _08028E50  @ 0x0000085C
@@ -542,7 +542,7 @@ ItemEffect_Call: @ 0x08028E60
 	push {r4, r5, lr}
 	adds r5, r0, #0
 	adds r4, r1, #0
-	bl ClearBG0BG1
+	bl ClearBg0Bg1
 	movs r0, #0
 	bl DeleteFaceByIndex
 	adds r0, r4, #0
@@ -748,10 +748,10 @@ _08029078:
 CanUseHealingItem: @ 0x0802907C
 	push {r4, r5, lr}
 	adds r4, r0, #0
-	bl GetUnitCurrentHP
+	bl GetUnitCurrentHp
 	adds r5, r0, #0
 	adds r0, r4, #0
-	bl GetUnitMaxHP
+	bl GetUnitMaxHp
 	cmp r5, r0
 	beq _08029094
 	movs r0, #1
@@ -832,7 +832,7 @@ CanUseChestKey: @ 0x080290FC
 	push {lr}
 	movs r3, #0x11
 	ldrsb r3, [r0, r3]
-	ldr r1, _0802912C  @ gUnknown_0202E4DC
+	ldr r1, _0802912C  @ gBmMapTerrain
 	ldr r2, [r1]
 	lsls r1, r3, #2
 	adds r1, r1, r2
@@ -852,7 +852,7 @@ CanUseChestKey: @ 0x080290FC
 	movs r0, #1
 	b _08029132
 	.align 2, 0
-_0802912C: .4byte gUnknown_0202E4DC
+_0802912C: .4byte gBmMapTerrain
 _08029130:
 	movs r0, #0
 _08029132:
@@ -1162,11 +1162,11 @@ CanUseStatBooster: @ 0x0802940C
 	push {r4, r5, r6, lr}
 	adds r5, r0, #0
 	adds r0, r1, #0
-	bl GetItemStatBonusesPtr
+	bl GetItemStatBonuses
 	adds r4, r0, #0
 	ldr r6, _08029500  @ gUnknown_03004C00
 	adds r0, r6, #0
-	bl ClearUnitStruct
+	bl ClearUnit
 	ldr r0, [r5]
 	str r0, [r6]
 	ldr r0, [r5, #4]
@@ -1208,7 +1208,7 @@ CanUseStatBooster: @ 0x0802940C
 	adds r0, r0, r1
 	strb r0, [r6, #0x1a]
 	adds r0, r6, #0
-	bl CheckForStatCaps
+	bl UnitCheckStatCaps
 	movs r1, #0x12
 	ldrsb r1, [r6, r1]
 	movs r0, #0x12
@@ -1312,28 +1312,28 @@ EndItemEffectSelectionThing: @ 0x0802951C
 	bl BG_Fill
 	movs r0, #4
 	bl BG_EnableSyncByMask
-	ldr r1, _08029540  @ gUnknown_0203A958
+	ldr r1, _08029540  @ gActionData
 	movs r0, #3
 	strb r0, [r1, #0x11]
 	pop {r0}
 	bx r0
 	.align 2, 0
 _0802953C: .4byte gBG2TilemapBuffer
-_08029540: .4byte gUnknown_0203A958
+_08029540: .4byte gActionData
 
 	THUMB_FUNC_START sub_8029544
 sub_8029544: @ 0x08029544
-	ldr r1, _0802954C  @ gUnknown_0203A958
+	ldr r1, _0802954C  @ gActionData
 	movs r0, #0x1a
 	strb r0, [r1, #0x11]
 	bx lr
 	.align 2, 0
-_0802954C: .4byte gUnknown_0203A958
+_0802954C: .4byte gActionData
 
 	THUMB_FUNC_START GenericStaffSelection_OnSelect
 GenericStaffSelection_OnSelect: @ 0x08029550
 	push {lr}
-	ldr r2, _08029564  @ gUnknown_0203A958
+	ldr r2, _08029564  @ gActionData
 	ldrb r0, [r1, #2]
 	strb r0, [r2, #0xd]
 	movs r0, #0
@@ -1342,17 +1342,17 @@ GenericStaffSelection_OnSelect: @ 0x08029550
 	pop {r1}
 	bx r1
 	.align 2, 0
-_08029564: .4byte gUnknown_0203A958
+_08029564: .4byte gActionData
 
 	THUMB_FUNC_START PrepareTargetSelectionForRescueStaff
 PrepareTargetSelectionForRescueStaff: @ 0x08029568
 	push {r4, lr}
 	bl _call_via_r1
-	ldr r0, _08029598  @ gUnknown_0202E4E0
+	ldr r0, _08029598  @ gBmMapMovement
 	ldr r0, [r0]
 	movs r1, #1
 	negs r1, r1
-	bl ClearMapWith
+	bl BmMapFill
 	ldr r0, _0802959C  @ gUnknown_0859D2F8
 	ldr r1, _080295A0  @ GenericStaffSelection_OnSelect
 	bl NewTargetSelection_Specialized
@@ -1366,7 +1366,7 @@ PrepareTargetSelectionForRescueStaff: @ 0x08029568
 	pop {r0}
 	bx r0
 	.align 2, 0
-_08029598: .4byte gUnknown_0202E4E0
+_08029598: .4byte gBmMapMovement
 _0802959C: .4byte gUnknown_0859D2F8
 _080295A0: .4byte GenericStaffSelection_OnSelect
 _080295A4: .4byte 0x00000876
@@ -1376,11 +1376,11 @@ SetupTargetSelectionForGenericStaff: @ 0x080295A8
 	push {r4, r5, lr}
 	adds r5, r2, #0
 	bl _call_via_r1
-	ldr r0, _080295DC  @ gUnknown_0202E4E0
+	ldr r0, _080295DC  @ gBmMapMovement
 	ldr r0, [r0]
 	movs r1, #1
 	negs r1, r1
-	bl ClearMapWith
+	bl BmMapFill
 	ldr r0, _080295E0  @ gUnknown_0859D2F8
 	ldr r1, _080295E4  @ GenericStaffSelection_OnSelect
 	bl NewTargetSelection_Specialized
@@ -1394,7 +1394,7 @@ SetupTargetSelectionForGenericStaff: @ 0x080295A8
 	pop {r0}
 	bx r0
 	.align 2, 0
-_080295DC: .4byte gUnknown_0202E4E0
+_080295DC: .4byte gBmMapMovement
 _080295E0: .4byte gUnknown_0859D2F8
 _080295E4: .4byte GenericStaffSelection_OnSelect
 
@@ -1409,23 +1409,23 @@ WarpTargetPosSelect_Init: @ 0x080295E8
 	adds r1, r0, #0
 	adds r0, r6, #0
 	bl NewBottomHelpText
-	ldr r5, _0802968C  @ gUnknown_0203A958
+	ldr r5, _0802968C  @ gActionData
 	ldrb r0, [r5, #0xd]
-	bl GetUnitStruct
+	bl GetUnit
 	movs r4, #0x10
 	ldrsb r4, [r0, r4]
 	ldrb r0, [r5, #0xd]
-	bl GetUnitStruct
+	bl GetUnit
 	movs r2, #0x11
 	ldrsb r2, [r0, r2]
 	adds r0, r6, #0
 	adds r1, r4, #0
 	bl EnsureCameraOntoPosition
 	bl HideMoveRangeGraphics
-	ldr r0, _08029690  @ gUnknown_03004E50
+	ldr r0, _08029690  @ gActiveUnit
 	ldr r4, [r0]
 	ldrb r0, [r5, #0xd]
-	bl GetUnitStruct
+	bl GetUnit
 	adds r1, r0, #0
 	adds r0, r4, #0
 	bl FillWarpRangeMap
@@ -1439,11 +1439,11 @@ WarpTargetPosSelect_Init: @ 0x080295E8
 	movs r0, #1
 	bl DisplayMoveRangeGraphics
 	ldrb r0, [r5, #0xd]
-	bl GetUnitStruct
+	bl GetUnit
 	movs r4, #0x10
 	ldrsb r4, [r0, r4]
 	ldrb r0, [r5, #0xd]
-	bl GetUnitStruct
+	bl GetUnit
 	movs r1, #0x11
 	ldrsb r1, [r0, r1]
 	adds r0, r4, #0
@@ -1468,8 +1468,8 @@ WarpTargetPosSelect_Init: @ 0x080295E8
 	bx r0
 	.align 2, 0
 _08029688: .4byte 0x00000871
-_0802968C: .4byte gUnknown_0203A958
-_08029690: .4byte gUnknown_03004E50
+_0802968C: .4byte gActionData
+_08029690: .4byte gActiveUnit
 _08029694: .4byte gUnknown_0202BCB0
 _08029698: .4byte gUnknown_085A0EA0
 
@@ -1480,7 +1480,7 @@ WarpTargetPosSelect_Loop: @ 0x0802969C
 	ldr r4, _08029714  @ gUnknown_0202BCB0
 	movs r1, #0x16
 	ldrsh r0, [r4, r1]
-	ldr r1, _08029718  @ gUnknown_0202E4E0
+	ldr r1, _08029718  @ gBmMapMovement
 	ldr r1, [r1]
 	lsls r0, r0, #2
 	adds r0, r0, r1
@@ -1506,12 +1506,12 @@ WarpTargetPosSelect_Loop: @ 0x0802969C
 	beq _08029730
 	adds r0, r5, #0
 	bl Proc_ClearNativeCallback
-	ldr r1, _08029720  @ gUnknown_0203A958
+	ldr r1, _08029720  @ gActionData
 	ldrh r0, [r4, #0x14]
 	strb r0, [r1, #0x13]
 	ldrh r0, [r4, #0x16]
 	strb r0, [r1, #0x14]
-	ldr r0, _08029724  @ gUnknown_03004E50
+	ldr r0, _08029724  @ gActiveUnit
 	ldr r0, [r0]
 	bl EndItemEffectSelectionThing
 	ldr r0, _08029728  @ gBG2TilemapBuffer
@@ -1530,10 +1530,10 @@ WarpTargetPosSelect_Loop: @ 0x0802969C
 	b _080297BA
 	.align 2, 0
 _08029714: .4byte gUnknown_0202BCB0
-_08029718: .4byte gUnknown_0202E4E0
+_08029718: .4byte gBmMapMovement
 _0802971C: .4byte gKeyStatusPtr
-_08029720: .4byte gUnknown_0203A958
-_08029724: .4byte gUnknown_03004E50
+_08029720: .4byte gActionData
+_08029724: .4byte gActiveUnit
 _08029728: .4byte gBG2TilemapBuffer
 _0802972C: .4byte gUnknown_0202BCF0
 _08029730:
@@ -1620,7 +1620,7 @@ WarpTargetPosSelect_Confirm: @ 0x080297D0
 	bl sub_8003D20
 	bl HideMoveRangeGraphics
 	bl DeleteEach6CBB
-	ldr r4, _08029808  @ gUnknown_03004E50
+	ldr r4, _08029808  @ gActiveUnit
 	ldr r1, [r4]
 	movs r0, #0x10
 	ldrsb r0, [r1, r0]
@@ -1639,7 +1639,7 @@ WarpTargetPosSelect_Confirm: @ 0x080297D0
 	pop {r0}
 	bx r0
 	.align 2, 0
-_08029808: .4byte gUnknown_03004E50
+_08029808: .4byte gActiveUnit
 
 	THUMB_FUNC_START WarpTargetPosSelect_Cancel
 WarpTargetPosSelect_Cancel: @ 0x0802980C
@@ -1647,7 +1647,7 @@ WarpTargetPosSelect_Cancel: @ 0x0802980C
 	bl sub_8003D20
 	bl HideMoveRangeGraphics
 	bl DeleteEach6CBB
-	ldr r0, _08029838  @ gUnknown_03004E50
+	ldr r0, _08029838  @ gActiveUnit
 	ldr r1, [r0]
 	movs r0, #0x10
 	ldrsb r0, [r1, r0]
@@ -1661,7 +1661,7 @@ WarpTargetPosSelect_Cancel: @ 0x0802980C
 	pop {r0}
 	bx r0
 	.align 2, 0
-_08029838: .4byte gUnknown_03004E50
+_08029838: .4byte gActiveUnit
 _0802983C: .4byte gUnknown_0859B600
 
 	THUMB_FUNC_START WarpTargetPosSelect_Destruct
@@ -1680,7 +1680,7 @@ WarpTargetSelection_OnSelect: @ 0x08029854
 	push {r4, lr}
 	adds r4, r1, #0
 	bl EndTargetSelection
-	ldr r1, _08029874  @ gUnknown_0203A958
+	ldr r1, _08029874  @ gActionData
 	ldrb r0, [r4, #2]
 	strb r0, [r1, #0xd]
 	ldr r0, _08029878  @ gUnknown_0859B9B8
@@ -1691,18 +1691,18 @@ WarpTargetSelection_OnSelect: @ 0x08029854
 	pop {r1}
 	bx r1
 	.align 2, 0
-_08029874: .4byte gUnknown_0203A958
+_08029874: .4byte gActionData
 _08029878: .4byte gUnknown_0859B9B8
 
 	THUMB_FUNC_START SetupWarpTargetSelection
 SetupWarpTargetSelection: @ 0x0802987C
 	push {r4, lr}
 	bl MakeTargetListForWarp
-	ldr r0, _080298C0  @ gUnknown_0202E4E0
+	ldr r0, _080298C0  @ gBmMapMovement
 	ldr r0, [r0]
 	movs r1, #1
 	negs r1, r1
-	bl ClearMapWith
+	bl BmMapFill
 	ldr r0, _080298C4  @ gUnknown_0859D2F8
 	ldr r1, _080298C8  @ WarpTargetSelection_OnSelect
 	bl NewTargetSelection_Specialized
@@ -1725,7 +1725,7 @@ _080298B8:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_080298C0: .4byte gUnknown_0202E4E0
+_080298C0: .4byte gBmMapMovement
 _080298C4: .4byte gUnknown_0859D2F8
 _080298C8: .4byte WarpTargetSelection_OnSelect
 _080298CC: .4byte 0x00000875
@@ -1734,7 +1734,7 @@ _080298D0: .4byte gUnknown_0202BCF0
 	THUMB_FUNC_START sub_80298D4
 sub_80298D4: @ 0x080298D4
 	push {lr}
-	ldr r2, _080298EC  @ gUnknown_0203A958
+	ldr r2, _080298EC  @ gActionData
 	ldrb r0, [r1]
 	strb r0, [r2, #0x13]
 	ldrb r0, [r1, #1]
@@ -1745,18 +1745,18 @@ sub_80298D4: @ 0x080298D4
 	pop {r1}
 	bx r1
 	.align 2, 0
-_080298EC: .4byte gUnknown_0203A958
+_080298EC: .4byte gActionData
 
 	THUMB_FUNC_START PrepareTargetSelectionForMineAndLightRune
 PrepareTargetSelectionForMineAndLightRune: @ 0x080298F0
 	push {r4, r5, lr}
 	adds r5, r2, #0
 	bl _call_via_r1
-	ldr r0, _08029934  @ gUnknown_0202E4E0
+	ldr r0, _08029934  @ gBmMapMovement
 	ldr r0, [r0]
 	movs r1, #1
 	negs r1, r1
-	bl ClearMapWith
+	bl BmMapFill
 	ldr r0, _08029938  @ gUnknown_0859D2D8
 	ldr r1, _0802993C  @ sub_80298D4
 	bl NewTargetSelection_Specialized
@@ -1779,7 +1779,7 @@ _0802992E:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_08029934: .4byte gUnknown_0202E4E0
+_08029934: .4byte gBmMapMovement
 _08029938: .4byte gUnknown_0859D2D8
 _0802993C: .4byte sub_80298D4
 _08029940: .4byte gUnknown_0202BCF0
@@ -1790,28 +1790,28 @@ HammerneTargetSelection_OnSelect: @ 0x08029944
 	sub sp, #4
 	adds r4, r1, #0
 	bl sub_8003D20
-	ldr r5, _080299B0  @ gUnknown_0203A958
+	ldr r5, _080299B0  @ gActionData
 	ldrb r0, [r4, #2]
 	strb r0, [r5, #0xd]
 	ldr r0, _080299B4  @ gUnknown_0859D064
-	bl NewMenu_Default
+	bl StartOrphanMenu
 	adds r4, r0, #0
 	ldrb r0, [r5, #0xd]
-	bl GetUnitStruct
+	bl GetUnit
 	adds r1, r0, #0
 	adds r0, r4, #0
 	movs r2, #0x10
 	movs r3, #0xb
 	bl sub_801E684
 	ldrb r0, [r5, #0xd]
-	bl GetUnitStruct
+	bl GetUnit
 	bl GetUnitPortraitId
 	bl GetPortraitStructPointer
 	ldr r0, [r0]
 	cmp r0, #0
 	beq _080299A4
 	ldrb r0, [r5, #0xd]
-	bl GetUnitStruct
+	bl GetUnit
 	bl GetUnitPortraitId
 	adds r1, r0, #0
 	movs r0, #2
@@ -1830,18 +1830,18 @@ _080299A4:
 	pop {r1}
 	bx r1
 	.align 2, 0
-_080299B0: .4byte gUnknown_0203A958
+_080299B0: .4byte gActionData
 _080299B4: .4byte gUnknown_0859D064
 
 	THUMB_FUNC_START SetupHammerneUseSelection
 SetupHammerneUseSelection: @ 0x080299B8
 	push {r4, lr}
 	bl MakeTargetListForHammerne
-	ldr r0, _080299F8  @ gUnknown_0202E4E0
+	ldr r0, _080299F8  @ gBmMapMovement
 	ldr r0, [r0]
 	movs r1, #1
 	negs r1, r1
-	bl ClearMapWith
+	bl BmMapFill
 	ldr r0, _080299FC  @ gUnknown_0859D3B8
 	bl NewTargetSelection
 	adds r4, r0, #0
@@ -1863,7 +1863,7 @@ _080299F2:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_080299F8: .4byte gUnknown_0202E4E0
+_080299F8: .4byte gBmMapMovement
 _080299FC: .4byte gUnknown_0859D3B8
 _08029A00: .4byte 0x00000878
 _08029A04: .4byte gUnknown_0202BCF0
@@ -1879,7 +1879,7 @@ HammerneTargetSelection_OnChange: @ 0x08029A08
 	bl ChangeActiveUnitFacing
 	movs r0, #2
 	ldrsb r0, [r4, r0]
-	bl GetUnitStruct
+	bl GetUnit
 	bl DrawHammerneUnitInfoWindow
 	pop {r4}
 	pop {r1}
@@ -1910,9 +1910,9 @@ nullsub_24: @ 0x08029A48
 sub_8029A4C: @ 0x08029A4C
 	push {r4, lr}
 	adds r4, r1, #0
-	ldr r0, _08029A68  @ gUnknown_0203A958
+	ldr r0, _08029A68  @ gActionData
 	ldrb r0, [r0, #0xd]
-	bl GetUnitStruct
+	bl GetUnit
 	lsls r4, r4, #1
 	adds r0, #0x1e
 	adds r0, r0, r4
@@ -1922,7 +1922,7 @@ sub_8029A4C: @ 0x08029A4C
 	movs r0, #3
 	b _08029A7C
 	.align 2, 0
-_08029A68: .4byte gUnknown_0203A958
+_08029A68: .4byte gActionData
 _08029A6C:
 	bl IsItemHammernable
 	lsls r0, r0, #0x18
@@ -1941,9 +1941,9 @@ _08029A7C:
 sub_8029A84: @ 0x08029A84
 	push {r4, r5, r6, lr}
 	adds r5, r1, #0
-	ldr r0, _08029AD8  @ gUnknown_0203A958
+	ldr r0, _08029AD8  @ gActionData
 	ldrb r0, [r0, #0xd]
-	bl GetUnitStruct
+	bl GetUnit
 	adds r1, r5, #0
 	adds r1, #0x3c
 	ldrb r1, [r1]
@@ -1970,7 +1970,7 @@ sub_8029A84: @ 0x08029A84
 	ldr r1, _08029ADC  @ gBG0TilemapBuffer
 	adds r3, r3, r1
 	adds r1, r4, #0
-	bl sub_80168E0
+	bl DrawItemMenuLineLong
 	movs r0, #1
 	bl BG_EnableSyncByMask
 	movs r0, #0
@@ -1978,7 +1978,7 @@ sub_8029A84: @ 0x08029A84
 	pop {r1}
 	bx r1
 	.align 2, 0
-_08029AD8: .4byte gUnknown_0203A958
+_08029AD8: .4byte gActionData
 _08029ADC: .4byte gBG0TilemapBuffer
 
 	THUMB_FUNC_START sub_8029AE0
@@ -1992,9 +1992,9 @@ sub_8029AE0: @ 0x08029AE0
 	cmp r0, #2
 	bne _08029B68
 	movs r6, #0
-	ldr r0, _08029B20  @ gUnknown_0203A958
+	ldr r0, _08029B20  @ gActionData
 	ldrb r0, [r0, #0xd]
-	bl GetUnitStruct
+	bl GetUnit
 	adds r1, r4, #0
 	adds r1, #0x3c
 	ldrb r1, [r1]
@@ -2014,7 +2014,7 @@ sub_8029AE0: @ 0x08029AE0
 	ldr r6, _08029B24  @ 0x00000863
 	b _08029B58
 	.align 2, 0
-_08029B20: .4byte gUnknown_0203A958
+_08029B20: .4byte gActionData
 _08029B24: .4byte 0x00000863
 _08029B28:
 	adds r0, r5, #0
@@ -2042,19 +2042,19 @@ _08029B54:
 _08029B58:
 	adds r0, r7, #0
 	adds r1, r6, #0
-	bl Menu_CallTextBox
+	bl MenuFrozenHelpBox
 _08029B60:
 	movs r0, #8
 	b _08029B7C
 	.align 2, 0
 _08029B64: .4byte 0x00000856
 _08029B68:
-	ldr r1, _08029B84  @ gUnknown_0203A958
+	ldr r1, _08029B84  @ gActionData
 	adds r0, r4, #0
 	adds r0, #0x3c
 	ldrb r0, [r0]
 	strb r0, [r1, #0x15]
-	ldr r0, _08029B88  @ gUnknown_03004E50
+	ldr r0, _08029B88  @ gActiveUnit
 	ldr r0, [r0]
 	bl EndItemEffectSelectionThing
 	movs r0, #0x37
@@ -2063,18 +2063,18 @@ _08029B7C:
 	pop {r1}
 	bx r1
 	.align 2, 0
-_08029B84: .4byte gUnknown_0203A958
-_08029B88: .4byte gUnknown_03004E50
+_08029B84: .4byte gActionData
+_08029B88: .4byte gActiveUnit
 
 	THUMB_FUNC_START PrepareTargetSelectionForHeal
 PrepareTargetSelectionForHeal: @ 0x08029B8C
 	push {r4, lr}
 	bl _call_via_r1
-	ldr r0, _08029BBC  @ gUnknown_0202E4E0
+	ldr r0, _08029BBC  @ gBmMapMovement
 	ldr r0, [r0]
 	movs r1, #1
 	negs r1, r1
-	bl ClearMapWith
+	bl BmMapFill
 	ldr r0, _08029BC0  @ gUnknown_0859D298
 	bl NewTargetSelection
 	adds r4, r0, #0
@@ -2087,7 +2087,7 @@ PrepareTargetSelectionForHeal: @ 0x08029B8C
 	pop {r0}
 	bx r0
 	.align 2, 0
-_08029BBC: .4byte gUnknown_0202E4E0
+_08029BBC: .4byte gBmMapMovement
 _08029BC0: .4byte gUnknown_0859D298
 _08029BC4: .4byte 0x00000874
 
@@ -2095,11 +2095,11 @@ _08029BC4: .4byte 0x00000874
 PrepareTargetSelectionForRestoreStaff: @ 0x08029BC8
 	push {r4, lr}
 	bl _call_via_r1
-	ldr r0, _08029BF8  @ gUnknown_0202E4E0
+	ldr r0, _08029BF8  @ gBmMapMovement
 	ldr r0, [r0]
 	movs r1, #1
 	negs r1, r1
-	bl ClearMapWith
+	bl BmMapFill
 	ldr r0, _08029BFC  @ gUnknown_0859D278
 	bl NewTargetSelection
 	adds r4, r0, #0
@@ -2112,7 +2112,7 @@ PrepareTargetSelectionForRestoreStaff: @ 0x08029BC8
 	pop {r0}
 	bx r0
 	.align 2, 0
-_08029BF8: .4byte gUnknown_0202E4E0
+_08029BF8: .4byte gBmMapMovement
 _08029BFC: .4byte gUnknown_0859D278
 _08029C00: .4byte 0x00000877
 
@@ -2134,7 +2134,7 @@ sub_8029C10: @ 0x08029C10
 	bl ChangeActiveUnitFacing
 	movs r0, #2
 	ldrsb r0, [r4, r0]
-	bl GetUnitStruct
+	bl GetUnit
 	bl sub_803501C
 	pop {r4}
 	pop {r1}
@@ -2144,11 +2144,11 @@ sub_8029C10: @ 0x08029C10
 sub_8029C34: @ 0x08029C34
 	push {r4, lr}
 	bl MakeTargetListForBarrier
-	ldr r0, _08029C64  @ gUnknown_0202E4E0
+	ldr r0, _08029C64  @ gBmMapMovement
 	ldr r0, [r0]
 	movs r1, #1
 	negs r1, r1
-	bl ClearMapWith
+	bl BmMapFill
 	ldr r0, _08029C68  @ gUnknown_0859D258
 	bl NewTargetSelection
 	adds r4, r0, #0
@@ -2161,7 +2161,7 @@ sub_8029C34: @ 0x08029C34
 	pop {r0}
 	bx r0
 	.align 2, 0
-_08029C64: .4byte gUnknown_0202E4E0
+_08029C64: .4byte gBmMapMovement
 _08029C68: .4byte gUnknown_0859D258
 _08029C6C: .4byte 0x00000879
 
@@ -2183,7 +2183,7 @@ sub_8029C7C: @ 0x08029C7C
 	bl ChangeActiveUnitFacing
 	movs r0, #2
 	ldrsb r0, [r4, r0]
-	bl GetUnitStruct
+	bl GetUnit
 	bl sub_80350A4
 	pop {r4}
 	pop {r1}
@@ -2193,11 +2193,11 @@ sub_8029C7C: @ 0x08029C7C
 PrepareTargetSelectionForOffensiveStaff: @ 0x08029CA0
 	push {r4, lr}
 	bl _call_via_r1
-	ldr r0, _08029CD0  @ gUnknown_0202E4E0
+	ldr r0, _08029CD0  @ gBmMapMovement
 	ldr r0, [r0]
 	movs r1, #1
 	negs r1, r1
-	bl ClearMapWith
+	bl BmMapFill
 	ldr r0, _08029CD4  @ gUnknown_0859D238
 	bl NewTargetSelection
 	adds r4, r0, #0
@@ -2210,7 +2210,7 @@ PrepareTargetSelectionForOffensiveStaff: @ 0x08029CA0
 	pop {r0}
 	bx r0
 	.align 2, 0
-_08029CD0: .4byte gUnknown_0202E4E0
+_08029CD0: .4byte gBmMapMovement
 _08029CD4: .4byte gUnknown_0859D238
 _08029CD8: .4byte 0x0000087B
 
@@ -2232,16 +2232,16 @@ sub_8029CE8: @ 0x08029CE8
 	bl ChangeActiveUnitFacing
 	movs r0, #2
 	ldrsb r0, [r4, r0]
-	bl GetUnitStruct
+	bl GetUnit
 	adds r6, r0, #0
-	ldr r0, _08029D24  @ gUnknown_03004E50
+	ldr r0, _08029D24  @ gActiveUnit
 	ldr r5, [r0]
 	movs r0, #2
 	ldrsb r0, [r4, r0]
-	bl GetUnitStruct
+	bl GetUnit
 	adds r1, r0, #0
 	adds r0, r5, #0
-	bl GetStaffAccuracy
+	bl GetOffensiveStaffAccuracy
 	adds r1, r0, #0
 	adds r0, r6, #0
 	bl sub_803511C
@@ -2249,13 +2249,13 @@ sub_8029CE8: @ 0x08029CE8
 	pop {r1}
 	bx r1
 	.align 2, 0
-_08029D24: .4byte gUnknown_03004E50
+_08029D24: .4byte gActiveUnit
 
 	THUMB_FUNC_START GenericSelection_DeleteBBAndBG
 GenericSelection_DeleteBBAndBG: @ 0x08029D28
 	push {lr}
 	bl DeleteEach6CBB
-	bl ClearBG0BG1
+	bl ClearBg0Bg1
 	pop {r0}
 	bx r0
 
@@ -2322,7 +2322,7 @@ TorchTargetPosSelect_Init: @ 0x08029D98
 	adds r1, r0, #0
 	adds r0, r5, #0
 	bl NewBottomHelpText
-	ldr r4, _08029DEC  @ gUnknown_03004E50
+	ldr r4, _08029DEC  @ gActiveUnit
 	ldr r1, [r4]
 	movs r0, #0x10
 	ldrsb r0, [r1, r0]
@@ -2347,7 +2347,7 @@ _08029DDC:
 	.align 2, 0
 _08029DE4: .4byte gUnknown_0202BCB0
 _08029DE8: .4byte 0x0000087C
-_08029DEC: .4byte gUnknown_03004E50
+_08029DEC: .4byte gActiveUnit
 
 	THUMB_FUNC_START TorchTargetSelection_Loop
 TorchTargetSelection_Loop: @ 0x08029DF0
@@ -2358,7 +2358,7 @@ TorchTargetSelection_Loop: @ 0x08029DF0
 	ldrsh r2, [r5, r0]
 	movs r1, #0x16
 	ldrsh r0, [r5, r1]
-	ldr r1, _08029E54  @ gUnknown_0202E4E4
+	ldr r1, _08029E54  @ gBmMapRange
 	ldr r1, [r1]
 	lsls r0, r0, #2
 	adds r0, r0, r1
@@ -2386,22 +2386,22 @@ TorchTargetSelection_Loop: @ 0x08029DF0
 _08029E34:
 	adds r0, r6, #0
 	bl Proc_ClearNativeCallback
-	ldr r1, _08029E60  @ gUnknown_0203A958
+	ldr r1, _08029E60  @ gActionData
 	ldrh r0, [r5, #0x14]
 	strb r0, [r1, #0x13]
 	ldrh r0, [r5, #0x16]
 	strb r0, [r1, #0x14]
-	ldr r0, _08029E64  @ gUnknown_03004E50
+	ldr r0, _08029E64  @ gActiveUnit
 	ldr r0, [r0]
 	bl EndItemEffectSelectionThing
 	b _08029EC0
 	.align 2, 0
 _08029E50: .4byte gUnknown_0202BCB0
-_08029E54: .4byte gUnknown_0202E4E4
+_08029E54: .4byte gBmMapRange
 _08029E58: .4byte gKeyStatusPtr
 _08029E5C: .4byte gUnknown_0202BCF0
-_08029E60: .4byte gUnknown_0203A958
-_08029E64: .4byte gUnknown_03004E50
+_08029E60: .4byte gActionData
+_08029E64: .4byte gActiveUnit
 _08029E68:
 	ldr r0, _08029EC8  @ gUnknown_0202BCF0
 	adds r0, #0x41

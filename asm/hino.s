@@ -674,7 +674,7 @@ _08012BDC:
 	eors r1, r2
 	strh r1, [r0, #0xe]
 _08012BE6:
-	bl UpdateGameTilesGraphics
+	bl RenderBmMap
 	b _08012C2E
 	.align 2, 0
 _08012BEC: .4byte gUnknown_0202BCB0
@@ -6175,7 +6175,7 @@ _080153B6:
 	adds r0, r1, #1
 	strh r0, [r2, #0x10]
 _080153C6:
-	bl HandleSupportGains
+	bl ProcessTurnSupportExp
 _080153CA:
 	pop {r0}
 	bx r0
@@ -6215,7 +6215,7 @@ _0801540C: .4byte gUnknown_089FFC30
 	THUMB_FUNC_START sub_8015410
 sub_8015410: @ 0x08015410
 	push {lr}
-	bl sub_80187C0
+	bl ClearActiveFactionGrayedStates
 	bl SMS_UpdateFromGameData
 	bl SwitchPhases
 	bl sub_8083EB8
@@ -6320,7 +6320,7 @@ sub_80154C8: @ 0x080154C8
 	bne _080154EC
 	ldr r0, _080154E8  @ gUnknown_0859BDA0
 	bl Proc_CreateBlockingChild
-	bl HandleTrapDecay
+	bl DecayTraps
 	movs r0, #0
 	b _080154EE
 	.align 2, 0
@@ -6335,7 +6335,7 @@ _080154EE:
 	THUMB_FUNC_START E_BMAPMAIN_SuspendGame
 E_BMAPMAIN_SuspendGame: @ 0x080154F4
 	push {lr}
-	ldr r1, _08015508  @ gUnknown_0203A958
+	ldr r1, _08015508  @ gActionData
 	movs r0, #9
 	strb r0, [r1, #0x16]
 	movs r0, #3
@@ -6343,7 +6343,7 @@ E_BMAPMAIN_SuspendGame: @ 0x080154F4
 	pop {r0}
 	bx r0
 	.align 2, 0
-_08015508: .4byte gUnknown_0203A958
+_08015508: .4byte gActionData
 
 	THUMB_FUNC_START sub_801550C
 sub_801550C: @ 0x0801550C
@@ -6389,7 +6389,7 @@ UndeployEveryone: @ 0x08015544
 	movs r4, #1
 _0801555C:
 	adds r0, r4, #0
-	bl GetUnitStruct
+	bl GetUnit
 	adds r2, r0, #0
 	cmp r2, #0
 	beq _08015578

@@ -1,31 +1,11 @@
 #ifndef GUARD_EVENT_H
 #define GUARD_EVENT_H
 
-// TODO: move elsewhere?
-struct UnitDefinition {
-	/* 00 */ u8  charIndex;
-	/* 01 */ u8  classIndex;
-	/* 02 */ u8  leaderCharIndex;
+struct UnitDefinition;
 
-	/* 03 */ u8  autolevel  : 1;
-	/* 03 */ u8  allegiance : 2;
-	/* 03 */ u8  level      : 5;
-
-	/* 04 */ u16 xPosition : 6; /* 04:0 to 04:5 */
-	/* 04 */ u16 yPosition : 6; /* 04:6 to 05:3 */
-	/* 05 */ u16 unk       : 2; /* 05:4 to 05:5 */
-	/* 05 */ u16 sumFlag   : 1; /* 05:6 */
-	/* 05 */ u16 extraData : 9; /* 05:7 to 06:7 */
-	/* 07 */ u16 redaCount : 8;
-
-	const void* redas;
-
-	u8  items[4];
-	u8  ai[4];
-};
-
-struct EventEngineProc {
-    PROC_HEADER;
+struct EventEngineProc
+{
+    /* 00 */ PROC_HEADER;
 
     /* 2C */ void (*pCallback)(struct EventEngineProc*);
 
@@ -113,13 +93,13 @@ typedef u8(*EventFuncType)(struct EventEngineProc*);
 void CallEvent(const u16* events, u8 execType);
 struct EventEngineProc* EventEngine_Create(const u16* events, u8 idk);
 // ??? EventEngine_CreateBattle(???);
-// ??? EventEngineExists(???);
+int EventEngineExists(void);
 // ??? BattleEventEngineExists(???);
 // ??? DeleteEventEngines(???);
 // ??? sub_800D1E4(???);
 // ??? SetEventSlotC(???);
 // ??? sub_800D204(???);
-// ??? sub_800D208(???);
+int sub_800D208(void);
 // ??? CallBattleQuoteEvent(???);
 // ??? CallBattleQuoteEventInBattle(???);
 // ??? CallTileChangeEvent(???);
@@ -128,7 +108,7 @@ struct EventEngineProc* EventEngine_Create(const u16* events, u8 idk);
 // ??? CallSupportViewerEvent(???);
 // ??? CallRetreatPromptEvent(???);
 // ??? CallSuspendPromptEvent(???);
-// ??? CallGameOverEvent(???);
+void CallGameOverEvent(void);
 // ??? sub_800D3E4(???);
 // ??? EventEngine_StartSkip(???);
 // ??? sub_800D488(???);

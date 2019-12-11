@@ -2,13 +2,16 @@
 
 #include "proc.h"
 #include "fontgrp.h"
+#include "uiutils.h"
 #include "mu.h"
 #include "bmio.h"
+#include "bmunit.h"
+#include "bmmap.h"
+#include "uimenu.h"
 
 #include "event.h"
 
 // TODO: move those where they belong when possible
-void sub_8013D08(int speed, struct Proc* parent); // aka NewFadeInBack
 void sub_800E640(struct EventEngineProc*);
 
 static bool8 EventEngine_CanStartSkip(struct EventEngineProc*);
@@ -142,7 +145,7 @@ extern const u16 gEvent_GameOver[]; /* Game Over Events?
 extern const struct ProcCmd gUnknown_08591540[]; // extern
 
 void _MarkSomethingInMenu(void) {
-    MarkSomethingInMenu();
+    FreezeMenu();
 }
 
 void EventEngine_OnUpdate(struct EventEngineProc* proc) {
@@ -202,7 +205,7 @@ void EventEngine_OnUpdate(struct EventEngineProc* proc) {
 void EventEngine_OnEnd(struct EventEngineProc* proc) {
     SetFont(NULL);
     Font_LoadForUI();
-    LoadNewUIGraphics();
+    LoadUiFrameGraphics();
 
     switch (proc->execType) {
     case EV_EXEC_UNK4:
@@ -210,7 +213,7 @@ void EventEngine_OnEnd(struct EventEngineProc* proc) {
     
     case EV_EXEC_UNK5:
         LoadGameCoreGfx();
-        sub_8019974();
+        UnpackChapterMapPalette();
         sub_800BCDC(proc->mapSpritePalIdOverride);
 
         if (proc->evStateBits & EV_STATE_CHANGEGM) {
@@ -221,7 +224,7 @@ void EventEngine_OnEnd(struct EventEngineProc* proc) {
 
     case EV_EXEC_GAMEPLAY:
         SubSkipThread2();
-        sub_804F62C();
+        ResumeMenu();
         sub_800BB98();
         ClearCutsceneUnits();
 

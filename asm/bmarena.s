@@ -28,7 +28,7 @@ PrepareArenaStruct: @ 0x08031794
 	bl sub_803190C
 	strb r0, [r5, #0x10]
 	ldrb r0, [r5, #0x10]
-	bl GetROMClassStruct
+	bl GetClassData
 	bl GetClassBestWRankType
 	strb r0, [r5, #0xe]
 	ldrb r0, [r5, #0xd]
@@ -251,7 +251,7 @@ _08031960:
 	mov r4, r8
 _0803197E:
 	ldrb r0, [r4]
-	bl GetROMClassStruct
+	bl GetClassData
 	ldr r0, [r0, #0x28]
 	movs r1, #0x80
 	lsls r1, r1, #1
@@ -280,7 +280,7 @@ _080319B2:
 	adds r4, #1
 _080319B4:
 	ldrb r0, [r4]
-	bl GetROMClassStruct
+	bl GetClassData
 	ldr r0, [r0, #0x28]
 	movs r1, #0x80
 	lsls r1, r1, #1
@@ -430,15 +430,15 @@ LoadArenaOpponentStruct: @ 0x08031A84
 	strb r3, [r0, #0x12]
 	strb r3, [r0, #0x13]
 	adds r0, r6, #0
-	bl ClearUnitStruct
+	bl ClearUnit
 	movs r0, #0x80
 	strb r0, [r6, #0xb]
 	adds r0, r6, #0
 	mov r1, sp
-	bl StoreNewUnitFromCode
+	bl UnitInitFromDefinition
 	ldr r1, [r6]
 	adds r0, r6, #0
-	bl LoadUnitStats
+	bl UnitLoadStatsFromChracter
 	movs r4, #8
 	ldrsb r4, [r6, r4]
 	ldr r0, _08031B08  @ gUnknown_0202BCF0
@@ -464,7 +464,7 @@ _08031B12:
 	bl __divsi3
 	strb r0, [r6, #8]
 	adds r0, r6, #0
-	bl AutolevelUnit
+	bl UnitAutolevel
 	strb r4, [r6, #8]
 	movs r2, #0
 	adds r3, r6, #0
@@ -495,12 +495,12 @@ _08031B46:
 	strb r0, [r6, #8]
 _08031B52:
 	adds r0, r6, #0
-	bl CheckForStatCaps
+	bl UnitCheckStatCaps
 	adds r0, r6, #0
-	bl GetUnitMaxHP
+	bl GetUnitMaxHp
 	adds r1, r0, #0
 	adds r0, r6, #0
-	bl SetUnitHP
+	bl SetUnitHp
 	add sp, #0x14
 	pop {r4, r5, r6}
 	pop {r0}
@@ -518,12 +518,12 @@ LoadArenaWeapons: @ 0x08031B70
 	ldrb r0, [r4, #0xd]
 	add r0, sp
 	ldrb r0, [r0]
-	bl MakeItemShort
+	bl MakeNewItem
 	strh r0, [r4, #0x1a]
 	ldrb r0, [r4, #0xe]
 	add r0, sp
 	ldrb r0, [r0]
-	bl MakeItemShort
+	bl MakeNewItem
 	strh r0, [r4, #0x1c]
 	movs r0, #1
 	strb r0, [r4, #0xc]
@@ -572,7 +572,7 @@ _08031BDC:
 	ldrb r0, [r4]
 	cmp r0, #0
 	beq _08031BFC
-	bl MakeItemShort
+	bl MakeNewItem
 	lsls r0, r0, #0x10
 	lsrs r0, r0, #0x10
 	b _08031C08
@@ -598,7 +598,7 @@ PrepareBalancedArenaFight: @ 0x08031C10
 	ldr r4, _08031C38  @ gUnknown_0203A8F0
 	ldr r0, [r4]
 	bl GetUnitPower
-	ldr r5, _08031C3C  @ gUnknown_0203A4EC
+	ldr r5, _08031C3C  @ gBattleActor
 	adds r0, #5
 	adds r1, r5, #0
 	adds r1, #0x5a
@@ -612,7 +612,7 @@ PrepareBalancedArenaFight: @ 0x08031C10
 	b _08031C46
 	.align 2, 0
 _08031C38: .4byte gUnknown_0203A8F0
-_08031C3C: .4byte gUnknown_0203A4EC
+_08031C3C: .4byte gBattleActor
 _08031C40:
 	ldr r0, [r4]
 	bl GetUnitDefense
@@ -623,7 +623,7 @@ _08031C46:
 	ldr r4, _08031C70  @ gUnknown_0203A8F0
 	ldr r0, [r4, #4]
 	bl GetUnitPower
-	ldr r5, _08031C74  @ gUnknown_0203A56C
+	ldr r5, _08031C74  @ gBattleTarget
 	adds r0, #5
 	adds r1, r5, #0
 	adds r1, #0x5a
@@ -637,7 +637,7 @@ _08031C46:
 	b _08031C7E
 	.align 2, 0
 _08031C70: .4byte gUnknown_0203A8F0
-_08031C74: .4byte gUnknown_0203A56C
+_08031C74: .4byte gBattleTarget
 _08031C78:
 	ldr r0, [r4, #4]
 	bl GetUnitDefense
@@ -645,18 +645,18 @@ _08031C7E:
 	adds r1, r5, #0
 	adds r1, #0x5c
 	strh r0, [r1]
-	ldr r0, _08031CCC  @ gUnknown_0203A4EC
+	ldr r0, _08031CCC  @ gBattleActor
 	adds r0, #0x5a
 	movs r1, #0
 	ldrsh r4, [r0, r1]
-	ldr r0, _08031CD0  @ gUnknown_0203A56C
+	ldr r0, _08031CD0  @ gBattleTarget
 	adds r0, #0x5c
 	movs r1, #0
 	ldrsh r0, [r0, r1]
 	subs r4, r4, r0
 	ldr r5, _08031CD4  @ gUnknown_0203A8F0
 	ldr r0, [r5, #4]
-	bl GetUnitMaxHP
+	bl GetUnitMaxHp
 	movs r1, #6
 	bl __divsi3
 	cmp r4, r0
@@ -679,8 +679,8 @@ _08031C7E:
 	strb r0, [r1, #0x18]
 	b _08031CEC
 	.align 2, 0
-_08031CCC: .4byte gUnknown_0203A4EC
-_08031CD0: .4byte gUnknown_0203A56C
+_08031CCC: .4byte gBattleActor
+_08031CD0: .4byte gBattleTarget
 _08031CD4: .4byte gUnknown_0203A8F0
 _08031CD8:
 	ldr r0, [r5, #4]
@@ -704,18 +704,18 @@ _08031CEC:
 	adds r0, #1
 	strb r0, [r1, #0x15]
 _08031CFE:
-	ldr r0, _08031D50  @ gUnknown_0203A56C
+	ldr r0, _08031D50  @ gBattleTarget
 	adds r0, #0x5a
 	movs r1, #0
 	ldrsh r4, [r0, r1]
-	ldr r0, _08031D54  @ gUnknown_0203A4EC
+	ldr r0, _08031D54  @ gBattleActor
 	adds r0, #0x5c
 	movs r1, #0
 	ldrsh r0, [r0, r1]
 	subs r4, r4, r0
 	ldr r5, _08031D4C  @ gUnknown_0203A8F0
 	ldr r0, [r5]
-	bl GetUnitMaxHP
+	bl GetUnitMaxHp
 	movs r1, #6
 	bl __divsi3
 	cmp r4, r0
@@ -743,8 +743,8 @@ _08031D44:
 	bx r1
 	.align 2, 0
 _08031D4C: .4byte gUnknown_0203A8F0
-_08031D50: .4byte gUnknown_0203A56C
-_08031D54: .4byte gUnknown_0203A4EC
+_08031D50: .4byte gBattleTarget
+_08031D54: .4byte gBattleActor
 
 	THUMB_FUNC_START AdjustArenaOpponentPower
 AdjustArenaOpponentPower: @ 0x08031D58
@@ -985,25 +985,25 @@ sub_8031EF0: @ 0x08031EF0
 	ldr r0, _08031F3C  @ gUnknown_0202BCB0
 	adds r0, #0x3c
 	ldrb r5, [r0]
-	ldr r1, _08031F40  @ gUnknown_0203A958
-	ldr r4, _08031F44  @ gUnknown_0203A56C
+	ldr r1, _08031F40  @ gActionData
+	ldr r4, _08031F44  @ gBattleTarget
 	ldrb r0, [r4, #0x13]
 	strb r0, [r1, #0x15]
 	movs r0, #4
 	strb r0, [r1, #0x16]
 	movs r0, #3
 	bl SaveSuspendedGame
-	bl MakeBattle
+	bl BattleUnwind
 	movs r0, #0x13
 	ldrsb r0, [r4, r0]
 	cmp r0, #0
 	bne _08031F1A
-	bl sub_802B92C
+	bl BattleApplyExpGains
 _08031F1A:
 	ldr r0, _08031F48  @ gUnknown_0203A8F0
 	ldr r0, [r0]
-	ldr r1, _08031F4C  @ gUnknown_0203A4EC
-	bl sub_802C2D4
+	ldr r1, _08031F4C  @ gBattleActor
+	bl UpdateUnitDuringBattle
 	cmp r5, #0
 	beq _08031F30
 	movs r0, #0x13
@@ -1018,10 +1018,10 @@ _08031F34:
 	bx r0
 	.align 2, 0
 _08031F3C: .4byte gUnknown_0202BCB0
-_08031F40: .4byte gUnknown_0203A958
-_08031F44: .4byte gUnknown_0203A56C
+_08031F40: .4byte gActionData
+_08031F44: .4byte gBattleTarget
 _08031F48: .4byte gUnknown_0203A8F0
-_08031F4C: .4byte gUnknown_0203A4EC
+_08031F4C: .4byte gBattleActor
 
 	THUMB_FUNC_START sub_8031F50
 sub_8031F50: @ 0x08031F50
@@ -1057,7 +1057,7 @@ sub_8031F74: @ 0x08031F74
 	bl memcpy
 	ldrh r1, [r4]
 	adds r0, r5, #0
-	bl CanUnitUseAsWeapon
+	bl CanUnitUseWeapon
 	lsls r0, r0, #0x18
 	cmp r0, #0
 	bne _08031FBE
@@ -1073,7 +1073,7 @@ _08031F98:
 	mov r2, sp
 	adds r0, r2, r1
 	ldrb r0, [r0]
-	bl MakeItemShort
+	bl MakeNewItem
 	strh r0, [r4]
 	b _08031FBE
 	.align 2, 0

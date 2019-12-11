@@ -102,7 +102,7 @@ sub_8086E44: @ 0x08086E44
 	lsls r1, r1, #0x18
 	asrs r1, r1, #0x18
 	adds r0, r4, #0
-	bl SetupBattleStructFromUnitAndWeapon
+	bl BattleGenerateUiStats
 	adds r0, r7, #0
 	adds r0, #0x18
 	ldr r1, _08086F30  @ 0x00000286
@@ -164,7 +164,7 @@ sub_8086E44: @ 0x08086E44
 	movs r1, #2
 	bl DrawDecNumber
 	ldr r0, [r7, #0xc]
-	bl GetUnitCurrentHP
+	bl GetUnitCurrentHp
 	cmp r0, #0x63
 	ble _08086F50
 	ldr r0, _08086F4C  @ 0x00000446
@@ -190,7 +190,7 @@ _08086F50:
 	lsls r4, r4, #3
 	add r4, r8
 	ldr r0, [r7, #0xc]
-	bl GetUnitCurrentHP
+	bl GetUnitCurrentHp
 	adds r2, r0, #0
 	adds r0, r4, #0
 	movs r1, #2
@@ -198,7 +198,7 @@ _08086F50:
 _08086F66:
 	ldr r5, _08086F80  @ gUnknown_02003BFC
 	ldr r0, [r5, #0xc]
-	bl GetUnitMaxHP
+	bl GetUnitMaxHp
 	cmp r0, #0x63
 	ble _08086F88
 	ldr r0, _08086F84  @ gUnknown_020230F4
@@ -213,7 +213,7 @@ _08086F84: .4byte gUnknown_020230F4
 _08086F88:
 	ldr r4, _08086FA8  @ gUnknown_020230F6
 	ldr r0, [r5, #0xc]
-	bl GetUnitMaxHP
+	bl GetUnitMaxHp
 	adds r2, r0, #0
 	adds r0, r4, #0
 	movs r1, #2
@@ -670,7 +670,7 @@ _08087290:
 	ldr r0, [r1, #0x28]
 	ldr r1, [r2, #0x28]
 	orrs r0, r1
-	bl sub_8018AF0
+	bl GetUnitAidIconId
 	adds r1, r0, #0
 	movs r2, #0xa0
 	lsls r2, r2, #7
@@ -679,7 +679,7 @@ _08087290:
 	adds r4, r5, #0
 	adds r4, #0x78
 	ldr r0, [r5, #0xc]
-	bl GetRescuingUnitNameId
+	bl GetUnitRescueName
 	adds r3, r0, #0
 	adds r0, r4, #0
 	movs r1, #0x18
@@ -697,7 +697,7 @@ _08087290:
 	bne _080873CC
 	adds r4, #0x10
 	adds r0, r1, #0
-	bl WriteStatusTextToRAM
+	bl GetUnitStatusName
 	adds r3, r0, #0
 	adds r0, r4, #0
 	movs r1, #0x18
@@ -713,7 +713,7 @@ _080873CC:
 	adds r4, r5, #0
 	adds r4, #0x88
 	adds r0, r1, #0
-	bl WriteStatusTextToRAM
+	bl GetUnitStatusName
 	adds r3, r0, #0
 	adds r0, r4, #0
 	movs r1, #0x16
@@ -756,7 +756,7 @@ _08087408:
 	adds r4, r5, #0
 	adds r4, #0x88
 	add r0, sp, #8
-	bl WriteStatusTextToRAM
+	bl GetUnitStatusName
 	adds r3, r0, #0
 	adds r0, r4, #0
 	movs r1, #0x18
@@ -767,7 +767,7 @@ _08087442:
 	adds r4, r5, #0
 	adds r4, #0x88
 	add r0, sp, #8
-	bl WriteStatusTextToRAM
+	bl GetUnitStatusName
 	adds r3, r0, #0
 	adds r0, r4, #0
 	movs r1, #0x16
@@ -777,7 +777,7 @@ _08087458:
 	ldr r4, _0808747C  @ gUnknown_02003F84
 	ldr r0, _08087480  @ gUnknown_02003BFC
 	ldr r0, [r0, #0xc]
-	bl sub_80286BC
+	bl GetUnitAffinityIcon
 	adds r1, r0, #0
 	movs r2, #0xa0
 	lsls r2, r2, #7
@@ -847,7 +847,7 @@ _080874F4: .4byte gUnknown_02003BFC
 _080874F8:
 	ldr r0, [r7, #0xc]
 	adds r1, r5, #0
-	bl IsItemUsable
+	bl IsItemDisplayUsable
 	movs r2, #0
 	lsls r0, r0, #0x18
 	cmp r0, #0
@@ -860,7 +860,7 @@ _0808750A:
 	ldr r3, _080875DC  @ gUnknown_02003D2E
 	adds r3, r6, r3
 	adds r1, r5, #0
-	bl sub_8016A2C
+	bl DrawItemStatScreenLine
 	movs r0, #2
 	add r8, r0
 	adds r6, #0x80
@@ -918,7 +918,7 @@ _0808757C:
 	cmp r0, #0x34
 	beq _080875F8
 	ldr r4, _080875F0  @ gUnknown_0200407C
-	ldr r6, _080875F4  @ gUnknown_0203A4EC
+	ldr r6, _080875F4  @ gBattleActor
 	adds r0, r6, #0
 	adds r0, #0x5a
 	movs r1, #0
@@ -959,7 +959,7 @@ _080875E4: .4byte gUnknown_02003D4C
 _080875E8: .4byte gUnknown_0200472E
 _080875EC: .4byte gUnknown_08A02250
 _080875F0: .4byte gUnknown_0200407C
-_080875F4: .4byte gUnknown_0203A4EC
+_080875F4: .4byte gBattleActor
 _080875F8:
 	ldr r4, _0808767C  @ gUnknown_0200407C
 	adds r0, r4, #0
@@ -977,7 +977,7 @@ _080875F8:
 	movs r2, #0xff
 	bl DrawDecNumber
 	adds r4, #0x8e
-	ldr r0, _08087680  @ gUnknown_0203A4EC
+	ldr r0, _08087680  @ gBattleActor
 	adds r0, #0x62
 	movs r1, #0
 	ldrsh r2, [r0, r1]
@@ -987,7 +987,7 @@ _080875F8:
 	movs r5, #0
 _08087630:
 	adds r0, r5, #0
-	bl sub_8016CC0
+	bl GetItemDisplayRangeString
 	adds r5, r0, #0
 	ldr r4, _08087684  @ gUnknown_02003CB4
 	bl GetStringTextWidth
@@ -1024,7 +1024,7 @@ _08087660:
 	bx r0
 	.align 2, 0
 _0808767C: .4byte gUnknown_0200407C
-_08087680: .4byte gUnknown_0203A4EC
+_08087680: .4byte gBattleActor
 _08087684: .4byte gUnknown_02003CB4
 _08087688: .4byte gUnknown_02003D2C
 _0808768C: .4byte 0x00007060
@@ -1043,7 +1043,7 @@ DrawUnitScreenSupportList: @ 0x08087698
 	str r0, [sp, #8]
 	ldr r4, _08087780  @ gUnknown_02003BFC
 	ldr r0, [r4, #0xc]
-	bl GetUnitTotalSupportLevels
+	bl GetUnitTotalSupportLevel
 	movs r1, #0
 	str r1, [sp, #0xc]
 	cmp r0, #5
@@ -1052,7 +1052,7 @@ DrawUnitScreenSupportList: @ 0x08087698
 	str r0, [sp, #0xc]
 _080876BC:
 	ldr r0, [r4, #0xc]
-	bl GetROMUnitSupportCount
+	bl GetUnitSupporterCount
 	mov sl, r0
 	movs r1, #0
 	mov r9, r1
@@ -1068,14 +1068,14 @@ _080876D8:
 	ldr r1, _08087780  @ gUnknown_02003BFC
 	ldr r0, [r1, #0xc]
 	mov r1, r9
-	bl GetSupportLevelBySupportIndex
+	bl GetUnitSupportLevel
 	adds r7, r0, #0
 	cmp r7, #0
 	beq _08087768
 	ldr r1, _08087780  @ gUnknown_02003BFC
 	ldr r0, [r1, #0xc]
 	mov r1, r9
-	bl GetROMUnitSupportingId
+	bl GetUnitSupporterCharacter
 	adds r4, r0, #0
 	lsls r4, r4, #0x18
 	lsrs r4, r4, #0x18
@@ -1085,14 +1085,14 @@ _080876D8:
 	mov r8, r1
 	adds r5, r6, r1
 	adds r0, r4, #0
-	bl sub_80286D4
+	bl GetCharacterAffinityIcon
 	adds r1, r0, #0
 	adds r0, r5, #0
 	movs r2, #0xa0
 	lsls r2, r2, #7
 	bl DrawIcon
 	adds r0, r4, #0
-	bl GetROMCharStruct
+	bl GetCharacterData
 	ldrh r0, [r0]
 	bl GetStringFromIndex
 	mov r1, r8
@@ -1119,7 +1119,7 @@ _08087746:
 	adds r4, #0x12
 	adds r4, r6, r4
 	adds r0, r7, #0
-	bl sub_80286EC
+	bl GetSupportLevelUiChar
 	adds r2, r0, #0
 	adds r0, r4, #0
 	adds r1, r5, #0
@@ -1185,7 +1185,7 @@ _080877C4:
 	lsls r4, r4, #1
 	add r4, r8
 	adds r0, r5, #0
-	bl GetWRankText
+	bl GetDisplayRankStringFromExp
 	adds r2, r0, #0
 	adds r0, r4, #0
 	adds r1, r7, #0
@@ -1193,7 +1193,7 @@ _080877C4:
 	add r2, sp, #0x10
 	adds r0, r5, #0
 	add r1, sp, #0xc
-	bl GetWRankBarData
+	bl GetWeaponExpProgressState
 	mov r0, r9
 	lsls r5, r0, #1
 	add r5, r9
@@ -1352,7 +1352,7 @@ _08087930:
 	movs r0, #0x3f
 	ands r4, r0
 	adds r0, r6, r4
-	bl GetUnitStruct
+	bl GetUnit
 	adds r3, r0, #0
 	cmp r3, #0
 	beq _08087930
@@ -1976,7 +1976,7 @@ sub_8087DF8: @ 0x08087DF8
 	adds r0, #0x4a
 	movs r1, #0
 	ldrsh r0, [r0, r1]
-	bl GetUnitStruct
+	bl GetUnit
 	ldr r1, _08087E20  @ gUnknown_02003BFC
 	str r0, [r1, #0xc]
 	ldr r0, _08087E24  @ gUnknown_08A009D8
@@ -2813,7 +2813,7 @@ sub_80884B0: @ 0x080884B0
 	mov r0, sp
 	bl SetupBackgrounds
 	movs r0, #3
-	bl LoadNewUIPal
+	bl UnpackUiFramePalette
 	movs r0, #0x80
 	lsls r0, r0, #3
 	bl RegisterBlankTile
@@ -2923,7 +2923,7 @@ sub_80884B0: @ 0x080884B0
 	movs r0, #4
 	bl LoadIconPalettes
 	movs r0, #6
-	bl sub_804E138
+	bl UnpackUiBarPalette
 	movs r0, #1
 	movs r1, #0x13
 	bl LoadIconPalette
@@ -3203,7 +3203,7 @@ _08088850:
 	ldrb r0, [r1, #0x1b]
 	cmp r0, #0
 	beq _08088888
-	bl GetUnitStruct
+	bl GetUnit
 	adds r2, r0, #0
 	ldr r0, [r4, #0xc]
 	ldr r0, [r0, #0xc]
@@ -3698,7 +3698,7 @@ sub_8088C14: @ 0x08088C14
 	adds r4, r0, #0
 	ldr r0, _08088C38  @ gUnknown_02003BFC
 	ldr r0, [r0, #0xc]
-	bl GetUnitTotalSupportLevels
+	bl GetUnitTotalSupportLevel
 	cmp r0, #0
 	bne _08088C42
 	adds r0, r4, #0
@@ -3964,9 +3964,9 @@ sub_8088E14: @ 0x08088E14
 	bge _08088E30
 	cmp r3, #0
 	bge _08088E30
-	bl sub_804E86C
+	bl GetUiHandPrevDisplayX
 	adds r4, r0, #0
-	bl sub_804E878
+	bl GetUiHandPrevDisplayY
 	adds r3, r0, #0
 _08088E30:
 	ldr r0, _08088E58  @ gUnknown_0203E768
@@ -4137,9 +4137,9 @@ sub_8088F68: @ 0x08088F68
 	bge _08088F9E
 	cmp r6, #0
 	bge _08088F9E
-	bl sub_804E86C
+	bl GetUiHandPrevDisplayX
 	adds r7, r0, #0
-	bl sub_804E878
+	bl GetUiHandPrevDisplayY
 	adds r6, r0, #0
 _08088F9E:
 	adds r0, r5, #0
@@ -4271,7 +4271,7 @@ sub_8089088: @ 0x08089088
 	lsls r1, r1, #3
 	ldrb r2, [r2, #0x11]
 	adds r1, r1, r2
-	bl sub_804E79C
+	bl DisplayUiHand
 	ldr r6, _08089124  @ gKeyStatusPtr
 	ldr r0, [r6]
 	ldrh r1, [r0, #6]
@@ -4793,9 +4793,9 @@ sub_8089454: @ 0x08089454
 	negs r1, r1
 	movs r0, #0
 	bl LoadDialogueBoxGfx
-	bl sub_804E86C
+	bl GetUiHandPrevDisplayX
 	adds r4, r0, #0
-	bl sub_804E878
+	bl GetUiHandPrevDisplayY
 	adds r1, r0, #0
 	adds r0, r4, #0
 	adds r2, r5, #0
