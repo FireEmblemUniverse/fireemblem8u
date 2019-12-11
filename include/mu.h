@@ -191,7 +191,7 @@ void MU_AllEnable(void);
 
 void MU_GetComputedEndPosition(int* xOut, int* yOut, const u8* commands);
 
-int MU_CanStart(void);
+s8 MU_CanStart(void);
 
 void MU_AllRestartAnimations(void);
 

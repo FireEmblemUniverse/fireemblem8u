@@ -1311,7 +1311,7 @@ void MU_GetComputedEndPosition(int* xOut, int* yOut, const u8* commands) {
     }
 }
 
-int MU_CanStart(void) {
+s8 MU_CanStart(void) {
     int i;
 
     for (i = 0; i < MU_MAX_COUNT; ++i)
