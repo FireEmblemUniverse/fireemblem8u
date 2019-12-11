@@ -23,109 +23,131 @@
 
 #include "statscreen.h"
 
+struct StatScreenInfo
+{
+    /* 00 */ u8  unk00;
+    /* 01 */ u8  unitId;
+    /* 02 */ u16 config;
+};
+
+struct SSTextDispInfo
+{
+    /* 00 */ struct TextHandle* text;
+    /* 04 */ u16* tilemap;
+    /* 08 */ u8 color;
+    /* 09 */ u8 xoff;
+    /* 0C */ const unsigned* mid;
+};
+
 // TODO: figure out what to do with those
 // (It's in the weird EWRAM overlay area)
 
-extern struct StatScreenSt gUnknown_02003BFC; // statscreen state
-extern u16 gUnknown_02003D2C[0x280]; // bg0 tilemap buffer for stat screen page
-extern u16 gUnknown_0200472C[0x240]; // bg2 tilemap buffer for stat screen page
+extern struct StatScreenSt gStatScreen; // statscreen state
+extern u16 gBmFrameTmap0[0x280]; // bg0 tilemap buffer for stat screen page
+extern u16 gBmFrameTmap1[0x240]; // bg2 tilemap buffer for stat screen page
 
-EWRAM_DATA struct Unk0203E764 gUnknown_0203E764 = {};
+static struct StatScreenInfo EWRAM_DATA sStatScreenInfo = {};
 
-EWRAM_DATA struct HelpBoxInfo gUnknown_0203E768 = {};
-EWRAM_DATA const struct HelpBoxInfo* gUnknown_0203E784 = NULL;
-EWRAM_DATA struct Vec2 gUnknown_0203E788 = {};
+static struct HelpBoxInfo EWRAM_DATA sMutableHbi = {};
+static const struct HelpBoxInfo* EWRAM_DATA sLastHbi = NULL;
+static struct Vec2 EWRAM_DATA sHbOrigin = {};
 
-const struct Unk8086E00 gUnknown_08205964[] =
+static
+struct SSTextDispInfo const sPage0TextInfo[] =
 {
-    { gUnknown_02003BFC.text + 4,  gUnknown_02003D2C + TILEMAP_INDEX(1, 3),  TEXT_COLOR_GOLD, 0, &gUnknown_08A0116C },
-    { gUnknown_02003BFC.text + 5,  gUnknown_02003D2C + TILEMAP_INDEX(1, 5),  TEXT_COLOR_GOLD, 0, &gUnknown_08A01170 },
-    { gUnknown_02003BFC.text + 6,  gUnknown_02003D2C + TILEMAP_INDEX(1, 7),  TEXT_COLOR_GOLD, 0, &gUnknown_08A0117C },
-    { gUnknown_02003BFC.text + 7,  gUnknown_02003D2C + TILEMAP_INDEX(1, 9),  TEXT_COLOR_GOLD, 0, &gUnknown_08A01174 },
-    { gUnknown_02003BFC.text + 8,  gUnknown_02003D2C + TILEMAP_INDEX(1, 11), TEXT_COLOR_GOLD, 0, &gUnknown_08A01178 },
-    { gUnknown_02003BFC.text + 9,  gUnknown_02003D2C + TILEMAP_INDEX(9, 1),  TEXT_COLOR_GOLD, 0, &gUnknown_08A01188 },
-    { gUnknown_02003BFC.text + 10, gUnknown_02003D2C + TILEMAP_INDEX(9, 3),  TEXT_COLOR_GOLD, 0, &gUnknown_08A01180 },
-    { gUnknown_02003BFC.text + 11, gUnknown_02003D2C + TILEMAP_INDEX(9, 5),  TEXT_COLOR_GOLD, 0, &gUnknown_08A01184 },
-    { gUnknown_02003BFC.text + 12, gUnknown_02003D2C + TILEMAP_INDEX(9, 7),  TEXT_COLOR_GOLD, 0, &gUnknown_08A0118C },
-    { gUnknown_02003BFC.text + 13, gUnknown_02003D2C + TILEMAP_INDEX(9, 9),  TEXT_COLOR_GOLD, 0, &gUnknown_08A01190 },
-    { gUnknown_02003BFC.text + 14, gUnknown_02003D2C + TILEMAP_INDEX(9, 11), TEXT_COLOR_GOLD, 0, &gUnknown_08A011A8 },
+    { gStatScreen.text + STATSCREEN_TEXT_SKLLABEL,   gBmFrameTmap0 + TILEMAP_INDEX(1, 3),  TEXT_COLOR_GOLD, 0, &gUnknown_08A0116C },
+    { gStatScreen.text + STATSCREEN_TEXT_SPDLABEL,   gBmFrameTmap0 + TILEMAP_INDEX(1, 5),  TEXT_COLOR_GOLD, 0, &gUnknown_08A01170 },
+    { gStatScreen.text + STATSCREEN_TEXT_LCKLABEL,   gBmFrameTmap0 + TILEMAP_INDEX(1, 7),  TEXT_COLOR_GOLD, 0, &gUnknown_08A0117C },
+    { gStatScreen.text + STATSCREEN_TEXT_DEFLABEL,   gBmFrameTmap0 + TILEMAP_INDEX(1, 9),  TEXT_COLOR_GOLD, 0, &gUnknown_08A01174 },
+    { gStatScreen.text + STATSCREEN_TEXT_RESLABEL,   gBmFrameTmap0 + TILEMAP_INDEX(1, 11), TEXT_COLOR_GOLD, 0, &gUnknown_08A01178 },
+    { gStatScreen.text + STATSCREEN_TEXT_MOVLABEL,   gBmFrameTmap0 + TILEMAP_INDEX(9, 1),  TEXT_COLOR_GOLD, 0, &gUnknown_08A01188 },
+    { gStatScreen.text + STATSCREEN_TEXT_CONLABEL,   gBmFrameTmap0 + TILEMAP_INDEX(9, 3),  TEXT_COLOR_GOLD, 0, &gUnknown_08A01180 },
+    { gStatScreen.text + STATSCREEN_TEXT_AIDLABEL,   gBmFrameTmap0 + TILEMAP_INDEX(9, 5),  TEXT_COLOR_GOLD, 0, &gUnknown_08A01184 },
+    { gStatScreen.text + STATSCREEN_TEXT_RESCUENAME, gBmFrameTmap0 + TILEMAP_INDEX(9, 7),  TEXT_COLOR_GOLD, 0, &gUnknown_08A0118C },
+    { gStatScreen.text + STATSCREEN_TEXT_AFFINLABEL, gBmFrameTmap0 + TILEMAP_INDEX(9, 9),  TEXT_COLOR_GOLD, 0, &gUnknown_08A01190 },
+    { gStatScreen.text + STATSCREEN_TEXT_STATUS,     gBmFrameTmap0 + TILEMAP_INDEX(9, 11), TEXT_COLOR_GOLD, 0, &gUnknown_08A011A8 },
 
     { }, // end
 };
 
-const struct Unk8086E00 gUnknown_08205A24[] =
+static
+struct SSTextDispInfo const sPage1TextInfo[] =
 {
-    { gUnknown_02003BFC.text + 21, gUnknown_02003D2C + TILEMAP_INDEX(2, 13), TEXT_COLOR_GOLD, 6, &gUnknown_08A01198 },
-    { gUnknown_02003BFC.text + 22, gUnknown_02003D2C + TILEMAP_INDEX(2, 15), TEXT_COLOR_GOLD, 6, &gUnknown_08A0119C },
-    { gUnknown_02003BFC.text + 20, gUnknown_02003D2C + TILEMAP_INDEX(9, 11), TEXT_COLOR_GOLD, 6, &gUnknown_08A01194 },
-    { gUnknown_02003BFC.text + 23, gUnknown_02003D2C + TILEMAP_INDEX(9, 13), TEXT_COLOR_GOLD, 6, &gUnknown_08A011A0 },
-    { gUnknown_02003BFC.text + 24, gUnknown_02003D2C + TILEMAP_INDEX(9, 15), TEXT_COLOR_GOLD, 6, &gUnknown_08A011A4 },
+    { gStatScreen.text + STATSCREEN_TEXT_BSATKLABEL, gBmFrameTmap0 + TILEMAP_INDEX(2, 13), TEXT_COLOR_GOLD, 6, &gUnknown_08A01198 },
+    { gStatScreen.text + STATSCREEN_TEXT_BSHITLABEL, gBmFrameTmap0 + TILEMAP_INDEX(2, 15), TEXT_COLOR_GOLD, 6, &gUnknown_08A0119C },
+    { gStatScreen.text + STATSCREEN_TEXT_BSRANGE,    gBmFrameTmap0 + TILEMAP_INDEX(9, 11), TEXT_COLOR_GOLD, 6, &gUnknown_08A01194 },
+    { gStatScreen.text + STATSCREEN_TEXT_BSCRTLABEL, gBmFrameTmap0 + TILEMAP_INDEX(9, 13), TEXT_COLOR_GOLD, 6, &gUnknown_08A011A0 },
+    { gStatScreen.text + STATSCREEN_TEXT_BSAVOLABEL, gBmFrameTmap0 + TILEMAP_INDEX(9, 15), TEXT_COLOR_GOLD, 6, &gUnknown_08A011A4 },
 
     { }, // end
 };
 
-const struct Unk8086E00 gUnused_08205A84[] =
+static
+struct SSTextDispInfo const sPage2TextInfo_Physical[] =
 {
-    { gUnknown_02003BFC.text + 25, gUnknown_02003D2C + TILEMAP_INDEX(3,  1), TEXT_COLOR_NORMAL, 0, &gUnknown_08A011E8 },
-    { gUnknown_02003BFC.text + 26, gUnknown_02003D2C + TILEMAP_INDEX(3,  3), TEXT_COLOR_NORMAL, 0, &gUnknown_08A011EC },
-    { gUnknown_02003BFC.text + 27, gUnknown_02003D2C + TILEMAP_INDEX(11, 1), TEXT_COLOR_NORMAL, 0, &gUnknown_08A011F0 },
-    { gUnknown_02003BFC.text + 28, gUnknown_02003D2C + TILEMAP_INDEX(11, 3), TEXT_COLOR_NORMAL, 0, &gUnknown_08A011F4 },
+    { gStatScreen.text + STATSCREEN_TEXT_WEXP0, gBmFrameTmap0 + TILEMAP_INDEX(3,  1), TEXT_COLOR_NORMAL, 0, &gUnknown_08A011E8 },
+    { gStatScreen.text + STATSCREEN_TEXT_WEXP1, gBmFrameTmap0 + TILEMAP_INDEX(3,  3), TEXT_COLOR_NORMAL, 0, &gUnknown_08A011EC },
+    { gStatScreen.text + STATSCREEN_TEXT_WEXP2, gBmFrameTmap0 + TILEMAP_INDEX(11, 1), TEXT_COLOR_NORMAL, 0, &gUnknown_08A011F0 },
+    { gStatScreen.text + STATSCREEN_TEXT_WEXP3, gBmFrameTmap0 + TILEMAP_INDEX(11, 3), TEXT_COLOR_NORMAL, 0, &gUnknown_08A011F4 },
 
     { }, // end
 };
 
-const struct Unk8086E00 gUnused_08205AD4[] =
+static
+struct SSTextDispInfo const sPage2TextInfo_Magical[] =
 {
-    { gUnknown_02003BFC.text + 25, gUnknown_02003D2C + TILEMAP_INDEX(3,  1), TEXT_COLOR_NORMAL, 0, &gUnknown_08A011FC },
-    { gUnknown_02003BFC.text + 26, gUnknown_02003D2C + TILEMAP_INDEX(3,  3), TEXT_COLOR_NORMAL, 0, &gUnknown_08A01200 },
-    { gUnknown_02003BFC.text + 27, gUnknown_02003D2C + TILEMAP_INDEX(11, 1), TEXT_COLOR_NORMAL, 0, &gUnknown_08A01204 },
-    { gUnknown_02003BFC.text + 28, gUnknown_02003D2C + TILEMAP_INDEX(11, 3), TEXT_COLOR_NORMAL, 0, &gUnknown_08A011F8 },
+    { gStatScreen.text + STATSCREEN_TEXT_WEXP0, gBmFrameTmap0 + TILEMAP_INDEX(3,  1), TEXT_COLOR_NORMAL, 0, &gUnknown_08A011FC },
+    { gStatScreen.text + STATSCREEN_TEXT_WEXP1, gBmFrameTmap0 + TILEMAP_INDEX(3,  3), TEXT_COLOR_NORMAL, 0, &gUnknown_08A01200 },
+    { gStatScreen.text + STATSCREEN_TEXT_WEXP2, gBmFrameTmap0 + TILEMAP_INDEX(11, 1), TEXT_COLOR_NORMAL, 0, &gUnknown_08A01204 },
+    { gStatScreen.text + STATSCREEN_TEXT_WEXP3, gBmFrameTmap0 + TILEMAP_INDEX(11, 3), TEXT_COLOR_NORMAL, 0, &gUnknown_08A011F8 },
 
     { }, // end
 };
 
-struct TextBatch CONST_DATA gUnknown_08A006FC[] =
+static
+struct TextBatch CONST_DATA sSSMasterTextBatch[] =
 {
-    { gUnknown_02003BFC.text + 0,  7  },
-    { gUnknown_02003BFC.text + 1,  8  },
-    { gUnknown_02003BFC.text + 2,  3  },
-    { gUnknown_02003BFC.text + 3,  3  },
-    { gUnknown_02003BFC.text + 4,  3  },
-    { gUnknown_02003BFC.text + 5,  3  },
-    { gUnknown_02003BFC.text + 6,  3  },
-    { gUnknown_02003BFC.text + 7,  3  },
-    { gUnknown_02003BFC.text + 8,  3  },
-    { gUnknown_02003BFC.text + 9,  3  },
-    { gUnknown_02003BFC.text + 10, 3  },
-    { gUnknown_02003BFC.text + 11, 3  },
-    { gUnknown_02003BFC.text + 12, 9  },
-    { gUnknown_02003BFC.text + 13, 7  },
-    { gUnknown_02003BFC.text + 14, 9  },
-    { gUnknown_02003BFC.text + 15, 7  },
-    { gUnknown_02003BFC.text + 16, 7  },
-    { gUnknown_02003BFC.text + 17, 7  },
-    { gUnknown_02003BFC.text + 18, 7  },
-    { gUnknown_02003BFC.text + 19, 7  },
-    { gUnknown_02003BFC.text + 20, 7  },
-    { gUnknown_02003BFC.text + 21, 3  },
-    { gUnknown_02003BFC.text + 22, 3  },
-    { gUnknown_02003BFC.text + 23, 3  },
-    { gUnknown_02003BFC.text + 24, 4  },
-    { gUnknown_02003BFC.text + 25, 2  },
-    { gUnknown_02003BFC.text + 26, 2  },
-    { gUnknown_02003BFC.text + 27, 2  },
-    { gUnknown_02003BFC.text + 28, 2  },
-    { gUnknown_02003BFC.text + 29, 7  },
-    { gUnknown_02003BFC.text + 30, 7  },
-    { gUnknown_02003BFC.text + 31, 7  },
-    { gUnknown_02003BFC.text + 32, 7  },
-    { gUnknown_02003BFC.text + 33, 7  },
-    { gUnknown_02003BFC.text + 34, 16 },
+    { gStatScreen.text + STATSCREEN_TEXT_CHARANAME,  7  },
+    { gStatScreen.text + STATSCREEN_TEXT_CLASSNAME,  8  },
+    { gStatScreen.text + STATSCREEN_TEXT_UNUSUED,    3  },
+    { gStatScreen.text + STATSCREEN_TEXT_POWLABEL,   3  },
+    { gStatScreen.text + STATSCREEN_TEXT_SKLLABEL,   3  },
+    { gStatScreen.text + STATSCREEN_TEXT_SPDLABEL,   3  },
+    { gStatScreen.text + STATSCREEN_TEXT_LCKLABEL,   3  },
+    { gStatScreen.text + STATSCREEN_TEXT_DEFLABEL,   3  },
+    { gStatScreen.text + STATSCREEN_TEXT_RESLABEL,   3  },
+    { gStatScreen.text + STATSCREEN_TEXT_MOVLABEL,   3  },
+    { gStatScreen.text + STATSCREEN_TEXT_CONLABEL,   3  },
+    { gStatScreen.text + STATSCREEN_TEXT_AIDLABEL,   3  },
+    { gStatScreen.text + STATSCREEN_TEXT_RESCUENAME, 9  },
+    { gStatScreen.text + STATSCREEN_TEXT_AFFINLABEL, 7  },
+    { gStatScreen.text + STATSCREEN_TEXT_STATUS,     9  },
+    { gStatScreen.text + STATSCREEN_TEXT_ITEM0,      7  },
+    { gStatScreen.text + STATSCREEN_TEXT_ITEM1,      7  },
+    { gStatScreen.text + STATSCREEN_TEXT_ITEM2,      7  },
+    { gStatScreen.text + STATSCREEN_TEXT_ITEM3,      7  },
+    { gStatScreen.text + STATSCREEN_TEXT_ITEM4,      7  },
+    { gStatScreen.text + STATSCREEN_TEXT_BSRANGE,    7  },
+    { gStatScreen.text + STATSCREEN_TEXT_BSATKLABEL, 3  },
+    { gStatScreen.text + STATSCREEN_TEXT_BSHITLABEL, 3  },
+    { gStatScreen.text + STATSCREEN_TEXT_BSCRTLABEL, 3  },
+    { gStatScreen.text + STATSCREEN_TEXT_BSAVOLABEL, 4  },
+    { gStatScreen.text + STATSCREEN_TEXT_WEXP0,      2  },
+    { gStatScreen.text + STATSCREEN_TEXT_WEXP1,      2  },
+    { gStatScreen.text + STATSCREEN_TEXT_WEXP2,      2  },
+    { gStatScreen.text + STATSCREEN_TEXT_WEXP3,      2  },
+    { gStatScreen.text + STATSCREEN_TEXT_SUPPORT0,   7  },
+    { gStatScreen.text + STATSCREEN_TEXT_SUPPORT1,   7  },
+    { gStatScreen.text + STATSCREEN_TEXT_SUPPORT2,   7  },
+    { gStatScreen.text + STATSCREEN_TEXT_SUPPORT3,   7  },
+    { gStatScreen.text + STATSCREEN_TEXT_SUPPORT4,   7  },
+    { gStatScreen.text + STATSCREEN_TEXT_BWL,        16 },
 
     { }, // end
 };
 
-s8 CONST_DATA gUnknown_08A0081C[] = // stat screen page transition draw offset lut
+static
+s8 CONST_DATA sPageSlideOffsetLut[] = // stat screen page transition draw offset lut
 {
     // transition page out
     -4, -7, -10, -12, -14,
@@ -138,7 +160,7 @@ s8 CONST_DATA gUnknown_08A0081C[] = // stat screen page transition draw offset l
     INT8_MIN, // end
 };
 
-struct ProcCmd CONST_DATA gUnknown_08A0082C[] = // page transition proc
+struct ProcCmd CONST_DATA gProcScr_SSPageSlide[] =
 {
     PROC_LOOP_ROUTINE(sub_80879DC),
     PROC_CALL_ROUTINE(sub_8087ACC),
@@ -146,7 +168,7 @@ struct ProcCmd CONST_DATA gUnknown_08A0082C[] = // page transition proc
     PROC_END,
 };
 
-struct ProcCmd CONST_DATA gUnknown_08A00844[] = // unk
+struct ProcCmd CONST_DATA gProcScr_SSGlowyBlendCtrl[] =
 {
     PROC_SLEEP(0),
 
@@ -156,7 +178,7 @@ struct ProcCmd CONST_DATA gUnknown_08A00844[] = // unk
     PROC_END,
 };
 
-struct ProcCmd CONST_DATA gUnknown_08A00864[] = // unit transition proc
+struct ProcCmd CONST_DATA gProcScr_SSUnitSlide[] =
 {
     PROC_SLEEP(0),
 
@@ -202,7 +224,7 @@ static u16 CONST_DATA sSprite_Page2Name[] =
     0x0100, 0x5020, TILEREF(4,  0),
 };
 
-u16 CONST_DATA gUnknown_08A008FE[] = // obj for page name bg
+static u16 CONST_DATA sSprite_PageNameBack[] =
 {
     6,
     0x4002, 0x8000, TILEREF(0, 0),
@@ -213,16 +235,16 @@ u16 CONST_DATA gUnknown_08A008FE[] = // obj for page name bg
     0x4002, 0x904A, TILEREF(0, 0),
 };
 
-u16 const* CONST_DATA gUnknown_08A00924[] = // objs for page names
+static u16 const* CONST_DATA sPageNameSpriteLut[] =
 {
     sSprite_Page0Name,
     sSprite_Page1Name,
     sSprite_Page2Name,
 };
 
-u16 CONST_DATA gUnknown_08A00930[] = { 0, 64, 14 }; // tile offsets within an image
+static u16 CONST_DATA sPageNameChrOffsetLut[] = { 0, 64, 14 }; // tile offsets within an image
 
-struct ProcCmd CONST_DATA gUnknown_08A00938[] =
+struct ProcCmd CONST_DATA gProcScr_SSPageNameCtrl[] =
 {
     PROC_CALL_ROUTINE(sub_8087F48),
 
@@ -239,7 +261,7 @@ PROC_LABEL(0),
     PROC_END,
 };
 
-struct ProcCmd CONST_DATA gUnknown_08A00978[] =
+struct ProcCmd CONST_DATA gProcScr_SSPageNumCtrl[] =
 {
     PROC_CALL_ROUTINE(sub_80881AC),
 
@@ -257,13 +279,13 @@ PROC_LABEL(0),
     PROC_END,
 };
 
-struct ProcCmd CONST_DATA gUnknown_08A009C8[] =
+struct ProcCmd CONST_DATA gProcScr_SSBgOffsetCtrl[] =
 {
     PROC_LOOP_ROUTINE(sub_8088920),
     PROC_END,
 };
 
-struct ProcCmd CONST_DATA gUnknown_08A009D8[] = // main proc
+struct ProcCmd CONST_DATA gProcScr_StatScreen[] =
 {
     PROC_CALL_ROUTINE(sub_808844C),
     PROC_CALL_ROUTINE(BMapDispSuspend),
@@ -275,10 +297,10 @@ struct ProcCmd CONST_DATA gUnknown_08A009D8[] = // main proc
 
     PROC_CALL_ROUTINE(sub_8088670),
 
-    PROC_NEW_CHILD(gUnknown_08A00844),
-    PROC_NEW_CHILD(gUnknown_08A00938),
-    PROC_NEW_CHILD(gUnknown_08A00978),
-    PROC_NEW_CHILD(gUnknown_08A009C8),
+    PROC_NEW_CHILD(gProcScr_SSGlowyBlendCtrl),
+    PROC_NEW_CHILD(gProcScr_SSPageNameCtrl),
+    PROC_NEW_CHILD(gProcScr_SSPageNumCtrl),
+    PROC_NEW_CHILD(gProcScr_SSBgOffsetCtrl),
 
     PROC_GOTO(1),
 
@@ -295,7 +317,7 @@ PROC_LABEL(1),
 PROC_LABEL(10),
     PROC_SLEEP(2),
 
-    PROC_END_ALL(gUnknown_08A00844),
+    PROC_END_ALL(gProcScr_SSGlowyBlendCtrl),
 
     PROC_CALL_ROUTINE(sub_80888B4),
 
@@ -306,7 +328,7 @@ PROC_LABEL(10),
     PROC_END,
 };
 
-struct ProcCmd CONST_DATA gUnknown_08A00A98[] = // help box core proc
+struct ProcCmd CONST_DATA gProcScr_HelpBox[] =
 {
     PROC_SLEEP(0),
 
@@ -320,7 +342,7 @@ PROC_LABEL(0x63),
     PROC_END,
 };
 
-struct ProcCmd CONST_DATA gUnknown_08A00AD0[] = // help box mover proc
+struct ProcCmd CONST_DATA gProcScr_HelpBoxMoveCtrl[] =
 {
     PROC_SLEEP(1),
 
@@ -332,20 +354,21 @@ PROC_LABEL(0),
     PROC_END,
 };
 
-struct ProcCmd CONST_DATA gUnknown_08A00B00[] =
+struct ProcCmd CONST_DATA gProcScr_HelpBoxLock[] =
 {
     PROC_LOOP_ROUTINE(sub_8089430),
     PROC_END,
 };
 
-u16 CONST_DATA gUnknown_08A00B10[] = // 'R is info' object
+static
+u16 CONST_DATA sSprite_MetaHelp[] = // 'R is info'
 {
     2,
     0x4000, 0x8000, TILEREF(11, 0),
     0x8000, 0x0020, TILEREF(15, 0),
 };
 
-struct ProcCmd CONST_DATA gUnknown_08A00B20[] = // proc displaying 'R is Info'
+struct ProcCmd CONST_DATA gProcScr_MetaHelpSprCtrl[] = // proc displaying 'R is Info'
 {
     PROC_SLEEP(0),
 
@@ -376,6 +399,8 @@ extern u16 CONST_DATA gUnknown_08A06460[]; // background pal
 
 extern u16 CONST_DATA gUnknown_08A1D79C[]; // 'R is info' palette
 
+static void sub_8086E00(const struct SSTextDispInfo* unk);
+
 void sub_8088670(struct Proc* proc);
 void MakeStatScreenRText6C(int pageid, struct Proc* proc);
 const struct HelpBoxInfo* sub_80895A8(void);
@@ -400,25 +425,25 @@ int sub_80892D0(int item);
 
 int GetSomeUnitId(void)
 {
-    return gUnknown_0203E764.uid01;
+    return sStatScreenInfo.unitId;
 }
 
 void sub_8086DD8(int uid)
 {
-    gUnknown_0203E764.uid01 = uid;
+    sStatScreenInfo.unitId = uid;
 }
 
-void sub_8086DE4(int unk)
+void sub_8086DE4(int config)
 {
-    gUnknown_0203E764.unk02 = unk;
+    sStatScreenInfo.config = config;
 }
 
 void sub_8086DF0(void)
 {
-    InitTextBatch(gUnknown_08A006FC);
+    InitTextBatch(sSSMasterTextBatch);
 }
 
-void sub_8086E00(const struct Unk8086E00* unk)
+static void sub_8086E00(const struct SSTextDispInfo* unk)
 {
     while (unk->text)
     {
@@ -442,28 +467,28 @@ void sub_8086E00(const struct Unk8086E00* unk)
 
 void sub_8086E44(void)
 {
-    const char* namestr = GetStringFromIndex(UNIT_NAME_ID(gUnknown_02003BFC.unit));
+    const char* namestr = GetStringFromIndex(UNIT_NAME_ID(gStatScreen.unit));
     unsigned namexoff = GetStringTextCenteredPos(0x30, namestr);
 
     BG_Fill(gBG0TilemapBuffer, 0);
 
     // Generate battle stats for unit for display later
     BattleGenerateUiStats(
-        gUnknown_02003BFC.unit,
-        GetUnitEquippedWeaponSlot(gUnknown_02003BFC.unit));
+        gStatScreen.unit,
+        GetUnitEquippedWeaponSlot(gStatScreen.unit));
 
     // Display character name
     DrawTextInline(
-        &gUnknown_02003BFC.text[STATSCREEN_TEXT_CHARANAME],
+        &gStatScreen.text[STATSCREEN_TEXT_CHARANAME],
         gBG0TilemapBuffer + TILEMAP_INDEX(3, 10),
         TEXT_COLOR_NORMAL, namexoff, 0, namestr);
 
     // Display class name
     DrawTextInline(
-        &gUnknown_02003BFC.text[STATSCREEN_TEXT_CLASSNAME],
+        &gStatScreen.text[STATSCREEN_TEXT_CLASSNAME],
         gBG0TilemapBuffer + TILEMAP_INDEX(1, 13),
         TEXT_COLOR_NORMAL, 0, 0,
-        GetStringFromIndex(gUnknown_02003BFC.unit->pClassData->nameTextId));
+        GetStringFromIndex(gStatScreen.unit->pClassData->nameTextId));
 
     // Display Lv/E labels
     sub_8004D5C(gBG0TilemapBuffer + TILEMAP_INDEX(1, 15), TEXT_COLOR_GOLD, 0x24, 0x25);
@@ -475,15 +500,15 @@ void sub_8086E44(void)
 
     // Display level
     DrawDecNumber(gBG0TilemapBuffer + TILEMAP_INDEX(4, 15), TEXT_COLOR_BLUE,
-        gUnknown_02003BFC.unit->level);
+        gStatScreen.unit->level);
 
     // Display exp
     DrawDecNumber(gBG0TilemapBuffer + TILEMAP_INDEX(7, 15), TEXT_COLOR_BLUE,
-        gUnknown_02003BFC.unit->exp);
+        gStatScreen.unit->exp);
 
     // Display current hp
 
-    if (GetUnitCurrentHp(gUnknown_02003BFC.unit) > 99)
+    if (GetUnitCurrentHp(gStatScreen.unit) > 99)
     {
         // Display '--' if current hp > 99
         sub_8004D5C(gBG0TilemapBuffer + TILEMAP_INDEX(3, 17), TEXT_COLOR_BLUE,
@@ -493,12 +518,12 @@ void sub_8086E44(void)
     {
         // Display current hp
         DrawDecNumber(gBG0TilemapBuffer + TILEMAP_INDEX(4, 17), TEXT_COLOR_BLUE,
-            GetUnitCurrentHp(gUnknown_02003BFC.unit));
+            GetUnitCurrentHp(gStatScreen.unit));
     }
 
     // Display max hp
 
-    if (GetUnitMaxHp(gUnknown_02003BFC.unit) > 99)
+    if (GetUnitMaxHp(gStatScreen.unit) > 99)
     {
         // Display '--' if max hp > 99
         sub_8004D5C(gBG0TilemapBuffer + TILEMAP_INDEX(6, 17), TEXT_COLOR_BLUE,
@@ -508,13 +533,13 @@ void sub_8086E44(void)
     {
         // Display max hp
         DrawDecNumber(gBG0TilemapBuffer + TILEMAP_INDEX(7, 17), TEXT_COLOR_BLUE,
-            GetUnitMaxHp(gUnknown_02003BFC.unit));
+            GetUnitMaxHp(gStatScreen.unit));
     }
 }
 
 void sub_8086FAC(void)
 {
-    struct UnitUsageStats* stats = BWL_GetEntry(gUnknown_02003BFC.unit->pCharacterData->number);
+    struct UnitUsageStats* stats = BWL_GetEntry(gStatScreen.unit->pCharacterData->number);
 
     if (!stats)
         return;
@@ -531,37 +556,37 @@ void sub_8086FAC(void)
     if (IsFirstPlaythrough() == TRUE)
         return;
 
-    if (UNIT_FACTION(gUnknown_02003BFC.unit) != FACTION_BLUE)
+    if (UNIT_FACTION(gStatScreen.unit) != FACTION_BLUE)
         return;
 
-    Text_Clear(&gUnknown_02003BFC.text[STATSCREEN_TEXT_BWL]);
+    Text_Clear(&gStatScreen.text[STATSCREEN_TEXT_BWL]);
 
     // Draw B label
-    Text_InsertString(&gUnknown_02003BFC.text[STATSCREEN_TEXT_BWL],
+    Text_InsertString(&gStatScreen.text[STATSCREEN_TEXT_BWL],
         0, TEXT_COLOR_GOLD, GetStringFromIndex(0x51F));
 
     // Draw W label
-    Text_InsertString(&gUnknown_02003BFC.text[STATSCREEN_TEXT_BWL],
+    Text_InsertString(&gStatScreen.text[STATSCREEN_TEXT_BWL],
         32, TEXT_COLOR_GOLD, GetStringFromIndex(0x520));
 
     // Draw L label
-    Text_InsertString(&gUnknown_02003BFC.text[STATSCREEN_TEXT_BWL],
+    Text_InsertString(&gStatScreen.text[STATSCREEN_TEXT_BWL],
         64, TEXT_COLOR_GOLD, GetStringFromIndex(0x521));
 
     // Display labels
-    Text_Draw(&gUnknown_02003BFC.text[STATSCREEN_TEXT_BWL],
-        gUnknown_02003D2C + TILEMAP_INDEX(3, 14));
+    Text_Draw(&gStatScreen.text[STATSCREEN_TEXT_BWL],
+        gBmFrameTmap0 + TILEMAP_INDEX(3, 14));
 
     // Display Battle Amt
-    sub_8004B88(gUnknown_02003D2C + TILEMAP_INDEX(3 + sub_80AEBEC(stats->battleAmt), 14),
+    sub_8004B88(gBmFrameTmap0 + TILEMAP_INDEX(3 + sub_80AEBEC(stats->battleAmt), 14),
         TEXT_COLOR_BLUE, stats->battleAmt);
 
     // Display Win Amt
-    sub_8004B88(gUnknown_02003D2C + TILEMAP_INDEX(7 + sub_80AEBEC(stats->winAmt), 14),
+    sub_8004B88(gBmFrameTmap0 + TILEMAP_INDEX(7 + sub_80AEBEC(stats->winAmt), 14),
         TEXT_COLOR_BLUE, stats->winAmt);
 
     // Display Loss Amt
-    sub_8004B88(gUnknown_02003D2C + TILEMAP_INDEX(11 + sub_80AEBEC(stats->lossAmt), 14),
+    sub_8004B88(gBmFrameTmap0 + TILEMAP_INDEX(11 + sub_80AEBEC(stats->lossAmt), 14),
         TEXT_COLOR_BLUE, stats->lossAmt);
 }
 
@@ -571,16 +596,16 @@ void DrawStatScreenBar(int num, int x, int y, int base, int total, int max)
 {
     int diff = total - base;
 
-    DrawDecNumber(gUnknown_02003D2C + TILEMAP_INDEX(x, y),
+    DrawDecNumber(gBmFrameTmap0 + TILEMAP_INDEX(x, y),
         (base == max) ? TEXT_COLOR_GREEN : TEXT_COLOR_BLUE, base);
 
-    sub_8004BF0(diff, gUnknown_02003D2C + TILEMAP_INDEX(x + 1, y));
+    sub_8004BF0(diff, gBmFrameTmap0 + TILEMAP_INDEX(x + 1, y));
 
     if (total > 30)
         diff = 30 - base;
 
     sub_8086B2C(0x401 + num*6, 6,
-        gUnknown_0200472C + TILEMAP_INDEX(x - 2, y + 1),
+        gBmFrameTmap1 + TILEMAP_INDEX(x - 2, y + 1),
         TILEREF(0, STATSCREEN_BGPAL_3), max * 41 / 30, base * 41 / 30, diff * 41 / 30);
 }
 
@@ -607,7 +632,7 @@ void DrawStatScreenBar(int num, int x, int y, int base, int total, int max)
         lsls r6, r2, #5\n\
         adds r0, r6, r1\n\
         lsls r0, r0, #1\n\
-        ldr r4, _08087178  @ gUnknown_02003D2C\n\
+        ldr r4, _08087178  @ gBmFrameTmap0\n\
         adds r0, r0, r4\n\
         movs r1, #2\n\
         ldr r2, [sp, #0x34]\n\
@@ -641,7 +666,7 @@ void DrawStatScreenBar(int num, int x, int y, int base, int total, int max)
         subs r4, #2\n\
         add r4, r8\n\
         lsls r4, r4, #1\n\
-        ldr r0, _08087180  @ gUnknown_0200472C\n\
+        ldr r0, _08087180  @ gBmFrameTmap1\n\
         adds r4, r4, r0\n\
         movs r6, #0xc0\n\
         lsls r6, r6, #7\n\
@@ -682,9 +707,9 @@ void DrawStatScreenBar(int num, int x, int y, int base, int total, int max)
         pop {r0}\n\
         bx r0\n\
         .align 2, 0\n\
-    _08087178: .4byte gUnknown_02003D2C\n\
+    _08087178: .4byte gBmFrameTmap0\n\
     _0808717C: .4byte 0x00000401\n\
-    _08087180: .4byte gUnknown_0200472C\n\
+    _08087180: .4byte gBmFrameTmap1\n\
         .syntax divided\n\
     ");
 }
@@ -693,15 +718,15 @@ void DrawStatScreenBar(int num, int x, int y, int base, int total, int max)
 
 void DrawUnitStatScreen(void)
 {
-    sub_8086E00(gUnknown_08205964);
+    sub_8086E00(sPage0TextInfo);
 
     // Displaying str/mag label
-    if (UnitHasMagicRank(gUnknown_02003BFC.unit))
+    if (UnitHasMagicRank(gStatScreen.unit))
     {
         // mag
         DrawTextInline(
-            &gUnknown_02003BFC.text[STATSCREEN_TEXT_POWLABEL],
-            gUnknown_02003D2C + TILEMAP_INDEX(1, 1),
+            &gStatScreen.text[STATSCREEN_TEXT_POWLABEL],
+            gBmFrameTmap0 + TILEMAP_INDEX(1, 1),
             TEXT_COLOR_GOLD, 0, 0,
             GetStringFromIndex(0x4FF)); // Mag
     }
@@ -709,132 +734,132 @@ void DrawUnitStatScreen(void)
     {
         // str
         DrawTextInline(
-            &gUnknown_02003BFC.text[STATSCREEN_TEXT_POWLABEL],
-            gUnknown_02003D2C + TILEMAP_INDEX(1, 1),
+            &gStatScreen.text[STATSCREEN_TEXT_POWLABEL],
+            gBmFrameTmap0 + TILEMAP_INDEX(1, 1),
             TEXT_COLOR_GOLD, 0, 0,
             GetStringFromIndex(0x4FE)); // Str
     }
 
     // displaying str/mag stat value
     DrawStatScreenBar(0, 5, 1,
-        gUnknown_02003BFC.unit->pow,
-        GetUnitPower(gUnknown_02003BFC.unit),
-        UNIT_POW_MAX(gUnknown_02003BFC.unit));
+        gStatScreen.unit->pow,
+        GetUnitPower(gStatScreen.unit),
+        UNIT_POW_MAX(gStatScreen.unit));
 
     // displaying skl stat value
     DrawStatScreenBar(1, 5, 3,
-        gUnknown_02003BFC.unit->state & US_RESCUING
-            ? gUnknown_02003BFC.unit->skl/2
-            : gUnknown_02003BFC.unit->skl,
-        GetUnitSkill(gUnknown_02003BFC.unit),
-        gUnknown_02003BFC.unit->state & US_RESCUING
-            ? UNIT_SKL_MAX(gUnknown_02003BFC.unit)/2
-            : UNIT_SKL_MAX(gUnknown_02003BFC.unit));
+        gStatScreen.unit->state & US_RESCUING
+            ? gStatScreen.unit->skl/2
+            : gStatScreen.unit->skl,
+        GetUnitSkill(gStatScreen.unit),
+        gStatScreen.unit->state & US_RESCUING
+            ? UNIT_SKL_MAX(gStatScreen.unit)/2
+            : UNIT_SKL_MAX(gStatScreen.unit));
 
     // displaying spd stat value
     DrawStatScreenBar(2, 5, 5,
-        gUnknown_02003BFC.unit->state & US_RESCUING
-            ? gUnknown_02003BFC.unit->spd/2
-            : gUnknown_02003BFC.unit->spd,
-        GetUnitSpeed(gUnknown_02003BFC.unit),
-        gUnknown_02003BFC.unit->state & US_RESCUING
-            ? UNIT_SPD_MAX(gUnknown_02003BFC.unit)/2
-            : UNIT_SPD_MAX(gUnknown_02003BFC.unit));
+        gStatScreen.unit->state & US_RESCUING
+            ? gStatScreen.unit->spd/2
+            : gStatScreen.unit->spd,
+        GetUnitSpeed(gStatScreen.unit),
+        gStatScreen.unit->state & US_RESCUING
+            ? UNIT_SPD_MAX(gStatScreen.unit)/2
+            : UNIT_SPD_MAX(gStatScreen.unit));
 
     // displaying lck stat value
     DrawStatScreenBar(3, 5, 7,
-        gUnknown_02003BFC.unit->lck,
-        GetUnitLuck(gUnknown_02003BFC.unit),
-        UNIT_LCK_MAX(gUnknown_02003BFC.unit));
+        gStatScreen.unit->lck,
+        GetUnitLuck(gStatScreen.unit),
+        UNIT_LCK_MAX(gStatScreen.unit));
 
     // displaying def stat value
     DrawStatScreenBar(4, 5, 9,
-        gUnknown_02003BFC.unit->def,
-        GetUnitDefense(gUnknown_02003BFC.unit),
-        UNIT_DEF_MAX(gUnknown_02003BFC.unit));
+        gStatScreen.unit->def,
+        GetUnitDefense(gStatScreen.unit),
+        UNIT_DEF_MAX(gStatScreen.unit));
 
     // displaying res stat value
     DrawStatScreenBar(5, 5, 11,
-        gUnknown_02003BFC.unit->res,
-        GetUnitResistance(gUnknown_02003BFC.unit),
-        UNIT_RES_MAX(gUnknown_02003BFC.unit));
+        gStatScreen.unit->res,
+        GetUnitResistance(gStatScreen.unit),
+        UNIT_RES_MAX(gStatScreen.unit));
 
     // displaying mov stat value
     DrawStatScreenBar(6, 13, 1,
-        UNIT_MOV_BASE(gUnknown_02003BFC.unit),
-        UNIT_MOV(gUnknown_02003BFC.unit),
-        UNIT_MOV_MAX(gUnknown_02003BFC.unit));
+        UNIT_MOV_BASE(gStatScreen.unit),
+        UNIT_MOV(gStatScreen.unit),
+        UNIT_MOV_MAX(gStatScreen.unit));
 
     // displaying con stat value
     DrawStatScreenBar(7, 13, 3,
-        UNIT_CON_BASE(gUnknown_02003BFC.unit),
-        UNIT_CON(gUnknown_02003BFC.unit),
-        UNIT_CON_MAX(gUnknown_02003BFC.unit));
+        UNIT_CON_BASE(gStatScreen.unit),
+        UNIT_CON(gStatScreen.unit),
+        UNIT_CON_MAX(gStatScreen.unit));
 
     // displaying unit aid
-    DrawDecNumber(gUnknown_02003D2C + TILEMAP_INDEX(13, 5), TEXT_COLOR_BLUE,
-        GetUnitAid(gUnknown_02003BFC.unit));
+    DrawDecNumber(gBmFrameTmap0 + TILEMAP_INDEX(13, 5), TEXT_COLOR_BLUE,
+        GetUnitAid(gStatScreen.unit));
 
     // displaying unit aid icon
-    DrawIcon(gUnknown_02003D2C + TILEMAP_INDEX(14, 5),
-        GetUnitAidIconId(UNIT_CATTRIBUTES(gUnknown_02003BFC.unit)),
+    DrawIcon(gBmFrameTmap0 + TILEMAP_INDEX(14, 5),
+        GetUnitAidIconId(UNIT_CATTRIBUTES(gStatScreen.unit)),
         TILEREF(0, STATSCREEN_BGPAL_EXTICONS));
 
     // displaying unit rescue name
     Text_InsertString(
-        &gUnknown_02003BFC.text[STATSCREEN_TEXT_RESCUENAME],
+        &gStatScreen.text[STATSCREEN_TEXT_RESCUENAME],
         24, TEXT_COLOR_BLUE,
-        GetUnitRescueName(gUnknown_02003BFC.unit));
+        GetUnitRescueName(gStatScreen.unit));
 
     // displaying unit status name and turns
 
-    if (gUnknown_02003BFC.unit->statusIndex != UNIT_STATUS_RECOVER)
+    if (gStatScreen.unit->statusIndex != UNIT_STATUS_RECOVER)
     {
         // display name
 
-        if (gUnknown_02003BFC.unit->statusIndex == UNIT_STATUS_NONE)
+        if (gStatScreen.unit->statusIndex == UNIT_STATUS_NONE)
         {
             Text_InsertString(
-                &gUnknown_02003BFC.text[STATSCREEN_TEXT_STATUS],
+                &gStatScreen.text[STATSCREEN_TEXT_STATUS],
                 24, TEXT_COLOR_BLUE,
-                GetUnitStatusName(gUnknown_02003BFC.unit));
+                GetUnitStatusName(gStatScreen.unit));
         }
         else
         {
             Text_InsertString(
-                &gUnknown_02003BFC.text[STATSCREEN_TEXT_STATUS],
+                &gStatScreen.text[STATSCREEN_TEXT_STATUS],
                 22, TEXT_COLOR_BLUE,
-                GetUnitStatusName(gUnknown_02003BFC.unit));
+                GetUnitStatusName(gStatScreen.unit));
         }
 
         // display turns
 
-        if (gUnknown_02003BFC.unit->statusIndex != UNIT_STATUS_NONE)
+        if (gStatScreen.unit->statusIndex != UNIT_STATUS_NONE)
         {
             sub_8004BE4(
-                gUnknown_02003D2C + TILEMAP_INDEX(16, 11),
-                0, gUnknown_02003BFC.unit->statusDuration);
+                gBmFrameTmap0 + TILEMAP_INDEX(16, 11),
+                0, gStatScreen.unit->statusDuration);
         }
     }
     else
     {
         // I do not understand what this is for
 
-        struct Unit tmp = *gUnknown_02003BFC.unit;
+        struct Unit tmp = *gStatScreen.unit;
 
         tmp.statusIndex = 0;
 
-        if (gUnknown_02003BFC.unit->statusIndex == UNIT_STATUS_NONE)
+        if (gStatScreen.unit->statusIndex == UNIT_STATUS_NONE)
         {
             Text_InsertString(
-                &gUnknown_02003BFC.text[STATSCREEN_TEXT_STATUS],
+                &gStatScreen.text[STATSCREEN_TEXT_STATUS],
                 24, TEXT_COLOR_BLUE,
                 GetUnitStatusName(&tmp));
         }
         else
         {
             Text_InsertString(
-                &gUnknown_02003BFC.text[STATSCREEN_TEXT_STATUS],
+                &gStatScreen.text[STATSCREEN_TEXT_STATUS],
                 22, TEXT_COLOR_BLUE,
                 GetUnitStatusName(&tmp));
         }
@@ -843,8 +868,8 @@ void DrawUnitStatScreen(void)
     // display affininity icon
 
     DrawIcon(
-        gUnknown_02003D2C + TILEMAP_INDEX(12, 9),
-        GetUnitAffinityIcon(gUnknown_02003BFC.unit),
+        gBmFrameTmap0 + TILEMAP_INDEX(12, 9),
+        GetUnitAffinityIcon(gStatScreen.unit),
         TILEREF(0, STATSCREEN_BGPAL_EXTICONS));
 
     sub_8086FAC();
@@ -860,84 +885,84 @@ void DrawUnitItemScreen(void)
         gUnknown_02020188);
 
     CallARM_FillTileRect(
-        gUnknown_0200472C + TILEMAP_INDEX(1, 11),
+        gBmFrameTmap1 + TILEMAP_INDEX(1, 11),
         gUnknown_02020188, TILEREF(0x40, STATSCREEN_BGPAL_3));
 
-    sub_8086E00(gUnknown_08205A24);
+    sub_8086E00(sPage1TextInfo);
 
-    if (!UNIT_IS_GORGON_EGG(gUnknown_02003BFC.unit))
+    if (!UNIT_IS_GORGON_EGG(gStatScreen.unit))
     {
-        for (i = 0; (i < UNIT_ITEM_COUNT) && (item = gUnknown_02003BFC.unit->items[i]); ++i)
+        for (i = 0; (i < UNIT_ITEM_COUNT) && (item = gStatScreen.unit->items[i]); ++i)
         {
             int color;
 
-            if ((gUnknown_02003BFC.unit->state & US_DROP_ITEM) && (i == GetUnitItemCount(gUnknown_02003BFC.unit) - 1))
+            if ((gStatScreen.unit->state & US_DROP_ITEM) && (i == GetUnitItemCount(gStatScreen.unit) - 1))
                 color = TEXT_COLOR_GREEN;
             else
-                color = IsItemDisplayUsable(gUnknown_02003BFC.unit, item)
+                color = IsItemDisplayUsable(gStatScreen.unit, item)
                     ? TEXT_COLOR_NORMAL
                     : TEXT_COLOR_GRAY;
 
             DrawItemStatScreenLine(
-                &gUnknown_02003BFC.text[STATSCREEN_TEXT_ITEM0 + i],
+                &gStatScreen.text[STATSCREEN_TEXT_ITEM0 + i],
                 item, color,
-                gUnknown_02003D2C + TILEMAP_INDEX(1, 1 + i*2));
+                gBmFrameTmap0 + TILEMAP_INDEX(1, 1 + i*2));
         }
     }
 
-    i = GetUnitEquippedWeaponSlot(gUnknown_02003BFC.unit);
+    i = GetUnitEquippedWeaponSlot(gStatScreen.unit);
     item = 0;
 
-    if (gUnknown_02003BFC.unit->pClassData->number != CLASS_GORGONEGG)
+    if (gStatScreen.unit->pClassData->number != CLASS_GORGONEGG)
     {
-        if ((gUnknown_02003BFC.unit->pClassData->number != CLASS_GORGONEGG2) && (i >= 0))
+        if ((gStatScreen.unit->pClassData->number != CLASS_GORGONEGG2) && (i >= 0))
         {
             sub_8004B0C(
-                gUnknown_02003D2C + TILEMAP_INDEX(16, 1 + i*2),
+                gBmFrameTmap0 + TILEMAP_INDEX(16, 1 + i*2),
                 0, 0x35);
 
             CallARM_FillTileRect(
-                gUnknown_0200472C + TILEMAP_INDEX(1, 2 + i*2),
+                gBmFrameTmap1 + TILEMAP_INDEX(1, 2 + i*2),
                 gUnknown_08A02250, TILEREF(0x40, STATSCREEN_BGPAL_3));
 
-            item = gUnknown_02003BFC.unit->items[i];
+            item = gStatScreen.unit->items[i];
         }
     }
 
-    if (!UNIT_IS_GORGON_EGG(gUnknown_02003BFC.unit))
+    if (!UNIT_IS_GORGON_EGG(gStatScreen.unit))
     {
         DrawDecNumber(
-            gUnknown_02003D2C + TILEMAP_INDEX(8,  13),
+            gBmFrameTmap0 + TILEMAP_INDEX(8,  13),
             TEXT_COLOR_BLUE, gBattleActor.battleAttack);
 
         DrawDecNumber(
-            gUnknown_02003D2C + TILEMAP_INDEX(8,  15),
+            gBmFrameTmap0 + TILEMAP_INDEX(8,  15),
             TEXT_COLOR_BLUE, gBattleActor.battleHitRate);
 
         DrawDecNumber(
-            gUnknown_02003D2C + TILEMAP_INDEX(15, 13),
+            gBmFrameTmap0 + TILEMAP_INDEX(15, 13),
             TEXT_COLOR_BLUE, gBattleActor.battleCritRate);
 
         DrawDecNumber(
-            gUnknown_02003D2C + TILEMAP_INDEX(15, 15),
+            gBmFrameTmap0 + TILEMAP_INDEX(15, 15),
             TEXT_COLOR_BLUE, gBattleActor.battleAvoidRate);
     }
     else
     {
         DrawDecNumber(
-            gUnknown_02003D2C + TILEMAP_INDEX(8,  13),
+            gBmFrameTmap0 + TILEMAP_INDEX(8,  13),
             TEXT_COLOR_BLUE, 0xFF);
 
         DrawDecNumber(
-            gUnknown_02003D2C + TILEMAP_INDEX(8,  15),
+            gBmFrameTmap0 + TILEMAP_INDEX(8,  15),
             TEXT_COLOR_BLUE, 0xFF);
 
         DrawDecNumber(
-            gUnknown_02003D2C + TILEMAP_INDEX(15, 13),
+            gBmFrameTmap0 + TILEMAP_INDEX(15, 13),
             TEXT_COLOR_BLUE, 0xFF);
 
         DrawDecNumber(
-            gUnknown_02003D2C + TILEMAP_INDEX(15, 15),
+            gBmFrameTmap0 + TILEMAP_INDEX(15, 15),
             TEXT_COLOR_BLUE, gBattleActor.battleAvoidRate);
 
         item = 0;
@@ -947,14 +972,14 @@ void DrawUnitItemScreen(void)
 
     str = GetItemDisplayRangeString(item);
     Text_InsertString(
-        &gUnknown_02003BFC.text[STATSCREEN_TEXT_BSRANGE],
+        &gStatScreen.text[STATSCREEN_TEXT_BSRANGE],
         55 - GetStringTextWidth(str),
         TEXT_COLOR_BLUE, str);
 
     for (i = 0; i < 8; ++i)
     {
-        gUnknown_02003D2C[TILEMAP_INDEX(1 + i, 11)] = TILEREF(0x60 + i, STATSCREEN_BGPAL_7);
-        gUnknown_02003D2C[TILEMAP_INDEX(1 + i, 12)] = TILEREF(0x68 + i, STATSCREEN_BGPAL_7);
+        gBmFrameTmap0[TILEMAP_INDEX(1 + i, 11)] = TILEREF(0x60 + i, STATSCREEN_BGPAL_7);
+        gBmFrameTmap0[TILEMAP_INDEX(1 + i, 12)] = TILEREF(0x68 + i, STATSCREEN_BGPAL_7);
     }
 }
 
@@ -962,30 +987,30 @@ void DrawUnitScreenSupportList(void)
 {
     int yTile = 6, lineNum = 0;
 
-    int textColor = GetUnitTotalSupportLevel(gUnknown_02003BFC.unit) == MAX_SIMULTANEOUS_SUPPORT_COUNT
+    int textColor = GetUnitTotalSupportLevel(gStatScreen.unit) == MAX_SIMULTANEOUS_SUPPORT_COUNT
         ? TEXT_COLOR_GREEN
         : TEXT_COLOR_NORMAL;
 
-    int supportAmt = GetUnitSupporterCount(gUnknown_02003BFC.unit);
+    int supportAmt = GetUnitSupporterCount(gStatScreen.unit);
     int supportId  = 0;
 
     while (supportId < supportAmt)
     {
-        int level = GetUnitSupportLevel(gUnknown_02003BFC.unit, supportId);
+        int level = GetUnitSupportLevel(gStatScreen.unit, supportId);
 
         if (level != 0)
         {
             int rankColor;
 
-            u8 pid = GetUnitSupporterCharacter(gUnknown_02003BFC.unit, supportId);
+            u8 pid = GetUnitSupporterCharacter(gStatScreen.unit, supportId);
 
             DrawIcon(
-                gUnknown_02003D2C + TILEMAP_INDEX(4, yTile),
+                gBmFrameTmap0 + TILEMAP_INDEX(4, yTile),
                 GetCharacterAffinityIcon(pid),
                 TILEREF(0, STATSCREEN_BGPAL_EXTICONS));
 
-            DrawTextInline(&gUnknown_02003BFC.text[STATSCREEN_TEXT_SUPPORT0 + lineNum],
-                gUnknown_02003D2C + TILEMAP_INDEX(7, yTile),
+            DrawTextInline(&gStatScreen.text[STATSCREEN_TEXT_SUPPORT0 + lineNum],
+                gBmFrameTmap0 + TILEMAP_INDEX(7, yTile),
                 textColor, 0, 0,
                 GetStringFromIndex(GetCharacterData(pid)->nameTextId));
 
@@ -997,7 +1022,7 @@ void DrawUnitScreenSupportList(void)
             if (textColor == TEXT_COLOR_GREEN)
                 rankColor = TEXT_COLOR_GREEN;
 
-            sub_8004B0C(gUnknown_02003D2C + TILEMAP_INDEX(13, yTile),
+            sub_8004B0C(gBmFrameTmap0 + TILEMAP_INDEX(13, yTile),
                 rankColor, GetSupportLevelUiChar(level));
 
             yTile += 2;
@@ -1012,10 +1037,10 @@ void DrawUnitWeaponRank(int num, int x, int y, int wtype)
 {
     int progress, progressMax, color;
 
-    int wexp = gUnknown_02003BFC.unit->ranks[wtype];
+    int wexp = gStatScreen.unit->ranks[wtype];
 
     // Display weapon type icon
-    DrawIcon(gUnknown_02003D2C + TILEMAP_INDEX(x, y),
+    DrawIcon(gBmFrameTmap0 + TILEMAP_INDEX(x, y),
         0x70 + wtype, // TODO: icon id definitions
         TILEREF(0, STATSCREEN_BGPAL_EXTICONS));
 
@@ -1024,20 +1049,20 @@ void DrawUnitWeaponRank(int num, int x, int y, int wtype)
         : TEXT_COLOR_BLUE;
 
     // Display rank letter
-    sub_8004B0C(gUnknown_02003D2C + TILEMAP_INDEX(x + 4, y),
+    sub_8004B0C(gBmFrameTmap0 + TILEMAP_INDEX(x + 4, y),
         color,
         GetDisplayRankStringFromExp(wexp));
 
     GetWeaponExpProgressState(wexp, &progress, &progressMax);
 
     sub_8086B2C(0x401 + num*6, 5,
-        gUnknown_0200472C + TILEMAP_INDEX(x + 2, y + 1), TILEREF(0, STATSCREEN_BGPAL_6),
+        gBmFrameTmap1 + TILEMAP_INDEX(x + 2, y + 1), TILEREF(0, STATSCREEN_BGPAL_6),
         0x22, (progress*34)/(progressMax-1), 0);
 }
 
 void DrawUnitWeaponScreen(void)
 {
-    if (UnitHasMagicRank(gUnknown_02003BFC.unit))
+    if (UnitHasMagicRank(gStatScreen.unit))
     {
         DrawUnitWeaponRank(0, 1, 1, ITYPE_ANIMA);
         DrawUnitWeaponRank(1, 1, 3, ITYPE_LIGHT);
@@ -1067,8 +1092,8 @@ void sub_80878CC(int pageid)
         DrawUnitStatScreen,
     };
 
-    CpuFastFill(0, gUnknown_02003D2C, sizeof(gUnknown_02003D2C));
-    CpuFastFill(0, gUnknown_0200472C, sizeof(gUnknown_0200472C));
+    CpuFastFill(0, gBmFrameTmap0, sizeof(gBmFrameTmap0));
+    CpuFastFill(0, gBmFrameTmap1, sizeof(gBmFrameTmap1));
 
     funcLut[pageid]();
 }
@@ -1088,22 +1113,22 @@ struct Unit* sub_8087920(struct Unit* u, int direction)
         if (!UNIT_IS_VALID(unit))
             continue;
 
-        if ((gUnknown_0203E764.unk02 & 1) && (unit->state & US_DEAD))
+        if ((sStatScreenInfo.config & 1) && (unit->state & US_DEAD))
             continue;
 
-        if ((gUnknown_0203E764.unk02 & 2) && (unit->state & US_NOT_DEPLOYED))
+        if ((sStatScreenInfo.config & 2) && (unit->state & US_NOT_DEPLOYED))
             continue;
 
-        if ((gUnknown_0203E764.unk02 & 4) && (unit->state & US_BIT9))
+        if ((sStatScreenInfo.config & 4) && (unit->state & US_BIT9))
             continue;
 
-        if ((gUnknown_0203E764.unk02 & 8) && (unit->state & US_UNDER_A_ROOF))
+        if ((sStatScreenInfo.config & 8) && (unit->state & US_UNDER_A_ROOF))
             continue;
 
-        if ((gUnknown_0203E764.unk02 & 0x10) && (unit->state & US_BIT16))
+        if ((sStatScreenInfo.config & 0x10) && (unit->state & US_BIT16))
             continue;
 
-        if ((gUnknown_0203E764.unk02 & 0x20) && (UNIT_CATTRIBUTES(unit) & CA_SUPPLY))
+        if ((sStatScreenInfo.config & 0x20) && (UNIT_CATTRIBUTES(unit) & CA_SUPPLY))
             continue;
 
         if (UNIT_IS_GORGON_EGG(unit))
@@ -1123,7 +1148,7 @@ void sub_80879DC(struct StatScreenTransitionProc* proc)
     TileMap_FillRect(gBG0TilemapBuffer + TILEMAP_INDEX(12, 2), 18, 18, 0);
     TileMap_FillRect(gBG2TilemapBuffer + TILEMAP_INDEX(12, 2), 18, 18, 0);
 
-    off = gUnknown_08A0081C[proc->unk4C];
+    off = sPageSlideOffsetLut[proc->unk4C];
 
     if (off == INT8_MAX)
     {
@@ -1132,7 +1157,7 @@ void sub_80879DC(struct StatScreenTransitionProc* proc)
         sub_80878CC(proc->unk4A);
 
         proc->unk4C++;
-        off = gUnknown_08A0081C[proc->unk4C];
+        off = sPageSlideOffsetLut[proc->unk4C];
     }
 
     // compute len, dstOff and srcOff
@@ -1157,19 +1182,19 @@ void sub_80879DC(struct StatScreenTransitionProc* proc)
     }
 
     TileMap_CopyRect(
-        gUnknown_02003D2C + srcOff,
+        gBmFrameTmap0 + srcOff,
         gBG0TilemapBuffer + dstOff + TILEMAP_INDEX(12, 2),
         len, 18);
 
     TileMap_CopyRect(
-        gUnknown_0200472C + srcOff,
+        gBmFrameTmap1 + srcOff,
         gBG2TilemapBuffer + dstOff + TILEMAP_INDEX(12, 2),
         len, 18);
 
     BG_EnableSyncByMask(BG0_SYNC_BIT + BG1_SYNC_BIT + BG2_SYNC_BIT);
 
     proc->unk4C++;
-    off = gUnknown_08A0081C[proc->unk4C];
+    off = sPageSlideOffsetLut[proc->unk4C];
 
     if (off == INT8_MIN)
         Proc_ClearNativeCallback((struct Proc*) proc);
@@ -1177,27 +1202,27 @@ void sub_80879DC(struct StatScreenTransitionProc* proc)
 
 void sub_8087ACC(void)
 {
-    gUnknown_02003BFC.inTransition = FALSE;
+    gStatScreen.inTransition = FALSE;
 }
 
 void sub_8087AD8(u16 config, int newPage, struct Proc* parent)
 {
     struct StatScreenTransitionProc* proc;
 
-    if (Proc_Find(gUnknown_08A0082C))
+    if (Proc_Find(gProcScr_SSPageSlide))
         return;
 
     PlaySoundEffect(0x6F); // TODO: song ids
 
-    proc = (void*) Proc_CreateBlockingChild(gUnknown_08A0082C, parent);
+    proc = (void*) Proc_CreateBlockingChild(gProcScr_SSPageSlide, parent);
 
     proc->unk4C = 0;
     proc->unk4A = newPage;
     proc->unk52 = config;
 
-    gUnknown_02003BFC.unk02 = config;
-    gUnknown_02003BFC.help = NULL;
-    gUnknown_02003BFC.inTransition = TRUE;
+    gStatScreen.unk02 = config;
+    gStatScreen.help = NULL;
+    gStatScreen.inTransition = TRUE;
 }
 
 void sub_8087B40(struct StatScreenTransitionProc* proc)
@@ -1235,12 +1260,12 @@ void sub_8087BA0(struct StatScreenTransitionProc* proc)
 
 void sub_8087BF0(void)
 {
-    Proc_Create(gUnknown_08A00844, ROOT_PROC_3);
+    Proc_Create(gProcScr_SSGlowyBlendCtrl, ROOT_PROC_3);
 }
 
 void sub_8087C04(void)
 {
-    Proc_DeleteAllWithScript(gUnknown_08A00844);
+    Proc_DeleteAllWithScript(gProcScr_SSGlowyBlendCtrl);
 
     gLCDControlBuffer.dispcnt.bg0_on = TRUE;
     gLCDControlBuffer.dispcnt.bg1_on = FALSE;
@@ -1251,7 +1276,7 @@ void sub_8087C04(void)
 
 void sub_8087C34(struct StatScreenTransitionProc* proc)
 {
-    gUnknown_02003BFC.inTransition = TRUE;
+    gStatScreen.inTransition = TRUE;
 
     proc->unk4C = 4;
 
@@ -1281,10 +1306,10 @@ void sub_8087CC0(struct StatScreenTransitionProc* proc)
 {
     SetSpecialColorEffectsParameters(1, proc->unk4C, 0x10 - proc->unk4C, 0);
 
-    MU_SetDisplayPosition(gUnknown_02003BFC.mu,
-        80, 138 + gUnknown_02003BFC.yDispOff);
+    MU_SetDisplayPosition(gStatScreen.mu,
+        80, 138 + gStatScreen.yDispOff);
 
-    gUnknown_02003BFC.yDispOff = sub_8012DCC(2, proc->unk3C, proc->unk40, proc->unk4C, 0x10);
+    gStatScreen.yDispOff = sub_8012DCC(2, proc->unk3C, proc->unk40, proc->unk4C, 0x10);
 
     proc->unk4C += 3;
 
@@ -1320,10 +1345,10 @@ void sub_8087D98(struct StatScreenTransitionProc* proc)
 {
     SetSpecialColorEffectsParameters(1, 0x10 - proc->unk4C, proc->unk4C, 0);
 
-    MU_SetDisplayPosition(gUnknown_02003BFC.mu,
-        80, 138 + gUnknown_02003BFC.yDispOff);
+    MU_SetDisplayPosition(gStatScreen.mu,
+        80, 138 + gStatScreen.yDispOff);
 
-    gUnknown_02003BFC.yDispOff = sub_8012DCC(5, proc->unk3C, proc->unk40, proc->unk4C, 0x10);
+    gStatScreen.yDispOff = sub_8012DCC(5, proc->unk3C, proc->unk40, proc->unk4C, 0x10);
 
     proc->unk4C += 3;
 
@@ -1333,16 +1358,16 @@ void sub_8087D98(struct StatScreenTransitionProc* proc)
 
 void sub_8087DF8(struct StatScreenTransitionProc* proc)
 {
-    gUnknown_02003BFC.unit = GetUnit(proc->unk4A);
+    gStatScreen.unit = GetUnit(proc->unk4A);
 
-    sub_8088670(Proc_Find(gUnknown_08A009D8));
+    sub_8088670(Proc_Find(gProcScr_StatScreen));
     Proc_ClearNativeCallback((struct Proc*) proc);
 }
 
 void sub_8087E28(struct Proc* proc)
 {
-    if (gUnknown_02003BFC.mu)
-        MU_SetDisplayPosition(gUnknown_02003BFC.mu,
+    if (gStatScreen.mu)
+        MU_SetDisplayPosition(gStatScreen.mu,
             80, 138);
 
     gLCDControlBuffer.bg0cnt.priority = 1;
@@ -1352,12 +1377,12 @@ void sub_8087E28(struct Proc* proc)
 
     SetDefaultColorEffects();
 
-    gUnknown_02003BFC.inTransition = FALSE;
+    gStatScreen.inTransition = FALSE;
 }
 
 void sub_8087E7C(struct Unit* unit, int direction, struct Proc* parent)
 {
-    struct StatScreenTransitionProc* proc = (void*) Proc_CreateBlockingChild(gUnknown_08A00864, parent);
+    struct StatScreenTransitionProc* proc = (void*) Proc_CreateBlockingChild(gProcScr_SSUnitSlide, parent);
 
     proc->unk4A = unit->index;
     proc->unk38 = direction;
@@ -1370,12 +1395,12 @@ void sub_8087EB8(int pageid)
     int colorid;
 
     RegisterObjectAttributes_SafeMaybe(4,
-        111 + gUnknown_02003BFC.unk04, 1 + gUnknown_02003BFC.yDispOff,
-        gUnknown_08A008FE, TILEREF(0x293, 4) + 0xC00);
+        111 + gStatScreen.unk04, 1 + gStatScreen.yDispOff,
+        sSprite_PageNameBack, TILEREF(0x293, 4) + 0xC00);
 
     RegisterObjectAttributes_SafeMaybe(4,
-        114 + gUnknown_02003BFC.unk04, 0 + gUnknown_02003BFC.yDispOff,
-        gUnknown_08A00924[pageid], TILEREF(0x240 + gUnknown_08A00930[pageid], 3) + 0xC00);
+        114 + gStatScreen.unk04, 0 + gStatScreen.yDispOff,
+        sPageNameSpriteLut[pageid], TILEREF(0x240 + sPageNameChrOffsetLut[pageid], 3) + 0xC00);
 
     colorid = (GetGameClock()/4) % 16;
 
@@ -1400,14 +1425,14 @@ void sub_8087F48(struct StatScreenPageNameProc* proc)
         Div(+COS(0) * 16, 0x100)  // pd
     );
 
-    proc->unk36 = gUnknown_02003BFC.page;
+    proc->unk36 = gStatScreen.page;
 }
 
 void sub_8087FE0(struct StatScreenPageNameProc* proc)
 {
     sub_8087EB8(proc->unk36);
 
-    if (gUnknown_02003BFC.unk02)
+    if (gStatScreen.unk02)
     {
         proc->unk38 = 5;
 
@@ -1415,7 +1440,7 @@ void sub_8087FE0(struct StatScreenPageNameProc* proc)
         return;
     }
 
-    proc->unk36 = gUnknown_02003BFC.page;
+    proc->unk36 = gStatScreen.page;
 }
 
 void sub_8088014(struct StatScreenPageNameProc* proc)
@@ -1455,13 +1480,13 @@ void sub_80880DC(struct StatScreenPageNameProc* proc)
         Div(+COS(0) * 16, proc->unk38 * 0x100 / 6)  // pd
     );
 
-    sub_8087EB8(gUnknown_02003BFC.page);
+    sub_8087EB8(gStatScreen.page);
 
     proc->unk38++;
 
     if (proc->unk38 > 6)
     {
-        proc->unk36 = gUnknown_02003BFC.page;
+        proc->unk36 = gStatScreen.page;
         Proc_ClearNativeCallback((struct Proc*) proc);
     }
 }
@@ -1480,19 +1505,19 @@ void sub_80881AC(struct StatScreenUnkProc* proc)
 
 void sub_80881C4(struct StatScreenUnkProc* proc)
 {
-    if (gUnknown_02003BFC.unk02 & 0x20)
+    if (gStatScreen.unk02 & 0x20)
     {
         proc->unk32 = 31;
         proc->unk2A = 97;
     }
 
-    if (gUnknown_02003BFC.unk02 & 0x10)
+    if (gStatScreen.unk02 & 0x10)
     {
         proc->unk34 = 31;
         proc->unk2C = 223;
     }
 
-    gUnknown_02003BFC.unk02 = 0;
+    gStatScreen.unk02 = 0;
 }
 
 void sub_80881FC(struct StatScreenUnkProc* proc)
@@ -1518,13 +1543,13 @@ void sub_80881FC(struct StatScreenUnkProc* proc)
     }
 
     RegisterObjectAttributes_SafeMaybe(0,
-        gUnknown_02003BFC.unk04 + proc->unk2A,
-        gUnknown_02003BFC.yDispOff + 3,
+        gStatScreen.unk04 + proc->unk2A,
+        gStatScreen.yDispOff + 3,
         gUnknown_08590F64, baseref + 0x5A + (proc->unk2E >> 5) % 6);
 
     RegisterObjectAttributes_SafeMaybe(0,
-        gUnknown_02003BFC.unk04 + proc->unk2C,
-        gUnknown_02003BFC.yDispOff + 3,
+        gStatScreen.unk04 + proc->unk2C,
+        gStatScreen.yDispOff + 3,
         gUnknown_08590FB4, baseref + 0x5A + (proc->unk30 >> 5) % 6);
 }
 
@@ -1534,28 +1559,28 @@ void sub_80882E4(void)
 
     // page amt
     RegisterObjectAttributes_SafeMaybe(2,
-        gUnknown_02003BFC.unk04 + 228,
-        gUnknown_02003BFC.yDispOff + 17,
-        gUnknown_08590F44, TILEREF(chr, STATSCREEN_OBJPAL_4) + OAM2_PRIORITY(3) + gUnknown_02003BFC.pageAmt);
+        gStatScreen.unk04 + 228,
+        gStatScreen.yDispOff + 17,
+        gUnknown_08590F44, TILEREF(chr, STATSCREEN_OBJPAL_4) + OAM2_PRIORITY(3) + gStatScreen.pageAmt);
 
     // '/'
     RegisterObjectAttributes_SafeMaybe(2,
-        gUnknown_02003BFC.unk04 + 222,
-        gUnknown_02003BFC.yDispOff + 17,
+        gStatScreen.unk04 + 222,
+        gStatScreen.yDispOff + 17,
         gUnknown_08590F44, TILEREF(chr, STATSCREEN_OBJPAL_4) + OAM2_PRIORITY(3));
 
     // page num
     RegisterObjectAttributes_SafeMaybe(2,
-        gUnknown_02003BFC.unk04 + 215,
-        gUnknown_02003BFC.yDispOff + 17,
-        gUnknown_08590F44, TILEREF(chr, STATSCREEN_OBJPAL_4) + OAM2_PRIORITY(3) + gUnknown_02003BFC.page + 1);
+        gStatScreen.unk04 + 215,
+        gStatScreen.yDispOff + 17,
+        gUnknown_08590F44, TILEREF(chr, STATSCREEN_OBJPAL_4) + OAM2_PRIORITY(3) + gStatScreen.page + 1);
 }
 
 void sub_8088354(void)
 {
     RegisterObjectAttributes_SafeMaybe(11,
-        gUnknown_02003BFC.unk04 + 64,
-        gUnknown_02003BFC.yDispOff + 131,
+        gStatScreen.unk04 + 64,
+        gStatScreen.yDispOff + 131,
         gUnknown_08590F8C, TILEREF(0x28F, STATSCREEN_OBJPAL_4) + OAM2_PRIORITY(3));
 }
 
@@ -1565,9 +1590,9 @@ void sub_8088384(void)
 
     u16 palidLut[3] = { 0xC, 0xE, 0xD }; // TODO: palid constants
 
-    if (!gUnknown_02003BFC.inTransition)
+    if (!gStatScreen.inTransition)
     {
-        if ((gUnknown_02003BFC.page == STATSCREEN_PAGE_0) && (gUnknown_02003BFC.unit->state & US_RESCUING))
+        if ((gStatScreen.page == STATSCREEN_PAGE_0) && (gStatScreen.unit->state & US_RESCUING))
         {
             sub_8015BD4(120, 40, 1);
             sub_8015BD4(120, 56, 1);
@@ -1576,17 +1601,17 @@ void sub_8088384(void)
             {
                 RegisterObjectAttributes_SafeMaybe(4,
                     184, 78, gUnknown_08590F44,
-                    TILEREF(3, 0xF & palidLut[gUnknown_02003BFC.unit->rescueOtherUnit>>6]) + OAM2_PRIORITY(2));
+                    TILEREF(3, 0xF & palidLut[gStatScreen.unit->rescueOtherUnit>>6]) + OAM2_PRIORITY(2));
             }
         }
 
-        if (gUnknown_02003BFC.unit->state & US_RESCUED)
+        if (gStatScreen.unit->state & US_RESCUED)
         {
             if (displayIcon)
             {
                 RegisterObjectAttributes_SafeMaybe(4,
                     10, 86, gUnknown_08590F44,
-                    TILEREF(3, 0xF & palidLut[gUnknown_02003BFC.unit->rescueOtherUnit>>6]) + OAM2_PRIORITY(2));
+                    TILEREF(3, 0xF & palidLut[gStatScreen.unit->rescueOtherUnit>>6]) + OAM2_PRIORITY(2));
             }
         }
     }
@@ -1705,7 +1730,7 @@ void sub_80884B0(struct Proc* proc)
     CopyDataWithPossibleUncomp(
         gUnknown_08A020F0, (void*)(VRAM + 0x60 * 0x20));
 
-    gUnknown_02003BFC.mu = NULL;
+    gStatScreen.mu = NULL;
 
     sub_8087E28(proc);
 }
@@ -1714,13 +1739,13 @@ void sub_8088670(struct Proc* proc)
 {
     // Get portrait id
 
-    int fid = GetUnitPortraitId(gUnknown_02003BFC.unit);
+    int fid = GetUnitPortraitId(gStatScreen.unit);
 
-    if (gUnknown_02003BFC.unit->state & US_BIT23)
+    if (gStatScreen.unit->state & US_BIT23)
         fid++;
 
     // Set page amount (in FE6, this was dependant on whether this is ally or enemy)
-    gUnknown_02003BFC.pageAmt = STATSCREEN_PAGE_MAX;
+    gStatScreen.pageAmt = STATSCREEN_PAGE_MAX;
 
     // Init text and icons
 
@@ -1742,7 +1767,7 @@ void sub_8088670(struct Proc* proc)
     // Display Map Sprite
 
     MU_EndAll();
-    gUnknown_02003BFC.mu = MU_CreateForUI(gUnknown_02003BFC.unit, 80, 138);
+    gStatScreen.mu = MU_CreateForUI(gStatScreen.unit, 80, 138);
 
     // Draw left panel labels and info
 
@@ -1750,10 +1775,10 @@ void sub_8088670(struct Proc* proc)
 
     // Draw page content
 
-    sub_80878CC(gUnknown_02003BFC.page);
+    sub_80878CC(gStatScreen.page);
 
-    TileMap_CopyRect(gUnknown_02003D2C, gBG0TilemapBuffer + TILEMAP_INDEX(12, 2), 18, 18);
-    TileMap_CopyRect(gUnknown_0200472C, gBG2TilemapBuffer + TILEMAP_INDEX(12, 2), 18, 18);
+    TileMap_CopyRect(gBmFrameTmap0, gBG0TilemapBuffer + TILEMAP_INDEX(12, 2), 18, 18);
+    TileMap_CopyRect(gBmFrameTmap1, gBG2TilemapBuffer + TILEMAP_INDEX(12, 2), 18, 18);
 
     BG_EnableSyncByMask(BG0_SYNC_BIT | BG1_SYNC_BIT | BG2_SYNC_BIT);
 }
@@ -1786,46 +1811,46 @@ void sub_808873C(struct Proc* proc)
 
     else if (gKeyStatusPtr->repeatedKeys & DPAD_LEFT)
     {
-        gUnknown_02003BFC.page = (gUnknown_02003BFC.page + gUnknown_02003BFC.pageAmt - 1) % gUnknown_02003BFC.pageAmt;
-        sub_8087AD8(0x20, gUnknown_02003BFC.page, proc);
+        gStatScreen.page = (gStatScreen.page + gStatScreen.pageAmt - 1) % gStatScreen.pageAmt;
+        sub_8087AD8(0x20, gStatScreen.page, proc);
         return;
     }
 
     else if (gKeyStatusPtr->repeatedKeys & DPAD_RIGHT)
     {
-        gUnknown_02003BFC.page = (gUnknown_02003BFC.page + gUnknown_02003BFC.pageAmt + 1) % gUnknown_02003BFC.pageAmt;
-        sub_8087AD8(0x10, gUnknown_02003BFC.page, proc);
+        gStatScreen.page = (gStatScreen.page + gStatScreen.pageAmt + 1) % gStatScreen.pageAmt;
+        sub_8087AD8(0x10, gStatScreen.page, proc);
     }
 
     else if (gKeyStatusPtr->repeatedKeys & DPAD_UP)
     {
-        unit = sub_8087920(gUnknown_02003BFC.unit, -1);
+        unit = sub_8087920(gStatScreen.unit, -1);
         sub_8087E7C(unit, -1, proc);
     }
 
     else if (gKeyStatusPtr->repeatedKeys & DPAD_DOWN)
     {
-        unit = sub_8087920(gUnknown_02003BFC.unit, +1);
+        unit = sub_8087920(gStatScreen.unit, +1);
         sub_8087E7C(unit, +1, proc);
     }
 
-    else if ((gKeyStatusPtr->repeatedKeys & A_BUTTON) && (gUnknown_02003BFC.unit->rescueOtherUnit))
+    else if ((gKeyStatusPtr->repeatedKeys & A_BUTTON) && (gStatScreen.unit->rescueOtherUnit))
     {
-        unit = GetUnit(gUnknown_02003BFC.unit->rescueOtherUnit);
-        sub_8087E7C(unit, (gUnknown_02003BFC.unit->state & US_RESCUING) ? +1 : -1, proc);
+        unit = GetUnit(gStatScreen.unit->rescueOtherUnit);
+        sub_8087E7C(unit, (gStatScreen.unit->state & US_RESCUING) ? +1 : -1, proc);
     }
 
     else if (gKeyStatusPtr->newKeys & R_BUTTON)
     {
         Proc_GotoLabel(proc, 0); // TODO: label name
-        MakeStatScreenRText6C(gUnknown_02003BFC.page, proc);
+        MakeStatScreenRText6C(gStatScreen.page, proc);
     }
 }
 
 void sub_80888B4(void)
 {
-    gUnknown_0202BCF0.chapterStateBits = (gUnknown_0202BCF0.chapterStateBits &~ 3) | (gUnknown_02003BFC.page & 3);
-    gUnknown_0203E764.uid01 = gUnknown_02003BFC.unit->index;
+    gUnknown_0202BCF0.chapterStateBits = (gUnknown_0202BCF0.chapterStateBits &~ 3) | (gStatScreen.page & 3);
+    sStatScreenInfo.unitId = gStatScreen.unit->index;
 
     SetInterrupt_LCDVCountMatch(NULL);
 
@@ -1838,12 +1863,12 @@ void sub_80888B4(void)
 
 void sub_808890C(void)
 {
-    gUnknown_02003BFC.help = sub_80895A8();
+    gStatScreen.help = sub_80895A8();
 }
 
 void sub_8088920(void)
 {
-    int yBg = 0xFF & -gUnknown_02003BFC.yDispOff;
+    int yBg = 0xFF & -gStatScreen.yDispOff;
 
     BG_SetPosition(0, 0, yBg);
     BG_SetPosition(2, 0, yBg);
@@ -1851,51 +1876,51 @@ void sub_8088920(void)
 
 void sub_808894C(struct Unit* unit, struct Proc* parent)
 {
-    gUnknown_02003BFC.unk04 = 0;
-    gUnknown_02003BFC.yDispOff = 0;
-    gUnknown_02003BFC.page = gUnknown_0202BCF0.chapterStateBits & 3;
-    gUnknown_02003BFC.unit = unit;
-    gUnknown_02003BFC.help = NULL;
-    gUnknown_02003BFC.unk02 = 0;
-    gUnknown_02003BFC.inTransition = FALSE;
+    gStatScreen.unk04 = 0;
+    gStatScreen.yDispOff = 0;
+    gStatScreen.page = gUnknown_0202BCF0.chapterStateBits & 3;
+    gStatScreen.unit = unit;
+    gStatScreen.help = NULL;
+    gStatScreen.unk02 = 0;
+    gStatScreen.inTransition = FALSE;
 
     BWL_IncrementStatScreenViews(unit->pCharacterData->number);
 
     PlaySoundEffect(0x6A); // TODO: song ids
 
-    Proc_CreateBlockingChild(gUnknown_08A009D8, parent);
+    Proc_CreateBlockingChild(gProcScr_StatScreen, parent);
 }
 
 void MakeStatScreenRText6C(int pageid, struct Proc* proc)
 {
     LoadDialogueBoxGfx(NULL, -1); // default
 
-    if (!gUnknown_02003BFC.help)
+    if (!gStatScreen.help)
     {
         switch (pageid)
         {
 
         case STATSCREEN_PAGE_0:
-            gUnknown_02003BFC.help = &gUnknown_08A00BC4;
+            gStatScreen.help = &gUnknown_08A00BC4;
             break;
         
         case STATSCREEN_PAGE_1:
-            gUnknown_02003BFC.help = &gUnknown_08A00DA0;
+            gStatScreen.help = &gUnknown_08A00DA0;
             break;
 
         case STATSCREEN_PAGE_2:
-            gUnknown_02003BFC.help = &gUnknown_08A00F44;
+            gStatScreen.help = &gUnknown_08A00F44;
             break;
 
         } // switch (pageid)
     }
 
-    Create6CRText(gUnknown_02003BFC.help, proc);
+    Create6CRText(gStatScreen.help, proc);
 }
 
 void sub_8088A00(struct HelpBoxProc* proc)
 {
-    int item = gUnknown_02003BFC.unit->items[proc->info->msgId];
+    int item = gStatScreen.unit->items[proc->info->msgId];
 
     proc->item_maybe  = item;
     proc->msgId_maybe = GetItemDescId(item);
@@ -1903,7 +1928,7 @@ void sub_8088A00(struct HelpBoxProc* proc)
 
 void sub_8088A2C(struct HelpBoxProc* proc)
 {
-    switch (gUnknown_02003BFC.unit->statusIndex)
+    switch (gStatScreen.unit->statusIndex)
     {
 
     case UNIT_STATUS_NONE:
@@ -1947,12 +1972,12 @@ void sub_8088A2C(struct HelpBoxProc* proc)
         proc->msgId_maybe = 0x557; // TODO: mid constants
         break;
 
-    } // switch (gUnknown_02003BFC.unit->statusIndex)
+    } // switch (gStatScreen.unit->statusIndex)
 }
 
 void sub_8088B08(struct HelpBoxProc* proc)
 {
-    if (UnitHasMagicRank(gUnknown_02003BFC.unit))
+    if (UnitHasMagicRank(gStatScreen.unit))
         proc->msgId_maybe = 0x547; // TODO: mid constants
     else
         proc->msgId_maybe = 0x546; // TODO: mid constants
@@ -1960,10 +1985,10 @@ void sub_8088B08(struct HelpBoxProc* proc)
 
 void sub_8088B40(struct HelpBoxProc* proc)
 {
-    if (!gUnknown_02003BFC.unit->items[0])
+    if (!gStatScreen.unit->items[0])
         sub_80893B4(proc);
 
-    if (!gUnknown_02003BFC.unit->items[proc->info->msgId])
+    if (!gStatScreen.unit->items[proc->info->msgId])
     {
         if (proc->unk50 == 0 || proc->unk50 == 0x10 || proc->unk50 == 0x40)
             sub_8089354(proc);
@@ -1981,7 +2006,7 @@ void sub_8088B94(struct HelpBoxProc* proc)
 
     int itemKind = proc->info->msgId;
 
-    if (UnitHasMagicRank(gUnknown_02003BFC.unit))
+    if (UnitHasMagicRank(gStatScreen.unit))
         itemKind += 4;
 
     proc->msgId_maybe = rankMsgLut[itemKind];
@@ -1989,7 +2014,7 @@ void sub_8088B94(struct HelpBoxProc* proc)
 
 void sub_8088BD4(struct HelpBoxProc* proc)
 {
-    int midDesc = gUnknown_02003BFC.unit->pCharacterData->descTextId;
+    int midDesc = gStatScreen.unit->pCharacterData->descTextId;
 
     if (midDesc)
         proc->msgId_maybe = midDesc;
@@ -1999,12 +2024,12 @@ void sub_8088BD4(struct HelpBoxProc* proc)
 
 void sub_8088C00(struct HelpBoxProc* proc)
 {
-    proc->msgId_maybe = gUnknown_02003BFC.unit->pClassData->descTextId;
+    proc->msgId_maybe = gStatScreen.unit->pClassData->descTextId;
 }
 
 void sub_8088C14(struct HelpBoxProc* proc)
 {
-    if (GetUnitTotalSupportLevel(gUnknown_02003BFC.unit) == 0)
+    if (GetUnitTotalSupportLevel(gStatScreen.unit) == 0)
     {
         if (proc->unk50 == 0x80)
             sub_8089384(proc);
@@ -2025,7 +2050,7 @@ void sub_8088C48(struct HelpBoxProc* proc, int arg1)
 
 void sub_8088CFC(struct HelpBoxProc* proc)
 {
-    struct Proc* found = Proc_Find(gUnknown_08A00B20);
+    struct Proc* found = Proc_Find(gProcScr_MetaHelpSprCtrl);
 
     if (found)
         found->blockSemaphore = 1; // lock (disabled) proc
@@ -2044,7 +2069,7 @@ void sub_8088D3C(struct HelpBoxProc* proc)
 
 void sub_8088D64(struct HelpBoxProc* proc)
 {
-    struct Proc* found = Proc_Find(gUnknown_08A00B20);
+    struct Proc* found = Proc_Find(gProcScr_MetaHelpSprCtrl);
 
     if (found)
         found->blockSemaphore = 0; // unlock (enable) proc
@@ -2070,22 +2095,22 @@ void sub_8088DB8(struct HelpBoxProc* proc)
 
 void sub_8088DE0(int x, int y, int msgid)
 {
-    gUnknown_0203E768.adj1 = NULL;
-    gUnknown_0203E768.adj2 = NULL;
-    gUnknown_0203E768.adj3 = NULL;
-    gUnknown_0203E768.adj4 = NULL;
+    sMutableHbi.adj1 = NULL;
+    sMutableHbi.adj2 = NULL;
+    sMutableHbi.adj3 = NULL;
+    sMutableHbi.adj4 = NULL;
 
-    gUnknown_0203E768.xDisplay = x;
-    gUnknown_0203E768.yDisplay = y;
-    gUnknown_0203E768.msgId    = msgid;
+    sMutableHbi.xDisplay = x;
+    sMutableHbi.yDisplay = y;
+    sMutableHbi.msgId    = msgid;
 
-    gUnknown_0203E768.onInitMoveable = NULL;
-    gUnknown_0203E768.onInit = NULL;
+    sMutableHbi.onInitMoveable = NULL;
+    sMutableHbi.onInit = NULL;
 
-    gUnknown_0203E788.x = 0;
-    gUnknown_0203E788.y = 0;
+    sHbOrigin.x = 0;
+    sHbOrigin.y = 0;
 
-    sub_8088E9C(&gUnknown_0203E768, FALSE);
+    sub_8088E9C(&sMutableHbi, FALSE);
 }
 
 void sub_8088E14(int x, int y, int msgid)
@@ -2096,42 +2121,42 @@ void sub_8088E14(int x, int y, int msgid)
         y = GetUiHandPrevDisplayY();
     }
 
-    gUnknown_0203E768.adj1 = NULL;
-    gUnknown_0203E768.adj2 = NULL;
-    gUnknown_0203E768.adj3 = NULL;
-    gUnknown_0203E768.adj4 = NULL;
+    sMutableHbi.adj1 = NULL;
+    sMutableHbi.adj2 = NULL;
+    sMutableHbi.adj3 = NULL;
+    sMutableHbi.adj4 = NULL;
 
-    gUnknown_0203E768.xDisplay = x;
-    gUnknown_0203E768.yDisplay = y;
-    gUnknown_0203E768.msgId    = msgid;
+    sMutableHbi.xDisplay = x;
+    sMutableHbi.yDisplay = y;
+    sMutableHbi.msgId    = msgid;
 
-    gUnknown_0203E768.onInitMoveable = NULL;
-    gUnknown_0203E768.onInit = NULL;
+    sMutableHbi.onInitMoveable = NULL;
+    sMutableHbi.onInit = NULL;
 
-    gUnknown_0203E788.x = 0;
-    gUnknown_0203E788.y = 0;
+    sHbOrigin.x = 0;
+    sHbOrigin.y = 0;
 
-    sub_8088E9C(&gUnknown_0203E768, TRUE);
+    sub_8088E9C(&sMutableHbi, TRUE);
 }
 
 void sub_8088E60(int x, int y, int item)
 {
-    gUnknown_0203E768.adj1 = NULL;
-    gUnknown_0203E768.adj2 = NULL;
-    gUnknown_0203E768.adj3 = NULL;
-    gUnknown_0203E768.adj4 = NULL;
+    sMutableHbi.adj1 = NULL;
+    sMutableHbi.adj2 = NULL;
+    sMutableHbi.adj3 = NULL;
+    sMutableHbi.adj4 = NULL;
 
-    gUnknown_0203E768.xDisplay = x;
-    gUnknown_0203E768.yDisplay = y;
-    gUnknown_0203E768.msgId    = item;
+    sMutableHbi.xDisplay = x;
+    sMutableHbi.yDisplay = y;
+    sMutableHbi.msgId    = item;
 
-    gUnknown_0203E768.onInitMoveable = NULL;
-    gUnknown_0203E768.onInit = sub_8089320;
+    sMutableHbi.onInitMoveable = NULL;
+    sMutableHbi.onInit = sub_8089320;
 
-    gUnknown_0203E788.x = 0;
-    gUnknown_0203E788.y = 0;
+    sHbOrigin.x = 0;
+    sHbOrigin.y = 0;
 
-    sub_8088E9C(&gUnknown_0203E768, FALSE);
+    sub_8088E9C(&sMutableHbi, FALSE);
 }
 
 void sub_8088E9C(const struct HelpBoxInfo* info, int unk)
@@ -2139,11 +2164,11 @@ void sub_8088E9C(const struct HelpBoxInfo* info, int unk)
     struct HelpBoxProc* proc;
     int wBox, hBox;
 
-    proc = (void*) Proc_Find(gUnknown_08A00A98);
+    proc = (void*) Proc_Find(gProcScr_HelpBox);
 
     if (!proc)
     {
-        proc = (void*) Proc_Create(gUnknown_08A00A98, ROOT_PROC_3);
+        proc = (void*) Proc_Create(gProcScr_HelpBox, ROOT_PROC_3);
 
         proc->unk52 = unk;
 
@@ -2179,7 +2204,7 @@ void sub_8088E9C(const struct HelpBoxInfo* info, int unk)
     sub_808A118();
     sub_808A0FC(proc->item_maybe, proc->msgId_maybe);
 
-    gUnknown_0203E784 = info;
+    sLastHbi = info;
 }
 
 void sub_8088F68(int x, int y, int msgid)
@@ -2187,7 +2212,7 @@ void sub_8088F68(int x, int y, int msgid)
     struct HelpBoxProc* proc;
     int wBox, hBox;
 
-    proc = (void*) Proc_Create(gUnknown_08A00A98, ROOT_PROC_3);
+    proc = (void*) Proc_Create(gProcScr_HelpBox, ROOT_PROC_3);
 
     proc->unk52 = TRUE;
 
@@ -2222,7 +2247,7 @@ void sub_8088F68(int x, int y, int msgid)
 
 void sub_8089018(void)
 {
-    struct HelpBoxProc* proc = (void*) Proc_Find(gUnknown_08A00A98);
+    struct HelpBoxProc* proc = (void*) Proc_Find(gProcScr_HelpBox);
 
     if (proc)
     {
@@ -2233,7 +2258,7 @@ void sub_8089018(void)
 
 void sub_808903C(void)
 {
-    struct HelpBoxProc* proc = (void*) Proc_Find(gUnknown_08A00A98);
+    struct HelpBoxProc* proc = (void*) Proc_Find(gProcScr_HelpBox);
 
     if (proc)
     {
@@ -2257,8 +2282,8 @@ void sub_8089088(struct HelpBoxProc* proc)
     u8 boxMoved = FALSE;
 
     DisplayUiHand(
-        gUnknown_0203E788.x*8 + proc->info->xDisplay,
-        gUnknown_0203E788.y*8 + proc->info->yDisplay);
+        sHbOrigin.x*8 + proc->info->xDisplay,
+        sHbOrigin.y*8 + proc->info->yDisplay);
 
     if (gKeyStatusPtr->repeatedKeys & DPAD_UP)
         boxMoved |= sub_8089354(proc);
@@ -2293,20 +2318,20 @@ void sub_8089150(struct HelpBoxProc* proc)
 
 void Create6CRText(const struct HelpBoxInfo* info, struct Proc* parent)
 {
-    struct HelpBoxProc* proc = (void*) Proc_CreateBlockingChild(gUnknown_08A00AD0, parent);
+    struct HelpBoxProc* proc = (void*) Proc_CreateBlockingChild(gProcScr_HelpBoxMoveCtrl, parent);
 
-    gUnknown_0203E788.x = 0;
-    gUnknown_0203E788.y = 0;
+    sHbOrigin.x = 0;
+    sHbOrigin.y = 0;
 
     proc->info = info;
 }
 
 void sub_8089188(const struct HelpBoxInfo* info, struct Proc* parent, int x, int y)
 {
-    struct HelpBoxProc* proc = (void*) Proc_CreateBlockingChild(gUnknown_08A00AD0, parent);
+    struct HelpBoxProc* proc = (void*) Proc_CreateBlockingChild(gProcScr_HelpBoxMoveCtrl, parent);
 
-    gUnknown_0203E788.x = x;
-    gUnknown_0203E788.y = y;
+    sHbOrigin.x = x;
+    sHbOrigin.y = y;
 
     proc->info = info;
 }
@@ -2354,8 +2379,8 @@ void sub_8089210(struct HelpBoxProc* proc, int x, int y)
     int xSpan = proc->unk44 + 0x10;
     int ySpan = proc->unk46 + 0x10;
 
-    x += gUnknown_0203E788.x*8;
-    y += gUnknown_0203E788.y*8;
+    x += sHbOrigin.x*8;
+    y += sHbOrigin.y*8;
 
     proc->unk3C = x - 0x10 - xSpan/6;
 
@@ -2376,8 +2401,8 @@ void sub_8089210(struct HelpBoxProc* proc, int x, int y)
 
 void sub_808929C(struct HelpBoxProc* proc, int x, int y)
 {
-    x += gUnknown_0203E788.x*8;
-    y += gUnknown_0203E788.y*8;
+    x += sHbOrigin.x*8;
+    y += sHbOrigin.y*8;
 
     proc->unk38 = x;
     proc->unk3A = y;
@@ -2463,7 +2488,7 @@ int sub_80893B4(struct HelpBoxProc* proc)
 int sub_80893E4(struct HelpBoxProc* proc)
 {
     // whoa bad hardcoded thing!
-    if (!proc->info->adj4 || (proc->info == &gUnknown_08A00D14 && !gUnknown_02003BFC.unit->items[0]))
+    if (!proc->info->adj4 || (proc->info == &gUnknown_08A00D14 && !gStatScreen.unit->items[0]))
         return FALSE;
 
     proc->info = proc->info->adj4;
@@ -2486,7 +2511,7 @@ int sub_8089454(int msgid, struct Proc* parent)
     LoadDialogueBoxGfx(NULL, -1);
 
     sub_8088DE0(GetUiHandPrevDisplayX(), GetUiHandPrevDisplayY(), msgid);
-    Proc_CreateBlockingChild(gUnknown_08A00B00, parent);
+    Proc_CreateBlockingChild(gProcScr_HelpBoxLock, parent);
 
     return TRUE;
 }
@@ -2495,15 +2520,15 @@ void Loop6C_8A00B20_UpdateOAMData(struct HelpPromptObjectProc* proc)
 {
     RegisterObjectAttributes_SafeMaybe(0,
         proc->xDisplay, proc->yDisplay,
-        gUnknown_08A00B10, proc->tileref);
+        sSprite_MetaHelp, proc->tileref);
 }
 
 struct Proc* sub_80894AC(int x, int y, struct Proc* parent)
 {
-    struct HelpPromptObjectProc* proc = (void*) Proc_Find(gUnknown_08A00B20);
+    struct HelpPromptObjectProc* proc = (void*) Proc_Find(gProcScr_MetaHelpSprCtrl);
 
     if (!proc)
-        proc = (void*) Proc_Create(gUnknown_08A00B20, parent);
+        proc = (void*) Proc_Create(gProcScr_MetaHelpSprCtrl, parent);
 
     proc->xDisplay = x;
     proc->yDisplay = y;
@@ -2514,12 +2539,12 @@ struct Proc* sub_80894AC(int x, int y, struct Proc* parent)
 
 struct Proc* sub_80894E0(int x, int y, int palid, struct Proc* parent)
 {
-    struct HelpPromptObjectProc* proc = (void*) Proc_Find(gUnknown_08A00B20);
+    struct HelpPromptObjectProc* proc = (void*) Proc_Find(gProcScr_MetaHelpSprCtrl);
 
     ApplyPalette(gUnknown_08A1D79C, palid + 0x10);
 
     if (!proc)
-        proc = (void*) Proc_Create(gUnknown_08A00B20, parent);
+        proc = (void*) Proc_Create(gProcScr_MetaHelpSprCtrl, parent);
 
     proc->xDisplay = x;
     proc->yDisplay = y;
@@ -2530,10 +2555,10 @@ struct Proc* sub_80894E0(int x, int y, int palid, struct Proc* parent)
 
 struct Proc* sub_808953C(int x, int y, struct Proc* parent)
 {
-    struct HelpPromptObjectProc* proc = (void*) Proc_Find(gUnknown_08A00B20);
+    struct HelpPromptObjectProc* proc = (void*) Proc_Find(gProcScr_MetaHelpSprCtrl);
 
     if (!proc)
-        proc = (void*) Proc_CreateBlockingChild(gUnknown_08A00B20, parent);
+        proc = (void*) Proc_CreateBlockingChild(gProcScr_MetaHelpSprCtrl, parent);
 
     proc->xDisplay = x;
     proc->yDisplay = y;
@@ -2544,7 +2569,7 @@ struct Proc* sub_808953C(int x, int y, struct Proc* parent)
 
 void sub_8089570(void)
 {
-    struct Proc* proc = Proc_Find(gUnknown_08A00B20);
+    struct Proc* proc = Proc_Find(gProcScr_MetaHelpSprCtrl);
 
     if (proc)
         Proc_Delete(proc);
@@ -2552,7 +2577,7 @@ void sub_8089570(void)
 
 void sub_8089588(int x, int y)
 {
-    struct HelpPromptObjectProc* proc = (void*) Proc_Find(gUnknown_08A00B20);
+    struct HelpPromptObjectProc* proc = (void*) Proc_Find(gProcScr_MetaHelpSprCtrl);
 
     if (proc)
     {
@@ -2563,7 +2588,7 @@ void sub_8089588(int x, int y)
 
 const struct HelpBoxInfo* sub_80895A8(void)
 {
-    return gUnknown_0203E784;
+    return sLastHbi;
 }
 
 // =================

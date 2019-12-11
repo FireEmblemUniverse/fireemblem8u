@@ -62,8 +62,8 @@
 . = 0x003B88; gUnknown_02003B88 = .;
 . = 0x003BA8; gUnknown_02003BA8 = .;
 . = 0x003BE8; gUnknown_02003BE8 = .;
-. = 0x003BFC; gUnknown_02003BFC = .;
-. = 0x003D2C; gUnknown_02003D2C = .;
+. = 0x003BFC; gStatScreen = .;
+. = 0x003D2C; gBmFrameTmap0 = .;
 . = 0x003D54; gUnknown_02003D54 = .;
 . = 0x003DF0; gUnknown_02003DF0 = .;
 . = 0x003E36; gUnknown_02003E36 = .;
@@ -85,7 +85,7 @@
 . = 0x0044AC; gUnknown_020044AC = .;
 . = 0x0044D4; gUnknown_020044D4 = .;
 . = 0x0044EC; gUnknown_020044EC = .;
-. = 0x00472C; gUnknown_0200472C = .;
+. = 0x00472C; gBmFrameTmap1 = .;
 . = 0x004BAC; gUnknown_02004BAC = .;
 . = 0x004BBC; gUnknown_02004BBC = .;
 . = 0x004BC4; gUnknown_02004BC4 = .;

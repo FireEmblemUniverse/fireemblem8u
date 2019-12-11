@@ -25,22 +25,6 @@ enum
     STATSCREEN_PAGE_MAX,
 };
 
-struct Unk0203E764
-{
-    /* 00 */ u8  unk00;
-    /* 01 */ u8  uid01;
-    /* 02 */ u16 unk02;
-};
-
-struct Unk8086E00
-{
-    /* 00 */ struct TextHandle* text;
-    /* 04 */ u16* tilemap;
-    /* 08 */ u8 color;
-    /* 09 */ u8 xoff;
-    /* 0C */ const unsigned* mid;
-};
-
 enum
 {
     // Enumerate stat screen texts
@@ -48,9 +32,20 @@ enum
     STATSCREEN_TEXT_CHARANAME, // 0
     STATSCREEN_TEXT_CLASSNAME, // 1
 
-    STATSCREEN_TEXT_POWLABEL = 3,
-    STATSCREEN_TEXT_RESCUENAME = 12,
-    STATSCREEN_TEXT_STATUS = 14,
+    STATSCREEN_TEXT_UNUSUED, // 2 (was Exp?)
+
+    STATSCREEN_TEXT_POWLABEL, // 3
+    STATSCREEN_TEXT_SKLLABEL, // 4
+    STATSCREEN_TEXT_SPDLABEL, // 5
+    STATSCREEN_TEXT_LCKLABEL, // 6
+    STATSCREEN_TEXT_DEFLABEL, // 7
+    STATSCREEN_TEXT_RESLABEL, // 8
+    STATSCREEN_TEXT_MOVLABEL, // 9
+    STATSCREEN_TEXT_CONLABEL, // 10
+    STATSCREEN_TEXT_AIDLABEL, // 11
+    STATSCREEN_TEXT_RESCUENAME, // 12
+    STATSCREEN_TEXT_AFFINLABEL, // 13
+    STATSCREEN_TEXT_STATUS, // 14
 
     STATSCREEN_TEXT_ITEM0, // 15
     STATSCREEN_TEXT_ITEM1, // 16
@@ -59,8 +54,17 @@ enum
     STATSCREEN_TEXT_ITEM4, // 19
 
     STATSCREEN_TEXT_BSRANGE, // 20
+    STATSCREEN_TEXT_BSATKLABEL, // 21
+    STATSCREEN_TEXT_BSHITLABEL, // 22
+    STATSCREEN_TEXT_BSCRTLABEL, // 23
+    STATSCREEN_TEXT_BSAVOLABEL, // 24
 
-    STATSCREEN_TEXT_SUPPORT0 = 29,
+    STATSCREEN_TEXT_WEXP0, // 25
+    STATSCREEN_TEXT_WEXP1, // 26
+    STATSCREEN_TEXT_WEXP2, // 27
+    STATSCREEN_TEXT_WEXP3, // 28
+
+    STATSCREEN_TEXT_SUPPORT0, // 29
     STATSCREEN_TEXT_SUPPORT1, // 30
     STATSCREEN_TEXT_SUPPORT2, // 31
     STATSCREEN_TEXT_SUPPORT3, // 32
@@ -182,7 +186,6 @@ int GetSomeUnitId(void);
 void sub_8086DD8(int uid);
 void sub_8086DE4(int unk);
 void sub_8086DF0(void);
-void sub_8086E00(const struct Unk8086E00* unk);
 void sub_8086E44(void);
 void sub_8086FAC(void);
 void DrawStatScreenBar(int num, int x, int y, int base, int total, int max);

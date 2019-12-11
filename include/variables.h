@@ -64,8 +64,8 @@
 // extern ??? gUnknown_02003BA8
 // extern ??? gUnknown_02003BE8
 
-// extern ??? gUnknown_02003BFC
-// extern ??? gUnknown_02003D2C
+// extern ??? gStatScreen
+// extern ??? gBmFrameTmap0
 
 // extern ??? gUnknown_02003D54
 
@@ -89,7 +89,7 @@
 // extern ??? gUnknown_020044AC
 // extern ??? gUnknown_020044D4
 // extern ??? gUnknown_020044EC
-// extern ??? gUnknown_0200472C
+// extern ??? gBmFrameTmap1
 
 // extern ??? gUnknown_02004BAC
 // extern ??? gUnknown_02004BBC
@@ -631,10 +631,6 @@ extern struct MapAnimState gUnknown_0203E1F0;
 // extern ??? gUnknown_0203E254
 // extern ??? gUnknown_0203E754
 // extern ??? gUnknown_0203E75C
-// extern ??? gUnknown_0203E764
-// extern ??? gUnknown_0203E768
-// extern ??? gUnknown_0203E784
-// extern ??? gUnknown_0203E788
 // extern ??? gUnknown_0203E78C
 // extern ??? gUnknown_0203E794
 // extern ??? gUnknown_0203E7AC
@@ -3263,20 +3259,14 @@ extern const u8 gUnknown_089ADD4C[];
 // extern ??? gUnknown_08A0037C
 // extern ??? gUnknown_08A0048C
 // extern ??? gUnknown_08A006E4
-// extern ??? gUnknown_08A006FC
-// extern ??? gUnknown_08A0081C
-// extern ??? gUnknown_08A0082C
-// extern ??? gUnknown_08A00844
-// extern ??? gUnknown_08A00864
-// extern ??? gUnknown_08A008FE
-// extern ??? gUnknown_08A00924
-// extern ??? gUnknown_08A00930
-// extern ??? gUnknown_08A009D8
-// extern ??? gUnknown_08A00A98
-// extern ??? gUnknown_08A00AD0
-// extern ??? gUnknown_08A00B00
-// extern ??? gUnknown_08A00B10
-// extern ??? gUnknown_08A00B20
+// extern ??? gProcScr_SSPageSlide
+// extern ??? gProcScr_SSGlowyBlendCtrl
+// extern ??? gProcScr_SSUnitSlide
+// extern ??? gProcScr_StatScreen
+// extern ??? gProcScr_HelpBox
+// extern ??? gProcScr_HelpBoxMoveCtrl
+// extern ??? gProcScr_HelpBoxLock
+// extern ??? gProcScr_MetaHelpSprCtrl
 // extern ??? gUnknown_08A00BC4
 // extern ??? gUnknown_08A00D14
 // extern ??? gUnknown_08A00DA0

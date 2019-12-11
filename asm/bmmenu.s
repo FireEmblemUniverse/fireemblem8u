@@ -1933,7 +1933,7 @@ sub_80234AC: @ 0x080234AC
 	movs r3, #0
 	bl Font_InitForUI
 	ldr r0, _080234E0  @ gUnknown_02022CFE
-	ldr r1, _080234E4  @ gUnknown_02003D2C
+	ldr r1, _080234E4  @ gBmFrameTmap0
 	movs r2, #9
 	movs r3, #0x13
 	bl TileMap_CopyRect
@@ -1948,7 +1948,7 @@ sub_80234AC: @ 0x080234AC
 _080234D8: .4byte gUnknown_02002774
 _080234DC: .4byte 0x06004000
 _080234E0: .4byte gUnknown_02022CFE
-_080234E4: .4byte gUnknown_02003D2C
+_080234E4: .4byte gBmFrameTmap0
 _080234E8: .4byte gUnknown_020234FE
 _080234EC: .4byte gUnknown_0200422C
 
@@ -1965,7 +1965,7 @@ sub_80234FC: @ 0x080234FC
 	push {lr}
 	movs r0, #0
 	bl SetFont
-	ldr r0, _08023528  @ gUnknown_02003D2C
+	ldr r0, _08023528  @ gBmFrameTmap0
 	ldr r1, _0802352C  @ gUnknown_02022CFE
 	movs r2, #9
 	movs r3, #0x13
@@ -1981,7 +1981,7 @@ sub_80234FC: @ 0x080234FC
 	pop {r1}
 	bx r1
 	.align 2, 0
-_08023528: .4byte gUnknown_02003D2C
+_08023528: .4byte gBmFrameTmap0
 _0802352C: .4byte gUnknown_02022CFE
 _08023530: .4byte gUnknown_0200422C
 _08023534: .4byte gUnknown_020234FE
@@ -2045,7 +2045,7 @@ sub_80235A8: @ 0x080235A8
 	bl GetUnitItemCount
 	cmp r0, #0
 	beq _08023648
-	ldr r0, _08023634  @ gUnknown_02003D2C
+	ldr r0, _08023634  @ gBmFrameTmap0
 	ldr r5, _08023638  @ gUnknown_02022CFE
 	adds r1, r5, #0
 	movs r2, #9
@@ -2095,7 +2095,7 @@ sub_80235A8: @ 0x080235A8
 	b _0802366A
 	.align 2, 0
 _08023630: .4byte gActiveUnit
-_08023634: .4byte gUnknown_02003D2C
+_08023634: .4byte gBmFrameTmap0
 _08023638: .4byte gUnknown_02022CFE
 _0802363C: .4byte gUnknown_0200422C
 _08023640: .4byte gUnknown_020234FE

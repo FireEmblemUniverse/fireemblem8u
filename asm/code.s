@@ -4994,7 +4994,7 @@ _0808BD70:
 	movs r4, #0xd
 	subs r4, r4, r5
 	lsls r4, r4, #1
-	ldr r0, _0808BDD8  @ gUnknown_02003D2C
+	ldr r0, _0808BDD8  @ gBmFrameTmap0
 	adds r0, r4, r0
 	ldr r1, _0808BDDC  @ gBG0TilemapBuffer
 	adds r1, r6, r1
@@ -5015,12 +5015,12 @@ _0808BDC8: .4byte gUnknown_02022CCA
 _0808BDCC: .4byte gUnknown_020234CA
 _0808BDD0: .4byte gUnknown_08A0189C
 _0808BDD4: .4byte gUnknown_08A01828
-_0808BDD8: .4byte gUnknown_02003D2C
+_0808BDD8: .4byte gBmFrameTmap0
 _0808BDDC: .4byte gBG0TilemapBuffer
 _0808BDE0: .4byte gUnknown_0200422C
 _0808BDE4: .4byte gBG1TilemapBuffer
 _0808BDE8:
-	ldr r0, _0808BE58  @ gUnknown_02003D2C
+	ldr r0, _0808BE58  @ gBmFrameTmap0
 	mov r4, r8
 	adds r4, #0x1e
 	subs r4, r4, r5
@@ -5073,7 +5073,7 @@ _0808BE4C:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_0808BE58: .4byte gUnknown_02003D2C
+_0808BE58: .4byte gBmFrameTmap0
 _0808BE5C: .4byte gBG0TilemapBuffer
 _0808BE60: .4byte gUnknown_0200422C
 _0808BE64: .4byte gBG1TilemapBuffer
@@ -5174,7 +5174,7 @@ _0808BEFC:
 	movs r4, #0xd
 	subs r4, r4, r5
 	lsls r4, r4, #1
-	ldr r0, _0808BF64  @ gUnknown_02003D2C
+	ldr r0, _0808BF64  @ gBmFrameTmap0
 	adds r0, r4, r0
 	ldr r1, _0808BF68  @ gBG0TilemapBuffer
 	adds r1, r7, r1
@@ -5195,12 +5195,12 @@ _0808BF54: .4byte gUnknown_02022CCA
 _0808BF58: .4byte gUnknown_020234CA
 _0808BF5C: .4byte gUnknown_08A018A0
 _0808BF60: .4byte gUnknown_08A01828
-_0808BF64: .4byte gUnknown_02003D2C
+_0808BF64: .4byte gBmFrameTmap0
 _0808BF68: .4byte gBG0TilemapBuffer
 _0808BF6C: .4byte gUnknown_0200422C
 _0808BF70: .4byte gBG1TilemapBuffer
 _0808BF74:
-	ldr r0, _0808BFC4  @ gUnknown_02003D2C
+	ldr r0, _0808BFC4  @ gBmFrameTmap0
 	mov r4, r8
 	adds r4, #0x1e
 	subs r4, r4, r5
@@ -5240,7 +5240,7 @@ _0808BFBA:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_0808BFC4: .4byte gUnknown_02003D2C
+_0808BFC4: .4byte gBmFrameTmap0
 _0808BFC8: .4byte gBG0TilemapBuffer
 _0808BFCC: .4byte gUnknown_0200422C
 _0808BFD0: .4byte gBG1TilemapBuffer
@@ -5313,7 +5313,7 @@ _0808C030:
 	ldr r4, _0808C094  @ 0x00000147
 	subs r4, r4, r5
 	lsls r4, r4, #1
-	ldr r0, _0808C098  @ gUnknown_02003D2C
+	ldr r0, _0808C098  @ gBmFrameTmap0
 	adds r0, r4, r0
 	ldr r1, _0808C09C  @ gUnknown_02022FE8
 	adds r2, r5, #0
@@ -5333,7 +5333,7 @@ _0808C088: .4byte gUnknown_02023816
 _0808C08C: .4byte gUnknown_08A018A3
 _0808C090: .4byte gUnknown_08A01828
 _0808C094: .4byte 0x00000147
-_0808C098: .4byte gUnknown_02003D2C
+_0808C098: .4byte gBmFrameTmap0
 _0808C09C: .4byte gUnknown_02022FE8
 _0808C0A0: .4byte gUnknown_0200422C
 _0808C0A4: .4byte gUnknown_020237E8
@@ -5450,7 +5450,7 @@ _0808C164:
 	lsls r4, r4, #1
 	subs r4, r4, r5
 	lsls r4, r4, #1
-	ldr r0, _0808C1C8  @ gUnknown_02003D2C
+	ldr r0, _0808C1C8  @ gBmFrameTmap0
 	adds r0, r4, r0
 	ldr r1, _0808C1CC  @ gUnknown_02022FE8
 	adds r2, r5, #0
@@ -5469,7 +5469,7 @@ _0808C1B8: .4byte gUnknown_02023016
 _0808C1BC: .4byte gUnknown_02023816
 _0808C1C0: .4byte gUnknown_08A018A6
 _0808C1C4: .4byte gUnknown_08A01828
-_0808C1C8: .4byte gUnknown_02003D2C
+_0808C1C8: .4byte gBmFrameTmap0
 _0808C1CC: .4byte gUnknown_02022FE8
 _0808C1D0: .4byte gUnknown_0200422C
 _0808C1D4: .4byte gUnknown_020237E8
@@ -5540,7 +5540,7 @@ _0808C250:
 	bge _0808C25C
 	movs r1, #0
 _0808C25C:
-	ldr r0, _0808C280  @ gUnknown_02003D2C
+	ldr r0, _0808C280  @ gBmFrameTmap0
 	lsls r1, r1, #5
 	adds r1, r1, r2
 	lsls r1, r1, #1
@@ -5555,7 +5555,7 @@ _0808C25C:
 	bx r0
 	.align 2, 0
 _0808C27C: .4byte gUnknown_08A01828
-_0808C280: .4byte gUnknown_02003D2C
+_0808C280: .4byte gBmFrameTmap0
 _0808C284: .4byte gBG0TilemapBuffer
 
 	THUMB_FUNC_START sub_808C288
@@ -5997,7 +5997,7 @@ InitMinimugBoxMaybe: @ 0x0808C5D0
 	movs r0, #0
 	mov sl, r0
 	str r0, [sp, #4]
-	ldr r1, _0808C688  @ gUnknown_02003D2C
+	ldr r1, _0808C688  @ gBmFrameTmap0
 	mov r9, r1
 	ldr r2, _0808C68C  @ 0x01000060
 	add r0, sp, #4
@@ -6070,7 +6070,7 @@ _0808C646:
 	movs r0, #5
 	b _0808C69A
 	.align 2, 0
-_0808C688: .4byte gUnknown_02003D2C
+_0808C688: .4byte gBmFrameTmap0
 _0808C68C: .4byte 0x01000060
 _0808C690: .4byte gUnknown_08A01828
 _0808C694:
