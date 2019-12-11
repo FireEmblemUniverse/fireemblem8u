@@ -416,7 +416,7 @@ void sub_80891AC(struct HelpBoxProc* proc, int width, int height);
 void sub_8089210(struct HelpBoxProc* proc, int x, int y);
 void sub_808A118(void);
 
-void sub_808A0FC(int item, int msgid);
+void sub_808A0FC(int item, int mid);
 
 void sub_8088E9C(const struct HelpBoxInfo* info, int unk);
 void sub_8089320(struct HelpBoxProc* proc);
@@ -958,6 +958,9 @@ void DrawUnitWeaponScreen(void)
 {
     if (UnitHasMagicRank(gStatScreen.unit))
     {
+        // NOTE: this was likely present in the J version
+        // sub_8086E00(sPage2TextInfo_Magical);
+
         DrawUnitWeaponRank(0, 1, 1, ITYPE_ANIMA);
         DrawUnitWeaponRank(1, 1, 3, ITYPE_LIGHT);
         DrawUnitWeaponRank(2, 9, 1, ITYPE_DARK);
@@ -965,6 +968,9 @@ void DrawUnitWeaponScreen(void)
     }
     else
     {
+        // NOTE: this was likely present in the J version
+        // sub_8086E00(sPage2TextInfo_Physical);
+
         DrawUnitWeaponRank(0, 1, 1, ITYPE_SWORD);
         DrawUnitWeaponRank(1, 1, 3, ITYPE_LANCE);
         DrawUnitWeaponRank(2, 9, 1, ITYPE_AXE);
@@ -1032,7 +1038,7 @@ struct Unit* sub_8087920(struct Unit* u, int direction)
     }
 }
 
-void sub_80879DC(struct StatScreenTransitionProc* proc)
+void sub_80879DC(struct StatScreenEffectProc* proc)
 {
     int off;
 
@@ -1042,16 +1048,16 @@ void sub_80879DC(struct StatScreenTransitionProc* proc)
     TileMap_FillRect(gBG0TilemapBuffer + TILEMAP_INDEX(12, 2), 18, 18, 0);
     TileMap_FillRect(gBG2TilemapBuffer + TILEMAP_INDEX(12, 2), 18, 18, 0);
 
-    off = sPageSlideOffsetLut[proc->unk4C];
+    off = sPageSlideOffsetLut[proc->timer];
 
     if (off == INT8_MAX)
     {
         // INT8_MAX offset means switch to displaying next page
 
-        sub_80878CC(proc->unk4A);
+        sub_80878CC(proc->newItem);
 
-        proc->unk4C++;
-        off = sPageSlideOffsetLut[proc->unk4C];
+        proc->timer++;
+        off = sPageSlideOffsetLut[proc->timer];
     }
 
     // compute len, dstOff and srcOff
@@ -1059,7 +1065,7 @@ void sub_80879DC(struct StatScreenTransitionProc* proc)
     // dstOff is the x offset to which to copy the page to
     // srcOff is the x offset from which to copy the page from
 
-    if (proc->unk52 & 0x20)
+    if (proc->key & DPAD_LEFT)
         off = -off;
 
     len = 18 - abs(off);
@@ -1087,8 +1093,8 @@ void sub_80879DC(struct StatScreenTransitionProc* proc)
 
     BG_EnableSyncByMask(BG0_SYNC_BIT + BG1_SYNC_BIT + BG2_SYNC_BIT);
 
-    proc->unk4C++;
-    off = sPageSlideOffsetLut[proc->unk4C];
+    proc->timer++;
+    off = sPageSlideOffsetLut[proc->timer];
 
     if (off == INT8_MIN)
         Proc_ClearNativeCallback((struct Proc*) proc);
@@ -1099,9 +1105,9 @@ void sub_8087ACC(void)
     gStatScreen.inTransition = FALSE;
 }
 
-void sub_8087AD8(u16 config, int newPage, struct Proc* parent)
+void sub_8087AD8(u16 key, int newPage, struct Proc* parent)
 {
-    struct StatScreenTransitionProc* proc;
+    struct StatScreenEffectProc* proc;
 
     if (Proc_Find(gProcScr_SSPageSlide))
         return;
@@ -1110,16 +1116,16 @@ void sub_8087AD8(u16 config, int newPage, struct Proc* parent)
 
     proc = (void*) Proc_CreateBlockingChild(gProcScr_SSPageSlide, parent);
 
-    proc->unk4C = 0;
-    proc->unk4A = newPage;
-    proc->unk52 = config;
+    proc->timer = 0;
+    proc->newItem = newPage;
+    proc->key = key;
 
-    gStatScreen.unk02 = config;
-    gStatScreen.help = NULL;
+    gStatScreen.pageSlideKey = key;
+    gStatScreen.help         = NULL;
     gStatScreen.inTransition = TRUE;
 }
 
-void sub_8087B40(struct StatScreenTransitionProc* proc)
+void sub_8087B40(struct StatScreenEffectProc* proc)
 {
     gLCDControlBuffer.dispcnt.bg0_on = TRUE;
     gLCDControlBuffer.dispcnt.bg1_on = TRUE;
@@ -1127,29 +1133,29 @@ void sub_8087B40(struct StatScreenTransitionProc* proc)
     gLCDControlBuffer.dispcnt.bg3_on = TRUE;
     gLCDControlBuffer.dispcnt.obj_on = TRUE;
 
-    proc->unk4C = 0;
-    proc->unk4E = 0;
+    proc->timer = 0;
+    proc->blendDirection = 0;
 
-    SetSpecialColorEffectsParameters(1, proc->unk4C, 0x10, 0);
+    SetSpecialColorEffectsParameters(1, proc->timer, 0x10, 0);
 
     sub_8001ED0(0, 1, 0, 0, 0);
     sub_8001F0C(0, 0, 0, 1, 0);
 }
 
-void sub_8087BA0(struct StatScreenTransitionProc* proc)
+void sub_8087BA0(struct StatScreenEffectProc* proc)
 {
-    if (proc->unk4E == 0)
+    if (proc->blendDirection == 0)
     {
-        if (++proc->unk4C >= 0x40)
-            proc->unk4E++;
+        if (++proc->timer >= 0x40)
+            proc->blendDirection++;
     }
     else
     {
-        if (--proc->unk4C <= 0)
-            proc->unk4E = 0;
+        if (--proc->timer <= 0)
+            proc->blendDirection = 0;
     }
 
-    SetSpecialColorEffectsParameters(1, proc->unk4C >> 3, 0x10, 0);
+    SetSpecialColorEffectsParameters(1, proc->timer >> 3, 0x10, 0);
 }
 
 void sub_8087BF0(void)
@@ -1168,11 +1174,11 @@ void sub_8087C04(void)
     gLCDControlBuffer.dispcnt.obj_on = TRUE;
 }
 
-void sub_8087C34(struct StatScreenTransitionProc* proc)
+void sub_8087C34(struct StatScreenEffectProc* proc)
 {
     gStatScreen.inTransition = TRUE;
 
-    proc->unk4C = 4;
+    proc->timer = 4;
 
     gLCDControlBuffer.bg0cnt.priority = 1;
     gLCDControlBuffer.bg1cnt.priority = 3;
@@ -1184,36 +1190,36 @@ void sub_8087C34(struct StatScreenTransitionProc* proc)
 
     sub_8001F64(0);
 
-    if (proc->unk38 > 0)
+    if (proc->direction > 0)
     {
-        proc->unk3C = 0;
-        proc->unk40 = -60;
+        proc->yDispInit  = 0;
+        proc->yDispFinal = -60;
     }
     else
     {
-        proc->unk3C = 0;
-        proc->unk40 = +60;
+        proc->yDispInit  = 0;
+        proc->yDispFinal = +60;
     }
 }
 
-void sub_8087CC0(struct StatScreenTransitionProc* proc)
+void sub_8087CC0(struct StatScreenEffectProc* proc)
 {
-    SetSpecialColorEffectsParameters(1, proc->unk4C, 0x10 - proc->unk4C, 0);
+    SetSpecialColorEffectsParameters(1, proc->timer, 0x10 - proc->timer, 0);
 
     MU_SetDisplayPosition(gStatScreen.mu,
         80, 138 + gStatScreen.yDispOff);
 
-    gStatScreen.yDispOff = sub_8012DCC(2, proc->unk3C, proc->unk40, proc->unk4C, 0x10);
+    gStatScreen.yDispOff = sub_8012DCC(2, proc->yDispInit, proc->yDispFinal, proc->timer, 0x10);
 
-    proc->unk4C += 3;
+    proc->timer += 3;
 
-    if (proc->unk4C > 0x10)
+    if (proc->timer > 0x10)
         Proc_ClearNativeCallback((struct Proc*) proc);
 }
 
-void sub_8087D24(struct StatScreenTransitionProc* proc)
+void sub_8087D24(struct StatScreenEffectProc* proc)
 {
-    proc->unk4C = 1;
+    proc->timer = 1;
 
     gLCDControlBuffer.bg0cnt.priority = 1;
     gLCDControlBuffer.bg1cnt.priority = 3;
@@ -1223,36 +1229,36 @@ void sub_8087D24(struct StatScreenTransitionProc* proc)
     sub_8001ED0(0, 0, 0, 1, 0);
     sub_8001F0C(1, 1, 1, 0, 1);
 
-    if (proc->unk38 > 0)
+    if (proc->direction > 0)
     {
-        proc->unk3C = +60;
-        proc->unk40 = 0;
+        proc->yDispInit = +60;
+        proc->yDispFinal = 0;
     }
     else
     {
-        proc->unk3C = -60;
-        proc->unk40 = 0;
+        proc->yDispInit = -60;
+        proc->yDispFinal = 0;
     }
 }
 
-void sub_8087D98(struct StatScreenTransitionProc* proc)
+void sub_8087D98(struct StatScreenEffectProc* proc)
 {
-    SetSpecialColorEffectsParameters(1, 0x10 - proc->unk4C, proc->unk4C, 0);
+    SetSpecialColorEffectsParameters(1, 0x10 - proc->timer, proc->timer, 0);
 
     MU_SetDisplayPosition(gStatScreen.mu,
         80, 138 + gStatScreen.yDispOff);
 
-    gStatScreen.yDispOff = sub_8012DCC(5, proc->unk3C, proc->unk40, proc->unk4C, 0x10);
+    gStatScreen.yDispOff = sub_8012DCC(5, proc->yDispInit, proc->yDispFinal, proc->timer, 0x10);
 
-    proc->unk4C += 3;
+    proc->timer += 3;
 
-    if (proc->unk4C >= 0x10)
+    if (proc->timer >= 0x10)
         Proc_ClearNativeCallback((struct Proc*) proc);
 }
 
-void sub_8087DF8(struct StatScreenTransitionProc* proc)
+void sub_8087DF8(struct StatScreenEffectProc* proc)
 {
-    gStatScreen.unit = GetUnit(proc->unk4A);
+    gStatScreen.unit = GetUnit(proc->newItem);
 
     sub_8088670(Proc_Find(gProcScr_StatScreen));
     Proc_ClearNativeCallback((struct Proc*) proc);
@@ -1276,10 +1282,10 @@ void sub_8087E28(struct Proc* proc)
 
 void sub_8087E7C(struct Unit* unit, int direction, struct Proc* parent)
 {
-    struct StatScreenTransitionProc* proc = (void*) Proc_CreateBlockingChild(gProcScr_SSUnitSlide, parent);
+    struct StatScreenEffectProc* proc = (void*) Proc_CreateBlockingChild(gProcScr_SSUnitSlide, parent);
 
-    proc->unk4A = unit->index;
-    proc->unk38 = direction;
+    proc->newItem = unit->index;
+    proc->direction = direction;
 
     PlaySoundEffect(0xC8); // TODO: song ids
 }
@@ -1289,11 +1295,11 @@ void sub_8087EB8(int pageid)
     int colorid;
 
     RegisterObjectAttributes_SafeMaybe(4,
-        111 + gStatScreen.unk04, 1 + gStatScreen.yDispOff,
+        111 + gStatScreen.xDispOff, 1 + gStatScreen.yDispOff,
         sSprite_PageNameBack, TILEREF(0x293, 4) + 0xC00);
 
     RegisterObjectAttributes_SafeMaybe(4,
-        114 + gStatScreen.unk04, 0 + gStatScreen.yDispOff,
+        114 + gStatScreen.xDispOff, 0 + gStatScreen.yDispOff,
         sPageNameSpriteLut[pageid], TILEREF(0x240 + sPageNameChrOffsetLut[pageid], 3) + 0xC00);
 
     colorid = (GetGameClock()/4) % 16;
@@ -1305,6 +1311,32 @@ void sub_8087EB8(int pageid)
 
     EnablePaletteSync();
 }
+
+enum
+{
+    // Magical constants
+
+    // Neutral left arrow position
+    PAGENUM_LEFTARROW_X = 103,
+    PAGENUM_LEFTARROW_Y = 3,
+
+    // Neutral right arrow position
+    PAGENUM_RIGHTARROW_X = 217,
+    PAGENUM_RIGHTARROW_Y = 3,
+
+    // initial arrow offset on select
+    PAGENUM_SELECT_XOFF = 6,
+
+    // arrow animation speeds
+    PAGENUM_ANIMSPEED = 4,
+    PAGENUM_SELECT_ANIMSPEED = 31,
+
+    PAGENUM_DISPLAY_X = 215,
+    PAGENUM_DISPLAY_Y = 17,
+
+    // name animation scaling time
+    PAGENAME_SCALE_TIME = 6,
+};
 
 void sub_8087F48(struct StatScreenPageNameProc* proc)
 {
@@ -1319,22 +1351,22 @@ void sub_8087F48(struct StatScreenPageNameProc* proc)
         Div(+COS(0) * 16, 0x100)  // pd
     );
 
-    proc->unk36 = gStatScreen.page;
+    proc->pageNum = gStatScreen.page;
 }
 
 void sub_8087FE0(struct StatScreenPageNameProc* proc)
 {
-    sub_8087EB8(proc->unk36);
+    sub_8087EB8(proc->pageNum);
 
-    if (gStatScreen.unk02)
+    if (gStatScreen.pageSlideKey)
     {
-        proc->unk38 = 5;
+        proc->yScale = PAGENAME_SCALE_TIME - 1;
 
         Proc_ClearNativeCallback((struct Proc*) proc);
         return;
     }
 
-    proc->unk36 = gStatScreen.page;
+    proc->pageNum = gStatScreen.page;
 }
 
 void sub_8088014(struct StatScreenPageNameProc* proc)
@@ -1345,18 +1377,18 @@ void sub_8088014(struct StatScreenPageNameProc* proc)
         8,  // oam rotscale index
 
         Div(+COS(0) * 16, 0x100), // pa
-        Div(-SIN(0) * 16, proc->unk38 * 0x100 / 6), // pb
+        Div(-SIN(0) * 16, proc->yScale * 0x100 / PAGENAME_SCALE_TIME), // pb
         Div(+SIN(0) * 16, 0x100), // pc
-        Div(+COS(0) * 16, proc->unk38 * 0x100 / 6)  // pd
+        Div(+COS(0) * 16, proc->yScale * 0x100 / PAGENAME_SCALE_TIME)  // pd
     );
 
-    sub_8087EB8(proc->unk36);
+    sub_8087EB8(proc->pageNum);
 
-    proc->unk38--;
+    proc->yScale--;
 
-    if (proc->unk38 == 0)
+    if (proc->yScale == 0)
     {
-        proc->unk38 = 1;
+        proc->yScale = 1;
         Proc_ClearNativeCallback((struct Proc*) proc);
     }
 }
@@ -1369,82 +1401,82 @@ void sub_80880DC(struct StatScreenPageNameProc* proc)
         8,  // oam rotscale index
 
         Div(+COS(0) * 16, 0x100), // pa
-        Div(-SIN(0) * 16, proc->unk38 * 0x100 / 6), // pb
+        Div(-SIN(0) * 16, proc->yScale * 0x100 / PAGENAME_SCALE_TIME), // pb
         Div(+SIN(0) * 16, 0x100), // pc
-        Div(+COS(0) * 16, proc->unk38 * 0x100 / 6)  // pd
+        Div(+COS(0) * 16, proc->yScale * 0x100 / PAGENAME_SCALE_TIME)  // pd
     );
 
     sub_8087EB8(gStatScreen.page);
 
-    proc->unk38++;
+    proc->yScale++;
 
-    if (proc->unk38 > 6)
+    if (proc->yScale > PAGENAME_SCALE_TIME)
     {
-        proc->unk36 = gStatScreen.page;
+        proc->pageNum = gStatScreen.page;
         Proc_ClearNativeCallback((struct Proc*) proc);
     }
 }
 
-void sub_80881AC(struct StatScreenUnkProc* proc)
+void sub_80881AC(struct StatScreenPageNameProc* proc)
 {
-    proc->unk2A = 103;
-    proc->unk2C = 217;
+    proc->xLeftCursor  = PAGENUM_LEFTARROW_X;
+    proc->xRightCursor = PAGENUM_RIGHTARROW_X;
 
-    proc->unk30 = 0;
-    proc->unk2E = 0;
+    proc->animTimerRight = 0;
+    proc->animTimerLeft  = 0;
 
-    proc->unk34 = 4;
-    proc->unk32 = 4;
+    proc->animSpeedRight = PAGENUM_ANIMSPEED;
+    proc->animSpeedLeft = PAGENUM_ANIMSPEED;
 }
 
-void sub_80881C4(struct StatScreenUnkProc* proc)
+void sub_80881C4(struct StatScreenPageNameProc* proc)
 {
-    if (gStatScreen.unk02 & 0x20)
+    if (gStatScreen.pageSlideKey & DPAD_LEFT)
     {
-        proc->unk32 = 31;
-        proc->unk2A = 97;
+        proc->animSpeedLeft = PAGENUM_SELECT_ANIMSPEED;
+        proc->xLeftCursor = PAGENUM_LEFTARROW_X - PAGENUM_SELECT_XOFF;
     }
 
-    if (gStatScreen.unk02 & 0x10)
+    if (gStatScreen.pageSlideKey & DPAD_RIGHT)
     {
-        proc->unk34 = 31;
-        proc->unk2C = 223;
+        proc->animSpeedRight = PAGENUM_SELECT_ANIMSPEED;
+        proc->xRightCursor = PAGENUM_RIGHTARROW_X + PAGENUM_SELECT_XOFF;
     }
 
-    gStatScreen.unk02 = 0;
+    gStatScreen.pageSlideKey = 0;
 }
 
-void sub_80881FC(struct StatScreenUnkProc* proc)
+void sub_80881FC(struct StatScreenPageNameProc* proc)
 {
     int baseref = TILEREF(0x240, STATSCREEN_OBJPAL_4) + OAM2_PRIORITY(1);
 
-    proc->unk2E += proc->unk32;
-    proc->unk30 += proc->unk34;
+    proc->animTimerLeft  += proc->animSpeedLeft;
+    proc->animTimerRight += proc->animSpeedRight;
 
-    if (proc->unk32 > 4)
-        proc->unk32--;
+    if (proc->animSpeedLeft > PAGENUM_ANIMSPEED)
+        proc->animSpeedLeft--;
 
-    if (proc->unk34 > 4)
-        proc->unk34--;
+    if (proc->animSpeedRight > PAGENUM_ANIMSPEED)
+        proc->animSpeedRight--;
 
     if ((GetGameClock() % 4) == 0)
     {
-        if (proc->unk2A < 103)
-            proc->unk2A++;
+        if (proc->xLeftCursor < PAGENUM_LEFTARROW_X)
+            proc->xLeftCursor++;
 
-        if (proc->unk2C > 217)
-            proc->unk2C--;
+        if (proc->xRightCursor > PAGENUM_RIGHTARROW_X)
+            proc->xRightCursor--;
     }
 
     RegisterObjectAttributes_SafeMaybe(0,
-        gStatScreen.unk04 + proc->unk2A,
-        gStatScreen.yDispOff + 3,
-        gUnknown_08590F64, baseref + 0x5A + (proc->unk2E >> 5) % 6);
+        gStatScreen.xDispOff + proc->xLeftCursor,
+        gStatScreen.yDispOff + PAGENUM_LEFTARROW_Y,
+        gUnknown_08590F64, baseref + 0x5A + (proc->animTimerLeft >> 5) % 6);
 
     RegisterObjectAttributes_SafeMaybe(0,
-        gStatScreen.unk04 + proc->unk2C,
-        gStatScreen.yDispOff + 3,
-        gUnknown_08590FB4, baseref + 0x5A + (proc->unk30 >> 5) % 6);
+        gStatScreen.xDispOff + proc->xRightCursor,
+        gStatScreen.yDispOff + PAGENUM_RIGHTARROW_Y,
+        gUnknown_08590FB4, baseref + 0x5A + (proc->animTimerRight >> 5) % 6);
 }
 
 void sub_80882E4(void)
@@ -1453,27 +1485,27 @@ void sub_80882E4(void)
 
     // page amt
     RegisterObjectAttributes_SafeMaybe(2,
-        gStatScreen.unk04 + 228,
-        gStatScreen.yDispOff + 17,
+        gStatScreen.xDispOff + PAGENUM_DISPLAY_X + 13,
+        gStatScreen.yDispOff + PAGENUM_DISPLAY_Y,
         gUnknown_08590F44, TILEREF(chr, STATSCREEN_OBJPAL_4) + OAM2_PRIORITY(3) + gStatScreen.pageAmt);
 
     // '/'
     RegisterObjectAttributes_SafeMaybe(2,
-        gStatScreen.unk04 + 222,
-        gStatScreen.yDispOff + 17,
+        gStatScreen.xDispOff + PAGENUM_DISPLAY_X + 7,
+        gStatScreen.yDispOff + PAGENUM_DISPLAY_Y,
         gUnknown_08590F44, TILEREF(chr, STATSCREEN_OBJPAL_4) + OAM2_PRIORITY(3));
 
     // page num
     RegisterObjectAttributes_SafeMaybe(2,
-        gStatScreen.unk04 + 215,
-        gStatScreen.yDispOff + 17,
+        gStatScreen.xDispOff + PAGENUM_DISPLAY_X,
+        gStatScreen.yDispOff + PAGENUM_DISPLAY_Y,
         gUnknown_08590F44, TILEREF(chr, STATSCREEN_OBJPAL_4) + OAM2_PRIORITY(3) + gStatScreen.page + 1);
 }
 
 void sub_8088354(void)
 {
     RegisterObjectAttributes_SafeMaybe(11,
-        gStatScreen.unk04 + 64,
+        gStatScreen.xDispOff + 64,
         gStatScreen.yDispOff + 131,
         gUnknown_08590F8C, TILEREF(0x28F, STATSCREEN_OBJPAL_4) + OAM2_PRIORITY(3));
 }
@@ -1706,14 +1738,14 @@ void sub_808873C(struct Proc* proc)
     else if (gKeyStatusPtr->repeatedKeys & DPAD_LEFT)
     {
         gStatScreen.page = (gStatScreen.page + gStatScreen.pageAmt - 1) % gStatScreen.pageAmt;
-        sub_8087AD8(0x20, gStatScreen.page, proc);
+        sub_8087AD8(DPAD_LEFT, gStatScreen.page, proc);
         return;
     }
 
     else if (gKeyStatusPtr->repeatedKeys & DPAD_RIGHT)
     {
         gStatScreen.page = (gStatScreen.page + gStatScreen.pageAmt + 1) % gStatScreen.pageAmt;
-        sub_8087AD8(0x10, gStatScreen.page, proc);
+        sub_8087AD8(DPAD_RIGHT, gStatScreen.page, proc);
     }
 
     else if (gKeyStatusPtr->repeatedKeys & DPAD_UP)
@@ -1770,12 +1802,12 @@ void sub_8088920(void)
 
 void sub_808894C(struct Unit* unit, struct Proc* parent)
 {
-    gStatScreen.unk04 = 0;
+    gStatScreen.xDispOff = 0;
     gStatScreen.yDispOff = 0;
     gStatScreen.page = gUnknown_0202BCF0.chapterStateBits & 3;
     gStatScreen.unit = unit;
     gStatScreen.help = NULL;
-    gStatScreen.unk02 = 0;
+    gStatScreen.pageSlideKey = 0;
     gStatScreen.inTransition = FALSE;
 
     BWL_IncrementStatScreenViews(unit->pCharacterData->number);
@@ -1814,10 +1846,10 @@ void MakeStatScreenRText6C(int pageid, struct Proc* proc)
 
 void sub_8088A00(struct HelpBoxProc* proc)
 {
-    int item = gStatScreen.unit->items[proc->info->msgId];
+    int item = gStatScreen.unit->items[proc->info->mid];
 
-    proc->item_maybe  = item;
-    proc->msgId_maybe = GetItemDescId(item);
+    proc->item = item;
+    proc->mid  = GetItemDescId(item);
 }
 
 void sub_8088A2C(struct HelpBoxProc* proc)
@@ -1826,44 +1858,44 @@ void sub_8088A2C(struct HelpBoxProc* proc)
     {
 
     case UNIT_STATUS_NONE:
-        proc->msgId_maybe = 0x552; // TODO: mid constants
+        proc->mid = 0x552; // TODO: mid constants
         break;
 
     case UNIT_STATUS_POISON:
-        proc->msgId_maybe = 0x553; // TODO: mid constants
+        proc->mid = 0x553; // TODO: mid constants
         break;
 
     case UNIT_STATUS_SLEEP:
-        proc->msgId_maybe = 0x554; // TODO: mid constants
+        proc->mid = 0x554; // TODO: mid constants
         break;
 
     case UNIT_STATUS_SILENCED:
-        proc->msgId_maybe = 0x556; // TODO: mid constants
+        proc->mid = 0x556; // TODO: mid constants
         break;
 
     case UNIT_STATUS_BERSERK:
-        proc->msgId_maybe = 0x555; // TODO: mid constants
+        proc->mid = 0x555; // TODO: mid constants
         break;
 
     case UNIT_STATUS_ATTACK:
-        proc->msgId_maybe = 0x558; // TODO: mid constants
+        proc->mid = 0x558; // TODO: mid constants
         break;
 
     case UNIT_STATUS_DEFENSE:
-        proc->msgId_maybe = 0x559; // TODO: mid constants
+        proc->mid = 0x559; // TODO: mid constants
         break;
 
     case UNIT_STATUS_CRIT:
-        proc->msgId_maybe = 0x55A; // TODO: mid constants
+        proc->mid = 0x55A; // TODO: mid constants
         break;
 
     case UNIT_STATUS_AVOID:
-        proc->msgId_maybe = 0x55B; // TODO: mid constants
+        proc->mid = 0x55B; // TODO: mid constants
         break;
 
     case UNIT_STATUS_PETRIFY:
     case UNIT_STATUS_13:
-        proc->msgId_maybe = 0x557; // TODO: mid constants
+        proc->mid = 0x557; // TODO: mid constants
         break;
 
     } // switch (gStatScreen.unit->statusIndex)
@@ -1872,9 +1904,9 @@ void sub_8088A2C(struct HelpBoxProc* proc)
 void sub_8088B08(struct HelpBoxProc* proc)
 {
     if (UnitHasMagicRank(gStatScreen.unit))
-        proc->msgId_maybe = 0x547; // TODO: mid constants
+        proc->mid = 0x547; // TODO: mid constants
     else
-        proc->msgId_maybe = 0x546; // TODO: mid constants
+        proc->mid = 0x546; // TODO: mid constants
 }
 
 void sub_8088B40(struct HelpBoxProc* proc)
@@ -1882,11 +1914,11 @@ void sub_8088B40(struct HelpBoxProc* proc)
     if (!gStatScreen.unit->items[0])
         sub_80893B4(proc);
 
-    if (!gStatScreen.unit->items[proc->info->msgId])
+    if (!gStatScreen.unit->items[proc->info->mid])
     {
-        if (proc->unk50 == 0 || proc->unk50 == 0x10 || proc->unk50 == 0x40)
+        if (proc->moveKey == 0 || proc->moveKey == DPAD_RIGHT || proc->moveKey == DPAD_UP)
             sub_8089354(proc);
-        else if (proc->unk50 == 0x80)
+        else if (proc->moveKey == DPAD_DOWN)
             sub_8089384(proc);
     }
 }
@@ -1898,12 +1930,12 @@ void sub_8088B94(struct HelpBoxProc* proc)
         0x561, 0x562, 0x563, 0x564, 0x565, 0x566, 0x567, 0x568
     };
 
-    int itemKind = proc->info->msgId;
+    int itemKind = proc->info->mid;
 
     if (UnitHasMagicRank(gStatScreen.unit))
         itemKind += 4;
 
-    proc->msgId_maybe = rankMsgLut[itemKind];
+    proc->mid = rankMsgLut[itemKind];
 }
 
 void sub_8088BD4(struct HelpBoxProc* proc)
@@ -1911,21 +1943,21 @@ void sub_8088BD4(struct HelpBoxProc* proc)
     int midDesc = gStatScreen.unit->pCharacterData->descTextId;
 
     if (midDesc)
-        proc->msgId_maybe = midDesc;
+        proc->mid = midDesc;
     else
-        proc->msgId_maybe = 0x6BE; // TODO: mid constants
+        proc->mid = 0x6BE; // TODO: mid constants
 }
 
 void sub_8088C00(struct HelpBoxProc* proc)
 {
-    proc->msgId_maybe = gStatScreen.unit->pClassData->descTextId;
+    proc->mid = gStatScreen.unit->pClassData->descTextId;
 }
 
 void sub_8088C14(struct HelpBoxProc* proc)
 {
     if (GetUnitTotalSupportLevel(gStatScreen.unit) == 0)
     {
-        if (proc->unk50 == 0x80)
+        if (proc->moveKey == DPAD_DOWN)
             sub_8089384(proc);
         else
             sub_8089354(proc);
@@ -1934,12 +1966,12 @@ void sub_8088C14(struct HelpBoxProc* proc)
 
 void sub_8088C48(struct HelpBoxProc* proc, int arg1)
 {
-    proc->unk30 = sub_8012DCC(arg1, proc->unk38, proc->unk3C, proc->unk48, proc->unk4A);
-    proc->unk32 = sub_8012DCC(arg1, proc->unk3A, proc->unk3E, proc->unk48, proc->unk4A);
-    proc->unk34 = sub_8012DCC(arg1, proc->unk40, proc->unk44, proc->unk48, proc->unk4A);
-    proc->unk36 = sub_8012DCC(arg1, proc->unk42, proc->unk46, proc->unk48, proc->unk4A);
+    proc->xBox = sub_8012DCC(arg1, proc->xBoxInit, proc->xBoxFinal, proc->timer, proc->timerMax);
+    proc->yBox = sub_8012DCC(arg1, proc->yBoxInit, proc->yBoxFinal, proc->timer, proc->timerMax);
+    proc->wBox = sub_8012DCC(arg1, proc->wBoxInit, proc->wBoxFinal, proc->timer, proc->timerMax);
+    proc->hBox = sub_8012DCC(arg1, proc->hBoxInit, proc->hBoxFinal, proc->timer, proc->timerMax);
 
-    sub_8089980(proc->unk30, proc->unk32, proc->unk34, proc->unk36, proc->unk52);
+    sub_8089980(proc->xBox, proc->yBox, proc->wBox, proc->hBox, proc->unk52);
 }
 
 void sub_8088CFC(struct HelpBoxProc* proc)
@@ -1957,8 +1989,8 @@ void sub_8088D3C(struct HelpBoxProc* proc)
 {
     sub_8088C48(proc, 5);
 
-    if (proc->unk48 < proc->unk4A)
-        proc->unk48++;
+    if (proc->timer < proc->timerMax)
+        proc->timer++;
 }
 
 void sub_8088D64(struct HelpBoxProc* proc)
@@ -1981,25 +2013,25 @@ void sub_8088DB8(struct HelpBoxProc* proc)
 {
     sub_8088C48(proc, 0);
 
-    proc->unk48 -= 3;
+    proc->timer -= 3;
 
-    if (proc->unk48 < 0)
+    if (proc->timer < 0)
         Proc_ClearNativeCallback((struct Proc*) proc);
 }
 
-void sub_8088DE0(int x, int y, int msgid)
+void sub_8088DE0(int x, int y, int mid)
 {
-    sMutableHbi.adj1 = NULL;
-    sMutableHbi.adj2 = NULL;
-    sMutableHbi.adj3 = NULL;
-    sMutableHbi.adj4 = NULL;
+    sMutableHbi.adjUp    = NULL;
+    sMutableHbi.adjDown  = NULL;
+    sMutableHbi.adjLeft  = NULL;
+    sMutableHbi.adjRight = NULL;
 
     sMutableHbi.xDisplay = x;
     sMutableHbi.yDisplay = y;
-    sMutableHbi.msgId    = msgid;
+    sMutableHbi.mid      = mid;
 
-    sMutableHbi.onInitMoveable = NULL;
-    sMutableHbi.onInit = NULL;
+    sMutableHbi.redirect = NULL;
+    sMutableHbi.populate = NULL;
 
     sHbOrigin.x = 0;
     sHbOrigin.y = 0;
@@ -2007,7 +2039,7 @@ void sub_8088DE0(int x, int y, int msgid)
     sub_8088E9C(&sMutableHbi, FALSE);
 }
 
-void sub_8088E14(int x, int y, int msgid)
+void sub_8088E14(int x, int y, int mid)
 {
     if (x < 0 && y < 0)
     {
@@ -2015,17 +2047,17 @@ void sub_8088E14(int x, int y, int msgid)
         y = GetUiHandPrevDisplayY();
     }
 
-    sMutableHbi.adj1 = NULL;
-    sMutableHbi.adj2 = NULL;
-    sMutableHbi.adj3 = NULL;
-    sMutableHbi.adj4 = NULL;
+    sMutableHbi.adjUp    = NULL;
+    sMutableHbi.adjDown  = NULL;
+    sMutableHbi.adjLeft  = NULL;
+    sMutableHbi.adjRight = NULL;
 
     sMutableHbi.xDisplay = x;
     sMutableHbi.yDisplay = y;
-    sMutableHbi.msgId    = msgid;
+    sMutableHbi.mid      = mid;
 
-    sMutableHbi.onInitMoveable = NULL;
-    sMutableHbi.onInit = NULL;
+    sMutableHbi.redirect = NULL;
+    sMutableHbi.populate = NULL;
 
     sHbOrigin.x = 0;
     sHbOrigin.y = 0;
@@ -2035,17 +2067,17 @@ void sub_8088E14(int x, int y, int msgid)
 
 void sub_8088E60(int x, int y, int item)
 {
-    sMutableHbi.adj1 = NULL;
-    sMutableHbi.adj2 = NULL;
-    sMutableHbi.adj3 = NULL;
-    sMutableHbi.adj4 = NULL;
+    sMutableHbi.adjUp    = NULL;
+    sMutableHbi.adjDown  = NULL;
+    sMutableHbi.adjLeft  = NULL;
+    sMutableHbi.adjRight = NULL;
 
     sMutableHbi.xDisplay = x;
     sMutableHbi.yDisplay = y;
-    sMutableHbi.msgId    = item;
+    sMutableHbi.mid      = item;
 
-    sMutableHbi.onInitMoveable = NULL;
-    sMutableHbi.onInit = sub_8089320;
+    sMutableHbi.redirect = NULL;
+    sMutableHbi.populate = sub_8089320;
 
     sHbOrigin.x = 0;
     sHbOrigin.y = 0;
@@ -2056,7 +2088,7 @@ void sub_8088E60(int x, int y, int item)
 void sub_8088E9C(const struct HelpBoxInfo* info, int unk)
 {
     struct HelpBoxProc* proc;
-    int wBox, hBox;
+    int wContent, hContent;
 
     proc = (void*) Proc_Find(gProcScr_HelpBox);
 
@@ -2071,40 +2103,41 @@ void sub_8088E9C(const struct HelpBoxInfo* info, int unk)
     }
     else
     {
-        proc->unk38 = proc->unk30;
-        proc->unk3A = proc->unk32;
-        proc->unk40 = proc->unk34;
-        proc->unk42 = proc->unk36;
+        proc->xBoxInit = proc->xBox;
+        proc->yBoxInit = proc->yBox;
+
+        proc->wBoxInit = proc->wBox;
+        proc->hBoxInit = proc->hBox;
     }
 
     proc->info = info;
 
-    proc->unk48 = 0;
-    proc->unk4A = 12;
+    proc->timer    = 0;
+    proc->timerMax = 12;
 
-    proc->item_maybe = 0;
-    proc->msgId_maybe = info->msgId;
+    proc->item = 0;
+    proc->mid = info->mid;
 
-    if (proc->info->onInit)
-        proc->info->onInit(proc);
+    if (proc->info->populate)
+        proc->info->populate(proc);
 
     SetFontGlyphSet(1);
-    sub_8003FAC(GetStringFromIndex(proc->msgId_maybe), &wBox, &hBox);
+    sub_8003FAC(GetStringFromIndex(proc->mid), &wContent, &hContent);
     SetFontGlyphSet(0);
 
-    sub_80891AC(proc, wBox, hBox);
+    sub_80891AC(proc, wContent, hContent);
     sub_8089210(proc, info->xDisplay, info->yDisplay);
 
     sub_808A118();
-    sub_808A0FC(proc->item_maybe, proc->msgId_maybe);
+    sub_808A0FC(proc->item, proc->mid);
 
     sLastHbi = info;
 }
 
-void sub_8088F68(int x, int y, int msgid)
+void sub_8088F68(int x, int y, int mid)
 {
     struct HelpBoxProc* proc;
-    int wBox, hBox;
+    int wContent, hContent;
 
     proc = (void*) Proc_Create(gProcScr_HelpBox, ROOT_PROC_3);
 
@@ -2116,27 +2149,27 @@ void sub_8088F68(int x, int y, int msgid)
         y = GetUiHandPrevDisplayY();
     }
 
-    proc->unk48 = 0;
-    proc->unk4A = 12;
+    proc->timer    = 0;
+    proc->timerMax = 12;
 
-    proc->item_maybe = 0;
-    proc->msgId_maybe = msgid;
+    proc->item = 0;
+    proc->mid = mid;
 
     SetFontGlyphSet(1);
-    sub_8003FAC(GetStringFromIndex(proc->msgId_maybe), &wBox, &hBox);
+    sub_8003FAC(GetStringFromIndex(proc->mid), &wContent, &hContent);
     SetFontGlyphSet(0);
 
     sub_80892C0(proc);
-    sub_80891AC(proc, wBox, hBox);
+    sub_80891AC(proc, wContent, hContent);
 
-    proc->unk38 = x + 8;
-    proc->unk3A = y + 8;
+    proc->xBoxInit = x + 8;
+    proc->yBoxInit = y + 8;
 
-    proc->unk3C = x + 8;
-    proc->unk3E = y + 8;
+    proc->xBoxFinal = x + 8;
+    proc->yBoxFinal = y + 8;
 
     sub_808A118();
-    sub_808A0FC(proc->item_maybe, proc->msgId_maybe);
+    sub_808A0FC(proc->item, proc->mid);
 }
 
 void sub_8089018(void)
@@ -2163,10 +2196,10 @@ void sub_808903C(void)
 
 void sub_8089060(struct HelpBoxProc* proc)
 {
-    proc->unk50 = 0;
+    proc->moveKey = 0;
 
-    if (proc->info->onInitMoveable)
-        proc->info->onInitMoveable(proc);
+    if (proc->info->redirect)
+        proc->info->redirect(proc);
 
     sub_8088E9C(proc->info, FALSE);
 }
@@ -2234,14 +2267,14 @@ void sub_80891AC(struct HelpBoxProc* proc, int width, int height)
 {
     width = 0xF0 & (width + 15); // align to 16 pixel multiple
 
-    switch (sub_80892D0(proc->item_maybe))
+    switch (sub_80892D0(proc->item))
     {
 
     case 1: // weapon
         if (width < 0x90)
             width = 0x90;
 
-        if (GetStringTextWidth(GetStringFromIndex(proc->msgId_maybe)) > 8)
+        if (GetStringTextWidth(GetStringFromIndex(proc->mid)) > 8)
             height += 0x20;
         else
             height += 0x10;
@@ -2262,35 +2295,35 @@ void sub_80891AC(struct HelpBoxProc* proc, int width, int height)
 
         break;
 
-    } // switch (sub_80892D0(proc->item_maybe))
+    } // switch (sub_80892D0(proc->item))
 
-    proc->unk44 = width;
-    proc->unk46 = height;
+    proc->wBoxFinal = width;
+    proc->hBoxFinal = height;
 }
 
 void sub_8089210(struct HelpBoxProc* proc, int x, int y)
 {
-    int xSpan = proc->unk44 + 0x10;
-    int ySpan = proc->unk46 + 0x10;
+    int xSpan = proc->wBoxFinal + 0x10;
+    int ySpan = proc->hBoxFinal + 0x10;
 
     x += sHbOrigin.x*8;
     y += sHbOrigin.y*8;
 
-    proc->unk3C = x - 0x10 - xSpan/6;
+    proc->xBoxFinal = x - 0x10 - xSpan/6;
 
-    if (proc->unk3C < 0)
-        proc->unk3C = 0;
+    if (proc->xBoxFinal < 0)
+        proc->xBoxFinal = 0;
 
-    if (proc->unk3C + xSpan > DISPLAY_WIDTH)
-        proc->unk3C = DISPLAY_WIDTH - xSpan;
+    if (proc->xBoxFinal + xSpan > DISPLAY_WIDTH)
+        proc->xBoxFinal = DISPLAY_WIDTH - xSpan;
 
-    proc->unk3E = y + 0x10;
+    proc->yBoxFinal = y + 0x10;
 
-    if (proc->unk3E + ySpan > DISPLAY_HEIGHT)
-        proc->unk3E = y - ySpan;
+    if (proc->yBoxFinal + ySpan > DISPLAY_HEIGHT)
+        proc->yBoxFinal = y - ySpan;
 
-    proc->unk3C += 8;
-    proc->unk3E += 8;
+    proc->xBoxFinal += 8;
+    proc->yBoxFinal += 8;
 }
 
 void sub_808929C(struct HelpBoxProc* proc, int x, int y)
@@ -2298,14 +2331,14 @@ void sub_808929C(struct HelpBoxProc* proc, int x, int y)
     x += sHbOrigin.x*8;
     y += sHbOrigin.y*8;
 
-    proc->unk38 = x;
-    proc->unk3A = y;
+    proc->xBoxInit = x;
+    proc->yBoxInit = y;
 }
 
 void sub_80892C0(struct HelpBoxProc* proc)
 {
-    proc->unk40 = 32;
-    proc->unk42 = 16;
+    proc->wBoxInit = 32;
+    proc->hBoxInit = 16;
 }
 
 int sub_80892D0(int item)
@@ -2327,54 +2360,54 @@ int sub_80892D0(int item)
 
 void sub_8089320(struct HelpBoxProc* proc)
 {
-    int item = proc->info->msgId;
+    int item = proc->info->mid;
 
-    proc->item_maybe = item;
+    proc->item = item;
 
-    if (sub_80892D0(proc->item_maybe) == 3)
-        proc->msgId_maybe = 0;
+    if (sub_80892D0(proc->item) == 3)
+        proc->mid = 0;
     else
-        proc->msgId_maybe = GetItemDescId(item);
+        proc->mid = GetItemDescId(item);
 }
 
 int sub_8089354(struct HelpBoxProc* proc)
 {
-    if (!proc->info->adj1)
+    if (!proc->info->adjUp)
         return FALSE;
 
-    proc->info = proc->info->adj1;
-    proc->unk50 = 0x40;
+    proc->info    = proc->info->adjUp;
+    proc->moveKey = DPAD_UP;
 
-    if (proc->info->onInitMoveable)
-        proc->info->onInitMoveable(proc);
+    if (proc->info->redirect)
+        proc->info->redirect(proc);
 
     return TRUE;
 }
 
 int sub_8089384(struct HelpBoxProc* proc)
 {
-    if (!proc->info->adj2)
+    if (!proc->info->adjDown)
         return FALSE;
 
-    proc->info = proc->info->adj2;
-    proc->unk50 = 0x80;
+    proc->info    = proc->info->adjDown;
+    proc->moveKey = DPAD_DOWN;
 
-    if (proc->info->onInitMoveable)
-        proc->info->onInitMoveable(proc);
+    if (proc->info->redirect)
+        proc->info->redirect(proc);
 
     return TRUE;
 }
 
 int sub_80893B4(struct HelpBoxProc* proc)
 {
-    if (!proc->info->adj3)
+    if (!proc->info->adjLeft)
         return FALSE;
 
-    proc->info = proc->info->adj3;
-    proc->unk50 = 0x20;
+    proc->info    = proc->info->adjLeft;
+    proc->moveKey = DPAD_LEFT;
 
-    if (proc->info->onInitMoveable)
-        proc->info->onInitMoveable(proc);
+    if (proc->info->redirect)
+        proc->info->redirect(proc);
 
     return TRUE;
 }
@@ -2382,14 +2415,14 @@ int sub_80893B4(struct HelpBoxProc* proc)
 int sub_80893E4(struct HelpBoxProc* proc)
 {
     // whoa bad hardcoded thing!
-    if (!proc->info->adj4 || (proc->info == &gHelpInfo_Ss1CharName && !gStatScreen.unit->items[0]))
+    if (!proc->info->adjRight || (proc->info == &gHelpInfo_Ss1CharName && !gStatScreen.unit->items[0]))
         return FALSE;
 
-    proc->info = proc->info->adj4;
-    proc->unk50 = 0x10;
+    proc->info    = proc->info->adjRight;
+    proc->moveKey = DPAD_RIGHT;
 
-    if (proc->info->onInitMoveable)
-        proc->info->onInitMoveable(proc);
+    if (proc->info->redirect)
+        proc->info->redirect(proc);
 
     return TRUE;
 }
@@ -2400,11 +2433,11 @@ void sub_8089430(struct Proc* proc)
         Proc_ClearNativeCallback(proc);
 }
 
-int sub_8089454(int msgid, struct Proc* parent)
+int sub_8089454(int mid, struct Proc* parent)
 {
     LoadDialogueBoxGfx(NULL, -1);
 
-    sub_8088DE0(GetUiHandPrevDisplayX(), GetUiHandPrevDisplayY(), msgid);
+    sub_8088DE0(GetUiHandPrevDisplayX(), GetUiHandPrevDisplayY(), mid);
     Proc_CreateBlockingChild(gProcScr_HelpBoxLock, parent);
 
     return TRUE;

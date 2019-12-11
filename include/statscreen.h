@@ -81,8 +81,8 @@ struct StatScreenSt
 {
     /* 00 */ u8 page;
     /* 01 */ u8 pageAmt;
-    /* 02 */ u16 unk02;
-    /* 04 */ short unk04;
+    /* 02 */ u16 pageSlideKey; // 0, DPAD_RIGHT or DPAD_LEFT
+    /* 04 */ short xDispOff; // Note: Always 0, not properly taked into account by most things
     /* 06 */ short yDispOff;
     /* 08 */ s8 inTransition;
     /* 0C */ struct Unit* unit;
@@ -91,44 +91,42 @@ struct StatScreenSt
     /* 18 */ struct TextHandle text[STATSCREEN_TEXT_MAX];
 };
 
-struct StatScreenTransitionProc
+struct StatScreenEffectProc
 {
     PROC_HEADER;
 
     /* 29 */ u8 pad29[0x38 - 0x29];
 
-    /* 38 */ int unk38;
-    /* 3C */ int unk3C;
-    /* 40 */ int unk40;
+    /* 38 */ int direction;
+    /* 3C */ int yDispInit;
+    /* 40 */ int yDispFinal;
 
     /* 44 */ u8 pad44[0x4A - 0x44];
 
-    /* 4A */ short unk4A;
-    /* 4C */ short unk4C;
-    /* 4E */ short unk4E;
-    /* 50 */ short unk50;
-    /* 52 */ u16   unk52;
+    /* 4A */ short newItem; // page or unit depending on slide
+    /* 4C */ short timer;
+    /* 4E */ short blendDirection;
+
+    /* 50 */ u8 pad50[0x52 - 0x50];
+
+    /* 52 */ u16   key;
 };
 
 struct StatScreenPageNameProc
 {
     /* 00 */ PROC_HEADER;
 
-    /* 29 */ u8 pad29[0x36 - 0x29];
-    /* 36 */ u8 unk36;
-    /* 38 */ short unk38;
-};
+    // Page Num Sprite Control proc only
+    /* 2A */ short xLeftCursor;
+    /* 2C */ short xRightCursor;
+    /* 2E */ u16 animTimerLeft;
+    /* 30 */ u16 animTimerRight;
+    /* 32 */ short animSpeedLeft;
+    /* 34 */ short animSpeedRight;
 
-struct StatScreenUnkProc
-{
-    /* 00 */ PROC_HEADER;
-
-    /* 2A */ short unk2A;
-    /* 2C */ short unk2C;
-    /* 2E */ u16 unk2E;
-    /* 30 */ u16 unk30;
-    /* 32 */ short unk32;
-    /* 34 */ short unk34;
+    // Page Name Sprite Control proc only
+    /* 36 */ u8 pageNum;
+    /* 38 */ short yScale; // 6 == times 1
 };
 
 struct HelpBoxProc
@@ -137,40 +135,42 @@ struct HelpBoxProc
 
     /* 2C */ const struct HelpBoxInfo* info;
 
-    /* 30 */ short unk30;
-    /* 32 */ short unk32;
-    /* 34 */ short unk34;
-    /* 36 */ short unk36;
-    /* 38 */ short unk38;
-    /* 3A */ short unk3A;
-    /* 3C */ short unk3C;
-    /* 3E */ short unk3E;
-    /* 40 */ short unk40;
-    /* 42 */ short unk42;
-    /* 44 */ short unk44;
-    /* 46 */ short unk46;
-    /* 48 */ short unk48;
-    /* 4A */ short unk4A;
+    /* 30 */ short xBox;
+    /* 32 */ short yBox;
+    /* 34 */ short wBox;
+    /* 36 */ short hBox;
+    /* 38 */ short xBoxInit;
+    /* 3A */ short yBoxInit;
+    /* 3C */ short xBoxFinal;
+    /* 3E */ short yBoxFinal;
+    /* 40 */ short wBoxInit;
+    /* 42 */ short hBoxInit;
+    /* 44 */ short wBoxFinal;
+    /* 46 */ short hBoxFinal;
+    /* 48 */ short timer;
+    /* 4A */ short timerMax;
 
-    /* 4C */ u16 msgId_maybe;
-    /* 4E */ u16 item_maybe;
+    /* 4C */ u16 mid;
+    /* 4E */ u16 item;
 
-    /* 50 */ u16 unk50;
+    /* 50 */ u16 moveKey; // move ctrl proc only
 
     /* 52 */ u8 unk52;
+
+    // NOTE: there's likely more, need to decompile more files
 };
 
 struct HelpBoxInfo
 {
-    /* 00 */ const struct HelpBoxInfo* adj1;
-    /* 04 */ const struct HelpBoxInfo* adj2;
-    /* 08 */ const struct HelpBoxInfo* adj3;
-    /* 0C */ const struct HelpBoxInfo* adj4;
+    /* 00 */ const struct HelpBoxInfo* adjUp;
+    /* 04 */ const struct HelpBoxInfo* adjDown;
+    /* 08 */ const struct HelpBoxInfo* adjLeft;
+    /* 0C */ const struct HelpBoxInfo* adjRight;
     /* 10 */ u8 xDisplay;
     /* 11 */ u8 yDisplay;
-    /* 12 */ u16 msgId;
-    /* 14 */ void(*onInitMoveable)(struct HelpBoxProc* proc);
-    /* 18 */ void(*onInit)(struct HelpBoxProc* proc);
+    /* 12 */ u16 mid;
+    /* 14 */ void(*redirect)(struct HelpBoxProc* proc);
+    /* 18 */ void(*populate)(struct HelpBoxProc* proc);
 };
 
 struct HelpPromptObjectProc
@@ -196,18 +196,18 @@ void DrawUnitWeaponRank(int num, int x, int y, int wtype);
 void DrawUnitWeaponScreen(void);
 void sub_80878CC(int pageid);
 struct Unit* sub_8087920(struct Unit* u, int direction);
-void sub_80879DC(struct StatScreenTransitionProc* proc);
+void sub_80879DC(struct StatScreenEffectProc* proc);
 void sub_8087ACC(void);
 void sub_8087AD8(u16 config, int newPage, struct Proc* parent);
-void sub_8087B40(struct StatScreenTransitionProc* proc);
-void sub_8087BA0(struct StatScreenTransitionProc* proc);
+void sub_8087B40(struct StatScreenEffectProc* proc);
+void sub_8087BA0(struct StatScreenEffectProc* proc);
 void sub_8087BF0(void);
 void sub_8087C04(void);
-void sub_8087C34(struct StatScreenTransitionProc* proc);
-void sub_8087CC0(struct StatScreenTransitionProc* proc);
-void sub_8087D24(struct StatScreenTransitionProc* proc);
-void sub_8087D98(struct StatScreenTransitionProc* proc);
-void sub_8087DF8(struct StatScreenTransitionProc* proc);
+void sub_8087C34(struct StatScreenEffectProc* proc);
+void sub_8087CC0(struct StatScreenEffectProc* proc);
+void sub_8087D24(struct StatScreenEffectProc* proc);
+void sub_8087D98(struct StatScreenEffectProc* proc);
+void sub_8087DF8(struct StatScreenEffectProc* proc);
 void sub_8087E28(struct Proc* proc);
 void sub_8087E7C(struct Unit* unit, int direction, struct Proc* parent);
 void sub_8087EB8(int pageid);
@@ -215,9 +215,9 @@ void sub_8087F48(struct StatScreenPageNameProc* proc);
 void sub_8087FE0(struct StatScreenPageNameProc* proc);
 void sub_8088014(struct StatScreenPageNameProc* proc);
 void sub_80880DC(struct StatScreenPageNameProc* proc);
-void sub_80881AC(struct StatScreenUnkProc* proc);
-void sub_80881C4(struct StatScreenUnkProc* proc);
-void sub_80881FC(struct StatScreenUnkProc* proc);
+void sub_80881AC(struct StatScreenPageNameProc* proc);
+void sub_80881C4(struct StatScreenPageNameProc* proc);
+void sub_80881FC(struct StatScreenPageNameProc* proc);
 void sub_80882E4(void);
 void sub_8088354(void);
 void sub_8088384(void);
@@ -243,11 +243,11 @@ void sub_8088CFC(struct HelpBoxProc* proc);
 void sub_8088D3C(struct HelpBoxProc* proc);
 void sub_8088D64(struct HelpBoxProc* proc);
 void sub_8088DB8(struct HelpBoxProc* proc);
-void sub_8088DE0(int x, int y, int msgid);
-void sub_8088E14(int x, int y, int msgid);
+void sub_8088DE0(int x, int y, int mid);
+void sub_8088E14(int x, int y, int mid);
 void sub_8088E60(int x, int y, int item);
 void sub_8088E9C(const struct HelpBoxInfo* info, int unk);
-void sub_8088F68(int x, int y, int msgid);
+void sub_8088F68(int x, int y, int mid);
 void sub_8089018(void);
 void sub_8089018(void);
 void sub_808903C(void);
@@ -267,7 +267,7 @@ int sub_8089384(struct HelpBoxProc* proc);
 int sub_80893B4(struct HelpBoxProc* proc);
 int sub_80893E4(struct HelpBoxProc* proc);
 void sub_8089430(struct Proc* proc);
-int sub_8089454(int msgid, struct Proc* parent);
+int sub_8089454(int mid, struct Proc* parent);
 void Loop6C_8A00B20_UpdateOAMData(struct HelpPromptObjectProc* proc);
 struct Proc* sub_80894AC(int x, int y, struct Proc* parent);
 struct Proc* sub_80894E0(int x, int y, int palid, struct Proc* parent);
