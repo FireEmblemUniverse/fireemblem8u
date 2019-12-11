@@ -23,60 +23,63 @@
 
 #include "statscreen.h"
 
+// TODO: figure out what to do with those
+// (It's in the weird EWRAM overlay area)
+
 extern struct StatScreenSt gUnknown_02003BFC; // statscreen state
 extern u16 gUnknown_02003D2C[0x280]; // bg0 tilemap buffer for stat screen page
 extern u16 gUnknown_0200472C[0x240]; // bg2 tilemap buffer for stat screen page
 
-extern struct Unk0203E764 gUnknown_0203E764; // big unk
+EWRAM_DATA struct Unk0203E764 gUnknown_0203E764 = {};
 
-extern const struct HelpBoxInfo* gUnknown_0203E784;
-extern struct HelpBoxInfo gUnknown_0203E768;
-extern struct Vec2 gUnknown_0203E788;
+EWRAM_DATA struct HelpBoxInfo gUnknown_0203E768 = {};
+EWRAM_DATA const struct HelpBoxInfo* gUnknown_0203E784 = NULL;
+EWRAM_DATA struct Vec2 gUnknown_0203E788 = {};
 
 const struct Unk8086E00 gUnknown_08205964[] =
 {
-	{ gUnknown_02003BFC.text + 4,  gUnknown_02003D2C + TILEMAP_INDEX(1, 3),  TEXT_COLOR_GOLD, 0, (void*) 0x8A0116C },
-	{ gUnknown_02003BFC.text + 5,  gUnknown_02003D2C + TILEMAP_INDEX(1, 5),  TEXT_COLOR_GOLD, 0, (void*) 0x8A01170 },
-	{ gUnknown_02003BFC.text + 6,  gUnknown_02003D2C + TILEMAP_INDEX(1, 7),  TEXT_COLOR_GOLD, 0, (void*) 0x8A0117C },
-	{ gUnknown_02003BFC.text + 7,  gUnknown_02003D2C + TILEMAP_INDEX(1, 9),  TEXT_COLOR_GOLD, 0, (void*) 0x8A01174 },
-	{ gUnknown_02003BFC.text + 8,  gUnknown_02003D2C + TILEMAP_INDEX(1, 11), TEXT_COLOR_GOLD, 0, (void*) 0x8A01178 },
-	{ gUnknown_02003BFC.text + 9,  gUnknown_02003D2C + TILEMAP_INDEX(9, 1),  TEXT_COLOR_GOLD, 0, (void*) 0x8A01188 },
-	{ gUnknown_02003BFC.text + 10, gUnknown_02003D2C + TILEMAP_INDEX(9, 3),  TEXT_COLOR_GOLD, 0, (void*) 0x8A01180 },
-	{ gUnknown_02003BFC.text + 11, gUnknown_02003D2C + TILEMAP_INDEX(9, 5),  TEXT_COLOR_GOLD, 0, (void*) 0x8A01184 },
-	{ gUnknown_02003BFC.text + 12, gUnknown_02003D2C + TILEMAP_INDEX(9, 7),  TEXT_COLOR_GOLD, 0, (void*) 0x8A0118C },
-	{ gUnknown_02003BFC.text + 13, gUnknown_02003D2C + TILEMAP_INDEX(9, 9),  TEXT_COLOR_GOLD, 0, (void*) 0x8A01190 },
-	{ gUnknown_02003BFC.text + 14, gUnknown_02003D2C + TILEMAP_INDEX(9, 11), TEXT_COLOR_GOLD, 0, (void*) 0x8A011A8 },
+	{ gUnknown_02003BFC.text + 4,  gUnknown_02003D2C + TILEMAP_INDEX(1, 3),  TEXT_COLOR_GOLD, 0, &gUnknown_08A0116C },
+	{ gUnknown_02003BFC.text + 5,  gUnknown_02003D2C + TILEMAP_INDEX(1, 5),  TEXT_COLOR_GOLD, 0, &gUnknown_08A01170 },
+	{ gUnknown_02003BFC.text + 6,  gUnknown_02003D2C + TILEMAP_INDEX(1, 7),  TEXT_COLOR_GOLD, 0, &gUnknown_08A0117C },
+	{ gUnknown_02003BFC.text + 7,  gUnknown_02003D2C + TILEMAP_INDEX(1, 9),  TEXT_COLOR_GOLD, 0, &gUnknown_08A01174 },
+	{ gUnknown_02003BFC.text + 8,  gUnknown_02003D2C + TILEMAP_INDEX(1, 11), TEXT_COLOR_GOLD, 0, &gUnknown_08A01178 },
+	{ gUnknown_02003BFC.text + 9,  gUnknown_02003D2C + TILEMAP_INDEX(9, 1),  TEXT_COLOR_GOLD, 0, &gUnknown_08A01188 },
+	{ gUnknown_02003BFC.text + 10, gUnknown_02003D2C + TILEMAP_INDEX(9, 3),  TEXT_COLOR_GOLD, 0, &gUnknown_08A01180 },
+	{ gUnknown_02003BFC.text + 11, gUnknown_02003D2C + TILEMAP_INDEX(9, 5),  TEXT_COLOR_GOLD, 0, &gUnknown_08A01184 },
+	{ gUnknown_02003BFC.text + 12, gUnknown_02003D2C + TILEMAP_INDEX(9, 7),  TEXT_COLOR_GOLD, 0, &gUnknown_08A0118C },
+	{ gUnknown_02003BFC.text + 13, gUnknown_02003D2C + TILEMAP_INDEX(9, 9),  TEXT_COLOR_GOLD, 0, &gUnknown_08A01190 },
+	{ gUnknown_02003BFC.text + 14, gUnknown_02003D2C + TILEMAP_INDEX(9, 11), TEXT_COLOR_GOLD, 0, &gUnknown_08A011A8 },
 
 	{ }, // end
 };
 
 const struct Unk8086E00 gUnknown_08205A24[] =
 {
-	{ gUnknown_02003BFC.text + 21, gUnknown_02003D2C + TILEMAP_INDEX(2, 13), TEXT_COLOR_GOLD, 6, (void*) 0x8A01198 },
-	{ gUnknown_02003BFC.text + 22, gUnknown_02003D2C + TILEMAP_INDEX(2, 15), TEXT_COLOR_GOLD, 6, (void*) 0x8A0119C },
-	{ gUnknown_02003BFC.text + 20, gUnknown_02003D2C + TILEMAP_INDEX(9, 11), TEXT_COLOR_GOLD, 6, (void*) 0x8A01194 },
-	{ gUnknown_02003BFC.text + 23, gUnknown_02003D2C + TILEMAP_INDEX(9, 13), TEXT_COLOR_GOLD, 6, (void*) 0x8A011A0 },
-	{ gUnknown_02003BFC.text + 24, gUnknown_02003D2C + TILEMAP_INDEX(9, 15), TEXT_COLOR_GOLD, 6, (void*) 0x8A011A4 },
+	{ gUnknown_02003BFC.text + 21, gUnknown_02003D2C + TILEMAP_INDEX(2, 13), TEXT_COLOR_GOLD, 6, &gUnknown_08A01198 },
+	{ gUnknown_02003BFC.text + 22, gUnknown_02003D2C + TILEMAP_INDEX(2, 15), TEXT_COLOR_GOLD, 6, &gUnknown_08A0119C },
+	{ gUnknown_02003BFC.text + 20, gUnknown_02003D2C + TILEMAP_INDEX(9, 11), TEXT_COLOR_GOLD, 6, &gUnknown_08A01194 },
+	{ gUnknown_02003BFC.text + 23, gUnknown_02003D2C + TILEMAP_INDEX(9, 13), TEXT_COLOR_GOLD, 6, &gUnknown_08A011A0 },
+	{ gUnknown_02003BFC.text + 24, gUnknown_02003D2C + TILEMAP_INDEX(9, 15), TEXT_COLOR_GOLD, 6, &gUnknown_08A011A4 },
 
 	{ }, // end
 };
 
 const struct Unk8086E00 gUnused_08205A84[] =
 {
-	{ gUnknown_02003BFC.text + 25, gUnknown_02003D2C + TILEMAP_INDEX(3,  1), TEXT_COLOR_NORMAL, 0, (void*) 0x8A011E8 },
-	{ gUnknown_02003BFC.text + 26, gUnknown_02003D2C + TILEMAP_INDEX(3,  3), TEXT_COLOR_NORMAL, 0, (void*) 0x8A011EC },
-	{ gUnknown_02003BFC.text + 27, gUnknown_02003D2C + TILEMAP_INDEX(11, 1), TEXT_COLOR_NORMAL, 0, (void*) 0x8A011F0 },
-	{ gUnknown_02003BFC.text + 28, gUnknown_02003D2C + TILEMAP_INDEX(11, 3), TEXT_COLOR_NORMAL, 0, (void*) 0x8A011F4 },
+	{ gUnknown_02003BFC.text + 25, gUnknown_02003D2C + TILEMAP_INDEX(3,  1), TEXT_COLOR_NORMAL, 0, &gUnknown_08A011E8 },
+	{ gUnknown_02003BFC.text + 26, gUnknown_02003D2C + TILEMAP_INDEX(3,  3), TEXT_COLOR_NORMAL, 0, &gUnknown_08A011EC },
+	{ gUnknown_02003BFC.text + 27, gUnknown_02003D2C + TILEMAP_INDEX(11, 1), TEXT_COLOR_NORMAL, 0, &gUnknown_08A011F0 },
+	{ gUnknown_02003BFC.text + 28, gUnknown_02003D2C + TILEMAP_INDEX(11, 3), TEXT_COLOR_NORMAL, 0, &gUnknown_08A011F4 },
 
 	{ }, // end
 };
 
 const struct Unk8086E00 gUnused_08205AD4[] =
 {
-	{ gUnknown_02003BFC.text + 25, gUnknown_02003D2C + TILEMAP_INDEX(3,  1), TEXT_COLOR_NORMAL, 0, (void*) 0x8A011FC },
-	{ gUnknown_02003BFC.text + 26, gUnknown_02003D2C + TILEMAP_INDEX(3,  3), TEXT_COLOR_NORMAL, 0, (void*) 0x8A01200 },
-	{ gUnknown_02003BFC.text + 27, gUnknown_02003D2C + TILEMAP_INDEX(11, 1), TEXT_COLOR_NORMAL, 0, (void*) 0x8A01204 },
-	{ gUnknown_02003BFC.text + 28, gUnknown_02003D2C + TILEMAP_INDEX(11, 3), TEXT_COLOR_NORMAL, 0, (void*) 0x8A011F8 },
+	{ gUnknown_02003BFC.text + 25, gUnknown_02003D2C + TILEMAP_INDEX(3,  1), TEXT_COLOR_NORMAL, 0, &gUnknown_08A011FC },
+	{ gUnknown_02003BFC.text + 26, gUnknown_02003D2C + TILEMAP_INDEX(3,  3), TEXT_COLOR_NORMAL, 0, &gUnknown_08A01200 },
+	{ gUnknown_02003BFC.text + 27, gUnknown_02003D2C + TILEMAP_INDEX(11, 1), TEXT_COLOR_NORMAL, 0, &gUnknown_08A01204 },
+	{ gUnknown_02003BFC.text + 28, gUnknown_02003D2C + TILEMAP_INDEX(11, 3), TEXT_COLOR_NORMAL, 0, &gUnknown_08A011F8 },
 
 	{ }, // end
 };
@@ -2984,3 +2987,53 @@ static DECL_INFO sHelpInfo_08A0113C =
 };
 
 #undef DECL_INFO
+
+// ==========================
+// = SOME TEXT ID CONSTANTS =
+// ==========================
+
+// TODO: msg constants
+unsigned CONST_DATA gUnknown_08A01158 = 0x4E7; // Lv
+unsigned CONST_DATA gUnused_08A0115C  = 0x4E8; // Exp
+unsigned CONST_DATA gUnknown_08A01160 = 0x4E9; // HP
+unsigned CONST_DATA gUnknown_08A01164 = 0x4FE; // Str
+unsigned CONST_DATA gUnknown_08A01168 = 0x4FF; // Mag
+unsigned CONST_DATA gUnknown_08A0116C = 0x4EC; // Skill
+unsigned CONST_DATA gUnknown_08A01170 = 0x4ED; // Spd
+unsigned CONST_DATA gUnknown_08A01174 = 0x4EF; // Def
+unsigned CONST_DATA gUnknown_08A01178 = 0x4F0; // Res
+unsigned CONST_DATA gUnknown_08A0117C = 0x4EE; // Luck
+unsigned CONST_DATA gUnknown_08A01180 = 0x4F7; // Con
+unsigned CONST_DATA gUnknown_08A01184 = 0x4F8; // Aid
+unsigned CONST_DATA gUnknown_08A01188 = 0x4F6; // Move
+unsigned CONST_DATA gUnknown_08A0118C = 0x4F9; // Trv
+unsigned CONST_DATA gUnknown_08A01190 = 0x4F1; // Affin
+unsigned CONST_DATA gUnknown_08A01194 = 0x500; // Rng
+unsigned CONST_DATA gUnknown_08A01198 = 0x4F3; // Atk
+unsigned CONST_DATA gUnknown_08A0119C = 0x4F4; // Hit
+unsigned CONST_DATA gUnknown_08A011A0 = 0x501; // Crit
+unsigned CONST_DATA gUnknown_08A011A4 = 0x4F5; // Avoid
+unsigned CONST_DATA gUnknown_08A011A8 = 0x4FA; // Cond
+unsigned CONST_DATA gUnused_08A011AC  = 0x503; // Mt
+unsigned CONST_DATA gUnused_08A011B0  = 0x502; // Wt
+unsigned CONST_DATA gUnused_08A011B4  = 0x522; // MP/2
+unsigned CONST_DATA gUnused_08A011B8  = 0x523; //    1
+unsigned CONST_DATA gUnused_08A011BC  = 0x524; //  1-2
+unsigned CONST_DATA gUnused_08A011C0  = 0x525; //  1-3
+unsigned CONST_DATA gUnused_08A011C4  = 0x526; //    2
+unsigned CONST_DATA gUnused_08A011C8  = 0x527; //  2-3
+unsigned CONST_DATA gUnused_08A011CC  = 0x528; // 3-10
+unsigned CONST_DATA gUnused_08A011D0  = 0x529; // 3-15
+unsigned CONST_DATA gUnused_08A011D4  = 0x536; // ????
+unsigned CONST_DATA gUnused_08A011D8  = 0x514; // Poison
+unsigned CONST_DATA gUnused_08A011DC  = 0x515; // Sleep
+unsigned CONST_DATA gUnused_08A011E0  = 0x516; // Silence
+unsigned CONST_DATA gUnused_08A011E4  = 0x517; // Berserk
+unsigned CONST_DATA gUnknown_08A011E8 = 0x505; // Sword
+unsigned CONST_DATA gUnknown_08A011EC = 0x506; // Lance
+unsigned CONST_DATA gUnknown_08A011F0 = 0x507; // Axe
+unsigned CONST_DATA gUnknown_08A011F4 = 0x508; // Bow
+unsigned CONST_DATA gUnknown_08A011F8 = 0x509; // Staff
+unsigned CONST_DATA gUnknown_08A011FC = 0x50A; // Anima
+unsigned CONST_DATA gUnknown_08A01200 = 0x50B; // Light
+unsigned CONST_DATA gUnknown_08A01204 = 0x50C; // Dark

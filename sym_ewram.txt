@@ -63,14 +63,8 @@
 . = 0x003BA8; gUnknown_02003BA8 = .;
 . = 0x003BE8; gUnknown_02003BE8 = .;
 . = 0x003BFC; gUnknown_02003BFC = .;
-. = 0x003C8C; gUnknown_02003C8C = .;
-. = 0x003CB4; gUnknown_02003CB4 = .;
 . = 0x003D2C; gUnknown_02003D2C = .;
-. = 0x003D2E; gUnknown_02003D2E = .;
-. = 0x003D34; gUnknown_02003D34 = .;
-. = 0x003D4C; gUnknown_02003D4C = .;
 . = 0x003D54; gUnknown_02003D54 = .;
-. = 0x003D6E; gUnknown_02003D6E = .;
 . = 0x003DF0; gUnknown_02003DF0 = .;
 . = 0x003E36; gUnknown_02003E36 = .;
 . = 0x003E70; gUnknown_02003E70 = .;
@@ -92,8 +86,6 @@
 . = 0x0044D4; gUnknown_020044D4 = .;
 . = 0x0044EC; gUnknown_020044EC = .;
 . = 0x00472C; gUnknown_0200472C = .;
-. = 0x00472E; gUnknown_0200472E = .;
-. = 0x0049EE; gUnknown_020049EE = .;
 . = 0x004BAC; gUnknown_02004BAC = .;
 . = 0x004BBC; gUnknown_02004BBC = .;
 . = 0x004BC4; gUnknown_02004BC4 = .;
@@ -633,11 +625,8 @@
 . = 0x03E254; gUnknown_0203E254 = .;
 . = 0x03E754; gUnknown_0203E754 = .;
 . = 0x03E75C; gUnknown_0203E75C = .;
-. = 0x03E764; gUnknown_0203E764 = .;
-. = 0x03E768; gUnknown_0203E768 = .;
-. = 0x03E784; gUnknown_0203E784 = .;
-. = 0x03E788; gUnknown_0203E788 = .;
-. = 0x03E78C; gUnknown_0203E78C = .;
+. = 0x03E764; src/statscreen.o(ewram_data);
+. = ALIGN(4); gUnknown_0203E78C = .;
 . = 0x03E794; gUnknown_0203E794 = .;
 . = 0x03E7AC; gUnknown_0203E7AC = .;
 . = 0x03E7C8; gUnknown_0203E7C8 = .;

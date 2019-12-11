@@ -38,7 +38,7 @@ struct Unk8086E00
 	/* 04 */ u16* tilemap;
 	/* 08 */ u8 color;
 	/* 09 */ u8 xoff;
-	/* 0C */ u32* mid;
+	/* 0C */ const unsigned* mid;
 };
 
 enum
