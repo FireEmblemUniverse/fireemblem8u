@@ -89574,7 +89574,7 @@ sub_80B5C48: @ 0x080B5C48
 	bl SetFont
 	bl Font_LoadForUI
 	ldr r4, _080B5CD4  @ gUnknown_02022F38
-	ldr r0, _080B5CD8  @ gUnknown_08A01158
+	ldr r0, _080B5CD8  @ gMid_Lv
 	ldr r0, [r0]
 	bl GetStringFromIndex
 	adds r2, r0, #0
@@ -89621,7 +89621,7 @@ sub_80B5C48: @ 0x080B5C48
 	bx r0
 	.align 2, 0
 _080B5CD4: .4byte gUnknown_02022F38
-_080B5CD8: .4byte gUnknown_08A01158
+_080B5CD8: .4byte gMid_Lv
 _080B5CDC: .4byte gUnknown_0203A8F0
 
 	THUMB_FUNC_START sub_80B5CE0

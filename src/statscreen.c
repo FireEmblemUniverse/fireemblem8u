@@ -55,17 +55,17 @@ static struct Vec2 EWRAM_DATA sHbOrigin = {};
 static
 struct SSTextDispInfo const sPage0TextInfo[] =
 {
-    { gStatScreen.text + STATSCREEN_TEXT_SKLLABEL,   gBmFrameTmap0 + TILEMAP_INDEX(1, 3),  TEXT_COLOR_GOLD, 0, &gUnknown_08A0116C },
-    { gStatScreen.text + STATSCREEN_TEXT_SPDLABEL,   gBmFrameTmap0 + TILEMAP_INDEX(1, 5),  TEXT_COLOR_GOLD, 0, &gUnknown_08A01170 },
-    { gStatScreen.text + STATSCREEN_TEXT_LCKLABEL,   gBmFrameTmap0 + TILEMAP_INDEX(1, 7),  TEXT_COLOR_GOLD, 0, &gUnknown_08A0117C },
-    { gStatScreen.text + STATSCREEN_TEXT_DEFLABEL,   gBmFrameTmap0 + TILEMAP_INDEX(1, 9),  TEXT_COLOR_GOLD, 0, &gUnknown_08A01174 },
-    { gStatScreen.text + STATSCREEN_TEXT_RESLABEL,   gBmFrameTmap0 + TILEMAP_INDEX(1, 11), TEXT_COLOR_GOLD, 0, &gUnknown_08A01178 },
-    { gStatScreen.text + STATSCREEN_TEXT_MOVLABEL,   gBmFrameTmap0 + TILEMAP_INDEX(9, 1),  TEXT_COLOR_GOLD, 0, &gUnknown_08A01188 },
-    { gStatScreen.text + STATSCREEN_TEXT_CONLABEL,   gBmFrameTmap0 + TILEMAP_INDEX(9, 3),  TEXT_COLOR_GOLD, 0, &gUnknown_08A01180 },
-    { gStatScreen.text + STATSCREEN_TEXT_AIDLABEL,   gBmFrameTmap0 + TILEMAP_INDEX(9, 5),  TEXT_COLOR_GOLD, 0, &gUnknown_08A01184 },
-    { gStatScreen.text + STATSCREEN_TEXT_RESCUENAME, gBmFrameTmap0 + TILEMAP_INDEX(9, 7),  TEXT_COLOR_GOLD, 0, &gUnknown_08A0118C },
-    { gStatScreen.text + STATSCREEN_TEXT_AFFINLABEL, gBmFrameTmap0 + TILEMAP_INDEX(9, 9),  TEXT_COLOR_GOLD, 0, &gUnknown_08A01190 },
-    { gStatScreen.text + STATSCREEN_TEXT_STATUS,     gBmFrameTmap0 + TILEMAP_INDEX(9, 11), TEXT_COLOR_GOLD, 0, &gUnknown_08A011A8 },
+    { gStatScreen.text + STATSCREEN_TEXT_SKLLABEL,   gBmFrameTmap0 + TILEMAP_INDEX(1, 3),  TEXT_COLOR_GOLD, 0, &gMid_Skl },
+    { gStatScreen.text + STATSCREEN_TEXT_SPDLABEL,   gBmFrameTmap0 + TILEMAP_INDEX(1, 5),  TEXT_COLOR_GOLD, 0, &gMid_Spd },
+    { gStatScreen.text + STATSCREEN_TEXT_LCKLABEL,   gBmFrameTmap0 + TILEMAP_INDEX(1, 7),  TEXT_COLOR_GOLD, 0, &gMid_Lck },
+    { gStatScreen.text + STATSCREEN_TEXT_DEFLABEL,   gBmFrameTmap0 + TILEMAP_INDEX(1, 9),  TEXT_COLOR_GOLD, 0, &gMid_Def },
+    { gStatScreen.text + STATSCREEN_TEXT_RESLABEL,   gBmFrameTmap0 + TILEMAP_INDEX(1, 11), TEXT_COLOR_GOLD, 0, &gMid_Res },
+    { gStatScreen.text + STATSCREEN_TEXT_MOVLABEL,   gBmFrameTmap0 + TILEMAP_INDEX(9, 1),  TEXT_COLOR_GOLD, 0, &gMid_Mov },
+    { gStatScreen.text + STATSCREEN_TEXT_CONLABEL,   gBmFrameTmap0 + TILEMAP_INDEX(9, 3),  TEXT_COLOR_GOLD, 0, &gMid_Con },
+    { gStatScreen.text + STATSCREEN_TEXT_AIDLABEL,   gBmFrameTmap0 + TILEMAP_INDEX(9, 5),  TEXT_COLOR_GOLD, 0, &gMid_Aid },
+    { gStatScreen.text + STATSCREEN_TEXT_RESCUENAME, gBmFrameTmap0 + TILEMAP_INDEX(9, 7),  TEXT_COLOR_GOLD, 0, &gMid_Trv },
+    { gStatScreen.text + STATSCREEN_TEXT_AFFINLABEL, gBmFrameTmap0 + TILEMAP_INDEX(9, 9),  TEXT_COLOR_GOLD, 0, &gMid_Affin },
+    { gStatScreen.text + STATSCREEN_TEXT_STATUS,     gBmFrameTmap0 + TILEMAP_INDEX(9, 11), TEXT_COLOR_GOLD, 0, &gMid_Cnd },
 
     { }, // end
 };
@@ -73,11 +73,11 @@ struct SSTextDispInfo const sPage0TextInfo[] =
 static
 struct SSTextDispInfo const sPage1TextInfo[] =
 {
-    { gStatScreen.text + STATSCREEN_TEXT_BSATKLABEL, gBmFrameTmap0 + TILEMAP_INDEX(2, 13), TEXT_COLOR_GOLD, 6, &gUnknown_08A01198 },
-    { gStatScreen.text + STATSCREEN_TEXT_BSHITLABEL, gBmFrameTmap0 + TILEMAP_INDEX(2, 15), TEXT_COLOR_GOLD, 6, &gUnknown_08A0119C },
-    { gStatScreen.text + STATSCREEN_TEXT_BSRANGE,    gBmFrameTmap0 + TILEMAP_INDEX(9, 11), TEXT_COLOR_GOLD, 6, &gUnknown_08A01194 },
-    { gStatScreen.text + STATSCREEN_TEXT_BSCRTLABEL, gBmFrameTmap0 + TILEMAP_INDEX(9, 13), TEXT_COLOR_GOLD, 6, &gUnknown_08A011A0 },
-    { gStatScreen.text + STATSCREEN_TEXT_BSAVOLABEL, gBmFrameTmap0 + TILEMAP_INDEX(9, 15), TEXT_COLOR_GOLD, 6, &gUnknown_08A011A4 },
+    { gStatScreen.text + STATSCREEN_TEXT_BSATKLABEL, gBmFrameTmap0 + TILEMAP_INDEX(2, 13), TEXT_COLOR_GOLD, 6, &gMid_Atk },
+    { gStatScreen.text + STATSCREEN_TEXT_BSHITLABEL, gBmFrameTmap0 + TILEMAP_INDEX(2, 15), TEXT_COLOR_GOLD, 6, &gMid_Hit },
+    { gStatScreen.text + STATSCREEN_TEXT_BSRANGE,    gBmFrameTmap0 + TILEMAP_INDEX(9, 11), TEXT_COLOR_GOLD, 6, &gMid_Rng },
+    { gStatScreen.text + STATSCREEN_TEXT_BSCRTLABEL, gBmFrameTmap0 + TILEMAP_INDEX(9, 13), TEXT_COLOR_GOLD, 6, &gMid_Crt },
+    { gStatScreen.text + STATSCREEN_TEXT_BSAVOLABEL, gBmFrameTmap0 + TILEMAP_INDEX(9, 15), TEXT_COLOR_GOLD, 6, &gMid_Avo },
 
     { }, // end
 };
@@ -85,10 +85,10 @@ struct SSTextDispInfo const sPage1TextInfo[] =
 static
 struct SSTextDispInfo const sPage2TextInfo_Physical[] =
 {
-    { gStatScreen.text + STATSCREEN_TEXT_WEXP0, gBmFrameTmap0 + TILEMAP_INDEX(3,  1), TEXT_COLOR_NORMAL, 0, &gUnknown_08A011E8 },
-    { gStatScreen.text + STATSCREEN_TEXT_WEXP1, gBmFrameTmap0 + TILEMAP_INDEX(3,  3), TEXT_COLOR_NORMAL, 0, &gUnknown_08A011EC },
-    { gStatScreen.text + STATSCREEN_TEXT_WEXP2, gBmFrameTmap0 + TILEMAP_INDEX(11, 1), TEXT_COLOR_NORMAL, 0, &gUnknown_08A011F0 },
-    { gStatScreen.text + STATSCREEN_TEXT_WEXP3, gBmFrameTmap0 + TILEMAP_INDEX(11, 3), TEXT_COLOR_NORMAL, 0, &gUnknown_08A011F4 },
+    { gStatScreen.text + STATSCREEN_TEXT_WEXP0, gBmFrameTmap0 + TILEMAP_INDEX(3,  1), TEXT_COLOR_NORMAL, 0, &gMid_Sword },
+    { gStatScreen.text + STATSCREEN_TEXT_WEXP1, gBmFrameTmap0 + TILEMAP_INDEX(3,  3), TEXT_COLOR_NORMAL, 0, &gMid_Lance },
+    { gStatScreen.text + STATSCREEN_TEXT_WEXP2, gBmFrameTmap0 + TILEMAP_INDEX(11, 1), TEXT_COLOR_NORMAL, 0, &gMid_Axe },
+    { gStatScreen.text + STATSCREEN_TEXT_WEXP3, gBmFrameTmap0 + TILEMAP_INDEX(11, 3), TEXT_COLOR_NORMAL, 0, &gMid_Bow },
 
     { }, // end
 };
@@ -96,10 +96,10 @@ struct SSTextDispInfo const sPage2TextInfo_Physical[] =
 static
 struct SSTextDispInfo const sPage2TextInfo_Magical[] =
 {
-    { gStatScreen.text + STATSCREEN_TEXT_WEXP0, gBmFrameTmap0 + TILEMAP_INDEX(3,  1), TEXT_COLOR_NORMAL, 0, &gUnknown_08A011FC },
-    { gStatScreen.text + STATSCREEN_TEXT_WEXP1, gBmFrameTmap0 + TILEMAP_INDEX(3,  3), TEXT_COLOR_NORMAL, 0, &gUnknown_08A01200 },
-    { gStatScreen.text + STATSCREEN_TEXT_WEXP2, gBmFrameTmap0 + TILEMAP_INDEX(11, 1), TEXT_COLOR_NORMAL, 0, &gUnknown_08A01204 },
-    { gStatScreen.text + STATSCREEN_TEXT_WEXP3, gBmFrameTmap0 + TILEMAP_INDEX(11, 3), TEXT_COLOR_NORMAL, 0, &gUnknown_08A011F8 },
+    { gStatScreen.text + STATSCREEN_TEXT_WEXP0, gBmFrameTmap0 + TILEMAP_INDEX(3,  1), TEXT_COLOR_NORMAL, 0, &gMid_Anima },
+    { gStatScreen.text + STATSCREEN_TEXT_WEXP1, gBmFrameTmap0 + TILEMAP_INDEX(3,  3), TEXT_COLOR_NORMAL, 0, &gMid_Light },
+    { gStatScreen.text + STATSCREEN_TEXT_WEXP2, gBmFrameTmap0 + TILEMAP_INDEX(11, 1), TEXT_COLOR_NORMAL, 0, &gMid_Dark },
+    { gStatScreen.text + STATSCREEN_TEXT_WEXP3, gBmFrameTmap0 + TILEMAP_INDEX(11, 3), TEXT_COLOR_NORMAL, 0, &gMid_Staff },
 
     { }, // end
 };
@@ -376,10 +376,10 @@ struct ProcCmd CONST_DATA gProcScr_MetaHelpSprCtrl[] = // proc displaying 'R is 
     PROC_END,
 };
 
-extern struct HelpBoxInfo CONST_DATA gUnknown_08A00BC4; // page 0 root help
-extern struct HelpBoxInfo CONST_DATA gUnknown_08A00D14; // hardcoded thing bad
-extern struct HelpBoxInfo CONST_DATA gUnknown_08A00DA0; // page 1 root help
-extern struct HelpBoxInfo CONST_DATA gUnknown_08A00F44; // page 2 root help
+extern struct HelpBoxInfo CONST_DATA gHelpInfo_Ss0Pow; // page 0 root help
+extern struct HelpBoxInfo CONST_DATA gHelpInfo_Ss1CharName; // hardcoded thing bad
+extern struct HelpBoxInfo CONST_DATA gHelpInfo_Ss1Item0; // page 1 root help
+extern struct HelpBoxInfo CONST_DATA gHelpInfo_Ss2Rank0; // page 2 root help
 
 extern u16 CONST_DATA gUnknown_08A01EE4[]; // some face-related palette (if portrait)
 extern u16 CONST_DATA gUnknown_08A01F04[]; // some face-related palette (if card)
@@ -1795,15 +1795,15 @@ void MakeStatScreenRText6C(int pageid, struct Proc* proc)
         {
 
         case STATSCREEN_PAGE_0:
-            gStatScreen.help = &gUnknown_08A00BC4;
+            gStatScreen.help = &gHelpInfo_Ss0Pow;
             break;
         
         case STATSCREEN_PAGE_1:
-            gStatScreen.help = &gUnknown_08A00DA0;
+            gStatScreen.help = &gHelpInfo_Ss1Item0;
             break;
 
         case STATSCREEN_PAGE_2:
-            gStatScreen.help = &gUnknown_08A00F44;
+            gStatScreen.help = &gHelpInfo_Ss2Rank0;
             break;
 
         } // switch (pageid)
@@ -2382,7 +2382,7 @@ int sub_80893B4(struct HelpBoxProc* proc)
 int sub_80893E4(struct HelpBoxProc* proc)
 {
     // whoa bad hardcoded thing!
-    if (!proc->info->adj4 || (proc->info == &gUnknown_08A00D14 && !gStatScreen.unit->items[0]))
+    if (!proc->info->adj4 || (proc->info == &gHelpInfo_Ss1CharName && !gStatScreen.unit->items[0]))
         return FALSE;
 
     proc->info = proc->info->adj4;
@@ -2493,14 +2493,14 @@ const struct HelpBoxInfo* sub_80895A8(void)
 
 // TODO (maybe, eventually): maybe generate this from file(s)?
 
-// Stat Screen Page 0 (Core stats & status)
+// Stat Screen Page 0 (Core stats & status) (Ss0)
 
 static DECL_INFO sHelpInfo_08A00B38;
 static DECL_INFO sHelpInfo_08A00B54;
 static DECL_INFO sHelpInfo_08A00B70;
 static DECL_INFO sHelpInfo_08A00B8C;
 static DECL_INFO sHelpInfo_08A00BA8;
-extern DECL_INFO gUnknown_08A00BC4;
+extern DECL_INFO gHelpInfo_Ss0Pow;
 static DECL_INFO sHelpInfo_08A00BE0;
 static DECL_INFO sHelpInfo_08A00BFC;
 static DECL_INFO sHelpInfo_08A00C18;
@@ -2543,7 +2543,7 @@ static DECL_INFO sHelpInfo_08A00BA8 =
     6, 136, 0x544,
 };
 
-DECL_INFO gUnknown_08A00BC4 =
+DECL_INFO gHelpInfo_Ss0Pow =
 {
     NULL, &sHelpInfo_08A00BE0, &sHelpInfo_08A00B38, &sHelpInfo_08A00C6C,
     102, 24, 0x546, NULL, sub_8088B08,
@@ -2551,7 +2551,7 @@ DECL_INFO gUnknown_08A00BC4 =
 
 static DECL_INFO sHelpInfo_08A00BE0 =
 {
-    &gUnknown_08A00BC4, &sHelpInfo_08A00BFC, &sHelpInfo_08A00B38, &sHelpInfo_08A00C88,
+    &gHelpInfo_Ss0Pow, &sHelpInfo_08A00BFC, &sHelpInfo_08A00B38, &sHelpInfo_08A00C88,
     105, 40, 0x548,
 };
 
@@ -2581,7 +2581,7 @@ static DECL_INFO sHelpInfo_08A00C50 =
 
 static DECL_INFO sHelpInfo_08A00C6C =
 {
-    NULL, &sHelpInfo_08A00C88, &gUnknown_08A00BC4, NULL,
+    NULL, &sHelpInfo_08A00C88, &gHelpInfo_Ss0Pow, NULL,
     166, 24, 0x54D,
 };
 
@@ -2615,14 +2615,14 @@ static DECL_INFO sHelpInfo_08A00CF8 =
     166, 104, 0, NULL, sub_8088A2C,
 };
 
-// Stat Screen Page 1 (Items & battle stats)
+// Stat Screen Page 1 (Items & battle stats) (Ss1)
 
-extern DECL_INFO gUnknown_08A00D14;
+extern DECL_INFO gHelpInfo_Ss1CharName;
 static DECL_INFO sHelpInfo_08A00D30;
 static DECL_INFO sHelpInfo_08A00D4C;
 static DECL_INFO sHelpInfo_08A00D68;
 static DECL_INFO sHelpInfo_08A00D84;
-extern DECL_INFO gUnknown_08A00DA0;
+extern DECL_INFO gHelpInfo_Ss1Item0;
 static DECL_INFO sHelpInfo_08A00DBC;
 static DECL_INFO sHelpInfo_08A00DD8;
 static DECL_INFO sHelpInfo_08A00DF4;
@@ -2633,7 +2633,7 @@ static DECL_INFO sHelpInfo_08A00E64;
 static DECL_INFO sHelpInfo_08A00E80;
 static DECL_INFO sHelpInfo_08A00E9C;
 
-DECL_INFO gUnknown_08A00D14 =
+DECL_INFO gHelpInfo_Ss1CharName =
 {
     NULL, &sHelpInfo_08A00D30, NULL, &sHelpInfo_08A00DF4,
     24, 80, 0, NULL, sub_8088BD4,
@@ -2641,7 +2641,7 @@ DECL_INFO gUnknown_08A00D14 =
 
 static DECL_INFO sHelpInfo_08A00D30 =
 {
-    &gUnknown_08A00D14, &sHelpInfo_08A00D4C, NULL, &sHelpInfo_08A00E2C,
+    &gHelpInfo_Ss1CharName, &sHelpInfo_08A00D4C, NULL, &sHelpInfo_08A00E2C,
     6, 104, 0x6E8, NULL, sub_8088C00,
 };
 
@@ -2663,33 +2663,33 @@ static DECL_INFO sHelpInfo_08A00D84 =
     6, 136, 0x544,
 };
 
-DECL_INFO gUnknown_08A00DA0 =
+DECL_INFO gHelpInfo_Ss1Item0 =
 {
-    NULL, &sHelpInfo_08A00DBC, &gUnknown_08A00D14, NULL,
+    NULL, &sHelpInfo_08A00DBC, &gHelpInfo_Ss1CharName, NULL,
     104, 24, 0, sub_8088B40, sub_8088A00,
 };
 
 static DECL_INFO sHelpInfo_08A00DBC =
 {
-    &gUnknown_08A00DA0, &sHelpInfo_08A00DD8, &gUnknown_08A00D14, NULL,
+    &gHelpInfo_Ss1Item0, &sHelpInfo_08A00DD8, &gHelpInfo_Ss1CharName, NULL,
     104, 40, 1, sub_8088B40, sub_8088A00,
 };
 
 static DECL_INFO sHelpInfo_08A00DD8 =
 {
-    &sHelpInfo_08A00DBC, &sHelpInfo_08A00DF4, &gUnknown_08A00D14, NULL,
+    &sHelpInfo_08A00DBC, &sHelpInfo_08A00DF4, &gHelpInfo_Ss1CharName, NULL,
     104, 56, 2, sub_8088B40, sub_8088A00,
 };
 
 static DECL_INFO sHelpInfo_08A00DF4 =
 {
-    &sHelpInfo_08A00DD8, &sHelpInfo_08A00E10, &gUnknown_08A00D14, NULL,
+    &sHelpInfo_08A00DD8, &sHelpInfo_08A00E10, &gHelpInfo_Ss1CharName, NULL,
     104, 72, 3, sub_8088B40, sub_8088A00,
 };
 
 static DECL_INFO sHelpInfo_08A00E10 =
 {
-    &sHelpInfo_08A00DF4, &sHelpInfo_08A00E2C, &gUnknown_08A00D14, &sHelpInfo_08A00E64,
+    &sHelpInfo_08A00DF4, &sHelpInfo_08A00E2C, &gHelpInfo_Ss1CharName, &sHelpInfo_08A00E64,
     104, 88, 4, sub_8088B40, sub_8088A00,
 };
 
@@ -2723,14 +2723,14 @@ static DECL_INFO sHelpInfo_08A00E9C =
     174, 136, 0x560,
 };
 
-// Stat Screen Page 2 (Weapon ranks & supports)
+// Stat Screen Page 2 (Weapon ranks & supports) (Ss2)
 
 static DECL_INFO sHelpInfo_08A00EB8;
 static DECL_INFO sHelpInfo_08A00ED4;
 static DECL_INFO sHelpInfo_08A00EF0;
 static DECL_INFO sHelpInfo_08A00F0C;
 static DECL_INFO sHelpInfo_08A00F28;
-extern DECL_INFO gUnknown_08A00F44;
+extern DECL_INFO gHelpInfo_Ss2Rank0;
 static DECL_INFO sHelpInfo_08A00F60;
 static DECL_INFO sHelpInfo_08A00F7C;
 static DECL_INFO sHelpInfo_08A00F98;
@@ -2766,7 +2766,7 @@ static DECL_INFO sHelpInfo_08A00F28 =
     6, 136, 0x544,
 };
 
-DECL_INFO gUnknown_08A00F44 =
+DECL_INFO gHelpInfo_Ss2Rank0 =
 {
     NULL, &sHelpInfo_08A00F60, &sHelpInfo_08A00EB8, &sHelpInfo_08A00F7C,
     104, 24, 0, NULL, sub_8088B94,
@@ -2774,13 +2774,13 @@ DECL_INFO gUnknown_08A00F44 =
 
 static DECL_INFO sHelpInfo_08A00F60 =
 {
-    &gUnknown_08A00F44, &sHelpInfo_08A00FB4, &sHelpInfo_08A00EB8, &sHelpInfo_08A00F98,
+    &gHelpInfo_Ss2Rank0, &sHelpInfo_08A00FB4, &sHelpInfo_08A00EB8, &sHelpInfo_08A00F98,
     104, 40, 1, NULL, sub_8088B94,
 };
 
 static DECL_INFO sHelpInfo_08A00F7C =
 {
-    NULL, &sHelpInfo_08A00F98, &gUnknown_08A00F44, NULL,
+    NULL, &sHelpInfo_08A00F98, &gHelpInfo_Ss2Rank0, NULL,
     168, 24, 2, NULL, sub_8088B94,
 };
 
@@ -2801,10 +2801,10 @@ static DECL_INFO sHelpInfo_08A00FB4 =
 void sub_8037494(struct HelpBoxProc* proc);
 void sub_80374C4(struct HelpBoxProc* proc);
 
-// Simple/Modern mode
+// Simple/Modern mode (Mbp)
 
 static DECL_INFO sHelpInfo_08A00FD0;
-extern DECL_INFO gUnknown_08A00FEC;
+extern DECL_INFO gHelpInfo_MbpHp;
 static DECL_INFO sHelpInfo_08A01008;
 static DECL_INFO sHelpInfo_08A01024;
 static DECL_INFO sHelpInfo_08A01040;
@@ -2812,11 +2812,11 @@ static DECL_INFO sHelpInfo_08A0105C;
 
 static DECL_INFO sHelpInfo_08A00FD0 =
 {
-    NULL, &gUnknown_08A00FEC, NULL, NULL,
+    NULL, &gHelpInfo_MbpHp, NULL, NULL,
     8, 8, 0, NULL, sub_8037494,
 };
 
-DECL_INFO gUnknown_08A00FEC =
+DECL_INFO gHelpInfo_MbpHp =
 {
     &sHelpInfo_08A00FD0, &sHelpInfo_08A01008, NULL, NULL,
     28, 24, 0x544,
@@ -2824,7 +2824,7 @@ DECL_INFO gUnknown_08A00FEC =
 
 static DECL_INFO sHelpInfo_08A01008 =
 {
-    &gUnknown_08A00FEC, &sHelpInfo_08A01024, NULL, NULL,
+    &gHelpInfo_MbpHp, &sHelpInfo_08A01024, NULL, NULL,
     28, 40, 0x571,
 };
 
@@ -2846,10 +2846,10 @@ static DECL_INFO sHelpInfo_08A0105C =
     56, 88, 0, NULL, sub_80374C4,
 };
 
-// Detailed/Classic mode
+// Detailed/Classic mode (Cbp)
 
 static DECL_INFO sHelpInfo_08A01078;
-extern DECL_INFO gUnknown_08A01094;
+extern DECL_INFO gHelpInfo_CbpHp;
 static DECL_INFO sHelpInfo_08A010B0;
 static DECL_INFO sHelpInfo_08A010CC;
 static DECL_INFO sHelpInfo_08A010E8;
@@ -2859,11 +2859,11 @@ static DECL_INFO sHelpInfo_08A0113C;
 
 static DECL_INFO sHelpInfo_08A01078 =
 {
-    NULL, &gUnknown_08A01094, NULL, NULL,
+    NULL, &gHelpInfo_CbpHp, NULL, NULL,
     8, 8, 0, NULL, sub_8037494,
 };
 
-DECL_INFO gUnknown_08A01094 =
+DECL_INFO gHelpInfo_CbpHp =
 {
     &sHelpInfo_08A01078, &sHelpInfo_08A010B0, NULL, NULL,
     28, 24, 0x544,
@@ -2871,7 +2871,7 @@ DECL_INFO gUnknown_08A01094 =
 
 static DECL_INFO sHelpInfo_08A010B0 =
 {
-    &gUnknown_08A01094, &sHelpInfo_08A010CC, NULL, NULL,
+    &gHelpInfo_CbpHp, &sHelpInfo_08A010CC, NULL, NULL,
     28, 40, 0x55C,
 };
 
@@ -2912,47 +2912,47 @@ static DECL_INFO sHelpInfo_08A0113C =
 // ==========================
 
 // TODO: msg constants
-unsigned CONST_DATA gUnknown_08A01158 = 0x4E7; // Lv
-unsigned CONST_DATA gUnused_08A0115C  = 0x4E8; // Exp
-unsigned CONST_DATA gUnknown_08A01160 = 0x4E9; // HP
-unsigned CONST_DATA gUnknown_08A01164 = 0x4FE; // Str
-unsigned CONST_DATA gUnknown_08A01168 = 0x4FF; // Mag
-unsigned CONST_DATA gUnknown_08A0116C = 0x4EC; // Skill
-unsigned CONST_DATA gUnknown_08A01170 = 0x4ED; // Spd
-unsigned CONST_DATA gUnknown_08A01174 = 0x4EF; // Def
-unsigned CONST_DATA gUnknown_08A01178 = 0x4F0; // Res
-unsigned CONST_DATA gUnknown_08A0117C = 0x4EE; // Luck
-unsigned CONST_DATA gUnknown_08A01180 = 0x4F7; // Con
-unsigned CONST_DATA gUnknown_08A01184 = 0x4F8; // Aid
-unsigned CONST_DATA gUnknown_08A01188 = 0x4F6; // Move
-unsigned CONST_DATA gUnknown_08A0118C = 0x4F9; // Trv
-unsigned CONST_DATA gUnknown_08A01190 = 0x4F1; // Affin
-unsigned CONST_DATA gUnknown_08A01194 = 0x500; // Rng
-unsigned CONST_DATA gUnknown_08A01198 = 0x4F3; // Atk
-unsigned CONST_DATA gUnknown_08A0119C = 0x4F4; // Hit
-unsigned CONST_DATA gUnknown_08A011A0 = 0x501; // Crit
-unsigned CONST_DATA gUnknown_08A011A4 = 0x4F5; // Avoid
-unsigned CONST_DATA gUnknown_08A011A8 = 0x4FA; // Cond
-unsigned CONST_DATA gUnused_08A011AC  = 0x503; // Mt
-unsigned CONST_DATA gUnused_08A011B0  = 0x502; // Wt
-unsigned CONST_DATA gUnused_08A011B4  = 0x522; // MP/2
-unsigned CONST_DATA gUnused_08A011B8  = 0x523; //    1
-unsigned CONST_DATA gUnused_08A011BC  = 0x524; //  1-2
-unsigned CONST_DATA gUnused_08A011C0  = 0x525; //  1-3
-unsigned CONST_DATA gUnused_08A011C4  = 0x526; //    2
-unsigned CONST_DATA gUnused_08A011C8  = 0x527; //  2-3
-unsigned CONST_DATA gUnused_08A011CC  = 0x528; // 3-10
-unsigned CONST_DATA gUnused_08A011D0  = 0x529; // 3-15
-unsigned CONST_DATA gUnused_08A011D4  = 0x536; // ????
-unsigned CONST_DATA gUnused_08A011D8  = 0x514; // Poison
-unsigned CONST_DATA gUnused_08A011DC  = 0x515; // Sleep
-unsigned CONST_DATA gUnused_08A011E0  = 0x516; // Silence
-unsigned CONST_DATA gUnused_08A011E4  = 0x517; // Berserk
-unsigned CONST_DATA gUnknown_08A011E8 = 0x505; // Sword
-unsigned CONST_DATA gUnknown_08A011EC = 0x506; // Lance
-unsigned CONST_DATA gUnknown_08A011F0 = 0x507; // Axe
-unsigned CONST_DATA gUnknown_08A011F4 = 0x508; // Bow
-unsigned CONST_DATA gUnknown_08A011F8 = 0x509; // Staff
-unsigned CONST_DATA gUnknown_08A011FC = 0x50A; // Anima
-unsigned CONST_DATA gUnknown_08A01200 = 0x50B; // Light
-unsigned CONST_DATA gUnknown_08A01204 = 0x50C; // Dark
+unsigned CONST_DATA gMid_Lv = 0x4E7; // Lv
+unsigned CONST_DATA gMid_Exp_Unused = 0x4E8; // Exp
+unsigned CONST_DATA gMid_Hp = 0x4E9; // HP
+unsigned CONST_DATA gMid_Str = 0x4FE; // Str
+unsigned CONST_DATA gMid_Mag = 0x4FF; // Mag
+unsigned CONST_DATA gMid_Skl = 0x4EC; // Skill
+unsigned CONST_DATA gMid_Spd = 0x4ED; // Spd
+unsigned CONST_DATA gMid_Def = 0x4EF; // Def
+unsigned CONST_DATA gMid_Res = 0x4F0; // Res
+unsigned CONST_DATA gMid_Lck = 0x4EE; // Luck
+unsigned CONST_DATA gMid_Con = 0x4F7; // Con
+unsigned CONST_DATA gMid_Aid = 0x4F8; // Aid
+unsigned CONST_DATA gMid_Mov = 0x4F6; // Move
+unsigned CONST_DATA gMid_Trv = 0x4F9; // Trv
+unsigned CONST_DATA gMid_Affin = 0x4F1; // Affin
+unsigned CONST_DATA gMid_Rng = 0x500; // Rng
+unsigned CONST_DATA gMid_Atk = 0x4F3; // Atk
+unsigned CONST_DATA gMid_Hit = 0x4F4; // Hit
+unsigned CONST_DATA gMid_Crt = 0x501; // Crit
+unsigned CONST_DATA gMid_Avo = 0x4F5; // Avoid
+unsigned CONST_DATA gMid_Cnd = 0x4FA; // Cond
+unsigned CONST_DATA gMid_Mt = 0x503; // Mt
+unsigned CONST_DATA gMid_Wt = 0x502; // Wt
+unsigned CONST_DATA gMid_RangeMpOn2 = 0x522; // MP/2
+unsigned CONST_DATA gMid_Range1To1 = 0x523; //    1
+unsigned CONST_DATA gMid_Range1To2 = 0x524; //  1-2
+unsigned CONST_DATA gMid_Range1To3 = 0x525; //  1-3
+unsigned CONST_DATA gMid_Range2To2 = 0x526; //    2
+unsigned CONST_DATA gMid_Range2To3 = 0x527; //  2-3
+unsigned CONST_DATA gMid_Range3To10 = 0x528; // 3-10
+unsigned CONST_DATA gMid_Range3To15 = 0x529; // 3-15
+unsigned CONST_DATA gMid_Unk08A011D4 = 0x536; // ????
+unsigned CONST_DATA gMid_Poison = 0x514; // Poison
+unsigned CONST_DATA gMid_Sleep = 0x515; // Sleep
+unsigned CONST_DATA gMid_Silence = 0x516; // Silence
+unsigned CONST_DATA gMid_Berserk = 0x517; // Berserk
+unsigned CONST_DATA gMid_Sword = 0x505; // Sword
+unsigned CONST_DATA gMid_Lance = 0x506; // Lance
+unsigned CONST_DATA gMid_Axe = 0x507; // Axe
+unsigned CONST_DATA gMid_Bow = 0x508; // Bow
+unsigned CONST_DATA gMid_Staff = 0x509; // Staff
+unsigned CONST_DATA gMid_Anima = 0x50A; // Anima
+unsigned CONST_DATA gMid_Light = 0x50B; // Light
+unsigned CONST_DATA gMid_Dark = 0x50C; // Dark

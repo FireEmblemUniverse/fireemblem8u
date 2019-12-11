@@ -1911,16 +1911,16 @@ _08037420:
 	.align 2, 0
 _0803743C: .4byte gUnknown_0859E520
 _08037440:
-	ldr r0, _08037450  @ gUnknown_08A00FEC
+	ldr r0, _08037450  @ gHelpInfo_MbpHp
 	adds r1, r6, #0
 	adds r2, r5, #0
 	movs r3, #0
 	bl sub_8089188
 	b _08037460
 	.align 2, 0
-_08037450: .4byte gUnknown_08A00FEC
+_08037450: .4byte gHelpInfo_MbpHp
 _08037454:
-	ldr r0, _08037468  @ gUnknown_08A01094
+	ldr r0, _08037468  @ gHelpInfo_CbpHp
 	adds r1, r6, #0
 	adds r2, r5, #0
 	movs r3, #0
@@ -1931,6 +1931,6 @@ _08037460:
 	pop {r1}
 	bx r1
 	.align 2, 0
-_08037468: .4byte gUnknown_08A01094
+_08037468: .4byte gHelpInfo_CbpHp
 
 .align 2, 0

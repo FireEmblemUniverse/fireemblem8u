@@ -70385,7 +70385,7 @@ _080737B4:
 	adds r0, r4, #0
 	movs r1, #3
 	bl Text_SetColorId
-	ldr r0, _080738B0  @ gUnknown_08A01158
+	ldr r0, _080738B0  @ gMid_Lv
 	ldr r0, [r0]
 	bl GetStringFromIndex
 	adds r1, r0, #0
@@ -70429,7 +70429,7 @@ _080738A0: .4byte gUnknown_020176A0
 _080738A4: .4byte gUnknown_02020114
 _080738A8: .4byte gUnknown_02023CAE
 _080738AC: .4byte gUnknown_02020108
-_080738B0: .4byte gUnknown_08A01158
+_080738B0: .4byte gMid_Lv
 _080738B4: .4byte gUnknown_02020110
 
 	THUMB_FUNC_START sub_80738B8
