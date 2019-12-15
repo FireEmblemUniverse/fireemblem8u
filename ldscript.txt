@@ -83,7 +83,7 @@ SECTIONS
         asm/chapterintrofx_title.o(.text);
         asm/bmmenu.o(.text);
         asm/bmphase.o(.text);
-        asm/bmgold.o(.text);
+        src/bmgold.o(.text);
         asm/bmtarget.o(.text);
         asm/bmudisp.o(.text);
         src/bmreliance.o(.text);
