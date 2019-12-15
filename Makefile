@@ -11,7 +11,7 @@ UNAME := $(shell uname)
 CC1      := tools/agbcc/bin/agbcc$(EXE)
 CC1_OLD  := tools/agbcc/bin/old_agbcc$(EXE)
 #include $(DEVKITARM)
-PREFIX = arm-none-eabi-
+PREFIX = $(LOCAL_PREFIX)arm-none-eabi-
 export CPP := cpp
 ifeq ($(UNAME),Darwin)
 export CPP := $(PREFIX)$(CPP)
