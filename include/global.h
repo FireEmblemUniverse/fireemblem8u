@@ -5,13 +5,13 @@
 
 #include "gba/gba.h"
 
+#define CONST_DATA const __attribute__((section(".data")))
+
 #include "types.h"
 #include "variables.h"
 #include "functions.h"
 
 // helper macros
-
-#define CONST_DATA __attribute__((section(".data")))
 
 #define ARRAY_COUNT(array) (sizeof(array) / sizeof((array)[0]))
 

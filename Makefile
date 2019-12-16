@@ -6,11 +6,16 @@ else
 EXE :=
 endif
 
+UNAME := $(shell uname)
+
 CC1      := tools/agbcc/bin/agbcc$(EXE)
 CC1_OLD  := tools/agbcc/bin/old_agbcc$(EXE)
 #include $(DEVKITARM)
-PREFIX = arm-none-eabi-
+PREFIX = $(LOCAL_PREFIX)arm-none-eabi-
 export CPP := cpp
+ifeq ($(UNAME),Darwin)
+export CPP := $(PREFIX)$(CPP)
+endif
 export AS := $(PREFIX)as$(EXE)
 export LD := $(PREFIX)ld$(EXE)
 export OBJCOPY := $(PREFIX)objcopy$(EXE)
@@ -58,7 +63,11 @@ src/bmitem.o: CC1FLAGS += -Wno-error
 #### Main Targets ####
 
 compare: $(ROM)
+ifeq ($(UNAME),Darwin)
+	shasum -c checksum.sha1
+else
 	sha1sum -c checksum.sha1
+endif
 
 clean:
 	find . \( -iname '*.1bpp' -o -iname '*.4bpp' -o -iname '*.8bpp' -o -iname '*.gbapal' -o -iname '*.lz' -o -iname '*.fk' -o -iname '*.latfont' -o -iname '*.hwjpnfont' -o -iname '*.fwjpnfont' \) -exec rm {} +
@@ -80,8 +89,11 @@ include graphics_file_rules.mk
 %.8bpp: %.png  ; $(GBAGFX) $< $@
 %.gbapal: %.pal
 ifneq ($(OS),Windows_NT)
-	# unix2dos $< # not standard unix! =(
+ifeq ($(UNAME),Darwin)
+	sed -i '' $$'s/\r*$$/\r/' $<
+else
 	sed -i -e 's/\r*$$/\r/' $<
+endif
 endif
 	$(GBAGFX) $< $@
 %.gbapal: %.png ; $(GBAGFX) $< $@

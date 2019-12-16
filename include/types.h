@@ -29,9 +29,9 @@ struct Struct03003080
     /*0x18*/ struct BgCnt bg3cnt;
     /*0x1C*/ struct BgCoords bgoffset[4];
     /*0x2C*/ u8 win0_right, win0_left;
-    /*0x2C*/ u16 win1h;
+    /*0x2C*/ u8 win1_right, win1_left;
     /*0x30*/ u8 win0_bottom, win0_top;
-    /*0x30*/ u16 win1v;
+    /*0x30*/ u8 win1_bottom, win1_top;
     /*0x34*/ struct WinCnt wincnt;
     /*0x38*/ u16 mosaic;
              u8 filler3A[2];
@@ -461,6 +461,25 @@ struct MapChange
     /* 08 */ const void* data;
 };
 
+struct UnitUsageStats
+{
+	/* 000 */ unsigned lossAmt     : 8;
+	/* 008 */ unsigned favval      : 16;
+	/* 024 */ unsigned actAmt      : 8;
+	/* 032 */ unsigned statViewAmt : 8;
+	/* 040 */ unsigned deathLoc    : 6;
+	/* 046 */ unsigned deathTurn   : 10;
+	/* 056 */ unsigned deployAmt   : 6;
+	/* 062 */ unsigned moveAmt     : 10;
+	/* 072 */ unsigned deathCause  : 4;
+	/* 076 */ unsigned expGained   : 12;
+	/* 088 */ unsigned winAmt      : 10;
+	/* 098 */ unsigned battleAmt   : 12;
+	/* 110 */ unsigned killerPid   : 9;
+	/* 119 */ unsigned deathSkirm  : 1;
+	/* 120 */ /* 8bit pad */
+};
+
 enum { UNIT_SUPPORT_MAX_COUNT = 7 };
 
 enum
@@ -478,5 +497,23 @@ enum
 
 // TODO: move to bmcontainer.h
 enum { CONVOY_ITEM_COUNT = 100 };
+
+enum
+{
+    FACE_BLINK_NORMAL = 1,
+    FACE_BLINK_CLOSED = 6,
+};
+
+struct FaceData
+{
+    /* 00 */ const u8*  img;
+    /* 04 */ const u8*  imgChibi;
+    /* 08 */ const u16* pal;
+    /* 0C */ const u8*  imgMouth;
+    /* 10 */ const u8*  imgCard;
+    /* 14 */ u8 xMouth, yMouth;
+    /* 16 */ u8 xEyes,  yEyes;
+    /* 18 */ u8 blinkKind;
+};
 
 #endif // GUARD_TYPES_H
