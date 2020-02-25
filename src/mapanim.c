@@ -1177,7 +1177,6 @@ void sub_807BE1C(struct MAInfoFrameProc* proc, int, int);
 void sub_8081E78(void);
 void sub_80820D8(u16, u16, u16, u16);
 
-void CallARM_FillTileRect(u16* tilemap, u16* tsa, u16 tileref);
 void sub_80143D8(u16* tilemap, int arg1, int arg2, const char* cstring);
 
 void sub_807BF54(struct MAInfoFrameProc* proc);
@@ -1189,8 +1188,6 @@ extern int gUnknown_089A3668[];
 extern const struct ProcCmd gUnknown_089A3688[];
 
 extern const u8 gUnknown_089AD868[];
-
-extern const u16 gUnknown_08A1D79C[];
 
 extern u8 gUnknown_089AD78C[];
 
@@ -2037,7 +2034,8 @@ struct MAEffectProc
     /* 44 */ u8 pad46[0x48 - 0x46];
     /* 48 */ short unk48;
     /* 4A */ short unk4A;
-    /* 4C */ u8 pad4C[0x50 - 0x4C];
+    /* 4C */ short unk4C;
+    /* 4E */ /* pad */
     /* 50 */ const void* img;
     /* 54 */ const void* pal;
     /* 58 */ u16 unk58;
@@ -3846,6 +3844,8 @@ extern u16 CONST_DATA gUnknown_089AC9A8[]; // pal
 
 extern struct ProcCmd CONST_DATA gUnknown_089A3F5C[];
 
+extern struct ProcCmd CONST_DATA gUnknown_089A434C[];
+
 void sub_807EA98(int actor, int xTile, int yTile)
 {
     int i;
@@ -4479,8 +4479,6 @@ void StartStarImplosionEffect(int x, int y)
     StartStarRotationEffect(x, y, 0xC8, 1, 0, 0x3C, 0x37);
 }
 
-extern struct ProcCmd CONST_DATA gUnknown_089A434C[];
-
 void sub_807F878(struct Proc* parent)
 {
     if (parent)
@@ -4524,7 +4522,7 @@ void sub_807F89C(struct MAEffectProc* proc)
 struct Unk089A40AC
 {
     /* 00 */ const void* unk00;
-    /* 04 */ const void* unk04;
+    /* 04 */ const u16*  unk04;
     /* 08 */ const void* unk08;
 };
 
@@ -4533,6 +4531,11 @@ extern struct Unk089A40AC CONST_DATA gUnknown_089A419C[];
 extern int const gUnknown_08205884[];
 extern u8 const gUnknown_0820588C[];
 extern u8 const gUnknown_0820588E[];
+
+extern struct Unk089A40AC CONST_DATA gUnknown_089A42BC[];
+extern struct ProcCmd CONST_DATA gUnknown_089A4434[];
+
+extern struct ProcCmd CONST_DATA gUnknown_089A448C[];
 
 void sub_807F964(struct MAEffectProc* proc)
 {
@@ -4742,3 +4745,401 @@ void sub_807FDC8(struct MAEffectProc* proc)
     if (proc->unk48 < 31)
         Proc_ClearNativeCallback((struct Proc*) proc);
 }
+
+void sub_807FE0C(struct MAEffectProc* proc)
+{
+    if (proc->unk42 == 0)
+    {
+        if (proc->unk40 != 0)
+        {
+            if (proc->unk40 > 11)
+            {
+                proc->unk40 = proc->unk42;
+                Proc_ClearNativeCallback((struct Proc*) proc);
+                return;
+            }
+        }
+        else
+        {
+            gLCDControlBuffer.dispcnt.bg0_on = 0;
+            gLCDControlBuffer.dispcnt.bg1_on = 0;
+            gLCDControlBuffer.dispcnt.bg2_on = 1;
+            gLCDControlBuffer.dispcnt.bg3_on = 1;
+            gLCDControlBuffer.dispcnt.obj_on = 1;
+        }
+
+        CopyDataWithPossibleUncomp(
+            gUnknown_089A42BC[proc->unk40].unk00,
+            (void*) VRAM + gUnknown_08205884[proc->unk44]*0x20);
+
+        CopyDataWithPossibleUncomp(
+            gUnknown_089A42BC[proc->unk40].unk08,
+            gUnknown_02020188);
+
+        sub_800159C(
+            gBG2TilemapBuffer,
+            (u16*) gUnknown_02020188,
+            0, 0,
+            gUnknown_08205884[proc->unk44] | (gUnknown_0820588C[proc->unk44] << 12));
+
+        BG_EnableSyncByMask(BG2_SYNC_BIT);
+
+        if (proc->unk48 < 0)
+        {
+            ApplyPalette(gUnknown_089A42BC[proc->unk40].unk04, gUnknown_0820588C[proc->unk44]);
+            EnablePaletteSync();
+        }
+
+        proc->unk4A = proc->unk40;
+        proc->unk40++;
+
+        proc->unk42 = 4;
+
+        proc->unk4C = proc->unk44;
+        proc->unk44 ^= 1;
+    }
+
+    proc->unk42--;
+
+    if (proc->unk48 >= 0)
+    {
+        int i, addedBrightness = proc->unk48 * 32 / 240;
+
+        const u16* const in  = gUnknown_089A42BC[proc->unk4A].unk04;
+        u16*       const out = &gPaletteBuffer[0x10 * gUnknown_0820588C[proc->unk4C]];
+
+        for (i = 1; i < 16; ++i)
+        {
+            unsigned r = (in[i])       & 0x1F;
+            unsigned g = (in[i] >> 5)  & 0x1F;
+            unsigned b = (in[i] >> 10) & 0x1F;
+
+            r = r + addedBrightness > 31 ? 31 : r + addedBrightness;
+            g = g + addedBrightness > 31 ? 31 : g + addedBrightness;
+            b = b + addedBrightness > 31 ? 31 : b + addedBrightness;
+
+            out[i] = RGB(r, g, b);
+        }
+
+        EnablePaletteSync();
+
+        proc->unk48--;
+    }
+}
+
+void sub_807FFF0(void)
+{
+    BG_Fill(gBG0TilemapBuffer, 0);
+    BG_Fill(gBG2TilemapBuffer, 0);
+
+    BG_EnableSyncByMask(BG0_SYNC_BIT + BG2_SYNC_BIT);
+}
+
+void sub_8080014(struct Proc* parent)
+{
+    if (parent)
+        Proc_CreateBlockingChild(gUnknown_089A4434, parent);
+    else
+        Proc_Create(gUnknown_089A4434, ROOT_PROC_3);
+}
+
+void sub_8080038(void)
+{
+    SetSecondaryHBlankHandler(NULL);
+    Proc_DeleteAllWithScript(gUnknown_089A448C);
+}
+
+extern u8 gUnknown_03001C7C;
+
+void sub_8080408(void);
+
+struct Proc8080050
+{
+    /* 00 */ PROC_HEADER;
+
+    /* 29 */ u8 unk29;
+    /* 2A */ u8 unk2A;
+};
+
+void sub_8080050(struct MAEffectProc* proc)
+{
+    struct Proc8080050* vsync;
+
+    gLCDControlBuffer.bg0cnt.priority = 0;
+    gLCDControlBuffer.bg1cnt.priority = 0;
+    gLCDControlBuffer.bg2cnt.priority = 0;
+    gLCDControlBuffer.bg3cnt.priority = 2;
+
+    gLCDControlBuffer.dispcnt.bg0_on = 0;
+    gLCDControlBuffer.dispcnt.bg1_on = 0;
+    gLCDControlBuffer.dispcnt.bg2_on = 1;
+    gLCDControlBuffer.dispcnt.bg3_on = 1;
+    gLCDControlBuffer.dispcnt.obj_on = 1;
+
+    gLCDControlBuffer.wincnt.win0_enableBlend = 0;
+    gLCDControlBuffer.wincnt.win1_enableBlend = 0;
+
+    sub_8001ED0(0, 0, 1, 0, 0);
+    sub_8001F48(0);
+
+    sub_8001F0C(0, 0, 0, 1, 1);
+    sub_8001F64(1);
+
+    SetSpecialColorEffectsParameters(1, 0x10, 0x10, 0);
+
+    BG_SetPosition(2, 0, 0);
+
+    proc->unk40 = 0;
+    proc->unk42 = 0;
+    proc->unk44 = 0;
+
+    gUnknown_03001C7C = 0;
+
+    vsync = (void*) Proc_Create(gUnknown_089A448C, ROOT_PROC_0);
+
+    vsync->unk29 = 0;
+    vsync->unk2A = 0;
+
+    SetSecondaryHBlankHandler(sub_8080408);
+}
+
+struct Unk082058B4
+{
+    u8 unk00, unk01, unk02;
+};
+
+extern struct Unk082058B4 const gUnknown_082058B4[];
+extern struct Unk089A40AC CONST_DATA gUnknown_089A43D4[];
+extern unsigned const gUnknown_082058A8[];
+extern u8 const gUnknown_082058B0[];
+
+extern struct Unk089A40AC CONST_DATA gUnknown_089A43D8[];
+
+#ifdef NONMATCH
+
+void sub_8080138(struct MAEffectProc* proc)
+{
+    if (proc->unk42 == 0)
+    {
+        struct Proc8080050* vsync;
+
+        int v0 = gUnknown_082058B4[proc->unk40].unk00;
+
+        CopyDataWithPossibleUncomp(
+            gUnknown_089A43D4[v0].unk00,
+            (void*) VRAM + gUnknown_082058A8[proc->unk44] * 0x20);
+
+        CopyDataWithPossibleUncomp(
+            gUnknown_089A43D4[v0].unk08,
+            gUnknown_02020188);
+
+        sub_800159C(
+            gBG2TilemapBuffer,
+            (u16*) gUnknown_02020188,
+            0, 0,
+            gUnknown_082058A8[proc->unk44] | (gUnknown_082058B0[proc->unk44] << 12));
+
+        BG_EnableSyncByMask(BG2_SYNC_BIT);
+
+        ApplyPalette(
+            gUnknown_089A43D8[v0].unk00,
+            gUnknown_082058B0[proc->unk44]);
+
+        EnablePaletteSync();
+
+        vsync = (void*) Proc_Find(gUnknown_089A448C);
+
+        vsync->unk29 = 1;
+        vsync->unk2A = gUnknown_082058B4[proc->unk40].unk02;
+
+        if (proc->unk40 == 0)
+            PlaySpacialSoundMaybe(0x13F, proc->xDisplay); // TODO: song ids
+
+        proc->unk42 = gUnknown_082058B4[proc->unk40].unk01;
+
+        if (proc->unk40 > 6)
+        {
+            vsync->unk29 = 1;
+            vsync->unk2A = 0;
+
+            proc->unk40 = 0;
+
+            Proc_ClearNativeCallback((struct Proc*) proc);
+        }
+        else
+        {
+            proc->unk40++;
+            proc->unk44 = proc->unk44 ^ 1;
+        }
+    }
+
+    proc->unk42--;
+}
+
+#else // NONMATCH
+
+__attribute__((naked))
+void sub_8080138(struct MAEffectProc* proc)
+{
+    asm("\n\
+        .syntax unified\n\
+        push {r4, r5, r6, r7, lr}\n\
+        mov r7, sl\n\
+        mov r6, r9\n\
+        mov r5, r8\n\
+        push {r5, r6, r7}\n\
+        sub sp, #0xc\n\
+        mov r9, r0\n\
+        adds r0, #0x42\n\
+        str r0, [sp, #4]\n\
+        ldrh r1, [r0]\n\
+        str r1, [sp, #8]\n\
+        cmp r1, #0\n\
+        beq _08080154\n\
+        b _0808026C\n\
+    _08080154:\n\
+        mov r7, r9\n\
+        adds r7, #0x40\n\
+        ldrh r0, [r7]\n\
+        lsls r0, r0, #2\n\
+        ldr r2, _0808023C  @ gUnknown_082058B4\n\
+        adds r0, r0, r2\n\
+        ldrb r0, [r0]\n\
+        ldr r1, _08080240  @ gUnknown_089A43D4\n\
+        mov sl, r1\n\
+        lsls r4, r0, #1\n\
+        adds r4, r4, r0\n\
+        lsls r4, r4, #2\n\
+        adds r0, r4, r1\n\
+        ldr r0, [r0]\n\
+        ldr r2, _08080244  @ gUnknown_082058A8\n\
+        mov r8, r2\n\
+        mov r5, r9\n\
+        adds r5, #0x44\n\
+        ldrh r1, [r5]\n\
+        lsls r1, r1, #2\n\
+        add r1, r8\n\
+        ldr r1, [r1]\n\
+        lsls r1, r1, #5\n\
+        movs r2, #0xc0\n\
+        lsls r2, r2, #0x13\n\
+        adds r1, r1, r2\n\
+        bl CopyDataWithPossibleUncomp\n\
+        mov r0, sl\n\
+        adds r0, #8\n\
+        adds r0, r4, r0\n\
+        ldr r0, [r0]\n\
+        ldr r6, _08080248  @ gUnknown_02020188\n\
+        adds r1, r6, #0\n\
+        bl CopyDataWithPossibleUncomp\n\
+        ldr r0, _0808024C  @ gBG2TilemapBuffer\n\
+        ldrh r3, [r5]\n\
+        lsls r1, r3, #2\n\
+        add r1, r8\n\
+        ldr r2, [r1]\n\
+        ldr r1, _08080250  @ gUnknown_082058B0\n\
+        mov r8, r1\n\
+        add r3, r8\n\
+        ldrb r1, [r3]\n\
+        lsls r1, r1, #0xc\n\
+        orrs r2, r1\n\
+        lsls r2, r2, #0x10\n\
+        lsrs r2, r2, #0x10\n\
+        str r2, [sp]\n\
+        adds r1, r6, #0\n\
+        movs r2, #0\n\
+        movs r3, #0\n\
+        bl sub_800159C\n\
+        movs r0, #4\n\
+        bl BG_EnableSyncByMask\n\
+        ldr r2, _08080254  @ gUnknown_089A43D8\n\
+        adds r4, r4, r2\n\
+        ldr r0, [r4]\n\
+        ldrh r1, [r5]\n\
+        add r1, r8\n\
+        ldrb r1, [r1]\n\
+        lsls r1, r1, #5\n\
+        movs r2, #0x20\n\
+        bl CopyToPaletteBuffer\n\
+        bl EnablePaletteSync\n\
+        ldr r0, _08080258  @ gUnknown_089A448C\n\
+        bl Proc_Find\n\
+        adds r6, r0, #0\n\
+        adds r6, #0x29\n\
+        movs r1, #1\n\
+        mov r8, r1\n\
+        mov r2, r8\n\
+        strb r2, [r6]\n\
+        ldrh r1, [r7]\n\
+        lsls r1, r1, #2\n\
+        ldr r2, _0808023C  @ gUnknown_082058B4\n\
+        adds r1, r1, r2\n\
+        ldrb r1, [r1, #2]\n\
+        adds r4, r0, #0\n\
+        adds r4, #0x2a\n\
+        strb r1, [r4]\n\
+        ldrh r0, [r7]\n\
+        cmp r0, #0\n\
+        bne _08080212\n\
+        ldr r0, _0808025C  @ 0x0000013F\n\
+        mov r2, r9\n\
+        ldr r1, [r2, #0x30]\n\
+        bl PlaySpacialSoundMaybe\n\
+    _08080212:\n\
+        ldrh r0, [r7]\n\
+        lsls r0, r0, #2\n\
+        ldr r1, _0808023C  @ gUnknown_082058B4\n\
+        adds r0, r0, r1\n\
+        ldrb r0, [r0, #1]\n\
+        ldr r2, [sp, #4]\n\
+        strh r0, [r2]\n\
+        ldrh r0, [r7]\n\
+        cmp r0, #6\n\
+        bls _08080260\n\
+        mov r0, r8\n\
+        strb r0, [r6]\n\
+        movs r0, #0\n\
+        strb r0, [r4]\n\
+        mov r1, sp\n\
+        ldrh r1, [r1, #8]\n\
+        strh r1, [r7]\n\
+        mov r0, r9\n\
+        bl Proc_ClearNativeCallback\n\
+        b _0808026C\n\
+        .align 2, 0\n\
+    _0808023C: .4byte gUnknown_082058B4\n\
+    _08080240: .4byte gUnknown_089A43D4\n\
+    _08080244: .4byte gUnknown_082058A8\n\
+    _08080248: .4byte gUnknown_02020188\n\
+    _0808024C: .4byte gBG2TilemapBuffer\n\
+    _08080250: .4byte gUnknown_082058B0\n\
+    _08080254: .4byte gUnknown_089A43D8\n\
+    _08080258: .4byte gUnknown_089A448C\n\
+    _0808025C: .4byte 0x0000013F\n\
+    _08080260:\n\
+        adds r0, #1\n\
+        strh r0, [r7]\n\
+        ldrh r0, [r5]\n\
+        movs r1, #1\n\
+        eors r0, r1\n\
+        strh r0, [r5]\n\
+    _0808026C:\n\
+        mov r1, r9\n\
+        adds r1, #0x42\n\
+        ldrh r0, [r1]\n\
+        subs r0, #1\n\
+        strh r0, [r1]\n\
+        add sp, #0xc\n\
+        pop {r3, r4, r5}\n\
+        mov r8, r3\n\
+        mov r9, r4\n\
+        mov sl, r5\n\
+        pop {r4, r5, r6, r7}\n\
+        pop {r0}\n\
+        bx r0\n\
+    \n\
+        .syntax divided\n\
+    ");
+}
+
+#endif

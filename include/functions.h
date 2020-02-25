@@ -7217,6 +7217,6 @@ void SoundBiasSet();
 void ClearOAMBuffer();
 void TileMap_FillRect(u16 *dest, int width, int height, int fillValue);
 void TileMap_CopyRect(u16* src, u16* dst, int width, int height);
-void CallARM_FillTileRect(u16* tilemap, const void* tsa, int tileref);
+void CallARM_FillTileRect(u16* tilemap, const void* tsa, u16 tileref);
 
 #endif  // GUARD_FUNCTIONS_H
