@@ -36,3 +36,5 @@ sort of how-to for setting up fireemblem8u
 Q1: Help, it said Makefile:1: /base_tools: No such file or directory when I was compiling agbcc!
 A1: You didn't check out the new_layout_with_libs branch. This is a dependency on Devkitpro, which this branch abandons. 
 ```
+
+Check branch `remove_tools` if you find it too hard to set up the local build environment.
