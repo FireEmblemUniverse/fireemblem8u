@@ -6,4 +6,4 @@ if [ ! -f $map_file ]; then
   exit 1
 fi
 
-perl scripts/calcrom.pl $map_file | sed -E ':a;N;$!ba;s/\r{0,1}\n/\\n/g'
+perl scripts/calcrom.pl $map_file
