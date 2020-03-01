@@ -1,6 +1,6 @@
 #!/bin/bash -ex
 
-map_file=fireemblem8u.map
+map_file=fireemblem8.map
 if [ ! -f $map_file ]; then
   echo "$map_file does not exist!"
   exit 1
