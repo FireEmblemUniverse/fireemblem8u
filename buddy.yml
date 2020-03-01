@@ -24,6 +24,7 @@
     - "fi"
     - "./build_tools.sh"
     - "PATH=`pwd`/tools/binutils/bin:$PATH make"
+    - "scripts/calcrom.sh"
     mount_filesystem_path: "/buddy/fireemblem8u"
     shell: "BASH"
     trigger_condition: "ALWAYS"

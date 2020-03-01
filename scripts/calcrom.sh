@@ -1,0 +1,9 @@
+#!/bin/bash -ex
+
+map_file=fireemblem8u.map
+if [ ! -f $map_file ]; then
+  echo "$map_file does not exist!"
+  exit 1
+fi
+
+perl scripts/calcrom.pl $map_file | sed -E ':a;N;$!ba;s/\r{0,1}\n/\\n/g'
