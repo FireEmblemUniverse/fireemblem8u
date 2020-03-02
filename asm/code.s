@@ -57865,7 +57865,7 @@ sub_80A6408: @ 0x080A6408
 	bl _call_via_r3
 	adds r0, r4, #0
 	adds r1, r5, #0
-	bl sub_80D74C0
+	bl CalcSomeChecksum
 	pop {r4, r5}
 	pop {r1}
 	bx r1

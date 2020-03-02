@@ -149,8 +149,8 @@ ARM_FillRect: @ 0x080003A8
 	pop {r4, r5, r6, r7}
 	bx lr
 
-	ARM_FUNC_START sub_80003E0
-sub_80003E0: @ 0x080003E0
+	ARM_FUNC_START ARM_CopyRect
+ARM_CopyRect: @ 0x080003E0
 	push {r4, r5, r6, r7}
 	tst r2, r2
 	beq _08000434
@@ -178,8 +178,8 @@ _08000434:
 	pop {r4, r5, r6, r7}
 	bx lr
 
-	ARM_FUNC_START sub_800043C
-sub_800043C: @ 0x0800043C
+	ARM_FUNC_START ARM_FillTileRect
+ARM_FillTileRect: @ 0x0800043C
 	push {r4, r5, r6, r7}
 	ldrb r3, [r1]
 	ldrb r4, [r1, #1]
