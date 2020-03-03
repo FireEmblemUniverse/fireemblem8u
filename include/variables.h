@@ -1,6 +1,11 @@
 #ifndef GUARD_VARIABLES_H
 #define GUARD_VARIABLES_H
 
+#include "gba/types.h"
+#include "types.h"
+#include "global.h"
+#include "proc.h"
+
 // extern ??? gUnknown_02000000
 // extern ??? gUnknown_02000008
 // extern ??? gUnknown_02000010
