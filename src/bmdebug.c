@@ -4,8 +4,8 @@
 
 #include "../include/bmdebug.h"
 
-// if total frame is even, return 2; else return 3
-int Return2or3ByFrameTotalParity(void)
+// if current seconds is even, return 2; else return 3
+int Return2or3BySecondParity(void)
 {
     int retVal;
     unsigned short hours;
