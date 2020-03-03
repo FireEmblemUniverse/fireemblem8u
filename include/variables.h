@@ -799,7 +799,6 @@ extern struct Unit* gActiveUnit;
 // extern ??? gUnknown_03004E86
 // extern ??? gUnknown_03004F08
 // extern ??? gUnknown_03004F0C
-// extern ??? gUnknown_03004F10
 // extern ??? gUnknown_03004F20
 // extern ??? gUnknown_03004FA0
 // extern ??? gUnknown_03004FA4

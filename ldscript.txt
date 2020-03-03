@@ -111,7 +111,6 @@ SECTIONS
         asm/bmdifficulty.o(.text);
         src/cp_phase.o(.text);
         src/cp_order.o(.text);
-        asm/cporder.o(.text);
         asm/cpdecide.o(.text);
         asm/cpperform.o(.text);
         asm/code_cpextra.o(.text);
@@ -209,7 +208,7 @@ SECTIONS
         . = ALIGN(4); data/const_data_D7F5C.o(.rodata);
         . = ALIGN(4); src/cp_phase.o(.rodata);
         . = ALIGN(4); src/cp_order.o(.rodata);
-        . = ALIGN(4); data/const_data_D80C4.o(.rodata);
+        . = ALIGN(4); data/const_data_D80D0.o(.rodata);
         . = ALIGN(4); src/uiutils.o(.rodata);
         . = ALIGN(4); src/uimenu.o(.rodata);
         . = ALIGN(4); src/uitarget.o(.rodata);

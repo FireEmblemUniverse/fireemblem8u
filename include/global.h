@@ -5,7 +5,7 @@
 
 #include "gba/gba.h"
 
-#define CONST_DATA const __attribute__((section(".data")))
+#define CONST_DATA __attribute__((section(".data")))
 
 #include "types.h"
 #include "variables.h"
