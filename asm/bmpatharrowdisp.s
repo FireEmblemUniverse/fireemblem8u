@@ -1079,7 +1079,7 @@ _080331B2:
 	str r3, [sp]
 	movs r0, #0xb
 	ldr r3, _08033244  @ gUnknown_08590F4C
-	bl RegisterObjectAttributes_SafeMaybe
+	bl PutSprite
 _08033220:
 	subs r0, r6, #1
 	lsls r5, r0, #0x18

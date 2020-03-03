@@ -41,7 +41,7 @@ _08035486:
 	adds r1, r4, #0
 	adds r2, r7, #0
 	ldr r3, _080354DC  @ gUnknown_08590F8C
-	bl RegisterObjectAttributes_SafeMaybe
+	bl PutSprite
 	adds r5, #1
 	cmp r5, #8
 	ble _08035486

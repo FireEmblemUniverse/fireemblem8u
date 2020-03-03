@@ -133,7 +133,7 @@ sub_80055BC: @ 0x080055BC
 	ldr r3, [r4, #0x38]
 	ldrh r4, [r4, #0x3c]
 	str r4, [sp]
-	bl RegisterObjectAttributes
+	bl PutSpriteExt
 _08005602:
 	add sp, #4
 	pop {r4}
@@ -789,7 +789,7 @@ sub_8005AD4: @ 0x08005AD4
 	ldrh r0, [r0, #0x3c]
 	str r0, [sp]
 	movs r0, #5
-	bl RegisterObjectAttributes_SafeMaybe
+	bl PutSprite
 	add sp, #4
 	pop {r4}
 	pop {r0}
@@ -1559,7 +1559,7 @@ _080060DE:
 	adds r1, #0x1c
 	str r1, [sp]
 	adds r1, r5, #0
-	bl RegisterObjectAttributes
+	bl PutSpriteExt
 	add sp, #4
 	pop {r4, r5, r6}
 	pop {r0}
@@ -1681,7 +1681,7 @@ _080061EE:
 	str r1, [sp]
 	adds r1, r4, #0
 	adds r2, r6, #0
-	bl RegisterObjectAttributes
+	bl PutSpriteExt
 	b _0800622A
 	.align 2, 0
 _0800620C: .4byte 0x000001FF
@@ -1696,7 +1696,7 @@ _08006214:
 	str r1, [sp]
 	adds r1, r4, #0
 	adds r2, r6, #0
-	bl RegisterObjectAttributes
+	bl PutSpriteExt
 _0800622A:
 	add sp, #4
 	pop {r3, r4}

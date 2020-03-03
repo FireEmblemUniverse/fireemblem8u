@@ -665,7 +665,7 @@ _08015B52:
 	adds r1, r6, #0
 	adds r2, r7, #0
 	mov r3, r8
-	bl RegisterObjectAttributes_SafeMaybe
+	bl PutSprite
 	add sp, #4
 	pop {r3, r4}
 	mov r8, r3
@@ -696,7 +696,7 @@ sub_8015B88: @ 0x08015B88
 	movs r0, #4
 	adds r1, r4, #0
 	adds r2, r5, #0
-	bl RegisterObjectAttributes_SafeMaybe
+	bl PutSprite
 	add sp, #4
 	pop {r4, r5}
 	pop {r0}
@@ -748,7 +748,7 @@ _08015BFA:
 	movs r0, #4
 	adds r1, r5, #0
 	adds r2, r6, #0
-	bl RegisterObjectAttributes_SafeMaybe
+	bl PutSprite
 	add sp, #4
 	pop {r4, r5, r6}
 	pop {r0}

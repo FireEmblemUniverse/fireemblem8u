@@ -32,7 +32,7 @@ struct SpriteProc
     /* 54 */ const u16* object;
 };
 
-void sub_8005370(int id, int pa, int pb, int pc, int pd)
+void PutObjectAffine(int id, int pa, int pb, int pc, int pd)
 {
     gUnknown_03003140[id*0x10 + 0x03] = pa;
     gUnknown_03003140[id*0x10 + 0x07] = pb;
@@ -40,7 +40,7 @@ void sub_8005370(int id, int pa, int pb, int pc, int pd)
     gUnknown_03003140[id*0x10 + 0x0F] = pd;
 }
 
-void ClearIntermediateOAMBuffers(void)
+void ClearSprites(void)
 {
     int i;
 
@@ -56,7 +56,7 @@ void ClearIntermediateOAMBuffers(void)
     gSpriteAllocIt = sSpritePool;
 }
 
-void RegisterObjectAttributes_SafeMaybe(int layer, int x, int y, const u16* object, int oam2)
+void PutSprite(int layer, int x, int y, const u16* object, int oam2)
 {
     gSpriteAllocIt->next = sSpriteLayers[layer].next;
     gSpriteAllocIt->oam1 = x & 0x1FF;
@@ -67,7 +67,7 @@ void RegisterObjectAttributes_SafeMaybe(int layer, int x, int y, const u16* obje
     sSpriteLayers[layer].next = gSpriteAllocIt++;
 }
 
-void RegisterObjectAttributes(int layer, int xOam1, int yOam0, const u16* object, int oam2)
+void PutSpriteExt(int layer, int xOam1, int yOam0, const u16* object, int oam2)
 {
     gSpriteAllocIt->next = sSpriteLayers[layer].next;
     gSpriteAllocIt->oam1 = xOam1;
@@ -78,7 +78,7 @@ void RegisterObjectAttributes(int layer, int xOam1, int yOam0, const u16* object
     sSpriteLayers[layer].next = gSpriteAllocIt++;
 }
 
-void FlushIntermediateOAMBuffer(int layer)
+void PushSpriteLayerObjects(int layer)
 {
     struct SpriteEntry* it = sSpriteLayers + layer;
 
@@ -93,7 +93,7 @@ void FlushIntermediateOAMBuffer(int layer)
 
 void sub_8005488(struct SpriteProc* proc)
 {
-    RegisterObjectAttributes_SafeMaybe(proc->layer, proc->x, proc->y, proc->object, proc->tileref);
+    PutSprite(proc->layer, proc->x, proc->y, proc->object, proc->tileref);
 }
 
 struct SpriteProc* sub_80054B0(struct Proc* parent, int layer, int x, int y, const u16* object, int tileref)

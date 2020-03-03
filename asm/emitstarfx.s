@@ -84,7 +84,7 @@ _0802203E:
 	lsls r0, r0, #4
 	str r0, [sp]
 	movs r0, #0xa
-	bl RegisterObjectAttributes_SafeMaybe
+	bl PutSprite
 _08022052:
 	add sp, #4
 	pop {r4}

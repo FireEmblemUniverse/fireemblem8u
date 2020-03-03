@@ -161,7 +161,7 @@ sub_801EAE8: @ 0x0801EAE8
 	str r0, [sp]
 	movs r0, #4
 	adds r1, r5, #0
-	bl RegisterObjectAttributes_SafeMaybe
+	bl PutSprite
 	ldr r3, [r7, #0x2c]
 	movs r0, #4
 	adds r1, r5, #0

@@ -210,7 +210,7 @@ _0804FEE0: .4byte 0x04000006
 	THUMB_FUNC_START MainUpdate_804FEE4
 MainUpdate_804FEE4: @ 0x0804FEE4
 	push {r4, lr}
-	bl ClearIntermediateOAMBuffers
+	bl ClearSprites
 	bl sub_8071A8C
 	bl GetThread2SkipStack
 	lsls r0, r0, #0x18
@@ -226,7 +226,7 @@ _0804FF00:
 	ldr r0, [r4, #0x14]
 	bl Proc_Run
 	movs r0, #0
-	bl FlushIntermediateOAMBuffer
+	bl PushSpriteLayerObjects
 	ldr r0, [r4, #4]
 	bl Proc_Run
 	bl AnimUpdateAll
@@ -248,7 +248,7 @@ _0804FF00:
 	str r0, [r1]
 _0804FF42:
 	movs r0, #0xd
-	bl FlushIntermediateOAMBuffer
+	bl PushSpriteLayerObjects
 	pop {r4}
 	pop {r0}
 	bx r0
@@ -11883,7 +11883,7 @@ MainUpdate_8055C68: @ 0x08055C68
 	ldr r0, _08055CCC  @ gKeyStatusPtr
 	ldr r0, [r0]
 	bl UpdateKeyStatus
-	bl ClearIntermediateOAMBuffers
+	bl ClearSprites
 	ldr r4, _08055CD0  @ gRootProcesses
 	ldr r0, [r4, #4]
 	bl Proc_Run
@@ -11899,13 +11899,13 @@ _08055C8E:
 	ldr r0, [r4, #0x14]
 	bl Proc_Run
 	movs r0, #0
-	bl FlushIntermediateOAMBuffer
+	bl PushSpriteLayerObjects
 	ldr r0, [r4, #0x10]
 	bl Proc_Run
 	bl AnimUpdateAll
 	bl BattleAIS_ExecCommands
 	movs r0, #0xd
-	bl FlushIntermediateOAMBuffer
+	bl PushSpriteLayerObjects
 	ldr r1, _08055CD4  @ gUnknown_0202BCB0
 	movs r0, #1
 	strb r0, [r1]

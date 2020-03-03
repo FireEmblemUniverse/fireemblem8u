@@ -55,7 +55,7 @@ sub_803471C: @ 0x0803471C
 	adds r0, #3
 	str r0, [sp]
 	movs r0, #2
-	bl RegisterObjectAttributes_SafeMaybe
+	bl PutSprite
 	b _0803479E
 	.align 2, 0
 _08034788: .4byte gUnknown_080D7F8C

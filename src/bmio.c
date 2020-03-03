@@ -811,7 +811,7 @@ void WfxClouds_VSync(void) {
 void WfxClouds_Update(void) {
     int y = gUnknown_0202BCB0.camera.y;
 
-    RegisterObjectAttributes_SafeMaybe(
+    PutSprite(
         14,
         0, -(y / 5),
         sObj_BackgroundClouds,

@@ -1334,7 +1334,7 @@ sub_8036F4C: @ 0x08036F4C
 	adds r0, r0, r4
 	str r0, [sp]
 	movs r0, #4
-	bl RegisterObjectAttributes_SafeMaybe
+	bl PutSprite
 _08036FB2:
 	adds r4, r7, #0
 	adds r4, #0x51
@@ -1351,7 +1351,7 @@ _08036FB2:
 	adds r0, r0, r4
 	str r0, [sp]
 	movs r0, #4
-	bl RegisterObjectAttributes_SafeMaybe
+	bl PutSprite
 _08036FD4:
 	add sp, #4
 	pop {r4, r5, r6, r7}

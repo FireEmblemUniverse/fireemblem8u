@@ -427,42 +427,42 @@ sub_8033574: @ 0x08033574
 	movs r1, #0x64
 	movs r2, #0x8c
 	adds r3, r4, #0
-	bl RegisterObjectAttributes_SafeMaybe
+	bl PutSprite
 	ldr r0, _080335EC  @ 0x0000238F
 	str r0, [sp]
 	movs r0, #4
 	movs r1, #0x84
 	movs r2, #0x8c
 	adds r3, r4, #0
-	bl RegisterObjectAttributes_SafeMaybe
+	bl PutSprite
 	ldr r3, _080335F0  @ gUnknown_08590F4C
 	ldr r0, _080335F4  @ 0x00002393
 	str r0, [sp]
 	movs r0, #4
 	movs r1, #0xa4
 	movs r2, #0x8c
-	bl RegisterObjectAttributes_SafeMaybe
+	bl PutSprite
 	ldr r0, _080335F8  @ 0x00002395
 	str r0, [sp]
 	movs r0, #4
 	movs r1, #0x10
 	movs r2, #0x8c
 	adds r3, r4, #0
-	bl RegisterObjectAttributes_SafeMaybe
+	bl PutSprite
 	ldr r0, _080335FC  @ 0x00002399
 	str r0, [sp]
 	movs r0, #4
 	movs r1, #0x30
 	movs r2, #0x8c
 	adds r3, r4, #0
-	bl RegisterObjectAttributes_SafeMaybe
+	bl PutSprite
 	ldr r3, _08033600  @ gUnknown_08590F64
 	ldr r0, _08033604  @ 0x0000239D
 	str r0, [sp]
 	movs r0, #4
 	movs r1, #0x50
 	movs r2, #0x8c
-	bl RegisterObjectAttributes_SafeMaybe
+	bl PutSprite
 	add sp, #4
 	pop {r4}
 	pop {r0}
@@ -1318,7 +1318,7 @@ _08033CC8:
 	str r0, [sp]
 	movs r0, #4
 	adds r1, r5, #0
-	bl RegisterObjectAttributes_SafeMaybe
+	bl PutSprite
 _08033D04:
 	ldr r0, _08033D38  @ gKeyStatusPtr
 	ldr r0, [r0]

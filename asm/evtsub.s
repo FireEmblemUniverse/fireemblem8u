@@ -42,7 +42,7 @@ sub_8011784: @ 0x08011784
 	str r7, [sp]
 	movs r0, #4
 	adds r3, r5, #0
-	bl RegisterObjectAttributes
+	bl PutSpriteExt
 	ldr r0, [r6, #0x44]
 	subs r0, #2
 	lsls r0, r0, #3
@@ -55,7 +55,7 @@ sub_8011784: @ 0x08011784
 	str r0, [sp]
 	movs r0, #4
 	adds r3, r5, #0
-	bl RegisterObjectAttributes
+	bl PutSpriteExt
 	ldr r1, [r6, #0x30]
 	ldrh r0, [r4]
 	adds r0, #0x18
@@ -66,7 +66,7 @@ sub_8011784: @ 0x08011784
 	str r0, [sp]
 	movs r0, #4
 	adds r3, r5, #0
-	bl RegisterObjectAttributes
+	bl PutSpriteExt
 	ldr r0, [r6, #0x44]
 	subs r0, #2
 	lsls r0, r0, #3
@@ -81,7 +81,7 @@ sub_8011784: @ 0x08011784
 	str r0, [sp]
 	movs r0, #4
 	adds r3, r5, #0
-	bl RegisterObjectAttributes
+	bl PutSpriteExt
 	ldr r1, [r6, #0x30]
 	ldrh r0, [r4]
 	adds r0, #8
@@ -92,7 +92,7 @@ sub_8011784: @ 0x08011784
 	str r0, [sp]
 	movs r0, #4
 	adds r3, r5, #0
-	bl RegisterObjectAttributes
+	bl PutSpriteExt
 	ldr r1, [r6, #0x30]
 	ldrh r0, [r4]
 	adds r0, #0x10
@@ -103,7 +103,7 @@ sub_8011784: @ 0x08011784
 	str r0, [sp]
 	movs r0, #4
 	adds r3, r5, #0
-	bl RegisterObjectAttributes
+	bl PutSpriteExt
 	ldr r0, [r6, #0x44]
 	subs r0, #1
 	lsls r0, r0, #3
@@ -118,7 +118,7 @@ sub_8011784: @ 0x08011784
 	str r0, [sp]
 	movs r0, #4
 	adds r3, r5, #0
-	bl RegisterObjectAttributes
+	bl PutSpriteExt
 	ldr r0, [r6, #0x44]
 	subs r0, #1
 	lsls r0, r0, #3
@@ -133,7 +133,7 @@ sub_8011784: @ 0x08011784
 	str r0, [sp]
 	movs r0, #4
 	adds r3, r5, #0
-	bl RegisterObjectAttributes
+	bl PutSpriteExt
 	movs r5, #2
 	b _080118C6
 	.align 2, 0
@@ -153,7 +153,7 @@ _080118A8:
 	str r0, [sp]
 	movs r0, #4
 	ldr r3, _08011904  @ gUnknown_08590F7C
-	bl RegisterObjectAttributes
+	bl PutSpriteExt
 	adds r5, #2
 _080118C6:
 	ldr r0, [r6, #0x44]
@@ -179,7 +179,7 @@ _080118DC:
 	str r0, [sp]
 	movs r0, #4
 	ldr r3, _08011908  @ gUnknown_08590F44
-	bl RegisterObjectAttributes
+	bl PutSpriteExt
 	adds r5, #1
 	ldr r0, [r6, #0x44]
 	subs r0, #1
@@ -205,7 +205,7 @@ _0801190C:
 	str r0, [sp]
 	movs r0, #4
 	ldr r3, _08011A0C  @ gUnknown_08590F7C
-	bl RegisterObjectAttributes
+	bl PutSpriteExt
 	adds r5, #2
 _0801192C:
 	ldr r0, [r6, #0x44]
@@ -234,7 +234,7 @@ _08011946:
 	str r0, [sp]
 	movs r0, #4
 	ldr r3, _08011A0C  @ gUnknown_08590F7C
-	bl RegisterObjectAttributes
+	bl PutSpriteExt
 	ldr r1, [r6, #0x30]
 	adds r1, r1, r4
 	mov r2, r9
@@ -246,7 +246,7 @@ _08011946:
 	str r0, [sp]
 	movs r0, #4
 	ldr r3, _08011A0C  @ gUnknown_08590F7C
-	bl RegisterObjectAttributes
+	bl PutSpriteExt
 	adds r5, #2
 	ldr r0, [r6, #0x44]
 	subs r0, #2
@@ -273,7 +273,7 @@ _08011996:
 	str r7, [sp]
 	movs r0, #4
 	mov r3, r9
-	bl RegisterObjectAttributes
+	bl PutSpriteExt
 	ldr r1, [r6, #0x30]
 	adds r1, r1, r4
 	mov r2, r8
@@ -284,7 +284,7 @@ _08011996:
 	str r7, [sp]
 	movs r0, #4
 	mov r3, r9
-	bl RegisterObjectAttributes
+	bl PutSpriteExt
 	adds r5, #1
 	ldr r0, [r6, #0x44]
 	subs r0, #1
@@ -305,7 +305,7 @@ _080119D8:
 	str r4, [sp]
 	movs r0, #0
 	ldr r3, _08011A14  @ gUnknown_08590F8C
-	bl RegisterObjectAttributes
+	bl PutSpriteExt
 	adds r4, #4
 	adds r7, #0x20
 	subs r5, #1

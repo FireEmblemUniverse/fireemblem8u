@@ -2721,7 +2721,7 @@ sub_80390D4: @ 0x080390D4
 	lsls r0, r0, #7
 	str r0, [sp]
 	movs r0, #4
-	bl RegisterObjectAttributes
+	bl PutSpriteExt
 	b _080391BA
 	.align 2, 0
 _08039120: .4byte gUnknown_02003BE8
@@ -3194,7 +3194,7 @@ sub_80394A8: @ 0x080394A8
 	lsls r0, r0, #7
 	str r0, [sp]
 	movs r0, #4
-	bl RegisterObjectAttributes
+	bl PutSpriteExt
 	b _0803953E
 	.align 2, 0
 _080394E0: .4byte gUnknown_02003BE8

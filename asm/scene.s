@@ -2595,7 +2595,7 @@ sub_8007C4C: @ 0x08007C4C
 	movs r0, #4
 	str r0, [sp]
 	movs r0, #2
-	bl RegisterObjectAttributes_SafeMaybe
+	bl PutSprite
 	b _08007CAC
 	.align 2, 0
 _08007C88: .4byte gUnknown_08591430
@@ -2614,7 +2614,7 @@ _08007C8C:
 	ldr r0, _08007CCC  @ 0x0000B2BF
 	str r0, [sp]
 	movs r0, #0
-	bl RegisterObjectAttributes_SafeMaybe
+	bl PutSprite
 _08007CAC:
 	ldr r0, _08007CD0  @ gKeyStatusPtr
 	ldr r0, [r0]
@@ -4460,7 +4460,7 @@ sub_8008AA8: @ 0x08008AA8
 	str r4, [sp]
 	movs r0, #3
 	mov r3, ip
-	bl RegisterObjectAttributes_SafeMaybe
+	bl PutSprite
 	ldr r1, [r7, #0x2c]
 	ldr r2, [r7, #0x30]
 	ldr r3, _08008B1C  @ gUnknown_08591590
@@ -4474,7 +4474,7 @@ sub_8008AA8: @ 0x08008AA8
 	orrs r6, r5
 	str r6, [sp]
 	movs r0, #3
-	bl RegisterObjectAttributes_SafeMaybe
+	bl PutSprite
 	add sp, #4
 	pop {r3, r4}
 	mov r8, r3

@@ -439,7 +439,7 @@ _0801EF58:
 	movs r0, #2
 	movs r1, #0
 	movs r2, #0x44
-	bl RegisterObjectAttributes
+	bl PutSpriteExt
 	add sp, #4
 	pop {r3, r4}
 	mov r8, r3
