@@ -37,7 +37,7 @@ while (my $line = <$file>)
             {
                 $srcdata += $size;
             }
-            elsif ($dir eq 'data/banim')
+            elsif ($dir eq 'banim')
             {
                 $dataBanim += $size;
             }
