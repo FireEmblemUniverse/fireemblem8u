@@ -341,16 +341,6 @@ enum
     WEATHER_CLOUDS = 7
 };
 
-struct UnknownStructCTC
-{
-    struct UnknownStructCTC *unk0;
-    s16 unk4;
-    s16 unk6;
-    u16 unk8;
-    u8 fillerA[2];
-    const void *unkC;
-};
-
 struct SMSHandle
 {
     /* 00 */ struct SMSHandle* pNext;

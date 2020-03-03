@@ -502,8 +502,6 @@ extern struct TileDataTransfer gUnknown_02024CDC[];
 // extern ??? gUnknown_02026E10
 // extern ??? gUnknown_02028F78
 // extern ??? gUnknown_02029D88
-extern struct UnknownStructCTC gUnknown_02029D8C[];
-extern struct UnknownStructCTC gUnknown_0202A58C[17];
 // extern ??? gUnknown_0202A68C
 extern struct TextBuffer0202A6AC gUnknown_0202A6AC;
 //extern u8 gUnknown_0202AC01[];
@@ -788,7 +786,6 @@ extern void (*sHBlankHandler2)(void);
 extern u16* gUnknown_03004158;
 // extern ??? gUnknown_03004160
 // extern ??? gUnknown_03004960
-extern struct UnknownStructCTC *gUnknown_03004970;
 // extern ??? gUnknown_03004980
 // extern ??? gUnknown_03004990
 // extern ??? gUnknown_03004C00
