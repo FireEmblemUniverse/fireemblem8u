@@ -11,6 +11,7 @@ my $src = 0;
 my $asm = 0;
 my $srcdata = 0;
 my $data = 0;
+my $dataBanim = 0;
 while (my $line = <$file>)
 {
     if ($line =~ /^ \.(\w+)\s+0x[0-9a-f]+\s+(0x[0-9a-f]+) (\w+)\/.+\.o/)
@@ -35,6 +36,10 @@ while (my $line = <$file>)
             if ($dir eq 'src')
             {
                 $srcdata += $size;
+            }
+            elsif ($dir eq 'data/banim')
+            {
+                $dataBanim += $size;
             }
             elsif ($dir eq 'data')
             {
@@ -135,9 +140,11 @@ print "$partial_documented symbols partially documented ($partialPct%)\n";
 print "$undocumented symbols undocumented ($undocPct%)\n";
 
 print "\n";
-my $dataTotal = $srcdata + $data;
+my $dataTotal = $srcdata + $data + $dataBanim;
 my $srcDataPct = sprintf("%.4f", 100 * $srcdata / $dataTotal);
 my $dataPct = sprintf("%.4f", 100 * $data / $dataTotal);
+my $dataBanim = sprintf("%.4f", 100 * $dataBanim / $dataTotal);
 print "$dataTotal total bytes of data\n";
 print "$srcdata bytes of data in src ($srcDataPct%)\n";
+print "$dataBanim bytes of data is in data/banim ($dataBanimPct%)\n";
 print "$data bytes of data in data ($dataPct%)\n";
