@@ -11,6 +11,9 @@ my $src = 0;
 my $asm = 0;
 my $srcdata = 0;
 my $data = 0;
+
+my $dataBanim = 0;
+
 while (my $line = <$file>)
 {
     if ($line =~ /^ \.(\w+)\s+0x[0-9a-f]+\s+(0x[0-9a-f]+) (\w+)\/.+\.o/)
@@ -39,6 +42,20 @@ while (my $line = <$file>)
             elsif ($dir eq 'data')
             {
                 $data += $size;
+            }
+        }
+    }
+    if ($line =~ /^ \.(\w+)\s+0x[0-9a-f]+\s+(0x[0-9a-f]+) data\/(\w+)\/.+\.o/)
+    {
+        my $section = $1;
+        my $size = hex($2);
+        my $dir = $3;
+
+        if ($section =~ /data/)
+        {
+            if ($dir eq 'banim')
+            {
+                $dataBanim += $size;
             }
         }
     }
@@ -141,3 +158,4 @@ my $dataPct = sprintf("%.4f", 100 * $data / $dataTotal);
 print "$dataTotal total bytes of data\n";
 print "$srcdata bytes of data in src ($srcDataPct%)\n";
 print "$data bytes of data in data ($dataPct%)\n";
+print "$dataBanim bytes of data is in data/banim\n";

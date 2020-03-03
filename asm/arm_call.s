@@ -14,7 +14,7 @@ CallARM_FillTileRect: @ 0x080D74A0
 	bx pc
 	nop
 	.ARM
-	b sub_800043C
+	b ARM_FillTileRect
 
 	THUMB_FUNC_START TileMap_FillRect
 TileMap_FillRect: @ 0x080D74A8
@@ -35,10 +35,10 @@ TileMap_CopyRect: @ 0x080D74B8
 	bx pc
 	nop
 	.ARM
-	b sub_80003E0
+	b ARM_CopyRect
 
-	THUMB_FUNC_START sub_80D74C0
-sub_80D74C0: @ 0x080D74C0
+	THUMB_FUNC_START CalcSomeChecksum
+CalcSomeChecksum: @ 0x080D74C0
 	bx pc
     nop
 	.ARM
