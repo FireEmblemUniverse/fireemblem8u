@@ -290,7 +290,7 @@ void TradeMenu_HighlightUpdater_OnInit(struct TradeMenuProc* proc)
 
 void TradeMenu_HighlightUpdater_OnLoop(struct TradeMenuProc* proc)
 {
-    struct TradeMenuProc* tradeMenu = (struct TradeMenuProc*) proc->parent;
+    struct TradeMenuProc* tradeMenu = (struct TradeMenuProc*) proc->proc_parent;
 
     if (proc->hoverColumn == tradeMenu->hoverColumn && proc->hoverRow == tradeMenu->hoverRow)
         return;
@@ -637,7 +637,7 @@ void TradeMenu_ClearDisplay(struct TradeMenuProc* proc)
 
 void TradeMenu_HelpBox_OnInit(struct Proc* proc)
 {
-    struct TradeMenuProc* tradeMenu = (struct TradeMenuProc*) proc->parent;
+    struct TradeMenuProc* tradeMenu = (struct TradeMenuProc*) proc->proc_parent;
 
     int item = tradeMenu->units[tradeMenu->hoverColumn]->items[tradeMenu->hoverRow];
 
@@ -664,7 +664,7 @@ void TradeMenu_HelpBox_OnInit(struct Proc* proc)
 
 void TradeMenu_HelpBox_OnLoop(struct Proc* proc)
 {
-    struct TradeMenuProc* tradeMenu = (struct TradeMenuProc*) proc->parent;
+    struct TradeMenuProc* tradeMenu = (struct TradeMenuProc*) proc->proc_parent;
 
     s8 changedSelection = TradeMenu_UpdateSelection(tradeMenu);
     int item = tradeMenu->units[tradeMenu->hoverColumn]->items[tradeMenu->hoverRow];
@@ -696,7 +696,7 @@ void TradeMenu_HelpBox_OnLoop(struct Proc* proc)
 
 void TradeMenu_HelpBox_OnEnd(struct Proc* proc)
 {
-    struct TradeMenuProc* tradeMenu = (struct TradeMenuProc*) proc->parent;
+    struct TradeMenuProc* tradeMenu = (struct TradeMenuProc*) proc->proc_parent;
 
     if (tradeMenu->extraCellEnabled)
     {

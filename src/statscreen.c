@@ -2082,7 +2082,7 @@ void HelpBox_OnOpen(struct HelpBoxProc* proc)
     struct Proc* found = Proc_Find(gProcScr_HelpPromptSpr);
 
     if (found)
-        found->blockSemaphore = 1; // lock (disabled) proc
+        found->proc_lockCnt = 1; // lock (disabled) proc
 
     if (proc->unk52 == 0)
         PlaySoundEffect(0x70); // TODO: song ids
@@ -2103,7 +2103,7 @@ void HelpBox_OnClose(struct HelpBoxProc* proc)
     struct Proc* found = Proc_Find(gProcScr_HelpPromptSpr);
 
     if (found)
-        found->blockSemaphore = 0; // unlock (enable) proc
+        found->proc_lockCnt = 0; // unlock (enable) proc
 
     if (proc->unk52 == 0)
     {

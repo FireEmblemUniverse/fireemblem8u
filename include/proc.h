@@ -3,13 +3,14 @@
 
 struct Proc;
 
-typedef void (*ProcFunc)(struct Proc *);
+typedef void* ProcPtr;
+typedef void(*ProcFunc)(ProcPtr proc);
 
 struct ProcCmd
 {
-    s16 opcode;
-    s16 dataImm;
-    void *dataPtr;
+    short opcode;
+    short dataImm;
+    void* dataPtr;
 };
 
 #define PROC_END                                     { 0x00, 0x0000, 0 }
@@ -42,29 +43,29 @@ struct ProcCmd
 
 // allows local Proc structs to invoke the general Proc
 // fields when creating local Proc definitions.
-#define PROC_HEADER                                                                  \
-    const struct ProcCmd *script; /*pointer to process script*/                      \
-    const struct ProcCmd *currCmd; /*pointer to currently executing script command*/ \
-    ProcFunc onDelete; /*callback to run upon delegint the process*/                 \
-    ProcFunc nativeFunc; /*callback to run once each frame.*/                        \
-                         /*disables script execution when not null*/                 \
-    char *name;                                                                      \
-    struct Proc *parent; /*pointer to parent proc. If this proc is a root proc,*/    \
-                         /*this member is an integer which is the root index.*/      \
-    struct Proc *child; /*pointer to most recently added child*/                     \
-    struct Proc *next; /*next sibling*/                                              \
-    struct Proc *prev; /*previous sibling*/                                          \
-    s16 sleepTime;                                                                   \
-    u8 mark;                                                                         \
-    u8 flags;                                                                        \
-    u8 blockSemaphore; /*wait semaphore. Process execution*/                         \
-                       /*is blocked when this is nonzero.*/                          \
+#define PROC_HEADER                                                                        \
+    const struct ProcCmd* proc_script; /* pointer to proc script */                        \
+    const struct ProcCmd* proc_scrCur; /* pointer to currently executing script command */ \
+    ProcFunc proc_endCb; /* callback to run upon delegint the process */                   \
+    ProcFunc proc_idleCb; /* callback to run once each frame. */                           \
+                          /* disables script execution when not null */                    \
+    char* proc_name;                                                                       \
+    struct Proc* proc_parent; /* pointer to parent proc. If this proc is a root proc, */   \
+                              /* this member is an integer which is the root index. */     \
+    struct Proc* proc_child; /* pointer to most recently added child */                    \
+    struct Proc* proc_next; /* next sibling */                                             \
+    struct Proc* proc_prev; /* previous sibling */                                         \
+    s16 proc_sleepTime;                                                                    \
+    u8 proc_mark;                                                                          \
+    u8 proc_flags;                                                                         \
+    u8 proc_lockCnt; /* wait semaphore. Process execution */                               \
+                     /* is blocked when this is nonzero. */                                \
 
 // general Proc struct for use in proc.c when initializing and using the proc.
 struct Proc
 {
-    PROC_HEADER
-    /*0x2A*/ s16 data[33]; // this section is to be used in locally defined proc structs for use by specific files.
+    /* 00 */ PROC_HEADER;
+    /* 2C */ u32 data[0x10];
 };
 
 struct UnknownProcStruct
@@ -74,7 +75,8 @@ struct UnknownProcStruct
     int unk8;
 };
 
-enum {
+enum
+{
     PROC_MARK_0 = 0,
     PROC_MARK_1 = 1,
     PROC_MARK_2 = 2,

@@ -1192,7 +1192,7 @@ struct BMapMainProc* StartBMapMain(struct GameCtrlProc* gameCtrl) {
     struct BMapMainProc* mapMain = (struct BMapMainProc*) Proc_Create(gProc_BMapMain, ROOT_PROC_2);
 
     mapMain->gameCtrl = gameCtrl;
-    gameCtrl->blockSemaphore++;
+    gameCtrl->proc_lockCnt++;
 
     BMapVSync_Start();
     Proc_Create(gProc_MapTask, ROOT_PROC_4);
@@ -1206,7 +1206,7 @@ void EndBMapMain(void) {
     Proc_DeleteEachWithMark(PROC_MARK_1);
 
     mapMain = (struct BMapMainProc*) Proc_Find(gProc_BMapMain);
-    mapMain->gameCtrl->blockSemaphore--;
+    mapMain->gameCtrl->proc_lockCnt--;
 
     Proc_Delete((struct Proc*)(mapMain));
 }

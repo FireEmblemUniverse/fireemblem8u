@@ -264,7 +264,7 @@ struct Proc* EndMenu(struct MenuProc* proc)
     BG_SetPosition(proc->frontBg, 0, 0);
     BG_SetPosition(proc->backBg, 0, 0);
 
-    return proc->parent;
+    return proc->proc_parent;
 }
 
 void EndAllMenus(void)

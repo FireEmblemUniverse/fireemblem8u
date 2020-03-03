@@ -131,7 +131,7 @@ static void MU_CritFlash_RestorePalette(struct MUFlashEffectProc* proc);
 
 static void MU_HitFlash_RestorePalette(struct MUFlashEffectProc* proc);
 
-static void MU_ForceSetMaxMoveSpeed(struct Proc* proc);
+static void MU_ForceSetMaxMoveSpeed(ProcPtr proc);
 
 static struct MUProc* MU_GetByIndex(int muIndex);
 
@@ -1546,7 +1546,7 @@ static void MU_DeathFade_OnLoop(struct MUEffectProc* proc) {
 }
 
 static void MU_BlinkEffect_OnLoop(struct MUEffectProc* proc) {
-    struct MUProc* muProc = (struct MUProc*) proc->parent;
+    struct MUProc* muProc = (struct MUProc*) proc->proc_parent;
     int boolHidden = FALSE;
 
     if ((proc->timeLeft & 0x7) < 4)
@@ -1600,7 +1600,7 @@ static void MU_SetupPixelEffect(u32* data, int frame) {
 
 static void MU_PixelEffect_OnLoop(struct MUEffectProc* proc) {
     MU_SetupPixelEffect(
-        MU_GetGfxBufferById(((struct MUProc*)(proc->parent))->muIndex),
+        MU_GetGfxBufferById(((struct MUProc*)(proc->proc_parent))->muIndex),
         proc->frameIndex
     );
 
@@ -1830,7 +1830,7 @@ void MU_AllForceSetMaxMoveSpeed(void) {
     Proc_ForEachWithScript(gProcScr_MoveUnit, MU_ForceSetMaxMoveSpeed);
 }
 
-static void MU_ForceSetMaxMoveSpeed(struct Proc* proc) {
+static void MU_ForceSetMaxMoveSpeed(ProcPtr proc) {
     ((struct MUProc*)(proc))->boolForceMaxSpeed = TRUE;
 }
 
