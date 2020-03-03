@@ -4,8 +4,8 @@
 gUnknown_085A7F9C:  @ 0x085A7F9C
 	.incbin "baserom.gba", 0x5A7F9C, 0x30
 
-	.global gUnknown_085A7FCC
-gUnknown_085A7FCC:  @ 0x085A7FCC
+	.global gProcScr_CpDecide
+gProcScr_CpDecide:  @ 0x085A7FCC
 	.incbin "baserom.gba", 0x5A7FCC, 0x38
 
 	.global gUnknown_085A8004

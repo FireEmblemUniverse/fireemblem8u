@@ -39,7 +39,7 @@ Call6C_E_CPDECIDE: @ 0x08039B00
 	push {r4, r5, r6, r7, lr}
 	adds r7, r0, #0
 _08039B04:
-	ldr r4, _08039B48  @ gUnknown_0203AA04
+	ldr r4, _08039B48  @ gAiState
 	adds r0, r4, #0
 	adds r0, #0x79
 	movs r1, #0
@@ -73,7 +73,7 @@ _08039B3E:
 	str r0, [r4, #0x74]
 	b _08039B04
 	.align 2, 0
-_08039B48: .4byte gUnknown_0203AA04
+_08039B48: .4byte gAiState
 _08039B4C: .4byte gActiveUnitId
 _08039B50: .4byte gActiveUnit
 _08039B54:
@@ -96,7 +96,7 @@ _08039B54:
 	strb r5, [r0]
 	bl sub_803E2F4
 	bl ClearSomeAIRelatedStruct
-	ldr r0, _08039BD0  @ gUnknown_03004F10
+	ldr r0, _08039BD0  @ gCpDecideMainFunc
 	ldr r0, [r0]
 	bl _call_via_r0
 	ldr r2, [r6]
@@ -132,10 +132,10 @@ _08039BBE:
 	bl Proc_GotoLabel
 	b _08039BFA
 	.align 2, 0
-_08039BD0: .4byte gUnknown_03004F10
+_08039BD0: .4byte gCpDecideMainFunc
 _08039BD4: .4byte gUnknown_0203AA94
 _08039BD8:
-	ldr r0, _08039BEC  @ gUnknown_0203AA04
+	ldr r0, _08039BEC  @ gAiState
 	ldr r1, [r0, #0x74]
 	adds r1, #1
 	str r1, [r0, #0x74]
@@ -144,7 +144,7 @@ _08039BD8:
 	bl Proc_CreateBlockingChild
 	b _08039BFA
 	.align 2, 0
-_08039BEC: .4byte gUnknown_0203AA04
+_08039BEC: .4byte gAiState
 _08039BF0: .4byte gUnknown_085A8024
 _08039BF4:
 	adds r0, r7, #0
@@ -256,7 +256,7 @@ _08039CA8: .4byte gUnknown_0203AA94
 sub_8039CAC: @ 0x08039CAC
 	push {r4, r5, lr}
 	ldr r2, _08039D04  @ gUnknown_085A7F9C
-	ldr r0, _08039D08  @ gUnknown_0203AA04
+	ldr r0, _08039D08  @ gAiState
 	adds r1, r0, #0
 	adds r1, #0x79
 	ldrb r0, [r1]
@@ -300,14 +300,14 @@ _08039CFC:
 	bx r0
 	.align 2, 0
 _08039D04: .4byte gUnknown_085A7F9C
-_08039D08: .4byte gUnknown_0203AA04
+_08039D08: .4byte gAiState
 _08039D0C: .4byte gUnknown_0203AA94
 
 	THUMB_FUNC_START sub_8039D10
 sub_8039D10: @ 0x08039D10
 	push {r4, lr}
 	sub sp, #8
-	ldr r0, _08039D5C  @ gUnknown_0203AA04
+	ldr r0, _08039D5C  @ gAiState
 	adds r0, #0x7b
 	ldrb r1, [r0]
 	movs r0, #4
@@ -340,7 +340,7 @@ sub_8039D10: @ 0x08039D10
 	bl sub_803ECC4
 	b _08039DBC
 	.align 2, 0
-_08039D5C: .4byte gUnknown_0203AA04
+_08039D5C: .4byte gAiState
 _08039D60: .4byte gActiveUnit
 _08039D64:
 	add r4, sp, #4
@@ -391,7 +391,7 @@ _08039DBC:
 	THUMB_FUNC_START sub_8039DC4
 sub_8039DC4: @ 0x08039DC4
 	push {lr}
-	ldr r0, _08039DDC  @ gUnknown_0203AA04
+	ldr r0, _08039DDC  @ gAiState
 	adds r0, #0x7b
 	ldrb r1, [r0]
 	movs r0, #4
@@ -403,7 +403,7 @@ _08039DD8:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_08039DDC: .4byte gUnknown_0203AA04
+_08039DDC: .4byte gAiState
 
 	THUMB_FUNC_START sub_8039DE0
 sub_8039DE0: @ 0x08039DE0
@@ -417,7 +417,7 @@ sub_8039DE0: @ 0x08039DE0
 	beq _08039E26
 	cmp r0, #0x34
 	beq _08039E26
-	ldr r0, _08039E0C  @ gUnknown_0203AA04
+	ldr r0, _08039E0C  @ gAiState
 	adds r0, #0x7b
 	ldrb r1, [r0]
 	movs r0, #4
@@ -428,7 +428,7 @@ sub_8039DE0: @ 0x08039DE0
 	b _08039E26
 	.align 2, 0
 _08039E08: .4byte gActiveUnit
-_08039E0C: .4byte gUnknown_0203AA04
+_08039E0C: .4byte gAiState
 _08039E10:
 	bl sub_803C4BC
 	lsls r0, r0, #0x18
@@ -464,7 +464,7 @@ sub_8039E2C: @ 0x08039E2C
 	cmp r0, #0
 	bne _08039E82
 _08039E50:
-	ldr r0, _08039E68  @ gUnknown_0203AA04
+	ldr r0, _08039E68  @ gAiState
 	adds r0, #0x7b
 	ldrb r1, [r0]
 	movs r0, #4
@@ -475,7 +475,7 @@ _08039E50:
 	b _08039E82
 	.align 2, 0
 _08039E64: .4byte gActiveUnit
-_08039E68: .4byte gUnknown_0203AA04
+_08039E68: .4byte gAiState
 _08039E6C:
 	bl sub_803C54C
 	lsls r0, r0, #0x18

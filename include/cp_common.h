@@ -28,6 +28,12 @@ enum
     AI_FLAG_BERSERKED = (1 << 2),
 };
 
-extern struct AiState gUnknown_0203AA04;
+extern struct AiState gAiState;
+
+extern struct ProcCmd CONST_DATA gProcScr_CpPhase[];
+extern struct ProcCmd CONST_DATA gProcScr_BerserkCpPhase[];
+extern struct ProcCmd CONST_DATA gProcScr_CpOrder[];
+extern struct ProcCmd CONST_DATA gProcScr_BerserkCpOrder[];
+extern struct ProcCmd CONST_DATA gProcScr_CpDecide[];
 
 #endif // GUARD_CP_COMMON_H

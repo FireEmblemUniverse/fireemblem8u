@@ -547,7 +547,6 @@ extern struct ActionData gActionData;
 // extern ??? gUnknown_0203A95E
 // extern ??? gUnknown_0203A974
 // extern ??? gUnknown_0203A9FC
-// extern ??? gUnknown_0203AA04
 // extern ??? gUnknown_0203AA7F
 // extern ??? gUnknown_0203AA80
 // extern ??? gUnknown_0203AA8A
@@ -1669,12 +1668,8 @@ extern const u16 gUnknown_085A401C[]; // clouds palette
 // extern ??? gUnknown_085A7EE8
 // extern ??? gProcScr_CpPhase
 // extern ??? gProcScr_BerserkCpPhase
-// extern ??? gUnknown_085A7F58
-// extern ??? gUnknown_085A7F5C
-// extern ??? gUnknown_085A7F74
-// extern ??? gUnknown_085A7F94
 // extern ??? gUnknown_085A7F9C
-// extern ??? gUnknown_085A7FCC
+// extern ??? gProcScr_CpDecide
 // extern ??? gUnknown_085A8004
 // extern ??? gUnknown_085A8024
 // extern ??? gUnknown_085A80A4

@@ -19098,7 +19098,7 @@ sub_804AF5C: @ 0x0804AF5C
 	bne _0804AF88
 	b _0804B176
 _0804AF88:
-	ldr r0, _0804B0C8  @ gUnknown_0203AA04
+	ldr r0, _0804B0C8  @ gAiState
 	adds r0, #0x7d
 	movs r1, #0xe
 	strb r1, [r0]
@@ -19261,7 +19261,7 @@ _0804B072:
 	bl ITEMRANGEDONE_sub_804AF2C
 	b _0804B0E6
 	.align 2, 0
-_0804B0C8: .4byte gUnknown_0203AA04
+_0804B0C8: .4byte gAiState
 _0804B0CC: .4byte gUnknown_0202BCF0
 _0804B0D0: .4byte gActiveUnitId
 _0804B0D4: .4byte gActiveUnit

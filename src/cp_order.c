@@ -7,53 +7,54 @@
 
 #include "cp_common.h"
 
-void Loop6C_E_CPORDER(struct Proc* proc);
-void sub_80397B0(struct Proc* proc);
-void sub_8039858(struct Proc* proc);
-void CPORDER_End(struct Proc* proc);
+static void CpOrderMain(struct Proc* proc);
+static void CpOrderBerserkInit(struct Proc* proc);
+static void CpOrderFunc_BeginDecide(struct Proc* proc);
+static int GetUnitBattleAiPriority(struct Unit* unit);
+static int GetUnitAiPriority(struct Unit* unit);
+static int BuildAiUnitList(void);
+static void SortAiUnitList(int count);
+static void CpOrderFunc_End(struct Proc* proc);
 
 void sub_8039CAC(struct Proc* proc);
 
-extern ProcFunc gUnknown_03004F10;
+extern ProcFunc gCpDecideMainFunc;
 
-extern struct ProcCmd gUnknown_085A7FCC[]; // CPDECIDE
+static
+u32* CONST_DATA sUnitPriorityArray = (void*) gUnknown_02020188;
 
-u32* CONST_DATA gUnknown_085A7F58 = (void*) gUnknown_02020188;
-
-CONST_DATA
-struct ProcCmd gUnknown_085A7F5C[] =
+struct ProcCmd CONST_DATA gProcScr_CpOrder[] =
 {
     PROC_SET_NAME("E_CPORDER"),
 
-    PROC_LOOP_ROUTINE(Loop6C_E_CPORDER),
+    PROC_LOOP_ROUTINE(CpOrderMain),
 
     PROC_END,
 };
 
-CONST_DATA
-struct ProcCmd gUnknown_085A7F74[] =
+struct ProcCmd CONST_DATA gProcScr_BerserkCpOrder[] =
 {
     PROC_SET_NAME("E_BSKORDER"),
 
-    PROC_CALL_ROUTINE(sub_80397B0),
-    PROC_LOOP_ROUTINE(CPORDER_End),
+    PROC_CALL_ROUTINE(CpOrderBerserkInit),
+    PROC_LOOP_ROUTINE(CpOrderFunc_End),
 
     PROC_END,
 };
 
-CONST_DATA
-ProcFunc gUnknown_085A7F94[] =
+static
+ProcFunc CONST_DATA sCpOrderFuncList[] =
 {
-    sub_8039858,
-    CPORDER_End,
+    CpOrderFunc_BeginDecide,
+    CpOrderFunc_End,
 };
 
-void Loop6C_E_CPORDER(struct Proc* proc)
+void CpOrderMain(struct Proc* proc)
 {
-    gUnknown_085A7F94[gUnknown_0203AA04.orderState++](proc);
+    sCpOrderFuncList[gAiState.orderState++](proc);
 }
 
-void sub_80397B0(struct Proc* proc)
+void CpOrderBerserkInit(struct Proc* proc)
 {
     int i, aiNum = 0;
 
@@ -74,38 +75,38 @@ void sub_80397B0(struct Proc* proc)
         if (unit->state & (US_HIDDEN | US_UNSELECTABLE | US_DEAD | US_RESCUED | US_HAS_MOVED_AI))
             continue;
 
-        gUnknown_0203AA04.units[aiNum++] = faction + i + 1;
+        gAiState.units[aiNum++] = faction + i + 1;
     }
 
     if (aiNum != 0)
     {
-        gUnknown_0203AA04.units[aiNum] = 0;
-        gUnknown_0203AA04.unitIt = gUnknown_0203AA04.units;
+        gAiState.units[aiNum] = 0;
+        gAiState.unitIt = gAiState.units;
 
-        gUnknown_03004F10 = sub_8039CAC;
+        gCpDecideMainFunc = sub_8039CAC;
 
-        Proc_CreateBlockingChild(gUnknown_085A7FCC, proc);
+        Proc_CreateBlockingChild(gProcScr_CpDecide, proc);
     }
 }
 
-void sub_8039858(struct Proc* proc)
+void CpOrderFunc_BeginDecide(struct Proc* proc)
 {
-    int unitAmt = GetCurrentPhaseUnitCount();
+    int unitAmt = BuildAiUnitList();
 
     if (unitAmt != 0)
     {
-        sub_8039A50(unitAmt);
+        SortAiUnitList(unitAmt);
 
-        gUnknown_0203AA04.units[unitAmt] = 0;
-        gUnknown_0203AA04.unitIt = gUnknown_0203AA04.units;
+        gAiState.units[unitAmt] = 0;
+        gAiState.unitIt = gAiState.units;
 
-        gUnknown_03004F10 = sub_8039CAC;
+        gCpDecideMainFunc = sub_8039CAC;
 
-        Proc_CreateBlockingChild(gUnknown_085A7FCC, proc);
+        Proc_CreateBlockingChild(gProcScr_CpDecide, proc);
     }
 }
 
-int sub_8039898(struct Unit* unit)
+int GetUnitBattleAiPriority(struct Unit* unit)
 {
     int i, item;
 
@@ -142,37 +143,37 @@ int sub_8039898(struct Unit* unit)
     return 87;
 }
 
-int sub_8039938(struct Unit* unit)
+int GetUnitAiPriority(struct Unit* unit)
 {
-    int weight = UNIT_MOV(unit);
+    int priority = UNIT_MOV(unit);
 
     u16 lead = GetUnitLeaderCharId(unit);
 
     if (UNIT_CATTRIBUTES(unit) & (CA_DANCE | CA_PLAY))
-        return weight - 149;
+        return priority - 149;
 
     if (!(unit->_u0A & 1))
     {
-        weight += lead << 8;
+        priority += lead << 8;
 
         if (UNIT_CATTRIBUTES(unit) & CA_STEAL)
-            return weight + 60;
+            return priority + 60;
 
         if ((unit->pCharacterData->number == lead) || (UNIT_CATTRIBUTES(unit) & CA_LORD))
-            return weight + 87;
+            return priority + 87;
 
-        weight = weight + sub_8039898(unit);
+        priority = priority + GetUnitBattleAiPriority(unit);
     }
 
-    return weight;
+    return priority;
 }
 
-int GetCurrentPhaseUnitCount(void)
+int BuildAiUnitList(void)
 {
     int i, aiNum = 0;
 
     u32 faction = gUnknown_0202BCF0.chapterPhaseIndex;
-    u32* weightIt = gUnknown_085A7F58;
+    u32* prioIt = sUnitPriorityArray;
 
     int factionUnitCountLut[3] = { 62, 20, 50 }; // TODO: named constant for those
 
@@ -192,8 +193,8 @@ int GetCurrentPhaseUnitCount(void)
         if (unit->state & (US_HIDDEN | US_UNSELECTABLE | US_DEAD | US_RESCUED | US_HAS_MOVED_AI))
             continue;
 
-        gUnknown_0203AA04.units[aiNum] = faction + i + 1;
-        *weightIt++ = sub_8039938(unit);
+        gAiState.units[aiNum] = faction + i + 1;
+        *prioIt++ = GetUnitAiPriority(unit);
 
         aiNum++;
     }
@@ -203,7 +204,7 @@ int GetCurrentPhaseUnitCount(void)
 
 #ifdef NONMATCHING
 
-void sub_8039A50(int count)
+void SortAiUnitList(int count)
 {
     int i, j;
 
@@ -216,19 +217,19 @@ void sub_8039A50(int count)
     {
         for (j = count - 2; j >= i; --j)
         {
-            if (gUnknown_085A7F58[j] > gUnknown_085A7F58[j+1])
+            if (sUnitPriorityArray[j] > sUnitPriorityArray[j+1])
             {
                 // swap
 
                 int tmp;
 
-                tmp = gUnknown_085A7F58[j];
-                gUnknown_085A7F58[j] = gUnknown_085A7F58[j+1];
-                gUnknown_085A7F58[j+1] = tmp;
+                tmp = sUnitPriorityArray[j];
+                sUnitPriorityArray[j] = sUnitPriorityArray[j+1];
+                sUnitPriorityArray[j+1] = tmp;
 
-                tmp = gUnknown_0203AA04.units[j];
-                gUnknown_0203AA04.units[j] = gUnknown_0203AA04.units[j+1];
-                gUnknown_0203AA04.units[j+1] = tmp;
+                tmp = gAiState.units[j];
+                gAiState.units[j] = gAiState.units[j+1];
+                gAiState.units[j+1] = tmp;
             }
         }
     }
@@ -237,7 +238,7 @@ void sub_8039A50(int count)
 #else // NONMATCH
 
 __attribute__((naked))
-void sub_8039A50(int count)
+void SortAiUnitList(int count)
 {
     asm("\n\
         .syntax unified\n\
@@ -252,9 +253,9 @@ void sub_8039A50(int count)
         cmp r5, r0\n\
         bgt _08039AA6\n\
         mov ip, r0\n\
-        ldr r1, _08039AB4  @ gUnknown_085A7F58\n\
+        ldr r1, _08039AB4  @ sUnitPriorityArray\n\
         mov r9, r1\n\
-        ldr r1, _08039AB8  @ gUnknown_0203AA04\n\
+        ldr r1, _08039AB8  @ gAiState\n\
         mov r8, r1\n\
     _08039A6E:\n\
         adds r4, r0, #0\n\
@@ -296,15 +297,15 @@ void sub_8039A50(int count)
         pop {r0}\n\
         bx r0\n\
         .align 2, 0\n\
-    _08039AB4: .4byte gUnknown_085A7F58\n\
-    _08039AB8: .4byte gUnknown_0203AA04\n\
+    _08039AB4: .4byte sUnitPriorityArray\n\
+    _08039AB8: .4byte gAiState\n\
         .syntax divided\n\
     ");
 }
 
 #endif // NONMATCH
 
-void CPORDER_End(struct Proc* proc)
+void CpOrderFunc_End(struct Proc* proc)
 {
     Proc_ClearNativeCallback(proc);
 }
