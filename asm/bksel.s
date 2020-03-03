@@ -1329,7 +1329,7 @@ sub_8036F4C: @ 0x08036F4C
 	adds r1, #0x48
 	adds r2, r5, #0
 	adds r2, #0x28
-	ldr r3, _08036FE0  @ gUnknown_08590F4C
+	ldr r3, _08036FE0  @ gObject_16x16
 	ldr r4, _08036FE4  @ 0x000022E6
 	adds r0, r0, r4
 	str r0, [sp]
@@ -1346,7 +1346,7 @@ _08036FB2:
 	adds r1, #0x18
 	adds r2, r5, #0
 	adds r2, #0x28
-	ldr r3, _08036FE0  @ gUnknown_08590F4C
+	ldr r3, _08036FE0  @ gObject_16x16
 	ldr r4, _08036FE4  @ 0x000022E6
 	adds r0, r0, r4
 	str r0, [sp]
@@ -1359,7 +1359,7 @@ _08036FD4:
 	bx r0
 	.align 2, 0
 _08036FDC: .4byte gSinLookup
-_08036FE0: .4byte gUnknown_08590F4C
+_08036FE0: .4byte gObject_16x16
 _08036FE4: .4byte 0x000022E6
 
 	THUMB_FUNC_START sub_8036FE8

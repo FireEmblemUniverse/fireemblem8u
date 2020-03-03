@@ -1563,12 +1563,12 @@ void PageNumCtrl_UpdateArrows(struct StatScreenPageNameProc* proc)
     PutSprite(0,
         gStatScreen.xDispOff + proc->xLeftCursor,
         gStatScreen.yDispOff + PAGENUM_LEFTARROW_Y,
-        gUnknown_08590F64, baseref + 0x5A + (proc->animTimerLeft >> 5) % 6);
+        gObject_8x16, baseref + 0x5A + (proc->animTimerLeft >> 5) % 6);
 
     PutSprite(0,
         gStatScreen.xDispOff + proc->xRightCursor,
         gStatScreen.yDispOff + PAGENUM_RIGHTARROW_Y,
-        gUnknown_08590FB4, baseref + 0x5A + (proc->animTimerRight >> 5) % 6);
+        gObject_8x16_HFlipped, baseref + 0x5A + (proc->animTimerRight >> 5) % 6);
 }
 
 static
@@ -1580,19 +1580,19 @@ void PageNumCtrl_UpdatePageNum(struct StatScreenPageNameProc* proc)
     PutSprite(2,
         gStatScreen.xDispOff + PAGENUM_DISPLAY_X + 13,
         gStatScreen.yDispOff + PAGENUM_DISPLAY_Y,
-        gUnknown_08590F44, TILEREF(chr, STATSCREEN_OBJPAL_4) + OAM2_PRIORITY(3) + gStatScreen.pageAmt);
+        gObject_8x8, TILEREF(chr, STATSCREEN_OBJPAL_4) + OAM2_PRIORITY(3) + gStatScreen.pageAmt);
 
     // '/'
     PutSprite(2,
         gStatScreen.xDispOff + PAGENUM_DISPLAY_X + 7,
         gStatScreen.yDispOff + PAGENUM_DISPLAY_Y,
-        gUnknown_08590F44, TILEREF(chr, STATSCREEN_OBJPAL_4) + OAM2_PRIORITY(3));
+        gObject_8x8, TILEREF(chr, STATSCREEN_OBJPAL_4) + OAM2_PRIORITY(3));
 
     // page num
     PutSprite(2,
         gStatScreen.xDispOff + PAGENUM_DISPLAY_X,
         gStatScreen.yDispOff + PAGENUM_DISPLAY_Y,
-        gUnknown_08590F44, TILEREF(chr, STATSCREEN_OBJPAL_4) + OAM2_PRIORITY(3) + gStatScreen.page + 1);
+        gObject_8x8, TILEREF(chr, STATSCREEN_OBJPAL_4) + OAM2_PRIORITY(3) + gStatScreen.page + 1);
 }
 
 static
@@ -1601,7 +1601,7 @@ void PageNumCtrl_DisplayMuPlatform(struct StatScreenPageNameProc* proc)
     PutSprite(11,
         gStatScreen.xDispOff + 64,
         gStatScreen.yDispOff + 131,
-        gUnknown_08590F8C, TILEREF(0x28F, STATSCREEN_OBJPAL_4) + OAM2_PRIORITY(3));
+        gObject_32x16, TILEREF(0x28F, STATSCREEN_OBJPAL_4) + OAM2_PRIORITY(3));
 }
 
 static
@@ -1621,7 +1621,7 @@ void PageNumCtrl_DisplayBlinkIcons(struct StatScreenPageNameProc* proc)
             if (displayIcon)
             {
                 PutSprite(4,
-                    184, 78, gUnknown_08590F44,
+                    184, 78, gObject_8x8,
                     TILEREF(3, 0xF & palidLut[gStatScreen.unit->rescueOtherUnit >> 6]) + OAM2_PRIORITY(2));
             }
         }
@@ -1631,7 +1631,7 @@ void PageNumCtrl_DisplayBlinkIcons(struct StatScreenPageNameProc* proc)
             if (displayIcon)
             {
                 PutSprite(4,
-                    10, 86, gUnknown_08590F44,
+                    10, 86, gObject_8x8,
                     TILEREF(3, 0xF & palidLut[gStatScreen.unit->rescueOtherUnit>>6]) + OAM2_PRIORITY(2));
             }
         }

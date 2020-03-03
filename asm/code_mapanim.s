@@ -10107,7 +10107,7 @@ sub_807F6E8: @ 0x0807F6E8
 	subs r1, r2, #4
 	movs r2, #0xff
 	ands r1, r2
-	ldr r2, _0807F71C  @ gUnknown_08590F44
+	ldr r2, _0807F71C  @ gObject_8x8
 	ldr r3, _0807F720  @ 0x000041C0
 	bl CallARM_PushToSecondaryOAM
 _0807F714:
@@ -10115,7 +10115,7 @@ _0807F714:
 	bx r0
 	.align 2, 0
 _0807F718: .4byte 0x000001FF
-_0807F71C: .4byte gUnknown_08590F44
+_0807F71C: .4byte gObject_8x8
 _0807F720: .4byte 0x000041C0
 
 	THUMB_FUNC_START sub_807F724

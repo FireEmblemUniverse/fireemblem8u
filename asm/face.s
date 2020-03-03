@@ -1554,7 +1554,7 @@ _080060DE:
 	adds r0, r4, #0
 	adds r0, #0x41
 	ldrb r0, [r0]
-	ldr r3, _08006130  @ gUnknown_08590F8C
+	ldr r3, _08006130  @ gObject_32x16
 	ldrh r1, [r4, #0x3c]
 	adds r1, #0x1c
 	str r1, [sp]
@@ -1568,7 +1568,7 @@ _080060DE:
 _08006124: .4byte 0x000003FF
 _08006128: .4byte 0x06010000
 _0800612C: .4byte 0x000001FF
-_08006130: .4byte gUnknown_08590F8C
+_08006130: .4byte gObject_32x16
 
 	THUMB_FUNC_START sub_8006134
 sub_8006134: @ 0x08006134
@@ -1674,7 +1674,7 @@ _080061EE:
 	adds r0, r1, #0
 	adds r0, #0x41
 	ldrb r0, [r0]
-	ldr r3, _08006210  @ gUnknown_08590F4C
+	ldr r3, _08006210  @ gObject_16x16
 	ldrh r1, [r1, #0x3c]
 	adds r1, r1, r5
 	adds r1, #2
@@ -1685,12 +1685,12 @@ _080061EE:
 	b _0800622A
 	.align 2, 0
 _0800620C: .4byte 0x000001FF
-_08006210: .4byte gUnknown_08590F4C
+_08006210: .4byte gObject_16x16
 _08006214:
 	adds r0, r2, #0
 	adds r0, #0x41
 	ldrb r0, [r0]
-	ldr r3, _08006238  @ gUnknown_08590F8C
+	ldr r3, _08006238  @ gObject_32x16
 	ldrh r1, [r2, #0x3c]
 	adds r1, r1, r5
 	str r1, [sp]
@@ -1706,7 +1706,7 @@ _0800622A:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_08006238: .4byte gUnknown_08590F8C
+_08006238: .4byte gObject_32x16
 
 	THUMB_FUNC_START sub_800623C
 sub_800623C: @ 0x0800623C

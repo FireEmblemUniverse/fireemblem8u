@@ -12,14 +12,6 @@ struct SpriteEntry
     /* 0C */ const u16* object;
 };
 
-extern struct SpriteEntry* gSpriteAllocIt;
-
-EWRAM_DATA
-static struct SpriteEntry sSpritePool[0x80] = {};
-
-EWRAM_DATA
-static struct SpriteEntry sSpriteLayers[0x10] = {};
-
 struct SpriteProc
 {
     PROC_HEADER;
@@ -31,6 +23,114 @@ struct SpriteProc
     /* 52 */ u16 tileref;
     /* 54 */ const u16* object;
 };
+
+static void SpriteRefresher_OnIdle(struct SpriteProc* proc);
+
+u16 CONST_DATA gObject_8x8[] =
+{
+    1, OAM0_SHAPE_8x8, OAM1_SIZE_8x8, 0,
+};
+
+u16 CONST_DATA gObject_16x16[] =
+{
+    1, OAM0_SHAPE_16x16, OAM1_SIZE_16x16, 0,
+};
+
+u16 CONST_DATA gObject_32x32[] =
+{
+    1, OAM0_SHAPE_32x32, OAM1_SIZE_32x32, 0,
+};
+
+u16 CONST_DATA gObject_64x64[] =
+{
+    1, OAM0_SHAPE_64x64, OAM1_SIZE_64x64, 0,
+};
+
+u16 CONST_DATA gObject_8x16[] =
+{
+    1, OAM0_SHAPE_8x16, OAM1_SIZE_8x16, 0,
+};
+
+u16 CONST_DATA gObject_16x32[] =
+{
+    1, OAM0_SHAPE_16x32, OAM1_SIZE_16x32, 0,
+};
+
+u16 CONST_DATA gObject_32x64[] =
+{
+    1, OAM0_SHAPE_32x64, OAM1_SIZE_32x64, 0,
+};
+
+u16 CONST_DATA gObject_16x8[] =
+{
+    1, OAM0_SHAPE_16x8, OAM1_SIZE_16x8, 0,
+};
+
+u16 CONST_DATA gObject_16x8_VFlipped[] =
+{
+    1, OAM0_SHAPE_16x8, OAM1_SIZE_16x8 + OAM1_VFLIP, 0,
+};
+
+u16 CONST_DATA gObject_32x16[] =
+{
+    1, OAM0_SHAPE_32x16, OAM1_SIZE_32x16, 0,
+};
+
+u16 CONST_DATA gObject_64x32[] =
+{
+    1, OAM0_SHAPE_64x32, OAM1_SIZE_64x32, 0,
+};
+
+u16 CONST_DATA gObject_32x8[] =
+{
+    1, OAM0_SHAPE_32x8, OAM1_SIZE_32x8, 0,
+};
+
+u16 CONST_DATA gObject_8x32[] =
+{
+    1, OAM0_SHAPE_8x32, OAM1_SIZE_8x32, 0,
+};
+
+u16 CONST_DATA gObject_32x8_VFlipped[] =
+{
+    1, OAM0_SHAPE_32x8, OAM1_SIZE_32x8 + OAM1_VFLIP, 0,
+};
+
+u16 CONST_DATA gObject_8x16_HFlipped[] =
+{
+    1, OAM0_SHAPE_8x16, OAM1_SIZE_8x16 + OAM1_HFLIP, 0,
+};
+
+u16 CONST_DATA gObject_8x8_HFlipped[] =
+{
+    1, OAM0_SHAPE_8x8, OAM1_SIZE_8x8 + OAM1_HFLIP, 0,
+};
+
+u16 CONST_DATA gObject_8x8_VFlipped[] =
+{
+    1, OAM0_SHAPE_8x8, OAM1_SIZE_8x8 + OAM1_VFLIP, 0,
+};
+
+u16 CONST_DATA gObject_8x8_HFlipped_VFlipped[] =
+{
+    1, OAM0_SHAPE_8x8, OAM1_SIZE_8x8 + OAM1_HFLIP + OAM1_VFLIP, 0,
+};
+
+u16 CONST_DATA gObject_16x16_VFlipped[] =
+{
+    1, OAM0_SHAPE_16x16, OAM1_SIZE_16x16 + OAM1_VFLIP, 0,
+};
+
+static struct ProcCmd CONST_DATA sProcSrc_SpriteRefresher[] =
+{
+    PROC_LOOP_ROUTINE(SpriteRefresher_OnIdle),
+    PROC_END,
+};
+
+extern struct SpriteEntry* gSpriteAllocIt;
+
+static struct SpriteEntry EWRAM_DATA sSpritePool[0x80] = {};
+static struct SpriteEntry EWRAM_DATA sSpriteLayers[0x10] = {};
 
 void PutObjectAffine(int id, int pa, int pb, int pc, int pd)
 {
@@ -91,19 +191,19 @@ void PushSpriteLayerObjects(int layer)
     }
 }
 
-void sub_8005488(struct SpriteProc* proc)
+void SpriteRefresher_OnIdle(struct SpriteProc* proc)
 {
     PutSprite(proc->layer, proc->x, proc->y, proc->object, proc->tileref);
 }
 
-struct SpriteProc* sub_80054B0(struct Proc* parent, int layer, int x, int y, const u16* object, int tileref)
+struct SpriteProc* StartSpriteRefresher(struct Proc* parent, int layer, int x, int y, const u16* object, int tileref)
 {
     struct SpriteProc* proc;
 
     if (parent)
-        proc = (struct SpriteProc*) Proc_Create(gUnknown_08590FDC, parent);
+        proc = (struct SpriteProc*) Proc_Create(sProcSrc_SpriteRefresher, parent);
     else
-        proc = (struct SpriteProc*) Proc_Create(gUnknown_08590FDC, ROOT_PROC_3);
+        proc = (struct SpriteProc*) Proc_Create(sProcSrc_SpriteRefresher, ROOT_PROC_3);
 
     proc->x = x;
     proc->y = y;
@@ -114,10 +214,10 @@ struct SpriteProc* sub_80054B0(struct Proc* parent, int layer, int x, int y, con
     return proc;
 }
 
-void sub_80054F4(struct SpriteProc* proc, int x, int y)
+void MoveSpriteRefresher(struct SpriteProc* proc, int x, int y)
 {
     if (proc == NULL)
-        proc = (struct SpriteProc*) Proc_Find(gUnknown_08590FDC);
+        proc = (struct SpriteProc*) Proc_Find(sProcSrc_SpriteRefresher);
 
     proc->x = x;
     proc->y = y;

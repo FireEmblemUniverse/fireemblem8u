@@ -567,7 +567,7 @@ IconOAMUpdater_Loop: @ 0x08011254
 	push {r4, lr}
 	ldr r4, [r0, #0x2c]
 	ldr r1, [r0, #0x30]
-	ldr r2, _0801126C  @ gUnknown_08590F4C
+	ldr r2, _0801126C  @ gObject_16x16
 	adds r0, #0x4a
 	ldrh r3, [r0]
 	adds r0, r4, #0
@@ -576,7 +576,7 @@ IconOAMUpdater_Loop: @ 0x08011254
 	pop {r0}
 	bx r0
 	.align 2, 0
-_0801126C: .4byte gUnknown_08590F4C
+_0801126C: .4byte gObject_16x16
 
 	THUMB_FUNC_START LongPopup_Draw
 LongPopup_Draw: @ 0x08011270

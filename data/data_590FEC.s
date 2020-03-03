@@ -3,62 +3,6 @@
 
     .section .data
 
-    .global gUnknown_08590F44
-gUnknown_08590F44:  @ 0x08590F44
-    .incbin "baserom.gba", 0x590F44, 0x8
-
-    .global gUnknown_08590F4C
-gUnknown_08590F4C:  @ 0x08590F4C
-    .incbin "baserom.gba", 0x590F4C, 0x8
-
-    .global gUnknown_08590F54
-gUnknown_08590F54:  @ 0x08590F54
-    .incbin "baserom.gba", 0x590F54, 0x10
-
-    .global gUnknown_08590F64
-gUnknown_08590F64:  @ 0x08590F64
-    .incbin "baserom.gba", 0x590F64, 0x8
-
-    .global gUnknown_08590F6C
-gUnknown_08590F6C:  @ 0x08590F6C
-    .incbin "baserom.gba", 0x590F6C, 0x10
-
-    .global gUnknown_08590F7C
-gUnknown_08590F7C:  @ 0x08590F7C
-    .incbin "baserom.gba", 0x590F7C, 0x10
-
-    .global gUnknown_08590F8C
-gUnknown_08590F8C:  @ 0x08590F8C
-    .incbin "baserom.gba", 0x590F8C, 0x8
-
-    .global gUnknown_08590F94
-gUnknown_08590F94:  @ 0x08590F94
-    .incbin "baserom.gba", 0x590F94, 0x8
-
-    .global gUnknown_08590F9C
-gUnknown_08590F9C:  @ 0x08590F9C
-    .incbin "baserom.gba", 0x590F9C, 0x8
-
-    .global gUnknown_08590FA4
-gUnknown_08590FA4:  @ 0x08590FA4
-    .incbin "baserom.gba", 0x590FA4, 0x10
-
-    .global gUnknown_08590FB4
-gUnknown_08590FB4:  @ 0x08590FB4
-    .incbin "baserom.gba", 0x590FB4, 0x8
-
-    .global gUnknown_08590FBC
-gUnknown_08590FBC:  @ 0x08590FBC
-    .incbin "baserom.gba", 0x590FBC, 0x18
-
-    .global gUnknown_08590FD4
-gUnknown_08590FD4:  @ 0x08590FD4
-    .incbin "baserom.gba", 0x590FD4, 0x8
-
-    .global gUnknown_08590FDC
-gUnknown_08590FDC:  @ 0x08590FDC
-    .incbin "baserom.gba", 0x590FDC, 0x10
-
     .global gUnknown_08590FEC
 gUnknown_08590FEC:  @ 0x08590FEC
     .incbin "baserom.gba", 0x590FEC, 0x20

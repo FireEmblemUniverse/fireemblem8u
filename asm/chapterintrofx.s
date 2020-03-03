@@ -819,7 +819,7 @@ _080203EE:
 	movs r5, #0x80
 	lsls r5, r5, #1
 	orrs r1, r5
-	ldr r6, _080204A0  @ gUnknown_08590F54
+	ldr r6, _080204A0  @ gObject_32x32
 	ldr r3, _080204A4  @ 0x00002210
 	adds r2, r6, #0
 	bl CallARM_PushToSecondaryOAM
@@ -892,7 +892,7 @@ _08020490: .4byte gUnknown_0859B120
 _08020494: .4byte gUnknown_0859B132
 _08020498: .4byte gSinLookup
 _0802049C: .4byte 0x000001FF
-_080204A0: .4byte gUnknown_08590F54
+_080204A0: .4byte gObject_32x32
 _080204A4: .4byte 0x00002210
 _080204A8: .4byte 0x00002214
 
@@ -966,7 +966,7 @@ sub_80204E4: @ 0x080204E4
 	ands r1, r4
 	adds r5, #0xba
 	orrs r1, r5
-	ldr r2, _08020570  @ gUnknown_08590F4C
+	ldr r2, _08020570  @ gObject_16x16
 	mov r8, r2
 	ldr r2, _08020574  @ 0x00002218
 	mov r9, r2
@@ -995,7 +995,7 @@ sub_80204E4: @ 0x080204E4
 	bx r0
 	.align 2, 0
 _0802056C: .4byte 0x000001FF
-_08020570: .4byte gUnknown_08590F4C
+_08020570: .4byte gObject_16x16
 _08020574: .4byte 0x00002218
 
 	THUMB_FUNC_START sub_8020578

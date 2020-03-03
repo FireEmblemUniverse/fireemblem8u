@@ -3,8 +3,10 @@
 
 #include "global.h"
 #include "proc.h"
-#include "fontgrp.h"
 #include "hardware.h"
+#include "ctc.h"
+
+#include "fontgrp.h"
 
 #define CHAR_NEWLINE 0x01
 
@@ -290,7 +292,7 @@ void PrintDebugStringAsOBJ(int a, int b, const char *str)
         else
             c = *str - 0x20;
 
-        CallARM_PushToSecondaryOAM(a, b, gUnknown_08590F44, c + gUnknown_02028E50 + gUnknown_02028E54);
+        CallARM_PushToSecondaryOAM(a, b, gObject_8x8, c + gUnknown_02028E50 + gUnknown_02028E54);
 
         a += 8;
         str++;

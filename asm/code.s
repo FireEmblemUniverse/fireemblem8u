@@ -599,12 +599,12 @@ _08089A28:
 	adds r0, r0, r6
 	str r0, [sp]
 	movs r0, #0
-	ldr r3, _08089A58  @ gUnknown_08590F4C
+	ldr r3, _08089A58  @ gObject_16x16
 	bl PutSprite
 	b _08089A80
 	.align 2, 0
 _08089A54: .4byte gUnknown_0203E794
-_08089A58: .4byte gUnknown_08590F4C
+_08089A58: .4byte gObject_16x16
 _08089A5C:
 	cmp r0, r7
 	ble _08089A62
@@ -622,7 +622,7 @@ _08089A62:
 	adds r0, r0, r6
 	str r0, [sp]
 	movs r0, #0
-	ldr r3, _08089AE0  @ gUnknown_08590F8C
+	ldr r3, _08089AE0  @ gObject_32x16
 	bl PutSprite
 _08089A80:
 	subs r6, #0x40
@@ -658,7 +658,7 @@ _08089AA0:
 	movs r0, #0
 	adds r1, r4, #0
 	ldr r2, [sp, #0x10]
-	ldr r3, _08089AE4  @ gUnknown_08590F7C
+	ldr r3, _08089AE4  @ gObject_16x8
 	bl PutSprite
 	ldrh r0, [r6, #0x30]
 	adds r0, #0x3b
@@ -666,15 +666,15 @@ _08089AA0:
 	movs r0, #0
 	adds r1, r4, #0
 	ldr r2, [sp, #0x28]
-	ldr r3, _08089AE4  @ gUnknown_08590F7C
+	ldr r3, _08089AE4  @ gObject_16x8
 	bl PutSprite
 	movs r0, #0
 	mov r8, r0
 	b _08089B18
 	.align 2, 0
 _08089ADC: .4byte gUnknown_0203E794
-_08089AE0: .4byte gUnknown_08590F8C
-_08089AE4: .4byte gUnknown_08590F7C
+_08089AE0: .4byte gObject_32x16
+_08089AE4: .4byte gObject_16x8
 _08089AE8:
 	cmp r0, r7
 	ble _08089AEE
@@ -689,7 +689,7 @@ _08089AEE:
 	movs r0, #0
 	adds r1, r4, #0
 	ldr r2, [sp, #0x10]
-	ldr r3, _08089C28  @ gUnknown_08590F9C
+	ldr r3, _08089C28  @ gObject_32x8
 	bl PutSprite
 	ldrh r0, [r6, #0x30]
 	adds r0, #0x3b
@@ -697,7 +697,7 @@ _08089AEE:
 	movs r0, #0
 	adds r1, r4, #0
 	ldr r2, [sp, #0x28]
-	ldr r3, _08089C28  @ gUnknown_08590F9C
+	ldr r3, _08089C28  @ gObject_32x8
 	bl PutSprite
 _08089B18:
 	subs r5, #1
@@ -717,7 +717,7 @@ _08089B2E:
 	subs r2, #0x10
 	ldr r3, [sp, #4]
 	adds r5, r3, r2
-	ldr r7, _08089C2C  @ gUnknown_08590F64
+	ldr r7, _08089C2C  @ gObject_8x16
 	ldr r6, _08089C30  @ gUnknown_0203E794
 	ldrh r0, [r6, #0x30]
 	adds r0, #0x5f
@@ -752,7 +752,7 @@ _08089B76:
 	cmp r4, #0
 	bge _08089B24
 _08089B7C:
-	ldr r6, _08089C34  @ gUnknown_08590F44
+	ldr r6, _08089C34  @ gObject_8x8
 	ldr r5, _08089C30  @ gUnknown_0203E794
 	ldrh r0, [r5, #0x30]
 	adds r0, #0x5b
@@ -813,7 +813,7 @@ _08089BF6:
 	bne _08089C16
 	ldr r2, [sp, #4]
 	subs r2, #0xb
-	ldr r3, _08089C38  @ gUnknown_08590F8C
+	ldr r3, _08089C38  @ gObject_32x16
 	ldr r0, _08089C30  @ gUnknown_0203E794
 	ldrh r1, [r0, #0x30]
 	ldr r0, _08089C3C  @ 0x000003FF
@@ -833,11 +833,11 @@ _08089C16:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_08089C28: .4byte gUnknown_08590F9C
-_08089C2C: .4byte gUnknown_08590F64
+_08089C28: .4byte gObject_32x8
+_08089C2C: .4byte gObject_8x16
 _08089C30: .4byte gUnknown_0203E794
-_08089C34: .4byte gUnknown_08590F44
-_08089C38: .4byte gUnknown_08590F8C
+_08089C34: .4byte gObject_8x8
+_08089C38: .4byte gObject_32x16
 _08089C3C: .4byte 0x000003FF
 
 	THUMB_FUNC_START sub_8089C40
@@ -3088,7 +3088,7 @@ _0808AD94:
 	movs r0, #2
 	ldr r3, [sp, #4]
 	adds r1, r3, r6
-	ldr r3, _0808AE08  @ gUnknown_08590F8C
+	ldr r3, _0808AE08  @ gObject_32x16
 	bl PutSprite
 	subs r5, #1
 	cmp r5, #0
@@ -3131,13 +3131,13 @@ _0808ADE0:
 	movs r0, #2
 	ldr r3, [sp, #4]
 	adds r1, r3, r6
-	ldr r3, _0808AE0C  @ gUnknown_08590F4C
+	ldr r3, _0808AE0C  @ gObject_16x16
 	bl PutSprite
 	b _0808AE2A
 	.align 2, 0
 _0808AE04: .4byte gUnknown_0203E828
-_0808AE08: .4byte gUnknown_08590F8C
-_0808AE0C: .4byte gUnknown_08590F4C
+_0808AE08: .4byte gObject_32x16
+_0808AE0C: .4byte gObject_16x16
 _0808AE10:
 	ldr r1, [sp, #8]
 	adds r2, r1, r0
@@ -3149,7 +3149,7 @@ _0808AE10:
 	movs r0, #2
 	ldr r3, [sp, #4]
 	adds r1, r3, r6
-	ldr r3, _0808AEAC  @ gUnknown_08590F64
+	ldr r3, _0808AEAC  @ gObject_8x16
 	bl PutSprite
 _0808AE2A:
 	subs r4, #0x40
@@ -3199,7 +3199,7 @@ _0808AE78:
 	movs r0, #2
 	mov r1, r9
 	ldr r2, [sp, #0x24]
-	ldr r3, _0808AEB4  @ gUnknown_08590F7C
+	ldr r3, _0808AEB4  @ gObject_16x8
 	bl PutSprite
 	mov r2, sl
 	ldrh r1, [r2]
@@ -3215,14 +3215,14 @@ _0808AE98:
 	movs r0, #2
 	mov r1, r9
 	ldr r2, [sp, #0x1c]
-	ldr r3, _0808AEB4  @ gUnknown_08590F7C
+	ldr r3, _0808AEB4  @ gObject_16x8
 	bl PutSprite
 	adds r7, #1
 	b _0808AEE4
 	.align 2, 0
-_0808AEAC: .4byte gUnknown_08590F64
+_0808AEAC: .4byte gObject_8x16
 _0808AEB0: .4byte gUnknown_0203E7E8
-_0808AEB4: .4byte gUnknown_08590F7C
+_0808AEB4: .4byte gObject_16x8
 _0808AEB8:
 	ldr r3, [sp, #4]
 	adds r4, r3, r6
@@ -3233,7 +3233,7 @@ _0808AEB8:
 	movs r0, #2
 	adds r1, r4, #0
 	ldr r2, [sp, #0x24]
-	ldr r3, _0808AF64  @ gUnknown_08590F44
+	ldr r3, _0808AF64  @ gObject_8x8
 	bl PutSprite
 	ldr r2, _0808AF60  @ gUnknown_0203E828
 	ldrh r0, [r2]
@@ -3242,7 +3242,7 @@ _0808AEB8:
 	movs r0, #2
 	adds r1, r4, #0
 	ldr r2, [sp, #0x1c]
-	ldr r3, _0808AF64  @ gUnknown_08590F44
+	ldr r3, _0808AF64  @ gObject_8x8
 	bl PutSprite
 _0808AEE4:
 	adds r7, #1
@@ -3270,7 +3270,7 @@ _0808AF0C:
 	subs r0, #0x10
 	ldr r1, [sp, #8]
 	adds r4, r1, r0
-	ldr r6, _0808AF68  @ gUnknown_08590F64
+	ldr r6, _0808AF68  @ gObject_8x16
 	ldr r0, _0808AF6C  @ gUnknown_0203E7E8
 	adds r7, r0, #0
 	adds r7, #0x40
@@ -3310,8 +3310,8 @@ _0808AF4A:
 	b _0808AFBA
 	.align 2, 0
 _0808AF60: .4byte gUnknown_0203E828
-_0808AF64: .4byte gUnknown_08590F44
-_0808AF68: .4byte gUnknown_08590F64
+_0808AF64: .4byte gObject_8x8
+_0808AF68: .4byte gObject_8x16
 _0808AF6C: .4byte gUnknown_0203E7E8
 _0808AF70:
 	ldr r5, [sp, #0x10]
@@ -3319,7 +3319,7 @@ _0808AF70:
 	mov r9, r7
 	cmp r5, #0
 	blt _0808AFBA
-	ldr r6, _0808B010  @ gUnknown_08590F64
+	ldr r6, _0808B010  @ gObject_8x16
 	ldr r7, _0808B014  @ gUnknown_0203E828
 _0808AF7E:
 	adds r0, r5, #1
@@ -3352,7 +3352,7 @@ _0808AF88:
 	cmp r5, #0
 	bge _0808AF7E
 _0808AFBA:
-	ldr r5, _0808B018  @ gUnknown_08590F44
+	ldr r5, _0808B018  @ gObject_8x8
 	ldr r4, _0808B01C  @ gUnknown_0203E7E8
 	adds r4, #0x40
 	ldrh r0, [r4]
@@ -3391,9 +3391,9 @@ _0808AFBA:
 	bl PutSprite
 	b _0808B082
 	.align 2, 0
-_0808B010: .4byte gUnknown_08590F64
+_0808B010: .4byte gObject_8x16
 _0808B014: .4byte gUnknown_0203E828
-_0808B018: .4byte gUnknown_08590F44
+_0808B018: .4byte gObject_8x8
 _0808B01C: .4byte gUnknown_0203E7E8
 _0808B020:
 	adds r0, r4, #0
@@ -3437,7 +3437,7 @@ _0808B058:
 	ldr r3, [sp, #4]
 	adds r1, r3, r6
 	adds r2, r4, #0
-	ldr r3, _0808B098  @ gUnknown_08590F8C
+	ldr r3, _0808B098  @ gObject_32x16
 	bl PutSprite
 	subs r4, #0x10
 	subs r5, #1
@@ -3458,7 +3458,7 @@ _0808B082:
 	bx r0
 	.align 2, 0
 _0808B094: .4byte gUnknown_0203E828
-_0808B098: .4byte gUnknown_08590F8C
+_0808B098: .4byte gObject_32x16
 
 	THUMB_FUNC_START sub_808B09C
 sub_808B09C: @ 0x0808B09C
@@ -5930,7 +5930,7 @@ _0808C53E:
 	ldrb r0, [r1]
 	cmp r0, #0xf0
 	beq _0808C570
-	ldr r2, _0808C5C8  @ gUnknown_08590F44
+	ldr r2, _0808C5C8  @ gObject_8x8
 	adds r3, r0, #0
 	ldr r0, _0808C5CC  @ 0x000082E0
 	adds r3, r3, r0
@@ -5940,7 +5940,7 @@ _0808C53E:
 _0808C570:
 	adds r0, r5, #0
 	adds r0, #0x18
-	ldr r7, _0808C5C8  @ gUnknown_08590F44
+	ldr r7, _0808C5C8  @ gObject_8x8
 	adds r1, r4, #0
 	adds r1, #0x52
 	ldrb r3, [r1]
@@ -5981,7 +5981,7 @@ _0808C5BA:
 	bx r0
 	.align 2, 0
 _0808C5C4: .4byte gUnknown_02028E44
-_0808C5C8: .4byte gUnknown_08590F44
+_0808C5C8: .4byte gObject_8x8
 _0808C5CC: .4byte 0x000082E0
 
 	THUMB_FUNC_START InitMinimugBoxMaybe
@@ -8339,7 +8339,7 @@ sub_808D924: @ 0x0808D924
 	ands r1, r6
 	movs r0, #0xff
 	ands r5, r0
-	ldr r0, _0808D974  @ gUnknown_08590F8C
+	ldr r0, _0808D974  @ gObject_32x16
 	mov r8, r0
 	movs r0, #0x8a
 	lsls r0, r0, #6
@@ -8365,7 +8365,7 @@ sub_808D924: @ 0x0808D924
 	bx r0
 	.align 2, 0
 _0808D970: .4byte 0x000001FF
-_0808D974: .4byte gUnknown_08590F8C
+_0808D974: .4byte gObject_32x16
 _0808D978: .4byte 0x00002284
 
 	THUMB_FUNC_START sub_808D97C
@@ -10197,14 +10197,14 @@ _0808E8DA:
 	movs r0, #4
 	adds r1, r5, #0
 	movs r2, #0x3c
-	ldr r3, _0808E9C0  @ gUnknown_08590F8C
+	ldr r3, _0808E9C0  @ gObject_32x16
 	bl PutSprite
 	adds r6, #4
 	adds r5, #0x20
 	subs r4, #1
 	cmp r4, #0
 	bge _0808E8DA
-	ldr r3, _0808E9C0  @ gUnknown_08590F8C
+	ldr r3, _0808E9C0  @ gObject_32x16
 	ldr r0, _0808E9C4  @ 0x0000A3D0
 	str r0, [sp]
 	movs r0, #4
@@ -10219,7 +10219,7 @@ _0808E908:
 	movs r0, #4
 	adds r1, r5, #0
 	movs r2, #0x5b
-	ldr r3, _0808E9C0  @ gUnknown_08590F8C
+	ldr r3, _0808E9C0  @ gObject_32x16
 	bl PutSprite
 	adds r6, #4
 	adds r5, #0x20
@@ -10290,7 +10290,7 @@ _0808E9B0: .4byte gUnknown_08A01AD6
 _0808E9B4: .4byte gUnknown_08A01ADE
 _0808E9B8: .4byte gUnknown_08A01AC8
 _0808E9BC: .4byte 0x0000A3C0
-_0808E9C0: .4byte gUnknown_08590F8C
+_0808E9C0: .4byte gObject_32x16
 _0808E9C4: .4byte 0x0000A3D0
 _0808E9C8: .4byte 0x0000A3D4
 _0808E9CC: .4byte gUnknown_020230CE
@@ -11950,7 +11950,7 @@ _0808F6E4:
 	adds r0, r0, r3
 	str r0, [sp]
 	movs r0, #2
-	ldr r3, _0808F76C  @ gUnknown_08590F8C
+	ldr r3, _0808F76C  @ gObject_32x16
 	bl PutSpriteExt
 	movs r5, #1
 	add r9, r5
@@ -12000,7 +12000,7 @@ _0808F752:
 	b _0808F7D0
 	.align 2, 0
 _0808F768: .4byte 0x000001FF
-_0808F76C: .4byte gUnknown_08590F8C
+_0808F76C: .4byte gObject_32x16
 _0808F770:
 	movs r0, #0
 	mov r9, r0
@@ -12028,7 +12028,7 @@ _0808F77A:
 	adds r0, r0, r3
 	str r0, [sp]
 	movs r0, #2
-	ldr r3, _0808F81C  @ gUnknown_08590F64
+	ldr r3, _0808F81C  @ gObject_8x16
 	bl PutSpriteExt
 	movs r5, #1
 	add r9, r5
@@ -12068,7 +12068,7 @@ _0808F7DA:
 	adds r2, r7, r2
 	movs r0, #0xff
 	ands r2, r0
-	ldr r3, _0808F820  @ gUnknown_08590F8C
+	ldr r3, _0808F820  @ gObject_32x16
 	mov r5, r9
 	lsls r0, r5, #2
 	mov r6, sl
@@ -12091,8 +12091,8 @@ _0808F7DA:
 	bx r0
 	.align 2, 0
 _0808F818: .4byte 0x000001FF
-_0808F81C: .4byte gUnknown_08590F64
-_0808F820: .4byte gUnknown_08590F8C
+_0808F81C: .4byte gObject_8x16
+_0808F820: .4byte gObject_32x16
 
 	THUMB_FUNC_START sub_808F824
 sub_808F824: @ 0x0808F824
@@ -14327,7 +14327,7 @@ _08090A2C:
 	beq _08090A90
 	movs r0, #0x3e
 	ldrsh r4, [r6, r0]
-	ldr r5, _08090B34  @ gUnknown_08590F44
+	ldr r5, _08090B34  @ gObject_8x8
 	ldr r1, [sp, #0x1c]
 	ldrh r0, [r1]
 	lsrs r0, r0, #5
@@ -14379,7 +14379,7 @@ _08090A90:
 	adds r4, #0x40
 	movs r3, #0
 	ldrsh r5, [r4, r3]
-	ldr r6, _08090B40  @ gUnknown_08590FBC
+	ldr r6, _08090B40  @ gObject_8x8_HFlipped
 	ldr r1, [sp, #0x20]
 	ldrh r0, [r1]
 	lsrs r0, r0, #5
@@ -14435,10 +14435,10 @@ _08090B24: .4byte gUnknown_02013460
 _08090B28: .4byte gUnknown_0200F158
 _08090B2C: .4byte gUnknown_0200D6E0
 _08090B30: .4byte gKeyStatusPtr
-_08090B34: .4byte gUnknown_08590F44
+_08090B34: .4byte gObject_8x8
 _08090B38: .4byte 0x00001414
 _08090B3C: .4byte 0x0000141A
-_08090B40: .4byte gUnknown_08590FBC
+_08090B40: .4byte gObject_8x8_HFlipped
 
 	THUMB_FUNC_START nullsub_63
 nullsub_63: @ 0x08090B44
@@ -26582,7 +26582,7 @@ _080969FA:
 	movs r0, #4
 	adds r1, r5, #0
 	movs r2, #0x18
-	ldr r3, _08096A70  @ gUnknown_08590F8C
+	ldr r3, _08096A70  @ gObject_32x16
 	bl PutSpriteExt
 	adds r6, #4
 	adds r5, #0x20
@@ -26636,7 +26636,7 @@ _08096A5E:
 	b _08096AA4
 	.align 2, 0
 _08096A6C: .4byte 0x0000B6C0
-_08096A70: .4byte gUnknown_08590F8C
+_08096A70: .4byte gObject_32x16
 _08096A74: .4byte gUnknown_08A18E4E
 _08096A78: .4byte gUnknown_08A18E76
 _08096A7C: .4byte 0x00009380
@@ -33787,7 +33787,7 @@ _0809A338:
 	bgt _0809A33E
 	b _0809A4E6
 _0809A33E:
-	ldr r4, _0809A4F8  @ gUnknown_08590F44
+	ldr r4, _0809A4F8  @ gObject_8x8
 	str r7, [sp]
 	movs r0, #4
 	ldr r1, [sp, #4]
@@ -33833,7 +33833,7 @@ _0809A33E:
 	str r3, [sp, #0x10]
 	cmp r5, r3
 	bge _0809A3D6
-	ldr r6, _0809A4FC  @ gUnknown_08590F7C
+	ldr r6, _0809A4FC  @ gObject_16x8
 	ldr r4, [sp, #4]
 	adds r4, #8
 _0809A3A8:
@@ -33862,7 +33862,7 @@ _0809A3D6:
 	ldr r1, [sp, #8]
 	cmp r5, r1
 	bge _0809A412
-	ldr r6, _0809A4F8  @ gUnknown_08590F44
+	ldr r6, _0809A4F8  @ gObject_8x8
 	lsls r0, r5, #3
 	ldr r3, [sp, #4]
 	adds r4, r0, r3
@@ -33892,7 +33892,7 @@ _0809A412:
 	ldr r0, [sp, #0xc]
 	cmp r0, #1
 	ble _0809A44E
-	ldr r5, _0809A4F8  @ gUnknown_08590F44
+	ldr r5, _0809A4F8  @ gObject_8x8
 	mov r4, sl
 	adds r4, #8
 	adds r6, r0, #0
@@ -33944,7 +33944,7 @@ _0809A470:
 	adds r1, r4, #0
 	mov r3, sl
 	adds r2, r3, r7
-	ldr r3, _0809A500  @ gUnknown_08590F9C
+	ldr r3, _0809A500  @ gObject_32x8
 	bl PutSpriteExt
 	adds r4, #0x20
 	adds r5, #4
@@ -33965,7 +33965,7 @@ _0809A498:
 	adds r1, r4, #0
 	mov r3, sl
 	adds r2, r3, r7
-	ldr r3, _0809A4FC  @ gUnknown_08590F7C
+	ldr r3, _0809A4FC  @ gObject_16x8
 	bl PutSpriteExt
 	adds r4, #0x10
 	adds r5, #2
@@ -33988,7 +33988,7 @@ _0809A4C4:
 	adds r1, r4, #0
 	mov r3, sl
 	adds r2, r3, r6
-	ldr r3, _0809A4F8  @ gUnknown_08590F44
+	ldr r3, _0809A4F8  @ gObject_8x8
 	bl PutSpriteExt
 	adds r4, #8
 	subs r5, #1
@@ -34009,9 +34009,9 @@ _0809A4E6:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_0809A4F8: .4byte gUnknown_08590F44
-_0809A4FC: .4byte gUnknown_08590F7C
-_0809A500: .4byte gUnknown_08590F9C
+_0809A4F8: .4byte gObject_8x8
+_0809A4FC: .4byte gObject_16x8
+_0809A500: .4byte gObject_32x8
 
 	THUMB_FUNC_START sub_809A504
 sub_809A504: @ 0x0809A504
@@ -34345,7 +34345,7 @@ _0809A786:
 	movs r0, #4
 	adds r1, r4, #0
 	movs r2, #0x81
-	ldr r3, _0809A7D4  @ gUnknown_08590F8C
+	ldr r3, _0809A7D4  @ gObject_32x16
 	bl PutSpriteExt
 	adds r5, #4
 	adds r4, #0x20
@@ -34377,7 +34377,7 @@ _0809A786:
 	b _0809A7EC
 	.align 2, 0
 _0809A7D0: .4byte gLCDControlBuffer
-_0809A7D4: .4byte gUnknown_08590F8C
+_0809A7D4: .4byte gObject_32x16
 _0809A7D8: .4byte gUnknown_08A18E62
 _0809A7DC:
 	ldr r3, _0809A80C  @ gUnknown_08A18E4E
@@ -39545,7 +39545,7 @@ _0809D24E:
 	movs r0, #4
 	adds r1, r5, #0
 	movs r2, #0x10
-	ldr r3, _0809D274  @ gUnknown_08590F8C
+	ldr r3, _0809D274  @ gObject_32x16
 	bl PutSpriteExt
 	adds r6, #4
 	adds r5, #0x20
@@ -39558,7 +39558,7 @@ _0809D24E:
 	bx r0
 	.align 2, 0
 _0809D270: .4byte 0x0000DFC0
-_0809D274: .4byte gUnknown_08590F8C
+_0809D274: .4byte gObject_32x16
 
 	THUMB_FUNC_START sub_809D278
 sub_809D278: @ 0x0809D278
@@ -40189,7 +40189,7 @@ sub_809D784: @ 0x0809D784
 	movs r2, #5
 	movs r3, #4
 	bl sub_809A31C
-	ldr r4, _0809D7C8  @ gUnknown_08590F8C
+	ldr r4, _0809D7C8  @ gObject_32x16
 	ldr r0, _0809D7CC  @ 0x0000B080
 	str r0, [sp]
 	movs r0, #4
@@ -40210,7 +40210,7 @@ sub_809D784: @ 0x0809D784
 	bx r0
 	.align 2, 0
 _0809D7C4: .4byte 0x0000A840
-_0809D7C8: .4byte gUnknown_08590F8C
+_0809D7C8: .4byte gObject_32x16
 _0809D7CC: .4byte 0x0000B080
 _0809D7D0: .4byte 0x0000B088
 
@@ -40225,7 +40225,7 @@ sub_809D7D4: @ 0x0809D7D4
 	movs r2, #5
 	movs r3, #2
 	bl sub_809A31C
-	ldr r3, _0809D804  @ gUnknown_08590F8C
+	ldr r3, _0809D804  @ gObject_32x16
 	ldr r0, _0809D808  @ 0x0000B080
 	str r0, [sp]
 	movs r0, #4
@@ -40237,7 +40237,7 @@ sub_809D7D4: @ 0x0809D7D4
 	bx r0
 	.align 2, 0
 _0809D800: .4byte 0x0000A840
-_0809D804: .4byte gUnknown_08590F8C
+_0809D804: .4byte gObject_32x16
 _0809D808: .4byte 0x0000B080
 
 	THUMB_FUNC_START sub_809D80C
@@ -40251,7 +40251,7 @@ sub_809D80C: @ 0x0809D80C
 	movs r2, #5
 	movs r3, #2
 	bl sub_809A31C
-	ldr r3, _0809D83C  @ gUnknown_08590F8C
+	ldr r3, _0809D83C  @ gObject_32x16
 	ldr r0, _0809D840  @ 0x0000B088
 	str r0, [sp]
 	movs r0, #4
@@ -40263,7 +40263,7 @@ sub_809D80C: @ 0x0809D80C
 	bx r0
 	.align 2, 0
 _0809D838: .4byte 0x0000A840
-_0809D83C: .4byte gUnknown_08590F8C
+_0809D83C: .4byte gObject_32x16
 _0809D840: .4byte 0x0000B088
 
 	THUMB_FUNC_START sub_809D844
@@ -44860,7 +44860,7 @@ _0809FDAA:
 	movs r0, #4
 	adds r1, r5, #0
 	movs r2, #0x10
-	ldr r3, _0809FDD0  @ gUnknown_08590F8C
+	ldr r3, _0809FDD0  @ gObject_32x16
 	bl PutSpriteExt
 	adds r6, #4
 	adds r5, #0x20
@@ -44873,7 +44873,7 @@ _0809FDAA:
 	bx r0
 	.align 2, 0
 _0809FDCC: .4byte 0x0000DF80
-_0809FDD0: .4byte gUnknown_08590F8C
+_0809FDD0: .4byte gObject_32x16
 
 	THUMB_FUNC_START sub_809FDD4
 sub_809FDD4: @ 0x0809FDD4
@@ -45024,7 +45024,7 @@ sub_809FEFC: @ 0x0809FEFC
 	movs r2, #8
 	movs r3, #4
 	bl sub_809A31C
-	ldr r4, _0809FF60  @ gUnknown_08590F8C
+	ldr r4, _0809FF60  @ gObject_32x16
 	ldr r0, _0809FF64  @ 0x0000B088
 	str r0, [sp]
 	movs r0, #4
@@ -45059,7 +45059,7 @@ sub_809FEFC: @ 0x0809FEFC
 	bx r0
 	.align 2, 0
 _0809FF5C: .4byte 0x00008840
-_0809FF60: .4byte gUnknown_08590F8C
+_0809FF60: .4byte gObject_32x16
 _0809FF64: .4byte 0x0000B088
 _0809FF68: .4byte 0x0000B08C
 _0809FF6C: .4byte 0x0000B080
@@ -45069,14 +45069,14 @@ _0809FF70: .4byte 0x0000B084
 sub_809FF74: @ 0x0809FF74
 	push {lr}
 	sub sp, #4
-	ldr r3, _0809FFA0  @ gUnknown_08590F8C
+	ldr r3, _0809FFA0  @ gObject_32x16
 	ldr r0, _0809FFA4  @ 0x0000B090
 	str r0, [sp]
 	movs r0, #4
 	movs r1, #0x88
 	movs r2, #0x48
 	bl PutSpriteExt
-	ldr r3, _0809FFA8  @ gUnknown_08590F64
+	ldr r3, _0809FFA8  @ gObject_8x16
 	ldr r0, _0809FFAC  @ 0x0000B094
 	str r0, [sp]
 	movs r0, #4
@@ -45087,9 +45087,9 @@ sub_809FF74: @ 0x0809FF74
 	pop {r0}
 	bx r0
 	.align 2, 0
-_0809FFA0: .4byte gUnknown_08590F8C
+_0809FFA0: .4byte gObject_32x16
 _0809FFA4: .4byte 0x0000B090
-_0809FFA8: .4byte gUnknown_08590F64
+_0809FFA8: .4byte gObject_8x16
 _0809FFAC: .4byte 0x0000B094
 
 	THUMB_FUNC_START sub_809FFB0
@@ -71630,7 +71630,7 @@ _080ACEAA:
 	adds r3, #4
 	str r3, [sp]
 	movs r0, #0xd
-	ldr r3, _080ACFD4  @ gUnknown_08590F44
+	ldr r3, _080ACFD4  @ gObject_8x8
 	bl PutSpriteExt
 	movs r2, #0
 	ldrsh r1, [r6, r2]
@@ -71649,7 +71649,7 @@ _080ACEAA:
 	adds r0, #4
 	str r0, [sp]
 	movs r0, #0xd
-	ldr r3, _080ACFD4  @ gUnknown_08590F44
+	ldr r3, _080ACFD4  @ gObject_8x8
 	bl PutSpriteExt
 	ldrh r1, [r6]
 	movs r2, #0xc0
@@ -71672,7 +71672,7 @@ _080ACEAA:
 	adds r0, #4
 	str r0, [sp]
 	movs r0, #0xd
-	ldr r3, _080ACFD4  @ gUnknown_08590F44
+	ldr r3, _080ACFD4  @ gObject_8x8
 	bl PutSpriteExt
 	movs r0, #0
 	ldrsh r1, [r6, r0]
@@ -71699,7 +71699,7 @@ _080ACEAA:
 	adds r0, #4
 	str r0, [sp]
 	movs r0, #0xd
-	ldr r3, _080ACFD4  @ gUnknown_08590F44
+	ldr r3, _080ACFD4  @ gObject_8x8
 	bl PutSpriteExt
 	mov r1, r9
 	movs r0, #0
@@ -71733,7 +71733,7 @@ _080ACFAE:
 	movs r0, #0xd
 	adds r1, r5, #0
 	adds r2, r7, #0
-	ldr r3, _080ACFD8  @ gUnknown_08590F9C
+	ldr r3, _080ACFD8  @ gObject_32x8
 	bl PutSpriteExt
 	adds r5, #0x20
 	subs r4, #4
@@ -71741,8 +71741,8 @@ _080ACFAE:
 	bgt _080ACFAE
 	b _080ACFFA
 	.align 2, 0
-_080ACFD4: .4byte gUnknown_08590F44
-_080ACFD8: .4byte gUnknown_08590F9C
+_080ACFD4: .4byte gObject_8x8
+_080ACFD8: .4byte gObject_32x8
 _080ACFDC:
 	mov r3, r8
 	ldrh r0, [r3]
@@ -71754,7 +71754,7 @@ _080ACFDC:
 	movs r0, #0xd
 	adds r1, r5, #0
 	adds r2, r7, #0
-	ldr r3, _080AD080  @ gUnknown_08590F7C
+	ldr r3, _080AD080  @ gObject_16x8
 	bl PutSpriteExt
 	adds r5, #0x10
 	subs r4, #2
@@ -71774,7 +71774,7 @@ _080AD002:
 	movs r0, #0xd
 	adds r1, r5, #0
 	adds r2, r7, #0
-	ldr r3, _080AD084  @ gUnknown_08590F44
+	ldr r3, _080AD084  @ gObject_8x8
 	bl PutSpriteExt
 	adds r5, #8
 	subs r4, #1
@@ -71820,7 +71820,7 @@ _080AD05C:
 	movs r0, #0xd
 	adds r1, r5, #0
 	adds r2, r7, #0
-	ldr r3, _080AD088  @ gUnknown_08590F9C
+	ldr r3, _080AD088  @ gObject_32x8
 	bl PutSpriteExt
 	adds r5, #0x20
 	subs r4, #4
@@ -71828,9 +71828,9 @@ _080AD05C:
 	bgt _080AD05C
 	b _080AD0AA
 	.align 2, 0
-_080AD080: .4byte gUnknown_08590F7C
-_080AD084: .4byte gUnknown_08590F44
-_080AD088: .4byte gUnknown_08590F9C
+_080AD080: .4byte gObject_16x8
+_080AD084: .4byte gObject_8x8
+_080AD088: .4byte gObject_32x8
 _080AD08C:
 	mov r3, r8
 	ldrh r0, [r3]
@@ -71842,7 +71842,7 @@ _080AD08C:
 	movs r0, #0xd
 	adds r1, r5, #0
 	adds r2, r7, #0
-	ldr r3, _080AD134  @ gUnknown_08590F7C
+	ldr r3, _080AD134  @ gObject_16x8
 	bl PutSpriteExt
 	adds r5, #0x10
 	subs r4, #2
@@ -71862,7 +71862,7 @@ _080AD0B2:
 	movs r0, #0xd
 	adds r1, r5, #0
 	adds r2, r7, #0
-	ldr r3, _080AD138  @ gUnknown_08590F44
+	ldr r3, _080AD138  @ gObject_8x8
 	bl PutSpriteExt
 	adds r5, #8
 	subs r4, #1
@@ -71911,7 +71911,7 @@ _080AD114:
 	movs r0, #0xd
 	adds r1, r5, #0
 	adds r2, r7, #0
-	ldr r3, _080AD13C  @ gUnknown_08590F9C
+	ldr r3, _080AD13C  @ gObject_32x8
 	bl PutSpriteExt
 	adds r5, #0x20
 	subs r4, #4
@@ -71919,9 +71919,9 @@ _080AD114:
 	bgt _080AD114
 	b _080AD15A
 	.align 2, 0
-_080AD134: .4byte gUnknown_08590F7C
-_080AD138: .4byte gUnknown_08590F44
-_080AD13C: .4byte gUnknown_08590F9C
+_080AD134: .4byte gObject_16x8
+_080AD138: .4byte gObject_8x8
+_080AD13C: .4byte gObject_32x8
 _080AD140:
 	mov r3, r8
 	ldrh r1, [r3]
@@ -71931,7 +71931,7 @@ _080AD140:
 	movs r0, #0xd
 	adds r1, r5, #0
 	adds r2, r7, #0
-	ldr r3, _080AD1A4  @ gUnknown_08590F7C
+	ldr r3, _080AD1A4  @ gObject_16x8
 	bl PutSpriteExt
 	adds r5, #0x10
 	subs r4, #2
@@ -71949,7 +71949,7 @@ _080AD162:
 	movs r0, #0xd
 	adds r1, r5, #0
 	adds r2, r7, #0
-	ldr r3, _080AD1A8  @ gUnknown_08590F44
+	ldr r3, _080AD1A8  @ gObject_8x8
 	bl PutSpriteExt
 	adds r5, #8
 	subs r4, #1
@@ -71976,8 +71976,8 @@ _080AD192:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_080AD1A4: .4byte gUnknown_08590F7C
-_080AD1A8: .4byte gUnknown_08590F44
+_080AD1A4: .4byte gObject_16x8
+_080AD1A8: .4byte gObject_8x8
 
 	THUMB_FUNC_START sub_80AD1AC
 sub_80AD1AC: @ 0x080AD1AC
@@ -72246,7 +72246,7 @@ sub_80AD364: @ 0x080AD364
 	ldr r1, [r5, #0x2c]
 	ldr r2, [r5, #0x30]
 	adds r2, #8
-	ldr r3, _080AD430  @ gUnknown_08590F44
+	ldr r3, _080AD430  @ gObject_8x8
 	ldrh r0, [r5, #0x3a]
 	ands r4, r0
 	lsls r4, r4, #0xc
@@ -72278,7 +72278,7 @@ _080AD3C4:
 	adds r0, #1
 	str r0, [sp]
 	movs r0, #4
-	ldr r3, _080AD430  @ gUnknown_08590F44
+	ldr r3, _080AD430  @ gObject_8x8
 	bl PutSpriteExt
 	adds r4, #1
 	ldrh r0, [r5, #0x38]
@@ -72291,7 +72291,7 @@ _080AD3F2:
 	adds r1, r1, r0
 	ldr r2, [r5, #0x30]
 	adds r2, #8
-	ldr r3, _080AD430  @ gUnknown_08590F44
+	ldr r3, _080AD430  @ gObject_8x8
 	ldrh r4, [r5, #0x3a]
 	movs r0, #0xf
 	ands r0, r4
@@ -72312,7 +72312,7 @@ _080AD3F2:
 _080AD424: .4byte gPaletteBuffer
 _080AD428: .4byte gUnknown_0202BCF0
 _080AD42C: .4byte gUnknown_08A1D448
-_080AD430: .4byte gUnknown_08590F44
+_080AD430: .4byte gObject_8x8
 
 	THUMB_FUNC_START sub_80AD434
 sub_80AD434: @ 0x080AD434
@@ -72618,7 +72618,7 @@ _080AD63A:
 	ands r2, r3
 	mov r3, r8
 	str r3, [sp]
-	ldr r3, _080AD8BC  @ gUnknown_08590F44
+	ldr r3, _080AD8BC  @ gObject_8x8
 	bl PutSpriteExt
 	ldrb r0, [r5, #1]
 	movs r2, #2
@@ -72637,7 +72637,7 @@ _080AD63A:
 	ands r2, r3
 	mov r3, r8
 	str r3, [sp]
-	ldr r3, _080AD8BC  @ gUnknown_08590F44
+	ldr r3, _080AD8BC  @ gObject_8x8
 	bl PutSpriteExt
 	ldrb r0, [r5, #1]
 	movs r2, #2
@@ -72661,7 +72661,7 @@ _080AD63A:
 	ands r2, r3
 	mov r3, r8
 	str r3, [sp]
-	ldr r3, _080AD8BC  @ gUnknown_08590F44
+	ldr r3, _080AD8BC  @ gObject_8x8
 	bl PutSpriteExt
 	ldrb r0, [r5, #1]
 	ldrh r2, [r5, #2]
@@ -72680,7 +72680,7 @@ _080AD63A:
 	ands r2, r3
 	mov r3, r8
 	str r3, [sp]
-	ldr r3, _080AD8BC  @ gUnknown_08590F44
+	ldr r3, _080AD8BC  @ gObject_8x8
 	bl PutSpriteExt
 	movs r7, #1
 	ldrb r0, [r5, #6]
@@ -72689,7 +72689,7 @@ _080AD63A:
 	bge _080AD750
 	ldr r0, _080AD8B8  @ 0x000001FF
 	mov sl, r0
-	ldr r1, _080AD8C0  @ gUnknown_08590F9C
+	ldr r1, _080AD8C0  @ gObject_32x8
 	mov r9, r1
 	mov r6, r8
 	adds r6, #1
@@ -72739,7 +72739,7 @@ _080AD750:
 	bge _080AD7B4
 	ldr r0, _080AD8B8  @ 0x000001FF
 	mov sl, r0
-	ldr r1, _080AD8C4  @ gUnknown_08590F7C
+	ldr r1, _080AD8C4  @ gObject_16x8
 	mov r9, r1
 	mov r6, r8
 	adds r6, #1
@@ -72789,7 +72789,7 @@ _080AD7B4:
 	bge _080AD818
 	ldr r0, _080AD8B8  @ 0x000001FF
 	mov sl, r0
-	ldr r1, _080AD8BC  @ gUnknown_08590F44
+	ldr r1, _080AD8BC  @ gObject_8x8
 	mov r9, r1
 	mov r6, r8
 	adds r6, #1
@@ -72860,7 +72860,7 @@ _080AD832:
 	ands r2, r3
 	ldr r3, [sp, #8]
 	str r3, [sp]
-	ldr r3, _080AD8BC  @ gUnknown_08590F44
+	ldr r3, _080AD8BC  @ gObject_8x8
 	bl PutSpriteExt
 	ldrb r0, [r5, #1]
 	movs r2, #2
@@ -72881,7 +72881,7 @@ _080AD832:
 	ands r2, r3
 	ldr r3, [sp, #8]
 	str r3, [sp]
-	ldr r3, _080AD8BC  @ gUnknown_08590F44
+	ldr r3, _080AD8BC  @ gObject_8x8
 	bl PutSpriteExt
 	movs r6, #1
 	ldrb r0, [r5, #6]
@@ -72905,7 +72905,7 @@ _080AD888:
 	mov r3, r8
 	adds r3, #5
 	str r3, [sp]
-	ldr r3, _080AD8C0  @ gUnknown_08590F9C
+	ldr r3, _080AD8C0  @ gObject_32x8
 	bl PutSpriteExt
 	adds r6, #4
 	ldrb r0, [r5, #6]
@@ -72915,9 +72915,9 @@ _080AD888:
 	b _080AD8EE
 	.align 2, 0
 _080AD8B8: .4byte 0x000001FF
-_080AD8BC: .4byte gUnknown_08590F44
-_080AD8C0: .4byte gUnknown_08590F9C
-_080AD8C4: .4byte gUnknown_08590F7C
+_080AD8BC: .4byte gObject_8x8
+_080AD8C0: .4byte gObject_32x8
+_080AD8C4: .4byte gObject_16x8
 _080AD8C8:
 	ldrb r0, [r5, #1]
 	movs r2, #2
@@ -72934,7 +72934,7 @@ _080AD8C8:
 	mov r3, r8
 	adds r3, #5
 	str r3, [sp]
-	ldr r3, _080AD8F8  @ gUnknown_08590F7C
+	ldr r3, _080AD8F8  @ gObject_16x8
 	bl PutSpriteExt
 	adds r6, #2
 _080AD8EE:
@@ -72944,7 +72944,7 @@ _080AD8EE:
 	blt _080AD8C8
 	b _080AD922
 	.align 2, 0
-_080AD8F8: .4byte gUnknown_08590F7C
+_080AD8F8: .4byte gObject_16x8
 _080AD8FC:
 	ldrb r0, [r5, #1]
 	movs r2, #2
@@ -72961,7 +72961,7 @@ _080AD8FC:
 	mov r3, r8
 	adds r3, #5
 	str r3, [sp]
-	ldr r3, _080AD94C  @ gUnknown_08590F44
+	ldr r3, _080AD94C  @ gObject_8x8
 	bl PutSpriteExt
 	adds r6, #1
 _080AD922:
@@ -72989,7 +72989,7 @@ _080AD93C:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_080AD94C: .4byte gUnknown_08590F44
+_080AD94C: .4byte gObject_8x8
 
 	THUMB_FUNC_START sub_80AD950
 sub_80AD950: @ 0x080AD950
@@ -78230,7 +78230,7 @@ _080B0112:
 	movs r2, #0x84
 	lsls r2, r2, #1
 	add r2, sl
-	ldr r3, _080B0174  @ gUnknown_08590F8C
+	ldr r3, _080B0174  @ gObject_32x16
 	bl PutSpriteExt
 	adds r5, #0x20
 	adds r4, #1
@@ -78247,7 +78247,7 @@ _080B0140:
 	movs r2, #0x80
 	lsls r2, r2, #1
 	add r2, sl
-	ldr r3, _080B0178  @ gUnknown_08590F94
+	ldr r3, _080B0178  @ gObject_64x32
 	bl PutSpriteExt
 	adds r6, #8
 	adds r5, #0x40
@@ -78266,8 +78266,8 @@ _080B015C:
 	.align 2, 0
 _080B016C: .4byte gSinLookup
 _080B0170: .4byte gUnknown_0201F198
-_080B0174: .4byte gUnknown_08590F8C
-_080B0178: .4byte gUnknown_08590F94
+_080B0174: .4byte gObject_32x16
+_080B0178: .4byte gObject_64x32
 
 	THUMB_FUNC_START sub_80B017C
 sub_80B017C: @ 0x080B017C
@@ -78299,7 +78299,7 @@ _080B01A0:
 	str r0, [sp]
 	movs r0, #0
 	mov r2, r8
-	ldr r3, _080B0200  @ gUnknown_08590F44
+	ldr r3, _080B0200  @ gObject_8x8
 	bl PutSpriteExt
 	adds r5, #8
 	adds r6, #1
@@ -78318,7 +78318,7 @@ _080B01CC:
 	add r1, r9
 	ldr r0, _080B01F8  @ 0x000001FF
 	ands r1, r0
-	ldr r3, _080B0200  @ gUnknown_08590F44
+	ldr r3, _080B0200  @ gObject_8x8
 	lsls r0, r7, #0xc
 	adds r0, r4, r0
 	movs r2, #0x84
@@ -78339,7 +78339,7 @@ _080B01EA:
 	.align 2, 0
 _080B01F8: .4byte 0x000001FF
 _080B01FC: .4byte 0x00000847
-_080B0200: .4byte gUnknown_08590F44
+_080B0200: .4byte gObject_8x8
 
 	THUMB_FUNC_START sub_80B0204
 sub_80B0204: @ 0x080B0204
@@ -81248,7 +81248,7 @@ _080B19B2:
 	lsrs r0, r0, #0x18
 	cmp r0, #3
 	bne _080B19DA
-	ldr r2, _080B1A00  @ gUnknown_08590F4C
+	ldr r2, _080B1A00  @ gObject_16x16
 	ldr r3, _080B1A04  @ 0x000020CC
 	cmp r7, #0
 	beq _080B19D2
@@ -81273,7 +81273,7 @@ _080B19F0: .4byte gUnknown_08A2E978
 _080B19F4: .4byte gUnknown_08A2E974
 _080B19F8: .4byte gUnknown_08A2E986
 _080B19FC: .4byte gUnknown_08A2E99C
-_080B1A00: .4byte gUnknown_08590F4C
+_080B1A00: .4byte gObject_16x16
 _080B1A04: .4byte 0x000020CC
 
 	THUMB_FUNC_START sub_80B1A08
@@ -88511,7 +88511,7 @@ sub_80B53F8: @ 0x080B53F8
 	lsls r1, r1, #6
 _080B5422:
 	orrs r1, r6
-	ldr r3, _080B543C  @ gUnknown_08590F7C
+	ldr r3, _080B543C  @ gObject_16x8
 	adds r0, r5, r0
 	str r0, [sp]
 	movs r0, #2
@@ -88522,7 +88522,7 @@ _080B5422:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_080B543C: .4byte gUnknown_08590F7C
+_080B543C: .4byte gObject_16x8
 
 	THUMB_FUNC_START sub_80B5440
 sub_80B5440: @ 0x080B5440
@@ -117820,7 +117820,7 @@ sub_80C36E8: @ 0x080C36E8
 	ands r1, r0
 	movs r0, #0xff
 	ands r2, r0
-	ldr r3, _080C3768  @ gUnknown_08590F44
+	ldr r3, _080C3768  @ gObject_8x8
 	ldr r0, _080C376C  @ 0x000040F6
 	str r0, [sp]
 	movs r0, #0
@@ -117834,7 +117834,7 @@ _080C3754:
 _080C375C: .4byte gUnknown_03005280
 _080C3760: .4byte 0x0000012F
 _080C3764: .4byte 0x000001FF
-_080C3768: .4byte gUnknown_08590F44
+_080C3768: .4byte gObject_8x8
 _080C376C: .4byte 0x000040F6
 
 	THUMB_FUNC_START sub_80C3770
@@ -117891,7 +117891,7 @@ sub_80C3770: @ 0x080C3770
 	ands r1, r0
 	movs r0, #0xff
 	ands r2, r0
-	ldr r3, _080C3804  @ gUnknown_08590F44
+	ldr r3, _080C3804  @ gObject_8x8
 	ldr r0, _080C3808  @ 0x000040F7
 	str r0, [sp]
 	movs r0, #0
@@ -117906,7 +117906,7 @@ _080C37F4: .4byte gUnknown_03005280
 _080C37F8: .4byte gUnknown_082060B0
 _080C37FC: .4byte 0x0000012F
 _080C3800: .4byte 0x000001FF
-_080C3804: .4byte gUnknown_08590F44
+_080C3804: .4byte gObject_8x8
 _080C3808: .4byte 0x000040F7
 
 	THUMB_FUNC_START sub_80C380C
@@ -117972,7 +117972,7 @@ sub_80C380C: @ 0x080C380C
 	ands r1, r0
 	movs r0, #0xff
 	ands r2, r0
-	ldr r3, _080C38B4  @ gUnknown_08590F44
+	ldr r3, _080C38B4  @ gObject_8x8
 	ldr r0, _080C38B8  @ 0x000090F4
 	str r0, [sp]
 	movs r0, #0
@@ -117987,7 +117987,7 @@ _080C38A4: .4byte gUnknown_03005280
 _080C38A8: .4byte gUnknown_08A3D748
 _080C38AC: .4byte 0x0000012F
 _080C38B0: .4byte 0x000001FF
-_080C38B4: .4byte gUnknown_08590F44
+_080C38B4: .4byte gObject_8x8
 _080C38B8: .4byte 0x000090F4
 
 	THUMB_FUNC_START sub_80C38BC
@@ -118151,7 +118151,7 @@ _080C39C6:
 	ldr r0, _080C3A20  @ 0x000090F5
 	str r0, [sp]
 	movs r0, #0
-	ldr r3, _080C3A24  @ gUnknown_08590F44
+	ldr r3, _080C3A24  @ gObject_8x8
 	bl PutSpriteExt
 _080C39F8:
 	adds r4, #4
@@ -118173,7 +118173,7 @@ _080C3A14: .4byte gUnknown_08A3D748
 _080C3A18: .4byte 0x0000012F
 _080C3A1C: .4byte 0x000001FF
 _080C3A20: .4byte 0x000090F5
-_080C3A24: .4byte gUnknown_08590F44
+_080C3A24: .4byte gObject_8x8
 
 	THUMB_FUNC_START sub_80C3A28
 sub_80C3A28: @ 0x080C3A28
@@ -121428,7 +121428,7 @@ sub_80C5440: @ 0x080C5440
 	movs r2, #0x30
 	adds r3, r4, #0
 	bl PutSpriteExt
-	ldr r3, _080C54F8  @ gUnknown_08590F4C
+	ldr r3, _080C54F8  @ gObject_16x16
 	ldr r0, _080C54FC  @ 0x0000201E
 	str r0, [sp]
 	movs r0, #0
@@ -121501,7 +121501,7 @@ _080C54D0:
 	b _080C5532
 	.align 2, 0
 _080C54F4: .4byte gUnknown_08AA6774
-_080C54F8: .4byte gUnknown_08590F4C
+_080C54F8: .4byte gObject_16x16
 _080C54FC: .4byte 0x0000201E
 _080C5500: .4byte 0x00000435
 _080C5504: .4byte gUnknown_08AA6794
@@ -122229,7 +122229,7 @@ _080C5B1E:
 	bl sub_80C6BF0
 	cmp r4, #0xff
 	ble _080C5B50
-	ldr r3, _080C5BBC  @ gUnknown_08590F54
+	ldr r3, _080C5BBC  @ gObject_32x32
 	ldr r0, _080C5BC0  @ 0x00004220
 	str r0, [sp]
 	movs r0, #0
@@ -122291,7 +122291,7 @@ _080C5BAA:
 	bl Proc_ClearNativeCallback
 	b _080C5BCC
 	.align 2, 0
-_080C5BBC: .4byte gUnknown_08590F54
+_080C5BBC: .4byte gObject_32x32
 _080C5BC0: .4byte 0x00004220
 _080C5BC4: .4byte gLCDControlBuffer
 _080C5BC8:
@@ -122403,7 +122403,7 @@ _080C5CA6:
 	adds r0, r1, #0
 	cmp r0, #0x13
 	bhi _080C5CD0
-	ldr r3, _080C5CC8  @ gUnknown_08590F54
+	ldr r3, _080C5CC8  @ gObject_32x32
 	ldr r0, _080C5CCC  @ 0x00004220
 	str r0, [sp]
 	movs r0, #0
@@ -122414,7 +122414,7 @@ _080C5CA6:
 	.align 2, 0
 _080C5CC0: .4byte gUnknown_08AAB3F4
 _080C5CC4: .4byte gUnknown_02022A68
-_080C5CC8: .4byte gUnknown_08590F54
+_080C5CC8: .4byte gObject_32x32
 _080C5CCC: .4byte 0x00004220
 _080C5CD0:
 	cmp r0, #0x17
@@ -122423,7 +122423,7 @@ _080C5CD0:
 	ands r0, r1
 	cmp r0, #0
 	beq _080C5D00
-	ldr r4, _080C5CF4  @ gUnknown_08590F54
+	ldr r4, _080C5CF4  @ gObject_32x32
 	ldr r0, _080C5CF8  @ 0x00006228
 	str r0, [sp]
 	movs r0, #0
@@ -122434,11 +122434,11 @@ _080C5CD0:
 	ldr r0, _080C5CFC  @ 0x00005224
 	b _080C5D14
 	.align 2, 0
-_080C5CF4: .4byte gUnknown_08590F54
+_080C5CF4: .4byte gObject_32x32
 _080C5CF8: .4byte 0x00006228
 _080C5CFC: .4byte 0x00005224
 _080C5D00:
-	ldr r4, _080C5D24  @ gUnknown_08590F54
+	ldr r4, _080C5D24  @ gObject_32x32
 	ldr r0, _080C5D28  @ 0x00005224
 	str r0, [sp]
 	movs r0, #0
@@ -122456,7 +122456,7 @@ _080C5D14:
 	bl PutSpriteExt
 	b _080C5DC0
 	.align 2, 0
-_080C5D24: .4byte gUnknown_08590F54
+_080C5D24: .4byte gObject_32x32
 _080C5D28: .4byte 0x00005224
 _080C5D2C: .4byte 0x00006228
 _080C5D30:
@@ -122481,7 +122481,7 @@ _080C5D30:
 	subs r1, r1, r6
 	ldr r4, _080C5D84  @ 0x000001FF
 	ands r1, r4
-	ldr r5, _080C5D88  @ gUnknown_08590F54
+	ldr r5, _080C5D88  @ gObject_32x32
 	ldr r0, _080C5D8C  @ 0x00006228
 	str r0, [sp]
 	movs r0, #0
@@ -122500,7 +122500,7 @@ _080C5D30:
 	b _080C5DC0
 	.align 2, 0
 _080C5D84: .4byte 0x000001FF
-_080C5D88: .4byte gUnknown_08590F54
+_080C5D88: .4byte gObject_32x32
 _080C5D8C: .4byte 0x00006228
 _080C5D90: .4byte 0x00005224
 _080C5D94:
@@ -122508,7 +122508,7 @@ _080C5D94:
 	adds r1, #0x68
 	ldr r4, _080C5DD4  @ 0x000001FF
 	ands r1, r4
-	ldr r5, _080C5DD8  @ gUnknown_08590F54
+	ldr r5, _080C5DD8  @ gObject_32x32
 	ldr r0, _080C5DDC  @ 0x00005224
 	str r0, [sp]
 	movs r0, #0
@@ -122535,7 +122535,7 @@ _080C5DC0:
 	b _080C5DE8
 	.align 2, 0
 _080C5DD4: .4byte 0x000001FF
-_080C5DD8: .4byte gUnknown_08590F54
+_080C5DD8: .4byte gObject_32x32
 _080C5DDC: .4byte 0x00005224
 _080C5DE0: .4byte 0x00006228
 _080C5DE4:
@@ -123029,7 +123029,7 @@ _080C615E:
 	str r0, [sp]
 	movs r0, #4
 	adds r1, r4, #0
-	ldr r3, _080C6200  @ gUnknown_08590F44
+	ldr r3, _080C6200  @ gObject_8x8
 	bl PutSpriteExt
 	adds r5, #8
 	movs r3, #0
@@ -123047,7 +123047,7 @@ _080C61E6:
 _080C61F4: .4byte gUnknown_08AA6858
 _080C61F8: .4byte gUnknown_08AA682C
 _080C61FC: .4byte 0x000001FF
-_080C6200: .4byte gUnknown_08590F44
+_080C6200: .4byte gObject_8x8
 
 	THUMB_FUNC_START sub_80C6204
 sub_80C6204: @ 0x080C6204
@@ -125593,7 +125593,7 @@ _080C768C:
 	str r6, [sp]
 	movs r0, #0
 	adds r2, r5, #0
-	ldr r3, _080C76C0  @ gUnknown_08590F9C
+	ldr r3, _080C76C0  @ gObject_32x8
 	bl PutSpriteExt
 	adds r4, #1
 	cmp r4, #7
@@ -125605,7 +125605,7 @@ _080C76A4:
 	str r5, [sp]
 	movs r0, #0
 	adds r1, r7, #0
-	ldr r3, _080C76C4  @ gUnknown_08590FA4
+	ldr r3, _080C76C4  @ gObject_8x32
 	bl PutSpriteExt
 	adds r4, #1
 	cmp r4, #7
@@ -125615,8 +125615,8 @@ _080C76A4:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_080C76C0: .4byte gUnknown_08590F9C
-_080C76C4: .4byte gUnknown_08590FA4
+_080C76C0: .4byte gObject_32x8
+_080C76C4: .4byte gObject_8x32
 
 	THUMB_FUNC_START sub_80C76C8
 sub_80C76C8: @ 0x080C76C8

@@ -14747,7 +14747,7 @@ _08048C64:
 	movs r4, #0x80
 	lsls r4, r4, #1
 	adds r1, r1, r4
-	ldr r2, _08048CB0  @ gUnknown_08590F8C
+	ldr r2, _08048CB0  @ gObject_32x16
 	adds r3, r7, #0
 	adds r3, #0x32
 	ldrb r3, [r3]
@@ -14776,7 +14776,7 @@ _08048C98:
 	.align 2, 0
 _08048CA8: .4byte gUnknown_085AA0A4
 _08048CAC: .4byte gUnknown_085AA0CA
-_08048CB0: .4byte gUnknown_08590F8C
+_08048CB0: .4byte gObject_32x16
 _08048CB4: .4byte 0x00009340
 
 	THUMB_FUNC_START sub_8048CB8
@@ -14803,7 +14803,7 @@ sub_8048CB8: @ 0x08048CB8
 	movs r0, #5
 	bl sub_8012DCC
 	adds r1, r0, #0
-	ldr r2, _08048D14  @ gUnknown_08590F8C
+	ldr r2, _08048D14  @ gObject_32x16
 	adds r0, r6, #0
 	adds r0, #0x32
 	ldrb r3, [r0]
@@ -14825,7 +14825,7 @@ _08048D0C:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_08048D14: .4byte gUnknown_08590F8C
+_08048D14: .4byte gObject_32x16
 _08048D18: .4byte 0x00009340
 
 	THUMB_FUNC_START sub_8048D1C
@@ -15108,7 +15108,7 @@ _08048F4A:
 	movs r4, #0x80
 	lsls r4, r4, #1
 	adds r1, r1, r4
-	ldr r5, _08048FC0  @ gUnknown_08590F8C
+	ldr r5, _08048FC0  @ gObject_32x16
 	ldr r3, _08048FC4  @ 0x00009350
 	adds r2, r5, #0
 	bl CallARM_PushToSecondaryOAM
@@ -15127,7 +15127,7 @@ _08048F4A:
 	adds r0, r0, r2
 	ldr r1, [r7, #0x30]
 	adds r1, r1, r4
-	ldr r2, _08048FCC  @ gUnknown_08590F4C
+	ldr r2, _08048FCC  @ gObject_16x16
 	ldr r3, _08048FD0  @ 0x00009358
 	bl CallARM_PushToSecondaryOAM
 	mov r1, r9
@@ -15154,10 +15154,10 @@ _08048FA6:
 	.align 2, 0
 _08048FB8: .4byte gSinLookup
 _08048FBC: .4byte gCosLookup
-_08048FC0: .4byte gUnknown_08590F8C
+_08048FC0: .4byte gObject_32x16
 _08048FC4: .4byte 0x00009350
 _08048FC8: .4byte 0x00009354
-_08048FCC: .4byte gUnknown_08590F4C
+_08048FCC: .4byte gObject_16x16
 _08048FD0: .4byte 0x00009358
 
 	THUMB_FUNC_START sub_8048FD4
@@ -15240,7 +15240,7 @@ _0804906A:
 	movs r4, #0x80
 	lsls r4, r4, #1
 	adds r1, r1, r4
-	ldr r5, _080490D8  @ gUnknown_08590F8C
+	ldr r5, _080490D8  @ gObject_32x16
 	ldr r3, _080490DC  @ 0x00009350
 	adds r2, r5, #0
 	bl CallARM_PushToSecondaryOAM
@@ -15259,7 +15259,7 @@ _0804906A:
 	adds r0, r0, r2
 	ldr r1, [r7, #0x30]
 	adds r1, r1, r4
-	ldr r2, _080490E4  @ gUnknown_08590F4C
+	ldr r2, _080490E4  @ gObject_16x16
 	ldr r3, _080490E8  @ 0x00009358
 	bl CallARM_PushToSecondaryOAM
 	ldr r1, [sp, #4]
@@ -15283,10 +15283,10 @@ _080490C2:
 	bx r0
 	.align 2, 0
 _080490D4: .4byte gSinLookup
-_080490D8: .4byte gUnknown_08590F8C
+_080490D8: .4byte gObject_32x16
 _080490DC: .4byte 0x00009350
 _080490E0: .4byte 0x00009354
-_080490E4: .4byte gUnknown_08590F4C
+_080490E4: .4byte gObject_16x16
 _080490E8: .4byte 0x00009358
 
 	THUMB_FUNC_START sub_80490EC
@@ -19515,7 +19515,7 @@ _0804B29C:
 	mov r0, r8
 	lsls r0, r0, #2
 	str r0, [sp, #8]
-	ldr r1, _0804B380  @ gUnknown_08590F7C
+	ldr r1, _0804B380  @ gObject_16x8
 	mov sl, r1
 	movs r0, #0xf
 	mov r9, r0
@@ -19602,7 +19602,7 @@ _0804B35A:
 _0804B374: .4byte gUnknown_085AA22C
 _0804B378: .4byte gUnknown_080D9F28
 _0804B37C: .4byte gUnknown_085A92E0
-_0804B380: .4byte gUnknown_08590F7C
+_0804B380: .4byte gObject_16x8
 _0804B384: .4byte gUnknown_03001818
 _0804B388: .4byte 0x000009F2
 
@@ -22085,7 +22085,7 @@ _0804C6AA:
 	movs r2, #0x2c
 	ldrsh r4, [r7, r2]
 	adds r4, #8
-	ldr r6, _0804C748  @ gUnknown_08590F64
+	ldr r6, _0804C748  @ gObject_8x16
 	ldrh r0, [r7, #0x36]
 	lsrs r0, r0, #5
 	movs r1, #6
@@ -22108,7 +22108,7 @@ _0804C6AA:
 	movs r2, #0x2c
 	ldrsh r4, [r7, r2]
 	adds r4, #8
-	ldr r6, _0804C74C  @ gUnknown_08590FB4
+	ldr r6, _0804C74C  @ gObject_8x16_HFlipped
 	ldrh r0, [r7, #0x38]
 	lsrs r0, r0, #5
 	movs r1, #6
@@ -22148,8 +22148,8 @@ _0804C72E:
 _0804C73C: .4byte 0x000082C8
 _0804C740: .4byte gUnknown_085AA9A0
 _0804C744: .4byte gUnknown_080DA09C
-_0804C748: .4byte gUnknown_08590F64
-_0804C74C: .4byte gUnknown_08590FB4
+_0804C748: .4byte gObject_8x16
+_0804C74C: .4byte gObject_8x16_HFlipped
 _0804C750: .4byte gUnknown_085AA9B4
 _0804C754: .4byte gUnknown_0203DA24
 
