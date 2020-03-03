@@ -15,7 +15,7 @@ extern struct ProcCmd gUnknown_085A7F5C[]; // CPORDER
 extern struct ProcCmd gUnknown_085A7F74[]; // BSKORDER
 
 CONST_DATA
-struct ProcCmd gUnknown_085A7F08[] =
+struct ProcCmd gProcScr_CpPhase[] =
 {
     PROC_SET_NAME("E_CPPHASE"),
 
@@ -28,7 +28,7 @@ struct ProcCmd gUnknown_085A7F08[] =
 };
 
 CONST_DATA
-struct ProcCmd gUnknown_085A7F30[] =
+struct ProcCmd gProcScr_BerserkCpPhase[] =
 {
     PROC_SET_NAME("E_BSKPHASE"),
 

@@ -6273,15 +6273,15 @@ _08015472:
 	.align 2, 0
 _08015478: .4byte gUnknown_0859AAD8
 _0801547C:
-	ldr r0, _08015488  @ gUnknown_085A7F08
+	ldr r0, _08015488  @ gProcScr_CpPhase
 _0801547E:
 	adds r1, r4, #0
 	bl Proc_CreateBlockingChild
 	b _08015494
 	.align 2, 0
-_08015488: .4byte gUnknown_085A7F08
+_08015488: .4byte gProcScr_CpPhase
 _0801548C:
-	ldr r0, _080154A0  @ gUnknown_085A7F08
+	ldr r0, _080154A0  @ gProcScr_CpPhase
 	adds r1, r4, #0
 	bl Proc_CreateBlockingChild
 _08015494:
@@ -6291,7 +6291,7 @@ _08015494:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_080154A0: .4byte gUnknown_085A7F08
+_080154A0: .4byte gProcScr_CpPhase
 
 	THUMB_FUNC_START NewPlayerPhase6C
 NewPlayerPhase6C: @ 0x080154A4
@@ -6423,9 +6423,9 @@ GotoChapterWithoutSave: @ 0x08015588
 	bl Proc_GotoLabel
 	ldr r0, _080155B8  @ gUnknown_0859AAD8
 	bl Proc_DeleteAllWithScript
-	ldr r0, _080155BC  @ gUnknown_085A7F08
+	ldr r0, _080155BC  @ gProcScr_CpPhase
 	bl Proc_DeleteAllWithScript
-	ldr r0, _080155C0  @ gUnknown_085A7F30
+	ldr r0, _080155C0  @ gProcScr_BerserkCpPhase
 	bl Proc_DeleteAllWithScript
 	pop {r0}
 	bx r0
@@ -6433,8 +6433,8 @@ GotoChapterWithoutSave: @ 0x08015588
 _080155B0: .4byte gUnknown_0202BCF0
 _080155B4: .4byte gProc_BMapMain
 _080155B8: .4byte gUnknown_0859AAD8
-_080155BC: .4byte gUnknown_085A7F08
-_080155C0: .4byte gUnknown_085A7F30
+_080155BC: .4byte gProcScr_CpPhase
+_080155C0: .4byte gProcScr_BerserkCpPhase
 
 	THUMB_FUNC_START sub_80155C4
 sub_80155C4: @ 0x080155C4
