@@ -154,7 +154,7 @@ static struct MUConfig sMUConfigArray[MU_MAX_COUNT];
 #   define CONST_DATA const __attribute__((section(".data")))
 #endif // CONST_DATA
 
-static CONST_DATA u16* sMUFlashColorLookup[] = {
+static const u16* CONST_DATA sMUFlashColorLookup[] = {
     gUnknown_0859A140,
     gUnknown_0859A120,
     gUnknown_0859A160,
@@ -164,7 +164,7 @@ static CONST_DATA u16* sMUFlashColorLookup[] = {
 };
 
 // gProc_MUStepSound
-static CONST_DATA struct ProcCmd sProcScr_MUStepSound[] = {
+static struct ProcCmd CONST_DATA sProcScr_MUStepSound[] = {
     PROC_CALL_ROUTINE(MU_StepSound_OnInit),
 
     PROC_SLEEP(0),
@@ -176,7 +176,7 @@ static CONST_DATA struct ProcCmd sProcScr_MUStepSound[] = {
     PROC_END
 };
 
-static CONST_DATA struct ProcCmd sProcScr_MUFogBumpFx[] = {
+static struct ProcCmd CONST_DATA sProcScr_MUFogBumpFx[] = {
     PROC_CALL_ROUTINE(MU_FogBumpFx_FirstFrame),
     PROC_LOOP_ROUTINE(MU_FogBumpFx_TransitionInLoop),
     PROC_LOOP_ROUTINE(MU_FogBumpFx_DisplayLoop),
@@ -185,7 +185,7 @@ static CONST_DATA struct ProcCmd sProcScr_MUFogBumpFx[] = {
 };
 
 // gDirectionMoveOffsetLookup
-static CONST_DATA short sDirectionMoveOffsetLookup[] = {
+static short CONST_DATA sDirectionMoveOffsetLookup[] = {
     -1,  0, // left
     +1,  0, // right
     0,  +1, // up
@@ -195,7 +195,7 @@ static CONST_DATA short sDirectionMoveOffsetLookup[] = {
 // START MU SFX DEFINITIONS
 
 // feet sounds
-CONST_DATA u16 gMUSfxDef_Foot[] = {
+u16 CONST_DATA gMUSfxDef_Foot[] = {
     0x10, // loop duration (in frames)
     0x02, // idk
 
@@ -213,7 +213,7 @@ CONST_DATA u16 gMUSfxDef_Foot[] = {
 };
 
 // heavy sounds
-CONST_DATA u16 gMUSfxDef_Heavy[] = {
+u16 CONST_DATA gMUSfxDef_Heavy[] = {
     0x20, // loop duration (in frames)
     0x02, // idk
 
@@ -235,7 +235,7 @@ CONST_DATA u16 gMUSfxDef_Heavy[] = {
 };
 
 // mounted sounds
-CONST_DATA u16 gMUSfxDef_Mounted[] = {
+u16 CONST_DATA gMUSfxDef_Mounted[] = {
     0x15, // loop duration (in frames)
     0x03, // idk
 
@@ -259,7 +259,7 @@ CONST_DATA u16 gMUSfxDef_Mounted[] = {
 };
 
 // wyvern sounds
-CONST_DATA u16 gMUSfxDef_Wyvern[] = {
+u16 CONST_DATA gMUSfxDef_Wyvern[] = {
     0x14, // loop duration (in frames)
     0x01, // idk
 
@@ -274,7 +274,7 @@ CONST_DATA u16 gMUSfxDef_Wyvern[] = {
 };
 
 // pegasi sounds
-CONST_DATA u16 gMUSfxDef_Pegasus[] = {
+u16 CONST_DATA gMUSfxDef_Pegasus[] = {
     0x14, // loop duration (in frames)
     0x01, // idk
 
@@ -289,7 +289,7 @@ CONST_DATA u16 gMUSfxDef_Pegasus[] = {
 };
 
 // unused sounds
-CONST_DATA u16 gMUSfxDef_Unused_089A2A86[] = {
+u16 CONST_DATA gMUSfxDef_Unused_089A2A86[] = {
     0x14, // loop duration (in frames)
     0x01, // idk
 
@@ -304,7 +304,7 @@ CONST_DATA u16 gMUSfxDef_Unused_089A2A86[] = {
 };
 
 // zombie sounds
-CONST_DATA u16 gMUSfxDef_Zombie[] = {
+u16 CONST_DATA gMUSfxDef_Zombie[] = {
     0x0F, // loop duration (in frames)
     0x01, // idk
 
@@ -318,7 +318,7 @@ CONST_DATA u16 gMUSfxDef_Zombie[] = {
 };
 
 // skelly sounds
-CONST_DATA u16 gMUSfxDef_Skeleton[] = {
+u16 CONST_DATA gMUSfxDef_Skeleton[] = {
     0x0F, // loop duration (in frames)
     0x01, // idk
 
@@ -332,7 +332,7 @@ CONST_DATA u16 gMUSfxDef_Skeleton[] = {
 };
 
 // mogall sounds
-CONST_DATA u16 gMUSfxDef_Mogall[] = {
+u16 CONST_DATA gMUSfxDef_Mogall[] = {
     0x14, // loop duration (in frames)
     0x01, // idk
 
@@ -347,7 +347,7 @@ CONST_DATA u16 gMUSfxDef_Mogall[] = {
 };
 
 // spider sounds
-CONST_DATA u16 gMUSfxDef_Spider[] = {
+u16 CONST_DATA gMUSfxDef_Spider[] = {
     0x0A, // loop duration (in frames)
     0x01, // idk
 
@@ -360,7 +360,7 @@ CONST_DATA u16 gMUSfxDef_Spider[] = {
 };
 
 // dog sounds
-CONST_DATA u16 gMUSfxDef_Dog[] = {
+u16 CONST_DATA gMUSfxDef_Dog[] = {
     0x15, // loop duration (in frames)
     0x01, // idk
 
@@ -384,7 +384,7 @@ CONST_DATA u16 gMUSfxDef_Dog[] = {
 };
 
 // gorgon sounds
-CONST_DATA u16 gMUSfxDef_Gorgon[] = {
+u16 CONST_DATA gMUSfxDef_Gorgon[] = {
     0x0F, // loop duration (in frames)
     0x01, // idk
 
@@ -398,7 +398,7 @@ CONST_DATA u16 gMUSfxDef_Gorgon[] = {
 };
 
 // Unused/Unreferenced step sounds
-CONST_DATA u16 gMUSfxDef_Unused_089A2BCE[] = {
+u16 CONST_DATA gMUSfxDef_Unused_089A2BCE[] = {
     0x20, // loop duration (in frames)
     0x02, // idk
 
@@ -416,7 +416,7 @@ CONST_DATA u16 gMUSfxDef_Unused_089A2BCE[] = {
 };
 
 // boat sounds
-CONST_DATA u16 gMUSfxDef_Boat[] = {
+u16 CONST_DATA gMUSfxDef_Boat[] = {
     0x18, // loop duration (in frames)
     0x01, // idk
 
@@ -436,7 +436,7 @@ CONST_DATA u16 gMUSfxDef_Boat[] = {
 };
 
 // myrrh sounds
-CONST_DATA u16 gMUSfxDef_Myrrh[] = {
+u16 CONST_DATA gMUSfxDef_Myrrh[] = {
     0x10, // loop duration (in frames)
     0x01, // idk
 
@@ -452,7 +452,7 @@ CONST_DATA u16 gMUSfxDef_Myrrh[] = {
 // END MU SFX DEFINITIONS
 
 // MU state handler function pointer lookup
-static CONST_DATA MUStateHandlerFunc sMUStateHandlerFuncLookup[] = {
+static MUStateHandlerFunc CONST_DATA sMUStateHandlerFuncLookup[] = {
     MU_State_None,
     MU_State_NoOp,
     MU_State_DuringMovement,
@@ -463,7 +463,7 @@ static CONST_DATA MUStateHandlerFunc sMUStateHandlerFuncLookup[] = {
     MU_State_NoOp,
 };
 
-CONST_DATA struct ProcCmd gProcScr_MoveUnit[] = {
+struct ProcCmd CONST_DATA gProcScr_MoveUnit[] = {
     PROC_SET_NAME("MOVEUNIT"),
     PROC_SET_MARK(4),
 
@@ -472,30 +472,30 @@ CONST_DATA struct ProcCmd gProcScr_MoveUnit[] = {
 };
 
 // obj tile id offset by MU id
-static CONST_DATA u16 sMUObjTileOffsetLookup_Default[MU_MAX_COUNT] = {
+static u16 CONST_DATA sMUObjTileOffsetLookup_Default[MU_MAX_COUNT] = {
     0x0000, 0x0010, 0x0008, 0x0018
 };
 
 // obj tile id offset by MU id (variant?)
-static CONST_DATA u16 sMUObjTileOffsetLookup_Other[MU_MAX_COUNT] = { 
+static u16 CONST_DATA sMUObjTileOffsetLookup_Other[MU_MAX_COUNT] = { 
     0x0000, 0x0008, 0x0004, 0x0010
 };
 
 // Base Movement Speed Lookup
-static CONST_DATA u8 sMUBaseMoveSpeedLookup[2] = {
+static u8 CONST_DATA sMUBaseMoveSpeedLookup[2] = {
     2, // fast class base movement speed
     1  // slow class base movement speed
 };
 
 // Buffer index by MU index (config) lookup
-static CONST_DATA u8 sMUBufferIdLookup[MU_MAX_COUNT+1] = {
+static u8 CONST_DATA sMUBufferIdLookup[MU_MAX_COUNT+1] = {
     0, // dummy entry (this array is 1-indexed)
 
     0, 2, 1, 3
 };
 
 // gProc_MUDeathFadeEffect
-CONST_DATA struct ProcCmd gProcScr_MUDeathFade[] = {
+struct ProcCmd CONST_DATA gProcScr_MUDeathFade[] = {
     PROC_LOOP_ROUTINE(MU_DeathFade_OnLoop),
     PROC_SLEEP(15),
 
@@ -503,33 +503,33 @@ CONST_DATA struct ProcCmd gProcScr_MUDeathFade[] = {
 };
 
 // gProc_MUBlinkingEffect
-CONST_DATA struct ProcCmd gProcScr_MUBlinkEffect[] = {
+struct ProcCmd CONST_DATA gProcScr_MUBlinkEffect[] = {
     PROC_LOOP_ROUTINE(MU_BlinkEffect_OnLoop),
     PROC_END
 };
 
 // Doesn't match without being volatile
 // :/
-static CONST_DATA vu8 sUnknown_089A2CA8[0x40] = {
+CONST_DATA vu8 static sUnknown_089A2CA8[0x40] = {
     0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08, 0x09, 0x0A, 0x0B, 0x0C, 0x0D, 0x0E, 0x0F,
     0x10, 0x11, 0x12, 0x13, 0x14, 0x15, 0x16, 0x17, 0x18, 0x19, 0x1A, 0x1B, 0x1C, 0x1D, 0x1E, 0x1F,
     0x20, 0x21, 0x22, 0x23, 0x24, 0x25, 0x26, 0x27, 0x28, 0x29, 0x2A, 0x2B, 0x2C, 0x2D, 0x2E, 0x2F,
     0x30, 0x31, 0x32, 0x33, 0x34, 0x35, 0x36, 0x37, 0x38, 0x39, 0x3A, 0x3B, 0x3C, 0x3D, 0x3E, 0x3F
 };
 
-static CONST_DATA struct ProcCmd sProcScr_MUPixelEffect[] = {
+static struct ProcCmd CONST_DATA sProcScr_MUPixelEffect[] = {
     PROC_LOOP_ROUTINE(MU_PixelEffect_OnLoop),
     PROC_END
 };
 
-CONST_DATA struct ProcCmd gProcScr_MU_89A2CF8[] = {
+struct ProcCmd CONST_DATA gProcScr_MU_89A2CF8[] = {
     PROC_SLEEP(8),
     PROC_CALL_ROUTINE(MU_807988C),
 
     PROC_END
 };
 
-static CONST_DATA struct ProcCmd sProcScr_MUCritFlash[] = {
+static struct ProcCmd CONST_DATA sProcScr_MUCritFlash[] = {
     PROC_CALL_ROUTINE(MU_CritFlash_Init),
     PROC_SLEEP(1),
 
@@ -557,7 +557,7 @@ static CONST_DATA struct ProcCmd sProcScr_MUCritFlash[] = {
     PROC_END
 };
 
-static CONST_DATA struct ProcCmd sProcScr_MUHitFlash[] = {
+static struct ProcCmd CONST_DATA sProcScr_MUHitFlash[] = {
     PROC_SLEEP(17),
     PROC_CALL_ROUTINE(MU_HitFlash_RestorePalette),
     PROC_END
