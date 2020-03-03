@@ -3581,7 +3581,7 @@ sub_808613C: @ 0x0808613C
 	str r4, [sp]
 	movs r0, #0
 	movs r2, #0x40
-	bl RegisterObjectAttributes_SafeMaybe
+	bl PutSprite
 	ldrh r1, [r7]
 	movs r2, #0
 	ldrsh r0, [r7, r2]
@@ -3657,7 +3657,7 @@ _08086274:
 	movs r0, #0
 	movs r1, #0x18
 	movs r2, #0x40
-	bl RegisterObjectAttributes_SafeMaybe
+	bl PutSprite
 	adds r1, r4, #0
 	adds r1, #0x4c
 	ldrh r2, [r1]
@@ -3730,7 +3730,7 @@ _0808630C:
 	movs r0, #0
 	movs r1, #0x18
 	movs r2, #0x40
-	bl RegisterObjectAttributes_SafeMaybe
+	bl PutSprite
 	adds r1, r4, #0
 	adds r1, #0x4c
 	ldrh r2, [r1]
@@ -3815,7 +3815,7 @@ sub_808635C: @ 0x0808635C
 	str r0, [sp]
 	movs r1, #0x18
 	movs r2, #0x40
-	bl RegisterObjectAttributes_SafeMaybe
+	bl PutSprite
 	mov r4, sl
 	adds r4, #0x4c
 	movs r1, #0

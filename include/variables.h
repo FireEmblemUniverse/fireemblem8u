@@ -502,8 +502,6 @@ extern struct TileDataTransfer gUnknown_02024CDC[];
 // extern ??? gUnknown_02026E10
 // extern ??? gUnknown_02028F78
 // extern ??? gUnknown_02029D88
-extern struct UnknownStructCTC gUnknown_02029D8C[];
-extern struct UnknownStructCTC gUnknown_0202A58C[17];
 // extern ??? gUnknown_0202A68C
 extern struct TextBuffer0202A6AC gUnknown_0202A6AC;
 //extern u8 gUnknown_0202AC01[];
@@ -787,7 +785,6 @@ extern void (*sHBlankHandler2)(void);
 extern u16* gUnknown_03004158;
 // extern ??? gUnknown_03004160
 // extern ??? gUnknown_03004960
-extern struct UnknownStructCTC *gUnknown_03004970;
 // extern ??? gUnknown_03004980
 // extern ??? gUnknown_03004990
 // extern ??? gUnknown_03004C00
@@ -1302,20 +1299,6 @@ extern u16 gUnknown_08589A9C[];
 extern struct Glyph *gUnknown_0858C7EC[];
 extern struct Glyph *gUnknown_0858F6F4[];
 extern struct Glyph *gUnknown_08590B44[];
-extern const u16 gUnknown_08590F44[]; // 8x8 obj data
-// extern ??? gUnknown_08590F4C
-extern const u16 gUnknown_08590F54[]; // 32x32 obj data
-extern const u16 gUnknown_08590F64[]; // 8x16 obj data
-// extern ??? gUnknown_08590F6C
-// extern ??? gUnknown_08590F7C
-extern const u16 gUnknown_08590F8C[]; // ?? obj data
-// extern ??? gUnknown_08590F94
-// extern ??? gUnknown_08590F9C
-// extern ??? gUnknown_08590FA4
-extern const u16 gUnknown_08590FB4[]; // ?? obj data
-// extern ??? gUnknown_08590FBC
-// extern ??? gUnknown_08590FD4
-extern struct ProcCmd gUnknown_08590FDC[];
 // extern ??? gUnknown_08590FEC
 // extern ??? gUnknown_0859100C
 // extern ??? gUnknown_08591026

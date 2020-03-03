@@ -41,7 +41,7 @@ sub_803471C: @ 0x0803471C
 	adds r1, r6, #0
 	adds r1, #9
 	adds r2, r5, #7
-	ldr r3, _0803478C  @ gUnknown_08590F44
+	ldr r3, _0803478C  @ gObject_8x8
 	ldr r0, [r4, #0x2c]
 	ldrb r0, [r0, #0x1b]
 	lsrs r0, r0, #6
@@ -55,11 +55,11 @@ sub_803471C: @ 0x0803471C
 	adds r0, #3
 	str r0, [sp]
 	movs r0, #2
-	bl RegisterObjectAttributes_SafeMaybe
+	bl PutSprite
 	b _0803479E
 	.align 2, 0
 _08034788: .4byte gUnknown_080D7F8C
-_0803478C: .4byte gUnknown_08590F44
+_0803478C: .4byte gObject_8x8
 _08034790:
 	str r2, [sp]
 	movs r0, #2
@@ -1318,7 +1318,7 @@ sub_80351CC: @ 0x080351CC
 	bl LoadIconPalettes
 	adds r0, r4, #0
 	bl sub_803519C
-	ldr r0, _08035200  @ gUnknown_08590FD4
+	ldr r0, _08035200  @ gObject_16x16_VFlipped
 	str r0, [sp]
 	movs r0, #6
 	str r0, [sp, #4]
@@ -1326,13 +1326,13 @@ sub_80351CC: @ 0x080351CC
 	movs r1, #2
 	movs r2, #0
 	movs r3, #0
-	bl sub_80054B0
+	bl StartSpriteRefresher
 	add sp, #8
 	pop {r4}
 	pop {r0}
 	bx r0
 	.align 2, 0
-_08035200: .4byte gUnknown_08590FD4
+_08035200: .4byte gObject_16x16_VFlipped
 
 	THUMB_FUNC_START SetupUnitRescueWindow
 SetupUnitRescueWindow: @ 0x08035204
@@ -1400,7 +1400,7 @@ SetupUnitRescueWindow: @ 0x08035204
 	movs r0, #0
 	adds r1, r4, #0
 	movs r2, #0x27
-	bl sub_80054F4
+	bl MoveSpriteRefresher
 	add sp, #8
 	pop {r3, r4, r5}
 	mov r8, r3
@@ -1486,7 +1486,7 @@ sub_80352BC: @ 0x080352BC
 	movs r0, #0
 	adds r1, r4, #0
 	movs r2, #0x27
-	bl sub_80054F4
+	bl MoveSpriteRefresher
 	add sp, #8
 	pop {r3, r4, r5}
 	mov r8, r3
@@ -1511,7 +1511,7 @@ sub_8035380: @ 0x08035380
 	bl LoadIconPalettes
 	adds r0, r4, #0
 	bl sub_803519C
-	ldr r0, _080353B4  @ gUnknown_08590F4C
+	ldr r0, _080353B4  @ gObject_16x16
 	str r0, [sp]
 	movs r0, #6
 	str r0, [sp, #4]
@@ -1519,13 +1519,13 @@ sub_8035380: @ 0x08035380
 	movs r1, #2
 	movs r2, #0
 	movs r3, #0
-	bl sub_80054B0
+	bl StartSpriteRefresher
 	add sp, #8
 	pop {r4}
 	pop {r0}
 	bx r0
 	.align 2, 0
-_080353B4: .4byte gUnknown_08590F4C
+_080353B4: .4byte gObject_16x16
 
 	THUMB_FUNC_START sub_80353B8
 sub_80353B8: @ 0x080353B8
@@ -1598,7 +1598,7 @@ sub_80353B8: @ 0x080353B8
 	movs r0, #0
 	adds r1, r4, #0
 	movs r2, #0x27
-	bl sub_80054F4
+	bl MoveSpriteRefresher
 	add sp, #8
 	pop {r3, r4, r5}
 	mov r8, r3

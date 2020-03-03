@@ -1078,8 +1078,8 @@ _080331B2:
 	subs r2, r0, r2
 	str r3, [sp]
 	movs r0, #0xb
-	ldr r3, _08033244  @ gUnknown_08590F4C
-	bl RegisterObjectAttributes_SafeMaybe
+	ldr r3, _08033244  @ gObject_16x16
+	bl PutSprite
 _08033220:
 	subs r0, r6, #1
 	lsls r5, r0, #0x18
@@ -1097,7 +1097,7 @@ _08033228:
 _08033238: .4byte gUnknown_0859DBA0
 _0803323C: .4byte gUnknown_0859DB6C
 _08033240: .4byte gUnknown_0202BCB0
-_08033244: .4byte gUnknown_08590F4C
+_08033244: .4byte gObject_16x16
 
 	THUMB_FUNC_START sub_8033248
 sub_8033248: @ 0x08033248

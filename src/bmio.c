@@ -399,7 +399,7 @@ void WfxSnow_VSync(void) {
             CallARM_PushToPrimaryOAM(
                 ((it->xPosition >> 8) - origins[it->typeId].x) & 0xFF,
                 ((it->yPosition >> 8) - origins[it->typeId].y) & 0xFF,
-                gUnknown_08590F44,
+                gObject_8x8,
                 (BM_OBJPAL_1 << 12) + it->gfxIndex
             );
 
@@ -476,7 +476,7 @@ void WfxSandStorm_VSync(void) {
             CallARM_PushToPrimaryOAM(
                 ((it->xPosition & 0xFF) - 0x10) & 0x1FF,
                 it->yPosition,
-                gUnknown_08590F54,
+                gObject_32x32,
                 (BM_OBJPAL_1 << 12) + 0x1C
             );
 
@@ -531,7 +531,7 @@ void WfxSnowStorm_VSync(void) {
             CallARM_PushToPrimaryOAM(
                 ((it->xPosition >> 8) - gUnknown_0202BCB0.camera.x) & 0xFF,
                 ((it->yPosition >> 8) - gUnknown_0202BCB0.camera.y) & 0xFF,
-                gUnknown_08590F54,
+                gObject_32x32,
                 (BM_OBJPAL_1 << 12) + 0x18 + (it->gfxIndex * 4)
             );
 
@@ -723,7 +723,7 @@ void WfxFlamesUpdateParticles(void) {
             CallARM_PushToPrimaryOAM(
                 ((it->xPosition >> 8) - gUnknown_0202BCB0.camera.x) & 0xFF,
                 yDisplay,
-                gUnknown_08590F44,
+                gObject_8x8,
                 (BM_OBJPAL_10 << 12) + objTile
             );
         }
@@ -811,7 +811,7 @@ void WfxClouds_VSync(void) {
 void WfxClouds_Update(void) {
     int y = gUnknown_0202BCB0.camera.y;
 
-    RegisterObjectAttributes_SafeMaybe(
+    PutSprite(
         14,
         0, -(y / 5),
         sObj_BackgroundClouds,

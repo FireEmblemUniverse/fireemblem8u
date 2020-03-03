@@ -79,19 +79,19 @@ _0802203E:
 	movs r0, #0x2e
 	ldrsh r1, [r4, r0]
 	asrs r2, r2, #0x10
-	ldr r3, _0802205C  @ gUnknown_08590F44
+	ldr r3, _0802205C  @ gObject_8x8
 	movs r0, #0xa0
 	lsls r0, r0, #4
 	str r0, [sp]
 	movs r0, #0xa
-	bl RegisterObjectAttributes_SafeMaybe
+	bl PutSprite
 _08022052:
 	add sp, #4
 	pop {r4}
 	pop {r0}
 	bx r0
 	.align 2, 0
-_0802205C: .4byte gUnknown_08590F44
+_0802205C: .4byte gObject_8x8
 
 	THUMB_FUNC_START sub_8022060
 sub_8022060: @ 0x08022060

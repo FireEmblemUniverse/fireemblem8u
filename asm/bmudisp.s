@@ -1848,13 +1848,13 @@ _08027440:
 	adds r1, r5, r2
 	movs r2, #0xff
 	ands r1, r2
-	ldr r2, _08027460  @ gUnknown_08590F4C
+	ldr r2, _08027460  @ gObject_16x16
 	ldrh r3, [r6, #8]
 	movs r4, #0x80
 	lsls r4, r4, #4
 	b _080274EC
 	.align 2, 0
-_08027460: .4byte gUnknown_08590F4C
+_08027460: .4byte gObject_16x16
 _08027464:
 	adds r0, r4, r3
 	movs r1, #0x80
@@ -1866,13 +1866,13 @@ _08027464:
 	adds r1, #0xf0
 	movs r2, #0xff
 	ands r1, r2
-	ldr r2, _08027484  @ gUnknown_08590F6C
+	ldr r2, _08027484  @ gObject_16x32
 	ldrh r3, [r6, #8]
 	movs r4, #0x80
 	lsls r4, r4, #4
 	b _080274EC
 	.align 2, 0
-_08027484: .4byte gUnknown_08590F6C
+_08027484: .4byte gObject_16x32
 _08027488:
 	adds r0, r3, #0
 	subs r0, #8
@@ -1886,13 +1886,13 @@ _08027488:
 	adds r1, #0xf0
 	movs r2, #0xff
 	ands r1, r2
-	ldr r2, _080274AC  @ gUnknown_08590F54
+	ldr r2, _080274AC  @ gObject_32x32
 	ldrh r3, [r6, #8]
 	movs r4, #0x80
 	lsls r4, r4, #4
 	b _080274EC
 	.align 2, 0
-_080274AC: .4byte gUnknown_08590F54
+_080274AC: .4byte gObject_32x32
 _080274B0:
 	adds r0, r4, r3
 	movs r1, #0x80
@@ -1905,10 +1905,10 @@ _080274B0:
 	adds r1, r5, r2
 	movs r2, #0xff
 	ands r1, r2
-	ldr r2, _080274CC  @ gUnknown_08590F4C
+	ldr r2, _080274CC  @ gObject_16x16
 	b _080274E6
 	.align 2, 0
-_080274CC: .4byte gUnknown_08590F4C
+_080274CC: .4byte gObject_16x16
 _080274D0:
 	adds r0, r4, r3
 	movs r1, #0x80
@@ -1920,7 +1920,7 @@ _080274D0:
 	adds r1, #0xf0
 	movs r2, #0xff
 	ands r1, r2
-	ldr r2, _080274F4  @ gUnknown_08590F6C
+	ldr r2, _080274F4  @ gObject_16x32
 _080274E6:
 	ldrh r3, [r6, #8]
 	movs r4, #0xc0
@@ -1930,7 +1930,7 @@ _080274EC:
 	bl CallARM_PushToSecondaryOAM
 	b _0802751E
 	.align 2, 0
-_080274F4: .4byte gUnknown_08590F6C
+_080274F4: .4byte gObject_16x32
 _080274F8:
 	adds r0, r3, #0
 	subs r0, #8
@@ -1944,7 +1944,7 @@ _080274F8:
 	adds r1, #0xf0
 	movs r2, #0xff
 	ands r1, r2
-	ldr r2, _0802752C  @ gUnknown_08590F54
+	ldr r2, _0802752C  @ gObject_32x32
 	ldrh r3, [r6, #8]
 	movs r4, #0xc0
 	lsls r4, r4, #4
@@ -1960,7 +1960,7 @@ _08027526:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_0802752C: .4byte gUnknown_08590F54
+_0802752C: .4byte gObject_32x32
 
 	THUMB_FUNC_START DisplayChapterTileMarker
 DisplayChapterTileMarker: @ 0x08027530
@@ -2033,7 +2033,7 @@ _0802755C:
 	adds r1, r2, r3
 	movs r2, #0xff
 	ands r1, r2
-	ldr r2, _080275E0  @ gUnknown_08590F44
+	ldr r2, _080275E0  @ gObject_8x8
 	ldr r3, _080275E4  @ 0x00000C51
 	bl CallARM_PushToSecondaryOAM
 _080275C6:
@@ -2046,7 +2046,7 @@ _080275D0: .4byte gBmMapFog
 _080275D4: .4byte gBmMapTerrain
 _080275D8: .4byte gUnknown_0202BCB0
 _080275DC: .4byte 0x00000107
-_080275E0: .4byte gUnknown_08590F44
+_080275E0: .4byte gObject_8x8
 _080275E4: .4byte 0x00000C51
 
 	THUMB_FUNC_START DisplayUnitAdditionalBlinkingIcons
@@ -2432,7 +2432,7 @@ _080278E8:
 	adds r1, r2, r3
 	movs r2, #0xff
 	ands r1, r2
-	ldr r2, _08027928  @ gUnknown_08590F44
+	ldr r2, _08027928  @ gObject_8x8
 	ldrb r3, [r4, #0x1b]
 	lsrs r3, r3, #6
 	lsls r3, r3, #1
@@ -2451,7 +2451,7 @@ _08027918: .4byte 0x000001FF
 _0802791C: .4byte gUnknown_0859B968
 _08027920: .4byte 0x00000209
 _08027924: .4byte 0x00000107
-_08027928: .4byte gUnknown_08590F44
+_08027928: .4byte gObject_8x8
 _0802792C: .4byte 0x00000803
 _08027930:
 	movs r1, #0xb
@@ -2501,7 +2501,7 @@ _08027930:
 	adds r1, r2, r3
 	movs r2, #0xff
 	ands r1, r2
-	ldr r2, _080279AC  @ gUnknown_08590F44
+	ldr r2, _080279AC  @ gObject_8x8
 	movs r3, #0x81
 	lsls r3, r3, #4
 	bl CallARM_PushToSecondaryOAM
@@ -2511,7 +2511,7 @@ _0802799C: .4byte gUnknown_0202BCB0
 _080279A0: .4byte 0x00000209
 _080279A4: .4byte 0x000001FF
 _080279A8: .4byte 0x00000107
-_080279AC: .4byte gUnknown_08590F44
+_080279AC: .4byte gObject_8x8
 _080279B0:
 	ldrb r2, [r2, #4]
 	cmp r9, r2
@@ -2547,7 +2547,7 @@ _080279B0:
 	adds r1, r2, r3
 	movs r2, #0xff
 	ands r1, r2
-	ldr r2, _08027A28  @ gUnknown_08590F44
+	ldr r2, _08027A28  @ gObject_8x8
 	ldr r3, _08027A2C  @ 0x00000811
 	bl CallARM_PushToSecondaryOAM
 _080279FC:
@@ -2571,7 +2571,7 @@ _08027A18: .4byte gUnknown_0202BCB0
 _08027A1C: .4byte 0x00000209
 _08027A20: .4byte 0x000001FF
 _08027A24: .4byte 0x00000107
-_08027A28: .4byte gUnknown_08590F44
+_08027A28: .4byte gObject_8x8
 _08027A2C: .4byte 0x00000811
 
 	THUMB_FUNC_START sub_8027A30
@@ -2782,15 +2782,15 @@ _08027BBA:
 	lsls r2, r2, #4
 	adds r0, r6, r2
 	adds r1, r1, r0
-	ldr r3, _08027BE0  @ gUnknown_08590F4C
+	ldr r3, _08027BE0  @ gObject_16x16
 	str r1, [sp]
 	mov r0, r9
 	mov r1, r8
 	adds r2, r7, #0
-	bl RegisterObjectAttributes_SafeMaybe
+	bl PutSprite
 	b _08027C36
 	.align 2, 0
-_08027BE0: .4byte gUnknown_08590F4C
+_08027BE0: .4byte gObject_16x16
 _08027BE4:
 	adds r0, r4, #0
 	bl GetUnitSpritePaletteIndexWrapper
@@ -2803,14 +2803,14 @@ _08027BE4:
 	adds r1, r1, r0
 	adds r2, r7, #0
 	subs r2, #0x10
-	ldr r3, _08027C0C  @ gUnknown_08590F6C
+	ldr r3, _08027C0C  @ gObject_16x32
 	str r1, [sp]
 	mov r0, r9
 	mov r1, r8
-	bl RegisterObjectAttributes_SafeMaybe
+	bl PutSprite
 	b _08027C36
 	.align 2, 0
-_08027C0C: .4byte gUnknown_08590F6C
+_08027C0C: .4byte gObject_16x32
 _08027C10:
 	adds r0, r4, #0
 	bl GetUnitSpritePaletteIndexWrapper
@@ -2825,10 +2825,10 @@ _08027C10:
 	subs r1, #8
 	adds r2, r7, #0
 	subs r2, #0x10
-	ldr r3, _08027C44  @ gUnknown_08590F54
+	ldr r3, _08027C44  @ gObject_32x32
 	str r4, [sp]
 	mov r0, r9
-	bl RegisterObjectAttributes_SafeMaybe
+	bl PutSprite
 _08027C36:
 	add sp, #4
 	pop {r3, r4}
@@ -2838,7 +2838,7 @@ _08027C36:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_08027C44: .4byte gUnknown_08590F54
+_08027C44: .4byte gObject_32x32
 
 	THUMB_FUNC_START sub_8027C48
 sub_8027C48: @ 0x08027C48
@@ -2889,38 +2889,38 @@ _08027CA0:
 	beq _08027CD4
 	b _08027CE8
 _08027CA6:
-	ldr r3, _08027CB8  @ gUnknown_08590F4C
+	ldr r3, _08027CB8  @ gObject_16x16
 	adds r0, r7, r4
 	str r0, [sp]
 	mov r0, r9
 	adds r1, r6, #0
 	adds r2, r5, #0
-	bl RegisterObjectAttributes_SafeMaybe
+	bl PutSprite
 	b _08027CE8
 	.align 2, 0
-_08027CB8: .4byte gUnknown_08590F4C
+_08027CB8: .4byte gObject_16x16
 _08027CBC:
 	adds r2, r5, #0
 	subs r2, #0x10
-	ldr r3, _08027CD0  @ gUnknown_08590F6C
+	ldr r3, _08027CD0  @ gObject_16x32
 	adds r0, r7, r4
 	str r0, [sp]
 	mov r0, r9
 	adds r1, r6, #0
-	bl RegisterObjectAttributes_SafeMaybe
+	bl PutSprite
 	b _08027CE8
 	.align 2, 0
-_08027CD0: .4byte gUnknown_08590F6C
+_08027CD0: .4byte gObject_16x32
 _08027CD4:
 	adds r1, r6, #0
 	subs r1, #8
 	adds r2, r5, #0
 	subs r2, #0x10
-	ldr r3, _08027CF8  @ gUnknown_08590F54
+	ldr r3, _08027CF8  @ gObject_32x32
 	adds r0, r7, r4
 	str r0, [sp]
 	mov r0, r9
-	bl RegisterObjectAttributes_SafeMaybe
+	bl PutSprite
 _08027CE8:
 	add sp, #4
 	pop {r3, r4}
@@ -2930,7 +2930,7 @@ _08027CE8:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_08027CF8: .4byte gUnknown_08590F54
+_08027CF8: .4byte gObject_32x32
 
 	THUMB_FUNC_START sub_8027CFC
 sub_8027CFC: @ 0x08027CFC
@@ -2980,10 +2980,10 @@ _08027D52:
 	movs r0, #0x80
 	lsls r0, r0, #4
 	adds r2, r4, r0
-	ldr r3, _08027D5C  @ gUnknown_08590F4C
+	ldr r3, _08027D5C  @ gObject_16x16
 	b _08027D70
 	.align 2, 0
-_08027D5C: .4byte gUnknown_08590F4C
+_08027D5C: .4byte gObject_16x16
 _08027D60:
 	adds r2, r4, #0
 	subs r2, #0x10
@@ -2992,15 +2992,15 @@ _08027D60:
 	movs r0, #0x80
 	lsls r0, r0, #4
 	adds r2, r2, r0
-	ldr r3, _08027D7C  @ gUnknown_08590F6C
+	ldr r3, _08027D7C  @ gObject_16x32
 _08027D70:
 	str r7, [sp]
 	mov r0, r8
 	adds r1, r5, #0
-	bl RegisterObjectAttributes
+	bl PutSpriteExt
 	b _08027DA0
 	.align 2, 0
-_08027D7C: .4byte gUnknown_08590F6C
+_08027D7C: .4byte gObject_16x32
 _08027D80:
 	adds r1, r5, #0
 	subs r1, #8
@@ -3013,10 +3013,10 @@ _08027D80:
 	movs r0, #0x80
 	lsls r0, r0, #4
 	adds r2, r2, r0
-	ldr r3, _08027DB0  @ gUnknown_08590F54
+	ldr r3, _08027DB0  @ gObject_32x32
 	str r7, [sp]
 	mov r0, r8
-	bl RegisterObjectAttributes
+	bl PutSpriteExt
 _08027DA0:
 	add sp, #4
 	pop {r3}
@@ -3026,7 +3026,7 @@ _08027DA0:
 	bx r0
 	.align 2, 0
 _08027DAC: .4byte 0x000001FF
-_08027DB0: .4byte gUnknown_08590F54
+_08027DB0: .4byte gObject_32x32
 
 	THUMB_FUNC_START sub_8027DB4
 sub_8027DB4: @ 0x08027DB4
@@ -3077,25 +3077,25 @@ _08027E0C: .4byte unit_icon_wait_table
 _08027E10:
 	adds r2, r5, #0
 	subs r2, #0x10
-	ldr r3, _08027E24  @ gUnknown_08590F6C
+	ldr r3, _08027E24  @ gObject_16x32
 	adds r0, r7, r4
 	str r0, [sp]
 	mov r0, r8
 	adds r1, r6, #0
-	bl RegisterObjectAttributes_SafeMaybe
+	bl PutSprite
 	b _08027E3C
 	.align 2, 0
-_08027E24: .4byte gUnknown_08590F6C
+_08027E24: .4byte gObject_16x32
 _08027E28:
 	adds r1, r6, #0
 	subs r1, #8
 	adds r2, r5, #0
 	subs r2, #0x10
-	ldr r3, _08027E48  @ gUnknown_08590F54
+	ldr r3, _08027E48  @ gObject_32x32
 	adds r0, r7, r4
 	str r0, [sp]
 	mov r0, r8
-	bl RegisterObjectAttributes_SafeMaybe
+	bl PutSprite
 _08027E3C:
 	add sp, #4
 	pop {r3}
@@ -3104,7 +3104,7 @@ _08027E3C:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_08027E48: .4byte gUnknown_08590F54
+_08027E48: .4byte gObject_32x32
 
 	THUMB_FUNC_START sub_8027E4C
 sub_8027E4C: @ 0x08027E4C
@@ -3160,15 +3160,15 @@ _08027EA6:
 	lsls r1, r1, #0xc
 	adds r1, r7, r1
 	adds r1, r1, r5
-	ldr r3, _08027EC8  @ gUnknown_08590F4C
+	ldr r3, _08027EC8  @ gObject_16x16
 	str r1, [sp]
 	mov r0, r9
 	mov r1, r8
 	adds r2, r6, #0
-	bl RegisterObjectAttributes_SafeMaybe
+	bl PutSprite
 	b _08027F16
 	.align 2, 0
-_08027EC8: .4byte gUnknown_08590F4C
+_08027EC8: .4byte gObject_16x16
 _08027ECC:
 	ldr r0, [sp, #0x20]
 	bl GetUnitMapSpritePaletteIndex
@@ -3179,14 +3179,14 @@ _08027ECC:
 	adds r1, r1, r5
 	adds r2, r6, #0
 	subs r2, #0x10
-	ldr r3, _08027EF0  @ gUnknown_08590F6C
+	ldr r3, _08027EF0  @ gObject_16x32
 	str r1, [sp]
 	mov r0, r9
 	mov r1, r8
-	bl RegisterObjectAttributes_SafeMaybe
+	bl PutSprite
 	b _08027F16
 	.align 2, 0
-_08027EF0: .4byte gUnknown_08590F6C
+_08027EF0: .4byte gObject_16x32
 _08027EF4:
 	ldr r0, [sp, #0x20]
 	bl GetUnitMapSpritePaletteIndex
@@ -3199,10 +3199,10 @@ _08027EF4:
 	subs r1, #8
 	adds r2, r6, #0
 	subs r2, #0x10
-	ldr r3, _08027F24  @ gUnknown_08590F54
+	ldr r3, _08027F24  @ gObject_32x32
 	str r4, [sp]
 	mov r0, r9
-	bl RegisterObjectAttributes_SafeMaybe
+	bl PutSprite
 _08027F16:
 	add sp, #4
 	pop {r3, r4}
@@ -3212,7 +3212,7 @@ _08027F16:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_08027F24: .4byte gUnknown_08590F54
+_08027F24: .4byte gObject_32x32
 
 	THUMB_FUNC_START SMS_DisplayOne
 SMS_DisplayOne: @ 0x08027F28
@@ -3273,13 +3273,13 @@ _08027F7E:
 	lsls r0, r0, #3
 	orrs r2, r0
 _08027F98:
-	ldr r3, _08027FA4  @ gUnknown_08590F4C
+	ldr r3, _08027FA4  @ gObject_16x16
 	ldr r0, [sp, #0x1c]
 	adds r0, #0x40
 	b _08027FC6
 	.align 2, 0
 _08027FA0: .4byte 0x000001FF
-_08027FA4: .4byte gUnknown_08590F4C
+_08027FA4: .4byte gObject_16x16
 _08027FA8:
 	adds r1, r5, #0
 	subs r1, #8
@@ -3295,16 +3295,16 @@ _08027FA8:
 	lsls r0, r0, #3
 	orrs r2, r0
 _08027FC2:
-	ldr r3, _08027FD4  @ gUnknown_08590F6C
+	ldr r3, _08027FD4  @ gObject_16x32
 	ldr r0, [sp, #0x1c]
 _08027FC6:
 	str r0, [sp]
 	mov r0, r8
-	bl RegisterObjectAttributes
+	bl PutSpriteExt
 	b _08027FFE
 	.align 2, 0
 _08027FD0: .4byte 0x000001FF
-_08027FD4: .4byte gUnknown_08590F6C
+_08027FD4: .4byte gObject_16x32
 _08027FD8:
 	adds r1, r5, #0
 	subs r1, #0x10
@@ -3320,11 +3320,11 @@ _08027FD8:
 	lsls r0, r0, #3
 	orrs r2, r0
 _08027FF2:
-	ldr r3, _08028010  @ gUnknown_08590F54
+	ldr r3, _08028010  @ gObject_32x32
 	ldr r0, [sp, #0x1c]
 	str r0, [sp]
 	mov r0, r8
-	bl RegisterObjectAttributes
+	bl PutSpriteExt
 _08027FFE:
 	add sp, #4
 	pop {r3}
@@ -3334,7 +3334,7 @@ _08027FFE:
 	bx r0
 	.align 2, 0
 _0802800C: .4byte 0x000001FF
-_08028010: .4byte gUnknown_08590F54
+_08028010: .4byte gObject_32x32
 
 	THUMB_FUNC_START sub_8028014
 sub_8028014: @ 0x08028014
@@ -3389,13 +3389,13 @@ _0802806E:
 	mov r0, r9
 	adds r1, r7, #0
 	adds r2, r6, #0
-	bl RegisterObjectAttributes_SafeMaybe
+	bl PutSprite
 	ldr r3, _08028094  @ gUnknown_0859B98E
 	str r4, [sp]
 	mov r0, r9
 	adds r1, r7, #0
 	adds r2, r6, #0
-	bl RegisterObjectAttributes_SafeMaybe
+	bl PutSprite
 	b _080280E8
 	.align 2, 0
 _08028090: .4byte gUnknown_0859B976
@@ -3409,13 +3409,13 @@ _08028098:
 	mov r0, r9
 	adds r1, r7, #0
 	adds r2, r5, #0
-	bl RegisterObjectAttributes_SafeMaybe
+	bl PutSprite
 	ldr r3, _080280C0  @ gUnknown_0859B996
 	str r4, [sp]
 	mov r0, r9
 	adds r1, r7, #0
 	adds r2, r5, #0
-	bl RegisterObjectAttributes_SafeMaybe
+	bl PutSprite
 	b _080280E8
 	.align 2, 0
 _080280BC: .4byte gUnknown_0859B97E
@@ -3430,13 +3430,13 @@ _080280C4:
 	mov r0, r9
 	adds r1, r5, #0
 	adds r2, r6, #0
-	bl RegisterObjectAttributes_SafeMaybe
+	bl PutSprite
 	ldr r3, _080280FC  @ gUnknown_0859B99E
 	str r4, [sp]
 	mov r0, r9
 	adds r1, r5, #0
 	adds r2, r6, #0
-	bl RegisterObjectAttributes_SafeMaybe
+	bl PutSprite
 _080280E8:
 	add sp, #4
 	pop {r3, r4}

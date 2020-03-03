@@ -38,11 +38,11 @@ sub_8011784: @ 0x08011784
 	ldrh r0, [r4]
 	ldr r2, [r6, #0x34]
 	adds r2, r2, r0
-	ldr r5, _080118A0  @ gUnknown_08590F7C
+	ldr r5, _080118A0  @ gObject_16x8
 	str r7, [sp]
 	movs r0, #4
 	adds r3, r5, #0
-	bl RegisterObjectAttributes
+	bl PutSpriteExt
 	ldr r0, [r6, #0x44]
 	subs r0, #2
 	lsls r0, r0, #3
@@ -55,7 +55,7 @@ sub_8011784: @ 0x08011784
 	str r0, [sp]
 	movs r0, #4
 	adds r3, r5, #0
-	bl RegisterObjectAttributes
+	bl PutSpriteExt
 	ldr r1, [r6, #0x30]
 	ldrh r0, [r4]
 	adds r0, #0x18
@@ -66,7 +66,7 @@ sub_8011784: @ 0x08011784
 	str r0, [sp]
 	movs r0, #4
 	adds r3, r5, #0
-	bl RegisterObjectAttributes
+	bl PutSpriteExt
 	ldr r0, [r6, #0x44]
 	subs r0, #2
 	lsls r0, r0, #3
@@ -81,18 +81,18 @@ sub_8011784: @ 0x08011784
 	str r0, [sp]
 	movs r0, #4
 	adds r3, r5, #0
-	bl RegisterObjectAttributes
+	bl PutSpriteExt
 	ldr r1, [r6, #0x30]
 	ldrh r0, [r4]
 	adds r0, #8
 	ldr r2, [r6, #0x34]
 	adds r2, r2, r0
-	ldr r5, _080118A4  @ gUnknown_08590F44
+	ldr r5, _080118A4  @ gObject_8x8
 	adds r0, r7, #6
 	str r0, [sp]
 	movs r0, #4
 	adds r3, r5, #0
-	bl RegisterObjectAttributes
+	bl PutSpriteExt
 	ldr r1, [r6, #0x30]
 	ldrh r0, [r4]
 	adds r0, #0x10
@@ -103,7 +103,7 @@ sub_8011784: @ 0x08011784
 	str r0, [sp]
 	movs r0, #4
 	adds r3, r5, #0
-	bl RegisterObjectAttributes
+	bl PutSpriteExt
 	ldr r0, [r6, #0x44]
 	subs r0, #1
 	lsls r0, r0, #3
@@ -118,7 +118,7 @@ sub_8011784: @ 0x08011784
 	str r0, [sp]
 	movs r0, #4
 	adds r3, r5, #0
-	bl RegisterObjectAttributes
+	bl PutSpriteExt
 	ldr r0, [r6, #0x44]
 	subs r0, #1
 	lsls r0, r0, #3
@@ -133,13 +133,13 @@ sub_8011784: @ 0x08011784
 	str r0, [sp]
 	movs r0, #4
 	adds r3, r5, #0
-	bl RegisterObjectAttributes
+	bl PutSpriteExt
 	movs r5, #2
 	b _080118C6
 	.align 2, 0
 _0801189C: .4byte 0x0001FFFF
-_080118A0: .4byte gUnknown_08590F7C
-_080118A4: .4byte gUnknown_08590F44
+_080118A0: .4byte gObject_16x8
+_080118A4: .4byte gObject_8x8
 _080118A8:
 	lsls r0, r5, #3
 	ldr r1, [r6, #0x30]
@@ -152,8 +152,8 @@ _080118A8:
 	adds r0, r7, #2
 	str r0, [sp]
 	movs r0, #4
-	ldr r3, _08011904  @ gUnknown_08590F7C
-	bl RegisterObjectAttributes
+	ldr r3, _08011904  @ gObject_16x8
+	bl PutSpriteExt
 	adds r5, #2
 _080118C6:
 	ldr r0, [r6, #0x44]
@@ -178,8 +178,8 @@ _080118DC:
 	adds r0, r7, #2
 	str r0, [sp]
 	movs r0, #4
-	ldr r3, _08011908  @ gUnknown_08590F44
-	bl RegisterObjectAttributes
+	ldr r3, _08011908  @ gObject_8x8
+	bl PutSpriteExt
 	adds r5, #1
 	ldr r0, [r6, #0x44]
 	subs r0, #1
@@ -189,8 +189,8 @@ _08011900:
 	movs r5, #2
 	b _0801192C
 	.align 2, 0
-_08011904: .4byte gUnknown_08590F7C
-_08011908: .4byte gUnknown_08590F44
+_08011904: .4byte gObject_16x8
+_08011908: .4byte gObject_8x8
 _0801190C:
 	lsls r0, r5, #3
 	ldr r1, [r6, #0x30]
@@ -204,8 +204,8 @@ _0801190C:
 	adds r0, #0xf
 	str r0, [sp]
 	movs r0, #4
-	ldr r3, _08011A0C  @ gUnknown_08590F7C
-	bl RegisterObjectAttributes
+	ldr r3, _08011A0C  @ gObject_16x8
+	bl PutSpriteExt
 	adds r5, #2
 _0801192C:
 	ldr r0, [r6, #0x44]
@@ -233,8 +233,8 @@ _08011946:
 	mov r0, r8
 	str r0, [sp]
 	movs r0, #4
-	ldr r3, _08011A0C  @ gUnknown_08590F7C
-	bl RegisterObjectAttributes
+	ldr r3, _08011A0C  @ gObject_16x8
+	bl PutSpriteExt
 	ldr r1, [r6, #0x30]
 	adds r1, r1, r4
 	mov r2, r9
@@ -245,8 +245,8 @@ _08011946:
 	mov r0, r8
 	str r0, [sp]
 	movs r0, #4
-	ldr r3, _08011A0C  @ gUnknown_08590F7C
-	bl RegisterObjectAttributes
+	ldr r3, _08011A0C  @ gObject_16x8
+	bl PutSpriteExt
 	adds r5, #2
 	ldr r0, [r6, #0x44]
 	subs r0, #2
@@ -258,7 +258,7 @@ _08011986:
 	cmp r5, r0
 	bge _080119D2
 	mov r8, sl
-	ldr r1, _08011A10  @ gUnknown_08590F44
+	ldr r1, _08011A10  @ gObject_8x8
 	mov r9, r1
 	adds r7, #8
 _08011996:
@@ -273,7 +273,7 @@ _08011996:
 	str r7, [sp]
 	movs r0, #4
 	mov r3, r9
-	bl RegisterObjectAttributes
+	bl PutSpriteExt
 	ldr r1, [r6, #0x30]
 	adds r1, r1, r4
 	mov r2, r8
@@ -284,7 +284,7 @@ _08011996:
 	str r7, [sp]
 	movs r0, #4
 	mov r3, r9
-	bl RegisterObjectAttributes
+	bl PutSpriteExt
 	adds r5, #1
 	ldr r0, [r6, #0x44]
 	subs r0, #1
@@ -304,8 +304,8 @@ _080119D8:
 	adds r2, r2, r0
 	str r4, [sp]
 	movs r0, #0
-	ldr r3, _08011A14  @ gUnknown_08590F8C
-	bl RegisterObjectAttributes
+	ldr r3, _08011A14  @ gObject_32x16
+	bl PutSpriteExt
 	adds r4, #4
 	adds r7, #0x20
 	subs r5, #1
@@ -320,9 +320,9 @@ _080119D8:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_08011A0C: .4byte gUnknown_08590F7C
-_08011A10: .4byte gUnknown_08590F44
-_08011A14: .4byte gUnknown_08590F8C
+_08011A0C: .4byte gObject_16x8
+_08011A10: .4byte gObject_8x8
+_08011A14: .4byte gObject_32x16
 
 	THUMB_FUNC_START nullsub_44
 nullsub_44: @ 0x08011A18

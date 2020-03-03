@@ -1078,19 +1078,19 @@ void DisplayUiHand(int x, int y)
     sPrevHandClockFrame = GetGameClock();
 
     x += (sHandHOffsetLookup[GetGameClock() % ARRAY_COUNT(sHandHOffsetLookup)] - 14);
-    RegisterObjectAttributes_SafeMaybe(2, x, y, sSprite_Hand, 0);
+    PutSprite(2, x, y, sSprite_Hand, 0);
 }
 
 void DisplayUiHand_unused(int x, int y)
 {
     x += (sHandHOffsetLookup[GetGameClock() % ARRAY_COUNT(sHandHOffsetLookup)] - 14);
-    RegisterObjectAttributes_SafeMaybe(2, x, y, sSprite_Hand, 0);
+    PutSprite(2, x, y, sSprite_Hand, 0);
 }
 
 void DisplayFrozenUiHand(int x, int y)
 {
     x -= 12;
-    RegisterObjectAttributes_SafeMaybe(3, x, y, sSprite_Hand, 0);
+    PutSprite(3, x, y, sSprite_Hand, 0);
 }
 
 int GetUiHandPrevDisplayX(void)
@@ -1208,13 +1208,13 @@ void DisplayUiHandExt(int x, int y, unsigned objTileOffset)
     sPrevHandClockFrame = GetGameClock();
 
     x += (sHandHOffsetLookup[GetGameClock() % ARRAY_COUNT(sHandHOffsetLookup)] - 14);
-    RegisterObjectAttributes_SafeMaybe(2, x, y, sSprite_Hand, objTileOffset << 15 >> 20);
+    PutSprite(2, x, y, sSprite_Hand, objTileOffset << 15 >> 20);
 }
 
 void DisplayFrozenUiHandExt(int x, int y, unsigned objTileOffset)
 {
     x -= 12;
-    RegisterObjectAttributes_SafeMaybe(3, x, y, sSprite_Hand, objTileOffset << 15 >> 20);
+    PutSprite(3, x, y, sSprite_Hand, objTileOffset << 15 >> 20);
 }
 
 void LoadLegacyUiFrameGraphics(void)

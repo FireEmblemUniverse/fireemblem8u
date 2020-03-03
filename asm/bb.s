@@ -40,8 +40,8 @@ _08035486:
 	movs r0, #2
 	adds r1, r4, #0
 	adds r2, r7, #0
-	ldr r3, _080354DC  @ gUnknown_08590F8C
-	bl RegisterObjectAttributes_SafeMaybe
+	ldr r3, _080354DC  @ gObject_32x16
+	bl PutSprite
 	adds r5, #1
 	cmp r5, #8
 	ble _08035486
@@ -52,7 +52,7 @@ _08035486:
 	.align 2, 0
 _080354D4: .4byte gUnknown_0859E14C
 _080354D8: .4byte 0x00004240
-_080354DC: .4byte gUnknown_08590F8C
+_080354DC: .4byte gObject_32x16
 
 	THUMB_FUNC_START sub_80354E0
 sub_80354E0: @ 0x080354E0

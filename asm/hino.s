@@ -6074,7 +6074,7 @@ SomeUpdateRoutine: @ 0x080152F4
 	ldr r0, _08015350  @ gKeyStatusPtr
 	ldr r0, [r0]
 	bl UpdateKeyStatus
-	bl ClearIntermediateOAMBuffers
+	bl ClearSprites
 	ldr r4, _08015354  @ gRootProcesses
 	ldr r0, [r4, #4]
 	bl Proc_Run
@@ -6090,11 +6090,11 @@ _0801531A:
 	ldr r0, [r4, #0x14]
 	bl Proc_Run
 	movs r0, #0
-	bl FlushIntermediateOAMBuffer
+	bl PushSpriteLayerObjects
 	ldr r0, [r4, #0x10]
 	bl Proc_Run
 	movs r0, #0xd
-	bl FlushIntermediateOAMBuffer
+	bl PushSpriteLayerObjects
 	ldr r1, _08015358  @ gUnknown_0202BCB0
 	movs r0, #1
 	strb r0, [r1]

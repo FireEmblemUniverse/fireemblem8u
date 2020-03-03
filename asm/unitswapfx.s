@@ -156,12 +156,12 @@ sub_801EAE8: @ 0x0801EAE8
 	bhi _0801EBB2
 	adds r2, r4, #0
 	subs r2, #0xc
-	ldr r3, _0801EBE4  @ gUnknown_08590F4C
+	ldr r3, _0801EBE4  @ gObject_16x16
 	movs r0, #6
 	str r0, [sp]
 	movs r0, #4
 	adds r1, r5, #0
-	bl RegisterObjectAttributes_SafeMaybe
+	bl PutSprite
 	ldr r3, [r7, #0x2c]
 	movs r0, #4
 	adds r1, r5, #0
@@ -191,7 +191,7 @@ _0801EBCA:
 	.align 2, 0
 _0801EBDC: .4byte gSinLookup
 _0801EBE0: .4byte gUnknown_0202BCB0
-_0801EBE4: .4byte gUnknown_08590F4C
+_0801EBE4: .4byte gObject_16x16
 
 	THUMB_FUNC_START sub_801EBE8
 sub_801EBE8: @ 0x0801EBE8

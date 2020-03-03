@@ -420,62 +420,62 @@ _08033570: .4byte 0x06017000
 sub_8033574: @ 0x08033574
 	push {r4, lr}
 	sub sp, #4
-	ldr r4, _080335E4  @ gUnknown_08590F8C
+	ldr r4, _080335E4  @ gObject_32x16
 	ldr r0, _080335E8  @ 0x0000238B
 	str r0, [sp]
 	movs r0, #4
 	movs r1, #0x64
 	movs r2, #0x8c
 	adds r3, r4, #0
-	bl RegisterObjectAttributes_SafeMaybe
+	bl PutSprite
 	ldr r0, _080335EC  @ 0x0000238F
 	str r0, [sp]
 	movs r0, #4
 	movs r1, #0x84
 	movs r2, #0x8c
 	adds r3, r4, #0
-	bl RegisterObjectAttributes_SafeMaybe
-	ldr r3, _080335F0  @ gUnknown_08590F4C
+	bl PutSprite
+	ldr r3, _080335F0  @ gObject_16x16
 	ldr r0, _080335F4  @ 0x00002393
 	str r0, [sp]
 	movs r0, #4
 	movs r1, #0xa4
 	movs r2, #0x8c
-	bl RegisterObjectAttributes_SafeMaybe
+	bl PutSprite
 	ldr r0, _080335F8  @ 0x00002395
 	str r0, [sp]
 	movs r0, #4
 	movs r1, #0x10
 	movs r2, #0x8c
 	adds r3, r4, #0
-	bl RegisterObjectAttributes_SafeMaybe
+	bl PutSprite
 	ldr r0, _080335FC  @ 0x00002399
 	str r0, [sp]
 	movs r0, #4
 	movs r1, #0x30
 	movs r2, #0x8c
 	adds r3, r4, #0
-	bl RegisterObjectAttributes_SafeMaybe
-	ldr r3, _08033600  @ gUnknown_08590F64
+	bl PutSprite
+	ldr r3, _08033600  @ gObject_8x16
 	ldr r0, _08033604  @ 0x0000239D
 	str r0, [sp]
 	movs r0, #4
 	movs r1, #0x50
 	movs r2, #0x8c
-	bl RegisterObjectAttributes_SafeMaybe
+	bl PutSprite
 	add sp, #4
 	pop {r4}
 	pop {r0}
 	bx r0
 	.align 2, 0
-_080335E4: .4byte gUnknown_08590F8C
+_080335E4: .4byte gObject_32x16
 _080335E8: .4byte 0x0000238B
 _080335EC: .4byte 0x0000238F
-_080335F0: .4byte gUnknown_08590F4C
+_080335F0: .4byte gObject_16x16
 _080335F4: .4byte 0x00002393
 _080335F8: .4byte 0x00002395
 _080335FC: .4byte 0x00002399
-_08033600: .4byte gUnknown_08590F64
+_08033600: .4byte gObject_8x16
 _08033604: .4byte 0x0000239D
 
 	THUMB_FUNC_START sub_8033608
@@ -1313,12 +1313,12 @@ _08033CC8:
 	cmp r0, #0xc0
 	bhi _08033D04
 	subs r2, #0xc
-	ldr r3, _08033D34  @ gUnknown_08590F4C
+	ldr r3, _08033D34  @ gObject_16x16
 	movs r0, #6
 	str r0, [sp]
 	movs r0, #4
 	adds r1, r5, #0
-	bl RegisterObjectAttributes_SafeMaybe
+	bl PutSprite
 _08033D04:
 	ldr r0, _08033D38  @ gKeyStatusPtr
 	ldr r0, [r0]
@@ -1339,7 +1339,7 @@ _08033D04:
 _08033D28: .4byte gUnknown_0202BCB0
 _08033D2C: .4byte gBmMapRange
 _08033D30: .4byte gBmMapUnit
-_08033D34: .4byte gUnknown_08590F4C
+_08033D34: .4byte gObject_16x16
 _08033D38: .4byte gKeyStatusPtr
 _08033D3C:
 	ldr r0, _08033D50  @ gUnknown_0202BCF0
