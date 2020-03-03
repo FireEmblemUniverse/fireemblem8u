@@ -1,6 +1,8 @@
 #ifndef GUARD_FUNCTIONS_H
 #define GUARD_FUNCTIONS_H
 
+#include "gba/types.h"
+
 // ??? RomHeaderNintendoLogo(???);
 // ??? crt0(???);
 void GlobalIRQHandler(void);
