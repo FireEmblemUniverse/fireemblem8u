@@ -1668,8 +1668,8 @@ extern const u16 gUnknown_085A401C[]; // clouds palette
 // extern ??? gUnknown_085A7E34
 // extern ??? gUnknown_085A7EC8
 // extern ??? gUnknown_085A7EE8
-// extern ??? gUnknown_085A7F08
-// extern ??? gUnknown_085A7F30
+// extern ??? gProcScr_CpPhase
+// extern ??? gProcScr_BerserkCpPhase
 // extern ??? gUnknown_085A7F58
 // extern ??? gUnknown_085A7F5C
 // extern ??? gUnknown_085A7F74

@@ -406,7 +406,7 @@ gProc_BMapMain:  @ 0x0859A1F0
 
     .2byte 6
     .2byte 1
-    .4byte gUnknown_085A7F30
+    .4byte gProcScr_BerserkCpPhase
 
     .2byte 22
     .2byte 0
@@ -490,7 +490,7 @@ gProc_BMapMain:  @ 0x0859A1F0
 
     .2byte 6
     .2byte 1
-    .4byte gUnknown_085A7F30
+    .4byte gProcScr_BerserkCpPhase
 
     .2byte 12
     .2byte 3
@@ -510,7 +510,7 @@ gProc_BMapMain:  @ 0x0859A1F0
 
     .2byte 6
     .2byte 1
-    .4byte gUnknown_085A7F30
+    .4byte gProcScr_BerserkCpPhase
 
     .2byte 12
     .2byte 3
@@ -562,7 +562,7 @@ gProc_BMapMain:  @ 0x0859A1F0
 
     .2byte 6
     .2byte 1
-    .4byte gUnknown_085A7F30
+    .4byte gProcScr_BerserkCpPhase
 
     .2byte 12
     .2byte 3

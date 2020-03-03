@@ -109,7 +109,7 @@ SECTIONS
         asm/bmtrap.o(.text);
         asm/bmarch.o(.text);
         asm/bmdifficulty.o(.text);
-        asm/cpphase.o(.text);
+        src/cp_phase.o(.text);
         asm/cporder.o(.text);
         asm/cpdecide.o(.text);
         asm/cpperform.o(.text);
@@ -206,6 +206,8 @@ SECTIONS
         . = ALIGN(4); data/const_data_D7C44.o(.rodata);
         . = ALIGN(4); src/bmio.o(.rodata);
         . = ALIGN(4); data/const_data_D7F5C.o(.rodata);
+        . = ALIGN(4); src/cp_phase.o(.rodata);
+        . = ALIGN(4); data/const_data_D80AC.o(.rodata);
         . = ALIGN(4); src/uiutils.o(.rodata);
         . = ALIGN(4); src/uimenu.o(.rodata);
         . = ALIGN(4); src/uitarget.o(.rodata);
@@ -250,6 +252,8 @@ SECTIONS
         . = ALIGN(4); data/data_59BC64.o(.data);
         . = ALIGN(4); src/bmio.o(.data);
         . = ALIGN(4); data/data_59D9FC.o(.data);
+        . = ALIGN(4); src/cp_phase.o(.data);
+        . = ALIGN(4); data/data_5A7F58.o(.data);
         . = ALIGN(4); src/uiutils.o(.data);
         . = ALIGN(4); src/uimenu.o(.data);
         . = ALIGN(4); src/uitarget.o(.data);
