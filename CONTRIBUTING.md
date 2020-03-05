@@ -10,7 +10,7 @@
 # Resources Collection
 
 - [GitHub Help](https://help.github.com/en)
-- [Compiler Explorer](https://cexplore.karathan.at/z/KhyRi3)
+- [Compiler Explorer](https://cexplore.karathan.at/z/KhyRi3) [Source Code](https://github.com/SBird1337/cexplore)
 - [Online Decompiler](https://feuniverse.us/t/use-free-online-service-to-assist-the-routine-analysis/3219) (Down now. Try [IDA](https://www.hex-rays.com/products/ida/) / [Ghidra](https://ghidra-sre.org/) / [RetDec](https://retdec.com/) instead.)
 - [Decomp Permuter](https://github.com/laqieer/decomp-permuter-arm)
 - [Pokemon Projects](https://github.com/pret/pokeemerald)
