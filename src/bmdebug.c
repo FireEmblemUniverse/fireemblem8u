@@ -2,7 +2,7 @@
 // Created by laqieer on 2020/3/3.
 //
 
-#include "../include/bmdebug.h"
+#include "bmdebug.h"
 
 // if current seconds is even, return 2; else return 3
 int Return2or3BySecondParity(void)
