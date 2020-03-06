@@ -10,5 +10,29 @@
 #include "gba/io_reg.h"
 #include "hardware.h"
 #include "proc.h"
+#include "fontgrp.h"
+#include "uiutils.h"
+
+struct DebugPrintProc
+{
+    PROC_HEADER
+    int x; // unit: tile
+    int y; // unit: tile
+    int unk_34;
+    int unk_38;
+    int unk_3C;
+    int unk_40;
+    int unk_44;
+    int unk_48;
+    int unk_4C;
+    short unk_50;
+    unsigned short width; // unit: tile
+    const char * text; // string
+    int unk_58;
+    int unk_5C;
+    int unk_60;
+    int unk_64;
+    int unk_68;
+};
 
 #endif //GUARD_BMDEBUG_H
