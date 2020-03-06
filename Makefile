@@ -84,6 +84,11 @@ clean:
 	# Remove battle animation binaries
 	$(RM) data/banim/*.bin data/banim/*.o data/banim/*.lz data/banim/*.bak
 
+tag:
+	gtags
+	ctags -R
+	cscope -Rbkq
+
 # Graphics Recipes
 
 include graphics_file_rules.mk
