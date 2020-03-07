@@ -49,12 +49,12 @@ struct ProcCmd
     ProcFunc proc_endCb; /* callback to run upon delegint the process */                   \
     ProcFunc proc_idleCb; /* callback to run once each frame. */                           \
                           /* disables script execution when not null */                    \
-    char* proc_name;                                                                       \
-    struct Proc* proc_parent; /* pointer to parent proc. If this proc is a root proc, */   \
-                              /* this member is an integer which is the root index. */     \
-    struct Proc* proc_child; /* pointer to most recently added child */                    \
-    struct Proc* proc_next; /* next sibling */                                             \
-    struct Proc* proc_prev; /* previous sibling */                                         \
+    const char* proc_name;                                                                 \
+    ProcPtr proc_parent; /* pointer to parent proc. If this proc is a root proc, */        \
+                         /* this member is an integer which is the root index. */          \
+    ProcPtr proc_child; /* pointer to most recently added child */                         \
+    ProcPtr proc_next; /* next sibling */                                                  \
+    ProcPtr proc_prev; /* previous sibling */                                              \
     s16 proc_sleepTime;                                                                    \
     u8 proc_mark;                                                                          \
     u8 proc_flags;                                                                         \
@@ -68,11 +68,11 @@ struct Proc
     /* 2C */ u32 data[0x10];
 };
 
-struct UnknownProcStruct
+struct ProcFindIterator
 {
-    struct Proc *unk0;
-    struct ProcCmd *unk4;
-    int unk8;
+    /* 00 */ struct Proc* proc;
+    /* 04 */ const struct ProcCmd* script;
+    /* 08 */ int count;
 };
 
 enum
@@ -87,26 +87,26 @@ enum
     PROC_MARK_7 = 7
 };
 
-#define ROOT_PROC_0 (struct Proc *)0
-#define ROOT_PROC_1 (struct Proc *)1
-#define ROOT_PROC_2 (struct Proc *)2
-#define ROOT_PROC_3 (struct Proc *)3
-#define ROOT_PROC_4 (struct Proc *)4
-#define ROOT_PROC_5 (struct Proc *)5
-#define ROOT_PROC_6 (struct Proc *)6
-#define ROOT_PROC_7 (struct Proc *)7
+#define ROOT_PROC_0 ((ProcPtr) 0)
+#define ROOT_PROC_1 ((ProcPtr) 1)
+#define ROOT_PROC_2 ((ProcPtr) 2)
+#define ROOT_PROC_3 ((ProcPtr) 3)
+#define ROOT_PROC_4 ((ProcPtr) 4)
+#define ROOT_PROC_5 ((ProcPtr) 5)
+#define ROOT_PROC_6 ((ProcPtr) 6)
+#define ROOT_PROC_7 ((ProcPtr) 7)
 
 void Proc_Initialize(void);
-struct Proc *Proc_Create(const struct ProcCmd *script, struct Proc *parent);
-struct Proc *Proc_CreateBlockingChild(const struct ProcCmd *script, struct Proc *parent);
-void Proc_Delete(struct Proc *proc);
+ProcPtr Proc_Create(const struct ProcCmd* script, ProcPtr parent);
+ProcPtr Proc_CreateBlockingChild(const struct ProcCmd* script, ProcPtr parent);
+void Proc_Delete(ProcPtr proc);
 // ??? Proc_Run(???);
-void Proc_ClearNativeCallback(struct Proc *proc);
-struct Proc *Proc_Find(const struct ProcCmd *script);
+void Proc_ClearNativeCallback(ProcPtr proc);
+struct Proc *Proc_Find(const struct ProcCmd* script);
 // ??? Proc_FindNonBlocked(???);
 // ??? Proc_FindWithMark(???);
-void Proc_GotoLabel(struct Proc* proc_arg, int label);
-void Proc_JumpToPointer(struct Proc *proc, const struct ProcCmd *ptr);
+void Proc_GotoLabel(ProcPtr proc, int label);
+void Proc_JumpToPointer(ProcPtr proc, const struct ProcCmd* script);
 // ??? Proc_SetMark(???);
 // ??? Proc_SetDestructor(???);
 // ??? Proc_ForEach(???);
