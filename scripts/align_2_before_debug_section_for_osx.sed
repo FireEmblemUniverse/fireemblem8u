@@ -1,4 +1,4 @@
 #!/usr/bin/env sed
 
-/.section	.debug_/i\
+/.section	.debug_line/i\
 .align 2, 0
