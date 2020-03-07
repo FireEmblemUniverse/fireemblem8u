@@ -7,6 +7,8 @@ Event00_NULL: @ 0x0800D5A0
 	movs r0, #0
 	bx lr
 
+	THUMB_FUNC_END Event00_NULL
+
 	THUMB_FUNC_START Event01_End
 Event01_End: @ 0x0800D5A4
 	push {r4, r5, r6, r7, lr}
@@ -118,6 +120,8 @@ _0800D66A:
 	pop {r1}
 	bx r1
 
+	THUMB_FUNC_END Event01_End
+
 	THUMB_FUNC_START Event02_EvBitAndIdMod
 Event02_EvBitAndIdMod: @ 0x0800D670
 	push {r4, r5, r6, lr}
@@ -181,6 +185,8 @@ _0800D6DA:
 	pop {r1}
 	bx r1
 
+	THUMB_FUNC_END Event02_EvBitAndIdMod
+
 	THUMB_FUNC_START Event03_CheckEvBitOrId
 Event03_CheckEvBitOrId: @ 0x0800D6E4
 	push {r4, lr}
@@ -242,6 +248,8 @@ _0800D748:
 	.align 2, 0
 _0800D750: .4byte gEventSlots
 
+	THUMB_FUNC_END Event03_CheckEvBitOrId
+
 	THUMB_FUNC_START Event04_CheckRandom
 Event04_CheckRandom: @ 0x0800D754
 	push {lr}
@@ -266,6 +274,8 @@ _0800D772:
 	.align 2, 0
 _0800D778: .4byte gEventSlots
 
+	THUMB_FUNC_END Event04_CheckRandom
+
 	THUMB_FUNC_START Event05_SetSlot
 Event05_SetSlot: @ 0x0800D77C
 	ldr r1, [r0, #0x38]
@@ -279,6 +289,8 @@ Event05_SetSlot: @ 0x0800D77C
 	bx lr
 	.align 2, 0
 _0800D790: .4byte gEventSlots
+
+	THUMB_FUNC_END Event05_SetSlot
 
 	THUMB_FUNC_START Event06_SlotOperation
 Event06_SlotOperation: @ 0x0800D794
@@ -473,6 +485,8 @@ _0800D912:
 	pop {r1}
 	bx r1
 
+	THUMB_FUNC_END Event06_SlotOperation
+
 	THUMB_FUNC_START Event07_SlotQueueOperations
 Event07_SlotQueueOperations: @ 0x0800D918
 	push {r4, lr}
@@ -526,10 +540,14 @@ _0800D970:
 	.align 2, 0
 _0800D978: .4byte gEventSlots
 
+	THUMB_FUNC_END Event07_SlotQueueOperations
+
 	THUMB_FUNC_START Event08_Label
 Event08_Label: @ 0x0800D97C
 	movs r0, #0
 	bx lr
+
+	THUMB_FUNC_END Event08_Label
 
 	THUMB_FUNC_START Event09_Goto
 Event09_Goto: @ 0x0800D980
@@ -562,6 +580,8 @@ _0800D9AE:
 	pop {r4}
 	pop {r1}
 	bx r1
+
+	THUMB_FUNC_END Event09_Goto
 
 	THUMB_FUNC_START Event0A_Call
 Event0A_Call: @ 0x0800D9B8
@@ -624,6 +644,8 @@ _0800D9E2:
 _0800DA24: .4byte gEventSlots
 _0800DA28: .4byte gUnknown_03000570
 
+	THUMB_FUNC_END Event0A_Call
+
 	THUMB_FUNC_START Event0B_
 Event0B_: @ 0x0800DA2C
 	push {r4, lr}
@@ -665,6 +687,8 @@ _0800DA70:
 	pop {r4}
 	pop {r1}
 	bx r1
+
+	THUMB_FUNC_END Event0B_
 
 	THUMB_FUNC_START Event0C_Branch
 Event0C_Branch: @ 0x0800DA78
@@ -739,6 +763,8 @@ _0800DAF8:
 	pop {r1}
 	bx r1
 
+	THUMB_FUNC_END Event0C_Branch
+
 	THUMB_FUNC_START Event0D_AsmCall
 Event0D_AsmCall: @ 0x0800DB00
 	push {r4, lr}
@@ -769,6 +795,8 @@ _0800DB30:
 	pop {r4}
 	pop {r1}
 	bx r1
+
+	THUMB_FUNC_END Event0D_AsmCall
 
 	THUMB_FUNC_START Event0E_STAL
 Event0E_STAL: @ 0x0800DB38
@@ -860,6 +888,8 @@ _0800DBD8:
 	pop {r4, r5, r6, r7}
 	pop {r1}
 	bx r1
+
+	THUMB_FUNC_END Event0E_STAL
 
 	THUMB_FUNC_START Event0F_
 Event0F_: @ 0x0800DBE0
@@ -958,6 +988,8 @@ _0800DC8A:
 	bx r1
 	.align 2, 0
 _0800DC94: .4byte gEventSlotCounter
+
+	THUMB_FUNC_END Event0F_
 
 	THUMB_FUNC_START Event10_ModifyEvBit
 Event10_ModifyEvBit: @ 0x0800DC98
@@ -1061,6 +1093,8 @@ _0800DD52:
 	pop {r1}
 	bx r1
 
+	THUMB_FUNC_END Event10_ModifyEvBit
+
 	THUMB_FUNC_START Event11_SetIgnoredKeys
 Event11_SetIgnoredKeys: @ 0x0800DD58
 	push {lr}
@@ -1077,6 +1111,8 @@ _0800DD6E:
 	movs r0, #0
 	pop {r1}
 	bx r1
+
+	THUMB_FUNC_END Event11_SetIgnoredKeys
 
 	THUMB_FUNC_START Event12_
 Event12_: @ 0x0800DD74
@@ -1111,6 +1147,8 @@ _0800DDA6:
 	bx r1
 	.align 2, 0
 _0800DDAC: .4byte gEventSlots
+
+	THUMB_FUNC_END Event12_
 
 	THUMB_FUNC_START Event13_
 Event13_: @ 0x0800DDB0
@@ -1168,6 +1206,8 @@ _0800DE0E:
 	pop {r1}
 	bx r1
 
+	THUMB_FUNC_END Event13_
+
 	THUMB_FUNC_START Event14_
 Event14_: @ 0x0800DE14
 	push {r4, lr}
@@ -1220,6 +1260,8 @@ _0800DE6C:
 	pop {r4}
 	pop {r1}
 	bx r1
+
+	THUMB_FUNC_END Event14_
 
 	THUMB_FUNC_START Event15_
 Event15_: @ 0x0800DE74
@@ -1274,6 +1316,8 @@ _0800DECE:
 	pop {r1}
 	bx r1
 
+	THUMB_FUNC_END Event15_
+
 	THUMB_FUNC_START Event16_
 Event16_: @ 0x0800DED4
 	push {lr}
@@ -1313,6 +1357,8 @@ _0800DF10:
 	.align 2, 0
 _0800DF18: .4byte gEventSlots
 _0800DF1C: .4byte gUnknown_0202BCF0
+
+	THUMB_FUNC_END Event16_
 
 	THUMB_FUNC_START Event17_
 Event17_: @ 0x0800DF20
@@ -1397,6 +1443,8 @@ _0800DFB4:
 	pop {r4}
 	pop {r1}
 	bx r1
+
+	THUMB_FUNC_END Event17_
 
 	THUMB_FUNC_START Event18_
 Event18_: @ 0x0800DFBC
@@ -1496,6 +1544,8 @@ _0800E060:
 	pop {r4, r5, r6, r7}
 	pop {r1}
 	bx r1
+
+	THUMB_FUNC_END Event18_
 
 	THUMB_FUNC_START Event19_
 Event19_: @ 0x0800E070
@@ -1637,6 +1687,8 @@ _0800E17C:
 	.align 2, 0
 _0800E184: .4byte gEventSlots
 
+	THUMB_FUNC_END Event19_
+
 	THUMB_FUNC_START Event1A_TEXTSTART
 Event1A_TEXTSTART: @ 0x0800E188
 	push {r4, r5, lr}
@@ -1702,6 +1754,8 @@ _0800E20A:
 	pop {r4, r5}
 	pop {r1}
 	bx r1
+
+	THUMB_FUNC_END Event1A_TEXTSTART
 
 	THUMB_FUNC_START sub_800E210
 sub_800E210: @ 0x0800E210
@@ -1770,6 +1824,8 @@ _0800E28A:
 	pop {r0}
 	bx r0
 
+	THUMB_FUNC_END sub_800E210
+
 	THUMB_FUNC_START sub_800E290
 sub_800E290: @ 0x0800E290
 	push {r4, r5, lr}
@@ -1836,6 +1892,8 @@ _0800E2BA:
 _0800E310: .4byte 0x00002820
 _0800E314: .4byte gLCDControlBuffer
 _0800E318: .4byte 0x06011000
+
+	THUMB_FUNC_END sub_800E290
 
 	THUMB_FUNC_START sub_800E31C
 sub_800E31C: @ 0x0800E31C
@@ -1923,6 +1981,8 @@ _0800E3A6:
 	pop {r4, r5, r6, r7}
 	pop {r0}
 	bx r0
+
+	THUMB_FUNC_END sub_800E31C
 
 	THUMB_FUNC_START Event1B_TEXTSHOW
 Event1B_TEXTSHOW: @ 0x0800E3C8
@@ -2092,6 +2152,8 @@ _0800E516:
 	pop {r1}
 	bx r1
 
+	THUMB_FUNC_END Event1B_TEXTSHOW
+
 	THUMB_FUNC_START Event1C_TEXTCONT
 Event1C_TEXTCONT: @ 0x0800E51C
 	push {r4, lr}
@@ -2125,6 +2187,8 @@ _0800E558:
 	pop {r4}
 	pop {r1}
 	bx r1
+
+	THUMB_FUNC_END Event1C_TEXTCONT
 
 	THUMB_FUNC_START Event1D_TEXTEND
 Event1D_TEXTEND: @ 0x0800E560
@@ -2238,6 +2302,8 @@ _0800E630:
 _0800E638: .4byte gEventSlots
 _0800E63C: .4byte gUnknown_0202BCF0
 
+	THUMB_FUNC_END Event1D_TEXTEND
+
 	THUMB_FUNC_START sub_800E640
 sub_800E640: @ 0x0800E640
 	push {r4, lr}
@@ -2277,6 +2343,8 @@ _0800E68C: .4byte gUnknown_08591154
 _0800E690: .4byte sub_8005F38
 _0800E694: .4byte gUnknown_08591DE8
 
+	THUMB_FUNC_END sub_800E640
+
 	THUMB_FUNC_START _WhileFace6CExists
 _WhileFace6CExists: @ 0x0800E698
 	push {r4, lr}
@@ -2291,6 +2359,8 @@ _0800E6AC:
 	pop {r4}
 	pop {r0}
 	bx r0
+
+	THUMB_FUNC_END _WhileFace6CExists
 
 	THUMB_FUNC_START Event1E_
 Event1E_: @ 0x0800E6B4
@@ -2391,6 +2461,8 @@ _0800E772:
 	.align 2, 0
 _0800E778: .4byte gUnknown_03000428
 
+	THUMB_FUNC_END Event1E_
+
 	THUMB_FUNC_START Event1F_
 Event1F_: @ 0x0800E77C
 	push {r4, lr}
@@ -2429,6 +2501,8 @@ _0800E7B6:
 	.align 2, 0
 _0800E7C0: .4byte gUnknown_03000430
 
+	THUMB_FUNC_END Event1F_
+
 	THUMB_FUNC_START Event20_
 Event20_: @ 0x0800E7C4
 	push {lr}
@@ -2436,6 +2510,8 @@ Event20_: @ 0x0800E7C4
 	movs r0, #0
 	pop {r1}
 	bx r1
+
+	THUMB_FUNC_END Event20_
 
 	THUMB_FUNC_START sub_800E7D0
 sub_800E7D0: @ 0x0800E7D0
@@ -2548,6 +2624,8 @@ _0800E8C0:
 	bx r1
 	.align 2, 0
 _0800E8C8: .4byte gBG3TilemapBuffer
+
+	THUMB_FUNC_END sub_800E7D0
 
 	THUMB_FUNC_START Event21_
 Event21_: @ 0x0800E8CC
@@ -2770,6 +2848,8 @@ _0800EA78:
 	pop {r1}
 	bx r1
 
+	THUMB_FUNC_END Event21_
+
 	THUMB_FUNC_START sub_800EA84
 sub_800EA84: @ 0x0800EA84
 	push {r4, r5, lr}
@@ -2917,6 +2997,8 @@ _0800EB94:
 	pop {r0}
 	bx r0
 
+	THUMB_FUNC_END sub_800EA84
+
 	THUMB_FUNC_START sub_800EBB0
 sub_800EBB0: @ 0x0800EBB0
 	push {lr}
@@ -2956,6 +3038,8 @@ sub_800EBB0: @ 0x0800EBB0
 	.align 2, 0
 _0800EBFC: .4byte gLCDControlBuffer
 
+	THUMB_FUNC_END sub_800EBB0
+
 	THUMB_FUNC_START sub_800EC00
 sub_800EC00: @ 0x0800EC00
 	push {lr}
@@ -2993,6 +3077,8 @@ sub_800EC00: @ 0x0800EC00
 	bx r0
 	.align 2, 0
 _0800EC4C: .4byte gLCDControlBuffer
+
+	THUMB_FUNC_END sub_800EC00
 
 	THUMB_FUNC_START sub_800EC50
 sub_800EC50: @ 0x0800EC50
@@ -3109,6 +3195,8 @@ _0800ED20:
 	.align 2, 0
 _0800ED48: .4byte gBG2TilemapBuffer
 _0800ED4C: .4byte gLCDControlBuffer
+
+	THUMB_FUNC_END sub_800EC50
 
 	THUMB_FUNC_START sub_800ED50
 sub_800ED50: @ 0x0800ED50
@@ -3228,6 +3316,8 @@ _0800EE24:
 _0800EE4C: .4byte gBG3TilemapBuffer
 _0800EE50: .4byte gLCDControlBuffer
 
+	THUMB_FUNC_END sub_800ED50
+
 	THUMB_FUNC_START sub_800EE54
 sub_800EE54: @ 0x0800EE54
 	push {r4, r5, lr}
@@ -3293,6 +3383,8 @@ _0800EEBE:
 	.align 2, 0
 _0800EEE4: .4byte gLCDControlBuffer
 
+	THUMB_FUNC_END sub_800EE54
+
 	THUMB_FUNC_START sub_800EEE8
 sub_800EEE8: @ 0x0800EEE8
 	push {r4, r5, lr}
@@ -3343,6 +3435,8 @@ _0800EF40:
 	pop {r4, r5}
 	pop {r0}
 	bx r0
+
+	THUMB_FUNC_END sub_800EEE8
 
 	THUMB_FUNC_START sub_800EF48
 sub_800EF48: @ 0x0800EF48
@@ -3522,6 +3616,8 @@ _0800F0BC: .4byte gLCDControlBuffer
 _0800F0C0: .4byte gBG2TilemapBuffer
 _0800F0C4: .4byte 0x01000008
 
+	THUMB_FUNC_END sub_800EF48
+
 	THUMB_FUNC_START Event22_
 Event22_: @ 0x0800F0C8
 	push {r4, lr}
@@ -3558,6 +3654,8 @@ _0800F118: .4byte gBG0TilemapBuffer
 _0800F11C: .4byte gBG1TilemapBuffer
 _0800F120: .4byte gUnknown_08591154
 
+	THUMB_FUNC_END Event22_
+
 	THUMB_FUNC_START Event23_
 Event23_: @ 0x0800F124
 	push {r4, r5, lr}
@@ -3580,6 +3678,8 @@ _0800F13E:
 	pop {r4, r5}
 	pop {r1}
 	bx r1
+
+	THUMB_FUNC_END Event23_
 
 	THUMB_FUNC_START Event24_
 Event24_: @ 0x0800F150
@@ -3604,6 +3704,8 @@ _0800F168:
 	bx r1
 	.align 2, 0
 _0800F178: .4byte 0x0000EFFF
+
+	THUMB_FUNC_END Event24_
 
 	THUMB_FUNC_START Event25_
 Event25_: @ 0x0800F17C
@@ -3662,6 +3764,8 @@ _0800F1FC: .4byte gUnknown_0202BCF0
 _0800F200: .4byte gUnknown_0202BCB0
 _0800F204: .4byte gBG0TilemapBuffer
 _0800F208: .4byte gBG1TilemapBuffer
+
+	THUMB_FUNC_END Event25_
 
 	THUMB_FUNC_START Event26_CameraControlMaybe
 Event26_CameraControlMaybe: @ 0x0800F20C
@@ -3767,6 +3871,8 @@ _0800F2CA:
 	pop {r4, r5, r6, r7}
 	pop {r1}
 	bx r1
+
+	THUMB_FUNC_END Event26_CameraControlMaybe
 
 	THUMB_FUNC_START Event27_MapChange
 Event27_MapChange: @ 0x0800F2D4
@@ -3919,6 +4025,8 @@ _0800F3E0:
 	pop {r1}
 	bx r1
 
+	THUMB_FUNC_END Event27_MapChange
+
 	THUMB_FUNC_START Event28_ChangeWeather
 Event28_ChangeWeather: @ 0x0800F3EC
 	push {lr}
@@ -3928,6 +4036,8 @@ Event28_ChangeWeather: @ 0x0800F3EC
 	movs r0, #2
 	pop {r1}
 	bx r1
+
+	THUMB_FUNC_END Event28_ChangeWeather
 
 	THUMB_FUNC_START Event29_SetFogVision
 Event29_SetFogVision: @ 0x0800F3FC
@@ -3954,6 +4064,8 @@ _0800F418:
 	pop {r4}
 	pop {r1}
 	bx r1
+
+	THUMB_FUNC_END Event29_SetFogVision
 
 	THUMB_FUNC_START Event2A_MoveToChapter
 Event2A_MoveToChapter: @ 0x0800F42C
@@ -4064,6 +4176,8 @@ _0800F4E8:
 	.align 2, 0
 _0800F508: .4byte gUnknown_0202BCF0
 
+	THUMB_FUNC_END Event2A_MoveToChapter
+
 	THUMB_FUNC_START sub_800F50C
 sub_800F50C: @ 0x0800F50C
 	push {lr}
@@ -4082,6 +4196,8 @@ _0800F51C:
 	adds r0, r2, #0
 	pop {r1}
 	bx r1
+
+	THUMB_FUNC_END sub_800F50C
 
 	THUMB_FUNC_START ShouldUNITBeLoaded
 ShouldUNITBeLoaded: @ 0x0800F528
@@ -4157,6 +4273,8 @@ _0800F5B2:
 	pop {r4, r5}
 	pop {r1}
 	bx r1
+
+	THUMB_FUNC_END ShouldUNITBeLoaded
 
 	THUMB_FUNC_START sub_800F5B8
 sub_800F5B8: @ 0x0800F5B8
@@ -4275,6 +4393,8 @@ _0800F684:
 	.align 2, 0
 _0800F694: .4byte 0xFFFF0000
 
+	THUMB_FUNC_END sub_800F5B8
+
 	THUMB_FUNC_START sub_800F698
 sub_800F698: @ 0x0800F698
 	push {r4, r5, r6, r7, lr}
@@ -4333,6 +4453,8 @@ _0800F6F6:
 	bx r0
 	.align 2, 0
 _0800F700: .4byte 0xFFFF0000
+
+	THUMB_FUNC_END sub_800F698
 
 	THUMB_FUNC_START LoadUnit_800F704
 LoadUnit_800F704: @ 0x0800F704
@@ -4543,6 +4665,8 @@ _0800F888:
 	pop {r0}
 	bx r0
 
+	THUMB_FUNC_END LoadUnit_800F704
+
 	THUMB_FUNC_START sub_800F8A8
 sub_800F8A8: @ 0x0800F8A8
 	push {r4, r5, r6, lr}
@@ -4600,6 +4724,8 @@ _0800F90C:
 	pop {r4, r5, r6}
 	pop {r0}
 	bx r0
+
+	THUMB_FUNC_END sub_800F8A8
 
 	THUMB_FUNC_START sub_800F914
 sub_800F914: @ 0x0800F914
@@ -4882,6 +5008,8 @@ _0800FB06:
 	pop {r1}
 	bx r1
 
+	THUMB_FUNC_END sub_800F914
+
 	THUMB_FUNC_START Event2B_
 Event2B_: @ 0x0800FB18
 	push {r4, r5, lr}
@@ -4945,6 +5073,8 @@ _0800FB7A:
 	pop {r4, r5}
 	pop {r1}
 	bx r1
+
+	THUMB_FUNC_END Event2B_
 
 	THUMB_FUNC_START Event2C_LoadUnits
 Event2C_LoadUnits: @ 0x0800FB84
@@ -5087,6 +5217,8 @@ _0800FC72:
 	.align 2, 0
 _0800FC8C: .4byte sub_800F5B8
 
+	THUMB_FUNC_END Event2C_LoadUnits
+
 	THUMB_FUNC_START TryPrepareEventUnitMovement
 TryPrepareEventUnitMovement: @ 0x0800FC90
 	push {r4, r5, r6, lr}
@@ -5126,6 +5258,8 @@ _0800FCD2:
 	pop {r1}
 	bx r1
 
+	THUMB_FUNC_END TryPrepareEventUnitMovement
+
 	THUMB_FUNC_START GetSomeEventEngineMoveRelatedBitfield
 GetSomeEventEngineMoveRelatedBitfield: @ 0x0800FCD8
 	push {lr}
@@ -5158,6 +5292,8 @@ _0800FD06:
 	pop {r1}
 	bx r1
 
+	THUMB_FUNC_END GetSomeEventEngineMoveRelatedBitfield
+
 	THUMB_FUNC_START Event2D_
 Event2D_: @ 0x0800FD0C
 	push {r4, r5, lr}
@@ -5172,6 +5308,8 @@ Event2D_: @ 0x0800FD0C
 	pop {r4, r5}
 	pop {r1}
 	bx r1
+
+	THUMB_FUNC_END Event2D_
 
 	THUMB_FUNC_START Event2E_CheckAt
 Event2E_CheckAt: @ 0x0800FD28
@@ -5229,6 +5367,8 @@ _0800FD80:
 	bx r1
 	.align 2, 0
 _0800FD88: .4byte gEventSlots
+
+	THUMB_FUNC_END Event2E_CheckAt
 
 	THUMB_FUNC_START Event2F_MoveUnit
 Event2F_MoveUnit: @ 0x0800FD8C
@@ -5449,6 +5589,8 @@ _0800FF0E:
 	.align 2, 0
 _0800FF20: .4byte gEventSlots
 
+	THUMB_FUNC_END Event2F_MoveUnit
+
 	THUMB_FUNC_START Event30_ENUN
 Event30_ENUN: @ 0x0800FF24
 	push {lr}
@@ -5481,6 +5623,8 @@ _0800FF60:
 _0800FF62:
 	pop {r1}
 	bx r1
+
+	THUMB_FUNC_END Event30_ENUN
 
 	THUMB_FUNC_START Event31_DisplayEffectRange
 Event31_DisplayEffectRange: @ 0x0800FF68
@@ -5554,6 +5698,8 @@ _0800FFE8:
 	.align 2, 0
 _0800FFF0: .4byte gUnknown_03000434
 _0800FFF4: .4byte gActiveUnit
+
+	THUMB_FUNC_END Event31_DisplayEffectRange
 
 	THUMB_FUNC_START Event32_SpawnSingleUnit
 Event32_SpawnSingleUnit: @ 0x0800FFF8
@@ -5698,6 +5844,8 @@ _08010100: .4byte gEventSlots
 _08010104: .4byte gUnknown_030004E4
 _08010108: .4byte gCharacterData
 _0801010C: .4byte 0xFFFFF03F
+
+	THUMB_FUNC_END Event32_SpawnSingleUnit
 
 	THUMB_FUNC_START Event33_CheckUnitVarious
 Event33_CheckUnitVarious: @ 0x08010110
@@ -5896,6 +6044,8 @@ _0801028C:
 	bx r1
 	.align 2, 0
 _08010294: .4byte gEventSlots
+
+	THUMB_FUNC_END Event33_CheckUnitVarious
 
 	THUMB_FUNC_START Event34_MessWithUnitState
 Event34_MessWithUnitState: @ 0x08010298
@@ -6158,6 +6308,8 @@ _080104A8:
 	pop {r1}
 	bx r1
 
+	THUMB_FUNC_END Event34_MessWithUnitState
+
 	THUMB_FUNC_START Event35_UnitClassChanging
 Event35_UnitClassChanging: @ 0x080104B0
 	push {r4, r5, r6, r7, lr}
@@ -6228,6 +6380,8 @@ _0801052E:
 	.align 2, 0
 _08010538: .4byte gCharacterData
 
+	THUMB_FUNC_END Event35_UnitClassChanging
+
 	THUMB_FUNC_START Event36_CheckInArea
 Event36_CheckInArea: @ 0x0801053C
 	push {r4, r5, r6, r7, lr}
@@ -6283,6 +6437,8 @@ _0801059A:
 	bx r1
 	.align 2, 0
 _080105A0: .4byte gEventSlots
+
+	THUMB_FUNC_END Event36_CheckInArea
 
 	THUMB_FUNC_START Event37_GiveItem
 Event37_GiveItem: @ 0x080105A4
@@ -6348,6 +6504,8 @@ _0801060E:
 	.align 2, 0
 _08010614: .4byte gEventSlots
 
+	THUMB_FUNC_END Event37_GiveItem
+
 	THUMB_FUNC_START Event38_ChangeActiveUnit
 Event38_ChangeActiveUnit: @ 0x08010618
 	push {r4, lr}
@@ -6371,6 +6529,8 @@ _0801063E:
 	pop {r4}
 	pop {r1}
 	bx r1
+
+	THUMB_FUNC_END Event38_ChangeActiveUnit
 
 	THUMB_FUNC_START Event39_
 Event39_: @ 0x08010644
@@ -6458,6 +6618,8 @@ _080106DC:
 	pop {r1}
 	bx r1
 
+	THUMB_FUNC_END Event39_
+
 	THUMB_FUNC_START Event3A_
 Event3A_: @ 0x080106E4
 	push {r4, r5, lr}
@@ -6515,6 +6677,8 @@ _08010742:
 	pop {r1}
 	bx r1
 
+	THUMB_FUNC_END Event3A_
+
 	THUMB_FUNC_START sub_8010748
 sub_8010748: @ 0x08010748
 	push {r4, lr}
@@ -6560,6 +6724,8 @@ _08010796:
 	pop {r4}
 	pop {r0}
 	bx r0
+
+	THUMB_FUNC_END sub_8010748
 
 	THUMB_FUNC_START Event3B_
 Event3B_: @ 0x0801079C
@@ -6660,6 +6826,8 @@ _08010846:
 	.align 2, 0
 _0801084C: .4byte gUnknown_08591F08
 
+	THUMB_FUNC_END Event3B_
+
 	THUMB_FUNC_START Event3C_
 Event3C_: @ 0x08010850
 	push {lr}
@@ -6710,6 +6878,8 @@ _080108A2:
 	bx r1
 	.align 2, 0
 _080108A8: .4byte gUnknown_030004E4
+
+	THUMB_FUNC_END Event3C_
 
 	THUMB_FUNC_START Event3D_
 Event3D_: @ 0x080108AC
@@ -6803,6 +6973,8 @@ _08010950:
 _08010960: .4byte MenuAlwaysDisabled
 _08010964: .4byte Get8
 
+	THUMB_FUNC_END Event3D_
+
 	THUMB_FUNC_START Event3E_PrepScreenCall
 Event3E_PrepScreenCall: @ 0x08010968
 	push {r4, lr}
@@ -6819,6 +6991,8 @@ Event3E_PrepScreenCall: @ 0x08010968
 	bx r1
 	.align 2, 0
 _08010988: .4byte gUnknown_0859DBBC
+
+	THUMB_FUNC_END Event3E_PrepScreenCall
 
 	THUMB_FUNC_START sub_801098C
 sub_801098C: @ 0x0801098C
@@ -6902,6 +7076,8 @@ _08010A1C: .4byte gUnknown_0203A974
 _08010A20: .4byte gEventSlots
 _08010A24: .4byte 0xFFF80000
 
+	THUMB_FUNC_END sub_801098C
+
 	THUMB_FUNC_START sub_8010A28
 sub_8010A28: @ 0x08010A28
 	push {r4, r5, lr}
@@ -6924,6 +7100,8 @@ _08010A50:
 	pop {r4, r5}
 	pop {r0}
 	bx r0
+
+	THUMB_FUNC_END sub_8010A28
 
 	THUMB_FUNC_START Event3F_
 Event3F_: @ 0x08010A58
@@ -7049,6 +7227,8 @@ _08010B38:
 	pop {r1}
 	bx r1
 
+	THUMB_FUNC_END Event3F_
+
 	THUMB_FUNC_START sub_8010B48
 sub_8010B48: @ 0x08010B48
 	push {r4, r5, lr}
@@ -7071,6 +7251,8 @@ _08010B70:
 	pop {r4, r5}
 	pop {r0}
 	bx r0
+
+	THUMB_FUNC_END sub_8010B48
 
 	THUMB_FUNC_START Event40_
 Event40_: @ 0x08010B78
@@ -7126,6 +7308,8 @@ Event40_: @ 0x08010B78
 	bx r1
 	.align 2, 0
 _08010BE8: .4byte gUnknown_08591F28
+
+	THUMB_FUNC_END Event40_
 
 	THUMB_FUNC_START Event41_
 Event41_: @ 0x08010BEC
@@ -7201,6 +7385,8 @@ _08010C68:
 	pop {r1}
 	bx r1
 
+	THUMB_FUNC_END Event41_
+
 	THUMB_FUNC_START Event42_
 Event42_: @ 0x08010C70
 	push {r4, r5, lr}
@@ -7268,6 +7454,8 @@ _08010CE8:
 	pop {r1}
 	bx r1
 
+	THUMB_FUNC_END Event42_
+
 	THUMB_FUNC_START Event43_
 Event43_: @ 0x08010CF0
 	push {r4, lr}
@@ -7299,6 +7487,8 @@ _08010D20:
 	pop {r1}
 	bx r1
 
+	THUMB_FUNC_END Event43_
+
 	THUMB_FUNC_START Event44_
 Event44_: @ 0x08010D28
 	push {r4, lr}
@@ -7328,6 +7518,8 @@ _08010D56:
 	pop {r4}
 	pop {r1}
 	bx r1
+
+	THUMB_FUNC_END Event44_
 
 	THUMB_FUNC_START Event45_
 Event45_: @ 0x08010D5C
@@ -7382,5 +7574,7 @@ _08010DB8:
 	pop {r4, r5}
 	pop {r1}
 	bx r1
+
+	THUMB_FUNC_END Event45_
 
 	.align 2, 0 @ Don't pad with nop.

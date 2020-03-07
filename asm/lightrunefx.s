@@ -83,6 +83,8 @@ _080215E4: .4byte gBmFrameTmap0
 _080215E8: .4byte gBG0TilemapBuffer
 _080215EC: .4byte gUnknown_0202BCF0
 
+	THUMB_FUNC_END sub_802153C
+
 	THUMB_FUNC_START sub_80215F0
 sub_80215F0: @ 0x080215F0
 	push {r4, r5, r6, lr}
@@ -140,6 +142,8 @@ _08021656:
 _08021660: .4byte gBmFrameTmap0
 _08021664: .4byte gBG0TilemapBuffer
 
+	THUMB_FUNC_END sub_80215F0
+
 	THUMB_FUNC_START sub_8021668
 sub_8021668: @ 0x08021668
 	push {lr}
@@ -153,6 +157,8 @@ sub_8021668: @ 0x08021668
 	bx r0
 	.align 2, 0
 _08021680: .4byte gBG0TilemapBuffer
+
+	THUMB_FUNC_END sub_8021668
 
 	THUMB_FUNC_START sub_8021684
 sub_8021684: @ 0x08021684
@@ -190,6 +196,8 @@ sub_8021684: @ 0x08021684
 	.align 2, 0
 _080216C8: .4byte gUnknown_0859B3B0
 _080216CC: .4byte gUnknown_0202BCB0
+
+	THUMB_FUNC_END sub_8021684
 
 	THUMB_FUNC_START sub_80216D0
 sub_80216D0: @ 0x080216D0
@@ -270,6 +278,8 @@ _08021778: .4byte gBmFrameTmap0
 _0802177C: .4byte gBG0TilemapBuffer
 _08021780: .4byte gUnknown_0202BCF0
 
+	THUMB_FUNC_END sub_80216D0
+
 	THUMB_FUNC_START sub_8021784
 sub_8021784: @ 0x08021784
 	push {r4, r5, r6, lr}
@@ -327,6 +337,8 @@ _080217EA:
 _080217F4: .4byte gBmFrameTmap0
 _080217F8: .4byte gBG0TilemapBuffer
 
+	THUMB_FUNC_END sub_8021784
+
 	THUMB_FUNC_START sub_80217FC
 sub_80217FC: @ 0x080217FC
 	push {lr}
@@ -340,6 +352,8 @@ sub_80217FC: @ 0x080217FC
 	bx r0
 	.align 2, 0
 _08021814: .4byte gBG0TilemapBuffer
+
+	THUMB_FUNC_END sub_80217FC
 
 	THUMB_FUNC_START sub_8021818
 sub_8021818: @ 0x08021818
@@ -377,6 +391,8 @@ sub_8021818: @ 0x08021818
 	.align 2, 0
 _0802185C: .4byte gUnknown_0859B3D0
 _08021860: .4byte gUnknown_0202BCB0
+
+	THUMB_FUNC_END sub_8021818
 
 	THUMB_FUNC_START sub_8021864
 sub_8021864: @ 0x08021864
@@ -457,6 +473,8 @@ _0802190C: .4byte gBmFrameTmap0
 _08021910: .4byte gBG0TilemapBuffer
 _08021914: .4byte gUnknown_0202BCF0
 
+	THUMB_FUNC_END sub_8021864
+
 	THUMB_FUNC_START sub_8021918
 sub_8021918: @ 0x08021918
 	push {r4, r5, r6, lr}
@@ -514,6 +532,8 @@ _0802197E:
 _08021988: .4byte gBmFrameTmap0
 _0802198C: .4byte gBG0TilemapBuffer
 
+	THUMB_FUNC_END sub_8021918
+
 	THUMB_FUNC_START sub_8021990
 sub_8021990: @ 0x08021990
 	push {lr}
@@ -527,6 +547,8 @@ sub_8021990: @ 0x08021990
 	bx r0
 	.align 2, 0
 _080219A8: .4byte gBG0TilemapBuffer
+
+	THUMB_FUNC_END sub_8021990
 
 	THUMB_FUNC_START sub_80219AC
 sub_80219AC: @ 0x080219AC
@@ -564,5 +586,7 @@ sub_80219AC: @ 0x080219AC
 	.align 2, 0
 _080219F0: .4byte gUnknown_0859B3F0
 _080219F4: .4byte gUnknown_0202BCB0
+
+	THUMB_FUNC_END sub_80219AC
 
 .align 2, 0 @ align with 0

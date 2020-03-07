@@ -36,6 +36,8 @@ _08037986:
 	pop {r1}
 	bx r1
 
+	THUMB_FUNC_END sub_803795C
+
 	THUMB_FUNC_START GetBallistaItemAt
 GetBallistaItemAt: @ 0x0803798C
 	push {lr}
@@ -82,6 +84,8 @@ _080379CE:
 	pop {r1}
 	bx r1
 
+	THUMB_FUNC_END GetBallistaItemAt
+
 	THUMB_FUNC_START GetSomeBallistaItemAt
 GetSomeBallistaItemAt: @ 0x080379D4
 	push {lr}
@@ -114,6 +118,8 @@ _08037A00:
 	pop {r1}
 	bx r1
 
+	THUMB_FUNC_END GetSomeBallistaItemAt
+
 	THUMB_FUNC_START AddBallista
 AddBallista: @ 0x08037A04
 	push {r4, r5, r6, lr}
@@ -135,6 +141,8 @@ AddBallista: @ 0x08037A04
 	pop {r4, r5, r6}
 	pop {r1}
 	bx r1
+
+	THUMB_FUNC_END AddBallista
 
 	THUMB_FUNC_START RideBallista
 RideBallista: @ 0x08037A34
@@ -162,6 +170,8 @@ RideBallista: @ 0x08037A34
 	pop {r4, r5}
 	pop {r0}
 	bx r0
+
+	THUMB_FUNC_END RideBallista
 
 	THUMB_FUNC_START TryRemoveUnitFromBallista
 TryRemoveUnitFromBallista: @ 0x08037A6C
@@ -194,6 +204,8 @@ _08037A9C:
 	.align 2, 0
 _08037AA4: .4byte 0xFFFFF7FF
 
+	THUMB_FUNC_END TryRemoveUnitFromBallista
+
 	THUMB_FUNC_START IsBallista
 IsBallista: @ 0x08037AA8
 	push {lr}
@@ -209,6 +221,8 @@ _08037AB8:
 _08037ABA:
 	pop {r1}
 	bx r1
+
+	THUMB_FUNC_END IsBallista
 
 	THUMB_FUNC_START sub_8037AC0
 sub_8037AC0: @ 0x08037AC0
@@ -240,6 +254,8 @@ _08037AE8:
 	pop {r1}
 	bx r1
 
+	THUMB_FUNC_END sub_8037AC0
+
 	THUMB_FUNC_START sub_8037AEC
 sub_8037AEC: @ 0x08037AEC
 	push {lr}
@@ -264,6 +280,8 @@ _08037B08:
 _08037B0A:
 	pop {r1}
 	bx r1
+
+	THUMB_FUNC_END sub_8037AEC
 
 	THUMB_FUNC_START GetBallistaItemUses
 GetBallistaItemUses: @ 0x08037B10
@@ -291,16 +309,22 @@ _08037B30:
 	pop {r1}
 	bx r1
 
+	THUMB_FUNC_END GetBallistaItemUses
+
 	THUMB_FUNC_START sub_8037B34
 sub_8037B34: @ 0x08037B34
 	movs r1, #0
 	strb r1, [r0, #5]
 	bx lr
 
+	THUMB_FUNC_END sub_8037B34
+
 	THUMB_FUNC_START sub_8037B3C
 sub_8037B3C: @ 0x08037B3C
 	movs r1, #1
 	strb r1, [r0, #5]
 	bx lr
+
+	THUMB_FUNC_END sub_8037B3C
 
 .align 2, 0

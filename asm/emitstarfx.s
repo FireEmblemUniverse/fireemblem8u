@@ -32,6 +32,8 @@ sub_8021FB8: @ 0x08021FB8
 	.align 2, 0
 _08021FE8: .4byte 0x000003FF
 
+	THUMB_FUNC_END sub_8021FB8
+
 	THUMB_FUNC_START sub_8021FEC
 sub_8021FEC: @ 0x08021FEC
 	push {r4, lr}
@@ -93,6 +95,8 @@ _08022052:
 	.align 2, 0
 _0802205C: .4byte gObject_8x8
 
+	THUMB_FUNC_END sub_8021FEC
+
 	THUMB_FUNC_START sub_8022060
 sub_8022060: @ 0x08022060
 	push {r4, r5, r6, lr}
@@ -128,6 +132,8 @@ sub_8022060: @ 0x08022060
 	pop {r4, r5, r6}
 	pop {r0}
 	bx r0
+
+	THUMB_FUNC_END sub_8022060
 
 	THUMB_FUNC_START sub_80220A8
 sub_80220A8: @ 0x080220A8
@@ -301,6 +307,8 @@ _080221EE:
 	pop {r0}
 	bx r0
 
+	THUMB_FUNC_END sub_80220A8
+
 	THUMB_FUNC_START sub_8022200
 sub_8022200: @ 0x08022200
 	push {r4, r5, lr}
@@ -341,6 +349,8 @@ _08022216:
 	pop {r4, r5}
 	pop {r0}
 	bx r0
+
+	THUMB_FUNC_END sub_8022200
 
 	THUMB_FUNC_START sub_8022250
 sub_8022250: @ 0x08022250
@@ -392,6 +402,8 @@ _080222AC: .4byte 0x06014000
 _080222B0: .4byte gUnknown_0859B528
 _080222B4: .4byte 0x0000FFFF
 
+	THUMB_FUNC_END sub_8022250
+
 	THUMB_FUNC_START sub_80222B8
 sub_80222B8: @ 0x080222B8
 	push {lr}
@@ -405,6 +417,8 @@ sub_80222B8: @ 0x080222B8
 	.align 2, 0
 _080222CC: .4byte gUnknown_0859B528
 
+	THUMB_FUNC_END sub_80222B8
+
 	THUMB_FUNC_START sub_80222D0
 sub_80222D0: @ 0x080222D0
 	push {lr}
@@ -414,5 +428,7 @@ sub_80222D0: @ 0x080222D0
 	bx r0
 	.align 2, 0
 _080222DC: .4byte gUnknown_0859B528
+
+	THUMB_FUNC_END sub_80222D0
 
 .align 2, 0

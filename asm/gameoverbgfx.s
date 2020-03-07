@@ -35,6 +35,8 @@ _080211FC: .4byte 0x0000162E
 _08021200: .4byte 0x000018CA
 _08021204: .4byte 0x00002158
 
+	THUMB_FUNC_END sub_80211C8
+
 	THUMB_FUNC_START sub_8021208
 sub_8021208: @ 0x08021208
 	push {r4, r5, lr}
@@ -94,6 +96,8 @@ sub_8021208: @ 0x08021208
 	pop {r0}
 	bx r0
 
+	THUMB_FUNC_END sub_8021208
+
 	THUMB_FUNC_START sub_802127C
 sub_802127C: @ 0x0802127C
 	push {lr}
@@ -131,6 +135,8 @@ _080212AC:
 	.align 2, 0
 _080212B8: .4byte 0x04000006
 _080212BC: .4byte 0x04000052
+
+	THUMB_FUNC_END sub_802127C
 
 	THUMB_FUNC_START sub_80212C0
 sub_80212C0: @ 0x080212C0
@@ -256,6 +262,8 @@ _080213E8: .4byte gUnknown_08A0AE84
 _080213EC: .4byte sub_802127C
 _080213F0: .4byte gPaletteBuffer
 
+	THUMB_FUNC_END sub_80212C0
+
 	THUMB_FUNC_START sub_80213F4
 sub_80213F4: @ 0x080213F4
 	push {r4, lr}
@@ -282,6 +290,8 @@ _08021422:
 	pop {r0}
 	bx r0
 
+	THUMB_FUNC_END sub_80213F4
+
 	THUMB_FUNC_START sub_8021428
 sub_8021428: @ 0x08021428
 	adds r0, #0x4e
@@ -290,6 +300,8 @@ sub_8021428: @ 0x08021428
 	bx lr
 	.align 2, 0
 _08021430: .4byte 0x000005DC
+
+	THUMB_FUNC_END sub_8021428
 
 	THUMB_FUNC_START sub_8021434
 sub_8021434: @ 0x08021434
@@ -324,6 +336,8 @@ _08021466:
 	.align 2, 0
 _0802146C: .4byte gKeyStatusPtr
 
+	THUMB_FUNC_END sub_8021434
+
 	THUMB_FUNC_START sub_8021470
 sub_8021470: @ 0x08021470
 	push {r4, r5, lr}
@@ -350,6 +364,8 @@ sub_8021470: @ 0x08021470
 	.align 2, 0
 _080214A4: .4byte gPaletteBuffer
 
+	THUMB_FUNC_END sub_8021470
+
 	THUMB_FUNC_START sub_80214A8
 sub_80214A8: @ 0x080214A8
 	push {r4, lr}
@@ -371,6 +387,8 @@ _080214CC:
 	pop {r4}
 	pop {r0}
 	bx r0
+
+	THUMB_FUNC_END sub_80214A8
 
 	THUMB_FUNC_START sub_80214D4
 sub_80214D4: @ 0x080214D4
@@ -404,6 +422,8 @@ sub_80214D4: @ 0x080214D4
 _08021510: .4byte gLCDControlBuffer
 _08021514: .4byte gPaletteBuffer
 
+	THUMB_FUNC_END sub_80214D4
+
 	THUMB_FUNC_START sub_8021518
 sub_8021518: @ 0x08021518
 	push {lr}
@@ -424,5 +444,7 @@ _08021534:
 	bx r0
 	.align 2, 0
 _08021538: .4byte gUnknown_0859B358
+
+	THUMB_FUNC_END sub_8021518
 
 .align 2, 0 @ align with 0

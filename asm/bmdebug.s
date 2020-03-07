@@ -28,6 +28,8 @@ sub_801BAEC: @ 0x0801BAEC
 	.align 2, 0
 _0801BB18: .4byte gUnknown_0859AA64
 
+	THUMB_FUNC_END sub_801BAEC
+
 	THUMB_FUNC_START sub_801BB1C
 sub_801BB1C: @ 0x0801BB1C
 	push {lr}
@@ -44,6 +46,8 @@ sub_801BB1C: @ 0x0801BB1C
 	.align 2, 0
 _0801BB3C: .4byte gUnknown_0859D040
 
+	THUMB_FUNC_END sub_801BB1C
+
 	THUMB_FUNC_START DebugMenu_MapIdle
 DebugMenu_MapIdle: @ 0x0801BB40
 	push {lr}
@@ -54,6 +58,8 @@ DebugMenu_MapIdle: @ 0x0801BB40
 	movs r0, #0
 	pop {r1}
 	bx r1
+
+	THUMB_FUNC_END DebugMenu_MapIdle
 
 	THUMB_FUNC_START DebugMenu_MapEffect
 DebugMenu_MapEffect: @ 0x0801BB54
@@ -86,6 +92,8 @@ DebugMenu_MapEffect: @ 0x0801BB54
 	.align 2, 0
 _0801BB90: .4byte gUnknown_0202BCF0
 _0801BB94: .4byte gUnknown_03001780
+
+	THUMB_FUNC_END DebugMenu_MapEffect
 
 	THUMB_FUNC_START sub_801BB98
 sub_801BB98: @ 0x0801BB98
@@ -150,6 +158,8 @@ _0801BBCC:
 	.align 2, 0
 _0801BC14: .4byte gUnknown_08A20E74
 _0801BC18: .4byte gBG0TilemapBuffer
+
+	THUMB_FUNC_END sub_801BB98
 
 	THUMB_FUNC_START sub_801BC1C
 sub_801BC1C: @ 0x0801BC1C
@@ -242,6 +252,8 @@ _0801BCC0: .4byte gKeyStatusPtr
 _0801BCC4: .4byte gUnknown_08A20E74
 _0801BCC8: .4byte gBG0TilemapBuffer
 
+	THUMB_FUNC_END sub_801BC1C
+
 	THUMB_FUNC_START sub_801BCCC
 sub_801BCCC: @ 0x0801BCCC
 	push {lr}
@@ -252,6 +264,8 @@ sub_801BCCC: @ 0x0801BCCC
 	movs r0, #1
 	pop {r1}
 	bx r1
+
+	THUMB_FUNC_END sub_801BCCC
 
 	THUMB_FUNC_START DebugMapMenu_DisplayInfoDraw
 DebugMapMenu_DisplayInfoDraw: @ 0x0801BCE4
@@ -305,6 +319,8 @@ _0801BD4C: .4byte gUnknown_0859AA5C
 _0801BD50: .4byte gUnknown_0859AA7C
 _0801BD54: .4byte gBG0TilemapBuffer
 
+	THUMB_FUNC_END DebugMapMenu_DisplayInfoDraw
+
 	THUMB_FUNC_START DebugMapMenu_DisplayInfoIdle
 DebugMapMenu_DisplayInfoIdle: @ 0x0801BD58
 	push {r4, r5, lr}
@@ -341,10 +357,14 @@ _0801BD90:
 _0801BD98: .4byte gUnknown_0859AA5C
 _0801BD9C: .4byte gKeyStatusPtr
 
+	THUMB_FUNC_END DebugMapMenu_DisplayInfoIdle
+
 	THUMB_FUNC_START DebugMapMenu_DisplayInfoEffect
 DebugMapMenu_DisplayInfoEffect: @ 0x0801BDA0
 	movs r0, #0
 	bx lr
+
+	THUMB_FUNC_END DebugMapMenu_DisplayInfoEffect
 
 	THUMB_FUNC_START DebugMenu_WeatherDraw
 DebugMenu_WeatherDraw: @ 0x0801BDA4
@@ -402,6 +422,8 @@ DebugMenu_WeatherDraw: @ 0x0801BDA4
 _0801BE1C: .4byte gUnknown_080D7A6C
 _0801BE20: .4byte gUnknown_0859AA5C
 _0801BE24: .4byte gBG0TilemapBuffer
+
+	THUMB_FUNC_END DebugMenu_WeatherDraw
 
 	THUMB_FUNC_START DebugMenu_WeatherIdle
 DebugMenu_WeatherIdle: @ 0x0801BE28
@@ -506,10 +528,14 @@ _0801BEF2:
 	pop {r1}
 	bx r1
 
+	THUMB_FUNC_END DebugMenu_WeatherIdle
+
 	THUMB_FUNC_START DebugMenu_WeatherEffect
 DebugMenu_WeatherEffect: @ 0x0801BEFC
 	movs r0, #0
 	bx lr
+
+	THUMB_FUNC_END DebugMenu_WeatherEffect
 
 	THUMB_FUNC_START DebugMenu_ClearDraw
 DebugMenu_ClearDraw: @ 0x0801BF00
@@ -559,6 +585,8 @@ DebugMenu_ClearDraw: @ 0x0801BF00
 	bx r1
 	.align 2, 0
 _0801BF68: .4byte gBG0TilemapBuffer
+
+	THUMB_FUNC_END DebugMenu_ClearDraw
 
 	THUMB_FUNC_START DebugMenu_ClearIdle
 DebugMenu_ClearIdle: @ 0x0801BF6C
@@ -648,10 +676,14 @@ _0801C008:
 	pop {r1}
 	bx r1
 
+	THUMB_FUNC_END DebugMenu_ClearIdle
+
 	THUMB_FUNC_START DebugMenu_ClearEffect
 DebugMenu_ClearEffect: @ 0x0801C014
 	movs r0, #0x17
 	bx lr
+
+	THUMB_FUNC_END DebugMenu_ClearEffect
 
 	THUMB_FUNC_START DebugMenu_ErasedEffect
 DebugMenu_ErasedEffect: @ 0x0801C018
@@ -664,6 +696,8 @@ DebugMenu_ErasedEffect: @ 0x0801C018
 	bx r1
 	.align 2, 0
 _0801C02C: .4byte gUnknown_0859CFB0
+
+	THUMB_FUNC_END DebugMenu_ErasedEffect
 
 	THUMB_FUNC_START sub_801C030
 sub_801C030: @ 0x0801C030
@@ -683,6 +717,8 @@ sub_801C030: @ 0x0801C030
 	bx r1
 	.align 2, 0
 _0801C058: .4byte gUnknown_0202BCF0
+
+	THUMB_FUNC_END sub_801C030
 
 	THUMB_FUNC_START sub_801C05C
 sub_801C05C: @ 0x0801C05C
@@ -706,6 +742,8 @@ sub_801C05C: @ 0x0801C05C
 _0801C084: .4byte gUnknown_03001780
 _0801C088: .4byte gUnknown_0202BCF0
 _0801C08C: .4byte gUnknown_02022D76
+
+	THUMB_FUNC_END sub_801C05C
 
 	THUMB_FUNC_START DEBUGONLY_Startup
 DEBUGONLY_Startup: @ 0x0801C090
@@ -748,6 +786,8 @@ _0801C0EC: .4byte gUnknown_0859CFF8
 _0801C0F0: .4byte gUnknown_0202BCB0
 _0801C0F4: .4byte 0x0600B000
 _0801C0F8: .4byte gUnknown_02023CE8
+
+	THUMB_FUNC_END DEBUGONLY_Startup
 
 	THUMB_FUNC_START sub_801C0FC
 sub_801C0FC: @ 0x0801C0FC
@@ -825,6 +865,8 @@ _0801C182:
 	.align 2, 0
 _0801C194: .4byte 0x00000103
 
+	THUMB_FUNC_END sub_801C0FC
+
 	THUMB_FUNC_START sub_801C198
 sub_801C198: @ 0x0801C198
 	push {lr}
@@ -857,6 +899,8 @@ sub_801C198: @ 0x0801C198
 _0801C1D4: .4byte gLCDControlBuffer
 _0801C1D8: .4byte gPaletteBuffer
 
+	THUMB_FUNC_END sub_801C198
+
 	THUMB_FUNC_START sub_801C1DC
 sub_801C1DC: @ 0x0801C1DC
 	push {lr}
@@ -886,6 +930,8 @@ sub_801C1DC: @ 0x0801C1DC
 _0801C21C: .4byte 0x0000026A
 _0801C220: .4byte gUnknown_0202BCF0
 
+	THUMB_FUNC_END sub_801C1DC
+
 	THUMB_FUNC_START sub_801C224
 sub_801C224: @ 0x0801C224
 	push {lr}
@@ -905,6 +951,8 @@ sub_801C224: @ 0x0801C224
 	movs r0, #0
 	pop {r1}
 	bx r1
+
+	THUMB_FUNC_END sub_801C224
 
 	THUMB_FUNC_START sub_801C248
 sub_801C248: @ 0x0801C248
@@ -965,6 +1013,8 @@ _0801C2C4: .4byte 0x0000026A
 _0801C2C8: .4byte gUnknown_0202BCF0
 _0801C2CC: .4byte gUnknown_03001780
 
+	THUMB_FUNC_END sub_801C248
+
 	THUMB_FUNC_START sub_801C2D0
 sub_801C2D0: @ 0x0801C2D0
 	push {lr}
@@ -975,6 +1025,8 @@ sub_801C2D0: @ 0x0801C2D0
 	bx r1
 	.align 2, 0
 _0801C2E0: .4byte gUnknown_0859D01C
+
+	THUMB_FUNC_END sub_801C2D0
 
 	THUMB_FUNC_START sub_801C2E4
 sub_801C2E4: @ 0x0801C2E4
@@ -987,6 +1039,8 @@ sub_801C2E4: @ 0x0801C2E4
 	.align 2, 0
 _0801C2F4: .4byte gUnknown_0859CFD4
 
+	THUMB_FUNC_END sub_801C2E4
+
 	THUMB_FUNC_START sub_801C2F8
 sub_801C2F8: @ 0x0801C2F8
 	push {lr}
@@ -996,10 +1050,14 @@ sub_801C2F8: @ 0x0801C2F8
 	pop {r1}
 	bx r1
 
+	THUMB_FUNC_END sub_801C2F8
+
 	THUMB_FUNC_START sub_801C308
 sub_801C308: @ 0x0801C308
 	movs r0, #2
 	bx lr
+
+	THUMB_FUNC_END sub_801C308
 
 	THUMB_FUNC_START sub_801C30C
 sub_801C30C: @ 0x0801C30C
@@ -1018,6 +1076,8 @@ _0801C322:
 	pop {r1}
 	bx r1
 
+	THUMB_FUNC_END sub_801C30C
+
 	THUMB_FUNC_START sub_801C328
 sub_801C328: @ 0x0801C328
 	push {lr}
@@ -1032,6 +1092,8 @@ _0801C33A:
 	adds r0, r1, #0
 	pop {r1}
 	bx r1
+
+	THUMB_FUNC_END sub_801C328
 
 	THUMB_FUNC_START sub_801C340
 sub_801C340: @ 0x0801C340
@@ -1059,6 +1121,8 @@ _0801C368:
 	.align 2, 0
 _0801C36C: .4byte gProc_BMapMain
 
+	THUMB_FUNC_END sub_801C340
+
 	THUMB_FUNC_START sub_801C370
 sub_801C370: @ 0x0801C370
 	push {lr}
@@ -1083,6 +1147,8 @@ _0801C392:
 	.align 2, 0
 _0801C398: .4byte gProc_BMapMain
 
+	THUMB_FUNC_END sub_801C370
+
 	THUMB_FUNC_START sub_801C39C
 sub_801C39C: @ 0x0801C39C
 	push {lr}
@@ -1097,6 +1163,8 @@ _0801C3AE:
 	adds r0, r1, #0
 	pop {r1}
 	bx r1
+
+	THUMB_FUNC_END sub_801C39C
 
 	THUMB_FUNC_START sub_801C3B4
 sub_801C3B4: @ 0x0801C3B4
@@ -1115,6 +1183,8 @@ _0801C3CC:
 _0801C3CE:
 	pop {r1}
 	bx r1
+
+	THUMB_FUNC_END sub_801C3B4
 
 	THUMB_FUNC_START DebugMenu_FogDraw
 DebugMenu_FogDraw: @ 0x0801C3D4
@@ -1168,6 +1238,8 @@ _0801C43C: .4byte gUnknown_0859AA7C
 _0801C440: .4byte gUnknown_0202BCF0
 _0801C444: .4byte gBG0TilemapBuffer
 
+	THUMB_FUNC_END DebugMenu_FogDraw
+
 	THUMB_FUNC_START DebugMenu_FogIdle
 DebugMenu_FogIdle: @ 0x0801C448
 	push {r4, r5, r6, lr}
@@ -1217,10 +1289,14 @@ _0801C4A6:
 	pop {r1}
 	bx r1
 
+	THUMB_FUNC_END DebugMenu_FogIdle
+
 	THUMB_FUNC_START DebugMenu_FogEffect
 DebugMenu_FogEffect: @ 0x0801C4B0
 	movs r0, #0
 	bx lr
+
+	THUMB_FUNC_END DebugMenu_FogEffect
 
 	THUMB_FUNC_START sub_801C4B4
 sub_801C4B4: @ 0x0801C4B4
@@ -1229,6 +1305,8 @@ sub_801C4B4: @ 0x0801C4B4
 	movs r0, #7
 	pop {r1}
 	bx r1
+
+	THUMB_FUNC_END sub_801C4B4
 
 	THUMB_FUNC_START DebugMenu_GNightEffect
 DebugMenu_GNightEffect: @ 0x0801C4C0
@@ -1239,6 +1317,8 @@ DebugMenu_GNightEffect: @ 0x0801C4C0
 	movs r0, #0x17
 	pop {r1}
 	bx r1
+
+	THUMB_FUNC_END DebugMenu_GNightEffect
 
 	THUMB_FUNC_START DebugChargeMenu_Draw
 DebugChargeMenu_Draw: @ 0x0801C4D0
@@ -1324,6 +1404,8 @@ _0801C51C:
 	.align 2, 0
 _0801C580: .4byte gUnknown_0202BCF0
 _0801C584: .4byte gBG0TilemapBuffer
+
+	THUMB_FUNC_END DebugChargeMenu_Draw
 
 	THUMB_FUNC_START DebugChargeMenu_Idle
 DebugChargeMenu_Idle: @ 0x0801C588
@@ -1424,6 +1506,8 @@ _0801C62E:
 	.align 2, 0
 _0801C638: .4byte 0xFFFFFE7F
 
+	THUMB_FUNC_END DebugChargeMenu_Idle
+
 	THUMB_FUNC_START sub_801C63C
 sub_801C63C: @ 0x0801C63C
 	push {lr}
@@ -1436,6 +1520,8 @@ sub_801C63C: @ 0x0801C63C
 	.align 2, 0
 _0801C64C: .4byte gUnknown_0859AA84
 
+	THUMB_FUNC_END sub_801C63C
+
 	THUMB_FUNC_START sub_801C650
 sub_801C650: @ 0x0801C650
 	ldr r1, _0801C658  @ gUnknown_0859AA9C
@@ -1444,6 +1530,8 @@ sub_801C650: @ 0x0801C650
 	bx lr
 	.align 2, 0
 _0801C658: .4byte gUnknown_0859AA9C
+
+	THUMB_FUNC_END sub_801C650
 
 	THUMB_FUNC_START sub_801C65C
 sub_801C65C: @ 0x0801C65C
@@ -1661,5 +1749,7 @@ _0801C81C:
 _0801C888: .4byte gUnknown_03001780
 _0801C88C: .4byte gBG0TilemapBuffer
 _0801C890: .4byte gUnknown_080D7AC4
+
+	THUMB_FUNC_END sub_801C65C
 
 	.align 2, 0 @ Don't pad with nop.

@@ -39,6 +39,8 @@ _0801DFD0:
 	.align 2, 0
 _0801DFD8: .4byte gUnknown_0859D0AC
 
+	THUMB_FUNC_END sub_801DF94
+
 	THUMB_FUNC_START sub_801DFDC
 sub_801DFDC: @ 0x0801DFDC
 	push {r4, lr}
@@ -63,6 +65,8 @@ _0801E002:
 	pop {r1}
 	bx r1
 
+	THUMB_FUNC_END sub_801DFDC
+
 	THUMB_FUNC_START sub_801E008
 sub_801E008: @ 0x0801E008
 	push {lr}
@@ -72,6 +76,8 @@ sub_801E008: @ 0x0801E008
 	movs r0, #0
 	pop {r1}
 	bx r1
+
+	THUMB_FUNC_END sub_801E008
 
 	THUMB_FUNC_START sub_801E018
 sub_801E018: @ 0x0801E018
@@ -83,6 +89,8 @@ sub_801E018: @ 0x0801E018
 	bx r1
 	.align 2, 0
 _0801E028: .4byte gUnknown_0202BCB0
+
+	THUMB_FUNC_END sub_801E018
 
 	THUMB_FUNC_START sub_801E02C
 sub_801E02C: @ 0x0801E02C
@@ -97,6 +105,8 @@ sub_801E02C: @ 0x0801E02C
 	.align 2, 0
 _0801E040: .4byte gActionData
 _0801E044: .4byte gActiveUnit
+
+	THUMB_FUNC_END sub_801E02C
 
 	THUMB_FUNC_START sub_801E048
 sub_801E048: @ 0x0801E048
@@ -137,6 +147,8 @@ _0801E08E:
 	bx r0
 	.align 2, 0
 _0801E094: .4byte gActionData
+
+	THUMB_FUNC_END sub_801E048
 
 	THUMB_FUNC_START HandleNewItemGetFromDrop
 HandleNewItemGetFromDrop: @ 0x0801E098
@@ -208,12 +220,16 @@ _0801E128:
 _0801E130: .4byte 0x00000866
 _0801E134: .4byte gUnknown_0859AE38
 
+	THUMB_FUNC_END HandleNewItemGetFromDrop
+
 	THUMB_FUNC_START SendToConvoyMenu_Draw
 SendToConvoyMenu_Draw: @ 0x0801E138
 	push {lr}
 	bl ItemSelectMenu_TextDraw
 	pop {r1}
 	bx r1
+
+	THUMB_FUNC_END SendToConvoyMenu_Draw
 
 	THUMB_FUNC_START MenuCommand_DrawExtraItem
 MenuCommand_DrawExtraItem: @ 0x0801E144
@@ -246,6 +262,8 @@ MenuCommand_DrawExtraItem: @ 0x0801E144
 	.align 2, 0
 _0801E180: .4byte gUnknown_0202BCB0
 _0801E184: .4byte gBG0TilemapBuffer
+
+	THUMB_FUNC_END MenuCommand_DrawExtraItem
 
 	THUMB_FUNC_START SendToConvoyMenu_NormalEffect
 SendToConvoyMenu_NormalEffect: @ 0x0801E188
@@ -287,6 +305,8 @@ _0801E1D0: .4byte gActiveUnit
 _0801E1D4: .4byte gActionData
 _0801E1D8: .4byte gUnknown_0202BCB0
 
+	THUMB_FUNC_END SendToConvoyMenu_NormalEffect
+
 	THUMB_FUNC_START sub_801E1DC
 sub_801E1DC: @ 0x0801E1DC
 	push {r4, lr}
@@ -303,6 +323,8 @@ sub_801E1DC: @ 0x0801E1DC
 	.align 2, 0
 _0801E1F4: .4byte gUnknown_0202BCB0
 _0801E1F8: .4byte gActionData
+
+	THUMB_FUNC_END sub_801E1DC
 
 	THUMB_FUNC_START sub_801E1FC
 sub_801E1FC: @ 0x0801E1FC
@@ -344,6 +366,8 @@ _0801E244: .4byte gActionData
 _0801E248: .4byte gActiveUnit
 _0801E24C: .4byte 0x0000084B
 
+	THUMB_FUNC_END sub_801E1FC
+
 	THUMB_FUNC_START sub_801E250
 sub_801E250: @ 0x0801E250
 	push {r4, r5, lr}
@@ -376,6 +400,8 @@ sub_801E250: @ 0x0801E250
 _0801E288: .4byte gActionData
 _0801E28C: .4byte gUnknown_0202BCB0
 _0801E290: .4byte 0x0000084B
+
+	THUMB_FUNC_END sub_801E250
 
 	THUMB_FUNC_START sub_801E294
 sub_801E294: @ 0x0801E294
@@ -413,5 +439,7 @@ _0801E2D0: .4byte gKeyStatusPtr
 _0801E2D4: .4byte gActionData
 _0801E2D8: .4byte gActiveUnit
 _0801E2DC: .4byte gUnknown_0202BCB0
+
+	THUMB_FUNC_END sub_801E294
 
 .align 2, 0

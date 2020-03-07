@@ -107,6 +107,8 @@ _0803183E:
 	.align 2, 0
 _08031870: .4byte gUnknown_0203A8F0
 
+	THUMB_FUNC_END PrepareArenaStruct
+
 	THUMB_FUNC_START PrepareArena
 PrepareArena: @ 0x08031874
 	push {r4, lr}
@@ -120,6 +122,8 @@ PrepareArena: @ 0x08031874
 	bx r0
 	.align 2, 0
 _0803188C: .4byte gUnknown_0203A95E
+
+	THUMB_FUNC_END PrepareArena
 
 	THUMB_FUNC_START PrepareArena2
 PrepareArena2: @ 0x08031890
@@ -138,6 +142,8 @@ PrepareArena2: @ 0x08031890
 	bx r0
 	.align 2, 0
 _080318B0: .4byte gUnknown_0203A95E
+
+	THUMB_FUNC_END PrepareArena2
 
 	THUMB_FUNC_START GetUnitBestWRankType
 GetUnitBestWRankType: @ 0x080318B4
@@ -166,6 +172,8 @@ _080318D2:
 	pop {r1}
 	bx r1
 
+	THUMB_FUNC_END GetUnitBestWRankType
+
 	THUMB_FUNC_START GetClassBestWRankType
 GetClassBestWRankType: @ 0x080318E0
 	push {r4, lr}
@@ -192,6 +200,8 @@ _080318FE:
 	pop {r4}
 	pop {r1}
 	bx r1
+
+	THUMB_FUNC_END GetClassBestWRankType
 
 	THUMB_FUNC_START sub_803190C
 sub_803190C: @ 0x0803190C
@@ -296,6 +306,8 @@ _080319B4:
 	pop {r1}
 	bx r1
 
+	THUMB_FUNC_END sub_803190C
+
 	THUMB_FUNC_START IsWeaponMagic
 IsWeaponMagic: @ 0x080319D8
 	push {lr}
@@ -316,6 +328,8 @@ _080319F2:
 	pop {r1}
 	bx r1
 
+	THUMB_FUNC_END IsWeaponMagic
+
 	THUMB_FUNC_START GetNearLevel
 GetNearLevel: @ 0x080319F8
 	push {r4, lr}
@@ -331,6 +345,8 @@ _08031A0C:
 	pop {r4}
 	pop {r1}
 	bx r1
+
+	THUMB_FUNC_END GetNearLevel
 
 	THUMB_FUNC_START GetUnitArenaWeight
 GetUnitArenaWeight: @ 0x08031A14
@@ -390,6 +406,8 @@ _08031A7C:
 	pop {r4, r5}
 	pop {r1}
 	bx r1
+
+	THUMB_FUNC_END GetUnitArenaWeight
 
 	THUMB_FUNC_START LoadArenaOpponentStruct
 LoadArenaOpponentStruct: @ 0x08031A84
@@ -506,6 +524,8 @@ _08031B52:
 	pop {r0}
 	bx r0
 
+	THUMB_FUNC_END LoadArenaOpponentStruct
+
 	THUMB_FUNC_START LoadArenaWeapons
 LoadArenaWeapons: @ 0x08031B70
 	push {r4, lr}
@@ -546,6 +566,8 @@ _08031BB0:
 	.align 2, 0
 _08031BB8: .4byte gUnknown_080D7F5C
 _08031BBC: .4byte gUnknown_0203A8F0
+
+	THUMB_FUNC_END LoadArenaWeapons
 
 	THUMB_FUNC_START GetArenaBetterItem
 GetArenaBetterItem: @ 0x08031BC0
@@ -590,6 +612,8 @@ _08031C08:
 	pop {r4, r5}
 	pop {r1}
 	bx r1
+
+	THUMB_FUNC_END GetArenaBetterItem
 
 	THUMB_FUNC_START PrepareBalancedArenaFight
 PrepareBalancedArenaFight: @ 0x08031C10
@@ -745,6 +769,8 @@ _08031D44:
 _08031D4C: .4byte gUnknown_0203A8F0
 _08031D50: .4byte gBattleTarget
 _08031D54: .4byte gBattleActor
+
+	THUMB_FUNC_END PrepareBalancedArenaFight
 
 	THUMB_FUNC_START AdjustArenaOpponentPower
 AdjustArenaOpponentPower: @ 0x08031D58
@@ -928,6 +954,8 @@ _08031E9A:
 	pop {r1}
 	bx r1
 
+	THUMB_FUNC_END AdjustArenaOpponentPower
+
 	THUMB_FUNC_START sub_8031EA0
 sub_8031EA0: @ 0x08031EA0
 	push {lr}
@@ -954,6 +982,8 @@ _08031EC2:
 	.align 2, 0
 _08031EC8: .4byte gUnknown_0203A8F0
 
+	THUMB_FUNC_END sub_8031EA0
+
 	THUMB_FUNC_START sub_8031ECC
 sub_8031ECC: @ 0x08031ECC
 	ldr r0, _08031ED4  @ gUnknown_0203A8F0
@@ -963,6 +993,8 @@ sub_8031ECC: @ 0x08031ECC
 	.align 2, 0
 _08031ED4: .4byte gUnknown_0203A8F0
 
+	THUMB_FUNC_END sub_8031ECC
+
 	THUMB_FUNC_START sub_8031ED8
 sub_8031ED8: @ 0x08031ED8
 	ldr r0, _08031EE0  @ gUnknown_0203A8F0
@@ -971,6 +1003,8 @@ sub_8031ED8: @ 0x08031ED8
 	.align 2, 0
 _08031EE0: .4byte gUnknown_0203A8F0
 
+	THUMB_FUNC_END sub_8031ED8
+
 	THUMB_FUNC_START sub_8031EE4
 sub_8031EE4: @ 0x08031EE4
 	ldr r1, _08031EEC  @ gUnknown_0203A8F0
@@ -978,6 +1012,8 @@ sub_8031EE4: @ 0x08031EE4
 	bx lr
 	.align 2, 0
 _08031EEC: .4byte gUnknown_0203A8F0
+
+	THUMB_FUNC_END sub_8031EE4
 
 	THUMB_FUNC_START sub_8031EF0
 sub_8031EF0: @ 0x08031EF0
@@ -1023,6 +1059,8 @@ _08031F44: .4byte gBattleTarget
 _08031F48: .4byte gUnknown_0203A8F0
 _08031F4C: .4byte gBattleActor
 
+	THUMB_FUNC_END sub_8031EF0
+
 	THUMB_FUNC_START sub_8031F50
 sub_8031F50: @ 0x08031F50
 	push {lr}
@@ -1044,6 +1082,8 @@ _08031F6E:
 _08031F70:
 	pop {r1}
 	bx r1
+
+	THUMB_FUNC_END sub_8031F50
 
 	THUMB_FUNC_START sub_8031F74
 sub_8031F74: @ 0x08031F74
@@ -1088,6 +1128,8 @@ _08031FBE:
 	pop {r0}
 	bx r0
 
+	THUMB_FUNC_END sub_8031F74
+
 	THUMB_FUNC_START sub_8031FC8
 sub_8031FC8: @ 0x08031FC8
 	push {r4, lr}
@@ -1105,5 +1147,7 @@ sub_8031FC8: @ 0x08031FC8
 	bx r0
 	.align 2, 0
 _08031FE8: .4byte gUnknown_0203A8F0
+
+	THUMB_FUNC_END sub_8031FC8
 
 .align 2, 0

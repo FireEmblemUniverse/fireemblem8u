@@ -32,6 +32,8 @@ _0801F9F4:
 	.align 2, 0
 _0801F9F8: .4byte gKeyStatusPtr
 
+	THUMB_FUNC_END sub_801F9CC
+
 	THUMB_FUNC_START sub_801F9FC
 sub_801F9FC: @ 0x0801F9FC
 	push {r4, r5, r6, r7, lr}
@@ -101,6 +103,8 @@ _0801FA5A:
 	.align 2, 0
 _0801FA84: .4byte gUnknown_02022EEA
 _0801FA88: .4byte gUnknown_0859B0C0
+
+	THUMB_FUNC_END sub_801F9FC
 
 	THUMB_FUNC_START sub_801FA8C
 sub_801FA8C: @ 0x0801FA8C
@@ -237,6 +241,8 @@ _0801FB7E:
 _0801FBA4: .4byte gUnknown_02022EEA
 _0801FBA8: .4byte gUnknown_0859B0C0
 
+	THUMB_FUNC_END sub_801FA8C
+
 	THUMB_FUNC_START sub_801FBAC
 sub_801FBAC: @ 0x0801FBAC
 	push {r4, r5, r6, r7, lr}
@@ -319,6 +325,8 @@ _0801FC18:
 	.align 2, 0
 _0801FC60: .4byte gUnknown_02022EEA
 _0801FC64: .4byte gUnknown_0859B0C0
+
+	THUMB_FUNC_END sub_801FBAC
 
 	THUMB_FUNC_START sub_801FC68
 sub_801FC68: @ 0x0801FC68
@@ -440,6 +448,8 @@ _0801FD1A:
 _0801FD68: .4byte gUnknown_02022EEA
 _0801FD6C: .4byte gUnknown_0859B0C0
 
+	THUMB_FUNC_END sub_801FC68
+
 	THUMB_FUNC_START sub_801FD70
 sub_801FD70: @ 0x0801FD70
 	push {lr}
@@ -449,6 +459,8 @@ sub_801FD70: @ 0x0801FD70
 	pop {r0}
 	bx r0
 
+	THUMB_FUNC_END sub_801FD70
+
 	THUMB_FUNC_START sub_801FD80
 sub_801FD80: @ 0x0801FD80
 	push {lr}
@@ -457,5 +469,7 @@ sub_801FD80: @ 0x0801FD80
 	bl sub_801FC68
 	pop {r0}
 	bx r0
+
+	THUMB_FUNC_END sub_801FD80
 
 .align 2, 0 @ align with 0

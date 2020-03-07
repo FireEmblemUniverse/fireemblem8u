@@ -95,6 +95,8 @@ _08021C5C: .4byte gBG0TilemapBuffer
 _08021C60: .4byte gUnknown_0202BCF0
 _08021C64: .4byte gLCDControlBuffer
 
+	THUMB_FUNC_END sub_8021B9C
+
 	THUMB_FUNC_START sub_8021C68
 sub_8021C68: @ 0x08021C68
 	push {r4, r5, r6, lr}
@@ -173,6 +175,8 @@ _08021CF6:
 _08021CFC: .4byte gBmFrameTmap0
 _08021D00: .4byte gBG0TilemapBuffer
 
+	THUMB_FUNC_END sub_8021C68
+
 	THUMB_FUNC_START sub_8021D04
 sub_8021D04: @ 0x08021D04
 	push {lr}
@@ -195,6 +199,8 @@ _08021D18:
 	.align 2, 0
 _08021D2C: .4byte gUnknown_0202BCF0
 _08021D30: .4byte gBG0TilemapBuffer
+
+	THUMB_FUNC_END sub_8021D04
 
 	THUMB_FUNC_START sub_8021D34
 sub_8021D34: @ 0x08021D34
@@ -252,6 +258,8 @@ sub_8021D34: @ 0x08021D34
 _08021D9C: .4byte gUnknown_0859B4D0
 _08021DA0: .4byte gUnknown_0202BCB0
 
+	THUMB_FUNC_END sub_8021D34
+
 	THUMB_FUNC_START sub_8021DA4
 sub_8021DA4: @ 0x08021DA4
 	push {r4, r5, r6, lr}
@@ -295,6 +303,8 @@ sub_8021DA4: @ 0x08021DA4
 	.align 2, 0
 _08021DF4: .4byte gUnknown_0859B4D0
 
+	THUMB_FUNC_END sub_8021DA4
+
 	THUMB_FUNC_START sub_8021DF8
 sub_8021DF8: @ 0x08021DF8
 	push {lr}
@@ -308,5 +318,7 @@ _08021E06:
 	bx r1
 	.align 2, 0
 _08021E0C: .4byte gUnknown_0859B4D0
+
+	THUMB_FUNC_END sub_8021DF8
 
 .align 2, 0 @ align with 0
