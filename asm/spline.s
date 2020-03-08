@@ -94,6 +94,8 @@ _0800A4DE:
 	pop {r1}
 	bx r1
 
+	THUMB_FUNC_END sub_800A42C
+
 	THUMB_FUNC_START sub_800A4E8
 sub_800A4E8: @ 0x0800A4E8
 	ldrh r2, [r0]
@@ -119,6 +121,8 @@ sub_800A4E8: @ 0x0800A4E8
 	ldr r0, [r0, #8]
 	str r0, [r1, #0x1c]
 	bx lr
+
+	THUMB_FUNC_END sub_800A4E8
 
 	THUMB_FUNC_START sub_800A518
 sub_800A518: @ 0x0800A518
@@ -296,6 +300,8 @@ _0800A66E:
 	pop {r0}
 	bx r0
 
+	THUMB_FUNC_END sub_800A518
+
 	THUMB_FUNC_START sub_800A680
 sub_800A680: @ 0x0800A680
 	push {r4, r5, r6, r7, lr}
@@ -465,6 +471,8 @@ _0800A7C8:
 	pop {r0}
 	bx r0
 
+	THUMB_FUNC_END sub_800A680
+
 	THUMB_FUNC_START sub_800A7D8
 sub_800A7D8: @ 0x0800A7D8
 	push {r4, r5, r6, r7, lr}
@@ -588,6 +596,8 @@ _0800A8C6:
 	pop {r0}
 	bx r0
 
+	THUMB_FUNC_END sub_800A7D8
+
 	THUMB_FUNC_START sub_800A8D8
 sub_800A8D8: @ 0x0800A8D8
 	push {r4, r5, r6, r7, lr}
@@ -654,6 +664,8 @@ _0800A948:
 	pop {r4, r5, r6, r7}
 	pop {r1}
 	bx r1
+
+	THUMB_FUNC_END sub_800A8D8
 
 	THUMB_FUNC_START sub_800A950
 sub_800A950: @ 0x0800A950
@@ -929,6 +941,8 @@ _0800AB48:
 	pop {r1}
 	bx r1
 
+	THUMB_FUNC_END sub_800A950
+
 	THUMB_FUNC_START sub_800AB58
 sub_800AB58: @ 0x0800AB58
 	push {r4, r5, r6, r7, lr}
@@ -1117,6 +1131,8 @@ sub_800AB58: @ 0x0800AB58
 	pop {r0}
 	bx r0
 
+	THUMB_FUNC_END sub_800AB58
+
 	THUMB_FUNC_START sub_800ACEC
 sub_800ACEC: @ 0x0800ACEC
 	push {r4, r5, r6, r7, lr}
@@ -1302,6 +1318,8 @@ sub_800ACEC: @ 0x0800ACEC
 	pop {r0}
 	bx r0
 
+	THUMB_FUNC_END sub_800ACEC
+
 	THUMB_FUNC_START sub_800AE7C
 sub_800AE7C: @ 0x0800AE7C
 	push {r4, r5, r6, r7, lr}
@@ -1420,6 +1438,8 @@ _0800AF52:
 	pop {r4, r5, r6, r7}
 	pop {r1}
 	bx r1
+
+	THUMB_FUNC_END sub_800AE7C
 
 	THUMB_FUNC_START sub_800AF64
 sub_800AF64: @ 0x0800AF64
@@ -1694,6 +1714,8 @@ _0800B15A:
 	pop {r1}
 	bx r1
 
+	THUMB_FUNC_END sub_800AF64
+
 	THUMB_FUNC_START sub_800B16C
 sub_800B16C: @ 0x0800B16C
 	push {r4, lr}
@@ -1718,6 +1740,8 @@ _0800B190:
 	pop {r4}
 	pop {r1}
 	bx r1
+
+	THUMB_FUNC_END sub_800B16C
 
 	THUMB_FUNC_START sub_800B198
 sub_800B198: @ 0x0800B198
@@ -1972,6 +1996,8 @@ _0800B378:
 	pop {r1}
 	bx r1
 
+	THUMB_FUNC_END sub_800B198
+
 	THUMB_FUNC_START sub_800B388
 sub_800B388: @ 0x0800B388
 	push {r4, r5, r6, r7, lr}
@@ -2222,6 +2248,8 @@ _0800B564:
 	pop {r4, r5, r6, r7}
 	pop {r1}
 	bx r1
+
+	THUMB_FUNC_END sub_800B388
 
 	THUMB_FUNC_START sub_800B574
 sub_800B574: @ 0x0800B574
@@ -2476,6 +2504,8 @@ _0800B754:
 	pop {r1}
 	bx r1
 
+	THUMB_FUNC_END sub_800B574
+
 	THUMB_FUNC_START sub_800B764
 sub_800B764: @ 0x0800B764
 	push {r4, r5, r6, r7, lr}
@@ -2541,6 +2571,8 @@ _0800B7D0:
 	pop {r1}
 	bx r1
 
+	THUMB_FUNC_END sub_800B764
+
 	THUMB_FUNC_START sub_800B7E0
 sub_800B7E0: @ 0x0800B7E0
 	push {r4, r5, r6, r7, lr}
@@ -2597,6 +2629,8 @@ _0800B846:
 	pop {r4, r5, r6, r7}
 	pop {r1}
 	bx r1
+
+	THUMB_FUNC_END sub_800B7E0
 
 	THUMB_FUNC_START sub_800B84C
 sub_800B84C: @ 0x0800B84C
@@ -2699,3 +2733,4 @@ _0800B906:
 	pop {r4, r5, r6, r7}
 	pop {r1}
 	bx r1
+	THUMB_FUNC_END sub_800B84C

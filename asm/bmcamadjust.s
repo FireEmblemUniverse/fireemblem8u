@@ -48,6 +48,8 @@ _0801DE7E:
 	pop {r0}
 	bx r0
 
+	THUMB_FUNC_END GetPlayerStartCursorPosition
+
 	THUMB_FUNC_START GetEnemyStartCursorPosition
 GetEnemyStartCursorPosition: @ 0x0801DE88
 	push {r4, r5, r6, lr}
@@ -103,6 +105,8 @@ _0801DEE2:
 	.align 2, 0
 _0801DEE8: .4byte 0x00000201
 _0801DEEC: .4byte gUnknown_0202BCF0
+
+	THUMB_FUNC_END GetEnemyStartCursorPosition
 
 	THUMB_FUNC_START sub_801DEF0
 sub_801DEF0: @ 0x0801DEF0
@@ -163,6 +167,8 @@ _0801DF5A:
 	pop {r0}
 	bx r0
 
+	THUMB_FUNC_END sub_801DEF0
+
 	THUMB_FUNC_START ADJUSTFROMXI_MoveCameraOnSomeUnit
 ADJUSTFROMXI_MoveCameraOnSomeUnit: @ 0x0801DF64
 	push {r4, r5, r6, lr}
@@ -186,5 +192,7 @@ _0801DF8E:
 	pop {r4, r5, r6}
 	pop {r0}
 	bx r0
+
+	THUMB_FUNC_END ADJUSTFROMXI_MoveCameraOnSomeUnit
 
 .align 2, 0 @ align with 0

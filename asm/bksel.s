@@ -35,6 +35,8 @@ _08036508:
 	pop {r1}
 	bx r1
 
+	THUMB_FUNC_END sub_80364D8
+
 	THUMB_FUNC_START sub_803650C
 sub_803650C: @ 0x0803650C
 	push {r4, r5, r6, r7, lr}
@@ -108,6 +110,8 @@ _08036570:
 _0803658C: .4byte gPaletteBuffer
 _08036590: .4byte gUnknown_0200300C
 
+	THUMB_FUNC_END sub_803650C
+
 	THUMB_FUNC_START BattleForecase_SetupLabelText
 BattleForecase_SetupLabelText: @ 0x08036594
 	push {r4, r5, r6, r7, lr}
@@ -146,6 +150,8 @@ _08036598:
 _080365DC: .4byte gUnknown_02002FDC
 _080365E0: .4byte gUnknown_080D7FB0
 
+	THUMB_FUNC_END BattleForecase_SetupLabelText
+
 	THUMB_FUNC_START sub_80365E4
 sub_80365E4: @ 0x080365E4
 	push {r4, r5, r6, lr}
@@ -179,6 +185,8 @@ sub_80365E4: @ 0x080365E4
 	pop {r0}
 	bx r0
 
+	THUMB_FUNC_END sub_80365E4
+
 	THUMB_FUNC_START sub_8036628
 sub_8036628: @ 0x08036628
 	push {r4, r5, r6, lr}
@@ -211,6 +219,8 @@ sub_8036628: @ 0x08036628
 	pop {r0}
 	bx r0
 
+	THUMB_FUNC_END sub_8036628
+
 	THUMB_FUNC_START AddWeaponStatsAfterRound
 AddWeaponStatsAfterRound: @ 0x0803666C
 	push {r4, lr}
@@ -240,6 +250,8 @@ _0803669A:
 	pop {r4}
 	pop {r0}
 	bx r0
+
+	THUMB_FUNC_END AddWeaponStatsAfterRound
 
 	THUMB_FUNC_START BKSEL_SetupHitAndSuchStats
 BKSEL_SetupHitAndSuchStats: @ 0x080366A0
@@ -428,6 +440,8 @@ _08036802:
 	.align 2, 0
 _08036810: .4byte gBattleActor
 _08036814: .4byte gBattleTarget
+
+	THUMB_FUNC_END BKSEL_SetupHitAndSuchStats
 
 	THUMB_FUNC_START sub_8036818
 sub_8036818: @ 0x08036818
@@ -701,6 +715,8 @@ _08036A64: .4byte gUnknown_02002FDC
 _08036A68: .4byte gBattleTarget
 _08036A6C: .4byte 0xFFFFFEF2
 
+	THUMB_FUNC_END sub_8036818
+
 	THUMB_FUNC_START sub_8036A70
 sub_8036A70: @ 0x08036A70
 	push {r4, r5, r6, r7, lr}
@@ -967,6 +983,8 @@ _08036CC4: .4byte 0x0000027E
 _08036CC8: .4byte gBattleTarget
 _08036CCC: .4byte 0xFFFFFEF2
 
+	THUMB_FUNC_END sub_8036A70
+
 	THUMB_FUNC_START sub_8036CD0
 sub_8036CD0: @ 0x08036CD0
 	push {r4, lr}
@@ -997,6 +1015,8 @@ _08036D04:
 	pop {r4}
 	pop {r0}
 	bx r0
+
+	THUMB_FUNC_END sub_8036CD0
 
 	THUMB_FUNC_START sub_8036D0C
 sub_8036D0C: @ 0x08036D0C
@@ -1038,6 +1058,8 @@ _08036D42:
 	.align 2, 0
 _08036D48: .4byte gUiFramePaletteD
 
+	THUMB_FUNC_END sub_8036D0C
+
 	THUMB_FUNC_START sub_8036D4C
 sub_8036D4C: @ 0x08036D4C
 	push {r4, lr}
@@ -1075,6 +1097,8 @@ _08036D96:
 	pop {r4}
 	pop {r0}
 	bx r0
+
+	THUMB_FUNC_END sub_8036D4C
 
 	THUMB_FUNC_START BKSEL_InitGfx
 BKSEL_InitGfx: @ 0x08036D9C
@@ -1128,6 +1152,8 @@ _08036E10: .4byte 0x06015D00
 _08036E14: .4byte gUnknown_085A0D2C
 _08036E18: .4byte 0x0000FFFF
 
+	THUMB_FUNC_END BKSEL_InitGfx
+
 	THUMB_FUNC_START BKSEL_Destructor
 BKSEL_Destructor: @ 0x08036E1C
 	push {lr}
@@ -1136,6 +1162,8 @@ BKSEL_Destructor: @ 0x08036E1C
 	bl UnpackUiFrameBuffered
 	pop {r0}
 	bx r0
+
+	THUMB_FUNC_END BKSEL_Destructor
 
 	THUMB_FUNC_START sub_8036E2C
 sub_8036E2C: @ 0x08036E2C
@@ -1193,6 +1221,8 @@ _08036E98: .4byte gBmFrameTmap0
 _08036E9C: .4byte gUnknown_02022CD0
 _08036EA0: .4byte gUnknown_0200422C
 _08036EA4: .4byte gUnknown_020234D0
+
+	THUMB_FUNC_END sub_8036E2C
 
 	THUMB_FUNC_START sub_8036EA8
 sub_8036EA8: @ 0x08036EA8
@@ -1283,6 +1313,8 @@ _08036F3C:
 _08036F44: .4byte gBattleActor
 _08036F48: .4byte gBattleTarget
 
+	THUMB_FUNC_END sub_8036EA8
+
 	THUMB_FUNC_START sub_8036F4C
 sub_8036F4C: @ 0x08036F4C
 	push {r4, r5, r6, r7, lr}
@@ -1362,6 +1394,8 @@ _08036FDC: .4byte gSinLookup
 _08036FE0: .4byte gObject_16x16
 _08036FE4: .4byte 0x000022E6
 
+	THUMB_FUNC_END sub_8036F4C
+
 	THUMB_FUNC_START sub_8036FE8
 sub_8036FE8: @ 0x08036FE8
 	push {r4, lr}
@@ -1422,6 +1456,8 @@ _08037042:
 	.align 2, 0
 _08037058: .4byte gUnknown_0200300C
 
+	THUMB_FUNC_END sub_8036FE8
+
 	THUMB_FUNC_START sub_803705C
 sub_803705C: @ 0x0803705C
 	push {r4, lr}
@@ -1473,6 +1509,8 @@ _080370C0:
 	pop {r0}
 	bx r0
 
+	THUMB_FUNC_END sub_803705C
+
 	THUMB_FUNC_START sub_80370C8
 sub_80370C8: @ 0x080370C8
 	push {r4, lr}
@@ -1508,6 +1546,8 @@ _080370FA:
 	pop {r4}
 	pop {r0}
 	bx r0
+
+	THUMB_FUNC_END sub_80370C8
 
 	THUMB_FUNC_START sub_803710C
 sub_803710C: @ 0x0803710C
@@ -1616,6 +1656,8 @@ _080371DA:
 _080371E8: .4byte gBmFrameTmap0
 _080371EC: .4byte gUnknown_0200422C
 
+	THUMB_FUNC_END sub_803710C
+
 	THUMB_FUNC_START sub_80371F0
 sub_80371F0: @ 0x080371F0
 	push {r4, r5, r6, r7, lr}
@@ -1723,6 +1765,8 @@ _080372BE:
 _080372CC: .4byte gBmFrameTmap0
 _080372D0: .4byte gUnknown_0200422C
 
+	THUMB_FUNC_END sub_80371F0
+
 	THUMB_FUNC_START MapEventEngineExists_
 MapEventEngineExists_: @ 0x080372D4
 	push {lr}
@@ -1731,6 +1775,8 @@ MapEventEngineExists_: @ 0x080372D4
 	asrs r0, r0, #0x18
 	pop {r1}
 	bx r1
+
+	THUMB_FUNC_END MapEventEngineExists_
 
 	THUMB_FUNC_START sub_80372E4
 sub_80372E4: @ 0x080372E4
@@ -1750,6 +1796,8 @@ sub_80372E4: @ 0x080372E4
 _08037306:
 	pop {r0}
 	bx r0
+
+	THUMB_FUNC_END sub_80372E4
 
 	THUMB_FUNC_START NewBattleForecast
 NewBattleForecast: @ 0x0803730C
@@ -1818,6 +1866,8 @@ _08037380:
 	.align 2, 0
 _08037388: .4byte gBmMapMovement
 
+	THUMB_FUNC_END NewBattleForecast
+
 	THUMB_FUNC_START sub_803738C
 sub_803738C: @ 0x0803738C
 	push {lr}
@@ -1840,6 +1890,8 @@ _080373AC:
 	bx r0
 	.align 2, 0
 _080373B0: .4byte gUnknown_0859E520
+
+	THUMB_FUNC_END sub_803738C
 
 	THUMB_FUNC_START sub_80373B4
 sub_80373B4: @ 0x080373B4
@@ -1869,6 +1921,8 @@ _080373E8:
 	pop {r4}
 	pop {r0}
 	bx r0
+
+	THUMB_FUNC_END sub_80373B4
 
 	THUMB_FUNC_START sub_80373F0
 sub_80373F0: @ 0x080373F0
@@ -1932,5 +1986,7 @@ _08037460:
 	bx r1
 	.align 2, 0
 _08037468: .4byte gHelpInfo_CbpHp
+
+	THUMB_FUNC_END sub_80373F0
 
 .align 2, 0

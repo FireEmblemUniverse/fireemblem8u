@@ -143,6 +143,8 @@ _0800994A:
 	pop {r1}
 	bx r1
 
+	THUMB_FUNC_END sub_80097E8
+
 	THUMB_FUNC_START sub_8009950
 sub_8009950: @ 0x08009950
 	push {r4, r5, r6, lr}
@@ -228,6 +230,8 @@ _080099DA:
 	pop {r1}
 	bx r1
 
+	THUMB_FUNC_END sub_8009950
+
 	THUMB_FUNC_START sub_80099E4
 sub_80099E4: @ 0x080099E4
 	push {r4, lr}
@@ -241,6 +245,8 @@ sub_80099E4: @ 0x080099E4
 	pop {r4}
 	pop {r1}
 	bx r1
+
+	THUMB_FUNC_END sub_80099E4
 
 	THUMB_FUNC_START Goto6CLabel12IfSomething
 Goto6CLabel12IfSomething: @ 0x08009A00
@@ -261,6 +267,8 @@ _08009A1A:
 	bx r0
 	.align 2, 0
 _08009A20: .4byte gKeyStatusPtr
+
+	THUMB_FUNC_END Goto6CLabel12IfSomething
 
 	THUMB_FUNC_START sub_8009A24
 sub_8009A24: @ 0x08009A24
@@ -287,11 +295,15 @@ sub_8009A24: @ 0x08009A24
 	.align 2, 0
 _08009A54: .4byte gUnknown_0202BCF0
 
+	THUMB_FUNC_END sub_8009A24
+
 	THUMB_FUNC_START sub_8009A58
 sub_8009A58: @ 0x08009A58
 	movs r1, #0x14
 	strh r1, [r0, #0x2e]
 	bx lr
+
+	THUMB_FUNC_END sub_8009A58
 
 	THUMB_FUNC_START Null6CCallback
 Null6CCallback: @ 0x08009A60
@@ -299,6 +311,8 @@ Null6CCallback: @ 0x08009A60
 	bl Proc_ClearNativeCallback
 	pop {r0}
 	bx r0
+
+	THUMB_FUNC_END Null6CCallback
 
 	THUMB_FUNC_START Delete6CIfNotMarkedB
 Delete6CIfNotMarkedB: @ 0x08009A6C
@@ -313,6 +327,8 @@ Delete6CIfNotMarkedB: @ 0x08009A6C
 _08009A7E:
 	pop {r0}
 	bx r0
+
+	THUMB_FUNC_END Delete6CIfNotMarkedB
 
 	THUMB_FUNC_START sub_8009A84
 sub_8009A84: @ 0x08009A84
@@ -338,6 +354,8 @@ _08009AB0: .4byte 0x01000100
 _08009AB4: .4byte Delete6CIfNotMarkedB
 _08009AB8: .4byte SomeUpdateRoutine
 
+	THUMB_FUNC_END sub_8009A84
+
 	THUMB_FUNC_START sub_8009ABC
 sub_8009ABC: @ 0x08009ABC
 	push {lr}
@@ -352,6 +370,8 @@ sub_8009ABC: @ 0x08009ABC
 	pop {r0}
 	bx r0
 
+	THUMB_FUNC_END sub_8009ABC
+
 	THUMB_FUNC_START sub_8009AD8
 sub_8009AD8: @ 0x08009AD8
 	push {lr}
@@ -363,6 +383,8 @@ sub_8009AD8: @ 0x08009AD8
 	bl ISuspectThisToBeMusicRelated_8002730
 	pop {r0}
 	bx r0
+
+	THUMB_FUNC_END sub_8009AD8
 
 	THUMB_FUNC_START sub_8009AEC
 sub_8009AEC: @ 0x08009AEC
@@ -429,6 +451,8 @@ _08009B5C:
 	pop {r0}
 	bx r0
 
+	THUMB_FUNC_END sub_8009AEC
+
 	THUMB_FUNC_START sub_8009B64
 sub_8009B64: @ 0x08009B64
 	push {lr}
@@ -450,6 +474,8 @@ _08009B7E:
 _08009B84:
 	pop {r0}
 	bx r0
+
+	THUMB_FUNC_END sub_8009B64
 
 	THUMB_FUNC_START GAMECTRL_MasterSwitch
 GAMECTRL_MasterSwitch: @ 0x08009B88
@@ -516,6 +542,8 @@ _08009C16:
 	pop {r0}
 	bx r0
 
+	THUMB_FUNC_END GAMECTRL_MasterSwitch
+
 	THUMB_FUNC_START sub_8009C1C
 sub_8009C1C: @ 0x08009C1C
 	push {lr}
@@ -531,6 +559,8 @@ _08009C30:
 	pop {r0}
 	bx r0
 
+	THUMB_FUNC_END sub_8009C1C
+
 	THUMB_FUNC_START sub_8009C34
 sub_8009C34: @ 0x08009C34
 	push {lr}
@@ -538,6 +568,8 @@ sub_8009C34: @ 0x08009C34
 	bl Proc_GotoLabel
 	pop {r0}
 	bx r0
+
+	THUMB_FUNC_END sub_8009C34
 
 	THUMB_FUNC_START sub_8009C40
 sub_8009C40: @ 0x08009C40
@@ -554,6 +586,8 @@ sub_8009C40: @ 0x08009C40
 _08009C56:
 	pop {r0}
 	bx r0
+
+	THUMB_FUNC_END sub_8009C40
 
 	THUMB_FUNC_START sub_8009C5C
 sub_8009C5C: @ 0x08009C5C
@@ -590,6 +624,8 @@ _08009C98:
 	.align 2, 0
 _08009CA0: .4byte gUnknown_0202BCF0
 
+	THUMB_FUNC_END sub_8009C5C
+
 	THUMB_FUNC_START sub_8009CA4
 sub_8009CA4: @ 0x08009CA4
 	push {lr}
@@ -603,6 +639,8 @@ sub_8009CA4: @ 0x08009CA4
 	bx r0
 	.align 2, 0
 _08009CBC: .4byte gUnknown_0202BCF0
+
+	THUMB_FUNC_END sub_8009CA4
 
 	THUMB_FUNC_START sub_8009CC0
 sub_8009CC0: @ 0x08009CC0
@@ -620,6 +658,8 @@ sub_8009CC0: @ 0x08009CC0
 	bx r0
 	.align 2, 0
 _08009CDC: .4byte gUnknown_0202BCF0
+
+	THUMB_FUNC_END sub_8009CC0
 
 	THUMB_FUNC_START sub_8009CE0
 sub_8009CE0: @ 0x08009CE0
@@ -654,6 +694,8 @@ _08009D14:
 	pop {r0}
 	bx r0
 
+	THUMB_FUNC_END sub_8009CE0
+
 	THUMB_FUNC_START sub_8009D1C
 sub_8009D1C: @ 0x08009D1C
 	push {lr}
@@ -676,6 +718,8 @@ _08009D3A:
 	bx r0
 	.align 2, 0
 _08009D40: .4byte gUnknown_0202BCF0
+
+	THUMB_FUNC_END sub_8009D1C
 
 	THUMB_FUNC_START sub_8009D44
 sub_8009D44: @ 0x08009D44
@@ -700,6 +744,8 @@ _08009D64:
 	.align 2, 0
 _08009D68: .4byte gUnknown_0202BCF0
 
+	THUMB_FUNC_END sub_8009D44
+
 	THUMB_FUNC_START sub_8009D6C
 sub_8009D6C: @ 0x08009D6C
 	push {lr}
@@ -723,6 +769,8 @@ _08009D8C:
 _08009D94:
 	pop {r0}
 	bx r0
+
+	THUMB_FUNC_END sub_8009D6C
 
 	THUMB_FUNC_START sub_8009D98
 sub_8009D98: @ 0x08009D98
@@ -758,6 +806,8 @@ _08009DC0:
 _08009DD8: .4byte gUnknown_0300534E
 _08009DDC: .4byte gUnknown_0202BCF0
 
+	THUMB_FUNC_END sub_8009D98
+
 	THUMB_FUNC_START CallActualSaveMenu
 CallActualSaveMenu: @ 0x08009DE0
 	push {lr}
@@ -775,6 +825,8 @@ _08009DF6:
 	bx r0
 	.align 2, 0
 _08009DFC: .4byte gUnknown_0202BCF0
+
+	THUMB_FUNC_END CallActualSaveMenu
 
 	THUMB_FUNC_START sub_8009E00
 sub_8009E00: @ 0x08009E00
@@ -798,6 +850,8 @@ _08009E1E:
 	.align 2, 0
 _08009E24: .4byte gUnknown_0202BCF0
 
+	THUMB_FUNC_END sub_8009E00
+
 	THUMB_FUNC_START sub_8009E28
 sub_8009E28: @ 0x08009E28
 	push {lr}
@@ -818,6 +872,8 @@ sub_8009E28: @ 0x08009E28
 	add sp, #4
 	pop {r0}
 	bx r0
+
+	THUMB_FUNC_END sub_8009E28
 
 	THUMB_FUNC_START sub_8009E54
 sub_8009E54: @ 0x08009E54
@@ -852,6 +908,8 @@ _08009E88:
 	.align 2, 0
 _08009E94: .4byte gUnknown_08A00364
 
+	THUMB_FUNC_END sub_8009E54
+
 	THUMB_FUNC_START sub_8009E98
 sub_8009E98: @ 0x08009E98
 	push {lr}
@@ -885,6 +943,8 @@ _08009ECC:
 	.align 2, 0
 _08009ED8: .4byte gUnknown_08A0048C
 
+	THUMB_FUNC_END sub_8009E98
+
 	THUMB_FUNC_START GetChapterIdTo6C
 GetChapterIdTo6C: @ 0x08009EDC
 	ldr r1, _08009EE8  @ gUnknown_0202BCF0
@@ -894,6 +954,8 @@ GetChapterIdTo6C: @ 0x08009EDC
 	bx lr
 	.align 2, 0
 _08009EE8: .4byte gUnknown_0202BCF0
+
+	THUMB_FUNC_END GetChapterIdTo6C
 
 	THUMB_FUNC_START SetChapterIdFrom6C
 SetChapterIdFrom6C: @ 0x08009EEC
@@ -905,12 +967,16 @@ SetChapterIdFrom6C: @ 0x08009EEC
 	.align 2, 0
 _08009EF8: .4byte gUnknown_0202BCF0
 
+	THUMB_FUNC_END SetChapterIdFrom6C
+
 	THUMB_FUNC_START sub_8009EFC
 sub_8009EFC: @ 0x08009EFC
 	push {lr}
 	bl sub_80A4CD8
 	pop {r0}
 	bx r0
+
+	THUMB_FUNC_END sub_8009EFC
 
 	THUMB_FUNC_START NewGameControl
 NewGameControl: @ 0x08009F08
@@ -937,6 +1003,8 @@ _08009F34: .4byte SomeUpdateRoutine
 _08009F38: .4byte GeneralVBlankHandler
 _08009F3C: .4byte gUnknown_085916D4
 
+	THUMB_FUNC_END NewGameControl
+
 	THUMB_FUNC_START GetGameControl6C
 GetGameControl6C: @ 0x08009F40
 	push {lr}
@@ -946,6 +1014,8 @@ GetGameControl6C: @ 0x08009F40
 	bx r1
 	.align 2, 0
 _08009F4C: .4byte gUnknown_085916D4
+
+	THUMB_FUNC_END GetGameControl6C
 
 	THUMB_FUNC_START SetNextGameActionId
 SetNextGameActionId: @ 0x08009F50
@@ -958,6 +1028,8 @@ SetNextGameActionId: @ 0x08009F50
 	pop {r0}
 	bx r0
 
+	THUMB_FUNC_END SetNextGameActionId
+
 	THUMB_FUNC_START SetNextChapterId
 SetNextChapterId: @ 0x08009F64
 	push {r4, lr}
@@ -968,6 +1040,8 @@ SetNextChapterId: @ 0x08009F64
 	pop {r4}
 	pop {r0}
 	bx r0
+
+	THUMB_FUNC_END SetNextChapterId
 
 	THUMB_FUNC_START sub_8009F78
 sub_8009F78: @ 0x08009F78
@@ -980,6 +1054,8 @@ sub_8009F78: @ 0x08009F78
 	lsrs r0, r0, #0x1f
 	pop {r1}
 	bx r1
+
+	THUMB_FUNC_END sub_8009F78
 
 	THUMB_FUNC_START RestartGameAndGoto8
 RestartGameAndGoto8: @ 0x08009F8C
@@ -998,6 +1074,8 @@ RestartGameAndGoto8: @ 0x08009F8C
 	.align 2, 0
 _08009FAC: .4byte gUnknown_085916D4
 
+	THUMB_FUNC_END RestartGameAndGoto8
+
 	THUMB_FUNC_START RestartGameAndGoto12
 RestartGameAndGoto12: @ 0x08009FB0
 	push {r4, lr}
@@ -1015,13 +1093,19 @@ RestartGameAndGoto12: @ 0x08009FB0
 	.align 2, 0
 _08009FD0: .4byte gUnknown_085916D4
 
+	THUMB_FUNC_END RestartGameAndGoto12
+
 	THUMB_FUNC_START sub_8009FD4
 sub_8009FD4: @ 0x08009FD4
 	bx lr
 
+	THUMB_FUNC_END sub_8009FD4
+
 	THUMB_FUNC_START nullsub_9
 nullsub_9: @ 0x08009FD8
 	bx lr
+
+	THUMB_FUNC_END nullsub_9
 
 	THUMB_FUNC_START ForceEnableSoundEffects
 ForceEnableSoundEffects: @ 0x08009FDC
@@ -1038,6 +1122,8 @@ ForceEnableSoundEffects: @ 0x08009FDC
 	bx lr
 	.align 2, 0
 _08009FF4: .4byte gUnknown_0202BCF0
+
+	THUMB_FUNC_END ForceEnableSoundEffects
 
 	THUMB_FUNC_START sub_8009FF8
 sub_8009FF8: @ 0x08009FF8
@@ -1080,3 +1166,4 @@ sub_8009FF8: @ 0x08009FF8
 	bx r0
 	.align 2, 0
 _0800A044: .4byte gUnknown_0202BCF0
+	THUMB_FUNC_END sub_8009FF8

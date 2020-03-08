@@ -97,6 +97,8 @@ _0801F5F4: .4byte 0x06014800
 _0801F5F8: .4byte gUnknown_085A206C
 _0801F5FC: .4byte gUnknown_0202BCB0
 
+	THUMB_FUNC_END sub_801F540
+
 	THUMB_FUNC_START sub_801F600
 sub_801F600: @ 0x0801F600
 	push {r4, r5, r6, lr}
@@ -121,6 +123,8 @@ sub_801F600: @ 0x0801F600
 	bx r0
 	.align 2, 0
 _0801F62C: .4byte gUnknown_0859AFC8
+
+	THUMB_FUNC_END sub_801F600
 
 	THUMB_FUNC_START sub_801F630
 sub_801F630: @ 0x0801F630
@@ -165,6 +169,8 @@ _0801F680: .4byte 0x06014800
 _0801F684: .4byte gUnknown_0202BCB0
 _0801F688: .4byte gUnknown_085A2DFC
 
+	THUMB_FUNC_END sub_801F630
+
 	THUMB_FUNC_START sub_801F68C
 sub_801F68C: @ 0x0801F68C
 	push {r4, r5, r6, lr}
@@ -188,6 +194,8 @@ sub_801F68C: @ 0x0801F68C
 _0801F6B4: .4byte gUnknown_085A2DDC
 _0801F6B8: .4byte gUnknown_0859AFE8
 
+	THUMB_FUNC_END sub_801F68C
+
 	THUMB_FUNC_START sub_801F6BC
 sub_801F6BC: @ 0x0801F6BC
 	push {r4, r5, r6, lr}
@@ -210,6 +218,8 @@ sub_801F6BC: @ 0x0801F6BC
 	.align 2, 0
 _0801F6E4: .4byte gUnknown_085A3490
 _0801F6E8: .4byte gUnknown_0859AFE8
+
+	THUMB_FUNC_END sub_801F6BC
 
 	THUMB_FUNC_START sub_801F6EC
 sub_801F6EC: @ 0x0801F6EC
@@ -290,6 +300,8 @@ _0801F778:
 	pop {r0}
 	bx r0
 
+	THUMB_FUNC_END sub_801F6EC
+
 	THUMB_FUNC_START sub_801F780
 sub_801F780: @ 0x0801F780
 	push {r4, r5, r6, lr}
@@ -329,6 +341,8 @@ _0801F7C8: .4byte gUnknown_089ADA80
 _0801F7CC: .4byte 0x06014800
 _0801F7D0: .4byte gUnknown_089ADD0C
 _0801F7D4: .4byte gUnknown_0859B008
+
+	THUMB_FUNC_END sub_801F780
 
 	THUMB_FUNC_START sub_801F7D8
 sub_801F7D8: @ 0x0801F7D8
@@ -378,6 +392,8 @@ _0801F838: .4byte gUnknown_085A208C
 _0801F83C: .4byte gUnknown_0202BCB0
 _0801F840: .4byte gUnknown_085A2384
 
+	THUMB_FUNC_END sub_801F7D8
+
 	THUMB_FUNC_START sub_801F844
 sub_801F844: @ 0x0801F844
 	push {r4, lr}
@@ -392,6 +408,8 @@ sub_801F844: @ 0x0801F844
 	bx r0
 	.align 2, 0
 _0801F85C: .4byte gUnknown_0859B048
+
+	THUMB_FUNC_END sub_801F844
 
 	THUMB_FUNC_START sub_801F860
 sub_801F860: @ 0x0801F860
@@ -414,6 +432,8 @@ sub_801F860: @ 0x0801F860
 	pop {r4, r5}
 	pop {r0}
 	bx r0
+
+	THUMB_FUNC_END sub_801F860
 
 	THUMB_FUNC_START sub_801F88C
 sub_801F88C: @ 0x0801F88C
@@ -442,6 +462,8 @@ _0801F8AC:
 	bx r0
 	.align 2, 0
 _0801F8C4: .4byte gUnknown_0202BCB0
+
+	THUMB_FUNC_END sub_801F88C
 
 	THUMB_FUNC_START sub_801F8C8
 sub_801F8C8: @ 0x0801F8C8
@@ -473,6 +495,8 @@ _0801F8F6:
 	pop {r4, r5}
 	pop {r0}
 	bx r0
+
+	THUMB_FUNC_END sub_801F8C8
 
 	THUMB_FUNC_START sub_801F904
 sub_801F904: @ 0x0801F904
@@ -526,6 +550,8 @@ _0801F96C: .4byte gUnknown_085A3944
 _0801F970: .4byte gUnknown_0202BCB0
 _0801F974: .4byte gUnknown_085A3730
 
+	THUMB_FUNC_END sub_801F904
+
 	THUMB_FUNC_START sub_801F978
 sub_801F978: @ 0x0801F978
 	push {r4, r5, r6, r7, lr}
@@ -572,11 +598,15 @@ _0801F9BE:
 	pop {r0}
 	bx r0
 
+	THUMB_FUNC_END sub_801F978
+
 	THUMB_FUNC_START sub_801F9C4
 sub_801F9C4: @ 0x0801F9C4
 	adds r0, #0x4c
 	movs r1, #0xf0
 	strh r1, [r0]
 	bx lr
+
+	THUMB_FUNC_END sub_801F9C4
 
 .align 2, 0

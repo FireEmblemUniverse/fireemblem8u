@@ -28,4 +28,6 @@ ChangeActiveUnitFacing: @ 0x0801F50C
 _0801F538: .4byte gActiveUnit
 _0801F53C: .4byte gWorkingMovementScript
 
+	THUMB_FUNC_END ChangeActiveUnitFacing
+
 .align 2, 0

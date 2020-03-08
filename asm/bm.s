@@ -28,6 +28,8 @@ _080156B0: .4byte gUnknown_02020188
 _080156B4: .4byte 0x06010000
 _080156B8: .4byte gUnknown_0859ED70
 
+	THUMB_FUNC_END LoadObjUIGfx
+
 	THUMB_FUNC_START sub_80156BC
 sub_80156BC: @ 0x080156BC
 	push {lr}
@@ -40,6 +42,8 @@ sub_80156BC: @ 0x080156BC
 	bx r0
 	.align 2, 0
 _080156D0: .4byte gUnknown_0859ED70
+
+	THUMB_FUNC_END sub_80156BC
 
 	THUMB_FUNC_START sub_80156D4
 sub_80156D4: @ 0x080156D4
@@ -54,6 +58,8 @@ sub_80156D4: @ 0x080156D4
 	pop {r0}
 	bx r0
 
+	THUMB_FUNC_END sub_80156D4
+
 	THUMB_FUNC_START LoadGameCoreGfx
 LoadGameCoreGfx: @ 0x080156F4
 	push {lr}
@@ -66,6 +72,8 @@ LoadGameCoreGfx: @ 0x080156F4
 	bl LoadObjUIGfx
 	pop {r0}
 	bx r0
+
+	THUMB_FUNC_END LoadGameCoreGfx
 
 	THUMB_FUNC_START HandleCursorMovement
 HandleCursorMovement: @ 0x08015714
@@ -217,6 +225,8 @@ _08015832:
 	pop {r0}
 	bx r0
 
+	THUMB_FUNC_END HandleCursorMovement
+
 	THUMB_FUNC_START MoveCameraByStepMaybe
 MoveCameraByStepMaybe: @ 0x08015838
 	push {r4, r5, lr}
@@ -265,6 +275,8 @@ _08015882:
 	bx r0
 	.align 2, 0
 _08015888: .4byte gUnknown_0202BCB0
+
+	THUMB_FUNC_END MoveCameraByStepMaybe
 
 	THUMB_FUNC_START sub_801588C
 sub_801588C: @ 0x0801588C
@@ -429,6 +441,8 @@ _080159B2:
 	pop {r0}
 	bx r0
 
+	THUMB_FUNC_END sub_801588C
+
 	THUMB_FUNC_START GetSomeAdjustedCameraX
 GetSomeAdjustedCameraX: @ 0x080159B8
 	push {r4, lr}
@@ -467,6 +481,8 @@ _080159EE:
 	bx r1
 	.align 2, 0
 _080159F8: .4byte gUnknown_0202BCB0
+
+	THUMB_FUNC_END GetSomeAdjustedCameraX
 
 	THUMB_FUNC_START GetSomeAdjustedCameraY
 GetSomeAdjustedCameraY: @ 0x080159FC
@@ -507,6 +523,8 @@ _08015A32:
 	.align 2, 0
 _08015A3C: .4byte gUnknown_0202BCB0
 
+	THUMB_FUNC_END GetSomeAdjustedCameraY
+
 	THUMB_FUNC_START sub_8015A40
 sub_8015A40: @ 0x08015A40
 	push {lr}
@@ -534,6 +552,8 @@ _08015A58:
 	.align 2, 0
 _08015A68: .4byte gUnknown_0202BCB0
 
+	THUMB_FUNC_END sub_8015A40
+
 	THUMB_FUNC_START sub_8015A6C
 sub_8015A6C: @ 0x08015A6C
 	push {lr}
@@ -560,6 +580,8 @@ _08015A84:
 	bx r1
 	.align 2, 0
 _08015A94: .4byte gUnknown_0202BCB0
+
+	THUMB_FUNC_END sub_8015A6C
 
 	THUMB_FUNC_START DisplayCursor
 DisplayCursor: @ 0x08015A98
@@ -677,6 +699,8 @@ _08015B52:
 _08015B80: .4byte gUnknown_0859A4C0
 _08015B84: .4byte gUnknown_0202BCB0
 
+	THUMB_FUNC_END DisplayCursor
+
 	THUMB_FUNC_START sub_8015B88
 sub_8015B88: @ 0x08015B88
 	push {r4, r5, lr}
@@ -704,6 +728,8 @@ sub_8015B88: @ 0x08015B88
 	.align 2, 0
 _08015BB8: .4byte gUnknown_0859A4C0
 
+	THUMB_FUNC_END sub_8015B88
+
 	THUMB_FUNC_START SetCursorMapPosition
 SetCursorMapPosition: @ 0x08015BBC
 	ldr r2, _08015BD0  @ gUnknown_0202BCB0
@@ -718,6 +744,8 @@ SetCursorMapPosition: @ 0x08015BBC
 	bx lr
 	.align 2, 0
 _08015BD0: .4byte gUnknown_0202BCB0
+
+	THUMB_FUNC_END SetCursorMapPosition
 
 	THUMB_FUNC_START sub_8015BD4
 sub_8015BD4: @ 0x08015BD4
@@ -755,6 +783,8 @@ _08015BFA:
 	bx r0
 	.align 2, 0
 _08015C18: .4byte gUnknown_0859A530
+
+	THUMB_FUNC_END sub_8015BD4
 
 	THUMB_FUNC_START Init6C_GENS
 Init6C_GENS: @ 0x08015C1C
@@ -840,6 +870,8 @@ _08015CA2:
 	pop {r0}
 	bx r0
 
+	THUMB_FUNC_END Init6C_GENS
+
 	THUMB_FUNC_START Loop6C_GENS
 Loop6C_GENS: @ 0x08015CB0
 	push {r4, r5, lr}
@@ -904,6 +936,8 @@ _08015D20:
 _08015D28: .4byte gUnknown_0202BD44
 _08015D2C: .4byte gUnknown_0202BCB0
 
+	THUMB_FUNC_END Loop6C_GENS
+
 	THUMB_FUNC_START StoreAdjustedCameraPositions
 StoreAdjustedCameraPositions: @ 0x08015D30
 	push {r4, r5, lr}
@@ -951,6 +985,8 @@ _08015D78:
 	bx r0
 	.align 2, 0
 _08015D80: .4byte gBmMapSize
+
+	THUMB_FUNC_END StoreAdjustedCameraPositions
 
 	THUMB_FUNC_START sub_8015D84
 sub_8015D84: @ 0x08015D84
@@ -1023,6 +1059,8 @@ _08015E00:
 	bx r1
 	.align 2, 0
 _08015E08: .4byte gUnknown_0202BCB0
+
+	THUMB_FUNC_END sub_8015D84
 
 	THUMB_FUNC_START EnsureCameraOntoPosition
 EnsureCameraOntoPosition: @ 0x08015E0C
@@ -1098,6 +1136,8 @@ _08015E8C:
 	.align 2, 0
 _08015E98: .4byte gUnknown_0202BCB0
 
+	THUMB_FUNC_END EnsureCameraOntoPosition
+
 	THUMB_FUNC_START ShouldMoveCameraPosSomething
 ShouldMoveCameraPosSomething: @ 0x08015E9C
 	push {r4, r5, lr}
@@ -1131,6 +1171,8 @@ _08015ED6:
 	pop {r4, r5}
 	pop {r1}
 	bx r1
+
+	THUMB_FUNC_END ShouldMoveCameraPosSomething
 
 	THUMB_FUNC_START sub_8015EDC
 sub_8015EDC: @ 0x08015EDC
@@ -1184,6 +1226,8 @@ _08015F34:
 	.align 2, 0
 _08015F3C: .4byte gUnknown_0202BCB0
 
+	THUMB_FUNC_END sub_8015EDC
+
 	THUMB_FUNC_START sub_8015F40
 sub_8015F40: @ 0x08015F40
 	push {r4, r5, r6, r7, lr}
@@ -1223,6 +1267,8 @@ _08015F88:
 	pop {r0}
 	bx r0
 
+	THUMB_FUNC_END sub_8015F40
+
 	THUMB_FUNC_START sub_8015F90
 sub_8015F90: @ 0x08015F90
 	push {r4, r5, r6, lr}
@@ -1251,6 +1297,8 @@ sub_8015F90: @ 0x08015F90
 	.align 2, 0
 _08015FC0: .4byte gUnknown_0859A570
 _08015FC4: .4byte gUnknown_0202BCB0
+
+	THUMB_FUNC_END sub_8015F90
 
 	THUMB_FUNC_START GetCurrentMapMusicIndex
 GetCurrentMapMusicIndex: @ 0x08015FC8
@@ -1385,6 +1433,8 @@ _080160C4:
 	.align 2, 0
 _080160CC: .4byte gUnknown_0202BCF0
 
+	THUMB_FUNC_END GetCurrentMapMusicIndex
+
 	THUMB_FUNC_START sub_80160D0
 sub_80160D0: @ 0x080160D0
 	push {lr}
@@ -1393,6 +1443,8 @@ sub_80160D0: @ 0x080160D0
 	bl Sound_PlaySong80024D4
 	pop {r0}
 	bx r0
+
+	THUMB_FUNC_END sub_80160D0
 
 	THUMB_FUNC_START sub_80160E0
 sub_80160E0: @ 0x080160E0
@@ -1440,9 +1492,13 @@ _0801612E:
 	.align 2, 0
 _08016138: .4byte gUnknown_0202BCB0
 
+	THUMB_FUNC_END sub_80160E0
+
 	THUMB_FUNC_START sub_801613C
 sub_801613C: @ 0x0801613C
 	bx lr
+
+	THUMB_FUNC_END sub_801613C
 
 	THUMB_FUNC_START sub_8016140
 sub_8016140: @ 0x08016140
@@ -1483,5 +1539,7 @@ _08016164:
 	.align 2, 0
 _08016184: .4byte gUnknown_0859A580
 _08016188: .4byte gUnknown_0202BCB0
+
+	THUMB_FUNC_END sub_8016140
 
 	.align 2, 0 @ Don't pad with nop.

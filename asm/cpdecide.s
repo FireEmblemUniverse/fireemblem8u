@@ -34,6 +34,8 @@ _08039AF0:
 	.align 2, 0
 _08039AFC: .4byte gActionData
 
+	THUMB_FUNC_END sub_8039AC8
+
 	THUMB_FUNC_START Call6C_E_CPDECIDE
 Call6C_E_CPDECIDE: @ 0x08039B00
 	push {r4, r5, r6, r7, lr}
@@ -154,6 +156,8 @@ _08039BFA:
 	pop {r0}
 	bx r0
 
+	THUMB_FUNC_END Call6C_E_CPDECIDE
+
 	THUMB_FUNC_START ClearSomeAIRelatedStruct
 ClearSomeAIRelatedStruct: @ 0x08039C00
 	ldr r1, _08039C1C  @ gUnknown_0203AA94
@@ -172,6 +176,8 @@ ClearSomeAIRelatedStruct: @ 0x08039C00
 	bx lr
 	.align 2, 0
 _08039C1C: .4byte gUnknown_0203AA94
+
+	THUMB_FUNC_END ClearSomeAIRelatedStruct
 
 	THUMB_FUNC_START sub_8039C20
 sub_8039C20: @ 0x08039C20
@@ -208,6 +214,8 @@ sub_8039C20: @ 0x08039C20
 	.align 2, 0
 _08039C5C: .4byte gUnknown_0203AA94
 _08039C60: .4byte gActiveUnitId
+
+	THUMB_FUNC_END sub_8039C20
 
 	THUMB_FUNC_START sub_8039C64
 sub_8039C64: @ 0x08039C64
@@ -251,6 +259,8 @@ _08039C9C:
 	bx r0
 	.align 2, 0
 _08039CA8: .4byte gUnknown_0203AA94
+
+	THUMB_FUNC_END sub_8039C64
 
 	THUMB_FUNC_START sub_8039CAC
 sub_8039CAC: @ 0x08039CAC
@@ -302,6 +312,8 @@ _08039CFC:
 _08039D04: .4byte gUnknown_085A7F9C
 _08039D08: .4byte gAiState
 _08039D0C: .4byte gUnknown_0203AA94
+
+	THUMB_FUNC_END sub_8039CAC
 
 	THUMB_FUNC_START sub_8039D10
 sub_8039D10: @ 0x08039D10
@@ -388,6 +400,8 @@ _08039DBC:
 	pop {r0}
 	bx r0
 
+	THUMB_FUNC_END sub_8039D10
+
 	THUMB_FUNC_START sub_8039DC4
 sub_8039DC4: @ 0x08039DC4
 	push {lr}
@@ -404,6 +418,8 @@ _08039DD8:
 	bx r0
 	.align 2, 0
 _08039DDC: .4byte gAiState
+
+	THUMB_FUNC_END sub_8039DC4
 
 	THUMB_FUNC_START sub_8039DE0
 sub_8039DE0: @ 0x08039DE0
@@ -443,6 +459,8 @@ _08039E26:
 	pop {r4}
 	pop {r0}
 	bx r0
+
+	THUMB_FUNC_END sub_8039DE0
 
 	THUMB_FUNC_START sub_8039E2C
 sub_8039E2C: @ 0x08039E2C
@@ -490,5 +508,7 @@ _08039E82:
 	pop {r4}
 	pop {r0}
 	bx r0
+
+	THUMB_FUNC_END sub_8039E2C
 
 .align 2, 0

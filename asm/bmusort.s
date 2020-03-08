@@ -19,6 +19,8 @@ _080316D4: .4byte gUnknown_0203A8E4
 _080316D8: .4byte gUnknown_0203A8E8
 _080316DC: .4byte gUnknown_0203A8EC
 
+	THUMB_FUNC_END InitUnitStack
+
 	THUMB_FUNC_START PushUnit
 PushUnit: @ 0x080316E0
 	push {r4, r5, r6, lr}
@@ -45,6 +47,8 @@ PushUnit: @ 0x080316E0
 	.align 2, 0
 _0803170C: .4byte gUnknown_0203A8E8
 _08031710: .4byte gUnknown_0203A8EC
+
+	THUMB_FUNC_END PushUnit
 
 	THUMB_FUNC_START LoadPlayerUnitsFromUnitStack
 LoadPlayerUnitsFromUnitStack: @ 0x08031714
@@ -77,6 +81,8 @@ _08031748: .4byte gUnitArrayBlue
 _0803174C: .4byte gUnknown_0203A8E4
 _08031750: .4byte gUnknown_0203A8E8
 
+	THUMB_FUNC_END LoadPlayerUnitsFromUnitStack
+
 	THUMB_FUNC_START LoadPlayerUnitsFromUnitStack2
 LoadPlayerUnitsFromUnitStack2: @ 0x08031754
 	push {r4, r5, lr}
@@ -107,5 +113,7 @@ _0803175A:
 _08031788: .4byte gUnitArrayBlue
 _0803178C: .4byte gUnknown_0203A8E4
 _08031790: .4byte gUnknown_0203A8E8
+
+	THUMB_FUNC_END LoadPlayerUnitsFromUnitStack2
 
 .align 2, 0

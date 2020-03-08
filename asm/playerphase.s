@@ -17,6 +17,8 @@ ClearActionAndSave: @ 0x0801C894
 	.align 2, 0
 _0801C8A8: .4byte gActionData
 
+	THUMB_FUNC_END ClearActionAndSave
+
 	THUMB_FUNC_START HandlePlayerCursorMovement
 HandlePlayerCursorMovement: @ 0x0801C8AC
 	push {lr}
@@ -75,6 +77,8 @@ _0801C91C: .4byte gUnknown_0202BCB0
 _0801C920: .4byte gKeyStatusPtr
 _0801C924: .4byte 0x0000FCF4
 
+	THUMB_FUNC_END HandlePlayerCursorMovement
+
 	THUMB_FUNC_START sub_801C928
 sub_801C928: @ 0x0801C928
 
@@ -95,6 +99,8 @@ _0801C93A:
 _0801C93C:
 	pop {r1}
 	bx r1
+
+	THUMB_FUNC_END sub_801C928
 
 	THUMB_FUNC_START PlayerPhase_MainLoop
 PlayerPhase_MainLoop: @ 0x0801C940
@@ -346,6 +352,8 @@ _0801CB64:
 	.align 2, 0
 _0801CB6C: .4byte gUnknown_0202BCB0
 
+	THUMB_FUNC_END PlayerPhase_MainLoop
+
 	THUMB_FUNC_START DisplayUnitEffectRange
 DisplayUnitEffectRange: @ 0x0801CB70
 	push {r4, r5, r6, lr}
@@ -426,6 +434,8 @@ _0801CC10:
 	pop {r0}
 	bx r0
 
+	THUMB_FUNC_END DisplayUnitEffectRange
+
 	THUMB_FUNC_START sub_801CC1C
 sub_801CC1C: @ 0x0801CC1C
 	push {r4, r5, lr}
@@ -473,6 +483,8 @@ _0801CC76:
 	pop {r0}
 	bx r0
 
+	THUMB_FUNC_END sub_801CC1C
+
 	THUMB_FUNC_START DisplayActiveUnitEffectRange
 DisplayActiveUnitEffectRange: @ 0x0801CC7C
 	push {lr}
@@ -499,6 +511,8 @@ _0801CC90:
 _0801CCA8: .4byte gUnknown_0202BCF0
 _0801CCAC: .4byte gUnknown_0202BCB0
 _0801CCB0: .4byte gActiveUnit
+
+	THUMB_FUNC_END DisplayActiveUnitEffectRange
 
 	THUMB_FUNC_START sub_801CCB4
 sub_801CCB4: @ 0x0801CCB4
@@ -553,6 +567,8 @@ _0801CD16:
 	pop {r4, r5, r6}
 	pop {r0}
 	bx r0
+
+	THUMB_FUNC_END sub_801CCB4
 
 	THUMB_FUNC_START sub_801CD1C
 sub_801CD1C: @ 0x0801CD1C
@@ -886,6 +902,8 @@ _0801CFE0:
 _0801CFE8: .4byte gActiveUnit
 _0801CFEC: .4byte gUnknown_0202BCB0
 
+	THUMB_FUNC_END sub_801CD1C
+
 	THUMB_FUNC_START sub_801CFF0
 sub_801CFF0: @ 0x0801CFF0
 
@@ -901,6 +919,8 @@ sub_801CFF0: @ 0x0801CFF0
 	bx r0
 	.align 2, 0
 _0801D004: .4byte gActionData
+
+	THUMB_FUNC_END sub_801CFF0
 
 	THUMB_FUNC_START sub_801D008
 sub_801D008: @ 0x0801D008
@@ -955,6 +975,8 @@ _0801D05E:
 	bx r0
 	.align 2, 0
 _0801D080: .4byte gActiveUnit
+
+	THUMB_FUNC_END sub_801D008
 
 	THUMB_FUNC_START _6CE_PLAYERPAHSE_PrepareAction
 _6CE_PLAYERPAHSE_PrepareAction: @ 0x0801D084
@@ -1144,6 +1166,8 @@ _0801D234:
 _0801D23C: .4byte gActionData
 _0801D240: .4byte gUnknown_0202BCB0
 
+	THUMB_FUNC_END _6CE_PLAYERPAHSE_PrepareAction
+
 	THUMB_FUNC_START TryMakeCantoUnit
 TryMakeCantoUnit: @ 0x0801D244
 	push {r4, r5, lr}
@@ -1235,6 +1259,8 @@ _0801D2FA:
 	pop {r1}
 	bx r1
 
+	THUMB_FUNC_END TryMakeCantoUnit
+
 	THUMB_FUNC_START RunPotentialWaitEvents
 RunPotentialWaitEvents: @ 0x0801D300
 	push {lr}
@@ -1250,6 +1276,8 @@ _0801D310:
 _0801D316:
 	pop {r1}
 	bx r1
+
+	THUMB_FUNC_END RunPotentialWaitEvents
 
 	THUMB_FUNC_START EnsureCameraOntoActiveUnitPosition
 EnsureCameraOntoActiveUnitPosition: @ 0x0801D31C
@@ -1273,6 +1301,8 @@ _0801D33A:
 	bx r1
 	.align 2, 0
 _0801D340: .4byte gActiveUnit
+
+	THUMB_FUNC_END EnsureCameraOntoActiveUnitPosition
 
 	THUMB_FUNC_START sub_801D344
 sub_801D344: @ 0x0801D344
@@ -1352,6 +1382,8 @@ _0801D3FC:
 	pop {r0}
 	bx r0
 
+	THUMB_FUNC_END sub_801D344
+
 	THUMB_FUNC_START sub_801D404
 sub_801D404: @ 0x0801D404
 	push {lr}
@@ -1373,6 +1405,8 @@ _0801D428:
 	.align 2, 0
 _0801D42C: .4byte gUnknown_0202BCF0
 _0801D430: .4byte gActionData
+
+	THUMB_FUNC_END sub_801D404
 
 	THUMB_FUNC_START sub_801D434
 sub_801D434: @ 0x0801D434
@@ -1402,6 +1436,8 @@ _0801D456:
 _0801D464: .4byte gActionData
 _0801D468: .4byte gUnknown_0859D1F0
 _0801D46C: .4byte gUnknown_0202BCB0
+
+	THUMB_FUNC_END sub_801D434
 
 	THUMB_FUNC_START PlayerPhase_ApplyUnitMovement
 PlayerPhase_ApplyUnitMovement: @ 0x0801D470
@@ -1483,6 +1519,8 @@ _0801D510: .4byte gActionData
 _0801D514: .4byte gUnknown_0859D1F0
 _0801D518: .4byte gUnknown_0202BCB0
 
+	THUMB_FUNC_END PlayerPhase_ApplyUnitMovement
+
 	THUMB_FUNC_START GetUnitSelectionValueThing
 GetUnitSelectionValueThing: @ 0x0801D51C
 	push {r4, lr}
@@ -1560,6 +1598,8 @@ _0801D5A0:
 	pop {r1}
 	bx r1
 
+	THUMB_FUNC_END GetUnitSelectionValueThing
+
 	THUMB_FUNC_START sub_801D5A8
 sub_801D5A8: @ 0x0801D5A8
 	push {r4, r5, lr}
@@ -1624,6 +1664,8 @@ _0801D61E:
 	pop {r1}
 	bx r1
 
+	THUMB_FUNC_END sub_801D5A8
+
 	THUMB_FUNC_START sub_801D624
 sub_801D624: @ 0x0801D624
 	push {lr}
@@ -1643,6 +1685,8 @@ sub_801D624: @ 0x0801D624
 _0801D644: .4byte gActiveUnit
 _0801D648: .4byte gWorkingMovementScript
 
+	THUMB_FUNC_END sub_801D624
+
 	THUMB_FUNC_START PlayerPhase_WaitForUnitMovement
 PlayerPhase_WaitForUnitMovement: @ 0x0801D64C
 	push {r4, lr}
@@ -1657,6 +1701,8 @@ _0801D660:
 	pop {r4}
 	pop {r0}
 	bx r0
+
+	THUMB_FUNC_END PlayerPhase_WaitForUnitMovement
 
 	THUMB_FUNC_START sub_801D668
 sub_801D668: @ 0x0801D668
@@ -1731,6 +1777,8 @@ _0801D6F4:
 	pop {r0}
 	bx r0
 
+	THUMB_FUNC_END sub_801D668
+
 	THUMB_FUNC_START sub_801D6FC
 sub_801D6FC: @ 0x0801D6FC
 	push {lr}
@@ -1738,6 +1786,8 @@ sub_801D6FC: @ 0x0801D6FC
 	bl SetDefaultColorEffects
 	pop {r0}
 	bx r0
+
+	THUMB_FUNC_END sub_801D6FC
 
 	THUMB_FUNC_START MakeMoveunitForActiveUnit
 MakeMoveunitForActiveUnit: @ 0x0801D70C
@@ -1777,6 +1827,8 @@ _0801D74A:
 	.align 2, 0
 _0801D754: .4byte gActiveUnit
 _0801D758: .4byte gUnknown_0202BCF0
+
+	THUMB_FUNC_END MakeMoveunitForActiveUnit
 
 	THUMB_FUNC_START ClearActiveUnit
 ClearActiveUnit: @ 0x0801D75C
@@ -1840,6 +1892,8 @@ _0801D7DC: .4byte gActiveUnit
 _0801D7E0: .4byte gUnknown_0202BCB0
 _0801D7E4: .4byte gActiveUnitMoveOrigin
 
+	THUMB_FUNC_END ClearActiveUnit
+
 	THUMB_FUNC_START sub_801D7E8
 sub_801D7E8: @ 0x0801D7E8
 	push {lr}
@@ -1863,6 +1917,8 @@ _0801D80C: .4byte gUnknown_0859AAD8
 _0801D810: .4byte sub_801CD1C
 _0801D814: .4byte sub_801D818
 
+	THUMB_FUNC_END sub_801D7E8
+
 	THUMB_FUNC_START sub_801D818
 sub_801D818: @ 0x0801D818
 	push {lr}
@@ -1877,6 +1933,8 @@ sub_801D818: @ 0x0801D818
 	bx r0
 	.align 2, 0
 _0801D830: .4byte gKeyStatusPtr
+
+	THUMB_FUNC_END sub_801D818
 
 	THUMB_FUNC_START sub_801D834
 sub_801D834: @ 0x0801D834
@@ -1930,6 +1988,8 @@ _0801D890: .4byte gActiveUnit
 _0801D894: .4byte 0x00010044
 _0801D898: .4byte gActionData
 
+	THUMB_FUNC_END sub_801D834
+
 	THUMB_FUNC_START Load6CRangeDisplaySquareGfx
 Load6CRangeDisplaySquareGfx: @ 0x0801D89C
 	push {r4, r5, lr}
@@ -1968,6 +2028,8 @@ _0801D8E0:
 	.align 2, 0
 _0801D8E8: .4byte 0x06005000
 
+	THUMB_FUNC_END Load6CRangeDisplaySquareGfx
+
 	THUMB_FUNC_START Loop6C_MLVCHC
 Loop6C_MLVCHC: @ 0x0801D8EC
 	push {r4, r5, lr}
@@ -1999,6 +2061,8 @@ _0801D91C:
 	.align 2, 0
 _0801D924: .4byte gUnknown_0859AD08
 _0801D928: .4byte 0x06005000
+
+	THUMB_FUNC_END Loop6C_MLVCHC
 
 	THUMB_FUNC_START Setup6CRangeDisplayGfx
 Setup6CRangeDisplayGfx: @ 0x0801D92C
@@ -2081,6 +2145,8 @@ _0801D9D0: .4byte gLCDControlBuffer
 _0801D9D4: .4byte gUnknown_0202BCB0
 _0801D9D8: .4byte gBG2TilemapBuffer
 
+	THUMB_FUNC_END Setup6CRangeDisplayGfx
+
 	THUMB_FUNC_START Loop6C_MoveLimitView
 Loop6C_MoveLimitView: @ 0x0801D9DC
 	push {r4, r5, lr}
@@ -2146,6 +2212,8 @@ _0801DA54: .4byte gUnknown_08A02F34
 _0801DA58: .4byte gUnknown_08A02F94
 _0801DA5C: .4byte gUnknown_08A02FF4
 
+	THUMB_FUNC_END Loop6C_MoveLimitView
+
 	THUMB_FUNC_START DestructMoveLimitView
 DestructMoveLimitView: @ 0x0801DA60
 	push {lr}
@@ -2173,6 +2241,8 @@ _0801DA7C:
 _0801DA90: .4byte gBG2TilemapBuffer
 _0801DA94: .4byte gUnknown_0202BCB0
 
+	THUMB_FUNC_END DestructMoveLimitView
+
 	THUMB_FUNC_START DisplayMoveRangeGraphics
 DisplayMoveRangeGraphics: @ 0x0801DA98
 	push {r4, r5, lr}
@@ -2199,6 +2269,8 @@ _0801DAC4:
 	pop {r0}
 	bx r0
 
+	THUMB_FUNC_END DisplayMoveRangeGraphics
+
 	THUMB_FUNC_START HideMoveRangeGraphics
 HideMoveRangeGraphics: @ 0x0801DACC
 	push {lr}
@@ -2208,6 +2280,8 @@ HideMoveRangeGraphics: @ 0x0801DACC
 	bx r0
 	.align 2, 0
 _0801DAD8: .4byte gUnknown_0859AD50
+
+	THUMB_FUNC_END HideMoveRangeGraphics
 
 	THUMB_FUNC_START sub_801DADC
 sub_801DADC: @ 0x0801DADC
@@ -2265,6 +2339,8 @@ _0801DB3E:
 _0801DB44: .4byte gUnknown_0859AAD8
 _0801DB48: .4byte gUnknown_0859DBBC
 
+	THUMB_FUNC_END sub_801DADC
+
 	THUMB_FUNC_START sub_801DB4C
 sub_801DB4C: @ 0x0801DB4C
 	push {r4, r5, lr}
@@ -2314,6 +2390,8 @@ _0801DB98:
 	.align 2, 0
 _0801DBA0: .4byte gBmMapUnit
 
+	THUMB_FUNC_END sub_801DB4C
+
 	THUMB_FUNC_START Goto3IfPhaseHasNoAbleUnits
 Goto3IfPhaseHasNoAbleUnits: @ 0x0801DBA4
 	push {r4, lr}
@@ -2340,4 +2418,6 @@ _0801DBC8:
 _0801DBD0: .4byte gUnknown_0202BCF0
 
 @ align with 0 (not nop)
+	THUMB_FUNC_END Goto3IfPhaseHasNoAbleUnits
+
 .align 2, 0

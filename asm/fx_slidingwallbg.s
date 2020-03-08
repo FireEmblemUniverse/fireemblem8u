@@ -12,6 +12,8 @@ sub_8086B74: @ 0x08086B74
 	strh r1, [r0]
 	bx lr
 
+	THUMB_FUNC_END sub_8086B74
+
 	THUMB_FUNC_START sub_8086B7C
 sub_8086B7C: @ 0x08086B7C
 	push {r4, lr}
@@ -45,6 +47,8 @@ _08086BA8:
 	bx r0
 	.align 2, 0
 _08086BB4: .4byte 0x0400001C
+
+	THUMB_FUNC_END sub_8086B7C
 
 	THUMB_FUNC_START sub_8086BB8
 sub_8086BB8: @ 0x08086BB8
@@ -119,6 +123,8 @@ _08086C44: .4byte gUnknown_08B12DB4
 _08086C48: .4byte 0x0000027F
 _08086C4C: .4byte gUnknown_08A006E4
 
+	THUMB_FUNC_END sub_8086BB8
+
 	THUMB_FUNC_START sub_8086C50
 sub_8086C50: @ 0x08086C50
 	push {r4, r5, r6, r7, lr}
@@ -192,6 +198,8 @@ _08086CD8: .4byte gUnknown_08B1754C
 _08086CDC: .4byte gUnknown_08B12DB4
 _08086CE0: .4byte 0x0000027F
 _08086CE4: .4byte gUnknown_08A006E4
+
+	THUMB_FUNC_END sub_8086C50
 
 	THUMB_FUNC_START sub_8086CE8
 sub_8086CE8: @ 0x08086CE8
@@ -298,6 +306,8 @@ _08086DB0: .4byte gUnknown_08B12DB4
 _08086DB4: .4byte 0x0000027F
 _08086DB8: .4byte gUnknown_08A006E4
 
+	THUMB_FUNC_END sub_8086CE8
+
 	THUMB_FUNC_START EndBG3Slider
 EndBG3Slider: @ 0x08086DBC
 	push {lr}
@@ -307,5 +317,7 @@ EndBG3Slider: @ 0x08086DBC
 	bx r0
 	.align 2, 0
 _08086DC8: .4byte gUnknown_08A006E4
+
+	THUMB_FUNC_END EndBG3Slider
 
 .align 2, 0

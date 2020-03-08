@@ -84,6 +84,11 @@ clean:
 	# Remove battle animation binaries
 	$(RM) data/banim/*.bin data/banim/*.o data/banim/*.lz data/banim/*.bak
 
+tag:
+	gtags
+	ctags -R
+	cscope -Rbkq
+
 # Graphics Recipes
 
 include graphics_file_rules.mk
@@ -150,7 +155,7 @@ $(C_OBJECTS): %.o: %.c $(DEPS_DIR)/%.d
 ifeq ($(UNAME),Darwin)
 	$(SED) -f scripts/align_2_before_debug_section_for_osx.sed $*.s
 else
-	$(SED) '/.section	.debug_/i\.align 2, 0' $*.s
+	$(SED) '/.section	.debug_line/i\.align 2, 0' $*.s
 endif
 	$(AS) $(ASFLAGS) $*.s -o $@
 

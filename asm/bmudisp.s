@@ -14,6 +14,8 @@ sub_8026618: @ 0x08026618
 	.align 2, 0
 _08026624: .4byte gUnknown_0203A4CC
 
+	THUMB_FUNC_END sub_8026618
+
 	THUMB_FUNC_START SetupMapSpritesPalettes
 SetupMapSpritesPalettes: @ 0x08026628
 	push {lr}
@@ -50,6 +52,8 @@ _08026668:
 	.align 2, 0
 _0802666C: .4byte gUnknown_0859EEC0
 
+	THUMB_FUNC_END SetupMapSpritesPalettes
+
 	THUMB_FUNC_START sub_8026670
 sub_8026670: @ 0x08026670
 	push {lr}
@@ -62,6 +66,8 @@ sub_8026670: @ 0x08026670
 	bx r0
 	.align 2, 0
 _08026684: .4byte gUnknown_0859EEE0
+
+	THUMB_FUNC_END sub_8026670
 
 	THUMB_FUNC_START SMS_ClearUsageTable
 SMS_ClearUsageTable: @ 0x08026688
@@ -91,6 +97,8 @@ _080266B0: .4byte gUnknown_0203A014
 _080266B4: .4byte gUnknown_0203A010
 _080266B8: .4byte gUnknown_02033F40
 
+	THUMB_FUNC_END SMS_ClearUsageTable
+
 	THUMB_FUNC_START sub_80266BC
 sub_80266BC: @ 0x080266BC
 	push {r4, r5, r6, lr}
@@ -118,6 +126,8 @@ _080266C8:
 _080266E4: .4byte gUnknown_0203A014
 _080266E8: .4byte gUnknown_0203A010
 _080266EC: .4byte gUnknown_02033F40
+
+	THUMB_FUNC_END sub_80266BC
 
 	THUMB_FUNC_START SMS_80266F0
 SMS_80266F0: @ 0x080266F0
@@ -192,6 +202,8 @@ _08026766:
 	.align 2, 0
 _08026778: .4byte gUnknown_02033F40
 
+	THUMB_FUNC_END SMS_80266F0
+
 	THUMB_FUNC_START SMS_SomethingGmapUnit
 SMS_SomethingGmapUnit: @ 0x0802677C
 	push {r4, r5, r6, r7, lr}
@@ -259,6 +271,8 @@ _080267E6:
 	bx r1
 	.align 2, 0
 _080267F8: .4byte gUnknown_02033F40
+
+	THUMB_FUNC_END SMS_SomethingGmapUnit
 
 	THUMB_FUNC_START SMS_RegisterUsage
 SMS_RegisterUsage: @ 0x080267FC
@@ -363,6 +377,8 @@ _080268BC: .4byte gUnknown_0203A014
 _080268C0: .4byte gUnknown_0203A4CC
 _080268C4: .4byte gUnknown_02033F40
 
+	THUMB_FUNC_END SMS_RegisterUsage
+
 	THUMB_FUNC_START SomethingSMS_16x16_0
 SomethingSMS_16x16_0: @ 0x080268C8
 	push {r4, r5, r6, r7, lr}
@@ -435,6 +451,8 @@ _08026902:
 _08026950: .4byte gUnknown_0859B67C
 _08026954: .4byte gUnknown_0859B668
 _08026958: .4byte gUnknown_02034010
+
+	THUMB_FUNC_END SomethingSMS_16x16_0
 
 	THUMB_FUNC_START SomethingSMS_16x16
 SomethingSMS_16x16: @ 0x0802695C
@@ -541,6 +559,8 @@ _08026A28: .4byte gUnknown_0859B67C
 _08026A2C: .4byte gUnknown_02034010
 _08026A30: .4byte 0x01000010
 _08026A34: .4byte gUnknown_0859B668
+
+	THUMB_FUNC_END SomethingSMS_16x16
 
 	THUMB_FUNC_START SomethingSMS_16x32
 SomethingSMS_16x32: @ 0x08026A38
@@ -658,6 +678,8 @@ _08026A7E:
 _08026B1C: .4byte gUnknown_0859B67C
 _08026B20: .4byte gUnknown_0859B668
 _08026B24: .4byte gUnknown_02034010
+
+	THUMB_FUNC_END SomethingSMS_16x32
 
 	THUMB_FUNC_START SomethingSMS_32x32
 SomethingSMS_32x32: @ 0x08026B28
@@ -777,6 +799,8 @@ _08026B72:
 _08026C10: .4byte gUnknown_0859B67C
 _08026C14: .4byte gUnknown_0859B668
 _08026C18: .4byte gUnknown_02034010
+
+	THUMB_FUNC_END SomethingSMS_32x32
 
 	THUMB_FUNC_START sub_8026C1C
 sub_8026C1C: @ 0x08026C1C
@@ -1164,6 +1188,8 @@ _08026F20: .4byte 0x06011800
 _08026F24: .4byte 0x06011C00
 _08026F28: .4byte gUnknown_02033F40
 
+	THUMB_FUNC_END sub_8026C1C
+
 	THUMB_FUNC_START SMS_FlushDirect
 SMS_FlushDirect: @ 0x08026F2C
 	push {r4, r5, lr}
@@ -1213,6 +1239,8 @@ _08026F88: .4byte 0x06011000
 _08026F8C: .4byte gUnknown_02036010
 _08026F90: .4byte gUnknown_02038010
 
+	THUMB_FUNC_END SMS_FlushDirect
+
 	THUMB_FUNC_START SMS_FlushIndirect
 SMS_FlushIndirect: @ 0x08026F94
 	push {lr}
@@ -1260,6 +1288,8 @@ _08026FE8:
 	.align 2, 0
 _08026FEC: .4byte gUnknown_02034010
 _08026FF0: .4byte 0x06011000
+
+	THUMB_FUNC_END SMS_FlushIndirect
 
 	THUMB_FUNC_START sub_8026FF4
 sub_8026FF4: @ 0x08026FF4
@@ -1320,6 +1350,8 @@ _08027058: .4byte gUnknown_02034010
 _0802705C: .4byte gUnknown_02036010
 _08027060: .4byte gUnknown_02038010
 _08027064: .4byte gUnknown_0859B66C
+
+	THUMB_FUNC_END sub_8026FF4
 
 	THUMB_FUNC_START sub_8027068
 sub_8027068: @ 0x08027068
@@ -1384,6 +1416,8 @@ _080270CE:
 _080270D4: .4byte gUnknown_02034010
 _080270D8: .4byte gUnknown_0859B66C
 
+	THUMB_FUNC_END sub_8027068
+
 	THUMB_FUNC_START sub_80270DC
 sub_80270DC: @ 0x080270DC
 	push {r4, r5, r6, r7, lr}
@@ -1437,6 +1471,8 @@ _08027130:
 	.align 2, 0
 _08027138: .4byte gUnknown_02034010
 
+	THUMB_FUNC_END sub_80270DC
+
 	THUMB_FUNC_START GetUnitSpritePaletteIndexWrapper
 GetUnitSpritePaletteIndexWrapper: @ 0x0802713C
 	push {lr}
@@ -1462,6 +1498,8 @@ _08027160:
 _08027162:
 	pop {r1}
 	bx r1
+
+	THUMB_FUNC_END GetUnitSpritePaletteIndexWrapper
 
 	THUMB_FUNC_START GetUnitMapSpritePaletteIndex
 GetUnitMapSpritePaletteIndex: @ 0x08027168
@@ -1498,6 +1536,8 @@ _08027198:
 _0802719A:
 	pop {r1}
 	bx r1
+
+	THUMB_FUNC_END GetUnitMapSpritePaletteIndex
 
 	THUMB_FUNC_START SMS_UpdateFromGameData
 SMS_UpdateFromGameData: @ 0x080271A0
@@ -1729,6 +1769,8 @@ _08027358:
 _08027364: .4byte 0xFFFFB080
 _08027368: .4byte gUnknown_0203A4CC
 
+	THUMB_FUNC_END SMS_UpdateFromGameData
+
 	THUMB_FUNC_START SMS_GetNewInfoStruct
 SMS_GetNewInfoStruct: @ 0x0802736C
 	push {r4, r5, lr}
@@ -1758,6 +1800,8 @@ _08027390:
 	pop {r4, r5}
 	pop {r1}
 	bx r1
+
+	THUMB_FUNC_END SMS_GetNewInfoStruct
 
 	THUMB_FUNC_START SMS_DisplayAllFromInfoStructs
 SMS_DisplayAllFromInfoStructs: @ 0x080273A4
@@ -1962,6 +2006,8 @@ _08027526:
 	.align 2, 0
 _0802752C: .4byte gObject_32x32
 
+	THUMB_FUNC_END SMS_DisplayAllFromInfoStructs
+
 	THUMB_FUNC_START DisplayChapterTileMarker
 DisplayChapterTileMarker: @ 0x08027530
 	push {r4, r5, lr}
@@ -2048,6 +2094,8 @@ _080275D8: .4byte gUnknown_0202BCB0
 _080275DC: .4byte 0x00000107
 _080275E0: .4byte gObject_8x8
 _080275E4: .4byte 0x00000C51
+
+	THUMB_FUNC_END DisplayChapterTileMarker
 
 	THUMB_FUNC_START DisplayUnitAdditionalBlinkingIcons
 DisplayUnitAdditionalBlinkingIcons: @ 0x080275E8
@@ -2574,6 +2622,8 @@ _08027A24: .4byte 0x00000107
 _08027A28: .4byte gObject_8x8
 _08027A2C: .4byte 0x00000811
 
+	THUMB_FUNC_END DisplayUnitAdditionalBlinkingIcons
+
 	THUMB_FUNC_START sub_8027A30
 sub_8027A30: @ 0x08027A30
 	ldr r1, _08027A38  @ gUnknown_0202BCB0
@@ -2584,6 +2634,8 @@ sub_8027A30: @ 0x08027A30
 _08027A38: .4byte gUnknown_0202BCB0
 _08027A3C: .4byte 0x0000FFFF
 
+	THUMB_FUNC_END sub_8027A30
+
 	THUMB_FUNC_START sub_8027A40
 sub_8027A40: @ 0x08027A40
 	ldr r1, _08027A48  @ gUnknown_0203A4D0
@@ -2592,6 +2644,8 @@ sub_8027A40: @ 0x08027A40
 	bx lr
 	.align 2, 0
 _08027A48: .4byte gUnknown_0203A4D0
+
+	THUMB_FUNC_END sub_8027A40
 
 	THUMB_FUNC_START sub_8027A4C
 sub_8027A4C: @ 0x08027A4C
@@ -2683,6 +2737,8 @@ _08027B00: .4byte gUnknown_0202BCB0
 _08027B04: .4byte gUnknown_0203A4D0
 _08027B08: .4byte gBmMapUnit
 
+	THUMB_FUNC_END sub_8027A4C
+
 	THUMB_FUNC_START sub_8027B0C
 sub_8027B0C: @ 0x08027B0C
 	push {lr}
@@ -2726,6 +2782,8 @@ _08027B58:
 _08027B5A:
 	pop {r1}
 	bx r1
+
+	THUMB_FUNC_END sub_8027B0C
 
 	THUMB_FUNC_START sub_8027B60
 sub_8027B60: @ 0x08027B60
@@ -2840,6 +2898,8 @@ _08027C36:
 	.align 2, 0
 _08027C44: .4byte gObject_32x32
 
+	THUMB_FUNC_END sub_8027B60
+
 	THUMB_FUNC_START sub_8027C48
 sub_8027C48: @ 0x08027C48
 	push {r4, r5, r6, r7, lr}
@@ -2931,6 +2991,8 @@ _08027CE8:
 	bx r0
 	.align 2, 0
 _08027CF8: .4byte gObject_32x32
+
+	THUMB_FUNC_END sub_8027C48
 
 	THUMB_FUNC_START sub_8027CFC
 sub_8027CFC: @ 0x08027CFC
@@ -3028,6 +3090,8 @@ _08027DA0:
 _08027DAC: .4byte 0x000001FF
 _08027DB0: .4byte gObject_32x32
 
+	THUMB_FUNC_END sub_8027CFC
+
 	THUMB_FUNC_START sub_8027DB4
 sub_8027DB4: @ 0x08027DB4
 	push {r4, r5, r6, r7, lr}
@@ -3105,6 +3169,8 @@ _08027E3C:
 	bx r0
 	.align 2, 0
 _08027E48: .4byte gObject_32x32
+
+	THUMB_FUNC_END sub_8027DB4
 
 	THUMB_FUNC_START sub_8027E4C
 sub_8027E4C: @ 0x08027E4C
@@ -3213,6 +3279,8 @@ _08027F16:
 	bx r0
 	.align 2, 0
 _08027F24: .4byte gObject_32x32
+
+	THUMB_FUNC_END sub_8027E4C
 
 	THUMB_FUNC_START SMS_DisplayOne
 SMS_DisplayOne: @ 0x08027F28
@@ -3336,6 +3404,8 @@ _08027FFE:
 _0802800C: .4byte 0x000001FF
 _08028010: .4byte gObject_32x32
 
+	THUMB_FUNC_END SMS_DisplayOne
+
 	THUMB_FUNC_START sub_8028014
 sub_8028014: @ 0x08028014
 	push {r4, r5, r6, r7, lr}
@@ -3449,6 +3519,8 @@ _080280E8:
 _080280F8: .4byte gUnknown_0859B986
 _080280FC: .4byte gUnknown_0859B99E
 
+	THUMB_FUNC_END sub_8028014
+
 	THUMB_FUNC_START sub_8028100
 sub_8028100: @ 0x08028100
 	ldr r1, _08028108  @ gUnknown_0203A018
@@ -3457,6 +3529,8 @@ sub_8028100: @ 0x08028100
 	bx lr
 	.align 2, 0
 _08028108: .4byte gUnknown_0203A018
+
+	THUMB_FUNC_END sub_8028100
 
 	THUMB_FUNC_START HideUnitSMS
 HideUnitSMS: @ 0x0802810C
@@ -3480,6 +3554,8 @@ _0802812A:
 	pop {r0}
 	bx r0
 
+	THUMB_FUNC_END HideUnitSMS
+
 	THUMB_FUNC_START ShowUnitSMS
 ShowUnitSMS: @ 0x08028130
 	push {lr}
@@ -3493,6 +3569,8 @@ ShowUnitSMS: @ 0x08028130
 _08028140:
 	pop {r0}
 	bx r0
+
+	THUMB_FUNC_END ShowUnitSMS
 
 	THUMB_FUNC_START GetUnitStandingSpriteDataFlagThing
 GetUnitStandingSpriteDataFlagThing: @ 0x08028144
@@ -3512,6 +3590,8 @@ _0802815A:
 _0802815C:
 	pop {r1}
 	bx r1
+
+	THUMB_FUNC_END GetUnitStandingSpriteDataFlagThing
 
 	THUMB_FUNC_START sub_8028160
 sub_8028160: @ 0x08028160
@@ -3571,5 +3651,7 @@ _080281B8:
 	bx r0
 	.align 2, 0
 _080281C4: .4byte gUnknown_0859B73C
+
+	THUMB_FUNC_END sub_8028160
 
 .align 2, 0

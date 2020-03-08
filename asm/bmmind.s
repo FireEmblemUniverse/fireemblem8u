@@ -14,6 +14,8 @@ StoreRNStateToActionStruct: @ 0x08031FEC
 	.align 2, 0
 _08031FF8: .4byte gActionData
 
+	THUMB_FUNC_END StoreRNStateToActionStruct
+
 	THUMB_FUNC_START LoadRNStateFromActionStruct
 LoadRNStateFromActionStruct: @ 0x08031FFC
 	push {lr}
@@ -23,6 +25,8 @@ LoadRNStateFromActionStruct: @ 0x08031FFC
 	bx r0
 	.align 2, 0
 _08032008: .4byte gActionData
+
+	THUMB_FUNC_END LoadRNStateFromActionStruct
 
 	THUMB_FUNC_START ApplyUnitAction
 ApplyUnitAction: @ 0x0803200C
@@ -169,6 +173,8 @@ _0803215E:
 	pop {r1}
 	bx r1
 
+	THUMB_FUNC_END ApplyUnitAction
+
 	THUMB_FUNC_START ActionRescue
 ActionRescue: @ 0x08032164
 	push {r4, r5, r6, lr}
@@ -207,6 +213,8 @@ ActionRescue: @ 0x08032164
 	.align 2, 0
 _080321B4: .4byte gActionData
 
+	THUMB_FUNC_END ActionRescue
+
 	THUMB_FUNC_START sub_80321B8
 sub_80321B8: @ 0x080321B8
 	push {lr}
@@ -217,6 +225,8 @@ sub_80321B8: @ 0x080321B8
 	pop {r1}
 	bx r1
 
+	THUMB_FUNC_END sub_80321B8
+
 	THUMB_FUNC_START sub_80321C8
 sub_80321C8: @ 0x080321C8
 	push {lr}
@@ -226,6 +236,8 @@ sub_80321C8: @ 0x080321C8
 	bl SMS_FlushIndirect
 	pop {r1}
 	bx r1
+
+	THUMB_FUNC_END sub_80321C8
 
 	THUMB_FUNC_START ActionDrop
 ActionDrop: @ 0x080321E0
@@ -292,6 +304,8 @@ _08032262:
 	.align 2, 0
 _0803226C: .4byte gWorkingMovementScript
 
+	THUMB_FUNC_END ActionDrop
+
 	THUMB_FUNC_START ActionVisitAndSieze
 ActionVisitAndSieze: @ 0x08032270
 	push {r4, r5, lr}
@@ -312,6 +326,8 @@ ActionVisitAndSieze: @ 0x08032270
 	bx r1
 	.align 2, 0
 _08032298: .4byte gActionData
+
+	THUMB_FUNC_END ActionVisitAndSieze
 
 	THUMB_FUNC_START ActionCombat
 ActionCombat: @ 0x0803229C
@@ -388,6 +404,8 @@ _08032330:
 	.align 2, 0
 _08032340: .4byte gUnknown_0859DABC
 
+	THUMB_FUNC_END ActionCombat
+
 	THUMB_FUNC_START ActionArena
 ActionArena: @ 0x08032344
 	push {lr}
@@ -399,6 +417,8 @@ ActionArena: @ 0x08032344
 	bx r1
 	.align 2, 0
 _08032354: .4byte gUnknown_0859DB24
+
+	THUMB_FUNC_END ActionArena
 
 	THUMB_FUNC_START ActionDance
 ActionDance: @ 0x08032358
@@ -434,6 +454,8 @@ _0803239C: .4byte gActionData
 _080323A0: .4byte 0xFFFFFBBD
 _080323A4: .4byte gBattleStats
 
+	THUMB_FUNC_END ActionDance
+
 	THUMB_FUNC_START ActionTalk
 ActionTalk: @ 0x080323A8
 	push {r4, r5, lr}
@@ -454,6 +476,8 @@ ActionTalk: @ 0x080323A8
 	bx r1
 	.align 2, 0
 _080323D0: .4byte gActionData
+
+	THUMB_FUNC_END ActionTalk
 
 	THUMB_FUNC_START ActionSupport
 ActionSupport: @ 0x080323D4
@@ -533,6 +557,8 @@ _08032464:
 	.align 2, 0
 _08032474: .4byte gActionData
 _08032478: .4byte gActiveUnit
+
+	THUMB_FUNC_END ActionSupport
 
 	THUMB_FUNC_START ActionSteal
 ActionSteal: @ 0x0803247C
@@ -630,6 +656,8 @@ _0803250A:
 _0803254C: .4byte gActionData
 _08032550: .4byte gBattleTarget
 
+	THUMB_FUNC_END ActionSteal
+
 	THUMB_FUNC_START ActionSummon
 ActionSummon: @ 0x08032554
 	push {r4, lr}
@@ -650,6 +678,8 @@ ActionSummon: @ 0x08032554
 _08032578: .4byte gBattleActor
 _0803257C: .4byte gActiveUnit
 
+	THUMB_FUNC_END ActionSummon
+
 	THUMB_FUNC_START ActionSummonDK
 ActionSummonDK: @ 0x08032580
 	push {r4, lr}
@@ -669,6 +699,8 @@ ActionSummonDK: @ 0x08032580
 	.align 2, 0
 _080325A4: .4byte gBattleActor
 _080325A8: .4byte gActiveUnit
+
+	THUMB_FUNC_END ActionSummonDK
 
 	THUMB_FUNC_START sub_80325AC
 sub_80325AC: @ 0x080325AC
@@ -755,6 +787,8 @@ _08032646:
 	.align 2, 0
 _08032654: .4byte gUnknown_0202BCB0
 
+	THUMB_FUNC_END sub_80325AC
+
 	THUMB_FUNC_START sub_8032658
 sub_8032658: @ 0x08032658
 	push {lr}
@@ -763,6 +797,8 @@ sub_8032658: @ 0x08032658
 	pop {r0}
 	bx r0
 
+	THUMB_FUNC_END sub_8032658
+
 	THUMB_FUNC_START sub_8032664
 sub_8032664: @ 0x08032664
 	push {lr}
@@ -770,6 +806,8 @@ sub_8032664: @ 0x08032664
 	bl SMS_UpdateFromGameData
 	pop {r0}
 	bx r0
+
+	THUMB_FUNC_END sub_8032664
 
 	THUMB_FUNC_START sub_8032674
 sub_8032674: @ 0x08032674
@@ -854,6 +892,8 @@ _0803271C: .4byte gUnknown_0859DA94
 _08032720: .4byte 0x0000FFFB
 _08032724: .4byte gUnknown_0202BCF0
 
+	THUMB_FUNC_END sub_8032674
+
 	THUMB_FUNC_START sub_8032728
 sub_8032728: @ 0x08032728
 	push {r4, r5, lr}
@@ -875,6 +915,8 @@ _0803274A:
 	pop {r0}
 	bx r0
 
+	THUMB_FUNC_END sub_8032728
+
 	THUMB_FUNC_START sub_8032750
 sub_8032750: @ 0x08032750
 	push {r4, lr}
@@ -893,6 +935,8 @@ _0803276E:
 	pop {r4}
 	pop {r0}
 	bx r0
+
+	THUMB_FUNC_END sub_8032750
 
 	THUMB_FUNC_START BATTLE_GOTO1_IfNobodyIsDead
 BATTLE_GOTO1_IfNobodyIsDead: @ 0x08032774
@@ -928,6 +972,8 @@ _080327A8: .4byte gBattleStats
 _080327AC: .4byte gBattleActor
 _080327B0: .4byte gBattleTarget
 
+	THUMB_FUNC_END BATTLE_GOTO1_IfNobodyIsDead
+
 	THUMB_FUNC_START DidUnitDie
 DidUnitDie: @ 0x080327B4
 	push {lr}
@@ -941,6 +987,8 @@ _080327C2:
 _080327C4:
 	pop {r1}
 	bx r1
+
+	THUMB_FUNC_END DidUnitDie
 
 	THUMB_FUNC_START BATTLE_ProbablyMakesTheDeadUnitDissapear
 BATTLE_ProbablyMakesTheDeadUnitDissapear: @ 0x080327C8
@@ -1008,6 +1056,8 @@ _08032854: .4byte gProcScr_MoveUnit
 _08032858: .4byte gBattleTarget
 _0803285C: .4byte gWorkingMovementScript
 
+	THUMB_FUNC_END BATTLE_ProbablyMakesTheDeadUnitDissapear
+
 	THUMB_FUNC_START BATTLE_DeleteLinkedMOVEUNIT
 BATTLE_DeleteLinkedMOVEUNIT: @ 0x08032860
 	push {lr}
@@ -1015,6 +1065,8 @@ BATTLE_DeleteLinkedMOVEUNIT: @ 0x08032860
 	bl MU_End
 	pop {r0}
 	bx r0
+
+	THUMB_FUNC_END BATTLE_DeleteLinkedMOVEUNIT
 
 	THUMB_FUNC_START sub_803286C
 sub_803286C: @ 0x0803286C
@@ -1047,6 +1099,8 @@ sub_803286C: @ 0x0803286C
 	pop {r0}
 	bx r0
 
+	THUMB_FUNC_END sub_803286C
+
 	THUMB_FUNC_START sub_80328B0
 sub_80328B0: @ 0x080328B0
 	push {r4, lr}
@@ -1063,6 +1117,8 @@ _080328CA:
 	pop {r4}
 	pop {r0}
 	bx r0
+
+	THUMB_FUNC_END sub_80328B0
 
 	THUMB_FUNC_START BATTLE_HandleItemDrop
 BATTLE_HandleItemDrop: @ 0x080328D0
@@ -1145,6 +1201,8 @@ _0803296A:
 	pop {r1}
 	bx r1
 
+	THUMB_FUNC_END BATTLE_HandleItemDrop
+
 	THUMB_FUNC_START sub_8032974
 sub_8032974: @ 0x08032974
 	push {lr}
@@ -1169,6 +1227,8 @@ _08032994:
 _08032998: .4byte gBattleTarget
 _0803299C: .4byte gBattleActor
 
+	THUMB_FUNC_END sub_8032974
+
 	THUMB_FUNC_START sub_80329A0
 sub_80329A0: @ 0x080329A0
 	push {r4, r5, lr}
@@ -1185,6 +1245,8 @@ sub_80329A0: @ 0x080329A0
 	.align 2, 0
 _080329BC: .4byte gActiveUnit
 
+	THUMB_FUNC_END sub_80329A0
+
 	THUMB_FUNC_START sub_80329C0
 sub_80329C0: @ 0x080329C0
 	push {r4, lr}
@@ -1198,5 +1260,7 @@ sub_80329C0: @ 0x080329C0
 	bx r1
 	.align 2, 0
 _080329D4: .4byte gUnknown_0203A974
+
+	THUMB_FUNC_END sub_80329C0
 
 .align 2, 0
