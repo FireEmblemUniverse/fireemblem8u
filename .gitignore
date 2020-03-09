@@ -920,3 +920,10 @@ healthchecksdb
 MigrationBackup/
 
 # End of https://www.gitignore.io/api/c,vim,tags,linux,macos,clion,emacs,python,windows,eclipse,assembler,visualstudio,visualstudiocode
+
+# Reverse engineering tool
+*.id?
+*.rd?
+*.gdt
+*.gpr
+*.rep

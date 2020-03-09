@@ -349,6 +349,20 @@ src/cable_car.o:(.text+0x0): first defined here
 Once you're done, you can delete `asm/cable_car.s`, and remove it from `ld_script.txt`.
 
 
+
+# Decompiling Rule
+
+* rule 1: when in doubt, scrub C
+* rule 2: never assume it won't get optimized out.
+* rule 3: when the answer is elusive, never rule out a typo.
+* rule 4: always be prepared to cram a square peg into a circle hole.
+* rule 5: if you still cant get it to match, its a combination that you think you tried before but you havent
+* rule 6: volatile is a dangerous magic sauce that may explode
+* rule 7: if you're afraid you need to use math, be
+* rule 8: if you think you understand the compiler, the compiler will tell you you don't
+* rule 10: rule 9 was optimized out
+
+
 # Resources Collection
 
 - [GitHub Help](https://help.github.com/en)
