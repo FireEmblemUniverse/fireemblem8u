@@ -246,6 +246,8 @@ SECTIONS
         . = ALIGN(4); src/bmunit.o(.data);
         . = ALIGN(4); src/bmmap.o(.data);
         . = ALIGN(4); data/data_59A9D8.o(.data);
+        . = ALIGN(4); src/bmdebug.o(.data);
+        . = ALIGN(4); data/data_59AA7C.o(.data);
         . = ALIGN(4); src/bmreliance.o(.data);
         . = ALIGN(4); data/data_59B9B8.o(.data);
         . = ALIGN(4); src/bmbattle.o(.data);
