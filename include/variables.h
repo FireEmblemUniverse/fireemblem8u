@@ -1341,8 +1341,6 @@ extern struct Glyph *gUnknown_08590B44[];
 // extern ??? gUnknown_0859160C
 // extern ??? gUnknown_08591624
 // extern ??? gUnknown_0859163C
-// extern ??? gUnknown_0859168C
-extern u8 gOAMTileSizeLookup[]; // May be local to ap.c? Or even AP_QueueObjGraphics specifically
 // u8 ??? gUnknown_085916D4
 extern const char *gUnknown_08591AA4[][2];
 //extern struct {u32 *unk0; u32 *unk4; u32 *unk8;} gUnknown_08591AA4;
