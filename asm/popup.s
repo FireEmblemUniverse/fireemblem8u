@@ -64,6 +64,8 @@ _08010E44: .4byte gUnknown_0895DD1C
 _08010E48: .4byte gBG3TilemapBuffer
 _08010E4C: .4byte gPaletteBuffer
 
+	THUMB_FUNC_END sub_8010DC0
+
 	THUMB_FUNC_START sub_8010E50
 sub_8010E50: @ 0x08010E50
 	push {lr}
@@ -76,6 +78,8 @@ sub_8010E50: @ 0x08010E50
 	bx r0
 	.align 2, 0
 _08010E68: .4byte gUnknown_08591154
+
+	THUMB_FUNC_END sub_8010E50
 
 	THUMB_FUNC_START sub_8010E6C
 sub_8010E6C: @ 0x08010E6C
@@ -139,6 +143,8 @@ _08010EE0:
 	pop {r1}
 	bx r1
 
+	THUMB_FUNC_END sub_8010E6C
+
 	THUMB_FUNC_START sub_8010EE8
 sub_8010EE8: @ 0x08010EE8
 	push {r4, r5, lr}
@@ -174,6 +180,8 @@ sub_8010EE8: @ 0x08010EE8
 _08010F2C: .4byte gUnknown_085A7EE8
 _08010F30: .4byte gUnknown_02022AE8
 _08010F34: .4byte 0xFFFFFDC0
+
+	THUMB_FUNC_END sub_8010EE8
 
 	THUMB_FUNC_START GetSomeLongPopupLength
 GetSomeLongPopupLength: @ 0x08010F38
@@ -321,6 +329,8 @@ _08011062:
 	pop {r1}
 	bx r1
 
+	THUMB_FUNC_END GetSomeLongPopupLength
+
 	THUMB_FUNC_START GenSomeLongPopupText
 GenSomeLongPopupText: @ 0x0801106C
 	push {r4, r5, lr}
@@ -441,6 +451,8 @@ _08011156:
 	pop {r0}
 	bx r0
 
+	THUMB_FUNC_END GenSomeLongPopupText
+
 	THUMB_FUNC_START sub_801116C
 sub_801116C: @ 0x0801116C
 	adds r2, r0, #0
@@ -466,6 +478,8 @@ sub_801116C: @ 0x0801116C
 	bx lr
 	.align 2, 0
 _08011198: .4byte 0x0000FFFF
+
+	THUMB_FUNC_END sub_801116C
 
 	THUMB_FUNC_START LongPopup_PrepareGfx
 LongPopup_PrepareGfx: @ 0x0801119C
@@ -506,6 +520,8 @@ LongPopup_PrepareGfx: @ 0x0801119C
 _080111EC: .4byte 0x06002000
 _080111F0: .4byte gLCDControlBuffer
 
+	THUMB_FUNC_END LongPopup_PrepareGfx
+
 	THUMB_FUNC_START sub_80111F4
 sub_80111F4: @ 0x080111F4
 	push {lr}
@@ -522,6 +538,8 @@ sub_80111F4: @ 0x080111F4
 _0801120C:
 	pop {r0}
 	bx r0
+
+	THUMB_FUNC_END sub_80111F4
 
 	THUMB_FUNC_START LongPopup_PlaySound
 LongPopup_PlaySound: @ 0x08011210
@@ -545,6 +563,8 @@ _0801122E:
 	.align 2, 0
 _08011234: .4byte gUnknown_0202BCF0
 
+	THUMB_FUNC_END LongPopup_PlaySound
+
 	THUMB_FUNC_START sub_8011238
 sub_8011238: @ 0x08011238
 	push {lr}
@@ -562,12 +582,14 @@ _08011250:
 	pop {r0}
 	bx r0
 
+	THUMB_FUNC_END sub_8011238
+
 	THUMB_FUNC_START IconOAMUpdater_Loop
 IconOAMUpdater_Loop: @ 0x08011254
 	push {r4, lr}
 	ldr r4, [r0, #0x2c]
 	ldr r1, [r0, #0x30]
-	ldr r2, _0801126C  @ gUnknown_08590F4C
+	ldr r2, _0801126C  @ gObject_16x16
 	adds r0, #0x4a
 	ldrh r3, [r0]
 	adds r0, r4, #0
@@ -576,7 +598,9 @@ IconOAMUpdater_Loop: @ 0x08011254
 	pop {r0}
 	bx r0
 	.align 2, 0
-_0801126C: .4byte gUnknown_08590F4C
+_0801126C: .4byte gObject_16x16
+
+	THUMB_FUNC_END IconOAMUpdater_Loop
 
 	THUMB_FUNC_START LongPopup_Draw
 LongPopup_Draw: @ 0x08011270
@@ -743,6 +767,8 @@ _080113B4: .4byte 0x0000FFFF
 _080113B8: .4byte gBG0TilemapBuffer
 _080113BC: .4byte gUnknown_08592228
 
+	THUMB_FUNC_END LongPopup_Draw
+
 	THUMB_FUNC_START LongPopup_WaitForPress
 LongPopup_WaitForPress: @ 0x080113C0
 	push {lr}
@@ -772,6 +798,8 @@ _080113E0:
 _080113F2:
 	pop {r0}
 	bx r0
+
+	THUMB_FUNC_END LongPopup_WaitForPress
 
 	THUMB_FUNC_START LongPopup_Clear
 LongPopup_Clear: @ 0x080113F8
@@ -816,6 +844,8 @@ LongPopup_Clear: @ 0x080113F8
 _08011448: .4byte gBG0TilemapBuffer
 _0801144C: .4byte gBG1TilemapBuffer
 
+	THUMB_FUNC_END LongPopup_Clear
+
 	THUMB_FUNC_START SetPopupUnit
 SetPopupUnit: @ 0x08011450
 	ldr r1, _08011458  @ gUnknown_030005F0
@@ -823,6 +853,8 @@ SetPopupUnit: @ 0x08011450
 	bx lr
 	.align 2, 0
 _08011458: .4byte gUnknown_030005F0
+
+	THUMB_FUNC_END SetPopupUnit
 
 	THUMB_FUNC_START SetPopupItem
 SetPopupItem: @ 0x0801145C
@@ -832,6 +864,8 @@ SetPopupItem: @ 0x0801145C
 	.align 2, 0
 _08011464: .4byte gUnknown_030005F4
 
+	THUMB_FUNC_END SetPopupItem
+
 	THUMB_FUNC_START SetPopupNumber
 SetPopupNumber: @ 0x08011468
 	ldr r1, _08011470  @ gUnknown_030005F8
@@ -839,6 +873,8 @@ SetPopupNumber: @ 0x08011468
 	bx lr
 	.align 2, 0
 _08011470: .4byte gUnknown_030005F8
+
+	THUMB_FUNC_END SetPopupNumber
 
 	THUMB_FUNC_START NewPopupSimple
 NewPopupSimple: @ 0x08011474
@@ -855,6 +891,8 @@ NewPopupSimple: @ 0x08011474
 	pop {r4, r5}
 	pop {r1}
 	bx r1
+
+	THUMB_FUNC_END NewPopupSimple
 
 	THUMB_FUNC_START NewPopup
 NewPopup: @ 0x08011490
@@ -896,6 +934,8 @@ _080114B4:
 	.align 2, 0
 _080114D8: .4byte gUnknown_085921C8
 
+	THUMB_FUNC_END NewPopup
+
 	THUMB_FUNC_START NewGotItemPopup
 NewGotItemPopup: @ 0x080114DC
 	push {r4, r5, lr}
@@ -932,6 +972,8 @@ _08011518:
 	.align 2, 0
 _08011520: .4byte gUnknown_08592288
 
+	THUMB_FUNC_END NewGotItemPopup
+
 	THUMB_FUNC_START ItemGot_DisplayLePopup
 ItemGot_DisplayLePopup: @ 0x08011524
 	push {lr}
@@ -943,6 +985,8 @@ ItemGot_DisplayLePopup: @ 0x08011524
 	bl NewGotItemPopup
 	pop {r0}
 	bx r0
+
+	THUMB_FUNC_END ItemGot_DisplayLePopup
 
 	THUMB_FUNC_START ItemGot_GotLeItem
 ItemGot_GotLeItem: @ 0x08011538
@@ -958,6 +1002,8 @@ ItemGot_GotLeItem: @ 0x08011538
 	pop {r4, r5}
 	pop {r0}
 	bx r0
+
+	THUMB_FUNC_END ItemGot_GotLeItem
 
 	THUMB_FUNC_START NewItemGot
 NewItemGot: @ 0x08011554
@@ -999,6 +1045,8 @@ _08011592:
 	.align 2, 0
 _08011598: .4byte gUnknown_085922D0
 
+	THUMB_FUNC_END NewItemGot
+
 	THUMB_FUNC_START NewGeneralItemGot
 NewGeneralItemGot: @ 0x0801159C
 	push {r4, r5, lr}
@@ -1032,6 +1080,8 @@ _080115D4:
 	pop {r4, r5}
 	pop {r0}
 	bx r0
+
+	THUMB_FUNC_END NewGeneralItemGot
 
 	THUMB_FUNC_START sub_80115DC
 sub_80115DC: @ 0x080115DC
@@ -1069,6 +1119,8 @@ _08011618:
 	.align 2, 0
 _08011620: .4byte gUnknown_08592348
 
+	THUMB_FUNC_END sub_80115DC
+
 	THUMB_FUNC_START sub_8011624
 sub_8011624: @ 0x08011624
 	push {r4, lr}
@@ -1084,6 +1136,8 @@ sub_8011624: @ 0x08011624
 	bx r0
 	.align 2, 0
 _08011640: .4byte gUnknown_08592300
+
+	THUMB_FUNC_END sub_8011624
 
 	THUMB_FUNC_START NewGoldGotPopup
 NewGoldGotPopup: @ 0x08011644
@@ -1124,6 +1178,8 @@ _08011688:
 	.align 2, 0
 _08011690: .4byte gUnknown_08592348
 
+	THUMB_FUNC_END NewGoldGotPopup
+
 	THUMB_FUNC_START sub_8011694
 sub_8011694: @ 0x08011694
 	push {r4, lr}
@@ -1162,6 +1218,8 @@ _080116D4:
 	.align 2, 0
 _080116DC: .4byte gUnknown_085923D8
 
+	THUMB_FUNC_END sub_8011694
+
 	THUMB_FUNC_START NewPopup_WeaponBroke
 NewPopup_WeaponBroke: @ 0x080116E0
 	push {r4, lr}
@@ -1179,6 +1237,8 @@ NewPopup_WeaponBroke: @ 0x080116E0
 	bx r0
 	.align 2, 0
 _08011700: .4byte gUnknown_08592420
+
+	THUMB_FUNC_END NewPopup_WeaponBroke
 
 	THUMB_FUNC_START NewPopup_WRankIncrease
 NewPopup_WRankIncrease: @ 0x08011704
@@ -1198,6 +1258,8 @@ NewPopup_WRankIncrease: @ 0x08011704
 	.align 2, 0
 _08011724: .4byte gUnknown_08592468
 
+	THUMB_FUNC_END NewPopup_WRankIncrease
+
 	THUMB_FUNC_START sub_8011728
 sub_8011728: @ 0x08011728
 	push {r4, lr}
@@ -1216,6 +1278,8 @@ sub_8011728: @ 0x08011728
 	bx r0
 	.align 2, 0
 _0801174C: .4byte gUnknown_08592490
+
+	THUMB_FUNC_END sub_8011728
 
 	THUMB_FUNC_START sub_8011750
 sub_8011750: @ 0x08011750
@@ -1243,5 +1307,7 @@ sub_8011750: @ 0x08011750
 	bx r0
 	.align 2, 0
 _08011780: .4byte gUnknown_030005D0
+
+	THUMB_FUNC_END sub_8011750
 
 	.align 2, 0 @ Don't pad with nop.

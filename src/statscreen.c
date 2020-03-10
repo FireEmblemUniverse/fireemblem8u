@@ -1405,11 +1405,11 @@ void DisplayPageNameSprite(int pageid)
 {
     int colorid;
 
-    RegisterObjectAttributes_SafeMaybe(4,
+    PutSprite(4,
         111 + gStatScreen.xDispOff, 1 + gStatScreen.yDispOff,
         sSprite_PageNameBack, TILEREF(0x293, 4) + 0xC00);
 
-    RegisterObjectAttributes_SafeMaybe(4,
+    PutSprite(4,
         114 + gStatScreen.xDispOff, 0 + gStatScreen.yDispOff,
         sPageNameSpriteLut[pageid], TILEREF(0x240 + sPageNameChrOffsetLut[pageid], 3) + 0xC00);
 
@@ -1560,15 +1560,15 @@ void PageNumCtrl_UpdateArrows(struct StatScreenPageNameProc* proc)
             proc->xRightCursor--;
     }
 
-    RegisterObjectAttributes_SafeMaybe(0,
+    PutSprite(0,
         gStatScreen.xDispOff + proc->xLeftCursor,
         gStatScreen.yDispOff + PAGENUM_LEFTARROW_Y,
-        gUnknown_08590F64, baseref + 0x5A + (proc->animTimerLeft >> 5) % 6);
+        gObject_8x16, baseref + 0x5A + (proc->animTimerLeft >> 5) % 6);
 
-    RegisterObjectAttributes_SafeMaybe(0,
+    PutSprite(0,
         gStatScreen.xDispOff + proc->xRightCursor,
         gStatScreen.yDispOff + PAGENUM_RIGHTARROW_Y,
-        gUnknown_08590FB4, baseref + 0x5A + (proc->animTimerRight >> 5) % 6);
+        gObject_8x16_HFlipped, baseref + 0x5A + (proc->animTimerRight >> 5) % 6);
 }
 
 static
@@ -1577,31 +1577,31 @@ void PageNumCtrl_UpdatePageNum(struct StatScreenPageNameProc* proc)
     int chr = 0x289;
 
     // page amt
-    RegisterObjectAttributes_SafeMaybe(2,
+    PutSprite(2,
         gStatScreen.xDispOff + PAGENUM_DISPLAY_X + 13,
         gStatScreen.yDispOff + PAGENUM_DISPLAY_Y,
-        gUnknown_08590F44, TILEREF(chr, STATSCREEN_OBJPAL_4) + OAM2_PRIORITY(3) + gStatScreen.pageAmt);
+        gObject_8x8, TILEREF(chr, STATSCREEN_OBJPAL_4) + OAM2_PRIORITY(3) + gStatScreen.pageAmt);
 
     // '/'
-    RegisterObjectAttributes_SafeMaybe(2,
+    PutSprite(2,
         gStatScreen.xDispOff + PAGENUM_DISPLAY_X + 7,
         gStatScreen.yDispOff + PAGENUM_DISPLAY_Y,
-        gUnknown_08590F44, TILEREF(chr, STATSCREEN_OBJPAL_4) + OAM2_PRIORITY(3));
+        gObject_8x8, TILEREF(chr, STATSCREEN_OBJPAL_4) + OAM2_PRIORITY(3));
 
     // page num
-    RegisterObjectAttributes_SafeMaybe(2,
+    PutSprite(2,
         gStatScreen.xDispOff + PAGENUM_DISPLAY_X,
         gStatScreen.yDispOff + PAGENUM_DISPLAY_Y,
-        gUnknown_08590F44, TILEREF(chr, STATSCREEN_OBJPAL_4) + OAM2_PRIORITY(3) + gStatScreen.page + 1);
+        gObject_8x8, TILEREF(chr, STATSCREEN_OBJPAL_4) + OAM2_PRIORITY(3) + gStatScreen.page + 1);
 }
 
 static
 void PageNumCtrl_DisplayMuPlatform(struct StatScreenPageNameProc* proc)
 {
-    RegisterObjectAttributes_SafeMaybe(11,
+    PutSprite(11,
         gStatScreen.xDispOff + 64,
         gStatScreen.yDispOff + 131,
-        gUnknown_08590F8C, TILEREF(0x28F, STATSCREEN_OBJPAL_4) + OAM2_PRIORITY(3));
+        gObject_32x16, TILEREF(0x28F, STATSCREEN_OBJPAL_4) + OAM2_PRIORITY(3));
 }
 
 static
@@ -1620,8 +1620,8 @@ void PageNumCtrl_DisplayBlinkIcons(struct StatScreenPageNameProc* proc)
 
             if (displayIcon)
             {
-                RegisterObjectAttributes_SafeMaybe(4,
-                    184, 78, gUnknown_08590F44,
+                PutSprite(4,
+                    184, 78, gObject_8x8,
                     TILEREF(3, 0xF & palidLut[gStatScreen.unit->rescueOtherUnit >> 6]) + OAM2_PRIORITY(2));
             }
         }
@@ -1630,8 +1630,8 @@ void PageNumCtrl_DisplayBlinkIcons(struct StatScreenPageNameProc* proc)
         {
             if (displayIcon)
             {
-                RegisterObjectAttributes_SafeMaybe(4,
-                    10, 86, gUnknown_08590F44,
+                PutSprite(4,
+                    10, 86, gObject_8x8,
                     TILEREF(3, 0xF & palidLut[gStatScreen.unit->rescueOtherUnit>>6]) + OAM2_PRIORITY(2));
             }
         }
@@ -2557,7 +2557,7 @@ int StartLockingHelpBox_Unused(int mid, struct Proc* parent)
 
 void HelpPrompt_OnIdle(struct HelpPromptSprProc* proc)
 {
-    RegisterObjectAttributes_SafeMaybe(0,
+    PutSprite(0,
         proc->xDisplay, proc->yDisplay,
         sSprite_MetaHelp, proc->tileref);
 }

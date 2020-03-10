@@ -2,7 +2,7 @@
 // Created by laqieer on 2020/3/3.
 //
 
-#include "../include/bmdebug.h"
+#include "bmdebug.h"
 
 // if current seconds is even, return 2; else return 3
 int Return2or3BySecondParity(void)
@@ -77,3 +77,21 @@ void DummyFunction2(void)
 
 }
 
+void DebugPrintWithProc(struct DebugPrintProc *proc)
+{
+    int x;
+    int y;
+    int width;
+    const char *text;
+    struct TextHandle textHandler;
+
+    x = proc->x;
+    y = proc->y;
+    width = proc->width;
+    text = proc->text;
+    Text_Init(&textHandler, width);
+    Text_AppendString(&textHandler, text);
+    DrawUiFrame2(x, y, width + 2, 4, 0);
+    Text_Draw(&textHandler, &gBG0TilemapBuffer[32 * (y + 1) + (x + 1)]);
+    BG_EnableSyncByMask(3);
+}

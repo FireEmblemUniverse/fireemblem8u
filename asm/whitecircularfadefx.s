@@ -105,6 +105,8 @@ _08021EB8:
 	.align 2, 0
 _08021EC8: .4byte gBG0TilemapBuffer
 
+	THUMB_FUNC_END sub_8021E10
+
 	THUMB_FUNC_START sub_8021ECC
 sub_8021ECC: @ 0x08021ECC
 	push {r4, lr}
@@ -132,6 +134,8 @@ sub_8021ECC: @ 0x08021ECC
 	pop {r4}
 	pop {r0}
 	bx r0
+
+	THUMB_FUNC_END sub_8021ECC
 
 	THUMB_FUNC_START sub_8021F08
 sub_8021F08: @ 0x08021F08
@@ -214,5 +218,7 @@ _08021FA8: .4byte 0x06002000
 _08021FAC: .4byte 0x11111111
 _08021FB0: .4byte gPaletteBuffer
 _08021FB4: .4byte gUnknown_0859B4F8
+
+	THUMB_FUNC_END sub_8021F08
 
 .align 2, 0

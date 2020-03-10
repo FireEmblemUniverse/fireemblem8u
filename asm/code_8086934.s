@@ -29,6 +29,8 @@ sub_8086934: @ 0x08086934
 	pop {r0}
 	bx r0
 
+	THUMB_FUNC_END sub_8086934
+
 	THUMB_FUNC_START sub_8086960
 sub_8086960: @ 0x08086960
 	push {r4, r5, lr}
@@ -49,6 +51,8 @@ sub_8086960: @ 0x08086960
 	pop {r4, r5}
 	pop {r0}
 	bx r0
+
+	THUMB_FUNC_END sub_8086960
 
 	THUMB_FUNC_START sub_8086984
 sub_8086984: @ 0x08086984
@@ -72,6 +76,8 @@ sub_8086984: @ 0x08086984
 	pop {r4, r5}
 	pop {r0}
 	bx r0
+
+	THUMB_FUNC_END sub_8086984
 
 	THUMB_FUNC_START sub_80869AC
 sub_80869AC: @ 0x080869AC
@@ -97,6 +103,8 @@ sub_80869AC: @ 0x080869AC
 	pop {r4, r5}
 	pop {r0}
 	bx r0
+
+	THUMB_FUNC_END sub_80869AC
 
 	THUMB_FUNC_START sub_80869D8
 sub_80869D8: @ 0x080869D8
@@ -125,6 +133,8 @@ sub_80869D8: @ 0x080869D8
 	pop {r0}
 	bx r0
 
+	THUMB_FUNC_END sub_80869D8
+
 	THUMB_FUNC_START sub_8086A08
 sub_8086A08: @ 0x08086A08
 	push {r4, lr}
@@ -141,6 +151,8 @@ sub_8086A08: @ 0x08086A08
 	pop {r0}
 	bx r0
 
+	THUMB_FUNC_END sub_8086A08
+
 	THUMB_FUNC_START sub_8086A24
 sub_8086A24: @ 0x08086A24
 	push {r4, lr}
@@ -156,6 +168,8 @@ sub_8086A24: @ 0x08086A24
 	pop {r4}
 	pop {r0}
 	bx r0
+
+	THUMB_FUNC_END sub_8086A24
 
 	THUMB_FUNC_START sub_8086A40
 sub_8086A40: @ 0x08086A40
@@ -274,6 +288,8 @@ _08086B02:
 _08086B24: .4byte gUnknown_02020188
 _08086B28: .4byte 0x001FFFFF
 
+	THUMB_FUNC_END sub_8086A40
+
 	THUMB_FUNC_START sub_8086B2C
 sub_8086B2C: @ 0x08086B2C
 	push {r4, r5, r6, lr}
@@ -309,5 +325,7 @@ sub_8086B2C: @ 0x08086B2C
 	bx r0
 	.align 2, 0
 _08086B70: .4byte 0x000003FF
+
+	THUMB_FUNC_END sub_8086B2C
 
 .align 2, 0

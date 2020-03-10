@@ -61,6 +61,8 @@ _08024EA0: .4byte gBmMapSize
 _08024EA4: .4byte gBmMapMovement
 _08024EA8: .4byte gBmMapUnit
 
+	THUMB_FUNC_END sub_8024E40
+
 	THUMB_FUNC_START ForEachUnitInRange
 ForEachUnitInRange: @ 0x08024EAC
 	push {r4, r5, r6, r7, lr}
@@ -118,6 +120,8 @@ _08024F0C: .4byte gBmMapSize
 _08024F10: .4byte gBmMapRange
 _08024F14: .4byte gBmMapUnit
 
+	THUMB_FUNC_END ForEachUnitInRange
+
 	THUMB_FUNC_START ForEachPosInRange
 ForEachPosInRange: @ 0x08024F18
 	push {r4, r5, r6, r7, lr}
@@ -167,6 +171,8 @@ _08024F60:
 _08024F68: .4byte gBmMapSize
 _08024F6C: .4byte gBmMapRange
 
+	THUMB_FUNC_END ForEachPosInRange
+
 	THUMB_FUNC_START ForEachAdjacentUnit
 ForEachAdjacentUnit: @ 0x08024F70
 	push {r4, r5, r6, lr}
@@ -191,6 +197,8 @@ ForEachAdjacentUnit: @ 0x08024F70
 	pop {r0}
 	bx r0
 
+	THUMB_FUNC_END ForEachAdjacentUnit
+
 	THUMB_FUNC_START ForEachAdjacentPosition
 ForEachAdjacentPosition: @ 0x08024FA4
 	push {r4, r5, r6, lr}
@@ -214,6 +222,8 @@ ForEachAdjacentPosition: @ 0x08024FA4
 	pop {r4, r5, r6}
 	pop {r0}
 	bx r0
+
+	THUMB_FUNC_END ForEachAdjacentPosition
 
 	THUMB_FUNC_START sub_8024FD8
 sub_8024FD8: @ 0x08024FD8
@@ -266,6 +276,8 @@ _08025008:
 	.align 2, 0
 _08025034: .4byte gWorkingBmMap
 
+	THUMB_FUNC_END sub_8024FD8
+
 	THUMB_FUNC_START ForEachPosIn12Range
 ForEachPosIn12Range: @ 0x08025038
 	push {r4, r5, r6, lr}
@@ -289,6 +301,8 @@ ForEachPosIn12Range: @ 0x08025038
 	pop {r4, r5, r6}
 	pop {r0}
 	bx r0
+
+	THUMB_FUNC_END ForEachPosIn12Range
 
 	THUMB_FUNC_START ForEachUnitInMagBy2Range
 ForEachUnitInMagBy2Range: @ 0x0802506C
@@ -327,6 +341,8 @@ ForEachUnitInMagBy2Range: @ 0x0802506C
 	bx r0
 	.align 2, 0
 _080250B8: .4byte gUnknown_02033F3C
+
+	THUMB_FUNC_END ForEachUnitInMagBy2Range
 
 	THUMB_FUNC_START TryAddTrapsToTargetList
 TryAddTrapsToTargetList: @ 0x080250BC
@@ -427,6 +443,8 @@ _0802516E:
 _08025174: .4byte gBmMapTerrain
 _08025178: .4byte gBmMapRange
 
+	THUMB_FUNC_END TryAddTrapsToTargetList
+
 	THUMB_FUNC_START AddUnitToTargetListIfNotAllied
 AddUnitToTargetListIfNotAllied: @ 0x0802517C
 	push {r4, lr}
@@ -456,6 +474,8 @@ _080251AA:
 	bx r0
 	.align 2, 0
 _080251B0: .4byte gUnknown_02033F3C
+
+	THUMB_FUNC_END AddUnitToTargetListIfNotAllied
 
 	THUMB_FUNC_START MakeTargetListForWeapon
 MakeTargetListForWeapon: @ 0x080251B4
@@ -502,6 +522,8 @@ MakeTargetListForWeapon: @ 0x080251B4
 _08025210: .4byte gUnknown_02033F3C
 _08025214: .4byte gBmMapRange
 _08025218: .4byte AddUnitToTargetListIfNotAllied
+
+	THUMB_FUNC_END MakeTargetListForWeapon
 
 	THUMB_FUNC_START TryAddUnitToTradeTargetList
 TryAddUnitToTradeTargetList: @ 0x0802521C
@@ -595,6 +617,8 @@ _080252C4:
 	.align 2, 0
 _080252CC: .4byte gUnknown_02033F3C
 
+	THUMB_FUNC_END TryAddUnitToTradeTargetList
+
 	THUMB_FUNC_START MakeTradeTargetList
 MakeTradeTargetList: @ 0x080252D0
 	push {r4, r5, r6, r7, lr}
@@ -646,6 +670,8 @@ _08025332:
 _08025338: .4byte gUnknown_02033F3C
 _0802533C: .4byte gBmMapRange
 _08025340: .4byte TryAddUnitToTradeTargetList
+
+	THUMB_FUNC_END MakeTradeTargetList
 
 	THUMB_FUNC_START TryAddUnitToRescueTargetList
 TryAddUnitToRescueTargetList: @ 0x08025344
@@ -704,6 +730,8 @@ _080253AA:
 	.align 2, 0
 _080253B0: .4byte gUnknown_02033F3C
 
+	THUMB_FUNC_END TryAddUnitToRescueTargetList
+
 	THUMB_FUNC_START MakeRescueTargetList
 MakeRescueTargetList: @ 0x080253B4
 	push {r4, r5, lr}
@@ -728,6 +756,8 @@ MakeRescueTargetList: @ 0x080253B4
 _080253DC: .4byte gUnknown_02033F3C
 _080253E0: .4byte gBmMapRange
 _080253E4: .4byte TryAddUnitToRescueTargetList
+
+	THUMB_FUNC_END MakeRescueTargetList
 
 	THUMB_FUNC_START TryAddToDropTargetList
 TryAddToDropTargetList: @ 0x080253E8
@@ -771,6 +801,8 @@ _08025434: .4byte gBmMapUnit
 _08025438: .4byte gUnknown_02033F3C
 _0802543C: .4byte gBmMapTerrain
 
+	THUMB_FUNC_END TryAddToDropTargetList
+
 	THUMB_FUNC_START MakeDropTargetList
 MakeDropTargetList: @ 0x08025440
 	push {r4, r5, lr}
@@ -795,6 +827,8 @@ MakeDropTargetList: @ 0x08025440
 _08025468: .4byte gUnknown_02033F3C
 _0802546C: .4byte gBmMapRange
 _08025470: .4byte TryAddToDropTargetList
+
+	THUMB_FUNC_END MakeDropTargetList
 
 	THUMB_FUNC_START TryAddRescuedUnitToTakeTargetList
 TryAddRescuedUnitToTakeTargetList: @ 0x08025474
@@ -850,6 +884,8 @@ _080254D6:
 	.align 2, 0
 _080254DC: .4byte gUnknown_02033F3C
 
+	THUMB_FUNC_END TryAddRescuedUnitToTakeTargetList
+
 	THUMB_FUNC_START MakeTakeTargetList
 MakeTakeTargetList: @ 0x080254E0
 	push {r4, r5, lr}
@@ -874,6 +910,8 @@ MakeTakeTargetList: @ 0x080254E0
 _08025508: .4byte gUnknown_02033F3C
 _0802550C: .4byte gBmMapRange
 _08025510: .4byte TryAddRescuedUnitToTakeTargetList
+
+	THUMB_FUNC_END MakeTakeTargetList
 
 	THUMB_FUNC_START sub_8025514
 sub_8025514: @ 0x08025514
@@ -938,6 +976,8 @@ _08025588:
 	.align 2, 0
 _08025590: .4byte gUnknown_02033F3C
 
+	THUMB_FUNC_END sub_8025514
+
 	THUMB_FUNC_START sub_8025594
 sub_8025594: @ 0x08025594
 	push {r4, r5, lr}
@@ -962,6 +1002,8 @@ sub_8025594: @ 0x08025594
 _080255BC: .4byte gUnknown_02033F3C
 _080255C0: .4byte gBmMapRange
 _080255C4: .4byte sub_8025514
+
+	THUMB_FUNC_END sub_8025594
 
 	THUMB_FUNC_START sub_80255C8
 sub_80255C8: @ 0x080255C8
@@ -1001,6 +1043,8 @@ _08025606:
 	.align 2, 0
 _0802560C: .4byte gUnknown_02033F3C
 
+	THUMB_FUNC_END sub_80255C8
+
 	THUMB_FUNC_START sub_8025610
 sub_8025610: @ 0x08025610
 	push {r4, r5, lr}
@@ -1025,6 +1069,8 @@ sub_8025610: @ 0x08025610
 _08025638: .4byte gUnknown_02033F3C
 _0802563C: .4byte gBmMapRange
 _08025640: .4byte sub_80255C8
+
+	THUMB_FUNC_END sub_8025610
 
 	THUMB_FUNC_START MakeTargetListForSupport
 MakeTargetListForSupport: @ 0x08025644
@@ -1114,6 +1160,8 @@ _080256E2:
 _080256E8: .4byte gUnknown_02033F3C
 _080256EC: .4byte 0x0001002C
 
+	THUMB_FUNC_END MakeTargetListForSupport
+
 	THUMB_FUNC_START AddUnitToTargetListIfAllied
 AddUnitToTargetListIfAllied: @ 0x080256F0
 	push {r4, lr}
@@ -1143,6 +1191,8 @@ _0802571E:
 	bx r0
 	.align 2, 0
 _08025724: .4byte gUnknown_02033F3C
+
+	THUMB_FUNC_END AddUnitToTargetListIfAllied
 
 	THUMB_FUNC_START FillBallistaRangeMaybe
 FillBallistaRangeMaybe: @ 0x08025728
@@ -1192,6 +1242,8 @@ _08025788: .4byte gUnknown_02033F3C
 _0802578C: .4byte gBmMapRange
 _08025790: .4byte AddUnitToTargetListIfAllied
 
+	THUMB_FUNC_END FillBallistaRangeMaybe
+
 	THUMB_FUNC_START TryAddClosedDoorToTargetList
 TryAddClosedDoorToTargetList: @ 0x08025794
 	push {r4, r5, lr}
@@ -1226,6 +1278,8 @@ _080257CA:
 	.align 2, 0
 _080257D0: .4byte gBmMapTerrain
 
+	THUMB_FUNC_END TryAddClosedDoorToTargetList
+
 	THUMB_FUNC_START TryAddBridgeToTargetList
 TryAddBridgeToTargetList: @ 0x080257D4
 	push {r4, r5, lr}
@@ -1259,6 +1313,8 @@ _0802580A:
 	bx r0
 	.align 2, 0
 _08025810: .4byte gBmMapTerrain
+
+	THUMB_FUNC_END TryAddBridgeToTargetList
 
 	THUMB_FUNC_START MakeTargetListForDoorAndBridges
 MakeTargetListForDoorAndBridges: @ 0x08025814
@@ -1299,6 +1355,8 @@ _0802585A:
 	.align 2, 0
 _08025860: .4byte TryAddBridgeToTargetList
 
+	THUMB_FUNC_END MakeTargetListForDoorAndBridges
+
 	THUMB_FUNC_START sub_8025864
 sub_8025864: @ 0x08025864
 	push {lr}
@@ -1332,6 +1390,8 @@ _08025894:
 _080258A0:
 	pop {r0}
 	bx r0
+
+	THUMB_FUNC_END sub_8025864
 
 	THUMB_FUNC_START sub_80258A4
 sub_80258A4: @ 0x080258A4
@@ -1378,6 +1438,8 @@ _080258F4: .4byte gUnknown_02033F3C
 _080258F8: .4byte gBmMapRange
 _080258FC: .4byte sub_8025864
 _08025900: .4byte gBmMapTerrain
+
+	THUMB_FUNC_END sub_80258A4
 
 	THUMB_FUNC_START sub_8025904
 sub_8025904: @ 0x08025904
@@ -1489,6 +1551,8 @@ _080259CE:
 _080259E4: .4byte 0x0001002C
 _080259E8: .4byte gBmMapTerrain
 
+	THUMB_FUNC_END sub_8025904
+
 	THUMB_FUNC_START sub_80259EC
 sub_80259EC: @ 0x080259EC
 	push {r4, r5, r6, r7, lr}
@@ -1548,6 +1612,8 @@ _08025A4A:
 	bx r0
 	.align 2, 0
 _08025A60: .4byte 0x0001002C
+
+	THUMB_FUNC_END sub_80259EC
 
 	THUMB_FUNC_START sub_8025A64
 sub_8025A64: @ 0x08025A64
@@ -1640,6 +1706,8 @@ _08025B0C:
 	pop {r0}
 	bx r0
 
+	THUMB_FUNC_END sub_8025A64
+
 	THUMB_FUNC_START sub_8025B18
 sub_8025B18: @ 0x08025B18
 	push {r4, lr}
@@ -1684,6 +1752,8 @@ _08025B62:
 	.align 2, 0
 _08025B68: .4byte gUnknown_02033F3C
 
+	THUMB_FUNC_END sub_8025B18
+
 	THUMB_FUNC_START sub_8025B6C
 sub_8025B6C: @ 0x08025B6C
 	push {r4, r5, lr}
@@ -1708,6 +1778,8 @@ sub_8025B6C: @ 0x08025B6C
 _08025B94: .4byte gUnknown_02033F3C
 _08025B98: .4byte gBmMapRange
 _08025B9C: .4byte sub_8025B18
+
+	THUMB_FUNC_END sub_8025B6C
 
 	THUMB_FUNC_START AddAsTarget_IfCanStealFrom
 AddAsTarget_IfCanStealFrom: @ 0x08025BA0
@@ -1759,6 +1831,8 @@ _08025BF8:
 	pop {r0}
 	bx r0
 
+	THUMB_FUNC_END AddAsTarget_IfCanStealFrom
+
 	THUMB_FUNC_START MakeTargetListForSteal
 MakeTargetListForSteal: @ 0x08025C00
 	push {r4, r5, lr}
@@ -1783,6 +1857,8 @@ MakeTargetListForSteal: @ 0x08025C00
 _08025C28: .4byte gUnknown_02033F3C
 _08025C2C: .4byte gBmMapRange
 _08025C30: .4byte AddAsTarget_IfCanStealFrom
+
+	THUMB_FUNC_END MakeTargetListForSteal
 
 	THUMB_FUNC_START sub_8025C34
 sub_8025C34: @ 0x08025C34
@@ -1839,6 +1915,8 @@ _08025C98: .4byte gBmMapFog
 _08025C9C: .4byte gUnknown_02033F3C
 _08025CA0: .4byte gBmMapTerrain
 
+	THUMB_FUNC_END sub_8025C34
+
 	THUMB_FUNC_START sub_8025CA4
 sub_8025CA4: @ 0x08025CA4
 	push {r4, r5, lr}
@@ -1863,6 +1941,8 @@ sub_8025CA4: @ 0x08025CA4
 _08025CCC: .4byte gUnknown_02033F3C
 _08025CD0: .4byte gBmMapRange
 _08025CD4: .4byte sub_8025C34
+
+	THUMB_FUNC_END sub_8025CA4
 
 	THUMB_FUNC_START sub_8025CD8
 sub_8025CD8: @ 0x08025CD8
@@ -1919,6 +1999,8 @@ _08025D3C: .4byte gBmMapFog
 _08025D40: .4byte gUnknown_02033F3C
 _08025D44: .4byte gBmMapTerrain
 
+	THUMB_FUNC_END sub_8025CD8
+
 	THUMB_FUNC_START sub_8025D48
 sub_8025D48: @ 0x08025D48
 	push {r4, r5, lr}
@@ -1944,6 +2026,8 @@ sub_8025D48: @ 0x08025D48
 _08025D74: .4byte gUnknown_02033F3C
 _08025D78: .4byte gBmMapRange
 _08025D7C: .4byte sub_8025CD8
+
+	THUMB_FUNC_END sub_8025D48
 
 	THUMB_FUNC_START sub_8025D80
 sub_8025D80: @ 0x08025D80
@@ -1971,6 +2055,8 @@ _08025DAC: .4byte gUnknown_02033F3C
 _08025DB0: .4byte gBmMapRange
 _08025DB4: .4byte sub_8025CD8
 
+	THUMB_FUNC_END sub_8025D80
+
 	THUMB_FUNC_START sub_8025DB8
 sub_8025DB8: @ 0x08025DB8
 	push {r4, r5, lr}
@@ -1997,6 +2083,8 @@ _08025DE4: .4byte gUnknown_02033F3C
 _08025DE8: .4byte gBmMapRange
 _08025DEC: .4byte sub_8025CD8
 
+	THUMB_FUNC_END sub_8025DB8
+
 	THUMB_FUNC_START sub_8025DF0
 sub_8025DF0: @ 0x08025DF0
 	push {r4, r5, lr}
@@ -2022,6 +2110,8 @@ sub_8025DF0: @ 0x08025DF0
 _08025E1C: .4byte gUnknown_02033F3C
 _08025E20: .4byte gBmMapRange
 _08025E24: .4byte sub_8025CD8
+
+	THUMB_FUNC_END sub_8025DF0
 
 	THUMB_FUNC_START TryAddUnitToHealTargetList
 TryAddUnitToHealTargetList: @ 0x08025E28
@@ -2065,6 +2155,8 @@ _08025E72:
 	.align 2, 0
 _08025E78: .4byte gUnknown_02033F3C
 
+	THUMB_FUNC_END TryAddUnitToHealTargetList
+
 	THUMB_FUNC_START MakeTargetListForAdjacentHeal
 MakeTargetListForAdjacentHeal: @ 0x08025E7C
 	push {r4, r5, lr}
@@ -2089,6 +2181,8 @@ MakeTargetListForAdjacentHeal: @ 0x08025E7C
 _08025EA4: .4byte gUnknown_02033F3C
 _08025EA8: .4byte gBmMapRange
 _08025EAC: .4byte TryAddUnitToHealTargetList
+
+	THUMB_FUNC_END MakeTargetListForAdjacentHeal
 
 	THUMB_FUNC_START MakeTargetListForRangedHeal
 MakeTargetListForRangedHeal: @ 0x08025EB0
@@ -2122,6 +2216,8 @@ MakeTargetListForRangedHeal: @ 0x08025EB0
 _08025EF0: .4byte gUnknown_02033F3C
 _08025EF4: .4byte gBmMapRange
 _08025EF8: .4byte TryAddUnitToHealTargetList
+
+	THUMB_FUNC_END MakeTargetListForRangedHeal
 
 	THUMB_FUNC_START AddToTargetListIfNotAllied
 AddToTargetListIfNotAllied: @ 0x08025EFC
@@ -2161,6 +2257,8 @@ _08025F3A:
 	.align 2, 0
 _08025F40: .4byte gUnknown_02033F3C
 
+	THUMB_FUNC_END AddToTargetListIfNotAllied
+
 	THUMB_FUNC_START MakeTargetListForFuckingNightmare
 MakeTargetListForFuckingNightmare: @ 0x08025F44
 	push {r4, r5, lr}
@@ -2197,6 +2295,8 @@ MakeTargetListForFuckingNightmare: @ 0x08025F44
 _08025F8C: .4byte gUnknown_02033F3C
 _08025F90: .4byte gBmMapRange
 _08025F94: .4byte AddToTargetListIfNotAllied
+
+	THUMB_FUNC_END MakeTargetListForFuckingNightmare
 
 	THUMB_FUNC_START TryAddUnitToRestoreTargetList
 TryAddUnitToRestoreTargetList: @ 0x08025F98
@@ -2240,6 +2340,8 @@ _08025FDE:
 	.align 2, 0
 _08025FE4: .4byte gUnknown_02033F3C
 
+	THUMB_FUNC_END TryAddUnitToRestoreTargetList
+
 	THUMB_FUNC_START MakeTargetListForRestore
 MakeTargetListForRestore: @ 0x08025FE8
 	push {r4, r5, lr}
@@ -2264,6 +2366,8 @@ MakeTargetListForRestore: @ 0x08025FE8
 _08026010: .4byte gUnknown_02033F3C
 _08026014: .4byte gBmMapRange
 _08026018: .4byte TryAddUnitToRestoreTargetList
+
+	THUMB_FUNC_END MakeTargetListForRestore
 
 	THUMB_FUNC_START TryAddUnitToBarrierTargetList
 TryAddUnitToBarrierTargetList: @ 0x0802601C
@@ -2306,6 +2410,8 @@ _08026060:
 	.align 2, 0
 _08026068: .4byte gUnknown_02033F3C
 
+	THUMB_FUNC_END TryAddUnitToBarrierTargetList
+
 	THUMB_FUNC_START MakeTargetListForBarrier
 MakeTargetListForBarrier: @ 0x0802606C
 	push {r4, r5, lr}
@@ -2330,6 +2436,8 @@ MakeTargetListForBarrier: @ 0x0802606C
 _08026094: .4byte gUnknown_02033F3C
 _08026098: .4byte gBmMapRange
 _0802609C: .4byte TryAddUnitToBarrierTargetList
+
+	THUMB_FUNC_END MakeTargetListForBarrier
 
 	THUMB_FUNC_START TryAddUnitToRescueStaffTargetList
 TryAddUnitToRescueStaffTargetList: @ 0x080260A0
@@ -2361,6 +2469,8 @@ _080260CE:
 	.align 2, 0
 _080260D4: .4byte gUnknown_02033F3C
 
+	THUMB_FUNC_END TryAddUnitToRescueStaffTargetList
+
 	THUMB_FUNC_START MakeTargetListForRescueStaff
 MakeTargetListForRescueStaff: @ 0x080260D8
 	push {lr}
@@ -2378,6 +2488,8 @@ MakeTargetListForRescueStaff: @ 0x080260D8
 _080260F4: .4byte gUnknown_02033F3C
 _080260F8: .4byte gBmMapRange
 _080260FC: .4byte TryAddUnitToRescueStaffTargetList
+
+	THUMB_FUNC_END MakeTargetListForRescueStaff
 
 	THUMB_FUNC_START TryAddUnitToSilenceTargetList
 TryAddUnitToSilenceTargetList: @ 0x08026100
@@ -2419,6 +2531,8 @@ _08026140:
 	.align 2, 0
 _08026148: .4byte gUnknown_02033F3C
 
+	THUMB_FUNC_END TryAddUnitToSilenceTargetList
+
 	THUMB_FUNC_START TryAddUnitToSleepTargetList
 TryAddUnitToSleepTargetList: @ 0x0802614C
 	push {r4, lr}
@@ -2458,6 +2572,8 @@ _0802618C:
 	bx r0
 	.align 2, 0
 _08026194: .4byte gUnknown_02033F3C
+
+	THUMB_FUNC_END TryAddUnitToSleepTargetList
 
 	THUMB_FUNC_START TryAddUnitToBerzerkTargetList
 TryAddUnitToBerzerkTargetList: @ 0x08026198
@@ -2499,6 +2615,8 @@ _080261D8:
 	.align 2, 0
 _080261E0: .4byte gUnknown_02033F3C
 
+	THUMB_FUNC_END TryAddUnitToBerzerkTargetList
+
 	THUMB_FUNC_START MakeTargetListForSilence
 MakeTargetListForSilence: @ 0x080261E4
 	push {lr}
@@ -2516,6 +2634,8 @@ MakeTargetListForSilence: @ 0x080261E4
 _08026200: .4byte gUnknown_02033F3C
 _08026204: .4byte gBmMapRange
 _08026208: .4byte TryAddUnitToSilenceTargetList
+
+	THUMB_FUNC_END MakeTargetListForSilence
 
 	THUMB_FUNC_START MakeTargetListForSleep
 MakeTargetListForSleep: @ 0x0802620C
@@ -2535,6 +2655,8 @@ _08026228: .4byte gUnknown_02033F3C
 _0802622C: .4byte gBmMapRange
 _08026230: .4byte TryAddUnitToSleepTargetList
 
+	THUMB_FUNC_END MakeTargetListForSleep
+
 	THUMB_FUNC_START MakeTargetListForBerserk
 MakeTargetListForBerserk: @ 0x08026234
 	push {lr}
@@ -2552,6 +2674,8 @@ MakeTargetListForBerserk: @ 0x08026234
 _08026250: .4byte gUnknown_02033F3C
 _08026254: .4byte gBmMapRange
 _08026258: .4byte TryAddUnitToBerzerkTargetList
+
+	THUMB_FUNC_END MakeTargetListForBerserk
 
 	THUMB_FUNC_START TryAddUnitToWarpTargetList
 TryAddUnitToWarpTargetList: @ 0x0802625C
@@ -2583,6 +2707,8 @@ _0802628A:
 	.align 2, 0
 _08026290: .4byte gUnknown_02033F3C
 
+	THUMB_FUNC_END TryAddUnitToWarpTargetList
+
 	THUMB_FUNC_START MakeTargetListForWarp
 MakeTargetListForWarp: @ 0x08026294
 	push {r4, r5, lr}
@@ -2608,6 +2734,8 @@ _080262BC: .4byte gUnknown_02033F3C
 _080262C0: .4byte gBmMapRange
 _080262C4: .4byte TryAddUnitToWarpTargetList
 
+	THUMB_FUNC_END MakeTargetListForWarp
+
 	THUMB_FUNC_START MakeTargetListForUnlock
 MakeTargetListForUnlock: @ 0x080262C8
 	push {r4, r5, lr}
@@ -2632,6 +2760,8 @@ MakeTargetListForUnlock: @ 0x080262C8
 _080262F0: .4byte gUnknown_02033F3C
 _080262F4: .4byte gBmMapRange
 _080262F8: .4byte TryAddClosedDoorToTargetList
+
+	THUMB_FUNC_END MakeTargetListForUnlock
 
 	THUMB_FUNC_START TryAddUnitToHammerneTargetList
 TryAddUnitToHammerneTargetList: @ 0x080262FC
@@ -2679,6 +2809,8 @@ _0802634C:
 	pop {r0}
 	bx r0
 
+	THUMB_FUNC_END TryAddUnitToHammerneTargetList
+
 	THUMB_FUNC_START MakeTargetListForHammerne
 MakeTargetListForHammerne: @ 0x08026354
 	push {r4, r5, lr}
@@ -2703,6 +2835,8 @@ MakeTargetListForHammerne: @ 0x08026354
 _0802637C: .4byte gUnknown_02033F3C
 _08026380: .4byte gBmMapRange
 _08026384: .4byte TryAddUnitToHammerneTargetList
+
+	THUMB_FUNC_END MakeTargetListForHammerne
 
 	THUMB_FUNC_START MakeTargetListForLatona
 MakeTargetListForLatona: @ 0x08026388
@@ -2775,6 +2909,8 @@ _08026400:
 	.align 2, 0
 _08026410: .4byte 0x0001000C
 
+	THUMB_FUNC_END MakeTargetListForLatona
+
 	THUMB_FUNC_START sub_8026414
 sub_8026414: @ 0x08026414
 	push {r4, r5, r6, r7, lr}
@@ -2817,6 +2953,8 @@ _08026460:
 	pop {r4, r5, r6, r7}
 	pop {r0}
 	bx r0
+
+	THUMB_FUNC_END sub_8026414
 
 	THUMB_FUNC_START sub_802646C
 sub_802646C: @ 0x0802646C
@@ -2882,6 +3020,8 @@ _080264E4: .4byte gBmMapFog
 _080264E8: .4byte gUnknown_02033F3C
 _080264EC: .4byte gBmMapTerrain
 
+	THUMB_FUNC_END sub_802646C
+
 	THUMB_FUNC_START MakeTargetListForMine
 MakeTargetListForMine: @ 0x080264F0
 	push {r4, r5, lr}
@@ -2906,6 +3046,8 @@ MakeTargetListForMine: @ 0x080264F0
 _08026518: .4byte gUnknown_02033F3C
 _0802651C: .4byte gBmMapRange
 _08026520: .4byte sub_802646C
+
+	THUMB_FUNC_END MakeTargetListForMine
 
 	THUMB_FUNC_START sub_8026524
 sub_8026524: @ 0x08026524
@@ -2952,6 +3094,8 @@ _08026574: .4byte gBmMapUnit
 _08026578: .4byte gUnknown_0880BB96
 _0802657C: .4byte gBmMapTerrain
 
+	THUMB_FUNC_END sub_8026524
+
 	THUMB_FUNC_START MakeTargetListForLightRune
 MakeTargetListForLightRune: @ 0x08026580
 	push {r4, r5, lr}
@@ -2976,6 +3120,8 @@ MakeTargetListForLightRune: @ 0x08026580
 _080265A8: .4byte gUnknown_02033F3C
 _080265AC: .4byte gBmMapRange
 _080265B0: .4byte sub_8026524
+
+	THUMB_FUNC_END MakeTargetListForLightRune
 
 	THUMB_FUNC_START TryAddUnitToDanceRingTargetList
 TryAddUnitToDanceRingTargetList: @ 0x080265B4
@@ -3004,6 +3150,8 @@ _080265E0:
 	pop {r0}
 	bx r0
 
+	THUMB_FUNC_END TryAddUnitToDanceRingTargetList
+
 	THUMB_FUNC_START MakeTargetListForDanceRing
 MakeTargetListForDanceRing: @ 0x080265E4
 	push {r4, r5, lr}
@@ -3028,5 +3176,7 @@ MakeTargetListForDanceRing: @ 0x080265E4
 _0802660C: .4byte gUnknown_02033F3C
 _08026610: .4byte gBmMapRange
 _08026614: .4byte TryAddUnitToDanceRingTargetList
+
+	THUMB_FUNC_END MakeTargetListForDanceRing
 
 .align 2, 0

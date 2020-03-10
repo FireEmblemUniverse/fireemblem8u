@@ -34,6 +34,8 @@ _0801EC9C: .4byte 0x04000052
 _0801ECA0: .4byte gUnknown_0202BCB0
 _0801ECA4: .4byte sub_801ECA8
 
+	THUMB_FUNC_END sub_801EC64
+
 	THUMB_FUNC_START sub_801ECA8
 sub_801ECA8: @ 0x0801ECA8
 	push {lr}
@@ -63,6 +65,8 @@ _0801ECDC: .4byte 0x00003E41
 _0801ECE0: .4byte 0x04000052
 _0801ECE4: .4byte gUnknown_0202BCB0
 _0801ECE8: .4byte sub_801ECEC
+
+	THUMB_FUNC_END sub_801ECA8
 
 	THUMB_FUNC_START sub_801ECEC
 sub_801ECEC: @ 0x0801ECEC
@@ -94,6 +98,8 @@ _0801ED24: .4byte 0x04000052
 _0801ED28: .4byte gUnknown_0202BCB0
 _0801ED2C: .4byte sub_801EC64
 
+	THUMB_FUNC_END sub_801ECEC
+
 	THUMB_FUNC_START sub_801ED30
 sub_801ED30: @ 0x0801ED30
 	push {lr}
@@ -115,6 +121,8 @@ _0801ED3A:
 	.align 2, 0
 _0801ED50: .4byte gUnknown_02022EE8
 _0801ED54: .4byte 0x00005140
+
+	THUMB_FUNC_END sub_801ED30
 
 	THUMB_FUNC_START sub_801ED58
 sub_801ED58: @ 0x0801ED58
@@ -146,6 +154,8 @@ _0801ED82:
 	bx r0
 	.align 2, 0
 _0801ED90: .4byte gUnknown_0202BCF0
+
+	THUMB_FUNC_END sub_801ED58
 
 	THUMB_FUNC_START sub_801ED94
 sub_801ED94: @ 0x0801ED94
@@ -206,6 +216,8 @@ _0801EDFC:
 	bx r0
 	.align 2, 0
 _0801EE04: .4byte gUnknown_0202BCB0
+
+	THUMB_FUNC_END sub_801ED94
 
 	THUMB_FUNC_START sub_801EE08
 sub_801EE08: @ 0x0801EE08
@@ -268,6 +280,8 @@ _0801EE72:
 	.align 2, 0
 _0801EE7C: .4byte gUnknown_0202BCB0
 
+	THUMB_FUNC_END sub_801EE08
+
 	THUMB_FUNC_START sub_801EE80
 sub_801EE80: @ 0x0801EE80
 	push {lr}
@@ -281,6 +295,8 @@ sub_801EE80: @ 0x0801EE80
 	.align 2, 0
 _0801EE94: .4byte gBG0TilemapBuffer
 
+	THUMB_FUNC_END sub_801EE80
+
 	THUMB_FUNC_START sub_801EE98
 sub_801EE98: @ 0x0801EE98
 	adds r1, r0, #0
@@ -290,6 +306,8 @@ sub_801EE98: @ 0x0801EE98
 	adds r0, #0x4e
 	strh r2, [r0]
 	bx lr
+
+	THUMB_FUNC_END sub_801EE98
 
 	THUMB_FUNC_START sub_801EEA8
 sub_801EEA8: @ 0x0801EEA8
@@ -439,7 +457,7 @@ _0801EF58:
 	movs r0, #2
 	movs r1, #0
 	movs r2, #0x44
-	bl RegisterObjectAttributes
+	bl PutSpriteExt
 	add sp, #4
 	pop {r3, r4}
 	mov r8, r3
@@ -451,12 +469,16 @@ _0801EF58:
 _0801EFE0: .4byte gSinLookup
 _0801EFE4: .4byte gUnknown_0859AEC8
 
+	THUMB_FUNC_END sub_801EEA8
+
 	THUMB_FUNC_START sub_801EFE8
 sub_801EFE8: @ 0x0801EFE8
 	adds r0, #0x4c
 	movs r1, #4
 	strh r1, [r0]
 	bx lr
+
+	THUMB_FUNC_END sub_801EFE8
 
 	THUMB_FUNC_START sub_801EFF0
 sub_801EFF0: @ 0x0801EFF0
@@ -570,6 +592,8 @@ _0801F0B0:
 	.align 2, 0
 _0801F0C0: .4byte gBG1TilemapBuffer
 
+	THUMB_FUNC_END sub_801EFF0
+
 	THUMB_FUNC_START sub_801F0C4
 sub_801F0C4: @ 0x0801F0C4
 	push {r4, r5, r6, r7, lr}
@@ -680,12 +704,16 @@ _0801F17E:
 _0801F190: .4byte gBG1TilemapBuffer
 _0801F194: .4byte 0x00005501
 
+	THUMB_FUNC_END sub_801F0C4
+
 	THUMB_FUNC_START sub_801F198
 sub_801F198: @ 0x0801F198
 	adds r0, #0x4c
 	movs r1, #4
 	strh r1, [r0]
 	bx lr
+
+	THUMB_FUNC_END sub_801F198
 
 	THUMB_FUNC_START sub_801F1A0
 sub_801F1A0: @ 0x0801F1A0
@@ -754,6 +782,8 @@ _0801F216:
 _0801F220: .4byte gLCDControlBuffer
 _0801F224: .4byte gUnknown_0202BCB0
 
+	THUMB_FUNC_END sub_801F1A0
+
 	THUMB_FUNC_START sub_801F228
 sub_801F228: @ 0x0801F228
 	push {r4, r5, r6, lr}
@@ -820,6 +850,8 @@ _0801F29C:
 _0801F2A4: .4byte gLCDControlBuffer
 _0801F2A8: .4byte gUnknown_0202BCB0
 
+	THUMB_FUNC_END sub_801F228
+
 	THUMB_FUNC_START sub_801F2AC
 sub_801F2AC: @ 0x0801F2AC
 	push {r4, lr}
@@ -837,6 +869,8 @@ _0801F2C2:
 	bx r0
 	.align 2, 0
 _0801F2C8: .4byte gUnknown_0202BCF0
+
+	THUMB_FUNC_END sub_801F2AC
 
 	THUMB_FUNC_START sub_801F2CC
 sub_801F2CC: @ 0x0801F2CC
@@ -930,6 +964,8 @@ _0801F394:
 _0801F39C: .4byte gUnknown_085A0088
 _0801F3A0: .4byte 0x06002800
 _0801F3A4: .4byte gUnknown_085A0698
+
+	THUMB_FUNC_END sub_801F2CC
 
 	THUMB_FUNC_START sub_801F3A8
 sub_801F3A8: @ 0x0801F3A8
@@ -1043,6 +1079,8 @@ _0801F484: .4byte gLCDControlBuffer
 _0801F488: .4byte gUnknown_0202BCB0
 _0801F48C: .4byte sub_801EC64
 
+	THUMB_FUNC_END sub_801F3A8
+
 	THUMB_FUNC_START sub_801F490
 sub_801F490: @ 0x0801F490
 	push {r4, lr}
@@ -1094,5 +1132,7 @@ _0801F4FC: .4byte gUnknown_0202BCB0
 _0801F500: .4byte gUnknown_0859AEF8
 _0801F504: .4byte gUnknown_0859AF40
 _0801F508: .4byte gUnknown_0859AF60
+
+	THUMB_FUNC_END sub_801F490
 
 .align 2, 0 @ align with 0

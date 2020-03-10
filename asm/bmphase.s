@@ -58,6 +58,8 @@ _08024D3C:
 	.align 2, 0
 _08024D4C: .4byte 0x000100AE
 
+	THUMB_FUNC_END GetPhaseAbleUnitCount
+
 	THUMB_FUNC_START sub_8024D50
 sub_8024D50: @ 0x08024D50
 	push {r4, r5, r6, r7, lr}
@@ -92,6 +94,8 @@ _08024D7C:
 	pop {r1}
 	bx r1
 
+	THUMB_FUNC_END sub_8024D50
+
 	THUMB_FUNC_START AreUnitsAllied
 AreUnitsAllied: @ 0x08024D8C
 	push {lr}
@@ -106,6 +110,8 @@ _08024D9C:
 	adds r0, r3, #0
 	pop {r1}
 	bx r1
+
+	THUMB_FUNC_END AreUnitsAllied
 
 	THUMB_FUNC_START IsSameAllegience
 IsSameAllegience: @ 0x08024DA4
@@ -122,6 +128,8 @@ _08024DB4:
 	pop {r1}
 	bx r1
 
+	THUMB_FUNC_END IsSameAllegience
+
 	THUMB_FUNC_START GetCurrentPhase
 GetCurrentPhase: @ 0x08024DBC
 	ldr r0, _08024DCC  @ gUnknown_0202BCF0
@@ -133,6 +141,8 @@ GetCurrentPhase: @ 0x08024DBC
 	bx lr
 	.align 2, 0
 _08024DCC: .4byte gUnknown_0202BCF0
+
+	THUMB_FUNC_END GetCurrentPhase
 
 	THUMB_FUNC_START IsNotEnemyPhaseMaybe
 IsNotEnemyPhaseMaybe: @ 0x08024DD0
@@ -147,5 +157,7 @@ IsNotEnemyPhaseMaybe: @ 0x08024DD0
 	bx lr
 	.align 2, 0
 _08024DE4: .4byte gUnknown_0202BCF0
+
+	THUMB_FUNC_END IsNotEnemyPhaseMaybe
 
 .align 2, 0

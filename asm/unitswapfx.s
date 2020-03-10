@@ -69,6 +69,8 @@ sub_801EA64: @ 0x0801EA64
 	pop {r0}
 	bx r0
 
+	THUMB_FUNC_END sub_801EA64
+
 	THUMB_FUNC_START sub_801EAE8
 sub_801EAE8: @ 0x0801EAE8
 	push {r4, r5, r6, r7, lr}
@@ -156,12 +158,12 @@ sub_801EAE8: @ 0x0801EAE8
 	bhi _0801EBB2
 	adds r2, r4, #0
 	subs r2, #0xc
-	ldr r3, _0801EBE4  @ gUnknown_08590F4C
+	ldr r3, _0801EBE4  @ gObject_16x16
 	movs r0, #6
 	str r0, [sp]
 	movs r0, #4
 	adds r1, r5, #0
-	bl RegisterObjectAttributes_SafeMaybe
+	bl PutSprite
 	ldr r3, [r7, #0x2c]
 	movs r0, #4
 	adds r1, r5, #0
@@ -191,7 +193,9 @@ _0801EBCA:
 	.align 2, 0
 _0801EBDC: .4byte gSinLookup
 _0801EBE0: .4byte gUnknown_0202BCB0
-_0801EBE4: .4byte gUnknown_08590F4C
+_0801EBE4: .4byte gObject_16x16
+
+	THUMB_FUNC_END sub_801EAE8
 
 	THUMB_FUNC_START sub_801EBE8
 sub_801EBE8: @ 0x0801EBE8
@@ -217,6 +221,8 @@ _0801EC08:
 	strb r0, [r2, #0x11]
 	pop {r0}
 	bx r0
+
+	THUMB_FUNC_END sub_801EBE8
 
 	THUMB_FUNC_START sub_801EC10
 sub_801EC10: @ 0x0801EC10
@@ -246,6 +252,8 @@ sub_801EC10: @ 0x0801EC10
 	.align 2, 0
 _0801EC44: .4byte gUnknown_0859AEA0
 
+	THUMB_FUNC_END sub_801EC10
+
 	THUMB_FUNC_START sub_801EC48
 sub_801EC48: @ 0x0801EC48
 	push {lr}
@@ -262,5 +270,7 @@ _0801EC5C:
 _0801EC5E:
 	pop {r1}
 	bx r1
+
+	THUMB_FUNC_END sub_801EC48
 
 .align 2, 0 @ align with 0

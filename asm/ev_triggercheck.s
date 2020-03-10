@@ -38,6 +38,8 @@ _08082EBE:
 	pop {r0}
 	bx r0
 
+	THUMB_FUNC_END CallEventsFromBuffer
+
 	THUMB_FUNC_START CheckForEvents
 CheckForEvents: @ 0x08082EC4
 	push {r4, r5, r6, r7, lr}
@@ -92,6 +94,8 @@ _08082F1C:
 	pop {r1}
 	bx r1
 
+	THUMB_FUNC_END CheckForEvents
+
 	THUMB_FUNC_START CheckForNextEvents
 CheckForNextEvents: @ 0x08082F28
 	push {lr}
@@ -119,6 +123,8 @@ _08082F4E:
 	.align 2, 0
 _08082F54: .4byte gUnknown_089E84F4
 
+	THUMB_FUNC_END CheckForNextEvents
+
 	THUMB_FUNC_START sub_8082F58
 sub_8082F58: @ 0x08082F58
 	push {lr}
@@ -145,6 +151,8 @@ _08082F7E:
 _08082F80:
 	pop {r1}
 	bx r1
+
+	THUMB_FUNC_END sub_8082F58
 
 	THUMB_FUNC_START sub_8082F84
 sub_8082F84: @ 0x08082F84
@@ -175,6 +183,8 @@ _08082FB2:
 	pop {r4, r5}
 	pop {r1}
 	bx r1
+
+	THUMB_FUNC_END sub_8082F84
 
 	THUMB_FUNC_START sub_8082FB8
 sub_8082FB8: @ 0x08082FB8
@@ -228,6 +238,8 @@ _0808300C:
 	pop {r1}
 	bx r1
 
+	THUMB_FUNC_END sub_8082FB8
+
 	THUMB_FUNC_START sub_8083018
 sub_8083018: @ 0x08083018
 	push {lr}
@@ -252,6 +264,8 @@ _0808303C:
 _0808303E:
 	pop {r1}
 	bx r1
+
+	THUMB_FUNC_END sub_8083018
 
 	THUMB_FUNC_START sub_8083044
 sub_8083044: @ 0x08083044
@@ -295,6 +309,8 @@ _0808308E:
 	pop {r1}
 	bx r1
 
+	THUMB_FUNC_END sub_8083044
+
 	THUMB_FUNC_START sub_8083094
 sub_8083094: @ 0x08083094
 	push {lr}
@@ -307,6 +323,8 @@ sub_8083094: @ 0x08083094
 	asrs r0, r0, #0x18
 	pop {r1}
 	bx r1
+
+	THUMB_FUNC_END sub_8083094
 
 	THUMB_FUNC_START sub_80830AC
 sub_80830AC: @ 0x080830AC
@@ -331,6 +349,8 @@ _080830CE:
 	pop {r1}
 	bx r1
 
+	THUMB_FUNC_END sub_80830AC
+
 	THUMB_FUNC_START sub_80830D4
 sub_80830D4: @ 0x080830D4
 	push {lr}
@@ -353,6 +373,8 @@ _080830F4:
 _080830F6:
 	pop {r1}
 	bx r1
+
+	THUMB_FUNC_END sub_80830D4
 
 	THUMB_FUNC_START sub_80830FC
 sub_80830FC: @ 0x080830FC
@@ -377,6 +399,8 @@ _0808311E:
 	pop {r1}
 	bx r1
 
+	THUMB_FUNC_END sub_80830FC
+
 	THUMB_FUNC_START sub_8083124
 sub_8083124: @ 0x08083124
 	push {lr}
@@ -399,6 +423,8 @@ _08083144:
 _08083146:
 	pop {r1}
 	bx r1
+
+	THUMB_FUNC_END sub_8083124
 
 	THUMB_FUNC_START sub_808314C
 sub_808314C: @ 0x0808314C
@@ -452,6 +478,8 @@ _080831A0:
 	pop {r1}
 	bx r1
 
+	THUMB_FUNC_END sub_808314C
+
 	THUMB_FUNC_START IsThereClosedChestAt
 IsThereClosedChestAt: @ 0x080831AC
 	push {lr}
@@ -469,6 +497,8 @@ _080831C2:
 _080831C4:
 	pop {r1}
 	bx r1
+
+	THUMB_FUNC_END IsThereClosedChestAt
 
 	THUMB_FUNC_START sub_80831C8
 sub_80831C8: @ 0x080831C8
@@ -491,6 +521,8 @@ _080831E8:
 	pop {r0}
 	bx r0
 
+	THUMB_FUNC_END sub_80831C8
+
 	THUMB_FUNC_START IsThereClosedDoorAt
 IsThereClosedDoorAt: @ 0x080831F0
 	push {lr}
@@ -508,6 +540,8 @@ _08083206:
 _08083208:
 	pop {r1}
 	bx r1
+
+	THUMB_FUNC_END IsThereClosedDoorAt
 
 	THUMB_FUNC_START sub_808320C
 sub_808320C: @ 0x0808320C
@@ -530,6 +564,8 @@ _0808322C:
 	pop {r0}
 	bx r0
 
+	THUMB_FUNC_END sub_808320C
+
 	THUMB_FUNC_START sub_8083234
 sub_8083234: @ 0x08083234
 	push {lr}
@@ -548,6 +584,8 @@ _0808324C:
 	pop {r1}
 	bx r1
 
+	THUMB_FUNC_END sub_8083234
+
 	THUMB_FUNC_START sub_8083250
 sub_8083250: @ 0x08083250
 	push {lr}
@@ -564,6 +602,8 @@ _08083266:
 	pop {r1}
 	bx r1
 
+	THUMB_FUNC_END sub_8083250
+
 	THUMB_FUNC_START sub_808326C
 sub_808326C: @ 0x0808326C
 	push {lr}
@@ -574,6 +614,8 @@ sub_808326C: @ 0x0808326C
 _0808327A:
 	pop {r0}
 	bx r0
+
+	THUMB_FUNC_END sub_808326C
 
 	THUMB_FUNC_START sub_8083280
 sub_8083280: @ 0x08083280
@@ -607,30 +649,42 @@ _080832B0:
 	.align 2, 0
 _080832C0: .4byte gUnknown_089FFD64
 
+	THUMB_FUNC_END sub_8083280
+
 	THUMB_FUNC_START sub_80832C4
 sub_80832C4: @ 0x080832C4
 	movs r0, #0
 	bx lr
+
+	THUMB_FUNC_END sub_80832C4
 
 	THUMB_FUNC_START sub_80832C8
 sub_80832C8: @ 0x080832C8
 	movs r0, #0
 	bx lr
 
+	THUMB_FUNC_END sub_80832C8
+
 	THUMB_FUNC_START sub_80832CC
 sub_80832CC: @ 0x080832CC
 	movs r0, #0
 	bx lr
+
+	THUMB_FUNC_END sub_80832CC
 
 	THUMB_FUNC_START sub_80832D0
 sub_80832D0: @ 0x080832D0
 	movs r0, #0
 	bx lr
 
+	THUMB_FUNC_END sub_80832D0
+
 	THUMB_FUNC_START sub_80832D4
 sub_80832D4: @ 0x080832D4
 	movs r0, #0
 	bx lr
+
+	THUMB_FUNC_END sub_80832D4
 
 	THUMB_FUNC_START CheckEventId3
 CheckEventId3: @ 0x080832D8
@@ -641,6 +695,8 @@ CheckEventId3: @ 0x080832D8
 	asrs r0, r0, #0x18
 	pop {r1}
 	bx r1
+
+	THUMB_FUNC_END CheckEventId3
 
 	THUMB_FUNC_START sub_80832E8
 sub_80832E8: @ 0x080832E8
@@ -659,6 +715,8 @@ _08083304:
 	pop {r0}
 	bx r0
 
+	THUMB_FUNC_END sub_80832E8
+
 	THUMB_FUNC_START GetCurrentChapterBallistaePtr
 GetCurrentChapterBallistaePtr: @ 0x08083308
 	push {lr}
@@ -672,6 +730,8 @@ GetCurrentChapterBallistaePtr: @ 0x08083308
 	bx r1
 	.align 2, 0
 _0808331C: .4byte gUnknown_0202BCF0
+
+	THUMB_FUNC_END GetCurrentChapterBallistaePtr
 
 	THUMB_FUNC_START GetCurrentChapterBallistae2Ptr
 GetCurrentChapterBallistae2Ptr: @ 0x08083320
@@ -696,6 +756,8 @@ _08083342:
 	pop {r4}
 	pop {r1}
 	bx r1
+
+	THUMB_FUNC_END GetCurrentChapterBallistae2Ptr
 
 	THUMB_FUNC_START GetChapterAllyUnitDataPointer
 GetChapterAllyUnitDataPointer: @ 0x08083348
@@ -755,6 +817,8 @@ _080833A8:
 	pop {r1}
 	bx r1
 
+	THUMB_FUNC_END GetChapterAllyUnitDataPointer
+
 	THUMB_FUNC_START sub_80833B0
 sub_80833B0: @ 0x080833B0
 	push {lr}
@@ -799,6 +863,8 @@ _080833F8:
 	pop {r1}
 	bx r1
 
+	THUMB_FUNC_END sub_80833B0
+
 	THUMB_FUNC_START sub_8083400
 sub_8083400: @ 0x08083400
 	push {r4, lr}
@@ -818,6 +884,8 @@ sub_8083400: @ 0x08083400
 	pop {r4}
 	pop {r0}
 	bx r0
+
+	THUMB_FUNC_END sub_8083400
 
 	THUMB_FUNC_START sub_8083424
 sub_8083424: @ 0x08083424
@@ -855,6 +923,8 @@ _08083460:
 _08083462:
 	pop {r1}
 	bx r1
+
+	THUMB_FUNC_END sub_8083424
 
 	THUMB_FUNC_START sub_8083468
 sub_8083468: @ 0x08083468
@@ -899,6 +969,8 @@ _080834AA:
 	pop {r1}
 	bx r1
 
+	THUMB_FUNC_END sub_8083468
+
 	THUMB_FUNC_START ShouldCallBattleQuote
 ShouldCallBattleQuote: @ 0x080834B0
 	push {r4, r5, r6, r7, lr}
@@ -941,6 +1013,8 @@ _080834FE:
 	pop {r4, r5, r6, r7}
 	pop {r1}
 	bx r1
+
+	THUMB_FUNC_END ShouldCallBattleQuote
 
 	THUMB_FUNC_START CallBattleQuoteEventsIfAny
 CallBattleQuoteEventsIfAny: @ 0x08083504
@@ -995,6 +1069,8 @@ _08083568:
 	pop {r0}
 	bx r0
 
+	THUMB_FUNC_END CallBattleQuoteEventsIfAny
+
 	THUMB_FUNC_START sub_8083570
 sub_8083570: @ 0x08083570
 	push {r4, r5, lr}
@@ -1025,6 +1101,8 @@ _0808359E:
 	.align 2, 0
 _080835A4: .4byte gUnknown_0202BCF0
 
+	THUMB_FUNC_END sub_8083570
+
 	THUMB_FUNC_START sub_80835A8
 sub_80835A8: @ 0x080835A8
 	push {r4, lr}
@@ -1054,6 +1132,8 @@ _080835D6:
 	pop {r4}
 	pop {r1}
 	bx r1
+
+	THUMB_FUNC_END sub_80835A8
 
 	THUMB_FUNC_START sub_80835DC
 sub_80835DC: @ 0x080835DC
@@ -1115,6 +1195,8 @@ _0808364E:
 	pop {r4, r5}
 	pop {r0}
 	bx r0
+
+	THUMB_FUNC_END sub_80835DC
 
 	THUMB_FUNC_START sub_8083654
 sub_8083654: @ 0x08083654
@@ -1212,6 +1294,8 @@ _08083712:
 	pop {r0}
 	bx r0
 
+	THUMB_FUNC_END sub_8083654
+
 	THUMB_FUNC_START sub_808371C
 sub_808371C: @ 0x0808371C
 	push {r4, r5, r6, r7, lr}
@@ -1248,6 +1332,8 @@ _0808375E:
 	pop {r0}
 	bx r0
 
+	THUMB_FUNC_END sub_808371C
+
 	THUMB_FUNC_START sub_8083764
 sub_8083764: @ 0x08083764
 	push {r4, lr}
@@ -1271,6 +1357,8 @@ _08083788:
 	pop {r0}
 	bx r0
 
+	THUMB_FUNC_END sub_8083764
+
 	THUMB_FUNC_START sub_8083790
 sub_8083790: @ 0x08083790
 	push {lr}
@@ -1288,6 +1376,8 @@ sub_8083790: @ 0x08083790
 	lsrs r0, r0, #0x10
 	pop {r1}
 	bx r1
+
+	THUMB_FUNC_END sub_8083790
 
 	THUMB_FUNC_START sub_80837B0
 sub_80837B0: @ 0x080837B0
@@ -1309,6 +1399,8 @@ sub_80837B0: @ 0x080837B0
 	.align 2, 0
 _080837D4: .4byte gUnknown_0202BCF0
 
+	THUMB_FUNC_END sub_80837B0
+
 	THUMB_FUNC_START sub_80837D8
 sub_80837D8: @ 0x080837D8
 	push {lr}
@@ -1327,6 +1419,8 @@ _080837F0:
 _080837F2:
 	pop {r1}
 	bx r1
+
+	THUMB_FUNC_END sub_80837D8
 
 	THUMB_FUNC_START sub_80837F8
 sub_80837F8: @ 0x080837F8
@@ -1358,10 +1452,14 @@ _08083824:
 	.align 2, 0
 _0808382C: .4byte gUnknown_0202BCF0
 
+	THUMB_FUNC_END sub_80837F8
+
 	THUMB_FUNC_START sub_8083830
 sub_8083830: @ 0x08083830
 	movs r0, #1
 	bx lr
+
+	THUMB_FUNC_END sub_8083830
 
 	THUMB_FUNC_START CheckAFEV
 CheckAFEV: @ 0x08083834
@@ -1391,6 +1489,8 @@ _0808385E:
 	pop {r4, r5}
 	pop {r1}
 	bx r1
+
+	THUMB_FUNC_END CheckAFEV
 
 	THUMB_FUNC_START CheckTURN
 CheckTURN: @ 0x08083864
@@ -1433,6 +1533,8 @@ _080838A6:
 	pop {r4, r5, r6}
 	pop {r1}
 	bx r1
+
+	THUMB_FUNC_END CheckTURN
 
 	THUMB_FUNC_START CheckCHAR
 CheckCHAR: @ 0x080838AC
@@ -1480,6 +1582,8 @@ _080838F4:
 	pop {r1}
 	bx r1
 
+	THUMB_FUNC_END CheckCHAR
+
 	THUMB_FUNC_START CheckCHARASM
 CheckCHARASM: @ 0x080838FC
 	push {r4, r5, r6, r7, lr}
@@ -1513,6 +1617,8 @@ _08083930:
 	pop {r4, r5, r6, r7}
 	pop {r1}
 	bx r1
+
+	THUMB_FUNC_END CheckCHARASM
 
 	THUMB_FUNC_START CheckLOCA
 CheckLOCA: @ 0x08083938
@@ -1551,6 +1657,8 @@ _08083970:
 	pop {r1}
 	bx r1
 
+	THUMB_FUNC_END CheckLOCA
+
 	THUMB_FUNC_START CheckVILL
 CheckVILL: @ 0x08083978
 	push {r4, lr}
@@ -1561,6 +1669,8 @@ CheckVILL: @ 0x08083978
 	pop {r4}
 	pop {r1}
 	bx r1
+
+	THUMB_FUNC_END CheckVILL
 
 	THUMB_FUNC_START CheckCHES
 CheckCHES: @ 0x0808398C
@@ -1595,6 +1705,8 @@ _080839C0:
 	pop {r4}
 	pop {r1}
 	bx r1
+
+	THUMB_FUNC_END CheckCHES
 
 	THUMB_FUNC_START CheckDOOR
 CheckDOOR: @ 0x080839C8
@@ -1636,6 +1748,8 @@ _08083A08:
 	pop {r1}
 	bx r1
 
+	THUMB_FUNC_END CheckDOOR
+
 	THUMB_FUNC_START sub_8083A10
 sub_8083A10: @ 0x08083A10
 	push {r4, r5, r6, lr}
@@ -1675,6 +1789,8 @@ _08083A50:
 	pop {r4, r5, r6}
 	pop {r1}
 	bx r1
+
+	THUMB_FUNC_END sub_8083A10
 
 	THUMB_FUNC_START CheckSHOP
 CheckSHOP: @ 0x08083A58
@@ -1718,6 +1834,8 @@ _08083A9E:
 	pop {r4, r5, r6}
 	pop {r1}
 	bx r1
+
+	THUMB_FUNC_END CheckSHOP
 
 	THUMB_FUNC_START CheckAREA
 CheckAREA: @ 0x08083AA4
@@ -1791,15 +1909,21 @@ _08083B1E:
 	pop {r1}
 	bx r1
 
+	THUMB_FUNC_END CheckAREA
+
 	THUMB_FUNC_START sub_8083B24
 sub_8083B24: @ 0x08083B24
 	movs r0, #0
 	bx lr
 
+	THUMB_FUNC_END sub_8083B24
+
 	THUMB_FUNC_START sub_8083B28
 sub_8083B28: @ 0x08083B28
 	movs r0, #0
 	bx lr
+
+	THUMB_FUNC_END sub_8083B28
 
 	THUMB_FUNC_START sub_8083B2C
 sub_8083B2C: @ 0x08083B2C
@@ -1825,6 +1949,8 @@ _08083B50:
 	pop {r4}
 	pop {r1}
 	bx r1
+
+	THUMB_FUNC_END sub_8083B2C
 
 	THUMB_FUNC_START sub_8083B58
 sub_8083B58: @ 0x08083B58
@@ -1861,6 +1987,8 @@ _08083B92:
 	pop {r1}
 	bx r1
 
+	THUMB_FUNC_END sub_8083B58
+
 	THUMB_FUNC_START sub_8083B98
 sub_8083B98: @ 0x08083B98
 	push {r4, r5, r6, lr}
@@ -1896,6 +2024,8 @@ _08083BD2:
 	pop {r1}
 	bx r1
 
+	THUMB_FUNC_END sub_8083B98
+
 	THUMB_FUNC_START SetLocalEventId
 SetLocalEventId: @ 0x08083BD8
 	push {lr}
@@ -1925,6 +2055,8 @@ _08083C00:
 	.align 2, 0
 _08083C04: .4byte gUnknown_03005270
 _08083C08: .4byte gUnknown_089E857C
+
+	THUMB_FUNC_END SetLocalEventId
 
 	THUMB_FUNC_START UnsetLocalEventId
 UnsetLocalEventId: @ 0x08083C0C
@@ -1959,6 +2091,8 @@ _08083C3A:
 _08083C40: .4byte gUnknown_089E857C
 _08083C44: .4byte gUnknown_03005270
 
+	THUMB_FUNC_END UnsetLocalEventId
+
 	THUMB_FUNC_START ClearLocalEvents
 ClearLocalEvents: @ 0x08083C48
 	push {lr}
@@ -1974,6 +2108,8 @@ _08083C50:
 	bx r0
 	.align 2, 0
 _08083C5C: .4byte gUnknown_03005270
+
+	THUMB_FUNC_END ClearLocalEvents
 
 	THUMB_FUNC_START CheckLocalEventId
 CheckLocalEventId: @ 0x08083C60
@@ -2011,6 +2147,8 @@ _08083C9A:
 	pop {r1}
 	bx r1
 
+	THUMB_FUNC_END CheckLocalEventId
+
 	THUMB_FUNC_START SetGlobalEventId
 SetGlobalEventId: @ 0x08083CA0
 	push {lr}
@@ -2042,6 +2180,8 @@ _08083CCC:
 	.align 2, 0
 _08083CD0: .4byte gUnknown_03005250
 _08083CD4: .4byte gUnknown_089E857C
+
+	THUMB_FUNC_END SetGlobalEventId
 
 	THUMB_FUNC_START UnsetGlobalEventId
 UnsetGlobalEventId: @ 0x08083CD8
@@ -2078,6 +2218,8 @@ _08083D0A:
 _08083D10: .4byte gUnknown_089E857C
 _08083D14: .4byte gUnknown_03005250
 
+	THUMB_FUNC_END UnsetGlobalEventId
+
 	THUMB_FUNC_START sub_8083D18
 sub_8083D18: @ 0x08083D18
 	push {lr}
@@ -2094,6 +2236,8 @@ _08083D22:
 	bx r0
 	.align 2, 0
 _08083D30: .4byte gUnknown_03005250
+
+	THUMB_FUNC_END sub_8083D18
 
 	THUMB_FUNC_START sub_8083D34
 sub_8083D34: @ 0x08083D34
@@ -2129,6 +2273,8 @@ _08083D66:
 	pop {r1}
 	bx r1
 
+	THUMB_FUNC_END sub_8083D34
+
 	THUMB_FUNC_START CheckGlobalEventId
 CheckGlobalEventId: @ 0x08083D6C
 	push {lr}
@@ -2140,6 +2286,8 @@ CheckGlobalEventId: @ 0x08083D6C
 	bx r1
 	.align 2, 0
 _08083D7C: .4byte gUnknown_03005250
+
+	THUMB_FUNC_END CheckGlobalEventId
 
 	THUMB_FUNC_START SetEventId
 SetEventId: @ 0x08083D80
@@ -2154,6 +2302,8 @@ _08083D90:
 	pop {r0}
 	bx r0
 
+	THUMB_FUNC_END SetEventId
+
 	THUMB_FUNC_START UnsetEventId
 UnsetEventId: @ 0x08083D94
 	push {lr}
@@ -2166,6 +2316,8 @@ _08083DA0:
 _08083DA4:
 	pop {r0}
 	bx r0
+
+	THUMB_FUNC_END UnsetEventId
 
 	THUMB_FUNC_START CheckEventId
 CheckEventId: @ 0x08083DA8
@@ -2182,6 +2334,8 @@ _08083DB8:
 	pop {r1}
 	bx r1
 
+	THUMB_FUNC_END CheckEventId
+
 	THUMB_FUNC_START GetGlobalEventIdStorage
 GetGlobalEventIdStorage: @ 0x08083DC0
 	ldr r0, _08083DC4  @ gUnknown_03005250
@@ -2189,10 +2343,14 @@ GetGlobalEventIdStorage: @ 0x08083DC0
 	.align 2, 0
 _08083DC4: .4byte gUnknown_03005250
 
+	THUMB_FUNC_END GetGlobalEventIdStorage
+
 	THUMB_FUNC_START GetGlobalEventIdStorageSize
 GetGlobalEventIdStorageSize: @ 0x08083DC8
 	movs r0, #0x19
 	bx lr
+
+	THUMB_FUNC_END GetGlobalEventIdStorageSize
 
 	THUMB_FUNC_START GetLocalEventIdStorage
 GetLocalEventIdStorage: @ 0x08083DCC
@@ -2201,10 +2359,14 @@ GetLocalEventIdStorage: @ 0x08083DCC
 	.align 2, 0
 _08083DD0: .4byte gUnknown_03005270
 
+	THUMB_FUNC_END GetLocalEventIdStorage
+
 	THUMB_FUNC_START GetLocalEventIdStorageSize
 GetLocalEventIdStorageSize: @ 0x08083DD4
 	movs r0, #5
 	bx lr
+
+	THUMB_FUNC_END GetLocalEventIdStorageSize
 
 	THUMB_FUNC_START sub_8083DD8
 sub_8083DD8: @ 0x08083DD8
@@ -2256,6 +2418,8 @@ _08083E2C:
 	pop {r0}
 	bx r0
 
+	THUMB_FUNC_END sub_8083DD8
+
 	THUMB_FUNC_START sub_8083E34
 sub_8083E34: @ 0x08083E34
 	push {lr}
@@ -2282,6 +2446,8 @@ _08083E5C:
 _08083E5E:
 	pop {r1}
 	bx r1
+
+	THUMB_FUNC_END sub_8083E34
 
 	THUMB_FUNC_START TryCallSelectEvents_u1C
 TryCallSelectEvents_u1C: @ 0x08083E64
@@ -2327,6 +2493,8 @@ _08083EB2:
 	pop {r4, r5, r6}
 	pop {r1}
 	bx r1
+
+	THUMB_FUNC_END TryCallSelectEvents_u1C
 
 	THUMB_FUNC_START sub_8083EB8
 sub_8083EB8: @ 0x08083EB8
@@ -2414,6 +2582,8 @@ _08083F60:
 	pop {r1}
 	bx r1
 
+	THUMB_FUNC_END sub_8083EB8
+
 	THUMB_FUNC_START sub_8083F68
 sub_8083F68: @ 0x08083F68
 	push {r4, r5, lr}
@@ -2451,6 +2621,8 @@ _08083FA6:
 	pop {r1}
 	bx r1
 
+	THUMB_FUNC_END sub_8083F68
+
 	THUMB_FUNC_START sub_8083FB0
 sub_8083FB0: @ 0x08083FB0
 	push {r4, r5, lr}
@@ -2486,6 +2658,8 @@ _08083FEE:
 	bx r0
 	.align 2, 0
 _08083FF8: .4byte gUnknown_0202BCF0
+
+	THUMB_FUNC_END sub_8083FB0
 
 	THUMB_FUNC_START sub_8083FFC
 sub_8083FFC: @ 0x08083FFC
@@ -2556,6 +2730,8 @@ _0808406E:
 	pop {r1}
 	bx r1
 
+	THUMB_FUNC_END sub_8083FFC
+
 	THUMB_FUNC_START GetAvailableLocaCommandAt
 GetAvailableLocaCommandAt: @ 0x08084078
 	push {r4, r5, lr}
@@ -2593,6 +2769,8 @@ _080840BA:
 	pop {r4, r5}
 	pop {r1}
 	bx r1
+
+	THUMB_FUNC_END GetAvailableLocaCommandAt
 
 	THUMB_FUNC_START sub_80840C4
 sub_80840C4: @ 0x080840C4
@@ -2869,6 +3047,8 @@ _08084326:
 	pop {r0}
 	bx r0
 
+	THUMB_FUNC_END sub_80840C4
+
 	THUMB_FUNC_START CheckForWaitEvents
 CheckForWaitEvents: @ 0x08084330
 	push {r4, lr}
@@ -2936,6 +3116,8 @@ _080843B6:
 	pop {r4}
 	pop {r1}
 	bx r1
+
+	THUMB_FUNC_END CheckForWaitEvents
 
 	THUMB_FUNC_START RunWaitEvents
 RunWaitEvents: @ 0x080843C0
@@ -3008,6 +3190,8 @@ _0808444E:
 _08084454: .4byte gUnknown_0202BCF0
 _08084458: .4byte gActiveUnit
 
+	THUMB_FUNC_END RunWaitEvents
+
 	THUMB_FUNC_START TryCallSelectEvents
 TryCallSelectEvents: @ 0x0808445C
 	push {r4, lr}
@@ -3051,6 +3235,8 @@ _080844A8:
 	pop {r1}
 	bx r1
 
+	THUMB_FUNC_END TryCallSelectEvents
+
 	THUMB_FUNC_START sub_80844B0
 sub_80844B0: @ 0x080844B0
 	push {r4, lr}
@@ -3092,6 +3278,8 @@ _080844FE:
 	pop {r4}
 	pop {r1}
 	bx r1
+
+	THUMB_FUNC_END sub_80844B0
 
 	THUMB_FUNC_START sub_8084508
 sub_8084508: @ 0x08084508
@@ -3135,6 +3323,8 @@ _08084556:
 	pop {r1}
 	bx r1
 
+	THUMB_FUNC_END sub_8084508
+
 	THUMB_FUNC_START sub_8084560
 sub_8084560: @ 0x08084560
 	push {lr}
@@ -3152,6 +3342,8 @@ _08084578:
 	pop {r1}
 	bx r1
 
+	THUMB_FUNC_END sub_8084560
+
 	THUMB_FUNC_START sub_808457C
 sub_808457C: @ 0x0808457C
 	push {lr}
@@ -3163,6 +3355,8 @@ sub_808457C: @ 0x0808457C
 _0808458C:
 	pop {r0}
 	bx r0
+
+	THUMB_FUNC_END sub_808457C
 
 	THUMB_FUNC_START sub_8084590
 sub_8084590: @ 0x08084590
@@ -3176,6 +3370,8 @@ _080845A0:
 	pop {r0}
 	bx r0
 
+	THUMB_FUNC_END sub_8084590
+
 	THUMB_FUNC_START sub_80845A4
 sub_80845A4: @ 0x080845A4
 	push {lr}
@@ -3187,6 +3383,8 @@ sub_80845A4: @ 0x080845A4
 	bx r0
 	.align 2, 0
 _080845B4: .4byte gUnknown_03001C80
+
+	THUMB_FUNC_END sub_80845A4
 
 	THUMB_FUNC_START sub_80845B8
 sub_80845B8: @ 0x080845B8
@@ -3212,6 +3410,8 @@ sub_80845B8: @ 0x080845B8
 	bx r0
 	.align 2, 0
 _080845E0: .4byte gUnknown_03001C80
+
+	THUMB_FUNC_END sub_80845B8
 
 	THUMB_FUNC_START sub_80845E4
 sub_80845E4: @ 0x080845E4
@@ -3254,6 +3454,8 @@ _08084622:
 	pop {r1}
 	bx r1
 
+	THUMB_FUNC_END sub_80845E4
+
 	THUMB_FUNC_START sub_8084628
 sub_8084628: @ 0x08084628
 	push {lr}
@@ -3261,6 +3463,8 @@ sub_8084628: @ 0x08084628
 	bl SetEventId
 	pop {r0}
 	bx r0
+
+	THUMB_FUNC_END sub_8084628
 
 	THUMB_FUNC_START sub_8084634
 sub_8084634: @ 0x08084634
@@ -3277,6 +3481,8 @@ _08084646:
 _08084648:
 	pop {r1}
 	bx r1
+
+	THUMB_FUNC_END sub_8084634
 
 	THUMB_FUNC_START GetBattleQuoteEntry
 GetBattleQuoteEntry: @ 0x0808464C
@@ -3362,6 +3568,8 @@ _080846DE:
 	pop {r1}
 	bx r1
 
+	THUMB_FUNC_END GetBattleQuoteEntry
+
 	THUMB_FUNC_START sub_80846E4
 sub_80846E4: @ 0x080846E4
 	push {r4, r5, r6, r7, lr}
@@ -3417,6 +3625,8 @@ _08084742:
 	pop {r1}
 	bx r1
 
+	THUMB_FUNC_END sub_80846E4
+
 	THUMB_FUNC_START sub_8084748
 sub_8084748: @ 0x08084748
 	push {r4, lr}
@@ -3456,6 +3666,8 @@ _0808477C:
 	.align 2, 0
 _08084784: .4byte gUnknown_089ED10C
 _08084788: .4byte 0x0000FFFF
+
+	THUMB_FUNC_END sub_8084748
 
 	THUMB_FUNC_START sub_808478C
 sub_808478C: @ 0x0808478C
@@ -3523,12 +3735,16 @@ _080847F0:
 	pop {r1}
 	bx r1
 
+	THUMB_FUNC_END sub_808478C
+
 	THUMB_FUNC_START sub_80847F8
 sub_80847F8: @ 0x080847F8
 	ldr r0, _080847FC  @ gUnknown_089ED10C
 	bx lr
 	.align 2, 0
 _080847FC: .4byte gUnknown_089ED10C
+
+	THUMB_FUNC_END sub_80847F8
 
 	THUMB_FUNC_START IsCharacterForceDeployed_
 IsCharacterForceDeployed_: @ 0x08084800
@@ -3580,6 +3796,8 @@ _08084852:
 	pop {r1}
 	bx r1
 
+	THUMB_FUNC_END IsCharacterForceDeployed_
+
 	THUMB_FUNC_START IsSethLArachelMyrrhInnes
 IsSethLArachelMyrrhInnes: @ 0x08084858
 	push {lr}
@@ -3605,5 +3823,7 @@ _08084874:
 _0808487C:
 	pop {r1}
 	bx r1
+
+	THUMB_FUNC_END IsSethLArachelMyrrhInnes
 
 .align 2, 0

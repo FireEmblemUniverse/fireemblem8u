@@ -146,7 +146,7 @@
 . = 0x004158; gUnknown_03004158 = .;
 . = 0x004160; IntrMain_Buffer = .;
 . = 0x004960; gUnknown_03004960 = .;
-. = 0x004970; gUnknown_03004970 = .;
+. = 0x004970; gSpriteAllocIt = .;
 . = 0x004980; gUnknown_03004980 = .;
 . = 0x004990; gUnknown_03004990 = .;
 . = 0x0049A0; gWorkingBmMap = .;
@@ -162,7 +162,7 @@
 . = 0x004E86; gUnknown_03004E86 = .;
 . = 0x004F08; gUnknown_03004F08 = .;
 . = 0x004F0C; gUnknown_03004F0C = .;
-. = 0x004F10; gUnknown_03004F10 = .;
+. = 0x004F10; gCpDecideMainFunc = .;
 . = 0x004F20; gUnknown_03004F20 = .;
 . = 0x004FA0; gUnknown_03004FA0 = .;
 . = 0x004FA4; gUnknown_03004FA4 = .;

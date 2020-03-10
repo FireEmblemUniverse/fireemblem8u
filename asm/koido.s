@@ -33,6 +33,8 @@ _0801DBFC:
 	pop {r1}
 	bx r1
 
+	THUMB_FUNC_END GetSomeFacingDirection
+
 	THUMB_FUNC_START Make6CMOVEUNITForUnitBeingRescued
 Make6CMOVEUNITForUnitBeingRescued: @ 0x0801DC00
 	push {lr}
@@ -68,6 +70,8 @@ _0801DC38:
 	pop {r1}
 	bx r1
 
+	THUMB_FUNC_END Make6CMOVEUNITForUnitBeingRescued
+
 	THUMB_FUNC_START Loop6C_KOIDO
 Loop6C_KOIDO: @ 0x0801DC3C
 	push {r4, r5, lr}
@@ -98,6 +102,8 @@ _0801DC76:
 	pop {r4, r5}
 	pop {r0}
 	bx r0
+
+	THUMB_FUNC_END Loop6C_KOIDO
 
 	THUMB_FUNC_START Make6CKOIDO
 Make6CKOIDO: @ 0x0801DC7C
@@ -141,6 +147,8 @@ Make6CKOIDO: @ 0x0801DC7C
 	.align 2, 0
 _0801DCCC: .4byte gUnknown_0859AD88
 
+	THUMB_FUNC_END Make6CKOIDO
+
 	THUMB_FUNC_START Make6CKOIDOAMM
 Make6CKOIDOAMM: @ 0x0801DCD0
 	push {r4, r5, r6, r7, lr}
@@ -177,5 +185,7 @@ Make6CKOIDOAMM: @ 0x0801DCD0
 	bx r0
 	.align 2, 0
 _0801DD18: .4byte gUnknown_0859ADA0
+
+	THUMB_FUNC_END Make6CKOIDOAMM
 
 .align 2, 0 @ align with 0

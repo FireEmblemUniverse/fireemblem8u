@@ -44,6 +44,8 @@ _080782E4:
 	pop {r1}
 	bx r1
 
+	THUMB_FUNC_END sub_80782A8
+
 	THUMB_FUNC_START GenerateMonsterLevel
 GenerateMonsterLevel: @ 0x080782EC
 	push {r4, lr}
@@ -75,6 +77,8 @@ _08078316:
 	.align 2, 0
 _08078320: .4byte gUnknown_088D2058
 
+	THUMB_FUNC_END GenerateMonsterLevel
+
 	THUMB_FUNC_START GenerateMonsterClass
 GenerateMonsterClass: @ 0x08078324
 	push {r4, lr}
@@ -97,6 +101,8 @@ GenerateMonsterClass: @ 0x08078324
 	bx r1
 	.align 2, 0
 _0807834C: .4byte gUnknown_088D2060
+
+	THUMB_FUNC_END GenerateMonsterClass
 
 	THUMB_FUNC_START GenerateMonsterItems
 GenerateMonsterItems: @ 0x08078350
@@ -191,5 +197,7 @@ _08078400:
 	pop {r4, r5, r6, r7}
 	pop {r1}
 	bx r1
+
+	THUMB_FUNC_END GenerateMonsterItems
 
 .align 2, 0

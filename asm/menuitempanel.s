@@ -208,6 +208,8 @@ _0801E672:
 _0801E67C: .4byte gBattleActor
 _0801E680: .4byte gBattleTarget
 
+	THUMB_FUNC_END sub_801E4F4
+
 	THUMB_FUNC_START sub_801E684
 sub_801E684: @ 0x0801E684
 	push {r4, r5, r6, r7, lr}
@@ -299,6 +301,8 @@ _0801E732:
 _0801E73C: .4byte gUnknown_0859AE88
 _0801E740: .4byte gBattleTarget
 _0801E744: .4byte gBattleActor
+
+	THUMB_FUNC_END sub_801E684
 
 	THUMB_FUNC_START sub_801E748
 sub_801E748: @ 0x0801E748
@@ -657,6 +661,8 @@ _0801EA48: .4byte 0x00000501
 _0801EA4C: .4byte 0x000004F5
 _0801EA50: .4byte gBG0TilemapBuffer
 
+	THUMB_FUNC_END sub_801E748
+
 	THUMB_FUNC_START sub_801EA54
 sub_801EA54: @ 0x0801EA54
 	push {lr}
@@ -666,5 +672,7 @@ sub_801EA54: @ 0x0801EA54
 	bx r0
 	.align 2, 0
 _0801EA60: .4byte gUnknown_0859AE88
+
+	THUMB_FUNC_END sub_801EA54
 
 .align 2, 0 @ align with 0

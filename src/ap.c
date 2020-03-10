@@ -70,7 +70,7 @@ void AP_Display(struct APHandle* handle, int x, int y) {
         rotScaleMask = (handle->rotScaleIndex << 9);
     }
 
-    RegisterObjectAttributes(
+    PutSpriteExt(
         handle->objLayer,
         x | rotScaleMask, y,
         handle->pCurrentObjData,

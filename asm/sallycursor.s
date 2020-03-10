@@ -73,6 +73,8 @@ _080332C4:
 	.align 2, 0
 _080332CC: .4byte 0x0001000C
 
+	THUMB_FUNC_END GetPlayerLeaderUnitId
+
 	THUMB_FUNC_START sub_80332D0
 sub_80332D0: @ 0x080332D0
 	push {r4, r5, lr}
@@ -132,12 +134,16 @@ _08033334:
 _08033344: .4byte gBmMapRange
 _08033348: .4byte gBmMapMovement
 
+	THUMB_FUNC_END sub_80332D0
+
 	THUMB_FUNC_START sub_803334C
 sub_803334C: @ 0x0803334C
 	push {lr}
 	bl sub_80972B0
 	pop {r0}
 	bx r0
+
+	THUMB_FUNC_END sub_803334C
 
 	THUMB_FUNC_START sub_8033358
 sub_8033358: @ 0x08033358
@@ -148,6 +154,8 @@ sub_8033358: @ 0x08033358
 	bl sub_803334C
 	pop {r0}
 	bx r0
+
+	THUMB_FUNC_END sub_8033358
 
 	THUMB_FUNC_START sub_803336C
 sub_803336C: @ 0x0803336C
@@ -176,6 +184,8 @@ sub_803336C: @ 0x0803336C
 	.align 2, 0
 _080333A0: .4byte gUnknown_0202BCB0
 
+	THUMB_FUNC_END sub_803336C
+
 	THUMB_FUNC_START sub_80333A4
 sub_80333A4: @ 0x080333A4
 	push {r4, lr}
@@ -195,6 +205,8 @@ _080333BE:
 	pop {r1}
 	bx r1
 
+	THUMB_FUNC_END sub_80333A4
+
 	THUMB_FUNC_START sub_80333C4
 sub_80333C4: @ 0x080333C4
 	push {lr}
@@ -203,6 +215,8 @@ sub_80333C4: @ 0x080333C4
 	movs r0, #1
 	pop {r1}
 	bx r1
+
+	THUMB_FUNC_END sub_80333C4
 
 	THUMB_FUNC_START sub_80333D4
 sub_80333D4: @ 0x080333D4
@@ -238,6 +252,8 @@ _08033410:
 	.align 2, 0
 _08033418: .4byte gUnknown_0202BCF0
 
+	THUMB_FUNC_END sub_80333D4
+
 	THUMB_FUNC_START sub_803341C
 sub_803341C: @ 0x0803341C
 	push {lr}
@@ -247,6 +263,8 @@ sub_803341C: @ 0x0803341C
 	bl Proc_Goto
 	pop {r0}
 	bx r0
+
+	THUMB_FUNC_END sub_803341C
 
 	THUMB_FUNC_START sub_803342C
 sub_803342C: @ 0x0803342C
@@ -270,6 +288,8 @@ _08033452:
 	pop {r0}
 	bx r0
 
+	THUMB_FUNC_END sub_803342C
+
 	THUMB_FUNC_START sub_8033458
 sub_8033458: @ 0x08033458
 	push {lr}
@@ -279,6 +299,8 @@ sub_8033458: @ 0x08033458
 	bl Proc_Goto
 	pop {r0}
 	bx r0
+
+	THUMB_FUNC_END sub_8033458
 
 	THUMB_FUNC_START sub_8033468
 sub_8033468: @ 0x08033468
@@ -297,6 +319,8 @@ sub_8033468: @ 0x08033468
 	bx r0
 	.align 2, 0
 _08033488: .4byte gUnknown_0859D040
+
+	THUMB_FUNC_END sub_8033468
 
 	THUMB_FUNC_START sub_803348C
 sub_803348C: @ 0x0803348C
@@ -322,6 +346,8 @@ sub_803348C: @ 0x0803348C
 	.align 2, 0
 _080334B8: .4byte gUnknown_0202BCF0
 
+	THUMB_FUNC_END sub_803348C
+
 	THUMB_FUNC_START sub_80334BC
 sub_80334BC: @ 0x080334BC
 	push {lr}
@@ -330,6 +356,8 @@ sub_80334BC: @ 0x080334BC
 	bl sub_8033648
 	pop {r0}
 	bx r0
+
+	THUMB_FUNC_END sub_80334BC
 
 	THUMB_FUNC_START sub_80334CC
 sub_80334CC: @ 0x080334CC
@@ -344,6 +372,8 @@ sub_80334CC: @ 0x080334CC
 	bx r0
 	.align 2, 0
 _080334E4: .4byte 0xFF00FFF0
+
+	THUMB_FUNC_END sub_80334CC
 
 	THUMB_FUNC_START sub_80334E8
 sub_80334E8: @ 0x080334E8
@@ -367,6 +397,8 @@ sub_80334E8: @ 0x080334E8
 	bx r0
 	.align 2, 0
 _08033510: .4byte 0xFF00FFF0
+
+	THUMB_FUNC_END sub_80334E8
 
 	THUMB_FUNC_START sub_8033514
 sub_8033514: @ 0x08033514
@@ -395,6 +427,8 @@ sub_8033514: @ 0x08033514
 	.align 2, 0
 _08033544: .4byte 0xFF00FFF0
 
+	THUMB_FUNC_END sub_8033514
+
 	THUMB_FUNC_START sub_8033548
 sub_8033548: @ 0x08033548
 	push {r4, lr}
@@ -416,67 +450,71 @@ sub_8033548: @ 0x08033548
 _0803356C: .4byte gUnknown_08A199C8
 _08033570: .4byte 0x06017000
 
+	THUMB_FUNC_END sub_8033548
+
 	THUMB_FUNC_START sub_8033574
 sub_8033574: @ 0x08033574
 	push {r4, lr}
 	sub sp, #4
-	ldr r4, _080335E4  @ gUnknown_08590F8C
+	ldr r4, _080335E4  @ gObject_32x16
 	ldr r0, _080335E8  @ 0x0000238B
 	str r0, [sp]
 	movs r0, #4
 	movs r1, #0x64
 	movs r2, #0x8c
 	adds r3, r4, #0
-	bl RegisterObjectAttributes_SafeMaybe
+	bl PutSprite
 	ldr r0, _080335EC  @ 0x0000238F
 	str r0, [sp]
 	movs r0, #4
 	movs r1, #0x84
 	movs r2, #0x8c
 	adds r3, r4, #0
-	bl RegisterObjectAttributes_SafeMaybe
-	ldr r3, _080335F0  @ gUnknown_08590F4C
+	bl PutSprite
+	ldr r3, _080335F0  @ gObject_16x16
 	ldr r0, _080335F4  @ 0x00002393
 	str r0, [sp]
 	movs r0, #4
 	movs r1, #0xa4
 	movs r2, #0x8c
-	bl RegisterObjectAttributes_SafeMaybe
+	bl PutSprite
 	ldr r0, _080335F8  @ 0x00002395
 	str r0, [sp]
 	movs r0, #4
 	movs r1, #0x10
 	movs r2, #0x8c
 	adds r3, r4, #0
-	bl RegisterObjectAttributes_SafeMaybe
+	bl PutSprite
 	ldr r0, _080335FC  @ 0x00002399
 	str r0, [sp]
 	movs r0, #4
 	movs r1, #0x30
 	movs r2, #0x8c
 	adds r3, r4, #0
-	bl RegisterObjectAttributes_SafeMaybe
-	ldr r3, _08033600  @ gUnknown_08590F64
+	bl PutSprite
+	ldr r3, _08033600  @ gObject_8x16
 	ldr r0, _08033604  @ 0x0000239D
 	str r0, [sp]
 	movs r0, #4
 	movs r1, #0x50
 	movs r2, #0x8c
-	bl RegisterObjectAttributes_SafeMaybe
+	bl PutSprite
 	add sp, #4
 	pop {r4}
 	pop {r0}
 	bx r0
 	.align 2, 0
-_080335E4: .4byte gUnknown_08590F8C
+_080335E4: .4byte gObject_32x16
 _080335E8: .4byte 0x0000238B
 _080335EC: .4byte 0x0000238F
-_080335F0: .4byte gUnknown_08590F4C
+_080335F0: .4byte gObject_16x16
 _080335F4: .4byte 0x00002393
 _080335F8: .4byte 0x00002395
 _080335FC: .4byte 0x00002399
-_08033600: .4byte gUnknown_08590F64
+_08033600: .4byte gObject_8x16
 _08033604: .4byte 0x0000239D
+
+	THUMB_FUNC_END sub_8033574
 
 	THUMB_FUNC_START sub_8033608
 sub_8033608: @ 0x08033608
@@ -491,6 +529,8 @@ sub_8033608: @ 0x08033608
 	.align 2, 0
 _0803361C: .4byte gUnknown_08A1B154
 
+	THUMB_FUNC_END sub_8033608
+
 	THUMB_FUNC_START sub_8033620
 sub_8033620: @ 0x08033620
 	push {lr}
@@ -502,6 +542,8 @@ sub_8033620: @ 0x08033620
 	.align 2, 0
 _08033630: .4byte gUnknown_0859DBA4
 
+	THUMB_FUNC_END sub_8033620
+
 	THUMB_FUNC_START sub_8033634
 sub_8033634: @ 0x08033634
 	push {lr}
@@ -512,6 +554,8 @@ sub_8033634: @ 0x08033634
 	bx r0
 	.align 2, 0
 _08033644: .4byte gUnknown_0859DBA4
+
+	THUMB_FUNC_END sub_8033634
 
 	THUMB_FUNC_START sub_8033648
 sub_8033648: @ 0x08033648
@@ -614,6 +658,8 @@ _08033740: .4byte sub_80333C4
 _08033744: .4byte sub_80333A4
 _08033748: .4byte sub_8033634
 
+	THUMB_FUNC_END sub_8033648
+
 	THUMB_FUNC_START CanCharacterBePrepMoved
 CanCharacterBePrepMoved: @ 0x0803374C
 	push {r4, lr}
@@ -634,6 +680,8 @@ _08033768:
 	pop {r4}
 	pop {r1}
 	bx r1
+
+	THUMB_FUNC_END CanCharacterBePrepMoved
 
 	THUMB_FUNC_START sub_8033770
 sub_8033770: @ 0x08033770
@@ -657,6 +705,8 @@ sub_8033770: @ 0x08033770
 	.align 2, 0
 _08033794: .4byte gBmMapSize
 
+	THUMB_FUNC_END sub_8033770
+
 	THUMB_FUNC_START sub_8033798
 sub_8033798: @ 0x08033798
 	movs r1, #0
@@ -673,6 +723,8 @@ sub_8033798: @ 0x08033798
 	bx lr
 	.align 2, 0
 _080337B0: .4byte gBmMapSize
+
+	THUMB_FUNC_END sub_8033798
 
 	THUMB_FUNC_START sub_80337B4
 sub_80337B4: @ 0x080337B4
@@ -692,6 +744,8 @@ sub_80337B4: @ 0x080337B4
 	.align 2, 0
 _080337D0: .4byte gBmMapSize
 
+	THUMB_FUNC_END sub_80337B4
+
 	THUMB_FUNC_START sub_80337D4
 sub_80337D4: @ 0x080337D4
 	movs r1, #0
@@ -708,6 +762,8 @@ sub_80337D4: @ 0x080337D4
 	bx lr
 	.align 2, 0
 _080337EC: .4byte gBmMapSize
+
+	THUMB_FUNC_END sub_80337D4
 
 	THUMB_FUNC_START sub_80337F0
 sub_80337F0: @ 0x080337F0
@@ -775,6 +831,8 @@ _08033864:
 	.align 2, 0
 _0803386C: .4byte gUnknown_0202BCB0
 
+	THUMB_FUNC_END sub_80337F0
+
 	THUMB_FUNC_START InitPrepScreenUnitsAndCamera
 InitPrepScreenUnitsAndCamera: @ 0x08033870
 	push {r4, r5, lr}
@@ -810,6 +868,8 @@ _08033892:
 	.align 2, 0
 _080338B8: .4byte gUnknown_0202BCF0
 _080338BC: .4byte gUnknown_0202BCB0
+
+	THUMB_FUNC_END InitPrepScreenUnitsAndCamera
 
 	THUMB_FUNC_START sub_80338C0
 sub_80338C0: @ 0x080338C0
@@ -870,6 +930,8 @@ _0803391A:
 	.align 2, 0
 _0803393C: .4byte gUnknown_0202BCB0
 
+	THUMB_FUNC_END sub_80338C0
+
 	THUMB_FUNC_START sub_8033940
 sub_8033940: @ 0x08033940
 	push {r4, lr}
@@ -898,6 +960,8 @@ _0803395E:
 	bx r0
 	.align 2, 0
 _08033974: .4byte gUnknown_0202BCB0
+
+	THUMB_FUNC_END sub_8033940
 
 	THUMB_FUNC_START sub_8033978
 sub_8033978: @ 0x08033978
@@ -1192,6 +1256,8 @@ _08033BEC:
 	.align 2, 0
 _08033BF4: .4byte gUnknown_0202BCB0
 
+	THUMB_FUNC_END sub_8033978
+
 	THUMB_FUNC_START sub_8033BF8
 sub_8033BF8: @ 0x08033BF8
 	push {lr}
@@ -1204,6 +1270,8 @@ sub_8033BF8: @ 0x08033BF8
 	bx r1
 	.align 2, 0
 _08033C0C: .4byte gUnknown_0859DBBC
+
+	THUMB_FUNC_END sub_8033BF8
 
 	THUMB_FUNC_START SALLYCURSOR6C_StartUnitSwap
 SALLYCURSOR6C_StartUnitSwap: @ 0x08033C10
@@ -1262,6 +1330,8 @@ _08033C84: .4byte 0x00000872
 _08033C88: .4byte gActiveUnit
 _08033C8C: .4byte gUnknown_0202BCF0
 
+	THUMB_FUNC_END SALLYCURSOR6C_StartUnitSwap
+
 	THUMB_FUNC_START sub_8033C90
 sub_8033C90: @ 0x08033C90
 	push {r4, r5, r6, r7, lr}
@@ -1313,12 +1383,12 @@ _08033CC8:
 	cmp r0, #0xc0
 	bhi _08033D04
 	subs r2, #0xc
-	ldr r3, _08033D34  @ gUnknown_08590F4C
+	ldr r3, _08033D34  @ gObject_16x16
 	movs r0, #6
 	str r0, [sp]
 	movs r0, #4
 	adds r1, r5, #0
-	bl RegisterObjectAttributes_SafeMaybe
+	bl PutSprite
 _08033D04:
 	ldr r0, _08033D38  @ gKeyStatusPtr
 	ldr r0, [r0]
@@ -1339,7 +1409,7 @@ _08033D04:
 _08033D28: .4byte gUnknown_0202BCB0
 _08033D2C: .4byte gBmMapRange
 _08033D30: .4byte gBmMapUnit
-_08033D34: .4byte gUnknown_08590F4C
+_08033D34: .4byte gObject_16x16
 _08033D38: .4byte gKeyStatusPtr
 _08033D3C:
 	ldr r0, _08033D50  @ gUnknown_0202BCF0
@@ -1417,6 +1487,8 @@ _08033DCA:
 	.align 2, 0
 _08033DD4: .4byte gUnknown_0202BCB0
 
+	THUMB_FUNC_END sub_8033C90
+
 	THUMB_FUNC_START sub_8033DD8
 sub_8033DD8: @ 0x08033DD8
 	push {r4, r5, lr}
@@ -1441,6 +1513,8 @@ sub_8033DD8: @ 0x08033DD8
 	bx r0
 	.align 2, 0
 _08033E04: .4byte gActiveUnit
+
+	THUMB_FUNC_END sub_8033DD8
 
 	THUMB_FUNC_START sub_8033E08
 sub_8033E08: @ 0x08033E08
@@ -1507,6 +1581,8 @@ _08033E82:
 	.align 2, 0
 _08033E88: .4byte gUnknown_0202BCF0
 
+	THUMB_FUNC_END sub_8033E08
+
 	THUMB_FUNC_START sub_8033E8C
 sub_8033E8C: @ 0x08033E8C
 	push {lr}
@@ -1520,6 +1596,8 @@ _08033E9A:
 	bx r0
 	.align 2, 0
 _08033EA0: .4byte gUnknown_0202BCF0
+
+	THUMB_FUNC_END sub_8033E8C
 
 	THUMB_FUNC_START sub_8033EA4
 sub_8033EA4: @ 0x08033EA4
@@ -1537,6 +1615,8 @@ _08033EB8:
 	.align 2, 0
 _08033EBC: .4byte gUnknown_0202BCF0
 
+	THUMB_FUNC_END sub_8033EA4
+
 	THUMB_FUNC_START sub_8033EC0
 sub_8033EC0: @ 0x08033EC0
 	push {lr}
@@ -1547,6 +1627,8 @@ sub_8033EC0: @ 0x08033EC0
 	bx r0
 	.align 2, 0
 _08033ED0: .4byte gUnknown_08A2ED88
+
+	THUMB_FUNC_END sub_8033EC0
 
 	THUMB_FUNC_START CallCursorShop
 CallCursorShop: @ 0x08033ED4
@@ -1595,6 +1677,8 @@ _08033F2A:
 	pop {r4}
 	pop {r0}
 	bx r0
+
+	THUMB_FUNC_END CallCursorShop
 
 	THUMB_FUNC_START sub_8033F34
 sub_8033F34: @ 0x08033F34
@@ -1739,6 +1823,8 @@ _0803406C: .4byte gActiveUnit
 _08034070: .4byte gKeyStatusPtr
 _08034074: .4byte gUnknown_0202BCF0
 
+	THUMB_FUNC_END sub_8033F34
+
 	THUMB_FUNC_START sub_8034078
 sub_8034078: @ 0x08034078
 	push {r4, lr}
@@ -1750,6 +1836,8 @@ sub_8034078: @ 0x08034078
 	pop {r4}
 	pop {r0}
 	bx r0
+
+	THUMB_FUNC_END sub_8034078
 
 	THUMB_FUNC_START sub_8034090
 sub_8034090: @ 0x08034090
@@ -1813,6 +1901,8 @@ _08034102:
 	.align 2, 0
 _08034108: .4byte gBmMapUnit
 
+	THUMB_FUNC_END sub_8034090
+
 	THUMB_FUNC_START sub_803410C
 sub_803410C: @ 0x0803410C
 	push {r4, r5, r6, lr}
@@ -1859,6 +1949,8 @@ _08034146:
 	.align 2, 0
 _08034164: .4byte gUnknown_0202BCF0
 
+	THUMB_FUNC_END sub_803410C
+
 	THUMB_FUNC_START sub_8034168
 sub_8034168: @ 0x08034168
 	push {lr}
@@ -1881,6 +1973,8 @@ sub_8034168: @ 0x08034168
 	bx r0
 	.align 2, 0
 _08034190: .4byte gUnknown_0202BCF0
+
+	THUMB_FUNC_END sub_8034168
 
 	THUMB_FUNC_START sub_8034194
 sub_8034194: @ 0x08034194
@@ -1912,6 +2006,8 @@ _080341C8:
 	pop {r0}
 	bx r0
 
+	THUMB_FUNC_END sub_8034194
+
 	THUMB_FUNC_START sub_80341D0
 sub_80341D0: @ 0x080341D0
 	push {lr}
@@ -1936,6 +2032,8 @@ sub_80341D0: @ 0x080341D0
 	.align 2, 0
 _080341FC: .4byte gLCDControlBuffer
 
+	THUMB_FUNC_END sub_80341D0
+
 	THUMB_FUNC_START sub_8034200
 sub_8034200: @ 0x08034200
 	push {lr}
@@ -1944,6 +2042,8 @@ sub_8034200: @ 0x08034200
 	bl sub_80141B0
 	pop {r0}
 	bx r0
+
+	THUMB_FUNC_END sub_8034200
 
 	THUMB_FUNC_START ShrinkPlayerUnits
 ShrinkPlayerUnits: @ 0x08034214
@@ -1993,6 +2093,8 @@ _08034268: .4byte gUnknown_0202BCF0
 _0803426C: .4byte gUnknown_0202BCB0
 _08034270: .4byte gUnknown_02020188
 _08034274: .4byte 0x0001000C
+
+	THUMB_FUNC_END ShrinkPlayerUnits
 
 	THUMB_FUNC_START sub_8034278
 sub_8034278: @ 0x08034278
@@ -2058,6 +2160,8 @@ _080342F0: .4byte gUnknown_0859DBBC
 _080342F4: .4byte gUnknown_0202BCB0
 _080342F8: .4byte gUnknown_0202BCF0
 
+	THUMB_FUNC_END sub_8034278
+
 	THUMB_FUNC_START sub_80342FC
 sub_80342FC: @ 0x080342FC
 	push {lr}
@@ -2071,5 +2175,7 @@ _0803430A:
 	bx r1
 	.align 2, 0
 _08034310: .4byte gUnknown_0859DBBC
+
+	THUMB_FUNC_END sub_80342FC
 
 .align 2, 0

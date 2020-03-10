@@ -34,7 +34,6 @@ SECTIONS
         src/rng.o(.text);
         src/time.o(.text);
         src/hardware.o(.text);
-        src/dma.o(.text);
         src/soundwrapper.o(.text);
         src/ramfunc.o(.text);
         src/proc.o(.text);
@@ -110,7 +109,7 @@ SECTIONS
         asm/bmarch.o(.text);
         asm/bmdifficulty.o(.text);
         src/cp_phase.o(.text);
-        asm/cporder.o(.text);
+        src/cp_order.o(.text);
         asm/cpdecide.o(.text);
         asm/cpperform.o(.text);
         asm/code_cpextra.o(.text);
@@ -164,7 +163,7 @@ SECTIONS
         tools/agbcc/lib/libc.a:memchr.o(.text);
         tools/agbcc/lib/libc.a:memmove.o(.text);
         tools/agbcc/lib/libc.a:mlock.o(.text);
-        /* TODO: linking this object from libc causes some libgcc functions to 
+        /* TODO: linking this object from libc causes some libgcc functions to
          * get discarded. I have no idea why. */
         /*tools/agbcc/lib/libc.a:mprec.o(.text);*/ asm/libc/mprec.o(.text);
         tools/agbcc/lib/libc.a:s_isinf.o(.text);
@@ -207,7 +206,8 @@ SECTIONS
         . = ALIGN(4); src/bmio.o(.rodata);
         . = ALIGN(4); data/const_data_D7F5C.o(.rodata);
         . = ALIGN(4); src/cp_phase.o(.rodata);
-        . = ALIGN(4); data/const_data_D80AC.o(.rodata);
+        . = ALIGN(4); src/cp_order.o(.rodata);
+        . = ALIGN(4); data/const_data_D80D0.o(.rodata);
         . = ALIGN(4); src/uiutils.o(.rodata);
         . = ALIGN(4); src/uimenu.o(.rodata);
         . = ALIGN(4); src/uitarget.o(.rodata);
@@ -237,7 +237,8 @@ SECTIONS
         . = ALIGN(4); src/soundwrapper.o(.data);
         . = ALIGN(4); src/proc.o(.data);
         . = ALIGN(4); src/fontgrp.o(.data);
-        . = ALIGN(4); data/data_587A40.o(.data);
+        . = ALIGN(4); src/ctc.o(.data);
+        . = ALIGN(4); data/data_590FEC.o(.data);
         . = ALIGN(4); src/messdecode.o(.data);
         . = ALIGN(4); data/data_591AB4.o(.data);
         . = ALIGN(4); data/data_item_icon.o(.data);
@@ -253,7 +254,8 @@ SECTIONS
         . = ALIGN(4); src/bmio.o(.data);
         . = ALIGN(4); data/data_59D9FC.o(.data);
         . = ALIGN(4); src/cp_phase.o(.data);
-        . = ALIGN(4); data/data_5A7F58.o(.data);
+        . = ALIGN(4); src/cp_order.o(.data);
+        . = ALIGN(4); data/data_5A7F9C.o(.data);
         . = ALIGN(4); src/uiutils.o(.data);
         . = ALIGN(4); src/uimenu.o(.data);
         . = ALIGN(4); src/uitarget.o(.data);
@@ -287,7 +289,7 @@ SECTIONS
         . = 0xEE0C00; data/data_banim_terrain.o(.data);
         FILL(0xFF);
         _banim_pal_start = 0xEF8000;
-        . = _banim_pal_start; 
+        . = _banim_pal_start;
         src/banim_pal_chara.o(.data.banim_pal_head);
         src/banim_pal_chara.o(.data.banim_pal_ptr_table);
         FILL(0x00);
@@ -298,6 +300,49 @@ SECTIONS
         . = 0xFE0000; data/data_FE0000.o(.data);
         . = 0xFFF000; data/data_FFF000.o(.data);
     } = 0
+
+  /* Stabs debugging sections.  */
+  .stab          0 : { *(.stab) }
+  .stabstr       0 : { *(.stabstr) }
+  .stab.excl     0 : { *(.stab.excl) }
+  .stab.exclstr  0 : { *(.stab.exclstr) }
+  .stab.index    0 : { *(.stab.index) }
+  .stab.indexstr 0 : { *(.stab.indexstr) }
+  .comment       0 : { *(.comment) }
+  .gnu.build.attributes : { *(.gnu.build.attributes .gnu.build.attributes.*) }
+  /* DWARF debug sections.
+     Symbols in the DWARF debugging sections are relative to the beginning
+     of the section so we begin them at 0.  */
+  /* DWARF 1 */
+  .debug          0 : { *(.debug) }
+  .line           0 : { *(.line) }
+  /* GNU DWARF 1 extensions */
+  .debug_srcinfo  0 : { *(.debug_srcinfo) }
+  .debug_sfnames  0 : { *(.debug_sfnames) }
+  /* DWARF 1.1 and DWARF 2 */
+  .debug_aranges  0 : { *(.debug_aranges) }
+  .debug_pubnames 0 : { *(.debug_pubnames) }
+  /* DWARF 2 */
+  .debug_info     0 : { *(.debug_info .gnu.linkonce.wi.*) }
+  .debug_abbrev   0 : { *(.debug_abbrev) }
+  .debug_line     0 : { *(.debug_line .debug_line.* .debug_line_end) }
+  .debug_frame    0 : { *(.debug_frame) }
+  .debug_str      0 : { *(.debug_str) }
+  .debug_loc      0 : { *(.debug_loc) }
+  .debug_macinfo  0 : { *(.debug_macinfo) }
+  /* SGI/MIPS DWARF 2 extensions */
+  .debug_weaknames 0 : { *(.debug_weaknames) }
+  .debug_funcnames 0 : { *(.debug_funcnames) }
+  .debug_typenames 0 : { *(.debug_typenames) }
+  .debug_varnames  0 : { *(.debug_varnames) }
+  /* DWARF 3 */
+  .debug_pubtypes 0 : { *(.debug_pubtypes) }
+  .debug_ranges   0 : { *(.debug_ranges) }
+  /* DWARF Extension.  */
+  .debug_macro    0 : { *(.debug_macro) }
+  .debug_addr     0 : { *(.debug_addr) }
+  .ARM.attributes 0 : { KEEP (*(.ARM.attributes)) KEEP (*(.gnu.attributes)) }
+  .note.gnu.arm.ident 0 : { KEEP (*(.note.gnu.arm.ident)) }
 
     /* Discard everything not specifically mentioned above. */
     /DISCARD/ :
