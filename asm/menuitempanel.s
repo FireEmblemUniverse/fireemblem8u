@@ -224,7 +224,7 @@ sub_801E684: @ 0x0801E684
 	bne _0801E732
 	adds r0, r4, #0
 	adds r1, r5, #0
-	bl Proc_Create
+	bl Proc_Start
 	adds r4, r0, #0
 	str r6, [r4, #0x2c]
 	adds r0, #0x30
@@ -661,7 +661,7 @@ _0801EA50: .4byte gBG0TilemapBuffer
 sub_801EA54: @ 0x0801EA54
 	push {lr}
 	ldr r0, _0801EA60  @ gUnknown_0859AE88
-	bl Proc_DeleteAllWithScript
+	bl Proc_EndEach
 	pop {r0}
 	bx r0
 	.align 2, 0

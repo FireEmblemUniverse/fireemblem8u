@@ -91,7 +91,7 @@ _08039814:
 	str r0, [r1]
 	ldr r0, _08039854  @ gUnknown_085A7FCC
 	mov r1, r8
-	bl Proc_CreateBlockingChild
+	bl Proc_StartBlocking
 _08039830:
 	add sp, #0xc
 	pop {r3}
@@ -127,7 +127,7 @@ sub_8039858: @ 0x08039858
 	str r0, [r1]
 	ldr r0, _08039894  @ gUnknown_085A7FCC
 	adds r1, r5, #0
-	bl Proc_CreateBlockingChild
+	bl Proc_StartBlocking
 _08039882:
 	pop {r4, r5}
 	pop {r0}
@@ -434,7 +434,7 @@ _08039AB8: .4byte gUnknown_0203AA04
 	THUMB_FUNC_START CPORDER_End
 CPORDER_End: @ 0x08039ABC
 	push {lr}
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 	pop {r0}
 	bx r0
 

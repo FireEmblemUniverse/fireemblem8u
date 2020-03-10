@@ -66,9 +66,9 @@ _0801FDE2:
 	beq _0801FE0A
 	adds r1, r0, #0
 	adds r0, r2, #0
-	bl Proc_GotoLabel
+	bl Proc_Goto
 	adds r0, r4, #0
-	bl Proc_Delete
+	bl Proc_End
 _0801FE0A:
 	pop {r4}
 	pop {r0}
@@ -401,7 +401,7 @@ _0802006A:
 _08020076:
 	adds r0, r6, #0
 	adds r1, r7, #0
-	bl Proc_Create
+	bl Proc_Start
 	pop {r4, r5, r6, r7}
 	pop {r1}
 	bx r1
@@ -877,7 +877,7 @@ _080203EE:
 	cmp r0, #0
 	bne _08020480
 	adds r0, r7, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _08020480:
 	add sp, #0x10
 	pop {r3, r4, r5}
@@ -1226,7 +1226,7 @@ _08020740:
 	cmp r0, #0x45
 	ble _08020764
 	mov r0, sl
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _08020764:
 	add sp, #4
 	pop {r3, r4, r5}
@@ -1415,9 +1415,9 @@ _080208CC:
 	movs r3, #0
 	bl SetSpecialColorEffectsParameters
 	ldr r0, _080208F4  @ gUnknown_0859B180
-	bl Proc_DeleteAllWithScript
+	bl Proc_EndEach
 	adds r0, r7, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _080208EC:
 	add sp, #8
 	pop {r4, r5, r6, r7}
@@ -1577,7 +1577,7 @@ _08020A18:
 	movs r3, #0
 	bl SetSpecialColorEffectsParameters
 	adds r0, r5, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _08020A38:
 	pop {r4, r5}
 	pop {r0}
@@ -1660,7 +1660,7 @@ sub_8020A8C: @ 0x08020A8C
 	strh r4, [r0]
 	bl EnablePaletteSync
 	adds r0, r5, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _08020AE8:
 	pop {r4, r5}
 	pop {r0}
@@ -1977,7 +1977,7 @@ _08020D9C:
 	bge _08020DAE
 	bl ResetMapPaletteAnimations
 	adds r0, r6, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _08020DAE:
 	pop {r4, r5, r6}
 	pop {r0}
@@ -2051,7 +2051,7 @@ sub_8020DE8: @ 0x08020DE8
 	cmp r0, #0x28
 	ble _08020E3C
 	adds r0, r5, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _08020E3C:
 	add sp, #4
 	pop {r4, r5, r6}
@@ -2139,7 +2139,7 @@ sub_8020EAC: @ 0x08020EAC
 	movs r1, #0
 	bl SetBackgroundTileDataOffset
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _08020EF4:
 	pop {r4}
 	pop {r0}
@@ -2177,11 +2177,11 @@ sub_8020F00: @ 0x08020F00
 	movs r0, #7
 	bl BG_EnableSyncByMask
 	ldr r0, _08020FE0  @ gUnknown_0859B0E0
-	bl Proc_DeleteAllWithScript
+	bl Proc_EndEach
 	ldr r0, _08020FE4  @ gUnknown_0859B108
-	bl Proc_DeleteAllWithScript
+	bl Proc_EndEach
 	ldr r0, _08020FE8  @ gUnknown_0859B160
-	bl Proc_DeleteAllWithScript
+	bl Proc_EndEach
 	bl sub_8001710
 	ldr r5, _08020FEC  @ gUnknown_02022968
 	adds r0, r5, #0
@@ -2307,7 +2307,7 @@ _08021064:
 	bge _0802107A
 	bl ResetMapPaletteAnimations
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _0802107A:
 	pop {r4, r5}
 	pop {r0}
@@ -2334,7 +2334,7 @@ sub_8021090: @ 0x08021090
 	cmp r0, #0
 	beq _080210A4
 	adds r0, r3, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 	b _080210BA
 _080210A4:
 	adds r0, r3, #0
@@ -2346,7 +2346,7 @@ _080210A4:
 	cmp r1, #0
 	bge _080210BA
 	adds r0, r3, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _080210BA:
 	pop {r0}
 	bx r0
@@ -2473,7 +2473,7 @@ sub_8021188: @ 0x08021188
 _080211B2:
 	bl ResetMapPaletteAnimations
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _080211BC:
 	pop {r4}
 	pop {r0}

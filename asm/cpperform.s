@@ -28,7 +28,7 @@ sub_8039E88: @ 0x08039E88
 	ble _08039EBC
 _08039EB2:
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 	adds r2, r4, #0
 	adds r2, #0x64
 _08039EBC:
@@ -49,7 +49,7 @@ sub_8039ECC: @ 0x08039ECC
 	adds r6, r2, #0
 	adds r1, r3, #0
 	ldr r0, _08039EF0  @ gUnknown_085A8004
-	bl Proc_CreateBlockingChild
+	bl Proc_StartBlocking
 	str r4, [r0, #0x2c]
 	str r5, [r0, #0x30]
 	str r6, [r0, #0x58]
@@ -936,7 +936,7 @@ sub_803A5F8: @ 0x0803A5F8
 	cmp r0, #1
 	bne _0803A61C
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _0803A61C:
 	ldr r3, _0803A634  @ gActiveUnit
 	ldr r1, [r3]
@@ -972,7 +972,7 @@ sub_803A63C: @ 0x0803A63C
 _0803A65C:
 	adds r0, r4, #0
 	movs r1, #1
-	bl Proc_GotoLabel
+	bl Proc_Goto
 _0803A664:
 	pop {r4}
 	pop {r0}

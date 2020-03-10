@@ -895,7 +895,7 @@ sub_80381E0: @ 0x080381E0
 	push {lr}
 	adds r1, r0, #0
 	ldr r0, _080381F0  @ gUnknown_0859E64C
-	bl Proc_CreateBlockingChild
+	bl Proc_StartBlocking
 	pop {r0}
 	bx r0
 	.align 2, 0
@@ -906,7 +906,7 @@ sub_80381F4: @ 0x080381F4
 	push {lr}
 	adds r1, r0, #0
 	ldr r0, _08038204  @ gUnknown_0859E6EC
-	bl Proc_CreateBlockingChild
+	bl Proc_StartBlocking
 	pop {r0}
 	bx r0
 	.align 2, 0
@@ -2437,7 +2437,7 @@ sub_8038EA8: @ 0x08038EA8
 	cmp r0, #0
 	beq _08038EC4
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _08038EC4:
 	pop {r4}
 	pop {r0}
@@ -2457,7 +2457,7 @@ sub_8038ED0: @ 0x08038ED0
 	cmp r0, #0
 	beq _08038EE8
 	adds r0, r2, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _08038EE8:
 	pop {r0}
 	bx r0
@@ -2793,7 +2793,7 @@ _080391AE:
 	movs r0, #1
 	bl BG_EnableSyncByMask
 	adds r0, r5, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _080391BA:
 	add sp, #0x10
 	pop {r4, r5}
@@ -2813,14 +2813,14 @@ sub_80391D0: @ 0x080391D0
 	cmp r1, #0
 	beq _080391E8
 	ldr r0, _080391E4  @ gUnknown_0859E804
-	bl Proc_CreateBlockingChild
+	bl Proc_StartBlocking
 	b _080391F0
 	.align 2, 0
 _080391E4: .4byte gUnknown_0859E804
 _080391E8:
 	ldr r0, _080391FC  @ gUnknown_0859E804
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 _080391F0:
 	str r4, [r0, #0x2c]
 	str r5, [r0, #0x30]
@@ -3162,7 +3162,7 @@ sub_803948C: @ 0x0803948C
 	movs r1, #8
 	bl sub_8038668
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 	pop {r4}
 	pop {r0}
 	bx r0
@@ -3240,7 +3240,7 @@ _0803950E:
 	bl m4aSongNumStart
 _08039538:
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _0803953E:
 	add sp, #0x1c
 	pop {r4, r5}
@@ -3355,7 +3355,7 @@ _08039616:
 	cmp r1, r0
 	blt _08039624
 	adds r0, r7, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _08039624:
 	add sp, #8
 	pop {r3}
@@ -3378,7 +3378,7 @@ sub_803963C: @ 0x0803963C
 	movs r0, #0x74
 	bl m4aSongNumStop
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 	b _08039658
 _08039654:
 	subs r0, #1
@@ -3426,7 +3426,7 @@ sub_8039690: @ 0x08039690
 	bgt _080396A6
 	adds r0, r1, #0
 	movs r1, #1
-	bl Proc_GotoLabel
+	bl Proc_Goto
 _080396A6:
 	pop {r0}
 	bx r0

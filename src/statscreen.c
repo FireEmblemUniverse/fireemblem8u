@@ -267,8 +267,8 @@ s8 CONST_DATA sPageSlideOffsetLut[] = // stat screen page transition draw offset
 
 struct ProcCmd CONST_DATA gProcScr_SSPageSlide[] =
 {
-    PROC_LOOP_ROUTINE(PageSlide_OnLoop),
-    PROC_CALL_ROUTINE(PageSlide_OnEnd),
+    PROC_REPEAT(PageSlide_OnLoop),
+    PROC_CALL(PageSlide_OnEnd),
 
     PROC_END,
 };
@@ -277,8 +277,8 @@ struct ProcCmd CONST_DATA gProcScr_SSGlowyBlendCtrl[] =
 {
     PROC_SLEEP(0),
 
-    PROC_CALL_ROUTINE(GlowBlendCtrl_OnInit),
-    PROC_LOOP_ROUTINE(GlowBlendCtrl_OnLoop),
+    PROC_CALL(GlowBlendCtrl_OnInit),
+    PROC_REPEAT(GlowBlendCtrl_OnLoop),
 
     PROC_END,
 };
@@ -287,19 +287,19 @@ struct ProcCmd CONST_DATA gProcScr_SSUnitSlide[] =
 {
     PROC_SLEEP(0),
 
-    PROC_CALL_ROUTINE(EndGlowBlendCtrl),
-    PROC_CALL_ROUTINE(UnitSlide_InitFadeOut),
+    PROC_CALL(EndGlowBlendCtrl),
+    PROC_CALL(UnitSlide_InitFadeOut),
 
-    PROC_LOOP_ROUTINE(UnitSlide_FadeOutLoop),
+    PROC_REPEAT(UnitSlide_FadeOutLoop),
 
-    PROC_CALL_ROUTINE(UnitSlide_SetNewUnit),
-    PROC_CALL_ROUTINE(UnitSlide_InitFadeIn),
+    PROC_CALL(UnitSlide_SetNewUnit),
+    PROC_CALL(UnitSlide_InitFadeIn),
 
-    PROC_LOOP_ROUTINE(UnitSlide_FadeInLoop),
+    PROC_REPEAT(UnitSlide_FadeInLoop),
     PROC_SLEEP(0),
 
-    PROC_CALL_ROUTINE(StartGlowBlendCtrl),
-    PROC_CALL_ROUTINE(ClearSlide),
+    PROC_CALL(StartGlowBlendCtrl),
+    PROC_CALL(ClearSlide),
 
     PROC_END,
 };
@@ -351,15 +351,15 @@ static u16 CONST_DATA sPageNameChrOffsetLut[] = { 0, 64, 14 }; // tile offsets w
 
 struct ProcCmd CONST_DATA gProcScr_SSPageNameCtrl[] =
 {
-    PROC_CALL_ROUTINE(PageNameCtrl_OnInit),
+    PROC_CALL(PageNameCtrl_OnInit),
 
 PROC_LABEL(0),
-    PROC_LOOP_ROUTINE(PageNameCtrl_OnIdle),
-    PROC_LOOP_ROUTINE(PageNameCtrl_AnimOut),
+    PROC_REPEAT(PageNameCtrl_OnIdle),
+    PROC_REPEAT(PageNameCtrl_AnimOut),
 
     PROC_SLEEP(1),
 
-    PROC_LOOP_ROUTINE(PageNameCtrl_AnimIn),
+    PROC_REPEAT(PageNameCtrl_AnimIn),
 
     PROC_GOTO(0),
 
@@ -368,16 +368,16 @@ PROC_LABEL(0),
 
 struct ProcCmd CONST_DATA gProcScr_SSPageNumCtrl[] =
 {
-    PROC_CALL_ROUTINE(PageNumCtrl_OnInit),
+    PROC_CALL(PageNumCtrl_OnInit),
 
 PROC_LABEL(0),
     PROC_SLEEP(0),
 
-    PROC_CALL_ROUTINE(PageNumCtrl_CheckSlide),
-    PROC_CALL_ROUTINE(PageNumCtrl_UpdateArrows),
-    PROC_CALL_ROUTINE(PageNumCtrl_UpdatePageNum),
-    PROC_CALL_ROUTINE(PageNumCtrl_DisplayMuPlatform),
-    PROC_CALL_ROUTINE(PageNumCtrl_DisplayBlinkIcons),
+    PROC_CALL(PageNumCtrl_CheckSlide),
+    PROC_CALL(PageNumCtrl_UpdateArrows),
+    PROC_CALL(PageNumCtrl_UpdatePageNum),
+    PROC_CALL(PageNumCtrl_DisplayMuPlatform),
+    PROC_CALL(PageNumCtrl_DisplayBlinkIcons),
 
     PROC_GOTO(0),
 
@@ -386,49 +386,49 @@ PROC_LABEL(0),
 
 struct ProcCmd CONST_DATA gProcScr_SSBgOffsetCtrl[] =
 {
-    PROC_LOOP_ROUTINE(BgOffCtrl_OnLoop),
+    PROC_REPEAT(BgOffCtrl_OnLoop),
     PROC_END,
 };
 
 struct ProcCmd CONST_DATA gProcScr_StatScreen[] =
 {
-    PROC_CALL_ROUTINE(StatScreen_BlackenScreen),
-    PROC_CALL_ROUTINE(BMapDispSuspend),
+    PROC_CALL(StatScreen_BlackenScreen),
+    PROC_CALL(BMapDispSuspend),
 
     PROC_SLEEP(2),
 
-    PROC_CALL_ROUTINE(StatScreen_InitDisplay),
-    PROC_CALL_ROUTINE(NewGreenTextColorManager),
+    PROC_CALL(StatScreen_InitDisplay),
+    PROC_CALL(NewGreenTextColorManager),
 
-    PROC_CALL_ROUTINE(StatScreen_Display),
+    PROC_CALL(StatScreen_Display),
 
-    PROC_NEW_CHILD(gProcScr_SSGlowyBlendCtrl),
-    PROC_NEW_CHILD(gProcScr_SSPageNameCtrl),
-    PROC_NEW_CHILD(gProcScr_SSPageNumCtrl),
-    PROC_NEW_CHILD(gProcScr_SSBgOffsetCtrl),
+    PROC_START_CHILD(gProcScr_SSGlowyBlendCtrl),
+    PROC_START_CHILD(gProcScr_SSPageNameCtrl),
+    PROC_START_CHILD(gProcScr_SSPageNumCtrl),
+    PROC_START_CHILD(gProcScr_SSBgOffsetCtrl),
 
     PROC_GOTO(1),
 
 PROC_LABEL(0),
-    PROC_CALL_ROUTINE(StatScreen_ResumeFromHelp),
+    PROC_CALL(StatScreen_ResumeFromHelp),
 
     // fallthrough
 
 PROC_LABEL(1),
     PROC_SLEEP(2),
 
-    PROC_LOOP_ROUTINE(StatScreen_OnIdle),
+    PROC_REPEAT(StatScreen_OnIdle),
 
 PROC_LABEL(10),
     PROC_SLEEP(2),
 
-    PROC_END_ALL(gProcScr_SSGlowyBlendCtrl),
+    PROC_END_EACH(gProcScr_SSGlowyBlendCtrl),
 
-    PROC_CALL_ROUTINE(StatScreen_OnClose),
+    PROC_CALL(StatScreen_OnClose),
 
-    PROC_CALL_ROUTINE(BMapDispResume),
-    PROC_CALL_ROUTINE(MU_EndAll),
-    PROC_CALL_ROUTINE(EndGreenTextColorManager),
+    PROC_CALL(BMapDispResume),
+    PROC_CALL(MU_EndAll),
+    PROC_CALL(EndGreenTextColorManager),
 
     PROC_END,
 };
@@ -437,12 +437,12 @@ struct ProcCmd CONST_DATA gProcScr_HelpBox[] =
 {
     PROC_SLEEP(0),
 
-    PROC_CALL_ROUTINE(HelpBox_OnOpen),
-    PROC_LOOP_ROUTINE(HelpBox_OnLoop),
+    PROC_CALL(HelpBox_OnOpen),
+    PROC_REPEAT(HelpBox_OnLoop),
 
 PROC_LABEL(0x63),
-    PROC_CALL_ROUTINE(HelpBox_OnClose),
-    PROC_LOOP_ROUTINE(HelpBox_WaitClose),
+    PROC_CALL(HelpBox_OnClose),
+    PROC_REPEAT(HelpBox_WaitClose),
 
     PROC_END,
 };
@@ -452,16 +452,16 @@ struct ProcCmd CONST_DATA gProcScr_HelpBoxMoveCtrl[] =
     PROC_SLEEP(1),
 
 PROC_LABEL(0),
-    PROC_CALL_ROUTINE(HbMoveCtrl_OnInitBox),
-    PROC_LOOP_ROUTINE(HbMoveCtrl_OnIdle),
-    PROC_CALL_ROUTINE(CloseHelpBox),
+    PROC_CALL(HbMoveCtrl_OnInitBox),
+    PROC_REPEAT(HbMoveCtrl_OnIdle),
+    PROC_CALL(CloseHelpBox),
 
     PROC_END,
 };
 
 struct ProcCmd CONST_DATA gProcScr_HelpBoxLock[] =
 {
-    PROC_LOOP_ROUTINE(HbLock_OnIdle),
+    PROC_REPEAT(HbLock_OnIdle),
     PROC_END,
 };
 
@@ -477,7 +477,7 @@ struct ProcCmd CONST_DATA gProcScr_HelpPromptSpr[] = // proc displaying 'R is In
 {
     PROC_SLEEP(0),
 
-    PROC_LOOP_ROUTINE(HelpPrompt_OnIdle),
+    PROC_REPEAT(HelpPrompt_OnIdle),
     PROC_END,
 };
 
@@ -1168,7 +1168,7 @@ void PageSlide_OnLoop(struct StatScreenEffectProc* proc)
     off = sPageSlideOffsetLut[proc->timer];
 
     if (off == INT8_MIN)
-        Proc_ClearNativeCallback((struct Proc*) proc);
+        Proc_Break(proc);
 }
 
 static
@@ -1187,7 +1187,7 @@ void StartPageSlide(u16 key, int newPage, struct Proc* parent)
 
     PlaySoundEffect(0x6F); // TODO: song ids
 
-    proc = (void*) Proc_CreateBlockingChild(gProcScr_SSPageSlide, parent);
+    proc = (void*) Proc_StartBlocking(gProcScr_SSPageSlide, parent);
 
     proc->timer = 0;
     proc->newItem = newPage;
@@ -1236,13 +1236,13 @@ void GlowBlendCtrl_OnLoop(struct StatScreenEffectProc* proc)
 static
 void StartGlowBlendCtrl(void)
 {
-    Proc_Create(gProcScr_SSGlowyBlendCtrl, PROC_TREE_3);
+    Proc_Start(gProcScr_SSGlowyBlendCtrl, PROC_TREE_3);
 }
 
 static
 void EndGlowBlendCtrl(struct StatScreenEffectProc* proc)
 {
-    Proc_DeleteAllWithScript(gProcScr_SSGlowyBlendCtrl);
+    Proc_EndEach(gProcScr_SSGlowyBlendCtrl);
 
     gLCDControlBuffer.dispcnt.bg0_on = TRUE;
     gLCDControlBuffer.dispcnt.bg1_on = FALSE;
@@ -1293,7 +1293,7 @@ void UnitSlide_FadeOutLoop(struct StatScreenEffectProc* proc)
     proc->timer += 3;
 
     if (proc->timer > 0x10)
-        Proc_ClearNativeCallback((struct Proc*) proc);
+        Proc_Break(proc);
 }
 
 static
@@ -1334,7 +1334,7 @@ void UnitSlide_FadeInLoop(struct StatScreenEffectProc* proc)
     proc->timer += 3;
 
     if (proc->timer >= 0x10)
-        Proc_ClearNativeCallback((struct Proc*) proc);
+        Proc_Break(proc);
 }
 
 static
@@ -1343,7 +1343,7 @@ void UnitSlide_SetNewUnit(struct StatScreenEffectProc* proc)
     gStatScreen.unit = GetUnit(proc->newItem);
 
     StatScreen_Display(Proc_Find(gProcScr_StatScreen));
-    Proc_ClearNativeCallback((struct Proc*) proc);
+    Proc_Break(proc);
 }
 
 static
@@ -1366,7 +1366,7 @@ void ClearSlide(struct Proc* proc)
 static
 void StartUnitSlide(struct Unit* unit, int direction, struct Proc* parent)
 {
-    struct StatScreenEffectProc* proc = (void*) Proc_CreateBlockingChild(gProcScr_SSUnitSlide, parent);
+    struct StatScreenEffectProc* proc = (void*) Proc_StartBlocking(gProcScr_SSUnitSlide, parent);
 
     proc->newItem = unit->index;
     proc->direction = direction;
@@ -1449,7 +1449,7 @@ void PageNameCtrl_OnIdle(struct StatScreenPageNameProc* proc)
     {
         proc->yScale = PAGENAME_SCALE_TIME - 1;
 
-        Proc_ClearNativeCallback((struct Proc*) proc);
+        Proc_Break(proc);
         return;
     }
 
@@ -1477,7 +1477,7 @@ void PageNameCtrl_AnimOut(struct StatScreenPageNameProc* proc)
     if (proc->yScale == 0)
     {
         proc->yScale = 1;
-        Proc_ClearNativeCallback((struct Proc*) proc);
+        Proc_Break(proc);
     }
 }
 
@@ -1502,7 +1502,7 @@ void PageNameCtrl_AnimIn(struct StatScreenPageNameProc* proc)
     if (proc->yScale > PAGENAME_SCALE_TIME)
     {
         proc->pageNum = gStatScreen.page;
-        Proc_ClearNativeCallback((struct Proc*) proc);
+        Proc_Break(proc);
     }
 }
 
@@ -1829,7 +1829,7 @@ void StatScreen_OnIdle(struct Proc* proc)
         gPaletteBuffer[0] = 0;
         EnablePaletteSync();
 
-        Proc_ClearNativeCallback(proc);
+        Proc_Break(proc);
 
         PlaySoundEffect(0x6B); // TODO: song ids
     }
@@ -1867,7 +1867,7 @@ void StatScreen_OnIdle(struct Proc* proc)
 
     else if (gKeyStatusPtr->newKeys & R_BUTTON)
     {
-        Proc_GotoLabel(proc, 0); // TODO: label name
+        Proc_Goto(proc, 0); // TODO: label name
         StartStatScreenHelp(gStatScreen.page, proc);
     }
 }
@@ -1916,7 +1916,7 @@ void StartStatScreen(struct Unit* unit, struct Proc* parent)
 
     PlaySoundEffect(0x6A); // TODO: song ids
 
-    Proc_CreateBlockingChild(gProcScr_StatScreen, parent);
+    Proc_StartBlocking(gProcScr_StatScreen, parent);
 }
 
 void StartStatScreenHelp(int pageid, struct Proc* proc)
@@ -2122,7 +2122,7 @@ void HelpBox_WaitClose(struct HelpBoxProc* proc)
     proc->timer -= 3;
 
     if (proc->timer < 0)
-        Proc_ClearNativeCallback((struct Proc*) proc);
+        Proc_Break(proc);
 }
 
 void StartHelpBox(int x, int y, int mid)
@@ -2200,7 +2200,7 @@ void StartHelpBoxExt(const struct HelpBoxInfo* info, int unk)
 
     if (!proc)
     {
-        proc = (void*) Proc_Create(gProcScr_HelpBox, PROC_TREE_3);
+        proc = (void*) Proc_Start(gProcScr_HelpBox, PROC_TREE_3);
 
         proc->unk52 = unk;
 
@@ -2245,7 +2245,7 @@ void StartHelpBoxExt_Unk(int x, int y, int mid)
     struct HelpBoxProc* proc;
     int wContent, hContent;
 
-    proc = (void*) Proc_Create(gProcScr_HelpBox, PROC_TREE_3);
+    proc = (void*) Proc_Start(gProcScr_HelpBox, PROC_TREE_3);
 
     proc->unk52 = TRUE;
 
@@ -2285,7 +2285,7 @@ void CloseHelpBox(void)
     if (proc)
     {
         sub_808A118();
-        Proc_GotoLabel((struct Proc*) proc, 0x63);
+        Proc_Goto(proc, 0x63);
     }
 }
 
@@ -2296,7 +2296,7 @@ void EndHelpBox(void)
     if (proc)
     {
         sub_808A118();
-        Proc_Delete((struct Proc*) proc);
+        Proc_End(proc);
     }
 }
 
@@ -2334,14 +2334,14 @@ void HbMoveCtrl_OnIdle(struct HelpBoxProc* proc)
 
     if (gKeyStatusPtr->newKeys & (B_BUTTON | R_BUTTON))
     {
-        Proc_ClearNativeCallback((void*) proc);
+        Proc_Break((void*) proc);
         return;
     }
 
     if (boxMoved)
     {
         PlaySoundEffect(0x67);
-        Proc_GotoLabel((void*) proc, 0); // TODO: label constants?
+        Proc_Goto((void*) proc, 0); // TODO: label constants?
     }
 }
 
@@ -2349,12 +2349,12 @@ static
 void HbMoveCtrl_OnEnd(struct HelpBoxProc* proc)
 {
     CloseHelpBox();
-    Proc_Delete((void*) proc);
+    Proc_End((void*) proc);
 }
 
 void StartMovingHelpBox(const struct HelpBoxInfo* info, struct Proc* parent)
 {
-    struct HelpBoxProc* proc = (void*) Proc_CreateBlockingChild(gProcScr_HelpBoxMoveCtrl, parent);
+    struct HelpBoxProc* proc = (void*) Proc_StartBlocking(gProcScr_HelpBoxMoveCtrl, parent);
 
     sHbOrigin.x = 0;
     sHbOrigin.y = 0;
@@ -2364,7 +2364,7 @@ void StartMovingHelpBox(const struct HelpBoxInfo* info, struct Proc* parent)
 
 void StartMovingHelpBoxExt(const struct HelpBoxInfo* info, struct Proc* parent, int x, int y)
 {
-    struct HelpBoxProc* proc = (void*) Proc_CreateBlockingChild(gProcScr_HelpBoxMoveCtrl, parent);
+    struct HelpBoxProc* proc = (void*) Proc_StartBlocking(gProcScr_HelpBoxMoveCtrl, parent);
 
     sHbOrigin.x = x;
     sHbOrigin.y = y;
@@ -2542,7 +2542,7 @@ static
 void HbLock_OnIdle(struct Proc* proc)
 {
     if (gKeyStatusPtr->newKeys & (B_BUTTON | R_BUTTON))
-        Proc_ClearNativeCallback(proc);
+        Proc_Break(proc);
 }
 
 int StartLockingHelpBox_Unused(int mid, struct Proc* parent)
@@ -2550,7 +2550,7 @@ int StartLockingHelpBox_Unused(int mid, struct Proc* parent)
     LoadDialogueBoxGfx(NULL, -1);
 
     StartHelpBox(GetUiHandPrevDisplayX(), GetUiHandPrevDisplayY(), mid);
-    Proc_CreateBlockingChild(gProcScr_HelpBoxLock, parent);
+    Proc_StartBlocking(gProcScr_HelpBoxLock, parent);
 
     return TRUE;
 }
@@ -2567,7 +2567,7 @@ struct Proc* StartHelpPromptSprite_Unused(int x, int y, struct Proc* parent)
     struct HelpPromptSprProc* proc = (void*) Proc_Find(gProcScr_HelpPromptSpr);
 
     if (!proc)
-        proc = (void*) Proc_Create(gProcScr_HelpPromptSpr, parent);
+        proc = (void*) Proc_Start(gProcScr_HelpPromptSpr, parent);
 
     proc->xDisplay = x;
     proc->yDisplay = y;
@@ -2583,7 +2583,7 @@ struct Proc* StartHelpPromptSprite(int x, int y, int palid, struct Proc* parent)
     ApplyPalette(gUnknown_08A1D79C, palid + 0x10);
 
     if (!proc)
-        proc = (void*) Proc_Create(gProcScr_HelpPromptSpr, parent);
+        proc = (void*) Proc_Start(gProcScr_HelpPromptSpr, parent);
 
     proc->xDisplay = x;
     proc->yDisplay = y;
@@ -2597,7 +2597,7 @@ struct Proc* StartHelpPromptSprite_Unused2(int x, int y, struct Proc* parent)
     struct HelpPromptSprProc* proc = (void*) Proc_Find(gProcScr_HelpPromptSpr);
 
     if (!proc)
-        proc = (void*) Proc_CreateBlockingChild(gProcScr_HelpPromptSpr, parent);
+        proc = (void*) Proc_StartBlocking(gProcScr_HelpPromptSpr, parent);
 
     proc->xDisplay = x;
     proc->yDisplay = y;
@@ -2611,7 +2611,7 @@ void EndHelpPromptSprite(void)
     struct Proc* proc = Proc_Find(gProcScr_HelpPromptSpr);
 
     if (proc)
-        Proc_Delete(proc);
+        Proc_End(proc);
 }
 
 void MoveHelpPromptSprite(int x, int y)

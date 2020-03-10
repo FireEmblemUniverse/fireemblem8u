@@ -17,12 +17,12 @@ extern struct ProcCmd gUnknown_085A7F74[]; // BSKORDER
 CONST_DATA
 struct ProcCmd gProcScr_CpPhase[] =
 {
-    PROC_SET_NAME("E_CPPHASE"),
+    PROC_NAME("E_CPPHASE"),
 
-    PROC_CALL_ROUTINE(AiPhaseInit),
+    PROC_CALL(AiPhaseInit),
     PROC_YIELD,
 
-    PROC_CALL_ROUTINE(AiPhaseCleanup),
+    PROC_CALL(AiPhaseCleanup),
 
     PROC_END,
 };
@@ -30,12 +30,12 @@ struct ProcCmd gProcScr_CpPhase[] =
 CONST_DATA
 struct ProcCmd gProcScr_BerserkCpPhase[] =
 {
-    PROC_SET_NAME("E_BSKPHASE"),
+    PROC_NAME("E_BSKPHASE"),
 
-    PROC_CALL_ROUTINE(AiPhaseBerserkInit),
+    PROC_CALL(AiPhaseBerserkInit),
     PROC_YIELD,
 
-    PROC_CALL_ROUTINE(AiPhaseCleanup),
+    PROC_CALL(AiPhaseCleanup),
 
     PROC_END,
 };
@@ -58,7 +58,7 @@ static void AiPhaseInit(struct Proc* proc)
     UpdateAllPhaseHealingAIStatus();
     SetupUnitInventoryAIFlags();
 
-    Proc_CreateBlockingChild(gUnknown_085A7F5C, proc);
+    Proc_StartBlocking(gUnknown_085A7F5C, proc);
 }
 
 static void AiPhaseBerserkInit(struct Proc* proc)
@@ -76,7 +76,7 @@ static void AiPhaseBerserkInit(struct Proc* proc)
     UpdateAllPhaseHealingAIStatus();
     SetupUnitInventoryAIFlags();
 
-    Proc_CreateBlockingChild(gUnknown_085A7F74, proc);
+    Proc_StartBlocking(gUnknown_085A7F74, proc);
 }
 
 static void AiPhaseCleanup(struct Proc* proc)

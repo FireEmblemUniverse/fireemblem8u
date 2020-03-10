@@ -61,7 +61,7 @@ sub_801BAEC: @ 0x0801BAEC
 	adds r4, r3, #0
 	ldr r0, _0801BB18  @ gUnknown_0859AA64
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	str r5, [r0, #0x2c]
 	str r6, [r0, #0x30]
 	str r4, [r0, #0x54]
@@ -1477,7 +1477,7 @@ sub_801C63C: @ 0x0801C63C
 	push {lr}
 	ldr r0, _0801C64C  @ gUnknown_0859AA84
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	movs r0, #0x17
 	pop {r1}
 	bx r1

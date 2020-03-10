@@ -55,7 +55,7 @@ _080225F4: .4byte 0x00000864
 CommandEffectEndPlayerPhase: @ 0x080225F8
 	push {lr}
 	ldr r0, _08022608  @ gUnknown_0859AAD8
-	bl Proc_DeleteAllWithScript
+	bl Proc_EndEach
 	movs r0, #0x17
 	pop {r1}
 	bx r1
@@ -68,7 +68,7 @@ sub_802260C: @ 0x0802260C
 	ldr r0, _08022624  @ gUnknown_0859AAD8
 	bl Proc_Find
 	movs r1, #0xa
-	bl Proc_GotoLabel
+	bl Proc_Goto
 	bl sub_80920C4
 	movs r0, #0x17
 	pop {r1}
@@ -81,7 +81,7 @@ sub_8022628: @ 0x08022628
 	push {lr}
 	ldr r0, _08022638  @ gUnknown_08A2ECE0
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	movs r0, #0x17
 	pop {r1}
 	bx r1
@@ -183,7 +183,7 @@ Make6CE_Guide: @ 0x080226E4
 	push {lr}
 	ldr r0, _080226F4  @ gUnknown_08B12C64
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	movs r0, #0x17
 	pop {r1}
 	bx r1
@@ -202,7 +202,7 @@ sub_80226F8: @ 0x080226F8
 	ldr r0, _08022720  @ gUnknown_0859AAD8
 	bl Proc_Find
 	movs r1, #0xc
-	bl Proc_GotoLabel
+	bl Proc_Goto
 	movs r0, #0x17
 	pop {r1}
 	bx r1
@@ -292,7 +292,7 @@ sub_80227A4: @ 0x080227A4
 	movs r4, #0x11
 	ldrsb r4, [r0, r4]
 	ldr r0, _08022800  @ gUnknown_0859A548
-	bl Proc_DeleteAllWithScript
+	bl Proc_EndEach
 	lsls r0, r4, #4
 	bl GetSomeAdjustedCameraY
 	lsls r0, r0, #0x10
@@ -354,7 +354,7 @@ GenericSelection_BackToUM_CamWait: @ 0x0802282C
 	bl sub_8003D20
 	ldr r0, _0802285C  @ gUnknown_0859B600
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	movs r0, #0x19
 	pop {r1}
 	bx r1
@@ -1077,7 +1077,7 @@ _08022E04:
 	strb r0, [r1, #0x15]
 _08022E22:
 	ldr r0, _08022E34  @ gUnknown_0859E520
-	bl Proc_DeleteAllWithScript
+	bl Proc_EndEach
 	movs r0, #0x17
 _08022E2A:
 	pop {r4}
@@ -1122,7 +1122,7 @@ sub_8022E64: @ 0x08022E64
 	beq _08022E84
 	ldr r0, _08022E80  @ gUnknown_0859B630
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	movs r0, #0xb
 	b _08022E86
 	.align 2, 0

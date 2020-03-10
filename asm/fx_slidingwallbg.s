@@ -109,7 +109,7 @@ _08086C26:
 	ble _08086C26
 	ldr r0, _08086C4C  @ gUnknown_08A006E4
 	adds r1, r7, #0
-	bl Proc_Create
+	bl Proc_Start
 	pop {r4, r5, r6, r7}
 	pop {r1}
 	bx r1
@@ -181,7 +181,7 @@ _08086CBA:
 	ble _08086CBA
 	ldr r0, _08086CE4  @ gUnknown_08A006E4
 	mov r1, r8
-	bl Proc_Create
+	bl Proc_Start
 	pop {r3}
 	mov r8, r3
 	pop {r4, r5, r6, r7}
@@ -284,7 +284,7 @@ _08086D88:
 _08086D94:
 	ldr r0, _08086DB8  @ gUnknown_08A006E4
 	mov r1, r9
-	bl Proc_Create
+	bl Proc_Start
 	pop {r3, r4}
 	mov r8, r3
 	mov r9, r4
@@ -302,7 +302,7 @@ _08086DB8: .4byte gUnknown_08A006E4
 EndBG3Slider: @ 0x08086DBC
 	push {lr}
 	ldr r0, _08086DC8  @ gUnknown_08A006E4
-	bl Proc_DeleteAllWithScript
+	bl Proc_EndEach
 	pop {r0}
 	bx r0
 	.align 2, 0

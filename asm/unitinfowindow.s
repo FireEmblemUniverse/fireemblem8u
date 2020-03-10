@@ -78,7 +78,7 @@ NewUnitInfoWindow: @ 0x080347A8
 	push {r4, lr}
 	adds r1, r0, #0
 	ldr r0, _080347D0  @ gUnknown_0859E13C
-	bl Proc_Create
+	bl Proc_Start
 	adds r4, r0, #0
 	adds r0, #0x30
 	movs r1, #6

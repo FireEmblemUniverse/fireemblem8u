@@ -192,7 +192,7 @@ _08005660: .4byte gUnknown_03004980
 _08005664:
 	ldr r0, _080056A4  @ gUnknown_08591154
 	movs r1, #5
-	bl Proc_Create
+	bl Proc_Start
 	adds r4, r0, #0
 	str r4, [r5]
 	mov r0, r8
@@ -262,11 +262,11 @@ _080056F8: .4byte gUnknown_0202A68C
 _080056FC:
 	ldr r0, _08005730  @ gUnknown_0859124C
 	adds r1, r4, #0
-	bl Proc_Create
+	bl Proc_Start
 	str r0, [r4, #0x44]
 	ldr r0, _08005734  @ gUnknown_08591264
 	adds r1, r4, #0
-	bl Proc_Create
+	bl Proc_Start
 	str r0, [r4, #0x48]
 _08005710:
 	ldr r1, [sp, #0x24]
@@ -300,7 +300,7 @@ DeleteE_FACEByPointer: @ 0x08005738
 	adds r1, r1, r2
 	movs r2, #0
 	str r2, [r1]
-	bl Proc_Delete
+	bl Proc_End
 	pop {r0}
 	bx r0
 	.align 2, 0
@@ -817,7 +817,7 @@ sub_8005B04: @ 0x08005B04
 	bl sub_80059CC
 	ldr r0, _08005B4C  @ gUnknown_085911D8
 	adds r1, r7, #0
-	bl Proc_Create
+	bl Proc_Start
 	adds r1, r0, #0
 	mov r0, r8
 	strh r0, [r1, #0x34]
@@ -852,7 +852,7 @@ _08005B64: .4byte gUnknown_085911E8
 sub_8005B68: @ 0x08005B68
 	push {lr}
 	ldr r0, _08005B74  @ gUnknown_085911D8
-	bl Proc_DeleteAllWithScript
+	bl Proc_EndEach
 	pop {r0}
 	bx r0
 	.align 2, 0
@@ -1111,7 +1111,7 @@ sub_8005D70: @ 0x08005D70
 	movs r0, #0
 	strh r0, [r4, #0x34]
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _08005D90:
 	pop {r4}
 	pop {r0}
@@ -1182,7 +1182,7 @@ _08005E04:
 	bl GetBackgroundFromBufferPointer
 	bl BG_EnableSync
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 	b _08005E90
 	.align 2, 0
 _08005E34: .4byte 0x000003FF
@@ -1244,7 +1244,7 @@ sub_8005E98: @ 0x08005E98
 	adds r5, r3, #0
 	ldr r6, [sp, #0x14]
 	ldr r0, _08005EC8  @ gUnknown_08591204
-	bl Proc_DeleteAllWithScript
+	bl Proc_EndEach
 	adds r0, r4, #0
 	mov r1, r8
 	adds r2, r5, #0
@@ -1274,7 +1274,7 @@ sub_8005ED8: @ 0x08005ED8
 	adds r4, r0, #0
 	ldr r0, _08005EEC  @ gUnknown_08591234
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	str r4, [r0, #0x54]
 	pop {r4}
 	pop {r0}
@@ -1735,7 +1735,7 @@ sub_800623C: @ 0x0800623C
 	strh r1, [r5, #0x34]
 	adds r0, r5, #0
 	movs r1, #0x61
-	bl Proc_GotoLabel
+	bl Proc_Goto
 _08006274:
 	pop {r4, r5}
 	pop {r0}
@@ -1756,7 +1756,7 @@ sub_8006280: @ 0x08006280
 	beq _0800629C
 	adds r1, r5, #0
 	adds r0, r4, #0
-	bl Proc_GotoLabel
+	bl Proc_Goto
 	b _080062B2
 _0800629C:
 	cmp r0, #0
@@ -1767,7 +1767,7 @@ _0800629C:
 	strh r5, [r4, #0x34]
 	adds r0, r4, #0
 	movs r1, #1
-	bl Proc_GotoLabel
+	bl Proc_Goto
 _080062B2:
 	pop {r4, r5}
 	pop {r0}
@@ -1810,7 +1810,7 @@ _08006304:
 _08006308:
 	adds r0, r4, #0
 	movs r1, #0
-	bl Proc_GotoLabel
+	bl Proc_Goto
 _08006310:
 	adds r0, r4, #0
 	adds r1, r5, #0
@@ -1849,7 +1849,7 @@ _08006340:
 	bne _08006358
 	adds r0, r4, #0
 	movs r1, #1
-	bl Proc_GotoLabel
+	bl Proc_Goto
 _08006358:
 	movs r1, #0x32
 	ldrsh r0, [r4, r1]
@@ -1857,7 +1857,7 @@ _08006358:
 	bne _08006368
 	adds r0, r4, #0
 	movs r1, #3
-	bl Proc_GotoLabel
+	bl Proc_Goto
 _08006368:
 	pop {r4}
 	pop {r0}
@@ -1890,7 +1890,7 @@ _0800638C:
 	bne _080063A4
 	adds r0, r4, #0
 	movs r1, #1
-	bl Proc_GotoLabel
+	bl Proc_Goto
 _080063A4:
 	movs r1, #0x32
 	ldrsh r0, [r4, r1]
@@ -1898,7 +1898,7 @@ _080063A4:
 	bne _080063B4
 	adds r0, r4, #0
 	movs r1, #2
-	bl Proc_GotoLabel
+	bl Proc_Goto
 _080063B4:
 	pop {r4}
 	pop {r0}
@@ -1947,7 +1947,7 @@ _08006410:
 _08006414:
 	adds r0, r4, #0
 	movs r1, #0
-	bl Proc_GotoLabel
+	bl Proc_Goto
 	movs r0, #0
 	strh r0, [r4, #0x32]
 _08006420:
@@ -2089,7 +2089,7 @@ _08006518: .4byte gUnknown_03004980
 _0800651C:
 	ldr r0, _0800655C  @ gUnknown_0859118C
 	movs r1, #5
-	bl Proc_Create
+	bl Proc_Start
 	adds r5, r0, #0
 	str r5, [r4]
 	mov r0, r9
@@ -2301,7 +2301,7 @@ sub_80066A8: @ 0x080066A8
 	ldr r0, [r4, #0x2c]
 	ldr r0, [r0, #0x48]
 	movs r1, #0
-	bl Proc_GotoLabel
+	bl Proc_Goto
 	ldr r0, [r4, #0x2c]
 	ldr r0, [r0, #0x48]
 	bl sub_8097D68
@@ -2323,7 +2323,7 @@ sub_80066E0: @ 0x080066E0
 	adds r5, r1, #0
 	ldr r0, _080066F8  @ gUnknown_08591304
 	adds r1, r4, #0
-	bl Proc_Create
+	bl Proc_Start
 	str r4, [r0, #0x2c]
 	str r5, [r0, #0x34]
 	pop {r4, r5}

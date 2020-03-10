@@ -1505,7 +1505,7 @@ WarpTargetPosSelect_Loop: @ 0x0802969C
 	cmp r6, #0
 	beq _08029730
 	adds r0, r5, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 	ldr r1, _08029720  @ gActionData
 	ldrh r0, [r4, #0x14]
 	strb r0, [r1, #0x13]
@@ -1555,7 +1555,7 @@ _08029742:
 	beq _08029778
 	adds r0, r5, #0
 	movs r1, #0x63
-	bl Proc_GotoLabel
+	bl Proc_Goto
 	ldr r0, _080297C8  @ gBG2TilemapBuffer
 	movs r1, #0
 	bl BG_Fill
@@ -1657,7 +1657,7 @@ WarpTargetPosSelect_Cancel: @ 0x0802980C
 	bl SetCursorMapPosition
 	ldr r0, _0802983C  @ gUnknown_0859B600
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	pop {r0}
 	bx r0
 	.align 2, 0
@@ -1685,7 +1685,7 @@ WarpTargetSelection_OnSelect: @ 0x08029854
 	strb r0, [r1, #0xd]
 	ldr r0, _08029878  @ gUnknown_0859B9B8
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	movs r0, #4
 	pop {r4}
 	pop {r1}
@@ -2385,7 +2385,7 @@ TorchTargetSelection_Loop: @ 0x08029DF0
 	bl m4aSongNumStart
 _08029E34:
 	adds r0, r6, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 	ldr r1, _08029E60  @ gActionData
 	ldrh r0, [r5, #0x14]
 	strb r0, [r1, #0x13]
@@ -2426,7 +2426,7 @@ _08029E7A:
 	bl BG_EnableSyncByMask
 	adds r0, r6, #0
 	movs r1, #0x63
-	bl Proc_GotoLabel
+	bl Proc_Goto
 	ldr r0, _08029EC8  @ gUnknown_0202BCF0
 	adds r0, #0x41
 	ldrb r0, [r0]
@@ -2458,7 +2458,7 @@ NewTorchStaffSelection: @ 0x08029ED8
 	push {lr}
 	ldr r0, _08029EF8  @ gUnknown_0859BA38
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	ldr r0, _08029EFC  @ gUnknown_0202BCF0
 	adds r0, #0x41
 	ldrb r0, [r0]

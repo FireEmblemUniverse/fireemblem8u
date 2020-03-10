@@ -494,10 +494,8 @@ extern void *gBGVramTilemapPointers[];
 extern void (*gMainCallback)(void);
 extern struct Struct02024CD4 gUnknown_02024CD4;
 extern struct TileDataTransfer gUnknown_02024CDC[];
-// extern ??? gProcesses
 // extern ??? gUnknown_02026968
 // extern ??? gUnknown_02026A6C
-// extern ??? gRootProcesses
 // extern ??? gUnknown_02026A90
 // extern ??? gUnknown_02026E10
 // extern ??? gUnknown_02028F78

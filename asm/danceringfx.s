@@ -98,7 +98,7 @@ sub_8021A94: @ 0x08021A94
 	cmp r1, #0xff
 	bne _08021AD0
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 	b _08021AEA
 	.align 2, 0
 _08021ACC: .4byte gUnknown_080D7BCC
@@ -148,7 +148,7 @@ sub_8021B04: @ 0x08021B04
 	cmp r0, #0
 	bge _08021B2A
 	adds r0, r5, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _08021B2A:
 	pop {r4, r5}
 	pop {r0}
@@ -174,7 +174,7 @@ sub_8021B30: @ 0x08021B30
 	ldrsb r5, [r0, r5]
 	ldr r0, _08021B94  @ gUnknown_0859B410
 	adds r1, r6, #0
-	bl Proc_CreateBlockingChild
+	bl Proc_StartBlocking
 	lsls r0, r4, #4
 	ldr r2, _08021B98  @ gUnknown_0202BCB0
 	movs r3, #0xc

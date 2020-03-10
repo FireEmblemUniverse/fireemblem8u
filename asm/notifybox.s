@@ -25,7 +25,7 @@ sub_801F9CC: @ 0x0801F9CC
 	beq _0801F9F4
 _0801F9EE:
 	adds r0, r2, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _0801F9F4:
 	pop {r0}
 	bx r0
@@ -93,7 +93,7 @@ _0801FA5A:
 	bl DrawTextInline
 	ldr r0, _0801FA88  @ gUnknown_0859B0C0
 	adds r1, r7, #0
-	bl Proc_CreateBlockingChild
+	bl Proc_StartBlocking
 	add sp, #8
 	pop {r4, r5, r6, r7}
 	pop {r0}
@@ -224,7 +224,7 @@ _0801FB7E:
 	bl Text_Draw
 	ldr r0, _0801FBA8  @ gUnknown_0859B0C0
 	mov r1, sl
-	bl Proc_CreateBlockingChild
+	bl Proc_StartBlocking
 	add sp, #0xc
 	pop {r3, r4, r5}
 	mov r8, r3
@@ -309,7 +309,7 @@ _0801FC18:
 	bl Text_Draw
 	ldr r0, _0801FC64  @ gUnknown_0859B0C0
 	mov r1, r8
-	bl Proc_CreateBlockingChild
+	bl Proc_StartBlocking
 	add sp, #0xc
 	pop {r3}
 	mov r8, r3
@@ -429,7 +429,7 @@ _0801FD1A:
 	bl DrawIcon
 	ldr r0, _0801FD6C  @ gUnknown_0859B0C0
 	mov r1, r8
-	bl Proc_CreateBlockingChild
+	bl Proc_StartBlocking
 	add sp, #0xc
 	pop {r3}
 	mov r8, r3

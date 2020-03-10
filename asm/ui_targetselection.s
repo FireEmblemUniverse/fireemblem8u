@@ -223,7 +223,7 @@ NewTargetSelection: @ 0x0804FA3C
 	bl AddSkipThread2
 	ldr r0, _0804FA9C  @ gUnknown_085B655C
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	adds r5, r0, #0
 	adds r1, r5, #0
 	adds r1, #0x34
@@ -299,7 +299,7 @@ _0804FACA:
 	bl SubSkipThread2
 _0804FADC:
 	adds r0, r4, #0
-	bl Proc_Delete
+	bl Proc_End
 	ldr r0, [r4, #0x14]
 	pop {r4}
 	pop {r1}

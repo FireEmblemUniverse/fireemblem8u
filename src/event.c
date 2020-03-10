@@ -203,7 +203,7 @@ void EventEngine_OnUpdate(struct EventEngineProc* proc) {
             return;
         
         case 5:
-            Proc_ClearNativeCallback((struct Proc*)(proc));
+            Proc_Break(proc);
             return;
         }
     }
@@ -299,7 +299,7 @@ void CallEvent(const u16* events, u8 execType) {
 }
 
 struct EventEngineProc* EventEngine_Create(const u16* events, u8 execType) {
-    struct EventEngineProc* proc = Proc_Create(gProc_StdEventEngine, PROC_TREE_3);
+    struct EventEngineProc* proc = Proc_Start(gProc_StdEventEngine, PROC_TREE_3);
 
     proc->pCallback      = NULL;
 
@@ -339,7 +339,7 @@ struct EventEngineProc* EventEngine_Create(const u16* events, u8 execType) {
 }
 
 void EventEngine_CreateBattle(const u16* events) {
-    struct EventEngineProc* proc = Proc_Create(gProc_BattleEventEngine, PROC_TREE_3);
+    struct EventEngineProc* proc = Proc_Start(gProc_BattleEventEngine, PROC_TREE_3);
 
     proc->pCallback     = NULL;
 
@@ -372,12 +372,12 @@ int BattleEventEngineExists(void) {
 }
 
 void DeleteEventEngines(void) {
-    Proc_DeleteAllWithScript(gProc_StdEventEngine);
-    Proc_DeleteAllWithScript(gProc_BattleEventEngine);
+    Proc_EndEach(gProc_StdEventEngine);
+    Proc_EndEach(gProc_BattleEventEngine);
 }
 
 void sub_800D1E4(struct Proc* proc) {
-    Proc_CreateBlockingChild(gUnknown_08591DD8, proc);
+    Proc_StartBlocking(gUnknown_08591DD8, proc);
 }
 
 void SetEventSlotC(unsigned value) {
@@ -531,12 +531,12 @@ void EventEngine_StartSkip(struct EventEngineProc* proc) {
     if (proc->execType == EV_EXEC_WORLDMAP)
         sub_80BA424();
     
-    Proc_BlockEachWithMark(5);
+    Proc_BlockEachMarked(5);
 }
 
 void sub_800D488(struct EventEngineProc* unused) {
     sub_80141B0(); // disables layers
-    Proc_DeleteAllWithScript(gUnknown_08591540);
+    Proc_EndEach(gUnknown_08591540);
 }
 
 void SetEventTriggerState(u16 triggerId, bool8 value) {
@@ -552,16 +552,16 @@ int GetEventTriggerState(u16 triggerId) {
     return TRUE;
 }
 
-struct Proc* sub_800D4D4(struct Proc* parent, void(*init)(struct Proc*), void(*loop)(struct Proc*), void(*dest)(struct Proc*)) {
+struct Proc* sub_800D4D4(struct Proc* parent, ProcFunc init, ProcFunc loop, ProcFunc dest) {
     struct ProcCmd code[] = {
-        PROC_SET_DESTRUCTOR(dest),
-        PROC_CALL_ROUTINE(init),
-        PROC_LOOP_ROUTINE(loop),
+        PROC_SET_END_CB(dest),
+        PROC_CALL(init),
+        PROC_REPEAT(loop),
         PROC_END
     };
     
     memcpy(gUnknown_030005B0, code, sizeof code);
-    return Proc_Create(gUnknown_030005B0, parent);
+    return Proc_Start(gUnknown_030005B0, parent);
 }
 
 void sub_800D524(void) {} // nullsub

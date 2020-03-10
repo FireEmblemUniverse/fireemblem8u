@@ -12,12 +12,12 @@ enum
 
 #define MAX_PROC_COUNT 64
 
-EWRAM_DATA static struct Proc gProcesses[MAX_PROC_COUNT] = {0}; 
+EWRAM_DATA static struct Proc sProcArray[MAX_PROC_COUNT] = {0}; 
 
-EWRAM_DATA static struct Proc *sProcessAllocList[MAX_PROC_COUNT + 1] = {0};
-EWRAM_DATA static struct Proc **sProcessAllocListHead = NULL;  // pointer to next entry in sProcessAllocList
+EWRAM_DATA static struct Proc *sProcAllocList[MAX_PROC_COUNT + 1] = {0};
+EWRAM_DATA static struct Proc **sProcAllocListHead = NULL; // pointer to next entry in sProcAllocList
 
-EWRAM_DATA struct Proc *gRootProcesses[8] = {0};
+EWRAM_DATA struct Proc *gProcTreeRootArray[8] = {0};
 
 static struct Proc* AllocateProcess(void);
 static void FreeProcess(struct Proc *proc);
@@ -26,13 +26,13 @@ static void InsertChildProcess(struct Proc *proc, struct Proc *parent);
 static void UnlinkProcess(struct Proc *proc);
 static void RunProcessScript(struct Proc *proc);
 
-void Proc_Initialize(void)
+void Proc_Init(void)
 {
     int i;
 
     for (i = 0; i < MAX_PROC_COUNT; i++)
     {
-        struct Proc *proc = &gProcesses[i];
+        struct Proc *proc = &sProcArray[i];
 
         proc->proc_script = NULL;
         proc->proc_scrCur = NULL;
@@ -48,17 +48,17 @@ void Proc_Initialize(void)
         proc->proc_flags = 0;
         proc->proc_lockCnt = 0;
 
-        sProcessAllocList[i] = proc;
+        sProcAllocList[i] = proc;
     }
 
-    sProcessAllocList[MAX_PROC_COUNT] = NULL;
-    sProcessAllocListHead = sProcessAllocList;
+    sProcAllocList[MAX_PROC_COUNT] = NULL;
+    sProcAllocListHead = sProcAllocList;
 
     for (i = 0; i < 8; i++)
         ROOT_PROC(i) = NULL;
 }
 
-ProcPtr Proc_Create(const struct ProcCmd* script, ProcPtr parent)
+ProcPtr Proc_Start(const struct ProcCmd* script, ProcPtr parent)
 {
     struct Proc* proc = AllocateProcess();
 
@@ -89,9 +89,9 @@ ProcPtr Proc_Create(const struct ProcCmd* script, ProcPtr parent)
 }
 
 // Creates a child process and puts the parent into a wait state
-ProcPtr Proc_CreateBlockingChild(const struct ProcCmd *script, ProcPtr parent)
+ProcPtr Proc_StartBlocking(const struct ProcCmd *script, ProcPtr parent)
 {
-    struct Proc *proc = Proc_Create(script, parent);
+    struct Proc *proc = Proc_Start(script, parent);
 
     if (proc->proc_script == NULL)
         return NULL;
@@ -126,7 +126,7 @@ static void DeleteProcessRecursive(struct Proc *proc)
         ((struct Proc*) proc->proc_parent)->proc_lockCnt--;
 }
 
-void Proc_Delete(ProcPtr proc)
+void Proc_End(ProcPtr proc)
 {
     struct Proc* casted = (struct Proc*) proc;
 
@@ -140,16 +140,16 @@ void Proc_Delete(ProcPtr proc)
 static struct Proc *AllocateProcess(void)
 {
     // retrieve the next entry in the allocation list
-    struct Proc *proc = *sProcessAllocListHead;
-    sProcessAllocListHead++;
+    struct Proc *proc = *sProcAllocListHead;
+    sProcAllocListHead++;
     return proc;
 }
 
 static void FreeProcess(struct Proc *proc)
 {
     // place the process back into the allocation list
-    sProcessAllocListHead--;
-    *sProcessAllocListHead = proc;
+    sProcAllocListHead--;
+    *sProcAllocListHead = proc;
 }
 
 // adds the process as a root process
@@ -235,7 +235,7 @@ void Proc_Run(ProcPtr proc)
         RunProcessRecursive(proc);
 }
 
-void Proc_ClearNativeCallback(ProcPtr proc)
+void Proc_Break(ProcPtr proc)
 {
     struct Proc* casted = (struct Proc*) proc;
     casted->proc_idleCb = NULL;
@@ -244,7 +244,7 @@ void Proc_ClearNativeCallback(ProcPtr proc)
 ProcPtr Proc_Find(const struct ProcCmd* script)
 {
     int i;
-    struct Proc* proc = gProcesses;
+    struct Proc* proc = sProcArray;
 
     for (i = 0; i < MAX_PROC_COUNT; i++, proc++)
     {
@@ -259,7 +259,7 @@ ProcPtr Proc_Find(const struct ProcCmd* script)
 static ProcPtr Proc_FindNonBlocked(struct ProcCmd* script)
 {
     int i;
-    struct Proc* proc = gProcesses;
+    struct Proc* proc = sProcArray;
 
     for (i = 0; i < MAX_PROC_COUNT; i++, proc++)
     {
@@ -274,7 +274,7 @@ static ProcPtr Proc_FindNonBlocked(struct ProcCmd* script)
 static ProcPtr Proc_FindWithMark(u32 mark)
 {
     int i;
-    struct Proc* proc = gProcesses;
+    struct Proc* proc = sProcArray;
 
     for (i = 0; i < MAX_PROC_COUNT; i++, proc++)
     {
@@ -285,7 +285,7 @@ static ProcPtr Proc_FindWithMark(u32 mark)
     return NULL;
 }
 
-void Proc_GotoLabel(ProcPtr proc, int label)
+void Proc_Goto(ProcPtr proc, int label)
 {
     struct Proc* casted = (struct Proc*) proc;
     const struct ProcCmd* cmd;
@@ -302,7 +302,7 @@ void Proc_GotoLabel(ProcPtr proc, int label)
     }
 }
 
-void Proc_JumpToPointer(ProcPtr proc, const struct ProcCmd* script)
+void Proc_GotoScript(ProcPtr proc, const struct ProcCmd* script)
 {
     struct Proc* casted = (struct Proc*) proc;
 
@@ -317,17 +317,17 @@ void Proc_SetMark(ProcPtr proc, int mark)
     casted->proc_mark = mark;
 }
 
-void Proc_SetDestructor(ProcPtr proc, ProcFunc func)
+void Proc_SetEndCb(ProcPtr proc, ProcFunc func)
 {
     struct Proc* casted = (struct Proc*) proc;
 
     casted->proc_endCb = func;
 }
 
-void Proc_ForEach(ProcFunc func)
+void Proc_ForAll(ProcFunc func)
 {
     int i;
-    struct Proc* proc = gProcesses;
+    struct Proc* proc = sProcArray;
 
     for (i = 0; i < MAX_PROC_COUNT; i++, proc++)
     {
@@ -336,10 +336,10 @@ void Proc_ForEach(ProcFunc func)
     }
 }
 
-void Proc_ForEachWithScript(const struct ProcCmd* script, ProcFunc func)
+void Proc_ForEach(const struct ProcCmd* script, ProcFunc func)
 {
     int i;
-    struct Proc* proc = gProcesses;
+    struct Proc* proc = sProcArray;
 
     for (i = 0; i < MAX_PROC_COUNT; i++, proc++)
     {
@@ -348,10 +348,10 @@ void Proc_ForEachWithScript(const struct ProcCmd* script, ProcFunc func)
     }
 }
 
-void Proc_ForEachWithMark(int mark, ProcFunc func)
+void Proc_ForEachMarked(int mark, ProcFunc func)
 {
     int i;
-    struct Proc* proc = gProcesses;
+    struct Proc* proc = sProcArray;
 
     for (i = 0; i < MAX_PROC_COUNT; i++, proc++)
     {
@@ -360,10 +360,10 @@ void Proc_ForEachWithMark(int mark, ProcFunc func)
     }
 }
 
-void Proc_BlockEachWithMark(int mark)
+void Proc_BlockEachMarked(int mark)
 {
     int i;
-    struct Proc* proc = gProcesses;
+    struct Proc* proc = sProcArray;
 
     for (i = 0; i < MAX_PROC_COUNT; i++, proc++)
     {
@@ -372,10 +372,10 @@ void Proc_BlockEachWithMark(int mark)
     }
 }
 
-void Proc_UnblockEachWithMark(int mark)
+void Proc_UnblockEachMarked(int mark)
 {
     int i;
-    struct Proc* proc = gProcesses;
+    struct Proc* proc = sProcArray;
 
     for (i = 0; i < MAX_PROC_COUNT; i++, proc++)
     {
@@ -384,36 +384,36 @@ void Proc_UnblockEachWithMark(int mark)
     }
 }
 
-void Proc_DeleteEachWithMark(int mark)
+void Proc_EndEachMarked(int mark)
 {
     int i;
-    struct Proc* proc = gProcesses;
+    struct Proc* proc = sProcArray;
 
     for (i = 0; i < MAX_PROC_COUNT; i++, proc++)
     {
         if (proc->proc_mark == mark)
-            Proc_Delete(proc);
+            Proc_End(proc);
     }
 }
 
 static void Delete(ProcPtr proc)
 {
-    Proc_Delete(proc);
+    Proc_End(proc);
 }
 
-void Proc_DeleteAllWithScript(const struct ProcCmd* script)
+void Proc_EndEach(const struct ProcCmd* script)
 {
-    Proc_ForEachWithScript(script, Delete);
+    Proc_ForEach(script, Delete);
 }
 
 static void ClearNativeCallback(ProcPtr proc)
 {
-    Proc_ClearNativeCallback(proc);
+    Proc_Break(proc);
 }
 
-void Proc_ClearNativeCallbackEachWithScript(const struct ProcCmd* script)
+void Proc_BreakEach(const struct ProcCmd* script)
 {
-    Proc_ForEachWithScript(script, ClearNativeCallback);
+    Proc_ForEach(script, ClearNativeCallback);
 }
 
 static void ForAllFollowingProcs(struct Proc* proc, ProcFunc func)
@@ -440,7 +440,7 @@ static void sub_80030CC(ProcPtr proc, ProcFunc func)
 
 static s8 ProcCmd_DELETE(struct Proc *proc)
 {
-    Proc_Delete(proc);
+    Proc_End(proc);
 
     return FALSE;
 }
@@ -505,7 +505,7 @@ static s8 ProcCmd_LOOP_ROUTINE(struct Proc *proc)
 
 static s8 ProcCmd_SET_DESTRUCTOR(struct Proc *proc)
 {
-    Proc_SetDestructor(proc, proc->proc_scrCur->dataPtr);
+    Proc_SetEndCb(proc, proc->proc_scrCur->dataPtr);
     proc->proc_scrCur++;
 
     return TRUE;
@@ -513,7 +513,7 @@ static s8 ProcCmd_SET_DESTRUCTOR(struct Proc *proc)
 
 static s8 ProcCmd_NEW_CHILD(struct Proc* proc)
 {
-    Proc_Create(proc->proc_scrCur->dataPtr, proc);
+    Proc_Start(proc->proc_scrCur->dataPtr, proc);
     proc->proc_scrCur++;
 
     return TRUE;
@@ -521,7 +521,7 @@ static s8 ProcCmd_NEW_CHILD(struct Proc* proc)
 
 static s8 ProcCmd_NEW_CHILD_BLOCKING(struct Proc* proc)
 {
-    Proc_CreateBlockingChild(proc->proc_scrCur->dataPtr, proc);
+    Proc_StartBlocking(proc->proc_scrCur->dataPtr, proc);
     proc->proc_scrCur++;
 
     return FALSE;
@@ -529,7 +529,7 @@ static s8 ProcCmd_NEW_CHILD_BLOCKING(struct Proc* proc)
 
 static s8 ProcCmd_NEW_MAIN_BUGGED(struct Proc *proc)
 {
-    Proc_Create(proc->proc_scrCur->dataPtr, (struct Proc *)(u32) proc->proc_sleepTime);  // Why are we using sleepTime here?
+    Proc_Start(proc->proc_scrCur->dataPtr, (struct Proc *)(u32) proc->proc_sleepTime);  // Why are we using sleepTime here?
     proc->proc_scrCur++;
 
     return TRUE;
@@ -549,7 +549,7 @@ static s8 ProcCmd_WHILE_EXISTS(struct Proc *proc)
 
 static s8 ProcCmd_END_ALL(struct Proc *proc)
 {
-    Proc_DeleteAllWithScript(proc->proc_scrCur->dataPtr);
+    Proc_EndEach(proc->proc_scrCur->dataPtr);
     proc->proc_scrCur++;
 
     return TRUE;
@@ -557,7 +557,7 @@ static s8 ProcCmd_END_ALL(struct Proc *proc)
 
 static s8 ProcCmd_BREAK_ALL_LOOP(struct Proc *proc)
 {
-    Proc_ClearNativeCallbackEachWithScript(proc->proc_scrCur->dataPtr);
+    Proc_BreakEach(proc->proc_scrCur->dataPtr);
     proc->proc_scrCur++;
 
     return TRUE;
@@ -572,14 +572,14 @@ static s8 ProcCmd_NOP(struct Proc *proc)
 
 static s8 ProcCmd_JUMP(struct Proc *proc)
 {
-    Proc_JumpToPointer(proc, proc->proc_scrCur->dataPtr);
+    Proc_GotoScript(proc, proc->proc_scrCur->dataPtr);
 
     return TRUE;
 }
 
 static s8 ProcCmd_GOTO(struct Proc *proc)
 {
-    Proc_GotoLabel(proc, proc->proc_scrCur->dataImm);
+    Proc_Goto(proc, proc->proc_scrCur->dataImm);
 
     return TRUE;
 }
@@ -589,7 +589,7 @@ static void UpdateSleep(ProcPtr proc)
     ((struct Proc*) proc)->proc_sleepTime--;
 
     if (((struct Proc*) proc)->proc_sleepTime == 0)
-        Proc_ClearNativeCallback(proc);
+        Proc_Break(proc);
 }
 
 static s8 ProcCmd_SLEEP(struct Proc *proc)
@@ -627,7 +627,7 @@ static s8 ProcCmd_BLOCK(struct Proc *proc)
 static s8 ProcCmd_END_IF_DUPLICATE(struct Proc *proc)
 {
     int i;
-    struct Proc *it = gProcesses;
+    struct Proc *it = sProcArray;
     int count = 0;
 
     for (i = 0; i < MAX_PROC_COUNT; i++, it++)
@@ -638,7 +638,7 @@ static s8 ProcCmd_END_IF_DUPLICATE(struct Proc *proc)
 
     if (count > 1)
     {
-        Proc_Delete(proc);
+        Proc_End(proc);
         return FALSE;
     }
 
@@ -650,13 +650,13 @@ static s8 ProcCmd_END_IF_DUPLICATE(struct Proc *proc)
 static s8 ProcCmd_END_DUPLICATES(struct Proc *proc)
 {
     int i;
-    struct Proc* it = gProcesses;
+    struct Proc* it = sProcArray;
 
     for (i = 0; i < MAX_PROC_COUNT; i++, it++)
     {
         if (it != proc && it->proc_script == proc->proc_script)
         {
-            Proc_Delete(it);
+            Proc_End(it);
             break;
         }
     }
@@ -771,7 +771,7 @@ static void sub_800344C(void)
 {
 }
 
-void Proc_SetNativeFunc(ProcPtr proc, ProcFunc func)
+void Proc_SetRepeatCb(ProcPtr proc, ProcFunc func)
 {
     struct Proc* casted = (struct Proc*) proc;
 
@@ -793,11 +793,11 @@ static void Proc_WakeSemaphore(struct Proc *proc)
 ProcPtr Proc_FindAfter(struct ProcCmd* script, struct Proc* proc)
 {
     if (proc == NULL)
-        proc = gProcesses;
+        proc = sProcArray;
     else
         proc++;
 
-    while (proc < gProcesses + MAX_PROC_COUNT)
+    while (proc < sProcArray + MAX_PROC_COUNT)
     {
         if (proc->proc_script == script)
             return proc;
@@ -811,11 +811,11 @@ ProcPtr Proc_FindAfter(struct ProcCmd* script, struct Proc* proc)
 struct Proc *Proc_FindAfterWithParent(struct Proc* proc, struct Proc* parent)
 {
     if (proc == NULL)
-        proc = gProcesses;
+        proc = sProcArray;
     else
         proc++;
 
-    while (proc < gProcesses + MAX_PROC_COUNT)
+    while (proc < sProcArray + MAX_PROC_COUNT)
     {
         if (proc->proc_parent == parent)
             return proc;
@@ -833,7 +833,7 @@ static int sub_80034D4(void)
 
     for (i = 0; i < MAX_PROC_COUNT; i++)
     {
-        if (gProcesses[i].proc_script)
+        if (sProcArray[i].proc_script)
             result--;
     }
 
@@ -842,7 +842,7 @@ static int sub_80034D4(void)
 
 int sub_80034FC(const struct ProcCmd* script)
 {
-    struct Proc* proc = gProcesses;
+    struct Proc* proc = sProcArray;
     int i, result = 0;
 
     for (i = 0; i < MAX_PROC_COUNT; i++, proc++)
@@ -862,14 +862,14 @@ int sub_80034FC(const struct ProcCmd* script)
     return result;
 }
 
-void sub_8003530(struct ProcFindIterator* it, const struct ProcCmd* script)
+void Proc_FindBegin(struct ProcFindIterator* it, const struct ProcCmd* script)
 {
-    it->proc = gProcesses;
+    it->proc = sProcArray;
     it->script = script;
     it->count = 0;
 }
 
-ProcPtr sub_8003540(struct ProcFindIterator* it)
+ProcPtr Proc_FindNext(struct ProcFindIterator* it)
 {
     struct Proc* result = NULL;
 

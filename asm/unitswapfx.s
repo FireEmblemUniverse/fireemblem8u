@@ -178,7 +178,7 @@ _0801EBB2:
 	cmp r0, r1
 	ble _0801EBCA
 	adds r0, r7, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _0801EBCA:
 	add sp, #0x10
 	pop {r3, r4, r5}
@@ -229,7 +229,7 @@ sub_801EC10: @ 0x0801EC10
 	adds r5, r3, #0
 	ldr r0, _0801EC44  @ gUnknown_0859AEA0
 	adds r1, r6, #0
-	bl Proc_Create
+	bl Proc_Start
 	mov r1, r8
 	str r1, [r0, #0x2c]
 	lsls r4, r4, #4

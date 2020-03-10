@@ -182,7 +182,7 @@ _0801C994:
 	bl StartStatScreen
 	adds r0, r6, #0
 	movs r1, #5
-	bl Proc_GotoLabel
+	bl Proc_Goto
 	b _0801CB64
 	.align 2, 0
 _0801CA04: .4byte gUnknown_0202BCB0
@@ -259,7 +259,7 @@ _0801CA9C:
 	ldrb r0, [r0, #4]
 	bl BWL_IncrementMoveValue
 	adds r0, r6, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 	b _0801CB38
 	.align 2, 0
 _0801CAB8: .4byte gActiveUnit
@@ -272,7 +272,7 @@ _0801CABC:
 	strb r0, [r1]
 	adds r0, r6, #0
 	movs r1, #0xb
-	bl Proc_GotoLabel
+	bl Proc_Goto
 	b _0801CB38
 _0801CAD4:
 	ldr r0, _0801CB2C  @ gKeyStatusPtr
@@ -312,7 +312,7 @@ _0801CB18:
 _0801CB20:
 	adds r0, r6, #0
 	movs r1, #9
-	bl Proc_GotoLabel
+	bl Proc_Goto
 	b _0801CB64
 	.align 2, 0
 _0801CB2C: .4byte gKeyStatusPtr
@@ -698,7 +698,7 @@ _0801CE30:
 	bl EnsureCameraOntoPosition
 	bl HideMoveRangeGraphics
 	adds r0, r5, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 	b _0801CFE0
 	.align 2, 0
 _0801CE4C: .4byte gActiveUnitMoveOrigin
@@ -752,7 +752,7 @@ _0801CE90:
 _0801CEB8:
 	adds r0, r5, #0
 	movs r1, #9
-	bl Proc_GotoLabel
+	bl Proc_Goto
 	b _0801CFE0
 	.align 2, 0
 _0801CEC4: .4byte gActiveUnit
@@ -803,7 +803,7 @@ _0801CF08:
 	bl StartStatScreen
 	adds r0, r5, #0
 	movs r1, #6
-	bl Proc_GotoLabel
+	bl Proc_Goto
 	b _0801CFE0
 	.align 2, 0
 _0801CF3C: .4byte gUnknown_0202BCB0
@@ -855,14 +855,14 @@ _0801CF90:
 	beq _0801CFB8
 	adds r0, r5, #0
 	movs r1, #0xc
-	bl Proc_GotoLabel
+	bl Proc_Goto
 	b _0801CFC0
 	.align 2, 0
 _0801CFB4: .4byte gUnknown_0202BCB0
 _0801CFB8:
 	adds r0, r5, #0
 	movs r1, #0xb
-	bl Proc_GotoLabel
+	bl Proc_Goto
 _0801CFC0:
 	ldr r0, _0801CFE8  @ gActiveUnit
 	ldr r0, [r0]
@@ -896,7 +896,7 @@ sub_801CFF0: @ 0x0801CFF0
 	movs r1, #0
 	strb r1, [r2, #0x11]
 	movs r1, #2
-	bl Proc_GotoLabel
+	bl Proc_Goto
 	pop {r0}
 	bx r0
 	.align 2, 0
@@ -949,7 +949,7 @@ _0801D05E:
 	bl MU_Create
 	adds r0, r5, #0
 	movs r1, #1
-	bl Proc_GotoLabel
+	bl Proc_Goto
 	pop {r4, r5}
 	pop {r0}
 	bx r0
@@ -1219,7 +1219,7 @@ _0801D2A8:
 	beq _0801D2F0
 	adds r0, r5, #0
 	movs r1, #4
-	bl Proc_GotoLabel
+	bl Proc_Goto
 	b _0801D2F8
 	.align 2, 0
 _0801D2E8: .4byte gBmMapRange
@@ -1227,7 +1227,7 @@ _0801D2EC: .4byte gUnknown_0202BCF0
 _0801D2F0:
 	adds r0, r5, #0
 	movs r1, #1
-	bl Proc_GotoLabel
+	bl Proc_Goto
 _0801D2F8:
 	movs r0, #1
 _0801D2FA:
@@ -1343,7 +1343,7 @@ _0801D3D0:
 	bl sub_808326C
 	adds r0, r5, #0
 	movs r1, #8
-	bl Proc_GotoLabel
+	bl Proc_Goto
 	b _0801D3FC
 _0801D3F8:
 	bl MU_EndAll
@@ -1394,7 +1394,7 @@ sub_801D434: @ 0x0801D434
 	bl StartSemiCenteredOrphanMenu
 _0801D456:
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 	pop {r4}
 	pop {r0}
 	bx r0
@@ -1473,7 +1473,7 @@ _0801D4E4:
 	bl StartSemiCenteredOrphanMenu
 _0801D502:
 	adds r0, r6, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _0801D508:
 	pop {r4, r5, r6}
 	pop {r0}
@@ -1652,7 +1652,7 @@ PlayerPhase_WaitForUnitMovement: @ 0x0801D64C
 	cmp r0, #0
 	bne _0801D660
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _0801D660:
 	pop {r4}
 	pop {r0}
@@ -1669,7 +1669,7 @@ sub_801D668: @ 0x0801D668
 	bl RefreshBMapGraphics
 	adds r0, r6, #0
 	movs r1, #0xc
-	bl Proc_GotoLabel
+	bl Proc_Goto
 	b _0801D6F4
 	.align 2, 0
 _0801D684: .4byte gActiveUnit
@@ -1725,7 +1725,7 @@ _0801D6E4:
 _0801D6EC:
 	adds r0, r6, #0
 	movs r1, #0xb
-	bl Proc_GotoLabel
+	bl Proc_Goto
 _0801D6F4:
 	pop {r4, r5, r6}
 	pop {r0}
@@ -1787,7 +1787,7 @@ ClearActiveUnit: @ 0x0801D75C
 	cmp r0, #0
 	beq _0801D7D2
 	movs r1, #9
-	bl Proc_GotoLabel
+	bl Proc_Goto
 	ldr r4, _0801D7DC  @ gActiveUnit
 	ldr r0, [r4]
 	cmp r0, #0
@@ -1854,7 +1854,7 @@ sub_801D7E8: @ 0x0801D7E8
 	bne _0801D806
 	ldr r1, _0801D814  @ sub_801D818
 	adds r0, r2, #0
-	bl Proc_SetNativeFunc
+	bl Proc_SetRepeatCb
 _0801D806:
 	pop {r0}
 	bx r0
@@ -1960,7 +1960,7 @@ _0801D8D0:
 	movs r2, #0x80
 	bl RegisterTileGraphics
 	adds r0, r4, #0
-	bl Proc_Delete
+	bl Proc_End
 _0801D8E0:
 	pop {r4, r5}
 	pop {r0}
@@ -1991,7 +1991,7 @@ Loop6C_MLVCHC: @ 0x0801D8EC
 	cmp r0, #8
 	bne _0801D91C
 	adds r0, r5, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _0801D91C:
 	pop {r4, r5}
 	pop {r0}
@@ -2191,7 +2191,7 @@ _0801DAB4: .4byte gUnknown_0859AD50
 _0801DAB8:
 	adds r0, r4, #0
 	movs r1, #4
-	bl Proc_Create
+	bl Proc_Start
 	adds r0, #0x4a
 	strh r5, [r0]
 _0801DAC4:
@@ -2203,7 +2203,7 @@ _0801DAC4:
 HideMoveRangeGraphics: @ 0x0801DACC
 	push {lr}
 	ldr r0, _0801DAD8  @ gUnknown_0859AD50
-	bl Proc_DeleteAllWithScript
+	bl Proc_EndEach
 	pop {r0}
 	bx r0
 	.align 2, 0
@@ -2331,7 +2331,7 @@ Goto3IfPhaseHasNoAbleUnits: @ 0x0801DBA4
 	bne _0801DBC8
 	adds r0, r4, #0
 	movs r1, #3
-	bl Proc_GotoLabel
+	bl Proc_Goto
 _0801DBC8:
 	pop {r4}
 	pop {r0}

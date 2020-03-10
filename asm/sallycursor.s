@@ -144,7 +144,7 @@ sub_8033358: @ 0x08033358
 	push {lr}
 	movs r1, #1
 	str r1, [r0, #0x58]
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 	bl sub_803334C
 	pop {r0}
 	bx r0
@@ -168,7 +168,7 @@ sub_803336C: @ 0x0803336C
 	movs r2, #0
 	bl DisplayCursor
 	adds r0, r5, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 	bl sub_803334C
 	pop {r4, r5}
 	pop {r0}
@@ -185,7 +185,7 @@ sub_80333A4: @ 0x080333A4
 	beq _080333BC
 	adds r0, r4, #0
 	movs r1, #0x37
-	bl Proc_GotoLabel
+	bl Proc_Goto
 	movs r0, #1
 	b _080333BE
 _080333BC:
@@ -199,7 +199,7 @@ _080333BE:
 sub_80333C4: @ 0x080333C4
 	push {lr}
 	movs r1, #0x33
-	bl Proc_GotoLabel
+	bl Proc_Goto
 	movs r0, #1
 	pop {r1}
 	bx r1
@@ -244,7 +244,7 @@ sub_803341C: @ 0x0803341C
 	movs r1, #8
 	str r1, [r0, #0x58]
 	movs r1, #0x39
-	bl Proc_GotoLabel
+	bl Proc_Goto
 	pop {r0}
 	bx r0
 
@@ -276,7 +276,7 @@ sub_8033458: @ 0x08033458
 	movs r1, #9
 	str r1, [r0, #0x58]
 	movs r1, #0x3b
-	bl Proc_GotoLabel
+	bl Proc_Goto
 	pop {r0}
 	bx r0
 
@@ -291,7 +291,7 @@ sub_8033468: @ 0x08033468
 	bl StartOrphanMenu
 	adds r0, r4, #0
 	movs r1, #0x3a
-	bl Proc_GotoLabel
+	bl Proc_Goto
 	pop {r4}
 	pop {r0}
 	bx r0
@@ -496,7 +496,7 @@ sub_8033620: @ 0x08033620
 	push {lr}
 	adds r1, r0, #0
 	ldr r0, _08033630  @ gUnknown_0859DBA4
-	bl Proc_Create
+	bl Proc_Start
 	pop {r0}
 	bx r0
 	.align 2, 0
@@ -507,7 +507,7 @@ sub_8033634: @ 0x08033634
 	push {lr}
 	bl EndHelpPromptSprite
 	ldr r0, _08033644  @ gUnknown_0859DBA4
-	bl Proc_DeleteAllWithScript
+	bl Proc_EndEach
 	pop {r0}
 	bx r0
 	.align 2, 0
@@ -744,7 +744,7 @@ _0803380A:
 	bne _0803383C
 	adds r0, r3, #0
 	movs r1, #2
-	bl Proc_GotoLabel
+	bl Proc_Goto
 	b _08033864
 	.align 2, 0
 _08033838: .4byte gKeyStatusPtr
@@ -767,7 +767,7 @@ _0803383C:
 	cmp r0, #0
 	bgt _08033864
 	adds r0, r3, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _08033864:
 	pop {r4, r5}
 	pop {r0}
@@ -884,7 +884,7 @@ sub_8033940: @ 0x08033940
 	bl sub_80332D0
 _08033958:
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _0803395E:
 	ldr r1, _08033974  @ gUnknown_0202BCB0
 	movs r2, #0x20
@@ -982,7 +982,7 @@ _080339CC:
 	bl StartStatScreen
 	adds r0, r5, #0
 	movs r1, #5
-	bl Proc_GotoLabel
+	bl Proc_Goto
 	b _08033BEC
 	.align 2, 0
 _08033A34: .4byte gUnknown_0202BCB0
@@ -1004,7 +1004,7 @@ _08033A3C:
 	strb r0, [r4, #0x13]
 	adds r0, r5, #0
 	movs r1, #0
-	bl Proc_GotoLabel
+	bl Proc_Goto
 	adds r4, #0x41
 	ldrb r0, [r4]
 	b _08033B36
@@ -1087,7 +1087,7 @@ _08033AD0:
 _08033B10:
 	adds r0, r5, #0
 	movs r1, #0x3c
-	bl Proc_GotoLabel
+	bl Proc_Goto
 	b _08033BEC
 	.align 2, 0
 _08033B1C: .4byte gUnknown_0202BCF0
@@ -1096,7 +1096,7 @@ _08033B24: .4byte gBmMapTerrain
 _08033B28:
 	adds r0, r5, #0
 	movs r1, #0
-	bl Proc_GotoLabel
+	bl Proc_Goto
 	ldr r0, _08033B44  @ gUnknown_0202BCF0
 	adds r0, #0x41
 	ldrb r0, [r0]
@@ -1124,7 +1124,7 @@ _08033B48:
 	bne _08033BA4
 	adds r0, r5, #0
 	movs r1, #3
-	bl Proc_GotoLabel
+	bl Proc_Goto
 	b _08033BEC
 	.align 2, 0
 _08033B6C: .4byte gActiveUnit
@@ -1156,7 +1156,7 @@ _08033B90:
 _08033BA4:
 	adds r0, r5, #0
 	movs r1, #1
-	bl Proc_GotoLabel
+	bl Proc_Goto
 	b _08033BEC
 	.align 2, 0
 _08033BB0: .4byte gActiveUnit
@@ -1173,7 +1173,7 @@ _08033BB4:
 	bl sub_80A87DC
 	adds r0, r5, #0
 	movs r1, #9
-	bl Proc_GotoLabel
+	bl Proc_Goto
 	b _08033BEC
 	.align 2, 0
 _08033BD8: .4byte gKeyStatusPtr
@@ -1198,7 +1198,7 @@ sub_8033BF8: @ 0x08033BF8
 	ldr r0, _08033C0C  @ gUnknown_0859DBBC
 	bl Proc_Find
 	movs r1, #0x33
-	bl Proc_GotoLabel
+	bl Proc_Goto
 	movs r0, #0x17
 	pop {r1}
 	bx r1
@@ -1332,7 +1332,7 @@ _08033D04:
 	ldr r0, [r4, #0x54]
 	bl AP_Delete
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 	bl DeleteEach6CBB
 	b _08033DCA
 	.align 2, 0
@@ -1362,7 +1362,7 @@ _08033D54:
 	bl AP_Delete
 	adds r0, r4, #0
 	movs r1, #4
-	bl Proc_GotoLabel
+	bl Proc_Goto
 	bl DeleteEach6CBB
 	ldr r0, _08033D84  @ gUnknown_0202BCF0
 	adds r0, #0x41
@@ -1542,7 +1542,7 @@ sub_8033EC0: @ 0x08033EC0
 	push {lr}
 	adds r1, r0, #0
 	ldr r0, _08033ED0  @ gUnknown_08A2ED88
-	bl Proc_CreateBlockingChild
+	bl Proc_StartBlocking
 	pop {r0}
 	bx r0
 	.align 2, 0
@@ -1635,7 +1635,7 @@ sub_8033F34: @ 0x08033F34
 _08033F84:
 	adds r0, r5, #0
 	movs r1, #9
-	bl Proc_GotoLabel
+	bl Proc_Goto
 	b _08034058
 	.align 2, 0
 _08033F90: .4byte gKeyStatusPtr
@@ -1685,7 +1685,7 @@ _08033FD2:
 	bl StartStatScreen
 	adds r0, r5, #0
 	movs r1, #6
-	bl Proc_GotoLabel
+	bl Proc_Goto
 _08034002:
 	ldr r0, _08034070  @ gKeyStatusPtr
 	ldr r0, [r0]
@@ -1762,7 +1762,7 @@ sub_8034090: @ 0x08034090
 	bl RefreshBMapGraphics
 	adds r0, r6, #0
 	movs r1, #0xc
-	bl Proc_GotoLabel
+	bl Proc_Goto
 	b _08034102
 	.align 2, 0
 _080340AC: .4byte gActiveUnit
@@ -1805,7 +1805,7 @@ _080340B0:
 	str r0, [r2, #0xc]
 	adds r0, r6, #0
 	movs r1, #0xb
-	bl Proc_GotoLabel
+	bl Proc_Goto
 _08034102:
 	pop {r4, r5, r6}
 	pop {r0}
@@ -2034,7 +2034,7 @@ _080342BA:
 	ble _0803427C
 	bl ShrinkPlayerUnits
 	ldr r0, _080342F0  @ gUnknown_0859DBBC
-	bl Proc_DeleteAllWithScript
+	bl Proc_EndEach
 	ldr r3, _080342F4  @ gUnknown_0202BCB0
 	ldrb r2, [r3, #4]
 	movs r1, #0xef

@@ -141,7 +141,7 @@ _08021C9E:
 	cmp r4, #0xff
 	bne _08021CD0
 	adds r0, r3, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 	b _08021CF6
 	.align 2, 0
 _08021CC4: .4byte gUnknown_0859B48C
@@ -212,7 +212,7 @@ sub_8021D34: @ 0x08021D34
 	lsrs r5, r5, #0x18
 	ldr r0, _08021D9C  @ gUnknown_0859B4D0
 	adds r1, r6, #0
-	bl Proc_Create
+	bl Proc_Start
 	lsls r4, r4, #0x18
 	asrs r4, r4, #0x18
 	adds r1, r0, #0
@@ -265,7 +265,7 @@ sub_8021DA4: @ 0x08021DA4
 	lsrs r4, r4, #0x18
 	ldr r0, _08021DF4  @ gUnknown_0859B4D0
 	mov r1, r8
-	bl Proc_Create
+	bl Proc_Start
 	adds r3, r0, #0
 	lsls r4, r4, #0x18
 	asrs r4, r4, #0x18

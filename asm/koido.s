@@ -86,7 +86,7 @@ Loop6C_KOIDO: @ 0x0801DC3C
 	bl MU_End
 _0801DC5C:
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 	movs r0, #0
 	ldrsb r0, [r5, r0]
 	cmp r0, #1
@@ -109,7 +109,7 @@ Make6CKOIDO: @ 0x0801DC7C
 	mov r8, r2
 	adds r1, r3, #0
 	ldr r0, _0801DCCC  @ gUnknown_0859AD88
-	bl Proc_CreateBlockingChild
+	bl Proc_StartBlocking
 	adds r7, r0, #0
 	str r6, [r7, #0x30]
 	str r4, [r7, #0x2c]
@@ -148,7 +148,7 @@ Make6CKOIDOAMM: @ 0x0801DCD0
 	adds r4, r1, #0
 	ldr r0, _0801DD18  @ gUnknown_0859ADA0
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	adds r7, r0, #0
 	str r6, [r7, #0x30]
 	str r4, [r7, #0x2c]

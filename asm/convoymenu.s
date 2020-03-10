@@ -56,7 +56,7 @@ _0801DFF4: .4byte gUnknown_0202BCB0
 _0801DFF8:
 	adds r0, r4, #0
 	movs r1, #0x63
-	bl Proc_GotoLabel
+	bl Proc_Goto
 	movs r0, #1
 _0801E002:
 	pop {r4}
@@ -198,7 +198,7 @@ _0801E11A:
 	bl sub_8008A0C
 	ldr r0, _0801E134  @ gUnknown_0859AE38
 	adds r1, r6, #0
-	bl Proc_CreateBlockingChild
+	bl Proc_StartBlocking
 _0801E128:
 	add sp, #4
 	pop {r4, r5, r6}

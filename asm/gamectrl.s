@@ -255,7 +255,7 @@ Goto6CLabel12IfSomething: @ 0x08009A00
 	bne _08009A1A
 	adds r0, r2, #0
 	movs r1, #0x12
-	bl Proc_GotoLabel
+	bl Proc_Goto
 _08009A1A:
 	pop {r0}
 	bx r0
@@ -296,7 +296,7 @@ sub_8009A58: @ 0x08009A58
 	THUMB_FUNC_START Null6CCallback
 Null6CCallback: @ 0x08009A60
 	push {lr}
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 	pop {r0}
 	bx r0
 
@@ -309,7 +309,7 @@ Delete6CIfNotMarkedB: @ 0x08009A6C
 	cmp r0, #0xb
 	beq _08009A7E
 	adds r0, r1, #0
-	bl Proc_Delete
+	bl Proc_End
 _08009A7E:
 	pop {r0}
 	bx r0
@@ -326,7 +326,7 @@ sub_8009A84: @ 0x08009A84
 	bl CpuFastSet
 	bl EnablePaletteSync
 	ldr r0, _08009AB4  @ Delete6CIfNotMarkedB
-	bl Proc_ForEach
+	bl Proc_ForAll
 	ldr r0, _08009AB8  @ SomeUpdateRoutine
 	bl SetMainUpdateRoutine
 	add sp, #4
@@ -386,12 +386,12 @@ _08009B02:
 _08009B0C:
 	adds r0, r4, #0
 	movs r1, #4
-	bl Proc_GotoLabel
+	bl Proc_Goto
 	b _08009B5C
 _08009B16:
 	adds r0, r4, #0
 	movs r1, #5
-	bl Proc_GotoLabel
+	bl Proc_Goto
 	adds r0, r4, #0
 	bl sub_8009AD8
 	b _08009B5C
@@ -409,12 +409,12 @@ _08009B26:
 _08009B3A:
 	adds r0, r4, #0
 	movs r1, #2
-	bl Proc_GotoLabel
+	bl Proc_Goto
 	b _08009B4C
 _08009B44:
 	adds r0, r4, #0
 	movs r1, #1
-	bl Proc_GotoLabel
+	bl Proc_Goto
 _08009B4C:
 	ldrb r0, [r5]
 	adds r0, #1
@@ -423,7 +423,7 @@ _08009B4C:
 _08009B54:
 	adds r0, r4, #0
 	movs r1, #0x18
-	bl Proc_GotoLabel
+	bl Proc_Goto
 _08009B5C:
 	pop {r4, r5}
 	pop {r0}
@@ -442,11 +442,11 @@ sub_8009B64: @ 0x08009B64
 	b _08009B84
 _08009B76:
 	movs r1, #4
-	bl Proc_GotoLabel
+	bl Proc_Goto
 	b _08009B84
 _08009B7E:
 	movs r1, #1
-	bl Proc_GotoLabel
+	bl Proc_Goto
 _08009B84:
 	pop {r0}
 	bx r0
@@ -485,32 +485,32 @@ _08009BD8:
 _08009BDC:
 	adds r0, r4, #0
 	movs r1, #7
-	bl Proc_GotoLabel
+	bl Proc_Goto
 	b _08009C16
 _08009BE6:
 	adds r0, r4, #0
 	movs r1, #8
-	bl Proc_GotoLabel
+	bl Proc_Goto
 	b _08009C16
 _08009BF0:
 	adds r0, r4, #0
 	movs r1, #0x19
-	bl Proc_GotoLabel
+	bl Proc_Goto
 	b _08009C16
 _08009BFA:
 	adds r0, r4, #0
 	movs r1, #0xc
-	bl Proc_GotoLabel
+	bl Proc_Goto
 	b _08009C16
 _08009C04:
 	adds r0, r4, #0
 	movs r1, #0xe
-	bl Proc_GotoLabel
+	bl Proc_Goto
 	b _08009C16
 _08009C0E:
 	adds r0, r4, #0
 	movs r1, #0xf
-	bl Proc_GotoLabel
+	bl Proc_Goto
 _08009C16:
 	pop {r4}
 	pop {r0}
@@ -526,7 +526,7 @@ sub_8009C1C: @ 0x08009C1C
 	bne _08009C30
 	adds r0, r1, #0
 	movs r1, #4
-	bl Proc_GotoLabel
+	bl Proc_Goto
 _08009C30:
 	pop {r0}
 	bx r0
@@ -535,7 +535,7 @@ _08009C30:
 sub_8009C34: @ 0x08009C34
 	push {lr}
 	movs r1, #4
-	bl Proc_GotoLabel
+	bl Proc_Goto
 	pop {r0}
 	bx r0
 
@@ -550,7 +550,7 @@ sub_8009C40: @ 0x08009C40
 	cmp r1, #1
 	bne _08009C56
 	movs r1, #0x13
-	bl Proc_GotoLabel
+	bl Proc_Goto
 _08009C56:
 	pop {r0}
 	bx r0
@@ -565,7 +565,7 @@ sub_8009C5C: @ 0x08009C5C
 	bne _08009C72
 	adds r0, r5, #0
 	movs r1, #5
-	bl Proc_GotoLabel
+	bl Proc_Goto
 	b _08009C98
 _08009C72:
 	movs r0, #0
@@ -643,12 +643,12 @@ _08009CFC:
 _08009D02:
 	adds r0, r4, #0
 	movs r1, #4
-	bl Proc_GotoLabel
+	bl Proc_Goto
 	b _08009D14
 _08009D0C:
 	adds r0, r4, #0
 	movs r1, #0x10
-	bl Proc_GotoLabel
+	bl Proc_Goto
 _08009D14:
 	pop {r4}
 	pop {r0}
@@ -670,7 +670,7 @@ sub_8009D1C: @ 0x08009D1C
 _08009D32:
 	adds r0, r2, #0
 	movs r1, #6
-	bl Proc_GotoLabel
+	bl Proc_Goto
 _08009D3A:
 	pop {r0}
 	bx r0
@@ -693,7 +693,7 @@ sub_8009D44: @ 0x08009D44
 	beq _08009D64
 	adds r0, r2, #0
 	movs r1, #0x11
-	bl Proc_GotoLabel
+	bl Proc_Goto
 _08009D64:
 	pop {r0}
 	bx r0
@@ -712,14 +712,14 @@ sub_8009D6C: @ 0x08009D6C
 	beq _08009D8C
 	adds r0, r2, #0
 	movs r1, #0xa
-	bl Proc_GotoLabel
+	bl Proc_Goto
 	b _08009D94
 	.align 2, 0
 _08009D88: .4byte gUnknown_0202BCF0
 _08009D8C:
 	adds r0, r2, #0
 	movs r1, #9
-	bl Proc_GotoLabel
+	bl Proc_Goto
 _08009D94:
 	pop {r0}
 	bx r0
@@ -921,7 +921,7 @@ NewGameControl: @ 0x08009F08
 	bl SetInterrupt_LCDVBlank
 	ldr r0, _08009F3C  @ gUnknown_085916D4
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	adds r2, r0, #0
 	adds r2, #0x29
 	movs r1, #0
@@ -986,12 +986,12 @@ RestartGameAndGoto8: @ 0x08009F8C
 	push {r4, lr}
 	ldr r4, _08009FAC  @ gUnknown_085916D4
 	adds r0, r4, #0
-	bl Proc_DeleteAllWithScript
+	bl Proc_EndEach
 	adds r0, r4, #0
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	movs r1, #8
-	bl Proc_GotoLabel
+	bl Proc_Goto
 	pop {r4}
 	pop {r0}
 	bx r0
@@ -1003,12 +1003,12 @@ RestartGameAndGoto12: @ 0x08009FB0
 	push {r4, lr}
 	ldr r4, _08009FD0  @ gUnknown_085916D4
 	adds r0, r4, #0
-	bl Proc_DeleteAllWithScript
+	bl Proc_EndEach
 	adds r0, r4, #0
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	movs r1, #0x12
-	bl Proc_GotoLabel
+	bl Proc_Goto
 	pop {r4}
 	pop {r0}
 	bx r0

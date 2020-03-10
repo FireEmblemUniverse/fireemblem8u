@@ -81,9 +81,9 @@ struct CtCProc *sub_80054B0(struct Proc *parent, int b, int c, int d, void *e, i
     struct CtCProc *proc;
 
     if (parent != NULL)
-        proc = Proc_Create(gUnknown_08590FDC, parent);
+        proc = Proc_Start(gUnknown_08590FDC, parent);
     else
-        proc = Proc_Create(gUnknown_08590FDC, PROC_TREE_3);
+        proc = Proc_Start(gUnknown_08590FDC, PROC_TREE_3);
     proc->unk2C = c;
     proc->unk30 = d;
     proc->unk50 = b;

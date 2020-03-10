@@ -2250,7 +2250,7 @@ sub_800E640: @ 0x0800E640
 	beq _0800E668
 	bl sub_80081A8
 	ldr r0, _0800E664  @ gUnknown_08591154
-	bl Proc_DeleteAllWithScript
+	bl Proc_EndEach
 	bl ResetFaces
 	bl sub_80067E8
 	b _0800E686
@@ -2264,10 +2264,10 @@ _0800E668:
 	bl sub_80081A8
 	ldr r0, _0800E68C  @ gUnknown_08591154
 	ldr r1, _0800E690  @ sub_8005F38
-	bl Proc_ForEachWithScript
+	bl Proc_ForEach
 	ldr r0, _0800E694  @ gUnknown_08591DE8
 	adds r1, r4, #0
-	bl Proc_CreateBlockingChild
+	bl Proc_StartBlocking
 _0800E686:
 	pop {r4}
 	pop {r0}
@@ -2286,7 +2286,7 @@ _WhileFace6CExists: @ 0x0800E698
 	cmp r0, #0
 	bne _0800E6AC
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _0800E6AC:
 	pop {r4}
 	pop {r0}
@@ -2678,7 +2678,7 @@ _0800E9CE:
 _0800E9D4:
 	ldr r0, _0800E9E8  @ gUnknown_08591EB0
 	adds r1, r5, #0
-	bl Proc_CreateBlockingChild
+	bl Proc_StartBlocking
 	mov ip, r0
 	mov r1, ip
 	adds r1, #0x29
@@ -2697,7 +2697,7 @@ _0800E9EC:
 	ldr r0, _0800EA1C  @ gUnknown_08591E00
 _0800E9FA:
 	adds r1, r5, #0
-	bl Proc_CreateBlockingChild
+	bl Proc_StartBlocking
 	mov ip, r0
 	adds r0, #0x29
 	strb r4, [r0]
@@ -3338,7 +3338,7 @@ _0800EF36:
 	cmp r4, #0xf
 	bls _0800EF40
 	adds r0, r5, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _0800EF40:
 	pop {r4, r5}
 	pop {r0}
@@ -3543,7 +3543,7 @@ Event22_: @ 0x0800F0C8
 	bl BG_EnableSyncByMask
 	bl sub_80081A8
 	ldr r0, _0800F120  @ gUnknown_08591154
-	bl Proc_DeleteAllWithScript
+	bl Proc_EndEach
 	bl ResetFaces
 	bl sub_80067E8
 	adds r0, r4, #0
@@ -6572,7 +6572,7 @@ Event3B_: @ 0x0801079C
 	cmp r0, #0
 	beq _080107B8
 	ldr r0, _080107B4  @ gUnknown_08591F08
-	bl Proc_DeleteAllWithScript
+	bl Proc_EndEach
 	b _08010844
 	.align 2, 0
 _080107B4: .4byte gUnknown_08591F08
@@ -6626,7 +6626,7 @@ _08010808:
 	b _0801081C
 _0801080E:
 	ldr r0, _08010818  @ gUnknown_08591F08
-	bl Proc_DeleteAllWithScript
+	bl Proc_EndEach
 	movs r0, #2
 	b _08010846
 	.align 2, 0
@@ -6634,7 +6634,7 @@ _08010818: .4byte gUnknown_08591F08
 _0801081C:
 	ldr r0, _0801084C  @ gUnknown_08591F08
 	adds r1, r6, #0
-	bl Proc_Create
+	bl Proc_Start
 	adds r3, r0, #0
 	lsls r0, r5, #0x18
 	asrs r0, r0, #0x18
@@ -6812,7 +6812,7 @@ Event3E_PrepScreenCall: @ 0x08010968
 	bl UnsetEventId
 	ldr r0, _08010988  @ gUnknown_0859DBBC
 	adds r1, r4, #0
-	bl Proc_CreateBlockingChild
+	bl Proc_StartBlocking
 	movs r0, #2
 	pop {r4}
 	pop {r1}
@@ -6919,7 +6919,7 @@ sub_8010A28: @ 0x08010A28
 	movs r1, #6
 	bl Proc_SetMark
 	adds r0, r5, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _08010A50:
 	pop {r4, r5}
 	pop {r0}
@@ -7003,7 +7003,7 @@ _08010AE4:
 	movs r5, #1
 	ldr r0, _08010B28  @ gUnknown_08591F18
 	adds r1, r6, #0
-	bl Proc_CreateBlockingChild
+	bl Proc_StartBlocking
 	adds r4, r0, #0
 	str r6, [r4, #0x58]
 	bl GetThread2SkipStack
@@ -7066,7 +7066,7 @@ sub_8010B48: @ 0x08010B48
 	movs r1, #6
 	bl Proc_SetMark
 	adds r0, r5, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _08010B70:
 	pop {r4, r5}
 	pop {r0}
@@ -7087,7 +7087,7 @@ Event40_: @ 0x08010B78
 	mov r9, r0
 	ldr r0, _08010BE8  @ gUnknown_08591F28
 	adds r1, r6, #0
-	bl Proc_CreateBlockingChild
+	bl Proc_StartBlocking
 	adds r4, r0, #0
 	str r6, [r4, #0x58]
 	bl GetThread2SkipStack

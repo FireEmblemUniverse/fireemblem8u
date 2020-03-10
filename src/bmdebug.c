@@ -61,7 +61,7 @@ void DummyFunction(void)
 void Loop6C_WaitForSelectPress(struct Proc *proc)
 {
     if (gKeyStatusPtr->newKeys & SELECT_BUTTON) {
-        Proc_ClearNativeCallback(proc);
+        Proc_Break(proc);
     }
 }
 

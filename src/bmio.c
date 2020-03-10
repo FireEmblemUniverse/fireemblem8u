@@ -115,34 +115,34 @@ static EWRAM_DATA union WeatherEffectData sWeatherEffect = {};
 static EWRAM_DATA union GradientEffectData sGradientEffect = {};
 
 static CONST_DATA struct ProcCmd sProc_BMVSync[] = { // gProc_VBlankHandler
-    PROC_SET_MARK(PROC_MARK_1),
-    PROC_SET_DESTRUCTOR(BMapVSync_OnEnd),
+    PROC_MARK(PROC_MARK_1),
+    PROC_SET_END_CB(BMapVSync_OnEnd),
 
     PROC_SLEEP(0),
 
 PROC_LABEL(0),
-    PROC_CALL_ROUTINE(BMapVSync_UpdateMapImgAnimations),
-    PROC_CALL_ROUTINE(BMapVSync_UpdateMapPalAnimations),
+    PROC_CALL(BMapVSync_UpdateMapImgAnimations),
+    PROC_CALL(BMapVSync_UpdateMapPalAnimations),
 
-    PROC_CALL_ROUTINE(SMS_FlushDirect),
-    PROC_CALL_ROUTINE(WfxVSync),
+    PROC_CALL(SMS_FlushDirect),
+    PROC_CALL(WfxVSync),
 
-    PROC_LOOP_ROUTINE(BMapVSync_OnLoop),
+    PROC_REPEAT(BMapVSync_OnLoop),
 
     PROC_END
 };
 
 CONST_DATA struct ProcCmd gProc_MapTask[] = { // gProc_MapTask
-    PROC_SET_NAME("MAPTASK"),
+    PROC_NAME("MAPTASK"),
     PROC_END_DUPLICATES,
-    PROC_SET_MARK(PROC_MARK_1),
+    PROC_MARK(PROC_MARK_1),
 
     PROC_SLEEP(0),
 
 PROC_LABEL(0),
-    PROC_CALL_ROUTINE(SMS_DisplayAllFromInfoStructs),
-    PROC_CALL_ROUTINE(WfxUpdate),
-    PROC_CALL_ROUTINE(UpdateBmMapDisplay),
+    PROC_CALL(SMS_DisplayAllFromInfoStructs),
+    PROC_CALL(WfxUpdate),
+    PROC_CALL(UpdateBmMapDisplay),
 
     PROC_SLEEP(0),
     PROC_GOTO(0)
@@ -189,7 +189,7 @@ static CONST_DATA u16 sObj_BackgroundClouds[] = { // Obj Data
 static CONST_DATA struct ProcCmd sProc_DelayedBMapDispResume[] = { // gProc_GameGfxUnblocker
     PROC_SLEEP(0),
 
-    PROC_CALL_ROUTINE(BMapDispResume),
+    PROC_CALL(BMapDispResume),
     PROC_END
 };
 
@@ -279,19 +279,19 @@ void BMapVSync_OnEnd(struct BMVSyncProc* proc) {
 }
 
 void BMapVSync_OnLoop(struct BMVSyncProc* proc) {
-    Proc_GotoLabel((struct Proc*)(proc), 0);
+    Proc_Goto(proc, 0);
 }
 
 void BMapVSync_Start(void) {
     BMapVSync_InitMapAnimations(
-        Proc_Create(sProc_BMVSync, PROC_TREE_VSYNC));
+        Proc_Start(sProc_BMVSync, PROC_TREE_VSYNC));
 
     WfxInit();
     gUnknown_0202BCB0.gameGfxSemaphore = 0;
 }
 
 void BMapVSync_End(void) {
-    Proc_DeleteAllWithScript(sProc_BMVSync);
+    Proc_EndEach(sProc_BMVSync);
 }
 
 void BMapDispSuspend(void) {
@@ -301,7 +301,7 @@ void BMapDispSuspend(void) {
     SetSecondaryHBlankHandler(NULL);
     gPaletteBuffer[0] = 0;
     EnablePaletteSync();
-    Proc_BlockEachWithMark(1);
+    Proc_BlockEachMarked(1);
 }
 
 void BMapDispResume(void) {
@@ -313,13 +313,13 @@ void BMapDispResume(void) {
     if (--gUnknown_0202BCB0.gameGfxSemaphore)
         return; // still blocked
 
-    Proc_UnblockEachWithMark(1);
+    Proc_UnblockEachMarked(1);
 
     proc = Proc_Find(sProc_BMVSync);
 
     if (proc) {
         // restart vblank proc
-        Proc_Delete(proc);
+        Proc_End(proc);
         BMapVSync_Start();
     }
 }
@@ -1061,7 +1061,7 @@ void RestartBattleMap(void) {
     BMapVSync_End();
     BMapVSync_Start();
 
-    Proc_Create(gProc_MapTask, PROC_TREE_4);
+    Proc_Start(gProc_MapTask, PROC_TREE_4);
 
     // TODO: MACRO?
     gPaletteBuffer[0] = 0;
@@ -1167,7 +1167,7 @@ void BMapDispResume_FromBattleDelayed(void) {
     MU_Create(&gBattleActor.unit);
     MU_SetDefaultFacing_Auto();
 
-    Proc_Create(sProc_DelayedBMapDispResume, PROC_TREE_3);
+    Proc_Start(sProc_DelayedBMapDispResume, PROC_TREE_3);
 }
 
 void InitMoreBMapGraphics(void) {
@@ -1188,13 +1188,13 @@ void RefreshBMapGraphics(void) {
 }
 
 struct BMapMainProc* StartBMapMain(struct GameCtrlProc* gameCtrl) {
-    struct BMapMainProc* mapMain = Proc_Create(gProc_BMapMain, PROC_TREE_2);
+    struct BMapMainProc* mapMain = Proc_Start(gProc_BMapMain, PROC_TREE_2);
 
     mapMain->gameCtrl = gameCtrl;
     gameCtrl->proc_lockCnt++;
 
     BMapVSync_Start();
-    Proc_Create(gProc_MapTask, PROC_TREE_4);
+    Proc_Start(gProc_MapTask, PROC_TREE_4);
 
     return mapMain;
 }
@@ -1202,12 +1202,12 @@ struct BMapMainProc* StartBMapMain(struct GameCtrlProc* gameCtrl) {
 void EndBMapMain(void) {
     struct BMapMainProc* mapMain;
 
-    Proc_DeleteEachWithMark(PROC_MARK_1);
+    Proc_EndEachMarked(PROC_MARK_1);
 
     mapMain = Proc_Find(gProc_BMapMain);
     mapMain->gameCtrl->proc_lockCnt--;
 
-    Proc_Delete((struct Proc*)(mapMain));
+    Proc_End(mapMain);
 }
 
 void ChapterChangeUnitCleanup(void) {
@@ -1274,7 +1274,7 @@ void MapMain_ResumeFromPhaseIdle(struct BMapMainProc* mapMain) {
     gLCDControlBuffer.dispcnt.bg3_on = FALSE;
     gLCDControlBuffer.dispcnt.obj_on = FALSE;
 
-    Proc_GotoLabel((struct Proc*)(mapMain), 4);
+    Proc_Goto(mapMain, 4);
 }
 
 void MapMain_ResumeFromAction(struct BMapMainProc* mapMain) {
@@ -1287,7 +1287,7 @@ void MapMain_ResumeFromAction(struct BMapMainProc* mapMain) {
     gLCDControlBuffer.dispcnt.bg3_on = FALSE;
     gLCDControlBuffer.dispcnt.obj_on = FALSE;
 
-    Proc_GotoLabel((struct Proc*)(mapMain), 6);
+    Proc_Goto(mapMain, 6);
 
     gActiveUnit = GetUnit(gActionData.subjectIndex);
     gBmMapUnit[gActiveUnit->yPos][gActiveUnit->xPos] = 0;
@@ -1308,7 +1308,7 @@ void MapMain_ResumeFromBskPhase(struct BMapMainProc* mapMain) {
     gLCDControlBuffer.dispcnt.bg3_on = FALSE;
     gLCDControlBuffer.dispcnt.obj_on = FALSE;
 
-    Proc_GotoLabel((struct Proc*)(mapMain), 7);
+    Proc_Goto(mapMain, 7);
 }
 
 void MapMain_ResumeFromArenaFight(struct BMapMainProc* mapMain) {
@@ -1331,7 +1331,7 @@ void MapMain_ResumeFromArenaFight(struct BMapMainProc* mapMain) {
 
     SMS_UpdateFromGameData();
 
-    Proc_GotoLabel((struct Proc*)(mapMain), 10);
+    Proc_Goto(mapMain, 10);
 
     sub_80B578C();
 }
@@ -1346,7 +1346,7 @@ void MapMain_ResumeFromPhaseChange(struct BMapMainProc* mapMain) {
     gLCDControlBuffer.dispcnt.bg3_on = FALSE;
     gLCDControlBuffer.dispcnt.obj_on = FALSE;
 
-    Proc_GotoLabel((struct Proc*)(mapMain), 8);
+    Proc_Goto(mapMain, 8);
 }
 
 void GameCtrl_DeclareCompletedChapter(void) {
