@@ -18,12 +18,6 @@ extern u8 CONST_DATA gUnknown_08599F34[];
 extern u8 CONST_DATA gUnknown_08599F54[];
 extern u8 CONST_DATA gUnknown_08599F74[];
 
-struct FaceVramEntry
-{
-    /* 00 */ u32 tileOffset;
-    /* 04 */ u16 paletteId;
-};
-
 // funcs
 void Load6CFACEGraphics(ProcPtr);
 void sub_80055BC(ProcPtr);
