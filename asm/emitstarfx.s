@@ -70,7 +70,7 @@ _08022026:
 	cmp r2, #0
 	bge _0802203E
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 	ldr r1, [r4, #0x14]
 	adds r1, #0x4c
 	ldrh r0, [r1]
@@ -169,7 +169,7 @@ _080220D8:
 _080220E0:
 	ldr r0, _080221A4  @ gUnknown_0859B510
 	adds r1, r6, #0
-	bl Proc_Create
+	bl Proc_Start
 	adds r5, r0, #0
 	bl AdvanceGetLCGRNValue
 	ldr r1, [r6, #0x34]
@@ -226,7 +226,7 @@ _0802214E:
 	bgt _080221EE
 	ldr r0, _080221A4  @ gUnknown_0859B510
 	adds r1, r6, #0
-	bl Proc_Create
+	bl Proc_Start
 	adds r5, r0, #0
 	bl AdvanceGetLCGRNValue
 	ldr r1, [r6, #0x34]
@@ -290,7 +290,7 @@ _080221CE:
 	cmp r1, r0
 	ble _080221EE
 	adds r0, r6, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 	movs r0, #0
 	strh r0, [r4]
 	adds r1, r6, #0
@@ -369,7 +369,7 @@ sub_8022250: @ 0x08022250
 	bl RegisterTileGraphics
 	ldr r0, _080222B0  @ gUnknown_0859B528
 	adds r1, r6, #0
-	bl Proc_Create
+	bl Proc_Start
 	adds r3, r0, #0
 	mov r0, r8
 	str r0, [r3, #0x34]
@@ -423,7 +423,7 @@ _080222CC: .4byte gUnknown_0859B528
 sub_80222D0: @ 0x080222D0
 	push {lr}
 	ldr r0, _080222DC  @ gUnknown_0859B528
-	bl Proc_DeleteAllWithScript
+	bl Proc_EndEach
 	pop {r0}
 	bx r0
 	.align 2, 0

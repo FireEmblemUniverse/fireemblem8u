@@ -885,7 +885,7 @@ Loop6C_GENS: @ 0x08015CB0
 	ldrh r0, [r0, #0xe]
 	strh r0, [r5, #0x2e]
 	adds r0, r5, #0
-	bl Proc_Delete
+	bl Proc_End
 	b _08015D20
 	.align 2, 0
 _08015CCC: .4byte gUnknown_0202BCB0
@@ -1032,12 +1032,12 @@ _08015DD0:
 	beq _08015DDE
 	adds r0, r4, #0
 	adds r1, r5, #0
-	bl Proc_CreateBlockingChild
+	bl Proc_StartBlocking
 	b _08015DE6
 _08015DDE:
 	adds r0, r4, #0
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 _08015DE6:
 	adds r2, r0, #0
 	ldr r1, _08015E08  @ gUnknown_0202BCB0
@@ -1106,12 +1106,12 @@ _08015E5C:
 	beq _08015E6A
 	adds r0, r4, #0
 	adds r1, r5, #0
-	bl Proc_CreateBlockingChild
+	bl Proc_StartBlocking
 	b _08015E72
 _08015E6A:
 	adds r0, r4, #0
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 _08015E72:
 	adds r2, r0, #0
 	ldr r0, _08015E98  @ gUnknown_0202BCB0
@@ -1201,12 +1201,12 @@ _08015F08:
 	beq _08015F16
 	adds r0, r4, #0
 	adds r1, r5, #0
-	bl Proc_CreateBlockingChild
+	bl Proc_StartBlocking
 	b _08015F1E
 _08015F16:
 	adds r0, r4, #0
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 _08015F1E:
 	adds r2, r0, #0
 	ldr r1, _08015F3C  @ gUnknown_0202BCB0
@@ -1261,7 +1261,7 @@ sub_8015F40: @ 0x08015F40
 	cmp r0, #0
 	bge _08015F88
 	adds r0, r7, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _08015F88:
 	pop {r4, r5, r6, r7}
 	pop {r0}
@@ -1277,7 +1277,7 @@ sub_8015F90: @ 0x08015F90
 	adds r6, r2, #0
 	ldr r0, _08015FC0  @ gUnknown_0859A570
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	ldr r2, _08015FC4  @ gUnknown_0202BCB0
 	ldrh r1, [r2, #0x14]
 	lsls r1, r1, #4
@@ -1483,7 +1483,7 @@ sub_80160E0: @ 0x080160E0
 	cmp r0, r1
 	blt _0801612E
 	adds r0, r5, #0
-	bl Proc_Delete
+	bl Proc_End
 _0801612E:
 	add sp, #4
 	pop {r4, r5, r6}
@@ -1511,14 +1511,14 @@ sub_8016140: @ 0x08016140
 	beq _0801615C
 	ldr r0, _08016158  @ gUnknown_0859A580
 	adds r1, r4, #0
-	bl Proc_CreateBlockingChild
+	bl Proc_StartBlocking
 	b _08016164
 	.align 2, 0
 _08016158: .4byte gUnknown_0859A580
 _0801615C:
 	ldr r0, _08016184  @ gUnknown_0859A580
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 _08016164:
 	adds r3, r0, #0
 	ldr r1, _08016188  @ gUnknown_0202BCB0

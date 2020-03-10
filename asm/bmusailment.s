@@ -200,7 +200,7 @@ sub_8035BEC: @ 0x08035BEC
 	cmp r0, #0
 	bge _08035C32
 	adds r0, r5, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _08035C32:
 	add sp, #4
 	pop {r4, r5, r6}
@@ -276,7 +276,7 @@ sub_8035C80: @ 0x08035C80
 	cmp r0, #0
 	bge _08035CB0
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _08035CB0:
 	pop {r4}
 	pop {r0}
@@ -385,7 +385,7 @@ sub_8035D44: @ 0x08035D44
 	cmp r0, #0x20
 	bne _08035D6A
 	adds r0, r5, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _08035D6A:
 	pop {r4, r5}
 	pop {r0}
@@ -410,7 +410,7 @@ sub_8035D70: @ 0x08035D70
 	cmp r0, #0
 	bge _08035D94
 	adds r0, r5, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _08035D94:
 	pop {r4, r5}
 	pop {r0}
@@ -462,7 +462,7 @@ sub_8035DDC: @ 0x08035DDC
 	beq _08035E10
 	ldr r0, _08035E08  @ gUnknown_0859E2D0
 	adds r1, r2, #0
-	bl Proc_CreateBlockingChild
+	bl Proc_StartBlocking
 	ldr r0, _08035E0C  @ gUnknown_0202BCF0
 	adds r0, #0x41
 	ldrb r0, [r0]
@@ -479,7 +479,7 @@ _08035E0C: .4byte gUnknown_0202BCF0
 _08035E10:
 	ldr r0, _08035E1C  @ gUnknown_0859E2D0
 	movs r1, #3
-	bl Proc_CreateBlockingChild
+	bl Proc_StartBlocking
 _08035E18:
 	pop {r0}
 	bx r0
@@ -499,7 +499,7 @@ sub_8035E20: @ 0x08035E20
 	cmp r0, #0
 	bne _08035E40
 	adds r0, r4, #0
-	bl Proc_Delete
+	bl Proc_End
 	b _08035E48
 	.align 2, 0
 _08035E3C: .4byte gUnknown_0202BCF0
@@ -538,7 +538,7 @@ sub_8035E50: @ 0x08035E50
 	cmp r4, r0
 	bne _08035E8C
 	adds r0, r7, #0
-	bl Proc_Delete
+	bl Proc_End
 	b _08035ED2
 	.align 2, 0
 _08035E88: .4byte gActionData
@@ -562,7 +562,7 @@ _08035E8C:
 	bne _08035EC0
 	adds r0, r7, #0
 	movs r1, #1
-	bl Proc_GotoLabel
+	bl Proc_Goto
 	b _08035ED2
 	.align 2, 0
 _08035EB8: .4byte gUnknown_0202BCF0
@@ -574,7 +574,7 @@ _08035EC0:
 	bne _08035ED2
 	adds r0, r7, #0
 	movs r1, #1
-	bl Proc_GotoLabel
+	bl Proc_Goto
 _08035ED2:
 	pop {r4, r5, r6, r7}
 	pop {r0}
@@ -714,7 +714,7 @@ sub_8035FB8: @ 0x08035FB8
 	cmp r0, #0
 	bne _08035FE0
 	adds r0, r4, #0
-	bl Proc_Delete
+	bl Proc_End
 	b _08035FE8
 	.align 2, 0
 _08035FDC: .4byte gUnknown_0202BCF0
@@ -838,7 +838,7 @@ sub_80360B8: @ 0x080360B8
 	cmp r0, #0
 	bne _080360D8
 	adds r0, r4, #0
-	bl Proc_Delete
+	bl Proc_End
 	b _080360E0
 	.align 2, 0
 _080360D4: .4byte gUnknown_0202BCF0
@@ -938,7 +938,7 @@ sub_8036188: @ 0x08036188
 	cmp r0, #0
 	bne _0803619C
 	adds r0, r4, #0
-	bl Proc_Delete
+	bl Proc_End
 	b _080361A6
 _0803619C:
 	adds r1, r4, #0
@@ -1089,7 +1089,7 @@ sub_80362A4: @ 0x080362A4
 	cmp r4, r0
 	bne _080362E0
 	adds r0, r7, #0
-	bl Proc_Delete
+	bl Proc_End
 	b _0803632E
 	.align 2, 0
 _080362DC: .4byte gActionData
@@ -1117,7 +1117,7 @@ _080362E0:
 	bne _0803631C
 	adds r0, r7, #0
 	movs r1, #1
-	bl Proc_GotoLabel
+	bl Proc_Goto
 	b _0803632E
 	.align 2, 0
 _08036314: .4byte gUnknown_0202BCF0
@@ -1129,7 +1129,7 @@ _0803631C:
 	bne _0803632E
 	adds r0, r7, #0
 	movs r1, #1
-	bl Proc_GotoLabel
+	bl Proc_Goto
 _0803632E:
 	pop {r4, r5, r6, r7}
 	pop {r0}
@@ -1269,7 +1269,7 @@ _0803641E:
 	strh r0, [r1]
 	adds r0, r5, #0
 	movs r1, #0
-	bl Proc_GotoLabel
+	bl Proc_Goto
 	b _0803646E
 _08036432:
 	ldr r5, _0803645C  @ gActionData

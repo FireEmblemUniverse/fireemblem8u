@@ -12,10 +12,10 @@ CONST_DATA
 struct ProcCmd gUnknown_085B655C[] =
 {
 PROC_LABEL(0),
-    PROC_LOOP_ROUTINE(TargetSelection_Loop),
+    PROC_REPEAT(TargetSelection_Loop),
     PROC_SLEEP(1),
 
-    PROC_CALL_ROUTINE(RefreshBMapGraphics),
+    PROC_CALL(RefreshBMapGraphics),
     PROC_GOTO(0),
 
     PROC_END

@@ -320,7 +320,7 @@ struct APProc* APProc_Create(const void* apDefinition, int xPos, int yPos, int t
     handle->tileBase = tileBase;
 
     // Making Proc
-    proc = (struct APProc*) Proc_Create(gUnknown_0859168C, ROOT_PROC_3);
+    proc = Proc_Start(gUnknown_0859168C, PROC_TREE_3);
 
     // Setting up proc
     proc->pHandle = handle;
@@ -334,7 +334,7 @@ void APProc_OnUpdate(struct APProc* proc) {
     // Update AP, and end proc if the AP was freed (aka the animation ended)
     if (!AP_Update(proc->pHandle, proc->xPosition, proc->yPosition))
         if (!proc->pHandle || !proc->pHandle->pDefinition)
-            Proc_Delete((struct Proc*) proc);
+            Proc_End(proc);
 }
 
 void APProc_OnEnd(struct APProc* proc) {
@@ -354,12 +354,12 @@ void APProc_SetParameters(struct APProc* proc, int x, int y, int tileBase) {
 
 void APProc_Delete(struct APProc* proc) {
     // delet
-    Proc_Delete((struct Proc*) proc);
+    Proc_End(proc);
 }
 
 void APProc_DeleteAll(void) {
     // delet all
-    Proc_DeleteAllWithScript(gUnknown_0859168C);
+    Proc_EndEach(gUnknown_0859168C);
 }
 
 int APProc_Exists(void) {

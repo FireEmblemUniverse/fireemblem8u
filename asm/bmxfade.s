@@ -55,7 +55,7 @@ sub_801DD54: @ 0x0801DD54
 	cmp r0, #0
 	bge _0801DD9C
 	adds r0, r5, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 	bl SetDefaultColorEffects
 	movs r0, #2
 	movs r1, #0
@@ -100,7 +100,7 @@ NewBMXFADE: @ 0x0801DDC4
 	lsrs r4, r4, #0x18
 	ldr r0, _0801DDEC  @ gUnknown_0859ADC8
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	lsls r4, r4, #0x18
 	asrs r4, r4, #0x18
 	adds r0, #0x4e
@@ -124,7 +124,7 @@ MakeNew6CBMXFADE2: @ 0x0801DDF0
 	lsls r4, r4, #0x18
 	lsrs r4, r4, #0x18
 	ldr r0, _0801DE14  @ gUnknown_0859ADC8
-	bl Proc_CreateBlockingChild
+	bl Proc_StartBlocking
 	lsls r4, r4, #0x18
 	asrs r4, r4, #0x18
 	adds r0, #0x4e

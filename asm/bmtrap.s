@@ -325,7 +325,7 @@ _08037690:
 	ldr r0, _080376B4  @ gUnknown_0859E5FC
 _080376A4:
 	adds r1, r6, #0
-	bl Proc_CreateBlockingChild
+	bl Proc_StartBlocking
 	adds r1, r0, #0
 	adds r0, #0x50
 	strh r4, [r0]

@@ -424,7 +424,7 @@ sub_8011AA0: @ 0x08011AA0
 	cmp r4, #0x10
 	bne _08011AE8
 	adds r0, r5, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 	movs r0, #0
 	movs r1, #0x10
 	movs r2, #0
@@ -508,9 +508,9 @@ sub_8011B4C: @ 0x08011B4C
 	bne _08011B86
 	ldr r0, _08011B8C  @ gUnknown_085924D8
 	bl Proc_Find
-	bl Proc_Delete
+	bl Proc_End
 	adds r0, r5, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _08011B86:
 	pop {r4, r5}
 	pop {r0}
@@ -548,7 +548,7 @@ sub_8011BA4: @ 0x08011BA4
 	ldr r1, [sp, #0x44]
 	movs r6, #0
 	ldr r0, _08011C7C  @ gUnknown_085924D8
-	bl Proc_Create
+	bl Proc_Start
 	adds r7, r0, #0
 	adds r0, r4, #0
 	bl GetStringFromIndex
@@ -660,7 +660,7 @@ sub_8011C94: @ 0x08011C94
 	bl sub_8011BA4
 	ldr r0, _08011CC8  @ gUnknown_08592530
 	adds r1, r4, #0
-	bl Proc_CreateBlockingChild
+	bl Proc_StartBlocking
 	add sp, #8
 	pop {r4, r5}
 	pop {r0}

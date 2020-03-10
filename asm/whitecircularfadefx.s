@@ -93,7 +93,7 @@ _08021E86:
 	cmp r0, #0x46
 	ble _08021EB8
 	adds r0, r7, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _08021EB8:
 	pop {r3, r4, r5}
 	mov r8, r3
@@ -204,7 +204,7 @@ _08021F34:
 	bl SetBackgroundTileDataOffset
 	ldr r0, _08021FB4  @ gUnknown_0859B4F8
 	adds r1, r5, #0
-	bl Proc_Create
+	bl Proc_Start
 	str r6, [r0, #0x2c]
 	str r7, [r0, #0x30]
 	adds r0, #0x4c

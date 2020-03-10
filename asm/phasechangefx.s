@@ -208,7 +208,7 @@ _0801EDB2:
 	movs r0, #0xf
 	strh r0, [r4]
 	adds r0, r5, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _0801EDFC:
 	add sp, #4
 	pop {r4, r5}
@@ -271,7 +271,7 @@ _0801EE28:
 	movs r0, #0xf
 	strh r0, [r4]
 	adds r0, r5, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _0801EE72:
 	add sp, #4
 	pop {r4, r5}
@@ -402,7 +402,7 @@ _0801EF4C:
 	b _0801EF58
 _0801EF52:
 	adds r0, r6, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _0801EF58:
 	ldr r4, _0801EFE0  @ gSinLookup
 	movs r0, #0x80
@@ -579,7 +579,7 @@ _0801F050:
 	movs r0, #0
 	strh r0, [r2]
 	mov r0, sl
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _0801F0B0:
 	add sp, #4
 	pop {r3, r4, r5}
@@ -690,7 +690,7 @@ _0801F124:
 	movs r0, #0
 	strh r0, [r2]
 	mov r0, sl
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _0801F17E:
 	add sp, #4
 	pop {r3, r4, r5}
@@ -772,7 +772,7 @@ sub_801F1A0: @ 0x0801F1A0
 	cmp r0, #0x20
 	bne _0801F216
 	adds r0, r6, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _0801F216:
 	add sp, #4
 	pop {r4, r5, r6}
@@ -840,7 +840,7 @@ sub_801F228: @ 0x0801F228
 	cmp r0, #0
 	bge _0801F29C
 	adds r0, r6, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _0801F29C:
 	add sp, #4
 	pop {r4, r5, r6}
@@ -862,7 +862,7 @@ sub_801F2AC: @ 0x0801F2AC
 	cmp r0, #0
 	bne _0801F2C2
 	adds r0, r4, #0
-	bl Proc_Delete
+	bl Proc_End
 _0801F2C2:
 	pop {r4}
 	pop {r0}
@@ -1122,7 +1122,7 @@ sub_801F490: @ 0x0801F490
 	movs r2, #0
 	bl BG_SetPosition
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _0801F4F4:
 	pop {r4}
 	pop {r0}
