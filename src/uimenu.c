@@ -185,14 +185,14 @@ struct MenuProc* StartMenuCore(
 
     if (parent)
     {
-        proc = (struct MenuProc*) Proc_CreateBlockingChild(sProc_Menu, parent);
+        proc = Proc_CreateBlockingChild(sProc_Menu, parent);
         proc->state = 0;
     }
     else
     {
         AddSkipThread2();
 
-        proc = (struct MenuProc*) Proc_Create(sProc_Menu, ROOT_PROC_3);
+        proc = Proc_Create(sProc_Menu, PROC_TREE_3);
         proc->state = MENU_STATE_GAMELOCKING;
     }
 
@@ -208,7 +208,7 @@ struct MenuProc* StartMenuCore(
 
         if (availability != MENU_NOTSHOWN)
         {
-            struct MenuItemProc* item = (struct MenuItemProc*) Proc_Create(sProc_MenuItem, (struct Proc*) proc);
+            struct MenuItemProc* item = Proc_Create(sProc_MenuItem, (struct Proc*) proc);
             proc->menuItems[itemCount++] = item;
 
             item->def = &def->menuItems[i];
@@ -631,7 +631,7 @@ u8 MenuFrozen(struct MenuProc* proc)
 
 void FreezeMenu(void)
 {
-    struct MenuProc* proc = (struct MenuProc*) Proc_Find(sProc_Menu);
+    struct MenuProc* proc = Proc_Find(sProc_Menu);
 
     if (proc)
         proc->state |= MENU_STATE_FROZEN;
@@ -639,7 +639,7 @@ void FreezeMenu(void)
 
 void ResumeMenu(void)
 {
-    struct MenuProc* proc = (struct MenuProc*) Proc_Find(sProc_Menu);
+    struct MenuProc* proc = Proc_Find(sProc_Menu);
 
     if (proc)
         proc->state &= ~MENU_STATE_FROZEN;

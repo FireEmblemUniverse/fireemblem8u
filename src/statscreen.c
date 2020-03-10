@@ -1236,7 +1236,7 @@ void GlowBlendCtrl_OnLoop(struct StatScreenEffectProc* proc)
 static
 void StartGlowBlendCtrl(void)
 {
-    Proc_Create(gProcScr_SSGlowyBlendCtrl, ROOT_PROC_3);
+    Proc_Create(gProcScr_SSGlowyBlendCtrl, PROC_TREE_3);
 }
 
 static
@@ -2200,7 +2200,7 @@ void StartHelpBoxExt(const struct HelpBoxInfo* info, int unk)
 
     if (!proc)
     {
-        proc = (void*) Proc_Create(gProcScr_HelpBox, ROOT_PROC_3);
+        proc = (void*) Proc_Create(gProcScr_HelpBox, PROC_TREE_3);
 
         proc->unk52 = unk;
 
@@ -2245,7 +2245,7 @@ void StartHelpBoxExt_Unk(int x, int y, int mid)
     struct HelpBoxProc* proc;
     int wContent, hContent;
 
-    proc = (void*) Proc_Create(gProcScr_HelpBox, ROOT_PROC_3);
+    proc = (void*) Proc_Create(gProcScr_HelpBox, PROC_TREE_3);
 
     proc->unk52 = TRUE;
 

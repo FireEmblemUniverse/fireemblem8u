@@ -682,7 +682,7 @@ static struct MUProc* MU_CreateInternal(u16 x, u16 y, u16 classIndex, int objTil
     if (Proc_Find(gProcScr_MoveUnit))
         soundTimer = -2;
 
-    proc = (struct MUProc*) Proc_Create(gProcScr_MoveUnit, ROOT_PROC_5);
+    proc = Proc_Create(gProcScr_MoveUnit, PROC_TREE_5);
 
     if (!proc)
         return NULL;
@@ -751,14 +751,14 @@ void MU_SetDefaultFacing(struct MUProc* proc) {
 }
 
 void MU_SetDefaultFacing_Auto(void) {
-    struct MUProc* proc = (struct MUProc*) Proc_Find(gProcScr_MoveUnit);
+    struct MUProc* proc = Proc_Find(gProcScr_MoveUnit);
 
     if (proc)
         MU_SetDefaultFacing(proc);
 }
 
 void MU_StartMoveScript_Auto(const u8 commands[MU_COMMAND_MAX_COUNT]) {
-    struct MUProc* proc = (struct MUProc*) Proc_Find(gProcScr_MoveUnit);
+    struct MUProc* proc = Proc_Find(gProcScr_MoveUnit);
 
     if (proc)
         MU_StartMoveScript(proc, commands);
@@ -882,10 +882,10 @@ static void MU_StepSound_OnSecondSound(struct MUStepSoundProc* proc) {
 void MU_StartStepSfx(int soundId, int b, int hPosition) {
     struct MUStepSoundProc* proc;
 
-    proc = (struct MUStepSoundProc*) Proc_Find(sProcScr_MUStepSound);
+    proc = Proc_Find(sProcScr_MUStepSound);
 
     if (!proc)
-        proc = (struct MUStepSoundProc*) Proc_Create(sProcScr_MUStepSound, ROOT_PROC_3);
+        proc = Proc_Create(sProcScr_MUStepSound, PROC_TREE_3);
 
     if (!proc->idSound1) {
         proc->idSound1 = soundId;
@@ -995,7 +995,7 @@ void MU_StartFogBumpFx(int x, int y) {
     ap->tileBase = 0x1180;
     AP_SwitchAnimation(ap, MU_FACING_LEFT);
 
-    proc = (struct MUFogBumpFxProc*) Proc_Create(sProcScr_MUFogBumpFx, ROOT_PROC_3);
+    proc = Proc_Create(sProcScr_MUFogBumpFx, PROC_TREE_3);
 
     proc->pAPHandle = ap;
 
@@ -1512,7 +1512,7 @@ void MU_StartDeathFade(struct MUProc* muProc) {
 
     muProc->stateId = MU_STATE_DEATHFADE;
 
-    proc = (struct MUEffectProc*) Proc_Create(gProcScr_MUDeathFade, (struct Proc*) muProc);
+    proc = Proc_Create(gProcScr_MUDeathFade, (struct Proc*) muProc);
 
     proc->pMUProc = muProc;
     proc->timeLeft = 0x20;
@@ -1565,7 +1565,7 @@ void MU_StartBlinkEffect(struct MUProc* muProc) {
 
     muProc->stateId = MU_STATE_DEATHFADE;
 
-    proc = (struct MUEffectProc*) Proc_Create(gProcScr_MUBlinkEffect, (struct Proc*) muProc);
+    proc = Proc_Create(gProcScr_MUBlinkEffect, (struct Proc*) muProc);
 
     proc->pMUProc = muProc;
     proc->timeLeft = 0x40;
@@ -1624,7 +1624,7 @@ void MU_StartPixelEffect(struct MUProc* muProc) {
 
     muProc->stateId = MU_STATE_DEATHFADE;
 
-    proc = (struct MUEffectProc*) Proc_Create(sProcScr_MUPixelEffect, (struct Proc*) muProc);
+    proc = Proc_Create(sProcScr_MUPixelEffect, (struct Proc*) muProc);
 
     proc->pMUProc = muProc;
 
@@ -1678,7 +1678,7 @@ void MU_8079858(struct MUProc* muProc) {
         0x15, 8, (struct Proc*) muProc
     );
 
-    proc = (struct MUEffectProc*) Proc_Create(gProcScr_MU_89A2CF8, ROOT_PROC_3);
+    proc = Proc_Create(gProcScr_MU_89A2CF8, PROC_TREE_3);
 
     proc->pMUProc = muProc;
 }
@@ -1750,7 +1750,7 @@ void MU_StartCritFlash(struct MUProc* muProc, int flashType) {
         (0x10 + MU_FADE_OBJ_PAL) * 0x20, 0x20
     );
 
-    proc = (struct MUFlashEffectProc*) Proc_Create(sProcScr_MUCritFlash, (struct Proc*) muProc);
+    proc = Proc_Create(sProcScr_MUCritFlash, (struct Proc*) muProc);
 
     proc->pMUProc = muProc;
 }
@@ -1814,7 +1814,7 @@ void MU_StartHitFlash(struct MUProc* muProc, int flashType) {
         0x15, 0x14, (struct Proc*) muProc
     );
 
-    proc = (struct MUFlashEffectProc*) Proc_Create(sProcScr_MUHitFlash, (struct Proc*) muProc);
+    proc = Proc_Create(sProcScr_MUHitFlash, (struct Proc*) muProc);
 
     proc->pMUProc = muProc;
 }

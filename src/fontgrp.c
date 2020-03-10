@@ -1106,7 +1106,7 @@ char *sub_8004924(struct TextHandle *th, char *b, int c, int d)
         Text_AppendString(th, b);
     if (d == 0)
         d = 1;
-    proc = (struct SomeTextRelatedProc *)Proc_Create(gUnknown_08588274, ROOT_PROC_3);
+    proc = Proc_Create(gUnknown_08588274, PROC_TREE_3);
     proc->unk2C = th;
     proc->unk30 = b;
     proc->unk36 = d;
@@ -1148,7 +1148,7 @@ void NewGreenTextColorManager(struct Proc *parent)
     if (parent != NULL)
         Proc_Create(gUnknown_08588284, parent);
     else
-        Proc_Create(gUnknown_08588284, ROOT_PROC_3);
+        Proc_Create(gUnknown_08588284, PROC_TREE_3);
 }
 
 void EndGreenTextColorManager(void)

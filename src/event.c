@@ -299,9 +299,7 @@ void CallEvent(const u16* events, u8 execType) {
 }
 
 struct EventEngineProc* EventEngine_Create(const u16* events, u8 execType) {
-    struct EventEngineProc* proc;
-
-    proc = (struct EventEngineProc*) Proc_Create(gProc_StdEventEngine, ROOT_PROC_3);
+    struct EventEngineProc* proc = Proc_Create(gProc_StdEventEngine, PROC_TREE_3);
 
     proc->pCallback      = NULL;
 
@@ -341,9 +339,7 @@ struct EventEngineProc* EventEngine_Create(const u16* events, u8 execType) {
 }
 
 void EventEngine_CreateBattle(const u16* events) {
-    struct EventEngineProc* proc;
-
-    proc = (struct EventEngineProc*) Proc_Create(gProc_BattleEventEngine, ROOT_PROC_3);
+    struct EventEngineProc* proc = Proc_Create(gProc_BattleEventEngine, PROC_TREE_3);
 
     proc->pCallback     = NULL;
 
@@ -393,8 +389,8 @@ void sub_800D204(void) {} // nullsub
 int sub_800D208(void) {
     struct EventEngineProc* proc;
 
-    if (!(proc = (struct EventEngineProc*) Proc_Find(gProc_StdEventEngine)))
-        if (!(proc = (struct EventEngineProc*) Proc_Find(gProc_BattleEventEngine)))
+    if (!(proc = Proc_Find(gProc_StdEventEngine)))
+        if (!(proc = Proc_Find(gProc_BattleEventEngine)))
             return FALSE;
     
     switch (proc->activeTextType) {
@@ -509,8 +505,8 @@ bool8 EventEngine_CanStartSkip(struct EventEngineProc* proc) { // Events_CanSkip
 void sub_800D3E4(void) {
     struct EventEngineProc* proc;
 
-    if (!(proc = (struct EventEngineProc*) Proc_Find(gProc_StdEventEngine)))
-        if (!(proc = (struct EventEngineProc*) Proc_Find(gProc_BattleEventEngine)))
+    if (!(proc = Proc_Find(gProc_StdEventEngine)))
+        if (!(proc = Proc_Find(gProc_BattleEventEngine)))
             return;
     
     proc->evStateBits |= EV_STATE_0008;

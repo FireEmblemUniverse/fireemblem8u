@@ -1,18 +1,22 @@
+
 #include "global.h"
 #include "proc.h"
 
-#define ROOT_PROC(rootnum) (*(gRootProcesses + (rootnum)))
-
-#define PROC_FLAG_0x01 (1 << 0)  // process is inactive?
-#define PROC_FLAG_BLOCKING (1 << 1)
-#define PROC_FLAG_0x04 (1 << 2)
-#define PROC_FLAG_0x08 (1 << 3)
+enum
+{
+    PROC_FLAG_ENDED    = (1 << 0),
+    PROC_FLAG_BLOCKING = (1 << 1),
+    PROC_FLAG_UNK2     = (1 << 2),
+    PROC_FLAG_STARTING = (1 << 3),
+};
 
 #define MAX_PROC_COUNT 64
 
 EWRAM_DATA static struct Proc gProcesses[MAX_PROC_COUNT] = {0}; 
+
 EWRAM_DATA static struct Proc *sProcessAllocList[MAX_PROC_COUNT + 1] = {0};
 EWRAM_DATA static struct Proc **sProcessAllocListHead = NULL;  // pointer to next entry in sProcessAllocList
+
 EWRAM_DATA struct Proc *gRootProcesses[8] = {0};
 
 static struct Proc* AllocateProcess(void);
@@ -70,7 +74,7 @@ ProcPtr Proc_Create(const struct ProcCmd* script, ProcPtr parent)
     proc->proc_mark = 0;
     proc->proc_lockCnt = 0;
 
-    proc->proc_flags = PROC_FLAG_0x08;
+    proc->proc_flags = PROC_FLAG_STARTING;
 
     if ((int) parent < 8) // If this is an integer less than 8, then add a root proc
         InsertRootProcess(proc, (int) parent);
@@ -79,7 +83,7 @@ ProcPtr Proc_Create(const struct ProcCmd* script, ProcPtr parent)
 
     RunProcessScript(proc);
 
-    proc->proc_flags &= ~PROC_FLAG_0x08;
+    proc->proc_flags &= ~PROC_FLAG_STARTING;
 
     return proc;
 }
@@ -106,7 +110,7 @@ static void DeleteProcessRecursive(struct Proc *proc)
     if (proc->proc_child)
         DeleteProcessRecursive(proc->proc_child);
 
-    if (proc->proc_flags & PROC_FLAG_0x01)
+    if (proc->proc_flags & PROC_FLAG_ENDED)
         return;
 
     if (proc->proc_endCb)
@@ -116,7 +120,7 @@ static void DeleteProcessRecursive(struct Proc *proc)
 
     proc->proc_script = NULL;
     proc->proc_idleCb = NULL;
-    proc->proc_flags |= PROC_FLAG_0x01;
+    proc->proc_flags |= PROC_FLAG_ENDED;
 
     if (proc->proc_flags & PROC_FLAG_BLOCKING)
         ((struct Proc*) proc->proc_parent)->proc_lockCnt--;
@@ -205,19 +209,19 @@ static void UnlinkProcess(struct Proc *proc)
 }
 
 // Runs all processes using a pre-order traversal.
-static void RunProcessRecursive(struct Proc *proc)
+static void RunProcessRecursive(struct Proc* proc)
 {
     // Run previous sibling process
     if (proc->proc_prev != NULL)
         RunProcessRecursive(proc->proc_prev);
     // Run this process
-    if (proc->proc_lockCnt == 0 && !(proc->proc_flags & PROC_FLAG_0x08))
+    if (proc->proc_lockCnt == 0 && !(proc->proc_flags & PROC_FLAG_STARTING))
     {
         if (proc->proc_idleCb == NULL)
             RunProcessScript(proc);
         if (proc->proc_idleCb != NULL)
             proc->proc_idleCb(proc);
-        if (proc->proc_flags & PROC_FLAG_0x01)
+        if (proc->proc_flags & PROC_FLAG_ENDED)
             return;
     }
     // Run child process
@@ -225,9 +229,9 @@ static void RunProcessRecursive(struct Proc *proc)
         RunProcessRecursive(proc->proc_child);
 }
 
-void Proc_Run(struct Proc *proc)
+void Proc_Run(ProcPtr proc)
 {
-    if (proc != NULL)
+    if (proc)
         RunProcessRecursive(proc);
 }
 
@@ -237,7 +241,7 @@ void Proc_ClearNativeCallback(ProcPtr proc)
     casted->proc_idleCb = NULL;
 }
 
-struct Proc *Proc_Find(const struct ProcCmd *script)
+ProcPtr Proc_Find(const struct ProcCmd* script)
 {
     int i;
     struct Proc* proc = gProcesses;
@@ -252,7 +256,7 @@ struct Proc *Proc_Find(const struct ProcCmd *script)
 }
 
 // unreferenced
-static struct Proc *Proc_FindNonBlocked(struct ProcCmd *script)
+static ProcPtr Proc_FindNonBlocked(struct ProcCmd* script)
 {
     int i;
     struct Proc* proc = gProcesses;
@@ -267,7 +271,7 @@ static struct Proc *Proc_FindNonBlocked(struct ProcCmd *script)
 }
 
 // unreferenced
-static struct Proc *Proc_FindWithMark(u32 mark)
+static ProcPtr Proc_FindWithMark(u32 mark)
 {
     int i;
     struct Proc* proc = gProcesses;
@@ -671,13 +675,13 @@ static s8 ProcCmd_NOP3(struct Proc *proc)
 
 static s8 ProcCmd_SET_BIT4(struct Proc *proc)
 {
-    proc->proc_flags |= PROC_FLAG_0x04;
+    proc->proc_flags |= PROC_FLAG_UNK2;
     proc->proc_scrCur++;
 
     return TRUE;
 }
 
-static s8 (*sProcessCmdTable[])(struct Proc *) =
+static s8(*sProcessCmdTable[])(struct Proc*) =
 {
     ProcCmd_DELETE,
     ProcCmd_SET_NAME,
@@ -786,7 +790,7 @@ static void Proc_WakeSemaphore(struct Proc *proc)
     proc->proc_lockCnt--;
 }
 
-struct Proc *Proc_FindAfter(struct ProcCmd* script, struct Proc* proc)
+ProcPtr Proc_FindAfter(struct ProcCmd* script, struct Proc* proc)
 {
     if (proc == NULL)
         proc = gProcesses;
@@ -865,7 +869,7 @@ void sub_8003530(struct ProcFindIterator* it, const struct ProcCmd* script)
     it->count = 0;
 }
 
-struct Proc* sub_8003540(struct ProcFindIterator* it)
+ProcPtr sub_8003540(struct ProcFindIterator* it)
 {
     struct Proc* result = NULL;
 

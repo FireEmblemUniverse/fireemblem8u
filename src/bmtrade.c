@@ -290,7 +290,7 @@ void TradeMenu_HighlightUpdater_OnInit(struct TradeMenuProc* proc)
 
 void TradeMenu_HighlightUpdater_OnLoop(struct TradeMenuProc* proc)
 {
-    struct TradeMenuProc* tradeMenu = (struct TradeMenuProc*) proc->proc_parent;
+    struct TradeMenuProc* tradeMenu = proc->proc_parent;
 
     if (proc->hoverColumn == tradeMenu->hoverColumn && proc->hoverRow == tradeMenu->hoverRow)
         return;
@@ -637,7 +637,7 @@ void TradeMenu_ClearDisplay(struct TradeMenuProc* proc)
 
 void TradeMenu_HelpBox_OnInit(struct Proc* proc)
 {
-    struct TradeMenuProc* tradeMenu = (struct TradeMenuProc*) proc->proc_parent;
+    struct TradeMenuProc* tradeMenu = proc->proc_parent;
 
     int item = tradeMenu->units[tradeMenu->hoverColumn]->items[tradeMenu->hoverRow];
 
@@ -721,7 +721,7 @@ struct Proc* StartTradeMenu(struct Unit* lUnit, struct Unit* rUnit, int unused)
 {
     int itemCount;
 
-    struct TradeMenuProc* proc = (struct TradeMenuProc*) Proc_Create(sProcScr_TradeMenu, ROOT_PROC_3);
+    struct TradeMenuProc* proc = Proc_Create(sProcScr_TradeMenu, PROC_TREE_3);
 
     proc->units[0] = lUnit;
     proc->units[1] = rUnit;
@@ -771,12 +771,12 @@ void TradeMenu_DoubleTutorialHandCursor_Update(void)
 
 void StartTradeMenuTutorialHandCursor(void)
 {
-    Proc_Create(sProcScr_TradeMenu_TutorialHandCursor, ROOT_PROC_3);
+    Proc_Create(sProcScr_TradeMenu_TutorialHandCursor, PROC_TREE_3);
 }
 
 void StartDoubleTradeMenuTutorialHandCursor(void)
 {
-    Proc_Create(sProcScr_TradeMenu_DoubleTutorialHandCursor, ROOT_PROC_3);
+    Proc_Create(sProcScr_TradeMenu_DoubleTutorialHandCursor, PROC_TREE_3);
 }
 
 void EndTradeMenuTutorialHandCursor(void)

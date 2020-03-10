@@ -186,7 +186,7 @@ void Sound_PlaySong8002574(int songId, int b, struct MusicPlayerInfo *player)
         sSoundStatus.unk6 = TRUE;
         sSoundStatus.unk7 = 0;
         sSoundStatus.songId = songId;
-        proc = (struct MusicProc *)Proc_Create(sMusicProc1Script, ROOT_PROC_3);
+        proc = Proc_Create(sMusicProc1Script, PROC_TREE_3);
         m4aMPlayStop(&gUnknown_03006440);
         m4aMPlayStop(&gUnknown_03006650);
         PlaySong(songId, player);
@@ -261,9 +261,9 @@ void ISuspectThisToBeMusicRelated_8002730(int volume, int b, int c, struct Proc 
     struct MusicProc *proc;
 
     if (parent)
-        proc = (struct MusicProc *)Proc_CreateBlockingChild(sMusicProc2Script, parent);
+        proc = Proc_CreateBlockingChild(sMusicProc2Script, parent);
     else
-        proc = (struct MusicProc *)Proc_Create(sMusicProc2Script, ROOT_PROC_3);
+        proc = Proc_Create(sMusicProc2Script, PROC_TREE_3);
     proc->unk64 = volume;
     proc->unk66 = b;
     proc->unk68 = 0;
@@ -319,7 +319,7 @@ void StartSongDelayed(int songId, int delay, struct MusicPlayerInfo *player)
 {
     if (gUnknown_0202BCF0.unk41_1 == 0)
     {
-        struct MusicProc *mproc = (struct MusicProc *)Proc_Create(gMusicProc3Script, ROOT_PROC_3);
+        struct MusicProc *mproc = Proc_Create(gMusicProc3Script, PROC_TREE_3);
 
         mproc->delayCounter = delay;
         mproc->songId = songId;
@@ -428,9 +428,9 @@ void sub_80029E8(int songId, int b, int c, int d, struct Proc *parent)
         return;
 
     if (parent != NULL)
-        mproc = (struct MusicProc *)Proc_CreateBlockingChild(sMusicProc4Script, parent);
+        mproc = Proc_CreateBlockingChild(sMusicProc4Script, parent);
     else
-        mproc = (struct MusicProc *)Proc_Create(sMusicProc4Script, ROOT_PROC_3);
+        mproc = Proc_Create(sMusicProc4Script, PROC_TREE_3);
     mproc->unk58 = d;
     if (sub_8002264() != 0 && songId == sSoundStatus.songId)
         mproc->unk5C = -1;

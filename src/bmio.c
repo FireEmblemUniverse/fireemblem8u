@@ -284,8 +284,7 @@ void BMapVSync_OnLoop(struct BMVSyncProc* proc) {
 
 void BMapVSync_Start(void) {
     BMapVSync_InitMapAnimations(
-        (struct BMVSyncProc*) Proc_Create(sProc_BMVSync, ROOT_PROC_0)
-    );
+        Proc_Create(sProc_BMVSync, PROC_TREE_VSYNC));
 
     WfxInit();
     gUnknown_0202BCB0.gameGfxSemaphore = 0;
@@ -897,14 +896,14 @@ void WfxUpdate(void) {
 }
 
 void DisableMapPaletteAnimations(void) {
-    struct BMVSyncProc* proc = (struct BMVSyncProc*) Proc_Find(sProc_BMVSync);
+    struct BMVSyncProc* proc = Proc_Find(sProc_BMVSync);
 
     if (proc)
         proc->tilePalAnimStart = NULL;
 }
 
 void ResetMapPaletteAnimations(void) {
-    struct BMVSyncProc* proc = (struct BMVSyncProc*) Proc_Find(sProc_BMVSync);
+    struct BMVSyncProc* proc = Proc_Find(sProc_BMVSync);
 
     if (proc)
         proc->tilePalAnimStart = proc->tilePalAnimCurrent =
@@ -1062,7 +1061,7 @@ void RestartBattleMap(void) {
     BMapVSync_End();
     BMapVSync_Start();
 
-    Proc_Create(gProc_MapTask, ROOT_PROC_4);
+    Proc_Create(gProc_MapTask, PROC_TREE_4);
 
     // TODO: MACRO?
     gPaletteBuffer[0] = 0;
@@ -1168,7 +1167,7 @@ void BMapDispResume_FromBattleDelayed(void) {
     MU_Create(&gBattleActor.unit);
     MU_SetDefaultFacing_Auto();
 
-    Proc_Create(sProc_DelayedBMapDispResume, ROOT_PROC_3);
+    Proc_Create(sProc_DelayedBMapDispResume, PROC_TREE_3);
 }
 
 void InitMoreBMapGraphics(void) {
@@ -1189,13 +1188,13 @@ void RefreshBMapGraphics(void) {
 }
 
 struct BMapMainProc* StartBMapMain(struct GameCtrlProc* gameCtrl) {
-    struct BMapMainProc* mapMain = (struct BMapMainProc*) Proc_Create(gProc_BMapMain, ROOT_PROC_2);
+    struct BMapMainProc* mapMain = Proc_Create(gProc_BMapMain, PROC_TREE_2);
 
     mapMain->gameCtrl = gameCtrl;
     gameCtrl->proc_lockCnt++;
 
     BMapVSync_Start();
-    Proc_Create(gProc_MapTask, ROOT_PROC_4);
+    Proc_Create(gProc_MapTask, PROC_TREE_4);
 
     return mapMain;
 }
@@ -1205,7 +1204,7 @@ void EndBMapMain(void) {
 
     Proc_DeleteEachWithMark(PROC_MARK_1);
 
-    mapMain = (struct BMapMainProc*) Proc_Find(gProc_BMapMain);
+    mapMain = Proc_Find(gProc_BMapMain);
     mapMain->gameCtrl->proc_lockCnt--;
 
     Proc_Delete((struct Proc*)(mapMain));

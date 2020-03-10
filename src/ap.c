@@ -320,7 +320,7 @@ struct APProc* APProc_Create(const void* apDefinition, int xPos, int yPos, int t
     handle->tileBase = tileBase;
 
     // Making Proc
-    proc = (struct APProc*) Proc_Create(gUnknown_0859168C, ROOT_PROC_3);
+    proc = Proc_Create(gUnknown_0859168C, PROC_TREE_3);
 
     // Setting up proc
     proc->pHandle = handle;

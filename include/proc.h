@@ -87,46 +87,44 @@ enum
     PROC_MARK_7 = 7
 };
 
-#define ROOT_PROC_0 ((ProcPtr) 0)
-#define ROOT_PROC_1 ((ProcPtr) 1)
-#define ROOT_PROC_2 ((ProcPtr) 2)
-#define ROOT_PROC_3 ((ProcPtr) 3)
-#define ROOT_PROC_4 ((ProcPtr) 4)
-#define ROOT_PROC_5 ((ProcPtr) 5)
-#define ROOT_PROC_6 ((ProcPtr) 6)
-#define ROOT_PROC_7 ((ProcPtr) 7)
+#define PROC_TREE_VSYNC ((ProcPtr) 0)
+#define PROC_TREE_1     ((ProcPtr) 1)
+#define PROC_TREE_2     ((ProcPtr) 2)
+#define PROC_TREE_3     ((ProcPtr) 3)
+#define PROC_TREE_4     ((ProcPtr) 4)
+#define PROC_TREE_5     ((ProcPtr) 5)
+#define PROC_TREE_6     ((ProcPtr) 6)
+#define PROC_TREE_7     ((ProcPtr) 7)
+
+#define ROOT_PROC(treenum) (*(gRootProcesses + (treenum)))
+
+extern struct Proc* gRootProcesses[8];
 
 void Proc_Initialize(void);
 ProcPtr Proc_Create(const struct ProcCmd* script, ProcPtr parent);
 ProcPtr Proc_CreateBlockingChild(const struct ProcCmd* script, ProcPtr parent);
 void Proc_Delete(ProcPtr proc);
-// ??? Proc_Run(???);
+void Proc_Run(ProcPtr proc);
 void Proc_ClearNativeCallback(ProcPtr proc);
-struct Proc *Proc_Find(const struct ProcCmd* script);
-// ??? Proc_FindNonBlocked(???);
-// ??? Proc_FindWithMark(???);
+ProcPtr Proc_Find(const struct ProcCmd* script);
 void Proc_GotoLabel(ProcPtr proc, int label);
 void Proc_JumpToPointer(ProcPtr proc, const struct ProcCmd* script);
-// ??? Proc_SetMark(???);
-// ??? Proc_SetDestructor(???);
-// ??? Proc_ForEach(???);
+void Proc_SetMark(ProcPtr proc, int mark);
+void Proc_SetDestructor(ProcPtr proc, ProcFunc func);
+void Proc_ForEach(ProcFunc func);
 void Proc_ForEachWithScript(const struct ProcCmd *script, ProcFunc func);
-// ??? Proc_ForEachWithMark(???);
+void Proc_ForEachWithMark(int mark, ProcFunc func);
 void Proc_BlockEachWithMark(int mark);
 void Proc_UnblockEachWithMark(int mark);
 void Proc_DeleteEachWithMark(int mark);
 void Proc_DeleteAllWithScript(const struct ProcCmd *script);
-// ??? Proc_ClearNativeCallbackEachWithScript(???);
-// ??? sub_80030CC(???);
-// ??? sub_800344C(???);
-// ??? Proc_SetNativeFunc(???);
-// ??? Proc_BlockSemaphore(???);
-// ??? Proc_WakeSemaphore(???);
+void Proc_ClearNativeCallbackEachWithScript(const struct ProcCmd* script);
+void Proc_SetNativeFunc(ProcPtr proc, ProcFunc func);
 // ??? Proc_FindAfter(???);
 // ??? Proc_FindAfterWithParent(???);
 // ??? sub_80034D4(???);
 // ??? sub_80034FC(???);
-// ??? sub_8003530(???);
-// ??? sub_8003540(???);
+void sub_8003530(struct ProcFindIterator* it, const struct ProcCmd* script);
+ProcPtr sub_8003540(struct ProcFindIterator* it);
 
 #endif  // GUARD_PROC_H

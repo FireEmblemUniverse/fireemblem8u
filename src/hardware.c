@@ -378,7 +378,7 @@ static struct ProcCmd sKeyStatusSetterProc[] =
 
 void NewKeyStatusSetter(int a)
 {
-    struct KeyProc *kproc = (struct KeyProc *)Proc_Create(sKeyStatusSetterProc, ROOT_PROC_1);
+    struct KeyProc *kproc = Proc_Create(sKeyStatusSetterProc, PROC_TREE_1);
 
     kproc->unk64 = a;
 }
