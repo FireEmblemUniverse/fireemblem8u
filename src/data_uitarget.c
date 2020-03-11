@@ -8,8 +8,7 @@
 
 void TargetSelection_Loop();
 
-CONST_DATA
-struct ProcCmd gUnknown_085B655C[] =
+struct ProcCmd CONST_DATA gUnknown_085B655C[] =
 {
 PROC_LABEL(0),
     PROC_REPEAT(TargetSelection_Loop),
@@ -18,7 +17,7 @@ PROC_LABEL(0),
     PROC_CALL(RefreshBMapGraphics),
     PROC_GOTO(0),
 
-    PROC_END
+    PROC_END,
 };
 
 struct Unk_085B658C
@@ -26,8 +25,8 @@ struct Unk_085B658C
     s8 x, y;
 };
 
-CONST_DATA
-struct Unk_085B658C gUnknown_085B658C[] = {
+struct Unk_085B658C CONST_DATA gUnknown_085B658C[] =
+{
     {  0,  0 },
     {  0, -2 },
     {  0, -1 },

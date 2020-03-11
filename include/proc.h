@@ -19,7 +19,7 @@ struct ProcCmd
 #define PROC_REPEAT(apRoutine)                       { 0x03, 0x0000, (apRoutine) }
 #define PROC_SET_END_CB(apRoutine)                   { 0x04, 0x0000, (apRoutine) }
 #define PROC_START_CHILD(ap6CChild)                  { 0x05, 0x0000, (ap6CChild) }
-#define PROC_START_CHILD_BLOCKING(ap6CChild)         { 0x06, 0x0000, (ap6CChild) }
+#define PROC_START_CHILD_BLOCKING(ap6CChild)         { 0x06, 0x0001, (ap6CChild) }
 #define PROC_START_MAIN_BUGGED(ap6CMain)             { 0x07, 0x0000, (ap6CMain) }
 #define PROC_WHILE_EXISTS(ap6CToCheck)               { 0x08, 0x0000, (ap6CToCheck) }
 #define PROC_END_EACH(ap6CToCheck)                   { 0x09, 0x0000, (ap6CToCheck) }
@@ -77,14 +77,16 @@ struct ProcFindIterator
 
 enum
 {
-    PROC_MARK_0 = 0,
-    PROC_MARK_1 = 1,
-    PROC_MARK_2 = 2,
-    PROC_MARK_3 = 3,
-    PROC_MARK_4 = 4,
-    PROC_MARK_5 = 5,
-    PROC_MARK_6 = 6,
-    PROC_MARK_7 = 7
+    PROC_MARK_0 = 0x00,
+    PROC_MARK_1 = 0x01,
+    PROC_MARK_2 = 0x02,
+    PROC_MARK_3 = 0x03,
+    PROC_MARK_4 = 0x04,
+    PROC_MARK_5 = 0x05,
+    PROC_MARK_6 = 0x06,
+    PROC_MARK_7 = 0x07,
+
+    PROC_MARK_B = 0x0B,
 };
 
 #define PROC_TREE_VSYNC ((ProcPtr) 0)
