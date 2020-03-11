@@ -40,6 +40,14 @@ struct ChoiceEntryInfo
     /* 04 */ void(*onSwitchIn)(void);
 };
 
+// various bits of the box opening animation
+extern u8 CONST_DATA gUnknown_089E8484[];
+extern u8 CONST_DATA gUnknown_089E8434[];
+extern u8 CONST_DATA gUnknown_089E83E0[];
+extern u8 CONST_DATA gUnknown_089E8384[];
+extern u8 CONST_DATA gUnknown_089E82E0[];
+extern u8 CONST_DATA gUnknown_089E8238[];
+
 // funcs
 void sub_800662C(ProcPtr);
 void sub_8006650(ProcPtr);
@@ -368,3 +376,17 @@ struct ProcCmd CONST_DATA gUnused_0859166C[] =
 
     PROC_END,
 };
+
+const void* const gUnknown_080D78EC[] =
+{
+    gUnknown_089E8484,
+    gUnknown_089E8434,
+    gUnknown_089E83E0,
+    gUnknown_089E8384,
+    gUnknown_089E82E0,
+    gUnknown_089E8238,
+
+    NULL,
+};
+
+const int gUnknown_080D7908[] = { 0, 8 };
