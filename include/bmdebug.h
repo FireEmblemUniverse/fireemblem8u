@@ -12,6 +12,7 @@
 #include "proc.h"
 #include "fontgrp.h"
 #include "uiutils.h"
+#include "uimenu.h"
 
 struct DebugPrintProc
 {
@@ -36,7 +37,7 @@ struct DebugPrintProc
 };
 
 void DebugMenuInit();
-u8 EndMenuAndClear(MenuProc *proc);
+u8 EndMenuAndClear(struct MenuProc*, struct MenuItemProc*);
 
 extern const struct MenuDef DebugMenuDef;
 

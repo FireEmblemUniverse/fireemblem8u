@@ -97,14 +97,14 @@ void DebugPrintWithProc(struct DebugPrintProc *proc)
 }
 
 struct ProcCmd gProc_DebugPrintWithProc[] = {
-    PROC_SLEEP(1), PROC_CALL_ROUTINE(DebugPrintWithProc), PROC_END
+    PROC_SLEEP(1), PROC_CALL(DebugPrintWithProc), PROC_END
 };
 
 void DebugPrint(int x, int y, int width, const char *text)
 {
     struct DebugPrintProc *proc;
 
-    proc = (struct DebugPrintProc *)Proc_Create(gProc_DebugPrintWithProc, (struct Proc *)PROC_MARK_3);
+    proc = (struct DebugPrintProc *)Proc_Start(gProc_DebugPrintWithProc, (struct Proc *)PROC_MARK_3);
     proc->x = x;
     proc->y = y;
     proc->text = text;
