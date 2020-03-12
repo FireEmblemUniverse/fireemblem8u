@@ -35,4 +35,9 @@ struct DebugPrintProc
     int unk_68;
 };
 
+void DebugMenuInit();
+u8 EndMenuAndClear(MenuProc *proc);
+
+extern const struct MenuDef DebugMenuDef;
+
 #endif //GUARD_BMDEBUG_H

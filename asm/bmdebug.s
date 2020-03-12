@@ -226,8 +226,8 @@ _0801BCC8: .4byte gBG0TilemapBuffer
 
 	THUMB_FUNC_END sub_801BC1C
 
-	THUMB_FUNC_START sub_801BCCC
-sub_801BCCC: @ 0x0801BCCC
+	THUMB_FUNC_START EndMenuAndClear
+EndMenuAndClear: @ 0x0801BCCC
 	push {lr}
 	bl EndMenu
 	movs r0, #0
@@ -237,7 +237,7 @@ sub_801BCCC: @ 0x0801BCCC
 	pop {r1}
 	bx r1
 
-	THUMB_FUNC_END sub_801BCCC
+	THUMB_FUNC_END EndMenuAndClear
 
 	THUMB_FUNC_START DebugMapMenu_DisplayInfoDraw
 DebugMapMenu_DisplayInfoDraw: @ 0x0801BCE4
@@ -692,8 +692,8 @@ _0801C058: .4byte gUnknown_0202BCF0
 
 	THUMB_FUNC_END sub_801C030
 
-	THUMB_FUNC_START sub_801C05C
-sub_801C05C: @ 0x0801C05C
+	THUMB_FUNC_START DebugMenuInit
+DebugMenuInit: @ 0x0801C05C
 	push {r4, lr}
 	ldr r1, _0801C084  @ gUnknown_03001780
 	ldr r0, _0801C088  @ gUnknown_0202BCF0
@@ -715,7 +715,7 @@ _0801C084: .4byte gUnknown_03001780
 _0801C088: .4byte gUnknown_0202BCF0
 _0801C08C: .4byte gUnknown_02022D76
 
-	THUMB_FUNC_END sub_801C05C
+	THUMB_FUNC_END DebugMenuInit
 
 	THUMB_FUNC_START DEBUGONLY_Startup
 DEBUGONLY_Startup: @ 0x0801C090
