@@ -282,7 +282,7 @@ ActionDrop: @ 0x080321E0
 	bl UnitDrop
 	ldr r0, _08032250  @ gUnknown_0859DA6C
 	adds r1, r6, #0
-	bl Proc_CreateBlockingChild
+	bl Proc_StartBlocking
 	str r5, [r0, #0x54]
 	b _08032262
 	.align 2, 0
@@ -396,7 +396,7 @@ _08032324:
 _08032330:
 	ldr r0, _08032340  @ gUnknown_0859DABC
 	adds r1, r7, #0
-	bl Proc_CreateBlockingChild
+	bl Proc_StartBlocking
 	movs r0, #0
 	pop {r4, r5, r6, r7}
 	pop {r1}
@@ -411,7 +411,7 @@ ActionArena: @ 0x08032344
 	push {lr}
 	adds r1, r0, #0
 	ldr r0, _08032354  @ gUnknown_0859DB24
-	bl Proc_CreateBlockingChild
+	bl Proc_StartBlocking
 	movs r0, #0
 	pop {r1}
 	bx r1
@@ -776,7 +776,7 @@ sub_80325AC: @ 0x080325AC
 	cmp r0, r1
 	bne _08032646
 	adds r0, r6, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _08032646:
 	add sp, #4
 	pop {r3}
@@ -826,7 +826,7 @@ sub_8032674: @ 0x08032674
 	beq _08032716
 	ldr r0, _0803271C  @ gUnknown_0859DA94
 	adds r1, r4, #0
-	bl Proc_CreateBlockingChild
+	bl Proc_StartBlocking
 	adds r4, r0, #0
 	ldrb r0, [r5, #0x1b]
 	bl GetUnit
@@ -963,7 +963,7 @@ BATTLE_GOTO1_IfNobodyIsDead: @ 0x08032774
 _0803279C:
 	adds r0, r2, #0
 	movs r1, #1
-	bl Proc_GotoLabel
+	bl Proc_Goto
 _080327A4:
 	pop {r0}
 	bx r0
@@ -1219,7 +1219,7 @@ sub_8032974: @ 0x08032974
 	beq _08032994
 	adds r0, r2, #0
 	movs r1, #1
-	bl Proc_GotoLabel
+	bl Proc_Goto
 _08032994:
 	pop {r0}
 	bx r0

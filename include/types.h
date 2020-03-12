@@ -504,4 +504,10 @@ struct FaceData
     /* 18 */ u8 blinkKind;
 };
 
+struct FaceVramEntry
+{
+    /* 00 */ u32 tileOffset;
+    /* 04 */ u16 paletteId;
+};
+
 #endif // GUARD_TYPES_H

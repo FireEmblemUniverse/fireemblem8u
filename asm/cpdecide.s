@@ -131,7 +131,7 @@ _08039BBE:
 	str r0, [r4, #0x74]
 	adds r0, r7, #0
 	movs r1, #0
-	bl Proc_GotoLabel
+	bl Proc_Goto
 	b _08039BFA
 	.align 2, 0
 _08039BD0: .4byte gCpDecideMainFunc
@@ -143,14 +143,14 @@ _08039BD8:
 	str r1, [r0, #0x74]
 	ldr r0, _08039BF0  @ gUnknown_085A8024
 	adds r1, r7, #0
-	bl Proc_CreateBlockingChild
+	bl Proc_StartBlocking
 	b _08039BFA
 	.align 2, 0
 _08039BEC: .4byte gAiState
 _08039BF0: .4byte gUnknown_085A8024
 _08039BF4:
 	adds r0, r7, #0
-	bl Proc_Delete
+	bl Proc_End
 _08039BFA:
 	pop {r4, r5, r6, r7}
 	pop {r0}

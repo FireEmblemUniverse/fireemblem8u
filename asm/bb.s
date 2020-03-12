@@ -261,7 +261,7 @@ sub_803564C: @ 0x0803564C
 	movs r0, #0
 	bl SetPrimaryHBlankHandler
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _0803566E:
 	pop {r4}
 	pop {r0}
@@ -283,7 +283,7 @@ sub_8035678: @ 0x08035678
 	strh r1, [r0]
 	ldr r0, _08035694  @ gUnknown_0859E188
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	pop {r0}
 	bx r0
 	.align 2, 0
@@ -301,7 +301,7 @@ sub_8035698: @ 0x08035698
 	movs r0, #0
 	bl sub_8015EDC
 	ldr r0, _080356B8  @ gUnknown_0859E188
-	bl Proc_ClearNativeCallbackEachWithScript
+	bl Proc_BreakEach
 	pop {r0}
 	bx r0
 	.align 2, 0
@@ -367,7 +367,7 @@ NewBottomHelpText: @ 0x08035708
 	beq _08035734
 	ldr r0, _08035740  @ gUnknown_0859E1B8
 	adds r1, r2, #0
-	bl Proc_Create
+	bl Proc_Start
 	str r4, [r0, #0x2c]
 	bl sub_80354E0
 	bl sub_801A278
@@ -390,7 +390,7 @@ _08035744: .4byte gUnknown_0202BCB0
 DeleteEach6CBB: @ 0x08035748
 	push {lr}
 	ldr r0, _08035754  @ gUnknown_0859E1B8
-	bl Proc_DeleteAllWithScript
+	bl Proc_EndEach
 	pop {r0}
 	bx r0
 	.align 2, 0
@@ -427,7 +427,7 @@ sub_8035770: @ 0x08035770
 	bne _0803578E
 	adds r0, r5, #0
 	adds r1, r6, #0
-	bl Proc_Create
+	bl Proc_Start
 	adds r4, r0, #0
 _0803578E:
 	str r7, [r4, #0x2c]
@@ -771,7 +771,7 @@ sub_8035A0C: @ 0x08035A0C
 	bne _08035A2A
 	adds r0, r5, #0
 	movs r1, #0x63
-	bl Proc_GotoLabel
+	bl Proc_Goto
 	b _08035A9E
 _08035A2A:
 	movs r1, #0
@@ -812,7 +812,7 @@ _08035A6E:
 	strh r0, [r1]
 	adds r0, r5, #0
 	movs r1, #0
-	bl Proc_GotoLabel
+	bl Proc_Goto
 	b _08035A9E
 	.align 2, 0
 _08035A84: .4byte gUnknown_0202BCB0
@@ -824,7 +824,7 @@ _08035A88:
 	adds r0, #1
 	strh r0, [r6]
 	adds r0, r5, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _08035A9E:
 	pop {r4, r5, r6}
 	pop {r0}

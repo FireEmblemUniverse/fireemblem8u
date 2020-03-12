@@ -1485,7 +1485,7 @@ sub_801C63C: @ 0x0801C63C
 	push {lr}
 	ldr r0, _0801C64C  @ gUnknown_0859AA84
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	movs r0, #0x17
 	pop {r1}
 	bx r1

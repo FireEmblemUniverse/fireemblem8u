@@ -65,7 +65,7 @@ sub_8022300: @ 0x08022300
 	bl APProc_Create
 	ldr r0, _08022378  @ gUnknown_0859B560
 	adds r1, r4, #0
-	bl Proc_Create
+	bl Proc_Start
 	add sp, #8
 	pop {r4, r5, r6}
 	pop {r0}

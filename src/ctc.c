@@ -123,7 +123,7 @@ u16 CONST_DATA gObject_16x16_VFlipped[] =
 
 static struct ProcCmd CONST_DATA sProcSrc_SpriteRefresher[] =
 {
-    PROC_LOOP_ROUTINE(SpriteRefresher_OnIdle),
+    PROC_REPEAT(SpriteRefresher_OnIdle),
     PROC_END,
 };
 
@@ -196,14 +196,14 @@ void SpriteRefresher_OnIdle(struct SpriteProc* proc)
     PutSprite(proc->layer, proc->x, proc->y, proc->object, proc->tileref);
 }
 
-struct SpriteProc* StartSpriteRefresher(struct Proc* parent, int layer, int x, int y, const u16* object, int tileref)
+struct SpriteProc* StartSpriteRefresher(ProcPtr parent, int layer, int x, int y, const u16* object, int tileref)
 {
     struct SpriteProc* proc;
 
     if (parent)
-        proc = (struct SpriteProc*) Proc_Create(sProcSrc_SpriteRefresher, parent);
+        proc = Proc_Start(sProcSrc_SpriteRefresher, parent);
     else
-        proc = (struct SpriteProc*) Proc_Create(sProcSrc_SpriteRefresher, ROOT_PROC_3);
+        proc = Proc_Start(sProcSrc_SpriteRefresher, PROC_TREE_3);
 
     proc->x = x;
     proc->y = y;
@@ -217,7 +217,7 @@ struct SpriteProc* StartSpriteRefresher(struct Proc* parent, int layer, int x, i
 void MoveSpriteRefresher(struct SpriteProc* proc, int x, int y)
 {
     if (proc == NULL)
-        proc = (struct SpriteProc*) Proc_Find(sProcSrc_SpriteRefresher);
+        proc = Proc_Find(sProcSrc_SpriteRefresher);
 
     proc->x = x;
     proc->y = y;

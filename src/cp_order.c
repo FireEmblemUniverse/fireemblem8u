@@ -7,16 +7,16 @@
 
 #include "cp_common.h"
 
-static void CpOrderMain(struct Proc* proc);
-static void CpOrderBerserkInit(struct Proc* proc);
-static void CpOrderFunc_BeginDecide(struct Proc* proc);
+static void CpOrderMain(ProcPtr proc);
+static void CpOrderBerserkInit(ProcPtr proc);
+static void CpOrderFunc_BeginDecide(ProcPtr proc);
 static int GetUnitBattleAiPriority(struct Unit* unit);
 static int GetUnitAiPriority(struct Unit* unit);
 static int BuildAiUnitList(void);
 static void SortAiUnitList(int count);
-static void CpOrderFunc_End(struct Proc* proc);
+static void CpOrderFunc_End(ProcPtr proc);
 
-void sub_8039CAC(struct Proc* proc);
+void sub_8039CAC(ProcPtr proc);
 
 extern ProcFunc gCpDecideMainFunc;
 
@@ -25,19 +25,19 @@ u32* CONST_DATA sUnitPriorityArray = (void*) gUnknown_02020188;
 
 struct ProcCmd CONST_DATA gProcScr_CpOrder[] =
 {
-    PROC_SET_NAME("E_CPORDER"),
+    PROC_NAME("E_CPORDER"),
 
-    PROC_LOOP_ROUTINE(CpOrderMain),
+    PROC_REPEAT(CpOrderMain),
 
     PROC_END,
 };
 
 struct ProcCmd CONST_DATA gProcScr_BerserkCpOrder[] =
 {
-    PROC_SET_NAME("E_BSKORDER"),
+    PROC_NAME("E_BSKORDER"),
 
-    PROC_CALL_ROUTINE(CpOrderBerserkInit),
-    PROC_LOOP_ROUTINE(CpOrderFunc_End),
+    PROC_CALL(CpOrderBerserkInit),
+    PROC_REPEAT(CpOrderFunc_End),
 
     PROC_END,
 };
@@ -49,12 +49,12 @@ ProcFunc CONST_DATA sCpOrderFuncList[] =
     CpOrderFunc_End,
 };
 
-void CpOrderMain(struct Proc* proc)
+void CpOrderMain(ProcPtr proc)
 {
     sCpOrderFuncList[gAiState.orderState++](proc);
 }
 
-void CpOrderBerserkInit(struct Proc* proc)
+void CpOrderBerserkInit(ProcPtr proc)
 {
     int i, aiNum = 0;
 
@@ -85,11 +85,11 @@ void CpOrderBerserkInit(struct Proc* proc)
 
         gCpDecideMainFunc = sub_8039CAC;
 
-        Proc_CreateBlockingChild(gProcScr_CpDecide, proc);
+        Proc_StartBlocking(gProcScr_CpDecide, proc);
     }
 }
 
-void CpOrderFunc_BeginDecide(struct Proc* proc)
+void CpOrderFunc_BeginDecide(ProcPtr proc)
 {
     int unitAmt = BuildAiUnitList();
 
@@ -102,7 +102,7 @@ void CpOrderFunc_BeginDecide(struct Proc* proc)
 
         gCpDecideMainFunc = sub_8039CAC;
 
-        Proc_CreateBlockingChild(gProcScr_CpDecide, proc);
+        Proc_StartBlocking(gProcScr_CpDecide, proc);
     }
 }
 
@@ -305,7 +305,7 @@ void SortAiUnitList(int count)
 
 #endif // NONMATCH
 
-void CpOrderFunc_End(struct Proc* proc)
+void CpOrderFunc_End(ProcPtr proc)
 {
-    Proc_ClearNativeCallback(proc);
+    Proc_Break(proc);
 }

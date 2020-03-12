@@ -2943,7 +2943,7 @@ _08042BAA:
 	cmp r0, r1
 	bcc _08042BCC
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _08042BCC:
 	pop {r4, r5, r6}
 	pop {r0}
@@ -3006,7 +3006,7 @@ sub_8042C00: @ 0x08042C00
 	adds r1, #0x3a
 	strb r0, [r1]
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _08042C3C:
 	add sp, #8
 	pop {r4}
@@ -3098,7 +3098,7 @@ _08042CDA:
 	cmp r0, r1
 	bcc _08042CE8
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _08042CE8:
 	add sp, #4
 	pop {r4, r5, r6}
@@ -3146,7 +3146,7 @@ _08042D32:
 	lsrs r4, r4, #0x18
 	ldr r0, _08042D6C  @ gUnknown_085A92E4
 	ldr r1, [sp, #0x18]
-	bl Proc_CreateBlockingChild
+	bl Proc_StartBlocking
 	adds r3, r0, #0
 	str r7, [r3, #0x30]
 	adds r0, #0x34
@@ -3183,7 +3183,7 @@ sub_8042D70: @ 0x08042D70
 	adds r4, r1, #0
 	adds r1, r2, #0
 	ldr r0, _08042D98  @ gUnknown_085A9304
-	bl Proc_CreateBlockingChild
+	bl Proc_StartBlocking
 	str r4, [r0, #0x2c]
 	str r5, [r0, #0x30]
 	adds r2, r0, #0
@@ -3313,7 +3313,7 @@ sub_8042E2C: @ 0x08042E2C
 	adds r1, r5, #0
 	bl sub_8042568
 	adds r0, r6, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _08042E68:
 	add sp, #4
 	pop {r4, r5, r6}
@@ -3481,7 +3481,7 @@ sub_8042F58: @ 0x08042F58
 	cmp r0, #0
 	beq _08042F74
 	adds r0, r2, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _08042F74:
 	pop {r0}
 	bx r0
@@ -3534,7 +3534,7 @@ sub_8042F98: @ 0x08042F98
 	lsls r0, r1
 	strb r0, [r4, #0xa]
 	adds r0, r5, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _08042FD0:
 	pop {r4, r5}
 	pop {r0}
@@ -3576,7 +3576,7 @@ sub_8042FFC: @ 0x08042FFC
 	ldr r7, [sp, #0x18]
 	ldr r0, _08043028  @ gUnknown_085A93B8
 	adds r1, r4, #0
-	bl Proc_Create
+	bl Proc_Start
 	str r5, [r0, #0x2c]
 	str r6, [r0, #0x30]
 	mov r1, r8
@@ -3596,7 +3596,7 @@ _08043028: .4byte gUnknown_085A93B8
 sub_804302C: @ 0x0804302C
 	push {lr}
 	ldr r0, _08043038  @ gUnknown_085A93B8
-	bl Proc_DeleteAllWithScript
+	bl Proc_EndEach
 	pop {r0}
 	bx r0
 	.align 2, 0
@@ -3980,7 +3980,7 @@ sub_8043308: @ 0x08043308
 	push {lr}
 	adds r1, r0, #0
 	ldr r0, _08043318  @ gUnknown_085A94AC
-	bl Proc_CreateBlockingChild
+	bl Proc_StartBlocking
 	pop {r0}
 	bx r0
 	.align 2, 0
@@ -4438,7 +4438,7 @@ sub_80435F0: @ 0x080435F0
 	bl sub_80437C0
 	adds r0, r7, #0
 	movs r1, #2
-	bl Proc_GotoLabel
+	bl Proc_Goto
 	b _08043698
 	.align 2, 0
 _08043678: .4byte gUnknown_085A94A0
@@ -4580,7 +4580,7 @@ _0804377A:
 	bl sub_804D24C
 	mov r1, r9
 	ldr r0, [r1, #0x30]
-	bl Proc_Delete
+	bl Proc_End
 	mov r1, r9
 	adds r1, #0x52
 	movs r0, #4
@@ -5135,7 +5135,7 @@ _08043BEA:
 	bl sub_804320C
 	adds r0, r4, #0
 	movs r1, #9
-	bl Proc_GotoLabel
+	bl Proc_Goto
 	movs r0, #0xff
 	mov r2, r8
 	strb r0, [r2, #3]
@@ -5148,7 +5148,7 @@ _08043C44:
 	movs r0, #2
 	bl sub_804320C
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 	b _08043C7C
 _08043C52:
 	movs r0, #0
@@ -5168,7 +5168,7 @@ _08043C5A:
 	str r0, [r4, #0x44]
 	adds r0, r4, #0
 	movs r1, #5
-	bl Proc_GotoLabel
+	bl Proc_Goto
 	b _08043CD8
 _08043C7C:
 	ldr r5, _08043CE8  @ gKeyStatusPtr
@@ -5182,7 +5182,7 @@ _08043C7C:
 	bl sub_804320C
 	adds r0, r4, #0
 	movs r1, #9
-	bl Proc_GotoLabel
+	bl Proc_Goto
 	ldr r1, _08043CEC  @ gUnknown_0203DA24
 	movs r0, #0xff
 	strb r0, [r1, #3]
@@ -5214,7 +5214,7 @@ _08043CCA:
 	strb r0, [r1, #3]
 	adds r0, r4, #0
 	movs r1, #9
-	bl Proc_GotoLabel
+	bl Proc_Goto
 _08043CD8:
 	pop {r3, r4, r5}
 	mov r8, r3
@@ -5236,7 +5236,7 @@ sub_8043CF4: @ 0x08043CF4
 	sub sp, #0x10
 	adds r4, r0, #0
 	ldr r0, [r4, #0x2c]
-	bl Proc_Delete
+	bl Proc_End
 	bl nullsub_13
 	bl EndBG3Slider
 	bl ClearUnits
@@ -5272,7 +5272,7 @@ sub_8043D3C: @ 0x08043D3C
 	cmp r0, #0
 	bne _08043D50
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _08043D50:
 	pop {r4}
 	pop {r0}
@@ -5345,7 +5345,7 @@ sub_8043D8C: @ 0x08043D8C
 	bne _08043DD8
 	adds r0, r7, #0
 	movs r1, #8
-	bl Proc_GotoLabel
+	bl Proc_Goto
 	b _08044270
 	.align 2, 0
 _08043DD0: .4byte gUnknown_085A93E0
@@ -5521,7 +5521,7 @@ _08043F28:
 	strb r0, [r2, #3]
 _08043F40:
 	adds r0, r7, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 	b _08044270
 	.align 2, 0
 _08043F48: .4byte gUnknown_0203DA24
@@ -5542,7 +5542,7 @@ _08043F50:
 	bl sub_804320C
 	adds r0, r7, #0
 	movs r1, #4
-	bl Proc_GotoLabel
+	bl Proc_Goto
 	b _08044270
 	.align 2, 0
 _08043F78: .4byte gUnknown_0203DB7C
@@ -5631,7 +5631,7 @@ _08043FEE:
 	str r0, [r7, #0x30]
 	adds r0, r7, #0
 	movs r1, #7
-	bl Proc_GotoLabel
+	bl Proc_Goto
 	b _080440C6
 	.align 2, 0
 _08044030: .4byte gUnknown_0203DB7C
@@ -5703,7 +5703,7 @@ _080440BA:
 	str r0, [r7, #0x44]
 	adds r0, r7, #0
 	movs r1, #6
-	bl Proc_GotoLabel
+	bl Proc_Goto
 _080440C6:
 	ldr r0, _080440FC  @ gKeyStatusPtr
 	ldr r0, [r0]
@@ -5722,7 +5722,7 @@ _080440C6:
 	movs r0, #4
 	strb r0, [r1]
 	ldr r0, [r7, #0x30]
-	bl Proc_Delete
+	bl Proc_End
 	b _08044270
 	.align 2, 0
 _080440F0: .4byte gUnknown_0203DB7C
@@ -5734,14 +5734,14 @@ _08044100:
 	beq _0804410E
 	adds r0, r7, #0
 	movs r1, #2
-	bl Proc_GotoLabel
+	bl Proc_Goto
 	b _0804411A
 _0804410E:
 	movs r0, #0
 	str r0, [r7, #0x44]
 	adds r0, r7, #0
 	movs r1, #6
-	bl Proc_GotoLabel
+	bl Proc_Goto
 _0804411A:
 	ldr r0, _080441C4  @ gKeyStatusPtr
 	ldr r0, [r0]
@@ -5771,7 +5771,7 @@ _08044148:
 	strb r0, [r1, #3]
 	adds r0, r7, #0
 	movs r1, #9
-	bl Proc_GotoLabel
+	bl Proc_Goto
 _08044156:
 	ldr r0, _080441C4  @ gKeyStatusPtr
 	ldr r0, [r0]
@@ -5956,7 +5956,7 @@ sub_804429C: @ 0x0804429C
 	bne _080442BC
 	adds r0, r4, #0
 	movs r1, #3
-	bl Proc_GotoLabel
+	bl Proc_Goto
 _080442BC:
 	ldr r0, [r4, #0x44]
 	adds r0, #1
@@ -6027,7 +6027,7 @@ sub_8044324: @ 0x08044324
 	bne _08044344
 	adds r0, r4, #0
 	movs r1, #2
-	bl Proc_GotoLabel
+	bl Proc_Goto
 _08044344:
 	ldr r0, [r4, #0x44]
 	adds r0, #1
@@ -6205,7 +6205,7 @@ _08044484:
 	movs r0, #1
 	bl sub_804320C
 	ldr r0, [r4, #0x30]
-	bl Proc_Delete
+	bl Proc_End
 	ldr r0, [r4, #0x58]
 	adds r0, #4
 	lsls r0, r0, #6
@@ -6218,7 +6218,7 @@ _08044484:
 	movs r0, #1
 	bl BG_EnableSyncByMask
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 	b _08044524
 	.align 2, 0
 _080444D4: .4byte gKeyStatusPtr
@@ -6229,7 +6229,7 @@ _080444DC:
 	cmp r0, #0
 	beq _08044524
 	ldr r0, [r4, #0x30]
-	bl Proc_Delete
+	bl Proc_End
 	ldrb r0, [r5]
 	cmp r0, #0
 	bne _080444FE
@@ -6254,7 +6254,7 @@ _08044504:
 	movs r0, #1
 	bl BG_EnableSyncByMask
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _08044524:
 	pop {r4, r5}
 	pop {r0}
@@ -7076,7 +7076,7 @@ _08044B5C:
 	bl SetTacticianName
 _08044B62:
 	adds r0, r5, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 	b _08044B70
 _08044B6A:
 	movs r0, #0
@@ -7484,7 +7484,7 @@ _08044E6C:
 _08044E88:
 	adds r0, r5, #0
 	movs r1, #1
-	bl Proc_GotoLabel
+	bl Proc_Goto
 	b _08044ED0
 	.align 2, 0
 _08044E94: .4byte gKeyStatusPtr
@@ -7512,7 +7512,7 @@ _08044EB8:
 	bl sub_804320C
 	adds r0, r5, #0
 	movs r1, #3
-	bl Proc_GotoLabel
+	bl Proc_Goto
 _08044ED0:
 	pop {r4, r5, r6, r7}
 	pop {r0}
@@ -7695,7 +7695,7 @@ sub_8044FFC: @ 0x08044FFC
 	cmp r0, #8
 	bls _0804502E
 	adds r0, r6, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _0804502E:
 	add sp, #4
 	pop {r4, r5, r6}
@@ -7756,7 +7756,7 @@ sub_8045068: @ 0x08045068
 	movs r0, #0
 	bl SetPrimaryHBlankHandler
 	adds r0, r6, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _080450A0:
 	add sp, #4
 	pop {r4, r5, r6}
@@ -7871,7 +7871,7 @@ _08045158:
 	movs r0, #1
 	bl BG_EnableSyncByMask
 	adds r0, r5, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 	b _080451E6
 	.align 2, 0
 _08045198: .4byte gKeyStatusPtr
@@ -7891,7 +7891,7 @@ _080451A0:
 	strb r0, [r1]
 	adds r0, r5, #0
 	movs r1, #2
-	bl Proc_GotoLabel
+	bl Proc_Goto
 	b _080451CE
 	.align 2, 0
 _080451C4: .4byte gUnknown_0203DD24
@@ -7907,7 +7907,7 @@ _080451CE:
 	movs r0, #1
 	bl BG_EnableSyncByMask
 	adds r0, r5, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _080451E6:
 	pop {r4, r5}
 	pop {r0}
@@ -7970,7 +7970,7 @@ sub_8045234: @ 0x08045234
 	cmp r0, #0x20
 	ble _0804524E
 	adds r0, r6, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _0804524E:
 	ldr r0, [r4, #0x64]
 	cmp r0, #0
@@ -8272,7 +8272,7 @@ sub_8045494: @ 0x08045494
 	lsrs r5, r5, #0x18
 	ldr r0, _080454E0  @ gUnknown_085A96F4
 	mov r1, r8
-	bl Proc_Create
+	bl Proc_Start
 	adds r1, r0, #0
 	mov r0, r8
 	str r0, [r1, #0x2c]
@@ -8456,7 +8456,7 @@ sub_8045610: @ 0x08045610
 	adds r4, r0, #0
 	ldr r0, _08045630  @ gUnknown_085A9774
 	adds r1, r4, #0
-	bl Proc_Create
+	bl Proc_Start
 	adds r1, r0, #0
 	adds r0, r4, #0
 	adds r0, #0x42
@@ -8725,7 +8725,7 @@ _08045880:
 	cmp r0, #0
 	bne _0804588C
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _0804588C:
 	add sp, #4
 	pop {r4, r5, r6}
@@ -8762,7 +8762,7 @@ sub_804589C: @ 0x0804589C
 	movs r1, #1
 	bl m4aMPlayFadeOut
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _080458D2:
 	pop {r4}
 	pop {r0}
@@ -9193,7 +9193,7 @@ New6C_SIOMAIN2: @ 0x08045C14
 	push {lr}
 	ldr r0, _08045C24  @ gUnknown_085AA6BC
 	movs r1, #2
-	bl Proc_Create
+	bl Proc_Start
 	pop {r0}
 	bx r0
 	.align 2, 0
@@ -9215,17 +9215,17 @@ sub_8045C28: @ 0x08045C28
 	bne _08045C46
 	adds r0, r4, #0
 	movs r1, #1
-	bl Proc_GotoLabel
+	bl Proc_Goto
 _08045C46:
 	ldrb r0, [r5, #0xb]
 	cmp r0, #2
 	bne _08045C54
 	adds r0, r4, #0
 	movs r1, #4
-	bl Proc_GotoLabel
+	bl Proc_Goto
 _08045C54:
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _08045C5A:
 	pop {r4, r5}
 	pop {r0}
@@ -9277,11 +9277,11 @@ sub_8045C68: @ 0x08045C68
 sub_8045CBC: @ 0x08045CBC
 	push {lr}
 	ldr r0, _08045CD4  @ gUnknown_085A9354
-	bl Proc_DeleteAllWithScript
+	bl Proc_EndEach
 	ldr r0, _08045CD8  @ gUnknown_085A937C
-	bl Proc_DeleteAllWithScript
+	bl Proc_EndEach
 	ldr r0, _08045CDC  @ gUnknown_085A932C
-	bl Proc_DeleteAllWithScript
+	bl Proc_EndEach
 	pop {r0}
 	bx r0
 	.align 2, 0
@@ -9550,13 +9550,13 @@ sub_8045F00: @ 0x08045F00
 	strh r1, [r0]
 	ldr r0, _08045F3C  @ gUnknown_085A9354
 	movs r1, #0
-	bl Proc_Create
+	bl Proc_Start
 	ldr r0, _08045F40  @ gUnknown_085A937C
 	adds r1, r4, #0
-	bl Proc_Create
+	bl Proc_Start
 	ldr r0, _08045F44  @ gUnknown_085A932C
 	adds r1, r4, #0
-	bl Proc_Create
+	bl Proc_Start
 	movs r1, #1
 	negs r1, r1
 	mov r0, sp
@@ -9622,7 +9622,7 @@ _08045F94:
 	bl sub_8045CE0
 	adds r0, r4, #0
 	movs r1, #2
-	bl Proc_GotoLabel
+	bl Proc_Goto
 _08045FBC:
 	ldr r0, _08046004  @ gUnknown_085A92E0
 	ldr r2, [r0]
@@ -9656,7 +9656,7 @@ _08045FEE:
 	bl sub_8045CE0
 	adds r0, r4, #0
 	movs r1, #2
-	bl Proc_GotoLabel
+	bl Proc_Goto
 	b _0804618A
 	.align 2, 0
 _08046000: .4byte gKeyStatusPtr
@@ -9813,7 +9813,7 @@ _0804612A:
 	bl sub_8042AF4
 _08046150:
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 	b _0804618A
 	.align 2, 0
 _08046158: .4byte 0x00000749
@@ -9885,7 +9885,7 @@ _080461C4:
 	bl sub_804C2EC
 	adds r0, r4, #0
 	movs r1, #3
-	bl Proc_GotoLabel
+	bl Proc_Goto
 	b _08046220
 	.align 2, 0
 _080461F4: .4byte gUnknown_0203DD28
@@ -9910,11 +9910,11 @@ _08046200:
 	bne _0804622E
 _08046220:
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 	b _0804622E
 _08046228:
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _0804622E:
 	pop {r4}
 	pop {r0}
@@ -10028,7 +10028,7 @@ sub_80462D4: @ 0x080462D4
 	bl sub_8043100
 	str r4, [r7, #0x38]
 	adds r0, r5, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 	b _08046398
 	.align 2, 0
 _08046310: .4byte gUnknown_085A92E0
@@ -10091,7 +10091,7 @@ _08046318:
 	bl sub_8043100
 	str r6, [r7, #0x38]
 	adds r0, r5, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _08046398:
 	add sp, #0x14
 	pop {r4, r5, r6, r7}
@@ -10181,7 +10181,7 @@ _0804643C:
 	ldrb r0, [r4]
 	strb r0, [r1]
 	adds r0, r6, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _0804644C:
 	pop {r4, r5, r6, r7}
 	pop {r0}
@@ -10513,7 +10513,7 @@ _080466BA:
 	lsls r0, r1
 	strb r0, [r2, #0xa]
 	mov r0, r8
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _080466DA:
 	add sp, #0x28
 	pop {r3, r4, r5}
@@ -10600,9 +10600,9 @@ _0804674E:
 	cmp r0, r2
 	bne _08046790
 	ldr r0, _080467A8  @ gUnknown_085A93A0
-	bl Proc_DeleteAllWithScript
+	bl Proc_EndEach
 	adds r0, r5, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _08046790:
 	pop {r4, r5, r6}
 	pop {r0}
@@ -10658,7 +10658,7 @@ sub_80467AC: @ 0x080467AC
 	bl Text_Draw
 	ldr r0, _08046834  @ gUnknown_085A93A0
 	adds r1, r6, #0
-	bl Proc_Create
+	bl Proc_Start
 	movs r0, #0xf
 	bl BG_EnableSyncByMask
 	add sp, #4
@@ -11285,7 +11285,7 @@ _08046D2A:
 	movs r0, #2
 	bl sub_804320C
 	adds r0, r6, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _08046D44:
 	ldr r0, [r4]
 	ldrh r1, [r0, #8]
@@ -11297,7 +11297,7 @@ _08046D44:
 	bl sub_804320C
 	adds r0, r6, #0
 	movs r1, #4
-	bl Proc_GotoLabel
+	bl Proc_Goto
 _08046D5E:
 	add sp, #4
 	pop {r4, r5, r6}
@@ -11353,7 +11353,7 @@ sub_8046DB4: @ 0x08046DB4
 	bne _08046DC8
 	adds r0, r1, #0
 	movs r1, #1
-	bl Proc_GotoLabel
+	bl Proc_Goto
 _08046DC8:
 	pop {r0}
 	bx r0
@@ -11372,7 +11372,7 @@ sub_8046DD0: @ 0x08046DD0
 	bne _08046DE4
 	adds r0, r1, #0
 	movs r1, #2
-	bl Proc_GotoLabel
+	bl Proc_Goto
 _08046DE4:
 	pop {r0}
 	bx r0
@@ -11390,7 +11390,7 @@ sub_8046DEC: @ 0x08046DEC
 	cmp r0, #0
 	bne _08046E00
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _08046E00:
 	pop {r4}
 	pop {r0}
@@ -11419,7 +11419,7 @@ sub_8046E0C: @ 0x08046E0C
 	bl sub_8096454
 	adds r0, r4, #0
 	movs r1, #5
-	bl Proc_GotoLabel
+	bl Proc_Goto
 _08046E40:
 	pop {r4}
 	pop {r0}
@@ -11982,7 +11982,7 @@ _080472E4:
 	movs r0, #1
 	bl sub_804320C
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _080472FE:
 	pop {r4, r5, r6}
 	pop {r0}
@@ -12280,7 +12280,7 @@ sub_8047570: @ 0x08047570
 	cmp r0, #5
 	bne _08047596
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _08047596:
 	adds r5, r4, #0
 	adds r5, #0x38
@@ -12348,7 +12348,7 @@ _0804760C:
 	cmp r0, r7
 	bne _08047622
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _08047622:
 	pop {r3}
 	mov r8, r3
@@ -12372,7 +12372,7 @@ sub_804762C: @ 0x0804762C
 	movs r0, #0
 	bl Sound_FadeOut800231C
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _0804764A:
 	pop {r4}
 	pop {r0}
@@ -12387,7 +12387,7 @@ sub_8047654: @ 0x08047654
 	push {r4, lr}
 	adds r4, r0, #0
 	ldr r0, _08047668  @ gUnknown_085A9D98
-	bl Proc_CreateBlockingChild
+	bl Proc_StartBlocking
 	str r4, [r0, #0x3c]
 	pop {r4}
 	pop {r0}
@@ -12731,7 +12731,7 @@ sub_8047928: @ 0x08047928
 	ldr r0, _08047A48  @ gUnknown_0203DB10
 	bl sub_80A6A04
 	adds r0, r6, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _08047952:
 	mov r0, sp
 	bl sub_804766C
@@ -13172,7 +13172,7 @@ _08047C9A:
 	movs r1, #1
 	bl sub_8043100
 	adds r0, r7, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _08047CDA:
 	ldr r0, [r7, #0x54]
 	adds r0, #1
@@ -13248,7 +13248,7 @@ _08047D18:
 	cmp r0, #0xf
 	ble _08047D6C
 	adds r0, r5, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _08047D6C:
 	ldr r0, [r5, #0x54]
 	adds r0, #1
@@ -13626,7 +13626,7 @@ _0804805C:
 	ldr r0, [r4, #0x48]
 	strb r0, [r1]
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _08048080:
 	ldr r0, [r5]
 	ldrh r1, [r0, #8]
@@ -13642,7 +13642,7 @@ _08048080:
 	movs r0, #0xff
 	strb r0, [r1]
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _080480A4:
 	pop {r4, r5}
 	pop {r0}
@@ -13667,7 +13667,7 @@ sub_80480B4: @ 0x080480B4
 	cmp r0, #0xff
 	bne _080480D0
 	adds r0, r5, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _080480D0:
 	ldrb r2, [r4]
 	ldr r0, [r5, #0x54]
@@ -13727,7 +13727,7 @@ _0804813E:
 	cmp r0, #0x20
 	ble _0804814A
 	adds r0, r5, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _0804814A:
 	ldr r0, [r5, #0x54]
 	adds r0, #1
@@ -13765,7 +13765,7 @@ sub_8048168: @ 0x08048168
 	movs r4, #4
 _0804818A:
 	ldm r5!, {r0}
-	bl Proc_Delete
+	bl Proc_End
 	subs r4, #1
 	cmp r4, #0
 	bge _0804818A
@@ -13778,9 +13778,9 @@ _0804818A:
 	bl nullsub_13
 	bl sub_8042E88
 	ldr r0, _080481C4  @ gUnknown_0859AA5C
-	bl Proc_DeleteAllWithScript
+	bl Proc_EndEach
 	adds r0, r6, #0
-	bl Proc_Delete
+	bl Proc_End
 	b _080481D8
 	.align 2, 0
 _080481BC: .4byte gUnknown_080D9EFC
@@ -13793,7 +13793,7 @@ _080481C8:
 	add r0, sp
 	ldr r0, [r0]
 	adds r1, r6, #0
-	bl Proc_CreateBlockingChild
+	bl Proc_StartBlocking
 _080481D8:
 	add sp, #0x14
 	pop {r4, r5, r6}
@@ -13840,10 +13840,10 @@ _08048204:
 	strb r0, [r1]
 	ldr r0, _08048258  @ gUnknown_085A9E88
 	adds r1, r4, #0
-	bl Proc_CreateBlockingChild
+	bl Proc_StartBlocking
 	ldr r0, _0804825C  @ gUnknown_0859AA5C
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	pop {r4}
 	pop {r0}
 	bx r0
@@ -13862,7 +13862,7 @@ sub_8048260: @ 0x08048260
 	push {lr}
 	adds r1, r0, #0
 	ldr r0, _0804827C  @ gUnknown_085A9614
-	bl Proc_CreateBlockingChild
+	bl Proc_StartBlocking
 	adds r3, r0, #0
 	adds r3, #0x33
 	movs r2, #0
@@ -13901,7 +13901,7 @@ sub_8048280: @ 0x08048280
 	strb r0, [r1]
 	ldr r0, _080482DC  @ gUnknown_085A9614
 	adds r1, r4, #0
-	bl Proc_CreateBlockingChild
+	bl Proc_StartBlocking
 	adds r2, r0, #0
 	adds r2, #0x33
 	movs r1, #5
@@ -14575,7 +14575,7 @@ sub_80487C0: @ 0x080487C0
 	movs r4, #4
 _080487D0:
 	ldm r5!, {r0}
-	bl Proc_Delete
+	bl Proc_End
 	subs r4, #1
 	cmp r4, #0
 	bge _080487D0
@@ -14932,7 +14932,7 @@ sub_8048A6C: @ 0x08048A6C
 	bl BG_SetPosition
 	ldr r0, _08048A90  @ gUnknown_085AA06C
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	pop {r0}
 	bx r0
 	.align 2, 0
@@ -14944,7 +14944,7 @@ _08048A90: .4byte gUnknown_085AA06C
 sub_8048A94: @ 0x08048A94
 	push {lr}
 	ldr r0, _08048AA4  @ gUnknown_085AA06C
-	bl Proc_DeleteAllWithScript
+	bl Proc_EndEach
 	bl ClearBg0Bg1
 	pop {r0}
 	bx r0
@@ -15197,7 +15197,7 @@ _08048C64:
 	movs r0, #0
 	str r0, [r7, #0x3c]
 	adds r0, r7, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _08048C98:
 	add sp, #8
 	pop {r3, r4, r5}
@@ -15254,7 +15254,7 @@ sub_8048CB8: @ 0x08048CB8
 	cmp r0, #0x20
 	bls _08048D0C
 	adds r0, r6, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _08048D0C:
 	add sp, #4
 	pop {r4, r5, r6}
@@ -15421,7 +15421,7 @@ _08048E2E:
 	ldr r1, [r4, #0x38]
 	str r1, [r0]
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _08048E56:
 	add sp, #4
 	pop {r4, r5}
@@ -15444,7 +15444,7 @@ sub_8048E6C: @ 0x08048E6C
 	cmp r0, #0x14
 	bls _08048E80
 	adds r0, r1, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _08048E80:
 	pop {r0}
 	bx r0
@@ -15589,7 +15589,7 @@ _08048F4A:
 	movs r0, #0
 	strh r0, [r1]
 	adds r0, r7, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _08048FA6:
 	add sp, #4
 	pop {r3, r4, r5}
@@ -15721,7 +15721,7 @@ _0804906A:
 	cmp r0, #0x10
 	ble _080490C2
 	adds r0, r7, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _080490C2:
 	add sp, #8
 	pop {r3, r4, r5}
@@ -15805,7 +15805,7 @@ _08049142:
 	beq _080491E8
 	ldr r0, _080491E0  @ gUnknown_085AA0F0
 	ldr r1, [sp, #0x34]
-	bl Proc_CreateBlockingChild
+	bl Proc_StartBlocking
 	adds r2, r0, #0
 	adds r0, #0x32
 	strb r4, [r0]
@@ -15870,7 +15870,7 @@ _080491F0:
 	beq _0804921A
 	ldr r0, _08049220  @ gUnknown_085AA130
 	ldr r1, [sp, #0x34]
-	bl Proc_CreateBlockingChild
+	bl Proc_StartBlocking
 	ldr r1, [sp, #8]
 	str r1, [r0, #0x2c]
 	ldr r1, [sp, #0xc]
@@ -16777,7 +16777,7 @@ _08049860:
 	bl sub_804B38C
 	ldr r0, _080498EC  @ gProc_MapTask
 	movs r1, #4
-	bl Proc_Create
+	bl Proc_Start
 	bl BMapVSync_Start
 	bl sub_80497CC
 	ldr r2, _080498F0  @ gUnknown_0202BCF0
@@ -16849,7 +16849,7 @@ sub_8049940: @ 0x08049940
 	cmp r0, #0
 	beq _0804995A
 	adds r0, r2, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _0804995A:
 	pop {r0}
 	bx r0
@@ -16895,7 +16895,7 @@ _080499A2:
 	ldr r0, _080499B4  @ gUnknown_085AA2FC
 _080499A4:
 	adds r1, r4, #0
-	bl Proc_CreateBlockingChild
+	bl Proc_StartBlocking
 	b _080499C0
 	.align 2, 0
 _080499AC: .4byte gUnknown_0202BCF0
@@ -16904,10 +16904,10 @@ _080499B4: .4byte gUnknown_085AA2FC
 _080499B8:
 	ldr r0, _080499CC  @ gUnknown_085AA4CC
 	adds r1, r4, #0
-	bl Proc_CreateBlockingChild
+	bl Proc_StartBlocking
 _080499C0:
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 	pop {r4}
 	pop {r0}
 	bx r0
@@ -16938,7 +16938,7 @@ _080499EC:
 _080499F2:
 	adds r0, r3, #0
 	movs r1, #3
-	bl Proc_GotoLabel
+	bl Proc_Goto
 	b _08049A56
 _080499FC:
 	ldr r0, _08049A10  @ gUnknown_0203DD90
@@ -16948,7 +16948,7 @@ _080499FC:
 	bne _08049A14
 	adds r0, r3, #0
 	movs r1, #2
-	bl Proc_GotoLabel
+	bl Proc_Goto
 	b _08049A56
 	.align 2, 0
 _08049A10: .4byte gUnknown_0203DD90
@@ -17090,7 +17090,7 @@ _08049B00: .4byte gUnknown_085A92E0
 sub_8049B04: @ 0x08049B04
 	push {lr}
 	ldr r0, _08049B20  @ gProc_MapTask
-	bl Proc_DeleteAllWithScript
+	bl Proc_EndEach
 	bl sub_804B3A0
 	bl BMapVSync_End
 	movs r0, #1
@@ -17347,10 +17347,10 @@ sub_8049CD4: @ 0x08049CD4
 	bl sub_8048A94
 	adds r0, r4, #0
 	movs r1, #3
-	bl Proc_GotoLabel
+	bl Proc_Goto
 _08049CF6:
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 	pop {r4}
 	pop {r0}
 	bx r0
@@ -17368,7 +17368,7 @@ sub_8049D0C: @ 0x08049D0C
 	cmp r0, #7
 	bgt _08049D1E
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _08049D1E:
 	pop {r4}
 	pop {r0}
@@ -17479,7 +17479,7 @@ _08049DB2:
 	bl sub_8049350
 	adds r0, r6, #0
 	movs r1, #5
-	bl Proc_GotoLabel
+	bl Proc_Goto
 	b _08049F12
 	.align 2, 0
 _08049E0C: .4byte gUnknown_080D9FB5
@@ -17520,7 +17520,7 @@ _08049E42:
 	bl MU_EndAll
 	adds r0, r6, #0
 	movs r1, #4
-	bl Proc_GotoLabel
+	bl Proc_Goto
 	b _08049F12
 	.align 2, 0
 _08049E70: .4byte gUnknown_0202BCF0
@@ -17544,7 +17544,7 @@ _08049E7C:
 	bl m4aSongNumStart
 	adds r0, r6, #0
 	movs r1, #2
-	bl Proc_GotoLabel
+	bl Proc_Goto
 	b _08049F12
 	.align 2, 0
 _08049EA8: .4byte gUnknown_0202BCF0
@@ -17723,7 +17723,7 @@ _08049FE6:
 	bl sub_8048A94
 	mov r0, r8
 	movs r1, #7
-	bl Proc_GotoLabel
+	bl Proc_Goto
 	b _0804A0F0
 	.align 2, 0
 _0804A020: .4byte gUnknown_0203DD90
@@ -17775,7 +17775,7 @@ _0804A05A:
 	bl sub_8049350
 	mov r0, r8
 	movs r1, #1
-	bl Proc_GotoLabel
+	bl Proc_Goto
 	b _0804A0F0
 	.align 2, 0
 _0804A0A0: .4byte gUnknown_0202BCF0
@@ -17797,7 +17797,7 @@ _0804A0A8:
 	bl MU_EndAll
 	mov r0, r8
 	movs r1, #6
-	bl Proc_GotoLabel
+	bl Proc_Goto
 	b _0804A0F0
 	.align 2, 0
 _0804A0D0: .4byte gActiveUnit
@@ -17886,7 +17886,7 @@ sub_804A158: @ 0x0804A158
 	ldr r0, [r0]
 	bl sub_80492B8
 	adds r0, r5, #0
-	bl Proc_Delete
+	bl Proc_End
 	ldr r2, _0804A19C  @ gLCDControlBuffer
 	ldrb r0, [r2, #1]
 	movs r1, #1
@@ -17900,7 +17900,7 @@ _0804A198: .4byte gActiveUnit
 _0804A19C: .4byte gLCDControlBuffer
 _0804A1A0:
 	adds r0, r5, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 	ldr r2, _0804A1CC  @ gLCDControlBuffer
 	ldrb r1, [r2, #1]
 	movs r0, #2
@@ -18087,7 +18087,7 @@ _0804A304:
 	bl sub_80492B8
 	adds r0, r6, #0
 	movs r1, #0
-	bl Proc_GotoLabel
+	bl Proc_Goto
 	b _0804A396
 	.align 2, 0
 _0804A320: .4byte gUnknown_03001818
@@ -18130,7 +18130,7 @@ _0804A35A:
 	ldr r0, [r7]
 	bl sub_80492B8
 	adds r0, r6, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 	b _0804A396
 	.align 2, 0
 _0804A384: .4byte gActiveUnit
@@ -18139,7 +18139,7 @@ _0804A388:
 	bl sub_80492B8
 	adds r0, r6, #0
 	movs r1, #1
-	bl Proc_GotoLabel
+	bl Proc_Goto
 _0804A396:
 	add sp, #8
 	pop {r3, r4, r5}
@@ -18187,7 +18187,7 @@ sub_804A3A8: @ 0x0804A3A8
 _0804A3E6:
 	bl sub_80373B4
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 	b _0804A426
 	.align 2, 0
 _0804A3F4: .4byte gLCDControlBuffer
@@ -18210,7 +18210,7 @@ _0804A41A:
 	bl sub_80373B4
 	adds r0, r4, #0
 	movs r1, #0
-	bl Proc_GotoLabel
+	bl Proc_Goto
 _0804A426:
 	pop {r4}
 	pop {r0}
@@ -18226,9 +18226,9 @@ sub_804A430: @ 0x0804A430
 	adds r4, r0, #0
 	ldr r0, _0804A448  @ gUnknown_085AA1AC
 	adds r1, r4, #0
-	bl Proc_CreateBlockingChild
+	bl Proc_StartBlocking
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 	pop {r4}
 	pop {r0}
 	bx r0
@@ -18295,7 +18295,7 @@ _0804A494:
 	bl sub_8049F38
 	adds r0, r5, #0
 	movs r1, #5
-	bl Proc_GotoLabel
+	bl Proc_Goto
 	b _0804A50E
 	.align 2, 0
 _0804A4D0: .4byte gUnknown_0203DD90
@@ -18500,9 +18500,9 @@ sub_804A614: @ 0x0804A614
 	strb r0, [r2, #4]
 	ldr r0, _0804A6A0  @ gUnknown_085AA75C
 	adds r1, r7, #0
-	bl Proc_CreateBlockingChild
+	bl Proc_StartBlocking
 	adds r0, r7, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _0804A682:
 	pop {r3}
 	mov r8, r3
@@ -18637,7 +18637,7 @@ _0804A7A0:
 	strb r0, [r1, #9]
 _0804A7A6:
 	mov r0, sl
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 	pop {r3, r4, r5}
 	mov r8, r3
 	mov r9, r4
@@ -18796,7 +18796,7 @@ _0804A8CE:
 _0804A8F0:
 	bl sub_80492D8
 	ldr r0, [sp, #0xc]
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 	add sp, #0x18
 	pop {r3, r4, r5}
 	mov r8, r3
@@ -18982,14 +18982,14 @@ _0804AA5A:
 	movs r0, #0xff
 	bl sub_80492E8
 	mov r0, r8
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 	b _0804AA78
 _0804AA6A:
 	ldr r0, _0804AA84  @ gUnknown_0202BCF0
 	ldrb r0, [r0, #0xf]
 	bl sub_80492E8
 	mov r0, r8
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _0804AA78:
 	pop {r3}
 	mov r8, r3
@@ -19108,7 +19108,7 @@ _0804AB32:
 	bl sub_80493D0
 	adds r0, r5, #0
 	movs r1, #1
-	bl Proc_GotoLabel
+	bl Proc_Goto
 	b _0804ABA4
 	.align 2, 0
 _0804AB50: .4byte gUnknown_0203DD94
@@ -19129,7 +19129,7 @@ _0804AB54:
 	bl NewPopupSimple
 	adds r0, r5, #0
 	movs r1, #3
-	bl Proc_GotoLabel
+	bl Proc_Goto
 	b _0804ABA4
 	.align 2, 0
 _0804AB80: .4byte gUnknown_0203DAC5
@@ -19144,7 +19144,7 @@ _0804AB8C:
 	bl NewPopupSimple
 	adds r0, r5, #0
 	movs r1, #4
-	bl Proc_GotoLabel
+	bl Proc_Goto
 _0804ABA4:
 	bl sub_804AAA4
 	add sp, #8
@@ -19226,7 +19226,7 @@ _0804AC24:
 	bl SMS_UpdateFromGameData
 	adds r0, r5, #0
 	movs r1, #0
-	bl Proc_GotoLabel
+	bl Proc_Goto
 	b _0804AC58
 _0804AC3C:
 	ldrb r0, [r4, #1]
@@ -19240,7 +19240,7 @@ _0804AC3C:
 	bl sub_80493D0
 	adds r0, r5, #0
 	movs r1, #2
-	bl Proc_GotoLabel
+	bl Proc_Goto
 _0804AC58:
 	bl sub_804AAA4
 	add sp, #8
@@ -19358,7 +19358,7 @@ _0804AD1C:
 	bl SMS_UpdateFromGameData
 	adds r0, r7, #0
 	movs r1, #1
-	bl Proc_GotoLabel
+	bl Proc_Goto
 	b _0804AD8A
 _0804AD34:
 	ldr r5, _0804AD98  @ gUnknown_03001818
@@ -19400,7 +19400,7 @@ _0804AD6C:
 	bl sub_804AC68
 _0804AD84:
 	adds r0, r7, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _0804AD8A:
 	bl sub_804AAA4
 	add sp, #4
@@ -19555,7 +19555,7 @@ sub_804AE7C: @ 0x0804AE7C
 	bl m4aSongNumStart
 	adds r0, r5, #0
 	movs r1, #3
-	bl Proc_GotoLabel
+	bl Proc_Goto
 _0804AEB0:
 	movs r0, #1
 	b _0804AEBE
@@ -19614,7 +19614,7 @@ _0804AF10:
 	cmp r4, #3
 	ble _0804AEDC
 	adds r0, r7, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _0804AF1C:
 	pop {r4, r5, r6, r7}
 	pop {r0}
@@ -19925,7 +19925,7 @@ _0804B158:
 	ldrb r2, [r2]
 	strb r2, [r0, #1]
 	ldr r0, [sp, #0x10]
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _0804B176:
 	add sp, #0x3c
 	pop {r3, r4, r5}
@@ -20054,7 +20054,7 @@ sub_804B250: @ 0x0804B250
 	cmp r0, #0
 	bne _0804B272
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _0804B272:
 	pop {r4}
 	pop {r0}
@@ -20201,7 +20201,7 @@ sub_804B38C: @ 0x0804B38C
 	push {lr}
 	ldr r0, _0804B39C  @ gUnknown_085AA24C
 	movs r1, #4
-	bl Proc_Create
+	bl Proc_Start
 	pop {r0}
 	bx r0
 	.align 2, 0
@@ -20213,7 +20213,7 @@ _0804B39C: .4byte gUnknown_085AA24C
 sub_804B3A0: @ 0x0804B3A0
 	push {lr}
 	ldr r0, _0804B3AC  @ gUnknown_085AA24C
-	bl Proc_DeleteAllWithScript
+	bl Proc_EndEach
 	pop {r0}
 	bx r0
 	.align 2, 0
@@ -20249,7 +20249,7 @@ sub_804B3D0: @ 0x0804B3D0
 	bne _0804B3EC
 	adds r0, r1, #0
 	movs r1, #0
-	bl Proc_GotoLabel
+	bl Proc_Goto
 	b _0804B3FE
 	.align 2, 0
 _0804B3E8: .4byte gUnknown_0203DD90
@@ -20278,7 +20278,7 @@ sub_804B408: @ 0x0804B408
 	bne _0804B420
 	strb r1, [r2, #9]
 	movs r1, #0
-	bl Proc_GotoLabel
+	bl Proc_Goto
 	b _0804B432
 	.align 2, 0
 _0804B41C: .4byte gUnknown_0203DD90
@@ -20308,7 +20308,7 @@ sub_804B43C: @ 0x0804B43C
 	bne _0804B458
 	ldr r1, [r4, #0x58]
 	adds r0, r4, #0
-	bl Proc_GotoLabel
+	bl Proc_Goto
 	b _0804B474
 	.align 2, 0
 _0804B454: .4byte gUnknown_0203DD90
@@ -20322,7 +20322,7 @@ _0804B458:
 	bl sub_80492E8
 	adds r0, r4, #0
 	movs r1, #5
-	bl Proc_GotoLabel
+	bl Proc_Goto
 _0804B474:
 	pop {r4}
 	pop {r0}
@@ -20395,7 +20395,7 @@ _0804B4EA:
 	bl sub_80492E8
 	adds r0, r5, #0
 	movs r1, #8
-	bl Proc_GotoLabel
+	bl Proc_Goto
 	b _0804B512
 	.align 2, 0
 _0804B4FC: .4byte gUnknown_0203DD90
@@ -20405,7 +20405,7 @@ _0804B504:
 	bl sub_80492E8
 	adds r0, r5, #0
 	movs r1, #8
-	bl Proc_GotoLabel
+	bl Proc_Goto
 _0804B512:
 	pop {r4, r5, r6}
 	pop {r0}
@@ -20426,7 +20426,7 @@ sub_804B518: @ 0x0804B518
 	bl sub_80492E8
 	adds r0, r4, #0
 	movs r1, #8
-	bl Proc_GotoLabel
+	bl Proc_Goto
 	b _0804B54E
 	.align 2, 0
 _0804B538: .4byte gUnknown_0203DA24
@@ -20437,7 +20437,7 @@ _0804B53C:
 	bl sub_80492E8
 	adds r0, r4, #0
 	movs r1, #8
-	bl Proc_GotoLabel
+	bl Proc_Goto
 _0804B54E:
 	pop {r4}
 	pop {r0}
@@ -20499,7 +20499,7 @@ _0804B5AC:
 	bl sub_80492E8
 	adds r0, r6, #0
 	movs r1, #5
-	bl Proc_GotoLabel
+	bl Proc_Goto
 	b _0804B5DA
 	.align 2, 0
 _0804B5C0: .4byte gUnknown_0203DD90
@@ -20510,7 +20510,7 @@ _0804B5CC:
 	bl sub_80492E8
 	adds r0, r6, #0
 	movs r1, #5
-	bl Proc_GotoLabel
+	bl Proc_Goto
 _0804B5DA:
 	pop {r4, r5, r6}
 	pop {r0}
@@ -20529,7 +20529,7 @@ sub_804B5E0: @ 0x0804B5E0
 	bl sub_80492E8
 	adds r0, r4, #0
 	movs r1, #5
-	bl Proc_GotoLabel
+	bl Proc_Goto
 	pop {r4}
 	pop {r0}
 	bx r0
@@ -20568,7 +20568,7 @@ _0804B628:
 	bne _0804B638
 	adds r0, r5, #0
 	movs r1, #1
-	bl Proc_GotoLabel
+	bl Proc_Goto
 	b _0804B69C
 _0804B638:
 	ldr r0, [r5, #0x5c]
@@ -20749,7 +20749,7 @@ _0804B770:
 	ble _0804B782
 	bl CloseHelpBox
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 	b _0804B7DA
 _0804B782:
 	ldr r0, [r4, #0x58]
@@ -20815,7 +20815,7 @@ sub_804B7E4: @ 0x0804B7E4
 	bne _0804B7F8
 	adds r0, r1, #0
 	movs r1, #1
-	bl Proc_GotoLabel
+	bl Proc_Goto
 _0804B7F8:
 	pop {r0}
 	bx r0
@@ -21318,7 +21318,7 @@ sub_804BBA0: @ 0x0804BBA0
 	movs r0, #0
 	bl SetPrimaryHBlankHandler
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 	b _0804BC2E
 _0804BBC8:
 	movs r0, #0
@@ -21426,7 +21426,7 @@ sub_804BC84: @ 0x0804BC84
 	lsls r4, r4, #0x10
 	lsrs r4, r4, #0x10
 	ldr r0, _0804BD24  @ gUnknown_085AA7B4
-	bl Proc_CreateBlockingChild
+	bl Proc_StartBlocking
 	adds r0, #0x64
 	movs r2, #0
 	strh r4, [r0]
@@ -21533,7 +21533,7 @@ sub_804BD3C: @ 0x0804BD3C
 	movs r0, #0
 	bl SetPrimaryHBlankHandler
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 	b _0804BDCA
 _0804BD64:
 	movs r0, #0
@@ -21621,7 +21621,7 @@ sub_804BDFC: @ 0x0804BDFC
 	lsls r4, r4, #0x10
 	lsrs r4, r4, #0x10
 	ldr r0, _0804BE80  @ gUnknown_085AA7EC
-	bl Proc_CreateBlockingChild
+	bl Proc_StartBlocking
 	adds r0, #0x64
 	movs r2, #0
 	strh r4, [r0]
@@ -21707,7 +21707,7 @@ sub_804BE98: @ 0x0804BE98
 	cmp r0, #0
 	bne _0804BEAC
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _0804BEAC:
 	pop {r4}
 	pop {r0}
@@ -21726,7 +21726,7 @@ sub_804BEB8: @ 0x0804BEB8
 	cmp r0, #0
 	bne _0804BECC
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _0804BECC:
 	pop {r4}
 	pop {r0}
@@ -21768,7 +21768,7 @@ sub_804BED8: @ 0x0804BED8
 	bl sub_8013928
 	ldr r0, _0804BF2C  @ gUnknown_085AA83C
 	adds r1, r4, #0
-	bl Proc_Create
+	bl Proc_Start
 	str r4, [r0, #0x2c]
 	pop {r4}
 	pop {r0}
@@ -21810,7 +21810,7 @@ sub_804BF4C: @ 0x0804BF4C
 	strb r0, [r1]
 	ldr r0, _0804BFA4  @ gProcScr_MUDeathFade
 	adds r1, r4, #0
-	bl Proc_Create
+	bl Proc_Start
 	str r4, [r0, #0x54]
 	adds r0, #0x64
 	movs r1, #0x20
@@ -21904,7 +21904,7 @@ sub_804BFF8: @ 0x0804BFF8
 	bl sub_8013928
 	ldr r0, _0804C028  @ gProcScr_MU_89A2CF8
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	str r4, [r0, #0x54]
 	pop {r4}
 	pop {r0}
@@ -21989,7 +21989,7 @@ sub_804C078: @ 0x0804C078
 	cmp r0, #0xff
 	bne _0804C0C4
 	adds r0, r7, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _0804C0C4:
 	ldr r2, _0804C128  @ gLCDControlBuffer
 	ldrb r3, [r2, #0xc]
@@ -22061,7 +22061,7 @@ sub_804C148: @ 0x0804C148
 	adds r4, r0, #0
 	ldr r0, _0804C174  @ gUnknown_085AA86C
 	movs r1, #2
-	bl Proc_Create
+	bl Proc_Start
 	ldr r2, [r4, #0x2c]
 	movs r1, #0x10
 	ldrsb r1, [r2, r1]
@@ -22167,7 +22167,7 @@ sub_804C1E4: @ 0x0804C1E4
 	cmp r1, #0
 	blt _0804C1FC
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _0804C1FC:
 	pop {r4}
 	pop {r0}
@@ -22193,14 +22193,14 @@ sub_804C208: @ 0x0804C208
 	cmp r1, #0
 	beq _0804C230
 	ldr r0, _0804C22C  @ gUnknown_085AA89C
-	bl Proc_CreateBlockingChild
+	bl Proc_StartBlocking
 	b _0804C238
 	.align 2, 0
 _0804C22C: .4byte gUnknown_085AA89C
 _0804C230:
 	ldr r0, _0804C25C  @ gUnknown_085AA89C
 	movs r1, #2
-	bl Proc_Create
+	bl Proc_Start
 _0804C238:
 	adds r1, r0, #0
 	str r5, [r1, #0x2c]
@@ -22240,14 +22240,14 @@ sub_804C260: @ 0x0804C260
 	cmp r1, #0
 	beq _0804C288
 	ldr r0, _0804C284  @ gUnknown_085AA914
-	bl Proc_CreateBlockingChild
+	bl Proc_StartBlocking
 	b _0804C290
 	.align 2, 0
 _0804C284: .4byte gUnknown_085AA914
 _0804C288:
 	ldr r0, _0804C2B4  @ gUnknown_085AA914
 	movs r1, #2
-	bl Proc_Create
+	bl Proc_Start
 _0804C290:
 	adds r1, r0, #0
 	str r5, [r1, #0x2c]
@@ -22314,10 +22314,10 @@ sub_804C2EC: @ 0x0804C2EC
 	adds r5, r2, #0
 	ldr r4, _0804C318  @ gUnknown_085AA954
 	adds r0, r4, #0
-	bl Proc_DeleteAllWithScript
+	bl Proc_EndEach
 	adds r0, r4, #0
 	adds r1, r5, #0
-	bl Proc_Create
+	bl Proc_Start
 	str r6, [r0, #0x2c]
 	mov r1, r8
 	str r1, [r0, #0x30]
@@ -22340,7 +22340,7 @@ sub_804C31C: @ 0x0804C31C
 	cmp r0, #0
 	beq _0804C330
 	adds r0, r4, #0
-	bl Proc_DeleteAllWithScript
+	bl Proc_EndEach
 _0804C330:
 	pop {r4}
 	pop {r0}
@@ -22548,10 +22548,10 @@ sub_804C49C: @ 0x0804C49C
 	adds r5, r2, #0
 	ldr r4, _0804C4F4  @ gUnknown_085AA980
 	adds r0, r4, #0
-	bl Proc_DeleteAllWithScript
+	bl Proc_EndEach
 	adds r0, r4, #0
 	adds r1, r6, #0
-	bl Proc_Create
+	bl Proc_Start
 	adds r6, r0, #0
 	mov r0, r8
 	str r0, [r6, #0x58]
@@ -22589,7 +22589,7 @@ _0804C4F4: .4byte gUnknown_085AA980
 sub_804C4F8: @ 0x0804C4F8
 	push {lr}
 	ldr r0, _0804C504  @ gUnknown_085AA980
-	bl Proc_DeleteAllWithScript
+	bl Proc_EndEach
 	pop {r0}
 	bx r0
 	.align 2, 0
@@ -22917,7 +22917,7 @@ sub_804C758: @ 0x0804C758
 	ldr r0, _0804C7C4  @ gUnknown_085AA9C0
 	mov r1, r8
 	str r2, [sp]
-	bl Proc_Create
+	bl Proc_Start
 	mov r8, r0
 	movs r3, #0
 	movs r1, #0
@@ -23371,10 +23371,10 @@ sub_804CAEC: @ 0x0804CAEC
 	mov r8, r2
 	ldr r4, _0804CB8C  @ gUnknown_085AAA78
 	adds r0, r4, #0
-	bl Proc_DeleteAllWithScript
+	bl Proc_EndEach
 	adds r0, r4, #0
 	adds r1, r6, #0
-	bl Proc_Create
+	bl Proc_Start
 	adds r4, r0, #0
 	str r5, [r4, #0x2c]
 	adds r1, r4, #0
@@ -23531,10 +23531,10 @@ sub_804CC14: @ 0x0804CC14
 	ldr r5, [sp, #0x24]
 	ldr r4, _0804CC58  @ gUnknown_085AAA90
 	adds r0, r4, #0
-	bl Proc_DeleteAllWithScript
+	bl Proc_EndEach
 	adds r0, r4, #0
 	adds r1, r5, #0
-	bl Proc_Create
+	bl Proc_Start
 	str r6, [r0, #0x3c]
 	mov r1, r9
 	str r1, [r0, #0x2c]
@@ -23720,10 +23720,10 @@ sub_804CD90: @ 0x0804CD90
 	mov r8, r2
 	ldr r4, _0804CDCC  @ gUnknown_085AAAC4
 	adds r0, r4, #0
-	bl Proc_DeleteAllWithScript
+	bl Proc_EndEach
 	adds r0, r4, #0
 	adds r1, r6, #0
-	bl Proc_Create
+	bl Proc_Start
 	str r5, [r0, #0x34]
 	str r5, [r0, #0x2c]
 	mov r1, r8
@@ -23854,10 +23854,10 @@ sub_804CE8C: @ 0x0804CE8C
 	adds r5, r0, #0
 	ldr r4, _0804CEAC  @ gUnknown_085AAAE8
 	adds r0, r4, #0
-	bl Proc_DeleteAllWithScript
+	bl Proc_EndEach
 	adds r0, r4, #0
 	adds r1, r5, #0
-	bl Proc_Create
+	bl Proc_Start
 	movs r1, #0
 	strh r1, [r0, #0x2a]
 	pop {r4, r5}
@@ -23873,7 +23873,7 @@ sub_804CEB0: @ 0x0804CEB0
 	push {lr}
 	ldr r0, _0804CEC0  @ gUnknown_085AAB00
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	pop {r0}
 	bx r0
 	.align 2, 0
@@ -23989,7 +23989,7 @@ sub_804CF04: @ 0x0804CF04
 	cmp r0, #0xf
 	bne _0804CF98
 	adds r0, r7, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _0804CF98:
 	add sp, #4
 	pop {r3}
@@ -24014,7 +24014,7 @@ sub_804CFB8: @ 0x0804CFB8
 	adds r5, r2, #0
 	ldr r0, _0804CFDC  @ gUnknown_085AAB18
 	adds r1, r3, #0
-	bl Proc_Create
+	bl Proc_Start
 	adds r1, r0, #0
 	str r4, [r1, #0x2c]
 	str r5, [r1, #0x30]
@@ -24319,10 +24319,10 @@ sub_804D1E0: @ 0x0804D1E0
 	lsrs r6, r6, #0x18
 	ldr r4, _0804D248  @ gUnknown_085AAB48
 	adds r0, r4, #0
-	bl Proc_DeleteAllWithScript
+	bl Proc_EndEach
 	adds r0, r4, #0
 	adds r1, r7, #0
-	bl Proc_Create
+	bl Proc_Start
 	adds r1, r0, #0
 	mov r2, r9
 	str r2, [r1, #0x2c]
@@ -24880,10 +24880,10 @@ sub_804D664: @ 0x0804D664
 	adds r5, r2, #0
 	ldr r4, _0804D6B0  @ gUnknown_085AABC8
 	adds r0, r4, #0
-	bl Proc_DeleteAllWithScript
+	bl Proc_EndEach
 	adds r0, r4, #0
 	adds r1, r5, #0
-	bl Proc_Create
+	bl Proc_Start
 	adds r1, r0, #0
 	str r6, [r1, #0x2c]
 	mov r0, r8
@@ -24918,7 +24918,7 @@ _0804D6B0: .4byte gUnknown_085AABC8
 sub_804D6B4: @ 0x0804D6B4
 	push {lr}
 	ldr r0, _0804D6C0  @ gUnknown_085AABC8
-	bl Proc_DeleteAllWithScript
+	bl Proc_EndEach
 	pop {r0}
 	bx r0
 	.align 2, 0
@@ -25090,10 +25090,10 @@ sub_804D7DC: @ 0x0804D7DC
 	adds r5, r2, #0
 	ldr r4, _0804D808  @ gUnknown_085AABD8
 	adds r0, r4, #0
-	bl Proc_DeleteAllWithScript
+	bl Proc_EndEach
 	adds r0, r4, #0
 	adds r1, r5, #0
-	bl Proc_Create
+	bl Proc_Start
 	str r6, [r0, #0x2c]
 	mov r1, r8
 	str r1, [r0, #0x30]

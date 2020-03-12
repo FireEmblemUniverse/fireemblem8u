@@ -71,7 +71,7 @@ sub_8010E50: @ 0x08010E50
 	push {lr}
 	bl sub_80081A8
 	ldr r0, _08010E68  @ gUnknown_08591154
-	bl Proc_DeleteAllWithScript
+	bl Proc_EndEach
 	bl ResetFaces
 	bl sub_80067E8
 	pop {r0}
@@ -728,7 +728,7 @@ _0801134C:
 	beq _080113A4
 	ldr r0, _080113BC  @ gUnknown_08592228
 	adds r1, r5, #0
-	bl Proc_Create
+	bl Proc_Start
 	mov r3, sl
 	ldrb r1, [r3]
 	adds r1, #1
@@ -782,7 +782,7 @@ LongPopup_WaitForPress: @ 0x080113C0
 	cmp r0, #0
 	beq _080113F2
 	adds r0, r1, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 	b _080113F2
 	.align 2, 0
 _080113DC: .4byte gKeyStatusPtr
@@ -794,7 +794,7 @@ _080113E0:
 	cmp r0, #0
 	bne _080113F2
 	adds r0, r1, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _080113F2:
 	pop {r0}
 	bx r0
@@ -905,14 +905,14 @@ NewPopup: @ 0x08011490
 	cmp r1, #0
 	beq _080114AC
 	ldr r0, _080114A8  @ gUnknown_085921C8
-	bl Proc_CreateBlockingChild
+	bl Proc_StartBlocking
 	b _080114B4
 	.align 2, 0
 _080114A8: .4byte gUnknown_085921C8
 _080114AC:
 	ldr r0, _080114D8  @ gUnknown_085921C8
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 _080114B4:
 	adds r1, r0, #0
 	str r4, [r1, #0x30]
@@ -1016,14 +1016,14 @@ NewItemGot: @ 0x08011554
 	bhi _08011570
 	ldr r0, _0801156C  @ gUnknown_085922D0
 	adds r1, r3, #0
-	bl Proc_Create
+	bl Proc_Start
 	b _08011578
 	.align 2, 0
 _0801156C: .4byte gUnknown_085922D0
 _08011570:
 	ldr r0, _08011598  @ gUnknown_085922D0
 	adds r1, r3, #0
-	bl Proc_CreateBlockingChild
+	bl Proc_StartBlocking
 _08011578:
 	str r5, [r0, #0x58]
 	str r4, [r0, #0x54]

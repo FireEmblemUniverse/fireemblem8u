@@ -535,7 +535,7 @@ ExecWarpStaff: @ 0x0802EFAC
 	bl BeginBattleAnimations
 	ldr r0, _0802F00C  @ gUnknown_0859BDF0
 	adds r1, r5, #0
-	bl Proc_CreateBlockingChild
+	bl Proc_StartBlocking
 	pop {r4, r5}
 	pop {r0}
 	bx r0
@@ -2326,7 +2326,7 @@ _0802FF76:
 	bne _0802FF8C
 	ldr r0, _0802FF88  @ gUnknown_0859BE28
 	adds r1, r6, #0
-	bl Proc_CreateBlockingChild
+	bl Proc_StartBlocking
 	b _0802FFA2
 	.align 2, 0
 _0802FF88: .4byte gUnknown_0859BE28
@@ -2340,7 +2340,7 @@ _0802FF8C:
 	blt _0802FFA2
 	ldr r0, _0802FFB0  @ gUnknown_0859BE10
 	adds r1, r6, #0
-	bl Proc_CreateBlockingChild
+	bl Proc_StartBlocking
 _0802FFA2:
 	pop {r3}
 	mov r8, r3
@@ -2390,7 +2390,7 @@ _0802FFEC:
 	blt _08030002
 	ldr r0, _08030018  @ gUnknown_0859BE10
 	adds r1, r6, #0
-	bl Proc_CreateBlockingChild
+	bl Proc_StartBlocking
 _08030002:
 	pop {r4, r5, r6}
 	pop {r0}

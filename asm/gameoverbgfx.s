@@ -284,7 +284,7 @@ sub_80213F4: @ 0x080213F4
 	cmp r0, #0
 	bge _08021422
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _08021422:
 	pop {r4}
 	pop {r0}
@@ -317,7 +317,7 @@ sub_8021434: @ 0x08021434
 	bge _08021450
 	adds r0, r4, #0
 	movs r1, #0x63
-	bl Proc_GotoLabel
+	bl Proc_Goto
 _08021450:
 	ldr r0, _0802146C  @ gKeyStatusPtr
 	ldr r0, [r0]
@@ -328,7 +328,7 @@ _08021450:
 	beq _08021466
 	adds r0, r4, #0
 	movs r1, #0x63
-	bl Proc_GotoLabel
+	bl Proc_Goto
 _08021466:
 	pop {r4}
 	pop {r0}
@@ -382,7 +382,7 @@ sub_80214A8: @ 0x080214A8
 	cmp r0, #0x20
 	bne _080214CC
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _080214CC:
 	pop {r4}
 	pop {r0}
@@ -431,14 +431,14 @@ sub_8021518: @ 0x08021518
 	cmp r1, #0
 	beq _0802152C
 	ldr r0, _08021528  @ gUnknown_0859B358
-	bl Proc_CreateBlockingChild
+	bl Proc_StartBlocking
 	b _08021534
 	.align 2, 0
 _08021528: .4byte gUnknown_0859B358
 _0802152C:
 	ldr r0, _08021538  @ gUnknown_0859B358
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 _08021534:
 	pop {r0}
 	bx r0

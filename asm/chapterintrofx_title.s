@@ -23,7 +23,7 @@ sub_802237C: @ 0x0802237C
 _08022398:
 	ldr r1, _080223A8  @ 0x000003E7
 	ldr r0, [sp]
-	bl Proc_GotoLabel
+	bl Proc_Goto
 	b _080224BE
 	.align 2, 0
 _080223A4: .4byte gUnknown_0202BCF0

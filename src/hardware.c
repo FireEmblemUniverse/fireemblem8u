@@ -372,13 +372,13 @@ void KeyStatusSetter_Set(struct Proc *proc)
 static struct ProcCmd sKeyStatusSetterProc[] =
 {
     PROC_SLEEP(1),
-    PROC_CALL_ROUTINE(KeyStatusSetter_Set),
+    PROC_CALL(KeyStatusSetter_Set),
     PROC_END,
 };
 
 void NewKeyStatusSetter(int a)
 {
-    struct KeyProc *kproc = (struct KeyProc *)Proc_Create(sKeyStatusSetterProc, ROOT_PROC_1);
+    struct KeyProc *kproc = Proc_Start(sKeyStatusSetterProc, PROC_TREE_1);
 
     kproc->unk64 = a;
 }

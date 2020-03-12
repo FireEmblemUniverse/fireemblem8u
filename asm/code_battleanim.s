@@ -31,7 +31,7 @@ NewEkrBattleDeamon: @ 0x0804FD60
 	ldr r4, _0804FD80  @ gUnknown_0203E0F8
 	ldr r0, _0804FD84  @ gUnknown_085B9358
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	str r0, [r4]
 	ldr r1, _0804FD88  @ gUnknown_0203E0F4
 	movs r0, #1
@@ -52,7 +52,7 @@ EndEkrBattleDeamon: @ 0x0804FD8C
 	push {lr}
 	ldr r0, _0804FD9C  @ gUnknown_0203E0F8
 	ldr r0, [r0]
-	bl Proc_Delete
+	bl Proc_End
 	pop {r0}
 	bx r0
 	.align 2, 0
@@ -106,7 +106,7 @@ NewEkrBattle: @ 0x0804FDD4
 	ldr r4, _0804FE1C  @ gUnknown_02000064
 	ldr r0, _0804FE20  @ gUnknown_085B9378
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	str r0, [r4]
 	ldr r0, _0804FE24  @ InBattleMainRoutine
 	bl SetMainUpdateRoutine
@@ -197,7 +197,7 @@ _0804FE98:
 _0804FEA2:
 	ldr r0, _0804FEB4  @ gUnknown_02000064
 	ldr r0, [r0]
-	bl Proc_Delete
+	bl Proc_End
 	bl sub_8055C38
 	b _0804FEC4
 	.align 2, 0
@@ -206,7 +206,7 @@ _0804FEB4: .4byte gUnknown_02000064
 _0804FEB8:
 	ldr r0, _0804FED8  @ gUnknown_02000064
 	ldr r0, [r0]
-	bl Proc_Delete
+	bl Proc_End
 	bl EndEkrGauge
 _0804FEC4:
 	ldr r1, _0804FEDC  @ gUnknown_0202BCB0
@@ -234,11 +234,11 @@ MainUpdate_804FEE4: @ 0x0804FEE4
 	lsls r0, r0, #0x18
 	cmp r0, #0
 	bne _0804FF00
-	ldr r0, _0804FF50  @ gRootProcesses
+	ldr r0, _0804FF50  @ gProcTreeRootArray
 	ldr r0, [r0, #8]
 	bl Proc_Run
 _0804FF00:
-	ldr r4, _0804FF50  @ gRootProcesses
+	ldr r4, _0804FF50  @ gProcTreeRootArray
 	ldr r0, [r4, #0xc]
 	bl Proc_Run
 	ldr r0, [r4, #0x14]
@@ -271,7 +271,7 @@ _0804FF42:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_0804FF50: .4byte gRootProcesses
+_0804FF50: .4byte gProcTreeRootArray
 _0804FF54: .4byte gUnknown_02000020
 _0804FF58: .4byte gUnknown_0201FB04
 _0804FF5C: .4byte gUnknown_02000018
@@ -354,7 +354,7 @@ _0804FFE2:
 	movs r0, #0
 	str r0, [r4, #0x58]
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 	pop {r4}
 	pop {r0}
 	bx r0
@@ -2234,7 +2234,7 @@ NewEkrLvlupFan: @ 0x08050DE4
 	push {lr}
 	ldr r0, _08050DFC  @ gUnknown_085B93A0
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	movs r1, #0
 	strh r1, [r0, #0x2c]
 	movs r0, #0x80
@@ -2273,7 +2273,7 @@ _08050E28:
 	lsls r0, r0, #1
 	bl Sound_SetVolume80022EC
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _08050E3A:
 	pop {r4}
 	pop {r0}
@@ -2392,7 +2392,7 @@ NewEkrGauge: @ 0x08050EF8
 	ldr r4, _08050F44  @ gUnknown_02000068
 	ldr r0, _08050F48  @ gUnknown_085B93B8
 	movs r1, #1
-	bl Proc_Create
+	bl Proc_Start
 	str r0, [r4]
 	movs r0, #0
 	bl EkrGauge_80511C0
@@ -2642,7 +2642,7 @@ EndEkrGauge: @ 0x0805116C
 	push {lr}
 	ldr r0, _0805117C  @ gUnknown_02000068
 	ldr r0, [r0]
-	bl Proc_Delete
+	bl Proc_End
 	pop {r0}
 	bx r0
 	.align 2, 0
@@ -3894,7 +3894,7 @@ NewEkrDispUP: @ 0x08051AC4
 	ldr r4, _08051AEC  @ gUnknown_0200006C
 	ldr r0, _08051AF0  @ gUnknown_085B95EC
 	movs r1, #5
-	bl Proc_Create
+	bl Proc_Start
 	str r0, [r4]
 	movs r0, #0
 	movs r1, #0
@@ -3916,7 +3916,7 @@ sub_8051AF4: @ 0x08051AF4
 	push {lr}
 	ldr r0, _08051B04  @ gUnknown_0200006C
 	ldr r0, [r0]
-	bl Proc_Delete
+	bl Proc_End
 	pop {r0}
 	bx r0
 	.align 2, 0
@@ -4939,7 +4939,7 @@ sub_8052304: @ 0x08052304
 	str r0, [r1]
 	ldr r0, _08052354  @ gUnknown_085B9604
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	adds r6, r0, #0
 	str r4, [r6, #0x64]
 	adds r0, r4, #0
@@ -5141,7 +5141,7 @@ _080524C8:
 	strh r1, [r0]
 _080524E4:
 	adds r0, r5, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 	b _080524FC
 	.align 2, 0
 _080524EC: .4byte gUnknown_0203E104
@@ -5223,7 +5223,7 @@ _08052584:
 	bl sub_80533D0
 _08052596:
 	adds r0, r5, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _0805259C:
 	pop {r4, r5}
 	pop {r0}
@@ -5260,7 +5260,7 @@ _080525CA:
 	subs r0, #1
 	str r0, [r1]
 	adds r0, r2, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _080525E0:
 	pop {r0}
 	bx r0
@@ -5281,7 +5281,7 @@ sub_80525E8: @ 0x080525E8
 	str r0, [r1]
 	ldr r0, _08052624  @ gUnknown_085B962C
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	adds r6, r0, #0
 	adds r0, r4, #0
 	bl GetCoreAIStruct
@@ -5450,7 +5450,7 @@ _08052752:
 	ldr r0, _08052770  @ gUnknown_02017750
 	str r6, [r0]
 	adds r0, r5, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 	b _08052780
 	.align 2, 0
 _08052764: .4byte gUnknown_0203E1AC
@@ -5538,7 +5538,7 @@ _08052808:
 _0805280A:
 	str r0, [r6, #0x48]
 	adds r0, r6, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 	ldr r0, [r6, #0x5c]
 	bl GetAISSubjectId
 	ldr r1, _08052828  @ gUnknown_02017780
@@ -5691,7 +5691,7 @@ _08052938:
 	strh r1, [r0]
 _08052954:
 	adds r0, r5, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 	b _0805296C
 	.align 2, 0
 _0805295C: .4byte gUnknown_0203E104
@@ -5723,7 +5723,7 @@ sub_8052978: @ 0x08052978
 	str r0, [r1]
 	ldr r0, _080529AC  @ gUnknown_085B9664
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	adds r4, r0, #0
 	strh r5, [r4, #0x2c]
 	adds r0, r6, #0
@@ -5784,7 +5784,7 @@ sub_80529F0: @ 0x080529F0
 	cmp r0, #0x1e
 	bne _08052A08
 	adds r0, r1, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _08052A08:
 	pop {r0}
 	bx r0
@@ -5803,7 +5803,7 @@ sub_8052A0C: @ 0x08052A0C
 	str r0, [r1]
 	ldr r0, _08052A40  @ gUnknown_085B968C
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	adds r6, r0, #0
 	adds r0, r7, #0
 	bl GetAISSubjectId
@@ -5966,7 +5966,7 @@ _08052B40:
 	adds r0, r0, r1
 	strh r4, [r0]
 	adds r0, r5, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 	b _08052B90
 	.align 2, 0
 _08052B78: .4byte gUnknown_0203E1AC
@@ -6027,7 +6027,7 @@ _08052BD2:
 	str r0, [r1]
 	ldr r0, _08052C20  @ gUnknown_085B96B4
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	adds r4, r0, #0
 	str r5, [r4, #0x5c]
 	str r6, [r4, #0x60]
@@ -6090,7 +6090,7 @@ sub_8052C24: @ 0x08052C24
 	strh r1, [r0]
 _08052C6A:
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _08052C70:
 	pop {r4, r5, r6}
 	pop {r0}
@@ -6107,7 +6107,7 @@ sub_8052C7C: @ 0x08052C7C
 	adds r5, r1, #0
 	ldr r0, _08052C9C  @ gUnknown_085B96DC
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	str r4, [r0, #0x5c]
 	str r5, [r0, #0x60]
 	movs r1, #0
@@ -6168,7 +6168,7 @@ sub_8052CA0: @ 0x08052CA0
 	strh r0, [r2, #2]
 _08052CFC:
 	adds r0, r7, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 	b _08052D78
 	.align 2, 0
 _08052D04: .4byte gUnknown_080DA438
@@ -6251,7 +6251,7 @@ sub_8052D8C: @ 0x08052D8C
 	str r0, [r1]
 	ldr r0, _08052DB4  @ gUnknown_085B96F4
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	strh r4, [r0, #0x2c]
 	str r5, [r0, #0x64]
 _08052DA8:
@@ -6276,7 +6276,7 @@ sub_8052DB8: @ 0x08052DB8
 	cmp r0, #0x11
 	bne _08052DD0
 	adds r0, r1, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _08052DD0:
 	pop {r0}
 	bx r0
@@ -6290,7 +6290,7 @@ sub_8052DD4: @ 0x08052DD4
 	adds r5, r1, #0
 	ldr r0, _08052DF4  @ gUnknown_085B9724
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	str r4, [r0, #0x5c]
 	str r5, [r0, #0x60]
 	ldr r1, _08052DF8  @ gUnknown_02017738
@@ -6354,7 +6354,7 @@ _08052E2E:
 	strh r0, [r5, #0x2c]
 _08052E5C:
 	adds r0, r5, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _08052E62:
 	pop {r4, r5, r6, r7}
 	pop {r0}
@@ -6387,7 +6387,7 @@ sub_8052E7C: @ 0x08052E7C
 	movs r2, #0
 	bl NewEkrNamewinAppear
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _08052EA6:
 	pop {r4}
 	pop {r0}
@@ -6432,7 +6432,7 @@ sub_8052EAC: @ 0x08052EAC
 	ldrb r0, [r0]
 	bl sub_80835DC
 	adds r0, r5, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _08052F0A:
 	add sp, #4
 	pop {r4, r5}
@@ -6478,7 +6478,7 @@ sub_8052F24: @ 0x08052F24
 	bl sub_8051BA0
 	bl EkrGauge_8051180
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _08052F7A:
 	pop {r4, r5}
 	pop {r0}
@@ -6501,7 +6501,7 @@ sub_8052F84: @ 0x08052F84
 	movs r0, #0
 	str r0, [r1]
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _08052FA0:
 	pop {r4}
 	pop {r0}
@@ -6525,7 +6525,7 @@ sub_8052FAC: @ 0x08052FAC
 	str r0, [r1]
 	ldr r0, _08052FE8  @ gUnknown_085B975C
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	str r4, [r0, #0x5c]
 	str r5, [r0, #0x60]
 	movs r1, #0
@@ -6607,7 +6607,7 @@ _08053070:
 	movs r0, #0x32
 	strh r0, [r5, #0x2e]
 	adds r0, r5, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _0805307A:
 	pop {r4, r5}
 	pop {r0}
@@ -6682,7 +6682,7 @@ _080530F6:
 	movs r0, #0
 	str r0, [r1]
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _08053112:
 	pop {r4, r5}
 	pop {r0}
@@ -6700,7 +6700,7 @@ sub_8053120: @ 0x08053120
 	adds r5, r1, #0
 	ldr r0, _08053140  @ gUnknown_085B977C
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	str r4, [r0, #0x5c]
 	str r5, [r0, #0x60]
 	movs r1, #0
@@ -6760,7 +6760,7 @@ _0805318A:
 	strh r0, [r3, #0x2c]
 	strh r0, [r3, #0x2e]
 	adds r0, r3, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _0805319E:
 	pop {r4, r5}
 	pop {r0}
@@ -6776,7 +6776,7 @@ sub_80531A4: @ 0x080531A4
 	adds r6, r1, #0
 	ldr r0, _08053204  @ gUnknown_085B9794
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	str r5, [r0, #0x5c]
 	str r6, [r0, #0x60]
 	movs r4, #0
@@ -6857,7 +6857,7 @@ sub_805320C: @ 0x0805320C
 	str r0, [r3, #0x1c]
 	bl SetDefaultColorEffects
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 	b _08053282
 	.align 2, 0
 _0805325C: .4byte 0xFFFFFBFF
@@ -6896,7 +6896,7 @@ sub_805328C: @ 0x0805328C
 	adds r6, r1, #0
 	ldr r0, _08053360  @ gUnknown_085B97AC
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	adds r4, r0, #0
 	str r5, [r4, #0x5c]
 	str r6, [r4, #0x60]
@@ -7015,7 +7015,7 @@ sub_8053368: @ 0x08053368
 	bl BG_EnableSyncByMask
 	bl SetDefaultColorEffects
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 	b _080533C6
 	.align 2, 0
 _080533A0: .4byte gBG3TilemapBuffer
@@ -7071,7 +7071,7 @@ _080533F4: @ jump table
 _08053408:
 	ldr r0, _0805343C  @ gUnknown_085B97C4
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	adds r4, r0, #0
 	adds r0, r5, #0
 	bl GetAISSubjectId
@@ -7206,7 +7206,7 @@ sub_80534E4: @ 0x080534E4
 	movs r0, #0
 	strh r0, [r4, #0x2c]
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 	pop {r4}
 	pop {r0}
 	bx r0
@@ -7257,7 +7257,7 @@ _0805355A:
 	movs r0, #1
 	strh r0, [r4, #0x2c]
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _08053576:
 	add sp, #4
 	pop {r4, r5}
@@ -7329,7 +7329,7 @@ _080535F8:
 	movs r0, #0
 	str r0, [r1]
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _08053606:
 	add sp, #4
 	pop {r4, r5}
@@ -7396,7 +7396,7 @@ sub_8053678: @ 0x08053678
 	adds r5, r1, #0
 	ldr r0, _080536B0  @ gUnknown_085B97EC
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	ldr r2, _080536B4  @ gUnknown_085B9804
 	lsls r1, r4, #3
 	adds r1, r1, r2
@@ -7481,7 +7481,7 @@ sub_8053718: @ 0x08053718
 	push {lr}
 	ldr r0, _08053728  @ gUnknown_085B9884
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	pop {r1}
 	bx r1
 	.align 2, 0
@@ -7513,7 +7513,7 @@ _08053744:
 	str r0, [r1]
 	ldr r0, _08053774  @ gUnknown_085B989C
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	adds r2, r0, #0
 	movs r0, #0
 	strh r0, [r2, #0x2c]
@@ -7684,7 +7684,7 @@ _0805389E:
 	movs r0, #0
 	str r0, [r1]
 	adds r0, r7, #0
-	bl Proc_Delete
+	bl Proc_End
 	b _080539D2
 	.align 2, 0
 _080538AC: .4byte 0x00007FFF
@@ -7846,7 +7846,7 @@ _080539F4:
 	str r4, [r0]
 	ldr r0, _08053A24  @ gUnknown_085B98B4
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	adds r5, r0, #0
 	mov r0, r8
 	str r0, [r5, #0x5c]
@@ -8185,7 +8185,7 @@ _08053C9A:
 	bl sub_8051B5C
 _08053CCE:
 	adds r0, r7, #0
-	bl Proc_Delete
+	bl Proc_End
 	b _08053F02
 	.align 2, 0
 _08053CD8: .4byte gUnknown_0201FB0C
@@ -8458,7 +8458,7 @@ StartSpellBG_FLASH: @ 0x08053F10
 	adds r5, r1, #0
 	ldr r0, _08053F40  @ gUnknown_085B98CC
 	movs r1, #0
-	bl Proc_Create
+	bl Proc_Start
 	str r4, [r0, #0x5c]
 	movs r1, #0
 	strh r1, [r0, #0x2c]
@@ -8489,7 +8489,7 @@ sub_8053F4C: @ 0x08053F4C
 	adds r5, r1, #0
 	ldr r0, _08053F7C  @ gUnknown_085B98CC
 	movs r1, #0
-	bl Proc_Create
+	bl Proc_Start
 	str r4, [r0, #0x5c]
 	movs r1, #0
 	strh r1, [r0, #0x2c]
@@ -8520,7 +8520,7 @@ sub_8053F8C: @ 0x08053F8C
 	adds r5, r1, #0
 	ldr r0, _08053FB8  @ gUnknown_085B98CC
 	movs r1, #0
-	bl Proc_Create
+	bl Proc_Start
 	str r4, [r0, #0x5c]
 	movs r1, #0
 	strh r1, [r0, #0x2c]
@@ -8548,7 +8548,7 @@ sub_8053FC4: @ 0x08053FC4
 	adds r5, r1, #0
 	ldr r0, _08053FE0  @ gUnknown_085B98CC
 	movs r1, #0
-	bl Proc_Create
+	bl Proc_Start
 	str r4, [r0, #0x5c]
 	movs r1, #0
 	strh r1, [r0, #0x2c]
@@ -8582,7 +8582,7 @@ sub_8053FE4: @ 0x08053FE4
 	cmp r0, r1
 	blt _08054012
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _08054012:
 	pop {r4}
 	pop {r0}
@@ -8598,7 +8598,7 @@ sub_805401C: @ 0x0805401C
 	adds r4, r0, #0
 	bl EnablePaletteSync
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 	pop {r4}
 	pop {r0}
 	bx r0
@@ -8613,7 +8613,7 @@ sub_8054030: @ 0x08054030
 	adds r6, r2, #0
 	ldr r0, _08054050  @ gUnknown_085B98F4
 	movs r1, #0
-	bl Proc_Create
+	bl Proc_Start
 	str r4, [r0, #0x5c]
 	movs r1, #0
 	strh r1, [r0, #0x2c]
@@ -8661,7 +8661,7 @@ sub_8054054: @ 0x08054054
 	movs r0, #0
 	strh r0, [r6, #0x2c]
 	adds r0, r6, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _080540A0:
 	pop {r4, r5, r6}
 	pop {r0}
@@ -8715,7 +8715,7 @@ sub_80540B0: @ 0x080540B0
 	cmp r0, r1
 	ble _08054110
 	adds r0, r7, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _08054110:
 	add sp, #4
 	pop {r4, r5, r6, r7}
@@ -8733,7 +8733,7 @@ sub_8054120: @ 0x08054120
 	adds r4, r0, #0
 	bl EnablePaletteSync
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 	pop {r4}
 	pop {r0}
 	bx r0
@@ -8748,7 +8748,7 @@ sub_8054134: @ 0x08054134
 	adds r6, r2, #0
 	ldr r0, _08054154  @ gUnknown_085B991C
 	movs r1, #0
-	bl Proc_Create
+	bl Proc_Start
 	str r4, [r0, #0x5c]
 	movs r1, #0
 	strh r1, [r0, #0x2c]
@@ -8796,7 +8796,7 @@ sub_8054158: @ 0x08054158
 	movs r0, #0
 	strh r0, [r6, #0x2c]
 	adds r0, r6, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _080541A4:
 	pop {r4, r5, r6}
 	pop {r0}
@@ -8850,7 +8850,7 @@ sub_80541B4: @ 0x080541B4
 	cmp r0, r1
 	ble _08054214
 	adds r0, r7, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _08054214:
 	add sp, #4
 	pop {r4, r5, r6, r7}
@@ -8868,7 +8868,7 @@ sub_8054224: @ 0x08054224
 	adds r4, r0, #0
 	bl EnablePaletteSync
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 	pop {r4}
 	pop {r0}
 	bx r0
@@ -8883,7 +8883,7 @@ sub_8054238: @ 0x08054238
 	adds r6, r2, #0
 	ldr r0, _08054258  @ gUnknown_085B9944
 	movs r1, #0
-	bl Proc_Create
+	bl Proc_Start
 	str r4, [r0, #0x5c]
 	movs r1, #0
 	strh r1, [r0, #0x2c]
@@ -8931,7 +8931,7 @@ sub_805425C: @ 0x0805425C
 	movs r0, #0
 	strh r0, [r6, #0x2c]
 	adds r0, r6, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _080542A8:
 	pop {r4, r5, r6}
 	pop {r0}
@@ -8985,7 +8985,7 @@ sub_80542B8: @ 0x080542B8
 	cmp r0, r1
 	ble _08054318
 	adds r0, r7, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _08054318:
 	add sp, #4
 	pop {r4, r5, r6, r7}
@@ -9003,7 +9003,7 @@ sub_8054328: @ 0x08054328
 	adds r4, r0, #0
 	bl EnablePaletteSync
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 	pop {r4}
 	pop {r0}
 	bx r0
@@ -9018,7 +9018,7 @@ sub_805433C: @ 0x0805433C
 	adds r6, r2, #0
 	ldr r0, _0805435C  @ gUnknown_085B996C
 	movs r1, #0
-	bl Proc_Create
+	bl Proc_Start
 	str r4, [r0, #0x5c]
 	movs r1, #0
 	strh r1, [r0, #0x2c]
@@ -9066,7 +9066,7 @@ sub_8054360: @ 0x08054360
 	movs r0, #0
 	strh r0, [r6, #0x2c]
 	adds r0, r6, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _080543AC:
 	pop {r4, r5, r6}
 	pop {r0}
@@ -9120,7 +9120,7 @@ sub_80543BC: @ 0x080543BC
 	cmp r0, r1
 	ble _0805441C
 	adds r0, r7, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _0805441C:
 	add sp, #4
 	pop {r4, r5, r6, r7}
@@ -9138,7 +9138,7 @@ sub_805442C: @ 0x0805442C
 	adds r4, r0, #0
 	bl EnablePaletteSync
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 	pop {r4}
 	pop {r0}
 	bx r0
@@ -9157,7 +9157,7 @@ sub_8054440: @ 0x08054440
 	lsrs r5, r5, #0x10
 	ldr r0, _08054474  @ gUnknown_085B9994
 	movs r1, #4
-	bl Proc_Create
+	bl Proc_Start
 	adds r1, r0, #0
 	str r6, [r1, #0x5c]
 	movs r0, #0
@@ -9167,7 +9167,7 @@ sub_8054440: @ 0x08054440
 	cmp r4, #0
 	bne _0805446E
 	adds r0, r1, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _0805446E:
 	pop {r4, r5, r6}
 	pop {r0}
@@ -9191,7 +9191,7 @@ sub_8054478: @ 0x08054478
 	cmp r0, r1
 	blt _08054494
 	adds r0, r2, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _08054494:
 	pop {r0}
 	bx r0
@@ -9258,7 +9258,7 @@ _08054502:
 	cmp r0, r1
 	blt _0805451E
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _0805451E:
 	pop {r4}
 	pop {r0}
@@ -9331,7 +9331,7 @@ _0805459C:
 _080545A6:
 	bl EnablePaletteSync
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 	pop {r4}
 	pop {r0}
 	bx r0
@@ -9353,7 +9353,7 @@ sub_80545C0: @ 0x080545C0
 	ldr r4, _0805467C  @ gUnknown_0201777C
 	ldr r0, _08054680  @ gUnknown_085B99C4
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	str r0, [r4]
 	str r5, [r0, #0x5c]
 	movs r3, #0
@@ -9452,7 +9452,7 @@ sub_80546B0: @ 0x080546B0
 	push {lr}
 	ldr r0, _080546C0  @ gUnknown_0201777C
 	ldr r0, [r0]
-	bl Proc_Delete
+	bl Proc_End
 	pop {r0}
 	bx r0
 	.align 2, 0
@@ -9618,7 +9618,7 @@ sub_80547DC: @ 0x080547DC
 	lsrs r5, r5, #0x10
 	ldr r0, _08054814  @ gUnknown_085B99E4
 	movs r1, #4
-	bl Proc_Create
+	bl Proc_Start
 	str r6, [r0, #0x5c]
 	movs r1, #0
 	strh r1, [r0, #0x2c]
@@ -9680,7 +9680,7 @@ _08054864:
 	cmp r1, r0
 	blt _0805487A
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _0805487A:
 	pop {r4}
 	pop {r0}
@@ -9721,7 +9721,7 @@ _080548B4:
 _080548C6:
 	bl EnablePaletteSync
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 	pop {r4}
 	pop {r0}
 	bx r0
@@ -9746,7 +9746,7 @@ sub_80548E0: @ 0x080548E0
 	lsrs r5, r5, #0x10
 	ldr r0, _0805492C  @ gUnknown_085B9A0C
 	movs r1, #4
-	bl Proc_Create
+	bl Proc_Start
 	str r6, [r0, #0x5c]
 	movs r1, #0
 	strh r1, [r0, #0x2c]
@@ -9829,7 +9829,7 @@ _0805497C:
 	strh r0, [r1]
 	strh r3, [r1, #6]
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _080549A8:
 	pop {r4}
 	pop {r0}
@@ -9871,7 +9871,7 @@ _080549E8:
 _080549FA:
 	bl EnablePaletteSync
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 	ldr r2, [r4, #0x5c]
 	ldrh r1, [r2, #0x10]
 	movs r0, #0x40
@@ -9904,7 +9904,7 @@ _08054A36:
 	ldr r6, [r0]
 	ldr r0, _08054AC0  @ gUnknown_085B9A34
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	adds r4, r0, #0
 	adds r0, #0x29
 	movs r1, #0
@@ -10020,7 +10020,7 @@ sub_8054B18: @ 0x08054B18
 	lsls r0, r0, #2
 	adds r0, r0, r5
 	ldr r0, [r0]
-	bl Proc_Delete
+	bl Proc_End
 	adds r0, r4, #0
 	bl GetAISSubjectId
 	lsls r0, r0, #2
@@ -10040,7 +10040,7 @@ _08054B50: .4byte gUnknown_0201776C
 DeleteEach6C_efxStatusUnit: @ 0x08054B54
 	push {lr}
 	ldr r0, _08054B60  @ gUnknown_085B9A34
-	bl Proc_DeleteAllWithScript
+	bl Proc_EndEach
 	pop {r0}
 	bx r0
 	.align 2, 0
@@ -10454,7 +10454,7 @@ sub_8054E8C: @ 0x08054E8C
 	lsrs r5, r5, #0x10
 	ldr r0, _08054EC8  @ gUnknown_085B9A5C
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	movs r2, #0
 	strh r2, [r0, #0x2c]
 	str r2, [r0, #0x44]
@@ -10487,7 +10487,7 @@ sub_8054ED4: @ 0x08054ED4
 	ldr r0, [r4]
 	cmp r0, #0
 	beq _08054EE6
-	bl Proc_Delete
+	bl Proc_End
 	movs r0, #0
 	str r0, [r4]
 _08054EE6:
@@ -10612,7 +10612,7 @@ NewEfxSpellCast: @ 0x08054FA8
 	bne _08054FF4
 	ldr r0, _08054FDC  @ gUnknown_085B9A84
 	movs r1, #4
-	bl Proc_Create
+	bl Proc_Start
 	adds r5, r0, #0
 	adds r0, #0x29
 	strb r4, [r0]
@@ -10634,7 +10634,7 @@ _08054FE0: .4byte gUnknown_02017778
 _08054FE4: .4byte gUnknown_02022968
 _08054FE8: .4byte gUnknown_0201C790
 _08054FEC:
-	bl Proc_Delete
+	bl Proc_End
 _08054FF0:
 	ldr r0, _08054FFC  @ gUnknown_02017778
 	str r5, [r0]
@@ -10675,7 +10675,7 @@ sub_805501C: @ 0x0805501C
 	beq _0805502E
 	movs r0, #0
 	str r0, [r1]
-	bl Proc_Delete
+	bl Proc_End
 _0805502E:
 	pop {r0}
 	bx r0
@@ -10722,7 +10722,7 @@ sub_8055038: @ 0x08055038
 	cmp r1, r0
 	bne _0805508C
 	adds r0, r6, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _0805508C:
 	add sp, #4
 	pop {r4, r5, r6}
@@ -10757,7 +10757,7 @@ sub_805509C: @ 0x0805509C
 	movs r0, #0
 	strh r0, [r5, #0x2c]
 	adds r0, r5, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _080550CE:
 	pop {r4, r5}
 	pop {r0}
@@ -10815,7 +10815,7 @@ sub_80550DC: @ 0x080550DC
 	bl CpuFastSet
 	bl EnablePaletteSync
 	adds r0, r5, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _08055146:
 	add sp, #4
 	pop {r4, r5, r6, r7}
@@ -12070,7 +12070,7 @@ sub_8055A40: @ 0x08055A40
 	adds r4, r0, #0
 	ldr r0, _08055A5C  @ gUnknown_085B9AB4
 	movs r1, #1
-	bl Proc_Create
+	bl Proc_Start
 	str r4, [r0, #0x5c]
 	movs r1, #0
 	strh r1, [r0, #0x2c]
@@ -12148,7 +12148,7 @@ sub_8055A64: @ 0x08055A64
 	cmp r0, #0
 	bne _08055AF0
 	adds r0, r7, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 	b _08055B28
 	.align 2, 0
 _08055AE8: .4byte gUnknown_02000000
@@ -12245,7 +12245,7 @@ _08055B98:
 	bl sub_8053618
 _08055BA6:
 	adds r0, r7, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 	pop {r4, r5, r6, r7}
 	pop {r0}
 	bx r0
@@ -12352,7 +12352,7 @@ MainUpdate_8055C68: @ 0x08055C68
 	ldr r0, [r0]
 	bl UpdateKeyStatus
 	bl ClearSprites
-	ldr r4, _08055CD0  @ gRootProcesses
+	ldr r4, _08055CD0  @ gProcTreeRootArray
 	ldr r0, [r4, #4]
 	bl Proc_Run
 	bl GetThread2SkipStack
@@ -12386,7 +12386,7 @@ _08055C8E:
 	bx r0
 	.align 2, 0
 _08055CCC: .4byte gKeyStatusPtr
-_08055CD0: .4byte gRootProcesses
+_08055CD0: .4byte gProcTreeRootArray
 _08055CD4: .4byte gUnknown_0202BCB0
 _08055CD8: .4byte 0x04000006
 
@@ -12397,7 +12397,7 @@ NewEkrBattleStarting: @ 0x08055CDC
 	push {lr}
 	ldr r0, _08055CEC  @ gUnknown_085B9AD4
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	pop {r0}
 	bx r0
 	.align 2, 0
@@ -12515,7 +12515,7 @@ ekrBattleStarting_8055CF0: @ 0x08055CF0
 	orrs r0, r3
 	strb r0, [r7]
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 	add sp, #8
 	pop {r3, r4, r5}
 	mov r8, r3
@@ -12647,7 +12647,7 @@ _08055E12:
 	bl EnablePaletteSync
 	bl MU_EndAll
 	adds r0, r7, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _08055EEA:
 	add sp, #4
 	pop {r3, r4}
@@ -12726,7 +12726,7 @@ _08055F64:
 	movs r0, #0
 	strh r0, [r5, #0x2c]
 	adds r0, r5, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 	pop {r4, r5}
 	pop {r0}
 	bx r0
@@ -12755,7 +12755,7 @@ ekrBattleStarting_8055FA0: @ 0x08055FA0
 _08055FC4:
 	bl NewEkrBattle
 	adds r0, r4, #0
-	bl Proc_Delete
+	bl Proc_End
 	b _08055FE0
 	.align 2, 0
 _08055FD0: .4byte gUnknown_0203E0FE
@@ -12763,7 +12763,7 @@ _08055FD4:
 	strh r0, [r4, #0x2c]
 	bl NewEkrBattle
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _08055FE0:
 	pop {r4}
 	pop {r0}
@@ -12795,7 +12795,7 @@ ekrBattleStarting_8055FE8: @ 0x08055FE8
 	movs r0, #0
 	strh r0, [r4, #0x2c]
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _0805601C:
 	add sp, #4
 	pop {r4}
@@ -12835,7 +12835,7 @@ _08056044:
 	movs r3, #0x10
 	bl sub_80712B0
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 	pop {r4}
 	pop {r0}
 	bx r0
@@ -12881,7 +12881,7 @@ ekrBattleStarting_8056078: @ 0x08056078
 	movs r0, #0
 	strh r0, [r5, #0x2c]
 	adds r0, r5, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _080560C6:
 	add sp, #4
 	pop {r4, r5}
@@ -12898,7 +12898,7 @@ sub_80560D8: @ 0x080560D8
 	push {lr}
 	ldr r0, _080560EC  @ gUnknown_085B9B1C
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	movs r1, #0
 	strh r1, [r0, #0x2c]
 	pop {r0}
@@ -12925,7 +12925,7 @@ ekrBattleEnding_80560F0: @ 0x080560F0
 	bhi _08056118
 _0805610C:
 	adds r0, r5, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 	b _08056160
 	.align 2, 0
 _08056114: .4byte gUnknown_0203E0FE
@@ -12960,7 +12960,7 @@ _08056118:
 	movs r0, #0
 	strh r0, [r5, #0x2c]
 	adds r0, r5, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _08056160:
 	add sp, #4
 	pop {r4, r5}
@@ -12988,7 +12988,7 @@ ekrBattleEnding_8056170: @ 0x08056170
 	bhi _08056198
 _0805618A:
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 	b _080561BE
 	.align 2, 0
 _08056194: .4byte gUnknown_0203E0FE
@@ -13006,7 +13006,7 @@ _08056198:
 	movs r2, #0
 	bl BG_SetPosition
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _080561BE:
 	pop {r4}
 	pop {r0}
@@ -13033,7 +13033,7 @@ ekrBattleEnding_80561C8: @ 0x080561C8
 	bhi _080561F0
 _080561E4:
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 	b _0805621E
 	.align 2, 0
 _080561EC: .4byte gUnknown_0203E0FE
@@ -13057,7 +13057,7 @@ _080561F0:
 	movs r0, #0
 	strh r0, [r4, #0x2c]
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _0805621E:
 	add sp, #4
 	pop {r4}
@@ -13103,7 +13103,7 @@ ekrBattleEnding_8056228: @ 0x08056228
 	movs r1, #0xb
 	bl sub_8056F20
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 	pop {r4}
 	pop {r0}
 	bx r0
@@ -13126,7 +13126,7 @@ ekrBattleEnding_8056288: @ 0x08056288
 	ble _08056304
 	bl EndEkrGauge
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 	bl SetupBackgroundForWeatherMaybe
 	ldr r0, _0805630C  @ gLCDControlBuffer
 	mov ip, r0
@@ -13231,7 +13231,7 @@ _08056372:
 	bl sub_8049788
 _0805637E:
 	adds r0, r5, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 	add sp, #4
 	pop {r4, r5}
 	pop {r0}
@@ -13343,7 +13343,7 @@ _080563AE:
 	strb r0, [r4]
 	bl EnablePaletteSync
 	adds r0, r7, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _08056468:
 	add sp, #8
 	pop {r3, r4}
@@ -13366,7 +13366,7 @@ ekrBattleEnding_8056484: @ 0x08056484
 	bl EndEkrBattleDeamon
 	bl RefreshBMapDisplay_FromBattle
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 	pop {r4}
 	pop {r0}
 	bx r0
@@ -13509,7 +13509,7 @@ _0805659C: @ jump table
 _080565B0:
 	ldr r0, _08056600  @ gUnknown_085B9B6C
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	adds r5, r0, #0
 	str r7, [r5, #0x44]
 	adds r1, r5, #0
@@ -13588,7 +13588,7 @@ _0805664C: .4byte gUnknown_085B9C84
 _08056650:
 	ldr r0, _080566AC  @ gUnknown_085B9B6C
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	adds r5, r0, #0
 	str r7, [r5, #0x44]
 	adds r1, r5, #0
@@ -13680,7 +13680,7 @@ _080566FE:
 	strh r4, [r5, #0x36]
 	ldr r0, _08056770  @ gUnknown_085B9B6C
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	adds r5, r0, #0
 	str r7, [r5, #0x44]
 	adds r1, r5, #0
@@ -13761,7 +13761,7 @@ _080567B8: .4byte gUnknown_085B9C64
 _080567BC:
 	ldr r0, _08056800  @ gUnknown_085B9B6C
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	adds r5, r0, #0
 	str r7, [r5, #0x44]
 	adds r1, r5, #0
@@ -13860,7 +13860,7 @@ sub_8056864: @ 0x08056864
 	adds r0, r5, #0
 	bl AnimDelete
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 	b _080568F6
 _08056886:
 	ldr r0, [r4, #0x44]
@@ -13932,7 +13932,7 @@ sub_8056900: @ 0x08056900
 	adds r5, r0, #0
 	ldr r0, _0805692C  @ gUnknown_085B9CE4
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	adds r4, r0, #0
 	str r5, [r4, #0x44]
 	movs r1, #0
@@ -14214,7 +14214,7 @@ _08056B50:
 	strh r0, [r4, #0x36]
 _08056B60:
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 	pop {r4, r5, r6}
 	pop {r0}
 	bx r0
@@ -14238,7 +14238,7 @@ sub_8056B70: @ 0x08056B70
 	cmp r1, r0
 	blt _08056B94
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 	b _08056D0A
 	.align 2, 0
 _08056B90: .4byte 0xFFFFFCB4
@@ -14439,7 +14439,7 @@ _08056D0A:
 	THUMB_FUNC_START sub_8056D18
 sub_8056D18: @ 0x08056D18
 	push {lr}
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 	pop {r0}
 	bx r0
 
@@ -14452,7 +14452,7 @@ NewEkrWindowAppear: @ 0x08056D24
 	adds r4, r1, #0
 	ldr r0, _08056D68  @ gUnknown_085B9D0C
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	str r5, [r0, #0x44]
 	movs r1, #0
 	strh r1, [r0, #0x2c]
@@ -14522,7 +14522,7 @@ sub_8056D90: @ 0x08056D90
 	str r0, [r1]
 	bl EkrGauge_80511F8
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 	b _08056E04
 	.align 2, 0
 _08056DB8: .4byte gUnknown_0201FACC
@@ -14581,7 +14581,7 @@ NewEkrNamewinAppear: @ 0x08056E10
 	adds r6, r2, #0
 	ldr r0, _08056E40  @ gUnknown_085B9D24
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	str r4, [r0, #0x44]
 	movs r1, #0
 	strh r1, [r0, #0x2c]
@@ -14648,7 +14648,7 @@ sub_8056E7C: @ 0x08056E7C
 	movs r0, #0
 	strh r0, [r2, #0x2c]
 	adds r0, r2, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 	b _08056E9E
 _08056E9A:
 	adds r0, r3, #1
@@ -14682,7 +14682,7 @@ sub_8056EA4: @ 0x08056EA4
 	bl sub_8051AF4
 _08056ECC:
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 	b _08056F16
 	.align 2, 0
 _08056ED4: .4byte gUnknown_0201FAD0
@@ -14732,7 +14732,7 @@ sub_8056F20: @ 0x08056F20
 	adds r5, r1, #0
 	ldr r0, _08056F44  @ gUnknown_085B9D44
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	str r4, [r0, #0x44]
 	movs r1, #0
 	strh r1, [r0, #0x2c]
@@ -14798,7 +14798,7 @@ sub_8056F84: @ 0x08056F84
 	movs r0, #0
 	str r0, [r1]
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 	b _08056FF0
 	.align 2, 0
 _08056FA8: .4byte gUnknown_0201FAD4
@@ -20024,7 +20024,7 @@ NewEkrChienCHR: @ 0x0805990C
 	adds r4, r0, #0
 	ldr r0, _08059920  @ gUnknown_085B9D94
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	str r4, [r0, #0x5c]
 	pop {r4}
 	pop {r0}
@@ -20041,7 +20041,7 @@ sub_8059924: @ 0x08059924
 	ldr r0, [r4, #0x5c]
 	bl RegisterAISSheetGraphics
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 	pop {r4}
 	pop {r0}
 	bx r0
@@ -22157,7 +22157,7 @@ NewEfxAnimeDrvProc: @ 0x0805A9C0
 	ldr r4, _0805A9D8  @ gUnknown_0201FB18
 	ldr r0, _0805A9DC  @ gUnknown_085B9DAC
 	movs r1, #4
-	bl Proc_Create
+	bl Proc_Start
 	str r0, [r4]
 	bl AnimClearAll
 	pop {r4}
@@ -22174,7 +22174,7 @@ sub_805A9E0: @ 0x0805A9E0
 	push {lr}
 	ldr r0, _0805A9F0  @ gUnknown_0201FB18
 	ldr r0, [r0]
-	bl Proc_Delete
+	bl Proc_End
 	pop {r0}
 	bx r0
 	.align 2, 0
@@ -22197,7 +22197,7 @@ sub_805AA00: @ 0x0805AA00
 	adds r4, r0, #0
 	ldr r0, _0805AA24  @ gUnknown_085B9DC4
 	movs r1, #4
-	bl Proc_Create
+	bl Proc_Start
 	adds r5, r0, #0
 	adds r0, r4, #0
 	bl sub_805A60C
@@ -22225,7 +22225,7 @@ sub_805AA28: @ 0x0805AA28
 	str r0, [r4, #0x14]
 	str r0, [r4, #0x18]
 	ldr r0, [r4, #0x34]
-	bl Proc_Delete
+	bl Proc_End
 	pop {r4}
 	pop {r0}
 	bx r0
@@ -22722,12 +22722,12 @@ sub_805AE14: @ 0x0805AE14
 	ldr r0, [r4, #0x14]
 	cmp r0, #0
 	beq _0805AE2E
-	bl Proc_Delete
+	bl Proc_End
 _0805AE2E:
 	ldr r0, [r4, #0x18]
 	cmp r0, #0
 	beq _0805AE38
-	bl Proc_Delete
+	bl Proc_End
 _0805AE38:
 	pop {r4}
 	pop {r0}
@@ -23093,7 +23093,7 @@ sub_805B0CC: @ 0x0805B0CC
 	ldr r0, _0805B0E8  @ MainUpdate_8055C68
 	bl SetMainUpdateRoutine
 	ldr r0, _0805B0EC  @ gUnknown_085B9A34
-	bl Proc_DeleteAllWithScript
+	bl Proc_EndEach
 	pop {r0}
 	bx r0
 	.align 2, 0
@@ -23107,7 +23107,7 @@ NewEkrTogiInitPROC: @ 0x0805B0F0
 	push {lr}
 	ldr r0, _0805B100  @ gUnknown_085B9DDC
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	pop {r0}
 	bx r0
 	.align 2, 0
@@ -23157,7 +23157,7 @@ sub_805B104: @ 0x0805B104
 	bl sub_80712B0
 	bl EnablePaletteSync
 	mov r0, r8
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 	pop {r3}
 	mov r8, r3
 	pop {r4, r5, r6}
@@ -23210,7 +23210,7 @@ sub_805B18C: @ 0x0805B18C
 	movs r0, #0x8e
 	bl SomePlaySound_8071990
 	adds r0, r5, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 	add sp, #0x10
 	pop {r4, r5, r6}
 	pop {r0}
@@ -23262,7 +23262,7 @@ sub_805B200: @ 0x0805B200
 	cmp r1, r0
 	bne _0805B254
 	adds r0, r6, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _0805B254:
 	add sp, #4
 	pop {r4, r5, r6}
@@ -23280,7 +23280,7 @@ sub_805B264: @ 0x0805B264
 	adds r4, r0, #0
 	bl NewEkrTogiColor
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 	pop {r4}
 	pop {r0}
 	bx r0
@@ -23292,7 +23292,7 @@ NewEkrTogiEndPROC: @ 0x0805B278
 	push {lr}
 	ldr r0, _0805B28C  @ gUnknown_085B9E0C
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	bl EndEkrTogiColor
 	pop {r0}
 	bx r0
@@ -23315,7 +23315,7 @@ sub_805B290: @ 0x0805B290
 	movs r0, #0x10
 	strh r0, [r4, #0x2e]
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 	pop {r4}
 	pop {r0}
 	bx r0
@@ -23363,7 +23363,7 @@ sub_805B2BC: @ 0x0805B2BC
 	cmp r1, r0
 	bne _0805B310
 	adds r0, r6, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _0805B310:
 	add sp, #4
 	pop {r4, r5, r6}
@@ -23386,7 +23386,7 @@ sub_805B320: @ 0x0805B320
 	ldr r0, _0805B348  @ GeneralVBlankHandler
 	bl SetInterrupt_LCDVBlank
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 	pop {r4}
 	pop {r0}
 	bx r0
@@ -23402,7 +23402,7 @@ NewEkrTogiColor: @ 0x0805B34C
 	ldr r4, _0805B370  @ gUnknown_0201FB24
 	ldr r0, _0805B374  @ gUnknown_085B9E34
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	str r0, [r4]
 	movs r1, #0
 	strh r1, [r0, #0x2c]
@@ -23427,7 +23427,7 @@ EndEkrTogiColor: @ 0x0805B380
 	push {lr}
 	ldr r0, _0805B390  @ gUnknown_0201FB24
 	ldr r0, [r0]
-	bl Proc_Delete
+	bl Proc_End
 	pop {r0}
 	bx r0
 	.align 2, 0
@@ -23512,7 +23512,7 @@ sub_805B400: @ 0x0805B400
 	str r0, [r1]
 	ldr r0, _0805B440  @ gUnknown_085D4F98
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	str r4, [r0, #0x5c]
 	movs r1, #0
 	strh r1, [r0, #0x2c]
@@ -23604,7 +23604,7 @@ _0805B48C:
 	cmp r0, r8
 	bne _0805B4C6
 	adds r0, r2, #0
-	bl Proc_Delete
+	bl Proc_End
 _0805B4C6:
 	pop {r3, r4, r5}
 	mov r8, r3
@@ -23629,7 +23629,7 @@ sub_805B4E8: @ 0x0805B4E8
 	adds r5, r1, #0
 	ldr r0, _0805B528  @ gUnknown_085D4FB8
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	str r4, [r0, #0x5c]
 	movs r1, #0
 	strh r1, [r0, #0x2c]
@@ -23677,7 +23677,7 @@ sub_805B534: @ 0x0805B534
 	cmp r0, r1
 	bne _0805B54E
 	adds r0, r2, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _0805B54E:
 	pop {r0}
 	bx r0
@@ -23695,7 +23695,7 @@ sub_805B554: @ 0x0805B554
 	str r0, [r1]
 	ldr r0, _0805B580  @ gUnknown_085D4FD0
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	str r4, [r0, #0x5c]
 	movs r1, #0
 	strh r1, [r0, #0x2c]
@@ -23751,7 +23751,7 @@ _0805B5AA:
 	cmp r0, r5
 	bne _0805B5CA
 	adds r0, r3, #0
-	bl Proc_Delete
+	bl Proc_End
 _0805B5CA:
 	pop {r4, r5}
 	pop {r0}
@@ -23780,7 +23780,7 @@ sub_805B5E0: @ 0x0805B5E0
 	str r0, [r1]
 	ldr r0, _0805B62C  @ gUnknown_085D4FF0
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	adds r7, r0, #0
 	mov r0, r8
 	str r0, [r7, #0x5c]
@@ -23923,7 +23923,7 @@ _0805B6FC:
 	subs r0, #1
 	str r0, [r1]
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _0805B718:
 	pop {r4, r5, r6, r7}
 	pop {r0}
@@ -24193,7 +24193,7 @@ _0805B908:
 _0805B90E:
 	ldr r0, _0805B938  @ gUnknown_085D5008
 	movs r1, #0
-	bl Proc_Create
+	bl Proc_Start
 	ldr r1, [sp]
 	str r1, [r0, #0x5c]
 	movs r1, #0
@@ -24229,7 +24229,7 @@ sub_805B93C: @ 0x0805B93C
 	THUMB_FUNC_START sub_805B94C
 sub_805B94C: @ 0x0805B94C
 	push {lr}
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 	pop {r0}
 	bx r0
 
@@ -24315,7 +24315,7 @@ _0805B9D0:
 	movs r0, #0
 	bl SetPrimaryHBlankHandler
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _0805BA00:
 	pop {r4}
 	pop {r0}
@@ -24345,7 +24345,7 @@ sub_805BA1C: @ 0x0805BA1C
 	str r0, [r1]
 	ldr r0, _0805BA60  @ gUnknown_085D5028
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	str r5, [r0, #0x5c]
 	movs r1, #0
 	strh r1, [r0, #0x2c]
@@ -24458,7 +24458,7 @@ _0805BAFE:
 	subs r0, #1
 	str r0, [r1]
 	adds r0, r5, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _0805BB18:
 	add sp, #4
 	pop {r4, r5, r6}
@@ -24491,7 +24491,7 @@ sub_805BB24: @ 0x0805BB24
 	str r0, [r1]
 	ldr r0, _0805BB80  @ gUnknown_085D5040
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	adds r4, r0, #0
 	mov r0, r8
 	str r0, [r4, #0x5c]
@@ -24641,7 +24641,7 @@ _0805BC44:
 	str r0, [r1]
 	bl SetDefaultColorEffects
 	adds r0, r5, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _0805BC6E:
 	pop {r3, r4}
 	mov r8, r3
@@ -24668,7 +24668,7 @@ StartSpellThing_MagicQuake: @ 0x0805BC80
 	str r0, [r1]
 	ldr r0, _0805BCC0  @ gUnknown_085D5058
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	adds r4, r0, #0
 	str r6, [r4, #0x5c]
 	adds r0, r5, #0
@@ -24883,9 +24883,9 @@ _0805BE2A:
 	bl sub_80559F0
 	mov r1, r8
 	ldr r0, [r1, #0x60]
-	bl Proc_Delete
+	bl Proc_End
 	mov r0, r8
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _0805BE6A:
 	pop {r3, r4, r5}
 	mov r8, r3
@@ -24912,7 +24912,7 @@ StartSpellAnimDummy: @ 0x0805BE90
 	bl ClearBG1Setup
 	ldr r0, _0805BEB0  @ gUnknown_085D5070
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	str r4, [r0, #0x5c]
 	movs r1, #0
 	strh r1, [r0, #0x2c]
@@ -24962,7 +24962,7 @@ _0805BEDA:
 _0805BEF8:
 	bl SetSomethingSpellFxToFalse
 	adds r0, r5, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _0805BF02:
 	pop {r4, r5, r6}
 	pop {r0}
@@ -24978,7 +24978,7 @@ StartSpellAnimHandAxe: @ 0x0805BF08
 	bl ClearBG1Setup
 	ldr r0, _0805BF3C  @ gUnknown_085D5088
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	adds r4, r0, #0
 	str r5, [r4, #0x5c]
 	movs r0, #0
@@ -25066,7 +25066,7 @@ _0805BFC0:
 	bne _0805BFD6
 	bl SetSomethingSpellFxToFalse
 	adds r0, r5, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _0805BFD6:
 	pop {r4, r5, r6}
 	pop {r0}
@@ -25085,7 +25085,7 @@ sub_805BFDC: @ 0x0805BFDC
 	str r0, [r1]
 	ldr r0, _0805C024  @ gUnknown_085D50A0
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	adds r6, r0, #0
 	str r4, [r6, #0x5c]
 	movs r0, #0
@@ -25180,9 +25180,9 @@ sub_805C080: @ 0x0805C080
 	movs r1, #1
 	str r1, [r0]
 	ldr r0, [r4, #0x64]
-	bl Proc_Delete
+	bl Proc_End
 	adds r0, r4, #0
-	bl Proc_Delete
+	bl Proc_End
 	b _0805C0D6
 	.align 2, 0
 _0805C0C4: .4byte gUnknown_0201774C
@@ -25190,7 +25190,7 @@ _0805C0C8: .4byte gUnknown_0203E120
 _0805C0CC: .4byte gUnknown_02017758
 _0805C0D0:
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _0805C0D6:
 	pop {r4}
 	pop {r0}
@@ -25206,11 +25206,11 @@ sub_805C0DC: @ 0x0805C0DC
 	movs r0, #0
 	str r0, [r1]
 	ldr r0, [r4, #0x64]
-	bl Proc_Delete
+	bl Proc_End
 	ldr r0, [r4, #0x5c]
 	bl sub_805C104
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 	pop {r4}
 	pop {r0}
 	bx r0
@@ -25230,7 +25230,7 @@ sub_805C104: @ 0x0805C104
 	str r0, [r1]
 	ldr r0, _0805C148  @ gUnknown_085D50C0
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	adds r6, r0, #0
 	str r4, [r6, #0x5c]
 	movs r0, #0
@@ -25300,11 +25300,11 @@ sub_805C188: @ 0x0805C188
 	movs r0, #1
 	str r0, [r1]
 	ldr r0, [r4, #0x64]
-	bl Proc_Delete
+	bl Proc_End
 	ldr r0, [r4, #0x60]
 	bl AnimDelete
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _0805C1BA:
 	pop {r4}
 	pop {r0}
@@ -25326,7 +25326,7 @@ sub_805C1C8: @ 0x0805C1C8
 	str r0, [r1]
 	ldr r0, _0805C208  @ gUnknown_085D50D8
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	adds r4, r0, #0
 	str r6, [r4, #0x5c]
 	str r5, [r4, #0x60]
@@ -25410,7 +25410,7 @@ StartSpellAnimArrow: @ 0x0805C264
 	bl ClearBG1Setup
 	ldr r0, _0805C298  @ gUnknown_085D50F8
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	adds r4, r0, #0
 	str r5, [r4, #0x5c]
 	movs r0, #0
@@ -25511,7 +25511,7 @@ _0805C334:
 	bne _0805C350
 	bl SetSomethingSpellFxToFalse
 	adds r0, r5, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _0805C350:
 	pop {r4, r5, r6}
 	pop {r0}
@@ -25530,7 +25530,7 @@ sub_805C358: @ 0x0805C358
 	str r0, [r1]
 	ldr r0, _0805C3A4  @ gUnknown_085D5110
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	adds r4, r0, #0
 	str r5, [r4, #0x5c]
 	movs r0, #0
@@ -25583,7 +25583,7 @@ sub_805C3C0: @ 0x0805C3C0
 	ldr r0, [r4, #0x60]
 	bl AnimDelete
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _0805C3E6:
 	pop {r4}
 	pop {r0}
@@ -25601,7 +25601,7 @@ StartSpellAnimJavelin: @ 0x0805C3F0
 	bl ClearBG1Setup
 	ldr r0, _0805C440  @ gUnknown_085D5128
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	adds r4, r0, #0
 	str r5, [r4, #0x5c]
 	movs r0, #0
@@ -25641,7 +25641,7 @@ sub_805C44C: @ 0x0805C44C
 	bl ClearBG1Setup
 	ldr r0, _0805C49C  @ gUnknown_085D5128
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	adds r4, r0, #0
 	str r5, [r4, #0x5c]
 	movs r0, #0
@@ -25681,7 +25681,7 @@ sub_805C4A8: @ 0x0805C4A8
 	bl ClearBG1Setup
 	ldr r0, _0805C4F8  @ gUnknown_085D5128
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	adds r4, r0, #0
 	str r5, [r4, #0x5c]
 	movs r0, #0
@@ -25721,7 +25721,7 @@ sub_805C504: @ 0x0805C504
 	bl ClearBG1Setup
 	ldr r0, _0805C554  @ gUnknown_085D5128
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	adds r4, r0, #0
 	str r5, [r4, #0x5c]
 	movs r0, #0
@@ -25761,7 +25761,7 @@ sub_805C560: @ 0x0805C560
 	bl ClearBG1Setup
 	ldr r0, _0805C5B0  @ gUnknown_085D5128
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	adds r4, r0, #0
 	str r5, [r4, #0x5c]
 	movs r0, #0
@@ -25801,7 +25801,7 @@ sub_805C5BC: @ 0x0805C5BC
 	bl ClearBG1Setup
 	ldr r0, _0805C60C  @ gUnknown_085D5128
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	adds r4, r0, #0
 	str r5, [r4, #0x5c]
 	movs r0, #0
@@ -25841,7 +25841,7 @@ sub_805C618: @ 0x0805C618
 	bl ClearBG1Setup
 	ldr r0, _0805C668  @ gUnknown_085D5128
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	adds r4, r0, #0
 	str r5, [r4, #0x5c]
 	movs r0, #0
@@ -25881,7 +25881,7 @@ sub_805C674: @ 0x0805C674
 	bl ClearBG1Setup
 	ldr r0, _0805C6C4  @ gUnknown_085D5128
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	adds r4, r0, #0
 	str r5, [r4, #0x5c]
 	movs r0, #0
@@ -25921,7 +25921,7 @@ sub_805C6D0: @ 0x0805C6D0
 	bl ClearBG1Setup
 	ldr r0, _0805C720  @ gUnknown_085D5128
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	adds r4, r0, #0
 	str r5, [r4, #0x5c]
 	movs r0, #0
@@ -25961,7 +25961,7 @@ sub_805C72C: @ 0x0805C72C
 	bl ClearBG1Setup
 	ldr r0, _0805C77C  @ gUnknown_085D5128
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	adds r4, r0, #0
 	str r5, [r4, #0x5c]
 	movs r0, #0
@@ -26001,7 +26001,7 @@ sub_805C788: @ 0x0805C788
 	bl ClearBG1Setup
 	ldr r0, _0805C7D8  @ gUnknown_085D5128
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	adds r4, r0, #0
 	str r5, [r4, #0x5c]
 	movs r0, #0
@@ -26107,7 +26107,7 @@ _0805C870:
 	bne _0805C886
 	bl SetSomethingSpellFxToFalse
 	adds r0, r5, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _0805C886:
 	pop {r4, r5, r6}
 	pop {r0}
@@ -26127,7 +26127,7 @@ sub_805C88C: @ 0x0805C88C
 	str r0, [r1]
 	ldr r0, _0805C8BC  @ gUnknown_085D5140
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	adds r5, r0, #0
 	str r6, [r5, #0x5c]
 	movs r0, #0
@@ -26192,7 +26192,7 @@ sub_805C904: @ 0x0805C904
 	ldr r0, [r4, #0x60]
 	bl AnimDelete
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _0805C92A:
 	pop {r4}
 	pop {r0}
@@ -26210,7 +26210,7 @@ StartSpellAnimSong: @ 0x0805C934
 	bl ClearBG1Setup
 	ldr r0, _0805C968  @ gUnknown_085D5158
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	adds r4, r0, #0
 	str r5, [r4, #0x5c]
 	movs r0, #0
@@ -26336,7 +26336,7 @@ _0805CA44:
 	strh r0, [r4, #0x10]
 	bl SetSomethingSpellFxToFalse
 	adds r0, r5, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _0805CA5A:
 	add sp, #8
 	pop {r4, r5, r6, r7}
@@ -26356,7 +26356,7 @@ sub_805CA64: @ 0x0805CA64
 	str r0, [r1]
 	ldr r0, _0805CAB0  @ gUnknown_085D5170
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	str r5, [r0, #0x5c]
 	movs r2, #0
 	strh r2, [r0, #0x2c]
@@ -26441,7 +26441,7 @@ _0805CB14:
 	str r0, [r1]
 	bl sub_805526C
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _0805CB32:
 	pop {r3}
 	mov r8, r3
@@ -26465,7 +26465,7 @@ sub_805CB40: @ 0x0805CB40
 	str r0, [r1]
 	ldr r0, _0805CB98  @ gUnknown_085D5260
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	adds r4, r0, #0
 	str r6, [r4, #0x5c]
 	movs r0, #0
@@ -26522,7 +26522,7 @@ sub_805CBA8: @ 0x0805CBA8
 	subs r0, #1
 	str r0, [r1]
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _0805CBD2:
 	pop {r4}
 	pop {r0}
@@ -26540,7 +26540,7 @@ StartSpellAnimDance: @ 0x0805CBDC
 	bl ClearBG1Setup
 	ldr r0, _0805CC10  @ gUnknown_085D5278
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	adds r4, r0, #0
 	str r5, [r4, #0x5c]
 	movs r0, #0
@@ -26666,7 +26666,7 @@ _0805CCEC:
 	strh r0, [r4, #0x10]
 	bl SetSomethingSpellFxToFalse
 	adds r0, r5, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _0805CD02:
 	add sp, #8
 	pop {r4, r5, r6, r7}
@@ -26683,7 +26683,7 @@ sub_805CD0C: @ 0x0805CD0C
 	bl ClearBG1Setup
 	ldr r0, _0805CD58  @ gUnknown_085D5290
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	adds r4, r0, #0
 	str r5, [r4, #0x5c]
 	movs r0, #0
@@ -26799,7 +26799,7 @@ _0805CE02:
 	bne _0805CE14
 	bl SetSomethingSpellFxToFalse
 	adds r0, r5, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _0805CE14:
 	pop {r4, r5, r6}
 	pop {r0}
@@ -26818,7 +26818,7 @@ sub_805CE1C: @ 0x0805CE1C
 	str r0, [r1]
 	ldr r0, _0805CE74  @ gUnknown_085D52A8
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	adds r4, r0, #0
 	str r5, [r4, #0x5c]
 	movs r7, #0
@@ -26886,7 +26886,7 @@ sub_805CE94: @ 0x0805CE94
 	subs r0, #1
 	str r0, [r1]
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _0805CEBA:
 	pop {r4}
 	pop {r0}
@@ -26911,7 +26911,7 @@ sub_805CEC8: @ 0x0805CEC8
 	bl ClearBG1Setup
 	ldr r0, _0805CF00  @ gUnknown_085D52C0
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	adds r4, r0, #0
 	str r5, [r4, #0x5c]
 	movs r0, #0
@@ -27011,7 +27011,7 @@ _0805CF9A:
 	bl SetSomethingSpellFxToFalse
 	bl sub_8055000
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _0805CFB6:
 	add sp, #8
 	pop {r4, r5, r6, r7}
@@ -27031,7 +27031,7 @@ sub_805CFC0: @ 0x0805CFC0
 	str r0, [r1]
 	ldr r0, _0805D01C  @ gUnknown_085D52D8
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	adds r4, r0, #0
 	str r5, [r4, #0x5c]
 	movs r0, #0
@@ -27092,7 +27092,7 @@ sub_805D030: @ 0x0805D030
 	subs r0, #1
 	str r0, [r1]
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _0805D05A:
 	pop {r4}
 	pop {r0}
@@ -27110,7 +27110,7 @@ StartSpellAnimFireBreath: @ 0x0805D064
 	bl ClearBG1Setup
 	ldr r0, _0805D098  @ gUnknown_085D52F0
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	adds r4, r0, #0
 	str r5, [r4, #0x5c]
 	movs r0, #0
@@ -27204,7 +27204,7 @@ _0805D134:
 	bne _0805D142
 	bl SetSomethingSpellFxToFalse
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _0805D142:
 	add sp, #8
 	pop {r4, r5, r6}
@@ -27224,7 +27224,7 @@ sub_805D14C: @ 0x0805D14C
 	str r0, [r1]
 	ldr r0, _0805D1AC  @ gUnknown_085D5308
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	adds r5, r0, #0
 	str r6, [r5, #0x5c]
 	movs r0, #0
@@ -27341,7 +27341,7 @@ _0805D22E:
 	subs r0, #1
 	str r0, [r1]
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _0805D254:
 	pop {r4}
 	pop {r0}
@@ -27361,7 +27361,7 @@ sub_805D260: @ 0x0805D260
 	str r0, [r1]
 	ldr r0, _0805D2A8  @ gUnknown_085D5320
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	adds r4, r0, #0
 	str r5, [r4, #0x5c]
 	movs r0, #0
@@ -27409,7 +27409,7 @@ sub_805D2B4: @ 0x0805D2B4
 	subs r0, #1
 	str r0, [r1]
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _0805D2E0:
 	pop {r4}
 	pop {r0}
@@ -27429,7 +27429,7 @@ sub_805D2EC: @ 0x0805D2EC
 	str r0, [r1]
 	ldr r0, _0805D31C  @ gUnknown_085D5338
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	str r4, [r0, #0x5c]
 	movs r1, #0
 	strh r1, [r0, #0x2c]
@@ -27488,7 +27488,7 @@ _0805D368:
 	subs r0, #1
 	str r0, [r1]
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _0805D37E:
 	pop {r4, r5}
 	pop {r0}
@@ -27507,7 +27507,7 @@ StartSpellAnimIceBreath: @ 0x0805D388
 	bl ClearBG1Setup
 	ldr r0, _0805D3C0  @ gUnknown_085D5358
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	adds r4, r0, #0
 	str r5, [r4, #0x5c]
 	movs r0, #0
@@ -27582,7 +27582,7 @@ _0805D428:
 	bl SetSomethingSpellFxToFalse
 	bl sub_8055000
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _0805D43E:
 	pop {r4, r5}
 	pop {r0}
@@ -27601,7 +27601,7 @@ sub_805D444: @ 0x0805D444
 	str r0, [r1]
 	ldr r0, _0805D484  @ gUnknown_085D5370
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	adds r5, r0, #0
 	str r4, [r5, #0x5c]
 	ldr r2, _0805D488  @ gUnknown_085E420C
@@ -27670,7 +27670,7 @@ StartSpellAnimDarkBreath: @ 0x0805D4D0
 	bl ClearBG1Setup
 	ldr r0, _0805D504  @ gUnknown_085D5390
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	adds r4, r0, #0
 	str r5, [r4, #0x5c]
 	movs r0, #0
@@ -27753,7 +27753,7 @@ _0805D584:
 	bne _0805D596
 	bl SetSomethingSpellFxToFalse
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _0805D596:
 	pop {r4, r5}
 	pop {r0}
@@ -27771,7 +27771,7 @@ sub_805D59C: @ 0x0805D59C
 	str r0, [r1]
 	ldr r0, _0805D5DC  @ gUnknown_085D53A8
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	str r4, [r0, #0x5c]
 	movs r1, #0
 	strh r1, [r0, #0x2c]
@@ -27833,7 +27833,7 @@ _0805D61A:
 	str r0, [r1]
 	bl sub_805526C
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _0805D638:
 	pop {r4}
 	pop {r0}
@@ -27853,7 +27853,7 @@ sub_805D644: @ 0x0805D644
 	str r0, [r1]
 	ldr r0, _0805D674  @ gUnknown_085D53F0
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	str r4, [r0, #0x5c]
 	movs r1, #0
 	strh r1, [r0, #0x2c]
@@ -27903,7 +27903,7 @@ _0805D6A6:
 	subs r0, #1
 	str r0, [r1]
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _0805D6C0:
 	pop {r4}
 	pop {r0}
@@ -27924,7 +27924,7 @@ sub_805D6CC: @ 0x0805D6CC
 	str r0, [r1]
 	ldr r0, _0805D72C  @ gUnknown_085D5410
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	adds r5, r0, #0
 	str r6, [r5, #0x5c]
 	movs r0, #0
@@ -28039,7 +28039,7 @@ _0805D7A8:
 	ldr r0, [r4, #0x60]
 	bl AnimDelete
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _0805D7CE:
 	pop {r4}
 	pop {r0}
@@ -28058,7 +28058,7 @@ StartSpellAnimThunder: @ 0x0805D7D8
 	bl ClearBG1Setup
 	ldr r0, _0805D810  @ gUnknown_085D5428
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	adds r4, r0, #0
 	str r5, [r4, #0x5c]
 	movs r0, #0
@@ -28147,7 +28147,7 @@ _0805D892:
 	bl SetSomethingSpellFxToFalse
 	bl sub_8055000
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _0805D8AE:
 	pop {r4, r5, r6}
 	pop {r0}
@@ -28165,7 +28165,7 @@ sub_805D8B4: @ 0x0805D8B4
 	str r0, [r1]
 	ldr r0, _0805D910  @ gUnknown_085D5440
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	adds r5, r0, #0
 	str r4, [r5, #0x5c]
 	movs r0, #0
@@ -28271,7 +28271,7 @@ _0805D990:
 	str r0, [r1]
 	bl sub_805526C
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _0805D9AE:
 	add sp, #4
 	pop {r4, r5, r6}
@@ -28292,7 +28292,7 @@ sub_805D9BC: @ 0x0805D9BC
 	str r0, [r1]
 	ldr r0, _0805D9EC  @ gUnknown_085D5468
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	str r4, [r0, #0x5c]
 	movs r1, #0
 	strh r1, [r0, #0x2c]
@@ -28342,7 +28342,7 @@ _0805DA1E:
 	subs r0, #1
 	str r0, [r1]
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _0805DA38:
 	pop {r4}
 	pop {r0}
@@ -28363,7 +28363,7 @@ sub_805DA44: @ 0x0805DA44
 	str r0, [r1]
 	ldr r0, _0805DA90  @ gUnknown_085D5488
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	adds r4, r0, #0
 	str r5, [r4, #0x5c]
 	movs r0, #0
@@ -28414,7 +28414,7 @@ sub_805DAA4: @ 0x0805DAA4
 	subs r0, #1
 	str r0, [r1]
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _0805DACA:
 	pop {r4}
 	pop {r0}
@@ -28433,7 +28433,7 @@ StartSpellAnimFire: @ 0x0805DAD4
 	bl ClearBG1Setup
 	ldr r0, _0805DB14  @ gUnknown_085D54A0
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	adds r4, r0, #0
 	str r5, [r4, #0x5c]
 	movs r1, #0
@@ -28466,7 +28466,7 @@ StartSpellAnimElfire: @ 0x0805DB18
 	bl ClearBG1Setup
 	ldr r0, _0805DB58  @ gUnknown_085D54A0
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	adds r4, r0, #0
 	str r5, [r4, #0x5c]
 	movs r0, #0
@@ -28607,7 +28607,7 @@ _0805DC42:
 	bl SetSomethingSpellFxToFalse
 	bl sub_8055000
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _0805DC58:
 	pop {r3, r4}
 	mov r8, r3
@@ -28628,7 +28628,7 @@ sub_805DC64: @ 0x0805DC64
 	str r0, [r1]
 	ldr r0, _0805DCAC  @ gUnknown_085D54B8
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	str r4, [r0, #0x5c]
 	movs r1, #0
 	strh r1, [r0, #0x2c]
@@ -28696,7 +28696,7 @@ _0805DCF2:
 	str r0, [r1]
 	bl sub_805526C
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _0805DD10:
 	pop {r4}
 	pop {r0}
@@ -28717,7 +28717,7 @@ sub_805DD1C: @ 0x0805DD1C
 	str r0, [r1]
 	ldr r0, _0805DD64  @ gUnknown_085D5530
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	adds r4, r0, #0
 	str r6, [r4, #0x5c]
 	movs r0, #0
@@ -28800,7 +28800,7 @@ _0805DDCE:
 	subs r0, #1
 	str r0, [r1]
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _0805DDE6:
 	pop {r4}
 	pop {r0}
@@ -28820,7 +28820,7 @@ StartSubSpell_efxFireHITBG: @ 0x0805DDF0
 	str r0, [r1]
 	ldr r0, _0805DE4C  @ gUnknown_085D5548
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	adds r5, r0, #0
 	str r4, [r5, #0x5c]
 	movs r0, #0
@@ -28912,7 +28912,7 @@ _0805DEB0:
 	str r0, [r1]
 	bl sub_805526C
 	adds r0, r7, #0
-	bl Proc_Delete
+	bl Proc_End
 _0805DECE:
 	pop {r4, r5, r6, r7}
 	pop {r0}
@@ -28933,7 +28933,7 @@ StartSubSpell_efxElfireBG: @ 0x0805DED8
 	str r0, [r1]
 	ldr r0, _0805DF38  @ gUnknown_085D5608
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	adds r5, r0, #0
 	str r4, [r5, #0x5c]
 	movs r0, #0
@@ -29010,7 +29010,7 @@ sub_805DF70: @ 0x0805DF70
 	subs r0, #1
 	str r0, [r1]
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _0805DF98:
 	pop {r4}
 	pop {r0}
@@ -29030,7 +29030,7 @@ StartSubSpell_efxElfireBGCOL: @ 0x0805DFA4
 	str r0, [r1]
 	ldr r0, _0805DFDC  @ gUnknown_085D5620
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	str r4, [r0, #0x5c]
 	movs r1, #0
 	strh r1, [r0, #0x2c]
@@ -29082,7 +29082,7 @@ _0805E00E:
 	subs r0, #1
 	str r0, [r1]
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _0805E024:
 	pop {r4}
 	pop {r0}
@@ -29103,7 +29103,7 @@ StartSubSpell_efxElfireOBJ: @ 0x0805E030
 	str r0, [r1]
 	ldr r0, _0805E074  @ gUnknown_085D5640
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	adds r4, r0, #0
 	str r5, [r4, #0x5c]
 	movs r0, #0
@@ -29173,7 +29173,7 @@ sub_805E0B4: @ 0x0805E0B4
 	subs r0, #1
 	str r0, [r1]
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _0805E0DA:
 	pop {r4}
 	pop {r0}
@@ -29192,7 +29192,7 @@ StartSpellAnimFimbulvetr: @ 0x0805E0E4
 	bl ClearBG1Setup
 	ldr r0, _0805E11C  @ gUnknown_085D5658
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	adds r4, r0, #0
 	str r5, [r4, #0x5c]
 	movs r0, #0
@@ -29332,7 +29332,7 @@ _0805E20C:
 	bl SetSomethingSpellFxToFalse
 	bl sub_8055000
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _0805E228:
 	add sp, #8
 	pop {r4, r5, r6, r7}
@@ -29351,7 +29351,7 @@ sub_805E230: @ 0x0805E230
 	str r0, [r1]
 	ldr r0, _0805E288  @ gUnknown_085D5670
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	adds r5, r0, #0
 	str r4, [r5, #0x5c]
 	movs r0, #0
@@ -29443,7 +29443,7 @@ _0805E2F0:
 	str r0, [r1]
 	bl sub_805526C
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _0805E30E:
 	pop {r4, r5}
 	pop {r0}
@@ -29463,7 +29463,7 @@ sub_805E318: @ 0x0805E318
 	str r0, [r1]
 	ldr r0, _0805E370  @ gUnknown_085D56B8
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	adds r5, r0, #0
 	str r4, [r5, #0x5c]
 	movs r0, #0
@@ -29578,7 +29578,7 @@ _0805E408:
 	str r0, [r1]
 	bl sub_805526C
 	adds r0, r6, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _0805E426:
 	pop {r4, r5, r6}
 	pop {r0}
@@ -29599,7 +29599,7 @@ sub_805E430: @ 0x0805E430
 	str r0, [r1]
 	ldr r0, _0805E484  @ gUnknown_085D5728
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	adds r4, r0, #0
 	str r5, [r4, #0x5c]
 	movs r0, #0
@@ -29652,7 +29652,7 @@ sub_805E494: @ 0x0805E494
 	subs r0, #1
 	str r0, [r1]
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _0805E4BA:
 	pop {r4}
 	pop {r0}
@@ -29672,7 +29672,7 @@ sub_805E4C4: @ 0x0805E4C4
 	str r0, [r1]
 	ldr r0, _0805E504  @ gUnknown_085D5740
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	str r4, [r0, #0x5c]
 	movs r2, #0
 	strh r2, [r0, #0x2c]
@@ -29715,7 +29715,7 @@ _0805E516:
 	subs r0, #1
 	str r0, [r1]
 	adds r0, r5, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 	pop {r4, r5}
 	pop {r0}
 	bx r0
@@ -29747,7 +29747,7 @@ sub_805E53C: @ 0x0805E53C
 	str r0, [r1]
 	ldr r0, _0805E5D0  @ gUnknown_085D5758
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	adds r7, r0, #0
 	str r6, [r7, #0x5c]
 	strh r5, [r7, #0x2c]
@@ -29901,7 +29901,7 @@ sub_805E694: @ 0x0805E694
 	adds r0, r3, #0
 	bl AnimDelete
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 	b _0805E748
 	.align 2, 0
 _0805E6C4: .4byte gUnknown_0201774C
@@ -29992,7 +29992,7 @@ sub_805E754: @ 0x0805E754
 	bl ClearBG1Setup
 	ldr r0, _0805E78C  @ gUnknown_085D5770
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	adds r4, r0, #0
 	str r5, [r4, #0x5c]
 	movs r0, #0
@@ -30096,7 +30096,7 @@ _0805E82C:
 	bl SetSomethingSpellFxToFalse
 	bl sub_8055000
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _0805E848:
 	pop {r4, r5, r6}
 	pop {r0}
@@ -30114,7 +30114,7 @@ sub_805E850: @ 0x0805E850
 	str r0, [r1]
 	ldr r0, _0805E890  @ gUnknown_085D5788
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	str r4, [r0, #0x5c]
 	movs r1, #0
 	strh r1, [r0, #0x2c]
@@ -30182,7 +30182,7 @@ _0805E8E0:
 	subs r0, #1
 	str r0, [r1]
 	adds r0, r7, #0
-	bl Proc_Delete
+	bl Proc_End
 _0805E8F6:
 	pop {r4, r5, r6, r7}
 	pop {r0}
@@ -30202,7 +30202,7 @@ sub_805E900: @ 0x0805E900
 	str r0, [r1]
 	ldr r0, _0805E920  @ gUnknown_085D57F8
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	str r4, [r0, #0x5c]
 	pop {r4}
 	pop {r0}
@@ -30233,7 +30233,7 @@ sub_805E924: @ 0x0805E924
 	lsls r1, r1, #5
 	bl SomeImageStoringRoutine_SpellAnim
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 	add sp, #4
 	pop {r4}
 	pop {r0}
@@ -30256,7 +30256,7 @@ sub_805E968: @ 0x0805E968
 	subs r0, #1
 	str r0, [r1]
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 	pop {r4}
 	pop {r0}
 	bx r0
@@ -30275,7 +30275,7 @@ sub_805E98C: @ 0x0805E98C
 	str r0, [r1]
 	ldr r0, _0805E9AC  @ gUnknown_085D5820
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	str r4, [r0, #0x5c]
 	pop {r4}
 	pop {r0}
@@ -30307,7 +30307,7 @@ sub_805E9B0: @ 0x0805E9B0
 	movs r0, #5
 	strh r0, [r4, #0x2e]
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 	pop {r4}
 	pop {r0}
 	bx r0
@@ -30354,7 +30354,7 @@ sub_805E9E4: @ 0x0805E9E4
 	movs r0, #0xa
 	strh r0, [r6, #0x2e]
 	adds r0, r6, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _0805EA3A:
 	add sp, #4
 	pop {r4, r5, r6}
@@ -30403,7 +30403,7 @@ sub_805EA4C: @ 0x0805EA4C
 	subs r0, #1
 	str r0, [r1]
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _0805EA9E:
 	add sp, #4
 	pop {r4}
@@ -30431,7 +30431,7 @@ sub_805EAAC: @ 0x0805EAAC
 	bl CpuFastSet
 	ldr r0, _0805EAEC  @ gUnknown_085D5860
 	movs r1, #0
-	bl Proc_Create
+	bl Proc_Start
 	str r4, [r0, #0x5c]
 	movs r1, #0
 	strh r1, [r0, #0x2c]
@@ -30487,7 +30487,7 @@ sub_805EAF0: @ 0x0805EAF0
 	movs r0, #0
 	strh r0, [r5, #0x2c]
 	adds r0, r5, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _0805EB46:
 	add sp, #4
 	pop {r4, r5}
@@ -30523,7 +30523,7 @@ sub_805EB54: @ 0x0805EB54
 	subs r0, #1
 	str r0, [r1]
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _0805EB8A:
 	pop {r4}
 	pop {r0}
@@ -30543,7 +30543,7 @@ sub_805EB98: @ 0x0805EB98
 	bl ClearBG1Setup
 	ldr r0, _0805EBD0  @ gUnknown_085D5880
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	adds r4, r0, #0
 	str r5, [r4, #0x5c]
 	movs r0, #0
@@ -30677,7 +30677,7 @@ _0805ECAA:
 	bl SetSomethingSpellFxToFalse
 	bl sub_8055000
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _0805ECCC:
 	add sp, #8
 	pop {r4, r5, r6}
@@ -30696,7 +30696,7 @@ sub_805ECD4: @ 0x0805ECD4
 	str r0, [r1]
 	ldr r0, _0805ED24  @ gUnknown_085D5898
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	adds r4, r0, #0
 	str r5, [r4, #0x5c]
 	movs r0, #0
@@ -30772,7 +30772,7 @@ _0805ED70:
 	str r0, [r1]
 	bl sub_805526C
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _0805ED8E:
 	pop {r4}
 	pop {r0}
@@ -30792,7 +30792,7 @@ sub_805ED98: @ 0x0805ED98
 	str r0, [r1]
 	ldr r0, _0805EDD0  @ gUnknown_085D58B8
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	str r4, [r0, #0x5c]
 	movs r1, #0
 	strh r1, [r0, #0x2c]
@@ -30845,7 +30845,7 @@ _0805EE02:
 	subs r0, #1
 	str r0, [r1]
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _0805EE18:
 	pop {r4}
 	pop {r0}
@@ -30866,7 +30866,7 @@ sub_805EE24: @ 0x0805EE24
 	str r0, [r1]
 	ldr r0, _0805EE6C  @ gUnknown_085D58D8
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	adds r6, r0, #0
 	str r4, [r6, #0x5c]
 	movs r0, #0
@@ -30936,7 +30936,7 @@ sub_805EEAC: @ 0x0805EEAC
 	subs r0, #1
 	str r0, [r1]
 	adds r0, r2, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _0805EED0:
 	pop {r0}
 	bx r0
@@ -30954,7 +30954,7 @@ sub_805EED8: @ 0x0805EED8
 	bl ClearBG1Setup
 	ldr r0, _0805EF10  @ gUnknown_085D58F0
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	adds r4, r0, #0
 	str r5, [r4, #0x5c]
 	movs r0, #0
@@ -31050,7 +31050,7 @@ _0805EFA8:
 	cmp r1, r0
 	bne _0805EFB8
 	ldr r0, [r4, #0x64]
-	bl Proc_Delete
+	bl Proc_End
 	b _0805EFFE
 _0805EFB8:
 	adds r0, r2, #0
@@ -31082,7 +31082,7 @@ _0805EFE8:
 	bl SetSomethingSpellFxToFalse
 	bl sub_8055000
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _0805EFFE:
 	pop {r4, r5}
 	pop {r0}
@@ -31100,7 +31100,7 @@ sub_805F004: @ 0x0805F004
 	str r0, [r1]
 	ldr r0, _0805F060  @ gUnknown_085D5908
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	adds r5, r0, #0
 	str r4, [r5, #0x5c]
 	movs r0, #0
@@ -31182,7 +31182,7 @@ sub_805F0B0: @ 0x0805F0B0
 	str r0, [r1]
 	ldr r0, _0805F118  @ gUnknown_085D5908
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	adds r5, r0, #0
 	str r4, [r5, #0x5c]
 	movs r0, #0
@@ -31279,7 +31279,7 @@ _0805F17C:
 	str r0, [r1]
 	bl sub_805526C
 	adds r0, r7, #0
-	bl Proc_Delete
+	bl Proc_End
 _0805F19A:
 	pop {r4, r5, r6, r7}
 	pop {r0}
@@ -31300,7 +31300,7 @@ sub_805F1A4: @ 0x0805F1A4
 	str r0, [r1]
 	ldr r0, _0805F1E0  @ gUnknown_085D5A68
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	adds r4, r0, #0
 	str r5, [r4, #0x5c]
 	adds r0, r5, #0
@@ -31334,7 +31334,7 @@ sub_805F1E8: @ 0x0805F1E8
 	str r0, [r1]
 	ldr r0, _0805F22C  @ gUnknown_085D5AB0
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	adds r4, r0, #0
 	str r5, [r4, #0x5c]
 	adds r0, r5, #0
@@ -31395,7 +31395,7 @@ sub_805F24C: @ 0x0805F24C
 	lsls r1, r1, #5
 	bl SomeImageStoringRoutine_SpellAnim
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 	pop {r4}
 	pop {r0}
 	bx r0
@@ -31424,7 +31424,7 @@ sub_805F288: @ 0x0805F288
 	lsls r1, r1, #5
 	bl SomeImageStoringRoutine_SpellAnim
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 	pop {r4}
 	pop {r0}
 	bx r0
@@ -31453,7 +31453,7 @@ sub_805F2C4: @ 0x0805F2C4
 	lsls r1, r1, #5
 	bl SomeImageStoringRoutine_SpellAnim
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 	pop {r4}
 	pop {r0}
 	bx r0
@@ -31480,7 +31480,7 @@ sub_805F300: @ 0x0805F300
 	movs r0, #0x27
 	strh r0, [r4, #0x2c]
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 	pop {r4}
 	pop {r0}
 	bx r0
@@ -31524,7 +31524,7 @@ StartSpellAnimNosferatu: @ 0x0805F354
 	bl ClearBG1Setup
 	ldr r0, _0805F38C  @ gUnknown_085D5AE0
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	adds r4, r0, #0
 	str r5, [r4, #0x5c]
 	movs r0, #0
@@ -31673,7 +31673,7 @@ _0805F490:
 	bne _0805F4A8
 	bl SetSomethingSpellFxToFalse
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _0805F4A8:
 	add sp, #8
 	pop {r4, r5, r6, r7}
@@ -31693,7 +31693,7 @@ sub_805F4B0: @ 0x0805F4B0
 	str r0, [r1]
 	ldr r0, _0805F514  @ gUnknown_085D5AF8
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	adds r6, r0, #0
 	str r4, [r6, #0x5c]
 	adds r1, r6, #0
@@ -31757,7 +31757,7 @@ sub_805F53C: @ 0x0805F53C
 	str r0, [r1]
 	ldr r0, _0805F5B0  @ gUnknown_085D5B28
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	adds r5, r0, #0
 	str r4, [r5, #0x5c]
 	movs r0, #0
@@ -31867,7 +31867,7 @@ _0805F618:
 	bl sub_805526C
 	bl sub_8055000
 	adds r0, r7, #0
-	bl Proc_Delete
+	bl Proc_End
 	b _0805F65A
 	.align 2, 0
 _0805F648: .4byte gUnknown_0201774C
@@ -31877,7 +31877,7 @@ _0805F64C:
 	movs r0, #1
 	strh r0, [r7, #0x2e]
 	adds r0, r7, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _0805F65A:
 	pop {r4, r5, r6, r7}
 	pop {r0}
@@ -31900,7 +31900,7 @@ sub_805F660: @ 0x0805F660
 	bl sub_805526C
 	bl sub_8055000
 	adds r0, r4, #0
-	bl Proc_Delete
+	bl Proc_End
 	b _0805F6E6
 	.align 2, 0
 _0805F684: .4byte gUnknown_02017750
@@ -31949,7 +31949,7 @@ _0805F6A4:
 	bl sub_80533D0
 _0805F6E0:
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _0805F6E6:
 	pop {r4, r5}
 	pop {r0}
@@ -32011,7 +32011,7 @@ _0805F74A:
 	movs r3, #1
 	bl sub_80729A4
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _0805F766:
 	pop {r4, r5}
 	pop {r0}
@@ -32061,7 +32061,7 @@ _0805F7A8:
 	bl sub_805526C
 	bl sub_8055000
 	adds r0, r7, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _0805F7CA:
 	pop {r4, r5, r6, r7}
 	pop {r0}
@@ -32112,7 +32112,7 @@ _0805F810:
 	str r0, [r1]
 	bl sub_805526C
 	adds r0, r7, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _0805F82E:
 	pop {r4, r5, r6, r7}
 	pop {r0}
@@ -32134,7 +32134,7 @@ sub_805F838: @ 0x0805F838
 	str r0, [r1]
 	ldr r0, _0805F864  @ gUnknown_085D5CD8
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	str r4, [r0, #0x5c]
 	movs r1, #0
 	strh r1, [r0, #0x2c]
@@ -32179,7 +32179,7 @@ sub_805F868: @ 0x0805F868
 	subs r0, #1
 	str r0, [r1]
 	adds r0, r5, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _0805F8A6:
 	add sp, #4
 	pop {r4, r5}
@@ -32199,7 +32199,7 @@ sub_805F8B4: @ 0x0805F8B4
 	bl ClearBG1Setup
 	ldr r0, _0805F8EC  @ gUnknown_085D5CF0
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	adds r4, r0, #0
 	str r5, [r4, #0x5c]
 	movs r0, #0
@@ -32298,7 +32298,7 @@ _0805F984:
 	bl SetSomethingSpellFxToFalse
 	bl sub_8055000
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _0805F9A0:
 	pop {r4, r5, r6}
 	pop {r0}
@@ -32316,7 +32316,7 @@ sub_805F9A8: @ 0x0805F9A8
 	str r0, [r1]
 	ldr r0, _0805FA00  @ gUnknown_085D5D08
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	adds r5, r0, #0
 	str r4, [r5, #0x5c]
 	movs r0, #0
@@ -32442,7 +32442,7 @@ _0805FAB0:
 	str r0, [r1]
 	bl sub_805526C
 	adds r0, r7, #0
-	bl Proc_Delete
+	bl Proc_End
 _0805FACE:
 	add sp, #4
 	pop {r3}
@@ -32464,7 +32464,7 @@ StartSpellAnimPurge: @ 0x0805FAE0
 	bl ClearBG1Setup
 	ldr r0, _0805FB1C  @ gUnknown_085D5EAC
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	adds r4, r0, #0
 	str r5, [r4, #0x5c]
 	movs r6, #0
@@ -32658,7 +32658,7 @@ _0805FC72:
 	bl SetSomethingSpellFxToFalse
 	bl sub_8055000
 	adds r0, r6, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _0805FC88:
 	add sp, #8
 	pop {r4, r5, r6, r7}
@@ -32677,7 +32677,7 @@ sub_805FC90: @ 0x0805FC90
 	str r0, [r1]
 	ldr r0, _0805FCCC  @ gUnknown_085D5EC4
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	str r4, [r0, #0x5c]
 	movs r1, #0
 	strh r1, [r0, #0x2c]
@@ -32754,7 +32754,7 @@ _0805FD2E:
 	str r0, [r1]
 	bl sub_805526C
 	adds r0, r7, #0
-	bl Proc_Delete
+	bl Proc_End
 _0805FD4C:
 	pop {r3}
 	mov r8, r3
@@ -32776,7 +32776,7 @@ sub_805FD5C: @ 0x0805FD5C
 	str r0, [r1]
 	ldr r0, _0805FD8C  @ gUnknown_085D6284
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	str r4, [r0, #0x5c]
 	movs r2, #0
 	strh r2, [r0, #0x2c]
@@ -32838,7 +32838,7 @@ sub_805FD90: @ 0x0805FD90
 	subs r0, #1
 	str r0, [r1]
 	adds r0, r5, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _0805FDEC:
 	pop {r4, r5}
 	pop {r0}
@@ -32864,7 +32864,7 @@ sub_805FDFC: @ 0x0805FDFC
 	str r0, [r1]
 	ldr r0, _0805FE58  @ gUnknown_085D62DC
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	adds r4, r0, #0
 	str r5, [r4, #0x5c]
 	ldr r3, _0805FE5C  @ gUnknown_0866F58C
@@ -32930,7 +32930,7 @@ StartSpellAnimDivine: @ 0x0805FE84
 	bl ClearBG1Setup
 	ldr r0, _0805FEBC  @ gUnknown_085D62FC
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	adds r4, r0, #0
 	str r5, [r4, #0x5c]
 	movs r0, #0
@@ -33060,7 +33060,7 @@ _0805FF90:
 	bl SetSomethingSpellFxToFalse
 	bl sub_8055000
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _0805FFAA:
 	pop {r4, r5}
 	pop {r0}
@@ -33078,7 +33078,7 @@ sub_805FFB0: @ 0x0805FFB0
 	str r0, [r1]
 	ldr r0, _08060008  @ gUnknown_085D6314
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	adds r5, r0, #0
 	str r4, [r5, #0x5c]
 	movs r0, #0
@@ -33139,7 +33139,7 @@ sub_8060034: @ 0x08060034
 	str r0, [r1]
 	ldr r0, _0806008C  @ gUnknown_085D6314
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	adds r5, r0, #0
 	str r4, [r5, #0x5c]
 	movs r0, #0
@@ -33200,7 +33200,7 @@ sub_80600B8: @ 0x080600B8
 	str r0, [r1]
 	ldr r0, _08060110  @ gUnknown_085D6314
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	adds r5, r0, #0
 	str r4, [r5, #0x5c]
 	movs r0, #0
@@ -33319,7 +33319,7 @@ _080601B4:
 	str r0, [r1]
 	bl sub_805526C
 	adds r0, r7, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _080601D2:
 	add sp, #4
 	pop {r4, r5, r6, r7}
@@ -33341,7 +33341,7 @@ sub_80601E0: @ 0x080601E0
 	str r0, [r1]
 	ldr r0, _08060224  @ gUnknown_085D648C
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	adds r4, r0, #0
 	str r5, [r4, #0x5c]
 	movs r0, #0
@@ -33405,7 +33405,7 @@ sub_8060254: @ 0x08060254
 	subs r0, #1
 	str r0, [r1]
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _0806027A:
 	pop {r4}
 	pop {r0}
@@ -33436,7 +33436,7 @@ sub_806028C: @ 0x0806028C
 	bl ClearBG1Setup
 	ldr r0, _080602C4  @ gUnknown_085D64A4
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	adds r4, r0, #0
 	str r5, [r4, #0x5c]
 	movs r0, #0
@@ -33624,7 +33624,7 @@ _08060420:
 	bl SetSomethingSpellFxToFalse
 	bl sub_8055000
 	adds r0, r6, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _08060438:
 	add sp, #8
 	pop {r4, r5, r6, r7}
@@ -33643,7 +33643,7 @@ sub_8060440: @ 0x08060440
 	str r0, [r1]
 	ldr r0, _08060498  @ gUnknown_085D64BC
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	str r4, [r0, #0x5c]
 	movs r2, #0
 	strh r2, [r0, #0x2c]
@@ -33695,7 +33695,7 @@ sub_80604B0: @ 0x080604B0
 	str r0, [r1]
 	ldr r0, _08060500  @ gUnknown_085D64BC
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	str r4, [r0, #0x5c]
 	movs r2, #0
 	strh r2, [r0, #0x2c]
@@ -33740,7 +33740,7 @@ sub_8060514: @ 0x08060514
 	str r0, [r1]
 	ldr r0, _08060558  @ gUnknown_085D64BC
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	str r4, [r0, #0x5c]
 	movs r2, #0
 	strh r2, [r0, #0x2c]
@@ -33822,7 +33822,7 @@ _080605BC:
 	str r0, [r1]
 	bl sub_805526C
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _080605DA:
 	pop {r3}
 	mov r8, r3
@@ -33845,7 +33845,7 @@ sub_80605E8: @ 0x080605E8
 	str r0, [r1]
 	ldr r0, _08060644  @ gUnknown_085D65AC
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	adds r4, r0, #0
 	str r5, [r4, #0x5c]
 	adds r0, r5, #0
@@ -33950,7 +33950,7 @@ _080606C0:
 	bne _080606D0
 	strh r4, [r1, #0x2c]
 	adds r0, r1, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _080606D0:
 	pop {r4}
 	pop {r0}
@@ -33996,7 +33996,7 @@ _0806071C:
 	bne _0806072C
 	strh r4, [r1, #0x2c]
 	adds r0, r1, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _0806072C:
 	pop {r4}
 	pop {r0}
@@ -34042,7 +34042,7 @@ _08060778:
 	bne _08060788
 	strh r4, [r1, #0x2c]
 	adds r0, r1, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _08060788:
 	pop {r4}
 	pop {r0}
@@ -34060,7 +34060,7 @@ sub_8060790: @ 0x08060790
 	str r0, [r1]
 	ldr r0, _080607CC  @ gUnknown_085D65F4
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	str r4, [r0, #0x5c]
 	movs r1, #0
 	strh r1, [r0, #0x2c]
@@ -34125,7 +34125,7 @@ sub_80607D8: @ 0x080607D8
 	subs r0, #1
 	str r0, [r1]
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _0806082A:
 	pop {r4}
 	pop {r0}
@@ -34151,7 +34151,7 @@ sub_8060838: @ 0x08060838
 	str r0, [r1]
 	ldr r0, _08060884  @ gUnknown_085D6624
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	adds r4, r0, #0
 	str r5, [r4, #0x5c]
 	movs r0, #0
@@ -34204,7 +34204,7 @@ StartSpellAnimFenrir: @ 0x080608A4
 	bl ClearBG1Setup
 	ldr r0, _080608DC  @ gUnknown_085D6644
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	adds r4, r0, #0
 	str r5, [r4, #0x5c]
 	movs r0, #0
@@ -34428,7 +34428,7 @@ _08060A72:
 	bl SetSomethingSpellFxToFalse
 	bl sub_8055000
 	adds r0, r6, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _08060A94:
 	add sp, #8
 	pop {r4, r5, r6, r7}
@@ -34449,7 +34449,7 @@ sub_8060A9C: @ 0x08060A9C
 	str r0, [r1]
 	ldr r0, _08060B14  @ gUnknown_085D665C
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	str r4, [r0, #0x5c]
 	movs r1, #0
 	strh r1, [r0, #0x2c]
@@ -34538,7 +34538,7 @@ sub_8060B48: @ 0x08060B48
 	cmp r0, r1
 	ble _08060B72
 	adds r0, r2, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _08060B72:
 	pop {r0}
 	bx r0
@@ -34558,7 +34558,7 @@ sub_8060B7C: @ 0x08060B7C
 	str r0, [r1]
 	ldr r0, _08060BB8  @ gUnknown_085D667C
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	str r4, [r0, #0x5c]
 	movs r1, #0
 	strh r1, [r0, #0x2c]
@@ -34624,7 +34624,7 @@ _08060BF8:
 	cmp r0, r1
 	ble _08060C10
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _08060C10:
 	pop {r4}
 	pop {r0}
@@ -34644,7 +34644,7 @@ sub_8060C18: @ 0x08060C18
 	str r0, [r1]
 	ldr r0, _08060C68  @ gUnknown_085D66A4
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	adds r4, r0, #0
 	str r5, [r4, #0x5c]
 	movs r0, #0
@@ -34697,7 +34697,7 @@ sub_8060C78: @ 0x08060C78
 	ldr r0, [r4, #0x60]
 	bl AnimDelete
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _08060CA2:
 	pop {r4}
 	pop {r0}
@@ -34717,7 +34717,7 @@ sub_8060CAC: @ 0x08060CAC
 	str r0, [r1]
 	ldr r0, _08060D14  @ gUnknown_085D66BC
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	adds r5, r0, #0
 	str r4, [r5, #0x5c]
 	movs r1, #0
@@ -34783,7 +34783,7 @@ sub_8060D3C: @ 0x08060D3C
 	str r0, [r1]
 	ldr r0, _08060D9C  @ gUnknown_085D66BC
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	adds r5, r0, #0
 	str r4, [r5, #0x5c]
 	movs r1, #0
@@ -34921,7 +34921,7 @@ _08060E60:
 	str r0, [r1]
 	bl sub_805526C
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _08060E7E:
 	add sp, #4
 	pop {r3}
@@ -34944,7 +34944,7 @@ sub_8060E90: @ 0x08060E90
 	str r0, [r1]
 	ldr r0, _08060ECC  @ gUnknown_085D686C
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	str r4, [r0, #0x5c]
 	movs r1, #0
 	strh r1, [r0, #0x2c]
@@ -34999,7 +34999,7 @@ sub_8060ED8: @ 0x08060ED8
 	subs r0, #1
 	str r0, [r1]
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _08060F18:
 	pop {r4}
 	pop {r0}
@@ -35020,7 +35020,7 @@ sub_8060F24: @ 0x08060F24
 	str r0, [r1]
 	ldr r0, _08060F68  @ gUnknown_085D6884
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	adds r5, r0, #0
 	str r6, [r5, #0x5c]
 	movs r0, #0
@@ -35132,7 +35132,7 @@ sub_8060FA4: @ 0x08060FA4
 	ldr r0, [r6, #0x60]
 	bl AnimDelete
 	adds r0, r6, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _08061014:
 	add sp, #4
 	pop {r4, r5, r6}
@@ -35153,7 +35153,7 @@ StartSpellAnimHeal: @ 0x08061024
 	bl ClearBG1Setup
 	ldr r0, _08061048  @ gUnknown_085D68BC
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	str r4, [r0, #0x5c]
 	movs r1, #0
 	strh r1, [r0, #0x2c]
@@ -35285,7 +35285,7 @@ _08061124:
 	strh r0, [r5, #0x10]
 _0806114A:
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _08061150:
 	pop {r4, r5, r6}
 	pop {r0}
@@ -35302,7 +35302,7 @@ StartSpellAnimMend: @ 0x08061158
 	bl ClearBG1Setup
 	ldr r0, _0806117C  @ gUnknown_085D68D4
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	str r4, [r0, #0x5c]
 	movs r1, #0
 	strh r1, [r0, #0x2c]
@@ -35457,7 +35457,7 @@ _08061284:
 	strh r0, [r5, #0x10]
 _080612AE:
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _080612B4:
 	pop {r4, r5, r6}
 	pop {r0}
@@ -35474,7 +35474,7 @@ StartSpellAnimRecover: @ 0x080612BC
 	bl ClearBG1Setup
 	ldr r0, _080612E0  @ gUnknown_085D68EC
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	str r4, [r0, #0x5c]
 	movs r1, #0
 	strh r1, [r0, #0x2c]
@@ -35629,7 +35629,7 @@ _080613E8:
 	strh r0, [r5, #0x10]
 _08061412:
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _08061418:
 	pop {r4, r5, r6}
 	pop {r0}
@@ -35646,7 +35646,7 @@ sub_8061420: @ 0x08061420
 	bl ClearBG1Setup
 	ldr r0, _08061444  @ gUnknown_085D6904
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	str r4, [r0, #0x5c]
 	movs r1, #0
 	strh r1, [r0, #0x2c]
@@ -35807,7 +35807,7 @@ _0806155C:
 	strh r0, [r5, #0x10]
 _08061586:
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _0806158C:
 	pop {r4, r5, r6}
 	pop {r0}
@@ -35826,7 +35826,7 @@ sub_8061594: @ 0x08061594
 	str r0, [r1]
 	ldr r0, _080615E0  @ gUnknown_085D691C
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	adds r5, r0, #0
 	str r4, [r5, #0x5c]
 	movs r0, #0
@@ -35914,7 +35914,7 @@ sub_8061650: @ 0x08061650
 	str r0, [r1]
 	ldr r0, _0806169C  @ gUnknown_085D691C
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	adds r5, r0, #0
 	str r4, [r5, #0x5c]
 	movs r1, #0
@@ -36034,7 +36034,7 @@ _08061750:
 	subs r0, #1
 	str r0, [r1]
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _08061768:
 	pop {r4}
 	pop {r0}
@@ -36055,7 +36055,7 @@ sub_8061774: @ 0x08061774
 	str r0, [r1]
 	ldr r0, _080617A0  @ gUnknown_085D6934
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	adds r1, r0, #0
 	str r4, [r1, #0x5c]
 	movs r0, #0
@@ -36117,7 +36117,7 @@ sub_80617E4: @ 0x080617E4
 	str r0, [r1]
 	ldr r0, _08061810  @ gUnknown_085D6934
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	adds r1, r0, #0
 	str r4, [r1, #0x5c]
 	movs r0, #0
@@ -36197,7 +36197,7 @@ _0806187A:
 	subs r0, #1
 	str r0, [r1]
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _08061890:
 	pop {r4}
 	pop {r0}
@@ -36222,7 +36222,7 @@ sub_806189C: @ 0x0806189C
 	str r0, [r1]
 	ldr r0, _080618D4  @ gUnknown_085D6954
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	str r4, [r0, #0x5c]
 	strh r5, [r0, #0x2c]
 	strh r6, [r0, #0x2e]
@@ -36251,7 +36251,7 @@ sub_80618D8: @ 0x080618D8
 	cmp r0, #0
 	bne _080618EE
 	adds r0, r1, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _080618EE:
 	pop {r0}
 	bx r0
@@ -36274,7 +36274,7 @@ sub_80618F4: @ 0x080618F4
 	subs r0, #1
 	str r0, [r1]
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 	b _08061964
 	.align 2, 0
 _08061918: .4byte gUnknown_0201774C
@@ -36333,7 +36333,7 @@ sub_806196C: @ 0x0806196C
 	str r0, [r1]
 	ldr r0, _080619BC  @ gUnknown_085D6974
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	adds r4, r0, #0
 	str r5, [r4, #0x5c]
 	movs r0, #0
@@ -36378,7 +36378,7 @@ sub_80619CC: @ 0x080619CC
 	str r0, [r1]
 	ldr r0, _08061A20  @ gUnknown_085D698C
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	adds r4, r0, #0
 	str r5, [r4, #0x5c]
 	movs r0, #0
@@ -36434,7 +36434,7 @@ sub_8061A30: @ 0x08061A30
 	ldr r0, [r4, #0x60]
 	bl AnimDelete
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _08061A5A:
 	pop {r4}
 	pop {r0}
@@ -36465,7 +36465,7 @@ sub_8061A64: @ 0x08061A64
 	strh r4, [r3, #6]
 	strh r4, [r2, #0x2c]
 	adds r0, r2, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _08061A8E:
 	pop {r4, r5}
 	pop {r0}
@@ -36495,7 +36495,7 @@ sub_8061A98: @ 0x08061A98
 	ldr r0, [r4, #0x60]
 	bl AnimDelete
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _08061AC2:
 	pop {r4}
 	pop {r0}
@@ -36516,7 +36516,7 @@ sub_8061ACC: @ 0x08061ACC
 	str r0, [r1]
 	ldr r0, _08061B00  @ gUnknown_085D69AC
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	adds r1, r0, #0
 	str r5, [r1, #0x5c]
 	movs r0, #0
@@ -36637,7 +36637,7 @@ _08061BBC:
 	strh r5, [r0, #2]
 	strh r6, [r0, #4]
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _08061BD6:
 	add sp, #4
 	pop {r3}
@@ -36668,7 +36668,7 @@ sub_8061BE4: @ 0x08061BE4
 	ldr r0, [r4, #0x60]
 	bl AnimDelete
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _08061C0E:
 	pop {r4}
 	pop {r0}
@@ -36687,7 +36687,7 @@ sub_8061C18: @ 0x08061C18
 	bl ClearBG1Setup
 	ldr r0, _08061C44  @ gUnknown_085D69CC
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	str r4, [r0, #0x5c]
 	movs r2, #0
 	movs r1, #0
@@ -36711,7 +36711,7 @@ sub_8061C48: @ 0x08061C48
 	bl ClearBG1Setup
 	ldr r0, _08061C74  @ gUnknown_085D69CC
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	str r4, [r0, #0x5c]
 	movs r1, #0
 	strh r1, [r0, #0x2c]
@@ -36800,7 +36800,7 @@ _08061D0A:
 	bl SetSomethingSpellFxToFalse
 	bl sub_8055000
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _08061D1E:
 	pop {r4}
 	pop {r0}
@@ -36820,7 +36820,7 @@ sub_8061D28: @ 0x08061D28
 	str r0, [r1]
 	ldr r0, _08061D68  @ gUnknown_085D69E4
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	str r4, [r0, #0x5c]
 	movs r1, #0
 	strh r1, [r0, #0x2c]
@@ -36900,7 +36900,7 @@ _08061DD0:
 	str r0, [r1]
 	bl sub_805526C
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _08061DEE:
 	pop {r4, r5, r6}
 	pop {r0}
@@ -36921,7 +36921,7 @@ sub_8061DF8: @ 0x08061DF8
 	str r0, [r1]
 	ldr r0, _08061E28  @ gUnknown_085D6A0C
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	adds r1, r0, #0
 	str r4, [r1, #0x5c]
 	movs r0, #0
@@ -36979,7 +36979,7 @@ _08061E6A:
 	subs r0, #1
 	str r0, [r1]
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _08061E80:
 	pop {r4}
 	pop {r0}
@@ -37002,7 +37002,7 @@ sub_8061E8C: @ 0x08061E8C
 	str r0, [r1]
 	ldr r0, _08061F5C  @ gUnknown_085D6A2C
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	str r5, [r0, #0x5c]
 	movs r1, #0
 	mov r8, r1
@@ -37197,7 +37197,7 @@ _08061FDC:
 _0806203C:
 	bl sub_805526C
 	adds r0, r5, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _08062046:
 	pop {r4, r5, r6, r7}
 	pop {r0}
@@ -37220,7 +37220,7 @@ sub_8062058: @ 0x08062058
 	str r0, [r1]
 	ldr r0, _08062088  @ gUnknown_085D6A48
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	adds r1, r0, #0
 	str r4, [r1, #0x5c]
 	movs r0, #0
@@ -37278,7 +37278,7 @@ _080620CA:
 	subs r0, #1
 	str r0, [r1]
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _080620E0:
 	pop {r4}
 	pop {r0}
@@ -37297,7 +37297,7 @@ sub_80620EC: @ 0x080620EC
 	bl ClearBG1Setup
 	ldr r0, _08062124  @ gUnknown_085D6A68
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	adds r4, r0, #0
 	str r5, [r4, #0x5c]
 	movs r0, #0
@@ -37483,7 +37483,7 @@ _08062274:
 	bl SetSomethingSpellFxToFalse
 	bl sub_8055000
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _08062294:
 	add sp, #8
 	pop {r3}
@@ -37504,7 +37504,7 @@ sub_80622A0: @ 0x080622A0
 	str r0, [r1]
 	ldr r0, _080622E0  @ gUnknown_085D6A80
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	str r4, [r0, #0x5c]
 	movs r1, #0
 	strh r1, [r0, #0x2c]
@@ -37574,7 +37574,7 @@ _08062330:
 	str r0, [r1]
 	bl sub_805526C
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _0806234E:
 	pop {r4, r5}
 	pop {r0}
@@ -37595,7 +37595,7 @@ sub_8062358: @ 0x08062358
 	str r0, [r1]
 	ldr r0, _08062398  @ gUnknown_085D6B00
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	adds r5, r0, #0
 	str r4, [r5, #0x5c]
 	ldr r3, _0806239C  @ gUnknown_0867EE04
@@ -37663,7 +37663,7 @@ StartSpellAnimSilence: @ 0x080623E0
 	bl ClearBG1Setup
 	ldr r0, _08062418  @ gUnknown_085D6B20
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	adds r4, r0, #0
 	str r5, [r4, #0x5c]
 	movs r0, #0
@@ -37797,7 +37797,7 @@ _080624FA:
 	bl SetSomethingSpellFxToFalse
 	bl sub_8055000
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _08062518:
 	add sp, #8
 	pop {r3}
@@ -37818,7 +37818,7 @@ sub_8062524: @ 0x08062524
 	str r0, [r1]
 	ldr r0, _08062588  @ gUnknown_085D6B38
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	adds r5, r0, #0
 	str r4, [r5, #0x5c]
 	movs r0, #0
@@ -37906,7 +37906,7 @@ _080625DE:
 	str r0, [r1]
 	bl sub_805526C
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _080625FC:
 	pop {r4}
 	pop {r0}
@@ -37927,7 +37927,7 @@ sub_8062608: @ 0x08062608
 	str r0, [r1]
 	ldr r0, _08062650  @ gUnknown_085D6B98
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	adds r4, r0, #0
 	str r5, [r4, #0x5c]
 	ldr r3, _08062654  @ gUnknown_08680FFC
@@ -37982,7 +37982,7 @@ StartSpellAnimSleep: @ 0x08062678
 	bl ClearBG1Setup
 	ldr r0, _080626B0  @ gUnknown_085D6BB8
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	adds r4, r0, #0
 	str r5, [r4, #0x5c]
 	movs r0, #0
@@ -38112,7 +38112,7 @@ _08062786:
 	bl SetSomethingSpellFxToFalse
 	bl sub_8055000
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _080627A6:
 	add sp, #8
 	pop {r3}
@@ -38133,7 +38133,7 @@ sub_80627B4: @ 0x080627B4
 	str r0, [r1]
 	ldr r0, _08062818  @ gUnknown_085D6BD0
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	adds r5, r0, #0
 	str r4, [r5, #0x5c]
 	movs r0, #0
@@ -38221,7 +38221,7 @@ _0806286E:
 	str r0, [r1]
 	bl sub_805526C
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _0806288C:
 	pop {r4}
 	pop {r0}
@@ -38242,7 +38242,7 @@ sub_8062898: @ 0x08062898
 	str r0, [r1]
 	ldr r0, _080628E0  @ gUnknown_085D6C28
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	adds r4, r0, #0
 	str r5, [r4, #0x5c]
 	ldr r3, _080628E4  @ gUnknown_0868C2E8
@@ -38283,7 +38283,7 @@ sub_80628F0: @ 0x080628F0
 	str r0, [r1]
 	ldr r0, _0806292C  @ gUnknown_085D6C48
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	adds r4, r0, #0
 	str r5, [r4, #0x5c]
 	ldr r3, _08062930  @ gUnknown_0868C168
@@ -38329,7 +38329,7 @@ sub_8062944: @ 0x08062944
 	str r0, [r1]
 	ldr r0, _08062964  @ gUnknown_085D6C68
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	str r4, [r0, #0x5c]
 	pop {r4}
 	pop {r0}
@@ -38380,7 +38380,7 @@ StartSpellAnimHammerne: @ 0x08062998
 	bl ClearBG1Setup
 	ldr r0, _080629D0  @ gUnknown_085D6CB0
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	adds r4, r0, #0
 	str r5, [r4, #0x5c]
 	movs r0, #0
@@ -38528,7 +38528,7 @@ _08062AC8:
 	bl SetSomethingSpellFxToFalse
 	bl sub_8055000
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _08062AE8:
 	add sp, #8
 	pop {r3}
@@ -38549,7 +38549,7 @@ sub_8062AF4: @ 0x08062AF4
 	str r0, [r1]
 	ldr r0, _08062B34  @ gUnknown_085D6CC8
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	str r4, [r0, #0x5c]
 	movs r1, #0
 	strh r1, [r0, #0x2c]
@@ -38619,7 +38619,7 @@ _08062B84:
 	str r0, [r1]
 	bl sub_805526C
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _08062BA2:
 	pop {r4, r5}
 	pop {r0}
@@ -38640,7 +38640,7 @@ sub_8062BAC: @ 0x08062BAC
 	str r0, [r1]
 	ldr r0, _08062BF4  @ gUnknown_085D6D48
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	adds r4, r0, #0
 	str r5, [r4, #0x5c]
 	ldr r3, _08062BF8  @ gUnknown_08684908
@@ -38691,7 +38691,7 @@ StartSpellAnimBerserk: @ 0x08062C14
 	bl ClearBG1Setup
 	ldr r0, _08062C4C  @ gUnknown_085D6D68
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	adds r4, r0, #0
 	str r5, [r4, #0x5c]
 	movs r0, #0
@@ -38806,7 +38806,7 @@ _08062D08:
 	bl SetSomethingSpellFxToFalse
 	bl sub_8055000
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _08062D26:
 	add sp, #4
 	pop {r4, r5, r6, r7}
@@ -38830,7 +38830,7 @@ sub_8062D30: @ 0x08062D30
 	str r0, [r1]
 	ldr r0, _08062E28  @ gUnknown_085D6D80
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	str r5, [r0, #0x5c]
 	movs r1, #0
 	mov r9, r1
@@ -38979,7 +38979,7 @@ sub_8062E44: @ 0x08062E44
 	subs r0, #1
 	str r0, [r1]
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _08062E96:
 	pop {r4, r5}
 	pop {r0}
@@ -39003,7 +39003,7 @@ sub_8062EAC: @ 0x08062EAC
 	str r0, [r1]
 	ldr r0, _08062ED4  @ gUnknown_085D6D98
 	movs r1, #4
-	bl Proc_Create
+	bl Proc_Start
 	str r4, [r0, #0x5c]
 	movs r1, #0
 	strh r1, [r0, #0x2c]
@@ -39058,7 +39058,7 @@ sub_8062ED8: @ 0x08062ED8
 	cmp r0, r1
 	bne _08062F2C
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _08062F2C:
 	add sp, #0x48
 	pop {r4}
@@ -39093,7 +39093,7 @@ sub_8062F4C: @ 0x08062F4C
 	str r0, [r1]
 	ldr r0, _08062F98  @ gUnknown_085D6DB8
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	adds r4, r0, #0
 	str r5, [r4, #0x5c]
 	adds r0, r5, #0
@@ -39159,7 +39159,7 @@ sub_8062FBC: @ 0x08062FBC
 	lsls r1, r1, #5
 	bl SomeImageStoringRoutine_SpellAnim
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 	pop {r4}
 	pop {r0}
 	bx r0
@@ -39188,7 +39188,7 @@ sub_8062FF8: @ 0x08062FF8
 	lsls r1, r1, #5
 	bl SomeImageStoringRoutine_SpellAnim
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 	pop {r4}
 	pop {r0}
 	bx r0
@@ -39217,7 +39217,7 @@ sub_8063034: @ 0x08063034
 	lsls r1, r1, #5
 	bl SomeImageStoringRoutine_SpellAnim
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 	pop {r4}
 	pop {r0}
 	bx r0
@@ -39246,7 +39246,7 @@ sub_8063070: @ 0x08063070
 	lsls r1, r1, #5
 	bl SomeImageStoringRoutine_SpellAnim
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 	pop {r4}
 	pop {r0}
 	bx r0
@@ -39275,7 +39275,7 @@ sub_80630AC: @ 0x080630AC
 	lsls r1, r1, #5
 	bl SomeImageStoringRoutine_SpellAnim
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 	pop {r4}
 	pop {r0}
 	bx r0
@@ -39304,7 +39304,7 @@ sub_80630E8: @ 0x080630E8
 	lsls r1, r1, #5
 	bl SomeImageStoringRoutine_SpellAnim
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 	pop {r4}
 	pop {r0}
 	bx r0
@@ -39333,7 +39333,7 @@ sub_8063124: @ 0x08063124
 	lsls r1, r1, #5
 	bl SomeImageStoringRoutine_SpellAnim
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 	pop {r4}
 	pop {r0}
 	bx r0
@@ -39362,7 +39362,7 @@ sub_8063160: @ 0x08063160
 	lsls r1, r1, #5
 	bl SomeImageStoringRoutine_SpellAnim
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 	pop {r4}
 	pop {r0}
 	bx r0
@@ -39391,7 +39391,7 @@ sub_806319C: @ 0x0806319C
 	lsls r1, r1, #5
 	bl SomeImageStoringRoutine_SpellAnim
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 	pop {r4}
 	pop {r0}
 	bx r0
@@ -39420,7 +39420,7 @@ sub_80631D8: @ 0x080631D8
 	lsls r1, r1, #5
 	bl SomeImageStoringRoutine_SpellAnim
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 	pop {r4}
 	pop {r0}
 	bx r0
@@ -39440,7 +39440,7 @@ sub_8063214: @ 0x08063214
 	bl ClearBG1Setup
 	ldr r0, _0806324C  @ gUnknown_085D6E70
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	adds r4, r0, #0
 	str r5, [r4, #0x5c]
 	movs r0, #0
@@ -39553,7 +39553,7 @@ _080632F8:
 	bl SetSomethingSpellFxToFalse
 	bl sub_8055000
 	adds r0, r5, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _08063316:
 	pop {r4, r5, r6, r7}
 	pop {r0}
@@ -39571,7 +39571,7 @@ sub_806331C: @ 0x0806331C
 	str r0, [r1]
 	ldr r0, _08063364  @ gUnknown_085D6E88
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	str r4, [r0, #0x5c]
 	movs r1, #0
 	strh r1, [r0, #0x2c]
@@ -39637,7 +39637,7 @@ _080633A6:
 	str r0, [r1]
 	bl sub_805526C
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _080633C4:
 	pop {r4}
 	pop {r0}
@@ -39658,7 +39658,7 @@ sub_80633D0: @ 0x080633D0
 	str r0, [r1]
 	ldr r0, _08063418  @ gUnknown_085D6EB4
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	adds r4, r0, #0
 	str r5, [r4, #0x5c]
 	ldr r3, _0806341C  @ gUnknown_08692524
@@ -39699,7 +39699,7 @@ sub_8063428: @ 0x08063428
 	str r0, [r1]
 	ldr r0, _08063460  @ gUnknown_085D6ED4
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	adds r4, r0, #0
 	str r5, [r4, #0x5c]
 	ldr r3, _08063464  @ gUnknown_08692674
@@ -39745,7 +39745,7 @@ StartSpellAnimShine: @ 0x08063480
 	bl ClearBG1Setup
 	ldr r0, _080634B8  @ gUnknown_085D6EF4
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	adds r4, r0, #0
 	str r5, [r4, #0x5c]
 	movs r0, #0
@@ -39859,7 +39859,7 @@ _08063572:
 	bl SetSomethingSpellFxToFalse
 	bl sub_8055000
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _08063588:
 	pop {r4, r5, r6}
 	pop {r0}
@@ -39877,7 +39877,7 @@ sub_8063590: @ 0x08063590
 	str r0, [r1]
 	ldr r0, _080635D4  @ gUnknown_085D6F0C
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	str r4, [r0, #0x5c]
 	movs r1, #0
 	strh r1, [r0, #0x2c]
@@ -39949,7 +39949,7 @@ _08063624:
 	str r0, [r1]
 	bl sub_805526C
 	adds r0, r7, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _08063642:
 	pop {r4, r5, r6, r7}
 	pop {r0}
@@ -39969,7 +39969,7 @@ sub_806364C: @ 0x0806364C
 	str r0, [r1]
 	ldr r0, _080636AC  @ gUnknown_085D6F30
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	adds r5, r0, #0
 	str r4, [r5, #0x5c]
 	movs r0, #0
@@ -40084,7 +40084,7 @@ _08063740:
 	str r0, [r1]
 	bl sub_805526C
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _0806375E:
 	add sp, #4
 	pop {r4}
@@ -40105,7 +40105,7 @@ sub_806376C: @ 0x0806376C
 	str r0, [r1]
 	ldr r0, _080637A4  @ gUnknown_085D6F6C
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	str r4, [r0, #0x5c]
 	movs r1, #0
 	strh r1, [r0, #0x2c]
@@ -40158,7 +40158,7 @@ _080637D6:
 	subs r0, #1
 	str r0, [r1]
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _080637EC:
 	pop {r4}
 	pop {r0}
@@ -40178,7 +40178,7 @@ sub_80637F8: @ 0x080637F8
 	str r0, [r1]
 	ldr r0, _08063834  @ gUnknown_085D6F8C
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	str r4, [r0, #0x5c]
 	movs r2, #0
 	strh r2, [r0, #0x2c]
@@ -40281,7 +40281,7 @@ _080638C0:
 	subs r0, #1
 	str r0, [r1]
 	adds r0, r5, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _080638E0:
 	pop {r4, r5, r6}
 	pop {r0}
@@ -40307,7 +40307,7 @@ sub_80638F0: @ 0x080638F0
 	str r0, [r1]
 	ldr r0, _08063940  @ gUnknown_085D6FB4
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	adds r4, r0, #0
 	str r5, [r4, #0x5c]
 	movs r0, #0
@@ -40355,7 +40355,7 @@ sub_8063948: @ 0x08063948
 	subs r0, #1
 	str r0, [r1]
 	adds r0, r2, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _0806396C:
 	pop {r0}
 	bx r0
@@ -40373,7 +40373,7 @@ StartSpellAnimLuna: @ 0x08063974
 	bl ClearBG1Setup
 	ldr r0, _080639AC  @ gUnknown_085D6FCC
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	adds r4, r0, #0
 	str r5, [r4, #0x5c]
 	movs r0, #0
@@ -40588,7 +40588,7 @@ _08063B4C:
 	bl SetSomethingSpellFxToFalse
 	bl sub_8055000
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _08063B62:
 	add sp, #8
 	pop {r4, r5, r6, r7}
@@ -40607,7 +40607,7 @@ sub_8063B6C: @ 0x08063B6C
 	str r0, [r1]
 	ldr r0, _08063BB4  @ gUnknown_085D6FE4
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	str r4, [r0, #0x5c]
 	movs r1, #0
 	strh r1, [r0, #0x2c]
@@ -40673,7 +40673,7 @@ _08063BF6:
 	str r0, [r1]
 	bl sub_805526C
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _08063C14:
 	pop {r4}
 	pop {r0}
@@ -40688,7 +40688,7 @@ sub_8063C20: @ 0x08063C20
 	push {lr}
 	ldr r0, _08063C3C  @ gUnknown_085D7000
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	movs r1, #0
 	strh r1, [r0, #0x2c]
 	strh r1, [r0, #0x2e]
@@ -40806,7 +40806,7 @@ sub_8063CFC: @ 0x08063CFC
 	adds r4, r0, #0
 	ldr r0, _08063D18  @ gUnknown_085D7018
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	movs r1, #0
 	strh r1, [r0, #0x2c]
 	movs r1, #0x14
@@ -40847,9 +40847,9 @@ sub_8063D1C: @ 0x08063D1C
 	cmp r0, r1
 	ble _08063D5A
 	adds r0, r5, #0
-	bl Proc_Delete
+	bl Proc_End
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _08063D5A:
 	add sp, #4
 	pop {r4, r5}
@@ -40870,7 +40870,7 @@ sub_8063D64: @ 0x08063D64
 	str r0, [r1]
 	ldr r0, _08063DCC  @ gUnknown_085D70F0
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	adds r6, r0, #0
 	str r4, [r6, #0x5c]
 	movs r0, #0
@@ -41001,7 +41001,7 @@ sub_8063E74: @ 0x08063E74
 	cmp r0, r1
 	ble _08063E98
 	adds r0, r2, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _08063E98:
 	pop {r0}
 	bx r0
@@ -41021,7 +41021,7 @@ sub_8063EA0: @ 0x08063EA0
 	str r0, [r1]
 	ldr r0, _08063EDC  @ gUnknown_085D7110
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	str r4, [r0, #0x5c]
 	movs r1, #0
 	strh r1, [r0, #0x2c]
@@ -41087,7 +41087,7 @@ _08063F1C:
 	cmp r0, r1
 	ble _08063F34
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _08063F34:
 	pop {r4}
 	pop {r0}
@@ -41105,7 +41105,7 @@ sub_8063F3C: @ 0x08063F3C
 	str r0, [r1]
 	ldr r0, _08063F98  @ gUnknown_085D7138
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	adds r5, r0, #0
 	str r4, [r5, #0x5c]
 	movs r0, #0
@@ -41197,7 +41197,7 @@ _08063FFC:
 	str r0, [r1]
 	bl sub_805526C
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _0806401A:
 	pop {r4, r5}
 	pop {r0}
@@ -41215,7 +41215,7 @@ sub_8064024: @ 0x08064024
 _0806402A:
 	ldr r0, _08064054  @ gUnknown_085D71B0
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	str r5, [r0, #0x5c]
 	str r4, [r0, #0x44]
 	adds r4, #1
@@ -41280,7 +41280,7 @@ sub_8064060: @ 0x08064060
 	ldrh r0, [r1, #4]
 	strh r0, [r4, #0x3a]
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 	add sp, #4
 	pop {r4, r5}
 	pop {r0}
@@ -41363,7 +41363,7 @@ _0806413C:
 	str r0, [r5, #0x20]
 	strh r6, [r5, #6]
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _0806415C:
 	add sp, #4
 	pop {r4, r5, r6, r7}
@@ -41434,7 +41434,7 @@ _080641C0:
 	str r0, [r5, #0x20]
 	strh r6, [r5, #6]
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _080641E0:
 	pop {r4, r5, r6}
 	pop {r0}
@@ -41514,7 +41514,7 @@ _0806425A:
 	ldr r0, [r5, #0x60]
 	bl AnimDelete
 	adds r0, r5, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _0806427C:
 	add sp, #4
 	pop {r4, r5, r6}
@@ -41538,7 +41538,7 @@ sub_806428C: @ 0x0806428C
 	str r0, [r1]
 	ldr r0, _080642B8  @ gUnknown_085D71E0
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	str r4, [r0, #0x5c]
 	movs r1, #0
 	strh r1, [r0, #0x2c]
@@ -41583,7 +41583,7 @@ sub_80642BC: @ 0x080642BC
 	subs r0, #1
 	str r0, [r1]
 	adds r0, r5, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _080642FA:
 	add sp, #4
 	pop {r4, r5}
@@ -41603,7 +41603,7 @@ sub_8064308: @ 0x08064308
 	bl ClearBG1Setup
 	ldr r0, _08064340  @ gUnknown_085D71F8
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	adds r4, r0, #0
 	str r5, [r4, #0x5c]
 	movs r0, #0
@@ -41783,7 +41783,7 @@ _08064486:
 	bl SetSomethingSpellFxToFalse
 	bl sub_8055000
 	adds r0, r5, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 	b _080644D8
 _080644A2:
 	movs r0, #0x2c
@@ -41809,7 +41809,7 @@ _080644BE:
 	bl SetSomethingSpellFxToFalse
 	bl sub_8055000
 	adds r0, r5, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _080644D8:
 	add sp, #8
 	pop {r4, r5, r6, r7}
@@ -41828,7 +41828,7 @@ sub_80644E0: @ 0x080644E0
 	str r0, [r1]
 	ldr r0, _08064538  @ gUnknown_085D7210
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	str r4, [r0, #0x5c]
 	movs r1, #0
 	strh r1, [r0, #0x2c]
@@ -41946,7 +41946,7 @@ _080645E4:
 _080645E6:
 	strh r0, [r4, #0x34]
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _080645EE:
 	add sp, #8
 	pop {r4}
@@ -41989,7 +41989,7 @@ sub_80645FC: @ 0x080645FC
 	movs r0, #0xc
 	strh r0, [r4, #0x2e]
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _0806463E:
 	add sp, #4
 	pop {r4, r5}
@@ -42014,7 +42014,7 @@ sub_806464C: @ 0x0806464C
 	cmp r0, r1
 	ble _08064668
 	adds r0, r2, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _08064668:
 	pop {r0}
 	bx r0
@@ -42031,7 +42031,7 @@ sub_806466C: @ 0x0806466C
 	str r0, [r1]
 	ldr r0, _080646A4  @ gUnknown_085D7240
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	str r4, [r0, #0x5c]
 	movs r1, #0
 	strh r1, [r0, #0x2c]
@@ -42092,7 +42092,7 @@ _080646E6:
 	cmp r1, r0
 	bne _080646F4
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _080646F4:
 	pop {r4}
 	pop {r0}
@@ -42106,7 +42106,7 @@ sub_80646FC: @ 0x080646FC
 	adds r4, r0, #0
 	ldr r0, _0806471C  @ gUnknown_085D7268
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	movs r1, #0
 	strh r1, [r0, #0x2c]
 	strh r1, [r0, #0x2e]
@@ -42222,7 +42222,7 @@ sub_80647D0: @ 0x080647D0
 	adds r4, r1, #0
 	ldr r0, _080647EC  @ gUnknown_085D7280
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	movs r1, #0
 	strh r1, [r0, #0x2c]
 	strh r4, [r0, #0x2e]
@@ -42262,9 +42262,9 @@ sub_80647F0: @ 0x080647F0
 	cmp r0, r1
 	ble _0806482E
 	adds r0, r5, #0
-	bl Proc_Delete
+	bl Proc_End
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _0806482E:
 	add sp, #4
 	pop {r4, r5}
@@ -42284,7 +42284,7 @@ sub_8064838: @ 0x08064838
 	str r0, [r1]
 	ldr r0, _08064880  @ gUnknown_085D7398
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	adds r5, r0, #0
 	str r4, [r5, #0x5c]
 	movs r0, #0
@@ -42405,7 +42405,7 @@ sub_8064938: @ 0x08064938
 	cmp r0, r1
 	ble _08064954
 	adds r0, r2, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _08064954:
 	pop {r0}
 	bx r0
@@ -42422,7 +42422,7 @@ sub_8064958: @ 0x08064958
 	str r0, [r1]
 	ldr r0, _08064990  @ gUnknown_085D73B8
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	str r4, [r0, #0x5c]
 	movs r1, #0
 	strh r1, [r0, #0x2c]
@@ -42475,7 +42475,7 @@ _080649C2:
 	subs r0, #1
 	str r0, [r1]
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _080649D8:
 	pop {r4}
 	pop {r0}
@@ -42496,7 +42496,7 @@ sub_80649E4: @ 0x080649E4
 	str r0, [r1]
 	ldr r0, _08064A2C  @ gUnknown_085D73D8
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	adds r5, r0, #0
 	str r4, [r5, #0x5c]
 	movs r0, #0
@@ -42617,7 +42617,7 @@ sub_8064AE4: @ 0x08064AE4
 	cmp r0, r1
 	ble _08064B00
 	adds r0, r2, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _08064B00:
 	pop {r0}
 	bx r0
@@ -42634,7 +42634,7 @@ sub_8064B04: @ 0x08064B04
 	str r0, [r1]
 	ldr r0, _08064B3C  @ gUnknown_085D73F8
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	str r4, [r0, #0x5c]
 	movs r1, #0
 	strh r1, [r0, #0x2c]
@@ -42687,7 +42687,7 @@ _08064B6E:
 	subs r0, #1
 	str r0, [r1]
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _08064B84:
 	pop {r4}
 	pop {r0}
@@ -42708,7 +42708,7 @@ sub_8064B90: @ 0x08064B90
 	str r0, [r1]
 	ldr r0, _08064BEC  @ gUnknown_085D7418
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	adds r4, r0, #0
 	str r5, [r4, #0x5c]
 	movs r0, #0
@@ -42766,7 +42766,7 @@ sub_8064BFC: @ 0x08064BFC
 	subs r0, #1
 	str r0, [r1]
 	adds r0, r2, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _08064C20:
 	pop {r0}
 	bx r0
@@ -42785,7 +42785,7 @@ sub_8064C28: @ 0x08064C28
 	str r0, [r1]
 	ldr r0, _08064C6C  @ gUnknown_085D7430
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	str r4, [r0, #0x5c]
 	movs r1, #0
 	strh r1, [r0, #0x2c]
@@ -42866,7 +42866,7 @@ _08064CD4:
 	str r0, [r1]
 	bl sub_805526C
 	adds r0, r4, #0
-	bl Proc_Delete
+	bl Proc_End
 _08064CF2:
 	pop {r4, r5}
 	pop {r0}
@@ -42894,7 +42894,7 @@ sub_8064D00: @ 0x08064D00
 	str r0, [r1]
 	ldr r0, _08064D8C  @ gUnknown_085D7450
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	str r4, [r0, #0x5c]
 	movs r1, #0
 	strh r1, [r0, #0x2c]
@@ -42984,7 +42984,7 @@ sub_8064DC4: @ 0x08064DC4
 	cmp r0, r1
 	ble _08064DE0
 	adds r0, r2, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _08064DE0:
 	pop {r0}
 	bx r0
@@ -43001,7 +43001,7 @@ sub_8064DE4: @ 0x08064DE4
 	str r0, [r1]
 	ldr r0, _08064E1C  @ gUnknown_085D7470
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	str r4, [r0, #0x5c]
 	movs r1, #0
 	strh r1, [r0, #0x2c]
@@ -43055,7 +43055,7 @@ _08064E52:
 	subs r0, #1
 	str r0, [r1]
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _08064E68:
 	pop {r4}
 	pop {r0}
@@ -43074,7 +43074,7 @@ StartSpellAnimAura: @ 0x08064E74
 	bl ClearBG1Setup
 	ldr r0, _08064EAC  @ gUnknown_085D7490
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	adds r4, r0, #0
 	str r5, [r4, #0x5c]
 	movs r0, #0
@@ -43252,7 +43252,7 @@ _08064FE8:
 	bl SetSomethingSpellFxToFalse
 	bl sub_8055000
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _08064FFE:
 	add sp, #8
 	pop {r4, r5, r6}
@@ -43271,7 +43271,7 @@ sub_8065008: @ 0x08065008
 	str r0, [r1]
 	ldr r0, _08065070  @ gUnknown_085D74A8
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	adds r5, r0, #0
 	str r4, [r5, #0x5c]
 	movs r0, #0
@@ -43338,7 +43338,7 @@ sub_806509C: @ 0x0806509C
 	str r0, [r1]
 	ldr r0, _08065104  @ gUnknown_085D74A8
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	adds r5, r0, #0
 	str r4, [r5, #0x5c]
 	movs r0, #0
@@ -43405,7 +43405,7 @@ sub_8065130: @ 0x08065130
 	str r0, [r1]
 	ldr r0, _08065198  @ gUnknown_085D74A8
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	adds r5, r0, #0
 	str r4, [r5, #0x5c]
 	movs r0, #0
@@ -43497,7 +43497,7 @@ _080651F2:
 	str r0, [r1]
 	bl sub_805526C
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _08065210:
 	pop {r4}
 	pop {r0}
@@ -43518,7 +43518,7 @@ sub_806521C: @ 0x0806521C
 	str r0, [r1]
 	ldr r0, _08065264  @ gUnknown_085D7530
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	adds r5, r0, #0
 	str r4, [r5, #0x5c]
 	movs r0, #0
@@ -43639,7 +43639,7 @@ sub_806531C: @ 0x0806531C
 	cmp r0, r1
 	ble _08065338
 	adds r0, r2, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _08065338:
 	pop {r0}
 	bx r0
@@ -43656,7 +43656,7 @@ sub_806533C: @ 0x0806533C
 	str r0, [r1]
 	ldr r0, _08065378  @ gUnknown_085D7550
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	adds r1, r0, #0
 	str r4, [r1, #0x5c]
 	movs r0, #0
@@ -43710,7 +43710,7 @@ _080653AA:
 	subs r0, #1
 	str r0, [r1]
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _080653C0:
 	pop {r4}
 	pop {r0}
@@ -43730,7 +43730,7 @@ sub_80653CC: @ 0x080653CC
 	str r0, [r1]
 	ldr r0, _08065418  @ gUnknown_085D7570
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	str r4, [r0, #0x5c]
 	movs r1, #0
 	strh r1, [r0, #0x2c]
@@ -43804,7 +43804,7 @@ _08065468:
 	str r0, [r1]
 	bl sub_805526C
 	adds r0, r7, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _08065486:
 	pop {r4, r5, r6, r7}
 	pop {r0}
@@ -43836,7 +43836,7 @@ sub_8065498: @ 0x08065498
 	str r0, [r1]
 	ldr r0, _080654E4  @ gUnknown_085D75E8
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	str r4, [r0, #0x5c]
 	movs r2, #0
 	strh r2, [r0, #0x2c]
@@ -43956,7 +43956,7 @@ _08065594:
 	str r0, [r1]
 	bl sub_805526C
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _080655B2:
 	add sp, #4
 	pop {r3}
@@ -43980,7 +43980,7 @@ sub_80655C4: @ 0x080655C4
 	str r0, [r1]
 	ldr r0, _08065614  @ gUnknown_085D7650
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	adds r5, r0, #0
 	str r4, [r5, #0x5c]
 	ldr r3, _08065618  @ gUnknown_08752020
@@ -44034,7 +44034,7 @@ sub_8065634: @ 0x08065634
 	bl ClearBG1Setup
 	ldr r0, _0806566C  @ gUnknown_085D7670
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	adds r4, r0, #0
 	str r5, [r4, #0x5c]
 	movs r0, #0
@@ -44064,7 +44064,7 @@ sub_8065670: @ 0x08065670
 	bl ClearBG1Setup
 	ldr r0, _080656A8  @ gUnknown_085D7670
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	adds r4, r0, #0
 	str r5, [r4, #0x5c]
 	movs r0, #0
@@ -44094,7 +44094,7 @@ sub_80656AC: @ 0x080656AC
 	bl ClearBG1Setup
 	ldr r0, _080656E4  @ gUnknown_085D7670
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	adds r4, r0, #0
 	str r5, [r4, #0x5c]
 	movs r0, #0
@@ -44124,7 +44124,7 @@ sub_80656E8: @ 0x080656E8
 	bl ClearBG1Setup
 	ldr r0, _08065720  @ gUnknown_085D7670
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	adds r4, r0, #0
 	str r5, [r4, #0x5c]
 	movs r0, #0
@@ -44222,7 +44222,7 @@ _080657B6:
 	strh r0, [r4, #0x10]
 	bl SetSomethingSpellFxToFalse
 	adds r0, r5, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _080657CC:
 	add sp, #8
 	pop {r4, r5, r6, r7}
@@ -44240,7 +44240,7 @@ StartSpellAnimIvaldi: @ 0x080657D4
 	bl ClearBG1Setup
 	ldr r0, _0806580C  @ gUnknown_085D7688
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	adds r4, r0, #0
 	str r5, [r4, #0x5c]
 	movs r0, #0
@@ -44450,7 +44450,7 @@ _0806598C:
 	bl SetSomethingSpellFxToFalse
 	bl sub_8055000
 	adds r0, r6, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _080659A4:
 	add sp, #4
 	pop {r4, r5, r6, r7}
@@ -44469,7 +44469,7 @@ StartSpellBG_IvaldiBG1: @ 0x080659AC
 	str r0, [r1]
 	ldr r0, _080659FC  @ gUnknown_085D76A0
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	str r4, [r0, #0x5c]
 	movs r1, #0
 	strh r1, [r0, #0x2c]
@@ -44549,7 +44549,7 @@ _08065A56:
 	str r0, [r1]
 	bl sub_805526C
 	adds r0, r5, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _08065A74:
 	pop {r4, r5}
 	pop {r0}
@@ -44569,7 +44569,7 @@ StartSpellBG_IvaldiBG2: @ 0x08065A80
 	str r0, [r1]
 	ldr r0, _08065AD8  @ gUnknown_085D76E8
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	adds r4, r0, #0
 	adds r0, r5, #0
 	bl GetCoreAIStruct
@@ -44649,7 +44649,7 @@ _08065B2A:
 	str r0, [r1]
 	bl sub_805526C
 	adds r0, r5, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _08065B48:
 	pop {r4, r5}
 	pop {r0}
@@ -44671,7 +44671,7 @@ StartSpellBG_IvaldiBG3: @ 0x08065B54
 	str r0, [r1]
 	ldr r0, _08065BA4  @ gUnknown_085D7714
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	str r4, [r0, #0x5c]
 	movs r1, #0
 	strh r1, [r0, #0x2c]
@@ -44756,7 +44756,7 @@ _08065C10:
 	str r0, [r1]
 	bl sub_805526C
 	adds r0, r7, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _08065C2E:
 	pop {r4, r5, r6, r7}
 	pop {r0}
@@ -44776,7 +44776,7 @@ StartSpellBG_IvaldiBG4: @ 0x08065C38
 	str r0, [r1]
 	ldr r0, _08065C8C  @ gUnknown_085D77B0
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	str r4, [r0, #0x5c]
 	movs r1, #0
 	strh r1, [r0, #0x2c]
@@ -44911,7 +44911,7 @@ _08065D58:
 	str r0, [r1]
 	bl sub_805526C
 	adds r0, r5, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _08065D76:
 	add sp, #8
 	pop {r4, r5}
@@ -44959,7 +44959,7 @@ StartSpellOBJ_IvaldiFall: @ 0x08065DA4
 	str r0, [r1]
 	ldr r0, _08065DF4  @ gUnknown_085D77CC
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	adds r4, r0, #0
 	adds r0, r5, #0
 	bl GetCoreAIStruct
@@ -45118,7 +45118,7 @@ _08065EEA:
 	subs r0, #1
 	str r0, [r1]
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _08065F04:
 	add sp, #4
 	pop {r4}
@@ -45148,7 +45148,7 @@ StartSpellOBJ_IvaldiSideWash: @ 0x08065F10
 	str r0, [r1]
 	ldr r0, _08065F60  @ gUnknown_085D77E4
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	adds r4, r0, #0
 	adds r0, r5, #0
 	bl GetCoreAIStruct
@@ -45285,7 +45285,7 @@ _0806603C:
 	subs r0, #1
 	str r0, [r1]
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _08066052:
 	add sp, #4
 	pop {r4}
@@ -45315,7 +45315,7 @@ sub_8066060: @ 0x08066060
 	str r0, [r1]
 	ldr r0, _080660B0  @ gUnknown_085D77FC
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	adds r4, r0, #0
 	adds r0, r5, #0
 	bl GetCoreAIStruct
@@ -45545,7 +45545,7 @@ _08066236:
 	subs r0, #1
 	str r0, [r1]
 	adds r0, r2, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _0806624C:
 	add sp, #4
 	pop {r0}
@@ -45594,7 +45594,7 @@ sub_8066258: @ 0x08066258
 	str r0, [r1]
 	ldr r0, _080662D0  @ gUnknown_085D7814
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	adds r7, r0, #0
 	adds r0, r4, #0
 	bl GetCoreAIStruct
@@ -45704,7 +45704,7 @@ sub_806635C: @ 0x0806635C
 	ldr r0, [r4, #0x60]
 	bl AnimDelete
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _08066386:
 	pop {r4}
 	pop {r0}
@@ -45742,7 +45742,7 @@ sub_8066390: @ 0x08066390
 	str r0, [r1]
 	ldr r0, _080663F0  @ gUnknown_085D782C
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	adds r5, r0, #0
 	mov r0, r8
 	bl GetCoreAIStruct
@@ -45821,7 +45821,7 @@ sub_8066434: @ 0x08066434
 	ldr r0, [r4, #0x60]
 	bl AnimDelete
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _08066466:
 	pop {r4}
 	pop {r0}
@@ -45843,7 +45843,7 @@ sub_8066470: @ 0x08066470
 	str r0, [r1]
 	ldr r0, _080664A4  @ gUnknown_085D7844
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	str r4, [r0, #0x5c]
 	movs r1, #0
 	strh r1, [r0, #0x2c]
@@ -45900,7 +45900,7 @@ sub_80664A8: @ 0x080664A8
 	subs r0, #1
 	str r0, [r1]
 	adds r0, r6, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _080664FE:
 	add sp, #4
 	pop {r4, r5, r6}
@@ -45922,7 +45922,7 @@ sub_8066514: @ 0x08066514
 	bl ClearBG1Setup
 	ldr r0, _0806654C  @ gUnknown_085D785C
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	adds r4, r0, #0
 	str r5, [r4, #0x5c]
 	movs r0, #0
@@ -46107,7 +46107,7 @@ _080666A6:
 	bl SetSomethingSpellFxToFalse
 	bl sub_8055000
 	adds r0, r6, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _080666C4:
 	add sp, #8
 	pop {r4, r5, r6, r7}
@@ -46128,7 +46128,7 @@ sub_80666D0: @ 0x080666D0
 	str r0, [r1]
 	ldr r0, _08066710  @ gUnknown_085D7874
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	adds r1, r0, #0
 	str r4, [r1, #0x5c]
 	movs r0, #0
@@ -46236,7 +46236,7 @@ _080667B8:
 	str r0, [r1]
 	bl sub_805526C
 	adds r0, r7, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _080667D6:
 	pop {r4, r5, r6, r7}
 	pop {r0}
@@ -46256,7 +46256,7 @@ sub_80667E0: @ 0x080667E0
 	str r0, [r1]
 	ldr r0, _08066828  @ gUnknown_085D7B8C
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	str r4, [r0, #0x5c]
 	movs r1, #0
 	strh r1, [r0, #0x2c]
@@ -46355,7 +46355,7 @@ _080668B2:
 	str r0, [r1]
 	bl sub_805526C
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _080668D0:
 	pop {r4, r5, r6}
 	pop {r0}
@@ -46409,7 +46409,7 @@ sub_8066914: @ 0x08066914
 	str r0, [r1]
 	ldr r0, _08066954  @ gUnknown_085D7BC8
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	adds r1, r0, #0
 	str r4, [r1, #0x5c]
 	movs r0, #0
@@ -46507,7 +46507,7 @@ _080669E4:
 	str r0, [r1]
 	bl sub_805526C
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _08066A02:
 	pop {r4, r5, r6}
 	pop {r0}
@@ -46527,7 +46527,7 @@ sub_8066A0C: @ 0x08066A0C
 	str r0, [r1]
 	ldr r0, _08066A4C  @ gUnknown_085D7C58
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	adds r1, r0, #0
 	str r4, [r1, #0x5c]
 	movs r0, #0
@@ -46632,7 +46632,7 @@ _08066AEC:
 	str r0, [r1]
 	bl sub_805526C
 	adds r0, r7, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _08066B0A:
 	pop {r4, r5, r6, r7}
 	pop {r0}
@@ -46653,7 +46653,7 @@ sub_8066B14: @ 0x08066B14
 	str r0, [r1]
 	ldr r0, _08066B3C  @ gUnknown_085D7D30
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	str r4, [r0, #0x5c]
 	movs r1, #0
 	strh r1, [r0, #0x2c]
@@ -46714,7 +46714,7 @@ sub_8066B40: @ 0x08066B40
 	movs r2, #0x20
 	bl sub_8054134
 	adds r0, r7, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _08066BAA:
 	add sp, #4
 	pop {r4, r5, r6, r7}
@@ -46733,7 +46733,7 @@ sub_8066BBC: @ 0x08066BBC
 	ldr r1, [r2]
 	subs r1, #1
 	str r1, [r2]
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 	pop {r0}
 	bx r0
 	.align 2, 0
@@ -46751,7 +46751,7 @@ sub_8066BD4: @ 0x08066BD4
 	str r0, [r1]
 	ldr r0, _08066C0C  @ gUnknown_085D7D58
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	str r4, [r0, #0x5c]
 	movs r1, #0
 	strh r1, [r0, #0x2c]
@@ -46810,7 +46810,7 @@ _08066C50:
 	subs r0, #1
 	str r0, [r1]
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _08066C66:
 	add sp, #0x20
 	pop {r4}
@@ -46893,7 +46893,7 @@ sub_8066CB8: @ 0x08066CB8
 	str r0, [r1]
 	ldr r0, _08066D3C  @ gUnknown_085D7D78
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	adds r6, r0, #0
 	adds r0, r4, #0
 	bl GetCoreAIStruct
@@ -46980,7 +46980,7 @@ sub_8066D7C: @ 0x08066D7C
 	ldr r0, [r4, #0x60]
 	bl AnimDelete
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _08066DA6:
 	pop {r4}
 	pop {r0}
@@ -47020,7 +47020,7 @@ sub_8066DB0: @ 0x08066DB0
 	str r0, [r1]
 	ldr r0, _08066E34  @ gUnknown_085D7D90
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	adds r6, r0, #0
 	adds r0, r4, #0
 	bl GetCoreAIStruct
@@ -47107,7 +47107,7 @@ sub_8066E74: @ 0x08066E74
 	ldr r0, [r4, #0x60]
 	bl AnimDelete
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _08066E9E:
 	pop {r4}
 	pop {r0}
@@ -47165,7 +47165,7 @@ sub_8066EC8: @ 0x08066EC8
 	str r0, [r1]
 	ldr r0, _08066F50  @ gUnknown_085D7DA8
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	adds r6, r0, #0
 	adds r0, r4, #0
 	bl GetCoreAIStruct
@@ -47253,7 +47253,7 @@ sub_8066F90: @ 0x08066F90
 	ldr r0, [r4, #0x60]
 	bl AnimDelete
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _08066FBA:
 	pop {r4}
 	pop {r0}
@@ -47293,7 +47293,7 @@ sub_8066FC4: @ 0x08066FC4
 	str r0, [r1]
 	ldr r0, _0806704C  @ gUnknown_085D7DC0
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	adds r6, r0, #0
 	adds r0, r4, #0
 	bl GetCoreAIStruct
@@ -47390,7 +47390,7 @@ sub_80670A8: @ 0x080670A8
 	ldr r0, [r4, #0x60]
 	bl AnimDelete
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _080670D2:
 	pop {r4}
 	pop {r0}
@@ -47430,7 +47430,7 @@ sub_80670DC: @ 0x080670DC
 	str r0, [r1]
 	ldr r0, _08067164  @ gUnknown_085D7DD8
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	adds r6, r0, #0
 	adds r0, r4, #0
 	bl GetCoreAIStruct
@@ -47527,7 +47527,7 @@ sub_80671C0: @ 0x080671C0
 	ldr r0, [r4, #0x60]
 	bl AnimDelete
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _080671EA:
 	pop {r4}
 	pop {r0}
@@ -47548,7 +47548,7 @@ sub_80671F4: @ 0x080671F4
 	str r0, [r1]
 	ldr r0, _08067238  @ gUnknown_085D7DF0
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	adds r4, r0, #0
 	adds r0, r5, #0
 	bl GetCoreAIStruct
@@ -47813,7 +47813,7 @@ _080673D2:
 	subs r0, #1
 	str r0, [r1]
 	adds r0, r5, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _080673F4:
 	pop {r4, r5}
 	pop {r0}
@@ -47844,7 +47844,7 @@ sub_8067400: @ 0x08067400
 	str r0, [r1]
 	ldr r0, _0806748C  @ gUnknown_085D7E08
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	adds r4, r0, #0
 	mov r0, r8
 	bl GetCoreAIStruct
@@ -47918,7 +47918,7 @@ sub_80674A0: @ 0x080674A0
 	ldr r0, [r4, #0x60]
 	bl AnimDelete
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _080674CA:
 	pop {r4}
 	pop {r0}
@@ -47937,7 +47937,7 @@ StartSpellAnimStone: @ 0x080674D4
 	bl ClearBG1Setup
 	ldr r0, _0806750C  @ gUnknown_085D7E20
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	adds r4, r0, #0
 	str r5, [r4, #0x5c]
 	movs r0, #0
@@ -48043,7 +48043,7 @@ _080675B8:
 	bl SetSomethingSpellFxToFalse
 	bl sub_8055000
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _080675CE:
 	pop {r4, r5}
 	pop {r0}
@@ -48061,7 +48061,7 @@ sub_80675D4: @ 0x080675D4
 	str r0, [r1]
 	ldr r0, _08067638  @ gUnknown_085D7E38
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	adds r5, r0, #0
 	adds r0, r4, #0
 	bl GetCoreAIStruct
@@ -48169,7 +48169,7 @@ _080676BC:
 	str r0, [r1]
 	bl sub_805526C
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _080676DA:
 	pop {r4, r5, r6}
 	pop {r0}
@@ -48193,7 +48193,7 @@ sub_80676E4: @ 0x080676E4
 	str r0, [r1]
 	ldr r0, _08067754  @ gUnknown_085D7EE8
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	adds r4, r0, #0
 	adds r0, r6, #0
 	bl GetCoreAIStruct
@@ -48258,7 +48258,7 @@ sub_8067764: @ 0x08067764
 	ldr r0, [r4, #0x60]
 	bl AnimDelete
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _0806778E:
 	pop {r4}
 	pop {r0}
@@ -48277,7 +48277,7 @@ StartSpellAnimEvilEye: @ 0x08067798
 	bl ClearBG1Setup
 	ldr r0, _080677D0  @ gUnknown_085D7F00
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	adds r4, r0, #0
 	str r5, [r4, #0x5c]
 	movs r0, #0
@@ -48380,7 +48380,7 @@ _08067870:
 	bl SetSomethingSpellFxToFalse
 	bl sub_8055000
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _08067886:
 	pop {r4, r5}
 	pop {r0}
@@ -48398,7 +48398,7 @@ sub_806788C: @ 0x0806788C
 	str r0, [r1]
 	ldr r0, _080678EC  @ gUnknown_085D7F18
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	adds r5, r0, #0
 	adds r0, r4, #0
 	bl GetCoreAIStruct
@@ -48496,7 +48496,7 @@ _0806795C:
 	str r0, [r1]
 	bl sub_805526C
 	adds r0, r4, #0
-	bl Proc_Delete
+	bl Proc_End
 _0806797A:
 	pop {r4, r5, r6}
 	pop {r0}
@@ -48516,7 +48516,7 @@ sub_8067984: @ 0x08067984
 	str r0, [r1]
 	ldr r0, _080679C0  @ gUnknown_085D8020
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	adds r5, r0, #0
 	adds r0, r4, #0
 	bl GetCoreAIStruct
@@ -48630,7 +48630,7 @@ _08067A78:
 	str r0, [r1]
 	bl sub_805526C
 	adds r0, r4, #0
-	bl Proc_Delete
+	bl Proc_End
 _08067A96:
 	pop {r4, r5, r6}
 	pop {r0}
@@ -48665,7 +48665,7 @@ sub_8067AA0: @ 0x08067AA0
 	str r0, [r1]
 	ldr r0, _08067B3C  @ gUnknown_085D8098
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	adds r5, r0, #0
 	adds r0, r6, #0
 	bl GetCoreAIStruct
@@ -48737,7 +48737,7 @@ sub_8067B48: @ 0x08067B48
 	ldr r0, [r4, #0x60]
 	bl AnimDelete
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _08067B72:
 	pop {r4}
 	pop {r0}
@@ -48756,7 +48756,7 @@ StartSpellAnimNaglfar: @ 0x08067B7C
 	bl ClearBG1Setup
 	ldr r0, _08067BB4  @ gUnknown_085D80B0
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	adds r4, r0, #0
 	str r5, [r4, #0x5c]
 	movs r0, #0
@@ -49018,7 +49018,7 @@ _08067DA4:
 	bl SetSomethingSpellFxToFalse
 	bl sub_8055000
 	adds r0, r7, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _08067DBC:
 	add sp, #8
 	pop {r4, r5, r6, r7}
@@ -49037,7 +49037,7 @@ sub_8067DC4: @ 0x08067DC4
 	str r0, [r1]
 	ldr r0, _08067E08  @ gUnknown_085D80C8
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	str r4, [r0, #0x5c]
 	movs r1, #0
 	strh r1, [r0, #0x2c]
@@ -49118,7 +49118,7 @@ _08067E70:
 	str r0, [r1]
 	bl sub_805526C
 	adds r0, r4, #0
-	bl Proc_Delete
+	bl Proc_End
 _08067E8E:
 	pop {r4, r5}
 	pop {r0}
@@ -49138,7 +49138,7 @@ sub_8067E98: @ 0x08067E98
 	str r0, [r1]
 	ldr r0, _08067ED4  @ gUnknown_085D80E8
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	str r4, [r0, #0x5c]
 	movs r1, #0
 	strh r1, [r0, #0x2c]
@@ -49217,7 +49217,7 @@ _08067F3C:
 	str r0, [r1]
 	bl sub_805526C
 	adds r0, r4, #0
-	bl Proc_Delete
+	bl Proc_End
 _08067F5A:
 	pop {r4, r5, r6}
 	pop {r0}
@@ -49237,7 +49237,7 @@ sub_8067F64: @ 0x08067F64
 	str r0, [r1]
 	ldr r0, _08067FA4  @ gUnknown_085D81C0
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	str r4, [r0, #0x5c]
 	movs r1, #0
 	strh r1, [r0, #0x2c]
@@ -49312,7 +49312,7 @@ _08068000:
 	str r0, [r1]
 	bl sub_805526C
 	adds r0, r4, #0
-	bl Proc_Delete
+	bl Proc_End
 _0806801E:
 	pop {r4, r5}
 	pop {r0}
@@ -49332,7 +49332,7 @@ sub_8068028: @ 0x08068028
 	str r0, [r1]
 	ldr r0, _08068068  @ gUnknown_085D81F8
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	str r4, [r0, #0x5c]
 	movs r1, #0
 	strh r1, [r0, #0x2c]
@@ -49407,7 +49407,7 @@ _080680C4:
 	str r0, [r1]
 	bl sub_805526C
 	adds r0, r4, #0
-	bl Proc_Delete
+	bl Proc_End
 _080680E2:
 	pop {r4, r5}
 	pop {r0}
@@ -49468,7 +49468,7 @@ sub_80680EC: @ 0x080680EC
 	str r0, [r1]
 	ldr r0, _080681A0  @ gUnknown_085D8238
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	adds r4, r0, #0
 	adds r0, r5, #0
 	bl GetCoreAIStruct
@@ -49575,7 +49575,7 @@ sub_8068208: @ 0x08068208
 	ldr r0, [r4, #0x60]
 	bl AnimDelete
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _08068232:
 	pop {r4}
 	pop {r0}
@@ -49613,7 +49613,7 @@ sub_806823C: @ 0x0806823C
 	str r0, [r1]
 	ldr r0, _080682D4  @ gUnknown_085D8250
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	adds r5, r0, #0
 	mov r0, r8
 	bl GetCoreAIStruct
@@ -49681,7 +49681,7 @@ sub_80682E0: @ 0x080682E0
 	ldr r0, [r4, #0x60]
 	bl AnimDelete
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _0806830A:
 	pop {r4}
 	pop {r0}
@@ -49702,7 +49702,7 @@ sub_8068314: @ 0x08068314
 	str r0, [r1]
 	ldr r0, _08068344  @ gUnknown_085D8268
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	adds r4, r0, #0
 	adds r0, r5, #0
 	bl GetCoreAIStruct
@@ -50109,7 +50109,7 @@ _080685F4:
 	subs r0, #1
 	str r0, [r1]
 	adds r0, r2, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _0806860A:
 	add sp, #8
 	pop {r0}
@@ -50127,7 +50127,7 @@ sub_8068614: @ 0x08068614
 	adds r6, r2, #0
 	ldr r0, _08068634  @ gUnknown_085D8280
 	movs r1, #0
-	bl Proc_Create
+	bl Proc_Start
 	str r4, [r0, #0x5c]
 	movs r1, #0
 	strh r1, [r0, #0x2c]
@@ -50166,7 +50166,7 @@ sub_8068638: @ 0x08068638
 	movs r0, #0
 	strh r0, [r6, #0x2c]
 	adds r0, r6, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 	pop {r4, r5, r6}
 	pop {r0}
 	bx r0
@@ -50250,7 +50250,7 @@ sub_8068680: @ 0x08068680
 	orrs r0, r1
 	strb r0, [r2, #1]
 	adds r0, r7, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _08068724:
 	add sp, #4
 	pop {r4, r5, r6, r7}
@@ -50323,7 +50323,7 @@ sub_8068738: @ 0x08068738
 	movs r0, #0
 	strh r0, [r7, #0x2c]
 	adds r0, r7, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _080687C0:
 	add sp, #4
 	pop {r4, r5, r6, r7}
@@ -50341,7 +50341,7 @@ sub_80687D0: @ 0x080687D0
 	adds r4, r0, #0
 	bl EnablePaletteSync
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 	pop {r4}
 	pop {r0}
 	bx r0
@@ -50356,7 +50356,7 @@ sub_80687E4: @ 0x080687E4
 	bl ClearBG1Setup
 	ldr r0, _08068818  @ gUnknown_085D82B0
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	adds r4, r0, #0
 	str r5, [r4, #0x5c]
 	movs r0, #0
@@ -50446,7 +50446,7 @@ _080688A8:
 	bne _080688B6
 	bl SetSomethingSpellFxToFalse
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _080688B6:
 	add sp, #8
 	pop {r4, r5, r6}
@@ -50466,7 +50466,7 @@ sub_80688C0: @ 0x080688C0
 	str r0, [r1]
 	ldr r0, _08068920  @ gUnknown_085D82C8
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	adds r5, r0, #0
 	str r6, [r5, #0x5c]
 	movs r0, #0
@@ -50583,7 +50583,7 @@ _080689A2:
 	subs r0, #1
 	str r0, [r1]
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _080689C8:
 	pop {r4}
 	pop {r0}
@@ -50603,7 +50603,7 @@ sub_80689D4: @ 0x080689D4
 	str r0, [r1]
 	ldr r0, _08068A1C  @ gUnknown_085D82E0
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	adds r4, r0, #0
 	str r5, [r4, #0x5c]
 	movs r0, #0
@@ -50651,7 +50651,7 @@ sub_8068A28: @ 0x08068A28
 	subs r0, #1
 	str r0, [r1]
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _08068A54:
 	pop {r4}
 	pop {r0}
@@ -50671,7 +50671,7 @@ sub_8068A60: @ 0x08068A60
 	str r0, [r1]
 	ldr r0, _08068A90  @ gUnknown_085D82F8
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	str r4, [r0, #0x5c]
 	movs r1, #0
 	strh r1, [r0, #0x2c]
@@ -50730,7 +50730,7 @@ _08068ADC:
 	subs r0, #1
 	str r0, [r1]
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _08068AF2:
 	pop {r4, r5}
 	pop {r0}
@@ -50821,7 +50821,7 @@ sub_8068B80: @ 0x08068B80
 	bl ClearBG1Setup
 	ldr r0, _08068BB4  @ gUnknown_085D8318
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	adds r4, r0, #0
 	str r5, [r4, #0x5c]
 	movs r0, #0
@@ -50954,7 +50954,7 @@ _08068C8C:
 	bl SetSomethingSpellFxToFalse
 	bl sub_8055000
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 	b _08068D14
 _08068CB0:
 	movs r3, #0x9c
@@ -51000,7 +51000,7 @@ _08068CFE:
 	bl SetSomethingSpellFxToFalse
 	bl sub_8055000
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _08068D14:
 	pop {r4, r5}
 	pop {r0}
@@ -51043,7 +51043,7 @@ sub_8068D20: @ 0x08068D20
 	subs r0, #1
 	str r0, [r1]
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _08068D68:
 	add sp, #4
 	pop {r4}
@@ -51064,7 +51064,7 @@ sub_8068D78: @ 0x08068D78
 	str r0, [r1]
 	ldr r0, _08068D98  @ gUnknown_085D8330
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	movs r1, #0
 	strh r1, [r0, #0x2c]
 	pop {r0}
@@ -51759,7 +51759,7 @@ _0806927C:
 	str r0, [r1]
 	bl sub_805526C
 	adds r0, r7, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _080692A0:
 	pop {r3}
 	mov r8, r3
@@ -51784,7 +51784,7 @@ sub_80692B0: @ 0x080692B0
 	str r0, [r1]
 	ldr r0, _08069314  @ gUnknown_085D83A0
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	adds r5, r0, #0
 	str r4, [r5, #0x5c]
 	movs r0, #0
@@ -51897,7 +51897,7 @@ _080693B6:
 	cmp r5, r0
 	bne _080693C4
 	adds r0, r7, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _080693C4:
 	pop {r4, r5, r6, r7}
 	pop {r0}
@@ -51989,7 +51989,7 @@ _08069460:
 	str r0, [r1]
 	bl sub_805526C
 	adds r0, r6, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _0806947E:
 	pop {r4, r5, r6}
 	pop {r0}
@@ -52009,7 +52009,7 @@ sub_8069488: @ 0x08069488
 	str r0, [r1]
 	ldr r0, _080694D4  @ gUnknown_085D8484
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	str r4, [r0, #0x5c]
 	movs r1, #0
 	strh r1, [r0, #0x2c]
@@ -52269,7 +52269,7 @@ _080696B2:
 	cmp r0, #0x40
 	bne _080696D4
 	ldr r0, [sp, #4]
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _080696D4:
 	ldr r2, [sp, #8]
 	ldrh r0, [r2]
@@ -52293,7 +52293,7 @@ sub_80696F0: @ 0x080696F0
 	push {lr}
 	ldr r0, _08069700  @ gUnknown_085D84B4
 	movs r1, #0
-	bl Proc_Create
+	bl Proc_Start
 	pop {r0}
 	bx r0
 	.align 2, 0
@@ -52492,7 +52492,7 @@ _0806985A:
 	ldr r0, [r4, #0x60]
 	bl AnimDelete
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _0806986E:
 	pop {r4}
 	pop {r0}
@@ -52528,7 +52528,7 @@ sub_8069878: @ 0x08069878
 	str r0, [r1]
 	ldr r0, _080698D0  @ gUnknown_085D8704
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	adds r5, r0, #0
 	str r6, [r5, #0x5c]
 	movs r0, #0
@@ -52792,7 +52792,7 @@ _08069AAE:
 	cmp r0, #0x61
 	bne _08069ABC
 	adds r0, r7, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _08069ABC:
 	add sp, #4
 	pop {r4, r5, r6, r7}
@@ -52807,7 +52807,7 @@ sub_8069AC4: @ 0x08069AC4
 	adds r4, r0, #0
 	ldr r0, _08069AF0  @ gUnknown_085D871C
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	str r4, [r0, #0x5c]
 	movs r1, #0
 	strh r1, [r0, #0x2c]
@@ -52878,7 +52878,7 @@ _08069B2C:
 	ldr r0, [r4, #0x60]
 	bl AnimDelete
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _08069B5E:
 	pop {r4}
 	pop {r0}
@@ -52906,7 +52906,7 @@ sub_8069B68: @ 0x08069B68
 	str r0, [r1]
 	ldr r0, _08069BCC  @ gUnknown_085D8734
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	adds r7, r0, #0
 	str r6, [r7, #0x5c]
 	movs r0, #0
@@ -52996,7 +52996,7 @@ sub_8069C18: @ 0x08069C18
 	str r0, [r1]
 	ldr r0, _08069C7C  @ gUnknown_085D8734
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	adds r7, r0, #0
 	str r6, [r7, #0x5c]
 	movs r0, #0
@@ -53288,7 +53288,7 @@ _08069E70:
 	cmp r0, #0x60
 	bne _08069E7E
 	adds r0, r6, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _08069E7E:
 	add sp, #4
 	pop {r4, r5, r6}
@@ -53303,7 +53303,7 @@ sub_8069E88: @ 0x08069E88
 	adds r4, r0, #0
 	ldr r0, _08069EB8  @ gUnknown_085D874C
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	str r4, [r0, #0x5c]
 	movs r1, #0
 	strh r1, [r0, #0x2c]
@@ -53335,7 +53335,7 @@ StartSpellAnimCrimsonEye: @ 0x08069EC4
 	bl ClearBG1Setup
 	ldr r0, _08069EFC  @ gUnknown_085D8764
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	adds r4, r0, #0
 	str r5, [r4, #0x5c]
 	movs r0, #0
@@ -53473,7 +53473,7 @@ _08069FE8:
 	bl SetSomethingSpellFxToFalse
 	bl sub_8055000
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _08069FFE:
 	pop {r4, r5}
 	pop {r0}
@@ -53523,7 +53523,7 @@ _0806A03E:
 	subs r0, #1
 	str r0, [r1]
 	adds r0, r6, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _0806A05E:
 	pop {r4, r5, r6}
 	pop {r0}
@@ -53543,7 +53543,7 @@ sub_806A068: @ 0x0806A068
 	str r0, [r1]
 	ldr r0, _0806A0B4  @ gUnknown_085D87AC
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	str r4, [r0, #0x5c]
 	movs r1, #0
 	strh r1, [r0, #0x2c]
@@ -53623,7 +53623,7 @@ sub_806A0CC: @ 0x0806A0CC
 	ldr r0, [r4, #0x60]
 	bl AnimDelete
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _0806A12C:
 	add sp, #4
 	pop {r4}
@@ -53654,7 +53654,7 @@ sub_806A138: @ 0x0806A138
 	str r0, [r1]
 	ldr r0, _0806A1DC  @ gUnknown_085D87C4
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	adds r6, r0, #0
 	str r7, [r6, #0x5c]
 	movs r0, #1
@@ -53959,7 +53959,7 @@ _0806A3A4:
 	subs r0, #1
 	str r0, [r1]
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _0806A3C0:
 	pop {r4}
 	pop {r0}
@@ -53979,7 +53979,7 @@ sub_806A3CC: @ 0x0806A3CC
 	str r0, [r1]
 	ldr r0, _0806A3F0  @ gUnknown_085D885C
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	str r4, [r0, #0x5c]
 	movs r1, #0
 	strh r1, [r0, #0x2c]
@@ -54002,7 +54002,7 @@ sub_806A3F4: @ 0x0806A3F4
 	str r0, [r1]
 	ldr r0, _0806A43C  @ gUnknown_085D8CC4
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	str r4, [r0, #0x5c]
 	movs r1, #0
 	strh r1, [r0, #0x2c]
@@ -54090,7 +54090,7 @@ _0806A4A6:
 	subs r0, #1
 	str r0, [r1]
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _0806A4C0:
 	pop {r4}
 	pop {r0}
@@ -54110,7 +54110,7 @@ sub_806A4CC: @ 0x0806A4CC
 	str r0, [r1]
 	ldr r0, _0806A524  @ gUnknown_085D8894
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	adds r5, r0, #0
 	str r4, [r5, #0x5c]
 	movs r0, #0
@@ -54642,7 +54642,7 @@ _0806A822:
 	movs r0, #0
 	strh r0, [r7, #0x2c]
 	adds r0, r7, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _0806A8D6:
 	add sp, #8
 	pop {r3, r4, r5}
@@ -54756,7 +54756,7 @@ _0806A944:
 	movs r0, #0
 	strh r0, [r6, #0x2c]
 	adds r0, r6, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _0806A9B8:
 	pop {r3, r4}
 	mov r8, r3
@@ -54867,7 +54867,7 @@ _0806AA2E:
 	movs r0, #0
 	strh r0, [r5, #0x2c]
 	adds r0, r5, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _0806AA92:
 	add sp, #4
 	pop {r3, r4}
@@ -55010,7 +55010,7 @@ _0806AAFC:
 	ldr r0, [r5, #0x48]
 	bl AnimDelete
 	adds r0, r5, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _0806ABBA:
 	add sp, #4
 	pop {r3, r4}
@@ -55038,7 +55038,7 @@ sub_806ABCC: @ 0x0806ABCC
 	str r0, [r1]
 	ldr r0, _0806AC04  @ gUnknown_085D8960
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	adds r5, r0, #0
 	str r6, [r5, #0x5c]
 	movs r0, #0
@@ -55401,7 +55401,7 @@ sub_806AEF4: @ 0x0806AEF4
 	bl ClearBG1Setup
 	ldr r0, _0806AF2C  @ gUnknown_085D89A0
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	adds r4, r0, #0
 	str r5, [r4, #0x5c]
 	movs r0, #0
@@ -55515,7 +55515,7 @@ _0806AFD6:
 	bl SetSomethingSpellFxToFalse
 	bl sub_8055000
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 	b _0806B07A
 _0806AFF8:
 	adds r0, r2, #0
@@ -55576,7 +55576,7 @@ _0806B068:
 	bne _0806B07A
 	bl SetSomethingSpellFxToFalse
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _0806B07A:
 	add sp, #8
 	pop {r4, r5, r6}
@@ -55655,7 +55655,7 @@ _0806B0F4:
 	str r0, [r1]
 	bl sub_805526C
 	adds r0, r7, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _0806B112:
 	pop {r4, r5, r6, r7}
 	pop {r0}
@@ -55672,7 +55672,7 @@ sub_806B11C: @ 0x0806B11C
 	movs r0, #0
 	bl SetPrimaryHBlankHandler
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 	pop {r4}
 	pop {r0}
 	bx r0
@@ -55689,7 +55689,7 @@ sub_806B134: @ 0x0806B134
 	str r0, [r1]
 	ldr r0, _0806B17C  @ gUnknown_085D8A78
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	str r4, [r0, #0x5c]
 	movs r1, #0
 	strh r1, [r0, #0x2c]
@@ -55755,7 +55755,7 @@ _0806B1C2:
 	subs r0, #1
 	str r0, [r1]
 	adds r0, r6, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _0806B1DC:
 	pop {r4, r5, r6}
 	pop {r0}
@@ -55775,7 +55775,7 @@ sub_806B1E8: @ 0x0806B1E8
 	str r0, [r1]
 	ldr r0, _0806B238  @ gUnknown_085D8ABC
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	str r4, [r0, #0x5c]
 	movs r1, #0
 	strh r1, [r0, #0x2c]
@@ -55829,7 +55829,7 @@ sub_806B24C: @ 0x0806B24C
 	ldr r0, [r4, #0x60]
 	bl AnimDelete
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 	b _0806B2B8
 	.align 2, 0
 _0806B278: .4byte gUnknown_0201774C
@@ -55886,7 +55886,7 @@ sub_806B2C0: @ 0x0806B2C0
 	str r0, [r1]
 	ldr r0, _0806B308  @ gUnknown_085D8AD4
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	adds r4, r0, #0
 	str r5, [r4, #0x5c]
 	movs r0, #0
@@ -56113,7 +56113,7 @@ _0806B4A6:
 	cmp r0, #0x20
 	bne _0806B4C8
 	ldr r0, [sp, #4]
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _0806B4C8:
 	ldr r1, [sp, #8]
 	ldrh r0, [r1]
@@ -56137,7 +56137,7 @@ sub_806B4E4: @ 0x0806B4E4
 	push {lr}
 	ldr r0, _0806B4F4  @ gUnknown_085D8AEC
 	movs r1, #0
-	bl Proc_Create
+	bl Proc_Start
 	pop {r0}
 	bx r0
 	.align 2, 0
@@ -56154,7 +56154,7 @@ sub_806B4F8: @ 0x0806B4F8
 	bl ClearBG1Setup
 	ldr r0, _0806B530  @ gUnknown_085D8B0C
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	adds r4, r0, #0
 	str r5, [r4, #0x5c]
 	movs r0, #0
@@ -56302,7 +56302,7 @@ _0806B630:
 	bl SetSomethingSpellFxToFalse
 	bl sub_8055000
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _0806B646:
 	pop {r4, r5}
 	pop {r0}
@@ -56335,7 +56335,7 @@ sub_806B664: @ 0x0806B664
 	str r1, [r2, #0x20]
 	movs r1, #0
 	strh r1, [r2, #6]
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 	pop {r0}
 	bx r0
 	.align 2, 0
@@ -56354,7 +56354,7 @@ sub_806B680: @ 0x0806B680
 	str r0, [r1]
 	ldr r0, _0806B6C0  @ gUnknown_085D8B24
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	adds r5, r0, #0
 	str r4, [r5, #0x5c]
 	ldr r3, _0806B6C4  @ gUnknown_086EAE24
@@ -56479,7 +56479,7 @@ _0806B780:
 	str r0, [r1]
 	bl sub_805526C
 	adds r0, r7, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _0806B79E:
 	pop {r4, r5, r6, r7}
 	pop {r0}
@@ -56499,7 +56499,7 @@ sub_806B7A8: @ 0x0806B7A8
 	str r0, [r1]
 	ldr r0, _0806B7F4  @ gUnknown_085D8BD0
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	str r4, [r0, #0x5c]
 	movs r1, #0
 	strh r1, [r0, #0x2c]
@@ -56598,7 +56598,7 @@ _0806B876:
 	subs r0, #1
 	str r0, [r1]
 	adds r0, r7, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _0806B890:
 	pop {r4, r5, r6, r7}
 	pop {r0}
@@ -56618,7 +56618,7 @@ sub_806B89C: @ 0x0806B89C
 	str r0, [r1]
 	ldr r0, _0806B8E8  @ gUnknown_085D8C0C
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	str r4, [r0, #0x5c]
 	movs r1, #0
 	strh r1, [r0, #0x2c]
@@ -56844,7 +56844,7 @@ _0806BA86:
 	movs r0, #0
 	strh r0, [r3]
 	ldr r0, [sp, #4]
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 	b _0806BABA
 	.align 2, 0
 _0806BAB0: .4byte gUnknown_020165C8
@@ -56960,7 +56960,7 @@ _0806BBA0:
 	cmp r0, #0x10
 	bne _0806BBC6
 	mov r0, r8
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _0806BBC6:
 	ldrh r0, [r7]
 	adds r0, #1
@@ -56980,7 +56980,7 @@ sub_806BBDC: @ 0x0806BBDC
 	push {lr}
 	ldr r0, _0806BBEC  @ gUnknown_085D8C24
 	movs r1, #0
-	bl Proc_Create
+	bl Proc_Start
 	pop {r0}
 	bx r0
 	.align 2, 0
@@ -57069,7 +57069,7 @@ _0806BC78:
 	ldr r0, [r4, #0x60]
 	bl AnimDelete
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _0806BC8C:
 	pop {r4}
 	pop {r0}
@@ -57095,7 +57095,7 @@ sub_806BC98: @ 0x0806BC98
 	str r0, [r1]
 	ldr r0, _0806BCE8  @ gUnknown_085D8C4C
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	adds r7, r0, #0
 	str r5, [r7, #0x5c]
 	movs r0, #0
@@ -57351,7 +57351,7 @@ _0806BEC6:
 	subs r0, #1
 	str r0, [r1]
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _0806BEE2:
 	pop {r4}
 	pop {r0}
@@ -57376,7 +57376,7 @@ sub_806BEEC: @ 0x0806BEEC
 	str r0, [r1]
 	ldr r0, _0806BF24  @ gUnknown_085D8C64
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	adds r5, r0, #0
 	str r4, [r5, #0x5c]
 	movs r0, #0
@@ -57570,7 +57570,7 @@ _0806C08E:
 	str r0, [r1]
 	bl sub_805526C
 	adds r0, r6, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _0806C0AC:
 	pop {r4, r5, r6}
 	pop {r0}
@@ -57590,7 +57590,7 @@ sub_806C0B8: @ 0x0806C0B8
 	str r0, [r1]
 	ldr r0, _0806C100  @ gUnknown_085D8CC4
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	str r4, [r0, #0x5c]
 	movs r1, #0
 	strh r1, [r0, #0x2c]
@@ -57697,7 +57697,7 @@ _0806C16C:
 	movs r0, #0
 	strh r0, [r4]
 	adds r0, r5, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 	b _0806C1B0
 	.align 2, 0
 _0806C1A4: .4byte gUnknown_020165C8
@@ -57812,7 +57812,7 @@ _0806C290:
 	movs r0, #0
 	strh r0, [r6]
 	mov r0, r8
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 	b _0806C2C8
 	.align 2, 0
 _0806C2C0: .4byte gUnknown_020165C8
@@ -57983,7 +57983,7 @@ _0806C41E:
 	movs r0, #0
 	strh r0, [r3]
 	ldr r0, [sp, #4]
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 	b _0806C452
 	.align 2, 0
 _0806C448: .4byte gUnknown_020165C8
@@ -58008,7 +58008,7 @@ sub_806C464: @ 0x0806C464
 	push {lr}
 	ldr r0, _0806C474  @ gUnknown_085D8CE4
 	movs r1, #0
-	bl Proc_Create
+	bl Proc_Start
 	pop {r0}
 	bx r0
 	.align 2, 0
@@ -58171,7 +58171,7 @@ _0806C5C2:
 	movs r0, #0
 	strh r0, [r3]
 	ldr r0, [sp, #4]
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 	b _0806C5F6
 	.align 2, 0
 _0806C5EC: .4byte gUnknown_020165C8
@@ -58196,7 +58196,7 @@ sub_806C608: @ 0x0806C608
 	push {lr}
 	ldr r0, _0806C618  @ gUnknown_085D8D14
 	movs r1, #0
-	bl Proc_Create
+	bl Proc_Start
 	pop {r0}
 	bx r0
 	.align 2, 0
@@ -58211,7 +58211,7 @@ sub_806C61C: @ 0x0806C61C
 	adds r5, r1, #0
 	ldr r0, _0806C644  @ gUnknown_085D8D44
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	str r4, [r0, #0x5c]
 	movs r1, #0
 	strh r1, [r0, #0x2c]
@@ -58250,7 +58250,7 @@ _0806C66E:
 	cmp r0, #0xa
 	bne _0806C678
 	adds r0, r1, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _0806C678:
 	pop {r0}
 	bx r0
@@ -58265,7 +58265,7 @@ sub_806C67C: @ 0x0806C67C
 	adds r4, r1, #0
 	ldr r0, _0806C6A0  @ gUnknown_085D8D5C
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	adds r6, r0, #0
 	str r5, [r6, #0x5c]
 	movs r0, #0
@@ -58334,9 +58334,9 @@ sub_806C6EC: @ 0x0806C6EC
 	cmp r0, r1
 	ble _0806C716
 	ldr r0, [r4, #0x60]
-	bl Proc_Delete
+	bl Proc_End
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _0806C716:
 	pop {r4}
 	pop {r0}
@@ -58371,7 +58371,7 @@ _0806C74E:
 	bl ClearBG1Setup
 	ldr r0, _0806C764  @ gUnknown_085D8D74
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	str r5, [r0, #0x5c]
 	strh r4, [r0, #0x2c]
 _0806C75E:
@@ -58403,7 +58403,7 @@ _0806C788:
 	cmp r0, #0x11
 	bne _0806C792
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _0806C792:
 	pop {r4}
 	pop {r0}
@@ -58417,7 +58417,7 @@ sub_806C798: @ 0x0806C798
 	adds r5, r0, #0
 	ldr r0, _0806C7D4  @ gUnknown_085D8D8C
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	adds r4, r0, #0
 	str r5, [r4, #0x5c]
 	movs r0, #0
@@ -58460,7 +58460,7 @@ sub_806C7E8: @ 0x0806C7E8
 	bl ClearBG1
 	bl sub_805526C
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _0806C808:
 	pop {r4}
 	pop {r0}
@@ -58474,7 +58474,7 @@ sub_806C810: @ 0x0806C810
 	adds r4, r0, #0
 	ldr r0, _0806C834  @ gUnknown_085D8DA4
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	str r4, [r0, #0x5c]
 	movs r1, #0
 	strh r1, [r0, #0x2c]
@@ -58518,7 +58518,7 @@ _0806C866:
 	cmp r1, r0
 	bne _0806C874
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _0806C874:
 	pop {r4}
 	pop {r0}
@@ -58552,7 +58552,7 @@ sub_806C87C: @ 0x0806C87C
 _0806C8AE:
 	ldr r0, _0806C8C0  @ gUnknown_085D8DC4
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	str r4, [r0, #0x5c]
 	strh r5, [r0, #0x2c]
 _0806C8BA:
@@ -58592,7 +58592,7 @@ _0806C8F4:
 	cmp r0, #0x18
 	bne _0806C8FE
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _0806C8FE:
 	pop {r4}
 	pop {r0}
@@ -58610,7 +58610,7 @@ sub_806C904: @ 0x0806C904
 	str r0, [r1]
 	ldr r0, _0806C968  @ gUnknown_085D8DDC
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	adds r5, r0, #0
 	str r4, [r5, #0x5c]
 	movs r0, #0
@@ -58698,7 +58698,7 @@ _0806C9BE:
 	str r0, [r1]
 	bl sub_805526C
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _0806C9DC:
 	pop {r4}
 	pop {r0}
@@ -58715,7 +58715,7 @@ sub_806C9E8: @ 0x0806C9E8
 	bl ClearBG1Setup
 	ldr r0, _0806CA04  @ gUnknown_085D8E1C
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	str r4, [r0, #0x5c]
 	movs r1, #0
 	strh r1, [r0, #0x2c]
@@ -58747,7 +58747,7 @@ _0806CA28:
 	cmp r0, #0x11
 	bne _0806CA32
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _0806CA32:
 	pop {r4}
 	pop {r0}
@@ -58761,7 +58761,7 @@ sub_806CA38: @ 0x0806CA38
 	adds r5, r0, #0
 	ldr r0, _0806CA74  @ gUnknown_085D8E34
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	adds r4, r0, #0
 	str r5, [r4, #0x5c]
 	movs r0, #0
@@ -58804,7 +58804,7 @@ sub_806CA88: @ 0x0806CA88
 	bl ClearBG1
 	bl sub_805526C
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _0806CAA8:
 	pop {r4}
 	pop {r0}
@@ -58818,7 +58818,7 @@ sub_806CAB0: @ 0x0806CAB0
 	adds r4, r0, #0
 	ldr r0, _0806CAD4  @ gUnknown_085D8E4C
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	str r4, [r0, #0x5c]
 	movs r1, #0
 	strh r1, [r0, #0x2c]
@@ -58862,7 +58862,7 @@ _0806CB06:
 	cmp r1, r0
 	bne _0806CB14
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _0806CB14:
 	pop {r4}
 	pop {r0}
@@ -58877,7 +58877,7 @@ sub_806CB1C: @ 0x0806CB1C
 	bl ClearBG1Setup
 	ldr r0, _0806CB38  @ gUnknown_085D8E6C
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	str r4, [r0, #0x5c]
 	movs r1, #0
 	strh r1, [r0, #0x2c]
@@ -58917,7 +58917,7 @@ _0806CB6C:
 	cmp r0, #0x18
 	bne _0806CB76
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _0806CB76:
 	pop {r4}
 	pop {r0}
@@ -58935,7 +58935,7 @@ sub_806CB7C: @ 0x0806CB7C
 	str r0, [r1]
 	ldr r0, _0806CBE0  @ gUnknown_085D8E84
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	adds r5, r0, #0
 	str r4, [r5, #0x5c]
 	movs r0, #0
@@ -59023,7 +59023,7 @@ _0806CC36:
 	str r0, [r1]
 	bl sub_805526C
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _0806CC54:
 	pop {r4}
 	pop {r0}
@@ -59040,7 +59040,7 @@ sub_806CC60: @ 0x0806CC60
 	adds r5, r1, #0
 	ldr r0, _0806CC84  @ gUnknown_085D8EC4
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	str r4, [r0, #0x5c]
 	movs r1, #0
 	strh r1, [r0, #0x2c]
@@ -59058,7 +59058,7 @@ _0806CC84: .4byte gUnknown_085D8EC4
 	THUMB_FUNC_START sub_806CC88
 sub_806CC88: @ 0x0806CC88
 	push {lr}
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 	pop {r0}
 	bx r0
 
@@ -59072,7 +59072,7 @@ sub_806CC94: @ 0x0806CC94
 	adds r4, r1, #0
 	ldr r0, _0806CCBC  @ gUnknown_085D8EDC
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	adds r5, r0, #0
 	str r6, [r5, #0x5c]
 	movs r0, #0
@@ -59179,7 +59179,7 @@ _0806CD62:
 	strh r0, [r4, #6]
 	strh r0, [r5, #0x2c]
 	adds r0, r5, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _0806CD72:
 	pop {r4, r5}
 	pop {r0}
@@ -59206,7 +59206,7 @@ sub_806CD7C: @ 0x0806CD7C
 	movs r0, #0
 	strh r0, [r1, #0x2c]
 	adds r0, r1, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _0806CD9E:
 	pop {r0}
 	bx r0
@@ -59257,7 +59257,7 @@ _0806CDEE:
 	strh r0, [r4, #6]
 	strh r0, [r5, #0x2c]
 	adds r0, r5, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _0806CDFE:
 	pop {r4, r5}
 	pop {r0}
@@ -59283,7 +59283,7 @@ sub_806CE08: @ 0x0806CE08
 	ldr r0, [r4, #0x60]
 	bl AnimDelete
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _0806CE2A:
 	pop {r4}
 	pop {r0}
@@ -59301,7 +59301,7 @@ sub_806CE30: @ 0x0806CE30
 	bne _0806CE6E
 	ldr r0, _0806CE60  @ gUnknown_085D8F0C
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	str r4, [r0, #0x5c]
 	strh r5, [r0, #0x2c]
 	ldr r0, _0806CE64  @ gUnknown_0203E120
@@ -59329,7 +59329,7 @@ _0806CE6E:
 	THUMB_FUNC_START sub_806CE74
 sub_806CE74: @ 0x0806CE74
 	push {lr}
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 	pop {r0}
 	bx r0
 
@@ -59346,7 +59346,7 @@ sub_806CE80: @ 0x0806CE80
 	str r0, [r1]
 	ldr r0, _0806CEBC  @ gUnknown_085D8F24
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	adds r4, r0, #0
 	str r5, [r4, #0x5c]
 	movs r0, #0
@@ -59397,7 +59397,7 @@ _0806CEDE:
 	lsls r1, r1, #5
 	bl SomeImageStoringRoutine_SpellAnim
 	adds r0, r5, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 	pop {r4, r5}
 	pop {r0}
 	bx r0
@@ -59436,7 +59436,7 @@ _0806CF2A:
 	lsls r1, r1, #5
 	bl SomeImageStoringRoutine_SpellAnim
 	adds r0, r5, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 	pop {r4, r5}
 	pop {r0}
 	bx r0
@@ -59458,7 +59458,7 @@ sub_806CF5C: @ 0x0806CF5C
 	ldr r0, [r4, #0x60]
 	bl AnimDelete
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 	pop {r4}
 	pop {r0}
 	bx r0
@@ -59478,7 +59478,7 @@ sub_806CF80: @ 0x0806CF80
 	str r0, [r1]
 	ldr r0, _0806CFBC  @ gUnknown_085D8F5C
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	adds r4, r0, #0
 	str r5, [r4, #0x5c]
 	movs r0, #0
@@ -59529,7 +59529,7 @@ _0806CFDE:
 	lsls r1, r1, #5
 	bl SomeImageStoringRoutine_SpellAnim
 	adds r0, r5, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 	pop {r4, r5}
 	pop {r0}
 	bx r0
@@ -59568,7 +59568,7 @@ _0806D02A:
 	lsls r1, r1, #5
 	bl SomeImageStoringRoutine_SpellAnim
 	adds r0, r5, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 	pop {r4, r5}
 	pop {r0}
 	bx r0
@@ -59590,7 +59590,7 @@ sub_806D05C: @ 0x0806D05C
 	ldr r0, [r4, #0x60]
 	bl AnimDelete
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 	pop {r4}
 	pop {r0}
 	bx r0
@@ -59613,7 +59613,7 @@ _0806D090:
 	bl ClearBG1Setup
 	ldr r0, _0806D0C8  @ gUnknown_085D8F94
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	adds r4, r0, #0
 	str r6, [r4, #0x5c]
 	strh r5, [r4, #0x2c]
@@ -59710,7 +59710,7 @@ sub_806D198: @ 0x0806D198
 	cmp r0, #0x14
 	bne _0806D1B0
 	adds r0, r1, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _0806D1B0:
 	pop {r0}
 	bx r0
@@ -59728,7 +59728,7 @@ sub_806D1B4: @ 0x0806D1B4
 	str r0, [r1]
 	ldr r0, _0806D1EC  @ gUnknown_085D8FAC
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	adds r4, r0, #0
 	str r6, [r4, #0x5c]
 	movs r0, #0
@@ -59884,7 +59884,7 @@ _0806D2F6:
 	str r0, [r1]
 	bl sub_805526C
 	adds r0, r4, #0
-	bl Proc_Delete
+	bl Proc_End
 _0806D314:
 	pop {r4, r5}
 	pop {r0}
@@ -59905,7 +59905,7 @@ sub_806D320: @ 0x0806D320
 	bne _0806D342
 	ldr r0, _0806D34C  @ gUnknown_085D901C
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	str r5, [r0, #0x5c]
 	strh r4, [r0, #0x2c]
 	adds r0, r5, #0
@@ -59924,7 +59924,7 @@ _0806D34C: .4byte gUnknown_085D901C
 	THUMB_FUNC_START sub_806D350
 sub_806D350: @ 0x0806D350
 	push {lr}
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 	pop {r0}
 	bx r0
 
@@ -59942,7 +59942,7 @@ sub_806D35C: @ 0x0806D35C
 	str r0, [r1]
 	ldr r0, _0806D3C8  @ gUnknown_085D9034
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	adds r5, r0, #0
 	str r6, [r5, #0x5c]
 	movs r0, #0
@@ -60120,7 +60120,7 @@ sub_806D540: @ 0x0806D540
 	ldr r0, [r4, #0x60]
 	bl AnimDelete
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _0806D566:
 	pop {r4}
 	pop {r0}
@@ -60140,7 +60140,7 @@ sub_806D570: @ 0x0806D570
 	bne _0806D58E
 	ldr r0, _0806D598  @ gUnknown_085D904C
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	str r5, [r0, #0x5c]
 	strh r4, [r0, #0x2c]
 	adds r0, r5, #0
@@ -60158,7 +60158,7 @@ _0806D598: .4byte gUnknown_085D904C
 	THUMB_FUNC_START sub_806D59C
 sub_806D59C: @ 0x0806D59C
 	push {lr}
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 	pop {r0}
 	bx r0
 
@@ -60175,7 +60175,7 @@ sub_806D5A8: @ 0x0806D5A8
 	str r0, [r1]
 	ldr r0, _0806D5F8  @ gUnknown_085D9064
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	adds r4, r0, #0
 	str r5, [r4, #0x5c]
 	movs r7, #0
@@ -60246,7 +60246,7 @@ sub_806D62C: @ 0x0806D62C
 	ldr r0, [r4, #0x60]
 	bl AnimDelete
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _0806D652:
 	pop {r4}
 	pop {r0}
@@ -60262,7 +60262,7 @@ sub_806D65C: @ 0x0806D65C
 	adds r4, r0, #0
 	ldr r0, _0806D674  @ gUnknown_085D907C
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	str r4, [r0, #0x5c]
 	movs r1, #0
 	strh r1, [r0, #0x2c]
@@ -60323,7 +60323,7 @@ _0806D6A8:
 	orrs r0, r1
 	strh r0, [r2, #0x10]
 	adds r0, r7, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _0806D6DE:
 	pop {r4, r5, r6, r7}
 	pop {r0}
@@ -60339,7 +60339,7 @@ sub_806D6E8: @ 0x0806D6E8
 	adds r4, r0, #0
 	ldr r0, _0806D700  @ gUnknown_085D9094
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	str r4, [r0, #0x5c]
 	movs r1, #0
 	strh r1, [r0, #0x2c]
@@ -60391,7 +60391,7 @@ _0806D722:
 	orrs r0, r1
 	strh r0, [r2, #0x10]
 	adds r0, r7, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _0806D758:
 	pop {r4, r5, r6, r7}
 	pop {r0}
@@ -60412,7 +60412,7 @@ sub_806D764: @ 0x0806D764
 	str r0, [r1]
 	ldr r0, _0806D7C8  @ gUnknown_085D90AC
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	adds r4, r0, #0
 	str r5, [r4, #0x5c]
 	movs r0, #0
@@ -60487,7 +60487,7 @@ _0806D7FC:
 	subs r0, #1
 	str r0, [r1]
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _0806D81C:
 	pop {r4}
 	pop {r0}
@@ -60508,7 +60508,7 @@ sub_806D828: @ 0x0806D828
 	str r0, [r1]
 	ldr r0, _0806D88C  @ gUnknown_085D90C4
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	adds r4, r0, #0
 	str r5, [r4, #0x5c]
 	movs r0, #0
@@ -60570,7 +60570,7 @@ sub_806D89C: @ 0x0806D89C
 	subs r0, #1
 	str r0, [r1]
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _0806D8C6:
 	pop {r4}
 	pop {r0}
@@ -60645,7 +60645,7 @@ _0806D950: .4byte gUnknown_02000000
 _0806D954:
 	ldr r0, _0806D97C  @ gUnknown_085D90DC
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	str r5, [r0, #0x5c]
 	movs r1, #0
 	strh r1, [r0, #0x2c]
@@ -60669,7 +60669,7 @@ _0806D97C: .4byte gUnknown_085D90DC
 	THUMB_FUNC_START sub_806D980
 sub_806D980: @ 0x0806D980
 	push {lr}
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 	pop {r0}
 	bx r0
 
@@ -60682,7 +60682,7 @@ sub_806D98C: @ 0x0806D98C
 	bl ClearBG1Setup
 	ldr r0, _0806D9A8  @ gUnknown_085D90F4
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	str r4, [r0, #0x5c]
 	movs r1, #0
 	strh r1, [r0, #0x2c]
@@ -60741,7 +60741,7 @@ _0806D9DA:
 	orrs r0, r1
 	strh r0, [r2, #0x10]
 	adds r0, r6, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _0806DA10:
 	pop {r4, r5, r6}
 	pop {r0}
@@ -60757,7 +60757,7 @@ sub_806DA1C: @ 0x0806DA1C
 	adds r5, r0, #0
 	ldr r0, _0806DA58  @ gUnknown_085D910C
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	adds r4, r0, #0
 	str r5, [r4, #0x5c]
 	movs r0, #0
@@ -60799,7 +60799,7 @@ sub_806DA68: @ 0x0806DA68
 	bl ClearBG1
 	bl sub_805526C
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _0806DA88:
 	pop {r4}
 	pop {r0}
@@ -60812,7 +60812,7 @@ sub_806DA90: @ 0x0806DA90
 	push {lr}
 	ldr r0, _0806DAAC  @ gUnknown_085D9124
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	movs r1, #0
 	strh r1, [r0, #0x2c]
 	strh r1, [r0, #0x2e]
@@ -60904,7 +60904,7 @@ sub_806DB34: @ 0x0806DB34
 	adds r4, r0, #0
 	ldr r0, _0806DB50  @ gUnknown_085D913C
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	movs r1, #0
 	strh r1, [r0, #0x2c]
 	movs r1, #0x28
@@ -60945,9 +60945,9 @@ sub_806DB54: @ 0x0806DB54
 	cmp r0, r1
 	ble _0806DB92
 	adds r0, r5, #0
-	bl Proc_Delete
+	bl Proc_End
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _0806DB92:
 	add sp, #4
 	pop {r4, r5}
@@ -60963,7 +60963,7 @@ sub_806DB9C: @ 0x0806DB9C
 	bl ClearBG1Setup
 	ldr r0, _0806DBB8  @ gUnknown_085D9244
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	str r4, [r0, #0x5c]
 	movs r1, #0
 	strh r1, [r0, #0x2c]
@@ -61007,7 +61007,7 @@ _0806DBF2:
 	cmp r0, #0x64
 	bne _0806DC00
 	adds r0, r5, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _0806DC00:
 	pop {r4, r5}
 	pop {r0}
@@ -61026,7 +61026,7 @@ sub_806DC08: @ 0x0806DC08
 	str r0, [r1]
 	ldr r0, _0806DC8C  @ gUnknown_085D925C
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	str r4, [r0, #0x5c]
 	movs r1, #0
 	strh r1, [r0, #0x2c]
@@ -61147,7 +61147,7 @@ _0806DCD0:
 	str r0, [r1]
 	bl sub_805526C
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _0806DD24:
 	pop {r4}
 	pop {r0}
@@ -61316,7 +61316,7 @@ _0806DF10:
 _0806DF14:
 	ldr r0, _0806DF78  @ gUnknown_085D9284
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	adds r6, r0, #0
 	str r7, [r6, #0x5c]
 	movs r0, #0
@@ -61398,7 +61398,7 @@ sub_806DFA4: @ 0x0806DFA4
 	cmp r0, #0
 	beq _0806DFCA
 	adds r0, r2, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _0806DFCA:
 	pop {r0}
 	bx r0
@@ -61429,7 +61429,7 @@ sub_806DFD0: @ 0x0806DFD0
 	movs r1, #0
 	str r1, [r0]
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _0806E00A:
 	pop {r4}
 	pop {r0}
@@ -61446,7 +61446,7 @@ sub_806E014: @ 0x0806E014
 	bl ClearBG1Setup
 	ldr r0, _0806E030  @ gUnknown_085D92A4
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	str r4, [r0, #0x5c]
 	movs r1, #0
 	strh r1, [r0, #0x2c]
@@ -61488,7 +61488,7 @@ _0806E066:
 	cmp r0, #0x24
 	bne _0806E070
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _0806E070:
 	pop {r4}
 	pop {r0}
@@ -61506,7 +61506,7 @@ sub_806E078: @ 0x0806E078
 	str r0, [r1]
 	ldr r0, _0806E0C0  @ gUnknown_085D92BC
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	str r4, [r0, #0x5c]
 	movs r1, #0
 	strh r1, [r0, #0x2c]
@@ -61572,7 +61572,7 @@ _0806E0FE:
 	str r0, [r1]
 	bl sub_805526C
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _0806E11C:
 	pop {r4}
 	pop {r0}
@@ -61588,7 +61588,7 @@ sub_806E128: @ 0x0806E128
 	adds r4, r0, #0
 	ldr r0, _0806E14C  @ gUnknown_085D92E0
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	str r4, [r0, #0x5c]
 	movs r1, #0
 	strh r1, [r0, #0x2c]
@@ -61679,7 +61679,7 @@ _0806E1D8:
 	cmp r1, r0
 	bne _0806E1E6
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _0806E1E6:
 	add sp, #0x20
 	pop {r4, r5, r6, r7}
@@ -61702,7 +61702,7 @@ sub_806E1F0: @ 0x0806E1F0
 _0806E202:
 	ldr r0, _0806E264  @ gUnknown_085D9300
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	adds r5, r0, #0
 	str r6, [r5, #0x5c]
 	movs r0, #0
@@ -61813,7 +61813,7 @@ sub_806E290: @ 0x0806E290
 	orrs r0, r1
 	strh r0, [r2, #0x10]
 	adds r0, r6, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _0806E2FC:
 	pop {r4, r5, r6}
 	pop {r0}
@@ -61839,7 +61839,7 @@ sub_806E310: @ 0x0806E310
 	adds r4, r0, #0
 	ldr r0, _0806E364  @ gUnknown_085D9318
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	adds r7, r0, #0
 	str r4, [r7, #0x5c]
 	movs r0, #0
@@ -62116,7 +62116,7 @@ _0806E4C0:
 	ands r5, r0
 	strh r5, [r2]
 	adds r0, r7, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _0806E578:
 	add sp, #4
 	pop {r3}
@@ -62138,7 +62138,7 @@ sub_806E58C: @ 0x0806E58C
 	lsrs r5, r5, #0x18
 	ldr r0, _0806E5E8  @ gUnknown_085D93F0
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	adds r4, r0, #0
 	str r6, [r4, #0x5c]
 	movs r0, #0
@@ -62204,7 +62204,7 @@ sub_806E610: @ 0x0806E610
 	movs r3, #1
 	bl sub_80729A4
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 	pop {r4}
 	pop {r0}
 	bx r0
@@ -62289,7 +62289,7 @@ _0806E6CC:
 	bl ClearBG1
 	bl sub_805526C
 	adds r0, r6, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _0806E6DA:
 	pop {r4, r5, r6, r7}
 	pop {r0}
@@ -62377,7 +62377,7 @@ sub_806E6E0: @ 0x0806E6E0
 	orrs r5, r0
 	strh r5, [r1]
 	mov r0, sl
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 	pop {r3, r4, r5}
 	mov r8, r3
 	mov r9, r4
@@ -62476,7 +62476,7 @@ sub_806E79C: @ 0x0806E79C
 	ands r5, r0
 	strh r5, [r2]
 	mov r0, r9
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 	add sp, #4
 	pop {r3, r4}
 	mov r8, r3
@@ -62516,7 +62516,7 @@ _0806E88C:
 	cmp r1, r0
 	bne _0806E89E
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _0806E89E:
 	pop {r4}
 	pop {r0}
@@ -62557,7 +62557,7 @@ _0806E8D0:
 	orrs r0, r1
 	strh r0, [r5, #0x10]
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _0806E8EA:
 	pop {r4, r5}
 	pop {r0}
@@ -62586,7 +62586,7 @@ sub_806E904: @ 0x0806E904
 	ldr r0, [r4]
 	cmp r0, #0
 	beq _0806E916
-	bl Proc_Delete
+	bl Proc_End
 	movs r0, #0
 	str r0, [r4]
 _0806E916:
@@ -62605,7 +62605,7 @@ sub_806E920: @ 0x0806E920
 	ldr r0, [r4]
 	cmp r0, #0
 	beq _0806E932
-	bl Proc_Delete
+	bl Proc_End
 	movs r0, #0
 	str r0, [r4]
 _0806E932:
@@ -62945,7 +62945,7 @@ sub_806EB7C: @ 0x0806EB7C
 	adds r4, r0, #0
 	ldr r0, _0806EB98  @ gUnknown_085D9454
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	adds r5, r0, #0
 	bl sub_806E93C
 	str r4, [r5, #0x5c]
@@ -62968,7 +62968,7 @@ sub_806EB9C: @ 0x0806EB9C
 	adds r1, r4, #0
 	bl sub_806EC68
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 	pop {r4}
 	pop {r0}
 	bx r0
@@ -62984,7 +62984,7 @@ sub_806EBBC: @ 0x0806EBBC
 	adds r6, r0, #0
 	ldr r0, _0806EC08  @ gUnknown_085D947C
 	adds r1, r4, #0
-	bl Proc_Create
+	bl Proc_Start
 	adds r4, r0, #0
 	str r5, [r4, #0x5c]
 	movs r0, #0
@@ -63048,7 +63048,7 @@ _0806EC48:
 	bl sub_806E9B4
 	bl sub_805526C
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _0806EC60:
 	pop {r4}
 	pop {r0}
@@ -63065,7 +63065,7 @@ sub_806EC68: @ 0x0806EC68
 	adds r7, r0, #0
 	ldr r0, _0806ECA4  @ gUnknown_085D94C4
 	adds r1, r4, #0
-	bl Proc_Create
+	bl Proc_Start
 	adds r6, r0, #0
 	str r5, [r6, #0x5c]
 	movs r0, #0
@@ -63132,7 +63132,7 @@ sub_806ECE8: @ 0x0806ECE8
 	ldr r0, [r4, #0x60]
 	bl AnimDelete
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _0806ED06:
 	pop {r4}
 	pop {r0}
@@ -63146,7 +63146,7 @@ sub_806ED0C: @ 0x0806ED0C
 	adds r4, r0, #0
 	ldr r0, _0806ED28  @ gUnknown_085D94DC
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	adds r5, r0, #0
 	bl sub_806E93C
 	str r4, [r5, #0x5c]
@@ -63172,7 +63172,7 @@ sub_806ED2C: @ 0x0806ED2C
 	adds r1, r4, #0
 	bl sub_806EEA8
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 	pop {r4}
 	pop {r0}
 	bx r0
@@ -63187,7 +63187,7 @@ sub_806ED54: @ 0x0806ED54
 	adds r6, r0, #0
 	ldr r0, _0806ED9C  @ gUnknown_085D9504
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	adds r4, r0, #0
 	str r5, [r4, #0x5c]
 	movs r0, #0
@@ -63278,7 +63278,7 @@ _0806EE12:
 	bl sub_806E9B4
 	bl sub_805526C
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _0806EE2A:
 	add sp, #4
 	pop {r4, r5, r6, r7}
@@ -63293,7 +63293,7 @@ sub_806EE34: @ 0x0806EE34
 	adds r5, r0, #0
 	ldr r0, _0806EE5C  @ gUnknown_085D9524
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	adds r4, r0, #0
 	bl sub_806E948
 	str r5, [r4, #0x5c]
@@ -63340,7 +63340,7 @@ _0806EE8E:
 	bne _0806EEA0
 	bl sub_806E920
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _0806EEA0:
 	pop {r4}
 	pop {r0}
@@ -63356,7 +63356,7 @@ sub_806EEA8: @ 0x0806EEA8
 	adds r7, r0, #0
 	ldr r0, _0806EEE4  @ gUnknown_085D9544
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	adds r6, r0, #0
 	str r5, [r6, #0x5c]
 	movs r0, #0
@@ -63421,7 +63421,7 @@ sub_806EF24: @ 0x0806EF24
 	ldr r0, [r4, #0x60]
 	bl AnimDelete
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _0806EF42:
 	pop {r4}
 	pop {r0}
@@ -63435,7 +63435,7 @@ sub_806EF48: @ 0x0806EF48
 	adds r4, r0, #0
 	ldr r0, _0806EF60  @ gUnknown_085D955C
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	str r4, [r0, #0x5c]
 	movs r1, #0
 	strh r1, [r0, #0x2c]
@@ -63479,7 +63479,7 @@ sub_806EF64: @ 0x0806EF64
 	movs r3, #1
 	bl sub_806F0CC
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 	add sp, #4
 	pop {r4}
 	pop {r0}
@@ -63495,7 +63495,7 @@ sub_806EFB8: @ 0x0806EFB8
 	adds r6, r0, #0
 	ldr r0, _0806EFFC  @ gUnknown_085D9584
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	adds r4, r0, #0
 	bl sub_806E93C
 	str r5, [r4, #0x5c]
@@ -63556,7 +63556,7 @@ _0806F038:
 	bl sub_806E9B4
 	bl sub_805526C
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _0806F050:
 	pop {r4}
 	pop {r0}
@@ -63570,7 +63570,7 @@ sub_806F058: @ 0x0806F058
 	adds r5, r0, #0
 	ldr r0, _0806F080  @ gUnknown_085D95A0
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	adds r4, r0, #0
 	bl sub_806E948
 	str r5, [r4, #0x5c]
@@ -63617,7 +63617,7 @@ _0806F0B2:
 	bne _0806F0C4
 	bl sub_806E920
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _0806F0C4:
 	pop {r4}
 	pop {r0}
@@ -63636,7 +63636,7 @@ sub_806F0CC: @ 0x0806F0CC
 	mov r8, r3
 	ldr r0, _0806F0F8  @ gUnknown_085D95C0
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	str r4, [r0, #0x5c]
 	strh r5, [r0, #0x2c]
 	strh r6, [r0, #0x2e]
@@ -63664,7 +63664,7 @@ sub_806F0FC: @ 0x0806F0FC
 	cmp r0, #0
 	bne _0806F112
 	adds r0, r1, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _0806F112:
 	pop {r0}
 	bx r0
@@ -63683,7 +63683,7 @@ sub_806F118: @ 0x0806F118
 	cmp r1, r0
 	ble _0806F132
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 	b _0806F17A
 _0806F132:
 	adds r0, r4, #0
@@ -63737,7 +63737,7 @@ sub_806F184: @ 0x0806F184
 	adds r6, r0, #0
 	ldr r0, _0806F1D8  @ gUnknown_085D95E0
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	adds r4, r0, #0
 	str r5, [r4, #0x5c]
 	movs r0, #0
@@ -63791,7 +63791,7 @@ sub_806F1E8: @ 0x0806F1E8
 	ldr r0, [r4, #0x60]
 	bl AnimDelete
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _0806F20A:
 	pop {r4}
 	pop {r0}
@@ -63805,7 +63805,7 @@ sub_806F210: @ 0x0806F210
 	adds r4, r0, #0
 	ldr r0, _0806F22C  @ gUnknown_085D95F8
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	adds r5, r0, #0
 	bl sub_806E93C
 	str r4, [r5, #0x5c]
@@ -63825,7 +63825,7 @@ sub_806F230: @ 0x0806F230
 	adds r1, r4, #0
 	bl sub_806F248
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 	pop {r4}
 	pop {r0}
 	bx r0
@@ -63841,7 +63841,7 @@ sub_806F248: @ 0x0806F248
 	adds r6, r0, #0
 	ldr r0, _0806F28C  @ gUnknown_085D9620
 	adds r1, r4, #0
-	bl Proc_Create
+	bl Proc_Start
 	adds r4, r0, #0
 	str r5, [r4, #0x5c]
 	movs r0, #0
@@ -63914,7 +63914,7 @@ _0806F2E4:
 	bl sub_806E9B4
 	bl sub_805526C
 	adds r0, r7, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _0806F2FC:
 	pop {r4, r5, r6, r7}
 	pop {r0}
@@ -63931,7 +63931,7 @@ sub_806F304: @ 0x0806F304
 	adds r6, r0, #0
 	ldr r0, _0806F34C  @ gUnknown_085D97C4
 	adds r1, r5, #0
-	bl Proc_Create
+	bl Proc_Start
 	adds r5, r0, #0
 	str r4, [r5, #0x5c]
 	movs r1, #0
@@ -63994,7 +63994,7 @@ sub_806F38C: @ 0x0806F38C
 	adds r6, r0, #0
 	ldr r0, _0806F3E4  @ gUnknown_085D97C4
 	adds r1, r4, #0
-	bl Proc_Create
+	bl Proc_Start
 	adds r4, r0, #0
 	str r5, [r4, #0x5c]
 	movs r0, #0
@@ -64070,7 +64070,7 @@ _0806F430:
 	bl sub_806E9B4
 	bl sub_805526C
 	adds r0, r6, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _0806F448:
 	pop {r4, r5, r6}
 	pop {r0}
@@ -64083,7 +64083,7 @@ sub_806F450: @ 0x0806F450
 	push {r4, r5, lr}
 	adds r4, r0, #0
 	ldr r0, _0806F474  @ gUnknown_085D9924
-	bl Proc_Create
+	bl Proc_Start
 	adds r5, r0, #0
 	str r4, [r5, #0x5c]
 	ldr r3, _0806F478  @ gUnknown_085D4F90
@@ -64106,7 +64106,7 @@ sub_806F47C: @ 0x0806F47C
 	push {r4, r5, lr}
 	adds r5, r0, #0
 	ldr r0, _0806F4AC  @ gUnknown_085D996C
-	bl Proc_Create
+	bl Proc_Start
 	adds r4, r0, #0
 	str r5, [r4, #0x5c]
 	ldr r3, _0806F4B0  @ gUnknown_085D4F90
@@ -64158,7 +64158,7 @@ sub_806F4C0: @ 0x0806F4C0
 	ldr r1, _0806F4F4  @ gUnknown_0862C82C
 	bl sub_806EAFC
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 	pop {r4}
 	pop {r0}
 	bx r0
@@ -64186,7 +64186,7 @@ sub_806F4F8: @ 0x0806F4F8
 	ldr r1, _0806F52C  @ gUnknown_0862CC2C
 	bl sub_806EAFC
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 	pop {r4}
 	pop {r0}
 	bx r0
@@ -64214,7 +64214,7 @@ sub_806F530: @ 0x0806F530
 	ldr r1, _0806F564  @ gUnknown_0862D06C
 	bl sub_806EAFC
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 	pop {r4}
 	pop {r0}
 	bx r0
@@ -64241,7 +64241,7 @@ sub_806F568: @ 0x0806F568
 	movs r0, #0x27
 	strh r0, [r4, #0x2c]
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 	pop {r4}
 	pop {r0}
 	bx r0
@@ -64282,7 +64282,7 @@ sub_806F5BC: @ 0x0806F5BC
 	adds r5, r0, #0
 	ldr r0, _0806F5DC  @ gUnknown_085D999C
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	adds r4, r0, #0
 	bl sub_806E93C
 	str r5, [r4, #0x5c]
@@ -64341,9 +64341,9 @@ _0806F62C:
 	cmp r0, #0x72
 	bne _0806F640
 	ldr r0, [r4, #0x64]
-	bl Proc_Delete
+	bl Proc_End
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _0806F640:
 	pop {r4}
 	pop {r0}
@@ -64357,7 +64357,7 @@ sub_806F648: @ 0x0806F648
 	adds r4, r0, #0
 	ldr r0, _0806F664  @ gUnknown_085D99C4
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	adds r5, r0, #0
 	bl sub_806E93C
 	str r4, [r5, #0x5c]
@@ -64394,7 +64394,7 @@ sub_806F668: @ 0x0806F668
 	bl CpuFastSet
 	bl EnablePaletteSync
 	adds r0, r6, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 	pop {r4, r5, r6}
 	pop {r0}
 	bx r0
@@ -64411,7 +64411,7 @@ sub_806F6B4: @ 0x0806F6B4
 	adds r4, r0, #0
 	ldr r0, _0806F6D0  @ gUnknown_085D99EC
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	adds r5, r0, #0
 	bl sub_806E93C
 	str r4, [r5, #0x5c]
@@ -64431,7 +64431,7 @@ sub_806F6D4: @ 0x0806F6D4
 	adds r1, r4, #0
 	bl sub_806F7C0
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 	pop {r4}
 	pop {r0}
 	bx r0
@@ -64446,7 +64446,7 @@ sub_806F6EC: @ 0x0806F6EC
 	adds r1, r4, #0
 	bl sub_806F704
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 	pop {r4}
 	pop {r0}
 	bx r0
@@ -64462,7 +64462,7 @@ sub_806F704: @ 0x0806F704
 	adds r6, r0, #0
 	ldr r0, _0806F748  @ gUnknown_085D9A1C
 	adds r1, r4, #0
-	bl Proc_Create
+	bl Proc_Start
 	adds r4, r0, #0
 	str r5, [r4, #0x5c]
 	movs r0, #0
@@ -64534,7 +64534,7 @@ _0806F7A0:
 	bl sub_806E9B4
 	bl sub_805526C
 	adds r0, r7, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _0806F7B8:
 	pop {r4, r5, r6, r7}
 	pop {r0}
@@ -64550,7 +64550,7 @@ sub_806F7C0: @ 0x0806F7C0
 	bl sub_806E954
 	ldr r0, _0806F80C  @ gUnknown_085D9B64
 	adds r1, r5, #0
-	bl Proc_Create
+	bl Proc_Start
 	adds r5, r0, #0
 	str r4, [r5, #0x5c]
 	movs r0, #0
@@ -64599,7 +64599,7 @@ sub_806F820: @ 0x0806F820
 	ldr r0, [r4, #0x60]
 	bl AnimDelete
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _0806F83E:
 	pop {r4}
 	pop {r0}
@@ -64613,7 +64613,7 @@ sub_806F844: @ 0x0806F844
 	adds r4, r0, #0
 	ldr r0, _0806F860  @ gUnknown_085D9B74
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	adds r5, r0, #0
 	bl sub_806E93C
 	str r4, [r5, #0x5c]
@@ -64633,7 +64633,7 @@ sub_806F864: @ 0x0806F864
 	adds r1, r4, #0
 	bl sub_806F968
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 	pop {r4}
 	pop {r0}
 	bx r0
@@ -64648,7 +64648,7 @@ sub_806F87C: @ 0x0806F87C
 	adds r1, r4, #0
 	bl sub_806F894
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 	pop {r4}
 	pop {r0}
 	bx r0
@@ -64664,7 +64664,7 @@ sub_806F894: @ 0x0806F894
 	adds r6, r0, #0
 	ldr r0, _0806F8DC  @ gUnknown_085D9BA4
 	adds r1, r4, #0
-	bl Proc_Create
+	bl Proc_Start
 	adds r4, r0, #0
 	str r5, [r4, #0x5c]
 	movs r0, #0
@@ -64746,7 +64746,7 @@ _0806F948:
 	bl sub_806E9B4
 	bl sub_805526C
 	adds r0, r6, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _0806F960:
 	pop {r4, r5, r6, r7}
 	pop {r0}
@@ -64762,7 +64762,7 @@ sub_806F968: @ 0x0806F968
 	bl sub_806E954
 	ldr r0, _0806F9C8  @ gUnknown_085D9C4C
 	adds r1, r5, #0
-	bl Proc_Create
+	bl Proc_Start
 	adds r5, r0, #0
 	str r4, [r5, #0x5c]
 	movs r6, #0
@@ -64820,7 +64820,7 @@ sub_806F9D8: @ 0x0806F9D8
 	ldr r0, [r4, #0x60]
 	bl AnimDelete
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _0806F9F6:
 	pop {r4}
 	pop {r0}
@@ -65208,7 +65208,7 @@ sub_806FC50: @ 0x0806FC50
 	movs r0, #0
 	strh r0, [r4, #0x2c]
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _0806FC84:
 	add sp, #4
 	pop {r4}
@@ -65336,7 +65336,7 @@ sub_806FD74: @ 0x0806FD74
 	bl sub_806FEA4
 	adds r0, r7, #0
 	movs r1, #0
-	bl Proc_GotoLabel
+	bl Proc_Goto
 	b _0806FE00
 	.align 2, 0
 _0806FD94: .4byte gUnknown_0203E120
@@ -65393,7 +65393,7 @@ _0806FDDC:
 	bl sub_8070380
 _0806FE00:
 	adds r0, r7, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 	b _0806FE8E
 	.align 2, 0
 _0806FE08: .4byte gUnknown_087585F8
@@ -65511,7 +65511,7 @@ sub_806FED4: @ 0x0806FED4
 	movs r1, #2
 	bl sub_806FA54
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _0806FEF8:
 	pop {r4}
 	pop {r0}
@@ -65547,7 +65547,7 @@ sub_806FF00: @ 0x0806FF00
 	bl sub_806FC8C
 _0806FF3A:
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _0806FF40:
 	pop {r4}
 	pop {r0}
@@ -65603,7 +65603,7 @@ sub_806FF48: @ 0x0806FF48
 	orrs r0, r1
 	strb r0, [r3, #0x18]
 	adds r0, r6, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 	b _080700B4
 	.align 2, 0
 _0806FFB8: .4byte gBG3TilemapBuffer
@@ -65716,7 +65716,7 @@ _08070048:
 	orrs r0, r1
 	strb r0, [r3, #0x18]
 	adds r0, r6, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _080700B4:
 	add sp, #4
 	pop {r4, r5, r6, r7}
@@ -65819,7 +65819,7 @@ _08070176:
 	movs r0, #0
 	strh r0, [r5, #0x2c]
 	adds r0, r5, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _0807018E:
 	add sp, #4
 	pop {r4, r5, r6}
@@ -65839,7 +65839,7 @@ sub_80701A0: @ 0x080701A0
 	movs r1, #8
 	bl sub_806FA54
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 	pop {r4}
 	pop {r0}
 	bx r0
@@ -65854,7 +65854,7 @@ sub_80701B8: @ 0x080701B8
 	adds r6, r0, #0
 	ldr r0, _080701E4  @ gUnknown_08758670
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	adds r4, r0, #0
 	str r4, [r6, #4]
 	adds r0, r5, #0
@@ -66134,7 +66134,7 @@ sub_807038C: @ 0x0807038C
 	adds r5, r2, #0
 	adds r1, r3, #0
 	ldr r0, _080703C0  @ gUnknown_087586D8
-	bl Proc_Create
+	bl Proc_Start
 	adds r4, r0, #0
 	str r6, [r4, #0x5c]
 	adds r0, r5, #0
@@ -66332,9 +66332,9 @@ _08070498:
 _08070536:
 	mov r3, sl
 	ldr r0, [r3, #0x60]
-	bl Proc_Delete
+	bl Proc_End
 	mov r0, sl
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _08070544:
 	pop {r3, r4, r5}
 	mov r8, r3
@@ -66360,7 +66360,7 @@ sub_8070568: @ 0x08070568
 	adds r6, r2, #0
 	ldr r0, _080705A0  @ gUnknown_087586F0
 	movs r1, #0
-	bl Proc_Create
+	bl Proc_Start
 	movs r1, #0
 	strh r1, [r0, #0x2c]
 	str r4, [r0, #0x44]
@@ -66430,7 +66430,7 @@ sub_80705A8: @ 0x080705A8
 	movs r0, #0
 	strh r0, [r7, #0x2c]
 	adds r0, r7, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _08070608:
 	add sp, #4
 	pop {r4, r5, r6, r7}
@@ -66475,7 +66475,7 @@ sub_8070618: @ 0x08070618
 	movs r0, #0
 	strh r0, [r6, #0x2c]
 	adds r0, r6, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _08070662:
 	pop {r4, r5, r6}
 	pop {r0}
@@ -66529,7 +66529,7 @@ sub_8070670: @ 0x08070670
 	movs r0, #0
 	strh r0, [r7, #0x2c]
 	adds r0, r7, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _080706D0:
 	add sp, #4
 	pop {r4, r5, r6, r7}
@@ -66558,7 +66558,7 @@ sub_80706E0: @ 0x080706E0
 	strb r0, [r1]
 	bl EnablePaletteSync
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 	pop {r4}
 	pop {r0}
 	bx r0
@@ -66767,7 +66767,7 @@ sub_8070874: @ 0x08070874
 	cmp r0, #3
 	beq _08070898
 	ldr r0, _0807089C  @ gUnknown_08758720
-	bl Proc_DeleteAllWithScript
+	bl Proc_EndEach
 	movs r0, #0
 	bl sub_807032C
 	movs r0, #0
@@ -66791,7 +66791,7 @@ sub_80708A0: @ 0x080708A0
 	beq _080708BE
 	ldr r0, _080708C4  @ gUnknown_08758720
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	ldr r1, _080708C8  @ gUnknown_08758740
 	str r1, [r0, #0x38]
 _080708BE:
@@ -66811,7 +66811,7 @@ sub_80708CC: @ 0x080708CC
 	adds r6, r0, #0
 	ldr r0, _080708F8  @ gUnknown_08758754
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	adds r4, r0, #0
 	str r4, [r6, #4]
 	adds r0, r5, #0
@@ -66871,7 +66871,7 @@ _0807094C:
 _08070956:
 	bl EnablePaletteSync
 	adds r0, r6, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 	pop {r4, r5, r6}
 	pop {r0}
 	bx r0
@@ -66920,7 +66920,7 @@ _08070996:
 	movs r1, #0xc3
 	bl sub_80589E0
 	adds r0, r5, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _080709C4:
 	pop {r4, r5}
 	pop {r0}
@@ -66938,7 +66938,7 @@ sub_80709CC: @ 0x080709CC
 	movs r1, #2
 	bl sub_806FA54
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 	pop {r4}
 	pop {r0}
 	bx r0
@@ -66960,7 +66960,7 @@ sub_80709EC: @ 0x080709EC
 	movs r0, #0
 	strh r0, [r4, #0x2c]
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _08070A0C:
 	pop {r4}
 	pop {r0}
@@ -67000,7 +67000,7 @@ sub_8070A14: @ 0x08070A14
 	ldr r0, _08070A6C  @ 0x0000FFFF
 	strh r0, [r1]
 	adds r0, r6, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 	b _08070ADA
 	.align 2, 0
 _08070A60: .4byte banim_data
@@ -67024,7 +67024,7 @@ _08070A70:
 	movs r1, #0
 	bl sub_805A07C
 	adds r0, r6, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 	movs r1, #0xc4
 	lsls r1, r1, #5
 	adds r0, r7, r1
@@ -67095,7 +67095,7 @@ _08070B20:
 	bl sub_806FA84
 _08070B2A:
 	adds r0, r5, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _08070B30:
 	pop {r4, r5}
 	pop {r0}
@@ -68746,7 +68746,7 @@ sub_80716C8: @ 0x080716C8
 	ldr r7, [sp, #0x18]
 	ldr r1, [sp, #0x20]
 	ldr r0, _08071710  @ gUnknown_08758A30
-	bl Proc_Create
+	bl Proc_Start
 	movs r2, #0
 	movs r1, #0
 	strh r1, [r0, #0x2c]
@@ -68812,7 +68812,7 @@ _0807174C:
 	b _0807178C
 _08071752:
 	adds r0, r2, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 	b _080717C6
 _0807175A:
 	strh r0, [r2, #0x2c]
@@ -69146,7 +69146,7 @@ _080719D4: .4byte gUnknown_0202BCF0
 _080719D8:
 	ldr r0, _080719EC  @ gUnknown_08758A48
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	str r5, [r0, #0x44]
 	str r6, [r0, #0x48]
 	strh r4, [r0, #0x2c]
@@ -69171,7 +69171,7 @@ Loop6C_efxSoundSE: @ 0x080719F0
 	cmp r0, #5
 	bne _08071A0A
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 	b _08071A38
 _08071A0A:
 	bl sub_8071AA4
@@ -69192,7 +69192,7 @@ _08071A0A:
 	bl m4aSongNumStart
 _08071A32:
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _08071A38:
 	pop {r4}
 	pop {r0}
@@ -71142,7 +71142,7 @@ EndEkrClasschg: @ 0x08072A00
 	push {lr}
 	ldr r0, _08072A10  @ gUnknown_020200B0
 	ldr r0, [r0]
-	bl Proc_Delete
+	bl Proc_End
 	pop {r0}
 	bx r0
 	.align 2, 0
@@ -71158,7 +71158,7 @@ NewEkrClassChg: @ 0x08072A14
 	ldr r4, _08072A3C  @ gUnknown_020200B0
 	ldr r0, _08072A40  @ gUnknown_08758FC0
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	str r0, [r4]
 	str r5, [r0, #0x5c]
 	movs r2, #0
@@ -71446,7 +71446,7 @@ _08072C86:
 	cmp r1, r0
 	bne _08072C94
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _08072C94:
 	movs r0, #0x2c
 	ldrsh r1, [r4, r0]
@@ -71630,7 +71630,7 @@ sub_8072DC0: @ 0x08072DC0
 EndEfxStatusUnit: @ 0x08072DC8
 	push {lr}
 	ldr r0, _08072DD4  @ gUnknown_085B9A34
-	bl Proc_DeleteAllWithScript
+	bl Proc_EndEach
 	pop {r0}
 	bx r0
 	.align 2, 0
@@ -71644,7 +71644,7 @@ sub_8072DD8: @ 0x08072DD8
 	adds r4, r0, #0
 	ldr r0, _08072E08  @ gUnknown_08758FE8
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	str r4, [r0, #0x5c]
 	movs r1, #0
 	strh r1, [r0, #0x2c]
@@ -71677,7 +71677,7 @@ sub_8072E1C: @ 0x08072E1C
 	adds r4, r0, #0
 	ldr r0, _08072E4C  @ gUnknown_08758FE8
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	str r4, [r0, #0x5c]
 	movs r1, #0
 	strh r1, [r0, #0x2c]
@@ -71753,7 +71753,7 @@ _08072EB8:
 	bl ClearBG1
 	bl sub_805526C
 	adds r0, r5, #0
-	bl Proc_Delete
+	bl Proc_End
 _08072ECE:
 	pop {r3}
 	mov r8, r3
@@ -71769,7 +71769,7 @@ sub_8072ED8: @ 0x08072ED8
 	adds r4, r0, #0
 	ldr r0, _08072EF0  @ gUnknown_087591BC
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	str r4, [r0, #0x5c]
 	movs r1, #0
 	strh r1, [r0, #0x2c]
@@ -71826,7 +71826,7 @@ _08072F30:
 	bl sub_80729A4
 _08072F46:
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 	pop {r4}
 	pop {r0}
 	bx r0
@@ -71841,7 +71841,7 @@ sub_8072F58: @ 0x08072F58
 	adds r4, r0, #0
 	ldr r0, _08072F70  @ gUnknown_087591D4
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	str r4, [r0, #0x5c]
 	movs r1, #0
 	strh r1, [r0, #0x2c]
@@ -71859,7 +71859,7 @@ sub_8072F74: @ 0x08072F74
 	ldrh r1, [r0, #0x2c]
 	adds r1, #1
 	strh r1, [r0, #0x2c]
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 	pop {r0}
 	bx r0
 
@@ -71872,7 +71872,7 @@ sub_8072F84: @ 0x08072F84
 	adds r4, r0, #0
 	ldr r0, _08072FC0  @ gUnknown_087591EC
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	adds r5, r0, #0
 	str r4, [r5, #0x5c]
 	ldr r3, _08072FC4  @ gUnknown_08792928
@@ -71908,7 +71908,7 @@ sub_8072FD0: @ 0x08072FD0
 	ldr r0, [r4, #0x60]
 	bl AnimDelete
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 	pop {r4}
 	pop {r0}
 	bx r0
@@ -71922,7 +71922,7 @@ sub_8072FE8: @ 0x08072FE8
 	adds r4, r0, #0
 	ldr r0, _08073024  @ gUnknown_0875920C
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	adds r5, r0, #0
 	str r4, [r5, #0x5c]
 	ldr r3, _08073028  @ gUnknown_08792958
@@ -71958,7 +71958,7 @@ sub_8073034: @ 0x08073034
 	ldr r0, [r4, #0x60]
 	bl AnimDelete
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 	pop {r4}
 	pop {r0}
 	bx r0
@@ -71974,7 +71974,7 @@ sub_807304C: @ 0x0807304C
 	lsrs r4, r4, #0x18
 	ldr r0, _08073068  @ gUnknown_0875922C
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	adds r5, r0, #0
 	cmp r4, #0
 	bne _0807306C
@@ -72019,7 +72019,7 @@ sub_80730AC: @ 0x080730AC
 	ldr r0, [r4, #0x60]
 	bl AnimDelete
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 	pop {r4}
 	pop {r0}
 	bx r0
@@ -72037,7 +72037,7 @@ sub_80730C4: @ 0x080730C4
 	adds r4, r1, #0
 	ldr r0, _080731AC  @ gUnknown_0875924C
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	str r5, [r0, #0x5c]
 	movs r1, #0
 	mov r9, r1
@@ -72179,7 +72179,7 @@ sub_80731C8: @ 0x080731C8
 	orrs r0, r1
 	strh r0, [r5, #8]
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _0807320E:
 	pop {r4, r5}
 	pop {r0}
@@ -72198,7 +72198,7 @@ sub_8073220: @ 0x08073220
 	adds r5, r1, #0
 	ldr r0, _0807323C  @ gUnknown_08759264
 	movs r1, #4
-	bl Proc_Create
+	bl Proc_Start
 	str r4, [r0, #0x5c]
 	movs r1, #0
 	strh r1, [r0, #0x2c]
@@ -72252,7 +72252,7 @@ sub_8073240: @ 0x08073240
 	cmp r0, r1
 	bne _08073294
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _08073294:
 	add sp, #0x48
 	pop {r4}
@@ -72278,7 +72278,7 @@ sub_80732A8: @ 0x080732A8
 	adds r6, r2, #0
 	ldr r0, _080732D0  @ gUnknown_08759284
 	movs r1, #4
-	bl Proc_Create
+	bl Proc_Start
 	adds r1, r0, #0
 	str r4, [r1, #0x5c]
 	movs r2, #0
@@ -72368,7 +72368,7 @@ _08073356:
 	cmp r0, r1
 	ble _08073372
 	adds r0, r5, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _08073372:
 	add sp, #4
 	pop {r4, r5, r6}
@@ -72389,7 +72389,7 @@ sub_8073388: @ 0x08073388
 	adds r6, r2, #0
 	ldr r0, _080733B0  @ gUnknown_0875929C
 	movs r1, #4
-	bl Proc_Create
+	bl Proc_Start
 	adds r1, r0, #0
 	str r4, [r1, #0x5c]
 	movs r2, #0
@@ -72479,7 +72479,7 @@ _08073436:
 	cmp r0, r1
 	ble _08073452
 	adds r0, r5, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _08073452:
 	add sp, #4
 	pop {r4, r5, r6}
@@ -72508,7 +72508,7 @@ sub_8073468: @ 0x08073468
 	str r0, [r1]
 	ldr r0, _080734A8  @ gUnknown_087592B4
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	str r4, [r0, #0x5c]
 	movs r1, #0
 	strh r1, [r0, #0x2c]
@@ -72558,7 +72558,7 @@ sub_80734AC: @ 0x080734AC
 	subs r0, #1
 	str r0, [r1]
 	adds r0, r5, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _080734EA:
 	add sp, #4
 	pop {r4, r5, r6}
@@ -72595,7 +72595,7 @@ EndEkrLevelUp: @ 0x08073518
 	push {lr}
 	ldr r0, _08073528  @ gUnknown_020200B4
 	ldr r0, [r0]
-	bl Proc_Delete
+	bl Proc_End
 	pop {r0}
 	bx r0
 	.align 2, 0
@@ -73119,7 +73119,7 @@ NewEkrLevelup: @ 0x08073988
 	ldr r5, _080739B8  @ gUnknown_020200B4
 	ldr r0, _080739BC  @ gUnknown_0875932C
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	adds r6, r0, #0
 	str r6, [r5]
 	str r4, [r6, #0x5c]
@@ -73166,7 +73166,7 @@ sub_80739E0: @ 0x080739E0
 	cmp r1, #0
 	beq _080739F4
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 	b _08073A46
 _080739F4:
 	ldrh r0, [r4, #0x2c]
@@ -73206,7 +73206,7 @@ _08073A3A:
 	bne _08073A46
 	strh r1, [r4, #0x2c]
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _08073A46:
 	pop {r4}
 	pop {r0}
@@ -73492,7 +73492,7 @@ _08073C24:
 	strb r0, [r4, #1]
 	bl SetDefaultColorEffects
 	mov r0, r9
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 	add sp, #8
 	pop {r3, r4, r5}
 	mov r8, r3
@@ -73620,7 +73620,7 @@ _08073DBA:
 	adds r0, r7, #0
 	bl sub_807352C
 	adds r0, r7, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 	add sp, #0xc
 	pop {r3, r4}
 	mov r8, r3
@@ -73651,7 +73651,7 @@ sub_8073E18: @ 0x08073E18
 	bl BG_EnableSyncByMask
 	bl EnablePaletteSync
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 	pop {r4}
 	pop {r0}
 	bx r0
@@ -73686,7 +73686,7 @@ sub_8073E48: @ 0x08073E48
 	lsls r2, r2, #1
 	bl CpuFastSet
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _08073E7E:
 	pop {r4}
 	pop {r0}
@@ -73827,7 +73827,7 @@ _08073EE2:
 	movs r0, #0
 	strh r0, [r7, #0x2c]
 	adds r0, r7, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _08073F8E:
 	add sp, #4
 	pop {r3, r4, r5}
@@ -73863,7 +73863,7 @@ _08073FC8:
 	cmp r0, r1
 	bge _08073FC8
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 	pop {r4}
 	pop {r0}
 	bx r0
@@ -73881,14 +73881,14 @@ sub_8073FE0: @ 0x08073FE0
 	cmp r0, #0
 	bne _08073FF4
 	adds r0, r5, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 	b _0807402C
 _08073FF4:
 	ldr r0, _08074034  @ sub_8074874
 	bl SetPrimaryHBlankHandler
 	ldr r4, _08074038  @ gUnknown_020200D8
 	ldr r0, [r4]
-	bl Proc_Delete
+	bl Proc_End
 	bl sub_807461C
 	str r0, [r4]
 	ldr r4, _0807403C  @ 0x000002CD
@@ -73905,7 +73905,7 @@ _08073FF4:
 	movs r0, #8
 	strh r0, [r5, #0x2e]
 	adds r0, r5, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _0807402C:
 	pop {r4, r5}
 	pop {r0}
@@ -73927,7 +73927,7 @@ sub_8074040: @ 0x08074040
 	cmp r0, #0
 	bne _08074056
 	adds r0, r5, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 	b _080740AC
 _08074056:
 	ldr r4, _080740B4  @ gUnknown_02020134
@@ -73968,7 +73968,7 @@ _08074056:
 	movs r0, #8
 	strh r0, [r5, #0x2e]
 	adds r0, r5, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _080740AC:
 	add sp, #4
 	pop {r4, r5}
@@ -73993,7 +73993,7 @@ sub_80740C8: @ 0x080740C8
 	cmp r0, #0
 	bne _080740DE
 	adds r0, r5, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 	b _08074110
 _080740DE:
 	ldr r4, _08074118  @ gUnknown_02020134
@@ -74018,7 +74018,7 @@ _080740DE:
 	cmp r0, r1
 	ble _08074110
 	adds r0, r5, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _08074110:
 	add sp, #4
 	pop {r4, r5}
@@ -74062,7 +74062,7 @@ sub_807411C: @ 0x0807411C
 	movs r2, #0
 	bl sub_8071AB0
 	adds r0, r5, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 	b _0807418E
 	.align 2, 0
 _08074168: .4byte gUnknown_02020110
@@ -74071,14 +74071,14 @@ _08074170: .4byte 0x000002CD
 _08074174:
 	ldr r4, _08074198  @ gUnknown_020200D8
 	ldr r0, [r4]
-	bl Proc_Delete
+	bl Proc_End
 	bl sub_8074580
 	str r0, [r4]
 	movs r0, #0
 	strh r0, [r5, #0x2c]
 	strh r0, [r5, #0x2e]
 	adds r0, r5, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _0807418E:
 	add sp, #8
 	pop {r4, r5}
@@ -74098,7 +74098,7 @@ sub_807419C: @ 0x0807419C
 	cmp r2, #0
 	beq _080741B0
 	adds r0, r1, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 	b _080741C8
 _080741B0:
 	ldrh r0, [r1, #0x2c]
@@ -74111,7 +74111,7 @@ _080741B0:
 	strh r2, [r1, #0x2c]
 	strh r2, [r1, #0x2e]
 	adds r0, r1, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _080741C8:
 	pop {r0}
 	bx r0
@@ -74228,7 +74228,7 @@ _080742A6:
 	movs r0, #0
 	strh r0, [r5, #0x2c]
 	adds r0, r5, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _080742B0:
 	add sp, #8
 	pop {r3}
@@ -74256,7 +74256,7 @@ sub_80742BC: @ 0x080742BC
 	ldr r0, _080742E8  @ sub_8074834
 	bl SetPrimaryHBlankHandler
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _080742E2:
 	pop {r4}
 	pop {r0}
@@ -74269,7 +74269,7 @@ _080742E8: .4byte sub_8074834
 	THUMB_FUNC_START sub_80742EC
 sub_80742EC: @ 0x080742EC
 	push {lr}
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 	pop {r0}
 	bx r0
 
@@ -74353,7 +74353,7 @@ _08074384:
 	movs r0, #0
 	strh r0, [r7, #0x2c]
 	adds r0, r7, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _080743A2:
 	add sp, #4
 	pop {r4, r5, r6, r7}
@@ -74534,7 +74534,7 @@ _0807452C:
 	movs r0, #0
 	bl DeleteFaceByIndex
 	adds r0, r5, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 	add sp, #0x2c
 	pop {r4, r5, r6}
 	pop {r0}
@@ -74550,10 +74550,10 @@ sub_8074544: @ 0x08074544
 	adds r4, r0, #0
 	ldr r0, _08074578  @ gUnknown_020200D8
 	ldr r0, [r0]
-	bl Proc_Delete
+	bl Proc_End
 	ldr r0, _0807457C  @ gUnknown_020200DC
 	ldr r0, [r0]
-	bl Proc_Delete
+	bl Proc_End
 	ldr r0, [r4, #0x5c]
 	bl sub_8054B84
 	ldr r0, [r4, #0x60]
@@ -74577,7 +74577,7 @@ sub_8074580: @ 0x08074580
 	push {lr}
 	ldr r0, _08074594  @ gUnknown_087593DC
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	movs r1, #0
 	strh r1, [r0, #0x2c]
 	strh r1, [r0, #0x2e]
@@ -74671,7 +74671,7 @@ sub_807461C: @ 0x0807461C
 	push {lr}
 	ldr r0, _08074630  @ gUnknown_087593FC
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	movs r1, #0
 	strh r1, [r0, #0x2c]
 	strh r1, [r0, #0x2e]
@@ -74836,7 +74836,7 @@ _08074722:
 	str r0, [r1]
 	ldr r0, _08074788  @ gUnknown_0875945C
 	movs r1, #0
-	bl Proc_Create
+	bl Proc_Start
 	strh r4, [r0, #0x2c]
 	pop {r3, r4, r5}
 	mov r8, r3
@@ -74874,7 +74874,7 @@ sub_807478C: @ 0x0807478C
 	THUMB_FUNC_START sub_8074798
 sub_8074798: @ 0x08074798
 	push {lr}
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 	pop {r0}
 	bx r0
 
@@ -75031,7 +75031,7 @@ sub_80748C4: @ 0x080748C4
 	adds r4, r0, #0
 	ldr r0, _080748F8  @ gUnknown_08759484
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	str r4, [r0, #0x5c]
 	movs r1, #0
 	strh r1, [r0, #0x2c]
@@ -75096,7 +75096,7 @@ _08074948:
 	bl ClearBG1
 	bl sub_805526C
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _0807495E:
 	pop {r4, r5}
 	pop {r0}
@@ -75110,7 +75110,7 @@ sub_8074964: @ 0x08074964
 	adds r4, r0, #0
 	ldr r0, _0807499C  @ gUnknown_087594F4
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	str r4, [r0, #0x5c]
 	movs r1, #0
 	strh r1, [r0, #0x2c]
@@ -75168,7 +75168,7 @@ _080749DE:
 	cmp r2, r0
 	bne _080749EC
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _080749EC:
 	pop {r4}
 	pop {r0}
@@ -75187,7 +75187,7 @@ sub_80749F4: @ 0x080749F4
 	mov r8, r2
 	ldr r0, _08074A44  @ gUnknown_08759524
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	adds r4, r0, #0
 	str r5, [r4, #0x5c]
 	ldr r3, _08074A48  @ gUnknown_085C71E4
@@ -75237,7 +75237,7 @@ sub_8074A60: @ 0x08074A60
 	adds r4, r0, #0
 	ldr r0, _08074A88  @ gUnknown_08759544
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	str r4, [r0, #0x5c]
 	movs r2, #0
 	strh r2, [r0, #0x2c]
@@ -75299,7 +75299,7 @@ _08074ABE:
 	ldr r0, _08074AF8  @ gUnknown_085C6054
 	str r0, [r4, #0x4c]
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _08074AE6:
 	add sp, #4
 	pop {r4}
@@ -75337,7 +75337,7 @@ _08074B22:
 	cmp r1, r0
 	bne _08074B30
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _08074B30:
 	pop {r4}
 	pop {r0}
@@ -75424,7 +75424,7 @@ sub_8074B90: @ 0x08074B90
 	bl CopyToPaletteBuffer
 	ldr r0, _08074BEC  @ gUnknown_08759564
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	movs r1, #0
 	strh r5, [r0, #0x2c]
 	ldr r0, _08074BF0  @ gUnknown_02020138
@@ -75446,7 +75446,7 @@ _08074BF0: .4byte gUnknown_02020138
 sub_8074BF4: @ 0x08074BF4
 	push {lr}
 	ldr r0, _08074C08  @ gUnknown_08759564
-	bl Proc_DeleteAllWithScript
+	bl Proc_EndEach
 	ldr r1, _08074C0C  @ gUnknown_02020138
 	movs r0, #1
 	str r0, [r1]
@@ -75668,7 +75668,7 @@ sub_8074D58: @ 0x08074D58
 	beq _08074E52
 	ldr r0, _08074DDC  @ gUnknown_0875957C
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	adds r4, r0, #0
 	ldr r1, [sp, #0x40]
 	cmp r1, #0
@@ -75767,7 +75767,7 @@ sub_8074E6C: @ 0x08074E6C
 	cmp r0, #0
 	bge _08074E80
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 	b _08074ECE
 _08074E80:
 	ldrh r0, [r4, #0x2c]
@@ -75805,7 +75805,7 @@ _08074E80:
 	ldrsh r1, [r4, r2]
 	bl sub_8074C10
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _08074ECE:
 	add sp, #0xc
 	pop {r4, r5}
@@ -75823,7 +75823,7 @@ sub_8074EDC: @ 0x08074EDC
 	ldr r2, [r4, #0x50]
 	cmp r2, #0
 	bge _08074EEC
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 	b _08074F0E
 _08074EEC:
 	ldrh r0, [r4, #0x2c]
@@ -75840,7 +75840,7 @@ _08074EEC:
 	adds r0, r2, #0
 	bl sub_8074C78
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _08074F0E:
 	pop {r4}
 	pop {r0}
@@ -75857,11 +75857,11 @@ sub_8074F14: @ 0x08074F14
 	cmp r0, #1
 	bne _08074F32
 	ldr r0, [r4, #0x60]
-	bl Proc_Delete
+	bl Proc_End
 	ldr r0, [r4, #0x64]
-	bl Proc_Delete
+	bl Proc_End
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _08074F32:
 	pop {r4}
 	pop {r0}
@@ -75902,7 +75902,7 @@ NewEkrTriangle: @ 0x08074F5C
 	adds r4, r0, #0
 	ldr r0, _08074F78  @ gUnknown_087595A4
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	str r4, [r0, #0x5c]
 	ldr r1, _08074F7C  @ gUnknown_0202013C
 	movs r0, #0
@@ -76179,7 +76179,7 @@ _08075164:
 _08075168:
 	str r0, [r1]
 	adds r0, r6, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 	add sp, #4
 	pop {r3, r4, r5}
 	mov r8, r3
@@ -76205,7 +76205,7 @@ sub_8075184: @ 0x08075184
 	ldr r7, [sp, #0x18]
 	ldr r0, _080751B8  @ gUnknown_087595BC
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	str r4, [r0, #0x5c]
 	movs r1, #0
 	strh r1, [r0, #0x2c]
@@ -76311,7 +76311,7 @@ _0807525E:
 	movs r0, #1
 	str r0, [r1]
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _08075272:
 	pop {r4, r5}
 	pop {r0}
@@ -76330,7 +76330,7 @@ sub_807527C: @ 0x0807527C
 	adds r7, r3, #0
 	ldr r0, _080752A4  @ gUnknown_087595D4
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	adds r1, r0, #0
 	str r4, [r1, #0x5c]
 	movs r0, #0
@@ -76417,7 +76417,7 @@ _08075336:
 	bne _08075348
 	bl ClearBG1
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _08075348:
 	pop {r4}
 	pop {r0}
@@ -76438,7 +76438,7 @@ sub_8075350: @ 0x08075350
 	mov r9, r3
 	ldr r0, _08075384  @ gUnknown_08759604
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	adds r5, r0, #0
 	str r7, [r5, #0x5c]
 	movs r0, #0
@@ -76521,7 +76521,7 @@ sub_80753FC: @ 0x080753FC
 	ldr r0, [r4, #0x60]
 	bl AnimDelete
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _0807541E:
 	pop {r4}
 	pop {r0}
@@ -76541,7 +76541,7 @@ sub_8075424: @ 0x08075424
 	ldr r7, [sp, #0x18]
 	ldr r0, _08075458  @ gUnknown_0875961C
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	str r4, [r0, #0x5c]
 	movs r1, #0
 	strh r1, [r0, #0x2c]
@@ -76659,7 +76659,7 @@ _0807551C:
 	cmp r0, #0x78
 	bne _0807552A
 	adds r0, r5, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _0807552A:
 	add sp, #4
 	pop {r4, r5}
@@ -76683,7 +76683,7 @@ sub_8075538: @ 0x08075538
 	adds r6, r3, #0
 	ldr r0, _08075570  @ gUnknown_08759634
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	adds r5, r0, #0
 	mov r0, r8
 	str r0, [r5, #0x5c]
@@ -76879,7 +76879,7 @@ sub_80756BC: @ 0x080756BC
 	ldr r0, [r4, #0x64]
 	bl AnimDelete
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _0807570E:
 	add sp, #4
 	pop {r4}
@@ -76901,7 +76901,7 @@ sub_8075718: @ 0x08075718
 	adds r7, r3, #0
 	ldr r0, _08075754  @ gUnknown_0875964C
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	adds r4, r0, #0
 	mov r0, r8
 	str r0, [r4, #0x5c]
@@ -77054,7 +77054,7 @@ sub_8075828: @ 0x08075828
 	movs r0, #0x14
 	strh r0, [r4, #0x2e]
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _0807586A:
 	add sp, #4
 	pop {r4, r5}
@@ -77079,7 +77079,7 @@ sub_8075874: @ 0x08075874
 	ldr r0, [r4, #0x60]
 	bl AnimDelete
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _08075896:
 	pop {r4}
 	pop {r0}
@@ -77098,7 +77098,7 @@ sub_807589C: @ 0x0807589C
 	str r0, [r1]
 	ldr r0, _080758D0  @ gUnknown_0875966C
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	adds r4, r0, #0
 	str r5, [r4, #0x5c]
 	movs r0, #0
@@ -77273,9 +77273,9 @@ sub_80758D4: @ 0x080758D4
 	adds r2, r5, #0
 	bl sub_80559F0
 	ldr r0, [r7, #0x60]
-	bl Proc_Delete
+	bl Proc_End
 	adds r0, r7, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _08075A2A:
 	pop {r3, r4, r5}
 	mov r8, r3
@@ -77425,7 +77425,7 @@ DeleteAnimsOnPopup: @ 0x08075B3C
 	ldr r0, [r4]
 	cmp r0, #0
 	beq _08075B4E
-	bl Proc_Delete
+	bl Proc_End
 	movs r0, #0
 	str r0, [r4]
 _08075B4E:
@@ -77898,7 +77898,7 @@ Battle_MakePopups: @ 0x08075F18
 	ldr r4, _08075F70  @ gUnknown_02020140
 	ldr r0, _08075F74  @ gUnknown_0878D588
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	adds r5, r0, #0
 	str r5, [r4]
 	ldr r1, _08075F78  @ gUnknown_02020144
@@ -77955,7 +77955,7 @@ _08075F9E:
 	ldr r4, _08076048  @ gUnknown_02020140
 	ldr r0, _0807604C  @ gUnknown_0878D520
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	adds r5, r0, #0
 	str r5, [r4]
 	ldr r1, _08076050  @ gUnknown_02020144
@@ -78065,7 +78065,7 @@ BattlePopup_Wait16Frames: @ 0x0807606C
 	cmp r0, #0x10
 	ble _08076084
 	adds r0, r1, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _08076084:
 	pop {r0}
 	bx r0
@@ -78088,7 +78088,7 @@ ekrPopup_DrawWRankUp: @ 0x08076088
 	strh r0, [r4, #0x2e]
 _080760A4:
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 	pop {r4}
 	pop {r0}
 	bx r0
@@ -78103,7 +78103,7 @@ ekrPopup_WaitWRankUp: @ 0x080760B0
 	cmp r0, #0
 	bne _080760C2
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 	b _080760E4
 _080760C2:
 	ldrh r0, [r4, #0x2c]
@@ -78119,7 +78119,7 @@ _080760C2:
 	bl AnimDelete
 	bl ClearBG1
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _080760E4:
 	pop {r4}
 	pop {r0}
@@ -78143,7 +78143,7 @@ ekrPopup_DrawWRankUp2: @ 0x080760EC
 	strh r0, [r4, #0x2e]
 _08076108:
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 	pop {r4}
 	pop {r0}
 	bx r0
@@ -78158,7 +78158,7 @@ ekrPopup_WaitWRankUp2: @ 0x08076114
 	cmp r0, #0
 	bne _08076126
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 	b _08076148
 _08076126:
 	ldrh r0, [r4, #0x2c]
@@ -78174,7 +78174,7 @@ _08076126:
 	bl AnimDelete
 	bl ClearBG1
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _08076148:
 	pop {r4}
 	pop {r0}
@@ -78198,7 +78198,7 @@ ekrPopup_DrawWpnBroke: @ 0x08076150
 	strh r0, [r4, #0x2e]
 _0807616C:
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 	pop {r4}
 	pop {r0}
 	bx r0
@@ -78213,7 +78213,7 @@ ekrPopup_WaitWpnBroke: @ 0x08076178
 	cmp r0, #0
 	bne _0807618A
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 	b _080761AC
 _0807618A:
 	ldrh r0, [r4, #0x2c]
@@ -78229,7 +78229,7 @@ _0807618A:
 	bl AnimDelete
 	bl ClearBG1
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _080761AC:
 	pop {r4}
 	pop {r0}
@@ -78253,7 +78253,7 @@ ekrPopup_DrawWpnBroke2: @ 0x080761B4
 	strh r0, [r4, #0x2e]
 _080761D0:
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 	pop {r4}
 	pop {r0}
 	bx r0
@@ -78268,7 +78268,7 @@ ekrPopup_WaitWpnBroke2: @ 0x080761DC
 	cmp r0, #0
 	bne _080761EE
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 	b _08076214
 _080761EE:
 	ldrh r0, [r4, #0x2c]
@@ -78286,7 +78286,7 @@ _080761EE:
 	bl AnimDelete
 	bl ClearBG1
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _08076214:
 	pop {r4}
 	pop {r0}
@@ -78312,7 +78312,7 @@ ekrPopup_MarkEnd: @ 0x0807621C
 	lsls r0, r0, #1
 	bl Sound_SetVolume80022EC
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _08076242:
 	pop {r4}
 	pop {r0}
@@ -78339,7 +78339,7 @@ sub_8076250: @ 0x08076250
 	bne _08076268
 	adds r0, r4, #0
 	movs r1, #1
-	bl Proc_GotoLabel
+	bl Proc_Goto
 	b _08076288
 _08076268:
 	ldr r0, [r4, #0x4c]
@@ -78355,7 +78355,7 @@ _08076268:
 	strh r0, [r4, #0x2e]
 _08076282:
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _08076288:
 	pop {r4}
 	pop {r0}
@@ -78371,7 +78371,7 @@ sub_8076290: @ 0x08076290
 	cmp r0, #0
 	bne _080762A2
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 	b _080762C8
 _080762A2:
 	ldrh r0, [r4, #0x2c]
@@ -78389,7 +78389,7 @@ _080762A2:
 	bl AnimDelete
 	bl ClearBG1
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _080762C8:
 	pop {r4}
 	pop {r0}
@@ -78408,7 +78408,7 @@ sub_80762D0: @ 0x080762D0
 	bne _080762E8
 	adds r0, r4, #0
 	movs r1, #5
-	bl Proc_GotoLabel
+	bl Proc_Goto
 	b _08076308
 _080762E8:
 	ldr r0, [r4, #0x4c]
@@ -78424,7 +78424,7 @@ _080762E8:
 	strh r0, [r4, #0x2e]
 _08076302:
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _08076308:
 	pop {r4}
 	pop {r0}
@@ -78491,7 +78491,7 @@ NewEkrHenseiInitPROC: @ 0x0807636C
 	push {lr}
 	ldr r0, _0807637C  @ gUnknown_0878D5F0
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	pop {r0}
 	bx r0
 	.align 2, 0
@@ -78528,7 +78528,7 @@ sub_8076380: @ 0x08076380
 	bl sub_80712B0
 	bl EnablePaletteSync
 	adds r0, r5, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 	pop {r4, r5}
 	pop {r0}
 	bx r0
@@ -78550,7 +78550,7 @@ sub_80763E0: @ 0x080763E0
 	movs r0, #0x10
 	strh r0, [r4, #0x2e]
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 	pop {r4}
 	pop {r0}
 	bx r0
@@ -78595,7 +78595,7 @@ sub_8076400: @ 0x08076400
 	cmp r1, r0
 	bne _08076454
 	adds r0, r6, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _08076454:
 	add sp, #4
 	pop {r4, r5, r6}
@@ -78610,7 +78610,7 @@ _08076460: .4byte gPaletteBuffer
 	THUMB_FUNC_START sub_8076464
 sub_8076464: @ 0x08076464
 	push {lr}
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 	pop {r0}
 	bx r0
 
@@ -78621,7 +78621,7 @@ sub_8076470: @ 0x08076470
 	push {lr}
 	ldr r0, _08076480  @ gUnknown_0878D620
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	pop {r0}
 	bx r0
 	.align 2, 0
@@ -78643,7 +78643,7 @@ sub_8076484: @ 0x08076484
 	movs r0, #0x10
 	strh r0, [r4, #0x2e]
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 	pop {r4}
 	pop {r0}
 	bx r0
@@ -78691,7 +78691,7 @@ sub_80764B0: @ 0x080764B0
 	cmp r1, r0
 	bne _08076504
 	adds r0, r6, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _08076504:
 	add sp, #4
 	pop {r4, r5, r6}
@@ -78714,7 +78714,7 @@ sub_8076514: @ 0x08076514
 	ldr r0, _0807653C  @ GeneralVBlankHandler
 	bl SetInterrupt_LCDVBlank
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 	pop {r4}
 	pop {r0}
 	bx r0
@@ -78732,7 +78732,7 @@ sub_8076540: @ 0x08076540
 	adds r6, r0, #0
 	ldr r0, _0807658C  @ gUnknown_087F4324
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	adds r4, r0, #0
 	str r4, [r6, #4]
 	adds r0, r5, #0
@@ -78808,7 +78808,7 @@ sub_80765CC: @ 0x080765CC
 	ldr r0, [r4, #0x5c]
 	bl sub_8076910
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 	pop {r4}
 	pop {r0}
 	bx r0
@@ -78839,7 +78839,7 @@ sub_80765E4: @ 0x080765E4
 	movs r0, #0
 	strh r0, [r4, #0x2c]
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _08076618:
 	add sp, #4
 	pop {r4}
@@ -78903,7 +78903,7 @@ sub_8076640: @ 0x08076640
 	cmp r0, #0x78
 	bne _08076690
 	adds r0, r6, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 	b _08076694
 	.align 2, 0
 _0807668C: .4byte gUnknown_0201FB0C
@@ -78945,7 +78945,7 @@ _080766BC:
 	movs r1, #2
 	bl sub_806FA54
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 	pop {r4}
 	pop {r0}
 	bx r0
@@ -79051,7 +79051,7 @@ sub_8076798: @ 0x08076798
 	movs r0, #0
 	strh r0, [r4, #0x2c]
 	ldr r0, [r4, #0x50]
-	bl Proc_Delete
+	bl Proc_End
 	ldr r0, [r4, #0x5c]
 	bl sub_8070214
 	lsls r0, r0, #0x18
@@ -79066,7 +79066,7 @@ _080767DE:
 _080767E4:
 	str r0, [r4, #0x50]
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _080767EC:
 	pop {r4, r5}
 	pop {r0}
@@ -79085,9 +79085,9 @@ sub_80767F4: @ 0x080767F4
 	cmp r0, #1
 	bne _08076810
 	adds r0, r1, #0
-	bl Proc_Delete
+	bl Proc_End
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _08076810:
 	pop {r4}
 	pop {r0}
@@ -79143,7 +79143,7 @@ sub_8076818: @ 0x08076818
 	movs r0, #0x10
 	bl sub_807168C
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 	pop {r4}
 	pop {r0}
 	bx r0
@@ -79190,7 +79190,7 @@ _080768BE:
 	movs r0, #0
 	strh r0, [r4, #0x2c]
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _080768EC:
 	add sp, #4
 	pop {r4}
@@ -79209,7 +79209,7 @@ sub_80768F8: @ 0x080768F8
 	movs r1, #8
 	bl sub_806FA54
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 	pop {r4}
 	pop {r0}
 	bx r0
@@ -79222,7 +79222,7 @@ sub_8076910: @ 0x08076910
 	adds r4, r0, #0
 	ldr r0, _08076930  @ gUnknown_087F4394
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	str r4, [r0, #0x5c]
 	adds r2, r0, #0
 	adds r2, #0x29
@@ -79277,7 +79277,7 @@ sub_8076934: @ 0x08076934
 	movs r0, #1
 	strb r0, [r1]
 	adds r0, r6, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _0807698C:
 	add sp, #4
 	pop {r4, r5, r6}
@@ -79292,7 +79292,7 @@ _08076998: .4byte gUnknown_02022928
 	THUMB_FUNC_START sub_807699C
 sub_807699C: @ 0x0807699C
 	push {lr}
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 	pop {r0}
 	bx r0
 
@@ -79305,7 +79305,7 @@ sub_80769A8: @ 0x080769A8
 	adds r4, r0, #0
 	ldr r0, _080769FC  @ gUnknown_087F43B4
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	adds r5, r0, #0
 	str r4, [r5, #0x5c]
 	adds r0, #0x29
@@ -79385,7 +79385,7 @@ sub_8076A10: @ 0x08076A10
 	movs r0, #1
 	strb r0, [r1]
 	adds r0, r6, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _08076A68:
 	add sp, #4
 	pop {r4, r5, r6}
@@ -79400,7 +79400,7 @@ _08076A74: .4byte gUnknown_02022928
 	THUMB_FUNC_START sub_8076A78
 sub_8076A78: @ 0x08076A78
 	push {lr}
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 	pop {r0}
 	bx r0
 
@@ -79417,7 +79417,7 @@ sub_8076A84: @ 0x08076A84
 	movs r1, #2
 	bl sub_806FA54
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 	pop {r4}
 	pop {r0}
 	bx r0
@@ -79430,7 +79430,7 @@ sub_8076AA4: @ 0x08076AA4
 	adds r4, r0, #0
 	ldr r0, _08076ACC  @ gUnknown_087F43D4
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	str r4, [r0, #0x5c]
 	movs r1, #0
 	strh r1, [r0, #0x2c]
@@ -79750,7 +79750,7 @@ _08076D0C:
 	movs r1, #0
 	bl sub_8077DB4
 	adds r0, r6, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 	b _08076D58
 	.align 2, 0
 _08076D44: .4byte gUnknown_03004FA8
@@ -79814,7 +79814,7 @@ sub_8076D60: @ 0x08076D60
 	movs r0, #0
 	str r0, [r6, #0x54]
 	adds r0, r6, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 	b _08076DE0
 	.align 2, 0
 _08076DC8: .4byte gUnknown_03004FA8
@@ -79841,7 +79841,7 @@ sub_8076DE8: @ 0x08076DE8
 	cmp r0, #1
 	bne _08076DFA
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _08076DFA:
 	pop {r4}
 	pop {r0}
@@ -79894,7 +79894,7 @@ sub_8076E00: @ 0x08076E00
 	movs r0, #0
 	str r0, [r6, #0x54]
 	adds r0, r6, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 	b _08076E7C
 	.align 2, 0
 _08076E64: .4byte gUnknown_03004FA8
@@ -79957,7 +79957,7 @@ sub_8076E84: @ 0x08076E84
 	movs r0, #0
 	str r0, [r6, #0x54]
 	adds r0, r6, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 	b _08076F00
 	.align 2, 0
 _08076EE8: .4byte gUnknown_03004FA8
@@ -80060,7 +80060,7 @@ sub_8076F48: @ 0x08076F48
 	movs r0, #0
 	str r0, [r6, #0x54]
 	adds r0, r6, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 	b _08076FC8
 	.align 2, 0
 _08076FB0: .4byte gUnknown_03004FA8
@@ -80131,7 +80131,7 @@ sub_8076FD4: @ 0x08076FD4
 	movs r0, #0
 	str r0, [r6, #0x54]
 	adds r0, r6, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 	b _08077054
 	.align 2, 0
 _0807703C: .4byte gUnknown_03004FA8
@@ -80284,7 +80284,7 @@ _08077168:
 	cmp r0, #1
 	bne _080771C2
 	ldr r0, _08077178  @ gUnknown_087F44B0
-	bl Proc_ClearNativeCallbackEachWithScript
+	bl Proc_BreakEach
 	b _080771B6
 	.align 2, 0
 _08077178: .4byte gUnknown_087F44B0
@@ -80301,7 +80301,7 @@ _0807717C:
 	beq _080771C2
 	ldr r0, _0807719C  @ gUnknown_087F44B0
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	str r4, [r0, #0x4c]
 	b _080771B6
 	.align 2, 0
@@ -80340,7 +80340,7 @@ sub_80771C8: @ 0x080771C8
 	adds r4, r1, #0
 	ldr r0, _080771E0  @ gUnknown_087F44E0
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	str r4, [r0, #0x44]
 	str r5, [r0, #0x5c]
 	pop {r4, r5}
@@ -80367,7 +80367,7 @@ sub_80771E4: @ 0x080771E4
 	beq _080772B0
 _080771FC:
 	adds r0, r5, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 	ldr r0, _08077224  @ gUnknown_087F43D4
 	bl Proc_Find
 	adds r4, r0, #0
@@ -80412,7 +80412,7 @@ _08077268:
 	str r0, [r4, #0x48]
 	ldr r0, _0807727C  @ gUnknown_087F4458
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	str r4, [r0, #0x4c]
 	b _080772B0
 	.align 2, 0
@@ -80435,7 +80435,7 @@ _0807729C:
 	str r0, [r4, #0x48]
 	ldr r0, _080772BC  @ gUnknown_087F43F8
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	str r4, [r0, #0x4c]
 	ldr r0, [r5, #0x5c]
 	bl sub_8078044
@@ -80455,7 +80455,7 @@ sub_80772C0: @ 0x080772C0
 	adds r4, r0, #0
 	ldr r0, _080772E0  @ gUnknown_087F44F8
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	str r4, [r0, #0x5c]
 	movs r2, #0
 	movs r1, #0
@@ -80545,7 +80545,7 @@ sub_8077310: @ 0x08077310
 	movs r0, #1
 	strb r0, [r1]
 	adds r0, r6, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _08077380:
 	add sp, #4
 	pop {r4, r5, r6}
@@ -80657,7 +80657,7 @@ _08077436:
 	movs r1, #0
 	bl sub_8077DB4
 	adds r0, r5, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _0807744E:
 	add sp, #4
 	pop {r4, r5}
@@ -80676,7 +80676,7 @@ sub_8077460: @ 0x08077460
 	adds r2, #0x29
 	movs r1, #1
 	strb r1, [r2]
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 	pop {r0}
 	bx r0
 
@@ -80806,7 +80806,7 @@ sub_8077560: @ 0x08077560
 	adds r4, r0, #0
 	ldr r0, _08077580  @ gUnknown_087F4518
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	adds r5, r0, #0
 	str r4, [r5, #0x5c]
 	movs r0, #1
@@ -80826,7 +80826,7 @@ sub_8077584: @ 0x08077584
 	adds r4, r0, #0
 	ldr r0, _08077598  @ gUnknown_087F4548
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	str r4, [r0, #0x5c]
 	pop {r4}
 	pop {r1}
@@ -80894,7 +80894,7 @@ sub_80775E8: @ 0x080775E8
 	ldr r0, [r4, #0x60]
 	bl AnimDelete
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 	adds r0, r4, #0
 	bl sub_8077620
 _0807761A:
@@ -80981,7 +80981,7 @@ sub_8077684: @ 0x08077684
 	movs r0, #0
 	strh r0, [r2, #0x2c]
 	adds r0, r2, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _080776AA:
 	pop {r0}
 	bx r0
@@ -81006,7 +81006,7 @@ sub_80776B0: @ 0x080776B0
 	cmp r0, r1
 	bne _080776D4
 	adds r0, r2, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _080776D4:
 	pop {r0}
 	bx r0
@@ -81112,7 +81112,7 @@ sub_8077790: @ 0x08077790
 	adds r4, r0, #0
 	ldr r0, _080777BC  @ gUnknown_087F4578
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	adds r5, r0, #0
 	str r4, [r5, #0x5c]
 	adds r1, r5, #0
@@ -81224,7 +81224,7 @@ _08077874:
 	strh r5, [r4, #0x2c]
 	strh r5, [r4, #0x30]
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 	ldr r0, [r4, #0x5c]
 	bl sub_8077560
 _0807788C:
@@ -81328,7 +81328,7 @@ _08077950:
 	cmp r0, #0x78
 	bne _08077968
 	ldr r0, [r4, #0x54]
-	bl Proc_Delete
+	bl Proc_End
 	movs r0, #0xd
 	movs r1, #0
 	bl sub_8053678
@@ -81339,7 +81339,7 @@ _08077968:
 	cmp r0, #0xb4
 	bne _08077980
 	ldr r0, [r4, #0x54]
-	bl Proc_Delete
+	bl Proc_End
 	movs r0, #0xe
 	movs r1, #0
 	bl sub_8053678
@@ -81416,9 +81416,9 @@ _08077A02:
 	cmp r1, r0
 	bne _08077A6E
 	ldr r0, [r4, #0x64]
-	bl Proc_Delete
+	bl Proc_End
 	ldr r0, [r4, #0x54]
-	bl Proc_Delete
+	bl Proc_End
 	strh r7, [r5]
 	strh r7, [r5, #2]
 	ldr r0, _08077A9C  @ gBG3TilemapBuffer
@@ -81466,7 +81466,7 @@ _08077A6E:
 	movs r0, #1
 	strb r0, [r1]
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _08077A86:
 	pop {r4, r5, r6, r7}
 	pop {r0}
@@ -81496,7 +81496,7 @@ sub_8077AAC: @ 0x08077AAC
 	adds r6, r2, #0
 	ldr r0, _08077AE4  @ gUnknown_087F45A0
 	movs r1, #0
-	bl Proc_Create
+	bl Proc_Start
 	movs r1, #0
 	strh r1, [r0, #0x2c]
 	str r4, [r0, #0x44]
@@ -81566,7 +81566,7 @@ sub_8077AEC: @ 0x08077AEC
 	movs r0, #0
 	strh r0, [r7, #0x2c]
 	adds r0, r7, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _08077B4C:
 	add sp, #4
 	pop {r4, r5, r6, r7}
@@ -81611,7 +81611,7 @@ sub_8077B5C: @ 0x08077B5C
 	movs r0, #0
 	strh r0, [r6, #0x2c]
 	adds r0, r6, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _08077BA6:
 	pop {r4, r5, r6}
 	pop {r0}
@@ -81665,7 +81665,7 @@ sub_8077BB4: @ 0x08077BB4
 	movs r0, #0
 	strh r0, [r7, #0x2c]
 	adds r0, r7, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _08077C14:
 	add sp, #4
 	pop {r4, r5, r6, r7}
@@ -81694,7 +81694,7 @@ sub_8077C24: @ 0x08077C24
 	strb r0, [r1]
 	bl EnablePaletteSync
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 	pop {r4}
 	pop {r0}
 	bx r0
@@ -81991,7 +81991,7 @@ sub_8077E6C: @ 0x08077E6C
 	cmp r0, #0xf
 	ble _08077E96
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _08077E96:
 	pop {r4}
 	pop {r0}
@@ -82053,7 +82053,7 @@ sub_8077EEC: @ 0x08077EEC
 	push {r4, lr}
 	adds r4, r0, #0
 	ldr r0, _08077F00  @ gUnknown_08801840
-	bl Proc_Create
+	bl Proc_Start
 	adds r0, #0x64
 	strh r4, [r0]
 	pop {r4}
@@ -82133,7 +82133,7 @@ _08077F52:
 	ble _08077F90
 _08077F7C:
 	adds r0, r5, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 	b _08077F94
 	.align 2, 0
 _08077F84: .4byte gUnknown_08801AB4
@@ -82262,7 +82262,7 @@ sub_8078044: @ 0x08078044
 	bl ClearBG1Setup
 	ldr r0, _08078074  @ gUnknown_08801868
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	str r4, [r0, #0x5c]
 	movs r1, #0
 	strh r1, [r0, #0x2c]
@@ -82295,7 +82295,7 @@ _08078092:
 	cmp r0, #0x46
 	bne _080780A0
 	adds r0, r1, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _080780A0:
 	pop {r0}
 	bx r0
@@ -82371,7 +82371,7 @@ sub_8078124: @ 0x08078124
 	adds r4, r0, #0
 	ldr r0, _0807813C  @ gUnknown_08801880
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	str r4, [r0, #0x5c]
 	bl sub_80551B0
 	pop {r4}
@@ -82462,7 +82462,7 @@ sub_807819C: @ 0x0807819C
 	bl ClearBG1
 	bl sub_805526C
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 	b _0807820C
 	.align 2, 0
 _080781DC: .4byte gUnknown_088018A0

@@ -123,7 +123,7 @@ sub_801DEF0: @ 0x0801DEF0
 	cmp r0, #0
 	bne _0801DF18
 	adds r0, r5, #0
-	bl Proc_Delete
+	bl Proc_End
 	b _0801DF5A
 	.align 2, 0
 _0801DF14: .4byte gUnknown_0202BCF0

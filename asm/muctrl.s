@@ -114,7 +114,7 @@ sub_8079D74: @ 0x08079D74
 	lsrs r7, r3, #0x10
 	ldr r0, _08079DAC  @ gUnknown_089A2DB0
 	movs r1, #5
-	bl Proc_Create
+	bl Proc_Start
 	adds r5, r0, #0
 	lsls r0, r6, #0x10
 	asrs r0, r0, #0x10
@@ -182,7 +182,7 @@ sub_8079DDC: @ 0x08079DDC
 	mov r8, r1
 	ldr r0, _08079E6C  @ gUnknown_089A2DB0
 	movs r1, #5
-	bl Proc_Create
+	bl Proc_Start
 	adds r2, r0, #0
 	adds r2, #0x44
 	lsls r4, r4, #0x18
@@ -580,7 +580,7 @@ sub_807A0E4: @ 0x0807A0E4
 	beq _0807A10A
 	adds r0, r5, #0
 	movs r1, #1
-	bl Proc_GotoLabel
+	bl Proc_Goto
 	movs r0, #0
 	b _0807A188
 _0807A10A:
@@ -698,7 +698,7 @@ sub_807A194: @ 0x0807A194
 _0807A1E6:
 	adds r0, r4, #0
 	movs r1, #1
-	bl Proc_GotoLabel
+	bl Proc_Goto
 	movs r0, #0
 	b _0807A1F4
 _0807A1F2:
@@ -805,7 +805,7 @@ _0807A2A6:
 	ldr r6, _0807A2EC  @ gUnknown_089A2DB0
 	ldr r1, _0807A2F0  @ sub_807A300
 	adds r0, r6, #0
-	bl Proc_ForEachWithScript
+	bl Proc_ForEach
 	movs r1, #0
 	ldrsb r1, [r4, r1]
 	cmp r1, #0
@@ -818,7 +818,7 @@ _0807A2A6:
 	strb r1, [r4]
 	ldr r1, _0807A2FC  @ sub_807A324
 	adds r0, r6, #0
-	bl Proc_ForEachWithScript
+	bl Proc_ForEach
 _0807A2D6:
 	ldr r0, _0807A2E8  @ gUnknown_03001C34
 	ldrb r0, [r0]
