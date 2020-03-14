@@ -371,3 +371,5 @@ Once you're done, you can delete `asm/cable_car.s`, and remove it from `ld_scrip
 - [Decomp Permuter](https://github.com/laqieer/decomp-permuter-arm)
 - [datadump & funchash](https://github.com/TwitchPlaysPokemon/pret3)
 - [Pokemon Projects](https://github.com/pret/pokeemerald)
+- [GCC online documentation](https://gcc.gnu.org/onlinedocs/)
+- [GCC 2.95 Features](https://gcc.gnu.org/gcc-2.95/features.html)

@@ -2,34 +2,6 @@
 
 	.SYNTAX UNIFIED
 
-	THUMB_FUNC_START sub_801BAEC
-sub_801BAEC: @ 0x0801BAEC
-	push {r4, r5, r6, lr}
-	mov r6, r8
-	push {r6}
-	adds r5, r0, #0
-	adds r6, r1, #0
-	mov r8, r2
-	adds r4, r3, #0
-	ldr r0, _0801BB18  @ gUnknown_0859AA64
-	movs r1, #3
-	bl Proc_Start
-	str r5, [r0, #0x2c]
-	str r6, [r0, #0x30]
-	str r4, [r0, #0x54]
-	adds r0, #0x52
-	mov r1, r8
-	strh r1, [r0]
-	pop {r3}
-	mov r8, r3
-	pop {r4, r5, r6}
-	pop {r0}
-	bx r0
-	.align 2, 0
-_0801BB18: .4byte gUnknown_0859AA64
-
-	THUMB_FUNC_END sub_801BAEC
-
 	THUMB_FUNC_START sub_801BB1C
 sub_801BB1C: @ 0x0801BB1C
 	push {lr}
@@ -254,8 +226,8 @@ _0801BCC8: .4byte gBG0TilemapBuffer
 
 	THUMB_FUNC_END sub_801BC1C
 
-	THUMB_FUNC_START sub_801BCCC
-sub_801BCCC: @ 0x0801BCCC
+	THUMB_FUNC_START EndMenuAndClear
+EndMenuAndClear: @ 0x0801BCCC
 	push {lr}
 	bl EndMenu
 	movs r0, #0
@@ -265,7 +237,7 @@ sub_801BCCC: @ 0x0801BCCC
 	pop {r1}
 	bx r1
 
-	THUMB_FUNC_END sub_801BCCC
+	THUMB_FUNC_END EndMenuAndClear
 
 	THUMB_FUNC_START DebugMapMenu_DisplayInfoDraw
 DebugMapMenu_DisplayInfoDraw: @ 0x0801BCE4
@@ -720,8 +692,8 @@ _0801C058: .4byte gUnknown_0202BCF0
 
 	THUMB_FUNC_END sub_801C030
 
-	THUMB_FUNC_START sub_801C05C
-sub_801C05C: @ 0x0801C05C
+	THUMB_FUNC_START DebugMenuInit
+DebugMenuInit: @ 0x0801C05C
 	push {r4, lr}
 	ldr r1, _0801C084  @ gUnknown_03001780
 	ldr r0, _0801C088  @ gUnknown_0202BCF0
@@ -743,7 +715,7 @@ _0801C084: .4byte gUnknown_03001780
 _0801C088: .4byte gUnknown_0202BCF0
 _0801C08C: .4byte gUnknown_02022D76
 
-	THUMB_FUNC_END sub_801C05C
+	THUMB_FUNC_END DebugMenuInit
 
 	THUMB_FUNC_START DEBUGONLY_Startup
 DEBUGONLY_Startup: @ 0x0801C090
