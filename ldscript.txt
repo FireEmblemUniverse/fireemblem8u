@@ -204,6 +204,7 @@ SECTIONS
         . = ALIGN(4); src/bmbattle.o(.rodata);
         . = ALIGN(4); src/bmtrade.o(.rodata);
         . = ALIGN(4); data/const_data_D7C44.o(.rodata);
+        . = ALIGN(4); src/raw_text_jp.o(.rodata);
         . = ALIGN(4); src/bmio.o(.rodata);
         . = ALIGN(4); data/const_data_D7F5C.o(.rodata);
         . = ALIGN(4); src/cp_phase.o(.rodata);
