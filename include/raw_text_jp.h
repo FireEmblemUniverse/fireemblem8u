@@ -4,6 +4,7 @@
 extern const char gTextRyoukai[];
 extern const char gTextIgopureidekimasen[];
 extern const char gTextKuriazumifairudeha[];
+extern const char gTextNull[];
 extern const char gTextShimasuka[];
 extern const char gTextFairuwokuriazumini[];
 extern const char gTextFairushokika[];
