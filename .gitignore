@@ -929,3 +929,6 @@ MigrationBackup/
 *.gdt
 *.gpr
 *.rep
+
+# GCC dump (-da -dv)
+gccdump/
