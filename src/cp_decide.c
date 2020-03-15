@@ -31,7 +31,48 @@ void sub_803ECF0(void);
 void sub_8040844(void);
 void sub_8041090(struct Unit* unit);
 
-extern void(*(gUnknown_085A7F9C[]))(void);
+void sub_8039D10(void);
+void sub_8039DE0(void);
+void sub_8039E2C(void);
+void sub_8039DC4(void);
+
+void sub_8039AC8(void);
+void Call6C_E_CPDECIDE(ProcPtr proc);
+
+typedef void(*DecideFunc)(void);
+
+static DecideFunc CONST_DATA gUnknown_085A7F9C[] =
+{
+    sub_8039D10,
+    sub_8039DE0,
+    sub_8039E2C,
+    sub_8039DC4,
+    NULL, NULL,
+};
+
+static DecideFunc CONST_DATA sUnused_085A7FB4[] =
+{
+    sub_8039DC4,
+    sub_8039DE0,
+    sub_8039D10,
+    sub_8039E2C,
+    NULL, NULL,
+};
+
+struct ProcCmd CONST_DATA gProcScr_CpDecide[] =
+{
+    PROC_NAME("E_CPDECIDE"),
+
+PROC_LABEL(0),
+    PROC_CALL(Call6C_E_CPDECIDE),
+    PROC_SLEEP(0),
+
+    PROC_CALL(sub_8039AC8),
+
+    PROC_GOTO(0),
+
+    PROC_END,
+};
 
 void sub_8039AC8(void)
 {
