@@ -61,7 +61,7 @@ enum
 extern struct AiState gAiState;
 extern struct AiDecision gAiDecision;
 
-extern void(*gCpDecideMainFunc)(void);
+extern void(*AiDecideMainFunc)(void);
 
 extern struct ProcCmd CONST_DATA gProcScr_CpPhase[];
 extern struct ProcCmd CONST_DATA gProcScr_BerserkCpPhase[];
@@ -69,5 +69,10 @@ extern struct ProcCmd CONST_DATA gProcScr_CpOrder[];
 extern struct ProcCmd CONST_DATA gProcScr_BerserkCpOrder[];
 extern struct ProcCmd CONST_DATA gProcScr_CpDecide[];
 extern struct ProcCmd CONST_DATA gProcScr_CpPerform[];
+
+void AiClearDecision(void);
+void AiSetDecision(u8 xMove, u8 yMove, u8 actionId, u8 targetId, u8 itemSlot, u8 xTarget, u8 yTarget);
+void AiUpdateDecision(u8 actionId, u8 targetId, u8 itemSlot, u8 xTarget, u8 yTarget);
+void AiDecideMain(void);
 
 #endif // GUARD_CP_COMMON_H

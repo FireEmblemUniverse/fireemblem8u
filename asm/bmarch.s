@@ -5,8 +5,8 @@
 	@ Ballistae stuff
 	@ Up with Arch
 
-	THUMB_FUNC_START sub_803795C
-sub_803795C: @ 0x0803795C
+	THUMB_FUNC_START GetRiddenBallistaAt
+GetRiddenBallistaAt: @ 0x0803795C
 	push {lr}
 	bl GetTrapAt
 	adds r1, r0, #0
@@ -36,7 +36,7 @@ _08037986:
 	pop {r1}
 	bx r1
 
-	THUMB_FUNC_END sub_803795C
+	THUMB_FUNC_END GetRiddenBallistaAt
 
 	THUMB_FUNC_START GetBallistaItemAt
 GetBallistaItemAt: @ 0x0803798C

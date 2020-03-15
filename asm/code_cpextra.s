@@ -661,7 +661,7 @@ _0803ABF6:
 	adds r0, r2, #0
 	movs r2, #0
 	movs r3, #0
-	bl sub_8039C20
+	bl AiSetDecision
 _0803AC1C:
 	add sp, #0x14
 	pop {r3, r4}
@@ -2570,8 +2570,8 @@ _0803BA00:
 
 	THUMB_FUNC_END sub_803B994
 
-	THUMB_FUNC_START sub_803BA08
-sub_803BA08: @ 0x0803BA08
+	THUMB_FUNC_START AiTryMoveTowards
+AiTryMoveTowards: @ 0x0803BA08
 	push {r4, r5, r6, r7, lr}
 	mov r7, sl
 	mov r6, r9
@@ -2614,7 +2614,7 @@ sub_803BA08: @ 0x0803BA08
 	adds r0, r2, #0
 	ldr r2, [sp, #0xc]
 	movs r3, #0
-	bl sub_8039C20
+	bl AiSetDecision
 	b _0803BBC0
 	.align 2, 0
 _0803BA64: .4byte gActiveUnit
@@ -2790,7 +2790,7 @@ _0803BB98:
 	adds r0, r2, #0
 	ldr r2, [sp, #0xc]
 	movs r3, #0
-	bl sub_8039C20
+	bl AiSetDecision
 _0803BBC0:
 	add sp, #0x18
 	pop {r3, r4, r5}
@@ -2811,7 +2811,7 @@ _0803BBE8: .4byte gBmMapUnk
 _0803BBEC: .4byte gBmMapRange
 _0803BBF0: .4byte 0xFFFF0000
 
-	THUMB_FUNC_END sub_803BA08
+	THUMB_FUNC_END AiTryMoveTowards
 
 	THUMB_FUNC_START sub_803BBF4
 sub_803BBF4: @ 0x0803BBF4
@@ -2857,7 +2857,7 @@ sub_803BBF4: @ 0x0803BBF4
 	adds r0, r2, #0
 	ldr r2, [sp, #0xc]
 	movs r3, #0
-	bl sub_8039C20
+	bl AiSetDecision
 	b _0803BDAC
 	.align 2, 0
 _0803BC50: .4byte gActiveUnit
@@ -3033,7 +3033,7 @@ _0803BD84:
 	adds r0, r2, #0
 	ldr r2, [sp, #0xc]
 	movs r3, #0
-	bl sub_8039C20
+	bl AiSetDecision
 _0803BDAC:
 	add sp, #0x18
 	pop {r3, r4, r5}
@@ -4023,8 +4023,8 @@ _0803C4B6:
 
 	THUMB_FUNC_END sub_803C490
 
-	THUMB_FUNC_START sub_803C4BC
-sub_803C4BC: @ 0x0803C4BC
+	THUMB_FUNC_START AiTryExecScriptA
+AiTryExecScriptA: @ 0x0803C4BC
 	push {r4, lr}
 	ldr r3, _0803C4FC  @ gUnknown_030017D0
 	ldr r2, _0803C500  @ gUnknown_085A91E4
@@ -4062,10 +4062,10 @@ _0803C504: .4byte gActiveUnit
 _0803C508: .4byte gUnknown_030017C8
 _0803C50C: .4byte gUnknown_030017CC
 
-	THUMB_FUNC_END sub_803C4BC
+	THUMB_FUNC_END AiTryExecScriptA
 
-	THUMB_FUNC_START sub_803C510
-sub_803C510: @ 0x0803C510
+	THUMB_FUNC_START AiExecFallbackScriptA
+AiExecFallbackScriptA: @ 0x0803C510
 	push {r4, lr}
 	ldr r1, _0803C538  @ gUnknown_030017D0
 	ldr r0, _0803C53C  @ gUnknown_085A812C
@@ -4092,10 +4092,10 @@ _0803C540: .4byte gUnknown_030017C8
 _0803C544: .4byte gUnknown_030017CC
 _0803C548: .4byte gActiveUnit
 
-	THUMB_FUNC_END sub_803C510
+	THUMB_FUNC_END AiExecFallbackScriptA
 
-	THUMB_FUNC_START sub_803C54C
-sub_803C54C: @ 0x0803C54C
+	THUMB_FUNC_START AiTryExecScriptB
+AiTryExecScriptB: @ 0x0803C54C
 	push {r4, lr}
 	ldr r3, _0803C58C  @ gUnknown_030017D0
 	ldr r2, _0803C590  @ gUnknown_085A91D8
@@ -4133,10 +4133,10 @@ _0803C594: .4byte gActiveUnit
 _0803C598: .4byte gUnknown_030017C8
 _0803C59C: .4byte gUnknown_030017CC
 
-	THUMB_FUNC_END sub_803C54C
+	THUMB_FUNC_END AiTryExecScriptB
 
-	THUMB_FUNC_START sub_803C5A0
-sub_803C5A0: @ 0x0803C5A0
+	THUMB_FUNC_START AiExecFallbackScriptB
+AiExecFallbackScriptB: @ 0x0803C5A0
 	push {r4, lr}
 	ldr r1, _0803C5C8  @ gUnknown_030017D0
 	ldr r0, _0803C5CC  @ gUnknown_085A813C
@@ -4163,7 +4163,7 @@ _0803C5D0: .4byte gUnknown_030017C8
 _0803C5D4: .4byte gUnknown_030017CC
 _0803C5D8: .4byte gActiveUnit
 
-	THUMB_FUNC_END sub_803C5A0
+	THUMB_FUNC_END AiExecFallbackScriptB
 
 	THUMB_FUNC_START sub_803C5DC
 sub_803C5DC: @ 0x0803C5DC
@@ -4963,7 +4963,7 @@ sub_803CB88: @ 0x0803CB88
 	movs r2, #1
 	str r2, [sp]
 	movs r2, #0
-	bl sub_803BA08
+	bl AiTryMoveTowards
 	ldr r1, _0803CBD0  @ gAiDecision
 	movs r0, #0xa
 	ldrsb r0, [r1, r0]
@@ -5016,7 +5016,7 @@ sub_803CBD4: @ 0x0803CBD4
 	ldrb r3, [r2, #2]
 	str r4, [sp]
 	movs r2, #0
-	bl sub_803BA08
+	bl AiTryMoveTowards
 	add r0, sp, #4
 	movs r1, #0
 	ldrsh r0, [r0, r1]
@@ -5056,7 +5056,7 @@ _0803CC50:
 	movs r1, #0
 	movs r2, #0
 	movs r3, #0
-	bl sub_8039C64
+	bl AiUpdateDecision
 	ldr r0, _0803CC70  @ gAiState
 	adds r0, #0x86
 	movs r1, #2
@@ -5118,7 +5118,7 @@ sub_803CC98: @ 0x0803CC98
 	ldrb r3, [r2, #2]
 	str r4, [sp]
 	movs r2, #0
-	bl sub_803BA08
+	bl AiTryMoveTowards
 _0803CCCA:
 	ldrb r0, [r6]
 	adds r0, #1
@@ -5137,7 +5137,7 @@ sub_803CCDC: @ 0x0803CCDC
 	push {r4, r5, lr}
 	sub sp, #0x14
 	adds r5, r0, #0
-	bl sub_8040844
+	bl AiTryDoSpecialItems
 	lsls r0, r0, #0x18
 	asrs r0, r0, #0x18
 	cmp r0, #1
@@ -5186,7 +5186,7 @@ _0803CD2C:
 	str r2, [sp]
 	movs r2, #0
 	movs r3, #0xff
-	bl sub_803BA08
+	bl AiTryMoveTowards
 	ldr r4, _0803CDAC  @ gAiDecision
 	ldrb r0, [r4, #2]
 	ldrb r1, [r4, #3]
@@ -5205,7 +5205,7 @@ _0803CD2C:
 	str r4, [sp, #8]
 	movs r2, #4
 	movs r3, #0
-	bl sub_8039C20
+	bl AiSetDecision
 	ldr r3, _0803CDB0  @ gUnknown_030017D0
 	ldr r0, [r3]
 	ldrb r0, [r0, #3]
@@ -5277,7 +5277,7 @@ sub_803CDD4: @ 0x0803CDD4
 	str r2, [sp, #4]
 	str r2, [sp, #8]
 	movs r3, #0
-	bl sub_8039C20
+	bl AiSetDecision
 _0803CE06:
 	ldrb r0, [r5]
 	adds r0, #1
@@ -5318,7 +5318,7 @@ sub_803CE18: @ 0x0803CE18
 	ldrb r3, [r2, #2]
 	str r4, [sp]
 	movs r2, #0
-	bl sub_803BA08
+	bl AiTryMoveTowards
 	b _0803CE84
 	.align 2, 0
 _0803CE54: .4byte gUnknown_030017D0
@@ -5341,7 +5341,7 @@ _0803CE5C:
 	ldrb r3, [r2, #2]
 	str r4, [sp]
 	movs r2, #0
-	bl sub_803BA08
+	bl AiTryMoveTowards
 _0803CE84:
 	ldrb r0, [r7]
 	adds r0, #1
@@ -5461,7 +5461,7 @@ sub_803CF3C: @ 0x0803CF3C
 	movs r0, #8
 	orrs r0, r1
 	strb r0, [r2, #0xa]
-	bl sub_803E7D0
+	bl AiTryMoveTowardsEscape
 	ldrb r0, [r4]
 	adds r0, #1
 	strb r0, [r4]
@@ -5886,7 +5886,7 @@ sub_803D228: @ 0x0803D228
 	str r2, [sp, #8]
 	movs r2, #1
 	movs r3, #0
-	bl sub_8039C20
+	bl AiSetDecision
 	b _0803D2C2
 	.align 2, 0
 _0803D298: .4byte gActiveUnit
@@ -5899,7 +5899,7 @@ _0803D2A0:
 	str r6, [sp]
 	movs r2, #0
 	movs r3, #0xff
-	bl sub_803BA08
+	bl AiTryMoveTowards
 	b _0803D2C2
 _0803D2B4:
 	ldr r0, _0803D2D0  @ gAiState
@@ -5960,7 +5960,7 @@ sub_803D2D8: @ 0x0803D2D8
 	ldrb r3, [r2, #2]
 	str r4, [sp]
 	movs r2, #0
-	bl sub_803BA08
+	bl AiTryMoveTowards
 	b _0803D33E
 	.align 2, 0
 _0803D328: .4byte gActiveUnit
@@ -6023,7 +6023,7 @@ sub_803D354: @ 0x0803D354
 	ldrb r3, [r2, #2]
 	str r4, [sp]
 	movs r2, #0
-	bl sub_803BA08
+	bl AiTryMoveTowards
 	b _0803D3BA
 	.align 2, 0
 _0803D3A4: .4byte gActiveUnit
@@ -6064,8 +6064,8 @@ _0803D3E0: .4byte gUnknown_030017C8
 
 	THUMB_FUNC_END sub_803D3D0
 
-	THUMB_FUNC_START sub_803D3E4
-sub_803D3E4: @ 0x0803D3E4
+	THUMB_FUNC_START AiDoBerserkAction
+AiDoBerserkAction: @ 0x0803D3E4
 	push {lr}
 	ldr r0, _0803D3FC  @ sub_803C818
 	bl sub_803FA40
@@ -6081,10 +6081,10 @@ _0803D3F8:
 _0803D3FC: .4byte sub_803C818
 _0803D400: .4byte sub_803C848
 
-	THUMB_FUNC_END sub_803D3E4
+	THUMB_FUNC_END AiDoBerserkAction
 
-	THUMB_FUNC_START sub_803D404
-sub_803D404: @ 0x0803D404
+	THUMB_FUNC_START AiDoBerserkMove
+AiDoBerserkMove: @ 0x0803D404
 	push {r4, lr}
 	sub sp, #8
 	ldr r0, _0803D438  @ sub_803C848
@@ -6103,7 +6103,7 @@ sub_803D404: @ 0x0803D404
 	str r2, [sp]
 	movs r2, #0
 	movs r3, #0xff
-	bl sub_803BA08
+	bl AiTryMoveTowards
 _0803D42E:
 	add sp, #8
 	pop {r4}
@@ -6112,7 +6112,7 @@ _0803D42E:
 	.align 2, 0
 _0803D438: .4byte sub_803C848
 
-	THUMB_FUNC_END sub_803D404
+	THUMB_FUNC_END AiDoBerserkMove
 
 	THUMB_FUNC_START sub_803D43C
 sub_803D43C: @ 0x0803D43C
@@ -6176,7 +6176,7 @@ sub_803D450: @ 0x0803D450
 	ldrb r1, [r1, #0x11]
 	lsls r1, r1, #0x18
 	asrs r1, r1, #0x18
-	bl sub_803795C
+	bl GetRiddenBallistaAt
 	adds r1, r0, #0
 	cmp r1, #0
 	beq _0803D4B2
@@ -6406,7 +6406,7 @@ _0803D670:
 	str r2, [sp, #4]
 	str r2, [sp, #8]
 	movs r2, #1
-	bl sub_8039C20
+	bl AiSetDecision
 	movs r2, #4
 	ldrsb r2, [r4, r2]
 	movs r1, #1
@@ -6476,7 +6476,7 @@ sub_803D6B8: @ 0x0803D6B8
 	ldrb r1, [r1, #0x11]
 	lsls r1, r1, #0x18
 	asrs r1, r1, #0x18
-	bl sub_803795C
+	bl GetRiddenBallistaAt
 	adds r1, r0, #0
 	cmp r1, #0
 	bne _0803D7EA
@@ -6630,7 +6630,7 @@ _0803D832:
 	str r2, [sp, #4]
 	str r2, [sp, #8]
 	movs r2, #1
-	bl sub_8039C20
+	bl AiSetDecision
 	movs r2, #4
 	ldrsb r2, [r4, r2]
 	movs r1, #1
@@ -7195,7 +7195,7 @@ _0803DC88:
 	str r2, [sp, #8]
 	movs r2, #3
 	ldr r3, [sp, #0x18]
-	bl sub_8039C20
+	bl AiSetDecision
 	movs r0, #1
 _0803DCB0:
 	add sp, #0x24
@@ -8070,8 +8070,8 @@ _0803E2E8:
 
 	THUMB_FUNC_END sub_803E27C
 
-	THUMB_FUNC_START sub_803E2F4
-sub_803E2F4: @ 0x0803E2F4
+	THUMB_FUNC_START AiInitDangerMap
+AiInitDangerMap: @ 0x0803E2F4
 	push {lr}
 	ldr r0, _0803E318  @ gAiState
 	adds r1, r0, #0
@@ -8093,7 +8093,7 @@ _0803E314:
 _0803E318: .4byte gAiState
 _0803E31C: .4byte gBmMapUnk
 
-	THUMB_FUNC_END sub_803E2F4
+	THUMB_FUNC_END AiInitDangerMap
 
 	THUMB_FUNC_START sub_803E320
 sub_803E320: @ 0x0803E320
@@ -8270,8 +8270,8 @@ _0803E46A:
 
 	THUMB_FUNC_END sub_803E448
 
-	THUMB_FUNC_START sub_803E470
-sub_803E470: @ 0x0803E470
+	THUMB_FUNC_START AiTryGetNearestHealPoint
+AiTryGetNearestHealPoint: @ 0x0803E470
 	push {r4, r5, r6, r7, lr}
 	mov r7, sl
 	mov r6, r9
@@ -8500,7 +8500,7 @@ _0803E62E:
 	pop {r1}
 	bx r1
 
-	THUMB_FUNC_END sub_803E470
+	THUMB_FUNC_END AiTryGetNearestHealPoint
 
 	THUMB_FUNC_START UpdateAllPhaseHealingAIStatus
 UpdateAllPhaseHealingAIStatus: @ 0x0803E640
@@ -8532,7 +8532,7 @@ _0803E664:
 	cmp r0, #0
 	beq _0803E67C
 	adds r0, r1, #0
-	bl UpdateUnitHealingAIStatus
+	bl AiUpdateGetUnitIsHealing
 _0803E67C:
 	adds r4, #1
 	adds r5, #1
@@ -8550,8 +8550,8 @@ _0803E694: .4byte gUnknown_080D8680
 
 	THUMB_FUNC_END UpdateAllPhaseHealingAIStatus
 
-	THUMB_FUNC_START UpdateUnitHealingAIStatus
-UpdateUnitHealingAIStatus: @ 0x0803E698
+	THUMB_FUNC_START AiUpdateGetUnitIsHealing
+AiUpdateGetUnitIsHealing: @ 0x0803E698
 	push {r4, r5, lr}
 	adds r5, r0, #0
 	bl GetUnitCurrentHp
@@ -8615,10 +8615,10 @@ _0803E710:
 	pop {r1}
 	bx r1
 
-	THUMB_FUNC_END UpdateUnitHealingAIStatus
+	THUMB_FUNC_END AiUpdateGetUnitIsHealing
 
-	THUMB_FUNC_START sub_803E718
-sub_803E718: @ 0x0803E718
+	THUMB_FUNC_START AiTryHealSelf
+AiTryHealSelf: @ 0x0803E718
 	push {r4, r5, r6, r7, lr}
 	sub sp, #0x10
 	movs r6, #0
@@ -8698,7 +8698,7 @@ _0803E79C:
 _0803E7B4:
 	movs r2, #6
 	movs r3, #0
-	bl sub_8039C20
+	bl AiSetDecision
 	movs r0, #1
 	b _0803E7C8
 _0803E7C0:
@@ -8713,10 +8713,10 @@ _0803E7C8:
 	pop {r1}
 	bx r1
 
-	THUMB_FUNC_END sub_803E718
+	THUMB_FUNC_END AiTryHealSelf
 
-	THUMB_FUNC_START sub_803E7D0
-sub_803E7D0: @ 0x0803E7D0
+	THUMB_FUNC_START AiTryMoveTowardsEscape
+AiTryMoveTowardsEscape: @ 0x0803E7D0
 	push {r4, r5, r6, lr}
 	sub sp, #0xc
 	ldr r6, _0803E840  @ gActiveUnit
@@ -8753,7 +8753,7 @@ sub_803E7D0: @ 0x0803E7D0
 	adds r1, r5, #0
 	movs r2, #0
 	movs r3, #0xff
-	bl sub_803BA08
+	bl AiTryMoveTowards
 	ldr r1, _0803E848  @ gAiDecision
 	ldrb r0, [r1, #2]
 	ldrb r1, [r1, #3]
@@ -8765,7 +8765,7 @@ sub_803E7D0: @ 0x0803E7D0
 	movs r2, #0
 	str r2, [sp, #8]
 	movs r2, #2
-	bl sub_8039C20
+	bl AiSetDecision
 	movs r0, #1
 	b _0803E86E
 	.align 2, 0
@@ -8779,7 +8779,7 @@ _0803E84C:
 	adds r1, r5, #0
 	movs r2, #0
 	movs r3, #0xff
-	bl sub_803BA08
+	bl AiTryMoveTowards
 	ldr r0, _0803E868  @ gAiDecision
 	ldrb r0, [r0, #0xa]
 	lsls r0, r0, #0x18
@@ -8795,7 +8795,7 @@ _0803E86E:
 	pop {r1}
 	bx r1
 
-	THUMB_FUNC_END sub_803E7D0
+	THUMB_FUNC_END AiTryMoveTowardsEscape
 
 	THUMB_FUNC_START GetEscapePointStructThingMaybe
 GetEscapePointStructThingMaybe: @ 0x0803E878
@@ -9394,8 +9394,8 @@ StoreItemAndGetUnitAttack: @ 0x0803EC98
 
 	THUMB_FUNC_END StoreItemAndGetUnitAttack
 
-	THUMB_FUNC_START sub_803ECC4
-sub_803ECC4: @ 0x0803ECC4
+	THUMB_FUNC_START AiTryDanceOrStealAfterMove
+AiTryDanceOrStealAfterMove: @ 0x0803ECC4
 	push {r4, lr}
 	ldr r4, _0803ECEC  @ gAiDecision
 	ldrb r0, [r4]
@@ -9418,10 +9418,10 @@ _0803ECE6:
 	.align 2, 0
 _0803ECEC: .4byte gAiDecision
 
-	THUMB_FUNC_END sub_803ECC4
+	THUMB_FUNC_END AiTryDanceOrStealAfterMove
 
-	THUMB_FUNC_START sub_803ECF0
-sub_803ECF0: @ 0x0803ECF0
+	THUMB_FUNC_START AiTryActionAfterMove
+AiTryActionAfterMove: @ 0x0803ECF0
 	push {r4, lr}
 	ldr r4, _0803ED24  @ gAiDecision
 	ldrb r0, [r4, #2]
@@ -9448,7 +9448,7 @@ _0803ED1C:
 	.align 2, 0
 _0803ED24: .4byte gAiDecision
 
-	THUMB_FUNC_END sub_803ECF0
+	THUMB_FUNC_END AiTryActionAfterMove
 
 	THUMB_FUNC_START sub_803ED28
 sub_803ED28: @ 0x0803ED28
@@ -9585,7 +9585,7 @@ _0803EE1C:
 	str r2, [sp, #8]
 	movs r2, #7
 	mov r3, r9
-	bl sub_8039C20
+	bl AiSetDecision
 	movs r0, #1
 _0803EE3A:
 	add sp, #0x10
@@ -9690,7 +9690,7 @@ _0803EED8:
 	str r0, [sp, #8]
 	adds r0, r2, #0
 	movs r2, #1
-	bl sub_8039C20
+	bl AiSetDecision
 	movs r0, #1
 	b _0803EFC0
 	.align 2, 0
@@ -10215,7 +10215,7 @@ _0803F304:
 	str r2, [sp]
 	movs r2, #0
 	movs r3, #0xff
-	bl sub_803BA08
+	bl AiTryMoveTowards
 _0803F314:
 	movs r0, #1
 	add sp, #8
@@ -10430,7 +10430,7 @@ _0803F486:
 	str r2, [sp]
 	movs r2, #0
 	movs r3, #0xff
-	bl sub_803BA08
+	bl AiTryMoveTowards
 	movs r0, #1
 _0803F49C:
 	add sp, #8
@@ -10497,7 +10497,7 @@ sub_803F4EC: @ 0x0803F4EC
 	movs r0, #8
 	movs r1, #0
 	adds r2, r5, #0
-	bl sub_8039C64
+	bl AiUpdateDecision
 	movs r0, #1
 	add sp, #4
 	pop {r4, r5}
@@ -10547,7 +10547,7 @@ _0803F560:
 	adds r0, #1
 	ldrb r7, [r0]
 _0803F56E:
-	bl sub_803C4BC
+	bl AiTryExecScriptA
 	lsls r0, r0, #0x18
 	asrs r0, r0, #0x18
 	cmp r0, #1
@@ -10555,7 +10555,7 @@ _0803F56E:
 	adds r5, #1
 	cmp r5, #0xff
 	ble _0803F56E
-	bl sub_803C510
+	bl AiExecFallbackScriptA
 _0803F584:
 	ldr r1, _0803F59C  @ gAiDecision
 	movs r0, #0xa
@@ -10578,7 +10578,7 @@ _0803F5A4:
 	movs r1, #0
 _0803F5AA:
 	strb r1, [r0]
-	bl ClearSomeAIRelatedStruct
+	bl AiClearDecision
 	ldr r1, _0803F5D8  @ gActiveUnit
 	ldr r0, [r1]
 	adds r0, #0x42
@@ -10677,7 +10677,7 @@ _0803F644:
 	ldrb r0, [r1, #6]
 	strb r0, [r2]
 _0803F668:
-	bl ClearSomeAIRelatedStruct
+	bl AiClearDecision
 _0803F66C:
 	movs r0, #0
 	pop {r1}
@@ -10817,7 +10817,7 @@ sub_803F72C: @ 0x0803F72C
 	str r2, [sp]
 	movs r2, #0
 	movs r3, #0xff
-	bl sub_803BA08
+	bl AiTryMoveTowards
 _0803F776:
 	movs r0, #1
 	add sp, #4
@@ -10884,7 +10884,7 @@ sub_803F7DC: @ 0x0803F7DC
 	ldrb r1, [r4]
 	cmp r0, r1
 	bhi _0803F818
-	bl sub_8040844
+	bl AiTryDoSpecialItems
 	lsls r0, r0, #0x18
 	cmp r0, #0
 	bne _0803F820
@@ -10942,7 +10942,7 @@ sub_803F82C: @ 0x0803F82C
 	ldrsb r0, [r2, r0]
 	movs r1, #0x11
 	ldrsb r1, [r2, r1]
-	bl sub_803795C
+	bl GetRiddenBallistaAt
 	cmp r0, #0
 	beq _0803F868
 	b _0803F990
@@ -10959,7 +10959,7 @@ _0803F868:
 	str r2, [sp, #8]
 	movs r2, #0xa
 	movs r3, #0
-	bl sub_8039C20
+	bl AiSetDecision
 	b _0803F990
 	.align 2, 0
 _0803F888: .4byte 0x0000FFFF
@@ -10994,7 +10994,7 @@ _0803F8B6:
 	bhi _0803F90C
 	adds r0, r4, #0
 	adds r1, r5, #0
-	bl sub_803795C
+	bl GetRiddenBallistaAt
 	cmp r0, #0
 	beq _0803F90C
 	mov r1, r8
@@ -11049,7 +11049,7 @@ _0803F918:
 	adds r0, r4, #0
 	movs r2, #0
 	movs r3, #0xff
-	bl sub_803BA08
+	bl AiTryMoveTowards
 _0803F936:
 	ldr r1, _0803F970  @ gAiDecision
 	movs r0, #0xa
@@ -11071,7 +11071,7 @@ _0803F936:
 	movs r1, #0
 	movs r2, #0
 	movs r3, #0
-	bl sub_8039C64
+	bl AiUpdateDecision
 	b _0803F990
 	.align 2, 0
 _0803F964: .4byte gBmMapSize
@@ -11120,7 +11120,7 @@ sub_803F9A8: @ 0x0803F9A8
 	adds r0, r2, #0
 	movs r2, #0
 	movs r3, #0xff
-	bl sub_803BA08
+	bl AiTryMoveTowards
 	movs r0, #1
 	add sp, #4
 	pop {r1}
@@ -11552,7 +11552,7 @@ _0803FCDA:
 	str r2, [sp, #4]
 	str r2, [sp, #8]
 	movs r2, #5
-	bl sub_8039C20
+	bl AiSetDecision
 _0803FCFE:
 	add sp, #0x24
 	pop {r3, r4, r5}
@@ -11778,7 +11778,7 @@ _0803FEAC:
 	str r2, [sp, #4]
 	str r2, [sp, #8]
 	movs r2, #5
-	bl sub_8039C20
+	bl AiSetDecision
 _0803FED0:
 	add sp, #0x20
 	pop {r3, r4, r5}
@@ -11911,7 +11911,7 @@ _0803FFB8:
 	str r2, [sp, #8]
 	movs r2, #5
 	movs r3, #0
-	bl sub_8039C20
+	bl AiSetDecision
 _0803FFE0:
 	add sp, #0x10
 	pop {r3, r4, r5}
@@ -12085,7 +12085,7 @@ _08040108:
 	lsrs r2, r2, #0x18
 	str r2, [sp, #8]
 	movs r2, #5
-	bl sub_8039C20
+	bl AiSetDecision
 _0804013E:
 	add sp, #0x24
 	pop {r3, r4, r5}
@@ -12247,7 +12247,7 @@ _08040262:
 	str r2, [sp, #4]
 	str r2, [sp, #8]
 	movs r2, #5
-	bl sub_8039C20
+	bl AiSetDecision
 _08040282:
 	add sp, #0x24
 	pop {r3, r4, r5}
@@ -12534,7 +12534,7 @@ _0804049C:
 	str r2, [sp, #4]
 	str r2, [sp, #8]
 	movs r2, #5
-	bl sub_8039C20
+	bl AiSetDecision
 _080404C0:
 	add sp, #0x24
 	pop {r3, r4, r5}
@@ -12722,7 +12722,7 @@ _0804061E:
 	str r2, [sp, #4]
 	str r2, [sp, #8]
 	movs r2, #5
-	bl sub_8039C20
+	bl AiSetDecision
 _08040642:
 	add sp, #0x20
 	pop {r3, r4, r5}
@@ -12997,8 +12997,8 @@ _08040840: .4byte gUnknown_080D86F4
 
 	THUMB_FUNC_END sub_80407F0
 
-	THUMB_FUNC_START sub_8040844
-sub_8040844: @ 0x08040844
+	THUMB_FUNC_START AiTryDoSpecialItems
+AiTryDoSpecialItems: @ 0x08040844
 	push {r4, r5, r6, lr}
 	ldr r0, _08040858  @ gAiState
 	adds r0, #0x7b
@@ -13075,7 +13075,7 @@ _080408D6:
 	pop {r1}
 	bx r1
 
-	THUMB_FUNC_END sub_8040844
+	THUMB_FUNC_END AiTryDoSpecialItems
 
 	THUMB_FUNC_START sub_80408DC
 sub_80408DC: @ 0x080408DC
@@ -13109,7 +13109,7 @@ sub_80408DC: @ 0x080408DC
 	movs r2, #1
 	str r2, [sp]
 	movs r2, #0
-	bl sub_803BA08
+	bl AiTryMoveTowards
 	ldr r4, _08040970  @ gAiDecision
 	movs r0, #0xa
 	ldrsb r0, [r4, r0]
@@ -13138,7 +13138,7 @@ sub_80408DC: @ 0x080408DC
 	str r5, [sp, #8]
 	movs r2, #6
 	movs r3, #0
-	bl sub_8039C20
+	bl AiSetDecision
 _0804095C:
 	add sp, #0x10
 	pop {r4, r5, r6}
@@ -13240,7 +13240,7 @@ _080409F6:
 	movs r5, #0
 	str r5, [sp]
 	movs r2, #0
-	bl sub_803BA08
+	bl AiTryMoveTowards
 	ldr r4, _08040A74  @ gAiDecision
 	movs r0, #0xa
 	ldrsb r0, [r4, r0]
@@ -13268,7 +13268,7 @@ _080409F6:
 	str r5, [sp, #8]
 	movs r2, #6
 	movs r3, #0
-	bl sub_8039C20
+	bl AiSetDecision
 _08040A64:
 	add sp, #0x10
 	pop {r4, r5, r6, r7}
@@ -13323,7 +13323,7 @@ sub_8040A78: @ 0x08040A78
 	str r2, [sp, #8]
 	movs r2, #6
 	movs r3, #0
-	bl sub_8039C20
+	bl AiSetDecision
 _08040ACE:
 	add sp, #0x10
 	pop {r4, r5}
@@ -13611,7 +13611,7 @@ _08040CC0:
 	movs r6, #0
 	str r6, [sp]
 	movs r2, #0
-	bl sub_803BA08
+	bl AiTryMoveTowards
 	ldr r4, _08040D38  @ gAiDecision
 	movs r0, #0xa
 	ldrsb r0, [r4, r0]
@@ -13669,7 +13669,7 @@ _08040D3C:
 	movs r5, #0
 	str r5, [sp]
 	movs r2, #0
-	bl sub_803BA08
+	bl AiTryMoveTowards
 	ldr r4, _08040DBC  @ gAiDecision
 	movs r0, #0xa
 	ldrsb r0, [r4, r0]
@@ -13698,7 +13698,7 @@ _08040DA6:
 	str r2, [sp, #8]
 	movs r2, #0xd
 	movs r3, #0
-	bl sub_8039C20
+	bl AiSetDecision
 	movs r0, #1
 	b _08040DC2
 	.align 2, 0
@@ -14094,8 +14094,8 @@ _0804108C: .4byte gBmMapRange
 
 	THUMB_FUNC_END sub_8041054
 
-	THUMB_FUNC_START sub_8041090
-sub_8041090: @ 0x08041090
+	THUMB_FUNC_START AiUpdateNoMoveFlag
+AiUpdateNoMoveFlag: @ 0x08041090
 	push {lr}
 	adds r0, #0x40
 	ldrh r1, [r0]
@@ -14125,7 +14125,7 @@ _080410BA:
 	.align 2, 0
 _080410C0: .4byte gAiState
 
-	THUMB_FUNC_END sub_8041090
+	THUMB_FUNC_END AiUpdateNoMoveFlag
 
 	THUMB_FUNC_START sub_80410C4
 sub_80410C4: @ 0x080410C4
@@ -14545,7 +14545,7 @@ sub_80413CC: @ 0x080413CC
 	str r2, [sp, #4]
 	str r2, [sp, #8]
 	movs r2, #0xb
-	bl sub_8039C20
+	bl AiSetDecision
 	movs r0, #1
 	add sp, #0xc
 	pop {r1}
@@ -14762,7 +14762,7 @@ sub_8041584: @ 0x08041584
 	str r2, [sp, #8]
 	movs r2, #0xc
 	movs r3, #0
-	bl sub_8039C20
+	bl AiSetDecision
 	movs r0, #1
 	add sp, #0xc
 	pop {r1}

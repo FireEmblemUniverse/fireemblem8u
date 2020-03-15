@@ -8,9 +8,10 @@ struct Unit;
 // Forward declarations for types that may need to be declared elsewhere later?
 struct BattleUnit; // currently in bmunit.h
 struct UnitDefinition; // currently in bmunit.h
+struct Trap;
+struct BattleHit;
 
 // Type definitions for types without any other home :/
-struct BattleHit;
 
 struct BgCoords
 {

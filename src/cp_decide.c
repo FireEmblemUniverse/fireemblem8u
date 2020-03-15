@@ -10,52 +10,31 @@
 
 #include "cp_common.h"
 
-void ClearSomeAIRelatedStruct(void);
+static void CpDecide_Suspend(ProcPtr proc);
+static void CpDecide_Main(ProcPtr proc);
 
-s8 UpdateUnitHealingAIStatus(struct Unit* unit);
-
-struct Trap* sub_803795C(int x, int y);
-void sub_803BA08(int x, int y, int arg2, int arg3, int arg4);
-s8 sub_803C4BC(void);
-void sub_803C510(void);
-s8 sub_803C54C();
-void sub_803C5A0();
-void sub_803D3E4(void);
-void sub_803D404(void);
-void sub_803E2F4(void);
-s8 sub_803E470(struct Vec2* out);
-s8 sub_803E718(void);
-s8 sub_803E7D0(void);
-void sub_803ECC4(void);
-void sub_803ECF0(void);
-void sub_8040844(void);
-void sub_8041090(struct Unit* unit);
-
-void sub_8039D10(void);
-void sub_8039DE0(void);
-void sub_8039E2C(void);
-void sub_8039DC4(void);
-
-void sub_8039AC8(void);
-void Call6C_E_CPDECIDE(ProcPtr proc);
+static void DecideHealOrEscape(void);
+static void DecideScriptA(void);
+static void DecideScriptB(void);
+static void DecideSpecialItems(void);
 
 typedef void(*DecideFunc)(void);
 
-static DecideFunc CONST_DATA gUnknown_085A7F9C[] =
+static DecideFunc CONST_DATA sDecideFuncList[] =
 {
-    sub_8039D10,
-    sub_8039DE0,
-    sub_8039E2C,
-    sub_8039DC4,
+    DecideHealOrEscape,
+    DecideScriptA,
+    DecideScriptB,
+    DecideSpecialItems,
     NULL, NULL,
 };
 
 static DecideFunc CONST_DATA sUnused_085A7FB4[] =
 {
-    sub_8039DC4,
-    sub_8039DE0,
-    sub_8039D10,
-    sub_8039E2C,
+    DecideSpecialItems,
+    DecideScriptA,
+    DecideHealOrEscape,
+    DecideScriptB,
     NULL, NULL,
 };
 
@@ -64,17 +43,17 @@ struct ProcCmd CONST_DATA gProcScr_CpDecide[] =
     PROC_NAME("E_CPDECIDE"),
 
 PROC_LABEL(0),
-    PROC_CALL(Call6C_E_CPDECIDE),
+    PROC_CALL(CpDecide_Main),
     PROC_SLEEP(0),
 
-    PROC_CALL(sub_8039AC8),
+    PROC_CALL(CpDecide_Suspend),
 
     PROC_GOTO(0),
 
     PROC_END,
 };
 
-void sub_8039AC8(void)
+void CpDecide_Suspend(ProcPtr proc)
 {
     if (UNIT_FACTION(gActiveUnit) == FACTION_BLUE)
         gActionData.suspendPointType = SUSPEND_POINT_BSKPHASE;
@@ -86,7 +65,7 @@ void sub_8039AC8(void)
 
 #if NONMATCHING
 
-void Call6C_E_CPDECIDE(ProcPtr proc)
+void CpDecide_Main(ProcPtr proc)
 {
 next_unit:
     gAiState.decideState = 0;
@@ -108,16 +87,15 @@ next_unit:
         RenderBmMap();
         SMS_UpdateFromGameData();
 
-        sub_8041090(gActiveUnit);
+        AiUpdateNoMoveFlag(gActiveUnit);
 
         gAiState.combatWeightTableId = (gActiveUnit->ai3And4 & 0xF8) >> 3;
 
         gAiState.dangerMapFilled = FALSE;
-        sub_803E2F4();
+        AiInitDangerMap();
 
-        ClearSomeAIRelatedStruct();
-
-        gCpDecideMainFunc();
+        AiClearDecision();
+        AiDecideMainFunc();
 
         gActiveUnit->state |= US_HAS_MOVED_AI;
 
@@ -144,7 +122,7 @@ next_unit:
 #else // if !NONMATCHING
 
 __attribute__((naked))
-void Call6C_E_CPDECIDE(ProcPtr proc)
+void CpDecide_Main(ProcPtr proc)
 {
     asm("\n\
         .syntax unified\n\
@@ -193,7 +171,7 @@ void Call6C_E_CPDECIDE(ProcPtr proc)
         bl RenderBmMap\n\
         bl SMS_UpdateFromGameData\n\
         ldr r0, [r6]\n\
-        bl sub_8041090\n\
+        bl AiUpdateNoMoveFlag\n\
         ldr r0, [r6]\n\
         adds r0, #0x40\n\
         ldrh r1, [r0]\n\
@@ -206,9 +184,9 @@ void Call6C_E_CPDECIDE(ProcPtr proc)
         adds r0, r4, #0\n\
         adds r0, #0x7a\n\
         strb r5, [r0]\n\
-        bl sub_803E2F4\n\
-        bl ClearSomeAIRelatedStruct\n\
-        ldr r0, _08039BD0  @ gCpDecideMainFunc\n\
+        bl AiInitDangerMap\n\
+        bl AiClearDecision\n\
+        ldr r0, _08039BD0  @ AiDecideMainFunc\n\
         ldr r0, [r0]\n\
         bl _call_via_r0\n\
         ldr r2, [r6]\n\
@@ -244,7 +222,7 @@ void Call6C_E_CPDECIDE(ProcPtr proc)
         bl Proc_Goto\n\
         b _08039BFA\n\
         .align 2, 0\n\
-    _08039BD0: .4byte gCpDecideMainFunc\n\
+    _08039BD0: .4byte AiDecideMainFunc\n\
     _08039BD4: .4byte gAiDecision\n\
     _08039BD8:\n\
         ldr r0, _08039BEC  @ gAiState\n\
@@ -271,7 +249,7 @@ void Call6C_E_CPDECIDE(ProcPtr proc)
 
 #endif // NONMATCHING
 
-void ClearSomeAIRelatedStruct(void)
+void AiClearDecision(void)
 {
     gAiDecision.actionId = 0;
 
@@ -288,7 +266,7 @@ void ClearSomeAIRelatedStruct(void)
     gAiDecision.actionPerformed = FALSE;
 }
 
-void sub_8039C20(u8 xMove, u8 yMove, u8 actionId, u8 targetId, u8 itemSlot, u8 xTarget, u8 yTarget)
+void AiSetDecision(u8 xMove, u8 yMove, u8 actionId, u8 targetId, u8 itemSlot, u8 xTarget, u8 yTarget)
 {
     gAiDecision.unitId = gActiveUnitId;
     gAiDecision.xMove = xMove;
@@ -304,7 +282,7 @@ void sub_8039C20(u8 xMove, u8 yMove, u8 actionId, u8 targetId, u8 itemSlot, u8 x
     gAiDecision.actionPerformed = TRUE;
 }
 
-void sub_8039C64(u8 actionId, u8 targetId, u8 itemSlot, u8 xTarget, u8 yTarget)
+void AiUpdateDecision(u8 actionId, u8 targetId, u8 itemSlot, u8 xTarget, u8 yTarget)
 {
     if (actionId != 0xFF)
         gAiDecision.actionId = actionId;
@@ -324,56 +302,56 @@ void sub_8039C64(u8 actionId, u8 targetId, u8 itemSlot, u8 xTarget, u8 yTarget)
     gAiDecision.actionPerformed = TRUE;
 }
 
-void sub_8039CAC(void)
+void AiDecideMain(void)
 {
-    while (gUnknown_085A7F9C[gAiState.decideState] && !gAiDecision.actionPerformed)
+    while (sDecideFuncList[gAiState.decideState] && !gAiDecision.actionPerformed)
     {
-        gUnknown_085A7F9C[gAiState.decideState++]();
+        sDecideFuncList[gAiState.decideState++]();
     }
 }
 
-void sub_8039D10(void)
+void DecideHealOrEscape(void)
 {
     if (gAiState.flags & AI_FLAG_BERSERKED)
         return;
 
-    if (UpdateUnitHealingAIStatus(gActiveUnit) == TRUE)
+    if (AiUpdateGetUnitIsHealing(gActiveUnit) == TRUE)
     {
         struct Vec2 vec2;
 
-        if (sub_803E718() == TRUE)
+        if (AiTryHealSelf() == TRUE)
             return;
 
-        if ((gActiveUnit->aiFlags & AI_UNIT_FLAG_3) && (sub_803E7D0() == TRUE))
+        if ((gActiveUnit->aiFlags & AI_UNIT_FLAG_3) && (AiTryMoveTowardsEscape() == TRUE))
         {
-            sub_803ECC4();
+            AiTryDanceOrStealAfterMove();
             return;
         }
 
-        if (sub_803E470(&vec2) != TRUE)
+        if (AiTryGetNearestHealPoint(&vec2) != TRUE)
             return;
 
-        sub_803BA08(vec2.x, vec2.y, 0, 0, 1);
+        AiTryMoveTowards(vec2.x, vec2.y, 0, 0, 1);
 
         if (gAiDecision.actionPerformed == TRUE)
-            sub_803ECF0();
+            AiTryActionAfterMove();
     }
     else
     {
-        if ((gActiveUnit->aiFlags & AI_UNIT_FLAG_3) && (sub_803E7D0() == TRUE))
-            sub_803ECC4();
+        if ((gActiveUnit->aiFlags & AI_UNIT_FLAG_3) && (AiTryMoveTowardsEscape() == TRUE))
+            AiTryDanceOrStealAfterMove();
     }
 }
 
-void sub_8039DC4(void)
+void DecideSpecialItems(void)
 {
     if (gAiState.flags & AI_FLAG_BERSERKED)
         return;
 
-    sub_8040844();
+    AiTryDoSpecialItems();
 }
 
-void sub_8039DE0(void)
+void DecideScriptA(void)
 {
     int i = 0;
 
@@ -382,37 +360,37 @@ void sub_8039DE0(void)
 
     if (gAiState.flags & AI_FLAG_BERSERKED)
     {
-        sub_803D3E4();
+        AiDoBerserkAction();
         return;
     }
 
     for (i = 0; i < 0x100; ++i)
     {
-        if (sub_803C4BC() == TRUE)
+        if (AiTryExecScriptA() == TRUE)
             return;
     }
 
-    sub_803C510();
+    AiExecFallbackScriptA();
 }
 
-void sub_8039E2C(void)
+void DecideScriptB(void)
 {
     int i = 0;
 
-    if ((gActiveUnit->state & US_IN_BALLISTA) && (sub_803795C(gActiveUnit->xPos, gActiveUnit->yPos) != NULL))
+    if ((gActiveUnit->state & US_IN_BALLISTA) && (GetRiddenBallistaAt(gActiveUnit->xPos, gActiveUnit->yPos) != NULL))
         return;
 
     if (gAiState.flags & AI_FLAG_BERSERKED)
     {
-        sub_803D404();
+        AiDoBerserkMove();
         return;
     }
 
     for (i = 0; i < 0x100; ++i)
     {
-        if (sub_803C54C() == TRUE)
+        if (AiTryExecScriptB() == TRUE)
             return;
     }
 
-    sub_803C5A0();
+    AiExecFallbackScriptB();
 }
