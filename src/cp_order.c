@@ -16,9 +16,7 @@ static int BuildAiUnitList(void);
 static void SortAiUnitList(int count);
 static void CpOrderFunc_End(ProcPtr proc);
 
-void sub_8039CAC(ProcPtr proc);
-
-extern ProcFunc gCpDecideMainFunc;
+void sub_8039CAC(void);
 
 static
 u32* CONST_DATA sUnitPriorityArray = (void*) gUnknown_02020188;
@@ -152,7 +150,7 @@ int GetUnitAiPriority(struct Unit* unit)
     if (UNIT_CATTRIBUTES(unit) & (CA_DANCE | CA_PLAY))
         return priority - 149;
 
-    if (!(unit->_u0A & 1))
+    if (!(unit->aiFlags & AI_UNIT_FLAG_0))
     {
         priority += lead << 8;
 

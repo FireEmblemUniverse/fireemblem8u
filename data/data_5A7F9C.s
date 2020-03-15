@@ -12,8 +12,8 @@ gProcScr_CpDecide:  @ 0x085A7FCC
 gUnknown_085A8004:  @ 0x085A8004
 	.incbin "baserom.gba", 0x5A8004, 0x20
 
-	.global gUnknown_085A8024
-gUnknown_085A8024:  @ 0x085A8024
+	.global gProcScr_CpPerform
+gProcScr_CpPerform:  @ 0x085A8024
 	.incbin "baserom.gba", 0x5A8024, 0x80
 
 	.global gUnknown_085A80A4

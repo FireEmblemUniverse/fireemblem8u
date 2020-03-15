@@ -110,7 +110,7 @@ SECTIONS
         asm/bmdifficulty.o(.text);
         src/cp_phase.o(.text);
         src/cp_order.o(.text);
-        asm/cpdecide.o(.text);
+        src/cp_decide.o(.text);
         asm/cpperform.o(.text);
         asm/code_cpextra.o(.text);
         asm/code_sio.o(.text);

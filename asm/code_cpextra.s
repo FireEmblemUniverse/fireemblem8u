@@ -4964,7 +4964,7 @@ sub_803CB88: @ 0x0803CB88
 	str r2, [sp]
 	movs r2, #0
 	bl sub_803BA08
-	ldr r1, _0803CBD0  @ gUnknown_0203AA94
+	ldr r1, _0803CBD0  @ gAiDecision
 	movs r0, #0xa
 	ldrsb r0, [r1, r0]
 	cmp r0, #1
@@ -4988,7 +4988,7 @@ _0803CBC4:
 	bx r0
 	.align 2, 0
 _0803CBCC: .4byte gUnknown_030017D0
-_0803CBD0: .4byte gUnknown_0203AA94
+_0803CBD0: .4byte gAiDecision
 
 	THUMB_FUNC_END sub_803CB88
 
@@ -5022,7 +5022,7 @@ sub_803CBD4: @ 0x0803CBD4
 	ldrsh r0, [r0, r1]
 	movs r2, #2
 	ldrsh r1, [r5, r2]
-	ldr r5, _0803CC48  @ gUnknown_0203AA94
+	ldr r5, _0803CC48  @ gAiDecision
 	ldrb r2, [r5, #2]
 	ldrb r3, [r5, #3]
 	str r4, [sp]
@@ -5047,7 +5047,7 @@ sub_803CBD4: @ 0x0803CBD4
 	b _0803CC7E
 	.align 2, 0
 _0803CC44: .4byte gUnknown_030017D0
-_0803CC48: .4byte gUnknown_0203AA94
+_0803CC48: .4byte gAiDecision
 _0803CC4C: .4byte gAiState
 _0803CC50:
 	ldrb r0, [r1, #0xb]
@@ -5187,7 +5187,7 @@ _0803CD2C:
 	movs r2, #0
 	movs r3, #0xff
 	bl sub_803BA08
-	ldr r4, _0803CDAC  @ gUnknown_0203AA94
+	ldr r4, _0803CDAC  @ gAiDecision
 	ldrb r0, [r4, #2]
 	ldrb r1, [r4, #3]
 	bl sub_803C014
@@ -5231,7 +5231,7 @@ _0803CD2C:
 	strb r4, [r0]
 	b _0803CDC8
 	.align 2, 0
-_0803CDAC: .4byte gUnknown_0203AA94
+_0803CDAC: .4byte gAiDecision
 _0803CDB0: .4byte gUnknown_030017D0
 _0803CDB4: .4byte gActiveUnit
 _0803CDB8: .4byte gUnknown_030017C8
@@ -8754,7 +8754,7 @@ sub_803E7D0: @ 0x0803E7D0
 	movs r2, #0
 	movs r3, #0xff
 	bl sub_803BA08
-	ldr r1, _0803E848  @ gUnknown_0203AA94
+	ldr r1, _0803E848  @ gAiDecision
 	ldrb r0, [r1, #2]
 	ldrb r1, [r1, #3]
 	ldrb r3, [r4]
@@ -8771,7 +8771,7 @@ sub_803E7D0: @ 0x0803E7D0
 	.align 2, 0
 _0803E840: .4byte gActiveUnit
 _0803E844: .4byte gBmMapMovement
-_0803E848: .4byte gUnknown_0203AA94
+_0803E848: .4byte gAiDecision
 _0803E84C:
 	movs r0, #0
 	str r0, [sp]
@@ -8780,13 +8780,13 @@ _0803E84C:
 	movs r2, #0
 	movs r3, #0xff
 	bl sub_803BA08
-	ldr r0, _0803E868  @ gUnknown_0203AA94
+	ldr r0, _0803E868  @ gAiDecision
 	ldrb r0, [r0, #0xa]
 	lsls r0, r0, #0x18
 	asrs r0, r0, #0x18
 	b _0803E86E
 	.align 2, 0
-_0803E868: .4byte gUnknown_0203AA94
+_0803E868: .4byte gAiDecision
 _0803E86C:
 	movs r0, #0
 _0803E86E:
@@ -8887,7 +8887,7 @@ sub_803E900: @ 0x0803E900
 	ands r0, r1
 	cmp r0, #0
 	bne _0803E934
-	ldr r0, _0803E930  @ gUnknown_0203AA94
+	ldr r0, _0803E930  @ gAiDecision
 	ldrb r0, [r0]
 	cmp r0, #1
 	beq _0803E934
@@ -8902,7 +8902,7 @@ sub_803E900: @ 0x0803E900
 	b _0803E936
 	.align 2, 0
 _0803E92C: .4byte gActiveUnit
-_0803E930: .4byte gUnknown_0203AA94
+_0803E930: .4byte gAiDecision
 _0803E934:
 	movs r0, #0
 _0803E936:
@@ -9397,7 +9397,7 @@ StoreItemAndGetUnitAttack: @ 0x0803EC98
 	THUMB_FUNC_START sub_803ECC4
 sub_803ECC4: @ 0x0803ECC4
 	push {r4, lr}
-	ldr r4, _0803ECEC  @ gUnknown_0203AA94
+	ldr r4, _0803ECEC  @ gAiDecision
 	ldrb r0, [r4]
 	cmp r0, #2
 	beq _0803ECE6
@@ -9416,14 +9416,14 @@ _0803ECE6:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_0803ECEC: .4byte gUnknown_0203AA94
+_0803ECEC: .4byte gAiDecision
 
 	THUMB_FUNC_END sub_803ECC4
 
 	THUMB_FUNC_START sub_803ECF0
 sub_803ECF0: @ 0x0803ECF0
 	push {r4, lr}
-	ldr r4, _0803ED24  @ gUnknown_0203AA94
+	ldr r4, _0803ED24  @ gAiDecision
 	ldrb r0, [r4, #2]
 	ldrb r1, [r4, #3]
 	bl sub_803ED28
@@ -9446,7 +9446,7 @@ _0803ED1C:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_0803ED24: .4byte gUnknown_0203AA94
+_0803ED24: .4byte gAiDecision
 
 	THUMB_FUNC_END sub_803ECF0
 
@@ -10202,7 +10202,7 @@ _0803F2EC:
 _0803F2F2:
 	ldr r0, _0803F328  @ sub_803C818
 	bl sub_803D6B8
-	ldr r0, _0803F32C  @ gUnknown_0203AA94
+	ldr r0, _0803F32C  @ gAiDecision
 	ldrb r0, [r0, #0xa]
 	lsls r0, r0, #0x18
 	asrs r0, r0, #0x18
@@ -10228,7 +10228,7 @@ _0803F314:
 	bx r1
 	.align 2, 0
 _0803F328: .4byte sub_803C818
-_0803F32C: .4byte gUnknown_0203AA94
+_0803F32C: .4byte gAiDecision
 
 	THUMB_FUNC_END sub_803F15C
 
@@ -10557,7 +10557,7 @@ _0803F56E:
 	ble _0803F56E
 	bl sub_803C510
 _0803F584:
-	ldr r1, _0803F59C  @ gUnknown_0203AA94
+	ldr r1, _0803F59C  @ gAiDecision
 	movs r0, #0xa
 	ldrsb r0, [r1, r0]
 	cmp r0, #1
@@ -10570,7 +10570,7 @@ _0803F584:
 	adds r0, #0x86
 	b _0803F5AA
 	.align 2, 0
-_0803F59C: .4byte gUnknown_0203AA94
+_0803F59C: .4byte gAiDecision
 _0803F5A0: .4byte gAiState
 _0803F5A4:
 	ldr r0, _0803F5D4  @ gAiState
@@ -10666,7 +10666,7 @@ _0803F644:
 	adds r2, #0x86
 	movs r0, #0
 	strb r0, [r2]
-	ldr r1, _0803F67C  @ gUnknown_0203AA94
+	ldr r1, _0803F67C  @ gAiDecision
 	movs r0, #0xa
 	ldrsb r0, [r1, r0]
 	cmp r0, #1
@@ -10685,7 +10685,7 @@ _0803F66C:
 	.align 2, 0
 _0803F674: .4byte sub_803F5E0
 _0803F678: .4byte gAiState
-_0803F67C: .4byte gUnknown_0203AA94
+_0803F67C: .4byte gAiDecision
 
 	THUMB_FUNC_END sub_803F61C
 
@@ -10798,7 +10798,7 @@ sub_803F72C: @ 0x0803F72C
 	adds r4, r0, #0
 	ldr r0, _0803F784  @ sub_803F680
 	bl sub_803D450
-	ldr r5, _0803F788  @ gUnknown_0203AA94
+	ldr r5, _0803F788  @ gAiDecision
 	movs r0, #0xa
 	ldrsb r0, [r5, r0]
 	cmp r0, #1
@@ -10827,7 +10827,7 @@ _0803F776:
 	.align 2, 0
 _0803F780: .4byte gAiState
 _0803F784: .4byte sub_803F680
-_0803F788: .4byte gUnknown_0203AA94
+_0803F788: .4byte gAiDecision
 _0803F78C: .4byte sub_803F6B8
 
 	THUMB_FUNC_END sub_803F72C
@@ -11051,7 +11051,7 @@ _0803F918:
 	movs r3, #0xff
 	bl sub_803BA08
 _0803F936:
-	ldr r1, _0803F970  @ gUnknown_0203AA94
+	ldr r1, _0803F970  @ gAiDecision
 	movs r0, #0xa
 	ldrsb r0, [r1, r0]
 	cmp r0, #1
@@ -11077,7 +11077,7 @@ _0803F936:
 _0803F964: .4byte gBmMapSize
 _0803F968: .4byte gBmMapMovement
 _0803F96C: .4byte gBmMapUnit
-_0803F970: .4byte gUnknown_0203AA94
+_0803F970: .4byte gAiDecision
 _0803F974:
 	mov r0, r8
 	cmp r0, #0
@@ -11246,7 +11246,7 @@ _0803FA68:
 	adds r0, r5, #0
 	adds r1, r7, #0
 	bl _call_via_r2
-	ldr r0, _0803FAE4  @ gUnknown_0203AA94
+	ldr r0, _0803FAE4  @ gAiDecision
 	ldrb r0, [r0, #0xa]
 	lsls r0, r0, #0x18
 	asrs r0, r0, #0x18
@@ -11269,7 +11269,7 @@ _0803FAB4:
 	cmp r4, #0
 	bne _0803FA68
 _0803FACA:
-	ldr r0, _0803FAE4  @ gUnknown_0203AA94
+	ldr r0, _0803FAE4  @ gAiDecision
 	ldrb r0, [r0, #0xa]
 	lsls r0, r0, #0x18
 	asrs r0, r0, #0x18
@@ -11281,7 +11281,7 @@ _0803FACA:
 	.align 2, 0
 _0803FADC: .4byte gActiveUnit
 _0803FAE0: .4byte gUnknown_080D8690
-_0803FAE4: .4byte gUnknown_0203AA94
+_0803FAE4: .4byte gAiDecision
 
 	THUMB_FUNC_END sub_803FA40
 
@@ -13058,7 +13058,7 @@ _080408B0:
 	ldrb r0, [r0]
 	cmp r0, #0
 	beq _080408D4
-	ldr r0, _080408D0  @ gUnknown_0203AA94
+	ldr r0, _080408D0  @ gAiDecision
 	ldrb r0, [r0, #0xa]
 	lsls r0, r0, #0x18
 	asrs r0, r0, #0x18
@@ -13067,7 +13067,7 @@ _080408B0:
 _080408C4: .4byte gActiveUnit
 _080408C8: .4byte gUnknown_080D86F8
 _080408CC: .4byte gAiState
-_080408D0: .4byte gUnknown_0203AA94
+_080408D0: .4byte gAiDecision
 _080408D4:
 	movs r0, #1
 _080408D6:
@@ -13110,7 +13110,7 @@ sub_80408DC: @ 0x080408DC
 	str r2, [sp]
 	movs r2, #0
 	bl sub_803BA08
-	ldr r4, _08040970  @ gUnknown_0203AA94
+	ldr r4, _08040970  @ gAiDecision
 	movs r0, #0xa
 	ldrsb r0, [r4, r0]
 	cmp r0, #1
@@ -13148,7 +13148,7 @@ _0804095C:
 _08040964: .4byte gAiState
 _08040968: .4byte 0x80000001
 _0804096C: .4byte gActiveUnit
-_08040970: .4byte gUnknown_0203AA94
+_08040970: .4byte gAiDecision
 
 	THUMB_FUNC_END sub_80408DC
 
@@ -13241,7 +13241,7 @@ _080409F6:
 	str r5, [sp]
 	movs r2, #0
 	bl sub_803BA08
-	ldr r4, _08040A74  @ gUnknown_0203AA94
+	ldr r4, _08040A74  @ gAiDecision
 	movs r0, #0xa
 	ldrsb r0, [r4, r0]
 	cmp r0, #1
@@ -13277,7 +13277,7 @@ _08040A64:
 	.align 2, 0
 _08040A6C: .4byte gActiveUnit
 _08040A70: .4byte gAiState
-_08040A74: .4byte gUnknown_0203AA94
+_08040A74: .4byte gAiDecision
 
 	THUMB_FUNC_END sub_8040974
 
@@ -13612,7 +13612,7 @@ _08040CC0:
 	str r6, [sp]
 	movs r2, #0
 	bl sub_803BA08
-	ldr r4, _08040D38  @ gUnknown_0203AA94
+	ldr r4, _08040D38  @ gAiDecision
 	movs r0, #0xa
 	ldrsb r0, [r4, r0]
 	cmp r0, #1
@@ -13643,7 +13643,7 @@ _08040CC0:
 _08040D2C: .4byte gUnknown_0202BCF0
 _08040D30: .4byte gActiveUnit
 _08040D34: .4byte gAiState
-_08040D38: .4byte gUnknown_0203AA94
+_08040D38: .4byte gAiDecision
 _08040D3C:
 	ldr r4, _08040DB4  @ gActiveUnit
 	ldr r0, [r4]
@@ -13670,7 +13670,7 @@ _08040D3C:
 	str r5, [sp]
 	movs r2, #0
 	bl sub_803BA08
-	ldr r4, _08040DBC  @ gUnknown_0203AA94
+	ldr r4, _08040DBC  @ gAiDecision
 	movs r0, #0xa
 	ldrsb r0, [r4, r0]
 	cmp r0, #1
@@ -13704,7 +13704,7 @@ _08040DA6:
 	.align 2, 0
 _08040DB4: .4byte gActiveUnit
 _08040DB8: .4byte gAiState
-_08040DBC: .4byte gUnknown_0203AA94
+_08040DBC: .4byte gAiDecision
 _08040DC0:
 	movs r0, #0
 _08040DC2:
