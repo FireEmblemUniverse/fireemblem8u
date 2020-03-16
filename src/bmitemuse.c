@@ -3,9 +3,14 @@
 
 #include "bmitem.h"
 #include "bmunit.h"
+#include "bmmap.h"
 #include "uiutils.h"
 
 #include "constants/items.h"
+#include "constants/terrains.h"
+
+int sub_804FD28(void);
+s8 IsThereClosedChestAt(int x, int y);
 
 void MakeTargetListForAdjacentHeal(struct Unit* unit);
 void MakeTargetListForRangedHeal(struct Unit* unit);
@@ -22,6 +27,7 @@ void MakeTargetListForLatona(struct Unit* unit);
 void MakeTargetListForMine(struct Unit* unit);
 void MakeTargetListForLightRune(struct Unit* unit);
 void MakeTargetListForDanceRing(struct Unit* unit);
+void MakeTargetListForDoorAndBridges(struct Unit* unit, int terrain);
 
 s8 IsGeneratedTargetListEmpty(struct Unit* unit, void(*func)(struct Unit*));
 s8 CanUseStatBooster(struct Unit* unit, int item);
@@ -328,4 +334,82 @@ void ItemEffect_Call(struct Unit* unit, int item)
         break;
 
     }
+}
+
+s8 IsGeneratedTargetListEmpty(struct Unit* unit, void(*func)(struct Unit*))
+{
+    func(unit);
+
+    return sub_804FD28() != 0;
+}
+
+s8 CanUseHealingItem(struct Unit* unit)
+{
+    if (GetUnitCurrentHp(unit) == GetUnitMaxHp(unit))
+        return FALSE;
+
+    return TRUE;
+}
+
+s8 sub_802909C(struct Unit* unit)
+{
+    return FALSE;
+}
+
+s8 CanUsePureWater(struct Unit* unit)
+{
+    if (unit->barrierDuration == 7)
+        return FALSE;
+
+    return TRUE;
+}
+
+s8 CanUseTorch(struct Unit* unit)
+{
+    if (gUnknown_0202BCF0.chapterVisionRange != 0 && unit->torchDuration != 4)
+        return TRUE;
+
+    return FALSE;
+}
+
+s8 CanUseAntidote(struct Unit* unit)
+{
+    if (unit->statusIndex != UNIT_STATUS_POISON)
+        return FALSE;
+
+    return TRUE;
+}
+
+s8 CanUseChestKey(struct Unit* unit)
+{
+    if (gBmMapTerrain[unit->yPos][unit->xPos] != TERRAIN_CHEST_21)
+        return FALSE;
+
+    if (!IsThereClosedChestAt(unit->xPos, unit->yPos))
+        return FALSE;
+
+    return TRUE;
+}
+
+s8 CanUseDoorKey(struct Unit* unit)
+{
+    MakeTargetListForDoorAndBridges(unit, TERRAIN_DOOR);
+    return sub_804FD28();
+}
+
+s8 CanOpenBridge(struct Unit* unit)
+{
+    MakeTargetListForDoorAndBridges(unit, TERRAIN_BRIDGE_14);
+    return sub_804FD28();
+}
+
+s8 CanUseLockpick(struct Unit* unit)
+{
+    if (!(UNIT_CATTRIBUTES(unit) & CA_THIEF))
+        return FALSE;
+
+    if (!CanUseChestKey(unit) && !CanUseDoorKey(unit) && !CanOpenBridge(unit))
+        return FALSE;
+
+    return TRUE;
 }
