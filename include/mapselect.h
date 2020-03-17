@@ -3,8 +3,8 @@
 
 struct SelectTarget
 {
-    /* 00 */ u8 x, y;
-    /* 02 */ u8 uid;
+    /* 00 */ s8 x, y;
+    /* 02 */ s8 uid;
     /* 03 */ u8 extra;
 
     /* 04 */ struct SelectTarget* next;

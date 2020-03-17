@@ -86,7 +86,7 @@ struct MenuItemProc
 
     /* 34 */ struct TextHandle text;
 
-    /* 3C */ u8 itemNumber;
+    /* 3C */ s8 itemNumber;
     /* 3D */ u8 availability;
 };
 

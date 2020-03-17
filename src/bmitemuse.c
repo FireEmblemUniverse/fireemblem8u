@@ -1,13 +1,17 @@
 
 #include "global.h"
 
+#include "m4a.h"
+#include "soundwrapper.h"
 #include "hardware.h"
 #include "ctc.h"
+#include "fontgrp.h"
 #include "ap.h"
 #include "bmitem.h"
 #include "bmunit.h"
 #include "bmmap.h"
 #include "uiutils.h"
+#include "uimenu.h"
 #include "mapselect.h"
 
 #include "constants/characters.h"
@@ -19,15 +23,29 @@ struct WarpSelectProc
     /* 00 */ PROC_HEADER;
 
     /* 29 */ u8 pad29[0x4A - 0x29];
-    /* 4A */ short unk4A;
+    /* 4A */ short prevWarpAllowed;
     /* 4C */ u8 pad4C[0x54 - 0x4C];
     /* 54 */ struct APHandle* ap;
 };
+
+void sub_8003D20(void);
+void DeleteEach6CBB(void);
 
 int sub_804FD28(void);
 s8 IsThereClosedChestAt(int x, int y);
 ProcPtr NewTargetSelection_Specialized(const struct SelectInfo* selectInfo, int(*onSelect)(ProcPtr, struct SelectTarget*));
 void NewBottomHelpText(ProcPtr parent, const char* string);
+ProcPtr NewTargetSelection(const struct SelectInfo* selectInfo);
+void EndTargetSelection(ProcPtr proc);
+
+void sub_801E684(ProcPtr parent, struct Unit* unit, int x, int y);
+
+void NewUnitInfoWindow_WithAllLines(ProcPtr proc);
+
+void sub_801E748(int number);
+
+void ChangeActiveUnitFacing(int xLook, int yLook);
+void DrawHammerneUnitInfoWindow(struct Unit* unit);
 
 void EnsureCameraOntoPosition(ProcPtr parent, int x, int y);
 void FillWarpRangeMap(struct Unit* caster, struct Unit* target);
@@ -89,9 +107,16 @@ extern u8 CONST_DATA gUnknown_088ADFA6[]; // Solar Brace class list
 
 extern struct Unit gUnknown_03004C00;
 
-extern const struct SelectInfo gUnknown_0859D2F8;
+extern struct SelectInfo CONST_DATA gUnknown_0859D2F8;
+extern struct SelectInfo CONST_DATA gUnknown_0859D2D8;
+extern struct SelectInfo CONST_DATA gUnknown_0859D3B8;
 
 extern u16 CONST_DATA gUnknown_085A0EA0[]; // ap
+
+extern struct ProcCmd CONST_DATA gUnknown_0859B600[]; // proc
+extern struct ProcCmd CONST_DATA gUnknown_0859B9B8[]; // proc
+
+extern const struct MenuDef gUnknown_0859D064;
 
 s8 CanUnitUseItem(struct Unit* unit, int item)
 {
@@ -675,5 +700,219 @@ void WarpTargetPosSelect_Init(struct WarpSelectProc* proc)
     AP_SwitchAnimation(ap, 0);
 
     proc->ap = ap;
-    proc->unk4A = 2;
+    proc->prevWarpAllowed = 2; // neither TRUE nor FALSE
+}
+
+void WarpTargetPosSelect_Loop(struct WarpSelectProc* proc)
+{
+    s8 warpAllowed = ((s8**) gBmMapMovement)[gUnknown_0202BCB0.playerCursor.y][gUnknown_0202BCB0.playerCursor.x] != -1;
+
+    HandlePlayerCursorMovement();
+
+    if (gKeyStatusPtr->newKeys & A_BUTTON)
+    {
+        if (warpAllowed)
+        {
+            Proc_Break(proc);
+
+            gActionData.xOther = gUnknown_0202BCB0.playerCursor.x;
+            gActionData.yOther = gUnknown_0202BCB0.playerCursor.y;
+
+            EndItemEffectSelectionThing(gActiveUnit);
+
+            BG_Fill(gBG2TilemapBuffer, 0);
+            BG_EnableSyncByMask(BG2_SYNC_BIT);
+
+            PlaySoundEffect(0x6A); // TODO: song ids
+
+            return;
+        }
+        else
+        {
+            PlaySoundEffect(0x6C); // TODO: song ids
+        }
+    }
+
+    if (gKeyStatusPtr->newKeys & B_BUTTON)
+    {
+        Proc_Goto(proc, 99);
+
+        BG_Fill(gBG2TilemapBuffer, 0);
+        BG_EnableSyncByMask(BG2_SYNC_BIT);
+
+        PlaySoundEffect(0x6B); // TODO: song ids
+    }
+
+    if (warpAllowed != proc->prevWarpAllowed)
+    {
+        AP_SwitchAnimation(proc->ap, warpAllowed ? 0 : 1);
+    }
+
+    AP_Update(proc->ap,
+        gUnknown_0202BCB0.playerCursorDisplay.x - gUnknown_0202BCB0.camera.x,
+        gUnknown_0202BCB0.playerCursorDisplay.y - gUnknown_0202BCB0.camera.y);
+
+    proc->prevWarpAllowed = warpAllowed;
+}
+
+void WarpTargetPosSelect_Confirm(struct WarpSelectProc* proc)
+{
+    sub_8003D20();
+    HideMoveRangeGraphics();
+    DeleteEach6CBB();
+
+    SetCursorMapPosition(
+        gActiveUnit->xPos,
+        gActiveUnit->yPos);
+
+    EnsureCameraOntoPosition(proc,
+        gActiveUnit->xPos,
+        gActiveUnit->yPos);
+}
+
+void WarpTargetPosSelect_Cancel(struct WarpSelectProc* proc)
+{
+    sub_8003D20();
+    HideMoveRangeGraphics();
+    DeleteEach6CBB();
+
+    SetCursorMapPosition(
+        gActiveUnit->xPos,
+        gActiveUnit->yPos);
+
+    Proc_Start(gUnknown_0859B600, PROC_TREE_3);
+}
+
+void WarpTargetPosSelect_Destruct(struct WarpSelectProc* proc)
+{
+    HideMoveRangeGraphics();
+    AP_Delete(proc->ap);
+}
+
+int WarpTargetSelection_OnSelect(ProcPtr proc, struct SelectTarget* target)
+{
+    EndTargetSelection(proc);
+
+    gActionData.targetIndex = target->uid;
+
+    Proc_Start(gUnknown_0859B9B8, PROC_TREE_3);
+
+    return 4; // TODO: Map Select Return Constants
+}
+
+void SetupWarpTargetSelection(struct Unit* unit)
+{
+    MakeTargetListForWarp(unit);
+
+    BmMapFill(gBmMapMovement, -1);
+
+    NewBottomHelpText(
+        NewTargetSelection_Specialized(&gUnknown_0859D2F8, WarpTargetSelection_OnSelect),
+        GetStringFromIndex(0x875)); // TODO: msgid "Select character to warp."
+
+    PlaySoundEffect(0x6A); // TODO: song ids
+}
+
+int sub_80298D4(ProcPtr proc, struct SelectTarget* target)
+{
+    gActionData.xOther = target->x;
+    gActionData.yOther = target->y;
+
+    EndItemEffectSelectionThing(NULL);
+
+    return 0x17; // TODO: Map Select Return Constants
+}
+
+void PrepareTargetSelectionForMineAndLightRune(struct Unit* unit, void(*func)(struct Unit*), int msgHelp)
+{
+    func(unit);
+
+    BmMapFill(gBmMapMovement, -1);
+
+    NewBottomHelpText(
+        NewTargetSelection_Specialized(&gUnknown_0859D2D8, sub_80298D4),
+        GetStringFromIndex(msgHelp));
+
+    PlaySoundEffect(0x6A); // TODO: song ids
+}
+
+int HammerneTargetSelection_OnSelect(ProcPtr proc, struct SelectTarget* target)
+{
+    sub_8003D20();
+
+    gActionData.targetIndex = target->uid;
+
+    sub_801E684(
+        StartOrphanMenu(&gUnknown_0859D064),
+        GetUnit(gActionData.targetIndex),
+        16, 11);
+
+    // TODO: UNIT_HAS_PORTRAIT macro?
+    if (GetPortraitStructPointer(GetUnitPortraitId(GetUnit(gActionData.targetIndex)))->img)
+    {
+        NewFace(0, GetUnitPortraitId(GetUnit(gActionData.targetIndex)), 184, 12, 2);
+        sub_8006458(0, 5);
+    }
+
+    return 0x17; // TODO: Map Select Return Constants
+}
+
+void SetupHammerneUseSelection(struct Unit* unit)
+{
+    MakeTargetListForHammerne(unit);
+
+    BmMapFill(gBmMapMovement, -1);
+
+    NewBottomHelpText(
+        NewTargetSelection(&gUnknown_0859D3B8),
+        GetStringFromIndex(0x878)); // TODO: msgid "Select the character whose weapon needs repair."
+
+    PlaySoundEffect(0x6A); // TODO: song ids
+}
+
+int HammerneTargetSelection_OnChange(ProcPtr proc, struct SelectTarget* target)
+{
+    ChangeActiveUnitFacing(target->x, target->y);
+    DrawHammerneUnitInfoWindow(GetUnit(target->uid));
+}
+
+void HammerneTargetSelection_OnInit(ProcPtr proc)
+{
+    NewUnitInfoWindow_WithAllLines(proc);
+}
+
+int sub_8029A38(struct MenuProc* menu, struct MenuItemProc* item)
+{
+    sub_801E748(item->itemNumber);
+}
+
+void nullsub_24(struct MenuProc* menu, struct MenuItemProc* item)
+{
+}
+
+u8 sub_8029A4C(const struct MenuItemDef* def, int number)
+{
+    int item = GetUnit(gActionData.targetIndex)->items[number];
+
+    if (!item)
+        return MENU_NOTSHOWN;
+
+    if (!IsItemHammernable(item))
+        return MENU_DISABLED;
+
+    return MENU_ENABLED;
+}
+
+int sub_8029A84(struct MenuProc* menu, struct MenuItemProc* menuItem)
+{
+    int item = GetUnit(gActionData.targetIndex)->items[menuItem->itemNumber];
+    int isRepairable = IsItemHammernable(item);
+
+    DrawItemMenuLineLong(
+        &menuItem->text, item, isRepairable,
+        gBG0TilemapBuffer + TILEMAP_INDEX(menuItem->xTile, menuItem->yTile));
+
+    BG_EnableSyncByMask(BG0_SYNC_BIT);
+
+    return 0;
 }
