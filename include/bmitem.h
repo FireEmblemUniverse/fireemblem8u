@@ -1,19 +1,21 @@
 #ifndef GUARD_ITEMS_H
 #define GUARD_ITEMS_H
 
-struct ItemStatBonuses {
-    s8 hpBonus;
-    s8 powBonus;
-    s8 sklBonus;
-    s8 spdBonus;
-    s8 defBonus;
-    s8 resBonus;
-    s8 lckBonus;
-    s8 conBonus;
-    s8 movBonus;
+struct ItemStatBonuses
+{
+    /* 00 */ s8 hpBonus;
+    /* 01 */ s8 powBonus;
+    /* 02 */ s8 sklBonus;
+    /* 03 */ s8 spdBonus;
+    /* 04 */ s8 defBonus;
+    /* 05 */ s8 resBonus;
+    /* 06 */ s8 lckBonus;
+    /* 07 */ s8 movBonus;
+    /* 08 */ s8 conBonus;
 };
 
-struct ItemData {
+struct ItemData
+{
     /* 00 */ u16 nameTextId;
     /* 02 */ u16 descTextId;
     /* 04 */ u16 useDescTextId;
