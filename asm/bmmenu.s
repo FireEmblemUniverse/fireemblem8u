@@ -1312,8 +1312,8 @@ _08022F30: .4byte gBG2TilemapBuffer
 
 	THUMB_FUNC_END sub_8022F10
 
-	THUMB_FUNC_START sub_8022F34
-sub_8022F34: @ 0x08022F34
+	THUMB_FUNC_START ItemSubMenu_IsTradeAvailable
+ItemSubMenu_IsTradeAvailable: @ 0x08022F34
 	push {lr}
 	ldr r0, _08022F78  @ gActiveUnit
 	ldr r2, [r0]
@@ -1355,7 +1355,7 @@ _08022F82:
 	pop {r1}
 	bx r1
 
-	THUMB_FUNC_END sub_8022F34
+	THUMB_FUNC_END ItemSubMenu_IsTradeAvailable
 
 	THUMB_FUNC_START sub_8022F88
 sub_8022F88: @ 0x08022F88
@@ -1738,7 +1738,7 @@ _0802322E:
 	bne _0802324C
 	mov r0, r9
 	mov r1, sl
-	bl sub_8024AF0
+	bl ItemMenu_Select1stCommand
 	lsls r0, r0, #0x18
 	lsrs r0, r0, #0x18
 	b _0802328C
@@ -2043,8 +2043,8 @@ _08023494: .4byte gUnknown_0859D118
 
 	THUMB_FUNC_END ItemSelectMenu_Effect
 
-	THUMB_FUNC_START sub_8023498
-sub_8023498: @ 0x08023498
+	THUMB_FUNC_START Menu_SwitchIn
+Menu_SwitchIn: @ 0x08023498
 	push {lr}
 	adds r1, #0x3c
 	movs r0, #0
@@ -2053,13 +2053,13 @@ sub_8023498: @ 0x08023498
 	pop {r1}
 	bx r1
 
-	THUMB_FUNC_END sub_8023498
+	THUMB_FUNC_END Menu_SwitchIn
 
-	THUMB_FUNC_START nullsub_25
-nullsub_25: @ 0x080234A8
+	THUMB_FUNC_START Menu_SwitchOut_DoNothing
+Menu_SwitchOut_DoNothing: @ 0x080234A8
 	bx lr
 
-	THUMB_FUNC_END nullsub_25
+	THUMB_FUNC_END Menu_SwitchOut_DoNothing
 
 	THUMB_FUNC_START sub_80234AC
 sub_80234AC: @ 0x080234AC
@@ -2102,8 +2102,8 @@ sub_80234F0: @ 0x080234F0
 
 	THUMB_FUNC_END sub_80234F0
 
-	THUMB_FUNC_START sub_80234FC
-sub_80234FC: @ 0x080234FC
+	THUMB_FUNC_START ItemActionMenu_SelectNo
+ItemActionMenu_SelectNo: @ 0x080234FC
 	push {lr}
 	movs r0, #0
 	bl SetFont
@@ -2128,7 +2128,7 @@ _0802352C: .4byte gUnknown_02022CFE
 _08023530: .4byte gUnknown_0200422C
 _08023534: .4byte gUnknown_020234FE
 
-	THUMB_FUNC_END sub_80234FC
+	THUMB_FUNC_END ItemActionMenu_SelectNo
 
 	THUMB_FUNC_START sub_8023538
 sub_8023538: @ 0x08023538
@@ -2150,7 +2150,7 @@ sub_8023550: @ 0x08023550
 	adds r4, r0, #0
 	bl sub_8023538
 	adds r0, r4, #0
-	bl sub_80234FC
+	bl ItemActionMenu_SelectNo
 	ldr r0, _080235A0  @ gUnknown_0859D184
 	bl StartOrphanMenu
 	adds r5, r0, #0
@@ -2274,8 +2274,8 @@ _08023678: .4byte gUnknown_0202BCB0
 
 	THUMB_FUNC_END sub_80235A8
 
-	THUMB_FUNC_START sub_802367C
-sub_802367C: @ 0x0802367C
+	THUMB_FUNC_START ItemSubMenu_IsUseAvailable
+ItemSubMenu_IsUseAvailable: @ 0x0802367C
 	push {r4, r5, lr}
 	ldr r5, _080236CC  @ gActiveUnit
 	ldr r1, [r5]
@@ -2334,10 +2334,10 @@ _080236EA:
 	.align 2, 0
 _080236F0: .4byte gActiveUnit
 
-	THUMB_FUNC_END sub_802367C
+	THUMB_FUNC_END ItemSubMenu_IsUseAvailable
 
-	THUMB_FUNC_START sub_80236F4
-sub_80236F4: @ 0x080236F4
+	THUMB_FUNC_START ItemSubMenu_IsEquipAvailable
+ItemSubMenu_IsEquipAvailable: @ 0x080236F4
 	push {r4, r5, lr}
 	ldr r5, _08023718  @ gActiveUnit
 	ldr r1, [r5]
@@ -2374,10 +2374,10 @@ _08023734:
 	pop {r1}
 	bx r1
 
-	THUMB_FUNC_END sub_80236F4
+	THUMB_FUNC_END ItemSubMenu_IsEquipAvailable
 
-	THUMB_FUNC_START sub_802373C
-sub_802373C: @ 0x0802373C
+	THUMB_FUNC_START ItemSubMenu_IsDiscardAvailable
+ItemSubMenu_IsDiscardAvailable: @ 0x0802373C
 	push {lr}
 	ldr r0, _08023760  @ gActiveUnit
 	ldr r1, [r0]
@@ -2403,10 +2403,10 @@ _0802376A:
 	pop {r1}
 	bx r1
 
-	THUMB_FUNC_END sub_802373C
+	THUMB_FUNC_END ItemSubMenu_IsDiscardAvailable
 
-	THUMB_FUNC_START sub_8023770
-sub_8023770: @ 0x08023770
+	THUMB_FUNC_START ItemSubMenu_UseItem
+ItemSubMenu_UseItem: @ 0x08023770
 	push {r4, lr}
 	adds r4, r0, #0
 	adds r1, #0x3d
@@ -2466,10 +2466,10 @@ _080237EC: .4byte gActiveUnit
 _080237F0: .4byte gActionData
 _080237F4: .4byte gUnknown_0202BCF0
 
-	THUMB_FUNC_END sub_8023770
+	THUMB_FUNC_END ItemSubMenu_UseItem
 
-	THUMB_FUNC_START sub_80237F8
-sub_80237F8: @ 0x080237F8
+	THUMB_FUNC_START ItemSubMenu_EquipItem
+ItemSubMenu_EquipItem: @ 0x080237F8
 	push {r4, lr}
 	adds r4, r0, #0
 	adds r1, #0x3d
@@ -2501,10 +2501,10 @@ _0802382E:
 	.align 2, 0
 _08023834: .4byte 0x0000084D
 
-	THUMB_FUNC_END sub_80237F8
+	THUMB_FUNC_END ItemSubMenu_EquipItem
 
-	THUMB_FUNC_START sub_8023838
-sub_8023838: @ 0x08023838
+	THUMB_FUNC_START ItemSubMenu_TradeItem
+ItemSubMenu_TradeItem: @ 0x08023838
 	push {r4, r5, lr}
 	adds r4, r0, #0
 	adds r5, r1, #0
@@ -2528,10 +2528,10 @@ sub_8023838: @ 0x08023838
 _08023864: .4byte gUnknown_0202BCB0
 _08023868: .4byte gActionData
 
-	THUMB_FUNC_END sub_8023838
+	THUMB_FUNC_END ItemSubMenu_TradeItem
 
-	THUMB_FUNC_START sub_802386C
-sub_802386C: @ 0x0802386C
+	THUMB_FUNC_START ItemSubMenu_DiscardItem
+ItemSubMenu_DiscardItem: @ 0x0802386C
 	push {r4, lr}
 	adds r4, r0, #0
 	adds r2, r1, #0
@@ -2587,10 +2587,10 @@ _080238D6:
 	.align 2, 0
 _080238DC: .4byte 0x0000084F
 
-	THUMB_FUNC_END sub_802386C
+	THUMB_FUNC_END ItemSubMenu_DiscardItem
 
-	THUMB_FUNC_START sub_80238E0
-sub_80238E0: @ 0x080238E0
+	THUMB_FUNC_START MenuCommand_SelectYes
+MenuCommand_SelectYes: @ 0x080238E0
 	push {r4, r5, lr}
 	adds r5, r0, #0
 	ldr r0, _0802390C  @ gActiveUnit
@@ -2616,7 +2616,7 @@ _0802390C: .4byte gActiveUnit
 _08023910: .4byte gActionData
 _08023914: .4byte gBG0TilemapBuffer
 
-	THUMB_FUNC_END sub_80238E0
+	THUMB_FUNC_END MenuCommand_SelectYes
 
 	THUMB_FUNC_START sub_8023918
 sub_8023918: @ 0x08023918
@@ -5071,8 +5071,8 @@ _08024A80:
 
 	THUMB_FUNC_END AttackBallistaCommandUsability
 
-	THUMB_FUNC_START sub_8024A88
-sub_8024A88: @ 0x08024A88
+	THUMB_FUNC_START ItemMenu_Is1stCommandAvailable
+ItemMenu_Is1stCommandAvailable: @ 0x08024A88
 	push {lr}
 	ldr r0, _08024AA0  @ gActiveUnit
 	ldr r0, [r0]
@@ -5090,10 +5090,10 @@ _08024AA6:
 	pop {r1}
 	bx r1
 
-	THUMB_FUNC_END sub_8024A88
+	THUMB_FUNC_END ItemMenu_Is1stCommandAvailable
 
-	THUMB_FUNC_START sub_8024AAC
-sub_8024AAC: @ 0x08024AAC
+	THUMB_FUNC_START ItemMenu_Draw1stCommand
+ItemMenu_Draw1stCommand: @ 0x08024AAC
 	push {r4, r5, lr}
 	adds r4, r1, #0
 	adds r5, r4, #0
@@ -5125,10 +5125,10 @@ sub_8024AAC: @ 0x08024AAC
 _08024AE8: .4byte gUnknown_0202BCB0
 _08024AEC: .4byte gBG0TilemapBuffer
 
-	THUMB_FUNC_END sub_8024AAC
+	THUMB_FUNC_END ItemMenu_Draw1stCommand
 
-	THUMB_FUNC_START sub_8024AF0
-sub_8024AF0: @ 0x08024AF0
+	THUMB_FUNC_START ItemMenu_Select1stCommand
+ItemMenu_Select1stCommand: @ 0x08024AF0
 	push {lr}
 	adds r1, #0x3d
 	ldrb r0, [r1]
@@ -5150,10 +5150,10 @@ _08024B16:
 	pop {r1}
 	bx r1
 
-	THUMB_FUNC_END sub_8024AF0
+	THUMB_FUNC_END ItemMenu_Select1stCommand
 
-	THUMB_FUNC_START sub_8024B1C
-sub_8024B1C: @ 0x08024B1C
+	THUMB_FUNC_START ItemMenu_AreOtherCommandsAvailable
+ItemMenu_AreOtherCommandsAvailable: @ 0x08024B1C
 	push {r4, r5, lr}
 	ldr r5, _08024B48  @ gActiveUnit
 	ldr r0, [r5]
@@ -5183,10 +5183,10 @@ _08024B4E:
 	pop {r1}
 	bx r1
 
-	THUMB_FUNC_END sub_8024B1C
+	THUMB_FUNC_END ItemMenu_AreOtherCommandsAvailable
 
-	THUMB_FUNC_START sub_8024B54
-sub_8024B54: @ 0x08024B54
+	THUMB_FUNC_START ItemMenu_DrawOtherCommands
+ItemMenu_DrawOtherCommands: @ 0x08024B54
 	push {r4, lr}
 	adds r2, r1, #0
 	ldr r0, _08024B94  @ gActiveUnit
@@ -5222,10 +5222,10 @@ sub_8024B54: @ 0x08024B54
 _08024B94: .4byte gActiveUnit
 _08024B98: .4byte gBG0TilemapBuffer
 
-	THUMB_FUNC_END sub_8024B54
+	THUMB_FUNC_END ItemMenu_DrawOtherCommands
 
-	THUMB_FUNC_START sub_8024B9C
-sub_8024B9C: @ 0x08024B9C
+	THUMB_FUNC_START ItemMenu_SelectOtherCommands
+ItemMenu_SelectOtherCommands: @ 0x08024B9C
 	push {r4, lr}
 	ldr r4, _08024BC8  @ gActionData
 	adds r1, #0x3c
@@ -5250,10 +5250,10 @@ sub_8024B9C: @ 0x08024B9C
 _08024BC8: .4byte gActionData
 _08024BCC: .4byte gActiveUnit
 
-	THUMB_FUNC_END sub_8024B9C
+	THUMB_FUNC_END ItemMenu_SelectOtherCommands
 
-	THUMB_FUNC_START sub_8024BD0
-sub_8024BD0: @ 0x08024BD0
+	THUMB_FUNC_START ItemMenu_SwitchIn
+ItemMenu_SwitchIn: @ 0x08024BD0
 	push {lr}
 	adds r1, #0x3c
 	movs r0, #0
@@ -5272,13 +5272,13 @@ _08024BEE:
 	pop {r1}
 	bx r1
 
-	THUMB_FUNC_END sub_8024BD0
+	THUMB_FUNC_END ItemMenu_SwitchIn
 
-	THUMB_FUNC_START nullsub_26
-nullsub_26: @ 0x08024BF4
+	THUMB_FUNC_START ItemMenu_SwitchOut_DoNothing
+ItemMenu_SwitchOut_DoNothing: @ 0x08024BF4
 	bx lr
 
-	THUMB_FUNC_END nullsub_26
+	THUMB_FUNC_END ItemMenu_SwitchOut_DoNothing
 
 	THUMB_FUNC_START sub_8024BF8
 sub_8024BF8: @ 0x08024BF8

@@ -307,8 +307,8 @@ _0801E1D8: .4byte gUnknown_0202BCB0
 
 	THUMB_FUNC_END SendToConvoyMenu_NormalEffect
 
-	THUMB_FUNC_START sub_801E1DC
-sub_801E1DC: @ 0x0801E1DC
+	THUMB_FUNC_START MenuCommand_SendItemToConvoy
+MenuCommand_SendItemToConvoy: @ 0x0801E1DC
 	push {r4, lr}
 	ldr r4, _0801E1F4  @ gUnknown_0202BCB0
 	ldrh r0, [r4, #0x2c]
@@ -324,10 +324,10 @@ sub_801E1DC: @ 0x0801E1DC
 _0801E1F4: .4byte gUnknown_0202BCB0
 _0801E1F8: .4byte gActionData
 
-	THUMB_FUNC_END sub_801E1DC
+	THUMB_FUNC_END MenuCommand_SendItemToConvoy
 
-	THUMB_FUNC_START sub_801E1FC
-sub_801E1FC: @ 0x0801E1FC
+	THUMB_FUNC_START SendToConvoyMenu_Selected
+SendToConvoyMenu_Selected: @ 0x0801E1FC
 	push {r4, r5, lr}
 	adds r5, r0, #0
 	adds r4, r1, #0
@@ -366,10 +366,10 @@ _0801E244: .4byte gActionData
 _0801E248: .4byte gActiveUnit
 _0801E24C: .4byte 0x0000084B
 
-	THUMB_FUNC_END sub_801E1FC
+	THUMB_FUNC_END SendToConvoyMenu_Selected
 
-	THUMB_FUNC_START sub_801E250
-sub_801E250: @ 0x0801E250
+	THUMB_FUNC_START SendToConvoyMenu_Selected2
+SendToConvoyMenu_Selected2: @ 0x0801E250
 	push {r4, r5, lr}
 	adds r5, r0, #0
 	adds r4, r1, #0
@@ -401,10 +401,10 @@ _0801E288: .4byte gActionData
 _0801E28C: .4byte gUnknown_0202BCB0
 _0801E290: .4byte 0x0000084B
 
-	THUMB_FUNC_END sub_801E250
+	THUMB_FUNC_END SendToConvoyMenu_Selected2
 
-	THUMB_FUNC_START sub_801E294
-sub_801E294: @ 0x0801E294
+	THUMB_FUNC_START SendToConvoyMenu_Idle
+SendToConvoyMenu_Idle: @ 0x0801E294
 	push {r4, lr}
 	bl sub_8008A00
 	cmp r0, #1
@@ -440,6 +440,6 @@ _0801E2D4: .4byte gActionData
 _0801E2D8: .4byte gActiveUnit
 _0801E2DC: .4byte gUnknown_0202BCB0
 
-	THUMB_FUNC_END sub_801E294
+	THUMB_FUNC_END SendToConvoyMenu_Idle
 
 .align 2, 0

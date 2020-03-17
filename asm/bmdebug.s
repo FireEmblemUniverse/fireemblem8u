@@ -671,8 +671,8 @@ _0801C02C: .4byte gUnknown_0859CFB0
 
 	THUMB_FUNC_END DebugMenu_ErasedEffect
 
-	THUMB_FUNC_START sub_801C030
-sub_801C030: @ 0x0801C030
+	THUMB_FUNC_START DebugClearMenu_ClearFile
+DebugClearMenu_ClearFile: @ 0x0801C030
 	push {lr}
 	bl DeclareCompletedPlaythrough
 	ldr r2, _0801C058  @ gUnknown_0202BCF0
@@ -690,7 +690,7 @@ sub_801C030: @ 0x0801C030
 	.align 2, 0
 _0801C058: .4byte gUnknown_0202BCF0
 
-	THUMB_FUNC_END sub_801C030
+	THUMB_FUNC_END DebugClearMenu_ClearFile
 
 	THUMB_FUNC_START DebugMenuInit
 DebugMenuInit: @ 0x0801C05C
@@ -1024,15 +1024,15 @@ sub_801C2F8: @ 0x0801C2F8
 
 	THUMB_FUNC_END sub_801C2F8
 
-	THUMB_FUNC_START sub_801C308
-sub_801C308: @ 0x0801C308
+	THUMB_FUNC_START DebugChuudanMenu_IsManualSaveAvailable
+DebugChuudanMenu_IsManualSaveAvailable: @ 0x0801C308
 	movs r0, #2
 	bx lr
 
-	THUMB_FUNC_END sub_801C308
+	THUMB_FUNC_END DebugChuudanMenu_IsManualSaveAvailable
 
-	THUMB_FUNC_START sub_801C30C
-sub_801C30C: @ 0x0801C30C
+	THUMB_FUNC_START DebugChuudanMenu_ManualSave
+DebugChuudanMenu_ManualSave: @ 0x0801C30C
 	push {lr}
 	adds r1, #0x3d
 	ldrb r0, [r1]
@@ -1048,10 +1048,10 @@ _0801C322:
 	pop {r1}
 	bx r1
 
-	THUMB_FUNC_END sub_801C30C
+	THUMB_FUNC_END DebugChuudanMenu_ManualSave
 
-	THUMB_FUNC_START sub_801C328
-sub_801C328: @ 0x0801C328
+	THUMB_FUNC_START DebugContinueMenu_IsManualContinueAvailable
+DebugContinueMenu_IsManualContinueAvailable: @ 0x0801C328
 	push {lr}
 	movs r0, #4
 	bl sub_80A5DA8
@@ -1065,10 +1065,10 @@ _0801C33A:
 	pop {r1}
 	bx r1
 
-	THUMB_FUNC_END sub_801C328
+	THUMB_FUNC_END DebugContinueMenu_IsManualContinueAvailable
 
-	THUMB_FUNC_START sub_801C340
-sub_801C340: @ 0x0801C340
+	THUMB_FUNC_START DebugContinueMenu_ManualContinue
+DebugContinueMenu_ManualContinue: @ 0x0801C340
 	push {lr}
 	adds r1, #0x3d
 	ldrb r0, [r1]
@@ -1093,10 +1093,10 @@ _0801C368:
 	.align 2, 0
 _0801C36C: .4byte gProc_BMapMain
 
-	THUMB_FUNC_END sub_801C340
+	THUMB_FUNC_END DebugContinueMenu_ManualContinue
 
-	THUMB_FUNC_START sub_801C370
-sub_801C370: @ 0x0801C370
+	THUMB_FUNC_START DebugContinueMenu_InitializeFile
+DebugContinueMenu_InitializeFile: @ 0x0801C370
 	push {lr}
 	adds r1, #0x3d
 	ldrb r0, [r1]
@@ -1119,10 +1119,10 @@ _0801C392:
 	.align 2, 0
 _0801C398: .4byte gProc_BMapMain
 
-	THUMB_FUNC_END sub_801C370
+	THUMB_FUNC_END DebugContinueMenu_InitializeFile
 
-	THUMB_FUNC_START sub_801C39C
-sub_801C39C: @ 0x0801C39C
+	THUMB_FUNC_START DebugContinueMenu_IsContinueChapterAvailable
+DebugContinueMenu_IsContinueChapterAvailable: @ 0x0801C39C
 	push {lr}
 	movs r0, #3
 	bl sub_80A5DA8
@@ -1136,10 +1136,10 @@ _0801C3AE:
 	pop {r1}
 	bx r1
 
-	THUMB_FUNC_END sub_801C39C
+	THUMB_FUNC_END DebugContinueMenu_IsContinueChapterAvailable
 
-	THUMB_FUNC_START sub_801C3B4
-sub_801C3B4: @ 0x0801C3B4
+	THUMB_FUNC_START DebugContinueMenu_ContinueChapter
+DebugContinueMenu_ContinueChapter: @ 0x0801C3B4
 	push {lr}
 	adds r1, #0x3d
 	ldrb r0, [r1]
@@ -1156,7 +1156,7 @@ _0801C3CE:
 	pop {r1}
 	bx r1
 
-	THUMB_FUNC_END sub_801C3B4
+	THUMB_FUNC_END DebugContinueMenu_ContinueChapter
 
 	THUMB_FUNC_START DebugMenu_FogDraw
 DebugMenu_FogDraw: @ 0x0801C3D4
@@ -1270,15 +1270,15 @@ DebugMenu_FogEffect: @ 0x0801C4B0
 
 	THUMB_FUNC_END DebugMenu_FogEffect
 
-	THUMB_FUNC_START sub_801C4B4
-sub_801C4B4: @ 0x0801C4B4
+	THUMB_FUNC_START DebugContinueMenu_ReleaseEntry
+DebugContinueMenu_ReleaseEntry: @ 0x0801C4B4
 	push {lr}
 	bl NewGameControl
 	movs r0, #7
 	pop {r1}
 	bx r1
 
-	THUMB_FUNC_END sub_801C4B4
+	THUMB_FUNC_END DebugContinueMenu_ReleaseEntry
 
 	THUMB_FUNC_START DebugMenu_GNightEffect
 DebugMenu_GNightEffect: @ 0x0801C4C0
