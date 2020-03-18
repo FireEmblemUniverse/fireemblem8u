@@ -10,6 +10,8 @@
 #include "bmitem.h"
 #include "bmunit.h"
 #include "bmmap.h"
+#include "bmbattle.h"
+#include "bmtrick.h"
 #include "uiutils.h"
 #include "uimenu.h"
 #include "mapselect.h"
@@ -30,6 +32,17 @@ struct WarpSelectProc
 
 void sub_8003D20(void);
 void DeleteEach6CBB(void);
+
+void sub_8034FFC(ProcPtr proc);
+void sub_803501C(struct Unit* unit);
+void sub_8035090(ProcPtr proc);
+void sub_80350A4(struct Unit* unit);
+void sub_80350FC(ProcPtr proc);
+void sub_803511C(struct Unit* unit, int number);
+
+void DisplayCursor(int x, int y, s8 arg2);
+
+s8 ShouldMoveCameraPosSomething(int x, int y);
 
 int sub_804FD28(void);
 s8 IsThereClosedChestAt(int x, int y);
@@ -107,14 +120,19 @@ extern u8 CONST_DATA gUnknown_088ADFA6[]; // Solar Brace class list
 
 extern struct Unit gUnknown_03004C00;
 
-extern struct SelectInfo CONST_DATA gUnknown_0859D2F8;
+extern struct SelectInfo CONST_DATA gUnknown_0859D238;
+extern struct SelectInfo CONST_DATA gUnknown_0859D258;
+extern struct SelectInfo CONST_DATA gUnknown_0859D278;
+extern struct SelectInfo CONST_DATA gUnknown_0859D298;
 extern struct SelectInfo CONST_DATA gUnknown_0859D2D8;
+extern struct SelectInfo CONST_DATA gUnknown_0859D2F8;
 extern struct SelectInfo CONST_DATA gUnknown_0859D3B8;
 
 extern u16 CONST_DATA gUnknown_085A0EA0[]; // ap
 
 extern struct ProcCmd CONST_DATA gUnknown_0859B600[]; // proc
 extern struct ProcCmd CONST_DATA gUnknown_0859B9B8[]; // proc
+extern struct ProcCmd CONST_DATA gUnknown_0859BA38[]; // proc (torch select)
 
 extern const struct MenuDef gUnknown_0859D064;
 
@@ -915,4 +933,255 @@ int sub_8029A84(struct MenuProc* menu, struct MenuItemProc* menuItem)
     BG_EnableSyncByMask(BG0_SYNC_BIT);
 
     return 0;
+}
+
+int sub_8029AE0(struct MenuProc* menu, struct MenuItemProc* menuItem)
+{
+    if (menuItem->availability == MENU_DISABLED)
+    {
+        int msgId = 0;
+
+        int item = GetUnit(gActionData.targetIndex)->items[menuItem->itemNumber];
+
+        if (GetItemAttributes(item) & (IA_UNBREAKABLE | IA_HAMMERNE | IA_LOCK_3))
+            msgId = 0x863; // TODO: msgid "Item cannot be repaired."
+        else if (!(GetItemAttributes(item) & (IA_STAFF | IA_WEAPON)))
+            msgId = 0x857; // TODO: msgid "Only weapons, tomes, and[N]staves can be repaired."
+        else if (GetItemUses(item) == GetItemMaxUses(item))
+            msgId = 0x856; // TODO: msgid "There's nothing to repair."
+
+        if (msgId != 0)
+            MenuFrozenHelpBox(menu, msgId);
+
+        return MENU_ACT_SND6B;
+    }
+
+    gActionData.trapType = menuItem->itemNumber;
+    EndItemEffectSelectionThing(gActiveUnit);
+
+    return MENU_ACT_SKIPCURSOR + MENU_ACT_END + MENU_ACT_SND6A + MENU_ACT_CLEAR + MENU_ACT_ENDFACE;
+}
+
+void PrepareTargetSelectionForHeal(struct Unit* unit, void(*func)(struct Unit*))
+{
+    func(unit);
+
+    BmMapFill(gBmMapMovement, -1);
+
+    NewBottomHelpText(
+        NewTargetSelection(&gUnknown_0859D298),
+        GetStringFromIndex(0x874)); // TODO: msgid "Select a character to restore HP to."
+}
+
+void PrepareTargetSelectionForRestoreStaff(struct Unit* unit, void(*func)(struct Unit*))
+{
+    func(unit);
+
+    BmMapFill(gBmMapMovement, -1);
+
+    NewBottomHelpText(
+        NewTargetSelection(&gUnknown_0859D278),
+        GetStringFromIndex(0x877)); // TODO: msgid "Select a character to restore to normal."
+}
+
+int sub_8029C04(ProcPtr proc)
+{
+    sub_8034FFC(proc);
+}
+
+int sub_8029C10(ProcPtr proc, struct SelectTarget* target)
+{
+    ChangeActiveUnitFacing(target->x, target->y);
+    sub_803501C(GetUnit(target->uid));
+}
+
+void sub_8029C34(struct Unit* unit)
+{
+    MakeTargetListForBarrier(unit);
+
+    BmMapFill(gBmMapMovement, -1);
+
+    NewBottomHelpText(
+        NewTargetSelection(&gUnknown_0859D258),
+        GetStringFromIndex(0x879)); // TODO: msgid "Select a character to restore to normal."
+}
+
+int sub_8029C70(ProcPtr proc)
+{
+    sub_8035090(proc);
+}
+
+int sub_8029C7C(ProcPtr proc, struct SelectTarget* target)
+{
+    ChangeActiveUnitFacing(target->x, target->y);
+    sub_80350A4(GetUnit(target->uid));
+}
+
+void PrepareTargetSelectionForOffensiveStaff(struct Unit* unit, void(*func)(struct Unit*))
+{
+    func(unit);
+
+    BmMapFill(gBmMapMovement, -1);
+
+    NewBottomHelpText(
+        NewTargetSelection(&gUnknown_0859D238),
+        GetStringFromIndex(0x87B)); // TODO: msgid "Select a unit to use the staff on."
+}
+
+int sub_8029CDC(ProcPtr proc)
+{
+    sub_80350FC(proc);
+}
+
+int sub_8029CE8(ProcPtr proc, struct SelectTarget* target)
+{
+    ChangeActiveUnitFacing(target->x, target->y);
+
+    sub_803511C(
+        GetUnit(target->uid),
+        GetOffensiveStaffAccuracy(gActiveUnit, GetUnit(target->uid)));
+}
+
+void GenericSelection_DeleteBBAndBG(ProcPtr proc)
+{
+    DeleteEach6CBB();
+    ClearBg0Bg1();
+}
+
+int sub_8029D38(struct Unit* unit)
+{
+    if ((UNIT_CATTRIBUTES(unit) & CA_ASSASSIN) && GetTrapAt(unit->xPos, unit->yPos) == NULL)
+        return TRUE;
+
+    return FALSE;
+}
+
+void sub_8029D6C(void)
+{
+    NewBottomHelpText(
+        NewTargetSelection_Specialized(&gUnknown_0859D2F8, GenericStaffSelection_OnSelect),
+        GetStringFromIndex(0x876)); // TODO: msgid "Select which character to bring next to you."
+}
+
+void TorchTargetPosSelect_Init(ProcPtr proc)
+{
+    gUnknown_0202BCB0.gameStateBits |= GMAP_STATE_BIT0;
+
+    NewBottomHelpText(proc,
+        GetStringFromIndex(0x87C)); // TODO: msgid "Select an area to light up."
+
+    if (ShouldMoveCameraPosSomething(gActiveUnit->xPos, gActiveUnit->yPos))
+        EnsureCameraOntoPosition(proc, gActiveUnit->xPos, gActiveUnit->yPos);
+}
+
+void TorchTargetSelection_Loop(ProcPtr proc)
+{
+    int xTorch = gUnknown_0202BCB0.playerCursor.x;
+    int yTorch = gUnknown_0202BCB0.playerCursor.y;
+
+    s8 canTorch = ((s8**) gBmMapRange)[yTorch][xTorch];
+
+    HandlePlayerCursorMovement();
+
+    if (gKeyStatusPtr->newKeys & A_BUTTON)
+    {
+        if (canTorch)
+        {
+            PlaySoundEffect(0x6A); // TODO: song ids
+
+            Proc_Break(proc);
+
+            gActionData.xOther = gUnknown_0202BCB0.playerCursor.x;
+            gActionData.yOther = gUnknown_0202BCB0.playerCursor.y;
+
+            EndItemEffectSelectionThing(gActiveUnit);
+
+            return;
+        }
+        else
+        {
+            PlaySoundEffect(0x6C); // TODO: song ids
+        }
+    }
+
+    if (gKeyStatusPtr->newKeys & B_BUTTON)
+    {
+        BG_Fill(gBG2TilemapBuffer, 0);
+        BG_EnableSyncByMask(BG2_SYNC_BIT);
+
+        Proc_Goto(proc, 99);
+
+        PlaySoundEffect(0x6B); // TODO: song ids
+    }
+
+    DisplayCursor(
+        gUnknown_0202BCB0.playerCursorDisplay.x,
+        gUnknown_0202BCB0.playerCursorDisplay.y,
+        TRUE);
+}
+
+void NewTorchStaffSelection(struct Unit* unit)
+{
+    Proc_Start(gUnknown_0859BA38, PROC_TREE_3);
+    PlaySoundEffect(0x6A); // TODO: song ids
+}
+
+s8 CanUnitUseItemPrepScreen(struct Unit* unit, int item)
+{
+    if (GetItemAttributes(item) & IA_STAFF)
+        return FALSE;
+
+    switch (GetItemIndex(item))
+    {
+
+    case ITEM_BOOSTER_HP:
+    case ITEM_BOOSTER_POW:
+    case ITEM_BOOSTER_SKL:
+    case ITEM_BOOSTER_SPD:
+    case ITEM_BOOSTER_LCK:
+    case ITEM_BOOSTER_DEF:
+    case ITEM_BOOSTER_RES:
+    case ITEM_BOOSTER_MOV:
+    case ITEM_BOOSTER_CON:
+        return CanUseStatBooster(unit, item);
+
+    case ITEM_HEROCREST:
+    case ITEM_KNIGHTCREST:
+    case ITEM_ORIONSBOLT:
+    case ITEM_ELYSIANWHIP:
+    case ITEM_GUIDINGRING:
+    case ITEM_MASTERSEAL:
+    case ITEM_HEAVENSEAL:
+    case ITEM_OCEANSEAL:
+    case ITEM_LUNARBRACE:
+    case ITEM_SOLARBRACE:
+    case ITEM_UNK_C1:
+        return CanUsePromotionItem(unit, item);
+
+    case ITEM_METISSTOME:
+        if (unit->state & US_GROWTH_BOOST)
+            return FALSE;
+
+        return TRUE;
+
+    case ITEM_JUNAFRUIT:
+        return CanUseJunaFruit(unit);
+
+    default:
+        return FALSE;
+
+    }
+}
+
+s8 sub_802A108(struct Unit* unit)
+{
+    int i, count = GetUnitItemCount(unit);
+
+    for (i = 0; i < count; ++i)
+    {
+        if (GetItemIndex(unit->items[i]) == ITEM_UNK_CC)
+            return TRUE;
+    }
+
+    return FALSE;
 }
