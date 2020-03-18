@@ -1853,7 +1853,7 @@ HammerneTargetSelection_OnSelect: @ 0x08029944
 	ldr r5, _080299B0  @ gActionData
 	ldrb r0, [r4, #2]
 	strb r0, [r5, #0xd]
-	ldr r0, _080299B4  @ gUnknown_0859D064
+	ldr r0, _080299B4  @ gItemUseMenuDef
 	bl StartOrphanMenu
 	adds r4, r0, #0
 	ldrb r0, [r5, #0xd]
@@ -1891,7 +1891,7 @@ _080299A4:
 	bx r1
 	.align 2, 0
 _080299B0: .4byte gActionData
-_080299B4: .4byte gUnknown_0859D064
+_080299B4: .4byte gItemUseMenuDef
 
 	THUMB_FUNC_END HammerneTargetSelection_OnSelect
 

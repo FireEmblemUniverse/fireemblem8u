@@ -39,9 +39,9 @@ struct DebugPrintProc
 void DebugMenuInit();
 u8 EndMenuAndClear(struct MenuProc*, struct MenuItemProc*);
 
-void DebugClearMenu_ClearFile(struct MenuProc*, struct       MenuItemProc*);
-void DebugChargeMenu_Draw(struct MenuProc*, struct            MenuItemProc*);
-u8 DebugChargeMenu_Idle(struct MenuProc*, struct            MenuItemProc*);
+u8 DebugClearMenu_ClearFile(struct MenuProc*, struct MenuItemProc*);
+void DebugChargeMenu_Draw(struct MenuProc*, struct MenuItemProc*);
+u8 DebugChargeMenu_Idle(struct MenuProc*, struct MenuItemProc*);
 u8 DebugContinueMenu_ReleaseEntry(struct MenuProc*, struct MenuItemProc*);
 u8 DebugContinueMenu_IsContinueChapterAvailable(const struct MenuItemDef*, int number);
 u8 DebugContinueMenu_ContinueChapter(struct MenuProc*, struct MenuItemProc*);
@@ -66,6 +66,8 @@ u8 DebugMenu_ClearEffect(struct MenuProc*, struct MenuItemProc*);
 u8 DebugMenu_ClearIdle(struct MenuProc*, struct MenuItemProc*);
 u8 DebugMenu_ErasedEffect(struct MenuProc*, struct MenuItemProc*);
 u8 DebugMenu_GNightEffect(struct MenuProc*, struct MenuItemProc*);
+void DebugContinueMenuInit(struct MenuProc*);
+void DebugContinueMenuEnd(struct MenuProc*);
 
 extern const struct MenuDef DebugMenuDef;
 

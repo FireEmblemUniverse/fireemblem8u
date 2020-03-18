@@ -20,15 +20,15 @@ sub_801DF94: @ 0x0801DF94
 	ldrb r0, [r5]
 	cmp r0, #0x63
 	bhi _0801DFC8
-	ldr r0, _0801DFC4  @ gUnknown_0859D0D0
+	ldr r0, _0801DFC4  @ gSendToConvoyMenuDef
 	adds r1, r4, #0
 	bl StartMenu
 	b _0801DFD0
 	.align 2, 0
 _0801DFC0: .4byte gUnknown_02001F70
-_0801DFC4: .4byte gUnknown_0859D0D0
+_0801DFC4: .4byte gSendToConvoyMenuDef
 _0801DFC8:
-	ldr r0, _0801DFD8  @ gUnknown_0859D0AC
+	ldr r0, _0801DFD8  @ gConvoyMenuDef
 	adds r1, r4, #0
 	bl StartMenu
 _0801DFD0:
@@ -37,7 +37,7 @@ _0801DFD0:
 	pop {r1}
 	bx r1
 	.align 2, 0
-_0801DFD8: .4byte gUnknown_0859D0AC
+_0801DFD8: .4byte gConvoyMenuDef
 
 	THUMB_FUNC_END sub_801DF94
 

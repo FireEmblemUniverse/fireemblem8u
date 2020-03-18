@@ -7,7 +7,7 @@ sub_801BB1C: @ 0x0801BB1C
 	push {lr}
 	bl EndMenu
 	bl ClearBg0Bg1
-	ldr r0, _0801BB3C  @ gUnknown_0859D040
+	ldr r0, _0801BB3C  @ gDebugMenuDef
 	bl StartOrphanMenu
 	movs r0, #2
 	movs r1, #0
@@ -16,7 +16,7 @@ sub_801BB1C: @ 0x0801BB1C
 	pop {r1}
 	bx r1
 	.align 2, 0
-_0801BB3C: .4byte gUnknown_0859D040
+_0801BB3C: .4byte gDebugMenuDef
 
 	THUMB_FUNC_END sub_801BB1C
 
@@ -661,13 +661,13 @@ DebugMenu_ClearEffect: @ 0x0801C014
 DebugMenu_ErasedEffect: @ 0x0801C018
 	push {lr}
 	bl ClearBg0Bg1
-	ldr r0, _0801C02C  @ gUnknown_0859CFB0
+	ldr r0, _0801C02C  @ gDebugClearMenuDef
 	bl StartOrphanMenu
 	movs r0, #7
 	pop {r1}
 	bx r1
 	.align 2, 0
-_0801C02C: .4byte gUnknown_0859CFB0
+_0801C02C: .4byte gDebugClearMenuDef
 
 	THUMB_FUNC_END DebugMenu_ErasedEffect
 
@@ -730,7 +730,7 @@ DEBUGONLY_Startup: @ 0x0801C090
 	bl SetupDebugFontForBG
 	ldr r0, _0801C0E8  @ gUnknown_080D7A7C
 	bl sub_8008A24
-	ldr r0, _0801C0EC  @ gUnknown_0859CFF8
+	ldr r0, _0801C0EC  @ gDebugContinueMenuDef
 	bl StartOrphanMenu
 	ldr r4, _0801C0F0  @ gUnknown_0202BCB0
 	ldrb r2, [r4, #4]
@@ -754,15 +754,15 @@ DEBUGONLY_Startup: @ 0x0801C090
 _0801C0E0: .4byte SomeUpdateRoutine
 _0801C0E4: .4byte GeneralVBlankHandler
 _0801C0E8: .4byte gUnknown_080D7A7C
-_0801C0EC: .4byte gUnknown_0859CFF8
+_0801C0EC: .4byte gDebugContinueMenuDef
 _0801C0F0: .4byte gUnknown_0202BCB0
 _0801C0F4: .4byte 0x0600B000
 _0801C0F8: .4byte gUnknown_02023CE8
 
 	THUMB_FUNC_END DEBUGONLY_Startup
 
-	THUMB_FUNC_START sub_801C0FC
-sub_801C0FC: @ 0x0801C0FC
+	THUMB_FUNC_START DebugContinueMenuInit
+DebugContinueMenuInit: @ 0x0801C0FC
 	push {lr}
 	sub sp, #0x14
 	ldr r0, [r0, #0x48]
@@ -837,10 +837,10 @@ _0801C182:
 	.align 2, 0
 _0801C194: .4byte 0x00000103
 
-	THUMB_FUNC_END sub_801C0FC
+	THUMB_FUNC_END DebugContinueMenuInit
 
-	THUMB_FUNC_START sub_801C198
-sub_801C198: @ 0x0801C198
+	THUMB_FUNC_START DebugContinueMenuEnd
+DebugContinueMenuEnd: @ 0x0801C198
 	push {lr}
 	movs r0, #0
 	bl DeleteFaceByIndex
@@ -871,7 +871,7 @@ sub_801C198: @ 0x0801C198
 _0801C1D4: .4byte gLCDControlBuffer
 _0801C1D8: .4byte gPaletteBuffer
 
-	THUMB_FUNC_END sub_801C198
+	THUMB_FUNC_END DebugContinueMenuEnd
 
 	THUMB_FUNC_START sub_801C1DC
 sub_801C1DC: @ 0x0801C1DC
@@ -990,26 +990,26 @@ _0801C2CC: .4byte gUnknown_03001780
 	THUMB_FUNC_START sub_801C2D0
 sub_801C2D0: @ 0x0801C2D0
 	push {lr}
-	ldr r0, _0801C2E0  @ gUnknown_0859D01C
+	ldr r0, _0801C2E0  @ gDebugChuudanMenuDef
 	bl StartOrphanMenu
 	movs r0, #0x17
 	pop {r1}
 	bx r1
 	.align 2, 0
-_0801C2E0: .4byte gUnknown_0859D01C
+_0801C2E0: .4byte gDebugChuudanMenuDef
 
 	THUMB_FUNC_END sub_801C2D0
 
 	THUMB_FUNC_START sub_801C2E4
 sub_801C2E4: @ 0x0801C2E4
 	push {lr}
-	ldr r0, _0801C2F4  @ gUnknown_0859CFD4
+	ldr r0, _0801C2F4  @ gDebugChargeMenuDef
 	bl StartOrphanMenu
 	movs r0, #0x17
 	pop {r1}
 	bx r1
 	.align 2, 0
-_0801C2F4: .4byte gUnknown_0859CFD4
+_0801C2F4: .4byte gDebugChargeMenuDef
 
 	THUMB_FUNC_END sub_801C2E4
 
