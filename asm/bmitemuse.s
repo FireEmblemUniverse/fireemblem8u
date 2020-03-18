@@ -1853,7 +1853,7 @@ HammerneTargetSelection_OnSelect: @ 0x08029944
 	ldr r5, _080299B0  @ gActionData
 	ldrb r0, [r4, #2]
 	strb r0, [r5, #0xd]
-	ldr r0, _080299B4  @ gUnknown_0859D064
+	ldr r0, _080299B4  @ gItemUseMenuDef
 	bl StartOrphanMenu
 	adds r4, r0, #0
 	ldrb r0, [r5, #0xd]
@@ -1891,7 +1891,7 @@ _080299A4:
 	bx r1
 	.align 2, 0
 _080299B0: .4byte gActionData
-_080299B4: .4byte gUnknown_0859D064
+_080299B4: .4byte gItemUseMenuDef
 
 	THUMB_FUNC_END HammerneTargetSelection_OnSelect
 
@@ -1960,8 +1960,8 @@ HammerneTargetSelection_OnInit: @ 0x08029A2C
 
 	THUMB_FUNC_END HammerneTargetSelection_OnInit
 
-	THUMB_FUNC_START sub_8029A38
-sub_8029A38: @ 0x08029A38
+	THUMB_FUNC_START ItemUseMenu_SwitchIn
+ItemUseMenu_SwitchIn: @ 0x08029A38
 	push {lr}
 	adds r1, #0x3c
 	movs r0, #0
@@ -1970,16 +1970,16 @@ sub_8029A38: @ 0x08029A38
 	pop {r1}
 	bx r1
 
-	THUMB_FUNC_END sub_8029A38
+	THUMB_FUNC_END ItemUseMenu_SwitchIn
 
-	THUMB_FUNC_START nullsub_24
-nullsub_24: @ 0x08029A48
+	THUMB_FUNC_START ItemUseMenu_SwitchOut_DoNothing
+ItemUseMenu_SwitchOut_DoNothing: @ 0x08029A48
 	bx lr
 
-	THUMB_FUNC_END nullsub_24
+	THUMB_FUNC_END ItemUseMenu_SwitchOut_DoNothing
 
-	THUMB_FUNC_START sub_8029A4C
-sub_8029A4C: @ 0x08029A4C
+	THUMB_FUNC_START ItemUseMenu_IsAvailable
+ItemUseMenu_IsAvailable: @ 0x08029A4C
 	push {r4, lr}
 	adds r4, r1, #0
 	ldr r0, _08029A68  @ gActionData
@@ -2009,10 +2009,10 @@ _08029A7C:
 	pop {r1}
 	bx r1
 
-	THUMB_FUNC_END sub_8029A4C
+	THUMB_FUNC_END ItemUseMenu_IsAvailable
 
-	THUMB_FUNC_START sub_8029A84
-sub_8029A84: @ 0x08029A84
+	THUMB_FUNC_START ItemUseMenu_Draw
+ItemUseMenu_Draw: @ 0x08029A84
 	push {r4, r5, r6, lr}
 	adds r5, r1, #0
 	ldr r0, _08029AD8  @ gActionData
@@ -2055,10 +2055,10 @@ sub_8029A84: @ 0x08029A84
 _08029AD8: .4byte gActionData
 _08029ADC: .4byte gBG0TilemapBuffer
 
-	THUMB_FUNC_END sub_8029A84
+	THUMB_FUNC_END ItemUseMenu_Draw
 
-	THUMB_FUNC_START sub_8029AE0
-sub_8029AE0: @ 0x08029AE0
+	THUMB_FUNC_START ItemUseMenu_Selected
+ItemUseMenu_Selected: @ 0x08029AE0
 	push {r4, r5, r6, r7, lr}
 	adds r7, r0, #0
 	adds r4, r1, #0
@@ -2142,7 +2142,7 @@ _08029B7C:
 _08029B84: .4byte gActionData
 _08029B88: .4byte gActiveUnit
 
-	THUMB_FUNC_END sub_8029AE0
+	THUMB_FUNC_END ItemUseMenu_Selected
 
 	THUMB_FUNC_START PrepareTargetSelectionForHeal
 PrepareTargetSelectionForHeal: @ 0x08029B8C

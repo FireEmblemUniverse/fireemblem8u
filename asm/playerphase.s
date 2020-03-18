@@ -242,7 +242,7 @@ _0801CA58:
 	adds r0, r4, #0
 	bl ShowUnitSMS
 _0801CA78:
-	ldr r0, _0801CA98  @ gUnknown_0859D214
+	ldr r0, _0801CA98  @ gMapMenuDef
 	movs r3, #0x1c
 	ldrsh r1, [r5, r3]
 	movs r3, #0xc
@@ -255,7 +255,7 @@ _0801CA78:
 	b _0801CB20
 	.align 2, 0
 _0801CA94: .4byte gUnknown_0202BCF0
-_0801CA98: .4byte gUnknown_0859D214
+_0801CA98: .4byte gMapMenuDef
 _0801CA9C:
 	adds r0, r4, #0
 	bl UnitBeginAction
@@ -1416,7 +1416,7 @@ sub_801D434: @ 0x0801D434
 	ldrb r0, [r0, #0x11]
 	cmp r0, #0x1e
 	beq _0801D456
-	ldr r0, _0801D468  @ gUnknown_0859D1F0
+	ldr r0, _0801D468  @ gUnitActionMenuDef
 	ldr r2, _0801D46C  @ gUnknown_0202BCB0
 	movs r3, #0x1c
 	ldrsh r1, [r2, r3]
@@ -1434,7 +1434,7 @@ _0801D456:
 	bx r0
 	.align 2, 0
 _0801D464: .4byte gActionData
-_0801D468: .4byte gUnknown_0859D1F0
+_0801D468: .4byte gUnitActionMenuDef
 _0801D46C: .4byte gUnknown_0202BCB0
 
 	THUMB_FUNC_END sub_801D434
@@ -1497,7 +1497,7 @@ _0801D4E4:
 	ldrb r0, [r0, #0x11]
 	cmp r0, #0x1e
 	beq _0801D502
-	ldr r0, _0801D514  @ gUnknown_0859D1F0
+	ldr r0, _0801D514  @ gUnitActionMenuDef
 	ldr r2, _0801D518  @ gUnknown_0202BCB0
 	movs r3, #0x1c
 	ldrsh r1, [r2, r3]
@@ -1516,7 +1516,7 @@ _0801D508:
 	bx r0
 	.align 2, 0
 _0801D510: .4byte gActionData
-_0801D514: .4byte gUnknown_0859D1F0
+_0801D514: .4byte gUnitActionMenuDef
 _0801D518: .4byte gUnknown_0202BCB0
 
 	THUMB_FUNC_END PlayerPhase_ApplyUnitMovement

@@ -309,7 +309,7 @@ sub_8033468: @ 0x08033468
 	movs r0, #0xa
 	str r0, [r4, #0x58]
 	bl sub_803334C
-	ldr r0, _08033488  @ gUnknown_0859D040
+	ldr r0, _08033488  @ gDebugMenuDef
 	bl StartOrphanMenu
 	adds r0, r4, #0
 	movs r1, #0x3a
@@ -318,7 +318,7 @@ sub_8033468: @ 0x08033468
 	pop {r0}
 	bx r0
 	.align 2, 0
-_08033488: .4byte gUnknown_0859D040
+_08033488: .4byte gDebugMenuDef
 
 	THUMB_FUNC_END sub_8033468
 
