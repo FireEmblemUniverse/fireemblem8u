@@ -2969,22 +2969,22 @@ extern const s8 gUnknown_0880C785[]; // terrainid-to-something lookup
 // extern ??? gUnknown_0880D1AD
 // extern ??? gUnknown_0880D1EE
 // extern ??? gUnknown_0880D22F
-extern const u16 gUnknown_0880D374[]; // terrainid-to-textid lookup
+extern u16 CONST_DATA gUnknown_0880D374[]; // terrainid-to-textid lookup
 // extern ??? gUnknown_088ACBC4
-extern const u8 gUnknown_088ADEF1[]; // Some bow effectiveness list
-extern const u8 gUnknown_088ADF2A[]; // Some bow effectiveness list
-extern const u8 gUnknown_088ADF39[]; // Slayer effectiveness list
-// extern ??? gUnknown_088ADF57
-// extern ??? gUnknown_088ADF5E
-// extern ??? gUnknown_088ADF64
-// extern ??? gUnknown_088ADF67
-// extern ??? gUnknown_088ADF6B
-// extern ??? gUnknown_088ADF76
-// extern ??? gUnknown_088ADF96
-// extern ??? gUnknown_088ADF9E
-// extern ??? gUnknown_088ADFA3
-// extern ??? gUnknown_088ADFA4
-// extern ??? gUnknown_088ADFA6
+extern u8 CONST_DATA gUnknown_088ADEF1[]; // Some bow effectiveness list
+extern u8 CONST_DATA gUnknown_088ADF2A[]; // Some bow effectiveness list
+extern u8 CONST_DATA gUnknown_088ADF39[]; // Slayer effectiveness list
+extern u8 CONST_DATA gUnknown_088ADF57[]; // Hero Crest class list
+extern u8 CONST_DATA gUnknown_088ADF5E[]; // Knight Crest class list
+extern u8 CONST_DATA gUnknown_088ADF64[]; // Orion's Bolt class list
+extern u8 CONST_DATA gUnknown_088ADF67[]; // Elysian Whip class list
+extern u8 CONST_DATA gUnknown_088ADF6B[]; // Guiding ring class list
+extern u8 CONST_DATA gUnknown_088ADF76[]; // Master seal class list
+extern u8 CONST_DATA gUnknown_088ADF96[]; // Heaven seal class list
+extern u8 CONST_DATA gUnknown_088ADF9E[]; // Ocean seal class list
+extern u8 CONST_DATA gUnknown_088ADFA3[]; // Unk (C1) class list
+extern u8 CONST_DATA gUnknown_088ADFA4[]; // Lunar Brace class list
+extern u8 CONST_DATA gUnknown_088ADFA6[]; // Solar Brace class list
 // extern ??? gUnknown_088AF834
 // extern ??? gUnknown_088AF880
 // extern ??? gUnknown_088AFB5A

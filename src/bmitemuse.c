@@ -81,7 +81,7 @@ void MakeTargetListForLightRune(struct Unit* unit);
 void MakeTargetListForDanceRing(struct Unit* unit);
 void MakeTargetListForDoorAndBridges(struct Unit* unit, int terrain);
 
-s8 IsGeneratedTargetListEmpty(struct Unit* unit, void(*func)(struct Unit*));
+static s8 IsGeneratedTargetListEmpty(struct Unit* unit, void(*func)(struct Unit*));
 s8 CanUseStatBooster(struct Unit* unit, int item);
 s8 CanUsePromotionItem(struct Unit* unit, int item);
 s8 CanUseHealingItem(struct Unit* unit);
@@ -93,32 +93,25 @@ s8 CanUseDoorKey(struct Unit* unit);
 s8 CanUseLockpick(struct Unit* unit);
 s8 CanUseJunaFruit(struct Unit* unit);
 
-void PrepareTargetSelectionForHeal(struct Unit* unit, void(*func)(struct Unit*));
-void PrepareTargetSelectionForRescueStaff(struct Unit* unit, void(*func)(struct Unit*));
-void PrepareTargetSelectionForRestoreStaff(struct Unit* unit, void(*func)(struct Unit*));
-void PrepareTargetSelectionForOffensiveStaff(struct Unit* unit, void(*func)(struct Unit*));
-void sub_8029C34(struct Unit* unit);
-void SetupWarpTargetSelection(struct Unit* unit);
-void SetupHammerneUseSelection(struct Unit* unit);
-void EndItemEffectSelectionThing(struct Unit* unit);
-void PrepareTargetSelectionForMineAndLightRune(struct Unit* unit, void(*func)(struct Unit*), int msgHelp);
-void NewTorchStaffSelection(struct Unit* unit);
-void SetupTargetSelectionForGenericStaff(struct Unit* unit, void(*func)(struct Unit*), int msgHelp);
-void sub_8029544(struct Unit* unit);
-
-extern u8 CONST_DATA gUnknown_088ADF57[]; // Hero Crest class list
-extern u8 CONST_DATA gUnknown_088ADF5E[]; // Knight Crest class list
-extern u8 CONST_DATA gUnknown_088ADF64[]; // Orion's Bolt class list
-extern u8 CONST_DATA gUnknown_088ADF67[]; // Elysian Whip class list
-extern u8 CONST_DATA gUnknown_088ADF6B[]; // Guiding ring class list
-extern u8 CONST_DATA gUnknown_088ADF76[]; // Master seal class list
-extern u8 CONST_DATA gUnknown_088ADF96[]; // Heaven seal class list
-extern u8 CONST_DATA gUnknown_088ADF9E[]; // Ocean seal class list
-extern u8 CONST_DATA gUnknown_088ADFA3[]; // Unk (C1) class list
-extern u8 CONST_DATA gUnknown_088ADFA4[]; // Lunar Brace class list
-extern u8 CONST_DATA gUnknown_088ADFA6[]; // Solar Brace class list
+static void PrepareTargetSelectionForHeal(struct Unit* unit, void(*func)(struct Unit*));
+static void PrepareTargetSelectionForRescueStaff(struct Unit* unit, void(*func)(struct Unit*));
+static void PrepareTargetSelectionForRestoreStaff(struct Unit* unit, void(*func)(struct Unit*));
+static void PrepareTargetSelectionForOffensiveStaff(struct Unit* unit, void(*func)(struct Unit*));
+static void sub_8029C34(struct Unit* unit);
+static void SetupWarpTargetSelection(struct Unit* unit);
+static void SetupHammerneUseSelection(struct Unit* unit);
+static void EndItemEffectSelectionThing(struct Unit* unit);
+static void PrepareTargetSelectionForMineAndLightRune(struct Unit* unit, void(*func)(struct Unit*), int msgHelp);
+static void NewTorchStaffSelection(struct Unit* unit);
+static void SetupTargetSelectionForGenericStaff(struct Unit* unit, void(*func)(struct Unit*), int msgHelp);
+static void sub_8029544(struct Unit* unit);
 
 extern struct Unit gUnknown_03004C00;
+
+
+extern struct ProcCmd CONST_DATA gUnknown_0859B600[]; // go back to unit menu proc
+
+extern const struct MenuDef gUnknown_0859D064;
 
 extern struct SelectInfo CONST_DATA gUnknown_0859D238;
 extern struct SelectInfo CONST_DATA gUnknown_0859D258;
@@ -130,11 +123,66 @@ extern struct SelectInfo CONST_DATA gUnknown_0859D3B8;
 
 extern u16 CONST_DATA gUnknown_085A0EA0[]; // ap
 
-extern struct ProcCmd CONST_DATA gUnknown_0859B600[]; // proc
-extern struct ProcCmd CONST_DATA gUnknown_0859B9B8[]; // proc
-extern struct ProcCmd CONST_DATA gUnknown_0859BA38[]; // proc (torch select)
+static void WarpTargetPosSelect_Destruct(struct WarpSelectProc* proc);
+static void WarpTargetPosSelect_Init(struct WarpSelectProc* proc);
+static void WarpTargetPosSelect_Loop(struct WarpSelectProc* proc);
+static void WarpTargetPosSelect_Confirm(struct WarpSelectProc* proc);
+static void WarpTargetPosSelect_Cancel(struct WarpSelectProc* proc);
 
-extern const struct MenuDef gUnknown_0859D064;
+static void TorchTargetPosSelect_Init(struct WarpSelectProc* proc);
+static void TorchTargetSelection_Loop(struct WarpSelectProc* proc);
+
+struct ProcCmd CONST_DATA gUnknown_0859B9B8[] =
+{
+    PROC_SET_END_CB(WarpTargetPosSelect_Destruct),
+
+    PROC_CALL(AddSkipThread2),
+
+    PROC_WHILE_EXISTS(gUnknown_0859A548),
+
+    PROC_CALL(WarpTargetPosSelect_Init),
+    PROC_WHILE_EXISTS(gUnknown_0859A548),
+
+    PROC_REPEAT(WarpTargetPosSelect_Loop),
+
+    PROC_CALL(WarpTargetPosSelect_Confirm),
+    PROC_SLEEP(0),
+
+    PROC_CALL(SubSkipThread2),
+
+    PROC_GOTO(100),
+
+PROC_LABEL(99),
+    PROC_CALL(WarpTargetPosSelect_Cancel),
+    PROC_SLEEP(0),
+
+    PROC_CALL(SubSkipThread2),
+
+PROC_LABEL(100),
+    PROC_END,
+};
+
+struct ProcCmd CONST_DATA gUnknown_0859BA38[] =
+{
+    PROC_CALL(AddSkipThread2),
+
+    PROC_CALL(TorchTargetPosSelect_Init),
+    PROC_WHILE_EXISTS(gUnknown_0859A548),
+
+    PROC_REPEAT(TorchTargetSelection_Loop),
+
+    PROC_CALL(WarpTargetPosSelect_Confirm),
+
+    PROC_GOTO(100),
+
+PROC_LABEL(99),
+    PROC_CALL(WarpTargetPosSelect_Cancel),
+
+PROC_LABEL(100),
+    PROC_CALL(SubSkipThread2),
+
+    PROC_END,
+};
 
 s8 CanUnitUseItem(struct Unit* unit, int item)
 {
@@ -1063,7 +1111,7 @@ void sub_8029D6C(void)
         GetStringFromIndex(0x876)); // TODO: msgid "Select which character to bring next to you."
 }
 
-void TorchTargetPosSelect_Init(ProcPtr proc)
+void TorchTargetPosSelect_Init(struct WarpSelectProc* proc)
 {
     gUnknown_0202BCB0.gameStateBits |= GMAP_STATE_BIT0;
 
@@ -1074,7 +1122,7 @@ void TorchTargetPosSelect_Init(ProcPtr proc)
         EnsureCameraOntoPosition(proc, gActiveUnit->xPos, gActiveUnit->yPos);
 }
 
-void TorchTargetSelection_Loop(ProcPtr proc)
+void TorchTargetSelection_Loop(struct WarpSelectProc* proc)
 {
     int xTorch = gUnknown_0202BCB0.playerCursor.x;
     int yTorch = gUnknown_0202BCB0.playerCursor.y;
