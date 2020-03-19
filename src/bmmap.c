@@ -73,7 +73,7 @@ void InitChapterMap(int chapterId) {
     RefreshTerrainBmMap();
 
     // TODO: chapter id definitions
-    if (gUnknown_0202BCF0.chapterIndex == 0x75)
+    if (gRAMChapterData.chapterIndex == 0x75)
         sub_8019624();
 }
 
@@ -162,7 +162,7 @@ void sub_8019624(void) {
 }
 
 void sub_8019778(void) {
-    UnpackChapterMap(gBmMapBuffer, gUnknown_0202BCF0.chapterIndex);
+    UnpackChapterMap(gBmMapBuffer, gRAMChapterData.chapterIndex);
 
     InitBaseTilesBmMap();
     ApplyEnabledMapChanges();
@@ -262,7 +262,7 @@ void UnpackChapterMapGraphics(int chapterId) {
 
 void UnpackChapterMapPalette(void) {
     CopyToPaletteBuffer(
-        gChapterDataAssetTable[GetROMChapterStruct(gUnknown_0202BCF0.chapterIndex)->mapPaletteId],
+        gChapterDataAssetTable[GetROMChapterStruct(gRAMChapterData.chapterIndex)->mapPaletteId],
         0x20 * 6, 0x20 * 10); // TODO: palette id constant?
 }
 
@@ -536,13 +536,13 @@ void RefreshUnitsOnBmMap(void) {
         gBmMapUnit[unit->yPos][unit->xPos] = i;
 
         // If fog is enabled, apply unit vision to fog map
-        if (gUnknown_0202BCF0.chapterVisionRange)
+        if (gRAMChapterData.chapterVisionRange)
             MapAddInRange(unit->xPos, unit->yPos, GetUnitFogViewRange(unit), 1);
     }
 
     // 2. Red (& Purple) units
 
-    if (gUnknown_0202BCF0.chapterPhaseIndex != FACTION_RED) {
+    if (gRAMChapterData.chapterPhaseIndex != FACTION_RED) {
         // 2.1. No red phase
 
         for (i = FACTION_RED + 1; i < FACTION_PURPLE + 6; ++i) {
@@ -559,7 +559,7 @@ void RefreshUnitsOnBmMap(void) {
             if (UNIT_CATTRIBUTES(unit) & CA_MAGICSEAL)
                 MapAddInRange(unit->xPos, unit->yPos, 10, -1);
 
-            if (gUnknown_0202BCF0.chapterVisionRange && !gBmMapFog[unit->yPos][unit->xPos]) {
+            if (gRAMChapterData.chapterVisionRange && !gBmMapFog[unit->yPos][unit->xPos]) {
                 // If in fog, set unit bit on the hidden map, and set the "hidden in fog" state
 
                 gBmMapHidden[unit->yPos][unit->xPos] |= HIDDEN_BIT_UNIT;
@@ -593,7 +593,7 @@ void RefreshUnitsOnBmMap(void) {
             if (UNIT_CATTRIBUTES(unit) & CA_MAGICSEAL)
                 MapAddInRange(unit->xPos, unit->yPos, 10, -1);
 
-            if (gUnknown_0202BCF0.chapterVisionRange) {
+            if (gRAMChapterData.chapterVisionRange) {
                 // Update unit state according to fog level
 
                 if (!gBmMapFog[unit->yPos][unit->xPos])
@@ -646,7 +646,7 @@ void RefreshEntityBmMaps(void) {
 
     // 2. Clear fog map, with 1 (visible) if no fog, with 0 (hidden) if yes fog
 
-    BmMapFill(gBmMapFog, !gUnknown_0202BCF0.chapterVisionRange ? 1 : 0);
+    BmMapFill(gBmMapFog, !gRAMChapterData.chapterVisionRange ? 1 : 0);
 
     // 3. Populate unit, fog & hidden maps
 
@@ -688,7 +688,7 @@ void RevertMapChange(int id) {
     const struct MapChange* mapChange;
     u8 ix, iy;
 
-    CopyDataWithPossibleUncomp(GetChapterMapPointer(gUnknown_0202BCF0.chapterIndex), gBmMapBuffer);
+    CopyDataWithPossibleUncomp(GetChapterMapPointer(gRAMChapterData.chapterIndex), gBmMapBuffer);
 
     mapChange = GetMapChange(id);
 

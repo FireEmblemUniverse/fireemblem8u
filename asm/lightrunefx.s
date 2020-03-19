@@ -39,7 +39,7 @@ _08021568:
 	bl BG_Fill
 	movs r0, #1
 	bl BG_EnableSyncByMask
-	ldr r0, _080215EC  @ gUnknown_0202BCF0
+	ldr r0, _080215EC  @ gRAMChapterData
 	adds r0, #0x41
 	ldrb r0, [r0]
 	lsls r0, r0, #0x1e
@@ -81,7 +81,7 @@ _080215DC: .4byte gUnknown_085A5760
 _080215E0: .4byte gUnknown_085A5780
 _080215E4: .4byte gBmFrameTmap0
 _080215E8: .4byte gBG0TilemapBuffer
-_080215EC: .4byte gUnknown_0202BCF0
+_080215EC: .4byte gRAMChapterData
 
 	THUMB_FUNC_END sub_802153C
 
@@ -234,7 +234,7 @@ _080216FC:
 	bl BG_Fill
 	movs r0, #1
 	bl BG_EnableSyncByMask
-	ldr r0, _08021780  @ gUnknown_0202BCF0
+	ldr r0, _08021780  @ gRAMChapterData
 	adds r0, #0x41
 	ldrb r0, [r0]
 	lsls r0, r0, #0x1e
@@ -276,7 +276,7 @@ _08021770: .4byte gUnknown_085A5760
 _08021774: .4byte gUnknown_085A5780
 _08021778: .4byte gBmFrameTmap0
 _0802177C: .4byte gBG0TilemapBuffer
-_08021780: .4byte gUnknown_0202BCF0
+_08021780: .4byte gRAMChapterData
 
 	THUMB_FUNC_END sub_80216D0
 
@@ -429,7 +429,7 @@ _08021890:
 	bl BG_Fill
 	movs r0, #1
 	bl BG_EnableSyncByMask
-	ldr r0, _08021914  @ gUnknown_0202BCF0
+	ldr r0, _08021914  @ gRAMChapterData
 	adds r0, #0x41
 	ldrb r0, [r0]
 	lsls r0, r0, #0x1e
@@ -471,7 +471,7 @@ _08021904: .4byte gUnknown_085A5760
 _08021908: .4byte gUnknown_085A5780
 _0802190C: .4byte gBmFrameTmap0
 _08021910: .4byte gBG0TilemapBuffer
-_08021914: .4byte gUnknown_0202BCF0
+_08021914: .4byte gRAMChapterData
 
 	THUMB_FUNC_END sub_8021864
 

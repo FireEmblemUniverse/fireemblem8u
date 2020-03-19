@@ -758,7 +758,7 @@ sub_8012C34: @ 0x08012C34
 	bne _08012C6A
 	cmp r4, #1
 	bne _08012C62
-	ldr r0, _08012C80  @ gUnknown_0202BCF0
+	ldr r0, _08012C80  @ gRAMChapterData
 	adds r0, #0x41
 	ldrb r0, [r0]
 	lsls r0, r0, #0x1e
@@ -781,7 +781,7 @@ _08012C6A:
 	bx r0
 	.align 2, 0
 _08012C7C: .4byte gUnknown_085925F0
-_08012C80: .4byte gUnknown_0202BCF0
+_08012C80: .4byte gRAMChapterData
 _08012C84: .4byte 0x0000026A
 
 	THUMB_FUNC_END sub_8012C34
@@ -924,7 +924,7 @@ sub_8012CFC: @ 0x08012CFC
 	str r6, [sp, #0x10]
 	movs r1, #2
 	bl sub_80AE7C4
-	ldr r0, _08012DC4  @ gUnknown_0202BCF0
+	ldr r0, _08012DC4  @ gRAMChapterData
 	adds r0, #0x41
 	ldrb r0, [r0]
 	lsls r0, r0, #0x1e
@@ -942,7 +942,7 @@ _08012DB4: .4byte gUnknown_08592608
 _08012DB8: .4byte gLCDControlBuffer
 _08012DBC: .4byte gUnknown_0202BCB0
 _08012DC0: .4byte gUnknown_08592628
-_08012DC4: .4byte gUnknown_0202BCF0
+_08012DC4: .4byte gRAMChapterData
 _08012DC8: .4byte 0x000002D6
 
 	THUMB_FUNC_END sub_8012CFC
@@ -5375,7 +5375,7 @@ PlaySpacialSoundMaybe: @ 0x08014B28
 	push {r4, r5, r6, lr}
 	adds r4, r0, #0
 	adds r6, r1, #0
-	ldr r0, _08014B78  @ gUnknown_0202BCF0
+	ldr r0, _08014B78  @ gRAMChapterData
 	adds r0, #0x41
 	ldrb r0, [r0]
 	lsls r0, r0, #0x1e
@@ -5410,7 +5410,7 @@ _08014B42:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_08014B78: .4byte gUnknown_0202BCF0
+_08014B78: .4byte gRAMChapterData
 _08014B7C: .4byte gMPlayTable
 _08014B80: .4byte gSongTable
 _08014B84: .4byte 0x0000FFFF
@@ -5436,7 +5436,7 @@ _08014B9C: .4byte sub_8014BA0
 sub_8014BA0: @ 0x08014BA0
 	push {lr}
 	adds r1, r0, #0
-	ldr r0, _08014BBC  @ gUnknown_0202BCF0
+	ldr r0, _08014BBC  @ gRAMChapterData
 	adds r0, #0x41
 	ldrb r0, [r0]
 	lsls r0, r0, #0x1e
@@ -5449,7 +5449,7 @@ _08014BB8:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_08014BBC: .4byte gUnknown_0202BCF0
+_08014BBC: .4byte gRAMChapterData
 
 	THUMB_FUNC_END sub_8014BA0
 
@@ -6556,7 +6556,7 @@ _08015388: .4byte gUnknown_0202BCB0
 	THUMB_FUNC_START SwitchPhases
 SwitchPhases: @ 0x0801538C
 	push {lr}
-	ldr r2, _080153A0  @ gUnknown_0202BCF0
+	ldr r2, _080153A0  @ gRAMChapterData
 	ldrb r0, [r2, #0xf]
 	cmp r0, #0x40
 	beq _080153B6
@@ -6566,7 +6566,7 @@ SwitchPhases: @ 0x0801538C
 	beq _080153AA
 	b _080153CA
 	.align 2, 0
-_080153A0: .4byte gUnknown_0202BCF0
+_080153A0: .4byte gRAMChapterData
 _080153A4:
 	cmp r0, #0x80
 	beq _080153B0
@@ -6601,7 +6601,7 @@ _080153D0: .4byte 0x000003E6
 	THUMB_FUNC_START CallBeginningEvents
 CallBeginningEvents: @ 0x080153D4
 	push {r4, lr}
-	ldr r0, _080153F8  @ gUnknown_0202BCF0
+	ldr r0, _080153F8  @ gRAMChapterData
 	ldrb r0, [r0, #0xe]
 	lsls r0, r0, #0x18
 	asrs r0, r0, #0x18
@@ -6615,7 +6615,7 @@ CallBeginningEvents: @ 0x080153D4
 	bl CallEvent
 	b _08015404
 	.align 2, 0
-_080153F8: .4byte gUnknown_0202BCF0
+_080153F8: .4byte gRAMChapterData
 _080153FC:
 	ldr r0, _0801540C  @ gUnknown_089FFC30
 	movs r1, #1
@@ -6674,7 +6674,7 @@ _0801544C:
 MakePhaseController6C: @ 0x08015450
 	push {r4, lr}
 	adds r4, r0, #0
-	ldr r0, _08015468  @ gUnknown_0202BCF0
+	ldr r0, _08015468  @ gRAMChapterData
 	ldrb r0, [r0, #0xf]
 	cmp r0, #0x40
 	beq _0801548C
@@ -6684,7 +6684,7 @@ MakePhaseController6C: @ 0x08015450
 	beq _08015472
 	b _08015494
 	.align 2, 0
-_08015468: .4byte gUnknown_0202BCF0
+_08015468: .4byte gRAMChapterData
 _0801546C:
 	cmp r0, #0x80
 	beq _0801547C
@@ -6740,7 +6740,7 @@ _080154C4: .4byte gUnknown_0859AAD8
 sub_80154C8: @ 0x080154C8
 	push {lr}
 	adds r1, r0, #0
-	ldr r0, _080154E4  @ gUnknown_0202BCF0
+	ldr r0, _080154E4  @ gRAMChapterData
 	ldrb r0, [r0, #0xf]
 	cmp r0, #0x40
 	bne _080154EC
@@ -6750,7 +6750,7 @@ sub_80154C8: @ 0x080154C8
 	movs r0, #0
 	b _080154EE
 	.align 2, 0
-_080154E4: .4byte gUnknown_0202BCF0
+_080154E4: .4byte gRAMChapterData
 _080154E8: .4byte gUnknown_0859BDA0
 _080154EC:
 	movs r0, #1
@@ -6779,7 +6779,7 @@ _08015508: .4byte gActionData
 sub_801550C: @ 0x0801550C
 	push {r4, lr}
 	adds r4, r0, #0
-	ldr r0, _0801553C  @ gUnknown_0202BCF0
+	ldr r0, _0801553C  @ gRAMChapterData
 	ldrb r0, [r0, #0xe]
 	lsls r0, r0, #0x18
 	asrs r0, r0, #0x18
@@ -6801,7 +6801,7 @@ _08015534:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_0801553C: .4byte gUnknown_0202BCF0
+_0801553C: .4byte gRAMChapterData
 _08015540: .4byte gUnknown_0859B1B0
 
 	THUMB_FUNC_END sub_801550C
@@ -6811,7 +6811,7 @@ UndeployEveryone: @ 0x08015544
 	push {r4, lr}
 	movs r0, #0x84
 	bl UnsetEventId
-	ldr r0, _08015584  @ gUnknown_0202BCF0
+	ldr r0, _08015584  @ gRAMChapterData
 	adds r0, #0x4a
 	ldrb r1, [r0]
 	movs r0, #1
@@ -6842,14 +6842,14 @@ _0801557E:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_08015584: .4byte gUnknown_0202BCF0
+_08015584: .4byte gRAMChapterData
 
 	THUMB_FUNC_END UndeployEveryone
 
 	THUMB_FUNC_START GotoChapterWithoutSave
 GotoChapterWithoutSave: @ 0x08015588
 	push {lr}
-	ldr r1, _080155B0  @ gUnknown_0202BCF0
+	ldr r1, _080155B0  @ gRAMChapterData
 	strb r0, [r1, #0xe]
 	ldr r0, _080155B4  @ gProc_BMapMain
 	bl Proc_Find
@@ -6864,7 +6864,7 @@ GotoChapterWithoutSave: @ 0x08015588
 	pop {r0}
 	bx r0
 	.align 2, 0
-_080155B0: .4byte gUnknown_0202BCF0
+_080155B0: .4byte gRAMChapterData
 _080155B4: .4byte gProc_BMapMain
 _080155B8: .4byte gUnknown_0859AAD8
 _080155BC: .4byte gProcScr_CpPhase
@@ -6880,11 +6880,11 @@ sub_80155C4: @ 0x080155C4
 	lsls r0, r0, #0x18
 	cmp r0, #0
 	beq _080155D8
-	ldr r0, _08015604  @ gUnknown_0202BCF0
+	ldr r0, _08015604  @ gRAMChapterData
 	bl RegisterChapterTimeAndTurnCount
 _080155D8:
 	bl ComputeChapterRankings
-	ldr r0, _08015604  @ gUnknown_0202BCF0
+	ldr r0, _08015604  @ gRAMChapterData
 	adds r5, r0, #0
 	adds r5, #0x4a
 	ldrb r4, [r5]
@@ -6904,14 +6904,14 @@ _080155FE:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_08015604: .4byte gUnknown_0202BCF0
+_08015604: .4byte gRAMChapterData
 
 	THUMB_FUNC_END sub_80155C4
 
 	THUMB_FUNC_START SetupBackgroundForWeatherMaybe
 SetupBackgroundForWeatherMaybe: @ 0x08015608
 	push {lr}
-	ldr r0, _08015644  @ gUnknown_0202BCF0
+	ldr r0, _08015644  @ gRAMChapterData
 	ldrb r0, [r0, #0x15]
 	cmp r0, #7
 	bne _0801564C
@@ -6940,7 +6940,7 @@ SetupBackgroundForWeatherMaybe: @ 0x08015608
 	strb r2, [r3, #0x18]
 	b _08015678
 	.align 2, 0
-_08015644: .4byte gUnknown_0202BCF0
+_08015644: .4byte gRAMChapterData
 _08015648: .4byte gLCDControlBuffer
 _0801564C:
 	ldr r3, _0801567C  @ gLCDControlBuffer

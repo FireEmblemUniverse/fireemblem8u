@@ -132,7 +132,7 @@ _08024DB4:
 
 	THUMB_FUNC_START GetCurrentPhase
 GetCurrentPhase: @ 0x08024DBC
-	ldr r0, _08024DCC  @ gUnknown_0202BCF0
+	ldr r0, _08024DCC  @ gRAMChapterData
 	ldrb r1, [r0, #0xf]
 	movs r0, #0x80
 	ands r0, r1
@@ -140,13 +140,13 @@ GetCurrentPhase: @ 0x08024DBC
 	lsrs r0, r0, #0x18
 	bx lr
 	.align 2, 0
-_08024DCC: .4byte gUnknown_0202BCF0
+_08024DCC: .4byte gRAMChapterData
 
 	THUMB_FUNC_END GetCurrentPhase
 
 	THUMB_FUNC_START IsNotEnemyPhaseMaybe
 IsNotEnemyPhaseMaybe: @ 0x08024DD0
-	ldr r0, _08024DE4  @ gUnknown_0202BCF0
+	ldr r0, _08024DE4  @ gRAMChapterData
 	ldrb r1, [r0, #0xf]
 	movs r2, #0x80
 	movs r0, #0x80
@@ -156,7 +156,7 @@ IsNotEnemyPhaseMaybe: @ 0x08024DD0
 	lsrs r0, r0, #0x18
 	bx lr
 	.align 2, 0
-_08024DE4: .4byte gUnknown_0202BCF0
+_08024DE4: .4byte gRAMChapterData
 
 	THUMB_FUNC_END IsNotEnemyPhaseMaybe
 

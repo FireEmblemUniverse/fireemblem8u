@@ -549,7 +549,7 @@ LongPopup_PlaySound: @ 0x08011210
 	ldrh r0, [r1]
 	cmp r0, #0
 	beq _0801122E
-	ldr r0, _08011234  @ gUnknown_0202BCF0
+	ldr r0, _08011234  @ gRAMChapterData
 	adds r0, #0x41
 	ldrb r0, [r0]
 	lsls r0, r0, #0x1e
@@ -561,7 +561,7 @@ _0801122E:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_08011234: .4byte gUnknown_0202BCF0
+_08011234: .4byte gRAMChapterData
 
 	THUMB_FUNC_END LongPopup_PlaySound
 

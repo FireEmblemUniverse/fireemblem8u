@@ -232,7 +232,7 @@ sub_800BAA8: @ 0x0800BAA8
 	lsrs r5, r0, #0x10
 	cmp r0, #0
 	bge _0800BAC6
-	ldr r0, _0800BAF4  @ gUnknown_0202BCF0
+	ldr r0, _0800BAF4  @ gRAMChapterData
 	ldrb r0, [r0, #0xe]
 	lsls r0, r0, #0x18
 	asrs r0, r0, #0x18
@@ -245,7 +245,7 @@ _0800BAC6:
 	bne _0800BAD2
 	bl RenderBmMapOnBg2
 _0800BAD2:
-	ldr r0, _0800BAF4  @ gUnknown_0202BCF0
+	ldr r0, _0800BAF4  @ gRAMChapterData
 	strb r5, [r0, #0xd]
 	bl RefreshEntityBmMaps
 	bl SMS_UpdateFromGameData
@@ -260,7 +260,7 @@ _0800BAEE:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_0800BAF4: .4byte gUnknown_0202BCF0
+_0800BAF4: .4byte gRAMChapterData
 
 	THUMB_FUNC_END sub_800BAA8
 

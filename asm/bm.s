@@ -195,7 +195,7 @@ _080157E8:
 	ldr r0, [r5, #0x18]
 	cmp r1, r0
 	beq _08015832
-	ldr r0, _08015828  @ gUnknown_0202BCF0
+	ldr r0, _08015828  @ gRAMChapterData
 	adds r0, #0x41
 	ldrb r0, [r0]
 	lsls r0, r0, #0x1e
@@ -214,7 +214,7 @@ _08015818: .4byte gUnknown_0859A438
 _0801581C: .4byte gBmMapMovement
 _08015820: .4byte gKeyStatusPtr
 _08015824: .4byte gBmMapSize
-_08015828: .4byte gUnknown_0202BCF0
+_08015828: .4byte gRAMChapterData
 _0801582C:
 	movs r0, #0xfb
 	ands r0, r1
@@ -1332,7 +1332,7 @@ _08015FEC:
 _08016000:
 	movs r4, #6
 _08016002:
-	ldr r5, _08016014  @ gUnknown_0202BCF0
+	ldr r5, _08016014  @ gRAMChapterData
 	ldrb r1, [r5, #0xf]
 	cmp r1, #0x40
 	beq _0801602E
@@ -1342,7 +1342,7 @@ _08016002:
 	beq _08016040
 	b _080160C4
 	.align 2, 0
-_08016014: .4byte gUnknown_0202BCF0
+_08016014: .4byte gRAMChapterData
 _08016018:
 	cmp r1, #0x80
 	bne _080160C4
@@ -1417,7 +1417,7 @@ _080160AC:
 	movs r0, #0x10
 	b _080160C4
 _080160B0:
-	ldr r0, _080160CC  @ gUnknown_0202BCF0
+	ldr r0, _080160CC  @ gRAMChapterData
 	ldrb r0, [r0, #0xe]
 	lsls r0, r0, #0x18
 	asrs r0, r0, #0x18
@@ -1431,7 +1431,7 @@ _080160C4:
 	pop {r1}
 	bx r1
 	.align 2, 0
-_080160CC: .4byte gUnknown_0202BCF0
+_080160CC: .4byte gRAMChapterData
 
 	THUMB_FUNC_END GetCurrentMapMusicIndex
 

@@ -7,7 +7,7 @@
 	THUMB_FUNC_START sub_80222E0
 sub_80222E0: @ 0x080222E0
 	push {lr}
-	ldr r0, _080222F8  @ gUnknown_0202BCF0
+	ldr r0, _080222F8  @ gRAMChapterData
 	adds r0, #0x41
 	ldrb r0, [r0]
 	lsls r0, r0, #0x1e
@@ -19,7 +19,7 @@ _080222F4:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_080222F8: .4byte gUnknown_0202BCF0
+_080222F8: .4byte gRAMChapterData
 _080222FC: .4byte 0x000002F9
 
 	THUMB_FUNC_END sub_80222E0

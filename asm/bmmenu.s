@@ -15,7 +15,7 @@ sub_80225AC: @ 0x080225AC
 	THUMB_FUNC_START MapMenu_IsSuspendCommandAvailable
 MapMenu_IsSuspendCommandAvailable: @ 0x080225B0
 	push {lr}
-	ldr r0, _080225C4  @ gUnknown_0202BCF0
+	ldr r0, _080225C4  @ gRAMChapterData
 	ldrb r1, [r0, #0x14]
 	movs r0, #8
 	ands r0, r1
@@ -24,7 +24,7 @@ MapMenu_IsSuspendCommandAvailable: @ 0x080225B0
 	movs r0, #1
 	b _080225CA
 	.align 2, 0
-_080225C4: .4byte gUnknown_0202BCF0
+_080225C4: .4byte gRAMChapterData
 _080225C8:
 	movs r0, #2
 _080225CA:
@@ -2443,7 +2443,7 @@ _080237A8:
 	adds r1, r1, r2
 	ldrh r1, [r1]
 	bl ItemEffect_Call
-	ldr r0, _080237F4  @ gUnknown_0202BCF0
+	ldr r0, _080237F4  @ gRAMChapterData
 	adds r0, #0x41
 	ldrb r0, [r0]
 	lsls r0, r0, #0x1e
@@ -2464,7 +2464,7 @@ _080237E4:
 	.align 2, 0
 _080237EC: .4byte gActiveUnit
 _080237F0: .4byte gActionData
-_080237F4: .4byte gUnknown_0202BCF0
+_080237F4: .4byte gRAMChapterData
 
 	THUMB_FUNC_END ItemSubMenu_UseItem
 
@@ -3508,7 +3508,7 @@ SupplyUsability: @ 0x08023F64
 	ldrb r0, [r0, #4]
 	cmp r0, #0x51
 	beq _08023FAC
-	ldr r0, _08023F90  @ gUnknown_0202BCF0
+	ldr r0, _08023F90  @ gRAMChapterData
 	ldrb r0, [r0, #0x1b]
 	cmp r0, #2
 	beq _08023F88
@@ -3519,7 +3519,7 @@ _08023F88:
 	b _08023F96
 	.align 2, 0
 _08023F8C: .4byte gActiveUnit
-_08023F90: .4byte gUnknown_0202BCF0
+_08023F90: .4byte gRAMChapterData
 _08023F94:
 	movs r2, #0xf
 _08023F96:
@@ -5327,7 +5327,7 @@ MapMenu_IsRecordsCommandAvailable: @ 0x08024C40
 	bl GetChapterThing
 	cmp r0, #1
 	bne _08024CAC
-	ldr r0, _08024CB0  @ gUnknown_0202BCF0
+	ldr r0, _08024CB0  @ gRAMChapterData
 	ldrb r0, [r0, #0xe]
 	subs r0, #0x24
 	lsls r0, r0, #0x18
@@ -5373,7 +5373,7 @@ _08024CAC:
 	movs r0, #3
 	b _08024CB6
 	.align 2, 0
-_08024CB0: .4byte gUnknown_0202BCF0
+_08024CB0: .4byte gRAMChapterData
 _08024CB4:
 	movs r0, #1
 _08024CB6:

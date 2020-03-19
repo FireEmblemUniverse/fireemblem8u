@@ -2011,7 +2011,7 @@ _0802752C: .4byte gObject_32x32
 	THUMB_FUNC_START DisplayChapterTileMarker
 DisplayChapterTileMarker: @ 0x08027530
 	push {r4, r5, lr}
-	ldr r4, _080275CC  @ gUnknown_0202BCF0
+	ldr r4, _080275CC  @ gRAMChapterData
 	movs r0, #0xe
 	ldrsb r0, [r4, r0]
 	bl GetROMChapterStruct
@@ -2087,7 +2087,7 @@ _080275C6:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_080275CC: .4byte gUnknown_0202BCF0
+_080275CC: .4byte gRAMChapterData
 _080275D0: .4byte gBmMapFog
 _080275D4: .4byte gBmMapTerrain
 _080275D8: .4byte gUnknown_0202BCB0
@@ -2112,7 +2112,7 @@ DisplayUnitAdditionalBlinkingIcons: @ 0x080275E8
 	bl GetChapterThing
 	cmp r0, #2
 	beq _08027620
-	ldr r0, _0802761C  @ gUnknown_0202BCF0
+	ldr r0, _0802761C  @ gRAMChapterData
 	ldrb r0, [r0, #0xe]
 	lsls r0, r0, #0x18
 	asrs r0, r0, #0x18
@@ -2122,7 +2122,7 @@ DisplayUnitAdditionalBlinkingIcons: @ 0x080275E8
 	b _08027622
 	.align 2, 0
 _08027618: .4byte gUnknown_080D7C0C
-_0802761C: .4byte gUnknown_0202BCF0
+_0802761C: .4byte gRAMChapterData
 _08027620:
 	movs r0, #0
 _08027622:

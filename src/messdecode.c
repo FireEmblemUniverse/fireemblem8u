@@ -139,7 +139,7 @@ char *sub_800A2A4(void)
                 *r4++ = *r5++;
                 continue;
             }
-            CopyString(r4, GetStringFromIndex(GetCharacterData(gUnknown_0202BCF0.unk1C[r1])->nameTextId));
+            CopyString(r4, GetStringFromIndex(GetCharacterData(gRAMChapterData.unk1C[r1])->nameTextId));
         label:
             while (*r4 != 0)
                 r4++;

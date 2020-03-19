@@ -330,7 +330,7 @@ struct EventEngineProc* EventEngine_Create(const u16* events, u8 execType) {
 
     case EV_EXEC_CUTSCENE:
     case EV_EXEC_GAMEPLAY:
-        proc->chapterIndex = gUnknown_0202BCF0.chapterIndex;
+        proc->chapterIndex = gRAMChapterData.chapterIndex;
         AddSkipThread2();
         break;
     }
@@ -469,7 +469,7 @@ void CallRetreatPromptEvent(void) {
     // Calls Retreat events
     CallEvent(gEvent_SkirmishRetreat, EV_EXEC_CUTSCENE);
     
-    gEventSlots[0x2] = gUnknown_0202BCF0.chapterIndex;
+    gEventSlots[0x2] = gRAMChapterData.chapterIndex;
 }
 
 void CallSuspendPromptEvent(void) {

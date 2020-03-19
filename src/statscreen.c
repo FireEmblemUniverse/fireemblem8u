@@ -609,10 +609,10 @@ void DisplayBwl(void)
     if (gUnknown_0202BCB0.gameStateBits & 0x40)
         return;
 
-    if (gUnknown_0202BCF0.chapterStateBits & CHAPTER_FLAG_3)
+    if (gRAMChapterData.chapterStateBits & CHAPTER_FLAG_3)
         return;
 
-    if (gUnknown_0202BCF0.chapterStateBits & CHAPTER_FLAG_7)
+    if (gRAMChapterData.chapterStateBits & CHAPTER_FLAG_7)
         return;
 
     if (IsFirstPlaythrough() == TRUE)
@@ -1875,7 +1875,7 @@ void StatScreen_OnIdle(struct Proc* proc)
 static
 void StatScreen_OnClose(void)
 {
-    gUnknown_0202BCF0.chapterStateBits = (gUnknown_0202BCF0.chapterStateBits &~ 3) | (gStatScreen.page & 3);
+    gRAMChapterData.chapterStateBits = (gRAMChapterData.chapterStateBits &~ 3) | (gStatScreen.page & 3);
     sStatScreenInfo.unitId = gStatScreen.unit->index;
 
     SetInterrupt_LCDVCountMatch(NULL);
@@ -1906,7 +1906,7 @@ void StartStatScreen(struct Unit* unit, struct Proc* parent)
 {
     gStatScreen.xDispOff = 0;
     gStatScreen.yDispOff = 0;
-    gStatScreen.page = gUnknown_0202BCF0.chapterStateBits & 3;
+    gStatScreen.page = gRAMChapterData.chapterStateBits & 3;
     gStatScreen.unit = unit;
     gStatScreen.help = NULL;
     gStatScreen.pageSlideKey = 0;

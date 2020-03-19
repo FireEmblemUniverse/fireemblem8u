@@ -1874,7 +1874,7 @@ sub_8025C34: @ 0x08025C34
 	ldrb r0, [r0]
 	cmp r0, #0
 	bne _08025C8A
-	ldr r0, _08025C94  @ gUnknown_0202BCF0
+	ldr r0, _08025C94  @ gRAMChapterData
 	ldrb r0, [r0, #0xd]
 	cmp r0, #0
 	beq _08025C64
@@ -1910,7 +1910,7 @@ _08025C8A:
 	bx r0
 	.align 2, 0
 _08025C90: .4byte gBmMapUnit
-_08025C94: .4byte gUnknown_0202BCF0
+_08025C94: .4byte gRAMChapterData
 _08025C98: .4byte gBmMapFog
 _08025C9C: .4byte gUnknown_02033F3C
 _08025CA0: .4byte gBmMapTerrain
@@ -1958,7 +1958,7 @@ sub_8025CD8: @ 0x08025CD8
 	ldrb r0, [r0]
 	cmp r0, #0
 	bne _08025D2E
-	ldr r0, _08025D38  @ gUnknown_0202BCF0
+	ldr r0, _08025D38  @ gRAMChapterData
 	ldrb r0, [r0, #0xd]
 	cmp r0, #0
 	beq _08025D08
@@ -1994,7 +1994,7 @@ _08025D2E:
 	bx r0
 	.align 2, 0
 _08025D34: .4byte gBmMapUnit
-_08025D38: .4byte gUnknown_0202BCF0
+_08025D38: .4byte gRAMChapterData
 _08025D3C: .4byte gBmMapFog
 _08025D40: .4byte gUnknown_02033F3C
 _08025D44: .4byte gBmMapTerrain
@@ -2970,7 +2970,7 @@ sub_802646C: @ 0x0802646C
 	ldrb r0, [r0]
 	cmp r0, #0
 	bne _080264D4
-	ldr r0, _080264E0  @ gUnknown_0202BCF0
+	ldr r0, _080264E0  @ gRAMChapterData
 	ldrb r0, [r0, #0xd]
 	cmp r0, #0
 	beq _0802649C
@@ -3015,7 +3015,7 @@ _080264D4:
 	bx r0
 	.align 2, 0
 _080264DC: .4byte gBmMapUnit
-_080264E0: .4byte gUnknown_0202BCF0
+_080264E0: .4byte gRAMChapterData
 _080264E4: .4byte gBmMapFog
 _080264E8: .4byte gUnknown_02033F3C
 _080264EC: .4byte gBmMapTerrain

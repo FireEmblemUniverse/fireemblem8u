@@ -634,7 +634,7 @@ _0802F0BC:
 	.align 2, 0
 _0802F0C8: .4byte gBattleTarget
 _0802F0CC:
-	ldr r0, _0802F0E0  @ gUnknown_0202BCF0
+	ldr r0, _0802F0E0  @ gRAMChapterData
 	ldrb r0, [r0, #0xf]
 	cmp r0, #0x40
 	beq _0802F120
@@ -644,7 +644,7 @@ _0802F0CC:
 	beq _0802F0EA
 	b _0802F144
 	.align 2, 0
-_0802F0E0: .4byte gUnknown_0202BCF0
+_0802F0E0: .4byte gRAMChapterData
 _0802F0E4:
 	cmp r0, #0x80
 	beq _0802F104
@@ -1177,7 +1177,7 @@ sub_802F510: @ 0x0802F510
 	adds r0, r5, #0
 	adds r1, r4, #0
 	bl sub_80831C8
-	ldr r0, _0802F590  @ gUnknown_0202BCF0
+	ldr r0, _0802F590  @ gRAMChapterData
 	adds r0, #0x41
 	ldrb r0, [r0]
 	lsls r0, r0, #0x1e
@@ -1195,7 +1195,7 @@ _0802F57E:
 	bx r0
 	.align 2, 0
 _0802F58C: .4byte gActionData
-_0802F590: .4byte gUnknown_0202BCF0
+_0802F590: .4byte gRAMChapterData
 _0802F594: .4byte gBattleTarget
 
 	THUMB_FUNC_END sub_802F510
@@ -1654,7 +1654,7 @@ sub_802F914: @ 0x0802F914
 	ldrb r1, [r4, #0x12]
 	bl sub_802F808
 	adds r5, r0, #0
-	ldr r0, _0802F974  @ gUnknown_0202BCF0
+	ldr r0, _0802F974  @ gRAMChapterData
 	adds r0, #0x41
 	ldrb r0, [r0]
 	lsls r0, r0, #0x1e
@@ -1678,7 +1678,7 @@ _0802F94E:
 	.align 2, 0
 _0802F96C: .4byte gActionData
 _0802F970: .4byte gBattleTarget
-_0802F974: .4byte gUnknown_0202BCF0
+_0802F974: .4byte gRAMChapterData
 
 	THUMB_FUNC_END sub_802F914
 
@@ -1760,7 +1760,7 @@ sub_802F9E0: @ 0x0802F9E0
 	ldrb r1, [r4, #0x12]
 	bl sub_802F978
 	adds r5, r0, #0
-	ldr r0, _0802FA48  @ gUnknown_0202BCF0
+	ldr r0, _0802FA48  @ gRAMChapterData
 	adds r0, #0x41
 	ldrb r0, [r0]
 	lsls r0, r0, #0x1e
@@ -1787,7 +1787,7 @@ _0802FA1C:
 	.align 2, 0
 _0802FA40: .4byte gActionData
 _0802FA44: .4byte gBattleTarget
-_0802FA48: .4byte gUnknown_0202BCF0
+_0802FA48: .4byte gRAMChapterData
 
 	THUMB_FUNC_END sub_802F9E0
 
@@ -2372,7 +2372,7 @@ ActionPick: @ 0x0802FFB4
 	adds r0, r4, #0
 	adds r1, r5, #0
 	bl sub_80831C8
-	ldr r0, _08030010  @ gUnknown_0202BCF0
+	ldr r0, _08030010  @ gRAMChapterData
 	adds r0, #0x41
 	ldrb r0, [r0]
 	lsls r0, r0, #0x1e
@@ -2398,7 +2398,7 @@ _08030002:
 	.align 2, 0
 _08030008: .4byte gBattleActor
 _0803000C: .4byte gActionData
-_08030010: .4byte gUnknown_0202BCF0
+_08030010: .4byte gRAMChapterData
 _08030014: .4byte gBattleTarget
 _08030018: .4byte gUnknown_0859BE10
 

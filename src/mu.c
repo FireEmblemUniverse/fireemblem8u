@@ -1438,7 +1438,7 @@ static void MU_DisplayAsMMS(struct MUProc* proc) {
 
         if (proc->stateId != MU_STATE_UI_DISPLAY)
             if (proc->pUnit && UNIT_FACTION(proc->pUnit) == FACTION_RED)
-                if (gUnknown_0202BCF0.chapterVisionRange != 0)
+                if (gRAMChapterData.chapterVisionRange != 0)
                     if (!gBmMapFog[MU_GetDisplayYOrg(proc) >> 4][MU_GetDisplayXOrg(proc) >> 4])
                         return; // whew
 
@@ -1469,7 +1469,7 @@ static u16 MU_GetMovementSpeed(struct MUProc* proc) {
 
             if (speed & 0x40)
                 speed ^= 0x40;
-            else if (gUnknown_0202BCF0.unk40_8 || (gKeyStatusPtr->heldKeys & A_BUTTON))
+            else if (gRAMChapterData.unk40_8 || (gKeyStatusPtr->heldKeys & A_BUTTON))
                 speed *= 4;
 
             if (speed > 0x80)
@@ -1481,7 +1481,7 @@ static u16 MU_GetMovementSpeed(struct MUProc* proc) {
         if (!IsFirstPlaythrough() && (gKeyStatusPtr->heldKeys & A_BUTTON))
             return 0x80;
 
-        if (gUnknown_0202BCF0.unk40_8)
+        if (gRAMChapterData.unk40_8)
             return 0x40;
     }
 

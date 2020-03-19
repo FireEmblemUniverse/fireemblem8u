@@ -97,14 +97,14 @@ void UnitGainSupportExp(struct Unit* unit, int num)
             gain = maxExp - currentExp;
 
         unit->supports[num] = currentExp + gain;
-        gUnknown_0202BCF0.chapterTotalSupportGain += gain;
+        gRAMChapterData.chapterTotalSupportGain += gain;
     }
 }
 
 void UnitGainSupportLevel(struct Unit* unit, int num)
 {
     unit->supports[num]++;
-    gUnknown_0202BCF0.chapterTotalSupportGain++;
+    gRAMChapterData.chapterTotalSupportGain++;
 
     SetSupportLevelGained(unit->pCharacterData->number, GetUnitSupporterCharacter(unit, num));
 }
@@ -113,10 +113,10 @@ s8 CanUnitSupportNow(struct Unit* unit, int num)
 {
     int exp, maxExp;
 
-    if (gUnknown_0202BCF0.chapterStateBits & CHAPTER_FLAG_7)
+    if (gRAMChapterData.chapterStateBits & CHAPTER_FLAG_7)
         return FALSE;
 
-    if (gUnknown_0202BCF0.chapterStateBits & CHAPTER_FLAG_3)
+    if (gRAMChapterData.chapterStateBits & CHAPTER_FLAG_3)
         return FALSE;
 
     if (HasUnitGainedSupportLevel(unit, num))
@@ -178,10 +178,10 @@ void ProcessTurnSupportExp(void)
 {
     int i, j, jMax;
 
-    if (gUnknown_0202BCF0.chapterTurnNumber == 1)
+    if (gRAMChapterData.chapterTurnNumber == 1)
         return;
 
-    if (gUnknown_0202BCF0.chapterStateBits & CHAPTER_FLAG_7)
+    if (gRAMChapterData.chapterStateBits & CHAPTER_FLAG_7)
         return;
 
     for (i = 1; i < 0x40; ++i)

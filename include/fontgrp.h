@@ -154,5 +154,6 @@ void sub_8004D5C(u16 *a, int b, int c, int d);
 // ??? sub_8004D7C(???);
 // ??? sub_8004DB8(???);
 // ??? sub_8004DF8(???);
+void SetupDebugFontForBG(int bg, int tileDataOffset);
 
 #endif  // GUARD_FONTGRP_H

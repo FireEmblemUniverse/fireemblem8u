@@ -13,7 +13,7 @@ sub_802237C: @ 0x0802237C
 	push {r5, r6, r7}
 	sub sp, #4
 	str r0, [sp]
-	ldr r1, _080223A4  @ gUnknown_0202BCF0
+	ldr r1, _080223A4  @ gRAMChapterData
 	movs r0, #0xe
 	ldrsb r0, [r1, r0]
 	cmp r0, #0x16
@@ -26,7 +26,7 @@ _08022398:
 	bl Proc_Goto
 	b _080224BE
 	.align 2, 0
-_080223A4: .4byte gUnknown_0202BCF0
+_080223A4: .4byte gRAMChapterData
 _080223A8: .4byte 0x000003E7
 _080223AC:
 	bl SetupBackgroundForWeatherMaybe
@@ -123,7 +123,7 @@ _080223AC:
 	bl sub_80895B4
 	movs r4, #0x80
 	lsls r4, r4, #1
-	ldr r0, _080224E4  @ gUnknown_0202BCF0
+	ldr r0, _080224E4  @ gRAMChapterData
 	bl sub_808979C
 	adds r1, r0, #0
 	adds r0, r4, #0
@@ -166,7 +166,7 @@ _080224D4: .4byte gBG1TilemapBuffer
 _080224D8: .4byte gBG2TilemapBuffer
 _080224DC: .4byte gBG3TilemapBuffer
 _080224E0: .4byte gLCDControlBuffer
-_080224E4: .4byte gUnknown_0202BCF0
+_080224E4: .4byte gRAMChapterData
 _080224E8: .4byte 0x00000246
 
 	THUMB_FUNC_END sub_802237C
@@ -213,7 +213,7 @@ sub_8022528: @ 0x08022528
 	movs r0, #4
 	bl BG_EnableSyncByMask
 	bl DisableMapPaletteAnimations
-	ldr r4, _080225A4  @ gUnknown_0202BCF0
+	ldr r4, _080225A4  @ gRAMChapterData
 	movs r0, #0xe
 	ldrsb r0, [r4, r0]
 	bl UnpackChapterMapGraphics
@@ -253,7 +253,7 @@ sub_8022528: @ 0x08022528
 	bx r0
 	.align 2, 0
 _080225A0: .4byte gBG2TilemapBuffer
-_080225A4: .4byte gUnknown_0202BCF0
+_080225A4: .4byte gRAMChapterData
 _080225A8: .4byte gUnknown_0202BCB0
 
 	THUMB_FUNC_END sub_8022528

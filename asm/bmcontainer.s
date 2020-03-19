@@ -195,7 +195,7 @@ HasConvoyAccess: @ 0x0803161C
 	.align 2, 0
 _08031638: .4byte gUnknown_03005280
 _0803163C:
-	ldr r0, _08031654  @ gUnknown_0202BCF0
+	ldr r0, _08031654  @ gRAMChapterData
 	ldrb r0, [r0, #0xe]
 	lsls r0, r0, #0x18
 	asrs r0, r0, #0x18
@@ -209,7 +209,7 @@ _08031650:
 	movs r0, #0
 	b _0803165A
 	.align 2, 0
-_08031654: .4byte gUnknown_0202BCF0
+_08031654: .4byte gRAMChapterData
 _08031658:
 	movs r0, #1
 _0803165A:
@@ -221,7 +221,7 @@ _0803165A:
 	THUMB_FUNC_START sub_8031660
 sub_8031660: @ 0x08031660
 	push {lr}
-	ldr r0, _0803167C  @ gUnknown_0202BCF0
+	ldr r0, _0803167C  @ gRAMChapterData
 	ldrb r0, [r0, #0xe]
 	lsls r0, r0, #0x18
 	asrs r0, r0, #0x18
@@ -233,7 +233,7 @@ sub_8031660: @ 0x08031660
 	movs r0, #1
 	b _08031682
 	.align 2, 0
-_0803167C: .4byte gUnknown_0202BCF0
+_0803167C: .4byte gRAMChapterData
 _08031680:
 	movs r0, #0
 _08031682:

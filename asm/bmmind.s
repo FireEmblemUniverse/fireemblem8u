@@ -875,7 +875,7 @@ sub_8032674: @ 0x08032674
 	bl GetUnitSMSId
 	bl SMS_RegisterUsage
 	bl SMS_FlushIndirect
-	ldr r0, _08032724  @ gUnknown_0202BCF0
+	ldr r0, _08032724  @ gRAMChapterData
 	adds r0, #0x41
 	ldrb r0, [r0]
 	lsls r0, r0, #0x1e
@@ -890,7 +890,7 @@ _08032716:
 	.align 2, 0
 _0803271C: .4byte gUnknown_0859DA94
 _08032720: .4byte 0x0000FFFB
-_08032724: .4byte gUnknown_0202BCF0
+_08032724: .4byte gRAMChapterData
 
 	THUMB_FUNC_END sub_8032674
 

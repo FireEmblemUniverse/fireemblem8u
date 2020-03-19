@@ -110,3 +110,29 @@ void DebugPrint(int x, int y, int width, const char *text)
     proc->text = text;
     proc->width = width;
 }
+
+int StartDebugMenu(struct MenuProc *menuProc)
+{
+    EndMenu(menuProc);
+    ClearBg0Bg1();
+    StartOrphanMenu(&gDebugMenuDef);
+    SetupDebugFontForBG(2, 0);
+    return 1;
+}
+
+u8 DebugMenu_MapIdle(struct MenuProc *menuProc, struct MenuItemProc *menuItemProc)
+{
+    DebugMenuMapIdleCore(menuItemProc, 7, 2);
+    return 0;
+}
+
+u8 DebugMenu_MapEffect(struct MenuProc *menuProc, struct MenuItemProc *menuItemProc)
+{
+  EndBMapMain();
+  gRAMChapterData.chapterIndex = sub_801C650(menuItemProc->itemNumber);
+  gRAMChapterData.chapterModeIndex = gUnknown_03001780;
+  ChapterChangeUnitCleanup();
+  nullsub_9();
+  gRAMChapterData.unk4A_2 = 2;
+  return 23;
+}

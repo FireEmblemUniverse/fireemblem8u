@@ -5483,7 +5483,7 @@ void sub_80A40A8();
 // ??? GetNextChapterWinDataEntryIndex(???);
 // ??? GetWonChapterCount(???);
 // ??? sub_80A4330(???);
-void RegisterChapterTimeAndTurnCount(struct Struct0202BCF0* chData);
+void RegisterChapterTimeAndTurnCount(struct RAMChapterData* chData);
 // ??? sub_80A43AC(???);
 // ??? GetGameTotalTurnCount(???);
 // ??? DoesThisChapterCount(???);

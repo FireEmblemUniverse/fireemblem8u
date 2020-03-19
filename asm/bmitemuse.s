@@ -301,14 +301,14 @@ _08028BB8:
 	.align 2, 0
 _08028BC4: .4byte MakeTargetListForLightRune
 _08028BC8:
-	ldr r0, _08028BD4  @ gUnknown_0202BCF0
+	ldr r0, _08028BD4  @ gRAMChapterData
 	ldrb r1, [r0, #0xd]
 	negs r0, r1
 	orrs r0, r1
 	lsrs r0, r0, #0x1f
 	b _08028C06
 	.align 2, 0
-_08028BD4: .4byte gUnknown_0202BCF0
+_08028BD4: .4byte gRAMChapterData
 _08028BD8:
 	ldr r1, _08028BE4  @ MakeTargetListForDanceRing
 	adds r0, r4, #0
@@ -803,7 +803,7 @@ _080290B4:
 CanUseTorch: @ 0x080290B8
 	push {lr}
 	adds r1, r0, #0
-	ldr r0, _080290D8  @ gUnknown_0202BCF0
+	ldr r0, _080290D8  @ gRAMChapterData
 	ldrb r0, [r0, #0xd]
 	cmp r0, #0
 	beq _080290DC
@@ -817,7 +817,7 @@ CanUseTorch: @ 0x080290B8
 	movs r0, #1
 	b _080290DE
 	.align 2, 0
-_080290D8: .4byte gUnknown_0202BCF0
+_080290D8: .4byte gRAMChapterData
 _080290DC:
 	movs r0, #0
 _080290DE:
@@ -1563,7 +1563,7 @@ WarpTargetPosSelect_Loop: @ 0x0802969C
 	bl BG_Fill
 	movs r0, #4
 	bl BG_EnableSyncByMask
-	ldr r0, _0802972C  @ gUnknown_0202BCF0
+	ldr r0, _0802972C  @ gRAMChapterData
 	adds r0, #0x41
 	ldrb r0, [r0]
 	lsls r0, r0, #0x1e
@@ -1579,9 +1579,9 @@ _0802971C: .4byte gKeyStatusPtr
 _08029720: .4byte gActionData
 _08029724: .4byte gActiveUnit
 _08029728: .4byte gBG2TilemapBuffer
-_0802972C: .4byte gUnknown_0202BCF0
+_0802972C: .4byte gRAMChapterData
 _08029730:
-	ldr r0, _080297C0  @ gUnknown_0202BCF0
+	ldr r0, _080297C0  @ gRAMChapterData
 	adds r0, #0x41
 	ldrb r0, [r0]
 	lsls r0, r0, #0x1e
@@ -1605,7 +1605,7 @@ _08029742:
 	bl BG_Fill
 	movs r0, #4
 	bl BG_EnableSyncByMask
-	ldr r0, _080297C0  @ gUnknown_0202BCF0
+	ldr r0, _080297C0  @ gRAMChapterData
 	adds r0, #0x41
 	ldrb r0, [r0]
 	lsls r0, r0, #0x1e
@@ -1652,7 +1652,7 @@ _080297BA:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_080297C0: .4byte gUnknown_0202BCF0
+_080297C0: .4byte gRAMChapterData
 _080297C4: .4byte gKeyStatusPtr
 _080297C8: .4byte gBG2TilemapBuffer
 _080297CC: .4byte gUnknown_0202BCB0
@@ -1766,7 +1766,7 @@ SetupWarpTargetSelection: @ 0x0802987C
 	adds r1, r0, #0
 	adds r0, r4, #0
 	bl NewBottomHelpText
-	ldr r0, _080298D0  @ gUnknown_0202BCF0
+	ldr r0, _080298D0  @ gRAMChapterData
 	adds r0, #0x41
 	ldrb r0, [r0]
 	lsls r0, r0, #0x1e
@@ -1783,7 +1783,7 @@ _080298C0: .4byte gBmMapMovement
 _080298C4: .4byte gUnknown_0859D2F8
 _080298C8: .4byte WarpTargetSelection_OnSelect
 _080298CC: .4byte 0x00000875
-_080298D0: .4byte gUnknown_0202BCF0
+_080298D0: .4byte gRAMChapterData
 
 	THUMB_FUNC_END SetupWarpTargetSelection
 
@@ -1824,7 +1824,7 @@ PrepareTargetSelectionForMineAndLightRune: @ 0x080298F0
 	adds r1, r0, #0
 	adds r0, r4, #0
 	bl NewBottomHelpText
-	ldr r0, _08029940  @ gUnknown_0202BCF0
+	ldr r0, _08029940  @ gRAMChapterData
 	adds r0, #0x41
 	ldrb r0, [r0]
 	lsls r0, r0, #0x1e
@@ -1840,7 +1840,7 @@ _0802992E:
 _08029934: .4byte gBmMapMovement
 _08029938: .4byte gUnknown_0859D2D8
 _0802993C: .4byte sub_80298D4
-_08029940: .4byte gUnknown_0202BCF0
+_08029940: .4byte gRAMChapterData
 
 	THUMB_FUNC_END PrepareTargetSelectionForMineAndLightRune
 
@@ -1912,7 +1912,7 @@ SetupHammerneUseSelection: @ 0x080299B8
 	adds r1, r0, #0
 	adds r0, r4, #0
 	bl NewBottomHelpText
-	ldr r0, _08029A04  @ gUnknown_0202BCF0
+	ldr r0, _08029A04  @ gRAMChapterData
 	adds r0, #0x41
 	ldrb r0, [r0]
 	lsls r0, r0, #0x1e
@@ -1928,7 +1928,7 @@ _080299F2:
 _080299F8: .4byte gBmMapMovement
 _080299FC: .4byte gUnknown_0859D3B8
 _08029A00: .4byte 0x00000878
-_08029A04: .4byte gUnknown_0202BCF0
+_08029A04: .4byte gRAMChapterData
 
 	THUMB_FUNC_END SetupHammerneUseSelection
 
@@ -2481,7 +2481,7 @@ TorchTargetSelection_Loop: @ 0x08029DF0
 	beq _08029E7A
 	cmp r4, #0
 	beq _08029E68
-	ldr r0, _08029E5C  @ gUnknown_0202BCF0
+	ldr r0, _08029E5C  @ gRAMChapterData
 	adds r0, #0x41
 	ldrb r0, [r0]
 	lsls r0, r0, #0x1e
@@ -2505,11 +2505,11 @@ _08029E34:
 _08029E50: .4byte gUnknown_0202BCB0
 _08029E54: .4byte gBmMapRange
 _08029E58: .4byte gKeyStatusPtr
-_08029E5C: .4byte gUnknown_0202BCF0
+_08029E5C: .4byte gRAMChapterData
 _08029E60: .4byte gActionData
 _08029E64: .4byte gActiveUnit
 _08029E68:
-	ldr r0, _08029EC8  @ gUnknown_0202BCF0
+	ldr r0, _08029EC8  @ gRAMChapterData
 	adds r0, #0x41
 	ldrb r0, [r0]
 	lsls r0, r0, #0x1e
@@ -2533,7 +2533,7 @@ _08029E7A:
 	adds r0, r6, #0
 	movs r1, #0x63
 	bl Proc_Goto
-	ldr r0, _08029EC8  @ gUnknown_0202BCF0
+	ldr r0, _08029EC8  @ gRAMChapterData
 	adds r0, #0x41
 	ldrb r0, [r0]
 	lsls r0, r0, #0x1e
@@ -2554,7 +2554,7 @@ _08029EC0:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_08029EC8: .4byte gUnknown_0202BCF0
+_08029EC8: .4byte gRAMChapterData
 _08029ECC: .4byte gKeyStatusPtr
 _08029ED0: .4byte gBG2TilemapBuffer
 _08029ED4: .4byte gUnknown_0202BCB0
@@ -2567,7 +2567,7 @@ NewTorchStaffSelection: @ 0x08029ED8
 	ldr r0, _08029EF8  @ gUnknown_0859BA38
 	movs r1, #3
 	bl Proc_Start
-	ldr r0, _08029EFC  @ gUnknown_0202BCF0
+	ldr r0, _08029EFC  @ gRAMChapterData
 	adds r0, #0x41
 	ldrb r0, [r0]
 	lsls r0, r0, #0x1e
@@ -2580,7 +2580,7 @@ _08029EF4:
 	bx r0
 	.align 2, 0
 _08029EF8: .4byte gUnknown_0859BA38
-_08029EFC: .4byte gUnknown_0202BCF0
+_08029EFC: .4byte gRAMChapterData
 
 	THUMB_FUNC_END NewTorchStaffSelection
 

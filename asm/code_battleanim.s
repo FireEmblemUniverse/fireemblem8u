@@ -4404,7 +4404,7 @@ _08051E78:
 _08051E8A:
 	mov ip, r0
 _08051E8C:
-	ldr r0, _08051F08  @ gUnknown_0202BCF0
+	ldr r0, _08051F08  @ gRAMChapterData
 	ldrb r0, [r0, #0x15]
 	ldr r0, _08051F0C  @ gUnknown_0200004C
 	ldr r1, [r5, #0x10]
@@ -4463,7 +4463,7 @@ _08051E8C:
 _08051EFC: .4byte gUnknown_0200003C
 _08051F00: .4byte gUnknown_02014DC8
 _08051F04: .4byte 0xFFFFF800
-_08051F08: .4byte gUnknown_0202BCF0
+_08051F08: .4byte gRAMChapterData
 _08051F0C: .4byte gUnknown_0200004C
 _08051F10: .4byte gUnknown_02000044
 _08051F14: .4byte gUnknown_085B9D6C
@@ -12993,7 +12993,7 @@ _0805618A:
 	.align 2, 0
 _08056194: .4byte gUnknown_0203E0FE
 _08056198:
-	ldr r0, _080561C4  @ gUnknown_0202BCF0
+	ldr r0, _080561C4  @ gRAMChapterData
 	ldrb r0, [r0, #0xe]
 	lsls r0, r0, #0x18
 	asrs r0, r0, #0x18
@@ -13012,7 +13012,7 @@ _080561BE:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_080561C4: .4byte gUnknown_0202BCF0
+_080561C4: .4byte gRAMChapterData
 
 	THUMB_FUNC_END ekrBattleEnding_8056170
 
@@ -15465,7 +15465,7 @@ _080574BE:
 	cmp r6, #0
 	beq _080574F8
 	ldrb r4, [r1]
-	ldr r0, _080575C4  @ gUnknown_0202BCF0
+	ldr r0, _080575C4  @ gRAMChapterData
 	ldrb r0, [r0, #0xe]
 	lsls r0, r0, #0x18
 	asrs r0, r0, #0x18
@@ -15479,7 +15479,7 @@ _080574F8:
 	beq _08057516
 	ldr r0, [sp, #0x38]
 	ldrb r4, [r0]
-	ldr r0, _080575C4  @ gUnknown_0202BCF0
+	ldr r0, _080575C4  @ gRAMChapterData
 	ldrb r0, [r0, #0xe]
 	lsls r0, r0, #0x18
 	asrs r0, r0, #0x18
@@ -15501,7 +15501,7 @@ _08057516:
 	strh r0, [r1, #2]
 	cmp r6, #0
 	beq _08057544
-	ldr r0, _080575C4  @ gUnknown_0202BCF0
+	ldr r0, _080575C4  @ gRAMChapterData
 	ldrb r0, [r0, #0xe]
 	lsls r0, r0, #0x18
 	asrs r0, r0, #0x18
@@ -15515,7 +15515,7 @@ _08057544:
 	beq _08057562
 	mov r2, r8
 	ldrh r4, [r2, #2]
-	ldr r0, _080575C4  @ gUnknown_0202BCF0
+	ldr r0, _080575C4  @ gRAMChapterData
 	ldrb r0, [r0, #0xe]
 	lsls r0, r0, #0x18
 	asrs r0, r0, #0x18
@@ -15550,7 +15550,7 @@ _0805757A:
 	ldrh r0, [r1, #2]
 	strh r0, [r1]
 _08057592:
-	ldr r0, _080575C4  @ gUnknown_0202BCF0
+	ldr r0, _080575C4  @ gRAMChapterData
 	ldrb r0, [r0, #0x15]
 	cmp r0, #2
 	bgt _080575D4
@@ -15568,7 +15568,7 @@ _080575B4: .4byte gUnknown_0895E0A4
 _080575B8: .4byte gUnknown_0203E19C
 _080575BC: .4byte gUnknown_0203E1CC
 _080575C0: .4byte gUnknown_0203E11C
-_080575C4: .4byte gUnknown_0202BCF0
+_080575C4: .4byte gRAMChapterData
 _080575C8: .4byte gUnknown_0202BCB0
 _080575CC: .4byte gUnknown_0203E120
 _080575D0: .4byte gUnknown_0203E102
@@ -16094,7 +16094,7 @@ _080579BE:
 	bl sub_804FD54
 	cmp r0, #1
 	beq _080579D2
-	ldr r0, _08057A10  @ gUnknown_0202BCF0
+	ldr r0, _08057A10  @ gRAMChapterData
 	adds r0, #0x40
 	ldrb r0, [r0]
 	lsls r0, r0, #0x1f
@@ -16120,7 +16120,7 @@ _08057A00: .4byte gUnknown_0203E1C8
 _08057A04: .4byte gUnknown_0203E1D4
 _08057A08: .4byte gUnknown_0203E1D8
 _08057A0C: .4byte gUnknown_0203E1A4
-_08057A10: .4byte gUnknown_0202BCF0
+_08057A10: .4byte gRAMChapterData
 _08057A14: .4byte gUnknown_0203E1DC
 _08057A18:
 	ldr r0, _08057A3C  @ gUnknown_0203E1DC
@@ -16150,7 +16150,7 @@ _08057A4C:
 	ldr r0, _08057C78  @ gUnknown_0203E1CC
 	ldrh r4, [r0, #2]
 _08057A50:
-	ldr r0, _08057C7C  @ gUnknown_0202BCF0
+	ldr r0, _08057C7C  @ gRAMChapterData
 	ldrb r0, [r0, #0xe]
 	lsls r0, r0, #0x18
 	asrs r0, r0, #0x18
@@ -16429,7 +16429,7 @@ _08057C72:
 	b _08057C9A
 	.align 2, 0
 _08057C78: .4byte gUnknown_0203E1CC
-_08057C7C: .4byte gUnknown_0202BCF0
+_08057C7C: .4byte gRAMChapterData
 _08057C80: .4byte gUnknown_0203E0FE
 _08057C84: .4byte gUnknown_0203E120
 _08057C88: .4byte gUnknown_0203E104
@@ -65739,7 +65739,7 @@ sub_80700CC: @ 0x080700CC
 	ldrsh r0, [r5, r1]
 	cmp r0, #0
 	bne _080700EA
-	ldr r0, _08070130  @ gUnknown_0202BCF0
+	ldr r0, _08070130  @ gRAMChapterData
 	ldrb r0, [r0, #0xe]
 	lsls r0, r0, #0x18
 	asrs r0, r0, #0x18
@@ -65778,7 +65778,7 @@ _080700EA:
 	beq _0807015C
 	b _08070176
 	.align 2, 0
-_08070130: .4byte gUnknown_0202BCF0
+_08070130: .4byte gRAMChapterData
 _08070134: .4byte gUnknown_0203E120
 _08070138:
 	ldr r0, _08070154  @ gUnknown_02020068
@@ -69130,7 +69130,7 @@ SomePlaySound_8071990: @ 0x08071990
 	bl sub_8071A98
 	adds r0, r5, #0
 	bl Sound_SetVolume8002274
-	ldr r0, _080719D4  @ gUnknown_0202BCF0
+	ldr r0, _080719D4  @ gRAMChapterData
 	adds r0, #0x41
 	ldrb r0, [r0]
 	lsls r0, r0, #0x1e
@@ -69142,7 +69142,7 @@ SomePlaySound_8071990: @ 0x08071990
 	b _080719E6
 	.align 2, 0
 _080719D0: .4byte gUnknown_0202BCB0
-_080719D4: .4byte gUnknown_0202BCF0
+_080719D4: .4byte gRAMChapterData
 _080719D8:
 	ldr r0, _080719EC  @ gUnknown_08758A48
 	movs r1, #3
@@ -69180,7 +69180,7 @@ _08071A0A:
 	bl sub_8071A98
 	ldr r0, [r4, #0x44]
 	bl Sound_SetVolume8002274
-	ldr r0, _08071A40  @ gUnknown_0202BCF0
+	ldr r0, _08071A40  @ gRAMChapterData
 	adds r0, #0x41
 	ldrb r0, [r0]
 	lsls r0, r0, #0x1e
@@ -69198,7 +69198,7 @@ _08071A38:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_08071A40: .4byte gUnknown_0202BCF0
+_08071A40: .4byte gRAMChapterData
 
 	THUMB_FUNC_END Loop6C_efxSoundSE
 
@@ -79164,7 +79164,7 @@ sub_80768A0: @ 0x080768A0
 	ldrsh r0, [r4, r1]
 	cmp r0, #0
 	bne _080768BE
-	ldr r0, _080768F4  @ gUnknown_0202BCF0
+	ldr r0, _080768F4  @ gRAMChapterData
 	ldrb r0, [r0, #0xe]
 	lsls r0, r0, #0x18
 	asrs r0, r0, #0x18
@@ -79197,7 +79197,7 @@ _080768EC:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_080768F4: .4byte gUnknown_0202BCF0
+_080768F4: .4byte gRAMChapterData
 
 	THUMB_FUNC_END sub_80768A0
 

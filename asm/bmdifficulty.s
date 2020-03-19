@@ -8,7 +8,7 @@
 	THUMB_FUNC_START GetCurrentPromotedLevelBonus
 GetCurrentPromotedLevelBonus: @ 0x08037B44
 	push {lr}
-	ldr r0, _08037B58  @ gUnknown_0202BCF0
+	ldr r0, _08037B58  @ gRAMChapterData
 	ldrb r1, [r0, #0x14]
 	movs r0, #0x40
 	ands r0, r1
@@ -17,7 +17,7 @@ GetCurrentPromotedLevelBonus: @ 0x08037B44
 	movs r0, #9
 	b _08037B5E
 	.align 2, 0
-_08037B58: .4byte gUnknown_0202BCF0
+_08037B58: .4byte gRAMChapterData
 _08037B5C:
 	movs r0, #0x13
 _08037B5E:
@@ -30,7 +30,7 @@ _08037B5E:
 CanUnitSeize: @ 0x08037B64
 	push {lr}
 	adds r3, r0, #0
-	ldr r0, _08037B7C  @ gUnknown_0202BCF0
+	ldr r0, _08037B7C  @ gRAMChapterData
 	ldrb r1, [r0, #0x1b]
 	cmp r1, #2
 	beq _08037B86
@@ -40,7 +40,7 @@ CanUnitSeize: @ 0x08037B64
 	beq _08037B86
 	b _08037B8C
 	.align 2, 0
-_08037B7C: .4byte gUnknown_0202BCF0
+_08037B7C: .4byte gRAMChapterData
 _08037B80:
 	cmp r1, #3
 	beq _08037B8A
@@ -210,7 +210,7 @@ sub_8037CA0: @ 0x08037CA0
 	ldr r4, _08037CF0  @ gUnknown_030017A0
 	adds r0, r4, #0
 	bl sub_8037EB0
-	ldr r0, _08037CF4  @ gUnknown_0202BCF0
+	ldr r0, _08037CF4  @ gRAMChapterData
 	ldrb r1, [r0, #0x14]
 	movs r0, #4
 	ands r0, r1
@@ -247,7 +247,7 @@ _08037CEA:
 	bx r0
 	.align 2, 0
 _08037CF0: .4byte gUnknown_030017A0
-_08037CF4: .4byte gUnknown_0202BCF0
+_08037CF4: .4byte gRAMChapterData
 
 	THUMB_FUNC_END sub_8037CA0
 
@@ -256,7 +256,7 @@ sub_8037CF8: @ 0x08037CF8
 	push {r4, lr}
 	bl sub_8037CA0
 	bl sub_8037FCC
-	ldr r0, _08037D50  @ gUnknown_0202BCF0
+	ldr r0, _08037D50  @ gRAMChapterData
 	ldrb r1, [r0, #0x14]
 	movs r0, #4
 	ands r0, r1
@@ -296,7 +296,7 @@ _08037D4A:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_08037D50: .4byte gUnknown_0202BCF0
+_08037D50: .4byte gRAMChapterData
 _08037D54: .4byte gUnknown_030017A0
 
 	THUMB_FUNC_END sub_8037CF8
@@ -320,7 +320,7 @@ sub_8037D68: @ 0x08037D68
 	mov r0, sp
 	movs r2, #0x58
 	bl memcpy
-	ldr r0, _08037D8C  @ gUnknown_0202BCF0
+	ldr r0, _08037D8C  @ gRAMChapterData
 	ldrb r1, [r0, #0x14]
 	movs r0, #4
 	ands r0, r1
@@ -329,7 +329,7 @@ sub_8037D68: @ 0x08037D68
 	b _08037DD2
 	.align 2, 0
 _08037D88: .4byte gUnknown_080D8018
-_08037D8C: .4byte gUnknown_0202BCF0
+_08037D8C: .4byte gRAMChapterData
 _08037D90:
 	movs r0, #1
 	b _08037DD4
@@ -484,7 +484,7 @@ sub_8037E7C: @ 0x08037E7C
 	lsls r0, r0, #0xd
 	lsrs r4, r0, #0xe
 	bl GetGameClock
-	ldr r1, _08037EA8  @ gUnknown_0202BCF0
+	ldr r1, _08037EA8  @ gRAMChapterData
 	ldr r1, [r1, #4]
 	subs r0, r0, r1
 	movs r1, #0x3c
@@ -500,7 +500,7 @@ _08037E9E:
 	pop {r1}
 	bx r1
 	.align 2, 0
-_08037EA8: .4byte gUnknown_0202BCF0
+_08037EA8: .4byte gRAMChapterData
 _08037EAC: .4byte 0x00034BC0
 
 	THUMB_FUNC_END sub_8037E7C
@@ -511,7 +511,7 @@ sub_8037EB0: @ 0x08037EB0
 	adds r6, r0, #0
 	ldrh r4, [r6]
 	bl sub_80A49A4
-	ldr r1, _08037FAC  @ gUnknown_0202BCF0
+	ldr r1, _08037FAC  @ gRAMChapterData
 	ldr r1, [r1, #0x38]
 	lsls r1, r1, #4
 	lsrs r1, r1, #0xc
@@ -551,7 +551,7 @@ _08037EF2:
 	ands r1, r2
 	lsls r4, r1, #8
 	orrs r4, r0
-	ldr r5, _08037FAC  @ gUnknown_0202BCF0
+	ldr r5, _08037FAC  @ gRAMChapterData
 	ldrh r0, [r5, #0x10]
 	adds r4, r4, r0
 	movs r0, #0xfa
@@ -638,7 +638,7 @@ _08037FA6:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_08037FAC: .4byte gUnknown_0202BCF0
+_08037FAC: .4byte gRAMChapterData
 _08037FB0: .4byte 0x0000C350
 _08037FB4: .4byte 0x0001000C
 _08037FB8: .4byte 0x0003FFFF
@@ -805,7 +805,7 @@ _080380BC:
 	orrs r1, r0
 	strh r1, [r3, #8]
 _080380F4:
-	ldr r0, _08038130  @ gUnknown_0202BCF0
+	ldr r0, _08038130  @ gRAMChapterData
 	ldrb r1, [r0, #0x14]
 	movs r0, #4
 	ands r0, r1
@@ -831,7 +831,7 @@ _08038120: .4byte 0xFFF80001
 _08038124: .4byte 0x0000C350
 _08038128: .4byte 0x00001FFF
 _0803812C: .4byte 0xFFFFFC07
-_08038130: .4byte gUnknown_0202BCF0
+_08038130: .4byte gRAMChapterData
 
 	THUMB_FUNC_END sub_8037FCC
 
@@ -883,7 +883,7 @@ _08038170:
 	ands r0, r2
 	orrs r0, r1
 	strb r0, [r3, #8]
-	ldr r0, _080381D4  @ gUnknown_0202BCF0
+	ldr r0, _080381D4  @ gRAMChapterData
 	ldrb r1, [r0, #0x14]
 	movs r0, #4
 	ands r0, r1
@@ -918,7 +918,7 @@ _080381C2:
 _080381C8: .4byte gUnknown_030017A0
 _080381CC: .4byte 0x0000C350
 _080381D0: .4byte 0x00001FFF
-_080381D4: .4byte gUnknown_0202BCF0
+_080381D4: .4byte gRAMChapterData
 _080381D8: .4byte 0x000003FF
 _080381DC: .4byte 0xFFF003FF
 
@@ -2446,7 +2446,7 @@ sub_8038E38: @ 0x08038E38
 	bl sub_8037E7C
 	adds r5, r0, #0
 	bl GetGameClock
-	ldr r1, _08038E9C  @ gUnknown_0202BCF0
+	ldr r1, _08038E9C  @ gRAMChapterData
 	ldr r1, [r1, #4]
 	subs r0, r0, r1
 	movs r1, #0x3c
@@ -2480,7 +2480,7 @@ _08038E66:
 	.align 2, 0
 _08038E94: .4byte gUnknown_030017A0
 _08038E98: .4byte 0x04000003
-_08038E9C: .4byte gUnknown_0202BCF0
+_08038E9C: .4byte gRAMChapterData
 _08038EA0: .4byte gUnknown_020039C8
 _08038EA4: .4byte gUnknown_080D7FD0
 
@@ -2731,7 +2731,7 @@ _0803905A:
 	movs r0, #0
 	mov r1, r9
 	str r0, [r1, #0x34]
-	ldr r0, _080390D0  @ gUnknown_0202BCF0
+	ldr r0, _080390D0  @ gRAMChapterData
 	adds r0, #0x41
 	ldrb r0, [r0]
 	lsls r0, r0, #0x1e
@@ -2754,7 +2754,7 @@ _080390C0: .4byte gUnknown_02003B88
 _080390C4: .4byte gUnknown_02003BA8
 _080390C8: .4byte gUnknown_0859E7C8
 _080390CC: .4byte gUnknown_0859E7D4
-_080390D0: .4byte gUnknown_0202BCF0
+_080390D0: .4byte gRAMChapterData
 
 	THUMB_FUNC_END sub_803901C
 
@@ -2853,7 +2853,7 @@ _08039164:
 	str r4, [sp, #4]
 	bl sub_8038588
 _0803919C:
-	ldr r0, _080391CC  @ gUnknown_0202BCF0
+	ldr r0, _080391CC  @ gRAMChapterData
 	adds r0, #0x41
 	ldrb r0, [r0]
 	lsls r0, r0, #0x1e
@@ -2874,7 +2874,7 @@ _080391BA:
 	.align 2, 0
 _080391C4: .4byte gUnknown_080D7FD0
 _080391C8: .4byte gUnknown_02003A08
-_080391CC: .4byte gUnknown_0202BCF0
+_080391CC: .4byte gRAMChapterData
 
 	THUMB_FUNC_END sub_80390D4
 
@@ -3217,7 +3217,7 @@ sub_803943C: @ 0x0803943C
 	str r2, [r1, #0xc]
 	str r2, [r1, #0x10]
 	str r2, [r4, #0x38]
-	ldr r0, _08039488  @ gUnknown_0202BCF0
+	ldr r0, _08039488  @ gRAMChapterData
 	adds r0, #0x41
 	ldrb r0, [r0]
 	lsls r0, r0, #0x1e
@@ -3234,7 +3234,7 @@ _08039478: .4byte gUnknown_02003B48
 _0803947C: .4byte gUnknown_02003BE8
 _08039480: .4byte gUnknown_0859E82C
 _08039484: .4byte gUnknown_0859E838
-_08039488: .4byte gUnknown_0202BCF0
+_08039488: .4byte gRAMChapterData
 
 	THUMB_FUNC_END sub_803943C
 
@@ -3316,7 +3316,7 @@ _0803950E:
 	bl sub_8038588
 	movs r0, #1
 	bl BG_EnableSyncByMask
-	ldr r0, _08039550  @ gUnknown_0202BCF0
+	ldr r0, _08039550  @ gRAMChapterData
 	adds r0, #0x41
 	ldrb r0, [r0]
 	lsls r0, r0, #0x1e
@@ -3335,7 +3335,7 @@ _0803953E:
 	.align 2, 0
 _08039548: .4byte gUnknown_030017A0
 _0803954C: .4byte gUnknown_02003B70
-_08039550: .4byte gUnknown_0202BCF0
+_08039550: .4byte gRAMChapterData
 
 	THUMB_FUNC_END sub_80394A8
 
@@ -3353,7 +3353,7 @@ sub_8039554: @ 0x08039554
 	str r0, [r4, #0x34]
 	movs r0, #2
 	str r0, [r4, #0x3c]
-	ldr r0, _08039588  @ gUnknown_0202BCF0
+	ldr r0, _08039588  @ gRAMChapterData
 	adds r0, #0x41
 	ldrb r0, [r0]
 	lsls r0, r0, #0x1e
@@ -3366,7 +3366,7 @@ _08039582:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_08039588: .4byte gUnknown_0202BCF0
+_08039588: .4byte gRAMChapterData
 
 	THUMB_FUNC_END sub_8039554
 

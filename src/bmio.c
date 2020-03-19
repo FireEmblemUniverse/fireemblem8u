@@ -268,10 +268,10 @@ void BMapVSync_InitMapAnimations(struct BMVSyncProc* proc) {
     proc->tilePalAnimClock = 0;
 
     proc->tileGfxAnimStart = proc->tileGfxAnimCurrent =
-        gChapterDataAssetTable[GetROMChapterStruct(gUnknown_0202BCF0.chapterIndex)->mapTileAnim1Id];
+        gChapterDataAssetTable[GetROMChapterStruct(gRAMChapterData.chapterIndex)->mapTileAnim1Id];
 
     proc->tilePalAnimStart = proc->tilePalAnimCurrent =
-        gChapterDataAssetTable[GetROMChapterStruct(gUnknown_0202BCF0.chapterIndex)->mapTileAnim2Id];
+        gChapterDataAssetTable[GetROMChapterStruct(gRAMChapterData.chapterIndex)->mapTileAnim2Id];
 }
 
 void BMapVSync_OnEnd(struct BMVSyncProc* proc) {
@@ -346,7 +346,7 @@ void AllocWeatherParticles(unsigned weatherId) {
 }
 
 void WfxNone_Init(void) {
-    AllocWeatherParticles(gUnknown_0202BCF0.chapterWeatherId);
+    AllocWeatherParticles(gRAMChapterData.chapterWeatherId);
     SetSecondaryHBlankHandler(NULL);
 }
 
@@ -359,7 +359,7 @@ void WfxSnow_Init(void) {
         0x08
     };
 
-    AllocWeatherParticles(gUnknown_0202BCF0.chapterWeatherId);
+    AllocWeatherParticles(gRAMChapterData.chapterWeatherId);
 
     for (i = 0; i < 0x40; ++i) {
         unsigned templateIndex = (i & 0xF) * 3;
@@ -410,7 +410,7 @@ void WfxSnow_VSync(void) {
 void WfxRain_Init(void) {
     int i;
 
-    AllocWeatherParticles(gUnknown_0202BCF0.chapterWeatherId);
+    AllocWeatherParticles(gRAMChapterData.chapterWeatherId);
 
     for (i = 0; i < 0x40; ++i) {
         unsigned templateIndex = (i & 0xF) * 3;
@@ -449,7 +449,7 @@ void WfxRain_VSync(void) {
 void WfxSandStorm_Init(void) {
     int i;
 
-    AllocWeatherParticles(gUnknown_0202BCF0.chapterWeatherId);
+    AllocWeatherParticles(gRAMChapterData.chapterWeatherId);
 
     CopyDataWithPossibleUncomp(gUnknown_085A3964, gUnknown_02020188);
     CopyTileGfxForObj(gUnknown_02020188, OBJ_VRAM0 + 0x1C * 0x20, 4, 4);
@@ -489,7 +489,7 @@ void WfxSnowStorm_Init(void) {
 
     u8 typeLookup[] = { 0, 0, 0, 0, 0, 0, 1, 1 };
 
-    AllocWeatherParticles(gUnknown_0202BCF0.chapterWeatherId);
+    AllocWeatherParticles(gRAMChapterData.chapterWeatherId);
 
     CopyDataWithPossibleUncomp(gUnknown_085A39EC, gUnknown_02020188);
     CopyTileGfxForObj(gUnknown_02020188, OBJ_VRAM0 + 0x18 * 0x20, 8, 4);
@@ -645,7 +645,7 @@ void WfxFlamesInitGradient(void) {
 void WfxFlamesInitParticles(void) {
     int i;
 
-    AllocWeatherParticles(gUnknown_0202BCF0.chapterWeatherId);
+    AllocWeatherParticles(gRAMChapterData.chapterWeatherId);
     CopyDataWithPossibleUncomp(gUnknown_085A3A84, OBJ_VRAM0 + 0x18 * 0x20);
     CopyToPaletteBuffer(gUnknown_085A3AC0, 0x340, 0x20);
 
@@ -819,7 +819,7 @@ void WfxClouds_Update(void) {
 }
 
 void WfxInit(void) {
-    switch (gUnknown_0202BCF0.chapterWeatherId) {
+    switch (gRAMChapterData.chapterWeatherId) {
 
     case WEATHER_NONE:
         WfxNone_Init();
@@ -853,11 +853,11 @@ void WfxInit(void) {
         WfxClouds_Init();
         break;
 
-    } // switch (gUnknown_0202BCF0.chapterWeatherId)
+    } // switch (gRAMChapterData.chapterWeatherId)
 }
 
 void WfxVSync(void) {
-    switch (gUnknown_0202BCF0.chapterWeatherId) {
+    switch (gRAMChapterData.chapterWeatherId) {
 
     case WEATHER_SNOW:
         WfxSnow_VSync();
@@ -887,11 +887,11 @@ void WfxVSync(void) {
         WfxClouds_VSync();
         break;
 
-    } // switch (gUnknown_0202BCF0.chapterWeatherId)
+    } // switch (gRAMChapterData.chapterWeatherId)
 }
 
 void WfxUpdate(void) {
-    if (gUnknown_0202BCF0.chapterWeatherId == WEATHER_CLOUDS)
+    if (gRAMChapterData.chapterWeatherId == WEATHER_CLOUDS)
         WfxClouds_Update();
 }
 
@@ -907,11 +907,11 @@ void ResetMapPaletteAnimations(void) {
 
     if (proc)
         proc->tilePalAnimStart = proc->tilePalAnimCurrent =
-            gChapterDataAssetTable[GetROMChapterStruct(gUnknown_0202BCF0.chapterIndex)->mapTileAnim2Id];
+            gChapterDataAssetTable[GetROMChapterStruct(gRAMChapterData.chapterIndex)->mapTileAnim2Id];
 }
 
 void SetWeather(unsigned weatherId) {
-    gUnknown_0202BCF0.chapterWeatherId = weatherId;
+    gRAMChapterData.chapterWeatherId = weatherId;
 
     AllocWeatherParticles(weatherId);
     WfxInit();
@@ -919,45 +919,45 @@ void SetWeather(unsigned weatherId) {
 
 u8 GetTextDisplaySpeed(void) {
     u8 speedLookup[4] = { 8, 4, 1, 0 };
-    return speedLookup[gUnknown_0202BCF0.cfgTextSpeed];
+    return speedLookup[gRAMChapterData.cfgTextSpeed];
 }
 
 int IsFirstPlaythrough(void) {
     if (!sub_80A3870())
         return TRUE;
 
-    if (gUnknown_0202BCF0.chapterStateBits & CHAPTER_FLAG_7)
+    if (gRAMChapterData.chapterStateBits & CHAPTER_FLAG_7)
         return FALSE;
 
-    return gUnknown_0202BCF0.unk41_5;
+    return gRAMChapterData.unk41_5;
 }
 
 void InitPlaythroughState(int isDifficult, s8 unk) {
-    CpuFill16(0, &gUnknown_0202BCF0, sizeof(gUnknown_0202BCF0));
+    CpuFill16(0, &gRAMChapterData, sizeof(gRAMChapterData));
 
-    gUnknown_0202BCF0.chapterIndex = 0;
+    gRAMChapterData.chapterIndex = 0;
 
     if (isDifficult)
-        gUnknown_0202BCF0.chapterStateBits |= CHAPTER_FLAG_DIFFICULT;
+        gRAMChapterData.chapterStateBits |= CHAPTER_FLAG_DIFFICULT;
 
     // TODO: WHAT ARE THOSE
-    gUnknown_0202BCF0.unk42_6 = unk;
-    gUnknown_0202BCF0.unk42_2 = 0;
-    gUnknown_0202BCF0.unk40_2 = 0;
-    gUnknown_0202BCF0.unk40_3 = 0;
-    gUnknown_0202BCF0.unk40_5 = 0;
-    gUnknown_0202BCF0.cfgTextSpeed = 1; // TODO: (DEFAULT?) TEXT SPEED DEFINITIONS
-    gUnknown_0202BCF0.unk40_8 = 0;
-    gUnknown_0202BCF0.unk41_1 = 0;
-    gUnknown_0202BCF0.unk41_2 = 0;
-    gUnknown_0202BCF0.cfgWindowColor = 0;
-    gUnknown_0202BCF0.unk41_7 = 0;
-    gUnknown_0202BCF0.unk41_8 = 0;
-    gUnknown_0202BCF0.unk42_4 = 0;
-    gUnknown_0202BCF0.unk42_8 = 0;
-    gUnknown_0202BCF0.unk43_2 = 0;
-    gUnknown_0202BCF0.unk40_1 = 0;
-    gUnknown_0202BCF0.unk41_5 = 0;
+    gRAMChapterData.unk42_6 = unk;
+    gRAMChapterData.unk42_2 = 0;
+    gRAMChapterData.unk40_2 = 0;
+    gRAMChapterData.unk40_3 = 0;
+    gRAMChapterData.unk40_5 = 0;
+    gRAMChapterData.cfgTextSpeed = 1; // TODO: (DEFAULT?) TEXT SPEED DEFINITIONS
+    gRAMChapterData.unk40_8 = 0;
+    gRAMChapterData.unk41_1 = 0;
+    gRAMChapterData.unk41_2 = 0;
+    gRAMChapterData.cfgWindowColor = 0;
+    gRAMChapterData.unk41_7 = 0;
+    gRAMChapterData.unk41_8 = 0;
+    gRAMChapterData.unk42_4 = 0;
+    gRAMChapterData.unk42_8 = 0;
+    gRAMChapterData.unk43_2 = 0;
+    gRAMChapterData.unk40_1 = 0;
+    gRAMChapterData.unk41_5 = 0;
 }
 
 void ClearBattleMapState(void) {
@@ -983,32 +983,32 @@ void StartBattleMap(struct GameCtrlProc* gameCtrl) {
     ResetMenuOverrides();
     ClearTraps();
 
-    gUnknown_0202BCF0.chapterPhaseIndex = FACTION_GREEN; // TODO: PHASE/ALLEGIANCE DEFINITIONS
-    gUnknown_0202BCF0.chapterTurnNumber = 0;
+    gRAMChapterData.chapterPhaseIndex = FACTION_GREEN; // TODO: PHASE/ALLEGIANCE DEFINITIONS
+    gRAMChapterData.chapterTurnNumber = 0;
 
     // TODO: BATTLE MAP/CHAPTER/OBJECTIVE TYPE DEFINITION (STORY/TOWER/SKIRMISH)
     if (GetChapterThing() == 2) {
-        if (!(gUnknown_0202BCF0.chapterStateBits & CHAPTER_FLAG_PREPSCREEN))
-            gUnknown_0202BCF0.chapterVisionRange = 3 * (NextRN_100() & 1);
+        if (!(gRAMChapterData.chapterStateBits & CHAPTER_FLAG_PREPSCREEN))
+            gRAMChapterData.chapterVisionRange = 3 * (NextRN_100() & 1);
     } else {
-        gUnknown_0202BCF0.chapterVisionRange =
-            GetROMChapterStruct(gUnknown_0202BCF0.chapterIndex)->initialFogLevel;
+        gRAMChapterData.chapterVisionRange =
+            GetROMChapterStruct(gRAMChapterData.chapterIndex)->initialFogLevel;
     }
 
-    gUnknown_0202BCF0.chapterWeatherId =
-        GetROMChapterStruct(gUnknown_0202BCF0.chapterIndex)->initialWeather;
+    gRAMChapterData.chapterWeatherId =
+        GetROMChapterStruct(gRAMChapterData.chapterIndex)->initialWeather;
 
     SetupBackgroundForWeatherMaybe();
-    InitChapterMap(gUnknown_0202BCF0.chapterIndex);
+    InitChapterMap(gRAMChapterData.chapterIndex);
     InitMapObstacles();
 
-    gUnknown_0202BCF0.unk4 = GetGameClock();
-    gUnknown_0202BCF0.chapterTotalSupportGain = 0;
+    gRAMChapterData.unk4 = GetGameClock();
+    gRAMChapterData.chapterTotalSupportGain = 0;
 
-    gUnknown_0202BCF0.unk48 = 0;
-    gUnknown_0202BCF0.unk4A_1 = 0;
-    gUnknown_0202BCF0.unk4B = 0;
-    gUnknown_0202BCF0.unk4A_5 = 0;
+    gRAMChapterData.unk48 = 0;
+    gRAMChapterData.unk4A_1 = 0;
+    gRAMChapterData.unk4B = 0;
+    gRAMChapterData.unk4A_5 = 0;
 
     for (i = 1; i < 0x40; ++i) {
         struct Unit* unit = GetUnit(i);
@@ -1049,12 +1049,12 @@ void RestartBattleMap(void) {
 
     ClearTraps();
 
-    gUnknown_0202BCF0.chapterWeatherId =
-        GetROMChapterStruct(gUnknown_0202BCF0.chapterIndex)->initialWeather;
+    gRAMChapterData.chapterWeatherId =
+        GetROMChapterStruct(gRAMChapterData.chapterIndex)->initialWeather;
 
     SetupBackgroundForWeatherMaybe();
 
-    InitChapterMap(gUnknown_0202BCF0.chapterIndex);
+    InitChapterMap(gRAMChapterData.chapterIndex);
 
     InitMapObstacles();
     LoadChapterBallistae();
@@ -1081,7 +1081,7 @@ void RestartBattleMap(void) {
 void GameCtrl_StartResumedGame(struct GameCtrlProc* gameCtrl) {
     struct BMapMainProc* mapMain;
 
-    if (gUnknown_0202BCF0.chapterIndex == 0x7F) // TODO: CHAPTER_SPECIAL enum?
+    if (gRAMChapterData.chapterIndex == 0x7F) // TODO: CHAPTER_SPECIAL enum?
         sub_80A6C8C();
 
     SetupBackgrounds(NULL);
@@ -1092,15 +1092,15 @@ void GameCtrl_StartResumedGame(struct GameCtrlProc* gameCtrl) {
     ClearBattleMapState();
 
     SetCursorMapPosition(
-        gUnknown_0202BCF0.xCursor,
-        gUnknown_0202BCF0.yCursor
+        gRAMChapterData.xCursor,
+        gRAMChapterData.yCursor
     );
 
     LoadGameCoreGfx();
     SetupMapSpritesPalettes();
     SMS_ClearUsageTable();
 
-    InitChapterMap(gUnknown_0202BCF0.chapterIndex);
+    InitChapterMap(gRAMChapterData.chapterIndex);
 
     gUnknown_0202BCB0.unk3C = TRUE;
 
@@ -1171,8 +1171,8 @@ void BMapDispResume_FromBattleDelayed(void) {
 }
 
 void InitMoreBMapGraphics(void) {
-    UnpackChapterMapGraphics(gUnknown_0202BCF0.chapterIndex);
-    AllocWeatherParticles(gUnknown_0202BCF0.chapterWeatherId);
+    UnpackChapterMapGraphics(gRAMChapterData.chapterIndex);
+    AllocWeatherParticles(gRAMChapterData.chapterWeatherId);
     RenderBmMap();
     SMS_UpdateFromGameData();
     SetupMapSpritesPalettes();
@@ -1261,7 +1261,7 @@ void ChapterChangeUnitCleanup(void) {
         }
     }
 
-    gUnknown_0202BCF0.chapterStateBits = gUnknown_0202BCF0.chapterStateBits &~ CHAPTER_FLAG_PREPSCREEN;
+    gRAMChapterData.chapterStateBits = gRAMChapterData.chapterStateBits &~ CHAPTER_FLAG_PREPSCREEN;
 }
 
 void MapMain_ResumeFromPhaseIdle(struct BMapMainProc* mapMain) {
@@ -1350,12 +1350,12 @@ void MapMain_ResumeFromPhaseChange(struct BMapMainProc* mapMain) {
 }
 
 void GameCtrl_DeclareCompletedChapter(void) {
-    RegisterChapterTimeAndTurnCount(&gUnknown_0202BCF0);
+    RegisterChapterTimeAndTurnCount(&gRAMChapterData);
 
     ComputeChapterRankings();
     SaveChapterRankings();
 
-    gUnknown_0202BCF0.chapterStateBits |= CHAPTER_FLAG_5;
+    gRAMChapterData.chapterStateBits |= CHAPTER_FLAG_5;
 }
 
 void GameCtrl_DeclareCompletedPlaythrough(void) {
@@ -1364,9 +1364,9 @@ void GameCtrl_DeclareCompletedPlaythrough(void) {
 }
 
 char* GetTacticianName(void) {
-    return gUnknown_0202BCF0.playerName;
+    return gRAMChapterData.playerName;
 }
 
 void SetTacticianName(const char* newName) {
-    strcpy(gUnknown_0202BCF0.playerName, newName);
+    strcpy(gRAMChapterData.playerName, newName);
 }

@@ -1802,7 +1802,7 @@ _08037306:
 	THUMB_FUNC_START NewBattleForecast
 NewBattleForecast: @ 0x0803730C
 	push {r4, r5, r6, lr}
-	ldr r0, _08037324  @ gUnknown_0202BCF0
+	ldr r0, _08037324  @ gRAMChapterData
 	adds r6, r0, #0
 	adds r6, #0x42
 	ldrb r0, [r6]
@@ -1813,7 +1813,7 @@ NewBattleForecast: @ 0x0803730C
 	bl sub_8003D20
 	b _08037380
 	.align 2, 0
-_08037324: .4byte gUnknown_0202BCF0
+_08037324: .4byte gRAMChapterData
 _08037328:
 	ldr r0, _08037360  @ gUnknown_0859E520
 	movs r1, #3

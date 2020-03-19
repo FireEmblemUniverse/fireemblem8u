@@ -2974,7 +2974,7 @@ sub_8007E9C: @ 0x08007E9C
 	ands r0, r1
 	cmp r0, #0
 	beq _08007ED4
-	ldr r0, _08007ECC  @ gUnknown_0202BCF0
+	ldr r0, _08007ECC  @ gRAMChapterData
 	adds r0, #0x41
 	ldrb r0, [r0]
 	lsls r0, r0, #0x1e
@@ -2988,7 +2988,7 @@ _08007EC0:
 	b _08007EF6
 	.align 2, 0
 _08007EC8: .4byte gKeyStatusPtr
-_08007ECC: .4byte gUnknown_0202BCF0
+_08007ECC: .4byte gRAMChapterData
 _08007ED0: .4byte gUnknown_030000E8
 _08007ED4:
 	movs r5, #1
@@ -2996,7 +2996,7 @@ _08007ED4:
 	ands r0, r1
 	cmp r0, #0
 	beq _08007F08
-	ldr r0, _08007F00  @ gUnknown_0202BCF0
+	ldr r0, _08007F00  @ gRAMChapterData
 	adds r0, #0x41
 	ldrb r0, [r0]
 	lsls r0, r0, #0x1e
@@ -3014,7 +3014,7 @@ _08007EF6:
 	bl Proc_Break
 	b _08007F8C
 	.align 2, 0
-_08007F00: .4byte gUnknown_0202BCF0
+_08007F00: .4byte gRAMChapterData
 _08007F04: .4byte gUnknown_030000E8
 _08007F08:
 	movs r0, #0x20
@@ -3025,7 +3025,7 @@ _08007F08:
 	ldrsh r0, [r4, r1]
 	cmp r0, #2
 	bne _08007F38
-	ldr r0, _08007F94  @ gUnknown_0202BCF0
+	ldr r0, _08007F94  @ gRAMChapterData
 	adds r0, #0x41
 	ldrb r0, [r0]
 	lsls r0, r0, #0x1e
@@ -3052,7 +3052,7 @@ _08007F38:
 	ldrsh r0, [r4, r2]
 	cmp r0, #1
 	bne _08007F70
-	ldr r0, _08007F94  @ gUnknown_0202BCF0
+	ldr r0, _08007F94  @ gRAMChapterData
 	adds r0, #0x41
 	ldrb r0, [r0]
 	lsls r0, r0, #0x1e
@@ -3087,7 +3087,7 @@ _08007F8C:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_08007F94: .4byte gUnknown_0202BCF0
+_08007F94: .4byte gRAMChapterData
 _08007F98: .4byte gKeyStatusPtr
 
 	THUMB_FUNC_END sub_8007E9C
