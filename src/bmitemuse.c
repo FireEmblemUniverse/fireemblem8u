@@ -20,6 +20,8 @@
 #include "constants/items.h"
 #include "constants/terrains.h"
 
+#include "bmitemuse.h"
+
 struct WarpSelectProc
 {
     /* 00 */ PROC_HEADER;
@@ -71,17 +73,6 @@ void MakeTargetListForDanceRing(struct Unit* unit);
 void MakeTargetListForDoorAndBridges(struct Unit* unit, int terrain);
 
 static s8 HasSelectTarget(struct Unit* unit, void(*func)(struct Unit*));
-
-s8 CanUnitUseStatGainItem(struct Unit* unit, int item);
-s8 CanUnitUsePromotionItem(struct Unit* unit, int item);
-s8 CanUnitUseHealItem(struct Unit* unit);
-s8 CanUnitUsePureWaterItem(struct Unit* unit);
-s8 CanUnitUseTorchItem(struct Unit* unit);
-s8 CanUnitUseAntitoxinItem(struct Unit* unit);
-s8 CanUnitUseChestKeyItem(struct Unit* unit);
-s8 CanUnitUseDoorKeyItem(struct Unit* unit);
-s8 CanUnitUseLockpickItem(struct Unit* unit);
-s8 CanUnitUseFruitItem(struct Unit* unit);
 
 static void SetStaffUseAction(struct Unit* unit);
 static void SetItemUseAction(struct Unit* unit);
@@ -517,7 +508,7 @@ s8 CanUnitUseDoorKeyItem(struct Unit* unit)
     return sub_804FD28();
 }
 
-s8 CanOpenBridge(struct Unit* unit)
+s8 CanUnitOpenBridge(struct Unit* unit)
 {
     MakeTargetListForDoorAndBridges(unit, TERRAIN_BRIDGE_14);
     return sub_804FD28();
@@ -528,7 +519,7 @@ s8 CanUnitUseLockpickItem(struct Unit* unit)
     if (!(UNIT_CATTRIBUTES(unit) & CA_THIEF))
         return FALSE;
 
-    if (!CanUnitUseChestKeyItem(unit) && !CanUnitUseDoorKeyItem(unit) && !CanOpenBridge(unit))
+    if (!CanUnitUseChestKeyItem(unit) && !CanUnitUseDoorKeyItem(unit) && !CanUnitOpenBridge(unit))
         return FALSE;
 
     return TRUE;
