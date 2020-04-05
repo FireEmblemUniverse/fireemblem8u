@@ -41,7 +41,7 @@ sub_803471C: @ 0x0803471C
 	adds r1, r6, #0
 	adds r1, #9
 	adds r2, r5, #7
-	ldr r3, _0803478C  @ gUnknown_08590F44
+	ldr r3, _0803478C  @ gObject_8x8
 	ldr r0, [r4, #0x2c]
 	ldrb r0, [r0, #0x1b]
 	lsrs r0, r0, #6
@@ -55,11 +55,11 @@ sub_803471C: @ 0x0803471C
 	adds r0, #3
 	str r0, [sp]
 	movs r0, #2
-	bl RegisterObjectAttributes_SafeMaybe
+	bl PutSprite
 	b _0803479E
 	.align 2, 0
 _08034788: .4byte gUnknown_080D7F8C
-_0803478C: .4byte gUnknown_08590F44
+_0803478C: .4byte gObject_8x8
 _08034790:
 	str r2, [sp]
 	movs r0, #2
@@ -73,12 +73,14 @@ _0803479E:
 	pop {r0}
 	bx r0
 
+	THUMB_FUNC_END sub_803471C
+
 	THUMB_FUNC_START NewUnitInfoWindow
 NewUnitInfoWindow: @ 0x080347A8
 	push {r4, lr}
 	adds r1, r0, #0
 	ldr r0, _080347D0  @ gUnknown_0859E13C
-	bl Proc_Create
+	bl Proc_Start
 	adds r4, r0, #0
 	adds r0, #0x30
 	movs r1, #6
@@ -92,6 +94,8 @@ NewUnitInfoWindow: @ 0x080347A8
 	bx r1
 	.align 2, 0
 _080347D0: .4byte gUnknown_0859E13C
+
+	THUMB_FUNC_END NewUnitInfoWindow
 
 	THUMB_FUNC_START UnitInfoWindow_PositionUnitName
 UnitInfoWindow_PositionUnitName: @ 0x080347D4
@@ -150,6 +154,8 @@ _0803482A:
 	pop {r4}
 	pop {r0}
 	bx r0
+
+	THUMB_FUNC_END UnitInfoWindow_PositionUnitName
 
 	THUMB_FUNC_START UnitInfoWindow_DrawBase
 UnitInfoWindow_DrawBase: @ 0x0803483C
@@ -348,6 +354,8 @@ _080349C8: .4byte gUnknown_08A173EC
 _080349CC: .4byte gUnknown_080D7F92
 _080349D0: .4byte gBG0TilemapBuffer
 
+	THUMB_FUNC_END UnitInfoWindow_DrawBase
+
 	THUMB_FUNC_START GetUnitInfoWindowX
 GetUnitInfoWindowX: @ 0x080349D4
 	push {lr}
@@ -372,6 +380,8 @@ _080349F4:
 _080349F8:
 	pop {r1}
 	bx r1
+
+	THUMB_FUNC_END GetUnitInfoWindowX
 
 	THUMB_FUNC_START sub_80349FC
 sub_80349FC: @ 0x080349FC
@@ -414,6 +424,8 @@ sub_80349FC: @ 0x080349FC
 _08034A54: .4byte 0x000004E9
 _08034A58: .4byte 0x00000539
 
+	THUMB_FUNC_END sub_80349FC
+
 	THUMB_FUNC_START sub_8034A5C
 sub_8034A5C: @ 0x08034A5C
 	push {r4, r5, lr}
@@ -448,6 +460,8 @@ sub_8034A5C: @ 0x08034A5C
 	.align 2, 0
 _08034AA0: .4byte 0x000004F7
 
+	THUMB_FUNC_END sub_8034A5C
+
 	THUMB_FUNC_START sub_8034AA4
 sub_8034AA4: @ 0x08034AA4
 	push {r4, r5, lr}
@@ -472,6 +486,8 @@ sub_8034AA4: @ 0x08034AA4
 	pop {r4, r5}
 	pop {r0}
 	bx r0
+
+	THUMB_FUNC_END sub_8034AA4
 
 	THUMB_FUNC_START sub_8034ADC
 sub_8034ADC: @ 0x08034ADC
@@ -499,6 +515,8 @@ sub_8034ADC: @ 0x08034ADC
 	.align 2, 0
 _08034B0C: .4byte gBG0TilemapBuffer
 
+	THUMB_FUNC_END sub_8034ADC
+
 	THUMB_FUNC_START sub_8034B10
 sub_8034B10: @ 0x08034B10
 	push {r4, r5, lr}
@@ -524,6 +542,8 @@ sub_8034B10: @ 0x08034B10
 	bx r0
 	.align 2, 0
 _08034B44: .4byte 0x000004FA
+
+	THUMB_FUNC_END sub_8034B10
 
 	THUMB_FUNC_START sub_8034B48
 sub_8034B48: @ 0x08034B48
@@ -568,6 +588,8 @@ sub_8034B48: @ 0x08034B48
 	.align 2, 0
 _08034BA8: .4byte 0x0000053A
 
+	THUMB_FUNC_END sub_8034B48
+
 	THUMB_FUNC_START sub_8034BAC
 sub_8034BAC: @ 0x08034BAC
 	push {r4, r5, lr}
@@ -593,6 +615,8 @@ sub_8034BAC: @ 0x08034BAC
 	pop {r0}
 	bx r0
 
+	THUMB_FUNC_END sub_8034BAC
+
 	THUMB_FUNC_START sub_8034BE4
 sub_8034BE4: @ 0x08034BE4
 	push {r4, r5, lr}
@@ -617,6 +641,8 @@ sub_8034BE4: @ 0x08034BE4
 	.align 2, 0
 _08034C14: .4byte 0x000004F4
 
+	THUMB_FUNC_END sub_8034BE4
+
 	THUMB_FUNC_START NewUnitInfoWindow_WithAllLines
 NewUnitInfoWindow_WithAllLines: @ 0x08034C18
 	push {r4, r5, lr}
@@ -635,6 +661,8 @@ _08034C24:
 	pop {r4, r5}
 	pop {r0}
 	bx r0
+
+	THUMB_FUNC_END NewUnitInfoWindow_WithAllLines
 
 	THUMB_FUNC_START sub_8034C3C
 sub_8034C3C: @ 0x08034C3C
@@ -761,6 +789,8 @@ _08034D34:
 	bx r0
 	.align 2, 0
 _08034D44: .4byte gBG0TilemapBuffer
+
+	THUMB_FUNC_END sub_8034C3C
 
 	THUMB_FUNC_START sub_8034D48
 sub_8034D48: @ 0x08034D48
@@ -892,6 +922,8 @@ _08034E46:
 	bx r0
 	.align 2, 0
 _08034E58: .4byte gBG0TilemapBuffer
+
+	THUMB_FUNC_END sub_8034D48
 
 	THUMB_FUNC_START DrawHammerneUnitInfoWindow
 DrawHammerneUnitInfoWindow: @ 0x08034E5C
@@ -1041,6 +1073,8 @@ _08034F80:
 	.align 2, 0
 _08034F98: .4byte gBG0TilemapBuffer
 
+	THUMB_FUNC_END DrawHammerneUnitInfoWindow
+
 	THUMB_FUNC_START sub_8034F9C
 sub_8034F9C: @ 0x08034F9C
 	push {lr}
@@ -1050,6 +1084,8 @@ sub_8034F9C: @ 0x08034F9C
 	bl Text_Allocate
 	pop {r0}
 	bx r0
+
+	THUMB_FUNC_END sub_8034F9C
 
 	THUMB_FUNC_START sub_8034FB0
 sub_8034FB0: @ 0x08034FB0
@@ -1087,6 +1123,8 @@ sub_8034FB0: @ 0x08034FB0
 	.align 2, 0
 _08034FF8: .4byte gBG0TilemapBuffer
 
+	THUMB_FUNC_END sub_8034FB0
+
 	THUMB_FUNC_START sub_8034FFC
 sub_8034FFC: @ 0x08034FFC
 	push {r4, lr}
@@ -1102,6 +1140,8 @@ sub_8034FFC: @ 0x08034FFC
 	pop {r4}
 	pop {r0}
 	bx r0
+
+	THUMB_FUNC_END sub_8034FFC
 
 	THUMB_FUNC_START sub_803501C
 sub_803501C: @ 0x0803501C
@@ -1157,6 +1197,8 @@ sub_803501C: @ 0x0803501C
 	.align 2, 0
 _0803508C: .4byte gBG0TilemapBuffer
 
+	THUMB_FUNC_END sub_803501C
+
 	THUMB_FUNC_START sub_8035090
 sub_8035090: @ 0x08035090
 	push {lr}
@@ -1166,6 +1208,8 @@ sub_8035090: @ 0x08035090
 	bl Text_Allocate
 	pop {r0}
 	bx r0
+
+	THUMB_FUNC_END sub_8035090
 
 	THUMB_FUNC_START sub_80350A4
 sub_80350A4: @ 0x080350A4
@@ -1209,6 +1253,8 @@ sub_80350A4: @ 0x080350A4
 	.align 2, 0
 _080350F8: .4byte gBG0TilemapBuffer
 
+	THUMB_FUNC_END sub_80350A4
+
 	THUMB_FUNC_START sub_80350FC
 sub_80350FC: @ 0x080350FC
 	push {r4, lr}
@@ -1224,6 +1270,8 @@ sub_80350FC: @ 0x080350FC
 	pop {r4}
 	pop {r0}
 	bx r0
+
+	THUMB_FUNC_END sub_80350FC
 
 	THUMB_FUNC_START sub_803511C
 sub_803511C: @ 0x0803511C
@@ -1286,6 +1334,8 @@ sub_803511C: @ 0x0803511C
 	.align 2, 0
 _08035198: .4byte gBG0TilemapBuffer
 
+	THUMB_FUNC_END sub_803511C
+
 	THUMB_FUNC_START sub_803519C
 sub_803519C: @ 0x0803519C
 	push {r4, r5, lr}
@@ -1308,6 +1358,8 @@ sub_803519C: @ 0x0803519C
 	.align 2, 0
 _080351C8: .4byte gUnknown_0203A9FC
 
+	THUMB_FUNC_END sub_803519C
+
 	THUMB_FUNC_START sub_80351CC
 sub_80351CC: @ 0x080351CC
 	push {r4, lr}
@@ -1318,7 +1370,7 @@ sub_80351CC: @ 0x080351CC
 	bl LoadIconPalettes
 	adds r0, r4, #0
 	bl sub_803519C
-	ldr r0, _08035200  @ gUnknown_08590FD4
+	ldr r0, _08035200  @ gObject_16x16_VFlipped
 	str r0, [sp]
 	movs r0, #6
 	str r0, [sp, #4]
@@ -1326,13 +1378,15 @@ sub_80351CC: @ 0x080351CC
 	movs r1, #2
 	movs r2, #0
 	movs r3, #0
-	bl sub_80054B0
+	bl StartSpriteRefresher
 	add sp, #8
 	pop {r4}
 	pop {r0}
 	bx r0
 	.align 2, 0
-_08035200: .4byte gUnknown_08590FD4
+_08035200: .4byte gObject_16x16_VFlipped
+
+	THUMB_FUNC_END sub_80351CC
 
 	THUMB_FUNC_START SetupUnitRescueWindow
 SetupUnitRescueWindow: @ 0x08035204
@@ -1400,7 +1454,7 @@ SetupUnitRescueWindow: @ 0x08035204
 	movs r0, #0
 	adds r1, r4, #0
 	movs r2, #0x27
-	bl sub_80054F4
+	bl MoveSpriteRefresher
 	add sp, #8
 	pop {r3, r4, r5}
 	mov r8, r3
@@ -1414,6 +1468,8 @@ _080352AC: .4byte gUnknown_0203A9FC
 _080352B0: .4byte gActiveUnit
 _080352B4: .4byte gBG0TilemapBuffer
 _080352B8: .4byte 0x00000121
+
+	THUMB_FUNC_END SetupUnitRescueWindow
 
 	THUMB_FUNC_START sub_80352BC
 sub_80352BC: @ 0x080352BC
@@ -1486,7 +1542,7 @@ sub_80352BC: @ 0x080352BC
 	movs r0, #0
 	adds r1, r4, #0
 	movs r2, #0x27
-	bl sub_80054F4
+	bl MoveSpriteRefresher
 	add sp, #8
 	pop {r3, r4, r5}
 	mov r8, r3
@@ -1501,6 +1557,8 @@ _08035374: .4byte gActiveUnit
 _08035378: .4byte gBG0TilemapBuffer
 _0803537C: .4byte 0x00000121
 
+	THUMB_FUNC_END sub_80352BC
+
 	THUMB_FUNC_START sub_8035380
 sub_8035380: @ 0x08035380
 	push {r4, lr}
@@ -1511,7 +1569,7 @@ sub_8035380: @ 0x08035380
 	bl LoadIconPalettes
 	adds r0, r4, #0
 	bl sub_803519C
-	ldr r0, _080353B4  @ gUnknown_08590F4C
+	ldr r0, _080353B4  @ gObject_16x16
 	str r0, [sp]
 	movs r0, #6
 	str r0, [sp, #4]
@@ -1519,13 +1577,15 @@ sub_8035380: @ 0x08035380
 	movs r1, #2
 	movs r2, #0
 	movs r3, #0
-	bl sub_80054B0
+	bl StartSpriteRefresher
 	add sp, #8
 	pop {r4}
 	pop {r0}
 	bx r0
 	.align 2, 0
-_080353B4: .4byte gUnknown_08590F4C
+_080353B4: .4byte gObject_16x16
+
+	THUMB_FUNC_END sub_8035380
 
 	THUMB_FUNC_START sub_80353B8
 sub_80353B8: @ 0x080353B8
@@ -1598,7 +1658,7 @@ sub_80353B8: @ 0x080353B8
 	movs r0, #0
 	adds r1, r4, #0
 	movs r2, #0x27
-	bl sub_80054F4
+	bl MoveSpriteRefresher
 	add sp, #8
 	pop {r3, r4, r5}
 	mov r8, r3
@@ -1612,5 +1672,7 @@ _0803546C: .4byte gActiveUnit
 _08035470: .4byte gUnknown_0203A9FC
 _08035474: .4byte gBG0TilemapBuffer
 _08035478: .4byte 0x00000121
+
+	THUMB_FUNC_END sub_80353B8
 
 .align 2, 0

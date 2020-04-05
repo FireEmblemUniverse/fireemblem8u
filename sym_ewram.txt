@@ -489,8 +489,7 @@
 . = ALIGN(4); src/icon.o(ewram_data);
 . = ALIGN(4); src/fontgrp.o(ewram_data);
 . = ALIGN(4); src/animedrv.o(ewram_data);
-. = 0x029D8C; gUnknown_02029D8C = .;
-. = 0x02A58C; gUnknown_0202A58C = .;
+. = ALIGN(4); src/ctc.o(ewram_data);
 . = 0x02A68C; gUnknown_0202A68C = .;
 . = 0x02A6AC; gUnknown_0202A6AC = .;
 . = 0x02AC01; gUnknown_0202AC01 = .;
@@ -535,7 +534,7 @@
 . = 0x03A95E; gUnknown_0203A95E = .;
 . = 0x03A974; gUnknown_0203A974 = .;
 . = 0x03A9FC; gUnknown_0203A9FC = .;
-. = 0x03AA04; gUnknown_0203AA04 = .;
+. = 0x03AA04; gAiState = .;
 . = 0x03AA7F; gUnknown_0203AA7F = .;
 . = 0x03AA80; gUnknown_0203AA80 = .;
 . = 0x03AA8A; gUnknown_0203AA8A = .;

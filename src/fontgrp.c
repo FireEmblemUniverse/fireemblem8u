@@ -3,8 +3,10 @@
 
 #include "global.h"
 #include "proc.h"
-#include "fontgrp.h"
 #include "hardware.h"
+#include "ctc.h"
+
+#include "fontgrp.h"
 
 #define CHAR_NEWLINE 0x01
 
@@ -290,7 +292,7 @@ void PrintDebugStringAsOBJ(int a, int b, const char *str)
         else
             c = *str - 0x20;
 
-        CallARM_PushToSecondaryOAM(a, b, gUnknown_08590F44, c + gUnknown_02028E50 + gUnknown_02028E54);
+        CallARM_PushToSecondaryOAM(a, b, gObject_8x8, c + gUnknown_02028E50 + gUnknown_02028E54);
 
         a += 8;
         str++;
@@ -1078,7 +1080,7 @@ void sub_80048B0(struct SomeTextRelatedProc *proc)
             case 0:
             case 1:
                 proc->unk2C->unk7 = 0;
-                Proc_ClearNativeCallback((struct Proc *)proc);
+                Proc_Break((struct Proc *)proc);
                 return;
             case 4:
                 proc->unk30++;
@@ -1094,7 +1096,7 @@ void sub_80048B0(struct SomeTextRelatedProc *proc)
 
 struct ProcCmd gUnknown_08588274[] =
 {
-    PROC_LOOP_ROUTINE(sub_80048B0),
+    PROC_REPEAT(sub_80048B0),
     PROC_END,
 };
 
@@ -1106,7 +1108,7 @@ char *sub_8004924(struct TextHandle *th, char *b, int c, int d)
         Text_AppendString(th, b);
     if (d == 0)
         d = 1;
-    proc = (struct SomeTextRelatedProc *)Proc_Create(gUnknown_08588274, ROOT_PROC_3);
+    proc = Proc_Start(gUnknown_08588274, PROC_TREE_3);
     proc->unk2C = th;
     proc->unk30 = b;
     proc->unk36 = d;
@@ -1124,7 +1126,7 @@ s8 sub_800496C(struct TextHandle *th)
 
 void sub_8004974(void)
 {
-    Proc_DeleteAllWithScript(gUnknown_08588274);
+    Proc_EndEach(gUnknown_08588274);
 }
 
 void sub_8004984(void)
@@ -1139,21 +1141,21 @@ void sub_8004984(void)
 struct ProcCmd gUnknown_08588284[] =
 {
 	PROC_END_IF_DUPLICATE,
-	PROC_LOOP_ROUTINE(sub_8004984),
+	PROC_REPEAT(sub_8004984),
 	PROC_END,
 };
 
 void NewGreenTextColorManager(struct Proc *parent)
 {
     if (parent != NULL)
-        Proc_Create(gUnknown_08588284, parent);
+        Proc_Start(gUnknown_08588284, parent);
     else
-        Proc_Create(gUnknown_08588284, ROOT_PROC_3);
+        Proc_Start(gUnknown_08588284, PROC_TREE_3);
 }
 
 void EndGreenTextColorManager(void)
 {
-    Proc_DeleteAllWithScript(gUnknown_08588284);
+    Proc_EndEach(gUnknown_08588284);
 }
 
 void sub_80049E0(struct TextHandle *th, u16 *b, int c)

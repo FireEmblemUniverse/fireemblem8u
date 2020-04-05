@@ -73,6 +73,8 @@ _080002F4:
 	pop {r4, r5, r6, r7}
 	bx lr
 
+	ARM_FUNC_END sub_8000234
+
 	ARM_FUNC_START ARM_MoveOBJsOffscreen
 ARM_MoveOBJsOffscreen: @ 0x08000304
 	@ r0 = dest
@@ -104,6 +106,8 @@ ARM_MoveOBJsOffscreen: @ 0x08000304
 	bpl 1b
 	bx lr
 
+	ARM_FUNC_END ARM_MoveOBJsOffscreen
+
 	ARM_FUNC_START ARM_CalcSomeChecksum
 ARM_CalcSomeChecksum: @ 0x08000360
 	push {r4, r5, r6, r7}
@@ -125,6 +129,8 @@ _08000370:
 	add r0, r0, r3
 	pop {r4, r5, r6, r7}
 	bx lr
+
+	ARM_FUNC_END ARM_CalcSomeChecksum
 
 	ARM_FUNC_START ARM_FillRect
 ARM_FillRect: @ 0x080003A8
@@ -149,8 +155,10 @@ ARM_FillRect: @ 0x080003A8
 	pop {r4, r5, r6, r7}
 	bx lr
 
-	ARM_FUNC_START sub_80003E0
-sub_80003E0: @ 0x080003E0
+	ARM_FUNC_END ARM_FillRect
+
+	ARM_FUNC_START ARM_CopyRect
+ARM_CopyRect: @ 0x080003E0
 	push {r4, r5, r6, r7}
 	tst r2, r2
 	beq _08000434
@@ -178,8 +186,10 @@ _08000434:
 	pop {r4, r5, r6, r7}
 	bx lr
 
-	ARM_FUNC_START sub_800043C
-sub_800043C: @ 0x0800043C
+	ARM_FUNC_END ARM_CopyRect
+
+	ARM_FUNC_START ARM_FillTileRect
+ARM_FillTileRect: @ 0x0800043C
 	push {r4, r5, r6, r7}
 	ldrb r3, [r1]
 	ldrb r4, [r1, #1]
@@ -206,6 +216,8 @@ _0800045C:
 
 	.align 2, 0
 _08000490: .4byte gUnknown_03003744 @ pool
+
+	ARM_FUNC_END ARM_FillTileRect
 
 	ARM_FUNC_START IRAMARM_CopyToSecondaryOAM
 IRAMARM_CopyToSecondaryOAM: @ 0x08000494
@@ -254,6 +266,8 @@ _08000528:
 	.align 2, 0
 _08000530: .4byte gUnknown_03003070 @ pool
 
+	ARM_FUNC_END IRAMARM_CopyToSecondaryOAM
+
 	ARM_FUNC_START IRAMARM_CopyToPrimaryOAM
 IRAMARM_CopyToPrimaryOAM: @ 0x08000534
 	push {r4, r5, r6, r7}
@@ -271,6 +285,8 @@ bitTable:
 	.4byte (1 << 14)
 
 lt_bitTable: .4byte bitTable @ pool
+
+	ARM_FUNC_END IRAMARM_CopyToPrimaryOAM
 
 	ARM_FUNC_START IRAMARM_Func3_DrawGlyph
 IRAMARM_Func3_DrawGlyph: @ 0x08000564
@@ -322,6 +338,8 @@ _08000574:
 	bpl _08000574
 	pop {r4, r5, r6, r7, r8, r9, sl}
 	bx lr
+
+	ARM_FUNC_END IRAMARM_Func3_DrawGlyph
 
 	ARM_FUNC_START sub_8000620
 sub_8000620: @ 0x08000620
@@ -377,6 +395,8 @@ _08000630:
 _080006DC: .4byte gUnknown_0815D488
 _080006E0: .4byte gUnknown_0815A72C
 
+	ARM_FUNC_END sub_8000620
+
 	ARM_FUNC_START IRAMARM_DecompText
 IRAMARM_DecompText: @ 0x080006E4
 	push {r4, r5, r6, r7}
@@ -427,6 +447,8 @@ _08000774: .4byte gMovMapFillState @ pool
 _08000778: .4byte gWorkingBmMap @ pool
 _0800077C: .4byte gBmMapTerrain @ pool
 _08000780: .4byte gBmMapUnit @ pool
+
+	ARM_FUNC_END IRAMARM_DecompText
 
 	ARM_FUNC_START IRAMARM_Func5
 IRAMARM_Func5: @ 0x08000784
@@ -496,6 +518,8 @@ _08000858:
 	b _080008E8
 
 	.4byte _08000858
+
+	ARM_FUNC_END IRAMARM_Func5
 
 	ARM_FUNC_START IRAMARM_FillMovementMap
 IRAMARM_FillMovementMap: @ 0x08000874
@@ -621,3 +645,4 @@ _08000A18:
 
 	.global ARMCodeToCopy_End
 ARMCodeToCopy_End:
+	ARM_FUNC_END IRAMARM_FillMovementMap

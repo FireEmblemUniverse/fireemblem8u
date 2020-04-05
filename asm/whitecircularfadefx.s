@@ -93,7 +93,7 @@ _08021E86:
 	cmp r0, #0x46
 	ble _08021EB8
 	adds r0, r7, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _08021EB8:
 	pop {r3, r4, r5}
 	mov r8, r3
@@ -104,6 +104,8 @@ _08021EB8:
 	bx r0
 	.align 2, 0
 _08021EC8: .4byte gBG0TilemapBuffer
+
+	THUMB_FUNC_END sub_8021E10
 
 	THUMB_FUNC_START sub_8021ECC
 sub_8021ECC: @ 0x08021ECC
@@ -132,6 +134,8 @@ sub_8021ECC: @ 0x08021ECC
 	pop {r4}
 	pop {r0}
 	bx r0
+
+	THUMB_FUNC_END sub_8021ECC
 
 	THUMB_FUNC_START sub_8021F08
 sub_8021F08: @ 0x08021F08
@@ -200,7 +204,7 @@ _08021F34:
 	bl SetBackgroundTileDataOffset
 	ldr r0, _08021FB4  @ gUnknown_0859B4F8
 	adds r1, r5, #0
-	bl Proc_Create
+	bl Proc_Start
 	str r6, [r0, #0x2c]
 	str r7, [r0, #0x30]
 	adds r0, #0x4c
@@ -214,5 +218,7 @@ _08021FA8: .4byte 0x06002000
 _08021FAC: .4byte 0x11111111
 _08021FB0: .4byte gPaletteBuffer
 _08021FB4: .4byte gUnknown_0859B4F8
+
+	THUMB_FUNC_END sub_8021F08
 
 .align 2, 0

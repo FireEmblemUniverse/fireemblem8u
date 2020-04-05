@@ -64,6 +64,8 @@ _08079D36:
 	pop {r1}
 	bx r1
 
+	THUMB_FUNC_END CopyEventMoveToBuffer
+
 	THUMB_FUNC_START ClearEventMoveBuffer
 ClearEventMoveBuffer: @ 0x08079D40
 	push {r4, r5, lr}
@@ -96,6 +98,8 @@ _08079D6E:
 	pop {r0}
 	bx r0
 
+	THUMB_FUNC_END ClearEventMoveBuffer
+
 	THUMB_FUNC_START sub_8079D74
 sub_8079D74: @ 0x08079D74
 	push {r4, r5, r6, r7, lr}
@@ -110,7 +114,7 @@ sub_8079D74: @ 0x08079D74
 	lsrs r7, r3, #0x10
 	ldr r0, _08079DAC  @ gUnknown_089A2DB0
 	movs r1, #5
-	bl Proc_Create
+	bl Proc_Start
 	adds r5, r0, #0
 	lsls r0, r6, #0x10
 	asrs r0, r0, #0x10
@@ -151,6 +155,8 @@ _08079DC0:
 	pop {r0}
 	bx r0
 
+	THUMB_FUNC_END sub_8079D74
+
 	THUMB_FUNC_START sub_8079DDC
 sub_8079DDC: @ 0x08079DDC
 	push {r4, r5, r6, lr}
@@ -176,7 +182,7 @@ sub_8079DDC: @ 0x08079DDC
 	mov r8, r1
 	ldr r0, _08079E6C  @ gUnknown_089A2DB0
 	movs r1, #5
-	bl Proc_Create
+	bl Proc_Start
 	adds r2, r0, #0
 	adds r2, #0x44
 	lsls r4, r4, #0x18
@@ -227,6 +233,8 @@ sub_8079DDC: @ 0x08079DDC
 _08079E6C: .4byte gUnknown_089A2DB0
 _08079E70: .4byte 0xFFFFF03F
 _08079E74: .4byte 0xFFFC0FFF
+
+	THUMB_FUNC_END sub_8079DDC
 
 	THUMB_FUNC_START MuCtr_SetupWithEventMoveBuffer
 MuCtr_SetupWithEventMoveBuffer: @ 0x08079E78
@@ -361,6 +369,8 @@ _08079F30:
 _08079F7C: .4byte gBmMapUnit
 _08079F80: .4byte gBmMapUnk
 
+	THUMB_FUNC_END MuCtr_SetupWithEventMoveBuffer
+
 	THUMB_FUNC_START MuCtrExists
 MuCtrExists: @ 0x08079F84
 	push {lr}
@@ -375,12 +385,16 @@ _08079F92:
 	.align 2, 0
 _08079F98: .4byte gUnknown_089A2DB0
 
+	THUMB_FUNC_END MuCtrExists
+
 	THUMB_FUNC_START SetAllMOVEUNITField44To1_
 SetAllMOVEUNITField44To1_: @ 0x08079F9C
 	push {lr}
 	bl MU_AllForceSetMaxMoveSpeed
 	pop {r0}
 	bx r0
+
+	THUMB_FUNC_END SetAllMOVEUNITField44To1_
 
 	THUMB_FUNC_START sub_8079FA8
 sub_8079FA8: @ 0x08079FA8
@@ -436,6 +450,8 @@ _0807A00C:
 	pop {r0}
 	bx r0
 
+	THUMB_FUNC_END sub_8079FA8
+
 	THUMB_FUNC_START MoveUnit_
 MoveUnit_: @ 0x0807A014
 	push {r4, r5, r6, lr}
@@ -468,6 +484,8 @@ MoveUnit_: @ 0x0807A014
 	bx r0
 	.align 2, 0
 _0807A050: .4byte 0xFFFFF03F
+
+	THUMB_FUNC_END MoveUnit_
 
 	THUMB_FUNC_START GetPreferredPositionForUNIT
 GetPreferredPositionForUNIT: @ 0x0807A054
@@ -544,6 +562,8 @@ _0807A0DA:
 	pop {r0}
 	bx r0
 
+	THUMB_FUNC_END GetPreferredPositionForUNIT
+
 	THUMB_FUNC_START sub_807A0E4
 sub_807A0E4: @ 0x0807A0E4
 	push {r4, r5, lr}
@@ -560,7 +580,7 @@ sub_807A0E4: @ 0x0807A0E4
 	beq _0807A10A
 	adds r0, r5, #0
 	movs r1, #1
-	bl Proc_GotoLabel
+	bl Proc_Goto
 	movs r0, #0
 	b _0807A188
 _0807A10A:
@@ -632,6 +652,8 @@ _0807A188:
 	.align 2, 0
 _0807A190: .4byte gBmMapUnit
 
+	THUMB_FUNC_END sub_807A0E4
+
 	THUMB_FUNC_START sub_807A194
 sub_807A194: @ 0x0807A194
 	push {r4, r5, lr}
@@ -676,7 +698,7 @@ sub_807A194: @ 0x0807A194
 _0807A1E6:
 	adds r0, r4, #0
 	movs r1, #1
-	bl Proc_GotoLabel
+	bl Proc_Goto
 	movs r0, #0
 	b _0807A1F4
 _0807A1F2:
@@ -685,6 +707,8 @@ _0807A1F4:
 	pop {r4, r5}
 	pop {r1}
 	bx r1
+
+	THUMB_FUNC_END sub_807A194
 
 	THUMB_FUNC_START sub_807A1FC
 sub_807A1FC: @ 0x0807A1FC
@@ -759,6 +783,8 @@ _0807A27A:
 	.align 2, 0
 _0807A290: .4byte gBmMapUnit
 
+	THUMB_FUNC_END sub_807A1FC
+
 	THUMB_FUNC_START sub_807A294
 sub_807A294: @ 0x0807A294
 	push {r4, r5, r6, lr}
@@ -779,7 +805,7 @@ _0807A2A6:
 	ldr r6, _0807A2EC  @ gUnknown_089A2DB0
 	ldr r1, _0807A2F0  @ sub_807A300
 	adds r0, r6, #0
-	bl Proc_ForEachWithScript
+	bl Proc_ForEach
 	movs r1, #0
 	ldrsb r1, [r4, r1]
 	cmp r1, #0
@@ -792,7 +818,7 @@ _0807A2A6:
 	strb r1, [r4]
 	ldr r1, _0807A2FC  @ sub_807A324
 	adds r0, r6, #0
-	bl Proc_ForEachWithScript
+	bl Proc_ForEach
 _0807A2D6:
 	ldr r0, _0807A2E8  @ gUnknown_03001C34
 	ldrb r0, [r0]
@@ -810,6 +836,8 @@ _0807A2F0: .4byte sub_807A300
 _0807A2F4: .4byte 0x0000FFFF
 _0807A2F8: .4byte gUnknown_03001C36
 _0807A2FC: .4byte sub_807A324
+
+	THUMB_FUNC_END sub_807A294
 
 	THUMB_FUNC_START sub_807A300
 sub_807A300: @ 0x0807A300
@@ -830,6 +858,8 @@ _0807A316:
 	.align 2, 0
 _0807A31C: .4byte gUnknown_03001C35
 _0807A320: .4byte gUnknown_03001C34
+
+	THUMB_FUNC_END sub_807A300
 
 	THUMB_FUNC_START sub_807A324
 sub_807A324: @ 0x0807A324
@@ -857,6 +887,8 @@ _0807A346:
 _0807A34C: .4byte gUnknown_03001C35
 _0807A350: .4byte gUnknown_03001C36
 _0807A354: .4byte gUnknown_03001C34
+
+	THUMB_FUNC_END sub_807A324
 
 	THUMB_FUNC_START sub_807A358
 sub_807A358: @ 0x0807A358
@@ -1059,6 +1091,8 @@ _0807A4D4:
 	.align 2, 0
 _0807A4E4: .4byte gBmMapUnit
 
+	THUMB_FUNC_END sub_807A358
+
 	THUMB_FUNC_START GetAdjustedPositionForNewUnit
 GetAdjustedPositionForNewUnit: @ 0x0807A4E8
 	push {r4, r5, r6, r7, lr}
@@ -1234,6 +1268,8 @@ _0807A62E:
 	.align 2, 0
 _0807A640: .4byte gBmMapTerrain
 
+	THUMB_FUNC_END GetAdjustedPositionForNewUnit
+
 	THUMB_FUNC_START sub_807A644
 sub_807A644: @ 0x0807A644
 	push {r4, r5, r6, r7, lr}
@@ -1330,5 +1366,7 @@ _0807A6F4:
 	.align 2, 0
 _0807A700: .4byte gWorkingMovementScript
 _0807A704: .4byte gBmMapTerrain
+
+	THUMB_FUNC_END sub_807A644
 
 .align 2, 0

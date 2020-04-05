@@ -33,6 +33,8 @@ _0801E2F6:
 	.align 2, 0
 _0801E318: .4byte gUnknown_0202BCF0
 
+	THUMB_FUNC_END sub_801E2E0
+
 	THUMB_FUNC_START sub_801E31C
 sub_801E31C: @ 0x0801E31C
 	push {lr}
@@ -55,6 +57,8 @@ _0801E332:
 	bx r0
 	.align 2, 0
 _0801E348: .4byte gUnknown_0202BCF0
+
+	THUMB_FUNC_END sub_801E31C
 
 	THUMB_FUNC_START FillWarpRangeMap
 FillWarpRangeMap: @ 0x0801E34C
@@ -264,5 +268,7 @@ _0801E4E4: .4byte gBmMapTerrain
 _0801E4E8: .4byte gBmMapUnit
 _0801E4EC: .4byte gBmMapFog
 _0801E4F0: .4byte gBmMapMovement
+
+	THUMB_FUNC_END FillWarpRangeMap
 
 .align 2, 0 @ align with 0

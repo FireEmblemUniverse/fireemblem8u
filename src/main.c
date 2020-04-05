@@ -40,7 +40,7 @@ void AgbMain()
     UpdateKeyStatus(gKeyStatusPtr);
     StoreRoutinesToIRAM();
     sub_80A2C3C();
-    Proc_Initialize();
+    Proc_Init();
     AP_ClearAll();
     MU_Init();
     SetLCGRNValue(0x42D690E9);

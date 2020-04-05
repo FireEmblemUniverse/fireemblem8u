@@ -23,7 +23,7 @@ sub_802237C: @ 0x0802237C
 _08022398:
 	ldr r1, _080223A8  @ 0x000003E7
 	ldr r0, [sp]
-	bl Proc_GotoLabel
+	bl Proc_Goto
 	b _080224BE
 	.align 2, 0
 _080223A4: .4byte gUnknown_0202BCF0
@@ -169,6 +169,8 @@ _080224E0: .4byte gLCDControlBuffer
 _080224E4: .4byte gUnknown_0202BCF0
 _080224E8: .4byte 0x00000246
 
+	THUMB_FUNC_END sub_802237C
+
 	THUMB_FUNC_START sub_80224EC
 sub_80224EC: @ 0x080224EC
 	push {lr}
@@ -197,6 +199,8 @@ sub_80224EC: @ 0x080224EC
 	.align 2, 0
 _08022520: .4byte gBG0TilemapBuffer
 _08022524: .4byte gLCDControlBuffer
+
+	THUMB_FUNC_END sub_80224EC
 
 	THUMB_FUNC_START sub_8022528
 sub_8022528: @ 0x08022528
@@ -251,5 +255,7 @@ sub_8022528: @ 0x08022528
 _080225A0: .4byte gBG2TilemapBuffer
 _080225A4: .4byte gUnknown_0202BCF0
 _080225A8: .4byte gUnknown_0202BCB0
+
+	THUMB_FUNC_END sub_8022528
 
 .align 2, 0

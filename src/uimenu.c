@@ -16,24 +16,24 @@
 static CONST_DATA
 struct ProcCmd sProc_MenuMain[] =
 {
-    PROC_LOOP_ROUTINE(Menu_OnIdle),
+    PROC_REPEAT(Menu_OnIdle),
 
-    PROC_CALL_ROUTINE(EndGreenTextColorManager),
+    PROC_CALL(EndGreenTextColorManager),
     PROC_END
 };
 
 static CONST_DATA
 struct ProcCmd sProc_Menu[] =
 {
-    PROC_SET_NAME("E_Menu"),
+    PROC_NAME("E_Menu"),
     PROC_SLEEP(0),
 
     PROC_WHILE_EXISTS(gUnknown_0859A548),
 
-    PROC_CALL_ROUTINE(NewGreenTextColorManager),
-    PROC_CALL_ROUTINE(RedrawMenu),
+    PROC_CALL(NewGreenTextColorManager),
+    PROC_CALL(RedrawMenu),
 
-    PROC_CALL_ROUTINE(Menu_OnInit),
+    PROC_CALL(Menu_OnInit),
 
     PROC_JUMP(sProc_MenuMain),
     PROC_END
@@ -51,8 +51,8 @@ static void Menu_AutoHelpBox_OnLoop(struct MenuProc* proc);
 static CONST_DATA
 struct ProcCmd sProc_MenuAutoHelpBox[] =
 {
-    PROC_CALL_ROUTINE(Menu_AutoHelpBox_OnInit),
-    PROC_LOOP_ROUTINE(Menu_AutoHelpBox_OnLoop),
+    PROC_CALL(Menu_AutoHelpBox_OnInit),
+    PROC_REPEAT(Menu_AutoHelpBox_OnLoop),
     PROC_END
 };
 
@@ -61,7 +61,7 @@ static void Menu_FrozenHelpBox_OnLoop(struct MenuProc* proc);
 static CONST_DATA
 struct ProcCmd sProc_MenuFrozenHelpBox[] =
 {
-    PROC_LOOP_ROUTINE(Menu_FrozenHelpBox_OnLoop),
+    PROC_REPEAT(Menu_FrozenHelpBox_OnLoop),
     PROC_END
 };
 
@@ -70,7 +70,7 @@ static void Menu_Frozen_OnLoop(struct MenuProc* proc);
 static CONST_DATA
 struct ProcCmd sProc_MenuFrozen[] =
 {
-    PROC_LOOP_ROUTINE(Menu_Frozen_OnLoop),
+    PROC_REPEAT(Menu_Frozen_OnLoop),
     PROC_END
 };
 
@@ -185,14 +185,14 @@ struct MenuProc* StartMenuCore(
 
     if (parent)
     {
-        proc = (struct MenuProc*) Proc_CreateBlockingChild(sProc_Menu, parent);
+        proc = Proc_StartBlocking(sProc_Menu, parent);
         proc->state = 0;
     }
     else
     {
         AddSkipThread2();
 
-        proc = (struct MenuProc*) Proc_Create(sProc_Menu, ROOT_PROC_3);
+        proc = Proc_Start(sProc_Menu, PROC_TREE_3);
         proc->state = MENU_STATE_GAMELOCKING;
     }
 
@@ -208,7 +208,7 @@ struct MenuProc* StartMenuCore(
 
         if (availability != MENU_NOTSHOWN)
         {
-            struct MenuItemProc* item = (struct MenuItemProc*) Proc_Create(sProc_MenuItem, (struct Proc*) proc);
+            struct MenuItemProc* item = Proc_Start(sProc_MenuItem, proc);
             proc->menuItems[itemCount++] = item;
 
             item->def = &def->menuItems[i];
@@ -259,17 +259,17 @@ struct Proc* EndMenu(struct MenuProc* proc)
     if (proc->state & MENU_STATE_GAMELOCKING)
         SubSkipThread2();
 
-    Proc_Delete((struct Proc*) proc);
+    Proc_End(proc);
 
     BG_SetPosition(proc->frontBg, 0, 0);
     BG_SetPosition(proc->backBg, 0, 0);
 
-    return proc->parent;
+    return proc->proc_parent;
 }
 
 void EndAllMenus(void)
 {
-    Proc_ForEachWithScript(sProc_Menu, (ProcFunc) EndMenu);
+    Proc_ForEach(sProc_Menu, (ProcFunc) EndMenu);
 }
 
 inline
@@ -571,7 +571,7 @@ void Menu_AutoHelpBox_OnLoop(struct MenuProc* proc)
     if (gKeyStatusPtr->newKeys & (B_BUTTON | R_BUTTON))
     {
         CloseHelpBox();
-        Proc_JumpToPointer((struct Proc*) proc, sProc_MenuMain);
+        Proc_GotoScript(proc, sProc_MenuMain);
 
         return;
     }
@@ -582,9 +582,9 @@ void Menu_AutoHelpBox_OnLoop(struct MenuProc* proc)
     }
 }
 
-u8 MenuAutoHelpBoxSelect(struct MenuProc* menu, struct MenuItemProc* item)
+u8 MenuAutoHelpBoxSelect(struct MenuProc* menu)
 {
-    Proc_JumpToPointer((struct Proc*) menu, sProc_MenuAutoHelpBox);
+    Proc_GotoScript(menu, sProc_MenuAutoHelpBox);
 }
 
 void Menu_FrozenHelpBox_OnLoop(struct MenuProc* proc)
@@ -599,13 +599,13 @@ void Menu_FrozenHelpBox_OnLoop(struct MenuProc* proc)
     if (gKeyStatusPtr->newKeys & (B_BUTTON | R_BUTTON))
     {
         CloseHelpBox();
-        Proc_JumpToPointer((struct Proc*) proc, sProc_MenuMain);
+        Proc_GotoScript(proc, sProc_MenuMain);
     }
 }
 
 u8 MenuFrozenHelpBox(struct MenuProc* proc, int msgid)
 {
-    Proc_JumpToPointer((struct Proc*) proc, sProc_MenuFrozenHelpBox);
+    Proc_GotoScript(proc, sProc_MenuFrozenHelpBox);
 
     LoadDialogueBoxGfx(NULL, -1); // TODO: default constants?
     StartHelpBox(GetUiHandPrevDisplayX(), GetUiHandPrevDisplayY(), msgid);
@@ -621,17 +621,17 @@ void Menu_Frozen_OnLoop(struct MenuProc* proc)
     DisplayFrozenUiHand(x, y);
 
     if (gKeyStatusPtr->newKeys & (A_BUTTON | B_BUTTON))
-        Proc_JumpToPointer((struct Proc*) proc, sProc_MenuMain);
+        Proc_GotoScript(proc, sProc_MenuMain);
 }
 
 u8 MenuFrozen(struct MenuProc* proc)
 {
-    Proc_JumpToPointer((struct Proc*) proc, sProc_MenuFrozen);
+    Proc_GotoScript(proc, sProc_MenuFrozen);
 }
 
 void FreezeMenu(void)
 {
-    struct MenuProc* proc = (struct MenuProc*) Proc_Find(sProc_Menu);
+    struct MenuProc* proc = Proc_Find(sProc_Menu);
 
     if (proc)
         proc->state |= MENU_STATE_FROZEN;
@@ -639,7 +639,7 @@ void FreezeMenu(void)
 
 void ResumeMenu(void)
 {
-    struct MenuProc* proc = (struct MenuProc*) Proc_Find(sProc_Menu);
+    struct MenuProc* proc = Proc_Find(sProc_Menu);
 
     if (proc)
         proc->state &= ~MENU_STATE_FROZEN;

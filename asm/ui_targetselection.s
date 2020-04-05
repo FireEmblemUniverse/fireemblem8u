@@ -17,6 +17,8 @@ InitTargets: @ 0x0804F8A4
 _0804F8B4: .4byte gUnknown_0203DDE8
 _0804F8B8: .4byte gUnknown_0203E0EC
 
+	THUMB_FUNC_END InitTargets
+
 	THUMB_FUNC_START AddTarget
 AddTarget: @ 0x0804F8BC
 	push {r4, r5, r6, lr}
@@ -61,6 +63,8 @@ AddTarget: @ 0x0804F8BC
 _0804F908: .4byte gUnknown_0203DDEC
 _0804F90C: .4byte gUnknown_0203E0EC
 
+	THUMB_FUNC_END AddTarget
+
 	THUMB_FUNC_START LinkTargets
 LinkTargets: @ 0x0804F910
 	push {r4, r5, r6, lr}
@@ -101,6 +105,8 @@ _0804F93A:
 _0804F950: .4byte gUnknown_0203E0EC
 _0804F954: .4byte gUnknown_0203DDEC
 
+	THUMB_FUNC_END LinkTargets
+
 	THUMB_FUNC_START TargetSelection_GetRealCursorPosition
 TargetSelection_GetRealCursorPosition: @ 0x0804F958
 	ldr r3, [r0, #0x30]
@@ -113,6 +119,8 @@ TargetSelection_GetRealCursorPosition: @ 0x0804F958
 	lsls r0, r0, #4
 	str r0, [r2]
 	bx lr
+
+	THUMB_FUNC_END TargetSelection_GetRealCursorPosition
 
 	THUMB_FUNC_START TargetSelection_Loop
 TargetSelection_Loop: @ 0x0804F96C
@@ -216,6 +224,8 @@ _0804FA30:
 	.align 2, 0
 _0804FA38: .4byte gUnknown_0202BCF0
 
+	THUMB_FUNC_END TargetSelection_Loop
+
 	THUMB_FUNC_START NewTargetSelection
 NewTargetSelection: @ 0x0804FA3C
 	push {r4, r5, r6, lr}
@@ -223,7 +233,7 @@ NewTargetSelection: @ 0x0804FA3C
 	bl AddSkipThread2
 	ldr r0, _0804FA9C  @ gUnknown_085B655C
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	adds r5, r0, #0
 	adds r1, r5, #0
 	adds r1, #0x34
@@ -267,6 +277,8 @@ _0804FA8E:
 _0804FA9C: .4byte gUnknown_085B655C
 _0804FAA0: .4byte gKeyStatusPtr
 
+	THUMB_FUNC_END NewTargetSelection
+
 	THUMB_FUNC_START NewTargetSelection_Specialized
 NewTargetSelection_Specialized: @ 0x0804FAA4
 	push {r4, lr}
@@ -277,6 +289,8 @@ NewTargetSelection_Specialized: @ 0x0804FAA4
 	pop {r4}
 	pop {r1}
 	bx r1
+
+	THUMB_FUNC_END NewTargetSelection_Specialized
 
 	THUMB_FUNC_START EndTargetSelection
 EndTargetSelection: @ 0x0804FAB8
@@ -299,11 +313,13 @@ _0804FACA:
 	bl SubSkipThread2
 _0804FADC:
 	adds r0, r4, #0
-	bl Proc_Delete
+	bl Proc_End
 	ldr r0, [r4, #0x14]
 	pop {r4}
 	pop {r1}
 	bx r1
+
+	THUMB_FUNC_END EndTargetSelection
 
 	THUMB_FUNC_START TargetSelection_HandleMoveInput
 TargetSelection_HandleMoveInput: @ 0x0804FAEC
@@ -369,6 +385,8 @@ _0804FB56:
 _0804FB5C: .4byte gKeyStatusPtr
 _0804FB60: .4byte gUnknown_0202BCF0
 
+	THUMB_FUNC_END TargetSelection_HandleMoveInput
+
 	THUMB_FUNC_START TargetSelection_HandleSelectInput
 TargetSelection_HandleSelectInput: @ 0x0804FB64
 	push {r4, lr}
@@ -420,6 +438,8 @@ _0804FBB4:
 	pop {r1}
 	bx r1
 
+	THUMB_FUNC_END TargetSelection_HandleSelectInput
+
 	THUMB_FUNC_START sub_804FBBC
 sub_804FBBC: @ 0x0804FBBC
 	push {lr}
@@ -439,6 +459,8 @@ _0804FBD4:
 	.align 2, 0
 _0804FBD8: .4byte gUnknown_085B655C
 
+	THUMB_FUNC_END sub_804FBBC
+
 	THUMB_FUNC_START sub_804FBDC
 sub_804FBDC: @ 0x0804FBDC
 	push {lr}
@@ -457,6 +479,8 @@ _0804FBF4:
 	bx r0
 	.align 2, 0
 _0804FBF8: .4byte gUnknown_085B655C
+
+	THUMB_FUNC_END sub_804FBDC
 
 	THUMB_FUNC_START GetFarthestTargetIndex
 GetFarthestTargetIndex: @ 0x0804FBFC
@@ -511,6 +535,8 @@ _0804FC52:
 	pop {r4, r5, r6, r7}
 	pop {r1}
 	bx r1
+
+	THUMB_FUNC_END GetFarthestTargetIndex
 
 	THUMB_FUNC_START LinkTargetsOrdered
 LinkTargetsOrdered: @ 0x0804FC5C
@@ -599,6 +625,8 @@ _0804FCF4: .4byte gUnknown_0203DDE8
 _0804FCF8: .4byte gUnknown_085B658C
 _0804FCFC: .4byte gUnknown_0203DDEC
 
+	THUMB_FUNC_END LinkTargetsOrdered
+
 	THUMB_FUNC_START GetLinkedTargetList
 GetLinkedTargetList: @ 0x0804FD00
 	push {lr}
@@ -608,6 +636,8 @@ GetLinkedTargetList: @ 0x0804FD00
 	bx r1
 	.align 2, 0
 _0804FD0C: .4byte gUnknown_0203DDEC
+
+	THUMB_FUNC_END GetLinkedTargetList
 
 	THUMB_FUNC_START GetFirstTargetPointer
 GetFirstTargetPointer: @ 0x0804FD10
@@ -623,6 +653,8 @@ _0804FD24:
 	pop {r1}
 	bx r1
 
+	THUMB_FUNC_END GetFirstTargetPointer
+
 	THUMB_FUNC_START sub_804FD28
 sub_804FD28: @ 0x0804FD28
 	ldr r0, _0804FD30  @ gUnknown_0203E0EC
@@ -630,6 +662,8 @@ sub_804FD28: @ 0x0804FD28
 	bx lr
 	.align 2, 0
 _0804FD30: .4byte gUnknown_0203E0EC
+
+	THUMB_FUNC_END sub_804FD28
 
 	THUMB_FUNC_START GetTarget
 GetTarget: @ 0x0804FD34
@@ -642,5 +676,7 @@ GetTarget: @ 0x0804FD34
 	bx lr
 	.align 2, 0
 _0804FD44: .4byte gUnknown_0203DDEC
+
+	THUMB_FUNC_END GetTarget
 
 .align 2, 0

@@ -59,6 +59,8 @@ _0800FD80:
 	.align 2, 0
 _0800FD88: .4byte gEventSlots
 
+	THUMB_FUNC_END Event2E_CheckAt
+
 	THUMB_FUNC_START Event2F_MoveUnit
 Event2F_MoveUnit: @ 0x0800FD8C
 	push {r4, r5, r6, r7, lr}
@@ -278,6 +280,8 @@ _0800FF0E:
 	.align 2, 0
 _0800FF20: .4byte gEventSlots
 
+	THUMB_FUNC_END Event2F_MoveUnit
+
 	THUMB_FUNC_START Event30_ENUN
 Event30_ENUN: @ 0x0800FF24
 	push {lr}
@@ -310,6 +314,8 @@ _0800FF60:
 _0800FF62:
 	pop {r1}
 	bx r1
+
+	THUMB_FUNC_END Event30_ENUN
 
 	THUMB_FUNC_START Event31_DisplayEffectRange
 Event31_DisplayEffectRange: @ 0x0800FF68
@@ -383,6 +389,8 @@ _0800FFE8:
 	.align 2, 0
 _0800FFF0: .4byte gUnknown_03000434
 _0800FFF4: .4byte gActiveUnit
+
+	THUMB_FUNC_END Event31_DisplayEffectRange
 
 	THUMB_FUNC_START Event32_SpawnSingleUnit
 Event32_SpawnSingleUnit: @ 0x0800FFF8
@@ -527,6 +535,8 @@ _08010100: .4byte gEventSlots
 _08010104: .4byte gUnknown_030004E4
 _08010108: .4byte gCharacterData
 _0801010C: .4byte 0xFFFFF03F
+
+	THUMB_FUNC_END Event32_SpawnSingleUnit
 
 	THUMB_FUNC_START Event33_CheckUnitVarious
 Event33_CheckUnitVarious: @ 0x08010110
@@ -725,6 +735,8 @@ _0801028C:
 	bx r1
 	.align 2, 0
 _08010294: .4byte gEventSlots
+
+	THUMB_FUNC_END Event33_CheckUnitVarious
 
 	THUMB_FUNC_START Event34_MessWithUnitState
 Event34_MessWithUnitState: @ 0x08010298
@@ -987,6 +999,8 @@ _080104A8:
 	pop {r1}
 	bx r1
 
+	THUMB_FUNC_END Event34_MessWithUnitState
+
 	THUMB_FUNC_START Event35_UnitClassChanging
 Event35_UnitClassChanging: @ 0x080104B0
 	push {r4, r5, r6, r7, lr}
@@ -1057,6 +1071,8 @@ _0801052E:
 	.align 2, 0
 _08010538: .4byte gCharacterData
 
+	THUMB_FUNC_END Event35_UnitClassChanging
+
 	THUMB_FUNC_START Event36_CheckInArea
 Event36_CheckInArea: @ 0x0801053C
 	push {r4, r5, r6, r7, lr}
@@ -1112,6 +1128,8 @@ _0801059A:
 	bx r1
 	.align 2, 0
 _080105A0: .4byte gEventSlots
+
+	THUMB_FUNC_END Event36_CheckInArea
 
 	THUMB_FUNC_START Event37_GiveItem
 Event37_GiveItem: @ 0x080105A4
@@ -1177,6 +1195,8 @@ _0801060E:
 	.align 2, 0
 _08010614: .4byte gEventSlots
 
+	THUMB_FUNC_END Event37_GiveItem
+
 	THUMB_FUNC_START Event38_ChangeActiveUnit
 Event38_ChangeActiveUnit: @ 0x08010618
 	push {r4, lr}
@@ -1200,6 +1220,8 @@ _0801063E:
 	pop {r4}
 	pop {r1}
 	bx r1
+
+	THUMB_FUNC_END Event38_ChangeActiveUnit
 
 	THUMB_FUNC_START Event39_
 Event39_: @ 0x08010644
@@ -1287,6 +1309,8 @@ _080106DC:
 	pop {r1}
 	bx r1
 
+	THUMB_FUNC_END Event39_
+
 	THUMB_FUNC_START Event3A_
 Event3A_: @ 0x080106E4
 	push {r4, r5, lr}
@@ -1344,6 +1368,8 @@ _08010742:
 	pop {r1}
 	bx r1
 
+	THUMB_FUNC_END Event3A_
+
 	THUMB_FUNC_START sub_8010748
 sub_8010748: @ 0x08010748
 	push {r4, lr}
@@ -1390,6 +1416,8 @@ _08010796:
 	pop {r0}
 	bx r0
 
+	THUMB_FUNC_END sub_8010748
+
 	THUMB_FUNC_START Event3B_
 Event3B_: @ 0x0801079C
 	push {r4, r5, r6, r7, lr}
@@ -1401,7 +1429,7 @@ Event3B_: @ 0x0801079C
 	cmp r0, #0
 	beq _080107B8
 	ldr r0, _080107B4  @ gUnknown_08591F08
-	bl Proc_DeleteAllWithScript
+	bl Proc_EndEach
 	b _08010844
 	.align 2, 0
 _080107B4: .4byte gUnknown_08591F08
@@ -1455,7 +1483,7 @@ _08010808:
 	b _0801081C
 _0801080E:
 	ldr r0, _08010818  @ gUnknown_08591F08
-	bl Proc_DeleteAllWithScript
+	bl Proc_EndEach
 	movs r0, #2
 	b _08010846
 	.align 2, 0
@@ -1463,7 +1491,7 @@ _08010818: .4byte gUnknown_08591F08
 _0801081C:
 	ldr r0, _0801084C  @ gUnknown_08591F08
 	adds r1, r6, #0
-	bl Proc_Create
+	bl Proc_Start
 	adds r3, r0, #0
 	lsls r0, r5, #0x18
 	asrs r0, r0, #0x18
@@ -1488,6 +1516,8 @@ _08010846:
 	bx r1
 	.align 2, 0
 _0801084C: .4byte gUnknown_08591F08
+
+	THUMB_FUNC_END Event3B_
 
 	THUMB_FUNC_START Event3C_
 Event3C_: @ 0x08010850
@@ -1539,6 +1569,8 @@ _080108A2:
 	bx r1
 	.align 2, 0
 _080108A8: .4byte gUnknown_030004E4
+
+	THUMB_FUNC_END Event3C_
 
 	THUMB_FUNC_START Event3D_
 Event3D_: @ 0x080108AC
@@ -1632,6 +1664,8 @@ _08010950:
 _08010960: .4byte MenuAlwaysDisabled
 _08010964: .4byte Get8
 
+	THUMB_FUNC_END Event3D_
+
 	THUMB_FUNC_START Event3E_PrepScreenCall
 Event3E_PrepScreenCall: @ 0x08010968
 	push {r4, lr}
@@ -1641,13 +1675,15 @@ Event3E_PrepScreenCall: @ 0x08010968
 	bl UnsetEventId
 	ldr r0, _08010988  @ gUnknown_0859DBBC
 	adds r1, r4, #0
-	bl Proc_CreateBlockingChild
+	bl Proc_StartBlocking
 	movs r0, #2
 	pop {r4}
 	pop {r1}
 	bx r1
 	.align 2, 0
 _08010988: .4byte gUnknown_0859DBBC
+
+	THUMB_FUNC_END Event3E_PrepScreenCall
 
 	THUMB_FUNC_START sub_801098C
 sub_801098C: @ 0x0801098C
@@ -1731,6 +1767,8 @@ _08010A1C: .4byte gUnknown_0203A974
 _08010A20: .4byte gEventSlots
 _08010A24: .4byte 0xFFF80000
 
+	THUMB_FUNC_END sub_801098C
+
 	THUMB_FUNC_START sub_8010A28
 sub_8010A28: @ 0x08010A28
 	push {r4, r5, lr}
@@ -1748,11 +1786,13 @@ sub_8010A28: @ 0x08010A28
 	movs r1, #6
 	bl Proc_SetMark
 	adds r0, r5, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _08010A50:
 	pop {r4, r5}
 	pop {r0}
 	bx r0
+
+	THUMB_FUNC_END sub_8010A28
 
 	THUMB_FUNC_START Event3F_
 Event3F_: @ 0x08010A58
@@ -1832,7 +1872,7 @@ _08010AE4:
 	movs r5, #1
 	ldr r0, _08010B28  @ gUnknown_08591F18
 	adds r1, r6, #0
-	bl Proc_CreateBlockingChild
+	bl Proc_StartBlocking
 	adds r4, r0, #0
 	str r6, [r4, #0x58]
 	bl GetThread2SkipStack
@@ -1878,6 +1918,8 @@ _08010B38:
 	pop {r1}
 	bx r1
 
+	THUMB_FUNC_END Event3F_
+
 	THUMB_FUNC_START sub_8010B48
 sub_8010B48: @ 0x08010B48
 	push {r4, r5, lr}
@@ -1895,11 +1937,13 @@ sub_8010B48: @ 0x08010B48
 	movs r1, #6
 	bl Proc_SetMark
 	adds r0, r5, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _08010B70:
 	pop {r4, r5}
 	pop {r0}
 	bx r0
+
+	THUMB_FUNC_END sub_8010B48
 
 	THUMB_FUNC_START Event40_
 Event40_: @ 0x08010B78
@@ -1916,7 +1960,7 @@ Event40_: @ 0x08010B78
 	mov r9, r0
 	ldr r0, _08010BE8  @ gUnknown_08591F28
 	adds r1, r6, #0
-	bl Proc_CreateBlockingChild
+	bl Proc_StartBlocking
 	adds r4, r0, #0
 	str r6, [r4, #0x58]
 	bl GetThread2SkipStack
@@ -1955,6 +1999,8 @@ Event40_: @ 0x08010B78
 	bx r1
 	.align 2, 0
 _08010BE8: .4byte gUnknown_08591F28
+
+	THUMB_FUNC_END Event40_
 
 	THUMB_FUNC_START Event41_
 Event41_: @ 0x08010BEC
@@ -2030,6 +2076,8 @@ _08010C68:
 	pop {r1}
 	bx r1
 
+	THUMB_FUNC_END Event41_
+
 	THUMB_FUNC_START Event42_
 Event42_: @ 0x08010C70
 	push {r4, r5, lr}
@@ -2097,6 +2145,8 @@ _08010CE8:
 	pop {r1}
 	bx r1
 
+	THUMB_FUNC_END Event42_
+
 	THUMB_FUNC_START Event43_
 Event43_: @ 0x08010CF0
 	push {r4, lr}
@@ -2128,6 +2178,8 @@ _08010D20:
 	pop {r1}
 	bx r1
 
+	THUMB_FUNC_END Event43_
+
 	THUMB_FUNC_START Event44_
 Event44_: @ 0x08010D28
 	push {r4, lr}
@@ -2157,6 +2209,8 @@ _08010D56:
 	pop {r4}
 	pop {r1}
 	bx r1
+
+	THUMB_FUNC_END Event44_
 
 	THUMB_FUNC_START Event45_
 Event45_: @ 0x08010D5C
@@ -2211,5 +2265,7 @@ _08010DB8:
 	pop {r4, r5}
 	pop {r1}
 	bx r1
+
+	THUMB_FUNC_END Event45_
 
 	.align 2, 0 @ Don't pad with nop.

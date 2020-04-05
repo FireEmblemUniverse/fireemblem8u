@@ -138,10 +138,10 @@ struct MUConfig {
     /* 48 */ struct MUProc* pMUProc;
 };
 
-extern const struct ProcCmd gProcScr_MoveUnit[];
-extern const struct ProcCmd gProcScr_MUDeathFade[];
-extern const struct ProcCmd gProcScr_MUBlinkEffect[];
-extern const struct ProcCmd gProcScr_MU_89A2CF8[];
+extern struct ProcCmd CONST_DATA gProcScr_MoveUnit[];
+extern struct ProcCmd CONST_DATA gProcScr_MUDeathFade[];
+extern struct ProcCmd CONST_DATA gProcScr_MUBlinkEffect[];
+extern struct ProcCmd CONST_DATA gProcScr_MU_89A2CF8[];
 
 // Buffer for MU graphics
 // what to do with this?

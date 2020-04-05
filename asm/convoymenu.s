@@ -20,15 +20,15 @@ sub_801DF94: @ 0x0801DF94
 	ldrb r0, [r5]
 	cmp r0, #0x63
 	bhi _0801DFC8
-	ldr r0, _0801DFC4  @ gUnknown_0859D0D0
+	ldr r0, _0801DFC4  @ gSendToConvoyMenuDef
 	adds r1, r4, #0
 	bl StartMenu
 	b _0801DFD0
 	.align 2, 0
 _0801DFC0: .4byte gUnknown_02001F70
-_0801DFC4: .4byte gUnknown_0859D0D0
+_0801DFC4: .4byte gSendToConvoyMenuDef
 _0801DFC8:
-	ldr r0, _0801DFD8  @ gUnknown_0859D0AC
+	ldr r0, _0801DFD8  @ gConvoyMenuDef
 	adds r1, r4, #0
 	bl StartMenu
 _0801DFD0:
@@ -37,7 +37,9 @@ _0801DFD0:
 	pop {r1}
 	bx r1
 	.align 2, 0
-_0801DFD8: .4byte gUnknown_0859D0AC
+_0801DFD8: .4byte gConvoyMenuDef
+
+	THUMB_FUNC_END sub_801DF94
 
 	THUMB_FUNC_START sub_801DFDC
 sub_801DFDC: @ 0x0801DFDC
@@ -56,12 +58,14 @@ _0801DFF4: .4byte gUnknown_0202BCB0
 _0801DFF8:
 	adds r0, r4, #0
 	movs r1, #0x63
-	bl Proc_GotoLabel
+	bl Proc_Goto
 	movs r0, #1
 _0801E002:
 	pop {r4}
 	pop {r1}
 	bx r1
+
+	THUMB_FUNC_END sub_801DFDC
 
 	THUMB_FUNC_START sub_801E008
 sub_801E008: @ 0x0801E008
@@ -73,6 +77,8 @@ sub_801E008: @ 0x0801E008
 	pop {r1}
 	bx r1
 
+	THUMB_FUNC_END sub_801E008
+
 	THUMB_FUNC_START sub_801E018
 sub_801E018: @ 0x0801E018
 	push {lr}
@@ -83,6 +89,8 @@ sub_801E018: @ 0x0801E018
 	bx r1
 	.align 2, 0
 _0801E028: .4byte gUnknown_0202BCB0
+
+	THUMB_FUNC_END sub_801E018
 
 	THUMB_FUNC_START sub_801E02C
 sub_801E02C: @ 0x0801E02C
@@ -97,6 +105,8 @@ sub_801E02C: @ 0x0801E02C
 	.align 2, 0
 _0801E040: .4byte gActionData
 _0801E044: .4byte gActiveUnit
+
+	THUMB_FUNC_END sub_801E02C
 
 	THUMB_FUNC_START sub_801E048
 sub_801E048: @ 0x0801E048
@@ -137,6 +147,8 @@ _0801E08E:
 	bx r0
 	.align 2, 0
 _0801E094: .4byte gActionData
+
+	THUMB_FUNC_END sub_801E048
 
 	THUMB_FUNC_START HandleNewItemGetFromDrop
 HandleNewItemGetFromDrop: @ 0x0801E098
@@ -198,7 +210,7 @@ _0801E11A:
 	bl sub_8008A0C
 	ldr r0, _0801E134  @ gUnknown_0859AE38
 	adds r1, r6, #0
-	bl Proc_CreateBlockingChild
+	bl Proc_StartBlocking
 _0801E128:
 	add sp, #4
 	pop {r4, r5, r6}
@@ -208,12 +220,16 @@ _0801E128:
 _0801E130: .4byte 0x00000866
 _0801E134: .4byte gUnknown_0859AE38
 
+	THUMB_FUNC_END HandleNewItemGetFromDrop
+
 	THUMB_FUNC_START SendToConvoyMenu_Draw
 SendToConvoyMenu_Draw: @ 0x0801E138
 	push {lr}
 	bl ItemSelectMenu_TextDraw
 	pop {r1}
 	bx r1
+
+	THUMB_FUNC_END SendToConvoyMenu_Draw
 
 	THUMB_FUNC_START MenuCommand_DrawExtraItem
 MenuCommand_DrawExtraItem: @ 0x0801E144
@@ -246,6 +262,8 @@ MenuCommand_DrawExtraItem: @ 0x0801E144
 	.align 2, 0
 _0801E180: .4byte gUnknown_0202BCB0
 _0801E184: .4byte gBG0TilemapBuffer
+
+	THUMB_FUNC_END MenuCommand_DrawExtraItem
 
 	THUMB_FUNC_START SendToConvoyMenu_NormalEffect
 SendToConvoyMenu_NormalEffect: @ 0x0801E188
@@ -287,8 +305,10 @@ _0801E1D0: .4byte gActiveUnit
 _0801E1D4: .4byte gActionData
 _0801E1D8: .4byte gUnknown_0202BCB0
 
-	THUMB_FUNC_START sub_801E1DC
-sub_801E1DC: @ 0x0801E1DC
+	THUMB_FUNC_END SendToConvoyMenu_NormalEffect
+
+	THUMB_FUNC_START MenuCommand_SendItemToConvoy
+MenuCommand_SendItemToConvoy: @ 0x0801E1DC
 	push {r4, lr}
 	ldr r4, _0801E1F4  @ gUnknown_0202BCB0
 	ldrh r0, [r4, #0x2c]
@@ -304,8 +324,10 @@ sub_801E1DC: @ 0x0801E1DC
 _0801E1F4: .4byte gUnknown_0202BCB0
 _0801E1F8: .4byte gActionData
 
-	THUMB_FUNC_START sub_801E1FC
-sub_801E1FC: @ 0x0801E1FC
+	THUMB_FUNC_END MenuCommand_SendItemToConvoy
+
+	THUMB_FUNC_START SendToConvoyMenu_Selected
+SendToConvoyMenu_Selected: @ 0x0801E1FC
 	push {r4, r5, lr}
 	adds r5, r0, #0
 	adds r4, r1, #0
@@ -344,8 +366,10 @@ _0801E244: .4byte gActionData
 _0801E248: .4byte gActiveUnit
 _0801E24C: .4byte 0x0000084B
 
-	THUMB_FUNC_START sub_801E250
-sub_801E250: @ 0x0801E250
+	THUMB_FUNC_END SendToConvoyMenu_Selected
+
+	THUMB_FUNC_START SendToConvoyMenu_Selected2
+SendToConvoyMenu_Selected2: @ 0x0801E250
 	push {r4, r5, lr}
 	adds r5, r0, #0
 	adds r4, r1, #0
@@ -377,8 +401,10 @@ _0801E288: .4byte gActionData
 _0801E28C: .4byte gUnknown_0202BCB0
 _0801E290: .4byte 0x0000084B
 
-	THUMB_FUNC_START sub_801E294
-sub_801E294: @ 0x0801E294
+	THUMB_FUNC_END SendToConvoyMenu_Selected2
+
+	THUMB_FUNC_START SendToConvoyMenu_Idle
+SendToConvoyMenu_Idle: @ 0x0801E294
 	push {r4, lr}
 	bl sub_8008A00
 	cmp r0, #1
@@ -413,5 +439,7 @@ _0801E2D0: .4byte gKeyStatusPtr
 _0801E2D4: .4byte gActionData
 _0801E2D8: .4byte gActiveUnit
 _0801E2DC: .4byte gUnknown_0202BCB0
+
+	THUMB_FUNC_END SendToConvoyMenu_Idle
 
 .align 2, 0

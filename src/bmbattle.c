@@ -52,7 +52,7 @@ static void UpdateActorFromBattle(void);
 
 static CONST_DATA struct ProcCmd sProcScr_BattleAnimSimpleLock[] = {
     PROC_SLEEP(1),
-    PROC_CALL_ROUTINE(UpdateActorFromBattle),
+    PROC_CALL(UpdateActorFromBattle),
     PROC_END
 };
 
@@ -2207,7 +2207,7 @@ void UpdateActorFromBattle(void) {
 
 void BattleApplyMiscAction(struct Proc* proc) {
     BattleApplyMiscActionExpGains();
-    Proc_CreateBlockingChild(sProcScr_BattleAnimSimpleLock, proc);
+    Proc_StartBlocking(sProcScr_BattleAnimSimpleLock, proc);
 }
 
 void BattleApplyItemEffect(struct Proc* proc) {
@@ -2226,7 +2226,7 @@ void BattleApplyItemEffect(struct Proc* proc) {
             gBattleActor.weaponBroke = FALSE;
     }
 
-    Proc_CreateBlockingChild(sProcScr_BattleAnimSimpleLock, proc);
+    Proc_StartBlocking(sProcScr_BattleAnimSimpleLock, proc);
 }
 
 int GetOffensiveStaffAccuracy(struct Unit* actor, struct Unit* target) {

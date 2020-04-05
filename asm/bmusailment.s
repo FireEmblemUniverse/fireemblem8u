@@ -50,6 +50,8 @@ _08035B00: .4byte gUnknown_08A03334
 _08035B04: .4byte gBG0TilemapBuffer
 _08035B08: .4byte gUnknown_08A03354
 
+	THUMB_FUNC_END sub_8035AA4
+
 	THUMB_FUNC_START sub_8035B0C
 sub_8035B0C: @ 0x08035B0C
 	push {r4, lr}
@@ -77,6 +79,8 @@ sub_8035B0C: @ 0x08035B0C
 	.align 2, 0
 _08035B3C: .4byte gUnknown_0202BCB0
 _08035B40: .4byte gActiveUnit
+
+	THUMB_FUNC_END sub_8035B0C
 
 	THUMB_FUNC_START sub_8035B44
 sub_8035B44: @ 0x08035B44
@@ -160,6 +164,8 @@ sub_8035B44: @ 0x08035B44
 _08035BE4: .4byte gActiveUnit
 _08035BE8: .4byte gLCDControlBuffer
 
+	THUMB_FUNC_END sub_8035B44
+
 	THUMB_FUNC_START sub_8035BEC
 sub_8035BEC: @ 0x08035BEC
 	push {r4, r5, r6, lr}
@@ -194,7 +200,7 @@ sub_8035BEC: @ 0x08035BEC
 	cmp r0, #0
 	bge _08035C32
 	adds r0, r5, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _08035C32:
 	add sp, #4
 	pop {r4, r5, r6}
@@ -203,6 +209,8 @@ _08035C32:
 	.align 2, 0
 _08035C3C: .4byte gActiveUnit
 _08035C40: .4byte gUnknown_0202BCB0
+
+	THUMB_FUNC_END sub_8035BEC
 
 	THUMB_FUNC_START sub_8035C44
 sub_8035C44: @ 0x08035C44
@@ -214,6 +222,8 @@ sub_8035C44: @ 0x08035C44
 	bx r0
 	.align 2, 0
 _08035C54: .4byte gActiveUnit
+
+	THUMB_FUNC_END sub_8035C44
 
 	THUMB_FUNC_START sub_8035C58
 sub_8035C58: @ 0x08035C58
@@ -227,6 +237,8 @@ sub_8035C58: @ 0x08035C58
 	str r1, [r0, #0x34]
 	bx lr
 
+	THUMB_FUNC_END sub_8035C58
+
 	THUMB_FUNC_START sub_8035C6C
 sub_8035C6C: @ 0x08035C6C
 	adds r2, r0, #0
@@ -238,6 +250,8 @@ sub_8035C6C: @ 0x08035C6C
 	subs r1, #0x11
 	str r1, [r0, #0x34]
 	bx lr
+
+	THUMB_FUNC_END sub_8035C6C
 
 	THUMB_FUNC_START sub_8035C80
 sub_8035C80: @ 0x08035C80
@@ -262,11 +276,13 @@ sub_8035C80: @ 0x08035C80
 	cmp r0, #0
 	bge _08035CB0
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _08035CB0:
 	pop {r4}
 	pop {r0}
 	bx r0
+
+	THUMB_FUNC_END sub_8035C80
 
 	THUMB_FUNC_START sub_8035CB8
 sub_8035CB8: @ 0x08035CB8
@@ -320,6 +336,8 @@ _08035CF6:
 	.align 2, 0
 _08035D10: .4byte gUnknown_02022C68
 
+	THUMB_FUNC_END sub_8035CB8
+
 	THUMB_FUNC_START sub_8035D14
 sub_8035D14: @ 0x08035D14
 	push {lr}
@@ -347,6 +365,8 @@ _08035D24:
 _08035D3C: .4byte gPaletteBuffer
 _08035D40: .4byte 0x0000025E
 
+	THUMB_FUNC_END sub_8035D14
+
 	THUMB_FUNC_START sub_8035D44
 sub_8035D44: @ 0x08035D44
 	push {r4, r5, lr}
@@ -365,11 +385,13 @@ sub_8035D44: @ 0x08035D44
 	cmp r0, #0x20
 	bne _08035D6A
 	adds r0, r5, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _08035D6A:
 	pop {r4, r5}
 	pop {r0}
 	bx r0
+
+	THUMB_FUNC_END sub_8035D44
 
 	THUMB_FUNC_START sub_8035D70
 sub_8035D70: @ 0x08035D70
@@ -388,11 +410,13 @@ sub_8035D70: @ 0x08035D70
 	cmp r0, #0
 	bge _08035D94
 	adds r0, r5, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _08035D94:
 	pop {r4, r5}
 	pop {r0}
 	bx r0
+
+	THUMB_FUNC_END sub_8035D70
 
 	THUMB_FUNC_START sub_8035D9C
 sub_8035D9C: @ 0x08035D9C
@@ -426,6 +450,8 @@ sub_8035D9C: @ 0x08035D9C
 	.align 2, 0
 _08035DD8: .4byte gLCDControlBuffer
 
+	THUMB_FUNC_END sub_8035D9C
+
 	THUMB_FUNC_START sub_8035DDC
 sub_8035DDC: @ 0x08035DDC
 	push {lr}
@@ -436,7 +462,7 @@ sub_8035DDC: @ 0x08035DDC
 	beq _08035E10
 	ldr r0, _08035E08  @ gUnknown_0859E2D0
 	adds r1, r2, #0
-	bl Proc_CreateBlockingChild
+	bl Proc_StartBlocking
 	ldr r0, _08035E0C  @ gUnknown_0202BCF0
 	adds r0, #0x41
 	ldrb r0, [r0]
@@ -453,12 +479,14 @@ _08035E0C: .4byte gUnknown_0202BCF0
 _08035E10:
 	ldr r0, _08035E1C  @ gUnknown_0859E2D0
 	movs r1, #3
-	bl Proc_CreateBlockingChild
+	bl Proc_StartBlocking
 _08035E18:
 	pop {r0}
 	bx r0
 	.align 2, 0
 _08035E1C: .4byte gUnknown_0859E2D0
+
+	THUMB_FUNC_END sub_8035DDC
 
 	THUMB_FUNC_START sub_8035E20
 sub_8035E20: @ 0x08035E20
@@ -471,7 +499,7 @@ sub_8035E20: @ 0x08035E20
 	cmp r0, #0
 	bne _08035E40
 	adds r0, r4, #0
-	bl Proc_Delete
+	bl Proc_End
 	b _08035E48
 	.align 2, 0
 _08035E3C: .4byte gUnknown_0202BCF0
@@ -484,6 +512,8 @@ _08035E48:
 	pop {r4}
 	pop {r0}
 	bx r0
+
+	THUMB_FUNC_END sub_8035E20
 
 	THUMB_FUNC_START sub_8035E50
 sub_8035E50: @ 0x08035E50
@@ -508,7 +538,7 @@ sub_8035E50: @ 0x08035E50
 	cmp r4, r0
 	bne _08035E8C
 	adds r0, r7, #0
-	bl Proc_Delete
+	bl Proc_End
 	b _08035ED2
 	.align 2, 0
 _08035E88: .4byte gActionData
@@ -532,7 +562,7 @@ _08035E8C:
 	bne _08035EC0
 	adds r0, r7, #0
 	movs r1, #1
-	bl Proc_GotoLabel
+	bl Proc_Goto
 	b _08035ED2
 	.align 2, 0
 _08035EB8: .4byte gUnknown_0202BCF0
@@ -544,11 +574,13 @@ _08035EC0:
 	bne _08035ED2
 	adds r0, r7, #0
 	movs r1, #1
-	bl Proc_GotoLabel
+	bl Proc_Goto
 _08035ED2:
 	pop {r4, r5, r6, r7}
 	pop {r0}
 	bx r0
+
+	THUMB_FUNC_END sub_8035E50
 
 	THUMB_FUNC_START sub_8035ED8
 sub_8035ED8: @ 0x08035ED8
@@ -567,6 +599,8 @@ sub_8035ED8: @ 0x08035ED8
 	pop {r4}
 	pop {r0}
 	bx r0
+
+	THUMB_FUNC_END sub_8035ED8
 
 	THUMB_FUNC_START sub_8035EFC
 sub_8035EFC: @ 0x08035EFC
@@ -601,6 +635,8 @@ _08035F38:
 	pop {r0}
 	bx r0
 
+	THUMB_FUNC_END sub_8035EFC
+
 	THUMB_FUNC_START sub_8035F40
 sub_8035F40: @ 0x08035F40
 	push {lr}
@@ -621,6 +657,8 @@ _08035F5E:
 	.align 2, 0
 _08035F64: .4byte gBattleActor
 _08035F68: .4byte gActionData
+
+	THUMB_FUNC_END sub_8035F40
 
 	THUMB_FUNC_START sub_8035F6C
 sub_8035F6C: @ 0x08035F6C
@@ -661,6 +699,8 @@ _08035FA8:
 	pop {r0}
 	bx r0
 
+	THUMB_FUNC_END sub_8035F6C
+
 	THUMB_FUNC_START sub_8035FB8
 sub_8035FB8: @ 0x08035FB8
 	push {r4, lr}
@@ -674,7 +714,7 @@ sub_8035FB8: @ 0x08035FB8
 	cmp r0, #0
 	bne _08035FE0
 	adds r0, r4, #0
-	bl Proc_Delete
+	bl Proc_End
 	b _08035FE8
 	.align 2, 0
 _08035FDC: .4byte gUnknown_0202BCF0
@@ -687,6 +727,8 @@ _08035FE8:
 	pop {r4}
 	pop {r0}
 	bx r0
+
+	THUMB_FUNC_END sub_8035FB8
 
 	THUMB_FUNC_START sub_8035FF0
 sub_8035FF0: @ 0x08035FF0
@@ -708,6 +750,8 @@ sub_8035FF0: @ 0x08035FF0
 	pop {r4, r5}
 	pop {r0}
 	bx r0
+
+	THUMB_FUNC_END sub_8035FF0
 
 	THUMB_FUNC_START sub_803601C
 sub_803601C: @ 0x0803601C
@@ -759,6 +803,8 @@ _08036080:
 	.align 2, 0
 _08036088: .4byte gActionData
 
+	THUMB_FUNC_END sub_803601C
+
 	THUMB_FUNC_START sub_803608C
 sub_803608C: @ 0x0803608C
 	push {r4, lr}
@@ -779,6 +825,8 @@ _080360B0:
 	pop {r0}
 	bx r0
 
+	THUMB_FUNC_END sub_803608C
+
 	THUMB_FUNC_START sub_80360B8
 sub_80360B8: @ 0x080360B8
 	push {r4, lr}
@@ -790,7 +838,7 @@ sub_80360B8: @ 0x080360B8
 	cmp r0, #0
 	bne _080360D8
 	adds r0, r4, #0
-	bl Proc_Delete
+	bl Proc_End
 	b _080360E0
 	.align 2, 0
 _080360D4: .4byte gUnknown_0202BCF0
@@ -803,6 +851,8 @@ _080360E0:
 	pop {r4}
 	pop {r0}
 	bx r0
+
+	THUMB_FUNC_END sub_80360B8
 
 	THUMB_FUNC_START sub_80360E8
 sub_80360E8: @ 0x080360E8
@@ -826,6 +876,8 @@ sub_80360E8: @ 0x080360E8
 	pop {r4, r5}
 	pop {r0}
 	bx r0
+
+	THUMB_FUNC_END sub_80360E8
 
 	THUMB_FUNC_START sub_803611C
 sub_803611C: @ 0x0803611C
@@ -876,6 +928,8 @@ _0803617E:
 	.align 2, 0
 _08036184: .4byte gActionData
 
+	THUMB_FUNC_END sub_803611C
+
 	THUMB_FUNC_START sub_8036188
 sub_8036188: @ 0x08036188
 	push {r4, lr}
@@ -884,7 +938,7 @@ sub_8036188: @ 0x08036188
 	cmp r0, #0
 	bne _0803619C
 	adds r0, r4, #0
-	bl Proc_Delete
+	bl Proc_End
 	b _080361A6
 _0803619C:
 	adds r1, r4, #0
@@ -896,6 +950,8 @@ _080361A6:
 	pop {r4}
 	pop {r0}
 	bx r0
+
+	THUMB_FUNC_END sub_8036188
 
 	THUMB_FUNC_START sub_80361AC
 sub_80361AC: @ 0x080361AC
@@ -954,6 +1010,8 @@ _08036236:
 	pop {r0}
 	bx r0
 
+	THUMB_FUNC_END sub_80361AC
+
 	THUMB_FUNC_START sub_803623C
 sub_803623C: @ 0x0803623C
 	push {r4, r5, lr}
@@ -997,12 +1055,16 @@ _08036276:
 _08036294: .4byte gActionData
 _08036298: .4byte 0xFFFFFBBD
 
+	THUMB_FUNC_END sub_803623C
+
 	THUMB_FUNC_START sub_803629C
 sub_803629C: @ 0x0803629C
 	adds r0, #0x4c
 	movs r1, #0
 	strh r1, [r0]
 	bx lr
+
+	THUMB_FUNC_END sub_803629C
 
 	THUMB_FUNC_START sub_80362A4
 sub_80362A4: @ 0x080362A4
@@ -1027,7 +1089,7 @@ sub_80362A4: @ 0x080362A4
 	cmp r4, r0
 	bne _080362E0
 	adds r0, r7, #0
-	bl Proc_Delete
+	bl Proc_End
 	b _0803632E
 	.align 2, 0
 _080362DC: .4byte gActionData
@@ -1055,7 +1117,7 @@ _080362E0:
 	bne _0803631C
 	adds r0, r7, #0
 	movs r1, #1
-	bl Proc_GotoLabel
+	bl Proc_Goto
 	b _0803632E
 	.align 2, 0
 _08036314: .4byte gUnknown_0202BCF0
@@ -1067,11 +1129,13 @@ _0803631C:
 	bne _0803632E
 	adds r0, r7, #0
 	movs r1, #1
-	bl Proc_GotoLabel
+	bl Proc_Goto
 _0803632E:
 	pop {r4, r5, r6, r7}
 	pop {r0}
 	bx r0
+
+	THUMB_FUNC_END sub_80362A4
 
 	THUMB_FUNC_START sub_8036334
 sub_8036334: @ 0x08036334
@@ -1098,6 +1162,8 @@ _0803635E:
 	pop {r4}
 	pop {r0}
 	bx r0
+
+	THUMB_FUNC_END sub_8036334
 
 	THUMB_FUNC_START sub_8036364
 sub_8036364: @ 0x08036364
@@ -1203,7 +1269,7 @@ _0803641E:
 	strh r0, [r1]
 	adds r0, r5, #0
 	movs r1, #0
-	bl Proc_GotoLabel
+	bl Proc_Goto
 	b _0803646E
 _08036432:
 	ldr r5, _0803645C  @ gActionData
@@ -1234,6 +1300,8 @@ _0803646E:
 	pop {r4, r5}
 	pop {r0}
 	bx r0
+
+	THUMB_FUNC_END sub_8036364
 
 	THUMB_FUNC_START sub_8036474
 sub_8036474: @ 0x08036474
@@ -1283,5 +1351,7 @@ _080364C6:
 	pop {r4, r5, r6}
 	pop {r0}
 	bx r0
+
+	THUMB_FUNC_END sub_8036474
 
 .align 2, 0

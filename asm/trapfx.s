@@ -97,6 +97,8 @@ _0801F5F4: .4byte 0x06014800
 _0801F5F8: .4byte gUnknown_085A206C
 _0801F5FC: .4byte gUnknown_0202BCB0
 
+	THUMB_FUNC_END sub_801F540
+
 	THUMB_FUNC_START sub_801F600
 sub_801F600: @ 0x0801F600
 	push {r4, r5, r6, lr}
@@ -108,7 +110,7 @@ sub_801F600: @ 0x0801F600
 	mov r8, r3
 	ldr r0, _0801F62C  @ gUnknown_0859AFC8
 	adds r1, r4, #0
-	bl Proc_CreateBlockingChild
+	bl Proc_StartBlocking
 	str r5, [r0, #0x2c]
 	str r6, [r0, #0x30]
 	adds r0, #0x4a
@@ -121,6 +123,8 @@ sub_801F600: @ 0x0801F600
 	bx r0
 	.align 2, 0
 _0801F62C: .4byte gUnknown_0859AFC8
+
+	THUMB_FUNC_END sub_801F600
 
 	THUMB_FUNC_START sub_801F630
 sub_801F630: @ 0x0801F630
@@ -165,6 +169,8 @@ _0801F680: .4byte 0x06014800
 _0801F684: .4byte gUnknown_0202BCB0
 _0801F688: .4byte gUnknown_085A2DFC
 
+	THUMB_FUNC_END sub_801F630
+
 	THUMB_FUNC_START sub_801F68C
 sub_801F68C: @ 0x0801F68C
 	push {r4, r5, r6, lr}
@@ -178,7 +184,7 @@ sub_801F68C: @ 0x0801F68C
 	bl CopyToPaletteBuffer
 	ldr r0, _0801F6B8  @ gUnknown_0859AFE8
 	adds r1, r4, #0
-	bl Proc_CreateBlockingChild
+	bl Proc_StartBlocking
 	str r5, [r0, #0x2c]
 	str r6, [r0, #0x30]
 	pop {r4, r5, r6}
@@ -187,6 +193,8 @@ sub_801F68C: @ 0x0801F68C
 	.align 2, 0
 _0801F6B4: .4byte gUnknown_085A2DDC
 _0801F6B8: .4byte gUnknown_0859AFE8
+
+	THUMB_FUNC_END sub_801F68C
 
 	THUMB_FUNC_START sub_801F6BC
 sub_801F6BC: @ 0x0801F6BC
@@ -201,7 +209,7 @@ sub_801F6BC: @ 0x0801F6BC
 	bl CopyToPaletteBuffer
 	ldr r0, _0801F6E8  @ gUnknown_0859AFE8
 	adds r1, r4, #0
-	bl Proc_CreateBlockingChild
+	bl Proc_StartBlocking
 	str r5, [r0, #0x2c]
 	str r6, [r0, #0x30]
 	pop {r4, r5, r6}
@@ -210,6 +218,8 @@ sub_801F6BC: @ 0x0801F6BC
 	.align 2, 0
 _0801F6E4: .4byte gUnknown_085A3490
 _0801F6E8: .4byte gUnknown_0859AFE8
+
+	THUMB_FUNC_END sub_801F6BC
 
 	THUMB_FUNC_START sub_801F6EC
 sub_801F6EC: @ 0x0801F6EC
@@ -247,7 +257,7 @@ sub_801F6EC: @ 0x0801F6EC
 	bgt _0801F736
 	adds r0, r5, #0
 	movs r1, #0x64
-	bl Proc_GotoLabel
+	bl Proc_Goto
 _0801F736:
 	ldr r0, [r5, #0x58]
 	cmp r0, #1
@@ -290,6 +300,8 @@ _0801F778:
 	pop {r0}
 	bx r0
 
+	THUMB_FUNC_END sub_801F6EC
+
 	THUMB_FUNC_START sub_801F780
 sub_801F780: @ 0x0801F780
 	push {r4, r5, r6, lr}
@@ -311,7 +323,7 @@ sub_801F780: @ 0x0801F780
 	bl CopyToPaletteBuffer
 	ldr r0, _0801F7D4  @ gUnknown_0859B008
 	adds r1, r4, #0
-	bl Proc_CreateBlockingChild
+	bl Proc_StartBlocking
 	str r5, [r0, #0x58]
 	str r6, [r0, #0x5c]
 	mov r1, r8
@@ -329,6 +341,8 @@ _0801F7C8: .4byte gUnknown_089ADA80
 _0801F7CC: .4byte 0x06014800
 _0801F7D0: .4byte gUnknown_089ADD0C
 _0801F7D4: .4byte gUnknown_0859B008
+
+	THUMB_FUNC_END sub_801F780
 
 	THUMB_FUNC_START sub_801F7D8
 sub_801F7D8: @ 0x0801F7D8
@@ -378,6 +392,8 @@ _0801F838: .4byte gUnknown_085A208C
 _0801F83C: .4byte gUnknown_0202BCB0
 _0801F840: .4byte gUnknown_085A2384
 
+	THUMB_FUNC_END sub_801F7D8
+
 	THUMB_FUNC_START sub_801F844
 sub_801F844: @ 0x0801F844
 	push {r4, lr}
@@ -385,13 +401,15 @@ sub_801F844: @ 0x0801F844
 	adds r4, r1, #0
 	ldr r0, _0801F85C  @ gUnknown_0859B048
 	adds r1, r2, #0
-	bl Proc_CreateBlockingChild
+	bl Proc_StartBlocking
 	str r4, [r0, #0x2c]
 	pop {r4}
 	pop {r0}
 	bx r0
 	.align 2, 0
 _0801F85C: .4byte gUnknown_0859B048
+
+	THUMB_FUNC_END sub_801F844
 
 	THUMB_FUNC_START sub_801F860
 sub_801F860: @ 0x0801F860
@@ -414,6 +432,8 @@ sub_801F860: @ 0x0801F860
 	pop {r4, r5}
 	pop {r0}
 	bx r0
+
+	THUMB_FUNC_END sub_801F860
 
 	THUMB_FUNC_START sub_801F88C
 sub_801F88C: @ 0x0801F88C
@@ -443,13 +463,15 @@ _0801F8AC:
 	.align 2, 0
 _0801F8C4: .4byte gUnknown_0202BCB0
 
+	THUMB_FUNC_END sub_801F88C
+
 	THUMB_FUNC_START sub_801F8C8
 sub_801F8C8: @ 0x0801F8C8
 	push {r4, r5, lr}
 	adds r1, r0, #0
 	adds r4, r2, #0
 	ldr r0, _0801F8F0  @ gUnknown_0859B070
-	bl Proc_CreateBlockingChild
+	bl Proc_StartBlocking
 	adds r5, r0, #0
 	adds r0, r4, #0
 	bl GetTrap
@@ -473,6 +495,8 @@ _0801F8F6:
 	pop {r4, r5}
 	pop {r0}
 	bx r0
+
+	THUMB_FUNC_END sub_801F8C8
 
 	THUMB_FUNC_START sub_801F904
 sub_801F904: @ 0x0801F904
@@ -526,6 +550,8 @@ _0801F96C: .4byte gUnknown_085A3944
 _0801F970: .4byte gUnknown_0202BCB0
 _0801F974: .4byte gUnknown_085A3730
 
+	THUMB_FUNC_END sub_801F904
+
 	THUMB_FUNC_START sub_801F978
 sub_801F978: @ 0x0801F978
 	push {r4, r5, r6, r7, lr}
@@ -535,7 +561,7 @@ sub_801F978: @ 0x0801F978
 	adds r7, r3, #0
 	ldr r0, _0801F99C  @ gUnknown_0859B0A0
 	adds r1, r4, #0
-	bl Proc_CreateBlockingChild
+	bl Proc_StartBlocking
 	str r5, [r0, #0x2c]
 	str r6, [r0, #0x30]
 	cmp r7, #1
@@ -572,11 +598,15 @@ _0801F9BE:
 	pop {r0}
 	bx r0
 
+	THUMB_FUNC_END sub_801F978
+
 	THUMB_FUNC_START sub_801F9C4
 sub_801F9C4: @ 0x0801F9C4
 	adds r0, #0x4c
 	movs r1, #0xf0
 	strh r1, [r0]
 	bx lr
+
+	THUMB_FUNC_END sub_801F9C4
 
 .align 2, 0

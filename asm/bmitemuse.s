@@ -339,6 +339,8 @@ _08028C06:
 	pop {r1}
 	bx r1
 
+	THUMB_FUNC_END CanUnitUseItem
+
 	THUMB_FUNC_START sub_8028C0C
 sub_8028C0C: @ 0x08028C0C
 	push {r4, r5, r6, lr}
@@ -537,6 +539,8 @@ _08028E56:
 	.align 2, 0
 _08028E5C: .4byte 0x0000085A
 
+	THUMB_FUNC_END sub_8028C0C
+
 	THUMB_FUNC_START ItemEffect_Call
 ItemEffect_Call: @ 0x08028E60
 	push {r4, r5, lr}
@@ -732,6 +736,8 @@ _08029062:
 	pop {r0}
 	bx r0
 
+	THUMB_FUNC_END ItemEffect_Call
+
 	THUMB_FUNC_START IsGeneratedTargetListEmpty
 IsGeneratedTargetListEmpty: @ 0x08029068
 	push {lr}
@@ -743,6 +749,8 @@ IsGeneratedTargetListEmpty: @ 0x08029068
 _08029078:
 	pop {r1}
 	bx r1
+
+	THUMB_FUNC_END IsGeneratedTargetListEmpty
 
 	THUMB_FUNC_START CanUseHealingItem
 CanUseHealingItem: @ 0x0802907C
@@ -763,10 +771,14 @@ _08029096:
 	pop {r1}
 	bx r1
 
+	THUMB_FUNC_END CanUseHealingItem
+
 	THUMB_FUNC_START sub_802909C
 sub_802909C: @ 0x0802909C
 	movs r0, #0
 	bx lr
+
+	THUMB_FUNC_END sub_802909C
 
 	THUMB_FUNC_START CanUsePureWater
 CanUsePureWater: @ 0x080290A0
@@ -784,6 +796,8 @@ _080290B2:
 _080290B4:
 	pop {r1}
 	bx r1
+
+	THUMB_FUNC_END CanUsePureWater
 
 	THUMB_FUNC_START CanUseTorch
 CanUseTorch: @ 0x080290B8
@@ -810,6 +824,8 @@ _080290DE:
 	pop {r1}
 	bx r1
 
+	THUMB_FUNC_END CanUseTorch
+
 	THUMB_FUNC_START CanUseAntidote
 CanUseAntidote: @ 0x080290E4
 	push {lr}
@@ -826,6 +842,8 @@ _080290F6:
 _080290F8:
 	pop {r1}
 	bx r1
+
+	THUMB_FUNC_END CanUseAntidote
 
 	THUMB_FUNC_START CanUseChestKey
 CanUseChestKey: @ 0x080290FC
@@ -859,6 +877,8 @@ _08029132:
 	pop {r1}
 	bx r1
 
+	THUMB_FUNC_END CanUseChestKey
+
 	THUMB_FUNC_START CanUseDoorKey
 CanUseDoorKey: @ 0x08029138
 	push {lr}
@@ -870,6 +890,8 @@ CanUseDoorKey: @ 0x08029138
 	pop {r1}
 	bx r1
 
+	THUMB_FUNC_END CanUseDoorKey
+
 	THUMB_FUNC_START CanOpenBridge
 CanOpenBridge: @ 0x0802914C
 	push {lr}
@@ -880,6 +902,8 @@ CanOpenBridge: @ 0x0802914C
 	asrs r0, r0, #0x18
 	pop {r1}
 	bx r1
+
+	THUMB_FUNC_END CanOpenBridge
 
 	THUMB_FUNC_START CanUseLockpick
 CanUseLockpick: @ 0x08029160
@@ -918,6 +942,8 @@ _080291A0:
 	pop {r4}
 	pop {r1}
 	bx r1
+
+	THUMB_FUNC_END CanUseLockpick
 
 	THUMB_FUNC_START CanUsePromotionItem
 CanUsePromotionItem: @ 0x080291A8
@@ -1157,6 +1183,8 @@ _08029402:
 	.align 2, 0
 _08029408: .4byte gUnknown_088ADF9E
 
+	THUMB_FUNC_END CanUsePromotionItem
+
 	THUMB_FUNC_START CanUseStatBooster
 CanUseStatBooster: @ 0x0802940C
 	push {r4, r5, r6, lr}
@@ -1288,6 +1316,8 @@ _080294F6:
 	.align 2, 0
 _08029500: .4byte gUnknown_03004C00
 
+	THUMB_FUNC_END CanUseStatBooster
+
 	THUMB_FUNC_START CanUseJunaFruit
 CanUseJunaFruit: @ 0x08029504
 	push {lr}
@@ -1302,6 +1332,8 @@ _08029514:
 	adds r0, r1, #0
 	pop {r1}
 	bx r1
+
+	THUMB_FUNC_END CanUseJunaFruit
 
 	THUMB_FUNC_START EndItemEffectSelectionThing
 EndItemEffectSelectionThing: @ 0x0802951C
@@ -1321,6 +1353,8 @@ EndItemEffectSelectionThing: @ 0x0802951C
 _0802953C: .4byte gBG2TilemapBuffer
 _08029540: .4byte gActionData
 
+	THUMB_FUNC_END EndItemEffectSelectionThing
+
 	THUMB_FUNC_START sub_8029544
 sub_8029544: @ 0x08029544
 	ldr r1, _0802954C  @ gActionData
@@ -1329,6 +1363,8 @@ sub_8029544: @ 0x08029544
 	bx lr
 	.align 2, 0
 _0802954C: .4byte gActionData
+
+	THUMB_FUNC_END sub_8029544
 
 	THUMB_FUNC_START GenericStaffSelection_OnSelect
 GenericStaffSelection_OnSelect: @ 0x08029550
@@ -1343,6 +1379,8 @@ GenericStaffSelection_OnSelect: @ 0x08029550
 	bx r1
 	.align 2, 0
 _08029564: .4byte gActionData
+
+	THUMB_FUNC_END GenericStaffSelection_OnSelect
 
 	THUMB_FUNC_START PrepareTargetSelectionForRescueStaff
 PrepareTargetSelectionForRescueStaff: @ 0x08029568
@@ -1371,6 +1409,8 @@ _0802959C: .4byte gUnknown_0859D2F8
 _080295A0: .4byte GenericStaffSelection_OnSelect
 _080295A4: .4byte 0x00000876
 
+	THUMB_FUNC_END PrepareTargetSelectionForRescueStaff
+
 	THUMB_FUNC_START SetupTargetSelectionForGenericStaff
 SetupTargetSelectionForGenericStaff: @ 0x080295A8
 	push {r4, r5, lr}
@@ -1397,6 +1437,8 @@ SetupTargetSelectionForGenericStaff: @ 0x080295A8
 _080295DC: .4byte gBmMapMovement
 _080295E0: .4byte gUnknown_0859D2F8
 _080295E4: .4byte GenericStaffSelection_OnSelect
+
+	THUMB_FUNC_END SetupTargetSelectionForGenericStaff
 
 	THUMB_FUNC_START WarpTargetPosSelect_Init
 WarpTargetPosSelect_Init: @ 0x080295E8
@@ -1473,6 +1515,8 @@ _08029690: .4byte gActiveUnit
 _08029694: .4byte gUnknown_0202BCB0
 _08029698: .4byte gUnknown_085A0EA0
 
+	THUMB_FUNC_END WarpTargetPosSelect_Init
+
 	THUMB_FUNC_START WarpTargetPosSelect_Loop
 WarpTargetPosSelect_Loop: @ 0x0802969C
 	push {r4, r5, r6, lr}
@@ -1505,7 +1549,7 @@ WarpTargetPosSelect_Loop: @ 0x0802969C
 	cmp r6, #0
 	beq _08029730
 	adds r0, r5, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 	ldr r1, _08029720  @ gActionData
 	ldrh r0, [r4, #0x14]
 	strb r0, [r1, #0x13]
@@ -1555,7 +1599,7 @@ _08029742:
 	beq _08029778
 	adds r0, r5, #0
 	movs r1, #0x63
-	bl Proc_GotoLabel
+	bl Proc_Goto
 	ldr r0, _080297C8  @ gBG2TilemapBuffer
 	movs r1, #0
 	bl BG_Fill
@@ -1613,6 +1657,8 @@ _080297C4: .4byte gKeyStatusPtr
 _080297C8: .4byte gBG2TilemapBuffer
 _080297CC: .4byte gUnknown_0202BCB0
 
+	THUMB_FUNC_END WarpTargetPosSelect_Loop
+
 	THUMB_FUNC_START WarpTargetPosSelect_Confirm
 WarpTargetPosSelect_Confirm: @ 0x080297D0
 	push {r4, r5, lr}
@@ -1641,6 +1687,8 @@ WarpTargetPosSelect_Confirm: @ 0x080297D0
 	.align 2, 0
 _08029808: .4byte gActiveUnit
 
+	THUMB_FUNC_END WarpTargetPosSelect_Confirm
+
 	THUMB_FUNC_START WarpTargetPosSelect_Cancel
 WarpTargetPosSelect_Cancel: @ 0x0802980C
 	push {lr}
@@ -1657,12 +1705,14 @@ WarpTargetPosSelect_Cancel: @ 0x0802980C
 	bl SetCursorMapPosition
 	ldr r0, _0802983C  @ gUnknown_0859B600
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	pop {r0}
 	bx r0
 	.align 2, 0
 _08029838: .4byte gActiveUnit
 _0802983C: .4byte gUnknown_0859B600
+
+	THUMB_FUNC_END WarpTargetPosSelect_Cancel
 
 	THUMB_FUNC_START WarpTargetPosSelect_Destruct
 WarpTargetPosSelect_Destruct: @ 0x08029840
@@ -1675,6 +1725,8 @@ WarpTargetPosSelect_Destruct: @ 0x08029840
 	pop {r0}
 	bx r0
 
+	THUMB_FUNC_END WarpTargetPosSelect_Destruct
+
 	THUMB_FUNC_START WarpTargetSelection_OnSelect
 WarpTargetSelection_OnSelect: @ 0x08029854
 	push {r4, lr}
@@ -1685,7 +1737,7 @@ WarpTargetSelection_OnSelect: @ 0x08029854
 	strb r0, [r1, #0xd]
 	ldr r0, _08029878  @ gUnknown_0859B9B8
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	movs r0, #4
 	pop {r4}
 	pop {r1}
@@ -1693,6 +1745,8 @@ WarpTargetSelection_OnSelect: @ 0x08029854
 	.align 2, 0
 _08029874: .4byte gActionData
 _08029878: .4byte gUnknown_0859B9B8
+
+	THUMB_FUNC_END WarpTargetSelection_OnSelect
 
 	THUMB_FUNC_START SetupWarpTargetSelection
 SetupWarpTargetSelection: @ 0x0802987C
@@ -1731,6 +1785,8 @@ _080298C8: .4byte WarpTargetSelection_OnSelect
 _080298CC: .4byte 0x00000875
 _080298D0: .4byte gUnknown_0202BCF0
 
+	THUMB_FUNC_END SetupWarpTargetSelection
+
 	THUMB_FUNC_START sub_80298D4
 sub_80298D4: @ 0x080298D4
 	push {lr}
@@ -1746,6 +1802,8 @@ sub_80298D4: @ 0x080298D4
 	bx r1
 	.align 2, 0
 _080298EC: .4byte gActionData
+
+	THUMB_FUNC_END sub_80298D4
 
 	THUMB_FUNC_START PrepareTargetSelectionForMineAndLightRune
 PrepareTargetSelectionForMineAndLightRune: @ 0x080298F0
@@ -1784,6 +1842,8 @@ _08029938: .4byte gUnknown_0859D2D8
 _0802993C: .4byte sub_80298D4
 _08029940: .4byte gUnknown_0202BCF0
 
+	THUMB_FUNC_END PrepareTargetSelectionForMineAndLightRune
+
 	THUMB_FUNC_START HammerneTargetSelection_OnSelect
 HammerneTargetSelection_OnSelect: @ 0x08029944
 	push {r4, r5, lr}
@@ -1793,7 +1853,7 @@ HammerneTargetSelection_OnSelect: @ 0x08029944
 	ldr r5, _080299B0  @ gActionData
 	ldrb r0, [r4, #2]
 	strb r0, [r5, #0xd]
-	ldr r0, _080299B4  @ gUnknown_0859D064
+	ldr r0, _080299B4  @ gItemUseMenuDef
 	bl StartOrphanMenu
 	adds r4, r0, #0
 	ldrb r0, [r5, #0xd]
@@ -1831,7 +1891,9 @@ _080299A4:
 	bx r1
 	.align 2, 0
 _080299B0: .4byte gActionData
-_080299B4: .4byte gUnknown_0859D064
+_080299B4: .4byte gItemUseMenuDef
+
+	THUMB_FUNC_END HammerneTargetSelection_OnSelect
 
 	THUMB_FUNC_START SetupHammerneUseSelection
 SetupHammerneUseSelection: @ 0x080299B8
@@ -1868,6 +1930,8 @@ _080299FC: .4byte gUnknown_0859D3B8
 _08029A00: .4byte 0x00000878
 _08029A04: .4byte gUnknown_0202BCF0
 
+	THUMB_FUNC_END SetupHammerneUseSelection
+
 	THUMB_FUNC_START HammerneTargetSelection_OnChange
 HammerneTargetSelection_OnChange: @ 0x08029A08
 	push {r4, lr}
@@ -1885,6 +1949,8 @@ HammerneTargetSelection_OnChange: @ 0x08029A08
 	pop {r1}
 	bx r1
 
+	THUMB_FUNC_END HammerneTargetSelection_OnChange
+
 	THUMB_FUNC_START HammerneTargetSelection_OnInit
 HammerneTargetSelection_OnInit: @ 0x08029A2C
 	push {lr}
@@ -1892,8 +1958,10 @@ HammerneTargetSelection_OnInit: @ 0x08029A2C
 	pop {r0}
 	bx r0
 
-	THUMB_FUNC_START sub_8029A38
-sub_8029A38: @ 0x08029A38
+	THUMB_FUNC_END HammerneTargetSelection_OnInit
+
+	THUMB_FUNC_START ItemUseMenu_SwitchIn
+ItemUseMenu_SwitchIn: @ 0x08029A38
 	push {lr}
 	adds r1, #0x3c
 	movs r0, #0
@@ -1902,12 +1970,16 @@ sub_8029A38: @ 0x08029A38
 	pop {r1}
 	bx r1
 
-	THUMB_FUNC_START nullsub_24
-nullsub_24: @ 0x08029A48
+	THUMB_FUNC_END ItemUseMenu_SwitchIn
+
+	THUMB_FUNC_START ItemUseMenu_SwitchOut_DoNothing
+ItemUseMenu_SwitchOut_DoNothing: @ 0x08029A48
 	bx lr
 
-	THUMB_FUNC_START sub_8029A4C
-sub_8029A4C: @ 0x08029A4C
+	THUMB_FUNC_END ItemUseMenu_SwitchOut_DoNothing
+
+	THUMB_FUNC_START ItemUseMenu_IsAvailable
+ItemUseMenu_IsAvailable: @ 0x08029A4C
 	push {r4, lr}
 	adds r4, r1, #0
 	ldr r0, _08029A68  @ gActionData
@@ -1937,8 +2009,10 @@ _08029A7C:
 	pop {r1}
 	bx r1
 
-	THUMB_FUNC_START sub_8029A84
-sub_8029A84: @ 0x08029A84
+	THUMB_FUNC_END ItemUseMenu_IsAvailable
+
+	THUMB_FUNC_START ItemUseMenu_Draw
+ItemUseMenu_Draw: @ 0x08029A84
 	push {r4, r5, r6, lr}
 	adds r5, r1, #0
 	ldr r0, _08029AD8  @ gActionData
@@ -1981,8 +2055,10 @@ sub_8029A84: @ 0x08029A84
 _08029AD8: .4byte gActionData
 _08029ADC: .4byte gBG0TilemapBuffer
 
-	THUMB_FUNC_START sub_8029AE0
-sub_8029AE0: @ 0x08029AE0
+	THUMB_FUNC_END ItemUseMenu_Draw
+
+	THUMB_FUNC_START ItemUseMenu_Selected
+ItemUseMenu_Selected: @ 0x08029AE0
 	push {r4, r5, r6, r7, lr}
 	adds r7, r0, #0
 	adds r4, r1, #0
@@ -2066,6 +2142,8 @@ _08029B7C:
 _08029B84: .4byte gActionData
 _08029B88: .4byte gActiveUnit
 
+	THUMB_FUNC_END ItemUseMenu_Selected
+
 	THUMB_FUNC_START PrepareTargetSelectionForHeal
 PrepareTargetSelectionForHeal: @ 0x08029B8C
 	push {r4, lr}
@@ -2090,6 +2168,8 @@ PrepareTargetSelectionForHeal: @ 0x08029B8C
 _08029BBC: .4byte gBmMapMovement
 _08029BC0: .4byte gUnknown_0859D298
 _08029BC4: .4byte 0x00000874
+
+	THUMB_FUNC_END PrepareTargetSelectionForHeal
 
 	THUMB_FUNC_START PrepareTargetSelectionForRestoreStaff
 PrepareTargetSelectionForRestoreStaff: @ 0x08029BC8
@@ -2116,12 +2196,16 @@ _08029BF8: .4byte gBmMapMovement
 _08029BFC: .4byte gUnknown_0859D278
 _08029C00: .4byte 0x00000877
 
+	THUMB_FUNC_END PrepareTargetSelectionForRestoreStaff
+
 	THUMB_FUNC_START sub_8029C04
 sub_8029C04: @ 0x08029C04
 	push {lr}
 	bl sub_8034FFC
 	pop {r1}
 	bx r1
+
+	THUMB_FUNC_END sub_8029C04
 
 	THUMB_FUNC_START sub_8029C10
 sub_8029C10: @ 0x08029C10
@@ -2139,6 +2223,8 @@ sub_8029C10: @ 0x08029C10
 	pop {r4}
 	pop {r1}
 	bx r1
+
+	THUMB_FUNC_END sub_8029C10
 
 	THUMB_FUNC_START sub_8029C34
 sub_8029C34: @ 0x08029C34
@@ -2165,12 +2251,16 @@ _08029C64: .4byte gBmMapMovement
 _08029C68: .4byte gUnknown_0859D258
 _08029C6C: .4byte 0x00000879
 
+	THUMB_FUNC_END sub_8029C34
+
 	THUMB_FUNC_START sub_8029C70
 sub_8029C70: @ 0x08029C70
 	push {lr}
 	bl sub_8035090
 	pop {r1}
 	bx r1
+
+	THUMB_FUNC_END sub_8029C70
 
 	THUMB_FUNC_START sub_8029C7C
 sub_8029C7C: @ 0x08029C7C
@@ -2188,6 +2278,8 @@ sub_8029C7C: @ 0x08029C7C
 	pop {r4}
 	pop {r1}
 	bx r1
+
+	THUMB_FUNC_END sub_8029C7C
 
 	THUMB_FUNC_START PrepareTargetSelectionForOffensiveStaff
 PrepareTargetSelectionForOffensiveStaff: @ 0x08029CA0
@@ -2214,12 +2306,16 @@ _08029CD0: .4byte gBmMapMovement
 _08029CD4: .4byte gUnknown_0859D238
 _08029CD8: .4byte 0x0000087B
 
+	THUMB_FUNC_END PrepareTargetSelectionForOffensiveStaff
+
 	THUMB_FUNC_START sub_8029CDC
 sub_8029CDC: @ 0x08029CDC
 	push {lr}
 	bl sub_80350FC
 	pop {r1}
 	bx r1
+
+	THUMB_FUNC_END sub_8029CDC
 
 	THUMB_FUNC_START sub_8029CE8
 sub_8029CE8: @ 0x08029CE8
@@ -2251,6 +2347,8 @@ sub_8029CE8: @ 0x08029CE8
 	.align 2, 0
 _08029D24: .4byte gActiveUnit
 
+	THUMB_FUNC_END sub_8029CE8
+
 	THUMB_FUNC_START GenericSelection_DeleteBBAndBG
 GenericSelection_DeleteBBAndBG: @ 0x08029D28
 	push {lr}
@@ -2258,6 +2356,8 @@ GenericSelection_DeleteBBAndBG: @ 0x08029D28
 	bl ClearBg0Bg1
 	pop {r0}
 	bx r0
+
+	THUMB_FUNC_END GenericSelection_DeleteBBAndBG
 
 	THUMB_FUNC_START sub_8029D38
 sub_8029D38: @ 0x08029D38
@@ -2288,6 +2388,8 @@ _08029D66:
 	pop {r1}
 	bx r1
 
+	THUMB_FUNC_END sub_8029D38
+
 	THUMB_FUNC_START sub_8029D6C
 sub_8029D6C: @ 0x08029D6C
 	push {r4, lr}
@@ -2307,6 +2409,8 @@ sub_8029D6C: @ 0x08029D6C
 _08029D8C: .4byte gUnknown_0859D2F8
 _08029D90: .4byte GenericStaffSelection_OnSelect
 _08029D94: .4byte 0x00000876
+
+	THUMB_FUNC_END sub_8029D6C
 
 	THUMB_FUNC_START TorchTargetPosSelect_Init
 TorchTargetPosSelect_Init: @ 0x08029D98
@@ -2349,6 +2453,8 @@ _08029DE4: .4byte gUnknown_0202BCB0
 _08029DE8: .4byte 0x0000087C
 _08029DEC: .4byte gActiveUnit
 
+	THUMB_FUNC_END TorchTargetPosSelect_Init
+
 	THUMB_FUNC_START TorchTargetSelection_Loop
 TorchTargetSelection_Loop: @ 0x08029DF0
 	push {r4, r5, r6, lr}
@@ -2385,7 +2491,7 @@ TorchTargetSelection_Loop: @ 0x08029DF0
 	bl m4aSongNumStart
 _08029E34:
 	adds r0, r6, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 	ldr r1, _08029E60  @ gActionData
 	ldrh r0, [r5, #0x14]
 	strb r0, [r1, #0x13]
@@ -2426,7 +2532,7 @@ _08029E7A:
 	bl BG_EnableSyncByMask
 	adds r0, r6, #0
 	movs r1, #0x63
-	bl Proc_GotoLabel
+	bl Proc_Goto
 	ldr r0, _08029EC8  @ gUnknown_0202BCF0
 	adds r0, #0x41
 	ldrb r0, [r0]
@@ -2453,12 +2559,14 @@ _08029ECC: .4byte gKeyStatusPtr
 _08029ED0: .4byte gBG2TilemapBuffer
 _08029ED4: .4byte gUnknown_0202BCB0
 
+	THUMB_FUNC_END TorchTargetSelection_Loop
+
 	THUMB_FUNC_START NewTorchStaffSelection
 NewTorchStaffSelection: @ 0x08029ED8
 	push {lr}
 	ldr r0, _08029EF8  @ gUnknown_0859BA38
 	movs r1, #3
-	bl Proc_Create
+	bl Proc_Start
 	ldr r0, _08029EFC  @ gUnknown_0202BCF0
 	adds r0, #0x41
 	ldrb r0, [r0]
@@ -2473,6 +2581,8 @@ _08029EF4:
 	.align 2, 0
 _08029EF8: .4byte gUnknown_0859BA38
 _08029EFC: .4byte gUnknown_0202BCF0
+
+	THUMB_FUNC_END NewTorchStaffSelection
 
 	THUMB_FUNC_START CanUnitUseItemPrepScreen
 CanUnitUseItemPrepScreen: @ 0x08029F00
@@ -2638,6 +2748,8 @@ _0802A102:
 	pop {r1}
 	bx r1
 
+	THUMB_FUNC_END CanUnitUseItemPrepScreen
+
 	THUMB_FUNC_START sub_802A108
 sub_802A108: @ 0x0802A108
 	push {r4, r5, r6, lr}
@@ -2668,5 +2780,7 @@ _0802A136:
 	pop {r4, r5, r6}
 	pop {r1}
 	bx r1
+
+	THUMB_FUNC_END sub_802A108
 
 .align 2, 0

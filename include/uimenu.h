@@ -168,7 +168,7 @@ u8 MenuAlwaysNotShown(const struct MenuItemDef* def, int number);
 
 u8 MenuCancelSelect(struct MenuProc* menu, struct MenuItemProc* item);
 u8 MenuStdHelpBox(struct MenuProc* menu, struct MenuItemProc* item);
-u8 MenuAutoHelpBoxSelect(struct MenuProc* menu, struct MenuItemProc* item);
+u8 MenuAutoHelpBoxSelect(struct MenuProc* menu);
 u8 MenuFrozenHelpBox(struct MenuProc* proc, int msgid);
 u8 MenuFrozen(struct MenuProc* proc);
 

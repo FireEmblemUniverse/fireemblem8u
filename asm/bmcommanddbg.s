@@ -87,6 +87,8 @@ _0803439C: .4byte gBmMapSize
 _080343A0: .4byte gBmMapMovement
 _080343A4: .4byte gBmMapTerrain
 
+	THUMB_FUNC_END CanUnitUseVisit
+
 	THUMB_FUNC_START CanUnitUseSeize
 CanUnitUseSeize: @ 0x080343A8
 	push {r4, r5, r6, lr}
@@ -157,6 +159,8 @@ _08034418:
 _08034420: .4byte gBmMapSize
 _08034424: .4byte gBmMapMovement
 
+	THUMB_FUNC_END CanUnitUseSeize
+
 	THUMB_FUNC_START CanUnitUseAttack
 CanUnitUseAttack: @ 0x08034428
 	push {r4, lr}
@@ -189,6 +193,8 @@ _08034464: .4byte gActiveUnit
 _08034468: .4byte gUnknown_02033F3C
 _0803446C: .4byte AddUnitToTargetListIfNotAllied
 
+	THUMB_FUNC_END CanUnitUseAttack
+
 	THUMB_FUNC_START CanActiveUnitUseRescue
 CanActiveUnitUseRescue: @ 0x08034470
 	push {lr}
@@ -205,6 +211,8 @@ _08034484:
 	.align 2, 0
 _08034488: .4byte gActiveUnit
 
+	THUMB_FUNC_END CanActiveUnitUseRescue
+
 	THUMB_FUNC_START CanActiveUnitUseTrade
 CanActiveUnitUseTrade: @ 0x0803448C
 	push {lr}
@@ -220,6 +228,8 @@ _080344A0:
 	bx r1
 	.align 2, 0
 _080344A4: .4byte gActiveUnit
+
+	THUMB_FUNC_END CanActiveUnitUseTrade
 
 	THUMB_FUNC_START GetUnitCommandUseFlags
 GetUnitCommandUseFlags: @ 0x080344A8
@@ -250,6 +260,8 @@ GetUnitCommandUseFlags: @ 0x080344A8
 	pop {r1}
 	bx r1
 
+	THUMB_FUNC_END GetUnitCommandUseFlags
+
 	THUMB_FUNC_START sub_80344E8
 sub_80344E8: @ 0x080344E8
 	push {lr}
@@ -271,6 +283,8 @@ sub_80344E8: @ 0x080344E8
 	.align 2, 0
 _0803450C: .4byte gActiveUnit
 _08034510: .4byte gActionData
+
+	THUMB_FUNC_END sub_80344E8
 
 	THUMB_FUNC_START sub_8034514
 sub_8034514: @ 0x08034514
@@ -300,6 +314,8 @@ sub_8034514: @ 0x08034514
 	.align 2, 0
 _08034548: .4byte gBmMapMovement
 _0803454C: .4byte gActiveUnit
+
+	THUMB_FUNC_END sub_8034514
 
 	THUMB_FUNC_START sub_8034550
 sub_8034550: @ 0x08034550
@@ -400,5 +416,7 @@ _08034608: .4byte gActionData
 _0803460C: .4byte gBmMapSize
 _08034610: .4byte gBmMapMovement
 _08034614: .4byte gBmMapUnit
+
+	THUMB_FUNC_END sub_8034550
 
 .align 2, 0

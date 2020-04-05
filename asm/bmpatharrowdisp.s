@@ -17,6 +17,8 @@ sub_80329D8: @ 0x080329D8
 	.align 2, 0
 _080329E8: .4byte gUnknown_0859DBA0
 
+	THUMB_FUNC_END sub_80329D8
+
 	THUMB_FUNC_START sub_80329EC
 sub_80329EC: @ 0x080329EC
 	push {r4, r5, r6, r7, lr}
@@ -103,6 +105,8 @@ _08032A84:
 _08032A8C: .4byte gUnknown_0859DBA0
 _08032A90: .4byte gBmMapTerrain
 
+	THUMB_FUNC_END sub_80329EC
+
 	THUMB_FUNC_START sub_8032A94
 sub_8032A94: @ 0x08032A94
 	push {r4, r5, r6, lr}
@@ -169,6 +173,8 @@ sub_8032A94: @ 0x08032A94
 _08032B10: .4byte gUnknown_0859DBA0
 _08032B14: .4byte gBmMapTerrain
 
+	THUMB_FUNC_END sub_8032A94
+
 	THUMB_FUNC_START sub_8032B18
 sub_8032B18: @ 0x08032B18
 	push {r4, r5, r6, r7, lr}
@@ -230,6 +236,8 @@ _08032B82:
 	pop {r4, r5, r6, r7}
 	pop {r1}
 	bx r1
+
+	THUMB_FUNC_END sub_8032B18
 
 	THUMB_FUNC_START sub_8032B88
 sub_8032B88: @ 0x08032B88
@@ -354,6 +362,8 @@ _08032C80:
 	pop {r0}
 	bx r0
 
+	THUMB_FUNC_END sub_8032B88
+
 	THUMB_FUNC_START sub_8032C88
 sub_8032C88: @ 0x08032C88
 	push {r4, r5, r6, r7, lr}
@@ -445,6 +455,8 @@ _08032D1E:
 	pop {r0}
 	bx r0
 
+	THUMB_FUNC_END sub_8032C88
+
 	THUMB_FUNC_START sub_8032D30
 sub_8032D30: @ 0x08032D30
 	push {r4, lr}
@@ -480,6 +492,8 @@ sub_8032D30: @ 0x08032D30
 _08032D6C: .4byte gActiveUnit
 _08032D70: .4byte gUnknown_0859DBA0
 
+	THUMB_FUNC_END sub_8032D30
+
 	THUMB_FUNC_START sub_8032D74
 sub_8032D74: @ 0x08032D74
 	push {lr}
@@ -499,6 +513,8 @@ sub_8032D74: @ 0x08032D74
 	.align 2, 0
 _08032D98: .4byte gUnknown_0202BCB0
 _08032D9C: .4byte gWorkingMovementScript
+
+	THUMB_FUNC_END sub_8032D74
 
 	THUMB_FUNC_START sub_8032DA0
 sub_8032DA0: @ 0x08032DA0
@@ -575,6 +591,8 @@ _08032E20:
 	pop {r1}
 	bx r1
 
+	THUMB_FUNC_END sub_8032DA0
+
 	THUMB_FUNC_START sub_8032E28
 sub_8032E28: @ 0x08032E28
 	push {r4, r5, lr}
@@ -635,6 +653,8 @@ _08032EA4: .4byte gUnknown_0859DBA0
 _08032EA8: .4byte gActiveUnit
 _08032EAC: .4byte gActionData
 _08032EB0: .4byte 0x0000FFFF
+
+	THUMB_FUNC_END sub_8032E28
 
 	THUMB_FUNC_START sub_8032EB4
 sub_8032EB4: @ 0x08032EB4
@@ -845,6 +865,8 @@ _08033060:
 	.align 2, 0
 _08033068: .4byte gWorkingMovementScript
 
+	THUMB_FUNC_END sub_8032EB4
+
 	THUMB_FUNC_START sub_803306C
 sub_803306C: @ 0x0803306C
 	push {r4, r5, lr}
@@ -903,6 +925,8 @@ _080330CE:
 	pop {r4, r5}
 	pop {r1}
 	bx r1
+
+	THUMB_FUNC_END sub_803306C
 
 	THUMB_FUNC_START sub_80330D4
 sub_80330D4: @ 0x080330D4
@@ -968,6 +992,8 @@ _08033140:
 	pop {r1}
 	bx r1
 
+	THUMB_FUNC_END sub_80330D4
+
 	THUMB_FUNC_START sub_8033148
 sub_8033148: @ 0x08033148
 	push {r4, r5, r6, lr}
@@ -1006,6 +1032,8 @@ _08033186:
 	pop {r4, r5, r6}
 	pop {r1}
 	bx r1
+
+	THUMB_FUNC_END sub_8033148
 
 	THUMB_FUNC_START sub_803318C
 sub_803318C: @ 0x0803318C
@@ -1078,8 +1106,8 @@ _080331B2:
 	subs r2, r0, r2
 	str r3, [sp]
 	movs r0, #0xb
-	ldr r3, _08033244  @ gUnknown_08590F4C
-	bl RegisterObjectAttributes_SafeMaybe
+	ldr r3, _08033244  @ gObject_16x16
+	bl PutSprite
 _08033220:
 	subs r0, r6, #1
 	lsls r5, r0, #0x18
@@ -1097,7 +1125,9 @@ _08033228:
 _08033238: .4byte gUnknown_0859DBA0
 _0803323C: .4byte gUnknown_0859DB6C
 _08033240: .4byte gUnknown_0202BCB0
-_08033244: .4byte gUnknown_08590F4C
+_08033244: .4byte gObject_16x16
+
+	THUMB_FUNC_END sub_803318C
 
 	THUMB_FUNC_START sub_8033248
 sub_8033248: @ 0x08033248
@@ -1106,5 +1136,7 @@ sub_8033248: @ 0x08033248
 	bl sub_803318C
 	pop {r0}
 	bx r0
+
+	THUMB_FUNC_END sub_8033248
 
 .align 2, 0

@@ -32,6 +32,8 @@ sub_8021FB8: @ 0x08021FB8
 	.align 2, 0
 _08021FE8: .4byte 0x000003FF
 
+	THUMB_FUNC_END sub_8021FB8
+
 	THUMB_FUNC_START sub_8021FEC
 sub_8021FEC: @ 0x08021FEC
 	push {r4, lr}
@@ -68,7 +70,7 @@ _08022026:
 	cmp r2, #0
 	bge _0802203E
 	adds r0, r4, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 	ldr r1, [r4, #0x14]
 	adds r1, #0x4c
 	ldrh r0, [r1]
@@ -79,19 +81,21 @@ _0802203E:
 	movs r0, #0x2e
 	ldrsh r1, [r4, r0]
 	asrs r2, r2, #0x10
-	ldr r3, _0802205C  @ gUnknown_08590F44
+	ldr r3, _0802205C  @ gObject_8x8
 	movs r0, #0xa0
 	lsls r0, r0, #4
 	str r0, [sp]
 	movs r0, #0xa
-	bl RegisterObjectAttributes_SafeMaybe
+	bl PutSprite
 _08022052:
 	add sp, #4
 	pop {r4}
 	pop {r0}
 	bx r0
 	.align 2, 0
-_0802205C: .4byte gUnknown_08590F44
+_0802205C: .4byte gObject_8x8
+
+	THUMB_FUNC_END sub_8021FEC
 
 	THUMB_FUNC_START sub_8022060
 sub_8022060: @ 0x08022060
@@ -129,6 +133,8 @@ sub_8022060: @ 0x08022060
 	pop {r0}
 	bx r0
 
+	THUMB_FUNC_END sub_8022060
+
 	THUMB_FUNC_START sub_80220A8
 sub_80220A8: @ 0x080220A8
 	push {r4, r5, r6, r7, lr}
@@ -163,7 +169,7 @@ _080220D8:
 _080220E0:
 	ldr r0, _080221A4  @ gUnknown_0859B510
 	adds r1, r6, #0
-	bl Proc_Create
+	bl Proc_Start
 	adds r5, r0, #0
 	bl AdvanceGetLCGRNValue
 	ldr r1, [r6, #0x34]
@@ -220,7 +226,7 @@ _0802214E:
 	bgt _080221EE
 	ldr r0, _080221A4  @ gUnknown_0859B510
 	adds r1, r6, #0
-	bl Proc_Create
+	bl Proc_Start
 	adds r5, r0, #0
 	bl AdvanceGetLCGRNValue
 	ldr r1, [r6, #0x34]
@@ -284,7 +290,7 @@ _080221CE:
 	cmp r1, r0
 	ble _080221EE
 	adds r0, r6, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 	movs r0, #0
 	strh r0, [r4]
 	adds r1, r6, #0
@@ -300,6 +306,8 @@ _080221EE:
 	pop {r4, r5, r6, r7}
 	pop {r0}
 	bx r0
+
+	THUMB_FUNC_END sub_80220A8
 
 	THUMB_FUNC_START sub_8022200
 sub_8022200: @ 0x08022200
@@ -342,6 +350,8 @@ _08022216:
 	pop {r0}
 	bx r0
 
+	THUMB_FUNC_END sub_8022200
+
 	THUMB_FUNC_START sub_8022250
 sub_8022250: @ 0x08022250
 	push {r4, r5, r6, lr}
@@ -359,7 +369,7 @@ sub_8022250: @ 0x08022250
 	bl RegisterTileGraphics
 	ldr r0, _080222B0  @ gUnknown_0859B528
 	adds r1, r6, #0
-	bl Proc_Create
+	bl Proc_Start
 	adds r3, r0, #0
 	mov r0, r8
 	str r0, [r3, #0x34]
@@ -392,6 +402,8 @@ _080222AC: .4byte 0x06014000
 _080222B0: .4byte gUnknown_0859B528
 _080222B4: .4byte 0x0000FFFF
 
+	THUMB_FUNC_END sub_8022250
+
 	THUMB_FUNC_START sub_80222B8
 sub_80222B8: @ 0x080222B8
 	push {lr}
@@ -405,14 +417,18 @@ sub_80222B8: @ 0x080222B8
 	.align 2, 0
 _080222CC: .4byte gUnknown_0859B528
 
+	THUMB_FUNC_END sub_80222B8
+
 	THUMB_FUNC_START sub_80222D0
 sub_80222D0: @ 0x080222D0
 	push {lr}
 	ldr r0, _080222DC  @ gUnknown_0859B528
-	bl Proc_DeleteAllWithScript
+	bl Proc_EndEach
 	pop {r0}
 	bx r0
 	.align 2, 0
 _080222DC: .4byte gUnknown_0859B528
+
+	THUMB_FUNC_END sub_80222D0
 
 .align 2, 0

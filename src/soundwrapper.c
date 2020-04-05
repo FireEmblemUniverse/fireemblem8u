@@ -70,12 +70,12 @@ void Sound_FadeOut800231C(int speed)
         speed = 6;
     if (sMusicProc1 != NULL)
     {
-        Proc_ClearNativeCallback(sMusicProc1);
+        Proc_Break(sMusicProc1);
         sMusicProc1 = NULL;
     }
     if (sMusicProc2 != NULL)
     {
-        Proc_ClearNativeCallback(sMusicProc2);
+        Proc_Break(sMusicProc2);
         sMusicProc2 = NULL;
     }
     m4aMPlayFadeOut(&gUnknown_03006440, speed);
@@ -89,12 +89,12 @@ void Sound_FadeOut800237C(int speed)
         speed = 6;
     if (sMusicProc1 != NULL)
     {
-        Proc_ClearNativeCallback(sMusicProc1);
+        Proc_Break(sMusicProc1);
         sMusicProc1 = NULL;
     }
     if (sMusicProc2 != NULL)
     {
-        Proc_ClearNativeCallback(sMusicProc2);
+        Proc_Break(sMusicProc2);
         sMusicProc2 = NULL;
     }
     m4aMPlayFadeOut(&gUnknown_03006440, speed);
@@ -165,7 +165,7 @@ static void sub_80024F0(struct Proc *proc)
     mproc->delayCounter++;
     if (mproc->delayCounter >= mproc->unk4E)
     {
-        Proc_ClearNativeCallback((struct Proc *)mproc);
+        Proc_Break((struct Proc *)mproc);
         sMusicProc1 = NULL;
     }
 }
@@ -173,7 +173,7 @@ static void sub_80024F0(struct Proc *proc)
 static struct ProcCmd sMusicProc1Script[] =
 {
     PROC_END_DUPLICATES,
-    PROC_LOOP_ROUTINE(sub_80024F0),
+    PROC_REPEAT(sub_80024F0),
     PROC_END,
 };
 
@@ -186,7 +186,7 @@ void Sound_PlaySong8002574(int songId, int b, struct MusicPlayerInfo *player)
         sSoundStatus.unk6 = TRUE;
         sSoundStatus.unk7 = 0;
         sSoundStatus.songId = songId;
-        proc = (struct MusicProc *)Proc_Create(sMusicProc1Script, ROOT_PROC_3);
+        proc = Proc_Start(sMusicProc1Script, PROC_TREE_3);
         m4aMPlayStop(&gUnknown_03006440);
         m4aMPlayStop(&gUnknown_03006650);
         PlaySong(songId, player);
@@ -252,7 +252,7 @@ void sub_800270C(void)
 struct ProcCmd sMusicProc2Script[] =
 {
     PROC_YIELD,
-    PROC_LOOP_ROUTINE(sub_8002788),
+    PROC_REPEAT(sub_8002788),
     PROC_END,
 };
 
@@ -261,9 +261,9 @@ void ISuspectThisToBeMusicRelated_8002730(int volume, int b, int c, struct Proc 
     struct MusicProc *proc;
 
     if (parent)
-        proc = (struct MusicProc *)Proc_CreateBlockingChild(sMusicProc2Script, parent);
+        proc = Proc_StartBlocking(sMusicProc2Script, parent);
     else
-        proc = (struct MusicProc *)Proc_Create(sMusicProc2Script, ROOT_PROC_3);
+        proc = Proc_Start(sMusicProc2Script, PROC_TREE_3);
     proc->unk64 = volume;
     proc->unk66 = b;
     proc->unk68 = 0;
@@ -291,7 +291,7 @@ static void sub_8002788(struct Proc *proc)
         {
             sSoundStatus.unk6 = TRUE;
         }
-        Proc_ClearNativeCallback(proc);
+        Proc_Break(proc);
         sMusicProc2 = NULL;
     }
 }
@@ -305,13 +305,13 @@ void Some6CMusicRelatedWaitCallback(struct Proc *proc)
         sSoundStatus.unk6 = TRUE;
         sSoundStatus.songId = mproc->songId;
         PlaySong(mproc->songId, mproc->player);
-        Proc_Delete((struct Proc *)proc);
+        Proc_End((struct Proc *)proc);
     }
 }
 
 struct ProcCmd gMusicProc3Script[] =
 {
-    PROC_LOOP_ROUTINE(Some6CMusicRelatedWaitCallback),
+    PROC_REPEAT(Some6CMusicRelatedWaitCallback),
     PROC_END,
 };
 
@@ -319,7 +319,7 @@ void StartSongDelayed(int songId, int delay, struct MusicPlayerInfo *player)
 {
     if (gUnknown_0202BCF0.unk41_1 == 0)
     {
-        struct MusicProc *mproc = (struct MusicProc *)Proc_Create(gMusicProc3Script, ROOT_PROC_3);
+        struct MusicProc *mproc = Proc_Start(gMusicProc3Script, PROC_TREE_3);
 
         mproc->delayCounter = delay;
         mproc->songId = songId;
@@ -404,16 +404,16 @@ void sub_80029BC(struct Proc *proc)
     }
     else
     {
-        Proc_GotoLabel(proc, 0);
+        Proc_Goto(proc, 0);
     }
 }
 
 static struct ProcCmd sMusicProc4Script[] =
 {
     PROC_SLEEP(1),
-    PROC_CALL_ROUTINE(sub_800296C),
+    PROC_CALL(sub_800296C),
     PROC_SLEEP(1),
-    PROC_CALL_ROUTINE(sub_80029BC),
+    PROC_CALL(sub_80029BC),
     PROC_SLEEP(8),
     PROC_LABEL(0),
     PROC_YIELD,
@@ -428,9 +428,9 @@ void sub_80029E8(int songId, int b, int c, int d, struct Proc *parent)
         return;
 
     if (parent != NULL)
-        mproc = (struct MusicProc *)Proc_CreateBlockingChild(sMusicProc4Script, parent);
+        mproc = Proc_StartBlocking(sMusicProc4Script, parent);
     else
-        mproc = (struct MusicProc *)Proc_Create(sMusicProc4Script, ROOT_PROC_3);
+        mproc = Proc_Start(sMusicProc4Script, PROC_TREE_3);
     mproc->unk58 = d;
     if (sub_8002264() != 0 && songId == sSoundStatus.songId)
         mproc->unk5C = -1;
@@ -460,7 +460,7 @@ void sub_8002A88(int songId)
 
 void DeleteAll6CWaitMusicRelated(void)
 {
-    Proc_DeleteAllWithScript(gMusicProc3Script);
+    Proc_EndEach(gMusicProc3Script);
 }
 
 void sub_8002AC8(void)

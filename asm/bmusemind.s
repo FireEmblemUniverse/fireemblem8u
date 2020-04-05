@@ -57,6 +57,8 @@ _0802EC14: .4byte gActionData
 _0802EC18: .4byte gBattleHitIterator
 _0802EC1C: .4byte gBattleTarget
 
+	THUMB_FUNC_END ExecStandardHeal
+
 	THUMB_FUNC_START ExecRestore
 ExecRestore: @ 0x0802EC20
 	push {r4, r5, lr}
@@ -102,6 +104,8 @@ _0802EC68:
 _0802EC84: .4byte gActionData
 _0802EC88: .4byte 0xFFFFFBBD
 
+	THUMB_FUNC_END ExecRestore
+
 	THUMB_FUNC_START sub_802EC8C
 sub_802EC8C: @ 0x0802EC8C
 	push {r4, r5, lr}
@@ -131,6 +135,8 @@ sub_802EC8C: @ 0x0802EC8C
 	bx r0
 	.align 2, 0
 _0802ECCC: .4byte gActionData
+
+	THUMB_FUNC_END sub_802EC8C
 
 	THUMB_FUNC_START GetRescueStaffeePosition
 GetRescueStaffeePosition: @ 0x0802ECD0
@@ -412,6 +418,8 @@ _0802EEEC: .4byte gBmMapMovement
 _0802EEF0: .4byte gBmMapHidden
 _0802EEF4: .4byte gBmMapTerrain
 
+	THUMB_FUNC_END GetRescueStaffeePosition
+
 	THUMB_FUNC_START ExecRescueStaff
 ExecRescueStaff: @ 0x0802EEF8
 	push {r4, r5, r6, lr}
@@ -462,6 +470,8 @@ ExecRescueStaff: @ 0x0802EEF8
 _0802EF68: .4byte gActionData
 _0802EF6C: .4byte gBattleTarget
 
+	THUMB_FUNC_END ExecRescueStaff
+
 	THUMB_FUNC_START sub_802EF70
 sub_802EF70: @ 0x0802EF70
 	push {lr}
@@ -470,6 +480,8 @@ sub_802EF70: @ 0x0802EF70
 	asrs r0, r0, #0x18
 	pop {r1}
 	bx r1
+
+	THUMB_FUNC_END sub_802EF70
 
 	THUMB_FUNC_START sub_802EF80
 sub_802EF80: @ 0x0802EF80
@@ -487,6 +499,8 @@ sub_802EF80: @ 0x0802EF80
 	bx r1
 	.align 2, 0
 _0802EFA8: .4byte gActionData
+
+	THUMB_FUNC_END sub_802EF80
 
 	THUMB_FUNC_START ExecWarpStaff
 ExecWarpStaff: @ 0x0802EFAC
@@ -521,7 +535,7 @@ ExecWarpStaff: @ 0x0802EFAC
 	bl BeginBattleAnimations
 	ldr r0, _0802F00C  @ gUnknown_0859BDF0
 	adds r1, r5, #0
-	bl Proc_CreateBlockingChild
+	bl Proc_StartBlocking
 	pop {r4, r5}
 	pop {r0}
 	bx r0
@@ -529,6 +543,8 @@ ExecWarpStaff: @ 0x0802EFAC
 _0802F004: .4byte gActionData
 _0802F008: .4byte gBattleTarget
 _0802F00C: .4byte gUnknown_0859BDF0
+
+	THUMB_FUNC_END ExecWarpStaff
 
 	THUMB_FUNC_START ExecStatusStaff
 ExecStatusStaff: @ 0x0802F010
@@ -689,6 +705,8 @@ _0802F144:
 	pop {r0}
 	bx r0
 
+	THUMB_FUNC_END ExecStatusStaff
+
 	THUMB_FUNC_START ExecFortify
 ExecFortify: @ 0x0802F154
 	push {r4, r5, r6, r7, lr}
@@ -744,6 +762,8 @@ _0802F1C4:
 	.align 2, 0
 _0802F1D4: .4byte gActionData
 
+	THUMB_FUNC_END ExecFortify
+
 	THUMB_FUNC_START sub_802F1D8
 sub_802F1D8: @ 0x0802F1D8
 	push {r4, r5, lr}
@@ -764,6 +784,8 @@ sub_802F1D8: @ 0x0802F1D8
 	bx r0
 	.align 2, 0
 _0802F204: .4byte gActionData
+
+	THUMB_FUNC_END sub_802F1D8
 
 	THUMB_FUNC_START sub_802F208
 sub_802F208: @ 0x0802F208
@@ -816,6 +838,8 @@ _0802F26A:
 	.align 2, 0
 _0802F270: .4byte gActionData
 
+	THUMB_FUNC_END sub_802F208
+
 	THUMB_FUNC_START sub_802F274
 sub_802F274: @ 0x0802F274
 	push {r4, r5, lr}
@@ -844,6 +868,8 @@ sub_802F274: @ 0x0802F274
 	.align 2, 0
 _0802F2AC: .4byte gActionData
 _0802F2B0: .4byte gBattleTarget
+
+	THUMB_FUNC_END sub_802F274
 
 	THUMB_FUNC_START ExecHammerne
 ExecHammerne: @ 0x0802F2B4
@@ -881,6 +907,8 @@ ExecHammerne: @ 0x0802F2B4
 	bx r0
 	.align 2, 0
 _0802F308: .4byte gActionData
+
+	THUMB_FUNC_END ExecHammerne
 
 	THUMB_FUNC_START sub_802F30C
 sub_802F30C: @ 0x0802F30C
@@ -930,6 +958,8 @@ _0802F36C:
 	.align 2, 0
 _0802F37C: .4byte gActionData
 
+	THUMB_FUNC_END sub_802F30C
+
 	THUMB_FUNC_START ExecSomeSelfHeal
 ExecSomeSelfHeal: @ 0x0802F380
 	push {r4, r5, r6, lr}
@@ -970,6 +1000,8 @@ ExecSomeSelfHeal: @ 0x0802F380
 _0802F3D8: .4byte gActionData
 _0802F3DC: .4byte gBattleHitIterator
 _0802F3E0: .4byte gBattleActor
+
+	THUMB_FUNC_END ExecSomeSelfHeal
 
 	THUMB_FUNC_START sub_802F3E4
 sub_802F3E4: @ 0x0802F3E4
@@ -1013,6 +1045,8 @@ _0802F444: .4byte gActionData
 _0802F448: .4byte gBattleHitIterator
 _0802F44C: .4byte gBattleActor
 
+	THUMB_FUNC_END sub_802F3E4
+
 	THUMB_FUNC_START sub_802F450
 sub_802F450: @ 0x0802F450
 	push {r4, r5, lr}
@@ -1039,6 +1073,8 @@ sub_802F450: @ 0x0802F450
 	bx r0
 	.align 2, 0
 _0802F488: .4byte gActionData
+
+	THUMB_FUNC_END sub_802F450
 
 	THUMB_FUNC_START sub_802F48C
 sub_802F48C: @ 0x0802F48C
@@ -1072,6 +1108,8 @@ sub_802F48C: @ 0x0802F48C
 	.align 2, 0
 _0802F4CC: .4byte gActionData
 
+	THUMB_FUNC_END sub_802F48C
+
 	THUMB_FUNC_START sub_802F4D0
 sub_802F4D0: @ 0x0802F4D0
 	push {r4, r5, lr}
@@ -1097,6 +1135,8 @@ sub_802F4D0: @ 0x0802F4D0
 	.align 2, 0
 _0802F508: .4byte gActionData
 _0802F50C: .4byte gBattleActor
+
+	THUMB_FUNC_END sub_802F4D0
 
 	THUMB_FUNC_START sub_802F510
 sub_802F510: @ 0x0802F510
@@ -1157,6 +1197,8 @@ _0802F57E:
 _0802F58C: .4byte gActionData
 _0802F590: .4byte gUnknown_0202BCF0
 _0802F594: .4byte gBattleTarget
+
+	THUMB_FUNC_END sub_802F510
 
 	THUMB_FUNC_START sub_802F598
 sub_802F598: @ 0x0802F598
@@ -1253,6 +1295,8 @@ _0802F654: .4byte gBattleTarget
 _0802F658: .4byte gBattleHitArray
 _0802F65C: .4byte 0xFFF80000
 _0802F660: .4byte gBattleStats
+
+	THUMB_FUNC_END sub_802F598
 
 	THUMB_FUNC_START sub_802F664
 sub_802F664: @ 0x0802F664
@@ -1356,6 +1400,8 @@ _0802F730: .4byte gBattleHitArray
 _0802F734: .4byte 0xFFF80000
 _0802F738: .4byte gBattleStats
 
+	THUMB_FUNC_END sub_802F664
+
 	THUMB_FUNC_START sub_802F73C
 sub_802F73C: @ 0x0802F73C
 	push {r4, lr}
@@ -1372,6 +1418,8 @@ sub_802F73C: @ 0x0802F73C
 	bx r0
 	.align 2, 0
 _0802F75C: .4byte gActionData
+
+	THUMB_FUNC_END sub_802F73C
 
 	THUMB_FUNC_START sub_802F760
 sub_802F760: @ 0x0802F760
@@ -1447,6 +1495,8 @@ _0802F7F8: .4byte 0x0000FFFF
 _0802F7FC: .4byte gBattleHitArray
 _0802F800: .4byte 0xFFF80000
 _0802F804: .4byte gBattleStats
+
+	THUMB_FUNC_END sub_802F760
 
 	THUMB_FUNC_START sub_802F808
 sub_802F808: @ 0x0802F808
@@ -1582,6 +1632,8 @@ _0802F90E:
 	pop {r1}
 	bx r1
 
+	THUMB_FUNC_END sub_802F808
+
 	THUMB_FUNC_START sub_802F914
 sub_802F914: @ 0x0802F914
 	push {r4, r5, r6, r7, lr}
@@ -1627,6 +1679,8 @@ _0802F94E:
 _0802F96C: .4byte gActionData
 _0802F970: .4byte gBattleTarget
 _0802F974: .4byte gUnknown_0202BCF0
+
+	THUMB_FUNC_END sub_802F914
 
 	THUMB_FUNC_START sub_802F978
 sub_802F978: @ 0x0802F978
@@ -1683,6 +1737,8 @@ _0802F9BE:
 	.align 2, 0
 _0802F9DC: .4byte gUnknown_080D7C44
 
+	THUMB_FUNC_END sub_802F978
+
 	THUMB_FUNC_START sub_802F9E0
 sub_802F9E0: @ 0x0802F9E0
 	push {r4, r5, r6, r7, lr}
@@ -1733,6 +1789,8 @@ _0802FA40: .4byte gActionData
 _0802FA44: .4byte gBattleTarget
 _0802FA48: .4byte gUnknown_0202BCF0
 
+	THUMB_FUNC_END sub_802F9E0
+
 	THUMB_FUNC_START sub_802FA4C
 sub_802FA4C: @ 0x0802FA4C
 	push {r4, r5, lr}
@@ -1764,6 +1822,8 @@ sub_802FA4C: @ 0x0802FA4C
 _0802FA88: .4byte gActionData
 _0802FA8C: .4byte gBattleTarget
 
+	THUMB_FUNC_END sub_802FA4C
+
 	THUMB_FUNC_START sub_802FA90
 sub_802FA90: @ 0x0802FA90
 	push {r4, r5, lr}
@@ -1792,6 +1852,8 @@ sub_802FA90: @ 0x0802FA90
 	.align 2, 0
 _0802FAC8: .4byte gActionData
 _0802FACC: .4byte gBattleTarget
+
+	THUMB_FUNC_END sub_802FA90
 
 	THUMB_FUNC_START sub_802FAD0
 sub_802FAD0: @ 0x0802FAD0
@@ -1879,6 +1941,8 @@ _0802FB7C: .4byte gUnknown_03001788
 _0802FB80: .4byte 0xFFFFF03F
 _0802FB84: .4byte gBattleTarget
 
+	THUMB_FUNC_END sub_802FAD0
+
 	THUMB_FUNC_START ExecTorchStaff
 ExecTorchStaff: @ 0x0802FB88
 	push {r4, r5, lr}
@@ -1901,6 +1965,8 @@ ExecTorchStaff: @ 0x0802FB88
 	bx r0
 	.align 2, 0
 _0802FBB8: .4byte gActionData
+
+	THUMB_FUNC_END ExecTorchStaff
 
 	THUMB_FUNC_START sub_802FBBC
 sub_802FBBC: @ 0x0802FBBC
@@ -1969,6 +2035,8 @@ _0802FC18:
 	.align 2, 0
 _0802FC40: .4byte gActionData
 _0802FC44: .4byte gBattleStats
+
+	THUMB_FUNC_END sub_802FBBC
 
 	THUMB_FUNC_START ActionStaffDoorChestUseItem
 ActionStaffDoorChestUseItem: @ 0x0802FC48
@@ -2258,7 +2326,7 @@ _0802FF76:
 	bne _0802FF8C
 	ldr r0, _0802FF88  @ gUnknown_0859BE28
 	adds r1, r6, #0
-	bl Proc_CreateBlockingChild
+	bl Proc_StartBlocking
 	b _0802FFA2
 	.align 2, 0
 _0802FF88: .4byte gUnknown_0859BE28
@@ -2272,7 +2340,7 @@ _0802FF8C:
 	blt _0802FFA2
 	ldr r0, _0802FFB0  @ gUnknown_0859BE10
 	adds r1, r6, #0
-	bl Proc_CreateBlockingChild
+	bl Proc_StartBlocking
 _0802FFA2:
 	pop {r3}
 	mov r8, r3
@@ -2282,6 +2350,8 @@ _0802FFA2:
 	.align 2, 0
 _0802FFAC: .4byte gBattleTarget
 _0802FFB0: .4byte gUnknown_0859BE10
+
+	THUMB_FUNC_END ActionStaffDoorChestUseItem
 
 	THUMB_FUNC_START ActionPick
 ActionPick: @ 0x0802FFB4
@@ -2320,7 +2390,7 @@ _0802FFEC:
 	blt _08030002
 	ldr r0, _08030018  @ gUnknown_0859BE10
 	adds r1, r6, #0
-	bl Proc_CreateBlockingChild
+	bl Proc_StartBlocking
 _08030002:
 	pop {r4, r5, r6}
 	pop {r0}
@@ -2331,6 +2401,8 @@ _0803000C: .4byte gActionData
 _08030010: .4byte gUnknown_0202BCF0
 _08030014: .4byte gBattleTarget
 _08030018: .4byte gUnknown_0859BE10
+
+	THUMB_FUNC_END ActionPick
 
 	THUMB_FUNC_START sub_803001C
 sub_803001C: @ 0x0803001C
@@ -2358,11 +2430,15 @@ _08030040:
 _08030048: .4byte gBattleTarget
 _0803004C: .4byte gActionData
 
+	THUMB_FUNC_END sub_803001C
+
 	THUMB_FUNC_START sub_8030050
 sub_8030050: @ 0x08030050
 	push {lr}
 	bl sub_802F208
 	pop {r0}
 	bx r0
+
+	THUMB_FUNC_END sub_8030050
 
 .align 2, 0

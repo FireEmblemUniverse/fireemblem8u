@@ -1235,7 +1235,7 @@ u8 Event1B_TEXTSHOW(struct EventEngineProc* proc) {
         "lsls r0, r3, #0x10\n"
         "cmp r0, #0\n"
         "bge _0800E3E6\n"
-        "ldr r0, _0800E3FC  @ gEventSlots\n"
+        "ldr r0, _0800E3FC\n" // gEventSlots
         "ldrh r3, [r0, #8]\n"
     "_0800E3E6:\n"
         "cmp r3, #0\n"
@@ -1257,7 +1257,7 @@ u8 Event1B_TEXTSHOW(struct EventEngineProc* proc) {
         "b _0800E514\n"
     "_0800E406:\n"
         "ldrh r0, [r4, #0x3c]\n"
-        "ldr r1, _0800E430  @ 0x0000FFF7\n"
+        "ldr r1, _0800E430\n" // 0x0000FFF7
         "ands r1, r0\n"
         "strh r1, [r4, #0x3c]\n"
         "lsrs r1, r1, #2\n"
@@ -1273,20 +1273,20 @@ u8 Event1B_TEXTSHOW(struct EventEngineProc* proc) {
         "cmp r0, #5\n"
         "bhi _0800E514\n"
         "lsls r0, r0, #2\n"
-        "ldr r1, _0800E434  @ _0800E438\n"
+        "ldr r1, _0800E434\n" // _0800E438
         "adds r0, r0, r1\n"
         "ldr r0, [r0]\n"
         "mov pc, r0\n"
         ".align 2, 0\n"
     "_0800E430: .4byte 0x0000FFF7\n"
     "_0800E434: .4byte _0800E438\n"
-    "_0800E438: @ jump table\n"
-        ".4byte _0800E450 @ case 0\n"
-        ".4byte _0800E450 @ case 1\n"
-        ".4byte _0800E4B4 @ case 2\n"
-        ".4byte _0800E45C @ case 3\n"
-        ".4byte _0800E4C6 @ case 4\n"
-        ".4byte _0800E4D2 @ case 5\n"
+    "_0800E438:\n" // jump table
+        ".4byte _0800E450\n" // case 0
+        ".4byte _0800E450\n" // case 1
+        ".4byte _0800E4B4\n" // case 2
+        ".4byte _0800E45C\n" // case 3
+        ".4byte _0800E4C6\n" // case 4
+        ".4byte _0800E4D2\n" // case 5
     "_0800E450:\n"
         "adds r1, r3, #0\n"
         "adds r0, r4, #0\n"
@@ -1315,19 +1315,19 @@ u8 Event1B_TEXTSHOW(struct EventEngineProc* proc) {
         "cmp r0, #5\n"
         "bhi _0800E514\n"
         "lsls r0, r0, #2\n"
-        "ldr r1, _0800E48C  @ _0800E490\n"
+        "ldr r1, _0800E48C\n" // _0800E490
         "adds r0, r0, r1\n"
         "ldr r0, [r0]\n"
         "mov pc, r0\n"
         ".align 2, 0\n"
     "_0800E48C: .4byte _0800E490\n"
-    "_0800E490: @ jump table\n"
-        ".4byte _0800E4A8 @ case 0\n"
-        ".4byte _0800E4A8 @ case 1\n"
-        ".4byte _0800E4B4 @ case 2\n"
-        ".4byte _0800E4C0 @ case 3\n"
-        ".4byte _0800E4C6 @ case 4\n"
-        ".4byte _0800E4D2 @ case 5\n"
+    "_0800E490:\n" // jump table
+        ".4byte _0800E4A8\n" // case 0
+        ".4byte _0800E4A8\n" // case 1
+        ".4byte _0800E4B4\n" // case 2
+        ".4byte _0800E4C0\n" // case 3
+        ".4byte _0800E4C6\n" // case 4
+        ".4byte _0800E4D2\n" // case 5
     "_0800E4A8:\n"
         "adds r1, r3, #0\n"
         "adds r0, r4, #0\n"
@@ -1359,7 +1359,7 @@ u8 Event1B_TEXTSHOW(struct EventEngineProc* proc) {
         "b _0800E514\n"
     "_0800E4DE:\n"
         "ldrh r0, [r4, #0x3c]\n"
-        "ldr r1, _0800E510  @ 0x0000FFF7\n"
+        "ldr r1, _0800E510\n" // 0x0000FFF7
         "ands r1, r0\n"
         "strh r1, [r4, #0x3c]\n"
         "bl sub_8006A7C\n"
@@ -1469,19 +1469,19 @@ u8 Event1D_TEXTEND(struct EventEngineProc* proc) {
 void sub_800E640(struct EventEngineProc* proc) {
     if (proc->evStateBits & EV_STATE_FADEDIN) {
         sub_80081A8();
-        Proc_DeleteAllWithScript(gUnknown_08591154); // end all faces
+        Proc_EndEach(gUnknown_08591154); // end all faces
         ResetFaces();
         sub_80067E8();
     } else if (Face6CExists()) {
         sub_80081A8();
-        Proc_ForEachWithScript(gUnknown_08591154, (ProcFunc)(sub_8005F38));
-        Proc_CreateBlockingChild(gUnknown_08591DE8, (struct Proc*)(proc));
+        Proc_ForEach(gUnknown_08591154, (ProcFunc) sub_8005F38);
+        Proc_StartBlocking(gUnknown_08591DE8, proc);
     }
 }
 
 void _WhileFace6CExists(struct Proc* proc) {
     if (!Face6CExists())
-        Proc_ClearNativeCallback(proc);
+        Proc_Break(proc);
 }
 
 u8 Event1E_(struct EventEngineProc* proc) {
@@ -1673,7 +1673,7 @@ u8 Event21_(struct EventEngineProc* proc) {
                 if (((proc->evStateBits >> 2) & 1)) // is skipping
                     return EVC_ADVANCE_CONTINUE;
 
-                otherProc = (struct ConvoBackgroundFadeProc*) Proc_CreateBlockingChild(gUnknown_08591E58, (struct Proc*)(proc));
+                otherProc = Proc_StartBlocking(gUnknown_08591E58, proc);
                 otherProc->fadeType = 1;
 
                 break;
@@ -1693,7 +1693,7 @@ u8 Event21_(struct EventEngineProc* proc) {
                 if (((proc->evStateBits >> 2) & 1)) // is skipping
                     return Event22_(proc); // CLEAN
 
-                otherProc = (struct ConvoBackgroundFadeProc*) Proc_CreateBlockingChild(gUnknown_08591EB0, (struct Proc*)(proc));
+                otherProc = Proc_StartBlocking(gUnknown_08591EB0, proc);
                 otherProc->fadeType = 2;
 
                 break;
@@ -1703,7 +1703,7 @@ u8 Event21_(struct EventEngineProc* proc) {
                 if (((proc->evStateBits >> 2) & 1)) // is skipping
                     return EVC_ADVANCE_CONTINUE;
 
-                otherProc = (struct ConvoBackgroundFadeProc*) Proc_CreateBlockingChild(gUnknown_08591E00, (struct Proc*)(proc));
+                otherProc = Proc_StartBlocking(gUnknown_08591E00, proc);
                 otherProc->fadeType = 0;
 
                 break;
@@ -2025,7 +2025,7 @@ void sub_800EEE8(struct ConvoBackgroundFadeProc* proc) {
     }
 
     if (currentFadeLevel >= 0x10)
-        Proc_ClearNativeCallback((struct Proc*)(proc));
+        Proc_Break(proc);
 }
 
 void sub_800EF48(struct ConvoBackgroundFadeProc* proc) {
@@ -2103,7 +2103,7 @@ u8 Event22_(struct EventEngineProc* proc) {
 
     sub_80081A8();
 
-    Proc_DeleteAllWithScript(gUnknown_08591154); // end all faces
+    Proc_EndEach(gUnknown_08591154); // end all faces
     ResetFaces();
 
     sub_80067E8();
@@ -2861,7 +2861,7 @@ struct UnitDefinition* sub_800F914(const struct UnitDefinition* source, short co
         "bne _0800F9B2\n"
     "_0800FA0C:\n"
         "str r6, [sp, #0x54]\n"
-        "ldr r6, _0800FA34  @ end\n"
+        "ldr r6, _0800FA34\n" // end
         "movs r3, #0\n"
         "mov r2, r9\n"
         "asrs r0, r2, #0x10\n"

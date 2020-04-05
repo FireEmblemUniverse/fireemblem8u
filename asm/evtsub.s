@@ -38,11 +38,11 @@ sub_8011784: @ 0x08011784
 	ldrh r0, [r4]
 	ldr r2, [r6, #0x34]
 	adds r2, r2, r0
-	ldr r5, _080118A0  @ gUnknown_08590F7C
+	ldr r5, _080118A0  @ gObject_16x8
 	str r7, [sp]
 	movs r0, #4
 	adds r3, r5, #0
-	bl RegisterObjectAttributes
+	bl PutSpriteExt
 	ldr r0, [r6, #0x44]
 	subs r0, #2
 	lsls r0, r0, #3
@@ -55,7 +55,7 @@ sub_8011784: @ 0x08011784
 	str r0, [sp]
 	movs r0, #4
 	adds r3, r5, #0
-	bl RegisterObjectAttributes
+	bl PutSpriteExt
 	ldr r1, [r6, #0x30]
 	ldrh r0, [r4]
 	adds r0, #0x18
@@ -66,7 +66,7 @@ sub_8011784: @ 0x08011784
 	str r0, [sp]
 	movs r0, #4
 	adds r3, r5, #0
-	bl RegisterObjectAttributes
+	bl PutSpriteExt
 	ldr r0, [r6, #0x44]
 	subs r0, #2
 	lsls r0, r0, #3
@@ -81,18 +81,18 @@ sub_8011784: @ 0x08011784
 	str r0, [sp]
 	movs r0, #4
 	adds r3, r5, #0
-	bl RegisterObjectAttributes
+	bl PutSpriteExt
 	ldr r1, [r6, #0x30]
 	ldrh r0, [r4]
 	adds r0, #8
 	ldr r2, [r6, #0x34]
 	adds r2, r2, r0
-	ldr r5, _080118A4  @ gUnknown_08590F44
+	ldr r5, _080118A4  @ gObject_8x8
 	adds r0, r7, #6
 	str r0, [sp]
 	movs r0, #4
 	adds r3, r5, #0
-	bl RegisterObjectAttributes
+	bl PutSpriteExt
 	ldr r1, [r6, #0x30]
 	ldrh r0, [r4]
 	adds r0, #0x10
@@ -103,7 +103,7 @@ sub_8011784: @ 0x08011784
 	str r0, [sp]
 	movs r0, #4
 	adds r3, r5, #0
-	bl RegisterObjectAttributes
+	bl PutSpriteExt
 	ldr r0, [r6, #0x44]
 	subs r0, #1
 	lsls r0, r0, #3
@@ -118,7 +118,7 @@ sub_8011784: @ 0x08011784
 	str r0, [sp]
 	movs r0, #4
 	adds r3, r5, #0
-	bl RegisterObjectAttributes
+	bl PutSpriteExt
 	ldr r0, [r6, #0x44]
 	subs r0, #1
 	lsls r0, r0, #3
@@ -133,13 +133,13 @@ sub_8011784: @ 0x08011784
 	str r0, [sp]
 	movs r0, #4
 	adds r3, r5, #0
-	bl RegisterObjectAttributes
+	bl PutSpriteExt
 	movs r5, #2
 	b _080118C6
 	.align 2, 0
 _0801189C: .4byte 0x0001FFFF
-_080118A0: .4byte gUnknown_08590F7C
-_080118A4: .4byte gUnknown_08590F44
+_080118A0: .4byte gObject_16x8
+_080118A4: .4byte gObject_8x8
 _080118A8:
 	lsls r0, r5, #3
 	ldr r1, [r6, #0x30]
@@ -152,8 +152,8 @@ _080118A8:
 	adds r0, r7, #2
 	str r0, [sp]
 	movs r0, #4
-	ldr r3, _08011904  @ gUnknown_08590F7C
-	bl RegisterObjectAttributes
+	ldr r3, _08011904  @ gObject_16x8
+	bl PutSpriteExt
 	adds r5, #2
 _080118C6:
 	ldr r0, [r6, #0x44]
@@ -178,8 +178,8 @@ _080118DC:
 	adds r0, r7, #2
 	str r0, [sp]
 	movs r0, #4
-	ldr r3, _08011908  @ gUnknown_08590F44
-	bl RegisterObjectAttributes
+	ldr r3, _08011908  @ gObject_8x8
+	bl PutSpriteExt
 	adds r5, #1
 	ldr r0, [r6, #0x44]
 	subs r0, #1
@@ -189,8 +189,8 @@ _08011900:
 	movs r5, #2
 	b _0801192C
 	.align 2, 0
-_08011904: .4byte gUnknown_08590F7C
-_08011908: .4byte gUnknown_08590F44
+_08011904: .4byte gObject_16x8
+_08011908: .4byte gObject_8x8
 _0801190C:
 	lsls r0, r5, #3
 	ldr r1, [r6, #0x30]
@@ -204,8 +204,8 @@ _0801190C:
 	adds r0, #0xf
 	str r0, [sp]
 	movs r0, #4
-	ldr r3, _08011A0C  @ gUnknown_08590F7C
-	bl RegisterObjectAttributes
+	ldr r3, _08011A0C  @ gObject_16x8
+	bl PutSpriteExt
 	adds r5, #2
 _0801192C:
 	ldr r0, [r6, #0x44]
@@ -233,8 +233,8 @@ _08011946:
 	mov r0, r8
 	str r0, [sp]
 	movs r0, #4
-	ldr r3, _08011A0C  @ gUnknown_08590F7C
-	bl RegisterObjectAttributes
+	ldr r3, _08011A0C  @ gObject_16x8
+	bl PutSpriteExt
 	ldr r1, [r6, #0x30]
 	adds r1, r1, r4
 	mov r2, r9
@@ -245,8 +245,8 @@ _08011946:
 	mov r0, r8
 	str r0, [sp]
 	movs r0, #4
-	ldr r3, _08011A0C  @ gUnknown_08590F7C
-	bl RegisterObjectAttributes
+	ldr r3, _08011A0C  @ gObject_16x8
+	bl PutSpriteExt
 	adds r5, #2
 	ldr r0, [r6, #0x44]
 	subs r0, #2
@@ -258,7 +258,7 @@ _08011986:
 	cmp r5, r0
 	bge _080119D2
 	mov r8, sl
-	ldr r1, _08011A10  @ gUnknown_08590F44
+	ldr r1, _08011A10  @ gObject_8x8
 	mov r9, r1
 	adds r7, #8
 _08011996:
@@ -273,7 +273,7 @@ _08011996:
 	str r7, [sp]
 	movs r0, #4
 	mov r3, r9
-	bl RegisterObjectAttributes
+	bl PutSpriteExt
 	ldr r1, [r6, #0x30]
 	adds r1, r1, r4
 	mov r2, r8
@@ -284,7 +284,7 @@ _08011996:
 	str r7, [sp]
 	movs r0, #4
 	mov r3, r9
-	bl RegisterObjectAttributes
+	bl PutSpriteExt
 	adds r5, #1
 	ldr r0, [r6, #0x44]
 	subs r0, #1
@@ -304,8 +304,8 @@ _080119D8:
 	adds r2, r2, r0
 	str r4, [sp]
 	movs r0, #0
-	ldr r3, _08011A14  @ gUnknown_08590F8C
-	bl RegisterObjectAttributes
+	ldr r3, _08011A14  @ gObject_32x16
+	bl PutSpriteExt
 	adds r4, #4
 	adds r7, #0x20
 	subs r5, #1
@@ -320,13 +320,17 @@ _080119D8:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_08011A0C: .4byte gUnknown_08590F7C
-_08011A10: .4byte gUnknown_08590F44
-_08011A14: .4byte gUnknown_08590F8C
+_08011A0C: .4byte gObject_16x8
+_08011A10: .4byte gObject_8x8
+_08011A14: .4byte gObject_32x16
+
+	THUMB_FUNC_END sub_8011784
 
 	THUMB_FUNC_START nullsub_44
 nullsub_44: @ 0x08011A18
 	bx lr
+
+	THUMB_FUNC_END nullsub_44
 
 	THUMB_FUNC_START sub_8011A1C
 sub_8011A1C: @ 0x08011A1C
@@ -353,6 +357,8 @@ _08011A3C:
 _08011A42:
 	pop {r0}
 	bx r0
+
+	THUMB_FUNC_END sub_8011A1C
 
 	THUMB_FUNC_START sub_8011A48
 sub_8011A48: @ 0x08011A48
@@ -393,6 +399,8 @@ sub_8011A48: @ 0x08011A48
 	.align 2, 0
 _08011A9C: .4byte gUnknown_085924D8
 
+	THUMB_FUNC_END sub_8011A48
+
 	THUMB_FUNC_START sub_8011AA0
 sub_8011AA0: @ 0x08011AA0
 	push {r4, r5, lr}
@@ -416,7 +424,7 @@ sub_8011AA0: @ 0x08011AA0
 	cmp r4, #0x10
 	bne _08011AE8
 	adds r0, r5, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 	movs r0, #0
 	movs r1, #0x10
 	movs r2, #0
@@ -432,6 +440,8 @@ _08011AE8:
 	bx r0
 	.align 2, 0
 _08011AF0: .4byte gUnknown_085924D8
+
+	THUMB_FUNC_END sub_8011AA0
 
 	THUMB_FUNC_START sub_8011AF4
 sub_8011AF4: @ 0x08011AF4
@@ -472,6 +482,8 @@ sub_8011AF4: @ 0x08011AF4
 	.align 2, 0
 _08011B48: .4byte gUnknown_085924D8
 
+	THUMB_FUNC_END sub_8011AF4
+
 	THUMB_FUNC_START sub_8011B4C
 sub_8011B4C: @ 0x08011B4C
 	push {r4, r5, lr}
@@ -496,15 +508,17 @@ sub_8011B4C: @ 0x08011B4C
 	bne _08011B86
 	ldr r0, _08011B8C  @ gUnknown_085924D8
 	bl Proc_Find
-	bl Proc_Delete
+	bl Proc_End
 	adds r0, r5, #0
-	bl Proc_ClearNativeCallback
+	bl Proc_Break
 _08011B86:
 	pop {r4, r5}
 	pop {r0}
 	bx r0
 	.align 2, 0
 _08011B8C: .4byte gUnknown_085924D8
+
+	THUMB_FUNC_END sub_8011B4C
 
 	THUMB_FUNC_START sub_8011B90
 sub_8011B90: @ 0x08011B90
@@ -516,6 +530,8 @@ sub_8011B90: @ 0x08011B90
 	bl SetSpecialColorEffectsParameters
 	pop {r0}
 	bx r0
+
+	THUMB_FUNC_END sub_8011B90
 
 	THUMB_FUNC_START sub_8011BA4
 sub_8011BA4: @ 0x08011BA4
@@ -532,7 +548,7 @@ sub_8011BA4: @ 0x08011BA4
 	ldr r1, [sp, #0x44]
 	movs r6, #0
 	ldr r0, _08011C7C  @ gUnknown_085924D8
-	bl Proc_Create
+	bl Proc_Start
 	adds r7, r0, #0
 	adds r0, r4, #0
 	bl GetStringFromIndex
@@ -621,6 +637,8 @@ _08011C88: .4byte gUnknown_08A4CF2C
 _08011C8C: .4byte 0x06010000
 _08011C90: .4byte 0x06010400
 
+	THUMB_FUNC_END sub_8011BA4
+
 	THUMB_FUNC_START sub_8011C94
 sub_8011C94: @ 0x08011C94
 	push {r4, r5, lr}
@@ -642,13 +660,15 @@ sub_8011C94: @ 0x08011C94
 	bl sub_8011BA4
 	ldr r0, _08011CC8  @ gUnknown_08592530
 	adds r1, r4, #0
-	bl Proc_CreateBlockingChild
+	bl Proc_StartBlocking
 	add sp, #8
 	pop {r4, r5}
 	pop {r0}
 	bx r0
 	.align 2, 0
 _08011CC8: .4byte gUnknown_08592530
+
+	THUMB_FUNC_END sub_8011C94
 
 	THUMB_FUNC_START sub_8011CCC
 sub_8011CCC: @ 0x08011CCC
@@ -688,6 +708,8 @@ _08011D0A:
 	pop {r4}
 	pop {r0}
 	bx r0
+
+	THUMB_FUNC_END sub_8011CCC
 
 	THUMB_FUNC_START sub_8011D10
 sub_8011D10: @ 0x08011D10
@@ -730,6 +752,8 @@ _08011D4E:
 	pop {r4, r5, r6, r7}
 	pop {r0}
 	bx r0
+
+	THUMB_FUNC_END sub_8011D10
 
 	THUMB_FUNC_START sub_8011D60
 sub_8011D60: @ 0x08011D60
@@ -809,6 +833,8 @@ _08011DDE:
 	pop {r4, r5, r6, r7}
 	pop {r0}
 	bx r0
+
+	THUMB_FUNC_END sub_8011D60
 
 	THUMB_FUNC_START sub_8011DF4
 sub_8011DF4: @ 0x08011DF4
@@ -903,6 +929,8 @@ _08011E72:
 _08011EC0: .4byte gBattleActor
 _08011EC4: .4byte gBattleTarget
 
+	THUMB_FUNC_END sub_8011DF4
+
 	THUMB_FUNC_START sub_8011EC8
 sub_8011EC8: @ 0x08011EC8
 	push {lr}
@@ -915,6 +943,8 @@ sub_8011EC8: @ 0x08011EC8
 	.align 2, 0
 _08011ED8: .4byte gBattleStats
 
+	THUMB_FUNC_END sub_8011EC8
+
 	THUMB_FUNC_START sub_8011EDC
 sub_8011EDC: @ 0x08011EDC
 	push {lr}
@@ -926,6 +956,8 @@ sub_8011EDC: @ 0x08011EDC
 	bx r0
 	.align 2, 0
 _08011EEC: .4byte gBattleStats
+
+	THUMB_FUNC_END sub_8011EDC
 
 	THUMB_FUNC_START sub_8011EF0
 sub_8011EF0: @ 0x08011EF0
@@ -974,6 +1006,8 @@ _08011F52:
 	bx r0
 	.align 2, 0
 _08011F58: .4byte gBattleStats
+
+	THUMB_FUNC_END sub_8011EF0
 
 	THUMB_FUNC_START sub_8011F5C
 sub_8011F5C: @ 0x08011F5C
@@ -1277,6 +1311,8 @@ _080121BA:
 _080121CC: .4byte gActionData
 _080121D0: .4byte gUnknown_0203AA94
 
+	THUMB_FUNC_END sub_8011F5C
+
 	THUMB_FUNC_START sub_80121D4
 sub_80121D4: @ 0x080121D4
 	push {r4, r5, r6, r7, lr}
@@ -1349,6 +1385,8 @@ _08012260: .4byte gActionData
 _08012264: .4byte gUnknown_030005FC
 _08012268: .4byte 0x0000FFFF
 _0801226C: .4byte gBattleStats
+
+	THUMB_FUNC_END sub_80121D4
 
 	THUMB_FUNC_START sub_8012270
 sub_8012270: @ 0x08012270
@@ -1435,6 +1473,8 @@ _08012318: .4byte gBattleActor
 _0801231C: .4byte gBattleTarget
 _08012320: .4byte gBattleStats
 
+	THUMB_FUNC_END sub_8012270
+
 	THUMB_FUNC_START sub_8012324
 sub_8012324: @ 0x08012324
 	push {lr}
@@ -1447,6 +1487,8 @@ sub_8012324: @ 0x08012324
 	bl sub_80156D4
 	pop {r0}
 	bx r0
+
+	THUMB_FUNC_END sub_8012324
 
 	THUMB_FUNC_START GetChapterAllyUnitCount
 GetChapterAllyUnitCount: @ 0x08012344
@@ -1465,6 +1507,8 @@ _08012354:
 	adds r0, r2, #0
 	pop {r1}
 	bx r1
+
+	THUMB_FUNC_END GetChapterAllyUnitCount
 
 	THUMB_FUNC_START InitPlayerUnitPositionsForPrepScreen
 InitPlayerUnitPositionsForPrepScreen: @ 0x08012360
@@ -1551,6 +1595,8 @@ _080123F8:
 	pop {r0}
 	bx r0
 
+	THUMB_FUNC_END InitPlayerUnitPositionsForPrepScreen
+
 	THUMB_FUNC_START sub_801240C
 sub_801240C: @ 0x0801240C
 	push {r4, r5, lr}
@@ -1609,6 +1655,8 @@ _0801246A:
 	bx r0
 	.align 2, 0
 _08012478: .4byte gUnknown_0202BCB0
+
+	THUMB_FUNC_END sub_801240C
 
 	THUMB_FUNC_START sub_801247C
 sub_801247C: @ 0x0801247C
@@ -1738,6 +1786,8 @@ _08012566:
 	pop {r0}
 	bx r0
 
+	THUMB_FUNC_END sub_801247C
+
 	THUMB_FUNC_START sub_8012578
 sub_8012578: @ 0x08012578
 	push {r4, r5, r6, lr}
@@ -1776,6 +1826,8 @@ _080125B8:
 	pop {r4, r5, r6}
 	pop {r1}
 	bx r1
+
+	THUMB_FUNC_END sub_8012578
 
 	THUMB_FUNC_START sub_80125C0
 sub_80125C0: @ 0x080125C0
@@ -1841,6 +1893,8 @@ _08012630:
 	pop {r0}
 	bx r0
 
+	THUMB_FUNC_END sub_80125C0
+
 	THUMB_FUNC_START StoreUnitWordStructs
 StoreUnitWordStructs: @ 0x0801263C
 	push {r4, r5, lr}
@@ -1873,6 +1927,8 @@ _08012662:
 	bx r0
 	.align 2, 0
 _08012674: .4byte gUnknown_03000600
+
+	THUMB_FUNC_END StoreUnitWordStructs
 
 	THUMB_FUNC_START LoadUnitWordStructs
 LoadUnitWordStructs: @ 0x08012678
@@ -1912,5 +1968,7 @@ _080126B0:
 	pop {r4}
 	pop {r0}
 	bx r0
+
+	THUMB_FUNC_END LoadUnitWordStructs
 
 	.align 2, 0 @ Don't pad with nop.

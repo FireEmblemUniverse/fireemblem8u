@@ -6,7 +6,6 @@
 
 #define AP_MAX_COUNT 0x14 // 20
 
-
 struct APProc
 {
     PROC_HEADER;
@@ -19,7 +18,34 @@ struct APProc
     u32 yPosition;
 };
 
-extern struct ProcCmd gUnknown_0859168C[];
+static void APProc_OnUpdate(struct APProc* proc);
+static void APProc_OnEnd(struct APProc* proc);
+
+static struct ProcCmd CONST_DATA sProcScr_ApProc[] =
+{
+    PROC_SET_END_CB(APProc_OnEnd),
+    PROC_REPEAT(APProc_OnUpdate),
+
+    PROC_END,
+};
+
+static u8 CONST_DATA sOamTileSizeLut[] =
+{
+    1, 1,
+    2, 2,
+    4, 4,
+    8, 8,
+
+    2, 1,
+    4, 1,
+    4, 2,
+    8, 4,
+
+    1, 2,
+    1, 4,
+    2, 4,
+    4, 8,
+};
 
 static struct APHandle sAPArray[AP_MAX_COUNT];
 
@@ -70,7 +96,7 @@ void AP_Display(struct APHandle* handle, int x, int y) {
         rotScaleMask = (handle->rotScaleIndex << 9);
     }
 
-    RegisterObjectAttributes(
+    PutSpriteExt(
         handle->objLayer,
         x | rotScaleMask, y,
         handle->pCurrentObjData,
@@ -215,19 +241,19 @@ void AP_QueueObjGraphics(struct APHandle* handle) {
         RegisterObjectTileGraphics(
             handle->pGraphics + (*itGfxData & 0x3FF) * 0x20,              // source location
             OBJ_VRAM0 + ((handle->tileBase & 0x3FF) * 0x20) + tileOffset, // target location
-            gOAMTileSizeLookup[OBJ_SIZE_TABLE_INDEX(itObjData)+0],        // x size (tiles)
-            gOAMTileSizeLookup[OBJ_SIZE_TABLE_INDEX(itObjData)+1]         // y size (tiles)
+            sOamTileSizeLut[OBJ_SIZE_TABLE_INDEX(itObjData)+0],        // x size (tiles)
+            sOamTileSizeLut[OBJ_SIZE_TABLE_INDEX(itObjData)+1]         // y size (tiles)
         );
 
         if (!gLCDControlBuffer.dispcnt.obj1dMap)
             // Adding (width * sizeof(Tile4bpp))
-            tileOffset += (gOAMTileSizeLookup[OBJ_SIZE_TABLE_INDEX(itObjData)]) * 0x20;
+            tileOffset += (sOamTileSizeLut[OBJ_SIZE_TABLE_INDEX(itObjData)]) * 0x20;
         else
             // Using the square of the width here?
             // Maybe it's bugged, since I don't think the obj1dMap flag is ever set
             tileOffset += ((
-                (gOAMTileSizeLookup[OBJ_SIZE_TABLE_INDEX(itObjData)]) *
-                (gOAMTileSizeLookup[OBJ_SIZE_TABLE_INDEX(itObjData)])
+                (sOamTileSizeLut[OBJ_SIZE_TABLE_INDEX(itObjData)]) *
+                (sOamTileSizeLut[OBJ_SIZE_TABLE_INDEX(itObjData)])
             )& 0x3FF) * 0x20;
 
         itObjData += 3;
@@ -320,7 +346,7 @@ struct APProc* APProc_Create(const void* apDefinition, int xPos, int yPos, int t
     handle->tileBase = tileBase;
 
     // Making Proc
-    proc = (struct APProc*) Proc_Create(gUnknown_0859168C, ROOT_PROC_3);
+    proc = Proc_Start(sProcScr_ApProc, PROC_TREE_3);
 
     // Setting up proc
     proc->pHandle = handle;
@@ -334,7 +360,7 @@ void APProc_OnUpdate(struct APProc* proc) {
     // Update AP, and end proc if the AP was freed (aka the animation ended)
     if (!AP_Update(proc->pHandle, proc->xPosition, proc->yPosition))
         if (!proc->pHandle || !proc->pHandle->pDefinition)
-            Proc_Delete((struct Proc*) proc);
+            Proc_End(proc);
 }
 
 void APProc_OnEnd(struct APProc* proc) {
@@ -354,14 +380,14 @@ void APProc_SetParameters(struct APProc* proc, int x, int y, int tileBase) {
 
 void APProc_Delete(struct APProc* proc) {
     // delet
-    Proc_Delete((struct Proc*) proc);
+    Proc_End(proc);
 }
 
 void APProc_DeleteAll(void) {
     // delet all
-    Proc_DeleteAllWithScript(gUnknown_0859168C);
+    Proc_EndEach(sProcScr_ApProc);
 }
 
 int APProc_Exists(void) {
-    return Proc_Find(gUnknown_0859168C) ? TRUE : FALSE;
+    return Proc_Find(sProcScr_ApProc) ? TRUE : FALSE;
 }

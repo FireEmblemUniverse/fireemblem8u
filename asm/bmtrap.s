@@ -30,6 +30,8 @@ _08037484:
 	.align 2, 0
 _08037490: .4byte gUnknown_0859E5A0
 
+	THUMB_FUNC_END sub_803746C
+
 	THUMB_FUNC_START sub_8037494
 sub_8037494: @ 0x08037494
 	push {r4, lr}
@@ -53,6 +55,8 @@ sub_8037494: @ 0x08037494
 	.align 2, 0
 _080374BC: .4byte gUnknown_0859E520
 _080374C0: .4byte gBattleActor
+
+	THUMB_FUNC_END sub_8037494
 
 	THUMB_FUNC_START sub_80374C4
 sub_80374C4: @ 0x080374C4
@@ -78,6 +82,8 @@ sub_80374C4: @ 0x080374C4
 _080374EC: .4byte gUnknown_0859E520
 _080374F0: .4byte gBattleTarget
 
+	THUMB_FUNC_END sub_80374C4
+
 	THUMB_FUNC_START sub_80374F4
 sub_80374F4: @ 0x080374F4
 	push {r4, lr}
@@ -94,6 +100,8 @@ _0803750A:
 	pop {r0}
 	bx r0
 
+	THUMB_FUNC_END sub_80374F4
+
 	THUMB_FUNC_START sub_8037510
 sub_8037510: @ 0x08037510
 	push {lr}
@@ -107,6 +115,8 @@ sub_8037510: @ 0x08037510
 	pop {r0}
 	bx r0
 
+	THUMB_FUNC_END sub_8037510
+
 	THUMB_FUNC_START sub_8037528
 sub_8037528: @ 0x08037528
 	push {lr}
@@ -119,6 +129,8 @@ sub_8037528: @ 0x08037528
 	bl sub_801F6BC
 	pop {r0}
 	bx r0
+
+	THUMB_FUNC_END sub_8037528
 
 	THUMB_FUNC_START sub_8037540
 sub_8037540: @ 0x08037540
@@ -167,6 +179,8 @@ _08037586:
 	.align 2, 0
 _0803759C: .4byte gActionData
 
+	THUMB_FUNC_END sub_8037540
+
 	THUMB_FUNC_START sub_80375A0
 sub_80375A0: @ 0x080375A0
 	push {r4, r5, r6, lr}
@@ -202,6 +216,8 @@ _080375DE:
 	bx r0
 	.align 2, 0
 _080375E4: .4byte gActiveUnit
+
+	THUMB_FUNC_END sub_80375A0
 
 	THUMB_FUNC_START GetPickTrapType
 GetPickTrapType: @ 0x080375E8
@@ -270,6 +286,8 @@ _08037658:
 	pop {r1}
 	bx r1
 
+	THUMB_FUNC_END GetPickTrapType
+
 	THUMB_FUNC_START ExecTrap
 ExecTrap: @ 0x08037660
 	push {r4, r5, r6, lr}
@@ -307,7 +325,7 @@ _08037690:
 	ldr r0, _080376B4  @ gUnknown_0859E5FC
 _080376A4:
 	adds r1, r6, #0
-	bl Proc_CreateBlockingChild
+	bl Proc_StartBlocking
 	adds r1, r0, #0
 	adds r0, #0x50
 	strh r4, [r0]
@@ -379,6 +397,8 @@ _08037738:
 	.align 2, 0
 _08037740: .4byte gUnknown_0202BCF0
 
+	THUMB_FUNC_END ExecTrap
+
 	THUMB_FUNC_START HandlePostActionTraps
 HandlePostActionTraps: @ 0x08037744
 	push {r4, r5, lr}
@@ -446,6 +466,8 @@ _080377C0:
 	.align 2, 0
 _080377C8: .4byte gActionData
 
+	THUMB_FUNC_END HandlePostActionTraps
+
 	THUMB_FUNC_START sub_80377CC
 sub_80377CC: @ 0x080377CC
 	push {r4, lr}
@@ -464,6 +486,8 @@ sub_80377CC: @ 0x080377CC
 	bx r1
 	.align 2, 0
 _080377EC: .4byte gActionData
+
+	THUMB_FUNC_END sub_80377CC
 
 	THUMB_FUNC_START sub_80377F0
 sub_80377F0: @ 0x080377F0
@@ -494,6 +518,8 @@ _08037828:
 	pop {r1}
 	bx r1
 
+	THUMB_FUNC_END sub_80377F0
+
 	THUMB_FUNC_START sub_8037830
 sub_8037830: @ 0x08037830
 	push {lr}
@@ -503,6 +529,8 @@ sub_8037830: @ 0x08037830
 	asrs r0, r0, #0x18
 	pop {r1}
 	bx r1
+
+	THUMB_FUNC_END sub_8037830
 
 	THUMB_FUNC_START LoadTrapData
 LoadTrapData: @ 0x08037840
@@ -604,6 +632,8 @@ _08037908:
 	pop {r0}
 	bx r0
 
+	THUMB_FUNC_END LoadTrapData
+
 	THUMB_FUNC_START LoadChapterBallistae
 LoadChapterBallistae: @ 0x08037910
 	push {lr}
@@ -613,6 +643,8 @@ LoadChapterBallistae: @ 0x08037910
 	bl LoadTrapData
 	pop {r0}
 	bx r0
+
+	THUMB_FUNC_END LoadChapterBallistae
 
 	THUMB_FUNC_START AddGorgonEggTrap
 AddGorgonEggTrap: @ 0x08037928
@@ -641,5 +673,7 @@ AddGorgonEggTrap: @ 0x08037928
 	pop {r4, r5}
 	pop {r0}
 	bx r0
+
+	THUMB_FUNC_END AddGorgonEggTrap
 
 .align 2, 0

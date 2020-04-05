@@ -11,7 +11,7 @@ UNAME := $(shell uname)
 CC1      := tools/agbcc/bin/agbcc$(EXE)
 CC1_OLD  := tools/agbcc/bin/old_agbcc$(EXE)
 #include $(DEVKITARM)
-PREFIX = arm-none-eabi-
+PREFIX = $(LOCAL_PREFIX)arm-none-eabi-
 export CPP := cpp
 ifeq ($(UNAME),Darwin)
 export CPP := $(PREFIX)$(CPP)
@@ -28,7 +28,19 @@ GBAGFX   := tools/gbagfx/gbagfx$(EXE)
 SCANINC  := tools/scaninc/scaninc$(EXE)
 PREPROC  := tools/preproc/preproc$(EXE)
 
-CC1FLAGS := -mthumb-interwork -Wimplicit -Wparentheses -Werror -O2 -fhex-asm
+ifeq ($(UNAME),Darwin)
+	SED := sed -i ''
+else
+	SED := sed -i
+endif
+
+ifeq ($(UNAME),Darwin)
+	SHASUM := shasum
+else
+	SHASUM := sha1sum
+endif
+
+CC1FLAGS := -mthumb-interwork -Wimplicit -Wparentheses -Werror -O2 -fhex-asm -g
 CPPFLAGS := -I tools/agbcc/include -iquote include -iquote . -nostdinc -undef
 ASFLAGS  := -mcpu=arm7tdmi -mthumb-interwork -I include
 
@@ -54,7 +66,7 @@ ALL_OBJECTS  := $(C_OBJECTS) $(ASM_OBJECTS) data/banim/data_banim.o
 DEPS_DIR     := .dep
 
 # Use the older compiler to build library code
-src/agb_sram.o: CC1FLAGS := -mthumb-interwork -Wimplicit -Wparentheses -Werror -O1
+src/agb_sram.o: CC1FLAGS := -mthumb-interwork -Wimplicit -Wparentheses -Werror -O1 -g
 src/m4a.o: CC1 := $(CC1_OLD)
 
 # TODO: find a more elegant solution to the inlining issue
@@ -63,17 +75,19 @@ src/bmitem.o: CC1FLAGS += -Wno-error
 #### Main Targets ####
 
 compare: $(ROM)
-ifeq ($(UNAME),Darwin)
-	shasum -c checksum.sha1
-else
-	sha1sum -c checksum.sha1
-endif
+	$(SHASUM) -c checksum.sha1
 
 clean:
 	find . \( -iname '*.1bpp' -o -iname '*.4bpp' -o -iname '*.8bpp' -o -iname '*.gbapal' -o -iname '*.lz' -o -iname '*.fk' -o -iname '*.latfont' -o -iname '*.hwjpnfont' -o -iname '*.fwjpnfont' \) -exec rm {} +
-	$(RM) $(ROM) $(ELF) $(MAP) $(ALL_OBJECTS) src/*.s graphics/*.h -r $(DEPS_DIR)
+	$(RM) $(ROM) $(ELF) $(MAP) $(ALL_OBJECTS) src/*.s graphics/*.h
+	$(RM) -rf $(DEPS_DIR)
 	# Remove battle animation binaries
 	$(RM) data/banim/*.bin data/banim/*.o data/banim/*.lz data/banim/*.bak
+
+tag:
+	gtags
+	ctags -R
+	cscope -Rbkq
 
 # Graphics Recipes
 
@@ -90,9 +104,9 @@ include graphics_file_rules.mk
 %.gbapal: %.pal
 ifneq ($(OS),Windows_NT)
 ifeq ($(UNAME),Darwin)
-	sed -i '' $$'s/\r*$$/\r/' $<
+	$(SED) $$'s/\r*$$/\r/' $<
 else
-	sed -i -e 's/\r*$$/\r/' $<
+	$(SED) -e 's/\r*$$/\r/' $<
 endif
 endif
 	$(GBAGFX) $< $@
@@ -132,12 +146,17 @@ $(ELF): $(ALL_OBJECTS) $(LDSCRIPT) $(SYM_FILES)
 	$(LD) -T $(LDSCRIPT) -Map $(MAP) $(ALL_OBJECTS) tools/agbcc/lib/libgcc.a tools/agbcc/lib/libc.a -o $@
 
 %.gba: %.elf
-	$(OBJCOPY) -O binary --pad-to 0x9000000 --gap-fill=0xff $< $@
+	$(OBJCOPY) --strip-debug -O binary --pad-to 0x9000000 --gap-fill=0xff $< $@
 
 $(C_OBJECTS): %.o: %.c $(DEPS_DIR)/%.d
 	@$(MAKEDEP)
 	$(CPP) $(CPPFLAGS) $< | $(CC1) $(CC1FLAGS) -o $*.s
 	echo '.ALIGN 2, 0' >> $*.s
+ifeq ($(UNAME),Darwin)
+	$(SED) -f scripts/align_2_before_debug_section_for_osx.sed $*.s
+else
+	$(SED) '/.section	.debug_line/i\.align 2, 0' $*.s
+endif
 	$(AS) $(ASFLAGS) $*.s -o $@
 
 ifeq ($(NODEP),1)
@@ -166,7 +185,7 @@ endif
 
 .SECONDEXPANSION:
 $(ASM_OBJECTS): %.o: %.s $$(data_dep)
-	$(AS) $(ASFLAGS) $< -o $@
+	$(AS) $(ASFLAGS) -g $< -o $@
 
 # Don't delete intermediate files
 .SECONDARY:
