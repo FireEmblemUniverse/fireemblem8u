@@ -50,11 +50,11 @@ const struct MenuItemDef gDebugMenuItems[] = {
 };
 
 const struct MenuItemDef gItemUseMenuItems[] = {
-    {gTextNull, 0, 0, 0, 0x1a, ItemUseMenu_IsAvailable, ItemUseMenu_Draw, ItemUseMenu_Selected, 0, ItemUseMenu_SwitchIn, ItemUseMenu_SwitchOut_DoNothing}, 
-    {gTextNull, 0, 0, 0, 0x1b, ItemUseMenu_IsAvailable, ItemUseMenu_Draw, ItemUseMenu_Selected, 0, ItemUseMenu_SwitchIn, ItemUseMenu_SwitchOut_DoNothing}, 
-    {gTextNull, 0, 0, 0, 0x1c, ItemUseMenu_IsAvailable, ItemUseMenu_Draw, ItemUseMenu_Selected, 0, ItemUseMenu_SwitchIn, ItemUseMenu_SwitchOut_DoNothing}, 
-    {gTextNull, 0, 0, 0, 0x1d, ItemUseMenu_IsAvailable, ItemUseMenu_Draw, ItemUseMenu_Selected, 0, ItemUseMenu_SwitchIn, ItemUseMenu_SwitchOut_DoNothing}, 
-    {gTextNull, 0, 0, 0, 0x1e, ItemUseMenu_IsAvailable, ItemUseMenu_Draw, ItemUseMenu_Selected, 0, ItemUseMenu_SwitchIn, ItemUseMenu_SwitchOut_DoNothing},
+    {gTextNull, 0, 0, 0, 0x1a, RepairMenuItemIsAvailable, RepairMenuItemDraw, RepairMenuItemSelect, 0, RepairMenuItemOnChange, RepairMenuItemOnChangeOut}, 
+    {gTextNull, 0, 0, 0, 0x1b, RepairMenuItemIsAvailable, RepairMenuItemDraw, RepairMenuItemSelect, 0, RepairMenuItemOnChange, RepairMenuItemOnChangeOut}, 
+    {gTextNull, 0, 0, 0, 0x1c, RepairMenuItemIsAvailable, RepairMenuItemDraw, RepairMenuItemSelect, 0, RepairMenuItemOnChange, RepairMenuItemOnChangeOut}, 
+    {gTextNull, 0, 0, 0, 0x1d, RepairMenuItemIsAvailable, RepairMenuItemDraw, RepairMenuItemSelect, 0, RepairMenuItemOnChange, RepairMenuItemOnChangeOut}, 
+    {gTextNull, 0, 0, 0, 0x1e, RepairMenuItemIsAvailable, RepairMenuItemDraw, RepairMenuItemSelect, 0, RepairMenuItemOnChange, RepairMenuItemOnChangeOut},
     MenuItemsEnd
 };
 
@@ -236,7 +236,7 @@ const struct MenuDef gDebugMenuDef = {
     (void(*)(struct MenuProc*, struct MenuItemProc*))0
 };
 
-const struct MenuDef gItemUseMenuDef = {
+const struct MenuDef gMenuInfo_RepairItems = {
     {0, 1, 0x10, 0},
     0,
     gItemUseMenuItems,

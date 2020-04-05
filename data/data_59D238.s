@@ -1,31 +1,31 @@
 	.section .data
 
-    .global gUnknown_0859D238
-gUnknown_0859D238:  @ 0x0859D238
+    .global gSelectInfo_OffensiveStaff
+gSelectInfo_OffensiveStaff:  @ 0x0859D238
 	.incbin "baserom.gba", 0x59D238, 0x20
 
-    .global gUnknown_0859D258
-gUnknown_0859D258:  @ 0x0859D258
+    .global gSelectInfo_Barrier
+gSelectInfo_Barrier:  @ 0x0859D258
 	.incbin "baserom.gba", 0x59D258, 0x20
 
-	.global gUnknown_0859D278
-gUnknown_0859D278:  @ 0x0859D278
+	.global gSelectInfo_Restore
+gSelectInfo_Restore:  @ 0x0859D278
 	.incbin "baserom.gba", 0x59D278, 0x20
 
-	.global gUnknown_0859D298
-gUnknown_0859D298:  @ 0x0859D298
+	.global gSelectInfo_Heal
+gSelectInfo_Heal:  @ 0x0859D298
 	.incbin "baserom.gba", 0x59D298, 0x20
 
-	.global gUnknown_0859D2B8
-gUnknown_0859D2B8:  @ 0x0859D2B8
+	.global gSelectInfo_Dance
+gSelectInfo_Dance:  @ 0x0859D2B8
 	.incbin "baserom.gba", 0x59D2B8, 0x20
 
-	.global gUnknown_0859D2D8
-gUnknown_0859D2D8:  @ 0x0859D2D8
+	.global gSelectInfo_PutTrap
+gSelectInfo_PutTrap:  @ 0x0859D2D8
 	.incbin "baserom.gba", 0x59D2D8, 0x20
 
-	.global gUnknown_0859D2F8
-gUnknown_0859D2F8:  @ 0x0859D2F8
+	.global gSelectInfo_0859D2F8
+gSelectInfo_0859D2F8:  @ 0x0859D2F8
 	.incbin "baserom.gba", 0x59D2F8, 0x20
 
 	.global gUnknown_0859D318
@@ -48,8 +48,8 @@ gUnknown_0859D378:  @ 0x0859D378
 gUnknown_0859D398:  @ 0x0859D398
 	.incbin "baserom.gba", 0x59D398, 0x20
 
-	.global gUnknown_0859D3B8
-gUnknown_0859D3B8:  @ 0x0859D3B8
+	.global gSelectInfo_Repair
+gSelectInfo_Repair:  @ 0x0859D3B8
 	.incbin "baserom.gba", 0x59D3B8, 0x20
 
 	.global gUnknown_0859D3D8
