@@ -582,7 +582,7 @@ void Menu_AutoHelpBox_OnLoop(struct MenuProc* proc)
     }
 }
 
-u8 MenuAutoHelpBoxSelect(struct MenuProc* menu, struct MenuItemProc* item)
+u8 MenuAutoHelpBoxSelect(struct MenuProc* menu)
 {
     Proc_GotoScript(menu, sProc_MenuAutoHelpBox);
 }

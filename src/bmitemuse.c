@@ -933,7 +933,7 @@ int RepairMenuItemOnChange(struct MenuProc* menu, struct MenuItemProc* item)
     sub_801E748(item->itemNumber);
 }
 
-void nullsub_24(struct MenuProc* menu, struct MenuItemProc* item)
+int RepairMenuItemOnChangeOut(struct MenuProc* menu, struct MenuItemProc* item)
 {
 }
 
@@ -964,7 +964,7 @@ int RepairMenuItemDraw(struct MenuProc* menu, struct MenuItemProc* menuItem)
     return 0;
 }
 
-int RepairMenuItemSelect(struct MenuProc* menu, struct MenuItemProc* menuItem)
+u8 RepairMenuItemSelect(struct MenuProc* menu, struct MenuItemProc* menuItem)
 {
     if (menuItem->availability == MENU_DISABLED)
     {

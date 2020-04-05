@@ -204,6 +204,7 @@ SECTIONS
         . = ALIGN(4); src/bmbattle.o(.rodata);
         . = ALIGN(4); src/bmtrade.o(.rodata);
         . = ALIGN(4); data/const_data_D7C44.o(.rodata);
+        . = ALIGN(4); src/raw_text_jp.o(.rodata);
         . = ALIGN(4); src/bmio.o(.rodata);
         . = ALIGN(4); data/const_data_D7F5C.o(.rodata);
         . = ALIGN(4); src/cp_phase.o(.rodata);
@@ -250,11 +251,15 @@ SECTIONS
         . = ALIGN(4); src/bmunit.o(.data);
         . = ALIGN(4); src/bmmap.o(.data);
         . = ALIGN(4); data/data_59A9D8.o(.data);
+        . = ALIGN(4); src/bmdebug.o(.data);
+        . = ALIGN(4); data/data_59AA7C.o(.data);
         . = ALIGN(4); src/bmreliance.o(.data);
         . = ALIGN(4); src/bmitemuse.o(.data);
         . = ALIGN(4); src/bmbattle.o(.data);
         . = ALIGN(4); src/bmtrade.o(.data);
         . = ALIGN(4); data/data_59BC64.o(.data);
+        . = ALIGN(4); src/menu_def.o(.rodata);
+        . = ALIGN(4); data/data_59D238.o(.data);
         . = ALIGN(4); src/bmio.o(.data);
         . = ALIGN(4); data/data_59D9FC.o(.data);
         . = ALIGN(4); src/cp_phase.o(.data);

@@ -923,7 +923,12 @@ MigrationBackup/
 
 # Reverse engineering tool
 *.id?
+*.nam
+*.til
 *.rd?
 *.gdt
 *.gpr
 *.rep
+
+# GCC dump (-da -dv)
+gccdump/
