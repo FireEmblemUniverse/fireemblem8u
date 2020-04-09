@@ -218,6 +218,17 @@ enum {
     ITEM_200G              = 0xB9,
     ITEM_BLACKGEM          = 0xBA,
     ITEM_GOLDGEM           = 0xBB,
+
+    ITEM_UNK_BC            = 0xBC,
+    ITEM_UNK_BD            = 0xBD,
+    ITEM_UNK_BE            = 0xBE,
+    ITEM_UNK_BF            = 0xBF,
+    ITEM_UNK_C0            = 0xC0,
+    ITEM_UNK_C1            = 0xC1,
+
+    // ...
+
+    ITEM_UNK_CC            = 0xCC,
 };
 
 #endif // GUARD_CONSTANTS_ITEMS_H

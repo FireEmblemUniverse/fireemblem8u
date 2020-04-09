@@ -31,13 +31,13 @@ struct MenuItemDef
 
     /* 0C */ u8(*isAvailable)(const struct MenuItemDef*, int number);
 
-    /* 10 */ void(*onDraw)(struct MenuProc*, struct MenuItemProc*);
+    /* 10 */ int(*onDraw)(struct MenuProc*, struct MenuItemProc*);
 
     /* 14 */ u8(*onSelected)(struct MenuProc*, struct MenuItemProc*);
     /* 18 */ u8(*onIdle)(struct MenuProc*, struct MenuItemProc*);
 
-    /* 1C */ void(*onSwitchIn)(struct MenuProc*, struct MenuItemProc*);
-    /* 20 */ void(*onSwitchOut)(struct MenuProc*, struct MenuItemProc*);
+    /* 1C */ int(*onSwitchIn)(struct MenuProc*, struct MenuItemProc*);
+    /* 20 */ int(*onSwitchOut)(struct MenuProc*, struct MenuItemProc*);
 };
 
 struct MenuDef

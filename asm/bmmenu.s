@@ -388,7 +388,7 @@ GenericSelection_BackToUM_CamWait: @ 0x0802282C
 	bl BG_EnableSyncByMask
 	bl HideMoveRangeGraphics
 	bl sub_8003D20
-	ldr r0, _0802285C  @ gUnknown_0859B600
+	ldr r0, _0802285C  @ gProcScr_0859B600
 	movs r1, #3
 	bl Proc_Start
 	movs r0, #0x19
@@ -396,7 +396,7 @@ GenericSelection_BackToUM_CamWait: @ 0x0802282C
 	bx r1
 	.align 2, 0
 _08022858: .4byte gBG2TilemapBuffer
-_0802285C: .4byte gUnknown_0859B600
+_0802285C: .4byte gProcScr_0859B600
 
 	THUMB_FUNC_END GenericSelection_BackToUM_CamWait
 
@@ -2422,7 +2422,7 @@ ItemSubMenu_UseItem: @ 0x08023770
 	adds r1, #0x1e
 	adds r1, r1, r2
 	ldrh r1, [r1]
-	bl sub_8028C0C
+	bl GetItemCantUseMsgid
 	adds r1, r0, #0
 	adds r0, r4, #0
 	bl MenuFrozenHelpBox
@@ -2442,7 +2442,7 @@ _080237A8:
 	adds r1, #0x1e
 	adds r1, r1, r2
 	ldrh r1, [r1]
-	bl ItemEffect_Call
+	bl DoItemUse
 	ldr r0, _080237F4  @ gRAMChapterData
 	adds r0, #0x41
 	ldrb r0, [r0]
@@ -2995,7 +2995,7 @@ StaffItemSelect_Effect: @ 0x08023BC8
 	adds r1, #0x1e
 	adds r1, r1, r2
 	ldrh r1, [r1]
-	bl ItemEffect_Call
+	bl DoItemUse
 	movs r0, #7
 	pop {r4, r5}
 	pop {r1}
@@ -3327,7 +3327,7 @@ _08023E38:
 _08023E3C: .4byte gActiveUnit
 _08023E40:
 	ldr r0, [r4]
-	bl CanUseChestKey
+	bl CanUnitUseChestKeyItem
 	lsls r0, r0, #0x18
 	movs r1, #3
 	cmp r0, #0
@@ -5137,13 +5137,13 @@ ItemMenu_Select1stCommand: @ 0x08024AF0
 	ldr r0, _08024B0C  @ gActiveUnit
 	ldr r0, [r0]
 	bl sub_8025B6C
-	ldr r0, _08024B10  @ gUnknown_0859D2B8
+	ldr r0, _08024B10  @ gSelectInfo_Dance
 	bl NewTargetSelection
 	movs r0, #0x27
 	b _08024B16
 	.align 2, 0
 _08024B0C: .4byte gActiveUnit
-_08024B10: .4byte gUnknown_0859D2B8
+_08024B10: .4byte gSelectInfo_Dance
 _08024B14:
 	movs r0, #8
 _08024B16:
@@ -5241,7 +5241,7 @@ ItemMenu_SelectOtherCommands: @ 0x08024B9C
 	adds r1, #0x1e
 	adds r1, r1, r2
 	ldrh r1, [r1]
-	bl ItemEffect_Call
+	bl DoItemUse
 	movs r0, #7
 	pop {r4}
 	pop {r1}

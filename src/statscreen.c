@@ -111,9 +111,9 @@ static void UnitSlide_FadeInLoop(struct StatScreenEffectProc* proc);
 static void UnitSlide_SetNewUnit(struct StatScreenEffectProc* proc);
 static void ClearSlide(struct Proc* proc);
 static void StartUnitSlide(struct Unit* unit, int direction, struct Proc* parent);
-static void DisplayPageNameSprite(int pageid);
+void DisplayPageNameSprite(int pageid);
 static void PageNameCtrl_OnInit(struct StatScreenPageNameProc* proc);
-static void PageNameCtrl_OnIdle(struct StatScreenPageNameProc* proc);
+void PageNameCtrl_OnIdle(struct StatScreenPageNameProc* proc);
 static void PageNameCtrl_AnimOut(struct StatScreenPageNameProc* proc);
 static void PageNameCtrl_AnimIn(struct StatScreenPageNameProc* proc);
 static void PageNumCtrl_OnInit(struct StatScreenPageNameProc* proc);
@@ -1400,7 +1400,6 @@ enum
     PAGENAME_SCALE_TIME = 6,
 };
 
-static
 void DisplayPageNameSprite(int pageid)
 {
     int colorid;
@@ -1440,7 +1439,6 @@ void PageNameCtrl_OnInit(struct StatScreenPageNameProc* proc)
     proc->pageNum = gStatScreen.page;
 }
 
-static
 void PageNameCtrl_OnIdle(struct StatScreenPageNameProc* proc)
 {
     DisplayPageNameSprite(proc->pageNum);

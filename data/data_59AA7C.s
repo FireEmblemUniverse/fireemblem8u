@@ -192,8 +192,8 @@ gUnknown_0859B560:  @ 0x0859B560
 gUnknown_0859B578:  @ 0x0859B578
 	.incbin "baserom.gba", 0x59B578, 0x88
 
-	.global gUnknown_0859B600
-gUnknown_0859B600:  @ 0x0859B600
+	.global gProcScr_0859B600
+gProcScr_0859B600:  @ 0x0859B600
 	.incbin "baserom.gba", 0x59B600, 0x30
 
 	.global gUnknown_0859B630
