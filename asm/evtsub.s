@@ -1293,7 +1293,7 @@ _080121A4:
 	lsls r0, r1, #0x18
 	asrs r0, r0, #0x18
 	bl sub_8011EF0
-	ldr r1, _080121D0  @ gUnknown_0203AA94
+	ldr r1, _080121D0  @ gAiDecision
 	ldrb r0, [r7, #0x10]
 	strb r0, [r1, #2]
 	ldrb r0, [r7, #0x11]
@@ -1309,7 +1309,7 @@ _080121BA:
 	bx r0
 	.align 2, 0
 _080121CC: .4byte gActionData
-_080121D0: .4byte gUnknown_0203AA94
+_080121D0: .4byte gAiDecision
 
 	THUMB_FUNC_END sub_8011F5C
 

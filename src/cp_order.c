@@ -16,10 +16,6 @@ static int BuildAiUnitList(void);
 static void SortAiUnitList(int count);
 static void CpOrderFunc_End(ProcPtr proc);
 
-void sub_8039CAC(ProcPtr proc);
-
-extern ProcFunc gCpDecideMainFunc;
-
 static
 u32* CONST_DATA sUnitPriorityArray = (void*) gUnknown_02020188;
 
@@ -83,7 +79,7 @@ void CpOrderBerserkInit(ProcPtr proc)
         gAiState.units[aiNum] = 0;
         gAiState.unitIt = gAiState.units;
 
-        gCpDecideMainFunc = sub_8039CAC;
+        AiDecideMainFunc = AiDecideMain;
 
         Proc_StartBlocking(gProcScr_CpDecide, proc);
     }
@@ -100,7 +96,7 @@ void CpOrderFunc_BeginDecide(ProcPtr proc)
         gAiState.units[unitAmt] = 0;
         gAiState.unitIt = gAiState.units;
 
-        gCpDecideMainFunc = sub_8039CAC;
+        AiDecideMainFunc = AiDecideMain;
 
         Proc_StartBlocking(gProcScr_CpDecide, proc);
     }
@@ -152,7 +148,7 @@ int GetUnitAiPriority(struct Unit* unit)
     if (UNIT_CATTRIBUTES(unit) & (CA_DANCE | CA_PLAY))
         return priority - 149;
 
-    if (!(unit->_u0A & 1))
+    if (!(unit->aiFlags & AI_UNIT_FLAG_0))
     {
         priority += lead << 8;
 

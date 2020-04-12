@@ -122,7 +122,8 @@ struct Unit
 
     /* 08 */ s8 level;
     /* 09 */ u8 exp;
-    /* 0A */ u8 _u0A;
+
+    /* 0A */ u8 aiFlags;
 
     /* 0B */ s8 index;
 

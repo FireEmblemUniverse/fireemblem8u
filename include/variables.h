@@ -515,7 +515,7 @@ extern struct RAMChapterData gRAMChapterData;
 // extern ??? gUnknown_0202BD3C
 // extern ??? gUnknown_0202BD40
 // extern ??? gUnknown_0202BD44
-// extern ??? gActiveUnitId
+extern u8 gActiveUnitId;
 // extern ??? gActiveUnitMoveOrigin
 // extern ??? gUnitArrayBlue
 // extern ??? gUnitArrayRed
@@ -546,7 +546,7 @@ extern struct ActionData gActionData;
 // extern ??? gUnknown_0203AA7F
 // extern ??? gUnknown_0203AA80
 // extern ??? gUnknown_0203AA8A
-// extern ??? gUnknown_0203AA94
+// extern ??? gAiDecision
 // extern ??? gUnknown_0203AAA0
 // extern ??? gUnknown_0203C624
 // extern ??? gUnknown_0203CA24
@@ -1647,10 +1647,9 @@ extern const u16 gUnknown_085A401C[]; // clouds palette
 // extern ??? gUnknown_085A7EE8
 // extern ??? gProcScr_CpPhase
 // extern ??? gProcScr_BerserkCpPhase
-// extern ??? gUnknown_085A7F9C
 // extern ??? gProcScr_CpDecide
 // extern ??? gUnknown_085A8004
-// extern ??? gUnknown_085A8024
+// extern ??? gProcScr_CpPerform
 // extern ??? gUnknown_085A80A4
 // extern ??? gUnknown_085A80BC
 // extern ??? gUnknown_085A8120

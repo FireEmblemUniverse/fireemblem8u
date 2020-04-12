@@ -1,19 +1,11 @@
     .section .data
 
-	.global gUnknown_085A7F9C
-gUnknown_085A7F9C:  @ 0x085A7F9C
-	.incbin "baserom.gba", 0x5A7F9C, 0x30
-
-	.global gProcScr_CpDecide
-gProcScr_CpDecide:  @ 0x085A7FCC
-	.incbin "baserom.gba", 0x5A7FCC, 0x38
-
 	.global gUnknown_085A8004
 gUnknown_085A8004:  @ 0x085A8004
 	.incbin "baserom.gba", 0x5A8004, 0x20
 
-	.global gUnknown_085A8024
-gUnknown_085A8024:  @ 0x085A8024
+	.global gProcScr_CpPerform
+gProcScr_CpPerform:  @ 0x085A8024
 	.incbin "baserom.gba", 0x5A8024, 0x80
 
 	.global gUnknown_085A80A4

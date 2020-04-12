@@ -541,7 +541,7 @@
 . = 0x03AA7F; gUnknown_0203AA7F = .;
 . = 0x03AA80; gUnknown_0203AA80 = .;
 . = 0x03AA8A; gUnknown_0203AA8A = .;
-. = 0x03AA94; gUnknown_0203AA94 = .;
+. = 0x03AA94; gAiDecision = .;
 . = 0x03AAA0; gUnknown_0203AAA0 = .;
 . = 0x03C624; gUnknown_0203C624 = .;
 . = 0x03CA24; gUnknown_0203CA24 = .;
