@@ -696,7 +696,7 @@ sub_80202BC: @ 0x080202BC
 	adds r1, #0x68
 	movs r0, #3
 	strh r0, [r1]
-	ldr r0, _080202F0  @ gUnknown_0202BCF0
+	ldr r0, _080202F0  @ gRAMChapterData
 	adds r0, #0x41
 	ldrb r0, [r0]
 	lsls r0, r0, #0x1e
@@ -708,7 +708,7 @@ _080202EC:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_080202F0: .4byte gUnknown_0202BCF0
+_080202F0: .4byte gRAMChapterData
 _080202F4: .4byte 0x00000316
 
 	THUMB_FUNC_END sub_80202BC
@@ -1280,7 +1280,7 @@ sub_8020778: @ 0x08020778
 	movs r0, #8
 	movs r1, #5
 	bl sub_80895B4
-	ldr r0, _080207C0  @ gUnknown_0202BCF0
+	ldr r0, _080207C0  @ gRAMChapterData
 	bl sub_808979C
 	adds r5, r0, #0
 	movs r0, #0xa0
@@ -1300,7 +1300,7 @@ sub_8020778: @ 0x08020778
 	bx r0
 	.align 2, 0
 _080207BC: .4byte gBG0TilemapBuffer
-_080207C0: .4byte gUnknown_0202BCF0
+_080207C0: .4byte gRAMChapterData
 _080207C4: .4byte 0x00000246
 
 	THUMB_FUNC_END sub_8020778
@@ -1723,7 +1723,7 @@ sub_8020AF8: @ 0x08020AF8
 	movs r0, #0
 	bl SetupBackgrounds
 	bl sub_80156D4
-	ldr r0, _08020B1C  @ gUnknown_0202BCF0
+	ldr r0, _08020B1C  @ gRAMChapterData
 	ldrb r0, [r0, #0x15]
 	bl AllocWeatherParticles
 	bl SMS_UpdateFromGameData
@@ -1732,7 +1732,7 @@ sub_8020AF8: @ 0x08020AF8
 	pop {r0}
 	bx r0
 	.align 2, 0
-_08020B1C: .4byte gUnknown_0202BCF0
+_08020B1C: .4byte gRAMChapterData
 
 	THUMB_FUNC_END sub_8020AF8
 
@@ -1804,7 +1804,7 @@ sub_8020B30: @ 0x08020B30
 	movs r0, #7
 	bl BG_EnableSyncByMask
 	bl DisableMapPaletteAnimations
-	ldr r4, _08020C24  @ gUnknown_0202BCF0
+	ldr r4, _08020C24  @ gRAMChapterData
 	movs r0, #0xe
 	ldrsb r0, [r4, r0]
 	bl UnpackChapterMapGraphics
@@ -1849,7 +1849,7 @@ _08020C14: .4byte 0x01000008
 _08020C18: .4byte gBG0TilemapBuffer
 _08020C1C: .4byte gBG1TilemapBuffer
 _08020C20: .4byte gBG2TilemapBuffer
-_08020C24: .4byte gUnknown_0202BCF0
+_08020C24: .4byte gRAMChapterData
 _08020C28: .4byte gUnknown_0202BCB0
 
 	THUMB_FUNC_END sub_8020B30
@@ -1891,7 +1891,7 @@ sub_8020C2C: @ 0x08020C2C
 	adds r4, #0x4c
 	movs r0, #0x1e
 	strh r0, [r4]
-	ldr r0, _08020CA0  @ gUnknown_0202BCF0
+	ldr r0, _08020CA0  @ gRAMChapterData
 	ldrb r0, [r0, #0xe]
 	lsls r0, r0, #0x18
 	asrs r0, r0, #0x18
@@ -1906,7 +1906,7 @@ _08020C96:
 	bx r0
 	.align 2, 0
 _08020C9C: .4byte gUnknown_02022968
-_08020CA0: .4byte gUnknown_0202BCF0
+_08020CA0: .4byte gRAMChapterData
 
 	THUMB_FUNC_END sub_8020C2C
 
@@ -1923,7 +1923,7 @@ sub_8020CA4: @ 0x08020CA4
 	b _08020DAE
 _08020CB8:
 	bl sub_80D74B0
-	ldr r5, _08020D30  @ gUnknown_0202BCF0
+	ldr r5, _08020D30  @ gRAMChapterData
 	movs r0, #0xe
 	ldrsb r0, [r5, r0]
 	bl GetROMChapterStruct
@@ -1977,7 +1977,7 @@ _08020D08:
 	adds r4, r3, #0
 	b _08020D6C
 	.align 2, 0
-_08020D30: .4byte gUnknown_0202BCF0
+_08020D30: .4byte gRAMChapterData
 _08020D34: .4byte 0x0000FFFF
 _08020D38: .4byte gLCDControlBuffer
 _08020D3C:
@@ -2012,7 +2012,7 @@ _08020D6C:
 	asrs r0, r0, #0x10
 	cmp r0, #0x18
 	bne _08020D9C
-	ldr r5, _08020DB4  @ gUnknown_0202BCF0
+	ldr r5, _08020DB4  @ gRAMChapterData
 	movs r0, #0xe
 	ldrsb r0, [r5, r0]
 	bl GetROMChapterStruct
@@ -2039,7 +2039,7 @@ _08020DAE:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_08020DB4: .4byte gUnknown_0202BCF0
+_08020DB4: .4byte gRAMChapterData
 _08020DB8: .4byte 0x0000FFFF
 
 	THUMB_FUNC_END sub_8020CA4
@@ -2281,7 +2281,7 @@ sub_8020F00: @ 0x08020F00
 	adds r4, #0x4c
 	movs r0, #0xe
 	strh r0, [r4]
-	ldr r4, _08020FF0  @ gUnknown_0202BCF0
+	ldr r4, _08020FF0  @ gRAMChapterData
 	movs r0, #0xe
 	ldrsb r0, [r4, r0]
 	bl GetROMChapterStruct
@@ -2310,7 +2310,7 @@ _08020FE0: .4byte gUnknown_0859B0E0
 _08020FE4: .4byte gUnknown_0859B108
 _08020FE8: .4byte gUnknown_0859B160
 _08020FEC: .4byte gUnknown_02022968
-_08020FF0: .4byte gUnknown_0202BCF0
+_08020FF0: .4byte gRAMChapterData
 _08020FF4: .4byte 0x0000FFFF
 
 	THUMB_FUNC_END sub_8020F00
@@ -2320,7 +2320,7 @@ sub_8020FF8: @ 0x08020FF8
 	push {r4, r5, lr}
 	adds r4, r0, #0
 	bl sub_80D74B0
-	ldr r5, _08021054  @ gUnknown_0202BCF0
+	ldr r5, _08021054  @ gRAMChapterData
 	movs r0, #0xe
 	ldrsb r0, [r5, r0]
 	bl GetROMChapterStruct
@@ -2360,7 +2360,7 @@ _0802102C:
 	strb r0, [r2, #1]
 	b _08021064
 	.align 2, 0
-_08021054: .4byte gUnknown_0202BCF0
+_08021054: .4byte gRAMChapterData
 _08021058: .4byte gLCDControlBuffer
 _0802105C:
 	bl EnablePaletteSync
@@ -2505,7 +2505,7 @@ sub_80210C8: @ 0x080210C8
 	bl GetChapterThing
 	cmp r0, #2
 	beq _08021168
-	ldr r0, _08021184  @ gUnknown_0202BCF0
+	ldr r0, _08021184  @ gRAMChapterData
 	ldrb r0, [r0, #0xe]
 	lsls r0, r0, #0x18
 	asrs r0, r0, #0x18
@@ -2527,7 +2527,7 @@ _08021170:
 	.align 2, 0
 _0802117C: .4byte gLCDControlBuffer
 _08021180: .4byte gBG0TilemapBuffer
-_08021184: .4byte gUnknown_0202BCF0
+_08021184: .4byte gRAMChapterData
 
 	THUMB_FUNC_END sub_80210C8
 
@@ -2541,7 +2541,7 @@ sub_8021188: @ 0x08021188
 	cmp r1, #0
 	bne _080211BC
 	bl sub_80D74B0
-	ldr r0, _080211C4  @ gUnknown_0202BCF0
+	ldr r0, _080211C4  @ gRAMChapterData
 	ldrb r0, [r0, #0xe]
 	lsls r0, r0, #0x18
 	asrs r0, r0, #0x18
@@ -2559,7 +2559,7 @@ _080211BC:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_080211C4: .4byte gUnknown_0202BCF0
+_080211C4: .4byte gRAMChapterData
 
 	THUMB_FUNC_END sub_8021188
 

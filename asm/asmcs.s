@@ -1722,7 +1722,7 @@ _08085210:
 sub_8085220: @ 0x08085220
 	push {lr}
 	movs r1, #0
-	ldr r0, _08085234  @ gUnknown_0202BCF0
+	ldr r0, _08085234  @ gRAMChapterData
 	ldrh r0, [r0, #0x10]
 	cmp r0, #0x14
 	bls _0808522E
@@ -1732,7 +1732,7 @@ _0808522E:
 	pop {r1}
 	bx r1
 	.align 2, 0
-_08085234: .4byte gUnknown_0202BCF0
+_08085234: .4byte gRAMChapterData
 
 	THUMB_FUNC_END sub_8085220
 
@@ -1740,7 +1740,7 @@ _08085234: .4byte gUnknown_0202BCF0
 sub_8085238: @ 0x08085238
 	push {lr}
 	movs r1, #0
-	ldr r0, _0808524C  @ gUnknown_0202BCF0
+	ldr r0, _0808524C  @ gRAMChapterData
 	ldrh r0, [r0, #0x10]
 	cmp r0, #0x19
 	bls _08085246
@@ -1750,7 +1750,7 @@ _08085246:
 	pop {r1}
 	bx r1
 	.align 2, 0
-_0808524C: .4byte gUnknown_0202BCF0
+_0808524C: .4byte gRAMChapterData
 
 	THUMB_FUNC_END sub_8085238
 
@@ -1758,7 +1758,7 @@ _0808524C: .4byte gUnknown_0202BCF0
 sub_8085250: @ 0x08085250
 	push {lr}
 	movs r1, #0
-	ldr r0, _08085264  @ gUnknown_0202BCF0
+	ldr r0, _08085264  @ gRAMChapterData
 	ldrh r0, [r0, #0x10]
 	cmp r0, #0x1e
 	bls _0808525E
@@ -1768,7 +1768,7 @@ _0808525E:
 	pop {r1}
 	bx r1
 	.align 2, 0
-_08085264: .4byte gUnknown_0202BCF0
+_08085264: .4byte gRAMChapterData
 
 	THUMB_FUNC_END sub_8085250
 
@@ -1776,7 +1776,7 @@ _08085264: .4byte gUnknown_0202BCF0
 sub_8085268: @ 0x08085268
 	push {lr}
 	movs r1, #0
-	ldr r0, _0808527C  @ gUnknown_0202BCF0
+	ldr r0, _0808527C  @ gRAMChapterData
 	ldrb r0, [r0, #0xf]
 	cmp r0, #0
 	bne _08085276
@@ -1786,7 +1786,7 @@ _08085276:
 	pop {r1}
 	bx r1
 	.align 2, 0
-_0808527C: .4byte gUnknown_0202BCF0
+_0808527C: .4byte gRAMChapterData
 
 	THUMB_FUNC_END sub_8085268
 
@@ -1794,7 +1794,7 @@ _0808527C: .4byte gUnknown_0202BCF0
 sub_8085280: @ 0x08085280
 	push {lr}
 	movs r1, #0
-	ldr r0, _08085294  @ gUnknown_0202BCF0
+	ldr r0, _08085294  @ gRAMChapterData
 	ldrb r0, [r0, #0xf]
 	cmp r0, #0x80
 	bne _0808528E
@@ -1804,7 +1804,7 @@ _0808528E:
 	pop {r1}
 	bx r1
 	.align 2, 0
-_08085294: .4byte gUnknown_0202BCF0
+_08085294: .4byte gRAMChapterData
 
 	THUMB_FUNC_END sub_8085280
 
@@ -1980,7 +1980,7 @@ _08085384: .4byte gUnknown_089EDF78
 	THUMB_FUNC_START sub_8085388
 sub_8085388: @ 0x08085388
 	push {lr}
-	ldr r2, _080853AC  @ gUnknown_0202BCF0
+	ldr r2, _080853AC  @ gRAMChapterData
 	ldrb r1, [r2, #0x14]
 	movs r0, #8
 	ands r0, r1
@@ -1999,7 +1999,7 @@ _080853A8:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_080853AC: .4byte gUnknown_0202BCF0
+_080853AC: .4byte gRAMChapterData
 
 	THUMB_FUNC_END sub_8085388
 
@@ -2007,7 +2007,7 @@ _080853AC: .4byte gUnknown_0202BCF0
 sub_80853B0: @ 0x080853B0
 	push {lr}
 	adds r2, r0, #0
-	ldr r0, _080853CC  @ gUnknown_0202BCF0
+	ldr r0, _080853CC  @ gRAMChapterData
 	ldrb r1, [r0, #0x14]
 	movs r0, #0x88
 	ands r0, r1
@@ -2020,7 +2020,7 @@ _080853C8:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_080853CC: .4byte gUnknown_0202BCF0
+_080853CC: .4byte gRAMChapterData
 
 	THUMB_FUNC_END sub_80853B0
 
@@ -2522,7 +2522,7 @@ sub_8085728: @ 0x08085728
 _08085740:
 	movs r1, #0
 	bl Proc_Goto
-	ldr r0, _08085764  @ gUnknown_0202BCF0
+	ldr r0, _08085764  @ gRAMChapterData
 	adds r0, #0x41
 	ldrb r0, [r0]
 	lsls r0, r0, #0x1e
@@ -2536,7 +2536,7 @@ _08085758:
 	bx r0
 	.align 2, 0
 _08085760: .4byte gUnknown_089EE030
-_08085764: .4byte gUnknown_0202BCF0
+_08085764: .4byte gRAMChapterData
 _08085768: .4byte 0x0000026A
 
 	THUMB_FUNC_END sub_8085728
@@ -2550,7 +2550,7 @@ sub_808576C: @ 0x0808576C
 	bl Proc_Find
 	cmp r0, #0
 	bne _08085796
-	ldr r0, _080857A8  @ gUnknown_0202BCF0
+	ldr r0, _080857A8  @ gRAMChapterData
 	adds r0, #0x41
 	ldrb r0, [r0]
 	lsls r0, r0, #0x1e
@@ -2570,7 +2570,7 @@ _08085796:
 	bx r0
 	.align 2, 0
 _080857A4: .4byte gUnknown_089EE000
-_080857A8: .4byte gUnknown_0202BCF0
+_080857A8: .4byte gRAMChapterData
 _080857AC: .4byte 0x0000026A
 
 	THUMB_FUNC_END sub_808576C
@@ -2584,7 +2584,7 @@ sub_80857B0: @ 0x080857B0
 	bl Proc_Find
 	cmp r0, #0
 	bne _080857DA
-	ldr r0, _080857EC  @ gUnknown_0202BCF0
+	ldr r0, _080857EC  @ gRAMChapterData
 	adds r0, #0x41
 	ldrb r0, [r0]
 	lsls r0, r0, #0x1e
@@ -2604,7 +2604,7 @@ _080857DA:
 	bx r0
 	.align 2, 0
 _080857E8: .4byte gUnknown_089EE000
-_080857EC: .4byte gUnknown_0202BCF0
+_080857EC: .4byte gRAMChapterData
 _080857F0: .4byte 0x0000026A
 
 	THUMB_FUNC_END sub_80857B0
@@ -2777,7 +2777,7 @@ sub_808591C: @ 0x0808591C
 	adds r1, r0, #0
 	ldr r0, _0808593C  @ gUnknown_089EE048
 	bl Proc_Start
-	ldr r0, _08085940  @ gUnknown_0202BCF0
+	ldr r0, _08085940  @ gRAMChapterData
 	adds r0, #0x41
 	ldrb r0, [r0]
 	lsls r0, r0, #0x1e
@@ -2790,7 +2790,7 @@ _08085938:
 	bx r0
 	.align 2, 0
 _0808593C: .4byte gUnknown_089EE048
-_08085940: .4byte gUnknown_0202BCF0
+_08085940: .4byte gRAMChapterData
 _08085944: .4byte 0x0000026A
 
 	THUMB_FUNC_END sub_808591C
@@ -2983,7 +2983,7 @@ sub_80859EC: @ 0x080859EC
 	bl SetSpecialColorEffectsParameters
 	ldr r0, _08085AC0  @ sub_808285C
 	bl SetPrimaryHBlankHandler
-	ldr r0, _08085AC4  @ gUnknown_0202BCF0
+	ldr r0, _08085AC4  @ gRAMChapterData
 	adds r0, #0x41
 	ldrb r0, [r0]
 	lsls r0, r0, #0x1e
@@ -3003,7 +3003,7 @@ _08085AAA:
 	.align 2, 0
 _08085ABC: .4byte gLCDControlBuffer
 _08085AC0: .4byte sub_808285C
-_08085AC4: .4byte gUnknown_0202BCF0
+_08085AC4: .4byte gRAMChapterData
 _08085AC8: .4byte 0x00000269
 
 	THUMB_FUNC_END sub_80859EC
@@ -4401,7 +4401,7 @@ _08086560: .4byte gBG0TilemapBuffer
 	THUMB_FUNC_START Command_EirikaMode
 Command_EirikaMode: @ 0x08086564
 	push {lr}
-	ldr r0, _08086578  @ gUnknown_0202BCF0
+	ldr r0, _08086578  @ gRAMChapterData
 	movs r1, #2
 	strb r1, [r0, #0x1b]
 	ldr r0, _0808657C  @ 0x00000C17
@@ -4410,7 +4410,7 @@ Command_EirikaMode: @ 0x08086564
 	pop {r1}
 	bx r1
 	.align 2, 0
-_08086578: .4byte gUnknown_0202BCF0
+_08086578: .4byte gRAMChapterData
 _0808657C: .4byte 0x00000C17
 
 	THUMB_FUNC_END Command_EirikaMode
@@ -4418,7 +4418,7 @@ _0808657C: .4byte 0x00000C17
 	THUMB_FUNC_START Command_EphraimMode
 Command_EphraimMode: @ 0x08086580
 	push {lr}
-	ldr r0, _08086594  @ gUnknown_0202BCF0
+	ldr r0, _08086594  @ gRAMChapterData
 	movs r1, #3
 	strb r1, [r0, #0x1b]
 	ldr r0, _08086598  @ 0x00000C18
@@ -4427,7 +4427,7 @@ Command_EphraimMode: @ 0x08086580
 	pop {r1}
 	bx r1
 	.align 2, 0
-_08086594: .4byte gUnknown_0202BCF0
+_08086594: .4byte gRAMChapterData
 _08086598: .4byte 0x00000C18
 
 	THUMB_FUNC_END Command_EphraimMode
@@ -4438,7 +4438,7 @@ sub_808659C: @ 0x0808659C
 	mov r7, r8
 	push {r7}
 	sub sp, #0x80
-	ldr r0, _080865B4  @ gUnknown_0202BCF0
+	ldr r0, _080865B4  @ gRAMChapterData
 	ldrb r0, [r0, #0x1b]
 	cmp r0, #2
 	beq _080865B8
@@ -4446,7 +4446,7 @@ sub_808659C: @ 0x0808659C
 	beq _080865BC
 	b _080865C4
 	.align 2, 0
-_080865B4: .4byte gUnknown_0202BCF0
+_080865B4: .4byte gRAMChapterData
 _080865B8:
 	movs r0, #0xf
 	b _080865BE
@@ -4533,7 +4533,7 @@ _08086640:
 	ldrh r0, [r1]
 	cmp r0, #0
 	bne _0808663A
-	ldr r0, _08086660  @ gUnknown_0202BCF0
+	ldr r0, _08086660  @ gRAMChapterData
 	ldrb r0, [r0, #0x1b]
 	cmp r0, #2
 	beq _08086664
@@ -4541,7 +4541,7 @@ _08086640:
 	beq _08086674
 	b _08086682
 	.align 2, 0
-_08086660: .4byte gUnknown_0202BCF0
+_08086660: .4byte gRAMChapterData
 _08086664:
 	movs r0, #0x16
 	bl MakeNewItem

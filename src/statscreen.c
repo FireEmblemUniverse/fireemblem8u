@@ -111,9 +111,9 @@ static void UnitSlide_FadeInLoop(struct StatScreenEffectProc* proc);
 static void UnitSlide_SetNewUnit(struct StatScreenEffectProc* proc);
 static void ClearSlide(struct Proc* proc);
 static void StartUnitSlide(struct Unit* unit, int direction, struct Proc* parent);
-static void DisplayPageNameSprite(int pageid);
+void DisplayPageNameSprite(int pageid);
 static void PageNameCtrl_OnInit(struct StatScreenPageNameProc* proc);
-static void PageNameCtrl_OnIdle(struct StatScreenPageNameProc* proc);
+void PageNameCtrl_OnIdle(struct StatScreenPageNameProc* proc);
 static void PageNameCtrl_AnimOut(struct StatScreenPageNameProc* proc);
 static void PageNameCtrl_AnimIn(struct StatScreenPageNameProc* proc);
 static void PageNumCtrl_OnInit(struct StatScreenPageNameProc* proc);
@@ -609,10 +609,10 @@ void DisplayBwl(void)
     if (gUnknown_0202BCB0.gameStateBits & 0x40)
         return;
 
-    if (gUnknown_0202BCF0.chapterStateBits & CHAPTER_FLAG_3)
+    if (gRAMChapterData.chapterStateBits & CHAPTER_FLAG_3)
         return;
 
-    if (gUnknown_0202BCF0.chapterStateBits & CHAPTER_FLAG_7)
+    if (gRAMChapterData.chapterStateBits & CHAPTER_FLAG_7)
         return;
 
     if (IsFirstPlaythrough() == TRUE)
@@ -1400,7 +1400,6 @@ enum
     PAGENAME_SCALE_TIME = 6,
 };
 
-static
 void DisplayPageNameSprite(int pageid)
 {
     int colorid;
@@ -1440,7 +1439,6 @@ void PageNameCtrl_OnInit(struct StatScreenPageNameProc* proc)
     proc->pageNum = gStatScreen.page;
 }
 
-static
 void PageNameCtrl_OnIdle(struct StatScreenPageNameProc* proc)
 {
     DisplayPageNameSprite(proc->pageNum);
@@ -1875,7 +1873,7 @@ void StatScreen_OnIdle(struct Proc* proc)
 static
 void StatScreen_OnClose(void)
 {
-    gUnknown_0202BCF0.chapterStateBits = (gUnknown_0202BCF0.chapterStateBits &~ 3) | (gStatScreen.page & 3);
+    gRAMChapterData.chapterStateBits = (gRAMChapterData.chapterStateBits &~ 3) | (gStatScreen.page & 3);
     sStatScreenInfo.unitId = gStatScreen.unit->index;
 
     SetInterrupt_LCDVCountMatch(NULL);
@@ -1906,7 +1904,7 @@ void StartStatScreen(struct Unit* unit, struct Proc* parent)
 {
     gStatScreen.xDispOff = 0;
     gStatScreen.yDispOff = 0;
-    gStatScreen.page = gUnknown_0202BCF0.chapterStateBits & 3;
+    gStatScreen.page = gRAMChapterData.chapterStateBits & 3;
     gStatScreen.unit = unit;
     gStatScreen.help = NULL;
     gStatScreen.pageSlideKey = 0;

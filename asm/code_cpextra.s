@@ -7741,7 +7741,7 @@ _0803E098: .4byte gUnknown_030017D8
 
 	THUMB_FUNC_START sub_803E09C
 sub_803E09C: @ 0x0803E09C
-	ldr r0, _0803E0AC  @ gUnknown_0202BCF0
+	ldr r0, _0803E0AC  @ gRAMChapterData
 	ldrh r0, [r0, #0x10]
 	ldr r1, _0803E0B0  @ gUnknown_030017D8
 	ldr r1, [r1]
@@ -7749,7 +7749,7 @@ sub_803E09C: @ 0x0803E09C
 	muls r0, r1, r0
 	bx lr
 	.align 2, 0
-_0803E0AC: .4byte gUnknown_0202BCF0
+_0803E0AC: .4byte gRAMChapterData
 _0803E0B0: .4byte gUnknown_030017D8
 
 	THUMB_FUNC_END sub_803E09C
@@ -8506,7 +8506,7 @@ _0803E62E:
 UpdateAllPhaseHealingAIStatus: @ 0x0803E640
 	push {r4, r5, r6, lr}
 	sub sp, #0xc
-	ldr r0, _0803E690  @ gUnknown_0202BCF0
+	ldr r0, _0803E690  @ gRAMChapterData
 	ldrb r2, [r0, #0xf]
 	mov r1, sp
 	ldr r0, _0803E694  @ gUnknown_080D8680
@@ -8545,7 +8545,7 @@ _0803E686:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_0803E690: .4byte gUnknown_0202BCF0
+_0803E690: .4byte gRAMChapterData
 _0803E694: .4byte gUnknown_080D8680
 
 	THUMB_FUNC_END UpdateAllPhaseHealingAIStatus
@@ -8802,7 +8802,7 @@ GetEscapePointStructThingMaybe: @ 0x0803E878
 	push {r4, r5, lr}
 	movs r1, #0
 	movs r5, #0
-	ldr r0, _0803E898  @ gUnknown_0202BCF0
+	ldr r0, _0803E898  @ gRAMChapterData
 	movs r2, #0xe
 	ldrsb r2, [r0, r2]
 	movs r4, #0xff
@@ -8815,7 +8815,7 @@ GetEscapePointStructThingMaybe: @ 0x0803E878
 	beq _0803E8A2
 	b _0803E8B8
 	.align 2, 0
-_0803E898: .4byte gUnknown_0202BCF0
+_0803E898: .4byte gRAMChapterData
 _0803E89C:
 	cmp r0, #0x80
 	beq _0803E8A6
@@ -13575,7 +13575,7 @@ _08040C78:
 	.align 2, 0
 _08040CA0: .4byte gAiState
 _08040CA4:
-	ldr r0, _08040D2C  @ gUnknown_0202BCF0
+	ldr r0, _08040D2C  @ gRAMChapterData
 	ldrb r0, [r0, #0xe]
 	lsls r0, r0, #0x18
 	asrs r0, r0, #0x18
@@ -13640,7 +13640,7 @@ _08040CC0:
 	lsrs r2, r2, #0x18
 	b _08040DA6
 	.align 2, 0
-_08040D2C: .4byte gUnknown_0202BCF0
+_08040D2C: .4byte gRAMChapterData
 _08040D30: .4byte gActiveUnit
 _08040D34: .4byte gAiState
 _08040D38: .4byte gUnknown_0203AA94
@@ -14303,7 +14303,7 @@ sub_80411F8: @ 0x080411F8
 	str r3, [sp, #0x14]
 	str r1, [sp, #0x1c]
 	str r2, [sp, #0x20]
-	ldr r1, _08041234  @ gUnknown_0202BCF0
+	ldr r1, _08041234  @ gRAMChapterData
 	ldrh r1, [r1, #0x10]
 	cmp r1, #1
 	bhi _0804123C
@@ -14318,7 +14318,7 @@ sub_80411F8: @ 0x080411F8
 	movs r0, #0
 	b _080413B8
 	.align 2, 0
-_08041234: .4byte gUnknown_0202BCF0
+_08041234: .4byte gRAMChapterData
 _08041238: .4byte gAiState
 _0804123C:
 	movs r1, #0
@@ -14565,7 +14565,7 @@ sub_8041404: @ 0x08041404
 	sub sp, #8
 	mov sl, r0
 	movs r7, #0
-	ldr r0, _08041438  @ gUnknown_0202BCF0
+	ldr r0, _08041438  @ gRAMChapterData
 	ldrh r0, [r0, #0x10]
 	cmp r0, #1
 	bne _08041444
@@ -14584,7 +14584,7 @@ sub_8041404: @ 0x08041404
 	adds r0, #0x88
 	b _0804156A
 	.align 2, 0
-_08041438: .4byte gUnknown_0202BCF0
+_08041438: .4byte gRAMChapterData
 _0804143C: .4byte gAiState
 _08041440: .4byte gActiveUnit
 _08041444:

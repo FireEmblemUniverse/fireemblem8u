@@ -340,7 +340,7 @@ _080376B8:
 	ldrsb r1, [r5, r1]
 	bl GetTrapAt
 	bl RemoveTrap
-	ldr r0, _080376F0  @ gUnknown_0202BCF0
+	ldr r0, _080376F0  @ gRAMChapterData
 	adds r0, #0x41
 	ldrb r0, [r0]
 	lsls r0, r0, #0x1e
@@ -359,7 +359,7 @@ _080376DA:
 	bl sub_801F9FC
 	b _08037738
 	.align 2, 0
-_080376F0: .4byte gUnknown_0202BCF0
+_080376F0: .4byte gRAMChapterData
 _080376F4:
 	movs r0, #0x10
 	ldrsb r0, [r5, r0]
@@ -367,7 +367,7 @@ _080376F4:
 	ldrsb r1, [r5, r1]
 	bl GetTrapAt
 	bl RemoveTrap
-	ldr r0, _08037740  @ gUnknown_0202BCF0
+	ldr r0, _08037740  @ gRAMChapterData
 	adds r0, #0x41
 	ldrb r0, [r0]
 	lsls r0, r0, #0x1e
@@ -395,7 +395,7 @@ _08037738:
 	pop {r1}
 	bx r1
 	.align 2, 0
-_08037740: .4byte gUnknown_0202BCF0
+_08037740: .4byte gRAMChapterData
 
 	THUMB_FUNC_END ExecTrap
 

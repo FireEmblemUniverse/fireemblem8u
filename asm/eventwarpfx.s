@@ -40,7 +40,7 @@ _08021BC8:
 	bl BG_Fill
 	movs r0, #1
 	bl BG_EnableSyncByMask
-	ldr r0, _08021C60  @ gUnknown_0202BCF0
+	ldr r0, _08021C60  @ gRAMChapterData
 	adds r0, #0x41
 	ldrb r0, [r0]
 	lsls r0, r0, #0x1e
@@ -92,7 +92,7 @@ _08021C50: .4byte gUnknown_085A61A8
 _08021C54: .4byte gUnknown_085A61C8
 _08021C58: .4byte gBmFrameTmap0
 _08021C5C: .4byte gBG0TilemapBuffer
-_08021C60: .4byte gUnknown_0202BCF0
+_08021C60: .4byte gRAMChapterData
 _08021C64: .4byte gLCDControlBuffer
 
 	THUMB_FUNC_END sub_8021B9C
@@ -180,7 +180,7 @@ _08021D00: .4byte gBG0TilemapBuffer
 	THUMB_FUNC_START sub_8021D04
 sub_8021D04: @ 0x08021D04
 	push {lr}
-	ldr r0, _08021D2C  @ gUnknown_0202BCF0
+	ldr r0, _08021D2C  @ gRAMChapterData
 	adds r0, #0x41
 	ldrb r0, [r0]
 	lsls r0, r0, #0x1e
@@ -197,7 +197,7 @@ _08021D18:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_08021D2C: .4byte gUnknown_0202BCF0
+_08021D2C: .4byte gRAMChapterData
 _08021D30: .4byte gBG0TilemapBuffer
 
 	THUMB_FUNC_END sub_8021D04

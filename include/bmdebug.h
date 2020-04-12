@@ -13,6 +13,8 @@
 #include "fontgrp.h"
 #include "uiutils.h"
 #include "uimenu.h"
+#include "fontgrp.h"
+#include "bmio.h"
 
 struct DebugPrintProc
 {
@@ -38,7 +40,7 @@ struct DebugPrintProc
 
 void DebugMenuInit();
 u8 EndMenuAndClear(struct MenuProc*, struct MenuItemProc*);
-
+void DebugMenuMapIdleCore(struct MenuItemProc *menuItemProc, int, int);
 u8 DebugClearMenu_ClearFile(struct MenuProc*, struct MenuItemProc*);
 int DebugChargeMenu_Draw(struct MenuProc*, struct MenuItemProc*);
 u8 DebugChargeMenu_Idle(struct MenuProc*, struct MenuItemProc*);
@@ -68,7 +70,15 @@ u8 DebugMenu_ErasedEffect(struct MenuProc*, struct MenuItemProc*);
 u8 DebugMenu_GNightEffect(struct MenuProc*, struct MenuItemProc*);
 void DebugContinueMenuInit(struct MenuProc*);
 void DebugContinueMenuEnd(struct MenuProc*);
+u8 sub_801C650(s8 menuItemNumber);
+void nullsub_9();
 
-extern const struct MenuDef DebugMenuDef;
+extern const struct MenuDef gDebugClearMenuDef;
+extern const struct MenuDef gDebugChargeMenuDef;
+extern const struct MenuDef gDebugContinueMenuDef;
+extern const struct MenuDef gDebugChuudanMenuDef;
+extern const struct MenuDef gDebugMenuDef;
+
+extern u8 gUnknown_03001780;
 
 #endif //GUARD_BMDEBUG_H

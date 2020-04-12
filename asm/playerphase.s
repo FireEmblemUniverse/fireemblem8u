@@ -121,7 +121,7 @@ PlayerPhase_MainLoop: @ 0x0801C940
 	movs r3, #0x16
 	ldrsh r1, [r1, r3]
 	bl sub_801DB4C
-	ldr r0, _0801C984  @ gUnknown_0202BCF0
+	ldr r0, _0801C984  @ gRAMChapterData
 	adds r0, #0x41
 	ldrb r0, [r0]
 	lsls r0, r0, #0x1e
@@ -135,7 +135,7 @@ _0801C974:
 	.align 2, 0
 _0801C97C: .4byte gKeyStatusPtr
 _0801C980: .4byte gUnknown_0202BCB0
-_0801C984: .4byte gUnknown_0202BCF0
+_0801C984: .4byte gRAMChapterData
 _0801C988:
 	bl DoesBMXFADEExist
 	lsls r0, r0, #0x18
@@ -231,7 +231,7 @@ _0801CA58:
 	cmp r0, #0
 	blt _0801CAD4
 	bl DeletePlayerPhaseInterface6Cs
-	ldr r0, _0801CA94  @ gUnknown_0202BCF0
+	ldr r0, _0801CA94  @ gRAMChapterData
 	ldrh r1, [r5, #0x14]
 	strb r1, [r0, #0x12]
 	ldrh r1, [r5, #0x16]
@@ -254,7 +254,7 @@ _0801CA78:
 	bl sub_80832CC
 	b _0801CB20
 	.align 2, 0
-_0801CA94: .4byte gUnknown_0202BCF0
+_0801CA94: .4byte gRAMChapterData
 _0801CA98: .4byte gMapMenuDef
 _0801CA9C:
 	adds r0, r4, #0
@@ -462,7 +462,7 @@ sub_801CC1C: @ 0x0801CC1C
 	bne _0801CC70
 	movs r0, #0
 	bl sub_8032E28
-	ldr r0, _0801CC6C  @ gUnknown_0202BCF0
+	ldr r0, _0801CC6C  @ gRAMChapterData
 	adds r0, #0x41
 	ldrb r0, [r0]
 	lsls r0, r0, #0x1e
@@ -474,7 +474,7 @@ sub_801CC1C: @ 0x0801CC1C
 	.align 2, 0
 _0801CC64: .4byte gUnknown_0202BCB0
 _0801CC68: .4byte gActiveUnit
-_0801CC6C: .4byte gUnknown_0202BCF0
+_0801CC6C: .4byte gRAMChapterData
 _0801CC70:
 	movs r0, #1
 	bl sub_8032E28
@@ -488,7 +488,7 @@ _0801CC76:
 	THUMB_FUNC_START DisplayActiveUnitEffectRange
 DisplayActiveUnitEffectRange: @ 0x0801CC7C
 	push {lr}
-	ldr r0, _0801CCA8  @ gUnknown_0202BCF0
+	ldr r0, _0801CCA8  @ gRAMChapterData
 	adds r0, #0x41
 	ldrb r0, [r0]
 	lsls r0, r0, #0x1e
@@ -508,7 +508,7 @@ _0801CC90:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_0801CCA8: .4byte gUnknown_0202BCF0
+_0801CCA8: .4byte gRAMChapterData
 _0801CCAC: .4byte gUnknown_0202BCB0
 _0801CCB0: .4byte gActiveUnit
 
@@ -533,7 +533,7 @@ sub_801CCB4: @ 0x0801CCB4
 	movs r1, #1
 	negs r1, r1
 	bl BmMapFill
-	ldr r0, _0801CD0C  @ gUnknown_0202BCF0
+	ldr r0, _0801CD0C  @ gRAMChapterData
 	adds r0, #0x41
 	ldrb r0, [r0]
 	lsls r0, r0, #0x1e
@@ -559,7 +559,7 @@ _0801CCE6:
 	.align 2, 0
 _0801CD04: .4byte gUnknown_0202BCB0
 _0801CD08: .4byte gBmMapMovement
-_0801CD0C: .4byte gUnknown_0202BCF0
+_0801CD0C: .4byte gRAMChapterData
 _0801CD10:
 	movs r0, #3
 	bl DisplayMoveRangeGraphics
@@ -691,7 +691,7 @@ _0801CDF8: @ jump table
 	.4byte _0801CFC0 @ case 5
 	.4byte _0801CF90 @ case 6
 _0801CE14:
-	ldr r0, _0801CE2C  @ gUnknown_0202BCF0
+	ldr r0, _0801CE2C  @ gRAMChapterData
 	adds r0, #0x41
 	ldrb r0, [r0]
 	lsls r0, r0, #0x1e
@@ -703,7 +703,7 @@ _0801CE22:
 	bl m4aSongNumStart
 	b _0801CFC0
 	.align 2, 0
-_0801CE2C: .4byte gUnknown_0202BCF0
+_0801CE2C: .4byte gRAMChapterData
 _0801CE30:
 	ldr r0, _0801CE4C  @ gActiveUnitMoveOrigin
 	movs r2, #0
@@ -757,7 +757,7 @@ _0801CE90:
 	bl HideMoveRangeGraphics
 	bl RefreshEntityBmMaps
 	bl SMS_UpdateFromGameData
-	ldr r0, _0801CED0  @ gUnknown_0202BCF0
+	ldr r0, _0801CED0  @ gRAMChapterData
 	adds r0, #0x41
 	ldrb r0, [r0]
 	lsls r0, r0, #0x1e
@@ -774,7 +774,7 @@ _0801CEB8:
 _0801CEC4: .4byte gActiveUnit
 _0801CEC8: .4byte gActiveUnitMoveOrigin
 _0801CECC: .4byte gUnknown_0202BCB0
-_0801CED0: .4byte gUnknown_0202BCF0
+_0801CED0: .4byte gRAMChapterData
 _0801CED4:
 	bl EventEngineExists
 	lsls r0, r0, #0x18
@@ -843,7 +843,7 @@ _0801CF4C:
 	movs r2, #2
 	ldrsh r1, [r4, r2]
 	bl SetCursorMapPosition
-	ldr r0, _0801CF8C  @ gUnknown_0202BCF0
+	ldr r0, _0801CF8C  @ gRAMChapterData
 	adds r0, #0x41
 	ldrb r0, [r0]
 	lsls r0, r0, #0x1e
@@ -855,7 +855,7 @@ _0801CF4C:
 	.align 2, 0
 _0801CF84: .4byte gActiveUnit
 _0801CF88: .4byte gActiveUnitMoveOrigin
-_0801CF8C: .4byte gUnknown_0202BCF0
+_0801CF8C: .4byte gRAMChapterData
 _0801CF90:
 	ldr r4, _0801CFB4  @ gUnknown_0202BCB0
 	adds r1, r4, #0
@@ -1237,7 +1237,7 @@ _0801D2A8:
 	ldr r0, [r4]
 	bl MU_Create
 	bl MU_SetDefaultFacing_Auto
-	ldr r0, _0801D2EC  @ gUnknown_0202BCF0
+	ldr r0, _0801D2EC  @ gRAMChapterData
 	ldrb r0, [r0, #0xd]
 	cmp r0, #0
 	beq _0801D2F0
@@ -1247,7 +1247,7 @@ _0801D2A8:
 	b _0801D2F8
 	.align 2, 0
 _0801D2E8: .4byte gBmMapRange
-_0801D2EC: .4byte gUnknown_0202BCF0
+_0801D2EC: .4byte gRAMChapterData
 _0801D2F0:
 	adds r0, r5, #0
 	movs r1, #1
@@ -1308,7 +1308,7 @@ _0801D340: .4byte gActiveUnit
 sub_801D344: @ 0x0801D344
 	push {r4, r5, lr}
 	adds r5, r0, #0
-	ldr r0, _0801D374  @ gUnknown_0202BCF0
+	ldr r0, _0801D374  @ gRAMChapterData
 	ldrb r0, [r0, #0xd]
 	cmp r0, #0
 	beq _0801D37C
@@ -1324,7 +1324,7 @@ sub_801D344: @ 0x0801D344
 	bl SMS_UpdateFromGameData
 	b _0801D38E
 	.align 2, 0
-_0801D374: .4byte gUnknown_0202BCF0
+_0801D374: .4byte gRAMChapterData
 _0801D378: .4byte gActionData
 _0801D37C:
 	ldr r1, _0801D3C0  @ gActionData
@@ -1342,7 +1342,7 @@ _0801D38E:
 	lsls r1, r1, #0x18
 	asrs r1, r1, #0x18
 	bl SetCursorMapPosition
-	ldr r2, _0801D3C8  @ gUnknown_0202BCF0
+	ldr r2, _0801D3C8  @ gRAMChapterData
 	ldr r1, _0801D3CC  @ gUnknown_0202BCB0
 	ldrh r0, [r1, #0x14]
 	strb r0, [r2, #0x12]
@@ -1359,7 +1359,7 @@ _0801D38E:
 	.align 2, 0
 _0801D3C0: .4byte gActionData
 _0801D3C4: .4byte gActiveUnit
-_0801D3C8: .4byte gUnknown_0202BCF0
+_0801D3C8: .4byte gRAMChapterData
 _0801D3CC: .4byte gUnknown_0202BCB0
 _0801D3D0:
 	bl sub_8083250
@@ -1387,7 +1387,7 @@ _0801D3FC:
 	THUMB_FUNC_START sub_801D404
 sub_801D404: @ 0x0801D404
 	push {lr}
-	ldr r0, _0801D42C  @ gUnknown_0202BCF0
+	ldr r0, _0801D42C  @ gRAMChapterData
 	ldrb r0, [r0, #0xf]
 	cmp r0, #0
 	bne _0801D428
@@ -1403,7 +1403,7 @@ _0801D428:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_0801D42C: .4byte gUnknown_0202BCF0
+_0801D42C: .4byte gRAMChapterData
 _0801D430: .4byte gActionData
 
 	THUMB_FUNC_END sub_801D404
@@ -1525,7 +1525,7 @@ _0801D518: .4byte gUnknown_0202BCB0
 GetUnitSelectionValueThing: @ 0x0801D51C
 	push {r4, lr}
 	adds r4, r0, #0
-	ldr r0, _0801D548  @ gUnknown_0202BCF0
+	ldr r0, _0801D548  @ gRAMChapterData
 	ldrb r2, [r0, #0xf]
 	cmp r4, #0
 	beq _0801D556
@@ -1544,7 +1544,7 @@ GetUnitSelectionValueThing: @ 0x0801D51C
 	movs r0, #4
 	b _0801D5A0
 	.align 2, 0
-_0801D548: .4byte gUnknown_0202BCF0
+_0801D548: .4byte gRAMChapterData
 _0801D54C: .4byte gUnknown_0202BCB0
 _0801D550:
 	movs r2, #0
@@ -1802,7 +1802,7 @@ MakeMoveunitForActiveUnit: @ 0x0801D70C
 	ldrsb r0, [r2, r0]
 	movs r1, #0xc0
 	ands r0, r1
-	ldr r1, _0801D758  @ gUnknown_0202BCF0
+	ldr r1, _0801D758  @ gRAMChapterData
 	ldrb r1, [r1, #0xf]
 	cmp r0, r1
 	bne _0801D74A
@@ -1826,7 +1826,7 @@ _0801D74A:
 	bx r0
 	.align 2, 0
 _0801D754: .4byte gActiveUnit
-_0801D758: .4byte gUnknown_0202BCF0
+_0801D758: .4byte gRAMChapterData
 
 	THUMB_FUNC_END MakeMoveunitForActiveUnit
 
@@ -2396,7 +2396,7 @@ _0801DBA0: .4byte gBmMapUnit
 Goto3IfPhaseHasNoAbleUnits: @ 0x0801DBA4
 	push {r4, lr}
 	adds r4, r0, #0
-	ldr r1, _0801DBD0  @ gUnknown_0202BCF0
+	ldr r1, _0801DBD0  @ gRAMChapterData
 	adds r0, r1, #0
 	adds r0, #0x41
 	ldrb r0, [r0]
@@ -2415,7 +2415,7 @@ _0801DBC8:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_0801DBD0: .4byte gUnknown_0202BCF0
+_0801DBD0: .4byte gRAMChapterData
 
 @ align with 0 (not nop)
 	THUMB_FUNC_END Goto3IfPhaseHasNoAbleUnits

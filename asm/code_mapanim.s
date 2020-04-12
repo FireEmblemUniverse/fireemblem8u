@@ -834,7 +834,7 @@ _0807ACCC: .4byte gUnknown_0203E1F0
 	THUMB_FUNC_START PlaySoundIdA0
 PlaySoundIdA0: @ 0x0807ACD0
 	push {lr}
-	ldr r0, _0807ACE8  @ gUnknown_0202BCF0
+	ldr r0, _0807ACE8  @ gRAMChapterData
 	adds r0, #0x41
 	ldrb r0, [r0]
 	lsls r0, r0, #0x1e
@@ -846,14 +846,14 @@ _0807ACE4:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_0807ACE8: .4byte gUnknown_0202BCF0
+_0807ACE8: .4byte gRAMChapterData
 
 	THUMB_FUNC_END PlaySoundIdA0
 
 	THUMB_FUNC_START sub_807ACEC
 sub_807ACEC: @ 0x0807ACEC
 	push {lr}
-	ldr r0, _0807AD04  @ gUnknown_0202BCF0
+	ldr r0, _0807AD04  @ gRAMChapterData
 	adds r0, #0x41
 	ldrb r0, [r0]
 	lsls r0, r0, #0x1e
@@ -865,7 +865,7 @@ _0807AD00:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_0807AD04: .4byte gUnknown_0202BCF0
+_0807AD04: .4byte gRAMChapterData
 
 	THUMB_FUNC_END sub_807ACEC
 
@@ -1326,7 +1326,7 @@ _0807B04E:
 	THUMB_FUNC_START sub_807B054
 sub_807B054: @ 0x0807B054
 	push {lr}
-	ldr r0, _0807B06C  @ gUnknown_0202BCF0
+	ldr r0, _0807B06C  @ gRAMChapterData
 	adds r0, #0x41
 	ldrb r0, [r0]
 	lsls r0, r0, #0x1e
@@ -1338,7 +1338,7 @@ _0807B068:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_0807B06C: .4byte gUnknown_0202BCF0
+_0807B06C: .4byte gRAMChapterData
 
 	THUMB_FUNC_END sub_807B054
 
@@ -1425,7 +1425,7 @@ _0807B0E4:
 	ldrb r0, [r0]
 	cmp r0, #0
 	bne _0807B150
-	ldr r0, _0807B19C  @ gUnknown_0202BCF0
+	ldr r0, _0807B19C  @ gRAMChapterData
 	ldrb r0, [r0, #0xd]
 	cmp r0, #0
 	beq _0807B11E
@@ -1501,7 +1501,7 @@ _0807B172:
 	.align 2, 0
 _0807B194: .4byte gBmMapSize
 _0807B198: .4byte gBmMapUnit
-_0807B19C: .4byte gUnknown_0202BCF0
+_0807B19C: .4byte gRAMChapterData
 _0807B1A0: .4byte gBmMapFog
 _0807B1A4: .4byte gBmMapTerrain
 _0807B1A8: .4byte gBattleActor
@@ -3514,7 +3514,7 @@ _0807C0D8: .4byte gUnknown_089AD498
 	THUMB_FUNC_START sub_807C0DC
 sub_807C0DC: @ 0x0807C0DC
 	push {lr}
-	ldr r0, _0807C0F4  @ gUnknown_0202BCF0
+	ldr r0, _0807C0F4  @ gRAMChapterData
 	adds r0, #0x41
 	ldrb r0, [r0]
 	lsls r0, r0, #0x1e
@@ -3526,7 +3526,7 @@ _0807C0F0:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_0807C0F4: .4byte gUnknown_0202BCF0
+_0807C0F4: .4byte gRAMChapterData
 
 	THUMB_FUNC_END sub_807C0DC
 
@@ -6994,7 +6994,7 @@ sub_807DBE4: @ 0x0807DBE4
 	push {r4, r5, lr}
 	sub sp, #8
 	adds r5, r0, #0
-	ldr r0, _0807DC80  @ gUnknown_0202BCF0
+	ldr r0, _0807DC80  @ gRAMChapterData
 	adds r0, #0x41
 	ldrb r0, [r0]
 	lsls r0, r0, #0x1e
@@ -7059,7 +7059,7 @@ _0807DC60:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_0807DC80: .4byte gUnknown_0202BCF0
+_0807DC80: .4byte gRAMChapterData
 _0807DC84: .4byte gUnknown_089B03D4
 _0807DC88: .4byte 0x06013800
 _0807DC8C: .4byte gUnknown_089B068C
@@ -10113,7 +10113,7 @@ _0807F3CC:
 	bl sub_807EE84
 	cmp r6, #0
 	bne _0807F448
-	ldr r0, _0807F440  @ gUnknown_0202BCF0
+	ldr r0, _0807F440  @ gRAMChapterData
 	adds r0, #0x41
 	ldrb r0, [r0]
 	lsls r0, r0, #0x1e
@@ -10124,10 +10124,10 @@ _0807F3CC:
 	b _0807F45A
 	.align 2, 0
 _0807F43C: .4byte gUnknown_089A3ED4
-_0807F440: .4byte gUnknown_0202BCF0
+_0807F440: .4byte gRAMChapterData
 _0807F444: .4byte 0x000002CD
 _0807F448:
-	ldr r0, _0807F474  @ gUnknown_0202BCF0
+	ldr r0, _0807F474  @ gRAMChapterData
 	adds r0, #0x41
 	ldrb r0, [r0]
 	lsls r0, r0, #0x1e
@@ -10152,7 +10152,7 @@ _0807F468:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_0807F474: .4byte gUnknown_0202BCF0
+_0807F474: .4byte gRAMChapterData
 
 	THUMB_FUNC_END sub_807F39C
 
@@ -10233,7 +10233,7 @@ _0807F4F2:
 	str r1, [sp, #4]
 	adds r1, r4, #0
 	bl APProc_Create
-	ldr r0, _0807F538  @ gUnknown_0202BCF0
+	ldr r0, _0807F538  @ gRAMChapterData
 	adds r0, #0x41
 	ldrb r0, [r0]
 	lsls r0, r0, #0x1e
@@ -10253,7 +10253,7 @@ _0807F528: .4byte gUnknown_089AC9A8
 _0807F52C: .4byte gUnknown_0203E1F0
 _0807F530: .4byte gUnknown_0202BCB0
 _0807F534: .4byte gUnknown_089A5A6C
-_0807F538: .4byte gUnknown_0202BCF0
+_0807F538: .4byte gRAMChapterData
 
 	THUMB_FUNC_END sub_807F48C
 
@@ -15391,7 +15391,7 @@ _08081B6C: .4byte gUnknown_089AFF78
 	THUMB_FUNC_START sub_8081B70
 sub_8081B70: @ 0x08081B70
 	push {lr}
-	ldr r0, _08081BC0  @ gUnknown_0202BCF0
+	ldr r0, _08081BC0  @ gRAMChapterData
 	adds r0, #0x41
 	ldrb r0, [r0]
 	lsls r0, r0, #0x1e
@@ -15429,7 +15429,7 @@ _08081B84:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_08081BC0: .4byte gUnknown_0202BCF0
+_08081BC0: .4byte gRAMChapterData
 _08081BC4: .4byte gUnknown_0203E1F0
 _08081BC8: .4byte gBattleTarget
 
@@ -15701,7 +15701,7 @@ _08081D80: .4byte gUnknown_0202BCB0
 	THUMB_FUNC_START sub_8081D84
 sub_8081D84: @ 0x08081D84
 	push {r4, lr}
-	ldr r0, _08081DD4  @ gUnknown_0202BCF0
+	ldr r0, _08081DD4  @ gRAMChapterData
 	adds r0, #0x41
 	ldrb r0, [r0]
 	lsls r0, r0, #0x1e
@@ -15739,7 +15739,7 @@ _08081D98:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_08081DD4: .4byte gUnknown_0202BCF0
+_08081DD4: .4byte gRAMChapterData
 _08081DD8: .4byte gUnknown_0203E1F0
 _08081DDC: .4byte gUnknown_0202BCB0
 

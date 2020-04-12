@@ -92,7 +92,7 @@ sub_8039F0C: @ 0x08039F0C
 	movs r0, #1
 	mov r1, ip
 	strb r0, [r1]
-	ldr r1, _08039F68  @ gUnknown_0202BCF0
+	ldr r1, _08039F68  @ gRAMChapterData
 	ldrb r0, [r1, #0xd]
 	cmp r0, #0
 	beq _08039F8E
@@ -131,7 +131,7 @@ _08039F5C:
 	bl EnsureCameraOntoPosition
 	b _08039FA0
 	.align 2, 0
-_08039F68: .4byte gUnknown_0202BCF0
+_08039F68: .4byte gRAMChapterData
 _08039F6C: .4byte gActiveUnit
 _08039F70: .4byte gBmMapFog
 _08039F74: .4byte gUnknown_0203AA94
@@ -426,7 +426,7 @@ _0803A1C8:
 	lsls r1, r1, #0x18
 	asrs r1, r1, #0x18
 	bl sub_80840C4
-	ldr r0, _0803A1FC  @ gUnknown_0202BCF0
+	ldr r0, _0803A1FC  @ gRAMChapterData
 	adds r0, #0x41
 	ldrb r0, [r0]
 	lsls r0, r0, #0x1e
@@ -446,7 +446,7 @@ _0803A1F4:
 	pop {r1}
 	bx r1
 	.align 2, 0
-_0803A1FC: .4byte gUnknown_0202BCF0
+_0803A1FC: .4byte gRAMChapterData
 _0803A200: .4byte gUnknown_085A80A4
 
 	THUMB_FUNC_END sub_803A17C

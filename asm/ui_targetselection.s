@@ -159,7 +159,7 @@ _0804F9B0:
 	ands r0, r5
 	cmp r0, #0
 	beq _0804F9CA
-	ldr r0, _0804FA38  @ gUnknown_0202BCF0
+	ldr r0, _0804FA38  @ gRAMChapterData
 	adds r0, #0x41
 	ldrb r0, [r0]
 	lsls r0, r0, #0x1e
@@ -172,7 +172,7 @@ _0804F9CA:
 	ands r0, r5
 	cmp r0, #0
 	beq _0804F9E4
-	ldr r0, _0804FA38  @ gUnknown_0202BCF0
+	ldr r0, _0804FA38  @ gRAMChapterData
 	adds r0, #0x41
 	ldrb r0, [r0]
 	lsls r0, r0, #0x1e
@@ -222,7 +222,7 @@ _0804FA30:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_0804FA38: .4byte gUnknown_0202BCF0
+_0804FA38: .4byte gRAMChapterData
 
 	THUMB_FUNC_END TargetSelection_Loop
 
@@ -369,7 +369,7 @@ _0804FB34:
 	adds r0, r4, #0
 	bl _call_via_r2
 _0804FB44:
-	ldr r0, _0804FB60  @ gUnknown_0202BCF0
+	ldr r0, _0804FB60  @ gRAMChapterData
 	adds r0, #0x41
 	ldrb r0, [r0]
 	lsls r0, r0, #0x1e
@@ -383,7 +383,7 @@ _0804FB56:
 	bx r0
 	.align 2, 0
 _0804FB5C: .4byte gKeyStatusPtr
-_0804FB60: .4byte gUnknown_0202BCF0
+_0804FB60: .4byte gRAMChapterData
 
 	THUMB_FUNC_END TargetSelection_HandleMoveInput
 

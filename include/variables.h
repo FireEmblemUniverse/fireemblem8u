@@ -509,7 +509,7 @@ extern u8 gUnknown_0202B4AC[];
 extern int gUnknown_0202B6AC;
 // extern ??? gUnknown_0202B6B0
 extern struct Struct0202BCB0 gUnknown_0202BCB0;
-extern struct Struct0202BCF0 gUnknown_0202BCF0;
+extern struct RAMChapterData gRAMChapterData;
 // extern ??? gUnknown_0202BD30
 // extern ??? gUnknown_0202BD31
 // extern ??? gUnknown_0202BD3C

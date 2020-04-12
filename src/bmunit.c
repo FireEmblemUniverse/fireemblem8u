@@ -306,7 +306,7 @@ inline int GetUnitLuck(struct Unit* unit) {
 inline int GetUnitPortraitId(struct Unit* unit) {
     if (unit->pCharacterData->portraitId) {
         // TODO: PORTRAIT_LYON?, CHAPTER definitions
-        if (gUnknown_0202BCF0.chapterIndex == 0x22 && unit->pCharacterData->portraitId == 0x4A)
+        if (gRAMChapterData.chapterIndex == 0x22 && unit->pCharacterData->portraitId == 0x4A)
             return 0x46;
 
         return unit->pCharacterData->portraitId;
@@ -358,7 +358,7 @@ inline void AddUnitHp(struct Unit* unit, int amount) {
 }
 
 int GetUnitFogViewRange(struct Unit* unit) {
-    int result = gUnknown_0202BCF0.chapterVisionRange;
+    int result = gRAMChapterData.chapterVisionRange;
 
     if (UNIT_CATTRIBUTES(unit) & CA_THIEF)
         result += 5;
@@ -916,7 +916,7 @@ void UnitDrop(struct Unit* actor, int xTarget, int yTarget) {
     actor->state = actor->state &~ (US_RESCUING | US_RESCUED);
     target->state = target->state &~ (US_RESCUING | US_RESCUED | US_HIDDEN);
 
-    if (UNIT_FACTION(target) == gUnknown_0202BCF0.chapterPhaseIndex)
+    if (UNIT_FACTION(target) == gRAMChapterData.chapterPhaseIndex)
         target->state |= US_UNSELECTABLE; // TODO: US_GRAYED
 
     actor->rescueOtherUnit = 0;
@@ -1098,7 +1098,7 @@ void MoveActiveUnit(int x, int y) {
 void ClearActiveFactionGrayedStates(void) {
     int i;
 
-    if (gUnknown_0202BCF0.chapterPhaseIndex == FACTION_BLUE) {
+    if (gRAMChapterData.chapterPhaseIndex == FACTION_BLUE) {
         int i;
 
         for (i = 1; i < 0x40; ++i) {
@@ -1117,7 +1117,7 @@ void ClearActiveFactionGrayedStates(void) {
         }
     }
 
-    for (i = gUnknown_0202BCF0.chapterPhaseIndex + 1; i < gUnknown_0202BCF0.chapterPhaseIndex + 0x40; ++i) {
+    for (i = gRAMChapterData.chapterPhaseIndex + 1; i < gRAMChapterData.chapterPhaseIndex + 0x40; ++i) {
         struct Unit* unit = GetUnit(i);
 
         if (UNIT_IS_VALID(unit))
@@ -1130,7 +1130,7 @@ void TickActiveFactionTurn(void) {
 
     InitTargets(0, 0);
 
-    for (i = gUnknown_0202BCF0.chapterPhaseIndex + 1; i < gUnknown_0202BCF0.chapterPhaseIndex + 0x40; ++i) {
+    for (i = gRAMChapterData.chapterPhaseIndex + 1; i < gRAMChapterData.chapterPhaseIndex + 0x40; ++i) {
         struct Unit* unit = GetUnit(i);
 
         if (!UNIT_IS_VALID(unit))
@@ -1369,7 +1369,7 @@ const s8* GetUnitMovementCost(struct Unit* unit) {
     if (unit->state & US_IN_BALLISTA)
         return gUnknown_0880BC18;
 
-    switch (gUnknown_0202BCF0.chapterWeatherId) {
+    switch (gRAMChapterData.chapterWeatherId) {
 
     case WEATHER_RAIN:
         return unit->pClassData->pMovCostTable[1];
@@ -1381,7 +1381,7 @@ const s8* GetUnitMovementCost(struct Unit* unit) {
     default:
         return unit->pClassData->pMovCostTable[0];
 
-    } // switch (gUnknown_0202BCF0.chapterWeatherId)
+    } // switch (gRAMChapterData.chapterWeatherId)
 }
 
 int GetClassSMSId(int classId) {
@@ -1408,7 +1408,7 @@ void UpdatePrevDeployStates(void) {
             unit->state = unit->state &~ US_BIT26;
     }
 
-    if (gUnknown_0202BCF0.chapterStateBits & CHAPTER_FLAG_PREPSCREEN)
+    if (gRAMChapterData.chapterStateBits & CHAPTER_FLAG_PREPSCREEN)
         StoreUnitWordStructs();
 
     ResetAllPlayerUnitState();
@@ -1439,7 +1439,7 @@ void LoadUnitPrepScreenPositions(void) {
         unit->state |= US_HIDDEN;
     }
 
-    if (gUnknown_0202BCF0.chapterStateBits & CHAPTER_FLAG_PREPSCREEN)
+    if (gRAMChapterData.chapterStateBits & CHAPTER_FLAG_PREPSCREEN)
         LoadUnitWordStructs();
 }
 

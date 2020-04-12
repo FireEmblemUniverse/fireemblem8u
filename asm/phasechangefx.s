@@ -136,7 +136,7 @@ sub_801ED58: @ 0x0801ED58
 	movs r0, #4
 	bl Sound_FadeOut800231C
 _0801ED70:
-	ldr r0, _0801ED90  @ gUnknown_0202BCF0
+	ldr r0, _0801ED90  @ gRAMChapterData
 	adds r0, #0x41
 	ldrb r0, [r0]
 	lsls r0, r0, #0x1e
@@ -153,7 +153,7 @@ _0801ED82:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_0801ED90: .4byte gUnknown_0202BCF0
+_0801ED90: .4byte gRAMChapterData
 
 	THUMB_FUNC_END sub_801ED58
 
@@ -856,7 +856,7 @@ _0801F2A8: .4byte gUnknown_0202BCB0
 sub_801F2AC: @ 0x0801F2AC
 	push {r4, lr}
 	adds r4, r0, #0
-	ldr r0, _0801F2C8  @ gUnknown_0202BCF0
+	ldr r0, _0801F2C8  @ gRAMChapterData
 	ldrb r0, [r0, #0xf]
 	bl GetPhaseAbleUnitCount
 	cmp r0, #0
@@ -868,7 +868,7 @@ _0801F2C2:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_0801F2C8: .4byte gUnknown_0202BCF0
+_0801F2C8: .4byte gRAMChapterData
 
 	THUMB_FUNC_END sub_801F2AC
 
@@ -893,7 +893,7 @@ sub_801F2CC: @ 0x0801F2CC
 	movs r1, #0
 	movs r2, #0
 	bl BG_SetPosition
-	ldr r0, _0801F320  @ gUnknown_0202BCF0
+	ldr r0, _0801F320  @ gRAMChapterData
 	ldrb r0, [r0, #0xf]
 	cmp r0, #0x40
 	beq _0801F374
@@ -907,7 +907,7 @@ _0801F310: .4byte gUnknown_0859F020
 _0801F314: .4byte 0x06014000
 _0801F318: .4byte gUnknown_085A06D8
 _0801F31C: .4byte 0x06002000
-_0801F320: .4byte gUnknown_0202BCF0
+_0801F320: .4byte gRAMChapterData
 _0801F324:
 	cmp r0, #0x80
 	beq _0801F344

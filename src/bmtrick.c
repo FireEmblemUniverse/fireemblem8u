@@ -170,7 +170,7 @@ void InitMapObstacles(void)
 
                 AddTrap(
                     ix, iy, TRAP_OBSTACLE,
-                    GetROMChapterStruct(gUnknown_0202BCF0.chapterIndex)->mapCrackedWallHeath);
+                    GetROMChapterStruct(gRAMChapterData.chapterIndex)->mapCrackedWallHeath);
 
                 break;
 
@@ -244,7 +244,7 @@ int GetObstacleHpAt(int x, int y)
 
 const struct MapChange* GetMapChange(int id)
 {
-    const struct MapChange* mapChange = GetChapterMapChangesPointer(gUnknown_0202BCF0.chapterIndex);
+    const struct MapChange* mapChange = GetChapterMapChangesPointer(gRAMChapterData.chapterIndex);
 
     if (!mapChange)
         return NULL;
@@ -264,7 +264,7 @@ int GetMapChangeIdAt(int x, int y)
 {
     int result = -1;
 
-    const struct MapChange* mapChange = GetChapterMapChangesPointer(gUnknown_0202BCF0.chapterIndex);
+    const struct MapChange* mapChange = GetChapterMapChangesPointer(gRAMChapterData.chapterIndex);
 
     if (!mapChange)
         return result;
@@ -623,12 +623,12 @@ void ResetCountedDownTraps(void)
 
 void sub_802EA00(void)
 {
-    int truePhase = gUnknown_0202BCF0.chapterPhaseIndex;
-    gUnknown_0202BCF0.chapterPhaseIndex = FACTION_RED;
+    int truePhase = gRAMChapterData.chapterPhaseIndex;
+    gRAMChapterData.chapterPhaseIndex = FACTION_RED;
 
     RefreshEntityBmMaps();
 
-    gUnknown_0202BCF0.chapterPhaseIndex = truePhase;
+    gRAMChapterData.chapterPhaseIndex = truePhase;
 }
 
 void sub_802EA1C(void)

@@ -140,7 +140,7 @@ struct Struct0202BCB0 // Game State Struct
     /* 3F */ s8 unk3F;
 };
 
-struct Struct0202BCF0 { // Chapter Data Struct
+struct RAMChapterData { // Chapter Data Struct
     /* 00 */ u32 unk0; // a time value
     /* 04 */ u32 unk4; // a time value
 
@@ -206,7 +206,7 @@ struct Struct0202BCF0 { // Chapter Data Struct
 };
 
 /**
- * Use with Struct0202BCF0 field chapterStateBits
+ * Use with RAMChapterData field chapterStateBits
  */
 enum
 {

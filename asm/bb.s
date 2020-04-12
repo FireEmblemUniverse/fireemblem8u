@@ -359,7 +359,7 @@ NewBottomHelpText: @ 0x08035708
 	push {r4, lr}
 	adds r2, r0, #0
 	adds r4, r1, #0
-	ldr r0, _0803573C  @ gUnknown_0202BCF0
+	ldr r0, _0803573C  @ gRAMChapterData
 	adds r0, #0x41
 	ldrb r0, [r0]
 	lsrs r0, r0, #7
@@ -380,7 +380,7 @@ _08035734:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_0803573C: .4byte gUnknown_0202BCF0
+_0803573C: .4byte gRAMChapterData
 _08035740: .4byte gUnknown_0859E1B8
 _08035744: .4byte gUnknown_0202BCB0
 
@@ -482,7 +482,7 @@ sub_80357E4: @ 0x080357E4
 	bl GetUnitCurrentHp
 	cmp r0, #0
 	bne _080357FA
-	ldr r0, _08035800  @ gUnknown_0202BCF0
+	ldr r0, _08035800  @ gRAMChapterData
 	ldrb r0, [r0, #0xd]
 	cmp r0, #0
 	beq _080357FA
@@ -491,7 +491,7 @@ _080357FA:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_08035800: .4byte gUnknown_0202BCF0
+_08035800: .4byte gRAMChapterData
 
 	THUMB_FUNC_END sub_80357E4
 

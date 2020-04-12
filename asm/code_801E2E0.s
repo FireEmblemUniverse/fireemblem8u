@@ -12,7 +12,7 @@ sub_801E2E0: @ 0x0801E2E0
 	adds r4, r0, #0
 	cmp r4, #0
 	bge _0801E2F6
-	ldr r0, _0801E318  @ gUnknown_0202BCF0
+	ldr r0, _0801E318  @ gRAMChapterData
 	ldrb r0, [r0, #0xe]
 	lsls r0, r0, #0x18
 	asrs r0, r0, #0x18
@@ -20,7 +20,7 @@ sub_801E2E0: @ 0x0801E2E0
 	ldrb r4, [r0, #0xc]
 _0801E2F6:
 	bl RenderBmMapOnBg2
-	ldr r0, _0801E318  @ gUnknown_0202BCF0
+	ldr r0, _0801E318  @ gRAMChapterData
 	strb r4, [r0, #0xd]
 	bl RefreshEntityBmMaps
 	bl SMS_UpdateFromGameData
@@ -31,7 +31,7 @@ _0801E2F6:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_0801E318: .4byte gUnknown_0202BCF0
+_0801E318: .4byte gRAMChapterData
 
 	THUMB_FUNC_END sub_801E2E0
 
@@ -41,14 +41,14 @@ sub_801E31C: @ 0x0801E31C
 	adds r1, r0, #0
 	cmp r1, #0
 	bge _0801E332
-	ldr r0, _0801E348  @ gUnknown_0202BCF0
+	ldr r0, _0801E348  @ gRAMChapterData
 	ldrb r0, [r0, #0xe]
 	lsls r0, r0, #0x18
 	asrs r0, r0, #0x18
 	bl GetROMChapterStruct
 	ldrb r1, [r0, #0xc]
 _0801E332:
-	ldr r0, _0801E348  @ gUnknown_0202BCF0
+	ldr r0, _0801E348  @ gRAMChapterData
 	strb r1, [r0, #0xd]
 	bl RefreshEntityBmMaps
 	bl SMS_UpdateFromGameData
@@ -56,7 +56,7 @@ _0801E332:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_0801E348: .4byte gUnknown_0202BCF0
+_0801E348: .4byte gRAMChapterData
 
 	THUMB_FUNC_END sub_801E31C
 
@@ -93,7 +93,7 @@ FillWarpRangeMap: @ 0x0801E34C
 	adds r1, r5, #0
 	movs r2, #1
 	bl MapAddInBoundedRange
-	ldr r0, _0801E420  @ gUnknown_0202BCF0
+	ldr r0, _0801E420  @ gRAMChapterData
 	ldrb r0, [r0, #0xd]
 	cmp r0, #0
 	bne _0801E430
@@ -165,7 +165,7 @@ _0801E40E:
 	.align 2, 0
 _0801E418: .4byte gBmMapMovement
 _0801E41C: .4byte gBmMapRange
-_0801E420: .4byte gUnknown_0202BCF0
+_0801E420: .4byte gRAMChapterData
 _0801E424: .4byte gBmMapSize
 _0801E428: .4byte gBmMapTerrain
 _0801E42C: .4byte gBmMapUnit

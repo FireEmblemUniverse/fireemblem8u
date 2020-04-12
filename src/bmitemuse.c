@@ -269,7 +269,7 @@ s8 CanUnitUseItem(struct Unit* unit, int item)
         return HasSelectTarget(unit, MakeTargetListForLightRune);
 
     case ITEM_STAFF_TORCH:
-        return gUnknown_0202BCF0.chapterVisionRange != 0;
+        return gRAMChapterData.chapterVisionRange != 0;
 
     case ITEM_FILLAS_MIGHT:
     case ITEM_NINISS_GRACE:
@@ -477,7 +477,7 @@ s8 CanUnitUsePureWaterItem(struct Unit* unit)
 
 s8 CanUnitUseTorchItem(struct Unit* unit)
 {
-    if (gUnknown_0202BCF0.chapterVisionRange != 0 && unit->torchDuration != 4)
+    if (gRAMChapterData.chapterVisionRange != 0 && unit->torchDuration != 4)
         return TRUE;
 
     return FALSE;

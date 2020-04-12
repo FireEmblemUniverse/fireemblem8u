@@ -459,7 +459,7 @@ LoadArenaOpponentStruct: @ 0x08031A84
 	bl UnitLoadStatsFromChracter
 	movs r4, #8
 	ldrsb r4, [r6, r4]
-	ldr r0, _08031B08  @ gUnknown_0202BCF0
+	ldr r0, _08031B08  @ gRAMChapterData
 	ldrb r1, [r0, #0x14]
 	movs r0, #0x40
 	ands r0, r1
@@ -472,7 +472,7 @@ LoadArenaOpponentStruct: @ 0x08031A84
 	.align 2, 0
 _08031B00: .4byte gUnknown_0203A910
 _08031B04: .4byte gUnknown_0203A8F0
-_08031B08: .4byte gUnknown_0202BCF0
+_08031B08: .4byte gRAMChapterData
 _08031B0C:
 	lsls r0, r4, #1
 	adds r0, r0, r4
