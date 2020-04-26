@@ -83,6 +83,7 @@ scripts/__pycache__/*
 # =========================
 
 *.sav
+*.ss[0-9]
 
 
 # Created by https://www.gitignore.io/api/c,vim,tags,linux,macos,clion,emacs,python,windows,eclipse,assembler,visualstudio,visualstudiocode
