@@ -57,9 +57,8 @@ LDSCRIPT     := ldscript.txt
 SYM_FILES    := sym_iwram.txt sym_ewram.txt
 CFILES       := $(wildcard src/*.c)
 ASM_S_FILES  := $(wildcard asm/*.s)
-LIBC_S_FILES := $(wildcard asm/libc/*.s)
 DATA_S_FILES := $(wildcard data/*.s) 
-SFILES       := $(ASM_S_FILES) $(LIBC_S_FILES) $(DATA_S_FILES)
+SFILES       := $(ASM_S_FILES) $(DATA_S_FILES)
 C_OBJECTS    := $(CFILES:.c=.o)
 ASM_OBJECTS  := $(SFILES:.s=.o)
 ALL_OBJECTS  := $(C_OBJECTS) $(ASM_OBJECTS) data/banim/data_banim.o
@@ -143,7 +142,7 @@ $(DEPS_DIR)/%.d: %.c
 	@$(MAKEDEP)
 
 $(ELF): $(ALL_OBJECTS) $(LDSCRIPT) $(SYM_FILES)
-	$(LD) -T $(LDSCRIPT) -Map $(MAP) $(ALL_OBJECTS) tools/agbcc/lib/libgcc.a tools/agbcc/lib/libc.a -o $@
+	$(LD) -T $(LDSCRIPT) -Map $(MAP) $(ALL_OBJECTS) -L tools/agbcc/lib -o $@ -lc -lgcc
 
 %.gba: %.elf
 	$(OBJCOPY) --strip-debug -O binary --pad-to 0x9000000 --gap-fill=0xff $< $@
