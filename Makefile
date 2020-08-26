@@ -1,28 +1,26 @@
 #### Tools ####
 
 ifeq ($(OS),Windows_NT)
-EXE := .exe
+  EXE := .exe
 else
-EXE :=
+  EXE :=
 endif
 
 UNAME := $(shell uname)
 
-CC1      := tools/agbcc/bin/agbcc$(EXE)
-CC1_OLD  := tools/agbcc/bin/old_agbcc$(EXE)
-#include $(DEVKITARM)
-PREFIX = $(LOCAL_PREFIX)arm-none-eabi-
-export CPP := cpp
-ifeq ($(UNAME),Darwin)
-export CPP := $(PREFIX)$(CPP)
-endif
-export AS := $(PREFIX)as$(EXE)
-export LD := $(PREFIX)ld$(EXE)
-export OBJCOPY := $(PREFIX)objcopy$(EXE)
-#CPP      := $(DEVKITARM)/bin/arm-none-eabi-cpp
-#AS       := $(DEVKITARM)/bin/arm-none-eabi-as
-#LD       := $(DEVKITARM)/bin/arm-none-eabi-ld
-#OBJCOPY  := $(DEVKITARM)/bin/arm-none-eabi-objcopy
+TOOLCHAIN ?= $(DEVKITARM)
+PREFIX ?= arm-none-eabi-
+
+export PATH := $(TOOLCHAIN)/bin:$(PATH)
+
+CPP := $(PREFIX)cpp$(EXE)
+AS := $(PREFIX)as$(EXE)
+LD := $(PREFIX)ld$(EXE)
+OBJCOPY := $(PREFIX)objcopy$(EXE)
+
+CC1     := tools/agbcc/bin/agbcc$(EXE)
+CC1_OLD := tools/agbcc/bin/old_agbcc$(EXE)
+
 BIN2C    := tools/bin2c/bin2c$(EXE)
 GBAGFX   := tools/gbagfx/gbagfx$(EXE)
 SCANINC  := tools/scaninc/scaninc$(EXE)
@@ -76,6 +74,8 @@ src/bmitem.o: CC1FLAGS += -Wno-error
 compare: $(ROM)
 	$(SHASUM) -c checksum.sha1
 
+.PHONY: compare
+
 clean:
 	find . \( -iname '*.1bpp' -o -iname '*.4bpp' -o -iname '*.8bpp' -o -iname '*.gbapal' -o -iname '*.lz' -o -iname '*.fk' -o -iname '*.latfont' -o -iname '*.hwjpnfont' -o -iname '*.fwjpnfont' \) -exec rm {} +
 	$(RM) $(ROM) $(ELF) $(MAP) $(ALL_OBJECTS) src/*.s graphics/*.h
@@ -83,10 +83,14 @@ clean:
 	# Remove battle animation binaries
 	$(RM) data/banim/*.bin data/banim/*.o data/banim/*.lz data/banim/*.bak
 
+.PHONY: clean
+
 tag:
 	gtags
 	ctags -R
 	cscope -Rbkq
+
+.PHONY: tag
 
 # Graphics Recipes
 
