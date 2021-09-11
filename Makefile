@@ -15,7 +15,7 @@ export PATH := $(TOOLCHAIN)/bin:$(PATH)
 
 CPP := $(PREFIX)cpp$(EXE)
 AS := $(PREFIX)as$(EXE)
-LD := $(PREFIX)ld$(EXE)
+LD := tools/ld/$(PREFIX)ld$(EXE)
 OBJCOPY := $(PREFIX)objcopy$(EXE)
 
 CC1     := tools/agbcc/bin/agbcc$(EXE)
