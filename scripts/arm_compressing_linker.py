@@ -65,7 +65,7 @@ def compress_binary(filename, comptype, compressor, is_debug):
     return filename + '.' + comptype
 
 def link_first_object(outputfile, filename, base_addr, ld, is_debug):
-    cmd = '%s -e 0x%X -Tdata 0x%X -o %s %s' % (
+    cmd = '%s -e 0x%X -Tdata 0x%X -r -o %s %s' % (
         ld, base_addr, base_addr,outputfile, filename)
     if is_debug:
         print(cmd)
@@ -81,7 +81,7 @@ def link_to_output(outputfile, filename, section, base_addr, ld,
     if is_debug:
         print(cmd)
     os.system(cmd)
-    cmd = '%s --no-warn-mismatch -e 0x%X -Tdata 0x%X%s -o %s %s.bak.o %s' % (
+    cmd = '%s --no-warn-mismatch -e 0x%X -Tdata 0x%X%s -r -o %s %s.bak.o %s' % (
         ld, base_addr, base_addr, unique_section, outputfile, outputfile,
         filename)
     if is_debug:
