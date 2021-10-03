@@ -64,13 +64,6 @@ def compress_binary(filename, comptype, compressor, is_debug):
     os.system(cmd)
     return filename + '.' + comptype
 
-def change_etype_from_exec_to_rel(filename, objcopy, is_debug):
-    elfedit = rreplace(objcopy, 'objcopy', 'elfedit', 1)
-    cmd = '%s --output-type rel %s' % (elfedit, filename)
-    if is_debug:
-        print(cmd)
-    os.system(cmd)
-
 def link_first_object(outputfile, filename, base_addr, ld, is_debug):
     cmd = '%s -e 0x%X -Tdata 0x%X -o %s %s' % (
         ld, base_addr, base_addr,outputfile, filename)
@@ -177,7 +170,6 @@ def link_objects(obj_list, outputfile, base_addr,
     filename = process_first_object(filename, section, objcopy,
                                     comptype, compressor, is_debug)
     link_first_object(outputfile, filename, base_addr, ld, is_debug)
-    change_etype_from_exec_to_rel(outputfile, objcopy, is_debug)
     # link other objects
     for i, obj in enumerate(obj_list[1:]):
         print('Compressing linking (%d/%d): %s'
@@ -190,7 +182,6 @@ def link_objects(obj_list, outputfile, base_addr,
                                         comptype, compressor, is_debug)
         link_to_output(outputfile, filename, section, base_addr, ld, True,
                        is_debug)
-        change_etype_from_exec_to_rel(outputfile, objcopy, is_debug)
 #    cmd = 'cp %s ../%s' % (outputfile, outputfile)
 #    if is_debug:
 #        print(cmd)
