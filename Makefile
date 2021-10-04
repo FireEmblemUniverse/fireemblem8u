@@ -59,7 +59,8 @@ DATA_S_FILES := $(wildcard data/*.s)
 SFILES       := $(ASM_S_FILES) $(DATA_S_FILES)
 C_OBJECTS    := $(CFILES:.c=.o)
 ASM_OBJECTS  := $(SFILES:.s=.o)
-ALL_OBJECTS  := $(C_OBJECTS) $(ASM_OBJECTS) data/banim/data_banim.o
+BANIM_OBJECT := data/banim/data_banim.o
+ALL_OBJECTS  := $(C_OBJECTS) $(ASM_OBJECTS) $(BANIM_OBJECT)
 DEPS_DIR     := .dep
 
 # Use the older compiler to build library code
@@ -123,7 +124,7 @@ endif
 
 # Battle Animation Recipes
 
-data/banim/data_banim.o: $(shell ./scripts/arm_compressing_linker.py -t linker_script_banim.txt -m)
+$(BANIM_OBJECT): $(shell ./scripts/arm_compressing_linker.py -t linker_script_banim.txt -m)
 	./scripts/arm_compressing_linker.py -o $@ -t linker_script_banim.txt -b 0x8c02000 -l $(LD) --objcopy $(OBJCOPY) -c ./scripts/compressor.py
 
 %_modes.bin: %_motion.o
@@ -146,7 +147,7 @@ $(DEPS_DIR)/%.d: %.c
 	@$(MAKEDEP)
 
 $(ELF): $(ALL_OBJECTS) $(LDSCRIPT) $(SYM_FILES)
-	$(LD) -T $(LDSCRIPT) -Map $(MAP) $(ALL_OBJECTS) -L tools/agbcc/lib -o $@ -lc -lgcc
+	$(LD) -T $(LDSCRIPT) -Map $(MAP) $(ALL_OBJECTS) -R $(BANIM_OBJECT).sym.o -L tools/agbcc/lib -o $@ -lc -lgcc
 
 %.gba: %.elf
 	$(OBJCOPY) --strip-debug -O binary --pad-to 0x9000000 --gap-fill=0xff $< $@
