@@ -11,18 +11,6 @@ import os
 import sys
 import getopt
 
-conflict_symbols = (
-    '_binary_data_banim_data_banimbin_start',
-    '_binary_data_banim_data_banimbin_size',
-    '_binary_data_banim_data_banimbin_end'
-)
-
-def strip_conflict_symbols():
-    s = ''
-    for symbol in conflict_symbols:
-        s += ' -N ' + symbol
-    return s
-
 def rreplace(self, old, new, *max):
     count = len(self)
     if max and str(max[0]).isdigit():
@@ -178,11 +166,6 @@ def process_input_object(filename, outputfile, section, base_addr, ld, objcopy,
             os.system(cmd)
             link_to_output(outputfile + '.bak.o', filename, section, base_addr,
                            ld, False, is_debug)
-            extract_symbol_file(outputfile + '.bak.o', objcopy, is_debug)
-#            cmd = 'cp %s.sym.o %s.sym.o' % (outputfile + '.bak.o', outputfile)
-#            if is_debug:
-#                print(cmd)
-#            os.system(cmd)
             filename_2 = dump_binary_from_object(outputfile + '.bak.o',
                                                  section, objcopy, is_debug)
 #            cmd = 'mv %s.bak.o %s' % (outputfile, outputfile)
