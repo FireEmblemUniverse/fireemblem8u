@@ -933,6 +933,3 @@ MigrationBackup/
 
 # GCC dump (-da -dv)
 gccdump/
-
-# an old version ld which accepts executable file as input
-tools/ld/arm-none-eabi-ld*
