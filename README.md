@@ -11,9 +11,7 @@ It builds the following ROM:
 
 * You must have a copy of the Fire Emblem: The Sacred Stones ROM named `baserom.gba` in the repository directory.
 
-* Install [**devkitARM**](http://devkitpro.org/wiki/Getting_Started/devkitARM).
-
-* Then get the build tools from https://github.com/pret/pokeruby-tools. Copy the `tools/` folder into the repository directory. If you want to build the tools yourself, grab the libpng-devel package and run build_tools.sh instead.
+* Install [**devkitARM**](https://devkitpro.org/wiki/Getting_Started).
 
 * You can then build fireemblem8 using `make` in the MSYS environment provided with devkitARM.
 
@@ -28,13 +26,20 @@ sort of how-to for setting up fireemblem8u
 7] cd agbsdk
 8] ./install.sh C:/fireemblem8u
 9] put clean FE8 US ROM into C:/fireemblem8u and name it baserom.gba
-10] ./build_tools.sh in FE repo you cloned
+10] ./build_tools.sh (or ./build_tools_mac.sh for Mac user) in FE repo you cloned
 11] fix Makefile to point to tools/binutils/bin/
 12] make
 
 
 Q1: Help, it said Makefile:1: /base_tools: No such file or directory when I was compiling agbcc!
 A1: You didn't check out the new_layout_with_libs branch. This is a dependency on Devkitpro, which this branch abandons. 
+
+Q2: fatal error: png.h: No such file or directory
+A2: Install libpng dev library to build tools/gbagfx. Especially MSYS2 used in devkitARM does not include libpng-dev so it must be built from source.
 ```
 
-Check branch `remove_tools` if you find it too hard to set up the local build environment.
+Check [INSTALL.md](https://github.com/pret/pokeruby/blob/master/INSTALL.md) and [INSTALL.md](https://github.com/pret/pokeemerald/blob/master/INSTALL.md) if you have trouble in setting up.
+
+Check branch `remove_tools` if you don't want to build agbcc and other tools by yourself. It uses docker to make setting up easier. Follow its [README.md](https://github.com/laqieer/fireemblem8u/blob/remove_tools/README.md) instead.
+
+`git checkout remove_tools`
