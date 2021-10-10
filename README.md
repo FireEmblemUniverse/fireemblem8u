@@ -36,6 +36,9 @@ A1: You didn't check out the new_layout_with_libs branch. This is a dependency o
 
 Q2: fatal error: png.h: No such file or directory
 A2: Install libpng dev library to build tools/gbagfx. Especially MSYS2 used in devkitARM does not include libpng-dev so it must be built from source.
+
+Q3: make: *** No rule to make target `baserom.gba', needed by `data/const_data_1609BC.o'.  Stop.
+A3: You must place a copy of the Fire Emblem: The Sacred Stones ROM named baserom.gba in the repository directory.
 ```
 
 Check [INSTALL.md](https://github.com/pret/pokeruby/blob/master/INSTALL.md) and [INSTALL.md](https://github.com/pret/pokeemerald/blob/master/INSTALL.md) if you have trouble in setting up.
