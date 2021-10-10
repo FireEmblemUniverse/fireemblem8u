@@ -24,7 +24,6 @@ CC1_OLD := tools/agbcc/bin/old_agbcc$(EXE)
 BIN2C    := tools/bin2c/bin2c$(EXE)
 GBAGFX   := tools/gbagfx/gbagfx$(EXE)
 SCANINC  := tools/scaninc/scaninc$(EXE)
-PREPROC  := tools/preproc/preproc$(EXE)
 
 ifeq ($(UNAME),Darwin)
 	SED := sed -i ''
