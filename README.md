@@ -41,6 +41,8 @@ Q3: make: *** No rule to make target `baserom.gba', needed by `data/const_data_1
 A3: You must place a copy of the Fire Emblem: The Sacred Stones ROM named baserom.gba in the repository directory.
 ```
 
+* You will see `fireemblem8.gba: OK` for success.
+
 Check [INSTALL.md](https://github.com/pret/pokeruby/blob/master/INSTALL.md) and [INSTALL.md](https://github.com/pret/pokeemerald/blob/master/INSTALL.md) if you have trouble in setting up.
 
 Check [remove_tools](https://github.com/laqieer/fireemblem8u/tree/remove_tools) branch if you don't want to build agbcc and other tools by yourself. It uses docker to make setting up easier. Follow its [README.md](https://github.com/laqieer/fireemblem8u/blob/remove_tools/README.md) instead.
