@@ -13,7 +13,7 @@ PREFIX ?= arm-none-eabi-
 
 export PATH := $(TOOLCHAIN)/bin:$(PATH)
 
-CPP := $(PREFIX)cpp$(EXE)
+CPP ?= $(PREFIX)cpp$(EXE)
 AS := $(PREFIX)as$(EXE)
 LD := $(PREFIX)ld$(EXE)
 OBJCOPY := $(PREFIX)objcopy$(EXE)
@@ -24,7 +24,6 @@ CC1_OLD := tools/agbcc/bin/old_agbcc$(EXE)
 BIN2C    := tools/bin2c/bin2c$(EXE)
 GBAGFX   := tools/gbagfx/gbagfx$(EXE)
 SCANINC  := tools/scaninc/scaninc$(EXE)
-PREPROC  := tools/preproc/preproc$(EXE)
 
 ifeq ($(UNAME),Darwin)
 	SED := sed -i ''

@@ -23,7 +23,7 @@
     - "\tcd ../"
     - "fi"
     - "./build_tools.sh"
-    - "PATH=`pwd`/tools/binutils/bin:$PATH make"
+    - "PATH=`pwd`/tools/binutils/bin:$PATH CPP=cpp make"
     - "scripts/calcrom.sh"
     mount_filesystem_path: "/buddy/fireemblem8u"
     shell: "BASH"
