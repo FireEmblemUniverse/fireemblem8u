@@ -1393,7 +1393,7 @@ _0801605E:
 _0801607A:
 	ldr r1, _080160A4  @ 0x0001000C
 	movs r0, #0x80
-	bl sub_8024D50
+	bl CountUnitsInState
 	adds r4, r0, #0
 	bl GetChapterThing
 	cmp r0, #2
