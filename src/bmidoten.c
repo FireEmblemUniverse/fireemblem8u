@@ -775,7 +775,7 @@ void GenerateDangerZoneRange(s8 boolDisplayStaffRange)
 
     BmMapFill(gBmMapRange, 0);
 
-    enemyFaction = GetActiveNonEnemyFaction();
+    enemyFaction = GetNonActiveFaction();
 
     for (i = enemyFaction + 1; i < enemyFaction + 0x80; ++i)
     {

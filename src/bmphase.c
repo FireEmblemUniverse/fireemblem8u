@@ -67,6 +67,6 @@ int GetCurrentPhase(void) {
     return gRAMChapterData.chapterPhaseIndex & FACTION_RED;
 }
 
-int GetActiveNonEnemyFaction(void) {
+int GetNonActiveFaction(void) {
     return (gRAMChapterData.chapterPhaseIndex & FACTION_RED) ^ FACTION_RED;
 }
