@@ -45,15 +45,15 @@ int GenerateMonsterClass(u8 baseClassId) {
     return weights->classes[selected];
 }
 
-u32 GenerateMonsterItems(u8 classid) {
+u32 GenerateMonsterItems(u8 classId) {
     const struct Unknown_088D2440 *a = gUnknown_088D2440;
-    for (a = gUnknown_088D2440; a->classid != 0xff; ++a)
+    for (a = gUnknown_088D2440; a->classId != 0xff; ++a)
     {
-        if (a->classid == classid) {
-            int item1idx;
-            int item1weightsidx;
-            int item1;
-            char select1, select2;
+        if (a->classId == classId) {
+            u32 item1idx;
+            u32 item1weightsidx;
+            u32 item1;
+            u8 select1, select2;
             select1 = SelectFromWeightedArray(a->item1weights, 5);
 
             item1idx = a->items1[select1];
@@ -63,10 +63,10 @@ u32 GenerateMonsterItems(u8 classid) {
 
             select2 = SelectFromWeightedArray(a->item2weights, 5);
             if (select2 != 0xff) {
-                int item2idx = a->items2[select2];
+                u32 item2idx = a->items2[select2];
                 if (item2idx) {
-                    int item2;
-                    int item2weightsidx = a->item2tables[select2];
+                    u32 item2;
+                    u32 item2weightsidx = a->item2tables[select2];
                     select2 = SelectFromWeightedArray(item2weightsidx * 5 + gUnknown_088D22C7, 5);
                     item2 = gUnknown_088D21C8[select2 + item2idx * 5];
                     return item1 | item2;
