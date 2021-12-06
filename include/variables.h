@@ -2994,9 +2994,6 @@ extern const struct SupportBonuses gAffinityBonuses[];
 // extern ??? gUnknown_088B3AD8
 // extern ??? gUnknown_088D1F54
 // extern ??? gUnknown_088D2058
-// extern ??? gUnknown_088D21C8
-// extern ??? gUnknown_088D22C7
-// extern ??? gUnknown_088D2440
 // extern ??? gUnknown_0895DD1C
 // extern ??? gUnknown_0895DFA4
 // extern ??? gUnknown_0895DFA5

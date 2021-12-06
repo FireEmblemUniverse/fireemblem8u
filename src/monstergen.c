@@ -4,6 +4,11 @@
 
 #include "monstergen.h"
 
+/*
+ * Random monster unit generation utility
+ * (for skirmishes and valni/lagdou)
+ */
+
 int SelectFromWeightedArray(const u8 *weights, u8 size) {
     char i;
     char rand = NextRN_100();
@@ -38,4 +43,37 @@ int GenerateMonsterClass(u8 baseClassId) {
     const struct MonsterClassWeights *weights = gMonsterClassWeights + baseClassId;
     u8 selected = SelectFromWeightedArray(weights->weights, 5);
     return weights->classes[selected];
+}
+
+u32 GenerateMonsterItems(u8 classid) {
+    const struct Unknown_088D2440 *a = gUnknown_088D2440;
+    for (a = gUnknown_088D2440; a->classid != 0xff; ++a)
+    {
+        if (a->classid == classid) {
+            int item1idx;
+            int item1weightsidx;
+            int item1;
+            char select1, select2;
+            select1 = SelectFromWeightedArray(a->item1weights, 5);
+
+            item1idx = a->items1[select1];
+            item1weightsidx = a->item1tables[select1];
+            select1 = SelectFromWeightedArray(gUnknown_088D22C7 + item1weightsidx * 5, 5);
+            item1 = gUnknown_088D21C8[select1 + item1idx * 5] << 0x10;
+
+            select2 = SelectFromWeightedArray(a->item2weights, 5);
+            if (select2 != 0xff) {
+                int item2idx = a->items2[select2];
+                if (item2idx) {
+                    int item2;
+                    int item2weightsidx = a->item2tables[select2];
+                    select2 = SelectFromWeightedArray(item2weightsidx * 5 + gUnknown_088D22C7, 5);
+                    item2 = gUnknown_088D21C8[select2 + item2idx * 5];
+                    return item1 | item2;
+                }
+            }
+            return item1;
+        }
+    }
+    return 0;
 }
