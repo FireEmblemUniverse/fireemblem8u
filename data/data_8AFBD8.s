@@ -32,8 +32,8 @@ gUnknown_088B3AD8:  @ 0x088B3AD8
 gUnknown_088D1F54:  @ 0x088D1F54
 	.incbin "baserom.gba", 0x8D1F54, 0x104
 
-	.global gUnknown_088D2058
-gUnknown_088D2058:  @ 0x088D2058
+	.global gMonsterLevelWeights
+gMonsterLevelWeights:  @ 0x088D2058
 	.incbin "baserom.gba", 0x8D2058, 0x8
 
 	.global gUnknown_088D2060

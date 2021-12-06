@@ -2,10 +2,12 @@
 
 #include "rng.h"
 
-int SelectFromWeightedArray(u8 *weights, u8 size) {
+#include "monstergen.h"
+
+int SelectFromWeightedArray(const u8 *weights, u8 size) {
     char i;
     char rand = NextRN_100();
-    char *iter = weights;
+    const char *iter = weights;
     char old_count = 0;
     char new_count = 0;
 
@@ -17,4 +19,17 @@ int SelectFromWeightedArray(u8 *weights, u8 size) {
         }
     }
     return 0xff;
+}
+
+int GenerateMonsterLevel(u8 baseLevel) {
+    char result = baseLevel;
+    u8 selected = SelectFromWeightedArray(gMonsterLevelWeights, 7);
+    result += selected - 2;
+    if ((s8) result <= 0) {
+        result = 1;
+    }
+    if ((s8) result > 20) {
+        result = 20;
+    }
+    return result;
 }

@@ -5,39 +5,6 @@
 	@ Random monster unit generation utility
 	@ (for skirmishes and valni/lagdou)
 
-	THUMB_FUNC_START GenerateMonsterLevel
-GenerateMonsterLevel: @ 0x080782EC
-	push {r4, lr}
-	lsls r0, r0, #0x18
-	lsrs r4, r0, #0x18
-	ldr r0, _08078320  @ gUnknown_088D2058
-	movs r1, #7
-	bl SelectFromWeightedArray
-	lsls r0, r0, #0x18
-	lsrs r0, r0, #0x18
-	adds r0, #0xfe
-	adds r0, r4, r0
-	lsls r0, r0, #0x18
-	lsrs r4, r0, #0x18
-	cmp r0, #0
-	bgt _0807830C
-	movs r4, #1
-_0807830C:
-	lsls r0, r4, #0x18
-	asrs r0, r0, #0x18
-	cmp r0, #0x14
-	ble _08078316
-	movs r4, #0x14
-_08078316:
-	adds r0, r4, #0
-	pop {r4}
-	pop {r1}
-	bx r1
-	.align 2, 0
-_08078320: .4byte gUnknown_088D2058
-
-	THUMB_FUNC_END GenerateMonsterLevel
-
 	THUMB_FUNC_START GenerateMonsterClass
 GenerateMonsterClass: @ 0x08078324
 	push {r4, lr}
