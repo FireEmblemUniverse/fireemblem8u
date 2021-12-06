@@ -14,6 +14,7 @@
 #include "bmbattle.h"
 #include "bmreliance.h"
 #include "bmtrick.h"
+#include "monstergen.h"
 
 EWRAM_DATA u8 gActiveUnitId = 0;
 EWRAM_DATA struct Vec2 gActiveUnitMoveOrigin = {};
@@ -1207,7 +1208,7 @@ int GetUnitMagBy2Range(struct Unit* unit) {
 }
 
 s8 UnitHasMagicRank(struct Unit* unit) {
-    u8 combinedRanks = 0; 
+    u8 combinedRanks = 0;
 
     combinedRanks |= unit->ranks[ITYPE_STAFF];
     combinedRanks |= unit->ranks[ITYPE_ANIMA];

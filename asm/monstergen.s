@@ -5,47 +5,6 @@
 	@ Random monster unit generation utility
 	@ (for skirmishes and valni/lagdou)
 
-	THUMB_FUNC_START sub_80782A8
-sub_80782A8: @ 0x080782A8
-	push {r4, r5, r6, lr}
-	adds r4, r0, #0
-	lsls r1, r1, #0x18
-	lsrs r6, r1, #0x18
-	bl NextRN_100
-	lsls r0, r0, #0x18
-	lsrs r3, r0, #0x18
-	movs r5, #0
-	movs r2, #0
-	cmp r2, r6
-	bcs _080782E2
-_080782C0:
-	adds r1, r5, #0
-	ldrb r0, [r4]
-	adds r0, r1, r0
-	lsls r0, r0, #0x18
-	lsrs r5, r0, #0x18
-	cmp r1, r3
-	bhi _080782D6
-	cmp r3, r5
-	bcs _080782D6
-	adds r0, r2, #0
-	b _080782E4
-_080782D6:
-	adds r4, #1
-	adds r0, r2, #1
-	lsls r0, r0, #0x18
-	lsrs r2, r0, #0x18
-	cmp r2, r6
-	bcc _080782C0
-_080782E2:
-	movs r0, #0xff
-_080782E4:
-	pop {r4, r5, r6}
-	pop {r1}
-	bx r1
-
-	THUMB_FUNC_END sub_80782A8
-
 	THUMB_FUNC_START GenerateMonsterLevel
 GenerateMonsterLevel: @ 0x080782EC
 	push {r4, lr}
@@ -53,7 +12,7 @@ GenerateMonsterLevel: @ 0x080782EC
 	lsrs r4, r0, #0x18
 	ldr r0, _08078320  @ gUnknown_088D2058
 	movs r1, #7
-	bl sub_80782A8
+	bl SelectFromWeightedArray
 	lsls r0, r0, #0x18
 	lsrs r0, r0, #0x18
 	adds r0, #0xfe
@@ -91,7 +50,7 @@ GenerateMonsterClass: @ 0x08078324
 	adds r4, r4, r0
 	adds r0, r4, #5
 	movs r1, #5
-	bl sub_80782A8
+	bl SelectFromWeightedArray
 	lsls r0, r0, #0x18
 	lsrs r0, r0, #0x18
 	adds r4, r4, r0
@@ -121,7 +80,7 @@ _08078364:
 	adds r0, r5, #0
 	adds r0, #0xb
 	movs r1, #5
-	bl sub_80782A8
+	bl SelectFromWeightedArray
 	lsls r0, r0, #0x18
 	lsrs r0, r0, #0x18
 	adds r1, r5, #1
@@ -136,7 +95,7 @@ _08078364:
 	ldr r7, _080783EC  @ gUnknown_088D22C7
 	adds r0, r0, r7
 	movs r1, #5
-	bl sub_80782A8
+	bl SelectFromWeightedArray
 	lsls r0, r0, #0x18
 	lsrs r0, r0, #0x18
 	ldr r1, _080783F0  @ gUnknown_088D21C8
@@ -150,7 +109,7 @@ _08078364:
 	adds r0, r5, #0
 	adds r0, #0x10
 	movs r1, #5
-	bl sub_80782A8
+	bl SelectFromWeightedArray
 	lsls r0, r0, #0x18
 	lsrs r1, r0, #0x18
 	cmp r1, #0xff
@@ -168,7 +127,7 @@ _08078364:
 	adds r0, r0, r1
 	adds r0, r0, r7
 	movs r1, #5
-	bl sub_80782A8
+	bl SelectFromWeightedArray
 	lsls r0, r0, #0x18
 	lsrs r0, r0, #0x18
 	lsls r1, r4, #2
