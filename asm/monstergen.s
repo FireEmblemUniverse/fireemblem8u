@@ -5,31 +5,6 @@
 	@ Random monster unit generation utility
 	@ (for skirmishes and valni/lagdou)
 
-	THUMB_FUNC_START GenerateMonsterClass
-GenerateMonsterClass: @ 0x08078324
-	push {r4, lr}
-	lsls r0, r0, #0x18
-	lsrs r0, r0, #0x18
-	lsls r4, r0, #1
-	adds r4, r4, r0
-	lsls r4, r4, #2
-	ldr r0, _0807834C  @ gUnknown_088D2060
-	adds r4, r4, r0
-	adds r0, r4, #5
-	movs r1, #5
-	bl SelectFromWeightedArray
-	lsls r0, r0, #0x18
-	lsrs r0, r0, #0x18
-	adds r4, r4, r0
-	ldrb r0, [r4]
-	pop {r4}
-	pop {r1}
-	bx r1
-	.align 2, 0
-_0807834C: .4byte gUnknown_088D2060
-
-	THUMB_FUNC_END GenerateMonsterClass
-
 	THUMB_FUNC_START GenerateMonsterItems
 GenerateMonsterItems: @ 0x08078350
 	push {r4, r5, r6, r7, lr}
