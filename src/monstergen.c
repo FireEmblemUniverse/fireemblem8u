@@ -35,7 +35,7 @@ int GenerateMonsterLevel(u8 baseLevel) {
 }
 
 int GenerateMonsterClass(u8 baseClassId) {
-    const u8 *startp = gMonsterClassWeights + baseClassId * 12;
-    u8 selected = SelectFromWeightedArray(startp + 5, 5);
-    return *(startp + selected);
+    const struct MonsterClassWeights *weights = gMonsterClassWeights + baseClassId;
+    u8 selected = SelectFromWeightedArray(weights->weights, 5);
+    return weights->classes[selected];
 }
