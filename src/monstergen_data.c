@@ -4,9 +4,9 @@
 
 #include "monstergen.h"
 
-const u8 gMonsterLevelWeights[8] = { 5, 10, 49, 20, 10, 5, 1, 0 };
+const u8 CONST_DATA gMonsterLevelWeights[8] = { 5, 10, 49, 20, 10, 5, 1, 0 };
 
-const struct MonsterClassWeights gMonsterClassWeights[] = {
+const struct MonsterClassWeights CONST_DATA gMonsterClassWeights[] = {
     { .classes = { CLASS_REVENANT, CLASS_ENTOUMBED, CLASS_BONEWALKER, CLASS_BONEWALKER_BOW, CLASS_NONE },
         .weights = { 82, 3, 10, 5, 0, } },
     { .classes = { CLASS_REVENANT, CLASS_ENTOUMBED, CLASS_BONEWALKER, CLASS_BONEWALKER_BOW, CLASS_NONE },
