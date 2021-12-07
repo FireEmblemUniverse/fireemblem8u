@@ -58,8 +58,8 @@ u32 GenerateMonsterItems(u8 classId) {
 
             item1idx = a->items1[select1];
             item1weightsidx = a->item1tables[select1];
-            select1 = SelectFromWeightedArray(gUnknown_088D22C7 + item1weightsidx * 5, 5);
-            item1 = gUnknown_088D21C8[select1 + item1idx * 5] << 0x10;
+            select1 = SelectFromWeightedArray(gUnknown_088D22C7[item1weightsidx], 5);
+            item1 = gUnknown_088D21C8[item1idx][select1] << 0x10;
 
             select2 = SelectFromWeightedArray(a->item2weights, 5);
             if (select2 != 0xff) {
@@ -67,8 +67,8 @@ u32 GenerateMonsterItems(u8 classId) {
                 if (item2idx) {
                     u32 item2;
                     u32 item2weightsidx = a->item2tables[select2];
-                    select2 = SelectFromWeightedArray(item2weightsidx * 5 + gUnknown_088D22C7, 5);
-                    item2 = gUnknown_088D21C8[select2 + item2idx * 5];
+                    select2 = SelectFromWeightedArray(gUnknown_088D22C7[item2weightsidx], 5);
+                    item2 = gUnknown_088D21C8[item2idx][select2];
                     return item1 | item2;
                 }
             }

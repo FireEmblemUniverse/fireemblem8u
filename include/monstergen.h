@@ -18,8 +18,8 @@ struct Unknown_088D2440 {
     /* 1a -> 1e */ u8 item2tables[5];
 };
 extern const struct Unknown_088D2440 gUnknown_088D2440[];
-extern const u8 gUnknown_088D21C8[];
-extern const u8 gUnknown_088D22C7[];
+extern const u8 gUnknown_088D21C8[][5];
+extern const u8 gUnknown_088D22C7[][5];
 
 int SelectFromWeightedArray(const u8 *weights, u8 size);
 int GenerateMonsterLevel(u8 baseLevel);
