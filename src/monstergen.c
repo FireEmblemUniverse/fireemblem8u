@@ -46,29 +46,29 @@ int GenerateMonsterClass(u8 baseClassId) {
 }
 
 u32 GenerateMonsterItems(u8 classId) {
-    const struct Unknown_088D2440 *a = gUnknown_088D2440;
-    for (a = gUnknown_088D2440; a->classId != 0xff; ++a)
+    const struct MonsterItemsByClassEntry *iter = gMonsterItemsByClassIndex;
+    for (iter = gMonsterItemsByClassIndex; iter->classId != 0xff; ++iter)
     {
-        if (a->classId == classId) {
-            u32 item1idx;
+        if (iter->classId == classId) {
+            u32 item1row;
             u32 item1weightsidx;
             u32 item1;
-            u8 select1, select2;
-            select1 = SelectFromWeightedArray(a->item1weights, 5);
+            u8 row1, col1, row2, col2;
+            row1 = SelectFromWeightedArray(iter->item1weights, 5);
 
-            item1idx = a->items1[select1];
-            item1weightsidx = a->item1tables[select1];
-            select1 = SelectFromWeightedArray(gUnknown_088D22C7[item1weightsidx], 5);
-            item1 = gUnknown_088D21C8[item1idx][select1] << 0x10;
+            item1row = iter->item1row[row1];
+            item1weightsidx = iter->item1tables[row1];
+            col1 = SelectFromWeightedArray(gMonsterItemWeightsTable[item1weightsidx], 5);
+            item1 = gMonsterItemTable[item1row][col1] << 0x10;
 
-            select2 = SelectFromWeightedArray(a->item2weights, 5);
-            if (select2 != 0xff) {
-                u32 item2idx = a->items2[select2];
-                if (item2idx) {
+            row2 = SelectFromWeightedArray(iter->item2weights, 5);
+            if (row2 != 0xff) {
+                u32 item2row = iter->item2row[row2];
+                if (item2row) {
                     u32 item2;
-                    u32 item2weightsidx = a->item2tables[select2];
-                    select2 = SelectFromWeightedArray(gUnknown_088D22C7[item2weightsidx], 5);
-                    item2 = gUnknown_088D21C8[item2idx][select2];
+                    u32 item2weightsidx = iter->item2tables[row2];
+                    col2 = SelectFromWeightedArray(gMonsterItemWeightsTable[item2weightsidx], 5);
+                    item2 = gMonsterItemTable[item2row][col2];
                     return item1 | item2;
                 }
             }
