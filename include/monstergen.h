@@ -4,7 +4,7 @@
 extern const u8 gMonsterLevelWeights[];
 struct MonsterClassWeights {
     u8 classes[5];
-    u8 weights[7];
+    u8 weights[5];
 };
 extern const struct MonsterClassWeights gMonsterClassWeights[];
 

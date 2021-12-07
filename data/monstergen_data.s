@@ -1,13 +1,5 @@
     .section .data
 
-	.global gMonsterLevelWeights
-gMonsterLevelWeights:  @ 0x088D2058
-	.incbin "baserom.gba", 0x8D2058, 0x8
-
-	.global gMonsterClassWeights
-gMonsterClassWeights:  @ 0x088D2060
-	.incbin "baserom.gba", 0x8D2060, 0x168
-
 	.global gUnknown_088D21C8
 gUnknown_088D21C8:  @ 0x088D21C8
 	.incbin "baserom.gba", 0x8D21C8, 0xFF

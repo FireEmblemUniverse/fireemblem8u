@@ -274,6 +274,7 @@ SECTIONS
         . = ALIGN(4); data/data_8ADEB0.o(.data);
         . = ALIGN(4); src/unit_icon_wait_data.o(.data);
         . = ALIGN(4); data/data_8AFBD8.o(.data);
+        . = ALIGN(4); src/monstergen_data.o(.rodata);
         . = ALIGN(4); data/monstergen_data.o(.data);
         . = ALIGN(4); data/data_8D2700.o(.data);
         . = ALIGN(4); src/mu.o(.data);
