@@ -17,9 +17,10 @@ struct MonsterItemsByClassEntry {
     /* 15 -> 19 */ u8 item1tables[5];
     /* 1a -> 1e */ u8 item2tables[5];
 };
+extern const struct MonsterItemsByClassEntry gMonsterItemsByClassIndex[];
+
 extern const u8 gMonsterItemTable[][5];
 extern const u8 gMonsterItemWeightsTable[][5];
-extern const struct MonsterItemsByClassEntry gMonsterItemsByClassIndex[];
 
 int SelectFromWeightedArray(const u8 *weights, u8 size);
 int GenerateMonsterLevel(u8 baseLevel);
