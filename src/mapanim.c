@@ -25,3 +25,35 @@ void DisplayWpnBrokePopup(u32 a) {
         NewPopup_WeaponBroke(something->weaponBefore, a);
     }
 }
+
+s8 BattleUnit_ShouldDisplayWpnBroke(struct BattleUnit *u) {
+    u32 result;
+    if ((u->unit.index & 0xc0))
+        result = 0; else
+        result = DidBattleUnitBreakWeapon(u);
+    return result;
+}
+
+void DisplayWRankUpPopup(u32 a) {
+    struct BattleUnit * something = 0;
+    if (BattleUnit_ShouldDisplayWRankUp(&gBattleActor)) {
+        something = &gBattleActor;
+    }
+    if (BattleUnit_ShouldDisplayWRankUp(&gBattleTarget)) {
+        something = &gBattleTarget;
+    }
+    if (something) {
+        NewPopup_WRankIncrease(something->weaponType, a);
+    }
+}
+
+s8 BattleUnit_ShouldDisplayWRankUp(struct BattleUnit *u) {
+    u32 result;
+    if ((u->unit.index & 0xc0))
+        return 0;
+    if (HasBattleUnitGainedWeaponLevel(u) == 0) {
+        return 0;
+    }
+    return 1;
+}
+
