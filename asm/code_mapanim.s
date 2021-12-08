@@ -5,44 +5,6 @@
 	@ Everything related to map battle animations
 	@ Needs further splitting
 
-	THUMB_FUNC_START DisplayWpnBrokePopup
-DisplayWpnBrokePopup: @ 0x0807A72C
-	push {r4, r5, r6, lr}
-	adds r6, r0, #0
-	movs r4, #0
-	ldr r5, _0807A768  @ gBattleActor
-	adds r0, r5, #0
-	bl BattleUnit_ShouldDisplayWpnBroke
-	lsls r0, r0, #0x18
-	cmp r0, #0
-	beq _0807A742
-	adds r4, r5, #0
-_0807A742:
-	ldr r5, _0807A76C  @ gBattleTarget
-	adds r0, r5, #0
-	bl BattleUnit_ShouldDisplayWpnBroke
-	lsls r0, r0, #0x18
-	cmp r0, #0
-	beq _0807A752
-	adds r4, r5, #0
-_0807A752:
-	cmp r4, #0
-	beq _0807A762
-	adds r0, r4, #0
-	adds r0, #0x4a
-	ldrh r0, [r0]
-	adds r1, r6, #0
-	bl NewPopup_WeaponBroke
-_0807A762:
-	pop {r4, r5, r6}
-	pop {r0}
-	bx r0
-	.align 2, 0
-_0807A768: .4byte gBattleActor
-_0807A76C: .4byte gBattleTarget
-
-	THUMB_FUNC_END DisplayWpnBrokePopup
-
 	THUMB_FUNC_START BattleUnit_ShouldDisplayWpnBroke
 BattleUnit_ShouldDisplayWpnBroke: @ 0x0807A770
 	push {lr}
