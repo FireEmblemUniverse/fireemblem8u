@@ -3987,7 +3987,7 @@ void SetBattleAnimFacing(int actorId1, int actorId2, u8 facing);
 void BeginBattleMapAnims(void);
 // ??? SetupMapAnimSpellData(???);
 // ??? SetupMapBattleAnim(???);
-// ??? GetFacingDirection(???);
+int GetFacingDirection(s8 xPos, s8 yPos, int xLook, int yLook);
 // ??? sub_807B9F8(???);
 // ??? sub_807BA28(???);
 // ??? sub_807BAE4(???);
