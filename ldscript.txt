@@ -121,6 +121,7 @@ SECTIONS
         src/monstergen.o(.text);
         src/mu.o(.text);
         asm/muctrl.o(.text);
+        src/mapanim.o(.text);
         asm/code_mapanim.o(.text);
         asm/ev_triggercheck.o(.text);
         asm/asmcs.o(.text);

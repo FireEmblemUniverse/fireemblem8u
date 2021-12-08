@@ -383,6 +383,7 @@ struct MapAnimState
     /* 5F */ u8 u5F;
     /* 60 */ u8 u60;
     /* 61 */ u8 u61;
+    /* 62 */ u8 u62;
 };
 
 struct MMSData

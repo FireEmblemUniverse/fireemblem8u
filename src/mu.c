@@ -477,7 +477,7 @@ static u16 CONST_DATA sMUObjTileOffsetLookup_Default[MU_MAX_COUNT] = {
 };
 
 // obj tile id offset by MU id (variant?)
-static u16 CONST_DATA sMUObjTileOffsetLookup_Other[MU_MAX_COUNT] = { 
+static u16 CONST_DATA sMUObjTileOffsetLookup_Other[MU_MAX_COUNT] = {
     0x0000, 0x0008, 0x0004, 0x0010
 };
 

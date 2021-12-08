@@ -5,28 +5,6 @@
 	@ Everything related to map battle animations
 	@ Needs further splitting
 
-	THUMB_FUNC_START sub_807A708
-sub_807A708: @ 0x0807A708
-	push {lr}
-	adds r1, r0, #0
-	ldr r2, _0807A728  @ gUnknown_0203E1F0
-	adds r0, r2, #0
-	adds r0, #0x62
-	ldrb r0, [r0]
-	cmp r0, #1
-	bne _0807A722
-	ldr r0, [r2, #0x18]
-	adds r0, #0x48
-	ldrh r0, [r0]
-	bl sub_8011694
-_0807A722:
-	pop {r0}
-	bx r0
-	.align 2, 0
-_0807A728: .4byte gUnknown_0203E1F0
-
-	THUMB_FUNC_END sub_807A708
-
 	THUMB_FUNC_START DisplayWpnBrokePopup
 DisplayWpnBrokePopup: @ 0x0807A72C
 	push {r4, r5, r6, lr}
