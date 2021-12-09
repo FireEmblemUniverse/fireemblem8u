@@ -2,7 +2,12 @@
 
 #include "bmbattle.h"
 #include "bmunit.h"
+#include "event.h"
+#include "fontgrp.h"
+#include "functions.h"
+#include "mu.h"
 #include "types.h"
+#include "uiutils.h"
 #include "variables.h"
 
 #include "mapanim.h"
@@ -57,3 +62,33 @@ s8 BattleUnit_ShouldDisplayWRankUp(struct BattleUnit *u) {
     return 1;
 }
 
+void _InitFontForUIDefault(void) {
+    Font_InitForUIDefault();
+}
+
+void MapAnim_Cleanup(void) {
+    MU_AllRestartAnimations();
+	sub_8003D20();
+	DeleteBattleAnimInfoThing();
+	SetupBackgroundForWeatherMaybe();
+	LoadUiFrameGraphics();
+	LoadObjUIGfx();
+	if (EventEngineExists())
+        MU_EndAll();
+}
+
+void MapAnim_AdvanceBattleRound(void) {
+    struct MapAnimState *state = &gUnknown_0203E1F0;
+    struct CurrentRound *round = state->pCurrentRound;
+    u8 r = (round->c >> 3);
+    state->subjectActorId = r % 2;
+    state->targetActorId = 1 - state->subjectActorId;
+    state->roundBits = *(u32 *)round;
+    state->u5C = round->c;
+    state->u5D = round->d;
+    if (state->actorCount_maybe == 1) {
+        state->subjectActorId = 0;
+        state->targetActorId = 0;
+    }
+    state->pCurrentRound++;
+}

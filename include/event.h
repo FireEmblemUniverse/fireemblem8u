@@ -24,7 +24,7 @@ struct EventEngineProc {
 
     /* 48 */ const void* pUnitLoadData;
     /* 4C */ u16 unitLoadCount;
-    
+
     /* 4E */ u8  idk4E;
 };
 
@@ -68,7 +68,7 @@ typedef u8(*EventFuncType)(struct EventEngineProc*);
 void CallEvent(const u16* events, u8 execType);
 struct EventEngineProc* EventEngine_Create(const u16* events, u8 idk);
 // ??? EventEngine_CreateBattle(???);
-int EventEngineExists(void);
+u8 EventEngineExists(void);
 // ??? BattleEventEngineExists(???);
 // ??? DeleteEventEngines(???);
 // ??? sub_800D1E4(???);
