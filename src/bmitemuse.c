@@ -51,7 +51,6 @@ void EndTargetSelection(ProcPtr proc);
 void sub_801E684(ProcPtr parent, struct Unit* unit, int x, int y);
 void sub_801E748(int number);
 
-void EnsureCameraOntoPosition(ProcPtr parent, int x, int y);
 void FillWarpRangeMap(struct Unit* caster, struct Unit* target);
 void DisplayMoveRangeGraphics(int config);
 

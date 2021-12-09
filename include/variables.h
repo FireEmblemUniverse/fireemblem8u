@@ -3050,7 +3050,7 @@ extern const struct MMSData gMMSDataTable[]; // Moving Map Sprite Table
 // extern ??? gUnknown_089A33C0
 // extern ??? gUnknown_089A34B0
 // extern ??? gUnknown_089A3508
-// extern ??? gUnknown_089A35B0
+extern struct ProcCmd gUnknown_089A35B0;
 // extern ??? gUnknown_089A3648
 // extern ??? gUnknown_089A3668
 // extern ??? gUnknown_089A3670

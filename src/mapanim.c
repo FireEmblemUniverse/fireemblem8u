@@ -6,6 +6,7 @@
 #include "fontgrp.h"
 #include "functions.h"
 #include "mu.h"
+#include "proc.h"
 #include "types.h"
 #include "uiutils.h"
 #include "variables.h"
@@ -91,4 +92,48 @@ void MapAnim_AdvanceBattleRound(void) {
         state->targetActorId = 0;
     }
     state->pCurrentRound++;
+}
+
+void MapAnim_PrepareNextBattleRound(ProcPtr p) {
+    struct MapAnimState *state = &gUnknown_0203E1F0;
+    u16 weapon;
+    struct BattleUnit *unit;
+    if (state->pCurrentRound->c & 0x10) {
+        Proc_Break(p);
+        Proc_GotoScript(p, &gUnknown_089A35B0);
+        return;
+    }
+    MapAnim_AdvanceBattleRound();
+    unit = state->actors[state->subjectActorId].pBattleUnit;
+    weapon = unit->weaponBefore;
+    state->pItemMapAnimProcScript = GetSpellAssocAlt6CPointer(weapon);
+    Proc_Break(p);
+}
+
+void MapAnim_DisplayRoundAnim(ProcPtr p) {
+	Proc_StartBlocking(GetItemAnim6CCode(), p);
+}
+
+void MapAnim_ShowPoisonEffectIfAny(ProcPtr p) {
+    struct MapAnimState *state = &gUnknown_0203E1F0;
+    if (state->roundBits & 0x40) {
+        NewMapPoisonEffect(state->actors[state->targetActorId].pUnit);
+        NewBlockingTimer(p, 100);
+    }
+}
+
+void MapAnim_MoveCameraOntoSubject(ProcPtr p) {
+    struct MapAnimState *state = &gUnknown_0203E1F0;
+	u8 x = state->actors[0].pUnit->xPos;
+	u8 y = state->actors[0].pUnit->yPos;
+    EnsureCameraOntoPosition(p, x, y);
+}
+
+void MapAnim_MoveCameraOntoTarget(ProcPtr p) {
+    struct MapAnimState *state = &gUnknown_0203E1F0;
+    if (state->actorCount_maybe != 1) {
+        u8 x = state->actors[1].pUnit->xPos;
+        u8 y = state->actors[1].pUnit->yPos;
+        EnsureCameraOntoPosition(p, x, y);
+    }
 }
