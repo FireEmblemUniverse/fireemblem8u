@@ -1,6 +1,8 @@
 #ifndef GUARD_BMBATTLE_H
 #define GUARD_BMBATTLE_H
 
+#include "bmunit.h"
+
 enum {
     // Battle-related magic constants
 

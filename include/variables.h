@@ -626,7 +626,6 @@ extern struct ActionData gActionData;
 // extern ??? gUnknown_0203E1E4
 // extern ??? gUnknown_0203E1E8
 // extern ??? gUnknown_0203E1EC
-extern struct MapAnimState gUnknown_0203E1F0;
 // extern ??? gUnknown_0203E1F8
 // extern ??? gUnknown_0203E254
 // extern ??? gUnknown_0203E754
@@ -3050,7 +3049,7 @@ extern const struct MMSData gMMSDataTable[]; // Moving Map Sprite Table
 // extern ??? gUnknown_089A33C0
 // extern ??? gUnknown_089A34B0
 // extern ??? gUnknown_089A3508
-// extern ??? gUnknown_089A35B0
+extern struct ProcCmd gUnknown_089A35B0;
 // extern ??? gUnknown_089A3648
 // extern ??? gUnknown_089A3668
 // extern ??? gUnknown_089A3670

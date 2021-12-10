@@ -69,7 +69,7 @@ SECTIONS
         asm/menuitempanel.o(.text);
         asm/unitswapfx.o(.text);
         asm/phasechangefx.o(.text);
-        asm/code_801F50C.o(.text); /* ChangeActiveUnitFacing */
+        src/unit_facing.o(.text);
         asm/trapfx.o(.text);
         asm/notifybox.o(.text);
         asm/chapterintrofx.o(.text);
@@ -121,6 +121,7 @@ SECTIONS
         src/monstergen.o(.text);
         src/mu.o(.text);
         asm/muctrl.o(.text);
+        src/mapanim.o(.text);
         asm/code_mapanim.o(.text);
         asm/ev_triggercheck.o(.text);
         asm/asmcs.o(.text);

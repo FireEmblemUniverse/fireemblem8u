@@ -369,20 +369,29 @@ struct MapAnimActorState
     /* 13 */ u8 u13;
 };
 
+struct CurrentRound {
+    /* 00 */ u32 a:16;
+    /* 10 */ u32 b:3;
+    /* 13 */ u32 c:5;
+    /* 18 */ s32 d:8;
+};
+
 struct MapAnimState
 {
     /* 00 */ struct MapAnimActorState actors[4];
 
-    /* 50 */ u32* pCurrentRound;
+    /* 50 */ struct CurrentRound* pCurrentRound;
     /* 54 */ const struct ProcCmd* pItemMapAnimProcScript;
     /* 58 */ u8 subjectActorId;
     /* 59 */ u8 targetActorId;
     /* 5A */ u16 roundBits;
-    /* 5C */ u16 u5C;
+    /* 5C */ u8 u5C;
+    /* 5D */ u8 u5D;
     /* 5E */ u8 actorCount_maybe;
     /* 5F */ u8 u5F;
     /* 60 */ u8 u60;
     /* 61 */ u8 u61;
+    /* 62 */ u8 u62;
 };
 
 struct MMSData

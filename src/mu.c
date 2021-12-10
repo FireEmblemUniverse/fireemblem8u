@@ -3,17 +3,18 @@
 #include "constants/items.h"
 #include "constants/classes.h"
 
-#include "proc.h"
 #include "ap.h"
-#include "m4a.h"
-#include "soundwrapper.h"
-#include "hardware.h"
 #include "bmio.h"
 #include "bmunit.h"
 #include "bmmap.h"
 #include "bmtrick.h"
 #include "bmbattle.h"
+#include "hardware.h"
+#include "m4a.h"
+#include "mapanim.h"
 #include "mu.h"
+#include "proc.h"
+#include "soundwrapper.h"
 
 /*
     "MOVEUNIT" proc and related functions.
@@ -477,7 +478,7 @@ static u16 CONST_DATA sMUObjTileOffsetLookup_Default[MU_MAX_COUNT] = {
 };
 
 // obj tile id offset by MU id (variant?)
-static u16 CONST_DATA sMUObjTileOffsetLookup_Other[MU_MAX_COUNT] = { 
+static u16 CONST_DATA sMUObjTileOffsetLookup_Other[MU_MAX_COUNT] = {
     0x0000, 0x0008, 0x0004, 0x0010
 };
 
@@ -1716,12 +1717,12 @@ void MU_StartDelayedFaceTarget(struct MUProc* proc) {
 static void MU_EndRefaceApAnim(int argAp) {
     struct APHandle* ap = (struct APHandle*) argAp;
 
-    int actor1 = gUnknown_0203E1F0.subjectActorId;
+    int actor1 = gCurrentMapAnimState.subjectActorId;
     int actor2 = 1 - actor1;
 
     SetBattleAnimFacing(
         actor1, actor2,
-        GetSpellAssocFacing(gUnknown_0203E1F0.actors[0].pBattleUnit->weaponBefore)
+        GetSpellAssocFacing(gCurrentMapAnimState.actors[0].pBattleUnit->weaponBefore)
     );
 
     ap->frameTimer    = 0;
