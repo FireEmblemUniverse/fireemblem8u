@@ -15,8 +15,8 @@
 
 // unreferenced
 void sub_807A708(u32 a) {
-    if (gUnknown_0203E1F0.u62 == 1) {
-        sub_8011694(gUnknown_0203E1F0.actors[1].pBattleUnit->weapon, a);
+    if (gCurrentMapAnimState.u62 == 1) {
+        sub_8011694(gCurrentMapAnimState.actors[1].pBattleUnit->weapon, a);
     }
 }
 
@@ -80,7 +80,7 @@ void MapAnim_Cleanup(void) {
 }
 
 void MapAnim_AdvanceBattleRound(void) {
-    struct MapAnimState *state = &gUnknown_0203E1F0;
+    struct MapAnimState *state = &gCurrentMapAnimState;
     struct CurrentRound *round = state->pCurrentRound;
     u8 r = (round->c >> 3);
     state->subjectActorId = r % 2;
@@ -96,7 +96,7 @@ void MapAnim_AdvanceBattleRound(void) {
 }
 
 void MapAnim_PrepareNextBattleRound(ProcPtr p) {
-    struct MapAnimState *state = &gUnknown_0203E1F0;
+    struct MapAnimState *state = &gCurrentMapAnimState;
     u16 weapon;
     struct BattleUnit *unit;
     if (state->pCurrentRound->c & 0x10) {
@@ -116,7 +116,7 @@ void MapAnim_DisplayRoundAnim(ProcPtr p) {
 }
 
 void MapAnim_ShowPoisonEffectIfAny(ProcPtr p) {
-    struct MapAnimState *state = &gUnknown_0203E1F0;
+    struct MapAnimState *state = &gCurrentMapAnimState;
     if (state->roundBits & 0x40) {
         NewMapPoisonEffect(state->actors[state->targetActorId].pUnit);
         NewBlockingTimer(p, 100);
@@ -124,14 +124,14 @@ void MapAnim_ShowPoisonEffectIfAny(ProcPtr p) {
 }
 
 void MapAnim_MoveCameraOntoSubject(ProcPtr p) {
-    struct MapAnimState *state = &gUnknown_0203E1F0;
+    struct MapAnimState *state = &gCurrentMapAnimState;
 	u8 x = state->actors[0].pUnit->xPos;
 	u8 y = state->actors[0].pUnit->yPos;
     EnsureCameraOntoPosition(p, x, y);
 }
 
 void MapAnim_MoveCameraOntoTarget(ProcPtr p) {
-    struct MapAnimState *state = &gUnknown_0203E1F0;
+    struct MapAnimState *state = &gCurrentMapAnimState;
     if (state->actorCount_maybe != 1) {
         u8 x = state->actors[1].pUnit->xPos;
         u8 y = state->actors[1].pUnit->yPos;
