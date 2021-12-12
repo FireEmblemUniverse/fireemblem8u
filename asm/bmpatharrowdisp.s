@@ -4,21 +4,6 @@
 
 	@ Logic for displaying the movement path/arrow thing
 
-	THUMB_FUNC_START sub_80329D8
-sub_80329D8: @ 0x080329D8
-	ldr r3, _080329E8  @ gUnknown_0859DBA0
-	ldr r2, [r3]
-	adds r2, #0x29
-	strb r0, [r2]
-	ldr r0, [r3]
-	adds r0, #0x2a
-	strb r1, [r0]
-	bx lr
-	.align 2, 0
-_080329E8: .4byte gUnknown_0859DBA0
-
-	THUMB_FUNC_END sub_80329D8
-
 	THUMB_FUNC_START sub_80329EC
 sub_80329EC: @ 0x080329EC
 	push {r4, r5, r6, r7, lr}
