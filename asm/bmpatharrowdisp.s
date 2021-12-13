@@ -4,74 +4,6 @@
 
 	@ Logic for displaying the movement path/arrow thing
 
-	THUMB_FUNC_START sub_8032A94
-sub_8032A94: @ 0x08032A94
-	push {r4, r5, r6, lr}
-	adds r5, r0, #0
-	adds r4, r1, #0
-	lsls r5, r5, #0x18
-	lsrs r5, r5, #0x18
-	lsls r4, r4, #0x18
-	lsrs r4, r4, #0x18
-	ldr r6, _08032B10  @ gUnknown_0859DBA0
-	ldr r1, [r6]
-	adds r1, #0x2c
-	ldrb r0, [r1]
-	adds r0, #1
-	strb r0, [r1]
-	ldr r0, [r6]
-	adds r1, r0, #0
-	adds r1, #0x2c
-	ldrb r1, [r1]
-	lsls r1, r1, #0x18
-	asrs r1, r1, #0x18
-	adds r0, #0x2d
-	adds r0, r0, r1
-	strb r5, [r0]
-	ldr r0, [r6]
-	adds r1, r0, #0
-	adds r1, #0x2c
-	ldrb r1, [r1]
-	lsls r1, r1, #0x18
-	asrs r1, r1, #0x18
-	adds r0, #0x41
-	adds r0, r0, r1
-	strb r4, [r0]
-	bl GetWorkingMoveCosts
-	ldr r2, [r6]
-	adds r1, r2, #0
-	adds r1, #0x2c
-	ldrb r1, [r1]
-	lsls r1, r1, #0x18
-	asrs r1, r1, #0x18
-	adds r2, #0x55
-	adds r3, r2, r1
-	subs r1, #1
-	adds r2, r2, r1
-	lsls r4, r4, #0x18
-	ldr r1, _08032B14  @ gBmMapTerrain
-	ldr r1, [r1]
-	asrs r4, r4, #0x16
-	adds r4, r4, r1
-	lsls r5, r5, #0x18
-	asrs r5, r5, #0x18
-	ldr r1, [r4]
-	adds r1, r1, r5
-	ldrb r1, [r1]
-	adds r0, r0, r1
-	ldrb r1, [r2]
-	ldrb r0, [r0]
-	subs r1, r1, r0
-	strb r1, [r3]
-	pop {r4, r5, r6}
-	pop {r0}
-	bx r0
-	.align 2, 0
-_08032B10: .4byte gUnknown_0859DBA0
-_08032B14: .4byte gBmMapTerrain
-
-	THUMB_FUNC_END sub_8032A94
-
 	THUMB_FUNC_START sub_8032B18
 sub_8032B18: @ 0x08032B18
 	push {r4, r5, r6, r7, lr}
@@ -208,7 +140,7 @@ _08032C18:
 	ldrb r1, [r1]
 	lsls r1, r1, #0x18
 	asrs r1, r1, #0x18
-	bl sub_8032A94
+	bl AddPointToPathArrowProc
 	b _08032B8C
 	.align 2, 0
 _08032C2C: .4byte gUnknown_0859DBA0
@@ -250,7 +182,7 @@ _08032C54:
 _08032C72:
 	lsls r1, r1, #0x18
 	asrs r1, r1, #0x18
-	bl sub_8032A94
+	bl AddPointToPathArrowProc
 	b _08032B8C
 	.align 2, 0
 _08032C7C: .4byte gUnknown_0859DBA0
@@ -527,7 +459,7 @@ sub_8032E28: @ 0x08032E28
 	ldrb r1, [r1, #0x11]
 	lsls r1, r1, #0x18
 	asrs r1, r1, #0x18
-	bl sub_8032A94
+	bl AddPointToPathArrowProc
 	ldr r0, [r5]
 	adds r1, r0, #0
 	adds r1, #0x2b
@@ -694,7 +626,7 @@ _08032FC4:
 	ldrb r1, [r1, #0x16]
 	lsls r1, r1, #0x18
 	asrs r1, r1, #0x18
-	bl sub_8032A94
+	bl AddPointToPathArrowProc
 	b _08033060
 	.align 2, 0
 _08032FD8: .4byte gUnknown_0202BCB0
