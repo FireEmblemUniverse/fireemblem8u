@@ -2,6 +2,7 @@
 
 #include "bmidoten.h"
 #include "bmpatharrowdisp.h"
+#include "bmunit.h"
 #include "mu.h"
 
 void sub_80329D8(u8 a, u8 b) {
@@ -95,4 +96,48 @@ void GetPathFromMovementScript(void) {
             }
         }
     }
+}
+
+void GetMovementScriptFromPath(void) {
+    s8 i;
+    for (i = 1; i <= gUnknown_0859DBA0.proc->pathLen; i++)
+    {
+        s8 x, y;
+        s8 newX, newY;
+        u8 result;
+
+
+        newX = gUnknown_0859DBA0.proc->pathX[i];
+        x = gUnknown_0859DBA0.proc->pathX[i - 1];
+        if (newX < x) {
+            gWorkingMovementScript[i - 1] = MU_COMMAND_MOVE_LEFT;
+        }
+        else if (newX > x) {
+            gWorkingMovementScript[i - 1] = MU_COMMAND_MOVE_RIGHT;
+        }
+
+        else if (gUnknown_0859DBA0.proc->pathY[i] < gUnknown_0859DBA0.proc->pathY[i - 1]) {
+            gWorkingMovementScript[i - 1] = MU_COMMAND_MOVE_UP;
+        }
+        else {
+            gWorkingMovementScript[i - 1] = MU_COMMAND_MOVE_DOWN;
+        }
+    }
+    gWorkingMovementScript[i - 1] = MU_COMMAND_HALT;
+}
+
+void GenerateMovementMapForActiveUnit(void) {
+    GenerateMovementMapOnWorkingMap(
+		gActiveUnit,
+		gUnknown_0859DBA0.proc->pathX[gUnknown_0859DBA0.proc->pathLen],
+		gUnknown_0859DBA0.proc->pathY[gUnknown_0859DBA0.proc->pathLen],
+		gUnknown_0859DBA0.proc->pathCosts[gUnknown_0859DBA0.proc->pathLen]);
+}
+
+void sub_8032D74(void) {
+    sub_80329EC(1);
+    GenerateMovementMapForActiveUnit();
+    GenerateBestMovementScript(
+            gUnknown_0202BCB0.playerCursor.x, gUnknown_0202BCB0.playerCursor.y, gWorkingMovementScript);
+    GetPathFromMovementScript();
 }

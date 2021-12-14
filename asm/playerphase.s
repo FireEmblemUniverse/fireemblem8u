@@ -1669,7 +1669,7 @@ _0801D61E:
 	THUMB_FUNC_START sub_801D624
 sub_801D624: @ 0x0801D624
 	push {lr}
-	bl sub_8032C88
+	bl GetMovementScriptFromPath
 	ldr r0, _0801D644  @ gActiveUnit
 	ldr r0, [r0]
 	movs r1, #0x10
