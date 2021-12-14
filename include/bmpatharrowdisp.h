@@ -25,5 +25,6 @@ s32 GetPointAlongPath(s8 x, s8 y);
 void GetPathFromMovementScript(void);
 void GenerateMovementMapForActiveUnit(void);
 void sub_8032D74(void);
+u32 PathContainsNoCycle(void);
 
 #endif // GUARD_BM_PATH_ARROW_DISP_H

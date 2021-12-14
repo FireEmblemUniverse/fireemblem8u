@@ -4,83 +4,6 @@
 
 	@ Logic for displaying the movement path/arrow thing
 
-	THUMB_FUNC_START sub_8032DA0
-sub_8032DA0: @ 0x08032DA0
-	push {r4, r5, r6, r7, lr}
-	ldr r0, _08032DAC  @ gUnknown_0859DBA0
-	ldr r0, [r0]
-	adds r0, #0x2c
-	ldrb r1, [r0]
-	b _08032E18
-	.align 2, 0
-_08032DAC: .4byte gUnknown_0859DBA0
-_08032DB0:
-	asrs r4, r0, #0x18
-	movs r2, #0xff
-	lsls r2, r2, #0x18
-	adds r0, r0, r2
-	lsrs r3, r0, #0x18
-	lsls r2, r3, #0x18
-	lsls r1, r1, #0x18
-	mov ip, r1
-	cmp r2, #0
-	blt _08032E10
-	ldr r0, _08032DFC  @ gUnknown_0859DBA0
-	ldr r1, [r0]
-	adds r6, r1, #0
-	adds r6, #0x2d
-	adds r0, r6, r4
-	movs r7, #0
-	ldrsb r7, [r0, r7]
-	adds r5, r1, #0
-	adds r5, #0x41
-	adds r4, r5, r4
-_08032DD8:
-	asrs r1, r2, #0x18
-	adds r0, r6, r1
-	ldrb r0, [r0]
-	lsls r0, r0, #0x18
-	asrs r0, r0, #0x18
-	cmp r7, r0
-	bne _08032E00
-	adds r0, r5, r1
-	movs r1, #0
-	ldrsb r1, [r4, r1]
-	ldrb r0, [r0]
-	lsls r0, r0, #0x18
-	asrs r0, r0, #0x18
-	cmp r1, r0
-	bne _08032E00
-	movs r0, #0
-	b _08032E20
-	.align 2, 0
-_08032DFC: .4byte gUnknown_0859DBA0
-_08032E00:
-	lsls r0, r3, #0x18
-	movs r1, #0xff
-	lsls r1, r1, #0x18
-	adds r0, r0, r1
-	lsrs r3, r0, #0x18
-	lsls r2, r3, #0x18
-	cmp r2, #0
-	bge _08032DD8
-_08032E10:
-	movs r0, #0xff
-	lsls r0, r0, #0x18
-	add r0, ip
-	lsrs r1, r0, #0x18
-_08032E18:
-	lsls r0, r1, #0x18
-	cmp r0, #0
-	bgt _08032DB0
-	movs r0, #1
-_08032E20:
-	pop {r4, r5, r6, r7}
-	pop {r1}
-	bx r1
-
-	THUMB_FUNC_END sub_8032DA0
-
 	THUMB_FUNC_START sub_8032E28
 sub_8032E28: @ 0x08032E28
 	push {r4, r5, lr}
@@ -341,7 +264,7 @@ _08033044:
 	adds r1, r4, #0
 	bl GenerateBestMovementScript
 	bl GetPathFromMovementScript
-	bl sub_8032DA0
+	bl PathContainsNoCycle
 	lsls r0, r0, #0x18
 	cmp r0, #0
 	bne _08033060

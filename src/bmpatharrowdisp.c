@@ -141,3 +141,18 @@ void sub_8032D74(void) {
             gUnknown_0202BCB0.playerCursor.x, gUnknown_0202BCB0.playerCursor.y, gWorkingMovementScript);
     GetPathFromMovementScript();
 }
+
+u32 PathContainsNoCycle(void) {
+    s8 i, j;
+    for (i = gUnknown_0859DBA0.proc->pathLen; i > 0; --i) {
+        for (j = i - 1; j >= 0; --j) {
+            if (gUnknown_0859DBA0.proc->pathX[i] == gUnknown_0859DBA0.proc->pathX[j] &&
+                gUnknown_0859DBA0.proc->pathY[i] == gUnknown_0859DBA0.proc->pathY[j])
+            {
+                return 0;
+            }
+        }
+    }
+
+    return 1;
+}
