@@ -4,195 +4,6 @@
 
 	@ Logic for displaying the movement path/arrow thing
 
-	THUMB_FUNC_START sub_8032B18
-sub_8032B18: @ 0x08032B18
-	push {r4, r5, r6, r7, lr}
-	lsls r0, r0, #0x18
-	lsrs r4, r0, #0x18
-	lsls r1, r1, #0x18
-	lsrs r5, r1, #0x18
-	movs r1, #0
-	ldr r0, _08032B6C  @ gUnknown_0859DBA0
-	ldr r2, [r0]
-	adds r0, r2, #0
-	adds r0, #0x2c
-	movs r3, #0
-	ldrsb r3, [r0, r3]
-	cmp r1, r3
-	bgt _08032B7E
-	mov ip, r2
-	lsls r0, r4, #0x18
-	asrs r7, r0, #0x18
-	mov r6, ip
-	adds r6, #0x41
-	lsls r0, r5, #0x18
-	asrs r5, r0, #0x18
-	adds r4, r3, #0
-_08032B44:
-	lsls r0, r1, #0x18
-	asrs r2, r0, #0x18
-	mov r1, ip
-	adds r1, #0x2d
-	adds r1, r1, r2
-	ldrb r1, [r1]
-	lsls r1, r1, #0x18
-	asrs r1, r1, #0x18
-	adds r3, r0, #0
-	cmp r1, r7
-	bne _08032B70
-	adds r0, r6, r2
-	ldrb r0, [r0]
-	lsls r0, r0, #0x18
-	asrs r0, r0, #0x18
-	cmp r0, r5
-	bne _08032B70
-	adds r0, r2, #0
-	b _08032B82
-	.align 2, 0
-_08032B6C: .4byte gUnknown_0859DBA0
-_08032B70:
-	movs r1, #0x80
-	lsls r1, r1, #0x11
-	adds r0, r3, r1
-	lsrs r1, r0, #0x18
-	asrs r0, r0, #0x18
-	cmp r0, r4
-	ble _08032B44
-_08032B7E:
-	movs r0, #1
-	negs r0, r0
-_08032B82:
-	pop {r4, r5, r6, r7}
-	pop {r1}
-	bx r1
-
-	THUMB_FUNC_END sub_8032B18
-
-	THUMB_FUNC_START sub_8032B88
-sub_8032B88: @ 0x08032B88
-	push {r4, lr}
-	movs r4, #0
-_08032B8C:
-	ldr r2, _08032BB4  @ gWorkingMovementScript
-	adds r1, r4, #0
-	lsls r0, r1, #0x18
-	movs r3, #0x80
-	lsls r3, r3, #0x11
-	adds r0, r0, r3
-	lsrs r4, r0, #0x18
-	lsls r1, r1, #0x18
-	asrs r1, r1, #0x18
-	adds r1, r1, r2
-	ldrb r0, [r1]
-	adds r0, #1
-	cmp r0, #0xa
-	bhi _08032B8C
-	lsls r0, r0, #2
-	ldr r1, _08032BB8  @ _08032BBC
-	adds r0, r0, r1
-	ldr r0, [r0]
-	mov pc, r0
-	.align 2, 0
-_08032BB4: .4byte gWorkingMovementScript
-_08032BB8: .4byte _08032BBC
-_08032BBC: @ jump table
-	.4byte _08032C80 @ case 0
-	.4byte _08032BE8 @ case 1
-	.4byte _08032C04 @ case 2
-	.4byte _08032C54 @ case 3
-	.4byte _08032C30 @ case 4
-	.4byte _08032C80 @ case 5
-	.4byte _08032B8C @ case 6
-	.4byte _08032B8C @ case 7
-	.4byte _08032B8C @ case 8
-	.4byte _08032B8C @ case 9
-	.4byte _08032B8C @ case 10
-_08032BE8:
-	ldr r0, _08032C00  @ gUnknown_0859DBA0
-	ldr r1, [r0]
-	adds r0, r1, #0
-	adds r0, #0x2c
-	movs r2, #0
-	ldrsb r2, [r0, r2]
-	adds r0, #1
-	adds r0, r0, r2
-	ldrb r0, [r0]
-	subs r0, #1
-	b _08032C18
-	.align 2, 0
-_08032C00: .4byte gUnknown_0859DBA0
-_08032C04:
-	ldr r0, _08032C2C  @ gUnknown_0859DBA0
-	ldr r1, [r0]
-	adds r0, r1, #0
-	adds r0, #0x2c
-	movs r2, #0
-	ldrsb r2, [r0, r2]
-	adds r0, #1
-	adds r0, r0, r2
-	ldrb r0, [r0]
-	adds r0, #1
-_08032C18:
-	lsls r0, r0, #0x18
-	asrs r0, r0, #0x18
-	adds r1, #0x41
-	adds r1, r1, r2
-	ldrb r1, [r1]
-	lsls r1, r1, #0x18
-	asrs r1, r1, #0x18
-	bl AddPointToPathArrowProc
-	b _08032B8C
-	.align 2, 0
-_08032C2C: .4byte gUnknown_0859DBA0
-_08032C30:
-	ldr r0, _08032C50  @ gUnknown_0859DBA0
-	ldr r1, [r0]
-	adds r0, r1, #0
-	adds r0, #0x2c
-	movs r2, #0
-	ldrsb r2, [r0, r2]
-	adds r0, #1
-	adds r0, r0, r2
-	ldrb r0, [r0]
-	lsls r0, r0, #0x18
-	asrs r0, r0, #0x18
-	adds r1, #0x41
-	adds r1, r1, r2
-	ldrb r1, [r1]
-	subs r1, #1
-	b _08032C72
-	.align 2, 0
-_08032C50: .4byte gUnknown_0859DBA0
-_08032C54:
-	ldr r0, _08032C7C  @ gUnknown_0859DBA0
-	ldr r1, [r0]
-	adds r0, r1, #0
-	adds r0, #0x2c
-	movs r2, #0
-	ldrsb r2, [r0, r2]
-	adds r0, #1
-	adds r0, r0, r2
-	ldrb r0, [r0]
-	lsls r0, r0, #0x18
-	asrs r0, r0, #0x18
-	adds r1, #0x41
-	adds r1, r1, r2
-	ldrb r1, [r1]
-	adds r1, #1
-_08032C72:
-	lsls r1, r1, #0x18
-	asrs r1, r1, #0x18
-	bl AddPointToPathArrowProc
-	b _08032B8C
-	.align 2, 0
-_08032C7C: .4byte gUnknown_0859DBA0
-_08032C80:
-	pop {r4}
-	pop {r0}
-	bx r0
-
-	THUMB_FUNC_END sub_8032B88
-
 	THUMB_FUNC_START sub_8032C88
 sub_8032C88: @ 0x08032C88
 	push {r4, r5, r6, r7, lr}
@@ -336,7 +147,7 @@ sub_8032D74: @ 0x08032D74
 	ldrsh r1, [r1, r2]
 	ldr r2, _08032D9C  @ gWorkingMovementScript
 	bl GenerateBestMovementScript
-	bl sub_8032B88
+	bl GetPathFromMovementScript
 	pop {r0}
 	bx r0
 	.align 2, 0
@@ -538,7 +349,7 @@ _08032F12:
 	ldrsb r0, [r5, r0]
 	movs r1, #0x16
 	ldrsb r1, [r5, r1]
-	bl sub_8032B18
+	bl GetPointAlongPath
 	lsls r0, r0, #0x18
 	lsrs r1, r0, #0x18
 	asrs r0, r0, #0x18
@@ -681,7 +492,7 @@ _08033044:
 	adds r0, r3, #0
 	adds r1, r4, #0
 	bl GenerateBestMovementScript
-	bl sub_8032B88
+	bl GetPathFromMovementScript
 	bl sub_8032DA0
 	lsls r0, r0, #0x18
 	cmp r0, #0

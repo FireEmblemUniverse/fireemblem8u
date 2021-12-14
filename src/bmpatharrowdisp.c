@@ -2,6 +2,7 @@
 
 #include "bmidoten.h"
 #include "bmpatharrowdisp.h"
+#include "mu.h"
 
 void sub_80329D8(u8 a, u8 b) {
     gUnknown_0859DBA0.proc->u29 = a;
@@ -40,4 +41,58 @@ void AddPointToPathArrowProc(s8 x, s8 y) {
     gUnknown_0859DBA0.proc->pathCosts[gUnknown_0859DBA0.proc->pathLen] =
         gUnknown_0859DBA0.proc->pathCosts[gUnknown_0859DBA0.proc->pathLen - 1] -
         costs[gBmMapTerrain[y][x]];
+}
+
+s32 GetPointAlongPath(s8 x, s8 y) {
+    s8 i;
+    for (i = 0; i <= gUnknown_0859DBA0.proc->pathLen; i++) {
+        if (gUnknown_0859DBA0.proc->pathX[i] == x && gUnknown_0859DBA0.proc->pathY[i] == y)
+            return i;
+    }
+    return -1;
+}
+
+void GetPathFromMovementScript(void) {
+    s8 i = 0;
+    while (TRUE) {
+        // I do not know what these +1s are about. but they are necessary to
+        // the match as far as I can tell.  maybe I'm supposed to use another
+        // enum or something.
+        u32 cmd = gWorkingMovementScript[i++] + 1;
+
+        if (cmd <= 0xa) {
+            switch (cmd) {
+
+            case MU_COMMAND_END + 1:
+            case MU_COMMAND_HALT + 1:
+                return;
+            case MU_COMMAND_FACE_LEFT + 1:
+            case MU_COMMAND_FACE_RIGHT + 1:
+            case MU_COMMAND_FACE_DOWN + 1:
+            case MU_COMMAND_FACE_UP + 1:
+            case MU_COMMAND_WAIT + 1:
+                continue;
+            case MU_COMMAND_MOVE_LEFT + 1:
+                AddPointToPathArrowProc(
+                    gUnknown_0859DBA0.proc->pathX[gUnknown_0859DBA0.proc->pathLen] - 1,
+                    gUnknown_0859DBA0.proc->pathY[gUnknown_0859DBA0.proc->pathLen]);
+                break;
+            case MU_COMMAND_MOVE_RIGHT + 1:
+                AddPointToPathArrowProc(
+                    gUnknown_0859DBA0.proc->pathX[gUnknown_0859DBA0.proc->pathLen] + 1,
+                    gUnknown_0859DBA0.proc->pathY[gUnknown_0859DBA0.proc->pathLen]);
+                break;
+            case MU_COMMAND_MOVE_UP + 1:
+                AddPointToPathArrowProc(
+                    gUnknown_0859DBA0.proc->pathX[gUnknown_0859DBA0.proc->pathLen],
+                    gUnknown_0859DBA0.proc->pathY[gUnknown_0859DBA0.proc->pathLen] - 1);
+                break;
+            case MU_COMMAND_MOVE_DOWN + 1:
+                AddPointToPathArrowProc(
+                    gUnknown_0859DBA0.proc->pathX[gUnknown_0859DBA0.proc->pathLen],
+                    gUnknown_0859DBA0.proc->pathY[gUnknown_0859DBA0.proc->pathLen] + 1);
+                break;
+            }
+        }
+    }
 }
