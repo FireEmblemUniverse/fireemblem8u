@@ -3365,8 +3365,8 @@ extern u16 CONST_DATA gUnknown_08A027FC[][0x10]; // color animation for each pag
 // extern ??? gUnknown_08A02F34
 // extern ??? gUnknown_08A02F94
 // extern ??? gUnknown_08A02FF4
-// extern ??? gUnknown_08A03054
-// extern ??? gUnknown_08A0328C
+extern u8 CONST_DATA gUnknown_08A03054[];
+extern u8 CONST_DATA gUnknown_08A0328C[];
 // extern ??? gUnknown_08A032AC
 // extern ??? gUnknown_08A03334
 // extern ??? gUnknown_08A03354

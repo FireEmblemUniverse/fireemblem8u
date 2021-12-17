@@ -8,7 +8,7 @@ struct PathArrowProc
     PROC_HEADER;
     s8 u29;
     s8 u2a;
-    s8 u2b;
+    s8 maxMov;
     s8 pathLen;
     /* 0x2d */ s8 pathX[20];
     /* 0x41 */ s8 pathY[20];
@@ -26,5 +26,6 @@ void GetPathFromMovementScript(void);
 void GenerateMovementMapForActiveUnit(void);
 void sub_8032D74(void);
 u32 PathContainsNoCycle(void);
+void sub_8032EB4(void);
 
 #endif // GUARD_BM_PATH_ARROW_DISP_H

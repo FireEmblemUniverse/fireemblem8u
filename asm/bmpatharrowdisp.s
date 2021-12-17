@@ -4,69 +4,6 @@
 
 	@ Logic for displaying the movement path/arrow thing
 
-	THUMB_FUNC_START sub_8032E28
-sub_8032E28: @ 0x08032E28
-	push {r4, r5, lr}
-	adds r4, r0, #0
-	lsls r4, r4, #0x18
-	lsrs r4, r4, #0x18
-	ldr r0, _08032E98  @ gUnknown_08A03054
-	ldr r1, _08032E9C  @ 0x06015E00
-	bl CopyDataWithPossibleUncomp
-	ldr r0, _08032EA0  @ gUnknown_08A0328C
-	movs r1, #0x98
-	lsls r1, r1, #2
-	movs r2, #0x20
-	bl CopyToPaletteBuffer
-	cmp r4, #0
-	bne _08032E90
-	ldr r5, _08032EA4  @ gUnknown_0859DBA0
-	ldr r2, [r5]
-	ldr r4, _08032EA8  @ gActiveUnit
-	ldr r1, [r4]
-	ldr r0, [r1, #4]
-	ldrb r0, [r0, #0x12]
-	ldrb r1, [r1, #0x1d]
-	adds r0, r0, r1
-	ldr r1, _08032EAC  @ gActionData
-	ldrb r1, [r1, #0x10]
-	subs r0, r0, r1
-	adds r2, #0x2b
-	strb r0, [r2]
-	movs r0, #0
-	bl sub_80329EC
-	ldr r1, [r4]
-	movs r0, #0x10
-	ldrsb r0, [r1, r0]
-	ldrb r1, [r1, #0x11]
-	lsls r1, r1, #0x18
-	asrs r1, r1, #0x18
-	bl AddPointToPathArrowProc
-	ldr r0, [r5]
-	adds r1, r0, #0
-	adds r1, #0x2b
-	ldrb r1, [r1]
-	adds r0, #0x55
-	strb r1, [r0]
-	ldr r1, _08032EB0  @ 0x0000FFFF
-	adds r0, r1, #0
-	bl sub_80329D8
-	bl sub_8032EB4
-_08032E90:
-	pop {r4, r5}
-	pop {r0}
-	bx r0
-	.align 2, 0
-_08032E98: .4byte gUnknown_08A03054
-_08032E9C: .4byte 0x06015E00
-_08032EA0: .4byte gUnknown_08A0328C
-_08032EA4: .4byte gUnknown_0859DBA0
-_08032EA8: .4byte gActiveUnit
-_08032EAC: .4byte gActionData
-_08032EB0: .4byte 0x0000FFFF
-
-	THUMB_FUNC_END sub_8032E28
-
 	THUMB_FUNC_START sub_8032EB4
 sub_8032EB4: @ 0x08032EB4
 	push {r4, r5, r6, r7, lr}

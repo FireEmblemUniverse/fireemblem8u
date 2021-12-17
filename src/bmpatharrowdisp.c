@@ -3,9 +3,10 @@
 #include "bmidoten.h"
 #include "bmpatharrowdisp.h"
 #include "bmunit.h"
+#include "hardware.h"
 #include "mu.h"
 
-void sub_80329D8(u8 a, u8 b) {
+void sub_80329D8(u32 a, u32 b) {
     gUnknown_0859DBA0.proc->u29 = a;
     gUnknown_0859DBA0.proc->u2a = b;
 }
@@ -21,7 +22,7 @@ void sub_80329EC(s8 arg1) {
         s8 i;
         gUnknown_0859DBA0.proc->pathLen = arg1 - 1;
         gUnknown_0859DBA0.proc->pathCosts[gUnknown_0859DBA0.proc->pathLen] =
-            gUnknown_0859DBA0.proc->u2b;
+            gUnknown_0859DBA0.proc->maxMov;
         for (i = 1; i <= gUnknown_0859DBA0.proc->pathLen; i++) {
             u8 *costs = GetWorkingMoveCosts();
             gUnknown_0859DBA0.proc->pathCosts[i] =
@@ -155,4 +156,20 @@ u32 PathContainsNoCycle(void) {
     }
 
     return 1;
+}
+
+// Initializes some PathArrowProc stuff
+void sub_8032E28(u8 a) {
+    CopyDataWithPossibleUncomp(gUnknown_08A03054, (void *) OBJ_VRAM0 + 0x5E00);
+    CopyToPaletteBuffer(gUnknown_08A0328C, 0x98 * 4, 0x20);
+    if (a == 0) {
+        gUnknown_0859DBA0.proc->maxMov =
+            gActiveUnit->movBonus + gActiveUnit->pClassData->baseMov - gActionData.moveCount;
+        sub_80329EC(0);
+        AddPointToPathArrowProc(gActiveUnit->xPos, gActiveUnit->yPos);
+        gUnknown_0859DBA0.proc->pathCosts[0] = gUnknown_0859DBA0.proc->maxMov;
+        // This seems strange. But passing -1 to a signed argument doesn't seem to match
+        sub_80329D8(0xFFFF, 0xFFFF);
+        sub_8032EB4();
+    }
 }
