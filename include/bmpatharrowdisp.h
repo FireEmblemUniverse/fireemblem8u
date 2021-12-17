@@ -27,5 +27,8 @@ void GenerateMovementMapForActiveUnit(void);
 void sub_8032D74(void);
 u32 PathContainsNoCycle(void);
 void sub_8032EB4(void);
+u8 GetDirectionOfPathBeforeIndex(u8 i);
+u8 GetDirectionOfPathAfterIndex(u8 i);
+u8 PointInCameraBounds(s16 x, s16 y, u8 xBound, u8 yBound);
 
 #endif // GUARD_BM_PATH_ARROW_DISP_H

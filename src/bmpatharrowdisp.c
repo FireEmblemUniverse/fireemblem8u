@@ -439,3 +439,40 @@ void sub_8032EB4(void) {
 }
 
 #endif // NONMATCHING
+
+u8 GetDirectionOfPathBeforeIndex(u8 i) {
+    if (i == 0)
+        return 0;
+    if (gUnknown_0859DBA0.proc->pathX[i - 1] < gUnknown_0859DBA0.proc->pathX[i])
+        return 3;
+    if (gUnknown_0859DBA0.proc->pathX[i - 1] > gUnknown_0859DBA0.proc->pathX[i])
+        return 1;
+    if (gUnknown_0859DBA0.proc->pathY[i - 1] < gUnknown_0859DBA0.proc->pathY[i])
+        return 4;
+    if (gUnknown_0859DBA0.proc->pathY[i - 1] > gUnknown_0859DBA0.proc->pathY[i])
+        return 2;
+}
+
+u8 GetDirectionOfPathAfterIndex(u8 i) {
+    if (i == gUnknown_0859DBA0.proc->pathLen)
+        return 0;
+    if (gUnknown_0859DBA0.proc->pathX[i] < gUnknown_0859DBA0.proc->pathX[i + 1])
+        return 1;
+    if (gUnknown_0859DBA0.proc->pathX[i] > gUnknown_0859DBA0.proc->pathX[i + 1])
+        return 3;
+    if (gUnknown_0859DBA0.proc->pathY[i] < gUnknown_0859DBA0.proc->pathY[i + 1])
+        return 2;
+    if (gUnknown_0859DBA0.proc->pathY[i] > gUnknown_0859DBA0.proc->pathY[i + 1])
+        return 4;
+}
+
+u8 PointInCameraBounds(s16 x, s16 y, u8 xBound, u8 yBound) {
+    if (y - gUnknown_0202BCB0.camera.y > -yBound &&
+		y - gUnknown_0202BCB0.camera.y <= 0x9f &&
+		x - gUnknown_0202BCB0.camera.x > -xBound &&
+		x - gUnknown_0202BCB0.camera.x <= 0xef)
+	{
+		return 1;
+	}
+    return 0;
+}
