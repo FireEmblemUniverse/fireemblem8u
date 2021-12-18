@@ -19,6 +19,8 @@ struct Unknown_0859DBA0 {
 };
 extern struct Unknown_0859DBA0 gUnknown_0859DBA0;
 
+extern u16 gPathArrowOAMTable[5][5];
+
 void sub_80329EC(s8 arg1);
 void AddPointToPathArrowProc(s8 x, s8 y);
 s32 GetPointAlongPath(s8 x, s8 y);

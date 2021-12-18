@@ -3,8 +3,10 @@
 #include "bmidoten.h"
 #include "bmpatharrowdisp.h"
 #include "bmunit.h"
+#include "ctc.h"
 #include "hardware.h"
 #include "mu.h"
+#include "variables.h"
 
 void sub_80329D8(u16 a, u16 b) {
     gUnknown_0859DBA0.proc->u29 = a;
@@ -475,4 +477,32 @@ u8 PointInCameraBounds(s16 x, s16 y, u8 xBound, u8 yBound) {
 		return 1;
 	}
     return 0;
+}
+
+#define PATH_ARROW_OAM_AT(a, b) gPathArrowOAMTable[a][b];
+
+void DrawPathArrow(void) {
+    s8 i;
+    if (gUnknown_0859DBA0.proc->pathLen == 0)
+        return;
+    for (i = gUnknown_0859DBA0.proc->pathLen; i >= 0; i--) {
+        s16 xp = 16 * gUnknown_0859DBA0.proc->pathX[i];
+        s16 yp = 16 * gUnknown_0859DBA0.proc->pathY[i];
+        if (PointInCameraBounds(xp, yp, 16, 16)) {
+            u16 oam2 = PATH_ARROW_OAM_AT(
+                GetDirectionOfPathAfterIndex(i),
+                GetDirectionOfPathBeforeIndex(i));
+            PutSprite(
+                11,
+                xp - gUnknown_0202BCB0.camera.x,
+                yp - gUnknown_0202BCB0.camera.y,
+                gObject_16x16,
+                oam2);
+        }
+    }
+}
+
+void sub_8033248(void) {
+    sub_8032EB4();
+    DrawPathArrow();
 }

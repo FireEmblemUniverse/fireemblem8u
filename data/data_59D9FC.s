@@ -28,8 +28,8 @@ gUnknown_0859DABC:  @ 0x0859DABC
 gUnknown_0859DB24:  @ 0x0859DB24
 	.incbin "baserom.gba", 0x59DB24, 0x48
 
-	.global gUnknown_0859DB6C
-gUnknown_0859DB6C:  @ 0x0859DB6C
+	.global gPathArrowOAMTable
+gPathArrowOAMTable:  @ 0x0859DB6C
 	.incbin "baserom.gba", 0x59DB6C, 0x34
 
 	.global gUnknown_0859DBA0
