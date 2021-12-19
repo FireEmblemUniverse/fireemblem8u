@@ -129,6 +129,7 @@ SECTIONS
         asm/fx_slidingwallbg.o(.text);
         src/statscreen.o(.text);
         asm/code.o(.text);
+        asm/code_80CCA64.o(.text);
         asm/m4a_1.o(.text);
         src/m4a.o(.text);
         asm/libagbsyscall.o(.text);
