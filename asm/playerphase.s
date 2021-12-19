@@ -885,7 +885,7 @@ _0801CFC0:
 	bl GetUnitSelectionValueThing
 	cmp r0, #2
 	bne _0801CFD0
-	bl sub_8033248
+	bl DrawUpdatedPathArrow
 _0801CFD0:
 	ldr r1, _0801CFEC  @ gUnknown_0202BCB0
 	movs r3, #0x20

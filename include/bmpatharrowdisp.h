@@ -21,16 +21,21 @@ extern struct Unknown_0859DBA0 gUnknown_0859DBA0;
 
 extern u16 gPathArrowOAMTable[5][5];
 
-void sub_80329EC(s8 arg1);
+void SetLastCoords(u16 x, u16 y);
+void CutOffPathLength(s8 newIndex);
 void AddPointToPathArrowProc(s8 x, s8 y);
 s32 GetPointAlongPath(s8 x, s8 y);
 void GetPathFromMovementScript(void);
+void GetMovementScriptFromPath(void);
 void GenerateMovementMapForActiveUnit(void);
-void sub_8032D74(void);
-u32 PathContainsNoCycle(void);
-void sub_8032EB4(void);
+void ResetPathArrow(void);
+bool8 PathContainsNoCycle(void);
+void PathArrowDisp_Init(u8 a);
+void UpdatePathArrowWithCursor(void);
 u8 GetDirectionOfPathBeforeIndex(u8 i);
 u8 GetDirectionOfPathAfterIndex(u8 i);
 u8 PointInCameraBounds(s16 x, s16 y, u8 xBound, u8 yBound);
+void DrawPathArrow(void);
+void DrawUpdatedPathArrow(void);
 
 #endif // GUARD_BM_PATH_ARROW_DISP_H
