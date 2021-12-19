@@ -6,8 +6,8 @@
 struct PathArrowProc
 {
     PROC_HEADER;
-    s8 u29;
-    s8 u2a;
+    s8 lastX;
+    s8 lastY;
     s8 maxMov;
     s8 pathLen;
     /* 0x2d */ s8 pathX[20];

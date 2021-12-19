@@ -8,21 +8,20 @@
 #include "mu.h"
 #include "variables.h"
 
-void sub_80329D8(u16 a, u16 b) {
-    gUnknown_0859DBA0.proc->u29 = a;
-    gUnknown_0859DBA0.proc->u2a = b;
+void SetLastCoords(u16 x, u16 y) {
+    gUnknown_0859DBA0.proc->lastX = x;
+    gUnknown_0859DBA0.proc->lastY = y;
 }
 
 extern u8** gBmMapTerrain;
 
 #define TERRAIN_AT(x, y) gBmMapTerrain[y][x]
 
-// Has something to do with updating costs of each step in a path.
 // I could only get a match by inlining the whole loop body into one gross line.
-void sub_80329EC(s8 arg1) {
-    if (gUnknown_0859DBA0.proc->pathLen >= arg1) {
+void CutOffPathLength(s8 newIndex) {
+    if (gUnknown_0859DBA0.proc->pathLen >= newIndex) {
         s8 i;
-        gUnknown_0859DBA0.proc->pathLen = arg1 - 1;
+        gUnknown_0859DBA0.proc->pathLen = newIndex - 1;
         gUnknown_0859DBA0.proc->pathCosts[gUnknown_0859DBA0.proc->pathLen] =
             gUnknown_0859DBA0.proc->maxMov;
         for (i = 1; i <= gUnknown_0859DBA0.proc->pathLen; i++) {
@@ -138,10 +137,12 @@ void GenerateMovementMapForActiveUnit(void) {
 }
 
 void sub_8032D74(void) {
-    sub_80329EC(1);
+    CutOffPathLength(1);
     GenerateMovementMapForActiveUnit();
     GenerateBestMovementScript(
-            gUnknown_0202BCB0.playerCursor.x, gUnknown_0202BCB0.playerCursor.y, gWorkingMovementScript);
+        gUnknown_0202BCB0.playerCursor.x,
+        gUnknown_0202BCB0.playerCursor.y,
+        gWorkingMovementScript);
     GetPathFromMovementScript();
 }
 
@@ -160,18 +161,17 @@ u32 PathContainsNoCycle(void) {
     return 1;
 }
 
-// Initializes some PathArrowProc stuff
-void sub_8032E28(u8 a) {
+void PathArrowDisp_Init(u8 a) {
     CopyDataWithPossibleUncomp(gUnknown_08A03054, (void *) OBJ_VRAM0 + 0x5E00);
     CopyToPaletteBuffer(gUnknown_08A0328C, 0x98 * 4, 0x20);
     if (a == 0) {
         gUnknown_0859DBA0.proc->maxMov =
             gActiveUnit->movBonus + gActiveUnit->pClassData->baseMov - gActionData.moveCount;
-        sub_80329EC(0);
+        CutOffPathLength(0);
         AddPointToPathArrowProc(gActiveUnit->xPos, gActiveUnit->yPos);
         gUnknown_0859DBA0.proc->pathCosts[0] = gUnknown_0859DBA0.proc->maxMov;
         // This seems strange. But passing -1 to a signed argument doesn't seem to match
-        sub_80329D8(0xFFFF, 0xFFFF);
+        SetLastCoords(0xFFFF, 0xFFFF);
         sub_8032EB4();
     }
 }
@@ -181,24 +181,35 @@ void sub_8032E28(u8 a) {
 extern u8 **gBmMapMovement;
 extern u8 **gBmMapUnk;
 
+static inline s8 GetBmMapPointAtCursor() {
+    return gWorkingBmMap[gUnknown_0202BCB0.playerCursor.y][gUnknown_0202BCB0.playerCursor.x];
+}
+
 void sub_8032EB4(void) {
     u8 * costs;
     u8 terrain;
     s8 point;
 
-    if (gUnknown_0859DBA0.proc->u29 == gUnknown_0202BCB0.playerCursor.x && gUnknown_0859DBA0.proc->u2a == gUnknown_0202BCB0.playerCursor.y) return;
-    sub_80329D8(gUnknown_0202BCB0.playerCursor.x, gUnknown_0202BCB0.playerCursor.y);
-    SetWorkingBmMap(gBmMapMovement);
-    if ((s8) gWorkingBmMap[gUnknown_0202BCB0.playerCursor.y][gUnknown_0202BCB0.playerCursor.x] == -1) return;
-    point = GetPointAlongPath(gUnknown_0202BCB0.playerCursor.x, gUnknown_0202BCB0.playerCursor.y);
-    if (point != -1) {
-        sub_80329EC(point + 1);
+    if (gUnknown_0859DBA0.proc->lastX == gUnknown_0202BCB0.playerCursor.x &&
+        gUnknown_0859DBA0.proc->lastY == gUnknown_0202BCB0.playerCursor.y)
+    {
         return;
     }
-    //terrain = gBmMapTerrain[gUnknown_0202BCB0.playerCursor.y][gUnknown_0202BCB0.playerCursor.x];
-    if (gUnknown_0859DBA0.proc->pathCosts[gUnknown_0859DBA0.proc->pathLen] >= GetWorkingMoveCosts()[gBmMapTerrain[gUnknown_0202BCB0.playerCursor.y][gUnknown_0202BCB0.playerCursor.x]]) {
+    SetLastCoords(gUnknown_0202BCB0.playerCursor.x, gUnknown_0202BCB0.playerCursor.y);
+    SetWorkingBmMap(gBmMapMovement);
+    if (GetBmMapPointAtCursor() == -1)
+        return;
+    point = GetPointAlongPath(gUnknown_0202BCB0.playerCursor.x, gUnknown_0202BCB0.playerCursor.y);
+    if (point != -1) {
+        CutOffPathLength(point + 1);
+        return;
+    }
+    if (gUnknown_0859DBA0.proc->pathCosts[gUnknown_0859DBA0.proc->pathLen] >=
+        GetWorkingMoveCosts()[TERRAIN_AT(
+            gUnknown_0202BCB0.playerCursor.x,
+            gUnknown_0202BCB0.playerCursor.y)])
+    {
         s32 distX, distY;
-        //s8 pathLen = gUnknown_0859DBA0.proc->pathLen;
         distX = gUnknown_0859DBA0.proc->pathX[gUnknown_0859DBA0.proc->pathLen] - gUnknown_0202BCB0.playerCursor.x;
         if (distX < 0)
             distX = gUnknown_0202BCB0.playerCursor.x - gUnknown_0859DBA0.proc->pathX[gUnknown_0859DBA0.proc->pathLen];
@@ -211,14 +222,17 @@ void sub_8032EB4(void) {
         }
     }
     if (gUnknown_0859DBA0.proc->pathCosts[gUnknown_0859DBA0.proc->pathLen] == 0)
-        sub_80329EC(1);
+        CutOffPathLength(1);
     SetWorkingBmMap(gBmMapUnk);
     GenerateMovementMapForActiveUnit();
-    if (((s8) gWorkingBmMap[gUnknown_0202BCB0.playerCursor.y][gUnknown_0202BCB0.playerCursor.x]) == -1) {
+    if (GetBmMapPointAtCursor() == -1) {
         sub_8032D74();
         return;
     }
-    GenerateBestMovementScript(gUnknown_0202BCB0.playerCursor.x, gUnknown_0202BCB0.playerCursor.y, gWorkingMovementScript);
+    GenerateBestMovementScript(
+        gUnknown_0202BCB0.playerCursor.x,
+        gUnknown_0202BCB0.playerCursor.y,
+        gWorkingMovementScript);
     GetPathFromMovementScript();
     if (PathContainsNoCycle() == 0)
         sub_8032D74();
@@ -254,7 +268,7 @@ void sub_8032EB4(void) {
 	_08032EDE:\n\
 		ldrh r0, [r5, #0x14]\n\
 		ldrh r1, [r5, #0x16]\n\
-		bl sub_80329D8\n\
+		bl SetLastCoords\n\
 		ldr r0, _08032F40  @ gBmMapMovement\n\
 		ldr r0, [r0]\n\
 		bl SetWorkingBmMap\n\
@@ -292,7 +306,7 @@ void sub_8032EB4(void) {
 		lsls r3, r3, #0x11\n\
 		adds r0, r0, r3\n\
 		asrs r0, r0, #0x18\n\
-		bl sub_80329EC\n\
+		bl CutOffPathLength\n\
 		b _08033060\n\
 		.align 2, 0\n\
 	_08032F38: .4byte gUnknown_0859DBA0\n\
@@ -389,7 +403,7 @@ void sub_8032EB4(void) {
 		cmp r0, #0\n\
 		bne _08032FFE\n\
 		movs r0, #1\n\
-		bl sub_80329EC\n\
+		bl CutOffPathLength\n\
 	_08032FFE:\n\
 		ldr r0, _08033038  @ gBmMapUnk\n\
 		ldr r0, [r0]\n\

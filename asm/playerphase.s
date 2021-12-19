@@ -461,7 +461,7 @@ sub_801CC1C: @ 0x0801CC1C
 	cmp r1, r0
 	bne _0801CC70
 	movs r0, #0
-	bl sub_8032E28
+	bl PathArrowDisp_Init
 	ldr r0, _0801CC6C  @ gRAMChapterData
 	adds r0, #0x41
 	ldrb r0, [r0]
@@ -477,7 +477,7 @@ _0801CC68: .4byte gActiveUnit
 _0801CC6C: .4byte gRAMChapterData
 _0801CC70:
 	movs r0, #1
-	bl sub_8032E28
+	bl PathArrowDisp_Init
 _0801CC76:
 	pop {r4, r5}
 	pop {r0}
