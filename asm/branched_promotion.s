@@ -2,47 +2,6 @@
 
 	.SYNTAX UNIFIED
 
-	THUMB_FUNC_START MakePromotionScreen
-MakePromotionScreen: @ 0x080CC468
-	push {r4, r5, r6, lr}
-	adds r6, r0, #0
-	adds r4, r1, #0
-	adds r5, r2, #0
-	lsls r4, r4, #0x18
-	lsrs r4, r4, #0x18
-	lsls r5, r5, #0x18
-	lsrs r5, r5, #0x18
-	adds r1, r6, #0
-	adds r1, #0x30
-	movs r0, #0
-	strb r0, [r1]
-	adds r0, r6, #0
-	bl Make6C_PromotionMain
-	str r0, [r6, #0x2c]
-	adds r1, r0, #0
-	adds r1, #0x38
-	strb r4, [r1]
-	adds r0, #0x39
-	strb r5, [r0]
-	pop {r4, r5, r6}
-	pop {r0}
-	bx r0
-
-	THUMB_FUNC_END MakePromotionScreen
-
-	THUMB_FUNC_START Make6C_PromotionMain
-Make6C_PromotionMain: @ 0x080CC498
-	push {lr}
-	adds r1, r0, #0
-	ldr r0, _080CC4A8  @ gUnknown_08B12614
-	bl Proc_StartBlocking
-	pop {r1}
-	bx r1
-	.align 2, 0
-_080CC4A8: .4byte gUnknown_08B12614
-
-	THUMB_FUNC_END Make6C_PromotionMain
-
 	THUMB_FUNC_START sub_80CC4AC
 sub_80CC4AC: @ 0x080CC4AC
 	push {r4, r5, lr}

@@ -28,7 +28,9 @@ gUnknown_08B12A08:  @ 0x08B12A08
 
 	.global gUnknown_08207044
 gUnknown_08207044:  @ 0x08207044
-	.incbin "baserom.gba", 0x207044, 0x38
+	.incbin "baserom.gba", 0x207044, 0xC
+
+	.incbin "baserom.gba", 0x207050, 0x2C
 
 	.global gUnknown_0820707C
 gUnknown_0820707C:  @ 0x0820707C
