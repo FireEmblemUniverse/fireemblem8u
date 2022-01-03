@@ -939,3 +939,6 @@ scripts/dump_sound/bin
 scripts/dump_sound/obj
 scripts/dump_sound/sound
 scripts/dump_sound/sound.s
+
+# Converted sound samples
+sound/direct_sound_samples/*.bin
