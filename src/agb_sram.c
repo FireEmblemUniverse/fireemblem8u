@@ -1,6 +1,8 @@
 #include "global.h"
 #include "agb_sram.h"
 
+const char AgbLibSramVersion[] = "SRAM_F_V103";
+
 static u16 verifySramFast_Work[80]; // buffer to hold code of VerifySramFast_Core
 static u16 readSramFast_Work[64];  // buffer to hold code of ReadSramFast_Core
 

@@ -226,6 +226,7 @@ SECTIONS
         . = ALIGN(4); data/const_data_205B84.o(.rodata);
         . = ALIGN(4); src/m4a_tables.o(.rodata);
         . = ALIGN(4); data/sound_data.o(.rodata);
+        . = ALIGN(4); src/agb_sram.o(.rodata);
         . = ALIGN(4); *libc.a:vfprintf.o(.rodata);
         . = ALIGN(4); *libc.a:dtoa.o(.rodata);
         . = ALIGN(4); *libc.a:impure.o(.rodata);
