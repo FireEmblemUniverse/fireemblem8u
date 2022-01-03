@@ -24,6 +24,7 @@ CC1_OLD := tools/agbcc/bin/old_agbcc$(EXE)
 BIN2C    := tools/bin2c/bin2c$(EXE)
 GBAGFX   := tools/gbagfx/gbagfx$(EXE)
 SCANINC  := tools/scaninc/scaninc$(EXE)
+AIF2PCM  := tools/aif2pcm/aif2pcm$(EXE)
 
 ifeq ($(UNAME),Darwin)
 	SED := sed -i ''
@@ -46,6 +47,7 @@ ASFLAGS  := -mcpu=arm7tdmi -mthumb-interwork -I include
 C_SUBDIR = src
 ASM_SUBDIR = asm
 DATA_ASM_SUBDIR = data
+SAMPLE_SUBDIR = sound/direct_sound_samples
 
 ROM          := fireemblem8.gba
 ELF          := $(ROM:.gba=.elf)
@@ -81,7 +83,9 @@ clean:
 	$(RM) $(ROM) $(ELF) $(MAP) $(ALL_OBJECTS) src/*.s graphics/*.h
 	$(RM) -rf $(DEPS_DIR)
 	# Remove battle animation binaries
-	$(RM) data/banim/*.bin data/banim/*.o data/banim/*.lz data/banim/*.bak
+	$(RM) -f data/banim/*.bin data/banim/*.o data/banim/*.lz data/banim/*.bak
+	# Remove converted sound samples
+	$(RM) -f $(SAMPLE_SUBDIR)/*.bin
 
 .PHONY: clean
 
@@ -117,6 +121,7 @@ endif
 %.lz: % ; $(GBAGFX) $< $@
 %.rl: % ; $(GBAGFX) $< $@
 %.fk: % ; ./scripts/compressor.py $< fk
+sound/%.bin: sound/%.aif ; $(AIF2PCM) $< $@
 
 %.4bpp.h: %.4bpp
 	$(BIN2C) $< $(subst .,_,$(notdir $<)) | sed 's/^const //' > $@
