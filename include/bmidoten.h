@@ -41,7 +41,7 @@ void GenerateDangerZoneRange(s8 boolDisplayStaffRange);
 void GenerateMagicSealMap(int value);
 void SetWorkingBmMap(u8** map);
 void MapAddInBoundedRange(short x, short y, short minRange, short maxRange);
-u8* GetWorkingMoveCosts(void);
+s8* GetWorkingMoveCosts(void);
 
 extern u8** gWorkingBmMap;
 extern u8 gWorkingTerrainMoveCosts[];

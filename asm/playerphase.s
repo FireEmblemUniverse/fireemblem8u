@@ -461,7 +461,7 @@ sub_801CC1C: @ 0x0801CC1C
 	cmp r1, r0
 	bne _0801CC70
 	movs r0, #0
-	bl sub_8032E28
+	bl PathArrowDisp_Init
 	ldr r0, _0801CC6C  @ gRAMChapterData
 	adds r0, #0x41
 	ldrb r0, [r0]
@@ -477,7 +477,7 @@ _0801CC68: .4byte gActiveUnit
 _0801CC6C: .4byte gRAMChapterData
 _0801CC70:
 	movs r0, #1
-	bl sub_8032E28
+	bl PathArrowDisp_Init
 _0801CC76:
 	pop {r4, r5}
 	pop {r0}
@@ -885,7 +885,7 @@ _0801CFC0:
 	bl GetUnitSelectionValueThing
 	cmp r0, #2
 	bne _0801CFD0
-	bl sub_8033248
+	bl DrawUpdatedPathArrow
 _0801CFD0:
 	ldr r1, _0801CFEC  @ gUnknown_0202BCB0
 	movs r3, #0x20
@@ -1669,7 +1669,7 @@ _0801D61E:
 	THUMB_FUNC_START sub_801D624
 sub_801D624: @ 0x0801D624
 	push {lr}
-	bl sub_8032C88
+	bl GetMovementScriptFromPath
 	ldr r0, _0801D644  @ gActiveUnit
 	ldr r0, [r0]
 	movs r1, #0x10

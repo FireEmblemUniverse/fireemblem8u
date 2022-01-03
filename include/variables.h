@@ -1544,7 +1544,6 @@ extern const struct ProcCmd gUnknown_0859A548[]; // this is GENS/Camera Movement
 // extern ??? gUnknown_0859DA94
 // extern ??? gUnknown_0859DABC
 // extern ??? gUnknown_0859DB24
-// extern ??? gUnknown_0859DB6C
 // extern ??? gUnknown_0859DBA0
 // extern ??? gUnknown_0859DBA4
 // extern ??? gUnknown_0859DBBC
@@ -3365,8 +3364,8 @@ extern u16 CONST_DATA gUnknown_08A027FC[][0x10]; // color animation for each pag
 // extern ??? gUnknown_08A02F34
 // extern ??? gUnknown_08A02F94
 // extern ??? gUnknown_08A02FF4
-// extern ??? gUnknown_08A03054
-// extern ??? gUnknown_08A0328C
+extern u8 CONST_DATA gUnknown_08A03054[];
+extern u8 CONST_DATA gUnknown_08A0328C[];
 // extern ??? gUnknown_08A032AC
 // extern ??? gUnknown_08A03334
 // extern ??? gUnknown_08A03354

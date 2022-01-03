@@ -151,7 +151,7 @@ char *sub_800A2A4(void)
 }
 
 #if NONMATCHING
-void *FilterSomeTextFromStandardBuffer(void)
+char *FilterSomeTextFromStandardBuffer(void)
 {
     u8 *r5 = gUnknown_0202A6AC.buffer0202B4AC;
     u8 *r4 = gUnknown_0202A6AC.buffer0202B5AC;

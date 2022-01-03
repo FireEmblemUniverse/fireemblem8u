@@ -840,7 +840,7 @@ void GenerateMagicSealMap(int value)
     }
 }
 
-inline u8* GetWorkingMoveCosts(void)
+inline s8* GetWorkingMoveCosts(void)
 {
     return gWorkingTerrainMoveCosts;
 }
