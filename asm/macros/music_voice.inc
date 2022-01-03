@@ -82,16 +82,23 @@
 	.byte (\release & 0x7)
 	.endm
 
-	.macro voice_noise period, attack, decay, sustain, release
-	_voice_noise 4, \period, \attack, \decay, \sustain, \release
+	.macro voice_noise base_midi_key:req, pan:req, unk:req, period:req, attack:req, decay:req, sustain:req, release:req
+	_voice_noise 4, \base_midi_key, \pan, \unk, \period, \attack, \decay, \sustain, \release
 	.endm
 
-	.macro voice_noise_alt period, attack, decay, sustain, release
-	_voice_noise 12, \period, \attack, \decay, \sustain, \release
+	.macro voice_noise_alt base_midi_key:req, pan:req, unk:req, period:req, attack:req, decay:req, sustain:req, release:req
+	_voice_noise 12, \base_midi_key, \pan, \unk, \period, \attack, \decay, \sustain, \release
 	.endm
 
-	.macro _voice_noise type, period, attack, decay, sustain, release
-	.byte \type, 60, 0, 0
+	.macro _voice_noise type:req, base_midi_key:req, pan:req, unk:req, period:req, attack:req, decay:req, sustain:req, release:req
+	.byte \type
+	.byte \base_midi_key
+	.if \pan != 0
+	.byte (0x80 | \pan)
+	.else
+	.byte 0
+	.endif
+	.byte \unk
 	.byte (\period & 0x1)
 	.byte 0, 0, 0
 	.byte (\attack  & 0x7)

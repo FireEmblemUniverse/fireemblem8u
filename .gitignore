@@ -933,3 +933,9 @@ MigrationBackup/
 
 # GCC dump (-da -dv)
 gccdump/
+
+# Artifact of dump_sound
+scripts/dump_sound/bin
+scripts/dump_sound/obj
+scripts/dump_sound/sound
+scripts/dump_sound/sound.s
