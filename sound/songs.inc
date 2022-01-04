@@ -1,4 +1,4 @@
-    .align 2
+	.align 2
 	@********************** Track  1 **********************@
 
 	.global Song_08546288_1
@@ -779,7 +779,7 @@ Song_08546288_2:	@ 0x085454C5
 	.byte	0x98
 	.byte	0xB0
 	.byte	0xB0
-Song_085454D3:
+Song_08546288_2_1:
 	.byte	0xD8
 	.byte	0x2C
 	.byte	0x7F
@@ -789,7 +789,7 @@ Song_085454D3:
 	.byte	0xD8
 	.byte	0x98
 	.byte	0xB4
-Song_085454DC:
+Song_08546288_2_2:
 	.byte	0x8C
 	.byte	0xD8
 	.byte	0x2C
@@ -803,25 +803,25 @@ Song_085454DC:
 	.byte	0x8C
 	.byte	0xB4
 	.byte	0xB3
-	.word	Song_085454D3
+	.word	Song_08546288_2_1
 	.byte	0xB3
-	.word	Song_085454DC
+	.word	Song_08546288_2_2
 	.byte	0xB3
-	.word	Song_085454D3
+	.word	Song_08546288_2_1
 	.byte	0xB3
-	.word	Song_085454DC
+	.word	Song_08546288_2_2
 	.byte	0xB3
-	.word	Song_085454D3
+	.word	Song_08546288_2_1
 	.byte	0xB3
-	.word	Song_085454D3
+	.word	Song_08546288_2_1
 	.byte	0xB3
-	.word	Song_085454D3
+	.word	Song_08546288_2_1
 	.byte	0xB3
-	.word	Song_085454DC
+	.word	Song_08546288_2_2
 	.byte	0xB3
-	.word	Song_085454D3
+	.word	Song_08546288_2_1
 	.byte	0xB3
-	.word	Song_085454DC
+	.word	Song_08546288_2_2
 	.byte	0xD8
 	.byte	0x36
 	.byte	0x7F
@@ -1833,7 +1833,7 @@ Song_08546288_4:	@ 0x085458F3
 	.byte	0xA0
 	.byte	0x83
 	.byte	0xB0
-Song_08545903:
+Song_08546288_4_1:
 	.byte	0xE7
 	.byte	0x33
 	.byte	0x68
@@ -1871,7 +1871,7 @@ Song_08545903:
 	.byte	0x20
 	.byte	0x86
 	.byte	0xB4
-Song_08545928:
+Song_08546288_4_2:
 	.byte	0xEE
 	.byte	0x3D
 	.byte	0x68
@@ -1897,7 +1897,7 @@ Song_08545928:
 	.byte	0x3F
 	.byte	0x86
 	.byte	0xB4
-Song_08545941:
+Song_08546288_4_3:
 	.byte	0xEE
 	.byte	0x3B
 	.byte	0x68
@@ -2022,11 +2022,11 @@ Song_08545941:
 	.byte	0x20
 	.byte	0x86
 	.byte	0xB3
-	.word	Song_08545903
+	.word	Song_08546288_4_1
 	.byte	0xB3
-	.word	Song_08545928
+	.word	Song_08546288_4_2
 	.byte	0xB3
-	.word	Song_08545941
+	.word	Song_08546288_4_3
 	.byte	0x8C
 	.byte	0xD5
 	.byte	0x3B
@@ -2740,7 +2740,7 @@ Song_08546288_5:	@ 0x08545B74
 	.byte	0xA8
 	.byte	0xE7
 	.byte	0x98
-Song_08545C8F:
+Song_08546288_5_1:
 	.byte	0xE7
 	.byte	0x3C
 	.byte	0x7C
@@ -2749,7 +2749,7 @@ Song_08545C8F:
 	.byte	0xA0
 	.byte	0xB4
 	.byte	0xB3
-	.word	Song_08545C8F
+	.word	Song_08546288_5_1
 	.byte	0xEC
 	.byte	0x37
 	.byte	0x7C
@@ -3088,7 +3088,7 @@ Song_08546288_7:	@ 0x08545D9B
 	.byte	0x3F
 	.byte	0x24
 	.byte	0x86
-Song_08545DE3:
+Song_08546288_7_1:
 	.byte	0x8C
 	.byte	0xD5
 	.byte	0x38
@@ -3140,7 +3140,7 @@ Song_08545DE3:
 	.byte	0x24
 	.byte	0x86
 	.byte	0xB4
-Song_08545E16:
+Song_08546288_7_2:
 	.byte	0xD5
 	.byte	0x3B
 	.byte	0x5C
@@ -3193,7 +3193,7 @@ Song_08545E16:
 	.byte	0x24
 	.byte	0x86
 	.byte	0xB4
-Song_08545E4A:
+Song_08546288_7_3:
 	.byte	0x8C
 	.byte	0xD5
 	.byte	0x3B
@@ -3465,11 +3465,11 @@ Song_08545E4A:
 	.byte	0x24
 	.byte	0x86
 	.byte	0xB3
-	.word	Song_08545DE3
+	.word	Song_08546288_7_1
 	.byte	0xB3
-	.word	Song_08545E16
+	.word	Song_08546288_7_2
 	.byte	0xB3
-	.word	Song_08545E4A
+	.word	Song_08546288_7_3
 	.byte	0xD5
 	.byte	0x3B
 	.byte	0x5C
@@ -3976,7 +3976,7 @@ Song_08546288_8:	@ 0x08546144
 	.byte	0x7F
 	.byte	0x9B
 	.byte	0x81
-Song_0854615C:
+Song_08546288_8_1:
 	.byte	0xEB
 	.byte	0x31
 	.byte	0x7F
@@ -3998,7 +3998,7 @@ Song_0854615C:
 	.byte	0xD4
 	.byte	0x86
 	.byte	0xB4
-Song_08546171:
+Song_08546288_8_2:
 	.byte	0xD5
 	.byte	0x26
 	.byte	0x7F
@@ -4025,7 +4025,7 @@ Song_08546171:
 	.byte	0x27
 	.byte	0x8C
 	.byte	0xB4
-Song_0854618B:
+Song_08546288_8_3:
 	.byte	0xD5
 	.byte	0x26
 	.byte	0x7F
@@ -4057,7 +4057,7 @@ Song_0854618B:
 	.byte	0xD4
 	.byte	0x86
 	.byte	0xB4
-Song_085461AA:
+Song_08546288_8_4:
 	.byte	0xD5
 	.byte	0x26
 	.byte	0x7F
@@ -4079,9 +4079,9 @@ Song_085461AA:
 	.byte	0x98
 	.byte	0xB4
 	.byte	0xB3
-	.word	Song_0854615C
+	.word	Song_08546288_8_1
 	.byte	0xB3
-	.word	Song_08546171
+	.word	Song_08546288_8_2
 	.byte	0xD5
 	.byte	0x26
 	.byte	0x60
@@ -4138,13 +4138,13 @@ Song_085461AA:
 	.byte	0x27
 	.byte	0x98
 	.byte	0xB3
-	.word	Song_0854615C
+	.word	Song_08546288_8_1
 	.byte	0xB3
-	.word	Song_08546171
+	.word	Song_08546288_8_2
 	.byte	0xB3
-	.word	Song_0854618B
+	.word	Song_08546288_8_3
 	.byte	0xB3
-	.word	Song_085461AA
+	.word	Song_08546288_8_4
 	.byte	0xD5
 	.byte	0x26
 	.byte	0x7F
@@ -4172,7 +4172,7 @@ Song_085461AA:
 	.byte	0xD4
 	.byte	0x86
 	.byte	0xB3
-	.word	Song_08546171
+	.word	Song_08546288_8_2
 	.byte	0xB0
 	.byte	0xA0
 	.byte	0xD7
@@ -4268,7 +4268,7 @@ Song_08546288:	@ 0x08546288
 	.byte	10		@ priority
 	.byte	148		@ reverb
 
-	.word	voicegroup_08207470		@ voicegroup/tone
+	.word	voicegroup000		@ voicegroup/tone
 
 	.word	Song_08546288_1		@ track
 	.word	Song_08546288_2		@ track
@@ -4610,7 +4610,7 @@ Song_08547A74_1:	@ 0x085462B0
 	.byte	0x82
 	.byte	0xCE
 	.byte	0x83
-Song_085463F6:
+Song_08547A74_1_1:
 	.byte	0xBD
 	.byte	0x31
 	.byte	0xBE
@@ -4931,7 +4931,7 @@ Song_085463F6:
 	.byte	0x50
 	.byte	0xB0
 	.byte	0xB2
-	.word	Song_085463F6
+	.word	Song_08547A74_1_1
 	.byte	0xB1
 
 	@********************** Track  2 **********************@
@@ -4980,12 +4980,12 @@ Song_08547A74_2:	@ 0x0854653B
 	.byte	0x98
 	.byte	0x33
 	.byte	0x98
-Song_08546565:
+Song_08547A74_2_6:
 	.byte	0xFE
 	.byte	0x2C
 	.byte	0x7F
 	.byte	0xB0
-Song_08546569:
+Song_08547A74_2_1:
 	.byte	0xEE
 	.byte	0x31
 	.byte	0x7F
@@ -4995,7 +4995,7 @@ Song_08546569:
 	.byte	0x30
 	.byte	0x98
 	.byte	0xB4
-Song_08546572:
+Song_08547A74_2_2:
 	.byte	0xF2
 	.byte	0x2E
 	.byte	0x7F
@@ -5007,7 +5007,7 @@ Song_08546572:
 	.byte	0x31
 	.byte	0x8C
 	.byte	0xB4
-Song_0854657D:
+Song_08547A74_2_3:
 	.byte	0xE4
 	.byte	0x33
 	.byte	0x7F
@@ -5019,7 +5019,7 @@ Song_0854657D:
 	.byte	0x33
 	.byte	0x98
 	.byte	0xB4
-Song_08546588:
+Song_08547A74_2_4:
 	.byte	0xF6
 	.byte	0x2C
 	.byte	0x7F
@@ -5027,7 +5027,7 @@ Song_08546588:
 	.byte	0xE4
 	.byte	0x98
 	.byte	0xB4
-Song_0854658F:
+Song_08547A74_2_5:
 	.byte	0xF6
 	.byte	0x31
 	.byte	0x7F
@@ -5213,15 +5213,15 @@ Song_0854658F:
 	.byte	0x2C
 	.byte	0xB0
 	.byte	0xB3
-	.word	Song_08546569
+	.word	Song_08547A74_2_1
 	.byte	0xB3
-	.word	Song_08546572
+	.word	Song_08547A74_2_2
 	.byte	0xB3
-	.word	Song_0854657D
+	.word	Song_08547A74_2_3
 	.byte	0xB3
-	.word	Song_08546588
+	.word	Song_08547A74_2_4
 	.byte	0xB3
-	.word	Song_0854658F
+	.word	Song_08547A74_2_5
 	.byte	0xEE
 	.byte	0x2E
 	.byte	0x7F
@@ -5311,7 +5311,7 @@ Song_0854658F:
 	.byte	0x33
 	.byte	0x8C
 	.byte	0xB2
-	.word	Song_08546565
+	.word	Song_08547A74_2_6
 	.byte	0xB1
 
 	@********************** Track  3 **********************@
@@ -5675,7 +5675,7 @@ Song_08547A74_3:	@ 0x085466BE
 	.byte	0xB0
 	.byte	0xB0
 	.byte	0xB0
-Song_08546823:
+Song_08547A74_3_1:
 	.byte	0xB0
 	.byte	0xB0
 	.byte	0xB0
@@ -6337,7 +6337,7 @@ Song_08546823:
 	.byte	0x1C
 	.byte	0x86
 	.byte	0xB2
-	.word	Song_08546823
+	.word	Song_08547A74_3_1
 	.byte	0xB1
 
 	@********************** Track  4 **********************@
@@ -6451,7 +6451,7 @@ Song_08547A74_4:	@ 0x08546ABD
 	.byte	0x84
 	.byte	0x3A
 	.byte	0x84
-Song_08546B28:
+Song_08547A74_4_1:
 	.byte	0xEF
 	.byte	0x3C
 	.byte	0x50
@@ -6485,7 +6485,7 @@ Song_08546B28:
 	.byte	0x3D
 	.byte	0x98
 	.byte	0xB3
-	.word	Song_08546B28
+	.word	Song_08547A74_4_1
 	.byte	0xEF
 	.byte	0x48
 	.byte	0x50
@@ -7246,7 +7246,7 @@ Song_08546B28:
 	.byte	0x3A
 	.byte	0x84
 	.byte	0xB2
-	.word	Song_08546B28
+	.word	Song_08547A74_4_1
 	.byte	0xB1
 
 	@********************** Track  5 **********************@
@@ -7665,7 +7665,7 @@ Song_08547A74_5:	@ 0x08546E4A
 	.byte	0xD5
 	.byte	0x3D
 	.byte	0x86
-Song_08546FE6:
+Song_08547A74_5_1:
 	.byte	0xFF
 	.byte	0x38
 	.byte	0x4C
@@ -8641,7 +8641,7 @@ Song_08546FE6:
 	.byte	0x1C
 	.byte	0x98
 	.byte	0xB2
-	.word	Song_08546FE6
+	.word	Song_08547A74_5_1
 	.byte	0xB1
 
 	@********************** Track  6 **********************@
@@ -8808,11 +8808,11 @@ Song_08547A74_6:	@ 0x085473BA
 	.byte	0x38
 	.byte	0x24
 	.byte	0x86
-Song_0854745A:
+Song_08547A74_6_2:
 	.byte	0xB0
 	.byte	0xB0
 	.byte	0xB0
-Song_0854745D:
+Song_08547A74_6_1:
 	.byte	0xBD
 	.byte	0x44
 	.byte	0xBE
@@ -8942,7 +8942,7 @@ Song_0854745D:
 	.byte	0x54
 	.byte	0xA0
 	.byte	0xB3
-	.word	Song_0854745D
+	.word	Song_08547A74_6_1
 	.byte	0xA8
 	.byte	0xDB
 	.byte	0x50
@@ -9229,7 +9229,7 @@ Song_0854745D:
 	.byte	0xB0
 	.byte	0xB0
 	.byte	0xB2
-	.word	Song_0854745A
+	.word	Song_08547A74_6_2
 	.byte	0xB1
 
 	@********************** Track  7 **********************@
@@ -9353,7 +9353,7 @@ Song_08547A74_7:	@ 0x08547605
 	.byte	0x3F
 	.byte	0x7C
 	.byte	0x86
-Song_0854767A:
+Song_08547A74_7_2:
 	.byte	0xE7
 	.byte	0x38
 	.byte	0x6C
@@ -9364,7 +9364,7 @@ Song_0854767A:
 	.byte	0xB0
 	.byte	0xB0
 	.byte	0xB0
-Song_08547684:
+Song_08547A74_7_1:
 	.byte	0xA8
 	.byte	0xD3
 	.byte	0x38
@@ -9440,7 +9440,7 @@ Song_08547684:
 	.byte	0xB0
 	.byte	0xB0
 	.byte	0xB3
-	.word	Song_08547684
+	.word	Song_08547A74_7_1
 	.byte	0xE7
 	.byte	0x38
 	.byte	0x6C
@@ -9505,9 +9505,9 @@ Song_08547684:
 	.byte	0x40
 	.byte	0xB0
 	.byte	0xB3
-	.word	Song_08547684
+	.word	Song_08547A74_7_1
 	.byte	0xB2
-	.word	Song_0854767A
+	.word	Song_08547A74_7_2
 	.byte	0xB1
 
 	@********************** Track  8 **********************@
@@ -9584,7 +9584,7 @@ Song_08547A74_8:	@ 0x0854771D
 	.byte	0x86
 	.byte	0xD5
 	.byte	0x86
-Song_08547763:
+Song_08547A74_8_7:
 	.byte	0xD5
 	.byte	0x26
 	.byte	0x68
@@ -9629,7 +9629,7 @@ Song_08547763:
 	.byte	0x86
 	.byte	0xD5
 	.byte	0x86
-Song_0854778F:
+Song_08547A74_8_1:
 	.byte	0xD5
 	.byte	0x26
 	.byte	0x60
@@ -9652,7 +9652,7 @@ Song_0854778F:
 	.byte	0x4C
 	.byte	0x98
 	.byte	0xB4
-Song_085477A5:
+Song_08547A74_8_2:
 	.byte	0xD5
 	.byte	0x26
 	.byte	0x50
@@ -9673,7 +9673,7 @@ Song_085477A5:
 	.byte	0x58
 	.byte	0x98
 	.byte	0xB4
-Song_085477B9:
+Song_08547A74_8_3:
 	.byte	0xD5
 	.byte	0x26
 	.byte	0x5C
@@ -9697,7 +9697,7 @@ Song_085477B9:
 	.byte	0x54
 	.byte	0x8C
 	.byte	0xB4
-Song_085477D0:
+Song_08547A74_8_6:
 	.byte	0xD5
 	.byte	0x26
 	.byte	0x5C
@@ -9722,7 +9722,7 @@ Song_085477D0:
 	.byte	0x68
 	.byte	0x8C
 	.byte	0xB4
-Song_085477E8:
+Song_08547A74_8_4:
 	.byte	0xD5
 	.byte	0x26
 	.byte	0x60
@@ -10141,7 +10141,7 @@ Song_085477E8:
 	.byte	0x26
 	.byte	0x48
 	.byte	0x8C
-Song_0854798A:
+Song_08547A74_8_5:
 	.byte	0xD5
 	.byte	0x26
 	.byte	0x68
@@ -10162,11 +10162,11 @@ Song_0854798A:
 	.byte	0x8C
 	.byte	0xB4
 	.byte	0xB3
-	.word	Song_0854778F
+	.word	Song_08547A74_8_1
 	.byte	0xB3
-	.word	Song_085477A5
+	.word	Song_08547A74_8_2
 	.byte	0xB3
-	.word	Song_085477B9
+	.word	Song_08547A74_8_3
 	.byte	0xD5
 	.byte	0x26
 	.byte	0x5C
@@ -10191,7 +10191,7 @@ Song_0854798A:
 	.byte	0x50
 	.byte	0x8C
 	.byte	0xB3
-	.word	Song_085477E8
+	.word	Song_08547A74_8_4
 	.byte	0xD5
 	.byte	0x26
 	.byte	0x58
@@ -10252,7 +10252,7 @@ Song_0854798A:
 	.byte	0x48
 	.byte	0x8C
 	.byte	0xB3
-	.word	Song_0854798A
+	.word	Song_08547A74_8_5
 	.byte	0xD5
 	.byte	0x26
 	.byte	0x60
@@ -10273,7 +10273,7 @@ Song_0854798A:
 	.byte	0x4C
 	.byte	0x98
 	.byte	0xB3
-	.word	Song_085477A5
+	.word	Song_08547A74_8_2
 	.byte	0xD5
 	.byte	0x26
 	.byte	0x5C
@@ -10293,7 +10293,7 @@ Song_0854798A:
 	.byte	0x54
 	.byte	0x8C
 	.byte	0xB3
-	.word	Song_085477D0
+	.word	Song_08547A74_8_6
 	.byte	0xD5
 	.byte	0x26
 	.byte	0x60
@@ -10347,7 +10347,7 @@ Song_0854798A:
 	.byte	0x7C
 	.byte	0x86
 	.byte	0xB2
-	.word	Song_08547763
+	.word	Song_08547A74_8_7
 	.byte	0xB1
 	.byte	0x00
 	.byte	0x00
@@ -10361,7 +10361,7 @@ Song_08547A74:	@ 0x08547A74
 	.byte	10		@ priority
 	.byte	148		@ reverb
 
-	.word	voicegroup_08207A70		@ voicegroup/tone
+	.word	voicegroup001		@ voicegroup/tone
 
 	.word	Song_08547A74_1		@ track
 	.word	Song_08547A74_2		@ track
@@ -10385,7 +10385,7 @@ Song_08548040_1:	@ 0x08547A9C
 	.byte	0xB0
 	.byte	0xB0
 	.byte	0xB0
-Song_08547AA4:
+Song_08548040_1_1:
 	.byte	0xB0
 	.byte	0xB0
 	.byte	0xB0
@@ -10433,7 +10433,7 @@ Song_08547AA4:
 	.byte	0xCE
 	.byte	0x81
 	.byte	0xB2
-	.word	Song_08547AA4
+	.word	Song_08548040_1_1
 	.byte	0xB1
 
 	@********************** Track  2 **********************@
@@ -10460,7 +10460,7 @@ Song_08548040_2:	@ 0x08547AD8
 	.byte	0x37
 	.byte	0x30
 	.byte	0x89
-Song_08547AEC:
+Song_08548040_2_1:
 	.byte	0xEC
 	.byte	0x41
 	.byte	0x74
@@ -10485,7 +10485,7 @@ Song_08547AEC:
 	.byte	0x40
 	.byte	0x74
 	.byte	0xB0
-Song_08547B04:
+Song_08548040_2_2:
 	.byte	0x83
 	.byte	0xDA
 	.byte	0x40
@@ -10493,7 +10493,7 @@ Song_08547B04:
 	.byte	0xAF
 	.byte	0x81
 	.byte	0xB4
-Song_08547B0B:
+Song_08548040_2_3:
 	.byte	0xBD
 	.byte	0x3C
 	.byte	0xBE
@@ -10511,7 +10511,7 @@ Song_08547B0B:
 	.byte	0x30
 	.byte	0x89
 	.byte	0xB3
-	.word	Song_08547AEC
+	.word	Song_08548040_2_1
 	.byte	0xFE
 	.byte	0x3C
 	.byte	0x64
@@ -10520,7 +10520,7 @@ Song_08547B0B:
 	.byte	0x74
 	.byte	0xB0
 	.byte	0xB3
-	.word	Song_08547B04
+	.word	Song_08548040_2_2
 	.byte	0xB0
 	.byte	0xFA
 	.byte	0x37
@@ -10682,7 +10682,7 @@ Song_08547B0B:
 	.byte	0x3C
 	.byte	0xA0
 	.byte	0xB2
-	.word	Song_08547B0B
+	.word	Song_08548040_2_3
 	.byte	0xB1
 
 	@********************** Track  3 **********************@
@@ -10716,7 +10716,7 @@ Song_08548040_3:	@ 0x08547BD2
 	.byte	0xDA
 	.byte	0x37
 	.byte	0x8C
-Song_08547BED:
+Song_08548040_3_2:
 	.byte	0xCF
 	.byte	0x24
 	.byte	0x6C
@@ -10799,7 +10799,7 @@ Song_08547BED:
 	.byte	0x86
 	.byte	0x56
 	.byte	0x86
-Song_08547C3F:
+Song_08548040_3_1:
 	.byte	0xD5
 	.byte	0x54
 	.byte	0x58
@@ -10868,7 +10868,7 @@ Song_08547C3F:
 	.byte	0x56
 	.byte	0x86
 	.byte	0xB3
-	.word	Song_08547C3F
+	.word	Song_08548040_3_1
 	.byte	0xBD
 	.byte	0x33
 	.byte	0xBE
@@ -10905,7 +10905,7 @@ Song_08547C3F:
 	.byte	0x37
 	.byte	0xA0
 	.byte	0xB2
-	.word	Song_08547BED
+	.word	Song_08548040_3_2
 	.byte	0xB1
 
 	@********************** Track  4 **********************@
@@ -10935,7 +10935,7 @@ Song_08548040_4:	@ 0x08547CB0
 	.byte	0xFC
 	.byte	0x40
 	.byte	0xB0
-Song_08547CC7:
+Song_08548040_4_2:
 	.byte	0xB0
 	.byte	0xB0
 	.byte	0xF6
@@ -11118,7 +11118,7 @@ Song_08547CC7:
 	.byte	0x3C
 	.byte	0x64
 	.byte	0x8C
-Song_08547D7D:
+Song_08548040_4_1:
 	.byte	0xD4
 	.byte	0x35
 	.byte	0x5C
@@ -11147,7 +11147,7 @@ Song_08547D7D:
 	.byte	0x8C
 	.byte	0xB4
 	.byte	0xB3
-	.word	Song_08547D7D
+	.word	Song_08548040_4_1
 	.byte	0xD4
 	.byte	0x32
 	.byte	0x5C
@@ -11273,7 +11273,7 @@ Song_08547D7D:
 	.byte	0x3C
 	.byte	0xB0
 	.byte	0xB2
-	.word	Song_08547CC7
+	.word	Song_08548040_4_2
 	.byte	0xB1
 
 	@********************** Track  5 **********************@
@@ -11293,7 +11293,7 @@ Song_08548040_5:	@ 0x08547E1F
 	.byte	0xBF
 	.byte	0x40
 	.byte	0x98
-Song_08547E2C:
+Song_08548040_5_1:
 	.byte	0xDB
 	.byte	0x3B
 	.byte	0x74
@@ -11313,7 +11313,7 @@ Song_08547E2C:
 	.byte	0x7C
 	.byte	0x8C
 	.byte	0xB4
-Song_08547E3F:
+Song_08548040_5_2:
 	.byte	0xDB
 	.byte	0x3B
 	.byte	0x7C
@@ -11334,7 +11334,7 @@ Song_08547E3F:
 	.byte	0x7F
 	.byte	0x8C
 	.byte	0xB4
-Song_08547E53:
+Song_08548040_5_3:
 	.byte	0xDB
 	.byte	0x3B
 	.byte	0x7F
@@ -11353,7 +11353,7 @@ Song_08547E53:
 	.byte	0x7C
 	.byte	0x8C
 	.byte	0xB4
-Song_08547E65:
+Song_08548040_5_4:
 	.byte	0xDB
 	.byte	0x3B
 	.byte	0x7F
@@ -11374,47 +11374,47 @@ Song_08547E65:
 	.byte	0x8C
 	.byte	0xB4
 	.byte	0xB3
-	.word	Song_08547E2C
+	.word	Song_08548040_5_1
 	.byte	0xB3
-	.word	Song_08547E3F
+	.word	Song_08548040_5_2
 	.byte	0xB3
-	.word	Song_08547E53
+	.word	Song_08548040_5_3
 	.byte	0xB3
-	.word	Song_08547E65
+	.word	Song_08548040_5_4
 	.byte	0xB3
-	.word	Song_08547E2C
+	.word	Song_08548040_5_1
 	.byte	0xB3
-	.word	Song_08547E3F
+	.word	Song_08548040_5_2
 	.byte	0xB3
-	.word	Song_08547E53
+	.word	Song_08548040_5_3
 	.byte	0xB3
-	.word	Song_08547E65
+	.word	Song_08548040_5_4
 	.byte	0xB3
-	.word	Song_08547E2C
+	.word	Song_08548040_5_1
 	.byte	0xB3
-	.word	Song_08547E3F
+	.word	Song_08548040_5_2
 	.byte	0xB3
-	.word	Song_08547E53
+	.word	Song_08548040_5_3
 	.byte	0xB3
-	.word	Song_08547E65
+	.word	Song_08548040_5_4
 	.byte	0xB3
-	.word	Song_08547E2C
+	.word	Song_08548040_5_1
 	.byte	0xB3
-	.word	Song_08547E3F
+	.word	Song_08548040_5_2
 	.byte	0xB3
-	.word	Song_08547E53
+	.word	Song_08548040_5_3
 	.byte	0xB3
-	.word	Song_08547E65
+	.word	Song_08548040_5_4
 	.byte	0xB3
-	.word	Song_08547E2C
+	.word	Song_08548040_5_1
 	.byte	0xB3
-	.word	Song_08547E3F
+	.word	Song_08548040_5_2
 	.byte	0xB3
-	.word	Song_08547E53
+	.word	Song_08548040_5_3
 	.byte	0xB3
-	.word	Song_08547E65
+	.word	Song_08548040_5_4
 	.byte	0xB2
-	.word	Song_08547E2C
+	.word	Song_08548040_5_1
 	.byte	0xB1
 
 	@********************** Track  6 **********************@
@@ -11427,7 +11427,7 @@ Song_08548040_6:	@ 0x08547EE2
 	.byte	0xB0
 	.byte	0xB0
 	.byte	0xB0
-Song_08547EE8:
+Song_08548040_6_3:
 	.byte	0xB0
 	.byte	0xB0
 	.byte	0xB0
@@ -11486,7 +11486,7 @@ Song_08547EE8:
 	.byte	0x43
 	.byte	0x60
 	.byte	0x86
-Song_08547F22:
+Song_08548040_6_1:
 	.byte	0xD4
 	.byte	0x4F
 	.byte	0x6C
@@ -11536,7 +11536,7 @@ Song_08547F22:
 	.byte	0x60
 	.byte	0x86
 	.byte	0xB4
-Song_08547F53:
+Song_08548040_6_2:
 	.byte	0xD4
 	.byte	0x4F
 	.byte	0x70
@@ -11587,7 +11587,7 @@ Song_08547F53:
 	.byte	0x86
 	.byte	0xB4
 	.byte	0xB3
-	.word	Song_08547F22
+	.word	Song_08548040_6_1
 	.byte	0xD4
 	.byte	0x4F
 	.byte	0x70
@@ -11684,15 +11684,15 @@ Song_08547F53:
 	.byte	0x60
 	.byte	0x86
 	.byte	0xB3
-	.word	Song_08547F53
+	.word	Song_08548040_6_2
 	.byte	0xB3
-	.word	Song_08547F22
+	.word	Song_08548040_6_1
 	.byte	0xB3
-	.word	Song_08547F53
+	.word	Song_08548040_6_2
 	.byte	0xB3
-	.word	Song_08547F22
+	.word	Song_08548040_6_1
 	.byte	0xB3
-	.word	Song_08547F22
+	.word	Song_08548040_6_1
 	.byte	0xD4
 	.byte	0x4F
 	.byte	0x6C
@@ -11750,7 +11750,7 @@ Song_08547F53:
 	.byte	0xB0
 	.byte	0xB0
 	.byte	0xB2
-	.word	Song_08547EE8
+	.word	Song_08548040_6_3
 	.byte	0xB1
 	.byte	0x00
 
@@ -11762,7 +11762,7 @@ Song_08548040:	@ 0x08548040
 	.byte	10		@ priority
 	.byte	148		@ reverb
 
-	.word	voicegroup_08208070		@ voicegroup/tone
+	.word	voicegroup002		@ voicegroup/tone
 
 	.word	Song_08548040_1		@ track
 	.word	Song_08548040_2		@ track
@@ -11806,7 +11806,7 @@ Song_085488FC_1:	@ 0x08548060
 	.byte	0x40
 	.byte	0x6C
 	.byte	0x98
-Song_0854807E:
+Song_085488FC_1_1:
 	.byte	0xDB
 	.byte	0x35
 	.byte	0x58
@@ -11826,7 +11826,7 @@ Song_0854807E:
 	.byte	0x6C
 	.byte	0xA8
 	.byte	0xB4
-Song_08548091:
+Song_085488FC_1_2:
 	.byte	0x98
 	.byte	0xE6
 	.byte	0x37
@@ -11989,9 +11989,9 @@ Song_08548091:
 	.byte	0x6C
 	.byte	0x98
 	.byte	0xB3
-	.word	Song_0854807E
+	.word	Song_085488FC_1_1
 	.byte	0xB2
-	.word	Song_08548091
+	.word	Song_085488FC_1_2
 	.byte	0xB1
 
 	@********************** Track  2 **********************@
@@ -12018,7 +12018,7 @@ Song_085488FC_2:	@ 0x0854813D
 	.byte	0x98
 	.byte	0xD5
 	.byte	0x8C
-Song_08548151:
+Song_085488FC_2_2:
 	.byte	0xD5
 	.byte	0x37
 	.byte	0x7F
@@ -12032,7 +12032,7 @@ Song_08548151:
 	.byte	0x2B
 	.byte	0x8C
 	.byte	0xB4
-Song_0854815E:
+Song_085488FC_2_1:
 	.byte	0xD5
 	.byte	0x2B
 	.byte	0x7F
@@ -12059,7 +12059,7 @@ Song_0854815E:
 	.byte	0x2B
 	.byte	0x8C
 	.byte	0xB3
-	.word	Song_0854815E
+	.word	Song_085488FC_2_1
 	.byte	0x8C
 	.byte	0xD5
 	.byte	0x37
@@ -12072,7 +12072,7 @@ Song_0854815E:
 	.byte	0xD5
 	.byte	0x8C
 	.byte	0xB3
-	.word	Song_0854815E
+	.word	Song_085488FC_2_1
 	.byte	0x8C
 	.byte	0xD5
 	.byte	0x37
@@ -12235,11 +12235,11 @@ Song_0854815E:
 	.byte	0xD5
 	.byte	0x8C
 	.byte	0xB3
-	.word	Song_0854815E
+	.word	Song_085488FC_2_1
 	.byte	0xB3
-	.word	Song_08548151
+	.word	Song_085488FC_2_2
 	.byte	0xB2
-	.word	Song_0854815E
+	.word	Song_085488FC_2_1
 	.byte	0xB1
 
 	@********************** Track  3 **********************@
@@ -12250,7 +12250,7 @@ Song_085488FC_3:	@ 0x0854823D
 	.byte	0x00
 	.byte	0xB0
 	.byte	0xB0
-Song_08548241:
+Song_085488FC_3_1:
 	.byte	0xB0
 	.byte	0xB0
 	.byte	0xB0
@@ -12742,7 +12742,7 @@ Song_08548241:
 	.byte	0xB0
 	.byte	0xB0
 	.byte	0xB2
-	.word	Song_08548241
+	.word	Song_085488FC_3_1
 	.byte	0xB1
 
 	@********************** Track  4 **********************@
@@ -12774,7 +12774,7 @@ Song_085488FC_4:	@ 0x08548431
 	.byte	0x86
 	.byte	0x40
 	.byte	0x86
-Song_0854844A:
+Song_085488FC_4_1:
 	.byte	0xCF
 	.byte	0x3E
 	.byte	0x58
@@ -13075,7 +13075,7 @@ Song_0854844A:
 	.byte	0x40
 	.byte	0x86
 	.byte	0xB2
-	.word	Song_0854844A
+	.word	Song_085488FC_4_1
 	.byte	0xB1
 
 	@********************** Track  5 **********************@
@@ -13084,7 +13084,7 @@ Song_0854844A:
 Song_085488FC_5:	@ 0x0854857B
 	.byte	0xBC
 	.byte	0x00
-Song_0854857D:
+Song_085488FC_5_1:
 	.byte	0xBD
 	.byte	0x33
 	.byte	0xBE
@@ -13101,7 +13101,7 @@ Song_0854857D:
 	.byte	0x40
 	.byte	0x98
 	.byte	0xB4
-Song_0854858D:
+Song_085488FC_5_2:
 	.byte	0xDA
 	.byte	0x3C
 	.byte	0x58
@@ -13115,7 +13115,7 @@ Song_0854858D:
 	.byte	0x58
 	.byte	0xA8
 	.byte	0xB4
-Song_0854859A:
+Song_085488FC_5_3:
 	.byte	0x98
 	.byte	0xE6
 	.byte	0x3E
@@ -13502,11 +13502,11 @@ Song_0854859A:
 	.byte	0x38
 	.byte	0x98
 	.byte	0xB3
-	.word	Song_0854857D
+	.word	Song_085488FC_5_1
 	.byte	0xB3
-	.word	Song_0854858D
+	.word	Song_085488FC_5_2
 	.byte	0xB2
-	.word	Song_0854859A
+	.word	Song_085488FC_5_3
 	.byte	0xB1
 
 	@********************** Track  6 **********************@
@@ -13517,7 +13517,7 @@ Song_085488FC_6:	@ 0x0854872B
 	.byte	0x00
 	.byte	0xB0
 	.byte	0xB0
-Song_0854872F:
+Song_085488FC_6_1:
 	.byte	0xB0
 	.byte	0xB0
 	.byte	0xB0
@@ -13642,7 +13642,7 @@ Song_0854872F:
 	.byte	0xB0
 	.byte	0xB0
 	.byte	0xB2
-	.word	Song_0854872F
+	.word	Song_085488FC_6_1
 	.byte	0xB1
 
 	@********************** Track  7 **********************@
@@ -13665,7 +13665,7 @@ Song_085488FC_7:	@ 0x085487B0
 	.byte	0x98
 	.byte	0xD5
 	.byte	0x9C
-Song_085487C0:
+Song_085488FC_7_4:
 	.byte	0xD5
 	.byte	0x26
 	.byte	0x78
@@ -13681,7 +13681,7 @@ Song_085487C0:
 	.byte	0x70
 	.byte	0x8C
 	.byte	0xB4
-Song_085487CF:
+Song_085488FC_7_5:
 	.byte	0xD5
 	.byte	0x26
 	.byte	0x6C
@@ -13775,7 +13775,7 @@ Song_085487CF:
 	.byte	0x26
 	.byte	0x5C
 	.byte	0x86
-Song_0854882C:
+Song_085488FC_7_1:
 	.byte	0xD4
 	.byte	0x36
 	.byte	0x40
@@ -13803,7 +13803,7 @@ Song_0854882C:
 	.byte	0x1C
 	.byte	0x86
 	.byte	0xB4
-Song_08548847:
+Song_085488FC_7_2:
 	.byte	0xD4
 	.byte	0x36
 	.byte	0x40
@@ -13831,7 +13831,7 @@ Song_08548847:
 	.byte	0x9A
 	.byte	0xB4
 	.byte	0xB3
-	.word	Song_0854882C
+	.word	Song_085488FC_7_1
 	.byte	0xD4
 	.byte	0x36
 	.byte	0x40
@@ -13857,7 +13857,7 @@ Song_08548847:
 	.byte	0x36
 	.byte	0x10
 	.byte	0x86
-Song_0854887F:
+Song_085488FC_7_3:
 	.byte	0xD4
 	.byte	0x36
 	.byte	0x40
@@ -13885,9 +13885,9 @@ Song_0854887F:
 	.byte	0x86
 	.byte	0xB4
 	.byte	0xB3
-	.word	Song_08548847
+	.word	Song_085488FC_7_2
 	.byte	0xB3
-	.word	Song_0854887F
+	.word	Song_085488FC_7_3
 	.byte	0xD4
 	.byte	0x36
 	.byte	0x40
@@ -13964,9 +13964,9 @@ Song_0854887F:
 	.byte	0xD5
 	.byte	0x9C
 	.byte	0xB3
-	.word	Song_085487C0
+	.word	Song_085488FC_7_4
 	.byte	0xB2
-	.word	Song_085487CF
+	.word	Song_085488FC_7_5
 	.byte	0xB1
 	.byte	0x00
 	.byte	0x00
@@ -13980,7 +13980,7 @@ Song_085488FC:	@ 0x085488FC
 	.byte	10		@ priority
 	.byte	148		@ reverb
 
-	.word	voicegroup_08208670		@ voicegroup/tone
+	.word	voicegroup003		@ voicegroup/tone
 
 	.word	Song_085488FC_1		@ track
 	.word	Song_085488FC_2		@ track
@@ -14007,7 +14007,7 @@ Song_085495E8_1:	@ 0x08548920
 	.byte	0xBF
 	.byte	0x27
 	.byte	0x98
-Song_0854892C:
+Song_085495E8_1_1:
 	.byte	0xEA
 	.byte	0x46
 	.byte	0x58
@@ -14030,7 +14030,7 @@ Song_0854892C:
 	.byte	0x46
 	.byte	0xB0
 	.byte	0xB3
-	.word	Song_0854892C
+	.word	Song_085495E8_1_1
 	.byte	0xFE
 	.byte	0x4B
 	.byte	0x58
@@ -14190,7 +14190,7 @@ Song_0854892C:
 	.byte	0x81
 	.byte	0x00
 	.byte	0x98
-Song_085489E5:
+Song_085495E8_1_2:
 	.byte	0xB0
 	.byte	0xB0
 	.byte	0xB0
@@ -14461,7 +14461,7 @@ Song_085489E5:
 	.byte	0x18
 	.byte	0x85
 	.byte	0xB2
-	.word	Song_085489E5
+	.word	Song_085495E8_1_2
 	.byte	0xB1
 
 	@********************** Track  2 **********************@
@@ -14513,7 +14513,7 @@ Song_085495E8_2:	@ 0x08548AF8
 	.byte	0x98
 	.byte	0x29
 	.byte	0x98
-Song_08548B25:
+Song_085495E8_2_7:
 	.byte	0xDA
 	.byte	0x2B
 	.byte	0x78
@@ -14526,7 +14526,7 @@ Song_08548B25:
 	.byte	0xA0
 	.byte	0x32
 	.byte	0x8C
-Song_08548B31:
+Song_085495E8_2_1:
 	.byte	0xDA
 	.byte	0x33
 	.byte	0x78
@@ -14551,9 +14551,9 @@ Song_08548B31:
 	.byte	0x32
 	.byte	0x8C
 	.byte	0xB3
-	.word	Song_08548B31
+	.word	Song_085495E8_2_1
 	.byte	0xB3
-	.word	Song_08548B31
+	.word	Song_085495E8_2_1
 	.byte	0xDA
 	.byte	0x33
 	.byte	0x78
@@ -14577,7 +14577,7 @@ Song_08548B31:
 	.byte	0x9C
 	.byte	0xEA
 	.byte	0xA4
-Song_08548B69:
+Song_085495E8_2_3:
 	.byte	0xDA
 	.byte	0x31
 	.byte	0x70
@@ -14593,7 +14593,7 @@ Song_08548B69:
 	.byte	0x86
 	.byte	0x33
 	.byte	0x86
-Song_08548B78:
+Song_085495E8_2_2:
 	.byte	0xDA
 	.byte	0x35
 	.byte	0x70
@@ -14602,9 +14602,9 @@ Song_08548B78:
 	.byte	0xA4
 	.byte	0xB4
 	.byte	0xB3
-	.word	Song_08548B78
+	.word	Song_085495E8_2_2
 	.byte	0xB3
-	.word	Song_08548B69
+	.word	Song_085495E8_2_3
 	.byte	0xE6
 	.byte	0x31
 	.byte	0x70
@@ -14616,7 +14616,7 @@ Song_08548B78:
 	.byte	0x8C
 	.byte	0x35
 	.byte	0x8C
-Song_08548B94:
+Song_085495E8_2_5:
 	.byte	0xD4
 	.byte	0x33
 	.byte	0x70
@@ -14636,7 +14636,7 @@ Song_08548B94:
 	.byte	0xD4
 	.byte	0x8C
 	.byte	0xB4
-Song_08548BA7:
+Song_085495E8_2_4:
 	.byte	0xD4
 	.byte	0x32
 	.byte	0x70
@@ -14656,7 +14656,7 @@ Song_08548BA7:
 	.byte	0xD4
 	.byte	0x8C
 	.byte	0xB4
-Song_08548BBA:
+Song_085495E8_2_6:
 	.byte	0xD4
 	.byte	0x30
 	.byte	0x70
@@ -14677,17 +14677,17 @@ Song_08548BBA:
 	.byte	0x8C
 	.byte	0xB4
 	.byte	0xB3
-	.word	Song_08548BA7
+	.word	Song_085495E8_2_4
 	.byte	0xB3
-	.word	Song_08548B94
+	.word	Song_085495E8_2_5
 	.byte	0xB3
-	.word	Song_08548BA7
+	.word	Song_085495E8_2_4
 	.byte	0xB3
-	.word	Song_08548BBA
+	.word	Song_085495E8_2_6
 	.byte	0xB3
-	.word	Song_08548BA7
+	.word	Song_085495E8_2_4
 	.byte	0xB2
-	.word	Song_08548B25
+	.word	Song_085495E8_2_7
 	.byte	0xB1
 
 	@********************** Track  3 **********************@
@@ -14718,7 +14718,7 @@ Song_085495E8_3:	@ 0x08548BEC
 	.byte	0x98
 	.byte	0x41
 	.byte	0x98
-Song_08548C04:
+Song_085495E8_3_1:
 	.byte	0xBE
 	.byte	0x32
 	.byte	0xCF
@@ -15324,7 +15324,7 @@ Song_08548C04:
 	.byte	0x00
 	.byte	0x85
 	.byte	0xB2
-	.word	Song_08548C04
+	.word	Song_085495E8_3_1
 	.byte	0xB1
 
 	@********************** Track  4 **********************@
@@ -15365,7 +15365,7 @@ Song_085495E8_4:	@ 0x08548E66
 	.byte	0x3C
 	.byte	0x54
 	.byte	0x86
-Song_08548E88:
+Song_085495E8_4_1:
 	.byte	0xCF
 	.byte	0x3C
 	.byte	0x44
@@ -15427,7 +15427,7 @@ Song_08548E88:
 	.byte	0x54
 	.byte	0x86
 	.byte	0xB3
-	.word	Song_08548E88
+	.word	Song_085495E8_4_1
 	.byte	0xA7
 	.byte	0x83
 	.byte	0xCE
@@ -15464,7 +15464,7 @@ Song_08548E88:
 	.byte	0xBE
 	.byte	0x27
 	.byte	0x81
-Song_08548EED:
+Song_085495E8_4_4:
 	.byte	0xBD
 	.byte	0x30
 	.byte	0xBE
@@ -15497,7 +15497,7 @@ Song_08548EED:
 	.byte	0x3E
 	.byte	0x14
 	.byte	0x9A
-Song_08548F0D:
+Song_085495E8_4_3:
 	.byte	0x8C
 	.byte	0xD4
 	.byte	0x3E
@@ -15531,7 +15531,7 @@ Song_08548F0D:
 	.byte	0x14
 	.byte	0x86
 	.byte	0xB4
-Song_08548F2E:
+Song_085495E8_4_2:
 	.byte	0x8C
 	.byte	0xD4
 	.byte	0x3E
@@ -15560,15 +15560,15 @@ Song_08548F2E:
 	.byte	0x9A
 	.byte	0xB4
 	.byte	0xB3
-	.word	Song_08548F2E
+	.word	Song_085495E8_4_2
 	.byte	0xB3
-	.word	Song_08548F2E
+	.word	Song_085495E8_4_2
 	.byte	0xB3
-	.word	Song_08548F0D
+	.word	Song_085495E8_4_3
 	.byte	0xB3
-	.word	Song_08548F2E
+	.word	Song_085495E8_4_2
 	.byte	0xB3
-	.word	Song_08548F0D
+	.word	Song_085495E8_4_3
 	.byte	0x8C
 	.byte	0xD4
 	.byte	0x3E
@@ -16245,7 +16245,7 @@ Song_08548F2E:
 	.byte	0x3E
 	.byte	0x98
 	.byte	0xB2
-	.word	Song_08548EED
+	.word	Song_085495E8_4_4
 	.byte	0xB1
 
 	@********************** Track  5 **********************@
@@ -16310,7 +16310,7 @@ Song_085495E8_5:	@ 0x0854920B
 	.byte	0xF6
 	.byte	0x3F
 	.byte	0xB0
-Song_08549245:
+Song_085495E8_5_3:
 	.byte	0xBD
 	.byte	0x32
 	.byte	0xBE
@@ -16328,7 +16328,7 @@ Song_08549245:
 	.byte	0x8C
 	.byte	0xD7
 	.byte	0x9C
-Song_08549256:
+Song_085495E8_5_2:
 	.byte	0x8C
 	.byte	0xD7
 	.byte	0x3A
@@ -16343,7 +16343,7 @@ Song_08549256:
 	.byte	0xD7
 	.byte	0x8C
 	.byte	0xB4
-Song_08549264:
+Song_085495E8_5_1:
 	.byte	0x8C
 	.byte	0xD7
 	.byte	0x3A
@@ -16357,15 +16357,15 @@ Song_08549264:
 	.byte	0x9C
 	.byte	0xB4
 	.byte	0xB3
-	.word	Song_08549264
+	.word	Song_085495E8_5_1
 	.byte	0xB3
-	.word	Song_08549264
+	.word	Song_085495E8_5_1
 	.byte	0xB3
-	.word	Song_08549256
+	.word	Song_085495E8_5_2
 	.byte	0xB3
-	.word	Song_08549264
+	.word	Song_085495E8_5_1
 	.byte	0xB3
-	.word	Song_08549256
+	.word	Song_085495E8_5_2
 	.byte	0x8C
 	.byte	0xD7
 	.byte	0x3A
@@ -16500,7 +16500,7 @@ Song_08549264:
 	.byte	0xB0
 	.byte	0xB0
 	.byte	0xB2
-	.word	Song_08549245
+	.word	Song_085495E8_5_3
 	.byte	0xB1
 
 	@********************** Track  6 **********************@
@@ -16517,7 +16517,7 @@ Song_085495E8_6:	@ 0x08549314
 	.byte	0xB0
 	.byte	0xB0
 	.byte	0xB0
-Song_0854931E:
+Song_085495E8_6_2:
 	.byte	0xBD
 	.byte	0x1E
 	.byte	0xBE
@@ -16542,7 +16542,7 @@ Song_0854931E:
 	.byte	0x8C
 	.byte	0xDA
 	.byte	0x8C
-Song_08549336:
+Song_085495E8_6_1:
 	.byte	0xDA
 	.byte	0x37
 	.byte	0x48
@@ -16563,19 +16563,19 @@ Song_08549336:
 	.byte	0x8C
 	.byte	0xB4
 	.byte	0xB3
-	.word	Song_08549336
+	.word	Song_085495E8_6_1
 	.byte	0xB3
-	.word	Song_08549336
+	.word	Song_085495E8_6_1
 	.byte	0xB3
-	.word	Song_08549336
+	.word	Song_085495E8_6_1
 	.byte	0xB3
-	.word	Song_08549336
+	.word	Song_085495E8_6_1
 	.byte	0xB3
-	.word	Song_08549336
+	.word	Song_085495E8_6_1
 	.byte	0xB3
-	.word	Song_08549336
+	.word	Song_085495E8_6_1
 	.byte	0xB3
-	.word	Song_08549336
+	.word	Song_085495E8_6_1
 	.byte	0xB0
 	.byte	0xB0
 	.byte	0xB0
@@ -16731,7 +16731,7 @@ Song_08549336:
 	.byte	0xB0
 	.byte	0xB0
 	.byte	0xB2
-	.word	Song_0854931E
+	.word	Song_085495E8_6_2
 	.byte	0xB1
 
 	@********************** Track  7 **********************@
@@ -16759,7 +16759,7 @@ Song_085495E8_7:	@ 0x0854940C
 	.byte	0x2A
 	.byte	0x50
 	.byte	0xA0
-Song_08549421:
+Song_085495E8_7_1:
 	.byte	0x9C
 	.byte	0xD4
 	.byte	0x2A
@@ -16780,7 +16780,7 @@ Song_08549421:
 	.byte	0xD4
 	.byte	0x86
 	.byte	0xB4
-Song_08549435:
+Song_085495E8_7_2:
 	.byte	0xEA
 	.byte	0x33
 	.byte	0x5C
@@ -16796,16 +16796,16 @@ Song_08549435:
 	.byte	0xA0
 	.byte	0xB4
 	.byte	0xB3
-	.word	Song_08549421
+	.word	Song_085495E8_7_1
 	.byte	0xB3
-	.word	Song_08549435
+	.word	Song_085495E8_7_2
 	.byte	0xB3
-	.word	Song_08549421
+	.word	Song_085495E8_7_1
 	.byte	0xB3
-	.word	Song_08549435
+	.word	Song_085495E8_7_2
 	.byte	0xB3
-	.word	Song_08549421
-Song_0854945C:
+	.word	Song_085495E8_7_1
+Song_085495E8_7_4:
 	.byte	0xDA
 	.byte	0x26
 	.byte	0x74
@@ -16818,7 +16818,7 @@ Song_0854945C:
 	.byte	0x26
 	.byte	0x58
 	.byte	0x86
-Song_08549468:
+Song_085495E8_7_3:
 	.byte	0xDA
 	.byte	0x26
 	.byte	0x70
@@ -16876,7 +16876,7 @@ Song_08549468:
 	.byte	0x50
 	.byte	0x86
 	.byte	0xB3
-	.word	Song_08549468
+	.word	Song_085495E8_7_3
 	.byte	0xDA
 	.byte	0x26
 	.byte	0x70
@@ -17193,7 +17193,7 @@ Song_08549468:
 	.byte	0x60
 	.byte	0x86
 	.byte	0xB2
-	.word	Song_0854945C
+	.word	Song_085495E8_7_4
 	.byte	0xB1
 	.byte	0x00
 	.byte	0x00
@@ -17206,7 +17206,7 @@ Song_085495E8:	@ 0x085495E8
 	.byte	10		@ priority
 	.byte	148		@ reverb
 
-	.word	voicegroup_08208C70		@ voicegroup/tone
+	.word	voicegroup004		@ voicegroup/tone
 
 	.word	Song_085495E8_1		@ track
 	.word	Song_085495E8_2		@ track
@@ -17226,7 +17226,7 @@ Song_0854A4C0_1:	@ 0x0854960C
 	.byte	0xBB
 	.byte	0x38
 	.byte	0xB0
-Song_08549611:
+Song_0854A4C0_1_1:
 	.byte	0xB0
 	.byte	0xBD
 	.byte	0x31
@@ -17989,7 +17989,7 @@ Song_08549611:
 	.byte	0x82
 	.byte	0xB0
 	.byte	0xB2
-	.word	Song_08549611
+	.word	Song_0854A4C0_1_1
 	.byte	0xB1
 
 	@********************** Track  2 **********************@
@@ -18029,7 +18029,7 @@ Song_0854A4C0_2:	@ 0x08549910
 	.byte	0x30
 	.byte	0x14
 	.byte	0x9A
-Song_08549931:
+Song_0854A4C0_2_1:
 	.byte	0xD5
 	.byte	0x30
 	.byte	0x7F
@@ -18057,7 +18057,7 @@ Song_08549931:
 	.byte	0x9A
 	.byte	0xB4
 	.byte	0xB3
-	.word	Song_08549931
+	.word	Song_0854A4C0_2_1
 	.byte	0xD5
 	.byte	0x30
 	.byte	0x7F
@@ -18090,7 +18090,7 @@ Song_08549931:
 	.byte	0x14
 	.byte	0x86
 	.byte	0xB3
-	.word	Song_08549931
+	.word	Song_0854A4C0_2_1
 	.byte	0xD5
 	.byte	0x2E
 	.byte	0x7F
@@ -18121,7 +18121,7 @@ Song_08549931:
 	.byte	0x86
 	.byte	0x2B
 	.byte	0x86
-Song_08549992:
+Song_0854A4C0_2_2:
 	.byte	0xD5
 	.byte	0x29
 	.byte	0x7F
@@ -18191,13 +18191,13 @@ Song_08549992:
 	.byte	0x14
 	.byte	0x86
 	.byte	0xB3
-	.word	Song_08549931
+	.word	Song_0854A4C0_2_1
 	.byte	0xB3
-	.word	Song_08549931
+	.word	Song_0854A4C0_2_1
 	.byte	0xB3
-	.word	Song_08549931
+	.word	Song_0854A4C0_2_1
 	.byte	0xB3
-	.word	Song_08549931
+	.word	Song_0854A4C0_2_1
 	.byte	0xD5
 	.byte	0x30
 	.byte	0x7F
@@ -18259,7 +18259,7 @@ Song_08549992:
 	.byte	0x2A
 	.byte	0x86
 	.byte	0xB3
-	.word	Song_08549992
+	.word	Song_0854A4C0_2_2
 	.byte	0xD5
 	.byte	0x2E
 	.byte	0x7F
@@ -18291,7 +18291,7 @@ Song_08549992:
 	.byte	0x2E
 	.byte	0x14
 	.byte	0x86
-Song_08549A4A:
+Song_0854A4C0_2_3:
 	.byte	0xD5
 	.byte	0x2F
 	.byte	0x7F
@@ -18306,7 +18306,7 @@ Song_08549A4A:
 	.byte	0x14
 	.byte	0xAA
 	.byte	0xB4
-Song_08549A58:
+Song_0854A4C0_2_4:
 	.byte	0xD5
 	.byte	0x2E
 	.byte	0x7F
@@ -18358,9 +18358,9 @@ Song_08549A58:
 	.byte	0x14
 	.byte	0x86
 	.byte	0xB3
-	.word	Song_08549A4A
+	.word	Song_0854A4C0_2_3
 	.byte	0xB3
-	.word	Song_08549A58
+	.word	Song_0854A4C0_2_4
 	.byte	0xD5
 	.byte	0x2A
 	.byte	0x7F
@@ -18398,7 +18398,7 @@ Song_08549A58:
 	.byte	0x2E
 	.byte	0x14
 	.byte	0x86
-Song_08549AB9:
+Song_0854A4C0_2_5:
 	.byte	0xD5
 	.byte	0x2E
 	.byte	0x7F
@@ -18426,8 +18426,8 @@ Song_08549AB9:
 	.byte	0x9A
 	.byte	0xB4
 	.byte	0xB3
-	.word	Song_08549AB9
-Song_08549AD8:
+	.word	Song_0854A4C0_2_5
+Song_0854A4C0_2_6:
 	.byte	0xD5
 	.byte	0x2A
 	.byte	0x7F
@@ -18455,9 +18455,9 @@ Song_08549AD8:
 	.byte	0x9A
 	.byte	0xB4
 	.byte	0xB3
-	.word	Song_08549AD8
+	.word	Song_0854A4C0_2_6
 	.byte	0xB3
-	.word	Song_08549AB9
+	.word	Song_0854A4C0_2_5
 	.byte	0xD5
 	.byte	0x2C
 	.byte	0x7F
@@ -18484,7 +18484,7 @@ Song_08549AD8:
 	.byte	0x14
 	.byte	0x9A
 	.byte	0xB3
-	.word	Song_08549AD8
+	.word	Song_0854A4C0_2_6
 	.byte	0xD5
 	.byte	0x2F
 	.byte	0x7F
@@ -18530,9 +18530,9 @@ Song_08549AD8:
 	.byte	0x14
 	.byte	0x86
 	.byte	0xB3
-	.word	Song_08549931
+	.word	Song_0854A4C0_2_1
 	.byte	0xB2
-	.word	Song_08549931
+	.word	Song_0854A4C0_2_1
 	.byte	0xB1
 
 	@********************** Track  3 **********************@
@@ -18541,7 +18541,7 @@ Song_08549AD8:
 Song_0854A4C0_3:	@ 0x08549B51
 	.byte	0xBC
 	.byte	0x00
-Song_08549B53:
+Song_0854A4C0_3_2:
 	.byte	0xBD
 	.byte	0x30
 	.byte	0xBE
@@ -18569,7 +18569,7 @@ Song_08549B53:
 	.byte	0x58
 	.byte	0x86
 	.byte	0xB4
-Song_08549B6E:
+Song_0854A4C0_3_3:
 	.byte	0xFA
 	.byte	0x3E
 	.byte	0x4C
@@ -18898,7 +18898,7 @@ Song_08549B6E:
 	.byte	0xFF
 	.byte	0x42
 	.byte	0xB0
-Song_08549CB6:
+Song_0854A4C0_3_1:
 	.byte	0xFF
 	.byte	0x35
 	.byte	0x4C
@@ -19047,11 +19047,11 @@ Song_08549CB6:
 	.byte	0x4C
 	.byte	0xA0
 	.byte	0xB3
-	.word	Song_08549CB6
+	.word	Song_0854A4C0_3_1
 	.byte	0xB3
-	.word	Song_08549CB6
+	.word	Song_0854A4C0_3_1
 	.byte	0xB3
-	.word	Song_08549CB6
+	.word	Song_0854A4C0_3_1
 	.byte	0xFF
 	.byte	0x36
 	.byte	0x4C
@@ -19113,9 +19113,9 @@ Song_08549CB6:
 	.byte	0x3C
 	.byte	0x8C
 	.byte	0xB3
-	.word	Song_08549B53
+	.word	Song_0854A4C0_3_2
 	.byte	0xB2
-	.word	Song_08549B6E
+	.word	Song_0854A4C0_3_3
 	.byte	0xB1
 
 	@********************** Track  4 **********************@
@@ -19124,7 +19124,7 @@ Song_08549CB6:
 Song_0854A4C0_4:	@ 0x08549D9F
 	.byte	0xBC
 	.byte	0x00
-Song_08549DA1:
+Song_0854A4C0_4_2:
 	.byte	0xBD
 	.byte	0x3B
 	.byte	0xBE
@@ -19133,7 +19133,7 @@ Song_08549DA1:
 	.byte	0x38
 	.byte	0xB0
 	.byte	0xB4
-Song_08549DA9:
+Song_0854A4C0_4_3:
 	.byte	0x9C
 	.byte	0xD5
 	.byte	0x30
@@ -19180,7 +19180,7 @@ Song_08549DA9:
 	.byte	0x3E
 	.byte	0x1C
 	.byte	0x98
-Song_08549DD7:
+Song_0854A4C0_4_1:
 	.byte	0xBD
 	.byte	0x45
 	.byte	0xBE
@@ -19286,7 +19286,7 @@ Song_08549DD7:
 	.byte	0xB0
 	.byte	0xB0
 	.byte	0xB3
-	.word	Song_08549DD7
+	.word	Song_0854A4C0_4_1
 	.byte	0x98
 	.byte	0xE7
 	.byte	0x3C
@@ -19332,9 +19332,9 @@ Song_08549DD7:
 	.byte	0xA0
 	.byte	0xB0
 	.byte	0xB3
-	.word	Song_08549DA1
+	.word	Song_0854A4C0_4_2
 	.byte	0xB2
-	.word	Song_08549DA9
+	.word	Song_0854A4C0_4_3
 	.byte	0xB1
 
 	@********************** Track  5 **********************@
@@ -19344,7 +19344,7 @@ Song_0854A4C0_5:	@ 0x08549E7B
 	.byte	0xBC
 	.byte	0x00
 	.byte	0xB0
-Song_08549E7E:
+Song_0854A4C0_5_2:
 	.byte	0xB0
 	.byte	0xB0
 	.byte	0xB0
@@ -19386,7 +19386,7 @@ Song_08549E7E:
 	.byte	0x8C
 	.byte	0x47
 	.byte	0x8C
-Song_08549EA7:
+Song_0854A4C0_5_1:
 	.byte	0xD5
 	.byte	0x49
 	.byte	0x64
@@ -19465,7 +19465,7 @@ Song_08549EA7:
 	.byte	0x47
 	.byte	0x8C
 	.byte	0xB3
-	.word	Song_08549EA7
+	.word	Song_0854A4C0_5_1
 	.byte	0xD5
 	.byte	0x46
 	.byte	0x64
@@ -19507,7 +19507,7 @@ Song_08549EA7:
 	.byte	0xB0
 	.byte	0xB0
 	.byte	0xB2
-	.word	Song_08549E7E
+	.word	Song_0854A4C0_5_2
 	.byte	0xB1
 
 	@********************** Track  6 **********************@
@@ -19516,7 +19516,7 @@ Song_08549EA7:
 Song_0854A4C0_6:	@ 0x08549F27
 	.byte	0xBC
 	.byte	0x00
-Song_08549F29:
+Song_0854A4C0_6_3:
 	.byte	0xBD
 	.byte	0x38
 	.byte	0xBE
@@ -19549,7 +19549,7 @@ Song_08549F29:
 	.byte	0x0C
 	.byte	0x9A
 	.byte	0xB4
-Song_08549F49:
+Song_0854A4C0_6_1:
 	.byte	0xD5
 	.byte	0x37
 	.byte	0x4C
@@ -19631,9 +19631,9 @@ Song_08549F49:
 	.byte	0x0C
 	.byte	0x9A
 	.byte	0xB3
-	.word	Song_08549F49
+	.word	Song_0854A4C0_6_1
 	.byte	0xB3
-	.word	Song_08549F49
+	.word	Song_0854A4C0_6_1
 	.byte	0xD5
 	.byte	0x35
 	.byte	0x4C
@@ -19983,7 +19983,7 @@ Song_08549F49:
 	.byte	0x8C
 	.byte	0x47
 	.byte	0x86
-Song_0854A100:
+Song_0854A4C0_6_2:
 	.byte	0x86
 	.byte	0xD5
 	.byte	0x49
@@ -20066,7 +20066,7 @@ Song_0854A100:
 	.byte	0x47
 	.byte	0x86
 	.byte	0xB3
-	.word	Song_0854A100
+	.word	Song_0854A4C0_6_2
 	.byte	0x86
 	.byte	0xD5
 	.byte	0x46
@@ -20362,9 +20362,9 @@ Song_0854A100:
 	.byte	0xB0
 	.byte	0xB0
 	.byte	0xB3
-	.word	Song_08549F29
+	.word	Song_0854A4C0_6_3
 	.byte	0xB2
-	.word	Song_08549F49
+	.word	Song_0854A4C0_6_1
 	.byte	0xB1
 
 	@********************** Track  7 **********************@
@@ -20400,7 +20400,7 @@ Song_0854A4C0_7:	@ 0x0854A287
 	.byte	0x2A
 	.byte	0x3C
 	.byte	0x8C
-Song_0854A2A4:
+Song_0854A4C0_7_2:
 	.byte	0xDB
 	.byte	0x24
 	.byte	0x6C
@@ -20421,7 +20421,7 @@ Song_0854A2A4:
 	.byte	0xDB
 	.byte	0x8C
 	.byte	0xB4
-Song_0854A2B8:
+Song_0854A4C0_7_1:
 	.byte	0xDB
 	.byte	0x24
 	.byte	0x6C
@@ -20466,11 +20466,11 @@ Song_0854A2B8:
 	.byte	0x2C
 	.byte	0x86
 	.byte	0xB3
-	.word	Song_0854A2B8
+	.word	Song_0854A4C0_7_1
 	.byte	0xB3
-	.word	Song_0854A2A4
+	.word	Song_0854A4C0_7_2
 	.byte	0xB3
-	.word	Song_0854A2B8
+	.word	Song_0854A4C0_7_1
 	.byte	0xDB
 	.byte	0x24
 	.byte	0x6C
@@ -20495,7 +20495,7 @@ Song_0854A2B8:
 	.byte	0x86
 	.byte	0xD5
 	.byte	0x86
-Song_0854A30A:
+Song_0854A4C0_7_3:
 	.byte	0xDB
 	.byte	0x24
 	.byte	0x6C
@@ -20519,9 +20519,9 @@ Song_0854A30A:
 	.byte	0x8C
 	.byte	0xB4
 	.byte	0xB3
-	.word	Song_0854A2A4
+	.word	Song_0854A4C0_7_2
 	.byte	0xB3
-	.word	Song_0854A30A
+	.word	Song_0854A4C0_7_3
 	.byte	0xDB
 	.byte	0x24
 	.byte	0x6C
@@ -20546,11 +20546,11 @@ Song_0854A30A:
 	.byte	0xD5
 	.byte	0x86
 	.byte	0xB3
-	.word	Song_0854A30A
+	.word	Song_0854A4C0_7_3
 	.byte	0xB3
-	.word	Song_0854A2A4
+	.word	Song_0854A4C0_7_2
 	.byte	0xB3
-	.word	Song_0854A30A
+	.word	Song_0854A4C0_7_3
 	.byte	0xDB
 	.byte	0x24
 	.byte	0x6C
@@ -20592,7 +20592,7 @@ Song_0854A30A:
 	.byte	0x98
 	.byte	0xDB
 	.byte	0x8C
-Song_0854A379:
+Song_0854A4C0_7_4:
 	.byte	0xDB
 	.byte	0x30
 	.byte	0x60
@@ -20611,7 +20611,7 @@ Song_0854A379:
 	.byte	0x58
 	.byte	0x8C
 	.byte	0xB4
-Song_0854A38B:
+Song_0854A4C0_7_5:
 	.byte	0xDB
 	.byte	0x30
 	.byte	0x60
@@ -20673,9 +20673,9 @@ Song_0854A38B:
 	.byte	0xDB
 	.byte	0x8C
 	.byte	0xB3
-	.word	Song_0854A379
+	.word	Song_0854A4C0_7_4
 	.byte	0xB3
-	.word	Song_0854A38B
+	.word	Song_0854A4C0_7_5
 	.byte	0x8C
 	.byte	0xDB
 	.byte	0x2D
@@ -20904,9 +20904,9 @@ Song_0854A38B:
 	.byte	0x7F
 	.byte	0x86
 	.byte	0xB3
-	.word	Song_0854A2B8
+	.word	Song_0854A4C0_7_1
 	.byte	0xB2
-	.word	Song_0854A2A4
+	.word	Song_0854A4C0_7_2
 	.byte	0xB1
 	.byte	0x00
 
@@ -20918,7 +20918,7 @@ Song_0854A4C0:	@ 0x0854A4C0
 	.byte	10		@ priority
 	.byte	148		@ reverb
 
-	.word	voicegroup_08209270		@ voicegroup/tone
+	.word	voicegroup005		@ voicegroup/tone
 
 	.word	Song_0854A4C0_1		@ track
 	.word	Song_0854A4C0_2		@ track
@@ -20938,7 +20938,7 @@ Song_0854B1D8_1:	@ 0x0854A4E4
 	.byte	0xBB
 	.byte	0x40
 	.byte	0x98
-Song_0854A4E9:
+Song_0854B1D8_1_1:
 	.byte	0xA8
 	.byte	0xA8
 	.byte	0xA8
@@ -21634,7 +21634,7 @@ Song_0854A4E9:
 	.byte	0x30
 	.byte	0x82
 	.byte	0xB2
-	.word	Song_0854A4E9
+	.word	Song_0854B1D8_1_1
 	.byte	0xB1
 
 	@********************** Track  2 **********************@
@@ -21655,7 +21655,7 @@ Song_0854B1D8_2:	@ 0x0854A7A5
 	.byte	0x8C
 	.byte	0xD5
 	.byte	0x8C
-Song_0854A7B3:
+Song_0854B1D8_2_1:
 	.byte	0xEA
 	.byte	0x35
 	.byte	0x7F
@@ -21674,7 +21674,7 @@ Song_0854A7B3:
 	.byte	0x37
 	.byte	0x8C
 	.byte	0xB3
-	.word	Song_0854A7B3
+	.word	Song_0854B1D8_2_1
 	.byte	0xDA
 	.byte	0x35
 	.byte	0x7F
@@ -21691,7 +21691,7 @@ Song_0854A7B3:
 	.byte	0x37
 	.byte	0x8C
 	.byte	0xB3
-	.word	Song_0854A7B3
+	.word	Song_0854B1D8_2_1
 	.byte	0xEA
 	.byte	0x35
 	.byte	0x7F
@@ -21716,7 +21716,7 @@ Song_0854A7B3:
 	.byte	0x98
 	.byte	0xD5
 	.byte	0x8C
-Song_0854A7F5:
+Song_0854B1D8_2_2:
 	.byte	0xEA
 	.byte	0x33
 	.byte	0x7F
@@ -21735,8 +21735,8 @@ Song_0854A7F5:
 	.byte	0x33
 	.byte	0x8C
 	.byte	0xB3
-	.word	Song_0854A7F5
-Song_0854A80B:
+	.word	Song_0854B1D8_2_2
+Song_0854B1D8_2_6:
 	.byte	0xEA
 	.byte	0x33
 	.byte	0x7F
@@ -21746,7 +21746,7 @@ Song_0854A80B:
 	.byte	0xD5
 	.byte	0x8C
 	.byte	0xB4
-Song_0854A814:
+Song_0854B1D8_2_3:
 	.byte	0xEA
 	.byte	0x32
 	.byte	0x7F
@@ -21765,7 +21765,7 @@ Song_0854A814:
 	.byte	0x32
 	.byte	0x8C
 	.byte	0xB3
-	.word	Song_0854A814
+	.word	Song_0854B1D8_2_3
 	.byte	0xEA
 	.byte	0x32
 	.byte	0x7F
@@ -21807,7 +21807,7 @@ Song_0854A814:
 	.byte	0x8C
 	.byte	0x33
 	.byte	0x8C
-Song_0854A853:
+Song_0854B1D8_2_4:
 	.byte	0xEA
 	.byte	0x31
 	.byte	0x7F
@@ -21818,7 +21818,7 @@ Song_0854A853:
 	.byte	0x31
 	.byte	0x8C
 	.byte	0xB4
-Song_0854A85D:
+Song_0854B1D8_2_5:
 	.byte	0xEA
 	.byte	0x31
 	.byte	0x7F
@@ -21830,7 +21830,7 @@ Song_0854A85D:
 	.byte	0x8C
 	.byte	0xB4
 	.byte	0xB3
-	.word	Song_0854A7F5
+	.word	Song_0854B1D8_2_2
 	.byte	0xDA
 	.byte	0x33
 	.byte	0x7F
@@ -21847,7 +21847,7 @@ Song_0854A85D:
 	.byte	0x33
 	.byte	0x8C
 	.byte	0xB3
-	.word	Song_0854A814
+	.word	Song_0854B1D8_2_3
 	.byte	0xEA
 	.byte	0x32
 	.byte	0x7F
@@ -21911,9 +21911,9 @@ Song_0854A85D:
 	.byte	0x31
 	.byte	0x8C
 	.byte	0xB3
-	.word	Song_0854A853
+	.word	Song_0854B1D8_2_4
 	.byte	0xB3
-	.word	Song_0854A85D
+	.word	Song_0854B1D8_2_5
 	.byte	0xEA
 	.byte	0x33
 	.byte	0x7F
@@ -21925,7 +21925,7 @@ Song_0854A85D:
 	.byte	0x33
 	.byte	0x8C
 	.byte	0xB3
-	.word	Song_0854A80B
+	.word	Song_0854B1D8_2_6
 	.byte	0xCF
 	.byte	0x31
 	.byte	0x7F
@@ -21966,7 +21966,7 @@ Song_0854A85D:
 	.byte	0x37
 	.byte	0x8C
 	.byte	0xB2
-	.word	Song_0854A7B3
+	.word	Song_0854B1D8_2_1
 	.byte	0xB1
 
 	@********************** Track  3 **********************@
@@ -21976,7 +21976,7 @@ Song_0854B1D8_3:	@ 0x0854A904
 	.byte	0xBC
 	.byte	0x00
 	.byte	0x98
-Song_0854A907:
+Song_0854B1D8_3_1:
 	.byte	0xBD
 	.byte	0x30
 	.byte	0xBE
@@ -22500,7 +22500,7 @@ Song_0854A907:
 	.byte	0x8C
 	.byte	0xA8
 	.byte	0xB2
-	.word	Song_0854A907
+	.word	Song_0854B1D8_3_1
 	.byte	0xB1
 
 	@********************** Track  4 **********************@
@@ -22510,7 +22510,7 @@ Song_0854B1D8_4:	@ 0x0854AB17
 	.byte	0xBC
 	.byte	0x00
 	.byte	0x98
-Song_0854AB1A:
+Song_0854B1D8_4_3:
 	.byte	0xBD
 	.byte	0x32
 	.byte	0xBE
@@ -22566,7 +22566,7 @@ Song_0854AB1A:
 	.byte	0x43
 	.byte	0x14
 	.byte	0x9A
-Song_0854AB51:
+Song_0854B1D8_4_1:
 	.byte	0xD5
 	.byte	0x41
 	.byte	0x50
@@ -22623,7 +22623,7 @@ Song_0854AB51:
 	.byte	0x46
 	.byte	0x14
 	.byte	0x9A
-Song_0854AB89:
+Song_0854B1D8_4_2:
 	.byte	0xD5
 	.byte	0x3C
 	.byte	0x50
@@ -22675,7 +22675,7 @@ Song_0854AB89:
 	.byte	0x14
 	.byte	0x9A
 	.byte	0xB3
-	.word	Song_0854AB51
+	.word	Song_0854B1D8_4_1
 	.byte	0xD5
 	.byte	0x3F
 	.byte	0x50
@@ -22708,7 +22708,7 @@ Song_0854AB89:
 	.byte	0x14
 	.byte	0x9A
 	.byte	0xB3
-	.word	Song_0854AB89
+	.word	Song_0854B1D8_4_2
 	.byte	0xD5
 	.byte	0x3D
 	.byte	0x50
@@ -22783,7 +22783,7 @@ Song_0854AB89:
 	.byte	0x14
 	.byte	0x9A
 	.byte	0xB3
-	.word	Song_0854AB89
+	.word	Song_0854B1D8_4_2
 	.byte	0xD5
 	.byte	0x3E
 	.byte	0x50
@@ -23048,7 +23048,7 @@ Song_0854AB89:
 	.byte	0xF6
 	.byte	0xA8
 	.byte	0xB2
-	.word	Song_0854AB1A
+	.word	Song_0854B1D8_4_3
 	.byte	0xB1
 
 	@********************** Track  5 **********************@
@@ -23058,7 +23058,7 @@ Song_0854B1D8_5:	@ 0x0854AD3F
 	.byte	0xBC
 	.byte	0x00
 	.byte	0x98
-Song_0854AD42:
+Song_0854B1D8_5_3:
 	.byte	0xA8
 	.byte	0xA8
 	.byte	0xBD
@@ -23304,7 +23304,7 @@ Song_0854AD42:
 	.byte	0x4D
 	.byte	0x44
 	.byte	0x8C
-Song_0854AE37:
+Song_0854B1D8_5_1:
 	.byte	0xD4
 	.byte	0x4D
 	.byte	0x5C
@@ -23325,7 +23325,7 @@ Song_0854AE37:
 	.byte	0x34
 	.byte	0x8C
 	.byte	0xB4
-Song_0854AE4B:
+Song_0854B1D8_5_2:
 	.byte	0xD4
 	.byte	0x4D
 	.byte	0x58
@@ -23347,13 +23347,13 @@ Song_0854AE4B:
 	.byte	0x8C
 	.byte	0xB4
 	.byte	0xB3
-	.word	Song_0854AE37
+	.word	Song_0854B1D8_5_1
 	.byte	0xB3
-	.word	Song_0854AE4B
+	.word	Song_0854B1D8_5_2
 	.byte	0xB3
-	.word	Song_0854AE37
+	.word	Song_0854B1D8_5_1
 	.byte	0xB3
-	.word	Song_0854AE4B
+	.word	Song_0854B1D8_5_2
 	.byte	0xD4
 	.byte	0x4D
 	.byte	0x5C
@@ -23374,19 +23374,19 @@ Song_0854AE4B:
 	.byte	0x34
 	.byte	0x8C
 	.byte	0xB3
-	.word	Song_0854AE4B
+	.word	Song_0854B1D8_5_2
 	.byte	0xB3
-	.word	Song_0854AE37
+	.word	Song_0854B1D8_5_1
 	.byte	0xB3
-	.word	Song_0854AE4B
+	.word	Song_0854B1D8_5_2
 	.byte	0xB3
-	.word	Song_0854AE37
+	.word	Song_0854B1D8_5_1
 	.byte	0xB3
-	.word	Song_0854AE4B
+	.word	Song_0854B1D8_5_2
 	.byte	0xB3
-	.word	Song_0854AE37
+	.word	Song_0854B1D8_5_1
 	.byte	0xB3
-	.word	Song_0854AE4B
+	.word	Song_0854B1D8_5_2
 	.byte	0xA8
 	.byte	0xA8
 	.byte	0xA8
@@ -23397,7 +23397,7 @@ Song_0854AE4B:
 	.byte	0xA8
 	.byte	0xA8
 	.byte	0xB2
-	.word	Song_0854AD42
+	.word	Song_0854B1D8_5_3
 	.byte	0xB1
 
 	@********************** Track  6 **********************@
@@ -23425,14 +23425,14 @@ Song_0854B1D8_6:	@ 0x0854AEB8
 	.byte	0x35
 	.byte	0x74
 	.byte	0x86
-Song_0854AECD:
+Song_0854B1D8_6_2:
 	.byte	0xEB
 	.byte	0x35
 	.byte	0x7F
 	.byte	0xA8
 	.byte	0xA8
 	.byte	0xA8
-Song_0854AED3:
+Song_0854B1D8_6_1:
 	.byte	0xA0
 	.byte	0xD5
 	.byte	0x37
@@ -23453,7 +23453,7 @@ Song_0854AED3:
 	.byte	0xA8
 	.byte	0xA8
 	.byte	0xB3
-	.word	Song_0854AED3
+	.word	Song_0854B1D8_6_1
 	.byte	0xEB
 	.byte	0x35
 	.byte	0x7F
@@ -23461,7 +23461,7 @@ Song_0854AED3:
 	.byte	0xA8
 	.byte	0xA8
 	.byte	0xB3
-	.word	Song_0854AED3
+	.word	Song_0854B1D8_6_1
 	.byte	0xEB
 	.byte	0x35
 	.byte	0x7F
@@ -23469,7 +23469,7 @@ Song_0854AED3:
 	.byte	0xA8
 	.byte	0xA8
 	.byte	0xB3
-	.word	Song_0854AED3
+	.word	Song_0854B1D8_6_1
 	.byte	0xEB
 	.byte	0x35
 	.byte	0x7F
@@ -23728,7 +23728,7 @@ Song_0854AED3:
 	.byte	0x7C
 	.byte	0x86
 	.byte	0xB2
-	.word	Song_0854AECD
+	.word	Song_0854B1D8_6_2
 	.byte	0xB1
 
 	@********************** Track  7 **********************@
@@ -23754,7 +23754,7 @@ Song_0854B1D8_7:	@ 0x0854B008
 	.byte	0x27
 	.byte	0x28
 	.byte	0x8C
-Song_0854B01B:
+Song_0854B1D8_7_4:
 	.byte	0xD5
 	.byte	0x26
 	.byte	0x6C
@@ -23769,7 +23769,7 @@ Song_0854B01B:
 	.byte	0x9C
 	.byte	0xA8
 	.byte	0xA8
-Song_0854B029:
+Song_0854B1D8_7_1:
 	.byte	0x9C
 	.byte	0xDB
 	.byte	0x27
@@ -23789,7 +23789,7 @@ Song_0854B029:
 	.byte	0x64
 	.byte	0x86
 	.byte	0xB4
-Song_0854B03C:
+Song_0854B1D8_7_2:
 	.byte	0xDB
 	.byte	0x26
 	.byte	0x68
@@ -23807,7 +23807,7 @@ Song_0854B03C:
 	.byte	0xA8
 	.byte	0xA8
 	.byte	0xB3
-	.word	Song_0854B029
+	.word	Song_0854B1D8_7_1
 	.byte	0xDB
 	.byte	0x26
 	.byte	0x68
@@ -23824,15 +23824,15 @@ Song_0854B03C:
 	.byte	0x4C
 	.byte	0xA8
 	.byte	0xB3
-	.word	Song_0854B029
+	.word	Song_0854B1D8_7_1
 	.byte	0xB3
-	.word	Song_0854B03C
+	.word	Song_0854B1D8_7_2
 	.byte	0xA8
 	.byte	0xA8
 	.byte	0xB3
-	.word	Song_0854B029
+	.word	Song_0854B1D8_7_1
 	.byte	0xB3
-	.word	Song_0854B03C
+	.word	Song_0854B1D8_7_2
 	.byte	0xA8
 	.byte	0xDB
 	.byte	0x26
@@ -23867,7 +23867,7 @@ Song_0854B03C:
 	.byte	0x70
 	.byte	0xA8
 	.byte	0xA8
-Song_0854B098:
+Song_0854B1D8_7_3:
 	.byte	0xDB
 	.byte	0x36
 	.byte	0x48
@@ -23906,7 +23906,7 @@ Song_0854B098:
 	.byte	0xA8
 	.byte	0xA8
 	.byte	0xB3
-	.word	Song_0854B098
+	.word	Song_0854B1D8_7_3
 	.byte	0xA8
 	.byte	0xF6
 	.byte	0x39
@@ -24178,7 +24178,7 @@ Song_0854B098:
 	.byte	0x7F
 	.byte	0x8C
 	.byte	0xB2
-	.word	Song_0854B01B
+	.word	Song_0854B1D8_7_4
 	.byte	0xB1
 	.byte	0x00
 	.byte	0x00
@@ -24191,7 +24191,7 @@ Song_0854B1D8:	@ 0x0854B1D8
 	.byte	10		@ priority
 	.byte	148		@ reverb
 
-	.word	voicegroup_08209870		@ voicegroup/tone
+	.word	voicegroup006		@ voicegroup/tone
 
 	.word	Song_0854B1D8_1		@ track
 	.word	Song_0854B1D8_2		@ track
@@ -24377,7 +24377,7 @@ Song_0854BE90_1:	@ 0x0854B1FC
 	.byte	0x82
 	.byte	0x29
 	.byte	0x81
-Song_0854B2A7:
+Song_0854BE90_1_3:
 	.byte	0xBE
 	.byte	0x29
 	.byte	0xEF
@@ -24395,7 +24395,7 @@ Song_0854B2A7:
 	.byte	0xEE
 	.byte	0x3D
 	.byte	0xA0
-Song_0854B2B8:
+Song_0854BE90_1_1:
 	.byte	0xF3
 	.byte	0x3D
 	.byte	0x70
@@ -24432,7 +24432,7 @@ Song_0854B2B8:
 	.byte	0x68
 	.byte	0x98
 	.byte	0xB3
-	.word	Song_0854B2B8
+	.word	Song_0854BE90_1_1
 	.byte	0xF7
 	.byte	0x40
 	.byte	0x70
@@ -24500,7 +24500,7 @@ Song_0854B2B8:
 	.byte	0x45
 	.byte	0x18
 	.byte	0x86
-Song_0854B323:
+Song_0854BE90_1_2:
 	.byte	0xFF
 	.byte	0x41
 	.byte	0x50
@@ -24525,7 +24525,7 @@ Song_0854B323:
 	.byte	0x48
 	.byte	0xA0
 	.byte	0xB3
-	.word	Song_0854B323
+	.word	Song_0854BE90_1_2
 	.byte	0xEF
 	.byte	0x41
 	.byte	0x50
@@ -24815,7 +24815,7 @@ Song_0854B323:
 	.byte	0x00
 	.byte	0x83
 	.byte	0xB2
-	.word	Song_0854B2A7
+	.word	Song_0854BE90_1_3
 	.byte	0xB1
 
 	@********************** Track  2 **********************@
@@ -24843,7 +24843,7 @@ Song_0854BE90_2:	@ 0x0854B465
 	.byte	0xD5
 	.byte	0x33
 	.byte	0x8C
-Song_0854B47A:
+Song_0854BE90_2_1:
 	.byte	0xD5
 	.byte	0x31
 	.byte	0x7F
@@ -24858,7 +24858,7 @@ Song_0854B47A:
 	.byte	0x8C
 	.byte	0xB4
 	.byte	0xB3
-	.word	Song_0854B47A
+	.word	Song_0854BE90_2_1
 	.byte	0xD5
 	.byte	0x2F
 	.byte	0x7F
@@ -24871,7 +24871,7 @@ Song_0854B47A:
 	.byte	0x98
 	.byte	0xD5
 	.byte	0x8C
-Song_0854B498:
+Song_0854BE90_2_2:
 	.byte	0xE8
 	.byte	0x28
 	.byte	0x7F
@@ -25071,7 +25071,7 @@ Song_0854B498:
 	.byte	0x2F
 	.byte	0xA0
 	.byte	0xB2
-	.word	Song_0854B498
+	.word	Song_0854BE90_2_2
 	.byte	0xB1
 
 	@********************** Track  3 **********************@
@@ -25309,7 +25309,7 @@ Song_0854BE90_3:	@ 0x0854B564
 	.byte	0x47
 	.byte	0x20
 	.byte	0x86
-Song_0854B64B:
+Song_0854BE90_3_1:
 	.byte	0xA0
 	.byte	0xBD
 	.byte	0x45
@@ -25646,7 +25646,7 @@ Song_0854B64B:
 	.byte	0x64
 	.byte	0x86
 	.byte	0xB2
-	.word	Song_0854B64B
+	.word	Song_0854BE90_3_1
 	.byte	0xB1
 
 	@********************** Track  4 **********************@
@@ -25705,7 +25705,7 @@ Song_0854BE90_4:	@ 0x0854B7A0
 	.byte	0x98
 	.byte	0x3B
 	.byte	0x98
-Song_0854B7D4:
+Song_0854BE90_4_1:
 	.byte	0xB0
 	.byte	0xB0
 	.byte	0xB0
@@ -25969,7 +25969,7 @@ Song_0854B7D4:
 	.byte	0x4B
 	.byte	0x86
 	.byte	0xB2
-	.word	Song_0854B7D4
+	.word	Song_0854BE90_4_1
 	.byte	0xB1
 
 	@********************** Track  5 **********************@
@@ -25983,7 +25983,7 @@ Song_0854BE90_5:	@ 0x0854B8E0
 	.byte	0xB0
 	.byte	0xB0
 	.byte	0xB0
-Song_0854B8E7:
+Song_0854BE90_5_2:
 	.byte	0xBD
 	.byte	0x38
 	.byte	0xBE
@@ -25998,7 +25998,7 @@ Song_0854B8E7:
 	.byte	0xA0
 	.byte	0xD7
 	.byte	0x8C
-Song_0854B8F5:
+Song_0854BE90_5_1:
 	.byte	0xD7
 	.byte	0x38
 	.byte	0x5C
@@ -26026,9 +26026,9 @@ Song_0854B8F5:
 	.byte	0x36
 	.byte	0x98
 	.byte	0xB3
-	.word	Song_0854B8F5
+	.word	Song_0854BE90_5_1
 	.byte	0xB3
-	.word	Song_0854B8F5
+	.word	Song_0854BE90_5_1
 	.byte	0xD7
 	.byte	0x39
 	.byte	0x5C
@@ -26556,7 +26556,7 @@ Song_0854B8F5:
 	.byte	0x36
 	.byte	0x8C
 	.byte	0xB2
-	.word	Song_0854B8E7
+	.word	Song_0854BE90_5_2
 	.byte	0xB1
 
 	@********************** Track  6 **********************@
@@ -26570,7 +26570,7 @@ Song_0854BE90_6:	@ 0x0854BB2D
 	.byte	0xB0
 	.byte	0xB0
 	.byte	0xB0
-Song_0854BB34:
+Song_0854BE90_6_1:
 	.byte	0xBD
 	.byte	0x32
 	.byte	0xBE
@@ -27024,7 +27024,7 @@ Song_0854BB34:
 	.byte	0xB0
 	.byte	0xB0
 	.byte	0xB2
-	.word	Song_0854BB34
+	.word	Song_0854BE90_6_1
 	.byte	0xB1
 
 	@********************** Track  7 **********************@
@@ -27076,7 +27076,7 @@ Song_0854BE90_7:	@ 0x0854BCFE
 	.byte	0x86
 	.byte	0xD4
 	.byte	0x86
-Song_0854BD2B:
+Song_0854BE90_7_6:
 	.byte	0xD4
 	.byte	0x26
 	.byte	0x6C
@@ -27099,7 +27099,7 @@ Song_0854BD2B:
 	.byte	0x26
 	.byte	0x68
 	.byte	0x86
-Song_0854BD41:
+Song_0854BE90_7_1:
 	.byte	0xD4
 	.byte	0x26
 	.byte	0x68
@@ -27116,7 +27116,7 @@ Song_0854BD41:
 	.byte	0xD5
 	.byte	0x98
 	.byte	0xB4
-Song_0854BD51:
+Song_0854BE90_7_2:
 	.byte	0xD4
 	.byte	0x26
 	.byte	0x6C
@@ -27173,9 +27173,9 @@ Song_0854BD51:
 	.byte	0x68
 	.byte	0x86
 	.byte	0xB3
-	.word	Song_0854BD41
+	.word	Song_0854BE90_7_1
 	.byte	0xB3
-	.word	Song_0854BD51
+	.word	Song_0854BE90_7_2
 	.byte	0xD5
 	.byte	0x26
 	.byte	0x6C
@@ -27319,7 +27319,7 @@ Song_0854BD51:
 	.byte	0x86
 	.byte	0xD4
 	.byte	0x86
-Song_0854BE21:
+Song_0854BE90_7_3:
 	.byte	0xEA
 	.byte	0x31
 	.byte	0x50
@@ -27335,7 +27335,7 @@ Song_0854BE21:
 	.byte	0xDA
 	.byte	0x8C
 	.byte	0xB4
-Song_0854BE30:
+Song_0854BE90_7_4:
 	.byte	0xDA
 	.byte	0x26
 	.byte	0x68
@@ -27355,7 +27355,7 @@ Song_0854BE30:
 	.byte	0xD4
 	.byte	0x86
 	.byte	0xB4
-Song_0854BE43:
+Song_0854BE90_7_5:
 	.byte	0xD4
 	.byte	0x29
 	.byte	0x7F
@@ -27389,11 +27389,11 @@ Song_0854BE43:
 	.byte	0x29
 	.byte	0x86
 	.byte	0xB3
-	.word	Song_0854BE21
+	.word	Song_0854BE90_7_3
 	.byte	0xB3
-	.word	Song_0854BE30
+	.word	Song_0854BE90_7_4
 	.byte	0xB3
-	.word	Song_0854BE43
+	.word	Song_0854BE90_7_5
 	.byte	0xDA
 	.byte	0x26
 	.byte	0x68
@@ -27418,7 +27418,7 @@ Song_0854BE43:
 	.byte	0x54
 	.byte	0x86
 	.byte	0xB2
-	.word	Song_0854BD2B
+	.word	Song_0854BE90_7_6
 	.byte	0xB1
 	.byte	0x00
 
@@ -27430,7 +27430,7 @@ Song_0854BE90:	@ 0x0854BE90
 	.byte	10		@ priority
 	.byte	148		@ reverb
 
-	.word	voicegroup_08209E70		@ voicegroup/tone
+	.word	voicegroup007		@ voicegroup/tone
 
 	.word	Song_0854BE90_1		@ track
 	.word	Song_0854BE90_2		@ track
@@ -27465,7 +27465,7 @@ Song_0854D734_1:	@ 0x0854BEB4
 	.byte	0x86
 	.byte	0x45
 	.byte	0x86
-Song_0854BEC8:
+Song_0854D734_1_1:
 	.byte	0xF3
 	.byte	0x46
 	.byte	0x5C
@@ -29111,7 +29111,7 @@ Song_0854BEC8:
 	.byte	0x45
 	.byte	0x8C
 	.byte	0xB2
-	.word	Song_0854BEC8
+	.word	Song_0854D734_1_1
 	.byte	0xB1
 
 	@********************** Track  2 **********************@
@@ -29121,7 +29121,7 @@ Song_0854D734_2:	@ 0x0854C53A
 	.byte	0xBC
 	.byte	0x00
 	.byte	0x98
-Song_0854C53D:
+Song_0854D734_2_12:
 	.byte	0xBD
 	.byte	0x22
 	.byte	0xBE
@@ -29142,7 +29142,7 @@ Song_0854C53D:
 	.byte	0x98
 	.byte	0xD4
 	.byte	0x8C
-Song_0854C551:
+Song_0854D734_2_1:
 	.byte	0xE7
 	.byte	0x35
 	.byte	0x7F
@@ -29156,7 +29156,7 @@ Song_0854C551:
 	.byte	0xD3
 	.byte	0x8C
 	.byte	0xB4
-Song_0854C55E:
+Song_0854D734_2_2:
 	.byte	0xE6
 	.byte	0x35
 	.byte	0x7F
@@ -29168,7 +29168,7 @@ Song_0854C55E:
 	.byte	0xD4
 	.byte	0x8C
 	.byte	0xB4
-Song_0854C569:
+Song_0854D734_2_3:
 	.byte	0xE7
 	.byte	0x35
 	.byte	0x7F
@@ -29182,7 +29182,7 @@ Song_0854C569:
 	.byte	0xD3
 	.byte	0x8C
 	.byte	0xB4
-Song_0854C576:
+Song_0854D734_2_4:
 	.byte	0xE6
 	.byte	0x33
 	.byte	0x7F
@@ -29196,7 +29196,7 @@ Song_0854C576:
 	.byte	0x33
 	.byte	0x98
 	.byte	0xB4
-Song_0854C583:
+Song_0854D734_2_5:
 	.byte	0xE9
 	.byte	0x32
 	.byte	0x7F
@@ -29210,7 +29210,7 @@ Song_0854C583:
 	.byte	0x32
 	.byte	0x98
 	.byte	0xB4
-Song_0854C590:
+Song_0854D734_2_6:
 	.byte	0xE8
 	.byte	0x31
 	.byte	0x7F
@@ -29226,7 +29226,7 @@ Song_0854C590:
 	.byte	0x31
 	.byte	0x8C
 	.byte	0xB4
-Song_0854C59F:
+Song_0854D734_2_7:
 	.byte	0xE2
 	.byte	0x33
 	.byte	0x7F
@@ -29255,20 +29255,20 @@ Song_0854C59F:
 	.byte	0xD4
 	.byte	0x8C
 	.byte	0xB3
-	.word	Song_0854C551
+	.word	Song_0854D734_2_1
 	.byte	0xB3
-	.word	Song_0854C55E
+	.word	Song_0854D734_2_2
 	.byte	0xB3
-	.word	Song_0854C569
+	.word	Song_0854D734_2_3
 	.byte	0xB3
-	.word	Song_0854C576
+	.word	Song_0854D734_2_4
 	.byte	0xB3
-	.word	Song_0854C583
+	.word	Song_0854D734_2_5
 	.byte	0xB3
-	.word	Song_0854C590
+	.word	Song_0854D734_2_6
 	.byte	0xB3
-	.word	Song_0854C59F
-Song_0854C5DD:
+	.word	Song_0854D734_2_7
+Song_0854D734_2_8:
 	.byte	0xD5
 	.byte	0x31
 	.byte	0x78
@@ -29285,8 +29285,8 @@ Song_0854C5DD:
 	.byte	0x8C
 	.byte	0xB4
 	.byte	0xB3
-	.word	Song_0854C5DD
-Song_0854C5F1:
+	.word	Song_0854D734_2_8
+Song_0854D734_2_9:
 	.byte	0xD5
 	.byte	0x30
 	.byte	0x78
@@ -29303,9 +29303,9 @@ Song_0854C5F1:
 	.byte	0x8C
 	.byte	0xB4
 	.byte	0xB3
-	.word	Song_0854C5F1
+	.word	Song_0854D734_2_9
 	.byte	0xB3
-	.word	Song_0854C5DD
+	.word	Song_0854D734_2_8
 	.byte	0xD5
 	.byte	0x2E
 	.byte	0x78
@@ -29333,7 +29333,7 @@ Song_0854C5F1:
 	.byte	0xD5
 	.byte	0x8C
 	.byte	0xB3
-	.word	Song_0854C5F1
+	.word	Song_0854D734_2_9
 	.byte	0xBD
 	.byte	0x21
 	.byte	0xBE
@@ -29346,7 +29346,7 @@ Song_0854C5F1:
 	.byte	0xAC
 	.byte	0xD8
 	.byte	0x8C
-Song_0854C635:
+Song_0854D734_2_10:
 	.byte	0xE1
 	.byte	0x30
 	.byte	0x4C
@@ -29360,7 +29360,7 @@ Song_0854C635:
 	.byte	0xD8
 	.byte	0x8C
 	.byte	0xB3
-	.word	Song_0854C635
+	.word	Song_0854D734_2_10
 	.byte	0xE1
 	.byte	0x2E
 	.byte	0x4C
@@ -29445,7 +29445,7 @@ Song_0854C635:
 	.byte	0xB0
 	.byte	0x2E
 	.byte	0xB0
-Song_0854C69A:
+Song_0854D734_2_11:
 	.byte	0xD8
 	.byte	0x33
 	.byte	0x78
@@ -29474,7 +29474,7 @@ Song_0854C69A:
 	.byte	0x78
 	.byte	0x8C
 	.byte	0xB3
-	.word	Song_0854C69A
+	.word	Song_0854D734_2_11
 	.byte	0xD8
 	.byte	0x32
 	.byte	0x70
@@ -29519,7 +29519,7 @@ Song_0854C69A:
 	.byte	0x74
 	.byte	0x8C
 	.byte	0xB2
-	.word	Song_0854C53D
+	.word	Song_0854D734_2_12
 	.byte	0xB1
 
 	@********************** Track  3 **********************@
@@ -29529,7 +29529,7 @@ Song_0854D734_3:	@ 0x0854C6EB
 	.byte	0xBC
 	.byte	0x00
 	.byte	0x98
-Song_0854C6EE:
+Song_0854D734_3_3:
 	.byte	0xBD
 	.byte	0x2E
 	.byte	0xBE
@@ -29740,7 +29740,7 @@ Song_0854C6EE:
 	.byte	0x8C
 	.byte	0x44
 	.byte	0x8C
-Song_0854C7C0:
+Song_0854D734_3_2:
 	.byte	0xDA
 	.byte	0x3D
 	.byte	0x60
@@ -29760,7 +29760,7 @@ Song_0854C7C0:
 	.byte	0x44
 	.byte	0x8C
 	.byte	0xB4
-Song_0854C7D3:
+Song_0854D734_3_1:
 	.byte	0xDA
 	.byte	0x3C
 	.byte	0x60
@@ -29781,9 +29781,9 @@ Song_0854C7D3:
 	.byte	0x8C
 	.byte	0xB4
 	.byte	0xB3
-	.word	Song_0854C7D3
+	.word	Song_0854D734_3_1
 	.byte	0xB3
-	.word	Song_0854C7C0
+	.word	Song_0854D734_3_2
 	.byte	0xDA
 	.byte	0x3A
 	.byte	0x60
@@ -30751,7 +30751,7 @@ Song_0854C7D3:
 	.byte	0x54
 	.byte	0x86
 	.byte	0xB2
-	.word	Song_0854C6EE
+	.word	Song_0854D734_3_3
 	.byte	0xB1
 
 	@********************** Track  4 **********************@
@@ -30761,7 +30761,7 @@ Song_0854D734_4:	@ 0x0854CBBC
 	.byte	0xBC
 	.byte	0x00
 	.byte	0x98
-Song_0854CBBF:
+Song_0854D734_4_1:
 	.byte	0xB0
 	.byte	0xB0
 	.byte	0xB0
@@ -31612,7 +31612,7 @@ Song_0854CBBF:
 	.byte	0xB0
 	.byte	0xB0
 	.byte	0xB2
-	.word	Song_0854CBBF
+	.word	Song_0854D734_4_1
 	.byte	0xB1
 
 	@********************** Track  5 **********************@
@@ -31622,7 +31622,7 @@ Song_0854D734_5:	@ 0x0854CF16
 	.byte	0xBC
 	.byte	0x00
 	.byte	0x98
-Song_0854CF19:
+Song_0854D734_5_5:
 	.byte	0xBD
 	.byte	0x3C
 	.byte	0xBE
@@ -31648,7 +31648,7 @@ Song_0854CF19:
 	.byte	0xEE
 	.byte	0x39
 	.byte	0xA4
-Song_0854CF32:
+Song_0854D734_5_1:
 	.byte	0xEC
 	.byte	0x41
 	.byte	0x60
@@ -31739,7 +31739,7 @@ Song_0854CF32:
 	.byte	0x39
 	.byte	0xA4
 	.byte	0xB3
-	.word	Song_0854CF32
+	.word	Song_0854D734_5_1
 	.byte	0xE3
 	.byte	0x41
 	.byte	0x60
@@ -32101,7 +32101,7 @@ Song_0854CF32:
 	.byte	0x98
 	.byte	0x41
 	.byte	0x98
-Song_0854D0F9:
+Song_0854D734_5_2:
 	.byte	0xD5
 	.byte	0x41
 	.byte	0x64
@@ -32129,8 +32129,8 @@ Song_0854D0F9:
 	.byte	0x8C
 	.byte	0xB4
 	.byte	0xB3
-	.word	Song_0854D0F9
-Song_0854D118:
+	.word	Song_0854D734_5_2
+Song_0854D734_5_3:
 	.byte	0xD5
 	.byte	0x3E
 	.byte	0x64
@@ -32157,7 +32157,7 @@ Song_0854D118:
 	.byte	0x1C
 	.byte	0x8C
 	.byte	0xB4
-Song_0854D132:
+Song_0854D734_5_4:
 	.byte	0xD5
 	.byte	0x3F
 	.byte	0x64
@@ -32185,13 +32185,13 @@ Song_0854D132:
 	.byte	0x8C
 	.byte	0xB4
 	.byte	0xB3
-	.word	Song_0854D0F9
+	.word	Song_0854D734_5_2
 	.byte	0xB3
-	.word	Song_0854D118
+	.word	Song_0854D734_5_3
 	.byte	0xB3
-	.word	Song_0854D132
+	.word	Song_0854D734_5_4
 	.byte	0xB3
-	.word	Song_0854D118
+	.word	Song_0854D734_5_3
 	.byte	0xBD
 	.byte	0x39
 	.byte	0x8C
@@ -32312,7 +32312,7 @@ Song_0854D132:
 	.byte	0x3F
 	.byte	0x8C
 	.byte	0xB2
-	.word	Song_0854CF19
+	.word	Song_0854D734_5_5
 	.byte	0xB1
 
 	@********************** Track  6 **********************@
@@ -32322,7 +32322,7 @@ Song_0854D734_6:	@ 0x0854D1DD
 	.byte	0xBC
 	.byte	0x00
 	.byte	0x98
-Song_0854D1E0:
+Song_0854D734_6_12:
 	.byte	0xBD
 	.byte	0x40
 	.byte	0xBE
@@ -32341,7 +32341,7 @@ Song_0854D1E0:
 	.byte	0x98
 	.byte	0xD5
 	.byte	0x8C
-Song_0854D1F2:
+Song_0854D734_6_1:
 	.byte	0xD5
 	.byte	0x41
 	.byte	0x54
@@ -32355,7 +32355,7 @@ Song_0854D1F2:
 	.byte	0xD5
 	.byte	0x9C
 	.byte	0xB4
-Song_0854D1FF:
+Song_0854D734_6_2:
 	.byte	0xD5
 	.byte	0x41
 	.byte	0x54
@@ -32369,7 +32369,7 @@ Song_0854D1FF:
 	.byte	0xD5
 	.byte	0x8C
 	.byte	0xB4
-Song_0854D20C:
+Song_0854D734_6_3:
 	.byte	0xD5
 	.byte	0x41
 	.byte	0x54
@@ -32385,7 +32385,7 @@ Song_0854D20C:
 	.byte	0xD5
 	.byte	0x8C
 	.byte	0xB4
-Song_0854D21B:
+Song_0854D734_6_4:
 	.byte	0xD5
 	.byte	0x3F
 	.byte	0x54
@@ -32401,7 +32401,7 @@ Song_0854D21B:
 	.byte	0xD5
 	.byte	0x8C
 	.byte	0xB4
-Song_0854D22A:
+Song_0854D734_6_5:
 	.byte	0xD5
 	.byte	0x41
 	.byte	0x54
@@ -32419,7 +32419,7 @@ Song_0854D22A:
 	.byte	0xD5
 	.byte	0x8C
 	.byte	0xB4
-Song_0854D23B:
+Song_0854D734_6_6:
 	.byte	0xD5
 	.byte	0x3D
 	.byte	0x54
@@ -32435,7 +32435,7 @@ Song_0854D23B:
 	.byte	0xD5
 	.byte	0x8C
 	.byte	0xB4
-Song_0854D24A:
+Song_0854D734_6_7:
 	.byte	0xD5
 	.byte	0x3F
 	.byte	0x54
@@ -32462,20 +32462,20 @@ Song_0854D24A:
 	.byte	0xD5
 	.byte	0x8C
 	.byte	0xB3
-	.word	Song_0854D1F2
+	.word	Song_0854D734_6_1
 	.byte	0xB3
-	.word	Song_0854D1FF
+	.word	Song_0854D734_6_2
 	.byte	0xB3
-	.word	Song_0854D20C
+	.word	Song_0854D734_6_3
 	.byte	0xB3
-	.word	Song_0854D21B
+	.word	Song_0854D734_6_4
 	.byte	0xB3
-	.word	Song_0854D22A
+	.word	Song_0854D734_6_5
 	.byte	0xB3
-	.word	Song_0854D23B
+	.word	Song_0854D734_6_6
 	.byte	0xB3
-	.word	Song_0854D24A
-Song_0854D286:
+	.word	Song_0854D734_6_7
+Song_0854D734_6_8:
 	.byte	0xD5
 	.byte	0x44
 	.byte	0x54
@@ -32508,8 +32508,8 @@ Song_0854D286:
 	.byte	0x8C
 	.byte	0xB4
 	.byte	0xB3
-	.word	Song_0854D286
-Song_0854D2AA:
+	.word	Song_0854D734_6_8
+Song_0854D734_6_9:
 	.byte	0xD5
 	.byte	0x43
 	.byte	0x54
@@ -32542,15 +32542,15 @@ Song_0854D2AA:
 	.byte	0x8C
 	.byte	0xB4
 	.byte	0xB3
-	.word	Song_0854D2AA
+	.word	Song_0854D734_6_9
 	.byte	0xB3
-	.word	Song_0854D286
+	.word	Song_0854D734_6_8
 	.byte	0xB3
-	.word	Song_0854D286
+	.word	Song_0854D734_6_8
 	.byte	0xB3
-	.word	Song_0854D2AA
+	.word	Song_0854D734_6_9
 	.byte	0xB3
-	.word	Song_0854D2AA
+	.word	Song_0854D734_6_9
 	.byte	0xBD
 	.byte	0x41
 	.byte	0xBE
@@ -32795,7 +32795,7 @@ Song_0854D2AA:
 	.byte	0x98
 	.byte	0x44
 	.byte	0x98
-Song_0854D3D6:
+Song_0854D734_6_10:
 	.byte	0xEE
 	.byte	0x3A
 	.byte	0x48
@@ -32821,7 +32821,7 @@ Song_0854D3D6:
 	.byte	0xE4
 	.byte	0x3C
 	.byte	0x98
-Song_0854D3EF:
+Song_0854D734_6_11:
 	.byte	0xEE
 	.byte	0x3A
 	.byte	0x48
@@ -32849,9 +32849,9 @@ Song_0854D3EF:
 	.byte	0x3F
 	.byte	0x98
 	.byte	0xB3
-	.word	Song_0854D3D6
+	.word	Song_0854D734_6_10
 	.byte	0xB3
-	.word	Song_0854D3EF
+	.word	Song_0854D734_6_11
 	.byte	0xEE
 	.byte	0x3C
 	.byte	0x48
@@ -32984,7 +32984,7 @@ Song_0854D3EF:
 	.byte	0x3C
 	.byte	0x8C
 	.byte	0xB2
-	.word	Song_0854D1E0
+	.word	Song_0854D734_6_12
 	.byte	0xB1
 
 	@********************** Track  7 **********************@
@@ -32994,7 +32994,7 @@ Song_0854D734_7:	@ 0x0854D49C
 	.byte	0xBC
 	.byte	0x00
 	.byte	0x98
-Song_0854D49F:
+Song_0854D734_7_6:
 	.byte	0xBD
 	.byte	0x7E
 	.byte	0xBE
@@ -33456,7 +33456,7 @@ Song_0854D49F:
 	.byte	0x26
 	.byte	0x6C
 	.byte	0x98
-Song_0854D66C:
+Song_0854D734_7_1:
 	.byte	0xA4
 	.byte	0xD3
 	.byte	0x26
@@ -33472,7 +33472,7 @@ Song_0854D66C:
 	.byte	0x98
 	.byte	0xB4
 	.byte	0xB3
-	.word	Song_0854D66C
+	.word	Song_0854D734_7_1
 	.byte	0xDB
 	.byte	0x26
 	.byte	0x6C
@@ -33499,7 +33499,7 @@ Song_0854D66C:
 	.byte	0x98
 	.byte	0xD5
 	.byte	0x98
-Song_0854D699:
+Song_0854D734_7_3:
 	.byte	0xD5
 	.byte	0x2A
 	.byte	0x38
@@ -33513,7 +33513,7 @@ Song_0854D699:
 	.byte	0xD5
 	.byte	0x8C
 	.byte	0xB4
-Song_0854D6A6:
+Song_0854D734_7_2:
 	.byte	0xD5
 	.byte	0x2A
 	.byte	0x38
@@ -33541,11 +33541,11 @@ Song_0854D6A6:
 	.byte	0x34
 	.byte	0x8C
 	.byte	0xB3
-	.word	Song_0854D6A6
+	.word	Song_0854D734_7_2
 	.byte	0xB3
-	.word	Song_0854D699
+	.word	Song_0854D734_7_3
 	.byte	0xB3
-	.word	Song_0854D6A6
+	.word	Song_0854D734_7_2
 	.byte	0xD5
 	.byte	0x2A
 	.byte	0x38
@@ -33561,7 +33561,7 @@ Song_0854D6A6:
 	.byte	0x2A
 	.byte	0x18
 	.byte	0x86
-Song_0854D6DE:
+Song_0854D734_7_4:
 	.byte	0x8C
 	.byte	0xDB
 	.byte	0x2E
@@ -33583,7 +33583,7 @@ Song_0854D6DE:
 	.byte	0x1C
 	.byte	0x8C
 	.byte	0xB4
-Song_0854D6F3:
+Song_0854D734_7_5:
 	.byte	0x8C
 	.byte	0xDB
 	.byte	0x2E
@@ -33612,9 +33612,9 @@ Song_0854D6F3:
 	.byte	0x8C
 	.byte	0xB4
 	.byte	0xB3
-	.word	Song_0854D6DE
+	.word	Song_0854D734_7_4
 	.byte	0xB3
-	.word	Song_0854D6F3
+	.word	Song_0854D734_7_5
 	.byte	0x98
 	.byte	0xED
 	.byte	0x32
@@ -33637,7 +33637,7 @@ Song_0854D6F3:
 	.byte	0xED
 	.byte	0xA0
 	.byte	0xB2
-	.word	Song_0854D49F
+	.word	Song_0854D734_7_6
 	.byte	0xB1
 	.byte	0x00
 
@@ -33649,7 +33649,7 @@ Song_0854D734:	@ 0x0854D734
 	.byte	10		@ priority
 	.byte	148		@ reverb
 
-	.word	voicegroup_08213C14		@ voicegroup/tone
+	.word	voicegroup040		@ voicegroup/tone
 
 	.word	Song_0854D734_1		@ track
 	.word	Song_0854D734_2		@ track
@@ -33669,7 +33669,7 @@ Song_0854F3BC_1:	@ 0x0854D758
 	.byte	0xBB
 	.byte	0x3D
 	.byte	0x8C
-Song_0854D75D:
+Song_0854F3BC_1_3:
 	.byte	0xBD
 	.byte	0x44
 	.byte	0xBE
@@ -34823,7 +34823,7 @@ Song_0854D75D:
 	.byte	0x43
 	.byte	0x3C
 	.byte	0x92
-Song_0854DBDE:
+Song_0854F3BC_1_1:
 	.byte	0xD5
 	.byte	0x47
 	.byte	0x6C
@@ -34905,7 +34905,7 @@ Song_0854DBDE:
 	.byte	0x3C
 	.byte	0x92
 	.byte	0xB3
-	.word	Song_0854DBDE
+	.word	Song_0854F3BC_1_1
 	.byte	0xD5
 	.byte	0x49
 	.byte	0x6C
@@ -35147,7 +35147,7 @@ Song_0854DBDE:
 	.byte	0x42
 	.byte	0x3C
 	.byte	0x8C
-Song_0854DD24:
+Song_0854F3BC_1_2:
 	.byte	0xDB
 	.byte	0x43
 	.byte	0x6C
@@ -35227,7 +35227,7 @@ Song_0854DD24:
 	.byte	0x3C
 	.byte	0x8C
 	.byte	0xB3
-	.word	Song_0854DD24
+	.word	Song_0854F3BC_1_2
 	.byte	0xDB
 	.byte	0x47
 	.byte	0x6C
@@ -35449,7 +35449,7 @@ Song_0854DD24:
 	.byte	0x2C
 	.byte	0x86
 	.byte	0xB2
-	.word	Song_0854D75D
+	.word	Song_0854F3BC_1_3
 	.byte	0xB1
 
 	@********************** Track  2 **********************@
@@ -35459,7 +35459,7 @@ Song_0854F3BC_2:	@ 0x0854DE59
 	.byte	0xBC
 	.byte	0x00
 	.byte	0x8C
-Song_0854DE5C:
+Song_0854F3BC_2_6:
 	.byte	0xBD
 	.byte	0x22
 	.byte	0xBE
@@ -35479,7 +35479,7 @@ Song_0854DE5C:
 	.byte	0x8C
 	.byte	0x34
 	.byte	0x8C
-Song_0854DE6F:
+Song_0854F3BC_2_1:
 	.byte	0xE7
 	.byte	0x34
 	.byte	0x7F
@@ -35519,7 +35519,7 @@ Song_0854DE6F:
 	.byte	0x34
 	.byte	0x8C
 	.byte	0xB3
-	.word	Song_0854DE6F
+	.word	Song_0854F3BC_2_1
 	.byte	0xE6
 	.byte	0x34
 	.byte	0x7F
@@ -35623,7 +35623,7 @@ Song_0854DE6F:
 	.byte	0xD2
 	.byte	0x32
 	.byte	0x8C
-Song_0854DF01:
+Song_0854F3BC_2_2:
 	.byte	0xE7
 	.byte	0x34
 	.byte	0x7F
@@ -35657,7 +35657,7 @@ Song_0854DF01:
 	.byte	0x40
 	.byte	0x8C
 	.byte	0xB3
-	.word	Song_0854DF01
+	.word	Song_0854F3BC_2_2
 	.byte	0xE7
 	.byte	0x34
 	.byte	0x7F
@@ -35748,7 +35748,7 @@ Song_0854DF01:
 	.byte	0x2E
 	.byte	0x7F
 	.byte	0x8C
-Song_0854DF80:
+Song_0854F3BC_2_3:
 	.byte	0xE4
 	.byte	0x2D
 	.byte	0x7F
@@ -35769,7 +35769,7 @@ Song_0854DF80:
 	.byte	0x8C
 	.byte	0xB4
 	.byte	0xB3
-	.word	Song_0854DF80
+	.word	Song_0854F3BC_2_3
 	.byte	0xE4
 	.byte	0x2F
 	.byte	0x7C
@@ -35816,7 +35816,7 @@ Song_0854DF80:
 	.byte	0x86
 	.byte	0x2F
 	.byte	0x86
-Song_0854DFC6:
+Song_0854F3BC_2_4:
 	.byte	0x98
 	.byte	0xE6
 	.byte	0x34
@@ -35825,7 +35825,7 @@ Song_0854DFC6:
 	.byte	0xE6
 	.byte	0x98
 	.byte	0xB4
-Song_0854DFCE:
+Song_0854F3BC_2_5:
 	.byte	0x98
 	.byte	0xE6
 	.byte	0x34
@@ -35839,9 +35839,9 @@ Song_0854DFCE:
 	.byte	0x86
 	.byte	0xB4
 	.byte	0xB3
-	.word	Song_0854DFC6
+	.word	Song_0854F3BC_2_4
 	.byte	0xB3
-	.word	Song_0854DFCE
+	.word	Song_0854F3BC_2_5
 	.byte	0x98
 	.byte	0xE6
 	.byte	0x36
@@ -36049,7 +36049,7 @@ Song_0854DFCE:
 	.byte	0x32
 	.byte	0x8C
 	.byte	0xB2
-	.word	Song_0854DE5C
+	.word	Song_0854F3BC_2_6
 	.byte	0xB1
 
 	@********************** Track  3 **********************@
@@ -36059,7 +36059,7 @@ Song_0854F3BC_3:	@ 0x0854E0B8
 	.byte	0xBC
 	.byte	0x00
 	.byte	0x8C
-Song_0854E0BB:
+Song_0854F3BC_3_2:
 	.byte	0xBD
 	.byte	0x31
 	.byte	0xBE
@@ -36988,7 +36988,7 @@ Song_0854E0BB:
 	.byte	0x8C
 	.byte	0x4C
 	.byte	0x98
-Song_0854E45B:
+Song_0854F3BC_3_1:
 	.byte	0xD5
 	.byte	0x4F
 	.byte	0x60
@@ -37023,7 +37023,7 @@ Song_0854E45B:
 	.byte	0x4C
 	.byte	0x98
 	.byte	0xB3
-	.word	Song_0854E45B
+	.word	Song_0854F3BC_3_1
 	.byte	0xBD
 	.byte	0x30
 	.byte	0xD5
@@ -37809,7 +37809,7 @@ Song_0854E45B:
 	.byte	0x18
 	.byte	0x86
 	.byte	0xB2
-	.word	Song_0854E0BB
+	.word	Song_0854F3BC_3_2
 	.byte	0xB1
 
 	@********************** Track  4 **********************@
@@ -37819,7 +37819,7 @@ Song_0854F3BC_4:	@ 0x0854E797
 	.byte	0xBC
 	.byte	0x00
 	.byte	0x8C
-Song_0854E79A:
+Song_0854F3BC_4_3:
 	.byte	0xB0
 	.byte	0xB0
 	.byte	0xB0
@@ -38569,7 +38569,7 @@ Song_0854E79A:
 	.byte	0x4E
 	.byte	0x20
 	.byte	0x86
-Song_0854EA87:
+Song_0854F3BC_4_1:
 	.byte	0xD5
 	.byte	0x3C
 	.byte	0x6C
@@ -38620,7 +38620,7 @@ Song_0854EA87:
 	.byte	0x20
 	.byte	0x86
 	.byte	0xB4
-Song_0854EAB9:
+Song_0854F3BC_4_2:
 	.byte	0xD5
 	.byte	0x3E
 	.byte	0x6C
@@ -38672,11 +38672,11 @@ Song_0854EAB9:
 	.byte	0x86
 	.byte	0xB4
 	.byte	0xB3
-	.word	Song_0854EA87
+	.word	Song_0854F3BC_4_1
 	.byte	0xB3
-	.word	Song_0854EAB9
+	.word	Song_0854F3BC_4_2
 	.byte	0xB2
-	.word	Song_0854E79A
+	.word	Song_0854F3BC_4_3
 	.byte	0xB1
 
 	@********************** Track  5 **********************@
@@ -38686,7 +38686,7 @@ Song_0854F3BC_5:	@ 0x0854EAFB
 	.byte	0xBC
 	.byte	0x00
 	.byte	0x8C
-Song_0854EAFE:
+Song_0854F3BC_5_4:
 	.byte	0xBD
 	.byte	0x3D
 	.byte	0xBE
@@ -38706,7 +38706,7 @@ Song_0854EAFE:
 	.byte	0x98
 	.byte	0xD5
 	.byte	0x8C
-Song_0854EB11:
+Song_0854F3BC_5_1:
 	.byte	0xD5
 	.byte	0x36
 	.byte	0x70
@@ -38720,7 +38720,7 @@ Song_0854EB11:
 	.byte	0xD5
 	.byte	0x98
 	.byte	0xB4
-Song_0854EB1E:
+Song_0854F3BC_5_2:
 	.byte	0x8C
 	.byte	0xD5
 	.byte	0x37
@@ -38736,9 +38736,9 @@ Song_0854EB1E:
 	.byte	0x8C
 	.byte	0xB4
 	.byte	0xB3
-	.word	Song_0854EB11
+	.word	Song_0854F3BC_5_1
 	.byte	0xB3
-	.word	Song_0854EB1E
+	.word	Song_0854F3BC_5_2
 	.byte	0xBE
 	.byte	0x23
 	.byte	0xD5
@@ -38806,7 +38806,7 @@ Song_0854EB1E:
 	.byte	0x8C
 	.byte	0xD5
 	.byte	0x8C
-Song_0854EB79:
+Song_0854F3BC_5_3:
 	.byte	0x8C
 	.byte	0xD5
 	.byte	0x36
@@ -38834,7 +38834,7 @@ Song_0854EB79:
 	.byte	0xD5
 	.byte	0x8C
 	.byte	0xB3
-	.word	Song_0854EB79
+	.word	Song_0854F3BC_5_3
 	.byte	0xB0
 	.byte	0xB0
 	.byte	0xB0
@@ -39379,7 +39379,7 @@ Song_0854EB79:
 	.byte	0xD5
 	.byte	0x8C
 	.byte	0xB2
-	.word	Song_0854EAFE
+	.word	Song_0854F3BC_5_4
 	.byte	0xB1
 
 	@********************** Track  6 **********************@
@@ -39389,7 +39389,7 @@ Song_0854F3BC_6:	@ 0x0854EDBD
 	.byte	0xBC
 	.byte	0x00
 	.byte	0x8C
-Song_0854EDC0:
+Song_0854F3BC_6_6:
 	.byte	0xBD
 	.byte	0x3D
 	.byte	0xBE
@@ -39409,7 +39409,7 @@ Song_0854EDC0:
 	.byte	0x98
 	.byte	0xD5
 	.byte	0x8C
-Song_0854EDD3:
+Song_0854F3BC_6_1:
 	.byte	0xD5
 	.byte	0x32
 	.byte	0x70
@@ -39423,7 +39423,7 @@ Song_0854EDD3:
 	.byte	0xD5
 	.byte	0x98
 	.byte	0xB4
-Song_0854EDE0:
+Song_0854F3BC_6_2:
 	.byte	0x8C
 	.byte	0xD5
 	.byte	0x34
@@ -39439,7 +39439,7 @@ Song_0854EDE0:
 	.byte	0x8C
 	.byte	0xB4
 	.byte	0xB3
-	.word	Song_0854EDD3
+	.word	Song_0854F3BC_6_1
 	.byte	0x8C
 	.byte	0xD5
 	.byte	0x34
@@ -39659,7 +39659,7 @@ Song_0854EDE0:
 	.byte	0xD5
 	.byte	0x8C
 	.byte	0xB3
-	.word	Song_0854EDE0
+	.word	Song_0854F3BC_6_2
 	.byte	0xD5
 	.byte	0x37
 	.byte	0x70
@@ -39685,7 +39685,7 @@ Song_0854EDE0:
 	.byte	0x98
 	.byte	0xD5
 	.byte	0x8C
-Song_0854EEEB:
+Song_0854F3BC_6_3:
 	.byte	0xD5
 	.byte	0x34
 	.byte	0x70
@@ -39701,7 +39701,7 @@ Song_0854EEEB:
 	.byte	0xD5
 	.byte	0x8C
 	.byte	0xB4
-Song_0854EEFA:
+Song_0854F3BC_6_4:
 	.byte	0x8C
 	.byte	0xD5
 	.byte	0x32
@@ -39717,9 +39717,9 @@ Song_0854EEFA:
 	.byte	0x8C
 	.byte	0xB4
 	.byte	0xB3
-	.word	Song_0854EEEB
+	.word	Song_0854F3BC_6_3
 	.byte	0xB3
-	.word	Song_0854EEFA
+	.word	Song_0854F3BC_6_4
 	.byte	0xFF
 	.byte	0x37
 	.byte	0x6C
@@ -39807,7 +39807,7 @@ Song_0854EEFA:
 	.byte	0x83
 	.byte	0xCE
 	.byte	0x81
-Song_0854EF69:
+Song_0854F3BC_6_5:
 	.byte	0xD5
 	.byte	0x43
 	.byte	0x7C
@@ -39907,7 +39907,7 @@ Song_0854EF69:
 	.byte	0x28
 	.byte	0x86
 	.byte	0xB3
-	.word	Song_0854EF69
+	.word	Song_0854F3BC_6_5
 	.byte	0xD5
 	.byte	0x47
 	.byte	0x7F
@@ -40160,7 +40160,7 @@ Song_0854EF69:
 	.byte	0xD5
 	.byte	0x8C
 	.byte	0xB2
-	.word	Song_0854EDC0
+	.word	Song_0854F3BC_6_6
 	.byte	0xB1
 
 	@********************** Track  7 **********************@
@@ -40182,7 +40182,7 @@ Song_0854F3BC_7:	@ 0x0854F0D1
 	.byte	0x26
 	.byte	0x48
 	.byte	0x86
-Song_0854F0E0:
+Song_0854F3BC_7_4:
 	.byte	0xE2
 	.byte	0x26
 	.byte	0x64
@@ -40200,7 +40200,7 @@ Song_0854F0E0:
 	.byte	0x26
 	.byte	0x58
 	.byte	0x8C
-Song_0854F0F1:
+Song_0854F3BC_7_1:
 	.byte	0xD2
 	.byte	0x26
 	.byte	0x5C
@@ -40275,7 +40275,7 @@ Song_0854F0F1:
 	.byte	0x58
 	.byte	0x8C
 	.byte	0xB3
-	.word	Song_0854F0F1
+	.word	Song_0854F3BC_7_1
 	.byte	0xE6
 	.byte	0x26
 	.byte	0x64
@@ -40439,7 +40439,7 @@ Song_0854F0F1:
 	.byte	0x9C
 	.byte	0xE1
 	.byte	0x9C
-Song_0854F1E2:
+Song_0854F3BC_7_2:
 	.byte	0x98
 	.byte	0xE1
 	.byte	0x53
@@ -40450,7 +40450,7 @@ Song_0854F1E2:
 	.byte	0xE1
 	.byte	0x98
 	.byte	0xB4
-Song_0854F1EC:
+Song_0854F3BC_7_3:
 	.byte	0x98
 	.byte	0xE1
 	.byte	0x53
@@ -40460,11 +40460,11 @@ Song_0854F1EC:
 	.byte	0x9C
 	.byte	0xB4
 	.byte	0xB3
-	.word	Song_0854F1E2
+	.word	Song_0854F3BC_7_2
 	.byte	0xB3
-	.word	Song_0854F1EC
+	.word	Song_0854F3BC_7_3
 	.byte	0xB3
-	.word	Song_0854F1E2
+	.word	Song_0854F3BC_7_2
 	.byte	0x98
 	.byte	0xE1
 	.byte	0x53
@@ -40900,7 +40900,7 @@ Song_0854F1EC:
 	.byte	0x64
 	.byte	0x8C
 	.byte	0xB2
-	.word	Song_0854F0E0
+	.word	Song_0854F3BC_7_4
 	.byte	0xB1
 	.byte	0x00
 
@@ -40912,7 +40912,7 @@ Song_0854F3BC:	@ 0x0854F3BC
 	.byte	10		@ priority
 	.byte	148		@ reverb
 
-	.word	voicegroup_08214214		@ voicegroup/tone
+	.word	voicegroup041		@ voicegroup/tone
 
 	.word	Song_0854F3BC_1		@ track
 	.word	Song_0854F3BC_2		@ track
@@ -40932,7 +40932,7 @@ Song_085505A8_1:	@ 0x0854F3E0
 	.byte	0xBB
 	.byte	0x3C
 	.byte	0x98
-Song_0854F3E5:
+Song_085505A8_1_2:
 	.byte	0xBD
 	.byte	0x3F
 	.byte	0xBE
@@ -41122,7 +41122,7 @@ Song_0854F3E5:
 	.byte	0x3B
 	.byte	0x18
 	.byte	0x86
-Song_0854F4A2:
+Song_085505A8_1_1:
 	.byte	0xE9
 	.byte	0x38
 	.byte	0x7F
@@ -41175,7 +41175,7 @@ Song_0854F4A2:
 	.byte	0x1C
 	.byte	0x8C
 	.byte	0xB3
-	.word	Song_0854F4A2
+	.word	Song_085505A8_1_1
 	.byte	0xE8
 	.byte	0x42
 	.byte	0x7F
@@ -42121,7 +42121,7 @@ Song_0854F4A2:
 	.byte	0x36
 	.byte	0x86
 	.byte	0xB2
-	.word	Song_0854F3E5
+	.word	Song_085505A8_1_2
 	.byte	0xB1
 
 	@********************** Track  2 **********************@
@@ -42140,7 +42140,7 @@ Song_085505A8_2:	@ 0x0854F890
 	.byte	0x2F
 	.byte	0x7F
 	.byte	0x98
-Song_0854F89C:
+Song_085505A8_2_1:
 	.byte	0xD7
 	.byte	0x34
 	.byte	0x7F
@@ -42156,7 +42156,7 @@ Song_0854F89C:
 	.byte	0x7F
 	.byte	0x98
 	.byte	0xB4
-Song_0854F8AB:
+Song_085505A8_2_2:
 	.byte	0xD3
 	.byte	0x34
 	.byte	0x7F
@@ -42168,7 +42168,7 @@ Song_0854F8AB:
 	.byte	0xE1
 	.byte	0x98
 	.byte	0xB4
-Song_0854F8B6:
+Song_085505A8_2_3:
 	.byte	0xD2
 	.byte	0x34
 	.byte	0x7F
@@ -42182,7 +42182,7 @@ Song_0854F8B6:
 	.byte	0x74
 	.byte	0x98
 	.byte	0xB4
-Song_0854F8C3:
+Song_085505A8_2_4:
 	.byte	0xD6
 	.byte	0x34
 	.byte	0x7F
@@ -42195,7 +42195,7 @@ Song_0854F8C3:
 	.byte	0xE6
 	.byte	0x98
 	.byte	0xB4
-Song_0854F8CF:
+Song_085505A8_2_5:
 	.byte	0xD6
 	.byte	0x30
 	.byte	0x7F
@@ -42211,7 +42211,7 @@ Song_0854F8CF:
 	.byte	0x7F
 	.byte	0x98
 	.byte	0xB4
-Song_0854F8DE:
+Song_085505A8_2_6:
 	.byte	0xD3
 	.byte	0x2B
 	.byte	0x74
@@ -42229,7 +42229,7 @@ Song_0854F8DE:
 	.byte	0x7F
 	.byte	0x98
 	.byte	0xB4
-Song_0854F8EF:
+Song_085505A8_2_7:
 	.byte	0xD6
 	.byte	0x2D
 	.byte	0x7F
@@ -42245,7 +42245,7 @@ Song_0854F8EF:
 	.byte	0x7F
 	.byte	0x98
 	.byte	0xB4
-Song_0854F8FE:
+Song_085505A8_2_8:
 	.byte	0xD4
 	.byte	0x2F
 	.byte	0x7F
@@ -42264,21 +42264,21 @@ Song_0854F8FE:
 	.byte	0x8C
 	.byte	0xB4
 	.byte	0xB3
-	.word	Song_0854F89C
+	.word	Song_085505A8_2_1
 	.byte	0xB3
-	.word	Song_0854F8AB
+	.word	Song_085505A8_2_2
 	.byte	0xB3
-	.word	Song_0854F8B6
+	.word	Song_085505A8_2_3
 	.byte	0xB3
-	.word	Song_0854F8C3
+	.word	Song_085505A8_2_4
 	.byte	0xB3
-	.word	Song_0854F8CF
+	.word	Song_085505A8_2_5
 	.byte	0xB3
-	.word	Song_0854F8DE
+	.word	Song_085505A8_2_6
 	.byte	0xB3
-	.word	Song_0854F8EF
+	.word	Song_085505A8_2_7
 	.byte	0xB3
-	.word	Song_0854F8FE
+	.word	Song_085505A8_2_8
 	.byte	0xF7
 	.byte	0x2D
 	.byte	0x7F
@@ -42478,7 +42478,7 @@ Song_0854F8FE:
 	.byte	0x74
 	.byte	0xB0
 	.byte	0xB2
-	.word	Song_0854F89C
+	.word	Song_085505A8_2_1
 	.byte	0xB1
 
 	@********************** Track  3 **********************@
@@ -42488,7 +42488,7 @@ Song_085505A8_3:	@ 0x0854FA03
 	.byte	0xBC
 	.byte	0x00
 	.byte	0x98
-Song_0854FA06:
+Song_085505A8_3_1:
 	.byte	0xBD
 	.byte	0x3E
 	.byte	0xBE
@@ -43513,7 +43513,7 @@ Song_0854FA06:
 	.byte	0x3F
 	.byte	0x86
 	.byte	0xB2
-	.word	Song_0854FA06
+	.word	Song_085505A8_3_1
 	.byte	0xB1
 
 	@********************** Track  4 **********************@
@@ -43523,7 +43523,7 @@ Song_085505A8_4:	@ 0x0854FE0B
 	.byte	0xBC
 	.byte	0x00
 	.byte	0x98
-Song_0854FE0E:
+Song_085505A8_4_4:
 	.byte	0xB0
 	.byte	0xB0
 	.byte	0xB0
@@ -43538,7 +43538,7 @@ Song_0854FE0E:
 	.byte	0xBF
 	.byte	0x1E
 	.byte	0xB0
-Song_0854FE1C:
+Song_085505A8_4_1:
 	.byte	0xE9
 	.byte	0x38
 	.byte	0x7F
@@ -43591,7 +43591,7 @@ Song_0854FE1C:
 	.byte	0x1C
 	.byte	0x8C
 	.byte	0xB3
-	.word	Song_0854FE1C
+	.word	Song_085505A8_4_1
 	.byte	0xE8
 	.byte	0x42
 	.byte	0x7F
@@ -43990,7 +43990,7 @@ Song_0854FE1C:
 	.byte	0x3F
 	.byte	0x1C
 	.byte	0x86
-Song_0854FFE2:
+Song_085505A8_4_3:
 	.byte	0xD3
 	.byte	0x3F
 	.byte	0x68
@@ -44019,7 +44019,7 @@ Song_0854FFE2:
 	.byte	0x1C
 	.byte	0x86
 	.byte	0xB4
-Song_0854FFFE:
+Song_085505A8_4_2:
 	.byte	0xD3
 	.byte	0x3D
 	.byte	0x68
@@ -44049,19 +44049,19 @@ Song_0854FFFE:
 	.byte	0x86
 	.byte	0xB4
 	.byte	0xB3
-	.word	Song_0854FFFE
+	.word	Song_085505A8_4_2
 	.byte	0xB3
-	.word	Song_0854FFE2
+	.word	Song_085505A8_4_3
 	.byte	0xB3
-	.word	Song_0854FFE2
+	.word	Song_085505A8_4_3
 	.byte	0xB3
-	.word	Song_0854FFFE
+	.word	Song_085505A8_4_2
 	.byte	0xB3
-	.word	Song_0854FFE2
+	.word	Song_085505A8_4_3
 	.byte	0xB3
-	.word	Song_0854FFFE
+	.word	Song_085505A8_4_2
 	.byte	0xB3
-	.word	Song_0854FFE2
+	.word	Song_085505A8_4_3
 	.byte	0xF9
 	.byte	0x41
 	.byte	0x68
@@ -44098,7 +44098,7 @@ Song_0854FFFE:
 	.byte	0x00
 	.byte	0x9D
 	.byte	0xB2
-	.word	Song_0854FE0E
+	.word	Song_085505A8_4_4
 	.byte	0xB1
 
 	@********************** Track  5 **********************@
@@ -44108,7 +44108,7 @@ Song_085505A8_5:	@ 0x08550066
 	.byte	0xBC
 	.byte	0x00
 	.byte	0x98
-Song_08550069:
+Song_085505A8_5_1:
 	.byte	0xBD
 	.byte	0x41
 	.byte	0xBE
@@ -44647,7 +44647,7 @@ Song_08550069:
 	.byte	0x9D
 	.byte	0x81
 	.byte	0xB2
-	.word	Song_08550069
+	.word	Song_085505A8_5_1
 	.byte	0xB1
 
 	@********************** Track  6 **********************@
@@ -44657,7 +44657,7 @@ Song_085505A8_6:	@ 0x08550288
 	.byte	0xBC
 	.byte	0x00
 	.byte	0x98
-Song_0855028B:
+Song_085505A8_6_4:
 	.byte	0xB0
 	.byte	0xB0
 	.byte	0xB0
@@ -44727,7 +44727,7 @@ Song_0855028B:
 	.byte	0x42
 	.byte	0x1C
 	.byte	0x86
-Song_085502D0:
+Song_085505A8_6_2:
 	.byte	0xD3
 	.byte	0x44
 	.byte	0x68
@@ -44761,7 +44761,7 @@ Song_085502D0:
 	.byte	0x1C
 	.byte	0x86
 	.byte	0xB4
-Song_085502F1:
+Song_085505A8_6_1:
 	.byte	0xD3
 	.byte	0x42
 	.byte	0x68
@@ -44796,12 +44796,12 @@ Song_085502F1:
 	.byte	0x86
 	.byte	0xB4
 	.byte	0xB3
-	.word	Song_085502F1
+	.word	Song_085505A8_6_1
 	.byte	0xB3
-	.word	Song_085502D0
+	.word	Song_085505A8_6_2
 	.byte	0xB3
-	.word	Song_085502D0
-Song_08550321:
+	.word	Song_085505A8_6_2
+Song_085505A8_6_3:
 	.byte	0xD3
 	.byte	0x41
 	.byte	0x68
@@ -44836,11 +44836,11 @@ Song_08550321:
 	.byte	0x86
 	.byte	0xB4
 	.byte	0xB3
-	.word	Song_085502D0
+	.word	Song_085505A8_6_2
 	.byte	0xB3
-	.word	Song_08550321
+	.word	Song_085505A8_6_3
 	.byte	0xB3
-	.word	Song_085502D0
+	.word	Song_085505A8_6_2
 	.byte	0xF9
 	.byte	0x41
 	.byte	0x70
@@ -44883,7 +44883,7 @@ Song_08550321:
 	.byte	0x00
 	.byte	0x93
 	.byte	0xB2
-	.word	Song_0855028B
+	.word	Song_085505A8_6_4
 	.byte	0xB1
 
 	@********************** Track  7 **********************@
@@ -44902,7 +44902,7 @@ Song_085505A8_7:	@ 0x08550380
 	.byte	0x27
 	.byte	0x38
 	.byte	0x98
-Song_0855038C:
+Song_085505A8_7_2:
 	.byte	0xD5
 	.byte	0x26
 	.byte	0x6C
@@ -45353,7 +45353,7 @@ Song_0855038C:
 	.byte	0x53
 	.byte	0x54
 	.byte	0xB0
-Song_0855054E:
+Song_085505A8_7_1:
 	.byte	0xEB
 	.byte	0x53
 	.byte	0x54
@@ -45395,7 +45395,7 @@ Song_0855054E:
 	.byte	0xDA
 	.byte	0x8C
 	.byte	0xB3
-	.word	Song_0855054E
+	.word	Song_085505A8_7_1
 	.byte	0xEC
 	.byte	0x53
 	.byte	0x54
@@ -45436,7 +45436,7 @@ Song_0855054E:
 	.byte	0x38
 	.byte	0x98
 	.byte	0xB2
-	.word	Song_0855038C
+	.word	Song_085505A8_7_2
 	.byte	0xB1
 
 	.align 2
@@ -45447,7 +45447,7 @@ Song_085505A8:	@ 0x085505A8
 	.byte	10		@ priority
 	.byte	148		@ reverb
 
-	.word	voicegroup_08214814		@ voicegroup/tone
+	.word	voicegroup042		@ voicegroup/tone
 
 	.word	Song_085505A8_1		@ track
 	.word	Song_085505A8_2		@ track
@@ -45464,7 +45464,7 @@ Song_085505A8:	@ 0x085505A8
 Song_085516B8_1:	@ 0x085505CC
 	.byte	0xBC
 	.byte	0x00
-Song_085505CE:
+Song_085516B8_1_7:
 	.byte	0xBB
 	.byte	0x40
 	.byte	0xBD
@@ -45502,7 +45502,7 @@ Song_085505CE:
 	.byte	0x43
 	.byte	0x1C
 	.byte	0x86
-Song_085505F3:
+Song_085516B8_1_2:
 	.byte	0xDB
 	.byte	0x42
 	.byte	0x68
@@ -45532,7 +45532,7 @@ Song_085505F3:
 	.byte	0x1C
 	.byte	0x86
 	.byte	0xB4
-Song_08550610:
+Song_085516B8_1_1:
 	.byte	0xDB
 	.byte	0x40
 	.byte	0x68
@@ -45586,9 +45586,9 @@ Song_08550610:
 	.byte	0x1C
 	.byte	0x8C
 	.byte	0xB3
-	.word	Song_08550610
+	.word	Song_085516B8_1_1
 	.byte	0xB3
-	.word	Song_085505F3
+	.word	Song_085516B8_1_2
 	.byte	0xDB
 	.byte	0x43
 	.byte	0x68
@@ -45674,7 +45674,7 @@ Song_08550610:
 	.byte	0x43
 	.byte	0x24
 	.byte	0x86
-Song_085506A3:
+Song_085516B8_1_3:
 	.byte	0xDB
 	.byte	0x42
 	.byte	0x74
@@ -45722,7 +45722,7 @@ Song_085506A3:
 	.byte	0x24
 	.byte	0x8C
 	.byte	0xB3
-	.word	Song_085506A3
+	.word	Song_085516B8_1_3
 	.byte	0xDB
 	.byte	0x40
 	.byte	0x74
@@ -45838,7 +45838,7 @@ Song_085506A3:
 	.byte	0x86
 	.byte	0x42
 	.byte	0x86
-Song_08550749:
+Song_085516B8_1_4:
 	.byte	0xD5
 	.byte	0x43
 	.byte	0x68
@@ -45875,7 +45875,7 @@ Song_08550749:
 	.byte	0x1C
 	.byte	0x86
 	.byte	0xB4
-Song_0855076D:
+Song_085516B8_1_5:
 	.byte	0xD5
 	.byte	0x43
 	.byte	0x68
@@ -45909,7 +45909,7 @@ Song_0855076D:
 	.byte	0x45
 	.byte	0x86
 	.byte	0xB4
-Song_0855078E:
+Song_085516B8_1_6:
 	.byte	0xD5
 	.byte	0x47
 	.byte	0x68
@@ -45982,11 +45982,11 @@ Song_0855078E:
 	.byte	0x42
 	.byte	0x86
 	.byte	0xB3
-	.word	Song_08550749
+	.word	Song_085516B8_1_4
 	.byte	0xB3
-	.word	Song_0855076D
+	.word	Song_085516B8_1_5
 	.byte	0xB3
-	.word	Song_0855078E
+	.word	Song_085516B8_1_6
 	.byte	0xD5
 	.byte	0x4A
 	.byte	0x68
@@ -46166,7 +46166,7 @@ Song_0855078E:
 	.byte	0x20
 	.byte	0x92
 	.byte	0xB2
-	.word	Song_085505CE
+	.word	Song_085516B8_1_7
 	.byte	0xB1
 
 	@********************** Track  2 **********************@
@@ -46175,7 +46175,7 @@ Song_0855078E:
 Song_085516B8_2:	@ 0x0855089C
 	.byte	0xBC
 	.byte	0x00
-Song_0855089E:
+Song_085516B8_2_7:
 	.byte	0xBD
 	.byte	0x22
 	.byte	0xBE
@@ -46192,7 +46192,7 @@ Song_0855089E:
 	.byte	0x98
 	.byte	0xE3
 	.byte	0x98
-Song_085508AE:
+Song_085516B8_2_1:
 	.byte	0xD5
 	.byte	0x34
 	.byte	0x7F
@@ -46206,7 +46206,7 @@ Song_085508AE:
 	.byte	0x2F
 	.byte	0x8C
 	.byte	0xB4
-Song_085508BB:
+Song_085516B8_2_2:
 	.byte	0xD5
 	.byte	0x34
 	.byte	0x7F
@@ -46219,14 +46219,14 @@ Song_085508BB:
 	.byte	0x98
 	.byte	0xB4
 	.byte	0xB3
-	.word	Song_085508AE
+	.word	Song_085516B8_2_1
 	.byte	0xB3
-	.word	Song_085508BB
+	.word	Song_085516B8_2_2
 	.byte	0xB3
-	.word	Song_085508AE
+	.word	Song_085516B8_2_1
 	.byte	0xB3
-	.word	Song_085508BB
-Song_085508DA:
+	.word	Song_085516B8_2_2
+Song_085516B8_2_3:
 	.byte	0xD5
 	.byte	0x34
 	.byte	0x7F
@@ -46278,13 +46278,13 @@ Song_085508DA:
 	.byte	0x36
 	.byte	0x8C
 	.byte	0xB3
-	.word	Song_085508BB
+	.word	Song_085516B8_2_2
 	.byte	0xB3
-	.word	Song_085508AE
+	.word	Song_085516B8_2_1
 	.byte	0xB3
-	.word	Song_085508BB
+	.word	Song_085516B8_2_2
 	.byte	0xB3
-	.word	Song_085508DA
+	.word	Song_085516B8_2_3
 	.byte	0xE7
 	.byte	0x30
 	.byte	0x7F
@@ -46344,7 +46344,7 @@ Song_085508DA:
 	.byte	0x8C
 	.byte	0x2F
 	.byte	0x8C
-Song_0855095B:
+Song_085516B8_2_5:
 	.byte	0xD5
 	.byte	0x34
 	.byte	0x7F
@@ -46360,7 +46360,7 @@ Song_0855095B:
 	.byte	0xD5
 	.byte	0x8C
 	.byte	0xB4
-Song_0855096A:
+Song_085516B8_2_4:
 	.byte	0xD5
 	.byte	0x32
 	.byte	0x7F
@@ -46376,7 +46376,7 @@ Song_0855096A:
 	.byte	0xD5
 	.byte	0x8C
 	.byte	0xB4
-Song_08550979:
+Song_085516B8_2_6:
 	.byte	0xD5
 	.byte	0x30
 	.byte	0x7F
@@ -46393,13 +46393,13 @@ Song_08550979:
 	.byte	0x8C
 	.byte	0xB4
 	.byte	0xB3
-	.word	Song_0855096A
+	.word	Song_085516B8_2_4
 	.byte	0xB3
-	.word	Song_0855095B
+	.word	Song_085516B8_2_5
 	.byte	0xB3
-	.word	Song_0855096A
+	.word	Song_085516B8_2_4
 	.byte	0xB3
-	.word	Song_08550979
+	.word	Song_085516B8_2_6
 	.byte	0xD5
 	.byte	0x32
 	.byte	0x7F
@@ -46417,9 +46417,9 @@ Song_08550979:
 	.byte	0xD5
 	.byte	0x8C
 	.byte	0xB3
-	.word	Song_0855096A
+	.word	Song_085516B8_2_4
 	.byte	0xB3
-	.word	Song_08550979
+	.word	Song_085516B8_2_6
 	.byte	0xD5
 	.byte	0x2E
 	.byte	0x7F
@@ -46497,7 +46497,7 @@ Song_08550979:
 	.byte	0x2F
 	.byte	0x8C
 	.byte	0xB2
-	.word	Song_0855089E
+	.word	Song_085516B8_2_7
 	.byte	0xB1
 
 	@********************** Track  3 **********************@
@@ -46506,7 +46506,7 @@ Song_08550979:
 Song_085516B8_3:	@ 0x08550A08
 	.byte	0xBC
 	.byte	0x00
-Song_08550A0A:
+Song_085516B8_3_1:
 	.byte	0xBD
 	.byte	0x30
 	.byte	0xBE
@@ -46960,7 +46960,7 @@ Song_08550A0A:
 	.byte	0x68
 	.byte	0xA4
 	.byte	0xB2
-	.word	Song_08550A0A
+	.word	Song_085516B8_3_1
 	.byte	0xB1
 
 	@********************** Track  4 **********************@
@@ -46969,7 +46969,7 @@ Song_08550A0A:
 Song_085516B8_4:	@ 0x08550BD4
 	.byte	0xBC
 	.byte	0x00
-Song_08550BD6:
+Song_085516B8_4_4:
 	.byte	0xBD
 	.byte	0x3D
 	.byte	0xBE
@@ -47005,7 +47005,7 @@ Song_08550BD6:
 	.byte	0x40
 	.byte	0x20
 	.byte	0x86
-Song_08550BF9:
+Song_085516B8_4_2:
 	.byte	0xDB
 	.byte	0x3E
 	.byte	0x68
@@ -47035,7 +47035,7 @@ Song_08550BF9:
 	.byte	0x20
 	.byte	0x86
 	.byte	0xB4
-Song_08550C16:
+Song_085516B8_4_1:
 	.byte	0xDB
 	.byte	0x3B
 	.byte	0x68
@@ -47084,9 +47084,9 @@ Song_08550C16:
 	.byte	0x20
 	.byte	0x86
 	.byte	0xB3
-	.word	Song_08550C16
+	.word	Song_085516B8_4_1
 	.byte	0xB3
-	.word	Song_08550BF9
+	.word	Song_085516B8_4_2
 	.byte	0xDB
 	.byte	0x40
 	.byte	0x68
@@ -47160,7 +47160,7 @@ Song_08550C16:
 	.byte	0x4C
 	.byte	0x20
 	.byte	0x86
-Song_08550C98:
+Song_085516B8_4_3:
 	.byte	0xDB
 	.byte	0x4A
 	.byte	0x68
@@ -47209,7 +47209,7 @@ Song_08550C98:
 	.byte	0x20
 	.byte	0x86
 	.byte	0xB3
-	.word	Song_08550C98
+	.word	Song_085516B8_4_3
 	.byte	0xBD
 	.byte	0x3D
 	.byte	0xBE
@@ -47243,9 +47243,9 @@ Song_08550C98:
 	.byte	0x20
 	.byte	0x86
 	.byte	0xB3
-	.word	Song_08550BF9
+	.word	Song_085516B8_4_2
 	.byte	0xB3
-	.word	Song_08550C16
+	.word	Song_085516B8_4_1
 	.byte	0xE7
 	.byte	0x3E
 	.byte	0x68
@@ -47502,7 +47502,7 @@ Song_08550C98:
 	.byte	0x70
 	.byte	0x8C
 	.byte	0xB2
-	.word	Song_08550BD6
+	.word	Song_085516B8_4_4
 	.byte	0xB1
 
 	@********************** Track  5 **********************@
@@ -47511,7 +47511,7 @@ Song_08550C98:
 Song_085516B8_5:	@ 0x08550DFB
 	.byte	0xBC
 	.byte	0x00
-Song_08550DFD:
+Song_085516B8_5_4:
 	.byte	0xB0
 	.byte	0xB0
 	.byte	0xB0
@@ -47629,7 +47629,7 @@ Song_08550DFD:
 	.byte	0x86
 	.byte	0x3E
 	.byte	0x86
-Song_08550E72:
+Song_085516B8_5_1:
 	.byte	0xD5
 	.byte	0x40
 	.byte	0x68
@@ -47662,7 +47662,7 @@ Song_08550E72:
 	.byte	0x68
 	.byte	0x98
 	.byte	0xB4
-Song_08550E92:
+Song_085516B8_5_2:
 	.byte	0xD5
 	.byte	0x40
 	.byte	0x68
@@ -47696,7 +47696,7 @@ Song_08550E92:
 	.byte	0x40
 	.byte	0x86
 	.byte	0xB4
-Song_08550EB3:
+Song_085516B8_5_3:
 	.byte	0xD5
 	.byte	0x43
 	.byte	0x68
@@ -47765,11 +47765,11 @@ Song_08550EB3:
 	.byte	0x3E
 	.byte	0x86
 	.byte	0xB3
-	.word	Song_08550E72
+	.word	Song_085516B8_5_1
 	.byte	0xB3
-	.word	Song_08550E92
+	.word	Song_085516B8_5_2
 	.byte	0xB3
-	.word	Song_08550EB3
+	.word	Song_085516B8_5_3
 	.byte	0xD5
 	.byte	0x47
 	.byte	0x68
@@ -48044,7 +48044,7 @@ Song_08550EB3:
 	.byte	0x20
 	.byte	0x8C
 	.byte	0xB2
-	.word	Song_08550DFD
+	.word	Song_085516B8_5_4
 	.byte	0xB1
 
 	@********************** Track  6 **********************@
@@ -48053,7 +48053,7 @@ Song_08550EB3:
 Song_085516B8_6:	@ 0x0855101C
 	.byte	0xBC
 	.byte	0x00
-Song_0855101E:
+Song_085516B8_6_2:
 	.byte	0xBD
 	.byte	0x34
 	.byte	0xBE
@@ -48438,7 +48438,7 @@ Song_0855101E:
 	.byte	0x32
 	.byte	0x20
 	.byte	0x86
-Song_0855119E:
+Song_085516B8_6_1:
 	.byte	0xD5
 	.byte	0x30
 	.byte	0x58
@@ -48634,7 +48634,7 @@ Song_0855119E:
 	.byte	0x20
 	.byte	0x86
 	.byte	0xB3
-	.word	Song_0855119E
+	.word	Song_085516B8_6_1
 	.byte	0xD5
 	.byte	0x32
 	.byte	0x58
@@ -49069,7 +49069,7 @@ Song_0855119E:
 	.byte	0x20
 	.byte	0x86
 	.byte	0xB2
-	.word	Song_0855101E
+	.word	Song_085516B8_6_2
 	.byte	0xB1
 
 	@********************** Track  7 **********************@
@@ -49078,7 +49078,7 @@ Song_0855119E:
 Song_085516B8_7:	@ 0x0855141C
 	.byte	0xBC
 	.byte	0x00
-Song_0855141E:
+Song_085516B8_7_1:
 	.byte	0xBD
 	.byte	0x7F
 	.byte	0xBE
@@ -49737,7 +49737,7 @@ Song_0855141E:
 	.byte	0xD4
 	.byte	0x86
 	.byte	0xB2
-	.word	Song_0855141E
+	.word	Song_085516B8_7_1
 	.byte	0xB1
 	.byte	0x00
 	.byte	0x00
@@ -49751,7 +49751,7 @@ Song_085516B8:	@ 0x085516B8
 	.byte	10		@ priority
 	.byte	148		@ reverb
 
-	.word	voicegroup_08214E14		@ voicegroup/tone
+	.word	voicegroup043		@ voicegroup/tone
 
 	.word	Song_085516B8_1		@ track
 	.word	Song_085516B8_2		@ track
@@ -49768,7 +49768,7 @@ Song_085516B8:	@ 0x085516B8
 Song_08552A5C_1:	@ 0x085516DC
 	.byte	0xBC
 	.byte	0x00
-Song_085516DE:
+Song_08552A5C_1_9:
 	.byte	0xBB
 	.byte	0x3F
 	.byte	0xBD
@@ -49996,7 +49996,7 @@ Song_085516DE:
 	.byte	0x45
 	.byte	0x20
 	.byte	0x86
-Song_085517C1:
+Song_08552A5C_1_1:
 	.byte	0xE1
 	.byte	0x40
 	.byte	0x74
@@ -50057,7 +50057,7 @@ Song_085517C1:
 	.byte	0x20
 	.byte	0x86
 	.byte	0xB3
-	.word	Song_085517C1
+	.word	Song_08552A5C_1_1
 	.byte	0xDB
 	.byte	0x3E
 	.byte	0x74
@@ -50225,7 +50225,7 @@ Song_085517C1:
 	.byte	0x51
 	.byte	0x5C
 	.byte	0x9C
-Song_085518A8:
+Song_08552A5C_1_2:
 	.byte	0xE9
 	.byte	0x4E
 	.byte	0x68
@@ -50280,7 +50280,7 @@ Song_085518A8:
 	.byte	0x51
 	.byte	0x5C
 	.byte	0x9C
-Song_085518DE:
+Song_08552A5C_1_4:
 	.byte	0xE9
 	.byte	0x4C
 	.byte	0x68
@@ -50303,7 +50303,7 @@ Song_085518DE:
 	.byte	0x20
 	.byte	0x86
 	.byte	0xB4
-Song_085518F4:
+Song_08552A5C_1_3:
 	.byte	0xD5
 	.byte	0x51
 	.byte	0x68
@@ -50339,11 +50339,11 @@ Song_085518F4:
 	.byte	0x9C
 	.byte	0xB4
 	.byte	0xB3
-	.word	Song_085518A8
+	.word	Song_08552A5C_1_2
 	.byte	0xB3
-	.word	Song_085518F4
+	.word	Song_08552A5C_1_3
 	.byte	0xB3
-	.word	Song_085518DE
+	.word	Song_08552A5C_1_4
 	.byte	0xBD
 	.byte	0x44
 	.byte	0xBE
@@ -50431,7 +50431,7 @@ Song_085518F4:
 	.byte	0x42
 	.byte	0x20
 	.byte	0x86
-Song_0855197C:
+Song_08552A5C_1_5:
 	.byte	0xD5
 	.byte	0x44
 	.byte	0x68
@@ -50475,8 +50475,8 @@ Song_0855197C:
 	.byte	0x86
 	.byte	0xB4
 	.byte	0xB3
-	.word	Song_0855197C
-Song_085519AB:
+	.word	Song_08552A5C_1_5
+Song_08552A5C_1_6:
 	.byte	0xD5
 	.byte	0x46
 	.byte	0x68
@@ -50520,7 +50520,7 @@ Song_085519AB:
 	.byte	0x86
 	.byte	0xB4
 	.byte	0xB3
-	.word	Song_085519AB
+	.word	Song_08552A5C_1_6
 	.byte	0xD5
 	.byte	0x42
 	.byte	0x68
@@ -50602,7 +50602,7 @@ Song_085519AB:
 	.byte	0x3B
 	.byte	0x20
 	.byte	0x86
-Song_08551A2B:
+Song_08552A5C_1_7:
 	.byte	0xDB
 	.byte	0x41
 	.byte	0x68
@@ -50645,7 +50645,7 @@ Song_08551A2B:
 	.byte	0x86
 	.byte	0xB4
 	.byte	0xB3
-	.word	Song_08551A2B
+	.word	Song_08552A5C_1_7
 	.byte	0xDB
 	.byte	0x43
 	.byte	0x68
@@ -50917,7 +50917,7 @@ Song_08551A2B:
 	.byte	0xD5
 	.byte	0x4D
 	.byte	0x8C
-Song_08551B68:
+Song_08552A5C_1_8:
 	.byte	0x98
 	.byte	0xD5
 	.byte	0x48
@@ -51014,7 +51014,7 @@ Song_08551B68:
 	.byte	0x4A
 	.byte	0x86
 	.byte	0xB3
-	.word	Song_08551B68
+	.word	Song_08552A5C_1_8
 	.byte	0xE1
 	.byte	0x4A
 	.byte	0x68
@@ -51124,7 +51124,7 @@ Song_08551B68:
 	.byte	0xCE
 	.byte	0x98
 	.byte	0xB2
-	.word	Song_085516DE
+	.word	Song_08552A5C_1_9
 	.byte	0xB1
 
 	@********************** Track  2 **********************@
@@ -51133,7 +51133,7 @@ Song_08551B68:
 Song_08552A5C_2:	@ 0x08551C3E
 	.byte	0xBC
 	.byte	0x00
-Song_08551C40:
+Song_08552A5C_2_6:
 	.byte	0xBD
 	.byte	0x22
 	.byte	0xBE
@@ -51150,7 +51150,7 @@ Song_08551C40:
 	.byte	0x98
 	.byte	0xD8
 	.byte	0x98
-Song_08551C50:
+Song_08552A5C_2_1:
 	.byte	0xD8
 	.byte	0x2D
 	.byte	0x7F
@@ -51197,7 +51197,7 @@ Song_08551C50:
 	.byte	0xD8
 	.byte	0x98
 	.byte	0xB3
-	.word	Song_08551C50
+	.word	Song_08552A5C_2_1
 	.byte	0xD8
 	.byte	0x2E
 	.byte	0x7F
@@ -51293,7 +51293,7 @@ Song_08551C50:
 	.byte	0x8C
 	.byte	0x2D
 	.byte	0x8C
-Song_08551CE1:
+Song_08552A5C_2_2:
 	.byte	0xD8
 	.byte	0x2F
 	.byte	0x7F
@@ -51321,7 +51321,7 @@ Song_08551CE1:
 	.byte	0x8C
 	.byte	0x2A
 	.byte	0x8C
-Song_08551CFC:
+Song_08552A5C_2_3:
 	.byte	0xD8
 	.byte	0x2B
 	.byte	0x7F
@@ -51337,7 +51337,7 @@ Song_08551CFC:
 	.byte	0x32
 	.byte	0x8C
 	.byte	0xB4
-Song_08551D0B:
+Song_08552A5C_2_4:
 	.byte	0xD8
 	.byte	0x2A
 	.byte	0x7F
@@ -51356,7 +51356,7 @@ Song_08551D0B:
 	.byte	0x8C
 	.byte	0xB4
 	.byte	0xB3
-	.word	Song_08551CE1
+	.word	Song_08552A5C_2_2
 	.byte	0xD8
 	.byte	0x2D
 	.byte	0x7F
@@ -51372,9 +51372,9 @@ Song_08551D0B:
 	.byte	0x34
 	.byte	0x8C
 	.byte	0xB3
-	.word	Song_08551CFC
+	.word	Song_08552A5C_2_3
 	.byte	0xB3
-	.word	Song_08551D0B
+	.word	Song_08552A5C_2_4
 	.byte	0xF7
 	.byte	0x2F
 	.byte	0x7F
@@ -51500,7 +51500,7 @@ Song_08551D0B:
 	.byte	0x8C
 	.byte	0xD6
 	.byte	0x8C
-Song_08551DB6:
+Song_08552A5C_2_5:
 	.byte	0xD4
 	.byte	0x2C
 	.byte	0x7F
@@ -51526,7 +51526,7 @@ Song_08551DB6:
 	.byte	0xD3
 	.byte	0x8C
 	.byte	0xB3
-	.word	Song_08551DB6
+	.word	Song_08552A5C_2_5
 	.byte	0xD4
 	.byte	0x2E
 	.byte	0x7F
@@ -51553,7 +51553,7 @@ Song_08551DB6:
 	.byte	0xF4
 	.byte	0xB0
 	.byte	0xB2
-	.word	Song_08551C40
+	.word	Song_08552A5C_2_6
 	.byte	0xB1
 
 	@********************** Track  3 **********************@
@@ -51562,7 +51562,7 @@ Song_08551DB6:
 Song_08552A5C_3:	@ 0x08551DF2
 	.byte	0xBC
 	.byte	0x00
-Song_08551DF4:
+Song_08552A5C_3_9:
 	.byte	0xBD
 	.byte	0x30
 	.byte	0xBE
@@ -51742,7 +51742,7 @@ Song_08551DF4:
 	.byte	0x42
 	.byte	0x1C
 	.byte	0x86
-Song_08551EA7:
+Song_08552A5C_3_1:
 	.byte	0xE1
 	.byte	0x37
 	.byte	0x68
@@ -51776,7 +51776,7 @@ Song_08551EA7:
 	.byte	0x20
 	.byte	0x86
 	.byte	0xB4
-Song_08551EC8:
+Song_08552A5C_3_2:
 	.byte	0xE1
 	.byte	0x3D
 	.byte	0x68
@@ -51797,9 +51797,9 @@ Song_08551EC8:
 	.byte	0x8C
 	.byte	0xB4
 	.byte	0xB3
-	.word	Song_08551EA7
+	.word	Song_08552A5C_3_1
 	.byte	0xB3
-	.word	Song_08551EC8
+	.word	Song_08552A5C_3_2
 	.byte	0xE1
 	.byte	0x3B
 	.byte	0x68
@@ -51897,7 +51897,7 @@ Song_08551EC8:
 	.byte	0xE4
 	.byte	0x40
 	.byte	0x98
-Song_08551F46:
+Song_08552A5C_3_3:
 	.byte	0xD5
 	.byte	0x3E
 	.byte	0x68
@@ -51931,7 +51931,7 @@ Song_08551F46:
 	.byte	0x45
 	.byte	0x9C
 	.byte	0xB4
-Song_08551F67:
+Song_08552A5C_3_4:
 	.byte	0xE7
 	.byte	0x3E
 	.byte	0x68
@@ -51955,8 +51955,8 @@ Song_08551F67:
 	.byte	0xA0
 	.byte	0xB4
 	.byte	0xB3
-	.word	Song_08551F46
-Song_08551F82:
+	.word	Song_08552A5C_3_3
+Song_08552A5C_3_5:
 	.byte	0xE7
 	.byte	0x3D
 	.byte	0x68
@@ -51980,14 +51980,14 @@ Song_08551F82:
 	.byte	0xA0
 	.byte	0xB4
 	.byte	0xB3
-	.word	Song_08551F46
+	.word	Song_08552A5C_3_3
 	.byte	0xB3
-	.word	Song_08551F67
+	.word	Song_08552A5C_3_4
 	.byte	0xB3
-	.word	Song_08551F46
+	.word	Song_08552A5C_3_3
 	.byte	0xB3
-	.word	Song_08551F82
-Song_08551FAC:
+	.word	Song_08552A5C_3_5
+Song_08552A5C_3_6:
 	.byte	0xD5
 	.byte	0x42
 	.byte	0x68
@@ -52008,8 +52008,8 @@ Song_08551FAC:
 	.byte	0x8C
 	.byte	0xB4
 	.byte	0xB3
-	.word	Song_08551FAC
-Song_08551FC4:
+	.word	Song_08552A5C_3_6
+Song_08552A5C_3_7:
 	.byte	0xD5
 	.byte	0x40
 	.byte	0x68
@@ -52030,7 +52030,7 @@ Song_08551FC4:
 	.byte	0x8C
 	.byte	0xB4
 	.byte	0xB3
-	.word	Song_08551FC4
+	.word	Song_08552A5C_3_7
 	.byte	0xD5
 	.byte	0x42
 	.byte	0x68
@@ -52097,7 +52097,7 @@ Song_08551FC4:
 	.byte	0x8C
 	.byte	0x34
 	.byte	0x8C
-Song_0855201E:
+Song_08552A5C_3_8:
 	.byte	0xDB
 	.byte	0x30
 	.byte	0x68
@@ -52140,7 +52140,7 @@ Song_0855201E:
 	.byte	0x86
 	.byte	0xB4
 	.byte	0xB3
-	.word	Song_0855201E
+	.word	Song_08552A5C_3_8
 	.byte	0xDB
 	.byte	0x34
 	.byte	0x68
@@ -52320,7 +52320,7 @@ Song_0855201E:
 	.byte	0x20
 	.byte	0x98
 	.byte	0xB2
-	.word	Song_08551DF4
+	.word	Song_08552A5C_3_9
 	.byte	0xB1
 
 	@********************** Track  4 **********************@
@@ -52329,7 +52329,7 @@ Song_0855201E:
 Song_08552A5C_4:	@ 0x08552104
 	.byte	0xBC
 	.byte	0x00
-Song_08552106:
+Song_08552A5C_4_4:
 	.byte	0xB0
 	.byte	0xB0
 	.byte	0xB0
@@ -53005,7 +53005,7 @@ Song_08552106:
 	.byte	0x44
 	.byte	0x20
 	.byte	0x86
-Song_085523A9:
+Song_08552A5C_4_1:
 	.byte	0x98
 	.byte	0xD5
 	.byte	0x3C
@@ -53019,7 +53019,7 @@ Song_085523A9:
 	.byte	0x3E
 	.byte	0x98
 	.byte	0xB4
-Song_085523B6:
+Song_08552A5C_4_2:
 	.byte	0xDE
 	.byte	0x3E
 	.byte	0x74
@@ -53032,8 +53032,8 @@ Song_085523B6:
 	.byte	0x98
 	.byte	0xB4
 	.byte	0xB3
-	.word	Song_085523A9
-Song_085523C6:
+	.word	Song_08552A5C_4_1
+Song_08552A5C_4_3:
 	.byte	0xDE
 	.byte	0x41
 	.byte	0x74
@@ -53046,13 +53046,13 @@ Song_085523C6:
 	.byte	0x98
 	.byte	0xB4
 	.byte	0xB3
-	.word	Song_085523A9
+	.word	Song_08552A5C_4_1
 	.byte	0xB3
-	.word	Song_085523B6
+	.word	Song_08552A5C_4_2
 	.byte	0xB3
-	.word	Song_085523A9
+	.word	Song_08552A5C_4_1
 	.byte	0xB3
-	.word	Song_085523C6
+	.word	Song_08552A5C_4_3
 	.byte	0xF7
 	.byte	0x3C
 	.byte	0x74
@@ -53104,7 +53104,7 @@ Song_085523C6:
 	.byte	0x20
 	.byte	0x98
 	.byte	0xB2
-	.word	Song_08552106
+	.word	Song_08552A5C_4_4
 	.byte	0xB1
 
 	@********************** Track  5 **********************@
@@ -53113,7 +53113,7 @@ Song_085523C6:
 Song_08552A5C_5:	@ 0x0855241D
 	.byte	0xBC
 	.byte	0x00
-Song_0855241F:
+Song_08552A5C_5_1:
 	.byte	0xB0
 	.byte	0xB0
 	.byte	0xBD
@@ -53750,7 +53750,7 @@ Song_0855241F:
 	.byte	0x60
 	.byte	0xB0
 	.byte	0xB2
-	.word	Song_0855241F
+	.word	Song_08552A5C_5_1
 	.byte	0xB1
 
 	@********************** Track  6 **********************@
@@ -53759,7 +53759,7 @@ Song_0855241F:
 Song_08552A5C_6:	@ 0x085526A0
 	.byte	0xBC
 	.byte	0x00
-Song_085526A2:
+Song_08552A5C_6_4:
 	.byte	0xB0
 	.byte	0xB0
 	.byte	0xB0
@@ -53808,7 +53808,7 @@ Song_085526A2:
 	.byte	0x8C
 	.byte	0x2A
 	.byte	0x8C
-Song_085526D2:
+Song_08552A5C_6_3:
 	.byte	0xDB
 	.byte	0x23
 	.byte	0x68
@@ -53828,7 +53828,7 @@ Song_085526D2:
 	.byte	0x2A
 	.byte	0x8C
 	.byte	0xB4
-Song_085526E5:
+Song_08552A5C_6_1:
 	.byte	0xDB
 	.byte	0x25
 	.byte	0x68
@@ -53849,8 +53849,8 @@ Song_085526E5:
 	.byte	0x8C
 	.byte	0xB4
 	.byte	0xB3
-	.word	Song_085526E5
-Song_085526FD:
+	.word	Song_08552A5C_6_1
+Song_08552A5C_6_2:
 	.byte	0xDB
 	.byte	0x27
 	.byte	0x68
@@ -53871,9 +53871,9 @@ Song_085526FD:
 	.byte	0x8C
 	.byte	0xB4
 	.byte	0xB3
-	.word	Song_085526FD
+	.word	Song_08552A5C_6_2
 	.byte	0xB3
-	.word	Song_085526D2
+	.word	Song_08552A5C_6_3
 	.byte	0xDB
 	.byte	0x21
 	.byte	0x68
@@ -53911,7 +53911,7 @@ Song_085526FD:
 	.byte	0xB0
 	.byte	0xB0
 	.byte	0xB2
-	.word	Song_085526A2
+	.word	Song_08552A5C_6_4
 	.byte	0xB1
 
 	@********************** Track  7 **********************@
@@ -53920,7 +53920,7 @@ Song_085526FD:
 Song_08552A5C_7:	@ 0x08552744
 	.byte	0xBC
 	.byte	0x00
-Song_08552746:
+Song_08552A5C_7_2:
 	.byte	0xBD
 	.byte	0x7E
 	.byte	0xBE
@@ -54483,7 +54483,7 @@ Song_08552746:
 	.byte	0x26
 	.byte	0x48
 	.byte	0x86
-Song_08552978:
+Song_08552A5C_7_1:
 	.byte	0xD5
 	.byte	0x26
 	.byte	0x5C
@@ -54556,7 +54556,7 @@ Song_08552978:
 	.byte	0xD5
 	.byte	0x8C
 	.byte	0xB3
-	.word	Song_08552978
+	.word	Song_08552A5C_7_1
 	.byte	0xD5
 	.byte	0x26
 	.byte	0x5C
@@ -54703,7 +54703,7 @@ Song_08552978:
 	.byte	0x2E
 	.byte	0x8C
 	.byte	0xB2
-	.word	Song_08552746
+	.word	Song_08552A5C_7_2
 	.byte	0xB1
 	.byte	0x00
 
@@ -54715,7 +54715,7 @@ Song_08552A5C:	@ 0x08552A5C
 	.byte	10		@ priority
 	.byte	148		@ reverb
 
-	.word	voicegroup_08215414		@ voicegroup/tone
+	.word	voicegroup044		@ voicegroup/tone
 
 	.word	Song_08552A5C_1		@ track
 	.word	Song_08552A5C_2		@ track
@@ -54766,7 +54766,7 @@ Song_085532A0_1:	@ 0x08552A80
 	.byte	0x86
 	.byte	0x2E
 	.byte	0x86
-Song_08552AA4:
+Song_085532A0_1_1:
 	.byte	0xD5
 	.byte	0x33
 	.byte	0x68
@@ -54794,7 +54794,7 @@ Song_08552AA4:
 	.byte	0x31
 	.byte	0x86
 	.byte	0xB4
-Song_08552ABF:
+Song_085532A0_1_2:
 	.byte	0xD5
 	.byte	0x33
 	.byte	0x68
@@ -54823,8 +54823,8 @@ Song_08552ABF:
 	.byte	0x86
 	.byte	0xB4
 	.byte	0xB3
-	.word	Song_08552AA4
-Song_08552ADF:
+	.word	Song_085532A0_1_1
+Song_085532A0_1_3:
 	.byte	0xD5
 	.byte	0x34
 	.byte	0x68
@@ -54852,7 +54852,7 @@ Song_08552ADF:
 	.byte	0x2F
 	.byte	0x86
 	.byte	0xB4
-Song_08552AFA:
+Song_085532A0_1_4:
 	.byte	0xD5
 	.byte	0x34
 	.byte	0x68
@@ -54881,29 +54881,29 @@ Song_08552AFA:
 	.byte	0x86
 	.byte	0xB4
 	.byte	0xB3
-	.word	Song_08552ABF
+	.word	Song_085532A0_1_2
 	.byte	0xB3
-	.word	Song_08552AA4
+	.word	Song_085532A0_1_1
 	.byte	0xB3
-	.word	Song_08552ADF
+	.word	Song_085532A0_1_3
 	.byte	0xB3
-	.word	Song_08552AFA
+	.word	Song_085532A0_1_4
 	.byte	0xB3
-	.word	Song_08552ABF
+	.word	Song_085532A0_1_2
 	.byte	0xB3
-	.word	Song_08552AA4
+	.word	Song_085532A0_1_1
 	.byte	0xB3
-	.word	Song_08552ADF
+	.word	Song_085532A0_1_3
 	.byte	0xB3
-	.word	Song_08552AFA
+	.word	Song_085532A0_1_4
 	.byte	0xB3
-	.word	Song_08552ABF
+	.word	Song_085532A0_1_2
 	.byte	0xB3
-	.word	Song_08552AA4
+	.word	Song_085532A0_1_1
 	.byte	0xB3
-	.word	Song_08552ADF
+	.word	Song_085532A0_1_3
 	.byte	0xB3
-	.word	Song_08552AFA
+	.word	Song_085532A0_1_4
 	.byte	0xA8
 	.byte	0xA8
 	.byte	0xA8
@@ -54913,11 +54913,11 @@ Song_08552AFA:
 	.byte	0xA8
 	.byte	0xA8
 	.byte	0xB3
-	.word	Song_08552ABF
+	.word	Song_085532A0_1_2
 	.byte	0xB3
-	.word	Song_08552AA4
+	.word	Song_085532A0_1_1
 	.byte	0xB2
-	.word	Song_08552ABF
+	.word	Song_085532A0_1_2
 	.byte	0xB1
 
 	@********************** Track  2 **********************@
@@ -54942,7 +54942,7 @@ Song_085532A0_2:	@ 0x08552B69
 	.byte	0x92
 	.byte	0xD5
 	.byte	0x92
-Song_08552B7B:
+Song_085532A0_2_1:
 	.byte	0xD5
 	.byte	0x33
 	.byte	0x7F
@@ -54956,7 +54956,7 @@ Song_08552B7B:
 	.byte	0xD5
 	.byte	0x8C
 	.byte	0xB4
-Song_08552B88:
+Song_085532A0_2_2:
 	.byte	0xD5
 	.byte	0x33
 	.byte	0x7F
@@ -54969,8 +54969,8 @@ Song_08552B88:
 	.byte	0x92
 	.byte	0xB4
 	.byte	0xB3
-	.word	Song_08552B7B
-Song_08552B98:
+	.word	Song_085532A0_2_1
+Song_085532A0_2_3:
 	.byte	0xD5
 	.byte	0x34
 	.byte	0x7F
@@ -54982,7 +54982,7 @@ Song_08552B98:
 	.byte	0xD5
 	.byte	0x92
 	.byte	0xB4
-Song_08552BA3:
+Song_085532A0_2_4:
 	.byte	0xD5
 	.byte	0x34
 	.byte	0x7F
@@ -54997,27 +54997,27 @@ Song_08552BA3:
 	.byte	0x8C
 	.byte	0xB4
 	.byte	0xB3
-	.word	Song_08552B88
+	.word	Song_085532A0_2_2
 	.byte	0xB3
-	.word	Song_08552B7B
+	.word	Song_085532A0_2_1
 	.byte	0xB3
-	.word	Song_08552B98
+	.word	Song_085532A0_2_3
 	.byte	0xB3
-	.word	Song_08552BA3
+	.word	Song_085532A0_2_4
 	.byte	0xB3
-	.word	Song_08552B88
+	.word	Song_085532A0_2_2
 	.byte	0xB3
-	.word	Song_08552B7B
+	.word	Song_085532A0_2_1
 	.byte	0xB3
-	.word	Song_08552B98
+	.word	Song_085532A0_2_3
 	.byte	0xB3
-	.word	Song_08552BA3
+	.word	Song_085532A0_2_4
 	.byte	0xB3
-	.word	Song_08552B88
+	.word	Song_085532A0_2_2
 	.byte	0xB3
-	.word	Song_08552B7B
+	.word	Song_085532A0_2_1
 	.byte	0xB3
-	.word	Song_08552B98
+	.word	Song_085532A0_2_3
 	.byte	0xD5
 	.byte	0x34
 	.byte	0x7F
@@ -55031,14 +55031,14 @@ Song_08552BA3:
 	.byte	0x31
 	.byte	0x8C
 	.byte	0xB3
-	.word	Song_08552B7B
+	.word	Song_085532A0_2_1
 	.byte	0xB3
-	.word	Song_08552B7B
+	.word	Song_085532A0_2_1
 	.byte	0xB3
-	.word	Song_08552B7B
+	.word	Song_085532A0_2_1
 	.byte	0xB3
-	.word	Song_08552B7B
-Song_08552C07:
+	.word	Song_085532A0_2_1
+Song_085532A0_2_5:
 	.byte	0xD5
 	.byte	0x2F
 	.byte	0x7F
@@ -55053,9 +55053,9 @@ Song_08552C07:
 	.byte	0x8C
 	.byte	0xB4
 	.byte	0xB3
-	.word	Song_08552C07
+	.word	Song_085532A0_2_5
 	.byte	0xB3
-	.word	Song_08552C07
+	.word	Song_085532A0_2_5
 	.byte	0xD5
 	.byte	0x2F
 	.byte	0x7F
@@ -55069,11 +55069,11 @@ Song_08552C07:
 	.byte	0xD5
 	.byte	0x8C
 	.byte	0xB3
-	.word	Song_08552B88
+	.word	Song_085532A0_2_2
 	.byte	0xB3
-	.word	Song_08552B7B
+	.word	Song_085532A0_2_1
 	.byte	0xB2
-	.word	Song_08552B88
+	.word	Song_085532A0_2_2
 	.byte	0xB1
 
 	@********************** Track  3 **********************@
@@ -55094,7 +55094,7 @@ Song_085532A0_3:	@ 0x08552C3A
 	.byte	0xA8
 	.byte	0xA8
 	.byte	0xCE
-Song_08552C48:
+Song_085532A0_3_3:
 	.byte	0xE8
 	.byte	0x33
 	.byte	0x74
@@ -55206,7 +55206,7 @@ Song_08552C48:
 	.byte	0x9C
 	.byte	0x3B
 	.byte	0x9C
-Song_08552CB7:
+Song_085532A0_3_1:
 	.byte	0xD5
 	.byte	0x3F
 	.byte	0x70
@@ -55259,8 +55259,8 @@ Song_08552CB7:
 	.byte	0x3D
 	.byte	0x86
 	.byte	0xB3
-	.word	Song_08552CB7
-Song_08552CEF:
+	.word	Song_085532A0_3_1
+Song_085532A0_3_2:
 	.byte	0xD5
 	.byte	0x3F
 	.byte	0x70
@@ -55289,13 +55289,13 @@ Song_08552CEF:
 	.byte	0x86
 	.byte	0xB4
 	.byte	0xB3
-	.word	Song_08552CB7
+	.word	Song_085532A0_3_1
 	.byte	0xB3
-	.word	Song_08552CEF
+	.word	Song_085532A0_3_2
 	.byte	0xB3
-	.word	Song_08552CB7
+	.word	Song_085532A0_3_1
 	.byte	0xB3
-	.word	Song_08552CEF
+	.word	Song_085532A0_3_2
 	.byte	0xF3
 	.byte	0x3A
 	.byte	0x70
@@ -55306,7 +55306,7 @@ Song_08552CEF:
 	.byte	0xF7
 	.byte	0xA8
 	.byte	0xB2
-	.word	Song_08552C48
+	.word	Song_085532A0_3_3
 	.byte	0xB1
 
 	@********************** Track  4 **********************@
@@ -55336,7 +55336,7 @@ Song_085532A0_4:	@ 0x08552D2D
 	.byte	0xCE
 	.byte	0x3A
 	.byte	0x81
-Song_08552D44:
+Song_085532A0_4_5:
 	.byte	0xA8
 	.byte	0xA8
 	.byte	0xA8
@@ -55411,7 +55411,7 @@ Song_08552D44:
 	.byte	0xE1
 	.byte	0x34
 	.byte	0x92
-Song_08552D8E:
+Song_085532A0_4_1:
 	.byte	0xD2
 	.byte	0x33
 	.byte	0x68
@@ -55470,7 +55470,7 @@ Song_08552D8E:
 	.byte	0x3A
 	.byte	0x86
 	.byte	0xB4
-Song_08552DC8:
+Song_085532A0_4_2:
 	.byte	0xD2
 	.byte	0x33
 	.byte	0x68
@@ -55531,7 +55531,7 @@ Song_08552DC8:
 	.byte	0x3A
 	.byte	0x86
 	.byte	0xB4
-Song_08552E04:
+Song_085532A0_4_3:
 	.byte	0xD2
 	.byte	0x34
 	.byte	0x68
@@ -55590,7 +55590,7 @@ Song_08552E04:
 	.byte	0x3B
 	.byte	0x86
 	.byte	0xB4
-Song_08552E3E:
+Song_085532A0_4_4:
 	.byte	0xD2
 	.byte	0x34
 	.byte	0x68
@@ -55652,13 +55652,13 @@ Song_08552E3E:
 	.byte	0x86
 	.byte	0xB4
 	.byte	0xB3
-	.word	Song_08552D8E
+	.word	Song_085532A0_4_1
 	.byte	0xB3
-	.word	Song_08552DC8
+	.word	Song_085532A0_4_2
 	.byte	0xB3
-	.word	Song_08552E04
+	.word	Song_085532A0_4_3
 	.byte	0xB3
-	.word	Song_08552E3E
+	.word	Song_085532A0_4_4
 	.byte	0xA8
 	.byte	0xA8
 	.byte	0xA8
@@ -55684,7 +55684,7 @@ Song_08552E3E:
 	.byte	0x46
 	.byte	0x92
 	.byte	0xB2
-	.word	Song_08552D44
+	.word	Song_085532A0_4_5
 	.byte	0xB1
 
 	@********************** Track  5 **********************@
@@ -55695,7 +55695,7 @@ Song_085532A0_5:	@ 0x08552EAC
 	.byte	0x00
 	.byte	0xA8
 	.byte	0xA8
-Song_08552EB0:
+Song_085532A0_5_2:
 	.byte	0xBD
 	.byte	0x35
 	.byte	0xBE
@@ -55714,7 +55714,7 @@ Song_08552EB0:
 	.byte	0x83
 	.byte	0x3A
 	.byte	0x81
-Song_08552EC2:
+Song_085532A0_5_1:
 	.byte	0xCF
 	.byte	0x34
 	.byte	0x60
@@ -55740,7 +55740,7 @@ Song_08552EC2:
 	.byte	0x3A
 	.byte	0x81
 	.byte	0xB3
-	.word	Song_08552EC2
+	.word	Song_085532A0_5_1
 	.byte	0xA7
 	.byte	0xCE
 	.byte	0x34
@@ -55846,7 +55846,7 @@ Song_08552EC2:
 	.byte	0xA8
 	.byte	0xA8
 	.byte	0xB2
-	.word	Song_08552EB0
+	.word	Song_085532A0_5_2
 	.byte	0xB1
 
 	@********************** Track  6 **********************@
@@ -55857,7 +55857,7 @@ Song_085532A0_6:	@ 0x08552F4D
 	.byte	0x00
 	.byte	0xA8
 	.byte	0xA8
-Song_08552F51:
+Song_085532A0_6_1:
 	.byte	0xA8
 	.byte	0xA8
 	.byte	0xA8
@@ -56515,7 +56515,7 @@ Song_08552F51:
 	.byte	0x3F
 	.byte	0x87
 	.byte	0xB2
-	.word	Song_08552F51
+	.word	Song_085532A0_6_1
 	.byte	0xB1
 
 	@********************** Track  7 **********************@
@@ -56538,7 +56538,7 @@ Song_085532A0_7:	@ 0x085531E7
 	.byte	0x86
 	.byte	0xDA
 	.byte	0xA8
-Song_085531F7:
+Song_085532A0_7_1:
 	.byte	0xDA
 	.byte	0x33
 	.byte	0x78
@@ -56549,19 +56549,19 @@ Song_085531F7:
 	.byte	0xDA
 	.byte	0xA8
 	.byte	0xB3
-	.word	Song_085531F7
+	.word	Song_085532A0_7_1
 	.byte	0xDA
 	.byte	0x33
 	.byte	0x78
 	.byte	0xA8
 	.byte	0xB3
-	.word	Song_085531F7
+	.word	Song_085532A0_7_1
 	.byte	0xDA
 	.byte	0x33
 	.byte	0x78
 	.byte	0xA8
 	.byte	0xB3
-	.word	Song_085531F7
+	.word	Song_085532A0_7_1
 	.byte	0xDA
 	.byte	0x33
 	.byte	0x78
@@ -56576,13 +56576,13 @@ Song_085531F7:
 	.byte	0xD1
 	.byte	0x83
 	.byte	0xB3
-	.word	Song_085531F7
+	.word	Song_085532A0_7_1
 	.byte	0xDA
 	.byte	0x33
 	.byte	0x78
 	.byte	0xA8
 	.byte	0xB3
-	.word	Song_085531F7
+	.word	Song_085532A0_7_1
 	.byte	0xDA
 	.byte	0x33
 	.byte	0x78
@@ -56594,13 +56594,13 @@ Song_085531F7:
 	.byte	0xDA
 	.byte	0x8C
 	.byte	0xB3
-	.word	Song_085531F7
+	.word	Song_085532A0_7_1
 	.byte	0xDA
 	.byte	0x33
 	.byte	0x78
 	.byte	0xA8
 	.byte	0xB3
-	.word	Song_085531F7
+	.word	Song_085532A0_7_1
 	.byte	0xDA
 	.byte	0x33
 	.byte	0x78
@@ -56620,7 +56620,7 @@ Song_085531F7:
 	.byte	0x83
 	.byte	0xD1
 	.byte	0x83
-Song_0855325D:
+Song_085532A0_7_2:
 	.byte	0xDA
 	.byte	0x33
 	.byte	0x78
@@ -56631,7 +56631,7 @@ Song_0855325D:
 	.byte	0x33
 	.byte	0xA8
 	.byte	0xB3
-	.word	Song_0855325D
+	.word	Song_085532A0_7_2
 	.byte	0xDA
 	.byte	0x33
 	.byte	0x78
@@ -56645,7 +56645,7 @@ Song_0855325D:
 	.byte	0xD1
 	.byte	0x83
 	.byte	0xB3
-	.word	Song_0855325D
+	.word	Song_085532A0_7_2
 	.byte	0xDA
 	.byte	0x33
 	.byte	0x78
@@ -56653,7 +56653,7 @@ Song_0855325D:
 	.byte	0xDA
 	.byte	0x8C
 	.byte	0xB3
-	.word	Song_0855325D
+	.word	Song_085532A0_7_2
 	.byte	0xDA
 	.byte	0x33
 	.byte	0x78
@@ -56664,13 +56664,13 @@ Song_0855325D:
 	.byte	0xD4
 	.byte	0x86
 	.byte	0xB3
-	.word	Song_085531F7
+	.word	Song_085532A0_7_1
 	.byte	0xDA
 	.byte	0x33
 	.byte	0x78
 	.byte	0xA8
 	.byte	0xB2
-	.word	Song_085531F7
+	.word	Song_085532A0_7_1
 	.byte	0xB1
 	.byte	0x00
 
@@ -56682,7 +56682,7 @@ Song_085532A0:	@ 0x085532A0
 	.byte	10		@ priority
 	.byte	148		@ reverb
 
-	.word	voicegroup_0820A470		@ voicegroup/tone
+	.word	voicegroup008		@ voicegroup/tone
 
 	.word	Song_085532A0_1		@ track
 	.word	Song_085532A0_2		@ track
@@ -56699,7 +56699,7 @@ Song_085532A0:	@ 0x085532A0
 Song_08553C74_1:	@ 0x085532C4
 	.byte	0xBC
 	.byte	0x00
-Song_085532C6:
+Song_08553C74_1_3:
 	.byte	0xBB
 	.byte	0x3A
 	.byte	0xBD
@@ -56804,7 +56804,7 @@ Song_085532C6:
 	.byte	0x40
 	.byte	0x20
 	.byte	0x86
-Song_0855332E:
+Song_08553C74_1_1:
 	.byte	0x8C
 	.byte	0xD5
 	.byte	0x35
@@ -56841,9 +56841,9 @@ Song_0855332E:
 	.byte	0x86
 	.byte	0xB4
 	.byte	0xB3
-	.word	Song_0855332E
+	.word	Song_08553C74_1_1
 	.byte	0xB3
-	.word	Song_0855332E
+	.word	Song_08553C74_1_1
 	.byte	0x8C
 	.byte	0xD5
 	.byte	0x35
@@ -57020,7 +57020,7 @@ Song_0855332E:
 	.byte	0x98
 	.byte	0x48
 	.byte	0x98
-Song_0855340B:
+Song_08553C74_1_2:
 	.byte	0xF6
 	.byte	0x3A
 	.byte	0x48
@@ -57037,7 +57037,7 @@ Song_0855340B:
 	.byte	0x39
 	.byte	0x98
 	.byte	0xB3
-	.word	Song_0855340B
+	.word	Song_08553C74_1_2
 	.byte	0xE7
 	.byte	0x3A
 	.byte	0x48
@@ -57064,7 +57064,7 @@ Song_0855340B:
 	.byte	0x41
 	.byte	0xB0
 	.byte	0xB2
-	.word	Song_085532C6
+	.word	Song_08553C74_1_3
 	.byte	0xB1
 
 	@********************** Track  2 **********************@
@@ -57073,7 +57073,7 @@ Song_0855340B:
 Song_08553C74_2:	@ 0x0855343E
 	.byte	0xBC
 	.byte	0x00
-Song_08553440:
+Song_08553C74_2_6:
 	.byte	0xBD
 	.byte	0x21
 	.byte	0xBE
@@ -57107,7 +57107,7 @@ Song_08553440:
 	.byte	0xF3
 	.byte	0x39
 	.byte	0xB0
-Song_08553461:
+Song_08553C74_2_1:
 	.byte	0xD5
 	.byte	0x35
 	.byte	0x7F
@@ -57122,9 +57122,9 @@ Song_08553461:
 	.byte	0x8C
 	.byte	0xB4
 	.byte	0xB3
-	.word	Song_08553461
+	.word	Song_08553C74_2_1
 	.byte	0xB3
-	.word	Song_08553461
+	.word	Song_08553C74_2_1
 	.byte	0xD5
 	.byte	0x35
 	.byte	0x7F
@@ -57167,7 +57167,7 @@ Song_08553461:
 	.byte	0x8C
 	.byte	0x2E
 	.byte	0x8C
-Song_085534A2:
+Song_08553C74_2_2:
 	.byte	0xD5
 	.byte	0x30
 	.byte	0x7F
@@ -57185,7 +57185,7 @@ Song_085534A2:
 	.byte	0xD5
 	.byte	0x8C
 	.byte	0xB4
-Song_085534B3:
+Song_08553C74_2_3:
 	.byte	0xD5
 	.byte	0x30
 	.byte	0x7F
@@ -57203,7 +57203,7 @@ Song_085534B3:
 	.byte	0xD5
 	.byte	0x8C
 	.byte	0xB4
-Song_085534C4:
+Song_08553C74_2_4:
 	.byte	0xD5
 	.byte	0x30
 	.byte	0x7F
@@ -57236,11 +57236,11 @@ Song_085534C4:
 	.byte	0xD5
 	.byte	0x8C
 	.byte	0xB3
-	.word	Song_085534A2
+	.word	Song_08553C74_2_2
 	.byte	0xB3
-	.word	Song_085534B3
+	.word	Song_08553C74_2_3
 	.byte	0xB3
-	.word	Song_085534C4
+	.word	Song_08553C74_2_4
 	.byte	0xD5
 	.byte	0x30
 	.byte	0x7F
@@ -57259,7 +57259,7 @@ Song_085534C4:
 	.byte	0x8C
 	.byte	0x32
 	.byte	0x8C
-Song_08553504:
+Song_08553C74_2_5:
 	.byte	0xF5
 	.byte	0x33
 	.byte	0x7F
@@ -57271,7 +57271,7 @@ Song_08553504:
 	.byte	0x35
 	.byte	0xB0
 	.byte	0xB3
-	.word	Song_08553504
+	.word	Song_08553C74_2_5
 	.byte	0xFD
 	.byte	0x35
 	.byte	0x7F
@@ -57306,7 +57306,7 @@ Song_08553504:
 	.byte	0xD5
 	.byte	0x8C
 	.byte	0xB3
-	.word	Song_085534C4
+	.word	Song_08553C74_2_4
 	.byte	0xD5
 	.byte	0x32
 	.byte	0x7F
@@ -57326,7 +57326,7 @@ Song_08553504:
 	.byte	0xD5
 	.byte	0x8C
 	.byte	0xB3
-	.word	Song_085534C4
+	.word	Song_08553C74_2_4
 	.byte	0xD5
 	.byte	0x32
 	.byte	0x7F
@@ -57346,7 +57346,7 @@ Song_08553504:
 	.byte	0x34
 	.byte	0x8C
 	.byte	0xB2
-	.word	Song_08553440
+	.word	Song_08553C74_2_6
 	.byte	0xB1
 
 	@********************** Track  3 **********************@
@@ -57355,7 +57355,7 @@ Song_08553504:
 Song_08553C74_3:	@ 0x08553568
 	.byte	0xBC
 	.byte	0x00
-Song_0855356A:
+Song_08553C74_3_2:
 	.byte	0xA0
 	.byte	0xBD
 	.byte	0x3D
@@ -57518,7 +57518,7 @@ Song_0855356A:
 	.byte	0xB0
 	.byte	0xB0
 	.byte	0xB0
-Song_0855360C:
+Song_08553C74_3_1:
 	.byte	0xBD
 	.byte	0x31
 	.byte	0x98
@@ -57746,7 +57746,7 @@ Song_0855360C:
 	.byte	0x2C
 	.byte	0x86
 	.byte	0xB3
-	.word	Song_0855360C
+	.word	Song_08553C74_3_1
 	.byte	0x98
 	.byte	0xE7
 	.byte	0x3C
@@ -57757,7 +57757,7 @@ Song_0855360C:
 	.byte	0x48
 	.byte	0x98
 	.byte	0xB2
-	.word	Song_0855356A
+	.word	Song_08553C74_3_2
 	.byte	0xB1
 
 	@********************** Track  4 **********************@
@@ -57766,7 +57766,7 @@ Song_0855360C:
 Song_08553C74_4:	@ 0x08553702
 	.byte	0xBC
 	.byte	0x00
-Song_08553704:
+Song_08553C74_4_2:
 	.byte	0xBD
 	.byte	0x31
 	.byte	0xBE
@@ -58256,7 +58256,7 @@ Song_08553704:
 	.byte	0x98
 	.byte	0xD5
 	.byte	0x8C
-Song_085538ED:
+Song_08553C74_4_1:
 	.byte	0xD5
 	.byte	0x39
 	.byte	0x64
@@ -58296,9 +58296,9 @@ Song_085538ED:
 	.byte	0xD5
 	.byte	0x8C
 	.byte	0xB3
-	.word	Song_085538ED
+	.word	Song_08553C74_4_1
 	.byte	0xB2
-	.word	Song_08553704
+	.word	Song_08553C74_4_2
 	.byte	0xB1
 
 	@********************** Track  5 **********************@
@@ -58307,7 +58307,7 @@ Song_085538ED:
 Song_08553C74_5:	@ 0x0855391E
 	.byte	0xBC
 	.byte	0x00
-Song_08553920:
+Song_08553C74_5_4:
 	.byte	0xBD
 	.byte	0x32
 	.byte	0xBE
@@ -58328,7 +58328,7 @@ Song_08553920:
 	.byte	0x39
 	.byte	0x58
 	.byte	0x8C
-Song_08553934:
+Song_08553C74_5_1:
 	.byte	0xFA
 	.byte	0x34
 	.byte	0x54
@@ -58351,7 +58351,7 @@ Song_08553934:
 	.byte	0x58
 	.byte	0x8C
 	.byte	0xB3
-	.word	Song_08553934
+	.word	Song_08553C74_5_1
 	.byte	0xE9
 	.byte	0x35
 	.byte	0x64
@@ -58459,7 +58459,7 @@ Song_08553934:
 	.byte	0xB0
 	.byte	0xB0
 	.byte	0xB0
-Song_085539B9:
+Song_08553C74_5_2:
 	.byte	0xD5
 	.byte	0x30
 	.byte	0x74
@@ -58475,7 +58475,7 @@ Song_085539B9:
 	.byte	0xD5
 	.byte	0x8C
 	.byte	0xB4
-Song_085539C8:
+Song_08553C74_5_3:
 	.byte	0xD5
 	.byte	0x30
 	.byte	0x74
@@ -58494,15 +58494,15 @@ Song_085539C8:
 	.byte	0x8C
 	.byte	0xB4
 	.byte	0xB3
-	.word	Song_085539B9
+	.word	Song_08553C74_5_2
 	.byte	0xB3
-	.word	Song_085539C8
+	.word	Song_08553C74_5_3
 	.byte	0xB3
-	.word	Song_085539B9
+	.word	Song_08553C74_5_2
 	.byte	0xB3
-	.word	Song_085539C8
+	.word	Song_08553C74_5_3
 	.byte	0xB3
-	.word	Song_085539B9
+	.word	Song_08553C74_5_2
 	.byte	0xD5
 	.byte	0x30
 	.byte	0x74
@@ -58658,7 +58658,7 @@ Song_085539C8:
 	.byte	0x20
 	.byte	0x86
 	.byte	0xB2
-	.word	Song_08553920
+	.word	Song_08553C74_5_4
 	.byte	0xB1
 
 	@********************** Track  6 **********************@
@@ -58667,7 +58667,7 @@ Song_085539C8:
 Song_08553C74_6:	@ 0x08553A92
 	.byte	0xBC
 	.byte	0x00
-Song_08553A94:
+Song_08553C74_6_2:
 	.byte	0xB0
 	.byte	0xB0
 	.byte	0xB0
@@ -58837,7 +58837,7 @@ Song_08553A94:
 	.byte	0x3B
 	.byte	0x20
 	.byte	0x86
-Song_08553B3D:
+Song_08553C74_6_1:
 	.byte	0xD5
 	.byte	0x37
 	.byte	0x54
@@ -59010,7 +59010,7 @@ Song_08553B3D:
 	.byte	0x20
 	.byte	0x86
 	.byte	0xB3
-	.word	Song_08553B3D
+	.word	Song_08553C74_6_1
 	.byte	0xD5
 	.byte	0x37
 	.byte	0x58
@@ -59141,7 +59141,7 @@ Song_08553B3D:
 	.byte	0xB0
 	.byte	0xB0
 	.byte	0xB2
-	.word	Song_08553A94
+	.word	Song_08553C74_6_2
 	.byte	0xB1
 
 	.align 2
@@ -59152,7 +59152,7 @@ Song_08553C74:	@ 0x08553C74
 	.byte	10		@ priority
 	.byte	148		@ reverb
 
-	.word	voicegroup_0820A6F8		@ voicegroup/tone
+	.word	voicegroup009		@ voicegroup/tone
 
 	.word	Song_08553C74_1		@ track
 	.word	Song_08553C74_2		@ track
@@ -59168,7 +59168,7 @@ Song_08553C74:	@ 0x08553C74
 Song_085543A0_1:	@ 0x08553C94
 	.byte	0xBC
 	.byte	0x00
-Song_08553C96:
+Song_085543A0_1_1:
 	.byte	0xBB
 	.byte	0x40
 	.byte	0xBD
@@ -59708,7 +59708,7 @@ Song_08553C96:
 	.byte	0x42
 	.byte	0xA0
 	.byte	0xB2
-	.word	Song_08553C96
+	.word	Song_085543A0_1_1
 	.byte	0xB1
 
 	@********************** Track  2 **********************@
@@ -59717,7 +59717,7 @@ Song_08553C96:
 Song_085543A0_2:	@ 0x08553EB6
 	.byte	0xBC
 	.byte	0x00
-Song_08553EB8:
+Song_085543A0_2_6:
 	.byte	0xBD
 	.byte	0x3A
 	.byte	0xBE
@@ -59742,7 +59742,7 @@ Song_08553EB8:
 	.byte	0x98
 	.byte	0xDB
 	.byte	0x98
-Song_08553ED0:
+Song_085543A0_2_1:
 	.byte	0xDB
 	.byte	0x39
 	.byte	0x7C
@@ -59772,8 +59772,8 @@ Song_08553ED0:
 	.byte	0xEB
 	.byte	0xA0
 	.byte	0xB3
-	.word	Song_08553ED0
-Song_08553EF1:
+	.word	Song_085543A0_2_1
+Song_085543A0_2_2:
 	.byte	0xDB
 	.byte	0x32
 	.byte	0x7C
@@ -59786,10 +59786,10 @@ Song_08553EF1:
 	.byte	0x98
 	.byte	0xB4
 	.byte	0xB3
-	.word	Song_08553ED0
+	.word	Song_085543A0_2_1
 	.byte	0xB3
-	.word	Song_08553EF1
-Song_08553F06:
+	.word	Song_085543A0_2_2
+Song_085543A0_2_3:
 	.byte	0xDB
 	.byte	0x36
 	.byte	0x7C
@@ -59801,7 +59801,7 @@ Song_08553F06:
 	.byte	0x31
 	.byte	0x98
 	.byte	0xB4
-Song_08553F11:
+Song_085543A0_2_4:
 	.byte	0xDB
 	.byte	0x2F
 	.byte	0x7C
@@ -59814,9 +59814,9 @@ Song_08553F11:
 	.byte	0x98
 	.byte	0xB4
 	.byte	0xB3
-	.word	Song_08553F06
+	.word	Song_085543A0_2_3
 	.byte	0xB3
-	.word	Song_08553F11
+	.word	Song_085543A0_2_4
 	.byte	0xCF
 	.byte	0x37
 	.byte	0x7C
@@ -59842,7 +59842,7 @@ Song_08553F11:
 	.byte	0x86
 	.byte	0xDA
 	.byte	0x98
-Song_08553F3F:
+Song_085543A0_2_5:
 	.byte	0xDB
 	.byte	0x36
 	.byte	0x7C
@@ -59855,9 +59855,9 @@ Song_08553F3F:
 	.byte	0x98
 	.byte	0xB4
 	.byte	0xB3
-	.word	Song_08553F3F
+	.word	Song_085543A0_2_5
 	.byte	0xB2
-	.word	Song_08553EB8
+	.word	Song_085543A0_2_6
 	.byte	0xB1
 
 	@********************** Track  3 **********************@
@@ -59866,7 +59866,7 @@ Song_08553F3F:
 Song_085543A0_3:	@ 0x08553F55
 	.byte	0xBC
 	.byte	0x00
-Song_08553F57:
+Song_085543A0_3_1:
 	.byte	0xB0
 	.byte	0xBD
 	.byte	0x39
@@ -60108,7 +60108,7 @@ Song_08553F57:
 	.byte	0xB0
 	.byte	0xB0
 	.byte	0xB2
-	.word	Song_08553F57
+	.word	Song_085543A0_3_1
 	.byte	0xB1
 
 	@********************** Track  4 **********************@
@@ -60117,7 +60117,7 @@ Song_08553F57:
 Song_085543A0_4:	@ 0x0855404D
 	.byte	0xBC
 	.byte	0x00
-Song_0855404F:
+Song_085543A0_4_1:
 	.byte	0xB0
 	.byte	0xB0
 	.byte	0xB0
@@ -60225,7 +60225,7 @@ Song_0855404F:
 	.byte	0x6C
 	.byte	0xA0
 	.byte	0xB2
-	.word	Song_0855404F
+	.word	Song_085543A0_4_1
 	.byte	0xB1
 
 	@********************** Track  5 **********************@
@@ -60234,7 +60234,7 @@ Song_0855404F:
 Song_085543A0_5:	@ 0x085540BF
 	.byte	0xBC
 	.byte	0x00
-Song_085540C1:
+Song_085543A0_5_1:
 	.byte	0xBD
 	.byte	0x30
 	.byte	0xBE
@@ -60612,7 +60612,7 @@ Song_085540C1:
 	.byte	0x24
 	.byte	0x8C
 	.byte	0xB2
-	.word	Song_085540C1
+	.word	Song_085543A0_5_1
 	.byte	0xB1
 
 	@********************** Track  6 **********************@
@@ -60621,7 +60621,7 @@ Song_085540C1:
 Song_085543A0_6:	@ 0x0855423F
 	.byte	0xBC
 	.byte	0x00
-Song_08554241:
+Song_085543A0_6_1:
 	.byte	0xBD
 	.byte	0x7E
 	.byte	0xBE
@@ -60965,7 +60965,7 @@ Song_08554241:
 	.byte	0x74
 	.byte	0x86
 	.byte	0xB2
-	.word	Song_08554241
+	.word	Song_085543A0_6_1
 	.byte	0xB1
 	.byte	0x00
 	.byte	0x00
@@ -60979,7 +60979,7 @@ Song_085543A0:	@ 0x085543A0
 	.byte	10		@ priority
 	.byte	148		@ reverb
 
-	.word	voicegroup_08215A14		@ voicegroup/tone
+	.word	voicegroup045		@ voicegroup/tone
 
 	.word	Song_085543A0_1		@ track
 	.word	Song_085543A0_2		@ track
@@ -60995,7 +60995,7 @@ Song_085543A0:	@ 0x085543A0
 Song_08555ED8_1:	@ 0x085543C0
 	.byte	0xBC
 	.byte	0x00
-Song_085543C2:
+Song_08555ED8_1_3:
 	.byte	0xBB
 	.byte	0x39
 	.byte	0xBD
@@ -61828,7 +61828,7 @@ Song_085543C2:
 	.byte	0x81
 	.byte	0x3F
 	.byte	0x82
-Song_08554702:
+Song_08555ED8_1_1:
 	.byte	0xBE
 	.byte	0x40
 	.byte	0xFF
@@ -62091,7 +62091,7 @@ Song_08554702:
 	.byte	0x3F
 	.byte	0x82
 	.byte	0xB3
-	.word	Song_08554702
+	.word	Song_08555ED8_1_1
 	.byte	0xBE
 	.byte	0x20
 	.byte	0xF7
@@ -62670,7 +62670,7 @@ Song_08554702:
 	.byte	0x88
 	.byte	0xD3
 	.byte	0x88
-Song_08554A4E:
+Song_08555ED8_1_2:
 	.byte	0xEF
 	.byte	0x37
 	.byte	0x64
@@ -62692,7 +62692,7 @@ Song_08554A4E:
 	.byte	0x32
 	.byte	0x98
 	.byte	0xB3
-	.word	Song_08554A4E
+	.word	Song_08555ED8_1_2
 	.byte	0xEF
 	.byte	0x38
 	.byte	0x64
@@ -62725,7 +62725,7 @@ Song_08554A4E:
 	.byte	0xB0
 	.byte	0xB0
 	.byte	0xB2
-	.word	Song_085543C2
+	.word	Song_08555ED8_1_3
 	.byte	0xB1
 
 	@********************** Track  2 **********************@
@@ -62734,7 +62734,7 @@ Song_08554A4E:
 Song_08555ED8_2:	@ 0x08554A8C
 	.byte	0xBC
 	.byte	0x00
-Song_08554A8E:
+Song_08555ED8_2_5:
 	.byte	0xBD
 	.byte	0x21
 	.byte	0xBE
@@ -62772,7 +62772,7 @@ Song_08554A8E:
 	.byte	0xA0
 	.byte	0x2A
 	.byte	0xA0
-Song_08554AB3:
+Song_08555ED8_2_1:
 	.byte	0xEE
 	.byte	0x2F
 	.byte	0x7F
@@ -62791,7 +62791,7 @@ Song_08554AB3:
 	.byte	0xCE
 	.byte	0x83
 	.byte	0xB3
-	.word	Song_08554AB3
+	.word	Song_08555ED8_2_1
 	.byte	0xA8
 	.byte	0xF6
 	.byte	0x2F
@@ -62830,7 +62830,7 @@ Song_08554AB3:
 	.byte	0xEE
 	.byte	0x2E
 	.byte	0xA0
-Song_08554AEF:
+Song_08555ED8_2_2:
 	.byte	0xE4
 	.byte	0x2F
 	.byte	0x7F
@@ -62840,7 +62840,7 @@ Song_08554AEF:
 	.byte	0xE4
 	.byte	0x98
 	.byte	0xB4
-Song_08554AF8:
+Song_08555ED8_2_3:
 	.byte	0x98
 	.byte	0xE4
 	.byte	0x2F
@@ -62849,7 +62849,7 @@ Song_08554AF8:
 	.byte	0xE4
 	.byte	0xA0
 	.byte	0xB4
-Song_08554B00:
+Song_08555ED8_2_4:
 	.byte	0xE4
 	.byte	0x2F
 	.byte	0x7F
@@ -62860,11 +62860,11 @@ Song_08554B00:
 	.byte	0x98
 	.byte	0xB4
 	.byte	0xB3
-	.word	Song_08554AEF
+	.word	Song_08555ED8_2_2
 	.byte	0xB3
-	.word	Song_08554AF8
+	.word	Song_08555ED8_2_3
 	.byte	0xB3
-	.word	Song_08554B00
+	.word	Song_08555ED8_2_4
 	.byte	0xCF
 	.byte	0x2D
 	.byte	0x7F
@@ -62920,7 +62920,7 @@ Song_08554B00:
 	.byte	0x2B
 	.byte	0xB0
 	.byte	0xB2
-	.word	Song_08554A8E
+	.word	Song_08555ED8_2_5
 	.byte	0xB1
 
 	@********************** Track  3 **********************@
@@ -62929,7 +62929,7 @@ Song_08554B00:
 Song_08555ED8_3:	@ 0x08554B54
 	.byte	0xBC
 	.byte	0x00
-Song_08554B56:
+Song_08555ED8_3_4:
 	.byte	0xBD
 	.byte	0x30
 	.byte	0xBE
@@ -63122,7 +63122,7 @@ Song_08554B56:
 	.byte	0x88
 	.byte	0xD3
 	.byte	0x88
-Song_08554C16:
+Song_08555ED8_3_2:
 	.byte	0xEF
 	.byte	0x3D
 	.byte	0x70
@@ -63134,7 +63134,7 @@ Song_08554C16:
 	.byte	0xD3
 	.byte	0x88
 	.byte	0xB4
-Song_08554C21:
+Song_08555ED8_3_1:
 	.byte	0xEF
 	.byte	0x3E
 	.byte	0x70
@@ -63156,9 +63156,9 @@ Song_08554C21:
 	.byte	0x39
 	.byte	0x98
 	.byte	0xB3
-	.word	Song_08554C21
+	.word	Song_08555ED8_3_1
 	.byte	0xB3
-	.word	Song_08554C16
+	.word	Song_08555ED8_3_2
 	.byte	0xEF
 	.byte	0x3B
 	.byte	0x70
@@ -64419,8 +64419,8 @@ Song_08554C21:
 	.byte	0xD3
 	.byte	0x88
 	.byte	0xB3
-	.word	Song_08554C21
-Song_0855512F:
+	.word	Song_08555ED8_3_1
+Song_08555ED8_3_3:
 	.byte	0xEF
 	.byte	0x3F
 	.byte	0x70
@@ -64442,7 +64442,7 @@ Song_0855512F:
 	.byte	0x3A
 	.byte	0x98
 	.byte	0xB3
-	.word	Song_0855512F
+	.word	Song_08555ED8_3_3
 	.byte	0xEF
 	.byte	0x41
 	.byte	0x70
@@ -64844,7 +64844,7 @@ Song_0855512F:
 	.byte	0x1F
 	.byte	0x81
 	.byte	0xB2
-	.word	Song_08554B56
+	.word	Song_08555ED8_3_4
 	.byte	0xB1
 
 	@********************** Track  4 **********************@
@@ -64853,7 +64853,7 @@ Song_0855512F:
 Song_08555ED8_4:	@ 0x085552DE
 	.byte	0xBC
 	.byte	0x00
-Song_085552E0:
+Song_08555ED8_4_5:
 	.byte	0xBD
 	.byte	0x44
 	.byte	0xBE
@@ -65171,7 +65171,7 @@ Song_085552E0:
 	.byte	0x88
 	.byte	0xD3
 	.byte	0x88
-Song_0855541D:
+Song_08555ED8_4_2:
 	.byte	0xEF
 	.byte	0x40
 	.byte	0x64
@@ -65189,7 +65189,7 @@ Song_0855541D:
 	.byte	0xD3
 	.byte	0x88
 	.byte	0xB4
-Song_0855542E:
+Song_08555ED8_4_1:
 	.byte	0xEF
 	.byte	0x42
 	.byte	0x64
@@ -65220,9 +65220,9 @@ Song_0855542E:
 	.byte	0x54
 	.byte	0x98
 	.byte	0xB3
-	.word	Song_0855542E
+	.word	Song_08555ED8_4_1
 	.byte	0xB3
-	.word	Song_0855541D
+	.word	Song_08555ED8_4_2
 	.byte	0xEF
 	.byte	0x3E
 	.byte	0x64
@@ -66322,7 +66322,7 @@ Song_0855542E:
 	.byte	0x3B
 	.byte	0x20
 	.byte	0x86
-Song_085558A0:
+Song_08555ED8_4_3:
 	.byte	0xEF
 	.byte	0x3F
 	.byte	0x74
@@ -66339,7 +66339,7 @@ Song_085558A0:
 	.byte	0xD5
 	.byte	0x88
 	.byte	0xB4
-Song_085558B0:
+Song_08555ED8_4_4:
 	.byte	0xEF
 	.byte	0x3E
 	.byte	0x74
@@ -66383,11 +66383,11 @@ Song_085558B0:
 	.byte	0x20
 	.byte	0x8C
 	.byte	0xB3
-	.word	Song_085558A0
+	.word	Song_08555ED8_4_3
 	.byte	0xB3
-	.word	Song_085558B0
+	.word	Song_08555ED8_4_4
 	.byte	0xB3
-	.word	Song_085558A0
+	.word	Song_08555ED8_4_3
 	.byte	0xFB
 	.byte	0x3F
 	.byte	0x74
@@ -66545,7 +66545,7 @@ Song_085558B0:
 	.byte	0x42
 	.byte	0xA0
 	.byte	0xB2
-	.word	Song_085552E0
+	.word	Song_08555ED8_4_5
 	.byte	0xB1
 
 	@********************** Track  5 **********************@
@@ -66554,7 +66554,7 @@ Song_085558B0:
 Song_08555ED8_5:	@ 0x0855598B
 	.byte	0xBC
 	.byte	0x00
-Song_0855598D:
+Song_08555ED8_5_5:
 	.byte	0xB0
 	.byte	0xB0
 	.byte	0xB0
@@ -66587,7 +66587,7 @@ Song_0855598D:
 	.byte	0x8C
 	.byte	0x36
 	.byte	0x8C
-Song_085559AD:
+Song_08555ED8_5_2:
 	.byte	0xDB
 	.byte	0x3D
 	.byte	0x48
@@ -66607,7 +66607,7 @@ Song_085559AD:
 	.byte	0x36
 	.byte	0x8C
 	.byte	0xB4
-Song_085559C0:
+Song_08555ED8_5_1:
 	.byte	0xDB
 	.byte	0x3B
 	.byte	0x48
@@ -66644,11 +66644,11 @@ Song_085559C0:
 	.byte	0x36
 	.byte	0x8C
 	.byte	0xB3
-	.word	Song_085559C0
+	.word	Song_08555ED8_5_1
 	.byte	0xB3
-	.word	Song_085559AD
+	.word	Song_08555ED8_5_2
 	.byte	0xB3
-	.word	Song_085559C0
+	.word	Song_08555ED8_5_1
 	.byte	0xDB
 	.byte	0x3E
 	.byte	0x48
@@ -67109,7 +67109,7 @@ Song_085559C0:
 	.byte	0x8C
 	.byte	0x37
 	.byte	0x8C
-Song_08555BBE:
+Song_08555ED8_5_3:
 	.byte	0xDB
 	.byte	0x3C
 	.byte	0x48
@@ -67129,7 +67129,7 @@ Song_08555BBE:
 	.byte	0x37
 	.byte	0x8C
 	.byte	0xB4
-Song_08555BD1:
+Song_08555ED8_5_4:
 	.byte	0xDB
 	.byte	0x3E
 	.byte	0x48
@@ -67150,7 +67150,7 @@ Song_08555BD1:
 	.byte	0x8C
 	.byte	0xB4
 	.byte	0xB3
-	.word	Song_08555BBE
+	.word	Song_08555ED8_5_3
 	.byte	0xDB
 	.byte	0x3F
 	.byte	0x48
@@ -67170,11 +67170,11 @@ Song_08555BD1:
 	.byte	0x37
 	.byte	0x8C
 	.byte	0xB3
-	.word	Song_08555BBE
+	.word	Song_08555ED8_5_3
 	.byte	0xB3
-	.word	Song_08555BD1
+	.word	Song_08555ED8_5_4
 	.byte	0xB3
-	.word	Song_08555BBE
+	.word	Song_08555ED8_5_3
 	.byte	0xDB
 	.byte	0x3F
 	.byte	0x48
@@ -67400,7 +67400,7 @@ Song_08555BD1:
 	.byte	0x27
 	.byte	0x82
 	.byte	0xB2
-	.word	Song_0855598D
+	.word	Song_08555ED8_5_5
 	.byte	0xB1
 
 	@********************** Track  6 **********************@
@@ -67409,7 +67409,7 @@ Song_08555BD1:
 Song_08555ED8_6:	@ 0x08555CF0
 	.byte	0xBC
 	.byte	0x00
-Song_08555CF2:
+Song_08555ED8_6_1:
 	.byte	0xBD
 	.byte	0x7F
 	.byte	0xBE
@@ -67889,7 +67889,7 @@ Song_08555CF2:
 	.byte	0xE6
 	.byte	0x98
 	.byte	0xB2
-	.word	Song_08555CF2
+	.word	Song_08555ED8_6_1
 	.byte	0xB1
 	.byte	0x00
 	.byte	0x00
@@ -67902,7 +67902,7 @@ Song_08555ED8:	@ 0x08555ED8
 	.byte	10		@ priority
 	.byte	148		@ reverb
 
-	.word	voicegroup_08216014		@ voicegroup/tone
+	.word	voicegroup046		@ voicegroup/tone
 
 	.word	Song_08555ED8_1		@ track
 	.word	Song_08555ED8_2		@ track
@@ -67918,7 +67918,7 @@ Song_08555ED8:	@ 0x08555ED8
 Song_08556E04_1:	@ 0x08555EF8
 	.byte	0xBC
 	.byte	0x00
-Song_08555EFA:
+Song_08556E04_1_1:
 	.byte	0xBB
 	.byte	0x38
 	.byte	0xBD
@@ -68174,7 +68174,7 @@ Song_08555EFA:
 	.byte	0x03
 	.byte	0xA0
 	.byte	0xB2
-	.word	Song_08555EFA
+	.word	Song_08556E04_1_1
 	.byte	0xB1
 
 	@********************** Track  2 **********************@
@@ -68183,7 +68183,7 @@ Song_08555EFA:
 Song_08556E04_2:	@ 0x08555FFE
 	.byte	0xBC
 	.byte	0x00
-Song_08556000:
+Song_08556E04_2_3:
 	.byte	0xBD
 	.byte	0x21
 	.byte	0xBE
@@ -68248,7 +68248,7 @@ Song_08556000:
 	.byte	0xEF
 	.byte	0x35
 	.byte	0xA8
-Song_08556040:
+Song_08556E04_2_1:
 	.byte	0xDB
 	.byte	0x35
 	.byte	0x7F
@@ -68259,7 +68259,7 @@ Song_08556040:
 	.byte	0xEF
 	.byte	0x33
 	.byte	0xA8
-Song_0855604A:
+Song_08556E04_2_2:
 	.byte	0xDB
 	.byte	0x33
 	.byte	0x7F
@@ -68271,25 +68271,25 @@ Song_0855604A:
 	.byte	0x35
 	.byte	0xA8
 	.byte	0xB3
-	.word	Song_08556040
+	.word	Song_08556E04_2_1
 	.byte	0xEF
 	.byte	0x33
 	.byte	0x7F
 	.byte	0xA8
 	.byte	0xB3
-	.word	Song_0855604A
+	.word	Song_08556E04_2_2
 	.byte	0xEF
 	.byte	0x35
 	.byte	0x7F
 	.byte	0xA8
 	.byte	0xB3
-	.word	Song_08556040
+	.word	Song_08556E04_2_1
 	.byte	0xEF
 	.byte	0x33
 	.byte	0x7F
 	.byte	0xA8
 	.byte	0xB3
-	.word	Song_0855604A
+	.word	Song_08556E04_2_2
 	.byte	0xEF
 	.byte	0x35
 	.byte	0x7F
@@ -68369,7 +68369,7 @@ Song_0855604A:
 	.byte	0x30
 	.byte	0xA0
 	.byte	0xB2
-	.word	Song_08556000
+	.word	Song_08556E04_2_3
 	.byte	0xB1
 
 	@********************** Track  3 **********************@
@@ -68378,7 +68378,7 @@ Song_0855604A:
 Song_08556E04_3:	@ 0x085560C8
 	.byte	0xBC
 	.byte	0x00
-Song_085560CA:
+Song_08556E04_3_3:
 	.byte	0xBD
 	.byte	0x01
 	.byte	0xBE
@@ -68474,7 +68474,7 @@ Song_085560CA:
 	.byte	0x35
 	.byte	0x6C
 	.byte	0x8C
-Song_08556129:
+Song_08556E04_3_1:
 	.byte	0xD5
 	.byte	0x35
 	.byte	0x3C
@@ -68550,7 +68550,7 @@ Song_08556129:
 	.byte	0x6C
 	.byte	0x8C
 	.byte	0xB3
-	.word	Song_08556129
+	.word	Song_08556E04_3_1
 	.byte	0xD5
 	.byte	0x35
 	.byte	0x3C
@@ -68750,7 +68750,7 @@ Song_08556129:
 	.byte	0x32
 	.byte	0x6C
 	.byte	0x8C
-Song_0855623F:
+Song_08556E04_3_2:
 	.byte	0xD5
 	.byte	0x32
 	.byte	0x3C
@@ -68826,7 +68826,7 @@ Song_0855623F:
 	.byte	0x6C
 	.byte	0x8C
 	.byte	0xB3
-	.word	Song_0855623F
+	.word	Song_08556E04_3_2
 	.byte	0xD5
 	.byte	0x32
 	.byte	0x3C
@@ -68984,7 +68984,7 @@ Song_0855623F:
 	.byte	0xA8
 	.byte	0xCE
 	.byte	0xB2
-	.word	Song_085560CA
+	.word	Song_08556E04_3_3
 	.byte	0xB1
 
 	@********************** Track  4 **********************@
@@ -68993,7 +68993,7 @@ Song_0855623F:
 Song_08556E04_4:	@ 0x08556330
 	.byte	0xBC
 	.byte	0x00
-Song_08556332:
+Song_08556E04_4_1:
 	.byte	0xBD
 	.byte	0x13
 	.byte	0xBE
@@ -69174,7 +69174,7 @@ Song_08556332:
 	.byte	0x58
 	.byte	0xA8
 	.byte	0xB2
-	.word	Song_08556332
+	.word	Song_08556E04_4_1
 	.byte	0xB1
 
 	@********************** Track  5 **********************@
@@ -69183,7 +69183,7 @@ Song_08556332:
 Song_08556E04_5:	@ 0x085563EB
 	.byte	0xBC
 	.byte	0x00
-Song_085563ED:
+Song_08556E04_5_9:
 	.byte	0xBD
 	.byte	0x32
 	.byte	0xBE
@@ -69238,7 +69238,7 @@ Song_085563ED:
 	.byte	0x31
 	.byte	0x24
 	.byte	0x89
-Song_08556423:
+Song_08556E04_5_1:
 	.byte	0xDB
 	.byte	0x30
 	.byte	0x6C
@@ -69265,8 +69265,8 @@ Song_08556423:
 	.byte	0x89
 	.byte	0xB4
 	.byte	0xB3
-	.word	Song_08556423
-Song_08556441:
+	.word	Song_08556E04_5_1
+Song_08556E04_5_2:
 	.byte	0xDB
 	.byte	0x31
 	.byte	0x6C
@@ -69293,7 +69293,7 @@ Song_08556441:
 	.byte	0x89
 	.byte	0xB4
 	.byte	0xB3
-	.word	Song_08556441
+	.word	Song_08556E04_5_2
 	.byte	0xDB
 	.byte	0x36
 	.byte	0x6C
@@ -69343,10 +69343,10 @@ Song_08556441:
 	.byte	0x24
 	.byte	0x89
 	.byte	0xB3
-	.word	Song_08556441
+	.word	Song_08556E04_5_2
 	.byte	0xB3
-	.word	Song_08556441
-Song_08556499:
+	.word	Song_08556E04_5_2
+Song_08556E04_5_3:
 	.byte	0xDB
 	.byte	0x33
 	.byte	0x6C
@@ -69373,7 +69373,7 @@ Song_08556499:
 	.byte	0x89
 	.byte	0xB4
 	.byte	0xB3
-	.word	Song_08556499
+	.word	Song_08556E04_5_3
 	.byte	0xDB
 	.byte	0x35
 	.byte	0x6C
@@ -69520,7 +69520,7 @@ Song_08556499:
 	.byte	0x2E
 	.byte	0x24
 	.byte	0x89
-Song_08556549:
+Song_08556E04_5_4:
 	.byte	0xDB
 	.byte	0x2D
 	.byte	0x6C
@@ -69547,8 +69547,8 @@ Song_08556549:
 	.byte	0x89
 	.byte	0xB4
 	.byte	0xB3
-	.word	Song_08556549
-Song_08556567:
+	.word	Song_08556E04_5_4
+Song_08556E04_5_5:
 	.byte	0xDB
 	.byte	0x2E
 	.byte	0x6C
@@ -69575,7 +69575,7 @@ Song_08556567:
 	.byte	0x89
 	.byte	0xB4
 	.byte	0xB3
-	.word	Song_08556567
+	.word	Song_08556E04_5_5
 	.byte	0xDB
 	.byte	0x33
 	.byte	0x6C
@@ -69625,10 +69625,10 @@ Song_08556567:
 	.byte	0x24
 	.byte	0x89
 	.byte	0xB3
-	.word	Song_08556567
+	.word	Song_08556E04_5_5
 	.byte	0xB3
-	.word	Song_08556567
-Song_085565BF:
+	.word	Song_08556E04_5_5
+Song_08556E04_5_6:
 	.byte	0xDB
 	.byte	0x30
 	.byte	0x6C
@@ -69655,7 +69655,7 @@ Song_085565BF:
 	.byte	0x89
 	.byte	0xB4
 	.byte	0xB3
-	.word	Song_085565BF
+	.word	Song_08556E04_5_6
 	.byte	0xDB
 	.byte	0x32
 	.byte	0x6C
@@ -69939,7 +69939,7 @@ Song_085565BF:
 	.byte	0x81
 	.byte	0x00
 	.byte	0x81
-Song_085566F8:
+Song_08556E04_5_7:
 	.byte	0x8C
 	.byte	0xBE
 	.byte	0x27
@@ -70131,8 +70131,8 @@ Song_085566F8:
 	.byte	0x00
 	.byte	0x81
 	.byte	0xB3
-	.word	Song_085566F8
-Song_085567BB:
+	.word	Song_08556E04_5_7
+Song_08556E04_5_8:
 	.byte	0xBE
 	.byte	0x3A
 	.byte	0xF7
@@ -70736,7 +70736,7 @@ Song_085567BB:
 	.byte	0x39
 	.byte	0x81
 	.byte	0xB3
-	.word	Song_085567BB
+	.word	Song_08556E04_5_8
 	.byte	0xBE
 	.byte	0x00
 	.byte	0x8C
@@ -71319,7 +71319,7 @@ Song_085567BB:
 	.byte	0x81
 	.byte	0xCE
 	.byte	0xB2
-	.word	Song_085563ED
+	.word	Song_08556E04_5_9
 	.byte	0xB1
 
 	@********************** Track  6 **********************@
@@ -71328,7 +71328,7 @@ Song_085567BB:
 Song_08556E04_6:	@ 0x08556C65
 	.byte	0xBC
 	.byte	0x00
-Song_08556C67:
+Song_08556E04_6_8:
 	.byte	0xBD
 	.byte	0x7F
 	.byte	0xBE
@@ -71350,7 +71350,7 @@ Song_08556C67:
 	.byte	0x2A
 	.byte	0x40
 	.byte	0x98
-Song_08556C7C:
+Song_08556E04_6_3:
 	.byte	0xD5
 	.byte	0x2A
 	.byte	0x3C
@@ -71373,7 +71373,7 @@ Song_08556C7C:
 	.byte	0x2A
 	.byte	0x3C
 	.byte	0x98
-Song_08556C92:
+Song_08556E04_6_1:
 	.byte	0xD5
 	.byte	0x2A
 	.byte	0x38
@@ -71392,7 +71392,7 @@ Song_08556C92:
 	.byte	0x30
 	.byte	0x98
 	.byte	0xB3
-	.word	Song_08556C92
+	.word	Song_08556E04_6_1
 	.byte	0xD5
 	.byte	0x2A
 	.byte	0x44
@@ -71411,7 +71411,7 @@ Song_08556C92:
 	.byte	0xD5
 	.byte	0x2A
 	.byte	0x98
-Song_08556CBA:
+Song_08556E04_6_2:
 	.byte	0xD5
 	.byte	0x2A
 	.byte	0x38
@@ -71433,7 +71433,7 @@ Song_08556CBA:
 	.byte	0x2A
 	.byte	0x34
 	.byte	0xA4
-Song_08556CCF:
+Song_08556E04_6_5:
 	.byte	0xD5
 	.byte	0x2A
 	.byte	0x38
@@ -71450,7 +71450,7 @@ Song_08556CCF:
 	.byte	0x98
 	.byte	0xB4
 	.byte	0xB3
-	.word	Song_08556CBA
+	.word	Song_08556E04_6_2
 	.byte	0x98
 	.byte	0xE7
 	.byte	0x2E
@@ -71461,7 +71461,7 @@ Song_08556CCF:
 	.byte	0x3C
 	.byte	0x98
 	.byte	0xB3
-	.word	Song_08556CBA
+	.word	Song_08556E04_6_2
 	.byte	0xD5
 	.byte	0x2A
 	.byte	0x48
@@ -71505,7 +71505,7 @@ Song_08556CCF:
 	.byte	0x2A
 	.byte	0x38
 	.byte	0x98
-Song_08556D1C:
+Song_08556E04_6_4:
 	.byte	0xD5
 	.byte	0x2A
 	.byte	0x38
@@ -71529,7 +71529,7 @@ Song_08556D1C:
 	.byte	0x38
 	.byte	0x98
 	.byte	0xB3
-	.word	Song_08556C7C
+	.word	Song_08556E04_6_3
 	.byte	0x8C
 	.byte	0xD5
 	.byte	0x2A
@@ -71599,9 +71599,9 @@ Song_08556D1C:
 	.byte	0x38
 	.byte	0x98
 	.byte	0xB3
-	.word	Song_08556D1C
+	.word	Song_08556E04_6_4
 	.byte	0xB3
-	.word	Song_08556CCF
+	.word	Song_08556E04_6_5
 	.byte	0xD5
 	.byte	0x2A
 	.byte	0x3C
@@ -71656,7 +71656,7 @@ Song_08556D1C:
 	.byte	0x2E
 	.byte	0x98
 	.byte	0xA8
-Song_08556DBB:
+Song_08556E04_6_6:
 	.byte	0x98
 	.byte	0xD5
 	.byte	0x36
@@ -71667,7 +71667,7 @@ Song_08556DBB:
 	.byte	0x9E
 	.byte	0xB4
 	.byte	0xA8
-Song_08556DC5:
+Song_08556E04_6_7:
 	.byte	0x98
 	.byte	0xD5
 	.byte	0x36
@@ -71685,27 +71685,27 @@ Song_08556DC5:
 	.byte	0xB4
 	.byte	0xA8
 	.byte	0xB3
-	.word	Song_08556DBB
+	.word	Song_08556E04_6_6
 	.byte	0xA8
 	.byte	0xB3
-	.word	Song_08556DBB
+	.word	Song_08556E04_6_6
 	.byte	0xA8
 	.byte	0xB3
-	.word	Song_08556DBB
+	.word	Song_08556E04_6_6
 	.byte	0xA8
 	.byte	0xB3
-	.word	Song_08556DC5
+	.word	Song_08556E04_6_7
 	.byte	0xA8
 	.byte	0xB3
-	.word	Song_08556DBB
+	.word	Song_08556E04_6_6
 	.byte	0xA8
 	.byte	0xB3
-	.word	Song_08556DBB
+	.word	Song_08556E04_6_6
 	.byte	0xA8
 	.byte	0xB3
-	.word	Song_08556DC5
+	.word	Song_08556E04_6_7
 	.byte	0xB2
-	.word	Song_08556C67
+	.word	Song_08556E04_6_8
 	.byte	0xB1
 
 	.align 2
@@ -71716,7 +71716,7 @@ Song_08556E04:	@ 0x08556E04
 	.byte	10		@ priority
 	.byte	148		@ reverb
 
-	.word	voicegroup_08216614		@ voicegroup/tone
+	.word	voicegroup047		@ voicegroup/tone
 
 	.word	Song_08556E04_1		@ track
 	.word	Song_08556E04_2		@ track
@@ -71732,7 +71732,7 @@ Song_08556E04:	@ 0x08556E04
 Song_08557790_1:	@ 0x08556E24
 	.byte	0xBC
 	.byte	0x00
-Song_08556E26:
+Song_08557790_1_5:
 	.byte	0xBB
 	.byte	0x37
 	.byte	0xBD
@@ -71785,7 +71785,7 @@ Song_08556E26:
 	.byte	0x3A
 	.byte	0x68
 	.byte	0x86
-Song_08556E5A:
+Song_08557790_1_2:
 	.byte	0xDB
 	.byte	0x30
 	.byte	0x74
@@ -71827,7 +71827,7 @@ Song_08556E5A:
 	.byte	0x7F
 	.byte	0x8C
 	.byte	0xB4
-Song_08556E83:
+Song_08557790_1_1:
 	.byte	0xDB
 	.byte	0x30
 	.byte	0x74
@@ -71874,13 +71874,13 @@ Song_08556E83:
 	.byte	0x86
 	.byte	0xB4
 	.byte	0xB3
-	.word	Song_08556E83
+	.word	Song_08557790_1_1
 	.byte	0xB3
-	.word	Song_08556E83
+	.word	Song_08557790_1_1
 	.byte	0xB3
-	.word	Song_08556E5A
+	.word	Song_08557790_1_2
 	.byte	0xB3
-	.word	Song_08556E83
+	.word	Song_08557790_1_1
 	.byte	0xDB
 	.byte	0x30
 	.byte	0x74
@@ -71957,7 +71957,7 @@ Song_08556E83:
 	.byte	0x31
 	.byte	0x68
 	.byte	0x98
-Song_08556F10:
+Song_08557790_1_3:
 	.byte	0xDB
 	.byte	0x33
 	.byte	0x74
@@ -72044,11 +72044,11 @@ Song_08556F10:
 	.byte	0x7F
 	.byte	0x8C
 	.byte	0xB3
-	.word	Song_08556F10
+	.word	Song_08557790_1_3
 	.byte	0xB3
-	.word	Song_08556F10
+	.word	Song_08557790_1_3
 	.byte	0xB3
-	.word	Song_08556F10
+	.word	Song_08557790_1_3
 	.byte	0xDB
 	.byte	0x31
 	.byte	0x74
@@ -72093,7 +72093,7 @@ Song_08556F10:
 	.byte	0x3D
 	.byte	0x68
 	.byte	0x86
-Song_08556FA0:
+Song_08557790_1_4:
 	.byte	0xDB
 	.byte	0x29
 	.byte	0x70
@@ -72128,11 +72128,11 @@ Song_08556FA0:
 	.byte	0x8C
 	.byte	0xB4
 	.byte	0xB3
-	.word	Song_08556FA0
+	.word	Song_08557790_1_4
 	.byte	0xB3
-	.word	Song_08556FA0
+	.word	Song_08557790_1_4
 	.byte	0xB2
-	.word	Song_08556E26
+	.word	Song_08557790_1_5
 	.byte	0xB1
 
 	@********************** Track  2 **********************@
@@ -72141,7 +72141,7 @@ Song_08556FA0:
 Song_08557790_2:	@ 0x08556FD1
 	.byte	0xBC
 	.byte	0x00
-Song_08556FD3:
+Song_08557790_2_2:
 	.byte	0xBD
 	.byte	0x10
 	.byte	0xBE
@@ -72190,7 +72190,7 @@ Song_08556FD3:
 	.byte	0xE7
 	.byte	0x41
 	.byte	0x98
-Song_08557003:
+Song_08557790_2_1:
 	.byte	0xD5
 	.byte	0x3A
 	.byte	0x54
@@ -72280,7 +72280,7 @@ Song_08557003:
 	.byte	0x41
 	.byte	0x98
 	.byte	0xB3
-	.word	Song_08557003
+	.word	Song_08557790_2_1
 	.byte	0xE7
 	.byte	0x39
 	.byte	0x5C
@@ -72649,7 +72649,7 @@ Song_08557003:
 	.byte	0x64
 	.byte	0x8C
 	.byte	0xB2
-	.word	Song_08556FD3
+	.word	Song_08557790_2_2
 	.byte	0xB1
 
 	@********************** Track  3 **********************@
@@ -72658,7 +72658,7 @@ Song_08557003:
 Song_08557790_3:	@ 0x085571D5
 	.byte	0xBC
 	.byte	0x00
-Song_085571D7:
+Song_08557790_3_4:
 	.byte	0xBD
 	.byte	0x64
 	.byte	0xBE
@@ -72704,7 +72704,7 @@ Song_085571D7:
 	.byte	0x3D
 	.byte	0x64
 	.byte	0x86
-Song_08557204:
+Song_08557790_3_2:
 	.byte	0xDB
 	.byte	0x24
 	.byte	0x74
@@ -72741,7 +72741,7 @@ Song_08557204:
 	.byte	0x2C
 	.byte	0x8C
 	.byte	0xB4
-Song_08557228:
+Song_08557790_3_1:
 	.byte	0xDB
 	.byte	0x24
 	.byte	0x74
@@ -72823,11 +72823,11 @@ Song_08557228:
 	.byte	0x64
 	.byte	0x86
 	.byte	0xB3
-	.word	Song_08557228
+	.word	Song_08557790_3_1
 	.byte	0xB3
-	.word	Song_08557204
+	.word	Song_08557790_3_2
 	.byte	0xB3
-	.word	Song_08557228
+	.word	Song_08557790_3_1
 	.byte	0xDB
 	.byte	0x24
 	.byte	0x74
@@ -72901,7 +72901,7 @@ Song_08557228:
 	.byte	0x34
 	.byte	0x64
 	.byte	0xB0
-Song_085572D0:
+Song_08557790_3_3:
 	.byte	0xDB
 	.byte	0x24
 	.byte	0x7F
@@ -72947,9 +72947,9 @@ Song_085572D0:
 	.byte	0x86
 	.byte	0xB4
 	.byte	0xB3
-	.word	Song_08557204
+	.word	Song_08557790_3_2
 	.byte	0xB3
-	.word	Song_08557228
+	.word	Song_08557790_3_1
 	.byte	0xDB
 	.byte	0x24
 	.byte	0x74
@@ -72998,7 +72998,7 @@ Song_085572D0:
 	.byte	0x70
 	.byte	0x86
 	.byte	0xB3
-	.word	Song_085572D0
+	.word	Song_08557790_3_3
 	.byte	0xDB
 	.byte	0x24
 	.byte	0x74
@@ -73129,7 +73129,7 @@ Song_085572D0:
 	.byte	0xD5
 	.byte	0x8C
 	.byte	0xB2
-	.word	Song_085571D7
+	.word	Song_08557790_3_4
 	.byte	0xB1
 
 	@********************** Track  4 **********************@
@@ -73138,7 +73138,7 @@ Song_085572D0:
 Song_08557790_4:	@ 0x085573C1
 	.byte	0xBC
 	.byte	0x00
-Song_085573C3:
+Song_08557790_4_2:
 	.byte	0xBD
 	.byte	0x14
 	.byte	0xC4
@@ -73786,7 +73786,7 @@ Song_085573C3:
 	.byte	0xB0
 	.byte	0xB0
 	.byte	0xB0
-Song_0855764A:
+Song_08557790_4_1:
 	.byte	0xDB
 	.byte	0x35
 	.byte	0x64
@@ -73821,9 +73821,9 @@ Song_0855764A:
 	.byte	0x8C
 	.byte	0xB4
 	.byte	0xB3
-	.word	Song_0855764A
+	.word	Song_08557790_4_1
 	.byte	0xB2
-	.word	Song_085573C3
+	.word	Song_08557790_4_2
 	.byte	0xB1
 
 	@********************** Track  5 **********************@
@@ -73832,7 +73832,7 @@ Song_0855764A:
 Song_08557790_5:	@ 0x08557676
 	.byte	0xBC
 	.byte	0x00
-Song_08557678:
+Song_08557790_5_1:
 	.byte	0xB0
 	.byte	0xB0
 	.byte	0xB0
@@ -74108,7 +74108,7 @@ Song_08557678:
 	.byte	0x52
 	.byte	0x86
 	.byte	0xB2
-	.word	Song_08557678
+	.word	Song_08557790_5_1
 	.byte	0xB1
 
 	.align 2
@@ -74119,7 +74119,7 @@ Song_08557790:	@ 0x08557790
 	.byte	10		@ priority
 	.byte	148		@ reverb
 
-	.word	voicegroup_08221CD8		@ voicegroup/tone
+	.word	voicegroup076		@ voicegroup/tone
 
 	.word	Song_08557790_1		@ track
 	.word	Song_08557790_2		@ track
@@ -74234,7 +74234,7 @@ Song_08558814_1:	@ 0x085577AC
 	.byte	0xCE
 	.byte	0x46
 	.byte	0x81
-Song_08557812:
+Song_08558814_1_3:
 	.byte	0xE6
 	.byte	0x3C
 	.byte	0x48
@@ -74442,7 +74442,7 @@ Song_08557812:
 	.byte	0x32
 	.byte	0x58
 	.byte	0x88
-Song_085578E1:
+Song_08558814_1_1:
 	.byte	0xD6
 	.byte	0x38
 	.byte	0x64
@@ -74479,7 +74479,7 @@ Song_085578E1:
 	.byte	0x58
 	.byte	0x88
 	.byte	0xB4
-Song_08557905:
+Song_08558814_1_2:
 	.byte	0xD6
 	.byte	0x39
 	.byte	0x64
@@ -74517,13 +74517,13 @@ Song_08557905:
 	.byte	0x88
 	.byte	0xB4
 	.byte	0xB3
-	.word	Song_085578E1
+	.word	Song_08558814_1_1
 	.byte	0xB3
-	.word	Song_08557905
+	.word	Song_08558814_1_2
 	.byte	0xB3
-	.word	Song_085578E1
+	.word	Song_08558814_1_1
 	.byte	0xB3
-	.word	Song_08557905
+	.word	Song_08558814_1_2
 	.byte	0xD6
 	.byte	0x38
 	.byte	0x60
@@ -74780,7 +74780,7 @@ Song_08557905:
 	.byte	0xCE
 	.byte	0x35
 	.byte	0xB2
-	.word	Song_08557812
+	.word	Song_08558814_1_3
 	.byte	0xB1
 
 	@********************** Track  2 **********************@
@@ -74789,7 +74789,7 @@ Song_08557905:
 Song_08558814_2:	@ 0x08557A42
 	.byte	0xBC
 	.byte	0x00
-Song_08557A44:
+Song_08558814_2_7:
 	.byte	0xBD
 	.byte	0x14
 	.byte	0xBE
@@ -74813,7 +74813,7 @@ Song_08557A44:
 	.byte	0x60
 	.byte	0xA4
 	.byte	0xB4
-Song_08557A5B:
+Song_08558814_2_2:
 	.byte	0x98
 	.byte	0xDB
 	.byte	0x35
@@ -74847,7 +74847,7 @@ Song_08557A5B:
 	.byte	0x38
 	.byte	0x88
 	.byte	0xB4
-Song_08557A7C:
+Song_08558814_2_1:
 	.byte	0x98
 	.byte	0xDB
 	.byte	0x35
@@ -74863,7 +74863,7 @@ Song_08557A7C:
 	.byte	0x60
 	.byte	0xA4
 	.byte	0xB4
-Song_08557A8B:
+Song_08558814_2_8:
 	.byte	0x98
 	.byte	0xDB
 	.byte	0x35
@@ -74890,12 +74890,12 @@ Song_08557A8B:
 	.byte	0x8C
 	.byte	0xB4
 	.byte	0xB3
-	.word	Song_08557A7C
+	.word	Song_08558814_2_1
 	.byte	0xB3
-	.word	Song_08557A5B
+	.word	Song_08558814_2_2
 	.byte	0xB3
-	.word	Song_08557A7C
-Song_08557AB3:
+	.word	Song_08558814_2_1
+Song_08558814_2_9:
 	.byte	0xBD
 	.byte	0x17
 	.byte	0xBE
@@ -75055,7 +75055,7 @@ Song_08557AB3:
 	.byte	0x4A
 	.byte	0x20
 	.byte	0x88
-Song_08557B52:
+Song_08558814_2_3:
 	.byte	0xD6
 	.byte	0x45
 	.byte	0x2C
@@ -75094,7 +75094,7 @@ Song_08557B52:
 	.byte	0x20
 	.byte	0x88
 	.byte	0xB4
-Song_08557B78:
+Song_08558814_2_4:
 	.byte	0xD6
 	.byte	0x44
 	.byte	0x2C
@@ -75134,10 +75134,10 @@ Song_08557B78:
 	.byte	0x88
 	.byte	0xB4
 	.byte	0xB3
-	.word	Song_08557B52
+	.word	Song_08558814_2_3
 	.byte	0xB3
-	.word	Song_08557B78
-Song_08557BA8:
+	.word	Song_08558814_2_4
+Song_08558814_2_5:
 	.byte	0xD6
 	.byte	0x51
 	.byte	0x1C
@@ -75213,7 +75213,7 @@ Song_08557BA8:
 	.byte	0x20
 	.byte	0x88
 	.byte	0xB3
-	.word	Song_08557BA8
+	.word	Song_08558814_2_5
 	.byte	0xD6
 	.byte	0x50
 	.byte	0x28
@@ -75321,7 +75321,7 @@ Song_08557BA8:
 	.byte	0x44
 	.byte	0x44
 	.byte	0x98
-Song_08557C62:
+Song_08558814_2_6:
 	.byte	0xD7
 	.byte	0x35
 	.byte	0x30
@@ -75357,7 +75357,7 @@ Song_08557C62:
 	.byte	0x88
 	.byte	0xB4
 	.byte	0xB3
-	.word	Song_08557C62
+	.word	Song_08558814_2_6
 	.byte	0xD7
 	.byte	0x36
 	.byte	0x30
@@ -75406,21 +75406,21 @@ Song_08557C62:
 	.byte	0x68
 	.byte	0x98
 	.byte	0xB3
-	.word	Song_08557A44
+	.word	Song_08558814_2_7
 	.byte	0xB3
-	.word	Song_08557A5B
+	.word	Song_08558814_2_2
 	.byte	0xB3
-	.word	Song_08557A7C
+	.word	Song_08558814_2_1
 	.byte	0xB3
-	.word	Song_08557A8B
+	.word	Song_08558814_2_8
 	.byte	0xB3
-	.word	Song_08557A7C
+	.word	Song_08558814_2_1
 	.byte	0xB3
-	.word	Song_08557A5B
+	.word	Song_08558814_2_2
 	.byte	0xB3
-	.word	Song_08557A7C
+	.word	Song_08558814_2_1
 	.byte	0xB2
-	.word	Song_08557AB3
+	.word	Song_08558814_2_9
 	.byte	0xB1
 
 	@********************** Track  3 **********************@
@@ -75429,7 +75429,7 @@ Song_08557C62:
 Song_08558814_3:	@ 0x08557CE1
 	.byte	0xBC
 	.byte	0x00
-Song_08557CE3:
+Song_08558814_3_2:
 	.byte	0xBD
 	.byte	0x16
 	.byte	0xBE
@@ -75482,7 +75482,7 @@ Song_08557CE3:
 	.byte	0x4C
 	.byte	0x8C
 	.byte	0xB4
-Song_08557D17:
+Song_08558814_3_1:
 	.byte	0xDA
 	.byte	0x29
 	.byte	0x50
@@ -75528,14 +75528,14 @@ Song_08557D17:
 	.byte	0x8C
 	.byte	0xB4
 	.byte	0xB3
-	.word	Song_08557D17
+	.word	Song_08558814_3_1
 	.byte	0xB3
-	.word	Song_08557D17
+	.word	Song_08558814_3_1
 	.byte	0xB3
-	.word	Song_08557D17
+	.word	Song_08558814_3_1
 	.byte	0xB3
-	.word	Song_08557D17
-Song_08557D57:
+	.word	Song_08558814_3_1
+Song_08558814_3_3:
 	.byte	0xDA
 	.byte	0x2A
 	.byte	0x50
@@ -75580,7 +75580,7 @@ Song_08557D57:
 	.byte	0x4C
 	.byte	0x8C
 	.byte	0xB4
-Song_08557D83:
+Song_08558814_3_4:
 	.byte	0xD4
 	.byte	0x30
 	.byte	0x54
@@ -75886,29 +75886,29 @@ Song_08557D83:
 	.byte	0x34
 	.byte	0x98
 	.byte	0xB3
-	.word	Song_08557CE3
+	.word	Song_08558814_3_2
 	.byte	0xB3
-	.word	Song_08557D17
+	.word	Song_08558814_3_1
 	.byte	0xB3
-	.word	Song_08557D17
+	.word	Song_08558814_3_1
 	.byte	0xB3
-	.word	Song_08557D17
+	.word	Song_08558814_3_1
 	.byte	0xB3
-	.word	Song_08557CE3
+	.word	Song_08558814_3_2
 	.byte	0xB3
-	.word	Song_08557D17
+	.word	Song_08558814_3_1
 	.byte	0xB3
-	.word	Song_08557D17
+	.word	Song_08558814_3_1
 	.byte	0xB3
-	.word	Song_08557D17
+	.word	Song_08558814_3_1
 	.byte	0xB3
-	.word	Song_08557D17
+	.word	Song_08558814_3_1
 	.byte	0xB3
-	.word	Song_08557D17
+	.word	Song_08558814_3_1
 	.byte	0xB3
-	.word	Song_08557D57
+	.word	Song_08558814_3_3
 	.byte	0xB2
-	.word	Song_08557D83
+	.word	Song_08558814_3_4
 	.byte	0xB1
 
 	@********************** Track  4 **********************@
@@ -75917,7 +75917,7 @@ Song_08557D83:
 Song_08558814_4:	@ 0x08557EF0
 	.byte	0xBC
 	.byte	0x00
-Song_08557EF2:
+Song_08558814_4_8:
 	.byte	0xBD
 	.byte	0x38
 	.byte	0xBE
@@ -75941,7 +75941,7 @@ Song_08557EF2:
 	.byte	0x68
 	.byte	0x98
 	.byte	0xB4
-Song_08557F09:
+Song_08558814_4_1:
 	.byte	0xDB
 	.byte	0x29
 	.byte	0x70
@@ -75972,14 +75972,14 @@ Song_08557F09:
 	.byte	0x68
 	.byte	0x98
 	.byte	0xB3
-	.word	Song_08557F09
+	.word	Song_08558814_4_1
 	.byte	0xB3
-	.word	Song_08557F09
+	.word	Song_08558814_4_1
 	.byte	0xB3
-	.word	Song_08557F09
+	.word	Song_08558814_4_1
 	.byte	0xB3
-	.word	Song_08557F09
-Song_08557F3A:
+	.word	Song_08558814_4_1
+Song_08558814_4_9:
 	.byte	0xE6
 	.byte	0x29
 	.byte	0x6C
@@ -76009,7 +76009,7 @@ Song_08557F3A:
 	.byte	0xB0
 	.byte	0xB0
 	.byte	0xB0
-Song_08557F57:
+Song_08558814_4_2:
 	.byte	0xDB
 	.byte	0x29
 	.byte	0x64
@@ -76025,7 +76025,7 @@ Song_08557F57:
 	.byte	0x78
 	.byte	0x98
 	.byte	0xB4
-Song_08557F66:
+Song_08558814_4_3:
 	.byte	0xDB
 	.byte	0x29
 	.byte	0x64
@@ -76040,7 +76040,7 @@ Song_08557F66:
 	.byte	0x7F
 	.byte	0x98
 	.byte	0xB4
-Song_08557F74:
+Song_08558814_4_4:
 	.byte	0xDB
 	.byte	0x29
 	.byte	0x64
@@ -76069,11 +76069,11 @@ Song_08557F74:
 	.byte	0x7C
 	.byte	0x98
 	.byte	0xB3
-	.word	Song_08557F57
+	.word	Song_08558814_4_2
 	.byte	0xB3
-	.word	Song_08557F66
+	.word	Song_08558814_4_3
 	.byte	0xB3
-	.word	Song_08557F74
+	.word	Song_08558814_4_4
 	.byte	0xD7
 	.byte	0x38
 	.byte	0x64
@@ -76122,7 +76122,7 @@ Song_08557F74:
 	.byte	0xA0
 	.byte	0x2B
 	.byte	0xA0
-Song_08557FCE:
+Song_08558814_4_5:
 	.byte	0xD7
 	.byte	0x35
 	.byte	0x6C
@@ -76160,7 +76160,7 @@ Song_08557FCE:
 	.byte	0x70
 	.byte	0x88
 	.byte	0xB4
-Song_08557FF3:
+Song_08558814_4_6:
 	.byte	0xD7
 	.byte	0x35
 	.byte	0x64
@@ -76197,10 +76197,10 @@ Song_08557FF3:
 	.byte	0x88
 	.byte	0xB4
 	.byte	0xB3
-	.word	Song_08557FCE
+	.word	Song_08558814_4_5
 	.byte	0xB3
-	.word	Song_08557FF3
-Song_08558020:
+	.word	Song_08558814_4_6
+Song_08558814_4_7:
 	.byte	0xD7
 	.byte	0x29
 	.byte	0x64
@@ -76237,7 +76237,7 @@ Song_08558020:
 	.byte	0x88
 	.byte	0xB4
 	.byte	0xB3
-	.word	Song_08558020
+	.word	Song_08558814_4_7
 	.byte	0xD7
 	.byte	0x2A
 	.byte	0x64
@@ -76287,7 +76287,7 @@ Song_08558020:
 	.byte	0x64
 	.byte	0x98
 	.byte	0xB3
-	.word	Song_08557EF2
+	.word	Song_08558814_4_8
 	.byte	0xDB
 	.byte	0x29
 	.byte	0x70
@@ -76370,13 +76370,13 @@ Song_08558020:
 	.byte	0x2E
 	.byte	0x88
 	.byte	0xB3
-	.word	Song_08557F09
+	.word	Song_08558814_4_1
 	.byte	0xB3
-	.word	Song_08557F09
+	.word	Song_08558814_4_1
 	.byte	0xB3
-	.word	Song_08557F09
+	.word	Song_08558814_4_1
 	.byte	0xB2
-	.word	Song_08557F3A
+	.word	Song_08558814_4_9
 	.byte	0xB1
 
 	@********************** Track  5 **********************@
@@ -76400,7 +76400,7 @@ Song_08558814_5:	@ 0x085580E3
 	.byte	0x98
 	.byte	0xD6
 	.byte	0x98
-Song_085580F4:
+Song_08558814_5_4:
 	.byte	0xD6
 	.byte	0x24
 	.byte	0x48
@@ -76412,7 +76412,7 @@ Song_085580F4:
 	.byte	0xD6
 	.byte	0x98
 	.byte	0xB4
-Song_085580FF:
+Song_08558814_5_5:
 	.byte	0xD6
 	.byte	0x24
 	.byte	0x48
@@ -76436,7 +76436,7 @@ Song_085580FF:
 	.byte	0x60
 	.byte	0x84
 	.byte	0xB4
-Song_08558116:
+Song_08558814_5_6:
 	.byte	0xDA
 	.byte	0x26
 	.byte	0x54
@@ -76471,7 +76471,7 @@ Song_08558116:
 	.byte	0x7F
 	.byte	0x8C
 	.byte	0xB4
-Song_08558138:
+Song_08558814_5_7:
 	.byte	0xD6
 	.byte	0x24
 	.byte	0x48
@@ -76486,7 +76486,7 @@ Song_08558138:
 	.byte	0xD6
 	.byte	0x98
 	.byte	0xB4
-Song_08558146:
+Song_08558814_5_8:
 	.byte	0xD6
 	.byte	0x24
 	.byte	0x48
@@ -76633,7 +76633,7 @@ Song_08558146:
 	.byte	0x81
 	.byte	0x34
 	.byte	0x81
-Song_085581D8:
+Song_08558814_5_9:
 	.byte	0xBE
 	.byte	0x35
 	.byte	0xD6
@@ -76966,7 +76966,7 @@ Song_085581D8:
 	.byte	0x88
 	.byte	0xD6
 	.byte	0x88
-Song_08558324:
+Song_08558814_5_1:
 	.byte	0xE6
 	.byte	0x39
 	.byte	0x60
@@ -77091,7 +77091,7 @@ Song_08558324:
 	.byte	0x20
 	.byte	0x88
 	.byte	0xB3
-	.word	Song_08558324
+	.word	Song_08558814_5_1
 	.byte	0xE6
 	.byte	0x39
 	.byte	0x60
@@ -77371,7 +77371,7 @@ Song_08558324:
 	.byte	0x34
 	.byte	0x7F
 	.byte	0xA8
-Song_085584BB:
+Song_08558814_5_2:
 	.byte	0xD6
 	.byte	0x24
 	.byte	0x6C
@@ -77388,7 +77388,7 @@ Song_085584BB:
 	.byte	0xD6
 	.byte	0x98
 	.byte	0xB4
-Song_085584CB:
+Song_08558814_5_3:
 	.byte	0xD6
 	.byte	0x24
 	.byte	0x6C
@@ -77404,13 +77404,13 @@ Song_085584CB:
 	.byte	0x98
 	.byte	0xB4
 	.byte	0xB3
-	.word	Song_085584BB
+	.word	Song_08558814_5_2
 	.byte	0xB3
-	.word	Song_085584CB
+	.word	Song_08558814_5_3
 	.byte	0xB3
-	.word	Song_085584BB
+	.word	Song_08558814_5_2
 	.byte	0xB3
-	.word	Song_085584CB
+	.word	Song_08558814_5_3
 	.byte	0xD6
 	.byte	0x24
 	.byte	0x6C
@@ -77511,15 +77511,15 @@ Song_085584CB:
 	.byte	0xD6
 	.byte	0x98
 	.byte	0xB3
-	.word	Song_085580F4
+	.word	Song_08558814_5_4
 	.byte	0xB3
-	.word	Song_085580FF
+	.word	Song_08558814_5_5
 	.byte	0xB3
-	.word	Song_08558116
+	.word	Song_08558814_5_6
 	.byte	0xB3
-	.word	Song_08558138
+	.word	Song_08558814_5_7
 	.byte	0xB3
-	.word	Song_08558146
+	.word	Song_08558814_5_8
 	.byte	0xD9
 	.byte	0x26
 	.byte	0x54
@@ -77651,7 +77651,7 @@ Song_085584CB:
 	.byte	0x35
 	.byte	0x81
 	.byte	0xB2
-	.word	Song_085581D8
+	.word	Song_08558814_5_9
 	.byte	0xB1
 
 	@********************** Track  6 **********************@
@@ -77660,7 +77660,7 @@ Song_085584CB:
 Song_08558814_6:	@ 0x085585F1
 	.byte	0xBC
 	.byte	0x00
-Song_085585F3:
+Song_08558814_6_3:
 	.byte	0xBD
 	.byte	0x4B
 	.byte	0xBE
@@ -77672,7 +77672,7 @@ Song_085585F3:
 	.byte	0xB0
 	.byte	0xB0
 	.byte	0xB0
-Song_085585FE:
+Song_08558814_6_4:
 	.byte	0xBE
 	.byte	0x35
 	.byte	0xFF
@@ -77869,7 +77869,7 @@ Song_085585FE:
 	.byte	0x05
 	.byte	0x81
 	.byte	0xB4
-Song_085586C2:
+Song_08558814_6_5:
 	.byte	0xBE
 	.byte	0x05
 	.byte	0x81
@@ -77896,7 +77896,7 @@ Song_085586C2:
 	.byte	0x81
 	.byte	0xB4
 	.byte	0xB0
-Song_085586DC:
+Song_08558814_6_6:
 	.byte	0xB0
 	.byte	0xB0
 	.byte	0xB0
@@ -77936,7 +77936,7 @@ Song_085586DC:
 	.byte	0x88
 	.byte	0x4A
 	.byte	0x88
-Song_08558703:
+Song_08558814_6_1:
 	.byte	0xD4
 	.byte	0x50
 	.byte	0x18
@@ -77964,7 +77964,7 @@ Song_08558703:
 	.byte	0x4A
 	.byte	0x88
 	.byte	0xB4
-Song_0855871E:
+Song_08558814_6_2:
 	.byte	0xD4
 	.byte	0x51
 	.byte	0x18
@@ -77993,13 +77993,13 @@ Song_0855871E:
 	.byte	0x88
 	.byte	0xB4
 	.byte	0xB3
-	.word	Song_08558703
+	.word	Song_08558814_6_1
 	.byte	0xB3
-	.word	Song_0855871E
+	.word	Song_08558814_6_2
 	.byte	0xB3
-	.word	Song_08558703
+	.word	Song_08558814_6_1
 	.byte	0xB3
-	.word	Song_0855871E
+	.word	Song_08558814_6_2
 	.byte	0xB0
 	.byte	0xB0
 	.byte	0xB0
@@ -78008,21 +78008,21 @@ Song_0855871E:
 	.byte	0xB0
 	.byte	0xB0
 	.byte	0xB0
-	.byte	0xB0
-	.byte	0xB0
-	.byte	0xB0
-	.byte	0xB3
-	.word	Song_085585F3
 	.byte	0xB0
 	.byte	0xB0
 	.byte	0xB0
 	.byte	0xB3
-	.word	Song_085585FE
+	.word	Song_08558814_6_3
+	.byte	0xB0
+	.byte	0xB0
+	.byte	0xB0
 	.byte	0xB3
-	.word	Song_085586C2
+	.word	Song_08558814_6_4
+	.byte	0xB3
+	.word	Song_08558814_6_5
 	.byte	0xB0
 	.byte	0xB2
-	.word	Song_085586DC
+	.word	Song_08558814_6_6
 	.byte	0xB1
 
 	@********************** Track  7 **********************@
@@ -78031,7 +78031,7 @@ Song_0855871E:
 Song_08558814_7:	@ 0x08558771
 	.byte	0xBC
 	.byte	0x00
-Song_08558773:
+Song_08558814_7_1:
 	.byte	0xBD
 	.byte	0x2F
 	.byte	0xBE
@@ -78043,7 +78043,7 @@ Song_08558773:
 	.byte	0xB0
 	.byte	0xB0
 	.byte	0xB0
-Song_0855877E:
+Song_08558814_7_2:
 	.byte	0xD6
 	.byte	0x35
 	.byte	0x7F
@@ -78071,7 +78071,7 @@ Song_0855877E:
 	.byte	0x34
 	.byte	0x88
 	.byte	0xB4
-Song_08558799:
+Song_08558814_7_3:
 	.byte	0xD6
 	.byte	0x33
 	.byte	0x7F
@@ -78083,7 +78083,7 @@ Song_08558799:
 	.byte	0xE6
 	.byte	0xA8
 	.byte	0xB4
-Song_085587A4:
+Song_08558814_7_4:
 	.byte	0xD6
 	.byte	0x32
 	.byte	0x7F
@@ -78111,7 +78111,7 @@ Song_085587A4:
 	.byte	0x31
 	.byte	0x88
 	.byte	0xB4
-Song_085587BF:
+Song_08558814_7_5:
 	.byte	0xD7
 	.byte	0x35
 	.byte	0x70
@@ -78168,18 +78168,18 @@ Song_085587BF:
 	.byte	0xB0
 	.byte	0xB0
 	.byte	0xB3
-	.word	Song_08558773
+	.word	Song_08558814_7_1
 	.byte	0xB0
 	.byte	0xB0
 	.byte	0xB0
 	.byte	0xB3
-	.word	Song_0855877E
+	.word	Song_08558814_7_2
 	.byte	0xB3
-	.word	Song_08558799
+	.word	Song_08558814_7_3
 	.byte	0xB3
-	.word	Song_085587A4
+	.word	Song_08558814_7_4
 	.byte	0xB2
-	.word	Song_085587BF
+	.word	Song_08558814_7_5
 	.byte	0xB1
 	.byte	0x00
 
@@ -78191,7 +78191,7 @@ Song_08558814:	@ 0x08558814
 	.byte	10		@ priority
 	.byte	148		@ reverb
 
-	.word	voicegroup_08221CD8		@ voicegroup/tone
+	.word	voicegroup076		@ voicegroup/tone
 
 	.word	Song_08558814_1		@ track
 	.word	Song_08558814_2		@ track
@@ -78483,7 +78483,7 @@ Song_08559C68_1:	@ 0x08558838
 	.byte	0xD5
 	.byte	0x4D
 	.byte	0x86
-Song_0855894D:
+Song_08559C68_1_4:
 	.byte	0xBD
 	.byte	0x11
 	.byte	0xD5
@@ -78794,7 +78794,7 @@ Song_0855894D:
 	.byte	0xA0
 	.byte	0xCE
 	.byte	0x2D
-Song_08558A83:
+Song_08559C68_1_1:
 	.byte	0xD8
 	.byte	0x2D
 	.byte	0x7C
@@ -78851,7 +78851,7 @@ Song_08558A83:
 	.byte	0x35
 	.byte	0x86
 	.byte	0xB4
-Song_08558ABB:
+Song_08559C68_1_2:
 	.byte	0xD8
 	.byte	0x2D
 	.byte	0x7C
@@ -78910,9 +78910,9 @@ Song_08558ABB:
 	.byte	0x86
 	.byte	0xB4
 	.byte	0xB3
-	.word	Song_08558A83
+	.word	Song_08559C68_1_1
 	.byte	0xB3
-	.word	Song_08558ABB
+	.word	Song_08559C68_1_2
 	.byte	0xD8
 	.byte	0x2D
 	.byte	0x5C
@@ -79259,7 +79259,7 @@ Song_08558ABB:
 	.byte	0x2D
 	.byte	0x34
 	.byte	0x4C
-Song_08558C58:
+Song_08559C68_1_3:
 	.byte	0xDB
 	.byte	0x34
 	.byte	0x6C
@@ -79399,7 +79399,7 @@ Song_08558C58:
 	.byte	0x44
 	.byte	0x86
 	.byte	0xB3
-	.word	Song_08558C58
+	.word	Song_08559C68_1_3
 	.byte	0xDB
 	.byte	0x34
 	.byte	0x6C
@@ -79471,7 +79471,7 @@ Song_08558C58:
 	.byte	0x4D
 	.byte	0x86
 	.byte	0xB2
-	.word	Song_0855894D
+	.word	Song_08559C68_1_4
 	.byte	0xB1
 
 	@********************** Track  2 **********************@
@@ -79602,7 +79602,7 @@ Song_08559C68_2:	@ 0x08558D33
 	.byte	0x8C
 	.byte	0x38
 	.byte	0x8C
-Song_08558DAF:
+Song_08559C68_2_1:
 	.byte	0xD5
 	.byte	0x36
 	.byte	0x70
@@ -79735,7 +79735,7 @@ Song_08558DAF:
 	.byte	0x74
 	.byte	0x86
 	.byte	0xB3
-	.word	Song_08558DAF
+	.word	Song_08559C68_2_1
 	.byte	0xD5
 	.byte	0x36
 	.byte	0x6C
@@ -80324,7 +80324,7 @@ Song_08558DAF:
 	.byte	0x38
 	.byte	0x8C
 	.byte	0xB2
-	.word	Song_08558DAF
+	.word	Song_08559C68_2_1
 	.byte	0xB1
 
 	@********************** Track  3 **********************@
@@ -80381,7 +80381,7 @@ Song_08559C68_3:	@ 0x08559088
 	.byte	0x31
 	.byte	0x7F
 	.byte	0x98
-Song_085590BA:
+Song_08559C68_3_1:
 	.byte	0xE3
 	.byte	0x36
 	.byte	0x74
@@ -80397,11 +80397,11 @@ Song_085590BA:
 	.byte	0x98
 	.byte	0xB4
 	.byte	0xB3
-	.word	Song_085590BA
+	.word	Song_08559C68_3_1
 	.byte	0xB3
-	.word	Song_085590BA
+	.word	Song_08559C68_3_1
 	.byte	0xB3
-	.word	Song_085590BA
+	.word	Song_08559C68_3_1
 	.byte	0xE3
 	.byte	0x36
 	.byte	0x7F
@@ -81515,7 +81515,7 @@ Song_085590BA:
 	.byte	0x7F
 	.byte	0x98
 	.byte	0xB2
-	.word	Song_085590BA
+	.word	Song_08559C68_3_1
 	.byte	0xB1
 
 	@********************** Track  4 **********************@
@@ -81851,7 +81851,7 @@ Song_08559C68_4:	@ 0x08559535
 	.byte	0x83
 	.byte	0xD1
 	.byte	0x83
-Song_0855967E:
+Song_08559C68_4_1:
 	.byte	0xEF
 	.byte	0x39
 	.byte	0x74
@@ -81883,7 +81883,7 @@ Song_0855967E:
 	.byte	0x50
 	.byte	0x98
 	.byte	0xB4
-Song_0855969D:
+Song_08559C68_4_2:
 	.byte	0xD5
 	.byte	0x26
 	.byte	0x64
@@ -81931,7 +81931,7 @@ Song_0855969D:
 	.byte	0x86
 	.byte	0xB4
 	.byte	0xB3
-	.word	Song_0855967E
+	.word	Song_08559C68_4_1
 	.byte	0xD5
 	.byte	0x26
 	.byte	0x64
@@ -82204,8 +82204,8 @@ Song_0855969D:
 	.byte	0x50
 	.byte	0x98
 	.byte	0xB3
-	.word	Song_0855969D
-Song_085597E4:
+	.word	Song_08559C68_4_2
+Song_08559C68_4_4:
 	.byte	0xE7
 	.byte	0x39
 	.byte	0x74
@@ -82238,8 +82238,8 @@ Song_085597E4:
 	.byte	0x98
 	.byte	0xB4
 	.byte	0xB3
-	.word	Song_0855969D
-Song_08559808:
+	.word	Song_08559C68_4_2
+Song_08559C68_4_3:
 	.byte	0xDB
 	.byte	0x39
 	.byte	0x74
@@ -82250,7 +82250,7 @@ Song_08559808:
 	.byte	0x98
 	.byte	0xB4
 	.byte	0xB3
-	.word	Song_08559808
+	.word	Song_08559C68_4_3
 	.byte	0xE7
 	.byte	0x39
 	.byte	0x74
@@ -82447,15 +82447,15 @@ Song_08559808:
 	.byte	0xE7
 	.byte	0x98
 	.byte	0xB3
-	.word	Song_085597E4
+	.word	Song_08559C68_4_4
 	.byte	0xB3
-	.word	Song_0855969D
+	.word	Song_08559C68_4_2
 	.byte	0xB3
-	.word	Song_085597E4
+	.word	Song_08559C68_4_4
 	.byte	0xB3
-	.word	Song_0855969D
+	.word	Song_08559C68_4_2
 	.byte	0xB3
-	.word	Song_085597E4
+	.word	Song_08559C68_4_4
 	.byte	0xD5
 	.byte	0x26
 	.byte	0x64
@@ -82528,7 +82528,7 @@ Song_08559808:
 	.byte	0xD1
 	.byte	0x83
 	.byte	0xB2
-	.word	Song_0855967E
+	.word	Song_08559C68_4_1
 	.byte	0xB1
 
 	@********************** Track  5 **********************@
@@ -82543,7 +82543,7 @@ Song_08559C68_5:	@ 0x0855993F
 	.byte	0xB0
 	.byte	0xB0
 	.byte	0xB0
-Song_08559947:
+Song_08559C68_5_2:
 	.byte	0xBD
 	.byte	0x05
 	.byte	0xBE
@@ -82767,7 +82767,7 @@ Song_08559947:
 	.byte	0x2D
 	.byte	0x44
 	.byte	0x86
-Song_08559A26:
+Song_08559C68_5_1:
 	.byte	0xD5
 	.byte	0x2D
 	.byte	0x48
@@ -82863,7 +82863,7 @@ Song_08559A26:
 	.byte	0x44
 	.byte	0x86
 	.byte	0xB3
-	.word	Song_08559A26
+	.word	Song_08559C68_5_1
 	.byte	0xBD
 	.byte	0x24
 	.byte	0x98
@@ -83170,7 +83170,7 @@ Song_08559A26:
 	.byte	0xB0
 	.byte	0xB0
 	.byte	0xB2
-	.word	Song_08559947
+	.word	Song_08559C68_5_2
 	.byte	0xB1
 
 	@********************** Track  6 **********************@
@@ -83183,7 +83183,7 @@ Song_08559C68_6:	@ 0x08559BC0
 	.byte	0xB0
 	.byte	0xB0
 	.byte	0xB0
-Song_08559BC6:
+Song_08559C68_6_2:
 	.byte	0xB0
 	.byte	0xB0
 	.byte	0xB0
@@ -83233,7 +83233,7 @@ Song_08559BC6:
 	.byte	0x86
 	.byte	0x39
 	.byte	0x84
-Song_08559BF7:
+Song_08559C68_6_1:
 	.byte	0x82
 	.byte	0xD5
 	.byte	0x39
@@ -83304,7 +83304,7 @@ Song_08559BF7:
 	.byte	0x39
 	.byte	0x84
 	.byte	0xB3
-	.word	Song_08559BF7
+	.word	Song_08559C68_6_1
 	.byte	0xB0
 	.byte	0xB0
 	.byte	0xB0
@@ -83337,7 +83337,7 @@ Song_08559BF7:
 	.byte	0xB0
 	.byte	0xB0
 	.byte	0xB2
-	.word	Song_08559BC6
+	.word	Song_08559C68_6_2
 	.byte	0xB1
 	.byte	0x00
 	.byte	0x00
@@ -83350,7 +83350,7 @@ Song_08559C68:	@ 0x08559C68
 	.byte	10		@ priority
 	.byte	148		@ reverb
 
-	.word	voicegroup_08221CD8		@ voicegroup/tone
+	.word	voicegroup076		@ voicegroup/tone
 
 	.word	Song_08559C68_1		@ track
 	.word	Song_08559C68_2		@ track
@@ -83366,7 +83366,7 @@ Song_08559C68:	@ 0x08559C68
 Song_0855A674_1:	@ 0x08559C88
 	.byte	0xBC
 	.byte	0x00
-Song_08559C8A:
+Song_0855A674_1_2:
 	.byte	0xBB
 	.byte	0x23
 	.byte	0x98
@@ -83379,7 +83379,7 @@ Song_08559C8A:
 	.byte	0xBF
 	.byte	0x40
 	.byte	0xA4
-Song_08559C96:
+Song_0855A674_1_1:
 	.byte	0xBF
 	.byte	0x40
 	.byte	0xE7
@@ -83435,17 +83435,17 @@ Song_08559C96:
 	.byte	0x40
 	.byte	0xB0
 	.byte	0xB3
-	.word	Song_08559C96
+	.word	Song_0855A674_1_1
 	.byte	0xBF
 	.byte	0x40
 	.byte	0xB0
 	.byte	0xB3
-	.word	Song_08559C96
+	.word	Song_0855A674_1_1
 	.byte	0xBF
 	.byte	0x40
 	.byte	0xB0
 	.byte	0xB3
-	.word	Song_08559C96
+	.word	Song_0855A674_1_1
 	.byte	0xB0
 	.byte	0xB0
 	.byte	0xBD
@@ -83623,7 +83623,7 @@ Song_08559C96:
 	.byte	0xB0
 	.byte	0xB0
 	.byte	0xB2
-	.word	Song_08559C8A
+	.word	Song_0855A674_1_2
 	.byte	0xB1
 
 	@********************** Track  2 **********************@
@@ -83632,7 +83632,7 @@ Song_08559C96:
 Song_0855A674_2:	@ 0x08559D97
 	.byte	0xBC
 	.byte	0x00
-Song_08559D99:
+Song_0855A674_2_4:
 	.byte	0xBD
 	.byte	0x39
 	.byte	0xBE
@@ -83704,7 +83704,7 @@ Song_08559D99:
 	.byte	0x3D
 	.byte	0x08
 	.byte	0x86
-Song_08559DE0:
+Song_0855A674_2_2:
 	.byte	0xD5
 	.byte	0x35
 	.byte	0x34
@@ -83771,7 +83771,7 @@ Song_08559DE0:
 	.byte	0x14
 	.byte	0x86
 	.byte	0xB4
-Song_08559E22:
+Song_0855A674_2_1:
 	.byte	0xD5
 	.byte	0x35
 	.byte	0x34
@@ -83838,7 +83838,7 @@ Song_08559E22:
 	.byte	0x08
 	.byte	0x86
 	.byte	0xB4
-Song_08559E64:
+Song_0855A674_2_3:
 	.byte	0xD5
 	.byte	0x35
 	.byte	0x34
@@ -83906,13 +83906,13 @@ Song_08559E64:
 	.byte	0x86
 	.byte	0xB4
 	.byte	0xB3
-	.word	Song_08559E22
+	.word	Song_0855A674_2_1
 	.byte	0xB3
-	.word	Song_08559DE0
+	.word	Song_0855A674_2_2
 	.byte	0xB3
-	.word	Song_08559E22
+	.word	Song_0855A674_2_1
 	.byte	0xB3
-	.word	Song_08559E64
+	.word	Song_0855A674_2_3
 	.byte	0xBD
 	.byte	0x33
 	.byte	0xBE
@@ -84146,7 +84146,7 @@ Song_08559E64:
 	.byte	0x6C
 	.byte	0x98
 	.byte	0xB2
-	.word	Song_08559D99
+	.word	Song_0855A674_2_4
 	.byte	0xB1
 
 	@********************** Track  3 **********************@
@@ -84155,7 +84155,7 @@ Song_08559E64:
 Song_0855A674_3:	@ 0x08559FA8
 	.byte	0xBC
 	.byte	0x00
-Song_08559FAA:
+Song_0855A674_3_1:
 	.byte	0xBD
 	.byte	0x32
 	.byte	0xBE
@@ -84605,7 +84605,7 @@ Song_08559FAA:
 	.byte	0x7F
 	.byte	0xA0
 	.byte	0xB2
-	.word	Song_08559FAA
+	.word	Song_0855A674_3_1
 	.byte	0xB1
 
 	@********************** Track  4 **********************@
@@ -84614,7 +84614,7 @@ Song_08559FAA:
 Song_0855A674_4:	@ 0x0855A170
 	.byte	0xBC
 	.byte	0x00
-Song_0855A172:
+Song_0855A674_4_6:
 	.byte	0xBD
 	.byte	0x31
 	.byte	0xBE
@@ -84627,7 +84627,7 @@ Song_0855A172:
 	.byte	0xA0
 	.byte	0xE7
 	.byte	0xA0
-Song_0855A17E:
+Song_0855A674_4_1:
 	.byte	0xE7
 	.byte	0x29
 	.byte	0x7F
@@ -84636,18 +84636,18 @@ Song_0855A17E:
 	.byte	0xA0
 	.byte	0xB4
 	.byte	0xB3
-	.word	Song_0855A17E
+	.word	Song_0855A674_4_1
 	.byte	0xB3
-	.word	Song_0855A17E
+	.word	Song_0855A674_4_1
 	.byte	0xB3
-	.word	Song_0855A17E
+	.word	Song_0855A674_4_1
 	.byte	0xB3
-	.word	Song_0855A17E
+	.word	Song_0855A674_4_1
 	.byte	0xB3
-	.word	Song_0855A17E
+	.word	Song_0855A674_4_1
 	.byte	0xB3
-	.word	Song_0855A17E
-Song_0855A1A3:
+	.word	Song_0855A674_4_1
+Song_0855A674_4_2:
 	.byte	0xD5
 	.byte	0x25
 	.byte	0x7F
@@ -84659,7 +84659,7 @@ Song_0855A1A3:
 	.byte	0xD5
 	.byte	0x98
 	.byte	0xB4
-Song_0855A1AE:
+Song_0855A674_4_3:
 	.byte	0xD5
 	.byte	0x2B
 	.byte	0x7F
@@ -84672,10 +84672,10 @@ Song_0855A1AE:
 	.byte	0x98
 	.byte	0xB4
 	.byte	0xB3
-	.word	Song_0855A1A3
+	.word	Song_0855A674_4_2
 	.byte	0xB3
-	.word	Song_0855A1AE
-Song_0855A1C3:
+	.word	Song_0855A674_4_3
+Song_0855A674_4_4:
 	.byte	0xDB
 	.byte	0x29
 	.byte	0x6C
@@ -84702,12 +84702,12 @@ Song_0855A1C3:
 	.byte	0x8C
 	.byte	0xB4
 	.byte	0xB3
-	.word	Song_0855A1C3
+	.word	Song_0855A674_4_4
 	.byte	0xB3
-	.word	Song_0855A1C3
+	.word	Song_0855A674_4_4
 	.byte	0xB3
-	.word	Song_0855A1C3
-Song_0855A1EB:
+	.word	Song_0855A674_4_4
+Song_0855A674_4_5:
 	.byte	0xDB
 	.byte	0x27
 	.byte	0x6C
@@ -84734,11 +84734,11 @@ Song_0855A1EB:
 	.byte	0x8C
 	.byte	0xB4
 	.byte	0xB3
-	.word	Song_0855A1EB
+	.word	Song_0855A674_4_5
 	.byte	0xB3
-	.word	Song_0855A1EB
+	.word	Song_0855A674_4_5
 	.byte	0xB3
-	.word	Song_0855A1EB
+	.word	Song_0855A674_4_5
 	.byte	0xDB
 	.byte	0x27
 	.byte	0x6C
@@ -84764,7 +84764,7 @@ Song_0855A1EB:
 	.byte	0x7C
 	.byte	0x8C
 	.byte	0xB2
-	.word	Song_0855A172
+	.word	Song_0855A674_4_6
 	.byte	0xB1
 
 	@********************** Track  5 **********************@
@@ -84773,7 +84773,7 @@ Song_0855A1EB:
 Song_0855A674_5:	@ 0x0855A231
 	.byte	0xBC
 	.byte	0x00
-Song_0855A233:
+Song_0855A674_5_4:
 	.byte	0xB0
 	.byte	0xB0
 	.byte	0xB0
@@ -85423,7 +85423,7 @@ Song_0855A233:
 	.byte	0x8C
 	.byte	0x49
 	.byte	0x8C
-Song_0855A4BC:
+Song_0855A674_5_1:
 	.byte	0xD5
 	.byte	0x48
 	.byte	0x48
@@ -85474,7 +85474,7 @@ Song_0855A4BC:
 	.byte	0x1C
 	.byte	0x86
 	.byte	0xB4
-Song_0855A4EE:
+Song_0855A674_5_2:
 	.byte	0xD5
 	.byte	0x48
 	.byte	0x4C
@@ -85525,7 +85525,7 @@ Song_0855A4EE:
 	.byte	0x08
 	.byte	0x86
 	.byte	0xB4
-Song_0855A520:
+Song_0855A674_5_3:
 	.byte	0xD5
 	.byte	0x48
 	.byte	0x4C
@@ -85625,15 +85625,15 @@ Song_0855A520:
 	.byte	0x08
 	.byte	0x86
 	.byte	0xB3
-	.word	Song_0855A4BC
+	.word	Song_0855A674_5_1
 	.byte	0xB3
-	.word	Song_0855A4EE
+	.word	Song_0855A674_5_2
 	.byte	0xB3
-	.word	Song_0855A4EE
+	.word	Song_0855A674_5_2
 	.byte	0xB3
-	.word	Song_0855A520
+	.word	Song_0855A674_5_3
 	.byte	0xB2
-	.word	Song_0855A233
+	.word	Song_0855A674_5_4
 	.byte	0xB1
 
 	@********************** Track  6 **********************@
@@ -85642,7 +85642,7 @@ Song_0855A520:
 Song_0855A674_6:	@ 0x0855A59C
 	.byte	0xBC
 	.byte	0x00
-Song_0855A59E:
+Song_0855A674_6_3:
 	.byte	0xB0
 	.byte	0xB0
 	.byte	0xB0
@@ -85721,7 +85721,7 @@ Song_0855A59E:
 	.byte	0x3C
 	.byte	0x78
 	.byte	0x83
-Song_0855A5EC:
+Song_0855A674_6_1:
 	.byte	0xE4
 	.byte	0x35
 	.byte	0x7F
@@ -85729,7 +85729,7 @@ Song_0855A5EC:
 	.byte	0xE4
 	.byte	0xA8
 	.byte	0xB4
-Song_0855A5F3:
+Song_0855A674_6_2:
 	.byte	0xE4
 	.byte	0x35
 	.byte	0x7F
@@ -85740,7 +85740,7 @@ Song_0855A5F3:
 	.byte	0x98
 	.byte	0xB4
 	.byte	0xB3
-	.word	Song_0855A5EC
+	.word	Song_0855A674_6_1
 	.byte	0xE4
 	.byte	0x35
 	.byte	0x7F
@@ -85752,9 +85752,9 @@ Song_0855A5F3:
 	.byte	0xD5
 	.byte	0x86
 	.byte	0xB3
-	.word	Song_0855A5F3
+	.word	Song_0855A674_6_2
 	.byte	0xB3
-	.word	Song_0855A5EC
+	.word	Song_0855A674_6_1
 	.byte	0xE4
 	.byte	0x35
 	.byte	0x7F
@@ -85762,11 +85762,11 @@ Song_0855A5F3:
 	.byte	0xE4
 	.byte	0x98
 	.byte	0xB3
-	.word	Song_0855A5EC
+	.word	Song_0855A674_6_1
 	.byte	0xB3
-	.word	Song_0855A5EC
+	.word	Song_0855A674_6_1
 	.byte	0xB2
-	.word	Song_0855A59E
+	.word	Song_0855A674_6_3
 	.byte	0xB1
 
 	@********************** Track  7 **********************@
@@ -85775,7 +85775,7 @@ Song_0855A5F3:
 Song_0855A674_7:	@ 0x0855A62B
 	.byte	0xBC
 	.byte	0x00
-Song_0855A62D:
+Song_0855A674_7_2:
 	.byte	0xBD
 	.byte	0x7F
 	.byte	0xBE
@@ -85794,7 +85794,7 @@ Song_0855A62D:
 	.byte	0x74
 	.byte	0xA0
 	.byte	0xB0
-Song_0855A63F:
+Song_0855A674_7_1:
 	.byte	0xDB
 	.byte	0x24
 	.byte	0x74
@@ -85806,10 +85806,10 @@ Song_0855A63F:
 	.byte	0xDB
 	.byte	0x98
 	.byte	0xB3
-	.word	Song_0855A63F
+	.word	Song_0855A674_7_1
 	.byte	0xB0
 	.byte	0xB3
-	.word	Song_0855A63F
+	.word	Song_0855A674_7_1
 	.byte	0xA4
 	.byte	0xEB
 	.byte	0x34
@@ -85837,7 +85837,7 @@ Song_0855A63F:
 	.byte	0x6C
 	.byte	0x9C
 	.byte	0xB2
-	.word	Song_0855A62D
+	.word	Song_0855A674_7_2
 	.byte	0xB1
 
 	.align 2
@@ -85848,7 +85848,7 @@ Song_0855A674:	@ 0x0855A674
 	.byte	10		@ priority
 	.byte	148		@ reverb
 
-	.word	voicegroup_0820ACF8		@ voicegroup/tone
+	.word	voicegroup010		@ voicegroup/tone
 
 	.word	Song_0855A674_1		@ track
 	.word	Song_0855A674_2		@ track
@@ -85865,7 +85865,7 @@ Song_0855A674:	@ 0x0855A674
 Song_0855BBD8_1:	@ 0x0855A698
 	.byte	0xBC
 	.byte	0x00
-Song_0855A69A:
+Song_0855BBD8_1_1:
 	.byte	0xBB
 	.byte	0x3F
 	.byte	0xBD
@@ -87830,7 +87830,7 @@ Song_0855A69A:
 	.byte	0x1C
 	.byte	0x9B
 	.byte	0xB2
-	.word	Song_0855A69A
+	.word	Song_0855BBD8_1_1
 	.byte	0xB1
 
 	@********************** Track  2 **********************@
@@ -87839,7 +87839,7 @@ Song_0855A69A:
 Song_0855BBD8_2:	@ 0x0855AE4B
 	.byte	0xBC
 	.byte	0x00
-Song_0855AE4D:
+Song_0855BBD8_2_8:
 	.byte	0xBD
 	.byte	0x22
 	.byte	0xBE
@@ -87871,7 +87871,7 @@ Song_0855AE4D:
 	.byte	0x2D
 	.byte	0x7C
 	.byte	0xA8
-Song_0855AE6C:
+Song_0855BBD8_2_1:
 	.byte	0xD5
 	.byte	0x2C
 	.byte	0x7F
@@ -87889,7 +87889,7 @@ Song_0855AE6C:
 	.byte	0x98
 	.byte	0xD5
 	.byte	0x9C
-Song_0855AE7D:
+Song_0855BBD8_2_2:
 	.byte	0xD5
 	.byte	0x2D
 	.byte	0x7F
@@ -87932,7 +87932,7 @@ Song_0855AE7D:
 	.byte	0x7C
 	.byte	0xA8
 	.byte	0xB3
-	.word	Song_0855AE6C
+	.word	Song_0855BBD8_2_1
 	.byte	0xD5
 	.byte	0x2B
 	.byte	0x7F
@@ -87944,7 +87944,7 @@ Song_0855AE7D:
 	.byte	0xD5
 	.byte	0x9C
 	.byte	0xB3
-	.word	Song_0855AE7D
+	.word	Song_0855BBD8_2_2
 	.byte	0xD5
 	.byte	0x2C
 	.byte	0x7F
@@ -87955,7 +87955,7 @@ Song_0855AE7D:
 	.byte	0x8C
 	.byte	0xD5
 	.byte	0x9C
-Song_0855AEC4:
+Song_0855BBD8_2_3:
 	.byte	0xD5
 	.byte	0x31
 	.byte	0x60
@@ -87982,7 +87982,7 @@ Song_0855AEC4:
 	.byte	0x30
 	.byte	0x7F
 	.byte	0x9C
-Song_0855AEDE:
+Song_0855BBD8_2_4:
 	.byte	0xD5
 	.byte	0x32
 	.byte	0x60
@@ -87998,8 +87998,8 @@ Song_0855AEDE:
 	.byte	0x9C
 	.byte	0xB4
 	.byte	0xB3
-	.word	Song_0855AEC4
-Song_0855AEF1:
+	.word	Song_0855BBD8_2_3
+Song_0855BBD8_2_5:
 	.byte	0xD5
 	.byte	0x33
 	.byte	0x60
@@ -88015,7 +88015,7 @@ Song_0855AEF1:
 	.byte	0x9C
 	.byte	0xB4
 	.byte	0xB3
-	.word	Song_0855AEDE
+	.word	Song_0855BBD8_2_4
 	.byte	0xD5
 	.byte	0x34
 	.byte	0x60
@@ -88030,7 +88030,7 @@ Song_0855AEF1:
 	.byte	0x7F
 	.byte	0x9C
 	.byte	0xB3
-	.word	Song_0855AEF1
+	.word	Song_0855BBD8_2_5
 	.byte	0xDC
 	.byte	0x34
 	.byte	0x7C
@@ -88062,7 +88062,7 @@ Song_0855AEF1:
 	.byte	0x35
 	.byte	0x6C
 	.byte	0x98
-Song_0855AF35:
+Song_0855BBD8_2_6:
 	.byte	0x90
 	.byte	0xD7
 	.byte	0x35
@@ -88089,7 +88089,7 @@ Song_0855AF35:
 	.byte	0xD7
 	.byte	0x98
 	.byte	0xB3
-	.word	Song_0855AF35
+	.word	Song_0855BBD8_2_6
 	.byte	0x98
 	.byte	0xDC
 	.byte	0x35
@@ -88118,7 +88118,7 @@ Song_0855AF35:
 	.byte	0x90
 	.byte	0x37
 	.byte	0x90
-Song_0855AF6F:
+Song_0855BBD8_2_7:
 	.byte	0xD7
 	.byte	0x36
 	.byte	0x7C
@@ -88145,14 +88145,14 @@ Song_0855AF6F:
 	.byte	0xD7
 	.byte	0x9D
 	.byte	0xB3
-	.word	Song_0855AF6F
+	.word	Song_0855BBD8_2_7
 	.byte	0x88
 	.byte	0xD7
 	.byte	0x36
 	.byte	0x7C
 	.byte	0x9D
 	.byte	0xB2
-	.word	Song_0855AE4D
+	.word	Song_0855BBD8_2_8
 	.byte	0xB1
 
 	@********************** Track  3 **********************@
@@ -88161,7 +88161,7 @@ Song_0855AF6F:
 Song_0855BBD8_3:	@ 0x0855AF98
 	.byte	0xBC
 	.byte	0x00
-Song_0855AF9A:
+Song_0855BBD8_3_3:
 	.byte	0xBD
 	.byte	0x30
 	.byte	0xBE
@@ -88622,7 +88622,7 @@ Song_0855AF9A:
 	.byte	0xBE
 	.byte	0x3D
 	.byte	0x81
-Song_0855B166:
+Song_0855BBD8_3_1:
 	.byte	0xBD
 	.byte	0x49
 	.byte	0xBE
@@ -88644,7 +88644,7 @@ Song_0855B166:
 	.byte	0x98
 	.byte	0xD5
 	.byte	0x9C
-Song_0855B17B:
+Song_0855BBD8_3_2:
 	.byte	0xD5
 	.byte	0x56
 	.byte	0x68
@@ -89131,7 +89131,7 @@ Song_0855B17B:
 	.byte	0x1C
 	.byte	0x81
 	.byte	0xB3
-	.word	Song_0855B166
+	.word	Song_0855BBD8_3_1
 	.byte	0xD5
 	.byte	0x54
 	.byte	0x68
@@ -89143,7 +89143,7 @@ Song_0855B17B:
 	.byte	0xD5
 	.byte	0x9C
 	.byte	0xB3
-	.word	Song_0855B17B
+	.word	Song_0855BBD8_3_2
 	.byte	0xD5
 	.byte	0x55
 	.byte	0x68
@@ -89715,7 +89715,7 @@ Song_0855B17B:
 	.byte	0x9B
 	.byte	0x82
 	.byte	0xB2
-	.word	Song_0855AF9A
+	.word	Song_0855BBD8_3_3
 	.byte	0xB1
 
 	@********************** Track  4 **********************@
@@ -89724,7 +89724,7 @@ Song_0855B17B:
 Song_0855BBD8_4:	@ 0x0855B5B4
 	.byte	0xBC
 	.byte	0x00
-Song_0855B5B6:
+Song_0855BBD8_4_1:
 	.byte	0xA8
 	.byte	0xBD
 	.byte	0x32
@@ -90824,7 +90824,7 @@ Song_0855B5B6:
 	.byte	0x10
 	.byte	0x9B
 	.byte	0xB2
-	.word	Song_0855B5B6
+	.word	Song_0855BBD8_4_1
 	.byte	0xB1
 
 	@********************** Track  5 **********************@
@@ -90833,7 +90833,7 @@ Song_0855B5B6:
 Song_0855BBD8_5:	@ 0x0855BA06
 	.byte	0xBC
 	.byte	0x00
-Song_0855BA08:
+Song_0855BBD8_5_3:
 	.byte	0xA8
 	.byte	0xA8
 	.byte	0xBD
@@ -90848,7 +90848,7 @@ Song_0855BA08:
 	.byte	0xA8
 	.byte	0xA8
 	.byte	0xA8
-Song_0855BA16:
+Song_0855BBD8_5_1:
 	.byte	0xDB
 	.byte	0x38
 	.byte	0x68
@@ -90866,7 +90866,7 @@ Song_0855BA16:
 	.byte	0x98
 	.byte	0xDB
 	.byte	0x9C
-Song_0855BA27:
+Song_0855BBD8_5_2:
 	.byte	0xDB
 	.byte	0x39
 	.byte	0x68
@@ -90893,7 +90893,7 @@ Song_0855BA27:
 	.byte	0xA8
 	.byte	0xA8
 	.byte	0xB3
-	.word	Song_0855BA16
+	.word	Song_0855BBD8_5_1
 	.byte	0xDB
 	.byte	0x37
 	.byte	0x68
@@ -90905,7 +90905,7 @@ Song_0855BA27:
 	.byte	0xDB
 	.byte	0x9C
 	.byte	0xB3
-	.word	Song_0855BA27
+	.word	Song_0855BBD8_5_2
 	.byte	0xDB
 	.byte	0x38
 	.byte	0x68
@@ -91208,7 +91208,7 @@ Song_0855BA27:
 	.byte	0x9A
 	.byte	0xA0
 	.byte	0xB2
-	.word	Song_0855BA08
+	.word	Song_0855BBD8_5_3
 	.byte	0xB1
 
 	@********************** Track  6 **********************@
@@ -91217,7 +91217,7 @@ Song_0855BA27:
 Song_0855BBD8_6:	@ 0x0855BB87
 	.byte	0xBC
 	.byte	0x00
-Song_0855BB89:
+Song_0855BBD8_6_1:
 	.byte	0xA8
 	.byte	0xA8
 	.byte	0xA8
@@ -91290,7 +91290,7 @@ Song_0855BB89:
 	.byte	0xA8
 	.byte	0xA0
 	.byte	0xB2
-	.word	Song_0855BB89
+	.word	Song_0855BBD8_6_1
 	.byte	0xB1
 	.byte	0x00
 	.byte	0x00
@@ -91303,7 +91303,7 @@ Song_0855BBD8:	@ 0x0855BBD8
 	.byte	10		@ priority
 	.byte	148		@ reverb
 
-	.word	voicegroup_08216C14		@ voicegroup/tone
+	.word	voicegroup048		@ voicegroup/tone
 
 	.word	Song_0855BBD8_1		@ track
 	.word	Song_0855BBD8_2		@ track
@@ -91319,7 +91319,7 @@ Song_0855BBD8:	@ 0x0855BBD8
 Song_0855CC9C_1:	@ 0x0855BBF8
 	.byte	0xBC
 	.byte	0x00
-Song_0855BBFA:
+Song_0855CC9C_1_1:
 	.byte	0xBB
 	.byte	0x3B
 	.byte	0xBD
@@ -92063,7 +92063,7 @@ Song_0855BBFA:
 	.byte	0x22
 	.byte	0x81
 	.byte	0xB2
-	.word	Song_0855BBFA
+	.word	Song_0855CC9C_1_1
 	.byte	0xBE
 	.byte	0x22
 	.byte	0xB1
@@ -92074,7 +92074,7 @@ Song_0855BBFA:
 Song_0855CC9C_2:	@ 0x0855BEE8
 	.byte	0xBC
 	.byte	0x00
-Song_0855BEEA:
+Song_0855CC9C_2_13:
 	.byte	0xBD
 	.byte	0x22
 	.byte	0xBE
@@ -92105,7 +92105,7 @@ Song_0855BEEA:
 	.byte	0xD3
 	.byte	0x2B
 	.byte	0x8C
-Song_0855BF08:
+Song_0855CC9C_2_1:
 	.byte	0xDA
 	.byte	0x32
 	.byte	0x7F
@@ -92132,7 +92132,7 @@ Song_0855BF08:
 	.byte	0x2B
 	.byte	0x8C
 	.byte	0xB4
-Song_0855BF22:
+Song_0855CC9C_2_2:
 	.byte	0xD3
 	.byte	0x2B
 	.byte	0x7F
@@ -92159,12 +92159,12 @@ Song_0855BF22:
 	.byte	0x8C
 	.byte	0xB4
 	.byte	0xB3
-	.word	Song_0855BF08
+	.word	Song_0855CC9C_2_1
 	.byte	0xB3
-	.word	Song_0855BF22
+	.word	Song_0855CC9C_2_2
 	.byte	0xB3
-	.word	Song_0855BF08
-Song_0855BF4A:
+	.word	Song_0855CC9C_2_1
+Song_0855CC9C_2_3:
 	.byte	0xD3
 	.byte	0x2B
 	.byte	0x7F
@@ -92188,7 +92188,7 @@ Song_0855BF4A:
 	.byte	0xD3
 	.byte	0x8C
 	.byte	0xB4
-Song_0855BF61:
+Song_0855CC9C_2_4:
 	.byte	0xDA
 	.byte	0x33
 	.byte	0x7F
@@ -92214,9 +92214,9 @@ Song_0855BF61:
 	.byte	0x8C
 	.byte	0xB4
 	.byte	0xB3
-	.word	Song_0855BF4A
+	.word	Song_0855CC9C_2_3
 	.byte	0xB3
-	.word	Song_0855BF61
+	.word	Song_0855CC9C_2_4
 	.byte	0xD3
 	.byte	0x2B
 	.byte	0x7F
@@ -92277,7 +92277,7 @@ Song_0855BF61:
 	.byte	0x8C
 	.byte	0xD3
 	.byte	0x8C
-Song_0855BFBF:
+Song_0855CC9C_2_5:
 	.byte	0xD3
 	.byte	0x2B
 	.byte	0x7F
@@ -92300,7 +92300,7 @@ Song_0855BFBF:
 	.byte	0x30
 	.byte	0x8C
 	.byte	0xB4
-Song_0855BFD5:
+Song_0855CC9C_2_6:
 	.byte	0xD3
 	.byte	0x2B
 	.byte	0x7F
@@ -92344,8 +92344,8 @@ Song_0855BFD5:
 	.byte	0x37
 	.byte	0x8C
 	.byte	0xB3
-	.word	Song_0855BFBF
-Song_0855C004:
+	.word	Song_0855CC9C_2_5
+Song_0855CC9C_2_7:
 	.byte	0xD3
 	.byte	0x2B
 	.byte	0x7F
@@ -92369,7 +92369,7 @@ Song_0855C004:
 	.byte	0x2B
 	.byte	0x8C
 	.byte	0xB4
-Song_0855C01B:
+Song_0855CC9C_2_8:
 	.byte	0xD3
 	.byte	0x2B
 	.byte	0x7F
@@ -92391,7 +92391,7 @@ Song_0855C01B:
 	.byte	0xD3
 	.byte	0x8C
 	.byte	0xB4
-Song_0855C030:
+Song_0855CC9C_2_9:
 	.byte	0xD3
 	.byte	0x2B
 	.byte	0x7F
@@ -92416,8 +92416,8 @@ Song_0855C030:
 	.byte	0x8C
 	.byte	0xB4
 	.byte	0xB3
-	.word	Song_0855BFD5
-Song_0855C04C:
+	.word	Song_0855CC9C_2_6
+Song_0855CC9C_2_10:
 	.byte	0xD3
 	.byte	0x2B
 	.byte	0x7F
@@ -92441,8 +92441,8 @@ Song_0855C04C:
 	.byte	0x8C
 	.byte	0xB4
 	.byte	0xB3
-	.word	Song_0855C004
-Song_0855C067:
+	.word	Song_0855CC9C_2_7
+Song_0855CC9C_2_11:
 	.byte	0xD3
 	.byte	0x2B
 	.byte	0x7F
@@ -92467,8 +92467,8 @@ Song_0855C067:
 	.byte	0x8C
 	.byte	0xB4
 	.byte	0xB3
-	.word	Song_0855BFD5
-Song_0855C083:
+	.word	Song_0855CC9C_2_6
+Song_0855CC9C_2_12:
 	.byte	0xD3
 	.byte	0x2B
 	.byte	0x7F
@@ -92492,29 +92492,29 @@ Song_0855C083:
 	.byte	0x8C
 	.byte	0xB4
 	.byte	0xB3
-	.word	Song_0855BFBF
+	.word	Song_0855CC9C_2_5
 	.byte	0xB3
-	.word	Song_0855C004
+	.word	Song_0855CC9C_2_7
 	.byte	0xB3
-	.word	Song_0855C01B
+	.word	Song_0855CC9C_2_8
 	.byte	0xB3
-	.word	Song_0855C030
+	.word	Song_0855CC9C_2_9
 	.byte	0xB3
-	.word	Song_0855BFD5
+	.word	Song_0855CC9C_2_6
 	.byte	0xB3
-	.word	Song_0855C04C
+	.word	Song_0855CC9C_2_10
 	.byte	0xB3
-	.word	Song_0855C004
+	.word	Song_0855CC9C_2_7
 	.byte	0xB3
-	.word	Song_0855C067
+	.word	Song_0855CC9C_2_11
 	.byte	0xB3
-	.word	Song_0855BFD5
+	.word	Song_0855CC9C_2_6
 	.byte	0xB3
-	.word	Song_0855C083
+	.word	Song_0855CC9C_2_12
 	.byte	0xB3
-	.word	Song_0855BFD5
+	.word	Song_0855CC9C_2_6
 	.byte	0xB3
-	.word	Song_0855C083
+	.word	Song_0855CC9C_2_12
 	.byte	0xD3
 	.byte	0x2B
 	.byte	0x7F
@@ -92555,7 +92555,7 @@ Song_0855C083:
 	.byte	0x37
 	.byte	0x8C
 	.byte	0xB2
-	.word	Song_0855BEEA
+	.word	Song_0855CC9C_2_13
 	.byte	0xB1
 
 	@********************** Track  3 **********************@
@@ -92564,7 +92564,7 @@ Song_0855C083:
 Song_0855CC9C_3:	@ 0x0855C102
 	.byte	0xBC
 	.byte	0x00
-Song_0855C104:
+Song_0855CC9C_3_1:
 	.byte	0xBD
 	.byte	0x30
 	.byte	0xBE
@@ -93450,7 +93450,7 @@ Song_0855C104:
 	.byte	0x3C
 	.byte	0x98
 	.byte	0xB2
-	.word	Song_0855C104
+	.word	Song_0855CC9C_3_1
 	.byte	0xBE
 	.byte	0x39
 	.byte	0xB1
@@ -93461,7 +93461,7 @@ Song_0855C104:
 Song_0855CC9C_4:	@ 0x0855C480
 	.byte	0xBC
 	.byte	0x00
-Song_0855C482:
+Song_0855CC9C_4_2:
 	.byte	0xBD
 	.byte	0x0B
 	.byte	0xBE
@@ -93849,7 +93849,7 @@ Song_0855C482:
 	.byte	0x8C
 	.byte	0x41
 	.byte	0x98
-Song_0855C605:
+Song_0855CC9C_4_1:
 	.byte	0xA0
 	.byte	0xD5
 	.byte	0x41
@@ -93859,7 +93859,7 @@ Song_0855C605:
 	.byte	0x8C
 	.byte	0xB4
 	.byte	0xB3
-	.word	Song_0855C605
+	.word	Song_0855CC9C_4_1
 	.byte	0x98
 	.byte	0xD5
 	.byte	0x41
@@ -94038,7 +94038,7 @@ Song_0855C605:
 	.byte	0xD5
 	.byte	0x8C
 	.byte	0xB2
-	.word	Song_0855C482
+	.word	Song_0855CC9C_4_2
 	.byte	0xB1
 
 	@********************** Track  5 **********************@
@@ -94047,7 +94047,7 @@ Song_0855C605:
 Song_0855CC9C_5:	@ 0x0855C6C9
 	.byte	0xBC
 	.byte	0x00
-Song_0855C6CB:
+Song_0855CC9C_5_3:
 	.byte	0xBD
 	.byte	0x0B
 	.byte	0xBE
@@ -94412,7 +94412,7 @@ Song_0855C6CB:
 	.byte	0x38
 	.byte	0x44
 	.byte	0x86
-Song_0855C837:
+Song_0855CC9C_5_1:
 	.byte	0x98
 	.byte	0xD5
 	.byte	0x38
@@ -94436,7 +94436,7 @@ Song_0855C837:
 	.byte	0x44
 	.byte	0x9A
 	.byte	0xB3
-	.word	Song_0855C837
+	.word	Song_0855CC9C_5_1
 	.byte	0xA8
 	.byte	0xD5
 	.byte	0x39
@@ -94497,7 +94497,7 @@ Song_0855C837:
 	.byte	0x3A
 	.byte	0x44
 	.byte	0x92
-Song_0855C88E:
+Song_0855CC9C_5_2:
 	.byte	0xA0
 	.byte	0xD5
 	.byte	0x3A
@@ -94514,7 +94514,7 @@ Song_0855C88E:
 	.byte	0x86
 	.byte	0xB4
 	.byte	0xB3
-	.word	Song_0855C88E
+	.word	Song_0855CC9C_5_2
 	.byte	0x98
 	.byte	0xD5
 	.byte	0x3A
@@ -94803,7 +94803,7 @@ Song_0855C88E:
 	.byte	0x34
 	.byte	0x92
 	.byte	0xB2
-	.word	Song_0855C6CB
+	.word	Song_0855CC9C_5_3
 	.byte	0xB1
 
 	@********************** Track  6 **********************@
@@ -94812,7 +94812,7 @@ Song_0855C88E:
 Song_0855CC9C_6:	@ 0x0855C9C7
 	.byte	0xBC
 	.byte	0x00
-Song_0855C9C9:
+Song_0855CC9C_6_1:
 	.byte	0xB0
 	.byte	0xB0
 	.byte	0xB0
@@ -95301,7 +95301,7 @@ Song_0855C9C9:
 	.byte	0x10
 	.byte	0x86
 	.byte	0xB2
-	.word	Song_0855C9C9
+	.word	Song_0855CC9C_6_1
 	.byte	0xB1
 
 	@********************** Track  7 **********************@
@@ -95310,7 +95310,7 @@ Song_0855C9C9:
 Song_0855CC9C_7:	@ 0x0855CBB6
 	.byte	0xBC
 	.byte	0x00
-Song_0855CBB8:
+Song_0855CC9C_7_6:
 	.byte	0xB0
 	.byte	0xB0
 	.byte	0xB0
@@ -95333,7 +95333,7 @@ Song_0855CBB8:
 	.byte	0xB0
 	.byte	0xB0
 	.byte	0xB0
-Song_0855CBCE:
+Song_0855CC9C_7_2:
 	.byte	0xE7
 	.byte	0x32
 	.byte	0x5C
@@ -95347,7 +95347,7 @@ Song_0855CBCE:
 	.byte	0xD5
 	.byte	0x98
 	.byte	0xB4
-Song_0855CBDB:
+Song_0855CC9C_7_1:
 	.byte	0xD5
 	.byte	0x2A
 	.byte	0x28
@@ -95360,8 +95360,8 @@ Song_0855CBDB:
 	.byte	0x98
 	.byte	0xB4
 	.byte	0xB3
-	.word	Song_0855CBDB
-Song_0855CBEB:
+	.word	Song_0855CC9C_7_1
+Song_0855CC9C_7_4:
 	.byte	0xD5
 	.byte	0x2A
 	.byte	0x28
@@ -95378,12 +95378,12 @@ Song_0855CBEB:
 	.byte	0x8C
 	.byte	0xB4
 	.byte	0xB3
-	.word	Song_0855CBCE
+	.word	Song_0855CC9C_7_2
 	.byte	0xB3
-	.word	Song_0855CBDB
+	.word	Song_0855CC9C_7_1
 	.byte	0xB3
-	.word	Song_0855CBDB
-Song_0855CC09:
+	.word	Song_0855CC9C_7_1
+Song_0855CC9C_7_3:
 	.byte	0xD5
 	.byte	0x2A
 	.byte	0x28
@@ -95404,19 +95404,19 @@ Song_0855CC09:
 	.byte	0x8C
 	.byte	0xB4
 	.byte	0xB3
-	.word	Song_0855CBCE
+	.word	Song_0855CC9C_7_2
 	.byte	0xB3
-	.word	Song_0855CBDB
+	.word	Song_0855CC9C_7_1
 	.byte	0xB3
-	.word	Song_0855CBDB
+	.word	Song_0855CC9C_7_1
 	.byte	0xB3
-	.word	Song_0855CC09
+	.word	Song_0855CC9C_7_3
 	.byte	0xB3
-	.word	Song_0855CBCE
+	.word	Song_0855CC9C_7_2
 	.byte	0xB3
-	.word	Song_0855CBDB
+	.word	Song_0855CC9C_7_1
 	.byte	0xB3
-	.word	Song_0855CBDB
+	.word	Song_0855CC9C_7_1
 	.byte	0xD5
 	.byte	0x2A
 	.byte	0x28
@@ -95438,7 +95438,7 @@ Song_0855CC09:
 	.byte	0x2A
 	.byte	0x18
 	.byte	0x86
-Song_0855CC54:
+Song_0855CC9C_7_5:
 	.byte	0xE7
 	.byte	0x32
 	.byte	0x4C
@@ -95453,13 +95453,13 @@ Song_0855CC54:
 	.byte	0x98
 	.byte	0xB4
 	.byte	0xB3
-	.word	Song_0855CBEB
+	.word	Song_0855CC9C_7_4
 	.byte	0xB3
-	.word	Song_0855CC54
+	.word	Song_0855CC9C_7_5
 	.byte	0xB3
-	.word	Song_0855CBDB
+	.word	Song_0855CC9C_7_1
 	.byte	0xB3
-	.word	Song_0855CC54
+	.word	Song_0855CC9C_7_5
 	.byte	0xD5
 	.byte	0x2A
 	.byte	0x28
@@ -95475,7 +95475,7 @@ Song_0855CC54:
 	.byte	0xDB
 	.byte	0x8C
 	.byte	0xB3
-	.word	Song_0855CC54
+	.word	Song_0855CC9C_7_5
 	.byte	0xD5
 	.byte	0x2A
 	.byte	0x28
@@ -95489,7 +95489,7 @@ Song_0855CC54:
 	.byte	0xD5
 	.byte	0x8C
 	.byte	0xB2
-	.word	Song_0855CBB8
+	.word	Song_0855CC9C_7_6
 	.byte	0xB1
 	.byte	0x00
 	.byte	0x00
@@ -95502,7 +95502,7 @@ Song_0855CC9C:	@ 0x0855CC9C
 	.byte	10		@ priority
 	.byte	148		@ reverb
 
-	.word	voicegroup_08217214		@ voicegroup/tone
+	.word	voicegroup049		@ voicegroup/tone
 
 	.word	Song_0855CC9C_1		@ track
 	.word	Song_0855CC9C_2		@ track
@@ -95519,7 +95519,7 @@ Song_0855CC9C:	@ 0x0855CC9C
 Song_0855D8AC_1:	@ 0x0855CCC0
 	.byte	0xBC
 	.byte	0x00
-Song_0855CCC2:
+Song_0855D8AC_1_1:
 	.byte	0xBB
 	.byte	0x52
 	.byte	0xBD
@@ -96202,7 +96202,7 @@ Song_0855CCC2:
 	.byte	0x2C
 	.byte	0x83
 	.byte	0xB2
-	.word	Song_0855CCC2
+	.word	Song_0855D8AC_1_1
 	.byte	0xB1
 
 	@********************** Track  2 **********************@
@@ -96211,7 +96211,7 @@ Song_0855CCC2:
 Song_0855D8AC_2:	@ 0x0855CF71
 	.byte	0xBC
 	.byte	0x00
-Song_0855CF73:
+Song_0855D8AC_2_6:
 	.byte	0xBD
 	.byte	0x22
 	.byte	0xBE
@@ -96236,7 +96236,7 @@ Song_0855CF73:
 	.byte	0x8C
 	.byte	0x30
 	.byte	0x8C
-Song_0855CF8B:
+Song_0855D8AC_2_1:
 	.byte	0xD8
 	.byte	0x2F
 	.byte	0x7F
@@ -96256,7 +96256,7 @@ Song_0855CF8B:
 	.byte	0x30
 	.byte	0x8C
 	.byte	0xB4
-Song_0855CF9E:
+Song_0855D8AC_2_2:
 	.byte	0xD8
 	.byte	0x2D
 	.byte	0x7F
@@ -96276,7 +96276,7 @@ Song_0855CF9E:
 	.byte	0x32
 	.byte	0x8C
 	.byte	0xB4
-Song_0855CFB1:
+Song_0855D8AC_2_3:
 	.byte	0xD8
 	.byte	0x29
 	.byte	0x7F
@@ -96313,12 +96313,12 @@ Song_0855CFB1:
 	.byte	0x30
 	.byte	0x8C
 	.byte	0xB3
-	.word	Song_0855CF8B
+	.word	Song_0855D8AC_2_1
 	.byte	0xB3
-	.word	Song_0855CF9E
+	.word	Song_0855D8AC_2_2
 	.byte	0xB3
-	.word	Song_0855CFB1
-Song_0855CFE3:
+	.word	Song_0855D8AC_2_3
+Song_0855D8AC_2_4:
 	.byte	0xD8
 	.byte	0x2D
 	.byte	0x7F
@@ -96339,11 +96339,11 @@ Song_0855CFE3:
 	.byte	0x8C
 	.byte	0xB4
 	.byte	0xB3
-	.word	Song_0855CFE3
+	.word	Song_0855D8AC_2_4
 	.byte	0xB3
-	.word	Song_0855CF9E
+	.word	Song_0855D8AC_2_2
 	.byte	0xB3
-	.word	Song_0855CFB1
+	.word	Song_0855D8AC_2_3
 	.byte	0xD8
 	.byte	0x29
 	.byte	0x7F
@@ -96378,7 +96378,7 @@ Song_0855CFE3:
 	.byte	0x8C
 	.byte	0x2D
 	.byte	0x8C
-Song_0855D027:
+Song_0855D8AC_2_5:
 	.byte	0xD8
 	.byte	0x26
 	.byte	0x7F
@@ -96399,9 +96399,9 @@ Song_0855D027:
 	.byte	0x8C
 	.byte	0xB4
 	.byte	0xB3
-	.word	Song_0855D027
+	.word	Song_0855D8AC_2_5
 	.byte	0xB2
-	.word	Song_0855CF73
+	.word	Song_0855D8AC_2_6
 	.byte	0xB1
 
 	@********************** Track  3 **********************@
@@ -96410,7 +96410,7 @@ Song_0855D027:
 Song_0855D8AC_3:	@ 0x0855D045
 	.byte	0xBC
 	.byte	0x00
-Song_0855D047:
+Song_0855D8AC_3_1:
 	.byte	0xBD
 	.byte	0x3F
 	.byte	0xC4
@@ -97080,7 +97080,7 @@ Song_0855D047:
 	.byte	0x28
 	.byte	0x82
 	.byte	0xB2
-	.word	Song_0855D047
+	.word	Song_0855D8AC_3_1
 	.byte	0xB1
 
 	@********************** Track  4 **********************@
@@ -97089,7 +97089,7 @@ Song_0855D047:
 Song_0855D8AC_4:	@ 0x0855D2E9
 	.byte	0xBC
 	.byte	0x00
-Song_0855D2EB:
+Song_0855D8AC_4_1:
 	.byte	0xBD
 	.byte	0x48
 	.byte	0xBE
@@ -97501,7 +97501,7 @@ Song_0855D2EB:
 	.byte	0x41
 	.byte	0xB0
 	.byte	0xB2
-	.word	Song_0855D2EB
+	.word	Song_0855D8AC_4_1
 	.byte	0xB1
 
 	@********************** Track  5 **********************@
@@ -97510,7 +97510,7 @@ Song_0855D2EB:
 Song_0855D8AC_5:	@ 0x0855D48B
 	.byte	0xBC
 	.byte	0x00
-Song_0855D48D:
+Song_0855D8AC_5_1:
 	.byte	0xBD
 	.byte	0x7E
 	.byte	0xBE
@@ -98560,7 +98560,7 @@ Song_0855D48D:
 	.byte	0x28
 	.byte	0x86
 	.byte	0xB2
-	.word	Song_0855D48D
+	.word	Song_0855D8AC_5_1
 	.byte	0xB1
 	.byte	0x00
 
@@ -98572,7 +98572,7 @@ Song_0855D8AC:	@ 0x0855D8AC
 	.byte	10		@ priority
 	.byte	148		@ reverb
 
-	.word	voicegroup_08217814		@ voicegroup/tone
+	.word	voicegroup050		@ voicegroup/tone
 
 	.word	Song_0855D8AC_1		@ track
 	.word	Song_0855D8AC_2		@ track
@@ -98590,7 +98590,7 @@ Song_0855E08C_1:	@ 0x0855D8C8
 	.byte	0xBB
 	.byte	0x48
 	.byte	0x98
-Song_0855D8CD:
+Song_0855E08C_1_1:
 	.byte	0xBD
 	.byte	0x39
 	.byte	0xBE
@@ -99384,7 +99384,7 @@ Song_0855D8CD:
 	.byte	0x3C
 	.byte	0x86
 	.byte	0xB2
-	.word	Song_0855D8CD
+	.word	Song_0855E08C_1_1
 	.byte	0xB1
 
 	@********************** Track  2 **********************@
@@ -99394,7 +99394,7 @@ Song_0855E08C_2:	@ 0x0855DBEB
 	.byte	0xBC
 	.byte	0x00
 	.byte	0x98
-Song_0855DBEE:
+Song_0855E08C_2_2:
 	.byte	0xBD
 	.byte	0x26
 	.byte	0xBE
@@ -99447,7 +99447,7 @@ Song_0855DBEE:
 	.byte	0x8C
 	.byte	0x28
 	.byte	0x8C
-Song_0855DC22:
+Song_0855E08C_2_1:
 	.byte	0xD8
 	.byte	0x21
 	.byte	0x7F
@@ -99484,7 +99484,7 @@ Song_0855DC22:
 	.byte	0x28
 	.byte	0x8C
 	.byte	0xB3
-	.word	Song_0855DC22
+	.word	Song_0855E08C_2_1
 	.byte	0xD8
 	.byte	0x21
 	.byte	0x7F
@@ -99591,7 +99591,7 @@ Song_0855DC22:
 	.byte	0xA8
 	.byte	0x98
 	.byte	0xB2
-	.word	Song_0855DBEE
+	.word	Song_0855E08C_2_2
 	.byte	0xB1
 
 	@********************** Track  3 **********************@
@@ -99601,7 +99601,7 @@ Song_0855E08C_3:	@ 0x0855DCB9
 	.byte	0xBC
 	.byte	0x00
 	.byte	0x98
-Song_0855DCBC:
+Song_0855E08C_3_1:
 	.byte	0xBD
 	.byte	0x66
 	.byte	0xBE
@@ -99837,7 +99837,7 @@ Song_0855DCBC:
 	.byte	0x20
 	.byte	0x86
 	.byte	0xB2
-	.word	Song_0855DCBC
+	.word	Song_0855E08C_3_1
 	.byte	0xB1
 
 	@********************** Track  4 **********************@
@@ -99847,7 +99847,7 @@ Song_0855E08C_4:	@ 0x0855DDAC
 	.byte	0xBC
 	.byte	0x00
 	.byte	0x98
-Song_0855DDAF:
+Song_0855E08C_4_3:
 	.byte	0xBD
 	.byte	0x2F
 	.byte	0xBE
@@ -99866,7 +99866,7 @@ Song_0855DDAF:
 	.byte	0x39
 	.byte	0x60
 	.byte	0x8C
-Song_0855DDC1:
+Song_0855E08C_4_1:
 	.byte	0xE4
 	.byte	0x39
 	.byte	0x60
@@ -99885,13 +99885,13 @@ Song_0855DDC1:
 	.byte	0x8C
 	.byte	0xB4
 	.byte	0xB3
-	.word	Song_0855DDC1
+	.word	Song_0855E08C_4_1
 	.byte	0xB3
-	.word	Song_0855DDC1
+	.word	Song_0855E08C_4_1
 	.byte	0xB3
-	.word	Song_0855DDC1
+	.word	Song_0855E08C_4_1
 	.byte	0xB3
-	.word	Song_0855DDC1
+	.word	Song_0855E08C_4_1
 	.byte	0xE4
 	.byte	0x39
 	.byte	0x60
@@ -99920,7 +99920,7 @@ Song_0855DDC1:
 	.byte	0x39
 	.byte	0x60
 	.byte	0x8C
-Song_0855DE02:
+Song_0855E08C_4_2:
 	.byte	0xE4
 	.byte	0x39
 	.byte	0x60
@@ -99938,11 +99938,11 @@ Song_0855DE02:
 	.byte	0x9C
 	.byte	0xB4
 	.byte	0xB3
-	.word	Song_0855DE02
+	.word	Song_0855E08C_4_2
 	.byte	0xB3
-	.word	Song_0855DE02
+	.word	Song_0855E08C_4_2
 	.byte	0xB3
-	.word	Song_0855DE02
+	.word	Song_0855E08C_4_2
 	.byte	0xE4
 	.byte	0x39
 	.byte	0x60
@@ -100004,7 +100004,7 @@ Song_0855DE02:
 	.byte	0xE4
 	.byte	0x98
 	.byte	0xB2
-	.word	Song_0855DDAF
+	.word	Song_0855E08C_4_3
 	.byte	0xB1
 
 	@********************** Track  5 **********************@
@@ -100014,7 +100014,7 @@ Song_0855E08C_5:	@ 0x0855DE63
 	.byte	0xBC
 	.byte	0x00
 	.byte	0x98
-Song_0855DE66:
+Song_0855E08C_5_1:
 	.byte	0xBD
 	.byte	0x66
 	.byte	0xBE
@@ -100296,7 +100296,7 @@ Song_0855DE66:
 	.byte	0x4E
 	.byte	0x8C
 	.byte	0xB2
-	.word	Song_0855DE66
+	.word	Song_0855E08C_5_1
 	.byte	0xB1
 
 	@********************** Track  6 **********************@
@@ -100315,7 +100315,7 @@ Song_0855E08C_6:	@ 0x0855DF84
 	.byte	0x35
 	.byte	0x34
 	.byte	0x98
-Song_0855DF90:
+Song_0855E08C_6_2:
 	.byte	0xE7
 	.byte	0x31
 	.byte	0x38
@@ -100329,7 +100329,7 @@ Song_0855DF90:
 	.byte	0x98
 	.byte	0xD5
 	.byte	0x8C
-Song_0855DF9D:
+Song_0855E08C_6_1:
 	.byte	0xD5
 	.byte	0x29
 	.byte	0x70
@@ -100363,7 +100363,7 @@ Song_0855DF9D:
 	.byte	0xD5
 	.byte	0x8C
 	.byte	0xB3
-	.word	Song_0855DF9D
+	.word	Song_0855E08C_6_1
 	.byte	0xD5
 	.byte	0x30
 	.byte	0x70
@@ -100561,7 +100561,7 @@ Song_0855DF9D:
 	.byte	0xD5
 	.byte	0x86
 	.byte	0xB2
-	.word	Song_0855DF90
+	.word	Song_0855E08C_6_2
 	.byte	0xB1
 
 	.align 2
@@ -100572,7 +100572,7 @@ Song_0855E08C:	@ 0x0855E08C
 	.byte	10		@ priority
 	.byte	148		@ reverb
 
-	.word	voicegroup_08217E14		@ voicegroup/tone
+	.word	voicegroup051		@ voicegroup/tone
 
 	.word	Song_0855E08C_1		@ track
 	.word	Song_0855E08C_2		@ track
@@ -100727,7 +100727,7 @@ Song_0855E824_1:	@ 0x0855E0AC
 	.byte	0x4B
 	.byte	0x34
 	.byte	0x84
-Song_0855E139:
+Song_0855E824_1_2:
 	.byte	0xBB
 	.byte	0x59
 	.byte	0xBD
@@ -101038,7 +101038,7 @@ Song_0855E139:
 	.byte	0x98
 	.byte	0xD7
 	.byte	0x98
-Song_0855E26F:
+Song_0855E824_1_1:
 	.byte	0xE4
 	.byte	0x45
 	.byte	0x74
@@ -101125,7 +101125,7 @@ Song_0855E26F:
 	.byte	0x34
 	.byte	0x84
 	.byte	0xB3
-	.word	Song_0855E26F
+	.word	Song_0855E824_1_1
 	.byte	0xE4
 	.byte	0x48
 	.byte	0x74
@@ -101170,7 +101170,7 @@ Song_0855E26F:
 	.byte	0x34
 	.byte	0x84
 	.byte	0xB3
-	.word	Song_0855E26F
+	.word	Song_0855E824_1_1
 	.byte	0xE1
 	.byte	0x45
 	.byte	0x7F
@@ -101184,7 +101184,7 @@ Song_0855E26F:
 	.byte	0x4A
 	.byte	0x9A
 	.byte	0xB2
-	.word	Song_0855E139
+	.word	Song_0855E824_1_2
 	.byte	0xB1
 
 	@********************** Track  2 **********************@
@@ -101208,14 +101208,14 @@ Song_0855E824_2:	@ 0x0855E30B
 	.byte	0xA5
 	.byte	0xE8
 	.byte	0x9B
-Song_0855E31C:
+Song_0855E824_2_8:
 	.byte	0xEE
 	.byte	0x2B
 	.byte	0x7F
 	.byte	0xA0
 	.byte	0xEE
 	.byte	0xA0
-Song_0855E322:
+Song_0855E824_2_5:
 	.byte	0xEE
 	.byte	0x2D
 	.byte	0x7F
@@ -101227,7 +101227,7 @@ Song_0855E322:
 	.byte	0xA0
 	.byte	0xEE
 	.byte	0xA0
-Song_0855E32D:
+Song_0855E824_2_1:
 	.byte	0xE4
 	.byte	0x2D
 	.byte	0x7F
@@ -101237,7 +101237,7 @@ Song_0855E32D:
 	.byte	0xE4
 	.byte	0x98
 	.byte	0xB4
-Song_0855E336:
+Song_0855E824_2_2:
 	.byte	0xE4
 	.byte	0x2B
 	.byte	0x7F
@@ -101248,10 +101248,10 @@ Song_0855E336:
 	.byte	0x98
 	.byte	0xB4
 	.byte	0xB3
-	.word	Song_0855E32D
+	.word	Song_0855E824_2_1
 	.byte	0xB3
-	.word	Song_0855E336
-Song_0855E349:
+	.word	Song_0855E824_2_2
+Song_0855E824_2_3:
 	.byte	0xE4
 	.byte	0x34
 	.byte	0x7F
@@ -101261,7 +101261,7 @@ Song_0855E349:
 	.byte	0xE4
 	.byte	0x98
 	.byte	0xB4
-Song_0855E352:
+Song_0855E824_2_4:
 	.byte	0xE4
 	.byte	0x32
 	.byte	0x7F
@@ -101272,12 +101272,12 @@ Song_0855E352:
 	.byte	0x98
 	.byte	0xB4
 	.byte	0xB3
-	.word	Song_0855E349
+	.word	Song_0855E824_2_3
 	.byte	0xB3
-	.word	Song_0855E352
+	.word	Song_0855E824_2_4
 	.byte	0xB3
-	.word	Song_0855E322
-Song_0855E36A:
+	.word	Song_0855E824_2_5
+Song_0855E824_2_6:
 	.byte	0xEE
 	.byte	0x32
 	.byte	0x7F
@@ -101286,8 +101286,8 @@ Song_0855E36A:
 	.byte	0xA0
 	.byte	0xB4
 	.byte	0xB3
-	.word	Song_0855E36A
-Song_0855E376:
+	.word	Song_0855E824_2_6
+Song_0855E824_2_7:
 	.byte	0xEE
 	.byte	0x30
 	.byte	0x7F
@@ -101296,9 +101296,9 @@ Song_0855E376:
 	.byte	0xA0
 	.byte	0xB4
 	.byte	0xB3
-	.word	Song_0855E36A
+	.word	Song_0855E824_2_6
 	.byte	0xB3
-	.word	Song_0855E376
+	.word	Song_0855E824_2_7
 	.byte	0xEE
 	.byte	0x32
 	.byte	0x7F
@@ -101313,7 +101313,7 @@ Song_0855E376:
 	.byte	0x2D
 	.byte	0x98
 	.byte	0xB2
-	.word	Song_0855E31C
+	.word	Song_0855E824_2_8
 	.byte	0xB1
 
 	@********************** Track  3 **********************@
@@ -101453,7 +101453,7 @@ Song_0855E824_3:	@ 0x0855E39A
 	.byte	0x4F
 	.byte	0x20
 	.byte	0x84
-Song_0855E41F:
+Song_0855E824_3_4:
 	.byte	0xBE
 	.byte	0x26
 	.byte	0xDB
@@ -101529,7 +101529,7 @@ Song_0855E41F:
 	.byte	0x53
 	.byte	0x78
 	.byte	0x8C
-Song_0855E46A:
+Song_0855E824_3_1:
 	.byte	0xE7
 	.byte	0x51
 	.byte	0x5C
@@ -101545,7 +101545,7 @@ Song_0855E46A:
 	.byte	0x4A
 	.byte	0xA0
 	.byte	0xB3
-	.word	Song_0855E46A
+	.word	Song_0855E824_3_1
 	.byte	0xD3
 	.byte	0x4F
 	.byte	0x5C
@@ -101559,7 +101559,7 @@ Song_0855E46A:
 	.byte	0x98
 	.byte	0x54
 	.byte	0x98
-Song_0855E48A:
+Song_0855E824_3_2:
 	.byte	0xE7
 	.byte	0x4C
 	.byte	0x5C
@@ -101576,7 +101576,7 @@ Song_0855E48A:
 	.byte	0x4A
 	.byte	0x98
 	.byte	0xB3
-	.word	Song_0855E48A
+	.word	Song_0855E824_3_2
 	.byte	0xD3
 	.byte	0x4A
 	.byte	0x5C
@@ -101642,7 +101642,7 @@ Song_0855E48A:
 	.byte	0x51
 	.byte	0x6C
 	.byte	0xB0
-Song_0855E4DF:
+Song_0855E824_3_3:
 	.byte	0xEF
 	.byte	0x4F
 	.byte	0x6C
@@ -101654,7 +101654,7 @@ Song_0855E4DF:
 	.byte	0x51
 	.byte	0xB0
 	.byte	0xB3
-	.word	Song_0855E4DF
+	.word	Song_0855E824_3_3
 	.byte	0xCF
 	.byte	0x51
 	.byte	0x6C
@@ -101725,7 +101725,7 @@ Song_0855E4DF:
 	.byte	0x83
 	.byte	0xCE
 	.byte	0xB2
-	.word	Song_0855E41F
+	.word	Song_0855E824_3_4
 	.byte	0xB1
 
 	@********************** Track  4 **********************@
@@ -101784,7 +101784,7 @@ Song_0855E824_4:	@ 0x0855E539
 	.byte	0x88
 	.byte	0x3F
 	.byte	0x88
-Song_0855E56D:
+Song_0855E824_4_4:
 	.byte	0xBE
 	.byte	0x26
 	.byte	0xE7
@@ -101813,7 +101813,7 @@ Song_0855E56D:
 	.byte	0x98
 	.byte	0x36
 	.byte	0x98
-Song_0855E589:
+Song_0855E824_4_1:
 	.byte	0xE7
 	.byte	0x48
 	.byte	0x5C
@@ -101829,7 +101829,7 @@ Song_0855E589:
 	.byte	0x43
 	.byte	0xA0
 	.byte	0xB3
-	.word	Song_0855E589
+	.word	Song_0855E824_4_1
 	.byte	0xD3
 	.byte	0x47
 	.byte	0x5C
@@ -101843,7 +101843,7 @@ Song_0855E589:
 	.byte	0x98
 	.byte	0x4C
 	.byte	0x98
-Song_0855E5A9:
+Song_0855E824_4_2:
 	.byte	0xE7
 	.byte	0x4F
 	.byte	0x5C
@@ -101860,7 +101860,7 @@ Song_0855E5A9:
 	.byte	0x4E
 	.byte	0x98
 	.byte	0xB3
-	.word	Song_0855E5A9
+	.word	Song_0855E824_4_2
 	.byte	0xD3
 	.byte	0x4E
 	.byte	0x6C
@@ -101927,7 +101927,7 @@ Song_0855E5A9:
 	.byte	0xFF
 	.byte	0x4A
 	.byte	0xB0
-Song_0855E5FF:
+Song_0855E824_4_3:
 	.byte	0xEF
 	.byte	0x48
 	.byte	0x6C
@@ -101939,7 +101939,7 @@ Song_0855E5FF:
 	.byte	0x4A
 	.byte	0xB0
 	.byte	0xB3
-	.word	Song_0855E5FF
+	.word	Song_0855E824_4_3
 	.byte	0xCF
 	.byte	0x4A
 	.byte	0x6C
@@ -102014,7 +102014,7 @@ Song_0855E5FF:
 	.byte	0x83
 	.byte	0xCE
 	.byte	0xB2
-	.word	Song_0855E56D
+	.word	Song_0855E824_4_4
 	.byte	0xB1
 
 	@********************** Track  5 **********************@
@@ -102038,7 +102038,7 @@ Song_0855E824_5:	@ 0x0855E65D
 	.byte	0xA5
 	.byte	0xEA
 	.byte	0x9B
-Song_0855E66E:
+Song_0855E824_5_5:
 	.byte	0xE7
 	.byte	0x37
 	.byte	0x7F
@@ -102053,7 +102053,7 @@ Song_0855E66E:
 	.byte	0x98
 	.byte	0x36
 	.byte	0xA8
-Song_0855E67C:
+Song_0855E824_5_1:
 	.byte	0xE7
 	.byte	0x39
 	.byte	0x7F
@@ -102061,7 +102061,7 @@ Song_0855E67C:
 	.byte	0x34
 	.byte	0xA0
 	.byte	0xB4
-Song_0855E683:
+Song_0855E824_5_2:
 	.byte	0xE7
 	.byte	0x37
 	.byte	0x7F
@@ -102070,16 +102070,16 @@ Song_0855E683:
 	.byte	0xA0
 	.byte	0xB4
 	.byte	0xB3
-	.word	Song_0855E67C
+	.word	Song_0855E824_5_1
 	.byte	0xB3
-	.word	Song_0855E683
+	.word	Song_0855E824_5_2
 	.byte	0xE7
 	.byte	0x40
 	.byte	0x7F
 	.byte	0x98
 	.byte	0x3B
 	.byte	0xA0
-Song_0855E69A:
+Song_0855E824_5_3:
 	.byte	0xE7
 	.byte	0x3E
 	.byte	0x7F
@@ -102092,7 +102092,7 @@ Song_0855E69A:
 	.byte	0x3B
 	.byte	0xA0
 	.byte	0xB3
-	.word	Song_0855E69A
+	.word	Song_0855E824_5_3
 	.byte	0xEF
 	.byte	0x39
 	.byte	0x7F
@@ -102103,7 +102103,7 @@ Song_0855E69A:
 	.byte	0xA0
 	.byte	0x39
 	.byte	0xA0
-Song_0855E6B4:
+Song_0855E824_5_4:
 	.byte	0xEF
 	.byte	0x3C
 	.byte	0x7F
@@ -102116,7 +102116,7 @@ Song_0855E6B4:
 	.byte	0xEF
 	.byte	0xA0
 	.byte	0xB3
-	.word	Song_0855E6B4
+	.word	Song_0855E824_5_4
 	.byte	0xEF
 	.byte	0x3E
 	.byte	0x7F
@@ -102130,7 +102130,7 @@ Song_0855E6B4:
 	.byte	0x39
 	.byte	0x98
 	.byte	0xB2
-	.word	Song_0855E66E
+	.word	Song_0855E824_5_5
 	.byte	0xB1
 
 	@********************** Track  6 **********************@
@@ -102155,7 +102155,7 @@ Song_0855E824_6:	@ 0x0855E6D6
 	.byte	0x39
 	.byte	0x34
 	.byte	0x9B
-Song_0855E6E8:
+Song_0855E824_6_2:
 	.byte	0xEF
 	.byte	0x31
 	.byte	0x4C
@@ -102207,7 +102207,7 @@ Song_0855E6E8:
 	.byte	0x26
 	.byte	0x64
 	.byte	0x98
-Song_0855E71B:
+Song_0855E824_6_1:
 	.byte	0xE6
 	.byte	0x32
 	.byte	0x54
@@ -102260,7 +102260,7 @@ Song_0855E71B:
 	.byte	0x58
 	.byte	0x88
 	.byte	0xB3
-	.word	Song_0855E71B
+	.word	Song_0855E824_6_1
 	.byte	0xEA
 	.byte	0x32
 	.byte	0x54
@@ -102290,7 +102290,7 @@ Song_0855E71B:
 	.byte	0x68
 	.byte	0x88
 	.byte	0xB3
-	.word	Song_0855E71B
+	.word	Song_0855E824_6_1
 	.byte	0xEA
 	.byte	0x32
 	.byte	0x54
@@ -102317,7 +102317,7 @@ Song_0855E71B:
 	.byte	0x50
 	.byte	0x88
 	.byte	0xB3
-	.word	Song_0855E71B
+	.word	Song_0855E824_6_1
 	.byte	0xEA
 	.byte	0x32
 	.byte	0x54
@@ -102457,7 +102457,7 @@ Song_0855E71B:
 	.byte	0xD5
 	.byte	0x88
 	.byte	0xB2
-	.word	Song_0855E6E8
+	.word	Song_0855E824_6_2
 	.byte	0xB1
 	.byte	0x00
 	.byte	0x00
@@ -102470,7 +102470,7 @@ Song_0855E824:	@ 0x0855E824
 	.byte	10		@ priority
 	.byte	148		@ reverb
 
-	.word	voicegroup_08218414		@ voicegroup/tone
+	.word	voicegroup052		@ voicegroup/tone
 
 	.word	Song_0855E824_1		@ track
 	.word	Song_0855E824_2		@ track
@@ -102502,7 +102502,7 @@ Song_0855EF24_1:	@ 0x0855E844
 	.byte	0x3C
 	.byte	0x5C
 	.byte	0x98
-Song_0855E856:
+Song_0855EF24_1_1:
 	.byte	0xBD
 	.byte	0x1D
 	.byte	0xBE
@@ -103047,7 +103047,7 @@ Song_0855E856:
 	.byte	0x98
 	.byte	0x98
 	.byte	0xB2
-	.word	Song_0855E856
+	.word	Song_0855EF24_1_1
 	.byte	0xB1
 
 	@********************** Track  2 **********************@
@@ -103057,7 +103057,7 @@ Song_0855EF24_2:	@ 0x0855EA7B
 	.byte	0xBC
 	.byte	0x00
 	.byte	0x98
-Song_0855EA7E:
+Song_0855EF24_2_4:
 	.byte	0xBD
 	.byte	0x22
 	.byte	0xBE
@@ -103078,7 +103078,7 @@ Song_0855EA7E:
 	.byte	0x98
 	.byte	0xD8
 	.byte	0x8C
-Song_0855EA92:
+Song_0855EF24_2_1:
 	.byte	0xD8
 	.byte	0x28
 	.byte	0x7C
@@ -103100,7 +103100,7 @@ Song_0855EA92:
 	.byte	0x28
 	.byte	0x8C
 	.byte	0xB4
-Song_0855EAA7:
+Song_0855EF24_2_2:
 	.byte	0xD5
 	.byte	0x28
 	.byte	0x7C
@@ -103126,7 +103126,7 @@ Song_0855EAA7:
 	.byte	0xD8
 	.byte	0x8C
 	.byte	0xB4
-Song_0855EAC0:
+Song_0855EF24_2_3:
 	.byte	0xD8
 	.byte	0x28
 	.byte	0x7C
@@ -103231,11 +103231,11 @@ Song_0855EAC0:
 	.byte	0xD8
 	.byte	0x8C
 	.byte	0xB3
-	.word	Song_0855EA92
+	.word	Song_0855EF24_2_1
 	.byte	0xB3
-	.word	Song_0855EAA7
+	.word	Song_0855EF24_2_2
 	.byte	0xB3
-	.word	Song_0855EAC0
+	.word	Song_0855EF24_2_3
 	.byte	0xD5
 	.byte	0x28
 	.byte	0x7C
@@ -103309,7 +103309,7 @@ Song_0855EAC0:
 	.byte	0xA0
 	.byte	0x98
 	.byte	0xB2
-	.word	Song_0855EA7E
+	.word	Song_0855EF24_2_4
 	.byte	0xB1
 
 	@********************** Track  3 **********************@
@@ -103319,7 +103319,7 @@ Song_0855EF24_3:	@ 0x0855EB84
 	.byte	0xBC
 	.byte	0x00
 	.byte	0x98
-Song_0855EB87:
+Song_0855EF24_3_1:
 	.byte	0xBD
 	.byte	0x31
 	.byte	0xBE
@@ -103505,7 +103505,7 @@ Song_0855EB87:
 	.byte	0x20
 	.byte	0x86
 	.byte	0xB2
-	.word	Song_0855EB87
+	.word	Song_0855EF24_3_1
 	.byte	0xB1
 
 	@********************** Track  4 **********************@
@@ -103515,7 +103515,7 @@ Song_0855EF24_4:	@ 0x0855EC45
 	.byte	0xBC
 	.byte	0x00
 	.byte	0x98
-Song_0855EC48:
+Song_0855EF24_4_1:
 	.byte	0xBD
 	.byte	0x2F
 	.byte	0xBE
@@ -103751,7 +103751,7 @@ Song_0855EC48:
 	.byte	0x24
 	.byte	0x86
 	.byte	0xB2
-	.word	Song_0855EC48
+	.word	Song_0855EF24_4_1
 	.byte	0xB1
 
 	@********************** Track  5 **********************@
@@ -103779,7 +103779,7 @@ Song_0855EF24_5:	@ 0x0855ED38
 	.byte	0x26
 	.byte	0x78
 	.byte	0x86
-Song_0855ED4D:
+Song_0855EF24_5_3:
 	.byte	0xE7
 	.byte	0x31
 	.byte	0x5C
@@ -103834,7 +103834,7 @@ Song_0855ED4D:
 	.byte	0x24
 	.byte	0x60
 	.byte	0x8C
-Song_0855ED83:
+Song_0855EF24_5_1:
 	.byte	0xD5
 	.byte	0x26
 	.byte	0x60
@@ -104008,7 +104008,7 @@ Song_0855ED83:
 	.byte	0x60
 	.byte	0x8C
 	.byte	0xB3
-	.word	Song_0855ED83
+	.word	Song_0855EF24_5_1
 	.byte	0xD5
 	.byte	0x26
 	.byte	0x60
@@ -104028,7 +104028,7 @@ Song_0855ED83:
 	.byte	0x29
 	.byte	0x68
 	.byte	0x88
-Song_0855EE47:
+Song_0855EF24_5_2:
 	.byte	0xD5
 	.byte	0x26
 	.byte	0x70
@@ -104051,9 +104051,9 @@ Song_0855EE47:
 	.byte	0x88
 	.byte	0xB4
 	.byte	0xB3
-	.word	Song_0855EE47
+	.word	Song_0855EF24_5_2
 	.byte	0xB3
-	.word	Song_0855EE47
+	.word	Song_0855EF24_5_2
 	.byte	0xD5
 	.byte	0x29
 	.byte	0x68
@@ -104086,7 +104086,7 @@ Song_0855EE47:
 	.byte	0x74
 	.byte	0x86
 	.byte	0xB2
-	.word	Song_0855ED4D
+	.word	Song_0855EF24_5_3
 	.byte	0xB1
 
 	@********************** Track  6 **********************@
@@ -104096,7 +104096,7 @@ Song_0855EF24_6:	@ 0x0855EE8B
 	.byte	0xBC
 	.byte	0x00
 	.byte	0x98
-Song_0855EE8E:
+Song_0855EF24_6_1:
 	.byte	0xBD
 	.byte	0x34
 	.byte	0xBE
@@ -104239,7 +104239,7 @@ Song_0855EE8E:
 	.byte	0x20
 	.byte	0x86
 	.byte	0xB2
-	.word	Song_0855EE8E
+	.word	Song_0855EF24_6_1
 	.byte	0xB1
 	.byte	0x00
 	.byte	0x00
@@ -104253,7 +104253,7 @@ Song_0855EF24:	@ 0x0855EF24
 	.byte	10		@ priority
 	.byte	148		@ reverb
 
-	.word	voicegroup_08218A14		@ voicegroup/tone
+	.word	voicegroup053		@ voicegroup/tone
 
 	.word	Song_0855EF24_1		@ track
 	.word	Song_0855EF24_2		@ track
@@ -104269,7 +104269,7 @@ Song_0855EF24:	@ 0x0855EF24
 Song_0855F9A0_1:	@ 0x0855EF44
 	.byte	0xBC
 	.byte	0x00
-Song_0855EF46:
+Song_0855F9A0_1_3:
 	.byte	0xBB
 	.byte	0x5A
 	.byte	0xBD
@@ -104707,7 +104707,7 @@ Song_0855EF46:
 	.byte	0x86
 	.byte	0x54
 	.byte	0x86
-Song_0855F0FB:
+Song_0855F9A0_1_2:
 	.byte	0xEF
 	.byte	0x56
 	.byte	0x3C
@@ -104721,7 +104721,7 @@ Song_0855F0FB:
 	.byte	0xF7
 	.byte	0x54
 	.byte	0xA8
-Song_0855F108:
+Song_0855F9A0_1_1:
 	.byte	0xEB
 	.byte	0x4F
 	.byte	0x3C
@@ -104738,9 +104738,9 @@ Song_0855F108:
 	.byte	0x51
 	.byte	0xA8
 	.byte	0xB3
-	.word	Song_0855F108
+	.word	Song_0855F9A0_1_1
 	.byte	0xB3
-	.word	Song_0855F0FB
+	.word	Song_0855F9A0_1_2
 	.byte	0xF7
 	.byte	0x54
 	.byte	0x3C
@@ -104820,7 +104820,7 @@ Song_0855F108:
 	.byte	0x44
 	.byte	0x98
 	.byte	0xB2
-	.word	Song_0855EF46
+	.word	Song_0855F9A0_1_3
 	.byte	0xB1
 
 	@********************** Track  2 **********************@
@@ -104829,7 +104829,7 @@ Song_0855F108:
 Song_0855F9A0_2:	@ 0x0855F175
 	.byte	0xBC
 	.byte	0x00
-Song_0855F177:
+Song_0855F9A0_2_8:
 	.byte	0xBD
 	.byte	0x22
 	.byte	0xBE
@@ -104848,7 +104848,7 @@ Song_0855F177:
 	.byte	0x98
 	.byte	0xD8
 	.byte	0x8C
-Song_0855F189:
+Song_0855F9A0_2_2:
 	.byte	0xD8
 	.byte	0x2B
 	.byte	0x7F
@@ -104860,7 +104860,7 @@ Song_0855F189:
 	.byte	0xE4
 	.byte	0x98
 	.byte	0xB4
-Song_0855F194:
+Song_0855F9A0_2_1:
 	.byte	0xD8
 	.byte	0x2B
 	.byte	0x7F
@@ -104874,7 +104874,7 @@ Song_0855F194:
 	.byte	0xD8
 	.byte	0x8C
 	.byte	0xB4
-Song_0855F1A1:
+Song_0855F9A0_2_3:
 	.byte	0xD8
 	.byte	0x2B
 	.byte	0x7F
@@ -104889,13 +104889,13 @@ Song_0855F1A1:
 	.byte	0x98
 	.byte	0xB4
 	.byte	0xB3
-	.word	Song_0855F194
+	.word	Song_0855F9A0_2_1
 	.byte	0xB3
-	.word	Song_0855F189
+	.word	Song_0855F9A0_2_2
 	.byte	0xB3
-	.word	Song_0855F194
+	.word	Song_0855F9A0_2_1
 	.byte	0xB3
-	.word	Song_0855F1A1
+	.word	Song_0855F9A0_2_3
 	.byte	0xEA
 	.byte	0x2B
 	.byte	0x7F
@@ -104904,7 +104904,7 @@ Song_0855F1A1:
 	.byte	0x8C
 	.byte	0xE4
 	.byte	0x98
-Song_0855F1CA:
+Song_0855F9A0_2_5:
 	.byte	0xEA
 	.byte	0x2E
 	.byte	0x7F
@@ -104914,7 +104914,7 @@ Song_0855F1CA:
 	.byte	0xE4
 	.byte	0x98
 	.byte	0xB4
-Song_0855F1D3:
+Song_0855F9A0_2_4:
 	.byte	0xEA
 	.byte	0x33
 	.byte	0x7F
@@ -104932,9 +104932,9 @@ Song_0855F1D3:
 	.byte	0xE4
 	.byte	0x98
 	.byte	0xB3
-	.word	Song_0855F1D3
+	.word	Song_0855F9A0_2_4
 	.byte	0xB3
-	.word	Song_0855F1CA
+	.word	Song_0855F9A0_2_5
 	.byte	0xD8
 	.byte	0x29
 	.byte	0x7F
@@ -105022,7 +105022,7 @@ Song_0855F1D3:
 	.byte	0x98
 	.byte	0xD8
 	.byte	0x8C
-Song_0855F244:
+Song_0855F9A0_2_6:
 	.byte	0xD8
 	.byte	0x2B
 	.byte	0x7F
@@ -105035,7 +105035,7 @@ Song_0855F244:
 	.byte	0xE1
 	.byte	0x98
 	.byte	0xB4
-Song_0855F250:
+Song_0855F9A0_2_7:
 	.byte	0xD8
 	.byte	0x2B
 	.byte	0x7F
@@ -105048,11 +105048,11 @@ Song_0855F250:
 	.byte	0x8C
 	.byte	0xB4
 	.byte	0xB3
-	.word	Song_0855F244
+	.word	Song_0855F9A0_2_6
 	.byte	0xB3
-	.word	Song_0855F250
+	.word	Song_0855F9A0_2_7
 	.byte	0xB3
-	.word	Song_0855F244
+	.word	Song_0855F9A0_2_6
 	.byte	0xD8
 	.byte	0x2C
 	.byte	0x7F
@@ -105073,7 +105073,7 @@ Song_0855F250:
 	.byte	0xE1
 	.byte	0x98
 	.byte	0xB2
-	.word	Song_0855F177
+	.word	Song_0855F9A0_2_8
 	.byte	0xB1
 
 	@********************** Track  3 **********************@
@@ -105082,7 +105082,7 @@ Song_0855F250:
 Song_0855F9A0_3:	@ 0x0855F283
 	.byte	0xBC
 	.byte	0x00
-Song_0855F285:
+Song_0855F9A0_3_3:
 	.byte	0xBD
 	.byte	0x32
 	.byte	0xBE
@@ -105606,7 +105606,7 @@ Song_0855F285:
 	.byte	0x8C
 	.byte	0x32
 	.byte	0x8C
-Song_0855F490:
+Song_0855F9A0_3_1:
 	.byte	0xDB
 	.byte	0x33
 	.byte	0x6C
@@ -105622,7 +105622,7 @@ Song_0855F490:
 	.byte	0x2E
 	.byte	0x8C
 	.byte	0xB4
-Song_0855F49F:
+Song_0855F9A0_3_2:
 	.byte	0xDB
 	.byte	0x35
 	.byte	0x6C
@@ -105639,7 +105639,7 @@ Song_0855F49F:
 	.byte	0x8C
 	.byte	0xB4
 	.byte	0xB3
-	.word	Song_0855F490
+	.word	Song_0855F9A0_3_1
 	.byte	0xDB
 	.byte	0x35
 	.byte	0x6C
@@ -105655,9 +105655,9 @@ Song_0855F49F:
 	.byte	0x2E
 	.byte	0x8C
 	.byte	0xB3
-	.word	Song_0855F49F
+	.word	Song_0855F9A0_3_2
 	.byte	0xB3
-	.word	Song_0855F49F
+	.word	Song_0855F9A0_3_2
 	.byte	0xBD
 	.byte	0x34
 	.byte	0xBE
@@ -105764,7 +105764,7 @@ Song_0855F49F:
 	.byte	0x44
 	.byte	0x8C
 	.byte	0xB2
-	.word	Song_0855F285
+	.word	Song_0855F9A0_3_3
 	.byte	0xB1
 
 	@********************** Track  4 **********************@
@@ -105773,7 +105773,7 @@ Song_0855F49F:
 Song_0855F9A0_4:	@ 0x0855F53A
 	.byte	0xBC
 	.byte	0x00
-Song_0855F53C:
+Song_0855F9A0_4_5:
 	.byte	0xBD
 	.byte	0x2F
 	.byte	0xBE
@@ -105787,7 +105787,7 @@ Song_0855F53C:
 	.byte	0xEE
 	.byte	0x32
 	.byte	0x9C
-Song_0855F549:
+Song_0855F9A0_4_1:
 	.byte	0x98
 	.byte	0xE3
 	.byte	0x37
@@ -105803,8 +105803,8 @@ Song_0855F549:
 	.byte	0x32
 	.byte	0x9C
 	.byte	0xB3
-	.word	Song_0855F549
-Song_0855F55C:
+	.word	Song_0855F9A0_4_1
+Song_0855F9A0_4_2:
 	.byte	0xEA
 	.byte	0x32
 	.byte	0x7F
@@ -105815,11 +105815,11 @@ Song_0855F55C:
 	.byte	0x9C
 	.byte	0xB4
 	.byte	0xB3
-	.word	Song_0855F549
+	.word	Song_0855F9A0_4_1
 	.byte	0xB3
-	.word	Song_0855F55C
+	.word	Song_0855F9A0_4_2
 	.byte	0xB3
-	.word	Song_0855F549
+	.word	Song_0855F9A0_4_1
 	.byte	0xBD
 	.byte	0x66
 	.byte	0xBE
@@ -105838,7 +105838,7 @@ Song_0855F55C:
 	.byte	0xF6
 	.byte	0x48
 	.byte	0xA8
-Song_0855F586:
+Song_0855F9A0_4_3:
 	.byte	0xEA
 	.byte	0x43
 	.byte	0x78
@@ -105855,7 +105855,7 @@ Song_0855F586:
 	.byte	0x45
 	.byte	0xA8
 	.byte	0xB3
-	.word	Song_0855F586
+	.word	Song_0855F9A0_4_3
 	.byte	0xEE
 	.byte	0x4A
 	.byte	0x78
@@ -105913,8 +105913,8 @@ Song_0855F586:
 	.byte	0x32
 	.byte	0x9C
 	.byte	0xB3
-	.word	Song_0855F549
-Song_0855F5D7:
+	.word	Song_0855F9A0_4_1
+Song_0855F9A0_4_4:
 	.byte	0xEA
 	.byte	0x37
 	.byte	0x7F
@@ -105923,11 +105923,11 @@ Song_0855F5D7:
 	.byte	0x9C
 	.byte	0xB4
 	.byte	0xB3
-	.word	Song_0855F549
+	.word	Song_0855F9A0_4_1
 	.byte	0xB3
-	.word	Song_0855F5D7
+	.word	Song_0855F9A0_4_4
 	.byte	0xB3
-	.word	Song_0855F549
+	.word	Song_0855F9A0_4_1
 	.byte	0xEA
 	.byte	0x38
 	.byte	0x7F
@@ -105941,7 +105941,7 @@ Song_0855F5D7:
 	.byte	0x33
 	.byte	0x98
 	.byte	0xB2
-	.word	Song_0855F53C
+	.word	Song_0855F9A0_4_5
 	.byte	0xB1
 
 	@********************** Track  5 **********************@
@@ -105950,7 +105950,7 @@ Song_0855F5D7:
 Song_0855F9A0_5:	@ 0x0855F5FF
 	.byte	0xBC
 	.byte	0x00
-Song_0855F601:
+Song_0855F9A0_5_8:
 	.byte	0xBD
 	.byte	0x7F
 	.byte	0xBE
@@ -105969,7 +105969,7 @@ Song_0855F601:
 	.byte	0x8C
 	.byte	0xD5
 	.byte	0x98
-Song_0855F613:
+Song_0855F9A0_5_1:
 	.byte	0xD5
 	.byte	0x29
 	.byte	0x78
@@ -105981,7 +105981,7 @@ Song_0855F613:
 	.byte	0x26
 	.byte	0x98
 	.byte	0xB4
-Song_0855F61E:
+Song_0855F9A0_5_2:
 	.byte	0x98
 	.byte	0xD5
 	.byte	0x29
@@ -106019,9 +106019,9 @@ Song_0855F61E:
 	.byte	0xD5
 	.byte	0x98
 	.byte	0xB3
-	.word	Song_0855F613
+	.word	Song_0855F9A0_5_1
 	.byte	0xB3
-	.word	Song_0855F61E
+	.word	Song_0855F9A0_5_2
 	.byte	0xD5
 	.byte	0x29
 	.byte	0x78
@@ -106034,7 +106034,7 @@ Song_0855F61E:
 	.byte	0x8C
 	.byte	0x29
 	.byte	0x8C
-Song_0855F658:
+Song_0855F9A0_5_4:
 	.byte	0xE7
 	.byte	0x31
 	.byte	0x50
@@ -106048,7 +106048,7 @@ Song_0855F658:
 	.byte	0x29
 	.byte	0x98
 	.byte	0xB4
-Song_0855F665:
+Song_0855F9A0_5_3:
 	.byte	0x98
 	.byte	0xD5
 	.byte	0x2D
@@ -106057,7 +106057,7 @@ Song_0855F665:
 	.byte	0xD5
 	.byte	0x9C
 	.byte	0xB4
-Song_0855F66D:
+Song_0855F9A0_5_5:
 	.byte	0xE7
 	.byte	0x31
 	.byte	0x50
@@ -106072,9 +106072,9 @@ Song_0855F66D:
 	.byte	0x98
 	.byte	0xB4
 	.byte	0xB3
-	.word	Song_0855F665
+	.word	Song_0855F9A0_5_3
 	.byte	0xB3
-	.word	Song_0855F658
+	.word	Song_0855F9A0_5_4
 	.byte	0x98
 	.byte	0xD5
 	.byte	0x2D
@@ -106085,7 +106085,7 @@ Song_0855F66D:
 	.byte	0x29
 	.byte	0x98
 	.byte	0xB3
-	.word	Song_0855F66D
+	.word	Song_0855F9A0_5_5
 	.byte	0xE7
 	.byte	0x31
 	.byte	0x50
@@ -106104,7 +106104,7 @@ Song_0855F66D:
 	.byte	0x36
 	.byte	0x40
 	.byte	0x86
-Song_0855F6A4:
+Song_0855F9A0_5_6:
 	.byte	0xD5
 	.byte	0x36
 	.byte	0x44
@@ -106115,7 +106115,7 @@ Song_0855F6A4:
 	.byte	0xB4
 	.byte	0xA8
 	.byte	0xB3
-	.word	Song_0855F6A4
+	.word	Song_0855F9A0_5_6
 	.byte	0xA0
 	.byte	0xD5
 	.byte	0x36
@@ -106125,10 +106125,10 @@ Song_0855F6A4:
 	.byte	0x10
 	.byte	0x92
 	.byte	0xB3
-	.word	Song_0855F6A4
+	.word	Song_0855F9A0_5_6
 	.byte	0xA8
 	.byte	0xB3
-	.word	Song_0855F6A4
+	.word	Song_0855F9A0_5_6
 	.byte	0xD5
 	.byte	0x2A
 	.byte	0x58
@@ -106148,7 +106148,7 @@ Song_0855F6A4:
 	.byte	0x26
 	.byte	0x7C
 	.byte	0x86
-Song_0855F6D8:
+Song_0855F9A0_5_7:
 	.byte	0xE7
 	.byte	0x31
 	.byte	0x50
@@ -106163,9 +106163,9 @@ Song_0855F6D8:
 	.byte	0x98
 	.byte	0xB4
 	.byte	0xB3
-	.word	Song_0855F613
+	.word	Song_0855F9A0_5_1
 	.byte	0xB3
-	.word	Song_0855F6D8
+	.word	Song_0855F9A0_5_7
 	.byte	0xD5
 	.byte	0x29
 	.byte	0x78
@@ -106179,7 +106179,7 @@ Song_0855F6D8:
 	.byte	0xD5
 	.byte	0x8C
 	.byte	0xB3
-	.word	Song_0855F6D8
+	.word	Song_0855F9A0_5_7
 	.byte	0xD5
 	.byte	0x29
 	.byte	0x78
@@ -106191,7 +106191,7 @@ Song_0855F6D8:
 	.byte	0xD5
 	.byte	0x98
 	.byte	0xB3
-	.word	Song_0855F6D8
+	.word	Song_0855F9A0_5_7
 	.byte	0xD5
 	.byte	0x29
 	.byte	0x78
@@ -106205,7 +106205,7 @@ Song_0855F6D8:
 	.byte	0x50
 	.byte	0x98
 	.byte	0xB2
-	.word	Song_0855F601
+	.word	Song_0855F9A0_5_8
 	.byte	0xB1
 
 	@********************** Track  6 **********************@
@@ -106214,7 +106214,7 @@ Song_0855F6D8:
 Song_0855F9A0_6:	@ 0x0855F721
 	.byte	0xBC
 	.byte	0x00
-Song_0855F723:
+Song_0855F9A0_6_1:
 	.byte	0xBD
 	.byte	0x30
 	.byte	0xBE
@@ -106845,7 +106845,7 @@ Song_0855F723:
 	.byte	0x28
 	.byte	0x8C
 	.byte	0xB2
-	.word	Song_0855F723
+	.word	Song_0855F9A0_6_1
 	.byte	0xB1
 	.byte	0x00
 	.byte	0x00
@@ -106858,7 +106858,7 @@ Song_0855F9A0:	@ 0x0855F9A0
 	.byte	10		@ priority
 	.byte	148		@ reverb
 
-	.word	voicegroup_08219014		@ voicegroup/tone
+	.word	voicegroup054		@ voicegroup/tone
 
 	.word	Song_0855F9A0_1		@ track
 	.word	Song_0855F9A0_2		@ track
@@ -106976,7 +106976,7 @@ Song_08560508_1:	@ 0x0855F9C0
 	.byte	0x49
 	.byte	0x48
 	.byte	0x86
-Song_0855FA28:
+Song_08560508_1_2:
 	.byte	0xBB
 	.byte	0x4B
 	.byte	0xED
@@ -107111,7 +107111,7 @@ Song_0855FA28:
 	.byte	0x46
 	.byte	0x48
 	.byte	0x86
-Song_0855FAAE:
+Song_08560508_1_1:
 	.byte	0xE9
 	.byte	0x4A
 	.byte	0x70
@@ -107138,7 +107138,7 @@ Song_0855FAAE:
 	.byte	0x86
 	.byte	0xB4
 	.byte	0xB3
-	.word	Song_0855FAAE
+	.word	Song_08560508_1_1
 	.byte	0xFD
 	.byte	0x4D
 	.byte	0x70
@@ -107636,7 +107636,7 @@ Song_0855FAAE:
 	.byte	0x6C
 	.byte	0x8C
 	.byte	0xB2
-	.word	Song_0855FA28
+	.word	Song_08560508_1_2
 	.byte	0xB1
 
 	@********************** Track  2 **********************@
@@ -107670,7 +107670,7 @@ Song_08560508_2:	@ 0x0855FCC2
 	.byte	0x98
 	.byte	0xE7
 	.byte	0x98
-Song_0855FCDD:
+Song_08560508_2_4:
 	.byte	0xFB
 	.byte	0x30
 	.byte	0x78
@@ -107865,7 +107865,7 @@ Song_0855FCDD:
 	.byte	0xD8
 	.byte	0x30
 	.byte	0x8C
-Song_0855FD9F:
+Song_08560508_2_1:
 	.byte	0xBD
 	.byte	0x13
 	.byte	0xBE
@@ -107875,7 +107875,7 @@ Song_0855FD9F:
 	.byte	0x6C
 	.byte	0xB0
 	.byte	0xB4
-Song_0855FDA8:
+Song_08560508_2_2:
 	.byte	0xF7
 	.byte	0x30
 	.byte	0x6C
@@ -107890,10 +107890,10 @@ Song_0855FDA8:
 	.byte	0x8C
 	.byte	0xB4
 	.byte	0xB3
-	.word	Song_0855FD9F
+	.word	Song_08560508_2_1
 	.byte	0xB3
-	.word	Song_0855FDA8
-Song_0855FDBF:
+	.word	Song_08560508_2_2
+Song_08560508_2_3:
 	.byte	0xBD
 	.byte	0x13
 	.byte	0xBE
@@ -107915,7 +107915,7 @@ Song_0855FDBF:
 	.byte	0xDB
 	.byte	0x8C
 	.byte	0xB3
-	.word	Song_0855FDBF
+	.word	Song_08560508_2_3
 	.byte	0xF7
 	.byte	0x33
 	.byte	0x6C
@@ -107989,7 +107989,7 @@ Song_0855FDBF:
 	.byte	0x2F
 	.byte	0x8C
 	.byte	0xB2
-	.word	Song_0855FCDD
+	.word	Song_08560508_2_4
 	.byte	0xB1
 
 	@********************** Track  3 **********************@
@@ -108025,7 +108025,7 @@ Song_08560508_3:	@ 0x0855FE26
 	.byte	0x98
 	.byte	0xE7
 	.byte	0x98
-Song_0855FE43:
+Song_08560508_3_1:
 	.byte	0xBD
 	.byte	0x66
 	.byte	0xBE
@@ -108512,7 +108512,7 @@ Song_0855FE43:
 	.byte	0x41
 	.byte	0x8C
 	.byte	0xB2
-	.word	Song_0855FE43
+	.word	Song_08560508_3_1
 	.byte	0xB1
 
 	@********************** Track  4 **********************@
@@ -108657,7 +108657,7 @@ Song_08560508_4:	@ 0x0856002E
 	.byte	0x42
 	.byte	0x48
 	.byte	0x98
-Song_085600B8:
+Song_08560508_4_2:
 	.byte	0xBD
 	.byte	0x31
 	.byte	0xBE
@@ -109070,7 +109070,7 @@ Song_085600B8:
 	.byte	0x86
 	.byte	0x4A
 	.byte	0x86
-Song_08560254:
+Song_08560508_4_1:
 	.byte	0xBD
 	.byte	0x0E
 	.byte	0xBE
@@ -109116,7 +109116,7 @@ Song_08560254:
 	.byte	0x47
 	.byte	0x86
 	.byte	0xB3
-	.word	Song_08560254
+	.word	Song_08560508_4_1
 	.byte	0xEF
 	.byte	0x45
 	.byte	0x6C
@@ -109173,7 +109173,7 @@ Song_08560254:
 	.byte	0x44
 	.byte	0x8C
 	.byte	0xB2
-	.word	Song_085600B8
+	.word	Song_08560508_4_2
 	.byte	0xB1
 
 	@********************** Track  5 **********************@
@@ -109218,7 +109218,7 @@ Song_08560508_5:	@ 0x085602C2
 	.byte	0x36
 	.byte	0x74
 	.byte	0x8C
-Song_085602E8:
+Song_08560508_5_1:
 	.byte	0xE7
 	.byte	0x36
 	.byte	0x7F
@@ -109234,7 +109234,7 @@ Song_085602E8:
 	.byte	0x86
 	.byte	0xB4
 	.byte	0xB3
-	.word	Song_085602E8
+	.word	Song_08560508_5_1
 	.byte	0xE7
 	.byte	0x36
 	.byte	0x7F
@@ -109245,7 +109245,7 @@ Song_085602E8:
 	.byte	0x98
 	.byte	0x31
 	.byte	0x98
-Song_08560305:
+Song_08560508_5_2:
 	.byte	0xE7
 	.byte	0x3C
 	.byte	0x7F
@@ -109261,8 +109261,8 @@ Song_08560305:
 	.byte	0x86
 	.byte	0xB4
 	.byte	0xB3
-	.word	Song_08560305
-Song_08560318:
+	.word	Song_08560508_5_2
+Song_08560508_5_3:
 	.byte	0xE7
 	.byte	0x38
 	.byte	0x7F
@@ -109278,8 +109278,8 @@ Song_08560318:
 	.byte	0x86
 	.byte	0xB4
 	.byte	0xB3
-	.word	Song_08560318
-Song_0856032B:
+	.word	Song_08560508_5_3
+Song_08560508_5_4:
 	.byte	0xE7
 	.byte	0x39
 	.byte	0x7F
@@ -109295,8 +109295,8 @@ Song_0856032B:
 	.byte	0x86
 	.byte	0xB4
 	.byte	0xB3
-	.word	Song_0856032B
-Song_0856033E:
+	.word	Song_08560508_5_4
+Song_08560508_5_5:
 	.byte	0xE7
 	.byte	0x36
 	.byte	0x7F
@@ -109312,7 +109312,7 @@ Song_0856033E:
 	.byte	0x86
 	.byte	0xB4
 	.byte	0xB3
-	.word	Song_0856033E
+	.word	Song_08560508_5_5
 	.byte	0xE7
 	.byte	0x34
 	.byte	0x7F
@@ -109453,7 +109453,7 @@ Song_0856033E:
 	.byte	0xFF
 	.byte	0xB0
 	.byte	0xB0
-Song_085603DD:
+Song_08560508_5_6:
 	.byte	0xE7
 	.byte	0x39
 	.byte	0x7F
@@ -109465,7 +109465,7 @@ Song_085603DD:
 	.byte	0x34
 	.byte	0x98
 	.byte	0xB4
-Song_085603E8:
+Song_08560508_5_7:
 	.byte	0xE7
 	.byte	0x39
 	.byte	0x7F
@@ -109481,9 +109481,9 @@ Song_085603E8:
 	.byte	0x8C
 	.byte	0xB4
 	.byte	0xB3
-	.word	Song_085603DD
+	.word	Song_08560508_5_6
 	.byte	0xB3
-	.word	Song_085603E8
+	.word	Song_08560508_5_7
 	.byte	0xFB
 	.byte	0x33
 	.byte	0x7F
@@ -109502,7 +109502,7 @@ Song_085603E8:
 	.byte	0x3B
 	.byte	0x98
 	.byte	0xB2
-	.word	Song_08560305
+	.word	Song_08560508_5_2
 	.byte	0xB1
 
 	@********************** Track  6 **********************@
@@ -109522,7 +109522,7 @@ Song_08560508_6:	@ 0x08560417
 	.byte	0xB0
 	.byte	0xB0
 	.byte	0xB0
-Song_08560424:
+Song_08560508_6_1:
 	.byte	0xDB
 	.byte	0x31
 	.byte	0x64
@@ -109552,7 +109552,7 @@ Song_08560424:
 	.byte	0xD5
 	.byte	0x86
 	.byte	0xB4
-Song_08560441:
+Song_08560508_6_2:
 	.byte	0xD5
 	.byte	0x26
 	.byte	0x4C
@@ -109582,7 +109582,7 @@ Song_08560441:
 	.byte	0x86
 	.byte	0xB4
 	.byte	0xB3
-	.word	Song_08560424
+	.word	Song_08560508_6_1
 	.byte	0xD5
 	.byte	0x26
 	.byte	0x4C
@@ -109610,14 +109610,14 @@ Song_08560441:
 	.byte	0xD5
 	.byte	0x86
 	.byte	0xB3
-	.word	Song_08560424
+	.word	Song_08560508_6_1
 	.byte	0xB3
-	.word	Song_08560441
+	.word	Song_08560508_6_2
 	.byte	0xB3
-	.word	Song_08560424
+	.word	Song_08560508_6_1
 	.byte	0xB3
-	.word	Song_08560441
-Song_08560490:
+	.word	Song_08560508_6_2
+Song_08560508_6_3:
 	.byte	0xDB
 	.byte	0x31
 	.byte	0x64
@@ -109649,20 +109649,20 @@ Song_08560490:
 	.byte	0x86
 	.byte	0xB4
 	.byte	0xB3
-	.word	Song_08560441
+	.word	Song_08560508_6_2
 	.byte	0xB3
-	.word	Song_08560490
+	.word	Song_08560508_6_3
 	.byte	0xB3
-	.word	Song_08560441
+	.word	Song_08560508_6_2
 	.byte	0xB3
-	.word	Song_08560490
+	.word	Song_08560508_6_3
 	.byte	0xB3
-	.word	Song_08560441
+	.word	Song_08560508_6_2
 	.byte	0xB3
-	.word	Song_08560490
+	.word	Song_08560508_6_3
 	.byte	0xB3
-	.word	Song_08560441
-Song_085604D1:
+	.word	Song_08560508_6_2
+Song_08560508_6_4:
 	.byte	0xEF
 	.byte	0x31
 	.byte	0x64
@@ -109672,7 +109672,7 @@ Song_085604D1:
 	.byte	0xA0
 	.byte	0xB4
 	.byte	0xB3
-	.word	Song_085604D1
+	.word	Song_08560508_6_4
 	.byte	0xE7
 	.byte	0x31
 	.byte	0x2C
@@ -109709,7 +109709,7 @@ Song_085604D1:
 	.byte	0xB0
 	.byte	0xB0
 	.byte	0xB2
-	.word	Song_08560424
+	.word	Song_08560508_6_1
 	.byte	0xB1
 	.byte	0x00
 
@@ -109721,7 +109721,7 @@ Song_08560508:	@ 0x08560508
 	.byte	10		@ priority
 	.byte	148		@ reverb
 
-	.word	voicegroup_08219614		@ voicegroup/tone
+	.word	voicegroup055		@ voicegroup/tone
 
 	.word	Song_08560508_1		@ track
 	.word	Song_08560508_2		@ track
@@ -109755,7 +109755,7 @@ Song_08560940_1:	@ 0x08560528
 	.byte	0x86
 	.byte	0x47
 	.byte	0x86
-Song_0856053C:
+Song_08560940_1_1:
 	.byte	0xF3
 	.byte	0x49
 	.byte	0x70
@@ -110096,7 +110096,7 @@ Song_0856053C:
 	.byte	0x47
 	.byte	0x86
 	.byte	0xB2
-	.word	Song_0856053C
+	.word	Song_08560940_1_1
 	.byte	0xB1
 
 	@********************** Track  2 **********************@
@@ -110106,7 +110106,7 @@ Song_08560940_2:	@ 0x08560695
 	.byte	0xBC
 	.byte	0x00
 	.byte	0x98
-Song_08560698:
+Song_08560940_2_1:
 	.byte	0xA8
 	.byte	0xA8
 	.byte	0xA0
@@ -110217,7 +110217,7 @@ Song_08560698:
 	.byte	0x39
 	.byte	0x86
 	.byte	0xB2
-	.word	Song_08560698
+	.word	Song_08560940_2_1
 	.byte	0xB1
 
 	@********************** Track  3 **********************@
@@ -110227,7 +110227,7 @@ Song_08560940_3:	@ 0x0856070B
 	.byte	0xBC
 	.byte	0x00
 	.byte	0x98
-Song_0856070E:
+Song_08560940_3_1:
 	.byte	0xA8
 	.byte	0xA8
 	.byte	0xA0
@@ -110264,7 +110264,7 @@ Song_0856070E:
 	.byte	0x43
 	.byte	0x98
 	.byte	0xB2
-	.word	Song_0856070E
+	.word	Song_08560940_3_1
 	.byte	0xB1
 
 	@********************** Track  4 **********************@
@@ -110274,7 +110274,7 @@ Song_08560940_4:	@ 0x08560737
 	.byte	0xBC
 	.byte	0x00
 	.byte	0x98
-Song_0856073A:
+Song_08560940_4_1:
 	.byte	0xBD
 	.byte	0x34
 	.byte	0xBE
@@ -110306,7 +110306,7 @@ Song_0856073A:
 	.byte	0xA8
 	.byte	0xA8
 	.byte	0xB2
-	.word	Song_0856073A
+	.word	Song_08560940_4_1
 	.byte	0xB1
 
 	@********************** Track  5 **********************@
@@ -110322,7 +110322,7 @@ Song_08560940_5:	@ 0x0856075E
 	.byte	0xBF
 	.byte	0x40
 	.byte	0x98
-Song_08560767:
+Song_08560940_5_1:
 	.byte	0xE7
 	.byte	0x3B
 	.byte	0x78
@@ -110340,7 +110340,7 @@ Song_08560767:
 	.byte	0x8C
 	.byte	0x36
 	.byte	0x8C
-Song_08560778:
+Song_08560940_5_2:
 	.byte	0xE7
 	.byte	0x3C
 	.byte	0x78
@@ -110359,7 +110359,7 @@ Song_08560778:
 	.byte	0x37
 	.byte	0x8C
 	.byte	0xB3
-	.word	Song_08560767
+	.word	Song_08560940_5_1
 	.byte	0xE7
 	.byte	0x3B
 	.byte	0x78
@@ -110372,7 +110372,7 @@ Song_08560778:
 	.byte	0x36
 	.byte	0x8C
 	.byte	0xB3
-	.word	Song_08560778
+	.word	Song_08560940_5_2
 	.byte	0xE7
 	.byte	0x3C
 	.byte	0x78
@@ -110395,7 +110395,7 @@ Song_08560778:
 	.byte	0x7F
 	.byte	0x86
 	.byte	0xB2
-	.word	Song_08560767
+	.word	Song_08560940_5_1
 	.byte	0xB1
 
 	@********************** Track  6 **********************@
@@ -110412,7 +110412,7 @@ Song_08560940_6:	@ 0x085607B9
 	.byte	0xBF
 	.byte	0x5D
 	.byte	0x8C
-Song_085607C3:
+Song_08560940_6_1:
 	.byte	0xD5
 	.byte	0x3B
 	.byte	0x54
@@ -110586,7 +110586,7 @@ Song_085607C3:
 	.byte	0x58
 	.byte	0x8C
 	.byte	0xB2
-	.word	Song_085607C3
+	.word	Song_08560940_6_1
 	.byte	0xB1
 
 	@********************** Track  7 **********************@
@@ -110616,7 +110616,7 @@ Song_08560940_7:	@ 0x08560875
 	.byte	0x86
 	.byte	0xD5
 	.byte	0x86
-Song_0856088C:
+Song_08560940_7_1:
 	.byte	0xE7
 	.byte	0x37
 	.byte	0x6C
@@ -110789,7 +110789,7 @@ Song_0856088C:
 	.byte	0xD5
 	.byte	0x86
 	.byte	0xB2
-	.word	Song_0856088C
+	.word	Song_08560940_7_1
 	.byte	0xB1
 	.byte	0x00
 	.byte	0x00
@@ -110803,7 +110803,7 @@ Song_08560940:	@ 0x08560940
 	.byte	10		@ priority
 	.byte	148		@ reverb
 
-	.word	voicegroup_0820B2F8		@ voicegroup/tone
+	.word	voicegroup011		@ voicegroup/tone
 
 	.word	Song_08560940_1		@ track
 	.word	Song_08560940_2		@ track
@@ -110820,7 +110820,7 @@ Song_08560940:	@ 0x08560940
 Song_08560F30_1:	@ 0x08560964
 	.byte	0xBC
 	.byte	0x00
-Song_08560966:
+Song_08560F30_1_2:
 	.byte	0xBB
 	.byte	0x40
 	.byte	0xBD
@@ -110861,7 +110861,7 @@ Song_08560966:
 	.byte	0x56
 	.byte	0x3C
 	.byte	0x86
-Song_0856098E:
+Song_08560F30_1_1:
 	.byte	0x8C
 	.byte	0xD5
 	.byte	0x56
@@ -110974,7 +110974,7 @@ Song_0856098E:
 	.byte	0x3C
 	.byte	0x86
 	.byte	0xB3
-	.word	Song_0856098E
+	.word	Song_08560F30_1_1
 	.byte	0x8C
 	.byte	0xD5
 	.byte	0x56
@@ -111105,7 +111105,7 @@ Song_0856098E:
 	.byte	0x43
 	.byte	0xA8
 	.byte	0xB2
-	.word	Song_08560966
+	.word	Song_08560F30_1_2
 	.byte	0xB1
 
 	@********************** Track  2 **********************@
@@ -111114,7 +111114,7 @@ Song_0856098E:
 Song_08560F30_2:	@ 0x08560A89
 	.byte	0xBC
 	.byte	0x00
-Song_08560A8B:
+Song_08560F30_2_3:
 	.byte	0xBD
 	.byte	0x22
 	.byte	0xBE
@@ -111135,7 +111135,7 @@ Song_08560A8B:
 	.byte	0x8C
 	.byte	0x32
 	.byte	0x8C
-Song_08560A9F:
+Song_08560F30_2_1:
 	.byte	0xDB
 	.byte	0x26
 	.byte	0x64
@@ -111152,8 +111152,8 @@ Song_08560A9F:
 	.byte	0x8C
 	.byte	0xB4
 	.byte	0xB3
-	.word	Song_08560A9F
-Song_08560AB3:
+	.word	Song_08560F30_2_1
+Song_08560F30_2_2:
 	.byte	0xDB
 	.byte	0x26
 	.byte	0x64
@@ -111170,31 +111170,31 @@ Song_08560AB3:
 	.byte	0x8C
 	.byte	0xB4
 	.byte	0xB3
-	.word	Song_08560AB3
+	.word	Song_08560F30_2_2
 	.byte	0xB3
-	.word	Song_08560A9F
+	.word	Song_08560F30_2_1
 	.byte	0xB3
-	.word	Song_08560A9F
+	.word	Song_08560F30_2_1
 	.byte	0xB3
-	.word	Song_08560A9F
+	.word	Song_08560F30_2_1
 	.byte	0xB3
-	.word	Song_08560AB3
+	.word	Song_08560F30_2_2
 	.byte	0xB3
-	.word	Song_08560AB3
+	.word	Song_08560F30_2_2
 	.byte	0xB3
-	.word	Song_08560AB3
+	.word	Song_08560F30_2_2
 	.byte	0xB3
-	.word	Song_08560AB3
+	.word	Song_08560F30_2_2
 	.byte	0xB3
-	.word	Song_08560AB3
+	.word	Song_08560F30_2_2
 	.byte	0xB3
-	.word	Song_08560AB3
+	.word	Song_08560F30_2_2
 	.byte	0xB3
-	.word	Song_08560AB3
+	.word	Song_08560F30_2_2
 	.byte	0xB3
-	.word	Song_08560AB3
+	.word	Song_08560F30_2_2
 	.byte	0xB2
-	.word	Song_08560A8B
+	.word	Song_08560F30_2_3
 	.byte	0xB1
 
 	@********************** Track  3 **********************@
@@ -111203,7 +111203,7 @@ Song_08560AB3:
 Song_08560F30_3:	@ 0x08560B04
 	.byte	0xBC
 	.byte	0x00
-Song_08560B06:
+Song_08560F30_3_2:
 	.byte	0xBD
 	.byte	0x01
 	.byte	0xBE
@@ -111223,7 +111223,7 @@ Song_08560B06:
 	.byte	0x8C
 	.byte	0xDB
 	.byte	0x8C
-Song_08560B19:
+Song_08560F30_3_1:
 	.byte	0x8C
 	.byte	0xDB
 	.byte	0x3E
@@ -111328,7 +111328,7 @@ Song_08560B19:
 	.byte	0xDB
 	.byte	0x8C
 	.byte	0xB3
-	.word	Song_08560B19
+	.word	Song_08560F30_3_1
 	.byte	0x8C
 	.byte	0xDB
 	.byte	0x3E
@@ -111511,7 +111511,7 @@ Song_08560B19:
 	.byte	0x3C
 	.byte	0x9A
 	.byte	0xB2
-	.word	Song_08560B06
+	.word	Song_08560F30_3_2
 	.byte	0xB1
 
 	@********************** Track  4 **********************@
@@ -111520,7 +111520,7 @@ Song_08560B19:
 Song_08560F30_4:	@ 0x08560C40
 	.byte	0xBC
 	.byte	0x00
-Song_08560C42:
+Song_08560F30_4_2:
 	.byte	0xBD
 	.byte	0x0B
 	.byte	0xBE
@@ -111540,7 +111540,7 @@ Song_08560C42:
 	.byte	0x8C
 	.byte	0xD8
 	.byte	0x8C
-Song_08560C55:
+Song_08560F30_4_1:
 	.byte	0x8C
 	.byte	0xD8
 	.byte	0x4A
@@ -111556,7 +111556,7 @@ Song_08560C55:
 	.byte	0x8C
 	.byte	0xB4
 	.byte	0xB3
-	.word	Song_08560C55
+	.word	Song_08560F30_4_1
 	.byte	0xD8
 	.byte	0x4A
 	.byte	0x38
@@ -111624,9 +111624,9 @@ Song_08560C55:
 	.byte	0xD8
 	.byte	0x8C
 	.byte	0xB3
-	.word	Song_08560C55
+	.word	Song_08560F30_4_1
 	.byte	0xB3
-	.word	Song_08560C55
+	.word	Song_08560F30_4_1
 	.byte	0xD8
 	.byte	0x4A
 	.byte	0x38
@@ -111723,7 +111723,7 @@ Song_08560C55:
 	.byte	0x4C
 	.byte	0xA8
 	.byte	0xB2
-	.word	Song_08560C42
+	.word	Song_08560F30_4_2
 	.byte	0xB1
 
 	@********************** Track  5 **********************@
@@ -111732,7 +111732,7 @@ Song_08560C55:
 Song_08560F30_5:	@ 0x08560D19
 	.byte	0xBC
 	.byte	0x00
-Song_08560D1B:
+Song_08560F30_5_3:
 	.byte	0xBD
 	.byte	0x7F
 	.byte	0xBE
@@ -111783,7 +111783,7 @@ Song_08560D1B:
 	.byte	0x3D
 	.byte	0x60
 	.byte	0x8C
-Song_08560D4D:
+Song_08560F30_5_1:
 	.byte	0xD5
 	.byte	0x36
 	.byte	0x38
@@ -111829,7 +111829,7 @@ Song_08560D4D:
 	.byte	0x8C
 	.byte	0xB4
 	.byte	0xB3
-	.word	Song_08560D4D
+	.word	Song_08560F30_5_1
 	.byte	0xD5
 	.byte	0x36
 	.byte	0x38
@@ -111933,7 +111933,7 @@ Song_08560D4D:
 	.byte	0x3E
 	.byte	0x60
 	.byte	0x86
-Song_08560DE5:
+Song_08560F30_5_2:
 	.byte	0xD5
 	.byte	0x36
 	.byte	0x38
@@ -112025,7 +112025,7 @@ Song_08560DE5:
 	.byte	0x5C
 	.byte	0x86
 	.byte	0xB3
-	.word	Song_08560D4D
+	.word	Song_08560F30_5_1
 	.byte	0xD5
 	.byte	0x36
 	.byte	0x38
@@ -112133,9 +112133,9 @@ Song_08560DE5:
 	.byte	0x1C
 	.byte	0x86
 	.byte	0xB3
-	.word	Song_08560DE5
+	.word	Song_08560F30_5_2
 	.byte	0xB3
-	.word	Song_08560D4D
+	.word	Song_08560F30_5_1
 	.byte	0xD5
 	.byte	0x36
 	.byte	0x38
@@ -112183,9 +112183,9 @@ Song_08560DE5:
 	.byte	0x5C
 	.byte	0x86
 	.byte	0xB3
-	.word	Song_08560D4D
+	.word	Song_08560F30_5_1
 	.byte	0xB3
-	.word	Song_08560D4D
+	.word	Song_08560F30_5_1
 	.byte	0xD5
 	.byte	0x36
 	.byte	0x38
@@ -112242,7 +112242,7 @@ Song_08560DE5:
 	.byte	0x60
 	.byte	0x86
 	.byte	0xB2
-	.word	Song_08560D1B
+	.word	Song_08560F30_5_3
 	.byte	0xB1
 	.byte	0x00
 	.byte	0x00
@@ -112256,7 +112256,7 @@ Song_08560F30:	@ 0x08560F30
 	.byte	10		@ priority
 	.byte	148		@ reverb
 
-	.word	voicegroup_08219C14		@ voicegroup/tone
+	.word	voicegroup056		@ voicegroup/tone
 
 	.word	Song_08560F30_1		@ track
 	.word	Song_08560F30_2		@ track
@@ -112271,7 +112271,7 @@ Song_08560F30:	@ 0x08560F30
 Song_08561590_1:	@ 0x08560F4C
 	.byte	0xBC
 	.byte	0x00
-Song_08560F4E:
+Song_08561590_1_1:
 	.byte	0xBB
 	.byte	0x25
 	.byte	0xBD
@@ -112405,7 +112405,7 @@ Song_08560F4E:
 	.byte	0x32
 	.byte	0x84
 	.byte	0xB2
-	.word	Song_08560F4E
+	.word	Song_08561590_1_1
 	.byte	0xBE
 	.byte	0x32
 	.byte	0xB1
@@ -112416,7 +112416,7 @@ Song_08560F4E:
 Song_08561590_2:	@ 0x08560FDA
 	.byte	0xBC
 	.byte	0x00
-Song_08560FDC:
+Song_08561590_2_1:
 	.byte	0xBD
 	.byte	0x2E
 	.byte	0xBE
@@ -112554,7 +112554,7 @@ Song_08560FDC:
 	.byte	0x4C
 	.byte	0x86
 	.byte	0xB2
-	.word	Song_08560FDC
+	.word	Song_08561590_2_1
 	.byte	0xB1
 
 	@********************** Track  3 **********************@
@@ -112563,7 +112563,7 @@ Song_08560FDC:
 Song_08561590_3:	@ 0x0856106A
 	.byte	0xBC
 	.byte	0x00
-Song_0856106C:
+Song_08561590_3_1:
 	.byte	0xBD
 	.byte	0x00
 	.byte	0xBE
@@ -112937,7 +112937,7 @@ Song_0856106C:
 	.byte	0x26
 	.byte	0x81
 	.byte	0xB2
-	.word	Song_0856106C
+	.word	Song_08561590_3_1
 	.byte	0xBE
 	.byte	0x25
 	.byte	0x81
@@ -112950,7 +112950,7 @@ Song_0856106C:
 Song_08561590_4:	@ 0x085611EA
 	.byte	0xBC
 	.byte	0x00
-Song_085611EC:
+Song_08561590_4_1:
 	.byte	0xBD
 	.byte	0x00
 	.byte	0xBE
@@ -113334,7 +113334,7 @@ Song_085611EC:
 	.byte	0x22
 	.byte	0x81
 	.byte	0xB2
-	.word	Song_085611EC
+	.word	Song_08561590_4_1
 	.byte	0xBE
 	.byte	0x22
 	.byte	0xB1
@@ -113345,7 +113345,7 @@ Song_085611EC:
 Song_08561590_5:	@ 0x08561372
 	.byte	0xBC
 	.byte	0x00
-Song_08561374:
+Song_08561590_5_1:
 	.byte	0xBD
 	.byte	0x66
 	.byte	0xBE
@@ -113729,7 +113729,7 @@ Song_08561374:
 	.byte	0x21
 	.byte	0x82
 	.byte	0xB2
-	.word	Song_08561374
+	.word	Song_08561590_5_1
 	.byte	0xBE
 	.byte	0x1F
 	.byte	0xB1
@@ -113740,7 +113740,7 @@ Song_08561374:
 Song_08561590_6:	@ 0x085614FA
 	.byte	0xBC
 	.byte	0x00
-Song_085614FC:
+Song_08561590_6_1:
 	.byte	0xBD
 	.byte	0x2E
 	.byte	0xBE
@@ -113883,7 +113883,7 @@ Song_085614FC:
 	.byte	0x4C
 	.byte	0x83
 	.byte	0xB2
-	.word	Song_085614FC
+	.word	Song_08561590_6_1
 	.byte	0xB1
 	.byte	0x00
 
@@ -113895,7 +113895,7 @@ Song_08561590:	@ 0x08561590
 	.byte	10		@ priority
 	.byte	148		@ reverb
 
-	.word	voicegroup_0821A214		@ voicegroup/tone
+	.word	voicegroup057		@ voicegroup/tone
 
 	.word	Song_08561590_1		@ track
 	.word	Song_08561590_2		@ track
@@ -114131,7 +114131,7 @@ Song_08561E20_1:	@ 0x085615B0
 	.byte	0x82
 	.byte	0x1F
 	.byte	0x81
-Song_0856168E:
+Song_08561E20_1_1:
 	.byte	0xBE
 	.byte	0x1E
 	.byte	0xE7
@@ -114557,7 +114557,7 @@ Song_0856168E:
 	.byte	0x1F
 	.byte	0x83
 	.byte	0xB2
-	.word	Song_0856168E
+	.word	Song_08561E20_1_1
 	.byte	0xB1
 
 	@********************** Track  2 **********************@
@@ -114835,7 +114835,7 @@ Song_08561E20_2:	@ 0x0856183C
 	.byte	0x81
 	.byte	0x31
 	.byte	0x81
-Song_0856194B:
+Song_08561E20_2_1:
 	.byte	0xD5
 	.byte	0x51
 	.byte	0x5C
@@ -115361,7 +115361,7 @@ Song_0856194B:
 	.byte	0x30
 	.byte	0x82
 	.byte	0xB2
-	.word	Song_0856194B
+	.word	Song_08561E20_2_1
 	.byte	0xB1
 
 	@********************** Track  3 **********************@
@@ -115456,7 +115456,7 @@ Song_08561E20_3:	@ 0x08561B5D
 	.byte	0x87
 	.byte	0x26
 	.byte	0x81
-Song_08561BB5:
+Song_08561E20_3_1:
 	.byte	0xBE
 	.byte	0x26
 	.byte	0xE7
@@ -115618,7 +115618,7 @@ Song_08561BB5:
 	.byte	0x25
 	.byte	0x88
 	.byte	0xB2
-	.word	Song_08561BB5
+	.word	Song_08561E20_3_1
 	.byte	0xB1
 
 	@********************** Track  4 **********************@
@@ -115710,7 +115710,7 @@ Song_08561E20_4:	@ 0x08561C5B
 	.byte	0x87
 	.byte	0x26
 	.byte	0x81
-Song_08561CB0:
+Song_08561E20_4_1:
 	.byte	0xBE
 	.byte	0x26
 	.byte	0xE7
@@ -115866,7 +115866,7 @@ Song_08561CB0:
 	.byte	0x25
 	.byte	0x88
 	.byte	0xB2
-	.word	Song_08561CB0
+	.word	Song_08561E20_4_1
 	.byte	0xB1
 
 	@********************** Track  5 **********************@
@@ -115946,7 +115946,7 @@ Song_08561E20_5:	@ 0x08561D50
 	.byte	0x26
 	.byte	0x81
 	.byte	0xCE
-Song_08561D99:
+Song_08561E20_5_1:
 	.byte	0xBE
 	.byte	0x26
 	.byte	0xCF
@@ -116077,7 +116077,7 @@ Song_08561D99:
 	.byte	0x88
 	.byte	0xCE
 	.byte	0xB2
-	.word	Song_08561D99
+	.word	Song_08561E20_5_1
 	.byte	0xB1
 
 	.align 2
@@ -116088,7 +116088,7 @@ Song_08561E20:	@ 0x08561E20
 	.byte	10		@ priority
 	.byte	148		@ reverb
 
-	.word	voicegroup_0821A6E8		@ voicegroup/tone
+	.word	voicegroup058		@ voicegroup/tone
 
 	.word	Song_08561E20_1		@ track
 	.word	Song_08561E20_2		@ track
@@ -116167,7 +116167,7 @@ Song_08562688_1:	@ 0x08561E3C
 	.byte	0x42
 	.byte	0x1C
 	.byte	0x89
-Song_08561E7E:
+Song_08562688_1_1:
 	.byte	0xEF
 	.byte	0x44
 	.byte	0x64
@@ -116246,7 +116246,7 @@ Song_08561E7E:
 	.byte	0x3D
 	.byte	0x98
 	.byte	0xB2
-	.word	Song_08561E7E
+	.word	Song_08562688_1_1
 	.byte	0xB1
 
 	@********************** Track  2 **********************@
@@ -116278,7 +116278,7 @@ Song_08562688_2:	@ 0x08561ED1
 	.byte	0x8C
 	.byte	0x31
 	.byte	0x8C
-Song_08561EEA:
+Song_08562688_2_1:
 	.byte	0xD5
 	.byte	0x36
 	.byte	0x7C
@@ -116295,11 +116295,11 @@ Song_08561EEA:
 	.byte	0x8C
 	.byte	0xB4
 	.byte	0xB3
-	.word	Song_08561EEA
+	.word	Song_08562688_2_1
 	.byte	0xB3
-	.word	Song_08561EEA
+	.word	Song_08562688_2_1
 	.byte	0xB3
-	.word	Song_08561EEA
+	.word	Song_08562688_2_1
 	.byte	0xD5
 	.byte	0x36
 	.byte	0x7C
@@ -116353,7 +116353,7 @@ Song_08561EEA:
 	.byte	0x31
 	.byte	0x8C
 	.byte	0xB2
-	.word	Song_08561EEA
+	.word	Song_08562688_2_1
 	.byte	0xB1
 
 	@********************** Track  3 **********************@
@@ -116811,7 +116811,7 @@ Song_08562688_3:	@ 0x08561F42
 	.byte	0xD5
 	.byte	0x46
 	.byte	0x8C
-Song_08562105:
+Song_08562688_3_1:
 	.byte	0xBD
 	.byte	0x44
 	.byte	0xBF
@@ -116981,7 +116981,7 @@ Song_08562105:
 	.byte	0x18
 	.byte	0x8C
 	.byte	0xB2
-	.word	Song_08562105
+	.word	Song_08562688_3_1
 	.byte	0xB1
 
 	@********************** Track  4 **********************@
@@ -117057,7 +117057,7 @@ Song_08562688_4:	@ 0x085621B3
 	.byte	0x3D
 	.byte	0x1C
 	.byte	0x89
-Song_085621F8:
+Song_08562688_4_1:
 	.byte	0xD3
 	.byte	0x42
 	.byte	0x64
@@ -117109,8 +117109,8 @@ Song_085621F8:
 	.byte	0x86
 	.byte	0xB4
 	.byte	0xB3
-	.word	Song_085621F8
-Song_0856222F:
+	.word	Song_08562688_4_1
+Song_08562688_4_2:
 	.byte	0xD3
 	.byte	0x42
 	.byte	0x64
@@ -117162,8 +117162,8 @@ Song_0856222F:
 	.byte	0x86
 	.byte	0xB4
 	.byte	0xB3
-	.word	Song_0856222F
-Song_08562266:
+	.word	Song_08562688_4_2
+Song_08562688_4_3:
 	.byte	0xD3
 	.byte	0x3D
 	.byte	0x64
@@ -117215,7 +117215,7 @@ Song_08562266:
 	.byte	0x86
 	.byte	0xB4
 	.byte	0xB3
-	.word	Song_08562266
+	.word	Song_08562688_4_3
 	.byte	0xD3
 	.byte	0x3D
 	.byte	0x64
@@ -117266,9 +117266,9 @@ Song_08562266:
 	.byte	0x48
 	.byte	0x86
 	.byte	0xB3
-	.word	Song_08562266
+	.word	Song_08562688_4_3
 	.byte	0xB2
-	.word	Song_085621F8
+	.word	Song_08562688_4_1
 	.byte	0xB1
 
 	@********************** Track  5 **********************@
@@ -117465,7 +117465,7 @@ Song_08562688_5:	@ 0x085622D9
 	.byte	0x3D
 	.byte	0x1C
 	.byte	0x89
-Song_08562397:
+Song_08562688_5_3:
 	.byte	0xBD
 	.byte	0x66
 	.byte	0xBF
@@ -117567,7 +117567,7 @@ Song_08562397:
 	.byte	0x49
 	.byte	0x48
 	.byte	0x86
-Song_085623FC:
+Song_08562688_5_1:
 	.byte	0xD3
 	.byte	0x42
 	.byte	0x64
@@ -117619,8 +117619,8 @@ Song_085623FC:
 	.byte	0x86
 	.byte	0xB4
 	.byte	0xB3
-	.word	Song_085623FC
-Song_08562433:
+	.word	Song_08562688_5_1
+Song_08562688_5_2:
 	.byte	0xD3
 	.byte	0x3D
 	.byte	0x64
@@ -117672,7 +117672,7 @@ Song_08562433:
 	.byte	0x86
 	.byte	0xB4
 	.byte	0xB3
-	.word	Song_08562433
+	.word	Song_08562688_5_2
 	.byte	0xD3
 	.byte	0x3D
 	.byte	0x64
@@ -117723,9 +117723,9 @@ Song_08562433:
 	.byte	0x48
 	.byte	0x86
 	.byte	0xB3
-	.word	Song_08562433
+	.word	Song_08562688_5_2
 	.byte	0xB2
-	.word	Song_08562397
+	.word	Song_08562688_5_3
 	.byte	0xB1
 
 	@********************** Track  6 **********************@
@@ -117940,7 +117940,7 @@ Song_08562688_6:	@ 0x085624A6
 	.byte	0x36
 	.byte	0x6C
 	.byte	0x83
-Song_08562576:
+Song_08562688_6_3:
 	.byte	0xBD
 	.byte	0x33
 	.byte	0xBE
@@ -117994,7 +117994,7 @@ Song_08562576:
 	.byte	0x31
 	.byte	0x50
 	.byte	0x86
-Song_085625AB:
+Song_08562688_6_2:
 	.byte	0xD3
 	.byte	0x36
 	.byte	0x7C
@@ -118045,7 +118045,7 @@ Song_085625AB:
 	.byte	0x50
 	.byte	0x86
 	.byte	0xB4
-Song_085625DD:
+Song_08562688_6_1:
 	.byte	0xD3
 	.byte	0x36
 	.byte	0x7C
@@ -118097,11 +118097,11 @@ Song_085625DD:
 	.byte	0x86
 	.byte	0xB4
 	.byte	0xB3
-	.word	Song_085625DD
+	.word	Song_08562688_6_1
 	.byte	0xB3
-	.word	Song_085625AB
+	.word	Song_08562688_6_2
 	.byte	0xB3
-	.word	Song_085625AB
+	.word	Song_08562688_6_2
 	.byte	0xD3
 	.byte	0x2F
 	.byte	0x7C
@@ -118200,7 +118200,7 @@ Song_085625DD:
 	.byte	0x50
 	.byte	0x86
 	.byte	0xB2
-	.word	Song_08562576
+	.word	Song_08562688_6_3
 	.byte	0xB1
 	.byte	0x00
 	.byte	0x00
@@ -118214,7 +118214,7 @@ Song_08562688:	@ 0x08562688
 	.byte	10		@ priority
 	.byte	148		@ reverb
 
-	.word	voicegroup_0821ABBC		@ voicegroup/tone
+	.word	voicegroup059		@ voicegroup/tone
 
 	.word	Song_08562688_1		@ track
 	.word	Song_08562688_2		@ track
@@ -118276,7 +118276,7 @@ Song_08562E70_1:	@ 0x085626A8
 	.byte	0x43
 	.byte	0x18
 	.byte	0x90
-Song_085626D8:
+Song_08562E70_1_1:
 	.byte	0xD7
 	.byte	0x3E
 	.byte	0x4C
@@ -118316,29 +118316,29 @@ Song_085626D8:
 	.byte	0x90
 	.byte	0xB4
 	.byte	0xB3
-	.word	Song_085626D8
+	.word	Song_08562E70_1_1
 	.byte	0xB3
-	.word	Song_085626D8
+	.word	Song_08562E70_1_1
 	.byte	0xB3
-	.word	Song_085626D8
+	.word	Song_08562E70_1_1
 	.byte	0xB3
-	.word	Song_085626D8
+	.word	Song_08562E70_1_1
 	.byte	0xB3
-	.word	Song_085626D8
+	.word	Song_08562E70_1_1
 	.byte	0xB3
-	.word	Song_085626D8
+	.word	Song_08562E70_1_1
 	.byte	0xB3
-	.word	Song_085626D8
+	.word	Song_08562E70_1_1
 	.byte	0xB3
-	.word	Song_085626D8
+	.word	Song_08562E70_1_1
 	.byte	0xB3
-	.word	Song_085626D8
+	.word	Song_08562E70_1_1
 	.byte	0xB3
-	.word	Song_085626D8
+	.word	Song_08562E70_1_1
 	.byte	0xB3
-	.word	Song_085626D8
+	.word	Song_08562E70_1_1
 	.byte	0xB3
-	.word	Song_085626D8
+	.word	Song_08562E70_1_1
 	.byte	0xE0
 	.byte	0x3E
 	.byte	0x58
@@ -118425,25 +118425,25 @@ Song_085626D8:
 	.byte	0x20
 	.byte	0x86
 	.byte	0xB3
-	.word	Song_085626D8
+	.word	Song_08562E70_1_1
 	.byte	0xB3
-	.word	Song_085626D8
+	.word	Song_08562E70_1_1
 	.byte	0xB3
-	.word	Song_085626D8
+	.word	Song_08562E70_1_1
 	.byte	0xB3
-	.word	Song_085626D8
+	.word	Song_08562E70_1_1
 	.byte	0xB3
-	.word	Song_085626D8
+	.word	Song_08562E70_1_1
 	.byte	0xB3
-	.word	Song_085626D8
+	.word	Song_08562E70_1_1
 	.byte	0xB3
-	.word	Song_085626D8
+	.word	Song_08562E70_1_1
 	.byte	0xB3
-	.word	Song_085626D8
+	.word	Song_08562E70_1_1
 	.byte	0xB3
-	.word	Song_085626D8
+	.word	Song_08562E70_1_1
 	.byte	0xB2
-	.word	Song_085626D8
+	.word	Song_08562E70_1_1
 	.byte	0xB1
 
 	@********************** Track  2 **********************@
@@ -118467,7 +118467,7 @@ Song_08562E70_2:	@ 0x085627C2
 	.byte	0x9C
 	.byte	0xD5
 	.byte	0x98
-Song_085627D3:
+Song_08562E70_2_1:
 	.byte	0xD5
 	.byte	0x2D
 	.byte	0x7F
@@ -118479,7 +118479,7 @@ Song_085627D3:
 	.byte	0xD5
 	.byte	0x8C
 	.byte	0xB4
-Song_085627DE:
+Song_08562E70_2_2:
 	.byte	0xD5
 	.byte	0x2D
 	.byte	0x7F
@@ -118490,27 +118490,27 @@ Song_085627DE:
 	.byte	0x98
 	.byte	0xB4
 	.byte	0xB3
-	.word	Song_085627D3
+	.word	Song_08562E70_2_1
 	.byte	0xB3
-	.word	Song_085627DE
+	.word	Song_08562E70_2_2
 	.byte	0xB3
-	.word	Song_085627D3
+	.word	Song_08562E70_2_1
 	.byte	0xB3
-	.word	Song_085627DE
+	.word	Song_08562E70_2_2
 	.byte	0xB3
-	.word	Song_085627D3
+	.word	Song_08562E70_2_1
 	.byte	0xB3
-	.word	Song_085627DE
+	.word	Song_08562E70_2_2
 	.byte	0xB3
-	.word	Song_085627D3
+	.word	Song_08562E70_2_1
 	.byte	0xB3
-	.word	Song_085627DE
+	.word	Song_08562E70_2_2
 	.byte	0xB3
-	.word	Song_085627D3
+	.word	Song_08562E70_2_1
 	.byte	0xB3
-	.word	Song_085627DE
+	.word	Song_08562E70_2_2
 	.byte	0xB3
-	.word	Song_085627D3
+	.word	Song_08562E70_2_1
 	.byte	0xE1
 	.byte	0x29
 	.byte	0x7F
@@ -118536,7 +118536,7 @@ Song_085627DE:
 	.byte	0x86
 	.byte	0x2D
 	.byte	0x86
-Song_08562837:
+Song_08562E70_2_3:
 	.byte	0xD5
 	.byte	0x2B
 	.byte	0x7F
@@ -118546,7 +118546,7 @@ Song_08562837:
 	.byte	0xD5
 	.byte	0x98
 	.byte	0xB4
-Song_08562840:
+Song_08562E70_2_4:
 	.byte	0xD5
 	.byte	0x2B
 	.byte	0x7F
@@ -118559,8 +118559,8 @@ Song_08562840:
 	.byte	0x8C
 	.byte	0xB4
 	.byte	0xB3
-	.word	Song_08562837
-Song_08562850:
+	.word	Song_08562E70_2_3
+Song_08562E70_2_5:
 	.byte	0xD5
 	.byte	0x2B
 	.byte	0x7F
@@ -118573,17 +118573,17 @@ Song_08562850:
 	.byte	0x8C
 	.byte	0xB4
 	.byte	0xB3
-	.word	Song_08562837
+	.word	Song_08562E70_2_3
 	.byte	0xB3
-	.word	Song_08562840
+	.word	Song_08562E70_2_4
 	.byte	0xB3
-	.word	Song_08562837
+	.word	Song_08562E70_2_3
 	.byte	0xB3
-	.word	Song_08562850
+	.word	Song_08562E70_2_5
 	.byte	0xB3
-	.word	Song_085627DE
+	.word	Song_08562E70_2_2
 	.byte	0xB2
-	.word	Song_085627D3
+	.word	Song_08562E70_2_1
 	.byte	0xB1
 
 	@********************** Track  3 **********************@
@@ -118615,7 +118615,7 @@ Song_08562E70_3:	@ 0x0856287A
 	.byte	0x86
 	.byte	0x3B
 	.byte	0x86
-Song_08562893:
+Song_08562E70_3_2:
 	.byte	0xF7
 	.byte	0x3E
 	.byte	0x7F
@@ -118725,7 +118725,7 @@ Song_08562893:
 	.byte	0xB0
 	.byte	0xB0
 	.byte	0xB0
-Song_08562900:
+Song_08562E70_3_1:
 	.byte	0x98
 	.byte	0xD4
 	.byte	0x34
@@ -118746,7 +118746,7 @@ Song_08562900:
 	.byte	0xA0
 	.byte	0xB4
 	.byte	0xB3
-	.word	Song_08562900
+	.word	Song_08562E70_3_1
 	.byte	0x98
 	.byte	0xD4
 	.byte	0x3B
@@ -118783,9 +118783,9 @@ Song_08562900:
 	.byte	0x70
 	.byte	0xA8
 	.byte	0xB3
-	.word	Song_08562900
+	.word	Song_08562E70_3_1
 	.byte	0xB3
-	.word	Song_08562900
+	.word	Song_08562E70_3_1
 	.byte	0x98
 	.byte	0xD4
 	.byte	0x3B
@@ -118829,7 +118829,7 @@ Song_08562900:
 	.byte	0x3B
 	.byte	0x86
 	.byte	0xB2
-	.word	Song_08562893
+	.word	Song_08562E70_3_2
 	.byte	0xB1
 
 	@********************** Track  4 **********************@
@@ -118839,7 +118839,7 @@ Song_08562E70_4:	@ 0x08562975
 	.byte	0xBC
 	.byte	0x00
 	.byte	0x98
-Song_08562978:
+Song_08562E70_4_1:
 	.byte	0xBD
 	.byte	0x3D
 	.byte	0xBE
@@ -118848,7 +118848,7 @@ Song_08562978:
 	.byte	0x59
 	.byte	0xB0
 	.byte	0xB4
-Song_08562980:
+Song_08562E70_4_2:
 	.byte	0x98
 	.byte	0xD5
 	.byte	0x39
@@ -119213,9 +119213,9 @@ Song_08562980:
 	.byte	0xB0
 	.byte	0xB0
 	.byte	0xB3
-	.word	Song_08562978
+	.word	Song_08562E70_4_1
 	.byte	0xB2
-	.word	Song_08562980
+	.word	Song_08562E70_4_2
 	.byte	0xB1
 
 	@********************** Track  5 **********************@
@@ -119226,7 +119226,7 @@ Song_08562E70_5:	@ 0x08562AF6
 	.byte	0x00
 	.byte	0x98
 	.byte	0xB0
-Song_08562AFA:
+Song_08562E70_5_3:
 	.byte	0xB0
 	.byte	0xB0
 	.byte	0xB0
@@ -119332,7 +119332,7 @@ Song_08562AFA:
 	.byte	0x37
 	.byte	0x20
 	.byte	0x92
-Song_08562B63:
+Song_08562E70_5_1:
 	.byte	0xD4
 	.byte	0x37
 	.byte	0x70
@@ -119360,10 +119360,10 @@ Song_08562B63:
 	.byte	0x92
 	.byte	0xB4
 	.byte	0xB3
-	.word	Song_08562B63
+	.word	Song_08562E70_5_1
 	.byte	0xB3
-	.word	Song_08562B63
-Song_08562B87:
+	.word	Song_08562E70_5_1
+Song_08562E70_5_2:
 	.byte	0xD4
 	.byte	0x43
 	.byte	0x70
@@ -119391,14 +119391,14 @@ Song_08562B87:
 	.byte	0x92
 	.byte	0xB4
 	.byte	0xB3
-	.word	Song_08562B87
+	.word	Song_08562E70_5_2
 	.byte	0xB3
-	.word	Song_08562B87
+	.word	Song_08562E70_5_2
 	.byte	0xB3
-	.word	Song_08562B87
+	.word	Song_08562E70_5_2
 	.byte	0xB0
 	.byte	0xB2
-	.word	Song_08562AFA
+	.word	Song_08562E70_5_3
 	.byte	0xB1
 
 	@********************** Track  6 **********************@
@@ -119425,7 +119425,7 @@ Song_08562E70_6:	@ 0x08562BB7
 	.byte	0x39
 	.byte	0x7C
 	.byte	0xB0
-Song_08562BCB:
+Song_08562E70_6_1:
 	.byte	0xB0
 	.byte	0xB0
 	.byte	0xB0
@@ -119762,7 +119762,7 @@ Song_08562BCB:
 	.byte	0x37
 	.byte	0x81
 	.byte	0xB2
-	.word	Song_08562BCB
+	.word	Song_08562E70_6_1
 	.byte	0xB1
 
 	@********************** Track  7 **********************@
@@ -119778,7 +119778,7 @@ Song_08562E70_7:	@ 0x08562D20
 	.byte	0xBF
 	.byte	0x40
 	.byte	0x98
-Song_08562D29:
+Song_08562E70_7_4:
 	.byte	0xD4
 	.byte	0x26
 	.byte	0x6C
@@ -119810,7 +119810,7 @@ Song_08562D29:
 	.byte	0x64
 	.byte	0x8C
 	.byte	0xB4
-Song_08562D48:
+Song_08562E70_7_1:
 	.byte	0xD4
 	.byte	0x26
 	.byte	0x70
@@ -119841,7 +119841,7 @@ Song_08562D48:
 	.byte	0x64
 	.byte	0x86
 	.byte	0xB4
-Song_08562D66:
+Song_08562E70_7_2:
 	.byte	0xD4
 	.byte	0x26
 	.byte	0x6C
@@ -119871,7 +119871,7 @@ Song_08562D66:
 	.byte	0x54
 	.byte	0x8C
 	.byte	0xB4
-Song_08562D83:
+Song_08562E70_7_3:
 	.byte	0xD4
 	.byte	0x26
 	.byte	0x64
@@ -119901,7 +119901,7 @@ Song_08562D83:
 	.byte	0x5C
 	.byte	0x86
 	.byte	0xB4
-Song_08562DA0:
+Song_08562E70_7_5:
 	.byte	0xD4
 	.byte	0x26
 	.byte	0x6C
@@ -119930,21 +119930,21 @@ Song_08562DA0:
 	.byte	0x8C
 	.byte	0xB4
 	.byte	0xB3
-	.word	Song_08562D48
+	.word	Song_08562E70_7_1
 	.byte	0xB3
-	.word	Song_08562D66
+	.word	Song_08562E70_7_2
 	.byte	0xB3
-	.word	Song_08562D83
+	.word	Song_08562E70_7_3
 	.byte	0xB3
-	.word	Song_08562D29
+	.word	Song_08562E70_7_4
 	.byte	0xB3
-	.word	Song_08562D48
+	.word	Song_08562E70_7_1
 	.byte	0xB3
-	.word	Song_08562D66
+	.word	Song_08562E70_7_2
 	.byte	0xB3
-	.word	Song_08562D83
+	.word	Song_08562E70_7_3
 	.byte	0xB3
-	.word	Song_08562DA0
+	.word	Song_08562E70_7_5
 	.byte	0xD4
 	.byte	0x26
 	.byte	0x70
@@ -120012,19 +120012,19 @@ Song_08562DA0:
 	.byte	0x6C
 	.byte	0x98
 	.byte	0xB3
-	.word	Song_08562D29
+	.word	Song_08562E70_7_4
 	.byte	0xB3
-	.word	Song_08562D48
+	.word	Song_08562E70_7_1
 	.byte	0xB3
-	.word	Song_08562D66
+	.word	Song_08562E70_7_2
 	.byte	0xB3
-	.word	Song_08562D83
+	.word	Song_08562E70_7_3
 	.byte	0xB3
-	.word	Song_08562DA0
+	.word	Song_08562E70_7_5
 	.byte	0xB3
-	.word	Song_08562D48
+	.word	Song_08562E70_7_1
 	.byte	0xB3
-	.word	Song_08562D66
+	.word	Song_08562E70_7_2
 	.byte	0xD4
 	.byte	0x26
 	.byte	0x64
@@ -120052,9 +120052,9 @@ Song_08562DA0:
 	.byte	0x27
 	.byte	0x98
 	.byte	0xB3
-	.word	Song_08562D29
+	.word	Song_08562E70_7_4
 	.byte	0xB2
-	.word	Song_08562D48
+	.word	Song_08562E70_7_1
 	.byte	0xB1
 	.byte	0x00
 	.byte	0x00
@@ -120068,7 +120068,7 @@ Song_08562E70:	@ 0x08562E70
 	.byte	10		@ priority
 	.byte	148		@ reverb
 
-	.word	voicegroup_0820B8F8		@ voicegroup/tone
+	.word	voicegroup012		@ voicegroup/tone
 
 	.word	Song_08562E70_1		@ track
 	.word	Song_08562E70_2		@ track
@@ -120085,7 +120085,7 @@ Song_08562E70:	@ 0x08562E70
 Song_085637BC_1:	@ 0x08562E94
 	.byte	0xBC
 	.byte	0x00
-Song_08562E96:
+Song_085637BC_1_4:
 	.byte	0xBB
 	.byte	0x49
 	.byte	0xBD
@@ -120113,7 +120113,7 @@ Song_08562E96:
 	.byte	0x46
 	.byte	0x3C
 	.byte	0x9A
-Song_08562EB1:
+Song_085637BC_1_1:
 	.byte	0xD5
 	.byte	0x45
 	.byte	0x68
@@ -120180,7 +120180,7 @@ Song_08562EB1:
 	.byte	0x3C
 	.byte	0x9A
 	.byte	0xB3
-	.word	Song_08562EB1
+	.word	Song_085637BC_1_1
 	.byte	0x98
 	.byte	0xD5
 	.byte	0x47
@@ -120306,7 +120306,7 @@ Song_08562EB1:
 	.byte	0x40
 	.byte	0x3C
 	.byte	0x86
-Song_08562F74:
+Song_085637BC_1_2:
 	.byte	0xD5
 	.byte	0x3B
 	.byte	0x68
@@ -120358,8 +120358,8 @@ Song_08562F74:
 	.byte	0x86
 	.byte	0xB4
 	.byte	0xB3
-	.word	Song_08562F74
-Song_08562FAB:
+	.word	Song_085637BC_1_2
+Song_085637BC_1_3:
 	.byte	0xD5
 	.byte	0x3E
 	.byte	0x68
@@ -120411,7 +120411,7 @@ Song_08562FAB:
 	.byte	0x86
 	.byte	0xB4
 	.byte	0xB3
-	.word	Song_08562FAB
+	.word	Song_085637BC_1_3
 	.byte	0xD5
 	.byte	0x40
 	.byte	0x68
@@ -120575,7 +120575,7 @@ Song_08562FAB:
 	.byte	0x4C
 	.byte	0xA8
 	.byte	0xB2
-	.word	Song_08562E96
+	.word	Song_085637BC_1_4
 	.byte	0xB1
 
 	@********************** Track  2 **********************@
@@ -120584,7 +120584,7 @@ Song_08562FAB:
 Song_085637BC_2:	@ 0x0856308A
 	.byte	0xBC
 	.byte	0x00
-Song_0856308C:
+Song_085637BC_2_6:
 	.byte	0xBD
 	.byte	0x22
 	.byte	0xBE
@@ -120599,7 +120599,7 @@ Song_0856308C:
 	.byte	0x98
 	.byte	0x2D
 	.byte	0x9C
-Song_0856309A:
+Song_085637BC_2_1:
 	.byte	0xDB
 	.byte	0x2D
 	.byte	0x7F
@@ -120611,7 +120611,7 @@ Song_0856309A:
 	.byte	0xDB
 	.byte	0x8C
 	.byte	0xB4
-Song_085630A5:
+Song_085637BC_2_2:
 	.byte	0x98
 	.byte	0xDB
 	.byte	0x28
@@ -120629,9 +120629,9 @@ Song_085630A5:
 	.byte	0x2D
 	.byte	0x9C
 	.byte	0xB3
-	.word	Song_0856309A
+	.word	Song_085637BC_2_1
 	.byte	0xB3
-	.word	Song_085630A5
+	.word	Song_085637BC_2_2
 	.byte	0xDB
 	.byte	0x2D
 	.byte	0x7F
@@ -120681,7 +120681,7 @@ Song_085630A5:
 	.byte	0x98
 	.byte	0xDB
 	.byte	0x8C
-Song_085630F0:
+Song_085637BC_2_3:
 	.byte	0xDB
 	.byte	0x28
 	.byte	0x7F
@@ -120696,8 +120696,8 @@ Song_085630F0:
 	.byte	0x8C
 	.byte	0xB4
 	.byte	0xB3
-	.word	Song_085630F0
-Song_08563102:
+	.word	Song_085637BC_2_3
+Song_085637BC_2_4:
 	.byte	0xDB
 	.byte	0x2D
 	.byte	0x7F
@@ -120714,7 +120714,7 @@ Song_08563102:
 	.byte	0x28
 	.byte	0x98
 	.byte	0xB4
-Song_08563112:
+Song_085637BC_2_5:
 	.byte	0xDB
 	.byte	0x2D
 	.byte	0x7F
@@ -120749,9 +120749,9 @@ Song_08563112:
 	.byte	0x28
 	.byte	0x98
 	.byte	0xB3
-	.word	Song_08563102
+	.word	Song_085637BC_2_4
 	.byte	0xB3
-	.word	Song_08563112
+	.word	Song_085637BC_2_5
 	.byte	0x8C
 	.byte	0xDB
 	.byte	0x2D
@@ -120770,7 +120770,7 @@ Song_08563112:
 	.byte	0x30
 	.byte	0x8C
 	.byte	0xB2
-	.word	Song_0856308C
+	.word	Song_085637BC_2_6
 	.byte	0xB1
 
 	@********************** Track  3 **********************@
@@ -120779,7 +120779,7 @@ Song_08563112:
 Song_085637BC_3:	@ 0x08563154
 	.byte	0xBC
 	.byte	0x00
-Song_08563156:
+Song_085637BC_3_5:
 	.byte	0xBD
 	.byte	0x3B
 	.byte	0xBE
@@ -120805,7 +120805,7 @@ Song_08563156:
 	.byte	0x40
 	.byte	0x28
 	.byte	0x9A
-Song_0856316F:
+Song_085637BC_3_1:
 	.byte	0xD5
 	.byte	0x40
 	.byte	0x68
@@ -120872,7 +120872,7 @@ Song_0856316F:
 	.byte	0x28
 	.byte	0x9A
 	.byte	0xB3
-	.word	Song_0856316F
+	.word	Song_085637BC_3_1
 	.byte	0xBD
 	.byte	0x30
 	.byte	0xBE
@@ -120902,7 +120902,7 @@ Song_0856316F:
 	.byte	0x86
 	.byte	0x43
 	.byte	0x86
-Song_085631D2:
+Song_085637BC_3_2:
 	.byte	0xD5
 	.byte	0x37
 	.byte	0x68
@@ -120954,8 +120954,8 @@ Song_085631D2:
 	.byte	0x86
 	.byte	0xB4
 	.byte	0xB3
-	.word	Song_085631D2
-Song_08563209:
+	.word	Song_085637BC_3_2
+Song_085637BC_3_3:
 	.byte	0xD5
 	.byte	0x37
 	.byte	0x68
@@ -121007,8 +121007,8 @@ Song_08563209:
 	.byte	0x86
 	.byte	0xB4
 	.byte	0xB3
-	.word	Song_08563209
-Song_08563240:
+	.word	Song_085637BC_3_3
+Song_085637BC_3_4:
 	.byte	0xD5
 	.byte	0x3A
 	.byte	0x68
@@ -121060,7 +121060,7 @@ Song_08563240:
 	.byte	0x86
 	.byte	0xB4
 	.byte	0xB3
-	.word	Song_08563240
+	.word	Song_085637BC_3_4
 	.byte	0xD5
 	.byte	0x3B
 	.byte	0x68
@@ -121260,7 +121260,7 @@ Song_08563240:
 	.byte	0x40
 	.byte	0x98
 	.byte	0xB2
-	.word	Song_08563156
+	.word	Song_085637BC_3_5
 	.byte	0xB1
 
 	@********************** Track  4 **********************@
@@ -121269,7 +121269,7 @@ Song_08563240:
 Song_085637BC_4:	@ 0x08563343
 	.byte	0xBC
 	.byte	0x00
-Song_08563345:
+Song_085637BC_4_2:
 	.byte	0xBD
 	.byte	0x30
 	.byte	0xBE
@@ -121325,7 +121325,7 @@ Song_08563345:
 	.byte	0x39
 	.byte	0x20
 	.byte	0x86
-Song_0856337C:
+Song_085637BC_4_1:
 	.byte	0xD5
 	.byte	0x39
 	.byte	0x68
@@ -121473,7 +121473,7 @@ Song_0856337C:
 	.byte	0x20
 	.byte	0x86
 	.byte	0xB3
-	.word	Song_0856337C
+	.word	Song_085637BC_4_1
 	.byte	0xD5
 	.byte	0x39
 	.byte	0x68
@@ -121782,7 +121782,7 @@ Song_0856337C:
 	.byte	0x41
 	.byte	0x8C
 	.byte	0xB2
-	.word	Song_08563345
+	.word	Song_085637BC_4_2
 	.byte	0xB1
 
 	@********************** Track  5 **********************@
@@ -121791,7 +121791,7 @@ Song_0856337C:
 Song_085637BC_5:	@ 0x0856354C
 	.byte	0xBC
 	.byte	0x00
-Song_0856354E:
+Song_085637BC_5_5:
 	.byte	0xBD
 	.byte	0x2F
 	.byte	0xBE
@@ -121806,7 +121806,7 @@ Song_0856354E:
 	.byte	0x98
 	.byte	0x39
 	.byte	0x9C
-Song_0856355C:
+Song_085637BC_5_1:
 	.byte	0xE7
 	.byte	0x39
 	.byte	0x68
@@ -121818,7 +121818,7 @@ Song_0856355C:
 	.byte	0xE7
 	.byte	0x8C
 	.byte	0xB4
-Song_08563567:
+Song_085637BC_5_2:
 	.byte	0x98
 	.byte	0xE7
 	.byte	0x34
@@ -121836,9 +121836,9 @@ Song_08563567:
 	.byte	0x39
 	.byte	0x9C
 	.byte	0xB3
-	.word	Song_0856355C
+	.word	Song_085637BC_5_1
 	.byte	0xB3
-	.word	Song_08563567
+	.word	Song_085637BC_5_2
 	.byte	0xE7
 	.byte	0x39
 	.byte	0x68
@@ -121907,7 +121907,7 @@ Song_08563567:
 	.byte	0x98
 	.byte	0xDB
 	.byte	0x8C
-Song_085635C5:
+Song_085637BC_5_3:
 	.byte	0xDB
 	.byte	0x39
 	.byte	0x68
@@ -121924,7 +121924,7 @@ Song_085635C5:
 	.byte	0x34
 	.byte	0x98
 	.byte	0xB4
-Song_085635D5:
+Song_085637BC_5_4:
 	.byte	0xDB
 	.byte	0x39
 	.byte	0x68
@@ -121959,9 +121959,9 @@ Song_085635D5:
 	.byte	0x34
 	.byte	0x98
 	.byte	0xB3
-	.word	Song_085635C5
+	.word	Song_085637BC_5_3
 	.byte	0xB3
-	.word	Song_085635D5
+	.word	Song_085637BC_5_4
 	.byte	0x8C
 	.byte	0xDB
 	.byte	0x39
@@ -121980,7 +121980,7 @@ Song_085635D5:
 	.byte	0x34
 	.byte	0x8C
 	.byte	0xB2
-	.word	Song_0856354E
+	.word	Song_085637BC_5_5
 	.byte	0xB1
 
 	@********************** Track  6 **********************@
@@ -121989,7 +121989,7 @@ Song_085635D5:
 Song_085637BC_6:	@ 0x08563617
 	.byte	0xBC
 	.byte	0x00
-Song_08563619:
+Song_085637BC_6_4:
 	.byte	0xBD
 	.byte	0x7F
 	.byte	0xBE
@@ -122302,7 +122302,7 @@ Song_08563619:
 	.byte	0x86
 	.byte	0xD5
 	.byte	0x86
-Song_08563751:
+Song_085637BC_6_1:
 	.byte	0xEB
 	.byte	0x31
 	.byte	0x50
@@ -122326,7 +122326,7 @@ Song_08563751:
 	.byte	0x54
 	.byte	0x98
 	.byte	0xB4
-Song_08563768:
+Song_085637BC_6_2:
 	.byte	0xD5
 	.byte	0x26
 	.byte	0x74
@@ -122351,7 +122351,7 @@ Song_08563768:
 	.byte	0x70
 	.byte	0x8C
 	.byte	0xB4
-Song_08563780:
+Song_085637BC_6_3:
 	.byte	0xD5
 	.byte	0x2D
 	.byte	0x68
@@ -122390,13 +122390,13 @@ Song_08563780:
 	.byte	0x84
 	.byte	0xB4
 	.byte	0xB3
-	.word	Song_08563751
+	.word	Song_085637BC_6_1
 	.byte	0xB3
-	.word	Song_08563768
+	.word	Song_085637BC_6_2
 	.byte	0xB3
-	.word	Song_08563780
+	.word	Song_085637BC_6_3
 	.byte	0xB2
-	.word	Song_08563619
+	.word	Song_085637BC_6_4
 	.byte	0xB1
 	.byte	0x00
 	.byte	0x00
@@ -122409,7 +122409,7 @@ Song_085637BC:	@ 0x085637BC
 	.byte	10		@ priority
 	.byte	148		@ reverb
 
-	.word	voicegroup_0821B090		@ voicegroup/tone
+	.word	voicegroup060		@ voicegroup/tone
 
 	.word	Song_085637BC_1		@ track
 	.word	Song_085637BC_2		@ track
@@ -122425,7 +122425,7 @@ Song_085637BC:	@ 0x085637BC
 Song_08564AAC_1:	@ 0x085637DC
 	.byte	0xBC
 	.byte	0x00
-Song_085637DE:
+Song_08564AAC_1_2:
 	.byte	0xBB
 	.byte	0x4D
 	.byte	0xBD
@@ -123295,7 +123295,7 @@ Song_085637DE:
 	.byte	0x44
 	.byte	0x54
 	.byte	0xA8
-Song_08563B43:
+Song_08564AAC_1_1:
 	.byte	0xD5
 	.byte	0x41
 	.byte	0x48
@@ -123334,7 +123334,7 @@ Song_08563B43:
 	.byte	0x48
 	.byte	0x98
 	.byte	0xB3
-	.word	Song_08563B43
+	.word	Song_08564AAC_1_1
 	.byte	0xF3
 	.byte	0x44
 	.byte	0x48
@@ -123564,7 +123564,7 @@ Song_08563B43:
 	.byte	0x38
 	.byte	0x88
 	.byte	0xB2
-	.word	Song_085637DE
+	.word	Song_08564AAC_1_2
 	.byte	0xB1
 
 	@********************** Track  2 **********************@
@@ -123573,7 +123573,7 @@ Song_08563B43:
 Song_08564AAC_2:	@ 0x08563C57
 	.byte	0xBC
 	.byte	0x00
-Song_08563C59:
+Song_08564AAC_2_5:
 	.byte	0xBD
 	.byte	0x22
 	.byte	0xBE
@@ -123604,7 +123604,7 @@ Song_08563C59:
 	.byte	0x8C
 	.byte	0x2D
 	.byte	0x8C
-Song_08563C77:
+Song_08564AAC_2_1:
 	.byte	0xD5
 	.byte	0x2C
 	.byte	0x7C
@@ -123630,7 +123630,7 @@ Song_08563C77:
 	.byte	0x2D
 	.byte	0x8C
 	.byte	0xB4
-Song_08563C90:
+Song_08564AAC_2_2:
 	.byte	0xD5
 	.byte	0x2C
 	.byte	0x7C
@@ -123657,16 +123657,16 @@ Song_08563C90:
 	.byte	0x8C
 	.byte	0xB4
 	.byte	0xB3
-	.word	Song_08563C77
+	.word	Song_08564AAC_2_1
 	.byte	0xB3
-	.word	Song_08563C90
+	.word	Song_08564AAC_2_2
 	.byte	0xB3
-	.word	Song_08563C77
+	.word	Song_08564AAC_2_1
 	.byte	0xB3
-	.word	Song_08563C90
+	.word	Song_08564AAC_2_2
 	.byte	0xB3
-	.word	Song_08563C77
-Song_08563CC2:
+	.word	Song_08564AAC_2_1
+Song_08564AAC_2_3:
 	.byte	0xD5
 	.byte	0x2F
 	.byte	0x7C
@@ -123685,12 +123685,12 @@ Song_08563CC2:
 	.byte	0x2F
 	.byte	0x98
 	.byte	0xB3
-	.word	Song_08563CC2
+	.word	Song_08564AAC_2_3
 	.byte	0xF6
 	.byte	0x31
 	.byte	0x7C
 	.byte	0xA8
-Song_08563CDC:
+Song_08564AAC_2_4:
 	.byte	0xD5
 	.byte	0x32
 	.byte	0x7C
@@ -123709,7 +123709,7 @@ Song_08563CDC:
 	.byte	0x32
 	.byte	0x98
 	.byte	0xB3
-	.word	Song_08563CDC
+	.word	Song_08564AAC_2_4
 	.byte	0xF4
 	.byte	0x34
 	.byte	0x7C
@@ -123743,7 +123743,7 @@ Song_08563CDC:
 	.byte	0x34
 	.byte	0xA8
 	.byte	0xB2
-	.word	Song_08563C59
+	.word	Song_08564AAC_2_5
 	.byte	0xB1
 
 	@********************** Track  3 **********************@
@@ -123752,7 +123752,7 @@ Song_08563CDC:
 Song_08564AAC_3:	@ 0x08563D18
 	.byte	0xBC
 	.byte	0x00
-Song_08563D1A:
+Song_08564AAC_3_4:
 	.byte	0xBD
 	.byte	0x30
 	.byte	0xBE
@@ -125189,7 +125189,7 @@ Song_08563D1A:
 	.byte	0x3E
 	.byte	0x34
 	.byte	0x8C
-Song_085642B6:
+Song_08564AAC_3_1:
 	.byte	0xF3
 	.byte	0x3E
 	.byte	0x60
@@ -125200,8 +125200,8 @@ Song_085642B6:
 	.byte	0x8C
 	.byte	0xB4
 	.byte	0xB3
-	.word	Song_085642B6
-Song_085642C4:
+	.word	Song_08564AAC_3_1
+Song_08564AAC_3_2:
 	.byte	0xF3
 	.byte	0x41
 	.byte	0x60
@@ -125212,11 +125212,11 @@ Song_085642C4:
 	.byte	0x8C
 	.byte	0xB4
 	.byte	0xB3
-	.word	Song_085642C4
+	.word	Song_08564AAC_3_2
 	.byte	0xB3
-	.word	Song_085642C4
+	.word	Song_08564AAC_3_2
 	.byte	0xB3
-	.word	Song_085642C4
+	.word	Song_08564AAC_3_2
 	.byte	0xF3
 	.byte	0x44
 	.byte	0x60
@@ -125241,7 +125241,7 @@ Song_085642C4:
 	.byte	0x88
 	.byte	0x3E
 	.byte	0x98
-Song_085642F4:
+Song_08564AAC_3_3:
 	.byte	0xD7
 	.byte	0x41
 	.byte	0x60
@@ -125262,7 +125262,7 @@ Song_085642F4:
 	.byte	0xA8
 	.byte	0xA8
 	.byte	0xB3
-	.word	Song_085642F4
+	.word	Song_08564AAC_3_3
 	.byte	0xD7
 	.byte	0x44
 	.byte	0x60
@@ -125316,7 +125316,7 @@ Song_085642F4:
 	.byte	0x45
 	.byte	0x88
 	.byte	0xB2
-	.word	Song_08563D1A
+	.word	Song_08564AAC_3_4
 	.byte	0xB1
 
 	@********************** Track  4 **********************@
@@ -125325,7 +125325,7 @@ Song_085642F4:
 Song_08564AAC_4:	@ 0x08564346
 	.byte	0xBC
 	.byte	0x00
-Song_08564348:
+Song_08564AAC_4_4:
 	.byte	0xBD
 	.byte	0x3D
 	.byte	0xBE
@@ -126257,7 +126257,7 @@ Song_08564348:
 	.byte	0x31
 	.byte	0x50
 	.byte	0x8C
-Song_085646EB:
+Song_08564AAC_4_1:
 	.byte	0xE7
 	.byte	0x32
 	.byte	0x78
@@ -126281,7 +126281,7 @@ Song_085646EB:
 	.byte	0x78
 	.byte	0x98
 	.byte	0xB3
-	.word	Song_085646EB
+	.word	Song_08564AAC_4_1
 	.byte	0xF3
 	.byte	0x34
 	.byte	0x78
@@ -126315,7 +126315,7 @@ Song_085646EB:
 	.byte	0x88
 	.byte	0x37
 	.byte	0x98
-Song_08564727:
+Song_08564AAC_4_2:
 	.byte	0xD7
 	.byte	0x3A
 	.byte	0x70
@@ -126351,7 +126351,7 @@ Song_08564727:
 	.byte	0x88
 	.byte	0x38
 	.byte	0x88
-Song_0856474A:
+Song_08564AAC_4_3:
 	.byte	0xD7
 	.byte	0x38
 	.byte	0x70
@@ -126374,7 +126374,7 @@ Song_0856474A:
 	.byte	0x88
 	.byte	0xB4
 	.byte	0xB3
-	.word	Song_08564727
+	.word	Song_08564AAC_4_2
 	.byte	0xD7
 	.byte	0x3D
 	.byte	0x70
@@ -126392,7 +126392,7 @@ Song_0856474A:
 	.byte	0x3D
 	.byte	0x98
 	.byte	0xB3
-	.word	Song_0856474A
+	.word	Song_08564AAC_4_3
 	.byte	0xD7
 	.byte	0x3B
 	.byte	0x70
@@ -126414,7 +126414,7 @@ Song_0856474A:
 	.byte	0x3E
 	.byte	0x88
 	.byte	0xB2
-	.word	Song_08564348
+	.word	Song_08564AAC_4_4
 	.byte	0xB1
 
 	@********************** Track  5 **********************@
@@ -126423,7 +126423,7 @@ Song_0856474A:
 Song_08564AAC_5:	@ 0x08564793
 	.byte	0xBC
 	.byte	0x00
-Song_08564795:
+Song_08564AAC_5_5:
 	.byte	0xBD
 	.byte	0x2F
 	.byte	0xBE
@@ -126454,7 +126454,7 @@ Song_08564795:
 	.byte	0x8C
 	.byte	0xDB
 	.byte	0x8C
-Song_085647B3:
+Song_08564AAC_5_1:
 	.byte	0xE7
 	.byte	0x38
 	.byte	0x60
@@ -126480,7 +126480,7 @@ Song_085647B3:
 	.byte	0xDB
 	.byte	0x8C
 	.byte	0xB4
-Song_085647CC:
+Song_08564AAC_5_2:
 	.byte	0xE7
 	.byte	0x38
 	.byte	0x60
@@ -126507,16 +126507,16 @@ Song_085647CC:
 	.byte	0x8C
 	.byte	0xB4
 	.byte	0xB3
-	.word	Song_085647B3
+	.word	Song_08564AAC_5_1
 	.byte	0xB3
-	.word	Song_085647CC
+	.word	Song_08564AAC_5_2
 	.byte	0xB3
-	.word	Song_085647B3
+	.word	Song_08564AAC_5_1
 	.byte	0xB3
-	.word	Song_085647CC
+	.word	Song_08564AAC_5_2
 	.byte	0xB3
-	.word	Song_085647B3
-Song_085647FE:
+	.word	Song_08564AAC_5_1
+Song_08564AAC_5_3:
 	.byte	0xE7
 	.byte	0x3B
 	.byte	0x60
@@ -126550,7 +126550,7 @@ Song_085647FE:
 	.byte	0xE7
 	.byte	0x98
 	.byte	0xB3
-	.word	Song_085647FE
+	.word	Song_08564AAC_5_3
 	.byte	0xD5
 	.byte	0x3D
 	.byte	0x48
@@ -126582,7 +126582,7 @@ Song_085647FE:
 	.byte	0x86
 	.byte	0xD5
 	.byte	0x86
-Song_08564842:
+Song_08564AAC_5_4:
 	.byte	0xE7
 	.byte	0x3E
 	.byte	0x60
@@ -126617,7 +126617,7 @@ Song_08564842:
 	.byte	0x3E
 	.byte	0x98
 	.byte	0xB3
-	.word	Song_08564842
+	.word	Song_08564AAC_5_4
 	.byte	0xD5
 	.byte	0x34
 	.byte	0x48
@@ -126716,7 +126716,7 @@ Song_08564842:
 	.byte	0xE7
 	.byte	0x98
 	.byte	0xB2
-	.word	Song_08564795
+	.word	Song_08564AAC_5_5
 	.byte	0xB1
 
 	@********************** Track  6 **********************@
@@ -126725,7 +126725,7 @@ Song_08564842:
 Song_08564AAC_6:	@ 0x085648CF
 	.byte	0xBC
 	.byte	0x00
-Song_085648D1:
+Song_08564AAC_6_3:
 	.byte	0xBD
 	.byte	0x7F
 	.byte	0xBE
@@ -127115,7 +127115,7 @@ Song_085648D1:
 	.byte	0xD5
 	.byte	0x30
 	.byte	0x8C
-Song_08564A56:
+Song_08564AAC_6_1:
 	.byte	0xEF
 	.byte	0x31
 	.byte	0x4C
@@ -127130,8 +127130,8 @@ Song_08564A56:
 	.byte	0x88
 	.byte	0xB4
 	.byte	0xB3
-	.word	Song_08564A56
-Song_08564A68:
+	.word	Song_08564AAC_6_1
+Song_08564AAC_6_2:
 	.byte	0xD5
 	.byte	0x2D
 	.byte	0x78
@@ -127160,11 +127160,11 @@ Song_08564A68:
 	.byte	0x29
 	.byte	0x86
 	.byte	0xB3
-	.word	Song_08564A56
+	.word	Song_08564AAC_6_1
 	.byte	0xB3
-	.word	Song_08564A56
+	.word	Song_08564AAC_6_1
 	.byte	0xB3
-	.word	Song_08564A68
+	.word	Song_08564AAC_6_2
 	.byte	0xD5
 	.byte	0x30
 	.byte	0x78
@@ -127184,7 +127184,7 @@ Song_08564A68:
 	.byte	0x29
 	.byte	0x86
 	.byte	0xB2
-	.word	Song_085648D1
+	.word	Song_08564AAC_6_3
 	.byte	0xB1
 	.byte	0x00
 	.byte	0x00
@@ -127197,7 +127197,7 @@ Song_08564AAC:	@ 0x08564AAC
 	.byte	10		@ priority
 	.byte	148		@ reverb
 
-	.word	voicegroup_0821B690		@ voicegroup/tone
+	.word	voicegroup061		@ voicegroup/tone
 
 	.word	Song_08564AAC_1		@ track
 	.word	Song_08564AAC_2		@ track
@@ -127213,7 +127213,7 @@ Song_08564AAC:	@ 0x08564AAC
 Song_08565210_1:	@ 0x08564ACC
 	.byte	0xBC
 	.byte	0x00
-Song_08564ACE:
+Song_08565210_1_1:
 	.byte	0xBB
 	.byte	0x36
 	.byte	0xBD
@@ -127374,7 +127374,7 @@ Song_08564ACE:
 	.byte	0x45
 	.byte	0xB0
 	.byte	0xB2
-	.word	Song_08564ACE
+	.word	Song_08565210_1_1
 	.byte	0xB1
 
 	@********************** Track  2 **********************@
@@ -127383,7 +127383,7 @@ Song_08564ACE:
 Song_08565210_2:	@ 0x08564B73
 	.byte	0xBC
 	.byte	0x00
-Song_08564B75:
+Song_08565210_2_2:
 	.byte	0xBD
 	.byte	0x21
 	.byte	0xBE
@@ -127442,7 +127442,7 @@ Song_08564B75:
 	.byte	0x98
 	.byte	0xE4
 	.byte	0x98
-Song_08564BAF:
+Song_08565210_2_1:
 	.byte	0xDB
 	.byte	0x24
 	.byte	0x7F
@@ -127463,7 +127463,7 @@ Song_08564BAF:
 	.byte	0xDB
 	.byte	0x98
 	.byte	0xB3
-	.word	Song_08564BAF
+	.word	Song_08565210_2_1
 	.byte	0xDB
 	.byte	0x26
 	.byte	0x7F
@@ -127519,7 +127519,7 @@ Song_08564BAF:
 	.byte	0x21
 	.byte	0x98
 	.byte	0xB2
-	.word	Song_08564B75
+	.word	Song_08565210_2_2
 	.byte	0xB1
 
 	@********************** Track  3 **********************@
@@ -127528,7 +127528,7 @@ Song_08564BAF:
 Song_08565210_3:	@ 0x08564C03
 	.byte	0xBC
 	.byte	0x00
-Song_08564C05:
+Song_08565210_3_1:
 	.byte	0xBD
 	.byte	0x30
 	.byte	0xC4
@@ -127790,7 +127790,7 @@ Song_08564C05:
 	.byte	0x58
 	.byte	0xB0
 	.byte	0xB2
-	.word	Song_08564C05
+	.word	Song_08565210_3_1
 	.byte	0xB1
 
 	@********************** Track  4 **********************@
@@ -127799,7 +127799,7 @@ Song_08564C05:
 Song_08565210_4:	@ 0x08564D0F
 	.byte	0xBC
 	.byte	0x00
-Song_08564D11:
+Song_08565210_4_3:
 	.byte	0xBD
 	.byte	0x3E
 	.byte	0xBE
@@ -127974,7 +127974,7 @@ Song_08564D11:
 	.byte	0x98
 	.byte	0xD5
 	.byte	0x8C
-Song_08564DBF:
+Song_08565210_4_1:
 	.byte	0xD5
 	.byte	0x3C
 	.byte	0x58
@@ -128025,7 +128025,7 @@ Song_08564DBF:
 	.byte	0x04
 	.byte	0x86
 	.byte	0xB4
-Song_08564DF1:
+Song_08565210_4_2:
 	.byte	0xD5
 	.byte	0x3E
 	.byte	0x58
@@ -128077,9 +128077,9 @@ Song_08564DF1:
 	.byte	0x86
 	.byte	0xB4
 	.byte	0xB3
-	.word	Song_08564DBF
+	.word	Song_08565210_4_1
 	.byte	0xB3
-	.word	Song_08564DF1
+	.word	Song_08565210_4_2
 	.byte	0xBD
 	.byte	0x45
 	.byte	0xF6
@@ -128127,7 +128127,7 @@ Song_08564DF1:
 	.byte	0xB0
 	.byte	0xB0
 	.byte	0xB2
-	.word	Song_08564D11
+	.word	Song_08565210_4_3
 	.byte	0xB1
 
 	@********************** Track  5 **********************@
@@ -128136,7 +128136,7 @@ Song_08564DF1:
 Song_08565210_5:	@ 0x08564E61
 	.byte	0xBC
 	.byte	0x00
-Song_08564E63:
+Song_08565210_5_1:
 	.byte	0xBD
 	.byte	0x2E
 	.byte	0xBE
@@ -128615,7 +128615,7 @@ Song_08564E63:
 	.byte	0x4C
 	.byte	0x86
 	.byte	0xB2
-	.word	Song_08564E63
+	.word	Song_08565210_5_1
 	.byte	0xB1
 
 	@********************** Track  6 **********************@
@@ -128624,7 +128624,7 @@ Song_08564E63:
 Song_08565210_6:	@ 0x08565046
 	.byte	0xBC
 	.byte	0x00
-Song_08565048:
+Song_08565210_6_1:
 	.byte	0xB0
 	.byte	0xB0
 	.byte	0xB0
@@ -128689,7 +128689,7 @@ Song_08565048:
 	.byte	0xB0
 	.byte	0xB0
 	.byte	0xB2
-	.word	Song_08565048
+	.word	Song_08565210_6_1
 	.byte	0xB1
 
 	@********************** Track  7 **********************@
@@ -128698,7 +128698,7 @@ Song_08565048:
 Song_08565210_7:	@ 0x0856508D
 	.byte	0xBC
 	.byte	0x00
-Song_0856508F:
+Song_08565210_7_4:
 	.byte	0xBD
 	.byte	0x7F
 	.byte	0xBE
@@ -128948,7 +128948,7 @@ Song_0856508F:
 	.byte	0x8C
 	.byte	0xE7
 	.byte	0xB0
-Song_08565188:
+Song_08565210_7_1:
 	.byte	0xEB
 	.byte	0x32
 	.byte	0x58
@@ -128962,7 +128962,7 @@ Song_08565188:
 	.byte	0xE7
 	.byte	0x8C
 	.byte	0xB4
-Song_08565195:
+Song_08565210_7_2:
 	.byte	0x8C
 	.byte	0xE7
 	.byte	0x32
@@ -128978,10 +128978,10 @@ Song_08565195:
 	.byte	0x8C
 	.byte	0xB4
 	.byte	0xB3
-	.word	Song_08565188
+	.word	Song_08565210_7_1
 	.byte	0xB3
-	.word	Song_08565195
-Song_085651AD:
+	.word	Song_08565210_7_2
+Song_08565210_7_3:
 	.byte	0xD5
 	.byte	0x36
 	.byte	0x4C
@@ -129021,9 +129021,9 @@ Song_085651AD:
 	.byte	0x86
 	.byte	0xB4
 	.byte	0xB3
-	.word	Song_085651AD
+	.word	Song_08565210_7_3
 	.byte	0xB3
-	.word	Song_085651AD
+	.word	Song_08565210_7_3
 	.byte	0xD5
 	.byte	0x36
 	.byte	0x4C
@@ -129067,7 +129067,7 @@ Song_085651AD:
 	.byte	0xD5
 	.byte	0x86
 	.byte	0xB2
-	.word	Song_0856508F
+	.word	Song_08565210_7_4
 	.byte	0xB1
 	.byte	0x00
 	.byte	0x00
@@ -129081,7 +129081,7 @@ Song_08565210:	@ 0x08565210
 	.byte	10		@ priority
 	.byte	148		@ reverb
 
-	.word	voicegroup_0821BC90		@ voicegroup/tone
+	.word	voicegroup062		@ voicegroup/tone
 
 	.word	Song_08565210_1		@ track
 	.word	Song_08565210_2		@ track
@@ -129098,7 +129098,7 @@ Song_08565210:	@ 0x08565210
 Song_085659C0_1:	@ 0x08565234
 	.byte	0xBC
 	.byte	0x00
-Song_08565236:
+Song_085659C0_1_1:
 	.byte	0xBB
 	.byte	0x3A
 	.byte	0xBD
@@ -129535,7 +129535,7 @@ Song_08565236:
 	.byte	0x18
 	.byte	0x8C
 	.byte	0xB2
-	.word	Song_08565236
+	.word	Song_085659C0_1_1
 	.byte	0xB1
 
 	@********************** Track  2 **********************@
@@ -129544,7 +129544,7 @@ Song_08565236:
 Song_085659C0_2:	@ 0x085653EF
 	.byte	0xBC
 	.byte	0x00
-Song_085653F1:
+Song_085659C0_2_4:
 	.byte	0xBD
 	.byte	0x22
 	.byte	0xBE
@@ -129557,7 +129557,7 @@ Song_085653F1:
 	.byte	0xA0
 	.byte	0xE4
 	.byte	0xA0
-Song_085653FD:
+Song_085659C0_2_1:
 	.byte	0xE4
 	.byte	0x2F
 	.byte	0x7F
@@ -129566,18 +129566,18 @@ Song_085653FD:
 	.byte	0xA0
 	.byte	0xB4
 	.byte	0xB3
-	.word	Song_085653FD
+	.word	Song_085659C0_2_1
 	.byte	0xB3
-	.word	Song_085653FD
+	.word	Song_085659C0_2_1
 	.byte	0xB3
-	.word	Song_085653FD
+	.word	Song_085659C0_2_1
 	.byte	0xB3
-	.word	Song_085653FD
+	.word	Song_085659C0_2_1
 	.byte	0xB3
-	.word	Song_085653FD
+	.word	Song_085659C0_2_1
 	.byte	0xB3
-	.word	Song_085653FD
-Song_08565422:
+	.word	Song_085659C0_2_1
+Song_085659C0_2_2:
 	.byte	0xE4
 	.byte	0x2D
 	.byte	0x7F
@@ -129586,12 +129586,12 @@ Song_08565422:
 	.byte	0xA0
 	.byte	0xB4
 	.byte	0xB3
-	.word	Song_08565422
+	.word	Song_085659C0_2_2
 	.byte	0xB3
-	.word	Song_08565422
+	.word	Song_085659C0_2_2
 	.byte	0xB3
-	.word	Song_08565422
-Song_08565438:
+	.word	Song_085659C0_2_2
+Song_085659C0_2_3:
 	.byte	0xE1
 	.byte	0x2B
 	.byte	0x7F
@@ -129604,7 +129604,7 @@ Song_08565438:
 	.byte	0x98
 	.byte	0xB4
 	.byte	0xB3
-	.word	Song_08565438
+	.word	Song_085659C0_2_3
 	.byte	0xE1
 	.byte	0x28
 	.byte	0x7F
@@ -129689,7 +129689,7 @@ Song_08565438:
 	.byte	0xD8
 	.byte	0x8C
 	.byte	0xB2
-	.word	Song_085653F1
+	.word	Song_085659C0_2_4
 	.byte	0xB1
 
 	@********************** Track  3 **********************@
@@ -129698,7 +129698,7 @@ Song_08565438:
 Song_085659C0_3:	@ 0x085654A1
 	.byte	0xBC
 	.byte	0x00
-Song_085654A3:
+Song_085659C0_3_2:
 	.byte	0xBD
 	.byte	0x66
 	.byte	0xBE
@@ -129928,7 +129928,7 @@ Song_085654A3:
 	.byte	0x8C
 	.byte	0xD5
 	.byte	0x8C
-Song_08565588:
+Song_085659C0_3_1:
 	.byte	0xD5
 	.byte	0x31
 	.byte	0x68
@@ -129965,7 +129965,7 @@ Song_08565588:
 	.byte	0xD5
 	.byte	0x8C
 	.byte	0xB3
-	.word	Song_08565588
+	.word	Song_085659C0_3_1
 	.byte	0xBD
 	.byte	0x66
 	.byte	0xF5
@@ -130076,7 +130076,7 @@ Song_08565588:
 	.byte	0x3C
 	.byte	0x86
 	.byte	0xB2
-	.word	Song_085654A3
+	.word	Song_085659C0_3_2
 	.byte	0xB1
 
 	@********************** Track  4 **********************@
@@ -130085,7 +130085,7 @@ Song_08565588:
 Song_085659C0_4:	@ 0x08565623
 	.byte	0xBC
 	.byte	0x00
-Song_08565625:
+Song_085659C0_4_5:
 	.byte	0xBD
 	.byte	0x1D
 	.byte	0xBE
@@ -130112,7 +130112,7 @@ Song_08565625:
 	.byte	0x2F
 	.byte	0x74
 	.byte	0x8C
-Song_0856563F:
+Song_085659C0_4_1:
 	.byte	0xD8
 	.byte	0x2F
 	.byte	0x74
@@ -130135,18 +130135,18 @@ Song_0856563F:
 	.byte	0x8C
 	.byte	0xB4
 	.byte	0xB3
-	.word	Song_0856563F
+	.word	Song_085659C0_4_1
 	.byte	0xB3
-	.word	Song_0856563F
+	.word	Song_085659C0_4_1
 	.byte	0xB3
-	.word	Song_0856563F
+	.word	Song_085659C0_4_1
 	.byte	0xB3
-	.word	Song_0856563F
+	.word	Song_085659C0_4_1
 	.byte	0xB3
-	.word	Song_0856563F
+	.word	Song_085659C0_4_1
 	.byte	0xB3
-	.word	Song_0856563F
-Song_08565672:
+	.word	Song_085659C0_4_1
+Song_085659C0_4_2:
 	.byte	0xD8
 	.byte	0x2D
 	.byte	0x74
@@ -130171,12 +130171,12 @@ Song_08565672:
 	.byte	0x8C
 	.byte	0xB4
 	.byte	0xB3
-	.word	Song_08565672
+	.word	Song_085659C0_4_2
 	.byte	0xB3
-	.word	Song_08565672
+	.word	Song_085659C0_4_2
 	.byte	0xB3
-	.word	Song_08565672
-Song_08565698:
+	.word	Song_085659C0_4_2
+Song_085659C0_4_3:
 	.byte	0xD8
 	.byte	0x2B
 	.byte	0x74
@@ -130201,8 +130201,8 @@ Song_08565698:
 	.byte	0x8C
 	.byte	0xB4
 	.byte	0xB3
-	.word	Song_08565698
-Song_085656B4:
+	.word	Song_085659C0_4_3
+Song_085659C0_4_4:
 	.byte	0xD8
 	.byte	0x28
 	.byte	0x74
@@ -130227,7 +130227,7 @@ Song_085656B4:
 	.byte	0x8C
 	.byte	0xB4
 	.byte	0xB3
-	.word	Song_085656B4
+	.word	Song_085659C0_4_4
 	.byte	0xBD
 	.byte	0x2E
 	.byte	0xBE
@@ -130369,7 +130369,7 @@ Song_085656B4:
 	.byte	0x40
 	.byte	0x8C
 	.byte	0xB2
-	.word	Song_08565625
+	.word	Song_085659C0_4_5
 	.byte	0xB1
 
 	@********************** Track  5 **********************@
@@ -130378,7 +130378,7 @@ Song_085656B4:
 Song_085659C0_5:	@ 0x08565762
 	.byte	0xBC
 	.byte	0x00
-Song_08565764:
+Song_085659C0_5_3:
 	.byte	0xBD
 	.byte	0x2F
 	.byte	0xBE
@@ -130397,7 +130397,7 @@ Song_08565764:
 	.byte	0x3B
 	.byte	0x70
 	.byte	0xA0
-Song_08565776:
+Song_085659C0_5_1:
 	.byte	0xE6
 	.byte	0x3B
 	.byte	0x6C
@@ -130406,7 +130406,7 @@ Song_08565776:
 	.byte	0xA0
 	.byte	0xB4
 	.byte	0xB3
-	.word	Song_08565776
+	.word	Song_085659C0_5_1
 	.byte	0xE6
 	.byte	0x3B
 	.byte	0x6C
@@ -130443,9 +130443,9 @@ Song_08565776:
 	.byte	0x6C
 	.byte	0xA0
 	.byte	0xB3
-	.word	Song_08565776
+	.word	Song_085659C0_5_1
 	.byte	0xB3
-	.word	Song_08565776
+	.word	Song_085659C0_5_1
 	.byte	0xE6
 	.byte	0x3B
 	.byte	0x6C
@@ -130481,7 +130481,7 @@ Song_08565776:
 	.byte	0x39
 	.byte	0x6C
 	.byte	0xA0
-Song_085657D2:
+Song_085659C0_5_2:
 	.byte	0xE6
 	.byte	0x39
 	.byte	0x6C
@@ -130490,7 +130490,7 @@ Song_085657D2:
 	.byte	0xA0
 	.byte	0xB4
 	.byte	0xB3
-	.word	Song_085657D2
+	.word	Song_085659C0_5_2
 	.byte	0xE6
 	.byte	0x39
 	.byte	0x6C
@@ -130645,7 +130645,7 @@ Song_085657D2:
 	.byte	0xE6
 	.byte	0xA0
 	.byte	0xB2
-	.word	Song_08565764
+	.word	Song_085659C0_5_3
 	.byte	0xB1
 
 	@********************** Track  6 **********************@
@@ -130654,7 +130654,7 @@ Song_085657D2:
 Song_085659C0_6:	@ 0x0856587D
 	.byte	0xBC
 	.byte	0x00
-Song_0856587F:
+Song_085659C0_6_1:
 	.byte	0xBD
 	.byte	0x3E
 	.byte	0xBE
@@ -130921,7 +130921,7 @@ Song_0856587F:
 	.byte	0xEF
 	.byte	0xA0
 	.byte	0xB2
-	.word	Song_0856587F
+	.word	Song_085659C0_6_1
 	.byte	0xB1
 
 	@********************** Track  7 **********************@
@@ -130930,7 +130930,7 @@ Song_0856587F:
 Song_085659C0_7:	@ 0x0856598E
 	.byte	0xBC
 	.byte	0x00
-Song_08565990:
+Song_085659C0_7_1:
 	.byte	0xBD
 	.byte	0x7F
 	.byte	0xBE
@@ -130973,7 +130973,7 @@ Song_08565990:
 	.byte	0xB0
 	.byte	0xB0
 	.byte	0xB2
-	.word	Song_08565990
+	.word	Song_085659C0_7_1
 	.byte	0xB1
 	.byte	0x00
 
@@ -130985,7 +130985,7 @@ Song_085659C0:	@ 0x085659C0
 	.byte	10		@ priority
 	.byte	148		@ reverb
 
-	.word	voicegroup_0821C290		@ voicegroup/tone
+	.word	voicegroup063		@ voicegroup/tone
 
 	.word	Song_085659C0_1		@ track
 	.word	Song_085659C0_2		@ track
@@ -131002,7 +131002,7 @@ Song_085659C0:	@ 0x085659C0
 Song_085664A4_1:	@ 0x085659E4
 	.byte	0xBC
 	.byte	0x00
-Song_085659E6:
+Song_085664A4_1_1:
 	.byte	0xBB
 	.byte	0x25
 	.byte	0xBD
@@ -131121,7 +131121,7 @@ Song_085659E6:
 	.byte	0x4B
 	.byte	0x8C
 	.byte	0xB2
-	.word	Song_085659E6
+	.word	Song_085664A4_1_1
 	.byte	0xB1
 
 	@********************** Track  2 **********************@
@@ -131130,7 +131130,7 @@ Song_085659E6:
 Song_085664A4_2:	@ 0x08565A61
 	.byte	0xBC
 	.byte	0x00
-Song_08565A63:
+Song_085664A4_2_1:
 	.byte	0xBD
 	.byte	0x31
 	.byte	0xBE
@@ -131279,7 +131279,7 @@ Song_08565A63:
 	.byte	0x0B
 	.byte	0x81
 	.byte	0xB2
-	.word	Song_08565A63
+	.word	Song_085664A4_2_1
 	.byte	0xB1
 
 	@********************** Track  3 **********************@
@@ -131288,7 +131288,7 @@ Song_08565A63:
 Song_085664A4_3:	@ 0x08565AFC
 	.byte	0xBC
 	.byte	0x00
-Song_08565AFE:
+Song_085664A4_3_1:
 	.byte	0xBD
 	.byte	0x30
 	.byte	0xBE
@@ -132556,7 +132556,7 @@ Song_08565AFE:
 	.byte	0x84
 	.byte	0xCE
 	.byte	0xB2
-	.word	Song_08565AFE
+	.word	Song_085664A4_3_1
 	.byte	0xB1
 
 	@********************** Track  4 **********************@
@@ -132565,7 +132565,7 @@ Song_08565AFE:
 Song_085664A4_4:	@ 0x08565FF6
 	.byte	0xBC
 	.byte	0x00
-Song_08565FF8:
+Song_085664A4_4_5:
 	.byte	0xBD
 	.byte	0x2E
 	.byte	0xBE
@@ -132590,7 +132590,7 @@ Song_08565FF8:
 	.byte	0x8C
 	.byte	0x4A
 	.byte	0x8C
-Song_08566010:
+Song_085664A4_4_1:
 	.byte	0xD8
 	.byte	0x2C
 	.byte	0x78
@@ -132627,8 +132627,8 @@ Song_08566010:
 	.byte	0x4A
 	.byte	0x8C
 	.byte	0xB3
-	.word	Song_08566010
-Song_08566038:
+	.word	Song_085664A4_4_1
+Song_085664A4_4_2:
 	.byte	0xD8
 	.byte	0x2A
 	.byte	0x78
@@ -132680,7 +132680,7 @@ Song_08566038:
 	.byte	0x8C
 	.byte	0x48
 	.byte	0x8C
-Song_0856606B:
+Song_085664A4_4_3:
 	.byte	0xD8
 	.byte	0x29
 	.byte	0x78
@@ -132701,8 +132701,8 @@ Song_0856606B:
 	.byte	0x8C
 	.byte	0xB4
 	.byte	0xB3
-	.word	Song_08566038
-Song_08566083:
+	.word	Song_085664A4_4_2
+Song_085664A4_4_4:
 	.byte	0xD8
 	.byte	0x2C
 	.byte	0x78
@@ -132739,11 +132739,11 @@ Song_08566083:
 	.byte	0x50
 	.byte	0x8C
 	.byte	0xB3
-	.word	Song_0856606B
+	.word	Song_085664A4_4_3
 	.byte	0xB3
-	.word	Song_08566038
+	.word	Song_085664A4_4_2
 	.byte	0xB3
-	.word	Song_08566083
+	.word	Song_085664A4_4_4
 	.byte	0xD8
 	.byte	0x2E
 	.byte	0x78
@@ -132779,7 +132779,7 @@ Song_08566083:
 	.byte	0x4B
 	.byte	0x8C
 	.byte	0xB2
-	.word	Song_08565FF8
+	.word	Song_085664A4_4_5
 	.byte	0xB1
 
 	@********************** Track  5 **********************@
@@ -132788,7 +132788,7 @@ Song_08566083:
 Song_085664A4_5:	@ 0x085660DD
 	.byte	0xBC
 	.byte	0x00
-Song_085660DF:
+Song_085664A4_5_1:
 	.byte	0xBD
 	.byte	0x32
 	.byte	0xBE
@@ -133608,7 +133608,7 @@ Song_085660DF:
 	.byte	0x8F
 	.byte	0xCE
 	.byte	0xB2
-	.word	Song_085660DF
+	.word	Song_085664A4_5_1
 	.byte	0xB1
 
 	@********************** Track  6 **********************@
@@ -133617,7 +133617,7 @@ Song_085660DF:
 Song_085664A4_6:	@ 0x08566417
 	.byte	0xBC
 	.byte	0x00
-Song_08566419:
+Song_085664A4_6_1:
 	.byte	0xBD
 	.byte	0x0A
 	.byte	0xBE
@@ -133750,7 +133750,7 @@ Song_08566419:
 	.byte	0x4B
 	.byte	0x86
 	.byte	0xB2
-	.word	Song_08566419
+	.word	Song_085664A4_6_1
 	.byte	0x86
 	.byte	0xB1
 	.byte	0x00
@@ -133763,7 +133763,7 @@ Song_085664A4:	@ 0x085664A4
 	.byte	10		@ priority
 	.byte	148		@ reverb
 
-	.word	voicegroup_0821C890		@ voicegroup/tone
+	.word	voicegroup064		@ voicegroup/tone
 
 	.word	Song_085664A4_1		@ track
 	.word	Song_085664A4_2		@ track
@@ -133779,7 +133779,7 @@ Song_085664A4:	@ 0x085664A4
 Song_08566BD4_1:	@ 0x085664C4
 	.byte	0xBC
 	.byte	0x00
-Song_085664C6:
+Song_08566BD4_1_1:
 	.byte	0xBB
 	.byte	0x30
 	.byte	0xBD
@@ -134295,7 +134295,7 @@ Song_085664C6:
 	.byte	0x14
 	.byte	0x92
 	.byte	0xB2
-	.word	Song_085664C6
+	.word	Song_08566BD4_1_1
 	.byte	0xB1
 
 	@********************** Track  2 **********************@
@@ -134304,7 +134304,7 @@ Song_085664C6:
 Song_08566BD4_2:	@ 0x085666CE
 	.byte	0xBC
 	.byte	0x00
-Song_085666D0:
+Song_08566BD4_2_3:
 	.byte	0xBD
 	.byte	0x01
 	.byte	0xBE
@@ -134317,7 +134317,7 @@ Song_085666D0:
 	.byte	0xA0
 	.byte	0xD5
 	.byte	0xA0
-Song_085666DC:
+Song_08566BD4_2_1:
 	.byte	0xD5
 	.byte	0x2D
 	.byte	0x64
@@ -134330,7 +134330,7 @@ Song_085666DC:
 	.byte	0x98
 	.byte	0xB4
 	.byte	0xB3
-	.word	Song_085666DC
+	.word	Song_08566BD4_2_1
 	.byte	0xD5
 	.byte	0x29
 	.byte	0x64
@@ -134381,7 +134381,7 @@ Song_085666DC:
 	.byte	0x98
 	.byte	0xD5
 	.byte	0x98
-Song_0856671E:
+Song_08566BD4_2_2:
 	.byte	0xD5
 	.byte	0x30
 	.byte	0x64
@@ -134394,7 +134394,7 @@ Song_0856671E:
 	.byte	0x98
 	.byte	0xB4
 	.byte	0xB3
-	.word	Song_0856671E
+	.word	Song_08566BD4_2_2
 	.byte	0xD5
 	.byte	0x2C
 	.byte	0x64
@@ -134421,7 +134421,7 @@ Song_0856671E:
 	.byte	0xD8
 	.byte	0x98
 	.byte	0xB2
-	.word	Song_085666D0
+	.word	Song_08566BD4_2_3
 	.byte	0xB1
 
 	@********************** Track  3 **********************@
@@ -134430,7 +134430,7 @@ Song_0856671E:
 Song_08566BD4_3:	@ 0x0856674D
 	.byte	0xBC
 	.byte	0x00
-Song_0856674F:
+Song_08566BD4_3_3:
 	.byte	0xBD
 	.byte	0x15
 	.byte	0xBE
@@ -134449,7 +134449,7 @@ Song_0856674F:
 	.byte	0x8C
 	.byte	0x43
 	.byte	0x8C
-Song_08566761:
+Song_08566BD4_3_1:
 	.byte	0xD5
 	.byte	0x45
 	.byte	0x48
@@ -134470,7 +134470,7 @@ Song_08566761:
 	.byte	0x8C
 	.byte	0xB4
 	.byte	0xB3
-	.word	Song_08566761
+	.word	Song_08566BD4_3_1
 	.byte	0xD5
 	.byte	0x41
 	.byte	0x48
@@ -134569,7 +134569,7 @@ Song_08566761:
 	.byte	0x8C
 	.byte	0x4D
 	.byte	0x8C
-Song_085667DB:
+Song_08566BD4_3_2:
 	.byte	0xD5
 	.byte	0x48
 	.byte	0x48
@@ -134590,7 +134590,7 @@ Song_085667DB:
 	.byte	0x8C
 	.byte	0xB4
 	.byte	0xB3
-	.word	Song_085667DB
+	.word	Song_08566BD4_3_2
 	.byte	0xD5
 	.byte	0x44
 	.byte	0x48
@@ -134638,7 +134638,7 @@ Song_085667DB:
 	.byte	0x4A
 	.byte	0x8C
 	.byte	0xB2
-	.word	Song_0856674F
+	.word	Song_08566BD4_3_3
 	.byte	0xB1
 
 	@********************** Track  4 **********************@
@@ -134647,7 +134647,7 @@ Song_085667DB:
 Song_08566BD4_4:	@ 0x08566827
 	.byte	0xBC
 	.byte	0x00
-Song_08566829:
+Song_08566BD4_4_1:
 	.byte	0xBD
 	.byte	0x13
 	.byte	0xBE
@@ -135293,7 +135293,7 @@ Song_08566829:
 	.byte	0x3C
 	.byte	0x8C
 	.byte	0xB2
-	.word	Song_08566829
+	.word	Song_08566BD4_4_1
 	.byte	0xB1
 
 	@********************** Track  5 **********************@
@@ -135302,7 +135302,7 @@ Song_08566829:
 Song_08566BD4_5:	@ 0x08566AB3
 	.byte	0xBC
 	.byte	0x00
-Song_08566AB5:
+Song_08566BD4_5_2:
 	.byte	0xBD
 	.byte	0x3E
 	.byte	0xBE
@@ -135322,7 +135322,7 @@ Song_08566AB5:
 	.byte	0x37
 	.byte	0x24
 	.byte	0x9C
-Song_08566AC8:
+Song_08566BD4_5_1:
 	.byte	0xD5
 	.byte	0x39
 	.byte	0x68
@@ -135335,7 +135335,7 @@ Song_08566AC8:
 	.byte	0x98
 	.byte	0xB4
 	.byte	0xB3
-	.word	Song_08566AC8
+	.word	Song_08566BD4_5_1
 	.byte	0xD5
 	.byte	0x35
 	.byte	0x68
@@ -135426,7 +135426,7 @@ Song_08566AC8:
 	.byte	0xD5
 	.byte	0x98
 	.byte	0xB2
-	.word	Song_08566AB5
+	.word	Song_08566BD4_5_2
 	.byte	0xB1
 
 	@********************** Track  6 **********************@
@@ -135435,7 +135435,7 @@ Song_08566AC8:
 Song_08566BD4_6:	@ 0x08566B37
 	.byte	0xBC
 	.byte	0x00
-Song_08566B39:
+Song_08566BD4_6_3:
 	.byte	0xBD
 	.byte	0x0C
 	.byte	0xBE
@@ -135455,7 +135455,7 @@ Song_08566B39:
 	.byte	0x43
 	.byte	0x24
 	.byte	0x9C
-Song_08566B4C:
+Song_08566BD4_6_1:
 	.byte	0xD5
 	.byte	0x45
 	.byte	0x68
@@ -135468,7 +135468,7 @@ Song_08566B4C:
 	.byte	0x98
 	.byte	0xB4
 	.byte	0xB3
-	.word	Song_08566B4C
+	.word	Song_08566BD4_6_1
 	.byte	0xD5
 	.byte	0x41
 	.byte	0x68
@@ -135519,7 +135519,7 @@ Song_08566B4C:
 	.byte	0x98
 	.byte	0xD5
 	.byte	0x98
-Song_08566B8E:
+Song_08566BD4_6_2:
 	.byte	0xD5
 	.byte	0x48
 	.byte	0x68
@@ -135532,7 +135532,7 @@ Song_08566B8E:
 	.byte	0x98
 	.byte	0xB4
 	.byte	0xB3
-	.word	Song_08566B8E
+	.word	Song_08566BD4_6_2
 	.byte	0xD5
 	.byte	0x44
 	.byte	0x68
@@ -135581,7 +135581,7 @@ Song_08566B8E:
 	.byte	0x50
 	.byte	0x92
 	.byte	0xB2
-	.word	Song_08566B39
+	.word	Song_08566BD4_6_3
 	.byte	0xB1
 	.byte	0x00
 
@@ -135593,7 +135593,7 @@ Song_08566BD4:	@ 0x08566BD4
 	.byte	10		@ priority
 	.byte	148		@ reverb
 
-	.word	voicegroup_0821CD64		@ voicegroup/tone
+	.word	voicegroup065		@ voicegroup/tone
 
 	.word	Song_08566BD4_1		@ track
 	.word	Song_08566BD4_2		@ track
@@ -135609,7 +135609,7 @@ Song_08566BD4:	@ 0x08566BD4
 Song_08567C44_1:	@ 0x08566BF4
 	.byte	0xBC
 	.byte	0x00
-Song_08566BF6:
+Song_08567C44_1_1:
 	.byte	0xBB
 	.byte	0x2A
 	.byte	0xBD
@@ -135903,7 +135903,7 @@ Song_08566BF6:
 	.byte	0x98
 	.byte	0x81
 	.byte	0xB2
-	.word	Song_08566BF6
+	.word	Song_08567C44_1_1
 	.byte	0xB1
 
 	@********************** Track  2 **********************@
@@ -135912,7 +135912,7 @@ Song_08566BF6:
 Song_08567C44_2:	@ 0x08566D20
 	.byte	0xBC
 	.byte	0x00
-Song_08566D22:
+Song_08567C44_2_1:
 	.byte	0xBD
 	.byte	0x3A
 	.byte	0xBE
@@ -136008,7 +136008,7 @@ Song_08566D22:
 	.byte	0x21
 	.byte	0x98
 	.byte	0xB2
-	.word	Song_08566D22
+	.word	Song_08567C44_2_1
 	.byte	0xB1
 
 	@********************** Track  3 **********************@
@@ -136017,7 +136017,7 @@ Song_08566D22:
 Song_08567C44_3:	@ 0x08566D86
 	.byte	0xBC
 	.byte	0x00
-Song_08566D88:
+Song_08567C44_3_1:
 	.byte	0xBD
 	.byte	0x32
 	.byte	0xBE
@@ -137083,7 +137083,7 @@ Song_08566D88:
 	.byte	0x12
 	.byte	0x81
 	.byte	0xB2
-	.word	Song_08566D88
+	.word	Song_08567C44_3_1
 	.byte	0xB1
 
 	@********************** Track  4 **********************@
@@ -137092,7 +137092,7 @@ Song_08566D88:
 Song_08567C44_4:	@ 0x085671B6
 	.byte	0xBC
 	.byte	0x00
-Song_085671B8:
+Song_08567C44_4_1:
 	.byte	0xBD
 	.byte	0x49
 	.byte	0xBE
@@ -137687,7 +137687,7 @@ Song_085671B8:
 	.byte	0x44
 	.byte	0xB0
 	.byte	0xB2
-	.word	Song_085671B8
+	.word	Song_08567C44_4_1
 	.byte	0xB1
 
 	@********************** Track  5 **********************@
@@ -137696,7 +137696,7 @@ Song_085671B8:
 Song_08567C44_5:	@ 0x0856740F
 	.byte	0xBC
 	.byte	0x00
-Song_08567411:
+Song_08567C44_5_1:
 	.byte	0xB0
 	.byte	0xB0
 	.byte	0xB0
@@ -137971,7 +137971,7 @@ Song_08567411:
 	.byte	0x58
 	.byte	0x98
 	.byte	0xB2
-	.word	Song_08567411
+	.word	Song_08567C44_5_1
 	.byte	0xB1
 
 	@********************** Track  6 **********************@
@@ -137980,7 +137980,7 @@ Song_08567411:
 Song_08567C44_6:	@ 0x08567528
 	.byte	0xBC
 	.byte	0x00
-Song_0856752A:
+Song_08567C44_6_1:
 	.byte	0xBD
 	.byte	0x30
 	.byte	0xBE
@@ -139375,7 +139375,7 @@ Song_0856752A:
 	.byte	0xB0
 	.byte	0xB0
 	.byte	0xB2
-	.word	Song_0856752A
+	.word	Song_08567C44_6_1
 	.byte	0xB1
 
 	@********************** Track  7 **********************@
@@ -139384,7 +139384,7 @@ Song_0856752A:
 Song_08567C44_7:	@ 0x08567AA1
 	.byte	0xBC
 	.byte	0x00
-Song_08567AA3:
+Song_08567C44_7_1:
 	.byte	0xBD
 	.byte	0x64
 	.byte	0xBE
@@ -139797,7 +139797,7 @@ Song_08567AA3:
 	.byte	0x28
 	.byte	0x86
 	.byte	0xB2
-	.word	Song_08567AA3
+	.word	Song_08567C44_7_1
 	.byte	0xB1
 
 	.align 2
@@ -139808,7 +139808,7 @@ Song_08567C44:	@ 0x08567C44
 	.byte	10		@ priority
 	.byte	188		@ reverb
 
-	.word	voicegroup_0820BEF8		@ voicegroup/tone
+	.word	voicegroup013		@ voicegroup/tone
 
 	.word	Song_08567C44_1		@ track
 	.word	Song_08567C44_2		@ track
@@ -139825,7 +139825,7 @@ Song_08567C44:	@ 0x08567C44
 Song_08568B28_1:	@ 0x08567C68
 	.byte	0xBC
 	.byte	0x00
-Song_08567C6A:
+Song_08568B28_1_1:
 	.byte	0xBB
 	.byte	0x32
 	.byte	0xBD
@@ -140649,7 +140649,7 @@ Song_08567C6A:
 	.byte	0x45
 	.byte	0x8C
 	.byte	0xB2
-	.word	Song_08567C6A
+	.word	Song_08568B28_1_1
 	.byte	0xB1
 
 	@********************** Track  2 **********************@
@@ -140658,7 +140658,7 @@ Song_08567C6A:
 Song_08568B28_2:	@ 0x08567FA6
 	.byte	0xBC
 	.byte	0x00
-Song_08567FA8:
+Song_08568B28_2_2:
 	.byte	0xBD
 	.byte	0x22
 	.byte	0xBE
@@ -140695,7 +140695,7 @@ Song_08567FA8:
 	.byte	0xF3
 	.byte	0x29
 	.byte	0xA8
-Song_08567FCC:
+Song_08568B28_2_1:
 	.byte	0xEE
 	.byte	0x22
 	.byte	0x7F
@@ -140715,7 +140715,7 @@ Song_08567FCC:
 	.byte	0x24
 	.byte	0x8C
 	.byte	0xB3
-	.word	Song_08567FCC
+	.word	Song_08568B28_2_1
 	.byte	0xEE
 	.byte	0x20
 	.byte	0x7F
@@ -140884,7 +140884,7 @@ Song_08567FCC:
 	.byte	0x29
 	.byte	0x98
 	.byte	0xB2
-	.word	Song_08567FA8
+	.word	Song_08568B28_2_2
 	.byte	0xB1
 
 	@********************** Track  3 **********************@
@@ -140893,7 +140893,7 @@ Song_08567FCC:
 Song_08568B28_3:	@ 0x08568090
 	.byte	0xBC
 	.byte	0x00
-Song_08568092:
+Song_08568B28_3_5:
 	.byte	0xBD
 	.byte	0x31
 	.byte	0xBE
@@ -140917,7 +140917,7 @@ Song_08568092:
 	.byte	0x4B
 	.byte	0x34
 	.byte	0x86
-Song_085680A9:
+Song_08568B28_3_1:
 	.byte	0x98
 	.byte	0xE7
 	.byte	0x44
@@ -140935,7 +140935,7 @@ Song_085680A9:
 	.byte	0x48
 	.byte	0x34
 	.byte	0x86
-Song_085680BA:
+Song_08568B28_3_2:
 	.byte	0x98
 	.byte	0xDB
 	.byte	0x41
@@ -140948,7 +140948,7 @@ Song_085680BA:
 	.byte	0x46
 	.byte	0x8C
 	.byte	0xB4
-Song_085680C6:
+Song_08568B28_3_3:
 	.byte	0x98
 	.byte	0xDB
 	.byte	0x44
@@ -140967,7 +140967,7 @@ Song_085680C6:
 	.byte	0x98
 	.byte	0x44
 	.byte	0x98
-Song_085680D8:
+Song_08568B28_3_4:
 	.byte	0x98
 	.byte	0xDB
 	.byte	0x4B
@@ -141001,7 +141001,7 @@ Song_085680D8:
 	.byte	0x5C
 	.byte	0x98
 	.byte	0xB3
-	.word	Song_085680A9
+	.word	Song_08568B28_3_1
 	.byte	0xED
 	.byte	0x48
 	.byte	0x5C
@@ -141015,9 +141015,9 @@ Song_085680D8:
 	.byte	0x5C
 	.byte	0x98
 	.byte	0xB3
-	.word	Song_085680BA
+	.word	Song_08568B28_3_2
 	.byte	0xB3
-	.word	Song_085680C6
+	.word	Song_08568B28_3_3
 	.byte	0x98
 	.byte	0xDB
 	.byte	0x4B
@@ -141030,7 +141030,7 @@ Song_085680D8:
 	.byte	0x4D
 	.byte	0x8C
 	.byte	0xB3
-	.word	Song_085680D8
+	.word	Song_08568B28_3_4
 	.byte	0xEF
 	.byte	0x43
 	.byte	0x5C
@@ -141099,7 +141099,7 @@ Song_085680D8:
 	.byte	0x3F
 	.byte	0x98
 	.byte	0xB2
-	.word	Song_08568092
+	.word	Song_08568B28_3_5
 	.byte	0xB1
 
 	@********************** Track  4 **********************@
@@ -141108,7 +141108,7 @@ Song_085680D8:
 Song_08568B28_4:	@ 0x0856816C
 	.byte	0xBC
 	.byte	0x00
-Song_0856816E:
+Song_08568B28_4_2:
 	.byte	0xBD
 	.byte	0x30
 	.byte	0xC4
@@ -141752,7 +141752,7 @@ Song_0856816E:
 	.byte	0x8C
 	.byte	0x49
 	.byte	0x8C
-Song_085683F1:
+Song_08568B28_4_1:
 	.byte	0xF5
 	.byte	0x4B
 	.byte	0x5C
@@ -141787,7 +141787,7 @@ Song_085683F1:
 	.byte	0x49
 	.byte	0x8C
 	.byte	0xB3
-	.word	Song_085683F1
+	.word	Song_08568B28_4_1
 	.byte	0xF5
 	.byte	0x50
 	.byte	0x5C
@@ -142015,7 +142015,7 @@ Song_085683F1:
 	.byte	0xA0
 	.byte	0x83
 	.byte	0xB2
-	.word	Song_0856816E
+	.word	Song_08568B28_4_2
 	.byte	0xB1
 
 	@********************** Track  5 **********************@
@@ -142024,7 +142024,7 @@ Song_085683F1:
 Song_08568B28_5:	@ 0x085684FF
 	.byte	0xBC
 	.byte	0x00
-Song_08568501:
+Song_08568B28_5_6:
 	.byte	0xBD
 	.byte	0x2E
 	.byte	0xBE
@@ -142432,7 +142432,7 @@ Song_08568501:
 	.byte	0xEE
 	.byte	0x44
 	.byte	0xA0
-Song_08568698:
+Song_08568B28_5_1:
 	.byte	0xDF
 	.byte	0x31
 	.byte	0x7F
@@ -142495,7 +142495,7 @@ Song_08568698:
 	.byte	0x58
 	.byte	0x86
 	.byte	0xB3
-	.word	Song_08568698
+	.word	Song_08568B28_5_1
 	.byte	0x98
 	.byte	0xD5
 	.byte	0x36
@@ -142537,7 +142537,7 @@ Song_08568698:
 	.byte	0x38
 	.byte	0x54
 	.byte	0x86
-Song_08568703:
+Song_08568B28_5_2:
 	.byte	0xD2
 	.byte	0x33
 	.byte	0x5C
@@ -142577,8 +142577,8 @@ Song_08568703:
 	.byte	0x86
 	.byte	0xB4
 	.byte	0xB3
-	.word	Song_08568703
-Song_0856872E:
+	.word	Song_08568B28_5_2
+Song_08568B28_5_3:
 	.byte	0xD2
 	.byte	0x32
 	.byte	0x5C
@@ -142618,8 +142618,8 @@ Song_0856872E:
 	.byte	0x86
 	.byte	0xB4
 	.byte	0xB3
-	.word	Song_0856872E
-Song_08568759:
+	.word	Song_08568B28_5_3
+Song_08568B28_5_4:
 	.byte	0xD2
 	.byte	0x31
 	.byte	0x5C
@@ -142659,8 +142659,8 @@ Song_08568759:
 	.byte	0x86
 	.byte	0xB4
 	.byte	0xB3
-	.word	Song_08568759
-Song_08568784:
+	.word	Song_08568B28_5_4
+Song_08568B28_5_5:
 	.byte	0xD2
 	.byte	0x30
 	.byte	0x5C
@@ -142700,7 +142700,7 @@ Song_08568784:
 	.byte	0x86
 	.byte	0xB4
 	.byte	0xB3
-	.word	Song_08568784
+	.word	Song_08568B28_5_5
 	.byte	0xD1
 	.byte	0x33
 	.byte	0x58
@@ -142778,7 +142778,7 @@ Song_08568784:
 	.byte	0x34
 	.byte	0x86
 	.byte	0xB2
-	.word	Song_08568501
+	.word	Song_08568B28_5_6
 	.byte	0xB1
 
 	@********************** Track  6 **********************@
@@ -142787,7 +142787,7 @@ Song_08568784:
 Song_08568B28_6:	@ 0x08568801
 	.byte	0xBC
 	.byte	0x00
-Song_08568803:
+Song_08568B28_6_3:
 	.byte	0xBD
 	.byte	0x2E
 	.byte	0xBE
@@ -142822,7 +142822,7 @@ Song_08568803:
 	.byte	0x3C
 	.byte	0x58
 	.byte	0x8C
-Song_08568825:
+Song_08568B28_6_1:
 	.byte	0x98
 	.byte	0xD8
 	.byte	0x3D
@@ -142852,7 +142852,7 @@ Song_08568825:
 	.byte	0x58
 	.byte	0x8C
 	.byte	0xB3
-	.word	Song_08568825
+	.word	Song_08568B28_6_1
 	.byte	0x98
 	.byte	0xD8
 	.byte	0x41
@@ -143121,7 +143121,7 @@ Song_08568825:
 	.byte	0x3C
 	.byte	0x7F
 	.byte	0xA0
-Song_08568952:
+Song_08568B28_6_2:
 	.byte	0x98
 	.byte	0xD2
 	.byte	0x38
@@ -143180,7 +143180,7 @@ Song_08568952:
 	.byte	0x58
 	.byte	0x86
 	.byte	0xB3
-	.word	Song_08568952
+	.word	Song_08568B28_6_2
 	.byte	0x98
 	.byte	0xD5
 	.byte	0x30
@@ -143506,7 +143506,7 @@ Song_08568952:
 	.byte	0x58
 	.byte	0x98
 	.byte	0xB2
-	.word	Song_08568803
+	.word	Song_08568B28_6_3
 	.byte	0xB1
 
 	@********************** Track  7 **********************@
@@ -143515,7 +143515,7 @@ Song_08568952:
 Song_08568B28_7:	@ 0x08568ADA
 	.byte	0xBC
 	.byte	0x00
-Song_08568ADC:
+Song_08568B28_7_2:
 	.byte	0xA8
 	.byte	0xA8
 	.byte	0xA8
@@ -143530,7 +143530,7 @@ Song_08568ADC:
 	.byte	0xA8
 	.byte	0xA8
 	.byte	0xA8
-Song_08568AEA:
+Song_08568B28_7_1:
 	.byte	0x98
 	.byte	0xD5
 	.byte	0x36
@@ -143547,17 +143547,17 @@ Song_08568AEA:
 	.byte	0x92
 	.byte	0xB4
 	.byte	0xB3
-	.word	Song_08568AEA
+	.word	Song_08568B28_7_1
 	.byte	0xB3
-	.word	Song_08568AEA
+	.word	Song_08568B28_7_1
 	.byte	0xB3
-	.word	Song_08568AEA
+	.word	Song_08568B28_7_1
 	.byte	0xB3
-	.word	Song_08568AEA
+	.word	Song_08568B28_7_1
 	.byte	0xB3
-	.word	Song_08568AEA
+	.word	Song_08568B28_7_1
 	.byte	0xB3
-	.word	Song_08568AEA
+	.word	Song_08568B28_7_1
 	.byte	0xA8
 	.byte	0xA8
 	.byte	0xA8
@@ -143570,7 +143570,7 @@ Song_08568AEA:
 	.byte	0xA8
 	.byte	0xA8
 	.byte	0xB2
-	.word	Song_08568ADC
+	.word	Song_08568B28_7_2
 	.byte	0xB1
 
 	.align 2
@@ -143581,7 +143581,7 @@ Song_08568B28:	@ 0x08568B28
 	.byte	10		@ priority
 	.byte	148		@ reverb
 
-	.word	voicegroup_0821D238		@ voicegroup/tone
+	.word	voicegroup066		@ voicegroup/tone
 
 	.word	Song_08568B28_1		@ track
 	.word	Song_08568B28_2		@ track
@@ -143598,7 +143598,7 @@ Song_08568B28:	@ 0x08568B28
 Song_085696A4_1:	@ 0x08568B4C
 	.byte	0xBC
 	.byte	0x00
-Song_08568B4E:
+Song_085696A4_1_1:
 	.byte	0xBB
 	.byte	0x24
 	.byte	0xBD
@@ -144617,7 +144617,7 @@ Song_08568B4E:
 	.byte	0xA8
 	.byte	0xA8
 	.byte	0xB2
-	.word	Song_08568B4E
+	.word	Song_085696A4_1_1
 	.byte	0xB1
 
 	@********************** Track  2 **********************@
@@ -144626,7 +144626,7 @@ Song_08568B4E:
 Song_085696A4_2:	@ 0x08568F4D
 	.byte	0xBC
 	.byte	0x00
-Song_08568F4F:
+Song_085696A4_2_1:
 	.byte	0xBD
 	.byte	0x33
 	.byte	0xBE
@@ -144683,7 +144683,7 @@ Song_08568F4F:
 	.byte	0xA8
 	.byte	0xCE
 	.byte	0xB2
-	.word	Song_08568F4F
+	.word	Song_085696A4_2_1
 	.byte	0xB1
 
 	@********************** Track  3 **********************@
@@ -144692,7 +144692,7 @@ Song_08568F4F:
 Song_085696A4_3:	@ 0x08568F8C
 	.byte	0xBC
 	.byte	0x00
-Song_08568F8E:
+Song_085696A4_3_3:
 	.byte	0xBD
 	.byte	0x2D
 	.byte	0xBE
@@ -144763,7 +144763,7 @@ Song_08568F8E:
 	.byte	0x39
 	.byte	0x74
 	.byte	0x98
-Song_08568FD4:
+Song_085696A4_3_1:
 	.byte	0xE7
 	.byte	0x3E
 	.byte	0x5C
@@ -144783,7 +144783,7 @@ Song_08568FD4:
 	.byte	0x74
 	.byte	0x98
 	.byte	0xB3
-	.word	Song_08568FD4
+	.word	Song_085696A4_3_1
 	.byte	0xA8
 	.byte	0xA8
 	.byte	0xA8
@@ -144827,7 +144827,7 @@ Song_08568FD4:
 	.byte	0x3D
 	.byte	0x74
 	.byte	0x98
-Song_08569016:
+Song_085696A4_3_2:
 	.byte	0xE7
 	.byte	0x42
 	.byte	0x5C
@@ -144849,9 +144849,9 @@ Song_08569016:
 	.byte	0x74
 	.byte	0x98
 	.byte	0xB3
-	.word	Song_08569016
+	.word	Song_085696A4_3_2
 	.byte	0xB2
-	.word	Song_08568F8E
+	.word	Song_085696A4_3_3
 	.byte	0xB1
 
 	@********************** Track  4 **********************@
@@ -144860,7 +144860,7 @@ Song_08569016:
 Song_085696A4_4:	@ 0x08569035
 	.byte	0xBC
 	.byte	0x00
-Song_08569037:
+Song_085696A4_4_1:
 	.byte	0xA8
 	.byte	0xA8
 	.byte	0xBD
@@ -145289,7 +145289,7 @@ Song_08569037:
 	.byte	0x22
 	.byte	0x81
 	.byte	0xB2
-	.word	Song_08569037
+	.word	Song_085696A4_4_1
 	.byte	0xB1
 
 	@********************** Track  5 **********************@
@@ -145298,7 +145298,7 @@ Song_08569037:
 Song_085696A4_5:	@ 0x085691E8
 	.byte	0xBC
 	.byte	0x00
-Song_085691EA:
+Song_085696A4_5_2:
 	.byte	0xBD
 	.byte	0x31
 	.byte	0xBE
@@ -145971,7 +145971,7 @@ Song_085691EA:
 	.byte	0xE7
 	.byte	0xA8
 	.byte	0xA8
-Song_0856948A:
+Song_085696A4_5_1:
 	.byte	0xDB
 	.byte	0x36
 	.byte	0x7F
@@ -145985,7 +145985,7 @@ Song_0856948A:
 	.byte	0xE7
 	.byte	0x98
 	.byte	0xB3
-	.word	Song_0856948A
+	.word	Song_085696A4_5_1
 	.byte	0x98
 	.byte	0xE7
 	.byte	0x36
@@ -146003,7 +146003,7 @@ Song_0856948A:
 	.byte	0xD5
 	.byte	0x86
 	.byte	0xB2
-	.word	Song_085691EA
+	.word	Song_085696A4_5_2
 	.byte	0xB1
 
 	@********************** Track  6 **********************@
@@ -146012,7 +146012,7 @@ Song_0856948A:
 Song_085696A4_6:	@ 0x085694B1
 	.byte	0xBC
 	.byte	0x00
-Song_085694B3:
+Song_085696A4_6_1:
 	.byte	0xA8
 	.byte	0xA8
 	.byte	0xA8
@@ -146152,7 +146152,7 @@ Song_085694B3:
 	.byte	0x36
 	.byte	0x83
 	.byte	0xB2
-	.word	Song_085694B3
+	.word	Song_085696A4_6_1
 	.byte	0xB1
 
 	@********************** Track  7 **********************@
@@ -146161,7 +146161,7 @@ Song_085694B3:
 Song_085696A4_7:	@ 0x08569543
 	.byte	0xBC
 	.byte	0x00
-Song_08569545:
+Song_085696A4_7_2:
 	.byte	0x84
 	.byte	0xBD
 	.byte	0x2D
@@ -146273,7 +146273,7 @@ Song_08569545:
 	.byte	0x3E
 	.byte	0x24
 	.byte	0x86
-Song_085695B4:
+Song_085696A4_7_1:
 	.byte	0xD4
 	.byte	0x43
 	.byte	0x68
@@ -146421,7 +146421,7 @@ Song_085695B4:
 	.byte	0x24
 	.byte	0x86
 	.byte	0xB3
-	.word	Song_085695B4
+	.word	Song_085696A4_7_1
 	.byte	0xD4
 	.byte	0x38
 	.byte	0x7F
@@ -146504,7 +146504,7 @@ Song_085695B4:
 	.byte	0xA8
 	.byte	0xA8
 	.byte	0xB2
-	.word	Song_08569545
+	.word	Song_085696A4_7_2
 	.byte	0xB1
 	.byte	0x00
 	.byte	0x00
@@ -146517,7 +146517,7 @@ Song_085696A4:	@ 0x085696A4
 	.byte	10		@ priority
 	.byte	148		@ reverb
 
-	.word	voicegroup_0820C4F8		@ voicegroup/tone
+	.word	voicegroup014		@ voicegroup/tone
 
 	.word	Song_085696A4_1		@ track
 	.word	Song_085696A4_2		@ track
@@ -146562,7 +146562,7 @@ Song_0856A310_1:	@ 0x085696C8
 	.byte	0x42
 	.byte	0x4C
 	.byte	0x8C
-Song_085696E6:
+Song_0856A310_1_1:
 	.byte	0xDA
 	.byte	0x42
 	.byte	0x4C
@@ -146804,7 +146804,7 @@ Song_085696E6:
 	.byte	0x4C
 	.byte	0x8C
 	.byte	0xB2
-	.word	Song_085696E6
+	.word	Song_0856A310_1_1
 	.byte	0xB1
 
 	@********************** Track  2 **********************@
@@ -146826,7 +146826,7 @@ Song_0856A310_2:	@ 0x085697DC
 	.byte	0xA0
 	.byte	0xD8
 	.byte	0x98
-Song_085697EB:
+Song_0856A310_2_3:
 	.byte	0xD8
 	.byte	0x2D
 	.byte	0x7F
@@ -146834,7 +146834,7 @@ Song_085697EB:
 	.byte	0xD8
 	.byte	0xA0
 	.byte	0xB4
-Song_085697F2:
+Song_0856A310_2_2:
 	.byte	0xD8
 	.byte	0x2D
 	.byte	0x7F
@@ -146850,7 +146850,7 @@ Song_085697F2:
 	.byte	0x8C
 	.byte	0x2F
 	.byte	0x8C
-Song_08569801:
+Song_0856A310_2_1:
 	.byte	0xD8
 	.byte	0x30
 	.byte	0x7F
@@ -146859,9 +146859,9 @@ Song_08569801:
 	.byte	0x98
 	.byte	0xB4
 	.byte	0xB3
-	.word	Song_08569801
+	.word	Song_0856A310_2_1
 	.byte	0xB3
-	.word	Song_08569801
+	.word	Song_0856A310_2_1
 	.byte	0xD8
 	.byte	0x30
 	.byte	0x7F
@@ -146891,11 +146891,11 @@ Song_08569801:
 	.byte	0x34
 	.byte	0x8C
 	.byte	0xB3
-	.word	Song_085697F2
+	.word	Song_0856A310_2_2
 	.byte	0xB3
-	.word	Song_085697EB
+	.word	Song_0856A310_2_3
 	.byte	0xB3
-	.word	Song_085697F2
+	.word	Song_0856A310_2_2
 	.byte	0xD8
 	.byte	0x2D
 	.byte	0x7F
@@ -146905,11 +146905,11 @@ Song_08569801:
 	.byte	0x2E
 	.byte	0x98
 	.byte	0xB3
-	.word	Song_085697F2
+	.word	Song_0856A310_2_2
 	.byte	0xB3
-	.word	Song_085697EB
+	.word	Song_0856A310_2_3
 	.byte	0xB3
-	.word	Song_085697F2
+	.word	Song_0856A310_2_2
 	.byte	0xD8
 	.byte	0x2D
 	.byte	0x7F
@@ -146918,7 +146918,7 @@ Song_08569801:
 	.byte	0x98
 	.byte	0x34
 	.byte	0x98
-Song_0856985C:
+Song_0856A310_2_4:
 	.byte	0xD8
 	.byte	0x2E
 	.byte	0x7F
@@ -146931,7 +146931,7 @@ Song_0856985C:
 	.byte	0xD8
 	.byte	0xA0
 	.byte	0xB3
-	.word	Song_0856985C
+	.word	Song_0856A310_2_4
 	.byte	0xD8
 	.byte	0x2E
 	.byte	0x7F
@@ -146952,9 +146952,9 @@ Song_0856985C:
 	.byte	0xA8
 	.byte	0xA8
 	.byte	0xB3
-	.word	Song_085697F2
+	.word	Song_0856A310_2_2
 	.byte	0xB2
-	.word	Song_085697EB
+	.word	Song_0856A310_2_3
 	.byte	0xB1
 
 	@********************** Track  3 **********************@
@@ -146964,7 +146964,7 @@ Song_0856A310_3:	@ 0x0856988A
 	.byte	0xBC
 	.byte	0x00
 	.byte	0x98
-Song_0856988D:
+Song_0856A310_3_2:
 	.byte	0xBD
 	.byte	0x3A
 	.byte	0xBE
@@ -147006,7 +147006,7 @@ Song_0856988D:
 	.byte	0x54
 	.byte	0x98
 	.byte	0xB4
-Song_085698B6:
+Song_0856A310_3_3:
 	.byte	0xD4
 	.byte	0x34
 	.byte	0x70
@@ -147564,7 +147564,7 @@ Song_085698B6:
 	.byte	0xF5
 	.byte	0x3E
 	.byte	0xA8
-Song_08569AE3:
+Song_0856A310_3_1:
 	.byte	0xD5
 	.byte	0x3A
 	.byte	0x60
@@ -147580,7 +147580,7 @@ Song_08569AE3:
 	.byte	0xA2
 	.byte	0xB4
 	.byte	0xB3
-	.word	Song_08569AE3
+	.word	Song_0856A310_3_1
 	.byte	0xD5
 	.byte	0x39
 	.byte	0x64
@@ -147637,9 +147637,9 @@ Song_08569AE3:
 	.byte	0x20
 	.byte	0x86
 	.byte	0xB3
-	.word	Song_0856988D
+	.word	Song_0856A310_3_2
 	.byte	0xB2
-	.word	Song_085698B6
+	.word	Song_0856A310_3_3
 	.byte	0xB1
 
 	@********************** Track  4 **********************@
@@ -147655,7 +147655,7 @@ Song_0856A310_4:	@ 0x08569B38
 	.byte	0xBF
 	.byte	0x40
 	.byte	0x98
-Song_08569B41:
+Song_0856A310_4_1:
 	.byte	0xD8
 	.byte	0x2D
 	.byte	0x7F
@@ -147671,7 +147671,7 @@ Song_08569B41:
 	.byte	0xD8
 	.byte	0x8C
 	.byte	0xB4
-Song_08569B50:
+Song_0856A310_4_3:
 	.byte	0xD8
 	.byte	0x2D
 	.byte	0x7F
@@ -147687,7 +147687,7 @@ Song_08569B50:
 	.byte	0xD5
 	.byte	0x8C
 	.byte	0xB3
-	.word	Song_08569B41
+	.word	Song_0856A310_4_1
 	.byte	0xD8
 	.byte	0x2D
 	.byte	0x7F
@@ -147702,7 +147702,7 @@ Song_08569B50:
 	.byte	0x8C
 	.byte	0x2F
 	.byte	0x8C
-Song_08569B71:
+Song_0856A310_4_2:
 	.byte	0xD8
 	.byte	0x30
 	.byte	0x7F
@@ -147731,7 +147731,7 @@ Song_08569B71:
 	.byte	0xD5
 	.byte	0x8C
 	.byte	0xB3
-	.word	Song_08569B71
+	.word	Song_0856A310_4_2
 	.byte	0xD8
 	.byte	0x30
 	.byte	0x7F
@@ -147881,9 +147881,9 @@ Song_08569B71:
 	.byte	0x34
 	.byte	0x98
 	.byte	0xB3
-	.word	Song_08569B41
+	.word	Song_0856A310_4_1
 	.byte	0xB2
-	.word	Song_08569B50
+	.word	Song_0856A310_4_3
 	.byte	0xB1
 
 	@********************** Track  5 **********************@
@@ -147894,7 +147894,7 @@ Song_0856A310_5:	@ 0x08569C30
 	.byte	0x00
 	.byte	0x98
 	.byte	0xA8
-Song_08569C34:
+Song_0856A310_5_1:
 	.byte	0xA8
 	.byte	0xA8
 	.byte	0xA8
@@ -148888,7 +148888,7 @@ Song_08569C34:
 	.byte	0xCE
 	.byte	0xA8
 	.byte	0xB2
-	.word	Song_08569C34
+	.word	Song_0856A310_5_1
 	.byte	0xB1
 
 	@********************** Track  6 **********************@
@@ -148913,7 +148913,7 @@ Song_0856A310_6:	@ 0x0856A01A
 	.byte	0x86
 	.byte	0xD4
 	.byte	0x86
-Song_0856A02C:
+Song_0856A310_6_8:
 	.byte	0xE7
 	.byte	0x39
 	.byte	0x78
@@ -148922,7 +148922,7 @@ Song_0856A02C:
 	.byte	0x40
 	.byte	0x8C
 	.byte	0xB4
-Song_0856A034:
+Song_0856A310_6_1:
 	.byte	0xDD
 	.byte	0x39
 	.byte	0x78
@@ -148936,7 +148936,7 @@ Song_0856A034:
 	.byte	0xD4
 	.byte	0x86
 	.byte	0xB4
-Song_0856A041:
+Song_0856A310_6_2:
 	.byte	0xE4
 	.byte	0x39
 	.byte	0x78
@@ -148944,7 +148944,7 @@ Song_0856A041:
 	.byte	0xDA
 	.byte	0x8C
 	.byte	0xB4
-Song_0856A048:
+Song_0856A310_6_3:
 	.byte	0xE0
 	.byte	0x39
 	.byte	0x78
@@ -148971,11 +148971,11 @@ Song_0856A048:
 	.byte	0x78
 	.byte	0x8C
 	.byte	0xB3
-	.word	Song_0856A034
+	.word	Song_0856A310_6_1
 	.byte	0xB3
-	.word	Song_0856A041
+	.word	Song_0856A310_6_2
 	.byte	0xB3
-	.word	Song_0856A048
+	.word	Song_0856A310_6_3
 	.byte	0xDA
 	.byte	0x40
 	.byte	0x74
@@ -149001,7 +149001,7 @@ Song_0856A048:
 	.byte	0x8C
 	.byte	0x3B
 	.byte	0x8C
-Song_0856A089:
+Song_0856A310_6_4:
 	.byte	0xE7
 	.byte	0x39
 	.byte	0x7F
@@ -149012,7 +149012,7 @@ Song_0856A089:
 	.byte	0xD5
 	.byte	0x86
 	.byte	0xB4
-Song_0856A093:
+Song_0856A310_6_5:
 	.byte	0xDB
 	.byte	0x39
 	.byte	0x7F
@@ -149022,7 +149022,7 @@ Song_0856A093:
 	.byte	0xDB
 	.byte	0x9C
 	.byte	0xB4
-Song_0856A09C:
+Song_0856A310_6_6:
 	.byte	0xDB
 	.byte	0x39
 	.byte	0x7F
@@ -149044,11 +149044,11 @@ Song_0856A09C:
 	.byte	0xD5
 	.byte	0x86
 	.byte	0xB3
-	.word	Song_0856A089
+	.word	Song_0856A310_6_4
 	.byte	0xB3
-	.word	Song_0856A093
+	.word	Song_0856A310_6_5
 	.byte	0xB3
-	.word	Song_0856A09C
+	.word	Song_0856A310_6_6
 	.byte	0xDB
 	.byte	0x39
 	.byte	0x7F
@@ -149064,7 +149064,7 @@ Song_0856A09C:
 	.byte	0x86
 	.byte	0xD5
 	.byte	0x86
-Song_0856A0CE:
+Song_0856A310_6_7:
 	.byte	0xE7
 	.byte	0x3A
 	.byte	0x7F
@@ -149102,7 +149102,7 @@ Song_0856A0CE:
 	.byte	0xD5
 	.byte	0x86
 	.byte	0xB3
-	.word	Song_0856A0CE
+	.word	Song_0856A310_6_7
 	.byte	0xDB
 	.byte	0x3A
 	.byte	0x7F
@@ -149137,9 +149137,9 @@ Song_0856A0CE:
 	.byte	0xD5
 	.byte	0x86
 	.byte	0xB3
-	.word	Song_0856A02C
+	.word	Song_0856A310_6_8
 	.byte	0xB2
-	.word	Song_0856A034
+	.word	Song_0856A310_6_1
 	.byte	0xB1
 
 	@********************** Track  7 **********************@
@@ -149164,7 +149164,7 @@ Song_0856A310_7:	@ 0x0856A123
 	.byte	0x86
 	.byte	0xD5
 	.byte	0x86
-Song_0856A135:
+Song_0856A310_7_1:
 	.byte	0xD5
 	.byte	0x24
 	.byte	0x78
@@ -149181,7 +149181,7 @@ Song_0856A135:
 	.byte	0x7F
 	.byte	0x98
 	.byte	0xB4
-Song_0856A145:
+Song_0856A310_7_2:
 	.byte	0xD5
 	.byte	0x24
 	.byte	0x74
@@ -149629,9 +149629,9 @@ Song_0856A145:
 	.byte	0x70
 	.byte	0x98
 	.byte	0xB3
-	.word	Song_0856A135
+	.word	Song_0856A310_7_1
 	.byte	0xB2
-	.word	Song_0856A145
+	.word	Song_0856A310_7_2
 	.byte	0xB1
 	.byte	0x00
 	.byte	0x00
@@ -149644,7 +149644,7 @@ Song_0856A310:	@ 0x0856A310
 	.byte	10		@ priority
 	.byte	148		@ reverb
 
-	.word	voicegroup_0820C870		@ voicegroup/tone
+	.word	voicegroup015		@ voicegroup/tone
 
 	.word	Song_0856A310_1		@ track
 	.word	Song_0856A310_2		@ track
@@ -149661,7 +149661,7 @@ Song_0856A310:	@ 0x0856A310
 Song_0856AE34_1:	@ 0x0856A334
 	.byte	0xBC
 	.byte	0x00
-Song_0856A336:
+Song_0856AE34_1_1:
 	.byte	0xBB
 	.byte	0x27
 	.byte	0xBD
@@ -150002,7 +150002,7 @@ Song_0856A336:
 	.byte	0x24
 	.byte	0x86
 	.byte	0xB2
-	.word	Song_0856A336
+	.word	Song_0856AE34_1_1
 	.byte	0xB1
 
 	@********************** Track  2 **********************@
@@ -150011,7 +150011,7 @@ Song_0856A336:
 Song_0856AE34_2:	@ 0x0856A48F
 	.byte	0xBC
 	.byte	0x00
-Song_0856A491:
+Song_0856AE34_2_1:
 	.byte	0xBD
 	.byte	0x32
 	.byte	0xBE
@@ -150227,7 +150227,7 @@ Song_0856A491:
 	.byte	0x50
 	.byte	0xA0
 	.byte	0xB2
-	.word	Song_0856A491
+	.word	Song_0856AE34_2_1
 	.byte	0xB1
 
 	@********************** Track  3 **********************@
@@ -150236,7 +150236,7 @@ Song_0856A491:
 Song_0856AE34_3:	@ 0x0856A56D
 	.byte	0xBC
 	.byte	0x00
-Song_0856A56F:
+Song_0856AE34_3_1:
 	.byte	0xBD
 	.byte	0x34
 	.byte	0xBE
@@ -150740,7 +150740,7 @@ Song_0856A56F:
 	.byte	0x3B
 	.byte	0xA0
 	.byte	0xB2
-	.word	Song_0856A56F
+	.word	Song_0856AE34_3_1
 	.byte	0xB1
 
 	@********************** Track  4 **********************@
@@ -150749,7 +150749,7 @@ Song_0856A56F:
 Song_0856AE34_4:	@ 0x0856A76B
 	.byte	0xBC
 	.byte	0x00
-Song_0856A76D:
+Song_0856AE34_4_1:
 	.byte	0xBD
 	.byte	0x30
 	.byte	0xBE
@@ -151559,7 +151559,7 @@ Song_0856A76D:
 	.byte	0x4F
 	.byte	0x86
 	.byte	0xB2
-	.word	Song_0856A76D
+	.word	Song_0856AE34_4_1
 	.byte	0xB1
 
 	@********************** Track  5 **********************@
@@ -151568,7 +151568,7 @@ Song_0856A76D:
 Song_0856AE34_5:	@ 0x0856AA9B
 	.byte	0xBC
 	.byte	0x00
-Song_0856AA9D:
+Song_0856AE34_5_1:
 	.byte	0xBD
 	.byte	0x2F
 	.byte	0xBE
@@ -151690,7 +151690,7 @@ Song_0856AA9D:
 	.byte	0x74
 	.byte	0x98
 	.byte	0xB2
-	.word	Song_0856AA9D
+	.word	Song_0856AE34_5_1
 	.byte	0xB1
 
 	@********************** Track  6 **********************@
@@ -151699,7 +151699,7 @@ Song_0856AA9D:
 Song_0856AE34_6:	@ 0x0856AB1B
 	.byte	0xBC
 	.byte	0x00
-Song_0856AB1D:
+Song_0856AE34_6_2:
 	.byte	0xB0
 	.byte	0xB0
 	.byte	0xB0
@@ -151938,7 +151938,7 @@ Song_0856AB1D:
 	.byte	0x40
 	.byte	0x20
 	.byte	0x83
-Song_0856AC0B:
+Song_0856AE34_6_1:
 	.byte	0xD2
 	.byte	0x4E
 	.byte	0x70
@@ -152038,7 +152038,7 @@ Song_0856AC0B:
 	.byte	0x83
 	.byte	0xB4
 	.byte	0xB3
-	.word	Song_0856AC0B
+	.word	Song_0856AE34_6_1
 	.byte	0xD2
 	.byte	0x4C
 	.byte	0x70
@@ -152141,7 +152141,7 @@ Song_0856AC0B:
 	.byte	0xB0
 	.byte	0xB0
 	.byte	0xB2
-	.word	Song_0856AB1D
+	.word	Song_0856AE34_6_2
 	.byte	0xB1
 
 	@********************** Track  7 **********************@
@@ -152150,7 +152150,7 @@ Song_0856AC0B:
 Song_0856AE34_7:	@ 0x0856ACDD
 	.byte	0xBC
 	.byte	0x00
-Song_0856ACDF:
+Song_0856AE34_7_1:
 	.byte	0xBD
 	.byte	0x7F
 	.byte	0xBE
@@ -152485,7 +152485,7 @@ Song_0856ACDF:
 	.byte	0x70
 	.byte	0x86
 	.byte	0xB2
-	.word	Song_0856ACDF
+	.word	Song_0856AE34_7_1
 	.byte	0xB1
 	.byte	0x00
 	.byte	0x00
@@ -152498,7 +152498,7 @@ Song_0856AE34:	@ 0x0856AE34
 	.byte	10		@ priority
 	.byte	148		@ reverb
 
-	.word	voicegroup_0821D838		@ voicegroup/tone
+	.word	voicegroup067		@ voicegroup/tone
 
 	.word	Song_0856AE34_1		@ track
 	.word	Song_0856AE34_2		@ track
@@ -152541,7 +152541,7 @@ Song_0856B4AC_1:	@ 0x0856AE58
 	.byte	0x98
 	.byte	0x46
 	.byte	0x98
-Song_0856AE74:
+Song_0856B4AC_1_2:
 	.byte	0xBD
 	.byte	0x11
 	.byte	0xBE
@@ -152613,7 +152613,7 @@ Song_0856AE74:
 	.byte	0x8C
 	.byte	0x48
 	.byte	0x8C
-Song_0856AEBB:
+Song_0856B4AC_1_1:
 	.byte	0xDB
 	.byte	0x4A
 	.byte	0x7F
@@ -152643,7 +152643,7 @@ Song_0856AEBB:
 	.byte	0x4D
 	.byte	0xA4
 	.byte	0xB3
-	.word	Song_0856AEBB
+	.word	Song_0856B4AC_1_1
 	.byte	0xDB
 	.byte	0x4C
 	.byte	0x7F
@@ -152764,7 +152764,7 @@ Song_0856AEBB:
 	.byte	0x45
 	.byte	0x86
 	.byte	0xB2
-	.word	Song_0856AE74
+	.word	Song_0856B4AC_1_2
 	.byte	0xB1
 
 	@********************** Track  2 **********************@
@@ -152797,7 +152797,7 @@ Song_0856B4AC_2:	@ 0x0856AF59
 	.byte	0x98
 	.byte	0x2E
 	.byte	0x98
-Song_0856AF73:
+Song_0856B4AC_2_1:
 	.byte	0xE4
 	.byte	0x32
 	.byte	0x7F
@@ -152811,7 +152811,7 @@ Song_0856AF73:
 	.byte	0x32
 	.byte	0x98
 	.byte	0xB4
-Song_0856AF80:
+Song_0856B4AC_2_2:
 	.byte	0xE4
 	.byte	0x2E
 	.byte	0x7F
@@ -152825,7 +152825,7 @@ Song_0856AF80:
 	.byte	0x2E
 	.byte	0x98
 	.byte	0xB4
-Song_0856AF8D:
+Song_0856B4AC_2_3:
 	.byte	0xE4
 	.byte	0x2B
 	.byte	0x7F
@@ -152857,9 +152857,9 @@ Song_0856AF8D:
 	.byte	0x34
 	.byte	0x8C
 	.byte	0xB3
-	.word	Song_0856AF73
+	.word	Song_0856B4AC_2_1
 	.byte	0xB3
-	.word	Song_0856AF80
+	.word	Song_0856B4AC_2_2
 	.byte	0xE4
 	.byte	0x2B
 	.byte	0x7F
@@ -152890,8 +152890,8 @@ Song_0856AF8D:
 	.byte	0x30
 	.byte	0x8C
 	.byte	0xB3
-	.word	Song_0856AF80
-Song_0856AFD7:
+	.word	Song_0856B4AC_2_2
+Song_0856B4AC_2_5:
 	.byte	0xE4
 	.byte	0x30
 	.byte	0x7F
@@ -152905,7 +152905,7 @@ Song_0856AFD7:
 	.byte	0x30
 	.byte	0x98
 	.byte	0xB4
-Song_0856AFE4:
+Song_0856B4AC_2_4:
 	.byte	0xE4
 	.byte	0x2D
 	.byte	0x7F
@@ -152928,11 +152928,11 @@ Song_0856AFE4:
 	.byte	0x2D
 	.byte	0x98
 	.byte	0xB3
-	.word	Song_0856AF80
+	.word	Song_0856B4AC_2_2
 	.byte	0xB3
-	.word	Song_0856AF8D
+	.word	Song_0856B4AC_2_3
 	.byte	0xB3
-	.word	Song_0856AFE4
+	.word	Song_0856B4AC_2_4
 	.byte	0xE4
 	.byte	0x31
 	.byte	0x7F
@@ -152947,9 +152947,9 @@ Song_0856AFE4:
 	.byte	0x32
 	.byte	0x8C
 	.byte	0xB3
-	.word	Song_0856AF80
+	.word	Song_0856B4AC_2_2
 	.byte	0xB3
-	.word	Song_0856AFD7
+	.word	Song_0856B4AC_2_5
 	.byte	0xE4
 	.byte	0x31
 	.byte	0x7F
@@ -152974,11 +152974,11 @@ Song_0856AFE4:
 	.byte	0x30
 	.byte	0x8C
 	.byte	0xB3
-	.word	Song_0856AF80
+	.word	Song_0856B4AC_2_2
 	.byte	0xB3
-	.word	Song_0856AF80
+	.word	Song_0856B4AC_2_2
 	.byte	0xB3
-	.word	Song_0856AFD7
+	.word	Song_0856B4AC_2_5
 	.byte	0xE4
 	.byte	0x31
 	.byte	0x7F
@@ -152997,7 +152997,7 @@ Song_0856AFE4:
 	.byte	0x39
 	.byte	0x8C
 	.byte	0xB2
-	.word	Song_0856AF73
+	.word	Song_0856B4AC_2_1
 	.byte	0xB1
 
 	@********************** Track  3 **********************@
@@ -153030,7 +153030,7 @@ Song_0856B4AC_3:	@ 0x0856B05C
 	.byte	0x98
 	.byte	0x4D
 	.byte	0x98
-Song_0856B076:
+Song_0856B4AC_3_4:
 	.byte	0xBD
 	.byte	0x11
 	.byte	0xBE
@@ -153098,7 +153098,7 @@ Song_0856B076:
 	.byte	0x48
 	.byte	0x3C
 	.byte	0x8C
-Song_0856B0B9:
+Song_0856B4AC_3_1:
 	.byte	0xDB
 	.byte	0x45
 	.byte	0x68
@@ -153132,7 +153132,7 @@ Song_0856B0B9:
 	.byte	0x8C
 	.byte	0x45
 	.byte	0x8C
-Song_0856B0DA:
+Song_0856B4AC_3_2:
 	.byte	0xDB
 	.byte	0x46
 	.byte	0x68
@@ -153166,9 +153166,9 @@ Song_0856B0DA:
 	.byte	0x3C
 	.byte	0x8C
 	.byte	0xB3
-	.word	Song_0856B0B9
+	.word	Song_0856B4AC_3_1
 	.byte	0xB3
-	.word	Song_0856B0DA
+	.word	Song_0856B4AC_3_2
 	.byte	0xDB
 	.byte	0x48
 	.byte	0x68
@@ -153216,7 +153216,7 @@ Song_0856B0DA:
 	.byte	0x48
 	.byte	0x3C
 	.byte	0x8C
-Song_0856B133:
+Song_0856B4AC_3_3:
 	.byte	0xFB
 	.byte	0x4C
 	.byte	0x68
@@ -153286,7 +153286,7 @@ Song_0856B133:
 	.byte	0x48
 	.byte	0xA0
 	.byte	0xB3
-	.word	Song_0856B133
+	.word	Song_0856B4AC_3_3
 	.byte	0xFB
 	.byte	0x4D
 	.byte	0x68
@@ -153296,7 +153296,7 @@ Song_0856B133:
 	.byte	0x3C
 	.byte	0x8C
 	.byte	0xB2
-	.word	Song_0856B076
+	.word	Song_0856B4AC_3_4
 	.byte	0xB1
 
 	@********************** Track  4 **********************@
@@ -153307,7 +153307,7 @@ Song_0856B4AC_4:	@ 0x0856B18A
 	.byte	0x00
 	.byte	0xB0
 	.byte	0xB0
-Song_0856B18E:
+Song_0856B4AC_4_3:
 	.byte	0xBD
 	.byte	0x49
 	.byte	0xBE
@@ -153401,7 +153401,7 @@ Song_0856B18E:
 	.byte	0x37
 	.byte	0x3C
 	.byte	0x8C
-Song_0856B1EB:
+Song_0856B4AC_4_1:
 	.byte	0xFB
 	.byte	0x34
 	.byte	0x68
@@ -153437,7 +153437,7 @@ Song_0856B1EB:
 	.byte	0x35
 	.byte	0x98
 	.byte	0xB3
-	.word	Song_0856B1EB
+	.word	Song_0856B4AC_4_1
 	.byte	0xEB
 	.byte	0x35
 	.byte	0x68
@@ -153460,7 +153460,7 @@ Song_0856B1EB:
 	.byte	0x3E
 	.byte	0x3C
 	.byte	0x8C
-Song_0856B228:
+Song_0856B4AC_4_2:
 	.byte	0xFB
 	.byte	0x40
 	.byte	0x68
@@ -153471,7 +153471,7 @@ Song_0856B228:
 	.byte	0x8C
 	.byte	0xB4
 	.byte	0xB3
-	.word	Song_0856B228
+	.word	Song_0856B4AC_4_2
 	.byte	0xEB
 	.byte	0x40
 	.byte	0x68
@@ -153570,7 +153570,7 @@ Song_0856B228:
 	.byte	0x3C
 	.byte	0x8C
 	.byte	0xB2
-	.word	Song_0856B18E
+	.word	Song_0856B4AC_4_3
 	.byte	0xB1
 
 	@********************** Track  5 **********************@
@@ -153595,7 +153595,7 @@ Song_0856B4AC_5:	@ 0x0856B29D
 	.byte	0x39
 	.byte	0x3C
 	.byte	0x8C
-Song_0856B2AF:
+Song_0856B4AC_5_4:
 	.byte	0xCF
 	.byte	0x45
 	.byte	0x68
@@ -153614,7 +153614,7 @@ Song_0856B2AF:
 	.byte	0x41
 	.byte	0x3C
 	.byte	0x8C
-Song_0856B2C1:
+Song_0856B4AC_5_1:
 	.byte	0xFB
 	.byte	0x43
 	.byte	0x68
@@ -153635,8 +153635,8 @@ Song_0856B2C1:
 	.byte	0x3C
 	.byte	0x8C
 	.byte	0xB3
-	.word	Song_0856B2C1
-Song_0856B2D9:
+	.word	Song_0856B4AC_5_1
+Song_0856B4AC_5_2:
 	.byte	0xFB
 	.byte	0x40
 	.byte	0x68
@@ -153657,7 +153657,7 @@ Song_0856B2D9:
 	.byte	0x3C
 	.byte	0x8C
 	.byte	0xB3
-	.word	Song_0856B2D9
+	.word	Song_0856B4AC_5_2
 	.byte	0xFF
 	.byte	0x3E
 	.byte	0x68
@@ -153718,7 +153718,7 @@ Song_0856B2D9:
 	.byte	0x3E
 	.byte	0x3C
 	.byte	0x8C
-Song_0856B32D:
+Song_0856B4AC_5_3:
 	.byte	0xFB
 	.byte	0x3C
 	.byte	0x68
@@ -153752,7 +153752,7 @@ Song_0856B32D:
 	.byte	0x3C
 	.byte	0x8C
 	.byte	0xB3
-	.word	Song_0856B32D
+	.word	Song_0856B4AC_5_3
 	.byte	0xFB
 	.byte	0x3D
 	.byte	0x68
@@ -153762,7 +153762,7 @@ Song_0856B32D:
 	.byte	0x3C
 	.byte	0x8C
 	.byte	0xB2
-	.word	Song_0856B2AF
+	.word	Song_0856B4AC_5_4
 	.byte	0xB1
 
 	@********************** Track  6 **********************@
@@ -153816,7 +153816,7 @@ Song_0856B4AC_6:	@ 0x0856B360
 	.byte	0x26
 	.byte	0x74
 	.byte	0x86
-Song_0856B38F:
+Song_0856B4AC_6_1:
 	.byte	0xE7
 	.byte	0x31
 	.byte	0x64
@@ -153834,7 +153834,7 @@ Song_0856B38F:
 	.byte	0x68
 	.byte	0x98
 	.byte	0xB4
-Song_0856B3A0:
+Song_0856B4AC_6_2:
 	.byte	0xD5
 	.byte	0x24
 	.byte	0x70
@@ -153854,7 +153854,7 @@ Song_0856B3A0:
 	.byte	0x70
 	.byte	0x8C
 	.byte	0xB4
-Song_0856B3B3:
+Song_0856B4AC_6_3:
 	.byte	0xD5
 	.byte	0x24
 	.byte	0x70
@@ -153895,11 +153895,11 @@ Song_0856B3B3:
 	.byte	0x70
 	.byte	0x86
 	.byte	0xB3
-	.word	Song_0856B38F
+	.word	Song_0856B4AC_6_1
 	.byte	0xB3
-	.word	Song_0856B3A0
+	.word	Song_0856B4AC_6_2
 	.byte	0xB3
-	.word	Song_0856B3B3
+	.word	Song_0856B4AC_6_3
 	.byte	0xD5
 	.byte	0x24
 	.byte	0x70
@@ -153930,7 +153930,7 @@ Song_0856B3B3:
 	.byte	0x26
 	.byte	0x68
 	.byte	0x86
-Song_0856B407:
+Song_0856B4AC_6_5:
 	.byte	0xE7
 	.byte	0x31
 	.byte	0x64
@@ -153948,7 +153948,7 @@ Song_0856B407:
 	.byte	0x68
 	.byte	0x98
 	.byte	0xB4
-Song_0856B418:
+Song_0856B4AC_6_4:
 	.byte	0xD5
 	.byte	0x24
 	.byte	0x70
@@ -153966,15 +153966,15 @@ Song_0856B418:
 	.byte	0x98
 	.byte	0xB4
 	.byte	0xB3
-	.word	Song_0856B418
+	.word	Song_0856B4AC_6_4
 	.byte	0xB3
-	.word	Song_0856B418
+	.word	Song_0856B4AC_6_4
 	.byte	0xB3
-	.word	Song_0856B407
+	.word	Song_0856B4AC_6_5
 	.byte	0xB3
-	.word	Song_0856B418
+	.word	Song_0856B4AC_6_4
 	.byte	0xB3
-	.word	Song_0856B407
+	.word	Song_0856B4AC_6_5
 	.byte	0xE7
 	.byte	0x31
 	.byte	0x64
@@ -153997,11 +153997,11 @@ Song_0856B418:
 	.byte	0x5C
 	.byte	0x86
 	.byte	0xB3
-	.word	Song_0856B38F
+	.word	Song_0856B4AC_6_1
 	.byte	0xB3
-	.word	Song_0856B3A0
+	.word	Song_0856B4AC_6_2
 	.byte	0xB3
-	.word	Song_0856B3B3
+	.word	Song_0856B4AC_6_3
 	.byte	0xD5
 	.byte	0x24
 	.byte	0x70
@@ -154027,11 +154027,11 @@ Song_0856B418:
 	.byte	0x68
 	.byte	0x86
 	.byte	0xB3
-	.word	Song_0856B38F
+	.word	Song_0856B4AC_6_1
 	.byte	0xB3
-	.word	Song_0856B3A0
+	.word	Song_0856B4AC_6_2
 	.byte	0xB3
-	.word	Song_0856B3B3
+	.word	Song_0856B4AC_6_3
 	.byte	0xD5
 	.byte	0x24
 	.byte	0x70
@@ -154057,7 +154057,7 @@ Song_0856B418:
 	.byte	0x6C
 	.byte	0x86
 	.byte	0xB2
-	.word	Song_0856B38F
+	.word	Song_0856B4AC_6_1
 	.byte	0xB1
 	.byte	0x00
 	.byte	0x00
@@ -154070,7 +154070,7 @@ Song_0856B4AC:	@ 0x0856B4AC
 	.byte	10		@ priority
 	.byte	148		@ reverb
 
-	.word	voicegroup_0821DE38		@ voicegroup/tone
+	.word	voicegroup068		@ voicegroup/tone
 
 	.word	Song_0856B4AC_1		@ track
 	.word	Song_0856B4AC_2		@ track
@@ -154109,7 +154109,7 @@ Song_0856BD94_1:	@ 0x0856B4CC
 	.byte	0x3C
 	.byte	0x70
 	.byte	0xA0
-Song_0856B4E5:
+Song_0856BD94_1_3:
 	.byte	0xFB
 	.byte	0x3E
 	.byte	0x70
@@ -154145,7 +154145,7 @@ Song_0856B4E5:
 	.byte	0x40
 	.byte	0x24
 	.byte	0x8C
-Song_0856B508:
+Song_0856BD94_1_1:
 	.byte	0xF3
 	.byte	0x39
 	.byte	0x70
@@ -154164,7 +154164,7 @@ Song_0856B508:
 	.byte	0x70
 	.byte	0x86
 	.byte	0xB4
-Song_0856B51A:
+Song_0856BD94_1_2:
 	.byte	0xF3
 	.byte	0x3C
 	.byte	0x70
@@ -154184,9 +154184,9 @@ Song_0856B51A:
 	.byte	0x86
 	.byte	0xB4
 	.byte	0xB3
-	.word	Song_0856B508
+	.word	Song_0856BD94_1_1
 	.byte	0xB3
-	.word	Song_0856B51A
+	.word	Song_0856BD94_1_2
 	.byte	0xBD
 	.byte	0x44
 	.byte	0xBE
@@ -154596,7 +154596,7 @@ Song_0856B51A:
 	.byte	0x70
 	.byte	0xA0
 	.byte	0xB2
-	.word	Song_0856B4E5
+	.word	Song_0856BD94_1_3
 	.byte	0xB1
 
 	@********************** Track  2 **********************@
@@ -154617,7 +154617,7 @@ Song_0856BD94_2:	@ 0x0856B6D4
 	.byte	0xA8
 	.byte	0xE4
 	.byte	0x98
-Song_0856B6E2:
+Song_0856BD94_2_1:
 	.byte	0xEE
 	.byte	0x2E
 	.byte	0x7F
@@ -154626,10 +154626,10 @@ Song_0856B6E2:
 	.byte	0x98
 	.byte	0xB4
 	.byte	0xB3
-	.word	Song_0856B6E2
+	.word	Song_0856BD94_2_1
 	.byte	0xB3
-	.word	Song_0856B6E2
-Song_0856B6F3:
+	.word	Song_0856BD94_2_1
+Song_0856BD94_2_2:
 	.byte	0xD8
 	.byte	0x32
 	.byte	0x7F
@@ -154648,12 +154648,12 @@ Song_0856B6F3:
 	.byte	0x8C
 	.byte	0xB4
 	.byte	0xB3
-	.word	Song_0856B6F3
+	.word	Song_0856BD94_2_2
 	.byte	0xB3
-	.word	Song_0856B6F3
+	.word	Song_0856BD94_2_2
 	.byte	0xB3
-	.word	Song_0856B6F3
-Song_0856B713:
+	.word	Song_0856BD94_2_2
+Song_0856BD94_2_3:
 	.byte	0xD8
 	.byte	0x2B
 	.byte	0x7F
@@ -154677,7 +154677,7 @@ Song_0856B713:
 	.byte	0x2F
 	.byte	0xA0
 	.byte	0xB3
-	.word	Song_0856B713
+	.word	Song_0856BD94_2_3
 	.byte	0xE4
 	.byte	0x3B
 	.byte	0x7F
@@ -154705,7 +154705,7 @@ Song_0856B713:
 	.byte	0xEE
 	.byte	0x28
 	.byte	0xA0
-Song_0856B749:
+Song_0856BD94_2_4:
 	.byte	0xEA
 	.byte	0x2A
 	.byte	0x7F
@@ -154717,7 +154717,7 @@ Song_0856B749:
 	.byte	0xE4
 	.byte	0x98
 	.byte	0xB4
-Song_0856B754:
+Song_0856BD94_2_5:
 	.byte	0xEA
 	.byte	0x2B
 	.byte	0x7F
@@ -154731,9 +154731,9 @@ Song_0856B754:
 	.byte	0x98
 	.byte	0xB4
 	.byte	0xB3
-	.word	Song_0856B749
+	.word	Song_0856BD94_2_4
 	.byte	0xB3
-	.word	Song_0856B754
+	.word	Song_0856BD94_2_5
 	.byte	0xEE
 	.byte	0x2D
 	.byte	0x7F
@@ -154797,7 +154797,7 @@ Song_0856B754:
 	.byte	0xE4
 	.byte	0x98
 	.byte	0xB2
-	.word	Song_0856B6E2
+	.word	Song_0856BD94_2_1
 	.byte	0xB1
 
 	@********************** Track  3 **********************@
@@ -154823,7 +154823,7 @@ Song_0856BD94_3:	@ 0x0856B7AE
 	.byte	0x92
 	.byte	0xD5
 	.byte	0x86
-Song_0856B7C1:
+Song_0856BD94_3_2:
 	.byte	0xE7
 	.byte	0x3E
 	.byte	0x7C
@@ -154948,7 +154948,7 @@ Song_0856B7C1:
 	.byte	0x8C
 	.byte	0x47
 	.byte	0x8C
-Song_0856B83D:
+Song_0856BD94_3_1:
 	.byte	0xDB
 	.byte	0x37
 	.byte	0x78
@@ -154969,9 +154969,9 @@ Song_0856B83D:
 	.byte	0x8C
 	.byte	0xB4
 	.byte	0xB3
-	.word	Song_0856B83D
+	.word	Song_0856BD94_3_1
 	.byte	0xB3
-	.word	Song_0856B83D
+	.word	Song_0856BD94_3_1
 	.byte	0xBD
 	.byte	0x00
 	.byte	0xBE
@@ -155255,7 +155255,7 @@ Song_0856B83D:
 	.byte	0xD5
 	.byte	0x86
 	.byte	0xB2
-	.word	Song_0856B7C1
+	.word	Song_0856BD94_3_2
 	.byte	0xB1
 
 	@********************** Track  4 **********************@
@@ -155287,7 +155287,7 @@ Song_0856BD94_4:	@ 0x0856B97A
 	.byte	0x43
 	.byte	0x24
 	.byte	0x98
-Song_0856B993:
+Song_0856BD94_4_3:
 	.byte	0xF7
 	.byte	0x46
 	.byte	0x64
@@ -155323,7 +155323,7 @@ Song_0856B993:
 	.byte	0x48
 	.byte	0x24
 	.byte	0x8C
-Song_0856B9B6:
+Song_0856BD94_4_1:
 	.byte	0xF6
 	.byte	0x42
 	.byte	0x64
@@ -155354,7 +155354,7 @@ Song_0856B9B6:
 	.byte	0x64
 	.byte	0x86
 	.byte	0xB3
-	.word	Song_0856B9B6
+	.word	Song_0856BD94_4_1
 	.byte	0xF6
 	.byte	0x43
 	.byte	0x64
@@ -155428,7 +155428,7 @@ Song_0856B9B6:
 	.byte	0x4C
 	.byte	0x20
 	.byte	0x86
-Song_0856BA21:
+Song_0856BD94_4_2:
 	.byte	0xF7
 	.byte	0x39
 	.byte	0x64
@@ -155441,7 +155441,7 @@ Song_0856BA21:
 	.byte	0x34
 	.byte	0xA0
 	.byte	0xB3
-	.word	Song_0856BA21
+	.word	Song_0856BD94_4_2
 	.byte	0xEF
 	.byte	0x3B
 	.byte	0x64
@@ -155625,7 +155625,7 @@ Song_0856BA21:
 	.byte	0x64
 	.byte	0xA0
 	.byte	0xB2
-	.word	Song_0856B993
+	.word	Song_0856BD94_4_3
 	.byte	0xB1
 
 	@********************** Track  5 **********************@
@@ -155634,7 +155634,7 @@ Song_0856BA21:
 Song_0856BD94_5:	@ 0x0856BAED
 	.byte	0xBC
 	.byte	0x00
-Song_0856BAEF:
+Song_0856BD94_5_4:
 	.byte	0xBD
 	.byte	0x2F
 	.byte	0xBE
@@ -155667,7 +155667,7 @@ Song_0856BAEF:
 	.byte	0x6C
 	.byte	0x8C
 	.byte	0xB4
-Song_0856BB0F:
+Song_0856BD94_5_1:
 	.byte	0xBD
 	.byte	0x2F
 	.byte	0xBE
@@ -155701,7 +155701,7 @@ Song_0856BB0F:
 	.byte	0x8C
 	.byte	0xB4
 	.byte	0xB3
-	.word	Song_0856BB0F
+	.word	Song_0856BD94_5_1
 	.byte	0xEF
 	.byte	0x3A
 	.byte	0x7F
@@ -155719,7 +155719,7 @@ Song_0856BB0F:
 	.byte	0x35
 	.byte	0x6C
 	.byte	0x8C
-Song_0856BB45:
+Song_0856BD94_5_2:
 	.byte	0xBD
 	.byte	0x2F
 	.byte	0xBE
@@ -155753,7 +155753,7 @@ Song_0856BB45:
 	.byte	0x6C
 	.byte	0x8C
 	.byte	0xB4
-Song_0856BB66:
+Song_0856BD94_5_3:
 	.byte	0xEF
 	.byte	0x32
 	.byte	0x7F
@@ -155773,9 +155773,9 @@ Song_0856BB66:
 	.byte	0x8C
 	.byte	0xB4
 	.byte	0xB3
-	.word	Song_0856BB45
+	.word	Song_0856BD94_5_2
 	.byte	0xB3
-	.word	Song_0856BB66
+	.word	Song_0856BD94_5_3
 	.byte	0xBD
 	.byte	0x30
 	.byte	0xBE
@@ -155937,9 +155937,9 @@ Song_0856BB66:
 	.byte	0xD5
 	.byte	0x86
 	.byte	0xB3
-	.word	Song_0856BAEF
+	.word	Song_0856BD94_5_4
 	.byte	0xB2
-	.word	Song_0856BB0F
+	.word	Song_0856BD94_5_1
 	.byte	0xB1
 
 	@********************** Track  6 **********************@
@@ -155984,7 +155984,7 @@ Song_0856BD94_6:	@ 0x0856BC2D
 	.byte	0x26
 	.byte	0x40
 	.byte	0x84
-Song_0856BC53:
+Song_0856BD94_6_4:
 	.byte	0xE7
 	.byte	0x31
 	.byte	0x48
@@ -156084,7 +156084,7 @@ Song_0856BC53:
 	.byte	0x8C
 	.byte	0xD5
 	.byte	0x8C
-Song_0856BCB6:
+Song_0856BD94_6_1:
 	.byte	0xDB
 	.byte	0x53
 	.byte	0x54
@@ -156097,12 +156097,12 @@ Song_0856BCB6:
 	.byte	0xA0
 	.byte	0xB4
 	.byte	0xB3
-	.word	Song_0856BCB6
+	.word	Song_0856BD94_6_1
 	.byte	0xB3
-	.word	Song_0856BCB6
+	.word	Song_0856BD94_6_1
 	.byte	0xB3
-	.word	Song_0856BCB6
-Song_0856BCD0:
+	.word	Song_0856BD94_6_1
+Song_0856BD94_6_2:
 	.byte	0xDB
 	.byte	0x53
 	.byte	0x54
@@ -156139,11 +156139,11 @@ Song_0856BCD0:
 	.byte	0x14
 	.byte	0x92
 	.byte	0xB3
-	.word	Song_0856BCD0
+	.word	Song_0856BD94_6_2
 	.byte	0xB3
-	.word	Song_0856BCD0
+	.word	Song_0856BD94_6_2
 	.byte	0xB3
-	.word	Song_0856BCD0
+	.word	Song_0856BD94_6_2
 	.byte	0xDB
 	.byte	0x53
 	.byte	0x54
@@ -156166,7 +156166,7 @@ Song_0856BCD0:
 	.byte	0x50
 	.byte	0x8C
 	.byte	0xB3
-	.word	Song_0856BCD0
+	.word	Song_0856BD94_6_2
 	.byte	0xDB
 	.byte	0x53
 	.byte	0x54
@@ -156181,7 +156181,7 @@ Song_0856BCD0:
 	.byte	0x8C
 	.byte	0xD5
 	.byte	0x8C
-Song_0856BD2A:
+Song_0856BD94_6_3:
 	.byte	0xE7
 	.byte	0x31
 	.byte	0x48
@@ -156226,7 +156226,7 @@ Song_0856BD2A:
 	.byte	0xD5
 	.byte	0x8C
 	.byte	0xB3
-	.word	Song_0856BD2A
+	.word	Song_0856BD94_6_3
 	.byte	0xE7
 	.byte	0x31
 	.byte	0x48
@@ -156279,7 +156279,7 @@ Song_0856BD2A:
 	.byte	0x40
 	.byte	0x84
 	.byte	0xB2
-	.word	Song_0856BC53
+	.word	Song_0856BD94_6_4
 	.byte	0xB1
 	.byte	0x00
 
@@ -156291,7 +156291,7 @@ Song_0856BD94:	@ 0x0856BD94
 	.byte	10		@ priority
 	.byte	148		@ reverb
 
-	.word	voicegroup_0821E438		@ voicegroup/tone
+	.word	voicegroup069		@ voicegroup/tone
 
 	.word	Song_0856BD94_1		@ track
 	.word	Song_0856BD94_2		@ track
@@ -156307,7 +156307,7 @@ Song_0856BD94:	@ 0x0856BD94
 Song_0856C61C_1:	@ 0x0856BDB4
 	.byte	0xBC
 	.byte	0x00
-Song_0856BDB6:
+Song_0856C61C_1_2:
 	.byte	0xBB
 	.byte	0x3C
 	.byte	0xBD
@@ -156421,7 +156421,7 @@ Song_0856BDB6:
 	.byte	0x41
 	.byte	0x24
 	.byte	0x89
-Song_0856BE27:
+Song_0856C61C_1_1:
 	.byte	0xED
 	.byte	0x40
 	.byte	0x74
@@ -156460,7 +156460,7 @@ Song_0856BE27:
 	.byte	0x74
 	.byte	0x86
 	.byte	0xB3
-	.word	Song_0856BE27
+	.word	Song_0856C61C_1_1
 	.byte	0xF5
 	.byte	0x43
 	.byte	0x74
@@ -156559,7 +156559,7 @@ Song_0856BE27:
 	.byte	0x3C
 	.byte	0x8C
 	.byte	0xB2
-	.word	Song_0856BDB6
+	.word	Song_0856C61C_1_2
 	.byte	0xB1
 
 	@********************** Track  2 **********************@
@@ -156568,7 +156568,7 @@ Song_0856BE27:
 Song_0856C61C_2:	@ 0x0856BEB8
 	.byte	0xBC
 	.byte	0x00
-Song_0856BEBA:
+Song_0856C61C_2_2:
 	.byte	0xBD
 	.byte	0x22
 	.byte	0xBE
@@ -156609,7 +156609,7 @@ Song_0856BEBA:
 	.byte	0x98
 	.byte	0xE1
 	.byte	0x98
-Song_0856BEE2:
+Song_0856C61C_2_1:
 	.byte	0xE1
 	.byte	0x2D
 	.byte	0x7F
@@ -156622,9 +156622,9 @@ Song_0856BEE2:
 	.byte	0x98
 	.byte	0xB4
 	.byte	0xB3
-	.word	Song_0856BEE2
+	.word	Song_0856C61C_2_1
 	.byte	0xB3
-	.word	Song_0856BEE2
+	.word	Song_0856C61C_2_1
 	.byte	0xE1
 	.byte	0x2D
 	.byte	0x7F
@@ -157273,7 +157273,7 @@ Song_0856BEE2:
 	.byte	0x00
 	.byte	0x84
 	.byte	0xB2
-	.word	Song_0856BEBA
+	.word	Song_0856C61C_2_2
 	.byte	0xB1
 
 	@********************** Track  3 **********************@
@@ -157282,7 +157282,7 @@ Song_0856BEE2:
 Song_0856C61C_3:	@ 0x0856C184
 	.byte	0xBC
 	.byte	0x00
-Song_0856C186:
+Song_0856C61C_3_1:
 	.byte	0xBD
 	.byte	0x48
 	.byte	0xC4
@@ -157510,7 +157510,7 @@ Song_0856C186:
 	.byte	0x83
 	.byte	0xCE
 	.byte	0xB2
-	.word	Song_0856C186
+	.word	Song_0856C61C_3_1
 	.byte	0xB1
 
 	@********************** Track  4 **********************@
@@ -157519,7 +157519,7 @@ Song_0856C186:
 Song_0856C61C_4:	@ 0x0856C26E
 	.byte	0xBC
 	.byte	0x00
-Song_0856C270:
+Song_0856C61C_4_2:
 	.byte	0xBD
 	.byte	0x3E
 	.byte	0xBE
@@ -157637,7 +157637,7 @@ Song_0856C270:
 	.byte	0x3E
 	.byte	0x20
 	.byte	0x86
-Song_0856C2E5:
+Song_0856C61C_4_1:
 	.byte	0xF3
 	.byte	0x3C
 	.byte	0x74
@@ -157674,7 +157674,7 @@ Song_0856C2E5:
 	.byte	0x74
 	.byte	0x86
 	.byte	0xB3
-	.word	Song_0856C2E5
+	.word	Song_0856C61C_4_1
 	.byte	0xF5
 	.byte	0x3E
 	.byte	0x74
@@ -157972,7 +157972,7 @@ Song_0856C2E5:
 	.byte	0x00
 	.byte	0x81
 	.byte	0xB2
-	.word	Song_0856C270
+	.word	Song_0856C61C_4_2
 	.byte	0xB1
 
 	@********************** Track  5 **********************@
@@ -157981,7 +157981,7 @@ Song_0856C2E5:
 Song_0856C61C_5:	@ 0x0856C43B
 	.byte	0xBC
 	.byte	0x00
-Song_0856C43D:
+Song_0856C61C_5_2:
 	.byte	0xBD
 	.byte	0x33
 	.byte	0xBE
@@ -157992,7 +157992,7 @@ Song_0856C43D:
 	.byte	0x37
 	.byte	0x68
 	.byte	0xB0
-Song_0856C447:
+Song_0856C61C_5_1:
 	.byte	0xD5
 	.byte	0x37
 	.byte	0x20
@@ -158018,7 +158018,7 @@ Song_0856C447:
 	.byte	0x68
 	.byte	0xB0
 	.byte	0xB3
-	.word	Song_0856C447
+	.word	Song_0856C61C_5_1
 	.byte	0xFF
 	.byte	0x34
 	.byte	0x68
@@ -158114,7 +158114,7 @@ Song_0856C447:
 	.byte	0x50
 	.byte	0xB0
 	.byte	0xB2
-	.word	Song_0856C43D
+	.word	Song_0856C61C_5_2
 	.byte	0xB1
 
 	@********************** Track  6 **********************@
@@ -158123,7 +158123,7 @@ Song_0856C447:
 Song_0856C61C_6:	@ 0x0856C4C8
 	.byte	0xBC
 	.byte	0x00
-Song_0856C4CA:
+Song_0856C61C_6_3:
 	.byte	0xBD
 	.byte	0x7F
 	.byte	0xBE
@@ -158142,7 +158142,7 @@ Song_0856C4CA:
 	.byte	0x2E
 	.byte	0x3C
 	.byte	0x98
-Song_0856C4DC:
+Song_0856C61C_6_1:
 	.byte	0xD5
 	.byte	0x2A
 	.byte	0x3C
@@ -158167,7 +158167,7 @@ Song_0856C4DC:
 	.byte	0x3C
 	.byte	0x98
 	.byte	0xB3
-	.word	Song_0856C4DC
+	.word	Song_0856C61C_6_1
 	.byte	0xE7
 	.byte	0x2E
 	.byte	0x3C
@@ -158244,7 +158244,7 @@ Song_0856C4DC:
 	.byte	0x33
 	.byte	0x60
 	.byte	0xB0
-Song_0856C544:
+Song_0856C61C_6_2:
 	.byte	0xA0
 	.byte	0xD5
 	.byte	0x36
@@ -158259,7 +158259,7 @@ Song_0856C544:
 	.byte	0x5C
 	.byte	0xB0
 	.byte	0xB3
-	.word	Song_0856C544
+	.word	Song_0856C61C_6_2
 	.byte	0xEF
 	.byte	0x33
 	.byte	0x5C
@@ -158281,7 +158281,7 @@ Song_0856C544:
 	.byte	0xD5
 	.byte	0x8C
 	.byte	0xB2
-	.word	Song_0856C4CA
+	.word	Song_0856C61C_6_3
 	.byte	0xB1
 
 	@********************** Track  7 **********************@
@@ -158290,7 +158290,7 @@ Song_0856C544:
 Song_0856C61C_7:	@ 0x0856C570
 	.byte	0xBC
 	.byte	0x00
-Song_0856C572:
+Song_0856C61C_7_3:
 	.byte	0xB0
 	.byte	0xB0
 	.byte	0xB0
@@ -158306,7 +158306,7 @@ Song_0856C572:
 	.byte	0xBF
 	.byte	0x27
 	.byte	0x98
-Song_0856C581:
+Song_0856C61C_7_1:
 	.byte	0xDB
 	.byte	0x3F
 	.byte	0x68
@@ -158326,7 +158326,7 @@ Song_0856C581:
 	.byte	0x4D
 	.byte	0x8C
 	.byte	0xB4
-Song_0856C594:
+Song_0856C61C_7_2:
 	.byte	0xDB
 	.byte	0x43
 	.byte	0x68
@@ -158379,9 +158379,9 @@ Song_0856C594:
 	.byte	0x41
 	.byte	0x8C
 	.byte	0xB3
-	.word	Song_0856C581
+	.word	Song_0856C61C_7_1
 	.byte	0xB3
-	.word	Song_0856C594
+	.word	Song_0856C61C_7_2
 	.byte	0xDB
 	.byte	0x41
 	.byte	0x68
@@ -158449,7 +158449,7 @@ Song_0856C594:
 	.byte	0x54
 	.byte	0x8C
 	.byte	0xB2
-	.word	Song_0856C572
+	.word	Song_0856C61C_7_3
 	.byte	0xB1
 	.byte	0x00
 	.byte	0x00
@@ -158463,7 +158463,7 @@ Song_0856C61C:	@ 0x0856C61C
 	.byte	10		@ priority
 	.byte	148		@ reverb
 
-	.word	voicegroup_0821EA38		@ voicegroup/tone
+	.word	voicegroup070		@ voicegroup/tone
 
 	.word	Song_0856C61C_1		@ track
 	.word	Song_0856C61C_2		@ track
@@ -158543,7 +158543,7 @@ Song_0856D0AC_1:	@ 0x0856C640
 	.byte	0xBB
 	.byte	0x17
 	.byte	0x86
-Song_0856C681:
+Song_0856D0AC_1_4:
 	.byte	0xBB
 	.byte	0x34
 	.byte	0xEE
@@ -158618,7 +158618,7 @@ Song_0856C681:
 	.byte	0x40
 	.byte	0x20
 	.byte	0x86
-Song_0856C6CB:
+Song_0856D0AC_1_2:
 	.byte	0xF5
 	.byte	0x3C
 	.byte	0x54
@@ -158660,7 +158660,7 @@ Song_0856C6CB:
 	.byte	0x6C
 	.byte	0x86
 	.byte	0xB4
-Song_0856C6F4:
+Song_0856D0AC_1_3:
 	.byte	0xEF
 	.byte	0x40
 	.byte	0x54
@@ -158683,7 +158683,7 @@ Song_0856C6F4:
 	.byte	0x20
 	.byte	0x86
 	.byte	0xB4
-Song_0856C70A:
+Song_0856D0AC_1_1:
 	.byte	0xEE
 	.byte	0x3B
 	.byte	0x54
@@ -158813,7 +158813,7 @@ Song_0856C70A:
 	.byte	0x20
 	.byte	0x98
 	.byte	0xB3
-	.word	Song_0856C70A
+	.word	Song_0856D0AC_1_1
 	.byte	0xEE
 	.byte	0x43
 	.byte	0x54
@@ -158836,11 +158836,11 @@ Song_0856C70A:
 	.byte	0x20
 	.byte	0x86
 	.byte	0xB3
-	.word	Song_0856C6CB
+	.word	Song_0856D0AC_1_2
 	.byte	0xB3
-	.word	Song_0856C6F4
+	.word	Song_0856D0AC_1_3
 	.byte	0xB3
-	.word	Song_0856C70A
+	.word	Song_0856D0AC_1_1
 	.byte	0xEE
 	.byte	0x47
 	.byte	0x40
@@ -159004,7 +159004,7 @@ Song_0856C70A:
 	.byte	0x14
 	.byte	0x8C
 	.byte	0xB2
-	.word	Song_0856C681
+	.word	Song_0856D0AC_1_4
 	.byte	0xB1
 
 	@********************** Track  2 **********************@
@@ -159043,7 +159043,7 @@ Song_0856D0AC_2:	@ 0x0856C85B
 	.byte	0x8C
 	.byte	0x2D
 	.byte	0x8C
-Song_0856C87B:
+Song_0856D0AC_2_1:
 	.byte	0xD4
 	.byte	0x2B
 	.byte	0x7F
@@ -159059,7 +159059,7 @@ Song_0856C87B:
 	.byte	0xD5
 	.byte	0x8C
 	.byte	0xB4
-Song_0856C88A:
+Song_0856D0AC_2_2:
 	.byte	0xD4
 	.byte	0x30
 	.byte	0x7F
@@ -159077,7 +159077,7 @@ Song_0856C88A:
 	.byte	0xD5
 	.byte	0x8C
 	.byte	0xB4
-Song_0856C89B:
+Song_0856D0AC_2_3:
 	.byte	0xD4
 	.byte	0x2D
 	.byte	0x7F
@@ -159109,11 +159109,11 @@ Song_0856C89B:
 	.byte	0x26
 	.byte	0x8C
 	.byte	0xB3
-	.word	Song_0856C87B
+	.word	Song_0856D0AC_2_1
 	.byte	0xB3
-	.word	Song_0856C88A
+	.word	Song_0856D0AC_2_2
 	.byte	0xB3
-	.word	Song_0856C89B
+	.word	Song_0856D0AC_2_3
 	.byte	0xD4
 	.byte	0x32
 	.byte	0x7F
@@ -159131,11 +159131,11 @@ Song_0856C89B:
 	.byte	0x26
 	.byte	0x8C
 	.byte	0xB3
-	.word	Song_0856C87B
+	.word	Song_0856D0AC_2_1
 	.byte	0xB3
-	.word	Song_0856C88A
+	.word	Song_0856D0AC_2_2
 	.byte	0xB3
-	.word	Song_0856C89B
+	.word	Song_0856D0AC_2_3
 	.byte	0xD4
 	.byte	0x32
 	.byte	0x7F
@@ -159306,7 +159306,7 @@ Song_0856C89B:
 	.byte	0x26
 	.byte	0x8C
 	.byte	0xB2
-	.word	Song_0856C87B
+	.word	Song_0856D0AC_2_1
 	.byte	0xB1
 
 	@********************** Track  3 **********************@
@@ -159361,7 +159361,7 @@ Song_0856D0AC_3:	@ 0x0856C996
 	.byte	0x3F
 	.byte	0x50
 	.byte	0xA0
-Song_0856C9C6:
+Song_0856D0AC_3_1:
 	.byte	0xBD
 	.byte	0x46
 	.byte	0x98
@@ -159624,7 +159624,7 @@ Song_0856C9C6:
 	.byte	0x14
 	.byte	0x8C
 	.byte	0xB2
-	.word	Song_0856C9C6
+	.word	Song_0856D0AC_3_1
 	.byte	0xB1
 
 	@********************** Track  4 **********************@
@@ -159660,7 +159660,7 @@ Song_0856D0AC_4:	@ 0x0856CAD1
 	.byte	0x4B
 	.byte	0x50
 	.byte	0xA0
-Song_0856CAEE:
+Song_0856D0AC_4_1:
 	.byte	0xB0
 	.byte	0xB0
 	.byte	0xB0
@@ -159838,7 +159838,7 @@ Song_0856CAEE:
 	.byte	0xB0
 	.byte	0xB0
 	.byte	0xB2
-	.word	Song_0856CAEE
+	.word	Song_0856D0AC_4_1
 	.byte	0xB1
 
 	@********************** Track  5 **********************@
@@ -159858,7 +159858,7 @@ Song_0856D0AC_5:	@ 0x0856CBA4
 	.byte	0xBF
 	.byte	0x32
 	.byte	0xA0
-Song_0856CBB1:
+Song_0856D0AC_5_1:
 	.byte	0xD5
 	.byte	0x3B
 	.byte	0x50
@@ -159925,7 +159925,7 @@ Song_0856CBB1:
 	.byte	0x1C
 	.byte	0x86
 	.byte	0xB4
-Song_0856CBF3:
+Song_0856D0AC_5_2:
 	.byte	0xD5
 	.byte	0x3B
 	.byte	0x50
@@ -159992,7 +159992,7 @@ Song_0856CBF3:
 	.byte	0x1C
 	.byte	0x86
 	.byte	0xB4
-Song_0856CC35:
+Song_0856D0AC_5_3:
 	.byte	0xD5
 	.byte	0x3C
 	.byte	0x50
@@ -160124,11 +160124,11 @@ Song_0856CC35:
 	.byte	0x1C
 	.byte	0x86
 	.byte	0xB3
-	.word	Song_0856CBB1
+	.word	Song_0856D0AC_5_1
 	.byte	0xB3
-	.word	Song_0856CBF3
+	.word	Song_0856D0AC_5_2
 	.byte	0xB3
-	.word	Song_0856CC35
+	.word	Song_0856D0AC_5_3
 	.byte	0xD5
 	.byte	0x39
 	.byte	0x50
@@ -160194,7 +160194,7 @@ Song_0856CC35:
 	.byte	0x3F
 	.byte	0x1C
 	.byte	0x86
-Song_0856CD07:
+Song_0856D0AC_5_4:
 	.byte	0xD5
 	.byte	0x3B
 	.byte	0x50
@@ -160246,7 +160246,7 @@ Song_0856CD07:
 	.byte	0x86
 	.byte	0xB4
 	.byte	0xB3
-	.word	Song_0856CD07
+	.word	Song_0856D0AC_5_4
 	.byte	0xD5
 	.byte	0x3C
 	.byte	0x50
@@ -160345,9 +160345,9 @@ Song_0856CD07:
 	.byte	0x1C
 	.byte	0x86
 	.byte	0xB3
-	.word	Song_0856CD07
+	.word	Song_0856D0AC_5_4
 	.byte	0xB3
-	.word	Song_0856CD07
+	.word	Song_0856D0AC_5_4
 	.byte	0xD5
 	.byte	0x3C
 	.byte	0x50
@@ -160582,7 +160582,7 @@ Song_0856CD07:
 	.byte	0x28
 	.byte	0xA0
 	.byte	0xB2
-	.word	Song_0856CBB1
+	.word	Song_0856D0AC_5_1
 	.byte	0xB1
 
 	@********************** Track  6 **********************@
@@ -160594,7 +160594,7 @@ Song_0856D0AC_6:	@ 0x0856CE98
 	.byte	0xB0
 	.byte	0xB0
 	.byte	0xB0
-Song_0856CE9D:
+Song_0856D0AC_6_1:
 	.byte	0xB0
 	.byte	0xB0
 	.byte	0xB0
@@ -160755,7 +160755,7 @@ Song_0856CE9D:
 	.byte	0xB0
 	.byte	0xB0
 	.byte	0xB2
-	.word	Song_0856CE9D
+	.word	Song_0856D0AC_6_1
 	.byte	0xB1
 
 	@********************** Track  7 **********************@
@@ -160782,7 +160782,7 @@ Song_0856D0AC_7:	@ 0x0856CF42
 	.byte	0x34
 	.byte	0x48
 	.byte	0x9C
-Song_0856CF56:
+Song_0856D0AC_7_1:
 	.byte	0xD5
 	.byte	0x26
 	.byte	0x58
@@ -161119,7 +161119,7 @@ Song_0856CF56:
 	.byte	0xD5
 	.byte	0x86
 	.byte	0xB2
-	.word	Song_0856CF56
+	.word	Song_0856D0AC_7_1
 	.byte	0xB1
 	.byte	0x00
 
@@ -161131,7 +161131,7 @@ Song_0856D0AC:	@ 0x0856D0AC
 	.byte	10		@ priority
 	.byte	148		@ reverb
 
-	.word	voicegroup_0820CE70		@ voicegroup/tone
+	.word	voicegroup016		@ voicegroup/tone
 
 	.word	Song_0856D0AC_1		@ track
 	.word	Song_0856D0AC_2		@ track
@@ -161148,7 +161148,7 @@ Song_0856D0AC:	@ 0x0856D0AC
 Song_0856D700_1:	@ 0x0856D0D0
 	.byte	0xBC
 	.byte	0x00
-Song_0856D0D2:
+Song_0856D700_1_1:
 	.byte	0xBB
 	.byte	0x38
 	.byte	0xBD
@@ -161524,7 +161524,7 @@ Song_0856D0D2:
 	.byte	0x20
 	.byte	0x95
 	.byte	0xB2
-	.word	Song_0856D0D2
+	.word	Song_0856D700_1_1
 	.byte	0xB1
 
 	@********************** Track  2 **********************@
@@ -161533,7 +161533,7 @@ Song_0856D0D2:
 Song_0856D700_2:	@ 0x0856D24E
 	.byte	0xBC
 	.byte	0x00
-Song_0856D250:
+Song_0856D700_2_2:
 	.byte	0xBD
 	.byte	0x22
 	.byte	0xBE
@@ -161552,7 +161552,7 @@ Song_0856D250:
 	.byte	0x8C
 	.byte	0xD8
 	.byte	0x8C
-Song_0856D262:
+Song_0856D700_2_1:
 	.byte	0xD8
 	.byte	0x2E
 	.byte	0x7F
@@ -161567,63 +161567,63 @@ Song_0856D262:
 	.byte	0x8C
 	.byte	0xB4
 	.byte	0xB3
-	.word	Song_0856D262
+	.word	Song_0856D700_2_1
 	.byte	0xB3
-	.word	Song_0856D262
+	.word	Song_0856D700_2_1
 	.byte	0xB3
-	.word	Song_0856D262
+	.word	Song_0856D700_2_1
 	.byte	0xB3
-	.word	Song_0856D262
+	.word	Song_0856D700_2_1
 	.byte	0xB3
-	.word	Song_0856D262
+	.word	Song_0856D700_2_1
 	.byte	0xB3
-	.word	Song_0856D262
+	.word	Song_0856D700_2_1
 	.byte	0xB3
-	.word	Song_0856D262
+	.word	Song_0856D700_2_1
 	.byte	0xB3
-	.word	Song_0856D262
+	.word	Song_0856D700_2_1
 	.byte	0xB3
-	.word	Song_0856D262
+	.word	Song_0856D700_2_1
 	.byte	0xB3
-	.word	Song_0856D262
+	.word	Song_0856D700_2_1
 	.byte	0xB3
-	.word	Song_0856D262
+	.word	Song_0856D700_2_1
 	.byte	0xB3
-	.word	Song_0856D262
+	.word	Song_0856D700_2_1
 	.byte	0xB3
-	.word	Song_0856D262
+	.word	Song_0856D700_2_1
 	.byte	0xB3
-	.word	Song_0856D262
+	.word	Song_0856D700_2_1
 	.byte	0xB3
-	.word	Song_0856D262
+	.word	Song_0856D700_2_1
 	.byte	0xB3
-	.word	Song_0856D262
+	.word	Song_0856D700_2_1
 	.byte	0xB3
-	.word	Song_0856D262
+	.word	Song_0856D700_2_1
 	.byte	0xB3
-	.word	Song_0856D262
+	.word	Song_0856D700_2_1
 	.byte	0xB3
-	.word	Song_0856D262
+	.word	Song_0856D700_2_1
 	.byte	0xB3
-	.word	Song_0856D262
+	.word	Song_0856D700_2_1
 	.byte	0xB3
-	.word	Song_0856D262
+	.word	Song_0856D700_2_1
 	.byte	0xB3
-	.word	Song_0856D262
+	.word	Song_0856D700_2_1
 	.byte	0xB3
-	.word	Song_0856D262
+	.word	Song_0856D700_2_1
 	.byte	0xB3
-	.word	Song_0856D262
+	.word	Song_0856D700_2_1
 	.byte	0xB3
-	.word	Song_0856D262
+	.word	Song_0856D700_2_1
 	.byte	0xB3
-	.word	Song_0856D262
+	.word	Song_0856D700_2_1
 	.byte	0xB3
-	.word	Song_0856D262
+	.word	Song_0856D700_2_1
 	.byte	0xB3
-	.word	Song_0856D262
+	.word	Song_0856D700_2_1
 	.byte	0xB2
-	.word	Song_0856D250
+	.word	Song_0856D700_2_2
 	.byte	0xB1
 
 	@********************** Track  3 **********************@
@@ -161632,7 +161632,7 @@ Song_0856D262:
 Song_0856D700_3:	@ 0x0856D301
 	.byte	0xBC
 	.byte	0x00
-Song_0856D303:
+Song_0856D700_3_6:
 	.byte	0xBD
 	.byte	0x3B
 	.byte	0xBE
@@ -161665,7 +161665,7 @@ Song_0856D303:
 	.byte	0x3A
 	.byte	0x1C
 	.byte	0x86
-Song_0856D323:
+Song_0856D700_3_1:
 	.byte	0x8C
 	.byte	0xD4
 	.byte	0x38
@@ -161694,10 +161694,10 @@ Song_0856D323:
 	.byte	0x86
 	.byte	0xB4
 	.byte	0xB3
-	.word	Song_0856D323
+	.word	Song_0856D700_3_1
 	.byte	0xB3
-	.word	Song_0856D323
-Song_0856D348:
+	.word	Song_0856D700_3_1
+Song_0856D700_3_2:
 	.byte	0x8C
 	.byte	0xD4
 	.byte	0x3A
@@ -161726,24 +161726,24 @@ Song_0856D348:
 	.byte	0x86
 	.byte	0xB4
 	.byte	0xB3
-	.word	Song_0856D323
+	.word	Song_0856D700_3_1
 	.byte	0xB3
-	.word	Song_0856D323
+	.word	Song_0856D700_3_1
 	.byte	0xB3
-	.word	Song_0856D323
+	.word	Song_0856D700_3_1
 	.byte	0xB3
-	.word	Song_0856D348
+	.word	Song_0856D700_3_2
 	.byte	0xB3
-	.word	Song_0856D323
+	.word	Song_0856D700_3_1
 	.byte	0xB3
-	.word	Song_0856D323
+	.word	Song_0856D700_3_1
 	.byte	0xB3
-	.word	Song_0856D323
+	.word	Song_0856D700_3_1
 	.byte	0xB3
-	.word	Song_0856D323
+	.word	Song_0856D700_3_1
 	.byte	0xB3
-	.word	Song_0856D323
-Song_0856D390:
+	.word	Song_0856D700_3_1
+Song_0856D700_3_4:
 	.byte	0x8C
 	.byte	0xD4
 	.byte	0x33
@@ -161787,7 +161787,7 @@ Song_0856D390:
 	.byte	0x3A
 	.byte	0x86
 	.byte	0xB4
-Song_0856D3BB:
+Song_0856D700_3_3:
 	.byte	0x8C
 	.byte	0xD4
 	.byte	0x33
@@ -161832,14 +161832,14 @@ Song_0856D3BB:
 	.byte	0x86
 	.byte	0xB4
 	.byte	0xB3
-	.word	Song_0856D3BB
+	.word	Song_0856D700_3_3
 	.byte	0xB3
-	.word	Song_0856D3BB
+	.word	Song_0856D700_3_3
 	.byte	0xB3
-	.word	Song_0856D390
+	.word	Song_0856D700_3_4
 	.byte	0xB3
-	.word	Song_0856D3BB
-Song_0856D3FA:
+	.word	Song_0856D700_3_3
+Song_0856D700_3_5:
 	.byte	0x8C
 	.byte	0xD4
 	.byte	0x33
@@ -161884,25 +161884,25 @@ Song_0856D3FA:
 	.byte	0x86
 	.byte	0xB4
 	.byte	0xB3
-	.word	Song_0856D3FA
+	.word	Song_0856D700_3_5
 	.byte	0xB3
-	.word	Song_0856D390
+	.word	Song_0856D700_3_4
 	.byte	0xB3
-	.word	Song_0856D3BB
+	.word	Song_0856D700_3_3
 	.byte	0xB3
-	.word	Song_0856D3BB
+	.word	Song_0856D700_3_3
 	.byte	0xB3
-	.word	Song_0856D3BB
+	.word	Song_0856D700_3_3
 	.byte	0xB3
-	.word	Song_0856D390
+	.word	Song_0856D700_3_4
 	.byte	0xB3
-	.word	Song_0856D3BB
+	.word	Song_0856D700_3_3
 	.byte	0xB3
-	.word	Song_0856D3BB
+	.word	Song_0856D700_3_3
 	.byte	0xB3
-	.word	Song_0856D3BB
+	.word	Song_0856D700_3_3
 	.byte	0xB2
-	.word	Song_0856D303
+	.word	Song_0856D700_3_6
 	.byte	0xB1
 
 	@********************** Track  4 **********************@
@@ -161911,7 +161911,7 @@ Song_0856D3FA:
 Song_0856D700_4:	@ 0x0856D458
 	.byte	0xBC
 	.byte	0x00
-Song_0856D45A:
+Song_0856D700_4_1:
 	.byte	0xBD
 	.byte	0x32
 	.byte	0xBE
@@ -162222,7 +162222,7 @@ Song_0856D45A:
 	.byte	0xCE
 	.byte	0x98
 	.byte	0xB2
-	.word	Song_0856D45A
+	.word	Song_0856D700_4_1
 	.byte	0xB1
 
 	@********************** Track  5 **********************@
@@ -162231,7 +162231,7 @@ Song_0856D45A:
 Song_0856D700_5:	@ 0x0856D595
 	.byte	0xBC
 	.byte	0x00
-Song_0856D597:
+Song_0856D700_5_4:
 	.byte	0xBD
 	.byte	0x2F
 	.byte	0xBE
@@ -162248,7 +162248,7 @@ Song_0856D597:
 	.byte	0x86
 	.byte	0xD5
 	.byte	0x86
-Song_0856D5A7:
+Song_0856D700_5_2:
 	.byte	0xE7
 	.byte	0x3A
 	.byte	0x7F
@@ -162259,7 +162259,7 @@ Song_0856D5A7:
 	.byte	0xE7
 	.byte	0x98
 	.byte	0xB4
-Song_0856D5B1:
+Song_0856D700_5_1:
 	.byte	0xE7
 	.byte	0x3A
 	.byte	0x7F
@@ -162271,7 +162271,7 @@ Song_0856D5B1:
 	.byte	0xD5
 	.byte	0x86
 	.byte	0xB4
-Song_0856D5BC:
+Song_0856D700_5_3:
 	.byte	0xE7
 	.byte	0x3A
 	.byte	0x7F
@@ -162281,59 +162281,59 @@ Song_0856D5BC:
 	.byte	0xA8
 	.byte	0xB4
 	.byte	0xB3
-	.word	Song_0856D5B1
+	.word	Song_0856D700_5_1
 	.byte	0xB3
-	.word	Song_0856D5A7
+	.word	Song_0856D700_5_2
 	.byte	0xB3
-	.word	Song_0856D5B1
+	.word	Song_0856D700_5_1
 	.byte	0xB3
-	.word	Song_0856D5BC
+	.word	Song_0856D700_5_3
 	.byte	0xB3
-	.word	Song_0856D5B1
+	.word	Song_0856D700_5_1
 	.byte	0xB3
-	.word	Song_0856D5A7
+	.word	Song_0856D700_5_2
 	.byte	0xB3
-	.word	Song_0856D5B1
+	.word	Song_0856D700_5_1
 	.byte	0xB3
-	.word	Song_0856D5BC
+	.word	Song_0856D700_5_3
 	.byte	0xB3
-	.word	Song_0856D5B1
+	.word	Song_0856D700_5_1
 	.byte	0xB3
-	.word	Song_0856D5A7
+	.word	Song_0856D700_5_2
 	.byte	0xB3
-	.word	Song_0856D5B1
+	.word	Song_0856D700_5_1
 	.byte	0xB3
-	.word	Song_0856D5BC
+	.word	Song_0856D700_5_3
 	.byte	0xB3
-	.word	Song_0856D5B1
+	.word	Song_0856D700_5_1
 	.byte	0xB3
-	.word	Song_0856D5A7
+	.word	Song_0856D700_5_2
 	.byte	0xB3
-	.word	Song_0856D5B1
+	.word	Song_0856D700_5_1
 	.byte	0xB3
-	.word	Song_0856D5BC
+	.word	Song_0856D700_5_3
 	.byte	0xB3
-	.word	Song_0856D5B1
+	.word	Song_0856D700_5_1
 	.byte	0xB3
-	.word	Song_0856D5A7
+	.word	Song_0856D700_5_2
 	.byte	0xB3
-	.word	Song_0856D5B1
+	.word	Song_0856D700_5_1
 	.byte	0xB3
-	.word	Song_0856D5BC
+	.word	Song_0856D700_5_3
 	.byte	0xB3
-	.word	Song_0856D5B1
+	.word	Song_0856D700_5_1
 	.byte	0xB3
-	.word	Song_0856D5A7
+	.word	Song_0856D700_5_2
 	.byte	0xB3
-	.word	Song_0856D5B1
+	.word	Song_0856D700_5_1
 	.byte	0xB3
-	.word	Song_0856D5BC
+	.word	Song_0856D700_5_3
 	.byte	0xB3
-	.word	Song_0856D5B1
+	.word	Song_0856D700_5_1
 	.byte	0xB3
-	.word	Song_0856D5BC
+	.word	Song_0856D700_5_3
 	.byte	0xB2
-	.word	Song_0856D597
+	.word	Song_0856D700_5_4
 	.byte	0xB1
 
 	@********************** Track  6 **********************@
@@ -162342,7 +162342,7 @@ Song_0856D5BC:
 Song_0856D700_6:	@ 0x0856D64C
 	.byte	0xBC
 	.byte	0x00
-Song_0856D64E:
+Song_0856D700_6_2:
 	.byte	0xBD
 	.byte	0x7F
 	.byte	0xBE
@@ -162361,7 +162361,7 @@ Song_0856D64E:
 	.byte	0x8C
 	.byte	0xD5
 	.byte	0x8C
-Song_0856D660:
+Song_0856D700_6_1:
 	.byte	0xD5
 	.byte	0x24
 	.byte	0x64
@@ -162376,57 +162376,57 @@ Song_0856D660:
 	.byte	0x8C
 	.byte	0xB4
 	.byte	0xB3
-	.word	Song_0856D660
+	.word	Song_0856D700_6_1
 	.byte	0xB3
-	.word	Song_0856D660
+	.word	Song_0856D700_6_1
 	.byte	0xB3
-	.word	Song_0856D660
+	.word	Song_0856D700_6_1
 	.byte	0xB3
-	.word	Song_0856D660
+	.word	Song_0856D700_6_1
 	.byte	0xB3
-	.word	Song_0856D660
+	.word	Song_0856D700_6_1
 	.byte	0xB3
-	.word	Song_0856D660
+	.word	Song_0856D700_6_1
 	.byte	0xB3
-	.word	Song_0856D660
+	.word	Song_0856D700_6_1
 	.byte	0xB3
-	.word	Song_0856D660
+	.word	Song_0856D700_6_1
 	.byte	0xB3
-	.word	Song_0856D660
+	.word	Song_0856D700_6_1
 	.byte	0xB3
-	.word	Song_0856D660
+	.word	Song_0856D700_6_1
 	.byte	0xB3
-	.word	Song_0856D660
+	.word	Song_0856D700_6_1
 	.byte	0xB3
-	.word	Song_0856D660
+	.word	Song_0856D700_6_1
 	.byte	0xB3
-	.word	Song_0856D660
+	.word	Song_0856D700_6_1
 	.byte	0xB3
-	.word	Song_0856D660
+	.word	Song_0856D700_6_1
 	.byte	0xB3
-	.word	Song_0856D660
+	.word	Song_0856D700_6_1
 	.byte	0xB3
-	.word	Song_0856D660
+	.word	Song_0856D700_6_1
 	.byte	0xB3
-	.word	Song_0856D660
+	.word	Song_0856D700_6_1
 	.byte	0xB3
-	.word	Song_0856D660
+	.word	Song_0856D700_6_1
 	.byte	0xB3
-	.word	Song_0856D660
+	.word	Song_0856D700_6_1
 	.byte	0xB3
-	.word	Song_0856D660
+	.word	Song_0856D700_6_1
 	.byte	0xB3
-	.word	Song_0856D660
+	.word	Song_0856D700_6_1
 	.byte	0xB3
-	.word	Song_0856D660
+	.word	Song_0856D700_6_1
 	.byte	0xB3
-	.word	Song_0856D660
+	.word	Song_0856D700_6_1
 	.byte	0xB3
-	.word	Song_0856D660
+	.word	Song_0856D700_6_1
 	.byte	0xB3
-	.word	Song_0856D660
+	.word	Song_0856D700_6_1
 	.byte	0xB3
-	.word	Song_0856D660
+	.word	Song_0856D700_6_1
 	.byte	0xB0
 	.byte	0xA8
 	.byte	0xD5
@@ -162436,7 +162436,7 @@ Song_0856D660:
 	.byte	0xD5
 	.byte	0x8C
 	.byte	0xB2
-	.word	Song_0856D64E
+	.word	Song_0856D700_6_2
 	.byte	0xB1
 	.byte	0x00
 	.byte	0x00
@@ -162450,7 +162450,7 @@ Song_0856D700:	@ 0x0856D700
 	.byte	10		@ priority
 	.byte	148		@ reverb
 
-	.word	voicegroup_0821F038		@ voicegroup/tone
+	.word	voicegroup071		@ voicegroup/tone
 
 	.word	Song_0856D700_1		@ track
 	.word	Song_0856D700_2		@ track
@@ -162469,7 +162469,7 @@ Song_0856DBB0_1:	@ 0x0856D720
 	.byte	0xBB
 	.byte	0x3C
 	.byte	0x98
-Song_0856D725:
+Song_0856DBB0_1_2:
 	.byte	0xBB
 	.byte	0x4B
 	.byte	0xBD
@@ -162977,7 +162977,7 @@ Song_0856D725:
 	.byte	0x4C
 	.byte	0x1C
 	.byte	0x8C
-Song_0856D920:
+Song_0856DBB0_1_1:
 	.byte	0xDA
 	.byte	0x51
 	.byte	0x70
@@ -163084,13 +163084,13 @@ Song_0856D920:
 	.byte	0x1C
 	.byte	0x8C
 	.byte	0xB3
-	.word	Song_0856D920
+	.word	Song_0856DBB0_1_1
 	.byte	0xD4
 	.byte	0x4C
 	.byte	0x1C
 	.byte	0x98
 	.byte	0xB2
-	.word	Song_0856D725
+	.word	Song_0856DBB0_1_2
 	.byte	0xB1
 
 	@********************** Track  2 **********************@
@@ -163100,7 +163100,7 @@ Song_0856DBB0_2:	@ 0x0856D998
 	.byte	0xBC
 	.byte	0x00
 	.byte	0x98
-Song_0856D99B:
+Song_0856DBB0_2_2:
 	.byte	0xBD
 	.byte	0x0C
 	.byte	0xBE
@@ -163203,7 +163203,7 @@ Song_0856D99B:
 	.byte	0x48
 	.byte	0x70
 	.byte	0x98
-Song_0856DA01:
+Song_0856DBB0_2_1:
 	.byte	0xDB
 	.byte	0x4C
 	.byte	0x68
@@ -163225,10 +163225,10 @@ Song_0856DA01:
 	.byte	0x68
 	.byte	0x98
 	.byte	0xB3
-	.word	Song_0856DA01
+	.word	Song_0856DBB0_2_1
 	.byte	0x98
 	.byte	0xB2
-	.word	Song_0856D99B
+	.word	Song_0856DBB0_2_2
 	.byte	0xB1
 
 	@********************** Track  3 **********************@
@@ -163238,7 +163238,7 @@ Song_0856DBB0_3:	@ 0x0856DA21
 	.byte	0xBC
 	.byte	0x00
 	.byte	0x98
-Song_0856DA24:
+Song_0856DBB0_3_4:
 	.byte	0xBD
 	.byte	0x2D
 	.byte	0xBE
@@ -163257,7 +163257,7 @@ Song_0856DA24:
 	.byte	0xDA
 	.byte	0x45
 	.byte	0x9C
-Song_0856DA36:
+Song_0856DBB0_3_1:
 	.byte	0xDA
 	.byte	0x3C
 	.byte	0x7F
@@ -163284,7 +163284,7 @@ Song_0856DA36:
 	.byte	0x78
 	.byte	0x9C
 	.byte	0xB4
-Song_0856DA50:
+Song_0856DBB0_3_2:
 	.byte	0xDA
 	.byte	0x3F
 	.byte	0x70
@@ -163310,10 +163310,10 @@ Song_0856DA50:
 	.byte	0x9C
 	.byte	0xB4
 	.byte	0xB3
-	.word	Song_0856DA36
+	.word	Song_0856DBB0_3_1
 	.byte	0xB3
-	.word	Song_0856DA50
-Song_0856DA72:
+	.word	Song_0856DBB0_3_2
+Song_0856DBB0_3_3:
 	.byte	0xDA
 	.byte	0x3C
 	.byte	0x7F
@@ -163341,17 +163341,17 @@ Song_0856DA72:
 	.byte	0x9C
 	.byte	0xB4
 	.byte	0xB3
-	.word	Song_0856DA50
+	.word	Song_0856DBB0_3_2
 	.byte	0xB3
-	.word	Song_0856DA72
+	.word	Song_0856DBB0_3_3
 	.byte	0xB3
-	.word	Song_0856DA50
+	.word	Song_0856DBB0_3_2
 	.byte	0xB3
-	.word	Song_0856DA36
+	.word	Song_0856DBB0_3_1
 	.byte	0xB3
-	.word	Song_0856DA50
+	.word	Song_0856DBB0_3_2
 	.byte	0xB3
-	.word	Song_0856DA36
+	.word	Song_0856DBB0_3_1
 	.byte	0xDA
 	.byte	0x3F
 	.byte	0x70
@@ -163366,7 +163366,7 @@ Song_0856DA72:
 	.byte	0x28
 	.byte	0x8C
 	.byte	0xB2
-	.word	Song_0856DA24
+	.word	Song_0856DBB0_3_4
 	.byte	0xB1
 
 	@********************** Track  4 **********************@
@@ -163376,7 +163376,7 @@ Song_0856DBB0_4:	@ 0x0856DABD
 	.byte	0xBC
 	.byte	0x00
 	.byte	0x98
-Song_0856DAC0:
+Song_0856DBB0_4_5:
 	.byte	0xBD
 	.byte	0x7F
 	.byte	0xBE
@@ -163393,7 +163393,7 @@ Song_0856DAC0:
 	.byte	0xE6
 	.byte	0x4A
 	.byte	0x98
-Song_0856DAD0:
+Song_0856DBB0_4_2:
 	.byte	0xD4
 	.byte	0x49
 	.byte	0x64
@@ -163410,7 +163410,7 @@ Song_0856DAD0:
 	.byte	0xD4
 	.byte	0x9C
 	.byte	0xB4
-Song_0856DAE0:
+Song_0856DBB0_4_3:
 	.byte	0xD4
 	.byte	0x27
 	.byte	0x7F
@@ -163426,7 +163426,7 @@ Song_0856DAE0:
 	.byte	0x4A
 	.byte	0x98
 	.byte	0xB4
-Song_0856DAEF:
+Song_0856DBB0_4_4:
 	.byte	0xD4
 	.byte	0x49
 	.byte	0x64
@@ -163445,7 +163445,7 @@ Song_0856DAEF:
 	.byte	0xD4
 	.byte	0x8C
 	.byte	0xB4
-Song_0856DB01:
+Song_0856DBB0_4_1:
 	.byte	0xE6
 	.byte	0x37
 	.byte	0x5C
@@ -163509,19 +163509,19 @@ Song_0856DB01:
 	.byte	0x1C
 	.byte	0x98
 	.byte	0xB3
-	.word	Song_0856DB01
+	.word	Song_0856DBB0_4_1
 	.byte	0xB3
-	.word	Song_0856DAD0
+	.word	Song_0856DBB0_4_2
 	.byte	0xB3
-	.word	Song_0856DAE0
+	.word	Song_0856DBB0_4_3
 	.byte	0xB3
-	.word	Song_0856DAEF
+	.word	Song_0856DBB0_4_4
 	.byte	0xE6
 	.byte	0x37
 	.byte	0x5C
 	.byte	0x98
 	.byte	0xB2
-	.word	Song_0856DAC0
+	.word	Song_0856DBB0_4_5
 	.byte	0xB1
 
 	@********************** Track  5 **********************@
@@ -163531,7 +163531,7 @@ Song_0856DBB0_5:	@ 0x0856DB5D
 	.byte	0xBC
 	.byte	0x00
 	.byte	0x98
-Song_0856DB60:
+Song_0856DBB0_5_3:
 	.byte	0xBD
 	.byte	0x3A
 	.byte	0xBE
@@ -163544,7 +163544,7 @@ Song_0856DB60:
 	.byte	0xA0
 	.byte	0x29
 	.byte	0x98
-Song_0856DB6C:
+Song_0856DBB0_5_1:
 	.byte	0x98
 	.byte	0xDA
 	.byte	0x2E
@@ -163553,7 +163553,7 @@ Song_0856DB6C:
 	.byte	0x2C
 	.byte	0x98
 	.byte	0xB4
-Song_0856DB74:
+Song_0856DBB0_5_2:
 	.byte	0x98
 	.byte	0xDA
 	.byte	0x2D
@@ -163563,26 +163563,26 @@ Song_0856DB74:
 	.byte	0x98
 	.byte	0xB4
 	.byte	0xB3
-	.word	Song_0856DB6C
+	.word	Song_0856DBB0_5_1
 	.byte	0xB3
-	.word	Song_0856DB74
+	.word	Song_0856DBB0_5_2
 	.byte	0xB3
-	.word	Song_0856DB6C
+	.word	Song_0856DBB0_5_1
 	.byte	0xB3
-	.word	Song_0856DB74
+	.word	Song_0856DBB0_5_2
 	.byte	0xB3
-	.word	Song_0856DB6C
+	.word	Song_0856DBB0_5_1
 	.byte	0xB3
-	.word	Song_0856DB74
+	.word	Song_0856DBB0_5_2
 	.byte	0xB3
-	.word	Song_0856DB6C
+	.word	Song_0856DBB0_5_1
 	.byte	0xB3
-	.word	Song_0856DB74
+	.word	Song_0856DBB0_5_2
 	.byte	0xB3
-	.word	Song_0856DB6C
+	.word	Song_0856DBB0_5_1
 	.byte	0x98
 	.byte	0xB2
-	.word	Song_0856DB60
+	.word	Song_0856DBB0_5_3
 	.byte	0xB1
 
 	.align 2
@@ -163593,7 +163593,7 @@ Song_0856DBB0:	@ 0x0856DBB0
 	.byte	10		@ priority
 	.byte	148		@ reverb
 
-	.word	voicegroup_0820D470		@ voicegroup/tone
+	.word	voicegroup017		@ voicegroup/tone
 
 	.word	Song_0856DBB0_1		@ track
 	.word	Song_0856DBB0_2		@ track
@@ -163611,7 +163611,7 @@ Song_0856DF20_1:	@ 0x0856DBCC
 	.byte	0xBB
 	.byte	0x3C
 	.byte	0x98
-Song_0856DBD1:
+Song_0856DF20_1_1:
 	.byte	0xBD
 	.byte	0x3D
 	.byte	0xBE
@@ -163698,7 +163698,7 @@ Song_0856DBD1:
 	.byte	0x35
 	.byte	0x98
 	.byte	0xB2
-	.word	Song_0856DBD1
+	.word	Song_0856DF20_1_1
 	.byte	0xB1
 
 	@********************** Track  2 **********************@
@@ -163708,7 +163708,7 @@ Song_0856DF20_2:	@ 0x0856DC2C
 	.byte	0xBC
 	.byte	0x00
 	.byte	0x98
-Song_0856DC2F:
+Song_0856DF20_2_1:
 	.byte	0xA8
 	.byte	0xB0
 	.byte	0xBD
@@ -163819,7 +163819,7 @@ Song_0856DC2F:
 	.byte	0x1C
 	.byte	0x88
 	.byte	0xB2
-	.word	Song_0856DC2F
+	.word	Song_0856DF20_2_1
 	.byte	0xB1
 
 	@********************** Track  3 **********************@
@@ -163829,7 +163829,7 @@ Song_0856DF20_3:	@ 0x0856DCA2
 	.byte	0xBC
 	.byte	0x00
 	.byte	0x98
-Song_0856DCA5:
+Song_0856DF20_3_3:
 	.byte	0xBD
 	.byte	0x24
 	.byte	0xBE
@@ -163844,7 +163844,7 @@ Song_0856DCA5:
 	.byte	0x98
 	.byte	0xD6
 	.byte	0x98
-Song_0856DCB3:
+Song_0856DF20_3_1:
 	.byte	0xE3
 	.byte	0x2D
 	.byte	0x7F
@@ -163859,7 +163859,7 @@ Song_0856DCB3:
 	.byte	0x7C
 	.byte	0x98
 	.byte	0xB4
-Song_0856DCC1:
+Song_0856DF20_3_2:
 	.byte	0xE3
 	.byte	0x2E
 	.byte	0x74
@@ -163874,21 +163874,21 @@ Song_0856DCC1:
 	.byte	0x98
 	.byte	0xB4
 	.byte	0xB3
-	.word	Song_0856DCB3
+	.word	Song_0856DF20_3_1
 	.byte	0xB3
-	.word	Song_0856DCC1
+	.word	Song_0856DF20_3_2
 	.byte	0xB3
-	.word	Song_0856DCB3
+	.word	Song_0856DF20_3_1
 	.byte	0xB3
-	.word	Song_0856DCC1
+	.word	Song_0856DF20_3_2
 	.byte	0xB3
-	.word	Song_0856DCB3
+	.word	Song_0856DF20_3_1
 	.byte	0xE3
 	.byte	0x2E
 	.byte	0x74
 	.byte	0x98
 	.byte	0xB2
-	.word	Song_0856DCA5
+	.word	Song_0856DF20_3_3
 	.byte	0xB1
 
 	@********************** Track  4 **********************@
@@ -163898,7 +163898,7 @@ Song_0856DF20_4:	@ 0x0856DCF1
 	.byte	0xBC
 	.byte	0x00
 	.byte	0x98
-Song_0856DCF4:
+Song_0856DF20_4_1:
 	.byte	0xBD
 	.byte	0x00
 	.byte	0xBE
@@ -164380,7 +164380,7 @@ Song_0856DCF4:
 	.byte	0x78
 	.byte	0x88
 	.byte	0xB2
-	.word	Song_0856DCF4
+	.word	Song_0856DF20_4_1
 	.byte	0xB1
 
 	@********************** Track  5 **********************@
@@ -164390,7 +164390,7 @@ Song_0856DF20_5:	@ 0x0856DEDA
 	.byte	0xBC
 	.byte	0x00
 	.byte	0x98
-Song_0856DEDD:
+Song_0856DF20_5_2:
 	.byte	0xBD
 	.byte	0x7F
 	.byte	0xBE
@@ -164405,7 +164405,7 @@ Song_0856DEDD:
 	.byte	0x98
 	.byte	0xD6
 	.byte	0x98
-Song_0856DEEB:
+Song_0856DF20_5_1:
 	.byte	0xE6
 	.byte	0x2E
 	.byte	0x3C
@@ -164420,23 +164420,23 @@ Song_0856DEEB:
 	.byte	0x98
 	.byte	0xB4
 	.byte	0xB3
-	.word	Song_0856DEEB
+	.word	Song_0856DF20_5_1
 	.byte	0xB3
-	.word	Song_0856DEEB
+	.word	Song_0856DF20_5_1
 	.byte	0xB3
-	.word	Song_0856DEEB
+	.word	Song_0856DF20_5_1
 	.byte	0xB3
-	.word	Song_0856DEEB
+	.word	Song_0856DF20_5_1
 	.byte	0xB3
-	.word	Song_0856DEEB
+	.word	Song_0856DF20_5_1
 	.byte	0xB3
-	.word	Song_0856DEEB
+	.word	Song_0856DF20_5_1
 	.byte	0xE6
 	.byte	0x2E
 	.byte	0x3C
 	.byte	0x98
 	.byte	0xB2
-	.word	Song_0856DEDD
+	.word	Song_0856DF20_5_2
 	.byte	0xB1
 
 	.align 2
@@ -164447,7 +164447,7 @@ Song_0856DF20:	@ 0x0856DF20
 	.byte	10		@ priority
 	.byte	148		@ reverb
 
-	.word	voicegroup_0820DA70		@ voicegroup/tone
+	.word	voicegroup018		@ voicegroup/tone
 
 	.word	Song_0856DF20_1		@ track
 	.word	Song_0856DF20_2		@ track
@@ -164462,7 +164462,7 @@ Song_0856DF20:	@ 0x0856DF20
 Song_0856E208_1:	@ 0x0856DF3C
 	.byte	0xBC
 	.byte	0x00
-Song_0856DF3E:
+Song_0856E208_1_1:
 	.byte	0xBB
 	.byte	0x37
 	.byte	0xBD
@@ -164643,7 +164643,7 @@ Song_0856DF3E:
 	.byte	0x58
 	.byte	0x8C
 	.byte	0xB2
-	.word	Song_0856DF3E
+	.word	Song_0856E208_1_1
 	.byte	0xB1
 
 	@********************** Track  2 **********************@
@@ -164652,7 +164652,7 @@ Song_0856DF3E:
 Song_0856E208_2:	@ 0x0856DFF7
 	.byte	0xBC
 	.byte	0x00
-Song_0856DFF9:
+Song_0856E208_2_1:
 	.byte	0xBD
 	.byte	0x68
 	.byte	0xBE
@@ -164768,7 +164768,7 @@ Song_0856DFF9:
 	.byte	0x60
 	.byte	0x8C
 	.byte	0xB2
-	.word	Song_0856DFF9
+	.word	Song_0856E208_2_1
 	.byte	0xB1
 
 	@********************** Track  3 **********************@
@@ -164777,7 +164777,7 @@ Song_0856DFF9:
 Song_0856E208_3:	@ 0x0856E071
 	.byte	0xBC
 	.byte	0x00
-Song_0856E073:
+Song_0856E208_3_1:
 	.byte	0xBD
 	.byte	0x68
 	.byte	0xBE
@@ -164901,7 +164901,7 @@ Song_0856E073:
 	.byte	0x6C
 	.byte	0x8C
 	.byte	0xB2
-	.word	Song_0856E073
+	.word	Song_0856E208_3_1
 	.byte	0xB1
 
 	@********************** Track  4 **********************@
@@ -164910,7 +164910,7 @@ Song_0856E073:
 Song_0856E208_4:	@ 0x0856E0F3
 	.byte	0xBC
 	.byte	0x00
-Song_0856E0F5:
+Song_0856E208_4_1:
 	.byte	0xA8
 	.byte	0xA8
 	.byte	0xA8
@@ -165012,7 +165012,7 @@ Song_0856E0F5:
 	.byte	0x44
 	.byte	0x8C
 	.byte	0xB2
-	.word	Song_0856E0F5
+	.word	Song_0856E208_4_1
 	.byte	0xB1
 
 	@********************** Track  5 **********************@
@@ -165021,7 +165021,7 @@ Song_0856E0F5:
 Song_0856E208_5:	@ 0x0856E15F
 	.byte	0xBC
 	.byte	0x00
-Song_0856E161:
+Song_0856E208_5_2:
 	.byte	0xBD
 	.byte	0x7F
 	.byte	0xBE
@@ -165120,7 +165120,7 @@ Song_0856E161:
 	.byte	0xD5
 	.byte	0x1D
 	.byte	0x8C
-Song_0856E1C3:
+Song_0856E208_5_1:
 	.byte	0xD5
 	.byte	0x08
 	.byte	0x50
@@ -165157,7 +165157,7 @@ Song_0856E1C3:
 	.byte	0x14
 	.byte	0x8C
 	.byte	0xB3
-	.word	Song_0856E1C3
+	.word	Song_0856E208_5_1
 	.byte	0xD5
 	.byte	0x0F
 	.byte	0x50
@@ -165179,7 +165179,7 @@ Song_0856E1C3:
 	.byte	0x0C
 	.byte	0x86
 	.byte	0xB2
-	.word	Song_0856E161
+	.word	Song_0856E208_5_2
 	.byte	0xB1
 	.byte	0x00
 	.byte	0x00
@@ -165193,7 +165193,7 @@ Song_0856E208:	@ 0x0856E208
 	.byte	10		@ priority
 	.byte	148		@ reverb
 
-	.word	voicegroup_0820E070		@ voicegroup/tone
+	.word	voicegroup019		@ voicegroup/tone
 
 	.word	Song_0856E208_1		@ track
 	.word	Song_0856E208_2		@ track
@@ -165208,7 +165208,7 @@ Song_0856E208:	@ 0x0856E208
 Song_0856E99C_1:	@ 0x0856E224
 	.byte	0xBC
 	.byte	0x00
-Song_0856E226:
+Song_0856E99C_1_1:
 	.byte	0xBB
 	.byte	0x28
 	.byte	0xBD
@@ -165476,7 +165476,7 @@ Song_0856E226:
 	.byte	0xB0
 	.byte	0xB0
 	.byte	0xB2
-	.word	Song_0856E226
+	.word	Song_0856E99C_1_1
 	.byte	0xB1
 
 	@********************** Track  2 **********************@
@@ -165485,7 +165485,7 @@ Song_0856E226:
 Song_0856E99C_2:	@ 0x0856E336
 	.byte	0xBC
 	.byte	0x00
-Song_0856E338:
+Song_0856E99C_2_1:
 	.byte	0xA0
 	.byte	0xBD
 	.byte	0x3E
@@ -165898,7 +165898,7 @@ Song_0856E338:
 	.byte	0xB0
 	.byte	0xB0
 	.byte	0xB2
-	.word	Song_0856E338
+	.word	Song_0856E99C_2_1
 	.byte	0xB1
 
 	@********************** Track  3 **********************@
@@ -165907,7 +165907,7 @@ Song_0856E338:
 Song_0856E99C_3:	@ 0x0856E4D9
 	.byte	0xBC
 	.byte	0x00
-Song_0856E4DB:
+Song_0856E99C_3_1:
 	.byte	0xB0
 	.byte	0xBD
 	.byte	0x3A
@@ -166299,7 +166299,7 @@ Song_0856E4DB:
 	.byte	0xB0
 	.byte	0xB0
 	.byte	0xB2
-	.word	Song_0856E4DB
+	.word	Song_0856E99C_3_1
 	.byte	0xB1
 
 	@********************** Track  4 **********************@
@@ -166308,7 +166308,7 @@ Song_0856E4DB:
 Song_0856E99C_4:	@ 0x0856E667
 	.byte	0xBC
 	.byte	0x00
-Song_0856E669:
+Song_0856E99C_4_2:
 	.byte	0xBD
 	.byte	0x7E
 	.byte	0xBE
@@ -166685,7 +166685,7 @@ Song_0856E669:
 	.byte	0xA0
 	.byte	0xDE
 	.byte	0x98
-Song_0856E7E1:
+Song_0856E99C_4_1:
 	.byte	0x98
 	.byte	0xDE
 	.byte	0x3C
@@ -166695,25 +166695,25 @@ Song_0856E7E1:
 	.byte	0x98
 	.byte	0xB4
 	.byte	0xB3
-	.word	Song_0856E7E1
+	.word	Song_0856E99C_4_1
 	.byte	0xB3
-	.word	Song_0856E7E1
+	.word	Song_0856E99C_4_1
 	.byte	0xB3
-	.word	Song_0856E7E1
+	.word	Song_0856E99C_4_1
 	.byte	0xB3
-	.word	Song_0856E7E1
+	.word	Song_0856E99C_4_1
 	.byte	0xB3
-	.word	Song_0856E7E1
+	.word	Song_0856E99C_4_1
 	.byte	0xB3
-	.word	Song_0856E7E1
+	.word	Song_0856E99C_4_1
 	.byte	0xB3
-	.word	Song_0856E7E1
+	.word	Song_0856E99C_4_1
 	.byte	0xB3
-	.word	Song_0856E7E1
+	.word	Song_0856E99C_4_1
 	.byte	0xB3
-	.word	Song_0856E7E1
+	.word	Song_0856E99C_4_1
 	.byte	0xB3
-	.word	Song_0856E7E1
+	.word	Song_0856E99C_4_1
 	.byte	0xBF
 	.byte	0x40
 	.byte	0x98
@@ -166983,7 +166983,7 @@ Song_0856E7E1:
 	.byte	0xCE
 	.byte	0x95
 	.byte	0xB2
-	.word	Song_0856E669
+	.word	Song_0856E99C_4_2
 	.byte	0xB1
 
 	@********************** Track  5 **********************@
@@ -166992,7 +166992,7 @@ Song_0856E7E1:
 Song_0856E99C_5:	@ 0x0856E92D
 	.byte	0xBC
 	.byte	0x00
-Song_0856E92F:
+Song_0856E99C_5_2:
 	.byte	0xBE
 	.byte	0x38
 	.byte	0xBF
@@ -167042,7 +167042,7 @@ Song_0856E92F:
 	.byte	0x98
 	.byte	0xDE
 	.byte	0x98
-Song_0856E960:
+Song_0856E99C_5_1:
 	.byte	0xDE
 	.byte	0x3D
 	.byte	0x70
@@ -167055,26 +167055,26 @@ Song_0856E960:
 	.byte	0x98
 	.byte	0xB4
 	.byte	0xB3
-	.word	Song_0856E960
+	.word	Song_0856E99C_5_1
 	.byte	0xB3
-	.word	Song_0856E960
+	.word	Song_0856E99C_5_1
 	.byte	0xB3
-	.word	Song_0856E960
+	.word	Song_0856E99C_5_1
 	.byte	0xB3
-	.word	Song_0856E960
+	.word	Song_0856E99C_5_1
 	.byte	0xB3
-	.word	Song_0856E960
+	.word	Song_0856E99C_5_1
 	.byte	0xB3
-	.word	Song_0856E960
+	.word	Song_0856E99C_5_1
 	.byte	0xB3
-	.word	Song_0856E960
+	.word	Song_0856E99C_5_1
 	.byte	0xB3
-	.word	Song_0856E960
+	.word	Song_0856E99C_5_1
 	.byte	0xB0
 	.byte	0xB0
 	.byte	0xB0
 	.byte	0xB2
-	.word	Song_0856E92F
+	.word	Song_0856E99C_5_2
 	.byte	0xB1
 
 	.align 2
@@ -167085,7 +167085,7 @@ Song_0856E99C:	@ 0x0856E99C
 	.byte	10		@ priority
 	.byte	148		@ reverb
 
-	.word	voicegroup_0820E670		@ voicegroup/tone
+	.word	voicegroup020		@ voicegroup/tone
 
 	.word	Song_0856E99C_1		@ track
 	.word	Song_0856E99C_2		@ track
@@ -167100,7 +167100,7 @@ Song_0856E99C:	@ 0x0856E99C
 Song_0856F20C_1:	@ 0x0856E9B8
 	.byte	0xBC
 	.byte	0x00
-Song_0856E9BA:
+Song_0856F20C_1_2:
 	.byte	0xBB
 	.byte	0x32
 	.byte	0xBD
@@ -167206,7 +167206,7 @@ Song_0856E9BA:
 	.byte	0x3F
 	.byte	0x60
 	.byte	0x8C
-Song_0856EA23:
+Song_0856F20C_1_1:
 	.byte	0xD5
 	.byte	0x3A
 	.byte	0x50
@@ -167252,7 +167252,7 @@ Song_0856EA23:
 	.byte	0x8C
 	.byte	0xB4
 	.byte	0xB3
-	.word	Song_0856EA23
+	.word	Song_0856F20C_1_1
 	.byte	0xD5
 	.byte	0x3E
 	.byte	0x64
@@ -167488,7 +167488,7 @@ Song_0856EA23:
 	.byte	0xA8
 	.byte	0x9C
 	.byte	0xB2
-	.word	Song_0856E9BA
+	.word	Song_0856F20C_1_2
 	.byte	0xB1
 
 	@********************** Track  2 **********************@
@@ -167497,7 +167497,7 @@ Song_0856EA23:
 Song_0856F20C_2:	@ 0x0856EB44
 	.byte	0xBC
 	.byte	0x00
-Song_0856EB46:
+Song_0856F20C_2_6:
 	.byte	0xBD
 	.byte	0x21
 	.byte	0xBE
@@ -167565,7 +167565,7 @@ Song_0856EB46:
 	.byte	0x2C
 	.byte	0x64
 	.byte	0x86
-Song_0856EB89:
+Song_0856F20C_2_1:
 	.byte	0xD2
 	.byte	0x2B
 	.byte	0x7F
@@ -167588,7 +167588,7 @@ Song_0856EB89:
 	.byte	0x8C
 	.byte	0xB4
 	.byte	0xB3
-	.word	Song_0856EB89
+	.word	Song_0856F20C_2_1
 	.byte	0xD2
 	.byte	0x2B
 	.byte	0x7F
@@ -167614,7 +167614,7 @@ Song_0856EB89:
 	.byte	0x8C
 	.byte	0xD2
 	.byte	0x8C
-Song_0856EBBC:
+Song_0856F20C_2_2:
 	.byte	0xD2
 	.byte	0x30
 	.byte	0x7F
@@ -167648,8 +167648,8 @@ Song_0856EBBC:
 	.byte	0x86
 	.byte	0xB4
 	.byte	0xB3
-	.word	Song_0856EBBC
-Song_0856EBE1:
+	.word	Song_0856F20C_2_2
+Song_0856F20C_2_3:
 	.byte	0xD2
 	.byte	0x30
 	.byte	0x7F
@@ -167672,7 +167672,7 @@ Song_0856EBE1:
 	.byte	0x8C
 	.byte	0xB4
 	.byte	0xB3
-	.word	Song_0856EBE1
+	.word	Song_0856F20C_2_3
 	.byte	0xD2
 	.byte	0x30
 	.byte	0x7F
@@ -167698,7 +167698,7 @@ Song_0856EBE1:
 	.byte	0x8C
 	.byte	0xD2
 	.byte	0x8C
-Song_0856EC14:
+Song_0856F20C_2_4:
 	.byte	0xD2
 	.byte	0x2C
 	.byte	0x7F
@@ -167732,8 +167732,8 @@ Song_0856EC14:
 	.byte	0x86
 	.byte	0xB4
 	.byte	0xB3
-	.word	Song_0856EC14
-Song_0856EC39:
+	.word	Song_0856F20C_2_4
+Song_0856F20C_2_5:
 	.byte	0xD2
 	.byte	0x2C
 	.byte	0x7F
@@ -167756,7 +167756,7 @@ Song_0856EC39:
 	.byte	0x8C
 	.byte	0xB4
 	.byte	0xB3
-	.word	Song_0856EC39
+	.word	Song_0856F20C_2_5
 	.byte	0xD2
 	.byte	0x2C
 	.byte	0x7F
@@ -167783,7 +167783,7 @@ Song_0856EC39:
 	.byte	0xD2
 	.byte	0x8C
 	.byte	0xB2
-	.word	Song_0856EB46
+	.word	Song_0856F20C_2_6
 	.byte	0xB1
 
 	@********************** Track  3 **********************@
@@ -167792,7 +167792,7 @@ Song_0856EC39:
 Song_0856F20C_3:	@ 0x0856EC72
 	.byte	0xBC
 	.byte	0x00
-Song_0856EC74:
+Song_0856F20C_3_1:
 	.byte	0xBD
 	.byte	0x32
 	.byte	0xBE
@@ -168223,7 +168223,7 @@ Song_0856EC74:
 	.byte	0x14
 	.byte	0x86
 	.byte	0xB2
-	.word	Song_0856EC74
+	.word	Song_0856F20C_3_1
 	.byte	0xB1
 
 	@********************** Track  4 **********************@
@@ -168232,7 +168232,7 @@ Song_0856EC74:
 Song_0856F20C_4:	@ 0x0856EE27
 	.byte	0xBC
 	.byte	0x00
-Song_0856EE29:
+Song_0856F20C_4_4:
 	.byte	0xA4
 	.byte	0xA4
 	.byte	0xA8
@@ -168297,7 +168297,7 @@ Song_0856EE29:
 	.byte	0xD2
 	.byte	0x46
 	.byte	0x83
-Song_0856EE69:
+Song_0856F20C_4_1:
 	.byte	0xEA
 	.byte	0x3C
 	.byte	0x60
@@ -168311,7 +168311,7 @@ Song_0856EE69:
 	.byte	0x98
 	.byte	0xB4
 	.byte	0xB3
-	.word	Song_0856EE69
+	.word	Song_0856F20C_4_1
 	.byte	0xEA
 	.byte	0x3C
 	.byte	0x60
@@ -168428,7 +168428,7 @@ Song_0856EE69:
 	.byte	0x3C
 	.byte	0x40
 	.byte	0x86
-Song_0856EEEE:
+Song_0856F20C_4_2:
 	.byte	0xD5
 	.byte	0x38
 	.byte	0x50
@@ -168486,8 +168486,8 @@ Song_0856EEEE:
 	.byte	0x86
 	.byte	0xB4
 	.byte	0xB3
-	.word	Song_0856EEEE
-Song_0856EF2B:
+	.word	Song_0856F20C_4_2
+Song_0856F20C_4_3:
 	.byte	0xD5
 	.byte	0x38
 	.byte	0x50
@@ -168548,7 +168548,7 @@ Song_0856EF2B:
 	.byte	0x86
 	.byte	0xB4
 	.byte	0xB3
-	.word	Song_0856EF2B
+	.word	Song_0856F20C_4_3
 	.byte	0xBD
 	.byte	0x11
 	.byte	0xBE
@@ -168615,7 +168615,7 @@ Song_0856EF2B:
 	.byte	0x6C
 	.byte	0x83
 	.byte	0xB2
-	.word	Song_0856EE29
+	.word	Song_0856F20C_4_4
 	.byte	0xB1
 
 	@********************** Track  5 **********************@
@@ -168624,7 +168624,7 @@ Song_0856EF2B:
 Song_0856F20C_5:	@ 0x0856EFB2
 	.byte	0xBC
 	.byte	0x00
-Song_0856EFB4:
+Song_0856F20C_5_4:
 	.byte	0xBD
 	.byte	0x24
 	.byte	0xBE
@@ -168633,7 +168633,7 @@ Song_0856EFB4:
 	.byte	0x40
 	.byte	0xA4
 	.byte	0xA4
-Song_0856EFBC:
+Song_0856F20C_5_1:
 	.byte	0x86
 	.byte	0xD2
 	.byte	0x37
@@ -168651,7 +168651,7 @@ Song_0856EFBC:
 	.byte	0x86
 	.byte	0xB4
 	.byte	0xB3
-	.word	Song_0856EFBC
+	.word	Song_0856F20C_5_1
 	.byte	0x86
 	.byte	0xD2
 	.byte	0x37
@@ -168676,7 +168676,7 @@ Song_0856EFBC:
 	.byte	0x86
 	.byte	0xA4
 	.byte	0xA4
-Song_0856EFE9:
+Song_0856F20C_5_2:
 	.byte	0x86
 	.byte	0xD2
 	.byte	0x3C
@@ -168694,7 +168694,7 @@ Song_0856EFE9:
 	.byte	0x86
 	.byte	0xB4
 	.byte	0xB3
-	.word	Song_0856EFE9
+	.word	Song_0856F20C_5_2
 	.byte	0x86
 	.byte	0xD2
 	.byte	0x3C
@@ -168719,7 +168719,7 @@ Song_0856EFE9:
 	.byte	0x86
 	.byte	0xA4
 	.byte	0xA4
-Song_0856F016:
+Song_0856F20C_5_3:
 	.byte	0x86
 	.byte	0xD2
 	.byte	0x38
@@ -168737,7 +168737,7 @@ Song_0856F016:
 	.byte	0x86
 	.byte	0xB4
 	.byte	0xB3
-	.word	Song_0856F016
+	.word	Song_0856F20C_5_3
 	.byte	0x86
 	.byte	0xD2
 	.byte	0x38
@@ -168761,7 +168761,7 @@ Song_0856F016:
 	.byte	0xD2
 	.byte	0x86
 	.byte	0xB2
-	.word	Song_0856EFB4
+	.word	Song_0856F20C_5_4
 	.byte	0xB1
 
 	@********************** Track  6 **********************@
@@ -168770,7 +168770,7 @@ Song_0856F016:
 Song_0856F20C_6:	@ 0x0856F047
 	.byte	0xBC
 	.byte	0x00
-Song_0856F049:
+Song_0856F20C_6_1:
 	.byte	0xBD
 	.byte	0x7F
 	.byte	0xBE
@@ -169216,7 +169216,7 @@ Song_0856F049:
 	.byte	0x74
 	.byte	0x83
 	.byte	0xB2
-	.word	Song_0856F049
+	.word	Song_0856F20C_6_1
 	.byte	0xB1
 	.byte	0x00
 
@@ -169228,7 +169228,7 @@ Song_0856F20C:	@ 0x0856F20C
 	.byte	10		@ priority
 	.byte	148		@ reverb
 
-	.word	voicegroup_0820EC64		@ voicegroup/tone
+	.word	voicegroup021		@ voicegroup/tone
 
 	.word	Song_0856F20C_1		@ track
 	.word	Song_0856F20C_2		@ track
@@ -169522,7 +169522,7 @@ Song_0856F32C:	@ 0x0856F32C
 	.byte	10		@ priority
 	.byte	148		@ reverb
 
-	.word	voicegroup_0820F264		@ voicegroup/tone
+	.word	voicegroup022		@ voicegroup/tone
 
 	.word	Song_0856F32C_1		@ track
 	.word	Song_0856F32C_2		@ track
@@ -169582,7 +169582,7 @@ Song_0856F8FC_1:	@ 0x0856F344
 	.byte	0x40
 	.byte	0x64
 	.byte	0x98
-Song_0856F374:
+Song_0856F8FC_1_1:
 	.byte	0xED
 	.byte	0x3D
 	.byte	0x58
@@ -169768,7 +169768,7 @@ Song_0856F374:
 	.byte	0x5C
 	.byte	0x98
 	.byte	0xB2
-	.word	Song_0856F374
+	.word	Song_0856F8FC_1_1
 	.byte	0xB1
 
 	@********************** Track  2 **********************@
@@ -169797,7 +169797,7 @@ Song_0856F8FC_2:	@ 0x0856F432
 	.byte	0x98
 	.byte	0xD5
 	.byte	0x8C
-Song_0856F448:
+Song_0856F8FC_2_1:
 	.byte	0xD5
 	.byte	0x34
 	.byte	0x7F
@@ -169815,7 +169815,7 @@ Song_0856F448:
 	.byte	0xD5
 	.byte	0x8C
 	.byte	0xB4
-Song_0856F459:
+Song_0856F8FC_2_2:
 	.byte	0xD5
 	.byte	0x34
 	.byte	0x7F
@@ -169832,10 +169832,10 @@ Song_0856F459:
 	.byte	0x8C
 	.byte	0xB4
 	.byte	0xB3
-	.word	Song_0856F448
+	.word	Song_0856F8FC_2_1
 	.byte	0xB3
-	.word	Song_0856F459
-Song_0856F472:
+	.word	Song_0856F8FC_2_2
+Song_0856F8FC_2_3:
 	.byte	0xD5
 	.byte	0x32
 	.byte	0x7F
@@ -169866,13 +169866,13 @@ Song_0856F472:
 	.byte	0xD5
 	.byte	0x8C
 	.byte	0xB3
-	.word	Song_0856F472
+	.word	Song_0856F8FC_2_3
 	.byte	0xB3
-	.word	Song_0856F459
+	.word	Song_0856F8FC_2_2
 	.byte	0xB3
-	.word	Song_0856F448
+	.word	Song_0856F8FC_2_1
 	.byte	0xB2
-	.word	Song_0856F459
+	.word	Song_0856F8FC_2_2
 	.byte	0xB1
 
 	@********************** Track  3 **********************@
@@ -169920,7 +169920,7 @@ Song_0856F8FC_3:	@ 0x0856F4A4
 	.byte	0x3B
 	.byte	0x14
 	.byte	0x9A
-Song_0856F4CD:
+Song_0856F8FC_3_1:
 	.byte	0xD5
 	.byte	0x36
 	.byte	0x50
@@ -169963,7 +169963,7 @@ Song_0856F4CD:
 	.byte	0x14
 	.byte	0x86
 	.byte	0xB4
-Song_0856F4F7:
+Song_0856F8FC_3_2:
 	.byte	0xD5
 	.byte	0x36
 	.byte	0x50
@@ -170070,7 +170070,7 @@ Song_0856F4F7:
 	.byte	0x14
 	.byte	0x9A
 	.byte	0xB3
-	.word	Song_0856F4CD
+	.word	Song_0856F8FC_3_1
 	.byte	0xD5
 	.byte	0x39
 	.byte	0x50
@@ -170190,7 +170190,7 @@ Song_0856F4F7:
 	.byte	0x3B
 	.byte	0x8C
 	.byte	0xB2
-	.word	Song_0856F4F7
+	.word	Song_0856F8FC_3_2
 	.byte	0xB1
 
 	@********************** Track  4 **********************@
@@ -170323,7 +170323,7 @@ Song_0856F8FC_4:	@ 0x0856F5E1
 	.byte	0x42
 	.byte	0x14
 	.byte	0x86
-Song_0856F65F:
+Song_0856F8FC_4_1:
 	.byte	0xED
 	.byte	0x40
 	.byte	0x50
@@ -170476,7 +170476,7 @@ Song_0856F65F:
 	.byte	0x42
 	.byte	0xA0
 	.byte	0xB2
-	.word	Song_0856F65F
+	.word	Song_0856F8FC_4_1
 	.byte	0xB1
 
 	@********************** Track  5 **********************@
@@ -170493,7 +170493,7 @@ Song_0856F8FC_5:	@ 0x0856F6FC
 	.byte	0x31
 	.byte	0xB0
 	.byte	0xB0
-Song_0856F706:
+Song_0856F8FC_5_1:
 	.byte	0xB0
 	.byte	0xB0
 	.byte	0xA0
@@ -170535,7 +170535,7 @@ Song_0856F706:
 	.byte	0xB0
 	.byte	0xB0
 	.byte	0xB2
-	.word	Song_0856F706
+	.word	Song_0856F8FC_5_1
 	.byte	0xB1
 
 	@********************** Track  6 **********************@
@@ -170647,7 +170647,7 @@ Song_0856F8FC_6:	@ 0x0856F734
 	.byte	0x34
 	.byte	0x14
 	.byte	0x86
-Song_0856F79D:
+Song_0856F8FC_6_2:
 	.byte	0xD4
 	.byte	0x34
 	.byte	0x74
@@ -170937,7 +170937,7 @@ Song_0856F79D:
 	.byte	0x32
 	.byte	0x14
 	.byte	0x86
-Song_0856F8BE:
+Song_0856F8FC_6_1:
 	.byte	0xD4
 	.byte	0x34
 	.byte	0x64
@@ -170989,9 +170989,9 @@ Song_0856F8BE:
 	.byte	0x86
 	.byte	0xB4
 	.byte	0xB3
-	.word	Song_0856F8BE
+	.word	Song_0856F8FC_6_1
 	.byte	0xB2
-	.word	Song_0856F79D
+	.word	Song_0856F8FC_6_2
 	.byte	0xB1
 	.byte	0x00
 
@@ -171003,7 +171003,7 @@ Song_0856F8FC:	@ 0x0856F8FC
 	.byte	10		@ priority
 	.byte	148		@ reverb
 
-	.word	voicegroup_0820F630		@ voicegroup/tone
+	.word	voicegroup023		@ voicegroup/tone
 
 	.word	Song_0856F8FC_1		@ track
 	.word	Song_0856F8FC_2		@ track
@@ -171367,7 +171367,7 @@ Song_0856FA58:	@ 0x0856FA58
 	.byte	10		@ priority
 	.byte	148		@ reverb
 
-	.word	voicegroup_0821F638		@ voicegroup/tone
+	.word	voicegroup072		@ voicegroup/tone
 
 	.word	Song_0856FA58_1		@ track
 	.word	Song_0856FA58_2		@ track
@@ -171828,7 +171828,7 @@ Song_0856FC10:	@ 0x0856FC10
 	.byte	10		@ priority
 	.byte	148		@ reverb
 
-	.word	voicegroup_0821FC38		@ voicegroup/tone
+	.word	voicegroup073		@ voicegroup/tone
 
 	.word	Song_0856FC10_1		@ track
 	.word	Song_0856FC10_2		@ track
@@ -174804,7 +174804,7 @@ Song_085707A8:	@ 0x085707A8
 	.byte	10		@ priority
 	.byte	148		@ reverb
 
-	.word	voicegroup_08220238		@ voicegroup/tone
+	.word	voicegroup074		@ voicegroup/tone
 
 	.word	Song_085707A8_1		@ track
 	.word	Song_085707A8_2		@ track
@@ -174819,7 +174819,7 @@ Song_085707A8:	@ 0x085707A8
 Song_08570F14_1:	@ 0x085707C4
 	.byte	0xBC
 	.byte	0x00
-Song_085707C6:
+Song_08570F14_1_1:
 	.byte	0xBB
 	.byte	0x29
 	.byte	0xBD
@@ -175192,7 +175192,7 @@ Song_085707C6:
 	.byte	0x00
 	.byte	0x83
 	.byte	0xB2
-	.word	Song_085707C6
+	.word	Song_08570F14_1_1
 	.byte	0xB1
 
 	@********************** Track  2 **********************@
@@ -175201,7 +175201,7 @@ Song_085707C6:
 Song_08570F14_2:	@ 0x0857093F
 	.byte	0xBC
 	.byte	0x00
-Song_08570941:
+Song_08570F14_2_2:
 	.byte	0xBD
 	.byte	0x33
 	.byte	0xBE
@@ -175264,7 +175264,7 @@ Song_08570941:
 	.byte	0x98
 	.byte	0x27
 	.byte	0x98
-Song_0857097F:
+Song_08570F14_2_1:
 	.byte	0xEF
 	.byte	0x28
 	.byte	0x60
@@ -175273,7 +175273,7 @@ Song_0857097F:
 	.byte	0x98
 	.byte	0xB4
 	.byte	0xB3
-	.word	Song_0857097F
+	.word	Song_08570F14_2_1
 	.byte	0xBE
 	.byte	0x1C
 	.byte	0xE7
@@ -175423,7 +175423,7 @@ Song_0857097F:
 	.byte	0x1B
 	.byte	0x81
 	.byte	0xB2
-	.word	Song_08570941
+	.word	Song_08570F14_2_2
 	.byte	0xB1
 
 	@********************** Track  3 **********************@
@@ -175432,7 +175432,7 @@ Song_0857097F:
 Song_08570F14_3:	@ 0x08570A25
 	.byte	0xBC
 	.byte	0x00
-Song_08570A27:
+Song_08570F14_3_1:
 	.byte	0xBD
 	.byte	0x66
 	.byte	0xBE
@@ -175984,7 +175984,7 @@ Song_08570A27:
 	.byte	0x0A
 	.byte	0x82
 	.byte	0xB2
-	.word	Song_08570A27
+	.word	Song_08570F14_3_1
 	.byte	0xB1
 
 	@********************** Track  4 **********************@
@@ -175993,7 +175993,7 @@ Song_08570A27:
 Song_08570F14_4:	@ 0x08570C53
 	.byte	0xBC
 	.byte	0x00
-Song_08570C55:
+Song_08570F14_4_1:
 	.byte	0xBD
 	.byte	0x34
 	.byte	0xBE
@@ -176506,7 +176506,7 @@ Song_08570C55:
 	.byte	0x0E
 	.byte	0x82
 	.byte	0xB2
-	.word	Song_08570C55
+	.word	Song_08570F14_4_1
 	.byte	0xB1
 
 	@********************** Track  5 **********************@
@@ -176515,7 +176515,7 @@ Song_08570C55:
 Song_08570F14_5:	@ 0x08570E5A
 	.byte	0xBC
 	.byte	0x00
-Song_08570E5C:
+Song_08570F14_5_1:
 	.byte	0xA8
 	.byte	0xA8
 	.byte	0xA8
@@ -176694,7 +176694,7 @@ Song_08570E5C:
 	.byte	0x00
 	.byte	0x85
 	.byte	0xB2
-	.word	Song_08570E5C
+	.word	Song_08570F14_5_1
 	.byte	0xB1
 	.byte	0x00
 
@@ -176706,7 +176706,7 @@ Song_08570F14:	@ 0x08570F14
 	.byte	10		@ priority
 	.byte	148		@ reverb
 
-	.word	voicegroup_0822070C		@ voicegroup/tone
+	.word	voicegroup075		@ voicegroup/tone
 
 	.word	Song_08570F14_1		@ track
 	.word	Song_08570F14_2		@ track
@@ -176721,7 +176721,7 @@ Song_08570F14:	@ 0x08570F14
 Song_08571514_1:	@ 0x08570F30
 	.byte	0xBC
 	.byte	0x00
-Song_08570F32:
+Song_08571514_1_3:
 	.byte	0xBB
 	.byte	0x39
 	.byte	0xBD
@@ -176764,7 +176764,7 @@ Song_08570F32:
 	.byte	0x40
 	.byte	0x20
 	.byte	0x90
-Song_08570F5C:
+Song_08571514_1_2:
 	.byte	0xD7
 	.byte	0x36
 	.byte	0x50
@@ -176800,7 +176800,7 @@ Song_08570F5C:
 	.byte	0x20
 	.byte	0x90
 	.byte	0xB4
-Song_08570F7F:
+Song_08571514_1_1:
 	.byte	0xD7
 	.byte	0x36
 	.byte	0x4C
@@ -176885,9 +176885,9 @@ Song_08570F7F:
 	.byte	0x20
 	.byte	0x90
 	.byte	0xB3
-	.word	Song_08570F7F
+	.word	Song_08571514_1_1
 	.byte	0xB3
-	.word	Song_08570F5C
+	.word	Song_08571514_1_2
 	.byte	0xD7
 	.byte	0x36
 	.byte	0x4C
@@ -177012,7 +177012,7 @@ Song_08570F7F:
 	.byte	0x42
 	.byte	0xB0
 	.byte	0xB2
-	.word	Song_08570F32
+	.word	Song_08571514_1_3
 	.byte	0xB1
 
 	@********************** Track  2 **********************@
@@ -177021,7 +177021,7 @@ Song_08570F7F:
 Song_08571514_2:	@ 0x0857105D
 	.byte	0xBC
 	.byte	0x00
-Song_0857105F:
+Song_08571514_2_1:
 	.byte	0xBD
 	.byte	0x3D
 	.byte	0xBE
@@ -177454,7 +177454,7 @@ Song_0857105F:
 	.byte	0x20
 	.byte	0x8C
 	.byte	0xB2
-	.word	Song_0857105F
+	.word	Song_08571514_2_1
 	.byte	0xB1
 
 	@********************** Track  3 **********************@
@@ -177463,7 +177463,7 @@ Song_0857105F:
 Song_08571514_3:	@ 0x08571214
 	.byte	0xBC
 	.byte	0x00
-Song_08571216:
+Song_08571514_3_1:
 	.byte	0xB0
 	.byte	0xB0
 	.byte	0xB0
@@ -177592,7 +177592,7 @@ Song_08571216:
 	.byte	0x3B
 	.byte	0x98
 	.byte	0xB2
-	.word	Song_08571216
+	.word	Song_08571514_3_1
 	.byte	0xB1
 
 	@********************** Track  4 **********************@
@@ -177601,7 +177601,7 @@ Song_08571216:
 Song_08571514_4:	@ 0x0857129B
 	.byte	0xBC
 	.byte	0x00
-Song_0857129D:
+Song_08571514_4_1:
 	.byte	0xB0
 	.byte	0xBD
 	.byte	0x30
@@ -177781,7 +177781,7 @@ Song_0857129D:
 	.byte	0x20
 	.byte	0x8C
 	.byte	0xB2
-	.word	Song_0857129D
+	.word	Song_08571514_4_1
 	.byte	0xB1
 
 	@********************** Track  5 **********************@
@@ -177790,7 +177790,7 @@ Song_0857129D:
 Song_08571514_5:	@ 0x08571355
 	.byte	0xBC
 	.byte	0x00
-Song_08571357:
+Song_08571514_5_4:
 	.byte	0xBD
 	.byte	0x3C
 	.byte	0xBE
@@ -177803,7 +177803,7 @@ Song_08571357:
 	.byte	0xA8
 	.byte	0xDF
 	.byte	0x98
-Song_08571363:
+Song_08571514_5_1:
 	.byte	0xF4
 	.byte	0x36
 	.byte	0x78
@@ -177812,7 +177812,7 @@ Song_08571363:
 	.byte	0x98
 	.byte	0xB4
 	.byte	0xB3
-	.word	Song_08571363
+	.word	Song_08571514_5_1
 	.byte	0xDF
 	.byte	0x36
 	.byte	0x78
@@ -177826,7 +177826,7 @@ Song_08571363:
 	.byte	0xD3
 	.byte	0x88
 	.byte	0xB3
-	.word	Song_08571363
+	.word	Song_08571514_5_1
 	.byte	0xEC
 	.byte	0x36
 	.byte	0x78
@@ -177864,7 +177864,7 @@ Song_08571363:
 	.byte	0xB0
 	.byte	0x38
 	.byte	0xB0
-Song_085713A5:
+Song_08571514_5_2:
 	.byte	0xD5
 	.byte	0x36
 	.byte	0x70
@@ -177928,7 +177928,7 @@ Song_085713A5:
 	.byte	0x20
 	.byte	0x86
 	.byte	0xB3
-	.word	Song_085713A5
+	.word	Song_08571514_5_2
 	.byte	0xD5
 	.byte	0x36
 	.byte	0x70
@@ -177992,7 +177992,7 @@ Song_085713A5:
 	.byte	0x39
 	.byte	0x70
 	.byte	0x98
-Song_08571427:
+Song_08571514_5_3:
 	.byte	0xFB
 	.byte	0x3B
 	.byte	0x70
@@ -178003,9 +178003,9 @@ Song_08571427:
 	.byte	0x8C
 	.byte	0xB4
 	.byte	0xB3
-	.word	Song_08571427
+	.word	Song_08571514_5_3
 	.byte	0xB2
-	.word	Song_08571357
+	.word	Song_08571514_5_4
 	.byte	0xB1
 
 	@********************** Track  6 **********************@
@@ -178014,7 +178014,7 @@ Song_08571427:
 Song_08571514_6:	@ 0x0857143B
 	.byte	0xBC
 	.byte	0x00
-Song_0857143D:
+Song_08571514_6_3:
 	.byte	0xBD
 	.byte	0x7F
 	.byte	0xBE
@@ -178038,7 +178038,7 @@ Song_0857143D:
 	.byte	0x26
 	.byte	0x54
 	.byte	0x98
-Song_08571454:
+Song_08571514_6_1:
 	.byte	0xE7
 	.byte	0x26
 	.byte	0x5C
@@ -178059,7 +178059,7 @@ Song_08571454:
 	.byte	0x38
 	.byte	0x88
 	.byte	0xB4
-Song_08571468:
+Song_08571514_6_2:
 	.byte	0xE7
 	.byte	0x26
 	.byte	0x5C
@@ -178079,13 +178079,13 @@ Song_08571468:
 	.byte	0x98
 	.byte	0xB4
 	.byte	0xB3
-	.word	Song_08571454
+	.word	Song_08571514_6_1
 	.byte	0xB3
-	.word	Song_08571468
+	.word	Song_08571514_6_2
 	.byte	0xB3
-	.word	Song_08571454
+	.word	Song_08571514_6_1
 	.byte	0xB3
-	.word	Song_08571468
+	.word	Song_08571514_6_2
 	.byte	0xE7
 	.byte	0x26
 	.byte	0x5C
@@ -178214,7 +178214,7 @@ Song_08571468:
 	.byte	0x40
 	.byte	0x88
 	.byte	0xB2
-	.word	Song_0857143D
+	.word	Song_08571514_6_3
 	.byte	0xB1
 	.byte	0x00
 
@@ -178226,7 +178226,7 @@ Song_08571514:	@ 0x08571514
 	.byte	10		@ priority
 	.byte	148		@ reverb
 
-	.word	voicegroup_0820F96C		@ voicegroup/tone
+	.word	voicegroup024		@ voicegroup/tone
 
 	.word	Song_08571514_1		@ track
 	.word	Song_08571514_2		@ track
@@ -178395,7 +178395,7 @@ Song_08572248_1:	@ 0x08571534
 	.byte	0x32
 	.byte	0x4C
 	.byte	0xA0
-Song_085715CF:
+Song_08572248_1_1:
 	.byte	0xB0
 	.byte	0xB0
 	.byte	0xB0
@@ -178707,7 +178707,7 @@ Song_085715CF:
 	.byte	0x20
 	.byte	0x86
 	.byte	0xB2
-	.word	Song_085715CF
+	.word	Song_08572248_1_1
 	.byte	0xB1
 
 	@********************** Track  2 **********************@
@@ -178801,7 +178801,7 @@ Song_08572248_2:	@ 0x0857170B
 	.byte	0x24
 	.byte	0x74
 	.byte	0x98
-Song_08571762:
+Song_08572248_2_1:
 	.byte	0xD8
 	.byte	0x26
 	.byte	0x7F
@@ -178814,10 +178814,10 @@ Song_08571762:
 	.byte	0x98
 	.byte	0xB4
 	.byte	0xB3
-	.word	Song_08571762
+	.word	Song_08572248_2_1
 	.byte	0xB3
-	.word	Song_08571762
-Song_08571777:
+	.word	Song_08572248_2_1
+Song_08572248_2_3:
 	.byte	0xD8
 	.byte	0x26
 	.byte	0x7F
@@ -178831,7 +178831,7 @@ Song_08571777:
 	.byte	0x24
 	.byte	0x8C
 	.byte	0xB4
-Song_08571784:
+Song_08572248_2_2:
 	.byte	0xD8
 	.byte	0x22
 	.byte	0x7F
@@ -178844,9 +178844,9 @@ Song_08571784:
 	.byte	0x98
 	.byte	0xB4
 	.byte	0xB3
-	.word	Song_08571784
+	.word	Song_08572248_2_2
 	.byte	0xB3
-	.word	Song_08571784
+	.word	Song_08572248_2_2
 	.byte	0xD8
 	.byte	0x22
 	.byte	0x7F
@@ -178860,21 +178860,21 @@ Song_08571784:
 	.byte	0x24
 	.byte	0x8C
 	.byte	0xB3
-	.word	Song_08571762
+	.word	Song_08572248_2_1
 	.byte	0xB3
-	.word	Song_08571762
+	.word	Song_08572248_2_1
 	.byte	0xB3
-	.word	Song_08571762
+	.word	Song_08572248_2_1
 	.byte	0xB3
-	.word	Song_08571777
+	.word	Song_08572248_2_3
 	.byte	0xB3
-	.word	Song_08571784
+	.word	Song_08572248_2_2
 	.byte	0xB3
-	.word	Song_08571784
+	.word	Song_08572248_2_2
 	.byte	0xB3
-	.word	Song_08571784
+	.word	Song_08572248_2_2
 	.byte	0xB3
-	.word	Song_08571784
+	.word	Song_08572248_2_2
 	.byte	0xFE
 	.byte	0x21
 	.byte	0x7F
@@ -178925,7 +178925,7 @@ Song_08571784:
 	.byte	0x21
 	.byte	0x98
 	.byte	0xB2
-	.word	Song_08571762
+	.word	Song_08572248_2_1
 	.byte	0xB1
 
 	@********************** Track  3 **********************@
@@ -178974,7 +178974,7 @@ Song_08572248_3:	@ 0x08571804
 	.byte	0x86
 	.byte	0x4C
 	.byte	0x86
-Song_0857182E:
+Song_08572248_3_1:
 	.byte	0xD5
 	.byte	0x51
 	.byte	0x7F
@@ -179011,32 +179011,32 @@ Song_0857182E:
 	.byte	0x86
 	.byte	0xB4
 	.byte	0xB3
-	.word	Song_0857182E
+	.word	Song_08572248_3_1
 	.byte	0xB3
-	.word	Song_0857182E
+	.word	Song_08572248_3_1
 	.byte	0xB3
-	.word	Song_0857182E
+	.word	Song_08572248_3_1
 	.byte	0xB3
-	.word	Song_0857182E
+	.word	Song_08572248_3_1
 	.byte	0xB3
-	.word	Song_0857182E
+	.word	Song_08572248_3_1
 	.byte	0xB3
-	.word	Song_0857182E
+	.word	Song_08572248_3_1
 	.byte	0xB3
-	.word	Song_0857182E
+	.word	Song_08572248_3_1
 	.byte	0xB3
-	.word	Song_0857182E
+	.word	Song_08572248_3_1
 	.byte	0xB3
-	.word	Song_0857182E
+	.word	Song_08572248_3_1
 	.byte	0xB3
-	.word	Song_0857182E
+	.word	Song_08572248_3_1
 	.byte	0xB3
-	.word	Song_0857182E
+	.word	Song_08572248_3_1
 	.byte	0xB3
-	.word	Song_0857182E
+	.word	Song_08572248_3_1
 	.byte	0xB0
 	.byte	0xB0
-Song_0857188F:
+Song_08572248_3_2:
 	.byte	0xBD
 	.byte	0x3E
 	.byte	0xBE
@@ -179350,7 +179350,7 @@ Song_0857188F:
 	.byte	0xB0
 	.byte	0xB0
 	.byte	0xB2
-	.word	Song_0857188F
+	.word	Song_08572248_3_2
 	.byte	0xB1
 
 	@********************** Track  4 **********************@
@@ -179390,7 +179390,7 @@ Song_08572248_4:	@ 0x085719CD
 	.byte	0x32
 	.byte	0x20
 	.byte	0x83
-Song_085719EE:
+Song_08572248_4_1:
 	.byte	0xFE
 	.byte	0x32
 	.byte	0x6C
@@ -179401,7 +179401,7 @@ Song_085719EE:
 	.byte	0x20
 	.byte	0x83
 	.byte	0xB4
-Song_085719F8:
+Song_08572248_4_2:
 	.byte	0xFA
 	.byte	0x32
 	.byte	0x6C
@@ -179429,15 +179429,15 @@ Song_085719F8:
 	.byte	0x83
 	.byte	0xB4
 	.byte	0xB3
-	.word	Song_085719EE
+	.word	Song_08572248_4_1
 	.byte	0xB3
-	.word	Song_085719F8
+	.word	Song_08572248_4_2
 	.byte	0xB3
-	.word	Song_085719EE
+	.word	Song_08572248_4_1
 	.byte	0xB3
-	.word	Song_085719F8
+	.word	Song_08572248_4_2
 	.byte	0xB3
-	.word	Song_085719EE
+	.word	Song_08572248_4_1
 	.byte	0xB0
 	.byte	0xB0
 	.byte	0xB0
@@ -179479,7 +179479,7 @@ Song_085719F8:
 	.byte	0x40
 	.byte	0x74
 	.byte	0x98
-Song_08571A54:
+Song_08572248_4_3:
 	.byte	0xB0
 	.byte	0xB0
 	.byte	0xB0
@@ -179784,7 +179784,7 @@ Song_08571A54:
 	.byte	0x45
 	.byte	0x86
 	.byte	0xB2
-	.word	Song_08571A54
+	.word	Song_08572248_4_3
 	.byte	0xB1
 
 	@********************** Track  5 **********************@
@@ -179814,7 +179814,7 @@ Song_08572248_5:	@ 0x08571B89
 	.byte	0x2C
 	.byte	0xA0
 	.byte	0xB0
-Song_08571BA0:
+Song_08572248_5_1:
 	.byte	0xD5
 	.byte	0x51
 	.byte	0x6C
@@ -179863,8 +179863,8 @@ Song_08571BA0:
 	.byte	0x86
 	.byte	0xB4
 	.byte	0xB3
-	.word	Song_08571BA0
-Song_08571BD4:
+	.word	Song_08572248_5_1
+Song_08572248_5_2:
 	.byte	0xD4
 	.byte	0x4A
 	.byte	0x70
@@ -180389,7 +180389,7 @@ Song_08571BD4:
 	.byte	0x20
 	.byte	0x86
 	.byte	0xB2
-	.word	Song_08571BD4
+	.word	Song_08572248_5_2
 	.byte	0xB1
 
 	@********************** Track  6 **********************@
@@ -180499,7 +180499,7 @@ Song_08572248_6:	@ 0x08571DE5
 	.byte	0x42
 	.byte	0x6C
 	.byte	0xA0
-Song_08571E4C:
+Song_08572248_6_1:
 	.byte	0xFC
 	.byte	0x39
 	.byte	0x6C
@@ -180510,7 +180510,7 @@ Song_08571E4C:
 	.byte	0x86
 	.byte	0xB4
 	.byte	0xB3
-	.word	Song_08571E4C
+	.word	Song_08572248_6_1
 	.byte	0xFC
 	.byte	0x3A
 	.byte	0x6C
@@ -180550,7 +180550,7 @@ Song_08571E4C:
 	.byte	0x3C
 	.byte	0x20
 	.byte	0x86
-Song_08571E81:
+Song_08572248_6_5:
 	.byte	0xB0
 	.byte	0xB0
 	.byte	0xB0
@@ -180565,7 +180565,7 @@ Song_08571E81:
 	.byte	0xBF
 	.byte	0x5B
 	.byte	0xB0
-Song_08571E8F:
+Song_08572248_6_2:
 	.byte	0xD5
 	.byte	0x4A
 	.byte	0x74
@@ -180634,7 +180634,7 @@ Song_08571E8F:
 	.byte	0x40
 	.byte	0x86
 	.byte	0xB3
-	.word	Song_08571E8F
+	.word	Song_08572248_6_2
 	.byte	0xD5
 	.byte	0x4A
 	.byte	0x74
@@ -180669,7 +180669,7 @@ Song_08571E8F:
 	.byte	0x86
 	.byte	0x40
 	.byte	0x86
-Song_08571EF9:
+Song_08572248_6_3:
 	.byte	0xD5
 	.byte	0x4A
 	.byte	0x74
@@ -180759,7 +180759,7 @@ Song_08571EF9:
 	.byte	0x60
 	.byte	0x86
 	.byte	0xB3
-	.word	Song_08571EF9
+	.word	Song_08572248_6_3
 	.byte	0xD5
 	.byte	0x4A
 	.byte	0x70
@@ -180803,7 +180803,7 @@ Song_08571EF9:
 	.byte	0x40
 	.byte	0x60
 	.byte	0x86
-Song_08571F81:
+Song_08572248_6_4:
 	.byte	0xD5
 	.byte	0x4E
 	.byte	0x6C
@@ -180872,7 +180872,7 @@ Song_08571F81:
 	.byte	0x45
 	.byte	0x86
 	.byte	0xB3
-	.word	Song_08571F81
+	.word	Song_08572248_6_4
 	.byte	0xD5
 	.byte	0x4F
 	.byte	0x6C
@@ -180912,7 +180912,7 @@ Song_08571F81:
 	.byte	0xB0
 	.byte	0xB0
 	.byte	0xB2
-	.word	Song_08571E81
+	.word	Song_08572248_6_5
 	.byte	0xB1
 
 	@********************** Track  7 **********************@
@@ -181090,7 +181090,7 @@ Song_08572248_7:	@ 0x08571FF5
 	.byte	0x26
 	.byte	0x64
 	.byte	0x86
-Song_085720A0:
+Song_08572248_7_4:
 	.byte	0xEB
 	.byte	0x39
 	.byte	0x60
@@ -181133,7 +181133,7 @@ Song_085720A0:
 	.byte	0x26
 	.byte	0x70
 	.byte	0x86
-Song_085720CA:
+Song_08572248_7_1:
 	.byte	0xD5
 	.byte	0x26
 	.byte	0x78
@@ -181185,7 +181185,7 @@ Song_085720CA:
 	.byte	0x70
 	.byte	0x86
 	.byte	0xB3
-	.word	Song_085720CA
+	.word	Song_08572248_7_1
 	.byte	0xD5
 	.byte	0x26
 	.byte	0x78
@@ -181215,7 +181215,7 @@ Song_085720CA:
 	.byte	0x70
 	.byte	0x86
 	.byte	0xB3
-	.word	Song_085720CA
+	.word	Song_08572248_7_1
 	.byte	0xD5
 	.byte	0x26
 	.byte	0x78
@@ -181264,7 +181264,7 @@ Song_085720CA:
 	.byte	0x26
 	.byte	0x5C
 	.byte	0x86
-Song_08572152:
+Song_08572248_7_2:
 	.byte	0xD5
 	.byte	0x26
 	.byte	0x78
@@ -181294,7 +181294,7 @@ Song_08572152:
 	.byte	0x70
 	.byte	0x86
 	.byte	0xB4
-Song_0857216F:
+Song_08572248_7_3:
 	.byte	0xD5
 	.byte	0x26
 	.byte	0x78
@@ -181319,9 +181319,9 @@ Song_0857216F:
 	.byte	0x86
 	.byte	0xB4
 	.byte	0xB3
-	.word	Song_08572152
+	.word	Song_08572248_7_2
 	.byte	0xB3
-	.word	Song_0857216F
+	.word	Song_08572248_7_3
 	.byte	0xD5
 	.byte	0x26
 	.byte	0x78
@@ -181353,7 +181353,7 @@ Song_0857216F:
 	.byte	0x70
 	.byte	0x86
 	.byte	0xB3
-	.word	Song_0857216F
+	.word	Song_08572248_7_3
 	.byte	0xD5
 	.byte	0x26
 	.byte	0x78
@@ -181495,7 +181495,7 @@ Song_0857216F:
 	.byte	0x7F
 	.byte	0x8C
 	.byte	0xB2
-	.word	Song_085720A0
+	.word	Song_08572248_7_4
 	.byte	0xB1
 	.byte	0x00
 	.byte	0x00
@@ -181509,7 +181509,7 @@ Song_08572248:	@ 0x08572248
 	.byte	10		@ priority
 	.byte	148		@ reverb
 
-	.word	voicegroup_0820FF6C		@ voicegroup/tone
+	.word	voicegroup025		@ voicegroup/tone
 
 	.word	Song_08572248_1		@ track
 	.word	Song_08572248_2		@ track
@@ -181641,7 +181641,7 @@ Song_08572FE4_1:	@ 0x0857226C
 	.byte	0xD8
 	.byte	0x49
 	.byte	0x8C
-Song_085722E1:
+Song_08572FE4_1_1:
 	.byte	0xEF
 	.byte	0x2F
 	.byte	0x58
@@ -181682,7 +181682,7 @@ Song_085722E1:
 	.byte	0x54
 	.byte	0x8C
 	.byte	0xB4
-Song_08572309:
+Song_08572FE4_1_2:
 	.byte	0xEF
 	.byte	0x31
 	.byte	0x5C
@@ -182644,9 +182644,9 @@ Song_08572309:
 	.byte	0x4C
 	.byte	0x8C
 	.byte	0xB3
-	.word	Song_085722E1
+	.word	Song_08572FE4_1_1
 	.byte	0xB2
-	.word	Song_08572309
+	.word	Song_08572FE4_1_2
 	.byte	0xB1
 
 	@********************** Track  2 **********************@
@@ -182659,7 +182659,7 @@ Song_08572FE4_2:	@ 0x085726D4
 	.byte	0xB0
 	.byte	0xB0
 	.byte	0xB0
-Song_085726DA:
+Song_08572FE4_2_1:
 	.byte	0xB0
 	.byte	0xB0
 	.byte	0xB0
@@ -182996,7 +182996,7 @@ Song_085726DA:
 	.byte	0x3A
 	.byte	0x86
 	.byte	0xB2
-	.word	Song_085726DA
+	.word	Song_08572FE4_2_1
 	.byte	0xB1
 
 	@********************** Track  3 **********************@
@@ -183009,7 +183009,7 @@ Song_08572FE4_3:	@ 0x0857282F
 	.byte	0xB0
 	.byte	0xB0
 	.byte	0xB0
-Song_08572835:
+Song_08572FE4_3_1:
 	.byte	0xB0
 	.byte	0xB0
 	.byte	0xB0
@@ -183352,7 +183352,7 @@ Song_08572835:
 	.byte	0xB0
 	.byte	0xB0
 	.byte	0xB2
-	.word	Song_08572835
+	.word	Song_08572FE4_3_1
 	.byte	0xB1
 
 	@********************** Track  4 **********************@
@@ -183365,7 +183365,7 @@ Song_08572FE4_4:	@ 0x08572990
 	.byte	0xB0
 	.byte	0xB0
 	.byte	0xB0
-Song_08572996:
+Song_08572FE4_4_1:
 	.byte	0xB0
 	.byte	0xB0
 	.byte	0xB0
@@ -183642,7 +183642,7 @@ Song_08572996:
 	.byte	0x8C
 	.byte	0xB0
 	.byte	0xB2
-	.word	Song_08572996
+	.word	Song_08572FE4_4_1
 	.byte	0xB1
 
 	@********************** Track  5 **********************@
@@ -183655,7 +183655,7 @@ Song_08572FE4_5:	@ 0x08572AAF
 	.byte	0xB0
 	.byte	0xB0
 	.byte	0xB0
-Song_08572AB5:
+Song_08572FE4_5_1:
 	.byte	0xB0
 	.byte	0xB0
 	.byte	0xB0
@@ -183840,7 +183840,7 @@ Song_08572AB5:
 	.byte	0xB0
 	.byte	0xB0
 	.byte	0xB2
-	.word	Song_08572AB5
+	.word	Song_08572FE4_5_1
 	.byte	0xB1
 
 	@********************** Track  6 **********************@
@@ -183853,7 +183853,7 @@ Song_08572FE4_6:	@ 0x08572B72
 	.byte	0xB0
 	.byte	0xB0
 	.byte	0xB0
-Song_08572B78:
+Song_08572FE4_6_2:
 	.byte	0xB0
 	.byte	0xB0
 	.byte	0xB0
@@ -184257,7 +184257,7 @@ Song_08572B78:
 	.byte	0x45
 	.byte	0x4C
 	.byte	0x86
-Song_08572D0B:
+Song_08572FE4_6_1:
 	.byte	0xD5
 	.byte	0x50
 	.byte	0x4C
@@ -184352,7 +184352,7 @@ Song_08572D0B:
 	.byte	0x4C
 	.byte	0x86
 	.byte	0xB3
-	.word	Song_08572D0B
+	.word	Song_08572FE4_6_1
 	.byte	0xD5
 	.byte	0x52
 	.byte	0x4C
@@ -184401,7 +184401,7 @@ Song_08572D0B:
 	.byte	0x4E
 	.byte	0xB0
 	.byte	0xB2
-	.word	Song_08572B78
+	.word	Song_08572FE4_6_2
 	.byte	0xB1
 
 	@********************** Track  7 **********************@
@@ -184414,7 +184414,7 @@ Song_08572FE4_7:	@ 0x08572DA2
 	.byte	0xB0
 	.byte	0xB0
 	.byte	0xB0
-Song_08572DA8:
+Song_08572FE4_7_4:
 	.byte	0xB0
 	.byte	0xB0
 	.byte	0xB0
@@ -184481,7 +184481,7 @@ Song_08572DA8:
 	.byte	0x2A
 	.byte	0x34
 	.byte	0x8C
-Song_08572DEA:
+Song_08572FE4_7_1:
 	.byte	0xD5
 	.byte	0x2A
 	.byte	0x3C
@@ -184507,7 +184507,7 @@ Song_08572DEA:
 	.byte	0x3C
 	.byte	0x8C
 	.byte	0xB3
-	.word	Song_08572DEA
+	.word	Song_08572FE4_7_1
 	.byte	0xD5
 	.byte	0x2A
 	.byte	0x34
@@ -184518,7 +184518,7 @@ Song_08572DEA:
 	.byte	0x98
 	.byte	0xD5
 	.byte	0x98
-Song_08572E11:
+Song_08572FE4_7_2:
 	.byte	0xD5
 	.byte	0x2A
 	.byte	0x34
@@ -184533,7 +184533,7 @@ Song_08572E11:
 	.byte	0x98
 	.byte	0xB4
 	.byte	0xB3
-	.word	Song_08572E11
+	.word	Song_08572FE4_7_2
 	.byte	0xD5
 	.byte	0x2A
 	.byte	0x3C
@@ -184939,7 +184939,7 @@ Song_08572E11:
 	.byte	0x8C
 	.byte	0xDA
 	.byte	0x8C
-Song_08572FB8:
+Song_08572FE4_7_3:
 	.byte	0xE6
 	.byte	0x33
 	.byte	0x54
@@ -184961,7 +184961,7 @@ Song_08572FB8:
 	.byte	0x8C
 	.byte	0xB4
 	.byte	0xB3
-	.word	Song_08572FB8
+	.word	Song_08572FE4_7_3
 	.byte	0xE6
 	.byte	0x33
 	.byte	0x54
@@ -184973,7 +184973,7 @@ Song_08572FB8:
 	.byte	0xB0
 	.byte	0xB0
 	.byte	0xB2
-	.word	Song_08572DA8
+	.word	Song_08572FE4_7_4
 	.byte	0xB1
 	.byte	0x00
 	.byte	0x00
@@ -184987,7 +184987,7 @@ Song_08572FE4:	@ 0x08572FE4
 	.byte	10		@ priority
 	.byte	178		@ reverb
 
-	.word	voicegroup_0821056C		@ voicegroup/tone
+	.word	voicegroup026		@ voicegroup/tone
 
 	.word	Song_08572FE4_1		@ track
 	.word	Song_08572FE4_2		@ track
@@ -185004,7 +185004,7 @@ Song_08572FE4:	@ 0x08572FE4
 Song_085741CC_1:	@ 0x08573008
 	.byte	0xBC
 	.byte	0x00
-Song_0857300A:
+Song_085741CC_1_1:
 	.byte	0xBB
 	.byte	0x3D
 	.byte	0xBD
@@ -185327,7 +185327,7 @@ Song_0857300A:
 	.byte	0x50
 	.byte	0xB0
 	.byte	0xB2
-	.word	Song_0857300A
+	.word	Song_085741CC_1_1
 	.byte	0xB1
 
 	@********************** Track  2 **********************@
@@ -185336,7 +185336,7 @@ Song_0857300A:
 Song_085741CC_2:	@ 0x08573151
 	.byte	0xBC
 	.byte	0x00
-Song_08573153:
+Song_085741CC_2_6:
 	.byte	0xBD
 	.byte	0x21
 	.byte	0xBE
@@ -185347,7 +185347,7 @@ Song_08573153:
 	.byte	0x2C
 	.byte	0x7F
 	.byte	0xB0
-Song_0857315D:
+Song_085741CC_2_1:
 	.byte	0xEE
 	.byte	0x31
 	.byte	0x7F
@@ -185357,7 +185357,7 @@ Song_0857315D:
 	.byte	0x30
 	.byte	0x98
 	.byte	0xB4
-Song_08573166:
+Song_085741CC_2_2:
 	.byte	0xF2
 	.byte	0x2E
 	.byte	0x7F
@@ -185369,7 +185369,7 @@ Song_08573166:
 	.byte	0x31
 	.byte	0x8C
 	.byte	0xB4
-Song_08573171:
+Song_085741CC_2_3:
 	.byte	0xE4
 	.byte	0x33
 	.byte	0x7F
@@ -185381,7 +185381,7 @@ Song_08573171:
 	.byte	0x33
 	.byte	0x98
 	.byte	0xB4
-Song_0857317C:
+Song_085741CC_2_4:
 	.byte	0xF6
 	.byte	0x2C
 	.byte	0x7F
@@ -185389,7 +185389,7 @@ Song_0857317C:
 	.byte	0xE4
 	.byte	0x98
 	.byte	0xB4
-Song_08573183:
+Song_085741CC_2_5:
 	.byte	0xF6
 	.byte	0x31
 	.byte	0x7F
@@ -185575,15 +185575,15 @@ Song_08573183:
 	.byte	0x2C
 	.byte	0xB0
 	.byte	0xB3
-	.word	Song_0857315D
+	.word	Song_085741CC_2_1
 	.byte	0xB3
-	.word	Song_08573166
+	.word	Song_085741CC_2_2
 	.byte	0xB3
-	.word	Song_08573171
+	.word	Song_085741CC_2_3
 	.byte	0xB3
-	.word	Song_0857317C
+	.word	Song_085741CC_2_4
 	.byte	0xB3
-	.word	Song_08573183
+	.word	Song_085741CC_2_5
 	.byte	0xEE
 	.byte	0x2E
 	.byte	0x7F
@@ -185673,7 +185673,7 @@ Song_08573183:
 	.byte	0x33
 	.byte	0x8C
 	.byte	0xB2
-	.word	Song_08573153
+	.word	Song_085741CC_2_6
 	.byte	0xB1
 
 	@********************** Track  3 **********************@
@@ -185682,7 +185682,7 @@ Song_08573183:
 Song_085741CC_3:	@ 0x085732B2
 	.byte	0xBC
 	.byte	0x00
-Song_085732B4:
+Song_085741CC_3_1:
 	.byte	0xB0
 	.byte	0xB0
 	.byte	0xB0
@@ -186350,7 +186350,7 @@ Song_085732B4:
 	.byte	0x1C
 	.byte	0x86
 	.byte	0xB2
-	.word	Song_085732B4
+	.word	Song_085741CC_3_1
 	.byte	0xB1
 
 	@********************** Track  4 **********************@
@@ -186359,7 +186359,7 @@ Song_085732B4:
 Song_085741CC_4:	@ 0x08573554
 	.byte	0xBC
 	.byte	0x00
-Song_08573556:
+Song_085741CC_4_1:
 	.byte	0xBD
 	.byte	0x30
 	.byte	0xBE
@@ -187164,7 +187164,7 @@ Song_08573556:
 	.byte	0x3A
 	.byte	0x84
 	.byte	0xB2
-	.word	Song_08573556
+	.word	Song_085741CC_4_1
 	.byte	0xB1
 
 	@********************** Track  5 **********************@
@@ -187173,7 +187173,7 @@ Song_08573556:
 Song_085741CC_5:	@ 0x0857387F
 	.byte	0xBC
 	.byte	0x00
-Song_08573881:
+Song_085741CC_5_1:
 	.byte	0xBD
 	.byte	0x3D
 	.byte	0xBE
@@ -188155,7 +188155,7 @@ Song_08573881:
 	.byte	0x1C
 	.byte	0x98
 	.byte	0xB2
-	.word	Song_08573881
+	.word	Song_085741CC_5_1
 	.byte	0xB1
 
 	@********************** Track  6 **********************@
@@ -188164,11 +188164,11 @@ Song_08573881:
 Song_085741CC_6:	@ 0x08573C5B
 	.byte	0xBC
 	.byte	0x00
-Song_08573C5D:
+Song_085741CC_6_2:
 	.byte	0xB0
 	.byte	0xB0
 	.byte	0xB0
-Song_08573C60:
+Song_085741CC_6_1:
 	.byte	0xBD
 	.byte	0x44
 	.byte	0xBE
@@ -188298,7 +188298,7 @@ Song_08573C60:
 	.byte	0x54
 	.byte	0xA0
 	.byte	0xB3
-	.word	Song_08573C60
+	.word	Song_085741CC_6_1
 	.byte	0xA8
 	.byte	0xDB
 	.byte	0x50
@@ -188585,7 +188585,7 @@ Song_08573C60:
 	.byte	0xB0
 	.byte	0xB0
 	.byte	0xB2
-	.word	Song_08573C5D
+	.word	Song_085741CC_6_2
 	.byte	0xB1
 
 	@********************** Track  7 **********************@
@@ -188596,13 +188596,13 @@ Song_085741CC_7:	@ 0x08573E08
 	.byte	0x32
 	.byte	0xBC
 	.byte	0x00
-Song_08573E0C:
+Song_085741CC_7_3:
 	.byte	0xE7
 	.byte	0x38
 	.byte	0x6C
 	.byte	0xB0
 	.byte	0xB0
-Song_08573E11:
+Song_085741CC_7_2:
 	.byte	0xBD
 	.byte	0x2F
 	.byte	0xBE
@@ -188615,7 +188615,7 @@ Song_08573E11:
 	.byte	0xB0
 	.byte	0xB0
 	.byte	0xB0
-Song_08573E1D:
+Song_085741CC_7_1:
 	.byte	0xA8
 	.byte	0xD3
 	.byte	0x38
@@ -188691,7 +188691,7 @@ Song_08573E1D:
 	.byte	0xB0
 	.byte	0xB0
 	.byte	0xB3
-	.word	Song_08573E1D
+	.word	Song_085741CC_7_1
 	.byte	0xE7
 	.byte	0x38
 	.byte	0x6C
@@ -188749,11 +188749,11 @@ Song_08573E1D:
 	.byte	0xB0
 	.byte	0xB0
 	.byte	0xB3
-	.word	Song_08573E11
+	.word	Song_085741CC_7_2
 	.byte	0xB3
-	.word	Song_08573E1D
+	.word	Song_085741CC_7_1
 	.byte	0xB2
-	.word	Song_08573E0C
+	.word	Song_085741CC_7_3
 	.byte	0xB1
 
 	@********************** Track  8 **********************@
@@ -188762,7 +188762,7 @@ Song_08573E1D:
 Song_085741CC_8:	@ 0x08573EB4
 	.byte	0xBC
 	.byte	0x00
-Song_08573EB6:
+Song_085741CC_8_7:
 	.byte	0xBD
 	.byte	0x7F
 	.byte	0xBE
@@ -188813,7 +188813,7 @@ Song_08573EB6:
 	.byte	0x86
 	.byte	0xD5
 	.byte	0x86
-Song_08573EE8:
+Song_085741CC_8_1:
 	.byte	0xD5
 	.byte	0x26
 	.byte	0x60
@@ -188836,7 +188836,7 @@ Song_08573EE8:
 	.byte	0x4C
 	.byte	0x98
 	.byte	0xB4
-Song_08573EFE:
+Song_085741CC_8_2:
 	.byte	0xD5
 	.byte	0x26
 	.byte	0x50
@@ -188857,7 +188857,7 @@ Song_08573EFE:
 	.byte	0x58
 	.byte	0x98
 	.byte	0xB4
-Song_08573F12:
+Song_085741CC_8_3:
 	.byte	0xD5
 	.byte	0x26
 	.byte	0x5C
@@ -188881,7 +188881,7 @@ Song_08573F12:
 	.byte	0x54
 	.byte	0x8C
 	.byte	0xB4
-Song_08573F29:
+Song_085741CC_8_6:
 	.byte	0xD5
 	.byte	0x26
 	.byte	0x5C
@@ -188906,7 +188906,7 @@ Song_08573F29:
 	.byte	0x68
 	.byte	0x8C
 	.byte	0xB4
-Song_08573F41:
+Song_085741CC_8_4:
 	.byte	0xD5
 	.byte	0x26
 	.byte	0x60
@@ -189325,7 +189325,7 @@ Song_08573F41:
 	.byte	0x26
 	.byte	0x48
 	.byte	0x8C
-Song_085740E3:
+Song_085741CC_8_5:
 	.byte	0xD5
 	.byte	0x26
 	.byte	0x68
@@ -189346,11 +189346,11 @@ Song_085740E3:
 	.byte	0x8C
 	.byte	0xB4
 	.byte	0xB3
-	.word	Song_08573EE8
+	.word	Song_085741CC_8_1
 	.byte	0xB3
-	.word	Song_08573EFE
+	.word	Song_085741CC_8_2
 	.byte	0xB3
-	.word	Song_08573F12
+	.word	Song_085741CC_8_3
 	.byte	0xD5
 	.byte	0x26
 	.byte	0x5C
@@ -189375,7 +189375,7 @@ Song_085740E3:
 	.byte	0x50
 	.byte	0x8C
 	.byte	0xB3
-	.word	Song_08573F41
+	.word	Song_085741CC_8_4
 	.byte	0xD5
 	.byte	0x26
 	.byte	0x58
@@ -189436,7 +189436,7 @@ Song_085740E3:
 	.byte	0x48
 	.byte	0x8C
 	.byte	0xB3
-	.word	Song_085740E3
+	.word	Song_085741CC_8_5
 	.byte	0xD5
 	.byte	0x26
 	.byte	0x60
@@ -189457,7 +189457,7 @@ Song_085740E3:
 	.byte	0x4C
 	.byte	0x98
 	.byte	0xB3
-	.word	Song_08573EFE
+	.word	Song_085741CC_8_2
 	.byte	0xD5
 	.byte	0x26
 	.byte	0x5C
@@ -189477,7 +189477,7 @@ Song_085740E3:
 	.byte	0x54
 	.byte	0x8C
 	.byte	0xB3
-	.word	Song_08573F29
+	.word	Song_085741CC_8_6
 	.byte	0xD5
 	.byte	0x26
 	.byte	0x60
@@ -189531,7 +189531,7 @@ Song_085740E3:
 	.byte	0x7C
 	.byte	0x86
 	.byte	0xB2
-	.word	Song_08573EB6
+	.word	Song_085741CC_8_7
 	.byte	0xB1
 	.byte	0x00
 	.byte	0x00
@@ -189544,7 +189544,7 @@ Song_085741CC:	@ 0x085741CC
 	.byte	10		@ priority
 	.byte	148		@ reverb
 
-	.word	voicegroup_08207A70		@ voicegroup/tone
+	.word	voicegroup001		@ voicegroup/tone
 
 	.word	Song_085741CC_1		@ track
 	.word	Song_085741CC_2		@ track
@@ -189562,7 +189562,7 @@ Song_085741CC:	@ 0x085741CC
 Song_08574664_1:	@ 0x085741F4
 	.byte	0xBC
 	.byte	0x00
-Song_085741F6:
+Song_08574664_1_3:
 	.byte	0xBB
 	.byte	0x44
 	.byte	0xBD
@@ -189575,7 +189575,7 @@ Song_085741F6:
 	.byte	0x49
 	.byte	0x44
 	.byte	0xA8
-Song_08574202:
+Song_08574664_1_1:
 	.byte	0xD8
 	.byte	0x4B
 	.byte	0x50
@@ -189594,7 +189594,7 @@ Song_08574202:
 	.byte	0x4C
 	.byte	0x40
 	.byte	0xA8
-Song_08574214:
+Song_08574664_1_2:
 	.byte	0xD8
 	.byte	0x4E
 	.byte	0x44
@@ -189644,7 +189644,7 @@ Song_08574214:
 	.byte	0x44
 	.byte	0xA8
 	.byte	0xB3
-	.word	Song_08574202
+	.word	Song_08574664_1_1
 	.byte	0xD8
 	.byte	0x4B
 	.byte	0x4C
@@ -189658,7 +189658,7 @@ Song_08574214:
 	.byte	0x40
 	.byte	0xA8
 	.byte	0xB3
-	.word	Song_08574214
+	.word	Song_08574664_1_2
 	.byte	0xD8
 	.byte	0x4E
 	.byte	0x54
@@ -189774,7 +189774,7 @@ Song_08574214:
 	.byte	0x98
 	.byte	0xA8
 	.byte	0xB2
-	.word	Song_085741F6
+	.word	Song_08574664_1_3
 	.byte	0xB1
 
 	@********************** Track  2 **********************@
@@ -189783,7 +189783,7 @@ Song_08574214:
 Song_08574664_2:	@ 0x085742D2
 	.byte	0xBC
 	.byte	0x00
-Song_085742D4:
+Song_08574664_2_3:
 	.byte	0xBD
 	.byte	0x0A
 	.byte	0xBE
@@ -189795,7 +189795,7 @@ Song_085742D4:
 	.byte	0x49
 	.byte	0x44
 	.byte	0xA5
-Song_085742DF:
+Song_08574664_2_1:
 	.byte	0x88
 	.byte	0xD8
 	.byte	0x4B
@@ -189817,7 +189817,7 @@ Song_085742DF:
 	.byte	0x4C
 	.byte	0x40
 	.byte	0xA5
-Song_085742F4:
+Song_08574664_2_2:
 	.byte	0x88
 	.byte	0xD8
 	.byte	0x4E
@@ -189875,7 +189875,7 @@ Song_085742F4:
 	.byte	0x44
 	.byte	0xA5
 	.byte	0xB3
-	.word	Song_085742DF
+	.word	Song_08574664_2_1
 	.byte	0x88
 	.byte	0xD8
 	.byte	0x4B
@@ -189891,7 +189891,7 @@ Song_085742F4:
 	.byte	0x40
 	.byte	0xA5
 	.byte	0xB3
-	.word	Song_085742F4
+	.word	Song_08574664_2_2
 	.byte	0x88
 	.byte	0xD8
 	.byte	0x4E
@@ -190024,7 +190024,7 @@ Song_085742F4:
 	.byte	0x90
 	.byte	0xA8
 	.byte	0xB2
-	.word	Song_085742D4
+	.word	Song_08574664_2_3
 	.byte	0xB1
 
 	@********************** Track  3 **********************@
@@ -190033,7 +190033,7 @@ Song_085742F4:
 Song_08574664_3:	@ 0x085743CD
 	.byte	0xBC
 	.byte	0x00
-Song_085743CF:
+Song_08574664_3_8:
 	.byte	0xBD
 	.byte	0x0A
 	.byte	0xBE
@@ -190050,7 +190050,7 @@ Song_085743CF:
 	.byte	0x44
 	.byte	0x98
 	.byte	0xA8
-Song_085743DF:
+Song_08574664_3_1:
 	.byte	0xD8
 	.byte	0x3D
 	.byte	0x30
@@ -190063,7 +190063,7 @@ Song_085743DF:
 	.byte	0x98
 	.byte	0xB4
 	.byte	0xA8
-Song_085743EB:
+Song_08574664_3_2:
 	.byte	0xD8
 	.byte	0x3D
 	.byte	0x50
@@ -190076,7 +190076,7 @@ Song_085743EB:
 	.byte	0x98
 	.byte	0xB4
 	.byte	0xA8
-Song_085743F7:
+Song_08574664_3_4:
 	.byte	0xD8
 	.byte	0x3D
 	.byte	0x30
@@ -190089,7 +190089,7 @@ Song_085743F7:
 	.byte	0x98
 	.byte	0xB4
 	.byte	0xA8
-Song_08574403:
+Song_08574664_3_5:
 	.byte	0xD8
 	.byte	0x39
 	.byte	0x44
@@ -190111,7 +190111,7 @@ Song_08574403:
 	.byte	0x40
 	.byte	0x98
 	.byte	0xA8
-Song_08574418:
+Song_08574664_3_6:
 	.byte	0xD8
 	.byte	0x38
 	.byte	0x5C
@@ -190123,7 +190123,7 @@ Song_08574418:
 	.byte	0x98
 	.byte	0xB4
 	.byte	0xA8
-Song_08574423:
+Song_08574664_3_7:
 	.byte	0xD8
 	.byte	0x38
 	.byte	0x54
@@ -190152,7 +190152,7 @@ Song_08574423:
 	.byte	0x49
 	.byte	0x44
 	.byte	0x98
-Song_0857443F:
+Song_08574664_3_3:
 	.byte	0xD8
 	.byte	0x44
 	.byte	0x44
@@ -190161,7 +190161,7 @@ Song_0857443F:
 	.byte	0xA0
 	.byte	0xB4
 	.byte	0xB3
-	.word	Song_085743DF
+	.word	Song_08574664_3_1
 	.byte	0xD8
 	.byte	0x45
 	.byte	0x44
@@ -190169,11 +190169,11 @@ Song_0857443F:
 	.byte	0x3D
 	.byte	0xA0
 	.byte	0xB3
-	.word	Song_085743EB
+	.word	Song_08574664_3_2
 	.byte	0xB3
-	.word	Song_0857443F
+	.word	Song_08574664_3_3
 	.byte	0xB3
-	.word	Song_085743F7
+	.word	Song_08574664_3_4
 	.byte	0xD8
 	.byte	0x45
 	.byte	0x44
@@ -190183,7 +190183,7 @@ Song_0857443F:
 	.byte	0x3B
 	.byte	0x98
 	.byte	0xB3
-	.word	Song_08574403
+	.word	Song_08574664_3_5
 	.byte	0xD8
 	.byte	0x40
 	.byte	0x44
@@ -190208,7 +190208,7 @@ Song_0857443F:
 	.byte	0x34
 	.byte	0x98
 	.byte	0xB3
-	.word	Song_08574418
+	.word	Song_08574664_3_6
 	.byte	0xD8
 	.byte	0x3F
 	.byte	0x40
@@ -190218,7 +190218,7 @@ Song_0857443F:
 	.byte	0x3F
 	.byte	0x98
 	.byte	0xB3
-	.word	Song_08574423
+	.word	Song_08574664_3_7
 	.byte	0xD8
 	.byte	0x3F
 	.byte	0x34
@@ -190330,7 +190330,7 @@ Song_0857443F:
 	.byte	0x38
 	.byte	0x98
 	.byte	0xB2
-	.word	Song_085743CF
+	.word	Song_08574664_3_8
 	.byte	0xB1
 
 	@********************** Track  4 **********************@
@@ -190339,7 +190339,7 @@ Song_0857443F:
 Song_08574664_4:	@ 0x0857450A
 	.byte	0xBC
 	.byte	0x00
-Song_0857450C:
+Song_08574664_4_8:
 	.byte	0xBD
 	.byte	0x0A
 	.byte	0xBE
@@ -190357,7 +190357,7 @@ Song_0857450C:
 	.byte	0x44
 	.byte	0x90
 	.byte	0xA8
-Song_0857451D:
+Song_08574664_4_1:
 	.byte	0x88
 	.byte	0xD8
 	.byte	0x3D
@@ -190371,7 +190371,7 @@ Song_0857451D:
 	.byte	0x90
 	.byte	0xB4
 	.byte	0xA8
-Song_0857452A:
+Song_08574664_4_2:
 	.byte	0x88
 	.byte	0xD8
 	.byte	0x3D
@@ -190385,7 +190385,7 @@ Song_0857452A:
 	.byte	0x90
 	.byte	0xB4
 	.byte	0xA8
-Song_08574537:
+Song_08574664_4_4:
 	.byte	0x88
 	.byte	0xD8
 	.byte	0x3D
@@ -190399,7 +190399,7 @@ Song_08574537:
 	.byte	0x90
 	.byte	0xB4
 	.byte	0xA8
-Song_08574544:
+Song_08574664_4_5:
 	.byte	0x88
 	.byte	0xD8
 	.byte	0x39
@@ -190423,7 +190423,7 @@ Song_08574544:
 	.byte	0x40
 	.byte	0x90
 	.byte	0xA8
-Song_0857455B:
+Song_08574664_4_6:
 	.byte	0x88
 	.byte	0xD8
 	.byte	0x38
@@ -190436,7 +190436,7 @@ Song_0857455B:
 	.byte	0x90
 	.byte	0xB4
 	.byte	0xA8
-Song_08574567:
+Song_08574664_4_7:
 	.byte	0x88
 	.byte	0xD8
 	.byte	0x38
@@ -190468,7 +190468,7 @@ Song_08574567:
 	.byte	0x49
 	.byte	0x44
 	.byte	0x90
-Song_08574586:
+Song_08574664_4_3:
 	.byte	0x88
 	.byte	0xD8
 	.byte	0x44
@@ -190478,7 +190478,7 @@ Song_08574586:
 	.byte	0x9D
 	.byte	0xB4
 	.byte	0xB3
-	.word	Song_0857451D
+	.word	Song_08574664_4_1
 	.byte	0x88
 	.byte	0xD8
 	.byte	0x45
@@ -190487,11 +190487,11 @@ Song_08574586:
 	.byte	0x3D
 	.byte	0x9D
 	.byte	0xB3
-	.word	Song_0857452A
+	.word	Song_08574664_4_2
 	.byte	0xB3
-	.word	Song_08574586
+	.word	Song_08574664_4_3
 	.byte	0xB3
-	.word	Song_08574537
+	.word	Song_08574664_4_4
 	.byte	0x88
 	.byte	0xD8
 	.byte	0x45
@@ -190502,7 +190502,7 @@ Song_08574586:
 	.byte	0x3B
 	.byte	0x90
 	.byte	0xB3
-	.word	Song_08574544
+	.word	Song_08574664_4_5
 	.byte	0x88
 	.byte	0xD8
 	.byte	0x40
@@ -190530,7 +190530,7 @@ Song_08574586:
 	.byte	0x34
 	.byte	0x90
 	.byte	0xB3
-	.word	Song_0857455B
+	.word	Song_08574664_4_6
 	.byte	0x88
 	.byte	0xD8
 	.byte	0x3F
@@ -190541,7 +190541,7 @@ Song_08574586:
 	.byte	0x3F
 	.byte	0x90
 	.byte	0xB3
-	.word	Song_08574567
+	.word	Song_08574664_4_7
 	.byte	0x88
 	.byte	0xD8
 	.byte	0x3F
@@ -190665,7 +190665,7 @@ Song_08574586:
 	.byte	0x38
 	.byte	0x90
 	.byte	0xB2
-	.word	Song_0857450C
+	.word	Song_08574664_4_8
 	.byte	0xB1
 
 	.align 2
@@ -190676,7 +190676,7 @@ Song_08574664:	@ 0x08574664
 	.byte	10		@ priority
 	.byte	178		@ reverb
 
-	.word	voicegroup_08210B6C		@ voicegroup/tone
+	.word	voicegroup027		@ voicegroup/tone
 
 	.word	Song_08574664_1		@ track
 	.word	Song_08574664_2		@ track
@@ -190693,7 +190693,7 @@ Song_08575120_1:	@ 0x0857467C
 	.byte	0xBB
 	.byte	0x45
 	.byte	0x98
-Song_08574681:
+Song_08575120_1_2:
 	.byte	0xBD
 	.byte	0x32
 	.byte	0xBE
@@ -190961,7 +190961,7 @@ Song_08574681:
 	.byte	0x52
 	.byte	0x7F
 	.byte	0x98
-Song_0857478C:
+Song_08575120_1_1:
 	.byte	0xE3
 	.byte	0x4D
 	.byte	0x78
@@ -191028,7 +191028,7 @@ Song_0857478C:
 	.byte	0x7F
 	.byte	0xA0
 	.byte	0xB3
-	.word	Song_0857478C
+	.word	Song_08575120_1_1
 	.byte	0xEE
 	.byte	0x48
 	.byte	0x78
@@ -191043,7 +191043,7 @@ Song_0857478C:
 	.byte	0x7F
 	.byte	0xA0
 	.byte	0xB2
-	.word	Song_08574681
+	.word	Song_08575120_1_2
 	.byte	0xB1
 
 	@********************** Track  2 **********************@
@@ -191062,7 +191062,7 @@ Song_08575120_2:	@ 0x085747E5
 	.byte	0xBF
 	.byte	0x40
 	.byte	0x86
-Song_085747F1:
+Song_08575120_2_4:
 	.byte	0xD5
 	.byte	0x2E
 	.byte	0x7F
@@ -191193,7 +191193,7 @@ Song_085747F1:
 	.byte	0x8C
 	.byte	0xD5
 	.byte	0x8C
-Song_08574873:
+Song_08575120_2_2:
 	.byte	0xD5
 	.byte	0x30
 	.byte	0x7F
@@ -191207,7 +191207,7 @@ Song_08574873:
 	.byte	0xD5
 	.byte	0x8C
 	.byte	0xB4
-Song_08574880:
+Song_08575120_2_1:
 	.byte	0xD5
 	.byte	0x2F
 	.byte	0x7F
@@ -191232,11 +191232,11 @@ Song_08574880:
 	.byte	0xD5
 	.byte	0x8C
 	.byte	0xB3
-	.word	Song_08574880
+	.word	Song_08575120_2_1
 	.byte	0xB3
-	.word	Song_08574873
+	.word	Song_08575120_2_2
 	.byte	0xB3
-	.word	Song_08574880
+	.word	Song_08575120_2_1
 	.byte	0xD5
 	.byte	0x2D
 	.byte	0x7F
@@ -191287,7 +191287,7 @@ Song_08574880:
 	.byte	0x98
 	.byte	0xD5
 	.byte	0x8C
-Song_085748D8:
+Song_08575120_2_3:
 	.byte	0xD5
 	.byte	0x33
 	.byte	0x7F
@@ -191304,9 +191304,9 @@ Song_085748D8:
 	.byte	0x8C
 	.byte	0xB4
 	.byte	0xB3
-	.word	Song_085748D8
+	.word	Song_08575120_2_3
 	.byte	0xB3
-	.word	Song_085748D8
+	.word	Song_08575120_2_3
 	.byte	0xD5
 	.byte	0x31
 	.byte	0x7F
@@ -191374,7 +191374,7 @@ Song_085748D8:
 	.byte	0xD5
 	.byte	0x8C
 	.byte	0xB2
-	.word	Song_085747F1
+	.word	Song_08575120_2_4
 	.byte	0xB1
 
 	@********************** Track  3 **********************@
@@ -191399,7 +191399,7 @@ Song_08575120_3:	@ 0x08574939
 	.byte	0x86
 	.byte	0x3C
 	.byte	0x86
-Song_0857494B:
+Song_08575120_3_3:
 	.byte	0xED
 	.byte	0x3D
 	.byte	0x7F
@@ -191642,7 +191642,7 @@ Song_0857494B:
 	.byte	0x86
 	.byte	0x45
 	.byte	0x86
-Song_08574A3D:
+Song_08575120_3_1:
 	.byte	0xD4
 	.byte	0x4E
 	.byte	0x58
@@ -191711,7 +191711,7 @@ Song_08574A3D:
 	.byte	0x40
 	.byte	0x86
 	.byte	0xB3
-	.word	Song_08574A3D
+	.word	Song_08575120_3_1
 	.byte	0xD4
 	.byte	0x4F
 	.byte	0x58
@@ -191747,7 +191747,7 @@ Song_08574A3D:
 	.byte	0x45
 	.byte	0x86
 	.byte	0xB3
-	.word	Song_08574A3D
+	.word	Song_08575120_3_1
 	.byte	0xBD
 	.byte	0x3D
 	.byte	0xBE
@@ -191770,7 +191770,7 @@ Song_08574A3D:
 	.byte	0x3E
 	.byte	0x20
 	.byte	0x86
-Song_08574AC2:
+Song_08575120_3_2:
 	.byte	0xEC
 	.byte	0x40
 	.byte	0x64
@@ -191805,7 +191805,7 @@ Song_08574AC2:
 	.byte	0x20
 	.byte	0x86
 	.byte	0xB3
-	.word	Song_08574AC2
+	.word	Song_08575120_3_2
 	.byte	0xB0
 	.byte	0xB0
 	.byte	0x98
@@ -192007,7 +192007,7 @@ Song_08574AC2:
 	.byte	0x3C
 	.byte	0x86
 	.byte	0xB2
-	.word	Song_0857494B
+	.word	Song_08575120_3_3
 	.byte	0xB1
 
 	@********************** Track  4 **********************@
@@ -192017,7 +192017,7 @@ Song_08575120_4:	@ 0x08574BB6
 	.byte	0xBC
 	.byte	0x00
 	.byte	0x98
-Song_08574BB9:
+Song_08575120_4_1:
 	.byte	0xB0
 	.byte	0xB0
 	.byte	0xB0
@@ -192188,7 +192188,7 @@ Song_08574BB9:
 	.byte	0xB0
 	.byte	0xB0
 	.byte	0xB2
-	.word	Song_08574BB9
+	.word	Song_08575120_4_1
 	.byte	0xB1
 
 	@********************** Track  5 **********************@
@@ -192213,7 +192213,7 @@ Song_08575120_5:	@ 0x08574C68
 	.byte	0x86
 	.byte	0x38
 	.byte	0x86
-Song_08574C7A:
+Song_08575120_5_3:
 	.byte	0xED
 	.byte	0x3A
 	.byte	0x7F
@@ -192355,7 +192355,7 @@ Song_08574C7A:
 	.byte	0xB0
 	.byte	0xB0
 	.byte	0xB0
-Song_08574D07:
+Song_08575120_5_1:
 	.byte	0xEC
 	.byte	0x39
 	.byte	0x64
@@ -192373,7 +192373,7 @@ Song_08574D07:
 	.byte	0x20
 	.byte	0x86
 	.byte	0xB4
-Song_08574D18:
+Song_08575120_5_2:
 	.byte	0xEC
 	.byte	0x3C
 	.byte	0x64
@@ -192392,9 +192392,9 @@ Song_08574D18:
 	.byte	0x86
 	.byte	0xB4
 	.byte	0xB3
-	.word	Song_08574D07
+	.word	Song_08575120_5_1
 	.byte	0xB3
-	.word	Song_08574D18
+	.word	Song_08575120_5_2
 	.byte	0xB0
 	.byte	0xB0
 	.byte	0xB0
@@ -192420,7 +192420,7 @@ Song_08574D18:
 	.byte	0x38
 	.byte	0x86
 	.byte	0xB2
-	.word	Song_08574C7A
+	.word	Song_08575120_5_3
 	.byte	0xB1
 
 	@********************** Track  6 **********************@
@@ -192439,7 +192439,7 @@ Song_08575120_6:	@ 0x08574D51
 	.byte	0xBE
 	.byte	0x31
 	.byte	0x89
-Song_08574D5D:
+Song_08575120_6_5:
 	.byte	0xD5
 	.byte	0x2E
 	.byte	0x7F
@@ -192570,7 +192570,7 @@ Song_08574D5D:
 	.byte	0x8C
 	.byte	0xD5
 	.byte	0x8C
-Song_08574DDF:
+Song_08575120_6_1:
 	.byte	0xD5
 	.byte	0x30
 	.byte	0x5C
@@ -192609,7 +192609,7 @@ Song_08574DDF:
 	.byte	0x4C
 	.byte	0x8C
 	.byte	0xB4
-Song_08574E05:
+Song_08575120_6_2:
 	.byte	0xD5
 	.byte	0x2F
 	.byte	0x5C
@@ -192727,10 +192727,10 @@ Song_08574E05:
 	.byte	0x48
 	.byte	0x8C
 	.byte	0xB3
-	.word	Song_08574DDF
+	.word	Song_08575120_6_1
 	.byte	0xB3
-	.word	Song_08574E05
-Song_08574E83:
+	.word	Song_08575120_6_2
+Song_08575120_6_3:
 	.byte	0xD5
 	.byte	0x34
 	.byte	0x60
@@ -192750,7 +192750,7 @@ Song_08574E83:
 	.byte	0x58
 	.byte	0x8C
 	.byte	0xB4
-Song_08574E96:
+Song_08575120_6_4:
 	.byte	0xD5
 	.byte	0x34
 	.byte	0x5C
@@ -192770,9 +192770,9 @@ Song_08574E96:
 	.byte	0x8C
 	.byte	0xB4
 	.byte	0xB3
-	.word	Song_08574E83
+	.word	Song_08575120_6_3
 	.byte	0xB3
-	.word	Song_08574E96
+	.word	Song_08575120_6_4
 	.byte	0xCF
 	.byte	0x33
 	.byte	0x58
@@ -192816,7 +192816,7 @@ Song_08574E96:
 	.byte	0x38
 	.byte	0xA0
 	.byte	0xB2
-	.word	Song_08574D5D
+	.word	Song_08575120_6_5
 	.byte	0xB1
 
 	@********************** Track  7 **********************@
@@ -192841,7 +192841,7 @@ Song_08575120_7:	@ 0x08574EE2
 	.byte	0x86
 	.byte	0xD4
 	.byte	0x86
-Song_08574EF4:
+Song_08575120_7_2:
 	.byte	0xEF
 	.byte	0x31
 	.byte	0x4C
@@ -193039,7 +193039,7 @@ Song_08574EF4:
 	.byte	0x32
 	.byte	0x50
 	.byte	0x8C
-Song_08574FB9:
+Song_08575120_7_1:
 	.byte	0xDA
 	.byte	0x32
 	.byte	0x50
@@ -193114,7 +193114,7 @@ Song_08574FB9:
 	.byte	0x50
 	.byte	0x8C
 	.byte	0xB3
-	.word	Song_08574FB9
+	.word	Song_08575120_7_1
 	.byte	0xD5
 	.byte	0x26
 	.byte	0x70
@@ -193390,7 +193390,7 @@ Song_08574FB9:
 	.byte	0xD4
 	.byte	0x86
 	.byte	0xB2
-	.word	Song_08574EF4
+	.word	Song_08575120_7_2
 	.byte	0xB1
 	.byte	0x00
 
@@ -193402,7 +193402,7 @@ Song_08575120:	@ 0x08575120
 	.byte	10		@ priority
 	.byte	148		@ reverb
 
-	.word	voicegroup_08210BF0		@ voicegroup/tone
+	.word	voicegroup028		@ voicegroup/tone
 
 	.word	Song_08575120_1		@ track
 	.word	Song_08575120_2		@ track
@@ -193493,7 +193493,7 @@ Song_0857689C_1:	@ 0x08575144
 	.byte	0xBB
 	.byte	0x28
 	.byte	0x86
-Song_08575190:
+Song_0857689C_1_1:
 	.byte	0xBB
 	.byte	0x39
 	.byte	0xF1
@@ -194338,7 +194338,7 @@ Song_08575190:
 	.byte	0x28
 	.byte	0x86
 	.byte	0xB2
-	.word	Song_08575190
+	.word	Song_0857689C_1_1
 	.byte	0xB1
 
 	@********************** Track  2 **********************@
@@ -194378,7 +194378,7 @@ Song_0857689C_2:	@ 0x085754E1
 	.byte	0x98
 	.byte	0x2B
 	.byte	0x98
-Song_08575502:
+Song_0857689C_2_10:
 	.byte	0xBD
 	.byte	0x34
 	.byte	0xBE
@@ -194403,7 +194403,7 @@ Song_08575502:
 	.byte	0x86
 	.byte	0x2A
 	.byte	0x86
-Song_0857551A:
+Song_0857689C_2_1:
 	.byte	0xD5
 	.byte	0x2B
 	.byte	0x7F
@@ -194419,7 +194419,7 @@ Song_0857551A:
 	.byte	0x1F
 	.byte	0x8C
 	.byte	0xB4
-Song_08575529:
+Song_0857689C_2_2:
 	.byte	0xD5
 	.byte	0x24
 	.byte	0x7F
@@ -194440,8 +194440,8 @@ Song_08575529:
 	.byte	0x86
 	.byte	0xB4
 	.byte	0xB3
-	.word	Song_0857551A
-Song_08575541:
+	.word	Song_0857689C_2_1
+Song_0857689C_2_3:
 	.byte	0xD5
 	.byte	0x1D
 	.byte	0x7F
@@ -194457,7 +194457,7 @@ Song_08575541:
 	.byte	0x29
 	.byte	0x8C
 	.byte	0xB4
-Song_08575550:
+Song_0857689C_2_4:
 	.byte	0xD5
 	.byte	0x28
 	.byte	0x7F
@@ -194473,7 +194473,7 @@ Song_08575550:
 	.byte	0x28
 	.byte	0x8C
 	.byte	0xB4
-Song_0857555F:
+Song_0857689C_2_5:
 	.byte	0xD5
 	.byte	0x27
 	.byte	0x7F
@@ -194489,7 +194489,7 @@ Song_0857555F:
 	.byte	0x27
 	.byte	0x8C
 	.byte	0xB4
-Song_0857556E:
+Song_0857689C_2_6:
 	.byte	0xD5
 	.byte	0x29
 	.byte	0x7F
@@ -194506,21 +194506,21 @@ Song_0857556E:
 	.byte	0x8C
 	.byte	0xB4
 	.byte	0xB3
-	.word	Song_08575529
+	.word	Song_0857689C_2_2
 	.byte	0xB3
-	.word	Song_0857551A
+	.word	Song_0857689C_2_1
 	.byte	0xB3
-	.word	Song_08575529
+	.word	Song_0857689C_2_2
 	.byte	0xB3
-	.word	Song_0857551A
+	.word	Song_0857689C_2_1
 	.byte	0xB3
-	.word	Song_08575541
+	.word	Song_0857689C_2_3
 	.byte	0xB3
-	.word	Song_08575550
+	.word	Song_0857689C_2_4
 	.byte	0xB3
-	.word	Song_0857555F
+	.word	Song_0857689C_2_5
 	.byte	0xB3
-	.word	Song_0857556E
+	.word	Song_0857689C_2_6
 	.byte	0xD5
 	.byte	0x1F
 	.byte	0x7F
@@ -194581,7 +194581,7 @@ Song_0857556E:
 	.byte	0x8C
 	.byte	0xD5
 	.byte	0x8C
-Song_085755E1:
+Song_0857689C_2_7:
 	.byte	0xD5
 	.byte	0x26
 	.byte	0x7F
@@ -194608,7 +194608,7 @@ Song_085755E1:
 	.byte	0xD5
 	.byte	0x8C
 	.byte	0xB3
-	.word	Song_085755E1
+	.word	Song_0857689C_2_7
 	.byte	0xFE
 	.byte	0x2B
 	.byte	0x7F
@@ -194690,7 +194690,7 @@ Song_085755E1:
 	.byte	0x3A
 	.byte	0x1C
 	.byte	0x86
-Song_08575650:
+Song_0857689C_2_8:
 	.byte	0xE7
 	.byte	0x3C
 	.byte	0x64
@@ -194762,7 +194762,7 @@ Song_08575650:
 	.byte	0x42
 	.byte	0x64
 	.byte	0x98
-Song_08575697:
+Song_0857689C_2_9:
 	.byte	0xFD
 	.byte	0x41
 	.byte	0x64
@@ -194807,7 +194807,7 @@ Song_08575697:
 	.byte	0x1C
 	.byte	0x86
 	.byte	0xB3
-	.word	Song_08575650
+	.word	Song_0857689C_2_8
 	.byte	0xFD
 	.byte	0x3D
 	.byte	0x64
@@ -194823,7 +194823,7 @@ Song_08575697:
 	.byte	0x3F
 	.byte	0x86
 	.byte	0xB3
-	.word	Song_08575697
+	.word	Song_0857689C_2_9
 	.byte	0xB0
 	.byte	0xB0
 	.byte	0xB0
@@ -195066,7 +195066,7 @@ Song_08575697:
 	.byte	0x47
 	.byte	0x98
 	.byte	0xB2
-	.word	Song_08575502
+	.word	Song_0857689C_2_10
 	.byte	0xB1
 
 	@********************** Track  3 **********************@
@@ -195164,7 +195164,7 @@ Song_0857689C_3:	@ 0x085757D1
 	.byte	0x43
 	.byte	0x20
 	.byte	0x86
-Song_0857582C:
+Song_0857689C_3_4:
 	.byte	0xBD
 	.byte	0x33
 	.byte	0xBE
@@ -195817,7 +195817,7 @@ Song_0857582C:
 	.byte	0x3A
 	.byte	0x1C
 	.byte	0x86
-Song_08575AB8:
+Song_0857689C_3_1:
 	.byte	0xD5
 	.byte	0x38
 	.byte	0x54
@@ -195928,8 +195928,8 @@ Song_08575AB8:
 	.byte	0x1C
 	.byte	0x86
 	.byte	0xB3
-	.word	Song_08575AB8
-Song_08575B2A:
+	.word	Song_0857689C_3_1
+Song_0857689C_3_2:
 	.byte	0xD4
 	.byte	0x3A
 	.byte	0x70
@@ -196026,7 +196026,7 @@ Song_08575B2A:
 	.byte	0x3F
 	.byte	0x1C
 	.byte	0x86
-Song_08575B8A:
+Song_0857689C_3_3:
 	.byte	0xF6
 	.byte	0x41
 	.byte	0x68
@@ -196037,7 +196037,7 @@ Song_08575B8A:
 	.byte	0x98
 	.byte	0xB4
 	.byte	0xB3
-	.word	Song_08575B2A
+	.word	Song_0857689C_3_2
 	.byte	0xE7
 	.byte	0x41
 	.byte	0x68
@@ -196094,7 +196094,7 @@ Song_08575B8A:
 	.byte	0x3F
 	.byte	0x86
 	.byte	0xB3
-	.word	Song_08575B8A
+	.word	Song_0857689C_3_3
 	.byte	0xBD
 	.byte	0x44
 	.byte	0xBE
@@ -196237,7 +196237,7 @@ Song_08575B8A:
 	.byte	0x4A
 	.byte	0xA0
 	.byte	0xB2
-	.word	Song_0857582C
+	.word	Song_0857689C_3_4
 	.byte	0xB1
 
 	@********************** Track  4 **********************@
@@ -196276,7 +196276,7 @@ Song_0857689C_4:	@ 0x08575C67
 	.byte	0xA0
 	.byte	0x43
 	.byte	0xA0
-Song_08575C87:
+Song_0857689C_4_3:
 	.byte	0xB0
 	.byte	0xB0
 	.byte	0xB0
@@ -196411,7 +196411,7 @@ Song_08575C87:
 	.byte	0xBF
 	.byte	0x40
 	.byte	0xB0
-Song_08575D0D:
+Song_0857689C_4_1:
 	.byte	0xD4
 	.byte	0x49
 	.byte	0x68
@@ -196447,7 +196447,7 @@ Song_08575D0D:
 	.byte	0x46
 	.byte	0x86
 	.byte	0xB4
-Song_08575D30:
+Song_0857689C_4_2:
 	.byte	0xD4
 	.byte	0x48
 	.byte	0x68
@@ -196484,29 +196484,29 @@ Song_08575D30:
 	.byte	0x86
 	.byte	0xB4
 	.byte	0xB3
-	.word	Song_08575D0D
+	.word	Song_0857689C_4_1
 	.byte	0xB3
-	.word	Song_08575D30
+	.word	Song_0857689C_4_2
 	.byte	0xB0
 	.byte	0xB0
 	.byte	0xB0
 	.byte	0xB0
 	.byte	0xB3
-	.word	Song_08575D0D
+	.word	Song_0857689C_4_1
 	.byte	0xB3
-	.word	Song_08575D30
+	.word	Song_0857689C_4_2
 	.byte	0xB3
-	.word	Song_08575D0D
+	.word	Song_0857689C_4_1
 	.byte	0xB3
-	.word	Song_08575D30
+	.word	Song_0857689C_4_2
 	.byte	0xB3
-	.word	Song_08575D0D
+	.word	Song_0857689C_4_1
 	.byte	0xB3
-	.word	Song_08575D30
+	.word	Song_0857689C_4_2
 	.byte	0xB3
-	.word	Song_08575D0D
+	.word	Song_0857689C_4_1
 	.byte	0xB3
-	.word	Song_08575D30
+	.word	Song_0857689C_4_2
 	.byte	0xBD
 	.byte	0x0E
 	.byte	0xBE
@@ -196566,7 +196566,7 @@ Song_08575D30:
 	.byte	0x43
 	.byte	0x98
 	.byte	0xB2
-	.word	Song_08575C87
+	.word	Song_0857689C_4_3
 	.byte	0xB1
 
 	@********************** Track  5 **********************@
@@ -196700,7 +196700,7 @@ Song_0857689C_5:	@ 0x08575DC9
 	.byte	0x43
 	.byte	0x4C
 	.byte	0xB0
-Song_08575E48:
+Song_0857689C_5_3:
 	.byte	0xB0
 	.byte	0xB0
 	.byte	0xB0
@@ -197579,7 +197579,7 @@ Song_08575E48:
 	.byte	0xBF
 	.byte	0x4C
 	.byte	0xB0
-Song_085761B6:
+Song_0857689C_5_1:
 	.byte	0xD4
 	.byte	0x3D
 	.byte	0x40
@@ -197597,7 +197597,7 @@ Song_085761B6:
 	.byte	0x3C
 	.byte	0x8C
 	.byte	0xB4
-Song_085761C7:
+Song_0857689C_5_2:
 	.byte	0xD4
 	.byte	0x3A
 	.byte	0x40
@@ -197640,9 +197640,9 @@ Song_085761C7:
 	.byte	0xD4
 	.byte	0x8C
 	.byte	0xB3
-	.word	Song_085761B6
+	.word	Song_0857689C_5_1
 	.byte	0xB3
-	.word	Song_085761C7
+	.word	Song_0857689C_5_2
 	.byte	0xD4
 	.byte	0x3C
 	.byte	0x40
@@ -197847,7 +197847,7 @@ Song_085761C7:
 	.byte	0x4A
 	.byte	0xB0
 	.byte	0xB2
-	.word	Song_08575E48
+	.word	Song_0857689C_5_3
 	.byte	0xB1
 
 	@********************** Track  6 **********************@
@@ -197867,7 +197867,7 @@ Song_0857689C_6:	@ 0x085762CB
 	.byte	0xBF
 	.byte	0x4C
 	.byte	0xB0
-Song_085762D8:
+Song_0857689C_6_3:
 	.byte	0xD5
 	.byte	0x37
 	.byte	0x50
@@ -198291,7 +198291,7 @@ Song_085762D8:
 	.byte	0x1C
 	.byte	0x8F
 	.byte	0xB0
-Song_0857647F:
+Song_0857689C_6_1:
 	.byte	0xF8
 	.byte	0x2E
 	.byte	0x64
@@ -198299,7 +198299,7 @@ Song_0857647F:
 	.byte	0xD4
 	.byte	0x8C
 	.byte	0xB4
-Song_08576486:
+Song_0857689C_6_2:
 	.byte	0xEE
 	.byte	0x2C
 	.byte	0x64
@@ -198311,11 +198311,11 @@ Song_08576486:
 	.byte	0x98
 	.byte	0xB4
 	.byte	0xB3
-	.word	Song_0857647F
+	.word	Song_0857689C_6_1
 	.byte	0xB3
-	.word	Song_08576486
+	.word	Song_0857689C_6_2
 	.byte	0xB3
-	.word	Song_0857647F
+	.word	Song_0857689C_6_1
 	.byte	0xF8
 	.byte	0x2E
 	.byte	0x64
@@ -198324,7 +198324,7 @@ Song_08576486:
 	.byte	0x29
 	.byte	0x8C
 	.byte	0xB3
-	.word	Song_0857647F
+	.word	Song_0857689C_6_1
 	.byte	0xF8
 	.byte	0x2E
 	.byte	0x64
@@ -198355,13 +198355,13 @@ Song_08576486:
 	.byte	0xD4
 	.byte	0x8C
 	.byte	0xB3
-	.word	Song_0857647F
+	.word	Song_0857689C_6_1
 	.byte	0xF8
 	.byte	0x2E
 	.byte	0x64
 	.byte	0xB0
 	.byte	0xB3
-	.word	Song_0857647F
+	.word	Song_0857689C_6_1
 	.byte	0xF8
 	.byte	0x2C
 	.byte	0x64
@@ -198444,7 +198444,7 @@ Song_08576486:
 	.byte	0x3E
 	.byte	0x98
 	.byte	0xB2
-	.word	Song_085762D8
+	.word	Song_0857689C_6_3
 	.byte	0xB1
 
 	@********************** Track  7 **********************@
@@ -198483,7 +198483,7 @@ Song_0857689C_7:	@ 0x0857652D
 	.byte	0x3C
 	.byte	0x74
 	.byte	0x84
-Song_0857654D:
+Song_0857689C_7_1:
 	.byte	0xE7
 	.byte	0x3C
 	.byte	0x78
@@ -198499,7 +198499,7 @@ Song_0857654D:
 	.byte	0xD5
 	.byte	0x86
 	.byte	0xB3
-	.word	Song_0857654D
+	.word	Song_0857689C_7_1
 	.byte	0xE7
 	.byte	0x37
 	.byte	0x78
@@ -198527,7 +198527,7 @@ Song_0857654D:
 	.byte	0x86
 	.byte	0xD5
 	.byte	0x86
-Song_0857657B:
+Song_0857689C_7_2:
 	.byte	0xE7
 	.byte	0x3C
 	.byte	0x78
@@ -198539,7 +198539,7 @@ Song_0857657B:
 	.byte	0xE7
 	.byte	0xB0
 	.byte	0xB3
-	.word	Song_0857657B
+	.word	Song_0857689C_7_2
 	.byte	0xE7
 	.byte	0x36
 	.byte	0x78
@@ -198594,7 +198594,7 @@ Song_0857657B:
 	.byte	0x86
 	.byte	0xD4
 	.byte	0x86
-Song_085765C0:
+Song_0857689C_7_3:
 	.byte	0xE7
 	.byte	0x37
 	.byte	0x70
@@ -198608,7 +198608,7 @@ Song_085765C0:
 	.byte	0x6C
 	.byte	0x8C
 	.byte	0xB4
-Song_085765CD:
+Song_0857689C_7_4:
 	.byte	0xD7
 	.byte	0x37
 	.byte	0x70
@@ -198625,15 +198625,15 @@ Song_085765CD:
 	.byte	0x8C
 	.byte	0xB4
 	.byte	0xB3
-	.word	Song_085765C0
+	.word	Song_0857689C_7_3
 	.byte	0xB3
-	.word	Song_085765CD
+	.word	Song_0857689C_7_4
 	.byte	0xB3
-	.word	Song_085765C0
+	.word	Song_0857689C_7_3
 	.byte	0xB3
-	.word	Song_085765CD
+	.word	Song_0857689C_7_4
 	.byte	0xB3
-	.word	Song_085765C0
+	.word	Song_0857689C_7_3
 	.byte	0xD7
 	.byte	0x35
 	.byte	0x70
@@ -198657,7 +198657,7 @@ Song_085765CD:
 	.byte	0x35
 	.byte	0x6C
 	.byte	0x86
-Song_0857660C:
+Song_0857689C_7_5:
 	.byte	0xDA
 	.byte	0x37
 	.byte	0x70
@@ -198677,7 +198677,7 @@ Song_0857660C:
 	.byte	0xDA
 	.byte	0x9C
 	.byte	0xB4
-Song_0857661F:
+Song_0857689C_7_6:
 	.byte	0xDA
 	.byte	0x37
 	.byte	0x70
@@ -198698,10 +198698,10 @@ Song_0857661F:
 	.byte	0x86
 	.byte	0xB4
 	.byte	0xB3
-	.word	Song_0857660C
+	.word	Song_0857689C_7_5
 	.byte	0xB3
-	.word	Song_0857661F
-Song_0857663C:
+	.word	Song_0857689C_7_6
+Song_0857689C_7_7:
 	.byte	0xDA
 	.byte	0x3A
 	.byte	0x70
@@ -198721,7 +198721,7 @@ Song_0857663C:
 	.byte	0xDA
 	.byte	0x9C
 	.byte	0xB4
-Song_0857664F:
+Song_0857689C_7_8:
 	.byte	0xDA
 	.byte	0x3A
 	.byte	0x70
@@ -198742,9 +198742,9 @@ Song_0857664F:
 	.byte	0x86
 	.byte	0xB4
 	.byte	0xB3
-	.word	Song_0857663C
+	.word	Song_0857689C_7_7
 	.byte	0xB3
-	.word	Song_0857664F
+	.word	Song_0857689C_7_8
 	.byte	0xDA
 	.byte	0x3A
 	.byte	0x70
@@ -198814,7 +198814,7 @@ Song_0857664F:
 	.byte	0x38
 	.byte	0x70
 	.byte	0x86
-Song_085766B1:
+Song_0857689C_7_9:
 	.byte	0xE6
 	.byte	0x3A
 	.byte	0x74
@@ -198827,7 +198827,7 @@ Song_085766B1:
 	.byte	0xE6
 	.byte	0x38
 	.byte	0xB0
-Song_085766BD:
+Song_0857689C_7_10:
 	.byte	0xE6
 	.byte	0x38
 	.byte	0x74
@@ -198849,13 +198849,13 @@ Song_085766BD:
 	.byte	0xD4
 	.byte	0x86
 	.byte	0xB3
-	.word	Song_085766B1
+	.word	Song_0857689C_7_9
 	.byte	0xE6
 	.byte	0x38
 	.byte	0x74
 	.byte	0xB0
 	.byte	0xB3
-	.word	Song_085766BD
+	.word	Song_0857689C_7_10
 	.byte	0xE6
 	.byte	0x35
 	.byte	0x74
@@ -198919,7 +198919,7 @@ Song_085766BD:
 	.byte	0xD2
 	.byte	0x83
 	.byte	0xB2
-	.word	Song_0857654D
+	.word	Song_0857689C_7_1
 	.byte	0xB1
 
 	@********************** Track  8 **********************@
@@ -198951,7 +198951,7 @@ Song_0857689C_8:	@ 0x08576723
 	.byte	0x34
 	.byte	0x5C
 	.byte	0xA8
-Song_0857673C:
+Song_0857689C_8_8:
 	.byte	0xA3
 	.byte	0x81
 	.byte	0xCE
@@ -198981,7 +198981,7 @@ Song_0857673C:
 	.byte	0xB0
 	.byte	0xB0
 	.byte	0xB0
-Song_08576759:
+Song_0857689C_8_1:
 	.byte	0xD5
 	.byte	0x36
 	.byte	0x44
@@ -199008,7 +199008,7 @@ Song_08576759:
 	.byte	0x10
 	.byte	0x9A
 	.byte	0xB4
-Song_08576773:
+Song_0857689C_8_2:
 	.byte	0xD5
 	.byte	0x36
 	.byte	0x44
@@ -199042,8 +199042,8 @@ Song_08576773:
 	.byte	0x9A
 	.byte	0xB4
 	.byte	0xB3
-	.word	Song_08576759
-Song_08576798:
+	.word	Song_0857689C_8_1
+Song_0857689C_8_3:
 	.byte	0xD5
 	.byte	0x36
 	.byte	0x44
@@ -199077,13 +199077,13 @@ Song_08576798:
 	.byte	0x86
 	.byte	0xB4
 	.byte	0xB3
-	.word	Song_08576759
+	.word	Song_0857689C_8_1
 	.byte	0xB3
-	.word	Song_08576773
+	.word	Song_0857689C_8_2
 	.byte	0xB3
-	.word	Song_08576759
+	.word	Song_0857689C_8_1
 	.byte	0xB3
-	.word	Song_08576798
+	.word	Song_0857689C_8_3
 	.byte	0xD5
 	.byte	0x36
 	.byte	0x44
@@ -199121,7 +199121,7 @@ Song_08576798:
 	.byte	0x36
 	.byte	0x3C
 	.byte	0x86
-Song_085767F1:
+Song_0857689C_8_4:
 	.byte	0xDB
 	.byte	0x53
 	.byte	0x48
@@ -199134,7 +199134,7 @@ Song_085767F1:
 	.byte	0x44
 	.byte	0x86
 	.byte	0xB4
-Song_085767FD:
+Song_0857689C_8_5:
 	.byte	0xDB
 	.byte	0x53
 	.byte	0x48
@@ -199143,8 +199143,8 @@ Song_085767FD:
 	.byte	0xAC
 	.byte	0xB4
 	.byte	0xB3
-	.word	Song_085767F1
-Song_08576809:
+	.word	Song_0857689C_8_4
+Song_0857689C_8_6:
 	.byte	0xDB
 	.byte	0x53
 	.byte	0x44
@@ -199164,13 +199164,13 @@ Song_08576809:
 	.byte	0xB0
 	.byte	0xB0
 	.byte	0xB3
-	.word	Song_085767F1
+	.word	Song_0857689C_8_4
 	.byte	0xB3
-	.word	Song_085767FD
+	.word	Song_0857689C_8_5
 	.byte	0xB3
-	.word	Song_085767F1
+	.word	Song_0857689C_8_4
 	.byte	0xB3
-	.word	Song_08576809
+	.word	Song_0857689C_8_6
 	.byte	0xE7
 	.byte	0x53
 	.byte	0x48
@@ -199192,7 +199192,7 @@ Song_08576809:
 	.byte	0x98
 	.byte	0xD5
 	.byte	0x8C
-Song_08576844:
+Song_0857689C_8_7:
 	.byte	0xD5
 	.byte	0x36
 	.byte	0x48
@@ -199218,7 +199218,7 @@ Song_08576844:
 	.byte	0x44
 	.byte	0x8C
 	.byte	0xB3
-	.word	Song_08576844
+	.word	Song_0857689C_8_7
 	.byte	0xD5
 	.byte	0x36
 	.byte	0x48
@@ -199235,7 +199235,7 @@ Song_08576844:
 	.byte	0xD5
 	.byte	0x8C
 	.byte	0xB3
-	.word	Song_08576844
+	.word	Song_0857689C_8_7
 	.byte	0xD5
 	.byte	0x36
 	.byte	0x48
@@ -199269,7 +199269,7 @@ Song_08576844:
 	.byte	0xB0
 	.byte	0xB0
 	.byte	0xB2
-	.word	Song_0857673C
+	.word	Song_0857689C_8_8
 	.byte	0xB1
 	.byte	0x00
 
@@ -199281,7 +199281,7 @@ Song_0857689C:	@ 0x0857689C
 	.byte	10		@ priority
 	.byte	148		@ reverb
 
-	.word	voicegroup_082111F0		@ voicegroup/tone
+	.word	voicegroup029		@ voicegroup/tone
 
 	.word	Song_0857689C_1		@ track
 	.word	Song_0857689C_2		@ track
@@ -199473,7 +199473,7 @@ Song_08576F1C_1:	@ 0x085768C4
 	.byte	0xC0
 	.byte	0x33
 	.byte	0x84
-Song_08576974:
+Song_08576F1C_1_1:
 	.byte	0x81
 	.byte	0xBE
 	.byte	0x6D
@@ -200715,7 +200715,7 @@ Song_08576974:
 	.byte	0x50
 	.byte	0x81
 	.byte	0xB2
-	.word	Song_08576974
+	.word	Song_08576F1C_1_1
 	.byte	0x81
 	.byte	0xBE
 	.byte	0x51
@@ -200928,7 +200928,7 @@ Song_08576F1C:	@ 0x08576F1C
 	.byte	10		@ priority
 	.byte	128		@ reverb
 
-	.word	voicegroup_08223E38		@ voicegroup/tone
+	.word	voicegroup087		@ voicegroup/tone
 
 	.word	Song_08576F1C_1		@ track
 
@@ -201105,7 +201105,7 @@ Song_08577614_1:	@ 0x08576F28
 	.byte	0xC0
 	.byte	0x33
 	.byte	0x84
-Song_08576FD0:
+Song_08577614_1_1:
 	.byte	0x81
 	.byte	0xBE
 	.byte	0x4D
@@ -202347,7 +202347,7 @@ Song_08576FD0:
 	.byte	0x38
 	.byte	0x81
 	.byte	0xB2
-	.word	Song_08576FD0
+	.word	Song_08577614_1_1
 	.byte	0x81
 	.byte	0xBE
 	.byte	0x39
@@ -202568,7 +202568,7 @@ Song_08577614_2:	@ 0x08577575
 	.byte	0x39
 	.byte	0x38
 	.byte	0xA0
-Song_08577584:
+Song_08577614_2_1:
 	.byte	0xB0
 	.byte	0x9E
 	.byte	0xE8
@@ -202599,7 +202599,7 @@ Song_08577584:
 	.byte	0x35
 	.byte	0x98
 	.byte	0xB2
-	.word	Song_08577584
+	.word	Song_08577614_2_1
 	.byte	0xA6
 	.byte	0xE0
 	.byte	0x39
@@ -202618,7 +202618,7 @@ Song_08577614_3:	@ 0x085775AC
 	.byte	0xBF
 	.byte	0x5A
 	.byte	0xB0
-Song_085775B3:
+Song_08577614_3_1:
 	.byte	0x8C
 	.byte	0xBD
 	.byte	0x02
@@ -202655,7 +202655,7 @@ Song_085775B3:
 	.byte	0x9A
 	.byte	0xB0
 	.byte	0xB2
-	.word	Song_085775B3
+	.word	Song_08577614_3_1
 	.byte	0x92
 	.byte	0xF0
 	.byte	0x34
@@ -202686,7 +202686,7 @@ Song_08577614_4:	@ 0x085775E2
 	.byte	0x3C
 	.byte	0x99
 	.byte	0x81
-Song_085775F4:
+Song_08577614_4_1:
 	.byte	0xAA
 	.byte	0xEE
 	.byte	0x30
@@ -202712,7 +202712,7 @@ Song_085775F4:
 	.byte	0x2F
 	.byte	0x92
 	.byte	0xB2
-	.word	Song_085775F4
+	.word	Song_08577614_4_1
 	.byte	0x9B
 	.byte	0x83
 	.byte	0xB1
@@ -202725,7 +202725,7 @@ Song_08577614:	@ 0x08577614
 	.byte	10		@ priority
 	.byte	128		@ reverb
 
-	.word	voicegroup_08223E44		@ voicegroup/tone
+	.word	voicegroup088		@ voicegroup/tone
 
 	.word	Song_08577614_1		@ track
 	.word	Song_08577614_2		@ track
@@ -202928,7 +202928,7 @@ Song_08577DB4_1:	@ 0x0857762C
 	.byte	0x82
 	.byte	0x3F
 	.byte	0x81
-Song_085776EB:
+Song_08577DB4_1_1:
 	.byte	0xC0
 	.byte	0x32
 	.byte	0x82
@@ -204074,7 +204074,7 @@ Song_085776EB:
 	.byte	0x6D
 	.byte	0x81
 	.byte	0xB2
-	.word	Song_085776EB
+	.word	Song_08577DB4_1_1
 	.byte	0x81
 	.byte	0xBE
 	.byte	0x3A
@@ -204384,7 +204384,7 @@ Song_08577DB4_2:	@ 0x08577C28
 	.byte	0x5A
 	.byte	0xA0
 	.byte	0x81
-Song_08577C98:
+Song_08577DB4_2_1:
 	.byte	0x91
 	.byte	0xCE
 	.byte	0x2A
@@ -204426,7 +204426,7 @@ Song_08577C98:
 	.byte	0x27
 	.byte	0xA0
 	.byte	0xB2
-	.word	Song_08577C98
+	.word	Song_08577DB4_2_1
 	.byte	0xAF
 	.byte	0x83
 	.byte	0xCE
@@ -204458,7 +204458,7 @@ Song_08577DB4_3:	@ 0x08577CCA
 	.byte	0x2C
 	.byte	0x7F
 	.byte	0x92
-Song_08577CDF:
+Song_08577DB4_3_1:
 	.byte	0x84
 	.byte	0xC0
 	.byte	0x3D
@@ -204548,7 +204548,7 @@ Song_08577CDF:
 	.byte	0x28
 	.byte	0x8E
 	.byte	0xB2
-	.word	Song_08577CDF
+	.word	Song_08577DB4_3_1
 	.byte	0x91
 	.byte	0xC0
 	.byte	0x27
@@ -204678,7 +204678,7 @@ Song_08577DB4:	@ 0x08577DB4
 	.byte	10		@ priority
 	.byte	128		@ reverb
 
-	.word	voicegroup_08223E74		@ voicegroup/tone
+	.word	voicegroup089		@ voicegroup/tone
 
 	.word	Song_08577DB4_1		@ track
 	.word	Song_08577DB4_2		@ track
@@ -204815,7 +204815,7 @@ Song_08578304_1:	@ 0x08577DC8
 	.byte	0x25
 	.byte	0x9A
 	.byte	0x81
-Song_08577E46:
+Song_08578304_1_1:
 	.byte	0x98
 	.byte	0x81
 	.byte	0xBE
@@ -204950,7 +204950,7 @@ Song_08577E46:
 	.byte	0x9B
 	.byte	0x82
 	.byte	0xB2
-	.word	Song_08577E46
+	.word	Song_08578304_1_1
 	.byte	0x9E
 	.byte	0xC0
 	.byte	0x40
@@ -205125,7 +205125,7 @@ Song_08578304_2:	@ 0x08577ED8
 	.byte	0x81
 	.byte	0x27
 	.byte	0x96
-Song_08577F79:
+Song_08578304_2_1:
 	.byte	0xA2
 	.byte	0xE1
 	.byte	0x33
@@ -205335,7 +205335,7 @@ Song_08577F79:
 	.byte	0xE1
 	.byte	0x92
 	.byte	0xB2
-	.word	Song_08577F79
+	.word	Song_08578304_2_1
 	.byte	0x98
 	.byte	0xE1
 	.byte	0x33
@@ -205452,7 +205452,7 @@ Song_08578304_3:	@ 0x08578059
 	.byte	0xC0
 	.byte	0x3E
 	.byte	0x8A
-Song_085780BD:
+Song_08578304_3_1:
 	.byte	0x83
 	.byte	0xC0
 	.byte	0x3D
@@ -206007,7 +206007,7 @@ Song_085780BD:
 	.byte	0x23
 	.byte	0x81
 	.byte	0xB2
-	.word	Song_085780BD
+	.word	Song_08578304_3_1
 	.byte	0xBE
 	.byte	0x23
 	.byte	0x81
@@ -206042,7 +206042,7 @@ Song_08578304:	@ 0x08578304
 	.byte	10		@ priority
 	.byte	128		@ reverb
 
-	.word	voicegroup_08223E8C		@ voicegroup/tone
+	.word	voicegroup090		@ voicegroup/tone
 
 	.word	Song_08578304_1		@ track
 	.word	Song_08578304_2		@ track
@@ -206157,7 +206157,7 @@ Song_08578B64_1:	@ 0x08578318
 	.byte	0x86
 	.byte	0x33
 	.byte	0x86
-Song_08578380:
+Song_08578B64_1_1:
 	.byte	0xC0
 	.byte	0x36
 	.byte	0x86
@@ -206967,7 +206967,7 @@ Song_08578380:
 	.byte	0x30
 	.byte	0x88
 	.byte	0xB2
-	.word	Song_08578380
+	.word	Song_08578B64_1_1
 	.byte	0x92
 	.byte	0xCE
 	.byte	0x37
@@ -207094,7 +207094,7 @@ Song_08578B64_2:	@ 0x085786B1
 	.byte	0xBD
 	.byte	0x01
 	.byte	0x9E
-Song_08578726:
+Song_08578B64_2_1:
 	.byte	0xBD
 	.byte	0x02
 	.byte	0xD4
@@ -207577,7 +207577,7 @@ Song_08578726:
 	.byte	0x58
 	.byte	0xA4
 	.byte	0xB2
-	.word	Song_08578726
+	.word	Song_08578B64_2_1
 	.byte	0xB1
 
 	@********************** Track  3 **********************@
@@ -207721,7 +207721,7 @@ Song_08578B64_3:	@ 0x0857890D
 	.byte	0x86
 	.byte	0x3D
 	.byte	0x86
-Song_08578996:
+Song_08578B64_3_1:
 	.byte	0xC0
 	.byte	0x3F
 	.byte	0x86
@@ -208110,7 +208110,7 @@ Song_08578996:
 	.byte	0x4A
 	.byte	0x86
 	.byte	0xB2
-	.word	Song_08578996
+	.word	Song_08578B64_3_1
 	.byte	0xC0
 	.byte	0x4B
 	.byte	0x86
@@ -208190,7 +208190,7 @@ Song_08578B64:	@ 0x08578B64
 	.byte	10		@ priority
 	.byte	128		@ reverb
 
-	.word	voicegroup_08223EB0		@ voicegroup/tone
+	.word	voicegroup091		@ voicegroup/tone
 
 	.word	Song_08578B64_1		@ track
 	.word	Song_08578B64_2		@ track
@@ -208218,7 +208218,7 @@ Song_0857916C_1:	@ 0x08578B78
 	.byte	0x3B
 	.byte	0x38
 	.byte	0x98
-Song_08578B89:
+Song_0857916C_1_1:
 	.byte	0x9A
 	.byte	0xE8
 	.byte	0x34
@@ -208268,7 +208268,7 @@ Song_08578B89:
 	.byte	0xA0
 	.byte	0xA0
 	.byte	0xB2
-	.word	Song_08578B89
+	.word	Song_0857916C_1_1
 	.byte	0xB1
 
 	@********************** Track  2 **********************@
@@ -208290,7 +208290,7 @@ Song_0857916C_2:	@ 0x08578BBF
 	.byte	0x35
 	.byte	0x30
 	.byte	0x9C
-Song_08578BCE:
+Song_0857916C_2_1:
 	.byte	0x9A
 	.byte	0xE8
 	.byte	0x30
@@ -208465,7 +208465,7 @@ Song_08578BCE:
 	.byte	0x30
 	.byte	0x98
 	.byte	0xB2
-	.word	Song_08578BCE
+	.word	Song_0857916C_2_1
 	.byte	0xB1
 
 	@********************** Track  3 **********************@
@@ -208555,7 +208555,7 @@ Song_0857916C_3:	@ 0x08578C81
 	.byte	0x81
 	.byte	0x1F
 	.byte	0x82
-Song_08578CD4:
+Song_0857916C_3_1:
 	.byte	0xBE
 	.byte	0x1F
 	.byte	0x81
@@ -209350,7 +209350,7 @@ Song_08578CD4:
 	.byte	0x10
 	.byte	0x88
 	.byte	0xB2
-	.word	Song_08578CD4
+	.word	Song_0857916C_3_1
 	.byte	0xC0
 	.byte	0x4B
 	.byte	0x86
@@ -209738,7 +209738,7 @@ Song_0857916C:	@ 0x0857916C
 	.byte	10		@ priority
 	.byte	128		@ reverb
 
-	.word	voicegroup_082235EC		@ voicegroup/tone
+	.word	voicegroup085		@ voicegroup/tone
 
 	.word	Song_0857916C_1		@ track
 	.word	Song_0857916C_2		@ track
@@ -209751,7 +209751,7 @@ Song_0857916C:	@ 0x0857916C
 Song_08579F10_1:	@ 0x08579180
 	.byte	0xBC
 	.byte	0x00
-Song_08579182:
+Song_08579F10_1_1:
 	.byte	0xBB
 	.byte	0x2C
 	.byte	0xBD
@@ -211115,7 +211115,7 @@ Song_08579182:
 	.byte	0x0B
 	.byte	0x83
 	.byte	0xB2
-	.word	Song_08579182
+	.word	Song_08579F10_1_1
 	.byte	0xAF
 	.byte	0x83
 	.byte	0xCE
@@ -211128,7 +211128,7 @@ Song_08579182:
 Song_08579F10_2:	@ 0x085796DE
 	.byte	0xBC
 	.byte	0x00
-Song_085796E0:
+Song_08579F10_2_1:
 	.byte	0x98
 	.byte	0xBD
 	.byte	0x02
@@ -213184,7 +213184,7 @@ Song_085796E0:
 	.byte	0x0B
 	.byte	0x82
 	.byte	0xB2
-	.word	Song_085796E0
+	.word	Song_08579F10_2_1
 	.byte	0xBE
 	.byte	0x0B
 	.byte	0xC0
@@ -213231,7 +213231,7 @@ Song_08579F10:	@ 0x08579F10
 	.byte	10		@ priority
 	.byte	128		@ reverb
 
-	.word	voicegroup_082235EC		@ voicegroup/tone
+	.word	voicegroup085		@ voicegroup/tone
 
 	.word	Song_08579F10_1		@ track
 	.word	Song_08579F10_2		@ track
@@ -213270,7 +213270,7 @@ Song_0857A44C_1:	@ 0x08579F20
 	.byte	0x86
 	.byte	0x57
 	.byte	0x86
-Song_08579F3D:
+Song_0857A44C_1_1:
 	.byte	0xBE
 	.byte	0x61
 	.byte	0x86
@@ -213296,7 +213296,7 @@ Song_08579F3D:
 	.byte	0xB0
 	.byte	0xB0
 	.byte	0xB2
-	.word	Song_08579F3D
+	.word	Song_0857A44C_1_1
 	.byte	0x9F
 	.byte	0x83
 	.byte	0xCE
@@ -213318,7 +213318,7 @@ Song_0857A44C_2:	@ 0x08579F61
 	.byte	0xBF
 	.byte	0x20
 	.byte	0xA0
-Song_08579F6A:
+Song_0857A44C_2_1:
 	.byte	0x98
 	.byte	0xBE
 	.byte	0x20
@@ -213935,7 +213935,7 @@ Song_08579F6A:
 	.byte	0xCE
 	.byte	0x85
 	.byte	0xB2
-	.word	Song_08579F6A
+	.word	Song_0857A44C_2_1
 	.byte	0xB0
 	.byte	0xB1
 
@@ -213952,7 +213952,7 @@ Song_0857A44C_3:	@ 0x0857A1D8
 	.byte	0xBF
 	.byte	0x54
 	.byte	0xA0
-Song_0857A1E1:
+Song_0857A44C_3_1:
 	.byte	0x8C
 	.byte	0xBE
 	.byte	0x14
@@ -214564,7 +214564,7 @@ Song_0857A1E1:
 	.byte	0xB0
 	.byte	0xCE
 	.byte	0xB2
-	.word	Song_0857A1E1
+	.word	Song_0857A44C_3_1
 	.byte	0xB0
 	.byte	0xB1
 	.byte	0x00
@@ -214578,7 +214578,7 @@ Song_0857A44C:	@ 0x0857A44C
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08211BEC		@ voicegroup/tone
+	.word	voicegroup031		@ voicegroup/tone
 
 	.word	Song_0857A44C_1		@ track
 	.word	Song_0857A44C_2		@ track
@@ -214810,7 +214810,7 @@ Song_0857A534:	@ 0x0857A534
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08211BEC		@ voicegroup/tone
+	.word	voicegroup031		@ voicegroup/tone
 
 	.word	Song_0857A534_1		@ track
 
@@ -215212,7 +215212,7 @@ Song_0857A6C0:	@ 0x0857A6C0
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08211BEC		@ voicegroup/tone
+	.word	voicegroup031		@ voicegroup/tone
 
 	.word	Song_0857A6C0_1		@ track
 
@@ -215370,7 +215370,7 @@ Song_0857AE9C_1:	@ 0x0857A6CC
 	.byte	0x82
 	.byte	0x3B
 	.byte	0x86
-Song_0857A761:
+Song_0857AE9C_1_1:
 	.byte	0xC0
 	.byte	0x36
 	.byte	0x84
@@ -217058,7 +217058,7 @@ Song_0857A761:
 	.byte	0x0B
 	.byte	0x83
 	.byte	0xB2
-	.word	Song_0857A761
+	.word	Song_0857AE9C_1_1
 	.byte	0xAF
 	.byte	0x83
 	.byte	0xCE
@@ -217072,7 +217072,7 @@ Song_0857AE9C_2:	@ 0x0857AE01
 	.byte	0xBC
 	.byte	0x00
 	.byte	0xB0
-Song_0857AE04:
+Song_0857AE9C_2_1:
 	.byte	0xBD
 	.byte	0x06
 	.byte	0xBF
@@ -217217,7 +217217,7 @@ Song_0857AE04:
 	.byte	0x16
 	.byte	0x98
 	.byte	0xB2
-	.word	Song_0857AE04
+	.word	Song_0857AE9C_2_1
 	.byte	0xB1
 	.byte	0x00
 	.byte	0x00
@@ -217231,7 +217231,7 @@ Song_0857AE9C:	@ 0x0857AE9C
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_082235EC		@ voicegroup/tone
+	.word	voicegroup085		@ voicegroup/tone
 
 	.word	Song_0857AE9C_1		@ track
 	.word	Song_0857AE9C_2		@ track
@@ -217243,7 +217243,7 @@ Song_0857AE9C:	@ 0x0857AE9C
 Song_0857B5A0_1:	@ 0x0857AEAC
 	.byte	0xBC
 	.byte	0x00
-Song_0857AEAE:
+Song_0857B5A0_1_1:
 	.byte	0xBB
 	.byte	0x2C
 	.byte	0xBD
@@ -218607,7 +218607,7 @@ Song_0857AEAE:
 	.byte	0x0B
 	.byte	0x83
 	.byte	0xB2
-	.word	Song_0857AEAE
+	.word	Song_0857B5A0_1_1
 	.byte	0xAF
 	.byte	0x83
 	.byte	0xCE
@@ -218620,7 +218620,7 @@ Song_0857AEAE:
 Song_0857B5A0_2:	@ 0x0857B40A
 	.byte	0xBC
 	.byte	0x00
-Song_0857B40C:
+Song_0857B5A0_2_1:
 	.byte	0xBD
 	.byte	0x03
 	.byte	0xBE
@@ -218731,7 +218731,7 @@ Song_0857B40C:
 	.byte	0xA2
 	.byte	0xB0
 	.byte	0xB2
-	.word	Song_0857B40C
+	.word	Song_0857B5A0_2_1
 	.byte	0xB1
 
 	@********************** Track  3 **********************@
@@ -218740,7 +218740,7 @@ Song_0857B40C:
 Song_0857B5A0_3:	@ 0x0857B47F
 	.byte	0xBC
 	.byte	0x00
-Song_0857B481:
+Song_0857B5A0_3_1:
 	.byte	0xBD
 	.byte	0x04
 	.byte	0xBE
@@ -219020,7 +219020,7 @@ Song_0857B481:
 	.byte	0xB0
 	.byte	0xB0
 	.byte	0xB2
-	.word	Song_0857B481
+	.word	Song_0857B5A0_3_1
 	.byte	0xB1
 	.byte	0x00
 	.byte	0x00
@@ -219034,7 +219034,7 @@ Song_0857B5A0:	@ 0x0857B5A0
 	.byte	10		@ priority
 	.byte	128		@ reverb
 
-	.word	voicegroup_082235EC		@ voicegroup/tone
+	.word	voicegroup085		@ voicegroup/tone
 
 	.word	Song_0857B5A0_1		@ track
 	.word	Song_0857B5A0_2		@ track
@@ -219158,10 +219158,10 @@ Song_0857B6A8_1:	@ 0x0857B5B4
 	.byte	0x81
 	.byte	0x3C
 	.byte	0xA0
-Song_0857B625:
+Song_0857B6A8_1_1:
 	.byte	0xA8
 	.byte	0xB2
-	.word	Song_0857B625
+	.word	Song_0857B6A8_1_1
 	.byte	0x98
 	.byte	0xCE
 	.byte	0x3E
@@ -219282,10 +219282,10 @@ Song_0857B6A8_2:	@ 0x0857B62F
 	.byte	0x81
 	.byte	0x3C
 	.byte	0xA0
-Song_0857B69E:
+Song_0857B6A8_2_1:
 	.byte	0xA8
 	.byte	0xB2
-	.word	Song_0857B69E
+	.word	Song_0857B6A8_2_1
 	.byte	0x98
 	.byte	0xCE
 	.byte	0x39
@@ -219299,7 +219299,7 @@ Song_0857B6A8:	@ 0x0857B6A8
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08223ED4		@ voicegroup/tone
+	.word	voicegroup092		@ voicegroup/tone
 
 	.word	Song_0857B6A8_1		@ track
 	.word	Song_0857B6A8_2		@ track
@@ -219311,7 +219311,7 @@ Song_0857B6A8:	@ 0x0857B6A8
 Song_0857C0C8_1:	@ 0x0857B6B8
 	.byte	0xBC
 	.byte	0x00
-Song_0857B6BA:
+Song_0857C0C8_1_2:
 	.byte	0xBB
 	.byte	0x4B
 	.byte	0xBD
@@ -219454,7 +219454,7 @@ Song_0857B6BA:
 	.byte	0x46
 	.byte	0x48
 	.byte	0x86
-Song_0857B748:
+Song_0857C0C8_1_1:
 	.byte	0xE9
 	.byte	0x4A
 	.byte	0x70
@@ -219481,7 +219481,7 @@ Song_0857B748:
 	.byte	0x86
 	.byte	0xB4
 	.byte	0xB3
-	.word	Song_0857B748
+	.word	Song_0857C0C8_1_1
 	.byte	0xFD
 	.byte	0x4D
 	.byte	0x70
@@ -219979,7 +219979,7 @@ Song_0857B748:
 	.byte	0x6C
 	.byte	0x8C
 	.byte	0xB2
-	.word	Song_0857B6BA
+	.word	Song_0857C0C8_1_2
 	.byte	0xB1
 
 	@********************** Track  2 **********************@
@@ -219988,7 +219988,7 @@ Song_0857B748:
 Song_0857C0C8_2:	@ 0x0857B95C
 	.byte	0xBC
 	.byte	0x00
-Song_0857B95E:
+Song_0857C0C8_2_4:
 	.byte	0xBD
 	.byte	0x13
 	.byte	0xBE
@@ -220189,7 +220189,7 @@ Song_0857B95E:
 	.byte	0xD8
 	.byte	0x30
 	.byte	0x8C
-Song_0857BA26:
+Song_0857C0C8_2_1:
 	.byte	0xBD
 	.byte	0x13
 	.byte	0xBE
@@ -220199,7 +220199,7 @@ Song_0857BA26:
 	.byte	0x6C
 	.byte	0xB0
 	.byte	0xB4
-Song_0857BA2F:
+Song_0857C0C8_2_2:
 	.byte	0xF7
 	.byte	0x30
 	.byte	0x6C
@@ -220214,10 +220214,10 @@ Song_0857BA2F:
 	.byte	0x8C
 	.byte	0xB4
 	.byte	0xB3
-	.word	Song_0857BA26
+	.word	Song_0857C0C8_2_1
 	.byte	0xB3
-	.word	Song_0857BA2F
-Song_0857BA46:
+	.word	Song_0857C0C8_2_2
+Song_0857C0C8_2_3:
 	.byte	0xBD
 	.byte	0x13
 	.byte	0xBE
@@ -220239,7 +220239,7 @@ Song_0857BA46:
 	.byte	0xDB
 	.byte	0x8C
 	.byte	0xB3
-	.word	Song_0857BA46
+	.word	Song_0857C0C8_2_3
 	.byte	0xF7
 	.byte	0x33
 	.byte	0x6C
@@ -220313,7 +220313,7 @@ Song_0857BA46:
 	.byte	0x2F
 	.byte	0x8C
 	.byte	0xB2
-	.word	Song_0857B95E
+	.word	Song_0857C0C8_2_4
 	.byte	0xB1
 
 	@********************** Track  3 **********************@
@@ -220322,7 +220322,7 @@ Song_0857BA46:
 Song_0857C0C8_3:	@ 0x0857BAAD
 	.byte	0xBC
 	.byte	0x00
-Song_0857BAAF:
+Song_0857C0C8_3_1:
 	.byte	0xBD
 	.byte	0x66
 	.byte	0xBE
@@ -220809,7 +220809,7 @@ Song_0857BAAF:
 	.byte	0x41
 	.byte	0x8C
 	.byte	0xB2
-	.word	Song_0857BAAF
+	.word	Song_0857C0C8_3_1
 	.byte	0xB1
 
 	@********************** Track  4 **********************@
@@ -220818,7 +220818,7 @@ Song_0857BAAF:
 Song_0857C0C8_4:	@ 0x0857BC9A
 	.byte	0xBC
 	.byte	0x00
-Song_0857BC9C:
+Song_0857C0C8_4_2:
 	.byte	0xBD
 	.byte	0x31
 	.byte	0xBE
@@ -221231,7 +221231,7 @@ Song_0857BC9C:
 	.byte	0x86
 	.byte	0x4A
 	.byte	0x86
-Song_0857BE38:
+Song_0857C0C8_4_1:
 	.byte	0xBD
 	.byte	0x0E
 	.byte	0xBE
@@ -221277,7 +221277,7 @@ Song_0857BE38:
 	.byte	0x47
 	.byte	0x86
 	.byte	0xB3
-	.word	Song_0857BE38
+	.word	Song_0857C0C8_4_1
 	.byte	0xEF
 	.byte	0x45
 	.byte	0x6C
@@ -221334,7 +221334,7 @@ Song_0857BE38:
 	.byte	0x44
 	.byte	0x8C
 	.byte	0xB2
-	.word	Song_0857BC9C
+	.word	Song_0857C0C8_4_2
 	.byte	0xB1
 
 	@********************** Track  5 **********************@
@@ -221343,7 +221343,7 @@ Song_0857BE38:
 Song_0857C0C8_5:	@ 0x0857BEA6
 	.byte	0xBC
 	.byte	0x00
-Song_0857BEA8:
+Song_0857C0C8_5_6:
 	.byte	0xBD
 	.byte	0x2F
 	.byte	0xBE
@@ -221375,7 +221375,7 @@ Song_0857BEA8:
 	.byte	0x86
 	.byte	0xD5
 	.byte	0x86
-Song_0857BEC7:
+Song_0857C0C8_5_1:
 	.byte	0xE7
 	.byte	0x38
 	.byte	0x7F
@@ -221391,8 +221391,8 @@ Song_0857BEC7:
 	.byte	0x86
 	.byte	0xB4
 	.byte	0xB3
-	.word	Song_0857BEC7
-Song_0857BEDA:
+	.word	Song_0857C0C8_5_1
+Song_0857C0C8_5_2:
 	.byte	0xE7
 	.byte	0x39
 	.byte	0x7F
@@ -221408,8 +221408,8 @@ Song_0857BEDA:
 	.byte	0x86
 	.byte	0xB4
 	.byte	0xB3
-	.word	Song_0857BEDA
-Song_0857BEED:
+	.word	Song_0857C0C8_5_2
+Song_0857C0C8_5_3:
 	.byte	0xE7
 	.byte	0x36
 	.byte	0x7F
@@ -221425,7 +221425,7 @@ Song_0857BEED:
 	.byte	0x86
 	.byte	0xB4
 	.byte	0xB3
-	.word	Song_0857BEED
+	.word	Song_0857C0C8_5_3
 	.byte	0xE7
 	.byte	0x34
 	.byte	0x7F
@@ -221566,7 +221566,7 @@ Song_0857BEED:
 	.byte	0xFF
 	.byte	0xB0
 	.byte	0xB0
-Song_0857BF8C:
+Song_0857C0C8_5_4:
 	.byte	0xE7
 	.byte	0x39
 	.byte	0x7F
@@ -221578,7 +221578,7 @@ Song_0857BF8C:
 	.byte	0x34
 	.byte	0x98
 	.byte	0xB4
-Song_0857BF97:
+Song_0857C0C8_5_5:
 	.byte	0xE7
 	.byte	0x39
 	.byte	0x7F
@@ -221594,9 +221594,9 @@ Song_0857BF97:
 	.byte	0x8C
 	.byte	0xB4
 	.byte	0xB3
-	.word	Song_0857BF8C
+	.word	Song_0857C0C8_5_4
 	.byte	0xB3
-	.word	Song_0857BF97
+	.word	Song_0857C0C8_5_5
 	.byte	0xFB
 	.byte	0x33
 	.byte	0x7F
@@ -221615,7 +221615,7 @@ Song_0857BF97:
 	.byte	0x3B
 	.byte	0x98
 	.byte	0xB2
-	.word	Song_0857BEA8
+	.word	Song_0857C0C8_5_6
 	.byte	0xB1
 
 	@********************** Track  6 **********************@
@@ -221624,7 +221624,7 @@ Song_0857BF97:
 Song_0857C0C8_6:	@ 0x0857BFC6
 	.byte	0xBC
 	.byte	0x00
-Song_0857BFC8:
+Song_0857C0C8_6_5:
 	.byte	0xBD
 	.byte	0x7F
 	.byte	0xBE
@@ -221659,7 +221659,7 @@ Song_0857BFC8:
 	.byte	0x86
 	.byte	0xD5
 	.byte	0x86
-Song_0857BFEA:
+Song_0857C0C8_6_2:
 	.byte	0xD5
 	.byte	0x26
 	.byte	0x4C
@@ -221688,7 +221688,7 @@ Song_0857BFEA:
 	.byte	0xD5
 	.byte	0x86
 	.byte	0xB4
-Song_0857C006:
+Song_0857C0C8_6_1:
 	.byte	0xDB
 	.byte	0x31
 	.byte	0x64
@@ -221743,14 +221743,14 @@ Song_0857C006:
 	.byte	0xD5
 	.byte	0x86
 	.byte	0xB3
-	.word	Song_0857C006
+	.word	Song_0857C0C8_6_1
 	.byte	0xB3
-	.word	Song_0857BFEA
+	.word	Song_0857C0C8_6_2
 	.byte	0xB3
-	.word	Song_0857C006
+	.word	Song_0857C0C8_6_1
 	.byte	0xB3
-	.word	Song_0857BFEA
-Song_0857C04F:
+	.word	Song_0857C0C8_6_2
+Song_0857C0C8_6_3:
 	.byte	0xDB
 	.byte	0x31
 	.byte	0x64
@@ -221782,20 +221782,20 @@ Song_0857C04F:
 	.byte	0x86
 	.byte	0xB4
 	.byte	0xB3
-	.word	Song_0857BFEA
+	.word	Song_0857C0C8_6_2
 	.byte	0xB3
-	.word	Song_0857C04F
+	.word	Song_0857C0C8_6_3
 	.byte	0xB3
-	.word	Song_0857BFEA
+	.word	Song_0857C0C8_6_2
 	.byte	0xB3
-	.word	Song_0857C04F
+	.word	Song_0857C0C8_6_3
 	.byte	0xB3
-	.word	Song_0857BFEA
+	.word	Song_0857C0C8_6_2
 	.byte	0xB3
-	.word	Song_0857C04F
+	.word	Song_0857C0C8_6_3
 	.byte	0xB3
-	.word	Song_0857BFEA
-Song_0857C090:
+	.word	Song_0857C0C8_6_2
+Song_0857C0C8_6_4:
 	.byte	0xEF
 	.byte	0x31
 	.byte	0x64
@@ -221805,7 +221805,7 @@ Song_0857C090:
 	.byte	0xA0
 	.byte	0xB4
 	.byte	0xB3
-	.word	Song_0857C090
+	.word	Song_0857C0C8_6_4
 	.byte	0xE7
 	.byte	0x31
 	.byte	0x2C
@@ -221842,7 +221842,7 @@ Song_0857C090:
 	.byte	0xB0
 	.byte	0xB0
 	.byte	0xB2
-	.word	Song_0857BFC8
+	.word	Song_0857C0C8_6_5
 	.byte	0xB1
 	.byte	0x00
 	.byte	0x00
@@ -221855,7 +221855,7 @@ Song_0857C0C8:	@ 0x0857C0C8
 	.byte	10		@ priority
 	.byte	148		@ reverb
 
-	.word	voicegroup_08219614		@ voicegroup/tone
+	.word	voicegroup055		@ voicegroup/tone
 
 	.word	Song_0857C0C8_1		@ track
 	.word	Song_0857C0C8_2		@ track
@@ -221918,7 +221918,7 @@ Song_0857CE04_1:	@ 0x0857C0E8
 	.byte	0x4B
 	.byte	0x54
 	.byte	0x8C
-Song_0857C119:
+Song_0857CE04_1_1:
 	.byte	0xEF
 	.byte	0x31
 	.byte	0x5C
@@ -222919,7 +222919,7 @@ Song_0857C119:
 	.byte	0x54
 	.byte	0x8C
 	.byte	0xB2
-	.word	Song_0857C119
+	.word	Song_0857CE04_1_1
 	.byte	0xB1
 
 	@********************** Track  2 **********************@
@@ -222929,7 +222929,7 @@ Song_0857CE04_2:	@ 0x0857C506
 	.byte	0xBC
 	.byte	0x00
 	.byte	0xB0
-Song_0857C509:
+Song_0857CE04_2_1:
 	.byte	0xB0
 	.byte	0xB0
 	.byte	0xB0
@@ -223266,7 +223266,7 @@ Song_0857C509:
 	.byte	0x3A
 	.byte	0x86
 	.byte	0xB2
-	.word	Song_0857C509
+	.word	Song_0857CE04_2_1
 	.byte	0xB1
 
 	@********************** Track  3 **********************@
@@ -223276,7 +223276,7 @@ Song_0857CE04_3:	@ 0x0857C65E
 	.byte	0xBC
 	.byte	0x00
 	.byte	0xB0
-Song_0857C661:
+Song_0857CE04_3_1:
 	.byte	0xB0
 	.byte	0xB0
 	.byte	0xB0
@@ -223619,7 +223619,7 @@ Song_0857C661:
 	.byte	0xB0
 	.byte	0xB0
 	.byte	0xB2
-	.word	Song_0857C661
+	.word	Song_0857CE04_3_1
 	.byte	0xB1
 
 	@********************** Track  4 **********************@
@@ -223629,7 +223629,7 @@ Song_0857CE04_4:	@ 0x0857C7BC
 	.byte	0xBC
 	.byte	0x00
 	.byte	0xB0
-Song_0857C7BF:
+Song_0857CE04_4_1:
 	.byte	0xB0
 	.byte	0xB0
 	.byte	0xB0
@@ -223906,7 +223906,7 @@ Song_0857C7BF:
 	.byte	0x8C
 	.byte	0xB0
 	.byte	0xB2
-	.word	Song_0857C7BF
+	.word	Song_0857CE04_4_1
 	.byte	0xB1
 
 	@********************** Track  5 **********************@
@@ -223916,7 +223916,7 @@ Song_0857CE04_5:	@ 0x0857C8D8
 	.byte	0xBC
 	.byte	0x00
 	.byte	0xB0
-Song_0857C8DB:
+Song_0857CE04_5_1:
 	.byte	0xB0
 	.byte	0xB0
 	.byte	0xB0
@@ -224101,7 +224101,7 @@ Song_0857C8DB:
 	.byte	0xB0
 	.byte	0xB0
 	.byte	0xB2
-	.word	Song_0857C8DB
+	.word	Song_0857CE04_5_1
 	.byte	0xB1
 
 	@********************** Track  6 **********************@
@@ -224111,7 +224111,7 @@ Song_0857CE04_6:	@ 0x0857C998
 	.byte	0xBC
 	.byte	0x00
 	.byte	0xB0
-Song_0857C99B:
+Song_0857CE04_6_2:
 	.byte	0xB0
 	.byte	0xB0
 	.byte	0xB0
@@ -224515,7 +224515,7 @@ Song_0857C99B:
 	.byte	0x45
 	.byte	0x4C
 	.byte	0x86
-Song_0857CB2E:
+Song_0857CE04_6_1:
 	.byte	0xD5
 	.byte	0x50
 	.byte	0x4C
@@ -224610,7 +224610,7 @@ Song_0857CB2E:
 	.byte	0x4C
 	.byte	0x86
 	.byte	0xB3
-	.word	Song_0857CB2E
+	.word	Song_0857CE04_6_1
 	.byte	0xD5
 	.byte	0x52
 	.byte	0x4C
@@ -224659,7 +224659,7 @@ Song_0857CB2E:
 	.byte	0x4E
 	.byte	0xB0
 	.byte	0xB2
-	.word	Song_0857C99B
+	.word	Song_0857CE04_6_2
 	.byte	0xB1
 
 	@********************** Track  7 **********************@
@@ -224669,7 +224669,7 @@ Song_0857CE04_7:	@ 0x0857CBC5
 	.byte	0xBC
 	.byte	0x00
 	.byte	0xB0
-Song_0857CBC8:
+Song_0857CE04_7_4:
 	.byte	0xB0
 	.byte	0xB0
 	.byte	0xB0
@@ -224736,7 +224736,7 @@ Song_0857CBC8:
 	.byte	0x2A
 	.byte	0x34
 	.byte	0x8C
-Song_0857CC0A:
+Song_0857CE04_7_1:
 	.byte	0xD5
 	.byte	0x2A
 	.byte	0x3C
@@ -224762,7 +224762,7 @@ Song_0857CC0A:
 	.byte	0x3C
 	.byte	0x8C
 	.byte	0xB3
-	.word	Song_0857CC0A
+	.word	Song_0857CE04_7_1
 	.byte	0xD5
 	.byte	0x2A
 	.byte	0x34
@@ -224773,7 +224773,7 @@ Song_0857CC0A:
 	.byte	0x98
 	.byte	0xD5
 	.byte	0x98
-Song_0857CC31:
+Song_0857CE04_7_2:
 	.byte	0xD5
 	.byte	0x2A
 	.byte	0x34
@@ -224788,7 +224788,7 @@ Song_0857CC31:
 	.byte	0x98
 	.byte	0xB4
 	.byte	0xB3
-	.word	Song_0857CC31
+	.word	Song_0857CE04_7_2
 	.byte	0xD5
 	.byte	0x2A
 	.byte	0x3C
@@ -225194,7 +225194,7 @@ Song_0857CC31:
 	.byte	0x8C
 	.byte	0xDA
 	.byte	0x8C
-Song_0857CDD8:
+Song_0857CE04_7_3:
 	.byte	0xE6
 	.byte	0x33
 	.byte	0x54
@@ -225216,7 +225216,7 @@ Song_0857CDD8:
 	.byte	0x8C
 	.byte	0xB4
 	.byte	0xB3
-	.word	Song_0857CDD8
+	.word	Song_0857CE04_7_3
 	.byte	0xE6
 	.byte	0x33
 	.byte	0x54
@@ -225228,7 +225228,7 @@ Song_0857CDD8:
 	.byte	0xB0
 	.byte	0xB0
 	.byte	0xB2
-	.word	Song_0857CBC8
+	.word	Song_0857CE04_7_4
 	.byte	0xB1
 	.byte	0x00
 	.byte	0x00
@@ -225242,7 +225242,7 @@ Song_0857CE04:	@ 0x0857CE04
 	.byte	10		@ priority
 	.byte	178		@ reverb
 
-	.word	voicegroup_0821056C		@ voicegroup/tone
+	.word	voicegroup026		@ voicegroup/tone
 
 	.word	Song_0857CE04_1		@ track
 	.word	Song_0857CE04_2		@ track
@@ -225260,7 +225260,7 @@ Song_0857CE28:	@ 0x0857CE28
 	.byte	10		@ priority
 	.byte	128		@ reverb
 
-	.word	voicegroup_08207A70		@ voicegroup/tone
+	.word	voicegroup001		@ voicegroup/tone
 
 
 	.align 2
@@ -225388,7 +225388,7 @@ Song_0857CE90:	@ 0x0857CE90
 	.byte	60		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_082117F0		@ voicegroup/tone
+	.word	voicegroup030		@ voicegroup/tone
 
 	.word	Song_0857CE90_1		@ track
 	.word	Song_0857CE90_2		@ track
@@ -225508,7 +225508,7 @@ Song_0857CEFC:	@ 0x0857CEFC
 	.byte	60		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_082117F0		@ voicegroup/tone
+	.word	voicegroup030		@ voicegroup/tone
 
 	.word	Song_0857CEFC_1		@ track
 	.word	Song_0857CEFC_2		@ track
@@ -225760,7 +225760,7 @@ Song_0857CFEC:	@ 0x0857CFEC
 	.byte	60		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_082117F0		@ voicegroup/tone
+	.word	voicegroup030		@ voicegroup/tone
 
 	.word	Song_0857CFEC_1		@ track
 	.word	Song_0857CFEC_2		@ track
@@ -225838,7 +225838,7 @@ Song_0857D038:	@ 0x0857D038
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_082117F0		@ voicegroup/tone
+	.word	voicegroup030		@ voicegroup/tone
 
 	.word	Song_0857D038_1		@ track
 	.word	Song_0857D038_2		@ track
@@ -225925,7 +225925,7 @@ Song_0857D08C:	@ 0x0857D08C
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_082117F0		@ voicegroup/tone
+	.word	voicegroup030		@ voicegroup/tone
 
 	.word	Song_0857D08C_1		@ track
 
@@ -225959,7 +225959,7 @@ Song_0857D0A8:	@ 0x0857D0A8
 	.byte	30		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_082117F0		@ voicegroup/tone
+	.word	voicegroup030		@ voicegroup/tone
 
 	.word	Song_0857D0A8_1		@ track
 
@@ -225993,7 +225993,7 @@ Song_0857D0C4:	@ 0x0857D0C4
 	.byte	30		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_082117F0		@ voicegroup/tone
+	.word	voicegroup030		@ voicegroup/tone
 
 	.word	Song_0857D0C4_1		@ track
 
@@ -226027,7 +226027,7 @@ Song_0857D0E0:	@ 0x0857D0E0
 	.byte	30		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_082117F0		@ voicegroup/tone
+	.word	voicegroup030		@ voicegroup/tone
 
 	.word	Song_0857D0E0_1		@ track
 
@@ -226077,7 +226077,7 @@ Song_0857D10C:	@ 0x0857D10C
 	.byte	31		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_082117F0		@ voicegroup/tone
+	.word	voicegroup030		@ voicegroup/tone
 
 	.word	Song_0857D10C_1		@ track
 
@@ -226139,7 +226139,7 @@ Song_0857D144:	@ 0x0857D144
 	.byte	31		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_082117F0		@ voicegroup/tone
+	.word	voicegroup030		@ voicegroup/tone
 
 	.word	Song_0857D144_1		@ track
 
@@ -226201,7 +226201,7 @@ Song_0857D17C:	@ 0x0857D17C
 	.byte	32		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_082117F0		@ voicegroup/tone
+	.word	voicegroup030		@ voicegroup/tone
 
 	.word	Song_0857D17C_1		@ track
 
@@ -226255,7 +226255,7 @@ Song_0857D1AC:	@ 0x0857D1AC
 	.byte	31		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_082117F0		@ voicegroup/tone
+	.word	voicegroup030		@ voicegroup/tone
 
 	.word	Song_0857D1AC_1		@ track
 
@@ -226297,7 +226297,7 @@ Song_0857D1D0:	@ 0x0857D1D0
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_082117F0		@ voicegroup/tone
+	.word	voicegroup030		@ voicegroup/tone
 
 	.word	Song_0857D1D0_1		@ track
 
@@ -226525,7 +226525,7 @@ Song_0857D2A4:	@ 0x0857D2A4
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_082117F0		@ voicegroup/tone
+	.word	voicegroup030		@ voicegroup/tone
 
 	.word	Song_0857D2A4_1		@ track
 	.word	Song_0857D2A4_2		@ track
@@ -226561,7 +226561,7 @@ Song_0857D2C8:	@ 0x0857D2C8
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_082117F0		@ voicegroup/tone
+	.word	voicegroup030		@ voicegroup/tone
 
 	.word	Song_0857D2C8_1		@ track
 
@@ -226655,7 +226655,7 @@ Song_0857D320:	@ 0x0857D320
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_082117F0		@ voicegroup/tone
+	.word	voicegroup030		@ voicegroup/tone
 
 	.word	Song_0857D320_1		@ track
 
@@ -226718,7 +226718,7 @@ Song_0857D354:	@ 0x0857D354
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_082117F0		@ voicegroup/tone
+	.word	voicegroup030		@ voicegroup/tone
 
 	.word	Song_0857D354_1		@ track
 	.word	Song_0857D354_2		@ track
@@ -226782,7 +226782,7 @@ Song_0857D38C:	@ 0x0857D38C
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_082117F0		@ voicegroup/tone
+	.word	voicegroup030		@ voicegroup/tone
 
 	.word	Song_0857D38C_1		@ track
 	.word	Song_0857D38C_2		@ track
@@ -226833,7 +226833,7 @@ Song_0857D3BC:	@ 0x0857D3BC
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_082117F0		@ voicegroup/tone
+	.word	voicegroup030		@ voicegroup/tone
 
 	.word	Song_0857D3BC_1		@ track
 
@@ -226968,7 +226968,7 @@ Song_0857D438:	@ 0x0857D438
 	.byte	60		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_082117F0		@ voicegroup/tone
+	.word	voicegroup030		@ voicegroup/tone
 
 	.word	Song_0857D438_1		@ track
 	.word	Song_0857D438_2		@ track
@@ -226997,7 +226997,7 @@ Song_0857D4DC_1:	@ 0x0857D448
 	.byte	0xC0
 	.byte	0x7F
 	.byte	0x81
-Song_0857D45B:
+Song_0857D4DC_1_2:
 	.byte	0xC0
 	.byte	0x40
 	.byte	0x81
@@ -227043,7 +227043,7 @@ Song_0857D45B:
 	.byte	0x81
 	.byte	0x7F
 	.byte	0x81
-Song_0857D488:
+Song_0857D4DC_1_1:
 	.byte	0xC0
 	.byte	0x40
 	.byte	0x81
@@ -227095,16 +227095,16 @@ Song_0857D488:
 	.byte	0x81
 	.byte	0xB4
 	.byte	0xB3
-	.word	Song_0857D488
+	.word	Song_0857D4DC_1_1
 	.byte	0xB3
-	.word	Song_0857D488
+	.word	Song_0857D4DC_1_1
 	.byte	0xC0
 	.byte	0x40
 	.byte	0x81
 	.byte	0x7F
 	.byte	0x81
 	.byte	0xB2
-	.word	Song_0857D45B
+	.word	Song_0857D4DC_1_2
 	.byte	0xC0
 	.byte	0x40
 	.byte	0x81
@@ -227128,7 +227128,7 @@ Song_0857D4DC:	@ 0x0857D4DC
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_082117F0		@ voicegroup/tone
+	.word	voicegroup030		@ voicegroup/tone
 
 	.word	Song_0857D4DC_1		@ track
 
@@ -227162,7 +227162,7 @@ Song_0857D4F8:	@ 0x0857D4F8
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_082117F0		@ voicegroup/tone
+	.word	voicegroup030		@ voicegroup/tone
 
 	.word	Song_0857D4F8_1		@ track
 
@@ -227249,7 +227249,7 @@ Song_0857D544:	@ 0x0857D544
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_082117F0		@ voicegroup/tone
+	.word	voicegroup030		@ voicegroup/tone
 
 	.word	Song_0857D544_1		@ track
 	.word	Song_0857D544_2		@ track
@@ -227325,7 +227325,7 @@ Song_0857D588:	@ 0x0857D588
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_082117F0		@ voicegroup/tone
+	.word	voicegroup030		@ voicegroup/tone
 
 	.word	Song_0857D588_1		@ track
 	.word	Song_0857D588_2		@ track
@@ -227473,7 +227473,7 @@ Song_0857D614:	@ 0x0857D614
 	.byte	30		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_082117F0		@ voicegroup/tone
+	.word	voicegroup030		@ voicegroup/tone
 
 	.word	Song_0857D614_1		@ track
 	.word	Song_0857D614_2		@ track
@@ -227621,7 +227621,7 @@ Song_0857D6A0:	@ 0x0857D6A0
 	.byte	30		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_082117F0		@ voicegroup/tone
+	.word	voicegroup030		@ voicegroup/tone
 
 	.word	Song_0857D6A0_1		@ track
 	.word	Song_0857D6A0_2		@ track
@@ -227656,7 +227656,7 @@ Song_0857D6C0:	@ 0x0857D6C0
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_082117F0		@ voicegroup/tone
+	.word	voicegroup030		@ voicegroup/tone
 
 	.word	Song_0857D6C0_1		@ track
 
@@ -227755,7 +227755,7 @@ Song_0857D718:	@ 0x0857D718
 	.byte	30		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_082117F0		@ voicegroup/tone
+	.word	voicegroup030		@ voicegroup/tone
 
 	.word	Song_0857D718_1		@ track
 	.word	Song_0857D718_2		@ track
@@ -227794,7 +227794,7 @@ Song_0857D73C:	@ 0x0857D73C
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_082117F0		@ voicegroup/tone
+	.word	voicegroup030		@ voicegroup/tone
 
 	.word	Song_0857D73C_1		@ track
 
@@ -227849,7 +227849,7 @@ Song_0857D768:	@ 0x0857D768
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_082117F0		@ voicegroup/tone
+	.word	voicegroup030		@ voicegroup/tone
 
 	.word	Song_0857D768_1		@ track
 	.word	Song_0857D768_2		@ track
@@ -227937,7 +227937,7 @@ Song_0857D7B8:	@ 0x0857D7B8
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_082117F0		@ voicegroup/tone
+	.word	voicegroup030		@ voicegroup/tone
 
 	.word	Song_0857D7B8_1		@ track
 	.word	Song_0857D7B8_2		@ track
@@ -228048,7 +228048,7 @@ Song_0857D824:	@ 0x0857D824
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_082117F0		@ voicegroup/tone
+	.word	voicegroup030		@ voicegroup/tone
 
 	.word	Song_0857D824_1		@ track
 
@@ -228110,7 +228110,7 @@ Song_0857D85C:	@ 0x0857D85C
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_082117F0		@ voicegroup/tone
+	.word	voicegroup030		@ voicegroup/tone
 
 	.word	Song_0857D85C_1		@ track
 
@@ -228192,13 +228192,13 @@ Song_0857D8CC_1:	@ 0x0857D868
 	.byte	0x82
 	.byte	0x4E
 	.byte	0x84
-Song_0857D8B1:
+Song_0857D8CC_1_1:
 	.byte	0x98
 	.byte	0x98
 	.byte	0x98
 	.byte	0x98
 	.byte	0xB2
-	.word	Song_0857D8B1
+	.word	Song_0857D8CC_1_1
 	.byte	0x88
 	.byte	0xCE
 	.byte	0x3C
@@ -228226,7 +228226,7 @@ Song_0857D8CC:	@ 0x0857D8CC
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_082117F0		@ voicegroup/tone
+	.word	voicegroup030		@ voicegroup/tone
 
 	.word	Song_0857D8CC_1		@ track
 
@@ -228312,7 +228312,7 @@ Song_0857D91C:	@ 0x0857D91C
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08211BEC		@ voicegroup/tone
+	.word	voicegroup031		@ voicegroup/tone
 
 	.word	Song_0857D91C_1		@ track
 
@@ -228366,7 +228366,7 @@ Song_0857D94C:	@ 0x0857D94C
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08211BEC		@ voicegroup/tone
+	.word	voicegroup031		@ voicegroup/tone
 
 	.word	Song_0857D94C_1		@ track
 
@@ -228400,7 +228400,7 @@ Song_0857D968:	@ 0x0857D968
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08211BEC		@ voicegroup/tone
+	.word	voicegroup031		@ voicegroup/tone
 
 	.word	Song_0857D968_1		@ track
 
@@ -228434,7 +228434,7 @@ Song_0857D984:	@ 0x0857D984
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08211BEC		@ voicegroup/tone
+	.word	voicegroup031		@ voicegroup/tone
 
 	.word	Song_0857D984_1		@ track
 
@@ -228520,7 +228520,7 @@ Song_0857D9D4:	@ 0x0857D9D4
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08211BEC		@ voicegroup/tone
+	.word	voicegroup031		@ voicegroup/tone
 
 	.word	Song_0857D9D4_1		@ track
 
@@ -228634,7 +228634,7 @@ Song_0857DA40:	@ 0x0857DA40
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08211BEC		@ voicegroup/tone
+	.word	voicegroup031		@ voicegroup/tone
 
 	.word	Song_0857DA40_1		@ track
 
@@ -228716,7 +228716,7 @@ Song_0857DA8C:	@ 0x0857DA8C
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08211BEC		@ voicegroup/tone
+	.word	voicegroup031		@ voicegroup/tone
 
 	.word	Song_0857DA8C_1		@ track
 
@@ -228830,7 +228830,7 @@ Song_0857DAF8:	@ 0x0857DAF8
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08211BEC		@ voicegroup/tone
+	.word	voicegroup031		@ voicegroup/tone
 
 	.word	Song_0857DAF8_1		@ track
 
@@ -228944,7 +228944,7 @@ Song_0857DB64:	@ 0x0857DB64
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08211BEC		@ voicegroup/tone
+	.word	voicegroup031		@ voicegroup/tone
 
 	.word	Song_0857DB64_1		@ track
 
@@ -229070,7 +229070,7 @@ Song_0857DBDC:	@ 0x0857DBDC
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08211BEC		@ voicegroup/tone
+	.word	voicegroup031		@ voicegroup/tone
 
 	.word	Song_0857DBDC_1		@ track
 
@@ -229236,7 +229236,7 @@ Song_0857DC7C:	@ 0x0857DC7C
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08211BEC		@ voicegroup/tone
+	.word	voicegroup031		@ voicegroup/tone
 
 	.word	Song_0857DC7C_1		@ track
 
@@ -229411,7 +229411,7 @@ Song_0857DD20:	@ 0x0857DD20
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08211BEC		@ voicegroup/tone
+	.word	voicegroup031		@ voicegroup/tone
 
 	.word	Song_0857DD20_1		@ track
 	.word	Song_0857DD20_2		@ track
@@ -229499,7 +229499,7 @@ Song_0857DDA0_1:	@ 0x0857DD30
 	.byte	0x82
 	.byte	0x41
 	.byte	0x82
-Song_0857DD7E:
+Song_0857DDA0_1_1:
 	.byte	0xBE
 	.byte	0x3C
 	.byte	0x98
@@ -229507,7 +229507,7 @@ Song_0857DD7E:
 	.byte	0x98
 	.byte	0x98
 	.byte	0xB2
-	.word	Song_0857DD7E
+	.word	Song_0857DDA0_1_1
 	.byte	0x88
 	.byte	0xCE
 	.byte	0x3C
@@ -229540,7 +229540,7 @@ Song_0857DDA0:	@ 0x0857DDA0
 	.byte	51		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08211BEC		@ voicegroup/tone
+	.word	voicegroup031		@ voicegroup/tone
 
 	.word	Song_0857DDA0_1		@ track
 
@@ -229710,7 +229710,7 @@ Song_0857DE44:	@ 0x0857DE44
 	.byte	52		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08211BEC		@ voicegroup/tone
+	.word	voicegroup031		@ voicegroup/tone
 
 	.word	Song_0857DE44_1		@ track
 
@@ -229925,7 +229925,7 @@ Song_0857DF10:	@ 0x0857DF10
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_082117F0		@ voicegroup/tone
+	.word	voicegroup030		@ voicegroup/tone
 
 	.word	Song_0857DF10_1		@ track
 	.word	Song_0857DF10_2		@ track
@@ -230218,7 +230218,7 @@ Song_0857E028:	@ 0x0857E028
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_082117F0		@ voicegroup/tone
+	.word	voicegroup030		@ voicegroup/tone
 
 	.word	Song_0857E028_1		@ track
 	.word	Song_0857E028_2		@ track
@@ -230254,7 +230254,7 @@ Song_0857E04C:	@ 0x0857E04C
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08211BEC		@ voicegroup/tone
+	.word	voicegroup031		@ voicegroup/tone
 
 	.word	Song_0857E04C_1		@ track
 
@@ -230288,7 +230288,7 @@ Song_0857E068:	@ 0x0857E068
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08211BEC		@ voicegroup/tone
+	.word	voicegroup031		@ voicegroup/tone
 
 	.word	Song_0857E068_1		@ track
 
@@ -230322,7 +230322,7 @@ Song_0857E084:	@ 0x0857E084
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08211BEC		@ voicegroup/tone
+	.word	voicegroup031		@ voicegroup/tone
 
 	.word	Song_0857E084_1		@ track
 
@@ -230356,7 +230356,7 @@ Song_0857E0A0:	@ 0x0857E0A0
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08211BEC		@ voicegroup/tone
+	.word	voicegroup031		@ voicegroup/tone
 
 	.word	Song_0857E0A0_1		@ track
 
@@ -230390,7 +230390,7 @@ Song_0857E0BC:	@ 0x0857E0BC
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08211BEC		@ voicegroup/tone
+	.word	voicegroup031		@ voicegroup/tone
 
 	.word	Song_0857E0BC_1		@ track
 
@@ -230424,7 +230424,7 @@ Song_0857E0D8:	@ 0x0857E0D8
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08211BEC		@ voicegroup/tone
+	.word	voicegroup031		@ voicegroup/tone
 
 	.word	Song_0857E0D8_1		@ track
 
@@ -230458,7 +230458,7 @@ Song_0857E0F4:	@ 0x0857E0F4
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08211BEC		@ voicegroup/tone
+	.word	voicegroup031		@ voicegroup/tone
 
 	.word	Song_0857E0F4_1		@ track
 
@@ -230492,7 +230492,7 @@ Song_0857E110:	@ 0x0857E110
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08211BEC		@ voicegroup/tone
+	.word	voicegroup031		@ voicegroup/tone
 
 	.word	Song_0857E110_1		@ track
 
@@ -230526,7 +230526,7 @@ Song_0857E12C:	@ 0x0857E12C
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08211BEC		@ voicegroup/tone
+	.word	voicegroup031		@ voicegroup/tone
 
 	.word	Song_0857E12C_1		@ track
 
@@ -230560,7 +230560,7 @@ Song_0857E148:	@ 0x0857E148
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08211BEC		@ voicegroup/tone
+	.word	voicegroup031		@ voicegroup/tone
 
 	.word	Song_0857E148_1		@ track
 
@@ -230594,7 +230594,7 @@ Song_0857E164:	@ 0x0857E164
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08211BEC		@ voicegroup/tone
+	.word	voicegroup031		@ voicegroup/tone
 
 	.word	Song_0857E164_1		@ track
 
@@ -230628,7 +230628,7 @@ Song_0857E180:	@ 0x0857E180
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08211BEC		@ voicegroup/tone
+	.word	voicegroup031		@ voicegroup/tone
 
 	.word	Song_0857E180_1		@ track
 
@@ -230662,7 +230662,7 @@ Song_0857E19C:	@ 0x0857E19C
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08211BEC		@ voicegroup/tone
+	.word	voicegroup031		@ voicegroup/tone
 
 	.word	Song_0857E19C_1		@ track
 
@@ -230696,7 +230696,7 @@ Song_0857E1B8:	@ 0x0857E1B8
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08211BEC		@ voicegroup/tone
+	.word	voicegroup031		@ voicegroup/tone
 
 	.word	Song_0857E1B8_1		@ track
 
@@ -230730,7 +230730,7 @@ Song_0857E1D4:	@ 0x0857E1D4
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08211BEC		@ voicegroup/tone
+	.word	voicegroup031		@ voicegroup/tone
 
 	.word	Song_0857E1D4_1		@ track
 
@@ -230764,7 +230764,7 @@ Song_0857E1F0:	@ 0x0857E1F0
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08211BEC		@ voicegroup/tone
+	.word	voicegroup031		@ voicegroup/tone
 
 	.word	Song_0857E1F0_1		@ track
 
@@ -230798,7 +230798,7 @@ Song_0857E20C:	@ 0x0857E20C
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08211BEC		@ voicegroup/tone
+	.word	voicegroup031		@ voicegroup/tone
 
 	.word	Song_0857E20C_1		@ track
 
@@ -230832,7 +230832,7 @@ Song_0857E228:	@ 0x0857E228
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08211BEC		@ voicegroup/tone
+	.word	voicegroup031		@ voicegroup/tone
 
 	.word	Song_0857E228_1		@ track
 
@@ -230942,7 +230942,7 @@ Song_0857E290:	@ 0x0857E290
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08211BEC		@ voicegroup/tone
+	.word	voicegroup031		@ voicegroup/tone
 
 	.word	Song_0857E290_1		@ track
 
@@ -230976,7 +230976,7 @@ Song_0857E2AC:	@ 0x0857E2AC
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08211BEC		@ voicegroup/tone
+	.word	voicegroup031		@ voicegroup/tone
 
 	.word	Song_0857E2AC_1		@ track
 
@@ -231010,7 +231010,7 @@ Song_0857E2C8:	@ 0x0857E2C8
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08211BEC		@ voicegroup/tone
+	.word	voicegroup031		@ voicegroup/tone
 
 	.word	Song_0857E2C8_1		@ track
 
@@ -231044,7 +231044,7 @@ Song_0857E2E4:	@ 0x0857E2E4
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08211BEC		@ voicegroup/tone
+	.word	voicegroup031		@ voicegroup/tone
 
 	.word	Song_0857E2E4_1		@ track
 
@@ -231078,7 +231078,7 @@ Song_0857E300:	@ 0x0857E300
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08211BEC		@ voicegroup/tone
+	.word	voicegroup031		@ voicegroup/tone
 
 	.word	Song_0857E300_1		@ track
 
@@ -231112,7 +231112,7 @@ Song_0857E31C:	@ 0x0857E31C
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08211BEC		@ voicegroup/tone
+	.word	voicegroup031		@ voicegroup/tone
 
 	.word	Song_0857E31C_1		@ track
 
@@ -231263,7 +231263,7 @@ Song_0857E3A8:	@ 0x0857E3A8
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08211BEC		@ voicegroup/tone
+	.word	voicegroup031		@ voicegroup/tone
 
 	.word	Song_0857E3A8_1		@ track
 	.word	Song_0857E3A8_2		@ track
@@ -231298,7 +231298,7 @@ Song_0857E3C8:	@ 0x0857E3C8
 	.byte	30		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08211BEC		@ voicegroup/tone
+	.word	voicegroup031		@ voicegroup/tone
 
 	.word	Song_0857E3C8_1		@ track
 
@@ -231332,7 +231332,7 @@ Song_0857E3E4:	@ 0x0857E3E4
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08211BEC		@ voicegroup/tone
+	.word	voicegroup031		@ voicegroup/tone
 
 	.word	Song_0857E3E4_1		@ track
 
@@ -231366,7 +231366,7 @@ Song_0857E400:	@ 0x0857E400
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08211BEC		@ voicegroup/tone
+	.word	voicegroup031		@ voicegroup/tone
 
 	.word	Song_0857E400_1		@ track
 
@@ -231400,7 +231400,7 @@ Song_0857E41C:	@ 0x0857E41C
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08211BEC		@ voicegroup/tone
+	.word	voicegroup031		@ voicegroup/tone
 
 	.word	Song_0857E41C_1		@ track
 
@@ -231579,7 +231579,7 @@ Song_0857E4C4:	@ 0x0857E4C4
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08211BEC		@ voicegroup/tone
+	.word	voicegroup031		@ voicegroup/tone
 
 	.word	Song_0857E4C4_1		@ track
 	.word	Song_0857E4C4_2		@ track
@@ -231614,7 +231614,7 @@ Song_0857E4E4:	@ 0x0857E4E4
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08211BEC		@ voicegroup/tone
+	.word	voicegroup031		@ voicegroup/tone
 
 	.word	Song_0857E4E4_1		@ track
 
@@ -231652,7 +231652,7 @@ Song_0857E504:	@ 0x0857E504
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08211BEC		@ voicegroup/tone
+	.word	voicegroup031		@ voicegroup/tone
 
 	.word	Song_0857E504_1		@ track
 
@@ -231686,7 +231686,7 @@ Song_0857E520:	@ 0x0857E520
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08211BEC		@ voicegroup/tone
+	.word	voicegroup031		@ voicegroup/tone
 
 	.word	Song_0857E520_1		@ track
 
@@ -231760,7 +231760,7 @@ Song_0857E564:	@ 0x0857E564
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08211BEC		@ voicegroup/tone
+	.word	voicegroup031		@ voicegroup/tone
 
 	.word	Song_0857E564_1		@ track
 
@@ -231834,7 +231834,7 @@ Song_0857E5A8:	@ 0x0857E5A8
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08211BEC		@ voicegroup/tone
+	.word	voicegroup031		@ voicegroup/tone
 
 	.word	Song_0857E5A8_1		@ track
 
@@ -231888,7 +231888,7 @@ Song_0857E5D8:	@ 0x0857E5D8
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08211BEC		@ voicegroup/tone
+	.word	voicegroup031		@ voicegroup/tone
 
 	.word	Song_0857E5D8_1		@ track
 
@@ -231941,7 +231941,7 @@ Song_0857E7DC_1:	@ 0x0857E5E4
 	.byte	0x88
 	.byte	0x4B
 	.byte	0x88
-Song_0857E610:
+Song_0857E7DC_1_1:
 	.byte	0xC0
 	.byte	0x51
 	.byte	0x88
@@ -232390,7 +232390,7 @@ Song_0857E610:
 	.byte	0x40
 	.byte	0x9C
 	.byte	0xB2
-	.word	Song_0857E610
+	.word	Song_0857E7DC_1_1
 	.byte	0x92
 	.byte	0xCE
 	.byte	0x3A
@@ -232408,7 +232408,7 @@ Song_0857E7DC:	@ 0x0857E7DC
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08211BEC		@ voicegroup/tone
+	.word	voicegroup031		@ voicegroup/tone
 
 	.word	Song_0857E7DC_1		@ track
 
@@ -232442,7 +232442,7 @@ Song_0857E7F8:	@ 0x0857E7F8
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_0821200C		@ voicegroup/tone
+	.word	voicegroup032		@ voicegroup/tone
 
 	.word	Song_0857E7F8_1		@ track
 
@@ -232476,7 +232476,7 @@ Song_0857E814:	@ 0x0857E814
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_0821200C		@ voicegroup/tone
+	.word	voicegroup032		@ voicegroup/tone
 
 	.word	Song_0857E814_1		@ track
 
@@ -232510,7 +232510,7 @@ Song_0857E830:	@ 0x0857E830
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_0821200C		@ voicegroup/tone
+	.word	voicegroup032		@ voicegroup/tone
 
 	.word	Song_0857E830_1		@ track
 
@@ -232544,7 +232544,7 @@ Song_0857E84C:	@ 0x0857E84C
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_0821200C		@ voicegroup/tone
+	.word	voicegroup032		@ voicegroup/tone
 
 	.word	Song_0857E84C_1		@ track
 
@@ -232578,7 +232578,7 @@ Song_0857E868:	@ 0x0857E868
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_0821200C		@ voicegroup/tone
+	.word	voicegroup032		@ voicegroup/tone
 
 	.word	Song_0857E868_1		@ track
 
@@ -232612,7 +232612,7 @@ Song_0857E884:	@ 0x0857E884
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_0821200C		@ voicegroup/tone
+	.word	voicegroup032		@ voicegroup/tone
 
 	.word	Song_0857E884_1		@ track
 
@@ -232646,7 +232646,7 @@ Song_0857E8A0:	@ 0x0857E8A0
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_0821200C		@ voicegroup/tone
+	.word	voicegroup032		@ voicegroup/tone
 
 	.word	Song_0857E8A0_1		@ track
 
@@ -232680,7 +232680,7 @@ Song_0857E8BC:	@ 0x0857E8BC
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_0821200C		@ voicegroup/tone
+	.word	voicegroup032		@ voicegroup/tone
 
 	.word	Song_0857E8BC_1		@ track
 
@@ -232714,7 +232714,7 @@ Song_0857E8D8:	@ 0x0857E8D8
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_0821200C		@ voicegroup/tone
+	.word	voicegroup032		@ voicegroup/tone
 
 	.word	Song_0857E8D8_1		@ track
 
@@ -232780,7 +232780,7 @@ Song_0857E914:	@ 0x0857E914
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_0821200C		@ voicegroup/tone
+	.word	voicegroup032		@ voicegroup/tone
 
 	.word	Song_0857E914_1		@ track
 
@@ -232814,7 +232814,7 @@ Song_0857E930:	@ 0x0857E930
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_0821200C		@ voicegroup/tone
+	.word	voicegroup032		@ voicegroup/tone
 
 	.word	Song_0857E930_1		@ track
 
@@ -232848,7 +232848,7 @@ Song_0857E94C:	@ 0x0857E94C
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_0821200C		@ voicegroup/tone
+	.word	voicegroup032		@ voicegroup/tone
 
 	.word	Song_0857E94C_1		@ track
 
@@ -232882,7 +232882,7 @@ Song_0857E968:	@ 0x0857E968
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_0821200C		@ voicegroup/tone
+	.word	voicegroup032		@ voicegroup/tone
 
 	.word	Song_0857E968_1		@ track
 
@@ -232916,7 +232916,7 @@ Song_0857E984:	@ 0x0857E984
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_0821200C		@ voicegroup/tone
+	.word	voicegroup032		@ voicegroup/tone
 
 	.word	Song_0857E984_1		@ track
 
@@ -232950,7 +232950,7 @@ Song_0857E9A0:	@ 0x0857E9A0
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_0821200C		@ voicegroup/tone
+	.word	voicegroup032		@ voicegroup/tone
 
 	.word	Song_0857E9A0_1		@ track
 
@@ -232984,7 +232984,7 @@ Song_0857E9BC:	@ 0x0857E9BC
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_0821200C		@ voicegroup/tone
+	.word	voicegroup032		@ voicegroup/tone
 
 	.word	Song_0857E9BC_1		@ track
 
@@ -233150,7 +233150,7 @@ Song_0857EA5C:	@ 0x0857EA5C
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_0821200C		@ voicegroup/tone
+	.word	voicegroup032		@ voicegroup/tone
 
 	.word	Song_0857EA5C_1		@ track
 
@@ -233248,7 +233248,7 @@ Song_0857EAB8:	@ 0x0857EAB8
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_0821200C		@ voicegroup/tone
+	.word	voicegroup032		@ voicegroup/tone
 
 	.word	Song_0857EAB8_1		@ track
 
@@ -233350,7 +233350,7 @@ Song_0857EB18:	@ 0x0857EB18
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_0821200C		@ voicegroup/tone
+	.word	voicegroup032		@ voicegroup/tone
 
 	.word	Song_0857EB18_1		@ track
 
@@ -233480,7 +233480,7 @@ Song_0857EB94:	@ 0x0857EB94
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_0821200C		@ voicegroup/tone
+	.word	voicegroup032		@ voicegroup/tone
 
 	.word	Song_0857EB94_1		@ track
 
@@ -233514,7 +233514,7 @@ Song_0857EBB0:	@ 0x0857EBB0
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_0821200C		@ voicegroup/tone
+	.word	voicegroup032		@ voicegroup/tone
 
 	.word	Song_0857EBB0_1		@ track
 
@@ -233552,7 +233552,7 @@ Song_0857EBD0:	@ 0x0857EBD0
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_0821200C		@ voicegroup/tone
+	.word	voicegroup032		@ voicegroup/tone
 
 	.word	Song_0857EBD0_1		@ track
 
@@ -233586,7 +233586,7 @@ Song_0857EBEC:	@ 0x0857EBEC
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_0821200C		@ voicegroup/tone
+	.word	voicegroup032		@ voicegroup/tone
 
 	.word	Song_0857EBEC_1		@ track
 
@@ -233620,7 +233620,7 @@ Song_0857EC08:	@ 0x0857EC08
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_0821200C		@ voicegroup/tone
+	.word	voicegroup032		@ voicegroup/tone
 
 	.word	Song_0857EC08_1		@ track
 
@@ -233654,7 +233654,7 @@ Song_0857EC24:	@ 0x0857EC24
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_0821200C		@ voicegroup/tone
+	.word	voicegroup032		@ voicegroup/tone
 
 	.word	Song_0857EC24_1		@ track
 
@@ -233688,7 +233688,7 @@ Song_0857EC40:	@ 0x0857EC40
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_0821200C		@ voicegroup/tone
+	.word	voicegroup032		@ voicegroup/tone
 
 	.word	Song_0857EC40_1		@ track
 
@@ -233722,7 +233722,7 @@ Song_0857EC5C:	@ 0x0857EC5C
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_0821200C		@ voicegroup/tone
+	.word	voicegroup032		@ voicegroup/tone
 
 	.word	Song_0857EC5C_1		@ track
 
@@ -233756,7 +233756,7 @@ Song_0857EC78:	@ 0x0857EC78
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08212564		@ voicegroup/tone
+	.word	voicegroup033		@ voicegroup/tone
 
 	.word	Song_0857EC78_1		@ track
 
@@ -233790,7 +233790,7 @@ Song_0857EC94:	@ 0x0857EC94
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08212564		@ voicegroup/tone
+	.word	voicegroup033		@ voicegroup/tone
 
 	.word	Song_0857EC94_1		@ track
 
@@ -233824,7 +233824,7 @@ Song_0857ECB0:	@ 0x0857ECB0
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08212564		@ voicegroup/tone
+	.word	voicegroup033		@ voicegroup/tone
 
 	.word	Song_0857ECB0_1		@ track
 
@@ -233858,7 +233858,7 @@ Song_0857ECCC:	@ 0x0857ECCC
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08212564		@ voicegroup/tone
+	.word	voicegroup033		@ voicegroup/tone
 
 	.word	Song_0857ECCC_1		@ track
 
@@ -233996,7 +233996,7 @@ Song_0857ED50:	@ 0x0857ED50
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08212564		@ voicegroup/tone
+	.word	voicegroup033		@ voicegroup/tone
 
 	.word	Song_0857ED50_1		@ track
 
@@ -234110,7 +234110,7 @@ Song_0857EDBC:	@ 0x0857EDBC
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08212564		@ voicegroup/tone
+	.word	voicegroup033		@ voicegroup/tone
 
 	.word	Song_0857EDBC_1		@ track
 
@@ -234144,7 +234144,7 @@ Song_0857EDD8:	@ 0x0857EDD8
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08212564		@ voicegroup/tone
+	.word	voicegroup033		@ voicegroup/tone
 
 	.word	Song_0857EDD8_1		@ track
 
@@ -234310,7 +234310,7 @@ Song_0857EE78:	@ 0x0857EE78
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08212564		@ voicegroup/tone
+	.word	voicegroup033		@ voicegroup/tone
 
 	.word	Song_0857EE78_1		@ track
 
@@ -234412,7 +234412,7 @@ Song_0857EED8:	@ 0x0857EED8
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08212564		@ voicegroup/tone
+	.word	voicegroup033		@ voicegroup/tone
 
 	.word	Song_0857EED8_1		@ track
 
@@ -234482,7 +234482,7 @@ Song_0857EF18:	@ 0x0857EF18
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08212564		@ voicegroup/tone
+	.word	voicegroup033		@ voicegroup/tone
 
 	.word	Song_0857EF18_1		@ track
 
@@ -234516,7 +234516,7 @@ Song_0857EF34:	@ 0x0857EF34
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08212564		@ voicegroup/tone
+	.word	voicegroup033		@ voicegroup/tone
 
 	.word	Song_0857EF34_1		@ track
 
@@ -234626,7 +234626,7 @@ Song_0857EF9C:	@ 0x0857EF9C
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08212564		@ voicegroup/tone
+	.word	voicegroup033		@ voicegroup/tone
 
 	.word	Song_0857EF9C_1		@ track
 
@@ -234748,7 +234748,7 @@ Song_0857F010:	@ 0x0857F010
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08212564		@ voicegroup/tone
+	.word	voicegroup033		@ voicegroup/tone
 
 	.word	Song_0857F010_1		@ track
 
@@ -234870,7 +234870,7 @@ Song_0857F084:	@ 0x0857F084
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08212564		@ voicegroup/tone
+	.word	voicegroup033		@ voicegroup/tone
 
 	.word	Song_0857F084_1		@ track
 
@@ -235016,7 +235016,7 @@ Song_0857F110:	@ 0x0857F110
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08212564		@ voicegroup/tone
+	.word	voicegroup033		@ voicegroup/tone
 
 	.word	Song_0857F110_1		@ track
 
@@ -235122,7 +235122,7 @@ Song_0857F174:	@ 0x0857F174
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08212564		@ voicegroup/tone
+	.word	voicegroup033		@ voicegroup/tone
 
 	.word	Song_0857F174_1		@ track
 
@@ -235232,7 +235232,7 @@ Song_0857F1DC:	@ 0x0857F1DC
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08212564		@ voicegroup/tone
+	.word	voicegroup033		@ voicegroup/tone
 
 	.word	Song_0857F1DC_1		@ track
 
@@ -235482,7 +235482,7 @@ Song_0857F2D0:	@ 0x0857F2D0
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08212564		@ voicegroup/tone
+	.word	voicegroup033		@ voicegroup/tone
 
 	.word	Song_0857F2D0_1		@ track
 
@@ -235568,7 +235568,7 @@ Song_0857F320:	@ 0x0857F320
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08212564		@ voicegroup/tone
+	.word	voicegroup033		@ voicegroup/tone
 
 	.word	Song_0857F320_1		@ track
 
@@ -235702,7 +235702,7 @@ Song_0857F3A0:	@ 0x0857F3A0
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08212564		@ voicegroup/tone
+	.word	voicegroup033		@ voicegroup/tone
 
 	.word	Song_0857F3A0_1		@ track
 
@@ -235836,7 +235836,7 @@ Song_0857F420:	@ 0x0857F420
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08212564		@ voicegroup/tone
+	.word	voicegroup033		@ voicegroup/tone
 
 	.word	Song_0857F420_1		@ track
 
@@ -235950,7 +235950,7 @@ Song_0857F48C:	@ 0x0857F48C
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08212564		@ voicegroup/tone
+	.word	voicegroup033		@ voicegroup/tone
 
 	.word	Song_0857F48C_1		@ track
 
@@ -236064,7 +236064,7 @@ Song_0857F4F8:	@ 0x0857F4F8
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08212564		@ voicegroup/tone
+	.word	voicegroup033		@ voicegroup/tone
 
 	.word	Song_0857F4F8_1		@ track
 
@@ -236186,7 +236186,7 @@ Song_0857F56C:	@ 0x0857F56C
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08212564		@ voicegroup/tone
+	.word	voicegroup033		@ voicegroup/tone
 
 	.word	Song_0857F56C_1		@ track
 
@@ -236308,7 +236308,7 @@ Song_0857F5E0:	@ 0x0857F5E0
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08212564		@ voicegroup/tone
+	.word	voicegroup033		@ voicegroup/tone
 
 	.word	Song_0857F5E0_1		@ track
 
@@ -236542,7 +236542,7 @@ Song_0857F6C4:	@ 0x0857F6C4
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08212564		@ voicegroup/tone
+	.word	voicegroup033		@ voicegroup/tone
 
 	.word	Song_0857F6C4_1		@ track
 
@@ -236600,7 +236600,7 @@ Song_0857F6F8:	@ 0x0857F6F8
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08212564		@ voicegroup/tone
+	.word	voicegroup033		@ voicegroup/tone
 
 	.word	Song_0857F6F8_1		@ track
 
@@ -236634,7 +236634,7 @@ Song_0857F714:	@ 0x0857F714
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08212564		@ voicegroup/tone
+	.word	voicegroup033		@ voicegroup/tone
 
 	.word	Song_0857F714_1		@ track
 
@@ -236668,7 +236668,7 @@ Song_0857F730:	@ 0x0857F730
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08212564		@ voicegroup/tone
+	.word	voicegroup033		@ voicegroup/tone
 
 	.word	Song_0857F730_1		@ track
 
@@ -236702,7 +236702,7 @@ Song_0857F74C:	@ 0x0857F74C
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08212564		@ voicegroup/tone
+	.word	voicegroup033		@ voicegroup/tone
 
 	.word	Song_0857F74C_1		@ track
 
@@ -236736,7 +236736,7 @@ Song_0857F768:	@ 0x0857F768
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08212564		@ voicegroup/tone
+	.word	voicegroup033		@ voicegroup/tone
 
 	.word	Song_0857F768_1		@ track
 
@@ -236794,7 +236794,7 @@ Song_0857F79C:	@ 0x0857F79C
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08212564		@ voicegroup/tone
+	.word	voicegroup033		@ voicegroup/tone
 
 	.word	Song_0857F79C_1		@ track
 
@@ -236840,7 +236840,7 @@ Song_0857F7C4:	@ 0x0857F7C4
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08212564		@ voicegroup/tone
+	.word	voicegroup033		@ voicegroup/tone
 
 	.word	Song_0857F7C4_1		@ track
 
@@ -236886,7 +236886,7 @@ Song_0857F7EC:	@ 0x0857F7EC
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08212564		@ voicegroup/tone
+	.word	voicegroup033		@ voicegroup/tone
 
 	.word	Song_0857F7EC_1		@ track
 
@@ -237284,7 +237284,7 @@ Song_0857F974:	@ 0x0857F974
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08212564		@ voicegroup/tone
+	.word	voicegroup033		@ voicegroup/tone
 
 	.word	Song_0857F974_1		@ track
 
@@ -237322,7 +237322,7 @@ Song_0857F994:	@ 0x0857F994
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08212564		@ voicegroup/tone
+	.word	voicegroup033		@ voicegroup/tone
 
 	.word	Song_0857F994_1		@ track
 
@@ -237360,7 +237360,7 @@ Song_0857F9B4:	@ 0x0857F9B4
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08212564		@ voicegroup/tone
+	.word	voicegroup033		@ voicegroup/tone
 
 	.word	Song_0857F9B4_1		@ track
 
@@ -237394,7 +237394,7 @@ Song_0857F9D0:	@ 0x0857F9D0
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08212564		@ voicegroup/tone
+	.word	voicegroup033		@ voicegroup/tone
 
 	.word	Song_0857F9D0_1		@ track
 
@@ -237460,7 +237460,7 @@ Song_0857FA0C:	@ 0x0857FA0C
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08212564		@ voicegroup/tone
+	.word	voicegroup033		@ voicegroup/tone
 
 	.word	Song_0857FA0C_1		@ track
 
@@ -237494,7 +237494,7 @@ Song_0857FA28:	@ 0x0857FA28
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08212564		@ voicegroup/tone
+	.word	voicegroup033		@ voicegroup/tone
 
 	.word	Song_0857FA28_1		@ track
 
@@ -237576,7 +237576,7 @@ Song_0857FA74:	@ 0x0857FA74
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08212564		@ voicegroup/tone
+	.word	voicegroup033		@ voicegroup/tone
 
 	.word	Song_0857FA74_1		@ track
 
@@ -237674,7 +237674,7 @@ Song_0857FAD0:	@ 0x0857FAD0
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08212564		@ voicegroup/tone
+	.word	voicegroup033		@ voicegroup/tone
 
 	.word	Song_0857FAD0_1		@ track
 
@@ -237772,7 +237772,7 @@ Song_0857FB2C:	@ 0x0857FB2C
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08212564		@ voicegroup/tone
+	.word	voicegroup033		@ voicegroup/tone
 
 	.word	Song_0857FB2C_1		@ track
 
@@ -237810,7 +237810,7 @@ Song_0857FB4C:	@ 0x0857FB4C
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08212564		@ voicegroup/tone
+	.word	voicegroup033		@ voicegroup/tone
 
 	.word	Song_0857FB4C_1		@ track
 
@@ -237844,7 +237844,7 @@ Song_0857FB68:	@ 0x0857FB68
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08212564		@ voicegroup/tone
+	.word	voicegroup033		@ voicegroup/tone
 
 	.word	Song_0857FB68_1		@ track
 
@@ -237902,7 +237902,7 @@ Song_0857FB9C:	@ 0x0857FB9C
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08212564		@ voicegroup/tone
+	.word	voicegroup033		@ voicegroup/tone
 
 	.word	Song_0857FB9C_1		@ track
 
@@ -237972,7 +237972,7 @@ Song_0857FBDC:	@ 0x0857FBDC
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08212564		@ voicegroup/tone
+	.word	voicegroup033		@ voicegroup/tone
 
 	.word	Song_0857FBDC_1		@ track
 
@@ -238034,7 +238034,7 @@ Song_0857FC14:	@ 0x0857FC14
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08212564		@ voicegroup/tone
+	.word	voicegroup033		@ voicegroup/tone
 
 	.word	Song_0857FC14_1		@ track
 
@@ -238068,7 +238068,7 @@ Song_0857FC30:	@ 0x0857FC30
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_0821200C		@ voicegroup/tone
+	.word	voicegroup032		@ voicegroup/tone
 
 	.word	Song_0857FC30_1		@ track
 
@@ -238186,7 +238186,7 @@ Song_0857FCA0:	@ 0x0857FCA0
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_0821200C		@ voicegroup/tone
+	.word	voicegroup032		@ voicegroup/tone
 
 	.word	Song_0857FCA0_1		@ track
 
@@ -238424,7 +238424,7 @@ Song_0857FD88:	@ 0x0857FD88
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08212564		@ voicegroup/tone
+	.word	voicegroup033		@ voicegroup/tone
 
 	.word	Song_0857FD88_1		@ track
 
@@ -238462,7 +238462,7 @@ Song_0857FDA8:	@ 0x0857FDA8
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08212564		@ voicegroup/tone
+	.word	voicegroup033		@ voicegroup/tone
 
 	.word	Song_0857FDA8_1		@ track
 
@@ -238500,7 +238500,7 @@ Song_0857FDC8:	@ 0x0857FDC8
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08212564		@ voicegroup/tone
+	.word	voicegroup033		@ voicegroup/tone
 
 	.word	Song_0857FDC8_1		@ track
 
@@ -238534,7 +238534,7 @@ Song_0857FDE4:	@ 0x0857FDE4
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08212564		@ voicegroup/tone
+	.word	voicegroup033		@ voicegroup/tone
 
 	.word	Song_0857FDE4_1		@ track
 
@@ -238680,7 +238680,7 @@ Song_0857FE70:	@ 0x0857FE70
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08212564		@ voicegroup/tone
+	.word	voicegroup033		@ voicegroup/tone
 
 	.word	Song_0857FE70_1		@ track
 
@@ -238714,7 +238714,7 @@ Song_0857FE8C:	@ 0x0857FE8C
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08212564		@ voicegroup/tone
+	.word	voicegroup033		@ voicegroup/tone
 
 	.word	Song_0857FE8C_1		@ track
 
@@ -239055,7 +239055,7 @@ Song_0857FFCC:	@ 0x0857FFCC
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08213584		@ voicegroup/tone
+	.word	voicegroup038		@ voicegroup/tone
 
 	.word	Song_0857FFCC_1		@ track
 	.word	Song_0857FFCC_2		@ track
@@ -240265,7 +240265,7 @@ Song_08580470:	@ 0x08580470
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08213584		@ voicegroup/tone
+	.word	voicegroup038		@ voicegroup/tone
 
 	.word	Song_08580470_1		@ track
 	.word	Song_08580470_2		@ track
@@ -241724,7 +241724,7 @@ Song_08580A18:	@ 0x08580A18
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08213584		@ voicegroup/tone
+	.word	voicegroup038		@ voicegroup/tone
 
 	.word	Song_08580A18_1		@ track
 	.word	Song_08580A18_2		@ track
@@ -243791,7 +243791,7 @@ Song_08581218:	@ 0x08581218
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08213584		@ voicegroup/tone
+	.word	voicegroup038		@ voicegroup/tone
 
 	.word	Song_08581218_1		@ track
 	.word	Song_08581218_2		@ track
@@ -243854,7 +243854,7 @@ Song_08581260:	@ 0x08581260
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08212564		@ voicegroup/tone
+	.word	voicegroup033		@ voicegroup/tone
 
 	.word	Song_08581260_1		@ track
 
@@ -243888,7 +243888,7 @@ Song_0858127C:	@ 0x0858127C
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08212870		@ voicegroup/tone
+	.word	voicegroup034		@ voicegroup/tone
 
 	.word	Song_0858127C_1		@ track
 
@@ -243922,7 +243922,7 @@ Song_08581298:	@ 0x08581298
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08212870		@ voicegroup/tone
+	.word	voicegroup034		@ voicegroup/tone
 
 	.word	Song_08581298_1		@ track
 
@@ -243956,7 +243956,7 @@ Song_085812B4:	@ 0x085812B4
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08212870		@ voicegroup/tone
+	.word	voicegroup034		@ voicegroup/tone
 
 	.word	Song_085812B4_1		@ track
 
@@ -243990,7 +243990,7 @@ Song_085812D0:	@ 0x085812D0
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08212870		@ voicegroup/tone
+	.word	voicegroup034		@ voicegroup/tone
 
 	.word	Song_085812D0_1		@ track
 
@@ -244024,7 +244024,7 @@ Song_085812EC:	@ 0x085812EC
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08212870		@ voicegroup/tone
+	.word	voicegroup034		@ voicegroup/tone
 
 	.word	Song_085812EC_1		@ track
 
@@ -244058,7 +244058,7 @@ Song_08581308:	@ 0x08581308
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08212870		@ voicegroup/tone
+	.word	voicegroup034		@ voicegroup/tone
 
 	.word	Song_08581308_1		@ track
 
@@ -244092,7 +244092,7 @@ Song_08581324:	@ 0x08581324
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08212870		@ voicegroup/tone
+	.word	voicegroup034		@ voicegroup/tone
 
 	.word	Song_08581324_1		@ track
 
@@ -244126,7 +244126,7 @@ Song_08581340:	@ 0x08581340
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08212870		@ voicegroup/tone
+	.word	voicegroup034		@ voicegroup/tone
 
 	.word	Song_08581340_1		@ track
 
@@ -244160,7 +244160,7 @@ Song_0858135C:	@ 0x0858135C
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08212870		@ voicegroup/tone
+	.word	voicegroup034		@ voicegroup/tone
 
 	.word	Song_0858135C_1		@ track
 
@@ -244194,7 +244194,7 @@ Song_08581378:	@ 0x08581378
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08212870		@ voicegroup/tone
+	.word	voicegroup034		@ voicegroup/tone
 
 	.word	Song_08581378_1		@ track
 
@@ -244228,7 +244228,7 @@ Song_08581394:	@ 0x08581394
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08212870		@ voicegroup/tone
+	.word	voicegroup034		@ voicegroup/tone
 
 	.word	Song_08581394_1		@ track
 
@@ -244262,7 +244262,7 @@ Song_085813B0:	@ 0x085813B0
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08212870		@ voicegroup/tone
+	.word	voicegroup034		@ voicegroup/tone
 
 	.word	Song_085813B0_1		@ track
 
@@ -244296,7 +244296,7 @@ Song_085813CC:	@ 0x085813CC
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08212870		@ voicegroup/tone
+	.word	voicegroup034		@ voicegroup/tone
 
 	.word	Song_085813CC_1		@ track
 
@@ -244330,7 +244330,7 @@ Song_085813E8:	@ 0x085813E8
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08212870		@ voicegroup/tone
+	.word	voicegroup034		@ voicegroup/tone
 
 	.word	Song_085813E8_1		@ track
 
@@ -244364,7 +244364,7 @@ Song_08581404:	@ 0x08581404
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08212870		@ voicegroup/tone
+	.word	voicegroup034		@ voicegroup/tone
 
 	.word	Song_08581404_1		@ track
 
@@ -244398,7 +244398,7 @@ Song_08581420:	@ 0x08581420
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08212870		@ voicegroup/tone
+	.word	voicegroup034		@ voicegroup/tone
 
 	.word	Song_08581420_1		@ track
 
@@ -244432,7 +244432,7 @@ Song_0858143C:	@ 0x0858143C
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08212870		@ voicegroup/tone
+	.word	voicegroup034		@ voicegroup/tone
 
 	.word	Song_0858143C_1		@ track
 
@@ -244466,7 +244466,7 @@ Song_08581458:	@ 0x08581458
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08212870		@ voicegroup/tone
+	.word	voicegroup034		@ voicegroup/tone
 
 	.word	Song_08581458_1		@ track
 
@@ -244500,7 +244500,7 @@ Song_08581474:	@ 0x08581474
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08212870		@ voicegroup/tone
+	.word	voicegroup034		@ voicegroup/tone
 
 	.word	Song_08581474_1		@ track
 
@@ -244534,7 +244534,7 @@ Song_08581490:	@ 0x08581490
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08212870		@ voicegroup/tone
+	.word	voicegroup034		@ voicegroup/tone
 
 	.word	Song_08581490_1		@ track
 
@@ -244568,7 +244568,7 @@ Song_085814AC:	@ 0x085814AC
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08212870		@ voicegroup/tone
+	.word	voicegroup034		@ voicegroup/tone
 
 	.word	Song_085814AC_1		@ track
 
@@ -244602,7 +244602,7 @@ Song_085814C8:	@ 0x085814C8
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08212870		@ voicegroup/tone
+	.word	voicegroup034		@ voicegroup/tone
 
 	.word	Song_085814C8_1		@ track
 
@@ -244636,7 +244636,7 @@ Song_085814E4:	@ 0x085814E4
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08212870		@ voicegroup/tone
+	.word	voicegroup034		@ voicegroup/tone
 
 	.word	Song_085814E4_1		@ track
 
@@ -244670,7 +244670,7 @@ Song_08581500:	@ 0x08581500
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08212870		@ voicegroup/tone
+	.word	voicegroup034		@ voicegroup/tone
 
 	.word	Song_08581500_1		@ track
 
@@ -244704,7 +244704,7 @@ Song_0858151C:	@ 0x0858151C
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08212870		@ voicegroup/tone
+	.word	voicegroup034		@ voicegroup/tone
 
 	.word	Song_0858151C_1		@ track
 
@@ -244738,7 +244738,7 @@ Song_08581538:	@ 0x08581538
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08212870		@ voicegroup/tone
+	.word	voicegroup034		@ voicegroup/tone
 
 	.word	Song_08581538_1		@ track
 
@@ -244772,7 +244772,7 @@ Song_08581554:	@ 0x08581554
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08212870		@ voicegroup/tone
+	.word	voicegroup034		@ voicegroup/tone
 
 	.word	Song_08581554_1		@ track
 
@@ -244806,7 +244806,7 @@ Song_08581570:	@ 0x08581570
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08212870		@ voicegroup/tone
+	.word	voicegroup034		@ voicegroup/tone
 
 	.word	Song_08581570_1		@ track
 
@@ -244840,7 +244840,7 @@ Song_0858158C:	@ 0x0858158C
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08212870		@ voicegroup/tone
+	.word	voicegroup034		@ voicegroup/tone
 
 	.word	Song_0858158C_1		@ track
 
@@ -244874,7 +244874,7 @@ Song_085815A8:	@ 0x085815A8
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08212870		@ voicegroup/tone
+	.word	voicegroup034		@ voicegroup/tone
 
 	.word	Song_085815A8_1		@ track
 
@@ -244908,7 +244908,7 @@ Song_085815C4:	@ 0x085815C4
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08212870		@ voicegroup/tone
+	.word	voicegroup034		@ voicegroup/tone
 
 	.word	Song_085815C4_1		@ track
 
@@ -244942,7 +244942,7 @@ Song_085815E0:	@ 0x085815E0
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08212870		@ voicegroup/tone
+	.word	voicegroup034		@ voicegroup/tone
 
 	.word	Song_085815E0_1		@ track
 
@@ -244976,7 +244976,7 @@ Song_085815FC:	@ 0x085815FC
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08212870		@ voicegroup/tone
+	.word	voicegroup034		@ voicegroup/tone
 
 	.word	Song_085815FC_1		@ track
 
@@ -245010,7 +245010,7 @@ Song_08581618:	@ 0x08581618
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08212870		@ voicegroup/tone
+	.word	voicegroup034		@ voicegroup/tone
 
 	.word	Song_08581618_1		@ track
 
@@ -245044,7 +245044,7 @@ Song_08581634:	@ 0x08581634
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08212870		@ voicegroup/tone
+	.word	voicegroup034		@ voicegroup/tone
 
 	.word	Song_08581634_1		@ track
 
@@ -245078,7 +245078,7 @@ Song_08581650:	@ 0x08581650
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08212870		@ voicegroup/tone
+	.word	voicegroup034		@ voicegroup/tone
 
 	.word	Song_08581650_1		@ track
 
@@ -245112,7 +245112,7 @@ Song_0858166C:	@ 0x0858166C
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08212870		@ voicegroup/tone
+	.word	voicegroup034		@ voicegroup/tone
 
 	.word	Song_0858166C_1		@ track
 
@@ -245146,7 +245146,7 @@ Song_08581688:	@ 0x08581688
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08212870		@ voicegroup/tone
+	.word	voicegroup034		@ voicegroup/tone
 
 	.word	Song_08581688_1		@ track
 
@@ -245180,7 +245180,7 @@ Song_085816A4:	@ 0x085816A4
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08212870		@ voicegroup/tone
+	.word	voicegroup034		@ voicegroup/tone
 
 	.word	Song_085816A4_1		@ track
 
@@ -245214,7 +245214,7 @@ Song_085816C0:	@ 0x085816C0
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08212870		@ voicegroup/tone
+	.word	voicegroup034		@ voicegroup/tone
 
 	.word	Song_085816C0_1		@ track
 
@@ -245248,7 +245248,7 @@ Song_085816DC:	@ 0x085816DC
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08212870		@ voicegroup/tone
+	.word	voicegroup034		@ voicegroup/tone
 
 	.word	Song_085816DC_1		@ track
 
@@ -245282,7 +245282,7 @@ Song_085816F8:	@ 0x085816F8
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08212870		@ voicegroup/tone
+	.word	voicegroup034		@ voicegroup/tone
 
 	.word	Song_085816F8_1		@ track
 
@@ -245316,7 +245316,7 @@ Song_08581714:	@ 0x08581714
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08212870		@ voicegroup/tone
+	.word	voicegroup034		@ voicegroup/tone
 
 	.word	Song_08581714_1		@ track
 
@@ -245350,7 +245350,7 @@ Song_08581730:	@ 0x08581730
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08212870		@ voicegroup/tone
+	.word	voicegroup034		@ voicegroup/tone
 
 	.word	Song_08581730_1		@ track
 
@@ -245384,7 +245384,7 @@ Song_0858174C:	@ 0x0858174C
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08212870		@ voicegroup/tone
+	.word	voicegroup034		@ voicegroup/tone
 
 	.word	Song_0858174C_1		@ track
 
@@ -245418,7 +245418,7 @@ Song_08581768:	@ 0x08581768
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08212870		@ voicegroup/tone
+	.word	voicegroup034		@ voicegroup/tone
 
 	.word	Song_08581768_1		@ track
 
@@ -245452,7 +245452,7 @@ Song_08581784:	@ 0x08581784
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08212870		@ voicegroup/tone
+	.word	voicegroup034		@ voicegroup/tone
 
 	.word	Song_08581784_1		@ track
 
@@ -245486,7 +245486,7 @@ Song_085817A0:	@ 0x085817A0
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08212870		@ voicegroup/tone
+	.word	voicegroup034		@ voicegroup/tone
 
 	.word	Song_085817A0_1		@ track
 
@@ -245520,7 +245520,7 @@ Song_085817BC:	@ 0x085817BC
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08212870		@ voicegroup/tone
+	.word	voicegroup034		@ voicegroup/tone
 
 	.word	Song_085817BC_1		@ track
 
@@ -245554,7 +245554,7 @@ Song_085817D8:	@ 0x085817D8
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08212870		@ voicegroup/tone
+	.word	voicegroup034		@ voicegroup/tone
 
 	.word	Song_085817D8_1		@ track
 
@@ -245588,7 +245588,7 @@ Song_085817F4:	@ 0x085817F4
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08212870		@ voicegroup/tone
+	.word	voicegroup034		@ voicegroup/tone
 
 	.word	Song_085817F4_1		@ track
 
@@ -245622,7 +245622,7 @@ Song_08581810:	@ 0x08581810
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08212870		@ voicegroup/tone
+	.word	voicegroup034		@ voicegroup/tone
 
 	.word	Song_08581810_1		@ track
 
@@ -245656,7 +245656,7 @@ Song_0858182C:	@ 0x0858182C
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08212870		@ voicegroup/tone
+	.word	voicegroup034		@ voicegroup/tone
 
 	.word	Song_0858182C_1		@ track
 
@@ -245690,7 +245690,7 @@ Song_08581848:	@ 0x08581848
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08212870		@ voicegroup/tone
+	.word	voicegroup034		@ voicegroup/tone
 
 	.word	Song_08581848_1		@ track
 
@@ -245724,7 +245724,7 @@ Song_08581864:	@ 0x08581864
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08212870		@ voicegroup/tone
+	.word	voicegroup034		@ voicegroup/tone
 
 	.word	Song_08581864_1		@ track
 
@@ -245758,7 +245758,7 @@ Song_08581880:	@ 0x08581880
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08212870		@ voicegroup/tone
+	.word	voicegroup034		@ voicegroup/tone
 
 	.word	Song_08581880_1		@ track
 
@@ -245792,7 +245792,7 @@ Song_0858189C:	@ 0x0858189C
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08212E34		@ voicegroup/tone
+	.word	voicegroup035		@ voicegroup/tone
 
 	.word	Song_0858189C_1		@ track
 
@@ -245826,7 +245826,7 @@ Song_085818B8:	@ 0x085818B8
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08212E34		@ voicegroup/tone
+	.word	voicegroup035		@ voicegroup/tone
 
 	.word	Song_085818B8_1		@ track
 
@@ -245860,7 +245860,7 @@ Song_085818D4:	@ 0x085818D4
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08212E34		@ voicegroup/tone
+	.word	voicegroup035		@ voicegroup/tone
 
 	.word	Song_085818D4_1		@ track
 
@@ -245894,7 +245894,7 @@ Song_085818F0:	@ 0x085818F0
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08212E34		@ voicegroup/tone
+	.word	voicegroup035		@ voicegroup/tone
 
 	.word	Song_085818F0_1		@ track
 
@@ -245928,7 +245928,7 @@ Song_0858190C:	@ 0x0858190C
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08212E34		@ voicegroup/tone
+	.word	voicegroup035		@ voicegroup/tone
 
 	.word	Song_0858190C_1		@ track
 
@@ -245962,7 +245962,7 @@ Song_08581928:	@ 0x08581928
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08212E34		@ voicegroup/tone
+	.word	voicegroup035		@ voicegroup/tone
 
 	.word	Song_08581928_1		@ track
 
@@ -245996,7 +245996,7 @@ Song_08581944:	@ 0x08581944
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08212E34		@ voicegroup/tone
+	.word	voicegroup035		@ voicegroup/tone
 
 	.word	Song_08581944_1		@ track
 
@@ -246030,7 +246030,7 @@ Song_08581960:	@ 0x08581960
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08212E34		@ voicegroup/tone
+	.word	voicegroup035		@ voicegroup/tone
 
 	.word	Song_08581960_1		@ track
 
@@ -246064,7 +246064,7 @@ Song_0858197C:	@ 0x0858197C
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08212E34		@ voicegroup/tone
+	.word	voicegroup035		@ voicegroup/tone
 
 	.word	Song_0858197C_1		@ track
 
@@ -246098,7 +246098,7 @@ Song_08581998:	@ 0x08581998
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08212E34		@ voicegroup/tone
+	.word	voicegroup035		@ voicegroup/tone
 
 	.word	Song_08581998_1		@ track
 
@@ -246132,7 +246132,7 @@ Song_085819B4:	@ 0x085819B4
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08212E34		@ voicegroup/tone
+	.word	voicegroup035		@ voicegroup/tone
 
 	.word	Song_085819B4_1		@ track
 
@@ -246166,7 +246166,7 @@ Song_085819D0:	@ 0x085819D0
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08212E34		@ voicegroup/tone
+	.word	voicegroup035		@ voicegroup/tone
 
 	.word	Song_085819D0_1		@ track
 
@@ -246200,7 +246200,7 @@ Song_085819EC:	@ 0x085819EC
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08212E34		@ voicegroup/tone
+	.word	voicegroup035		@ voicegroup/tone
 
 	.word	Song_085819EC_1		@ track
 
@@ -246234,7 +246234,7 @@ Song_08581A08:	@ 0x08581A08
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08212E34		@ voicegroup/tone
+	.word	voicegroup035		@ voicegroup/tone
 
 	.word	Song_08581A08_1		@ track
 
@@ -246268,7 +246268,7 @@ Song_08581A24:	@ 0x08581A24
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08212E34		@ voicegroup/tone
+	.word	voicegroup035		@ voicegroup/tone
 
 	.word	Song_08581A24_1		@ track
 
@@ -246302,7 +246302,7 @@ Song_08581A40:	@ 0x08581A40
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08212E34		@ voicegroup/tone
+	.word	voicegroup035		@ voicegroup/tone
 
 	.word	Song_08581A40_1		@ track
 
@@ -246336,7 +246336,7 @@ Song_08581A5C:	@ 0x08581A5C
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08212E34		@ voicegroup/tone
+	.word	voicegroup035		@ voicegroup/tone
 
 	.word	Song_08581A5C_1		@ track
 
@@ -246370,7 +246370,7 @@ Song_08581A78:	@ 0x08581A78
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08212E34		@ voicegroup/tone
+	.word	voicegroup035		@ voicegroup/tone
 
 	.word	Song_08581A78_1		@ track
 
@@ -246404,7 +246404,7 @@ Song_08581A94:	@ 0x08581A94
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08212E34		@ voicegroup/tone
+	.word	voicegroup035		@ voicegroup/tone
 
 	.word	Song_08581A94_1		@ track
 
@@ -246438,7 +246438,7 @@ Song_08581AB0:	@ 0x08581AB0
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08212E34		@ voicegroup/tone
+	.word	voicegroup035		@ voicegroup/tone
 
 	.word	Song_08581AB0_1		@ track
 
@@ -246472,7 +246472,7 @@ Song_08581ACC:	@ 0x08581ACC
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08212E34		@ voicegroup/tone
+	.word	voicegroup035		@ voicegroup/tone
 
 	.word	Song_08581ACC_1		@ track
 
@@ -246506,7 +246506,7 @@ Song_08581AE8:	@ 0x08581AE8
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08212E34		@ voicegroup/tone
+	.word	voicegroup035		@ voicegroup/tone
 
 	.word	Song_08581AE8_1		@ track
 
@@ -246540,7 +246540,7 @@ Song_08581B04:	@ 0x08581B04
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08212E34		@ voicegroup/tone
+	.word	voicegroup035		@ voicegroup/tone
 
 	.word	Song_08581B04_1		@ track
 
@@ -246574,7 +246574,7 @@ Song_08581B20:	@ 0x08581B20
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08212E34		@ voicegroup/tone
+	.word	voicegroup035		@ voicegroup/tone
 
 	.word	Song_08581B20_1		@ track
 
@@ -246608,7 +246608,7 @@ Song_08581B3C:	@ 0x08581B3C
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08212E34		@ voicegroup/tone
+	.word	voicegroup035		@ voicegroup/tone
 
 	.word	Song_08581B3C_1		@ track
 
@@ -246642,7 +246642,7 @@ Song_08581B58:	@ 0x08581B58
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08212E34		@ voicegroup/tone
+	.word	voicegroup035		@ voicegroup/tone
 
 	.word	Song_08581B58_1		@ track
 
@@ -246676,7 +246676,7 @@ Song_08581B74:	@ 0x08581B74
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08212E34		@ voicegroup/tone
+	.word	voicegroup035		@ voicegroup/tone
 
 	.word	Song_08581B74_1		@ track
 
@@ -246710,7 +246710,7 @@ Song_08581B90:	@ 0x08581B90
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08212E34		@ voicegroup/tone
+	.word	voicegroup035		@ voicegroup/tone
 
 	.word	Song_08581B90_1		@ track
 
@@ -246744,7 +246744,7 @@ Song_08581BAC:	@ 0x08581BAC
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08212E34		@ voicegroup/tone
+	.word	voicegroup035		@ voicegroup/tone
 
 	.word	Song_08581BAC_1		@ track
 
@@ -246778,7 +246778,7 @@ Song_08581BC8:	@ 0x08581BC8
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08212E34		@ voicegroup/tone
+	.word	voicegroup035		@ voicegroup/tone
 
 	.word	Song_08581BC8_1		@ track
 
@@ -246812,7 +246812,7 @@ Song_08581BE4:	@ 0x08581BE4
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08212E34		@ voicegroup/tone
+	.word	voicegroup035		@ voicegroup/tone
 
 	.word	Song_08581BE4_1		@ track
 
@@ -246846,7 +246846,7 @@ Song_08581C00:	@ 0x08581C00
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08212E34		@ voicegroup/tone
+	.word	voicegroup035		@ voicegroup/tone
 
 	.word	Song_08581C00_1		@ track
 
@@ -246880,7 +246880,7 @@ Song_08581C1C:	@ 0x08581C1C
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08212E34		@ voicegroup/tone
+	.word	voicegroup035		@ voicegroup/tone
 
 	.word	Song_08581C1C_1		@ track
 
@@ -246914,7 +246914,7 @@ Song_08581C38:	@ 0x08581C38
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08212E34		@ voicegroup/tone
+	.word	voicegroup035		@ voicegroup/tone
 
 	.word	Song_08581C38_1		@ track
 
@@ -246948,7 +246948,7 @@ Song_08581C54:	@ 0x08581C54
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08212E34		@ voicegroup/tone
+	.word	voicegroup035		@ voicegroup/tone
 
 	.word	Song_08581C54_1		@ track
 
@@ -246982,7 +246982,7 @@ Song_08581C70:	@ 0x08581C70
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08212E34		@ voicegroup/tone
+	.word	voicegroup035		@ voicegroup/tone
 
 	.word	Song_08581C70_1		@ track
 
@@ -247016,7 +247016,7 @@ Song_08581C8C:	@ 0x08581C8C
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08212E34		@ voicegroup/tone
+	.word	voicegroup035		@ voicegroup/tone
 
 	.word	Song_08581C8C_1		@ track
 
@@ -247050,7 +247050,7 @@ Song_08581CA8:	@ 0x08581CA8
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08212E34		@ voicegroup/tone
+	.word	voicegroup035		@ voicegroup/tone
 
 	.word	Song_08581CA8_1		@ track
 
@@ -247084,7 +247084,7 @@ Song_08581CC4:	@ 0x08581CC4
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08212E34		@ voicegroup/tone
+	.word	voicegroup035		@ voicegroup/tone
 
 	.word	Song_08581CC4_1		@ track
 
@@ -247118,7 +247118,7 @@ Song_08581CE0:	@ 0x08581CE0
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08212E34		@ voicegroup/tone
+	.word	voicegroup035		@ voicegroup/tone
 
 	.word	Song_08581CE0_1		@ track
 
@@ -247152,7 +247152,7 @@ Song_08581CFC:	@ 0x08581CFC
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08212E34		@ voicegroup/tone
+	.word	voicegroup035		@ voicegroup/tone
 
 	.word	Song_08581CFC_1		@ track
 
@@ -247186,7 +247186,7 @@ Song_08581D18:	@ 0x08581D18
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08212E34		@ voicegroup/tone
+	.word	voicegroup035		@ voicegroup/tone
 
 	.word	Song_08581D18_1		@ track
 
@@ -247220,7 +247220,7 @@ Song_08581D34:	@ 0x08581D34
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08212E34		@ voicegroup/tone
+	.word	voicegroup035		@ voicegroup/tone
 
 	.word	Song_08581D34_1		@ track
 
@@ -247254,7 +247254,7 @@ Song_08581D50:	@ 0x08581D50
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08212E34		@ voicegroup/tone
+	.word	voicegroup035		@ voicegroup/tone
 
 	.word	Song_08581D50_1		@ track
 
@@ -247288,7 +247288,7 @@ Song_08581D6C:	@ 0x08581D6C
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08212E34		@ voicegroup/tone
+	.word	voicegroup035		@ voicegroup/tone
 
 	.word	Song_08581D6C_1		@ track
 
@@ -247322,7 +247322,7 @@ Song_08581D88:	@ 0x08581D88
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08212E34		@ voicegroup/tone
+	.word	voicegroup035		@ voicegroup/tone
 
 	.word	Song_08581D88_1		@ track
 
@@ -247356,7 +247356,7 @@ Song_08581DA4:	@ 0x08581DA4
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08212E34		@ voicegroup/tone
+	.word	voicegroup035		@ voicegroup/tone
 
 	.word	Song_08581DA4_1		@ track
 
@@ -247390,7 +247390,7 @@ Song_08581DC0:	@ 0x08581DC0
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08212E34		@ voicegroup/tone
+	.word	voicegroup035		@ voicegroup/tone
 
 	.word	Song_08581DC0_1		@ track
 
@@ -247424,7 +247424,7 @@ Song_08581DDC:	@ 0x08581DDC
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08212E34		@ voicegroup/tone
+	.word	voicegroup035		@ voicegroup/tone
 
 	.word	Song_08581DDC_1		@ track
 
@@ -247458,7 +247458,7 @@ Song_08581DF8:	@ 0x08581DF8
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08212E34		@ voicegroup/tone
+	.word	voicegroup035		@ voicegroup/tone
 
 	.word	Song_08581DF8_1		@ track
 
@@ -247492,7 +247492,7 @@ Song_08581E14:	@ 0x08581E14
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08212E34		@ voicegroup/tone
+	.word	voicegroup035		@ voicegroup/tone
 
 	.word	Song_08581E14_1		@ track
 
@@ -247526,7 +247526,7 @@ Song_08581E30:	@ 0x08581E30
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08212E34		@ voicegroup/tone
+	.word	voicegroup035		@ voicegroup/tone
 
 	.word	Song_08581E30_1		@ track
 
@@ -247560,7 +247560,7 @@ Song_08581E4C:	@ 0x08581E4C
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08212E34		@ voicegroup/tone
+	.word	voicegroup035		@ voicegroup/tone
 
 	.word	Song_08581E4C_1		@ track
 
@@ -247594,7 +247594,7 @@ Song_08581E68:	@ 0x08581E68
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08212E34		@ voicegroup/tone
+	.word	voicegroup035		@ voicegroup/tone
 
 	.word	Song_08581E68_1		@ track
 
@@ -247628,7 +247628,7 @@ Song_08581E84:	@ 0x08581E84
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08212E34		@ voicegroup/tone
+	.word	voicegroup035		@ voicegroup/tone
 
 	.word	Song_08581E84_1		@ track
 
@@ -247662,7 +247662,7 @@ Song_08581EA0:	@ 0x08581EA0
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08212E34		@ voicegroup/tone
+	.word	voicegroup035		@ voicegroup/tone
 
 	.word	Song_08581EA0_1		@ track
 
@@ -247696,7 +247696,7 @@ Song_08581EBC:	@ 0x08581EBC
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08212E34		@ voicegroup/tone
+	.word	voicegroup035		@ voicegroup/tone
 
 	.word	Song_08581EBC_1		@ track
 
@@ -247730,7 +247730,7 @@ Song_08581ED8:	@ 0x08581ED8
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08212E34		@ voicegroup/tone
+	.word	voicegroup035		@ voicegroup/tone
 
 	.word	Song_08581ED8_1		@ track
 
@@ -247764,7 +247764,7 @@ Song_08581EF4:	@ 0x08581EF4
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08212E34		@ voicegroup/tone
+	.word	voicegroup035		@ voicegroup/tone
 
 	.word	Song_08581EF4_1		@ track
 
@@ -247798,7 +247798,7 @@ Song_08581F10:	@ 0x08581F10
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08212E34		@ voicegroup/tone
+	.word	voicegroup035		@ voicegroup/tone
 
 	.word	Song_08581F10_1		@ track
 
@@ -247832,7 +247832,7 @@ Song_08581F2C:	@ 0x08581F2C
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08212E34		@ voicegroup/tone
+	.word	voicegroup035		@ voicegroup/tone
 
 	.word	Song_08581F2C_1		@ track
 
@@ -247866,7 +247866,7 @@ Song_08581F48:	@ 0x08581F48
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08212E34		@ voicegroup/tone
+	.word	voicegroup035		@ voicegroup/tone
 
 	.word	Song_08581F48_1		@ track
 
@@ -247900,7 +247900,7 @@ Song_08581F64:	@ 0x08581F64
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08212E34		@ voicegroup/tone
+	.word	voicegroup035		@ voicegroup/tone
 
 	.word	Song_08581F64_1		@ track
 
@@ -247934,7 +247934,7 @@ Song_08581F80:	@ 0x08581F80
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08212E34		@ voicegroup/tone
+	.word	voicegroup035		@ voicegroup/tone
 
 	.word	Song_08581F80_1		@ track
 
@@ -247968,7 +247968,7 @@ Song_08581F9C:	@ 0x08581F9C
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08212E34		@ voicegroup/tone
+	.word	voicegroup035		@ voicegroup/tone
 
 	.word	Song_08581F9C_1		@ track
 
@@ -248002,7 +248002,7 @@ Song_08581FB8:	@ 0x08581FB8
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08212E34		@ voicegroup/tone
+	.word	voicegroup035		@ voicegroup/tone
 
 	.word	Song_08581FB8_1		@ track
 
@@ -248036,7 +248036,7 @@ Song_08581FD4:	@ 0x08581FD4
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08212E34		@ voicegroup/tone
+	.word	voicegroup035		@ voicegroup/tone
 
 	.word	Song_08581FD4_1		@ track
 
@@ -248070,7 +248070,7 @@ Song_08581FF0:	@ 0x08581FF0
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08212E34		@ voicegroup/tone
+	.word	voicegroup035		@ voicegroup/tone
 
 	.word	Song_08581FF0_1		@ track
 
@@ -248104,7 +248104,7 @@ Song_0858200C:	@ 0x0858200C
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08212E34		@ voicegroup/tone
+	.word	voicegroup035		@ voicegroup/tone
 
 	.word	Song_0858200C_1		@ track
 
@@ -248138,7 +248138,7 @@ Song_08582028:	@ 0x08582028
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08212E34		@ voicegroup/tone
+	.word	voicegroup035		@ voicegroup/tone
 
 	.word	Song_08582028_1		@ track
 
@@ -248172,7 +248172,7 @@ Song_08582044:	@ 0x08582044
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08212E34		@ voicegroup/tone
+	.word	voicegroup035		@ voicegroup/tone
 
 	.word	Song_08582044_1		@ track
 
@@ -248206,7 +248206,7 @@ Song_08582060:	@ 0x08582060
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08212E34		@ voicegroup/tone
+	.word	voicegroup035		@ voicegroup/tone
 
 	.word	Song_08582060_1		@ track
 
@@ -248240,7 +248240,7 @@ Song_0858207C:	@ 0x0858207C
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08212E34		@ voicegroup/tone
+	.word	voicegroup035		@ voicegroup/tone
 
 	.word	Song_0858207C_1		@ track
 
@@ -248274,7 +248274,7 @@ Song_08582098:	@ 0x08582098
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08212E34		@ voicegroup/tone
+	.word	voicegroup035		@ voicegroup/tone
 
 	.word	Song_08582098_1		@ track
 
@@ -248308,7 +248308,7 @@ Song_085820B4:	@ 0x085820B4
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08212E34		@ voicegroup/tone
+	.word	voicegroup035		@ voicegroup/tone
 
 	.word	Song_085820B4_1		@ track
 
@@ -248342,7 +248342,7 @@ Song_085820D0:	@ 0x085820D0
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08212E34		@ voicegroup/tone
+	.word	voicegroup035		@ voicegroup/tone
 
 	.word	Song_085820D0_1		@ track
 
@@ -248376,7 +248376,7 @@ Song_085820EC:	@ 0x085820EC
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08212E34		@ voicegroup/tone
+	.word	voicegroup035		@ voicegroup/tone
 
 	.word	Song_085820EC_1		@ track
 
@@ -248410,7 +248410,7 @@ Song_08582108:	@ 0x08582108
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08212E34		@ voicegroup/tone
+	.word	voicegroup035		@ voicegroup/tone
 
 	.word	Song_08582108_1		@ track
 
@@ -248444,7 +248444,7 @@ Song_08582124:	@ 0x08582124
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08212E34		@ voicegroup/tone
+	.word	voicegroup035		@ voicegroup/tone
 
 	.word	Song_08582124_1		@ track
 
@@ -248478,7 +248478,7 @@ Song_08582140:	@ 0x08582140
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08212E34		@ voicegroup/tone
+	.word	voicegroup035		@ voicegroup/tone
 
 	.word	Song_08582140_1		@ track
 
@@ -248512,7 +248512,7 @@ Song_0858215C:	@ 0x0858215C
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08212E34		@ voicegroup/tone
+	.word	voicegroup035		@ voicegroup/tone
 
 	.word	Song_0858215C_1		@ track
 
@@ -248546,7 +248546,7 @@ Song_08582178:	@ 0x08582178
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08212E34		@ voicegroup/tone
+	.word	voicegroup035		@ voicegroup/tone
 
 	.word	Song_08582178_1		@ track
 
@@ -248580,7 +248580,7 @@ Song_08582194:	@ 0x08582194
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08212E34		@ voicegroup/tone
+	.word	voicegroup035		@ voicegroup/tone
 
 	.word	Song_08582194_1		@ track
 
@@ -248614,7 +248614,7 @@ Song_085821B0:	@ 0x085821B0
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08212E34		@ voicegroup/tone
+	.word	voicegroup035		@ voicegroup/tone
 
 	.word	Song_085821B0_1		@ track
 
@@ -248648,7 +248648,7 @@ Song_085821CC:	@ 0x085821CC
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08212E34		@ voicegroup/tone
+	.word	voicegroup035		@ voicegroup/tone
 
 	.word	Song_085821CC_1		@ track
 
@@ -248682,7 +248682,7 @@ Song_085821E8:	@ 0x085821E8
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08212E34		@ voicegroup/tone
+	.word	voicegroup035		@ voicegroup/tone
 
 	.word	Song_085821E8_1		@ track
 
@@ -248716,7 +248716,7 @@ Song_08582204:	@ 0x08582204
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08212E34		@ voicegroup/tone
+	.word	voicegroup035		@ voicegroup/tone
 
 	.word	Song_08582204_1		@ track
 
@@ -248750,7 +248750,7 @@ Song_08582220:	@ 0x08582220
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08212E34		@ voicegroup/tone
+	.word	voicegroup035		@ voicegroup/tone
 
 	.word	Song_08582220_1		@ track
 
@@ -248784,7 +248784,7 @@ Song_0858223C:	@ 0x0858223C
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08212E34		@ voicegroup/tone
+	.word	voicegroup035		@ voicegroup/tone
 
 	.word	Song_0858223C_1		@ track
 
@@ -248818,7 +248818,7 @@ Song_08582258:	@ 0x08582258
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08212E34		@ voicegroup/tone
+	.word	voicegroup035		@ voicegroup/tone
 
 	.word	Song_08582258_1		@ track
 
@@ -248852,7 +248852,7 @@ Song_08582274:	@ 0x08582274
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08212E34		@ voicegroup/tone
+	.word	voicegroup035		@ voicegroup/tone
 
 	.word	Song_08582274_1		@ track
 
@@ -248886,7 +248886,7 @@ Song_08582290:	@ 0x08582290
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08212E34		@ voicegroup/tone
+	.word	voicegroup035		@ voicegroup/tone
 
 	.word	Song_08582290_1		@ track
 
@@ -248920,7 +248920,7 @@ Song_085822AC:	@ 0x085822AC
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08212E34		@ voicegroup/tone
+	.word	voicegroup035		@ voicegroup/tone
 
 	.word	Song_085822AC_1		@ track
 
@@ -248954,7 +248954,7 @@ Song_085822C8:	@ 0x085822C8
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08212E34		@ voicegroup/tone
+	.word	voicegroup035		@ voicegroup/tone
 
 	.word	Song_085822C8_1		@ track
 
@@ -248988,7 +248988,7 @@ Song_085822E4:	@ 0x085822E4
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08212E34		@ voicegroup/tone
+	.word	voicegroup035		@ voicegroup/tone
 
 	.word	Song_085822E4_1		@ track
 
@@ -249022,7 +249022,7 @@ Song_08582300:	@ 0x08582300
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08212E34		@ voicegroup/tone
+	.word	voicegroup035		@ voicegroup/tone
 
 	.word	Song_08582300_1		@ track
 
@@ -249056,7 +249056,7 @@ Song_0858231C:	@ 0x0858231C
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08212E34		@ voicegroup/tone
+	.word	voicegroup035		@ voicegroup/tone
 
 	.word	Song_0858231C_1		@ track
 
@@ -249090,7 +249090,7 @@ Song_08582338:	@ 0x08582338
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08212E34		@ voicegroup/tone
+	.word	voicegroup035		@ voicegroup/tone
 
 	.word	Song_08582338_1		@ track
 
@@ -249124,7 +249124,7 @@ Song_08582354:	@ 0x08582354
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08212E34		@ voicegroup/tone
+	.word	voicegroup035		@ voicegroup/tone
 
 	.word	Song_08582354_1		@ track
 
@@ -249158,7 +249158,7 @@ Song_08582370:	@ 0x08582370
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08212E34		@ voicegroup/tone
+	.word	voicegroup035		@ voicegroup/tone
 
 	.word	Song_08582370_1		@ track
 
@@ -249192,7 +249192,7 @@ Song_0858238C:	@ 0x0858238C
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08212E34		@ voicegroup/tone
+	.word	voicegroup035		@ voicegroup/tone
 
 	.word	Song_0858238C_1		@ track
 
@@ -249226,7 +249226,7 @@ Song_085823A8:	@ 0x085823A8
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08212E34		@ voicegroup/tone
+	.word	voicegroup035		@ voicegroup/tone
 
 	.word	Song_085823A8_1		@ track
 
@@ -249260,7 +249260,7 @@ Song_085823C4:	@ 0x085823C4
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08212E34		@ voicegroup/tone
+	.word	voicegroup035		@ voicegroup/tone
 
 	.word	Song_085823C4_1		@ track
 
@@ -249294,7 +249294,7 @@ Song_085823E0:	@ 0x085823E0
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08212E34		@ voicegroup/tone
+	.word	voicegroup035		@ voicegroup/tone
 
 	.word	Song_085823E0_1		@ track
 
@@ -249328,7 +249328,7 @@ Song_085823FC:	@ 0x085823FC
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08212E34		@ voicegroup/tone
+	.word	voicegroup035		@ voicegroup/tone
 
 	.word	Song_085823FC_1		@ track
 
@@ -249362,7 +249362,7 @@ Song_08582418:	@ 0x08582418
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08212E34		@ voicegroup/tone
+	.word	voicegroup035		@ voicegroup/tone
 
 	.word	Song_08582418_1		@ track
 
@@ -249396,7 +249396,7 @@ Song_08582434:	@ 0x08582434
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08212E34		@ voicegroup/tone
+	.word	voicegroup035		@ voicegroup/tone
 
 	.word	Song_08582434_1		@ track
 
@@ -249430,7 +249430,7 @@ Song_08582450:	@ 0x08582450
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08212E34		@ voicegroup/tone
+	.word	voicegroup035		@ voicegroup/tone
 
 	.word	Song_08582450_1		@ track
 
@@ -249464,7 +249464,7 @@ Song_0858246C:	@ 0x0858246C
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08212E34		@ voicegroup/tone
+	.word	voicegroup035		@ voicegroup/tone
 
 	.word	Song_0858246C_1		@ track
 
@@ -249498,7 +249498,7 @@ Song_08582488:	@ 0x08582488
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08212E34		@ voicegroup/tone
+	.word	voicegroup035		@ voicegroup/tone
 
 	.word	Song_08582488_1		@ track
 
@@ -249532,7 +249532,7 @@ Song_085824A4:	@ 0x085824A4
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08212E34		@ voicegroup/tone
+	.word	voicegroup035		@ voicegroup/tone
 
 	.word	Song_085824A4_1		@ track
 
@@ -249566,7 +249566,7 @@ Song_085824C0:	@ 0x085824C0
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08212E34		@ voicegroup/tone
+	.word	voicegroup035		@ voicegroup/tone
 
 	.word	Song_085824C0_1		@ track
 
@@ -249600,7 +249600,7 @@ Song_085824DC:	@ 0x085824DC
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08212E34		@ voicegroup/tone
+	.word	voicegroup035		@ voicegroup/tone
 
 	.word	Song_085824DC_1		@ track
 
@@ -249634,7 +249634,7 @@ Song_085824F8:	@ 0x085824F8
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08212E34		@ voicegroup/tone
+	.word	voicegroup035		@ voicegroup/tone
 
 	.word	Song_085824F8_1		@ track
 
@@ -249668,7 +249668,7 @@ Song_08582514:	@ 0x08582514
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08212E34		@ voicegroup/tone
+	.word	voicegroup035		@ voicegroup/tone
 
 	.word	Song_08582514_1		@ track
 
@@ -249702,7 +249702,7 @@ Song_08582530:	@ 0x08582530
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08212E34		@ voicegroup/tone
+	.word	voicegroup035		@ voicegroup/tone
 
 	.word	Song_08582530_1		@ track
 
@@ -249736,7 +249736,7 @@ Song_0858254C:	@ 0x0858254C
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08212E34		@ voicegroup/tone
+	.word	voicegroup035		@ voicegroup/tone
 
 	.word	Song_0858254C_1		@ track
 
@@ -249770,7 +249770,7 @@ Song_08582568:	@ 0x08582568
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08212E34		@ voicegroup/tone
+	.word	voicegroup035		@ voicegroup/tone
 
 	.word	Song_08582568_1		@ track
 
@@ -249804,7 +249804,7 @@ Song_08582584:	@ 0x08582584
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08212E34		@ voicegroup/tone
+	.word	voicegroup035		@ voicegroup/tone
 
 	.word	Song_08582584_1		@ track
 
@@ -249838,7 +249838,7 @@ Song_085825A0:	@ 0x085825A0
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08212E34		@ voicegroup/tone
+	.word	voicegroup035		@ voicegroup/tone
 
 	.word	Song_085825A0_1		@ track
 
@@ -249872,7 +249872,7 @@ Song_085825BC:	@ 0x085825BC
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08212E34		@ voicegroup/tone
+	.word	voicegroup035		@ voicegroup/tone
 
 	.word	Song_085825BC_1		@ track
 
@@ -249906,7 +249906,7 @@ Song_085825D8:	@ 0x085825D8
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08212E34		@ voicegroup/tone
+	.word	voicegroup035		@ voicegroup/tone
 
 	.word	Song_085825D8_1		@ track
 
@@ -249940,7 +249940,7 @@ Song_085825F4:	@ 0x085825F4
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08212E34		@ voicegroup/tone
+	.word	voicegroup035		@ voicegroup/tone
 
 	.word	Song_085825F4_1		@ track
 
@@ -249974,7 +249974,7 @@ Song_08582610:	@ 0x08582610
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08212E34		@ voicegroup/tone
+	.word	voicegroup035		@ voicegroup/tone
 
 	.word	Song_08582610_1		@ track
 
@@ -250008,7 +250008,7 @@ Song_0858262C:	@ 0x0858262C
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08212E34		@ voicegroup/tone
+	.word	voicegroup035		@ voicegroup/tone
 
 	.word	Song_0858262C_1		@ track
 
@@ -250042,7 +250042,7 @@ Song_08582648:	@ 0x08582648
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08212E34		@ voicegroup/tone
+	.word	voicegroup035		@ voicegroup/tone
 
 	.word	Song_08582648_1		@ track
 
@@ -250076,7 +250076,7 @@ Song_08582664:	@ 0x08582664
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08212870		@ voicegroup/tone
+	.word	voicegroup034		@ voicegroup/tone
 
 	.word	Song_08582664_1		@ track
 
@@ -250110,7 +250110,7 @@ Song_08582680:	@ 0x08582680
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08212870		@ voicegroup/tone
+	.word	voicegroup034		@ voicegroup/tone
 
 	.word	Song_08582680_1		@ track
 
@@ -250144,7 +250144,7 @@ Song_0858269C:	@ 0x0858269C
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08212870		@ voicegroup/tone
+	.word	voicegroup034		@ voicegroup/tone
 
 	.word	Song_0858269C_1		@ track
 
@@ -250178,7 +250178,7 @@ Song_085826B8:	@ 0x085826B8
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08212870		@ voicegroup/tone
+	.word	voicegroup034		@ voicegroup/tone
 
 	.word	Song_085826B8_1		@ track
 
@@ -250212,7 +250212,7 @@ Song_085826D4:	@ 0x085826D4
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08212870		@ voicegroup/tone
+	.word	voicegroup034		@ voicegroup/tone
 
 	.word	Song_085826D4_1		@ track
 
@@ -250246,7 +250246,7 @@ Song_085826F0:	@ 0x085826F0
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08212870		@ voicegroup/tone
+	.word	voicegroup034		@ voicegroup/tone
 
 	.word	Song_085826F0_1		@ track
 
@@ -250280,7 +250280,7 @@ Song_0858270C:	@ 0x0858270C
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08212870		@ voicegroup/tone
+	.word	voicegroup034		@ voicegroup/tone
 
 	.word	Song_0858270C_1		@ track
 
@@ -250747,7 +250747,7 @@ Song_085828D4:	@ 0x085828D4
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08211BEC		@ voicegroup/tone
+	.word	voicegroup031		@ voicegroup/tone
 
 	.word	Song_085828D4_1		@ track
 	.word	Song_085828D4_2		@ track
@@ -250826,7 +250826,7 @@ Song_0858297C_1:	@ 0x085828E4
 	.byte	0x81
 	.byte	0x20
 	.byte	0x81
-Song_08582929:
+Song_0858297C_1_1:
 	.byte	0xC0
 	.byte	0x60
 	.byte	0x81
@@ -250878,13 +250878,13 @@ Song_08582929:
 	.byte	0x81
 	.byte	0xB4
 	.byte	0xB3
-	.word	Song_08582929
+	.word	Song_0858297C_1_1
 	.byte	0xB3
-	.word	Song_08582929
+	.word	Song_0858297C_1_1
 	.byte	0xB3
-	.word	Song_08582929
+	.word	Song_0858297C_1_1
 	.byte	0xB2
-	.word	Song_08582929
+	.word	Song_0858297C_1_1
 	.byte	0x88
 	.byte	0xCE
 	.byte	0x34
@@ -250907,7 +250907,7 @@ Song_0858297C:	@ 0x0858297C
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08211BEC		@ voicegroup/tone
+	.word	voicegroup031		@ voicegroup/tone
 
 	.word	Song_0858297C_1		@ track
 
@@ -250985,7 +250985,7 @@ Song_085829C4:	@ 0x085829C4
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08211BEC		@ voicegroup/tone
+	.word	voicegroup031		@ voicegroup/tone
 
 	.word	Song_085829C4_1		@ track
 
@@ -251019,7 +251019,7 @@ Song_085829E0:	@ 0x085829E0
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08211BEC		@ voicegroup/tone
+	.word	voicegroup031		@ voicegroup/tone
 
 	.word	Song_085829E0_1		@ track
 
@@ -251053,7 +251053,7 @@ Song_085829FC:	@ 0x085829FC
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08213170		@ voicegroup/tone
+	.word	voicegroup036		@ voicegroup/tone
 
 	.word	Song_085829FC_1		@ track
 
@@ -251087,7 +251087,7 @@ Song_08582A18:	@ 0x08582A18
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08213170		@ voicegroup/tone
+	.word	voicegroup036		@ voicegroup/tone
 
 	.word	Song_08582A18_1		@ track
 
@@ -251121,7 +251121,7 @@ Song_08582A34:	@ 0x08582A34
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08213170		@ voicegroup/tone
+	.word	voicegroup036		@ voicegroup/tone
 
 	.word	Song_08582A34_1		@ track
 
@@ -251155,7 +251155,7 @@ Song_08582A50:	@ 0x08582A50
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08213170		@ voicegroup/tone
+	.word	voicegroup036		@ voicegroup/tone
 
 	.word	Song_08582A50_1		@ track
 
@@ -251189,7 +251189,7 @@ Song_08582A6C:	@ 0x08582A6C
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08213170		@ voicegroup/tone
+	.word	voicegroup036		@ voicegroup/tone
 
 	.word	Song_08582A6C_1		@ track
 
@@ -251223,7 +251223,7 @@ Song_08582A88:	@ 0x08582A88
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08213170		@ voicegroup/tone
+	.word	voicegroup036		@ voicegroup/tone
 
 	.word	Song_08582A88_1		@ track
 
@@ -251257,7 +251257,7 @@ Song_08582AA4:	@ 0x08582AA4
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08213170		@ voicegroup/tone
+	.word	voicegroup036		@ voicegroup/tone
 
 	.word	Song_08582AA4_1		@ track
 
@@ -251291,7 +251291,7 @@ Song_08582AC0:	@ 0x08582AC0
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08213170		@ voicegroup/tone
+	.word	voicegroup036		@ voicegroup/tone
 
 	.word	Song_08582AC0_1		@ track
 
@@ -251325,7 +251325,7 @@ Song_08582ADC:	@ 0x08582ADC
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08213170		@ voicegroup/tone
+	.word	voicegroup036		@ voicegroup/tone
 
 	.word	Song_08582ADC_1		@ track
 
@@ -251359,7 +251359,7 @@ Song_08582AF8:	@ 0x08582AF8
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08213170		@ voicegroup/tone
+	.word	voicegroup036		@ voicegroup/tone
 
 	.word	Song_08582AF8_1		@ track
 
@@ -251393,7 +251393,7 @@ Song_08582B14:	@ 0x08582B14
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08213170		@ voicegroup/tone
+	.word	voicegroup036		@ voicegroup/tone
 
 	.word	Song_08582B14_1		@ track
 
@@ -251427,7 +251427,7 @@ Song_08582B30:	@ 0x08582B30
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08213170		@ voicegroup/tone
+	.word	voicegroup036		@ voicegroup/tone
 
 	.word	Song_08582B30_1		@ track
 
@@ -251461,7 +251461,7 @@ Song_08582B4C:	@ 0x08582B4C
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08213170		@ voicegroup/tone
+	.word	voicegroup036		@ voicegroup/tone
 
 	.word	Song_08582B4C_1		@ track
 
@@ -251520,7 +251520,7 @@ Song_08582B7C:	@ 0x08582B7C
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08213170		@ voicegroup/tone
+	.word	voicegroup036		@ voicegroup/tone
 
 	.word	Song_08582B7C_1		@ track
 	.word	Song_08582B7C_2		@ track
@@ -251555,7 +251555,7 @@ Song_08582B9C:	@ 0x08582B9C
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08213170		@ voicegroup/tone
+	.word	voicegroup036		@ voicegroup/tone
 
 	.word	Song_08582B9C_1		@ track
 
@@ -251610,7 +251610,7 @@ Song_08582BC8:	@ 0x08582BC8
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08213170		@ voicegroup/tone
+	.word	voicegroup036		@ voicegroup/tone
 
 	.word	Song_08582BC8_1		@ track
 	.word	Song_08582BC8_2		@ track
@@ -251670,7 +251670,7 @@ Song_08582BFC:	@ 0x08582BFC
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08213170		@ voicegroup/tone
+	.word	voicegroup036		@ voicegroup/tone
 
 	.word	Song_08582BFC_1		@ track
 	.word	Song_08582BFC_2		@ track
@@ -252614,7 +252614,7 @@ Song_08582FA4:	@ 0x08582FA4
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08213584		@ voicegroup/tone
+	.word	voicegroup038		@ voicegroup/tone
 
 	.word	Song_08582FA4_1		@ track
 	.word	Song_08582FA4_2		@ track
@@ -253070,7 +253070,7 @@ Song_08583164:	@ 0x08583164
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08213584		@ voicegroup/tone
+	.word	voicegroup038		@ voicegroup/tone
 
 	.word	Song_08583164_1		@ track
 	.word	Song_08583164_2		@ track
@@ -253105,7 +253105,7 @@ Song_08583184:	@ 0x08583184
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08213584		@ voicegroup/tone
+	.word	voicegroup038		@ voicegroup/tone
 
 	.word	Song_08583184_1		@ track
 
@@ -253168,7 +253168,7 @@ Song_085831B8:	@ 0x085831B8
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08213170		@ voicegroup/tone
+	.word	voicegroup036		@ voicegroup/tone
 
 	.word	Song_085831B8_1		@ track
 	.word	Song_085831B8_2		@ track
@@ -253203,7 +253203,7 @@ Song_085831D8:	@ 0x085831D8
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08213170		@ voicegroup/tone
+	.word	voicegroup036		@ voicegroup/tone
 
 	.word	Song_085831D8_1		@ track
 
@@ -253262,7 +253262,7 @@ Song_08583208:	@ 0x08583208
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08213170		@ voicegroup/tone
+	.word	voicegroup036		@ voicegroup/tone
 
 	.word	Song_08583208_1		@ track
 	.word	Song_08583208_2		@ track
@@ -253297,7 +253297,7 @@ Song_08583228:	@ 0x08583228
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08213170		@ voicegroup/tone
+	.word	voicegroup036		@ voicegroup/tone
 
 	.word	Song_08583228_1		@ track
 
@@ -253331,7 +253331,7 @@ Song_08583244:	@ 0x08583244
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08213170		@ voicegroup/tone
+	.word	voicegroup036		@ voicegroup/tone
 
 	.word	Song_08583244_1		@ track
 
@@ -253398,7 +253398,7 @@ Song_0858327C:	@ 0x0858327C
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08213170		@ voicegroup/tone
+	.word	voicegroup036		@ voicegroup/tone
 
 	.word	Song_0858327C_1		@ track
 	.word	Song_0858327C_2		@ track
@@ -253557,7 +253557,7 @@ Song_08583318:	@ 0x08583318
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08213170		@ voicegroup/tone
+	.word	voicegroup036		@ voicegroup/tone
 
 	.word	Song_08583318_1		@ track
 
@@ -253667,7 +253667,7 @@ Song_08583380:	@ 0x08583380
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08213170		@ voicegroup/tone
+	.word	voicegroup036		@ voicegroup/tone
 
 	.word	Song_08583380_1		@ track
 
@@ -253938,7 +253938,7 @@ Song_08583484:	@ 0x08583484
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08213584		@ voicegroup/tone
+	.word	voicegroup038		@ voicegroup/tone
 
 	.word	Song_08583484_1		@ track
 	.word	Song_08583484_2		@ track
@@ -253973,7 +253973,7 @@ Song_085834A4:	@ 0x085834A4
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08213170		@ voicegroup/tone
+	.word	voicegroup036		@ voicegroup/tone
 
 	.word	Song_085834A4_1		@ track
 
@@ -254031,7 +254031,7 @@ Song_085834D8:	@ 0x085834D8
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08213170		@ voicegroup/tone
+	.word	voicegroup036		@ voicegroup/tone
 
 	.word	Song_085834D8_1		@ track
 
@@ -254089,7 +254089,7 @@ Song_0858350C:	@ 0x0858350C
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08213170		@ voicegroup/tone
+	.word	voicegroup036		@ voicegroup/tone
 
 	.word	Song_0858350C_1		@ track
 
@@ -254127,7 +254127,7 @@ Song_0858352C:	@ 0x0858352C
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08213170		@ voicegroup/tone
+	.word	voicegroup036		@ voicegroup/tone
 
 	.word	Song_0858352C_1		@ track
 
@@ -254189,7 +254189,7 @@ Song_08583564:	@ 0x08583564
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08213170		@ voicegroup/tone
+	.word	voicegroup036		@ voicegroup/tone
 
 	.word	Song_08583564_1		@ track
 
@@ -254303,7 +254303,7 @@ Song_085835D0:	@ 0x085835D0
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08213170		@ voicegroup/tone
+	.word	voicegroup036		@ voicegroup/tone
 
 	.word	Song_085835D0_1		@ track
 
@@ -254413,7 +254413,7 @@ Song_08583638:	@ 0x08583638
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08213170		@ voicegroup/tone
+	.word	voicegroup036		@ voicegroup/tone
 
 	.word	Song_08583638_1		@ track
 
@@ -254527,7 +254527,7 @@ Song_085836A4:	@ 0x085836A4
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08213170		@ voicegroup/tone
+	.word	voicegroup036		@ voicegroup/tone
 
 	.word	Song_085836A4_1		@ track
 
@@ -254937,7 +254937,7 @@ Song_08583838:	@ 0x08583838
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08213170		@ voicegroup/tone
+	.word	voicegroup036		@ voicegroup/tone
 
 	.word	Song_08583838_1		@ track
 
@@ -255348,7 +255348,7 @@ Song_085839C8:	@ 0x085839C8
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08213170		@ voicegroup/tone
+	.word	voicegroup036		@ voicegroup/tone
 
 	.word	Song_085839C8_1		@ track
 	.word	Song_085839C8_2		@ track
@@ -255773,7 +255773,7 @@ Song_08583B64:	@ 0x08583B64
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08213170		@ voicegroup/tone
+	.word	voicegroup036		@ voicegroup/tone
 
 	.word	Song_08583B64_1		@ track
 	.word	Song_08583B64_2		@ track
@@ -256207,7 +256207,7 @@ Song_08583D0C:	@ 0x08583D0C
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_0821200C		@ voicegroup/tone
+	.word	voicegroup032		@ voicegroup/tone
 
 	.word	Song_08583D0C_1		@ track
 	.word	Song_08583D0C_2		@ track
@@ -256255,7 +256255,7 @@ Song_08583D3C:	@ 0x08583D3C
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08213170		@ voicegroup/tone
+	.word	voicegroup036		@ voicegroup/tone
 
 	.word	Song_08583D3C_1		@ track
 
@@ -256289,7 +256289,7 @@ Song_08583D58:	@ 0x08583D58
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08213170		@ voicegroup/tone
+	.word	voicegroup036		@ voicegroup/tone
 
 	.word	Song_08583D58_1		@ track
 
@@ -256371,7 +256371,7 @@ Song_08583DA4:	@ 0x08583DA4
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08213170		@ voicegroup/tone
+	.word	voicegroup036		@ voicegroup/tone
 
 	.word	Song_08583DA4_1		@ track
 
@@ -256441,7 +256441,7 @@ Song_08583DE4:	@ 0x08583DE4
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08213170		@ voicegroup/tone
+	.word	voicegroup036		@ voicegroup/tone
 
 	.word	Song_08583DE4_1		@ track
 
@@ -256475,7 +256475,7 @@ Song_08583E00:	@ 0x08583E00
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08213170		@ voicegroup/tone
+	.word	voicegroup036		@ voicegroup/tone
 
 	.word	Song_08583E00_1		@ track
 
@@ -256530,7 +256530,7 @@ Song_08583E2C:	@ 0x08583E2C
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08213170		@ voicegroup/tone
+	.word	voicegroup036		@ voicegroup/tone
 
 	.word	Song_08583E2C_1		@ track
 	.word	Song_08583E2C_2		@ track
@@ -256565,7 +256565,7 @@ Song_08583E4C:	@ 0x08583E4C
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08213524		@ voicegroup/tone
+	.word	voicegroup037		@ voicegroup/tone
 
 	.word	Song_08583E4C_1		@ track
 
@@ -256599,7 +256599,7 @@ Song_08583E68:	@ 0x08583E68
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08213524		@ voicegroup/tone
+	.word	voicegroup037		@ voicegroup/tone
 
 	.word	Song_08583E68_1		@ track
 
@@ -256633,7 +256633,7 @@ Song_08583E84:	@ 0x08583E84
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08213524		@ voicegroup/tone
+	.word	voicegroup037		@ voicegroup/tone
 
 	.word	Song_08583E84_1		@ track
 
@@ -256667,7 +256667,7 @@ Song_08583EA0:	@ 0x08583EA0
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08213584		@ voicegroup/tone
+	.word	voicegroup038		@ voicegroup/tone
 
 	.word	Song_08583EA0_1		@ track
 
@@ -256701,7 +256701,7 @@ Song_08583EBC:	@ 0x08583EBC
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08213584		@ voicegroup/tone
+	.word	voicegroup038		@ voicegroup/tone
 
 	.word	Song_08583EBC_1		@ track
 
@@ -256735,7 +256735,7 @@ Song_08583ED8:	@ 0x08583ED8
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08213584		@ voicegroup/tone
+	.word	voicegroup038		@ voicegroup/tone
 
 	.word	Song_08583ED8_1		@ track
 
@@ -256769,7 +256769,7 @@ Song_08583EF4:	@ 0x08583EF4
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08213524		@ voicegroup/tone
+	.word	voicegroup037		@ voicegroup/tone
 
 	.word	Song_08583EF4_1		@ track
 
@@ -256803,7 +256803,7 @@ Song_08583F10:	@ 0x08583F10
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08213584		@ voicegroup/tone
+	.word	voicegroup038		@ voicegroup/tone
 
 	.word	Song_08583F10_1		@ track
 
@@ -256854,7 +256854,7 @@ Song_08583F38:	@ 0x08583F38
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08213584		@ voicegroup/tone
+	.word	voicegroup038		@ voicegroup/tone
 
 	.word	Song_08583F38_1		@ track
 	.word	Song_08583F38_2		@ track
@@ -256889,7 +256889,7 @@ Song_08583F58:	@ 0x08583F58
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08213584		@ voicegroup/tone
+	.word	voicegroup038		@ voicegroup/tone
 
 	.word	Song_08583F58_1		@ track
 
@@ -256923,7 +256923,7 @@ Song_08583F74:	@ 0x08583F74
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08213584		@ voicegroup/tone
+	.word	voicegroup038		@ voicegroup/tone
 
 	.word	Song_08583F74_1		@ track
 
@@ -256957,7 +256957,7 @@ Song_08583F90:	@ 0x08583F90
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08213584		@ voicegroup/tone
+	.word	voicegroup038		@ voicegroup/tone
 
 	.word	Song_08583F90_1		@ track
 
@@ -258302,7 +258302,7 @@ Song_085844BC:	@ 0x085844BC
 	.byte	5		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08213584		@ voicegroup/tone
+	.word	voicegroup038		@ voicegroup/tone
 
 	.word	Song_085844BC_1		@ track
 	.word	Song_085844BC_2		@ track
@@ -258339,7 +258339,7 @@ Song_085844E4:	@ 0x085844E4
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08213584		@ voicegroup/tone
+	.word	voicegroup038		@ voicegroup/tone
 
 	.word	Song_085844E4_1		@ track
 
@@ -258373,7 +258373,7 @@ Song_08584500:	@ 0x08584500
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08213B84		@ voicegroup/tone
+	.word	voicegroup039		@ voicegroup/tone
 
 	.word	Song_08584500_1		@ track
 
@@ -258407,7 +258407,7 @@ Song_0858451C:	@ 0x0858451C
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08213B84		@ voicegroup/tone
+	.word	voicegroup039		@ voicegroup/tone
 
 	.word	Song_0858451C_1		@ track
 
@@ -258441,7 +258441,7 @@ Song_08584538:	@ 0x08584538
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08213584		@ voicegroup/tone
+	.word	voicegroup038		@ voicegroup/tone
 
 	.word	Song_08584538_1		@ track
 
@@ -258512,7 +258512,7 @@ Song_08584574:	@ 0x08584574
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08213584		@ voicegroup/tone
+	.word	voicegroup038		@ voicegroup/tone
 
 	.word	Song_08584574_1		@ track
 	.word	Song_08584574_2		@ track
@@ -258580,7 +258580,7 @@ Song_085845B0:	@ 0x085845B0
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08213584		@ voicegroup/tone
+	.word	voicegroup038		@ voicegroup/tone
 
 	.word	Song_085845B0_1		@ track
 	.word	Song_085845B0_2		@ track
@@ -258652,7 +258652,7 @@ Song_085845F0:	@ 0x085845F0
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08213584		@ voicegroup/tone
+	.word	voicegroup038		@ voicegroup/tone
 
 	.word	Song_085845F0_1		@ track
 	.word	Song_085845F0_2		@ track
@@ -258687,7 +258687,7 @@ Song_08584610:	@ 0x08584610
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08213584		@ voicegroup/tone
+	.word	voicegroup038		@ voicegroup/tone
 
 	.word	Song_08584610_1		@ track
 
@@ -258721,7 +258721,7 @@ Song_0858462C:	@ 0x0858462C
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08213584		@ voicegroup/tone
+	.word	voicegroup038		@ voicegroup/tone
 
 	.word	Song_0858462C_1		@ track
 
@@ -258792,7 +258792,7 @@ Song_08584668:	@ 0x08584668
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08213584		@ voicegroup/tone
+	.word	voicegroup038		@ voicegroup/tone
 
 	.word	Song_08584668_1		@ track
 	.word	Song_08584668_2		@ track
@@ -258827,7 +258827,7 @@ Song_08584688:	@ 0x08584688
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08213584		@ voicegroup/tone
+	.word	voicegroup038		@ voicegroup/tone
 
 	.word	Song_08584688_1		@ track
 
@@ -258889,7 +258889,7 @@ Song_085846C0:	@ 0x085846C0
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08213584		@ voicegroup/tone
+	.word	voicegroup038		@ voicegroup/tone
 
 	.word	Song_085846C0_1		@ track
 
@@ -258960,7 +258960,7 @@ Song_085846FC:	@ 0x085846FC
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08213584		@ voicegroup/tone
+	.word	voicegroup038		@ voicegroup/tone
 
 	.word	Song_085846FC_1		@ track
 	.word	Song_085846FC_2		@ track
@@ -259028,7 +259028,7 @@ Song_08584738:	@ 0x08584738
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08213584		@ voicegroup/tone
+	.word	voicegroup038		@ voicegroup/tone
 
 	.word	Song_08584738_1		@ track
 	.word	Song_08584738_2		@ track
@@ -259063,7 +259063,7 @@ Song_08584758:	@ 0x08584758
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08213584		@ voicegroup/tone
+	.word	voicegroup038		@ voicegroup/tone
 
 	.word	Song_08584758_1		@ track
 
@@ -259101,7 +259101,7 @@ Song_08584778:	@ 0x08584778
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08213584		@ voicegroup/tone
+	.word	voicegroup038		@ voicegroup/tone
 
 	.word	Song_08584778_1		@ track
 
@@ -259135,7 +259135,7 @@ Song_08584794:	@ 0x08584794
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08213B84		@ voicegroup/tone
+	.word	voicegroup039		@ voicegroup/tone
 
 	.word	Song_08584794_1		@ track
 
@@ -259169,7 +259169,7 @@ Song_085847B0:	@ 0x085847B0
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08213B84		@ voicegroup/tone
+	.word	voicegroup039		@ voicegroup/tone
 
 	.word	Song_085847B0_1		@ track
 
@@ -259203,7 +259203,7 @@ Song_085847CC:	@ 0x085847CC
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08213584		@ voicegroup/tone
+	.word	voicegroup038		@ voicegroup/tone
 
 	.word	Song_085847CC_1		@ track
 
@@ -259237,7 +259237,7 @@ Song_085847E8:	@ 0x085847E8
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08213584		@ voicegroup/tone
+	.word	voicegroup038		@ voicegroup/tone
 
 	.word	Song_085847E8_1		@ track
 
@@ -259271,7 +259271,7 @@ Song_08584804:	@ 0x08584804
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08213B84		@ voicegroup/tone
+	.word	voicegroup039		@ voicegroup/tone
 
 	.word	Song_08584804_1		@ track
 
@@ -259305,7 +259305,7 @@ Song_08584820:	@ 0x08584820
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08213B84		@ voicegroup/tone
+	.word	voicegroup039		@ voicegroup/tone
 
 	.word	Song_08584820_1		@ track
 
@@ -259339,7 +259339,7 @@ Song_0858483C:	@ 0x0858483C
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08213584		@ voicegroup/tone
+	.word	voicegroup038		@ voicegroup/tone
 
 	.word	Song_0858483C_1		@ track
 
@@ -259373,7 +259373,7 @@ Song_08584858:	@ 0x08584858
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08213584		@ voicegroup/tone
+	.word	voicegroup038		@ voicegroup/tone
 
 	.word	Song_08584858_1		@ track
 
@@ -259407,7 +259407,7 @@ Song_08584874:	@ 0x08584874
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08213B84		@ voicegroup/tone
+	.word	voicegroup039		@ voicegroup/tone
 
 	.word	Song_08584874_1		@ track
 
@@ -259441,7 +259441,7 @@ Song_08584890:	@ 0x08584890
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08213B84		@ voicegroup/tone
+	.word	voicegroup039		@ voicegroup/tone
 
 	.word	Song_08584890_1		@ track
 
@@ -259475,7 +259475,7 @@ Song_085848AC:	@ 0x085848AC
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08213584		@ voicegroup/tone
+	.word	voicegroup038		@ voicegroup/tone
 
 	.word	Song_085848AC_1		@ track
 
@@ -259509,7 +259509,7 @@ Song_085848C8:	@ 0x085848C8
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08213584		@ voicegroup/tone
+	.word	voicegroup038		@ voicegroup/tone
 
 	.word	Song_085848C8_1		@ track
 
@@ -259543,7 +259543,7 @@ Song_085848E4:	@ 0x085848E4
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08213584		@ voicegroup/tone
+	.word	voicegroup038		@ voicegroup/tone
 
 	.word	Song_085848E4_1		@ track
 
@@ -259577,7 +259577,7 @@ Song_08584900:	@ 0x08584900
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08213584		@ voicegroup/tone
+	.word	voicegroup038		@ voicegroup/tone
 
 	.word	Song_08584900_1		@ track
 
@@ -259611,7 +259611,7 @@ Song_0858491C:	@ 0x0858491C
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08213B84		@ voicegroup/tone
+	.word	voicegroup039		@ voicegroup/tone
 
 	.word	Song_0858491C_1		@ track
 
@@ -259645,7 +259645,7 @@ Song_08584938:	@ 0x08584938
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08213B84		@ voicegroup/tone
+	.word	voicegroup039		@ voicegroup/tone
 
 	.word	Song_08584938_1		@ track
 
@@ -259679,7 +259679,7 @@ Song_08584954:	@ 0x08584954
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08213584		@ voicegroup/tone
+	.word	voicegroup038		@ voicegroup/tone
 
 	.word	Song_08584954_1		@ track
 
@@ -259713,7 +259713,7 @@ Song_08584970:	@ 0x08584970
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08213584		@ voicegroup/tone
+	.word	voicegroup038		@ voicegroup/tone
 
 	.word	Song_08584970_1		@ track
 
@@ -259747,7 +259747,7 @@ Song_0858498C:	@ 0x0858498C
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08213B84		@ voicegroup/tone
+	.word	voicegroup039		@ voicegroup/tone
 
 	.word	Song_0858498C_1		@ track
 
@@ -259781,7 +259781,7 @@ Song_085849A8:	@ 0x085849A8
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08213B84		@ voicegroup/tone
+	.word	voicegroup039		@ voicegroup/tone
 
 	.word	Song_085849A8_1		@ track
 
@@ -259815,7 +259815,7 @@ Song_085849C4:	@ 0x085849C4
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08213584		@ voicegroup/tone
+	.word	voicegroup038		@ voicegroup/tone
 
 	.word	Song_085849C4_1		@ track
 
@@ -259849,7 +259849,7 @@ Song_085849E0:	@ 0x085849E0
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08213584		@ voicegroup/tone
+	.word	voicegroup038		@ voicegroup/tone
 
 	.word	Song_085849E0_1		@ track
 
@@ -260044,7 +260044,7 @@ Song_08584A98:	@ 0x08584A98
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08213584		@ voicegroup/tone
+	.word	voicegroup038		@ voicegroup/tone
 
 	.word	Song_08584A98_1		@ track
 	.word	Song_08584A98_2		@ track
@@ -260079,7 +260079,7 @@ Song_08584AB8:	@ 0x08584AB8
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08213584		@ voicegroup/tone
+	.word	voicegroup038		@ voicegroup/tone
 
 	.word	Song_08584AB8_1		@ track
 
@@ -260113,7 +260113,7 @@ Song_08584AD4:	@ 0x08584AD4
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08213584		@ voicegroup/tone
+	.word	voicegroup038		@ voicegroup/tone
 
 	.word	Song_08584AD4_1		@ track
 
@@ -260147,7 +260147,7 @@ Song_08584AF0:	@ 0x08584AF0
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08213524		@ voicegroup/tone
+	.word	voicegroup037		@ voicegroup/tone
 
 	.word	Song_08584AF0_1		@ track
 
@@ -260406,7 +260406,7 @@ Song_08584BE8:	@ 0x08584BE8
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08213584		@ voicegroup/tone
+	.word	voicegroup038		@ voicegroup/tone
 
 	.word	Song_08584BE8_1		@ track
 	.word	Song_08584BE8_2		@ track
@@ -260517,7 +260517,7 @@ Song_08584C54:	@ 0x08584C54
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08213524		@ voicegroup/tone
+	.word	voicegroup037		@ voicegroup/tone
 
 	.word	Song_08584C54_1		@ track
 
@@ -260817,7 +260817,7 @@ Song_08584D70:	@ 0x08584D70
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08213584		@ voicegroup/tone
+	.word	voicegroup038		@ voicegroup/tone
 
 	.word	Song_08584D70_1		@ track
 	.word	Song_08584D70_2		@ track
@@ -261523,7 +261523,7 @@ Song_08585028:	@ 0x08585028
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08213584		@ voicegroup/tone
+	.word	voicegroup038		@ voicegroup/tone
 
 	.word	Song_08585028_1		@ track
 	.word	Song_08585028_2		@ track
@@ -262381,7 +262381,7 @@ Song_08585378:	@ 0x08585378
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08213584		@ voicegroup/tone
+	.word	voicegroup038		@ voicegroup/tone
 
 	.word	Song_08585378_1		@ track
 	.word	Song_08585378_2		@ track
@@ -262575,7 +262575,7 @@ Song_08585430:	@ 0x08585430
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08213584		@ voicegroup/tone
+	.word	voicegroup038		@ voicegroup/tone
 
 	.word	Song_08585430_1		@ track
 	.word	Song_08585430_2		@ track
@@ -263226,7 +263226,7 @@ Song_085856AC:	@ 0x085856AC
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08213584		@ voicegroup/tone
+	.word	voicegroup038		@ voicegroup/tone
 
 	.word	Song_085856AC_1		@ track
 	.word	Song_085856AC_2		@ track
@@ -263786,7 +263786,7 @@ Song_085858D0:	@ 0x085858D0
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08213584		@ voicegroup/tone
+	.word	voicegroup038		@ voicegroup/tone
 
 	.word	Song_085858D0_1		@ track
 	.word	Song_085858D0_2		@ track
@@ -264386,7 +264386,7 @@ Song_08585B1C:	@ 0x08585B1C
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08213584		@ voicegroup/tone
+	.word	voicegroup038		@ voicegroup/tone
 
 	.word	Song_08585B1C_1		@ track
 	.word	Song_08585B1C_2		@ track
@@ -265166,7 +265166,7 @@ Song_08585E1C:	@ 0x08585E1C
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08213584		@ voicegroup/tone
+	.word	voicegroup038		@ voicegroup/tone
 
 	.word	Song_08585E1C_1		@ track
 	.word	Song_08585E1C_2		@ track
@@ -265203,7 +265203,7 @@ Song_08585E44:	@ 0x08585E44
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08213584		@ voicegroup/tone
+	.word	voicegroup038		@ voicegroup/tone
 
 	.word	Song_08585E44_1		@ track
 
@@ -265568,7 +265568,7 @@ Song_08585F9C:	@ 0x08585F9C
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08213584		@ voicegroup/tone
+	.word	voicegroup038		@ voicegroup/tone
 
 	.word	Song_08585F9C_1		@ track
 	.word	Song_08585F9C_2		@ track
@@ -265954,7 +265954,7 @@ Song_0858611C:	@ 0x0858611C
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08213584		@ voicegroup/tone
+	.word	voicegroup038		@ voicegroup/tone
 
 	.word	Song_0858611C_1		@ track
 	.word	Song_0858611C_2		@ track
@@ -266049,7 +266049,7 @@ Song_08586178:	@ 0x08586178
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08213584		@ voicegroup/tone
+	.word	voicegroup038		@ voicegroup/tone
 
 	.word	Song_08586178_1		@ track
 
@@ -266228,7 +266228,7 @@ Song_08586220:	@ 0x08586220
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08213584		@ voicegroup/tone
+	.word	voicegroup038		@ voicegroup/tone
 
 	.word	Song_08586220_1		@ track
 	.word	Song_08586220_2		@ track
@@ -266396,7 +266396,7 @@ Song_085862C0:	@ 0x085862C0
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08213584		@ voicegroup/tone
+	.word	voicegroup038		@ voicegroup/tone
 
 	.word	Song_085862C0_1		@ track
 	.word	Song_085862C0_2		@ track
@@ -266431,7 +266431,7 @@ Song_085862E0:	@ 0x085862E0
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08211BEC		@ voicegroup/tone
+	.word	voicegroup031		@ voicegroup/tone
 
 	.word	Song_085862E0_1		@ track
 
@@ -266465,7 +266465,7 @@ Song_085862FC:	@ 0x085862FC
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08213524		@ voicegroup/tone
+	.word	voicegroup037		@ voicegroup/tone
 
 	.word	Song_085862FC_1		@ track
 
@@ -266852,7 +266852,7 @@ Song_08586474:	@ 0x08586474
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08213584		@ voicegroup/tone
+	.word	voicegroup038		@ voicegroup/tone
 
 	.word	Song_08586474_1		@ track
 	.word	Song_08586474_2		@ track
@@ -266887,7 +266887,7 @@ Song_08586494:	@ 0x08586494
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08213584		@ voicegroup/tone
+	.word	voicegroup038		@ voicegroup/tone
 
 	.word	Song_08586494_1		@ track
 
@@ -266954,7 +266954,7 @@ Song_085864CC:	@ 0x085864CC
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08213584		@ voicegroup/tone
+	.word	voicegroup038		@ voicegroup/tone
 
 	.word	Song_085864CC_1		@ track
 	.word	Song_085864CC_2		@ track
@@ -267194,7 +267194,7 @@ Song_085865B4:	@ 0x085865B4
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08213584		@ voicegroup/tone
+	.word	voicegroup038		@ voicegroup/tone
 
 	.word	Song_085865B4_1		@ track
 	.word	Song_085865B4_2		@ track
@@ -267475,7 +267475,7 @@ Song_085866C0:	@ 0x085866C0
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08213584		@ voicegroup/tone
+	.word	voicegroup038		@ voicegroup/tone
 
 	.word	Song_085866C0_1		@ track
 	.word	Song_085866C0_2		@ track
@@ -267511,7 +267511,7 @@ Song_085866E4:	@ 0x085866E4
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08213584		@ voicegroup/tone
+	.word	voicegroup038		@ voicegroup/tone
 
 	.word	Song_085866E4_1		@ track
 
@@ -267999,7 +267999,7 @@ Song_085868BC:	@ 0x085868BC
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08213584		@ voicegroup/tone
+	.word	voicegroup038		@ voicegroup/tone
 
 	.word	Song_085868BC_1		@ track
 	.word	Song_085868BC_2		@ track
@@ -268125,7 +268125,7 @@ Song_08586930:	@ 0x08586930
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08213584		@ voicegroup/tone
+	.word	voicegroup038		@ voicegroup/tone
 
 	.word	Song_08586930_1		@ track
 	.word	Song_08586930_2		@ track
@@ -268207,7 +268207,7 @@ Song_08586978:	@ 0x08586978
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08213584		@ voicegroup/tone
+	.word	voicegroup038		@ voicegroup/tone
 
 	.word	Song_08586978_1		@ track
 	.word	Song_08586978_2		@ track
@@ -268243,7 +268243,7 @@ Song_0858699C:	@ 0x0858699C
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08213584		@ voicegroup/tone
+	.word	voicegroup038		@ voicegroup/tone
 
 	.word	Song_0858699C_1		@ track
 
@@ -268518,7 +268518,7 @@ Song_08586AA4:	@ 0x08586AA4
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08213584		@ voicegroup/tone
+	.word	voicegroup038		@ voicegroup/tone
 
 	.word	Song_08586AA4_1		@ track
 	.word	Song_08586AA4_2		@ track
@@ -268618,7 +268618,7 @@ Song_08586B00:	@ 0x08586B00
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08213584		@ voicegroup/tone
+	.word	voicegroup038		@ voicegroup/tone
 
 	.word	Song_08586B00_1		@ track
 	.word	Song_08586B00_2		@ track
@@ -268653,7 +268653,7 @@ Song_08586B20:	@ 0x08586B20
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08212564		@ voicegroup/tone
+	.word	voicegroup033		@ voicegroup/tone
 
 	.word	Song_08586B20_1		@ track
 
@@ -268828,7 +268828,7 @@ Song_08586BC4:	@ 0x08586BC4
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08213584		@ voicegroup/tone
+	.word	voicegroup038		@ voicegroup/tone
 
 	.word	Song_08586BC4_1		@ track
 	.word	Song_08586BC4_2		@ track
@@ -269562,7 +269562,7 @@ Song_08586E90:	@ 0x08586E90
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08213584		@ voicegroup/tone
+	.word	voicegroup038		@ voicegroup/tone
 
 	.word	Song_08586E90_1		@ track
 	.word	Song_08586E90_2		@ track
@@ -271482,7 +271482,7 @@ Song_08587604:	@ 0x08587604
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08213584		@ voicegroup/tone
+	.word	voicegroup038		@ voicegroup/tone
 
 	.word	Song_08587604_1		@ track
 	.word	Song_08587604_2		@ track
@@ -271609,7 +271609,7 @@ Song_0858767C:	@ 0x0858767C
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08213584		@ voicegroup/tone
+	.word	voicegroup038		@ voicegroup/tone
 
 	.word	Song_0858767C_1		@ track
 	.word	Song_0858767C_2		@ track
@@ -271645,7 +271645,7 @@ Song_085876A0:	@ 0x085876A0
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08213584		@ voicegroup/tone
+	.word	voicegroup038		@ voicegroup/tone
 
 	.word	Song_085876A0_1		@ track
 
@@ -271679,7 +271679,7 @@ Song_085876BC:	@ 0x085876BC
 	.byte	20		@ priority
 	.byte	0		@ reverb
 
-	.word	voicegroup_08213584		@ voicegroup/tone
+	.word	voicegroup038		@ voicegroup/tone
 
 	.word	Song_085876BC_1		@ track
 
