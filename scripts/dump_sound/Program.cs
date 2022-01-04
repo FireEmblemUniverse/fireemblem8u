@@ -1,4 +1,5 @@
 ﻿// Adapted from https://gist.github.com/Normmatt/e00ea0c5da509568959bde52754f213e
+// Key split table is supported in https://gist.github.com/Normmatt/f4e768f0e1c30dea3835098db744297a, but I don't need it here :)
 
 using System;
 using System.Collections.Generic;
