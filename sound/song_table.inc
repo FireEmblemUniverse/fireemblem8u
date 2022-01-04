@@ -2,7 +2,7 @@
 	.align 2
 	.global gSongTable
 gSongTable:	@ 0x08224470
-	song song000, 0, 0
+	song dummy_song, 0, 0
 	song song001, 0, 0
 	song song002, 0, 0
 	song song003, 0, 0
@@ -89,20 +89,20 @@ gSongTable:	@ 0x08224470
 	song song048, 1, 1
 	song song085, 0, 0
 	song song086, 0, 0
-	song song000, 0, 0
-	song song000, 0, 0
+	song dummy_song, 0, 0
+	song dummy_song, 0, 0
 	song song089, 0, 0
 	song song090, 7, 7
 	song song091, 7, 7
 	song song092, 7, 7
-	song song000, 0, 0
-	song song000, 0, 0
-	song song000, 0, 0
+	song dummy_song, 0, 0
+	song dummy_song, 0, 0
+	song dummy_song, 0, 0
 	song song096, 3, 3
 	song song097, 3, 3
-	song song000, 0, 0
-	song song000, 0, 0
-	song song000, 0, 0
+	song dummy_song, 0, 0
+	song dummy_song, 0, 0
+	song dummy_song, 0, 0
 	song song101, 2, 2
 	song song102, 2, 2
 	song song103, 2, 2
@@ -148,9 +148,9 @@ gSongTable:	@ 0x08224470
 	song song143, 8, 8
 	song song144, 6, 6
 	song song145, 7, 7
-	song song000, 0, 0
-	song song000, 0, 0
-	song song000, 0, 0
+	song dummy_song, 0, 0
+	song dummy_song, 0, 0
+	song dummy_song, 0, 0
 	song song129, 0, 0
 	song song150, 4, 4
 	song song151, 4, 4
@@ -170,17 +170,17 @@ gSongTable:	@ 0x08224470
 	song song165, 5, 5
 	song song166, 4, 4
 	song song167, 5, 5
-	song song000, 0, 0
-	song song000, 0, 0
+	song dummy_song, 0, 0
+	song dummy_song, 0, 0
 	song song170, 6, 6
 	song song171, 6, 6
 	song song172, 6, 6
-	song song000, 0, 0
-	song song000, 0, 0
+	song dummy_song, 0, 0
+	song dummy_song, 0, 0
 	song song175, 7, 7
 	song song176, 7, 7
 	song song177, 6, 6
-	song song000, 0, 0
+	song dummy_song, 0, 0
 	song song179, 6, 6
 	song song180, 6, 6
 	song song181, 7, 7
@@ -189,18 +189,18 @@ gSongTable:	@ 0x08224470
 	song song184, 7, 7
 	song song185, 4, 4
 	song song186, 6, 6
-	song song000, 0, 0
+	song dummy_song, 0, 0
 	song song188, 6, 6
 	song song189, 6, 6
 	song song190, 6, 6
 	song song191, 6, 6
-	song song000, 0, 0
-	song song000, 0, 0
-	song song000, 0, 0
-	song song000, 0, 0
-	song song000, 0, 0
-	song song000, 0, 0
-	song song000, 0, 0
+	song dummy_song, 0, 0
+	song dummy_song, 0, 0
+	song dummy_song, 0, 0
+	song dummy_song, 0, 0
+	song dummy_song, 0, 0
+	song dummy_song, 0, 0
+	song dummy_song, 0, 0
 	song song199, 7, 7
 	song song200, 6, 6
 	song song201, 6, 6
@@ -219,33 +219,33 @@ gSongTable:	@ 0x08224470
 	song song214, 7, 7
 	song song215, 7, 7
 	song song216, 3, 3
-	song song000, 0, 0
-	song song000, 0, 0
-	song song000, 0, 0
+	song dummy_song, 0, 0
+	song dummy_song, 0, 0
+	song dummy_song, 0, 0
 	song song220, 6, 6
 	song song221, 6, 6
 	song song222, 7, 7
-	song song000, 0, 0
-	song song000, 0, 0
-	song song000, 0, 0
+	song dummy_song, 0, 0
+	song dummy_song, 0, 0
+	song dummy_song, 0, 0
 	song song226, 7, 7
-	song song000, 0, 0
-	song song000, 0, 0
-	song song000, 0, 0
+	song dummy_song, 0, 0
+	song dummy_song, 0, 0
+	song dummy_song, 0, 0
 	song song230, 7, 7
 	song song231, 6, 6
-	song song000, 0, 0
-	song song000, 0, 0
+	song dummy_song, 0, 0
+	song dummy_song, 0, 0
 	song song234, 6, 6
 	song song235, 6, 6
-	song song000, 0, 0
-	song song000, 0, 0
-	song song000, 0, 0
+	song dummy_song, 0, 0
+	song dummy_song, 0, 0
+	song dummy_song, 0, 0
 	song song239, 7, 7
 	song song240, 7, 7
 	song song241, 6, 6
 	song song242, 6, 6
-	song song000, 0, 0
+	song dummy_song, 0, 0
 	song song244, 6, 6
 	song song245, 6, 6
 	song song246, 6, 6
@@ -262,16 +262,16 @@ gSongTable:	@ 0x08224470
 	song song257, 3, 3
 	song song258, 6, 6
 	song song259, 6, 6
-	song song000, 0, 0
-	song song000, 0, 0
-	song song000, 0, 0
-	song song000, 0, 0
-	song song000, 0, 0
-	song song000, 0, 0
+	song dummy_song, 0, 0
+	song dummy_song, 0, 0
+	song dummy_song, 0, 0
+	song dummy_song, 0, 0
+	song dummy_song, 0, 0
+	song dummy_song, 0, 0
 	song song266, 6, 6
-	song song000, 0, 0
-	song song000, 0, 0
-	song song000, 0, 0
+	song dummy_song, 0, 0
+	song dummy_song, 0, 0
+	song dummy_song, 0, 0
 	song song270, 7, 7
 	song song271, 6, 6
 	song song272, 7, 7
@@ -279,16 +279,16 @@ gSongTable:	@ 0x08224470
 	song song274, 7, 7
 	song song275, 6, 6
 	song song276, 2, 2
-	song song000, 0, 0
-	song song000, 0, 0
-	song song000, 0, 0
-	song song000, 0, 0
+	song dummy_song, 0, 0
+	song dummy_song, 0, 0
+	song dummy_song, 0, 0
+	song dummy_song, 0, 0
 	song song281, 6, 6
 	song song282, 6, 6
 	song song283, 7, 7
 	song song284, 6, 6
 	song song285, 6, 6
-	song song000, 0, 0
+	song dummy_song, 0, 0
 	song song287, 6, 6
 	song song288, 6, 6
 	song song289, 6, 6
@@ -300,12 +300,12 @@ gSongTable:	@ 0x08224470
 	song song295, 6, 6
 	song song296, 7, 7
 	song song297, 6, 6
-	song song000, 0, 0
-	song song000, 0, 0
-	song song000, 0, 0
-	song song000, 0, 0
-	song song000, 0, 0
-	song song000, 0, 0
+	song dummy_song, 0, 0
+	song dummy_song, 0, 0
+	song dummy_song, 0, 0
+	song dummy_song, 0, 0
+	song dummy_song, 0, 0
+	song dummy_song, 0, 0
 	song song304, 7, 7
 	song song305, 6, 6
 	song song306, 2, 2
@@ -316,7 +316,7 @@ gSongTable:	@ 0x08224470
 	song song311, 6, 6
 	song song312, 6, 6
 	song song313, 7, 7
-	song song000, 0, 0
+	song dummy_song, 0, 0
 	song song315, 6, 6
 	song song316, 6, 6
 	song song317, 4, 4
@@ -325,13 +325,13 @@ gSongTable:	@ 0x08224470
 	song song320, 6, 6
 	song song321, 6, 6
 	song song322, 6, 6
-	song song000, 0, 0
-	song song000, 0, 0
-	song song000, 0, 0
-	song song000, 0, 0
+	song dummy_song, 0, 0
+	song dummy_song, 0, 0
+	song dummy_song, 0, 0
+	song dummy_song, 0, 0
 	song song327, 7, 7
-	song song000, 0, 0
-	song song000, 0, 0
+	song dummy_song, 0, 0
+	song dummy_song, 0, 0
 	song song330, 4, 4
 	song song331, 5, 5
 	song song332, 4, 4
@@ -340,8 +340,8 @@ gSongTable:	@ 0x08224470
 	song song335, 5, 5
 	song song336, 4, 4
 	song song337, 5, 5
-	song song000, 0, 0
-	song song000, 0, 0
+	song dummy_song, 0, 0
+	song dummy_song, 0, 0
 	song song340, 4, 4
 	song song341, 5, 5
 	song song342, 4, 4
@@ -350,8 +350,8 @@ gSongTable:	@ 0x08224470
 	song song345, 5, 5
 	song song346, 4, 4
 	song song347, 5, 5
-	song song000, 0, 0
-	song song000, 0, 0
+	song dummy_song, 0, 0
+	song dummy_song, 0, 0
 	song song350, 4, 4
 	song song351, 5, 5
 	song song352, 4, 4
@@ -360,8 +360,8 @@ gSongTable:	@ 0x08224470
 	song song355, 5, 5
 	song song356, 4, 4
 	song song357, 5, 5
-	song song000, 0, 0
-	song song000, 0, 0
+	song dummy_song, 0, 0
+	song dummy_song, 0, 0
 	song song360, 4, 4
 	song song361, 5, 5
 	song song362, 4, 4
@@ -370,8 +370,8 @@ gSongTable:	@ 0x08224470
 	song song365, 5, 5
 	song song366, 4, 4
 	song song367, 5, 5
-	song song000, 0, 0
-	song song000, 0, 0
+	song dummy_song, 0, 0
+	song dummy_song, 0, 0
 	song song370, 4, 4
 	song song371, 5, 5
 	song song372, 4, 4
@@ -380,8 +380,8 @@ gSongTable:	@ 0x08224470
 	song song375, 5, 5
 	song song376, 4, 4
 	song song377, 5, 5
-	song song000, 0, 0
-	song song000, 0, 0
+	song dummy_song, 0, 0
+	song dummy_song, 0, 0
 	song song380, 4, 4
 	song song381, 5, 5
 	song song382, 4, 4
@@ -390,8 +390,8 @@ gSongTable:	@ 0x08224470
 	song song385, 5, 5
 	song song386, 4, 4
 	song song387, 5, 5
-	song song000, 0, 0
-	song song000, 0, 0
+	song dummy_song, 0, 0
+	song dummy_song, 0, 0
 	song song390, 4, 4
 	song song391, 5, 5
 	song song392, 4, 4
@@ -400,218 +400,218 @@ gSongTable:	@ 0x08224470
 	song song395, 5, 5
 	song song396, 4, 4
 	song song397, 5, 5
-	song song000, 0, 0
-	song song000, 0, 0
+	song dummy_song, 0, 0
+	song dummy_song, 0, 0
 	song song400, 4, 4
 	song song401, 5, 5
 	song song402, 4, 4
 	song song403, 5, 5
 	song song404, 4, 4
 	song song405, 5, 5
-	song song000, 0, 0
-	song song000, 0, 0
-	song song000, 0, 0
-	song song000, 0, 0
+	song dummy_song, 0, 0
+	song dummy_song, 0, 0
+	song dummy_song, 0, 0
+	song dummy_song, 0, 0
 	song song410, 4, 4
 	song song411, 5, 5
 	song song412, 4, 4
 	song song413, 5, 5
 	song song414, 4, 4
 	song song415, 5, 5
-	song song000, 0, 0
-	song song000, 0, 0
-	song song000, 0, 0
-	song song000, 0, 0
+	song dummy_song, 0, 0
+	song dummy_song, 0, 0
+	song dummy_song, 0, 0
+	song dummy_song, 0, 0
 	song song420, 4, 4
 	song song421, 5, 5
 	song song422, 4, 4
 	song song423, 5, 5
 	song song424, 4, 4
 	song song425, 5, 5
-	song song000, 0, 0
-	song song000, 0, 0
-	song song000, 0, 0
-	song song000, 0, 0
+	song dummy_song, 0, 0
+	song dummy_song, 0, 0
+	song dummy_song, 0, 0
+	song dummy_song, 0, 0
 	song song430, 4, 4
 	song song431, 5, 5
 	song song432, 4, 4
 	song song433, 5, 5
 	song song434, 4, 4
 	song song435, 5, 5
-	song song000, 0, 0
-	song song000, 0, 0
-	song song000, 0, 0
-	song song000, 0, 0
+	song dummy_song, 0, 0
+	song dummy_song, 0, 0
+	song dummy_song, 0, 0
+	song dummy_song, 0, 0
 	song song440, 4, 4
 	song song441, 5, 5
 	song song442, 4, 4
 	song song443, 5, 5
 	song song444, 4, 4
 	song song445, 5, 5
-	song song000, 0, 0
-	song song000, 0, 0
-	song song000, 0, 0
-	song song000, 0, 0
+	song dummy_song, 0, 0
+	song dummy_song, 0, 0
+	song dummy_song, 0, 0
+	song dummy_song, 0, 0
 	song song450, 4, 4
 	song song451, 5, 5
 	song song452, 4, 4
 	song song453, 5, 5
 	song song454, 4, 4
 	song song455, 5, 5
-	song song000, 0, 0
-	song song000, 0, 0
-	song song000, 0, 0
-	song song000, 0, 0
+	song dummy_song, 0, 0
+	song dummy_song, 0, 0
+	song dummy_song, 0, 0
+	song dummy_song, 0, 0
 	song song460, 4, 4
 	song song461, 5, 5
 	song song462, 4, 4
 	song song463, 5, 5
 	song song464, 4, 4
 	song song465, 5, 5
-	song song000, 0, 0
-	song song000, 0, 0
-	song song000, 0, 0
-	song song000, 0, 0
+	song dummy_song, 0, 0
+	song dummy_song, 0, 0
+	song dummy_song, 0, 0
+	song dummy_song, 0, 0
 	song song470, 4, 4
 	song song471, 5, 5
 	song song472, 4, 4
 	song song473, 5, 5
 	song song474, 4, 4
 	song song475, 5, 5
-	song song000, 0, 0
-	song song000, 0, 0
-	song song000, 0, 0
-	song song000, 0, 0
+	song dummy_song, 0, 0
+	song dummy_song, 0, 0
+	song dummy_song, 0, 0
+	song dummy_song, 0, 0
 	song song480, 4, 4
 	song song481, 5, 5
 	song song482, 4, 4
 	song song483, 5, 5
 	song song484, 4, 4
 	song song485, 5, 5
-	song song000, 0, 0
-	song song000, 0, 0
-	song song000, 0, 0
-	song song000, 0, 0
+	song dummy_song, 0, 0
+	song dummy_song, 0, 0
+	song dummy_song, 0, 0
+	song dummy_song, 0, 0
 	song song490, 4, 4
 	song song491, 5, 5
 	song song492, 4, 4
 	song song493, 5, 5
 	song song494, 4, 4
 	song song495, 5, 5
-	song song000, 0, 0
-	song song000, 0, 0
-	song song000, 0, 0
-	song song000, 0, 0
+	song dummy_song, 0, 0
+	song dummy_song, 0, 0
+	song dummy_song, 0, 0
+	song dummy_song, 0, 0
 	song song500, 4, 4
 	song song501, 5, 5
 	song song502, 4, 4
 	song song503, 5, 5
 	song song504, 4, 4
 	song song505, 5, 5
-	song song000, 0, 0
-	song song000, 0, 0
-	song song000, 0, 0
-	song song000, 0, 0
+	song dummy_song, 0, 0
+	song dummy_song, 0, 0
+	song dummy_song, 0, 0
+	song dummy_song, 0, 0
 	song song510, 4, 4
 	song song511, 5, 5
 	song song512, 4, 4
 	song song513, 5, 5
 	song song514, 4, 4
 	song song515, 5, 5
-	song song000, 0, 0
-	song song000, 0, 0
-	song song000, 0, 0
-	song song000, 0, 0
+	song dummy_song, 0, 0
+	song dummy_song, 0, 0
+	song dummy_song, 0, 0
+	song dummy_song, 0, 0
 	song song520, 4, 4
 	song song521, 5, 5
 	song song522, 4, 4
 	song song523, 5, 5
 	song song524, 4, 4
 	song song525, 5, 5
-	song song000, 0, 0
-	song song000, 0, 0
-	song song000, 0, 0
-	song song000, 0, 0
+	song dummy_song, 0, 0
+	song dummy_song, 0, 0
+	song dummy_song, 0, 0
+	song dummy_song, 0, 0
 	song song530, 4, 4
 	song song531, 5, 5
 	song song532, 4, 4
 	song song533, 5, 5
 	song song534, 4, 4
 	song song535, 5, 5
-	song song000, 0, 0
-	song song000, 0, 0
-	song song000, 0, 0
-	song song000, 0, 0
+	song dummy_song, 0, 0
+	song dummy_song, 0, 0
+	song dummy_song, 0, 0
+	song dummy_song, 0, 0
 	song song540, 4, 4
 	song song541, 5, 5
 	song song542, 4, 4
 	song song543, 5, 5
 	song song544, 4, 4
 	song song545, 5, 5
-	song song000, 0, 0
-	song song000, 0, 0
-	song song000, 0, 0
-	song song000, 0, 0
+	song dummy_song, 0, 0
+	song dummy_song, 0, 0
+	song dummy_song, 0, 0
+	song dummy_song, 0, 0
 	song song550, 4, 4
 	song song551, 5, 5
 	song song552, 4, 4
 	song song553, 5, 5
 	song song554, 4, 4
 	song song555, 5, 5
-	song song000, 0, 0
-	song song000, 0, 0
-	song song000, 0, 0
-	song song000, 0, 0
+	song dummy_song, 0, 0
+	song dummy_song, 0, 0
+	song dummy_song, 0, 0
+	song dummy_song, 0, 0
 	song song560, 4, 4
 	song song561, 5, 5
 	song song562, 4, 4
 	song song563, 5, 5
 	song song564, 4, 4
 	song song565, 5, 5
-	song song000, 0, 0
-	song song000, 0, 0
-	song song000, 0, 0
-	song song000, 0, 0
+	song dummy_song, 0, 0
+	song dummy_song, 0, 0
+	song dummy_song, 0, 0
+	song dummy_song, 0, 0
 	song song570, 4, 4
 	song song571, 5, 5
 	song song572, 4, 4
 	song song573, 5, 5
 	song song574, 4, 4
 	song song575, 5, 5
-	song song000, 0, 0
-	song song000, 0, 0
-	song song000, 0, 0
-	song song000, 0, 0
+	song dummy_song, 0, 0
+	song dummy_song, 0, 0
+	song dummy_song, 0, 0
+	song dummy_song, 0, 0
 	song song580, 4, 4
 	song song581, 5, 5
 	song song582, 4, 4
 	song song583, 5, 5
 	song song584, 4, 4
 	song song585, 5, 5
-	song song000, 0, 0
-	song song000, 0, 0
-	song song000, 0, 0
-	song song000, 0, 0
+	song dummy_song, 0, 0
+	song dummy_song, 0, 0
+	song dummy_song, 0, 0
+	song dummy_song, 0, 0
 	song song590, 4, 4
 	song song591, 5, 5
 	song song592, 4, 4
 	song song593, 5, 5
 	song song594, 4, 4
 	song song595, 5, 5
-	song song000, 0, 0
-	song song000, 0, 0
-	song song000, 0, 0
-	song song000, 0, 0
+	song dummy_song, 0, 0
+	song dummy_song, 0, 0
+	song dummy_song, 0, 0
+	song dummy_song, 0, 0
 	song song600, 4, 4
 	song song601, 5, 5
 	song song602, 4, 4
 	song song603, 5, 5
 	song song604, 4, 4
 	song song605, 5, 5
-	song song000, 0, 0
-	song song000, 0, 0
-	song song000, 0, 0
-	song song000, 0, 0
+	song dummy_song, 0, 0
+	song dummy_song, 0, 0
+	song dummy_song, 0, 0
+	song dummy_song, 0, 0
 	song song610, 4, 4
 	song song611, 5, 5
 	song song612, 4, 4
@@ -623,85 +623,85 @@ gSongTable:	@ 0x08224470
 	song song618, 8, 8
 	song song619, 6, 6
 	song song620, 6, 6
-	song song000, 0, 0
-	song song000, 0, 0
-	song song000, 0, 0
-	song song000, 0, 0
-	song song000, 0, 0
-	song song000, 0, 0
-	song song000, 0, 0
-	song song000, 0, 0
-	song song000, 0, 0
-	song song000, 0, 0
-	song song000, 0, 0
-	song song000, 0, 0
-	song song000, 0, 0
-	song song000, 0, 0
-	song song000, 0, 0
-	song song000, 0, 0
-	song song000, 0, 0
-	song song000, 0, 0
-	song song000, 0, 0
-	song song000, 0, 0
-	song song000, 0, 0
-	song song000, 0, 0
-	song song000, 0, 0
-	song song000, 0, 0
-	song song000, 0, 0
-	song song000, 0, 0
-	song song000, 0, 0
-	song song000, 0, 0
-	song song000, 0, 0
-	song song000, 0, 0
-	song song000, 0, 0
-	song song000, 0, 0
-	song song000, 0, 0
-	song song000, 0, 0
-	song song000, 0, 0
-	song song000, 0, 0
-	song song000, 0, 0
-	song song000, 0, 0
-	song song000, 0, 0
-	song song000, 0, 0
-	song song000, 0, 0
-	song song000, 0, 0
-	song song000, 0, 0
-	song song000, 0, 0
-	song song000, 0, 0
-	song song000, 0, 0
-	song song000, 0, 0
-	song song000, 0, 0
-	song song000, 0, 0
-	song song000, 0, 0
-	song song000, 0, 0
-	song song000, 0, 0
-	song song000, 0, 0
-	song song000, 0, 0
-	song song000, 0, 0
-	song song000, 0, 0
-	song song000, 0, 0
-	song song000, 0, 0
-	song song000, 0, 0
-	song song000, 0, 0
-	song song000, 0, 0
-	song song000, 0, 0
-	song song000, 0, 0
-	song song000, 0, 0
-	song song000, 0, 0
-	song song000, 0, 0
-	song song000, 0, 0
-	song song000, 0, 0
-	song song000, 0, 0
-	song song000, 0, 0
-	song song000, 0, 0
-	song song000, 0, 0
-	song song000, 0, 0
-	song song000, 0, 0
-	song song000, 0, 0
-	song song000, 0, 0
-	song song000, 0, 0
-	song song000, 0, 0
-	song song000, 0, 0
+	song dummy_song, 0, 0
+	song dummy_song, 0, 0
+	song dummy_song, 0, 0
+	song dummy_song, 0, 0
+	song dummy_song, 0, 0
+	song dummy_song, 0, 0
+	song dummy_song, 0, 0
+	song dummy_song, 0, 0
+	song dummy_song, 0, 0
+	song dummy_song, 0, 0
+	song dummy_song, 0, 0
+	song dummy_song, 0, 0
+	song dummy_song, 0, 0
+	song dummy_song, 0, 0
+	song dummy_song, 0, 0
+	song dummy_song, 0, 0
+	song dummy_song, 0, 0
+	song dummy_song, 0, 0
+	song dummy_song, 0, 0
+	song dummy_song, 0, 0
+	song dummy_song, 0, 0
+	song dummy_song, 0, 0
+	song dummy_song, 0, 0
+	song dummy_song, 0, 0
+	song dummy_song, 0, 0
+	song dummy_song, 0, 0
+	song dummy_song, 0, 0
+	song dummy_song, 0, 0
+	song dummy_song, 0, 0
+	song dummy_song, 0, 0
+	song dummy_song, 0, 0
+	song dummy_song, 0, 0
+	song dummy_song, 0, 0
+	song dummy_song, 0, 0
+	song dummy_song, 0, 0
+	song dummy_song, 0, 0
+	song dummy_song, 0, 0
+	song dummy_song, 0, 0
+	song dummy_song, 0, 0
+	song dummy_song, 0, 0
+	song dummy_song, 0, 0
+	song dummy_song, 0, 0
+	song dummy_song, 0, 0
+	song dummy_song, 0, 0
+	song dummy_song, 0, 0
+	song dummy_song, 0, 0
+	song dummy_song, 0, 0
+	song dummy_song, 0, 0
+	song dummy_song, 0, 0
+	song dummy_song, 0, 0
+	song dummy_song, 0, 0
+	song dummy_song, 0, 0
+	song dummy_song, 0, 0
+	song dummy_song, 0, 0
+	song dummy_song, 0, 0
+	song dummy_song, 0, 0
+	song dummy_song, 0, 0
+	song dummy_song, 0, 0
+	song dummy_song, 0, 0
+	song dummy_song, 0, 0
+	song dummy_song, 0, 0
+	song dummy_song, 0, 0
+	song dummy_song, 0, 0
+	song dummy_song, 0, 0
+	song dummy_song, 0, 0
+	song dummy_song, 0, 0
+	song dummy_song, 0, 0
+	song dummy_song, 0, 0
+	song dummy_song, 0, 0
+	song dummy_song, 0, 0
+	song dummy_song, 0, 0
+	song dummy_song, 0, 0
+	song dummy_song, 0, 0
+	song dummy_song, 0, 0
+	song dummy_song, 0, 0
+	song dummy_song, 0, 0
+	song dummy_song, 0, 0
+	song dummy_song, 0, 0
+	song dummy_song, 0, 0
 	song song700, 6, 6
 	song song701, 6, 6
 	song song702, 6, 6
@@ -710,68 +710,68 @@ gSongTable:	@ 0x08224470
 	song song705, 7, 7
 	song song706, 6, 6
 	song song707, 6, 6
-	song song000, 0, 0
-	song song000, 0, 0
-	song song000, 0, 0
+	song dummy_song, 0, 0
+	song dummy_song, 0, 0
+	song dummy_song, 0, 0
 	song song711, 6, 6
 	song song712, 6, 6
 	song song713, 6, 6
-	song song000, 0, 0
-	song song000, 0, 0
+	song dummy_song, 0, 0
+	song dummy_song, 0, 0
 	song song716, 7, 7
 	song song717, 4, 4
 	song song718, 7, 7
 	song song719, 6, 6
 	song song720, 6, 6
-	song song000, 0, 0
+	song dummy_song, 0, 0
 	song song722, 6, 6
 	song song723, 6, 6
-	song song000, 0, 0
+	song dummy_song, 0, 0
 	song song725, 6, 6
 	song song726, 6, 6
 	song song727, 6, 6
 	song song728, 6, 6
 	song song729, 6, 6
 	song song730, 6, 6
-	song song000, 0, 0
-	song song000, 0, 0
+	song dummy_song, 0, 0
+	song dummy_song, 0, 0
 	song song733, 7, 7
-	song song000, 0, 0
-	song song000, 0, 0
+	song dummy_song, 0, 0
+	song dummy_song, 0, 0
 	song song736, 4, 4
 	song song737, 6, 6
 	song song738, 6, 6
-	song song000, 0, 0
+	song dummy_song, 0, 0
 	song song740, 6, 6
 	song song741, 3, 3
 	song song742, 2, 2
 	song song743, 2, 2
-	song song000, 0, 0
+	song dummy_song, 0, 0
 	song song745, 6, 6
 	song song746, 6, 6
 	song song747, 6, 6
 	song song748, 6, 6
 	song song749, 6, 6
-	song song000, 0, 0
-	song song000, 0, 0
+	song dummy_song, 0, 0
+	song dummy_song, 0, 0
 	song song752, 4, 4
 	song song753, 4, 4
 	song song754, 4, 4
 	song song755, 4, 4
 	song song756, 7, 7
 	song song757, 4, 4
-	song song000, 0, 0
+	song dummy_song, 0, 0
 	song song759, 6, 6
 	song song760, 6, 6
 	song song761, 7, 7
-	song song000, 0, 0
+	song dummy_song, 0, 0
 	song song763, 7, 7
 	song song763, 5, 5
-	song song000, 0, 0
-	song song000, 0, 0
-	song song000, 0, 0
-	song song000, 0, 0
-	song song000, 0, 0
+	song dummy_song, 0, 0
+	song dummy_song, 0, 0
+	song dummy_song, 0, 0
+	song dummy_song, 0, 0
+	song dummy_song, 0, 0
 	song song770, 4, 4
 	song song770, 5, 5
 	song song772, 4, 4
@@ -791,37 +791,37 @@ gSongTable:	@ 0x08224470
 	song song786, 2, 2
 	song song787, 2, 2
 	song song788, 2, 2
-	song song000, 0, 0
+	song dummy_song, 0, 0
 	song song790, 0, 0
 	song song791, 6, 6
-	song song000, 0, 0
-	song song000, 0, 0
-	song song000, 0, 0
-	song song000, 0, 0
-	song song000, 0, 0
-	song song000, 0, 0
-	song song000, 0, 0
-	song song000, 0, 0
+	song dummy_song, 0, 0
+	song dummy_song, 0, 0
+	song dummy_song, 0, 0
+	song dummy_song, 0, 0
+	song dummy_song, 0, 0
+	song dummy_song, 0, 0
+	song dummy_song, 0, 0
+	song dummy_song, 0, 0
 	song song800, 6, 6
 	song song801, 6, 6
 	song song802, 6, 6
-	song song000, 0, 0
-	song song000, 0, 0
+	song dummy_song, 0, 0
+	song dummy_song, 0, 0
 	song song805, 6, 6
 	song song806, 6, 6
 	song song807, 6, 6
-	song song000, 0, 0
+	song dummy_song, 0, 0
 	song song809, 6, 6
 	song song810, 6, 6
 	song song811, 6, 6
 	song song812, 6, 6
-	song song000, 0, 0
+	song dummy_song, 0, 0
 	song song814, 6, 6
 	song song815, 6, 6
 	song song816, 6, 6
 	song song817, 6, 6
 	song song818, 6, 6
-	song song000, 0, 0
+	song dummy_song, 0, 0
 	song song770, 4, 4
 	song song770, 5, 5
 	song song772, 4, 4
@@ -830,8 +830,8 @@ gSongTable:	@ 0x08224470
 	song song776, 5, 5
 	song song778, 4, 4
 	song song778, 5, 5
-	song song000, 0, 0
-	song song000, 0, 0
+	song dummy_song, 0, 0
+	song dummy_song, 0, 0
 	song song830, 4, 4
 	song song830, 5, 5
 	song song832, 4, 4
@@ -840,8 +840,8 @@ gSongTable:	@ 0x08224470
 	song song834, 5, 5
 	song song836, 4, 4
 	song song836, 5, 5
-	song song000, 0, 0
-	song song000, 0, 0
+	song dummy_song, 0, 0
+	song dummy_song, 0, 0
 	song song840, 4, 4
 	song song840, 5, 5
 	song song842, 4, 4
@@ -850,8 +850,8 @@ gSongTable:	@ 0x08224470
 	song song844, 5, 5
 	song song846, 4, 4
 	song song846, 5, 5
-	song song000, 0, 0
-	song song000, 0, 0
+	song dummy_song, 0, 0
+	song dummy_song, 0, 0
 	song song850, 4, 4
 	song song850, 5, 5
 	song song852, 4, 4
@@ -860,8 +860,8 @@ gSongTable:	@ 0x08224470
 	song song854, 5, 5
 	song song856, 4, 4
 	song song856, 5, 5
-	song song000, 0, 0
-	song song000, 0, 0
+	song dummy_song, 0, 0
+	song dummy_song, 0, 0
 	song song850, 4, 4
 	song song850, 5, 5
 	song song852, 4, 4
@@ -870,8 +870,8 @@ gSongTable:	@ 0x08224470
 	song song864, 5, 5
 	song song866, 4, 4
 	song song866, 5, 5
-	song song000, 0, 0
-	song song000, 0, 0
+	song dummy_song, 0, 0
+	song dummy_song, 0, 0
 	song song870, 4, 4
 	song song870, 5, 5
 	song song872, 4, 4
@@ -880,8 +880,8 @@ gSongTable:	@ 0x08224470
 	song song874, 5, 5
 	song song876, 4, 4
 	song song876, 5, 5
-	song song000, 0, 0
-	song song000, 0, 0
+	song dummy_song, 0, 0
+	song dummy_song, 0, 0
 	song song880, 4, 4
 	song song880, 5, 5
 	song song882, 4, 4
@@ -890,8 +890,8 @@ gSongTable:	@ 0x08224470
 	song song884, 5, 5
 	song song886, 4, 4
 	song song886, 5, 5
-	song song000, 0, 0
-	song song000, 0, 0
+	song dummy_song, 0, 0
+	song dummy_song, 0, 0
 	song song890, 6, 6
 	song song891, 7, 7
 	song song892, 6, 6
@@ -899,58 +899,58 @@ gSongTable:	@ 0x08224470
 	song song894, 6, 6
 	song song895, 6, 6
 	song song896, 6, 6
-	song song000, 0, 0
-	song song000, 0, 0
-	song song000, 0, 0
+	song dummy_song, 0, 0
+	song dummy_song, 0, 0
+	song dummy_song, 0, 0
 	song song900, 6, 6
-	song song000, 0, 0
-	song song000, 0, 0
-	song song000, 0, 0
-	song song000, 0, 0
-	song song000, 0, 0
-	song song000, 0, 0
-	song song000, 0, 0
-	song song000, 0, 0
-	song song000, 0, 0
-	song song000, 0, 0
-	song song000, 0, 0
-	song song000, 0, 0
-	song song000, 0, 0
-	song song000, 0, 0
-	song song000, 0, 0
-	song song000, 0, 0
-	song song000, 0, 0
-	song song000, 0, 0
-	song song000, 0, 0
-	song song000, 0, 0
-	song song000, 0, 0
-	song song000, 0, 0
-	song song000, 0, 0
-	song song000, 0, 0
-	song song000, 0, 0
-	song song000, 0, 0
-	song song000, 0, 0
-	song song000, 0, 0
-	song song000, 0, 0
-	song song000, 0, 0
-	song song000, 0, 0
-	song song000, 0, 0
-	song song000, 0, 0
-	song song000, 0, 0
-	song song000, 0, 0
-	song song000, 0, 0
-	song song000, 0, 0
-	song song000, 0, 0
-	song song000, 0, 0
+	song dummy_song, 0, 0
+	song dummy_song, 0, 0
+	song dummy_song, 0, 0
+	song dummy_song, 0, 0
+	song dummy_song, 0, 0
+	song dummy_song, 0, 0
+	song dummy_song, 0, 0
+	song dummy_song, 0, 0
+	song dummy_song, 0, 0
+	song dummy_song, 0, 0
+	song dummy_song, 0, 0
+	song dummy_song, 0, 0
+	song dummy_song, 0, 0
+	song dummy_song, 0, 0
+	song dummy_song, 0, 0
+	song dummy_song, 0, 0
+	song dummy_song, 0, 0
+	song dummy_song, 0, 0
+	song dummy_song, 0, 0
+	song dummy_song, 0, 0
+	song dummy_song, 0, 0
+	song dummy_song, 0, 0
+	song dummy_song, 0, 0
+	song dummy_song, 0, 0
+	song dummy_song, 0, 0
+	song dummy_song, 0, 0
+	song dummy_song, 0, 0
+	song dummy_song, 0, 0
+	song dummy_song, 0, 0
+	song dummy_song, 0, 0
+	song dummy_song, 0, 0
+	song dummy_song, 0, 0
+	song dummy_song, 0, 0
+	song dummy_song, 0, 0
+	song dummy_song, 0, 0
+	song dummy_song, 0, 0
+	song dummy_song, 0, 0
+	song dummy_song, 0, 0
+	song dummy_song, 0, 0
 	song song940, 6, 6
 	song song941, 6, 6
-	song song000, 0, 0
+	song dummy_song, 0, 0
 	song song943, 6, 6
 	song song944, 6, 6
-	song song000, 0, 0
+	song dummy_song, 0, 0
 	song song946, 6, 6
 	song song947, 6, 6
-	song song000, 0, 0
+	song dummy_song, 0, 0
 	song song949, 6, 6
 	song song950, 6, 6
 	song song951, 6, 6
@@ -963,20 +963,20 @@ gSongTable:	@ 0x08224470
 	song song957, 5, 5
 	song song959, 6, 6
 	song song960, 6, 6
-	song song000, 0, 0
+	song dummy_song, 0, 0
 	song song962, 7, 7
 	song song963, 6, 6
 	song song964, 7, 7
-	song song000, 0, 0
+	song dummy_song, 0, 0
 	song song966, 6, 6
 	song song967, 6, 6
-	song song000, 0, 0
+	song dummy_song, 0, 0
 	song song969, 6, 6
 	song song970, 6, 6
-	song song000, 0, 0
-	song song000, 0, 0
-	song song000, 0, 0
-	song song000, 0, 0
+	song dummy_song, 0, 0
+	song dummy_song, 0, 0
+	song dummy_song, 0, 0
+	song dummy_song, 0, 0
 	song song975, 6, 6
 	song song976, 6, 6
 	song song977, 6, 6
@@ -985,22 +985,22 @@ gSongTable:	@ 0x08224470
 	song song980, 6, 6
 	song song981, 6, 6
 	song song982, 6, 6
-	song song000, 0, 0
-	song song000, 0, 0
-	song song000, 0, 0
-	song song000, 0, 0
-	song song000, 0, 0
-	song song000, 0, 0
-	song song000, 0, 0
-	song song000, 0, 0
-	song song000, 0, 0
-	song song000, 0, 0
-	song song000, 0, 0
-	song song000, 0, 0
-	song song000, 0, 0
-	song song000, 0, 0
+	song dummy_song, 0, 0
+	song dummy_song, 0, 0
+	song dummy_song, 0, 0
+	song dummy_song, 0, 0
+	song dummy_song, 0, 0
+	song dummy_song, 0, 0
+	song dummy_song, 0, 0
+	song dummy_song, 0, 0
+	song dummy_song, 0, 0
+	song dummy_song, 0, 0
+	song dummy_song, 0, 0
+	song dummy_song, 0, 0
+	song dummy_song, 0, 0
+	song dummy_song, 0, 0
 	song song997, 2, 2
 	song song998, 2, 2
-	song song000, 0, 0
+	song dummy_song, 0, 0
 
-.include "sound/songs/song000.inc"
+.include "sound/songs/dummy_song.inc"

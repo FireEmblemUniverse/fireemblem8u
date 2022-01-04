@@ -25,6 +25,7 @@ BIN2C    := tools/bin2c/bin2c$(EXE)
 GBAGFX   := tools/gbagfx/gbagfx$(EXE)
 SCANINC  := tools/scaninc/scaninc$(EXE)
 AIF2PCM  := tools/aif2pcm/aif2pcm$(EXE)
+MID2AGB  := tools/mid2agb/mid2agb$(EXE)
 
 ifeq ($(UNAME),Darwin)
 	SED := sed -i ''
@@ -48,6 +49,7 @@ C_SUBDIR = src
 ASM_SUBDIR = asm
 DATA_ASM_SUBDIR = data
 SAMPLE_SUBDIR = sound/direct_sound_samples
+MID_SUBDIR = sound/songs/midi
 
 ROM          := fireemblem8.gba
 ELF          := $(ROM:.gba=.elf)
@@ -61,7 +63,9 @@ SFILES       := $(ASM_S_FILES) $(DATA_S_FILES)
 C_OBJECTS    := $(CFILES:.c=.o)
 ASM_OBJECTS  := $(SFILES:.s=.o)
 BANIM_OBJECT := data/banim/data_banim.o
-ALL_OBJECTS  := $(C_OBJECTS) $(ASM_OBJECTS) $(BANIM_OBJECT)
+MID_FILES    := $(wildcard $(MID_SUBDIR)/*.mid)
+MID_OBJECTS  := $(MID_FILES:.mid=.o)
+ALL_OBJECTS  := $(C_OBJECTS) $(ASM_OBJECTS) $(BANIM_OBJECT) $(MID_OBJECTS)
 DEPS_DIR     := .dep
 
 # Use the older compiler to build library code
@@ -99,6 +103,7 @@ tag:
 # Graphics Recipes
 
 include graphics_file_rules.mk
+include songs.mk
 
 %.s: ;
 %.png: ;
