@@ -1,0 +1,115 @@
+	.align 2
+	@********************** Track  1 **********************@
+
+	.global song091_1
+song091_1:	@ 0x0857CEA8
+	.byte	0xBC
+	.byte	0x00
+	.byte	0xBB
+	.byte	0x57
+	.byte	0xBD
+	.byte	0x51
+	.byte	0xBE
+	.byte	0x64
+	.byte	0xBF
+	.byte	0x4A
+	.byte	0xE5
+	.byte	0x48
+	.byte	0x7F
+	.byte	0x98
+	.byte	0xD4
+	.byte	0x4A
+	.byte	0x88
+	.byte	0x48
+	.byte	0x88
+	.byte	0x4A
+	.byte	0x88
+	.byte	0xEE
+	.byte	0x4C
+	.byte	0xA0
+	.byte	0xB1
+	@********************** Track  2 **********************@
+
+	.global song091_2
+song091_2:	@ 0x0857CEC1
+	.byte	0xBC
+	.byte	0x00
+	.byte	0xBD
+	.byte	0x50
+	.byte	0xBE
+	.byte	0x64
+	.byte	0xBF
+	.byte	0x36
+	.byte	0xE5
+	.byte	0x3F
+	.byte	0x7F
+	.byte	0x98
+	.byte	0xD4
+	.byte	0x46
+	.byte	0x88
+	.byte	0x41
+	.byte	0x88
+	.byte	0x46
+	.byte	0x88
+	.byte	0xEE
+	.byte	0x43
+	.byte	0xA0
+	.byte	0xB1
+	@********************** Track  3 **********************@
+
+	.global song091_3
+song091_3:	@ 0x0857CED8
+	.byte	0xBC
+	.byte	0x00
+	.byte	0xBD
+	.byte	0x50
+	.byte	0xBE
+	.byte	0x64
+	.byte	0xBF
+	.byte	0x54
+	.byte	0xE5
+	.byte	0x3C
+	.byte	0x7F
+	.byte	0x98
+	.byte	0xE5
+	.byte	0x98
+	.byte	0xEE
+	.byte	0x37
+	.byte	0xA0
+	.byte	0xB1
+	@********************** Track  4 **********************@
+
+	.global song091_4
+song091_4:	@ 0x0857CEEA
+	.byte	0xBC
+	.byte	0x00
+	.byte	0xBD
+	.byte	0x50
+	.byte	0xBE
+	.byte	0x64
+	.byte	0xBF
+	.byte	0x2C
+	.byte	0xE5
+	.byte	0x38
+	.byte	0x7F
+	.byte	0x98
+	.byte	0x35
+	.byte	0x98
+	.byte	0xEE
+	.byte	0x30
+	.byte	0xA0
+	.byte	0xB1
+	.align 2
+	.global song091
+song091:	@ 0x0857CEFC
+	.byte	4		@ trackCount
+	.byte	0		@ blockCount
+	.byte	60		@ priority
+	.byte	0		@ reverb
+
+	.word	voicegroup030		@ voicegroup/tone
+
+	.word	song091_1		@ track
+	.word	song091_2		@ track
+	.word	song091_3		@ track
+	.word	song091_4		@ track

@@ -1,4 +1,5 @@
 ﻿// Adapted from https://gist.github.com/Normmatt/e00ea0c5da509568959bde52754f213e
+// Key split table is supported in https://gist.github.com/Normmatt/f4e768f0e1c30dea3835098db744297a, but I don't need it here :)
 
 using System;
 using System.Collections.Generic;
@@ -249,14 +250,16 @@ namespace dump_sound
             File.WriteAllBytes(outfilename, data);
         }
 
-        static string PrintVoiceGroup(int ofs, int len)
+        static string PrintVoiceGroup(int ofs, int len, int id)
         {
             var sb = new StringBuilder();
+            var filename = String.Format("voicegroup{0:d3}.inc", id);
+            var outfilename = String.Format("sound/voicegroups/{0}", filename);
 
             sb.Append("\t.align 2\n");
             sb.AppendFormat("\t@********************** Voicegroup **********************@\n\n");
-            sb.AppendFormat("\t.global gUnknown_{0:X8}\n", ofs);
-            sb.AppendFormat("gUnknown_{0:X8}:\t@ 0x{0:X8}\n", ofs);
+            sb.AppendFormat("\t.global voicegroup{0:d3}\n", id);
+            sb.AppendFormat("voicegroup{0:d3}:\t@ 0x{1:X8}\n", id, ofs);
 
             int i = 0;
             while (i < len)
@@ -287,13 +290,13 @@ namespace dump_sound
                             switch (type)
                             {
                                 case 0x00: //voice_directsound
-                                    sb.AppendFormat("\tvoice_directsound {0}, {1}, gUnknown_{2:X8}, {3}, {4}, {5}, {6}\t@{7:X8}\n", base_midi_key, pan, sample_data_pointer, attack, decay, sustain, release, tOfs);
+                                    sb.AppendFormat("\tvoice_directsound {0}, {1}, DirectSoundData_{2:X8}, {3}, {4}, {5}, {6}\t@{7:X8}\n", base_midi_key, pan, sample_data_pointer, attack, decay, sustain, release, tOfs);
                                     break;
                                 case 0x08: //voice_directsound_no_resample
-                                    sb.AppendFormat("\tvoice_directsound_no_resample {0}, {1}, gUnknown_{2:X8}, {3}, {4}, {5}, {6}\t@{7:X8}\n", base_midi_key, pan, sample_data_pointer, attack, decay, sustain, release, tOfs);
+                                    sb.AppendFormat("\tvoice_directsound_no_resample {0}, {1}, DirectSoundData_{2:X8}, {3}, {4}, {5}, {6}\t@{7:X8}\n", base_midi_key, pan, sample_data_pointer, attack, decay, sustain, release, tOfs);
                                     break;
                                 case 0x10: //voice_directsound_alt
-                                    sb.AppendFormat("\tvoice_directsound_alt {0}, {1}, gUnknown_{2:X8}, {3}, {4}, {5}, {6}\t@{7:X8}\n", base_midi_key, pan, sample_data_pointer, attack, decay, sustain, release, tOfs);
+                                    sb.AppendFormat("\tvoice_directsound_alt {0}, {1}, DirectSoundData_{2:X8}, {3}, {4}, {5}, {6}\t@{7:X8}\n", base_midi_key, pan, sample_data_pointer, attack, decay, sustain, release, tOfs);
                                     break;
                             }
                         }
@@ -371,10 +374,10 @@ namespace dump_sound
                             switch (type)
                             {
                                 case 0x03: //voice_square_2
-                                    sb.AppendFormat("\tvoice_programmable_wave gUnknown_{0:X8}, {1}, {2}, {3}, {4}\t@{5:X8}\n", wave_samples_pointer, attack, decay, sustain, release, tOfs);
+                                    sb.AppendFormat("\tvoice_programmable_wave ProgrammableWaveData_{0:X7}, {1}, {2}, {3}, {4}\t@{5:X8}\n", wave_samples_pointer, attack, decay, sustain, release, tOfs);
                                     break;
                                 case 0x0B: //voice_square_2_alt
-                                    sb.AppendFormat("\tvoice_programmable_wave_alt gUnknown_{0:X8}, {1}, {2}, {3}, {4}\t@{5:X8}\n", wave_samples_pointer, attack, decay, sustain, release, tOfs);
+                                    sb.AppendFormat("\tvoice_programmable_wave_alt ProgrammableWaveData_{0:X7}, {1}, {2}, {3}, {4}\t@{5:X8}\n", wave_samples_pointer, attack, decay, sustain, release, tOfs);
                                     break;
                             }
                         }
@@ -417,7 +420,7 @@ namespace dump_sound
                             if (!voicegroups.Contains(voice_group_pointer))
                                 voicegroups.Add(voice_group_pointer);
 
-                            sb.AppendFormat("\tvoice_keysplit gUnknown_{0:X8}, gUnknown_{1:X8}\t@{2:X8}\n", voice_group_pointer, keysplit_table_pointer, tOfs);
+                            sb.AppendFormat("\tvoice_keysplit voicegroup{0:d3}, gUnknown_{1:X8}\t@{2:X8}\n", voicegroups.IndexOf(voice_group_pointer), keysplit_table_pointer, tOfs);
                         }
                         break;
                     case 0x80: //voice_keysplit_all
@@ -433,19 +436,21 @@ namespace dump_sound
                             if (!voicegroups.Contains(voice_group_pointer))
                                 voicegroups.Add(voice_group_pointer);
 
-                            sb.AppendFormat("\tvoice_keysplit_all gUnknown_{0:X8}\t@{1:X8}\n", voice_group_pointer, tOfs);
+                            sb.AppendFormat("\tvoice_keysplit_all voicegroup{0:d3}\t@{1:X8}\n", voicegroups.IndexOf(voice_group_pointer), tOfs);
                         }
                         break;
                     default:
                         throw new Exception("FUCK!");
-                        break;
                 }
             }
+
+            Directory.CreateDirectory("sound/voicegroups/");
+            File.WriteAllText(outfilename, sb.ToString());
 
             return sb.ToString();
         }
 
-        static string PrintSongTrack(int idx, int ofs, int len, int song_ofs)
+        static string PrintSongTrack(int idx, int ofs, int len, int song_ofs, string name)
         {
             var sb = new StringBuilder();
 
@@ -454,10 +459,12 @@ namespace dump_sound
 
             sb.AppendFormat("\t@********************** Track  {0} **********************@\n\n", idx);
             //if (idx == 1) sb.Append("\t.align 2\n"); //only track1 needs alignment, proven by GS1/PWAA1
-            sb.AppendFormat("\t.global gUnknown_{0:X8}_{1}\n", song_ofs, idx);
-            sb.AppendFormat("gUnknown_{0:X8}_{1}:\t@ 0x{2:X8}\n", song_ofs, idx, ofs);
+            sb.AppendFormat("\t.global {0}_{1}\n", name, idx);
+            sb.AppendFormat("{0}_{1}:\t@ 0x{2:X8}\n", name, idx, ofs);
 
             var localLabels = new Dictionary<int, string>();
+
+            var localLabelId = 0;
 
             for (int i = 0; i < len; i++)
             {
@@ -472,7 +479,8 @@ namespace dump_sound
                             var adr = ReadU32(ofs + i + 1);
                             if (!localLabels.ContainsKey(adr))
                             {
-                                localLabels.Add(adr, string.Format("gUnknown_{0:X8}", adr));
+                                localLabelId++;
+                                localLabels.Add(adr, string.Format("{0}_{1}_{2}", name, idx, localLabelId));
                             }
                             i += 4;
                             break;
@@ -511,13 +519,23 @@ namespace dump_sound
             return sb.ToString();
         }
 
-        static string PrintSong(int ofs)
+        static string PrintSong(int ofs, int id)
         {
             var sb = new StringBuilder();
+            var sbt = new StringBuilder();
+            var currName = String.Format("song{0:d3}", id);
+            var realName = currName;
+            if (soundInfo.ContainsKey(ofs))
+            {
+                int pos = soundInfo[ofs].IndexOf(".global song");
+                realName = soundInfo[ofs].Substring(pos + 8, 7);
+            }
+            var filename = String.Format("{0}.inc", realName);
+            var outfilename = String.Format("sound/songs/{0}", filename);
 
             sb.Append("\t.align 2\n");
-            sb.AppendFormat("\t.global gUnknown_{0:X8}\n", ofs);
-            sb.AppendFormat("gUnknown_{0:X8}:\t@ 0x{0:X8}\n", ofs);
+            sb.AppendFormat("\t.global {0}\n", realName);
+            sb.AppendFormat("{0}:\t@ 0x{1:X8}\n", realName, ofs);
 
             var trackCount = ReadU8(ofs + 0);
             var blockCount = ReadU8(ofs + 1);
@@ -529,7 +547,15 @@ namespace dump_sound
             sb.AppendFormat("\t.byte\t{0}\t\t@ blockCount\n", blockCount);
             sb.AppendFormat("\t.byte\t{0}\t\t@ priority\n", priority);
             sb.AppendFormat("\t.byte\t{0}\t\t@ reverb\n\n", reverb);
-            sb.AppendFormat("\t.word\tgUnknown_{0:X8}\t\t@ voicegroup/tone\n\n", tone);
+            if (!soundInfo.ContainsKey(tone) || !soundInfo[tone].Contains(".global voicegroup"))
+            {
+                sb.AppendFormat("\t.word\tgUnknown_{0:X8}\t\t@ voicegroup/tone\n\n", tone);
+            }
+            else
+            {
+                int pos = soundInfo[tone].IndexOf(".global voicegroup");
+                sb.AppendFormat("\t.word\t{0}\t\t@ voicegroup/tone\n\n", soundInfo[tone].Substring(pos + 8, 13));
+            }
 
             /*if (!soundInfo.ContainsKey(tone))
                 soundInfo.Add(tone, PrintVoiceGroup(tone, VoiceGroupLen));*/
@@ -551,13 +577,21 @@ namespace dump_sound
                     nextpart = ReadU32(ofs + 8 + (4 * (i + 1)));
                 }
 
-                sb.AppendFormat("\t.word\tgUnknown_{0:X8}_{1}\t\t@ track\n", ofs, i + 1);
+                sb.AppendFormat("\t.word\t{0}_{1}\t\t@ track\n", realName, i + 1);
 
+                var st = PrintSongTrack(i + 1, part, nextpart - part, ofs, realName);
+                sbt.Append(st);
                 if (!soundInfo.ContainsKey(part))
-                    soundInfo.Add(part, PrintSongTrack(i + 1, part, nextpart - part, ofs));
+                    soundInfo.Add(part, st);
             }
 
-            return sb.ToString();
+            if (String.Compare(realName, currName) == 0)
+            {
+                Directory.CreateDirectory("sound/songs/");
+                File.WriteAllText(outfilename, sbt.ToString() + sb.ToString());
+            }
+
+            return sbt.ToString() + sb.ToString();
         }
 
         static string PrintSongTable(int ofs)
@@ -572,11 +606,15 @@ namespace dump_sound
                 var header = ReadU32(ofs + 0);
                 var ms = ReadU16(ofs + 4);
                 var me = ReadU16(ofs + 6);
-                sb.AppendFormat("\tsong gUnknown_{0:X8}, {1}, {2}\n", header, ms, me);
 
                 //todo rip song
                 if (!soundInfo.ContainsKey(header))
-                    soundInfo.Add(header, PrintSong(header));
+                    soundInfo.Add(header, PrintSong(header, i));
+                else
+                    soundInfo[header] = PrintSong(header, i);
+
+                int pos = soundInfo[header].IndexOf(".global song");
+                sb.AppendFormat("\tsong {0}, {1}, {2}\n", soundInfo[header].Substring(pos + 8, 7), ms, me);
 
                 ofs += 8;
             }
@@ -589,7 +627,7 @@ namespace dump_sound
             rom = File.ReadAllBytes("../../baserom.gba");
 
             soundInfo.Add(MPlayTableAdr, PrintMPlayTable(MPlayTableAdr));
-            soundInfo.Add(SongTableAdr, PrintSongTable(SongTableAdr));
+            PrintSongTable(SongTableAdr);
 
             voicegroups.Add(VoiceGroupEndAdr);
             voicegroups.Sort();
@@ -597,7 +635,7 @@ namespace dump_sound
             {
                 int start = voicegroups[i];
                 int end = voicegroups[i + 1];
-                PrintVoiceGroup(start, end - start);
+                PrintVoiceGroup(start, end - start, i);
             }
 
             voicegroups.Sort();
@@ -605,12 +643,31 @@ namespace dump_sound
             {
                 int start = voicegroups[i];
                 int end = voicegroups[i + 1];
-                soundInfo.Add(start, PrintVoiceGroup(start, end - start));
+                soundInfo.Add(start, PrintVoiceGroup(start, end - start, i));
             }
 
+            soundInfo.Add(SongTableAdr, PrintSongTable(SongTableAdr));
+
             var sb = new StringBuilder();
+            string prev = "songxxx";
             foreach (var adr in soundInfo)
             {
+                if (adr.Value.Contains(".global voicegroup"))
+                {
+                    int pos = adr.Value.IndexOf(".global voicegroup");
+                    sb.AppendFormat(".include \"sound/voicegroups/{0}.inc\"\n", adr.Value.Substring(pos + 8, 13));
+                    continue;
+                }
+                if (adr.Value.Contains(".global song"))
+                {
+                    int pos = adr.Value.IndexOf(".global song");
+                    string curr = adr.Value.Substring(pos + 8, 7);
+                    if (String.Compare(curr, prev) != 0) {
+                        sb.AppendFormat(".include \"sound/songs/{0}.inc\"\n", curr);
+                        prev = curr;
+                    }
+                    continue;
+                }
                 sb.Append(adr.Value);
                 sb.Append("\n");
             }

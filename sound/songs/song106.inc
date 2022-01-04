@@ -1,0 +1,60 @@
+	.align 2
+	@********************** Track  1 **********************@
+
+	.global song106_1
+song106_1:	@ 0x0857D150
+	.byte	0xBE
+	.byte	0x3C
+	.byte	0xBC
+	.byte	0x00
+	.byte	0xBB
+	.byte	0x4B
+	.byte	0xBD
+	.byte	0x04
+	.byte	0xC1
+	.byte	0x05
+	.byte	0xBA
+	.byte	0x0A
+	.byte	0xD1
+	.byte	0x5F
+	.byte	0x7F
+	.byte	0x82
+	.byte	0xC0
+	.byte	0x00
+	.byte	0xD7
+	.byte	0x81
+	.byte	0xC0
+	.byte	0x40
+	.byte	0x81
+	.byte	0xBD
+	.byte	0x05
+	.byte	0xC0
+	.byte	0x00
+	.byte	0x81
+	.byte	0x40
+	.byte	0x81
+	.byte	0x00
+	.byte	0x81
+	.byte	0x40
+	.byte	0x81
+	.byte	0x00
+	.byte	0x81
+	.byte	0x40
+	.byte	0x81
+	.byte	0xBA
+	.byte	0x00
+	.byte	0x8E
+	.byte	0xB1
+	.byte	0x00
+	.byte	0x00
+	.align 2
+	.global song106
+song106:	@ 0x0857D17C
+	.byte	1		@ trackCount
+	.byte	0		@ blockCount
+	.byte	32		@ priority
+	.byte	0		@ reverb
+
+	.word	voicegroup030		@ voicegroup/tone
+
+	.word	song106_1		@ track
