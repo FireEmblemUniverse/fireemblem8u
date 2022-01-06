@@ -2,7 +2,7 @@ $(MID_BUILDDIR)/%.o: $(MID_SUBDIR)/%.s
 	$(AS) $(ASFLAGS) -I sound -o $@ $<
 
 $(MID_SUBDIR)/song001.s: %.s: %.mid
-	$(MID2AGB) $< $@ -E  -V046 -G000 -R020 -P010
+	$(MID2AGB) $< $@ -E -G000 -R020 -P010
 
 $(MID_SUBDIR)/song002.s: %.s: %.mid
 	$(MID2AGB) $< $@ -E  -V045 -G001 -R020 -P010
