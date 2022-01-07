@@ -57,7 +57,8 @@ SYM_FILES    := sym_iwram.txt sym_ewram.txt
 CFILES       := $(wildcard src/*.c)
 ASM_S_FILES  := $(wildcard asm/*.s)
 DATA_S_FILES := $(wildcard data/*.s) 
-SFILES       := $(ASM_S_FILES) $(DATA_S_FILES)
+SOUND_S_FILES := $(wildcard sound/*.s sound/songs/*.s)
+SFILES       := $(ASM_S_FILES) $(DATA_S_FILES) $(SOUND_S_FILES)
 C_OBJECTS    := $(CFILES:.c=.o)
 ASM_OBJECTS  := $(SFILES:.s=.o)
 BANIM_OBJECT := data/banim/data_banim.o

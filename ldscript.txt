@@ -224,8 +224,7 @@ SECTIONS
         . = ALIGN(4); data/const_data_205714.o(.rodata);
         . = ALIGN(4); src/statscreen.o(.rodata);
         . = ALIGN(4); data/const_data_205B84.o(.rodata);
-        . = ALIGN(4); src/m4a_tables.o(.rodata);
-        . = ALIGN(4); data/sound_data.o(.rodata);
+        INCLUDE "linker_script_sound.txt"
         . = ALIGN(4); src/agb_sram.o(.rodata);
         . = ALIGN(4); *libc.a:vfprintf.o(.rodata);
         . = ALIGN(4); *libc.a:dtoa.o(.rodata);
