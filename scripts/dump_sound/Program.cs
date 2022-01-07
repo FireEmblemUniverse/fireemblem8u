@@ -149,6 +149,172 @@ namespace dump_sound
             {0xFF, "N96" },
         };
 
+        static string[] MemSet =
+        {
+            "mem_set",
+            "mem_add",
+            "mem_sub",
+            "mem_mem_set",
+            "mem_mem_add",
+            "mem_mem_sub",
+            "mem_beq",
+            "mem_bne",
+            "mem_bhi",
+            "mem_bhs",
+            "mem_bls",
+            "mem_blo",
+            "mem_mem_beq",
+            "mem_mem_bne",
+            "mem_mem_bhi",
+            "mem_mem_bhs",
+            "mem_mem_bls",
+            "mem_mem_blo",
+        };
+
+        static string[] Keys =
+        {
+            "CnM2",
+            "CsM2",
+            "DnM2",
+            "DsM2",
+            "EnM2",
+            "FnM2",
+            "FsM2",
+            "GnM2",
+            "GsM2",
+            "AnM2",
+            "AsM2",
+            "BnM2",
+            "CnM1",
+            "CsM1",
+            "DnM1",
+            "DsM1",
+            "EnM1",
+            "FnM1",
+            "FsM1",
+            "GnM1",
+            "GsM1",
+            "AnM1",
+            "AsM1",
+            "BnM1",
+            "Cn0",
+            "Cs0",
+            "Dn0",
+            "Ds0",
+            "En0",
+            "Fn0",
+            "Fs0",
+            "Gn0",
+            "Gs0",
+            "An0",
+            "As0",
+            "Bn0",
+            "Cn1",
+            "Cs1",
+            "Dn1",
+            "Ds1",
+            "En1",
+            "Fn1",
+            "Fs1",
+            "Gn1",
+            "Gs1",
+            "An1",
+            "As1",
+            "Bn1",
+            "Cn2",
+            "Cs2",
+            "Dn2",
+            "Ds2",
+            "En2",
+            "Fn2",
+            "Fs2",
+            "Gn2",
+            "Gs2",
+            "An2",
+            "As2",
+            "Bn2",
+            "Cn3",
+            "Cs3",
+            "Dn3",
+            "Ds3",
+            "En3",
+            "Fn3",
+            "Fs3",
+            "Gn3",
+            "Gs3",
+            "An3",
+            "As3",
+            "Bn3",
+            "Cn4",
+            "Cs4",
+            "Dn4",
+            "Ds4",
+            "En4",
+            "Fn4",
+            "Fs4",
+            "Gn4",
+            "Gs4",
+            "An4",
+            "As4",
+            "Bn4",
+            "Cn5",
+            "Cs5",
+            "Dn5",
+            "Ds5",
+            "En5",
+            "Fn5",
+            "Fs5",
+            "Gn5",
+            "Gs5",
+            "An5",
+            "As5",
+            "Bn5",
+            "Cn6",
+            "Cs6",
+            "Dn6",
+            "Ds6",
+            "En6",
+            "Fn6",
+            "Fs6",
+            "Gn6",
+            "Gs6",
+            "An6",
+            "As6",
+            "Bn6",
+            "Cn7",
+            "Cs7",
+            "Dn7",
+            "Ds7",
+            "En7",
+            "Fn7",
+            "Fs7",
+            "Gn7",
+            "Gs7",
+            "An7",
+            "As7",
+            "Bn7",
+            "Cn8",
+            "Cs8",
+            "Dn8",
+            "Ds8",
+            "En8",
+            "Fn8",
+            "Fs8",
+            "Gn8",
+        };
+
+        static Dictionary<string, bool> SongsWithTrackAlignment = new Dictionary<string, bool>()
+        {
+            {"song785", true},
+            {"song805", true},
+            {"song806", true},
+            {"song807", true},
+            {"song811", true},
+            {"song815", true},
+            {"song816", true},
+            {"song962", true},
+        };
+
         static byte ReadU8(int ofs)
         {
             if (ofs > 0x08000000)
@@ -454,11 +620,11 @@ namespace dump_sound
         {
             var sb = new StringBuilder();
 
-            if (idx == 1)
+            sb.AppendFormat("\n\t@********************** Track  {0} **********************@\n\n", idx);
+            if (idx == 1 || SongsWithTrackAlignment.ContainsKey(name))
+            {
                 sb.Append("\t.align 2\n");
-
-            sb.AppendFormat("\t@********************** Track  {0} **********************@\n\n", idx);
-            //if (idx == 1) sb.Append("\t.align 2\n"); //only track1 needs alignment, proven by GS1/PWAA1
+            }
             sb.AppendFormat("\t.global {0}_{1}\n", name, idx);
             sb.AppendFormat("{0}_{1}:\t@ 0x{2:X8}\n", name, idx, ofs);
 
@@ -476,6 +642,10 @@ namespace dump_sound
                     case 0xB3: //PATT
                     case 0xB5: //REPT
                         {
+                            if (cmd == 0xB5)
+                            {
+                                i++;
+                            }
                             var adr = ReadU32(ofs + i + 1);
                             if (!localLabels.ContainsKey(adr))
                             {
@@ -490,30 +660,272 @@ namespace dump_sound
                 }
             }
 
-            for (int i = 0; i < len; i++)
+            byte prev = 0;
+            var fine = false;
+            for (int i = 0; i < len && !fine; i++)
             {
-                //TODO: Make this print nicer?
                 var cmd = ReadU8(ofs + i);
 
                 if (localLabels.ContainsKey(ofs + i))
                     sb.AppendFormat("{0}:\n", localLabels[ofs + i]);
 
-                sb.AppendFormat("\t.byte\t0x{0:X2}\n", cmd);
+                sb.Append("\t.byte\t");
+
+                var cmdName = "";
+                if (cmd >= 0x80)
+                {
+                    cmdName = MML[cmd];
+                }
+                if (cmd < 0x80 && prev > 0)
+                {
+                    cmd = prev;
+                    i--;
+                }
 
                 switch (cmd)
                 {
+                    case 0xCE: // EOT
+                    case 0xCF: // TIE
+                    case 0xD0: // N01
+                    case 0xD1:
+                    case 0xD2:
+                    case 0xD3:
+                    case 0xD4:
+                    case 0xD5:
+                    case 0xD6:
+                    case 0xD7:
+                    case 0xD8:
+                    case 0xD9:
+                    case 0xDA:
+                    case 0xDB:
+                    case 0xDC:
+                    case 0xDD:
+                    case 0xDE:
+                    case 0xDF:
+                    case 0xE0:
+                    case 0xE1:
+                    case 0xE2:
+                    case 0xE3:
+                    case 0xE4:
+                    case 0xE5:
+                    case 0xE6:
+                    case 0xE7:
+                    case 0xE8:
+                    case 0xE9:
+                    case 0xEA:
+                    case 0xEB:
+                    case 0xEC:
+                    case 0xED:
+                    case 0xEE:
+                    case 0xEF:
+                    case 0xF0:
+                    case 0xF1:
+                    case 0xF2:
+                    case 0xF3:
+                    case 0xF4:
+                    case 0xF5:
+                    case 0xF6:
+                    case 0xF7:
+                    case 0xF8:
+                    case 0xF9:
+                    case 0xFA:
+                    case 0xFB:
+                    case 0xFC:
+                    case 0xFD:
+                    case 0xFE:
+                    case 0xFF: // N96
+                        {
+                            sb.AppendFormat("\t{0}\t", cmdName);
+                            var key = ReadU8(ofs + i + 1);
+                            if (key < 0x80)
+                            {
+                                if (cmdName.Length > 0)
+                                {
+                                    sb.Append(", ");
+                                }
+                                sb.Append(Keys[key]);
+                                i++;
+                            }
+                            var velo = ReadU8(ofs + i + 1);
+                            if (cmd > 0xCE && velo < 0x80)
+                            {
+                                sb.AppendFormat(", v{0:d3}", velo);
+                                i++;
+                            }
+                            var gtp = ReadU8(ofs + i + 1);
+                            if (cmd > 0xCF && gtp < 0x80)
+                            {
+                                sb.AppendFormat(", {0}", gtp);
+                                i++;
+                            }
+                            prev = cmd;
+                            break;
+                        }
+                    case 0xB9: // MEMACC (unused in Fire Emblem 8)
+                        {
+                            var mem_set = ReadU8(ofs + i + 1);
+                            var adr = ReadU8(ofs + i + 2);
+                            var dat = ReadU8(ofs + i + 3);
+                            sb.AppendFormat("MEMACC\t, {0}\t, 0x{1:X2}, {2}", MemSet[mem_set], adr, dat);
+                            i += 3;
+                            if (mem_set > 5)
+                            {
+                                var dest = ReadU8(ofs + i + 1);
+                                sb.AppendFormat("\n\t\t.word\t0x{0:X8}", dest);
+                                i += 4;
+                            }
+                            break;
+                        }
+                    case 0xCD: // XCMD
+                        {
+                            sb.AppendFormat("\t{0}\t", cmdName);
+                            var xIECX = ReadU8(ofs + i + 1);
+                            if (cmdName.Length > 0)
+                            {
+                                sb.Append(", ");
+                            }
+                            sb.Append(MML[xIECX]);
+                            i++;
+                            prev = cmd;
+                            break;
+                        }
                     case 0xB2: //GOTO
                     case 0xB3: //PATT
                     case 0xB5: //REPT
                         {
+                            sb.AppendFormat("{0}\t", cmdName);
+                            if (cmd == 0xB5)
+                            {
+                                var count = ReadU8(ofs + i + 1);
+                                sb.AppendFormat(", {0}", count);
+                                i++;
+                            }
                             var adr = ReadU32(ofs + i + 1);
-                            sb.AppendFormat("\t.word\t{0}\n", localLabels[adr]);
+                            sb.AppendFormat("\n\t\t.word\t{0}", localLabels[adr]);
                             i += 4;
                             break;
                         }
+                    case 0x80: // W00
+                    case 0x81:
+                    case 0x82:
+                    case 0x83:
+                    case 0x84:
+                    case 0x85:
+                    case 0x86:
+                    case 0x87:
+                    case 0x88:
+                    case 0x89:
+                    case 0x8A:
+                    case 0x8B:
+                    case 0x8C:
+                    case 0x8D:
+                    case 0x8E:
+                    case 0x8F:
+                    case 0x90:
+                    case 0x91:
+                    case 0x92:
+                    case 0x93:
+                    case 0x94:
+                    case 0x95:
+                    case 0x96:
+                    case 0x97:
+                    case 0x98:
+                    case 0x99:
+                    case 0x9A:
+                    case 0x9B:
+                    case 0x9C:
+                    case 0x9D:
+                    case 0x9E:
+                    case 0x9F:
+                    case 0xA0:
+                    case 0xA1:
+                    case 0xA2:
+                    case 0xA3:
+                    case 0xA4:
+                    case 0xA5:
+                    case 0xA6:
+                    case 0xA7:
+                    case 0xA8:
+                    case 0xA9:
+                    case 0xAA:
+                    case 0xAB:
+                    case 0xAC:
+                    case 0xAD:
+                    case 0xAE:
+                    case 0xAF:
+                    case 0xB0: // W96
+                    case 0xB1: // FINE
+                    case 0xB4: // PEND
+                        {
+                            sb.Append(cmdName);
+                            if (cmd == 0xB1)
+                            {
+                                fine = true;
+                            }
+                            break;
+                        }
+                    case 0xBA: // PRIO
+                    case 0xBB: // TEMPO
+                    case 0xBC: // KEYSH
+                    case 0xC2: // LFOS
+                    case 0xC3: // LFODL
+                    case 0xC5: // MODT
+                        {
+                            sb.AppendFormat("{0}\t", cmdName);
+                            var arg = ReadU8(ofs + i + 1);
+                            if (cmdName.Length > 0)
+                            {
+                                sb.Append(", ");
+                            }
+                            sb.AppendFormat("{0}", arg);
+                            i++;
+                            break;
+                        }
+                    case 0xBD: // VOICE
+                    case 0xBE: // VOL
+                    case 0xBF: // PAN
+                    case 0xC0: // BEND
+                    case 0xC1: // BENDR
+                    case 0xC4: // MOD
+                    case 0xC8: // TUNE
+                        {
+                            var arg = ReadU8(ofs + i + 1);
+                            var argStr = String.Format("{0}", arg);
+                            if (cmd == 0xBF || cmd == 0xC0 || cmd == 0xC8)
+                            {
+                                argStr = "c_v";
+                                if (arg > 64)
+                                {
+                                    argStr = String.Format("{0}+{1}", argStr, arg - 64);
+                                }
+                                if (arg < 64)
+                                {
+                                    argStr = String.Format("{0}-{1}", argStr, 64 - arg);
+                                }
+                            }
+                            if (cmd == 0xBE)
+                            {
+                                argStr = String.Format("v{0:d3}", arg);
+                            }
+                            sb.AppendFormat("{0}\t",cmdName);
+                            if (cmdName.Length > 0)
+                            {
+                                sb.Append(", ");
+                            }
+                            sb.Append(argStr);
+                            i++;
+                            prev = cmd;
+                            break;
+                        }
                     default:
-                        break;
+                        {
+                            //sb.AppendFormat("0x{0:X2}", cmd);
+                            //break;
+                            throw new Exception("Invalid cmd!");
+                        }
                 }
+
+                sb.Append("\n");
             }
 
             return sb.ToString();
@@ -530,10 +942,13 @@ namespace dump_sound
                 int pos = soundInfo[ofs].IndexOf(".global song");
                 realName = soundInfo[ofs].Substring(pos + 8, 7);
             }
-            var filename = String.Format("{0}.inc", realName);
+            var filename = String.Format("{0}.s", realName);
             var outfilename = String.Format("sound/songs/{0}", filename);
 
-            sb.Append("\t.align 2\n");
+            sbt.Append("\t.include \"MPlayDef.s\"\n\n");
+            sbt.Append("\t.section .rodata\n");
+
+            sb.Append("\n\t.align 2\n");
             sb.AppendFormat("\t.global {0}\n", realName);
             sb.AppendFormat("{0}:\t@ 0x{1:X8}\n", realName, ofs);
 
@@ -547,14 +962,17 @@ namespace dump_sound
             sb.AppendFormat("\t.byte\t{0}\t\t@ blockCount\n", blockCount);
             sb.AppendFormat("\t.byte\t{0}\t\t@ priority\n", priority);
             sb.AppendFormat("\t.byte\t{0}\t\t@ reverb\n\n", reverb);
-            if (!soundInfo.ContainsKey(tone) || !soundInfo[tone].Contains(".global voicegroup"))
+            if (id > 0)
             {
-                sb.AppendFormat("\t.word\tgUnknown_{0:X8}\t\t@ voicegroup/tone\n\n", tone);
-            }
-            else
-            {
-                int pos = soundInfo[tone].IndexOf(".global voicegroup");
-                sb.AppendFormat("\t.word\t{0}\t\t@ voicegroup/tone\n\n", soundInfo[tone].Substring(pos + 8, 13));
+                if (!soundInfo.ContainsKey(tone) || !soundInfo[tone].Contains(".global voicegroup"))
+                {
+                    sb.AppendFormat("\t.word\tgUnknown_{0:X8}\t\t@ voicegroup/tone\n\n", tone);
+                }
+                else
+                {
+                    int pos = soundInfo[tone].IndexOf(".global voicegroup");
+                    sb.AppendFormat("\t.word\t{0}\t\t@ voicegroup/tone\n\n", soundInfo[tone].Substring(pos + 8, 13));
+                }
             }
 
             /*if (!soundInfo.ContainsKey(tone))
