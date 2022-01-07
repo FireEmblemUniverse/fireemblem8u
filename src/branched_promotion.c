@@ -1,5 +1,6 @@
 #include "global.h"
 
+#include "bmio.h"
 #include "fontgrp.h"
 #include "functions.h"
 #include "hardware.h"
@@ -18,7 +19,7 @@ struct PromoProc
     u8 u31;
     s8 u32;
     s8 u33;
-    s8 u34;
+    u8 u34;
     s8 u35;
     s8 u36;
     s8 u37;
@@ -115,5 +116,59 @@ void sub_80CC4AC(struct PromoProc2 *proc) {
         gLCDControlBuffer.bg1cnt.priority = 2;
         gLCDControlBuffer.bg2cnt.priority = 1;
         gLCDControlBuffer.bg3cnt.priority = 3;
+    }
+}
+
+void sub_80CC5B4(struct PromoProc2 *proc) {
+    struct PromoProc *parent = proc->proc_parent;
+    switch (parent->u31) {
+        case 0:
+            Proc_Goto(proc, 2);
+            break;
+        case 1:
+            if (!parent->u34) {
+                proc->u3b = parent->u35;
+                Proc_Goto(proc, 5);
+            }
+            else if (parent->u34 == 1)
+                Proc_Goto(proc, 4);
+            break;
+        case 2:
+            if (!parent->u34) {
+                proc->u3b = parent->u35;
+                Proc_Goto(proc, 5);
+            }
+            else if (parent->u34 == 1)
+                Proc_Goto(proc, 4);
+            break;
+    }
+}
+
+void sub_80CC628(struct PromoProc2 *proc) {
+    struct PromoProc *parent = proc->proc_parent;
+    if (parent->u31 == 0) {
+        if (parent->u34 == 0) {
+            proc->u3b = parent->u35;
+            Proc_Goto(proc, 5);
+        }
+        if (parent->u34 == 1) {
+            Proc_Goto(proc, 4);
+        }
+    }
+}
+
+void sub_80CC66C(struct PromoProc2 *proc) {
+    struct PromoProc *parent = proc->proc_parent;
+    switch (parent->u31) {
+        case 0:
+        case 1:
+            break;
+        case 2:
+            BMapDispResume();
+            SMS_UpdateFromGameData();
+            SetupMapSpritesPalettes();
+            SMS_FlushIndirect();
+            Font_LoadForUI();
+            break;
     }
 }
