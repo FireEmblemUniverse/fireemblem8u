@@ -1,10 +1,12 @@
 #include "global.h"
 
 #include "bmio.h"
+#include "bmunit.h"
 #include "fontgrp.h"
 #include "functions.h"
 #include "hardware.h"
 #include "proc.h"
+#include "soundwrapper.h"
 #include "statscreen.h"
 #include "uiutils.h"
 
@@ -18,7 +20,7 @@ struct PromoProc
     s8 u30;
     u8 u31;
     s8 u32;
-    s8 u33;
+    u8 u33;
     u8 u34;
     s8 u35;
     s8 u36;
@@ -39,13 +41,16 @@ extern const struct ProcCmd gUnknown_08B12614[];
 
 ProcPtr Make6C_PromotionMain(ProcPtr proc);
 
-void MakePromotionScreen(struct PromoProc *proc, u8 a, u8 b) {
+void MakePromotionScreen(ProcPtr proc, u32 a, u32 b) {
+    struct PromoProc *proc_ = (struct PromoProc *) proc;
+    u8 a_ = a;
+    u8 b_ = b;
     u8 * res;
-    proc->u30 = 0;
-    res = Make6C_PromotionMain(proc);
-    proc->u2c = res;
-    res[0x38] = a;
-    res[0x39] = b;
+    proc_->u30 = 0;
+    res = Make6C_PromotionMain(proc_);
+    proc_->u2c = res;
+    res[0x38] = a_;
+    res[0x39] = b_;
 }
 
 ProcPtr Make6C_PromotionMain(ProcPtr proc) {
@@ -171,4 +176,134 @@ void sub_80CC66C(struct PromoProc2 *proc) {
             Font_LoadForUI();
             break;
     }
+}
+
+void sub_80CC698(struct PromoProc2 *proc) {
+    struct PromoProc *parent = proc->proc_parent;
+    if (parent->u31 == 0) {
+        sub_8002670();
+        Sound_SetVolume80022EC(0x100);
+        sub_8002620(0x34);
+    }
+    parent->u30 = 2;
+    sub_80ADDD4(proc);
+    Proc_End(proc);
+}
+
+struct MaybeTraineeData {
+    u8 a;
+    u8 b;
+    u8 c;
+    u8 d;
+};
+
+struct MaybeTraineeList {
+    struct MaybeTraineeData members[3];
+};
+extern struct MaybeTraineeList gUnknown_08207044;
+
+u32 sub_80CC6D4(struct PromoProc *proc) {
+    struct MaybeTraineeList trainees = gUnknown_08207044;
+    struct Unit *unit;
+    u8 classNumber;
+    u32 somethingAboutPath;
+    switch (gRAMChapterData.chapterModeIndex) {
+        case 2:
+        default:
+            somethingAboutPath = 1;
+            break;
+        case 3:
+            somethingAboutPath = 0xf;
+            break;
+    }
+    if (!proc->u31) {
+        u8 i;
+        u8 flag;
+        proc->u31 = 0;
+        proc->u34 = 1;
+        // This probably loops over trainee units - not sure why it goes to 6 though.
+        flag = 0;
+        for (i = 0; i < 7; i++) {
+            unit = GetUnitFromCharId(trainees.members[i].a);
+            if (!unit) {
+                flag = 1;
+            }
+            if (unit->state & 0x10004) {
+                flag = 1;
+            }
+            if (unit->level < trainees.members[i].b) {
+                flag = 1;
+            }
+            classNumber = unit->pClassData->number;
+            if (classNumber != trainees.members[i].c) {
+                flag = 1;
+            }
+            if (!gUnknown_0895DFA4[classNumber][0] && !gUnknown_0895DFA4[classNumber][1]) {
+                flag = 1;
+            }
+            if (!flag) {
+                if (gUnknown_0895DFA4[classNumber][0] && !gUnknown_0895DFA4[classNumber][1]) {
+                    proc->u35 = gUnknown_0895DFA4[classNumber][0];
+                    proc->u34 = 0;
+                }
+                if (!gUnknown_0895DFA4[classNumber][0] && gUnknown_0895DFA4[classNumber][1]) {
+                    proc->u35 = gUnknown_0895DFA4[classNumber][1];
+                    proc->u34 = 0;
+                }
+
+                if (trainees.members[i].a != somethingAboutPath) {
+                    MakePromotionScreen(proc, trainees.members[i].a, (u8) somethingAboutPath);
+                } else {
+                    MakePromotionScreen(proc, somethingAboutPath, 2);
+                }
+                return 1;
+            }
+            flag = 0;
+        }
+        return 2;
+    }
+    else if (proc->u31 == 1) {
+        proc->u31 = 1;
+        proc->u34 = 1;
+        unit = GetUnitFromCharId(proc->u33);
+        classNumber = unit->pClassData->number;
+        if (!gUnknown_0895DFA4[classNumber][0] && !gUnknown_0895DFA4[classNumber][1]) {
+            return 2;
+        }
+        if (gUnknown_0895DFA4[classNumber][0] && !gUnknown_0895DFA4[classNumber][1]) {
+            proc->u35 = gUnknown_0895DFA4[classNumber][0];
+            proc->u34 = 0;
+
+        }
+        if (!gUnknown_0895DFA4[classNumber][0] && gUnknown_0895DFA4[classNumber][1]) {
+            proc->u35 = gUnknown_0895DFA4[classNumber][1];
+            proc->u34 = 0;
+        }
+
+        MakePromotionScreen(proc, proc->u33, 1);
+        return 1;
+    }
+    else if (proc->u31 == 2) {
+        proc->u31 = 2;
+        proc->u34 = 1;
+        unit = GetUnitFromCharId(proc->u33);
+        classNumber = unit->pClassData->number;
+        if (!gUnknown_0895DFA4[classNumber][0] && !gUnknown_0895DFA4[classNumber][1]) {
+            BMapDispResume();
+            RefreshBMapGraphics();
+            return 2;
+        }
+        if (gUnknown_0895DFA4[classNumber][0] && !gUnknown_0895DFA4[classNumber][1]) {
+            proc->u35 = gUnknown_0895DFA4[classNumber][0];
+            proc->u34 = 0;
+        }
+        if (!gUnknown_0895DFA4[classNumber][0] && gUnknown_0895DFA4[classNumber][1]) {
+            proc->u35 = gUnknown_0895DFA4[classNumber][1];
+            proc->u34 = 0;
+        }
+        MakePromotionScreen(proc, proc->u33, 1);
+        return 1;
+    }
+    else
+        return 2;
 }
