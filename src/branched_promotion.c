@@ -2,10 +2,12 @@
 
 #include "bmbattle.h"
 #include "bmio.h"
+#include "bmitem.h"
 #include "bmunit.h"
 #include "fontgrp.h"
 #include "functions.h"
 #include "hardware.h"
+#include "mu.h"
 #include "proc.h"
 #include "soundwrapper.h"
 #include "statscreen.h"
@@ -59,7 +61,7 @@ struct PromoProc2
     s8 u29;
     s8 u2a;
     s8 u2b;
-	struct Unit *u2c;
+    struct Unit *unit;
     u32 u30;
     u32 u34;
     s8 u38;
@@ -339,4 +341,61 @@ void sub_80CC940(ProcPtr parent) {
     target->weapon = 0;
     actor->weapon = 0;
     target->statusOut = -1;
+}
+
+void sub_80CC990(struct PromoProc2 *proc) {
+    struct BattleUnit *actor, *target;
+    struct PromoProc *new_proc;
+    struct PromoProc2 *parent;
+
+    u32 weapon;
+    u32 u30 = proc->u30;
+    if (u30 != -1) {
+        struct BattleUnit *actor, *target;
+        actor = &gBattleActor;
+        target = &gBattleTarget;
+        target->weaponBefore = proc->unit->items[u30];
+        actor->weaponBefore = proc->unit->items[u30];
+    }
+    weapon = GetUnitEquippedWeapon(proc->unit);
+    actor = &gBattleActor;
+    target = &gBattleTarget;
+    target->weapon = weapon;
+    actor->weapon = weapon;
+    target->statusOut = -1;
+
+    new_proc = Proc_StartBlocking(gUnknown_08B126CC, proc);
+    new_proc->u31 = 1;
+    new_proc->u32 = 0;
+
+    parent = new_proc->proc_parent;
+    new_proc->u33 = parent->unit->pCharacterData->number;
+    new_proc->u38 = parent->unit;
+    new_proc->u3c = parent->u30;
+}
+
+void sub_80CCA14(struct PromoProc2 *proc) {
+    struct Unit *unit;
+    struct PromoProc *new_proc = Proc_StartBlocking(gUnknown_08B126CC, proc);
+    new_proc->u31 = 2;
+    new_proc->u32 = 0;
+    unit = GetUnit(gActionData.subjectIndex);
+    new_proc->u33 = unit->pCharacterData->number;
+    new_proc->u38 = GetUnit(gActionData.subjectIndex);
+    new_proc->u3c = gActionData.itemSlotIndex;
+    BMapDispSuspend();
+    MU_EndAll();
+}
+
+void ChangeClassDescription(u32 a) {
+    sub_8006978();
+    sub_8008250();
+    sub_8006A30(2, 0xf, a);
+    sub_8006B10(0);
+    sub_8006AA8(1);
+    sub_8006AA8(2);
+    sub_8006AA8(4);
+    sub_8006AA8(8);
+    sub_8006AA8(0x40);
+    sub_8006AF0(4);
 }

@@ -2,144 +2,8 @@
 
 	.SYNTAX UNIFIED
 
-	THUMB_FUNC_START sub_80CC990
-sub_80CC990: @ 0x080CC990
-	push {r4, r5, lr}
-	adds r5, r0, #0
-	ldr r2, [r5, #0x30]
-	movs r0, #1
-	negs r0, r0
-	cmp r2, r0
-	beq _080CC9B6
-	ldr r3, _080CCA08  @ gBattleActor
-	ldr r1, _080CCA0C  @ gBattleTarget
-	ldr r0, [r5, #0x2c]
-	lsls r2, r2, #1
-	adds r0, #0x1e
-	adds r0, r0, r2
-	ldrh r2, [r0]
-	adds r1, #0x4a
-	strh r2, [r1]
-	ldrh r0, [r0]
-	adds r3, #0x4a
-	strh r0, [r3]
-_080CC9B6:
-	ldr r0, [r5, #0x2c]
-	bl GetUnitEquippedWeapon
-	ldr r1, _080CCA08  @ gBattleActor
-	ldr r2, _080CCA0C  @ gBattleTarget
-	adds r3, r2, #0
-	adds r3, #0x48
-	movs r4, #0
-	strh r0, [r3]
-	adds r1, #0x48
-	strh r0, [r1]
-	adds r2, #0x6f
-	movs r0, #0xff
-	strb r0, [r2]
-	ldr r0, _080CCA10  @ gUnknown_08B126CC
-	adds r1, r5, #0
-	bl Proc_StartBlocking
-	adds r3, r0, #0
-	adds r1, r3, #0
-	adds r1, #0x31
-	movs r0, #1
-	strb r0, [r1]
-	adds r0, r3, #0
-	adds r0, #0x32
-	strb r4, [r0]
-	ldr r1, [r3, #0x14]
-	ldr r0, [r1, #0x2c]
-	ldr r0, [r0]
-	ldrb r0, [r0, #4]
-	adds r2, r3, #0
-	adds r2, #0x33
-	strb r0, [r2]
-	ldr r0, [r1, #0x2c]
-	str r0, [r3, #0x38]
-	ldr r0, [r1, #0x30]
-	str r0, [r3, #0x3c]
-	pop {r4, r5}
-	pop {r0}
-	bx r0
-	.align 2, 0
-_080CCA08: .4byte gBattleActor
-_080CCA0C: .4byte gBattleTarget
-_080CCA10: .4byte gUnknown_08B126CC
-
-	THUMB_FUNC_END sub_80CC990
-
-	THUMB_FUNC_START sub_80CCA14
-sub_80CCA14: @ 0x080CCA14
-	push {r4, r5, lr}
-	adds r1, r0, #0
-	ldr r0, _080CCA5C  @ gUnknown_08B126CC
-	bl Proc_StartBlocking
-	adds r5, r0, #0
-	adds r2, r5, #0
-	adds r2, #0x31
-	movs r1, #0
-	movs r0, #2
-	strb r0, [r2]
-	adds r0, r5, #0
-	adds r0, #0x32
-	strb r1, [r0]
-	ldr r4, _080CCA60  @ gActionData
-	ldrb r0, [r4, #0xc]
-	bl GetUnit
-	ldr r0, [r0]
-	ldrb r0, [r0, #4]
-	adds r1, r5, #0
-	adds r1, #0x33
-	strb r0, [r1]
-	ldrb r0, [r4, #0xc]
-	bl GetUnit
-	str r0, [r5, #0x38]
-	ldrb r0, [r4, #0x12]
-	str r0, [r5, #0x3c]
-	bl BMapDispSuspend
-	bl MU_EndAll
-	pop {r4, r5}
-	pop {r0}
-	bx r0
-	.align 2, 0
-_080CCA5C: .4byte gUnknown_08B126CC
-_080CCA60: .4byte gActionData
-
-	THUMB_FUNC_END sub_80CCA14
-
-	THUMB_FUNC_START sub_80CCA64
-sub_80CCA64: @ 0x080CCA64
-	push {r4, lr}
-	adds r4, r0, #0
-	bl sub_8006978
-	bl sub_8008250
-	movs r0, #2
-	movs r1, #0xf
-	adds r2, r4, #0
-	bl sub_8006A30
-	movs r0, #0
-	bl sub_8006B10
-	movs r0, #1
-	bl sub_8006AA8
-	movs r0, #2
-	bl sub_8006AA8
-	movs r0, #4
-	bl sub_8006AA8
-	movs r0, #8
-	bl sub_8006AA8
-	movs r0, #0x40
-	bl sub_8006AA8
-	movs r0, #4
-	bl sub_8006AF0
-	pop {r4}
-	pop {r0}
-	bx r0
-
-	THUMB_FUNC_END sub_80CCA64
-
-	THUMB_FUNC_START sub_80CCAAC
-sub_80CCAAC: @ 0x080CCAAC
+	THUMB_FUNC_START LoadClassReelFontPalette
+LoadClassReelFontPalette: @ 0x080CCAAC
 	push {r4, r5, lr}
 	sub sp, #0x20
 	adds r4, r0, #0
@@ -211,10 +75,10 @@ _080CCB34: .4byte gUnknown_08A36338
 _080CCB38: .4byte 0x06011000
 _080CCB3C: .4byte gUnknown_08A372C0
 
-	THUMB_FUNC_END sub_80CCAAC
+	THUMB_FUNC_END LoadClassReelFontPalette
 
-	THUMB_FUNC_START sub_80CCB40
-sub_80CCB40: @ 0x080CCB40
+	THUMB_FUNC_START LoadClassNameInClassReelFont
+LoadClassNameInClassReelFont: @ 0x080CCB40
 	push {r4, r5, r6, r7, lr}
 	sub sp, #0x24
 	adds r7, r0, #0
@@ -290,7 +154,7 @@ _080CCBCA:
 	pop {r0}
 	bx r0
 
-	THUMB_FUNC_END sub_80CCB40
+	THUMB_FUNC_END LoadClassNameInClassReelFont
 
 	THUMB_FUNC_START sub_80CCBD4
 sub_80CCBD4: @ 0x080CCBD4
@@ -308,8 +172,8 @@ _080CCBF0: .4byte gUnknown_0201FADC
 
 	THUMB_FUNC_END sub_80CCBD4
 
-	THUMB_FUNC_START sub_80CCBF4
-sub_80CCBF4: @ 0x080CCBF4
+	THUMB_FUNC_START LoadUIForPromoScreen
+LoadUIForPromoScreen: @ 0x080CCBF4
 	push {r4, lr}
 	ldr r4, _080CCC1C  @ gUnknown_08A30800
 	movs r0, #2
@@ -333,7 +197,7 @@ _080CCC20: .4byte 0x06003000
 _080CCC24: .4byte gBG2TilemapBuffer
 _080CCC28: .4byte gUnknown_08A30978
 
-	THUMB_FUNC_END sub_80CCBF4
+	THUMB_FUNC_END LoadUIForPromoScreen
 
 	THUMB_FUNC_START sub_80CCC2C
 sub_80CCC2C: @ 0x080CCC2C
@@ -487,8 +351,8 @@ _080CCD44: .4byte gUnknown_08B1271C
 
 	THUMB_FUNC_END Make6C_PromotionSub
 
-	THUMB_FUNC_START sub_80CCD48
-sub_80CCD48: @ 0x080CCD48
+	THUMB_FUNC_START SetupPromotionScreen
+SetupPromotionScreen: @ 0x080CCD48
 	push {r4, r5, r6, r7, lr}
 	mov r7, sl
 	mov r6, r9
@@ -531,7 +395,7 @@ sub_80CCD48: @ 0x080CCD48
 	movs r0, #0
 	movs r3, #0x58
 	bl sub_80CD47C
-	bl sub_80CCBF4
+	bl LoadUIForPromoScreen
 	ldr r0, [r5, #0x50]
 	movs r1, #0x8c
 	lsls r1, r1, #1
@@ -602,7 +466,7 @@ _080CCE1E:
 	adds r0, r7, #0
 	mov r2, r9
 	str r3, [sp, #0x1c]
-	bl sub_80CD570
+	bl LoadClassBattleSprite
 	ldr r1, [sp, #0x18]
 	add r1, r8
 	strb r0, [r1]
@@ -654,7 +518,7 @@ _080CCE98:
 	adds r0, #0x36
 	movs r1, #0x7e
 	mov r2, r9
-	bl sub_80CD570
+	bl LoadClassBattleSprite
 	adds r1, r5, #0
 	adds r1, #0x4c
 	strb r0, [r1]
@@ -667,7 +531,7 @@ _080CCEB2:
 	adds r0, #0x36
 	movs r1, #0x7f
 	mov r2, r9
-	bl sub_80CD570
+	bl LoadClassBattleSprite
 	adds r1, r5, #0
 	adds r1, #0x4c
 	strb r0, [r1]
@@ -680,7 +544,7 @@ _080CCECC:
 	adds r0, #0x36
 	movs r1, #0x37
 	mov r2, r9
-	bl sub_80CD570
+	bl LoadClassBattleSprite
 	adds r1, r5, #0
 	adds r1, #0x4c
 	strb r0, [r1]
@@ -719,9 +583,9 @@ _080CCF12:
 	strb r1, [r0]
 	adds r0, r5, #0
 	ldr r1, [sp, #8]
-	bl sub_80CCAAC
+	bl LoadClassReelFontPalette
 	adds r0, r5, #0
-	bl sub_80CCB40
+	bl LoadClassNameInClassReelFont
 	bl LoadObjUIGfx
 	adds r0, r5, #0
 	bl Make6C_PromotionMenuSelect
@@ -745,7 +609,7 @@ _080CCF4E:
 	pop {r0}
 	bx r0
 
-	THUMB_FUNC_END sub_80CCD48
+	THUMB_FUNC_END SetupPromotionScreen
 
 	THUMB_FUNC_START sub_80CCF60
 sub_80CCF60: @ 0x080CCF60
@@ -768,7 +632,7 @@ sub_80CCF60: @ 0x080CCF60
 	adds r4, r4, r0
 	movs r1, #0
 	ldrsh r0, [r4, r1]
-	bl sub_80CCA64
+	bl ChangeClassDescription
 	movs r0, #1
 	negs r0, r0
 	bl sub_8006AF0
@@ -831,8 +695,8 @@ _080CD010: .4byte 0x0400000E
 
 	THUMB_FUNC_END sub_80CCF60
 
-	THUMB_FUNC_START sub_80CD014
-sub_80CD014: @ 0x080CD014
+	THUMB_FUNC_START LoadBattleSpritesForBranchScreen
+LoadBattleSpritesForBranchScreen: @ 0x080CD014
 	push {r4, r5, r6, r7, lr}
 	mov r7, sl
 	mov r6, r9
@@ -1039,7 +903,7 @@ _080CD1AC:
 	bl sub_805A990
 _080CD1BE:
 	mov r0, r9
-	bl sub_80CCB40
+	bl LoadClassNameInClassReelFont
 	add sp, #0x5c
 	pop {r3, r4, r5}
 	mov r8, r3
@@ -1049,7 +913,7 @@ _080CD1BE:
 	pop {r0}
 	bx r0
 
-	THUMB_FUNC_END sub_80CD014
+	THUMB_FUNC_END LoadBattleSpritesForBranchScreen
 
 	THUMB_FUNC_START sub_80CD1D4
 sub_80CD1D4: @ 0x080CD1D4
@@ -1518,8 +1382,8 @@ _080CD56C: .4byte sub_80CD34C
 
 	THUMB_FUNC_END sub_80CD47C
 
-	THUMB_FUNC_START sub_80CD570
-sub_80CD570: @ 0x080CD570
+	THUMB_FUNC_START LoadClassBattleSprite
+LoadClassBattleSprite: @ 0x080CD570
 	push {r4, r5, r6, r7, lr}
 	adds r4, r0, #0
 	lsls r1, r1, #0x10
@@ -1609,7 +1473,7 @@ _080CD612:
 	pop {r1}
 	bx r1
 
-	THUMB_FUNC_END sub_80CD570
+	THUMB_FUNC_END LoadClassBattleSprite
 
 	THUMB_FUNC_START sub_80CD618
 sub_80CD618: @ 0x080CD618
@@ -2586,7 +2450,7 @@ PromotionCommand_OnChange: @ 0x080CDD00
 	adds r0, r0, r1
 	movs r1, #0
 	ldrsh r0, [r0, r1]
-	bl sub_80CCA64
+	bl ChangeClassDescription
 	movs r0, #1
 	negs r0, r0
 	bl sub_8006AF0
@@ -2632,8 +2496,8 @@ _080CDD72:
 
 	THUMB_FUNC_END Usability_ThirdPromotionOption
 
-	THUMB_FUNC_START sub_80CDD78
-sub_80CDD78: @ 0x080CDD78
+	THUMB_FUNC_START BuildPromotionMenu
+BuildPromotionMenu: @ 0x080CDD78
 	push {r4, r5, r6, lr}
 	sub sp, #0xc
 	adds r6, r0, #0
@@ -2672,7 +2536,7 @@ _080CDDC8: .4byte 0x06001400
 _080CDDCC: .4byte gUnknown_08B129E4
 _080CDDD0: .4byte gUnknown_08B12A60
 
-	THUMB_FUNC_END sub_80CDD78
+	THUMB_FUNC_END BuildPromotionMenu
 
 	THUMB_FUNC_START sub_80CDDD4
 sub_80CDDD4: @ 0x080CDDD4
