@@ -1,5 +1,6 @@
 #include "global.h"
 
+#include "bmbattle.h"
 #include "bmio.h"
 #include "bmunit.h"
 #include "fontgrp.h"
@@ -17,7 +18,7 @@ struct PromoProc
     s8 u2a;
     s8 u2b;
     ProcPtr u2c;
-    s8 u30;
+    u8 u30;
     u8 u31;
     s8 u32;
     u8 u33;
@@ -25,14 +26,8 @@ struct PromoProc
     s8 u35;
     s8 u36;
     s8 u37;
-    s8 u38;
-    s8 u39;
-    s8 u3a;
-    s8 u3b;
-    s8 u3c;
-    s8 u3d;
-    s8 u3e;
-    s8 u3f;
+    struct Unit *u38;
+    s32 u3c;
     u32 u40;
     s8 u44[36];
 };
@@ -64,7 +59,7 @@ struct PromoProc2
     s8 u29;
     s8 u2a;
     s8 u2b;
-    ProcPtr u2c;
+	struct Unit *u2c;
     u32 u30;
     u32 u34;
     s8 u38;
@@ -306,4 +301,42 @@ u32 sub_80CC6D4(struct PromoProc *proc) {
     }
     else
         return 2;
+}
+
+u8 PromotionInit_SetNullState(struct PromoProc *proc) {
+    proc->u30 = 0;
+    return 0;
+}
+
+void PromotionInit_Loop(struct PromoProc *proc) {
+    switch (proc->u30) {
+    case 1:
+    default:
+        return;
+    case 0:
+        proc->u30 = sub_80CC6D4(proc);
+        break;
+    case 2:
+        Proc_Break(proc);
+        break;
+
+    }
+}
+
+extern struct ProcCmd gUnknown_08B126CC[];
+
+void sub_80CC940(ProcPtr parent) {
+    struct BattleUnit *actor, *target;
+    struct PromoProc *proc = Proc_StartBlocking(gUnknown_08B126CC, parent);
+    proc->u31 = 0;
+    proc->u32 = 0;
+    proc->u38 = 0;
+    proc->u3c = -1;
+    actor = &gBattleActor;
+    target = &gBattleTarget;
+    target->weaponBefore = 0;
+    actor->weaponBefore = 0;
+    target->weapon = 0;
+    actor->weapon = 0;
+    target->statusOut = -1;
 }

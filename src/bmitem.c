@@ -532,7 +532,7 @@ s8 IsItemEffectiveAgainst(u16 item, struct Unit* unit) {
 
         return FALSE;
 
-        check_flying_effectiveness_negation: { 
+        check_flying_effectiveness_negation: {
             u32 attributes;
             int i;
 
