@@ -3699,7 +3699,6 @@ extern u16 CONST_DATA gUnknown_08A1D79C[]; // 'R is info' palette
 // extern ??? gUnknown_08A301B0
 // extern ??? gUnknown_08A30780
 extern u8 gUnknown_08A30800[];
-extern u8 gUnknown_08A30978[];
 // extern ??? gUnknown_08A30E2C
 // extern ??? gUnknown_08A35488
 // extern ??? gUnknown_08A3593C
@@ -4165,7 +4164,7 @@ extern u8 gUnknown_08A372C0[];
 // extern ??? gUnknown_08B125F4
 // extern ??? gUnknown_08B12614
 // extern ??? gUnknown_08B126CC
-// extern ??? gUnknown_08B1271C
+extern const struct ProcCmd gUnknown_08B1271C[];
 // extern ??? gUnknown_08B127EC
 // extern ??? gUnknown_08B1280C
 // extern ??? gUnknown_08B12930

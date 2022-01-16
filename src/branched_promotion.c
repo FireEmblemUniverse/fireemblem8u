@@ -485,11 +485,20 @@ void sub_80CCBD4(void) {
     sub_805AE14(gUnknown_0201FADC);
 }
 
+struct Struct_8A30978 {
+    u8 a;
+    u8 b; // Accessed indirectly, strangely
+    u16 longBuffer[0x4B2];
+};
+extern struct Struct_8A30978 gUnknown_08A30978;
+
+void sub_80CCCE0(u16 *buffer, struct Struct_8A30978 *b, u32 c);
+
 void LoadUIForPromoScreen(void) {
     u8 *a = gUnknown_08A30800;
     u32 off = GetBackgroundTileDataOffset(2);
     CopyDataWithPossibleUncomp(a, (void *)0x06003000 + off);
-    sub_80CCCE0(gBG2TilemapBuffer, gUnknown_08A30978, 0x8c << 5);
+    sub_80CCCE0(gBG2TilemapBuffer, &gUnknown_08A30978, 0x8c << 5);
 }
 
 void sub_80CCC2C(struct PromoProc3 *proc) {
@@ -527,4 +536,32 @@ u32 sub_80CCCA4(void) {
         }
     }
     return 0;
+}
+
+void sub_80CCCE0(u16 *buffer, struct Struct_8A30978 *b, u32 c) {
+    s16 i, j;
+    s16 jrange;
+    u16 *src;
+    u16 *dst;
+    u32 word;
+    u8 mask;
+    u16 add = c;
+    src = b->longBuffer;
+    mask = 0xff;
+    word = *((u32*)b);
+    jrange = b->a;
+    i = (word >> 8) & mask;
+    while (i > 0xc) {
+        j = jrange;
+        dst = buffer + i * 32;
+        while (j >= 0) {
+            *dst++ = (*src++) + add;
+            j--;
+        }
+        i--;
+    }
+}
+
+ProcPtr Make6C_PromotionSub(ProcPtr parent) {
+    return Proc_StartBlocking(gUnknown_08B1271C, parent);
 }

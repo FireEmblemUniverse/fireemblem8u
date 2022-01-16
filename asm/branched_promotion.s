@@ -2,69 +2,6 @@
 
 	.SYNTAX UNIFIED
 
-	THUMB_FUNC_START sub_80CCCE0
-sub_80CCCE0: @ 0x080CCCE0
-	push {r4, r5, r6, r7, lr}
-	adds r7, r0, #0
-	lsls r2, r2, #0x10
-	lsrs r5, r2, #0x10
-	adds r4, r1, #2
-	movs r2, #0xff
-	ldr r0, [r1]
-	ldrb r6, [r1]
-	lsrs r3, r0, #8
-	ands r3, r2
-	lsls r1, r3, #0x10
-	cmp r3, #0xc
-	ble _080CCD28
-_080CCCFA:
-	asrs r0, r1, #0xa
-	adds r2, r7, r0
-	lsls r1, r6, #0x10
-	asrs r0, r1, #0x10
-	lsls r3, r3, #0x10
-	cmp r0, #0
-	blt _080CCD1A
-_080CCD08:
-	ldrh r0, [r4]
-	adds r0, r5, r0
-	strh r0, [r2]
-	adds r4, #2
-	adds r2, #2
-	ldr r0, _080CCD30  @ 0xFFFF0000
-	adds r1, r1, r0
-	cmp r1, #0
-	bge _080CCD08
-_080CCD1A:
-	ldr r1, _080CCD30  @ 0xFFFF0000
-	adds r0, r3, r1
-	lsrs r3, r0, #0x10
-	lsls r1, r3, #0x10
-	asrs r0, r1, #0x10
-	cmp r0, #0xc
-	bgt _080CCCFA
-_080CCD28:
-	pop {r4, r5, r6, r7}
-	pop {r0}
-	bx r0
-	.align 2, 0
-_080CCD30: .4byte 0xFFFF0000
-
-	THUMB_FUNC_END sub_80CCCE0
-
-	THUMB_FUNC_START Make6C_PromotionSub
-Make6C_PromotionSub: @ 0x080CCD34
-	push {lr}
-	adds r1, r0, #0
-	ldr r0, _080CCD44  @ gUnknown_08B1271C
-	bl Proc_StartBlocking
-	pop {r1}
-	bx r1
-	.align 2, 0
-_080CCD44: .4byte gUnknown_08B1271C
-
-	THUMB_FUNC_END Make6C_PromotionSub
-
 	THUMB_FUNC_START SetupPromotionScreen
 SetupPromotionScreen: @ 0x080CCD48
 	push {r4, r5, r6, r7, lr}
