@@ -268,7 +268,7 @@ void SetNextGameActionId(int id);
 void PrependArticleToString(char *a, const char *b, s8 c);
 // ??? SomethingRelatedToText(???);
 char *GetStringFromIndex(int index);
-// ??? GetStringFromIndexInBuffer(???);
+char *GetStringFromIndexInBuffer(int index, char *buffer);
 char *sub_800A2A4(void);
 char* FilterSomeTextFromStandardBuffer(void);
 // ??? sub_800A42C(???);

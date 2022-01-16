@@ -4,6 +4,7 @@
 #include "bmio.h"
 #include "bmitem.h"
 #include "bmunit.h"
+#include "ctc.h"
 #include "fontgrp.h"
 #include "functions.h"
 #include "hardware.h"
@@ -398,4 +399,82 @@ void ChangeClassDescription(u32 a) {
     sub_8006AA8(8);
     sub_8006AA8(0x40);
     sub_8006AF0(4);
+}
+
+struct PromoProc3
+{
+    PROC_HEADER;
+    s8 u29;
+    s8 u2a;
+    s8 u2b;
+    u16 u2c[10];
+    s8 u40;
+    u8 u41;
+    s8 u42;
+    s8 u43;
+    u16 u44;
+    u8 u46;
+    u8 u47;
+    /* ... more maybe */
+};
+
+struct Struct_80B4108 {
+    u16 *a;
+    s8 b;
+    s8 c;
+    s8 d;
+};
+
+struct Struct_80B4108 *sub_80B4108(u8 a);
+
+void LoadClassReelFontPalette(struct PromoProc3 *proc, u16 b) {
+    s8 buffer[0x20];
+    s32 index, bufferStart;
+    const struct ClassData *class;
+    proc->u44 = 0;
+    proc->u46 = 0;
+    proc->u47 = 0x78;
+    class = GetClassData(b);
+    GetStringFromIndexInBuffer(class->nameTextId, buffer);
+
+    for (index = 0; buffer[index] != 0;) {
+        s32 ptr;
+        struct Struct_80B4108 *res = sub_80B4108(buffer[index]);
+        if (res) {
+            proc->u46 += res->c - res->b;
+        } else {
+            proc->u46 += 4;
+        }
+        index++;
+        if ((s32) buffer + index > (s32) buffer + 0x13)
+            break;
+    }
+    CopyDataWithPossibleUncomp(&gUnknown_08A36338, (void *) 0x06011000);
+    CopyToPaletteBuffer(&gUnknown_08A372C0, 0x280, 0x40);
+}
+
+void LoadClassNameInClassReelFont(struct PromoProc3 *proc) {
+    s8 buffer[0x20];
+    s32 index;
+    u8 idx = proc->u41;
+    u16 classNum = proc->u2c[idx];
+    u32 xOffs = 0x74;
+    const struct ClassData *class = GetClassData(classNum);
+    GetStringFromIndexInBuffer(class->nameTextId, buffer);
+    for (index = 0; buffer[index] != 0;) {
+        struct Struct_80B4108 *res = sub_80B4108(buffer[index]);
+        if (res) {
+            if (res->a) {
+                PutSpriteExt(4, xOffs - res->b - 2, res->d + 6, res->a, 0x81 << 7);
+                xOffs += res->c - res->b;
+            }
+        } else {
+            xOffs += 4;
+        }
+        index++;
+        if ((s32) buffer + index > (s32) buffer + 0x13)
+            break;
+    }
+    if (proc->u44 < 0xff)
+        proc->u44++;
 }
