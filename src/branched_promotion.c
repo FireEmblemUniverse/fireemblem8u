@@ -478,3 +478,53 @@ void LoadClassNameInClassReelFont(struct PromoProc3 *proc) {
     if (proc->u44 < 0xff)
         proc->u44++;
 }
+
+void sub_80CCBD4(void) {
+    sub_805A9E0();
+    sub_805AA28(gUnknown_030053A0);
+    sub_805AE14(gUnknown_0201FADC);
+}
+
+void LoadUIForPromoScreen(void) {
+    u8 *a = gUnknown_08A30800;
+    u32 off = GetBackgroundTileDataOffset(2);
+    CopyDataWithPossibleUncomp(a, (void *)0x06003000 + off);
+    sub_80CCCE0(gBG2TilemapBuffer, gUnknown_08A30978, 0x8c << 5);
+}
+
+void sub_80CCC2C(struct PromoProc3 *proc) {
+    u8 local[0x16];
+    const struct ClassData *class;
+    char *string;
+    DrawUiFrame(gBG2TilemapBuffer, 2, 1, 10, 6, 0, 1);
+    SetFontGlyphSet(0);
+    SetFont(0);
+    class = GetClassData(proc->u2c[0]);
+    string = GetStringFromIndex(class->nameTextId);
+    DrawTextInline(0, gUnknown_02022D2E, 0, 0, 0x8, string);
+    class = GetClassData(proc->u2c[1]);
+    string = GetStringFromIndex(class->nameTextId);
+    DrawTextInline(0, gUnknown_02022D2E + 0x40, 0, 0, 0x8, string);
+}
+
+struct SomeLocal {
+    u8 whatever[0x64];
+};
+
+u8 LoadSomeUnitStatThingUnlockIdk(struct SomeLocal *);
+
+u32 sub_80CCCA4(void) {
+    struct SomeLocal local;
+    u8 unlock = LoadSomeUnitStatThingUnlockIdk(&local);
+    if (!unlock) {
+        sub_80A2DE4();
+        LoadSomeUnitStatThingUnlockIdk(&local);
+    }
+
+    if (local.whatever[0xe] & 0x1c) {
+        if (local.whatever[0xe] & 0xe0) {
+            return 1;
+        }
+    }
+    return 0;
+}

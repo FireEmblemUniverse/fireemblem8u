@@ -261,7 +261,7 @@
 // extern ??? gUnknown_0201FAD0
 // extern ??? gUnknown_0201FAD4
 // extern ??? gUnknown_0201FAD8
-// extern ??? gUnknown_0201FADC
+extern u8 gUnknown_0201FADC[];
 // extern ??? gUnknown_0201FB04
 // extern ??? gUnknown_0201FB0C
 // extern ??? gUnknown_0201FB18
@@ -359,7 +359,7 @@ extern u16 gBG0TilemapBuffer[];
 // extern ??? gUnknown_02022D08
 // extern ??? gUnknown_02022D10
 // extern ??? gUnknown_02022D18
-// extern ??? gUnknown_02022D2E
+extern u16 gUnknown_02022D2E[];
 // extern ??? gUnknown_02022D36
 // extern ??? gUnknown_02022D3C
 // extern ??? gUnknown_02022D40
@@ -809,7 +809,7 @@ extern struct GMapData gUnknown_03005280;
 // extern ??? gUnknown_03005360
 // extern ??? gUnknown_03005380
 // extern ??? gUnknown_03005398
-// extern ??? gUnknown_030053A0
+extern u8 gUnknown_030053A0[];
 // extern ??? gUnknown_030053E0
 // extern ??? gUnknown_03005408
 // extern ??? gSoundInfo
@@ -3698,8 +3698,8 @@ extern u16 CONST_DATA gUnknown_08A1D79C[]; // 'R is info' palette
 // extern ??? gUnknown_08A301A8
 // extern ??? gUnknown_08A301B0
 // extern ??? gUnknown_08A30780
-// extern ??? gUnknown_08A30800
-// extern ??? gUnknown_08A30978
+extern u8 gUnknown_08A30800[];
+extern u8 gUnknown_08A30978[];
 // extern ??? gUnknown_08A30E2C
 // extern ??? gUnknown_08A35488
 // extern ??? gUnknown_08A3593C
