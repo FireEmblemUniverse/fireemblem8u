@@ -192,6 +192,12 @@ else
 banim/%.o:    data_dep = $(shell $(SCANINC) -I include -I "" $*.s)
 endif
 
+ifeq ($(NODEP),1)
+sound/%.o:    data_dep :=
+else
+sound/%.o:    data_dep = $(shell $(SCANINC) -I include -I "" $*.s)
+endif
+
 .SECONDEXPANSION:
 $(ASM_OBJECTS): %.o: %.s $$(data_dep)
 	$(AS) $(ASFLAGS) -g $< -o $@
