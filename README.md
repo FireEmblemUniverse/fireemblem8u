@@ -9,39 +9,30 @@ It builds the following ROM:
 
 ### Setting up the repository
 
-* You must have a copy of the Fire Emblem: The Sacred Stones ROM named `baserom.gba` in the repository directory.
+1. You must have a copy of the Fire Emblem: The Sacred Stones ROM named `baserom.gba` in the repository directory.
+1. Install [**devkitPro**](https://devkitpro.org/wiki/Getting_Started).
+1. Install [agbcc](https://github.com/pret/agbcc) to this project.
+1. Build tools using `build_tools.sh` or `build_tools_mac.sh` (for Mac users).
+1. You can then build fireemblem8 using `make` in the MSYS2 environment provided with devkitPro.
+1. You will see `fireemblem8.gba: OK` for success.
 
-* Install [**devkitARM**](https://devkitpro.org/wiki/Getting_Started).
+Notice that devkitPro is not a must. [GNU Arm Embedded Toolchain](https://developer.arm.com/tools-and-software/open-source-software/developer-tools/gnu-toolchain/gnu-rm) also works. For example, `apt install binutils-arm-none-eabi` (for Ubuntu/WSL users).
 
-* You can then build fireemblem8 using `make` in the MSYS environment provided with devkitARM.
+Q: `fatal error: png.h: No such file or directory`
 
-```
-sort of how-to for setting up fireemblem8u
-1] setup cygwin or whatever (Windows user)
-2] clone https://github.com/luckytyphlosion/agbcc/tree/new_layout_with_libs somewhere (lets say C:/agbsdk) (be careful to checkout the new_layout_with_libs branch and NOT master!)
-3] cd agbsdk
-4] ./build.sh
-5] cd ..
-6] clone https://github.com/FireEmblemUniverse/fireemblem8u somewhere (lets say C:/fireemblem8u)
-7] cd agbsdk
-8] ./install.sh C:/fireemblem8u
-9] put clean FE8 US ROM into C:/fireemblem8u and name it baserom.gba
-10] ./build_tools.sh (or ./build_tools_mac.sh for Mac user) in FE repo you cloned
-11] fix Makefile to point to tools/binutils/bin/
-12] make
+A: Install [libpng](http://www.libpng.org/pub/png/libpng.html) to build `tools/gbagfx`.
 
+Q: `make: *** No rule to make target 'baserom.gba', needed by 'xxx'.  Stop.`
 
-Q1: Help, it said Makefile:1: /base_tools: No such file or directory when I was compiling agbcc!
-A1: You didn't check out the new_layout_with_libs branch. This is a dependency on Devkitpro, which this branch abandons. 
+A: You must place a copy of the Fire Emblem: The Sacred Stones ROM named `baserom.gba` in the repository directory.
 
-Q2: fatal error: png.h: No such file or directory
-A2: Install libpng dev library to build tools/gbagfx. Especially MSYS2 used in devkitARM does not include libpng-dev so it must be built from source.
+Q: `LF line endings aren't supported.`
 
-Q3: make: *** No rule to make target `baserom.gba', needed by `data/const_data_1609BC.o'.  Stop.
-A3: You must place a copy of the Fire Emblem: The Sacred Stones ROM named baserom.gba in the repository directory.
-```
+A: `git config --global core.autocrlf true`. Read [this](https://docs.github.com/en/get-started/getting-started-with-git/configuring-git-to-handle-line-endings) for more info.
 
-* You will see `fireemblem8.gba: OK` for success.
+Q: `unrecognized option '--add-symbol'`
+
+A: Update your devkitPro or embedded toolchain. Your `objcopy` version is too old. That option was added in 2015. Read [this](https://github.com/bminor/binutils-gdb/blob/3451a2d7a3501e9c3fc344cbc4950c495f30c16d/binutils/ChangeLog-2015#L120) for more info.
 
 Check [INSTALL.md](https://github.com/pret/pokeruby/blob/master/INSTALL.md) and [INSTALL.md](https://github.com/pret/pokeemerald/blob/master/INSTALL.md) if you have trouble in setting up.
 
