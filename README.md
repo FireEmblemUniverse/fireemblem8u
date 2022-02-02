@@ -10,13 +10,33 @@ It builds the following ROM:
 ### Setting up the repository
 
 1. You must have a copy of the Fire Emblem: The Sacred Stones ROM named `baserom.gba` in the repository directory.
-1. Install [**devkitPro**](https://devkitpro.org/wiki/Getting_Started).
-1. Install [agbcc](https://github.com/pret/agbcc) to this project.
-1. Build tools using `build_tools.sh` or `build_tools_mac.sh` (for Mac users).
-1. You can then build fireemblem8 using `make` in the MSYS2 environment provided with devkitPro.
-1. You will see `fireemblem8.gba: OK` for success.
-
-Notice that devkitPro is not a must. [GNU Arm Embedded Toolchain](https://developer.arm.com/tools-and-software/open-source-software/developer-tools/gnu-toolchain/gnu-rm) also works. For example, `apt install binutils-arm-none-eabi` (for Ubuntu/WSL users).
+2. Install [devkitPro](https://devkitpro.org/wiki/Getting_Started) or [GNU Arm Embedded Toolchain](https://developer.arm.com/tools-and-software/open-source-software/developer-tools/gnu-toolchain/gnu-rm).
+```
+# for Ubuntu/WSL users
+apt install binutils-arm-none-eabi
+```
+3. Install [agbcc](https://github.com/pret/agbcc) to this project.
+```
+cd /path/to/agbcc
+./build.sh
+./install.sh /path/to/fireemblem8u
+```
+4. Build tools.
+```
+cd /path/to/fireemblem8u
+# for Mac users
+./build_tools_mac.sh
+# for other users
+./build_tools.sh
+```
+5. Build the project.
+```
+make
+```
+6. You will see this for success.
+```
+fireemblem8.gba: OK
+```
 
 Q: `fatal error: png.h: No such file or directory`
 
@@ -32,7 +52,7 @@ A: `git config --global core.autocrlf true`. Read [this](https://docs.github.com
 
 Q: `unrecognized option '--add-symbol'`
 
-A: Update your devkitPro or embedded toolchain. Your `objcopy` version is too old. That option was added in 2015. Read [this](https://github.com/bminor/binutils-gdb/blob/3451a2d7a3501e9c3fc344cbc4950c495f30c16d/binutils/ChangeLog-2015#L120) for more info.
+A: Update your devkitPro or embedded toolchain. Read [this](https://github.com/bminor/binutils-gdb/blob/3451a2d7a3501e9c3fc344cbc4950c495f30c16d/binutils/ChangeLog-2015#L120) for more info.
 
 Check [INSTALL.md](https://github.com/pret/pokeruby/blob/master/INSTALL.md) and [INSTALL.md](https://github.com/pret/pokeemerald/blob/master/INSTALL.md) if you have trouble in setting up.
 
