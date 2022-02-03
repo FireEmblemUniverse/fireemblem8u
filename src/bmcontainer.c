@@ -2,6 +2,8 @@
 
 #include "variables.h"
 #include "bmitem.h"
+#include "chapterdata.h"
+#include "bmunit.h"
 
 // 0203A8E4 - 0203A81C = C8 (200 in decimal)
 EWRAM_DATA u16 gUnknown_0203A81C[100] = {0};
@@ -117,5 +119,30 @@ bool8 HasConvoyAccess() {
     } else if (r1 != 5) {
         return 1;
     }
+    return 0;
+}
+
+bool8 sub_8031660() {
+    int r0 = gRAMChapterData.chapterIndex; // ch data @ 0xe
+
+    const struct ROMChapterData* chapterData = GetROMChapterStruct(r0);
+    if (chapterData->_unk81[1] == 0xFF) { // ROM Chapter Data @ 0x82
+        return 0;
+    }
+    // _08031680
+    return 1;
+}
+
+struct Unit* sub_8031688() {
+    int r4;
+    for (r4 = 1; r4 <= 0x3f; ++r4) {
+        struct Unit* unit = GetUnit(r4);
+        if (UNIT_IS_VALID(unit)) {
+            if (UNIT_CATTRIBUTES(unit) & CA_SUPPLY) {
+                return unit;
+            }
+        }
+    }
+    // _080316BC
     return 0;
 }
