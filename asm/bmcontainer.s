@@ -4,15 +4,6 @@
 
 	@ "Container" (aka Convoy) related things
 
-	THUMB_FUNC_START GetConvoyItemArray
-GetConvoyItemArray: @ 0x08031500
-	ldr r0, _08031504  @ gUnknown_0203A81C
-	bx lr
-	.align 2, 0
-_08031504: .4byte gUnknown_0203A81C
-
-	THUMB_FUNC_END GetConvoyItemArray
-
 	THUMB_FUNC_START ClearConvoyItems
 ClearConvoyItems: @ 0x08031508
 	push {lr}
