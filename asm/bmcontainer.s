@@ -4,64 +4,6 @@
 
 	@ "Container" (aka Convoy) related things
 
-	THUMB_FUNC_START GetConvoyItemCount
-GetConvoyItemCount: @ 0x08031570
-	push {lr}
-	movs r3, #0
-	ldr r2, _08031590  @ gUnknown_0203A81C
-	movs r1, #0x63
-_08031578:
-	ldrh r0, [r2]
-	cmp r0, #0
-	beq _08031580
-	adds r3, #1
-_08031580:
-	adds r2, #2
-	subs r1, #1
-	cmp r1, #0
-	bge _08031578
-	adds r0, r3, #0
-	pop {r1}
-	bx r1
-	.align 2, 0
-_08031590: .4byte gUnknown_0203A81C
-
-	THUMB_FUNC_END GetConvoyItemCount
-
-	THUMB_FUNC_START AddItemToConvoy
-AddItemToConvoy: @ 0x08031594
-	push {r4, lr}
-	adds r4, r0, #0
-	ldr r1, _080315B0  @ gUnknown_0202BCB0
-	movs r0, #0
-	strh r0, [r1, #0x2e]
-	movs r3, #0
-	ldr r2, _080315B4  @ gUnknown_0203A81C
-_080315A2:
-	ldrh r0, [r2]
-	cmp r0, #0
-	bne _080315B8
-	strh r4, [r2]
-	adds r0, r3, #0
-	b _080315C6
-	.align 2, 0
-_080315B0: .4byte gUnknown_0202BCB0
-_080315B4: .4byte gUnknown_0203A81C
-_080315B8:
-	adds r2, #2
-	adds r3, #1
-	cmp r3, #0x63
-	ble _080315A2
-	strh r4, [r1, #0x2e]
-	movs r0, #1
-	negs r0, r0
-_080315C6:
-	pop {r4}
-	pop {r1}
-	bx r1
-
-	THUMB_FUNC_END AddItemToConvoy
-
 	THUMB_FUNC_START sub_80315CC
 sub_80315CC: @ 0x080315CC
 	push {lr}
