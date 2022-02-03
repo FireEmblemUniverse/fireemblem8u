@@ -4,26 +4,6 @@
 
 	@ "Container" (aka Convoy) related things
 
-	THUMB_FUNC_START ClearConvoyItems
-ClearConvoyItems: @ 0x08031508
-	push {lr}
-	sub sp, #4
-	mov r1, sp
-	movs r0, #0
-	strh r0, [r1]
-	ldr r1, _08031524  @ gUnknown_0203A81C
-	ldr r2, _08031528  @ 0x01000064
-	mov r0, sp
-	bl CpuSet
-	add sp, #4
-	pop {r0}
-	bx r0
-	.align 2, 0
-_08031524: .4byte gUnknown_0203A81C
-_08031528: .4byte 0x01000064
-
-	THUMB_FUNC_END ClearConvoyItems
-
 	THUMB_FUNC_START ShrinkConvoyItemList
 ShrinkConvoyItemList: @ 0x0803152C
 	push {r4, r5, r6, lr}
