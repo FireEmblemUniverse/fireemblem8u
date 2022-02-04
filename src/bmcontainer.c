@@ -5,7 +5,6 @@
 #include "chapterdata.h"
 #include "bmunit.h"
 
-// 0203A8E4 - 0203A81C = C8 (200 in decimal)
 EWRAM_DATA u16 gConvoyItemArray[100] = {0};
 
 extern unsigned int sub_80BD048();
