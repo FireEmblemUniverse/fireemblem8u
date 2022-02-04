@@ -20,12 +20,12 @@ void ClearConvoyItems() {
 }
 
 void ShrinkConvoyItemList() {
+    u16 i;
     u16* buffer = (void*) gUnknown_02020188;
     u16* bufferIt = buffer;
     u16* convoy = GetConvoyItemArray();
-    u16 count;
 
-    for (count = 0; count <= 0x63; ++count) {
+    for (i = 0; i <= 0x63; ++i) {
         if (*convoy != 0) {
             *bufferIt = *convoy;
             bufferIt++;
@@ -35,15 +35,15 @@ void ShrinkConvoyItemList() {
 
     *bufferIt = 0;
     ClearConvoyItems();
-    CpuCopy16(buffer, GetConvoyItemArray(), count * 2);
+    CpuCopy16(buffer, GetConvoyItemArray(), i * 2);
     return;
 }
 
 int GetConvoyItemCount() {
+    int i;
     int count = 0;
     u16* convoy = gConvoyItemArray;
-    int r1 = 0x63;
-    for (r1; r1 >= 0; r1--) {
+    for (i = 0x63; i >= 0; i--) {
         if (*convoy != 0) {
             count++;
         }
@@ -53,15 +53,14 @@ int GetConvoyItemCount() {
 }
 
 int AddItemToConvoy(int itemNameId) {
-    int r3;
+    int i;
     u16* convoy;
     gUnknown_0202BCB0.itemUnk2E = 0;
-    r3 = 0;
     convoy = gConvoyItemArray;
-    for (r3; r3 <= 0x63; ++r3) {
-        if (convoy[r3] == 0) {
-            convoy[r3] = itemNameId;
-            return r3;
+    for (i = 0; i <= 0x63; ++i) {
+        if (convoy[i] == 0) {
+            convoy[i] = itemNameId;
+            return i;
         }
     }
     gUnknown_0202BCB0.itemUnk2E = itemNameId;
@@ -75,14 +74,13 @@ void RemoveItemFromConvoy(int index) {
 }
 
 int GetConvoyItemSlot(int r0) {
-    int r2;
+    int i;
     u16* convoy;
     r0 = GetItemIndex(r0);
-    r2 = 0;
     convoy = gConvoyItemArray;
-     for (r2 = 0; r2 <= 0x63; ++r2) {
-        if (r0 == (convoy[r2] & 0xFF)) {
-            return r2;
+     for (i = 0; i <= 0x63; ++i) {
+        if (r0 == (convoy[i] & 0xFF)) {
+            return i;
         }
     }
 
@@ -121,9 +119,9 @@ bool8 sub_8031660() {
 }
 
 struct Unit* sub_8031688() {
-    int r4;
-    for (r4 = 1; r4 <= 0x3F; ++r4) {
-        struct Unit* unit = GetUnit(r4);
+    int i;
+    for (i = 1; i <= 0x3F; ++i) {
+        struct Unit* unit = GetUnit(i);
         if (UNIT_IS_VALID(unit)) {
             if (UNIT_CATTRIBUTES(unit) & CA_SUPPLY) {
                 return unit;
