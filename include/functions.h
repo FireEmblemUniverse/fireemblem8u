@@ -1412,7 +1412,7 @@ void ClearConvoyItems(void);
 void ShrinkConvoyItemList(void);
 int GetConvoyItemCount(void);
 int AddItemToConvoy(int);
-void sub_80315CC(int);
+void RemoveItemFromConvoy(int);
 int GetConvoyItemSlot(int);
 bool8 HasConvoyAccess(void);
 bool8 sub_8031660(void);

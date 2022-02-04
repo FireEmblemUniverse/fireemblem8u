@@ -527,7 +527,7 @@
 . = ALIGN(4); src/bmbattle.o(ewram_data);
 . = ALIGN(4); src/bmtrade.o(ewram_data);
 . = ALIGN(4); src/bmtrick.o(ewram_data);
-. = 0x03A81C; gUnknown_0203A81C = .;
+. = 0x03A81C; gConvoyItemArray = .;
 . = 0x03A8E4; gUnknown_0203A8E4 = .;
 . = 0x03A8E8; gUnknown_0203A8E8 = .;
 . = 0x03A8EC; gUnknown_0203A8EC = .;
