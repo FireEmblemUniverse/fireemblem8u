@@ -533,7 +533,7 @@ extern u8 gWorkingMovementScript[];
 // extern ??? gUnknown_0203A4C8
 // extern ??? gUnknown_0203A4CC
 // extern ??? gUnknown_0203A4D0
-// extern ??? gUnknown_0203A81C
+extern u16 gConvoyItemArray[];
 // extern ??? gUnknown_0203A8E4
 // extern ??? gUnknown_0203A8E8
 // extern ??? gUnknown_0203A8EC

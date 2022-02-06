@@ -93,7 +93,7 @@ SECTIONS
         src/bmtrick.o(.text);
         asm/bmusemind.o(.text);
         src/bmio.o(.text);
-        asm/bmcontainer.o(.text);
+        src/bmcontainer.o(.text);
         asm/bmusort.o(.text);
         asm/bmarena.o(.text);
         asm/bmmind.o(.text);
