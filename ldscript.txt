@@ -99,6 +99,7 @@ SECTIONS
         asm/bmarena.o(.text);
         asm/bmmind.o(.text);
         src/bmpatharrowdisp.o(.text);
+        src/sallycursor.o(.text);
         asm/sallycursor.o(.text);
         asm/bmcommanddbg.o(.text);
         src/chapterdata.o(.text);
