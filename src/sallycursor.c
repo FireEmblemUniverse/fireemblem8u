@@ -1,11 +1,47 @@
 #include "global.h"
 
+#include "types.h"
 #include "functions.h"
 #include "constants/characters.h"
 #include "bmunit.h"
 #include "bmmap.h"
+#include "bmcontainer.h"
+#include "chapterdata.h"
+#include "bmdebug.h"
+#include "proc.h"
 
+struct SALLYCURSORProc {
+    /* 00 */ PROC_HEADER;
+
+    u8 _pad[0x58-0x29];
+
+    /* 58 */ u32 menuItemType; // checked when on map to decide on whether swapping units is allowed
+};
+
+struct PrepScreenMenuProc { // 8A186EC
+    /* 00 */ PROC_HEADER;
+
+    /* 29 */ u8 isHelpTextShowing; // is R-Help text showing
+    /* 2A */ u8 activeMenuItemIndex;
+    /* 2B */ u8 menuItemCount;
+
+    u8 _pad[0x34-0x2C];
+
+    /* 34 */ short originTileX;
+    /* 36 */ short originTileY;
+
+    /* 38 */ u32 itemDummyProc[8]; // dummy proc pointer array
+
+    /* 58 */ u32 onBPress; // B-press callback
+    /* 5C */ u32 onStartPress; // Start-press callback
+
+    /* 60 */ u32 onEnd; // on-end callback
+};
+
+void sub_801DB4C(s16, s16);
 int sub_809541C();
+int sub_8095970(ProcPtr);
+void sub_80972B0();
 const struct UnitDefinition* GetChapterAllyUnitDataPointer();
 void DisplayMoveRangeGraphics(int config);
 
@@ -154,5 +190,99 @@ void sub_80332D0() {
     }
 
     DisplayMoveRangeGraphics(0x10);
+    return;
+}
+
+void sub_803334C() {
+    sub_80972B0();
+    return;
+}
+
+void sub_8033358(ProcPtr proc) {
+    ((struct SALLYCURSORProc*)(proc))->menuItemType = 1;
+    Proc_Break(proc);
+    sub_803334C();
+    return;
+}
+
+void sub_803336C(ProcPtr proc) {
+    s16 x, y;
+    ((struct SALLYCURSORProc*)(proc))->menuItemType = 2;
+
+    x = gUnknown_0202BCB0.playerCursor.x;
+    y = gUnknown_0202BCB0.playerCursor.y;
+
+    sub_801DB4C(x, y);
+
+    x = gUnknown_0202BCB0.playerCursorDisplay.x;
+    y = gUnknown_0202BCB0.playerCursorDisplay.y;
+    DisplayCursor(x, y, 0);
+
+    Proc_Break(proc);
+    sub_803334C();
+}
+
+bool8 sub_80333A4(ProcPtr proc) {
+    if (sub_8095970(proc) == 0) {
+        // _080333BC
+        return 0;
+    }
+    Proc_Goto(proc, 55);
+    return 1;
+}
+
+bool8 sub_80333C4(ProcPtr proc) {
+    Proc_Goto(proc, 51);
+    return 1;
+}
+
+// TODO - Seems to be related to setting up the convoy unit, but is unused in FE8
+// sub_8031688 is in bmcontainer and gets the unit with the supply flag set
+void sub_80333D4() {
+    struct Unit* unit = sub_8031688();
+    if (unit != 0) {
+        unit->state = unit->state &~ US_NOT_DEPLOYED;
+
+        unit->xPos = GetROMChapterStruct(gRAMChapterData.chapterIndex)->_unk81[1];
+        unit->yPos = GetROMChapterStruct(gRAMChapterData.chapterIndex)->_unk81[3];
+
+        RefreshEntityBmMaps();
+        SMS_UpdateFromGameData();
+    }
+    return;
+}
+
+void sub_803341C(ProcPtr proc) {
+    ((struct PrepScreenMenuProc*)(proc))->onBPress = 8; // b-press callback int (*) (struct Proc* menuParent);
+    Proc_Goto(proc, 0x39);
+    return;
+}
+
+// TODO - Remove convoy unit?
+void sub_803342C() {
+    struct Unit* unit = sub_8031688();
+    if (unit != 0) {
+        unit->state = unit->state | US_NOT_DEPLOYED;
+
+        unit->xPos = 0xFF;
+        unit->yPos = 0xFF;
+
+        RefreshEntityBmMaps();
+        SMS_UpdateFromGameData();
+    }
+    return;
+}
+
+void sub_8033458(ProcPtr proc) {
+    ((struct PrepScreenMenuProc*)(proc))->onBPress = 9;
+    Proc_Goto(proc, 0x3b);
+    return;
+}
+
+void sub_8033468(ProcPtr proc) {
+    ((struct PrepScreenMenuProc*)(proc))->onBPress = 0xA;
+    sub_803334C();
+    StartOrphanMenu(&gDebugMenuDef);
+    Proc_Goto(proc, 0x3a);
     return;
 }
