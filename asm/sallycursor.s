@@ -4,32 +4,6 @@
 
 	@ Prep Screen!
 
-	THUMB_FUNC_START sub_803348C
-sub_803348C: @ 0x0803348C
-	push {r4, r5, r6, lr}
-	adds r6, r0, #0
-	ldr r4, _080334B8  @ gRAMChapterData
-	movs r0, #0xe
-	ldrsb r0, [r4, r0]
-	bl GetROMChapterStruct
-	adds r0, #0x82
-	ldrb r5, [r0]
-	movs r0, #0xe
-	ldrsb r0, [r4, r0]
-	bl GetROMChapterStruct
-	adds r0, #0x84
-	ldrb r2, [r0]
-	adds r0, r6, #0
-	adds r1, r5, #0
-	bl EnsureCameraOntoPosition
-	pop {r4, r5, r6}
-	pop {r0}
-	bx r0
-	.align 2, 0
-_080334B8: .4byte gRAMChapterData
-
-	THUMB_FUNC_END sub_803348C
-
 	THUMB_FUNC_START sub_80334BC
 sub_80334BC: @ 0x080334BC
 	push {lr}

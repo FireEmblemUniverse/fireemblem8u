@@ -286,3 +286,47 @@ void sub_8033468(ProcPtr proc) {
     Proc_Goto(proc, 0x3a);
     return;
 }
+
+#if NONMATCHING
+
+// TODO - Annoyingly could not get this to match... loads a signed byte from the unknown array instead of just byte, but if I change the function declaration in functions.h it breaks elsewhere.
+void sub_803348C(ProcPtr proc) {
+    EnsureCameraOntoPosition(proc,
+        GetROMChapterStruct(gRAMChapterData.chapterIndex)->_unk81[1],
+            GetROMChapterStruct(gRAMChapterData.chapterIndex)->_unk81[3]);
+    return;
+}
+
+#else // if !NONMATCHING
+
+__attribute__((naked))
+void sub_803348C(ProcPtr proc) {
+    asm(
+        "\n\
+            .syntax unified\n\
+            push {r4, r5, r6, lr}\n\
+            adds r6, r0, #0\n\
+            ldr r4, _080334B8  @ gRAMChapterData\n\
+            movs r0, #0xe\n\
+            ldrsb r0, [r4, r0]\n\
+            bl GetROMChapterStruct\n\
+            adds r0, #0x82\n\
+            ldrb r5, [r0]\n\
+            movs r0, #0xe\n\
+            ldrsb r0, [r4, r0]\n\
+            bl GetROMChapterStruct\n\
+            adds r0, #0x84\n\
+            ldrb r2, [r0]\n\
+            adds r0, r6, #0\n\
+            adds r1, r5, #0\n\
+            bl EnsureCameraOntoPosition\n\
+            pop {r4, r5, r6}\n\
+            pop {r0}\n\
+            bx r0\n\
+            .align 2, 0\n\
+        _080334B8: .4byte gRAMChapterData\n\
+            .syntax divided\n\
+    ");
+}
+
+#endif // NONMATCHING

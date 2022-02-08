@@ -1480,7 +1480,7 @@ void sub_803341C(ProcPtr);
 void sub_803342C(void);
 void sub_8033458(ProcPtr);
 void sub_8033468(ProcPtr);
-// void sub_803348C(ProcPtr);
+void sub_803348C(ProcPtr);
 // ??? sub_80334BC(???);
 // ??? sub_80334CC(???);
 // ??? sub_80334E8(???);
