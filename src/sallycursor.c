@@ -1,5 +1,6 @@
 #include "global.h"
 
+#include "hardware.h"
 #include "ctc.h"
 #include "types.h"
 #include "functions.h"
@@ -42,9 +43,18 @@ struct PrepScreenMenuProc { // 8A186EC
 
 void sub_801DB4C(s16, s16);
 void sub_8033648(ProcPtr);
+bool8 sub_8094FF4();
 int sub_809541C();
-int sub_8095970(ProcPtr);
+int sub_8095970();
+void sub_8096FAC();
+void sub_8096FD0(const void*);
+void sub_8096FEC(const void*);
+void sub_8097008(const void*);
+void sub_8097024(int, const void*, int, int, int);
+void sub_80970CC(int);
+void sub_8097154(int, int);
 void sub_80972B0();
+void DeletePlayerPhaseInterface6Cs();
 const struct UnitDefinition* GetChapterAllyUnitDataPointer();
 void DisplayMoveRangeGraphics(int config);
 void ArchiveCurrentPalettes();
@@ -229,7 +239,7 @@ void sub_803336C(ProcPtr proc) {
 }
 
 bool8 sub_80333A4(ProcPtr proc) {
-    if (sub_8095970(proc) == 0) {
+    if (sub_8095970() == 0) {
         // _080333BC
         return 0;
     }
@@ -374,4 +384,59 @@ void sub_8033574() {
     PutSprite(4, 0x10, 0x8C, gObject_32x16, 0x00002395);
     PutSprite(4, 0x30, 0x8C, gObject_32x16, 0x00002399);
     PutSprite(4, 0x50, 0x8C, gObject_8x16, 0x0000239D);
+}
+
+void sub_8033608() {
+    CopyToPaletteBuffer(gUnknown_08A1B154, 0x240, 0x20);
+    return;
+}
+
+void sub_8033620(ProcPtr proc) {
+    Proc_Start(gUnknown_0859DBA4, proc);
+}
+
+void sub_8033634() {
+    EndHelpPromptSprite();
+    Proc_EndEach(gUnknown_0859DBA4);
+}
+
+void sub_8033648(ProcPtr proc) {
+    u8 r2;
+    bool8 r0;
+
+    LoadDialogueBoxGfx(0, -1);
+    Font_InitForUIDefault();
+    DeletePlayerPhaseInterface6Cs();
+    HideMoveRangeGraphics();
+
+    sub_8096FAC(proc);
+
+    sub_8097024(1, *sub_8033358, 0, 0xb2 << 3, 0x000005BB); // finds and initializes a proc of some sort; void return
+
+    if (sub_8095970() == 0) {
+        r2 = 1;
+    } else {
+        r2 = 0;
+    }
+
+    sub_8097024(2, *sub_803336C, r2, 0x00000591, 0x000005BC);
+
+    sub_8097024(8, *sub_803341C, 0, 0x00000592, 0x000005BD);
+
+    // TODO - checks if GMapData state bit 0 is set, then subtracts 32 from the chapter id and returns true if >= 0x13?
+    if ((sub_8094FF4() << 0x18) != 0) {
+        sub_8097024(9, *sub_8033458, 0, 0x00000579, 0x000005BE);
+    } else {
+        sub_8097024(9, *sub_8033458, 1, 0x00000579, 0x000005BE);
+    }
+
+    sub_8033620(proc);
+    sub_8096FD0(*sub_80333C4);
+    sub_8096FEC(*sub_80333A4);
+    sub_8097008(*sub_8033634);
+    sub_8097154(0xA, 2);
+
+    sub_80970CC(((struct PrepScreenMenuProc*)(proc))->onBPress);
+    BG_EnableSyncByMask(3);
+    return;
 }

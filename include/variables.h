@@ -1545,7 +1545,7 @@ extern const struct ProcCmd gUnknown_0859A548[]; // this is GENS/Camera Movement
 // extern ??? gUnknown_0859DABC
 // extern ??? gUnknown_0859DB24
 // extern ??? gUnknown_0859DBA0
-// extern ??? gUnknown_0859DBA4
+extern const struct ProcCmd gUnknown_0859DBA4[]; // TODO - Proc for sallycursor
 // extern ??? gUnknown_0859DBBC
 // extern ??? gUnknown_0859E13C
 // extern ??? gUnknown_0859E14C
@@ -3502,7 +3502,7 @@ extern u16 CONST_DATA gUnknown_08A199C8[]; // TODO - Not sure; used in sallycurs
 // extern ??? gUnknown_08A1A8E4
 // extern ??? gUnknown_08A1AC88
 // extern ??? gUnknown_08A1B0D8
-// extern ??? gUnknown_08A1B154
+extern u16 CONST_DATA gUnknown_08A1B154[]; // TODO - palette data from sallycursor
 // extern ??? gUnknown_08A1B174
 // extern ??? gUnknown_08A1B194
 // extern ??? gUnknown_08A1B1FC
