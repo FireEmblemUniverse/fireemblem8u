@@ -3487,7 +3487,7 @@ extern u16 CONST_DATA gUnknown_08A0731C[]; // halo pal
 // extern ??? gUnknown_08A1985E
 // extern ??? gUnknown_08A19872
 // extern ??? gUnknown_08A19880
-// extern ??? gUnknown_08A199C8
+extern u16 CONST_DATA gUnknown_08A199C8[]; // TODO - Not sure; used in sallycursor
 // extern ??? gUnknown_08A19C0C
 // extern ??? gUnknown_08A19CAC
 // extern ??? gUnknown_08A19CCC

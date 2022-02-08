@@ -1,5 +1,6 @@
 #include "global.h"
 
+#include "ctc.h"
 #include "types.h"
 #include "functions.h"
 #include "constants/characters.h"
@@ -8,6 +9,7 @@
 #include "bmcontainer.h"
 #include "chapterdata.h"
 #include "bmdebug.h"
+#include "statscreen.h"
 #include "proc.h"
 
 struct SALLYCURSORProc {
@@ -39,11 +41,15 @@ struct PrepScreenMenuProc { // 8A186EC
 };
 
 void sub_801DB4C(s16, s16);
+void sub_8033648(ProcPtr);
 int sub_809541C();
 int sub_8095970(ProcPtr);
 void sub_80972B0();
 const struct UnitDefinition* GetChapterAllyUnitDataPointer();
 void DisplayMoveRangeGraphics(int config);
+void ArchiveCurrentPalettes();
+void WriteFadedPaletteFromArchive(int, int, int, int);
+void sub_8013800();
 
 #if NONMATCHING
 
@@ -330,3 +336,42 @@ void sub_803348C(ProcPtr proc) {
 }
 
 #endif // NONMATCHING
+
+void sub_80334BC(ProcPtr proc) {
+    ((struct PrepScreenMenuProc*)(proc))->onBPress = 1;
+    sub_8033648(proc);
+    return;
+}
+
+void sub_80334CC() {
+    ArchiveCurrentPalettes();
+    WriteFadedPaletteFromArchive(0xc0, 0xc0, 0xc0, 0xFF00FFF0);
+    return;
+}
+
+void sub_80334E8(int r0) {
+    sub_8013800(0xc0, 0xc0, 0xc0, 0x100, 0x100, 0x100, 0xFF00FFF0, 0x40, r0);
+    return;
+}
+
+void sub_8033514(int r4) {
+    ArchiveCurrentPalettes();
+    sub_8013800(0x100, 0x100, 0x100, 0xc0, 0xc0, 0xc0, 0xFF00FFF0, 0x40, r4);
+    return;
+}
+
+void sub_8033548(ProcPtr proc) {
+    StartHelpPromptSprite(0xaa, 0x8c, 2, proc);
+    CopyDataWithPossibleUncomp(gUnknown_08A199C8, (void *) (OBJ_VRAM1 + 0x3000));
+    ((struct PrepScreenMenuProc*)(proc))->onBPress = 0; // b-press callback
+    return;
+}
+
+void sub_8033574() {
+    PutSprite(4, 0x64, 0x8C, gObject_32x16, 0x0000238B);
+    PutSprite(4, 0x84, 0x8C, gObject_32x16, 0x0000238F);
+    PutSprite(4, 0xA4, 0x8C, gObject_16x16, 0x00002393);
+    PutSprite(4, 0x10, 0x8C, gObject_32x16, 0x00002395);
+    PutSprite(4, 0x30, 0x8C, gObject_32x16, 0x00002399);
+    PutSprite(4, 0x50, 0x8C, gObject_8x16, 0x0000239D);
+}
