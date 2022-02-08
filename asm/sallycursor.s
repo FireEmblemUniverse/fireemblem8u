@@ -4,29 +4,6 @@
 
 	@ Prep Screen!
 
-	THUMB_FUNC_START CanCharacterBePrepMoved
-CanCharacterBePrepMoved: @ 0x0803374C
-	push {r4, lr}
-	adds r4, r0, #0
-	bl IsCharacterForceDeployed
-	lsls r0, r0, #0x18
-	cmp r0, #0
-	bne _08033766
-	movs r0, #0x80
-	lsls r0, r0, #1
-	cmp r4, r0
-	beq _08033766
-	movs r0, #1
-	b _08033768
-_08033766:
-	movs r0, #0
-_08033768:
-	pop {r4}
-	pop {r1}
-	bx r1
-
-	THUMB_FUNC_END CanCharacterBePrepMoved
-
 	THUMB_FUNC_START sub_8033770
 sub_8033770: @ 0x08033770
 	adds r1, r0, #0

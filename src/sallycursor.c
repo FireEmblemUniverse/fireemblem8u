@@ -59,6 +59,7 @@ const struct UnitDefinition* GetChapterAllyUnitDataPointer();
 void DisplayMoveRangeGraphics(int config);
 void ArchiveCurrentPalettes();
 void WriteFadedPaletteFromArchive(int, int, int, int);
+bool8 IsCharacterForceDeployed(int);
 void sub_8013800();
 
 #if NONMATCHING
@@ -439,4 +440,14 @@ void sub_8033648(ProcPtr proc) {
     sub_80970CC(((struct PrepScreenMenuProc*)(proc))->onBPress);
     BG_EnableSyncByMask(3);
     return;
+}
+
+bool8 CanCharacterBePrepMoved(int unitId) {
+    if ((IsCharacterForceDeployed(unitId) << 0x18) == 0) {
+        if (unitId != 0x100) {
+            return 1;
+        }
+    }
+
+    return 0;
 }
