@@ -27,19 +27,19 @@ extern u16 gBmMapBuffer[];
 
 EWRAM_DATA struct Vec2 gBmMapSize = {};
 
-EWRAM_DATA u8** gBmMapUnit        = NULL;
-EWRAM_DATA u8** gBmMapTerrain     = NULL;
-EWRAM_DATA u8** gBmMapMovement    = NULL;
-EWRAM_DATA u8** gBmMapRange       = NULL;
-EWRAM_DATA u8** gBmMapFog         = NULL;
-EWRAM_DATA u8** gBmMapHidden      = NULL;
-EWRAM_DATA u8** gBmMapMagicSealed = NULL;
+EWRAM_DATA u8** gBmMapUnit     = NULL;
+EWRAM_DATA u8** gBmMapTerrain  = NULL;
+EWRAM_DATA u8** gBmMapMovement = NULL;
+EWRAM_DATA u8** gBmMapRange    = NULL;
+EWRAM_DATA u8** gBmMapFog      = NULL;
+EWRAM_DATA u8** gBmMapHidden   = NULL;
+EWRAM_DATA u8** gBmMapOther    = NULL;
 
 EWRAM_DATA static u8 sBmMapUnitPool[MAP_POOL_SIZE] = {};
 EWRAM_DATA static u8 sBmMapTerrainPool[MAP_POOL_SIZE] = {};
 EWRAM_DATA static u8 sBmMapFogPool[MAP_POOL_SIZE] = {};
 EWRAM_DATA static u8 sBmMapHiddenPool[MAP_POOL_SIZE] = {};
-EWRAM_DATA static u8 sBmMapMagicSealedPool[MAP_POOL_SIZE] = {};
+EWRAM_DATA static u8 sBmMapOtherPool[MAP_POOL_SIZE] = {};
 
 EWRAM_DATA static u16 sTilesetConfig[0x1000 + 0x200] = {};
 
@@ -57,13 +57,13 @@ void InitChapterMap(int chapterId) {
     UnpackChapterMap(gBmMapBuffer, chapterId);
     UnpackChapterMapGraphics(chapterId);
 
-    BmMapInit(sBmMapUnitPool,        &gBmMapUnit,        gBmMapSize.x, gBmMapSize.y);
-    BmMapInit(sBmMapTerrainPool,     &gBmMapTerrain,     gBmMapSize.x, gBmMapSize.y);
-    BmMapInit(sBmMapMovementPool,    &gBmMapMovement,    gBmMapSize.x, gBmMapSize.y);
-    BmMapInit(sBmMapRangePool,       &gBmMapRange,       gBmMapSize.x, gBmMapSize.y);
-    BmMapInit(sBmMapFogPool,         &gBmMapFog,         gBmMapSize.x, gBmMapSize.y);
-    BmMapInit(sBmMapHiddenPool,      &gBmMapHidden,      gBmMapSize.x, gBmMapSize.y);
-    BmMapInit(sBmMapMagicSealedPool, &gBmMapMagicSealed, gBmMapSize.x, gBmMapSize.y);
+    BmMapInit(sBmMapUnitPool,     &gBmMapUnit,     gBmMapSize.x, gBmMapSize.y);
+    BmMapInit(sBmMapTerrainPool,  &gBmMapTerrain,  gBmMapSize.x, gBmMapSize.y);
+    BmMapInit(sBmMapMovementPool, &gBmMapMovement, gBmMapSize.x, gBmMapSize.y);
+    BmMapInit(sBmMapRangePool,    &gBmMapRange,    gBmMapSize.x, gBmMapSize.y);
+    BmMapInit(sBmMapFogPool,      &gBmMapFog,      gBmMapSize.x, gBmMapSize.y);
+    BmMapInit(sBmMapHiddenPool,   &gBmMapHidden,   gBmMapSize.x, gBmMapSize.y);
+    BmMapInit(sBmMapOtherPool,    &gBmMapOther,    gBmMapSize.x, gBmMapSize.y);
 
     BmMapFill(gBmMapUnit, 0);
     BmMapFill(gBmMapTerrain, 0);
