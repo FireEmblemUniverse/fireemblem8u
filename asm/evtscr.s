@@ -5151,7 +5151,7 @@ _0800FBFA:
 	mov r1, r9
 	bl sub_800F914
 	adds r5, r0, #0
-	ldr r0, _0800FC48  @ gBmMapUnk
+	ldr r0, _0800FC48  @ gBmMapOther
 	ldr r0, [r0]
 	movs r1, #0
 	bl BmMapFill
@@ -5180,7 +5180,7 @@ _0800FC2E:
 	strb r2, [r0]
 	b _0800FC72
 	.align 2, 0
-_0800FC48: .4byte gBmMapUnk
+_0800FC48: .4byte gBmMapOther
 _0800FC4C:
 	str r5, [r6, #0x48]
 	adds r0, r6, #0
@@ -5511,7 +5511,7 @@ _0800FE7C:
 	bl GetSomeEventEngineMoveRelatedBitfield
 	lsls r0, r0, #0x10
 	lsrs r4, r0, #0x10
-	ldr r0, _0800FEBC  @ gBmMapUnk
+	ldr r0, _0800FEBC  @ gBmMapOther
 	ldr r0, [r0]
 	movs r1, #0
 	bl BmMapFill
@@ -5536,7 +5536,7 @@ _0800FEA6:
 	b _0800FF0C
 	.align 2, 0
 _0800FEB8: .4byte gEventSlotQueue
-_0800FEBC: .4byte gBmMapUnk
+_0800FEBC: .4byte gBmMapOther
 _0800FEC0:
 	mov r0, r9
 	lsls r1, r0, #0x18
@@ -5610,14 +5610,14 @@ _0800FF36:
 	bl RefreshEntityBmMaps
 	bl SMS_UpdateFromGameData
 	bl RenderBmMap
-	ldr r0, _0800FF5C  @ gBmMapUnk
+	ldr r0, _0800FF5C  @ gBmMapOther
 	ldr r0, [r0]
 	movs r1, #0
 	bl BmMapFill
 	movs r0, #2
 	b _0800FF62
 	.align 2, 0
-_0800FF5C: .4byte gBmMapUnk
+_0800FF5C: .4byte gBmMapOther
 _0800FF60:
 	movs r0, #3
 _0800FF62:

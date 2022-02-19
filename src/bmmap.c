@@ -33,13 +33,13 @@ EWRAM_DATA u8** gBmMapMovement = NULL;
 EWRAM_DATA u8** gBmMapRange    = NULL;
 EWRAM_DATA u8** gBmMapFog      = NULL;
 EWRAM_DATA u8** gBmMapHidden   = NULL;
-EWRAM_DATA u8** gBmMapUnk      = NULL;
+EWRAM_DATA u8** gBmMapOther    = NULL;
 
 EWRAM_DATA static u8 sBmMapUnitPool[MAP_POOL_SIZE] = {};
 EWRAM_DATA static u8 sBmMapTerrainPool[MAP_POOL_SIZE] = {};
 EWRAM_DATA static u8 sBmMapFogPool[MAP_POOL_SIZE] = {};
 EWRAM_DATA static u8 sBmMapHiddenPool[MAP_POOL_SIZE] = {};
-EWRAM_DATA static u8 sBmMapUnkPool[MAP_POOL_SIZE] = {};
+EWRAM_DATA static u8 sBmMapOtherPool[MAP_POOL_SIZE] = {};
 
 EWRAM_DATA static u16 sTilesetConfig[0x1000 + 0x200] = {};
 
@@ -63,7 +63,7 @@ void InitChapterMap(int chapterId) {
     BmMapInit(sBmMapRangePool,    &gBmMapRange,    gBmMapSize.x, gBmMapSize.y);
     BmMapInit(sBmMapFogPool,      &gBmMapFog,      gBmMapSize.x, gBmMapSize.y);
     BmMapInit(sBmMapHiddenPool,   &gBmMapHidden,   gBmMapSize.x, gBmMapSize.y);
-    BmMapInit(sBmMapUnkPool, &gBmMapUnk, gBmMapSize.x, gBmMapSize.y);
+    BmMapInit(sBmMapOtherPool,    &gBmMapOther,    gBmMapSize.x, gBmMapSize.y);
 
     BmMapFill(gBmMapUnit, 0);
     BmMapFill(gBmMapTerrain, 0);

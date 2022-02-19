@@ -2365,7 +2365,7 @@ _0803B866:
 	mov ip, r1
 	ldr r7, _0803B8E0  @ gBmMapUnit
 	ldr r6, _0803B8E4  @ gActiveUnitId
-	ldr r1, _0803B8E8  @ gBmMapUnk
+	ldr r1, _0803B8E8  @ gBmMapOther
 _0803B882:
 	mov r2, ip
 	ldr r0, [r2]
@@ -2419,7 +2419,7 @@ _0803B8D8: .4byte gBmMapSize
 _0803B8DC: .4byte gBmMapMovement
 _0803B8E0: .4byte gBmMapUnit
 _0803B8E4: .4byte gActiveUnitId
-_0803B8E8: .4byte gBmMapUnk
+_0803B8E8: .4byte gBmMapOther
 _0803B8EC:
 	movs r0, #1
 _0803B8EE:
@@ -2725,7 +2725,7 @@ _0803BB1E:
 	ldrb r0, [r0]
 	cmp r1, r0
 	bge _0803BB52
-	ldr r0, _0803BBE8  @ gBmMapUnk
+	ldr r0, _0803BBE8  @ gBmMapOther
 	ldr r0, [r0]
 	add r0, r8
 	ldr r0, [r0]
@@ -2807,7 +2807,7 @@ _0803BBD8: .4byte gBmMapUnit
 _0803BBDC: .4byte gActiveUnitId
 _0803BBE0: .4byte gActiveUnit
 _0803BBE4: .4byte gAiState
-_0803BBE8: .4byte gBmMapUnk
+_0803BBE8: .4byte gBmMapOther
 _0803BBEC: .4byte gBmMapRange
 _0803BBF0: .4byte 0xFFFF0000
 
@@ -2968,7 +2968,7 @@ _0803BD0A:
 	ldrb r0, [r0]
 	cmp r1, r0
 	bge _0803BD3E
-	ldr r0, _0803BDD4  @ gBmMapUnk
+	ldr r0, _0803BDD4  @ gBmMapOther
 	ldr r0, [r0]
 	add r0, r8
 	ldr r0, [r0]
@@ -3050,7 +3050,7 @@ _0803BDC4: .4byte gBmMapUnit
 _0803BDC8: .4byte gActiveUnitId
 _0803BDCC: .4byte gActiveUnit
 _0803BDD0: .4byte gAiState
-_0803BDD4: .4byte gBmMapUnk
+_0803BDD4: .4byte gBmMapOther
 _0803BDD8: .4byte gBmMapRange
 _0803BDDC: .4byte 0xFFFF0000
 
@@ -3079,7 +3079,7 @@ sub_803BDE0: @ 0x0803BDE0
 	asrs r4, r1, #0x10
 	ldr r1, [r0]
 	adds r1, r1, r4
-	ldr r7, _0803BE38  @ gBmMapUnk
+	ldr r7, _0803BE38  @ gBmMapOther
 	ldr r0, [r7]
 	adds r0, r2, r0
 	ldr r0, [r0]
@@ -3102,7 +3102,7 @@ sub_803BDE0: @ 0x0803BDE0
 	b _0803BF38
 	.align 2, 0
 _0803BE34: .4byte gBmMapUnit
-_0803BE38: .4byte gBmMapUnk
+_0803BE38: .4byte gBmMapOther
 _0803BE3C: .4byte gBmMapHidden
 _0803BE40:
 	ldr r0, [sp, #8]
@@ -3141,7 +3141,7 @@ _0803BE70:
 	str r0, [sp, #4]
 	ldr r2, _0803BF24  @ gBmMapUnit
 	mov sl, r2
-	ldr r7, _0803BF28  @ gBmMapUnk
+	ldr r7, _0803BF28  @ gBmMapOther
 	mov r9, r7
 	ldr r0, _0803BF2C  @ gBmMapHidden
 	mov r8, r0
@@ -3220,7 +3220,7 @@ _0803BF06:
 _0803BF1C: .4byte gBmMapSize
 _0803BF20: .4byte gBmMapMovement
 _0803BF24: .4byte gBmMapUnit
-_0803BF28: .4byte gBmMapUnk
+_0803BF28: .4byte gBmMapOther
 _0803BF2C: .4byte gBmMapHidden
 _0803BF30: .4byte gBmMapRange
 _0803BF34: .4byte 0xFFFF0000
@@ -3778,7 +3778,7 @@ _0803C2EE:
 	adds r1, r6, #0
 	bl sub_803E27C
 	adds r4, r4, r0
-	ldr r0, _0803C34C  @ gBmMapUnk
+	ldr r0, _0803C34C  @ gBmMapOther
 	ldr r0, [r0]
 	adds r0, r7, r0
 	ldr r0, [r0]
@@ -3814,7 +3814,7 @@ _0803C33C: .4byte gBmMapMovement
 _0803C340: .4byte gBmMapRange
 _0803C344: .4byte gBmMapUnit
 _0803C348: .4byte gActiveUnitId
-_0803C34C: .4byte gBmMapUnk
+_0803C34C: .4byte gBmMapOther
 _0803C350: .4byte 0x7FFFFFFF
 _0803C354:
 	movs r0, #1
@@ -5494,7 +5494,7 @@ sub_803CF60: @ 0x0803CF60
 	lsls r0, r0, #0x18
 	asrs r0, r0, #0x18
 	subs r4, r4, r0
-	ldr r0, _0803CFAC  @ gBmMapUnk
+	ldr r0, _0803CFAC  @ gBmMapOther
 	ldr r0, [r0]
 	adds r5, r5, r0
 	ldr r0, [r5]
@@ -5510,7 +5510,7 @@ sub_803CF60: @ 0x0803CF60
 	bx r1
 	.align 2, 0
 _0803CFA8: .4byte gBmMapMovement
-_0803CFAC: .4byte gBmMapUnk
+_0803CFAC: .4byte gBmMapOther
 _0803CFB0: .4byte 0x7FFFFFFF
 
 	THUMB_FUNC_END sub_803CF60
@@ -7456,7 +7456,7 @@ sub_803DE5C: @ 0x0803DE5C
 	lsls r0, r0, #0x18
 	asrs r0, r0, #0x18
 	subs r4, r4, r0
-	ldr r0, _0803DEBC  @ gBmMapUnk
+	ldr r0, _0803DEBC  @ gBmMapOther
 	ldr r0, [r0]
 	adds r5, r5, r0
 	ldr r0, [r5]
@@ -7472,7 +7472,7 @@ sub_803DE5C: @ 0x0803DE5C
 	bx r1
 	.align 2, 0
 _0803DEB8: .4byte gBmMapMovement
-_0803DEBC: .4byte gBmMapUnk
+_0803DEBC: .4byte gBmMapOther
 _0803DEC0: .4byte 0x7FFFFFFF
 
 	THUMB_FUNC_END sub_803DE5C
@@ -7815,7 +7815,7 @@ sub_803E114: @ 0x0803E114
 	ldr r2, _0803E144  @ gBattleActor
 	movs r0, #0x11
 	ldrsb r0, [r2, r0]
-	ldr r1, _0803E148  @ gBmMapUnk
+	ldr r1, _0803E148  @ gBmMapOther
 	ldr r1, [r1]
 	lsls r0, r0, #2
 	adds r0, r0, r1
@@ -7838,7 +7838,7 @@ _0803E13E:
 	bx r1
 	.align 2, 0
 _0803E144: .4byte gBattleActor
-_0803E148: .4byte gBmMapUnk
+_0803E148: .4byte gBmMapOther
 _0803E14C: .4byte gUnknown_030017D8
 
 	THUMB_FUNC_END sub_803E114
@@ -8081,7 +8081,7 @@ AiInitDangerMap: @ 0x0803E2F4
 	bne _0803E314
 	movs r0, #1
 	strb r0, [r1]
-	ldr r0, _0803E31C  @ gBmMapUnk
+	ldr r0, _0803E31C  @ gBmMapOther
 	ldr r0, [r0]
 	movs r1, #0
 	bl BmMapFill
@@ -8091,7 +8091,7 @@ _0803E314:
 	bx r0
 	.align 2, 0
 _0803E318: .4byte gAiState
-_0803E31C: .4byte gBmMapUnk
+_0803E31C: .4byte gBmMapOther
 
 	THUMB_FUNC_END AiInitDangerMap
 
@@ -8205,7 +8205,7 @@ _0803E3E2:
 	beq _0803E410
 	adds r0, r6, #0
 	bl GetUnitPower
-	ldr r1, _0803E444  @ gBmMapUnk
+	ldr r1, _0803E444  @ gBmMapOther
 	ldr r1, [r1]
 	adds r1, r5, r1
 	ldr r1, [r1]
@@ -8240,7 +8240,7 @@ _0803E434: .4byte gActiveUnitId
 _0803E438: .4byte gActiveUnit
 _0803E43C: .4byte gBmMapSize
 _0803E440: .4byte gBmMapRange
-_0803E444: .4byte gBmMapUnk
+_0803E444: .4byte gBmMapOther
 
 	THUMB_FUNC_END sub_803E320
 
@@ -8249,7 +8249,7 @@ sub_803E448: @ 0x0803E448
 	push {lr}
 	lsls r2, r2, #0x18
 	lsrs r2, r2, #0x18
-	ldr r3, _0803E464  @ gBmMapUnk
+	ldr r3, _0803E464  @ gBmMapOther
 	ldr r3, [r3]
 	lsls r1, r1, #2
 	adds r1, r1, r3
@@ -8261,7 +8261,7 @@ sub_803E448: @ 0x0803E448
 	movs r0, #1
 	b _0803E46A
 	.align 2, 0
-_0803E464: .4byte gBmMapUnk
+_0803E464: .4byte gBmMapOther
 _0803E468:
 	movs r0, #0
 _0803E46A:
@@ -9072,7 +9072,7 @@ sub_803EA58: @ 0x0803EA58
 	strh r0, [r2]
 	ldr r3, [sp, #0xc]
 	strh r0, [r3]
-	ldr r0, _0803EB94  @ gBmMapUnk
+	ldr r0, _0803EB94  @ gBmMapOther
 	ldr r0, [r0]
 	movs r1, #0
 	bl BmMapFill
@@ -9153,7 +9153,7 @@ _0803EB16:
 	cmp r2, #0
 	blt _0803EB70
 	mov r9, r4
-	ldr r0, _0803EB94  @ gBmMapUnk
+	ldr r0, _0803EB94  @ gBmMapOther
 	mov r8, r0
 _0803EB2A:
 	mov r1, sl
@@ -9215,7 +9215,7 @@ _0803EB70:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_0803EB94: .4byte gBmMapUnk
+_0803EB94: .4byte gBmMapOther
 _0803EB98: .4byte gActiveUnitId
 _0803EB9C: .4byte gBmMapMovement
 _0803EBA0: .4byte gBmMapSize
@@ -11339,7 +11339,7 @@ _0803FB3A:
 	adds r1, r7, #0
 	bl sub_803E27C
 	adds r4, r4, r0
-	ldr r0, _0803FB9C  @ gBmMapUnk
+	ldr r0, _0803FB9C  @ gBmMapOther
 	ldr r0, [r0]
 	adds r0, r6, r0
 	ldr r0, [r0]
@@ -11374,7 +11374,7 @@ _0803FB8C: .4byte gUnknown_085A92BC
 _0803FB90: .4byte gBmMapMovement
 _0803FB94: .4byte gBmMapUnit
 _0803FB98: .4byte gActiveUnitId
-_0803FB9C: .4byte gBmMapUnk
+_0803FB9C: .4byte gBmMapOther
 _0803FBA0: .4byte 0x7FFFFFFF
 _0803FBA4:
 	movs r0, #1

@@ -324,7 +324,7 @@ sub_8034550: @ 0x08034550
 	negs r1, r1
 	bl GetUnitWeaponReachBits
 	adds r7, r0, #0
-	ldr r0, _08034604  @ gBmMapUnk
+	ldr r0, _08034604  @ gBmMapOther
 	ldr r0, [r0]
 	movs r1, #0
 	bl BmMapFill
@@ -385,7 +385,7 @@ _080345B6:
 	ldrb r0, [r0]
 	cmp r0, #0
 	bne _080345F2
-	ldr r0, _08034604  @ gBmMapUnk
+	ldr r0, _08034604  @ gBmMapOther
 	ldr r0, [r0]
 	adds r0, r5, r0
 	ldr r0, [r0]
@@ -411,7 +411,7 @@ _080345FE:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_08034604: .4byte gBmMapUnk
+_08034604: .4byte gBmMapOther
 _08034608: .4byte gActionData
 _0803460C: .4byte gBmMapSize
 _08034610: .4byte gBmMapMovement
