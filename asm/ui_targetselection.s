@@ -4,67 +4,6 @@
 
 	@ Target Selection Stuff
 
-	THUMB_FUNC_START InitTargets
-InitTargets: @ 0x0804F8A4
-	ldr r2, _0804F8B4  @ gUnknown_0203DDE8
-	movs r3, #0
-	strh r0, [r2]
-	strh r1, [r2, #2]
-	ldr r0, _0804F8B8  @ gUnknown_0203E0EC
-	str r3, [r0]
-	bx lr
-	.align 2, 0
-_0804F8B4: .4byte gUnknown_0203DDE8
-_0804F8B8: .4byte gUnknown_0203E0EC
-
-	THUMB_FUNC_END InitTargets
-
-	THUMB_FUNC_START AddTarget
-AddTarget: @ 0x0804F8BC
-	push {r4, r5, r6, lr}
-	mov r6, r8
-	push {r6}
-	ldr r4, _0804F908  @ gUnknown_0203DDEC
-	mov r8, r4
-	ldr r6, _0804F90C  @ gUnknown_0203E0EC
-	ldr r5, [r6]
-	lsls r4, r5, #1
-	adds r4, r4, r5
-	lsls r4, r4, #2
-	add r4, r8
-	strb r0, [r4]
-	ldr r4, [r6]
-	lsls r0, r4, #1
-	adds r0, r0, r4
-	lsls r0, r0, #2
-	add r0, r8
-	strb r1, [r0, #1]
-	ldr r1, [r6]
-	lsls r0, r1, #1
-	adds r0, r0, r1
-	lsls r0, r0, #2
-	add r0, r8
-	strb r2, [r0, #2]
-	ldr r1, [r6]
-	lsls r0, r1, #1
-	adds r0, r0, r1
-	lsls r0, r0, #2
-	add r0, r8
-	strb r3, [r0, #3]
-	ldr r0, [r6]
-	adds r0, #1
-	str r0, [r6]
-	pop {r3}
-	mov r8, r3
-	pop {r4, r5, r6}
-	pop {r0}
-	bx r0
-	.align 2, 0
-_0804F908: .4byte gUnknown_0203DDEC
-_0804F90C: .4byte gUnknown_0203E0EC
-
-	THUMB_FUNC_END AddTarget
-
 	THUMB_FUNC_START LinkTargets
 LinkTargets: @ 0x0804F910
 	push {r4, r5, r6, lr}
