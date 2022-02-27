@@ -1,5 +1,6 @@
 .syntax unified
 .arm
+.global Init
 Init:
 	b crt0
 	.include "asm/rom_header.inc"
