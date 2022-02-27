@@ -46,10 +46,6 @@ Q: `make: *** No rule to make target 'baserom.gba', needed by 'xxx'.  Stop.`
 
 A: You must place a copy of the Fire Emblem: The Sacred Stones ROM named `baserom.gba` in the repository directory.
 
-Q: `LF line endings aren't supported.`
-
-A: `git config --global core.autocrlf true`. Read [this](https://docs.github.com/en/get-started/getting-started-with-git/configuring-git-to-handle-line-endings) for more info.
-
 Q: `unrecognized option '--add-symbol'`
 
 A: Update your devkitPro or embedded toolchain. Read [this](https://github.com/bminor/binutils-gdb/blob/3451a2d7a3501e9c3fc344cbc4950c495f30c16d/binutils/ChangeLog-2015#L120) for more info.
