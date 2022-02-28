@@ -8,8 +8,8 @@ struct Unknown_0203DDEC {
     u8 y;
     u8 uId;
     u8 tId;
-    struct Unknown_0203DDEC* prev;
     struct Unknown_0203DDEC* next;
+    struct Unknown_0203DDEC* prev;
 };
 
 extern struct Unknown_0203DDEC gUnknown_0203DDEC[];
@@ -32,3 +32,78 @@ void AddTarget(int x, int y, int unitId, int tId) {
     gUnknown_0203E0EC++;
     return;
 }
+
+#if NONMATCHING
+
+// Register allocation is wrong :(
+void LinkTargets() {
+    struct Unknown_0203DDEC *iter;
+    int r1;
+    int r2 = 0;
+
+    if (r2 < gUnknown_0203E0EC) {
+        do {
+            iter = &gUnknown_0203DDEC[r2];
+            iter->prev = iter - 1;
+            iter->next = iter + 1;
+            ++r2;
+        } while (r2 < gUnknown_0203E0EC);
+    }
+
+    r1 = gUnknown_0203E0EC - 1;
+
+    iter = &gUnknown_0203DDEC[r1];
+    gUnknown_0203DDEC[0].prev = iter;
+    iter->next = &gUnknown_0203DDEC[0];
+
+    return;
+}
+
+#else // if !NONMATCHING
+
+__attribute__((naked))
+void LinkTargets() {
+    asm("\n\
+        .syntax unified\n\
+        push {r4, r5, r6, lr}\n\
+        movs r2, #0\n\
+        ldr r0, _0804F950  @ gUnknown_0203E0EC\n\
+        ldr r1, [r0]\n\
+        adds r6, r0, #0\n\
+        ldr r4, _0804F954  @ gUnknown_0203DDEC\n\
+        cmp r2, r1\n\
+        bge _0804F93A\n\
+        adds r5, r6, #0\n\
+        adds r3, r4, #0\n\
+        adds r3, #0xc\n\
+        adds r1, r4, #0\n\
+        subs r1, #0xc\n\
+    _0804F92A:\n\
+        str r1, [r1, #0x14]\n\
+        str r3, [r1, #0x10]\n\
+        adds r3, #0xc\n\
+        adds r1, #0xc\n\
+        adds r2, #1\n\
+        ldr r0, [r5]\n\
+        cmp r2, r0\n\
+        blt _0804F92A\n\
+    _0804F93A:\n\
+        ldr r1, [r6]\n\
+        subs r1, #1\n\
+        lsls r0, r1, #1\n\
+        adds r0, r0, r1\n\
+        lsls r0, r0, #2\n\
+        adds r0, r0, r4\n\
+        str r0, [r4, #8]\n\
+        str r4, [r0, #4]\n\
+        pop {r4, r5, r6}\n\
+        pop {r0}\n\
+        bx r0\n\
+        .align 2, 0\n\
+    _0804F950: .4byte gUnknown_0203E0EC\n\
+    _0804F954: .4byte gUnknown_0203DDEC\n\
+        .syntax divided\n\
+    ");
+}
+
+#endif // NONMATCHING
