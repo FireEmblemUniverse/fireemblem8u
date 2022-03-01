@@ -109,15 +109,7 @@ include graphics_file_rules.mk
 %.1bpp: %.png  ; $(GBAGFX) $< $@
 %.4bpp: %.png  ; $(GBAGFX) $< $@
 %.8bpp: %.png  ; $(GBAGFX) $< $@
-%.gbapal: %.pal
-ifneq ($(OS),Windows_NT)
-ifeq ($(UNAME),Darwin)
-	$(SED) $$'s/\r*$$/\r/' $<
-else
-	$(SED) -e 's/\r*$$/\r/' $<
-endif
-endif
-	$(GBAGFX) $< $@
+%.gbapal: %.pal ; $(GBAGFX) $< $@
 %.gbapal: %.png ; $(GBAGFX) $< $@
 %.lz: % ; $(GBAGFX) $< $@
 %.rl: % ; $(GBAGFX) $< $@
