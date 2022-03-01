@@ -4,21 +4,6 @@
 
 	@ Target Selection Stuff
 
-	THUMB_FUNC_START TargetSelection_GetRealCursorPosition
-TargetSelection_GetRealCursorPosition: @ 0x0804F958
-	ldr r3, [r0, #0x30]
-	movs r0, #0
-	ldrsb r0, [r3, r0]
-	lsls r0, r0, #4
-	str r0, [r1]
-	movs r0, #1
-	ldrsb r0, [r3, r0]
-	lsls r0, r0, #4
-	str r0, [r2]
-	bx lr
-
-	THUMB_FUNC_END TargetSelection_GetRealCursorPosition
-
 	THUMB_FUNC_START TargetSelection_Loop
 TargetSelection_Loop: @ 0x0804F96C
 	push {r4, r5, lr}

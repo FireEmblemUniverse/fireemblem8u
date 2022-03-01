@@ -4,8 +4,8 @@
 extern struct Vec2 gUnknown_0203DDE8;
 
 struct Unknown_0203DDEC {
-    u8 x;
-    u8 y;
+    s8 x;
+    s8 y;
     u8 uId;
     u8 tId;
     struct Unknown_0203DDEC* next;
@@ -15,6 +15,13 @@ struct Unknown_0203DDEC {
 extern struct Unknown_0203DDEC gUnknown_0203DDEC[];
 
 extern int gUnknown_0203E0EC;
+
+struct TargetSelectionProc {
+    /* 00 */ PROC_HEADER;
+
+    /* 29 */ u8 _pad[0x30 - 0x29];
+    /* 30 */ struct Unknown_0203DDEC* currentTarget;
+};
 
 void InitTargets(int xRoot, int yRoot) {
     gUnknown_0203DDE8.x = xRoot;
@@ -107,3 +114,10 @@ void LinkTargets() {
 }
 
 #endif // NONMATCHING
+
+void TargetSelection_GetRealCursorPosition(ProcPtr proc, int* xPos, int* yPos) {
+    *xPos = (((struct TargetSelectionProc*)(proc))->currentTarget)->x * 16;
+    *yPos = (((struct TargetSelectionProc*)(proc))->currentTarget)->y * 16;
+
+    return;
+}
