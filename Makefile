@@ -17,6 +17,7 @@ CPP ?= $(PREFIX)cpp$(EXE)
 AS := $(PREFIX)as$(EXE)
 LD := $(PREFIX)ld$(EXE)
 OBJCOPY := $(PREFIX)objcopy$(EXE)
+STRIP := $(PREFIX)strip$(EXE)
 
 CC1     := tools/agbcc/bin/agbcc$(EXE)
 CC1_OLD := tools/agbcc/bin/old_agbcc$(EXE)
@@ -145,6 +146,7 @@ $(DEPS_DIR)/%.d: %.c
 
 $(ELF): $(ALL_OBJECTS) $(LDSCRIPT) $(SYM_FILES)
 	$(LD) -T $(LDSCRIPT) -Map $(MAP) $(ALL_OBJECTS) -R $(BANIM_OBJECT).sym.o -L tools/agbcc/lib -o $@ -lc -lgcc
+	$(STRIP) -N .gcc2_compiled. $@
 
 %.gba: %.elf
 	$(OBJCOPY) --strip-debug -O binary --pad-to 0x9000000 --gap-fill=0xff $< $@
