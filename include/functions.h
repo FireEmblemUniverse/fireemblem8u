@@ -790,7 +790,7 @@ void sub_8015BD4(int a, int b, int c);
 // ??? Loop6C_GENS(???);
 // ??? StoreAdjustedCameraPositions(???);
 // ??? sub_8015D84(???);
-void EnsureCameraOntoPosition(ProcPtr p, s8 x, s8 y);
+s8 EnsureCameraOntoPosition(ProcPtr p, int x, int y);
 s8 ShouldMoveCameraPosSomething(int x, int y);
 // ??? sub_8015EDC(???);
 // ??? sub_8015F40(???);

@@ -1,5 +1,8 @@
 #include "global.h"
 #include "functions.h"
+#include "m4a.h"
+#include "soundwrapper.h"
+#include "uiutils.h"
 
 extern struct Vec2 gUnknown_0203DDE8;
 
@@ -21,7 +24,12 @@ struct TargetSelectionProc {
 
     /* 29 */ u8 _pad[0x30 - 0x29];
     /* 30 */ struct Unknown_0203DDEC* currentTarget;
+    /* 34 */ u8 unk_34;
 };
+
+void TargetSelection_HandleMoveInput(ProcPtr);
+int TargetSelection_HandleSelectInput(ProcPtr);
+void EndTargetSelection(ProcPtr);
 
 void InitTargets(int xRoot, int yRoot) {
     gUnknown_0203DDE8.x = xRoot;
@@ -118,6 +126,50 @@ void LinkTargets() {
 void TargetSelection_GetRealCursorPosition(ProcPtr proc, int* xPos, int* yPos) {
     *xPos = (((struct TargetSelectionProc*)(proc))->currentTarget)->x * 16;
     *yPos = (((struct TargetSelectionProc*)(proc))->currentTarget)->y * 16;
+
+    return;
+}
+
+void TargetSelection_Loop(ProcPtr proc) {
+    int x, y;
+    int r5;
+
+    if ((0x40 & ((struct TargetSelectionProc*)(proc))->unk_34) != 0) {
+        TargetSelection_GetRealCursorPosition(proc, &x, &y);
+        DisplayCursor(x, y, 4);
+        return;
+    }
+
+    TargetSelection_HandleMoveInput(proc);
+
+    r5 = TargetSelection_HandleSelectInput(proc);
+
+    if ((2 & r5) != 0) {
+        EndTargetSelection(proc);
+    }
+
+    if ((4 & r5) != 0) {
+        PlaySoundEffect(0x6A);
+    }
+
+    if ((8 & r5) != 0) {
+        PlaySoundEffect(0x6B);
+    }
+
+    if ((0x10 & r5) != 0) {
+        ClearBg0Bg1();
+    }
+
+    if ((0x20 & r5) != 0) {
+        DeleteFaceByIndex(0);
+    }
+
+    if ((1 & r5) == 0) {
+        TargetSelection_GetRealCursorPosition(proc, &x, &y);
+        if (EnsureCameraOntoPosition(proc, x >> 4, y >> 4) != 1) {
+            DisplayCursor(x, y, 2);
+        }
+    }
 
     return;
 }
