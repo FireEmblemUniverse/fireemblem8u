@@ -4,6 +4,7 @@
 #include "soundwrapper.h"
 #include "uiutils.h"
 #include "mapselect.h"
+#include "bmio.h"
 
 extern struct Vec2 gUnknown_0203DDE8;
 
@@ -14,14 +15,53 @@ extern int gUnknown_0203E0EC;
 struct TargetSelectionProc {
     /* 00 */ PROC_HEADER;
 
-    /* 29 */ u8 _pad[0x30 - 0x29];
+    /* 29 */ u8 _pad[0x2B - 0x29];
+    /* 2C */ const struct SelectInfo* selectRoutines;
     /* 30 */ struct SelectTarget* currentTarget;
     /* 34 */ u8 unk_34;
+    /* 35 */ u8 _pad2[0x38 - 0x35];
+    /* 38 */ int(*onAPress)(ProcPtr proc, struct SelectTarget*);
 };
 
+void TargetSelection_Loop();
 void TargetSelection_HandleMoveInput(ProcPtr);
 int TargetSelection_HandleSelectInput(ProcPtr);
-void EndTargetSelection(ProcPtr);
+ProcPtr EndTargetSelection(ProcPtr);
+struct SelectTarget* GetFirstTargetPointer();
+
+struct ProcCmd CONST_DATA gUnknown_085B655C[] =
+{
+PROC_LABEL(0),
+    PROC_REPEAT(TargetSelection_Loop),
+    PROC_SLEEP(1),
+
+    PROC_CALL(RefreshBMapGraphics),
+    PROC_GOTO(0),
+
+    PROC_END,
+};
+
+struct Unk_085B658C
+{
+    s8 x, y;
+};
+
+struct Unk_085B658C CONST_DATA gUnknown_085B658C[] =
+{
+    {  0,  0 },
+    {  0, -2 },
+    {  0, -1 },
+    { +1, -1 },
+    { +1,  0 },
+    { +2,  0 },
+    { +1, +1 },
+    {  0, +1 },
+    {  0, +2 },
+    { -1, +1 },
+    { -1,  0 },
+    { -2,  0 },
+    { -1, -1 },
+};
 
 void InitTargets(int xRoot, int yRoot) {
     gUnknown_0203DDE8.x = xRoot;
@@ -164,4 +204,74 @@ void TargetSelection_Loop(ProcPtr proc) {
     }
 
     return;
+}
+
+ProcPtr NewTargetSelection(const struct SelectInfo* selectInfo) {
+    struct TargetSelectionProc* proc;
+
+    AddSkipThread2();
+    proc = Proc_Start(gUnknown_085B655C, PROC_TREE_3);
+
+    proc->unk_34 = 1;
+    proc->selectRoutines = selectInfo;
+    proc->currentTarget = GetFirstTargetPointer();
+    proc->onAPress = 0;
+
+    if (proc->selectRoutines->onInit) {
+        proc->selectRoutines->onInit(proc);
+    }
+
+    if (proc->selectRoutines->onUnk08) {
+        proc->selectRoutines->onUnk08(proc);
+    }
+
+    if (proc->selectRoutines->onSwitchIn) {
+        proc->selectRoutines->onSwitchIn(proc, proc->currentTarget);
+    }
+
+    gKeyStatusPtr->newKeys = 0;
+
+    return proc;
+}
+
+#if NONMATCHING
+
+ProcPtr NewTargetSelection_Specialized(const struct SelectInfo* selectInfo, int(*onSelect)(ProcPtr, struct SelectTarget*)) {
+    ProcPtr proc = NewTargetSelection(selectInfo);
+    ((struct TargetSelectionProc*)(proc))->onAPress = onSelect;
+    return proc;
+}
+
+#else // if !NONMATCHING
+
+__attribute__((naked))
+ProcPtr NewTargetSelection_Specialized(const struct SelectInfo* selectInfo, int(*onSelect)(ProcPtr, struct SelectTarget*)) {
+    asm("\n\
+        .syntax unified\n\
+        push {r4, lr}\n\
+        adds r4, r1, #0\n\
+        bl NewTargetSelection\n\
+        adds r1, r0, #0\n\
+        str r4, [r1, #0x38]\n\
+        pop {r4}\n\
+        pop {r1}\n\
+        bx r1\n\
+        .syntax divided\n\
+    ");
+}
+
+#endif // NONMATCHING
+
+ProcPtr EndTargetSelection(ProcPtr proc) {
+    if (((struct TargetSelectionProc*)(proc))->selectRoutines->onEnd) {
+        ((struct TargetSelectionProc*)(proc))->selectRoutines->onEnd(proc);
+    }
+
+    if ((1 & ((struct TargetSelectionProc*)(proc))->unk_34) != 0) {
+        SubSkipThread2();
+    }
+
+    Proc_End(proc);
+
+    return ((struct TargetSelectionProc*)(proc))->proc_parent;
 }

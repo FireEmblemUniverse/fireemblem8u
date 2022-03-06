@@ -16,7 +16,7 @@ struct SelectInfo
     /* 00 */ void(*onInit)(ProcPtr proc);
     /* 04 */ void(*onEnd)(ProcPtr proc);
 
-    /* 08 */ void(*onUnk08)(ProcPtr proc, struct SelectTarget* target);
+    /* 08 */ void(*onUnk08)(ProcPtr proc);
 
     /* 0C */ void(*onSwitchIn)(ProcPtr proc, struct SelectTarget* target);
     /* 10 */ void(*onSwitchOut)(ProcPtr proc, struct SelectTarget* target);
