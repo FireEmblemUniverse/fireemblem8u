@@ -3,19 +3,11 @@
 #include "m4a.h"
 #include "soundwrapper.h"
 #include "uiutils.h"
+#include "mapselect.h"
 
 extern struct Vec2 gUnknown_0203DDE8;
 
-struct Unknown_0203DDEC {
-    s8 x;
-    s8 y;
-    u8 uId;
-    u8 tId;
-    struct Unknown_0203DDEC* next;
-    struct Unknown_0203DDEC* prev;
-};
-
-extern struct Unknown_0203DDEC gUnknown_0203DDEC[];
+extern struct SelectTarget gUnknown_0203DDEC[];
 
 extern int gUnknown_0203E0EC;
 
@@ -23,7 +15,7 @@ struct TargetSelectionProc {
     /* 00 */ PROC_HEADER;
 
     /* 29 */ u8 _pad[0x30 - 0x29];
-    /* 30 */ struct Unknown_0203DDEC* currentTarget;
+    /* 30 */ struct SelectTarget* currentTarget;
     /* 34 */ u8 unk_34;
 };
 
@@ -41,8 +33,8 @@ void InitTargets(int xRoot, int yRoot) {
 void AddTarget(int x, int y, int unitId, int tId) {
     gUnknown_0203DDEC[gUnknown_0203E0EC].x = x;
     gUnknown_0203DDEC[gUnknown_0203E0EC].y = y;
-    gUnknown_0203DDEC[gUnknown_0203E0EC].uId = unitId;
-    gUnknown_0203DDEC[gUnknown_0203E0EC].tId = tId;
+    gUnknown_0203DDEC[gUnknown_0203E0EC].uid = unitId;
+    gUnknown_0203DDEC[gUnknown_0203E0EC].extra = tId;
 
     gUnknown_0203E0EC++;
     return;
@@ -52,7 +44,7 @@ void AddTarget(int x, int y, int unitId, int tId) {
 
 // Register allocation is wrong :(
 void LinkTargets() {
-    struct Unknown_0203DDEC *iter;
+    struct SelectTarget *iter;
     int r1;
     int r2 = 0;
 
