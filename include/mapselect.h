@@ -21,9 +21,9 @@ struct SelectInfo
     /* 0C */ void(*onSwitchIn)(ProcPtr proc, struct SelectTarget* target);
     /* 10 */ void(*onSwitchOut)(ProcPtr proc, struct SelectTarget* target);
 
-    /* 14 */ int(*onSelect)(ProcPtr proc, struct SelectTarget* target);
-    /* 18 */ int(*onCancel)(ProcPtr proc, struct SelectTarget* target);
-    /* 1C */ int(*onHelp)(ProcPtr proc, struct SelectTarget* target);
+    /* 14 */ u8(*onSelect)(ProcPtr proc, struct SelectTarget* target);
+    /* 18 */ u8(*onCancel)(ProcPtr proc, struct SelectTarget* target);
+    /* 1C */ u8(*onHelp)(ProcPtr proc, struct SelectTarget* target);
 };
 
 #endif // GUARD_MAPSELECT_H

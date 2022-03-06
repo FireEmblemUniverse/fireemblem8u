@@ -20,12 +20,12 @@ struct TargetSelectionProc {
     /* 30 */ struct SelectTarget* currentTarget;
     /* 34 */ u8 unk_34;
     /* 35 */ u8 _pad2[0x38 - 0x35];
-    /* 38 */ int(*onAPress)(ProcPtr proc, struct SelectTarget*);
+    /* 38 */ u8(*onAPress)(ProcPtr proc, struct SelectTarget*);
 };
 
 void TargetSelection_Loop();
-void TargetSelection_HandleMoveInput(ProcPtr);
-int TargetSelection_HandleSelectInput(ProcPtr);
+void TargetSelection_HandleMoveInput(struct TargetSelectionProc*);
+int TargetSelection_HandleSelectInput(struct TargetSelectionProc*);
 ProcPtr EndTargetSelection(ProcPtr);
 struct SelectTarget* GetFirstTargetPointer();
 
@@ -274,4 +274,78 @@ ProcPtr EndTargetSelection(ProcPtr proc) {
     Proc_End(proc);
 
     return ((struct TargetSelectionProc*)(proc))->proc_parent;
+}
+
+void TargetSelection_HandleMoveInput(struct TargetSelectionProc* proc) {
+    struct SelectTarget* current = proc->currentTarget;
+
+    if (0x60 & gKeyStatusPtr->repeatedKeys) {
+        if (current->next != 0) {
+            proc->currentTarget = current->next;
+        }
+    }
+
+    if (0x90 & gKeyStatusPtr->repeatedKeys) {
+        if (proc->currentTarget->prev) {
+            proc->currentTarget = proc->currentTarget->prev;
+        }
+    }
+
+    if (proc->currentTarget == current) {
+        return;
+    }
+
+    if (proc->selectRoutines->onSwitchOut) {
+        proc->selectRoutines->onSwitchOut(proc, current);
+    }
+
+    if (proc->selectRoutines->onSwitchIn) {
+        proc->selectRoutines->onSwitchIn(proc, proc->currentTarget);
+    }
+
+    PlaySoundEffect(0x67);
+
+    return;
+}
+
+int TargetSelection_HandleSelectInput(struct TargetSelectionProc* proc) {
+    int ret = 0;
+
+    if (1 & gKeyStatusPtr->newKeys) {
+        if (proc->onAPress) {
+            ret = proc->onAPress(proc, proc->currentTarget);
+        } else {
+            if (proc->selectRoutines->onSelect) {
+                ret = proc->selectRoutines->onSelect(proc, proc->currentTarget);
+            }
+        }
+    } else if (2 & gKeyStatusPtr->newKeys) {
+        if (proc->selectRoutines->onCancel) {
+            ret = proc->selectRoutines->onCancel(proc, proc->currentTarget);
+        }
+    } else if ((0x80 << 1) & gKeyStatusPtr->newKeys) {
+        if (proc->selectRoutines->onHelp) {
+            ret = proc->selectRoutines->onHelp(proc, proc->currentTarget);
+        }
+    }
+
+    return ret;
+}
+
+void sub_804FBBC() {
+    ProcPtr proc = Proc_Find(gUnknown_085B655C);
+    if (proc) {
+        ((struct TargetSelectionProc*)(proc))->unk_34 |= 0x40;
+    }
+
+    return;
+}
+
+void sub_804FBDC() {
+    ProcPtr proc = Proc_Find(gUnknown_085B655C);
+    if (proc) {
+        ((struct TargetSelectionProc*)(proc))->unk_34 &= 0xBF;
+    }
+
+    return;
 }
