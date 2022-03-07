@@ -439,3 +439,60 @@ int GetFarthestTargetIndex() {
 }
 
 #endif // NONMATCHING
+
+struct SelectTarget* LinkTargetsOrdered() {
+    struct SelectTarget* currentIter = NULL;
+    struct SelectTarget* prevIter = NULL;
+    int i = 0;
+    int j;
+    int xDist, yDist;
+    struct SelectTarget* target;
+    do {
+        xDist = gUnknown_0203DDE8.x + gUnknown_085B658C[i].x;
+        yDist = gUnknown_0203DDE8.y + gUnknown_085B658C[i].y;
+        j = 0;
+        target = gUnknown_0203DDEC;
+        while (j < gUnknown_0203E0EC) {
+            if (xDist == target->x && yDist == target->y) {
+                target->next = prevIter;
+
+                if (prevIter != 0) {
+                    prevIter->prev = target;
+                }
+
+                if (currentIter == 0) {
+                    currentIter = target;
+                }
+
+                prevIter = target;
+            }
+            ++j;
+            ++target;
+        }
+    } while(++i < (int)ARRAY_COUNT(gUnknown_085B658C));
+
+    currentIter->next = prevIter;
+    prevIter->prev = currentIter;
+
+    return currentIter;
+}
+
+struct SelectTarget* GetLinkedTargetList() {
+    LinkTargets();
+    return gUnknown_0203DDEC;
+}
+
+struct SelectTarget* GetFirstTargetPointer() {
+    if (GetFarthestTargetIndex() > 2) {
+        return GetLinkedTargetList();
+    }
+    return LinkTargetsOrdered();
+}
+
+int sub_804FD28() {
+    return gUnknown_0203E0EC;
+}
+
+struct SelectTarget* GetTarget(int index) {
+    return &gUnknown_0203DDEC[index];
+}

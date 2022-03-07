@@ -118,7 +118,6 @@ SECTIONS
         src/uiutils.o(.text);
         src/uimenu.o(.text);
         src/ui_targetselection.o(.text);
-        asm/ui_targetselection.o(.text);
         asm/code_battleanim.o(.text);
         src/monstergen.o(.text);
         src/mu.o(.text);
