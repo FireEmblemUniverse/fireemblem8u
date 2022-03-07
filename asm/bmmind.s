@@ -354,7 +354,7 @@ ActionCombat: @ 0x0803229C
 	ldrb r0, [r4, #0xc]
 	bl GetUnit
 	bl MakeTargetListForFuckingNightmare
-	bl sub_804FD28
+	bl GetSelectTargetCount
 	adds r5, r0, #0
 	movs r4, #0
 	cmp r4, r5

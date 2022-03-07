@@ -454,7 +454,7 @@ RescueUsability: @ 0x080228A4
 	bne _080228D4
 	adds r0, r2, #0
 	bl MakeRescueTargetList
-	bl sub_804FD28
+	bl GetSelectTargetCount
 	cmp r0, #0
 	beq _080228D4
 	movs r0, #1
@@ -516,7 +516,7 @@ DropUsability: @ 0x08022910
 	beq _08022940
 	adds r0, r2, #0
 	bl MakeDropTargetList
-	bl sub_804FD28
+	bl GetSelectTargetCount
 	cmp r0, #0
 	beq _08022940
 	movs r0, #1
@@ -592,7 +592,7 @@ TakeUsability: @ 0x0802298C
 	bne _080229CC
 	adds r0, r3, #0
 	bl MakeTakeTargetList
-	bl sub_804FD28
+	bl GetSelectTargetCount
 	cmp r0, #0
 	beq _080229CC
 	movs r0, #1
@@ -648,7 +648,7 @@ GiveUsability: @ 0x080229F4
 	beq _08022A34
 	adds r0, r3, #0
 	bl sub_8025594
-	bl sub_804FD28
+	bl GetSelectTargetCount
 	cmp r0, #0
 	beq _08022A34
 	movs r0, #1
@@ -992,7 +992,7 @@ UnknownMenu_IsAvailable: @ 0x08022CA4
 	ldr r0, [r5]
 	adds r1, r4, #0
 	bl MakeTargetListForWeapon
-	bl sub_804FD28
+	bl GetSelectTargetCount
 	cmp r0, #0
 	beq _08022CE8
 	movs r0, #1
@@ -1341,7 +1341,7 @@ ItemSubMenu_IsTradeAvailable: @ 0x08022F34
 	bne _08022F80
 	adds r0, r2, #0
 	bl MakeTradeTargetList
-	bl sub_804FD28
+	bl GetSelectTargetCount
 	cmp r0, #0
 	beq _08022F80
 	movs r0, #1
@@ -1570,7 +1570,7 @@ sub_80230F0: @ 0x080230F0
 	bne _0802314E
 	adds r0, r2, #0
 	bl sub_8025B6C
-	bl sub_804FD28
+	bl GetSelectTargetCount
 	cmp r0, #0
 	beq _08023118
 _0802310E:
@@ -1697,7 +1697,7 @@ PlayCommandEffect: @ 0x080231D0
 	ldr r6, _08023248  @ gActiveUnit
 	ldr r0, [r6]
 	bl sub_8025B6C
-	bl sub_804FD28
+	bl GetSelectTargetCount
 	negs r1, r0
 	orrs r1, r0
 	lsrs r1, r1, #0x1f
@@ -3083,7 +3083,7 @@ TalkCommandUsability: @ 0x08023C80
 	bne _08023C9E
 	adds r0, r2, #0
 	bl sub_8025610
-	bl sub_804FD28
+	bl GetSelectTargetCount
 	cmp r0, #0
 	bne _08023CA8
 _08023C9E:
@@ -3167,12 +3167,12 @@ SupportCommandUsability: @ 0x08023D14
 	bne _08023D40
 	adds r0, r2, #0
 	bl MakeTargetListForSupport
-	bl sub_804FD28
+	bl GetSelectTargetCount
 	cmp r0, #0
 	beq _08023D40
 	ldr r0, [r4]
 	bl sub_8025610
-	bl sub_804FD28
+	bl GetSelectTargetCount
 	cmp r0, #0
 	beq _08023D48
 _08023D40:
@@ -3268,7 +3268,7 @@ _08023DD8:
 	ldr r0, [r4]
 	movs r1, #0x1e
 	bl MakeTargetListForDoorAndBridges
-	bl sub_804FD28
+	bl GetSelectTargetCount
 	movs r1, #3
 	cmp r0, #0
 	beq _08023DEC
@@ -3385,7 +3385,7 @@ _08023E98: .4byte gActiveUnit
 _08023E9C:
 	adds r0, r2, #0
 	bl sub_80258A4
-	bl sub_804FD28
+	bl GetSelectTargetCount
 	movs r1, #3
 	cmp r0, #0
 	beq _08023EAE
@@ -3841,7 +3841,7 @@ StealCommandUsability: @ 0x0802418C
 	bne _080241BC
 	adds r0, r2, #0
 	bl MakeTargetListForSteal
-	bl sub_804FD28
+	bl GetSelectTargetCount
 	cmp r0, #0
 	bne _080241C4
 _080241BC:
@@ -4140,7 +4140,7 @@ SummonCommandUsability: @ 0x080243D8
 	bne _0802445A
 	adds r0, r2, #0
 	bl sub_8025CA4
-	bl sub_804FD28
+	bl GetSelectTargetCount
 	cmp r0, #0
 	beq _0802445A
 	ldr r4, _08024428  @ 0x0000FFFF
@@ -4995,7 +4995,7 @@ _080249D8:
 	ldr r0, [r5]
 	adds r1, r4, #0
 	bl MakeTargetListForWeapon
-	bl sub_804FD28
+	bl GetSelectTargetCount
 	cmp r0, #0
 	bne _080249CC
 _08024A06:
@@ -5047,7 +5047,7 @@ AttackBallistaCommandUsability: @ 0x08024A28
 	lsls r2, r2, #1
 	adds r1, r1, r2
 	bl MakeTargetListForWeapon
-	bl sub_804FD28
+	bl GetSelectTargetCount
 	cmp r0, #0
 	bne _08024A70
 _08024A66:
@@ -5077,7 +5077,7 @@ ItemMenu_Is1stCommandAvailable: @ 0x08024A88
 	ldr r0, _08024AA0  @ gActiveUnit
 	ldr r0, [r0]
 	bl sub_8025B6C
-	bl sub_804FD28
+	bl GetSelectTargetCount
 	cmp r0, #0
 	beq _08024AA4
 	movs r0, #1

@@ -179,7 +179,7 @@ CanUnitUseAttack: @ 0x08034428
 	str r0, [r1]
 	ldr r0, _0803446C  @ AddUnitToTargetListIfNotAllied
 	bl ForEachUnitInRange
-	bl sub_804FD28
+	bl GetSelectTargetCount
 	cmp r0, #0
 	beq _0803445A
 	movs r0, #1
@@ -201,7 +201,7 @@ CanActiveUnitUseRescue: @ 0x08034470
 	ldr r0, _08034488  @ gActiveUnit
 	ldr r0, [r0]
 	bl MakeRescueTargetList
-	bl sub_804FD28
+	bl GetSelectTargetCount
 	cmp r0, #0
 	beq _08034484
 	movs r0, #1
@@ -219,7 +219,7 @@ CanActiveUnitUseTrade: @ 0x0803448C
 	ldr r0, _080344A4  @ gActiveUnit
 	ldr r0, [r0]
 	bl MakeTradeTargetList
-	bl sub_804FD28
+	bl GetSelectTargetCount
 	cmp r0, #0
 	beq _080344A0
 	movs r0, #1

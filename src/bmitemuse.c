@@ -446,7 +446,7 @@ s8 HasSelectTarget(struct Unit* unit, void(*func)(struct Unit*))
 {
     func(unit);
 
-    return sub_804FD28() != 0;
+    return GetSelectTargetCount() != 0;
 }
 
 s8 CanUnitUseHealItem(struct Unit* unit)
@@ -500,13 +500,13 @@ s8 CanUnitUseChestKeyItem(struct Unit* unit)
 s8 CanUnitUseDoorKeyItem(struct Unit* unit)
 {
     MakeTargetListForDoorAndBridges(unit, TERRAIN_DOOR);
-    return sub_804FD28();
+    return GetSelectTargetCount();
 }
 
 s8 CanUnitOpenBridge(struct Unit* unit)
 {
     MakeTargetListForDoorAndBridges(unit, TERRAIN_BRIDGE_14);
-    return sub_804FD28();
+    return GetSelectTargetCount();
 }
 
 s8 CanUnitUseLockpickItem(struct Unit* unit)

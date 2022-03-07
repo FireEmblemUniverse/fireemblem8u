@@ -8,11 +8,11 @@
 
 #include "uiselecttarget.h"
 
-extern struct Vec2 gUnknown_0203DDE8;
+static struct Vec2 EWRAM_DATA sSelectTargetRoot = {};
 
-extern struct SelectTarget gUnknown_0203DDEC[];
+static struct SelectTarget EWRAM_DATA sSelectTargetList[MAX_TARGET_LIST_COUNT] = {0};
 
-extern int gUnknown_0203E0EC;
+static int EWRAM_DATA sSelectTargetCount = 0;
 
 struct ProcCmd CONST_DATA gUnknown_085B655C[] =
 {
@@ -49,19 +49,19 @@ struct Unk_085B658C CONST_DATA gUnknown_085B658C[] =
 };
 
 void InitTargets(int xRoot, int yRoot) {
-    gUnknown_0203DDE8.x = xRoot;
-    gUnknown_0203DDE8.y = yRoot;
-    gUnknown_0203E0EC = 0;
+    sSelectTargetRoot.x = xRoot;
+    sSelectTargetRoot.y = yRoot;
+    sSelectTargetCount = 0;
     return;
 }
 
 void AddTarget(int x, int y, int unitId, int tId) {
-    gUnknown_0203DDEC[gUnknown_0203E0EC].x = x;
-    gUnknown_0203DDEC[gUnknown_0203E0EC].y = y;
-    gUnknown_0203DDEC[gUnknown_0203E0EC].uid = unitId;
-    gUnknown_0203DDEC[gUnknown_0203E0EC].extra = tId;
+    sSelectTargetList[sSelectTargetCount].x = x;
+    sSelectTargetList[sSelectTargetCount].y = y;
+    sSelectTargetList[sSelectTargetCount].uid = unitId;
+    sSelectTargetList[sSelectTargetCount].extra = tId;
 
-    gUnknown_0203E0EC++;
+    sSelectTargetCount++;
     return;
 }
 
@@ -73,20 +73,20 @@ void LinkTargets() {
     int r1;
     int r2 = 0;
 
-    if (r2 < gUnknown_0203E0EC) {
+    if (r2 < sSelectTargetCount) {
         do {
-            iter = &gUnknown_0203DDEC[r2];
+            iter = &sSelectTargetList[r2];
             iter->prev = iter - 1;
             iter->next = iter + 1;
             ++r2;
-        } while (r2 < gUnknown_0203E0EC);
+        } while (r2 < sSelectTargetCount);
     }
 
-    r1 = gUnknown_0203E0EC - 1;
+    r1 = sSelectTargetCount - 1;
 
-    iter = &gUnknown_0203DDEC[r1];
-    gUnknown_0203DDEC[0].prev = iter;
-    iter->next = &gUnknown_0203DDEC[0];
+    iter = &sSelectTargetList[r1];
+    sSelectTargetList[0].prev = iter;
+    iter->next = &sSelectTargetList[0];
 
     return;
 }
@@ -99,10 +99,10 @@ void LinkTargets() {
         .syntax unified\n\
         push {r4, r5, r6, lr}\n\
         movs r2, #0\n\
-        ldr r0, _0804F950  @ gUnknown_0203E0EC\n\
+        ldr r0, _0804F950  @ sSelectTargetCount\n\
         ldr r1, [r0]\n\
         adds r6, r0, #0\n\
-        ldr r4, _0804F954  @ gUnknown_0203DDEC\n\
+        ldr r4, _0804F954  @ sSelectTargetList\n\
         cmp r2, r1\n\
         bge _0804F93A\n\
         adds r5, r6, #0\n\
@@ -132,8 +132,8 @@ void LinkTargets() {
         pop {r0}\n\
         bx r0\n\
         .align 2, 0\n\
-    _0804F950: .4byte gUnknown_0203E0EC\n\
-    _0804F954: .4byte gUnknown_0203DDEC\n\
+    _0804F950: .4byte sSelectTargetCount\n\
+    _0804F954: .4byte sSelectTargetList\n\
         .syntax divided\n\
     ");
 }
@@ -264,13 +264,13 @@ ProcPtr EndTargetSelection(ProcPtr proc) {
 void TargetSelection_HandleMoveInput(struct SelectTargetProc* proc) {
     struct SelectTarget* current = proc->currentTarget;
 
-    if (0x60 & gKeyStatusPtr->repeatedKeys) {
+    if ((DPAD_LEFT | DPAD_UP) & gKeyStatusPtr->repeatedKeys) {
         if (current->next != 0) {
             proc->currentTarget = current->next;
         }
     }
 
-    if (0x90 & gKeyStatusPtr->repeatedKeys) {
+    if ((DPAD_RIGHT | DPAD_DOWN) & gKeyStatusPtr->repeatedKeys) {
         if (proc->currentTarget->prev) {
             proc->currentTarget = proc->currentTarget->prev;
         }
@@ -296,7 +296,7 @@ void TargetSelection_HandleMoveInput(struct SelectTargetProc* proc) {
 int TargetSelection_HandleSelectInput(struct SelectTargetProc* proc) {
     int ret = 0;
 
-    if (1 & gKeyStatusPtr->newKeys) {
+    if (A_BUTTON & gKeyStatusPtr->newKeys) {
         if (proc->onAPress) {
             ret = proc->onAPress(proc, proc->currentTarget);
         } else {
@@ -304,11 +304,11 @@ int TargetSelection_HandleSelectInput(struct SelectTargetProc* proc) {
                 ret = proc->selectRoutines->onSelect(proc, proc->currentTarget);
             }
         }
-    } else if (2 & gKeyStatusPtr->newKeys) {
+    } else if (B_BUTTON & gKeyStatusPtr->newKeys) {
         if (proc->selectRoutines->onCancel) {
             ret = proc->selectRoutines->onCancel(proc, proc->currentTarget);
         }
-    } else if ((0x80 << 1) & gKeyStatusPtr->newKeys) {
+    } else if (R_BUTTON & gKeyStatusPtr->newKeys) {
         if (proc->selectRoutines->onHelp) {
             ret = proc->selectRoutines->onHelp(proc, proc->currentTarget);
         }
@@ -340,14 +340,14 @@ void sub_804FBDC() {
 // TODO: Seems to be related to the distance more than index
 int GetFarthestTargetIndex() {
     int r7 = 0;
-    struct SelectTarget *iter = gUnknown_0203DDEC;
+    struct SelectTarget *iter = sSelectTargetList;
     int dist;
     int r4;
-    if (r7 < gUnknown_0203E0EC) {
-        r4 = gUnknown_0203E0EC;
-        iter = gUnknown_0203DDEC;
+    if (r7 < sSelectTargetCount) {
+        r4 = sSelectTargetCount;
+        iter = sSelectTargetList;
         do {
-            dist = ABS(gUnknown_0203DDE8.x - iter->x) + ABS(gUnknown_0203DDE8.y - iter->y);
+            dist = ABS(sSelectTargetRoot.x - iter->x) + ABS(sSelectTargetRoot.y - iter->y);
 
             if (r7 < dist) {
                 r7 = dist;
@@ -370,12 +370,12 @@ int GetFarthestTargetIndex() {
         .syntax unified\n\
         push {r4, r5, r6, r7, lr}\n\
         movs r7, #0\n\
-        ldr r5, _0804FC34  @ gUnknown_0203DDEC\n\
-        ldr r0, _0804FC38  @ gUnknown_0203E0EC\n\
+        ldr r5, _0804FC34  @ sSelectTargetList\n\
+        ldr r0, _0804FC38  @ sSelectTargetCount\n\
         ldr r0, [r0]\n\
         cmp r7, r0\n\
         bge _0804FC52\n\
-        ldr r1, _0804FC3C  @ gUnknown_0203DDE8\n\
+        ldr r1, _0804FC3C  @ sSelectTargetRoot\n\
         mov ip, r1\n\
         movs r2, #0\n\
         ldrsh r6, [r1, r2]\n\
@@ -399,9 +399,9 @@ int GetFarthestTargetIndex() {
         adds r0, r2, r1\n\
         b _0804FC44\n\
         .align 2, 0\n\
-    _0804FC34: .4byte gUnknown_0203DDEC\n\
-    _0804FC38: .4byte gUnknown_0203E0EC\n\
-    _0804FC3C: .4byte gUnknown_0203DDE8\n\
+    _0804FC34: .4byte sSelectTargetList\n\
+    _0804FC38: .4byte sSelectTargetCount\n\
+    _0804FC3C: .4byte sSelectTargetRoot\n\
     _0804FC40:\n\
         subs r0, r0, r3\n\
         adds r0, r2, r0\n\
@@ -433,11 +433,11 @@ struct SelectTarget* LinkTargetsOrdered() {
     int xDist, yDist;
     struct SelectTarget* target;
     do {
-        xDist = gUnknown_0203DDE8.x + gUnknown_085B658C[i].x;
-        yDist = gUnknown_0203DDE8.y + gUnknown_085B658C[i].y;
+        xDist = sSelectTargetRoot.x + gUnknown_085B658C[i].x;
+        yDist = sSelectTargetRoot.y + gUnknown_085B658C[i].y;
         j = 0;
-        target = gUnknown_0203DDEC;
-        while (j < gUnknown_0203E0EC) {
+        target = sSelectTargetList;
+        while (j < sSelectTargetCount) {
             if (xDist == target->x && yDist == target->y) {
                 target->next = prevIter;
 
@@ -464,7 +464,7 @@ struct SelectTarget* LinkTargetsOrdered() {
 
 struct SelectTarget* GetLinkedTargetList() {
     LinkTargets();
-    return gUnknown_0203DDEC;
+    return sSelectTargetList;
 }
 
 struct SelectTarget* GetFirstTargetPointer() {
@@ -474,10 +474,10 @@ struct SelectTarget* GetFirstTargetPointer() {
     return LinkTargetsOrdered();
 }
 
-int sub_804FD28() {
-    return gUnknown_0203E0EC;
+int GetSelectTargetCount() {
+    return sSelectTargetCount;
 }
 
 struct SelectTarget* GetTarget(int index) {
-    return &gUnknown_0203DDEC[index];
+    return &sSelectTargetList[index];
 }

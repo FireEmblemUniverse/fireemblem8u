@@ -1,6 +1,8 @@
 #ifndef GUARD_UI_SELECTTARGET_H
 #define GUARD_UI_SELECTTARGET_H
 
+enum { MAX_TARGET_LIST_COUNT = 64 };
+
 struct SelectTarget
 {
     /* 00 */ s8 x, y;
@@ -53,7 +55,7 @@ int GetFarthestTargetIndex(void);
 struct SelectTarget* LinkTargetsOrdered(void);
 struct SelectTarget* GetLinkedTargetList(void);
 struct SelectTarget* GetFirstTargetPointer(void);
-int sub_804FD28(void);
+int GetSelectTargetCount(void);
 struct SelectTarget* GetTarget(int index);
 
 #endif // GUARD_UI_SELECTTARGET_H
