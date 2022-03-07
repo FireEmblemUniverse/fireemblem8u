@@ -14,7 +14,7 @@
 #include "bmtrick.h"
 #include "uiutils.h"
 #include "uimenu.h"
-#include "mapselect.h"
+#include "uiselecttarget.h"
 
 #include "constants/characters.h"
 #include "constants/items.h"
@@ -43,10 +43,6 @@ void DrawHammerneUnitInfoWindow(struct Unit* unit);
 
 void NewBottomHelpText(ProcPtr parent, const char* string);
 void DeleteEach6CBB(void);
-
-ProcPtr NewTargetSelection_Specialized(const struct SelectInfo* selectInfo, int(*onSelect)(ProcPtr, struct SelectTarget*));
-ProcPtr NewTargetSelection(const struct SelectInfo* selectInfo);
-void EndTargetSelection(ProcPtr proc);
 
 void sub_801E684(ProcPtr parent, struct Unit* unit, int x, int y);
 void sub_801E748(int number);

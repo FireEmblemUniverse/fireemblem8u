@@ -1,33 +1,18 @@
 #include "global.h"
+
 #include "functions.h"
 #include "m4a.h"
 #include "soundwrapper.h"
 #include "uiutils.h"
-#include "mapselect.h"
 #include "bmio.h"
+
+#include "uiselecttarget.h"
 
 extern struct Vec2 gUnknown_0203DDE8;
 
 extern struct SelectTarget gUnknown_0203DDEC[];
 
 extern int gUnknown_0203E0EC;
-
-struct TargetSelectionProc {
-    /* 00 */ PROC_HEADER;
-
-    /* 29 */ u8 _pad[0x2B - 0x29];
-    /* 2C */ const struct SelectInfo* selectRoutines;
-    /* 30 */ struct SelectTarget* currentTarget;
-    /* 34 */ u8 unk_34;
-    /* 35 */ u8 _pad2[0x38 - 0x35];
-    /* 38 */ u8(*onAPress)(ProcPtr proc, struct SelectTarget*);
-};
-
-void TargetSelection_Loop();
-void TargetSelection_HandleMoveInput(struct TargetSelectionProc*);
-int TargetSelection_HandleSelectInput(struct TargetSelectionProc*);
-ProcPtr EndTargetSelection(ProcPtr);
-struct SelectTarget* GetFirstTargetPointer();
 
 struct ProcCmd CONST_DATA gUnknown_085B655C[] =
 {
@@ -156,8 +141,8 @@ void LinkTargets() {
 #endif // NONMATCHING
 
 void TargetSelection_GetRealCursorPosition(ProcPtr proc, int* xPos, int* yPos) {
-    *xPos = (((struct TargetSelectionProc*)(proc))->currentTarget)->x * 16;
-    *yPos = (((struct TargetSelectionProc*)(proc))->currentTarget)->y * 16;
+    *xPos = (((struct SelectTargetProc*)(proc))->currentTarget)->x * 16;
+    *yPos = (((struct SelectTargetProc*)(proc))->currentTarget)->y * 16;
 
     return;
 }
@@ -166,7 +151,7 @@ void TargetSelection_Loop(ProcPtr proc) {
     int x, y;
     int r5;
 
-    if ((0x40 & ((struct TargetSelectionProc*)(proc))->unk_34) != 0) {
+    if ((0x40 & ((struct SelectTargetProc*)(proc))->unk_34) != 0) {
         TargetSelection_GetRealCursorPosition(proc, &x, &y);
         DisplayCursor(x, y, 4);
         return;
@@ -207,7 +192,7 @@ void TargetSelection_Loop(ProcPtr proc) {
 }
 
 ProcPtr NewTargetSelection(const struct SelectInfo* selectInfo) {
-    struct TargetSelectionProc* proc;
+    struct SelectTargetProc* proc;
 
     AddSkipThread2();
     proc = Proc_Start(gUnknown_085B655C, PROC_TREE_3);
@@ -238,7 +223,7 @@ ProcPtr NewTargetSelection(const struct SelectInfo* selectInfo) {
 
 ProcPtr NewTargetSelection_Specialized(const struct SelectInfo* selectInfo, int(*onSelect)(ProcPtr, struct SelectTarget*)) {
     ProcPtr proc = NewTargetSelection(selectInfo);
-    ((struct TargetSelectionProc*)(proc))->onAPress = onSelect;
+    ((struct SelectTargetProc*)(proc))->onAPress = onSelect;
     return proc;
 }
 
@@ -263,20 +248,20 @@ ProcPtr NewTargetSelection_Specialized(const struct SelectInfo* selectInfo, int(
 #endif // NONMATCHING
 
 ProcPtr EndTargetSelection(ProcPtr proc) {
-    if (((struct TargetSelectionProc*)(proc))->selectRoutines->onEnd) {
-        ((struct TargetSelectionProc*)(proc))->selectRoutines->onEnd(proc);
+    if (((struct SelectTargetProc*)(proc))->selectRoutines->onEnd) {
+        ((struct SelectTargetProc*)(proc))->selectRoutines->onEnd(proc);
     }
 
-    if ((1 & ((struct TargetSelectionProc*)(proc))->unk_34) != 0) {
+    if ((1 & ((struct SelectTargetProc*)(proc))->unk_34) != 0) {
         SubSkipThread2();
     }
 
     Proc_End(proc);
 
-    return ((struct TargetSelectionProc*)(proc))->proc_parent;
+    return ((struct SelectTargetProc*)(proc))->proc_parent;
 }
 
-void TargetSelection_HandleMoveInput(struct TargetSelectionProc* proc) {
+void TargetSelection_HandleMoveInput(struct SelectTargetProc* proc) {
     struct SelectTarget* current = proc->currentTarget;
 
     if (0x60 & gKeyStatusPtr->repeatedKeys) {
@@ -308,7 +293,7 @@ void TargetSelection_HandleMoveInput(struct TargetSelectionProc* proc) {
     return;
 }
 
-int TargetSelection_HandleSelectInput(struct TargetSelectionProc* proc) {
+int TargetSelection_HandleSelectInput(struct SelectTargetProc* proc) {
     int ret = 0;
 
     if (1 & gKeyStatusPtr->newKeys) {
@@ -335,7 +320,7 @@ int TargetSelection_HandleSelectInput(struct TargetSelectionProc* proc) {
 void sub_804FBBC() {
     ProcPtr proc = Proc_Find(gUnknown_085B655C);
     if (proc) {
-        ((struct TargetSelectionProc*)(proc))->unk_34 |= 0x40;
+        ((struct SelectTargetProc*)(proc))->unk_34 |= 0x40;
     }
 
     return;
@@ -344,7 +329,7 @@ void sub_804FBBC() {
 void sub_804FBDC() {
     ProcPtr proc = Proc_Find(gUnknown_085B655C);
     if (proc) {
-        ((struct TargetSelectionProc*)(proc))->unk_34 &= 0xBF;
+        ((struct SelectTargetProc*)(proc))->unk_34 &= 0xBF;
     }
 
     return;

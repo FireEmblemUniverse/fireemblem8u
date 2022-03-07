@@ -15,6 +15,7 @@
 #include "bmreliance.h"
 #include "bmtrick.h"
 #include "monstergen.h"
+#include "uiselecttarget.h"
 
 EWRAM_DATA u8 gActiveUnitId = 0;
 EWRAM_DATA struct Vec2 gActiveUnitMoveOrigin = {};
