@@ -349,3 +349,93 @@ void sub_804FBDC() {
 
     return;
 }
+
+#if NONMATCHING
+
+// TODO: Seems to be related to the distance more than index
+int GetFarthestTargetIndex() {
+    int r7 = 0;
+    struct SelectTarget *iter = gUnknown_0203DDEC;
+    int dist;
+    int r4;
+    if (r7 < gUnknown_0203E0EC) {
+        r4 = gUnknown_0203E0EC;
+        iter = gUnknown_0203DDEC;
+        do {
+            dist = ABS(gUnknown_0203DDE8.x - iter->x) + ABS(gUnknown_0203DDE8.y - iter->y);
+
+            if (r7 < dist) {
+                r7 = dist;
+            }
+
+            --r4;
+            ++iter;
+        } while (r4 != 0);
+    }
+
+    return r7;
+}
+
+
+#else // if !NONMATCHING
+
+__attribute__((naked))
+int GetFarthestTargetIndex() {
+    asm("\n\
+        .syntax unified\n\
+        push {r4, r5, r6, r7, lr}\n\
+        movs r7, #0\n\
+        ldr r5, _0804FC34  @ gUnknown_0203DDEC\n\
+        ldr r0, _0804FC38  @ gUnknown_0203E0EC\n\
+        ldr r0, [r0]\n\
+        cmp r7, r0\n\
+        bge _0804FC52\n\
+        ldr r1, _0804FC3C  @ gUnknown_0203DDE8\n\
+        mov ip, r1\n\
+        movs r2, #0\n\
+        ldrsh r6, [r1, r2]\n\
+        adds r4, r0, #0\n\
+    _0804FC14:\n\
+        movs r0, #0\n\
+        ldrsb r0, [r5, r0]\n\
+        subs r2, r6, r0\n\
+        cmp r2, #0\n\
+        bge _0804FC20\n\
+        subs r2, r0, r6\n\
+    _0804FC20:\n\
+        mov r0, ip\n\
+        movs r1, #2\n\
+        ldrsh r3, [r0, r1]\n\
+        movs r0, #1\n\
+        ldrsb r0, [r5, r0]\n\
+        subs r1, r3, r0\n\
+        cmp r1, #0\n\
+        blt _0804FC40\n\
+        adds r0, r2, r1\n\
+        b _0804FC44\n\
+        .align 2, 0\n\
+    _0804FC34: .4byte gUnknown_0203DDEC\n\
+    _0804FC38: .4byte gUnknown_0203E0EC\n\
+    _0804FC3C: .4byte gUnknown_0203DDE8\n\
+    _0804FC40:\n\
+        subs r0, r0, r3\n\
+        adds r0, r2, r0\n\
+    _0804FC44:\n\
+        cmp r7, r0\n\
+        bge _0804FC4A\n\
+        adds r7, r0, #0\n\
+    _0804FC4A:\n\
+        subs r4, #1\n\
+        adds r5, #0xc\n\
+        cmp r4, #0\n\
+        bne _0804FC14\n\
+    _0804FC52:\n\
+        adds r0, r7, #0\n\
+        pop {r4, r5, r6, r7}\n\
+        pop {r1}\n\
+        bx r1\n\
+        .syntax divided\n\
+    ");
+}
+
+#endif // NONMATCHING

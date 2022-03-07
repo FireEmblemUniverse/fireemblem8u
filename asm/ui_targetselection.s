@@ -4,62 +4,6 @@
 
 	@ Target Selection Stuff
 
-	THUMB_FUNC_START GetFarthestTargetIndex
-GetFarthestTargetIndex: @ 0x0804FBFC
-	push {r4, r5, r6, r7, lr}
-	movs r7, #0
-	ldr r5, _0804FC34  @ gUnknown_0203DDEC
-	ldr r0, _0804FC38  @ gUnknown_0203E0EC
-	ldr r0, [r0]
-	cmp r7, r0
-	bge _0804FC52
-	ldr r1, _0804FC3C  @ gUnknown_0203DDE8
-	mov ip, r1
-	movs r2, #0
-	ldrsh r6, [r1, r2]
-	adds r4, r0, #0
-_0804FC14:
-	movs r0, #0
-	ldrsb r0, [r5, r0]
-	subs r2, r6, r0
-	cmp r2, #0
-	bge _0804FC20
-	subs r2, r0, r6
-_0804FC20:
-	mov r0, ip
-	movs r1, #2
-	ldrsh r3, [r0, r1]
-	movs r0, #1
-	ldrsb r0, [r5, r0]
-	subs r1, r3, r0
-	cmp r1, #0
-	blt _0804FC40
-	adds r0, r2, r1
-	b _0804FC44
-	.align 2, 0
-_0804FC34: .4byte gUnknown_0203DDEC
-_0804FC38: .4byte gUnknown_0203E0EC
-_0804FC3C: .4byte gUnknown_0203DDE8
-_0804FC40:
-	subs r0, r0, r3
-	adds r0, r2, r0
-_0804FC44:
-	cmp r7, r0
-	bge _0804FC4A
-	adds r7, r0, #0
-_0804FC4A:
-	subs r4, #1
-	adds r5, #0xc
-	cmp r4, #0
-	bne _0804FC14
-_0804FC52:
-	adds r0, r7, #0
-	pop {r4, r5, r6, r7}
-	pop {r1}
-	bx r1
-
-	THUMB_FUNC_END GetFarthestTargetIndex
-
 	THUMB_FUNC_START LinkTargetsOrdered
 LinkTargetsOrdered: @ 0x0804FC5C
 	push {r4, r5, r6, r7, lr}
