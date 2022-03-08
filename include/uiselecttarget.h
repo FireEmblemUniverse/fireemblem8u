@@ -45,7 +45,7 @@ void LinkTargets(void);
 void TargetSelection_GetRealCursorPosition(ProcPtr proc, int* xPos, int* yPos);
 void TargetSelection_Loop(ProcPtr proc);
 ProcPtr NewTargetSelection(const struct SelectInfo* selectInfo);
-ProcPtr NewTargetSelection_Specialized(const struct SelectInfo* selectInfo, int(*onSelect)(ProcPtr, struct SelectTarget*));
+ProcPtr NewTargetSelection_Specialized(const struct SelectInfo* selectInfo, u8(*onSelect)(ProcPtr, struct SelectTarget*));
 ProcPtr EndTargetSelection(ProcPtr proc);
 void TargetSelection_HandleMoveInput(struct SelectTargetProc* proc);
 int TargetSelection_HandleSelectInput(struct SelectTargetProc* proc);

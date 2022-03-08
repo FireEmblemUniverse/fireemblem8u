@@ -221,7 +221,7 @@ ProcPtr NewTargetSelection(const struct SelectInfo* selectInfo) {
 
 #if NONMATCHING
 
-ProcPtr NewTargetSelection_Specialized(const struct SelectInfo* selectInfo, int(*onSelect)(ProcPtr, struct SelectTarget*)) {
+ProcPtr NewTargetSelection_Specialized(const struct SelectInfo* selectInfo, u8(*onSelect)(ProcPtr, struct SelectTarget*)) {
     ProcPtr proc = NewTargetSelection(selectInfo);
     ((struct SelectTargetProc*)(proc))->onAPress = onSelect;
     return proc;
@@ -230,7 +230,7 @@ ProcPtr NewTargetSelection_Specialized(const struct SelectInfo* selectInfo, int(
 #else // if !NONMATCHING
 
 __attribute__((naked))
-ProcPtr NewTargetSelection_Specialized(const struct SelectInfo* selectInfo, int(*onSelect)(ProcPtr, struct SelectTarget*)) {
+ProcPtr NewTargetSelection_Specialized(const struct SelectInfo* selectInfo, u8(*onSelect)(ProcPtr, struct SelectTarget*)) {
     asm("\n\
         .syntax unified\n\
         push {r4, lr}\n\

@@ -684,7 +684,7 @@ void SetItemUseAction(struct Unit* unit)
     gActionData.unitActionType = UNIT_ACTION_USE_ITEM;
 }
 
-static int StaffSelectOnSelect(ProcPtr proc, struct SelectTarget* target)
+static u8 StaffSelectOnSelect(ProcPtr proc, struct SelectTarget* target)
 {
     gActionData.targetIndex = target->uid;
     SetStaffUseAction(NULL);
@@ -831,7 +831,7 @@ void WarpSelect_OnEnd(struct WarpSelectProc* proc)
     AP_Delete(proc->ap);
 }
 
-static int WarpOnSelectTarget(ProcPtr proc, struct SelectTarget* target)
+static u8 WarpOnSelectTarget(ProcPtr proc, struct SelectTarget* target)
 {
     EndTargetSelection(proc);
 
@@ -855,7 +855,7 @@ void DoUseWarpStaff(struct Unit* unit)
     PlaySoundEffect(0x6A); // TODO: song ids
 }
 
-static int OnSelectPutTrap(ProcPtr proc, struct SelectTarget* target)
+static u8 OnSelectPutTrap(ProcPtr proc, struct SelectTarget* target)
 {
     gActionData.xOther = target->x;
     gActionData.yOther = target->y;
