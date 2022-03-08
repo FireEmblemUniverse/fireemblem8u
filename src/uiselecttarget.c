@@ -219,33 +219,11 @@ ProcPtr NewTargetSelection(const struct SelectInfo* selectInfo) {
     return proc;
 }
 
-#if NONMATCHING
-
 ProcPtr NewTargetSelection_Specialized(const struct SelectInfo* selectInfo, u8(*onSelect)(ProcPtr, struct SelectTarget*)) {
     ProcPtr proc = NewTargetSelection(selectInfo);
     ((struct SelectTargetProc*)(proc))->onAPress = onSelect;
-    return proc;
+    // return proc; // BUG
 }
-
-#else // if !NONMATCHING
-
-__attribute__((naked))
-ProcPtr NewTargetSelection_Specialized(const struct SelectInfo* selectInfo, u8(*onSelect)(ProcPtr, struct SelectTarget*)) {
-    asm("\n\
-        .syntax unified\n\
-        push {r4, lr}\n\
-        adds r4, r1, #0\n\
-        bl NewTargetSelection\n\
-        adds r1, r0, #0\n\
-        str r4, [r1, #0x38]\n\
-        pop {r4}\n\
-        pop {r1}\n\
-        bx r1\n\
-        .syntax divided\n\
-    ");
-}
-
-#endif // NONMATCHING
 
 ProcPtr EndTargetSelection(ProcPtr proc) {
     if (((struct SelectTargetProc*)(proc))->selectRoutines->onEnd) {
