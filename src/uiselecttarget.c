@@ -220,8 +220,9 @@ ProcPtr NewTargetSelection(const struct SelectInfo* selectInfo) {
 }
 
 ProcPtr NewTargetSelection_Specialized(const struct SelectInfo* selectInfo, u8(*onSelect)(ProcPtr, struct SelectTarget*)) {
-    ProcPtr proc = NewTargetSelection(selectInfo);
-    ((struct SelectTargetProc*)(proc))->onAPress = onSelect;
+    struct SelectTargetProc* proc = (struct SelectTargetProc*)NewTargetSelection(selectInfo);
+
+    proc->onAPress = onSelect;
     // return proc; // BUG
 }
 
