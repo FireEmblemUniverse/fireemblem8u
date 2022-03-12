@@ -13,32 +13,24 @@
 #include "statscreen.h"
 #include "proc.h"
 
-struct SALLYCURSORProc {
+struct UnknownSALLYCURSORProc {
     /* 00 */ PROC_HEADER;
 
-    u8 _pad[0x58-0x29];
+    /* 29 */ u8 _pad29[0x2B-0x29];
 
-    /* 58 */ u32 menuItemType; // checked when on map to decide on whether swapping units is allowed
-};
+    /* 2C */ int unk_2C;
+    /* 30 */ int unk_30;
+    /* 34 */ int unk_34;
+    /* 38 */ int unk_38; // 38, 39, 3a, 3b
 
-struct PrepScreenMenuProc { // 8A186EC
-    /* 00 */ PROC_HEADER;
+    /* 3B */ u8 _pad3B[0x49-0x3B];
 
-    /* 29 */ u8 isHelpTextShowing; // is R-Help text showing
-    /* 2A */ u8 activeMenuItemIndex;
-    /* 2B */ u8 menuItemCount;
+    /* 4A */ u16 unk_4A;
+    /* 4C */ u16 unk_4C;
 
-    u8 _pad[0x34-0x2C];
+    /* 4E */ u8 _pad4E[0x57-0x4E];
 
-    /* 34 */ short originTileX;
-    /* 36 */ short originTileY;
-
-    /* 38 */ u32 itemDummyProc[8]; // dummy proc pointer array
-
-    /* 58 */ u32 onBPress; // B-press callback
-    /* 5C */ u32 onStartPress; // Start-press callback
-
-    /* 60 */ u32 onEnd; // on-end callback
+    /* 58 */ u32 unk_58;
 };
 
 void sub_801DB4C(s16, s16);
@@ -132,7 +124,7 @@ void sub_803334C() {
 }
 
 void sub_8033358(ProcPtr proc) {
-    ((struct SALLYCURSORProc*)(proc))->menuItemType = 1;
+    ((struct UnknownSALLYCURSORProc*)(proc))->unk_58 = 1;
     Proc_Break(proc);
     sub_803334C();
     return;
@@ -140,7 +132,7 @@ void sub_8033358(ProcPtr proc) {
 
 void sub_803336C(ProcPtr proc) {
     s16 x, y;
-    ((struct SALLYCURSORProc*)(proc))->menuItemType = 2;
+    ((struct UnknownSALLYCURSORProc*)(proc))->unk_58 = 2;
 
     x = gUnknown_0202BCB0.playerCursor.x;
     y = gUnknown_0202BCB0.playerCursor.y;
@@ -186,7 +178,7 @@ void sub_80333D4() {
 }
 
 void sub_803341C(ProcPtr proc) {
-    ((struct PrepScreenMenuProc*)(proc))->onBPress = 8; // b-press callback int (*) (struct Proc* menuParent);
+    ((struct UnknownSALLYCURSORProc*)(proc))->unk_58 = 8;
     Proc_Goto(proc, 0x39);
     return;
 }
@@ -207,13 +199,13 @@ void sub_803342C() {
 }
 
 void sub_8033458(ProcPtr proc) {
-    ((struct PrepScreenMenuProc*)(proc))->onBPress = 9;
+    ((struct UnknownSALLYCURSORProc*)(proc))->unk_58 = 9;
     Proc_Goto(proc, 0x3b);
     return;
 }
 
 void sub_8033468(ProcPtr proc) {
-    ((struct PrepScreenMenuProc*)(proc))->onBPress = 0xA;
+    ((struct UnknownSALLYCURSORProc*)(proc))->unk_58 = 0xA;
     sub_803334C();
     StartOrphanMenu(&gDebugMenuDef);
     Proc_Goto(proc, 0x3a);
@@ -265,7 +257,7 @@ void sub_803348C(ProcPtr proc) {
 #endif // NONMATCHING
 
 void sub_80334BC(ProcPtr proc) {
-    ((struct PrepScreenMenuProc*)(proc))->onBPress = 1;
+    ((struct UnknownSALLYCURSORProc*)(proc))->unk_58 = 1;
     sub_8033648(proc);
     return;
 }
@@ -290,7 +282,7 @@ void sub_8033514(int r4) {
 void sub_8033548(ProcPtr proc) {
     StartHelpPromptSprite(0xaa, 0x8c, 2, proc);
     CopyDataWithPossibleUncomp(gUnknown_08A199C8, (void *) (OBJ_VRAM1 + 0x3000));
-    ((struct PrepScreenMenuProc*)(proc))->onBPress = 0; // b-press callback
+    ((struct UnknownSALLYCURSORProc*)(proc))->unk_58 = 0;
     return;
 }
 
@@ -353,7 +345,7 @@ void sub_8033648(ProcPtr proc) {
     sub_8097008(*sub_8033634);
     sub_8097154(0xA, 2);
 
-    sub_80970CC(((struct PrepScreenMenuProc*)(proc))->onBPress);
+    sub_80970CC(((struct UnknownSALLYCURSORProc*)(proc))->unk_58);
     BG_EnableSyncByMask(3);
     return;
 }
