@@ -26,7 +26,7 @@ struct UnknownSALLYCURSORProc {
     /* 3B */ u8 _pad3B[0x49-0x3B];
 
     /* 4A */ u16 unk_4A;
-    /* 4C */ u16 unk_4C;
+    /* 4C */ short unk_4C;
 
     /* 4E */ u8 _pad4E[0x57-0x4E];
 
@@ -53,6 +53,9 @@ void ArchiveCurrentPalettes();
 void WriteFadedPaletteFromArchive(int, int, int, int);
 bool8 IsCharacterForceDeployed(int);
 void sub_8013800();
+void SortPlayerUnitsForPrepScreen();
+void InitPlayerUnitPositionsForPrepScreen();
+
 
 int GetPlayerLeaderUnitId() {
     int i;
@@ -358,4 +361,142 @@ bool8 CanCharacterBePrepMoved(int unitId) {
     }
 
     return 0;
+}
+
+void sub_8033770(ProcPtr proc) {
+    s16 x;
+
+    ((struct UnknownSALLYCURSORProc*)(proc))->unk_4A = 0;
+
+    ((struct UnknownSALLYCURSORProc*)(proc))->unk_2C = 0;
+    ((struct UnknownSALLYCURSORProc*)(proc))->unk_30 = 0;
+    ((struct UnknownSALLYCURSORProc*)(proc))->unk_34 = 2;
+    ((struct UnknownSALLYCURSORProc*)(proc))->unk_38 = 0;
+
+    x = gBmMapSize.x;
+    ((struct UnknownSALLYCURSORProc*)(proc))->unk_4C = (x * 8) - 0x78;
+
+    return;
+}
+
+void sub_8033798(ProcPtr proc) {
+    s16 y;
+
+    ((struct UnknownSALLYCURSORProc*)(proc))->unk_34 = 0;
+    ((struct UnknownSALLYCURSORProc*)(proc))->unk_38 = 2;
+
+    y = gBmMapSize.y;
+    ((struct UnknownSALLYCURSORProc*)(proc))->unk_4C = (y * 8) - 0x50;
+
+    return;
+}
+
+void sub_80337B4(ProcPtr proc) {
+    s16 x;
+
+    ((struct UnknownSALLYCURSORProc*)(proc))->unk_34 = -2;
+    ((struct UnknownSALLYCURSORProc*)(proc))->unk_38 = 0;
+
+    x = gBmMapSize.x;
+    ((struct UnknownSALLYCURSORProc*)(proc))->unk_4C = (x * 8) - 0x78;
+
+    return;
+}
+
+void sub_80337D4(ProcPtr proc) {
+    s16 y;
+
+    ((struct UnknownSALLYCURSORProc*)(proc))->unk_34 = 0;
+    ((struct UnknownSALLYCURSORProc*)(proc))->unk_38 = -2;
+
+    y = gBmMapSize.y;
+    ((struct UnknownSALLYCURSORProc*)(proc))->unk_4C = (y * 8) - 0x50;
+
+    return;
+}
+
+void sub_80337F0(ProcPtr proc) {
+    s16 unk_4A;
+
+    if ((A_BUTTON | B_BUTTON | START_BUTTON) & gKeyStatusPtr->newKeys) {
+        ((struct UnknownSALLYCURSORProc*)(proc))->unk_4A = 1;
+    }
+
+    unk_4A = ((struct UnknownSALLYCURSORProc*)(proc))->unk_4A;
+
+    if (unk_4A && !(0xF & ((struct UnknownSALLYCURSORProc*)(proc))->unk_2C) &&
+            !(0xF & ((struct UnknownSALLYCURSORProc*)(proc))->unk_30)) {
+        Proc_Goto(proc, 2);
+        return;
+    }
+
+    ((struct UnknownSALLYCURSORProc*)(proc))->unk_2C += ((struct UnknownSALLYCURSORProc*)(proc))->unk_34;
+
+    ((struct UnknownSALLYCURSORProc*)(proc))->unk_30 +=((struct UnknownSALLYCURSORProc*)(proc))->unk_38;
+
+    gUnknown_0202BCB0.camera.x = ((struct UnknownSALLYCURSORProc*)(proc))->unk_2C;
+    gUnknown_0202BCB0.camera.y = ((struct UnknownSALLYCURSORProc*)(proc))->unk_30;
+
+    ((struct UnknownSALLYCURSORProc*)(proc))->unk_4C--;
+
+    if (((struct UnknownSALLYCURSORProc*)(proc))->unk_4C <= 0) {
+        Proc_Break(proc);
+    }
+
+    return;
+}
+
+void InitPrepScreenUnitsAndCamera() {
+    LoadUnitPrepScreenPositions();
+
+    if (!(CHAPTER_FLAG_PREPSCREEN & gRAMChapterData.chapterStateBits)) {
+        SortPlayerUnitsForPrepScreen();
+        InitPlayerUnitPositionsForPrepScreen();
+        gRAMChapterData.chapterStateBits |= CHAPTER_FLAG_PREPSCREEN;
+    }
+
+    gUnknown_0202BCB0.camera.x = sub_8015A40(0);
+    gUnknown_0202BCB0.camera.y = sub_8015A6C(0);
+    gUnknown_0202BCB0.gameStateBits |= CHAPTER_FLAG_PREPSCREEN;
+
+    RefreshEntityBmMaps();
+    RenderBmMap();
+
+    return;
+}
+
+void sub_80338C0() {
+    const struct UnitDefinition* uDef;
+    s8 x;
+    s8 y;
+    struct Unit* unit = GetUnitFromCharId(GetPlayerLeaderUnitId());
+
+    if (unit && sub_8095970()) {
+        SetCursorMapPosition(unit->xPos, unit->yPos);
+    } else {
+        uDef = GetChapterAllyUnitDataPointer();
+        uDef = uDef + sub_809541C();
+        GetPreferredPositionForUNIT(uDef, &x, &y, 0);
+        SetCursorMapPosition(x, y);
+    }
+
+    gUnknown_0202BCB0.camera.x = sub_8015A40(gUnknown_0202BCB0.playerCursor.x * 16);
+    gUnknown_0202BCB0.camera.y = sub_8015A6C(gUnknown_0202BCB0.playerCursor.y * 16);
+
+    return;
+}
+
+void sub_8033940(ProcPtr proc) {
+    if (!DoesBMXFADEExist()) {
+        if (((struct UnknownSALLYCURSORProc*)(proc))->unk_58 == 2) {
+            sub_80332D0();
+        }
+
+        Proc_Break(proc);
+    }
+
+    DisplayCursor(gUnknown_0202BCB0.playerCursorDisplay.x,
+        gUnknown_0202BCB0.playerCursorDisplay.y, 0);
+
+    return;
 }
