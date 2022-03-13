@@ -5,6 +5,10 @@
 #include "types.h"
 #include "functions.h"
 #include "constants/characters.h"
+#include "constants/terrains.h"
+#include "m4a.h"
+#include "soundwrapper.h"
+#include "mu.h"
 #include "bmunit.h"
 #include "bmmap.h"
 #include "bmcontainer.h"
@@ -46,6 +50,7 @@ void sub_8097024(int, const void*, int, int, int);
 void sub_80970CC(int);
 void sub_8097154(int, int);
 void sub_80972B0();
+void sub_80A87DC(ProcPtr);
 void DeletePlayerPhaseInterface6Cs();
 const struct UnitDefinition* GetChapterAllyUnitDataPointer();
 void DisplayMoveRangeGraphics(int config);
@@ -55,6 +60,10 @@ bool8 IsCharacterForceDeployed(int);
 void sub_8013800();
 void SortPlayerUnitsForPrepScreen();
 void InitPlayerUnitPositionsForPrepScreen();
+
+// playerphase.c
+int GetUnitSelectionValueThing(struct Unit* unit);
+int sub_801C928();
 
 
 int GetPlayerLeaderUnitId() {
@@ -497,6 +506,97 @@ void sub_8033940(ProcPtr proc) {
 
     DisplayCursor(gUnknown_0202BCB0.playerCursorDisplay.x,
         gUnknown_0202BCB0.playerCursorDisplay.y, 0);
+
+    return;
+}
+
+void sub_8033978(ProcPtr proc) {
+    HandlePlayerCursorMovement();
+    if (!DoesBMXFADEExist()) {
+        if (L_BUTTON & gKeyStatusPtr->newKeys) {
+            sub_801DB4C(gUnknown_0202BCB0.playerCursor.x, gUnknown_0202BCB0.playerCursor.y);
+            PlaySoundEffect(0x6B);
+            goto showcursor;
+        }
+
+        if (R_BUTTON & gKeyStatusPtr->newKeys) {
+            if (gBmMapUnit[gUnknown_0202BCB0.playerCursor.y][gUnknown_0202BCB0.playerCursor.x]) {
+                GetUnit(gBmMapUnit[gUnknown_0202BCB0.playerCursor.y][gUnknown_0202BCB0.playerCursor.x]);
+                if (sub_801C928()) {
+                    MU_EndAll();
+                    DeletePlayerPhaseInterface6Cs();
+                    SetStatScreenConfig(0x1F);
+                    StartStatScreen(GetUnit(gBmMapUnit[gUnknown_0202BCB0.playerCursor.y][gUnknown_0202BCB0.playerCursor.x]), proc);
+                    Proc_Goto(proc, 5);
+                    return;
+                }
+            }
+        }
+
+        if (B_BUTTON & gKeyStatusPtr->newKeys) {
+            DeletePlayerPhaseInterface6Cs();
+            gRAMChapterData.xCursor = gUnknown_0202BCB0.playerCursor.x;
+            gRAMChapterData.yCursor = gUnknown_0202BCB0.playerCursor.y;
+            Proc_Goto(proc, 0);
+            PlaySoundEffect(0x69);
+            return;
+        }
+
+        if (A_BUTTON & gKeyStatusPtr->newKeys) {
+            struct Unit* unit = GetUnit(gBmMapUnit[gUnknown_0202BCB0.playerCursor.y][gUnknown_0202BCB0.playerCursor.x]);
+            switch(GetUnitSelectionValueThing(unit)) {
+                case 0:
+                case 1:
+                    DeletePlayerPhaseInterface6Cs();
+                    gRAMChapterData.xCursor = gUnknown_0202BCB0.playerCursor.x;
+                    gRAMChapterData.yCursor = gUnknown_0202BCB0.playerCursor.y;
+
+                    switch (gBmMapTerrain[gUnknown_0202BCB0.playerCursor.y][gUnknown_0202BCB0.playerCursor.x]) {
+                        case TERRAIN_VENDOR:
+                        case TERRAIN_ARMORY:
+                            PlaySoundEffect(0x6A);
+                            Proc_Goto(proc, 0x3C);
+                            return;
+                        default:
+                            Proc_Goto(proc, 0);
+                            PlaySoundEffect(0x69);
+                            return;
+                    }
+                case 2:
+                    UnitBeginAction(unit);
+                    gActiveUnit->state &= ~(US_HIDDEN);
+
+                    if (((struct UnknownSALLYCURSORProc*)(proc))->unk_58 == 2) {
+                        Proc_Goto(proc, 3);
+                        return;
+                    }
+
+                    Proc_Goto(proc, 1);
+                    return;
+                case 4:
+                    if (((struct UnknownSALLYCURSORProc*)(proc))->unk_58 == 2) {
+                        PlaySoundEffect(0x6C);
+                        return;
+                    }
+                    // fallthrough
+                case 3:
+                    UnitBeginAction(unit);
+                    gActiveUnit->state &= ~(US_HIDDEN);
+                    Proc_Goto(proc, 1);
+                    return;
+            }
+        }
+
+        if (START_BUTTON & gKeyStatusPtr->newKeys) {
+            DeletePlayerPhaseInterface6Cs();
+            sub_80A87DC(proc);
+            Proc_Goto(proc, 9);
+            return;
+        }
+    }
+
+    showcursor:
+    DisplayCursor(gUnknown_0202BCB0.playerCursorDisplay.x, gUnknown_0202BCB0.playerCursorDisplay.y, 0);
 
     return;
 }
