@@ -41,9 +41,6 @@ void sub_803511C(struct Unit* unit, int number);
 void NewUnitInfoWindow_WithAllLines(ProcPtr proc);
 void DrawHammerneUnitInfoWindow(struct Unit* unit);
 
-void NewBottomHelpText(ProcPtr parent, const char* string);
-void DeleteEach6CBB(void);
-
 ProcPtr NewTargetSelection_Specialized(const struct SelectInfo* selectInfo, int(*onSelect)(ProcPtr, struct SelectTarget*));
 ProcPtr NewTargetSelection(const struct SelectInfo* selectInfo);
 void EndTargetSelection(ProcPtr proc);

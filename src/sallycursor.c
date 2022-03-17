@@ -15,6 +15,7 @@
 #include "chapterdata.h"
 #include "bmdebug.h"
 #include "statscreen.h"
+#include "ap.h"
 #include "proc.h"
 
 struct UnknownSALLYCURSORProc {
@@ -25,17 +26,25 @@ struct UnknownSALLYCURSORProc {
     /* 2C */ int unk_2C;
     /* 30 */ int unk_30;
     /* 34 */ int unk_34;
-    /* 38 */ int unk_38; // 38, 39, 3a, 3b
+    /* 38 */ int unk_38;
+    /* 3C */ int unk_3C;
+    /* 40 */ int unk_40;
 
-    /* 3B */ u8 _pad3B[0x49-0x3B];
+    /* 44 */ u8 _pad44[0x49-0x44];
 
-    /* 4A */ u16 unk_4A;
+    /* 4A */ s16 unk_4A;
     /* 4C */ short unk_4C;
 
-    /* 4E */ u8 _pad4E[0x57-0x4E];
+    /* 4E */ u8 _pad4E[0x53-0x4E];
+
+    /* 54 */ struct APHandle* unk_54;
 
     /* 58 */ u32 unk_58;
 };
+
+extern struct ProcCmd CONST_DATA gUnknown_0859DBBC[];
+extern struct ProcCmd CONST_DATA gUnknown_08A2ED88[];
+extern u16 CONST_DATA gUnknown_085A0EA0[];
 
 void sub_801DB4C(s16, s16);
 void sub_8033648(ProcPtr);
@@ -65,6 +74,8 @@ void InitPlayerUnitPositionsForPrepScreen();
 int GetUnitSelectionValueThing(struct Unit* unit);
 int sub_801C928();
 
+// unitswapfx.c
+void sub_801EC10(ProcPtr, struct Unit*, s16, s16);
 
 int GetPlayerLeaderUnitId() {
     int i;
@@ -544,7 +555,7 @@ void sub_8033978(ProcPtr proc) {
 
         if (A_BUTTON & gKeyStatusPtr->newKeys) {
             struct Unit* unit = GetUnit(gBmMapUnit[gUnknown_0202BCB0.playerCursor.y][gUnknown_0202BCB0.playerCursor.x]);
-            switch(GetUnitSelectionValueThing(unit)) {
+            switch (GetUnitSelectionValueThing(unit)) {
                 case 0:
                 case 1:
                     DeletePlayerPhaseInterface6Cs();
@@ -598,5 +609,114 @@ void sub_8033978(ProcPtr proc) {
     showcursor:
     DisplayCursor(gUnknown_0202BCB0.playerCursorDisplay.x, gUnknown_0202BCB0.playerCursorDisplay.y, 0);
 
+    return;
+}
+
+int sub_8033BF8() {
+    ProcPtr proc = Proc_Find(gUnknown_0859DBBC);
+    Proc_Goto(proc, 0x33);
+    return 0x17;
+}
+
+void SALLYCURSOR6C_StartUnitSwap(ProcPtr proc) {
+    struct APHandle* ap = AP_Create(gUnknown_085A0EA0, 0);
+    ap->tileBase = 0;
+    AP_SwitchAnimation(ap, 0);
+
+    ((struct UnknownSALLYCURSORProc*)(proc))->unk_54 = ap;
+    ((struct UnknownSALLYCURSORProc*)(proc))->unk_4A = 2;
+    ((struct UnknownSALLYCURSORProc*)(proc))->unk_3C = gUnknown_0202BCB0.playerCursor.x;
+    ((struct UnknownSALLYCURSORProc*)(proc))->unk_40 = gUnknown_0202BCB0.playerCursor.y;
+
+    NewBottomHelpText(proc, GetStringFromIndex(0x872));
+
+    EnsureCameraOntoPosition(proc, gActiveUnit->xPos, gActiveUnit->yPos);
+    PlaySoundEffect(0x69);
+
+    return;
+}
+
+void sub_8033C90(struct UnknownSALLYCURSORProc* proc) {
+    s8 r7 = ((s8**) gBmMapRange)[gUnknown_0202BCB0.playerCursor.y][gUnknown_0202BCB0.playerCursor.x];
+    u32 xLoc, yLoc;
+
+    if (GetUnitSelectionValueThing(GetUnit(gBmMapUnit[gUnknown_0202BCB0.playerCursor.y][gUnknown_0202BCB0.playerCursor.x])) == 4) {
+        r7 = 0;
+    }
+
+    HandlePlayerCursorMovement();
+    xLoc = (proc->unk_3C * 16) - gUnknown_0202BCB0.camera.x;
+    yLoc = (proc->unk_40 * 16) - gUnknown_0202BCB0.camera.y;
+    if (((xLoc + 0x10) <= 256) && ((yLoc + 0x20) <= 192)) {
+        PutSprite(4, xLoc, yLoc - 12, gObject_16x16, 6);
+    }
+
+    if (A_BUTTON & gKeyStatusPtr->newKeys) {
+        if (r7) {
+            AP_Delete(proc->unk_54);
+            Proc_Break(proc);
+            DeleteEach6CBB();
+            return;
+        }
+        PlaySoundEffect(0x6C);
+        return;
+    } else if (B_BUTTON & gKeyStatusPtr->newKeys) {
+        AP_Delete(proc->unk_54);
+        Proc_Goto(proc, 4);
+        DeleteEach6CBB();
+        PlaySoundEffect(0x6B);
+        return;
+    }
+
+    if (r7 != proc->unk_4A) {
+        AP_SwitchAnimation(proc->unk_54, r7 == 0 ? 1 : 0);
+    }
+
+    AP_Update(proc->unk_54,
+        gUnknown_0202BCB0.playerCursorDisplay.x - gUnknown_0202BCB0.camera.x,
+            gUnknown_0202BCB0.playerCursorDisplay.y - gUnknown_0202BCB0.camera.y);
+
+    proc->unk_4A = r7;
+
+    return;
+}
+
+void sub_8033DD8(ProcPtr proc) {
+    SetCursorMapPosition(gActiveUnit->xPos, gActiveUnit->yPos);
+    EnsureCameraOntoPosition(proc, gActiveUnit->xPos, gActiveUnit->yPos);
+    return;
+}
+
+void sub_8033E08(ProcPtr proc) {
+    struct Unit* activeUnit = gActiveUnit;
+    struct Unit* targetUnit = GetUnit(gBmMapUnit[gUnknown_0202BCB0.playerCursor.y][gUnknown_0202BCB0.playerCursor.x]);
+    if (!targetUnit) {
+        sub_801EC10(proc, activeUnit, gUnknown_0202BCB0.playerCursor.x, gUnknown_0202BCB0.playerCursor.y);
+    } else {
+        sub_801EC10(proc, activeUnit, targetUnit->xPos, targetUnit->yPos);
+        sub_801EC10(proc, targetUnit, activeUnit->xPos, activeUnit->yPos);
+    }
+
+    PlaySoundEffect(0x61);
+    return;
+}
+
+void sub_8033E8C() {
+    if (gRAMChapterData.chapterVisionRange != 0) {
+        RenderBmMapOnBg2();
+    }
+    return;
+}
+
+void sub_8033EA4() {
+    if (gRAMChapterData.chapterVisionRange != 0) {
+        RenderBmMap();
+        NewBMXFADE(0);
+    }
+    return;
+}
+
+void sub_8033EC0(ProcPtr proc) {
+    Proc_StartBlocking(gUnknown_08A2ED88, proc);
     return;
 }
