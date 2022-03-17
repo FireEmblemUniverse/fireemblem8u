@@ -4,56 +4,6 @@
 
 	@ Prep Screen!
 
-	THUMB_FUNC_START CallCursorShop
-CallCursorShop: @ 0x08033ED4
-	push {r4, lr}
-	sub sp, #0x1c
-	adds r4, r0, #0
-	ldr r0, _08033F0C  @ gRAMChapterData
-	ldrb r0, [r0, #0xe]
-	lsls r0, r0, #0x18
-	asrs r0, r0, #0x18
-	bl GetChapterEventDataPointer
-	ldr r0, [r0, #8]
-	str r0, [sp]
-	mov r1, sp
-	ldr r2, _08033F10  @ gUnknown_0202BCB0
-	ldrh r0, [r2, #0x14]
-	strb r0, [r1, #0x18]
-	ldrh r0, [r2, #0x16]
-	strb r0, [r1, #0x19]
-	mov r0, sp
-	bl CheckForEvents
-	cmp r0, #0
-	beq _08033F2A
-	ldr r0, [sp, #0xc]
-	cmp r0, #0x16
-	beq _08033F14
-	cmp r0, #0x17
-	beq _08033F20
-	b _08033F2A
-	.align 2, 0
-_08033F0C: .4byte gRAMChapterData
-_08033F10: .4byte gUnknown_0202BCB0
-_08033F14:
-	ldr r1, [sp, #4]
-	movs r0, #0
-	adds r2, r4, #0
-	bl MakeShopArmory
-	b _08033F2A
-_08033F20:
-	ldr r1, [sp, #4]
-	movs r0, #0
-	adds r2, r4, #0
-	bl MakeShopVendor
-_08033F2A:
-	add sp, #0x1c
-	pop {r4}
-	pop {r0}
-	bx r0
-
-	THUMB_FUNC_END CallCursorShop
-
 	THUMB_FUNC_START sub_8033F34
 sub_8033F34: @ 0x08033F34
 	push {r4, r5, lr}

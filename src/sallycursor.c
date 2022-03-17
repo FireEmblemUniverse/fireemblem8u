@@ -17,6 +17,7 @@
 #include "statscreen.h"
 #include "ap.h"
 #include "proc.h"
+#include "ev_triggercheck.h"
 
 struct UnknownSALLYCURSORProc {
     /* 00 */ PROC_HEADER;
@@ -76,6 +77,13 @@ int sub_801C928();
 
 // unitswapfx.c
 void sub_801EC10(ProcPtr, struct Unit*, s16, s16);
+
+// ev_triggercheck.c
+struct EventCheckBuffer CheckForEvents(struct EventCheckBuffer*);
+
+// code.c
+void MakeShopArmory(int, int, ProcPtr);
+void MakeShopVendor(int, int, ProcPtr);
 
 int GetPlayerLeaderUnitId() {
     int i;
@@ -720,3 +728,86 @@ void sub_8033EC0(ProcPtr proc) {
     Proc_StartBlocking(gUnknown_08A2ED88, proc);
     return;
 }
+
+#if NONMATCHING
+
+void CallCursorShop(ProcPtr proc) {
+    struct EventCheckBuffer r0;
+    struct EventCheckBuffer* buf = GetChapterEventDataPointer(gRAMChapterData.chapterIndex)->unk_08;
+
+    buf->xPos = gUnknown_0202BCB0.playerCursor.x;
+    buf->yPos = gUnknown_0202BCB0.playerCursor.y;
+    r0 = CheckForEvents(buf);
+    if (!&(r0)) {
+        return;
+    }
+
+    switch (r0.commandId) {
+        case 0x16:
+            MakeShopArmory(0, r0.eventCode, proc);
+            break;
+        case 0x17:
+            MakeShopVendor(0, r0.eventCode, proc);
+            break;
+    }
+
+    return;
+}
+
+#else // if !NONMATCHING
+
+__attribute__((naked))
+void CallCursorShop(ProcPtr proc) {
+    asm(
+        "\n\
+            .syntax unified\n\
+            push {r4, lr}\n\
+            sub sp, #0x1c\n\
+            adds r4, r0, #0\n\
+            ldr r0, _08033F0C  @ gRAMChapterData\n\
+            ldrb r0, [r0, #0xe]\n\
+            lsls r0, r0, #0x18\n\
+            asrs r0, r0, #0x18\n\
+            bl GetChapterEventDataPointer\n\
+            ldr r0, [r0, #8]\n\
+            str r0, [sp]\n\
+            mov r1, sp\n\
+            ldr r2, _08033F10  @ gUnknown_0202BCB0\n\
+            ldrh r0, [r2, #0x14]\n\
+            strb r0, [r1, #0x18]\n\
+            ldrh r0, [r2, #0x16]\n\
+            strb r0, [r1, #0x19]\n\
+            mov r0, sp\n\
+            bl CheckForEvents\n\
+            cmp r0, #0\n\
+            beq _08033F2A\n\
+            ldr r0, [sp, #0xc]\n\
+            cmp r0, #0x16\n\
+            beq _08033F14\n\
+            cmp r0, #0x17\n\
+            beq _08033F20\n\
+            b _08033F2A\n\
+            .align 2, 0\n\
+        _08033F0C: .4byte gRAMChapterData\n\
+        _08033F10: .4byte gUnknown_0202BCB0\n\
+        _08033F14:\n\
+            ldr r1, [sp, #4]\n\
+            movs r0, #0\n\
+            adds r2, r4, #0\n\
+            bl MakeShopArmory\n\
+            b _08033F2A\n\
+        _08033F20:\n\
+            ldr r1, [sp, #4]\n\
+            movs r0, #0\n\
+            adds r2, r4, #0\n\
+            bl MakeShopVendor\n\
+        _08033F2A:\n\
+            add sp, #0x1c\n\
+            pop {r4}\n\
+            pop {r0}\n\
+            bx r0\n\
+            .syntax divided\n\
+    ");
+}
+
+#endif // NONMATCHING
