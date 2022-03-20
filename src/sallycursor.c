@@ -43,9 +43,13 @@ struct UnknownSALLYCURSORProc {
     /* 58 */ u32 unk_58;
 };
 
+static EWRAM_DATA int gUnknown_02010004 = 0;
+
+extern struct Vec2 gActiveUnitMoveOrigin;
 extern struct ProcCmd CONST_DATA gUnknown_0859DBBC[];
 extern struct ProcCmd CONST_DATA gUnknown_08A2ED88[];
 extern u16 CONST_DATA gUnknown_085A0EA0[];
+
 
 void sub_801DB4C(s16, s16);
 void sub_8033648(ProcPtr);
@@ -75,15 +79,31 @@ void InitPlayerUnitPositionsForPrepScreen();
 int GetUnitSelectionValueThing(struct Unit* unit);
 int sub_801C928();
 
+// bmusort.c
+void InitUnitStack(u8*); // accepts generic buffer
+void PushUnit(struct Unit*);
+void LoadPlayerUnitsFromUnitStack2();
+
 // unitswapfx.c
 void sub_801EC10(ProcPtr, struct Unit*, s16, s16);
 
 // ev_triggercheck.c
 struct EventCheckBuffer CheckForEvents(struct EventCheckBuffer*);
 
+// evtsub.c
+void sub_801240C();
+
 // code.c
 void MakeShopArmory(int, int, ProcPtr);
 void MakeShopVendor(int, int, ProcPtr);
+void sub_80ADDD4(ProcPtr);
+void sub_80A48F0(u8);
+void BWL_IncrementDeployCountMaybe(u8);
+void sub_80B9FC0();
+void Make6C_savemenu2(ProcPtr);
+
+// code_sio.c
+int CheckSomethingSomewhere();
 
 int GetPlayerLeaderUnitId() {
     int i;
@@ -243,49 +263,12 @@ void sub_8033468(ProcPtr proc) {
     return;
 }
 
-#if NONMATCHING
-
-// TODO - Annoyingly could not get this to match... loads a signed byte from the unknown array instead of just byte, but if I change the function declaration in functions.h it breaks elsewhere.
 void sub_803348C(ProcPtr proc) {
     EnsureCameraOntoPosition(proc,
         GetROMChapterStruct(gRAMChapterData.chapterIndex)->_unk81[1],
             GetROMChapterStruct(gRAMChapterData.chapterIndex)->_unk81[3]);
     return;
 }
-
-#else // if !NONMATCHING
-
-__attribute__((naked))
-void sub_803348C(ProcPtr proc) {
-    asm(
-        "\n\
-            .syntax unified\n\
-            push {r4, r5, r6, lr}\n\
-            adds r6, r0, #0\n\
-            ldr r4, _080334B8  @ gRAMChapterData\n\
-            movs r0, #0xe\n\
-            ldrsb r0, [r4, r0]\n\
-            bl GetROMChapterStruct\n\
-            adds r0, #0x82\n\
-            ldrb r5, [r0]\n\
-            movs r0, #0xe\n\
-            ldrsb r0, [r4, r0]\n\
-            bl GetROMChapterStruct\n\
-            adds r0, #0x84\n\
-            ldrb r2, [r0]\n\
-            adds r0, r6, #0\n\
-            adds r1, r5, #0\n\
-            bl EnsureCameraOntoPosition\n\
-            pop {r4, r5, r6}\n\
-            pop {r0}\n\
-            bx r0\n\
-            .align 2, 0\n\
-        _080334B8: .4byte gRAMChapterData\n\
-            .syntax divided\n\
-    ");
-}
-
-#endif // NONMATCHING
 
 void sub_80334BC(ProcPtr proc) {
     ((struct UnknownSALLYCURSORProc*)(proc))->unk_58 = 1;
@@ -811,3 +794,273 @@ void CallCursorShop(ProcPtr proc) {
 }
 
 #endif // NONMATCHING
+
+void sub_8033F34(ProcPtr proc) {
+    HandlePlayerCursorMovement();
+
+    if (gKeyStatusPtr->newKeys & (A_BUTTON | B_BUTTON)) {
+        MU_EndAll();
+        gActiveUnit->state &= ~US_HIDDEN;
+        gUnknown_0202BCB0.gameStateBits &= 0xF7;
+
+        HideMoveRangeGraphics();
+        RefreshEntityBmMaps();
+        SMS_UpdateFromGameData();
+
+        PlaySoundEffect(0x6B);
+        Proc_Goto(proc, 9);
+        return;
+    }
+
+    if (gKeyStatusPtr->newKeys & R_BUTTON) {
+        u8 uid = gBmMapUnit[gUnknown_0202BCB0.playerCursor.y][gUnknown_0202BCB0.playerCursor.x];
+
+        if (gActiveUnitMoveOrigin.x == gUnknown_0202BCB0.playerCursor.x && gActiveUnitMoveOrigin.y == gUnknown_0202BCB0.playerCursor.y) {
+            uid = gActiveUnit->index;
+        }
+
+        if (uid) {
+            struct Unit* unit = GetUnit(uid);
+            if (sub_801C928()) {
+                MU_EndAll();
+                SetStatScreenConfig(0x1F);
+                StartStatScreen(GetUnit(uid), proc);
+                Proc_Goto(proc, 6);
+            }
+        }
+    }
+
+    if (gKeyStatusPtr->newKeys & L_BUTTON) {
+        if (gActiveUnit) {
+            EnsureCameraOntoPosition(proc, gActiveUnitMoveOrigin.x, gActiveUnitMoveOrigin.y);
+            SetCursorMapPosition(gActiveUnitMoveOrigin.x, gActiveUnitMoveOrigin.y);
+            PlaySoundEffect(0x6B);
+        }
+    }
+
+    DisplayCursor(gUnknown_0202BCB0.playerCursorDisplay.x, gUnknown_0202BCB0.playerCursorDisplay.y, 1);
+
+    return;
+}
+
+void sub_8034078(ProcPtr proc) {
+    SetupBackgrounds(0);
+    sub_80ADDD4(proc);
+    return;
+}
+
+void sub_8034090(ProcPtr proc) {
+    if (gActiveUnit == NULL) {
+        RefreshBMapGraphics();
+        Proc_Goto(proc, 0xC);
+        return;
+    }
+
+    gBmMapUnit[gActiveUnit->yPos][gActiveUnit->xPos] = gActiveUnit->index;
+    gActiveUnit->state &= ~US_HIDDEN;
+
+    RefreshBMapGraphics();
+
+    gBmMapUnit[gActiveUnit->yPos][gActiveUnit->xPos] = 0;
+    gActiveUnit->state |= US_HIDDEN;
+
+    Proc_Goto(proc, 0xB);
+
+    return;
+}
+
+void sub_803410C(ProcPtr proc) {
+    gRAMChapterData.unk4A_2 = 2;
+
+    if (!(0x20 & gRAMChapterData.chapterStateBits) && ((GetChapterThing() - 1) <= 1)) {
+        gRAMChapterData.unk4A_2 = 4;
+    }
+
+    ISuspectThisToBeMusicRelated_8002730(0x100, 0x80, 0x20, 0);
+    sub_801240C();
+    Make6C_savemenu2(proc);
+
+    return;
+}
+
+void sub_8034168() {
+    ISuspectThisToBeMusicRelated_8002730(0x80, 0x100, 0x20, 0);
+    gRAMChapterData.unk4A_2 = 2;
+    return;
+}
+
+void sub_8034194() {
+    if (CheckSomethingSomewhere()) {
+        return;
+    }
+
+    if (GMAP_STATE_BIT0 & gUnknown_03005280.state) {
+        sub_80B9FC0();
+        return;
+    }
+
+    sub_80029E8(0x34, 0x100, 0x100, 0x18, 0);
+
+    return;
+}
+
+void sub_80341D0() {
+    AddSkipThread2();
+    BMapDispSuspend();
+
+    gLCDControlBuffer.dispcnt.bg0_on = TRUE;
+    gLCDControlBuffer.dispcnt.bg1_on = TRUE;
+    gLCDControlBuffer.dispcnt.bg2_on = FALSE;
+    gLCDControlBuffer.dispcnt.bg3_on = FALSE;
+    gLCDControlBuffer.dispcnt.obj_on = FALSE;
+
+    return;
+}
+
+void sub_8034200() {
+    SubSkipThread2();
+    BMapDispResume();
+
+    sub_80141B0(); // disables layers
+
+    return;
+}
+
+void ShrinkPlayerUnits() {
+    int uid;
+
+    if (!(0x80 & gRAMChapterData.chapterStateBits)) {
+        return;
+    }
+
+    if ((0x40 & gUnknown_0202BCB0.gameStateBits)) {
+        return;
+    }
+
+    InitUnitStack(gUnknown_02020188);
+    for (uid = 1; uid <= 0x3F; ++uid) {
+        struct Unit* unit = GetUnit(uid);
+        if (UNIT_IS_VALID(unit)) {
+            if (!(unit->state & US_UNAVAILABLE)) {
+                PushUnit(unit);
+            }
+        }
+    }
+    LoadPlayerUnitsFromUnitStack2();
+    return;
+}
+
+#if NONMATCHING
+
+void sub_8034278() {
+    int uid;
+    for (uid = 1; uid <= 0x3F; ++uid) {
+        struct Unit* unit = GetUnit(uid);
+
+        if (!unit) {
+            continue;
+        }
+
+        if (!unit->pCharacterData) {
+            continue;
+        }
+
+        unit->state &= ~(US_UNSELECTABLE);
+
+        // TODO: What is gUnknown_02010004? Can't figure out how to load it to get a match
+        if (unit->state & gUnknown_02010004) {
+            continue;
+        }
+
+        if (unit->state & US_NOT_DEPLOYED) {
+            sub_80A48F0(unit->pCharacterData->number);
+        } else {
+            BWL_IncrementDeployCountMaybe(unit->pCharacterData->number);
+        }
+    }
+
+    ShrinkPlayerUnits();
+    Proc_EndEach(gUnknown_0859DBBC);
+    gUnknown_0202BCB0.gameStateBits &= 0xEF;
+    gRAMChapterData.chapterStateBits &= 0xEF;
+    gRAMChapterData.unk4A_1 = 1;
+    return;
+}
+
+#else // if !NONMATCHING
+
+__attribute__((naked))
+void sub_8034278() {
+    asm(
+        "\n\
+            .syntax unified\n\
+            push {r4, lr}\n\
+            movs r4, #1\n\
+        _0803427C:\n\
+            adds r0, r4, #0\n\
+            bl GetUnit\n\
+            adds r2, r0, #0\n\
+            cmp r2, #0\n\
+            beq _080342BA\n\
+            ldr r3, [r2]\n\
+            cmp r3, #0\n\
+            beq _080342BA\n\
+            ldr r1, [r2, #0xc]\n\
+            movs r0, #3\n\
+            negs r0, r0\n\
+            ands r1, r0\n\
+            str r1, [r2, #0xc]\n\
+            ldr r0, _080342B0  @ gUnknown_02010004\n\
+            ands r0, r1\n\
+            cmp r0, #0\n\
+            bne _080342BA\n\
+            movs r0, #8\n\
+            ands r1, r0\n\
+            cmp r1, #0\n\
+            beq _080342B4\n\
+            ldrb r0, [r3, #4]\n\
+            bl sub_80A48F0\n\
+            b _080342BA\n\
+            .align 2, 0\n\
+        _080342B0: .4byte gUnknown_02010004\n\
+        _080342B4:\n\
+            ldrb r0, [r3, #4]\n\
+            bl BWL_IncrementDeployCountMaybe\n\
+        _080342BA:\n\
+            adds r4, #1\n\
+            cmp r4, #0x3f\n\
+            ble _0803427C\n\
+            bl ShrinkPlayerUnits\n\
+            ldr r0, _080342F0  @ gUnknown_0859DBBC\n\
+            bl Proc_EndEach\n\
+            ldr r3, _080342F4  @ gUnknown_0202BCB0\n\
+            ldrb r2, [r3, #4]\n\
+            movs r1, #0xef\n\
+            adds r0, r1, #0\n\
+            ands r0, r2\n\
+            strb r0, [r3, #4]\n\
+            ldr r2, _080342F8  @ gRAMChapterData\n\
+            ldrb r0, [r2, #0x14]\n\
+            ands r1, r0\n\
+            strb r1, [r2, #0x14]\n\
+            adds r2, #0x4a\n\
+            ldrb r0, [r2]\n\
+            movs r1, #1\n\
+            orrs r0, r1\n\
+            strb r0, [r2]\n\
+            pop {r4}\n\
+            pop {r0}\n\
+            bx r0\n\
+            .align 2, 0\n\
+        _080342F0: .4byte gUnknown_0859DBBC\n\
+        _080342F4: .4byte gUnknown_0202BCB0\n\
+        _080342F8: .4byte gRAMChapterData\n\
+            .syntax divided\n\
+    ");
+}
+
+#endif // NONMATCHING
+
+bool8 sub_80342FC() {
+    return Proc_Find(gUnknown_0859DBBC) ? 1 : 0;
+}

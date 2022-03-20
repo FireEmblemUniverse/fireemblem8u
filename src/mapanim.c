@@ -125,16 +125,16 @@ void MapAnim_ShowPoisonEffectIfAny(ProcPtr p) {
 
 void MapAnim_MoveCameraOntoSubject(ProcPtr p) {
     struct MapAnimState *state = &gCurrentMapAnimState;
-	u8 x = state->actors[0].pUnit->xPos;
-	u8 y = state->actors[0].pUnit->yPos;
+	int x = state->actors[0].pUnit->xPos;
+	int y = state->actors[0].pUnit->yPos;
     EnsureCameraOntoPosition(p, x, y);
 }
 
 void MapAnim_MoveCameraOntoTarget(ProcPtr p) {
     struct MapAnimState *state = &gCurrentMapAnimState;
     if (state->actorCount_maybe != 1) {
-        u8 x = state->actors[1].pUnit->xPos;
-        u8 y = state->actors[1].pUnit->yPos;
+        int x = state->actors[1].pUnit->xPos;
+        int y = state->actors[1].pUnit->yPos;
         EnsureCameraOntoPosition(p, x, y);
     }
 }
