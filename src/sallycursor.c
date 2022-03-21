@@ -18,44 +18,54 @@
 #include "ap.h"
 #include "proc.h"
 #include "ev_triggercheck.h"
+#include "sallycursor.h"
 
-struct UnknownSALLYCURSORProc {
-    /* 00 */ PROC_HEADER;
+// hino.s
+void ArchiveCurrentPalettes();
+void WriteFadedPaletteFromArchive(int, int, int, int);
+void ContinueUntilSomeTransistion6CExists(ProcPtr);
+void sub_8013800();
+void sub_8013844(ProcPtr);
+void sub_8013D68(ProcPtr);
+void sub_8013D80(ProcPtr);
+void sub_8013D8C(ProcPtr);
+void sub_8013DA4(ProcPtr);
 
-    /* 29 */ u8 _pad29[0x2B-0x29];
-
-    /* 2C */ int unk_2C;
-    /* 30 */ int unk_30;
-    /* 34 */ int unk_34;
-    /* 38 */ int unk_38;
-    /* 3C */ int unk_3C;
-    /* 40 */ int unk_40;
-
-    /* 44 */ u8 _pad44[0x49-0x44];
-
-    /* 4A */ s16 unk_4A;
-    /* 4C */ short unk_4C;
-
-    /* 4E */ u8 _pad4E[0x53-0x4E];
-
-    /* 54 */ struct APHandle* unk_54;
-
-    /* 58 */ u32 unk_58;
-};
-
-static EWRAM_DATA int gUnknown_02010004 = 0;
-
-extern struct Vec2 gActiveUnitMoveOrigin;
-extern struct ProcCmd CONST_DATA gUnknown_0859DBBC[];
-extern struct ProcCmd CONST_DATA gUnknown_08A2ED88[];
-extern u16 CONST_DATA gUnknown_085A0EA0[];
-
-
+// playerphase.s
+int GetUnitSelectionValueThing(struct Unit* unit);
+void DisplayMoveRangeGraphics(int config);
+void DisplayActiveUnitEffectRange(ProcPtr);
+int sub_801C928();
 void sub_801DB4C(s16, s16);
-void sub_8033648(ProcPtr);
+
+// bmusort.s
+void InitUnitStack(u8*); // accepts generic buffer
+void PushUnit(struct Unit*);
+void LoadPlayerUnitsFromUnitStack2();
+
+// unitswapfx.s
+void sub_801EC10(ProcPtr, struct Unit*, s16, s16);
+void sub_801EC48(ProcPtr);
+
+// ev_triggercheck.s
+const struct UnitDefinition* GetChapterAllyUnitDataPointer();
+struct EventCheckBuffer CheckForEvents(struct EventCheckBuffer*);
+
+// evtsub.s
+void InitPlayerUnitPositionsForPrepScreen();
+void sub_801240C();
+
+// code.s
+bool8 IsCharacterForceDeployed(int);
+void SortPlayerUnitsForPrepScreen();
+void MakeShopArmory(int, int, ProcPtr);
+void MakeShopVendor(int, int, ProcPtr);
+void sub_808E79C(ProcPtr);
 bool8 sub_8094FF4();
 int sub_809541C();
 int sub_8095970();
+void sub_8096454(ProcPtr);
+void sub_80966B0(ProcPtr);
 void sub_8096FAC();
 void sub_8096FD0(const void*);
 void sub_8096FEC(const void*);
@@ -64,46 +74,275 @@ void sub_8097024(int, const void*, int, int, int);
 void sub_80970CC(int);
 void sub_8097154(int, int);
 void sub_80972B0();
-void sub_80A87DC(ProcPtr);
-void DeletePlayerPhaseInterface6Cs();
-const struct UnitDefinition* GetChapterAllyUnitDataPointer();
-void DisplayMoveRangeGraphics(int config);
-void ArchiveCurrentPalettes();
-void WriteFadedPaletteFromArchive(int, int, int, int);
-bool8 IsCharacterForceDeployed(int);
-void sub_8013800();
-void SortPlayerUnitsForPrepScreen();
-void InitPlayerUnitPositionsForPrepScreen();
-
-// playerphase.c
-int GetUnitSelectionValueThing(struct Unit* unit);
-int sub_801C928();
-
-// bmusort.c
-void InitUnitStack(u8*); // accepts generic buffer
-void PushUnit(struct Unit*);
-void LoadPlayerUnitsFromUnitStack2();
-
-// unitswapfx.c
-void sub_801EC10(ProcPtr, struct Unit*, s16, s16);
-
-// ev_triggercheck.c
-struct EventCheckBuffer CheckForEvents(struct EventCheckBuffer*);
-
-// evtsub.c
-void sub_801240C();
-
-// code.c
-void MakeShopArmory(int, int, ProcPtr);
-void MakeShopVendor(int, int, ProcPtr);
-void sub_80ADDD4(ProcPtr);
+void sub_8097340(ProcPtr);
+void sub_8097394(ProcPtr);
 void sub_80A48F0(u8);
+void sub_80A87DC(ProcPtr);
+void sub_80ADDD4(ProcPtr);
 void BWL_IncrementDeployCountMaybe(u8);
 void sub_80B9FC0();
+void DeletePlayerPhaseInterface6Cs();
 void Make6C_savemenu2(ProcPtr);
+void NewPrepScreenTraineePromotionManager(ProcPtr);
+void PrepScreenTraineePromotionManagerExists(ProcPtr);
+void New6CPPInterfaceConstructor(ProcPtr);
 
-// code_sio.c
+// code_sio.s
 int CheckSomethingSomewhere();
+
+// bmdifficulty.s
+void sub_8037D68(ProcPtr);
+
+// bb.s
+void sub_8035758(ProcPtr);
+
+// asmcs.s
+void nullsub_20(ProcPtr);
+
+
+extern struct Vec2 gActiveUnitMoveOrigin;
+
+static EWRAM_DATA int gUnknown_02010004 = 0;
+extern struct ProcCmd CONST_DATA gUnknown_0859AE18[];
+extern u16 CONST_DATA gUnknown_085A0EA0[]; // ap
+extern struct ProcCmd CONST_DATA gUnknown_08A2ED88[];
+
+struct ProcCmd CONST_DATA gUnknown_0859DBA4[] = {
+    PROC_CALL(sub_8033548),
+    PROC_REPEAT(sub_8033574),
+
+    PROC_END,
+};
+
+struct ProcCmd CONST_DATA gUnknown_0859DBBC[] = {
+    PROC_NAME("SALLYCURSOR"),
+
+    PROC_SLEEP(0x10),
+    PROC_CALL(sub_80341D0), // 0x080341D0
+    PROC_WHILE(sub_8037D68), // 0x08037D68 -> bmdifficulty.s
+    PROC_SLEEP(1),
+    PROC_CALL(sub_8034200), // 0x08034200
+    PROC_CALL(InitPrepScreenUnitsAndCamera), // 0x08033870
+    PROC_SLEEP(1),
+    PROC_CALL(sub_8034194), // 0x08034194
+    PROC_SLEEP(8),
+    PROC_CALL(NewPrepScreenTraineePromotionManager), // 0x08096684 -> code.s
+    PROC_WHILE(PrepScreenTraineePromotionManagerExists), // 0x08096698 -> code.s
+    PROC_CALL(NewPrepScreenTraineePromotionManager), // 0x08096684 -> code.s
+    PROC_WHILE(PrepScreenTraineePromotionManagerExists), // 0x08096698 -> code.s
+    PROC_CALL(NewPrepScreenTraineePromotionManager), // 0x08096684 -> code.s
+    PROC_WHILE(PrepScreenTraineePromotionManagerExists), // 0x08096698 -> code.s
+
+PROC_LABEL(2),
+    PROC_CALL(sub_8096454), // 0x08096454 -> code.s
+    PROC_WHILE(sub_80966B0), // 0x080966B0 -> code.s
+    PROC_SLEEP(0),
+    PROC_CALL(sub_80338C0), // 0x080338C0
+
+    PROC_GOTO(0x32),
+
+PROC_LABEL(0x33),
+    PROC_CALL(sub_8013D68), // 0x08013D68 -> hino.s
+    PROC_REPEAT(ContinueUntilSomeTransistion6CExists), // 0x08014068 -> hino.s
+    PROC_CALL(sub_8096454), // 0x08096454 -> code.s
+    PROC_WHILE(sub_80966B0), // 0x080966B0 -> code.s
+    PROC_SLEEP(0),
+
+    // fallthrough
+
+PROC_LABEL(0x32),
+    PROC_CALL(RefreshBMapGraphics), // 0x080311A8 -> bmio.c
+    PROC_CALL(RefreshEntityBmMaps), // 0x0801A1F4 -> bmmap.c
+    PROC_CALL(RenderBmMap), // 0x08019C3C -> bmmap.c
+    PROC_CALL(SMS_UpdateFromGameData), // 0x080271A0 -> bmudisp.s
+    PROC_CALL(sub_80334BC), // 0x080334BC
+    PROC_CALL(sub_80334CC), // 0x080334CC
+    PROC_CALL(sub_8013D8C), // 0x08013D8C -> hino.s
+    PROC_REPEAT(ContinueUntilSomeTransistion6CExists), // 0x08014068 -> hino.s
+
+    PROC_GOTO(0x3D),
+
+PROC_LABEL(0),
+    PROC_CALL(sub_8033514), // 0x08033514
+    PROC_WHILE(sub_8013844), // 0x08013844 -> hino.s
+    PROC_CALL(sub_8033648), // 0x08033648
+
+    // fallthrough
+
+PROC_LABEL(0x3D),
+    PROC_CALL(sub_8097394), // 0x08097394 -> code.s
+    PROC_WHILE(sub_8097340), // 0x08097340 -> code.s
+    PROC_CALL(sub_80334E8), // 0x080334E8
+    PROC_WHILE(sub_8013844), // 0x08013844 -> hino.s
+
+    // fallthrough
+
+PROC_LABEL(9),
+    PROC_WHILE(sub_8035758), // 0x08035758 -> bb.s
+    PROC_CALL(RefreshEntityBmMaps), // 0x0801A1F4 -> bmmap.c
+    PROC_CALL(RenderBmMap), // 0x08019C3C -> bmmap.c
+    PROC_CALL(SMS_UpdateFromGameData), // 0x080271A0 -> bmudisp.s
+    PROC_CALL(New6CPPInterfaceConstructor), // 0x0808D13C -> code.s
+    PROC_REPEAT(sub_8033940), // 0x08033940
+    PROC_REPEAT(sub_8033978), // 0x08033978
+
+    // fallthrough
+
+PROC_LABEL(1),
+    PROC_CALL(HideMoveRangeGraphics), // 0x0801DACC -> playerphase.s
+    PROC_CALL(DeletePlayerPhaseInterface6Cs), // 0x0808D150 -> code.s
+    PROC_CALL(DisplayActiveUnitEffectRange), // 0x0801CC7C -> playerphase.s
+    PROC_REPEAT(sub_8033F34), // 0x08033F34
+
+    PROC_GOTO(9),
+
+PROC_LABEL(0x35),
+    PROC_CALL(sub_803348C), // 0x0803348C
+    PROC_WHILE_EXISTS(gUnknown_0859A548), // 0x0859A548
+    PROC_CALL(sub_80333D4), // 0x080333D4
+
+    PROC_GOTO(0x34),
+
+PROC_LABEL(0x36),
+    PROC_CALL(sub_803348C), // 0x0803348C
+    PROC_WHILE_EXISTS(gUnknown_0859A548), // 0x0859A548
+    PROC_CALL(sub_803342C), // 0x0803342C
+
+    PROC_GOTO(0x34),
+
+PROC_LABEL(0x34),
+    PROC_CALL(sub_8033E8C), // 0x08033E8C
+    PROC_SLEEP(0),
+    PROC_CALL(sub_8033EA4), // 0x08033EA4
+    PROC_SLEEP(0x3C),
+
+    PROC_GOTO(0),
+
+PROC_LABEL(5),
+    PROC_CALL(RefreshBMapGraphics), // 0x080311A8 -> bmio.c
+    PROC_START_CHILD_BLOCKING(gUnknown_0859AE18), // 0x0859AE18
+
+    PROC_GOTO(9),
+
+PROC_LABEL(6),
+    PROC_CALL(sub_8034090), // 0x08034090
+
+    PROC_GOTO(1),
+
+PROC_LABEL(3),
+    PROC_CALL(DeletePlayerPhaseInterface6Cs), // 0x0808D150 -> code.s
+    PROC_CALL(SALLYCURSOR6C_StartUnitSwap), // 0x08033C10
+    PROC_WHILE_EXISTS(gUnknown_0859A548), // 0x0859A548
+    PROC_REPEAT(sub_8033C90), // 0x08033C90
+    PROC_CALL(HideMoveRangeGraphics), // 0x0801DACC -> playerphase.s
+    PROC_CALL(sub_8033E08), // 0x08033E08
+    PROC_WHILE_EXISTS(gUnknown_0859A548), // 0x0859A548
+    PROC_WHILE(sub_801EC48), // 0x0801EC48 -> unitswapfx.s
+    PROC_CALL(sub_8033E8C), // 0x08033E8C
+    PROC_CALL(RefreshEntityBmMaps), // 0x0801A1F4 -> bmmap.c
+    PROC_CALL(SMS_UpdateFromGameData), // 0x080271A0 -> bmudisp.s
+    PROC_SLEEP(0),
+    PROC_CALL(sub_8033EA4), // 0x08033EA4
+
+    PROC_GOTO(9),
+
+PROC_LABEL(4),
+    PROC_CALL(HideMoveRangeGraphics), // 0x0801DACC -> playerphase.s
+    PROC_WHILE_EXISTS(gUnknown_0859A548), // 0x0859A548
+    PROC_CALL(sub_8033DD8), // 0x08033DD8
+    PROC_SLEEP(0),
+
+    PROC_GOTO(9),
+
+PROC_LABEL(0xB),
+
+    PROC_GOTO(1),
+
+PROC_LABEL(0x39),
+    PROC_CALL(sub_8013D80), // 0x08013D80 -> hino.s
+    PROC_REPEAT(ContinueUntilSomeTransistion6CExists), // 0x08014068 -> hino.s
+    PROC_CALL(BMapDispSuspend), // 0x08030184 -> bmio.c
+    PROC_CALL(sub_803334C), // 0x0803334C
+    PROC_CALL(sub_8033EC0), // 0x08033EC0
+    PROC_SLEEP(0),
+    PROC_CALL(BMapDispResume), // 0x080301B8 -> bmio.c
+
+    PROC_GOTO(0x3E),
+
+PROC_LABEL(0x38),
+    PROC_CALL(sub_8013D80), // 0x08013D80 -> hino.s
+    PROC_REPEAT(ContinueUntilSomeTransistion6CExists), // 0x08014068 -> hino.s
+    PROC_CALL(BMapDispSuspend), // 0x08030184 -> bmio.c
+    PROC_CALL(sub_803334C), // 0x0803334C
+    PROC_CALL(sub_808E79C), // 0x0808E79C -> code.s
+    PROC_SLEEP(0),
+    PROC_CALL(BMapDispResume), // 0x080301B8 -> bmio.c
+
+    PROC_GOTO(0x3E),
+
+PROC_LABEL(0x3B),
+    PROC_CALL(sub_8013D80), // 0x08013D80 -> hino.s
+    PROC_REPEAT(ContinueUntilSomeTransistion6CExists), // 0x08014068 -> hino.s
+    PROC_CALL(BMapDispSuspend), // 0x08030184 -> bmio.c
+    PROC_CALL(sub_803334C), // 0x0803334C
+    PROC_CALL(sub_803410C), // 0x0803410C
+    PROC_SLEEP(0),
+    PROC_CALL(BMapDispResume), // 0x080301B8 -> bmio.c
+    PROC_CALL(sub_8034168), // 0x08034168
+
+    PROC_GOTO(0x3E),
+
+PROC_LABEL(0x37),
+    PROC_CALL(sub_8013D68), // 0x08013D68 -> hino.s
+    PROC_REPEAT(ContinueUntilSomeTransistion6CExists), // 0x08014068 -> hino.s
+    PROC_CALL(sub_8034078), // 0x08034078
+    PROC_CALL(nullsub_20), // 0x080859E8 -> asmcs.s
+    PROC_SLEEP(0),
+    PROC_CALL(sub_801240C), // 0x0801240C -> evtsub.s
+    PROC_CALL(sub_8034278), // 0x08034278
+
+    PROC_BLOCK,
+
+PROC_LABEL(0x3E),
+    PROC_CALL(RefreshBMapGraphics), // 0x080311A8 -> bmio.c
+    PROC_CALL(RefreshEntityBmMaps), // 0x0801A1F4 -> bmmap.c
+    PROC_CALL(RenderBmMap), // 0x08019C3C -> bmmap.c
+    PROC_CALL(SMS_UpdateFromGameData), // 0x080271A0 -> bmudisp.s
+    PROC_CALL(sub_8033648), // 0x08033648
+    PROC_CALL(sub_80334CC), // 0x080334CC
+    PROC_CALL(sub_8013DA4), // 0x08013DA4 -> hino.s
+    PROC_REPEAT(ContinueUntilSomeTransistion6CExists), // 0x08014068 -> hino.s
+
+    PROC_GOTO(0x3D),
+
+PROC_LABEL(0x3C),
+    PROC_CALL(sub_8013D68), // 0x08013D68 -> hino.s
+    PROC_REPEAT(ContinueUntilSomeTransistion6CExists), // 0x08014068 -> hino.s
+    PROC_CALL(HideMoveRangeGraphics), // 0x0801DACC -> playerphase.s
+    PROC_CALL(BMapDispSuspend), // 0x08030184 -> bmio.c
+    PROC_CALL(CallCursorShop), // 0x08033ED4
+    PROC_SLEEP(0),
+    PROC_CALL(BMapDispResume), // 0x080301B8 -> bmio.c
+    PROC_CALL(RefreshBMapGraphics), // 0x080311A8 -> bmio.c
+    PROC_CALL(RefreshEntityBmMaps), // 0x0801A1F4 -> bmmap.c
+    PROC_CALL(RenderBmMap), // 0x08019C3C -> bmmap.c
+    PROC_CALL(SMS_UpdateFromGameData), // 0x080271A0 -> bmudisp.s
+    PROC_CALL(sub_8034194), // 0x08034194
+    PROC_CALL(sub_8033608), // 0x08033608
+    PROC_CALL(sub_8013D8C), // 0x08013D8C -> hino.s
+    PROC_REPEAT(ContinueUntilSomeTransistion6CExists), // 0x08014068 -> hino.s
+
+    PROC_GOTO(9),
+
+PROC_LABEL(0x3A),
+    PROC_SLEEP(0),
+    PROC_CALL(sub_8033648), // 0x08033648
+
+    PROC_GOTO(0x3D),
+
+    PROC_END,
+};
+
 
 int GetPlayerLeaderUnitId() {
     int i;
