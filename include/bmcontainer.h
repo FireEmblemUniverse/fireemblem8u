@@ -12,6 +12,6 @@ void RemoveItemFromConvoy(int);
 int GetConvoyItemSlot(int);
 bool8 HasConvoyAccess(void);
 bool8 sub_8031660(void);
-struct Unit* sub_8031688(void);
+struct Unit* GetSupplyUnit(void);
 
 #endif // GUARD_BM_CONTAINER_H

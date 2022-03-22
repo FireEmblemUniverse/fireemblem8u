@@ -107,149 +107,149 @@ extern struct ProcCmd CONST_DATA gUnknown_0859AE18[];
 extern u16 CONST_DATA gUnknown_085A0EA0[]; // ap
 extern struct ProcCmd CONST_DATA gUnknown_08A2ED88[];
 
-struct ProcCmd CONST_DATA gUnknown_0859DBA4[] = {
+static struct ProcCmd CONST_DATA sProcScr_SALLYCURSORHelpPrompt[] = {
     PROC_CALL(sub_8033548),
     PROC_REPEAT(sub_8033574),
 
     PROC_END,
 };
 
-struct ProcCmd CONST_DATA gUnknown_0859DBBC[] = {
+struct ProcCmd CONST_DATA gProcScr_SALLYCURSOR[] = {
     PROC_NAME("SALLYCURSOR"),
 
     PROC_SLEEP(0x10),
-    PROC_CALL(sub_80341D0), // 0x080341D0
-    PROC_WHILE(sub_8037D68), // 0x08037D68 -> bmdifficulty.s
+    PROC_CALL(sub_80341D0),
+    PROC_WHILE(sub_8037D68),
     PROC_SLEEP(1),
-    PROC_CALL(sub_8034200), // 0x08034200
-    PROC_CALL(InitPrepScreenUnitsAndCamera), // 0x08033870
+    PROC_CALL(sub_8034200),
+    PROC_CALL(InitPrepScreenUnitsAndCamera),
     PROC_SLEEP(1),
-    PROC_CALL(sub_8034194), // 0x08034194
+    PROC_CALL(sub_8034194),
     PROC_SLEEP(8),
-    PROC_CALL(NewPrepScreenTraineePromotionManager), // 0x08096684 -> code.s
-    PROC_WHILE(PrepScreenTraineePromotionManagerExists), // 0x08096698 -> code.s
-    PROC_CALL(NewPrepScreenTraineePromotionManager), // 0x08096684 -> code.s
-    PROC_WHILE(PrepScreenTraineePromotionManagerExists), // 0x08096698 -> code.s
-    PROC_CALL(NewPrepScreenTraineePromotionManager), // 0x08096684 -> code.s
-    PROC_WHILE(PrepScreenTraineePromotionManagerExists), // 0x08096698 -> code.s
+    PROC_CALL(NewPrepScreenTraineePromotionManager),
+    PROC_WHILE(PrepScreenTraineePromotionManagerExists),
+    PROC_CALL(NewPrepScreenTraineePromotionManager),
+    PROC_WHILE(PrepScreenTraineePromotionManagerExists),
+    PROC_CALL(NewPrepScreenTraineePromotionManager),
+    PROC_WHILE(PrepScreenTraineePromotionManagerExists),
 
 PROC_LABEL(2),
-    PROC_CALL(sub_8096454), // 0x08096454 -> code.s
-    PROC_WHILE(sub_80966B0), // 0x080966B0 -> code.s
+    PROC_CALL(sub_8096454),
+    PROC_WHILE(sub_80966B0),
     PROC_SLEEP(0),
-    PROC_CALL(sub_80338C0), // 0x080338C0
+    PROC_CALL(sub_80338C0),
 
     PROC_GOTO(0x32),
 
 PROC_LABEL(0x33),
-    PROC_CALL(sub_8013D68), // 0x08013D68 -> hino.s
-    PROC_REPEAT(ContinueUntilSomeTransistion6CExists), // 0x08014068 -> hino.s
-    PROC_CALL(sub_8096454), // 0x08096454 -> code.s
-    PROC_WHILE(sub_80966B0), // 0x080966B0 -> code.s
+    PROC_CALL(sub_8013D68),
+    PROC_REPEAT(ContinueUntilSomeTransistion6CExists),
+    PROC_CALL(sub_8096454),
+    PROC_WHILE(sub_80966B0),
     PROC_SLEEP(0),
 
     // fallthrough
 
 PROC_LABEL(0x32),
-    PROC_CALL(RefreshBMapGraphics), // 0x080311A8 -> bmio.c
-    PROC_CALL(RefreshEntityBmMaps), // 0x0801A1F4 -> bmmap.c
-    PROC_CALL(RenderBmMap), // 0x08019C3C -> bmmap.c
-    PROC_CALL(SMS_UpdateFromGameData), // 0x080271A0 -> bmudisp.s
-    PROC_CALL(sub_80334BC), // 0x080334BC
-    PROC_CALL(sub_80334CC), // 0x080334CC
-    PROC_CALL(sub_8013D8C), // 0x08013D8C -> hino.s
-    PROC_REPEAT(ContinueUntilSomeTransistion6CExists), // 0x08014068 -> hino.s
+    PROC_CALL(RefreshBMapGraphics),
+    PROC_CALL(RefreshEntityBmMaps),
+    PROC_CALL(RenderBmMap),
+    PROC_CALL(SMS_UpdateFromGameData),
+    PROC_CALL(sub_80334BC),
+    PROC_CALL(sub_80334CC),
+    PROC_CALL(sub_8013D8C),
+    PROC_REPEAT(ContinueUntilSomeTransistion6CExists),
 
     PROC_GOTO(0x3D),
 
 PROC_LABEL(0),
-    PROC_CALL(sub_8033514), // 0x08033514
-    PROC_WHILE(sub_8013844), // 0x08013844 -> hino.s
-    PROC_CALL(sub_8033648), // 0x08033648
+    PROC_CALL(sub_8033514),
+    PROC_WHILE(sub_8013844),
+    PROC_CALL(sub_8033648),
 
     // fallthrough
 
 PROC_LABEL(0x3D),
-    PROC_CALL(sub_8097394), // 0x08097394 -> code.s
-    PROC_WHILE(sub_8097340), // 0x08097340 -> code.s
-    PROC_CALL(sub_80334E8), // 0x080334E8
-    PROC_WHILE(sub_8013844), // 0x08013844 -> hino.s
+    PROC_CALL(sub_8097394),
+    PROC_WHILE(sub_8097340),
+    PROC_CALL(sub_80334E8),
+    PROC_WHILE(sub_8013844),
 
     // fallthrough
 
 PROC_LABEL(9),
-    PROC_WHILE(sub_8035758), // 0x08035758 -> bb.s
-    PROC_CALL(RefreshEntityBmMaps), // 0x0801A1F4 -> bmmap.c
-    PROC_CALL(RenderBmMap), // 0x08019C3C -> bmmap.c
-    PROC_CALL(SMS_UpdateFromGameData), // 0x080271A0 -> bmudisp.s
-    PROC_CALL(New6CPPInterfaceConstructor), // 0x0808D13C -> code.s
-    PROC_REPEAT(sub_8033940), // 0x08033940
-    PROC_REPEAT(sub_8033978), // 0x08033978
+    PROC_WHILE(sub_8035758),
+    PROC_CALL(RefreshEntityBmMaps),
+    PROC_CALL(RenderBmMap),
+    PROC_CALL(SMS_UpdateFromGameData),
+    PROC_CALL(New6CPPInterfaceConstructor),
+    PROC_REPEAT(sub_8033940),
+    PROC_REPEAT(sub_8033978),
 
     // fallthrough
 
 PROC_LABEL(1),
-    PROC_CALL(HideMoveRangeGraphics), // 0x0801DACC -> playerphase.s
-    PROC_CALL(DeletePlayerPhaseInterface6Cs), // 0x0808D150 -> code.s
-    PROC_CALL(DisplayActiveUnitEffectRange), // 0x0801CC7C -> playerphase.s
-    PROC_REPEAT(sub_8033F34), // 0x08033F34
+    PROC_CALL(HideMoveRangeGraphics),
+    PROC_CALL(DeletePlayerPhaseInterface6Cs),
+    PROC_CALL(DisplayActiveUnitEffectRange),
+    PROC_REPEAT(sub_8033F34),
 
     PROC_GOTO(9),
 
 PROC_LABEL(0x35),
-    PROC_CALL(sub_803348C), // 0x0803348C
-    PROC_WHILE_EXISTS(gUnknown_0859A548), // 0x0859A548
-    PROC_CALL(sub_80333D4), // 0x080333D4
+    PROC_CALL(sub_803348C),
+    PROC_WHILE_EXISTS(gUnknown_0859A548),
+    PROC_CALL(SALLYCURSOR_DeploySupplyUnit), // add convoy unit?
 
     PROC_GOTO(0x34),
 
 PROC_LABEL(0x36),
-    PROC_CALL(sub_803348C), // 0x0803348C
-    PROC_WHILE_EXISTS(gUnknown_0859A548), // 0x0859A548
-    PROC_CALL(sub_803342C), // 0x0803342C
+    PROC_CALL(sub_803348C),
+    PROC_WHILE_EXISTS(gUnknown_0859A548),
+    PROC_CALL(SALLYCURSOR_RemoveSupplyUnit), // remove convoy unit?
 
     PROC_GOTO(0x34),
 
 PROC_LABEL(0x34),
-    PROC_CALL(sub_8033E8C), // 0x08033E8C
+    PROC_CALL(sub_8033E8C),
     PROC_SLEEP(0),
-    PROC_CALL(sub_8033EA4), // 0x08033EA4
+    PROC_CALL(sub_8033EA4),
     PROC_SLEEP(0x3C),
 
     PROC_GOTO(0),
 
 PROC_LABEL(5),
-    PROC_CALL(RefreshBMapGraphics), // 0x080311A8 -> bmio.c
-    PROC_START_CHILD_BLOCKING(gUnknown_0859AE18), // 0x0859AE18
+    PROC_CALL(RefreshBMapGraphics),
+    PROC_START_CHILD_BLOCKING(gUnknown_0859AE18),
 
     PROC_GOTO(9),
 
 PROC_LABEL(6),
-    PROC_CALL(sub_8034090), // 0x08034090
+    PROC_CALL(sub_8034090),
 
     PROC_GOTO(1),
 
 PROC_LABEL(3),
-    PROC_CALL(DeletePlayerPhaseInterface6Cs), // 0x0808D150 -> code.s
-    PROC_CALL(SALLYCURSOR6C_StartUnitSwap), // 0x08033C10
-    PROC_WHILE_EXISTS(gUnknown_0859A548), // 0x0859A548
-    PROC_REPEAT(sub_8033C90), // 0x08033C90
-    PROC_CALL(HideMoveRangeGraphics), // 0x0801DACC -> playerphase.s
-    PROC_CALL(sub_8033E08), // 0x08033E08
-    PROC_WHILE_EXISTS(gUnknown_0859A548), // 0x0859A548
-    PROC_WHILE(sub_801EC48), // 0x0801EC48 -> unitswapfx.s
-    PROC_CALL(sub_8033E8C), // 0x08033E8C
-    PROC_CALL(RefreshEntityBmMaps), // 0x0801A1F4 -> bmmap.c
-    PROC_CALL(SMS_UpdateFromGameData), // 0x080271A0 -> bmudisp.s
+    PROC_CALL(DeletePlayerPhaseInterface6Cs),
+    PROC_CALL(SALLYCURSOR6C_StartUnitSwap),
+    PROC_WHILE_EXISTS(gUnknown_0859A548),
+    PROC_REPEAT(sub_8033C90),
+    PROC_CALL(HideMoveRangeGraphics),
+    PROC_CALL(sub_8033E08),
+    PROC_WHILE_EXISTS(gUnknown_0859A548),
+    PROC_WHILE(sub_801EC48),
+    PROC_CALL(sub_8033E8C),
+    PROC_CALL(RefreshEntityBmMaps),
+    PROC_CALL(SMS_UpdateFromGameData),
     PROC_SLEEP(0),
-    PROC_CALL(sub_8033EA4), // 0x08033EA4
+    PROC_CALL(sub_8033EA4),
 
     PROC_GOTO(9),
 
 PROC_LABEL(4),
-    PROC_CALL(HideMoveRangeGraphics), // 0x0801DACC -> playerphase.s
-    PROC_WHILE_EXISTS(gUnknown_0859A548), // 0x0859A548
-    PROC_CALL(sub_8033DD8), // 0x08033DD8
+    PROC_CALL(HideMoveRangeGraphics),
+    PROC_WHILE_EXISTS(gUnknown_0859A548),
+    PROC_CALL(sub_8033DD8),
     PROC_SLEEP(0),
 
     PROC_GOTO(9),
@@ -259,84 +259,84 @@ PROC_LABEL(0xB),
     PROC_GOTO(1),
 
 PROC_LABEL(0x39),
-    PROC_CALL(sub_8013D80), // 0x08013D80 -> hino.s
-    PROC_REPEAT(ContinueUntilSomeTransistion6CExists), // 0x08014068 -> hino.s
-    PROC_CALL(BMapDispSuspend), // 0x08030184 -> bmio.c
-    PROC_CALL(sub_803334C), // 0x0803334C
-    PROC_CALL(sub_8033EC0), // 0x08033EC0
+    PROC_CALL(sub_8013D80),
+    PROC_REPEAT(ContinueUntilSomeTransistion6CExists),
+    PROC_CALL(BMapDispSuspend),
+    PROC_CALL(sub_803334C),
+    PROC_CALL(sub_8033EC0),
     PROC_SLEEP(0),
-    PROC_CALL(BMapDispResume), // 0x080301B8 -> bmio.c
+    PROC_CALL(BMapDispResume),
 
     PROC_GOTO(0x3E),
 
 PROC_LABEL(0x38),
-    PROC_CALL(sub_8013D80), // 0x08013D80 -> hino.s
-    PROC_REPEAT(ContinueUntilSomeTransistion6CExists), // 0x08014068 -> hino.s
-    PROC_CALL(BMapDispSuspend), // 0x08030184 -> bmio.c
-    PROC_CALL(sub_803334C), // 0x0803334C
-    PROC_CALL(sub_808E79C), // 0x0808E79C -> code.s
+    PROC_CALL(sub_8013D80),
+    PROC_REPEAT(ContinueUntilSomeTransistion6CExists),
+    PROC_CALL(BMapDispSuspend),
+    PROC_CALL(sub_803334C),
+    PROC_CALL(sub_808E79C),
     PROC_SLEEP(0),
-    PROC_CALL(BMapDispResume), // 0x080301B8 -> bmio.c
+    PROC_CALL(BMapDispResume),
 
     PROC_GOTO(0x3E),
 
 PROC_LABEL(0x3B),
-    PROC_CALL(sub_8013D80), // 0x08013D80 -> hino.s
-    PROC_REPEAT(ContinueUntilSomeTransistion6CExists), // 0x08014068 -> hino.s
-    PROC_CALL(BMapDispSuspend), // 0x08030184 -> bmio.c
-    PROC_CALL(sub_803334C), // 0x0803334C
-    PROC_CALL(sub_803410C), // 0x0803410C
+    PROC_CALL(sub_8013D80),
+    PROC_REPEAT(ContinueUntilSomeTransistion6CExists),
+    PROC_CALL(BMapDispSuspend),
+    PROC_CALL(sub_803334C),
+    PROC_CALL(sub_803410C),
     PROC_SLEEP(0),
-    PROC_CALL(BMapDispResume), // 0x080301B8 -> bmio.c
-    PROC_CALL(sub_8034168), // 0x08034168
+    PROC_CALL(BMapDispResume),
+    PROC_CALL(sub_8034168),
 
     PROC_GOTO(0x3E),
 
 PROC_LABEL(0x37),
-    PROC_CALL(sub_8013D68), // 0x08013D68 -> hino.s
-    PROC_REPEAT(ContinueUntilSomeTransistion6CExists), // 0x08014068 -> hino.s
-    PROC_CALL(sub_8034078), // 0x08034078
-    PROC_CALL(nullsub_20), // 0x080859E8 -> asmcs.s
+    PROC_CALL(sub_8013D68),
+    PROC_REPEAT(ContinueUntilSomeTransistion6CExists),
+    PROC_CALL(sub_8034078),
+    PROC_CALL(nullsub_20),
     PROC_SLEEP(0),
-    PROC_CALL(sub_801240C), // 0x0801240C -> evtsub.s
-    PROC_CALL(sub_8034278), // 0x08034278
+    PROC_CALL(sub_801240C),
+    PROC_CALL(sub_8034278),
 
     PROC_BLOCK,
 
 PROC_LABEL(0x3E),
-    PROC_CALL(RefreshBMapGraphics), // 0x080311A8 -> bmio.c
-    PROC_CALL(RefreshEntityBmMaps), // 0x0801A1F4 -> bmmap.c
-    PROC_CALL(RenderBmMap), // 0x08019C3C -> bmmap.c
-    PROC_CALL(SMS_UpdateFromGameData), // 0x080271A0 -> bmudisp.s
-    PROC_CALL(sub_8033648), // 0x08033648
-    PROC_CALL(sub_80334CC), // 0x080334CC
-    PROC_CALL(sub_8013DA4), // 0x08013DA4 -> hino.s
-    PROC_REPEAT(ContinueUntilSomeTransistion6CExists), // 0x08014068 -> hino.s
+    PROC_CALL(RefreshBMapGraphics),
+    PROC_CALL(RefreshEntityBmMaps),
+    PROC_CALL(RenderBmMap),
+    PROC_CALL(SMS_UpdateFromGameData),
+    PROC_CALL(sub_8033648),
+    PROC_CALL(sub_80334CC),
+    PROC_CALL(sub_8013DA4),
+    PROC_REPEAT(ContinueUntilSomeTransistion6CExists),
 
     PROC_GOTO(0x3D),
 
 PROC_LABEL(0x3C),
-    PROC_CALL(sub_8013D68), // 0x08013D68 -> hino.s
-    PROC_REPEAT(ContinueUntilSomeTransistion6CExists), // 0x08014068 -> hino.s
-    PROC_CALL(HideMoveRangeGraphics), // 0x0801DACC -> playerphase.s
-    PROC_CALL(BMapDispSuspend), // 0x08030184 -> bmio.c
-    PROC_CALL(CallCursorShop), // 0x08033ED4
+    PROC_CALL(sub_8013D68),
+    PROC_REPEAT(ContinueUntilSomeTransistion6CExists),
+    PROC_CALL(HideMoveRangeGraphics),
+    PROC_CALL(BMapDispSuspend),
+    PROC_CALL(CallCursorShop),
     PROC_SLEEP(0),
-    PROC_CALL(BMapDispResume), // 0x080301B8 -> bmio.c
-    PROC_CALL(RefreshBMapGraphics), // 0x080311A8 -> bmio.c
-    PROC_CALL(RefreshEntityBmMaps), // 0x0801A1F4 -> bmmap.c
-    PROC_CALL(RenderBmMap), // 0x08019C3C -> bmmap.c
-    PROC_CALL(SMS_UpdateFromGameData), // 0x080271A0 -> bmudisp.s
-    PROC_CALL(sub_8034194), // 0x08034194
-    PROC_CALL(sub_8033608), // 0x08033608
-    PROC_CALL(sub_8013D8C), // 0x08013D8C -> hino.s
-    PROC_REPEAT(ContinueUntilSomeTransistion6CExists), // 0x08014068 -> hino.s
+    PROC_CALL(BMapDispResume),
+    PROC_CALL(RefreshBMapGraphics),
+    PROC_CALL(RefreshEntityBmMaps),
+    PROC_CALL(RenderBmMap),
+    PROC_CALL(SMS_UpdateFromGameData),
+    PROC_CALL(sub_8034194),
+    PROC_CALL(sub_8033608),
+    PROC_CALL(sub_8013D8C),
+    PROC_REPEAT(ContinueUntilSomeTransistion6CExists),
 
     PROC_GOTO(9),
 
 PROC_LABEL(0x3A),
     PROC_SLEEP(0),
-    PROC_CALL(sub_8033648), // 0x08033648
+    PROC_CALL(sub_8033648),
 
     PROC_GOTO(0x3D),
 
@@ -394,7 +394,7 @@ void sub_80332D0() {
     const struct UnitDefinition* uDef = GetChapterAllyUnitDataPointer();
     BmMapFill(gBmMapRange, 0);
     BmMapFill(gBmMapMovement, -1);
-    uDef = uDef + sub_809541C(); // TODO - Seems to be count of non-deployable / force-deployed characters
+    uDef += sub_809541C(); // TODO - Seems to be count of non-deployable / force-deployed characters
 
     if (uDef->charIndex != 0) {
         while (uDef->charIndex) {
@@ -413,16 +413,16 @@ void sub_803334C() {
     return;
 }
 
-void sub_8033358(ProcPtr proc) {
-    ((struct UnknownSALLYCURSORProc*)(proc))->unk_58 = 1;
+void sub_8033358(struct UnknownSALLYCURSORProc* proc) {
+    proc->unk_58 = 1;
     Proc_Break(proc);
     sub_803334C();
     return;
 }
 
-void sub_803336C(ProcPtr proc) {
+void sub_803336C(struct UnknownSALLYCURSORProc* proc) {
     s16 x, y;
-    ((struct UnknownSALLYCURSORProc*)(proc))->unk_58 = 2;
+    proc->unk_58 = 2;
 
     x = gUnknown_0202BCB0.playerCursor.x;
     y = gUnknown_0202BCB0.playerCursor.y;
@@ -439,7 +439,6 @@ void sub_803336C(ProcPtr proc) {
 
 bool8 sub_80333A4(ProcPtr proc) {
     if (sub_8095970() == 0) {
-        // _080333BC
         return 0;
     }
     Proc_Goto(proc, 55);
@@ -451,12 +450,10 @@ bool8 sub_80333C4(ProcPtr proc) {
     return 1;
 }
 
-// TODO - Seems to be related to setting up the convoy unit, but is unused in FE8
-// sub_8031688 is in bmcontainer and gets the unit with the supply flag set
-void sub_80333D4() {
-    struct Unit* unit = sub_8031688();
-    if (unit != 0) {
-        unit->state = unit->state &~ US_NOT_DEPLOYED;
+void SALLYCURSOR_DeploySupplyUnit() {
+    struct Unit* unit = GetSupplyUnit();
+    if (unit) {
+        unit->state &= ~US_NOT_DEPLOYED;
 
         unit->xPos = GetROMChapterStruct(gRAMChapterData.chapterIndex)->_unk81[1];
         unit->yPos = GetROMChapterStruct(gRAMChapterData.chapterIndex)->_unk81[3];
@@ -467,17 +464,16 @@ void sub_80333D4() {
     return;
 }
 
-void sub_803341C(ProcPtr proc) {
-    ((struct UnknownSALLYCURSORProc*)(proc))->unk_58 = 8;
+void sub_803341C(struct UnknownSALLYCURSORProc* proc) {
+    proc->unk_58 = 8;
     Proc_Goto(proc, 0x39);
     return;
 }
 
-// TODO - Remove convoy unit?
-void sub_803342C() {
-    struct Unit* unit = sub_8031688();
-    if (unit != 0) {
-        unit->state = unit->state | US_NOT_DEPLOYED;
+void SALLYCURSOR_RemoveSupplyUnit() {
+    struct Unit* unit = GetSupplyUnit();
+    if (unit) {
+        unit->state |= US_NOT_DEPLOYED;
 
         unit->xPos = 0xFF;
         unit->yPos = 0xFF;
@@ -488,17 +484,17 @@ void sub_803342C() {
     return;
 }
 
-void sub_8033458(ProcPtr proc) {
-    ((struct UnknownSALLYCURSORProc*)(proc))->unk_58 = 9;
-    Proc_Goto(proc, 0x3b);
+void sub_8033458(struct UnknownSALLYCURSORProc* proc) {
+    proc->unk_58 = 9;
+    Proc_Goto(proc, 0x3B);
     return;
 }
 
-void sub_8033468(ProcPtr proc) {
-    ((struct UnknownSALLYCURSORProc*)(proc))->unk_58 = 0xA;
+void sub_8033468(struct UnknownSALLYCURSORProc* proc) {
+    proc->unk_58 = 0xA;
     sub_803334C();
     StartOrphanMenu(&gDebugMenuDef);
-    Proc_Goto(proc, 0x3a);
+    Proc_Goto(proc, 0x3A);
     return;
 }
 
@@ -509,31 +505,31 @@ void sub_803348C(ProcPtr proc) {
     return;
 }
 
-void sub_80334BC(ProcPtr proc) {
-    ((struct UnknownSALLYCURSORProc*)(proc))->unk_58 = 1;
+void sub_80334BC(struct UnknownSALLYCURSORProc* proc) {
+    proc->unk_58 = 1;
     sub_8033648(proc);
     return;
 }
 
 void sub_80334CC() {
     ArchiveCurrentPalettes();
-    WriteFadedPaletteFromArchive(0xc0, 0xc0, 0xc0, 0xFF00FFF0);
+    WriteFadedPaletteFromArchive(0xC0, 0xC0, 0xC0, 0xFF00FFF0);
     return;
 }
 
 void sub_80334E8(int r0) {
-    sub_8013800(0xc0, 0xc0, 0xc0, 0x100, 0x100, 0x100, 0xFF00FFF0, 0x40, r0);
+    sub_8013800(0xC0, 0xC0, 0xC0, 0x100, 0x100, 0x100, 0xFF00FFF0, 0x40, r0);
     return;
 }
 
 void sub_8033514(int r4) {
     ArchiveCurrentPalettes();
-    sub_8013800(0x100, 0x100, 0x100, 0xc0, 0xc0, 0xc0, 0xFF00FFF0, 0x40, r4);
+    sub_8013800(0x100, 0x100, 0x100, 0xC0, 0xC0, 0xC0, 0xFF00FFF0, 0x40, r4);
     return;
 }
 
 void sub_8033548(ProcPtr proc) {
-    StartHelpPromptSprite(0xaa, 0x8c, 2, proc);
+    StartHelpPromptSprite(0xAA, 0x8C, 2, proc);
     CopyDataWithPossibleUncomp(gUnknown_08A199C8, (void *) (OBJ_VRAM1 + 0x3000));
     ((struct UnknownSALLYCURSORProc*)(proc))->unk_58 = 0;
     return;
@@ -554,18 +550,15 @@ void sub_8033608() {
 }
 
 void sub_8033620(ProcPtr proc) {
-    Proc_Start(gUnknown_0859DBA4, proc);
+    Proc_Start(sProcScr_SALLYCURSORHelpPrompt, proc);
 }
 
 void sub_8033634() {
     EndHelpPromptSprite();
-    Proc_EndEach(gUnknown_0859DBA4);
+    Proc_EndEach(sProcScr_SALLYCURSORHelpPrompt);
 }
 
-void sub_8033648(ProcPtr proc) {
-    u8 r2;
-    bool8 r0;
-
+void sub_8033648(struct UnknownSALLYCURSORProc* proc) {
     LoadDialogueBoxGfx(0, -1);
     Font_InitForUIDefault();
     DeletePlayerPhaseInterface6Cs();
@@ -573,23 +566,16 @@ void sub_8033648(ProcPtr proc) {
 
     sub_8096FAC(proc);
 
-    sub_8097024(1, *sub_8033358, 0, 0xb2 << 3, 0x000005BB); // finds and initializes a proc of some sort; void return
+    sub_8097024(1, *sub_8033358, 0, 0x590, 0x5BB);
 
-    if (sub_8095970() == 0) {
-        r2 = 1;
-    } else {
-        r2 = 0;
-    }
+    sub_8097024(2, *sub_803336C, (sub_8095970() ? 0 : 1), 0x591, 0x5BC);
 
-    sub_8097024(2, *sub_803336C, r2, 0x00000591, 0x000005BC);
+    sub_8097024(8, *sub_803341C, 0, 0x592, 0x5BD);
 
-    sub_8097024(8, *sub_803341C, 0, 0x00000592, 0x000005BD);
-
-    // TODO - checks if GMapData state bit 0 is set, then subtracts 32 from the chapter id and returns true if >= 0x13?
     if ((sub_8094FF4() << 0x18) != 0) {
-        sub_8097024(9, *sub_8033458, 0, 0x00000579, 0x000005BE);
+        sub_8097024(9, *sub_8033458, 0, 0x579, 0x5BE);
     } else {
-        sub_8097024(9, *sub_8033458, 1, 0x00000579, 0x000005BE);
+        sub_8097024(9, *sub_8033458, 1, 0x579, 0x5BE);
     }
 
     sub_8033620(proc);
@@ -598,7 +584,7 @@ void sub_8033648(ProcPtr proc) {
     sub_8097008(*sub_8033634);
     sub_8097154(0xA, 2);
 
-    sub_80970CC(((struct UnknownSALLYCURSORProc*)(proc))->unk_58);
+    sub_80970CC(proc->unk_58);
     BG_EnableSyncByMask(3);
     return;
 }
@@ -613,83 +599,78 @@ bool8 CanCharacterBePrepMoved(int unitId) {
     return 0;
 }
 
-void sub_8033770(ProcPtr proc) {
+void sub_8033770(struct UnknownSALLYCURSORProc* proc) {
     s16 x;
 
-    ((struct UnknownSALLYCURSORProc*)(proc))->unk_4A = 0;
+    proc->unk_4A = 0;
 
-    ((struct UnknownSALLYCURSORProc*)(proc))->unk_2C = 0;
-    ((struct UnknownSALLYCURSORProc*)(proc))->unk_30 = 0;
-    ((struct UnknownSALLYCURSORProc*)(proc))->unk_34 = 2;
-    ((struct UnknownSALLYCURSORProc*)(proc))->unk_38 = 0;
+    proc->unk_2C = 0;
+    proc->unk_30 = 0;
+    proc->unk_34 = 2;
+    proc->unk_38 = 0;
 
     x = gBmMapSize.x;
-    ((struct UnknownSALLYCURSORProc*)(proc))->unk_4C = (x * 8) - 0x78;
+    proc->unk_4C = (x * 8) - 0x78;
 
     return;
 }
 
-void sub_8033798(ProcPtr proc) {
+void sub_8033798(struct UnknownSALLYCURSORProc* proc) {
     s16 y;
 
-    ((struct UnknownSALLYCURSORProc*)(proc))->unk_34 = 0;
-    ((struct UnknownSALLYCURSORProc*)(proc))->unk_38 = 2;
+    proc->unk_34 = 0;
+    proc->unk_38 = 2;
 
     y = gBmMapSize.y;
-    ((struct UnknownSALLYCURSORProc*)(proc))->unk_4C = (y * 8) - 0x50;
+    proc->unk_4C = (y * 8) - 0x50;
 
     return;
 }
 
-void sub_80337B4(ProcPtr proc) {
+void sub_80337B4(struct UnknownSALLYCURSORProc* proc) {
     s16 x;
 
-    ((struct UnknownSALLYCURSORProc*)(proc))->unk_34 = -2;
-    ((struct UnknownSALLYCURSORProc*)(proc))->unk_38 = 0;
+    proc->unk_34 = -2;
+    proc->unk_38 = 0;
 
     x = gBmMapSize.x;
-    ((struct UnknownSALLYCURSORProc*)(proc))->unk_4C = (x * 8) - 0x78;
+    proc->unk_4C = (x * 8) - 0x78;
 
     return;
 }
 
-void sub_80337D4(ProcPtr proc) {
+void sub_80337D4(struct UnknownSALLYCURSORProc* proc) {
     s16 y;
 
-    ((struct UnknownSALLYCURSORProc*)(proc))->unk_34 = 0;
-    ((struct UnknownSALLYCURSORProc*)(proc))->unk_38 = -2;
+    proc->unk_34 = 0;
+    proc->unk_38 = -2;
 
     y = gBmMapSize.y;
-    ((struct UnknownSALLYCURSORProc*)(proc))->unk_4C = (y * 8) - 0x50;
+    proc->unk_4C = (y * 8) - 0x50;
 
     return;
 }
 
-void sub_80337F0(ProcPtr proc) {
-    s16 unk_4A;
-
+void sub_80337F0(struct UnknownSALLYCURSORProc* proc) {
     if ((A_BUTTON | B_BUTTON | START_BUTTON) & gKeyStatusPtr->newKeys) {
-        ((struct UnknownSALLYCURSORProc*)(proc))->unk_4A = 1;
+        proc->unk_4A = 1;
     }
 
-    unk_4A = ((struct UnknownSALLYCURSORProc*)(proc))->unk_4A;
-
-    if (unk_4A && !(0xF & ((struct UnknownSALLYCURSORProc*)(proc))->unk_2C) &&
-            !(0xF & ((struct UnknownSALLYCURSORProc*)(proc))->unk_30)) {
+    if (proc->unk_4A && !(0xF & proc->unk_2C) && !(0xF & proc->unk_30)) {
         Proc_Goto(proc, 2);
         return;
     }
 
-    ((struct UnknownSALLYCURSORProc*)(proc))->unk_2C += ((struct UnknownSALLYCURSORProc*)(proc))->unk_34;
+    proc->unk_2C += proc->unk_34;
 
-    ((struct UnknownSALLYCURSORProc*)(proc))->unk_30 +=((struct UnknownSALLYCURSORProc*)(proc))->unk_38;
+    proc->unk_30 += proc->unk_38;
 
-    gUnknown_0202BCB0.camera.x = ((struct UnknownSALLYCURSORProc*)(proc))->unk_2C;
-    gUnknown_0202BCB0.camera.y = ((struct UnknownSALLYCURSORProc*)(proc))->unk_30;
+    gUnknown_0202BCB0.camera.x = proc->unk_2C;
+    gUnknown_0202BCB0.camera.y = proc->unk_30;
 
-    ((struct UnknownSALLYCURSORProc*)(proc))->unk_4C--;
+    proc->unk_4C--;
 
-    if (((struct UnknownSALLYCURSORProc*)(proc))->unk_4C <= 0) {
+    if (proc->unk_4C <= 0) {
         Proc_Break(proc);
     }
 
@@ -736,9 +717,9 @@ void sub_80338C0() {
     return;
 }
 
-void sub_8033940(ProcPtr proc) {
+void sub_8033940(struct UnknownSALLYCURSORProc* proc) {
     if (!DoesBMXFADEExist()) {
-        if (((struct UnknownSALLYCURSORProc*)(proc))->unk_58 == 2) {
+        if (proc->unk_58 == 2) {
             sub_80332D0();
         }
 
@@ -843,20 +824,20 @@ void sub_8033978(ProcPtr proc) {
 }
 
 int sub_8033BF8() {
-    ProcPtr proc = Proc_Find(gUnknown_0859DBBC);
+    ProcPtr proc = Proc_Find(gProcScr_SALLYCURSOR);
     Proc_Goto(proc, 0x33);
     return 0x17;
 }
 
-void SALLYCURSOR6C_StartUnitSwap(ProcPtr proc) {
+void SALLYCURSOR6C_StartUnitSwap(struct UnknownSALLYCURSORProc* proc) {
     struct APHandle* ap = AP_Create(gUnknown_085A0EA0, 0);
     ap->tileBase = 0;
     AP_SwitchAnimation(ap, 0);
 
-    ((struct UnknownSALLYCURSORProc*)(proc))->unk_54 = ap;
-    ((struct UnknownSALLYCURSORProc*)(proc))->unk_4A = 2;
-    ((struct UnknownSALLYCURSORProc*)(proc))->unk_3C = gUnknown_0202BCB0.playerCursor.x;
-    ((struct UnknownSALLYCURSORProc*)(proc))->unk_40 = gUnknown_0202BCB0.playerCursor.y;
+    proc->unk_54 = ap;
+    proc->unk_4A = 2;
+    proc->unk_3C = gUnknown_0202BCB0.playerCursor.x;
+    proc->unk_40 = gUnknown_0202BCB0.playerCursor.y;
 
     NewBottomHelpText(proc, GetStringFromIndex(0x872));
 
@@ -1219,7 +1200,7 @@ void sub_8034278() {
     }
 
     ShrinkPlayerUnits();
-    Proc_EndEach(gUnknown_0859DBBC);
+    Proc_EndEach(gProcScr_SALLYCURSOR);
     gUnknown_0202BCB0.gameStateBits &= 0xEF;
     gRAMChapterData.chapterStateBits &= 0xEF;
     gRAMChapterData.unk4A_1 = 1;
@@ -1270,7 +1251,7 @@ void sub_8034278() {
             cmp r4, #0x3f\n\
             ble _0803427C\n\
             bl ShrinkPlayerUnits\n\
-            ldr r0, _080342F0  @ gUnknown_0859DBBC\n\
+            ldr r0, _080342F0  @ gProcScr_SALLYCURSOR\n\
             bl Proc_EndEach\n\
             ldr r3, _080342F4  @ gUnknown_0202BCB0\n\
             ldrb r2, [r3, #4]\n\
@@ -1291,7 +1272,7 @@ void sub_8034278() {
             pop {r0}\n\
             bx r0\n\
             .align 2, 0\n\
-        _080342F0: .4byte gUnknown_0859DBBC\n\
+        _080342F0: .4byte gProcScr_SALLYCURSOR\n\
         _080342F4: .4byte gUnknown_0202BCB0\n\
         _080342F8: .4byte gRAMChapterData\n\
             .syntax divided\n\
@@ -1301,5 +1282,5 @@ void sub_8034278() {
 #endif // NONMATCHING
 
 bool8 sub_80342FC() {
-    return Proc_Find(gUnknown_0859DBBC) ? 1 : 0;
+    return Proc_Find(gProcScr_SALLYCURSOR) ? 1 : 0;
 }
