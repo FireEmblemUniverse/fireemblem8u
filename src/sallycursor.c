@@ -49,7 +49,7 @@ void sub_801EC48(ProcPtr);
 
 // ev_triggercheck.s
 const struct UnitDefinition* GetChapterAllyUnitDataPointer();
-struct EventCheckBuffer CheckForEvents(struct EventCheckBuffer*);
+struct EventCheckBuffer* CheckForEvents(struct EventCheckBuffer*);
 
 // evtsub.s
 void InitPlayerUnitPositionsForPrepScreen();
@@ -938,19 +938,19 @@ void CallCursorShop(ProcPtr proc) {
     struct EventCheckBuffer r0;
     struct EventCheckBuffer* buf = GetChapterEventDataPointer(gRAMChapterData.chapterIndex)->unk_08;
 
-    buf->xPos = gUnknown_0202BCB0.playerCursor.x;
-    buf->yPos = gUnknown_0202BCB0.playerCursor.y;
-    r0 = CheckForEvents(buf);
-    if (!&(r0)) {
+    r0.xPos = gUnknown_0202BCB0.playerCursor.x;
+    r0.yPos = gUnknown_0202BCB0.playerCursor.y;
+    buf = CheckForEvents(&r0);
+    if (!buf) {
         return;
     }
 
-    switch (r0.commandId) {
+    switch (buf->commandId) {
         case 0x16:
-            MakeShopArmory(0, r0.eventCode, proc);
+            MakeShopArmory(0, buf->eventCode, proc);
             break;
         case 0x17:
-            MakeShopVendor(0, r0.eventCode, proc);
+            MakeShopVendor(0, buf->eventCode, proc);
             break;
     }
 
