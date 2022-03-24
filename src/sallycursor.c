@@ -102,7 +102,6 @@ void nullsub_20(ProcPtr);
 
 extern struct Vec2 gActiveUnitMoveOrigin;
 
-static EWRAM_DATA int gUnknown_02010004 = 0;
 extern struct ProcCmd CONST_DATA gUnknown_0859AE18[];
 extern u16 CONST_DATA gUnknown_085A0EA0[]; // ap
 extern struct ProcCmd CONST_DATA gUnknown_08A2ED88[];
@@ -932,11 +931,11 @@ void sub_8033EC0(ProcPtr proc) {
     return;
 }
 
-#if NONMATCHING
-
 void CallCursorShop(ProcPtr proc) {
     struct EventCheckBuffer r0;
-    struct EventCheckBuffer* buf = GetChapterEventDataPointer(gRAMChapterData.chapterIndex)->unk_08;
+    const struct ChapterEventInfo *einfo = GetChapterEventDataPointer(gRAMChapterData.chapterIndex);
+    struct EventCheckBuffer *buf;
+    r0.eventDef = einfo->unk_08;
 
     r0.xPos = gUnknown_0202BCB0.playerCursor.x;
     r0.yPos = gUnknown_0202BCB0.playerCursor.y;
@@ -945,75 +944,17 @@ void CallCursorShop(ProcPtr proc) {
         return;
     }
 
-    switch (buf->commandId) {
+    switch (r0.commandId) {
         case 0x16:
-            MakeShopArmory(0, buf->eventCode, proc);
+            MakeShopArmory(0, r0.eventCode, proc);
             break;
         case 0x17:
-            MakeShopVendor(0, buf->eventCode, proc);
+            MakeShopVendor(0, r0.eventCode, proc);
             break;
     }
 
     return;
 }
-
-#else // if !NONMATCHING
-
-__attribute__((naked))
-void CallCursorShop(ProcPtr proc) {
-    asm(
-        "\n\
-            .syntax unified\n\
-            push {r4, lr}\n\
-            sub sp, #0x1c\n\
-            adds r4, r0, #0\n\
-            ldr r0, _08033F0C  @ gRAMChapterData\n\
-            ldrb r0, [r0, #0xe]\n\
-            lsls r0, r0, #0x18\n\
-            asrs r0, r0, #0x18\n\
-            bl GetChapterEventDataPointer\n\
-            ldr r0, [r0, #8]\n\
-            str r0, [sp]\n\
-            mov r1, sp\n\
-            ldr r2, _08033F10  @ gUnknown_0202BCB0\n\
-            ldrh r0, [r2, #0x14]\n\
-            strb r0, [r1, #0x18]\n\
-            ldrh r0, [r2, #0x16]\n\
-            strb r0, [r1, #0x19]\n\
-            mov r0, sp\n\
-            bl CheckForEvents\n\
-            cmp r0, #0\n\
-            beq _08033F2A\n\
-            ldr r0, [sp, #0xc]\n\
-            cmp r0, #0x16\n\
-            beq _08033F14\n\
-            cmp r0, #0x17\n\
-            beq _08033F20\n\
-            b _08033F2A\n\
-            .align 2, 0\n\
-        _08033F0C: .4byte gRAMChapterData\n\
-        _08033F10: .4byte gUnknown_0202BCB0\n\
-        _08033F14:\n\
-            ldr r1, [sp, #4]\n\
-            movs r0, #0\n\
-            adds r2, r4, #0\n\
-            bl MakeShopArmory\n\
-            b _08033F2A\n\
-        _08033F20:\n\
-            ldr r1, [sp, #4]\n\
-            movs r0, #0\n\
-            adds r2, r4, #0\n\
-            bl MakeShopVendor\n\
-        _08033F2A:\n\
-            add sp, #0x1c\n\
-            pop {r4}\n\
-            pop {r0}\n\
-            bx r0\n\
-            .syntax divided\n\
-    ");
-}
-
-#endif // NONMATCHING
 
 void sub_8033F34(ProcPtr proc) {
     HandlePlayerCursorMovement();
@@ -1170,8 +1111,6 @@ void ShrinkPlayerUnits() {
     return;
 }
 
-#if NONMATCHING
-
 void sub_8034278() {
     int uid;
     for (uid = 1; uid <= 0x3F; ++uid) {
@@ -1187,8 +1126,7 @@ void sub_8034278() {
 
         unit->state &= ~(US_UNSELECTABLE);
 
-        // TODO: What is gUnknown_02010004? Can't figure out how to load it to get a match
-        if (unit->state & gUnknown_02010004) {
+        if (unit->state & (US_DEAD | US_BIT16 | US_BIT25)) {
             continue;
         }
 
@@ -1206,80 +1144,6 @@ void sub_8034278() {
     gRAMChapterData.unk4A_1 = 1;
     return;
 }
-
-#else // if !NONMATCHING
-
-__attribute__((naked))
-void sub_8034278() {
-    asm(
-        "\n\
-            .syntax unified\n\
-            push {r4, lr}\n\
-            movs r4, #1\n\
-        _0803427C:\n\
-            adds r0, r4, #0\n\
-            bl GetUnit\n\
-            adds r2, r0, #0\n\
-            cmp r2, #0\n\
-            beq _080342BA\n\
-            ldr r3, [r2]\n\
-            cmp r3, #0\n\
-            beq _080342BA\n\
-            ldr r1, [r2, #0xc]\n\
-            movs r0, #3\n\
-            negs r0, r0\n\
-            ands r1, r0\n\
-            str r1, [r2, #0xc]\n\
-            ldr r0, _080342B0  @ gUnknown_02010004\n\
-            ands r0, r1\n\
-            cmp r0, #0\n\
-            bne _080342BA\n\
-            movs r0, #8\n\
-            ands r1, r0\n\
-            cmp r1, #0\n\
-            beq _080342B4\n\
-            ldrb r0, [r3, #4]\n\
-            bl sub_80A48F0\n\
-            b _080342BA\n\
-            .align 2, 0\n\
-        _080342B0: .4byte gUnknown_02010004\n\
-        _080342B4:\n\
-            ldrb r0, [r3, #4]\n\
-            bl BWL_IncrementDeployCountMaybe\n\
-        _080342BA:\n\
-            adds r4, #1\n\
-            cmp r4, #0x3f\n\
-            ble _0803427C\n\
-            bl ShrinkPlayerUnits\n\
-            ldr r0, _080342F0  @ gProcScr_SALLYCURSOR\n\
-            bl Proc_EndEach\n\
-            ldr r3, _080342F4  @ gUnknown_0202BCB0\n\
-            ldrb r2, [r3, #4]\n\
-            movs r1, #0xef\n\
-            adds r0, r1, #0\n\
-            ands r0, r2\n\
-            strb r0, [r3, #4]\n\
-            ldr r2, _080342F8  @ gRAMChapterData\n\
-            ldrb r0, [r2, #0x14]\n\
-            ands r1, r0\n\
-            strb r1, [r2, #0x14]\n\
-            adds r2, #0x4a\n\
-            ldrb r0, [r2]\n\
-            movs r1, #1\n\
-            orrs r0, r1\n\
-            strb r0, [r2]\n\
-            pop {r4}\n\
-            pop {r0}\n\
-            bx r0\n\
-            .align 2, 0\n\
-        _080342F0: .4byte gProcScr_SALLYCURSOR\n\
-        _080342F4: .4byte gUnknown_0202BCB0\n\
-        _080342F8: .4byte gRAMChapterData\n\
-            .syntax divided\n\
-    ");
-}
-
-#endif // NONMATCHING
 
 bool8 sub_80342FC() {
     return Proc_Find(gProcScr_SALLYCURSOR) ? 1 : 0;

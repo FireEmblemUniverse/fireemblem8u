@@ -2,12 +2,12 @@
 #define GUARD_EV_TRIGGERCHECK_H
 
 struct EventCheckBuffer {
-    /* 00 */ u32 eventDef;
+    /* 00 */ struct EventCheckBuffer* eventDef;
     /* 04 */ u32 eventCode;
     /* 08 */ u32 eId;
     /* 0C */ u32 commandId;
 
-    /* 10 */ u8 _pad10[0x17-0x10];
+    /* 10 */ u8 _pad10[0x18-0x10];
 
     /* 18 */ u8 xPos;
     /* 19 */ u8 yPos;

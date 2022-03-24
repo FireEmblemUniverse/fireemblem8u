@@ -125,7 +125,6 @@
 // extern ??? gUnknown_0200F158
 // extern ??? gUnknown_0200F15C
 // extern ??? gUnknown_0200F1C8
-// extern ??? gUnknown_02010004
 // extern ??? gUnknown_0201000C
 // extern ??? gUnknown_0201117C
 // extern ??? gUnknown_02011184
