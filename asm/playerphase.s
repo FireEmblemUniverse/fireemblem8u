@@ -2317,7 +2317,7 @@ _0801DB14:
 	bl Proc_Find
 	cmp r0, #0
 	bne _0801DB24
-	ldr r0, _0801DB48  @ gUnknown_0859DBBC
+	ldr r0, _0801DB48  @ gProcScr_SALLYCURSOR
 	bl Proc_Find
 _0801DB24:
 	movs r1, #0x10
@@ -2337,7 +2337,7 @@ _0801DB3E:
 	bx r1
 	.align 2, 0
 _0801DB44: .4byte gUnknown_0859AAD8
-_0801DB48: .4byte gUnknown_0859DBBC
+_0801DB48: .4byte gProcScr_SALLYCURSOR
 
 	THUMB_FUNC_END sub_801DADC
 

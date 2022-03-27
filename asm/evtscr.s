@@ -6982,7 +6982,7 @@ Event3E_PrepScreenCall: @ 0x08010968
 	bl HideAllUnits
 	movs r0, #0x84
 	bl UnsetEventId
-	ldr r0, _08010988  @ gUnknown_0859DBBC
+	ldr r0, _08010988  @ gProcScr_SALLYCURSOR
 	adds r1, r4, #0
 	bl Proc_StartBlocking
 	movs r0, #2
@@ -6990,7 +6990,7 @@ Event3E_PrepScreenCall: @ 0x08010968
 	pop {r1}
 	bx r1
 	.align 2, 0
-_08010988: .4byte gUnknown_0859DBBC
+_08010988: .4byte gProcScr_SALLYCURSOR
 
 	THUMB_FUNC_END Event3E_PrepScreenCall
 

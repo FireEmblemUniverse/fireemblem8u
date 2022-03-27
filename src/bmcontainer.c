@@ -117,7 +117,7 @@ bool8 sub_8031660() {
     return 1;
 }
 
-struct Unit* sub_8031688() {
+struct Unit* GetSupplyUnit() {
     int i;
     for (i = 1; i <= 0x3F; ++i) {
         struct Unit* unit = GetUnit(i);

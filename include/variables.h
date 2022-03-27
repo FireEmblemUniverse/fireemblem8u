@@ -125,7 +125,6 @@
 // extern ??? gUnknown_0200F158
 // extern ??? gUnknown_0200F15C
 // extern ??? gUnknown_0200F1C8
-// extern ??? gUnknown_02010004
 // extern ??? gUnknown_0201000C
 // extern ??? gUnknown_0201117C
 // extern ??? gUnknown_02011184
@@ -516,7 +515,7 @@ extern struct RAMChapterData gRAMChapterData;
 // extern ??? gUnknown_0202BD40
 // extern ??? gUnknown_0202BD44
 extern u8 gActiveUnitId;
-// extern ??? gActiveUnitMoveOrigin
+extern struct Vec2 gActiveUnitMoveOrigin;
 // extern ??? gUnitArrayBlue
 // extern ??? gUnitArrayRed
 // extern ??? gUnitArrayGreen
@@ -1436,7 +1435,7 @@ extern const struct ProcCmd gUnknown_0859A548[]; // this is GENS/Camera Movement
 // extern ??? gUnknown_0859AD88
 // extern ??? gUnknown_0859ADA0
 // extern ??? gUnknown_0859ADC8
-// extern ??? gUnknown_0859AE18
+extern struct ProcCmd CONST_DATA gUnknown_0859AE18[];
 // extern ??? gUnknown_0859AE38
 // extern ??? gUnknown_0859AE88
 // extern ??? gUnknown_0859AEA0
@@ -1545,8 +1544,6 @@ extern const struct ProcCmd gUnknown_0859A548[]; // this is GENS/Camera Movement
 // extern ??? gUnknown_0859DABC
 // extern ??? gUnknown_0859DB24
 // extern ??? gUnknown_0859DBA0
-// extern ??? gUnknown_0859DBA4
-// extern ??? gUnknown_0859DBBC
 // extern ??? gUnknown_0859E13C
 // extern ??? gUnknown_0859E14C
 // extern ??? gUnknown_0859E166
@@ -1602,7 +1599,7 @@ extern u16 gUnknown_0859EFC0[];
 // extern ??? gUnknown_085A0C80
 // extern ??? gUnknown_085A0D2C
 // extern ??? gUnknown_085A0D4C
-// extern ??? gUnknown_085A0EA0
+extern u16 CONST_DATA gUnknown_085A0EA0[]; // ap
 // extern ??? gUnknown_085A0FF8
 // extern ??? gUnknown_085A129C
 // extern ??? gUnknown_085A1510
@@ -3487,7 +3484,7 @@ extern u16 CONST_DATA gUnknown_08A0731C[]; // halo pal
 // extern ??? gUnknown_08A1985E
 // extern ??? gUnknown_08A19872
 // extern ??? gUnknown_08A19880
-// extern ??? gUnknown_08A199C8
+extern u16 CONST_DATA gUnknown_08A199C8[]; // TODO - Not sure; used in sallycursor
 // extern ??? gUnknown_08A19C0C
 // extern ??? gUnknown_08A19CAC
 // extern ??? gUnknown_08A19CCC
@@ -3502,7 +3499,7 @@ extern u16 CONST_DATA gUnknown_08A0731C[]; // halo pal
 // extern ??? gUnknown_08A1A8E4
 // extern ??? gUnknown_08A1AC88
 // extern ??? gUnknown_08A1B0D8
-// extern ??? gUnknown_08A1B154
+extern u16 CONST_DATA gUnknown_08A1B154[]; // TODO - palette data from sallycursor
 // extern ??? gUnknown_08A1B174
 // extern ??? gUnknown_08A1B194
 // extern ??? gUnknown_08A1B1FC
@@ -3675,7 +3672,7 @@ extern u16 CONST_DATA gUnknown_08A1D79C[]; // 'R is info' palette
 // extern ??? gUnknown_08A2EC88
 // extern ??? gUnknown_08A2ECA8
 // extern ??? gUnknown_08A2ECE0
-// extern ??? gUnknown_08A2ED88
+extern struct ProcCmd CONST_DATA gUnknown_08A2ED88[];
 // extern ??? gUnknown_08A2EE00
 // extern ??? gUnknown_08A2EE90
 // extern ??? gUnknown_08A2EEC0
