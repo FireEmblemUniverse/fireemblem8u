@@ -9,6 +9,9 @@
 #include "mapselect.h"
 #include "bmbattle.h"
 #include "bmreliance.h"
+#include "m4a.h"
+#include "soundwrapper.h"
+
 #include "constants/items.h"
 #include "constants/terrains.h"
 
@@ -21,7 +24,22 @@ struct UnknownBMMindProc {
     
 };
 
+struct DeathDropAnimProc {
+    /* 00 */ PROC_HEADER;
+
+    /* 2C */ struct Unit* unit;
+    /* 30 */ int xDrop, yDrop;
+    /* 38 */ short xFrom, yFrom;
+    /* 3C */ short xTo, yTo;
+    /* 40 */ short yOffset;
+    /* 42 */ short ySpeed;
+    /* 44 */ short yAccel;
+    /* 46 */ short clock;
+    /* 48 */ short clockEnd;
+};
+
 extern struct ProcCmd CONST_DATA gUnknown_0859DA6C[];
+extern struct ProcCmd CONST_DATA gUnknown_0859DA94[];
 extern struct ProcCmd CONST_DATA gUnknown_0859DABC[];
 extern struct ProcCmd CONST_DATA gUnknown_0859DB24[];
 
@@ -31,6 +49,7 @@ int GetSomeFacingDirection(int, int, int, int);
 
 // bmtrap.s
 s8 sub_80377F0(ProcPtr, struct Unit*);
+void sub_8037830(ProcPtr, struct Unit*);
 
 // ev_triggercheck.s
 void sub_808371C(u8, u8, int);
@@ -47,6 +66,10 @@ void MakeTargetListForFuckingNightmare(struct Unit*);
 void BeginMapAnimForSteal(void);
 void BeginMapAnimForSummon(void);
 void BeginMapAnimForSummonDK(void);
+
+// bmudisp.s
+void SMS_RegisterUsage(int);
+void sub_8027B60(int, int, int, struct Unit*);
 
 s8 ActionRescue(ProcPtr);
 s8 ActionDrop(ProcPtr);
@@ -367,4 +390,76 @@ s8 ActionSummonDK(ProcPtr proc) {
     BeginMapAnimForSummonDK();
 
     return 0;
+}
+
+void sub_80325AC(struct DeathDropAnimProc* proc) {
+    int x = sub_8012DCC(0, proc->xFrom, proc->xTo, proc->clock, proc->clockEnd);
+    int y = sub_8012DCC(0, proc->yFrom, proc->yTo, proc->clock, proc->clockEnd);
+
+    y += proc->yOffset;
+
+    proc->yOffset += proc->ySpeed;
+    proc->ySpeed += proc->yAccel;
+
+    sub_8027B60(
+        7,
+        x - gUnknown_0202BCB0.camera.x,
+        y - gUnknown_0202BCB0.camera.y,
+        proc->unit
+    );
+
+    ++proc->clock;
+
+    if (proc->clock == proc->clockEnd) {
+        Proc_Break(proc);
+    }
+
+    return;
+}
+
+void sub_8032658(struct DeathDropAnimProc* proc) {
+    sub_8037830(proc, proc->unit);
+    return;
+}
+
+void sub_8032664() {
+    RefreshEntityBmMaps();
+    SMS_UpdateFromGameData();
+
+    return;
+}
+
+void sub_8032674(ProcPtr proc, struct Unit* unit) {
+    struct DeathDropAnimProc* child;
+
+    if (GetUnitCurrentHp(unit) != 0) {
+        return;
+    }
+
+    if (!(unit->state & US_RESCUING)) {
+        return;
+    }
+
+    child = Proc_StartBlocking(gUnknown_0859DA94, proc);
+
+    child->unit = GetUnit(unit->rescueOtherUnit);
+
+    UnitGetDeathDropLocation(unit, &child->xDrop, &child->yDrop);
+    UnitDrop(unit, child->xDrop, child->yDrop);
+
+    child->xFrom = unit->xPos * 16;
+    child->yFrom = unit->yPos * 16;
+    child->xTo = child->xDrop * 16;
+    child->yTo = child->yDrop * 16;
+    child->yOffset = 0;
+    child->ySpeed = -5;
+    child->yAccel = 1;
+    child->clock = 0;
+    child->clockEnd = 11;
+
+    SMS_RegisterUsage(GetUnitSMSId(child->unit));
+    SMS_FlushIndirect();
+
+    PlaySoundEffect(0xAC);
+    return;
 }
