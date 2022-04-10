@@ -17,11 +17,22 @@
 
 struct UnknownBMMindProc {
     /* 00 */ PROC_HEADER;
-    
+
     /* 29 */ u8 unk_29[0x54-0x29];
-    
+
     /* 54 */ struct Unit* unk_54;
-    
+};
+
+struct UnknownBMMindProc_2 {
+    /* 00 */ PROC_HEADER;
+
+    /* 29 */ u8 unk_29[0x54-0x29];
+
+    /* 54 */ struct MUProc* unk_54;
+    /* 58 */ u8 unk_58[0x64-0x58];
+
+    /* 64 */ s16 unitIdA;
+    /* 66 */ s16 unitIdB;
 };
 
 struct DeathDropAnimProc {
@@ -70,6 +81,15 @@ void BeginMapAnimForSummonDK(void);
 // bmudisp.s
 void SMS_RegisterUsage(int);
 void sub_8027B60(int, int, int, struct Unit*);
+
+// code.s
+void BWL_AddWinOrLossIdk(u8, u8, int);
+
+// bm.s
+int GetCurrentMapMusicIndex(void);
+
+// popup.s
+void NewGeneralItemGot(struct Unit*, int, ProcPtr);
 
 s8 ActionRescue(ProcPtr);
 s8 ActionDrop(ProcPtr);
@@ -461,5 +481,175 @@ void sub_8032674(ProcPtr proc, struct Unit* unit) {
     SMS_FlushIndirect();
 
     PlaySoundEffect(0xAC);
+    return;
+}
+
+void sub_8032728(struct Unit* unitA, struct Unit* unitB) {
+    if (GetUnitCurrentHp(unitA) != 0) {
+        return;
+    }
+
+    BWL_AddWinOrLossIdk(unitA->pCharacterData->number, unitB->pCharacterData->number, 2);
+
+    UnitKill(unitA);
+
+    return;
+}
+
+void sub_8032750(struct Unit* unit) {
+    if (GetUnitCurrentHp(unit) != 0) {
+        return;
+    }
+
+    UnitKill(unit);
+
+    BWL_AddWinOrLossIdk(unit->pCharacterData->number, 0, 6);
+
+    return;
+}
+
+void BATTLE_GOTO1_IfNobodyIsDead(ProcPtr proc) {
+    if ((gBattleStats.config & 0x80) == 0) {
+        if (gBattleActor.unit.curHP == 0) {
+            return;
+        }
+
+        if (gBattleTarget.unit.curHP == 0) {
+            return;
+        }
+    }
+
+    Proc_Goto(proc, 1);
+
+    return;
+}
+
+bool8 DidUnitDie(struct Unit* unit) {
+    if (GetUnitCurrentHp(unit) != 0) {
+        return 0;
+    } else {
+        return 1;
+    }
+}
+
+void BATTLE_ProbablyMakesTheDeadUnitDissapear(ProcPtr proc) {
+    struct MUProc* muProc;
+
+    ((struct UnknownBMMindProc_2*)(proc))->unk_54 = 0;
+
+    if (DidUnitDie(&gBattleActor.unit)) {
+        muProc = Proc_Find(gProcScr_MoveUnit);
+        MU_StartDeathFade(muProc);
+        ((struct UnknownBMMindProc_2*)(proc))->unk_54 = muProc;
+
+        TryRemoveUnitFromBallista(&gBattleActor.unit);
+    }
+
+    if (DidUnitDie(&gBattleTarget.unit)) {
+        struct Unit* target = GetUnit(gBattleTarget.unit.index);
+        target->state |= US_HIDDEN;
+
+        TryRemoveUnitFromBallista(target);
+
+        SMS_UpdateFromGameData();
+        muProc = MU_Create(&gBattleTarget.unit);
+
+        gWorkingMovementScript[0] = GetFacingDirection(gBattleActor.unit.xPos, gBattleActor.unit.yPos, gBattleTarget.unit.xPos, gBattleTarget.unit.yPos);
+        gWorkingMovementScript[1] = 4;
+
+        MU_StartMoveScript(muProc, gWorkingMovementScript);
+        MU_StartDeathFade(muProc);
+
+        ((struct UnknownBMMindProc_2*)(proc))->unk_54 = muProc;
+    }
+
+    return;
+}
+
+void BATTLE_DeleteLinkedMOVEUNIT(ProcPtr r0) {
+    MU_End(((struct UnknownBMMindProc_2*)(r0))->unk_54);
+    return;
+}
+
+void sub_803286C(ProcPtr proc) {
+    struct Unit* unitA = GetUnit(((struct UnknownBMMindProc_2*)(proc))->unitIdA);
+    struct Unit* unitB = GetUnit(((struct UnknownBMMindProc_2*)(proc))->unitIdB);
+
+    sub_8032674(proc, unitA);
+    sub_8032674(proc, unitB);
+
+    sub_8032728(unitA, unitB);
+    sub_8032728(unitB, unitA);
+
+    return;
+}
+
+void sub_80328B0() {
+    int bgmIdx = GetCurrentMapMusicIndex();
+
+    if (Sound_GetCurrentSong() != bgmIdx) {
+        Sound_PlaySong80024E4(bgmIdx, 6, NULL);
+    }
+
+    return;
+}
+
+bool8 BATTLE_HandleItemDrop(ProcPtr proc) {
+    struct Unit* unitA = NULL;
+    struct Unit* unitB;
+
+    ((struct UnknownBMMindProc_2*)(proc))->unitIdA = gBattleActor.unit.index;
+    ((struct UnknownBMMindProc_2*)(proc))->unitIdB = gBattleTarget.unit.index;
+
+    if (gBattleActor.unit.curHP == 0) {
+        unitA = GetUnit(gBattleActor.unit.index);
+        unitB = GetUnit(gBattleTarget.unit.index);
+    }
+
+    if (gBattleTarget.unit.curHP == 0) {
+        unitA = GetUnit(gBattleTarget.unit.index);
+        unitB = GetUnit(gBattleActor.unit.index);
+    }
+
+    if (unitA == NULL) {
+        return 1;
+    }
+
+    if (!(unitA->state & US_DROP_ITEM)) {
+        return 1;
+    }
+
+    if (unitA->items[0] == 0) {
+        return 1;
+    }
+
+    if ((UNIT_FACTION(unitB)) != 0) {
+        return 1;
+    }
+
+    NewGeneralItemGot(
+        unitB,
+        GetUnitLastItem(unitA),
+        proc
+    );
+
+    return 0;
+}
+
+void sub_8032974(ProcPtr proc) {
+    gBattleTarget.unit.maxHP = 1;
+    gBattleTarget.unit.curHP = 1;
+
+    if (gBattleActor.unit.curHP != 0) {
+        Proc_Goto(proc, 1);
+    }
+
+    return;
+}
+
+void sub_80329A0(ProcPtr proc) {
+    sub_8032750(gActiveUnit);
+    sub_8032674(proc, gActiveUnit);
+
     return;
 }
