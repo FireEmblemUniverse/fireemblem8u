@@ -1539,10 +1539,6 @@ extern struct ProcCmd CONST_DATA gUnknown_0859AE18[];
 // extern ??? gUnknown_0859D9FC
 // extern ??? gUnknown_0859DA22
 // extern ??? gUnknown_0859DA4A
-// extern ??? gUnknown_0859DA6C
-// extern ??? gUnknown_0859DA94
-// extern ??? gUnknown_0859DABC
-// extern ??? gUnknown_0859DB24
 // extern ??? gUnknown_0859DBA0
 // extern ??? gUnknown_0859E13C
 // extern ??? gUnknown_0859E14C

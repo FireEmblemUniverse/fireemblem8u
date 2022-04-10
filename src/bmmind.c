@@ -50,13 +50,13 @@ struct DeathDropAnimProc {
     /* 48 */ short clockEnd;
 };
 
-static int sub_80321B8(struct UnknownBMMindProc* proc);
+static int AfterDrop_CheckTrapAfterDropMaybe(struct UnknownBMMindProc* proc);
 static int sub_80321C8(void);
 
-struct ProcCmd CONST_DATA gUnknown_0859DA6C[] = {
+struct ProcCmd CONST_DATA sProcScr_AfterDropAction[] = {
     PROC_SLEEP(0),
     PROC_WHILE(MU_IsAnyActive),
-    PROC_CALL_2(sub_80321B8),
+    PROC_CALL_2(AfterDrop_CheckTrapAfterDropMaybe),
     PROC_CALL(sub_80321C8),
 
     PROC_END,
@@ -66,7 +66,7 @@ static void sub_80325AC(struct DeathDropAnimProc* proc);
 static void sub_8032658(struct DeathDropAnimProc* proc);
 static void sub_8032664(void);
 
-struct ProcCmd CONST_DATA gUnknown_0859DA94[] = {
+struct ProcCmd CONST_DATA sProcScr_DeathDropAnim[] = {
     PROC_REPEAT(sub_80325AC),
     PROC_CALL(sub_8032658),
     PROC_SLEEP(0),
@@ -76,41 +76,41 @@ struct ProcCmd CONST_DATA gUnknown_0859DA94[] = {
 };
 
 static void BATTLE_GOTO1_IfNobodyIsDead(ProcPtr proc);
-static void BATTLE_ProbablyMakesTheDeadUnitDissapear(ProcPtr proc);
+static void BATTLE_PostCombatDeathFades(ProcPtr proc);
 static void BATTLE_DeleteLinkedMOVEUNIT(ProcPtr proc);
 static bool8 BATTLE_HandleItemDrop(ProcPtr proc);
-static void sub_803286C(ProcPtr proc);
+static void BATTLE_HandleCombatDeaths(ProcPtr proc);
 
-struct ProcCmd CONST_DATA gUnknown_0859DABC[] = {
+struct ProcCmd CONST_DATA sProcScr_CombatAction[] = {
     PROC_CALL(BeginBattleAnimations),
     PROC_SLEEP(1),
     PROC_CALL(BattleApplyGameStateUpdates),
     PROC_WHILE(DoesBMXFADEExist),
     PROC_CALL(BATTLE_GOTO1_IfNobodyIsDead),
-    PROC_CALL(BATTLE_ProbablyMakesTheDeadUnitDissapear),
+    PROC_CALL(BATTLE_PostCombatDeathFades),
     PROC_SLEEP(0x20),
     PROC_CALL(BATTLE_DeleteLinkedMOVEUNIT),
 
 PROC_LABEL(1),
     PROC_CALL_2(BATTLE_HandleItemDrop),
-    PROC_CALL(sub_803286C),
+    PROC_CALL(BATTLE_HandleCombatDeaths),
     PROC_SLEEP(0),
 
     PROC_END,
 };
 
 static void sub_8032974(ProcPtr proc);
-static void sub_80329A0(ProcPtr proc);
+static void BATTLE_HandleArenaDeathsMaybe(ProcPtr proc);
 
-struct ProcCmd CONST_DATA gUnknown_0859DB24[] = {
+struct ProcCmd CONST_DATA sProcScr_ArenaAction[] = {
     PROC_SLEEP(0),
     PROC_CALL(sub_8032974),
-    PROC_CALL(BATTLE_ProbablyMakesTheDeadUnitDissapear),
+    PROC_CALL(BATTLE_PostCombatDeathFades),
     PROC_SLEEP(0x20),
     PROC_CALL(BATTLE_DeleteLinkedMOVEUNIT),
 
 PROC_LABEL(1),
-    PROC_CALL(sub_80329A0),
+    PROC_CALL(BATTLE_HandleArenaDeathsMaybe),
     PROC_SLEEP(0),
 
     PROC_END,
@@ -156,7 +156,7 @@ void NewGeneralItemGot(struct Unit*, int, ProcPtr);
 
 s8 ActionRescue(ProcPtr);
 s8 ActionDrop(ProcPtr);
-s8 ActionVisitAndSieze(ProcPtr);
+s8 ActionVisitAndSeize(ProcPtr);
 s8 ActionCombat(ProcPtr);
 s8 ActionDance(ProcPtr);
 s8 ActionTalk(ProcPtr);
@@ -181,7 +181,7 @@ void LoadRNStateFromActionStruct() {
 unsigned int ApplyUnitAction(ProcPtr proc) {
     gActiveUnit = GetUnit(gActionData.subjectIndex);
 
-    if (gActionData.unitActionType == UNIT_ACTION_COMBAT) { // UNIT_ACTION_STAFF = 2, UNIT_ACTION_COMBAT = 1
+    if (gActionData.unitActionType == UNIT_ACTION_COMBAT) {
         int itemIdx = GetItemIndex(
             GetUnit(gActionData.subjectIndex)->items[gActionData.itemSlotIndex]
         );
@@ -203,7 +203,7 @@ unsigned int ApplyUnitAction(ProcPtr proc) {
             return ActionDrop(proc);
         case UNIT_ACTION_VISIT:
         case UNIT_ACTION_SEIZE:
-            return ActionVisitAndSieze(proc);
+            return ActionVisitAndSeize(proc);
         case UNIT_ACTION_COMBAT:
             return ActionCombat(proc);
         case UNIT_ACTION_DANCE:
@@ -253,7 +253,7 @@ s8 ActionRescue(ProcPtr proc) {
     return 0;
 }
 
-int sub_80321B8(struct UnknownBMMindProc* proc) {
+int AfterDrop_CheckTrapAfterDropMaybe(struct UnknownBMMindProc* proc) {
     return sub_80377F0(proc, proc->unk_54);
 }
 
@@ -292,14 +292,14 @@ s8 ActionDrop(ProcPtr proc) {
         gActionData.yOther
     );
 
-    child = Proc_StartBlocking(gUnknown_0859DA6C, proc);
+    child = Proc_StartBlocking(sProcScr_AfterDropAction, proc);
     ((struct UnknownBMMindProc*)(child))->unk_54 = target;
 
     return 0;
 }
 
 // TODO: Fake match - register allocation prefers r5 without the register keyword
-s8 ActionVisitAndSieze(ProcPtr proc) {
+s8 ActionVisitAndSeize(ProcPtr proc) {
     register int x asm("r4");
     int y;
 
@@ -344,13 +344,13 @@ s8 ActionCombat(ProcPtr proc) {
         BattleGenerateReal(GetUnit(gActionData.subjectIndex), target);
     }
 
-    Proc_StartBlocking(gUnknown_0859DABC, proc);
+    Proc_StartBlocking(sProcScr_CombatAction, proc);
 
     return 0;
 }
 
 s8 ActionArena(ProcPtr proc) {
-    Proc_StartBlocking(gUnknown_0859DB24, proc);
+    Proc_StartBlocking(sProcScr_ArenaAction, proc);
     return 0;
 }
 
@@ -512,7 +512,7 @@ void sub_8032664() {
     return;
 }
 
-void sub_8032674(ProcPtr proc, struct Unit* unit) {
+void DropRescueOnDeath(ProcPtr proc, struct Unit* unit) {
     struct DeathDropAnimProc* child;
 
     if (GetUnitCurrentHp(unit) != 0) {
@@ -523,7 +523,7 @@ void sub_8032674(ProcPtr proc, struct Unit* unit) {
         return;
     }
 
-    child = Proc_StartBlocking(gUnknown_0859DA94, proc);
+    child = Proc_StartBlocking(sProcScr_DeathDropAnim, proc);
 
     child->unit = GetUnit(unit->rescueOtherUnit);
 
@@ -547,7 +547,7 @@ void sub_8032674(ProcPtr proc, struct Unit* unit) {
     return;
 }
 
-void sub_8032728(struct Unit* unitA, struct Unit* unitB) {
+void KillUnitOnCombatDeath(struct Unit* unitA, struct Unit* unitB) {
     if (GetUnitCurrentHp(unitA) != 0) {
         return;
     }
@@ -559,7 +559,7 @@ void sub_8032728(struct Unit* unitA, struct Unit* unitB) {
     return;
 }
 
-void sub_8032750(struct Unit* unit) {
+void KillUnitOnArenaDeathMaybe(struct Unit* unit) {
     if (GetUnitCurrentHp(unit) != 0) {
         return;
     }
@@ -595,7 +595,7 @@ bool8 DidUnitDie(struct Unit* unit) {
     }
 }
 
-void BATTLE_ProbablyMakesTheDeadUnitDissapear(ProcPtr proc) {
+void BATTLE_PostCombatDeathFades(ProcPtr proc) {
     struct MUProc* muProc;
 
     ((struct UnknownBMMindProc_2*)(proc))->unk_54 = 0;
@@ -634,15 +634,15 @@ void BATTLE_DeleteLinkedMOVEUNIT(ProcPtr proc) {
     return;
 }
 
-void sub_803286C(ProcPtr proc) {
+void BATTLE_HandleCombatDeaths(ProcPtr proc) {
     struct Unit* unitA = GetUnit(((struct UnknownBMMindProc_2*)(proc))->unitIdA);
     struct Unit* unitB = GetUnit(((struct UnknownBMMindProc_2*)(proc))->unitIdB);
 
-    sub_8032674(proc, unitA);
-    sub_8032674(proc, unitB);
+    DropRescueOnDeath(proc, unitA);
+    DropRescueOnDeath(proc, unitB);
 
-    sub_8032728(unitA, unitB);
-    sub_8032728(unitB, unitA);
+    KillUnitOnCombatDeath(unitA, unitB);
+    KillUnitOnCombatDeath(unitB, unitA);
 
     return;
 }
@@ -710,9 +710,9 @@ void sub_8032974(ProcPtr proc) {
     return;
 }
 
-void sub_80329A0(ProcPtr proc) {
-    sub_8032750(gActiveUnit);
-    sub_8032674(proc, gActiveUnit);
+void BATTLE_HandleArenaDeathsMaybe(ProcPtr proc) {
+    KillUnitOnArenaDeathMaybe(gActiveUnit);
+    DropRescueOnDeath(proc, gActiveUnit);
 
     return;
 }
