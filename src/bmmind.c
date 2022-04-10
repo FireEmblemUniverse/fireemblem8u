@@ -11,6 +11,7 @@
 #include "bmreliance.h"
 #include "m4a.h"
 #include "soundwrapper.h"
+#include "bmmind.h"
 
 #include "constants/items.h"
 #include "constants/terrains.h"
