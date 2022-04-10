@@ -50,10 +50,72 @@ struct DeathDropAnimProc {
     /* 48 */ short clockEnd;
 };
 
-extern struct ProcCmd CONST_DATA gUnknown_0859DA6C[];
-extern struct ProcCmd CONST_DATA gUnknown_0859DA94[];
-extern struct ProcCmd CONST_DATA gUnknown_0859DABC[];
-extern struct ProcCmd CONST_DATA gUnknown_0859DB24[];
+static int sub_80321B8(struct UnknownBMMindProc* proc);
+static int sub_80321C8(void);
+
+struct ProcCmd CONST_DATA gUnknown_0859DA6C[] = {
+    PROC_SLEEP(0),
+    PROC_WHILE(MU_IsAnyActive),
+    PROC_CALL_2(sub_80321B8),
+    PROC_CALL(sub_80321C8),
+
+    PROC_END,
+};
+
+static void sub_80325AC(struct DeathDropAnimProc* proc);
+static void sub_8032658(struct DeathDropAnimProc* proc);
+static void sub_8032664(void);
+
+struct ProcCmd CONST_DATA gUnknown_0859DA94[] = {
+    PROC_REPEAT(sub_80325AC),
+    PROC_CALL(sub_8032658),
+    PROC_SLEEP(0),
+    PROC_CALL(sub_8032664),
+
+    PROC_END,
+};
+
+static void BATTLE_GOTO1_IfNobodyIsDead(ProcPtr proc);
+static void BATTLE_ProbablyMakesTheDeadUnitDissapear(ProcPtr proc);
+static void BATTLE_DeleteLinkedMOVEUNIT(ProcPtr proc);
+static bool8 BATTLE_HandleItemDrop(ProcPtr proc);
+static void sub_803286C(ProcPtr proc);
+
+struct ProcCmd CONST_DATA gUnknown_0859DABC[] = {
+    PROC_CALL(BeginBattleAnimations),
+    PROC_SLEEP(1),
+    PROC_CALL(BattleApplyGameStateUpdates),
+    PROC_WHILE(DoesBMXFADEExist),
+    PROC_CALL(BATTLE_GOTO1_IfNobodyIsDead),
+    PROC_CALL(BATTLE_ProbablyMakesTheDeadUnitDissapear),
+    PROC_SLEEP(0x20),
+    PROC_CALL(BATTLE_DeleteLinkedMOVEUNIT),
+
+PROC_LABEL(1),
+    PROC_CALL_2(BATTLE_HandleItemDrop),
+    PROC_CALL(sub_803286C),
+    PROC_SLEEP(0),
+
+    PROC_END,
+};
+
+static void sub_8032974(ProcPtr proc);
+static void sub_80329A0(ProcPtr proc);
+
+struct ProcCmd CONST_DATA gUnknown_0859DB24[] = {
+    PROC_SLEEP(0),
+    PROC_CALL(sub_8032974),
+    PROC_CALL(BATTLE_ProbablyMakesTheDeadUnitDissapear),
+    PROC_SLEEP(0x20),
+    PROC_CALL(BATTLE_DeleteLinkedMOVEUNIT),
+
+PROC_LABEL(1),
+    PROC_CALL(sub_80329A0),
+    PROC_SLEEP(0),
+
+    PROC_END,
+};
+
 
 // koido.s
 void Make6CKOIDO(struct Unit*, int, u8, ProcPtr);
@@ -567,8 +629,8 @@ void BATTLE_ProbablyMakesTheDeadUnitDissapear(ProcPtr proc) {
     return;
 }
 
-void BATTLE_DeleteLinkedMOVEUNIT(ProcPtr r0) {
-    MU_End(((struct UnknownBMMindProc_2*)(r0))->unk_54);
+void BATTLE_DeleteLinkedMOVEUNIT(ProcPtr proc) {
+    MU_End(((struct UnknownBMMindProc_2*)(proc))->unk_54);
     return;
 }
 
