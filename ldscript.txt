@@ -97,7 +97,7 @@ SECTIONS
         src/bmcontainer.o(.text);
         asm/bmusort.o(.text);
         asm/bmarena.o(.text);
-        asm/bmmind.o(.text);
+        src/bmmind.o(.text);
         src/bmpatharrowdisp.o(.text);
         src/sallycursor.o(.text);
         asm/bmcommanddbg.o(.text);
@@ -265,6 +265,8 @@ SECTIONS
         . = ALIGN(4); data/data_59D238.o(.data);
         . = ALIGN(4); src/bmio.o(.data);
         . = ALIGN(4); data/data_59D9FC.o(.data);
+        . = ALIGN(4); src/bmmind.o(.data);
+        . = ALIGN(4); data/data_59DB6C.o(.data);
         . = ALIGN(4); src/sallycursor.o(.data);
         . = ALIGN(4); data/data_59E13C.o(.data);
         . = ALIGN(4); src/cp_phase.o(.data);
