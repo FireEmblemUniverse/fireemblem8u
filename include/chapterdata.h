@@ -1,6 +1,8 @@
 #ifndef GUARD_CHAPTERDATA_H
 #define GUARD_CHAPTERDATA_H
 
+#include "ev_triggercheck.h"
+
 struct ROMChapterData {
     /* 00 */ const char* internalName;
 
@@ -61,6 +63,13 @@ struct ROMChapterData {
     /* 91 */ u8 _unk91[0x94 - 0x91];
 };
 
+struct ChapterEventInfo
+{
+    /* 00 */ u32 unk_00;
+    /* 04 */ u32 unk_04;
+    /* 08 */ struct EventCheckBuffer* unk_08;
+};
+
 extern const struct ROMChapterData gChapterDataTable[];
 extern const void** gUnknown_08A1FB34;
 extern const void* gChapterDataAssetTable[];
@@ -68,7 +77,7 @@ extern const void* gChapterDataAssetTable[];
 const struct ROMChapterData* GetROMChapterStruct(unsigned chIndex);
 const void* GetChapterMapPointer(unsigned chIndex);
 const void* GetChapterMapChangesPointer(unsigned chIndex);
-const void* GetChapterEventDataPointer(unsigned chIndex);
+const struct ChapterEventInfo* GetChapterEventDataPointer(unsigned chIndex);
 const char* sub_80346E0(unsigned chIndex);
 int IsDifficultMode(void);
 

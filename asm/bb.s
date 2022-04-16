@@ -469,7 +469,7 @@ _080357BC:
 _080357D4:
 	adds r0, r6, #0
 	adds r1, r4, #0
-	bl sub_8032674
+	bl DropRescueOnDeath
 	pop {r4, r5, r6}
 	pop {r0}
 	bx r0
