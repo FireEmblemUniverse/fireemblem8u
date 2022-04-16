@@ -130,9 +130,6 @@ void sub_808371C(u8, u8, int);
 void sub_8083FB0(u8, u8);
 void sub_80840C4(int, int);
 
-// bmtarget.s
-void MakeTargetListForFuckingNightmare(struct Unit*);
-
 // code_mapanim.s
 void BeginMapAnimForSteal(void);
 void BeginMapAnimForSummon(void);

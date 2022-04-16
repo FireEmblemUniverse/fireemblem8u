@@ -92,6 +92,7 @@ SECTIONS
         src/bmbattle.o(.text);
         src/bmtrade.o(.text);
         src/bmtrick.o(.text);
+        src/bmusemind.o(.text);
         asm/bmusemind.o(.text);
         src/bmio.o(.text);
         src/bmcontainer.o(.text);
