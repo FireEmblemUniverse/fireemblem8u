@@ -578,9 +578,6 @@ extern struct ActionData gActionData;
 // extern ??? gUnknown_0203DD9F
 // extern ??? gUnknown_0203DDB4
 // extern ??? gUnknown_0203DDDC
-// extern ??? gUnknown_0203DDE8
-// extern ??? gUnknown_0203DDEC
-// extern ??? gUnknown_0203E0EC
 // extern ??? gUnknown_0203E0F0
 // extern ??? gUnknown_0203E0F4
 // extern ??? gUnknown_0203E0F8

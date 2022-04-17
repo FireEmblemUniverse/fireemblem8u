@@ -6,7 +6,7 @@
 #include "bmitem.h"
 #include "bmmap.h"
 #include "mu.h"
-#include "mapselect.h"
+#include "uiselecttarget.h"
 #include "bmbattle.h"
 #include "bmreliance.h"
 #include "m4a.h"
@@ -129,9 +129,6 @@ void sub_8037830(ProcPtr, struct Unit*);
 void sub_808371C(u8, u8, int);
 void sub_8083FB0(u8, u8);
 void sub_80840C4(int, int);
-
-// ui_targetselection.s
-struct SelectTarget* GetTarget(int index);
 
 // bmtarget.s
 void MakeTargetListForFuckingNightmare(struct Unit*);
@@ -324,7 +321,7 @@ s8 ActionCombat(ProcPtr proc) {
         int i, targetCount;
 
         MakeTargetListForFuckingNightmare(GetUnit(gActionData.subjectIndex));
-        targetCount = sub_804FD28();
+        targetCount = GetSelectTargetCount();
 
         for (i = 0; i < targetCount; i++) {
             SetUnitStatus(
