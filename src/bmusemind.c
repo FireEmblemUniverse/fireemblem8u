@@ -538,3 +538,82 @@ void sub_802F510() {
 
     return;
 }
+
+void sub_802F598(struct Unit* unit, int itemIdx, s8 unk) {
+
+    if (itemIdx != -1) {
+        gBattleActor.weaponBefore = gBattleTarget.weaponBefore = unit->items[itemIdx];
+    }
+
+    gBattleActor.weapon = gBattleTarget.weapon = GetUnitEquippedWeapon(unit);
+
+    InitBattleUnitWithoutBonuses(&gBattleTarget, unit);
+
+    ApplyUnitDefaultPromotion(unit);
+
+    InitBattleUnitWithoutBonuses(&gBattleActor, unit);
+
+    GenerateBattleUnitStatGainsComparatively(&gBattleActor, &gBattleTarget.unit);
+
+    SetBattleUnitTerrainBonusesAuto(&gBattleActor);
+    SetBattleUnitTerrainBonusesAuto(&gBattleTarget);
+
+    if (unk) {
+        unit->state |= US_HAS_MOVED;
+    }
+
+    if (itemIdx != -1) {
+        UnitUpdateUsedItem(unit, itemIdx);
+    }
+
+    gBattleHitArray[0].attributes = 0;
+    gBattleHitArray[0].info = BATTLE_HIT_INFO_END;
+    gBattleHitArray[0].hpChange = 0;
+
+    gBattleStats.config = BATTLE_CONFIG_BIT4;
+
+    return;
+}
+
+void sub_802F664(struct Unit* unit, u8 classId, int itemIdx, s8 unk) {
+
+    if (itemIdx != -1) {
+        gBattleActor.weaponBefore = gBattleTarget.weaponBefore = unit->items[itemIdx];
+    }
+
+    gBattleActor.weapon = gBattleTarget.weapon = GetUnitEquippedWeapon(unit);
+
+    InitBattleUnitWithoutBonuses(&gBattleTarget, unit);
+
+    ApplyUnitPromotion(unit, classId);
+
+    InitBattleUnitWithoutBonuses(&gBattleActor, unit);
+
+    GenerateBattleUnitStatGainsComparatively(&gBattleActor, &gBattleTarget.unit);
+
+    SetBattleUnitTerrainBonusesAuto(&gBattleActor);
+    SetBattleUnitTerrainBonusesAuto(&gBattleTarget);
+
+    if (unk) {
+        unit->state |= US_HAS_MOVED;
+    }
+
+    if (itemIdx != -1) {
+        UnitUpdateUsedItem(unit, itemIdx);
+    }
+
+    gBattleHitArray[0].attributes = 0;
+    gBattleHitArray[0].info = BATTLE_HIT_INFO_END;
+    gBattleHitArray[0].hpChange = 0;
+
+    gBattleStats.config = BATTLE_CONFIG_BIT4;
+
+    return;
+}
+
+void sub_802F73C() {
+    sub_802F664(GetUnit(gActionData.subjectIndex), 1, gActionData.itemSlotIndex, 1);
+    BeginBattleAnimations();
+
+    return;
+}
