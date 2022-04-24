@@ -20,6 +20,8 @@ extern struct UnitDefinition gUnknown_03001788;
 
 extern s8 CONST_DATA gUnknown_080D7C44[];
 extern struct ProcCmd CONST_DATA gUnknown_0859BDF0[];
+extern struct ProcCmd CONST_DATA gUnknown_0859BE10[];
+extern struct ProcCmd CONST_DATA gUnknown_0859BE28[];
 
 // notifybox.s
 void sub_801F9FC(ProcPtr, int, char*);
@@ -38,6 +40,9 @@ s8 sub_80377CC(void);
 // ev_triggercheck.s
 void sub_80831C8(s8, s8);
 void sub_808320C(s8, s8);
+
+// code.s
+void sub_80CCA14(ProcPtr);
 
 void ExecStandardHeal(ProcPtr proc) {
     int amount;
@@ -343,7 +348,6 @@ void ExecFortify(ProcPtr proc) {
     return;
 }
 
-// ExecDance?
 void sub_802F1D8(ProcPtr proc) {
     BattleInitItemEffect(GetUnit(gActionData.subjectIndex),
         gActionData.itemSlotIndex);
@@ -1075,5 +1079,232 @@ void sub_802FBBC(ProcPtr proc) {
     BattleApplyItemEffect(proc);
     BeginBattleAnimations();
 
+    return;
+}
+
+void ActionStaffDoorChestUseItem(ProcPtr proc) {
+    int itemId = GetItemIndex(GetUnit(gActionData.subjectIndex)->items[gActionData.itemSlotIndex]);
+
+    gBattleActor.hasItemEffectTarget = 0;
+
+    switch (itemId) {
+        case ITEM_STAFF_HEAL:
+        case ITEM_STAFF_MEND:
+        case ITEM_STAFF_RECOVER:
+        case ITEM_STAFF_PHYSIC:
+            ExecStandardHeal(proc);
+            break;
+        case ITEM_STAFF_SILENCE:
+        case ITEM_STAFF_SLEEP:
+        case ITEM_STAFF_BERSERK:
+            ExecStatusStaff(proc);
+            break;
+        case ITEM_NIGHTMARE:
+            sub_802F1D8(proc);
+            break;
+        case ITEM_STAFF_FORTIFY:
+            ExecFortify(proc);
+            break;
+        case ITEM_STAFF_RESTORE:
+            ExecRestore(proc);
+            break;
+        case ITEM_STAFF_RESCUE:
+            ExecRescueStaff(proc);
+            break;
+        case ITEM_STAFF_BARRIER:
+            sub_802EC8C(proc);
+            break;
+        case ITEM_STAFF_WARP:
+            ExecWarpStaff(proc);
+            break;
+        case ITEM_STAFF_UNLOCK:
+            sub_802F274(proc);
+            break;
+        case ITEM_STAFF_REPAIR:
+            ExecHammerne(proc);
+            break;
+        case ITEM_TORCH:
+            sub_802F48C(proc);
+            break;
+        case ITEM_VULNERARY:
+        case ITEM_VULNERARY_2:
+            ExecSomeSelfHeal(proc, 10);
+            break;
+        case ITEM_ELIXIR:
+            sub_802F3E4(proc);
+            break;
+        case ITEM_PUREWATER:
+            sub_802F450(proc);
+            break;
+        case ITEM_ANTITOXIN:
+            sub_802F4D0(proc);
+            break;
+        case ITEM_CHESTKEY:
+        case ITEM_DOORKEY:
+        case ITEM_LOCKPICK:
+        case ITEM_CHESTKEY_BUNDLE:
+            sub_802F510();
+            break;
+        case ITEM_HEROCREST:
+        case ITEM_KNIGHTCREST:
+        case ITEM_ORIONSBOLT:
+        case ITEM_ELYSIANWHIP:
+        case ITEM_GUIDINGRING:
+        case ITEM_MASTERSEAL:
+        case ITEM_HEAVENSEAL:
+        case ITEM_OCEANSEAL:
+        case ITEM_LUNARBRACE:
+        case ITEM_SOLARBRACE:
+        case ITEM_UNK_C1:
+            gBattleActor.weaponBefore = gBattleTarget.weaponBefore = GetUnit(gActionData.subjectIndex)->items[gActionData.itemSlotIndex];
+
+            gBattleActor.weapon = gBattleTarget.weapon = GetUnitEquippedWeapon(GetUnit(gActionData.subjectIndex));
+
+            gBattleTarget.statusOut = 0xFF;
+
+            sub_80CCA14(proc);
+            break;
+        case ITEM_BOOSTER_HP:
+        case ITEM_BOOSTER_POW:
+        case ITEM_BOOSTER_SKL:
+        case ITEM_BOOSTER_SPD:
+        case ITEM_BOOSTER_LCK:
+        case ITEM_BOOSTER_DEF:
+        case ITEM_BOOSTER_RES:
+        case ITEM_BOOSTER_MOV:
+        case ITEM_BOOSTER_CON:
+        case ITEM_METISSTOME:
+            sub_802F914(proc);
+            break;
+        case ITEM_STAFF_LATONA:
+            sub_802F30C(proc);
+            break;
+        case ITEM_MINE:
+            sub_802FA4C(proc);
+            break;
+        case ITEM_LIGHTRUNE:
+            sub_802FA90(proc);
+            break;
+        case ITEM_STAFF_TORCH:
+            ExecTorchStaff(proc);
+            break;
+        case ITEM_FILLAS_MIGHT:
+        case ITEM_NINISS_GRACE:
+        case ITEM_THORS_IRE:
+        case ITEM_SETS_LITANY:
+            sub_802FBBC(proc);
+            break;
+        case ITEM_JUNAFRUIT:
+            sub_802F9E0(proc);
+    }
+
+    if (itemId == ITEM_NIGHTMARE) {
+        Proc_StartBlocking(gUnknown_0859BE28, proc);
+        return;
+    }
+
+    if (gBattleTarget.statusOut >= 0) {
+        Proc_StartBlocking(gUnknown_0859BE10, proc);
+    }
+
+    return;
+}
+
+#if NONMATCHING
+
+void ActionPick(ProcPtr proc) {
+    int xPos, yPos;
+    gBattleActor.hasItemEffectTarget = 0;
+
+    xPos = gActionData.xOther;
+    yPos = gActionData.yOther;
+
+    sub_808320C(xPos, yPos);
+
+    sub_80831C8(xPos, yPos);
+
+    PlaySoundEffect(0xB1);
+
+    gBattleTarget.statusOut = 0xFF;
+
+    // TODO: ???
+    if ((0xFF << 0x18) >= 0) {
+        Proc_StartBlocking(gUnknown_0859BE10, proc);
+    }
+
+    return;
+}
+
+#else // if !NONMATCHING
+
+__attribute__((naked))
+void ActionPick(ProcPtr proc) {
+    asm("\n\
+        .syntax unified\n\
+        push {r4, r5, r6, lr}\n\
+        adds r6, r0, #0\n\
+        ldr r0, _08030008  @ gBattleActor\n\
+        adds r0, #0x7e\n\
+        movs r1, #0\n\
+        strb r1, [r0]\n\
+        ldr r0, _0803000C  @ gActionData\n\
+        movs r4, #0x13\n\
+        ldrsb r4, [r0, r4]\n\
+        movs r5, #0x14\n\
+        ldrsb r5, [r0, r5]\n\
+        adds r0, r4, #0\n\
+        adds r1, r5, #0\n\
+        bl sub_808320C\n\
+        adds r0, r4, #0\n\
+        adds r1, r5, #0\n\
+        bl sub_80831C8\n\
+        ldr r0, _08030010  @ gRAMChapterData\n\
+        adds r0, #0x41\n\
+        ldrb r0, [r0]\n\
+        lsls r0, r0, #0x1e\n\
+        cmp r0, #0\n\
+        blt _0802FFEC\n\
+        movs r0, #0xb1\n\
+        bl m4aSongNumStart\n\
+    _0802FFEC:\n\
+        ldr r1, _08030014  @ gBattleTarget\n\
+        adds r1, #0x6f\n\
+        movs r0, #0xff\n\
+        strb r0, [r1]\n\
+        lsls r0, r0, #0x18\n\
+        cmp r0, #0\n\
+        blt _08030002\n\
+        ldr r0, _08030018  @ gUnknown_0859BE10\n\
+        adds r1, r6, #0\n\
+        bl Proc_StartBlocking\n\
+    _08030002:\n\
+        pop {r4, r5, r6}\n\
+        pop {r0}\n\
+        bx r0\n\
+        .align 2, 0\n\
+    _08030008: .4byte gBattleActor\n\
+    _0803000C: .4byte gActionData\n\
+    _08030010: .4byte gRAMChapterData\n\
+    _08030014: .4byte gBattleTarget\n\
+    _08030018: .4byte gUnknown_0859BE10\n\
+        .syntax divided\n\
+    ");
+}
+
+#endif // NONMATCHING
+
+void sub_803001C() {
+    if (gBattleTarget.statusOut < 0) {
+        return;
+    }
+
+    SetUnitStatus(GetUnit(gActionData.targetIndex), gBattleTarget.statusOut);
+    gBattleTarget.statusOut = 0xFF;
+
+    return;
+}
+
+void sub_8030050() {
+    sub_802F208();
     return;
 }
