@@ -570,8 +570,8 @@ struct Unit* LoadUnit(const struct UnitDefinition* uDef) {
 
         if (CanClassWieldWeaponType(monsterClass, ITYPE_BOW) == TRUE) {
             // TODO: AI BIT DEFINITIONS
-            buf.ai.ai3 = buf.ai.ai3 & (1 | 2 | 4);
-            buf.ai.ai3 = buf.ai.ai3 | (8 | 32);
+            buf.ai[2] = buf.ai[2] & (1 | 2 | 4);
+            buf.ai[2] = buf.ai[2] | (8 | 32);
         }
 
         uDef = &buf;
