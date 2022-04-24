@@ -11,6 +11,7 @@
 #include "bmreliance.h"
 #include "m4a.h"
 #include "soundwrapper.h"
+#include "bmusemind.h"
 #include "bmmind.h"
 
 #include "constants/items.h"
@@ -159,8 +160,6 @@ s8 ActionSteal(ProcPtr);
 s8 ActionSummon(ProcPtr);
 s8 ActionSummonDK(ProcPtr);
 s8 ActionArena(ProcPtr);
-s8 ActionStaffDoorChestUseItem(ProcPtr);
-s8 ActionPick(ProcPtr);
 
 void StoreRNStateToActionStruct() {
     StoreRNState(gActionData._u00);

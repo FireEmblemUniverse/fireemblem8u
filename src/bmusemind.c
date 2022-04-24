@@ -1,5 +1,6 @@
 #include "global.h"
 
+#include "constants/classes.h"
 #include "constants/items.h"
 
 #include "bmunit.h"
@@ -16,12 +17,40 @@
 #include "soundwrapper.h"
 #include "bmtrick.h"
 
+#include "bmusemind.h"
+
 extern struct UnitDefinition gUnknown_03001788;
 
 extern s8 CONST_DATA gUnknown_080D7C44[];
-extern struct ProcCmd CONST_DATA gUnknown_0859BDF0[];
-extern struct ProcCmd CONST_DATA gUnknown_0859BE10[];
-extern struct ProcCmd CONST_DATA gUnknown_0859BE28[];
+
+static int sub_802EF70(void);
+static int sub_802EF80(void);
+
+static struct ProcCmd CONST_DATA sProcScr_ExecWarpStaff[] = {
+    PROC_SLEEP(0),
+    PROC_CALL_2(sub_802EF70),
+    PROC_CALL(sub_802EF80),
+
+    PROC_END,
+};
+
+static void AfterItemUse_SetTargetStatus(void);
+
+static struct ProcCmd CONST_DATA sProcScr_SetTargetStatus[] = {
+    PROC_SLEEP(1),
+    PROC_CALL(AfterItemUse_SetTargetStatus),
+
+    PROC_END,
+};
+
+static void sub_8030050(void);
+
+static struct ProcCmd CONST_DATA sProcScr_ExecNightmareStaff[] = {
+    PROC_SLEEP(1),
+    PROC_CALL(sub_8030050),
+
+    PROC_END,
+};
 
 // notifybox.s
 void sub_801F9FC(ProcPtr, int, char*);
@@ -88,7 +117,7 @@ void ExecRestore(ProcPtr proc) {
     return;
 }
 
-void sub_802EC8C(ProcPtr proc) {
+void ExecBarrierStaff(ProcPtr proc) {
     BattleInitItemEffect(GetUnit(gActionData.subjectIndex),
         gActionData.itemSlotIndex);
 
@@ -113,7 +142,7 @@ void GetRescueStaffeePosition(struct Unit* unit, struct Unit* target, int* xOut,
 
     GenerateUnitExtendedMovementMap(unit);
 
-    gBmMapUnit[unit->yPos][unit->xPos] = 0xFF;
+    gBmMapUnit[unit->yPos][unit->xPos] = -1;
 
     for (iy = gBmMapSize.y - 1; iy >= 0; iy--) {
         for (ix = gBmMapSize.x - 1; ix >= 0; ix--) {
@@ -152,7 +181,7 @@ void GetRescueStaffeePosition(struct Unit* unit, struct Unit* target, int* xOut,
 
     GenerateExtendedMovementMap(unit->xPos, unit->yPos, gUnknown_0880BB96);
 
-    gBmMapUnit[unit->yPos][unit->xPos] = 0xFF;
+    gBmMapUnit[unit->yPos][unit->xPos] = -1;
 
     for (iy = gBmMapSize.y - 1; iy >= 0; iy--) {
         for (ix = gBmMapSize.x - 1; ix >= 0; ix--) {
@@ -250,7 +279,7 @@ void ExecWarpStaff(ProcPtr proc) {
     BattleApplyItemEffect(proc);
     BeginBattleAnimations();
 
-    Proc_StartBlocking(gUnknown_0859BDF0, proc);
+    Proc_StartBlocking(sProcScr_ExecWarpStaff, proc);
 
     return;
 }
@@ -348,7 +377,7 @@ void ExecFortify(ProcPtr proc) {
     return;
 }
 
-void sub_802F1D8(ProcPtr proc) {
+void ExecNightmare(ProcPtr proc) {
     BattleInitItemEffect(GetUnit(gActionData.subjectIndex),
         gActionData.itemSlotIndex);
 
@@ -360,8 +389,7 @@ void sub_802F1D8(ProcPtr proc) {
     return;
 }
 
-// ExecNightmare
-void sub_802F208() {
+void ApplyNightmareEffect() {
     int i;
     int accuracy;
     int targetCount;
@@ -388,8 +416,7 @@ void sub_802F208() {
     return;
 }
 
-// ExecUnlock
-void sub_802F274(ProcPtr proc) {
+void ExecUnlockStaff(ProcPtr proc) {
     BattleInitItemEffect(GetUnit(gActionData.subjectIndex),
         gActionData.itemSlotIndex);
 
@@ -422,8 +449,7 @@ void ExecHammerne(ProcPtr proc) {
     return;
 }
 
-// ExecLatona
-void sub_802F30C(ProcPtr proc) {
+void ExecLatona(ProcPtr proc) {
     int i;
     int targetCount;
 
@@ -451,8 +477,7 @@ void sub_802F30C(ProcPtr proc) {
     return;
 }
 
-// ExecVulnerary
-void ExecSomeSelfHeal(ProcPtr proc, int amount) {
+void ExecVulneraryItem(ProcPtr proc, int amount) {
     BattleInitItemEffect(GetUnit(gActionData.subjectIndex),
         gActionData.itemSlotIndex);
 
@@ -470,8 +495,7 @@ void ExecSomeSelfHeal(ProcPtr proc, int amount) {
     return;
 }
 
-// ExecElixir
-void sub_802F3E4(ProcPtr proc) {
+void ExecElixirItem(ProcPtr proc) {
     BattleInitItemEffect(GetUnit(gActionData.subjectIndex),
         gActionData.itemSlotIndex);
 
@@ -490,8 +514,7 @@ void sub_802F3E4(ProcPtr proc) {
     return;
 }
 
-// ExecPureWater
-void sub_802F450(ProcPtr proc) {
+void ExecPureWaterItem(ProcPtr proc) {
     BattleInitItemEffect(GetUnit(gActionData.subjectIndex),
         gActionData.itemSlotIndex);
 
@@ -503,8 +526,7 @@ void sub_802F450(ProcPtr proc) {
     return;
 }
 
-// ExecTorchItem
-void sub_802F48C(ProcPtr proc) {
+void ExecTorchItem(ProcPtr proc) {
     BattleInitItemEffect(GetUnit(gActionData.subjectIndex),
         gActionData.itemSlotIndex);
 
@@ -519,8 +541,7 @@ void sub_802F48C(ProcPtr proc) {
     return;
 }
 
-// ExecAntitoxin
-void sub_802F4D0(ProcPtr proc) {
+void ExecAntitoxinItem(ProcPtr proc) {
     BattleInitItemEffect(GetUnit(gActionData.subjectIndex),
         gActionData.itemSlotIndex);
 
@@ -553,7 +574,7 @@ void sub_802F510() {
 
     PlaySoundEffect(0xB1);
 
-    gBattleTarget.statusOut = 0xFF;
+    gBattleTarget.statusOut = -1;
 
     return;
 }
@@ -665,7 +686,7 @@ void sub_802F760(struct Unit* unit, int item) {
     return;
 }
 
-int sub_802F808(struct Unit* unit, int itemIdx) {
+int ApplyStatBoostItem(struct Unit* unit, int itemIdx) {
     const struct ItemStatBonuses* statBonuses;
     int messageId = 0;
 
@@ -726,16 +747,16 @@ int sub_802F808(struct Unit* unit, int itemIdx) {
     return messageId;
 }
 
-void sub_802F914(ProcPtr proc) {
+void ExecStatBoostItem(ProcPtr proc) {
     int item;
     int messageId;
     struct Unit* unit = GetUnit(gActionData.subjectIndex);
 
     item = unit->items[gActionData.itemSlotIndex];
 
-    gBattleTarget.statusOut = 0xFF;
+    gBattleTarget.statusOut = -1;
 
-    messageId = sub_802F808(unit, gActionData.itemSlotIndex);
+    messageId = ApplyStatBoostItem(unit, gActionData.itemSlotIndex);
 
     PlaySoundEffect(0x5A);
 
@@ -839,12 +860,12 @@ int sub_802F978(struct Unit* unit, int itemIdx) {
 
 #endif // NONMATCHING
 
-void sub_802F9E0(ProcPtr proc) {
+void ExecJunaFruitItem(ProcPtr proc) {
     int levelCount;
     struct Unit* unit = GetUnit(gActionData.subjectIndex);
     int itemId = unit->items[gActionData.itemSlotIndex];
 
-    gBattleTarget.statusOut = 0xFF;
+    gBattleTarget.statusOut = -1;
 
     levelCount = sub_802F978(unit, gActionData.itemSlotIndex);
 
@@ -855,7 +876,7 @@ void sub_802F9E0(ProcPtr proc) {
     return;
 }
 
-void sub_802FA4C(ProcPtr proc) {
+void ExecMine(ProcPtr proc) {
     BattleInitItemEffect(GetUnit(gActionData.subjectIndex),
         gActionData.itemSlotIndex);
 
@@ -863,14 +884,14 @@ void sub_802FA4C(ProcPtr proc) {
 
     BattleApplyItemEffect(proc);
 
-    gBattleTarget.statusOut = 0xFF;
+    gBattleTarget.statusOut = -1;
 
     sub_8022300(proc, gActionData.xOther, gActionData.yOther);
 
     return;
 }
 
-void sub_802FA90(ProcPtr proc) {
+void ExecLightRune(ProcPtr proc) {
     BattleInitItemEffect(GetUnit(gActionData.subjectIndex),
         gActionData.itemSlotIndex);
 
@@ -880,7 +901,7 @@ void sub_802FA90(ProcPtr proc) {
 
     sub_8021684(proc, gActionData.xOther, gActionData.yOther);
 
-    gBattleTarget.statusOut = 0xFF;
+    gBattleTarget.statusOut = -1;
 
     return;
 }
@@ -937,7 +958,7 @@ void sub_802FAD0(ProcPtr proc) {
         LoadUnits(&gUnknown_03001788);
     }
 
-    gBattleTarget.statusOut = 0xFF;
+    gBattleTarget.statusOut = -1;
 
     return;
 }
@@ -1049,7 +1070,7 @@ void ExecTorchStaff(ProcPtr proc) {
     return;
 }
 
-void sub_802FBBC(ProcPtr proc) {
+void ExecDanceRing(ProcPtr proc) {
     int status = 0;
 
     BattleInitItemEffect(GetUnit(gActionData.subjectIndex),
@@ -1100,7 +1121,7 @@ void ActionStaffDoorChestUseItem(ProcPtr proc) {
             ExecStatusStaff(proc);
             break;
         case ITEM_NIGHTMARE:
-            sub_802F1D8(proc);
+            ExecNightmare(proc);
             break;
         case ITEM_STAFF_FORTIFY:
             ExecFortify(proc);
@@ -1112,32 +1133,32 @@ void ActionStaffDoorChestUseItem(ProcPtr proc) {
             ExecRescueStaff(proc);
             break;
         case ITEM_STAFF_BARRIER:
-            sub_802EC8C(proc);
+            ExecBarrierStaff(proc);
             break;
         case ITEM_STAFF_WARP:
             ExecWarpStaff(proc);
             break;
         case ITEM_STAFF_UNLOCK:
-            sub_802F274(proc);
+            ExecUnlockStaff(proc);
             break;
         case ITEM_STAFF_REPAIR:
             ExecHammerne(proc);
             break;
         case ITEM_TORCH:
-            sub_802F48C(proc);
+            ExecTorchItem(proc);
             break;
         case ITEM_VULNERARY:
         case ITEM_VULNERARY_2:
-            ExecSomeSelfHeal(proc, 10);
+            ExecVulneraryItem(proc, 10);
             break;
         case ITEM_ELIXIR:
-            sub_802F3E4(proc);
+            ExecElixirItem(proc);
             break;
         case ITEM_PUREWATER:
-            sub_802F450(proc);
+            ExecPureWaterItem(proc);
             break;
         case ITEM_ANTITOXIN:
-            sub_802F4D0(proc);
+            ExecAntitoxinItem(proc);
             break;
         case ITEM_CHESTKEY:
         case ITEM_DOORKEY:
@@ -1160,7 +1181,7 @@ void ActionStaffDoorChestUseItem(ProcPtr proc) {
 
             gBattleActor.weapon = gBattleTarget.weapon = GetUnitEquippedWeapon(GetUnit(gActionData.subjectIndex));
 
-            gBattleTarget.statusOut = 0xFF;
+            gBattleTarget.statusOut = -1;
 
             sub_80CCA14(proc);
             break;
@@ -1174,16 +1195,16 @@ void ActionStaffDoorChestUseItem(ProcPtr proc) {
         case ITEM_BOOSTER_MOV:
         case ITEM_BOOSTER_CON:
         case ITEM_METISSTOME:
-            sub_802F914(proc);
+            ExecStatBoostItem(proc);
             break;
         case ITEM_STAFF_LATONA:
-            sub_802F30C(proc);
+            ExecLatona(proc);
             break;
         case ITEM_MINE:
-            sub_802FA4C(proc);
+            ExecMine(proc);
             break;
         case ITEM_LIGHTRUNE:
-            sub_802FA90(proc);
+            ExecLightRune(proc);
             break;
         case ITEM_STAFF_TORCH:
             ExecTorchStaff(proc);
@@ -1192,25 +1213,23 @@ void ActionStaffDoorChestUseItem(ProcPtr proc) {
         case ITEM_NINISS_GRACE:
         case ITEM_THORS_IRE:
         case ITEM_SETS_LITANY:
-            sub_802FBBC(proc);
+            ExecDanceRing(proc);
             break;
         case ITEM_JUNAFRUIT:
-            sub_802F9E0(proc);
+            ExecJunaFruitItem(proc);
     }
 
     if (itemId == ITEM_NIGHTMARE) {
-        Proc_StartBlocking(gUnknown_0859BE28, proc);
+        Proc_StartBlocking(sProcScr_ExecNightmareStaff, proc);
         return;
     }
 
     if (gBattleTarget.statusOut >= 0) {
-        Proc_StartBlocking(gUnknown_0859BE10, proc);
+        Proc_StartBlocking(sProcScr_SetTargetStatus, proc);
     }
 
     return;
 }
-
-#if NONMATCHING
 
 void ActionPick(ProcPtr proc) {
     int xPos, yPos;
@@ -1225,86 +1244,27 @@ void ActionPick(ProcPtr proc) {
 
     PlaySoundEffect(0xB1);
 
-    gBattleTarget.statusOut = 0xFF;
+    gBattleTarget.statusOut = -1;
 
-    // TODO: ???
-    if ((0xFF << 0x18) >= 0) {
-        Proc_StartBlocking(gUnknown_0859BE10, proc);
+    if (gBattleTarget.statusOut >= 0) {
+        Proc_StartBlocking(sProcScr_SetTargetStatus, proc);
     }
 
     return;
 }
 
-#else // if !NONMATCHING
-
-__attribute__((naked))
-void ActionPick(ProcPtr proc) {
-    asm("\n\
-        .syntax unified\n\
-        push {r4, r5, r6, lr}\n\
-        adds r6, r0, #0\n\
-        ldr r0, _08030008  @ gBattleActor\n\
-        adds r0, #0x7e\n\
-        movs r1, #0\n\
-        strb r1, [r0]\n\
-        ldr r0, _0803000C  @ gActionData\n\
-        movs r4, #0x13\n\
-        ldrsb r4, [r0, r4]\n\
-        movs r5, #0x14\n\
-        ldrsb r5, [r0, r5]\n\
-        adds r0, r4, #0\n\
-        adds r1, r5, #0\n\
-        bl sub_808320C\n\
-        adds r0, r4, #0\n\
-        adds r1, r5, #0\n\
-        bl sub_80831C8\n\
-        ldr r0, _08030010  @ gRAMChapterData\n\
-        adds r0, #0x41\n\
-        ldrb r0, [r0]\n\
-        lsls r0, r0, #0x1e\n\
-        cmp r0, #0\n\
-        blt _0802FFEC\n\
-        movs r0, #0xb1\n\
-        bl m4aSongNumStart\n\
-    _0802FFEC:\n\
-        ldr r1, _08030014  @ gBattleTarget\n\
-        adds r1, #0x6f\n\
-        movs r0, #0xff\n\
-        strb r0, [r1]\n\
-        lsls r0, r0, #0x18\n\
-        cmp r0, #0\n\
-        blt _08030002\n\
-        ldr r0, _08030018  @ gUnknown_0859BE10\n\
-        adds r1, r6, #0\n\
-        bl Proc_StartBlocking\n\
-    _08030002:\n\
-        pop {r4, r5, r6}\n\
-        pop {r0}\n\
-        bx r0\n\
-        .align 2, 0\n\
-    _08030008: .4byte gBattleActor\n\
-    _0803000C: .4byte gActionData\n\
-    _08030010: .4byte gRAMChapterData\n\
-    _08030014: .4byte gBattleTarget\n\
-    _08030018: .4byte gUnknown_0859BE10\n\
-        .syntax divided\n\
-    ");
-}
-
-#endif // NONMATCHING
-
-void sub_803001C() {
+void AfterItemUse_SetTargetStatus() {
     if (gBattleTarget.statusOut < 0) {
         return;
     }
 
     SetUnitStatus(GetUnit(gActionData.targetIndex), gBattleTarget.statusOut);
-    gBattleTarget.statusOut = 0xFF;
+    gBattleTarget.statusOut = -1;
 
     return;
 }
 
 void sub_8030050() {
-    sub_802F208();
+    ApplyNightmareEffect();
     return;
 }
