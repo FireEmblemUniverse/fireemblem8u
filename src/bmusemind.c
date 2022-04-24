@@ -438,7 +438,7 @@ void ExecHammerne(ProcPtr proc) {
 
     BattleInitItemEffectTarget(GetUnit(gActionData.targetIndex));
 
-    GetUnit(gActionData.targetIndex)->items[gActionData.trapType] 
+    GetUnit(gActionData.targetIndex)->items[gActionData.trapType]
         =  MakeNewItem(
             GetUnit(gActionData.targetIndex)->items[gActionData.trapType]
         );
@@ -765,8 +765,6 @@ void ExecStatBoostItem(ProcPtr proc) {
     return;
 }
 
-#if NONMATCHING
-
 int sub_802F978(struct Unit* unit, int itemIdx) {
     int unk_r1 = 0;
     int unk_r2;
@@ -780,11 +778,13 @@ int sub_802F978(struct Unit* unit, int itemIdx) {
     unk_r2 = NextRN_N(unk_r1);
 
     levelCount = 0;
-
     unk_r1 = gUnknown_080D7C44[levelCount];
-    // TODO: Can't get this loop to match correctly - it seems to check both of these conditions
-    while ((unk_r1 <= unk_r2) && (++levelCount < 5)) {
-        unk_r1 += gUnknown_080D7C44[levelCount];
+    if (unk_r1 <= unk_r2) {
+		while (++levelCount < 5) {
+			unk_r1 += gUnknown_080D7C44[levelCount];
+			if (unk_r1 > unk_r2)
+				break;
+		}
     }
 
     levelCount++;
@@ -795,70 +795,6 @@ int sub_802F978(struct Unit* unit, int itemIdx) {
 
     return levelCount;
 }
-
-#else // if !NONMATCHING
-
-__attribute__((naked))
-int sub_802F978(struct Unit* unit, int itemIdx) {
-    asm("\n\
-        .syntax unified\n\
-        push {r4, r5, r6, lr}\n\
-        adds r5, r0, #0\n\
-        adds r6, r1, #0\n\
-        movs r1, #0\n\
-        movs r4, #0\n\
-        ldr r2, _0802F9DC  @ gUnknown_080D7C44\n\
-    _0802F984:\n\
-        adds r0, r4, r2\n\
-        ldrb r0, [r0]\n\
-        lsls r0, r0, #0x18\n\
-        asrs r0, r0, #0x18\n\
-        adds r1, r1, r0\n\
-        adds r4, #1\n\
-        cmp r4, #4\n\
-        bls _0802F984\n\
-        adds r0, r1, #0\n\
-        bl NextRN_N\n\
-        adds r2, r0, #0\n\
-        movs r4, #0\n\
-        ldr r0, _0802F9DC  @ gUnknown_080D7C44\n\
-        movs r1, #0\n\
-        ldrsb r1, [r0, r1]\n\
-        cmp r1, r2\n\
-        bgt _0802F9BE\n\
-        adds r3, r0, #0\n\
-    _0802F9AA:\n\
-        adds r4, #1\n\
-        cmp r4, #4\n\
-        bhi _0802F9BE\n\
-        adds r0, r4, r3\n\
-        ldrb r0, [r0]\n\
-        lsls r0, r0, #0x18\n\
-        asrs r0, r0, #0x18\n\
-        adds r1, r1, r0\n\
-        cmp r1, r2\n\
-        ble _0802F9AA\n\
-    _0802F9BE:\n\
-        adds r4, #1\n\
-        ldrb r0, [r5, #8]\n\
-        subs r0, r0, r4\n\
-        movs r1, #0\n\
-        strb r0, [r5, #8]\n\
-        strb r1, [r5, #9]\n\
-        adds r0, r5, #0\n\
-        adds r1, r6, #0\n\
-        bl UnitUpdateUsedItem\n\
-        adds r0, r4, #0\n\
-        pop {r4, r5, r6}\n\
-        pop {r1}\n\
-        bx r1\n\
-        .align 2, 0\n\
-    _0802F9DC: .4byte gUnknown_080D7C44\n\
-        .syntax divided\n\
-    ");
-}
-
-#endif // NONMATCHING
 
 void ExecJunaFruitItem(ProcPtr proc) {
     int levelCount;
