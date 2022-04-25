@@ -17,9 +17,6 @@
 struct PromoProc
 {
     PROC_HEADER;
-    s8 u29;
-    s8 u2a;
-    s8 u2b;
     ProcPtr u2c;
     u8 u30;
     u8 u31;
@@ -27,12 +24,9 @@ struct PromoProc
     u8 u33;
     u8 u34;
     s8 u35;
-    s8 u36;
-    s8 u37;
     struct Unit *u38;
     s32 u3c;
     u32 u40;
-    s8 u44[36];
 };
 
 extern const struct ProcCmd gUnknown_08B12614[];
@@ -60,21 +54,13 @@ struct PromoProc2
 {
     PROC_HEADER;
     s8 u29;
-    s8 u2a;
-    s8 u2b;
     struct Unit *unit;
     u32 u30;
     u32 u34;
-    s8 u38;
-    s8 u39;
-    s8 u3a;
+    s8 _u38;
+    s8 _u39;
+    s8 _u3a;
     s8 u3b;
-    s8 u3c;
-    s8 u3d;
-    s8 u3e;
-    s8 u3f;
-    s8 u40;
-    s8 u41[40];
 };
 
 void sub_80CC4AC(struct PromoProc2 *proc) {
@@ -404,14 +390,13 @@ void ChangeClassDescription(u32 a) {
 struct PromoProc3
 {
     PROC_HEADER;
-    s8 u29;
-    s8 u2a;
-    s8 u2b;
+    s8 _u29;
+    s8 _u2a;
+    s8 _u2b;
     u16 u2c[10];
-    s8 u40;
+    s8 _u40;
     u8 u41;
-    s8 u42;
-    s8 u43;
+    s8 _u42;
     u16 u44;
     u8 u46;
     u8 u47;
