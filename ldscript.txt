@@ -1,4 +1,5 @@
 OUTPUT_ARCH(arm)
+ENTRY(Init)
 
 gNumMusicPlayers = 9;
 gMaxLines = 0;
@@ -93,12 +94,12 @@ SECTIONS
         src/bmtrick.o(.text);
         asm/bmusemind.o(.text);
         src/bmio.o(.text);
-        asm/bmcontainer.o(.text);
+        src/bmcontainer.o(.text);
         asm/bmusort.o(.text);
         asm/bmarena.o(.text);
         asm/bmmind.o(.text);
-        asm/bmpatharrowdisp.o(.text);
-        asm/sallycursor.o(.text);
+        src/bmpatharrowdisp.o(.text);
+        src/sallycursor.o(.text);
         asm/bmcommanddbg.o(.text);
         src/chapterdata.o(.text);
         asm/unitinfowindow.o(.text);
@@ -209,6 +210,8 @@ SECTIONS
         . = ALIGN(4); src/raw_text_jp.o(.rodata);
         . = ALIGN(4); src/bmio.o(.rodata);
         . = ALIGN(4); data/const_data_D7F5C.o(.rodata);
+        . = ALIGN(4); src/sallycursor.o(.rodata);
+        . = ALIGN(4); data/const_data_D7F8C.o(.rodata);
         . = ALIGN(4); src/cp_phase.o(.rodata);
         . = ALIGN(4); src/cp_order.o(.rodata);
         . = ALIGN(4); src/cp_decide.o(.rodata);
@@ -228,8 +231,8 @@ SECTIONS
         . = ALIGN(4); src/statscreen.o(.rodata);
         . = ALIGN(4); data/const_data_205B84.o(.rodata);
         . = ALIGN(4); data/branched_promotion.o(.rodata);
-        . = ALIGN(4); src/m4a_tables.o(.rodata);
-        . = ALIGN(4); data/sound_data.o(.rodata);
+        INCLUDE "linker_script_sound.txt"
+        . = ALIGN(4); src/agb_sram.o(.rodata);
         . = ALIGN(4); *libc.a:vfprintf.o(.rodata);
         . = ALIGN(4); *libc.a:dtoa.o(.rodata);
         . = ALIGN(4); *libc.a:impure.o(.rodata);
@@ -266,6 +269,8 @@ SECTIONS
         . = ALIGN(4); data/data_59D238.o(.data);
         . = ALIGN(4); src/bmio.o(.data);
         . = ALIGN(4); data/data_59D9FC.o(.data);
+        . = ALIGN(4); src/sallycursor.o(.data);
+        . = ALIGN(4); data/data_59E13C.o(.data);
         . = ALIGN(4); src/cp_phase.o(.data);
         . = ALIGN(4); src/cp_order.o(.data);
         . = ALIGN(4); src/cp_decide.o(.data);

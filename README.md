@@ -9,39 +9,46 @@ It builds the following ROM:
 
 ### Setting up the repository
 
-* You must have a copy of the Fire Emblem: The Sacred Stones ROM named `baserom.gba` in the repository directory.
-
-* Install [**devkitARM**](https://devkitpro.org/wiki/Getting_Started).
-
-* You can then build fireemblem8 using `make` in the MSYS environment provided with devkitARM.
-
+1. You must have a copy of the Fire Emblem: The Sacred Stones ROM named `baserom.gba` in the repository directory.
+2. Install [devkitPro](https://devkitpro.org/wiki/Getting_Started) or [GNU Arm Embedded Toolchain](https://developer.arm.com/tools-and-software/open-source-software/developer-tools/gnu-toolchain/gnu-rm).
 ```
-sort of how-to for setting up fireemblem8u
-1] setup cygwin or whatever (Windows user)
-2] clone https://github.com/luckytyphlosion/agbcc/tree/new_layout_with_libs somewhere (lets say C:/agbsdk) (be careful to checkout the new_layout_with_libs branch and NOT master!)
-3] cd agbsdk
-4] ./build.sh
-5] cd ..
-6] clone https://github.com/FireEmblemUniverse/fireemblem8u somewhere (lets say C:/fireemblem8u)
-7] cd agbsdk
-8] ./install.sh C:/fireemblem8u
-9] put clean FE8 US ROM into C:/fireemblem8u and name it baserom.gba
-10] ./build_tools.sh (or ./build_tools_mac.sh for Mac user) in FE repo you cloned
-11] fix Makefile to point to tools/binutils/bin/
-12] make
-
-
-Q1: Help, it said Makefile:1: /base_tools: No such file or directory when I was compiling agbcc!
-A1: You didn't check out the new_layout_with_libs branch. This is a dependency on Devkitpro, which this branch abandons. 
-
-Q2: fatal error: png.h: No such file or directory
-A2: Install libpng dev library to build tools/gbagfx. Especially MSYS2 used in devkitARM does not include libpng-dev so it must be built from source.
-
-Q3: make: *** No rule to make target `baserom.gba', needed by `data/const_data_1609BC.o'.  Stop.
-A3: You must place a copy of the Fire Emblem: The Sacred Stones ROM named baserom.gba in the repository directory.
+# for Ubuntu/WSL users
+apt install binutils-arm-none-eabi
+```
+3. Install [agbcc](https://github.com/pret/agbcc) to this project.
+```
+cd /path/to/agbcc
+./build.sh
+./install.sh /path/to/fireemblem8u
+```
+4. Build tools.
+```
+cd /path/to/fireemblem8u
+# for Mac users
+./build_tools_mac.sh
+# for other users
+./build_tools.sh
+```
+5. Build the project.
+```
+make
+```
+6. You will see this for success.
+```
+fireemblem8.gba: OK
 ```
 
-* You will see `fireemblem8.gba: OK` for success.
+Q: `fatal error: png.h: No such file or directory`
+
+A: Install [libpng](http://www.libpng.org/pub/png/libpng.html) to build `tools/gbagfx`.
+
+Q: `make: *** No rule to make target 'baserom.gba', needed by 'xxx'.  Stop.`
+
+A: You must place a copy of the Fire Emblem: The Sacred Stones ROM named `baserom.gba` in the repository directory.
+
+Q: `unrecognized option '--add-symbol'`
+
+A: Update your devkitPro or embedded toolchain. Read [this](https://github.com/bminor/binutils-gdb/blob/3451a2d7a3501e9c3fc344cbc4950c495f30c16d/binutils/ChangeLog-2015#L120) for more info.
 
 Check [INSTALL.md](https://github.com/pret/pokeruby/blob/master/INSTALL.md) and [INSTALL.md](https://github.com/pret/pokeemerald/blob/master/INSTALL.md) if you have trouble in setting up.
 

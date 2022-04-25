@@ -701,7 +701,7 @@ const char *Text_AppendChar(struct TextHandle *th, const char *b)
 
     while (1)
     {
-        r1 = gCurrentFont->sjisByte1[r2 - 0x40];
+        r1 = gCurrentFont->glyphs[r2 - 0x40];
         goto _080041BE;
       _080041BC:
         r1 = r1->sjisNext;

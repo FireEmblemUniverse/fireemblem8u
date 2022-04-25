@@ -33,7 +33,7 @@ extern u8** gBmMapMovement;
 extern u8** gBmMapRange;
 extern u8** gBmMapFog;
 extern u8** gBmMapHidden;
-extern u8** gBmMapUnk;
+extern u8** gBmMapOther;
 
 extern u8*   gTilesetTerrainLookup;
 extern u16** gBmMapBaseTiles;

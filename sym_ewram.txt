@@ -115,7 +115,7 @@
 . = 0x00F158; gUnknown_0200F158 = .;
 . = 0x00F15C; gUnknown_0200F15C = .;
 . = 0x00F1C8; gUnknown_0200F1C8 = .;
-. = 0x010004; gUnknown_02010004 = .;
+. = 0x010004; src/sallycursor.o(ewram_data);
 . = 0x01000C; gUnknown_0201000C = .;
 . = 0x01117C; gUnknown_0201117C = .;
 . = 0x011184; gUnknown_02011184 = .;
@@ -527,7 +527,7 @@
 . = ALIGN(4); src/bmbattle.o(ewram_data);
 . = ALIGN(4); src/bmtrade.o(ewram_data);
 . = ALIGN(4); src/bmtrick.o(ewram_data);
-. = 0x03A81C; gUnknown_0203A81C = .;
+. = 0x03A81C; gConvoyItemArray = .;
 . = 0x03A8E4; gUnknown_0203A8E4 = .;
 . = 0x03A8E8; gUnknown_0203A8E8 = .;
 . = 0x03A8EC; gUnknown_0203A8EC = .;
