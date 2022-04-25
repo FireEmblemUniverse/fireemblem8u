@@ -842,10 +842,7 @@ void ExecLightRune(ProcPtr proc) {
     return;
 }
 
-#if NONMATCHING
-
 void sub_802FAD0(ProcPtr proc) {
-    u8 tmp;
     int xPos, yPos;
     struct Unit* unit;
     BattleInitItemEffect(GetUnit(gActionData.subjectIndex),
@@ -859,34 +856,34 @@ void sub_802FAD0(ProcPtr proc) {
     sub_8021818(proc, xPos, yPos);
 
     // Seems to be required
-    tmp = 0;
+    unit = 0;
 
     gUnknown_03001788.charIndex = 0x80;
     gUnknown_03001788.classIndex = CLASS_BERSERKER;
     gUnknown_03001788.leaderCharIndex = 1;
 
-    gUnknown_03001788.autolevel = tmp;
-    gUnknown_03001788.allegiance = tmp;
+    gUnknown_03001788.autolevel = 0;
+    gUnknown_03001788.allegiance = 0;
     gUnknown_03001788.level = 1;
 
     gUnknown_03001788.xPosition = xPos;
     gUnknown_03001788.yPosition = yPos;
 
-    gUnknown_03001788.redaCount = tmp;
+    gUnknown_03001788.redaCount = 0;
     gUnknown_03001788.redas = NULL;
 
-    gUnknown_03001788.genMonster = tmp;
-    gUnknown_03001788.itemDrop = tmp;
+    gUnknown_03001788.genMonster = 0;
+    gUnknown_03001788.itemDrop = 0;
 
     gUnknown_03001788.items[0] = ITEM_AXE_STEEL;
     gUnknown_03001788.items[1] = ITEM_AXE_SILVER;
     gUnknown_03001788.items[2] = ITEM_AXE_DEVIL;
     gUnknown_03001788.items[3] = ITEM_AXE_TOMAHAWK;
 
-    gUnknown_03001788.ai[0] = tmp;
-    gUnknown_03001788.ai[1] = tmp;
-    gUnknown_03001788.ai[2] = tmp;
-    gUnknown_03001788.ai[3] = tmp;
+    gUnknown_03001788.ai[0] = 0;
+    gUnknown_03001788.ai[1] = 0;
+    gUnknown_03001788.ai[2] = 0;
+    gUnknown_03001788.ai[3] = 0;
 
     // TODO: Can't seem to force the extra register allocation for the return, which is required for match
     unit = GetUnitFromCharId(1); // CHARACTER_EIRIKA
@@ -898,101 +895,6 @@ void sub_802FAD0(ProcPtr proc) {
 
     return;
 }
-
-#else // if !NONMATCHING
-
-__attribute__((naked))
-void sub_802FAD0(ProcPtr proc) {
-    asm("\n\
-        .syntax unified\n\
-        push {r4, r5, r6, lr}\n\
-        adds r6, r0, #0\n\
-        ldr r4, _0802FB78  @ gActionData\n\
-        ldrb r0, [r4, #0xc]\n\
-        bl GetUnit\n\
-        ldrb r1, [r4, #0x12]\n\
-        bl BattleInitItemEffect\n\
-        adds r0, r6, #0\n\
-        bl BattleApplyItemEffect\n\
-        ldrb r5, [r4, #0x13]\n\
-        ldrb r4, [r4, #0x14]\n\
-        adds r0, r6, #0\n\
-        adds r1, r5, #0\n\
-        adds r2, r4, #0\n\
-        bl sub_8021818\n\
-        movs r2, #0\n\
-        ldr r6, _0802FB7C  @ gUnknown_03001788\n\
-        movs r0, #0x80\n\
-        strb r0, [r6]\n\
-        movs r0, #0x43\n\
-        strb r0, [r6, #1]\n\
-        movs r0, #1\n\
-        strb r0, [r6, #2]\n\
-        movs r0, #8\n\
-        strb r0, [r6, #3]\n\
-        movs r0, #0x3f\n\
-        ands r5, r0\n\
-        ldrb r1, [r6, #4]\n\
-        movs r0, #0x40\n\
-        negs r0, r0\n\
-        ands r0, r1\n\
-        orrs r0, r5\n\
-        strb r0, [r6, #4]\n\
-        movs r0, #0x3f\n\
-        ands r4, r0\n\
-        lsls r4, r4, #6\n\
-        ldrh r1, [r6, #4]\n\
-        ldr r0, _0802FB80  @ 0xFFFFF03F\n\
-        ands r0, r1\n\
-        orrs r0, r4\n\
-        strh r0, [r6, #4]\n\
-        strb r2, [r6, #7]\n\
-        str r2, [r6, #8]\n\
-        ldrb r1, [r6, #5]\n\
-        movs r0, #0x11\n\
-        negs r0, r0\n\
-        ands r0, r1\n\
-        movs r1, #0x21\n\
-        negs r1, r1\n\
-        ands r0, r1\n\
-        strb r0, [r6, #5]\n\
-        movs r0, #0x20\n\
-        strb r0, [r6, #0xc]\n\
-        movs r0, #0x21\n\
-        strb r0, [r6, #0xd]\n\
-        movs r0, #0x27\n\
-        strb r0, [r6, #0xe]\n\
-        movs r0, #0x29\n\
-        strb r0, [r6, #0xf]\n\
-        strb r2, [r6, #0x10]\n\
-        strb r2, [r6, #0x11]\n\
-        strb r2, [r6, #0x12]\n\
-        strb r2, [r6, #0x13]\n\
-        movs r0, #1\n\
-        bl GetUnitFromCharId\n\
-        adds r2, r0, #0\n\
-        cmp r2, #0\n\
-        bne _0802FB68\n\
-        adds r0, r6, #0\n\
-        bl LoadUnits\n\
-    _0802FB68:\n\
-        ldr r0, _0802FB84  @ gBattleTarget\n\
-        adds r0, #0x6f\n\
-        movs r1, #0xff\n\
-        strb r1, [r0]\n\
-        pop {r4, r5, r6}\n\
-        pop {r0}\n\
-        bx r0\n\
-        .align 2, 0\n\
-    _0802FB78: .4byte gActionData\n\
-    _0802FB7C: .4byte gUnknown_03001788\n\
-    _0802FB80: .4byte 0xFFFFF03F\n\
-    _0802FB84: .4byte gBattleTarget\n\
-        .syntax divided\n\
-    ");
-}
-
-#endif // NONMATCHING
 
 void ExecTorchStaff(ProcPtr proc) {
     BattleInitItemEffect(GetUnit(gActionData.subjectIndex),
