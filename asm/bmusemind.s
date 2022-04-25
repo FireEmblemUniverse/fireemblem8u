@@ -735,7 +735,7 @@ ExecFortify: @ 0x0802F154
 	adds r0, r5, #0
 	bl GetUnitItemHealAmount
 	adds r6, r0, #0
-	bl sub_804FD28
+	bl GetSelectTargetCount
 	adds r5, r0, #0
 	movs r4, #0
 	cmp r4, r5
@@ -794,7 +794,7 @@ sub_802F208: @ 0x0802F208
 	ldrb r0, [r0, #0xc]
 	bl GetUnit
 	bl MakeTargetListForFuckingNightmare
-	bl sub_804FD28
+	bl GetSelectTargetCount
 	adds r6, r0, #0
 	movs r5, #0
 	cmp r5, r6
@@ -925,7 +925,7 @@ sub_802F30C: @ 0x0802F30C
 	ldrb r0, [r4, #0xc]
 	bl GetUnit
 	bl MakeTargetListForLatona
-	bl sub_804FD28
+	bl GetSelectTargetCount
 	adds r6, r0, #0
 	movs r5, #0
 	cmp r5, r6

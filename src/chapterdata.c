@@ -24,7 +24,7 @@ const void* GetChapterMapChangesPointer(unsigned chIndex) {
     return gUnknown_08A1FB34[1];
 }
 
-const void* GetChapterEventDataPointer(unsigned chIndex) {
+const struct ChapterEventInfo* GetChapterEventDataPointer(unsigned chIndex) {
     if (chIndex != 0x7F)
         return gChapterDataAssetTable[GetROMChapterStruct(chIndex)->mapEventDataId];
 

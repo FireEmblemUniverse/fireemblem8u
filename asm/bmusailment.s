@@ -495,7 +495,7 @@ sub_8035E20: @ 0x08035E20
 	ldr r0, _08035E3C  @ gRAMChapterData
 	ldrb r0, [r0, #0xf]
 	bl sub_8025904
-	bl sub_804FD28
+	bl GetSelectTargetCount
 	cmp r0, #0
 	bne _08035E40
 	adds r0, r4, #0
@@ -534,7 +534,7 @@ sub_8035E50: @ 0x08035E50
 	strb r0, [r1, #0xc]
 	movs r0, #0
 	ldrsh r4, [r5, r0]
-	bl sub_804FD28
+	bl GetSelectTargetCount
 	cmp r4, r0
 	bne _08035E8C
 	adds r0, r7, #0
@@ -710,7 +710,7 @@ sub_8035FB8: @ 0x08035FB8
 	bl sub_80259EC
 	movs r0, #4
 	bl sub_8026414
-	bl sub_804FD28
+	bl GetSelectTargetCount
 	cmp r0, #0
 	bne _08035FE0
 	adds r0, r4, #0
@@ -834,7 +834,7 @@ sub_80360B8: @ 0x080360B8
 	ldr r0, _080360D4  @ gRAMChapterData
 	ldrb r0, [r0, #0xf]
 	bl sub_8025A64
-	bl sub_804FD28
+	bl GetSelectTargetCount
 	cmp r0, #0
 	bne _080360D8
 	adds r0, r4, #0
@@ -934,7 +934,7 @@ _08036184: .4byte gActionData
 sub_8036188: @ 0x08036188
 	push {r4, lr}
 	adds r4, r0, #0
-	bl sub_804FD28
+	bl GetSelectTargetCount
 	cmp r0, #0
 	bne _0803619C
 	adds r0, r4, #0
@@ -1085,7 +1085,7 @@ sub_80362A4: @ 0x080362A4
 	strb r0, [r1, #0xc]
 	movs r0, #0
 	ldrsh r4, [r4, r0]
-	bl sub_804FD28
+	bl GetSelectTargetCount
 	cmp r4, r0
 	bne _080362E0
 	adds r0, r7, #0
