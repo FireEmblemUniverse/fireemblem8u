@@ -491,6 +491,7 @@ namespace dump_sound
                             var volume = ReadU8(ofs + i + 1);
                             if (volume < 127)
                             {
+				//-V??? should be removed because volume is already set with VOL v???
                                 var arg = String.Format(" -V{0:d3}", volume);
                                 if (!songInfo.ContainsKey(name))
                                 {
@@ -568,6 +569,7 @@ namespace dump_sound
             if (voicegroups.Contains(tone))
             {
                 var sba = new StringBuilder();
+		//FIXME: ??? of -G??? in sba should be replaced with the ??? of voicegroup??? in sb
                 sba.AppendFormat(" -G{0:d3}", voicegroups.IndexOf(tone));
                 if (reverb > 0)
                 {
