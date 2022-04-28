@@ -194,13 +194,13 @@ void DetermineEventCategory(MidiEventCategory& category, int& typeChan, int& siz
     {
         category = MidiEventCategory::Meta;
         size = 0;
-        //s_runningStatus = 0;
+        s_runningStatus = 0;
     }
     else if (typeChan >= 0xF0)
     {
         category = MidiEventCategory::SysEx;
         size = 0;
-        //s_runningStatus = 0;
+        s_runningStatus = 0;
     }
     else if (typeChan >= 0x80)
     {
@@ -419,14 +419,13 @@ bool CheckNoteEnd(Event& event)
 
     if (category == MidiEventCategory::Meta)
     {
-        //int metaEventType = ReadInt8();
+        int metaEventType = ReadInt8();
         SkipEventData();
 
-        //if (metaEventType == 0x2F)
-        //    RaiseError("note doesn't end");
+        if (metaEventType == 0x2F)
+            RaiseError("note doesn't end");
 
-        //return false;
-        return true;
+        return false;
     }
 
     RaiseError("invalid event");
