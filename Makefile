@@ -90,6 +90,8 @@ clean:
 	$(RM) -f data/banim/*.bin data/banim/*.o data/banim/*.lz data/banim/*.bak
 	# Remove converted sound samples
 	$(RM) -f $(SAMPLE_SUBDIR)/*.bin
+	# Remove converted songs
+	$(RM) -f $(MID_SUBDIR)/*.s
 
 .PHONY: clean
 
