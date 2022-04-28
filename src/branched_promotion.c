@@ -57,7 +57,7 @@ struct PromoProc2
     struct Unit *unit;
     u32 u30;
     u32 u34;
-    s8 _u38;
+    u8 u38;
     s8 _u39;
     s8 _u3a;
     s8 u3b;
@@ -393,13 +393,21 @@ struct PromoProc3
     s8 _u29;
     s8 _u2a;
     s8 _u2b;
-    u16 u2c[10];
-    s8 _u40;
+    u16 u2c[3];
+    u16 u32[3];
+    u16 u38[3];
+    u16 _u3e;
+    u8 u40;
     u8 u41;
-    s8 _u42;
+    u16 u42;
     u16 u44;
     u8 u46;
     u8 u47;
+    u16 u48;
+    u8 u4a[3];
+    u8 _u4d[3];
+    u32 u50;
+    ProcPtr u54;
     /* ... more maybe */
 };
 
@@ -508,7 +516,7 @@ struct SomeLocal {
 
 u8 LoadSomeUnitStatThingUnlockIdk(struct SomeLocal *);
 
-u32 sub_80CCCA4(void) {
+u8 sub_80CCCA4(void) {
     struct SomeLocal local;
     u8 unlock = LoadSomeUnitStatThingUnlockIdk(&local);
     if (!unlock) {
@@ -550,4 +558,102 @@ void sub_80CCCE0(u16 *buffer, struct Struct_8A30978 *b, u32 c) {
 
 ProcPtr Make6C_PromotionSub(ProcPtr parent) {
     return Proc_StartBlocking(gUnknown_08B1271C, parent);
+}
+
+u8 LoadClassBattleSprite(u16*, u8, u16);
+
+void sub_80CD47C(int, int, int, int, int);
+void sub_80CD408(int, int, int);
+void sub_8095A1C(void);
+
+ProcPtr Make6C_PromotionMenuSelect(ProcPtr);
+
+void SetupPromotionScreen(struct PromoProc3* proc) {
+    struct PromoProc2 *parent = proc->proc_parent;
+    struct PromoProc *grandparent;
+    struct Unit *unit;
+    s32 i;
+    s32 charnumber;
+    ProcPtr select;
+    parent->u29 = 2;
+    proc->u42 = parent->u38;
+    proc->u50 = 9;
+    BG_Fill(gBG0TilemapBuffer, 0);
+    BG_Fill(gBG1TilemapBuffer, 0);
+    BG_Fill(gBG2TilemapBuffer, 0);
+    LoadUiFrameGraphics();
+    LoadObjUIGfx();
+    sub_80CD47C(0, -1, 0xfb * 2, 0x58, 6);
+    LoadUIForPromoScreen();
+    sub_80CD408(proc->u50, 0x8c * 2, 0x68);
+
+    proc->u32[0] = 0;
+    proc->u32[1] = 0;
+    proc->u32[2] = 0;
+    for (i = 1; i <= 0x3f; i++) {
+        u16 classFromSwitch;
+
+        u16 weapon;
+        s32 j;
+        unit = GetUnit(i);
+
+        if (!UNIT_IS_VALID(unit))
+            continue;
+        if (unit->pCharacterData->number !=  proc->u42)
+            continue;
+        charnumber = unit->pClassData->number;
+        weapon = GetUnitEquippedWeapon(unit);
+        for (j = 0; j < 2; j++) {
+            u8 sprite;
+            proc->u2c[j] = gUnknown_0895DFA4[charnumber][j];
+            sprite = LoadClassBattleSprite(
+                &proc->u32[j],
+                gUnknown_0895DFA4[charnumber][j],
+                weapon);
+            proc->u4a[j] = sprite;
+            proc->u38[j] = GetClassData(gUnknown_0895DFA4[charnumber][j])->descTextId;
+        }
+        proc->u48 = weapon;
+        if (!sub_80CCCA4())
+            break;
+        charnumber = unit->pClassData->number;
+        switch (charnumber) {
+            case 0x3d:
+                proc->u2c[2] = 0x7e;
+                proc->u4a[2] = LoadClassBattleSprite(&proc->u32[2], 0x7e, weapon);
+                proc->u38[2] = GetClassData(0x7e)->descTextId;
+
+                break;
+            case 0x3e:
+                proc->u2c[2] = 0x7f;
+                proc->u4a[2] = LoadClassBattleSprite(&proc->u32[2], 0x7f, weapon);
+                proc->u38[2] = GetClassData(0x7f)->descTextId;
+
+                break;
+            case 0x47:
+                proc->u2c[2] = 0x37;
+                proc->u4a[2] = LoadClassBattleSprite(&proc->u32[2], 0x37, weapon);
+                proc->u38[2] = GetClassData(0x37)->descTextId;
+
+                break;
+        }
+        break;
+    }
+    if (proc->u32[0] == 0 && proc->u32[1] == 0) {
+        proc->u32[1] = 0;
+        proc->u32[0] = 0;
+    }
+    proc->u40 = 1;
+    proc->u41 = 0;
+    LoadClassReelFontPalette(proc, charnumber);
+    LoadClassNameInClassReelFont(proc);
+    LoadObjUIGfx();
+
+    select = Make6C_PromotionMenuSelect(proc);
+    proc->u54 = select;
+    grandparent = parent->proc_parent;
+    if (grandparent->u31 == 1) {
+        sub_8095A1C();
+        BG_EnableSyncByMask(0xf);
+    }
 }
