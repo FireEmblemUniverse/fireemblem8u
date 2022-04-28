@@ -412,14 +412,15 @@ struct Struct_80B4108 {
 
 struct Struct_80B4108 *sub_80B4108(u8 a);
 
-void LoadClassReelFontPalette(struct PromoProc3 *proc, u16 b) {
+void LoadClassReelFontPalette(struct PromoProc3 *proc, s32 b) {
+    u16 tmp = b;
     s8 buffer[0x20];
     s32 index, bufferStart;
     const struct ClassData *class;
     proc->u44 = 0;
     proc->u46 = 0;
     proc->u47 = 0x78;
-    class = GetClassData(b);
+    class = GetClassData(tmp);
     GetStringFromIndexInBuffer(class->nameTextId, buffer);
 
     for (index = 0; buffer[index] != 0;) {
