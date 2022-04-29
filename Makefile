@@ -47,7 +47,7 @@ ASFLAGS  := -mcpu=arm7tdmi -mthumb-interwork -I include
 
 C_SUBDIR = src
 ASM_SUBDIR = asm
-DATA_ASM_SUBDIR = data
+DATA_SUBDIR = data
 SAMPLE_SUBDIR = sound/direct_sound_samples
 MID_SUBDIR = sound/songs/midi
 
@@ -56,9 +56,9 @@ ELF          := $(ROM:.gba=.elf)
 MAP          := $(ROM:.gba=.map)
 LDSCRIPT     := ldscript.txt
 SYM_FILES    := sym_iwram.txt sym_ewram.txt
-CFILES       := $(wildcard src/*.c)
-ASM_S_FILES  := $(wildcard asm/*.s)
-DATA_S_FILES := $(wildcard data/*.s) 
+CFILES       := $(wildcard $(C_SUBDIR)/*.c)
+ASM_S_FILES  := $(wildcard $(ASM_SUBDIR)/*.s)
+DATA_S_FILES := $(wildcard $(DATA_SUBDIR)/*.s)
 NON_MATCHING_SONG_S_FILES := $(wildcard sound/songs/*.s)
 SFILES       := $(ASM_S_FILES) $(DATA_S_FILES) $(NON_MATCHING_SONG_S_FILES)
 C_OBJECTS    := $(CFILES:.c=.o)
