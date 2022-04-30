@@ -491,7 +491,7 @@ namespace dump_sound
                             var volume = ReadU8(ofs + i + 1);
                             if (volume < 127)
                             {
-				//-V??? should be removed because volume is already set with VOL v???
+				//-V??? should come from VGMusicStudio's baseVolume
                                 var arg = String.Format(" -V{0:d3}", volume);
                                 if (!songInfo.ContainsKey(name))
                                 {
