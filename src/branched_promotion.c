@@ -657,3 +657,34 @@ void SetupPromotionScreen(struct PromoProc3* proc) {
         BG_EnableSyncByMask(0xf);
     }
 }
+
+void sub_800680C(u16, u8, u8);
+
+void sub_80CCF60(struct PromoProc3 *proc) {
+    s16 x;
+    u16 tmp;
+    sub_8003D20();
+    Font_InitForUIDefault();
+    BG_EnableSyncByMask(0xf);
+    sub_800680C(0x100, 2, 0);
+    x = proc->u38[proc->u41];
+    ChangeClassDescription(x);
+    sub_8006AF0(-1);
+    gLCDControlBuffer.bg0cnt.priority = 0;
+    gLCDControlBuffer.bg1cnt.priority = 2;
+    gLCDControlBuffer.bg2cnt.priority = 1;
+    gLCDControlBuffer.bg3cnt.priority = 3;
+    BG_EnableSyncByMask(0xf);
+    tmp = REG_BG0CNT;
+    tmp &= 0xFFFC;
+    REG_BG0CNT = tmp + 1;
+    tmp = REG_BG1CNT;
+    tmp &= 0xFFFC;
+    REG_BG1CNT = tmp + 1;
+    tmp = REG_BG2CNT;
+    tmp &= 0xFFFC;
+    REG_BG2CNT = tmp + 1;
+    tmp = REG_BG3CNT;
+    tmp &= 0xFFFC;
+    REG_BG3CNT = tmp + 1;
+}
