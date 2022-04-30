@@ -197,7 +197,7 @@ $(MID_SUBDIR)/song066.s: %.s: %.mid
 	$(MID2AGB) $< $@ -E -G026 -R050 -P010
 
 $(MID_SUBDIR)/song067.s: %.s: %.mid
-	$(MID2AGB) $< $@ -E -G001 -R020 -P010
+	$(MID2AGB) $< $@ -E -G001 -R020 -P010 -V050
 
 $(MID_SUBDIR)/song068.s: %.s: %.mid
 	$(MID2AGB) $< $@ -E -G027 -R050 -P010
