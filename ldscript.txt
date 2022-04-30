@@ -92,7 +92,7 @@ SECTIONS
         src/bmbattle.o(.text);
         src/bmtrade.o(.text);
         src/bmtrick.o(.text);
-        asm/bmusemind.o(.text);
+        src/bmusemind.o(.text);
         src/bmio.o(.text);
         src/bmcontainer.o(.text);
         asm/bmusort.o(.text);
@@ -261,6 +261,7 @@ SECTIONS
         . = ALIGN(4); src/bmbattle.o(.data);
         . = ALIGN(4); src/bmtrade.o(.data);
         . = ALIGN(4); data/data_59BC64.o(.data);
+        . = ALIGN(4); src/bmusemind.o(.data);
         . = ALIGN(4); src/menu_def.o(.rodata);
         . = ALIGN(4); data/data_59D238.o(.data);
         . = ALIGN(4); src/bmio.o(.data);

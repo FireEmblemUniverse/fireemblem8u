@@ -11,6 +11,7 @@
 #include "bmreliance.h"
 #include "m4a.h"
 #include "soundwrapper.h"
+#include "bmusemind.h"
 #include "bmmind.h"
 
 #include "constants/items.h"
@@ -130,9 +131,6 @@ void sub_808371C(u8, u8, int);
 void sub_8083FB0(u8, u8);
 void sub_80840C4(int, int);
 
-// bmtarget.s
-void MakeTargetListForFuckingNightmare(struct Unit*);
-
 // code_mapanim.s
 void BeginMapAnimForSteal(void);
 void BeginMapAnimForSummon(void);
@@ -162,8 +160,6 @@ s8 ActionSteal(ProcPtr);
 s8 ActionSummon(ProcPtr);
 s8 ActionSummonDK(ProcPtr);
 s8 ActionArena(ProcPtr);
-s8 ActionStaffDoorChestUseItem(ProcPtr);
-s8 ActionPick(ProcPtr);
 
 void StoreRNStateToActionStruct() {
     StoreRNState(gActionData._u00);
