@@ -207,7 +207,7 @@ sound/songs/midi/song247.o(.rodata);
 sound/songs/midi/song248.o(.rodata);
 sound/songs/midi/song249.o(.rodata);
 sound/songs/midi/song250.o(.rodata);
-sound/songs/song251.o(.rodata);
+sound/songs/midi/song251.o(.rodata);
 sound/songs/midi/song252.o(.rodata);
 sound/songs/song253.o(.rodata);
 sound/songs/midi/song254.o(.rodata);
