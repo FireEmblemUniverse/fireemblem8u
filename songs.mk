@@ -1367,7 +1367,7 @@ $(MID_SUBDIR)/song701.s: %.s: %.mid
 	$(MID2AGB) $< $@ -E -G036 -P020 -V127 -M
 
 $(MID_SUBDIR)/song702.s: %.s: %.mid
-	$(MID2AGB) $< $@ -E -G036 -P020 -V104 -M
+	$(MID2AGB) $< $@ -E -G036 -P020 -V104 -M -N
 
 $(MID_SUBDIR)/song703.s: %.s: %.mid
 	$(MID2AGB) $< $@ -E -G036 -P020 -V100 -M
@@ -1382,7 +1382,7 @@ $(MID_SUBDIR)/song706.s: %.s: %.mid
 	$(MID2AGB) $< $@ -E -G036 -P020 -V095 -M
 
 $(MID_SUBDIR)/song707.s: %.s: %.mid
-	$(MID2AGB) $< $@ -E -G036 -P020 -V115 -M
+	$(MID2AGB) $< $@ -E -G036 -P020 -V115 -M -N
 
 $(MID_SUBDIR)/song711.s: %.s: %.mid
 	$(MID2AGB) $< $@ -E -G036 -P020 -V105 -M
@@ -1727,7 +1727,7 @@ $(MID_SUBDIR)/song960.s: %.s: %.mid
 	$(MID2AGB) $< $@ -E -G038 -P020 -V105 -M
 
 $(MID_SUBDIR)/song962.s: %.s: %.mid
-	$(MID2AGB) $< $@ -E -G038 -P020 -M -V105 -W
+	$(MID2AGB) $< $@ -E -G038 -P020 -M -V105 -W -N
 
 $(MID_SUBDIR)/song963.s: %.s: %.mid
 	$(MID2AGB) $< $@ -E -G038 -P020 -V105
@@ -1736,7 +1736,7 @@ $(MID_SUBDIR)/song964.s: %.s: %.mid
 	$(MID2AGB) $< $@ -E -G038 -P020 -V105
 
 $(MID_SUBDIR)/song966.s: %.s: %.mid
-	$(MID2AGB) $< $@ -E -G038 -P020 -V100 -M
+	$(MID2AGB) $< $@ -E -G038 -P020 -V100 -M -N
 
 $(MID_SUBDIR)/song967.s: %.s: %.mid
 	$(MID2AGB) $< $@ -E -G038 -P020 -V100
