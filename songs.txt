@@ -97,7 +97,7 @@ sound/songs/midi/song105.o(.rodata);
 sound/songs/midi/song106.o(.rodata);
 sound/songs/midi/song107.o(.rodata);
 sound/songs/midi/song108.o(.rodata);
-sound/songs/song109.o(.rodata);
+sound/songs/midi/song109.o(.rodata);
 sound/songs/midi/song110.o(.rodata);
 sound/songs/midi/song111.o(.rodata);
 sound/songs/midi/song112.o(.rodata);
