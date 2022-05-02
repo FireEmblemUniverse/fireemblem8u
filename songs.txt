@@ -52,7 +52,7 @@ sound/songs/midi/song051.o(.rodata);
 sound/songs/midi/song052.o(.rodata);
 sound/songs/midi/song053.o(.rodata);
 sound/songs/midi/song054.o(.rodata);
-sound/songs/song055.o(.rodata);
+sound/songs/midi/song055.o(.rodata);
 sound/songs/midi/song056.o(.rodata);
 sound/songs/song057.o(.rodata);
 sound/songs/midi/song058.o(.rodata);
