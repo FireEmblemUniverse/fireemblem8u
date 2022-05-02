@@ -129,7 +129,7 @@ sound/songs/midi/song137.o(.rodata);
 sound/songs/midi/song138.o(.rodata);
 sound/songs/midi/song139.o(.rodata);
 sound/songs/midi/song140.o(.rodata);
-sound/songs/song141.o(.rodata);
+sound/songs/midi/song141.o(.rodata);
 sound/songs/song142.o(.rodata);
 sound/songs/song143.o(.rodata);
 sound/songs/song144.o(.rodata);
