@@ -41,7 +41,7 @@ int g_reverb = -1;
 int g_clocksPerBeat = 1;
 bool g_exactGateTime = false;
 bool g_compressionEnabled = true;
-bool g_trackAlignmentEnabled = false;
+bool g_MMLCompatible = false;
 
 [[noreturn]] static void PrintUsage()
 {
@@ -59,7 +59,7 @@ bool g_trackAlignmentEnabled = false;
         "            -X  48 clocks/beat (default:24 clocks/beat)\n"
         "            -E  exact gate-time\n"
         "            -N  no compression\n"
-        "            -A  align tracks\n"
+        "            -M  MML compatible mode\n"
     );
     std::exit(1);
 }
@@ -159,6 +159,9 @@ int main(int argc, char** argv)
                     PrintUsage();
                 g_asmLabel = arg;
                 break;
+            case 'M':
+                g_MMLCompatible = true;
+                break;
             case 'N':
                 g_compressionEnabled = false;
                 break;
@@ -182,9 +185,6 @@ int main(int argc, char** argv)
                 break;
             case 'X':
                 g_clocksPerBeat = 2;
-                break;
-            case 'A':
-                g_trackAlignmentEnabled = true;
                 break;
             default:
                 PrintUsage();

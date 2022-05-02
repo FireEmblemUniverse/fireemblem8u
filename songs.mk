@@ -1361,7 +1361,7 @@ $(MID_SUBDIR)/song620.s: %.s: %.mid
 	$(MID2AGB) $< $@ -E -G031 -P020 -V127
 
 $(MID_SUBDIR)/song700.s: %.s: %.mid
-	$(MID2AGB) $< $@ -E -G036 -P020 -V100
+	$(MID2AGB) $< $@ -E -G036 -P020 -V100 -M
 
 $(MID_SUBDIR)/song701.s: %.s: %.mid
 	$(MID2AGB) $< $@ -E -G036 -P020 -V127
@@ -1526,7 +1526,7 @@ $(MID_SUBDIR)/song784.s: %.s: %.mid
 	$(MID2AGB) $< $@ -E -G038 -P020 -V110
 
 $(MID_SUBDIR)/song785.s: %.s: %.mid
-	$(MID2AGB) $< $@ -E -G038 -P020 -A -V099
+	$(MID2AGB) $< $@ -E -G038 -P020 -M -V099
 
 $(MID_SUBDIR)/song786.s: %.s: %.mid
 	$(MID2AGB) $< $@ -E -G038 -P020 -V090
@@ -1553,13 +1553,13 @@ $(MID_SUBDIR)/song802.s: %.s: %.mid
 	$(MID2AGB) $< $@ -E -G038 -P020 -V120
 
 $(MID_SUBDIR)/song805.s: %.s: %.mid
-	$(MID2AGB) $< $@ -E -G038 -P020 -A -V080
+	$(MID2AGB) $< $@ -E -G038 -P020 -M -V080
 
 $(MID_SUBDIR)/song806.s: %.s: %.mid
-	$(MID2AGB) $< $@ -E -G038 -P020 -A -V080
+	$(MID2AGB) $< $@ -E -G038 -P020 -M -V080
 
 $(MID_SUBDIR)/song807.s: %.s: %.mid
-	$(MID2AGB) $< $@ -E -G038 -P020 -A -V105
+	$(MID2AGB) $< $@ -E -G038 -P020 -M -V105
 
 $(MID_SUBDIR)/song809.s: %.s: %.mid
 	$(MID2AGB) $< $@ -E -G038 -P020 -V099
@@ -1568,7 +1568,7 @@ $(MID_SUBDIR)/song810.s: %.s: %.mid
 	$(MID2AGB) $< $@ -E -G038 -P020 -V120
 
 $(MID_SUBDIR)/song811.s: %.s: %.mid
-	$(MID2AGB) $< $@ -E -G038 -P020 -A -V127
+	$(MID2AGB) $< $@ -E -G038 -P020 -M -V127
 
 $(MID_SUBDIR)/song812.s: %.s: %.mid
 	$(MID2AGB) $< $@ -E -G038 -P020 -V127
@@ -1577,10 +1577,10 @@ $(MID_SUBDIR)/song814.s: %.s: %.mid
 	$(MID2AGB) $< $@ -E -G038 -P020 -V120
 
 $(MID_SUBDIR)/song815.s: %.s: %.mid
-	$(MID2AGB) $< $@ -E -G038 -P020 -N -A -V099
+	$(MID2AGB) $< $@ -E -G038 -P020 -N -M -V099
 
 $(MID_SUBDIR)/song816.s: %.s: %.mid
-	$(MID2AGB) $< $@ -E -G038 -P020 -N -A -V095
+	$(MID2AGB) $< $@ -E -G038 -P020 -N -M -V095
 
 $(MID_SUBDIR)/song817.s: %.s: %.mid
 	$(MID2AGB) $< $@ -E -G038 -P020 -V099
@@ -1727,7 +1727,7 @@ $(MID_SUBDIR)/song960.s: %.s: %.mid
 	$(MID2AGB) $< $@ -E -G038 -P020 -V105
 
 $(MID_SUBDIR)/song962.s: %.s: %.mid
-	$(MID2AGB) $< $@ -E -G038 -P020 -A -V105
+	$(MID2AGB) $< $@ -E -G038 -P020 -M -V105
 
 $(MID_SUBDIR)/song963.s: %.s: %.mid
 	$(MID2AGB) $< $@ -E -G038 -P020 -V105

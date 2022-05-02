@@ -416,7 +416,7 @@ void PrintControllerOp(const Event& event)
 
 void PrintAgbTrack(std::vector<Event>& events)
 {
-    if (g_trackAlignmentEnabled)
+    if (g_MMLCompatible)
         std::fprintf(g_outputFile, "\t.align\t2\n");
     std::fprintf(g_outputFile, "\n@**************** Track %u (Midi-Chn.%u) ****************@\n\n", g_agbTrack, g_midiChan + 1);
     std::fprintf(g_outputFile, "%s_%u:\n", g_asmLabel.c_str(), g_agbTrack);
@@ -427,6 +427,8 @@ void PrintAgbTrack(std::vector<Event>& events)
     ResetTrackVars();
 
     bool foundVolBeforeNote = false;
+    bool placeVolAfterTempo = false;
+    bool placeKeyshAfterVoice = false;
 
     for (const Event& event : events)
     {
@@ -440,11 +442,19 @@ void PrintAgbTrack(std::vector<Event>& events)
         }
     }
 
-    if (!foundVolBeforeNote)
-        PrintByte("\tVOL   , 127*%s_mvl/mxv", g_asmLabel.c_str());
+    if (g_MMLCompatible)
+    {
+        placeVolAfterTempo = !foundVolBeforeNote;
+        placeKeyshAfterVoice = true;
+    }
+    else
+    {
+        if (!foundVolBeforeNote)
+            PrintByte("\tVOL   , 127*%s_mvl/mxv", g_asmLabel.c_str());
 
-    PrintWait(g_initialWait);
-    PrintByte("KEYSH , %s_key%+d", g_asmLabel.c_str(), 0);
+        PrintWait(g_initialWait);
+        PrintByte("KEYSH , %s_key%+d", g_asmLabel.c_str(), 0);
+    }
 
     for (unsigned i = 0; events[i].type != EventType::EndOfTrack; i++)
     {
@@ -507,9 +517,19 @@ void PrintAgbTrack(std::vector<Event>& events)
         case EventType::Tempo:
             PrintByte("TEMPO , %u*%s_tbs/2", 60000000 / event.param2, g_asmLabel.c_str());
             PrintWait(event.time);
+	    if (placeVolAfterTempo)
+	    {
+                PrintByte("\tVOL   , 127*%s_mvl/mxv", g_asmLabel.c_str());
+                placeVolAfterTempo = false;
+            }
             break;
         case EventType::InstrumentChange:
             PrintOp(event.time, "VOICE ", "%u", event.param1);
+	    if (placeKeyshAfterVoice)
+	    {
+                PrintByte("KEYSH , %s_key%+d", g_asmLabel.c_str(), 0);
+                placeKeyshAfterVoice = false;
+            }
             break;
         case EventType::PitchBend:
             PrintOp(event.time, "BEND  ", "c_v%+d", event.param2 - 64);
