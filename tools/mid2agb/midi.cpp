@@ -523,6 +523,19 @@ bool ReadTrackEvent(Event& event)
     if (category == MidiEventCategory::Meta)
     {
         int metaEventType = ReadInt8();
+
+        if (metaEventType >= 1 && metaEventType <= 7)
+        {
+            if (ReadEventText() == "k")
+            {
+                event.type = EventType::KeyShift;
+                event.param1 = 0;
+                event.param2 = 0;
+                return true;
+            }
+	    return false;
+        }
+
         SkipEventData();
 
         if (metaEventType == 0x2F)
@@ -578,6 +591,15 @@ bool EventCompare(const Event& event1, const Event& event2)
 
     if (event2.type == EventType::Note)
         event2Type += event2.note;
+
+    if (g_MMLCompatible && g_VolBeforeVoice)
+    {
+        if (event2.type == EventType::InstrumentChange && event1.type == EventType::Controller && event1.param1 == 7)
+            return true;
+
+        if (event1.type == EventType::InstrumentChange && event2.type == EventType::Controller && event2.param1 == 7)
+            return false;
+    }
 
     if (event1Type < event2Type)
         return true;

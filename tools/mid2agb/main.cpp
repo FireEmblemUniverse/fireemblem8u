@@ -42,6 +42,8 @@ int g_clocksPerBeat = 1;
 bool g_exactGateTime = false;
 bool g_compressionEnabled = true;
 bool g_MMLCompatible = false;
+bool g_KeyshBeforeVoice = false;
+bool g_VolBeforeVoice = false;
 
 [[noreturn]] static void PrintUsage()
 {
@@ -60,6 +62,8 @@ bool g_MMLCompatible = false;
         "            -E  exact gate-time\n"
         "            -N  no compression\n"
         "            -M  MML compatible mode\n"
+        "            -K  print KEYSH before VOICE in MML compatible mode (only work with -M)\n"
+        "            -W  print VOL before VOICE in MML compatible mode (only work with -M)\n"
     );
     std::exit(1);
 }
@@ -153,6 +157,9 @@ int main(int argc, char** argv)
                     PrintUsage();
                 g_voiceGroup = std::stoi(arg);
                 break;
+            case 'K':
+                g_KeyshBeforeVoice = true;
+                break;
             case 'L':
                 arg = GetArgument(argc, argv, i);
                 if (arg == nullptr)
@@ -182,6 +189,9 @@ int main(int argc, char** argv)
                 if (arg == nullptr)
                     PrintUsage();
                 g_masterVolume = std::stoi(arg);
+                break;
+            case 'W':
+                g_VolBeforeVoice = true;
                 break;
             case 'X':
                 g_clocksPerBeat = 2;

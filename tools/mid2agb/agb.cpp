@@ -427,8 +427,6 @@ void PrintAgbTrack(std::vector<Event>& events)
     ResetTrackVars();
 
     bool foundVolBeforeNote = false;
-    bool placeVolAfterTempo = false;
-    bool placeKeyshAfterVoice = false;
 
     for (const Event& event : events)
     {
@@ -442,18 +440,33 @@ void PrintAgbTrack(std::vector<Event>& events)
         }
     }
 
-    if (g_MMLCompatible)
+    bool foundKeyShiftBeforeNote = false;
+
+    for (const Event& event : events)
     {
-        placeVolAfterTempo = !foundVolBeforeNote;
-        placeKeyshAfterVoice = true;
+        if (event.type == EventType::Note)
+            break;
+
+        if (event.type == EventType::KeyShift)
+        {
+            foundKeyShiftBeforeNote = true;
+            break;
+        }
     }
+
+    bool reorderVolAndKeysh = false;
+
+    if (g_MMLCompatible)
+        reorderVolAndKeysh = true;
     else
     {
         if (!foundVolBeforeNote)
             PrintByte("\tVOL   , 127*%s_mvl/mxv", g_asmLabel.c_str());
 
         PrintWait(g_initialWait);
-        PrintByte("KEYSH , %s_key%+d", g_asmLabel.c_str(), 0);
+
+        if (!foundKeyShiftBeforeNote)
+            PrintByte("KEYSH , %s_key%+d", g_asmLabel.c_str(), 0);
     }
 
     for (unsigned i = 0; events[i].type != EventType::EndOfTrack; i++)
@@ -517,25 +530,25 @@ void PrintAgbTrack(std::vector<Event>& events)
         case EventType::Tempo:
             PrintByte("TEMPO , %u*%s_tbs/2", 60000000 / event.param2, g_asmLabel.c_str());
             PrintWait(event.time);
-	    if (placeVolAfterTempo)
-	    {
-                PrintByte("\tVOL   , 127*%s_mvl/mxv", g_asmLabel.c_str());
-                placeVolAfterTempo = false;
-            }
             break;
         case EventType::InstrumentChange:
-            PrintOp(event.time, "VOICE ", "%u", event.param1);
-	    if (placeKeyshAfterVoice)
-	    {
+	    if (reorderVolAndKeysh && !foundVolBeforeNote)
+                PrintByte("\tVOL   , 127*%s_mvl/mxv", g_asmLabel.c_str());
+	    if (reorderVolAndKeysh && !foundKeyShiftBeforeNote && g_KeyshBeforeVoice)
                 PrintByte("KEYSH , %s_key%+d", g_asmLabel.c_str(), 0);
-                placeKeyshAfterVoice = false;
-            }
+            PrintOp(event.time, "VOICE ", "%u", event.param1);
+	    if (reorderVolAndKeysh && !foundKeyShiftBeforeNote && !g_KeyshBeforeVoice)
+                PrintByte("KEYSH , %s_key%+d", g_asmLabel.c_str(), 0);
+            reorderVolAndKeysh = false;
             break;
         case EventType::PitchBend:
             PrintOp(event.time, "BEND  ", "c_v%+d", event.param2 - 64);
             break;
         case EventType::Controller:
             PrintControllerOp(event);
+            break;
+        case EventType::KeyShift:
+            PrintByte("KEYSH , %s_key%+d", g_asmLabel.c_str(), event.param2);
             break;
         default:
             PrintWait(event.time);
