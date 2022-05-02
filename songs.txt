@@ -574,7 +574,7 @@ sound/songs/midi/song955.o(.rodata);
 sound/songs/midi/song957.o(.rodata);
 sound/songs/midi/song959.o(.rodata);
 sound/songs/midi/song960.o(.rodata);
-sound/songs/midi/song962.o(.rodata);
+sound/songs/song962.o(.rodata);
 sound/songs/midi/song963.o(.rodata);
 sound/songs/midi/song964.o(.rodata);
 sound/songs/midi/song966.o(.rodata);
