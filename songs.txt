@@ -449,7 +449,7 @@ sound/songs/midi/song614.o(.rodata);
 sound/songs/midi/song615.o(.rodata);
 sound/songs/midi/song616.o(.rodata);
 sound/songs/midi/song617.o(.rodata);
-sound/songs/song618.o(.rodata);
+sound/songs/midi/song618.o(.rodata);
 sound/songs/midi/song619.o(.rodata);
 sound/songs/midi/song620.o(.rodata);
 sound/songs/midi/song700.o(.rodata);
