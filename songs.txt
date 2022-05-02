@@ -111,7 +111,7 @@ sound/songs/midi/song119.o(.rodata);
 sound/songs/midi/song120.o(.rodata);
 sound/songs/midi/song121.o(.rodata);
 sound/songs/midi/song122.o(.rodata);
-sound/songs/song123.o(.rodata);
+sound/songs/midi/song123.o(.rodata);
 sound/songs/midi/song124.o(.rodata);
 sound/songs/midi/song125.o(.rodata);
 sound/songs/midi/song126.o(.rodata);
