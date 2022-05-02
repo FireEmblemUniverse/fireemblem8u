@@ -658,7 +658,8 @@ void ConvertTimes(std::vector<Event>& events)
 
         if (event.type == EventType::Note)
         {
-            event.param1 = g_noteVelocityLUT[event.param1];
+            if (!g_MMLCompatible)
+                event.param1 = g_noteVelocityLUT[event.param1];
 
             std::uint32_t duration = (24 * g_clocksPerBeat * event.param2) / g_midiTimeDiv;
 

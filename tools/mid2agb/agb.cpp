@@ -146,6 +146,8 @@ void PrintNote(const Event& event)
 {
     int note = event.note;
     int velocity = g_noteVelocityLUT[event.param1];
+    if (g_MMLCompatible)
+        velocity = event.param1;
     int duration = -1;
 
     if (event.param2 != -1)
