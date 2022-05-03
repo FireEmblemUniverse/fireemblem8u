@@ -21,6 +21,7 @@ namespace dump_sound
         static int VoiceGroupEndAdr = 0x08224150;
 
         static SortedDictionary<int, string> soundInfo = new SortedDictionary<int, string>();
+        static SortedDictionary<string, string> songInfo = new SortedDictionary<string, string>();
         static byte[] rom;
         static List<int> voicegroups = new List<int>();
 
@@ -655,6 +656,28 @@ namespace dump_sound
                             i += 4;
                             break;
                         }
+                    case 0xBE: //VOL
+                        {
+                            var volume = ReadU8(ofs + i + 1);
+                            if (volume < 127)
+                            {
+				//-V??? should come from VGMusicStudio's baseVolume
+                                var arg = String.Format(" -V{0:d3}", volume);
+                                if (!songInfo.ContainsKey(name))
+                                {
+                                    songInfo.Add(name, arg);
+                                }
+                                else
+                                {
+                                    if (!songInfo[name].Contains(" -V"))
+                                    {
+                                        songInfo[name] += arg;
+                                    }
+                                }
+                            }
+                            i++;
+                            break;
+                        }
                     default:
                         break;
                 }
@@ -958,6 +981,32 @@ namespace dump_sound
             var reverb = ReadU8(ofs + 3);
             var tone = ReadU32(ofs + 4);
 
+            if (voicegroups.Contains(tone))
+            {
+                var sba = new StringBuilder();
+		//FIXME: ??? of -G??? in sba should be replaced with the ??? of voicegroup??? in sb
+                sba.AppendFormat(" -G{0:d3}", voicegroups.IndexOf(tone));
+                if (reverb > 0)
+                {
+                    sba.AppendFormat(" -R{0:d3}", reverb - 128);
+                }
+                if (priority > 0)
+                {
+                    sba.AppendFormat(" -P{0:d3}", priority);
+                }
+                if (!songInfo.ContainsKey(realName))
+                {
+                    songInfo.Add(realName, sba.ToString());
+                }
+                else
+                {
+                    if (!songInfo[realName].Contains(" -G"))
+                    {
+                        songInfo[realName] += sba.ToString();
+                    }
+                }
+            }
+
             sb.AppendFormat("\t.byte\t{0}\t\t@ trackCount\n", trackCount);
             sb.AppendFormat("\t.byte\t{0}\t\t@ blockCount\n", blockCount);
             sb.AppendFormat("\t.byte\t{0}\t\t@ priority\n", priority);
@@ -1091,6 +1140,19 @@ namespace dump_sound
             }
 
             File.WriteAllText("sound.s", sb.ToString());
+
+            var sbi = new StringBuilder();
+            var sbl = new StringBuilder();
+            sbi.Append("$(MID_BUILDDIR)/%.o: $(MID_SUBDIR)/%.s\n");
+            sbi.Append("\t$(AS) $(ASFLAGS) -I sound -o $@ $<\n\n");
+            foreach (var song in songInfo)
+            {
+                sbi.AppendFormat("$(MID_SUBDIR)/{0}.s: %.s: %.mid\n", song.Key);
+                sbi.AppendFormat("\t$(MID2AGB) $< $@ -E {0}\n\n", song.Value);
+                sbl.AppendFormat("sound/songs/midi/{0}.o(.rodata);\n", song.Key);
+            }
+            File.WriteAllText("songs.mk", sbi.ToString());
+            File.WriteAllText("songs.txt", sbl.ToString());
         }
     }
 }

@@ -17,6 +17,7 @@ CPP ?= $(PREFIX)cpp$(EXE)
 AS := $(PREFIX)as$(EXE)
 LD := $(PREFIX)ld$(EXE)
 OBJCOPY := $(PREFIX)objcopy$(EXE)
+STRIP := $(PREFIX)strip$(EXE)
 
 CC1     := tools/agbcc/bin/agbcc$(EXE)
 CC1_OLD := tools/agbcc/bin/old_agbcc$(EXE)
@@ -25,6 +26,7 @@ BIN2C    := tools/bin2c/bin2c$(EXE)
 GBAGFX   := tools/gbagfx/gbagfx$(EXE)
 SCANINC  := tools/scaninc/scaninc$(EXE)
 AIF2PCM  := tools/aif2pcm/aif2pcm$(EXE)
+MID2AGB  := tools/mid2agb/mid2agb$(EXE)
 
 ifeq ($(UNAME),Darwin)
 	SED := sed -i ''
@@ -46,23 +48,26 @@ ASFLAGS  := -mcpu=arm7tdmi -mthumb-interwork -I include
 
 C_SUBDIR = src
 ASM_SUBDIR = asm
-DATA_ASM_SUBDIR = data
+DATA_SUBDIR = data
 SAMPLE_SUBDIR = sound/direct_sound_samples
+MID_SUBDIR = sound/songs/midi
 
 ROM          := fireemblem8.gba
 ELF          := $(ROM:.gba=.elf)
 MAP          := $(ROM:.gba=.map)
 LDSCRIPT     := ldscript.txt
 SYM_FILES    := sym_iwram.txt sym_ewram.txt
-CFILES       := $(wildcard src/*.c)
-ASM_S_FILES  := $(wildcard asm/*.s)
-DATA_S_FILES := $(wildcard data/*.s) 
-SOUND_S_FILES := $(wildcard sound/*.s sound/songs/*.s)
+CFILES       := $(wildcard $(C_SUBDIR)/*.c)
+ASM_S_FILES  := $(wildcard $(ASM_SUBDIR)/*.s)
+DATA_S_FILES := $(wildcard $(DATA_SUBDIR)/*.s)
+SOUND_S_FILES := $(wildcard sound/*.s sound/songs/*.s sound/songs/mml/*.s)
 SFILES       := $(ASM_S_FILES) $(DATA_S_FILES) $(SOUND_S_FILES)
 C_OBJECTS    := $(CFILES:.c=.o)
 ASM_OBJECTS  := $(SFILES:.s=.o)
 BANIM_OBJECT := data/banim/data_banim.o
-ALL_OBJECTS  := $(C_OBJECTS) $(ASM_OBJECTS) $(BANIM_OBJECT)
+MID_FILES    := $(wildcard $(MID_SUBDIR)/*.mid)
+MID_OBJECTS  := $(MID_FILES:.mid=.o)
+ALL_OBJECTS  := $(C_OBJECTS) $(ASM_OBJECTS) $(BANIM_OBJECT) $(MID_OBJECTS)
 DEPS_DIR     := .dep
 
 # Use the older compiler to build library code
@@ -87,6 +92,8 @@ clean:
 	$(RM) -f data/banim/*.bin data/banim/*.o data/banim/*.lz data/banim/*.bak
 	# Remove converted sound samples
 	$(RM) -f $(SAMPLE_SUBDIR)/*.bin
+	# Remove converted songs
+	$(RM) -f $(MID_SUBDIR)/*.s
 
 .PHONY: clean
 
@@ -100,6 +107,7 @@ tag:
 # Graphics Recipes
 
 include graphics_file_rules.mk
+include songs.mk
 
 %.s: ;
 %.png: ;
@@ -109,15 +117,7 @@ include graphics_file_rules.mk
 %.1bpp: %.png  ; $(GBAGFX) $< $@
 %.4bpp: %.png  ; $(GBAGFX) $< $@
 %.8bpp: %.png  ; $(GBAGFX) $< $@
-%.gbapal: %.pal
-ifneq ($(OS),Windows_NT)
-ifeq ($(UNAME),Darwin)
-	$(SED) $$'s/\r*$$/\r/' $<
-else
-	$(SED) -e 's/\r*$$/\r/' $<
-endif
-endif
-	$(GBAGFX) $< $@
+%.gbapal: %.pal ; $(GBAGFX) $< $@
 %.gbapal: %.png ; $(GBAGFX) $< $@
 %.lz: % ; $(GBAGFX) $< $@
 %.rl: % ; $(GBAGFX) $< $@
@@ -153,6 +153,7 @@ $(DEPS_DIR)/%.d: %.c
 
 $(ELF): $(ALL_OBJECTS) $(LDSCRIPT) $(SYM_FILES)
 	$(LD) -T $(LDSCRIPT) -Map $(MAP) $(ALL_OBJECTS) -R $(BANIM_OBJECT).sym.o -L tools/agbcc/lib -o $@ -lc -lgcc
+	$(STRIP) -N .gcc2_compiled. $@
 
 %.gba: %.elf
 	$(OBJCOPY) --strip-debug -O binary --pad-to 0x9000000 --gap-fill=0xff $< $@
