@@ -41,7 +41,7 @@ sound/songs/midi/song040.o(.rodata);
 sound/songs/midi/song041.o(.rodata);
 sound/songs/midi/song042.o(.rodata);
 sound/songs/midi/song043.o(.rodata);
-sound/songs/song044.o(.rodata);
+sound/songs/midi/song044.o(.rodata);
 sound/songs/song045.o(.rodata);
 sound/songs/song046.o(.rodata);
 sound/songs/midi/song047.o(.rodata);
