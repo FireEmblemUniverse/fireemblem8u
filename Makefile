@@ -60,7 +60,7 @@ SYM_FILES    := sym_iwram.txt sym_ewram.txt
 CFILES       := $(wildcard $(C_SUBDIR)/*.c)
 ASM_S_FILES  := $(wildcard $(ASM_SUBDIR)/*.s)
 DATA_S_FILES := $(wildcard $(DATA_SUBDIR)/*.s)
-SOUND_S_FILES := $(wildcard sound/*.s sound/songs/*.s)
+SOUND_S_FILES := $(wildcard sound/*.s sound/songs/*.s sound/songs/mml/*.s)
 SFILES       := $(ASM_S_FILES) $(DATA_S_FILES) $(SOUND_S_FILES)
 C_OBJECTS    := $(CFILES:.c=.o)
 ASM_OBJECTS  := $(SFILES:.s=.o)

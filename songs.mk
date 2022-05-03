@@ -1573,15 +1573,6 @@ $(MID_SUBDIR)/song811.s: %.s: %.mid
 $(MID_SUBDIR)/song812.s: %.s: %.mid
 	$(MID2AGB) $< $@ -E -G038 -P020 -V127 -M -K
 
-$(MID_SUBDIR)/song814.s: %.s: %.mid
-	$(MID2AGB) $< $@ -E -G038 -P020 -V120 -M
-
-$(MID_SUBDIR)/song815.s: %.s: %.mid
-	$(MID2AGB) $< $@ -E -G038 -P020 -N -M -V099
-
-$(MID_SUBDIR)/song816.s: %.s: %.mid
-	$(MID2AGB) $< $@ -E -G038 -P020 -N -M -V095
-
 $(MID_SUBDIR)/song817.s: %.s: %.mid
 	$(MID2AGB) $< $@ -E -G038 -P020 -V099 -M
 
@@ -1725,9 +1716,6 @@ $(MID_SUBDIR)/song959.s: %.s: %.mid
 
 $(MID_SUBDIR)/song960.s: %.s: %.mid
 	$(MID2AGB) $< $@ -E -G038 -P020 -V105 -M
-
-$(MID_SUBDIR)/song962.s: %.s: %.mid
-	$(MID2AGB) $< $@ -E -G038 -P020 -M -V105 -W -N
 
 $(MID_SUBDIR)/song963.s: %.s: %.mid
 	$(MID2AGB) $< $@ -E -G038 -P020 -V105
