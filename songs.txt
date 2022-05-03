@@ -66,7 +66,7 @@ sound/songs/midi/song065.o(.rodata);
 sound/songs/midi/song066.o(.rodata);
 sound/songs/midi/song067.o(.rodata);
 sound/songs/midi/song068.o(.rodata);
-sound/songs/song069.o(.rodata);
+sound/songs/midi/song069.o(.rodata);
 sound/songs/midi/song070.o(.rodata);
 sound/songs/midi/song071.o(.rodata);
 sound/songs/midi/song072.o(.rodata);
