@@ -377,7 +377,7 @@ DisplayUnitEffectRange: @ 0x0801CB70
 	ands r0, r1
 	cmp r0, #0
 	bne _0801CC10
-	ldr r0, _0801CBE0  @ gBmMapUnk
+	ldr r0, _0801CBE0  @ gBmMapOther
 	ldr r0, [r0]
 	movs r1, #0
 	bl BmMapFill
@@ -405,7 +405,7 @@ _0801CBB8:
 	.align 2, 0
 _0801CBD8: .4byte gActiveUnit
 _0801CBDC: .4byte gActionData
-_0801CBE0: .4byte gBmMapUnk
+_0801CBE0: .4byte gBmMapOther
 _0801CBE4: .4byte gBmMapRange
 _0801CBE8:
 	cmp r0, #3
@@ -2317,7 +2317,7 @@ _0801DB14:
 	bl Proc_Find
 	cmp r0, #0
 	bne _0801DB24
-	ldr r0, _0801DB48  @ gUnknown_0859DBBC
+	ldr r0, _0801DB48  @ gProcScr_SALLYCURSOR
 	bl Proc_Find
 _0801DB24:
 	movs r1, #0x10
@@ -2337,7 +2337,7 @@ _0801DB3E:
 	bx r1
 	.align 2, 0
 _0801DB44: .4byte gUnknown_0859AAD8
-_0801DB48: .4byte gUnknown_0859DBBC
+_0801DB48: .4byte gProcScr_SALLYCURSOR
 
 	THUMB_FUNC_END sub_801DADC
 

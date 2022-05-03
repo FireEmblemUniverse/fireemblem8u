@@ -221,7 +221,7 @@ void UpdatePathArrowWithCursor(void) {
     }
     if (gUnknown_0859DBA0.proc->pathCosts[gUnknown_0859DBA0.proc->pathLen] == 0)
         CutOffPathLength(1);
-    SetWorkingBmMap(gBmMapUnk);
+    SetWorkingBmMap(gBmMapOther);
     GenerateMovementMapForActiveUnit();
     if (GetBmMapPointAtCursor() == -1) {
         ResetPathArrow();

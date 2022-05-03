@@ -493,9 +493,6 @@ enum
     // TODO: 5 & 6
 };
 
-// TODO: move to bmcontainer.h
-enum { CONVOY_ITEM_COUNT = 100 };
-
 enum
 {
     FACE_BLINK_NORMAL = 1,

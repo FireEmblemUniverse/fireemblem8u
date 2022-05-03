@@ -1,3 +1,6 @@
+    .include "asm/macros/m4a.inc"
+
+    .section .rodata
 
 	.align 2
 	.global gSongTable
@@ -1003,4 +1006,3 @@ gSongTable:	@ 0x08224470
 	song song998, 2, 2
 	song dummy_song, 0, 0
 
-.include "sound/songs/dummy_song.inc"

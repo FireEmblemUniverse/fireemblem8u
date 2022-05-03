@@ -330,7 +330,7 @@ MuCtr_SetupWithEventMoveBuffer: @ 0x08079E78
 _08079F30:
 	mov r1, sl
 	lsls r0, r1, #0x18
-	ldr r2, _08079F80  @ gBmMapUnk
+	ldr r2, _08079F80  @ gBmMapOther
 	ldr r1, [r2]
 	asrs r0, r0, #0x16
 	adds r0, r0, r1
@@ -367,7 +367,7 @@ _08079F30:
 	bx r0
 	.align 2, 0
 _08079F7C: .4byte gBmMapUnit
-_08079F80: .4byte gBmMapUnk
+_08079F80: .4byte gBmMapOther
 
 	THUMB_FUNC_END MuCtr_SetupWithEventMoveBuffer
 
@@ -910,7 +910,7 @@ sub_807A358: @ 0x0807A358
 	mov ip, r0
 	movs r1, #0
 	ldrsb r1, [r0, r1]
-	ldr r0, _0807A3C0  @ gBmMapUnk
+	ldr r0, _0807A3C0  @ gBmMapOther
 	ldr r0, [r0]
 	lsls r1, r1, #2
 	adds r1, r1, r0
@@ -945,7 +945,7 @@ sub_807A358: @ 0x0807A358
 	str r1, [sp]
 	b _0807A3E8
 	.align 2, 0
-_0807A3C0: .4byte gBmMapUnk
+_0807A3C0: .4byte gBmMapOther
 _0807A3C4: .4byte 0xFFFF0000
 _0807A3C8: .4byte 0x0000FFFF
 _0807A3CC:
@@ -979,7 +979,7 @@ _0807A3EC:
 	adds r0, #0x41
 	movs r1, #0
 	ldrsb r1, [r0, r1]
-	ldr r0, _0807A488  @ gBmMapUnk
+	ldr r0, _0807A488  @ gBmMapOther
 	ldr r0, [r0]
 	lsls r1, r1, #2
 	adds r1, r1, r0
@@ -1042,7 +1042,7 @@ _0807A46E:
 	b _0807A492
 	.align 2, 0
 _0807A484: .4byte 0x0000FFFE
-_0807A488: .4byte gBmMapUnk
+_0807A488: .4byte gBmMapOther
 _0807A48C:
 	adds r0, r4, #0
 	bl MU_DisableAttractCamera
@@ -1164,7 +1164,7 @@ _0807A554:
 	ldrb r0, [r0]
 	cmp r0, #0
 	bne _0807A5B6
-	ldr r0, _0807A5F8  @ gBmMapUnk
+	ldr r0, _0807A5F8  @ gBmMapOther
 	ldr r0, [r0]
 	adds r0, r3, r0
 	ldr r0, [r0]
@@ -1232,7 +1232,7 @@ _0807A5B6:
 	b _0807A62E
 	.align 2, 0
 _0807A5F4: .4byte gBmMapUnit
-_0807A5F8: .4byte gBmMapUnk
+_0807A5F8: .4byte gBmMapOther
 _0807A5FC: .4byte gBmMapHidden
 _0807A600: .4byte gBmMapRange
 _0807A604:

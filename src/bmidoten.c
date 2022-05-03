@@ -542,7 +542,7 @@ void GenerateUnitCompleteAttackRange(struct Unit* unit)
                     continue; \
                 if (gBmMapUnit[iy][ix]) \
                     continue; \
-                if (gBmMapUnk[iy][ix]) \
+                if (gBmMapOther[iy][ix]) \
                     continue; \
                 block \
             } \
@@ -727,7 +727,7 @@ void GenerateUnitCompleteStaffRange(struct Unit* unit)
                     continue; \
                 if (gBmMapUnit[iy][ix]) \
                     continue; \
-                if (gBmMapUnk[iy][ix]) \
+                if (gBmMapOther[iy][ix]) \
                     continue; \
                 block \
             } \
@@ -803,7 +803,7 @@ void GenerateDangerZoneRange(s8 boolDisplayStaffRange)
 
         if (prevHasMagicRank != hasMagicRank)
         {
-            BmMapFill(gBmMapUnk, 0);
+            BmMapFill(gBmMapOther, 0);
 
             if (hasMagicRank)
                 GenerateMagicSealMap(1);

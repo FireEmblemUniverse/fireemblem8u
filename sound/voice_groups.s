@@ -1,4 +1,8 @@
-	.align 4
+    .include "asm/macros/music_voice.inc"
+
+    .section .rodata
+
+    .align 4
 
 	.include "sound/voicegroups/voicegroup000.inc"
 	.include "sound/voicegroups/voicegroup001.inc"

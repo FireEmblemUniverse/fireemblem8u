@@ -1,3 +1,5 @@
+    .section .rodata
+
     .global ProgrammableWaveData_8224354
 ProgrammableWaveData_8224354: @ 8224354
     .incbin "sound/programmable_wave_samples/8224354.pcm"

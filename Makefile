@@ -17,6 +17,7 @@ CPP ?= $(PREFIX)cpp$(EXE)
 AS := $(PREFIX)as$(EXE)
 LD := $(PREFIX)ld$(EXE)
 OBJCOPY := $(PREFIX)objcopy$(EXE)
+STRIP := $(PREFIX)strip$(EXE)
 
 CC1     := tools/agbcc/bin/agbcc$(EXE)
 CC1_OLD := tools/agbcc/bin/old_agbcc$(EXE)
@@ -59,8 +60,8 @@ SYM_FILES    := sym_iwram.txt sym_ewram.txt
 CFILES       := $(wildcard $(C_SUBDIR)/*.c)
 ASM_S_FILES  := $(wildcard $(ASM_SUBDIR)/*.s)
 DATA_S_FILES := $(wildcard $(DATA_SUBDIR)/*.s)
-NON_MATCHING_SONG_S_FILES := $(wildcard sound/songs/*.s)
-SFILES       := $(ASM_S_FILES) $(DATA_S_FILES) $(NON_MATCHING_SONG_S_FILES)
+SOUND_S_FILES := $(wildcard sound/*.s sound/songs/*.s)
+SFILES       := $(ASM_S_FILES) $(DATA_S_FILES) $(SOUND_S_FILES)
 C_OBJECTS    := $(CFILES:.c=.o)
 ASM_OBJECTS  := $(SFILES:.s=.o)
 BANIM_OBJECT := data/banim/data_banim.o
@@ -116,15 +117,7 @@ include songs.mk
 %.1bpp: %.png  ; $(GBAGFX) $< $@
 %.4bpp: %.png  ; $(GBAGFX) $< $@
 %.8bpp: %.png  ; $(GBAGFX) $< $@
-%.gbapal: %.pal
-ifneq ($(OS),Windows_NT)
-ifeq ($(UNAME),Darwin)
-	$(SED) $$'s/\r*$$/\r/' $<
-else
-	$(SED) -e 's/\r*$$/\r/' $<
-endif
-endif
-	$(GBAGFX) $< $@
+%.gbapal: %.pal ; $(GBAGFX) $< $@
 %.gbapal: %.png ; $(GBAGFX) $< $@
 %.lz: % ; $(GBAGFX) $< $@
 %.rl: % ; $(GBAGFX) $< $@
@@ -160,6 +153,7 @@ $(DEPS_DIR)/%.d: %.c
 
 $(ELF): $(ALL_OBJECTS) $(LDSCRIPT) $(SYM_FILES)
 	$(LD) -T $(LDSCRIPT) -Map $(MAP) $(ALL_OBJECTS) -R $(BANIM_OBJECT).sym.o -L tools/agbcc/lib -o $@ -lc -lgcc
+	$(STRIP) -N .gcc2_compiled. $@
 
 %.gba: %.elf
 	$(OBJCOPY) --strip-debug -O binary --pad-to 0x9000000 --gap-fill=0xff $< $@
@@ -197,6 +191,12 @@ ifeq ($(NODEP),1)
 banim/%.o:    data_dep :=
 else
 banim/%.o:    data_dep = $(shell $(SCANINC) -I include -I "" $*.s)
+endif
+
+ifeq ($(NODEP),1)
+sound/%.o:    data_dep :=
+else
+sound/%.o:    data_dep = $(shell $(SCANINC) -I include -I "" $*.s)
 endif
 
 .SECONDEXPANSION:

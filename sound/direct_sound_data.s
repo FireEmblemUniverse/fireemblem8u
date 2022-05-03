@@ -1,4 +1,6 @@
-	.align 2
+    .section .rodata
+
+    .align 2
 	.global DirectSoundData_082263B4
 DirectSoundData_082263B4:
 	.incbin "sound/direct_sound_samples/082263B4.bin"

@@ -1,3 +1,7 @@
+	.include "MPlayDef.s"
+
+	.section .rodata
+
 	.align 2
 	.global dummy_song
 dummy_song:	@ 0x082263B0

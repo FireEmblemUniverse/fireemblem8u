@@ -1,4 +1,8 @@
-	.align 2
+    .include "asm/macros/m4a.inc"
+
+    .section .rodata
+
+    .align 2
 
 	.global gMPlayTable
 gMPlayTable:  @ 0x08224404

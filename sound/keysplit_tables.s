@@ -12,6 +12,8 @@
 
 @ These keysplit tables appear to be unused in Fire Emblem 8.
 
+.section .rodata
+
 .byte 0
 .byte 0
 .byte 0

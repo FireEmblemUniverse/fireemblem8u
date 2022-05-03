@@ -643,13 +643,13 @@ MakeTradeTargetList: @ 0x080252D0
 	ands r0, r1
 	cmp r0, #0
 	beq _08025332
-	bl sub_804FD28
+	bl GetSelectTargetCount
 	adds r4, r0, #0
 	ldr r0, [r6]
 	ldrb r0, [r0, #0x1b]
 	bl GetUnit
 	bl _call_via_r7
-	bl sub_804FD28
+	bl GetSelectTargetCount
 	cmp r4, r0
 	beq _08025332
 	adds r0, r4, #0
@@ -2917,7 +2917,7 @@ sub_8026414: @ 0x08026414
 	mov r7, r8
 	push {r7}
 	mov r8, r0
-	bl sub_804FD28
+	bl GetSelectTargetCount
 	adds r7, r0, #0
 	movs r6, #0
 	cmp r6, r7

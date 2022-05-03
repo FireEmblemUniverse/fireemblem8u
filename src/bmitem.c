@@ -7,6 +7,7 @@
 #include "chapterdata.h"
 #include "bmunit.h"
 #include "bmitemuse.h"
+#include "bmcontainer.h"
 
 #include "bmitem.h"
 

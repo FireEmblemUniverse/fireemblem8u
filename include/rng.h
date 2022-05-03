@@ -4,8 +4,8 @@
 // rng.c
 // ??? NextRN(???);
 void InitRN(s32 unk1);
-// ??? LoadRNState(???);
-// ??? StoreRNState(???);
+void StoreRNState(u16* seeds);
+void LoadRNState(const u16* seeds);
 int NextRN_100(void);
 int NextRN_N(int max);
 s8 Roll1RN(int threshold);

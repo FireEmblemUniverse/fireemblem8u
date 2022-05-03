@@ -193,12 +193,7 @@ struct UnitDefinition
 
     /* 0C */ u8 items[UNIT_DEFINITION_ITEM_COUNT];
 
-    struct {
-        /* 10 */ u8 ai1;
-        /* 11 */ u8 ai2;
-        /* 12 */ u8 ai3;
-        /* 13 */ u8 ai4;
-    } ai;
+    /* 10 */ u8 ai[4];
 };
 
 enum

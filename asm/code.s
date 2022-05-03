@@ -40127,7 +40127,7 @@ sub_809CDD4: @ 0x0809CDD4
 	adds r2, #0x1e
 	adds r2, r2, r3
 	ldrh r5, [r2]
-	bl sub_802F808
+	bl ApplyStatBoostItem
 	adds r6, r0, #0
 	ldr r0, [r4, #0x2c]
 	movs r1, #0

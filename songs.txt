@@ -1,3 +1,11 @@
+src/m4a_tables.o(.rodata);
+sound/voice_groups.o(.rodata);
+sound/keysplit_tables.o(.rodata);
+sound/programmable_wave_data.o(.rodata);
+sound/music_player_table.o(.rodata);
+sound/song_table.o(.rodata);
+sound/songs/dummy_song.o(.rodata);
+sound/direct_sound_data.o(.rodata);
 sound/songs/midi/song001.o(.rodata);
 sound/songs/midi/song002.o(.rodata);
 sound/songs/midi/song003.o(.rodata);
