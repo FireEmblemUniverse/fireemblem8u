@@ -5,8 +5,8 @@
 	@********************** Track  1 **********************@
 
 	.align 2
-	.global song814_1
-song814_1:	@ 0x08584694
+	.global song814_mon_gar_critical1_1
+song814_mon_gar_critical1_1:	@ 0x08584694
 	.byte	TEMPO	, 75
 	.byte	VOL	, v120
 	.byte	KEYSH	, 0
@@ -31,8 +31,8 @@ song814_1:	@ 0x08584694
 	.byte	FINE
 
 	.align 2
-	.global song814
-song814:	@ 0x085846C0
+	.global song814_mon_gar_critical1
+song814_mon_gar_critical1:	@ 0x085846C0
 	.byte	1		@ trackCount
 	.byte	0		@ blockCount
 	.byte	20		@ priority
@@ -40,4 +40,4 @@ song814:	@ 0x085846C0
 
 	.word	voicegroup038		@ voicegroup/tone
 
-	.word	song814_1		@ track
+	.word	song814_mon_gar_critical1_1		@ track

@@ -5,8 +5,8 @@
 	@********************** Track  1 **********************@
 
 	.align 2
-	.global song816_1
-song816_1:	@ 0x0858470C
+	.global song816_mon_gog_attack3_1
+song816_mon_gog_attack3_1:	@ 0x0858470C
 	.byte	TEMPO	, 75
 	.byte	VOL	, v095
 	.byte	VOICE	, 44
@@ -18,8 +18,8 @@ song816_1:	@ 0x0858470C
 	@********************** Track  2 **********************@
 
 	.align 2
-	.global song816_2
-song816_2:	@ 0x0858471C
+	.global song816_mon_gog_attack3_2
+song816_mon_gog_attack3_2:	@ 0x0858471C
 	.byte	VOL	, v095
 	.byte	VOICE	, 41
 	.byte	KEYSH	, 0
@@ -35,8 +35,8 @@ song816_2:	@ 0x0858471C
 	.byte	FINE
 
 	.align 2
-	.global song816
-song816:	@ 0x08584738
+	.global song816_mon_gog_attack3
+song816_mon_gog_attack3:	@ 0x08584738
 	.byte	2		@ trackCount
 	.byte	0		@ blockCount
 	.byte	20		@ priority
@@ -44,5 +44,5 @@ song816:	@ 0x08584738
 
 	.word	voicegroup038		@ voicegroup/tone
 
-	.word	song816_1		@ track
-	.word	song816_2		@ track
+	.word	song816_mon_gog_attack3_1		@ track
+	.word	song816_mon_gog_attack3_2		@ track

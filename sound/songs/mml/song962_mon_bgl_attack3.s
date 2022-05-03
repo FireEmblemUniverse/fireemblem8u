@@ -5,8 +5,8 @@
 	@********************** Track  1 **********************@
 
 	.align 2
-	.global song962_1
-song962_1:	@ 0x085864A0
+	.global song962_mon_bgl_attack3_1
+song962_mon_bgl_attack3_1:	@ 0x085864A0
 	.byte	TEMPO	, 75
 	.byte	VOL	, v049
 	.byte	VOICE	, 103
@@ -27,8 +27,8 @@ song962_1:	@ 0x085864A0
 	@********************** Track  2 **********************@
 
 	.align 2
-	.global song962_2
-song962_2:	@ 0x085864C0
+	.global song962_mon_bgl_attack3_2
+song962_mon_bgl_attack3_2:	@ 0x085864C0
 	.byte	VOL	, v105
 	.byte	VOICE	, 116
 	.byte	KEYSH	, 0
@@ -38,8 +38,8 @@ song962_2:	@ 0x085864C0
 	.byte	FINE
 
 	.align 2
-	.global song962
-song962:	@ 0x085864CC
+	.global song962_mon_bgl_attack3
+song962_mon_bgl_attack3:	@ 0x085864CC
 	.byte	2		@ trackCount
 	.byte	0		@ blockCount
 	.byte	20		@ priority
@@ -47,5 +47,5 @@ song962:	@ 0x085864CC
 
 	.word	voicegroup038		@ voicegroup/tone
 
-	.word	song962_1		@ track
-	.word	song962_2		@ track
+	.word	song962_mon_bgl_attack3_1		@ track
+	.word	song962_mon_bgl_attack3_2		@ track
