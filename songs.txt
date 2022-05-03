@@ -25,7 +25,7 @@ sound/songs/midi/song024.o(.rodata);
 sound/songs/midi/song025.o(.rodata);
 sound/songs/midi/song026.o(.rodata);
 sound/songs/midi/song027.o(.rodata);
-sound/songs/song028.o(.rodata);
+sound/songs/midi/song028.o(.rodata);
 sound/songs/midi/song029.o(.rodata);
 sound/songs/midi/song030.o(.rodata);
 sound/songs/midi/song031.o(.rodata);
