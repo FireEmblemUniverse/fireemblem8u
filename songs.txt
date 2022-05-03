@@ -4,7 +4,7 @@ sound/songs/midi/song003.o(.rodata);
 sound/songs/midi/song004.o(.rodata);
 sound/songs/midi/song005.o(.rodata);
 sound/songs/midi/song006.o(.rodata);
-sound/songs/song007.o(.rodata);
+sound/songs/midi/song007.o(.rodata);
 sound/songs/midi/song008.o(.rodata);
 sound/songs/song009.o(.rodata);
 sound/songs/midi/song010.o(.rodata);
