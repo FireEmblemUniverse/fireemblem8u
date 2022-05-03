@@ -51,7 +51,6 @@ void FillWarpRangeMap(struct Unit* caster, struct Unit* target);
 void DisplayMoveRangeGraphics(int config);
 
 void MakeTargetListForAdjacentHeal(struct Unit* unit);
-void MakeTargetListForRangedHeal(struct Unit* unit);
 void MakeTargetListForRestore(struct Unit* unit);
 void MakeTargetListForRescueStaff(struct Unit* unit);
 void MakeTargetListForBarrier(struct Unit* unit);
@@ -61,7 +60,6 @@ void MakeTargetListForBerserk(struct Unit* unit);
 void MakeTargetListForWarp(struct Unit* unit);
 void MakeTargetListForHammerne(struct Unit* unit);
 void MakeTargetListForUnlock(struct Unit* unit);
-void MakeTargetListForLatona(struct Unit* unit);
 void MakeTargetListForMine(struct Unit* unit);
 void MakeTargetListForLightRune(struct Unit* unit);
 void MakeTargetListForDanceRing(struct Unit* unit);
