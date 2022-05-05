@@ -825,7 +825,7 @@ _08012CCE:
 	ldr r0, _08012CE0  @ gUnknown_085925F0
 	bl Proc_EndEach
 	movs r0, #4
-	bl SoundStuff_80023E0
+	bl Sound_FadeOutSE
 _08012CDA:
 	pop {r0}
 	bx r0
@@ -5470,7 +5470,7 @@ sub_8014BD0: @ 0x08014BD0
 	push {lr}
 	lsls r0, r0, #0x10
 	asrs r0, r0, #0x10
-	bl Sound_FadeOut800231C
+	bl Sound_FadeOutBGM
 	pop {r0}
 	bx r0
 

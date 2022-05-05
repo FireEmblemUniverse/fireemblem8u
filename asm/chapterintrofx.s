@@ -2127,7 +2127,7 @@ sub_8020E48: @ 0x08020E48
 	push {r4, r5, r6, lr}
 	adds r5, r0, #0
 	movs r0, #4
-	bl Sound_FadeOut800231C
+	bl Sound_FadeOutBGM
 	bl sub_8001710
 	ldr r6, _08020EA8  @ gPaletteBuffer
 	movs r4, #2
@@ -2161,7 +2161,7 @@ sub_8020E48: @ 0x08020E48
 	movs r0, #0xf
 	strh r0, [r5]
 	movs r0, #1
-	bl SoundStuff_80023E0
+	bl Sound_FadeOutSE
 	pop {r4, r5, r6}
 	pop {r0}
 	bx r0
