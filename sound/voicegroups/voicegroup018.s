@@ -7,7 +7,7 @@
 
 	.global voicegroup018
 voicegroup018:	@ 0x0820DA70
-	voice_directsound 60, 0, DirectSoundData_082A8068, 255, 250, 0, 204	@0820DA70
+	voice_directsound 60, 0, DirectSoundData_h_piano_c5_13k8b_ss, 255, 250, 0, 204	@0820DA70
 	voice_square_1 0, 2, 0, 0, 15, 0	@0820DA7C
 	voice_square_1 0, 2, 0, 0, 15, 0	@0820DA88
 	voice_square_1 0, 2, 0, 0, 15, 0	@0820DA94
@@ -43,7 +43,7 @@ voicegroup018:	@ 0x0820DA70
 	voice_square_1 0, 2, 0, 0, 15, 0	@0820DBFC
 	voice_square_1 0, 2, 0, 0, 15, 0	@0820DC08
 	voice_square_1 0, 2, 0, 0, 15, 0	@0820DC14
-	voice_directsound 60, 0, DirectSoundData_082AC224, 255, 250, 0, 165	@0820DC20
+	voice_directsound 60, 0, DirectSoundData_k_slap_c2_13k_ss, 255, 250, 0, 165	@0820DC20
 	voice_square_1 0, 2, 0, 0, 15, 0	@0820DC2C
 	voice_square_1 0, 2, 0, 0, 15, 0	@0820DC38
 	voice_square_1 0, 2, 0, 0, 15, 0	@0820DC44
@@ -55,7 +55,7 @@ voicegroup018:	@ 0x0820DA70
 	voice_square_1 0, 2, 0, 0, 15, 0	@0820DC8C
 	voice_square_1 0, 2, 0, 0, 15, 0	@0820DC98
 	voice_square_1 0, 2, 0, 0, 15, 0	@0820DCA4
-	voice_directsound 60, 0, DirectSoundData_08233650, 255, 0, 255, 165	@0820DCB0
+	voice_directsound 60, 0, DirectSoundData_k_strings_13k_c5, 255, 0, 255, 165	@0820DCB0
 	voice_square_1 0, 2, 0, 0, 15, 0	@0820DCBC
 	voice_square_1 0, 2, 0, 0, 15, 0	@0820DCC8
 	voice_square_1 0, 2, 0, 0, 15, 0	@0820DCD4
@@ -68,7 +68,7 @@ voicegroup018:	@ 0x0820DA70
 	voice_square_1 0, 2, 0, 0, 15, 0	@0820DD28
 	voice_square_1 0, 2, 0, 0, 15, 0	@0820DD34
 	voice_square_1 0, 2, 0, 0, 15, 0	@0820DD40
-	voice_directsound 60, 0, DirectSoundData_0826CFD0, 255, 0, 255, 165	@0820DD4C
+	voice_directsound 60, 0, DirectSoundData_k_brassorc_c4_13k, 255, 0, 255, 165	@0820DD4C
 	voice_square_1 0, 2, 0, 0, 15, 0	@0820DD58
 	voice_square_1 0, 2, 0, 0, 15, 0	@0820DD64
 	voice_square_1 0, 2, 0, 0, 15, 0	@0820DD70

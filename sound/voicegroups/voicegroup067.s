@@ -54,12 +54,12 @@ voicegroup067:	@ 0x0821D838
 	voice_square_1 0, 2, 0, 0, 15, 0	@0821DA48
 	voice_square_1 0, 2, 0, 0, 15, 0	@0821DA54
 	voice_square_1 0, 2, 0, 0, 15, 0	@0821DA60
-	voice_directsound 60, 0, DirectSoundData_08228C7C, 255, 250, 0, 165	@0821DA6C
-	voice_directsound 60, 0, DirectSoundData_0822B4DC, 255, 0, 255, 165	@0821DA78
-	voice_directsound 60, 0, DirectSoundData_08233650, 255, 0, 255, 165	@0821DA84
-	voice_directsound 60, 0, DirectSoundData_082367A8, 255, 0, 255, 165	@0821DA90
+	voice_directsound 60, 0, DirectSoundData_k_timpani3_g3_13k_s, 255, 250, 0, 165	@0821DA6C
+	voice_directsound 60, 0, DirectSoundData_k_strings_13k_c4, 255, 0, 255, 165	@0821DA78
+	voice_directsound 60, 0, DirectSoundData_k_strings_13k_c5, 255, 0, 255, 165	@0821DA84
+	voice_directsound 60, 0, DirectSoundData_k_strings5_c3_13k, 255, 0, 255, 165	@0821DA90
 	voice_square_1 0, 2, 0, 0, 15, 0	@0821DA9C
-	voice_directsound 60, 0, DirectSoundData_0828DDD0, 255, 0, 255, 165	@0821DAA8
+	voice_directsound 60, 0, DirectSoundData_k_voice1_c4_13k_ss, 255, 0, 255, 165	@0821DAA8
 	voice_square_1 0, 2, 0, 0, 15, 0	@0821DAB4
 	voice_square_1 0, 2, 0, 0, 15, 0	@0821DAC0
 	voice_square_1 0, 2, 0, 0, 15, 0	@0821DACC
@@ -69,13 +69,13 @@ voicegroup067:	@ 0x0821D838
 	voice_square_1 0, 2, 0, 0, 15, 0	@0821DAFC
 	voice_square_1 0, 2, 0, 0, 15, 0	@0821DB08
 	voice_square_1 0, 2, 0, 0, 15, 0	@0821DB14
-	voice_directsound 60, 0, DirectSoundData_08274F48, 255, 0, 255, 165	@0821DB20
+	voice_directsound 60, 0, DirectSoundData_k_brasstrm_c4_13k, 255, 0, 255, 165	@0821DB20
 	voice_square_1 0, 2, 0, 0, 15, 0	@0821DB2C
 	voice_square_1 0, 2, 0, 0, 15, 0	@0821DB38
 	voice_square_1 0, 2, 0, 0, 15, 0	@0821DB44
 	voice_square_1 0, 2, 0, 0, 15, 0	@0821DB50
 	voice_square_1 0, 2, 0, 0, 15, 0	@0821DB5C
-	voice_directsound 60, 0, DirectSoundData_0827BBD0, 255, 0, 255, 165	@0821DB68
+	voice_directsound 60, 0, DirectSoundData_k_oboe_c5_13k_s, 255, 0, 255, 165	@0821DB68
 	voice_square_1 0, 2, 0, 0, 15, 0	@0821DB74
 	voice_square_1 0, 2, 0, 0, 15, 0	@0821DB80
 	voice_square_1 0, 2, 0, 0, 15, 0	@0821DB8C
@@ -109,7 +109,7 @@ voicegroup067:	@ 0x0821D838
 	voice_square_1 0, 2, 0, 0, 15, 0	@0821DCDC
 	voice_square_1 0, 2, 0, 0, 15, 0	@0821DCE8
 	voice_square_1 0, 2, 0, 0, 15, 0	@0821DCF4
-	voice_directsound 60, 0, DirectSoundData_0823B5FC, 255, 0, 255, 165	@0821DD00
+	voice_directsound 60, 0, DirectSoundData_k_strings5_c5c4_13k, 255, 0, 255, 165	@0821DD00
 	voice_square_1 0, 2, 0, 0, 15, 0	@0821DD0C
 	voice_square_1 0, 2, 0, 0, 15, 0	@0821DD18
 	voice_square_1 0, 2, 0, 0, 15, 0	@0821DD24

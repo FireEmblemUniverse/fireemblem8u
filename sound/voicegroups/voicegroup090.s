@@ -7,6 +7,6 @@
 
 	.global voicegroup090
 voicegroup090:	@ 0x08223E8C
-	voice_directsound 60, 0, DirectSoundData_0853318C, 255, 0, 255, 0	@08223E8C
-	voice_directsound 60, 0, DirectSoundData_08535F64, 255, 0, 255, 0	@08223E98
-	voice_directsound 60, 0, DirectSoundData_0853A088, 255, 0, 255, 0	@08223EA4
+	voice_directsound 60, 0, DirectSoundData_y_yoru_1_13k8b, 255, 0, 255, 0	@08223E8C
+	voice_directsound 60, 0, DirectSoundData_y_yoru_2_13k8b, 255, 0, 255, 0	@08223E98
+	voice_directsound 60, 0, DirectSoundData_y_yoru_3_13k8b, 255, 0, 255, 0	@08223EA4

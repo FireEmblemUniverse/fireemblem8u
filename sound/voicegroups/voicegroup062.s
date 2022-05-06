@@ -7,11 +7,11 @@
 
 	.global voicegroup062
 voicegroup062:	@ 0x0821BC90
-	voice_directsound 60, 0, DirectSoundData_084D4684, 255, 0, 255, 165	@0821BC90
+	voice_directsound 60, 0, DirectSoundData_k_strings7_c5_13k_ss, 255, 0, 255, 165	@0821BC90
 	voice_square_1 0, 2, 0, 0, 15, 0	@0821BC9C
 	voice_square_1 0, 2, 0, 0, 15, 0	@0821BCA8
 	voice_square_1 0, 2, 0, 0, 15, 0	@0821BCB4
-	voice_directsound 60, 0, DirectSoundData_0823F698, 255, 0, 255, 165	@0821BCC0
+	voice_directsound 60, 0, DirectSoundData_k_strings5_c4_13k, 255, 0, 255, 165	@0821BCC0
 	voice_square_1 0, 2, 0, 0, 15, 0	@0821BCCC
 	voice_square_1 0, 2, 0, 0, 15, 0	@0821BCD8
 	voice_square_1 0, 2, 0, 0, 15, 0	@0821BCE4
@@ -40,8 +40,8 @@ voicegroup062:	@ 0x0821BC90
 	voice_square_1 0, 2, 0, 0, 15, 0	@0821BDF8
 	voice_square_1 0, 2, 0, 0, 15, 0	@0821BE04
 	voice_square_1 0, 2, 0, 0, 15, 0	@0821BE10
-	voice_directsound 60, 0, DirectSoundData_0829918C, 255, 242, 0, 165	@0821BE1C
-	voice_directsound 60, 0, DirectSoundData_08289978, 255, 252, 128, 165	@0821BE28
+	voice_directsound 60, 0, DirectSoundData_k_strpizz_c2_13k_ss, 255, 242, 0, 165	@0821BE1C
+	voice_directsound 60, 0, DirectSoundData_k_fbass_c3_13k_s, 255, 252, 128, 165	@0821BE28
 	voice_square_1 0, 2, 0, 0, 15, 0	@0821BE34
 	voice_square_1 0, 2, 0, 0, 15, 0	@0821BE40
 	voice_square_1 0, 2, 0, 0, 15, 0	@0821BE4C
@@ -52,13 +52,13 @@ voicegroup062:	@ 0x0821BC90
 	voice_square_1 0, 2, 0, 0, 15, 0	@0821BE88
 	voice_square_1 0, 2, 0, 0, 15, 0	@0821BE94
 	voice_square_1 0, 2, 0, 0, 15, 0	@0821BEA0
-	voice_directsound 60, 0, DirectSoundData_08281974, 255, 226, 0, 165	@0821BEAC
-	voice_directsound 60, 0, DirectSoundData_0822807C, 128, 242, 0, 178	@0821BEB8
-	voice_directsound 60, 0, DirectSoundData_08228C7C, 255, 250, 0, 165	@0821BEC4
-	voice_directsound 60, 0, DirectSoundData_08243A54, 22, 0, 255, 210	@0821BED0
-	voice_directsound 60, 0, DirectSoundData_082367A8, 255, 0, 255, 165	@0821BEDC
-	voice_directsound 60, 0, DirectSoundData_08233650, 128, 0, 255, 149	@0821BEE8
-	voice_directsound 60, 0, DirectSoundData_0822B4DC, 128, 0, 255, 149	@0821BEF4
+	voice_directsound 60, 0, DirectSoundData_h_pizz_c4_13k8b_ss, 255, 226, 0, 165	@0821BEAC
+	voice_directsound 60, 0, DirectSoundData_k_harp_c4_13k_s, 128, 242, 0, 178	@0821BEB8
+	voice_directsound 60, 0, DirectSoundData_k_timpani3_g3_13k_s, 255, 250, 0, 165	@0821BEC4
+	voice_directsound 60, 0, DirectSoundData_k_strings5_c5_13k, 22, 0, 255, 210	@0821BED0
+	voice_directsound 60, 0, DirectSoundData_k_strings5_c3_13k, 255, 0, 255, 165	@0821BEDC
+	voice_directsound 60, 0, DirectSoundData_k_strings_13k_c5, 128, 0, 255, 149	@0821BEE8
+	voice_directsound 60, 0, DirectSoundData_k_strings_13k_c4, 128, 0, 255, 149	@0821BEF4
 	voice_square_1 0, 2, 0, 0, 15, 0	@0821BF00
 	voice_square_1 0, 2, 0, 0, 15, 0	@0821BF0C
 	voice_square_1 0, 2, 0, 0, 15, 0	@0821BF18
@@ -69,18 +69,18 @@ voicegroup062:	@ 0x0821BC90
 	voice_square_1 0, 2, 0, 0, 15, 0	@0821BF54
 	voice_square_1 0, 2, 0, 0, 15, 0	@0821BF60
 	voice_square_1 0, 2, 0, 0, 15, 0	@0821BF6C
-	voice_directsound 60, 0, DirectSoundData_08274F48, 255, 0, 255, 165	@0821BF78
+	voice_directsound 60, 0, DirectSoundData_k_brasstrm_c4_13k, 255, 0, 255, 165	@0821BF78
 	voice_square_1 0, 2, 0, 0, 15, 0	@0821BF84
 	voice_square_1 0, 2, 0, 0, 15, 0	@0821BF90
 	voice_square_1 0, 2, 0, 0, 15, 0	@0821BF9C
 	voice_square_1 0, 2, 0, 0, 15, 0	@0821BFA8
 	voice_square_1 0, 2, 0, 0, 15, 0	@0821BFB4
-	voice_directsound 60, 0, DirectSoundData_0827BBD0, 255, 0, 255, 127	@0821BFC0
-	voice_directsound 60, 0, DirectSoundData_08280AF0, 255, 0, 255, 165	@0821BFCC
+	voice_directsound 60, 0, DirectSoundData_k_oboe_c5_13k_s, 255, 0, 255, 127	@0821BFC0
+	voice_directsound 60, 0, DirectSoundData_k_enghorn_c4_13k_s, 255, 0, 255, 165	@0821BFCC
 	voice_square_1 0, 2, 0, 0, 15, 0	@0821BFD8
 	voice_square_1 0, 2, 0, 0, 15, 0	@0821BFE4
-	voice_directsound 60, 0, DirectSoundData_084BE7C0, 255, 0, 255, 165	@0821BFF0
-	voice_directsound 60, 0, DirectSoundData_0827E640, 255, 0, 255, 165	@0821BFFC
+	voice_directsound 60, 0, DirectSoundData_k_piccolo_c5_13k_ss, 255, 0, 255, 165	@0821BFF0
+	voice_directsound 60, 0, DirectSoundData_k_flute_c6_13k_s, 255, 0, 255, 165	@0821BFFC
 	voice_square_1 0, 2, 0, 0, 15, 0	@0821C008
 	voice_square_1 0, 2, 0, 0, 15, 0	@0821C014
 	voice_square_1 0, 2, 0, 0, 15, 0	@0821C020
@@ -109,7 +109,7 @@ voicegroup062:	@ 0x0821BC90
 	voice_square_1 0, 2, 0, 0, 15, 0	@0821C134
 	voice_square_1 0, 2, 0, 0, 15, 0	@0821C140
 	voice_square_1 0, 2, 0, 0, 15, 0	@0821C14C
-	voice_directsound 60, 0, DirectSoundData_0823B5FC, 255, 0, 255, 165	@0821C158
+	voice_directsound 60, 0, DirectSoundData_k_strings5_c5c4_13k, 255, 0, 255, 165	@0821C158
 	voice_square_1 0, 2, 0, 0, 15, 0	@0821C164
 	voice_square_1 0, 2, 0, 0, 15, 0	@0821C170
 	voice_square_1 0, 2, 0, 0, 15, 0	@0821C17C

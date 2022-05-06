@@ -17,4 +17,4 @@ voicegroup027:	@ 0x08210B6C
 	voice_square_1 0, 2, 0, 0, 15, 0	@08210BC0
 	voice_square_1 0, 2, 0, 0, 15, 0	@08210BCC
 	voice_square_1 0, 2, 0, 0, 15, 0	@08210BD8
-	voice_directsound 60, 0, DirectSoundData_082C0D0C, 255, 226, 255, 226	@08210BE4
+	voice_directsound 60, 0, DirectSoundData_k_mbox_c5_13k_s, 255, 226, 255, 226	@08210BE4

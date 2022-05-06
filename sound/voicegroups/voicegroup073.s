@@ -40,7 +40,7 @@ voicegroup073:	@ 0x0821FC38
 	voice_square_1 0, 2, 0, 0, 15, 0	@0821FDA0
 	voice_square_1 0, 2, 0, 0, 15, 0	@0821FDAC
 	voice_square_1 0, 2, 0, 0, 15, 0	@0821FDB8
-	voice_directsound 60, 0, DirectSoundData_08227988, 255, 0, 255, 165	@0821FDC4
+	voice_directsound 60, 0, DirectSoundData_k_finbass2_c3_13k_s, 255, 0, 255, 165	@0821FDC4
 	voice_square_1 0, 2, 0, 0, 15, 0	@0821FDD0
 	voice_square_1 0, 2, 0, 0, 15, 0	@0821FDDC
 	voice_square_1 0, 2, 0, 0, 15, 0	@0821FDE8
@@ -53,9 +53,9 @@ voicegroup073:	@ 0x0821FC38
 	voice_square_1 0, 2, 0, 0, 15, 0	@0821FE3C
 	voice_square_1 0, 2, 0, 0, 15, 0	@0821FE48
 	voice_square_1 0, 2, 0, 0, 15, 0	@0821FE54
-	voice_directsound 60, 0, DirectSoundData_0822807C, 128, 242, 0, 178	@0821FE60
-	voice_directsound 60, 0, DirectSoundData_08228C7C, 255, 250, 0, 165	@0821FE6C
-	voice_directsound 60, 0, DirectSoundData_0822B4DC, 255, 0, 255, 89	@0821FE78
+	voice_directsound 60, 0, DirectSoundData_k_harp_c4_13k_s, 128, 242, 0, 178	@0821FE60
+	voice_directsound 60, 0, DirectSoundData_k_timpani3_g3_13k_s, 255, 250, 0, 165	@0821FE6C
+	voice_directsound 60, 0, DirectSoundData_k_strings_13k_c4, 255, 0, 255, 89	@0821FE78
 	voice_square_1 0, 2, 0, 0, 15, 0	@0821FE84
 	voice_square_1 0, 2, 0, 0, 15, 0	@0821FE90
 	voice_square_1 0, 2, 0, 0, 15, 0	@0821FE9C
@@ -64,11 +64,11 @@ voicegroup073:	@ 0x0821FC38
 	voice_square_1 0, 2, 0, 0, 15, 0	@0821FEC0
 	voice_square_1 0, 2, 0, 0, 15, 0	@0821FECC
 	voice_square_1 0, 2, 0, 0, 15, 0	@0821FED8
-	voice_directsound 60, 0, DirectSoundData_082A1728, 255, 0, 255, 165	@0821FEE4
+	voice_directsound 60, 0, DirectSoundData_k_brasstrm2_c4_13k, 255, 0, 255, 165	@0821FEE4
 	voice_square_1 0, 2, 0, 0, 15, 0	@0821FEF0
 	voice_square_1 0, 2, 0, 0, 15, 0	@0821FEFC
 	voice_square_1 0, 2, 0, 0, 15, 0	@0821FF08
-	voice_directsound 60, 0, DirectSoundData_0826CFD0, 255, 0, 255, 165	@0821FF14
+	voice_directsound 60, 0, DirectSoundData_k_brassorc_c4_13k, 255, 0, 255, 165	@0821FF14
 	voice_square_1 0, 2, 0, 0, 15, 0	@0821FF20
 	voice_square_1 0, 2, 0, 0, 15, 0	@0821FF2C
 	voice_square_1 0, 2, 0, 0, 15, 0	@0821FF38
@@ -78,8 +78,8 @@ voicegroup073:	@ 0x0821FC38
 	voice_square_1 0, 2, 0, 0, 15, 0	@0821FF68
 	voice_square_1 0, 2, 0, 0, 15, 0	@0821FF74
 	voice_square_1 0, 2, 0, 0, 15, 0	@0821FF80
-	voice_directsound 60, 0, DirectSoundData_0827E28C, 255, 0, 255, 165	@0821FF8C
-	voice_directsound 60, 0, DirectSoundData_084BE7C0, 255, 0, 255, 165	@0821FF98
+	voice_directsound 60, 0, DirectSoundData_k_clarinet_c5_13k_ss, 255, 0, 255, 165	@0821FF8C
+	voice_directsound 60, 0, DirectSoundData_k_piccolo_c5_13k_ss, 255, 0, 255, 165	@0821FF98
 	voice_square_1 0, 2, 0, 0, 15, 0	@0821FFA4
 	voice_square_1 0, 2, 0, 0, 15, 0	@0821FFB0
 	voice_square_1 0, 2, 0, 0, 15, 0	@0821FFBC
