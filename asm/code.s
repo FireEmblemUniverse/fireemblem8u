@@ -39906,7 +39906,7 @@ sub_809CC9C: @ 0x0809CC9C
 	push {lr}
 	movs r0, #0x80
 	lsls r0, r0, #1
-	bl Sound_SetVolume80022EC
+	bl Sound_SetSEVolume
 	bl CheckSomethingSomewhere
 	lsls r0, r0, #0x18
 	cmp r0, #0
@@ -85734,7 +85734,7 @@ sub_80B28A0: @ 0x080B28A0
 	adds r0, r4, #0
 	bl sub_80ADDD4
 	movs r0, #1
-	bl Sound_FadeOut800231C
+	bl Sound_FadeOutBGM
 	ldr r2, _080B2900  @ gLCDControlBuffer
 	ldrb r1, [r2, #1]
 	movs r0, #2
@@ -85886,7 +85886,7 @@ _080B29D0: .4byte gUnknown_08A2EEF0
 sub_80B29D4: @ 0x080B29D4
 	push {lr}
 	movs r0, #3
-	bl Sound_FadeOut800231C
+	bl Sound_FadeOutBGM
 	pop {r0}
 	bx r0
 
@@ -88190,7 +88190,7 @@ sub_80B3C14: @ 0x080B3C14
 	cmp r0, #0
 	beq _080B3C3C
 	movs r0, #0x3c
-	bl Sound_FadeOut800231C
+	bl Sound_FadeOutBGM
 	adds r0, r4, #0
 	movs r1, #7
 	bl Proc_Goto
@@ -92246,7 +92246,7 @@ sub_80B5AA4: @ 0x080B5AA4
 	push {lr}
 	movs r0, #1
 	negs r0, r0
-	bl Sound_FadeOut800231C
+	bl Sound_FadeOutBGM
 	pop {r0}
 	bx r0
 
@@ -97269,7 +97269,7 @@ nullsub_5: @ 0x080B81FC
 sub_80B8200: @ 0x080B8200
 	push {lr}
 	movs r0, #4
-	bl Sound_FadeOut800231C
+	bl Sound_FadeOutBGM
 	pop {r0}
 	bx r0
 
@@ -100578,7 +100578,7 @@ _080B9AA8:
 sub_80B9AB0: @ 0x080B9AB0
 	push {lr}
 	movs r0, #4
-	bl Sound_FadeOut800231C
+	bl Sound_FadeOutBGM
 	ldr r2, _080B9AE8  @ gLCDControlBuffer
 	ldrb r1, [r2, #1]
 	movs r0, #2
@@ -100774,9 +100774,9 @@ _080B9C26:
 	cmp r0, #0
 	beq _080B9C70
 	movs r0, #1
-	bl Sound_FadeOut800231C
+	bl Sound_FadeOutBGM
 	movs r0, #1
-	bl SoundStuff_80023E0
+	bl Sound_FadeOutSE
 	ldrb r0, [r5, #0x11]
 	adds r2, r6, #0
 	adds r2, #0x3e
@@ -101138,9 +101138,9 @@ sub_80B9EA4: @ 0x080B9EA4
 	movs r3, #1
 	bl sub_8001F0C
 	movs r0, #1
-	bl Sound_FadeOut800231C
+	bl Sound_FadeOutBGM
 	movs r0, #1
-	bl SoundStuff_80023E0
+	bl Sound_FadeOutSE
 	add sp, #4
 	pop {r0}
 	bx r0
@@ -101738,7 +101738,7 @@ WorldMap_SetupChapterStuff: @ 0x080BA334
 	push {r4, r5, r6, lr}
 	adds r5, r0, #0
 	movs r0, #4
-	bl Sound_FadeOut800231C
+	bl Sound_FadeOutBGM
 	ldr r2, _080BA360  @ gUnknown_03005280
 	ldrb r1, [r2]
 	movs r0, #2
@@ -124299,7 +124299,7 @@ sub_80C4918: @ 0x080C4918
 	cmp r0, #0
 	beq _080C4938
 	movs r0, #1
-	bl Sound_FadeOut800231C
+	bl Sound_FadeOutBGM
 	adds r0, r4, #0
 	movs r1, #6
 	bl Proc_Goto
@@ -125649,7 +125649,7 @@ _080C53FC: .4byte 0x01000080
 sub_80C5400: @ 0x080C5400
 	push {lr}
 	movs r0, #4
-	bl Sound_FadeOut800231C
+	bl Sound_FadeOutBGM
 	pop {r0}
 	bx r0
 
@@ -128511,7 +128511,7 @@ Initialize6CIntroSequence: @ 0x080C6A54
 	sub sp, #4
 	adds r4, r0, #0
 	movs r0, #1
-	bl Sound_FadeOut800231C
+	bl Sound_FadeOutBGM
 	movs r0, #0
 	bl SetupBackgrounds
 	movs r0, #0
@@ -138744,7 +138744,7 @@ sub_80CBE0C: @ 0x080CBE0C
 	sub sp, #4
 	adds r7, r0, #0
 	movs r0, #1
-	bl Sound_FadeOut800231C
+	bl Sound_FadeOutBGM
 	movs r0, #0
 	bl SetupBackgrounds
 	movs r0, #0
@@ -139271,7 +139271,7 @@ PrepareHealthAndSafetyScreen: @ 0x080CC1F8
 _080CC218: .4byte 0x000003E7
 _080CC21C:
 	movs r0, #1
-	bl Sound_FadeOut800231C
+	bl Sound_FadeOutBGM
 	movs r0, #0
 	bl SetupBackgrounds
 	movs r0, #0
@@ -139855,7 +139855,7 @@ sub_80CC698: @ 0x080CC698
 	bl sub_8002670
 	movs r0, #0x80
 	lsls r0, r0, #1
-	bl Sound_SetVolume80022EC
+	bl Sound_SetSEVolume
 	movs r0, #0x34
 	bl sub_8002620
 _080CC6BA:

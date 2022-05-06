@@ -357,7 +357,7 @@ sub_8021470: @ 0x08021470
 	adds r3, r5, #0
 	bl sub_800172C
 	movs r0, #4
-	bl Sound_FadeOut800231C
+	bl Sound_FadeOutBGM
 	pop {r4, r5}
 	pop {r0}
 	bx r0

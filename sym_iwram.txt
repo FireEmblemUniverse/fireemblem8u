@@ -96,15 +96,9 @@
 . = 0x001DA8; gUnknown_03001DA8 = .;
 . = 0x001DE8; gUnknown_03001DE8 = .;
 . = 0x001E30; gUnknown_03001E30 = .;
-. = 0x001E38; gUnknown_03001E38 = .;
-. = 0x0020B8; gUnknown_030020B8 = .;
-. = 0x002338; gUnknown_03002338 = .;
-. = 0x0023D8; gUnknown_030023D8 = .;
-. = 0x002478; gUnknown_03002478 = .;
-. = 0x0025B8; gUnknown_030025B8 = .;
-. = 0x0026F8; gUnknown_030026F8 = .;
-. = 0x002888; gUnknown_03002888 = .;
-. = 0x0029C8; gUnknown_030029C8 = .;
+
+. = 0x001E38;
+. = ALIGN(4); sound/music_player_table.o(.bss);
 
 . = 0x002A68;
 . = ALIGN(4); src/agb_sram.o(.bss);
@@ -184,21 +178,21 @@
 . = 0x0053E0; gUnknown_030053E0 = .;
 . = 0x005408; gUnknown_03005408 = .;
 . = 0x005410; gSoundInfo = .;
-. = 0x0063C0; gUnknown_030063C0 = .;
-. = 0x006400; gUnknown_03006400 = .;
-. = 0x006440; gUnknown_03006440 = .;
+. = 0x0063C0; gMPlayInfo_SE4_BMP2 = .;
+. = 0x006400; gMPlayInfo_SE5_BMP3 = .;
+. = 0x006440; gMPlayInfo_BGM1 = .;
 . = 0x006480; gMPlayJumpTable = .;
 . = 0x006484; gUnknown_03006484 = .;
 . = 0x006508; gUnknown_03006508 = .;
 . = 0x00650C; gUnknown_0300650C = .;
 . = 0x006510; gCgbChans = .;
-. = 0x006610; gUnknown_03006610 = .;
-. = 0x006650; gUnknown_03006650 = .;
-. = 0x006690; gUnknown_03006690 = .;
-. = 0x0066D0; gUnknown_030066D0 = .;
+. = 0x006610; gMPlayInfo_SE6_BMP4 = .;
+. = 0x006650; gMPlayInfo_BGM2 = .;
+. = 0x006690; gMPlayInfo_SE1_SYS1 = .;
+. = 0x0066D0; gMPlayInfo_SE3_BMP1 = .;
 . = 0x006710; gMPlayMemAccArea = .;
-. = 0x006720; gUnknown_03006720 = .;
-. = 0x006760; gUnknown_03006760 = .;
+. = 0x006720; gMPlayInfo_SE7_EVT = .;
+. = 0x006760; gMPlayInfo_SE2_SYS2 = .;
 
 /* src/agb_sram.o(COMMON); */
 . = 0x0067A0; ReadSramFast = .;

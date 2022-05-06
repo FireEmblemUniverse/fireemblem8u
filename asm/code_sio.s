@@ -9037,7 +9037,7 @@ _08045AD8: .4byte gUnknown_085A92E0
 _08045ADC: .4byte gUnknown_0203DC44
 _08045AE0:
 	movs r0, #1
-	bl Sound_FadeOut800231C
+	bl Sound_FadeOutBGM
 _08045AE6:
 	pop {r3, r4}
 	mov r8, r3
@@ -12370,7 +12370,7 @@ sub_804762C: @ 0x0804762C
 	cmp r0, #0
 	beq _0804764A
 	movs r0, #0
-	bl Sound_FadeOut800231C
+	bl Sound_FadeOutBGM
 	adds r0, r4, #0
 	bl Proc_Break
 _0804764A:
@@ -13637,7 +13637,7 @@ _08048080:
 	movs r0, #1
 	bl sub_804320C
 	movs r0, #2
-	bl Sound_FadeOut800231C
+	bl Sound_FadeOutBGM
 	ldr r1, _080480B0  @ gUnknown_0203DA24
 	movs r0, #0xff
 	strb r0, [r1]
@@ -14594,7 +14594,7 @@ _080487D0:
 	movs r1, #0xa
 	bl Text_Allocate
 	movs r0, #1
-	bl Sound_FadeOut800231C
+	bl Sound_FadeOutBGM
 	pop {r4, r5}
 	pop {r0}
 	bx r0
@@ -17094,7 +17094,7 @@ sub_8049B04: @ 0x08049B04
 	bl sub_804B3A0
 	bl BMapVSync_End
 	movs r0, #1
-	bl Sound_FadeOut800231C
+	bl Sound_FadeOutBGM
 	pop {r0}
 	bx r0
 	.align 2, 0
@@ -24541,18 +24541,18 @@ _0804D3D8: .4byte gLCDControlBuffer
 
 	THUMB_FUNC_END sub_804D37C
 
-	THUMB_FUNC_START sub_804D3DC
-sub_804D3DC: @ 0x0804D3DC
+	THUMB_FUNC_START StopBGM2
+StopBGM2: @ 0x0804D3DC
 	push {lr}
-	ldr r1, _0804D3EC  @ gUnknown_03006650
+	ldr r1, _0804D3EC  @ gMPlayInfo_BGM2
 	movs r0, #0x34
 	bl Sound_PlaySong80024D4
 	pop {r0}
 	bx r0
 	.align 2, 0
-_0804D3EC: .4byte gUnknown_03006650
+_0804D3EC: .4byte gMPlayInfo_BGM2
 
-	THUMB_FUNC_END sub_804D3DC
+	THUMB_FUNC_END StopBGM2
 
 	THUMB_FUNC_START sub_804D3F0
 sub_804D3F0: @ 0x0804D3F0

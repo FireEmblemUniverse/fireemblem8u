@@ -2238,7 +2238,7 @@ NewEkrLvlupFan: @ 0x08050DE4
 	movs r1, #0
 	strh r1, [r0, #0x2c]
 	movs r0, #0x80
-	bl Sound_SetVolume80022EC
+	bl Sound_SetSEVolume
 	pop {r0}
 	bx r0
 	.align 2, 0
@@ -2271,7 +2271,7 @@ _08050E28:
 	bne _08050E3A
 	movs r0, #0x80
 	lsls r0, r0, #1
-	bl Sound_SetVolume80022EC
+	bl Sound_SetSEVolume
 	adds r0, r4, #0
 	bl Proc_Break
 _08050E3A:
@@ -37761,7 +37761,7 @@ _080624A8:
 	movs r0, #0xfc
 	movs r3, #1
 	bl sub_80729A4
-	bl sub_8071A7C
+	bl StopBGM1
 	ldrh r0, [r5, #0x10]
 	movs r1, #9
 	orrs r0, r1
@@ -69129,7 +69129,7 @@ SomePlaySound_8071990: @ 0x08071990
 	bne _080719D8
 	bl sub_8071A98
 	adds r0, r5, #0
-	bl Sound_SetVolume8002274
+	bl Sound_SetBGMVolume
 	ldr r0, _080719D4  @ gRAMChapterData
 	adds r0, #0x41
 	ldrb r0, [r0]
@@ -69179,7 +69179,7 @@ _08071A0A:
 	bne _08071A38
 	bl sub_8071A98
 	ldr r0, [r4, #0x44]
-	bl Sound_SetVolume8002274
+	bl Sound_SetBGMVolume
 	ldr r0, _08071A40  @ gRAMChapterData
 	adds r0, #0x41
 	ldrb r0, [r0]
@@ -69225,7 +69225,7 @@ sub_8071A54: @ 0x08071A54
 	cmp r0, #0
 	bne _08071A72
 	adds r0, r2, #0
-	bl Sound_SetVolume80022EC
+	bl Sound_SetSEVolume
 	adds r0, r4, #0
 	bl sub_8002620
 _08071A72:
@@ -69237,17 +69237,17 @@ _08071A78: .4byte gUnknown_0202BCB0
 
 	THUMB_FUNC_END sub_8071A54
 
-	THUMB_FUNC_START sub_8071A7C
-sub_8071A7C: @ 0x08071A7C
+	THUMB_FUNC_START StopBGM1
+StopBGM1: @ 0x08071A7C
 	push {lr}
-	ldr r0, _08071A88  @ gUnknown_03006440
+	ldr r0, _08071A88  @ gMPlayInfo_BGM1
 	bl m4aMPlayStop
 	pop {r0}
 	bx r0
 	.align 2, 0
-_08071A88: .4byte gUnknown_03006440
+_08071A88: .4byte gMPlayInfo_BGM1
 
-	THUMB_FUNC_END sub_8071A7C
+	THUMB_FUNC_END StopBGM1
 
 	THUMB_FUNC_START sub_8071A8C
 sub_8071A8C: @ 0x08071A8C
@@ -77949,7 +77949,7 @@ _08075F86:
 	cmp r1, r0
 	beq _0807603C
 	movs r0, #0x80
-	bl Sound_SetVolume80022EC
+	bl Sound_SetSEVolume
 	b _08076066
 _08075F9E:
 	ldr r4, _08076048  @ gUnknown_02020140
@@ -78045,7 +78045,7 @@ _08076058: .4byte gUnknown_0203E188
 _0807605C: .4byte gUnknown_0203E18C
 _08076060:
 	movs r0, #0x80
-	bl Sound_SetVolume80022EC
+	bl Sound_SetSEVolume
 _08076066:
 	pop {r4, r5}
 	pop {r0}
@@ -78310,7 +78310,7 @@ ekrPopup_MarkEnd: @ 0x0807621C
 	str r1, [r0]
 	movs r0, #0x80
 	lsls r0, r0, #1
-	bl Sound_SetVolume80022EC
+	bl Sound_SetSEVolume
 	adds r0, r4, #0
 	bl Proc_Break
 _08076242:
@@ -80810,7 +80810,7 @@ sub_8077560: @ 0x08077560
 	adds r5, r0, #0
 	str r4, [r5, #0x5c]
 	movs r0, #1
-	bl Sound_FadeOut800231C
+	bl Sound_FadeOutBGM
 	adds r0, r5, #0
 	pop {r4, r5}
 	pop {r1}
@@ -81137,7 +81137,7 @@ _080777C8:
 _080777CA:
 	strh r0, [r5, #0x32]
 	movs r0, #1
-	bl Sound_FadeOut800231C
+	bl Sound_FadeOutBGM
 	adds r0, r5, #0
 	pop {r4, r5}
 	pop {r1}
