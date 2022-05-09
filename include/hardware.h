@@ -27,7 +27,7 @@ enum
 
 void CopyToPaletteBuffer(const void* src, int b, int size);
 // ??? sub_8000E14(???);
-// ??? FlushLCDControl(???);
+void FlushLCDControl(void);
 // ??? BG_GetControlBuffer(???);
 int GetBackgroundTileDataOffset(int bg);
 int GetTileIndex(int bg, int offset);

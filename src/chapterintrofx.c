@@ -29,6 +29,17 @@ struct ChapterIntroFXProc {
 // arm_call.s
 void sub_80D74B0();
 
+// code.s
+void sub_80895B4(int, int);
+int sub_808979C(struct RAMChapterData*);
+void sub_808966C(int, int);
+void sub_80896FC(u16*, int, int);
+
+void sub_80ADDFC(int, int, int, int, int, int);
+void sub_80ADE90(int, s16, s16);
+void sub_80ADEE0(int, int, int, int, int);
+
+
 extern u8 gUnknown_08B1754C[];
 extern u8 gUnknown_08B12DB4[];
 extern struct ProcCmd gUnknown_0859B108[];
@@ -41,6 +52,16 @@ extern u8 gUnknown_08B19DEC[];
 
 extern u8 gUnknown_0859B120[];
 extern u8 gUnknown_0859B132[];
+
+extern u16 gUnknown_0859B144[];
+
+extern struct ProcCmd gUnknown_0859B180[];
+
+extern u16 gUnknown_08B18F34[];
+extern u16 gUnknown_08B19854[];
+extern u16 gUnknown_08B196D8[];
+
+extern u16 gUnknown_02022928[];
 
 void sub_801FD90() {
     int unk = (GetGameClock() / 2) & 0xFF;
@@ -444,6 +465,176 @@ void sub_8020578(struct ChapterIntroFXProc* proc) {
 
     if (proc->unk_4C > 0x45) {
         Proc_Break(proc);
+    }
+
+    return;
+}
+
+void sub_8020778() {
+    int var;
+
+    BG_Fill(gBG0TilemapBuffer, 0x1280);
+    sub_80895B4(8, 5);
+
+    var = sub_808979C(&gRAMChapterData);
+    sub_808966C(0x280, var);
+    sub_80896FC(gBG0TilemapBuffer + 0x123, 5, var);
+
+    BG_EnableSyncByMask(1);
+
+    return;
+}
+
+void sub_80207C8() {
+    CallARM_PushToSecondaryOAM(0, 0x40, gUnknown_0859B144, 0x2200);
+    CallARM_PushToSecondaryOAM(0, 0x40, gUnknown_0859B144, 0x2200);
+
+    return;
+}
+
+void sub_80207F4(struct ChapterIntroFXProc* proc) {
+    proc->unk_4C = 0;
+    proc->unk_4E = 0;
+    proc->unk_66 = 0;
+
+    return;
+}
+
+void sub_8020808(struct ChapterIntroFXProc* proc) {
+    if (proc->unk_66 == 0) {
+        SetSpecialColorEffectsParameters(1, 0x10, proc->unk_4E, 0);
+        proc->unk_4E++;
+    } else {
+        SetSpecialColorEffectsParameters(1, ((u16)proc->unk_4E << 0x10) >> 0x11 & 0xFF, 0x10, 0);
+        proc->unk_4E--;
+    }
+
+    if (proc->unk_4C <= 0xFF) {
+        sub_80ADDFC(2, 0, 0, 0, 0x180, 0x180);
+        sub_80ADE90(2, (u16)proc->unk_4C + 0xF0, (u16)proc->unk_4C + 0xF0);
+        sub_80ADEE0(2, 0x70, 0x58, 0x4c, 0x4c);
+        FlushLCDControl();
+
+        if (proc->unk_66 == 0) {
+            // TODO: Is there a way to avoid having to do this?
+            goto _080208AC;
+        }
+
+        proc->unk_4C += 4;
+    }
+
+    if (proc->unk_66 == 0) {
+_080208AC:
+        if (proc->unk_4E <= 0xF) {
+            return;
+        }
+
+        proc->unk_4E = 0x20;
+        SetSpecialColorEffectsParameters(1, 0x10, 0x10, 0);
+        proc->unk_66++;
+
+        return;
+    }
+
+    if (0 < proc->unk_4E) {
+        return;
+    }
+
+    SetSpecialColorEffectsParameters(1, 0, 0x10, 0);
+    Proc_EndEach(gUnknown_0859B180);
+    Proc_Break(proc);
+
+    return;
+}
+
+void sub_80208F8() {
+    gLCDControlBuffer.dispcnt.bg0_on = 0;
+    gLCDControlBuffer.dispcnt.bg1_on = 1;
+    gLCDControlBuffer.dispcnt.bg2_on = 1;
+    gLCDControlBuffer.dispcnt.bg3_on = 0;
+    gLCDControlBuffer.dispcnt.obj_on = 1;
+
+    sub_8001ED0(0, 0, 1, 0, 0);
+    sub_8001F0C(0, 1, 0, 0, 0);
+
+    return;
+}
+
+void sub_8020944(struct ChapterIntroFXProc* proc) {
+    gLCDControlBuffer.dispcnt.bg0_on = 1;
+    gLCDControlBuffer.dispcnt.bg1_on = 1;
+    gLCDControlBuffer.dispcnt.bg2_on = 1;
+    gLCDControlBuffer.dispcnt.bg3_on = 0;
+    gLCDControlBuffer.dispcnt.obj_on = 1;
+
+    proc->unk_4C = 0;
+
+    sub_8001ED0(0, 0, 1, 0, 0);
+    sub_8001F0C(0, 1, 0, 0, 0);
+
+    CopyDataWithPossibleUncomp(gUnknown_08B18F34, BG_CHAR_ADDR(2));
+    CopyToPaletteBuffer(gUnknown_08B19854, 0x80, 0x20);
+
+    CopyDataWithPossibleUncomp(gUnknown_08B196D8, gUnknown_02020188);
+    CallARM_FillTileRect(gBG2TilemapBuffer, gUnknown_02020188, 0x4000);
+
+    BG_EnableSyncByMask(4);
+
+    return;
+}
+
+void sub_80209D8(struct ChapterIntroFXProc* proc) {
+    SetSpecialColorEffectsParameters(1, proc->unk_4C, 0x10, 0);
+
+    if ((proc->unk_50 == 3) || ((GetGameClock() & 3) == 0)) {
+        if (proc->unk_52 != 0) {
+            proc->unk_4C += 4;
+        } else {
+            proc->unk_4C++;
+        }
+
+        if (proc->unk_4C > 5) {
+            SetSpecialColorEffectsParameters(1, 6, 0x10, 0);
+            Proc_Break(proc);
+        }
+    }
+
+    return;
+}
+
+void sub_8020A40(struct ChapterIntroFXProc* proc) {
+    proc->unk_4C = 0x1E;
+
+    sub_8001710();
+
+    sub_800172C(gUnknown_02022928, 4, 2, -1);
+    sub_800172C(gUnknown_02022928 + 0xA0, 0xE, 2, -1);
+    sub_800172C(gUnknown_02022928 + 0xE0, 0x12, 1, -1);
+
+    return;
+}
+
+void sub_8020A8C(struct ChapterIntroFXProc* proc) {
+    int clock = GetGameClock() & 3;
+
+    if ((clock) == 0) {
+        sub_80D74B0();
+        EnablePaletteSync();
+
+        proc->unk_4C--;
+
+        if (proc->unk_4C < 0) {
+            gLCDControlBuffer.dispcnt.bg0_on = 1;
+            gLCDControlBuffer.dispcnt.bg1_on = 0;
+            gLCDControlBuffer.dispcnt.bg2_on = 0;
+            gLCDControlBuffer.dispcnt.bg3_on = 0;
+            gLCDControlBuffer.dispcnt.obj_on = 1;
+
+            SetBackgroundTileDataOffset(2, 0);
+            gPaletteBuffer[0] = clock;
+            EnablePaletteSync();
+            Proc_Break(proc);
+        }
     }
 
     return;
