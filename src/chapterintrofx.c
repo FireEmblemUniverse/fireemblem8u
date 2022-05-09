@@ -2,19 +2,28 @@
 
 #include "hardware.h"
 #include "proc.h"
+#include "m4a.h"
+#include "soundwrapper.h"
+#include "ctc.h"
 
 struct ChapterIntroFXProc {
     /* 00 */ PROC_HEADER;
 
-    u8 _pad1[0x4C-0x29];
+    /* 2C */ int unk_2C;
+    /* 30 */ int unk_30;
+
+    u8 _pad1[0x4C-0x34];
 
     /* 4C */ s16 unk_4C;
-
-    u8 _pad2[0x50-0x4E];
-
+    /* 4E */ s16 unk_4E;
     /* 50 */ s16 unk_50;
     /* 52 */ u16 unk_52;
 
+    u8 _pad2[0x64-0x54];
+
+    /* 64 */ s16 unk_64;
+    /* 66 */ s16 unk_66;
+    /* 68 */ s16 unk_68;
 };
 
 // arm_call.s
@@ -29,6 +38,9 @@ extern u8 gUnknown_08B18ED4[];
 extern u8 gUnknown_08B18D68[];
 extern u8 gUnknown_08B19874[];
 extern u8 gUnknown_08B19DEC[];
+
+extern u8 gUnknown_0859B120[];
+extern u8 gUnknown_0859B132[];
 
 void sub_801FD90() {
     int unk = (GetGameClock() / 2) & 0xFF;
@@ -273,6 +285,166 @@ void sub_80200F0(struct ChapterIntroFXProc* proc) {
     BG_EnableSyncByMask(6);
 
     proc->unk_52 = 0;
+
+    return;
+}
+
+void sub_80202BC(struct ChapterIntroFXProc* proc) {
+    proc->unk_4C = 0;
+    proc->unk_4E = 0;
+    proc->unk_64 = 0;
+    proc->unk_66 = 0;
+    proc->unk_68 = 3;
+
+    PlaySoundEffect(0x316);
+
+    return;
+}
+
+void sub_80202F8(struct ChapterIntroFXProc* proc) {
+    proc->unk_2C = sub_8012DCC(0, gUnknown_0859B120[proc->unk_4C], gUnknown_0859B120[proc->unk_4C + 1], proc->unk_4E, proc->unk_68);
+
+    proc->unk_30 = sub_8012DCC(0, gUnknown_0859B132[proc->unk_4C], gUnknown_0859B132[proc->unk_4C + 1], proc->unk_4E, proc->unk_68);
+
+    if (proc->unk_64 < 0x65) {
+        int uVar8 = sub_8012DCC(4, 0x140, 0x40, proc->unk_64, 100);
+
+        WriteOAMRotScaleData(
+            0,
+            Div(+COS(0) * 16, uVar8),
+            Div(-SIN(0) * 16, uVar8),
+            Div(+SIN(0) * 16, uVar8),
+            Div(+COS(0) * 16, uVar8)
+        );
+
+        proc->unk_64++;
+    }
+
+    CallARM_PushToSecondaryOAM(
+        (proc->unk_2C - 0x10) & 0x1FF,
+        ((proc->unk_30 - 0x10) & 0x1FF) | 0x100,
+        gObject_32x32,
+        0x2210
+    );
+    CallARM_PushToSecondaryOAM(
+        (0xE0 - proc->unk_2C) & 0x1FF,
+        ((0x90 - proc->unk_30) & 0x1FF) | 0x100,
+        gObject_32x32,
+        0x2214
+    );
+
+    proc->unk_4E++;
+
+    if (proc->unk_4E >= proc->unk_68) {
+        proc->unk_4E = 0;
+
+        proc->unk_4C++;
+
+        proc->unk_68 = sub_8012DCC(0, 3, 8, proc->unk_66, 0x12);
+
+        proc->unk_66++;
+
+        if (gUnknown_0859B120[proc->unk_4C + 1] == 0) {
+            Proc_Break(proc);
+        }
+    }
+
+    return;
+}
+
+void sub_80204AC(struct ChapterIntroFXProc* proc) {
+    gLCDControlBuffer.dispcnt.bg0_on = 1;
+    gLCDControlBuffer.dispcnt.bg1_on = 1;
+    gLCDControlBuffer.dispcnt.bg2_on = 1;
+    gLCDControlBuffer.dispcnt.bg3_on = 0;
+    gLCDControlBuffer.dispcnt.obj_on = 1;
+
+    proc->unk_4C = 0;
+    proc->unk_64 = 0;
+    proc->unk_66 = 0;
+    proc->unk_68 = 0;
+
+    return;
+}
+
+void sub_80204E4(struct ChapterIntroFXProc* proc, int unk2, int unk3, int unk4) {
+    int a = sub_8012DCC(5, 0x78, unk3, proc->unk_4C, 0x46);
+
+    int b = sub_8012DCC(5, 0x50, unk4, proc->unk_4C, 0x46);
+
+    CallARM_PushToSecondaryOAM(
+        ((a - 8) & 0x1FF) | unk2 << 9,
+        ((b - 8) & 0x1FF) | 0x100,
+        gObject_16x16,
+        0x2218
+    );
+
+    CallARM_PushToSecondaryOAM(
+        ((0xE8 - a) & 0x1FF) | unk2 << 9,
+        ((0x98 - b) & 0x1FF) | 0x100,
+        gObject_16x16,
+        0x2218
+    );
+
+    return;
+}
+
+void sub_8020578(struct ChapterIntroFXProc* proc) {
+    int var;
+
+    if (proc->unk_64 < 0x47) {
+        var = sub_8012DCC(4, 0x140, 0x10, proc->unk_64, 0x46);
+
+        WriteOAMRotScaleData(
+            1,
+            Div(+COS(0) * 16, var),
+            Div(-SIN(0) * 16, var),
+            Div(+SIN(0) * 16, var),
+            Div(+COS(0) * 16, var)
+        );
+
+        proc->unk_64++;
+    }
+
+    sub_80204E4(proc, 1, 0xD7, 0x11);
+
+    if (proc->unk_66 < 0x47) {
+        var = sub_8012DCC(4, 0x140, 0x10, proc->unk_66, 0x46);
+
+        WriteOAMRotScaleData(
+            2,
+            Div(+COS(0) * 16, var),
+            Div(-SIN(0) * 16, var),
+            Div(+SIN(0) * 16, var),
+            Div(+COS(0) * 16, var)
+        );
+
+        proc->unk_66++;
+    }
+
+    sub_80204E4(proc, 2, 0xC0, 0x20);
+
+    if (proc->unk_68 < 0x47) {
+        var = sub_8012DCC(4, 0x140, 0x10, proc->unk_68, 0x46);
+
+        WriteOAMRotScaleData(
+            3,
+            Div(+COS(0) * 16, var),
+            Div(-SIN(0) * 16, var),
+            Div(+SIN(0) * 16, var),
+            Div(+COS(0) * 16, var)
+        );
+
+        proc->unk_68++;
+    }
+
+    sub_80204E4(proc, 3, 0xA9, 0x2F);
+
+    proc->unk_4C++;
+
+    if (proc->unk_4C > 0x45) {
+        Proc_Break(proc);
+    }
 
     return;
 }
