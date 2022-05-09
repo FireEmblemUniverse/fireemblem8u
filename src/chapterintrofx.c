@@ -67,6 +67,11 @@ extern u16 gUnknown_08B196D8[];
 
 extern u16 gUnknown_02022928[];
 
+extern u16 gUnknown_02022968[];
+
+extern struct ProcCmd gUnknown_0859B0E0[];
+extern struct ProcCmd gUnknown_0859B160[];
+
 void sub_801FD90() {
     int unk = (GetGameClock() / 2) & 0xFF;
     BG_SetPosition(2, unk, unk);
@@ -824,3 +829,322 @@ void sub_8020B30() {
 }
 
 #endif // NONMATCHING
+
+void sub_8020C2C(struct ChapterIntroFXProc* proc) {
+    sub_8001710();
+
+    sub_800172C(gUnknown_02022968, 6, 10, 1);
+    sub_800172C(gUnknown_02022968 + 0x140, 0x1A, 6, 1);
+    sub_800172C(gUnknown_02022968 + 0xA0, 0x10, 2, 1);
+    sub_800172C(gUnknown_02022968 + 0x110, 0x17, 1, 1);
+
+    sub_80D74B0();
+
+    EnablePaletteSync();
+
+    proc->unk_4C = 0x1E;
+
+    if (GetROMChapterStruct(gRAMChapterData.chapterIndex)->initialWeather == 5) {
+        WfxFlamesInitGradientPublic();
+    }
+
+    return;
+}
+
+void sub_8020CA4(struct ChapterIntroFXProc* proc) {
+    if ((GetGameClock() & 1) == 0) {
+        sub_80D74B0();
+        if (GetROMChapterStruct(gRAMChapterData.chapterIndex)->initialWeather == 5) {
+            WfxFlamesInitGradientPublic();
+        }
+
+        if ((GetChapterThing() == 2) || GetROMChapterStruct(gRAMChapterData.chapterIndex)->boolFadeToBlack) {
+            if ((GetROMChapterStruct(gRAMChapterData.chapterIndex)->unk28) != 0xFFFF) {
+                Sound_PlaySong80024D4(GetROMChapterStruct(gRAMChapterData.chapterIndex)->unk28, 0);
+            }
+
+            proc->unk_4C = 0;
+
+            gLCDControlBuffer.dispcnt.bg0_on = 1;
+            gLCDControlBuffer.dispcnt.bg1_on = 1;
+            gLCDControlBuffer.dispcnt.bg2_on = 1;
+            gLCDControlBuffer.dispcnt.bg3_on = 0;
+            gLCDControlBuffer.dispcnt.obj_on = 0;
+        } else {
+            int tmp;
+            EnablePaletteSync();
+
+            tmp = proc->unk_4C + 7;
+            if (tmp < 0) {
+                tmp = proc->unk_4C + 0xE;
+            }
+
+            SetSpecialColorEffectsParameters(
+                1,
+                ((tmp >> 3) + 0xC) & 0xFF,
+                (4 - (tmp >> 3)) & 0xFF,
+                0
+            );
+        }
+
+        proc->unk_4C--;
+
+        if ((proc->unk_4C == 0x18) &&
+            ((GetROMChapterStruct(gRAMChapterData.chapterIndex)->unk28) != 0xFFFF)) {
+            Sound_PlaySong80024D4(GetROMChapterStruct(gRAMChapterData.chapterIndex)->unk28, 0);
+        }
+
+        if (proc->unk_4C < 0) {
+            ResetMapPaletteAnimations();
+            Proc_Break(proc);
+        }
+    }
+
+    return;
+}
+
+void sub_8020DBC(struct ChapterIntroFXProc* proc) {
+    proc->unk_4C = 0;
+
+    gLCDControlBuffer.wincnt.wout_enableBg0 = 1;
+    gLCDControlBuffer.wincnt.wout_enableBg1 = 1;
+    gLCDControlBuffer.wincnt.wout_enableBg2 = 1;
+    gLCDControlBuffer.wincnt.wout_enableBg3 = 1;
+    gLCDControlBuffer.wincnt.wout_enableObj = 0;
+
+    return;
+}
+
+void sub_8020DE8(struct ChapterIntroFXProc* proc) {
+    int var;
+
+    var = sub_8012DCC(5, 0, 0x78, proc->unk_4C, 0x28);
+
+    gLCDControlBuffer.win0_left = 0x78 - var;
+    gLCDControlBuffer.win0_top = 0;
+    gLCDControlBuffer.win0_right = var + 0x78;
+    gLCDControlBuffer.win0_bottom = 0xA0;
+
+    proc->unk_4C++;
+
+    if (proc->unk_4C > 0x28) {
+        Proc_Break(proc);
+    }
+
+    return;
+}
+
+void sub_8020E48(struct ChapterIntroFXProc* proc) {
+    Sound_FadeOutBGM(4);
+
+    sub_8001710();
+
+    sub_800172C(gPaletteBuffer, 0, 3, -2);
+    sub_800172C(gPaletteBuffer + 0x40, 4, 2, -2);
+    sub_800172C(gPaletteBuffer + 0xE0, 0xE, 2, -2);
+    sub_800172C(gPaletteBuffer + 0x120, 0x12, 1, -2);
+
+    proc->unk_4C = 0xF;
+
+    Sound_FadeOutSE(1);
+
+    return;
+}
+
+void sub_8020EAC(struct ChapterIntroFXProc* proc) {
+    sub_80D74B0();
+    EnablePaletteSync();
+
+    proc->unk_4C--;
+
+    if (proc->unk_4C < 0) {
+        gLCDControlBuffer.dispcnt.bg0_on = 0;
+        gLCDControlBuffer.dispcnt.bg1_on = 0;
+        gLCDControlBuffer.dispcnt.bg2_on = 0;
+        gLCDControlBuffer.dispcnt.bg3_on = 0;
+        gLCDControlBuffer.dispcnt.obj_on = 0;
+
+        SetBackgroundTileDataOffset(2, 0);
+        Proc_Break(proc);
+    }
+
+    return;
+}
+
+void sub_8020F00(struct ChapterIntroFXProc* proc) {
+    gLCDControlBuffer.dispcnt.mode = 0;
+
+    CpuFastFill(0, (void *)BG_VRAM, 32);
+
+    BG_Fill(gBG0TilemapBuffer, 0);
+    BG_Fill(gBG1TilemapBuffer, 0);
+    BG_Fill(gBG2TilemapBuffer, 0);
+
+    BG_EnableSyncByMask(7);
+
+    Proc_EndEach(gUnknown_0859B0E0);
+    Proc_EndEach(gUnknown_0859B108);
+    Proc_EndEach(gUnknown_0859B160);
+
+    sub_8001710();
+
+    sub_800172C(gUnknown_02022968, 6, 10, 2);
+    sub_800172C(gUnknown_02022968 + 0x140, 0x1A, 6, 2);
+    sub_800172C(gUnknown_02022968 + 0xA0, 0x10, 2, 2);
+    sub_800172C(gUnknown_02022968 + 0x110, 0x17, 1, 2);
+
+    sub_80D74B0();
+
+    EnablePaletteSync();
+
+    proc->unk_4C = 0xE;
+
+    if ((GetROMChapterStruct(gRAMChapterData.chapterIndex)->unk28) != 0xFFFF) {
+        Sound_PlaySong80024D4(GetROMChapterStruct(gRAMChapterData.chapterIndex)->unk28, 0);
+    }
+
+    return;
+}
+
+void sub_8020FF8(struct ChapterIntroFXProc* proc) {
+    sub_80D74B0();
+
+    if ((GetROMChapterStruct(gRAMChapterData.chapterIndex)->initialWeather) == 5) {
+        WfxFlamesInitGradientPublic();
+    }
+
+    if ((GetChapterThing() == 2) || (GetROMChapterStruct(gRAMChapterData.chapterIndex)->boolFadeToBlack)) {
+        proc->unk_4C = 0;
+
+        gLCDControlBuffer.dispcnt.bg0_on = 1;
+        gLCDControlBuffer.dispcnt.bg1_on = 1;
+        gLCDControlBuffer.dispcnt.bg2_on = 1;
+        gLCDControlBuffer.dispcnt.bg3_on = 0;
+        gLCDControlBuffer.dispcnt.obj_on = 0;
+    } else {
+        EnablePaletteSync();
+    }
+
+    proc->unk_4C--;
+
+    if (proc->unk_4C < 0) {
+        ResetMapPaletteAnimations();
+        Proc_Break(proc);
+    }
+
+    return;
+}
+
+void sub_8021080(s16 unk0, struct ChapterIntroFXProc* param_2) {
+    param_2->unk_50 = unk0;
+
+    return;
+}
+
+
+void sub_8021088(s16 unk0, struct ChapterIntroFXProc* param_2) {
+    param_2->unk_4C = unk0;
+
+    return;
+}
+
+#if NONMATCHING
+
+void sub_8021090(struct ChapterIntroFXProc* proc) {
+    if (proc->unk_52 != 0) {
+        Proc_Break(proc);
+        return;
+    }
+
+    // TODO: Register usage is incorrect
+    proc->unk_4C--;
+
+    if (proc->unk_4C < 0) {
+        Proc_Break(proc);
+    }
+
+    return;
+}
+
+#else // !NONMATCHING
+
+__attribute__((naked))
+void sub_8021090(struct ChapterIntroFXProc* proc) {
+    asm("\n\
+        .syntax unified\n\
+        push {lr}\n\
+        adds r3, r0, #0\n\
+        adds r0, #0x52\n\
+        ldrh r0, [r0]\n\
+        cmp r0, #0\n\
+        beq _080210A4\n\
+        adds r0, r3, #0\n\
+        bl Proc_Break\n\
+        b _080210BA\n\
+    _080210A4:\n\
+        adds r0, r3, #0\n\
+        adds r0, #0x4c\n\
+        ldrh r1, [r0]\n\
+        subs r2, r1, #1\n\
+        strh r2, [r0]\n\
+        lsls r1, r1, #0x10\n\
+        cmp r1, #0\n\
+        bge _080210BA\n\
+        adds r0, r3, #0\n\
+        bl Proc_Break\n\
+    _080210BA:\n\
+        pop {r0}\n\
+        bx r0\n\
+        .syntax divided\n\
+    ");
+}
+
+#endif // NONMATCHING
+
+void sub_80210C0(struct ChapterIntroFXProc* proc) {
+    proc->unk_52 = 2;
+
+    return;
+}
+
+void sub_80210C8() {
+    gLCDControlBuffer.bg0cnt.priority = 0;
+    gLCDControlBuffer.bg1cnt.priority = 1;
+    gLCDControlBuffer.bg2cnt.priority = 2;
+    gLCDControlBuffer.bg3cnt.priority = 3;
+
+    gLCDControlBuffer.dispcnt.win0_on = 0;
+    gLCDControlBuffer.dispcnt.win1_on = 0;
+    gLCDControlBuffer.dispcnt.objWin_on = 0;
+
+    BG_Fill(gBG0TilemapBuffer, 0);
+    BG_EnableSyncByMask(1);
+
+    gLCDControlBuffer.bg0cnt.priority = 0;
+    gLCDControlBuffer.bg1cnt.priority = 1;
+    gLCDControlBuffer.bg2cnt.priority = 2;
+    gLCDControlBuffer.bg3cnt.priority = 3;
+
+    if ((GetChapterThing() == 2) ||
+    (GetROMChapterStruct(gRAMChapterData.chapterIndex)->boolFadeToBlack)) {
+        RefreshBMapGraphics();
+        sub_80141B0();
+    }
+
+    return;
+}
+
+void sub_8021188(struct ChapterIntroFXProc* proc) {
+    if ((GetGameClock() & 1) == 0) {
+        sub_80D74B0();
+
+        if (GetROMChapterStruct(gRAMChapterData.chapterIndex)->initialWeather == 5) {
+            WfxFlamesInitGradientPublic();
+        }
+
+        ResetMapPaletteAnimations();
+        Proc_Break(proc);
+    }
+
+    return;
+}

@@ -32,7 +32,9 @@ struct ROMChapterData {
     // 6 for blue/green alt, 7 for red alt
     /* 16 */ u16 mapSongIndices[8];
 
-    /* 26 */ u8 _unk26[0x2C - 0x26];
+    /* 26 */ u16 unk26;
+    /* 28 */ u16 unk28;
+    /* 2A */ u16 unk2A;
 
     /* 2C */ u8 mapCrackedWallHeath;
 
