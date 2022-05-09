@@ -5,6 +5,10 @@
 #include "m4a.h"
 #include "soundwrapper.h"
 #include "ctc.h"
+#include "bmio.h"
+#include "fontgrp.h"
+#include "bmmap.h"
+#include "chapterdata.h"
 
 struct ChapterIntroFXProc {
     /* 00 */ PROC_HEADER;
@@ -639,3 +643,184 @@ void sub_8020A8C(struct ChapterIntroFXProc* proc) {
 
     return;
 }
+
+void sub_8020AF8() {
+    SetupBackgrounds(0);
+    sub_80156D4();
+    AllocWeatherParticles(gRAMChapterData.chapterWeatherId);
+    SMS_UpdateFromGameData();
+    SMS_FlushIndirect();
+    Font_LoadForUI();
+
+    return;
+}
+
+void sub_8020B20() {
+    gUnknown_0202BCB0.camera.y = 0xA0 * 4;
+
+    return;
+}
+
+#if NONMATCHING
+
+void sub_8020B30() {
+    u16 var;
+
+    gLCDControlBuffer.dispcnt.bg0_on = 1;
+    gLCDControlBuffer.dispcnt.bg1_on = 1;
+    gLCDControlBuffer.dispcnt.bg2_on = 1;
+    gLCDControlBuffer.dispcnt.bg3_on = 1;
+    gLCDControlBuffer.dispcnt.obj_on = 1;
+
+    SetSpecialColorEffectsParameters(1, 0x10, 0, 0);
+
+    sub_8001ED0(0, 1, 0, 0, 0);
+    sub_8001F0C(0, 0, 0, 1, 1);
+
+    sub_8001F64(1);
+
+    CpuFastFill(0, (void *)BG_VRAM, 32);
+
+    BG_Fill(gBG0TilemapBuffer, 0);
+    BG_Fill(gBG1TilemapBuffer, 0);
+    BG_Fill(gBG2TilemapBuffer, 0);
+
+    BG_EnableSyncByMask(7);
+
+    DisableMapPaletteAnimations();
+
+    UnpackChapterMapGraphics(gRAMChapterData.chapterIndex);
+
+    SetupMapSpritesPalettes();
+    LoadObjUIGfx();
+
+    // TODO - Nonmatching is caused by an extra use of r2 around here for the results of this operation
+
+    var = GetROMChapterStruct(gRAMChapterData.chapterIndex)->_unk10[2];
+    var = sub_8015A40(var * 16);
+    var = (var + 0xF) & 0x1F0;
+    gUnknown_0202BCB0.camera.x = var;
+
+    var = GetROMChapterStruct(gRAMChapterData.chapterIndex)->_unk10[3];
+    var = sub_8015A6C(var * 16);
+    var = (var + 0xF) & 0x3F0;
+    gUnknown_0202BCB0.camera.y = var;
+
+    RefreshEntityBmMaps();
+    RenderBmMap();
+
+    return;
+}
+
+#else // !NONMATCHING
+
+__attribute__((naked))
+void sub_8020B30() {
+    asm("\n\
+        .syntax unified\n\
+        push {r4, r5, lr}\n\
+        sub sp, #8\n\
+        ldr r2, _08020C10  @ gLCDControlBuffer\n\
+        ldrb r0, [r2, #1]\n\
+        movs r1, #1\n\
+        orrs r0, r1\n\
+        movs r1, #2\n\
+        orrs r0, r1\n\
+        movs r1, #4\n\
+        orrs r0, r1\n\
+        movs r1, #8\n\
+        orrs r0, r1\n\
+        movs r1, #0x10\n\
+        orrs r0, r1\n\
+        strb r0, [r2, #1]\n\
+        movs r0, #1\n\
+        movs r1, #0x10\n\
+        movs r2, #0\n\
+        movs r3, #0\n\
+        bl SetSpecialColorEffectsParameters\n\
+        movs r4, #0\n\
+        str r4, [sp]\n\
+        movs r0, #0\n\
+        movs r1, #1\n\
+        movs r2, #0\n\
+        movs r3, #0\n\
+        bl sub_8001ED0\n\
+        movs r0, #1\n\
+        str r0, [sp]\n\
+        movs r0, #0\n\
+        movs r1, #0\n\
+        movs r2, #0\n\
+        movs r3, #1\n\
+        bl sub_8001F0C\n\
+        movs r0, #1\n\
+        bl sub_8001F64\n\
+        str r4, [sp, #4]\n\
+        movs r1, #0xc0\n\
+        lsls r1, r1, #0x13\n\
+        ldr r2, _08020C14  @ 0x01000008\n\
+        add r0, sp, #4\n\
+        bl CpuFastSet\n\
+        ldr r0, _08020C18  @ gBG0TilemapBuffer\n\
+        movs r1, #0\n\
+        bl BG_Fill\n\
+        ldr r0, _08020C1C  @ gBG1TilemapBuffer\n\
+        movs r1, #0\n\
+        bl BG_Fill\n\
+        ldr r0, _08020C20  @ gBG2TilemapBuffer\n\
+        movs r1, #0\n\
+        bl BG_Fill\n\
+        movs r0, #7\n\
+        bl BG_EnableSyncByMask\n\
+        bl DisableMapPaletteAnimations\n\
+        ldr r4, _08020C24  @ gRAMChapterData\n\
+        movs r0, #0xe\n\
+        ldrsb r0, [r4, r0]\n\
+        bl UnpackChapterMapGraphics\n\
+        bl SetupMapSpritesPalettes\n\
+        bl LoadObjUIGfx\n\
+        movs r0, #0xe\n\
+        ldrsb r0, [r4, r0]\n\
+        bl GetROMChapterStruct\n\
+        ldrb r0, [r0, #0x10]\n\
+        lsls r0, r0, #4\n\
+        bl sub_8015A40\n\
+        lsls r0, r0, #0x10\n\
+        lsrs r0, r0, #0x10\n\
+        adds r0, #0xf\n\
+        movs r1, #0xf8\n\
+        lsls r1, r1, #1\n\
+        ands r0, r1\n\
+        ldr r5, _08020C28  @ gUnknown_0202BCB0\n\
+        strh r0, [r5, #0xc]\n\
+        movs r0, #0xe\n\
+        ldrsb r0, [r4, r0]\n\
+        bl GetROMChapterStruct\n\
+        ldrb r0, [r0, #0x11]\n\
+        lsls r0, r0, #4\n\
+        bl sub_8015A6C\n\
+        lsls r0, r0, #0x10\n\
+        lsrs r0, r0, #0x10\n\
+        adds r0, #0xf\n\
+        movs r1, #0xfc\n\
+        lsls r1, r1, #2\n\
+        ands r0, r1\n\
+        strh r0, [r5, #0xe]\n\
+        bl RefreshEntityBmMaps\n\
+        bl RenderBmMap\n\
+        add sp, #8\n\
+        pop {r4, r5}\n\
+        pop {r0}\n\
+        bx r0\n\
+        .align 2, 0\n\
+    _08020C10: .4byte gLCDControlBuffer\n\
+    _08020C14: .4byte 0x01000008\n\
+    _08020C18: .4byte gBG0TilemapBuffer\n\
+    _08020C1C: .4byte gBG1TilemapBuffer\n\
+    _08020C20: .4byte gBG2TilemapBuffer\n\
+    _08020C24: .4byte gRAMChapterData\n\
+    _08020C28: .4byte gUnknown_0202BCB0\n\
+        .syntax divided\n\
+    ");
+}
+
+#endif // NONMATCHING
