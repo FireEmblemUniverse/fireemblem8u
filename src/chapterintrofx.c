@@ -46,20 +46,12 @@ void sub_80ADEE0(int, int, int, int, int);
 
 extern u8 gUnknown_08B1754C[];
 extern u8 gUnknown_08B12DB4[];
-extern struct ProcCmd gUnknown_0859B108[];
 
 extern u8 gUnknown_08B17B64[];
 extern u8 gUnknown_08B18ED4[];
 extern u8 gUnknown_08B18D68[];
 extern u8 gUnknown_08B19874[];
 extern u8 gUnknown_08B19DEC[];
-
-extern u8 gUnknown_0859B120[];
-extern u8 gUnknown_0859B132[];
-
-extern u16 gUnknown_0859B144[];
-
-extern struct ProcCmd gUnknown_0859B180[];
 
 extern u16 gUnknown_08B18F34[];
 extern u16 gUnknown_08B19854[];
@@ -69,8 +61,188 @@ extern u16 gUnknown_02022928[];
 
 extern u16 gUnknown_02022968[];
 
-extern struct ProcCmd gUnknown_0859B0E0[];
-extern struct ProcCmd gUnknown_0859B160[];
+void sub_801FD90(void);
+
+struct ProcCmd CONST_DATA gUnknown_0859B0E0[] = {
+    PROC_REPEAT(sub_801FD90),
+
+    PROC_END,
+};
+
+void sub_801FDAC(struct ChapterIntroFXProc* proc);
+void sub_801FDBC(struct ChapterIntroFXProc* proc);
+
+// SPLIT from gUnknown_0859B0E0
+struct ProcCmd CONST_DATA gUnknown_0859B0F0[] = {
+    PROC_CALL(sub_801FDAC),
+    PROC_REPEAT(sub_801FDBC),
+
+    PROC_END,
+};
+
+void sub_801FFD0(struct ChapterIntroFXProc* proc);
+void sub_801FFD8(struct ChapterIntroFXProc* proc);
+
+struct ProcCmd CONST_DATA gUnknown_0859B108[] = {
+    PROC_CALL(sub_801FFD0),
+    PROC_REPEAT(sub_801FFD8),
+
+    PROC_END,
+};
+
+static u8 CONST_DATA gUnknown_0859B120[] = {
+    0xD0, 0xD0, 0xCC, 0xC0, 0xA0, 0x80,
+    0x60, 0x40, 0x24, 0x20, 0x30, 0x48,
+    0x60, 0x78, 0x88, 0x88, 0x78, 0x00,
+};
+
+static u8 CONST_DATA gUnknown_0859B132[] = {
+    0xA0, 0x80, 0x60, 0x40, 0x28, 0x20,
+    0x24, 0x2C, 0x48, 0x68, 0x88, 0x98,
+    0x9C, 0x90, 0x78, 0x60, 0x50, 0x00,
+};
+
+static u16 CONST_DATA gUnknown_0859B144[] = {
+    0x0004, 0x4000, 0xC000, 0x0400,
+    0x4000, 0xC040, 0x0408, 0x4000,
+    0xD070, 0x0408, 0x4000, 0xD0B0,
+    0x0400, 0x0000,
+};
+
+void sub_80207C8(void);
+extern struct ProcCmd gUnknown_0859B198[];
+
+struct ProcCmd CONST_DATA gUnknown_0859B160[] = {
+    PROC_SLEEP(0x1E),
+    PROC_START_CHILD(gUnknown_0859B198),
+    PROC_REPEAT(sub_80207C8),
+
+    PROC_END,
+};
+
+void sub_80207F4(struct ChapterIntroFXProc* proc);
+void sub_8020808(struct ChapterIntroFXProc* proc);
+
+struct ProcCmd CONST_DATA gUnknown_0859B180[] = {
+    PROC_CALL(sub_80207F4),
+    PROC_REPEAT(sub_8020808),
+
+    PROC_END,
+};
+
+void sub_8020DBC(struct ChapterIntroFXProc* proc);
+void sub_8020DE8(struct ChapterIntroFXProc* proc);
+
+struct ProcCmd CONST_DATA gUnknown_0859B198[] = {
+    PROC_CALL(sub_8020DBC),
+    PROC_REPEAT(sub_8020DE8),
+
+    PROC_END,
+};
+
+void sub_80200F0(struct ChapterIntroFXProc* proc);
+void sub_8021080(s16 unk0, struct ChapterIntroFXProc* param_2);
+void sub_80202BC(struct ChapterIntroFXProc* proc);
+void sub_80202F8(struct ChapterIntroFXProc* proc);
+void sub_80208F8(void);
+void sub_8020778(void);
+void sub_80204AC(struct ChapterIntroFXProc* proc);
+void sub_8020578(struct ChapterIntroFXProc* proc);
+void sub_802009C(void);
+void sub_8020944(struct ChapterIntroFXProc* proc);
+void sub_80209D8(struct ChapterIntroFXProc* proc);
+void sub_8021088(s16 unk0, struct ChapterIntroFXProc* param_2);
+void sub_8021090(struct ChapterIntroFXProc* proc);
+void sub_8020A40(struct ChapterIntroFXProc* proc);
+void sub_8020A8C(struct ChapterIntroFXProc* proc);
+void sub_8020B20(void);
+void sub_8020B30(void);
+void sub_8020C2C(struct ChapterIntroFXProc* proc);
+void sub_8020CA4(struct ChapterIntroFXProc* proc);
+void sub_8020E48(struct ChapterIntroFXProc* proc);
+void sub_8020EAC(struct ChapterIntroFXProc* proc);
+void sub_8020F00(struct ChapterIntroFXProc* proc);
+void sub_8020FF8(struct ChapterIntroFXProc* proc);
+void sub_80210C8(void);
+
+struct ProcCmd CONST_DATA gUnknown_0859B1B0[] = {
+    PROC_CALL(BMapDispSuspend),
+    PROC_CALL(sub_80200F0),
+    PROC_SLEEP(0x3C),
+    PROC_START_CHILD(gUnknown_0859B0F0),
+    PROC_CALL_ARG(sub_8021080, 1),
+    PROC_CALL(sub_80202BC),
+    PROC_REPEAT(sub_80202F8),
+    PROC_CALL(sub_80208F8),
+    PROC_START_CHILD(gUnknown_0859B180),
+    PROC_CALL(sub_8020778),
+    PROC_SLEEP(1),
+    PROC_CALL(sub_80204AC),
+    PROC_REPEAT(sub_8020578),
+    PROC_CALL(sub_802009C),
+    PROC_START_CHILD(gUnknown_0859B0E0),
+    PROC_START_CHILD(gUnknown_0859B160),
+    PROC_CALL(sub_8020944),
+    PROC_REPEAT(sub_80209D8),
+    PROC_CALL_ARG(sub_8021088, 0xA0),
+    PROC_REPEAT(sub_8021090),
+    PROC_CALL(sub_8020A40),
+    PROC_REPEAT(sub_8020A8C),
+    PROC_END_EACH(gUnknown_0859B0E0),
+    PROC_END_EACH(gUnknown_0859B108),
+    PROC_END_EACH(gUnknown_0859B160),
+    PROC_CALL_ARG(sub_8021080, 0),
+    PROC_CALL(sub_8020B20),
+    PROC_CALL(BMapDispResume),
+    PROC_CALL(sub_8020B30),
+    PROC_CALL(sub_8020C2C),
+    PROC_REPEAT(sub_8020CA4),
+    PROC_SLEEP(0x1E),
+
+    PROC_GOTO(0x63),
+
+PROC_LABEL(1),
+    PROC_CALL(sub_8020E48),
+    PROC_REPEAT(sub_8020EAC),
+    PROC_SLEEP(0x3C),
+    PROC_CALL(sub_8020B20),
+    PROC_CALL(BMapDispResume),
+    PROC_CALL(sub_8020B30),
+    PROC_CALL(sub_8020F00),
+    PROC_REPEAT(sub_8020FF8),
+
+PROC_LABEL(0x63),
+    PROC_CALL(sub_80210C8),
+
+    PROC_END,
+};
+
+void sub_8020AF8(void);
+void sub_8021188(struct ChapterIntroFXProc* proc);
+
+struct ProcCmd CONST_DATA gUnknown_0859B318[] = {
+    PROC_CALL(sub_8020AF8),
+    PROC_CALL(sub_8020B30),
+    PROC_CALL(sub_8020C2C),
+    PROC_REPEAT(sub_8021188),
+
+    PROC_END,
+};
+
+
+// TODO: Split from gUnknown_0859B1B0; needs to be moved to gameoverfx.c when decompiled
+
+// gameoverfx.s
+void sub_80211C8();
+void sub_8021208();
+
+struct ProcCmd CONST_DATA gUnknown_GameOverSomething[] = {
+    PROC_CALL(sub_80211C8),
+    PROC_REPEAT(sub_8021208),
+
+    PROC_END,
+};
+
 
 void sub_801FD90() {
     int unk = (GetGameClock() / 2) & 0xFF;
