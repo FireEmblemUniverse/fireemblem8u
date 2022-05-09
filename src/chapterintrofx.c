@@ -17,9 +17,18 @@ struct ChapterIntroFXProc {
 
 };
 
+// arm_call.s
+void sub_80D74B0();
+
 extern u8 gUnknown_08B1754C[];
 extern u8 gUnknown_08B12DB4[];
 extern struct ProcCmd gUnknown_0859B108[];
+
+extern u8 gUnknown_08B17B64[];
+extern u8 gUnknown_08B18ED4[];
+extern u8 gUnknown_08B18D68[];
+extern u8 gUnknown_08B19874[];
+extern u8 gUnknown_08B19DEC[];
 
 void sub_801FD90() {
     int unk = (GetGameClock() / 2) & 0xFF;
@@ -184,6 +193,86 @@ void sub_802009C() {
     gLCDControlBuffer.bg3cnt.priority = 3;
 
     gLCDControlBuffer.bg2cnt.screenSize = 0;
+
+    return;
+}
+
+void sub_80200F0(struct ChapterIntroFXProc* proc) {
+    SetupBackgrounds(0);
+
+    gLCDControlBuffer.dispcnt.mode = 1;
+
+    gLCDControlBuffer.bg0cnt.priority = 0;
+    gLCDControlBuffer.bg1cnt.priority = 2;
+    gLCDControlBuffer.bg2cnt.priority = 1;
+    gLCDControlBuffer.bg3cnt.priority = 2;
+
+    gLCDControlBuffer.dispcnt.bg0_on = 0;
+    gLCDControlBuffer.dispcnt.bg1_on = 0;
+    gLCDControlBuffer.dispcnt.bg2_on = 0;
+    gLCDControlBuffer.dispcnt.bg3_on = 0;
+    gLCDControlBuffer.dispcnt.obj_on = 1;
+
+    BG_SetPosition(0, 0, 0);
+    BG_SetPosition(1, 0, 0);
+    BG_SetPosition(2, 0, 0);
+
+    BG_Fill(gBG0TilemapBuffer, 0);
+    BG_Fill(gBG1TilemapBuffer, 0);
+    BG_Fill(gBG2TilemapBuffer, 0);
+
+    SetBackgroundTileDataOffset(2, 0x8000);
+
+    gLCDControlBuffer.dispcnt.win0_on = 1;
+    gLCDControlBuffer.dispcnt.win1_on = 0;
+    gLCDControlBuffer.dispcnt.objWin_on = 0;
+
+    gLCDControlBuffer.wincnt.win0_enableBg0 = 1;
+    gLCDControlBuffer.wincnt.win0_enableBg1 = 1;
+    gLCDControlBuffer.wincnt.win0_enableBg2 = 1;
+    gLCDControlBuffer.wincnt.win0_enableBg3 = 1;
+    gLCDControlBuffer.wincnt.win0_enableObj = 1;
+
+    gLCDControlBuffer.wincnt.wout_enableBg0 = 1;
+    gLCDControlBuffer.wincnt.wout_enableBg1 = 1;
+    gLCDControlBuffer.wincnt.wout_enableBg2 = 1;
+    gLCDControlBuffer.wincnt.wout_enableBg3 = 1;
+    gLCDControlBuffer.wincnt.wout_enableObj = 1;
+
+    gLCDControlBuffer.wincnt.win0_enableBlend = 1;
+    gLCDControlBuffer.wincnt.wout_enableBlend = 1;
+
+    gLCDControlBuffer.win0_left = 0;
+    gLCDControlBuffer.win0_top = 0;
+    gLCDControlBuffer.win0_right = 0;
+    gLCDControlBuffer.win0_bottom = 0;
+
+    SetSpecialColorEffectsParameters(0, 0, 0, 0);
+
+    sub_8001710();
+
+    sub_80017B4(0, 2, 0x40, -1);
+
+    sub_80D74B0();
+
+    EnablePaletteSync();
+
+    gLCDControlBuffer.bg2cnt.screenSize = 1;
+    gLCDControlBuffer.bg2cnt.areaOverflowMode = 1;
+
+    CopyDataWithPossibleUncomp(gUnknown_08B17B64, BG_CHAR_ADDR(2));
+    CopyToPaletteBuffer(gUnknown_08B18ED4, 0, 0x60);
+
+    sub_800154C(gBG2TilemapBuffer, gUnknown_08B18D68, 0, 5);
+
+    CopyDataWithPossibleUncomp(gUnknown_08B19874, OBJ_VRAM1);
+    CopyToPaletteBuffer(gUnknown_08B19DEC, 0x240, 0x20);
+
+    sub_8020010(proc, 0, 0xE);
+
+    BG_EnableSyncByMask(6);
+
+    proc->unk_52 = 0;
 
     return;
 }
