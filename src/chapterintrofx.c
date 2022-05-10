@@ -718,16 +718,12 @@ void ChapterIntro_LightBurst_Loop(struct ChapterIntroFXProc* proc) {
         sub_80ADEE0(2, 0x70, 0x58, 0x4C, 0x4C);
         FlushLCDControl();
 
-        if (proc->unk_66 == 0) {
-            // TODO: Is there a way to avoid having to do this?
-            goto _080208AC;
+        if (proc->unk_66 != 0) {
+            proc->unk_4C += 4;
         }
-
-        proc->unk_4C += 4;
     }
 
     if (proc->unk_66 == 0) {
-_080208AC:
         if (proc->unk_4E <= 0xF) {
             return;
         }
