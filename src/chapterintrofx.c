@@ -592,9 +592,9 @@ void ChapterIntro_80204AC(struct ChapterIntroFXProc* proc) {
 }
 
 void sub_80204E4(struct ChapterIntroFXProc* proc, int unk2, int unk3, int unk4) {
-    int a = sub_8012DCC(5, 0x78, unk3, proc->unk_4C, 0x46);
+    int a = sub_8012DCC(5, DISPLAY_WIDTH / 2, unk3, proc->unk_4C, 0x46);
 
-    int b = sub_8012DCC(5, 0x50, unk4, proc->unk_4C, 0x46);
+    int b = sub_8012DCC(5, DISPLAY_HEIGHT / 2, unk4, proc->unk_4C, 0x46);
 
     CallARM_PushToSecondaryOAM(
         ((a - 8) & 0x1FF) | unk2 << 9,
@@ -715,7 +715,7 @@ void ChapterIntro_LightBurst_Loop(struct ChapterIntroFXProc* proc) {
     if (proc->unk_4C <= 0xFF) {
         sub_80ADDFC(2, 0, 0, 0, 0x180, 0x180);
         sub_80ADE90(2, (u16)proc->unk_4C + 0xF0, (u16)proc->unk_4C + 0xF0);
-        sub_80ADEE0(2, 0x70, 0x58, 0x4c, 0x4c);
+        sub_80ADEE0(2, 0x70, 0x58, 0x4C, 0x4C);
         FlushLCDControl();
 
         if (proc->unk_66 == 0) {
@@ -1112,12 +1112,12 @@ void ChapterIntro_BeginCloseTextMaybe(struct ChapterIntroFXProc* proc) {
 void ChapterIntro_LoopCloseTextMaybe(struct ChapterIntroFXProc* proc) {
     int var;
 
-    var = sub_8012DCC(5, 0, 0x78, proc->unk_4C, 0x28);
+    var = sub_8012DCC(5, 0, DISPLAY_WIDTH / 2, proc->unk_4C, 0x28);
 
-    gLCDControlBuffer.win0_left = 0x78 - var;
+    gLCDControlBuffer.win0_left = (DISPLAY_WIDTH / 2) - var;
     gLCDControlBuffer.win0_top = 0;
-    gLCDControlBuffer.win0_right = var + 0x78;
-    gLCDControlBuffer.win0_bottom = 0xA0;
+    gLCDControlBuffer.win0_right = var + (DISPLAY_WIDTH / 2);
+    gLCDControlBuffer.win0_bottom = DISPLAY_HEIGHT;
 
     proc->unk_4C++;
 
