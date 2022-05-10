@@ -6793,7 +6793,7 @@ sub_801550C: @ 0x0801550C
 	cmp r0, #0
 	bne _08015534
 _0801552C:
-	ldr r0, _08015540  @ gUnknown_0859B1B0
+	ldr r0, _08015540  @ gProcScr_ChapterIntro
 	adds r1, r4, #0
 	bl Proc_StartBlocking
 _08015534:
@@ -6802,7 +6802,7 @@ _08015534:
 	bx r0
 	.align 2, 0
 _0801553C: .4byte gRAMChapterData
-_08015540: .4byte gUnknown_0859B1B0
+_08015540: .4byte gProcScr_ChapterIntro
 
 	THUMB_FUNC_END sub_801550C
 

@@ -61,31 +61,30 @@ extern u16 gUnknown_02022928[];
 
 extern u16 gUnknown_02022968[];
 
-void sub_801FD90(void);
+void ChapterIntro_Bg3Scroll_Loop(void);
 
-struct ProcCmd CONST_DATA gUnknown_0859B0E0[] = {
-    PROC_REPEAT(sub_801FD90),
-
-    PROC_END,
-};
-
-void sub_801FDAC(struct ChapterIntroFXProc* proc);
-void sub_801FDBC(struct ChapterIntroFXProc* proc);
-
-// SPLIT from gUnknown_0859B0E0
-struct ProcCmd CONST_DATA gUnknown_0859B0F0[] = {
-    PROC_CALL(sub_801FDAC),
-    PROC_REPEAT(sub_801FDBC),
+struct ProcCmd CONST_DATA sProcScr_ChapterIntro_Bg3Scroll[] = {
+    PROC_REPEAT(ChapterIntro_Bg3Scroll_Loop),
 
     PROC_END,
 };
 
-void sub_801FFD0(struct ChapterIntroFXProc* proc);
-void sub_801FFD8(struct ChapterIntroFXProc* proc);
+void ChapterIntro_KeyListen_Init(struct ChapterIntroFXProc* proc);
+void ChapterIntro_KeyListen_Loop(struct ChapterIntroFXProc* proc);
 
-struct ProcCmd CONST_DATA gUnknown_0859B108[] = {
-    PROC_CALL(sub_801FFD0),
-    PROC_REPEAT(sub_801FFD8),
+struct ProcCmd CONST_DATA sProcScr_ChapterIntro_KeyListen[] = {
+    PROC_CALL(ChapterIntro_KeyListen_Init),
+    PROC_REPEAT(ChapterIntro_KeyListen_Loop),
+
+    PROC_END,
+};
+
+void ChapterIntro_801FFD0(struct ChapterIntroFXProc* proc);
+void ChapterIntro_801FFD8_Loop(struct ChapterIntroFXProc* proc);
+
+struct ProcCmd CONST_DATA sProcScr_ChapterIntro_0859B108[] = {
+    PROC_CALL(ChapterIntro_801FFD0),
+    PROC_REPEAT(ChapterIntro_801FFD8_Loop),
 
     PROC_END,
 };
@@ -109,134 +108,157 @@ static u16 CONST_DATA gUnknown_0859B144[] = {
     0x0400, 0x0000,
 };
 
-void sub_80207C8(void);
-extern struct ProcCmd gUnknown_0859B198[];
+void ChapterIntro_80207C8(void);
+extern struct ProcCmd sProcScr_ChapterIntro_0859B198[];
 
-struct ProcCmd CONST_DATA gUnknown_0859B160[] = {
+struct ProcCmd CONST_DATA sProcScr_ChapterIntro_0859B160[] = {
     PROC_SLEEP(0x1E),
-    PROC_START_CHILD(gUnknown_0859B198),
-    PROC_REPEAT(sub_80207C8),
+    PROC_START_CHILD(sProcScr_ChapterIntro_0859B198),
+    PROC_REPEAT(ChapterIntro_80207C8),
 
     PROC_END,
 };
 
-void sub_80207F4(struct ChapterIntroFXProc* proc);
-void sub_8020808(struct ChapterIntroFXProc* proc);
+void ChapterIntro_LightBurst_Init(struct ChapterIntroFXProc* proc);
+void ChapterIntro_LightBurst_Loop(struct ChapterIntroFXProc* proc);
 
-struct ProcCmd CONST_DATA gUnknown_0859B180[] = {
-    PROC_CALL(sub_80207F4),
-    PROC_REPEAT(sub_8020808),
-
-    PROC_END,
-};
-
-void sub_8020DBC(struct ChapterIntroFXProc* proc);
-void sub_8020DE8(struct ChapterIntroFXProc* proc);
-
-struct ProcCmd CONST_DATA gUnknown_0859B198[] = {
-    PROC_CALL(sub_8020DBC),
-    PROC_REPEAT(sub_8020DE8),
+struct ProcCmd CONST_DATA sProcScr_ChapterIntro_LightBurst[] = {
+    PROC_CALL(ChapterIntro_LightBurst_Init),
+    PROC_REPEAT(ChapterIntro_LightBurst_Loop),
 
     PROC_END,
 };
 
-void sub_80200F0(struct ChapterIntroFXProc* proc);
-void sub_8021080(s16 unk0, struct ChapterIntroFXProc* param_2);
-void sub_80202BC(struct ChapterIntroFXProc* proc);
-void sub_80202F8(struct ChapterIntroFXProc* proc);
-void sub_80208F8(void);
-void sub_8020778(void);
-void sub_80204AC(struct ChapterIntroFXProc* proc);
-void sub_8020578(struct ChapterIntroFXProc* proc);
-void sub_802009C(void);
-void sub_8020944(struct ChapterIntroFXProc* proc);
-void sub_80209D8(struct ChapterIntroFXProc* proc);
-void sub_8021088(s16 unk0, struct ChapterIntroFXProc* param_2);
-void sub_8021090(struct ChapterIntroFXProc* proc);
-void sub_8020A40(struct ChapterIntroFXProc* proc);
-void sub_8020A8C(struct ChapterIntroFXProc* proc);
-void sub_8020B20(void);
-void sub_8020B30(void);
-void sub_8020C2C(struct ChapterIntroFXProc* proc);
-void sub_8020CA4(struct ChapterIntroFXProc* proc);
-void sub_8020E48(struct ChapterIntroFXProc* proc);
-void sub_8020EAC(struct ChapterIntroFXProc* proc);
-void sub_8020F00(struct ChapterIntroFXProc* proc);
-void sub_8020FF8(struct ChapterIntroFXProc* proc);
-void sub_80210C8(void);
+void ChapterIntro_BeginCloseTextMaybe(struct ChapterIntroFXProc* proc);
+void ChapterIntro_LoopCloseTextMaybe(struct ChapterIntroFXProc* proc);
 
-struct ProcCmd CONST_DATA gUnknown_0859B1B0[] = {
+struct ProcCmd CONST_DATA sProcScr_ChapterIntro_0859B198[] = {
+    PROC_CALL(ChapterIntro_BeginCloseTextMaybe),
+    PROC_REPEAT(ChapterIntro_LoopCloseTextMaybe),
+
+    PROC_END,
+};
+
+void ChapterIntro_Init(struct ChapterIntroFXProc* proc);
+void ChapterIntro_SetSkipTarget(s16 arg, struct ChapterIntroFXProc* proc);
+void ChapterIntro_Init_PlaySound316(struct ChapterIntroFXProc* proc);
+void ChapterIntro_DrawingLights(struct ChapterIntroFXProc* proc);
+void ChapterIntro_InitBLDCNT(void);
+void ChapterIntro_DrawChapterTitleMaybe(void);
+void ChapterIntro_80204AC(struct ChapterIntroFXProc* proc);
+void ChapterIntro_UnknownFX8020578(struct ChapterIntroFXProc* proc);
+void ChapterIntro_SetBG_802009C(void);
+void ChapterIntro_8020944(struct ChapterIntroFXProc* proc);
+void ChapterIntro_80209D8(struct ChapterIntroFXProc* proc);
+void ChapterIntro_SetTimerMaybe(s16 arg, struct ChapterIntroFXProc* proc);
+void ChapterIntro_TickTimerMaybe(struct ChapterIntroFXProc* proc);
+void ChapterIntro_8020A40(struct ChapterIntroFXProc* proc);
+void ChapterIntro_8020A8C(struct ChapterIntroFXProc* proc);
+void ChapterIntro_8020B20(void);
+void ChapterIntro_InitMapDisplay(void);
+void ChapterIntro_BeginFadeToMap(struct ChapterIntroFXProc* proc);
+void ChapterIntro_LoopFadeToMap(struct ChapterIntroFXProc* proc);
+void ChapterIntro_BeginFadeOut(struct ChapterIntroFXProc* proc);
+void ChapterIntro_LoopFadeOut(struct ChapterIntroFXProc* proc);
+void ChapterIntro_BeginFastFadeToMap(struct ChapterIntroFXProc* proc);
+void ChapterIntro_LoopFastFadeToMap(struct ChapterIntroFXProc* proc);
+void ChapterIntro_80210C8(void);
+
+struct ProcCmd CONST_DATA gProcScr_ChapterIntro[] = {
     PROC_CALL(BMapDispSuspend),
-    PROC_CALL(sub_80200F0),
+
+    PROC_CALL(ChapterIntro_Init),
+
     PROC_SLEEP(0x3C),
-    PROC_START_CHILD(gUnknown_0859B0F0),
-    PROC_CALL_ARG(sub_8021080, 1),
-    PROC_CALL(sub_80202BC),
-    PROC_REPEAT(sub_80202F8),
-    PROC_CALL(sub_80208F8),
-    PROC_START_CHILD(gUnknown_0859B180),
-    PROC_CALL(sub_8020778),
+
+    PROC_START_CHILD(sProcScr_ChapterIntro_KeyListen),
+
+    PROC_CALL_ARG(ChapterIntro_SetSkipTarget, 1),
+
+    PROC_CALL(ChapterIntro_Init_PlaySound316),
+    PROC_REPEAT(ChapterIntro_DrawingLights),
+    PROC_CALL(ChapterIntro_InitBLDCNT),
+
+    PROC_START_CHILD(sProcScr_ChapterIntro_LightBurst),
+
+    PROC_CALL(ChapterIntro_DrawChapterTitleMaybe),
+
     PROC_SLEEP(1),
-    PROC_CALL(sub_80204AC),
-    PROC_REPEAT(sub_8020578),
-    PROC_CALL(sub_802009C),
-    PROC_START_CHILD(gUnknown_0859B0E0),
-    PROC_START_CHILD(gUnknown_0859B160),
-    PROC_CALL(sub_8020944),
-    PROC_REPEAT(sub_80209D8),
-    PROC_CALL_ARG(sub_8021088, 0xA0),
-    PROC_REPEAT(sub_8021090),
-    PROC_CALL(sub_8020A40),
-    PROC_REPEAT(sub_8020A8C),
-    PROC_END_EACH(gUnknown_0859B0E0),
-    PROC_END_EACH(gUnknown_0859B108),
-    PROC_END_EACH(gUnknown_0859B160),
-    PROC_CALL_ARG(sub_8021080, 0),
-    PROC_CALL(sub_8020B20),
+
+    PROC_CALL(ChapterIntro_80204AC),
+    PROC_REPEAT(ChapterIntro_UnknownFX8020578),
+    PROC_CALL(ChapterIntro_SetBG_802009C),
+
+    PROC_START_CHILD(sProcScr_ChapterIntro_Bg3Scroll),
+    PROC_START_CHILD(sProcScr_ChapterIntro_0859B160),
+
+    PROC_CALL(ChapterIntro_8020944),
+    PROC_REPEAT(ChapterIntro_80209D8),
+
+    PROC_CALL_ARG(ChapterIntro_SetTimerMaybe, 0xA0),
+
+    PROC_REPEAT(ChapterIntro_TickTimerMaybe),
+    PROC_CALL(ChapterIntro_8020A40),
+    PROC_REPEAT(ChapterIntro_8020A8C),
+
+    PROC_END_EACH(sProcScr_ChapterIntro_Bg3Scroll),
+    PROC_END_EACH(sProcScr_ChapterIntro_0859B108),
+    PROC_END_EACH(sProcScr_ChapterIntro_0859B160),
+
+    PROC_CALL_ARG(ChapterIntro_SetSkipTarget, 0),
+
+    PROC_CALL(ChapterIntro_8020B20),
+
     PROC_CALL(BMapDispResume),
-    PROC_CALL(sub_8020B30),
-    PROC_CALL(sub_8020C2C),
-    PROC_REPEAT(sub_8020CA4),
+
+    PROC_CALL(ChapterIntro_InitMapDisplay),
+    PROC_CALL(ChapterIntro_BeginFadeToMap),
+    PROC_REPEAT(ChapterIntro_LoopFadeToMap),
+
     PROC_SLEEP(0x1E),
 
     PROC_GOTO(0x63),
 
 PROC_LABEL(1),
-    PROC_CALL(sub_8020E48),
-    PROC_REPEAT(sub_8020EAC),
+    PROC_CALL(ChapterIntro_BeginFadeOut),
+    PROC_REPEAT(ChapterIntro_LoopFadeOut),
+
     PROC_SLEEP(0x3C),
-    PROC_CALL(sub_8020B20),
+
+    PROC_CALL(ChapterIntro_8020B20),
+
     PROC_CALL(BMapDispResume),
-    PROC_CALL(sub_8020B30),
-    PROC_CALL(sub_8020F00),
-    PROC_REPEAT(sub_8020FF8),
+
+    PROC_CALL(ChapterIntro_InitMapDisplay),
+    PROC_CALL(ChapterIntro_BeginFastFadeToMap),
+    PROC_REPEAT(ChapterIntro_LoopFastFadeToMap),
 
 PROC_LABEL(0x63),
-    PROC_CALL(sub_80210C8),
+    PROC_CALL(ChapterIntro_80210C8),
 
     PROC_END,
 };
 
-void sub_8020AF8(void);
-void sub_8021188(struct ChapterIntroFXProc* proc);
+void ChapterIntro_8020AF8(void);
+void ChapterIntro_8021188(struct ChapterIntroFXProc* proc);
 
-struct ProcCmd CONST_DATA gUnknown_0859B318[] = {
-    PROC_CALL(sub_8020AF8),
-    PROC_CALL(sub_8020B30),
-    PROC_CALL(sub_8020C2C),
-    PROC_REPEAT(sub_8021188),
+struct ProcCmd CONST_DATA sProcScr_0859B318[] = {
+    PROC_CALL(ChapterIntro_8020AF8),
+    PROC_CALL(ChapterIntro_InitMapDisplay),
+    PROC_CALL(ChapterIntro_BeginFadeToMap),
+    PROC_REPEAT(ChapterIntro_8021188),
 
     PROC_END,
 };
 
 
-// TODO: Split from gUnknown_0859B1B0; needs to be moved to gameoverfx.c when decompiled
+// TODO: Split from gProcScr_ChapterIntro; needs to be moved to gameoverfx.c when decompiled
 
 // gameoverfx.s
 void sub_80211C8();
 void sub_8021208();
 
-struct ProcCmd CONST_DATA gUnknown_GameOverSomething[] = {
+struct ProcCmd CONST_DATA sProcScr_GameOverSomething[] = {
     PROC_CALL(sub_80211C8),
     PROC_REPEAT(sub_8021208),
 
@@ -244,14 +266,14 @@ struct ProcCmd CONST_DATA gUnknown_GameOverSomething[] = {
 };
 
 
-void sub_801FD90() {
-    int unk = (GetGameClock() / 2) & 0xFF;
-    BG_SetPosition(2, unk, unk);
+void ChapterIntro_Bg3Scroll_Loop() {
+    int offset = (GetGameClock() / 2) & 0xFF;
+    BG_SetPosition(2, offset, offset);
 
     return;
 }
 
-void sub_801FDAC(struct ChapterIntroFXProc* proc) {
+void ChapterIntro_KeyListen_Init(struct ChapterIntroFXProc* proc) {
     struct ChapterIntroFXProc* parent = (struct ChapterIntroFXProc*) proc->proc_parent;
 
     parent->unk_50 = 0;
@@ -260,7 +282,7 @@ void sub_801FDAC(struct ChapterIntroFXProc* proc) {
     return;
 }
 
-void sub_801FDBC(struct ChapterIntroFXProc* proc) {
+void ChapterIntro_KeyListen_Loop(struct ChapterIntroFXProc* proc) {
     struct ChapterIntroFXProc* parent;
 
     if (gKeyStatusPtr->newKeys & (A_BUTTON | B_BUTTON | START_BUTTON)) {
@@ -282,7 +304,7 @@ void sub_801FDBC(struct ChapterIntroFXProc* proc) {
     return;
 }
 
-void sub_801FE14() {
+void PutScreenFogEffect() {
     int ix;
     int iy;
 
@@ -313,25 +335,25 @@ void sub_801FE14() {
     return;
 }
 
-void sub_801FEE8() {
-    int iVar10;
-    int iVar11;
+void PutScreenFogEffectOverlayed() {
+    int ix;
+    int iy;
 
     int tileRefA = TILEREF(0x3FF & (0x500 + 0x00), 4);
     int tileRefB = TILEREF(0x3FF & (0x500 + 0x10), 4);
     
-    for (iVar11 = 0; iVar11 < 8; ++iVar11) {
-        for (iVar10 = 0; iVar10 < 16; ++iVar10) {
+    for (iy = 0; iy < 8; ++iy) {
+        for (ix = 0; ix < 16; ++ix) {
             
-            gBG2TilemapBuffer[TILEMAP_INDEX(0x0F-iVar10, iVar11+0x00)] = tileRefA + 0x400;
-            gBG2TilemapBuffer[TILEMAP_INDEX(0x1F-iVar10, iVar11+0x00)] = tileRefA + 0x400;
-            gBG2TilemapBuffer[TILEMAP_INDEX(0x0F-iVar10, iVar11+0x10)] = tileRefA + 0x400;
-            gBG2TilemapBuffer[TILEMAP_INDEX(0x1F-iVar10, iVar11+0x10)] = tileRefA + 0x400;
+            gBG2TilemapBuffer[TILEMAP_INDEX(0x0F-ix, iy+0x00)] = tileRefA + 0x400;
+            gBG2TilemapBuffer[TILEMAP_INDEX(0x1F-ix, iy+0x00)] = tileRefA + 0x400;
+            gBG2TilemapBuffer[TILEMAP_INDEX(0x0F-ix, iy+0x10)] = tileRefA + 0x400;
+            gBG2TilemapBuffer[TILEMAP_INDEX(0x1F-ix, iy+0x10)] = tileRefA + 0x400;
             
-            gBG2TilemapBuffer[TILEMAP_INDEX(0x0F-iVar10, iVar11+0x08)] = tileRefB + 0x400;
-            gBG2TilemapBuffer[TILEMAP_INDEX(0x1F-iVar10, iVar11+0x08)] = tileRefB + 0x400;
-            gBG2TilemapBuffer[TILEMAP_INDEX(0x0F-iVar10, iVar11+0x18)] = tileRefB + 0x400;
-            gBG2TilemapBuffer[TILEMAP_INDEX(0x1F-iVar10, iVar11+0x18)] = tileRefB + 0x400;
+            gBG2TilemapBuffer[TILEMAP_INDEX(0x0F-ix, iy+0x08)] = tileRefB + 0x400;
+            gBG2TilemapBuffer[TILEMAP_INDEX(0x1F-ix, iy+0x08)] = tileRefB + 0x400;
+            gBG2TilemapBuffer[TILEMAP_INDEX(0x0F-ix, iy+0x18)] = tileRefB + 0x400;
+            gBG2TilemapBuffer[TILEMAP_INDEX(0x1F-ix, iy+0x18)] = tileRefB + 0x400;
             
             tileRefA++;
             tileRefB++;
@@ -344,13 +366,13 @@ void sub_801FEE8() {
     return;
 }
 
-void sub_801FFD0(struct ChapterIntroFXProc* proc) {
+void ChapterIntro_801FFD0(struct ChapterIntroFXProc* proc) {
     proc->unk_4C = 0;
 
     return;
 }
 
-void sub_801FFD8(struct ChapterIntroFXProc* proc) {
+void ChapterIntro_801FFD8_Loop(struct ChapterIntroFXProc* proc) {
     proc->unk_4C++;
 
     BG_SetPosition(1, proc->unk_4C / 2, 0);
@@ -359,7 +381,7 @@ void sub_801FFD8(struct ChapterIntroFXProc* proc) {
     return;
 }
 
-int sub_8020010(ProcPtr proc, void* unk_2, int unk_3) {
+int ChapterIntro_8020010(ProcPtr proc, void* unk_2, int unk_3) {
     int ref1;
     int ref2;
     int i;
@@ -391,12 +413,12 @@ int sub_8020010(ProcPtr proc, void* unk_2, int unk_3) {
         buffer++;
     }
 
-    Proc_Start(gUnknown_0859B108, proc);
+    Proc_Start(sProcScr_ChapterIntro_0859B108, proc);
 
     // return; // BUG?
 }
 
-void sub_802009C() {
+void ChapterIntro_SetBG_802009C() {
     gLCDControlBuffer.dispcnt.mode = 0;
 
     SetBackgroundTileDataOffset(2, 0x8000);
@@ -411,7 +433,7 @@ void sub_802009C() {
     return;
 }
 
-void sub_80200F0(struct ChapterIntroFXProc* proc) {
+void ChapterIntro_Init(struct ChapterIntroFXProc* proc) {
     SetupBackgrounds(0);
 
     gLCDControlBuffer.dispcnt.mode = 1;
@@ -482,7 +504,7 @@ void sub_80200F0(struct ChapterIntroFXProc* proc) {
     CopyDataWithPossibleUncomp(gUnknown_08B19874, OBJ_VRAM1);
     CopyToPaletteBuffer(gUnknown_08B19DEC, 0x240, 0x20);
 
-    sub_8020010(proc, 0, 0xE);
+    ChapterIntro_8020010(proc, 0, 0xE);
 
     BG_EnableSyncByMask(6);
 
@@ -491,7 +513,7 @@ void sub_80200F0(struct ChapterIntroFXProc* proc) {
     return;
 }
 
-void sub_80202BC(struct ChapterIntroFXProc* proc) {
+void ChapterIntro_Init_PlaySound316(struct ChapterIntroFXProc* proc) {
     proc->unk_4C = 0;
     proc->unk_4E = 0;
     proc->unk_64 = 0;
@@ -503,7 +525,7 @@ void sub_80202BC(struct ChapterIntroFXProc* proc) {
     return;
 }
 
-void sub_80202F8(struct ChapterIntroFXProc* proc) {
+void ChapterIntro_DrawingLights(struct ChapterIntroFXProc* proc) {
     proc->unk_2C = sub_8012DCC(0, gUnknown_0859B120[proc->unk_4C], gUnknown_0859B120[proc->unk_4C + 1], proc->unk_4E, proc->unk_68);
 
     proc->unk_30 = sub_8012DCC(0, gUnknown_0859B132[proc->unk_4C], gUnknown_0859B132[proc->unk_4C + 1], proc->unk_4E, proc->unk_68);
@@ -554,7 +576,7 @@ void sub_80202F8(struct ChapterIntroFXProc* proc) {
     return;
 }
 
-void sub_80204AC(struct ChapterIntroFXProc* proc) {
+void ChapterIntro_80204AC(struct ChapterIntroFXProc* proc) {
     gLCDControlBuffer.dispcnt.bg0_on = 1;
     gLCDControlBuffer.dispcnt.bg1_on = 1;
     gLCDControlBuffer.dispcnt.bg2_on = 1;
@@ -591,7 +613,7 @@ void sub_80204E4(struct ChapterIntroFXProc* proc, int unk2, int unk3, int unk4) 
     return;
 }
 
-void sub_8020578(struct ChapterIntroFXProc* proc) {
+void ChapterIntro_UnknownFX8020578(struct ChapterIntroFXProc* proc) {
     int var;
 
     if (proc->unk_64 < 0x47) {
@@ -651,7 +673,7 @@ void sub_8020578(struct ChapterIntroFXProc* proc) {
     return;
 }
 
-void sub_8020778() {
+void ChapterIntro_DrawChapterTitleMaybe() {
     int var;
 
     BG_Fill(gBG0TilemapBuffer, 0x1280);
@@ -666,14 +688,14 @@ void sub_8020778() {
     return;
 }
 
-void sub_80207C8() {
+void ChapterIntro_80207C8() {
     CallARM_PushToSecondaryOAM(0, 0x40, gUnknown_0859B144, 0x2200);
     CallARM_PushToSecondaryOAM(0, 0x40, gUnknown_0859B144, 0x2200);
 
     return;
 }
 
-void sub_80207F4(struct ChapterIntroFXProc* proc) {
+void ChapterIntro_LightBurst_Init(struct ChapterIntroFXProc* proc) {
     proc->unk_4C = 0;
     proc->unk_4E = 0;
     proc->unk_66 = 0;
@@ -681,7 +703,7 @@ void sub_80207F4(struct ChapterIntroFXProc* proc) {
     return;
 }
 
-void sub_8020808(struct ChapterIntroFXProc* proc) {
+void ChapterIntro_LightBurst_Loop(struct ChapterIntroFXProc* proc) {
     if (proc->unk_66 == 0) {
         SetSpecialColorEffectsParameters(1, 0x10, proc->unk_4E, 0);
         proc->unk_4E++;
@@ -722,13 +744,13 @@ _080208AC:
     }
 
     SetSpecialColorEffectsParameters(1, 0, 0x10, 0);
-    Proc_EndEach(gUnknown_0859B180);
+    Proc_EndEach(sProcScr_ChapterIntro_LightBurst);
     Proc_Break(proc);
 
     return;
 }
 
-void sub_80208F8() {
+void ChapterIntro_InitBLDCNT() {
     gLCDControlBuffer.dispcnt.bg0_on = 0;
     gLCDControlBuffer.dispcnt.bg1_on = 1;
     gLCDControlBuffer.dispcnt.bg2_on = 1;
@@ -741,7 +763,7 @@ void sub_80208F8() {
     return;
 }
 
-void sub_8020944(struct ChapterIntroFXProc* proc) {
+void ChapterIntro_8020944(struct ChapterIntroFXProc* proc) {
     gLCDControlBuffer.dispcnt.bg0_on = 1;
     gLCDControlBuffer.dispcnt.bg1_on = 1;
     gLCDControlBuffer.dispcnt.bg2_on = 1;
@@ -764,7 +786,7 @@ void sub_8020944(struct ChapterIntroFXProc* proc) {
     return;
 }
 
-void sub_80209D8(struct ChapterIntroFXProc* proc) {
+void ChapterIntro_80209D8(struct ChapterIntroFXProc* proc) {
     SetSpecialColorEffectsParameters(1, proc->unk_4C, 0x10, 0);
 
     if ((proc->unk_50 == 3) || ((GetGameClock() & 3) == 0)) {
@@ -783,7 +805,7 @@ void sub_80209D8(struct ChapterIntroFXProc* proc) {
     return;
 }
 
-void sub_8020A40(struct ChapterIntroFXProc* proc) {
+void ChapterIntro_8020A40(struct ChapterIntroFXProc* proc) {
     proc->unk_4C = 0x1E;
 
     sub_8001710();
@@ -795,7 +817,7 @@ void sub_8020A40(struct ChapterIntroFXProc* proc) {
     return;
 }
 
-void sub_8020A8C(struct ChapterIntroFXProc* proc) {
+void ChapterIntro_8020A8C(struct ChapterIntroFXProc* proc) {
     int clock = GetGameClock() & 3;
 
     if ((clock) == 0) {
@@ -821,7 +843,7 @@ void sub_8020A8C(struct ChapterIntroFXProc* proc) {
     return;
 }
 
-void sub_8020AF8() {
+void ChapterIntro_8020AF8() {
     SetupBackgrounds(0);
     sub_80156D4();
     AllocWeatherParticles(gRAMChapterData.chapterWeatherId);
@@ -832,7 +854,7 @@ void sub_8020AF8() {
     return;
 }
 
-void sub_8020B20() {
+void ChapterIntro_8020B20() {
     gUnknown_0202BCB0.camera.y = 0xA0 * 4;
 
     return;
@@ -840,7 +862,7 @@ void sub_8020B20() {
 
 #if NONMATCHING
 
-void sub_8020B30() {
+void ChapterIntro_InitMapDisplay() {
     u16 var;
 
     gLCDControlBuffer.dispcnt.bg0_on = 1;
@@ -892,7 +914,7 @@ void sub_8020B30() {
 #else // !NONMATCHING
 
 __attribute__((naked))
-void sub_8020B30() {
+void ChapterIntro_InitMapDisplay() {
     asm("\n\
         .syntax unified\n\
         push {r4, r5, lr}\n\
@@ -1002,7 +1024,7 @@ void sub_8020B30() {
 
 #endif // NONMATCHING
 
-void sub_8020C2C(struct ChapterIntroFXProc* proc) {
+void ChapterIntro_BeginFadeToMap(struct ChapterIntroFXProc* proc) {
     sub_8001710();
 
     sub_800172C(gUnknown_02022968, 6, 10, 1);
@@ -1023,7 +1045,7 @@ void sub_8020C2C(struct ChapterIntroFXProc* proc) {
     return;
 }
 
-void sub_8020CA4(struct ChapterIntroFXProc* proc) {
+void ChapterIntro_LoopFadeToMap(struct ChapterIntroFXProc* proc) {
     if ((GetGameClock() & 1) == 0) {
         sub_80D74B0();
         if (GetROMChapterStruct(gRAMChapterData.chapterIndex)->initialWeather == 5) {
@@ -1075,7 +1097,7 @@ void sub_8020CA4(struct ChapterIntroFXProc* proc) {
     return;
 }
 
-void sub_8020DBC(struct ChapterIntroFXProc* proc) {
+void ChapterIntro_BeginCloseTextMaybe(struct ChapterIntroFXProc* proc) {
     proc->unk_4C = 0;
 
     gLCDControlBuffer.wincnt.wout_enableBg0 = 1;
@@ -1087,7 +1109,7 @@ void sub_8020DBC(struct ChapterIntroFXProc* proc) {
     return;
 }
 
-void sub_8020DE8(struct ChapterIntroFXProc* proc) {
+void ChapterIntro_LoopCloseTextMaybe(struct ChapterIntroFXProc* proc) {
     int var;
 
     var = sub_8012DCC(5, 0, 0x78, proc->unk_4C, 0x28);
@@ -1106,7 +1128,7 @@ void sub_8020DE8(struct ChapterIntroFXProc* proc) {
     return;
 }
 
-void sub_8020E48(struct ChapterIntroFXProc* proc) {
+void ChapterIntro_BeginFadeOut(struct ChapterIntroFXProc* proc) {
     Sound_FadeOutBGM(4);
 
     sub_8001710();
@@ -1123,7 +1145,7 @@ void sub_8020E48(struct ChapterIntroFXProc* proc) {
     return;
 }
 
-void sub_8020EAC(struct ChapterIntroFXProc* proc) {
+void ChapterIntro_LoopFadeOut(struct ChapterIntroFXProc* proc) {
     sub_80D74B0();
     EnablePaletteSync();
 
@@ -1143,7 +1165,7 @@ void sub_8020EAC(struct ChapterIntroFXProc* proc) {
     return;
 }
 
-void sub_8020F00(struct ChapterIntroFXProc* proc) {
+void ChapterIntro_BeginFastFadeToMap(struct ChapterIntroFXProc* proc) {
     gLCDControlBuffer.dispcnt.mode = 0;
 
     CpuFastFill(0, (void *)BG_VRAM, 32);
@@ -1154,9 +1176,9 @@ void sub_8020F00(struct ChapterIntroFXProc* proc) {
 
     BG_EnableSyncByMask(7);
 
-    Proc_EndEach(gUnknown_0859B0E0);
-    Proc_EndEach(gUnknown_0859B108);
-    Proc_EndEach(gUnknown_0859B160);
+    Proc_EndEach(sProcScr_ChapterIntro_Bg3Scroll);
+    Proc_EndEach(sProcScr_ChapterIntro_0859B108);
+    Proc_EndEach(sProcScr_ChapterIntro_0859B160);
 
     sub_8001710();
 
@@ -1178,7 +1200,7 @@ void sub_8020F00(struct ChapterIntroFXProc* proc) {
     return;
 }
 
-void sub_8020FF8(struct ChapterIntroFXProc* proc) {
+void ChapterIntro_LoopFastFadeToMap(struct ChapterIntroFXProc* proc) {
     sub_80D74B0();
 
     if ((GetROMChapterStruct(gRAMChapterData.chapterIndex)->initialWeather) == 5) {
@@ -1207,22 +1229,22 @@ void sub_8020FF8(struct ChapterIntroFXProc* proc) {
     return;
 }
 
-void sub_8021080(s16 unk0, struct ChapterIntroFXProc* param_2) {
-    param_2->unk_50 = unk0;
+void ChapterIntro_SetSkipTarget(s16 arg, struct ChapterIntroFXProc* proc) {
+    proc->unk_50 = arg;
 
     return;
 }
 
 
-void sub_8021088(s16 unk0, struct ChapterIntroFXProc* param_2) {
-    param_2->unk_4C = unk0;
+void ChapterIntro_SetTimerMaybe(s16 arg, struct ChapterIntroFXProc* proc) {
+    proc->unk_4C = arg;
 
     return;
 }
 
 #if NONMATCHING
 
-void sub_8021090(struct ChapterIntroFXProc* proc) {
+void ChapterIntro_TickTimerMaybe(struct ChapterIntroFXProc* proc) {
     if (proc->unk_52 != 0) {
         Proc_Break(proc);
         return;
@@ -1241,7 +1263,7 @@ void sub_8021090(struct ChapterIntroFXProc* proc) {
 #else // !NONMATCHING
 
 __attribute__((naked))
-void sub_8021090(struct ChapterIntroFXProc* proc) {
+void ChapterIntro_TickTimerMaybe(struct ChapterIntroFXProc* proc) {
     asm("\n\
         .syntax unified\n\
         push {lr}\n\
@@ -1279,7 +1301,7 @@ void sub_80210C0(struct ChapterIntroFXProc* proc) {
     return;
 }
 
-void sub_80210C8() {
+void ChapterIntro_80210C8() {
     gLCDControlBuffer.bg0cnt.priority = 0;
     gLCDControlBuffer.bg1cnt.priority = 1;
     gLCDControlBuffer.bg2cnt.priority = 2;
@@ -1306,7 +1328,7 @@ void sub_80210C8() {
     return;
 }
 
-void sub_8021188(struct ChapterIntroFXProc* proc) {
+void ChapterIntro_8021188(struct ChapterIntroFXProc* proc) {
     if ((GetGameClock() & 1) == 0) {
         sub_80D74B0();
 
