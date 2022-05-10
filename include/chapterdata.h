@@ -18,8 +18,10 @@ struct ROMChapterData {
     /* 0C */ u8  initialFogLevel;
     /* 0D */ u8  _unk0D;
 
-    /* 0E */ u8 _unk10[0x12 - 0x0E];
+    /* 0E */ u16 _unk0E;
 
+    /* 10 */ u8 unk10;
+    /* 11 */ u8 unk11;
     /* 12 */ u8 initialWeather;
     /* 13 */ u8 battleTileSet;
 

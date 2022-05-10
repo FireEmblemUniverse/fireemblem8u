@@ -780,8 +780,8 @@ void LoadGameCoreGfx(void); // bm?
 // ??? sub_801588C(???);
 int GetSomeAdjustedCameraX(int);
 int GetSomeAdjustedCameraY(int);
-int sub_8015A40(int xMapCoord);
-int sub_8015A6C(int yMapCoord);
+u16 sub_8015A40(int xMapCoord);
+u16 sub_8015A6C(int yMapCoord);
 void DisplayCursor(int x, int y, s8 arg2);
 // ??? sub_8015B88(???);
 void SetCursorMapPosition(int, int);

@@ -860,10 +860,8 @@ void ChapterIntro_8020B20() {
     return;
 }
 
-#if NONMATCHING
-
 void ChapterIntro_InitMapDisplay() {
-    u16 var;
+    int var;
 
     gLCDControlBuffer.dispcnt.bg0_on = 1;
     gLCDControlBuffer.dispcnt.bg1_on = 1;
@@ -893,14 +891,12 @@ void ChapterIntro_InitMapDisplay() {
     SetupMapSpritesPalettes();
     LoadObjUIGfx();
 
-    // TODO - Nonmatching is caused by an extra use of r2 around here for the results of this operation
-
-    var = GetROMChapterStruct(gRAMChapterData.chapterIndex)->_unk10[2];
+    var = GetROMChapterStruct(gRAMChapterData.chapterIndex)->unk10;
     var = sub_8015A40(var * 16);
     var = (var + 0xF) & 0x1F0;
     gUnknown_0202BCB0.camera.x = var;
 
-    var = GetROMChapterStruct(gRAMChapterData.chapterIndex)->_unk10[3];
+    var = GetROMChapterStruct(gRAMChapterData.chapterIndex)->unk11;
     var = sub_8015A6C(var * 16);
     var = (var + 0xF) & 0x3F0;
     gUnknown_0202BCB0.camera.y = var;
@@ -910,119 +906,6 @@ void ChapterIntro_InitMapDisplay() {
 
     return;
 }
-
-#else // !NONMATCHING
-
-__attribute__((naked))
-void ChapterIntro_InitMapDisplay() {
-    asm("\n\
-        .syntax unified\n\
-        push {r4, r5, lr}\n\
-        sub sp, #8\n\
-        ldr r2, _08020C10  @ gLCDControlBuffer\n\
-        ldrb r0, [r2, #1]\n\
-        movs r1, #1\n\
-        orrs r0, r1\n\
-        movs r1, #2\n\
-        orrs r0, r1\n\
-        movs r1, #4\n\
-        orrs r0, r1\n\
-        movs r1, #8\n\
-        orrs r0, r1\n\
-        movs r1, #0x10\n\
-        orrs r0, r1\n\
-        strb r0, [r2, #1]\n\
-        movs r0, #1\n\
-        movs r1, #0x10\n\
-        movs r2, #0\n\
-        movs r3, #0\n\
-        bl SetSpecialColorEffectsParameters\n\
-        movs r4, #0\n\
-        str r4, [sp]\n\
-        movs r0, #0\n\
-        movs r1, #1\n\
-        movs r2, #0\n\
-        movs r3, #0\n\
-        bl sub_8001ED0\n\
-        movs r0, #1\n\
-        str r0, [sp]\n\
-        movs r0, #0\n\
-        movs r1, #0\n\
-        movs r2, #0\n\
-        movs r3, #1\n\
-        bl sub_8001F0C\n\
-        movs r0, #1\n\
-        bl sub_8001F64\n\
-        str r4, [sp, #4]\n\
-        movs r1, #0xc0\n\
-        lsls r1, r1, #0x13\n\
-        ldr r2, _08020C14  @ 0x01000008\n\
-        add r0, sp, #4\n\
-        bl CpuFastSet\n\
-        ldr r0, _08020C18  @ gBG0TilemapBuffer\n\
-        movs r1, #0\n\
-        bl BG_Fill\n\
-        ldr r0, _08020C1C  @ gBG1TilemapBuffer\n\
-        movs r1, #0\n\
-        bl BG_Fill\n\
-        ldr r0, _08020C20  @ gBG2TilemapBuffer\n\
-        movs r1, #0\n\
-        bl BG_Fill\n\
-        movs r0, #7\n\
-        bl BG_EnableSyncByMask\n\
-        bl DisableMapPaletteAnimations\n\
-        ldr r4, _08020C24  @ gRAMChapterData\n\
-        movs r0, #0xe\n\
-        ldrsb r0, [r4, r0]\n\
-        bl UnpackChapterMapGraphics\n\
-        bl SetupMapSpritesPalettes\n\
-        bl LoadObjUIGfx\n\
-        movs r0, #0xe\n\
-        ldrsb r0, [r4, r0]\n\
-        bl GetROMChapterStruct\n\
-        ldrb r0, [r0, #0x10]\n\
-        lsls r0, r0, #4\n\
-        bl sub_8015A40\n\
-        lsls r0, r0, #0x10\n\
-        lsrs r0, r0, #0x10\n\
-        adds r0, #0xf\n\
-        movs r1, #0xf8\n\
-        lsls r1, r1, #1\n\
-        ands r0, r1\n\
-        ldr r5, _08020C28  @ gUnknown_0202BCB0\n\
-        strh r0, [r5, #0xc]\n\
-        movs r0, #0xe\n\
-        ldrsb r0, [r4, r0]\n\
-        bl GetROMChapterStruct\n\
-        ldrb r0, [r0, #0x11]\n\
-        lsls r0, r0, #4\n\
-        bl sub_8015A6C\n\
-        lsls r0, r0, #0x10\n\
-        lsrs r0, r0, #0x10\n\
-        adds r0, #0xf\n\
-        movs r1, #0xfc\n\
-        lsls r1, r1, #2\n\
-        ands r0, r1\n\
-        strh r0, [r5, #0xe]\n\
-        bl RefreshEntityBmMaps\n\
-        bl RenderBmMap\n\
-        add sp, #8\n\
-        pop {r4, r5}\n\
-        pop {r0}\n\
-        bx r0\n\
-        .align 2, 0\n\
-    _08020C10: .4byte gLCDControlBuffer\n\
-    _08020C14: .4byte 0x01000008\n\
-    _08020C18: .4byte gBG0TilemapBuffer\n\
-    _08020C1C: .4byte gBG1TilemapBuffer\n\
-    _08020C20: .4byte gBG2TilemapBuffer\n\
-    _08020C24: .4byte gRAMChapterData\n\
-    _08020C28: .4byte gUnknown_0202BCB0\n\
-        .syntax divided\n\
-    ");
-}
-
-#endif // NONMATCHING
 
 void ChapterIntro_BeginFadeToMap(struct ChapterIntroFXProc* proc) {
     sub_8001710();
@@ -1242,58 +1125,23 @@ void ChapterIntro_SetTimerMaybe(s16 arg, struct ChapterIntroFXProc* proc) {
     return;
 }
 
-#if NONMATCHING
-
 void ChapterIntro_TickTimerMaybe(struct ChapterIntroFXProc* proc) {
+    s16 tmp;
+
     if (proc->unk_52 != 0) {
         Proc_Break(proc);
         return;
     }
 
-    // TODO: Register usage is incorrect
+    tmp = proc->unk_4C;
     proc->unk_4C--;
 
-    if (proc->unk_4C < 0) {
+    if (tmp < 0) {
         Proc_Break(proc);
     }
 
     return;
 }
-
-#else // !NONMATCHING
-
-__attribute__((naked))
-void ChapterIntro_TickTimerMaybe(struct ChapterIntroFXProc* proc) {
-    asm("\n\
-        .syntax unified\n\
-        push {lr}\n\
-        adds r3, r0, #0\n\
-        adds r0, #0x52\n\
-        ldrh r0, [r0]\n\
-        cmp r0, #0\n\
-        beq _080210A4\n\
-        adds r0, r3, #0\n\
-        bl Proc_Break\n\
-        b _080210BA\n\
-    _080210A4:\n\
-        adds r0, r3, #0\n\
-        adds r0, #0x4c\n\
-        ldrh r1, [r0]\n\
-        subs r2, r1, #1\n\
-        strh r2, [r0]\n\
-        lsls r1, r1, #0x10\n\
-        cmp r1, #0\n\
-        bge _080210BA\n\
-        adds r0, r3, #0\n\
-        bl Proc_Break\n\
-    _080210BA:\n\
-        pop {r0}\n\
-        bx r0\n\
-        .syntax divided\n\
-    ");
-}
-
-#endif // NONMATCHING
 
 void sub_80210C0(struct ChapterIntroFXProc* proc) {
     proc->unk_52 = 2;
