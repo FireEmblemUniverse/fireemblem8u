@@ -943,3 +943,4 @@ sound/direct_sound_samples/*.bin
 
 # Converted songs
 sound/songs/midi/*.s
+.vscode/settings.json
