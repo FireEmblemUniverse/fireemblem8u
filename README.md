@@ -15,7 +15,7 @@ It builds the following ROM:
 # for Ubuntu/WSL users
 apt install binutils-arm-none-eabi
 ```
-3. Install [agbcc](https://github.com/pret/agbcc) to this project.
+3. Install [agbcc](https://github.com/pret/agbcc)(or [agbcc](https://github.com/holmesmr/agbcc) for M1 Mac users) to this project.
 ```
 cd /path/to/agbcc
 ./build.sh
