@@ -12,6 +12,7 @@
 #include "m4a.h"
 #include "soundwrapper.h"
 #include "bmusemind.h"
+#include "bmtrap.h"
 #include "bmmind.h"
 
 #include "constants/items.h"
@@ -121,10 +122,6 @@ PROC_LABEL(1),
 // koido.s
 void Make6CKOIDO(struct Unit*, int, u8, ProcPtr);
 int GetSomeFacingDirection(int, int, int, int);
-
-// bmtrap.s
-s8 sub_80377F0(ProcPtr, struct Unit*);
-void sub_8037830(ProcPtr, struct Unit*);
 
 // ev_triggercheck.s
 void sub_808371C(u8, u8, int);

@@ -16,6 +16,7 @@
 #include "m4a.h"
 #include "soundwrapper.h"
 #include "bmtrick.h"
+#include "bmtrap.h"
 
 #include "bmusemind.h"
 
@@ -23,7 +24,7 @@ extern struct UnitDefinition gUnknown_03001788;
 
 extern s8 CONST_DATA gUnknown_080D7C44[];
 
-static int sub_802EF70(void);
+static int sub_802EF70(ProcPtr);
 static int sub_802EF80(void);
 
 static struct ProcCmd CONST_DATA sProcScr_ExecWarpStaff[] = {
@@ -62,9 +63,6 @@ void sub_8021818(ProcPtr, int, int);
 
 // minefx.s
 void sub_8022300(ProcPtr, int, int);
-
-// bmtrap.s
-s8 sub_80377CC(void);
 
 // ev_triggercheck.s
 void sub_80831C8(s8, s8);
@@ -249,8 +247,8 @@ void ExecRescueStaff(ProcPtr proc) {
     return;
 }
 
-int sub_802EF70() {
-    return sub_80377CC();
+int sub_802EF70(ProcPtr proc) {
+    return sub_80377CC(proc);
 }
 
 int sub_802EF80() {

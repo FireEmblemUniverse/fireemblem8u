@@ -14,6 +14,8 @@
 #include "soundwrapper.h"
 #include "bmmap.h"
 
+#include "bmtrap.h"
+
 // code.s
 void sub_80A4594(u8);
 void BWL_AddWinOrLossIdk(u8, u8, int);
@@ -29,6 +31,8 @@ void sub_803592C(struct Unit*, u16);
 // ev_triggercheck.s
 s8 CheckForWaitEvents(void);
 void RunWaitEvents(void);
+struct TrapData* GetCurrentChapterBallistaePtr(void);
+struct TrapData* GetCurrentChapterBallistae2Ptr(void);
 
 // notifybox.s
 void sub_801F9FC(ProcPtr, int, char*);
@@ -48,20 +52,6 @@ struct UnknownBMTrapProc {
     /* 53 */ s8 unk_53;
     /* 54 */ struct Unit* unit;
 };
-
-struct TrapData {
-    /* 00 */ u8 type;
-    /* 01 */ u8 xPos;
-    /* 02 */ u8 yPos;
-    /* 03 */ u8 unk_03;
-    /* 04 */ u8 unk_04;
-    /* 05 */ u8 unk_05;
-} __attribute__((packed));
-
-struct TrapData* GetCurrentChapterBallistaePtr(void);
-struct TrapData* GetCurrentChapterBallistae2Ptr(void);
-
-void AddGorgonEggTrap(s8, s8, u8, u8, u8);
 
 extern struct ProcCmd CONST_DATA gProcScr_BKSEL[];
 
