@@ -33,6 +33,9 @@ void RunWaitEvents(void);
 // notifybox.s
 void sub_801F9FC(ProcPtr, int, char*);
 
+// bmarch.s
+void AddBallista(int, int, int);
+
 extern u16 gUnknown_0859E5A0[];
 extern struct ProcCmd CONST_DATA gUnknown_0859E520[];
 extern struct ProcCmd CONST_DATA gUnknown_0859E5AC[];
@@ -50,6 +53,20 @@ struct UnknownBMTrapProc {
     /* 53 */ s8 unk_53;
     /* 54 */ struct Unit* unit;
 };
+
+struct TrapData {
+    /* 00 */ u8 type;
+    /* 01 */ u8 xPos;
+    /* 02 */ u8 yPos;
+    /* 03 */ u8 unk_03;
+    /* 04 */ u8 unk_04;
+    /* 05 */ u8 unk_05;
+} __attribute__((packed));
+
+struct TrapData* GetCurrentChapterBallistaePtr(void);
+struct TrapData* GetCurrentChapterBallistae2Ptr(void);
+
+void AddGorgonEggTrap(s8, s8, u8, u8, u8);
 
 u16 sub_803746C(int r0, s8 r1) {
 
@@ -268,4 +285,63 @@ s8 sub_80377F0(ProcPtr proc, struct Unit* unit) {
 
 s8 sub_8037830(ProcPtr proc, struct Unit* unit) {
     return ExecTrap(proc, unit, 3);
+}
+
+void LoadTrapData(struct TrapData* data) {
+    if (!data || !data->type) {
+        return;
+    } else {
+        while (data->type) {
+            switch (data->type) {
+                case TRAP_BALLISTA:
+                    AddBallista(data->xPos, data->yPos, data->unk_03);
+                    break;
+
+                case TRAP_FIRETILE:
+                    AddFireTile(data->xPos, data->yPos, data->unk_04, data->unk_05);
+                    break;
+
+                case TRAP_GAS:
+                    AddGasTrap(data->xPos, data->yPos, data->unk_03, data->unk_04, data->unk_05);
+                    break;
+
+                case TRAP_8:
+                    AddTrap8(data->xPos, data->yPos);
+                    break;
+
+                case TRAP_9:
+                    AddTrap9(data->xPos, data->yPos, data->unk_03);
+                    break;
+
+                case TRAP_MINE:
+                    AddTrap(data->xPos, data->yPos, data->type, 0);
+                    break;
+
+                case TRAP_LIGHTARROW:
+                    AddArrowTrap(data->xPos, data->unk_04, data->unk_05);
+                    // break; // BUG?
+
+                case TRAP_GORGON_EGG:
+                    AddGorgonEggTrap(data->xPos, data->yPos, data->unk_03, data->unk_04, data->unk_05);
+                    break;
+            }
+            
+            data++;
+        }
+    }
+
+    return;
+}
+
+void LoadChapterBallistae() {
+    LoadTrapData(GetCurrentChapterBallistaePtr());
+    LoadTrapData(GetCurrentChapterBallistae2Ptr());
+
+    return;
+}
+
+void AddGorgonEggTrap(s8 x, s8 y, u8 turnsToHatch, u8 level, u8 unk_05) {
+    AddDamagingTrap(x, y, TRAP_GORGON_EGG, turnsToHatch, level, 1, unk_05);
+
+    return;
 }
