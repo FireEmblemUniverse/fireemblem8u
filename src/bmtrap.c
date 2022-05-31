@@ -36,11 +36,6 @@ void sub_801F9FC(ProcPtr, int, char*);
 // bmarch.s
 void AddBallista(int, int, int);
 
-extern u16 gUnknown_0859E5A0[];
-extern struct ProcCmd CONST_DATA gUnknown_0859E520[];
-extern struct ProcCmd CONST_DATA gUnknown_0859E5AC[];
-extern struct ProcCmd CONST_DATA gUnknown_0859E5FC[];
-
 struct UnknownBMTrapProc {
     /* 00 */ PROC_HEADER;
 
@@ -68,6 +63,52 @@ struct TrapData* GetCurrentChapterBallistae2Ptr(void);
 
 void AddGorgonEggTrap(s8, s8, u8, u8, u8);
 
+extern struct ProcCmd CONST_DATA gProcScr_BKSEL[];
+
+u16 CONST_DATA gUnknown_0859E5A0[] = {
+    0x56B, 0x56D, 0x56F, 0x56C, 0x56E, 0x570,
+};
+
+void sub_80374F4(struct UnknownBMTrapProc* proc);
+void sub_8037510(struct UnknownBMTrapProc* proc);
+void sub_8037528(struct UnknownBMTrapProc* proc);
+void sub_8037540(struct UnknownBMTrapProc* proc);
+void sub_80375A0(struct UnknownBMTrapProc* proc);
+
+struct ProcCmd CONST_DATA sProcScr_ExecTrap8[] = {
+    PROC_SLEEP(1),
+    PROC_WHILE(MU_IsAnyActive),
+    PROC_CALL(sub_80374F4),
+    PROC_CALL(sub_8037510),
+    PROC_SLEEP(0),
+
+    PROC_CALL(sub_8037540),
+    PROC_SLEEP(0),
+
+    PROC_CALL(sub_80375A0),
+    PROC_SLEEP(0),
+
+    PROC_END,
+};
+
+struct ProcCmd CONST_DATA sProcScr_ExecTrapMine[] = {
+    PROC_SLEEP(1),
+    PROC_WHILE(MU_IsAnyActive),
+    PROC_CALL(sub_80374F4),
+    PROC_CALL(sub_8037528),
+    PROC_SLEEP(0),
+
+    PROC_CALL(sub_8037540),
+    PROC_SLEEP(0),
+
+    PROC_CALL(sub_80375A0),
+    PROC_SLEEP(0),
+
+    PROC_END,
+};
+
+// TODO: Move these first three functions to BKSEL once it is decompiled.
+
 u16 sub_803746C(int r0, s8 r1) {
 
     int r2 = r1 != 0 ? 3 : 0;
@@ -86,7 +127,7 @@ u16 sub_803746C(int r0, s8 r1) {
 void sub_8037494(struct UnknownBMTrapProc* proc) {
     struct UnknownBMTrapProc* proc2;
 
-    proc2 = Proc_Find(gUnknown_0859E520);
+    proc2 = Proc_Find(gProcScr_BKSEL);
     proc->unk_4C = sub_803746C(gBattleActor.wTriangleHitBonus, proc2->unk_52);
 
     return;
@@ -95,7 +136,7 @@ void sub_8037494(struct UnknownBMTrapProc* proc) {
 void sub_80374C4(struct UnknownBMTrapProc* proc) {
     struct UnknownBMTrapProc* proc2;
 
-    proc2 = Proc_Find(gUnknown_0859E520);
+    proc2 = Proc_Find(gProcScr_BKSEL);
     proc->unk_4C = sub_803746C(gBattleTarget.wTriangleHitBonus, proc2->unk_53);
 
     return;
@@ -204,14 +245,14 @@ int ExecTrap(ProcPtr proc, struct Unit* unit, int param_3) {
 
     switch (GetPickTrapType(unit)) {
         case TRAP_8:
-            proc2 = Proc_StartBlocking(gUnknown_0859E5AC, proc);
+            proc2 = Proc_StartBlocking(sProcScr_ExecTrap8, proc);
             proc2->unk_50 = param_3;
             proc2->unit = unit;
             break;
 
         case TRAP_MINE:
             RemoveTrap(GetTypedTrapAt(unit->xPos, unit->yPos, TRAP_MINE));
-            proc2 = Proc_StartBlocking(gUnknown_0859E5FC, proc);
+            proc2 = Proc_StartBlocking(sProcScr_ExecTrapMine, proc);
             proc2->unk_50 = param_3;
             proc2->unit = unit;
             break;

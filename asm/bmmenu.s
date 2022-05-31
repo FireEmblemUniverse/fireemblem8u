@@ -1164,7 +1164,7 @@ _08022E04:
 	ldrb r0, [r4, #3]
 	strb r0, [r1, #0x15]
 _08022E22:
-	ldr r0, _08022E34  @ gUnknown_0859E520
+	ldr r0, _08022E34  @ gProcScr_BKSEL
 	bl Proc_EndEach
 	movs r0, #0x17
 _08022E2A:
@@ -1173,7 +1173,7 @@ _08022E2A:
 	bx r1
 	.align 2, 0
 _08022E30: .4byte gActionData
-_08022E34: .4byte gUnknown_0859E520
+_08022E34: .4byte gProcScr_BKSEL
 
 	THUMB_FUNC_END sub_8022DF0
 
