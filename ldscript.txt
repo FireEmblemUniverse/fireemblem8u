@@ -107,7 +107,7 @@ SECTIONS
         asm/bmusailment.o(.text);
         asm/bksel.o(.text);
         src/bmtrap.o(.text);
-        asm/bmarch.o(.text);
+        src/bmarch.o(.text);
         asm/bmdifficulty.o(.text);
         src/cp_phase.o(.text);
         src/cp_order.o(.text);
