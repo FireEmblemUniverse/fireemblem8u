@@ -5,6 +5,7 @@
 #include "bmunit.h"
 #include "bmmap.h"
 #include "bmtrick.h"
+#include "bmarch.h"
 
 #include "constants/classes.h"
 

@@ -17,6 +17,7 @@
 #include "bmtrick.h"
 #include "mu.h"
 #include "uimenu.h"
+#include "bmtrap.h"
 
 #include "bmio.h"
 

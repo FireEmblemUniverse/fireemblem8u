@@ -1815,7 +1815,7 @@ NewBattleForecast: @ 0x0803730C
 	.align 2, 0
 _08037324: .4byte gRAMChapterData
 _08037328:
-	ldr r0, _08037360  @ gUnknown_0859E520
+	ldr r0, _08037360  @ gProcScr_BKSEL
 	movs r1, #3
 	bl Proc_Start
 	adds r5, r0, #0
@@ -1841,7 +1841,7 @@ _08037350:
 	beq _0803736C
 	b _08037374
 	.align 2, 0
-_08037360: .4byte gUnknown_0859E520
+_08037360: .4byte gProcScr_BKSEL
 _08037364:
 	adds r1, r5, #0
 	adds r1, #0x32
@@ -1871,7 +1871,7 @@ _08037388: .4byte gBmMapMovement
 	THUMB_FUNC_START sub_803738C
 sub_803738C: @ 0x0803738C
 	push {lr}
-	ldr r0, _080373B0  @ gUnknown_0859E520
+	ldr r0, _080373B0  @ gProcScr_BKSEL
 	bl Proc_Find
 	adds r1, r0, #0
 	cmp r1, #0
@@ -1889,14 +1889,14 @@ _080373AC:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_080373B0: .4byte gUnknown_0859E520
+_080373B0: .4byte gProcScr_BKSEL
 
 	THUMB_FUNC_END sub_803738C
 
 	THUMB_FUNC_START sub_80373B4
 sub_80373B4: @ 0x080373B4
 	push {r4, lr}
-	ldr r0, _080373DC  @ gUnknown_0859E520
+	ldr r0, _080373DC  @ gProcScr_BKSEL
 	bl Proc_Find
 	adds r4, r0, #0
 	cmp r4, #0
@@ -1912,7 +1912,7 @@ sub_80373B4: @ 0x080373B4
 	bl Proc_End
 	b _080373E8
 	.align 2, 0
-_080373DC: .4byte gUnknown_0859E520
+_080373DC: .4byte gProcScr_BKSEL
 _080373E0:
 	adds r0, r4, #0
 	movs r1, #1
@@ -1928,7 +1928,7 @@ _080373E8:
 sub_80373F0: @ 0x080373F0
 	push {r4, r5, r6, lr}
 	adds r6, r0, #0
-	ldr r0, _0803743C  @ gUnknown_0859E520
+	ldr r0, _0803743C  @ gProcScr_BKSEL
 	bl Proc_Find
 	adds r4, r0, #0
 	cmp r4, #0
@@ -1963,7 +1963,7 @@ _08037420:
 	beq _08037454
 	b _08037460
 	.align 2, 0
-_0803743C: .4byte gUnknown_0859E520
+_0803743C: .4byte gProcScr_BKSEL
 _08037440:
 	ldr r0, _08037450  @ gHelpInfo_MbpHp
 	adds r1, r6, #0
