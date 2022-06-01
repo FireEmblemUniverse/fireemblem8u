@@ -5,146 +5,83 @@
 #include "bmunit.h"
 
 
+inline s8 IsBallista(struct Trap* trap) {
+
+    if (!trap) {
+        return 0;
+    }
+
+    if (trap->type != TRAP_BALLISTA) {
+        return 0;
+    }
+
+    return 1;
+}
+
+inline int sub_8037AC0(struct Trap* trap) {
+    if (!IsBallista(trap)) {
+        return 0;
+    }
+
+    return trap->extra + trap->data[TRAP_EXTDATA_BLST_ITEMUSES] * 0x100;
+}
+
+inline int sub_8037AEC(struct Trap* trap) {
+    if (!IsBallista(trap)) {
+        return 0;
+    }
+
+    return trap->extra;
+}
+
+inline int GetBallistaItemUses(struct Trap* trap) {
+    if (!IsBallista(trap)) {
+        return 0;
+    }
+
+    return trap->data[TRAP_EXTDATA_BLST_ITEMUSES];
+}
+
+inline void sub_8037B34(struct Trap* trap) {
+    trap->data[TRAP_EXTDATA_BLST_RIDDEN] = 0;
+    return;
+}
+
+inline void sub_8037B3C(struct Trap* trap) {
+    trap->data[TRAP_EXTDATA_BLST_RIDDEN] = 1;
+    return;
+}
+
 struct Trap* GetRiddenBallistaAt(int xPos, int yPos) {
-    s8 isBallista;
     struct Trap* trap = GetTrapAt(xPos, yPos);
 
-     if (!trap || trap->type != TRAP_BALLISTA) {
-        isBallista = 0;
-    } else {
-        isBallista = 1;
-    }
-
-    asm("");
-    
-    if (isBallista == 0) {
+    if (GetBallistaItemUses(trap) == 0) {
         return 0;
     }
 
-    if (trap->data[TRAP_EXTDATA_BLST_ITEMUSES] != 0) {
-        return trap;
-    }
-
-    return 0;
+    return trap;
 }
 
-#if NONMATCHING
-
 int GetBallistaItemAt(int xPos, int yPos) {
-    s8 isBallista;
-    int tmp;
     struct Trap* trap = GetTrapAt(xPos, yPos);
 
-    if (!trap || trap->type != TRAP_BALLISTA) {
-        isBallista = 0;
-    } else {
-        isBallista = 1;
-    }
-
-    asm("");
-
-    if (isBallista == 0) {
+    if (GetBallistaItemUses(trap) == 0) {
         return 0;
     }
 
-    tmp = trap->data[TRAP_EXTDATA_BLST_ITEMUSES];
-    if (tmp == 0) {
-        return 0;
-    }
-
-    if (!trap || trap->type != TRAP_BALLISTA) {
-        isBallista = 0;
-    } else {
-        isBallista = 1;
-    }
-
-    asm("");
-
-    if (isBallista != 0) {
-        return (tmp * 256) + trap->extra;
-    }
-    
-    return 0;
+    return sub_8037AC0(trap);
 }
-
-#else // !NONMATCHING
-
-__attribute__((naked))
-int GetBallistaItemAt(int xPos, int yPos) {
-    asm("\n\
-        .syntax unified\n\
-        push {lr}\n\
-        bl GetTrapAt\n\
-        adds r1, r0, #0\n\
-        cmp r1, #0\n\
-        beq _0803799E\n\
-        ldrb r0, [r1, #2]\n\
-        cmp r0, #1\n\
-        beq _080379A2\n\
-    _0803799E:\n\
-        movs r0, #0\n\
-        b _080379A4\n\
-    _080379A2:\n\
-        movs r0, #1\n\
-    _080379A4:\n\
-        cmp r0, #0\n\
-        beq _080379C4\n\
-        movs r2, #6\n\
-        ldrsb r2, [r1, r2]\n\
-        cmp r2, #0\n\
-        beq _080379C4\n\
-        cmp r1, #0\n\
-        beq _080379BA\n\
-        ldrb r0, [r1, #2]\n\
-        cmp r0, #1\n\
-        beq _080379BE\n\
-    _080379BA:\n\
-        movs r0, #0\n\
-        b _080379C0\n\
-    _080379BE:\n\
-        movs r0, #1\n\
-    _080379C0:\n\
-        cmp r0, #0\n\
-        bne _080379C8\n\
-    _080379C4:\n\
-        movs r0, #0\n\
-        b _080379CE\n\
-    _080379C8:\n\
-        ldrb r1, [r1, #3]\n\
-        lsls r0, r2, #8\n\
-        adds r0, r1, r0\n\
-    _080379CE:\n\
-        pop {r1}\n\
-        bx r1\n\
-        .syntax divided\n\
-    ");
-}
-
-#endif // NONMATCHING
 
 int GetSomeBallistaItemAt(int xPos, int yPos) {
-    s8 isBallista;
-    int tmp;
     struct Trap* trap = GetTrapAt(xPos, yPos);
 
-    if (!trap || trap->type != TRAP_BALLISTA) {
-        isBallista = 0;
-    } else {
-        isBallista = 1;
-    }
+    int unk = sub_8037AEC(trap);
 
-    asm("");
-
-    if (isBallista == 0) {
+    if (unk == 0) {
         return 0;
     }
 
-    tmp = trap->extra;
-    if (tmp != 0) {
-        return 0x100 + tmp;
-    }
-
-    return 0;
+    return unk + 0x100;
 }
 
 struct Trap* AddBallista(int xPos, int yPos, int ballistaType) {
@@ -152,7 +89,8 @@ struct Trap* AddBallista(int xPos, int yPos, int ballistaType) {
 
     trap->extra = GetItemIndex(ballistaType);
     trap->data[TRAP_EXTDATA_BLST_ITEMUSES] = GetItemUses(MakeNewItem(ballistaType));
-    trap->data[TRAP_EXTDATA_BLST_RIDDEN] = 0;
+
+    sub_8037B34(trap);
 
     return trap;
 }
@@ -160,7 +98,7 @@ struct Trap* AddBallista(int xPos, int yPos, int ballistaType) {
 void RideBallista(struct Unit* unit) {
     struct Trap* trap = GetTrapAt(unit->xPos, unit->yPos);
 
-    trap->data[TRAP_EXTDATA_BLST_RIDDEN] = 1;
+    sub_8037B3C(trap);
 
     SMS_UpdateFromGameData();
 
@@ -179,7 +117,8 @@ void TryRemoveUnitFromBallista(struct Unit* unit) {
 
         unit->state &= ~US_IN_BALLISTA;
 
-        trap->data[TRAP_EXTDATA_BLST_RIDDEN] = 0;
+        sub_8037B34(trap);
+
         unit->ballistaIndex = 0;
 
         trap->xPos = unit->xPos;
@@ -188,78 +127,5 @@ void TryRemoveUnitFromBallista(struct Unit* unit) {
         SMS_UpdateFromGameData();
     }
 
-    return;
-}
-
-s8 IsBallista(struct Trap* trap) {
-
-    if (trap && trap->type == TRAP_BALLISTA) {
-        return 1;
-    }
-
-    return 0;
-}
-
-int sub_8037AC0(struct Trap* trap) {
-    s8 isBallista;
-
-     if (!trap || trap->type != TRAP_BALLISTA) {
-        isBallista = 0;
-    } else {
-        isBallista = 1;
-    }
-
-    asm("");
-
-    if (isBallista == 0) {
-        return 0;
-    }
-
-    return trap->extra + trap->data[TRAP_EXTDATA_BLST_ITEMUSES] * 0x100;
-}
-
-int sub_8037AEC(struct Trap* trap) {
-    s8 isBallista;
-
-     if (!trap || trap->type != TRAP_BALLISTA) {
-        isBallista = 0;
-    } else {
-        isBallista = 1;
-    }
-
-    asm("");
-
-    if (isBallista == 0) {
-        return 0;
-    }
-
-    return trap->extra;
-}
-
-int GetBallistaItemUses(struct Trap* trap) {
-    s8 isBallista;
-
-     if (!trap || trap->type != TRAP_BALLISTA) {
-        isBallista = 0;
-    } else {
-        isBallista = 1;
-    }
-
-    asm("");
-
-    if (isBallista == 0) {
-        return 0;
-    }
-
-    return trap->data[TRAP_EXTDATA_BLST_ITEMUSES];
-}
-
-void sub_8037B34(struct Trap* trap) {
-    trap->data[TRAP_EXTDATA_BLST_RIDDEN] = 0;
-    return;
-}
-
-void sub_8037B3C(struct Trap* trap) {
-    trap->data[TRAP_EXTDATA_BLST_RIDDEN] = 1;
     return;
 }
