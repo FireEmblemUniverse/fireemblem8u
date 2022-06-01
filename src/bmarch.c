@@ -4,6 +4,8 @@
 #include "bmitem.h"
 #include "bmunit.h"
 
+#include "bmarch.h"
+
 
 inline s8 IsBallista(struct Trap* trap) {
 
@@ -42,12 +44,12 @@ inline int GetBallistaItemUses(struct Trap* trap) {
     return trap->data[TRAP_EXTDATA_BLST_ITEMUSES];
 }
 
-inline void sub_8037B34(struct Trap* trap) {
+inline void ClearBallistaOccupied(struct Trap* trap) {
     trap->data[TRAP_EXTDATA_BLST_RIDDEN] = 0;
     return;
 }
 
-inline void sub_8037B3C(struct Trap* trap) {
+inline void SetBallistaOccupied(struct Trap* trap) {
     trap->data[TRAP_EXTDATA_BLST_RIDDEN] = 1;
     return;
 }
@@ -90,7 +92,7 @@ struct Trap* AddBallista(int xPos, int yPos, int ballistaType) {
     trap->extra = GetItemIndex(ballistaType);
     trap->data[TRAP_EXTDATA_BLST_ITEMUSES] = GetItemUses(MakeNewItem(ballistaType));
 
-    sub_8037B34(trap);
+    ClearBallistaOccupied(trap);
 
     return trap;
 }
@@ -98,7 +100,7 @@ struct Trap* AddBallista(int xPos, int yPos, int ballistaType) {
 void RideBallista(struct Unit* unit) {
     struct Trap* trap = GetTrapAt(unit->xPos, unit->yPos);
 
-    sub_8037B3C(trap);
+    SetBallistaOccupied(trap);
 
     SMS_UpdateFromGameData();
 
@@ -117,7 +119,7 @@ void TryRemoveUnitFromBallista(struct Unit* unit) {
 
         unit->state &= ~US_IN_BALLISTA;
 
-        sub_8037B34(trap);
+        ClearBallistaOccupied(trap);
 
         unit->ballistaIndex = 0;
 

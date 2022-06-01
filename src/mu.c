@@ -9,6 +9,7 @@
 #include "bmmap.h"
 #include "bmtrick.h"
 #include "bmbattle.h"
+#include "bmarch.h"
 #include "hardware.h"
 #include "m4a.h"
 #include "mapanim.h"

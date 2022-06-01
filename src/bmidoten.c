@@ -9,6 +9,7 @@
 #include "mu.h"
 #include "proc.h"
 #include "rng.h"
+#include "bmarch.h"
 
 #include "bmidoten.h"
 

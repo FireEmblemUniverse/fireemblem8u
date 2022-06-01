@@ -13,6 +13,7 @@
 #include "m4a.h"
 #include "soundwrapper.h"
 #include "bmmap.h"
+#include "bmarch.h"
 
 #include "bmtrap.h"
 
@@ -36,9 +37,6 @@ struct TrapData* GetCurrentChapterBallistae2Ptr(void);
 
 // notifybox.s
 void sub_801F9FC(ProcPtr, int, char*);
-
-// bmarch.s
-void AddBallista(int, int, int);
 
 struct UnknownBMTrapProc {
     /* 00 */ PROC_HEADER;
