@@ -1,11 +1,17 @@
 #include "global.h"
 
+#include "constants/classes.h"
+
 #include "uiutils.h"
 #include "hardware.h"
 #include "proc.h"
 #include "bmunit.h"
 #include "m4a.h"
 #include "soundwrapper.h"
+#include "uiselecttarget.h"
+#include "bmmap.h"
+#include "bmbattle.h"
+#include "mu.h"
 
 extern u16 gUnknown_08A032AC[];
 extern u16 gUnknown_08A03334[]; // palette
@@ -18,16 +24,37 @@ extern u16 gUnknown_02022C68[];
 extern struct ProcCmd gUnknown_0859E2D0[];
 
 
+// bmtarget.s
+void sub_8025904(int);
+void sub_80259EC(int);
+void sub_8025A64(int);
+
+// bb.s
+void sub_80357A8(ProcPtr, struct Unit*, int, int);
+void sub_8035804(struct Unit*, s8);
+void sub_803584C(struct Unit*, s8);
+void sub_80358C0(struct Unit*, s8);
+
+// trapfx.s
+void sub_801F68C(ProcPtr, int, int);
+void sub_801F600(ProcPtr, int, int, int);
+void sub_801F844(ProcPtr, int);
+void sub_801F8C8(ProcPtr, int, int);
+
+
 struct UnknownBMUSAilmentProc {
     PROC_HEADER;
-    
+
     /* 29 */ u8 _pad1[0x2C-0x29];
     /* 2C */ int unk_2C;
     /* 30 */ int _pad2;
     /* 34 */ int unk_34;
     /* 38 */ u8 _pad3[0x4C-0x38];
-    
+
     /* 4C */ s16 unk_4C;
+    /* 4E */ u8 _pad4[0x58-0x4E];
+
+    /* 58 */ int unk_58;
 };
 
 void sub_8035AA4() {
@@ -237,5 +264,357 @@ void sub_8035DDC(struct Unit* unit, ProcPtr proc) {
     }
 
     Proc_StartBlocking(gUnknown_0859E2D0, (ProcPtr) 3);
+    return;
+}
+
+void sub_8035E20(struct UnknownBMUSAilmentProc* proc) {
+
+    sub_8025904(gRAMChapterData.chapterPhaseIndex);
+
+    if (GetSelectTargetCount() == 0) {
+        Proc_End(proc);
+    } else {
+        proc->unk_4C = 0;
+    }
+
+    return;
+}
+
+void sub_8035E50(struct UnknownBMUSAilmentProc* proc) {
+    struct SelectTarget* target = GetTarget(proc->unk_4C);
+    struct Unit* unit = GetUnit(target->uid);
+
+    gActionData.subjectIndex = target->uid;
+
+    if (proc->unk_4C == GetSelectTargetCount()) {
+        Proc_End(proc);
+        return;
+    }
+
+    if ((gRAMChapterData.chapterVisionRange != 0) && (gBmMapFog[unit->yPos][unit->xPos] == 0)) {
+        Proc_Goto(proc, 1);
+    } else {
+        if (GetUnitCurrentHp(unit) == 0) {
+            Proc_Goto(proc, 1);
+        }
+    }
+
+    return;
+}
+
+void sub_8035ED8(struct UnknownBMUSAilmentProc* proc) {
+    struct SelectTarget* target = GetTarget(proc->unk_4C);
+    EnsureCameraOntoPosition(proc, target->x, target->y);
+
+    return;
+}
+
+void sub_8035EFC(struct UnknownBMUSAilmentProc* proc) {
+    struct SelectTarget* target = GetTarget(proc->unk_4C);
+    struct Unit* unit = GetUnit(target->uid);
+
+    if (target->extra < 0) {
+        sub_8035DDC(unit, proc);
+    } else {
+        HideUnitSMS(unit);
+        sub_8035804(unit, target->extra);
+    }
+
+    return;
+}
+
+void sub_8035F40() {
+    MU_EndAll();
+
+    if (gBattleActor.unit.curHP != 0) {
+        ShowUnitSMS(GetUnit(gActionData.subjectIndex));
+    }
+
+    return;
+}
+
+void sub_8035F6C(struct UnknownBMUSAilmentProc* proc) {
+    struct SelectTarget* target = GetTarget(proc->unk_4C);
+    struct Unit* unit = GetUnit(target->uid);
+
+    if (target->extra < 0) {
+        sub_80357A8(proc, unit, 0, 0);
+    } else {
+        sub_80357A8(proc, unit, target->extra, -1);
+    }
+
+    proc->unk_4C++;
+
+    return;
+}
+
+void sub_8035FB8(struct UnknownBMUSAilmentProc* proc) {
+    sub_80259EC(gRAMChapterData.chapterPhaseIndex);
+    sub_8026414(4);
+
+    if (GetSelectTargetCount() == 0) {
+        Proc_End(proc);
+    } else {
+        proc->unk_4C = 0;
+    }
+
+    return;
+}
+
+void sub_8035FF0(struct UnknownBMUSAilmentProc* proc) {
+    struct SelectTarget* target = GetTarget(proc->unk_4C);
+    struct Unit* unit = GetUnit(target->uid);
+
+    HideUnitSMS(unit);
+
+    sub_803584C(unit, target->extra);
+
+    return;
+}
+
+void sub_803601C(struct UnknownBMUSAilmentProc* proc) {
+    struct SelectTarget* target = GetTarget(proc->unk_4C);
+    struct Unit* unit = GetUnit(target->uid);
+
+    sub_80357A8(proc, unit, -(target->extra), -1);
+
+    proc->unk_4C++;
+
+    if (GetUnitCurrentHp(GetUnit(gActionData.subjectIndex)) == 0) {
+        if (CheckForWaitEvents() != 0) {
+            RunWaitEvents();
+        }
+    }
+
+    if (GetUnitCurrentHp(GetUnit(gActionData.subjectIndex)) < 1) {
+        SMS_UpdateFromGameData();
+    }
+
+    return;
+}
+
+void sub_803608C(struct Unit* unit) {
+
+    if (unit->pClassData->number != CLASS_GORGONEGG2) {
+        unit->pClassData = GetClassData(CLASS_GORGONEGG2);
+
+        RefreshEntityBmMaps();
+        RenderBmMap();
+        SMS_UpdateFromGameData();
+        MU_EndAll();
+    }
+
+    return;
+}
+
+void sub_80360B8(struct UnknownBMUSAilmentProc* proc) {
+
+    sub_8025A64(gRAMChapterData.chapterPhaseIndex);
+
+    if (GetSelectTargetCount() == 0) {
+        Proc_End(proc);
+    } else {
+        proc->unk_4C = 0;
+    }
+
+    return;
+}
+
+void sub_80360E8(struct UnknownBMUSAilmentProc* proc) {
+    struct SelectTarget* target = GetTarget(proc->unk_4C);
+    struct Unit* unit = GetUnit(target->uid);
+
+    HideUnitSMS(unit);
+
+    sub_803608C(unit);
+    sub_80358C0(unit, target->extra);
+
+    return;
+}
+
+void sub_803611C(struct UnknownBMUSAilmentProc* proc) {
+    struct SelectTarget* target = GetTarget(proc->unk_4C);
+    struct Unit* unit = GetUnit(target->uid);
+
+    sub_80357A8(proc, unit, target->extra, -1);
+
+    proc->unk_4C++;
+
+    if (GetUnitCurrentHp(GetUnit(gActionData.subjectIndex)) == 0) {
+        if (CheckForWaitEvents() != 0) {
+            RunWaitEvents();
+        }
+    }
+
+    if (GetUnitCurrentHp(GetUnit(gActionData.subjectIndex)) < 1) {
+        SMS_UpdateFromGameData();
+    }
+
+    return;
+}
+
+void sub_8036188(struct UnknownBMUSAilmentProc* proc) {
+    if (GetSelectTargetCount() == 0) {
+        Proc_End(proc);
+    } else {
+        proc->unk_4C = 0;
+        proc->unk_58 = 0;
+    }
+
+    return;
+}
+
+void sub_80361AC(struct UnknownBMUSAilmentProc* proc) {
+    struct SelectTarget* target = GetTarget(proc->unk_4C);
+    int status = GetUnit(gActionData.subjectIndex)->statusIndex;
+
+    proc->unk_58 = status;
+
+    SetUnitStatus(GetUnit(gActionData.subjectIndex), 0);
+
+    switch (status) {
+        case UNIT_STATUS_POISON:
+        case UNIT_STATUS_SLEEP:
+        case UNIT_STATUS_SILENCED:
+        case UNIT_STATUS_BERSERK:
+        case UNIT_STATUS_RECOVER:
+        case UNIT_STATUS_PETRIFY:
+        case UNIT_STATUS_13:
+            sub_8035DDC(GetUnit(target->uid), proc);
+            break;
+    }
+
+    return;
+}
+
+void sub_803623C(struct UnknownBMUSAilmentProc* proc) {
+
+    if ((proc->unk_58 == UNIT_STATUS_PETRIFY) || (proc->unk_58 == UNIT_STATUS_13)) {
+        SetUnitStatus(GetUnit(gActionData.subjectIndex), 0);
+        GetUnit(gActionData.subjectIndex)->state &= ~(US_UNSELECTABLE | US_HAS_MOVED | US_HAS_MOVED_AI);
+
+        RefreshEntityBmMaps();
+        RenderBmMap();
+        SMS_UpdateFromGameData();
+        MU_EndAll();
+    }
+
+    SetUnitStatus(GetUnit(gActionData.subjectIndex), 0);
+
+    proc->unk_4C++;
+
+    return;
+}
+
+void sub_803629C(struct UnknownBMUSAilmentProc* proc) {
+    proc->unk_4C = 0;
+    return;
+}
+
+void sub_80362A4(struct UnknownBMUSAilmentProc* proc) {
+    struct SelectTarget* target = GetTarget(proc->unk_4C);
+    struct Unit* unit = GetUnit(target->uid);
+
+    gActionData.subjectIndex = target->uid;
+
+    if (proc->unk_4C == GetSelectTargetCount()) {
+        Proc_End(proc);
+        return;
+    }
+
+    if (target->uid == 0) {
+        return;
+    }
+
+    if ((gRAMChapterData.chapterVisionRange != 0) && (gBmMapFog[unit->yPos][unit->xPos] == 0)) {
+        Proc_Goto(proc, 1);
+    } else {
+        if (GetUnitCurrentHp(unit) == 0) {
+            Proc_Goto(proc, 1);
+        }
+    }
+
+    return;
+}
+
+void sub_8036334(struct UnknownBMUSAilmentProc* proc) {
+    struct SelectTarget* target = GetTarget(proc->unk_4C);
+
+    if (target->uid != 0 || target->extra != 6) {
+        EnsureCameraOntoPosition(proc, target->x, target->y);
+    }
+
+    return;
+}
+
+void sub_8036364(struct UnknownBMUSAilmentProc* proc) {
+    struct SelectTarget* target = GetTarget(proc->unk_4C);
+
+    if (target->uid == 0) {
+        switch (target->extra) {
+            case 4:
+                sub_801F68C(proc, target->x, target->y);
+                break;
+
+            case 0x64:
+                sub_801F600(proc, target->x, target->y, 3);
+                break;
+
+            case 0x65:
+                sub_801F600(proc, target->x, target->y, 2);
+                break;
+
+            case 0x66:
+                sub_801F600(proc, target->x, target->y, 0);
+                break;
+
+            case 0x67:
+                sub_801F600(proc, target->x, target->y, 1);
+                break;
+
+            case 7:
+                sub_801F844(proc, target->x);
+                break;
+
+            case 6:
+                sub_801F8C8(proc, target->x, target->y);
+                break;
+        }
+
+        proc->unk_4C++;
+
+        Proc_Goto(proc, 0);
+    } else {
+        gActionData.subjectIndex = target->uid;
+        gActionData.trapType = target->extra;
+
+        HideUnitSMS(GetUnit(gActionData.subjectIndex));
+
+        if (gActionData.trapType < 6) {
+            sub_803584C(GetUnit(gActionData.subjectIndex), target->extra);
+        } else {
+            sub_803592C(GetUnit(gActionData.subjectIndex), target->extra);
+        }
+    }
+
+    return;
+}
+
+void sub_8036474(struct UnknownBMUSAilmentProc* proc) {
+    struct SelectTarget* target = GetTarget(proc->unk_4C);
+    struct Unit* unit = GetUnit(target->uid);
+
+    if (target->extra < 6) {
+        sub_80357A8(proc, unit, -(target->extra), 1);
+    } else {
+        sub_80357A8(proc, unit, -(target->extra), -1);
+    }
+
+    if (GetUnitCurrentHp(unit) <= 0) {
+        SMS_UpdateFromGameData();
+    }
+
+    proc->unk_4C++;
+
     return;
 }

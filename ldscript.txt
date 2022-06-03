@@ -105,7 +105,6 @@ SECTIONS
         asm/unitinfowindow.o(.text);
         asm/bb.o(.text);
         src/bmusailment.o(.text);
-        asm/bmusailment.o(.text);
         asm/bksel.o(.text);
         src/bmtrap.o(.text);
         src/bmarch.o(.text);

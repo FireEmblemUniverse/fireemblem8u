@@ -7,7 +7,7 @@ struct SelectTarget
 {
     /* 00 */ s8 x, y;
     /* 02 */ s8 uid;
-    /* 03 */ u8 extra;
+    /* 03 */ s8 extra;
 
     /* 04 */ struct SelectTarget* next;
     /* 08 */ struct SelectTarget* prev;
