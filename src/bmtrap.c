@@ -27,7 +27,6 @@ void sub_801F6BC(ProcPtr, int, int);
 
 // bb.s
 void sub_80357A8(ProcPtr, struct Unit*, int, int);
-void sub_803592C(struct Unit*, u16);
 
 // ev_triggercheck.s
 s8 CheckForWaitEvents(void);
