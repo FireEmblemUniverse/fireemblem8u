@@ -73,7 +73,7 @@ SECTIONS
         src/unit_facing.o(.text);
         asm/trapfx.o(.text);
         asm/notifybox.o(.text);
-        asm/chapterintrofx.o(.text);
+        src/chapterintrofx.o(.text);
         asm/gameoverbgfx.o(.text);
         asm/lightrunefx.o(.text);
         asm/danceringfx.o(.text);
@@ -256,6 +256,8 @@ SECTIONS
         . = ALIGN(4); data/data_59A9D8.o(.data);
         . = ALIGN(4); src/bmdebug.o(.data);
         . = ALIGN(4); data/data_59AA7C.o(.data);
+        . = ALIGN(4); src/chapterintrofx.o(.data);
+        . = ALIGN(4); data/data_59B358.o(.data);
         . = ALIGN(4); src/bmreliance.o(.data);
         . = ALIGN(4); src/bmitemuse.o(.data);
         . = ALIGN(4); src/bmbattle.o(.data);

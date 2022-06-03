@@ -18,8 +18,10 @@ struct ROMChapterData {
     /* 0C */ u8  initialFogLevel;
     /* 0D */ u8  _unk0D;
 
-    /* 0E */ u8 _unk10[0x12 - 0x0E];
+    /* 0E */ u16 _unk0E;
 
+    /* 10 */ u8 unk10;
+    /* 11 */ u8 unk11;
     /* 12 */ u8 initialWeather;
     /* 13 */ u8 battleTileSet;
 
@@ -32,7 +34,9 @@ struct ROMChapterData {
     // 6 for blue/green alt, 7 for red alt
     /* 16 */ u16 mapSongIndices[8];
 
-    /* 26 */ u8 _unk26[0x2C - 0x26];
+    /* 26 */ u16 unk26;
+    /* 28 */ u16 unk28;
+    /* 2A */ u16 unk2A;
 
     /* 2C */ u8 mapCrackedWallHeath;
 

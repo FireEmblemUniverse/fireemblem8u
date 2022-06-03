@@ -1447,14 +1447,7 @@ extern struct ProcCmd CONST_DATA gUnknown_0859AE18[];
 // extern ??? gUnknown_0859B070
 // extern ??? gUnknown_0859B0A0
 // extern ??? gUnknown_0859B0C0
-// extern ??? gUnknown_0859B0E0
-// extern ??? gUnknown_0859B108
-// extern ??? gUnknown_0859B120
-// extern ??? gUnknown_0859B132
-// extern ??? gUnknown_0859B144
-// extern ??? gUnknown_0859B160
-// extern ??? gUnknown_0859B180
-// extern ??? gUnknown_0859B1B0
+ extern struct ProcCmd gProcScr_ChapterIntro[];
 // extern ??? gUnknown_0859B358
 // extern ??? gUnknown_0859B3B0
 // extern ??? gUnknown_0859B3D0

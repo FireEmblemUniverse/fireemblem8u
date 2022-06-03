@@ -433,19 +433,22 @@ struct UnknownDmaStruct
     u8 unk02[1];
 };
 
-void sub_800154C(u8 *a, struct UnknownDmaStruct *b, u8 c, u8 d)
+void sub_800154C(void* outTm, void const* inData, u8 base, u8 linebits)
 {
-    s8 i;
-    u8 *r4 = b->unk02;
-    s8 r6 = *(u32 *)&b->unk00;
+    u8 const* it = (u8 const*) inData + 2;
+    u8* out;
 
-    for (i = *(u32 *)&b->unk00 >> 8; i >= 0; i--)
+    u8 xSize = (*(u32 const*) inData);
+    u8 ySize = (*(u32 const*) inData) >> 8;
+
+    s8 ix, iy;
+
+    for (iy = ySize; iy >= 0; iy--)
     {
-        s8 r1;
-        u8 *r2 = a + (i << d);
+        out = (u8*) outTm + (iy << linebits);
 
-        for (r1 = r6; r1 >= 0; r1--)
-            *r2++ = c + *r4++;
+        for (ix = xSize; ix >= 0; ix--)
+            *out++ = *it++ + base;
     }
 }
 
