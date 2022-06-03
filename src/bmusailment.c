@@ -21,8 +21,6 @@ extern u16 gUnknown_02022C28[];
 extern u16 gUnknown_02022C48[];
 extern u16 gUnknown_02022C68[];
 
-extern struct ProcCmd gUnknown_0859E2D0[];
-
 
 // bmtarget.s
 void sub_8025904(int);
@@ -55,6 +53,72 @@ struct UnknownBMUSAilmentProc {
     /* 4E */ u8 _pad4[0x58-0x4E];
 
     /* 58 */ int unk_58;
+};
+
+
+void sub_8035AA4(void);
+void sub_8035B0C(void);
+
+struct ProcCmd CONST_DATA sProcScr_0859E248[] = {
+    PROC_CALL(sub_8035AA4),
+    PROC_REPEAT(sub_8035B0C),
+
+    PROC_END,
+};
+
+void sub_8035B44(struct UnknownBMUSAilmentProc* proc);
+void sub_8035BEC(struct UnknownBMUSAilmentProc* proc);
+void sub_8035C44(void);
+
+struct ProcCmd CONST_DATA sProcScr_0859E260[] = {
+    PROC_CALL(sub_8035B44),
+    PROC_REPEAT(sub_8035BEC),
+    PROC_CALL(sub_8035C44),
+
+    PROC_END,
+};
+
+void sub_8035C58(struct UnknownBMUSAilmentProc* proc);
+void sub_8035C80(struct UnknownBMUSAilmentProc* proc);
+void sub_8035C6C(struct UnknownBMUSAilmentProc* proc);
+
+struct ProcCmd CONST_DATA sProcScr_0859E280[] = {
+    PROC_CALL(sub_8035C58),
+    PROC_REPEAT(sub_8035C80),
+
+    PROC_SLEEP(0x20),
+
+    PROC_CALL(sub_8035C6C),
+    PROC_REPEAT(sub_8035C80),
+
+    PROC_END,
+};
+
+void sub_8035CB8(struct UnknownBMUSAilmentProc* proc);
+void sub_8035D44(struct UnknownBMUSAilmentProc* proc);
+void sub_8035D70(struct UnknownBMUSAilmentProc* proc);
+
+struct ProcCmd CONST_DATA sProcScr_0859E2B0[] = {
+    PROC_CALL(sub_8035CB8),
+    PROC_REPEAT(sub_8035D44),
+    PROC_REPEAT(sub_8035D70),
+
+    PROC_END,
+};
+
+void sub_8035D9C(void);
+
+struct ProcCmd CONST_DATA sProcScr_0859E2D0[] = {
+    PROC_START_CHILD(sProcScr_0859E248),
+    PROC_START_CHILD(sProcScr_0859E260),
+    PROC_START_CHILD(sProcScr_0859E280),
+    PROC_START_CHILD(sProcScr_0859E2B0),
+
+    PROC_SLEEP(66),
+
+    PROC_CALL(sub_8035D9C),
+
+    PROC_END,
 };
 
 void sub_8035AA4() {
@@ -258,12 +322,12 @@ void sub_8035DDC(struct Unit* unit, ProcPtr proc) {
     gActiveUnit = unit;
 
     if (proc) {
-        Proc_StartBlocking(gUnknown_0859E2D0, proc);
+        Proc_StartBlocking(sProcScr_0859E2D0, proc);
         PlaySoundEffect(0xAA);
         return;
     }
 
-    Proc_StartBlocking(gUnknown_0859E2D0, (ProcPtr) 3);
+    Proc_StartBlocking(sProcScr_0859E2D0, (ProcPtr) 3);
     return;
 }
 
