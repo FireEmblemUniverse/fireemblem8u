@@ -33,7 +33,7 @@ void SetIRQHandler(int index, void *irq);
 void sub_8000D0C();
 int sub_8000D18(void);
 u32 GetGameClock(void);
-// ??? SetGameClock(???);
+void SetGameClock(int newTime);
 // ??? IncrementGameClock(???);
 u8 ComputeDisplayTime();
 
