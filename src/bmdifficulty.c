@@ -8,6 +8,7 @@
 #include "soundwrapper.h"
 #include "hardware.h"
 #include "uiutils.h"
+#include "ctc.h"
 
 /*
 * Difficulty mode stuff and also tower/ruins stuff
@@ -47,6 +48,30 @@ struct Struct080D8018 {
     struct UnitDefinition* uDef;
 };
 
+struct BMDifficultyProc {
+    PROC_HEADER;
+
+    /* 2C */ int unk_2c;
+    /* 30 */ int unk_30;
+    /* 34 */ int unk_34;
+    /* 38 */ int unk_38;
+    /* 3C */ int unk_3c;
+};
+
+struct Struct0859E7D4 {
+    int x;
+    int y;
+};
+
+struct Struct02003BE8 {
+    /* 00 */ u16 unk_00;
+    /* 02 */ u16 unk_02;
+    /* 04 */ int* unk_04;
+    /* 08 */ struct Struct0859E7D4* unk_08;
+    /* 0C */ int* unk_0C;
+    /* 10 */ int* unk_10;
+};
+
 extern struct Struct020038C8 gUnknown_020038C8[2];
 extern struct TextHandle gUnknown_02003B48[8];
 
@@ -70,6 +95,10 @@ void sub_8011728(ProcPtr, int);
 // code.s
 int sub_80A49A4(void);
 void sub_80AB760(u16*);
+void sub_80AB77C(void);
+
+// spline.s
+void sub_800A950(struct Struct02003BE8*, int, int*);
 
 int GetCurrentPromotedLevelBonus() {
     if (gRAMChapterData.chapterStateBits & CHAPTER_FLAG_DIFFICULT) {
@@ -1359,6 +1388,538 @@ void sub_8038EA8(ProcPtr proc) {
 void sub_8038ED0(ProcPtr proc) {
     if (gKeyStatusPtr->newKeys & (A_BUTTON | B_BUTTON)) {
         Proc_Break(proc);
+    }
+
+    return;
+}
+
+void sub_8038EF0() {
+    sub_80AB77C();
+
+    EndGreenTextColorManager();
+
+    BG_Fill(gBG0TilemapBuffer, 0);
+    BG_Fill(gBG1TilemapBuffer, 0);
+    BG_Fill(gBG2TilemapBuffer, 0);
+    BG_Fill(gBG3TilemapBuffer, 0);
+
+    BG_EnableSyncByMask(0xF);
+
+    gLCDControlBuffer.dispcnt.bg0_on = 0;
+    gLCDControlBuffer.dispcnt.bg1_on = 0;
+    gLCDControlBuffer.dispcnt.bg2_on = 0;
+    gLCDControlBuffer.dispcnt.bg3_on = 0;
+    gLCDControlBuffer.dispcnt.obj_on = 0;
+
+    Font_InitForUIDefault();
+
+    CpuFastFill16(0, gPaletteBuffer, 0x01000400);
+
+    EnablePaletteSync();
+
+    return;
+}
+
+void sub_8038F78(struct TextHandle* th) {
+    int i;
+    int bgOffset;
+
+    bgOffset = GetBackgroundTileDataOffset(0);
+
+    i = 0;
+
+    while (i < 8) {
+        if (th->unk0 == 0xFFFF) {
+            CpuFastFill(0, (void *)((BG_VRAM + 0x12000) + (0x20 * i)), 32);
+            CpuFastFill(0, (void *)((BG_VRAM + 0x12400) + (0x20 * i)), 32);
+        } else {
+            int base = (BG_VRAM + (th->unk0 * 0x40));
+
+            CpuFastCopy((void *)((bgOffset + base) + 0x20), (void *)((BG_VRAM + 0x12000) + (0x20 * i)), 32);
+
+            #if NONMATCHING
+
+            #else // !NONMATCHING
+
+            asm("add r4, r4, #0x20");
+
+            #endif
+
+            CpuFastCopy((void *)((bgOffset + base) + 0x20), (void *)((BG_VRAM + 0x12400) + (0x20 * i)), 32);
+        }
+
+        th++;
+        i++;
+    }
+
+    return;
+}
+
+extern struct Struct02003BE8 gUnknown_02003BE8;
+extern int gUnknown_02003B88[];
+extern struct Struct0859E7D4 gUnknown_02003BA8[];
+
+extern u16 gUnknown_0859E7C8[];
+extern struct Struct0859E7D4 gUnknown_0859E7D4[];
+
+#if NONMATCHING
+
+void sub_803901C(struct BMDifficultyProc* proc) {
+    int r7;
+    int r8;
+
+    sub_8038F78(&gUnknown_020038C8[0].text[proc->unk_2c][0]);
+
+    gUnknown_02003BE8.unk_00 = 2;
+    gUnknown_02003BE8.unk_04 = gUnknown_02003B88;
+    gUnknown_02003BE8.unk_08 = gUnknown_02003BA8;
+    gUnknown_02003BE8.unk_0C = NULL;
+    gUnknown_02003BE8.unk_10 = NULL;
+
+    gUnknown_02003BE8.unk_02 = r8 = 6;
+
+    for (r7 = 0; r7 < r8; r7++) {
+        gUnknown_02003B88[r7] = DivArm(4096, gUnknown_0859E7C8[r7] * 45);
+
+        gUnknown_02003BA8[r7].x = gUnknown_0859E7D4[r7].x << 4;
+        gUnknown_02003BA8[r7].y = gUnknown_0859E7D4[r7].y << 4;
+    }
+
+    proc->unk_34 = 0;
+
+    PlaySoundEffect(0x80);
+
+    return;
+}
+
+#else // !NONMATCHING
+
+__attribute__((naked))
+void sub_803901C(struct BMDifficultyProc* proc) {
+    asm("\n\
+        .syntax unified\n\
+        push {r4, r5, r6, r7, lr}\n\
+        mov r7, r9\n\
+        mov r6, r8\n\
+        push {r6, r7}\n\
+        sub sp, #4\n\
+        mov r9, r0\n\
+        ldr r0, [r0, #0x2c]\n\
+        lsls r0, r0, #6\n\
+        ldr r1, _080390B8  @ gUnknown_020038C8\n\
+        adds r0, r0, r1\n\
+        bl sub_8038F78\n\
+        ldr r1, _080390BC  @ gUnknown_02003BE8\n\
+        movs r2, #0\n\
+        movs r0, #2\n\
+        strh r0, [r1]\n\
+        ldr r0, _080390C0  @ gUnknown_02003B88\n\
+        str r0, [r1, #4]\n\
+        ldr r3, _080390C4  @ gUnknown_02003BA8\n\
+        str r3, [r1, #8]\n\
+        str r2, [r1, #0xc]\n\
+        str r2, [r1, #0x10]\n\
+        ldr r2, _080390C8  @ gUnknown_0859E7C8\n\
+        ldr r0, _080390CC  @ gUnknown_0859E7D4\n\
+        movs r4, #6\n\
+        mov r8, r4\n\
+        mov r4, r8\n\
+        strh r4, [r1, #2]\n\
+        movs r7, #0\n\
+        adds r6, r0, #0\n\
+        adds r5, r3, #0\n\
+    _0803905A:\n\
+        lsls r4, r7, #1\n\
+        ldrh r1, [r2]\n\
+        lsls r0, r1, #1\n\
+        adds r0, r0, r1\n\
+        lsls r1, r0, #4\n\
+        subs r1, r1, r0\n\
+        movs r0, #0x80\n\
+        lsls r0, r0, #5\n\
+        str r2, [sp]\n\
+        bl DivArm\n\
+        ldr r1, _080390C0  @ gUnknown_02003B88\n\
+        adds r4, r4, r1\n\
+        strh r0, [r4]\n\
+        ldr r0, [r6]\n\
+        lsls r0, r0, #4\n\
+        str r0, [r5]\n\
+        ldr r0, [r6, #4]\n\
+        lsls r0, r0, #4\n\
+        str r0, [r5, #4]\n\
+        adds r6, #8\n\
+        adds r5, #8\n\
+        ldr r2, [sp]\n\
+        adds r2, #2\n\
+        adds r7, #1\n\
+        cmp r7, r8\n\
+        blt _0803905A\n\
+        movs r0, #0\n\
+        mov r1, r9\n\
+        str r0, [r1, #0x34]\n\
+        ldr r0, _080390D0  @ gRAMChapterData\n\
+        adds r0, #0x41\n\
+        ldrb r0, [r0]\n\
+        lsls r0, r0, #0x1e\n\
+        cmp r0, #0\n\
+        blt _080390A8\n\
+        movs r0, #0x80\n\
+        bl m4aSongNumStart\n\
+    _080390A8:\n\
+        add sp, #4\n\
+        pop {r3, r4}\n\
+        mov r8, r3\n\
+        mov r9, r4\n\
+        pop {r4, r5, r6, r7}\n\
+        pop {r0}\n\
+        bx r0\n\
+        .align 2, 0\n\
+    _080390B8: .4byte gUnknown_020038C8\n\
+    _080390BC: .4byte gUnknown_02003BE8\n\
+    _080390C0: .4byte gUnknown_02003B88\n\
+    _080390C4: .4byte gUnknown_02003BA8\n\
+    _080390C8: .4byte gUnknown_0859E7C8\n\
+    _080390CC: .4byte gUnknown_0859E7D4\n\
+    _080390D0: .4byte gRAMChapterData\n\
+        .syntax divided\n\
+    ");
+}
+
+#endif
+
+extern struct TextHandle gUnknown_02003B08;
+
+extern const u16 gUnknown_0859E79C[]; // obj data?
+
+void sub_80390D4(struct BMDifficultyProc* proc) {
+    int pos[2];
+
+    proc->unk_34++;
+
+    if (proc->unk_34 < 45) {
+
+        sub_800A950(&gUnknown_02003BE8, proc->unk_34 * 4096, pos);
+
+        PutSpriteExt(
+            4,
+            (pos[0] >> 4) + ((u8)gUnknown_080D7FD0.current[proc->unk_2c].x * 8),
+            ((pos[1] >> 4) + ((u8)gUnknown_080D7FD0.current[proc->unk_2c].y * 8)) & 0x000001FF,
+            gUnknown_0859E79C,
+            0x5000
+        );
+    } else {
+        if (proc->unk_2c == 4) {
+            sub_8038900(
+                &gUnknown_02003B08,
+                proc->unk_30,
+                gUnknown_080D7FD0.record[4].x,
+                gUnknown_080D7FD0.record[4].y,
+                4,
+                1
+            );
+        } else {
+            sub_8038588(
+                &gUnknown_020038C8[1].text[proc->unk_2c][8 - gUnknown_080D7FD0.record[proc->unk_2c].numDigits],
+                proc->unk_30,
+                gUnknown_080D7FD0.record[proc->unk_2c].numDigits,
+                gUnknown_080D7FD0.record[proc->unk_2c].x,
+                gUnknown_080D7FD0.record[proc->unk_2c].y,
+                4
+            );
+        }
+
+        PlaySoundEffect(0x76);
+        BG_EnableSyncByMask(1);
+
+        Proc_Break(proc);
+    }
+
+    return;
+}
+
+extern struct ProcCmd gUnknown_0859E804[];
+
+struct BMDifficultyProc* sub_80391D0(int slot, int value, ProcPtr parent) {
+    struct BMDifficultyProc* proc;
+
+    if (parent != 0) {
+        proc = Proc_StartBlocking(gUnknown_0859E804, parent);
+    } else {
+        proc = Proc_Start(gUnknown_0859E804, PROC_TREE_3);
+    }
+
+    proc->unk_2c = slot;
+    proc->unk_30 = value;
+
+    return proc;
+}
+
+u32 sub_8039200(u32 slot) {
+    int clock;
+    struct Dungeon currentDungeon;
+
+    CpuCopy32(&gUnknown_030017A0.current, &currentDungeon, sizeof(struct Dungeon));
+
+    clock = GetGameClock();
+    SetGameClock(gUnknown_020038C4);
+
+    sub_8037EB0(&currentDungeon);
+
+    SetGameClock(clock);
+
+    switch (slot) {
+        case 0:
+            return currentDungeon.unk_06;
+        case 1:
+            return currentDungeon.unk_00;
+        case 2:
+            return currentDungeon.unk_02;
+        case 3:
+            return currentDungeon.turnCount;
+        case 4:
+            return currentDungeon.mapTime;
+    }
+
+    return 0;
+}
+
+u32 sub_803929C(u32 slot) {
+
+    switch (slot) {
+        case 0:
+            return gUnknown_030017A0.dungeon[gUnknown_030017A0.type].unk_06;
+        case 1:
+            return gUnknown_030017A0.dungeon[gUnknown_030017A0.type].unk_00;
+        case 2:
+            return gUnknown_030017A0.dungeon[gUnknown_030017A0.type].unk_02;
+        case 3:
+            return gUnknown_030017A0.dungeon[gUnknown_030017A0.type].turnCount;
+        case 4:
+            return gUnknown_030017A0.dungeon[gUnknown_030017A0.type].mapTime;
+    }
+
+    return 0;
+}
+
+s8 sub_8039360(u32 slot) {
+    int clock;
+    struct Dungeon currentDungeon;
+    struct Dungeon* record;
+
+    CpuCopy32(&gUnknown_030017A0.current, &currentDungeon, sizeof(struct Dungeon));
+
+    clock = GetGameClock();
+    SetGameClock(gUnknown_020038C4);
+
+    sub_8037EB0(&currentDungeon);
+
+    SetGameClock(clock);
+
+    record = &gUnknown_030017A0.dungeon[gUnknown_030017A0.type];
+
+    switch (slot) {
+        case 0:
+            return 1;
+        case 1:
+            if (currentDungeon.unk_00 > record->unk_00) {
+                return 1;
+            }
+
+            break;
+        case 2:
+            if (record->unk_08 <= 0) {
+                return 1;
+            }
+
+            if (currentDungeon.unk_02 < record->unk_02) {
+                return 1;
+            }
+
+            break;
+        case 3:
+            if (record->unk_08 <= 0) {
+                return 1;
+            }
+
+            if (currentDungeon.turnCount < record->turnCount) {
+                return 1;
+            }
+
+            break;
+        case 4:
+            if (record->unk_08 <= 0) {
+                return 1;
+            }
+
+            if (currentDungeon.mapTime < record->mapTime) {
+                return 1;
+            }
+
+            break;
+    }
+
+    return 0;
+}
+
+extern int gUnknown_0859E82C[];
+extern struct Struct0859E7D4 gUnknown_0859E838[];
+
+void sub_803943C(struct BMDifficultyProc* proc) {
+    sub_8038F78(gUnknown_02003B48);
+
+    gUnknown_02003BE8.unk_00 = 2;
+    gUnknown_02003BE8.unk_02 = 5;
+    gUnknown_02003BE8.unk_04 = gUnknown_0859E82C;
+    gUnknown_02003BE8.unk_08 = gUnknown_0859E838;
+    gUnknown_02003BE8.unk_0C = NULL;
+    gUnknown_02003BE8.unk_10 = NULL;
+
+    proc->unk_38 = 0;
+
+    PlaySoundEffect(0x80);
+
+    return;
+}
+
+void sub_803948C(ProcPtr proc) {
+    sub_8038668(gUnknown_02003B48, 8);
+
+    Proc_Break(proc);
+
+    return;
+}
+
+void sub_80394A8(struct BMDifficultyProc* proc) {
+    int val;
+    int pos[2];
+    struct Dungeon record;
+
+    proc->unk_38++;
+
+    if (proc->unk_38 < 0x1E) {
+        sub_800A950(&gUnknown_02003BE8, proc->unk_38 * 0x1000, pos);
+
+        PutSpriteExt(
+            4,
+            pos[0] >> 4,
+            ((u32)(pos[1]) << 0x13) >> 0x17,
+            gUnknown_0859E79C,
+            0x5000
+        );
+    } else {
+
+        record = gUnknown_030017A0.dungeon[gUnknown_030017A0.type];
+
+        val = record.unk_08;
+
+        if (val < 100) {
+            val++;
+        }
+
+        sub_8038588(
+            &gUnknown_02003B70,
+            val,
+            3,
+            0x1A,
+            7,
+            2
+        );
+
+        BG_EnableSyncByMask(1);
+
+        PlaySoundEffect(0x76);
+
+        Proc_Break(proc);
+    }
+
+    return;
+}
+
+void sub_8039554(struct BMDifficultyProc* proc) {
+    int iVar2;
+
+    proc->unk_30 = sub_803929C(0);
+    iVar2 = sub_8039200(0);
+
+    proc->unk_34 = iVar2 + proc->unk_30;
+    proc->unk_3c = 2;
+
+    PlaySoundEffect(0x74);
+
+    return;
+}
+
+void sub_803958C(struct BMDifficultyProc* proc) {
+
+    proc->unk_30++;
+
+    if ((proc->unk_34 - proc->unk_30) > 100) {
+        proc->unk_30++;
+    }
+
+    sub_8038588(
+        &gUnknown_020038C8[1].text[0][8 - gUnknown_080D7FD0.record[0].numDigits],
+        proc->unk_30,
+        gUnknown_080D7FD0.record[0].numDigits,
+        gUnknown_080D7FD0.record[0].x,
+        gUnknown_080D7FD0.record[0].y,
+        2
+    );
+
+    sub_8038588(
+        &gUnknown_020038C8[0].text[0][8 - gUnknown_080D7FD0.current[0].numDigits],
+        (proc->unk_34 - proc->unk_30) & 0xFFFF,
+        gUnknown_080D7FD0.current[0].numDigits,
+        gUnknown_080D7FD0.current[0].x,
+        gUnknown_080D7FD0.current[0].y,
+        2
+    );
+
+    BG_EnableSyncByMask(1);
+
+    if (proc->unk_3c > 0) {
+        proc->unk_3c--;
+    }
+
+    if (proc->unk_30 >= proc->unk_34) {
+        Proc_Break(proc);
+    }
+
+    return;
+}
+
+void sub_803963C(struct BMDifficultyProc* proc) {
+    if (proc->unk_3c < 1) {
+        m4aSongNumStop(0x74);
+        Proc_Break(proc);
+    } else {
+        proc->unk_3c--;
+    }
+
+    return;
+}
+
+void sub_8039660(struct BMDifficultyProc* proc) {
+    proc->unk_2c = 1;
+    return;
+}
+
+void sub_8039668(struct BMDifficultyProc* proc) {
+
+    if (sub_8039360(proc->unk_2c) != 0) {
+        sub_80391D0(proc->unk_2c, sub_8039200(proc->unk_2c), proc);
+    }
+
+    return;
+}
+
+void sub_8039690(struct BMDifficultyProc* proc) {
+
+    proc->unk_2c++;
+
+    if (proc->unk_2c < 5) {
+        Proc_Goto(proc, 1);
     }
 
     return;

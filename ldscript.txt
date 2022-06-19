@@ -109,7 +109,6 @@ SECTIONS
         src/bmtrap.o(.text);
         src/bmarch.o(.text);
         src/bmdifficulty.o(.text);
-        asm/bmdifficulty.o(.text);
         src/cp_phase.o(.text);
         src/cp_order.o(.text);
         src/cp_decide.o(.text);
