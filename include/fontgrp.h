@@ -104,7 +104,7 @@ int GetStringTextCenteredPos(int x, const char* str);
 void sub_8003FAC(const char* str, int* outWidth, int* outHeight);
 char *String_GetEnd(char *);
 void Text_AppendString(struct TextHandle *th, const char* str);
-// ??? Text_AppendDecNumber(???);
+void Text_AppendDecNumber(struct TextHandle *th, int n);
 // ??? sub_80040C0(???);
 // ??? Text_AppendNumberOr2Dashes(???);
 const char *Text_AppendChar(struct TextHandle *a, const char *b);
