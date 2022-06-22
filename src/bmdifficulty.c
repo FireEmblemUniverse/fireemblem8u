@@ -259,79 +259,21 @@ void sub_8037E30(struct Dungeon* savedDungeon) {
     return;
 }
 
-#if NONMATCHING
-
 // SaveDungeonRecords?
 void sub_8037E4C(struct Dungeon* savedDungeon) {
 
-    struct Dungeon* dungeon = &gDungeonState.dungeon[0];
-
-    savedDungeon[0] = dungeon[0];
-    savedDungeon[1] = dungeon[1];
+    memcpy(savedDungeon, gDungeonState.dungeon, 2 * sizeof(struct Dungeon));
 
     return;
 }
-
-#else // !NONMATCHING
-
-__attribute__((naked))
-void sub_8037E4C(struct Dungeon* savedDungeon) {
-    
-    asm("\n\
-        .syntax unified\n\
-        push {r4, lr}\n\
-        ldr r1, _08037E60  @ gUnknown_030017AC\n\
-        ldm r1!, {r2, r3, r4}\n\
-        stm r0!, {r2, r3, r4}\n\
-        ldm r1!, {r2, r3, r4}\n\
-        stm r0!, {r2, r3, r4}\n\
-        pop {r4}\n\
-        pop {r0}\n\
-        bx r0\n\
-        .align 2, 0\n\
-    _08037E60: .4byte gUnknown_030017AC\n\
-        .syntax divided\n\
-    ");
-}
-
-#endif
-
-#if NONMATCHING
 
 // LoadDungeonRecords?
 void sub_8037E64(struct Dungeon* savedDungeon) {
-    
-    struct Dungeon* dungeon = &gDungeonState.dungeon[0];
-    
-    dungeon[0] = savedDungeon[0];
-    dungeon[1] = savedDungeon[1];
-    
+
+    memcpy(gDungeonState.dungeon, savedDungeon, 2 * sizeof(struct Dungeon));
+
     return;
 }
-
-#else // !NONMATCHING
-
-__attribute__((naked))
-void sub_8037E64(struct Dungeon* savedDungeon) {
-    
-    asm("\n\
-        .syntax unified\n\
-        push {r4, lr}\n\
-        ldr r1, _08037E78  @ gUnknown_030017AC\n\
-        ldm r0!, {r2, r3, r4}\n\
-        stm r1!, {r2, r3, r4}\n\
-        ldm r0!, {r2, r3, r4}\n\
-        stm r1!, {r2, r3, r4}\n\
-        pop {r4}\n\
-        pop {r0}\n\
-        bx r0\n\
-        .align 2, 0\n\
-    _08037E78: .4byte gUnknown_030017AC\n\
-        .syntax divided\n\
-    ");
-}
-
-#endif
 
 int UpdateDungeonMapTime(struct Dungeon* dungeon) {
     int time1;
