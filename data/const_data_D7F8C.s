@@ -11,15 +11,3 @@ gUnknown_080D7F92:  @ 0x080D7F92
 	.global gUnknown_080D7FB0
 gUnknown_080D7FB0:  @ 0x080D7FB0
 	.incbin "baserom.gba", 0xD7FB0, 0x20
-
-	.global gUnknown_080D7FD0
-gUnknown_080D7FD0:  @ 0x080D7FD0
-	.incbin "baserom.gba", 0xD7FD0, 0x48
-
-	.global gUnknown_080D8018
-gUnknown_080D8018:  @ 0x080D8018
-	.incbin "baserom.gba", 0xD8018, 0x58
-
-	.global gUnknown_080D8070
-gUnknown_080D8070:  @ 0x080D8070
-	.incbin "baserom.gba", 0xD8070, 0x24

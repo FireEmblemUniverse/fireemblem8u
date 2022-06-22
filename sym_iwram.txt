@@ -44,7 +44,7 @@
 . = ALIGN(4); src/bmmap.o(.bss);
 . = 0x001780; gUnknown_03001780 = .;
 . = 0x001788; gUnknown_03001788 = .;
-. = 0x0017A0; gUnknown_030017A0 = .;
+. = 0x0017A0; gDungeonState = .;
 . = 0x0017AC; gUnknown_030017AC = .;
 . = 0x0017C8; gUnknown_030017C8 = .;
 . = 0x0017CC; gUnknown_030017CC = .;

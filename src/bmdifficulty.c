@@ -9,6 +9,10 @@
 #include "hardware.h"
 #include "uiutils.h"
 #include "ctc.h"
+#include "bmio.h"
+#include "mu.h"
+
+#include "bmdifficulty.h"
 
 /*
 * Difficulty mode stuff and also tower/ruins stuff
@@ -20,74 +24,49 @@ struct Struct020038C8 {
     u8 idk[0x40];
 };
 
-struct Dungeon {
-    /* 00 */ u32 unk_00:16;
-
-    /* 02 */ u32 unk_02:8;
-
-    /* 03 */ u32 turnCount:9;
-    /* 04 */ u32 mapTime:18;
-
-    /* 06 */ u32 unk_06:16;
-
-    /* 08 */ u32 unk_08:7;
-    /* 09 */ u32 enemiesDefeated:10;
-    /* 0A */ u32 clearCount:4;
-    /* 0B */ u32 unk_0B_0:4; // ??
-    /* 0B */ u32 unk_0B_4:4; // ??
-};
-
-struct Struct030017A0 {
-    /* 00 */ struct Dungeon current;
-    /* 0C */ struct Dungeon dungeon[2];
-    /* 24 */ u8 type; // tower = 0, ruins = 1
-};
-
-struct Struct080D8018 {
-    u16 eid;
-    struct UnitDefinition* uDef;
-};
-
-struct BMDifficultyProc {
-    PROC_HEADER;
-
-    /* 2C */ int unk_2c;
-    /* 30 */ int unk_30;
-    /* 34 */ int unk_34;
-    /* 38 */ int unk_38;
-    /* 3C */ int unk_3c;
-};
-
-struct Struct0859E7D4 {
-    int x;
-    int y;
-};
-
-struct Struct02003BE8 {
-    /* 00 */ u16 unk_00;
-    /* 02 */ u16 unk_02;
-    /* 04 */ int* unk_04;
-    /* 08 */ struct Struct0859E7D4* unk_08;
-    /* 0C */ int* unk_0C;
-    /* 10 */ int* unk_10;
-};
-
 extern struct Struct020038C8 gUnknown_020038C8[2];
 extern struct TextHandle gUnknown_02003B48[8];
 
-extern struct Struct030017A0 gUnknown_030017A0; // gDungeonState?
+extern struct Struct030017A0 gDungeonState;
 
-extern struct ProcCmd gUnknown_0859E64C[];
-extern struct ProcCmd gUnknown_0859E6EC[];
 extern int gUnknown_020038C4;
 
+struct Struct080D7FD0 {
+    s8 x;
+    s8 y;
+    u16 _pad;
+    u8 numDigits;
+};
 
-// bmdifficulty.s
-s8 sub_8037DDC(ProcPtr, const struct UnitDefinition*);
-void sub_8037EB0(struct Dungeon*);
-void sub_8037FCC(void);
-void sub_8038134(void);
-void sub_8038BA4(ProcPtr);
+struct Outer080D7FD0 {
+    struct Struct080D7FD0 current[4];
+    s8 x;
+    s8 y;
+    struct Struct080D7FD0 record[4];
+    s8 x2;
+    s8 y2;
+};
+
+
+const struct Outer080D7FD0 gUnknown_080D7FD0 = {
+    {
+        { 0x10, 0x09, 0, 5, },
+        { 0x10, 0x0B, 0, 5, },
+        { 0x10, 0x0D, 0, 3, },
+        { 0x10, 0x0F, 0, 3, },
+    },
+    0x10,
+    0x11,
+    {
+        { 0x1A, 0x09, 0, 5, },
+        { 0x1A, 0x0B, 0, 5, },
+        { 0x1A, 0x0D, 0, 3, },
+        { 0x1A, 0x0F, 0, 3, },
+    },
+    0x1A,
+    0x11,
+};
+
 
 // popup.s
 void sub_8011728(ProcPtr, int);
@@ -112,13 +91,13 @@ s8 CanUnitSeize(struct Unit* unit) {
     int leaderId;
 
     switch (gRAMChapterData.chapterModeIndex) {
-        case 2: // eirika
+        case 2: // Eirika
             leaderId = CHARACTER_EIRIKA;
             break;
-        case 1: // tutorial
+        case 1: // tutorial (chapter 0-8)
             leaderId = CHARACTER_EIRIKA;
             break;
-        case 3: // ephraim
+        case 3: // Ephraim
             leaderId = CHARACTER_EPHRAIM;
             break;
     }
@@ -130,7 +109,7 @@ s8 CanUnitSeize(struct Unit* unit) {
     return unit->pCharacterData->number == leaderId;
 }
 
-void sub_8037BAC() {
+void DungeonRecordUi_InitText() {
     int r2;
     int r4;
     int r5;
@@ -156,34 +135,32 @@ void sub_8037BAC() {
     return;
 }
 
-// InitDungeon
-void sub_8037C40(u8 type) {
+void InitDungeon(u8 type) {
 
-    gUnknown_030017A0.type = type;
+    gDungeonState.type = type;
 
-    gUnknown_030017A0.current.unk_00 = 0;
-    gUnknown_030017A0.current.unk_02 = 0;
-    gUnknown_030017A0.current.turnCount = 0;
-    gUnknown_030017A0.current.unk_06 = 0;
-    gUnknown_030017A0.current.unk_08 = 0;
-    gUnknown_030017A0.current.enemiesDefeated = 0;
-    gUnknown_030017A0.current.clearCount = 0;
-    gUnknown_030017A0.current.mapTime = 0;
+    gDungeonState.current.expEarned = 0;
+    gDungeonState.current.unitsUsed = 0;
+    gDungeonState.current.turnCount = 0;
+    gDungeonState.current.enemiesDefeated = 0;
+    gDungeonState.current.clearCount = 0;
+    gDungeonState.current.postgameEnemiesDefeated = 0;
+    gDungeonState.current.postgameClearCount = 0;
+    gDungeonState.current.mapTime = 0;
 
     return;
 }
 
-// UnlockAllyByEnemyDefeatedCount
-void sub_8037CA0() {
-    struct Dungeon* dungeon = &gUnknown_030017A0.current;
-    sub_8037EB0(dungeon);
+void UnlockPostgameAllyByEnemyCount() {
+    struct Dungeon* dungeon = &gDungeonState.current;
+    UpdateDungeonStats(dungeon);
 
     if (gRAMChapterData.chapterStateBits & CHAPTER_FLAG_POSTGAME) {
-        if ((gUnknown_030017A0.type == 0) && (dungeon->enemiesDefeated >= 200)) {
+        if ((gDungeonState.type == 0) && (dungeon->postgameEnemiesDefeated >= 200)) {
             SetEventId(0x6B); // Riev
         }
 
-        if ((gUnknown_030017A0.type == 1) && (dungeon->enemiesDefeated >= 200)) {
+        if ((gDungeonState.type == 1) && (dungeon->postgameEnemiesDefeated >= 200)) {
             SetEventId(0x6C); // Hayden
         }
     }
@@ -191,20 +168,19 @@ void sub_8037CA0() {
     return;
 }
 
-// UnlockAllyByDungeonClearCount
-void sub_8037CF8() {
+void UnlockPostgameAllyByClearCount() {
 
-    sub_8037CA0();
-    sub_8037FCC();
+    UnlockPostgameAllyByEnemyCount();
+    UpdateDungeonRecordStats();
 
     if (gRAMChapterData.chapterStateBits & CHAPTER_FLAG_POSTGAME) {
-        struct Dungeon* dungeon = &gUnknown_030017A0.dungeon[gUnknown_030017A0.type];
+        struct Dungeon* dungeon = &gDungeonState.dungeon[gDungeonState.type];
 
-        if ((gUnknown_030017A0.type == 0) && (dungeon->clearCount >= 3)) {
+        if ((gDungeonState.type == 0) && (dungeon->postgameClearCount >= 3)) {
             SetEventId(0x6F); // Selena
         }
 
-        if ((gUnknown_030017A0.type == 1) && (dungeon->clearCount >= 3)) {
+        if ((gDungeonState.type == 1) && (dungeon->postgameClearCount >= 3)) {
             SetEventId(0x70); // Lyon
         }
     }
@@ -213,27 +189,41 @@ void sub_8037CF8() {
 }
 
 void sub_8037D58() {
-    sub_8037CA0();
-    sub_8038134();
+    UnlockPostgameAllyByEnemyCount();
+    UpdateDungeonEnemiesDefeated();
 
     return;
 }
 
-// PrepScreenProc_AddPostgameUnits
-s8 sub_8037D68(ProcPtr proc) {
+struct PostgameUnitLutEntry {
+    u16 eid;
+    struct UnitDefinition* uDef;
+};
+
+s8 PrepScreenProc_AddPostgameUnits(ProcPtr proc) {
+
     u8 i;
 
-    // FIXME
-    extern const struct Struct080D8018 gUnknown_080D8018[];
-    struct Struct080D8018 hack[11];
-    memcpy(hack, gUnknown_080D8018, 0x58);
+    struct PostgameUnitLutEntry unitDefLut[] = {
+        { 0x67, (void*)0x88D1DC4, }, // Caellach
+        { 0x68, (void*)0x88D1DEC, }, // Glen
+        { 0x69, (void*)0x88D1E14, }, // Orson
+        { 0x6A, (void*)0x88D1E3C, }, // Valter
+        { 0x6B, (void*)0x88D1E64, }, // Riev
+        { 0x6C, (void*)0x88D1E8C, }, // Hayden
+        { 0x6D, (void*)0x88D1EB4, }, // Fado
+        { 0x6E, (void*)0x88D1EDC, }, // Ismaire
+        { 0x6F, (void*)0x88D1F04, }, // Selena
+        { 0x70, (void*)0x88D1F2C, }, // Lyon
+        { },
+    };
 
     if (!(gRAMChapterData.chapterStateBits & CHAPTER_FLAG_POSTGAME)) {
         return 0;
     }
 
-    for (i = 0; hack[i].eid != 0; i++) {
-        if (((s8)CheckEventId(hack[i].eid) == 1) && (sub_8037DDC(proc, hack[i].uDef) == 1) ) {
+    for (i = 0; unitDefLut[i].eid != 0; i++) {
+        if (((s8)CheckEventId(unitDefLut[i].eid) == 1) && (TryAddPostgameUnit(proc, unitDefLut[i].uDef) == 1) ) {
             return 1;
         }
     }
@@ -241,11 +231,10 @@ s8 sub_8037D68(ProcPtr proc) {
     return 0;
 }
 
-// PrepScreenProc_TryAddUnit
-s8 sub_8037DDC(ProcPtr param_1, const struct UnitDefinition* uDef) {
+s8 TryAddPostgameUnit(ProcPtr proc, const struct UnitDefinition* uDef) {
     if (GetUnitFromCharIdAndFaction(uDef->charIndex, 0) == 0) {
         LoadUnit(uDef);
-        sub_8011728(param_1, uDef->charIndex);
+        sub_8011728(proc, uDef->charIndex);
         return 1;
     }
 
@@ -255,8 +244,8 @@ s8 sub_8037DDC(ProcPtr param_1, const struct UnitDefinition* uDef) {
 // SaveDungeonState?
 void sub_8037E08(struct Dungeon* savedDungeon) {
 
-    *savedDungeon = gUnknown_030017A0.current;
-    gUnknown_030017A0.current.unk_0B_4 = gUnknown_030017A0.type;
+    *savedDungeon = gDungeonState.current;
+    gDungeonState.current.unk_0B_4 = gDungeonState.type;
 
     return;
 }
@@ -264,8 +253,8 @@ void sub_8037E08(struct Dungeon* savedDungeon) {
 // LoadDungeonState?
 void sub_8037E30(struct Dungeon* savedDungeon) {
 
-    gUnknown_030017A0.current = *savedDungeon;
-    gUnknown_030017A0.type = gUnknown_030017A0.current.unk_0B_4;
+    gDungeonState.current = *savedDungeon;
+    gDungeonState.type = gDungeonState.current.unk_0B_4;
 
     return;
 }
@@ -275,7 +264,7 @@ void sub_8037E30(struct Dungeon* savedDungeon) {
 // SaveDungeonRecords?
 void sub_8037E4C(struct Dungeon* savedDungeon) {
 
-    struct Dungeon* dungeon = &gUnknown_030017A0.dungeon[0];
+    struct Dungeon* dungeon = &gDungeonState.dungeon[0];
 
     savedDungeon[0] = dungeon[0];
     savedDungeon[1] = dungeon[1];
@@ -312,7 +301,7 @@ void sub_8037E4C(struct Dungeon* savedDungeon) {
 // LoadDungeonRecords?
 void sub_8037E64(struct Dungeon* savedDungeon) {
     
-    struct Dungeon* dungeon = &gUnknown_030017A0.dungeon[0];
+    struct Dungeon* dungeon = &gDungeonState.dungeon[0];
     
     dungeon[0] = savedDungeon[0];
     dungeon[1] = savedDungeon[1];
@@ -344,7 +333,7 @@ void sub_8037E64(struct Dungeon* savedDungeon) {
 
 #endif
 
-int sub_8037E7C(struct Dungeon* dungeon) {
+int UpdateDungeonMapTime(struct Dungeon* dungeon) {
     int time1;
     int time2;
 
@@ -359,11 +348,11 @@ int sub_8037E7C(struct Dungeon* dungeon) {
     return time1;
 }
 
-void sub_8037EB0(struct Dungeon* dungeon) {
+void UpdateDungeonStats(struct Dungeon* dungeon) {
     int val;
     int i;
 
-    val = dungeon->unk_00;
+    val = dungeon->expEarned;
 
     val += (sub_80A49A4() - gRAMChapterData.unk_38_2);
 
@@ -371,9 +360,9 @@ void sub_8037EB0(struct Dungeon* dungeon) {
         val = 50000;
     }
 
-    dungeon->unk_00 = val;
+    dungeon->expEarned = val;
 
-    val = dungeon->unk_02;
+    val = dungeon->unitsUsed;
 
     for (i = 1; i < 0x40; i++) {
         struct Unit* unit = GetUnit(i);
@@ -383,7 +372,7 @@ void sub_8037EB0(struct Dungeon* dungeon) {
         }
     }
 
-    dungeon->unk_02 = val;
+    dungeon->unitsUsed = val;
 
     val = dungeon->turnCount; 
     val += gRAMChapterData.chapterTurnNumber;
@@ -394,120 +383,181 @@ void sub_8037EB0(struct Dungeon* dungeon) {
 
     dungeon->turnCount = val;
 
-    dungeon->mapTime = sub_8037E7C(dungeon);
+    dungeon->mapTime = UpdateDungeonMapTime(dungeon);
 
-    val = dungeon->unk_06;
+    val = dungeon->enemiesDefeated;
     val += gRAMChapterData.unk48;
 
     if (val > 50000) {
         val = 50000;
     }
 
-    dungeon->unk_06 = val;
+    dungeon->enemiesDefeated = val;
 
     if (gRAMChapterData.chapterStateBits & CHAPTER_FLAG_POSTGAME) {
-        val = dungeon->enemiesDefeated;
+        val = dungeon->postgameEnemiesDefeated;
         val += gRAMChapterData.unk48;
 
         if (val > 1000) {
             val = 1000;
         }
 
-        dungeon->enemiesDefeated = val;
+        dungeon->postgameEnemiesDefeated = val;
     }
 
     return;
 }
 
-void sub_8037FCC() {
+void UpdateDungeonRecordStats() {
     struct Dungeon* current;
-    struct Dungeon* dungeon;
+    struct Dungeon* record;
     int val;
 
-    current = &gUnknown_030017A0.current;
-    dungeon = &gUnknown_030017A0.dungeon[gUnknown_030017A0.type];
+    current = &gDungeonState.current;
+    record = &gDungeonState.dungeon[gDungeonState.type];
 
-    if (dungeon->unk_08 > 0) {
-        if (dungeon->unk_00 < current->unk_00) {
-            dungeon->unk_00 = current->unk_00;
+    if (record->clearCount > 0) {
+        if (record->expEarned < current->expEarned) {
+            record->expEarned = current->expEarned;
         }
 
-        if (current->unk_02 < dungeon->unk_02) {
-            dungeon->unk_02 = current->unk_02;
+        if (current->unitsUsed < record->unitsUsed) {
+            record->unitsUsed = current->unitsUsed;
         }
 
-        if (current->turnCount < dungeon->turnCount) {
-            dungeon->turnCount = current->turnCount;
+        if (current->turnCount < record->turnCount) {
+            record->turnCount = current->turnCount;
         }
 
-        if (current->mapTime < dungeon->mapTime) {
-            dungeon->mapTime = current->mapTime;
+        if (current->mapTime < record->mapTime) {
+            record->mapTime = current->mapTime;
         }
     } else {
-        dungeon->unk_00 = current->unk_00;
-        dungeon->unk_02 = current->unk_02;
+        record->expEarned = current->expEarned;
+        record->unitsUsed = current->unitsUsed;
 
-        dungeon->turnCount = current->turnCount;
-        dungeon->mapTime = current->mapTime;
+        record->turnCount = current->turnCount;
+        record->mapTime = current->mapTime;
     }
 
-    val = dungeon->unk_06 + current->unk_06;
+    val = record->enemiesDefeated + current->enemiesDefeated;
 
     if (val > 50000) {
         val = 50000;
     }
 
-    dungeon->unk_06 = val;
+    record->enemiesDefeated = val;
 
-    if (dungeon->unk_08 < 100) {
-        dungeon->unk_08++;
+    if (record->clearCount < 100) {
+        record->clearCount++;
     }
 
     if (gRAMChapterData.chapterStateBits & CHAPTER_FLAG_POSTGAME) {
-        if (dungeon->clearCount < 10) {
-            dungeon->clearCount++;
+        if (record->postgameClearCount < 10) {
+            record->postgameClearCount++;
         }
     }
 
     return;
 }
 
-void sub_8038134() {
+void UpdateDungeonEnemiesDefeated() {
     struct Dungeon* current;
     struct Dungeon* dungeon;
     int val;
 
-    current = &gUnknown_030017A0.current;
-    dungeon = &gUnknown_030017A0.dungeon[gUnknown_030017A0.type];
+    current = &gDungeonState.current;
+    dungeon = &gDungeonState.dungeon[gDungeonState.type];
 
-    val = dungeon->unk_06 + current->unk_06;
+    val = dungeon->enemiesDefeated + current->enemiesDefeated;
 
     if (val > 50000) {
         val = 50000;
     }
 
-    dungeon->unk_06 = val;
+    dungeon->enemiesDefeated = val;
 
     if (gRAMChapterData.chapterStateBits & CHAPTER_FLAG_POSTGAME) {
-        val = dungeon->enemiesDefeated + current->enemiesDefeated;
+        val = dungeon->postgameEnemiesDefeated + current->postgameEnemiesDefeated;
 
         if (val > 1000) {
             val = 1000;
         }
 
-        dungeon->enemiesDefeated = val;
+        dungeon->postgameEnemiesDefeated = val;
     }
 
     return;
 }
 
-void sub_80381E0(ProcPtr proc) {
-    Proc_StartBlocking(gUnknown_0859E64C, proc);
+struct ProcCmd CONST_DATA sProcScr_DisplayDungeonRecord_FromMenu[] = {
+    PROC_CALL(PushGlobalTimer),
+    PROC_CALL(AddSkipThread2),
+    PROC_CALL(sub_8013D80),
+    PROC_REPEAT(ContinueUntilSomeTransistion6CExists),
+    PROC_CALL(BMapDispSuspend),
+    PROC_SLEEP(0),
+    PROC_CALL(SetupDungeonRecordUi),
+
+    PROC_CALL_ARG(NewFadeIn, 16),
+    PROC_WHILE(FadeInExists),
+
+    PROC_REPEAT(DungeonRecordUi_KeyListenerUpdatesTime),
+    PROC_CALL_ARG(NewFadeOut, 16),
+    PROC_WHILE(FadeOutExists),
+
+    PROC_CALL(EndDungeonRecordUi),
+    PROC_SLEEP(0),
+    PROC_CALL(BMapDispResume),
+    PROC_CALL(RefreshBMapGraphics),
+    PROC_CALL(sub_8013DA4),
+    PROC_REPEAT(ContinueUntilSomeTransistion6CExists),
+    PROC_CALL(SubSkipThread2),
+
+    PROC_END,
+};
+
+void StartDungeonRecordProcFromMenu(ProcPtr proc) {
+    Proc_StartBlocking(sProcScr_DisplayDungeonRecord_FromMenu, proc);
     return;
 }
 
+extern struct ProcCmd CONST_DATA sProcScr_DungeonRecord_UpdateNewRecordValues[];
+
+struct ProcCmd CONST_DATA sProcScr_DisplayDungeonRecord_AfterDungeonClear[] = {
+    PROC_CALL(PushGlobalTimer),
+    PROC_CALL(AddSkipThread2),
+    PROC_CALL(sub_8013D68),
+    PROC_REPEAT(ContinueUntilSomeTransistion6CExists),
+    PROC_CALL(BMapDispSuspend),
+    PROC_CALL(MU_EndAll),
+    PROC_SLEEP(0),
+    PROC_CALL(sub_8038230),
+    PROC_CALL(SetupDungeonRecordUi),
+
+    PROC_CALL_ARG(NewFadeIn, 4),
+    PROC_WHILE(FadeInExists),
+
+    PROC_SLEEP(30),
+    PROC_START_CHILD_BLOCKING(sProcScr_DungeonRecord_UpdateNewRecordValues),
+    PROC_REPEAT(DungeonRecordUi_KeyListener),
+
+    PROC_CALL_ARG(NewFadeOut, 8),
+    PROC_WHILE(FadeOutExists),
+
+    PROC_CALL(EndDungeonRecordUi),
+    PROC_SLEEP(0),
+
+    PROC_CALL(BMapDispResume),
+    PROC_CALL(SubSkipThread2),
+    PROC_CALL(PopGlobalTimer),
+
+    PROC_END,
+};
+
+// StartDungeonRecordProcAfterDungeonClear?
 void sub_80381F4(ProcPtr proc) {
-    Proc_StartBlocking(gUnknown_0859E6EC, proc);
+    Proc_StartBlocking(sProcScr_DisplayDungeonRecord_AfterDungeonClear, proc);
     return;
 }
 
@@ -540,8 +590,7 @@ extern u16 gUnknown_089A28E0[]; // "combat record" pal
 
 extern u16 gUnknown_0200310C[];
 
-
-void sub_8038240(ProcPtr proc) {
+void SetupDungeonRecordUi(ProcPtr proc) {
     int i;
 
     SetupBackgrounds(gUnknown_08A20050);
@@ -575,6 +624,8 @@ void sub_8038240(ProcPtr proc) {
     sub_8001F48(0);
     sub_8001F64(0);
 
+    // Load and display background
+
     SetSpecialColorEffectsParameters(1, 6, 16, 0);
 
     CopyDataWithPossibleUncomp(gUnknown_08A21658, (void *)BG_VRAM + GetBackgroundTileDataOffset(3));
@@ -583,6 +634,8 @@ void sub_8038240(ProcPtr proc) {
 
     CallARM_FillTileRect(gBG3TilemapBuffer, gUnknown_08A25ECC, 0x8000);
 
+    // Load and display fog overlay
+
     CopyDataWithPossibleUncomp(gUnknown_08A26380, (void *)(BG_VRAM + 0x4C00) + GetBackgroundTileDataOffset(2));
 
     CopyDataWithPossibleUncomp(gUnknown_08A268F8, gUnknown_02020188);
@@ -590,6 +643,8 @@ void sub_8038240(ProcPtr proc) {
     CopyToPaletteBuffer(gUnknown_08A268D8, 0xE0, 0x20);
 
     CallARM_FillTileRect(gBG2TilemapBuffer, gUnknown_02020188, 0x7260);
+
+    // Load and display "Combat Record" graphic
 
     CopyDataWithPossibleUncomp(gUnknown_089A234C, (void *)(BG_VRAM + 0x4000) + GetBackgroundTileDataOffset(1));
 
@@ -601,9 +656,9 @@ void sub_8038240(ProcPtr proc) {
         gBG1TilemapBuffer[i] = gBG1TilemapBuffer[i] + 0x2200;
     }
 
-    sub_8037BAC();
+    DungeonRecordUi_InitText();
 
-    sub_8038BA4(proc);
+    DrawDungeonRecordUiText(proc);
 
     BG_EnableSyncByMask(0xF);
 
@@ -614,22 +669,29 @@ void sub_8038240(ProcPtr proc) {
     return;
 }
 
-struct Struct080D8070 {
+struct DungeonUiTextLutEntry {
     /* 00 */ u16 msgId;
     /* 02 */ s8 x;
     /* 03 */ s8 y;
 };
 
-void sub_8038448(struct TextHandle* th) {
+void DrawDungeonRecordUiLabels(struct TextHandle* th) {
     char* str;
-    struct Struct080D8070* iter;
+    struct DungeonUiTextLutEntry* iter;
 
-    // FIXME
-    extern const struct Struct080D8070 gUnknown_080D8070[];
-    struct Struct080D8070 hack[9];
-    memcpy(hack, gUnknown_080D8070, sizeof(hack));
+    struct DungeonUiTextLutEntry uiTextLut[9] = {
+        { 0x205, 13,  5 }, // Current[.]
+        { 0x206, 23,  5 }, // Record
+        { 0x207,  3,  7 }, // # Cleared
+        { 0x208,  3,  9 }, // Monsters
+        { 0x209,  3, 11 }, // Exp[.]
+        { 0x20A,  3, 13 }, // Units Used
+        { 0x20B,  3, 15 }, // Turns[.]
+        { 0x20C,  3, 17 }, // Time
+        { },
+    };
 
-    iter = &hack[0];
+    iter = &uiTextLut[0];
     while (iter->msgId != 0) {
         str = GetStringFromIndex(iter->msgId);
 
@@ -644,7 +706,7 @@ void sub_8038448(struct TextHandle* th) {
     return;
 }
 
-struct TextHandle* sub_80384BC(struct TextHandle* th, u16 number, u8 places, s8 x, s8 y, u8 colorId) {
+struct TextHandle* DrawNumberText(struct TextHandle* th, u16 number, u8 places, s8 x, s8 y, u8 colorId) {
     int i;
     u8 shouldDraw;
     u8 digits[8];
@@ -674,7 +736,7 @@ struct TextHandle* sub_80384BC(struct TextHandle* th, u16 number, u8 places, s8 
     return th;
 }
 
-struct TextHandle* sub_8038588(struct TextHandle* th, u16 number, u8 numTiles, s8 x, s8 y, u8 colorId) {
+struct TextHandle* DrawNumberText_WithReset(struct TextHandle* th, u16 number, u8 numTiles, s8 x, s8 y, u8 colorId) {
     int i;
     u8 shouldDraw;
     u8 digits[8];
@@ -726,7 +788,7 @@ void sub_8038668(struct TextHandle* th, u8 count) {
     return;
 }
 
-struct TextHandle* sub_8038698(struct TextHandle* th, int time, s8 xBase, s8 yBase, u8 colorId) {
+struct TextHandle* DrawTimeText(struct TextHandle* th, int time, s8 xBase, s8 yBase, u8 colorId) {
     s8 xOffset;
     const char* str;
     u16 hours;
@@ -738,14 +800,14 @@ struct TextHandle* sub_8038698(struct TextHandle* th, int time, s8 xBase, s8 yBa
     xOffset = xBase + 0xF9;
 
     if (hours < 10) {
-        th = sub_80384BC(th, 0, 1, xOffset, yBase, colorId);
+        th = DrawNumberText(th, 0, 1, xOffset, yBase, colorId);
     } else {
-        th = sub_80384BC(th, hours / 10, 1, xOffset, yBase, colorId);
+        th = DrawNumberText(th, hours / 10, 1, xOffset, yBase, colorId);
     }
 
     xOffset++;
 
-    th = sub_80384BC(th, hours % 10, 1, xOffset, yBase, colorId);
+    th = DrawNumberText(th, hours % 10, 1, xOffset, yBase, colorId);
 
     xOffset = xBase + 0xFB;
 
@@ -761,14 +823,14 @@ struct TextHandle* sub_8038698(struct TextHandle* th, int time, s8 xBase, s8 yBa
     xOffset = xBase + 0xFC;
 
     if (minutes < 10) {
-        th = sub_80384BC(th, 0, 1, xOffset, yBase, colorId);
+        th = DrawNumberText(th, 0, 1, xOffset, yBase, colorId);
     } else {
-        th = sub_80384BC(th, minutes / 10, 1, xOffset, yBase, colorId);
+        th = DrawNumberText(th, minutes / 10, 1, xOffset, yBase, colorId);
     }
 
     xOffset++;
 
-    th = sub_80384BC(th, minutes % 10, 1, xOffset, yBase, colorId);
+    th = DrawNumberText(th, minutes % 10, 1, xOffset, yBase, colorId);
 
     xOffset = xBase + 0xFE;
 
@@ -784,20 +846,20 @@ struct TextHandle* sub_8038698(struct TextHandle* th, int time, s8 xBase, s8 yBa
     xOffset = xBase + 0xFF;
 
     if (seconds < 10) {
-        th = sub_80384BC(th, 0, 1, xOffset, yBase, colorId);
+        th = DrawNumberText(th, 0, 1, xOffset, yBase, colorId);
     }
     else {
-        th = sub_80384BC(th, seconds / 10, 1, xOffset, yBase, colorId);
+        th = DrawNumberText(th, seconds / 10, 1, xOffset, yBase, colorId);
     }
 
     xOffset++;
 
-    th = sub_80384BC(th, seconds % 10, 1, xOffset, yBase, colorId);
+    th = DrawNumberText(th, seconds % 10, 1, xOffset, yBase, colorId);
 
     return th;
 }
 
-struct TextHandle* sub_8038900(struct TextHandle* th, int time, s8 xBase, s8 yBase, u8 colorId, s8 drawPunctuation) {
+struct TextHandle* DrawTimeText_WithReset(struct TextHandle* th, int time, s8 xBase, s8 yBase, u8 colorId, s8 drawPunctuation) {
     s8 xOffset;
     const char* str;
     u16 hours;
@@ -809,14 +871,14 @@ struct TextHandle* sub_8038900(struct TextHandle* th, int time, s8 xBase, s8 yBa
     xOffset = xBase + 0xF9;
 
     if (hours < 10) {
-        th = sub_8038588(th, 0, 1, xOffset, yBase, colorId);
+        th = DrawNumberText_WithReset(th, 0, 1, xOffset, yBase, colorId);
     } else {
-        th = sub_8038588(th, hours / 10, 1, xOffset, yBase, colorId);
+        th = DrawNumberText_WithReset(th, hours / 10, 1, xOffset, yBase, colorId);
     }
 
     xOffset++;
 
-    th = sub_8038588(th, hours % 10, 1, xOffset, yBase, colorId);
+    th = DrawNumberText_WithReset(th, hours % 10, 1, xOffset, yBase, colorId);
 
     xOffset = xBase + 0xFB;
 
@@ -839,14 +901,14 @@ struct TextHandle* sub_8038900(struct TextHandle* th, int time, s8 xBase, s8 yBa
     xOffset = xBase + 0xFC;
 
     if (minutes < 10) {
-        th = sub_8038588(th, 0, 1, xOffset, yBase, colorId);
+        th = DrawNumberText_WithReset(th, 0, 1, xOffset, yBase, colorId);
     } else {
-        th = sub_8038588(th, minutes / 10, 1, xOffset, yBase, colorId);
+        th = DrawNumberText_WithReset(th, minutes / 10, 1, xOffset, yBase, colorId);
     }
 
     xOffset++;
 
-    th = sub_8038588(th, minutes % 10, 1, xOffset, yBase, colorId);
+    th = DrawNumberText_WithReset(th, minutes % 10, 1, xOffset, yBase, colorId);
 
     xOffset = xBase + 0xFE;
 
@@ -869,55 +931,36 @@ struct TextHandle* sub_8038900(struct TextHandle* th, int time, s8 xBase, s8 yBa
     xOffset = xBase + 0xFF;
 
     if (seconds < 10) {
-        th = sub_8038588(th, 0, 1, xOffset, yBase, colorId);
+        th = DrawNumberText_WithReset(th, 0, 1, xOffset, yBase, colorId);
     }
     else {
-        th = sub_8038588(th, seconds / 10, 1, xOffset, yBase, colorId);
+        th = DrawNumberText_WithReset(th, seconds / 10, 1, xOffset, yBase, colorId);
     }
 
     xOffset++;
 
-    th = sub_8038588(th, seconds % 10, 1, xOffset, yBase, colorId);
+    th = DrawNumberText_WithReset(th, seconds % 10, 1, xOffset, yBase, colorId);
 
     return th;
 }
 
 extern struct Font gUnknown_020038AC;
-
-struct Struct080D7FD0 {
-    s8 x;
-    s8 y;
-    u16 _pad;
-    u8 numDigits;
-};
-
-struct Outer080D7FD0 {
-    struct Struct080D7FD0 current[4];
-    s8 x;
-    s8 y;
-    struct Struct080D7FD0 record[4];
-};
-
-extern struct Outer080D7FD0 gUnknown_080D7FD0;
 extern struct TextHandle gUnknown_02003B70;
 
-#if NONMATCHING
-
-void sub_8038BA4(ProcPtr proc) {
+void DrawDungeonRecordUiText(ProcPtr proc) {
     int time;
     struct Dungeon currentDungeon;
     struct Dungeon recordDungeon;
     struct TextHandle text;
-    s8 huh;
 
-    CpuCopy32(&gUnknown_030017A0.current, &currentDungeon, sizeof(struct Dungeon));
+    CpuCopy32(&gDungeonState.current, &currentDungeon, sizeof(struct Dungeon));
 
-    CpuCopy32(&gUnknown_030017A0.dungeon[gUnknown_030017A0.type], &recordDungeon, sizeof(struct Dungeon));
+    CpuCopy32(&gDungeonState.dungeon[gDungeonState.type], &recordDungeon, sizeof(struct Dungeon));
 
     time = GetGameClock();
     SetGameClock(gUnknown_020038C4);
 
-    sub_8037EB0(&currentDungeon);
+    UpdateDungeonStats(&currentDungeon);
 
     SetGameClock(time);
 
@@ -929,75 +972,72 @@ void sub_8038BA4(ProcPtr proc) {
 
     NewGreenTextColorManager(proc);
 
-    sub_8038448(&text);
+    DrawDungeonRecordUiLabels(&text);
 
-    sub_80384BC(
+    DrawNumberText(
         &gUnknown_02003B70,
-        recordDungeon.unk_08,
+        recordDungeon.clearCount,
         3,
         0x1A,
         7,
         2
     );
 
-    sub_80384BC(
+    DrawNumberText(
         &gUnknown_020038C8[0].text[0][8 - gUnknown_080D7FD0.current[0].numDigits],
-        currentDungeon.unk_06,
+        currentDungeon.enemiesDefeated,
         gUnknown_080D7FD0.current[0].numDigits, // 5
         gUnknown_080D7FD0.current[0].x,
         gUnknown_080D7FD0.current[0].y,
         2
     );
 
-    sub_80384BC(
+    DrawNumberText(
         &gUnknown_020038C8[1].text[0][8 - gUnknown_080D7FD0.record[0].numDigits],
-        recordDungeon.unk_06,
+        recordDungeon.enemiesDefeated,
         gUnknown_080D7FD0.record[0].numDigits, // 5
         gUnknown_080D7FD0.record[0].x,
         gUnknown_080D7FD0.record[0].y,
         2
     );
 
-    sub_80384BC(
+    DrawNumberText(
         &gUnknown_020038C8[0].text[1][8 - gUnknown_080D7FD0.current[1].numDigits],
-        currentDungeon.unk_00,
+        currentDungeon.expEarned,
         gUnknown_080D7FD0.current[1].numDigits, // 5
         gUnknown_080D7FD0.current[1].x,
         gUnknown_080D7FD0.current[1].y,
         2
     );
 
-    sub_80384BC(
+    DrawNumberText(
         &gUnknown_020038C8[1].text[1][8 - gUnknown_080D7FD0.record[1].numDigits],
-        recordDungeon.unk_00,
+        recordDungeon.expEarned,
         gUnknown_080D7FD0.record[1].numDigits, // 5
         gUnknown_080D7FD0.record[1].x,
         gUnknown_080D7FD0.record[1].y,
         2
     );
 
-    // TODO: Closest I could get was to buffer this in a temporary variable; for some reason both the current/record use the same Y value
-    huh = gUnknown_080D7FD0.record[2].y;
-
-    sub_80384BC(
+    DrawNumberText(
         &gUnknown_020038C8[0].text[2][8 - gUnknown_080D7FD0.current[2].numDigits],
-        currentDungeon.unk_02,
+        currentDungeon.unitsUsed,
         gUnknown_080D7FD0.current[2].numDigits, // 3
         gUnknown_080D7FD0.current[2].x,
-        huh,
+        gUnknown_080D7FD0.record[2].y, // BUG?
         2
     );
 
-    sub_80384BC(
+    DrawNumberText(
         &gUnknown_020038C8[1].text[2][8 - gUnknown_080D7FD0.record[2].numDigits],
-        recordDungeon.unk_02,
+        recordDungeon.unitsUsed,
         gUnknown_080D7FD0.record[2].numDigits, // 3
         gUnknown_080D7FD0.record[2].x,
-        huh,
+        gUnknown_080D7FD0.record[2].y,
         2
     );
 
-    sub_80384BC(
+    DrawNumberText(
         &gUnknown_020038C8[0].text[3][8 - gUnknown_080D7FD0.current[3].numDigits],
         currentDungeon.turnCount,
         gUnknown_080D7FD0.current[3].numDigits, // 3
@@ -1006,7 +1046,7 @@ void sub_8038BA4(ProcPtr proc) {
         2
     );
 
-    sub_80384BC(
+    DrawNumberText(
         &gUnknown_020038C8[1].text[3][8 - gUnknown_080D7FD0.record[3].numDigits],
         recordDungeon.turnCount,
         gUnknown_080D7FD0.record[3].numDigits, // 3
@@ -1015,344 +1055,34 @@ void sub_8038BA4(ProcPtr proc) {
         2
     );
 
-    sub_8038698(
+    DrawTimeText(
         &gUnknown_020038C8[0].text[4][0],
         currentDungeon.mapTime,
-        gUnknown_080D7FD0.current[4].x,
-        gUnknown_080D7FD0.current[4].y,
+        gUnknown_080D7FD0.x,
+        gUnknown_080D7FD0.y,
         2
     );
 
-    sub_8038698(
+    DrawTimeText(
         &gUnknown_020038C8[1].text[4][0],
         recordDungeon.mapTime,
-        gUnknown_080D7FD0.record[4].x,
-        gUnknown_080D7FD0.record[4].y,
+        gUnknown_080D7FD0.x2,
+        gUnknown_080D7FD0.y2,
         2
     );
 
     return;
 }
 
-#else // !NONMATCHING
-
-__attribute__((naked))
-void sub_8038BA4(ProcPtr proc) {
-    asm("\n\
-        .syntax unified\n\
-        push {r4, r5, r6, r7, lr}\n\
-        mov r7, sl\n\
-        mov r6, r9\n\
-        mov r5, r8\n\
-        push {r5, r6, r7}\n\
-        sub sp, #0x28\n\
-        adds r6, r0, #0\n\
-        ldr r4, _08038E18  @ gUnknown_030017A0\n\
-        ldr r5, _08038E1C  @ 0x04000003\n\
-        adds r0, r4, #0\n\
-        add r1, sp, #8\n\
-        adds r2, r5, #0\n\
-        bl CpuSet\n\
-        adds r0, r4, #0\n\
-        adds r0, #0x24\n\
-        ldrb r1, [r0]\n\
-        lsls r0, r1, #1\n\
-        adds r0, r0, r1\n\
-        lsls r0, r0, #2\n\
-        adds r4, #0xc\n\
-        adds r0, r0, r4\n\
-        add r1, sp, #0x14\n\
-        mov r9, r1\n\
-        adds r2, r5, #0\n\
-        bl CpuSet\n\
-        bl GetGameClock\n\
-        adds r4, r0, #0\n\
-        ldr r0, _08038E20  @ gUnknown_020038C4\n\
-        ldr r0, [r0]\n\
-        bl SetGameClock\n\
-        add r0, sp, #8\n\
-        bl sub_8037EB0\n\
-        adds r0, r4, #0\n\
-        bl SetGameClock\n\
-        bl sub_8003D20\n\
-        ldr r4, _08038E24  @ gUnknown_020038AC\n\
-        movs r0, #0\n\
-        bl GetBackgroundTileDataOffset\n\
-        adds r1, r0, #0\n\
-        ldr r2, _08038E28  @ 0x06000020\n\
-        adds r1, r1, r2\n\
-        adds r0, r4, #0\n\
-        movs r2, #1\n\
-        movs r3, #0\n\
-        bl Font_InitForUI\n\
-        adds r0, r4, #0\n\
-        bl SetFont\n\
-        bl Font_LoadForUI\n\
-        adds r0, r6, #0\n\
-        bl NewGreenTextColorManager\n\
-        add r0, sp, #0x20\n\
-        bl sub_8038448\n\
-        ldr r0, _08038E2C  @ gUnknown_02003B70\n\
-        mov r3, r9\n\
-        ldrh r1, [r3, #8]\n\
-        lsls r1, r1, #0x16\n\
-        lsrs r1, r1, #0x19\n\
-        movs r6, #7\n\
-        str r6, [sp]\n\
-        movs r4, #2\n\
-        mov r8, r4\n\
-        str r4, [sp, #4]\n\
-        movs r2, #3\n\
-        movs r3, #0x1a\n\
-        bl sub_80384BC\n\
-        ldr r7, _08038E30  @ gUnknown_080D7FD0\n\
-        ldrb r2, [r7, #4]\n\
-        movs r5, #8\n\
-        subs r0, r5, r2\n\
-        lsls r0, r0, #3\n\
-        ldr r1, _08038E34  @ gUnknown_020038C8\n\
-        mov sl, r1\n\
-        add r0, sl\n\
-        add r1, sp, #8\n\
-        ldrh r3, [r1, #6]\n\
-        lsrs r3, r3, #3\n\
-        ldrb r1, [r1, #8]\n\
-        ands r1, r6\n\
-        lsls r1, r1, #0xd\n\
-        orrs r1, r3\n\
-        movs r3, #0\n\
-        ldrsb r3, [r7, r3]\n\
-        movs r4, #1\n\
-        ldrsb r4, [r7, r4]\n\
-        str r4, [sp]\n\
-        mov r4, r8\n\
-        str r4, [sp, #4]\n\
-        bl sub_80384BC\n\
-        adds r0, r7, #0\n\
-        adds r0, #0x28\n\
-        ldrb r2, [r0]\n\
-        subs r0, r5, r2\n\
-        lsls r0, r0, #3\n\
-        movs r1, #0xa0\n\
-        lsls r1, r1, #1\n\
-        add r1, sl\n\
-        adds r0, r0, r1\n\
-        mov r1, r9\n\
-        ldrh r3, [r1, #6]\n\
-        lsrs r3, r3, #3\n\
-        ldrb r1, [r1, #8]\n\
-        ands r1, r6\n\
-        lsls r1, r1, #0xd\n\
-        orrs r1, r3\n\
-        adds r3, r7, #0\n\
-        adds r3, #0x24\n\
-        ldrb r3, [r3]\n\
-        lsls r3, r3, #0x18\n\
-        asrs r3, r3, #0x18\n\
-        adds r4, r7, #0\n\
-        adds r4, #0x25\n\
-        ldrb r4, [r4]\n\
-        lsls r4, r4, #0x18\n\
-        asrs r4, r4, #0x18\n\
-        str r4, [sp]\n\
-        mov r4, r8\n\
-        str r4, [sp, #4]\n\
-        bl sub_80384BC\n\
-        ldrb r2, [r7, #0xc]\n\
-        subs r0, r5, r2\n\
-        lsls r0, r0, #3\n\
-        mov r1, sl\n\
-        adds r1, #0x40\n\
-        adds r0, r0, r1\n\
-        add r1, sp, #8\n\
-        ldrh r1, [r1]\n\
-        movs r3, #8\n\
-        ldrsb r3, [r7, r3]\n\
-        movs r4, #9\n\
-        ldrsb r4, [r7, r4]\n\
-        str r4, [sp]\n\
-        mov r6, r8\n\
-        str r6, [sp, #4]\n\
-        bl sub_80384BC\n\
-        adds r0, r7, #0\n\
-        adds r0, #0x30\n\
-        ldrb r2, [r0]\n\
-        subs r0, r5, r2\n\
-        lsls r0, r0, #3\n\
-        movs r1, #0xc0\n\
-        lsls r1, r1, #1\n\
-        add r1, sl\n\
-        adds r0, r0, r1\n\
-        mov r3, r9\n\
-        ldrh r1, [r3]\n\
-        adds r3, r7, #0\n\
-        adds r3, #0x2c\n\
-        ldrb r3, [r3]\n\
-        lsls r3, r3, #0x18\n\
-        asrs r3, r3, #0x18\n\
-        adds r4, r7, #0\n\
-        adds r4, #0x2d\n\
-        ldrb r4, [r4]\n\
-        lsls r4, r4, #0x18\n\
-        asrs r4, r4, #0x18\n\
-        str r4, [sp]\n\
-        str r6, [sp, #4]\n\
-        bl sub_80384BC\n\
-        ldrb r2, [r7, #0x14]\n\
-        subs r0, r5, r2\n\
-        lsls r0, r0, #3\n\
-        mov r1, sl\n\
-        adds r1, #0x80\n\
-        adds r0, r0, r1\n\
-        add r1, sp, #8\n\
-        ldrb r1, [r1, #2]\n\
-        movs r3, #0x10\n\
-        ldrsb r3, [r7, r3]\n\
-        adds r4, r7, #0\n\
-        adds r4, #0x35\n\
-        ldrb r4, [r4]\n\
-        lsls r4, r4, #0x18\n\
-        asrs r4, r4, #0x18\n\
-        str r4, [sp]\n\
-        str r6, [sp, #4]\n\
-        bl sub_80384BC\n\
-        adds r0, r7, #0\n\
-        adds r0, #0x38\n\
-        ldrb r2, [r0]\n\
-        subs r0, r5, r2\n\
-        lsls r0, r0, #3\n\
-        movs r1, #0xe0\n\
-        lsls r1, r1, #1\n\
-        add r1, sl\n\
-        adds r0, r0, r1\n\
-        mov r6, r9\n\
-        ldrb r1, [r6, #2]\n\
-        adds r3, r7, #0\n\
-        adds r3, #0x34\n\
-        ldrb r3, [r3]\n\
-        lsls r3, r3, #0x18\n\
-        asrs r3, r3, #0x18\n\
-        str r4, [sp]\n\
-        mov r4, r8\n\
-        str r4, [sp, #4]\n\
-        bl sub_80384BC\n\
-        ldrb r2, [r7, #0x1c]\n\
-        subs r0, r5, r2\n\
-        lsls r0, r0, #3\n\
-        mov r1, sl\n\
-        adds r1, #0xc0\n\
-        adds r0, r0, r1\n\
-        add r1, sp, #8\n\
-        ldrb r3, [r1, #3]\n\
-        ldrb r1, [r1, #4]\n\
-        movs r6, #1\n\
-        ands r1, r6\n\
-        lsls r1, r1, #8\n\
-        orrs r1, r3\n\
-        movs r3, #0x18\n\
-        ldrsb r3, [r7, r3]\n\
-        movs r4, #0x19\n\
-        ldrsb r4, [r7, r4]\n\
-        str r4, [sp]\n\
-        mov r4, r8\n\
-        str r4, [sp, #4]\n\
-        bl sub_80384BC\n\
-        adds r0, r7, #0\n\
-        adds r0, #0x40\n\
-        ldrb r2, [r0]\n\
-        subs r5, r5, r2\n\
-        lsls r5, r5, #3\n\
-        movs r0, #0x80\n\
-        lsls r0, r0, #2\n\
-        add r0, sl\n\
-        adds r5, r5, r0\n\
-        mov r1, r9\n\
-        ldrb r0, [r1, #3]\n\
-        ldrb r1, [r1, #4]\n\
-        ands r1, r6\n\
-        lsls r1, r1, #8\n\
-        orrs r1, r0\n\
-        adds r0, r7, #0\n\
-        adds r0, #0x3c\n\
-        movs r3, #0\n\
-        ldrsb r3, [r0, r3]\n\
-        adds r0, #1\n\
-        ldrb r0, [r0]\n\
-        lsls r0, r0, #0x18\n\
-        asrs r0, r0, #0x18\n\
-        str r0, [sp]\n\
-        str r4, [sp, #4]\n\
-        adds r0, r5, #0\n\
-        bl sub_80384BC\n\
-        movs r0, #0x80\n\
-        lsls r0, r0, #1\n\
-        add r0, sl\n\
-        ldr r1, [sp, #0xc]\n\
-        lsls r1, r1, #0xd\n\
-        lsrs r1, r1, #0xe\n\
-        adds r2, r7, #0\n\
-        adds r2, #0x20\n\
-        ldrb r2, [r2]\n\
-        lsls r2, r2, #0x18\n\
-        asrs r2, r2, #0x18\n\
-        adds r3, r7, #0\n\
-        adds r3, #0x21\n\
-        ldrb r3, [r3]\n\
-        lsls r3, r3, #0x18\n\
-        asrs r3, r3, #0x18\n\
-        str r4, [sp]\n\
-        bl sub_8038698\n\
-        movs r0, #0x90\n\
-        lsls r0, r0, #2\n\
-        add r0, sl\n\
-        mov r2, r9\n\
-        ldr r1, [r2, #4]\n\
-        lsls r1, r1, #0xd\n\
-        lsrs r1, r1, #0xe\n\
-        adds r2, r7, #0\n\
-        adds r2, #0x44\n\
-        ldrb r2, [r2]\n\
-        lsls r2, r2, #0x18\n\
-        asrs r2, r2, #0x18\n\
-        adds r3, r7, #0\n\
-        adds r3, #0x45\n\
-        ldrb r3, [r3]\n\
-        lsls r3, r3, #0x18\n\
-        asrs r3, r3, #0x18\n\
-        str r4, [sp]\n\
-        bl sub_8038698\n\
-        add sp, #0x28\n\
-        pop {r3, r4, r5}\n\
-        mov r8, r3\n\
-        mov r9, r4\n\
-        mov sl, r5\n\
-        pop {r4, r5, r6, r7}\n\
-        pop {r0}\n\
-        bx r0\n\
-        .align 2, 0\n\
-    _08038E18: .4byte gUnknown_030017A0\n\
-    _08038E1C: .4byte 0x04000003\n\
-    _08038E20: .4byte gUnknown_020038C4\n\
-    _08038E24: .4byte gUnknown_020038AC\n\
-    _08038E28: .4byte 0x06000020\n\
-    _08038E2C: .4byte gUnknown_02003B70\n\
-    _08038E30: .4byte gUnknown_080D7FD0\n\
-    _08038E34: .4byte gUnknown_020038C8\n\
-        .syntax divided\n\
-    ");
-}
-
-#endif // NONMATCHING
-
-void sub_8038E38() {
+void DungeonRecordUi_UpdateRunningTime() {
     struct Dungeon currentDungeon;
     int unkTime1;
     u32 unkTime2;
     s8 drawPunctuation;
 
-    CpuCopy32(&gUnknown_030017A0.current, &currentDungeon, sizeof(struct Dungeon));
+    CpuCopy32(&gDungeonState.current, &currentDungeon, sizeof(struct Dungeon));
 
-    unkTime1 = sub_8037E7C(&currentDungeon);
+    unkTime1 = UpdateDungeonMapTime(&currentDungeon);
 
     unkTime2 = ((GetGameClock() - gRAMChapterData.unk4) % 60);
 
@@ -1361,7 +1091,7 @@ void sub_8038E38() {
         drawPunctuation = 0;
     }
 
-    sub_8038900(
+    DrawTimeText_WithReset(
         &gUnknown_020038C8[0].text[4][0],
         unkTime1,
         gUnknown_080D7FD0.x,
@@ -1375,8 +1105,8 @@ void sub_8038E38() {
     return;
 }
 
-void sub_8038EA8(ProcPtr proc) {
-    sub_8038E38();
+void DungeonRecordUi_KeyListenerUpdatesTime(ProcPtr proc) {
+    DungeonRecordUi_UpdateRunningTime();
 
     if (gKeyStatusPtr->newKeys & (A_BUTTON | B_BUTTON)) {
         Proc_Break(proc);
@@ -1385,7 +1115,7 @@ void sub_8038EA8(ProcPtr proc) {
     return;
 }
 
-void sub_8038ED0(ProcPtr proc) {
+void DungeonRecordUi_KeyListener(ProcPtr proc) {
     if (gKeyStatusPtr->newKeys & (A_BUTTON | B_BUTTON)) {
         Proc_Break(proc);
     }
@@ -1393,7 +1123,7 @@ void sub_8038ED0(ProcPtr proc) {
     return;
 }
 
-void sub_8038EF0() {
+void EndDungeonRecordUi() {
     sub_80AB77C();
 
     EndGreenTextColorManager();
@@ -1413,7 +1143,7 @@ void sub_8038EF0() {
 
     Font_InitForUIDefault();
 
-    CpuFastFill16(0, gPaletteBuffer, 0x01000400);
+    CpuFastFill(0, gPaletteBuffer, 0x400);
 
     EnablePaletteSync();
 
@@ -1456,19 +1186,40 @@ void sub_8038F78(struct TextHandle* th) {
 }
 
 extern struct Struct02003BE8 gUnknown_02003BE8;
-extern int gUnknown_02003B88[];
+extern u16 gUnknown_02003B88[];
 extern struct Struct0859E7D4 gUnknown_02003BA8[];
 
-extern u16 gUnknown_0859E7C8[];
-extern struct Struct0859E7D4 gUnknown_0859E7D4[];
+// obj data?
+const u16 CONST_DATA gUnknown_0859E79C[] = {
+    0x0002, 0x4000, 0x8000, 0x0100,
+    0x4000, 0x8020, 0x0104, 0x0000,
+    0x0000, 0x0000, 0x0000, 0x0000,
+    0x0000, 0x0000, 0x0000, 0x0000,
+    0x1000, 0x0800, 0x1000, 0x0000,
+    0x0000, 0x0000,
+};
 
-#if NONMATCHING
+u16 CONST_DATA gUnknown_0859E7C8[] = {
+    0x0000, 0x0214, 0x0400,
+    0x0C00, 0x0DEB, 0x1000,
+};
+
+struct Struct0859E7D4 CONST_DATA gUnknown_0859E7D4[] = {
+    { -56,   0, },
+    { -70,  14, },
+    { -74,   6, },
+    {  38, -14, },
+    {  42,  -6, },
+    {  24,   0, },
+};
 
 void sub_803901C(struct BMDifficultyProc* proc) {
     int r7;
     int r8;
+    u16* iter1;
+    struct Struct0859E7D4* iter2;
 
-    sub_8038F78(&gUnknown_020038C8[0].text[proc->unk_2c][0]);
+    sub_8038F78(&gUnknown_020038C8[0].text[proc->labelIndex][0]);
 
     gUnknown_02003BE8.unk_00 = 2;
     gUnknown_02003BE8.unk_04 = gUnknown_02003B88;
@@ -1476,121 +1227,26 @@ void sub_803901C(struct BMDifficultyProc* proc) {
     gUnknown_02003BE8.unk_0C = NULL;
     gUnknown_02003BE8.unk_10 = NULL;
 
+    iter1 = gUnknown_0859E7C8;
+    iter2 = gUnknown_0859E7D4;
+
     gUnknown_02003BE8.unk_02 = r8 = 6;
 
     for (r7 = 0; r7 < r8; r7++) {
-        gUnknown_02003B88[r7] = DivArm(4096, gUnknown_0859E7C8[r7] * 45);
+        gUnknown_02003B88[r7] = DivArm(4096, iter1[r7] * 45);
 
-        gUnknown_02003BA8[r7].x = gUnknown_0859E7D4[r7].x << 4;
-        gUnknown_02003BA8[r7].y = gUnknown_0859E7D4[r7].y << 4;
+        gUnknown_02003BA8[r7].x = iter2[r7].x << 4;
+        gUnknown_02003BA8[r7].y = iter2[r7].y << 4;
     }
 
     proc->unk_34 = 0;
 
-    PlaySoundEffect(0x80);
+    PlaySoundEffect(0x80); // Point Up SE
 
     return;
 }
 
-#else // !NONMATCHING
-
-__attribute__((naked))
-void sub_803901C(struct BMDifficultyProc* proc) {
-    asm("\n\
-        .syntax unified\n\
-        push {r4, r5, r6, r7, lr}\n\
-        mov r7, r9\n\
-        mov r6, r8\n\
-        push {r6, r7}\n\
-        sub sp, #4\n\
-        mov r9, r0\n\
-        ldr r0, [r0, #0x2c]\n\
-        lsls r0, r0, #6\n\
-        ldr r1, _080390B8  @ gUnknown_020038C8\n\
-        adds r0, r0, r1\n\
-        bl sub_8038F78\n\
-        ldr r1, _080390BC  @ gUnknown_02003BE8\n\
-        movs r2, #0\n\
-        movs r0, #2\n\
-        strh r0, [r1]\n\
-        ldr r0, _080390C0  @ gUnknown_02003B88\n\
-        str r0, [r1, #4]\n\
-        ldr r3, _080390C4  @ gUnknown_02003BA8\n\
-        str r3, [r1, #8]\n\
-        str r2, [r1, #0xc]\n\
-        str r2, [r1, #0x10]\n\
-        ldr r2, _080390C8  @ gUnknown_0859E7C8\n\
-        ldr r0, _080390CC  @ gUnknown_0859E7D4\n\
-        movs r4, #6\n\
-        mov r8, r4\n\
-        mov r4, r8\n\
-        strh r4, [r1, #2]\n\
-        movs r7, #0\n\
-        adds r6, r0, #0\n\
-        adds r5, r3, #0\n\
-    _0803905A:\n\
-        lsls r4, r7, #1\n\
-        ldrh r1, [r2]\n\
-        lsls r0, r1, #1\n\
-        adds r0, r0, r1\n\
-        lsls r1, r0, #4\n\
-        subs r1, r1, r0\n\
-        movs r0, #0x80\n\
-        lsls r0, r0, #5\n\
-        str r2, [sp]\n\
-        bl DivArm\n\
-        ldr r1, _080390C0  @ gUnknown_02003B88\n\
-        adds r4, r4, r1\n\
-        strh r0, [r4]\n\
-        ldr r0, [r6]\n\
-        lsls r0, r0, #4\n\
-        str r0, [r5]\n\
-        ldr r0, [r6, #4]\n\
-        lsls r0, r0, #4\n\
-        str r0, [r5, #4]\n\
-        adds r6, #8\n\
-        adds r5, #8\n\
-        ldr r2, [sp]\n\
-        adds r2, #2\n\
-        adds r7, #1\n\
-        cmp r7, r8\n\
-        blt _0803905A\n\
-        movs r0, #0\n\
-        mov r1, r9\n\
-        str r0, [r1, #0x34]\n\
-        ldr r0, _080390D0  @ gRAMChapterData\n\
-        adds r0, #0x41\n\
-        ldrb r0, [r0]\n\
-        lsls r0, r0, #0x1e\n\
-        cmp r0, #0\n\
-        blt _080390A8\n\
-        movs r0, #0x80\n\
-        bl m4aSongNumStart\n\
-    _080390A8:\n\
-        add sp, #4\n\
-        pop {r3, r4}\n\
-        mov r8, r3\n\
-        mov r9, r4\n\
-        pop {r4, r5, r6, r7}\n\
-        pop {r0}\n\
-        bx r0\n\
-        .align 2, 0\n\
-    _080390B8: .4byte gUnknown_020038C8\n\
-    _080390BC: .4byte gUnknown_02003BE8\n\
-    _080390C0: .4byte gUnknown_02003B88\n\
-    _080390C4: .4byte gUnknown_02003BA8\n\
-    _080390C8: .4byte gUnknown_0859E7C8\n\
-    _080390CC: .4byte gUnknown_0859E7D4\n\
-    _080390D0: .4byte gRAMChapterData\n\
-        .syntax divided\n\
-    ");
-}
-
-#endif
-
 extern struct TextHandle gUnknown_02003B08;
-
-extern const u16 gUnknown_0859E79C[]; // obj data?
 
 void sub_80390D4(struct BMDifficultyProc* proc) {
     int pos[2];
@@ -1603,14 +1259,14 @@ void sub_80390D4(struct BMDifficultyProc* proc) {
 
         PutSpriteExt(
             4,
-            (pos[0] >> 4) + ((u8)gUnknown_080D7FD0.current[proc->unk_2c].x * 8),
-            ((pos[1] >> 4) + ((u8)gUnknown_080D7FD0.current[proc->unk_2c].y * 8)) & 0x000001FF,
+            (pos[0] >> 4) + ((u8)gUnknown_080D7FD0.current[proc->labelIndex].x * 8),
+            ((pos[1] >> 4) + ((u8)gUnknown_080D7FD0.current[proc->labelIndex].y * 8)) & 0x000001FF,
             gUnknown_0859E79C,
             0x5000
         );
     } else {
-        if (proc->unk_2c == 4) {
-            sub_8038900(
+        if (proc->labelIndex == 4) {
+            DrawTimeText_WithReset(
                 &gUnknown_02003B08,
                 proc->unk_30,
                 gUnknown_080D7FD0.record[4].x,
@@ -1619,17 +1275,17 @@ void sub_80390D4(struct BMDifficultyProc* proc) {
                 1
             );
         } else {
-            sub_8038588(
-                &gUnknown_020038C8[1].text[proc->unk_2c][8 - gUnknown_080D7FD0.record[proc->unk_2c].numDigits],
+            DrawNumberText_WithReset(
+                &gUnknown_020038C8[1].text[proc->labelIndex][8 - gUnknown_080D7FD0.record[proc->labelIndex].numDigits],
                 proc->unk_30,
-                gUnknown_080D7FD0.record[proc->unk_2c].numDigits,
-                gUnknown_080D7FD0.record[proc->unk_2c].x,
-                gUnknown_080D7FD0.record[proc->unk_2c].y,
+                gUnknown_080D7FD0.record[proc->labelIndex].numDigits,
+                gUnknown_080D7FD0.record[proc->labelIndex].x,
+                gUnknown_080D7FD0.record[proc->labelIndex].y,
                 4
             );
         }
 
-        PlaySoundEffect(0x76);
+        PlaySoundEffect(0x76); // Parameter Up SE
         BG_EnableSyncByMask(1);
 
         Proc_Break(proc);
@@ -1638,107 +1294,115 @@ void sub_80390D4(struct BMDifficultyProc* proc) {
     return;
 }
 
-extern struct ProcCmd gUnknown_0859E804[];
+struct ProcCmd CONST_DATA sProcScr_DungeonRecord_UpdateValue[] = {
+    PROC_SLEEP(0),
+    PROC_CALL(sub_803901C),
 
-struct BMDifficultyProc* sub_80391D0(int slot, int value, ProcPtr parent) {
+PROC_LABEL(0),
+    PROC_REPEAT(sub_80390D4),
+
+    PROC_END,
+};
+
+struct BMDifficultyProc* DungeonRecordUi_SpawnUpdateValueProc(int label, int value, ProcPtr parent) {
     struct BMDifficultyProc* proc;
 
     if (parent != 0) {
-        proc = Proc_StartBlocking(gUnknown_0859E804, parent);
+        proc = Proc_StartBlocking(sProcScr_DungeonRecord_UpdateValue, parent);
     } else {
-        proc = Proc_Start(gUnknown_0859E804, PROC_TREE_3);
+        proc = Proc_Start(sProcScr_DungeonRecord_UpdateValue, PROC_TREE_3);
     }
 
-    proc->unk_2c = slot;
+    proc->labelIndex = label;
     proc->unk_30 = value;
 
     return proc;
 }
 
-u32 sub_8039200(u32 slot) {
+u32 GetCurrentDungeonValueByUiLabel(u32 label) {
     int clock;
     struct Dungeon currentDungeon;
 
-    CpuCopy32(&gUnknown_030017A0.current, &currentDungeon, sizeof(struct Dungeon));
+    CpuCopy32(&gDungeonState.current, &currentDungeon, sizeof(struct Dungeon));
 
     clock = GetGameClock();
     SetGameClock(gUnknown_020038C4);
 
-    sub_8037EB0(&currentDungeon);
+    UpdateDungeonStats(&currentDungeon);
 
     SetGameClock(clock);
 
-    switch (slot) {
-        case 0:
-            return currentDungeon.unk_06;
-        case 1:
-            return currentDungeon.unk_00;
-        case 2:
-            return currentDungeon.unk_02;
-        case 3:
+    switch (label) {
+        case DUNGEONRECORD_LABEL_MONSTERS:
+            return currentDungeon.enemiesDefeated;
+        case DUNGEONRECORD_LABEL_EXP:
+            return currentDungeon.expEarned;
+        case DUNGEONRECORD_LABEL_UNITS:
+            return currentDungeon.unitsUsed;
+        case DUNGEONRECORD_LABEL_TURNS:
             return currentDungeon.turnCount;
-        case 4:
+        case DUNGEONRECORD_LABEL_TIME:
             return currentDungeon.mapTime;
     }
 
-    return 0;
+    return DUNGEONRECORD_LABEL_MONSTERS;
 }
 
-u32 sub_803929C(u32 slot) {
+u32 GetRecordDungeonValueByUiLabel(u32 label) {
 
-    switch (slot) {
-        case 0:
-            return gUnknown_030017A0.dungeon[gUnknown_030017A0.type].unk_06;
-        case 1:
-            return gUnknown_030017A0.dungeon[gUnknown_030017A0.type].unk_00;
-        case 2:
-            return gUnknown_030017A0.dungeon[gUnknown_030017A0.type].unk_02;
-        case 3:
-            return gUnknown_030017A0.dungeon[gUnknown_030017A0.type].turnCount;
-        case 4:
-            return gUnknown_030017A0.dungeon[gUnknown_030017A0.type].mapTime;
+    switch (label) {
+        case DUNGEONRECORD_LABEL_MONSTERS:
+            return gDungeonState.dungeon[gDungeonState.type].enemiesDefeated;
+        case DUNGEONRECORD_LABEL_EXP:
+            return gDungeonState.dungeon[gDungeonState.type].expEarned;
+        case DUNGEONRECORD_LABEL_UNITS:
+            return gDungeonState.dungeon[gDungeonState.type].unitsUsed;
+        case DUNGEONRECORD_LABEL_TURNS:
+            return gDungeonState.dungeon[gDungeonState.type].turnCount;
+        case DUNGEONRECORD_LABEL_TIME:
+            return gDungeonState.dungeon[gDungeonState.type].mapTime;
     }
 
-    return 0;
+    return DUNGEONRECORD_LABEL_MONSTERS;
 }
 
-s8 sub_8039360(u32 slot) {
+s8 DungeonRecordUi_IsNewRecordForLabel(u32 label) {
     int clock;
     struct Dungeon currentDungeon;
     struct Dungeon* record;
 
-    CpuCopy32(&gUnknown_030017A0.current, &currentDungeon, sizeof(struct Dungeon));
+    CpuCopy32(&gDungeonState.current, &currentDungeon, sizeof(struct Dungeon));
 
     clock = GetGameClock();
     SetGameClock(gUnknown_020038C4);
 
-    sub_8037EB0(&currentDungeon);
+    UpdateDungeonStats(&currentDungeon);
 
     SetGameClock(clock);
 
-    record = &gUnknown_030017A0.dungeon[gUnknown_030017A0.type];
+    record = &gDungeonState.dungeon[gDungeonState.type];
 
-    switch (slot) {
-        case 0:
+    switch (label) {
+        case DUNGEONRECORD_LABEL_MONSTERS:
             return 1;
-        case 1:
-            if (currentDungeon.unk_00 > record->unk_00) {
+        case DUNGEONRECORD_LABEL_EXP:
+            if (currentDungeon.expEarned > record->expEarned) {
                 return 1;
             }
 
             break;
-        case 2:
-            if (record->unk_08 <= 0) {
+        case DUNGEONRECORD_LABEL_UNITS:
+            if (record->clearCount <= 0) {
                 return 1;
             }
 
-            if (currentDungeon.unk_02 < record->unk_02) {
+            if (currentDungeon.unitsUsed < record->unitsUsed) {
                 return 1;
             }
 
             break;
-        case 3:
-            if (record->unk_08 <= 0) {
+        case DUNGEONRECORD_LABEL_TURNS:
+            if (record->clearCount <= 0) {
                 return 1;
             }
 
@@ -1747,8 +1411,8 @@ s8 sub_8039360(u32 slot) {
             }
 
             break;
-        case 4:
-            if (record->unk_08 <= 0) {
+        case DUNGEONRECORD_LABEL_TIME:
+            if (record->clearCount <= 0) {
                 return 1;
             }
 
@@ -1762,8 +1426,18 @@ s8 sub_8039360(u32 slot) {
     return 0;
 }
 
-extern int gUnknown_0859E82C[];
-extern struct Struct0859E7D4 gUnknown_0859E838[];
+u16 CONST_DATA gUnknown_0859E82C[] = {
+    0x00, 0x07, 0x0F,
+    0x16, 0x1E, 0x00,
+};
+
+struct Struct0859E7D4 CONST_DATA gUnknown_0859E838[] = {
+    { 0x980, 0x380, },
+    { 0x8D0, 0x430, },
+    { 0x960, 0x320, },
+    { 0xA30, 0x2D0, },
+    { 0x980, 0x380, },
+};
 
 void sub_803943C(struct BMDifficultyProc* proc) {
     sub_8038F78(gUnknown_02003B48);
@@ -1797,7 +1471,7 @@ void sub_80394A8(struct BMDifficultyProc* proc) {
 
     proc->unk_38++;
 
-    if (proc->unk_38 < 0x1E) {
+    if (proc->unk_38 < 30) {
         sub_800A950(&gUnknown_02003BE8, proc->unk_38 * 0x1000, pos);
 
         PutSpriteExt(
@@ -1809,15 +1483,15 @@ void sub_80394A8(struct BMDifficultyProc* proc) {
         );
     } else {
 
-        record = gUnknown_030017A0.dungeon[gUnknown_030017A0.type];
+        record = gDungeonState.dungeon[gDungeonState.type];
 
-        val = record.unk_08;
+        val = record.clearCount;
 
         if (val < 100) {
             val++;
         }
 
-        sub_8038588(
+        DrawNumberText_WithReset(
             &gUnknown_02003B70,
             val,
             3,
@@ -1837,12 +1511,9 @@ void sub_80394A8(struct BMDifficultyProc* proc) {
 }
 
 void sub_8039554(struct BMDifficultyProc* proc) {
-    int iVar2;
 
-    proc->unk_30 = sub_803929C(0);
-    iVar2 = sub_8039200(0);
-
-    proc->unk_34 = iVar2 + proc->unk_30;
+    proc->unk_30 = GetRecordDungeonValueByUiLabel(0);
+    proc->unk_34 = GetCurrentDungeonValueByUiLabel(0) + proc->unk_30;
     proc->unk_3c = 2;
 
     PlaySoundEffect(0x74);
@@ -1850,7 +1521,7 @@ void sub_8039554(struct BMDifficultyProc* proc) {
     return;
 }
 
-void sub_803958C(struct BMDifficultyProc* proc) {
+void DungeonRecordUi_UpdateEnemiesDefeatedCount(struct BMDifficultyProc* proc) {
 
     proc->unk_30++;
 
@@ -1858,7 +1529,7 @@ void sub_803958C(struct BMDifficultyProc* proc) {
         proc->unk_30++;
     }
 
-    sub_8038588(
+    DrawNumberText_WithReset(
         &gUnknown_020038C8[1].text[0][8 - gUnknown_080D7FD0.record[0].numDigits],
         proc->unk_30,
         gUnknown_080D7FD0.record[0].numDigits,
@@ -1867,9 +1538,9 @@ void sub_803958C(struct BMDifficultyProc* proc) {
         2
     );
 
-    sub_8038588(
+    DrawNumberText_WithReset(
         &gUnknown_020038C8[0].text[0][8 - gUnknown_080D7FD0.current[0].numDigits],
-        (proc->unk_34 - proc->unk_30) & 0xFFFF,
+        (proc->unk_34 - proc->unk_30),
         gUnknown_080D7FD0.current[0].numDigits,
         gUnknown_080D7FD0.current[0].x,
         gUnknown_080D7FD0.current[0].y,
@@ -1901,26 +1572,54 @@ void sub_803963C(struct BMDifficultyProc* proc) {
 }
 
 void sub_8039660(struct BMDifficultyProc* proc) {
-    proc->unk_2c = 1;
+    proc->labelIndex = DUNGEONRECORD_LABEL_EXP;
     return;
 }
 
 void sub_8039668(struct BMDifficultyProc* proc) {
 
-    if (sub_8039360(proc->unk_2c) != 0) {
-        sub_80391D0(proc->unk_2c, sub_8039200(proc->unk_2c), proc);
+    if (DungeonRecordUi_IsNewRecordForLabel(proc->labelIndex) != 0) {
+        DungeonRecordUi_SpawnUpdateValueProc(
+            proc->labelIndex,
+            GetCurrentDungeonValueByUiLabel(proc->labelIndex),
+            proc
+        );
     }
 
     return;
 }
 
-void sub_8039690(struct BMDifficultyProc* proc) {
+void DungeonRecordUi_GotoNextLabel(struct BMDifficultyProc* proc) {
 
-    proc->unk_2c++;
+    proc->labelIndex++;
 
-    if (proc->unk_2c < 5) {
+    if (proc->labelIndex < 5) {
         Proc_Goto(proc, 1);
     }
 
     return;
 }
+
+struct ProcCmd CONST_DATA sProcScr_DungeonRecord_UpdateNewRecordValues[] = {
+    PROC_CALL(sub_803943C),
+    PROC_SLEEP(1),
+
+    PROC_REPEAT(sub_803948C),
+    PROC_REPEAT(sub_80394A8),
+    PROC_SLEEP(30),
+
+    PROC_CALL(sub_8039554),
+    PROC_REPEAT(DungeonRecordUi_UpdateEnemiesDefeatedCount),
+    PROC_REPEAT(sub_803963C),
+    PROC_SLEEP(40),
+
+PROC_LABEL(0),
+    PROC_CALL(sub_8039660),
+
+PROC_LABEL(1),
+    PROC_CALL(sub_8039668),
+    PROC_SLEEP(25),
+    PROC_CALL(DungeonRecordUi_GotoNextLabel),
+
+    PROC_END,
+};
