@@ -18,6 +18,7 @@
 #include "ap.h"
 #include "proc.h"
 #include "ev_triggercheck.h"
+#include "bmdifficulty.h"
 #include "sallycursor.h"
 
 // hino.s
@@ -90,9 +91,6 @@ void New6CPPInterfaceConstructor(ProcPtr);
 // code_sio.s
 int CheckSomethingSomewhere();
 
-// bmdifficulty.s
-void sub_8037D68(ProcPtr);
-
 // bb.s
 void sub_8035758(ProcPtr);
 
@@ -118,7 +116,7 @@ struct ProcCmd CONST_DATA gProcScr_SALLYCURSOR[] = {
 
     PROC_SLEEP(0x10),
     PROC_CALL(sub_80341D0),
-    PROC_WHILE(sub_8037D68),
+    PROC_WHILE(PrepScreenProc_AddPostgameUnits),
     PROC_SLEEP(1),
     PROC_CALL(sub_8034200),
     PROC_CALL(InitPrepScreenUnitsAndCamera),

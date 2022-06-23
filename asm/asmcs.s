@@ -3218,7 +3218,7 @@ sub_8085C38: @ 0x08085C38
 sub_8085C4C: @ 0x08085C4C
 	push {lr}
 	movs r0, #0
-	bl sub_8037C40
+	bl InitDungeon
 	pop {r0}
 	bx r0
 
@@ -3228,7 +3228,7 @@ sub_8085C4C: @ 0x08085C4C
 sub_8085C58: @ 0x08085C58
 	push {lr}
 	movs r0, #1
-	bl sub_8037C40
+	bl InitDungeon
 	pop {r0}
 	bx r0
 

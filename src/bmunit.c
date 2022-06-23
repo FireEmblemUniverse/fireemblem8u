@@ -17,6 +17,7 @@
 #include "monstergen.h"
 #include "sallycursor.h"
 #include "uiselecttarget.h"
+#include "bmdifficulty.h"
 
 EWRAM_DATA u8 gActiveUnitId = 0;
 EWRAM_DATA struct Vec2 gActiveUnitMoveOrigin = {};

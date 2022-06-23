@@ -108,7 +108,7 @@ SECTIONS
         asm/bksel.o(.text);
         src/bmtrap.o(.text);
         src/bmarch.o(.text);
-        asm/bmdifficulty.o(.text);
+        src/bmdifficulty.o(.text);
         src/cp_phase.o(.text);
         src/cp_order.o(.text);
         src/cp_decide.o(.text);
@@ -209,6 +209,7 @@ SECTIONS
         . = ALIGN(4); data/const_data_D7F5C.o(.rodata);
         . = ALIGN(4); src/sallycursor.o(.rodata);
         . = ALIGN(4); data/const_data_D7F8C.o(.rodata);
+        . = ALIGN(4); src/bmdifficulty.o(.rodata);
         . = ALIGN(4); src/cp_phase.o(.rodata);
         . = ALIGN(4); src/cp_order.o(.rodata);
         . = ALIGN(4); src/cp_decide.o(.rodata);
@@ -275,7 +276,8 @@ SECTIONS
         . = ALIGN(4); src/bmusailment.o(.data);
         . = ALIGN(4); data/data_59E308.o(.data);
         . = ALIGN(4); src/bmtrap.o(.data);
-        . = ALIGN(4); data/data_59E64C.o(.data);
+        . = ALIGN(4); src/bmdifficulty.o(.data);
+        . = ALIGN(4); data/data_59E8E0.o(.data);
         . = ALIGN(4); src/cp_phase.o(.data);
         . = ALIGN(4); src/cp_order.o(.data);
         . = ALIGN(4); src/cp_decide.o(.data);

@@ -694,7 +694,7 @@ extern struct OamDataTransfer gUnknown_03000030;
 // extern ??? gUnknown_03000808
 // extern ??? gUnknown_03001780
 // extern ??? gUnknown_03001788
-// extern ??? gUnknown_030017A0
+// extern ??? gDungeonState
 // extern ??? gUnknown_030017AC
 // extern ??? gUnknown_030017C8
 // extern ??? gUnknown_030017CC
@@ -1537,14 +1537,6 @@ extern struct ProcCmd CONST_DATA gUnknown_0859AE18[];
 // extern ??? gUnknown_0859E518
 // extern ??? gUnknown_0859E51C
 // extern ??? gProcScr_BKSEL
-// extern ??? gUnknown_0859E64C
-// extern ??? gUnknown_0859E6EC
-// extern ??? gUnknown_0859E79C
-// extern ??? gUnknown_0859E7C8
-// extern ??? gUnknown_0859E7D4
-// extern ??? gUnknown_0859E804
-// extern ??? gUnknown_0859E82C
-// extern ??? gUnknown_0859E838
 // extern ??? gUnknown_0859E8E0
 // extern ??? gUnknown_0859ED70
 // extern ??? gUnknown_0859EDB0

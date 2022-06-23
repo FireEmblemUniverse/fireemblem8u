@@ -5386,7 +5386,7 @@ _08024CB6:
 MapMenu_RecordsCommand: @ 0x08024CBC
 	push {lr}
 	movs r0, #3
-	bl sub_80381E0
+	bl StartDungeonRecordProcFromMenu
 	movs r0, #0x17
 	pop {r1}
 	bx r1
