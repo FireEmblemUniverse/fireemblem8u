@@ -1106,18 +1106,13 @@ void sub_8038F78(struct TextHandle* th) {
             CpuFastFill(0, (void *)((BG_VRAM + 0x12400) + (0x20 * i)), 32);
         } else {
             int base = (BG_VRAM + (th->unk0 * 0x40));
+            int src = bgOffset + base;
 
-            CpuFastCopy((void *)((bgOffset + base) + 0x20), (void *)((BG_VRAM + 0x12000) + (0x20 * i)), 32);
+            src += 0x20;
+            CpuFastCopy((void *)(src), (void *)((BG_VRAM + 0x12000) + (0x20 * i)), 32);
 
-            #if NONMATCHING
-
-            #else // !NONMATCHING
-
-            asm("add r4, r4, #0x20");
-
-            #endif
-
-            CpuFastCopy((void *)((bgOffset + base) + 0x20), (void *)((BG_VRAM + 0x12400) + (0x20 * i)), 32);
+            src += 0x20;
+            CpuFastCopy((void *)(src), (void *)((BG_VRAM + 0x12400) + (0x20 * i)), 32);
         }
 
         th++;
