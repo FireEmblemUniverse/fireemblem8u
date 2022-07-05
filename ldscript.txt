@@ -61,7 +61,7 @@ SECTIONS
         src/bmidoten.o(.text);
         src/bmdebug.o(.text);
         asm/bmdebug.o(.text);
-        asm/playerphase.o(.text);
+        src/playerphase.o(.text);
         asm/koido.o(.text);
         asm/bmxfade.o(.text);
         asm/bmcamadjust.o(.text);

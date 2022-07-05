@@ -363,7 +363,7 @@ void EventEngine_CreateBattle(const u16* events) {
     proc->evStateBits |= EV_STATE_ABORT;
 }
 
-u8 EventEngineExists(void) {
+s8 EventEngineExists(void) {
     return Proc_Find(gProc_StdEventEngine) ? TRUE : FALSE;
 }
 
