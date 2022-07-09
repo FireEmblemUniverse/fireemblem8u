@@ -18,6 +18,8 @@
 #include "bmio.h"
 #include "hardware.h"
 #include "bmphase.h"
+#include "bmmind.h"
+#include "bmtrap.h"
 
 #include "constants/classes.h"
 #include "constants/items.h"
@@ -35,10 +37,6 @@ extern const struct MenuDef gUnitActionMenuDef;
 
 extern struct ProcCmd gProcScr_SALLYCURSOR[];
 
-extern struct ProcCmd gUnknown_0859AAD8[];
-extern u8* gUnknown_0859AD08[];
-extern struct ProcCmd gUnknown_0859AD50[];
-
 extern u16 gUnknown_08A02F34[];
 extern u16 gUnknown_08A02F94[];
 extern u16 gUnknown_08A02FF4[];
@@ -49,14 +47,36 @@ extern u8 gUnknown_08A02EB4[];
 void HandleCursorMovement(u16 keys);
 void MoveCameraByStepMaybe(int step);
 void sub_801588C(int step);
+void sub_80160D0(ProcPtr);
 
 // playerphase.s
+void ClearActionAndSave(void);
+void sub_801D818(ProcPtr);
+void PlayerPhase_MainLoop(ProcPtr proc);
+void Goto3IfPhaseHasNoAbleUnits(ProcPtr);
+void sub_801CC1C(void);
+void sub_801CD1C(ProcPtr proc);
+void sub_801D624(void);
+void PlayerPhase_WaitForUnitMovement(ProcPtr proc);
+void PlayerPhase_ApplyUnitMovement(ProcPtr proc);
+s8 _6CE_PLAYERPAHSE_PrepareAction(ProcPtr proc);
+s8 RunPotentialWaitEvents(void);
+s8 EnsureCameraOntoActiveUnitPosition(ProcPtr proc);
+void sub_801D344(ProcPtr proc);
+void sub_801D6FC(void);
+void sub_801D668(ProcPtr proc);
+void DisplayActiveUnitEffectRange(void);
+void sub_801CCB4(void);
+
+// bmudisp.s
+void sub_8027A40(ProcPtr);
 void sub_801DB4C(int, int);
 int GetUnitSelectionValueThing(struct Unit* unit);
 void DisplayMoveRangeGraphics(int config);
-s8 sub_801D5A8(int param_1, int param_2);
+s8 sub_801D5A8(int, int);
 
 // code.s
+void New6CPPInterfaceConstructor(ProcPtr);
 void DeletePlayerPhaseInterface6Cs(void);
 void BWL_IncrementMoveValue(u8);
 void sub_80A87C8(void);
@@ -67,11 +87,187 @@ void sub_808326C(void);
 void sub_80832CC(void);
 s8 sub_80844B0(void);
 s8 sub_8084508(void);
-void sub_801D818(ProcPtr);
+void sub_8084590(ProcPtr);
+void TryCallSelectEvents(ProcPtr);
 
 // bmudisp.s
 void sub_8027A4C(void);
 s8 sub_8027B0C(int, int);
+
+extern struct ProcCmd gProcScr_0859ACE8[];
+
+struct ProcCmd CONST_DATA gUnknown_0859AAD8[] = {
+    PROC_NAME("E_PLAYERPHASE"),
+    PROC_MARK(PROC_MARK_2),
+    PROC_SLEEP(0),
+
+PROC_LABEL(0),
+    PROC_CALL(ClearActionAndSave),
+
+    PROC_CALL(RefreshEntityBmMaps),
+    PROC_CALL(RenderBmMap),
+    PROC_CALL(SMS_UpdateFromGameData),
+
+    PROC_CALL(sub_8084590),
+    PROC_WHILE(EventEngineExists),
+
+    PROC_CALL(Goto3IfPhaseHasNoAbleUnits),
+
+    PROC_CALL(sub_80160D0),
+
+    // fallthrough
+
+PROC_LABEL(9),
+    PROC_CALL(New6CPPInterfaceConstructor),
+    PROC_CALL(sub_8027A40),
+
+    PROC_REPEAT(PlayerPhase_MainLoop),
+
+    // fallthrough
+
+PROC_LABEL(1),
+    PROC_CALL(DeletePlayerPhaseInterface6Cs),
+
+    PROC_WHILE(DoesBMXFADEExist),
+
+    PROC_CALL(SetAllUnitNotBackSprite),
+    PROC_CALL(SMS_UpdateFromGameData),
+
+    PROC_START_CHILD_BLOCKING(gProcScr_0859ACE8),
+
+    PROC_CALL(sub_801CC1C),
+    PROC_SLEEP(1),
+    PROC_REPEAT(sub_801CD1C),
+
+    PROC_CALL(sub_801D624),
+    PROC_REPEAT(PlayerPhase_WaitForUnitMovement),
+
+    // fallthrough
+
+PROC_LABEL(2),
+    PROC_REPEAT(PlayerPhase_ApplyUnitMovement),
+
+    // fallthrough
+
+PROC_LABEL(7),
+    PROC_WHILE_EXISTS(gUnknown_0859A548),
+
+    PROC_CALL_2(_6CE_PLAYERPAHSE_PrepareAction),
+
+    PROC_CALL_2(ApplyUnitAction),
+    PROC_CALL_2(HandlePostActionTraps),
+    PROC_CALL_2(RunPotentialWaitEvents),
+
+    PROC_CALL_2(EnsureCameraOntoActiveUnitPosition),
+
+    PROC_CALL(sub_801D344),
+
+    PROC_GOTO(0),
+
+PROC_LABEL(4),
+    PROC_WHILE(DoesBMXFADEExist),
+
+    PROC_GOTO(1),
+
+PROC_LABEL(5),
+    PROC_CALL(sub_801D6FC),
+
+    // fallthrough
+
+PROC_LABEL(10),
+    PROC_START_CHILD_BLOCKING(gUnknown_0859AE18),
+
+    PROC_GOTO(9),
+
+PROC_LABEL(6),
+    PROC_CALL(sub_801D668),
+
+    PROC_GOTO(1),
+
+PROC_LABEL(8),
+    PROC_SLEEP(0),
+
+    PROC_CALL(MU_EndAll),
+
+    PROC_GOTO(0),
+
+PROC_LABEL(11),
+    PROC_CALL(DeletePlayerPhaseInterface6Cs),
+
+    PROC_WHILE(DoesBMXFADEExist),
+
+    PROC_CALL(DisplayActiveUnitEffectRange),
+    PROC_REPEAT(sub_801CD1C),
+
+    PROC_GOTO(9),
+
+PROC_LABEL(12),
+    PROC_CALL(sub_801CCB4),
+    PROC_REPEAT(sub_801CD1C),
+
+    PROC_GOTO(9),
+
+PROC_LABEL(3),
+    PROC_WHILE(DoesBMXFADEExist),
+
+    PROC_END,
+
+};
+
+void MakeMoveunitForActiveUnit(void);
+
+struct ProcCmd CONST_DATA gProcScr_0859ACE8[] =
+{
+    PROC_CALL(MakeMoveunitForActiveUnit),
+    PROC_CALL(TryCallSelectEvents),
+
+    PROC_WHILE(EventEngineExists),
+
+    PROC_END,
+};
+
+u8* CONST_DATA gUnknown_0859AD08[] = {
+    NULL,
+    NULL,
+    gUnknown_08A02C34 + (0 * 4 * 0x20),
+    gUnknown_08A02C34 + (1 * 4 * 0x20),
+    gUnknown_08A02C34 + (2 * 4 * 0x20),
+    gUnknown_08A02C34 + (3 * 4 * 0x20),
+    gUnknown_08A02C34 + (4 * 4 * 0x20),
+    gUnknown_08A02C34 + (5 * 4 * 0x20),
+};
+
+void Load6CRangeDisplaySquareGfx(struct MoveLimitViewProc* proc);
+void Loop6C_MLVCHC(struct MoveLimitViewProc* proc);
+
+struct ProcCmd CONST_DATA gProcScr_0859AD28[] = {
+    PROC_NAME("MLVCHC"),
+    PROC_MARK(PROC_MARK_1),
+
+    PROC_CALL(Load6CRangeDisplaySquareGfx),
+    PROC_REPEAT(Loop6C_MLVCHC),
+
+    PROC_END,
+};
+
+void DestructMoveLimitView(struct MoveLimitViewProc* proc);
+void Setup6CRangeDisplayGfx(ProcPtr);
+void Loop6C_MoveLimitView(struct MoveLimitViewProc* proc);
+
+struct ProcCmd CONST_DATA gUnknown_0859AD50[] = {
+    PROC_NAME("E_MOVELIMITVIEW"),
+    PROC_MARK(PROC_MARK_1),
+
+    PROC_SET_END_CB(DestructMoveLimitView),
+
+    PROC_START_CHILD(gProcScr_0859AD28),
+
+    PROC_CALL(Setup6CRangeDisplayGfx),
+    PROC_REPEAT(Loop6C_MoveLimitView),
+
+    PROC_END,
+};
+
 
 void ClearActionAndSave() {
     gActionData.suspendPointType = SUSPEND_POINT_PLAYERIDLE;
@@ -82,7 +278,7 @@ void ClearActionAndSave() {
 
 void HandlePlayerCursorMovement() {
 
-    if (((gKeyStatusPtr->heldKeys & B_BUTTON)) && !(gUnknown_0202BCB0.playerCursorDisplay.x & 7) && !(gUnknown_0202BCB0.playerCursorDisplay.y & 7)) {
+    if ((gKeyStatusPtr->heldKeys & B_BUTTON) && !(gUnknown_0202BCB0.playerCursorDisplay.x & 7) && !(gUnknown_0202BCB0.playerCursorDisplay.y & 7)) {
         HandleCursorMovement(gKeyStatusPtr->newKeys2);
 
         MoveCameraByStepMaybe(8);
@@ -681,7 +877,7 @@ void sub_801D434(ProcPtr proc) {
     return;
 }
 
-void PlayerPhase_ApplyUnitMovement(ProcPtr param_1) {
+void PlayerPhase_ApplyUnitMovement(ProcPtr proc) {
 
     gActiveUnit->xPos = gActionData.xMove;
     gActiveUnit->yPos = gActionData.yMove;
@@ -695,7 +891,7 @@ void PlayerPhase_ApplyUnitMovement(ProcPtr param_1) {
     sub_8003D20();
 
     if (sub_8084508() == 1) {
-        sub_801D434(param_1);
+        sub_801D434(proc);
         return;
     }
 
@@ -703,7 +899,7 @@ void PlayerPhase_ApplyUnitMovement(ProcPtr param_1) {
         StartSemiCenteredOrphanMenu(&gUnitActionMenuDef, gUnknown_0202BCB0.unk1C.x - gUnknown_0202BCB0.camera.x, 1, 0x16);
     }
 
-    Proc_Break(param_1);
+    Proc_Break(proc);
 
     return;
 }
@@ -959,7 +1155,7 @@ void Loop6C_MLVCHC(struct MoveLimitViewProc* proc) {
     return;
 }
 
-void Setup6CRangeDisplayGfx() {
+void Setup6CRangeDisplayGfx(ProcPtr proc) {
     int iy;
     int ix;
 
