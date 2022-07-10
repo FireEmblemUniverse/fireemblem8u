@@ -21,6 +21,8 @@
 #include "bmmind.h"
 #include "bmtrap.h"
 
+#include "playerphase.h"
+
 #include "constants/classes.h"
 #include "constants/items.h"
 
@@ -35,8 +37,6 @@ struct MoveLimitViewProc {
 extern const struct MenuDef gMapMenuDef;
 extern const struct MenuDef gUnitActionMenuDef;
 
-extern struct ProcCmd gProcScr_SALLYCURSOR[];
-
 extern u16 gUnknown_08A02F34[];
 extern u16 gUnknown_08A02F94[];
 extern u16 gUnknown_08A02FF4[];
@@ -49,31 +49,12 @@ void MoveCameraByStepMaybe(int step);
 void sub_801588C(int step);
 void sub_80160D0(ProcPtr);
 
-// playerphase.s
-void ClearActionAndSave(void);
-void sub_801D818(ProcPtr);
-void PlayerPhase_MainLoop(ProcPtr proc);
-void Goto3IfPhaseHasNoAbleUnits(ProcPtr);
-void sub_801CC1C(void);
-void sub_801CD1C(ProcPtr proc);
-void sub_801D624(void);
-void PlayerPhase_WaitForUnitMovement(ProcPtr proc);
-void PlayerPhase_ApplyUnitMovement(ProcPtr proc);
-s8 _6CE_PLAYERPAHSE_PrepareAction(ProcPtr proc);
-s8 RunPotentialWaitEvents(void);
-s8 EnsureCameraOntoActiveUnitPosition(ProcPtr proc);
-void sub_801D344(ProcPtr proc);
-void sub_801D6FC(void);
-void sub_801D668(ProcPtr proc);
-void DisplayActiveUnitEffectRange(void);
-void sub_801CCB4(void);
-
 // bmudisp.s
 void sub_8027A40(ProcPtr);
-void sub_801DB4C(int, int);
+void TrySwitchViewedUnit(int, int);
 int GetUnitSelectionValueThing(struct Unit* unit);
 void DisplayMoveRangeGraphics(int config);
-s8 sub_801D5A8(int, int);
+s8 CanMoveActiveUnitTo(int, int);
 
 // code.s
 void New6CPPInterfaceConstructor(ProcPtr);
@@ -96,13 +77,30 @@ s8 sub_8027B0C(int, int);
 
 extern struct ProcCmd gProcScr_0859ACE8[];
 
-struct ProcCmd CONST_DATA gUnknown_0859AAD8[] = {
+void PlayerPhase_Suspend(void);
+void PlayerPhase_MainIdle(ProcPtr proc);
+void PlayerPhase_InitUnitMovementSelect(void);
+void PlayerPhase_DisplayDangerZone(void);
+void PlayerPhase_RangeDisplayIdle(ProcPtr proc);
+s8 PlayerPhase_PrepareAction(ProcPtr proc);
+s8 RunPotentialWaitEvents(void);
+s8 EnsureCameraOntoActiveUnitPosition(ProcPtr proc);
+void PlayerPhase_FinishAction(ProcPtr proc);
+void PlayerPhase_ApplyUnitMovement(ProcPtr proc);
+void PlayerPhase_DisplayUnitMovement(void);
+void PlayerPhase_WaitForUnitMovement(ProcPtr proc);
+void PlayerPhase_ResumeRangeDisplay(ProcPtr proc);
+void PlayerPhase_ReloadGameGfx(void);
+void PlayerPhase_RangeDisplayIdle_ForceAPress(ProcPtr);
+void PlayerPhase_HandleAutoEnd(ProcPtr);
+
+struct ProcCmd CONST_DATA gProcScr_PlayerPhase[] = {
     PROC_NAME("E_PLAYERPHASE"),
     PROC_MARK(PROC_MARK_2),
     PROC_SLEEP(0),
 
 PROC_LABEL(0),
-    PROC_CALL(ClearActionAndSave),
+    PROC_CALL(PlayerPhase_Suspend),
 
     PROC_CALL(RefreshEntityBmMaps),
     PROC_CALL(RenderBmMap),
@@ -111,7 +109,7 @@ PROC_LABEL(0),
     PROC_CALL(sub_8084590),
     PROC_WHILE(EventEngineExists),
 
-    PROC_CALL(Goto3IfPhaseHasNoAbleUnits),
+    PROC_CALL(PlayerPhase_HandleAutoEnd),
 
     PROC_CALL(sub_80160D0),
 
@@ -121,7 +119,7 @@ PROC_LABEL(9),
     PROC_CALL(New6CPPInterfaceConstructor),
     PROC_CALL(sub_8027A40),
 
-    PROC_REPEAT(PlayerPhase_MainLoop),
+    PROC_REPEAT(PlayerPhase_MainIdle),
 
     // fallthrough
 
@@ -135,11 +133,11 @@ PROC_LABEL(1),
 
     PROC_START_CHILD_BLOCKING(gProcScr_0859ACE8),
 
-    PROC_CALL(sub_801CC1C),
+    PROC_CALL(PlayerPhase_InitUnitMovementSelect),
     PROC_SLEEP(1),
-    PROC_REPEAT(sub_801CD1C),
+    PROC_REPEAT(PlayerPhase_RangeDisplayIdle),
 
-    PROC_CALL(sub_801D624),
+    PROC_CALL(PlayerPhase_DisplayUnitMovement),
     PROC_REPEAT(PlayerPhase_WaitForUnitMovement),
 
     // fallthrough
@@ -152,7 +150,7 @@ PROC_LABEL(2),
 PROC_LABEL(7),
     PROC_WHILE_EXISTS(gUnknown_0859A548),
 
-    PROC_CALL_2(_6CE_PLAYERPAHSE_PrepareAction),
+    PROC_CALL_2(PlayerPhase_PrepareAction),
 
     PROC_CALL_2(ApplyUnitAction),
     PROC_CALL_2(HandlePostActionTraps),
@@ -160,7 +158,7 @@ PROC_LABEL(7),
 
     PROC_CALL_2(EnsureCameraOntoActiveUnitPosition),
 
-    PROC_CALL(sub_801D344),
+    PROC_CALL(PlayerPhase_FinishAction),
 
     PROC_GOTO(0),
 
@@ -170,17 +168,17 @@ PROC_LABEL(4),
     PROC_GOTO(1),
 
 PROC_LABEL(5),
-    PROC_CALL(sub_801D6FC),
+    PROC_CALL(PlayerPhase_ReloadGameGfx),
 
     // fallthrough
 
 PROC_LABEL(10),
-    PROC_START_CHILD_BLOCKING(gUnknown_0859AE18),
+    PROC_START_CHILD_BLOCKING(gProcScr_ADJUSTSFROMXI),
 
     PROC_GOTO(9),
 
 PROC_LABEL(6),
-    PROC_CALL(sub_801D668),
+    PROC_CALL(PlayerPhase_ResumeRangeDisplay),
 
     PROC_GOTO(1),
 
@@ -197,13 +195,13 @@ PROC_LABEL(11),
     PROC_WHILE(DoesBMXFADEExist),
 
     PROC_CALL(DisplayActiveUnitEffectRange),
-    PROC_REPEAT(sub_801CD1C),
+    PROC_REPEAT(PlayerPhase_RangeDisplayIdle),
 
     PROC_GOTO(9),
 
 PROC_LABEL(12),
-    PROC_CALL(sub_801CCB4),
-    PROC_REPEAT(sub_801CD1C),
+    PROC_CALL(PlayerPhase_DisplayDangerZone),
+    PROC_REPEAT(PlayerPhase_RangeDisplayIdle),
 
     PROC_GOTO(9),
 
@@ -216,8 +214,7 @@ PROC_LABEL(3),
 
 void MakeMoveunitForActiveUnit(void);
 
-struct ProcCmd CONST_DATA gProcScr_0859ACE8[] =
-{
+struct ProcCmd CONST_DATA gProcScr_0859ACE8[] = {
     PROC_CALL(MakeMoveunitForActiveUnit),
     PROC_CALL(TryCallSelectEvents),
 
@@ -237,39 +234,39 @@ u8* CONST_DATA gUnknown_0859AD08[] = {
     gUnknown_08A02C34 + (5 * 4 * 0x20),
 };
 
-void Load6CRangeDisplaySquareGfx(struct MoveLimitViewProc* proc);
-void Loop6C_MLVCHC(struct MoveLimitViewProc* proc);
+void MoveLimitViewChange_OnInit(struct MoveLimitViewProc* proc);
+void MoveLimitViewChange_OnLoop(struct MoveLimitViewProc* proc);
 
-struct ProcCmd CONST_DATA gProcScr_0859AD28[] = {
+struct ProcCmd CONST_DATA sProcScr_MoveLimitViewChange[] = {
     PROC_NAME("MLVCHC"),
     PROC_MARK(PROC_MARK_1),
 
-    PROC_CALL(Load6CRangeDisplaySquareGfx),
-    PROC_REPEAT(Loop6C_MLVCHC),
+    PROC_CALL(MoveLimitViewChange_OnInit),
+    PROC_REPEAT(MoveLimitViewChange_OnLoop),
 
     PROC_END,
 };
 
-void DestructMoveLimitView(struct MoveLimitViewProc* proc);
-void Setup6CRangeDisplayGfx(ProcPtr);
-void Loop6C_MoveLimitView(struct MoveLimitViewProc* proc);
+void MoveLimitView_OnEnd(struct MoveLimitViewProc* proc);
+void MoveLimitView_OnInit(ProcPtr);
+void MoveLimitView_OnLoop(struct MoveLimitViewProc* proc);
 
-struct ProcCmd CONST_DATA gUnknown_0859AD50[] = {
+struct ProcCmd CONST_DATA sProcScr_MoveLimitView[] = {
     PROC_NAME("E_MOVELIMITVIEW"),
     PROC_MARK(PROC_MARK_1),
 
-    PROC_SET_END_CB(DestructMoveLimitView),
+    PROC_SET_END_CB(MoveLimitView_OnEnd),
 
-    PROC_START_CHILD(gProcScr_0859AD28),
+    PROC_START_CHILD(sProcScr_MoveLimitViewChange),
 
-    PROC_CALL(Setup6CRangeDisplayGfx),
-    PROC_REPEAT(Loop6C_MoveLimitView),
+    PROC_CALL(MoveLimitView_OnInit),
+    PROC_REPEAT(MoveLimitView_OnLoop),
 
     PROC_END,
 };
 
 
-void ClearActionAndSave() {
+void PlayerPhase_Suspend() {
     gActionData.suspendPointType = SUSPEND_POINT_PLAYERIDLE;
     SaveSuspendedGame(SAVE_BLOCK_SUSPEND_BASE);
 
@@ -297,7 +294,7 @@ void HandlePlayerCursorMovement() {
     return;
 }
 
-s8 sub_801C928(struct Unit* unit) {
+int CanShowUnitStatScreen(struct Unit* unit) {
     u8 class = unit->pClassData->number;
 
     if ((class == CLASS_GORGONEGG) || (class == CLASS_GORGONEGG2)) {
@@ -307,16 +304,16 @@ s8 sub_801C928(struct Unit* unit) {
     return 1;
 }
 
-void PlayerPhase_MainLoop(ProcPtr proc) {
+void PlayerPhase_MainIdle(ProcPtr proc) {
 
     HandlePlayerCursorMovement();
 
     if (gKeyStatusPtr->newKeys & L_BUTTON) {
-        sub_801DB4C(gUnknown_0202BCB0.playerCursor.x, gUnknown_0202BCB0.playerCursor.y);
+        TrySwitchViewedUnit(gUnknown_0202BCB0.playerCursor.x, gUnknown_0202BCB0.playerCursor.y);
         PlaySoundEffect(0x6B);
     } else if (!DoesBMXFADEExist()) {
         if ((gKeyStatusPtr->newKeys & R_BUTTON) && (gBmMapUnit[gUnknown_0202BCB0.playerCursor.y][gUnknown_0202BCB0.playerCursor.x] != 0)) {
-            if (sub_801C928(GetUnit(gBmMapUnit[gUnknown_0202BCB0.playerCursor.y][gUnknown_0202BCB0.playerCursor.x]))) {
+            if ((s8)CanShowUnitStatScreen(GetUnit(gBmMapUnit[gUnknown_0202BCB0.playerCursor.y][gUnknown_0202BCB0.playerCursor.x]))) {
 
                 MU_EndAll();
 
@@ -440,7 +437,7 @@ void DisplayUnitEffectRange(struct Unit* unit) {
     return;
 }
 
-void sub_801CC1C() {
+void PlayerPhase_InitUnitMovementSelect() {
 
     gUnknown_0202BCB0.gameStateBits |= (1 << 1);
 
@@ -457,7 +454,7 @@ void sub_801CC1C() {
     return;
 }
 
-void DisplayActiveUnitEffectRange() {
+void DisplayActiveUnitEffectRange(ProcPtr proc) {
 
     PlaySoundEffect(0x68);
 
@@ -467,7 +464,7 @@ void DisplayActiveUnitEffectRange() {
     return;
 }
 
-void sub_801CCB4() {
+void PlayerPhase_DisplayDangerZone() {
 
     GenerateDangerZoneRange(gUnknown_0202BCB0.unk3E & 1);
 
@@ -475,7 +472,7 @@ void sub_801CCB4() {
 
     PlaySoundEffect(0x68);
 
-    gUnknown_0202BCB0.gameStateBits |= (1 << 3); 
+    gUnknown_0202BCB0.gameStateBits |= (1 << 3);
     gUnknown_0202BCB0.gameStateBits &= ~(1 << 1);
 
     if (gUnknown_0202BCB0.unk3E & 1) {
@@ -487,7 +484,7 @@ void sub_801CCB4() {
     return;
 }
 
-void sub_801CD1C(ProcPtr proc) {
+void PlayerPhase_RangeDisplayIdle(ProcPtr proc) {
     u8 uid;
     u8 action = -1;
 
@@ -517,7 +514,7 @@ void sub_801CD1C(ProcPtr proc) {
                 
                 goto _0801CDE2;
             } else {
-                if (!sub_801D5A8(gUnknown_0202BCB0.playerCursor.x, gUnknown_0202BCB0.playerCursor.y)) {
+                if (!CanMoveActiveUnitTo(gUnknown_0202BCB0.playerCursor.x, gUnknown_0202BCB0.playerCursor.y)) {
                     action = 0;
                     goto _0801CDE2;
                 }
@@ -591,7 +588,7 @@ _0801CDE2:
                 break;
             }
 
-            if (!sub_801C928(GetUnit(uid))) {
+            if (!((s8)CanShowUnitStatScreen(GetUnit(uid)))) {
                 break;
             }
 
@@ -638,7 +635,7 @@ _0801CDE2:
     return;
 }
 
-void sub_801CFF0(ProcPtr proc) {
+void PlayerPhase_CancelAction(ProcPtr proc) {
 
     gActionData.unitActionType = 0;
     Proc_Goto(proc, 2);
@@ -646,7 +643,7 @@ void sub_801CFF0(ProcPtr proc) {
     return;
 }
 
-void sub_801D008(ProcPtr proc) {
+void PlayerPhase_BackToMove(ProcPtr proc) {
 
     gActiveUnit->xPos = gActiveUnitMoveOrigin.x;
     gActiveUnit->yPos = gActiveUnitMoveOrigin.y;
@@ -674,7 +671,7 @@ void sub_801D008(ProcPtr proc) {
     return;
 }
 
-s8 _6CE_PLAYERPAHSE_PrepareAction(ProcPtr proc) {
+s8 PlayerPhase_PrepareAction(ProcPtr proc) {
 
     s8 cameraReturn;
     int item;
@@ -689,33 +686,33 @@ s8 _6CE_PLAYERPAHSE_PrepareAction(ProcPtr proc) {
                 break;
             }
 
-            sub_801D008(proc); 
+            PlayerPhase_BackToMove(proc);
             return 1;
 
         case 27:
             gUnknown_0202BCB0.unk3D |= (1 << 1);
-            sub_801CFF0(proc);
+            PlayerPhase_CancelAction(proc);
             return 1;
 
         case 28:
             gUnknown_0202BCB0.unk3D |= (1 << 2);
-            sub_801CFF0(proc);
+            PlayerPhase_CancelAction(proc);
             return 1;
 
         case 11:
         case 12:
             gUnknown_0202BCB0.unk3D |= (1 << 0);
-            sub_801CFF0(proc);
+            PlayerPhase_CancelAction(proc);
             return 1;
 
         case 33:
         case 34:
             gUnknown_0202BCB0.unk3D |= (1 << 3);
-            sub_801CFF0(proc);
+            PlayerPhase_CancelAction(proc);
             return 1;
 
         case 29:
-            sub_801CFF0(proc);
+            PlayerPhase_CancelAction(proc);
             return 1;
     }
 
@@ -805,7 +802,7 @@ s8 EnsureCameraOntoActiveUnitPosition(ProcPtr proc) {
     return !EnsureCameraOntoPosition(proc, gActiveUnit->xPos, gActiveUnit->yPos);
 }
 
-void sub_801D344(ProcPtr proc) {
+void PlayerPhase_FinishAction(ProcPtr proc) {
 
     if (gRAMChapterData.chapterVisionRange != 0) {
         RenderBmMapOnBg2();
@@ -942,7 +939,7 @@ int GetUnitSelectionValueThing(struct Unit* unit) {
     return 3;
 }
 
-s8 sub_801D5A8(int x, int y) {
+s8 CanMoveActiveUnitTo(int x, int y) {
     struct Trap* trap;
 
     if (gBmMapUnit[y][x] != 0) {
@@ -974,7 +971,7 @@ s8 sub_801D5A8(int x, int y) {
     return 0;
 }
 
-void sub_801D624() {
+void PlayerPhase_DisplayUnitMovement() {
     GetMovementScriptFromPath();
     UnitApplyWorkingMovementScript(gActiveUnit, gActiveUnit->xPos, gActiveUnit->yPos) ;
     MU_StartMoveScript_Auto(gWorkingMovementScript);
@@ -990,7 +987,7 @@ void PlayerPhase_WaitForUnitMovement(ProcPtr proc) {
     return;
 }
 
-void sub_801D668(ProcPtr proc) {
+void PlayerPhase_ResumeRangeDisplay(ProcPtr proc) {
 
     if (!gActiveUnit) {
         RefreshBMapGraphics();
@@ -1018,7 +1015,7 @@ void sub_801D668(ProcPtr proc) {
     return;
 }
 
-void sub_801D6FC() {
+void PlayerPhase_ReloadGameGfx() {
     RefreshBMapGraphics();
     SetDefaultColorEffects();
 
@@ -1044,7 +1041,7 @@ void MakeMoveunitForActiveUnit() {
 void ClearActiveUnit(ProcPtr proc) {
     ProcPtr playerPhaseProc;
 
-    playerPhaseProc = Proc_Find(gUnknown_0859AAD8);
+    playerPhaseProc = Proc_Find(gProcScr_PlayerPhase);
     if (!playerPhaseProc) {
         return;
     }
@@ -1079,24 +1076,24 @@ void ClearActiveUnit(ProcPtr proc) {
 void sub_801D7E8() {
     ProcPtr playerPhaseProc;
 
-    playerPhaseProc = Proc_Find(gUnknown_0859AAD8);
+    playerPhaseProc = Proc_Find(gProcScr_PlayerPhase);
     if (!playerPhaseProc) {
         return;
     }
     
-    if (((struct Proc*)(playerPhaseProc))->proc_idleCb == sub_801CD1C) {
-        Proc_SetRepeatCb(playerPhaseProc, sub_801D818);
+    if (((struct Proc*)(playerPhaseProc))->proc_idleCb == PlayerPhase_RangeDisplayIdle) {
+        Proc_SetRepeatCb(playerPhaseProc, PlayerPhase_RangeDisplayIdle_ForceAPress);
     }
 
     return;
 }
 
-void sub_801D818(ProcPtr proc) {
+void PlayerPhase_RangeDisplayIdle_ForceAPress(ProcPtr proc) {
 
     gKeyStatusPtr->newKeys = A_BUTTON;
     gKeyStatusPtr->repeatedKeys = 0;
 
-    sub_801CD1C(proc);
+    PlayerPhase_RangeDisplayIdle(proc);
 
     return;
 }
@@ -1128,7 +1125,7 @@ void sub_801D834() {
     return;
 }
 
-void Load6CRangeDisplaySquareGfx(struct MoveLimitViewProc* proc) {
+void MoveLimitViewChange_OnInit(struct MoveLimitViewProc* proc) {
 
     RegisterTileGraphics(gUnknown_08A02EB4, (u8*)VRAM + 0x5080, 0x80);
 
@@ -1142,7 +1139,7 @@ void Load6CRangeDisplaySquareGfx(struct MoveLimitViewProc* proc) {
     return;
 }
 
-void Loop6C_MLVCHC(struct MoveLimitViewProc* proc) {
+void MoveLimitViewChange_OnLoop(struct MoveLimitViewProc* proc) {
 
     RegisterTileGraphics(gUnknown_0859AD08[proc->unk_4C], (u8*)VRAM + 0x5000, 0x80);
 
@@ -1155,7 +1152,7 @@ void Loop6C_MLVCHC(struct MoveLimitViewProc* proc) {
     return;
 }
 
-void Setup6CRangeDisplayGfx(ProcPtr proc) {
+void MoveLimitView_OnInit(ProcPtr proc) {
     int iy;
     int ix;
 
@@ -1191,7 +1188,7 @@ void Setup6CRangeDisplayGfx(ProcPtr proc) {
     return;
 }
 
-void Loop6C_MoveLimitView(struct MoveLimitViewProc* proc) {
+void MoveLimitView_OnLoop(struct MoveLimitViewProc* proc) {
 
     int frame = (GetGameClock() / 2) & 31;
 
@@ -1214,7 +1211,7 @@ void Loop6C_MoveLimitView(struct MoveLimitViewProc* proc) {
     return;
 }
 
-void DestructMoveLimitView(struct MoveLimitViewProc* proc) {
+void MoveLimitView_OnEnd(struct MoveLimitViewProc* proc) {
     if ((proc->unk_4A & 0x11) != 0) {
         BG_Fill(gBG2TilemapBuffer, 0);
         BG_EnableSyncByMask(4);
@@ -1230,26 +1227,26 @@ void DestructMoveLimitView(struct MoveLimitViewProc* proc) {
 void DisplayMoveRangeGraphics(int flags) {
     struct MoveLimitViewProc* proc;
 
-    proc = Proc_Find(gUnknown_0859AD50);
+    proc = Proc_Find(sProcScr_MoveLimitView);
     if (proc) {
-        Setup6CRangeDisplayGfx(proc);
-        Load6CRangeDisplaySquareGfx(0);
+        MoveLimitView_OnInit(proc);
+        MoveLimitViewChange_OnInit(0);
 
         return;
     }
 
-    proc = Proc_Start(gUnknown_0859AD50, PROC_TREE_4);
+    proc = Proc_Start(sProcScr_MoveLimitView, PROC_TREE_4);
     proc->unk_4A = flags;
 
     return;
 }
 
 void HideMoveRangeGraphics() {
-    Proc_EndEach(gUnknown_0859AD50);
+    Proc_EndEach(sProcScr_MoveLimitView);
     return;
 }
 
-s8 sub_801DADC(int unitId) {
+s8 TrySetCursorOn(int unitId) {
     ProcPtr proc;
 
     struct Unit* unit = GetUnit(unitId);
@@ -1266,7 +1263,7 @@ s8 sub_801DADC(int unitId) {
         return 0;
     }
     
-    proc = Proc_Find(gUnknown_0859AAD8);
+    proc = Proc_Find(gProcScr_PlayerPhase);
 
     if (!proc) {
         proc = Proc_Find(gProcScr_SALLYCURSOR);
@@ -1278,7 +1275,7 @@ s8 sub_801DADC(int unitId) {
     return 1;
 }
 
-void sub_801DB4C(int x, int y) {
+void TrySwitchViewedUnit(int x, int y) {
     int i;
 
     int unitId = gBmMapUnit[y][x];
@@ -1290,13 +1287,13 @@ void sub_801DB4C(int x, int y) {
     unitId++;
 
     for (i = unitId; i < 0x3F; ++i) {
-        if (sub_801DADC(i)) {
+        if (TrySetCursorOn(i)) {
             return;
         }
     }
 
     for (i = 1; i <= unitId; ++i) {
-        if (sub_801DADC(i)) {
+        if (TrySetCursorOn(i)) {
             return;
         }
     }
@@ -1304,7 +1301,7 @@ void sub_801DB4C(int x, int y) {
     return;
 }
 
-void Goto3IfPhaseHasNoAbleUnits(ProcPtr proc) {
+void PlayerPhase_HandleAutoEnd(ProcPtr proc) {
 
     if (!(gRAMChapterData.unk41_7) && (GetPhaseAbleUnitCount(gRAMChapterData.chapterPhaseIndex) == 0)) {
         Proc_Goto(proc, 3);

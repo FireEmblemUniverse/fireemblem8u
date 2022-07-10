@@ -16,8 +16,8 @@ gUnknown_0859ADC8:  @ 0x0859ADC8
 gUnknown_0859AE00:  @ 0x0859AE00
 	.incbin "baserom.gba", 0x59AE00, 0x18
 
-	.global gUnknown_0859AE18
-gUnknown_0859AE18:  @ 0x0859AE18
+	.global gProcScr_ADJUSTSFROMXI
+gProcScr_ADJUSTSFROMXI:  @ 0x0859AE18
 	.incbin "baserom.gba", 0x59AE18, 0x20
 
 	.global gUnknown_0859AE38

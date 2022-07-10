@@ -16,6 +16,7 @@
 #include "uiutils.h"
 #include "uimenu.h"
 #include "uiselecttarget.h"
+#include "playerphase.h"
 
 #include "constants/characters.h"
 #include "constants/items.h"
@@ -49,7 +50,6 @@ void sub_801E684(ProcPtr parent, struct Unit* unit, int x, int y);
 void sub_801E748(int number);
 
 void FillWarpRangeMap(struct Unit* caster, struct Unit* target);
-void DisplayMoveRangeGraphics(int config);
 
 static s8 HasSelectTarget(struct Unit* unit, void(*func)(struct Unit*));
 
