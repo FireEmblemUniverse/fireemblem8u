@@ -3,7 +3,7 @@
 
 int GetPhaseAbleUnitCount(int faction);
 int CountUnitsInState(int faction, int state);
-int AreUnitsAllied(int left, int right);
+s8 AreUnitsAllied(int left, int right);
 int IsSameAllegiance(int left, int right);
 int GetCurrentPhase(void);
 int GetNonActiveFaction(void);

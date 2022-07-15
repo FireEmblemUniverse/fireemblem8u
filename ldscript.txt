@@ -114,6 +114,7 @@ SECTIONS
         src/cp_decide.o(.text);
         asm/cpperform.o(.text);
         asm/code_cpextra.o(.text);
+        src/cpextra_80407F0.o(.text);
         asm/code_sio.o(.text);
         src/uiutils.o(.text);
         src/uimenu.o(.text);

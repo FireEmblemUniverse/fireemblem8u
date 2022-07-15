@@ -47,7 +47,7 @@ int CountUnitsInState(int faction, int state) {
     return count;
 }
 
-int AreUnitsAllied(int left, int right) {
+s8 AreUnitsAllied(int left, int right) {
     int a = left & 0x80;
     int b = right & 0x80;
     return (a == b);

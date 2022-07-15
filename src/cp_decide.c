@@ -267,7 +267,7 @@ void AiClearDecision(void)
     gAiDecision.actionPerformed = FALSE;
 }
 
-void AiSetDecision(u8 xMove, u8 yMove, u8 actionId, u8 targetId, u8 itemSlot, u8 xTarget, u8 yTarget)
+void AiSetDecision(s16 xMove, s16 yMove, u8 actionId, u8 targetId, u8 itemSlot, u8 xTarget, u8 yTarget)
 {
     gAiDecision.unitId = gActiveUnitId;
     gAiDecision.xMove = xMove;
