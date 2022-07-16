@@ -10966,7 +10966,7 @@ _0803F888: .4byte 0x0000FFFF
 _0803F88C: .4byte gActiveUnit
 _0803F890:
 	adds r0, r2, #0
-	bl sub_8040E68
+	bl InitAiMoveMapForUnit
 	ldr r0, _0803F964  @ gBmMapSize
 	movs r1, #2
 	ldrsh r0, [r0, r1]

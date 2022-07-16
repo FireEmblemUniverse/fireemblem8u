@@ -13,12 +13,6 @@
 #include "constants/items.h"
 #include "constants/terrains.h"
 
-struct Struct080D86F4 {
-    u16 itemId;
-    void(*func)(int itemIdx);
-};
-
-extern struct Struct080D86F4 gUnknown_080D86F4[];
 
 
 // code_cpextra.s
@@ -33,22 +27,39 @@ void sub_803C490(struct Unit*);
 s8 sub_8040B38(struct Unit*, struct Vec2*);
 s8 sub_8040BB4(struct Unit*, u32, struct Vec2*, struct Vec2*);
 s8 sub_8040C5C(void);
-void sub_8040E68(struct Unit*);
+void InitAiMoveMapForUnit(struct Unit*);
 void sub_8040E98(struct Unit*);
 void sub_8040F88(struct Unit*);
 void sub_8040FBC(struct Unit*);
 
 
-int sub_80407F0(u16 item) {
+struct AiSpecialItemLutEntry {
+    u16 itemId;
+    void(*func)(int itemIdx);
+};
+
+void AiSpecialItemDoorKey(int item);
+void AiSpecialItemLockpick(int item);
+void AiSpecialItemAntitoxin(int item);
+
+const struct AiSpecialItemLutEntry sAiSpecialItemFuncLut[] = {
+    { ITEM_DOORKEY,   AiSpecialItemDoorKey },
+    { ITEM_LOCKPICK,  AiSpecialItemLockpick },
+    { ITEM_ANTITOXIN, AiSpecialItemAntitoxin },
+    { },
+};
+
+
+int GetSpecialItemFuncIndex(u16 item) {
     int index = 0;
     u16 itemId = GetItemIndex(item);
 
-    for (; gUnknown_080D86F4[index].itemId != 0; index++) {
-        if (itemId != gUnknown_080D86F4[index].itemId) {
+    for (; sAiSpecialItemFuncLut[index].itemId != 0; index++) {
+        if (itemId != sAiSpecialItemFuncLut[index].itemId) {
             continue;
         }
 
-        if (gUnknown_080D86F4[index].func != 0) {
+        if (sAiSpecialItemFuncLut[index].func != 0) {
             return index;
         }
     }
@@ -79,13 +90,13 @@ s8 AiTryDoSpecialItems() {
             continue;
         }
 
-        funcIndex = sub_80407F0(item);
+        funcIndex = GetSpecialItemFuncIndex(item);
 
         if (funcIndex == -1) {
             continue;
         }
 
-        gUnknown_080D86F4[funcIndex].func(i);
+        sAiSpecialItemFuncLut[funcIndex].func(i);
     }
 
     if (gAiState.decideState == 0) {
@@ -95,7 +106,7 @@ s8 AiTryDoSpecialItems() {
     return gAiDecision.actionPerformed;
 }
 
-void sub_80408DC(int item) {
+void AiSpecialItemDoorKey(int item) {
     struct Vec2 pos;
 
     if (!(gAiState.specialItemFlags & 0x80000001)) {
@@ -119,7 +130,7 @@ void sub_80408DC(int item) {
     return;
 }
 
-void sub_8040974(int item) {
+void AiSpecialItemLockpick(int item) {
 
     struct Vec2 pos;
     u32 flags = 0;
@@ -165,7 +176,7 @@ void sub_8040974(int item) {
     return;
 }
 
-void sub_8040A78(int item) {
+void AiSpecialItemAntitoxin(int item) {
 
     struct Vec2 pos;
 
@@ -197,7 +208,9 @@ u8 sub_8040AE0(int x, int y) {
     return gBmMapRange[y][x];
 }
 
-extern const u8 gUnknown_085A92DC[];
+const u8 CONST_DATA gUnknown_085A92DC[] = {
+    TERRAIN_DOOR, TERRAIN_TILE_00,
+};
 
 s8 sub_8040B38(struct Unit* unit, struct Vec2* pos) {
 
@@ -216,7 +229,9 @@ s8 sub_8040B38(struct Unit* unit, struct Vec2* pos) {
     return 1;
 }
 
-extern const u8 gUnknown_085A92DE[];
+const u8 CONST_DATA gUnknown_085A92DE[] = {
+    TERRAIN_CHEST_21, TERRAIN_TILE_00,
+};
 
 s8 sub_8040B8C(struct Unit* unit, struct Vec2* pos) {
     sub_8040E98(unit);
@@ -230,7 +245,7 @@ s8 sub_8040B8C(struct Unit* unit, struct Vec2* pos) {
 
 s8 sub_8040BB4(struct Unit* unit, u32 flags, struct Vec2* posA, struct Vec2* posB) {
 
-    sub_8040E68(unit);
+    InitAiMoveMapForUnit(unit);
     sub_8040F88(unit);
 
     if ((sub_803AFDC(flags | 1, posA, posB) == 1) && ((s8)gBmMapMovement[posA->y][posA->x] < MAP_MOVEMENT_MAX)) {
@@ -301,7 +316,7 @@ s8 sub_8040C5C() {
     }
 }
 
-void sub_8040DCC(const s8* cost) {
+void AiSetMovCostTableWithPassableWalls(const s8* cost) {
     u16 i;
 
     for (i = 1; i < TERRAIN_COUNT; i++) {
@@ -340,7 +355,7 @@ void sub_8040E34(const s8* cost, int terrainIdA, int terraidIdB) {
     return;
 }
 
-void sub_8040E68(struct Unit* unit) {
+void InitAiMoveMapForUnit(struct Unit* unit) {
     SetWorkingMoveCosts(GetUnitMovementCost(unit));
 
     SetWorkingBmMap(gBmMapMovement);
@@ -359,7 +374,7 @@ void sub_8040E98(struct Unit* unit) {
 }
 
 void sub_8040EC8(struct Unit* unit) {
-    sub_8040DCC(GetUnitMovementCost(unit));
+    AiSetMovCostTableWithPassableWalls(GetUnitMovementCost(unit));
 
     SetWorkingBmMap(gBmMapMovement);
     GenerateMovementMap(unit->xPos, unit->yPos, MAP_MOVEMENT_EXTENDED, unit->index);
@@ -368,7 +383,7 @@ void sub_8040EC8(struct Unit* unit) {
 }
 
 void sub_8040EF8(struct Unit* unit) {
-    sub_8040DCC(GetUnitMovementCost(unit));
+    AiSetMovCostTableWithPassableWalls(GetUnitMovementCost(unit));
 
     SetWorkingBmMap(gBmMapMovement);
     GenerateMovementMap(unit->xPos, unit->yPos, MAP_MOVEMENT_EXTENDED, 0);
@@ -377,7 +392,7 @@ void sub_8040EF8(struct Unit* unit) {
 }
 
 void sub_8040F28(int x, int y, const s8* cost) {
-    sub_8040DCC(cost);
+    AiSetMovCostTableWithPassableWalls(cost);
 
     SetWorkingBmMap(gBmMapRange);
     GenerateMovementMap(x, y, MAP_MOVEMENT_EXTENDED, 0);
@@ -386,7 +401,7 @@ void sub_8040F28(int x, int y, const s8* cost) {
 }
 
 void sub_8040F54(int x, int y, struct Unit* unit) {
-    sub_8040DCC(GetUnitMovementCost(unit));
+    AiSetMovCostTableWithPassableWalls(GetUnitMovementCost(unit));
 
     SetWorkingBmMap(gBmMapRange);
     GenerateMovementMap(x, y, MAP_MOVEMENT_EXTENDED, unit->index);
@@ -459,7 +474,7 @@ void sub_80410C4(int x, int y, struct Unit* unit) {
     return;
 }
 
-int sub_80410F8(int* numValidTargets, int* numHit, u8 threshold) {
+int AiDetermineNightmareEffectiveness(int* numValidTargets, int* numHit, u8 threshold) {
     int iy;
     int ix;
     struct Unit* unit;
@@ -517,7 +532,7 @@ struct UnknownAiInputA {
     u8 unk_02;
 };
 
-s8 sub_80411F8(struct UnknownAiInputA* input) {
+s8 AiTryUseNightmareStaff(struct UnknownAiInputA* input) {
     int ix;
     int iy;
     int itemIdx;
@@ -579,7 +594,7 @@ s8 sub_80411F8(struct UnknownAiInputA* input) {
                     BmMapFill(gBmMapRange, 0);
                     MapAddInBoundedRange(ix, iy, GetItemMinRange(ITEM_NIGHTMARE), GetItemMaxRange(ITEM_NIGHTMARE));
 
-                    targetUnitId = sub_80410F8(&numValidTargets, &numHit, input->unk_02);
+                    targetUnitId = AiDetermineNightmareEffectiveness(&numValidTargets, &numHit, input->unk_02);
 
                     if (numValidTargets > countB) {
                         countB = numValidTargets;
@@ -623,7 +638,7 @@ s8 sub_80411F8(struct UnknownAiInputA* input) {
     // return 0; BUG? No explicit return if foundItem is false
 }
 
-s8 sub_80413CC() {
+s8 AiDecideNightmareStaff() {
 
     AiSetDecision(gAiState.unk86[1], gAiState.unk86[2], 0xB, gAiState.unk86[3], gAiState.unk86[4], 0, 0);
 
@@ -638,7 +653,7 @@ struct UnknownAiInputB {
     struct UnitDefinition* unk_04;
 };
 
-s8 sub_8041404(struct UnknownAiInputB* input) {
+s8 AiTryDKSummon(struct UnknownAiInputB* input) {
     int ix;
     int iy;
 
@@ -657,7 +672,7 @@ s8 sub_8041404(struct UnknownAiInputB* input) {
     BmMapFill(gBmMapRange, 0);
     MapAddInBoundedRange(gActiveUnit->xPos, gActiveUnit->yPos, GetItemMinRange(ITEM_NIGHTMARE), GetItemMaxRange(ITEM_NIGHTMARE));
 
-    sub_80410F8(&numValidTargets, &numHit, 0);
+    AiDetermineNightmareEffectiveness(&numValidTargets, &numHit, 0);
 
     if (numValidTargets >= input->unk_00) {
 
@@ -709,7 +724,7 @@ s8 sub_8041404(struct UnknownAiInputB* input) {
     return 0;
 }
 
-s8 sub_8041584() {
+s8 AiDecideDKSummon() {
     AiSetDecision(gAiState.unk86[1], gAiState.unk86[2], 0xC, 0, 0, 0, 0);
 
     return 1;
