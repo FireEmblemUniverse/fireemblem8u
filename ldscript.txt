@@ -85,7 +85,7 @@ SECTIONS
         asm/bmmenu.o(.text);
         src/bmphase.o(.text);
         src/bmgold.o(.text);
-        asm/bmtarget.o(.text);
+        src/bmtarget.o(.text);
         asm/bmudisp.o(.text);
         src/bmreliance.o(.text);
         src/bmitemuse.o(.text);

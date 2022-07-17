@@ -53,7 +53,7 @@ s8 AreUnitsAllied(int left, int right) {
     return (a == b);
 }
 
-int IsSameAllegiance(int left, int right) {
+s8 IsSameAllegiance(int left, int right) {
     int ret;
     if ((left & 0xc0) == (right & 0xc0)) {
         ret = 1;
