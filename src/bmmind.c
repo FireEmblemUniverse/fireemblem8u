@@ -14,6 +14,7 @@
 #include "bmusemind.h"
 #include "bmtrap.h"
 #include "bmarch.h"
+#include "bmtarget.h"
 #include "bmmind.h"
 
 #include "constants/items.h"

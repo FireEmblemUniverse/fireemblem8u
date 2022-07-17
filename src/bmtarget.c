@@ -14,7 +14,7 @@
 #include "constants/classes.h"
 #include "constants/terrains.h"
 
-extern struct Unit* gUnknown_02033F3C;
+struct Unit* EWRAM_DATA gSubjectUnit = NULL;
 
 // ev_triggercheck.s
 s8 sub_8083F68(u8, u8);
@@ -24,7 +24,7 @@ s8 IsThereClosedDoorAt(s8, s8);
 void BWL_AddWinOrLossIdk(u8, u8, int);
 void sub_80A4594(u8);
 
-void sub_8024E40(void(*func)(struct Unit* unit)) {
+void ForEachUnitInMovement(void(*func)(struct Unit* unit)) {
     int ix;
     int iy;
 
@@ -139,12 +139,12 @@ void ForEachPosIn12Range(int x, int y, void(*func)(int x, int y)) {
 }
 
 void ForEachUnitInMagBy2Range(void(*func)(struct Unit* unit)) {
-    int x = gUnknown_02033F3C->xPos;
-    int y = gUnknown_02033F3C->yPos;
+    int x = gSubjectUnit->xPos;
+    int y = gSubjectUnit->yPos;
 
     InitTargets(x, y);
 
-    MapAddInRange(x, y, GetUnitMagBy2Range(gUnknown_02033F3C), 1);
+    MapAddInRange(x, y, GetUnitMagBy2Range(gSubjectUnit), 1);
     MapAddInRange(x, y, 0, -1);
 
     ForEachUnitInRange(func);
@@ -178,7 +178,7 @@ void TryAddTrapsToTargetList() {
 
 void AddUnitToTargetListIfNotAllied(struct Unit* unit) {
 
-    if (!AreUnitsAllied(gUnknown_02033F3C->index, unit->index)) {
+    if (!AreUnitsAllied(gSubjectUnit->index, unit->index)) {
         AddTarget(unit->xPos, unit->yPos, unit->index, 0);
     }
 
@@ -190,7 +190,7 @@ void MakeTargetListForWeapon(struct Unit* unit, int item) {
     int x = unit->xPos;
     int y = unit->yPos;
 
-    gUnknown_02033F3C = unit;
+    gSubjectUnit = unit;
 
     InitTargets(x, y);
 
@@ -207,17 +207,17 @@ void MakeTargetListForWeapon(struct Unit* unit, int item) {
 
 void TryAddUnitToTradeTargetList(struct Unit* unit) {
 
-    if (!IsSameAllegiance(gUnknown_02033F3C->index, unit->index)) {
+    if (!IsSameAllegiance(gSubjectUnit->index, unit->index)) {
         return;
     }
 
-    if (gUnknown_02033F3C->pClassData->number == CLASS_PHANTOM || unit->pClassData->number == CLASS_PHANTOM) {
+    if (gSubjectUnit->pClassData->number == CLASS_PHANTOM || unit->pClassData->number == CLASS_PHANTOM) {
         return;
     }
 
     if (unit->statusIndex != UNIT_STATUS_BERSERK) {
 
-        if (gUnknown_02033F3C->items[0] != 0 || unit->items[0] != 0) {
+        if (gSubjectUnit->items[0] != 0 || unit->items[0] != 0) {
 
             if (!(UNIT_CATTRIBUTES(unit) & CA_SUPPLY)) {
                 AddTarget(unit->xPos, unit->yPos, unit->index, 0);
@@ -232,7 +232,7 @@ void TryAddUnitToTradeTargetList(struct Unit* unit) {
             return;
         }
 
-        if (gUnknown_02033F3C->items[0] == 0 && rescue->items[0] == 0 ) {
+        if (gSubjectUnit->items[0] == 0 && rescue->items[0] == 0 ) {
             return;
         }
 
@@ -246,18 +246,18 @@ void MakeTradeTargetList(struct Unit* unit) {
     int x = unit->xPos;
     int y = unit->yPos;
 
-    gUnknown_02033F3C = unit;
+    gSubjectUnit = unit;
 
     BmMapFill(gBmMapRange, 0);
     ForEachAdjacentUnit(x, y, TryAddUnitToTradeTargetList);
 
-    if (gUnknown_02033F3C->state & US_RESCUING) {
+    if (gSubjectUnit->state & US_RESCUING) {
         int count = GetSelectTargetCount();
-        TryAddUnitToTradeTargetList(GetUnit(gUnknown_02033F3C->rescueOtherUnit));
+        TryAddUnitToTradeTargetList(GetUnit(gSubjectUnit->rescueOtherUnit));
 
         if (count != GetSelectTargetCount()) {
-            GetTarget(count)->x = gUnknown_02033F3C->xPos;
-            GetTarget(count)->y = gUnknown_02033F3C->yPos;
+            GetTarget(count)->x = gSubjectUnit->xPos;
+            GetTarget(count)->y = gSubjectUnit->yPos;
         }
     }
 
@@ -266,11 +266,11 @@ void MakeTradeTargetList(struct Unit* unit) {
 
 void TryAddUnitToRescueTargetList(struct Unit* unit) {
 
-    if (!AreUnitsAllied(gUnknown_02033F3C->index, unit->index)) {
+    if (!AreUnitsAllied(gSubjectUnit->index, unit->index)) {
         return;
     }
 
-    if (gUnknown_02033F3C->pClassData->number == CLASS_PHANTOM || unit->pClassData->number == CLASS_PHANTOM) {
+    if (gSubjectUnit->pClassData->number == CLASS_PHANTOM || unit->pClassData->number == CLASS_PHANTOM) {
         return;
     }
 
@@ -282,7 +282,7 @@ void TryAddUnitToRescueTargetList(struct Unit* unit) {
         return;
     }
 
-    if (!CanUnitRescue(gUnknown_02033F3C, unit)) {
+    if (!CanUnitRescue(gSubjectUnit, unit)) {
         return;
     }
 
@@ -295,7 +295,7 @@ void MakeRescueTargetList(struct Unit* unit) {
     int x = unit->xPos;
     int y = unit->yPos;
 
-    gUnknown_02033F3C = unit;
+    gSubjectUnit = unit;
 
     BmMapFill(gBmMapRange, 0);
 
@@ -310,7 +310,7 @@ void TryAddToDropTargetList(int x, int y) {
         return;
     }
 
-    if (!CanUnitCrossTerrain(GetUnit(gUnknown_02033F3C->rescueOtherUnit), gBmMapTerrain[y][x])) {
+    if (!CanUnitCrossTerrain(GetUnit(gSubjectUnit->rescueOtherUnit), gBmMapTerrain[y][x])) {
         return;
     }
 
@@ -323,7 +323,7 @@ void MakeDropTargetList(struct Unit* unit) {
     int x = unit->xPos;
     int y = unit->yPos;
 
-    gUnknown_02033F3C = unit;
+    gSubjectUnit = unit;
 
     BmMapFill(gBmMapRange, 0);
 
@@ -333,7 +333,7 @@ void MakeDropTargetList(struct Unit* unit) {
 
 void TryAddRescuedUnitToTakeTargetList(struct Unit* unit) {
 
-    if (!IsSameAllegiance(gUnknown_02033F3C->index, unit->index)) {
+    if (!IsSameAllegiance(gSubjectUnit->index, unit->index)) {
         return;
     }
 
@@ -345,7 +345,7 @@ void TryAddRescuedUnitToTakeTargetList(struct Unit* unit) {
         return;
     }
 
-    if (!CanUnitRescue(gUnknown_02033F3C, GetUnit(unit->rescueOtherUnit))) {
+    if (!CanUnitRescue(gSubjectUnit, GetUnit(unit->rescueOtherUnit))) {
         return;
     }
 
@@ -358,7 +358,7 @@ void MakeTakeTargetList(struct Unit* unit) {
     int x = unit->xPos;
     int y = unit->yPos;
 
-    gUnknown_02033F3C = unit;
+    gSubjectUnit = unit;
 
     BmMapFill(gBmMapRange, 0);
 
@@ -367,9 +367,9 @@ void MakeTakeTargetList(struct Unit* unit) {
     return;
 }
 
-void sub_8025514(struct Unit* unit) {
+void TryAddUnitToGiveTargetList(struct Unit* unit) {
 
-    if (!IsSameAllegiance(gUnknown_02033F3C->index, unit->index)) {
+    if (!IsSameAllegiance(gSubjectUnit->index, unit->index)) {
         return;
     }
 
@@ -385,7 +385,7 @@ void sub_8025514(struct Unit* unit) {
         return;
     }
 
-    if (!CanUnitRescue(unit, GetUnit(gUnknown_02033F3C->rescueOtherUnit))) {
+    if (!CanUnitRescue(unit, GetUnit(gSubjectUnit->rescueOtherUnit))) {
         return;
     }
 
@@ -394,25 +394,25 @@ void sub_8025514(struct Unit* unit) {
     return;
 }
 
-void sub_8025594(struct Unit* unit) {
+void MakeGiveTargetList(struct Unit* unit) {
     int x = unit->xPos;
     int y = unit->yPos;
 
-    gUnknown_02033F3C = unit;
+    gSubjectUnit = unit;
 
     BmMapFill(gBmMapRange, 0);
 
-    ForEachAdjacentUnit(x, y, sub_8025514);
+    ForEachAdjacentUnit(x, y, TryAddUnitToGiveTargetList);
 
     return;
 }
 
-void sub_80255C8(struct Unit* unit) {
+void TryAddUnitToTalkTargetList(struct Unit* unit) {
     if (unit->statusIndex == UNIT_STATUS_BERSERK || unit->statusIndex == UNIT_STATUS_SLEEP) {
         return;
     }
 
-    if (!sub_8083F68(gUnknown_02033F3C->pCharacterData->number, unit->pCharacterData->number)) {
+    if (!sub_8083F68(gSubjectUnit->pCharacterData->number, unit->pCharacterData->number)) {
         return;
     }
 
@@ -421,15 +421,15 @@ void sub_80255C8(struct Unit* unit) {
     return;
 }
 
-void sub_8025610(struct Unit* unit) {
+void MakeTalkTargetList(struct Unit* unit) {
     int x = unit->xPos;
     int y = unit->yPos;
 
-    gUnknown_02033F3C = unit;
+    gSubjectUnit = unit;
 
     BmMapFill(gBmMapRange, 0);
 
-    ForEachAdjacentUnit(x, y, sub_80255C8);
+    ForEachAdjacentUnit(x, y, TryAddUnitToTalkTargetList);
 
     return;
 }
@@ -438,25 +438,25 @@ void MakeTargetListForSupport(struct Unit* unit) {
     int i;
     int count;
 
-    gUnknown_02033F3C = unit;
+    gSubjectUnit = unit;
 
     InitTargets(unit->xPos, unit->yPos);
 
-    count = GetUnitSupporterCount(gUnknown_02033F3C);
+    count = GetUnitSupporterCount(gSubjectUnit);
 
     for (i = 0; i < count; i++) {
 
-        struct Unit* other = GetUnitSupporterUnit(gUnknown_02033F3C, i);
+        struct Unit* other = GetUnitSupporterUnit(gSubjectUnit, i);
 
         if (other == 0) {
             continue;
         }
 
-        if (RECT_DISTANCE(gUnknown_02033F3C->xPos, gUnknown_02033F3C->yPos, other->xPos, other->yPos) != 1) {
+        if (RECT_DISTANCE(gSubjectUnit->xPos, gSubjectUnit->yPos, other->xPos, other->yPos) != 1) {
             continue;
         }
 
-        if (!CanUnitSupportNow(gUnknown_02033F3C, i)) {
+        if (!CanUnitSupportNow(gSubjectUnit, i)) {
             continue;
         }
 
@@ -475,7 +475,7 @@ void MakeTargetListForSupport(struct Unit* unit) {
 }
 
 void AddUnitToTargetListIfAllied(struct Unit* unit) {
-    if (AreUnitsAllied(gUnknown_02033F3C->index, unit->index)) {
+    if (AreUnitsAllied(gSubjectUnit->index, unit->index)) {
         return;
     }
 
@@ -490,7 +490,7 @@ void FillBallistaRangeMaybe(struct Unit* unit) {
 
     int x = unit->xPos;
     int y = unit->yPos;
-    gUnknown_02033F3C = unit;
+    gSubjectUnit = unit;
 
     InitTargets(x, y);
 
@@ -542,7 +542,7 @@ void MakeTargetListForDoorAndBridges(struct Unit* unit, int terrainId) {
     int x = unit->xPos;
     int y = unit->yPos;
 
-    gUnknown_02033F3C = unit;
+    gSubjectUnit = unit;
 
     BmMapFill(gBmMapRange, 0);
 
@@ -571,11 +571,11 @@ void sub_8025864(int x, int y) {
     return;
 }
 
-void sub_80258A4(struct Unit* unit) {
+void MakeTargetListForPick(struct Unit* unit) {
     int x = unit->xPos;
     int y = unit->yPos;
 
-    gUnknown_02033F3C = unit;
+    gSubjectUnit = unit;
 
     BmMapFill(gBmMapRange, 0);
 
@@ -588,7 +588,7 @@ void sub_80258A4(struct Unit* unit) {
     return;
 }
 
-void sub_8025904(int faction) {
+void MakeTerrainHealTargetList(int faction) {
     int i;
 
     InitTargets(0, 0);
@@ -613,7 +613,7 @@ void sub_8025904(int faction) {
             AddTarget(unit->xPos, unit->yPos, unit->index, amount);
         }
 
-        if (GetTerrainUnk(terrainId) == 0) {
+        if (GetTerrainHealsStatus(terrainId) == 0) {
             continue;
         }
 
@@ -631,7 +631,7 @@ void sub_8025904(int faction) {
     return;
 }
 
-void sub_80259EC(int faction) {
+void MakePoisonDamageTargetList(int faction) {
 
     int i;
 
@@ -658,7 +658,7 @@ void sub_80259EC(int faction) {
     return;
 }
 
-void sub_8025A64(int faction) {
+void MakeGorgonEggHatchTargetList(int faction) {
     int i;
     s8 r8;
 
@@ -712,9 +712,9 @@ void sub_8025A64(int faction) {
     return;
 }
 
-void sub_8025B18(struct Unit* unit) {
+void TryAddUnitToRefreshTargetList(struct Unit* unit) {
 
-    if (!IsSameAllegiance(gUnknown_02033F3C->index, unit->index)) {
+    if (!IsSameAllegiance(gSubjectUnit->index, unit->index)) {
         return;
     }
 
@@ -731,15 +731,15 @@ void sub_8025B18(struct Unit* unit) {
     return;
 }
 
-void sub_8025B6C(struct Unit* unit) {
+void MakeTargetListForRefresh(struct Unit* unit) {
     int x = unit->xPos;
     int y = unit->yPos;
 
-    gUnknown_02033F3C = unit;
+    gSubjectUnit = unit;
 
     BmMapFill(gBmMapRange, 0);
 
-    ForEachAdjacentUnit(x, y, sub_8025B18);
+    ForEachAdjacentUnit(x, y, TryAddUnitToRefreshTargetList);
 
     return;
 }
@@ -777,7 +777,7 @@ void MakeTargetListForSteal(struct Unit* unit) {
     int x = unit->xPos;
     int y = unit->yPos;
 
-    gUnknown_02033F3C = unit;
+    gSubjectUnit = unit;
 
     BmMapFill(gBmMapRange, 0);
 
@@ -786,7 +786,7 @@ void MakeTargetListForSteal(struct Unit* unit) {
     return;
 }
 
-void sub_8025C34(int x, int y) {
+void AddAsTarget_IfPositionCleanForSummon(int x, int y) {
 
     if (gBmMapUnit[y][x] != 0) {
         return;
@@ -796,7 +796,7 @@ void sub_8025C34(int x, int y) {
         return;
     }
 
-    if (!CanUnitCrossTerrain(gUnknown_02033F3C, gBmMapTerrain[y][x])) {
+    if (!CanUnitCrossTerrain(gSubjectUnit, gBmMapTerrain[y][x])) {
         return;
     }
 
@@ -805,15 +805,15 @@ void sub_8025C34(int x, int y) {
     return;
 }
 
-void sub_8025CA4(struct Unit* unit) {
+void MakeTargetListForSummon(struct Unit* unit) {
     int x = unit->xPos;
     int y = unit->yPos;
 
-    gUnknown_02033F3C = unit;
+    gSubjectUnit = unit;
 
     BmMapFill(gBmMapRange, 0);
 
-    ForEachAdjacentPosition(x, y, sub_8025C34);
+    ForEachAdjacentPosition(x, y, AddAsTarget_IfPositionCleanForSummon);
 
     return;
 }
@@ -828,7 +828,7 @@ void sub_8025CD8(int x, int y) {
         return;
     }
 
-    if (!CanUnitCrossTerrain(gUnknown_02033F3C, gBmMapTerrain[y][x])) {
+    if (!CanUnitCrossTerrain(gSubjectUnit, gBmMapTerrain[y][x])) {
         return;
     }
 
@@ -841,7 +841,7 @@ void sub_8025D48(struct Unit* unit) {
     int x = unit->xPos;
     int y = unit->yPos;
 
-    gUnknown_02033F3C = unit;
+    gSubjectUnit = unit;
 
     BmMapFill(gBmMapRange, 0);
 
@@ -854,7 +854,7 @@ void sub_8025D80(struct Unit* unit) {
     int x = unit->xPos;
     int y = unit->yPos;
 
-    gUnknown_02033F3C = unit;
+    gSubjectUnit = unit;
 
     BmMapFill(gBmMapRange, 0);
 
@@ -867,7 +867,7 @@ void sub_8025DB8(struct Unit* unit) {
     int x = unit->xPos;
     int y = unit->yPos;
 
-    gUnknown_02033F3C = unit;
+    gSubjectUnit = unit;
 
     BmMapFill(gBmMapRange, 0);
 
@@ -880,7 +880,7 @@ void sub_8025DF0(struct Unit* unit) {
     int x = unit->xPos;
     int y = unit->yPos;
 
-    gUnknown_02033F3C = unit;
+    gSubjectUnit = unit;
 
     BmMapFill(gBmMapRange, 0);
 
@@ -891,7 +891,7 @@ void sub_8025DF0(struct Unit* unit) {
 
 void TryAddUnitToHealTargetList(struct Unit* unit) {
 
-    if (!AreUnitsAllied(gUnknown_02033F3C->index, unit->index)) {
+    if (!AreUnitsAllied(gSubjectUnit->index, unit->index)) {
         return;
     }
 
@@ -912,7 +912,7 @@ void MakeTargetListForAdjacentHeal(struct Unit* unit) {
     int x = unit->xPos;
     int y = unit->yPos;
 
-    gUnknown_02033F3C = unit;
+    gSubjectUnit = unit;
 
     BmMapFill(gBmMapRange, 0);
 
@@ -925,13 +925,13 @@ void MakeTargetListForRangedHeal(struct Unit* unit) {
     int x = unit->xPos;
     int y = unit->yPos;
 
-    gUnknown_02033F3C = unit;
+    gSubjectUnit = unit;
 
     InitTargets(x, y);
 
     BmMapFill(gBmMapRange, 0);
 
-    MapAddInRange(x, y, GetUnitMagBy2Range(gUnknown_02033F3C), 1);
+    MapAddInRange(x, y, GetUnitMagBy2Range(gSubjectUnit), 1);
 
     ForEachUnitInRange(TryAddUnitToHealTargetList);
 
@@ -940,7 +940,7 @@ void MakeTargetListForRangedHeal(struct Unit* unit) {
 
 void AddToTargetListIfNotAllied(struct Unit* unit) {
 
-    if (AreUnitsAllied(gUnknown_02033F3C->index, unit->index) == 1) {
+    if (AreUnitsAllied(gSubjectUnit->index, unit->index) == 1) {
         return;
     }
 
@@ -957,7 +957,7 @@ void MakeTargetListForFuckingNightmare(struct Unit* unit) {
     int x = unit->xPos;
     int y = unit->yPos;
 
-    gUnknown_02033F3C = unit;
+    gSubjectUnit = unit;
 
     InitTargets(x, y);
 
@@ -973,7 +973,7 @@ void MakeTargetListForFuckingNightmare(struct Unit* unit) {
 
 void TryAddUnitToRestoreTargetList(struct Unit* unit) {
 
-    if (!AreUnitsAllied(gUnknown_02033F3C->index, unit->index)) {
+    if (!AreUnitsAllied(gSubjectUnit->index, unit->index)) {
         return;
     }
 
@@ -994,7 +994,7 @@ void MakeTargetListForRestore(struct Unit* unit) {
     int x = unit->xPos;
     int y = unit->yPos;
 
-    gUnknown_02033F3C = unit;
+    gSubjectUnit = unit;
 
     BmMapFill(gBmMapRange, 0);
 
@@ -1005,7 +1005,7 @@ void MakeTargetListForRestore(struct Unit* unit) {
 
 void TryAddUnitToBarrierTargetList(struct Unit* unit) {
 
-    if (!AreUnitsAllied(gUnknown_02033F3C->index, unit->index)) {
+    if (!AreUnitsAllied(gSubjectUnit->index, unit->index)) {
         return;
     }
 
@@ -1026,7 +1026,7 @@ void MakeTargetListForBarrier(struct Unit* unit) {
     int x = unit->xPos;
     int y = unit->yPos;
 
-    gUnknown_02033F3C = unit;
+    gSubjectUnit = unit;
 
     BmMapFill(gBmMapRange, 0);
 
@@ -1037,7 +1037,7 @@ void MakeTargetListForBarrier(struct Unit* unit) {
 
 void TryAddUnitToRescueStaffTargetList(struct Unit* unit) {
 
-    if (!AreUnitsAllied(gUnknown_02033F3C->index, unit->index)) {
+    if (!AreUnitsAllied(gSubjectUnit->index, unit->index)) {
         return;
     }
 
@@ -1047,7 +1047,7 @@ void TryAddUnitToRescueStaffTargetList(struct Unit* unit) {
 }
 
 void MakeTargetListForRescueStaff(struct Unit* unit) {
-    gUnknown_02033F3C = unit;
+    gSubjectUnit = unit;
 
     BmMapFill(gBmMapRange, 0);
 
@@ -1058,7 +1058,7 @@ void MakeTargetListForRescueStaff(struct Unit* unit) {
 
 void TryAddUnitToSilenceTargetList(struct Unit* unit) {
 
-    if (AreUnitsAllied(gUnknown_02033F3C->index, unit->index)) {
+    if (AreUnitsAllied(gSubjectUnit->index, unit->index)) {
         return;
     }
 
@@ -1073,7 +1073,7 @@ void TryAddUnitToSilenceTargetList(struct Unit* unit) {
 
 void TryAddUnitToSleepTargetList(struct Unit* unit) {
 
-    if (AreUnitsAllied(gUnknown_02033F3C->index, unit->index)) {
+    if (AreUnitsAllied(gSubjectUnit->index, unit->index)) {
         return;
     }
 
@@ -1086,9 +1086,9 @@ void TryAddUnitToSleepTargetList(struct Unit* unit) {
     return;
 }
 
-void TryAddUnitToBerzerkTargetList(struct Unit* unit) {
+void TryAddUnitToBerserkTargetList(struct Unit* unit) {
 
-    if (AreUnitsAllied(gUnknown_02033F3C->index, unit->index)) {
+    if (AreUnitsAllied(gSubjectUnit->index, unit->index)) {
         return;
     }
 
@@ -1102,7 +1102,7 @@ void TryAddUnitToBerzerkTargetList(struct Unit* unit) {
 }
 
 void MakeTargetListForSilence(struct Unit* unit) {
-    gUnknown_02033F3C = unit;
+    gSubjectUnit = unit;
 
     BmMapFill(gBmMapRange, 0);
 
@@ -1112,7 +1112,7 @@ void MakeTargetListForSilence(struct Unit* unit) {
 }
 
 void MakeTargetListForSleep(struct Unit* unit) {
-    gUnknown_02033F3C = unit;
+    gSubjectUnit = unit;
 
     BmMapFill(gBmMapRange, 0);
 
@@ -1122,17 +1122,17 @@ void MakeTargetListForSleep(struct Unit* unit) {
 }
 
 void MakeTargetListForBerserk(struct Unit* unit) {
-    gUnknown_02033F3C = unit;
+    gSubjectUnit = unit;
 
     BmMapFill(gBmMapRange, 0);
 
-    ForEachUnitInMagBy2Range(TryAddUnitToBerzerkTargetList);
+    ForEachUnitInMagBy2Range(TryAddUnitToBerserkTargetList);
 
     return;
 }
 
 void TryAddUnitToWarpTargetList(struct Unit* unit) {
-    if (!AreUnitsAllied(gUnknown_02033F3C->index, unit->index)) {
+    if (!AreUnitsAllied(gSubjectUnit->index, unit->index)) {
         return;
     }
 
@@ -1145,7 +1145,7 @@ void MakeTargetListForWarp(struct Unit* unit) {
     int x = unit->xPos;
     int y = unit->yPos;
 
-    gUnknown_02033F3C = unit;
+    gSubjectUnit = unit;
 
     BmMapFill(gBmMapRange, 0);
 
@@ -1158,7 +1158,7 @@ void MakeTargetListForUnlock(struct Unit* unit) {
     int x = unit->xPos;
     int y = unit->yPos;
 
-    gUnknown_02033F3C = unit;
+    gSubjectUnit = unit;
 
     BmMapFill(gBmMapRange, 0);
 
@@ -1170,7 +1170,7 @@ void MakeTargetListForUnlock(struct Unit* unit) {
 void TryAddUnitToHammerneTargetList(struct Unit* unit) {
     int i;
 
-    if (!IsSameAllegiance(gUnknown_02033F3C->index, unit->index)) {
+    if (!IsSameAllegiance(gSubjectUnit->index, unit->index)) {
         return;
     }
 
@@ -1188,7 +1188,7 @@ void MakeTargetListForHammerne(struct Unit* unit) {
     int x = unit->xPos;
     int y = unit->yPos;
 
-    gUnknown_02033F3C = unit;
+    gSubjectUnit = unit;
 
     BmMapFill(gBmMapRange, 0);
 
@@ -1248,7 +1248,7 @@ void sub_8026414(int unk) {
     return;
 }
 
-void sub_802646C(int x, int y) {
+void TryAddToMineTargetList(int x, int y) {
     struct Trap* trap;
 
     if (gBmMapUnit[y][x] != 0) {
@@ -1259,7 +1259,7 @@ void sub_802646C(int x, int y) {
         return;
     }
 
-    if (!CanUnitCrossTerrain(gUnknown_02033F3C, gBmMapTerrain[y][x])) {
+    if (!CanUnitCrossTerrain(gSubjectUnit, gBmMapTerrain[y][x])) {
         return;
     }
 
@@ -1278,15 +1278,15 @@ void MakeTargetListForMine(struct Unit* unit) {
     int x = unit->xPos;
     int y = unit->yPos;
 
-    gUnknown_02033F3C = unit;
+    gSubjectUnit = unit;
 
     BmMapFill(gBmMapRange, 0);
-    ForEachAdjacentPosition(x, y, sub_802646C);
+    ForEachAdjacentPosition(x, y, TryAddToMineTargetList);
 
     return;
 }
 
-void sub_8026524(int x, int y) {
+void TryAddToLightRuneTargetList(int x, int y) {
     struct Trap* trap;
 
     if (gBmMapUnit[y][x] != 0) {
@@ -1312,11 +1312,11 @@ void MakeTargetListForLightRune(struct Unit* unit) {
     int x = unit->xPos;
     int y = unit->yPos;
 
-    gUnknown_02033F3C = unit;
+    gSubjectUnit = unit;
 
     BmMapFill(gBmMapRange, 0);
 
-    ForEachAdjacentPosition(x, y, sub_8026524);
+    ForEachAdjacentPosition(x, y, TryAddToLightRuneTargetList);
 
     return;
 }
@@ -1340,7 +1340,7 @@ void MakeTargetListForDanceRing(struct Unit* unit) {
     int x = unit->xPos;
     int y = unit->yPos;
 
-    gUnknown_02033F3C = unit;
+    gSubjectUnit = unit;
 
     BmMapFill(gBmMapRange, 0);
 

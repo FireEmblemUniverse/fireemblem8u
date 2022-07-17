@@ -663,7 +663,7 @@ int GetTerrainHealAmount(int terrainId) {
     return gUnknown_0880C744[terrainId];
 }
 
-s8 GetTerrainUnk(int terrainId) {
+s8 GetTerrainHealsStatus(int terrainId) {
     return gUnknown_0880C785[terrainId];
 }
 
