@@ -174,7 +174,7 @@ CanUnitUseAttack: @ 0x08034428
 	ldr r4, _08034464  @ gActiveUnit
 	ldr r0, [r4]
 	bl GenerateUnitCompleteAttackRange
-	ldr r1, _08034468  @ gUnknown_02033F3C
+	ldr r1, _08034468  @ gSubjectUnit
 	ldr r0, [r4]
 	str r0, [r1]
 	ldr r0, _0803446C  @ AddUnitToTargetListIfNotAllied
@@ -190,7 +190,7 @@ _0803445A:
 	.align 2, 0
 _08034460: .4byte gBmMapRange
 _08034464: .4byte gActiveUnit
-_08034468: .4byte gUnknown_02033F3C
+_08034468: .4byte gSubjectUnit
 _0803446C: .4byte AddUnitToTargetListIfNotAllied
 
 	THUMB_FUNC_END CanUnitUseAttack

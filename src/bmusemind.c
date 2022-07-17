@@ -17,6 +17,7 @@
 #include "soundwrapper.h"
 #include "bmtrick.h"
 #include "bmtrap.h"
+#include "bmtarget.h"
 
 #include "bmusemind.h"
 

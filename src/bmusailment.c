@@ -12,6 +12,7 @@
 #include "bmmap.h"
 #include "bmbattle.h"
 #include "mu.h"
+#include "bmtarget.h"
 
 extern u16 gUnknown_08A032AC[];
 extern u16 gUnknown_08A03334[]; // palette
@@ -21,11 +22,6 @@ extern u16 gUnknown_02022C28[];
 extern u16 gUnknown_02022C48[];
 extern u16 gUnknown_02022C68[];
 
-
-// bmtarget.s
-void sub_8025904(int);
-void sub_80259EC(int);
-void sub_8025A64(int);
 
 // bb.s
 void sub_80357A8(ProcPtr, struct Unit*, int, int);
@@ -333,7 +329,7 @@ void sub_8035DDC(struct Unit* unit, ProcPtr proc) {
 
 void sub_8035E20(struct UnknownBMUSAilmentProc* proc) {
 
-    sub_8025904(gRAMChapterData.chapterPhaseIndex);
+    MakeTerrainHealTargetList(gRAMChapterData.chapterPhaseIndex);
 
     if (GetSelectTargetCount() == 0) {
         Proc_End(proc);
@@ -413,7 +409,7 @@ void sub_8035F6C(struct UnknownBMUSAilmentProc* proc) {
 }
 
 void sub_8035FB8(struct UnknownBMUSAilmentProc* proc) {
-    sub_80259EC(gRAMChapterData.chapterPhaseIndex);
+    MakePoisonDamageTargetList(gRAMChapterData.chapterPhaseIndex);
     sub_8026414(4);
 
     if (GetSelectTargetCount() == 0) {
@@ -473,7 +469,7 @@ void sub_803608C(struct Unit* unit) {
 
 void sub_80360B8(struct UnknownBMUSAilmentProc* proc) {
 
-    sub_8025A64(gRAMChapterData.chapterPhaseIndex);
+    MakeGorgonEggHatchTargetList(gRAMChapterData.chapterPhaseIndex);
 
     if (GetSelectTargetCount() == 0) {
         Proc_End(proc);

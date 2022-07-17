@@ -521,7 +521,6 @@ extern struct Vec2 gActiveUnitMoveOrigin;
 // extern ??? gUnitArrayGreen
 // extern ??? gUnknown_02030B8C
 extern u8 gWorkingMovementScript[];
-// extern ??? gUnknown_02033F3C
 // extern ??? gUnknown_02033F40
 // extern ??? gUnknown_02034010
 // extern ??? gUnknown_02036010

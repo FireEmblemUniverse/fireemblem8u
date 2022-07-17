@@ -22,7 +22,7 @@ void UpdateBmMapDisplay(void);
 void RefreshEntityBmMaps(void);
 char* GetTerrainName(int terrainId);
 int GetTerrainHealAmount(int terrainId);
-int GetTerrainUnk(int terrainId);
+s8 GetTerrainHealsStatus(int terrainId);
 void sub_801A278(void);
 void RevertMapChange(int id);
 
