@@ -222,6 +222,8 @@ _080CD1BE:
 
 	THUMB_FUNC_END LoadBattleSpritesForBranchScreen
 
+// https://cexplore.karathan.at/z/Uq0oxh
+
 	THUMB_FUNC_START sub_80CD1D4
 sub_80CD1D4: @ 0x080CD1D4
 	push {r4, r5, lr}
@@ -253,6 +255,8 @@ _080CD210: .4byte gUnknown_030053A0
 _080CD214: .4byte gUnknown_0201FADC
 
 	THUMB_FUNC_END sub_80CD1D4
+
+// https://cexplore.karathan.at/z/hmlqqJ
 
 	THUMB_FUNC_START sub_80CD218
 sub_80CD218: @ 0x080CD218

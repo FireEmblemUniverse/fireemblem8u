@@ -260,6 +260,8 @@
 // extern ??? gUnknown_0201FAD0
 // extern ??? gUnknown_0201FAD4
 // extern ??? gUnknown_0201FAD8
+
+// Likely a struct
 extern u8 gUnknown_0201FADC[];
 // extern ??? gUnknown_0201FB04
 // extern ??? gUnknown_0201FB0C
@@ -808,6 +810,8 @@ extern struct GMapData gUnknown_03005280;
 // extern ??? gUnknown_03005360
 // extern ??? gUnknown_03005380
 // extern ??? gUnknown_03005398
+
+// Likely a struct
 extern u8 gUnknown_030053A0[];
 // extern ??? gUnknown_030053E0
 // extern ??? gUnknown_03005408
