@@ -114,7 +114,7 @@ SECTIONS
         src/cp_phase.o(.text);
         src/cp_order.o(.text);
         src/cp_decide.o(.text);
-        asm/cpperform.o(.text);
+        src/cp_perform.o(.text);
         asm/code_cpextra.o(.text);
         src/cpextra_80407F0.o(.text);
         asm/code_sio.o(.text);

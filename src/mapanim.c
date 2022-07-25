@@ -14,7 +14,7 @@
 #include "mapanim.h"
 
 // unreferenced
-void sub_807A708(u32 a) {
+void sub_807A708(ProcPtr a) {
     if (gCurrentMapAnimState.u62 == 1) {
         sub_8011694(gCurrentMapAnimState.actors[1].pBattleUnit->weapon, a);
     }

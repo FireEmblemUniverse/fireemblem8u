@@ -3,7 +3,7 @@
 
 extern struct MapAnimState gCurrentMapAnimState;
 
-void sub_807A708(u32 a);
+void sub_807A708(ProcPtr a);
 void DisplayWpnBrokePopup(u32 a);
 s8 BattleUnit_ShouldDisplayWpnBroke(struct BattleUnit *);
 void DisplayWRankUpPopup(u32 a);

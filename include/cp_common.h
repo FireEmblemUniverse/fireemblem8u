@@ -56,6 +56,14 @@ enum
 enum
 {
     AI_ACTION_NONE = 0, // move only
+    AI_ACTION_COMBAT = 1,
+    AI_ACTION_ESCAPE = 2,
+    AI_ACTION_STEAL = 3,
+    AI_ACTION_PILLAGE = 4,
+    AI_ACTION_STAFF = 5,
+    AI_ACTION_USEITEM = 6,
+    AI_ACTION_REFRESH = 7,
+    AI_ACTION_TALK = 8,
 };
 
 extern struct AiState gAiState;
