@@ -7,6 +7,8 @@
 #include "chapterdata.h"
 #include "proc.h"
 #include "event.h"
+#include "uiselecttarget.h"
+#include "bmtarget.h"
 #include "bmtrick.h"
 
 static void GenerateFireTileTrapTargets(int x, int y, int damage);

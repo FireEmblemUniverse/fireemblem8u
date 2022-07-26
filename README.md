@@ -1,6 +1,6 @@
 # Fire Emblem: The Sacred Stones
 
-[![buddy pipeline](https://app.buddy.works/destinybreaknowel/fireemblem8u/pipelines/pipeline/352815/badge.svg?token=61eea1d37289fa9621fff3ce067c98559da0750abf5597ae53c4d4b3085d20f9 "buddy pipeline")](https://app.buddy.works/destinybreaknowel/fireemblem8u/pipelines/pipeline/352815) [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com)
+[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com)
 
 This is a disassembly of Fire Emblem: The Sacred Stones (U)[!]
 
@@ -15,7 +15,7 @@ It builds the following ROM:
 # for Ubuntu/WSL users
 apt install binutils-arm-none-eabi
 ```
-3. Install [agbcc](https://github.com/pret/agbcc) to this project.
+3. Install [agbcc](https://github.com/pret/agbcc)(or [agbcc](https://github.com/holmesmr/agbcc) for M1 Mac users) to this project.
 ```
 cd /path/to/agbcc
 ./build.sh
@@ -49,6 +49,10 @@ A: You must place a copy of the Fire Emblem: The Sacred Stones ROM named `basero
 Q: `unrecognized option '--add-symbol'`
 
 A: Update your devkitPro or embedded toolchain. Read [this](https://github.com/bminor/binutils-gdb/blob/3451a2d7a3501e9c3fc344cbc4950c495f30c16d/binutils/ChangeLog-2015#L120) for more info.
+
+Q: `.dep/src/xxx.d:2: *** missing separator.  Stop.`
+
+A: `rm -rf .dep` or disable [VSCode Extension: Makefile Tools](https://marketplace.visualstudio.com/items?itemName=ms-vscode.makefile-tools) if installed.
 
 Check [INSTALL.md](https://github.com/pret/pokeruby/blob/master/INSTALL.md) and [INSTALL.md](https://github.com/pret/pokeemerald/blob/master/INSTALL.md) if you have trouble in setting up.
 

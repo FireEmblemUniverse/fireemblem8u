@@ -935,10 +935,12 @@ MigrationBackup/
 gccdump/
 
 # Artifact of dump_sound
-scripts/dump_sound/bin
-scripts/dump_sound/obj
-scripts/dump_sound/sound
-scripts/dump_sound/sound.s
+!scripts/dump_sound/Program.cs
+scripts/dump_sound/
 
 # Converted sound samples
 sound/direct_sound_samples/*.bin
+
+# Converted songs
+sound/songs/midi/*.s
+.vscode/settings.json

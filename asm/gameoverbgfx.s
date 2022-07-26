@@ -198,8 +198,8 @@ sub_80212C0: @ 0x080212C0
 	ldr r1, _080213E8  @ gUnknown_08A0AE84
 	movs r2, #0x80
 	bl CallARM_FillTileRect
-	bl sub_801FEE8
-	bl sub_801FE14
+	bl PutScreenFogEffectOverlayed
+	bl PutScreenFogEffect
 	movs r0, #0xc
 	bl BG_EnableSyncByMask
 	ldr r0, _080213EC  @ sub_802127C
@@ -357,7 +357,7 @@ sub_8021470: @ 0x08021470
 	adds r3, r5, #0
 	bl sub_800172C
 	movs r0, #4
-	bl Sound_FadeOut800231C
+	bl Sound_FadeOutBGM
 	pop {r4, r5}
 	pop {r0}
 	bx r0

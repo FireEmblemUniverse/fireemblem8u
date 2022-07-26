@@ -134,7 +134,7 @@ sub_801ED58: @ 0x0801ED58
 	cmp r4, r0
 	beq _0801ED70
 	movs r0, #4
-	bl Sound_FadeOut800231C
+	bl Sound_FadeOutBGM
 _0801ED70:
 	ldr r0, _0801ED90  @ gRAMChapterData
 	adds r0, #0x41

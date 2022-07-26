@@ -77,4 +77,6 @@ void ShrinkPlayerUnits(void);
 void sub_8034278(void);
 bool8 sub_80342FC(void);
 
+extern struct ProcCmd gProcScr_SALLYCURSOR[];
+
 #endif  // GUARD_SALLYCURSOR_H

@@ -1994,7 +1994,7 @@ sub_8085388: @ 0x08085388
 	bne _080853A8
 _080853A2:
 	movs r0, #4
-	bl Sound_FadeOut800231C
+	bl Sound_FadeOutBGM
 _080853A8:
 	pop {r0}
 	bx r0
@@ -2666,7 +2666,7 @@ sub_8085844: @ 0x08085844
 	ldr r0, _08085868  @ gUnknown_089EE000
 	bl Proc_EndEach
 	movs r0, #4
-	bl SoundStuff_80023E0
+	bl Sound_FadeOutSE
 	pop {r0}
 	bx r0
 	.align 2, 0
@@ -2687,7 +2687,7 @@ sub_808586C: @ 0x0808586C
 	ldr r0, _08085890  @ gUnknown_089EE030
 	bl Proc_EndEach
 	movs r0, #4
-	bl SoundStuff_80023E0
+	bl Sound_FadeOutSE
 	pop {r0}
 	bx r0
 	.align 2, 0
@@ -2763,7 +2763,7 @@ _080858F8:
 	adds r0, r4, #0
 	bl Proc_Break
 	movs r0, #4
-	bl SoundStuff_80023E0
+	bl Sound_FadeOutSE
 _08085916:
 	pop {r4}
 	pop {r0}
@@ -2804,7 +2804,7 @@ sub_8085948: @ 0x08085948
 	ands r0, r1
 	strh r0, [r2, #0xe]
 	movs r0, #4
-	bl SoundStuff_80023E0
+	bl Sound_FadeOutSE
 	ldr r0, _0808596C  @ gUnknown_089EE048
 	bl Proc_EndEach
 	pop {r0}
@@ -3218,7 +3218,7 @@ sub_8085C38: @ 0x08085C38
 sub_8085C4C: @ 0x08085C4C
 	push {lr}
 	movs r0, #0
-	bl sub_8037C40
+	bl InitDungeon
 	pop {r0}
 	bx r0
 
@@ -3228,7 +3228,7 @@ sub_8085C4C: @ 0x08085C4C
 sub_8085C58: @ 0x08085C58
 	push {lr}
 	movs r0, #1
-	bl sub_8037C40
+	bl InitDungeon
 	pop {r0}
 	bx r0
 

@@ -825,7 +825,7 @@ _08012CCE:
 	ldr r0, _08012CE0  @ gUnknown_085925F0
 	bl Proc_EndEach
 	movs r0, #4
-	bl SoundStuff_80023E0
+	bl Sound_FadeOutSE
 _08012CDA:
 	pop {r0}
 	bx r0
@@ -5470,7 +5470,7 @@ sub_8014BD0: @ 0x08014BD0
 	push {lr}
 	lsls r0, r0, #0x10
 	asrs r0, r0, #0x10
-	bl Sound_FadeOut800231C
+	bl Sound_FadeOutBGM
 	pop {r0}
 	bx r0
 
@@ -6690,10 +6690,10 @@ _0801546C:
 	beq _0801547C
 	b _08015494
 _08015472:
-	ldr r0, _08015478  @ gUnknown_0859AAD8
+	ldr r0, _08015478  @ gProcScr_PlayerPhase
 	b _0801547E
 	.align 2, 0
-_08015478: .4byte gUnknown_0859AAD8
+_08015478: .4byte gProcScr_PlayerPhase
 _0801547C:
 	ldr r0, _08015488  @ gProcScr_CpPhase
 _0801547E:
@@ -6721,7 +6721,7 @@ _080154A0: .4byte gProcScr_CpPhase
 NewPlayerPhase6C: @ 0x080154A4
 	push {r4, lr}
 	adds r4, r0, #0
-	ldr r0, _080154C4  @ gUnknown_0859AAD8
+	ldr r0, _080154C4  @ gProcScr_PlayerPhase
 	adds r1, r4, #0
 	bl Proc_StartBlocking
 	movs r1, #7
@@ -6732,7 +6732,7 @@ NewPlayerPhase6C: @ 0x080154A4
 	pop {r0}
 	bx r0
 	.align 2, 0
-_080154C4: .4byte gUnknown_0859AAD8
+_080154C4: .4byte gProcScr_PlayerPhase
 
 	THUMB_FUNC_END NewPlayerPhase6C
 
@@ -6793,7 +6793,7 @@ sub_801550C: @ 0x0801550C
 	cmp r0, #0
 	bne _08015534
 _0801552C:
-	ldr r0, _08015540  @ gUnknown_0859B1B0
+	ldr r0, _08015540  @ gProcScr_ChapterIntro
 	adds r1, r4, #0
 	bl Proc_StartBlocking
 _08015534:
@@ -6802,7 +6802,7 @@ _08015534:
 	bx r0
 	.align 2, 0
 _0801553C: .4byte gRAMChapterData
-_08015540: .4byte gUnknown_0859B1B0
+_08015540: .4byte gProcScr_ChapterIntro
 
 	THUMB_FUNC_END sub_801550C
 
@@ -6855,7 +6855,7 @@ GotoChapterWithoutSave: @ 0x08015588
 	bl Proc_Find
 	movs r1, #2
 	bl Proc_Goto
-	ldr r0, _080155B8  @ gUnknown_0859AAD8
+	ldr r0, _080155B8  @ gProcScr_PlayerPhase
 	bl Proc_EndEach
 	ldr r0, _080155BC  @ gProcScr_CpPhase
 	bl Proc_EndEach
@@ -6866,7 +6866,7 @@ GotoChapterWithoutSave: @ 0x08015588
 	.align 2, 0
 _080155B0: .4byte gRAMChapterData
 _080155B4: .4byte gProc_BMapMain
-_080155B8: .4byte gUnknown_0859AAD8
+_080155B8: .4byte gProcScr_PlayerPhase
 _080155BC: .4byte gProcScr_CpPhase
 _080155C0: .4byte gProcScr_BerserkCpPhase
 

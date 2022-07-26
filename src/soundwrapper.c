@@ -47,24 +47,24 @@ s8 sub_8002264(void)
     return sSoundStatus.unk6;
 }
 
-void Sound_SetVolume8002274(int volume)
+void Sound_SetBGMVolume(int volume)
 {
-    m4aMPlayVolumeControl(&gUnknown_03006690, 0xFFFF, volume);
-    m4aMPlayVolumeControl(&gUnknown_03006760, 0xFFFF, volume);
-    m4aMPlayVolumeControl(&gUnknown_030066D0, 0xFFFF, volume);
-    m4aMPlayVolumeControl(&gUnknown_030063C0, 0xFFFF, volume);
-    m4aMPlayVolumeControl(&gUnknown_03006400, 0xFFFF, volume);
-    m4aMPlayVolumeControl(&gUnknown_03006610, 0xFFFF, volume);
-    m4aMPlayVolumeControl(&gUnknown_03006720, 0xFFFF, volume);
+    m4aMPlayVolumeControl(&gMPlayInfo_SE1_SYS1, 0xFFFF, volume);
+    m4aMPlayVolumeControl(&gMPlayInfo_SE2_SYS2, 0xFFFF, volume);
+    m4aMPlayVolumeControl(&gMPlayInfo_SE3_BMP1, 0xFFFF, volume);
+    m4aMPlayVolumeControl(&gMPlayInfo_SE4_BMP2, 0xFFFF, volume);
+    m4aMPlayVolumeControl(&gMPlayInfo_SE5_BMP3, 0xFFFF, volume);
+    m4aMPlayVolumeControl(&gMPlayInfo_SE6_BMP4, 0xFFFF, volume);
+    m4aMPlayVolumeControl(&gMPlayInfo_SE7_EVT, 0xFFFF, volume);
 }
 
-void Sound_SetVolume80022EC(int volume)
+void Sound_SetSEVolume(int volume)
 {
-    m4aMPlayVolumeControl(&gUnknown_03006440, 0xFFFF, volume);
-    m4aMPlayVolumeControl(&gUnknown_03006650, 0xFFFF, volume);
+    m4aMPlayVolumeControl(&gMPlayInfo_BGM1, 0xFFFF, volume);
+    m4aMPlayVolumeControl(&gMPlayInfo_BGM2, 0xFFFF, volume);
 }
 
-void Sound_FadeOut800231C(int speed)
+void Sound_FadeOutBGM(int speed)
 {
     if (speed < 0)
         speed = 6;
@@ -78,12 +78,12 @@ void Sound_FadeOut800231C(int speed)
         Proc_Break(sMusicProc2);
         sMusicProc2 = NULL;
     }
-    m4aMPlayFadeOut(&gUnknown_03006440, speed);
-    m4aMPlayFadeOut(&gUnknown_03006650, speed);
+    m4aMPlayFadeOut(&gMPlayInfo_BGM1, speed);
+    m4aMPlayFadeOut(&gMPlayInfo_BGM2, speed);
     sSoundStatus.unk6 = FALSE;
 }
 
-void Sound_FadeOut800237C(int speed)
+void Sound_FadeOutBGMAlt(int speed)
 {
     if (speed < 0)
         speed = 6;
@@ -97,23 +97,23 @@ void Sound_FadeOut800237C(int speed)
         Proc_Break(sMusicProc2);
         sMusicProc2 = NULL;
     }
-    m4aMPlayFadeOut(&gUnknown_03006440, speed);
-    m4aMPlayFadeOutTemporarily(&gUnknown_03006650, speed);
+    m4aMPlayFadeOut(&gMPlayInfo_BGM1, speed);
+    m4aMPlayFadeOutTemporarily(&gMPlayInfo_BGM2, speed);
     sSoundStatus.unk6 = FALSE;
     sSoundStatus.unk7 = 1;
 }
 
-void SoundStuff_80023E0(int speed)
+void Sound_FadeOutSE(int speed)
 {
     if (speed == 0)
         speed = 6;
-    m4aMPlayFadeOut(&gUnknown_03006690, speed);
-    m4aMPlayFadeOut(&gUnknown_03006760, speed);
-    m4aMPlayFadeOut(&gUnknown_030066D0, speed);
-    m4aMPlayFadeOut(&gUnknown_030063C0, speed);
-    m4aMPlayFadeOut(&gUnknown_03006400, speed);
-    m4aMPlayFadeOut(&gUnknown_03006610, speed);
-    m4aMPlayFadeOut(&gUnknown_03006720, speed);
+    m4aMPlayFadeOut(&gMPlayInfo_SE1_SYS1, speed);
+    m4aMPlayFadeOut(&gMPlayInfo_SE2_SYS2, speed);
+    m4aMPlayFadeOut(&gMPlayInfo_SE3_BMP1, speed);
+    m4aMPlayFadeOut(&gMPlayInfo_SE4_BMP2, speed);
+    m4aMPlayFadeOut(&gMPlayInfo_SE5_BMP3, speed);
+    m4aMPlayFadeOut(&gMPlayInfo_SE6_BMP4, speed);
+    m4aMPlayFadeOut(&gMPlayInfo_SE7_EVT, speed);
 }
 
 void Sound_PlaySong8002448(int songId, struct MusicPlayerInfo *player)
@@ -122,8 +122,8 @@ void Sound_PlaySong8002448(int songId, struct MusicPlayerInfo *player)
     sSoundStatus.unk7 = 0;
     sSoundStatus.songId = songId;
     PlaySong(songId, player);
-    m4aMPlayImmInit(&gUnknown_03006440);
-    m4aMPlayImmInit(&gUnknown_03006650);
+    m4aMPlayImmInit(&gMPlayInfo_BGM1);
+    m4aMPlayImmInit(&gMPlayInfo_BGM2);
 }
 
 void PlaySong8002478(int songId, int speed, struct MusicPlayerInfo *player)
@@ -135,7 +135,7 @@ void PlaySong8002478(int songId, int speed, struct MusicPlayerInfo *player)
         DeleteAll6CWaitMusicRelated();
         if (sSoundStatus.unk6)
         {
-            Sound_FadeOut800231C(speed);
+            Sound_FadeOutBGM(speed);
             StartSongDelayed(songId, speed * 16, player);
         }
         else
@@ -160,8 +160,8 @@ static void sub_80024F0(struct Proc *proc)
     struct MusicProc *mproc = (struct MusicProc *)proc;
     int volume = sub_8012DCC(0, 0, 0x100, mproc->delayCounter, mproc->unk4E);
 
-    m4aMPlayVolumeControl(&gUnknown_03006440, 0xFFFF, volume);
-    m4aMPlayVolumeControl(&gUnknown_03006650, 0xFFFF, volume);
+    m4aMPlayVolumeControl(&gMPlayInfo_BGM1, 0xFFFF, volume);
+    m4aMPlayVolumeControl(&gMPlayInfo_BGM2, 0xFFFF, volume);
     mproc->delayCounter++;
     if (mproc->delayCounter >= mproc->unk4E)
     {
@@ -187,13 +187,13 @@ void Sound_PlaySong8002574(int songId, int b, struct MusicPlayerInfo *player)
         sSoundStatus.unk7 = 0;
         sSoundStatus.songId = songId;
         proc = Proc_Start(sMusicProc1Script, PROC_TREE_3);
-        m4aMPlayStop(&gUnknown_03006440);
-        m4aMPlayStop(&gUnknown_03006650);
+        m4aMPlayStop(&gMPlayInfo_BGM1);
+        m4aMPlayStop(&gMPlayInfo_BGM2);
         PlaySong(songId, player);
-        m4aMPlayImmInit(&gUnknown_03006440);
-        m4aMPlayImmInit(&gUnknown_03006650);
-        m4aMPlayVolumeControl(&gUnknown_03006440, 0xFFFF, 0);
-        m4aMPlayVolumeControl(&gUnknown_03006650, 0xFFFF, 0);
+        m4aMPlayImmInit(&gMPlayInfo_BGM1);
+        m4aMPlayImmInit(&gMPlayInfo_BGM2);
+        m4aMPlayVolumeControl(&gMPlayInfo_BGM1, 0xFFFF, 0);
+        m4aMPlayVolumeControl(&gMPlayInfo_BGM2, 0xFFFF, 0);
         proc->delayCounter = 0;
         proc->unk4E = b * 16;
         sMusicProc1 = (struct Proc *)proc;
@@ -206,11 +206,11 @@ void sub_8002620(int songId)
     {
         sSoundStatus.unk2 = sSoundStatus.songId;
         if (sSoundStatus.unk7 == 0)
-            m4aMPlayFadeOutTemporarily(&gUnknown_03006650, 3);
+            m4aMPlayFadeOutTemporarily(&gMPlayInfo_BGM2, 3);
         sSoundStatus.unk6 = FALSE;
         sSoundStatus.unk7 = 0;
         if (songId != 0)
-            StartSongDelayed(songId, 32, &gUnknown_03006440);
+            StartSongDelayed(songId, 32, &gMPlayInfo_BGM1);
     }
 }
 
@@ -218,8 +218,8 @@ void sub_8002670(void)
 {
     if (gRAMChapterData.unk41_1 == 0 && sSoundStatus.unk2 != 0)
     {
-        m4aMPlayFadeOut(&gUnknown_03006440, 3);
-        m4aMPlayFadeIn(&gUnknown_03006650, 6);
+        m4aMPlayFadeOut(&gMPlayInfo_BGM1, 3);
+        m4aMPlayFadeIn(&gMPlayInfo_BGM2, 6);
         sSoundStatus.unk6 = TRUE;
         sSoundStatus.unk7 = 0;
         sSoundStatus.songId = sSoundStatus.unk2;
@@ -231,8 +231,8 @@ void sub_80026BC(u16 speed)
 {
     if (gRAMChapterData.unk41_1 == 0 && sSoundStatus.unk2 != 0)
     {
-        m4aMPlayFadeOut(&gUnknown_03006440, 3);
-        m4aMPlayFadeIn(&gUnknown_03006650, speed);
+        m4aMPlayFadeOut(&gMPlayInfo_BGM1, 3);
+        m4aMPlayFadeIn(&gMPlayInfo_BGM2, speed);
         sSoundStatus.unk6 = TRUE;
         sSoundStatus.unk7 = 0;
         sSoundStatus.songId = sSoundStatus.unk2;
@@ -270,14 +270,14 @@ void ISuspectThisToBeMusicRelated_8002730(int volume, int b, int c, struct Proc 
     proc->unk6A = c;
     if (volume == 0)
         volume = 1;
-    Sound_SetVolume80022EC(volume);
+    Sound_SetSEVolume(volume);
     sMusicProc2 = (struct Proc *)proc;
 }
 
 static void sub_8002788(struct Proc *proc)
 {
     struct MusicProc *mproc = (struct MusicProc *)proc;
-    Sound_SetVolume80022EC(sub_8012DCC(4, mproc->unk64, mproc->unk66, mproc->unk68++, mproc->unk6A));
+    Sound_SetSEVolume(sub_8012DCC(4, mproc->unk64, mproc->unk66, mproc->unk68++, mproc->unk6A));
     if (mproc->unk68 >= mproc->unk6A)
     {
         if (mproc->unk66 == 0)
@@ -400,7 +400,7 @@ void sub_80029BC(struct Proc *proc)
     if (mproc->unk5C > 0)
     {
         Sound_PlaySong80024D4(mproc->unk5C, 0);
-        Sound_SetVolume80022EC(mproc->unk66);
+        Sound_SetSEVolume(mproc->unk66);
     }
     else
     {
@@ -453,7 +453,7 @@ void sub_8002A88(int songId)
     if (songId != sSoundStatus.songId)
     {
         if (sub_8002264() != 0)
-            Sound_SetVolume80022EC(0);
+            Sound_SetSEVolume(0);
         Sound_PlaySong8002448(songId, 0);
     }
 }
@@ -466,8 +466,8 @@ void DeleteAll6CWaitMusicRelated(void)
 void sub_8002AC8(void)
 {
     DeleteAll6CWaitMusicRelated();
-    m4aMPlayFadeOut(&gUnknown_03006440, 1);
-    m4aMPlayFadeOut(&gUnknown_03006650, 1);
+    m4aMPlayFadeOut(&gMPlayInfo_BGM1, 1);
+    m4aMPlayFadeOut(&gMPlayInfo_BGM2, 1);
     sSoundStatus.unk2 = 0;
     sSoundStatus.songId = 0;
 }

@@ -17,6 +17,7 @@
 #include "hardware.h"
 #include "proc.h"
 #include "mu.h"
+#include "bmarch.h"
 #include "bmbattle.h"
 
 struct WeaponTriangleRule {

@@ -9,6 +9,7 @@
 #include "bmmap.h"
 #include "bmtrick.h"
 #include "bmbattle.h"
+#include "bmarch.h"
 #include "hardware.h"
 #include "m4a.h"
 #include "mapanim.h"
@@ -765,13 +766,13 @@ void MU_StartMoveScript_Auto(const u8 commands[MU_COMMAND_MAX_COUNT]) {
         MU_StartMoveScript(proc, commands);
 }
 
-int MU_Exists(void) {
+s8 MU_Exists(void) {
     return Proc_Find(gProcScr_MoveUnit) ? TRUE : FALSE;
 }
 
 #if NONMATCHING
 
-int MU_IsAnyActive(void) {
+s8 MU_IsAnyActive(void) {
     struct MUProc* proc;
     int i;
 
@@ -793,7 +794,7 @@ int MU_IsAnyActive(void) {
 #else // NONMATCHING
 
 __attribute__((naked))
-int MU_IsAnyActive(void) {
+s8 MU_IsAnyActive(void) {
     asm(
         ".syntax unified\n"
 

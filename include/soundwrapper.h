@@ -1,17 +1,17 @@
 #ifndef GUARD_SOUNDWRAPPER_H
 #define GUARD_SOUNDWRAPPER_H
 
-// ??? Sound_GetCurrentSong(???);
+int Sound_GetCurrentSong(void);
 // ??? sub_8002264(???);
-// ??? Sound_SetVolume8002274(???);
-void Sound_SetVolume80022EC(int volume);
-// ??? Sound_FadeOut800231C(???);
-// ??? Sound_FadeOut800237C(???);
-// ??? SoundStuff_80023E0(???);
+// ??? Sound_SetBGMVolume(???);
+void Sound_SetSEVolume(int vol);
+void Sound_FadeOutBGM(int speed);
+// ??? Sound_FadeOutBGMAlt(???);
+void Sound_FadeOutSE(int speed);
 // ??? Sound_PlaySong8002448(???);
 // ??? PlaySong8002478(???);
-// ??? Sound_PlaySong80024D4(???);
-// ??? Sound_PlaySong80024E4(???);
+void Sound_PlaySong80024D4(int songId, struct MusicPlayerInfo *player);
+void Sound_PlaySong80024E4(int songId, int speed, struct MusicPlayerInfo *player);
 // ??? sub_80024F0(???);
 // ??? Sound_PlaySong8002574(???);
 void sub_8002620(int songId);

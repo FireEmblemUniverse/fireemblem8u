@@ -1,45 +1,45 @@
     .section .rodata
 
-    .global ProgrammableWaveData_8224354
-ProgrammableWaveData_8224354: @ 8224354
-    .incbin "sound/programmable_wave_samples/8224354.pcm"
+    .global wave000_sinewave
+wave000_sinewave: @ 8224354
+    .incbin "sound/programmable_wave_samples/wave000_sinewave.pcm"
 
-    .global ProgrammableWaveData_8224364
-ProgrammableWaveData_8224364: @ 8224364
-    .incbin "sound/programmable_wave_samples/8224364.pcm"
+    .global wave001_triangle
+wave001_triangle: @ 8224364
+    .incbin "sound/programmable_wave_samples/wave001_triangle.pcm"
 
-    .global ProgrammableWaveData_8224374
-ProgrammableWaveData_8224374: @ 8224374
-    .incbin "sound/programmable_wave_samples/8224374.pcm"
+    .global wave002_fat_saw
+wave002_fat_saw: @ 8224374
+    .incbin "sound/programmable_wave_samples/wave002_fat_saw.pcm"
 
-    .global ProgrammableWaveData_8224384
-ProgrammableWaveData_8224384: @ 8224384
-    .incbin "sound/programmable_wave_samples/8224384.pcm"
+    .global wave003_thin_saw
+wave003_thin_saw: @ 8224384
+    .incbin "sound/programmable_wave_samples/wave003_thin_saw.pcm"
 
-    .global ProgrammableWaveData_8224394
-ProgrammableWaveData_8224394: @ 8224394
-    .incbin "sound/programmable_wave_samples/8224394.pcm"
+    .global wave004_square12
+wave004_square12: @ 8224394
+    .incbin "sound/programmable_wave_samples/wave004_square12.pcm"
 
-    .global ProgrammableWaveData_82243A4
-ProgrammableWaveData_82243A4: @ 82243A4
-    .incbin "sound/programmable_wave_samples/82243A4.pcm"
+    .global wave005_square25
+wave005_square25: @ 82243A4
+    .incbin "sound/programmable_wave_samples/wave005_square25.pcm"
 
-    .global ProgrammableWaveData_82243B4
-ProgrammableWaveData_82243B4: @ 82243B4
-    .incbin "sound/programmable_wave_samples/82243B4.pcm"
+    .global wave006_square37
+wave006_square37: @ 82243B4
+    .incbin "sound/programmable_wave_samples/wave006_square37.pcm"
 
-    .global ProgrammableWaveData_82243C4
-ProgrammableWaveData_82243C4: @ 82243C4
-    .incbin "sound/programmable_wave_samples/82243C4.pcm"
+    .global wave007_square50
+wave007_square50: @ 82243C4
+    .incbin "sound/programmable_wave_samples/wave007_square50.pcm"
 
-    .global ProgrammableWaveData_82243D4
-ProgrammableWaveData_82243D4: @ 82243D4
-    .incbin "sound/programmable_wave_samples/82243D4.pcm"
+    .global wave008_se_triangle_1
+wave008_se_triangle_1: @ 82243D4
+    .incbin "sound/programmable_wave_samples/wave008_se_triangle_1.pcm"
 
-    .global ProgrammableWaveData_82243E4
-ProgrammableWaveData_82243E4: @ 82243E4
-    .incbin "sound/programmable_wave_samples/82243E4.pcm"
+    .global wave009_se_triangle_2
+wave009_se_triangle_2: @ 82243E4
+    .incbin "sound/programmable_wave_samples/wave009_se_triangle_2.pcm"
 
-    .global ProgrammableWaveData_82243F4
-ProgrammableWaveData_82243F4: @ 82243F4
-    .incbin "sound/programmable_wave_samples/82243F4.pcm"
+    .global wave010_square25_e1
+wave010_square25_e1: @ 82243F4
+    .incbin "sound/programmable_wave_samples/wave010_square25_e1.pcm"

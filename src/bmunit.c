@@ -16,6 +16,8 @@
 #include "bmtrick.h"
 #include "monstergen.h"
 #include "sallycursor.h"
+#include "uiselecttarget.h"
+#include "bmdifficulty.h"
 
 EWRAM_DATA u8 gActiveUnitId = 0;
 EWRAM_DATA struct Vec2 gActiveUnitMoveOrigin = {};
@@ -569,8 +571,8 @@ struct Unit* LoadUnit(const struct UnitDefinition* uDef) {
 
         if (CanClassWieldWeaponType(monsterClass, ITYPE_BOW) == TRUE) {
             // TODO: AI BIT DEFINITIONS
-            buf.ai.ai3 = buf.ai.ai3 & (1 | 2 | 4);
-            buf.ai.ai3 = buf.ai.ai3 | (8 | 32);
+            buf.ai[2] = buf.ai[2] & (1 | 2 | 4);
+            buf.ai[2] = buf.ai[2] | (8 | 32);
         }
 
         uDef = &buf;

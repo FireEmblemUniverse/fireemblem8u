@@ -512,7 +512,7 @@
 . = ALIGN(4); src/bmunit.o(ewram_data);
 . = ALIGN(4); src/bmmap.o(ewram_data);
 . = 0x033EFC; gWorkingMovementScript = .;
-. = 0x033F3C; gUnknown_02033F3C = .;
+. = 0x033F3C; src/bmtarget.o(ewram_data);
 . = 0x033F40; gUnknown_02033F40 = .;
 . = 0x034010; gUnknown_02034010 = .;
 . = 0x036010; gUnknown_02036010 = .;
@@ -575,9 +575,7 @@
 . = 0x03DDB4; gUnknown_0203DDB4 = .;
 . = 0x03DDDC; gUnknown_0203DDDC = .;
 . = 0x03DDE0; src/uiutils.o(ewram_data);
-. = ALIGN(4); gUnknown_0203DDE8 = .;
-. = 0x03DDEC; gUnknown_0203DDEC = .;
-. = 0x03E0EC; gUnknown_0203E0EC = .;
+. = ALIGN(4); src/uiselecttarget.o(ewram_data);
 . = 0x03E0F0; gUnknown_0203E0F0 = .;
 . = 0x03E0F4; gUnknown_0203E0F4 = .;
 . = 0x03E0F8; gUnknown_0203E0F8 = .;

@@ -18,6 +18,8 @@
 #include "ap.h"
 #include "proc.h"
 #include "ev_triggercheck.h"
+#include "bmdifficulty.h"
+#include "playerphase.h"
 #include "sallycursor.h"
 
 // hino.s
@@ -30,13 +32,6 @@ void sub_8013D68(ProcPtr);
 void sub_8013D80(ProcPtr);
 void sub_8013D8C(ProcPtr);
 void sub_8013DA4(ProcPtr);
-
-// playerphase.s
-int GetUnitSelectionValueThing(struct Unit* unit);
-void DisplayMoveRangeGraphics(int config);
-void DisplayActiveUnitEffectRange(ProcPtr);
-int sub_801C928();
-void sub_801DB4C(s16, s16);
 
 // bmusort.s
 void InitUnitStack(u8*); // accepts generic buffer
@@ -90,9 +85,6 @@ void New6CPPInterfaceConstructor(ProcPtr);
 // code_sio.s
 int CheckSomethingSomewhere();
 
-// bmdifficulty.s
-void sub_8037D68(ProcPtr);
-
 // bb.s
 void sub_8035758(ProcPtr);
 
@@ -102,7 +94,7 @@ void nullsub_20(ProcPtr);
 
 extern struct Vec2 gActiveUnitMoveOrigin;
 
-extern struct ProcCmd CONST_DATA gUnknown_0859AE18[];
+extern struct ProcCmd CONST_DATA gProcScr_ADJUSTSFROMXI[];
 extern u16 CONST_DATA gUnknown_085A0EA0[]; // ap
 extern struct ProcCmd CONST_DATA gUnknown_08A2ED88[];
 
@@ -118,7 +110,7 @@ struct ProcCmd CONST_DATA gProcScr_SALLYCURSOR[] = {
 
     PROC_SLEEP(0x10),
     PROC_CALL(sub_80341D0),
-    PROC_WHILE(sub_8037D68),
+    PROC_WHILE(PrepScreenProc_AddPostgameUnits),
     PROC_SLEEP(1),
     PROC_CALL(sub_8034200),
     PROC_CALL(InitPrepScreenUnitsAndCamera),
@@ -219,7 +211,7 @@ PROC_LABEL(0x34),
 
 PROC_LABEL(5),
     PROC_CALL(RefreshBMapGraphics),
-    PROC_START_CHILD_BLOCKING(gUnknown_0859AE18),
+    PROC_START_CHILD_BLOCKING(gProcScr_ADJUSTSFROMXI),
 
     PROC_GOTO(9),
 
@@ -426,7 +418,7 @@ void sub_803336C(struct UnknownSALLYCURSORProc* proc) {
     x = gUnknown_0202BCB0.playerCursor.x;
     y = gUnknown_0202BCB0.playerCursor.y;
 
-    sub_801DB4C(x, y);
+    TrySwitchViewedUnit(x, y);
 
     x = gUnknown_0202BCB0.playerCursorDisplay.x;
     y = gUnknown_0202BCB0.playerCursorDisplay.y;
@@ -735,15 +727,14 @@ void sub_8033978(ProcPtr proc) {
     HandlePlayerCursorMovement();
     if (!DoesBMXFADEExist()) {
         if (L_BUTTON & gKeyStatusPtr->newKeys) {
-            sub_801DB4C(gUnknown_0202BCB0.playerCursor.x, gUnknown_0202BCB0.playerCursor.y);
+            TrySwitchViewedUnit(gUnknown_0202BCB0.playerCursor.x, gUnknown_0202BCB0.playerCursor.y);
             PlaySoundEffect(0x6B);
             goto showcursor;
         }
 
         if (R_BUTTON & gKeyStatusPtr->newKeys) {
             if (gBmMapUnit[gUnknown_0202BCB0.playerCursor.y][gUnknown_0202BCB0.playerCursor.x]) {
-                GetUnit(gBmMapUnit[gUnknown_0202BCB0.playerCursor.y][gUnknown_0202BCB0.playerCursor.x]);
-                if (sub_801C928()) {
+                if (CanShowUnitStatScreen(GetUnit(gBmMapUnit[gUnknown_0202BCB0.playerCursor.y][gUnknown_0202BCB0.playerCursor.x]))) {
                     MU_EndAll();
                     DeletePlayerPhaseInterface6Cs();
                     SetStatScreenConfig(0x1F);
@@ -982,7 +973,7 @@ void sub_8033F34(ProcPtr proc) {
 
         if (uid) {
             struct Unit* unit = GetUnit(uid);
-            if (sub_801C928()) {
+            if (CanShowUnitStatScreen(unit)) {
                 MU_EndAll();
                 SetStatScreenConfig(0x1F);
                 StartStatScreen(GetUnit(uid), proc);

@@ -71,7 +71,7 @@ extern struct ProcCmd CONST_DATA gProcScr_CpDecide[];
 extern struct ProcCmd CONST_DATA gProcScr_CpPerform[];
 
 void AiClearDecision(void);
-void AiSetDecision(u8 xMove, u8 yMove, u8 actionId, u8 targetId, u8 itemSlot, u8 xTarget, u8 yTarget);
+void AiSetDecision(s16 xMove, s16 yMove, u8 actionId, u8 targetId, u8 itemSlot, u8 xTarget, u8 yTarget);
 void AiUpdateDecision(u8 actionId, u8 targetId, u8 itemSlot, u8 xTarget, u8 yTarget);
 void AiDecideMain(void);
 

@@ -344,7 +344,7 @@ _0800BB92:
 	THUMB_FUNC_START sub_800BB98
 sub_800BB98: @ 0x0800BB98
 	push {lr}
-	ldr r0, _0800BBB0  @ gUnknown_0859E520
+	ldr r0, _0800BBB0  @ gProcScr_BKSEL
 	bl Proc_Find
 	negs r1, r0
 	orrs r1, r0
@@ -355,7 +355,7 @@ _0800BBAC:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_0800BBB0: .4byte gUnknown_0859E520
+_0800BBB0: .4byte gProcScr_BKSEL
 
 	THUMB_FUNC_END sub_800BB98
 

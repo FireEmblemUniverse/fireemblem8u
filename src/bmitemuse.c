@@ -11,10 +11,12 @@
 #include "bmunit.h"
 #include "bmmap.h"
 #include "bmbattle.h"
+#include "bmtarget.h"
 #include "bmtrick.h"
 #include "uiutils.h"
 #include "uimenu.h"
-#include "mapselect.h"
+#include "uiselecttarget.h"
+#include "playerphase.h"
 
 #include "constants/characters.h"
 #include "constants/items.h"
@@ -41,32 +43,13 @@ void sub_803511C(struct Unit* unit, int number);
 void NewUnitInfoWindow_WithAllLines(ProcPtr proc);
 void DrawHammerneUnitInfoWindow(struct Unit* unit);
 
-ProcPtr NewTargetSelection_Specialized(const struct SelectInfo* selectInfo, int(*onSelect)(ProcPtr, struct SelectTarget*));
-ProcPtr NewTargetSelection(const struct SelectInfo* selectInfo);
-void EndTargetSelection(ProcPtr proc);
+void NewBottomHelpText(ProcPtr parent, const char* string);
+void DeleteEach6CBB(void);
 
 void sub_801E684(ProcPtr parent, struct Unit* unit, int x, int y);
 void sub_801E748(int number);
 
 void FillWarpRangeMap(struct Unit* caster, struct Unit* target);
-void DisplayMoveRangeGraphics(int config);
-
-void MakeTargetListForAdjacentHeal(struct Unit* unit);
-void MakeTargetListForRangedHeal(struct Unit* unit);
-void MakeTargetListForRestore(struct Unit* unit);
-void MakeTargetListForRescueStaff(struct Unit* unit);
-void MakeTargetListForBarrier(struct Unit* unit);
-void MakeTargetListForSilence(struct Unit* unit);
-void MakeTargetListForSleep(struct Unit* unit);
-void MakeTargetListForBerserk(struct Unit* unit);
-void MakeTargetListForWarp(struct Unit* unit);
-void MakeTargetListForHammerne(struct Unit* unit);
-void MakeTargetListForUnlock(struct Unit* unit);
-void MakeTargetListForLatona(struct Unit* unit);
-void MakeTargetListForMine(struct Unit* unit);
-void MakeTargetListForLightRune(struct Unit* unit);
-void MakeTargetListForDanceRing(struct Unit* unit);
-void MakeTargetListForDoorAndBridges(struct Unit* unit, int terrain);
 
 static s8 HasSelectTarget(struct Unit* unit, void(*func)(struct Unit*));
 
@@ -447,7 +430,7 @@ s8 HasSelectTarget(struct Unit* unit, void(*func)(struct Unit*))
 {
     func(unit);
 
-    return sub_804FD28() != 0;
+    return GetSelectTargetCount() != 0;
 }
 
 s8 CanUnitUseHealItem(struct Unit* unit)
@@ -501,13 +484,13 @@ s8 CanUnitUseChestKeyItem(struct Unit* unit)
 s8 CanUnitUseDoorKeyItem(struct Unit* unit)
 {
     MakeTargetListForDoorAndBridges(unit, TERRAIN_DOOR);
-    return sub_804FD28();
+    return GetSelectTargetCount();
 }
 
 s8 CanUnitOpenBridge(struct Unit* unit)
 {
     MakeTargetListForDoorAndBridges(unit, TERRAIN_BRIDGE_14);
-    return sub_804FD28();
+    return GetSelectTargetCount();
 }
 
 s8 CanUnitUseLockpickItem(struct Unit* unit)
@@ -685,7 +668,7 @@ void SetItemUseAction(struct Unit* unit)
     gActionData.unitActionType = UNIT_ACTION_USE_ITEM;
 }
 
-static int StaffSelectOnSelect(ProcPtr proc, struct SelectTarget* target)
+static u8 StaffSelectOnSelect(ProcPtr proc, struct SelectTarget* target)
 {
     gActionData.targetIndex = target->uid;
     SetStaffUseAction(NULL);
@@ -832,7 +815,7 @@ void WarpSelect_OnEnd(struct WarpSelectProc* proc)
     AP_Delete(proc->ap);
 }
 
-static int WarpOnSelectTarget(ProcPtr proc, struct SelectTarget* target)
+static u8 WarpOnSelectTarget(ProcPtr proc, struct SelectTarget* target)
 {
     EndTargetSelection(proc);
 
@@ -856,7 +839,7 @@ void DoUseWarpStaff(struct Unit* unit)
     PlaySoundEffect(0x6A); // TODO: song ids
 }
 
-static int OnSelectPutTrap(ProcPtr proc, struct SelectTarget* target)
+static u8 OnSelectPutTrap(ProcPtr proc, struct SelectTarget* target)
 {
     gActionData.xOther = target->x;
     gActionData.yOther = target->y;

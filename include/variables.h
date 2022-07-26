@@ -523,7 +523,6 @@ extern struct Vec2 gActiveUnitMoveOrigin;
 // extern ??? gUnitArrayGreen
 // extern ??? gUnknown_02030B8C
 extern u8 gWorkingMovementScript[];
-// extern ??? gUnknown_02033F3C
 // extern ??? gUnknown_02033F40
 // extern ??? gUnknown_02034010
 // extern ??? gUnknown_02036010
@@ -580,9 +579,6 @@ extern struct ActionData gActionData;
 // extern ??? gUnknown_0203DD9F
 // extern ??? gUnknown_0203DDB4
 // extern ??? gUnknown_0203DDDC
-// extern ??? gUnknown_0203DDE8
-// extern ??? gUnknown_0203DDEC
-// extern ??? gUnknown_0203E0EC
 // extern ??? gUnknown_0203E0F0
 // extern ??? gUnknown_0203E0F4
 // extern ??? gUnknown_0203E0F8
@@ -699,7 +695,7 @@ extern struct OamDataTransfer gUnknown_03000030;
 // extern ??? gUnknown_03000808
 // extern ??? gUnknown_03001780
 // extern ??? gUnknown_03001788
-// extern ??? gUnknown_030017A0
+// extern ??? gDungeonState
 // extern ??? gUnknown_030017AC
 // extern ??? gUnknown_030017C8
 // extern ??? gUnknown_030017CC
@@ -816,21 +812,21 @@ extern u8 gUnknown_030053A0[];
 // extern ??? gUnknown_030053E0
 // extern ??? gUnknown_03005408
 // extern ??? gSoundInfo
-extern struct MusicPlayerInfo gUnknown_030063C0;
-extern struct MusicPlayerInfo gUnknown_03006400;
-extern struct MusicPlayerInfo gUnknown_03006440;
+extern struct MusicPlayerInfo gMPlayInfo_SE4_BMP2;
+extern struct MusicPlayerInfo gMPlayInfo_SE5_BMP3;
+extern struct MusicPlayerInfo gMPlayInfo_BGM1;
 // extern ??? gMPlayJumpTable
 // extern ??? gUnknown_03006484
 // extern ??? gUnknown_03006508
 // extern ??? gUnknown_0300650C
 // extern ??? gCgbChans
-extern struct MusicPlayerInfo gUnknown_03006610;
-extern struct MusicPlayerInfo gUnknown_03006650;
-extern struct MusicPlayerInfo gUnknown_03006690;
-extern struct MusicPlayerInfo gUnknown_030066D0;
+extern struct MusicPlayerInfo gMPlayInfo_SE6_BMP4;
+extern struct MusicPlayerInfo gMPlayInfo_BGM2;
+extern struct MusicPlayerInfo gMPlayInfo_SE1_SYS1;
+extern struct MusicPlayerInfo gMPlayInfo_SE3_BMP1;
 // extern ??? gMPlayMemAccArea
-extern struct MusicPlayerInfo gUnknown_03006720;
-extern struct MusicPlayerInfo gUnknown_03006760;
+extern struct MusicPlayerInfo gMPlayInfo_SE7_EVT;
+extern struct MusicPlayerInfo gMPlayInfo_SE2_SYS2;
 // extern ??? gUnknown_03007E00
 // extern ??? gUnknown_03007F00
 // extern ??? gUnknown_03007FA0
@@ -900,8 +896,6 @@ extern short gSinLookup[]; // gSinTable; needs to be non-const to match?
 // extern ??? gUnknown_080D8680
 // extern ??? gUnknown_080D868C
 // extern ??? gUnknown_080D8690
-// extern ??? gUnknown_080D86F4
-// extern ??? gUnknown_080D86F8
 // extern ??? gUnknown_080D8714
 // extern ??? gUnknown_080D8740
 // extern ??? gUnknown_080D9C9E
@@ -1433,13 +1427,10 @@ extern const struct ProcCmd gUnknown_0859A548[]; // this is GENS/Camera Movement
 // extern ??? gUnknown_0859AA7C
 // extern ??? gUnknown_0859AA84
 // extern ??? gUnknown_0859AA9C
-// extern ??? gUnknown_0859AAD8
-// extern ??? gUnknown_0859AD08
-// extern ??? gUnknown_0859AD50
 // extern ??? gUnknown_0859AD88
 // extern ??? gUnknown_0859ADA0
 // extern ??? gUnknown_0859ADC8
-extern struct ProcCmd CONST_DATA gUnknown_0859AE18[];
+extern struct ProcCmd CONST_DATA gProcScr_ADJUSTSFROMXI[];
 // extern ??? gUnknown_0859AE38
 // extern ??? gUnknown_0859AE88
 // extern ??? gUnknown_0859AEA0
@@ -1454,14 +1445,7 @@ extern struct ProcCmd CONST_DATA gUnknown_0859AE18[];
 // extern ??? gUnknown_0859B070
 // extern ??? gUnknown_0859B0A0
 // extern ??? gUnknown_0859B0C0
-// extern ??? gUnknown_0859B0E0
-// extern ??? gUnknown_0859B108
-// extern ??? gUnknown_0859B120
-// extern ??? gUnknown_0859B132
-// extern ??? gUnknown_0859B144
-// extern ??? gUnknown_0859B160
-// extern ??? gUnknown_0859B180
-// extern ??? gUnknown_0859B1B0
+ extern struct ProcCmd gProcScr_ChapterIntro[];
 // extern ??? gUnknown_0859B358
 // extern ??? gUnknown_0859B3B0
 // extern ??? gUnknown_0859B3D0
@@ -1499,9 +1483,6 @@ extern struct ProcCmd CONST_DATA gUnknown_0859AE18[];
 // extern ??? gUnknown_0859BCF4
 // extern ??? gUnknown_0859BD40
 // extern ??? gUnknown_0859BDA0
-// extern ??? gUnknown_0859BDF0
-// extern ??? gUnknown_0859BE10
-// extern ??? gUnknown_0859BE28
 // extern ??? gUnknown_0859CFB0
 // extern ??? gUnknown_0859CFD4
 // extern ??? gUnknown_0859CFF8
@@ -1543,10 +1524,6 @@ extern struct ProcCmd CONST_DATA gUnknown_0859AE18[];
 // extern ??? gUnknown_0859D9FC
 // extern ??? gUnknown_0859DA22
 // extern ??? gUnknown_0859DA4A
-// extern ??? gUnknown_0859DA6C
-// extern ??? gUnknown_0859DA94
-// extern ??? gUnknown_0859DABC
-// extern ??? gUnknown_0859DB24
 // extern ??? gUnknown_0859DBA0
 // extern ??? gUnknown_0859E13C
 // extern ??? gUnknown_0859E14C
@@ -1554,22 +1531,10 @@ extern struct ProcCmd CONST_DATA gUnknown_0859AE18[];
 // extern ??? gUnknown_0859E188
 // extern ??? gUnknown_0859E1B0
 // extern ??? gUnknown_0859E1B8
-// extern ??? gUnknown_0859E2D0
 // extern ??? gUnknown_0859E4F8
 // extern ??? gUnknown_0859E518
 // extern ??? gUnknown_0859E51C
-// extern ??? gUnknown_0859E520
-// extern ??? gUnknown_0859E5A0
-// extern ??? gUnknown_0859E5AC
-// extern ??? gUnknown_0859E5FC
-// extern ??? gUnknown_0859E64C
-// extern ??? gUnknown_0859E6EC
-// extern ??? gUnknown_0859E79C
-// extern ??? gUnknown_0859E7C8
-// extern ??? gUnknown_0859E7D4
-// extern ??? gUnknown_0859E804
-// extern ??? gUnknown_0859E82C
-// extern ??? gUnknown_0859E838
+// extern ??? gProcScr_BKSEL
 // extern ??? gUnknown_0859E8E0
 // extern ??? gUnknown_0859ED70
 // extern ??? gUnknown_0859EDB0
@@ -3360,6 +3325,7 @@ extern u16 CONST_DATA gUnknown_08A027FC[][0x10]; // color animation for each pag
 // extern ??? gUnknown_08A02A94
 // extern ??? gUnknown_08A02B3C
 // extern ??? gUnknown_08A02BAC
+extern u8 CONST_DATA gUnknown_08A02C34[];
 // extern ??? gUnknown_08A02EB4
 // extern ??? gUnknown_08A02F34
 // extern ??? gUnknown_08A02F94

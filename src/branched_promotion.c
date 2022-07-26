@@ -166,7 +166,7 @@ void sub_80CC698(struct PromoProc2 *proc) {
     struct PromoProc *parent = proc->proc_parent;
     if (parent->u31 == 0) {
         sub_8002670();
-        Sound_SetVolume80022EC(0x100);
+        Sound_SetSEVolume(0x100);
         sub_8002620(0x34);
     }
     parent->u30 = 2;

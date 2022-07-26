@@ -282,7 +282,11 @@ gUnknown_08A02B3C:  @ 0x08A02B3C
 
 	.global gUnknown_08A02BAC
 gUnknown_08A02BAC:  @ 0x08A02BAC
-	.incbin "baserom.gba", 0xA02BAC, 0x308
+	.incbin "baserom.gba", 0xA02BAC, 0x88
+
+	.global gUnknown_08A02C34
+gUnknown_08A02C34:  @ 0x08A02C34
+	.incbin "baserom.gba", 0xA02C34, 0x280
 
 	.global gUnknown_08A02EB4
 gUnknown_08A02EB4:  @ 0x08A02EB4
