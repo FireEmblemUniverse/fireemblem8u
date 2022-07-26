@@ -168,8 +168,8 @@ void MU_SetDefaultFacing(struct MUProc* proc);
 void MU_SetDefaultFacing_Auto(void);
 void MU_StartMoveScript_Auto(const u8 commands[MU_COMMAND_MAX_COUNT]);
 
-int MU_Exists(void);
-int MU_IsAnyActive(void);
+s8 MU_Exists(void);
+s8 MU_IsAnyActive(void);
 
 int MU_IsActive(struct MUProc* proc);
 void MU_StartMoveScript(struct MUProc* proc, const u8 commands[MU_COMMAND_MAX_COUNT]);

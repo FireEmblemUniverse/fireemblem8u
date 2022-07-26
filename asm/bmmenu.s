@@ -60,20 +60,20 @@ _080225F4: .4byte 0x00000864
 	THUMB_FUNC_START CommandEffectEndPlayerPhase
 CommandEffectEndPlayerPhase: @ 0x080225F8
 	push {lr}
-	ldr r0, _08022608  @ gUnknown_0859AAD8
+	ldr r0, _08022608  @ gProcScr_PlayerPhase
 	bl Proc_EndEach
 	movs r0, #0x17
 	pop {r1}
 	bx r1
 	.align 2, 0
-_08022608: .4byte gUnknown_0859AAD8
+_08022608: .4byte gProcScr_PlayerPhase
 
 	THUMB_FUNC_END CommandEffectEndPlayerPhase
 
 	THUMB_FUNC_START MapMenu_UnitCommand
 MapMenu_UnitCommand: @ 0x0802260C
 	push {lr}
-	ldr r0, _08022624  @ gUnknown_0859AAD8
+	ldr r0, _08022624  @ gProcScr_PlayerPhase
 	bl Proc_Find
 	movs r1, #0xa
 	bl Proc_Goto
@@ -82,7 +82,7 @@ MapMenu_UnitCommand: @ 0x0802260C
 	pop {r1}
 	bx r1
 	.align 2, 0
-_08022624: .4byte gUnknown_0859AAD8
+_08022624: .4byte gProcScr_PlayerPhase
 
 	THUMB_FUNC_END MapMenu_UnitCommand
 
@@ -221,7 +221,7 @@ sub_80226F8: @ 0x080226F8
 	ldr r0, _0802271C  @ gUnknown_0202BCB0
 	adds r0, #0x3e
 	strb r1, [r0]
-	ldr r0, _08022720  @ gUnknown_0859AAD8
+	ldr r0, _08022720  @ gProcScr_PlayerPhase
 	bl Proc_Find
 	movs r1, #0xc
 	bl Proc_Goto
@@ -231,7 +231,7 @@ sub_80226F8: @ 0x080226F8
 	.align 2, 0
 _08022718: .4byte gActiveUnit
 _0802271C: .4byte gUnknown_0202BCB0
-_08022720: .4byte gUnknown_0859AAD8
+_08022720: .4byte gProcScr_PlayerPhase
 
 	THUMB_FUNC_END sub_80226F8
 

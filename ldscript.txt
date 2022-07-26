@@ -61,7 +61,7 @@ SECTIONS
         src/bmidoten.o(.text);
         src/bmdebug.o(.text);
         asm/bmdebug.o(.text);
-        asm/playerphase.o(.text);
+        src/playerphase.o(.text);
         asm/koido.o(.text);
         asm/bmxfade.o(.text);
         asm/bmcamadjust.o(.text);
@@ -201,6 +201,8 @@ SECTIONS
         . = ALIGN(4); src/bmitem.o(.rodata);
         . = ALIGN(4); src/bmunit.o(.rodata);
         . = ALIGN(4); data/const_data_D7A6C.o(.rodata);
+        . = ALIGN(4); src/playerphase.o(.rodata);
+        . = ALIGN(4); data/const_data_D7B04.o(.rodata);
         . = ALIGN(4); src/bmreliance.o(.rodata);
         . = ALIGN(4); src/bmbattle.o(.rodata);
         . = ALIGN(4); src/bmtrade.o(.rodata);
@@ -260,6 +262,8 @@ SECTIONS
         . = ALIGN(4); data/data_59A9D8.o(.data);
         . = ALIGN(4); src/bmdebug.o(.data);
         . = ALIGN(4); data/data_59AA7C.o(.data);
+        . = ALIGN(4); src/playerphase.o(.data);
+        . = ALIGN(4); data/data_59AD88.o(.data);
         . = ALIGN(4); src/chapterintrofx.o(.data);
         . = ALIGN(4); data/data_59B358.o(.data);
         . = ALIGN(4); src/bmreliance.o(.data);

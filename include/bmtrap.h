@@ -18,7 +18,7 @@ struct TrapData {
 // ??? sub_80375A0(???);
 // ??? GetPickTrapType(???);
 // ??? ExecTrap(???);
-// ??? HandlePostActionTraps(???);
+s8 HandlePostActionTraps(ProcPtr);
 s8 sub_80377CC(ProcPtr);
 s8 sub_80377F0(ProcPtr, struct Unit*);
 s8 sub_8037830(ProcPtr, struct Unit*);

@@ -10325,13 +10325,13 @@ sub_808E748: @ 0x0808E748
 	ldrb r0, [r0]
 	cmp r0, #0
 	beq _0808E75A
-	ldr r0, _0808E760  @ gUnknown_0859AE18
+	ldr r0, _0808E760  @ gProcScr_ADJUSTSFROMXI
 	bl Proc_StartBlocking
 _0808E75A:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_0808E760: .4byte gUnknown_0859AE18
+_0808E760: .4byte gProcScr_ADJUSTSFROMXI
 
 	THUMB_FUNC_END sub_808E748
 
