@@ -261,8 +261,7 @@
 // extern ??? gUnknown_0201FAD4
 // extern ??? gUnknown_0201FAD8
 
-// Likely a struct
-extern u8 gUnknown_0201FADC[];
+extern struct Proc gUnknown_0201FADC;
 // extern ??? gUnknown_0201FB04
 // extern ??? gUnknown_0201FB0C
 // extern ??? gUnknown_0201FB18
@@ -807,8 +806,6 @@ extern struct GMapData gUnknown_03005280;
 // extern ??? gUnknown_03005380
 // extern ??? gUnknown_03005398
 
-// Likely a struct
-extern u8 gUnknown_030053A0[];
 // extern ??? gUnknown_030053E0
 // extern ??? gUnknown_03005408
 // extern ??? gSoundInfo
@@ -2960,8 +2957,8 @@ extern const struct SupportBonuses gAffinityBonuses[];
 // extern ??? gUnknown_088D2058
 // extern ??? gUnknown_0895DD1C
 extern u8 CONST_DATA gUnknown_0895DFA4[][2];
-// extern ??? gUnknown_0895E0A4
-// extern ??? gUnknown_0895EEA4
+extern u8 gUnknown_0895E0A4[];
+extern u8 gUnknown_0895EEA4[];
 // extern ??? gUnknown_0895F5A4
 // extern ??? gUnknown_0895F5A5
 // extern ??? gUnknown_089A18D4

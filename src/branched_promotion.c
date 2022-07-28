@@ -1,5 +1,6 @@
 #include "global.h"
 
+#include "anime.h"
 #include "bmbattle.h"
 #include "bmio.h"
 #include "bmitem.h"
@@ -473,10 +474,22 @@ void LoadClassNameInClassReelFont(struct PromoProc3 *proc) {
         proc->u44++;
 }
 
+struct Unknown_030053A0 {
+    u8 _fill[0x14];
+    struct Anim *anim1;
+    struct Anim *anim2;
+};
+
+extern struct Unknown_030053A0 gUnknown_030053A0;
+
+void sub_805AA28(struct Unknown_030053A0 *a);
+
+void sub_805AE14(struct Proc *a);
+
 void sub_80CCBD4(void) {
     sub_805A9E0();
-    sub_805AA28(gUnknown_030053A0);
-    sub_805AE14(gUnknown_0201FADC);
+    sub_805AA28(&gUnknown_030053A0);
+    sub_805AE14(&gUnknown_0201FADC);
 }
 
 struct Struct_8A30978 {
@@ -563,7 +576,8 @@ ProcPtr Make6C_PromotionSub(ProcPtr parent) {
 u8 LoadClassBattleSprite(u16*, u8, u16);
 
 void sub_80CD47C(int, int, int, int, int);
-void sub_80CD408(int, int, int);
+void sub_80CD408(u32, s16, s16);
+
 void sub_8095A1C(void);
 
 ProcPtr Make6C_PromotionMenuSelect(ProcPtr);
@@ -687,4 +701,96 @@ void sub_80CCF60(struct PromoProc3 *proc) {
     tmp = REG_BG3CNT;
     tmp &= 0xFFFC;
     REG_BG3CNT = tmp + 1;
+}
+
+u16 GetBattleAnimationId(struct Unit *unit, const void *anim, u16 wpn, u32 *out);
+u8 sub_805A96C(struct Unknown_030053A0 *);
+void sub_805A990(struct Unknown_030053A0 *);
+void LoadBattleSpritesForBranchScreen(struct PromoProc3 *proc) {
+    u32 a;
+    u8 b;
+    struct PromoProc3 *p2;
+    struct PromoProc3 *c2;
+    struct Anim *anim1;
+    struct Anim *anim2;
+    struct Unit copied_unit;
+    struct Unknown_030053A0 *tmp;
+    struct Unknown_030053A0 *tmp2;
+    u16 sp58;
+    anim1 = gUnknown_030053A0.anim1;
+    anim2 = gUnknown_030053A0.anim2;
+
+    p2 = gUnknown_0201FADC.proc_parent;
+    c2 = gUnknown_0201FADC.proc_child;
+
+    a = proc->u40;
+    tmp = &gUnknown_030053A0;
+
+    if (a == 1) {
+        u16 r4, r6;
+        s16 i;
+        struct Unit *unit;
+        const void * battle_anim_ptr;
+        u32 battle_anim_id;
+        u16 ret;
+        if ((s16) p2->u32[0] <= 0x117) {
+            p2->u32[0] += 12;
+            c2->u32[0] += 12;
+            anim1->xPosition += 12;
+            anim2->xPosition = anim1->xPosition;
+        } else {
+            proc->u40 = 2;
+        }
+        if (proc->u40 == 2) {
+            sub_805A9E0();
+            sub_805AA28(&gUnknown_030053A0);
+            r4 = proc->u42 - 1;
+            r6 = proc->u2c[proc->u41];
+            sp58 = 0xffff;
+            unit = GetUnitFromCharId(proc->u42);
+            copied_unit = *unit;
+            copied_unit.pClassData = GetClassData(proc->u2c[proc->u41]);
+            battle_anim_ptr = copied_unit.pClassData->pBattleAnimDef;
+            ret = GetBattleAnimationId(
+                &copied_unit,
+                battle_anim_ptr,
+                (u16) GetUnitEquippedWeapon(&copied_unit),
+                &battle_anim_id);
+            for (i = 0; i <= 6; i++) {
+                if (gUnknown_0895E0A4[i + (s16) r4 * 7] == (s16) r6) {
+                    sp58 = gUnknown_0895EEA4[i + (s16) r4 * 7] - 1;
+                    break;
+                }
+            }
+            sub_80CD47C((s16) ret, (s16) sp58, (s16) (p2->u32[0] + 0x28), 0x58, 6);
+            sub_805AE14(&gUnknown_0201FADC);
+            sub_80CD408(proc->u50, p2->u32[0], p2->u38[1]);
+        } else {
+            goto D1AC;
+        }
+    }
+    ++proc; --proc;
+    b = proc->u40;
+    tmp = &gUnknown_030053A0;
+    if (b == 2) {
+        if ((s16) p2->u32[0] > 0x82) {
+#ifdef NONMATCHING
+			u16 off = 12;
+#else
+            register u16 off asm("r1") = 12;
+#endif // NONMATCHING
+            p2->u32[0] -= off;
+            c2->u32[0] -= off;
+            anim1->xPosition -= off;
+            anim2->xPosition = anim1->xPosition;
+        } else {
+            proc->u40 = 0;
+        }
+    }
+D1AC:
+    if ((u8) sub_805A96C(tmp)) {
+        sub_805A990(tmp);
+    }
+    LoadClassNameInClassReelFont(proc);
+    return;
 }
