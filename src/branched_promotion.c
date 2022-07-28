@@ -4,6 +4,7 @@
 #include "bmbattle.h"
 #include "bmio.h"
 #include "bmitem.h"
+#include "bmmap.h"
 #include "bmunit.h"
 #include "ctc.h"
 #include "fontgrp.h"
@@ -793,4 +794,46 @@ D1AC:
     }
     LoadClassNameInClassReelFont(proc);
     return;
+}
+
+void sub_80CD1D4(struct Proc *proc) {
+    struct Proc *parent = proc->proc_parent;
+    struct PromoProc *gparent = parent->proc_parent;
+    switch (gparent->u31) {
+    case 0:
+        return;
+    case 1:
+        Proc_End(proc);
+        Proc_End(parent);
+        Proc_End(gparent);
+        sub_805AA28(&gUnknown_030053A0);
+        sub_805AE14(&gUnknown_0201FADC);
+        sub_805A9E0();
+    }
+}
+
+void sub_80CD218(struct Proc *proc) {
+    struct Proc *parent;
+    struct PromoProc *gparent;
+    struct Proc *ggparent;
+    parent = proc->proc_parent;
+    gparent = parent->proc_parent;
+    ggparent = gparent->proc_parent;
+    if (gparent->u31 == 2) {
+        Proc_End(proc);
+        Proc_End(parent);
+        Proc_End(gparent);
+        sub_805AA28(&gUnknown_030053A0);
+        sub_805AE14(&gUnknown_0201FADC);
+        sub_805A9E0();
+        gActionData.unitActionType = 0;
+        Proc_Goto(ggparent, 2);
+        BMapDispResume();
+        RefreshBMapGraphics();
+        RefreshEntityBmMaps();
+        RenderBmMap();
+        SMS_UpdateFromGameData();
+        MU_EndAll();
+        MU_Create(gActiveUnit);
+    }
 }
