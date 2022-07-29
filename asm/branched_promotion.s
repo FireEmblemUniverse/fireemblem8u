@@ -2,123 +2,26 @@
 
 	.SYNTAX UNIFIED
 
-	THUMB_FUNC_START sub_80CD294
-sub_80CD294: @ 0x080CD294
-	push {lr}
-	adds r1, r0, #0
-	ldr r0, [r1, #0x14]
-	ldr r0, [r0, #0x14]
-	adds r0, #0x31
-	ldrb r0, [r0]
-	cmp r0, #0
-	bne _080CD2AE
-	adds r0, r1, #0
-	movs r1, #4
-	bl Proc_Goto
-	b _080CD2C6
-_080CD2AE:
-	cmp r0, #1
-	bne _080CD2BA
-	adds r0, r1, #0
-	bl Proc_Break
-	b _080CD2C6
-_080CD2BA:
-	cmp r0, #2
-	bne _080CD2C6
-	adds r0, r1, #0
-	movs r1, #4
-	bl Proc_Goto
-_080CD2C6:
-	pop {r0}
-	bx r0
-
-	THUMB_FUNC_END sub_80CD294
-
-	THUMB_FUNC_START sub_80CD2CC
-sub_80CD2CC: @ 0x080CD2CC
-	push {lr}
-	adds r1, r0, #0
-	ldr r0, [r1, #0x14]
-	ldr r0, [r0, #0x14]
-	adds r0, #0x31
-	ldrb r0, [r0]
-	cmp r0, #0
-	beq _080CD2E0
-	cmp r0, #1
-	bne _080CD2EA
-_080CD2E0:
-	adds r0, r1, #0
-	movs r1, #5
-	bl Proc_Goto
-	b _080CD2F4
-_080CD2EA:
-	cmp r0, #2
-	bne _080CD2F4
-	adds r0, r1, #0
-	bl Proc_Break
-_080CD2F4:
-	pop {r0}
-	bx r0
-
-	THUMB_FUNC_END sub_80CD2CC
-
-	THUMB_FUNC_START sub_80CD2F8
-sub_80CD2F8: @ 0x080CD2F8
-	push {r4, r5, lr}
-	adds r4, r0, #0
-	adds r5, r4, #0
-	adds r0, #0x29
-	ldrb r0, [r0]
-	cmp r0, #1
-	beq _080CD324
-	cmp r0, #1
-	bgt _080CD310
-	cmp r0, #0
-	beq _080CD314
-	b _080CD328
-_080CD310:
-	cmp r0, #0xff
-	bne _080CD328
-_080CD314:
-	adds r0, r5, #0
-	bl Make6C_PromotionSub
-	str r0, [r5, #0x34]
-	adds r1, r4, #0
-	adds r1, #0x29
-	movs r0, #1
-	strb r0, [r1]
-_080CD324:
-	movs r0, #0
-	b _080CD32A
-_080CD328:
-	movs r0, #1
-_080CD32A:
-	pop {r4, r5}
-	pop {r1}
-	bx r1
-
-	THUMB_FUNC_END sub_80CD2F8
-
-	THUMB_FUNC_START sub_80CD330
-sub_80CD330: @ 0x080CD330
-	push {lr}
-	adds r0, #0x29
-	ldrb r0, [r0]
-	cmp r0, #0
-	blt _080CD346
-	cmp r0, #1
-	ble _080CD346
-	cmp r0, #2
-	bne _080CD346
-	movs r0, #0
-	b _080CD348
-_080CD346:
-	movs r0, #1
-_080CD348:
-	pop {r1}
-	bx r1
-
-	THUMB_FUNC_END sub_80CD330
+//	THUMB_FUNC_START sub_80CD330
+//sub_80CD330: @ 0x080CD330
+//	push {lr}
+//	adds r0, #0x29
+//	ldrb r0, [r0]
+//	cmp r0, #0
+//	blt _080CD346
+//	cmp r0, #1
+//	ble _080CD346
+//	cmp r0, #2
+//	bne _080CD346
+//	movs r0, #0
+//	b _080CD348
+//_080CD346:
+//	movs r0, #1
+//_080CD348:
+//	pop {r1}
+//	bx r1
+//
+//	THUMB_FUNC_END sub_80CD330
 
 	THUMB_FUNC_START sub_80CD34C
 sub_80CD34C: @ 0x080CD34C

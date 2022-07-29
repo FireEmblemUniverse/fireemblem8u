@@ -55,10 +55,10 @@ ProcPtr Make6C_PromotionMain(ProcPtr proc) {
 struct PromoProc2
 {
     PROC_HEADER;
-    s8 u29;
+    u8 u29;
     struct Unit *unit;
     u32 u30;
-    u32 u34;
+    ProcPtr u34;
     u8 u38;
     s8 _u39;
     s8 _u3a;
@@ -835,5 +835,59 @@ void sub_80CD218(struct Proc *proc) {
         SMS_UpdateFromGameData();
         MU_EndAll();
         MU_Create(gActiveUnit);
+    }
+}
+
+void sub_80CD294(struct Proc *proc) {
+    struct Proc *parent;
+    struct PromoProc *gparent;
+    parent = proc->proc_parent;
+    gparent = parent->proc_parent;
+    if (gparent->u31 == 0) {
+        Proc_Goto(proc, 4);
+    } else if (gparent->u31 == 1) {
+        Proc_Break(proc);
+    } else if (gparent->u31 == 2) {
+        Proc_Goto(proc, 4);
+    }
+}
+
+void sub_80CD2CC(struct Proc *proc) {
+    struct Proc *parent;
+    struct PromoProc *gparent;
+    parent = proc->proc_parent;
+    gparent = parent->proc_parent;
+    if (gparent->u31 == 0) {
+        Proc_Goto(proc, 5);
+    } else if (gparent->u31 == 1) {
+        Proc_Goto(proc, 5);
+    } else if (gparent->u31 == 2) {
+        Proc_Break(proc);
+    }
+}
+
+u32 sub_80CD2F8(struct PromoProc2 *proc) {
+    struct PromoProc2 *tmp = (struct PromoProc2 *)proc;
+    switch (tmp->u29) {
+    case 1:
+        return 0;
+    case 0xff:
+    case 0:
+        proc->u34 = Make6C_PromotionSub(proc);
+        tmp->u29 = 1;
+        return 0;
+    default:
+        return 1;
+    }
+}
+u32 sub_80CD330(struct PromoProc2 *proc) {
+    switch (proc->u29) {
+    case 0:
+    case 1:
+        return 1;
+    case 2:
+        return 0;
+    default:
+        return 1;
     }
 }
