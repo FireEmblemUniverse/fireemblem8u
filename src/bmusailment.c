@@ -1,6 +1,7 @@
 #include "global.h"
 
 #include "constants/classes.h"
+#include "constants/items.h"
 
 #include "uiutils.h"
 #include "hardware.h"
@@ -12,6 +13,7 @@
 #include "bmmap.h"
 #include "bmbattle.h"
 #include "mu.h"
+#include "bmmind.h"
 #include "bmtarget.h"
 
 extern u16 gUnknown_08A032AC[];
@@ -23,17 +25,16 @@ extern u16 gUnknown_02022C48[];
 extern u16 gUnknown_02022C68[];
 
 
-// bb.s
-void sub_80357A8(ProcPtr, struct Unit*, int, int);
-void sub_8035804(struct Unit*, s8);
-void sub_803584C(struct Unit*, s8);
-void sub_80358C0(struct Unit*, s8);
-
 // trapfx.s
 void sub_801F68C(ProcPtr, int, int);
 void sub_801F600(ProcPtr, int, int, int);
 void sub_801F844(ProcPtr, int);
 void sub_801F8C8(ProcPtr, int, int);
+
+// code_mapanim.s
+void sub_807B5DC(void);
+void sub_807B634(void);
+void sub_807B68C(void);
 
 
 struct UnknownBMUSAilmentProc {
@@ -116,6 +117,179 @@ struct ProcCmd CONST_DATA sProcScr_0859E2D0[] = {
 
     PROC_END,
 };
+
+void sub_80357A8(ProcPtr proc, struct Unit* unit, int hp, int status) {
+
+    if (status >= 0) {
+        SetUnitStatus(unit, status);
+    }
+
+    AddUnitHp(unit, hp);
+
+    if (GetUnitCurrentHp(unit) <= 0) {
+        UnitKill(unit);
+    }
+
+    DropRescueOnDeath(proc, unit);
+
+    return;
+}
+
+void sub_80357E4(struct Unit* unit) {
+
+    if ((GetUnitCurrentHp(unit) == 0) && (gRAMChapterData.chapterVisionRange != 0)) {
+        RenderBmMapOnBg2();
+    }
+
+    return;
+}
+
+void sub_8035804(struct Unit* unit, int hp) {
+
+    BattleInitItemEffect(unit, -1);
+
+    gBattleActor.weapon = ITEM_VULNERARY;
+    gBattleActor.weaponBefore = ITEM_VULNERARY;
+
+    AddUnitHp(&gBattleActor.unit, hp);
+
+    gBattleHitIterator->hpChange = gBattleActor.hpInitial - gBattleActor.unit.curHP;
+
+    BattleHitTerminate();
+    BeginBattleAnimations();
+
+    return;
+}
+
+void sub_803584C(struct Unit* unit, int damage) {
+
+    BattleInitItemEffect(unit, -1);
+
+    AddUnitHp(&gBattleActor.unit, -damage);
+
+    if (gBattleActor.unit.curHP < 0) {
+        gBattleActor.unit.curHP = 0;
+    }
+
+    gBattleHitIterator->hpChange = gBattleActor.hpInitial - gBattleActor.unit.curHP;
+
+    if (gBattleActor.unit.curHP == 0) {
+        gBattleHitIterator->info |= BATTLE_HIT_INFO_FINISHES;
+    }
+
+    BattleHitTerminate();
+
+    sub_807B5DC();
+
+    sub_80357E4(unit);
+
+    return;
+}
+
+void sub_80358C0(struct Unit* unit, int damage) {
+
+    BattleInitItemEffect(unit, -1);
+
+    AddUnitHp(&gBattleActor.unit, -damage);
+
+    if (gBattleActor.unit.curHP < 0) {
+        gBattleActor.unit.curHP = 0;
+    }
+
+    gBattleHitIterator->hpChange = gBattleActor.hpInitial - gBattleActor.unit.curHP;
+
+    if (gBattleActor.unit.curHP == 0) {
+
+        gBattleHitIterator->info |= BATTLE_HIT_INFO_FINISHES;
+    }
+
+    BattleHitTerminate();
+
+    sub_807B634();
+
+    return;
+}
+
+void sub_803592C(struct Unit* unit, int damage) {
+
+    BattleInitItemEffect(unit, -1);
+
+    AddUnitHp(&gBattleActor.unit, -damage);
+
+    if (gBattleActor.unit.curHP < 0) {
+        gBattleActor.unit.curHP = 0;
+    }
+
+    gBattleHitIterator->hpChange = gBattleActor.hpInitial - gBattleActor.unit.curHP;
+
+    if (gBattleActor.unit.curHP == 0) {
+
+        gBattleHitIterator->attributes |= BATTLE_HIT_ATTR_CRIT;
+        gBattleHitIterator->info |= BATTLE_HIT_INFO_FINISHES;
+    }
+
+    BattleHitTerminate();
+
+    sub_807B68C();
+
+    sub_80357E4(unit);
+
+    return;
+}
+
+void sub_80359B4(struct UnknownBMUSAilmentProc* proc) {
+    int i;
+
+    InitTargets(0, 0);
+
+    for (i = FACTION_RED + 1; i < FACTION_PURPLE; i++) {
+        struct Unit* unit = GetUnit(i);
+
+        if (!UNIT_IS_VALID(unit)) {
+            continue;
+        }
+
+        if (unit->state & US_UNAVAILABLE) {
+            continue;
+        }
+
+        AddTarget(unit->xPos, unit->yPos, unit->index, 0);
+    }
+
+    proc->unk_4C = 0;
+
+    return;
+}
+
+void sub_8035A0C(struct UnknownBMUSAilmentProc* proc) {
+    struct Unit* unit;
+    int x;
+    int y;
+
+    if (proc->unk_4C == GetSelectTargetCount()) {
+        Proc_Goto(proc, 99);
+        return;
+    }
+
+    unit = GetUnit(GetTarget(proc->unk_4C)->uid);
+
+    HideUnitSMS(unit);
+    UnitKill(unit);
+
+    x = unit->xPos * 16 - gUnknown_0202BCB0.camera.x;
+    y = unit->yPos * 16 - gUnknown_0202BCB0.camera.y;
+
+    if ((x < 0) || (x > 0xF0) || (y < 0) || (y > 0xA0)) {
+        proc->unk_4C++;
+        Proc_Goto(proc, 0);
+    } else {
+        MU_StartDeathFade(MU_Create(unit));
+        proc->unk_4C++;
+        Proc_Break(proc);
+    }
+
+    return;
+}
 
 void sub_8035AA4() {
     int i;
