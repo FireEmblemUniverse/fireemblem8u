@@ -261,7 +261,6 @@
 // extern ??? gUnknown_0201FAD4
 // extern ??? gUnknown_0201FAD8
 
-extern struct Proc gUnknown_0201FADC;
 // extern ??? gUnknown_0201FB04
 // extern ??? gUnknown_0201FB0C
 // extern ??? gUnknown_0201FB18

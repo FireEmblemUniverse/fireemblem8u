@@ -483,9 +483,21 @@ struct Unknown_030053A0 {
 
 extern struct Unknown_030053A0 gUnknown_030053A0;
 
+struct Unknown_0201FADC {
+    u16 things[8];
+	u16 _pad1;
+    struct PromoProc3 *p1;
+    struct PromoProc3 *p2;
+    u32 u1c;
+    u8 * u20;
+    u32 _pad2;
+};
+
+extern struct Unknown_0201FADC gUnknown_0201FADC;
+
 void sub_805AA28(struct Unknown_030053A0 *a);
 
-void sub_805AE14(struct Proc *a);
+void sub_805AE14(struct Unknown_0201FADC *a);
 
 void sub_80CCBD4(void) {
     sub_805A9E0();
@@ -721,8 +733,8 @@ void LoadBattleSpritesForBranchScreen(struct PromoProc3 *proc) {
     anim1 = gUnknown_030053A0.anim1;
     anim2 = gUnknown_030053A0.anim2;
 
-    p2 = gUnknown_0201FADC.proc_parent;
-    c2 = gUnknown_0201FADC.proc_child;
+    p2 = gUnknown_0201FADC.p1;
+    c2 = gUnknown_0201FADC.p2;
 
     a = proc->u40;
     tmp = &gUnknown_030053A0;
@@ -891,3 +903,59 @@ u32 sub_80CD330(struct PromoProc2 *proc) {
         return 1;
     }
 }
+
+void sub_80CD34C(void) {
+    SetSpecialColorEffectsParameters(1, 16, 16, 0);
+    sub_8001ED0(0, 1, 0, 0, 0);
+    sub_8001F0C(0, 0, 1, 1, 1);
+    gLCDControlBuffer.dispcnt.win0_on   = TRUE;
+    gLCDControlBuffer.dispcnt.win1_on   = FALSE;
+    gLCDControlBuffer.dispcnt.objWin_on = FALSE;
+
+    gLCDControlBuffer.win0_left = 0;
+    gLCDControlBuffer.win0_top = 0;
+    gLCDControlBuffer.win0_right = 0xf0;
+    gLCDControlBuffer.win0_bottom = 0xa0;
+
+    gLCDControlBuffer.wincnt.win0_enableBg0 = TRUE;
+    gLCDControlBuffer.wincnt.win0_enableBg1 = TRUE;
+    gLCDControlBuffer.wincnt.win0_enableBg2 = TRUE;
+    gLCDControlBuffer.wincnt.win0_enableBg3 = TRUE;
+    gLCDControlBuffer.wincnt.win0_enableObj = TRUE;
+
+    gLCDControlBuffer.wincnt.wout_enableBg0 = TRUE;
+    gLCDControlBuffer.wincnt.wout_enableBg1 = FALSE;
+    gLCDControlBuffer.wincnt.wout_enableBg2 = TRUE;
+    gLCDControlBuffer.wincnt.wout_enableBg3 = TRUE;
+    gLCDControlBuffer.wincnt.wout_enableObj = TRUE;
+
+    gLCDControlBuffer.wincnt.win0_enableBlend = TRUE;
+    gLCDControlBuffer.wincnt.wout_enableBlend = FALSE;
+
+    gLCDControlBuffer.bldcnt.target2_bd_on = TRUE;
+}
+
+void sub_805AA68(struct Unknown_0201FADC *);
+void sub_805AE40(struct Unknown_0201FADC *, s16, s16, s16, s16);
+
+extern u8 gUnknown_020145C8[];
+
+
+void sub_80CD408(u32 a, s16 b, s16 c) {
+    u32 tmp;
+    s16 tmp2;
+    gUnknown_0201FADC.things[0] = a;
+    gUnknown_0201FADC.things[1] = 0xe;
+    gUnknown_0201FADC.things[2] = 0x380;
+    gUnknown_0201FADC.things[3] = a;
+    gUnknown_0201FADC.things[4] = 0xf;
+    gUnknown_0201FADC.things[5] = 0xf0 << 2;
+    gUnknown_0201FADC.things[6] = 0;
+    gUnknown_0201FADC.things[7] = 0xffff;
+    gUnknown_0201FADC.u1c = 0x06010000;
+    gUnknown_0201FADC.u20 = gUnknown_020145C8;
+    sub_805AA68(&gUnknown_0201FADC);
+
+    sub_805AE40(&gUnknown_0201FADC, b, c, b + 0x60, c);
+}
+
