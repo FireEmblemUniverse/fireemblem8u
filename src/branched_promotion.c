@@ -476,9 +476,24 @@ void LoadClassNameInClassReelFont(struct PromoProc3 *proc) {
 }
 
 struct Unknown_030053A0 {
-    u8 _fill[0x14];
+    u8 u00;
+    u8 u01;
+    u16 u02;
+    u16 u04;
+    u16 u06;
+    u16 u08;
+    u16 u0a;
+    u16 u0c;
+    u16 u0e;
+    u16 u10;
     struct Anim *anim1;
     struct Anim *anim2;
+    u8 * u1c;
+    u8 * u20;
+    u8 * u24;
+    u8 * u28;
+    u8 * _u2c;
+    struct Unknown_030053E0 * u30;
 };
 
 extern struct Unknown_030053A0 gUnknown_030053A0;
@@ -586,7 +601,7 @@ ProcPtr Make6C_PromotionSub(ProcPtr parent) {
     return Proc_StartBlocking(gUnknown_08B1271C, parent);
 }
 
-u8 LoadClassBattleSprite(u16*, u8, u16);
+u8 LoadClassBattleSprite(u16*, u16, u16);
 
 void sub_80CD47C(int, int, int, int, int);
 void sub_80CD408(u32, s16, s16);
@@ -959,3 +974,156 @@ void sub_80CD408(u32 a, s16 b, s16 c) {
     sub_805AE40(&gUnknown_0201FADC, b, c, b + 0x60, c);
 }
 
+struct Unknown_030053E0 {
+    u16 u00;
+    u16 u02;
+    u16 u04;
+    u16 u06;
+    u16 u08;
+    u16 u0a;
+    u16 u0c;
+    u16 u0e;
+    u16 u10;
+    u16 u12;
+    u16 *buf;
+    u8 *u18;
+    u8 *u1c;
+    u8 *u20;
+    void (*u24)(void);
+};
+extern struct Unknown_030053E0 gUnknown_030053E0;
+
+extern u16 gUnknown_03005408[];
+extern u8 gUnknown_02000088[];
+extern u8 gUnknown_020041C8[];
+extern u8 gUnknown_02004088[];
+extern u8 gUnknown_0200F1C8[];
+
+extern u8 gUnknown_02017790[];
+extern u8 gUnknown_02019790[];
+extern u8 gUnknown_0201A790[];
+
+void sub_806E8F0(void);
+void sub_805AA00(struct Unknown_030053A0 *);
+
+void sub_80CD47C(int a, int b, int c, int d, int e) {
+    u16 c1 = c;
+    u16 d1 = d;
+    if (gKeyStatusPtr->heldKeys & 0xc) {
+        gUnknown_03005408[0] = 0;
+    }
+
+    if (gKeyStatusPtr->newKeys & 0x200) {
+        gUnknown_03005408[0] += 1;
+    }
+
+    NewEfxAnimeDrvProc();
+    gUnknown_030053A0.u02 = c1;
+    gUnknown_030053A0.u04 = d1;
+    gUnknown_030053A0.u0c = 1;
+    gUnknown_030053A0.u06 = a;
+    gUnknown_030053A0.u08 = b;
+    gUnknown_030053A0.u0a = e;
+    gUnknown_030053A0.u01 = 0;
+    gUnknown_030053A0.u0e = 0x200;
+    gUnknown_030053A0.u10 = 0xa;
+    gUnknown_030053A0.u1c = gUnknown_02000088;
+    gUnknown_030053A0.u24 = gUnknown_020041C8;
+    gUnknown_030053A0.u20 = gUnknown_02004088;
+    gUnknown_030053A0.u28 = gUnknown_0200F1C8;
+    gUnknown_030053A0.u30 = &gUnknown_030053E0;
+    gUnknown_030053E0.u00 = 0x4;
+    gUnknown_030053E0.u02 = 0;
+    gUnknown_030053E0.u04 = 0;
+    gUnknown_030053E0.u06 = 0;
+    gUnknown_030053E0.u08 = 0;
+    gUnknown_030053E0.u0e = 0x300;
+    gUnknown_030053E0.u10 = 0x8;
+    gUnknown_030053E0.u0a = 0x200;
+    gUnknown_030053E0.u0c = 0x4;
+    gUnknown_030053E0.u12 = 0x1;
+    gUnknown_030053E0.buf = gBG1TilemapBuffer;
+    gUnknown_030053E0.u18 = gUnknown_02017790;
+    gUnknown_030053E0.u1c = gUnknown_02019790;
+    gUnknown_030053E0.u20 = gUnknown_0201A790;
+    gUnknown_030053E0.u24 = sub_80CD34C;
+
+    sub_806E8F0();
+    sub_805AA00(&gUnknown_030053A0);
+}
+
+u8 LoadClassBattleSprite(u16 *a, u16 b, u16 c) {
+    u8 i;
+    const void *r5 = GetClassData(b)->pBattleAnimDef;
+    u32 item_type = GetItemType(c);
+    u16 expected_type = item_type + 0x100;
+    u8 ret;
+
+    *a = 0;
+    for (i = 0; ; i++) {
+        u16 item = ((u16 *)r5)[2 * i];
+        if (item == expected_type) {
+            *a = ((u16 *)r5)[2 * i + 1] - 1;
+        }
+        if (((u16 *)r5)[2 * i + 1] == 0) {
+            break;
+        }
+    }
+
+    if (* ((s16 *)a) == 0) {
+        u32 key = 0x109;
+        for (i = 0; ; i++) {
+            if (((u16 *)r5)[2 * i] == key) {
+                *a = ((u16 *)r5)[2 * i + 1] - 1;
+            }
+            if (((u16 *)r5)[2 * i + 1] == 0) {
+                break;
+            }
+        }
+    }
+
+    if (!c) {
+        return 0;
+    } else {
+        s32 exp = GetItemRequiredExp(c);
+        const struct ClassData *data = GetClassData(b);
+        u32 type = GetItemType(c);
+        if (exp >= data->baseRanks[type]) {
+            return 1;
+        }
+    }
+    return 0;
+}
+
+extern struct ProcCmd gUnknown_08B127EC[];
+void sub_80CD618(void) {
+    Proc_Start(gUnknown_08B127EC, (ProcPtr)3);
+}
+
+void sub_80CD62C(void) {
+	BMapDispResume();
+	RefreshBMapGraphics();
+	RefreshEntityBmMaps();
+	MU_EndAll();
+	MU_Create(gActiveUnit);
+	RenderBmMap();
+	SMS_UpdateFromGameData();
+}
+
+ProcPtr sub_80CD668(ProcPtr);
+
+struct PromoProc4
+{
+    PROC_HEADER;
+	u32 _u2c;
+    ProcPtr u30;
+};
+
+void sub_80CD658(struct PromoProc4 *a) {
+	a->u30 = sub_80CD668(a);
+}
+
+extern struct ProcCmd gUnknown_08B1280C[];
+ProcPtr sub_80CD668(ProcPtr a) {
+	return Proc_StartBlocking(gUnknown_08B1280C, a);
+}
