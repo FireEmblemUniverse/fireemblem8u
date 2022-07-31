@@ -501,7 +501,7 @@ extern struct Unknown_030053A0 gUnknown_030053A0;
 
 struct Unknown_0201FADC {
     u16 things[8];
-	u16 _pad1;
+    u16 _pad1;
     struct PromoProc3 *p1;
     struct PromoProc3 *p2;
     u32 u1c;
@@ -804,7 +804,7 @@ void LoadBattleSpritesForBranchScreen(struct PromoProc3 *proc) {
     if (b == 2) {
         if ((s16) p2->u32[0] > 0x82) {
 #ifdef NONMATCHING
-			u16 off = 12;
+            u16 off = 12;
 #else
             register u16 off asm("r1") = 12;
 #endif // NONMATCHING
@@ -1102,13 +1102,13 @@ void sub_80CD618(void) {
 }
 
 void sub_80CD62C(void) {
-	BMapDispResume();
-	RefreshBMapGraphics();
-	RefreshEntityBmMaps();
-	MU_EndAll();
-	MU_Create(gActiveUnit);
-	RenderBmMap();
-	SMS_UpdateFromGameData();
+    BMapDispResume();
+    RefreshBMapGraphics();
+    RefreshEntityBmMaps();
+    MU_EndAll();
+    MU_Create(gActiveUnit);
+    RenderBmMap();
+    SMS_UpdateFromGameData();
 }
 
 ProcPtr sub_80CD668(ProcPtr);
@@ -1125,16 +1125,17 @@ struct PromoProc4
 };
 
 void sub_80CD658(struct PromoProc4 *a) {
-	a->u30 = sub_80CD668(a);
+    a->u30 = sub_80CD668(a);
 }
 
 extern struct ProcCmd gUnknown_08B1280C[];
 ProcPtr sub_80CD668(ProcPtr a) {
-	return Proc_StartBlocking(gUnknown_08B1280C, a);
+    return Proc_StartBlocking(gUnknown_08B1280C, a);
 }
 
 struct U03004980_Member {
-    u32 _fill[13];
+    u32 _fill[12];
+    u32 u30;
     u16 u34;
 };
 
@@ -1217,4 +1218,169 @@ void sub_80CD790(struct Proc *proc) {
     gLCDControlBuffer.dispcnt.bg2_on = 1;
     gLCDControlBuffer.dispcnt.bg3_on = 1;
     gLCDControlBuffer.dispcnt.obj_on = 1;
+}
+
+struct Unknown_0820707C {
+    u32 a[3];
+};
+extern struct Unknown_0820707C gUnknown_0820707C;
+
+extern s8 gUnknown_03005398[];
+
+void sub_80CD7FC(struct PromoProc4 *proc) {
+    struct Unknown_0820707C locals = gUnknown_0820707C;
+    struct U03004980_Member *b;
+    struct U03004980_Member *c;
+    struct U03004980_Member *d;
+    u8 i;
+    u8 negative_one;
+    switch (proc->u2a) {
+    case 0x12:
+        i = 1;
+        break;
+    case 0x18:
+        i = 2;
+        break;
+    case 0:
+    default:
+        i = 0;
+        break;
+    }
+    sub_8007938(proc->u2e, 0xd4, 0x50, 0x82, 0);
+
+    negative_one = -1;
+    sub_808F128(0x16, 0x12, 0x12, 4, locals.a[i], 0x06011800, negative_one, 0);
+
+    sub_808E9D8(0xa);
+
+    gUnknown_03004980.a->u30 = 0x82;
+    b = gUnknown_03004980.b;
+    c = gUnknown_03004980.c;
+    d = gUnknown_03004980.d;
+    d->u30 = 0x80 << 7;
+    c->u30 = 0x80 << 7;
+    b->u30 = 0x80 << 7;
+    gUnknown_03005398[0] = negative_one;
+}
+
+struct Unknown_08207088 {
+    u32 a[3];
+};
+extern struct Unknown_08207088 gUnknown_08207088;
+
+void sub_80CD898(struct PromoProc4 *proc) {
+    struct Unknown_08207088 locals = gUnknown_08207088;
+    u8 i;
+    u8 negative_one;
+    switch (proc->u2a) {
+    case 0x12:
+        i = 1;
+        break;
+    case 0x18:
+        i = 2;
+        break;
+    case 0:
+    default:
+        i = 0;
+        break;
+    }
+
+    negative_one = -1;
+    sub_808F128(0x16, 0x12, 0x12, 4, locals.a[i], 0x06011800, negative_one, 0);
+
+    sub_808E9D8(0xa);
+}
+
+struct Unknown_08207094 {
+    u32 a[3];
+};
+extern struct Unknown_08207094 gUnknown_08207094;
+
+void sub_80CD8F8(struct PromoProc4 *proc) {
+    struct Unknown_08207094 locals = gUnknown_08207094;
+    u8 i;
+    u8 negative_one;
+    switch (proc->u2a) {
+    case 0x12:
+        i = 1;
+        break;
+    case 0x18:
+        i = 2;
+        break;
+    case 0:
+    default:
+        i = 0;
+        break;
+    }
+
+    negative_one = -1;
+    sub_808F128(0x16, 0x12, 0x12, 4, locals.a[i], 0x06011800, negative_one, 0);
+
+    sub_808E9D8(0xa);
+}
+
+struct Unknown_082070A0 {
+    u32 a[3];
+};
+extern struct Unknown_082070A0 gUnknown_082070A0;
+
+void sub_80CD958(struct PromoProc4 *proc) {
+    struct Unknown_082070A0 locals = gUnknown_082070A0;
+    u8 i;
+    u8 negative_one;
+    switch (proc->u2a) {
+    case 0x12:
+        i = 1;
+        break;
+    case 0x18:
+        i = 2;
+        break;
+    case 0:
+    default:
+        i = 0;
+        break;
+    }
+
+    negative_one = -1;
+    sub_808F128(0x16, 0x12, 0x12, 4, locals.a[i], 0x06011800, negative_one, 0);
+
+    sub_808E9D8(0xa);
+}
+
+struct Unknown_082070AC {
+    u32 a[3];
+};
+extern struct Unknown_082070AC gUnknown_082070AC;
+
+void sub_80CD9B8(struct PromoProc4 *proc) {
+    struct Unknown_082070AC locals = gUnknown_082070AC;
+    u8 i;
+    u8 negative_one;
+    switch (proc->u2a) {
+    case 0x12:
+        i = 1;
+        break;
+    case 0x18:
+        i = 2;
+        break;
+    case 0:
+    default:
+        i = 0;
+        break;
+    }
+
+    negative_one = -1;
+
+    if (locals.a[i] == -1) {
+        Proc_Goto(proc, 3);
+    } else {
+        sub_808F128(0x16, 0x12, 0x12, 4, locals.a[i], 0x06011800, negative_one, 0);
+
+        sub_808E9D8(0xa);
+    }
+}
+
+int sub_80CDA2C(struct PromoProc4 *a) {
+    sub_80CD658(a);
+    return 0;
 }
