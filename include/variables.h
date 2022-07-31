@@ -1515,11 +1515,6 @@ extern struct ProcCmd CONST_DATA gProcScr_ADJUSTSFROMXI[];
 // extern ??? gUnknown_0859DA4A
 // extern ??? gUnknown_0859DBA0
 // extern ??? gUnknown_0859E13C
-// extern ??? gUnknown_0859E14C
-// extern ??? gUnknown_0859E166
-// extern ??? gUnknown_0859E188
-// extern ??? gUnknown_0859E1B0
-// extern ??? gUnknown_0859E1B8
 // extern ??? gUnknown_0859E8E0
 // extern ??? gUnknown_0859ED70
 // extern ??? gUnknown_0859EDB0

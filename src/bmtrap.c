@@ -14,6 +14,7 @@
 #include "soundwrapper.h"
 #include "bmmap.h"
 #include "bmarch.h"
+#include "bmusailment.h"
 
 #include "bmtrap.h"
 
@@ -24,9 +25,6 @@ void BWL_AddWinOrLossIdk(u8, u8, int);
 // trapfx.s
 void sub_801F68C(ProcPtr, int, int);
 void sub_801F6BC(ProcPtr, int, int);
-
-// bb.s
-void sub_80357A8(ProcPtr, struct Unit*, int, int);
 
 // ev_triggercheck.s
 s8 CheckForWaitEvents(void);

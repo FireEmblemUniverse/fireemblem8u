@@ -45,7 +45,7 @@ _0801DFD8: .4byte gConvoyMenuDef
 sub_801DFDC: @ 0x0801DFDC
 	push {r4, lr}
 	adds r4, r0, #0
-	bl DeleteEach6CBB
+	bl EndSubtitleHelp
 	bl sub_801EA54
 	ldr r0, _0801DFF4  @ gUnknown_0202BCB0
 	ldrh r0, [r0, #0x2e]
@@ -193,7 +193,7 @@ HandleNewItemGetFromDrop: @ 0x0801E098
 	bl GetStringFromIndex
 	adds r1, r0, #0
 	adds r0, r6, #0
-	bl NewBottomHelpText
+	bl StartSubtitleHelp
 	b _0801E11A
 	.align 2, 0
 _0801E100: .4byte gActiveUnit
@@ -204,7 +204,7 @@ _0801E10C:
 	bl GetStringFromIndex
 	adds r1, r0, #0
 	adds r0, r6, #0
-	bl NewBottomHelpText
+	bl StartSubtitleHelp
 _0801E11A:
 	movs r0, #2
 	bl sub_8008A0C

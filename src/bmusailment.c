@@ -16,6 +16,8 @@
 #include "bmmind.h"
 #include "bmtarget.h"
 
+#include "bmusailment.h"
+
 extern u16 gUnknown_08A032AC[];
 extern u16 gUnknown_08A03334[]; // palette
 extern u16 gUnknown_08A03354[];
@@ -52,6 +54,27 @@ struct UnknownBMUSAilmentProc {
     /* 58 */ int unk_58;
 };
 
+void sub_80359B4(struct UnknownBMUSAilmentProc* proc);
+void sub_8035A0C(struct UnknownBMUSAilmentProc* proc);
+
+struct ProcCmd CONST_DATA gProcScr_0859E1F0[] = {
+    PROC_CALL(sub_80359B4),
+
+PROC_LABEL(0),
+    PROC_REPEAT(sub_8035A0C),
+    PROC_SLEEP(32),
+
+    PROC_CALL(MU_EndAll),
+
+    PROC_GOTO(0),
+
+PROC_LABEL(99),
+    PROC_CALL(RefreshEntityBmMaps),
+    PROC_CALL(RenderBmMap),
+    PROC_CALL(SMS_UpdateFromGameData),
+
+    PROC_END,
+};
 
 void sub_8035AA4(void);
 void sub_8035B0C(void);

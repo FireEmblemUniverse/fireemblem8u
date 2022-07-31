@@ -20,32 +20,31 @@ struct SubtitleHelpProc {
 
 extern u8 gUnknown_0859EF20[]; // pal
 
-extern u16 gUnknown_0859E14C[];
-extern u8 gUnknown_0859E166[];
-extern struct ProcCmd gUnknown_0859E188[];
-extern u8 gUnknown_0859E1B0[];
-extern struct ProcCmd gUnknown_0859E1B8[];
-
 // bm.s
 void sub_8015EDC(int);
 
-void sub_803547C(struct SubtitleHelpProc* proc, int y) {
-    int i;
-    int x;
-    int index;
 
+void PutSubtitleHelpText(struct SubtitleHelpProc* proc, int y) {
+
+    static u16 lut[] = {
+        0x00,
+        0x04, 0x08, 0x0C, 0x10, 0x14, 0x18,
+        0x44, 0x48, 0x4C, 0x50, 0x54, 0x58,
+    };
+
+    int i;
 
     for (i = 0; i < 9; i++) {
-        x = (i * 32) - 32 + proc->textOffset;
-        index = (proc->textNum + i) % proc->textCount;
+        int x = (i * 32) - 32 + proc->textOffset;
+        int index = (proc->textNum + i) % proc->textCount;
 
-        PutSprite(2, x, y, gObject_32x16, 0x4240 + gUnknown_0859E14C[index]);
+        PutSprite(2, x, y, gObject_32x16, 0x4240 + lut[index]);
     }
 
     return;
 }
 
-void sub_80354E0(struct SubtitleHelpProc* proc) {
+void InitSubtitleHelpText(struct SubtitleHelpProc* proc) {
     const char* iter;
     int line;
     int width;
@@ -91,7 +90,14 @@ void sub_80354E0(struct SubtitleHelpProc* proc) {
     return;
 }
 
-void sub_80355AC() {
+void SubtitleHelpDarkenerOnHBlank() {
+
+    static u8 bldyLut[] = {
+        0, 0, 0, 0, 0, 0, 0, 0, // 128 .. 135
+        0, 0, 0, 0, 1, 2, 3, 4, // 136 .. 143
+        5, 6, 7, 7, 7, 7, 7, 7, // 144 .. 151
+        7, 7, 7, 7, 7, 7, 7, 7, // 152 .. 159
+    };
 
     u16 vcount = REG_VCOUNT;
 
@@ -102,42 +108,47 @@ void sub_80355AC() {
     } else {
         int bldy;
 
-        bldy = gUnknown_0859E166[vcount - 128];
-        bldy = bldy - gUnknown_0202BCB0._pad30[8];
+        bldy = bldyLut[vcount - 128];
+        bldy = bldy - gUnknown_0202BCB0.altBlendACa;
 
         if (bldy < 0) {
             bldy = 0;
         }
 
-        REG_BLDCNT = 0xEC;
+        REG_BLDCNT =
+            BLDCNT_EFFECT_DARKEN |
+            BLDCNT_TGT1_BG2 |
+            BLDCNT_TGT1_BG3 |
+            BLDCNT_TGT1_BD;
+
         REG_BLDY = bldy;
     }
 
     return;
 }
 
-void sub_8035614() {
+void SubtitleHelpDarkener_Init() {
 
-    gUnknown_0202BCB0._pad30[8] = 8; // unk38
-    SetPrimaryHBlankHandler(sub_80355AC);
+    gUnknown_0202BCB0.altBlendACa = 8;
+    SetPrimaryHBlankHandler(SubtitleHelpDarkenerOnHBlank);
 
     return;
 }
 
-void sub_8035630() {
+void SubtitleHelpDarkener_FadeIn() {
 
-    if (gUnknown_0202BCB0._pad30[8] != 0) {
-        gUnknown_0202BCB0._pad30[8]--;
+    if (gUnknown_0202BCB0.altBlendACa != 0) {
+        gUnknown_0202BCB0.altBlendACa--;
     }
 
     return;
 }
 
-void sub_803564C(struct SubtitleHelpProc* proc) {
+void SubtitleHelpDarkener_FadeOut(struct SubtitleHelpProc* proc) {
 
-    gUnknown_0202BCB0._pad30[8]++;
+    gUnknown_0202BCB0.altBlendACa++;
 
-    if (gUnknown_0202BCB0._pad30[8] == 8) {
+    if (gUnknown_0202BCB0.altBlendACa == 8) {
         SetPrimaryHBlankHandler(0);
         Proc_Break(proc);
     }
@@ -145,29 +156,45 @@ void sub_803564C(struct SubtitleHelpProc* proc) {
     return;
 }
 
-void sub_8035678(struct SubtitleHelpProc* proc) {
+struct ProcCmd CONST_DATA gProcScr_SubtitleHelpDarkener[] = {
+    PROC_END_DUPLICATES,
+
+    PROC_CALL(SubtitleHelpDarkener_Init),
+
+    PROC_REPEAT(SubtitleHelpDarkener_FadeIn),
+    PROC_REPEAT(SubtitleHelpDarkener_FadeOut),
+
+    PROC_END,
+};
+
+void SubtitleHelp_Init(struct SubtitleHelpProc* proc) {
     proc->textOffset = 31;
     proc->textShowCnt = 6;
 
-    Proc_Start(gUnknown_0859E188, PROC_TREE_3);
+    Proc_Start(gProcScr_SubtitleHelpDarkener, PROC_TREE_3);
 
     return;
 }
 
-void sub_8035698() {
+void SubtitleHelp_OnEnd() {
 
     gUnknown_0202BCB0.unk28.y -= 16;
 
     sub_8015EDC(0);
 
-    Proc_BreakEach(gUnknown_0859E188);
+    Proc_BreakEach(gProcScr_SubtitleHelpDarkener);
 
     return;
 }
 
-void sub_80356BC(struct SubtitleHelpProc* proc) {
 
-    sub_803547C(proc, gUnknown_0859E1B0[proc->textShowCnt]);
+void SubtitleHelp_Loop(struct SubtitleHelpProc* proc) {
+
+    static u8 lut[] = {
+        0x90, 0x91, 0x92, 0x94, 0x96, 0x99, 0x9C, 0x00,
+    };
+
+    PutSubtitleHelpText(proc, lut[proc->textShowCnt]);
 
     if (proc->textShowCnt != 0) {
         proc->textShowCnt--;
@@ -183,14 +210,28 @@ void sub_80356BC(struct SubtitleHelpProc* proc) {
     return;
 }
 
-void NewBottomHelpText(ProcPtr parent, const char* string) {
+struct ProcCmd CONST_DATA gProcScr_SubtitleHelp[] = {
+    PROC_NAME("BB"),
+    PROC_15,
 
-    if (gRAMChapterData.unk41_8 != 1) {
-        struct SubtitleHelpProc* proc = Proc_Start(gUnknown_0859E1B8, parent);
+    PROC_SET_END_CB(SubtitleHelp_OnEnd),
+
+    PROC_SLEEP(0),
+
+    PROC_CALL(SubtitleHelp_Init),
+    PROC_REPEAT(SubtitleHelp_Loop),
+
+    PROC_BLOCK,
+};
+
+void StartSubtitleHelp(ProcPtr parent, const char* string) {
+
+    if (gRAMChapterData.cfgNoSubtitleHelp != 1) {
+        struct SubtitleHelpProc* proc = Proc_Start(gProcScr_SubtitleHelp, parent);
 
         proc->string = string;
 
-        sub_80354E0(proc);
+        InitSubtitleHelpText(proc);
 
         sub_801A278();
 
@@ -200,26 +241,26 @@ void NewBottomHelpText(ProcPtr parent, const char* string) {
     return;
 }
 
-void DeleteEach6CBB() {
-    Proc_EndEach(gUnknown_0859E1B8);
+void EndSubtitleHelp() {
+    Proc_EndEach(gProcScr_SubtitleHelp);
     return;
 }
 
-s8 sub_8035758() {
-    return Proc_Find(gUnknown_0859E1B8) != 0;
+s8 IsSubtitleHelpActive() {
+    return Proc_Find(gProcScr_SubtitleHelp) != 0;
 }
 
 void sub_8035770(ProcPtr parent, const char* string) {
     struct SubtitleHelpProc* proc;
 
-    proc = Proc_Find(gUnknown_0859E1B8);
+    proc = Proc_Find(gProcScr_SubtitleHelp);
     if (proc == 0) {
-        proc = Proc_Start(gUnknown_0859E1B8, parent);
+        proc = Proc_Start(gProcScr_SubtitleHelp, parent);
     }
 
     proc->string = string;
 
-    sub_80354E0(proc);
+    InitSubtitleHelpText(proc);
 
     proc->textOffset = 31;
 

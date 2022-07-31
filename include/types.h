@@ -133,8 +133,12 @@ struct Struct0202BCB0 // Game State Struct
     /* 2C */ u16 itemUnk2C;
     /* 2E */ u16 itemUnk2E;
 
-    /* 30 */ u8 _pad30[0x3C - 0x30];
+    /* 30 */ u8 _pad30[0x38 - 0x30];
 
+    /* 38 */ u8 altBlendACa;
+    /* 39 */ u8 altBlendACb;
+    /* 3A */ u8 altBlendBCa;
+    /* 3B */ u8 altBlendBCb;
     /* 3C */ u8 unk3C;
     /* 3D */ u8 unk3D;
     /* 3E */ u8 unk3E;
@@ -198,7 +202,7 @@ struct RAMChapterData { // Chapter Data Struct
     u32 unk41_5:1; // 1
     u32 unk41_6:1; // unk
     u32 unk41_7:1; // 1
-    u32 unk41_8:1; // 1
+    u32 cfgNoSubtitleHelp:1; // 1
     u32 cfgDisableGoalDisplay:1; // unk
     u32 unk42_2:2; // 2
     u32 cfgBattleForecastType:2; // 2
