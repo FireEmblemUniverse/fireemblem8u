@@ -1,6 +1,7 @@
 #include "global.h"
 
 #include "anime.h"
+#include "ap.h"
 #include "bmbattle.h"
 #include "bmio.h"
 #include "bmitem.h"
@@ -1115,7 +1116,11 @@ ProcPtr sub_80CD668(ProcPtr);
 struct PromoProc4
 {
     PROC_HEADER;
-	u32 _u2c;
+    s8 _u29;
+    u16 u2a;
+    u16 _u2c;
+    u8 u2e;
+    u8 _u2f;
     ProcPtr u30;
 };
 
@@ -1126,4 +1131,90 @@ void sub_80CD658(struct PromoProc4 *a) {
 extern struct ProcCmd gUnknown_08B1280C[];
 ProcPtr sub_80CD668(ProcPtr a) {
 	return Proc_StartBlocking(gUnknown_08B1280C, a);
+}
+
+struct U03004980_Member {
+    u32 _fill[13];
+    u16 u34;
+};
+
+struct Unknown_03004980 {
+    struct U03004980_Member *a;
+    struct U03004980_Member *b;
+    struct U03004980_Member *c;
+    struct U03004980_Member *d;
+};
+extern struct Unknown_03004980 gUnknown_03004980;
+
+u32 sub_80CD67C(void) {
+    u16 start = gUnknown_03004980.a->u34;
+    s16 cmp = start;
+
+    if (cmp > 0x150) {
+        return 0;
+    } else {
+        struct U03004980_Member *b = gUnknown_03004980.b;
+        struct U03004980_Member *c = gUnknown_03004980.c;
+        struct U03004980_Member *d = gUnknown_03004980.d;
+        gUnknown_03004980.a->u34 = start + 4;
+        d->u34 = start + 4;
+        c->u34 = start + 4;
+        b->u34 = start + 4;
+
+        return 1;
+    }
+}
+
+void sub_80CD6B0(struct PromoProc4 *proc) {
+    struct PromoProc2 *parent = proc->proc_parent;
+    struct Unit *unit;
+    proc->u2a = parent->u38;
+    unit = GetUnitFromCharId(proc->u2a);
+    if (unit) {
+        proc->u2e = unit->pCharacterData->portraitId;
+    } else {
+        proc->u2e = 0;
+    }
+    ResetFaces();
+    Font_InitForUIDefault();
+    LoadUiFrameGraphics();
+    LoadObjUIGfx();
+    gLCDControlBuffer.bg0cnt.priority = 0;
+    gLCDControlBuffer.bg1cnt.priority = 2;
+    gLCDControlBuffer.bg2cnt.priority = 1;
+    gLCDControlBuffer.bg3cnt.priority = 3;
+    BG_EnableSyncByMask(2);
+    sub_8095A1C();
+    BG_Fill(gBG2TilemapBuffer, 0);
+    BG_EnableSyncByMask(0xf);
+
+    gLCDControlBuffer.dispcnt.bg0_on = 1;
+    gLCDControlBuffer.dispcnt.bg1_on = 0;
+    gLCDControlBuffer.dispcnt.bg2_on = 0;
+    gLCDControlBuffer.dispcnt.bg3_on = 1;
+    gLCDControlBuffer.dispcnt.obj_on = 1;
+    sub_800680C(0x200, 3, 1);
+    SetSpecialColorEffectsParameters(1, 14, 8, 0);
+    sub_8001ED0(0, 0, 0, 0, 0);
+    sub_8001F0C(0, 0, 0, 1, 0);
+}
+
+void sub_80CD790(struct Proc *proc) {
+    struct PromoProc2 *parent = proc->proc_parent;
+    parent->u29 = -1;
+    sub_8010E50();
+    sub_8096C20();
+    APProc_DeleteAll();
+    EndBG3Slider_();
+    BG_SetPosition(1, 0, 0);
+    BG_SetPosition(2, 0, 0);
+    BG_SetPosition(4, 0, 0);
+    BG_SetPosition(8, 0, 0);
+    BG_EnableSyncByMask(15);
+
+    gLCDControlBuffer.dispcnt.bg0_on = 1;
+    gLCDControlBuffer.dispcnt.bg1_on = 1;
+    gLCDControlBuffer.dispcnt.bg2_on = 1;
+    gLCDControlBuffer.dispcnt.bg3_on = 1;
+    gLCDControlBuffer.dispcnt.obj_on = 1;
 }
