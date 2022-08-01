@@ -15,6 +15,7 @@
 #include "proc.h"
 #include "soundwrapper.h"
 #include "statscreen.h"
+#include "uimenu.h"
 #include "uiutils.h"
 
 struct PromoProc
@@ -1382,5 +1383,73 @@ void sub_80CD9B8(struct PromoProc4 *proc) {
 
 int sub_80CDA2C(struct PromoProc4 *a) {
     sub_80CD658(a);
+    return 0;
+}
+
+u32 sub_80CDA38(struct PromoProc2 *proc) {
+    if (proc->u29 == 0xff) {
+        return 0;
+    } else {
+        return 1;
+    }
+}
+
+void sub_80CDA4C(struct MenuProc *proc) {
+    s32 i;
+    for (i = 0; i < proc->itemCount; i++) {
+        if (proc->menuItems[i]->def->onDraw == 0) {
+            Text_SetXCursor(&proc->menuItems[i]->text, 0);
+        }
+    }
+}
+
+u32 sub_80CDA84(struct MenuProc *proc) {
+    SyncMenuBgs(proc);
+    return 0;
+}
+
+extern u16 gUnknown_02022DB8[];
+extern u16 gUnknown_02023DB8[];
+extern struct Font gUnknown_03005380;
+
+u32 sub_80CDA90(struct MenuProc *proc) {
+    TileMap_FillRect(gUnknown_02022DB8, 0xa, 6, 0);
+    TileMap_FillRect(gUnknown_02023DB8, 0xa, 6, 0);
+    SetFont(&gUnknown_03005380);
+    sub_80CDA4C(proc->proc_parent);
+    RedrawMenu(proc->proc_parent);
+    SyncMenuBgs(proc);
+    return 0;
+}
+
+struct arg_80CDAD8 {
+    u8 _pad[0x3c];
+    s8 u3c;
+};
+u32 sub_80CDAD8(struct MenuProc *proc, struct arg_80CDAD8 *b) {
+    if (b->u3c == 0) {
+        ProcPtr found;
+        EndMenu(proc);
+        EndMenu(proc->proc_parent);
+        found = Proc_Find(gUnknown_08B12614);
+
+        sub_80ADDD4(found);
+        sub_80CCBD4();
+        Proc_Goto(found, 5);
+    }
+    return 7;
+}
+
+u32 sub_80CDB18(void) {
+    return 0xb;
+}
+
+u32 sub_80CDB1C(struct MenuProc *proc) {
+    SyncMenuBgs(proc);
+    return 0;
+}
+
+u32 sub_80CDB28(struct MenuProc *proc) {
+    SyncMenuBgs(proc);
     return 0;
 }
