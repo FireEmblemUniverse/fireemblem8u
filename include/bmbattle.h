@@ -52,7 +52,7 @@ struct BattleUnit {
     /* 70 */ u8 levelPrevious;
     /* 71 */ u8 expPrevious;
 
-    /* 72 */ u8 hpInitial;
+    /* 72 */ s8 hpInitial;
 
     /* 73 */ s8 changeHP;
     /* 74 */ s8 changePow;
