@@ -18126,7 +18126,7 @@ _0804A35A:
 	mov r0, r9
 	adds r1, r5, #0
 	bl BattleGenerateSimulation
-	bl sub_803738C
+	bl UpdateBattleForecastContents
 	ldr r0, [r7]
 	bl sub_80492B8
 	adds r0, r6, #0
@@ -18185,7 +18185,7 @@ sub_804A3A8: @ 0x0804A3A8
 	movs r0, #0x6a
 	bl m4aSongNumStart
 _0804A3E6:
-	bl sub_80373B4
+	bl CloseBattleForecast
 	adds r0, r4, #0
 	bl Proc_Break
 	b _0804A426
@@ -18207,7 +18207,7 @@ _0804A400:
 	movs r0, #0x6b
 	bl m4aSongNumStart
 _0804A41A:
-	bl sub_80373B4
+	bl CloseBattleForecast
 	adds r0, r4, #0
 	movs r1, #0
 	bl Proc_Goto

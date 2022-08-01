@@ -195,7 +195,7 @@ struct RAMChapterData { // Chapter Data Struct
     u32 unk41_8:1; // 1
     u32 unk42_1:1; // unk
     u32 unk42_2:2; // 2
-    u32 unk42_4:2; // 2
+    u32 cfgBattleForecastType:2; // 2
     u32 unk42_6:1; // 1
     u32 unk42_7:1; // unk
     u32 unk42_8:2; // 2 (!)

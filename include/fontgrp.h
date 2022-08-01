@@ -145,7 +145,7 @@ void sub_8004B0C(u16 *a, int b, int c);
 // ??? sub_8004B48(???);
 void sub_8004B88(u16 *a, int b, int c);
 void DrawDecNumber(u16* a, int b, int c);
-// ??? sub_8004BB4(???);
+void sub_8004BB4(u16 *a, int b, int c);
 void sub_8004BE4(u16* a, int b, int c);
 void sub_8004BF0(int a, u16 *b);
 // ??? sub_8004C1C(???);

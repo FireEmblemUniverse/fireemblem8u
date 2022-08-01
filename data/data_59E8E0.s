@@ -116,20 +116,20 @@ gUnknown_085A0838:  @ 0x085A0838
 gUnknown_085A08F0:  @ 0x085A08F0
 	.incbin "baserom.gba", 0x5A08F0, 0xB8
 
-	.global gUnknown_085A09A8
-gUnknown_085A09A8:  @ 0x085A09A8
+	.global gTSA_BattleForecastStandard
+gTSA_BattleForecastStandard:  @ 0x085A09A8
 	.incbin "baserom.gba", 0x5A09A8, 0x144
 
-	.global gUnknown_085A0AEC
-gUnknown_085A0AEC:  @ 0x085A0AEC
+	.global gTSA_BattleForecastExtended
+gTSA_BattleForecastExtended:  @ 0x085A0AEC
 	.incbin "baserom.gba", 0x5A0AEC, 0x194
 
-	.global gUnknown_085A0C80
-gUnknown_085A0C80:  @ 0x085A0C80
+	.global gBattleForecast_x2x4Gfx
+gBattleForecast_x2x4Gfx:  @ 0x085A0C80
 	.incbin "baserom.gba", 0x5A0C80, 0xAC
 
-	.global gUnknown_085A0D2C
-gUnknown_085A0D2C:  @ 0x085A0D2C
+	.global gBattleForecast_x2x4Pal
+gBattleForecast_x2x4Pal:  @ 0x085A0D2C
 	.incbin "baserom.gba", 0x5A0D2C, 0x20
 
 	.global gUnknown_085A0D4C
