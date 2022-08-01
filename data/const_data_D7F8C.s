@@ -7,7 +7,3 @@ gUnknown_080D7F8C:  @ 0x080D7F8C
 	.global gUnknown_080D7F92
 gUnknown_080D7F92:  @ 0x080D7F92
 	.incbin "baserom.gba", 0xD7F92, 0x1E
-
-	.global gUnknown_080D7FB0
-gUnknown_080D7FB0:  @ 0x080D7FB0
-	.incbin "baserom.gba", 0xD7FB0, 0x20

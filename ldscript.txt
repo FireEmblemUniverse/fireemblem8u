@@ -212,6 +212,7 @@ SECTIONS
         . = ALIGN(4); data/const_data_D7F5C.o(.rodata);
         . = ALIGN(4); src/sallycursor.o(.rodata);
         . = ALIGN(4); data/const_data_D7F8C.o(.rodata);
+        . = ALIGN(4); src/bksel.o(.rodata);
         . = ALIGN(4); src/bmdifficulty.o(.rodata);
         . = ALIGN(4); src/cp_phase.o(.rodata);
         . = ALIGN(4); src/cp_order.o(.rodata);

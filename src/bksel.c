@@ -14,25 +14,25 @@
 #include "bmmap.h"
 #include "statscreen.h"
 
-extern u16 gUnknown_0200300C[8][16];
-extern struct TextHandle gUnknown_02002FDC[6];
-extern int gUnknown_080D7FB0[6];
+#include "bksel.h"
 
-extern u16 gUnknown_0200422C[];
-extern u16 gUnknown_085A09A8[];
 extern u16 gBmFrameTmap0[];
 
-extern u16 gUnknown_085A0AEC[];
-
-extern u16 gUnknown_085A0C80[];
-extern u16 gUnknown_085A0D2C[];
+extern u16 gUnknown_0200300C[8][16];
+extern struct TextHandle gaBattleForecastTextStructs[6];
 
 extern u16 gUnknown_0200422C[];
+
+extern u16 gTSA_BattleForecastStandard[];
+extern u16 gTSA_BattleForecastExtended[];
+
+extern u16 gBattleForecast_x2x4Gfx[];
+extern u16 gBattleForecast_x2x4Pal[];
 
 extern struct HelpBoxInfo gHelpInfo_MbpHp;
 extern struct HelpBoxInfo gHelpInfo_CbpHp;
 
-struct BattlePreviewProc {
+struct BattleForecastProc {
     /* 00 */ PROC_HEADER;
 
     /* 2C */ int unk_2C;
@@ -66,7 +66,7 @@ s8 sub_8084560(void);
 void sub_808457C(void);
 
 
-int sub_80364D8() {
+int GetBattleForecastPanelSide() {
     int x;
 
     x = (gBattleTarget.unit.xPos * 16) - gUnknown_0202BCB0.camera.x;
@@ -82,7 +82,7 @@ int sub_80364D8() {
     return 0;
 }
 
-void sub_803650C() {
+void InitBattleForecastIconPaletteBuffer() {
     int i;
     int j;
 
@@ -121,18 +121,28 @@ void sub_803650C() {
     return;
 }
 
-void BattleForecase_SetupLabelText() {
+void InitBattleForecastLabels() {
+
+    static const int sBattleForecastLabelStringIndexes[] = {
+        0x503, // Mt
+        0x4F4, // Hit[.]
+        0x501, // Crit
+        0x4F3, // Atk[.]
+        0x4EF, // Def[.]
+        0x504, // AS
+    };
+
     int i;
 
     for (i = 0; i < 6; ++i) {
         int textIndex;
 
-        Text_Init(gUnknown_02002FDC + i, 4);
+        Text_Init(gaBattleForecastTextStructs + i, 4);
 
-        textIndex = gUnknown_080D7FB0[i];
+        textIndex = sBattleForecastLabelStringIndexes[i];
 
         Text_InsertString(
-            gUnknown_02002FDC + i,
+            gaBattleForecastTextStructs + i,
             GetStringTextCenteredPos(0x20, GetStringFromIndex(textIndex)),
             3,
             GetStringFromIndex(textIndex)
@@ -142,9 +152,9 @@ void BattleForecase_SetupLabelText() {
     return;
 }
 
-void sub_80365E4(u16* dest, struct TextHandle* text, struct Unit* unit) {
+void PutBattleForecastUnitName(u16* dest, struct TextHandle* text, struct Unit* unit) {
     char* str = GetStringFromIndex(unit->pCharacterData->nameTextId);
-    int position = GetStringTextCenteredPos(0x30, str);
+    int position = GetStringTextCenteredPos(48, str);
 
     Text_Clear(text);
     DrawTextInline(text, dest, 0, position, 0, str);
@@ -152,9 +162,9 @@ void sub_80365E4(u16* dest, struct TextHandle* text, struct Unit* unit) {
     return;
 }
 
-void sub_8036628(u16* dest, struct TextHandle* text, int itemIdx) {
+void PutBattleForecastItemName(u16* dest, struct TextHandle* text, int itemIdx) {
     char* str = GetItemName(itemIdx);
-    int position = GetStringTextCenteredPos(0x38, str);
+    int position = GetStringTextCenteredPos(56, str);
 
     Text_Clear(text);
     DrawTextInline(text, dest, 0, position, 0, str);
@@ -162,7 +172,7 @@ void sub_8036628(u16* dest, struct TextHandle* text, int itemIdx) {
     return;
 }
 
-void AddWeaponStatsAfterRound(struct BattleUnit* battleUnit, u8* hitsCounter, int* usesCounter) {
+void BattleForecastHitCountUpdate(struct BattleUnit* battleUnit, u8* hitsCounter, int* usesCounter) {
 
     if (*usesCounter > 0) {
         *hitsCounter = *hitsCounter + 1;
@@ -177,7 +187,7 @@ void AddWeaponStatsAfterRound(struct BattleUnit* battleUnit, u8* hitsCounter, in
     return;
 }
 
-void BKSEL_SetupHitAndSuchStats(struct BattlePreviewProc* proc) {
+void InitBattleForecastBattleStats(struct BattleForecastProc* proc) {
     struct BattleUnit* buFirst;
     struct BattleUnit* buSecond;
 
@@ -190,10 +200,10 @@ void BKSEL_SetupHitAndSuchStats(struct BattlePreviewProc* proc) {
     proc->isEffectiveA = 0;
 
     if ((gBattleActor.weapon != 0) || (gBattleActor.weaponBroke)) {
-        AddWeaponStatsAfterRound(&gBattleActor, &proc->hitCountA, &usesA);
+        BattleForecastHitCountUpdate(&gBattleActor, &proc->hitCountA, &usesA);
 
         if ((followUp != 0) && (buFirst == &gBattleActor)) {
-            AddWeaponStatsAfterRound(buFirst, &proc->hitCountA, &usesA);
+            BattleForecastHitCountUpdate(buFirst, &proc->hitCountA, &usesA);
         }
 
         if (IsUnitEffectiveAgainst(&gBattleActor.unit, &gBattleTarget.unit) != 0) {
@@ -213,9 +223,9 @@ void BKSEL_SetupHitAndSuchStats(struct BattlePreviewProc* proc) {
     proc->isEffectiveB = 0;
 
     if ((gBattleTarget.weapon != 0) || (gBattleTarget.weaponBroke)) {
-        AddWeaponStatsAfterRound(&gBattleTarget, &proc->hitCountB, &usesB);
+        BattleForecastHitCountUpdate(&gBattleTarget, &proc->hitCountB, &usesB);
         if ((followUp != 0) && (buFirst == &gBattleTarget)) {
-            AddWeaponStatsAfterRound(buFirst, &proc->hitCountB, &usesB);
+            BattleForecastHitCountUpdate(buFirst, &proc->hitCountB, &usesB);
         }
 
         if (IsUnitEffectiveAgainst(&gBattleTarget.unit, &gBattleActor.unit) != 0) {
@@ -234,19 +244,19 @@ void BKSEL_SetupHitAndSuchStats(struct BattlePreviewProc* proc) {
     return;
 }
 
-void sub_8036818(struct BattlePreviewProc* proc) {
+void DrawBattleForecastContentsStandard(struct BattleForecastProc* proc) {
     int damage;
     int critRate;
 
-    CallARM_FillTileRect(gUnknown_0200422C, gUnknown_085A09A8, 0x1000);
+    CallARM_FillTileRect(gUnknown_0200422C, gTSA_BattleForecastStandard, 0x1000);
 
     TileMap_FillRect(gBmFrameTmap0, 10, 15, 0);
 
-    sub_80365E4(gBmFrameTmap0 + 0x23, &proc->unitNameTextA, &gBattleActor.unit);
+    PutBattleForecastUnitName(gBmFrameTmap0 + 0x23, &proc->unitNameTextA, &gBattleActor.unit);
 
-    sub_80365E4(gBmFrameTmap0 + 0x161, &proc->unitNameTextA, &gBattleTarget.unit);
+    PutBattleForecastUnitName(gBmFrameTmap0 + 0x161, &proc->unitNameTextA, &gBattleTarget.unit);
 
-    sub_8036628(gBmFrameTmap0 + 0x1A1, &proc->itemNameText, gBattleTarget.weaponBefore);
+    PutBattleForecastItemName(gBmFrameTmap0 + 0x1A1, &proc->itemNameText, gBattleTarget.weaponBefore);
 
     if ((gBattleTarget.weapon == 0) && (gBattleTarget.weaponBroke == 0)) {
         damage = -1;
@@ -303,9 +313,9 @@ void sub_8036818(struct BattlePreviewProc* proc) {
 
     sub_8004D5C(gBmFrameTmap0 + 0xA8 - 0x44, 3, 0x22, 0x23);
 
-    Text_Draw(gUnknown_02002FDC, gBmFrameTmap0  + 0xA8 - 5);
-    Text_Draw(gUnknown_02002FDC + 1, gBmFrameTmap0  + 0xA8 + 0x3B);
-    Text_Draw(gUnknown_02002FDC + 2, gBmFrameTmap0  + 0xA8 + 0x7B);
+    Text_Draw(gaBattleForecastTextStructs, gBmFrameTmap0  + 0xA8 - 5);
+    Text_Draw(gaBattleForecastTextStructs + 1, gBmFrameTmap0  + 0xA8 + 0x3B);
+    Text_Draw(gaBattleForecastTextStructs + 2, gBmFrameTmap0  + 0xA8 + 0x7B);
 
     DrawIcon(gBmFrameTmap0 + 0xA8 + 0xBF, GetItemIconId(gBattleTarget.weaponBefore), 0x4000);
 
@@ -314,16 +324,16 @@ void sub_8036818(struct BattlePreviewProc* proc) {
     return;
 }
 
-void sub_8036A70(struct BattlePreviewProc* proc) {
+void DrawBattleForecastContentsExtended(struct BattleForecastProc* proc) {
 
-    CallARM_FillTileRect(gUnknown_0200422C, gUnknown_085A0AEC, 0x1000);
+    CallARM_FillTileRect(gUnknown_0200422C, gTSA_BattleForecastExtended, 0x1000);
 
     TileMap_FillRect(gBmFrameTmap0, 10, 19, 0);
 
-    sub_80365E4(gBmFrameTmap0 + 0x23, &proc->unitNameTextA, &gBattleActor.unit);
-    sub_80365E4(gBmFrameTmap0 + 0x1E1, &proc->unitNameTextA, &gBattleTarget.unit);
+    PutBattleForecastUnitName(gBmFrameTmap0 + 0x23, &proc->unitNameTextA, &gBattleActor.unit);
+    PutBattleForecastUnitName(gBmFrameTmap0 + 0x1E1, &proc->unitNameTextA, &gBattleTarget.unit);
 
-    sub_8036628(gBmFrameTmap0 + 0x221, &proc->itemNameText, gBattleTarget.weaponBefore);
+    PutBattleForecastItemName(gBmFrameTmap0 + 0x221, &proc->itemNameText, gBattleTarget.weaponBefore);
 
     if ((gBattleTarget.weapon == 0) && (!gBattleTarget.weaponBroke)) {
         gBattleTarget.battleAttack = 0xFF;
@@ -357,11 +367,11 @@ void sub_8036A70(struct BattlePreviewProc* proc) {
 
     sub_8004D5C(gBmFrameTmap0 + 0xA8 - 0x44, 3, 0x22, 0x23);
 
-    Text_Draw(gUnknown_02002FDC + 3, gBmFrameTmap0 + 0xA8 - 5);
-    Text_Draw(gUnknown_02002FDC + 4, gBmFrameTmap0 + 0xA8 + 0x3B);
-    Text_Draw(gUnknown_02002FDC + 1, gBmFrameTmap0 + 0xA8 + 0x7B);
-    Text_Draw(gUnknown_02002FDC + 2, gBmFrameTmap0 + 0xA8 + 0xBB);
-    Text_Draw(gUnknown_02002FDC + 5, gBmFrameTmap0 + 0xA8 + 0xFB);
+    Text_Draw(gaBattleForecastTextStructs + 3, gBmFrameTmap0 + 0xA8 - 5);
+    Text_Draw(gaBattleForecastTextStructs + 4, gBmFrameTmap0 + 0xA8 + 0x3B);
+    Text_Draw(gaBattleForecastTextStructs + 1, gBmFrameTmap0 + 0xA8 + 0x7B);
+    Text_Draw(gaBattleForecastTextStructs + 2, gBmFrameTmap0 + 0xA8 + 0xBB);
+    Text_Draw(gaBattleForecastTextStructs + 5, gBmFrameTmap0 + 0xA8 + 0xFB);
 
     DrawIcon(gBmFrameTmap0 + 0xA8 + 0x13F, GetItemIconId(gBattleTarget.weaponBefore), 0x4000);
 
@@ -370,27 +380,27 @@ void sub_8036A70(struct BattlePreviewProc* proc) {
     return;
 }
 
-void sub_8036CD0(struct BattlePreviewProc* proc) {
+void DrawBattleForecastContents(struct BattleForecastProc* proc) {
 
     proc->unk_2C = 0;
     proc->needContentUpdate = 0;
 
     switch (proc->frameKind) {
         case 1:
-            BKSEL_SetupHitAndSuchStats(proc);
-            sub_8036818(proc);
+            InitBattleForecastBattleStats(proc);
+            DrawBattleForecastContentsStandard(proc);
             break;
 
         case 2:
-            BKSEL_SetupHitAndSuchStats(proc);
-            sub_8036A70(proc);
+            InitBattleForecastBattleStats(proc);
+            DrawBattleForecastContentsExtended(proc);
             break;
     }
 
     return;
 }
 
-const u16* sub_8036D0C(int faction) {
+const u16* GetFactionBattleForecastFramePalette(int faction) {
 
     switch (faction) {
         case FACTION_BLUE:
@@ -407,32 +417,32 @@ const u16* sub_8036D0C(int faction) {
     }
 }
 
-void sub_8036D4C() {
+void InitBattleForecastFramePalettes() {
 
-    CopyToPaletteBuffer(sub_8036D0C(UNIT_FACTION(&gBattleActor.unit)), 0x20, 0x20);
+    CopyToPaletteBuffer(GetFactionBattleForecastFramePalette(UNIT_FACTION(&gBattleActor.unit)), 0x20, 0x20);
 
     if (gBattleTarget.unit.index != 0) {
-        CopyToPaletteBuffer(sub_8036D0C(UNIT_FACTION(&gBattleTarget.unit)), 0x40, 0x20);
+        CopyToPaletteBuffer(GetFactionBattleForecastFramePalette(UNIT_FACTION(&gBattleTarget.unit)), 0x40, 0x20);
     } else {
-        CopyToPaletteBuffer(sub_8036D0C(FACTION_PURPLE), 0x40, 0x20);
+        CopyToPaletteBuffer(GetFactionBattleForecastFramePalette(FACTION_PURPLE), 0x40, 0x20);
     }
 
     return;
 }
 
-void BKSEL_InitGfx(struct BattlePreviewProc* proc) {
+void BattleForecast_Init(struct BattleForecastProc* proc) {
 
-    CopyDataWithPossibleUncomp(gUnknown_085A0C80, gUnknown_02020188);
+    CopyDataWithPossibleUncomp(gBattleForecast_x2x4Gfx, gUnknown_02020188);
     CopyTileGfxForObj(gUnknown_02020188, (void*)0x06015D00, 4, 2);
-    CopyToPaletteBuffer(gUnknown_085A0D2C, 0x240, 0x20);
+    CopyToPaletteBuffer(gBattleForecast_x2x4Pal, 0x240, 0x20);
 
     sub_8003D20();
 
     ResetIconGraphics_();
 
-    sub_803650C();
+    InitBattleForecastIconPaletteBuffer();
 
-    BattleForecase_SetupLabelText();
+    InitBattleForecastLabels();
 
     Text_Allocate(&proc->unitNameTextA, 6);
     Text_Allocate(&proc->unitNameTextB, 6);
@@ -445,12 +455,12 @@ void BKSEL_InitGfx(struct BattlePreviewProc* proc) {
     return;
 }
 
-void BKSEL_Destructor(void) {
+void BattleForecast_OnEnd() {
     UnpackUiFrameBuffered(-1);
     return;
 }
 
-void sub_8036E2C(struct BattlePreviewProc* proc) {
+void PutBattleForecastTilemaps(struct BattleForecastProc* proc) {
 
     int height = proc->frameKind == 1 ? 16 : 20;
 
@@ -467,7 +477,7 @@ void sub_8036E2C(struct BattlePreviewProc* proc) {
     return;
 }
 
-void sub_8036EA8(struct BattlePreviewProc* proc) {
+void PutBattleForecastWeaponTriangleArrows(struct BattleForecastProc* proc) {
     int wtArrowA = 0;
     int wtArrowB = 0;
 
@@ -498,7 +508,7 @@ void sub_8036EA8(struct BattlePreviewProc* proc) {
     return;
 }
 
-void sub_8036F4C(struct BattlePreviewProc* proc) {
+void PutBattleForecastMultipliers(struct BattleForecastProc* proc) {
 
     int angle = (proc->unk_2C * 4) & 0xFF;
 
@@ -519,13 +529,19 @@ void sub_8036F4C(struct BattlePreviewProc* proc) {
     return;
 }
 
-extern u8 gUnknown_0859E4F8[];
+void UpdateBattleForecastEffectivenessPalettes(struct BattleForecastProc* proc) {
 
-void sub_8036FE8(struct BattlePreviewProc* proc) {
+    static u8 palAnimLut[] = {
+        0, 1, 1, 2, 3, 4, 5, 5,
+        4, 4, 4, 3, 3, 3, 2, 2,
+        2, 2, 1, 1, 1, 1, 1, 0,
+        0, 0, 0, 0, 0, 0, 0, 0,
+    };
+
     int palAnim;
 
     if (proc->isEffectiveA != 0) {
-        palAnim = gUnknown_0859E4F8[proc->unk_2C & 0x1F];
+        palAnim = palAnimLut[proc->unk_2C & 0x1F];
     } else {
         palAnim = 0;
     }
@@ -533,7 +549,7 @@ void sub_8036FE8(struct BattlePreviewProc* proc) {
     CopyToPaletteBuffer(gUnknown_0200300C[palAnim], 0x60, 0x20);
 
     if (proc->isEffectiveB != 0) {
-        palAnim = gUnknown_0859E4F8[proc->unk_2C & 0x1F];
+        palAnim = palAnimLut[proc->unk_2C & 0x1F];
     } else {
         palAnim = 0;
     }
@@ -543,37 +559,37 @@ void sub_8036FE8(struct BattlePreviewProc* proc) {
     return;
 }
 
-void sub_803705C(struct BattlePreviewProc* proc) {
+void BattleForecast_LoopDisplay(struct BattleForecastProc* proc) {
 
     proc->unk_2C++;
 
     if (proc->needContentUpdate) {
 
-        int side = sub_80364D8();
+        int side = GetBattleForecastPanelSide();
 
         if ((side != 0) && (side != proc->side)) {
             Proc_Break(proc);
             return;
         }
 
-        sub_8036CD0(proc);
-        sub_8036E2C(proc);
-        sub_8036D4C();
+        DrawBattleForecastContents(proc);
+        PutBattleForecastTilemaps(proc);
+        InitBattleForecastFramePalettes();
     }
 
     if (proc->frameKind == 1) {
-        sub_8036EA8(proc);
-        sub_8036F4C(proc);
-        sub_8036FE8(proc);
+        PutBattleForecastWeaponTriangleArrows(proc);
+        PutBattleForecastMultipliers(proc);
+        UpdateBattleForecastEffectivenessPalettes(proc);
     }
 
     return;
 }
 
-void sub_80370C8(struct BattlePreviewProc* proc) {
-    sub_8036CD0(proc);
+void BattleForecast_OnNewBattle(struct BattleForecastProc* proc) {
+    DrawBattleForecastContents(proc);
 
-    proc->side = sub_80364D8();
+    proc->side = GetBattleForecastPanelSide();
     proc->unk_36 = 0;
 
     if (proc->side < 0) {
@@ -584,14 +600,13 @@ void sub_80370C8(struct BattlePreviewProc* proc) {
 
     proc->y = 0;
 
-    sub_8036D4C();
+    InitBattleForecastFramePalettes();
 
     return;
 }
 
-extern s8 gUnknown_0859E518[];
-
-void sub_803710C(struct BattlePreviewProc* proc) {
+void BattleForecast_LoopSlideIn(struct BattleForecastProc* proc) {
+    static s8 offsetLut[] = { 6, 8, 9, 10 };
     int offset;
 
     int height = proc->frameKind == 1 ? 16 : 20;
@@ -601,7 +616,7 @@ void sub_803710C(struct BattlePreviewProc* proc) {
 
     BG_EnableSyncByMask(3);
 
-    offset = gUnknown_0859E518[proc->unk_36];
+    offset = offsetLut[proc->unk_36];
 
     if (proc->side < 0) {
         TileMap_CopyRect(gBmFrameTmap0 + (10 - offset), gBG0TilemapBuffer, offset, height);
@@ -621,10 +636,10 @@ void sub_803710C(struct BattlePreviewProc* proc) {
     return;
 }
 
-extern s8 gUnknown_0859E51C[];
-
-void sub_80371F0(struct BattlePreviewProc* proc) {
+void BattleForecast_LoopSlideOut(struct BattleForecastProc* proc) {
+    static s8 offsetLut[] = { 9, 8, 6, 0 };
     int offset;
+
     int height = proc->frameKind == 1 ? 16 : 20;
 
     BG_Fill(gBG0TilemapBuffer, 0);
@@ -632,7 +647,7 @@ void sub_80371F0(struct BattlePreviewProc* proc) {
 
     BG_EnableSyncByMask(3);
 
-    offset = gUnknown_0859E51C[proc->unk_36];
+    offset = offsetLut[proc->unk_36];
 
     if (proc->side < 0) {
         TileMap_CopyRect(gBmFrameTmap0 + (10 - offset), gBG0TilemapBuffer, offset, height);
@@ -659,20 +674,47 @@ s8 MapEventEngineExists_() {
 void sub_80372E4() {
 
     if (sub_8084560() == 1) {
-        SetKeyStatus_IgnoreMask(GetKeyStatus_IgnoreMask() & -2);
+        SetKeyStatus_IgnoreMask(GetKeyStatus_IgnoreMask() & ~(A_BUTTON));
         sub_808457C();
     }
 
     return;
 }
 
-extern struct ProcCmd gProcScr_BKSEL[];
+struct ProcCmd CONST_DATA gProcScr_BKSEL[] = {
+    PROC_NAME("BKSEL"),
+
+    PROC_SET_END_CB(BattleForecast_OnEnd),
+
+    PROC_CALL(ClearBg0Bg1),
+    PROC_SLEEP(0),
+
+    PROC_CALL(BattleForecast_Init),
+
+PROC_LABEL(0),
+    PROC_WHILE(MapEventEngineExists_),
+    PROC_CALL(BattleForecast_OnNewBattle),
+
+    PROC_REPEAT(BattleForecast_LoopSlideIn),
+
+    PROC_CALL(sub_80372E4),
+
+    PROC_REPEAT(BattleForecast_LoopDisplay),
+    PROC_REPEAT(BattleForecast_LoopSlideOut),
+
+    PROC_GOTO(0),
+
+PROC_LABEL(1),
+    PROC_REPEAT(BattleForecast_LoopSlideOut),
+
+    PROC_END,
+};
 
 void NewBattleForecast() {
 
-    struct BattlePreviewProc* proc;
+    struct BattleForecastProc* proc;
 
-    if (gRAMChapterData.unk42_4 == 2) {
+    if (gRAMChapterData.cfgBattleForecastType == 2) {
         sub_8003D20();
         return;
     }
@@ -681,10 +723,10 @@ void NewBattleForecast() {
     proc->ready = 0;
 
     if (sub_8084560() == 1) {
-        SetKeyStatus_IgnoreMask(GetKeyStatus_IgnoreMask() | 1);
+        SetKeyStatus_IgnoreMask(GetKeyStatus_IgnoreMask() | A_BUTTON);
     }
 
-    switch (gRAMChapterData.unk42_4) {
+    switch (gRAMChapterData.cfgBattleForecastType) {
         case 0:
             proc->frameKind = 1;
             break;
@@ -699,8 +741,8 @@ void NewBattleForecast() {
     return;
 }
 
-void sub_803738C() {
-    struct BattlePreviewProc* proc = Proc_Find(gProcScr_BKSEL);
+void UpdateBattleForecastContents() {
+    struct BattleForecastProc* proc = Proc_Find(gProcScr_BKSEL);
 
     if (proc == 0) {
         return;
@@ -713,8 +755,8 @@ void sub_803738C() {
     return;
 }
 
-void sub_80373B4() {
-    struct BattlePreviewProc* proc = Proc_Find(gProcScr_BKSEL);
+void CloseBattleForecast() {
+    struct BattleForecastProc* proc = Proc_Find(gProcScr_BKSEL);
 
     if (proc == 0) {
         return;
@@ -731,10 +773,10 @@ void sub_80373B4() {
     return;
 }
 
-int sub_80373F0(ProcPtr parent) {
+int StartBattleForecastHelpBox(ProcPtr parent) {
     int x;
 
-    struct BattlePreviewProc* proc = Proc_Find(gProcScr_BKSEL);
+    struct BattleForecastProc* proc = Proc_Find(gProcScr_BKSEL);
     if (proc == 0) {
         return 0;
     }
@@ -764,11 +806,12 @@ int sub_80373F0(ProcPtr parent) {
     return 0;
 }
 
-u16 CONST_DATA gUnknown_0859E5A0[] = {
-    0x56B, 0x56D, 0x56F, 0x56C, 0x56E, 0x570,
-};
 
 u16 sub_803746C(int wt, s8 isEffective) {
+
+    static u16 lut[] = {
+        0x56B, 0x56D, 0x56F, 0x56C, 0x56E, 0x570,
+    };
 
     int idx = isEffective != 0 ? 3 : 0;
 
@@ -780,18 +823,18 @@ u16 sub_803746C(int wt, s8 isEffective) {
         idx += 1;
     }
 
-    return gUnknown_0859E5A0[idx];
+    return lut[idx];
 }
 
 void sub_8037494(struct UnknownBkSelProc* proc) {
-    struct BattlePreviewProc* proc2 = Proc_Find(gProcScr_BKSEL);
+    struct BattleForecastProc* proc2 = Proc_Find(gProcScr_BKSEL);
     proc->unk_4C = sub_803746C(gBattleActor.wTriangleHitBonus, proc2->isEffectiveA);
 
     return;
 }
 
 void sub_80374C4(struct UnknownBkSelProc* proc) {
-    struct BattlePreviewProc* proc2 = Proc_Find(gProcScr_BKSEL);
+    struct BattleForecastProc* proc2 = Proc_Find(gProcScr_BKSEL);
     proc->unk_4C = sub_803746C(gBattleTarget.wTriangleHitBonus, proc2->isEffectiveB);
 
     return;

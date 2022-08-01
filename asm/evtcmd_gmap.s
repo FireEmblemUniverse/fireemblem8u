@@ -350,7 +350,7 @@ sub_800BB98: @ 0x0800BB98
 	orrs r1, r0
 	cmp r1, #0
 	bge _0800BBAC
-	bl sub_8036D4C
+	bl InitBattleForecastFramePalettes
 _0800BBAC:
 	pop {r0}
 	bx r0
