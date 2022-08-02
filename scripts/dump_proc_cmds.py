@@ -106,7 +106,7 @@ def decode_proc_cmd(cmd):
     if opcode == 0x17:
         return make_simple_proc("PROC_END_DUPLICATES", dataImm, dataPtr)
     if opcode == 0x18:
-        return ("PROC_CALL_ARG", dataPtr, dataImm)
+        return ("PROC_CALL_ARG", dataImm, dataPtr)
     if opcode == 0x19:
         return make_simple_proc("PROC_19", dataImm, dataPtr)
     return None
@@ -229,7 +229,7 @@ def test_decode():
     assert_eq(decode_proc_cmd(b"\x17\x00\x01\x00\x00\x00\x00\x00"), None)
     assert_eq(
         decode_proc_cmd(b"\x18\x00\x00\x04\x12\x34\x00\x00"),
-        ("PROC_CALL_ARG", 0x3412, 0x400),
+        ("PROC_CALL_ARG", 0x400, 0x3412),
     )
     assert_eq(
         decode_proc_cmd(b"\x19\x00\x00\x00\x00\x00\x00\x00"), ("PROC_19", None, None)
@@ -260,14 +260,17 @@ def resolve_pointer(dataPtr):
     ptr_string = hex(dataPtr)[2:]
     symbols = (
         subprocess.check_output(
-            ["readelf", "-s", "fireemblem8.elf"], stderr=subprocess.PIPE
+            ["readelf", "-s", "--wide", "fireemblem8.elf"], stderr=subprocess.PIPE
         )
         .decode()
         .splitlines()
     )
     for line in symbols:
         if ptr_string in line:
-            return line.split()[-1]
+            sym = line.split()[-1]
+            if len(sym) > 2:
+
+                return sym
     return None
 
 
@@ -275,6 +278,9 @@ def test_resolve_pointer():
     assert_eq(resolve_pointer(0x80311A9), "RefreshBMapGraphics")
     assert_eq(resolve_pointer(0x80311AA), None)
     assert_eq(resolve_pointer(0xB12C14), "gUnknown_08B12C14")
+    assert_eq(resolve_pointer(0x591304), "gUnknown_08591304")
+    # long names aren't complete in the elf. make sure to find the right one
+    assert_eq(resolve_pointer(0x8014069), "ContinueUntilSomeTransistion6CExists")
 
 
 def read_procs(f, start_off, end_off):
@@ -348,10 +354,7 @@ def resolve_and_format_command(cmd):
         ptr_string = "0x0"
     else:
         resolved = resolve_pointer(ptr)
-        if resolved is not None:
-            ptr_string = resolved
-        else:
-            ptr_string = hex(ptr)
+        ptr_string = resolved or hex(ptr)
     code = PROC_OPCODES[name]
     return f"""\
         @ {name}
