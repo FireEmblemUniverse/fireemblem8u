@@ -169,6 +169,36 @@ def test():
     assert_eq(decode_proc_cmd(b"\x0e\x00\x00\x00\x00\x00\x00\x00"), "PROC_YIELD")
 
 
+def read_procs(f, start_off, end_off):
+    length = end_off - start_off
+    current_off = start_off
+    current_script = []
+    current_script_start = 0
+    f.seek(start_off)
+    while current_off < end_off:
+        cmd = f.read(8)
+        proc = decode_proc_cmd(cmd)
+        if proc == INVALID:
+            current_script_start = 0
+            current_script = []
+        elif proc != "PROC_END":
+            if current_script_start == 0:
+                current_script_start = current_off
+            current_script.append(proc)
+        else:
+            assert proc == "PROC_END"
+            if current_script:
+                current_script.append(proc)
+                print(f"Found script at {hex(current_script_start)}")
+                print(f"Length {hex(len(current_script) * 8)}")
+                for cmd in current_script:
+                    print(cmd)
+                current_script_start = 0
+                current_script = []
+
+        current_off += 8
+
+
 if __name__ == "__main__":
     if len(sys.argv) < 2:
         print("Usage: either test or specify a data symbol to read as proc script")
@@ -177,34 +207,7 @@ if __name__ == "__main__":
         test()
         print("Ok")
     else:
-        start_off = int(sys.argv[1], base=16)
-        end_off = int(sys.argv[2], base=16)
-        length = end_off - start_off
-        current_off = start_off
-        current_script = []
-        current_script_start = 0
-        current_script_length = 0
         with open("baserom.gba", "rb") as f:
-            f.seek(start_off)
-            while current_off < end_off:
-                cmd = f.read(8)
-                proc = decode_proc_cmd(cmd)
-                if proc != INVALID:
-                    if current_script_start == 0:
-                        current_script_start = current_off
-                    current_script.append(proc)
-                    current_script_length += 8
-                    if proc == "PROC_END":
-                        if (
-                            len(current_script) > 1
-                            and "PROC_END" not in current_script[:-1]
-                        ):
-                            print(f"Found script at {hex(current_script_start)}")
-                            print(f"Length {hex(current_script_length)}")
-                            for cmd in current_script:
-                                print(cmd)
-                            current_script_start = 0
-                            current_script_length = 0
-                            current_script = []
-
-                current_off += 8
+            start_off = int(sys.argv[1], base=16)
+            end_off = int(sys.argv[2], base=16)
+            read_procs(f, start_off, end_off)
