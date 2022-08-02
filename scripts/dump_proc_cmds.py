@@ -1,7 +1,38 @@
 #!/usr/bin/python3
 
 import struct
+import subprocess
 import sys
+
+PROC_OPCODES = {
+    "PROC_END": 0x00,
+    "PROC_NAME": 0x01,
+    "PROC_CALL": 0x02,
+    "PROC_REPEAT": 0x03,
+    "PROC_SET_END_CB": 0x04,
+    "PROC_START_CHILD": 0x05,
+    "PROC_START_CHILD_BLOCKING": 0x06,
+    "PROC_START_MAIN_BUGGED": 0x07,
+    "PROC_WHILE_EXISTS": 0x08,
+    "PROC_END_EACH": 0x09,
+    "PROC_BREAK_EACH": 0x0A,
+    "PROC_LABEL": 0x0B,
+    "PROC_GOTO": 0x0C,
+    "PROC_JUMP": 0x0D,
+    "PROC_SLEEP": 0x0E,
+    "PROC_MARK": 0x0F,
+    "PROC_BLOCK": 0x10,
+    "PROC_END_IF_DUPLICATE": 0x11,
+    "PROC_SET_BIT4": 0x12,
+    "PROC_13": 0x13,
+    "PROC_WHILE": 0x14,
+    "PROC_15": 0x15,
+    "PROC_CALL_2": 0x16,
+    "PROC_END_DUPLICATES": 0x17,
+    "PROC_CALL_ARG": 0x18,
+    "PROC_19": 0x19,
+    "PROC_YIELD": 0x0E,
+}
 
 
 def make_simple_proc(name, dataImm, dataPtr):
@@ -79,6 +110,13 @@ def decode_proc_cmd(cmd):
     if opcode == 0x19:
         return make_simple_proc("PROC_19", dataImm, dataPtr)
     return None
+
+
+def proc_contains_valid_pointer(proc):
+    for _, _, dataPtr in proc:
+        if dataPtr is not None and 0x8000000 <= dataPtr <= 0x9000000:
+            return True
+    return False
 
 
 def assert_eq(a, b):
@@ -202,6 +240,43 @@ def test_decode():
     )
 
 
+def test_valid_pointer():
+    proc1 = [
+        ("PROC_19", None, None),
+        ("PROC_SLEEP", 10, None),
+        ("PROC_CALL", None, 0x100),
+        ("PROC_WHILE", None, 0x9000001),
+    ]
+    assert not proc_contains_valid_pointer(proc1), proc1
+    proc2 = [
+        ("PROC_19", None, None),
+        ("PROC_NAME", None, 0x80301B9),
+        ("PROC_END", None, None),
+    ]
+    assert proc_contains_valid_pointer(proc2), proc2
+
+
+def resolve_pointer(dataPtr):
+    ptr_string = hex(dataPtr)[2:]
+    symbols = (
+        subprocess.check_output(
+            ["readelf", "-s", "fireemblem8.elf"], stderr=subprocess.PIPE
+        )
+        .decode()
+        .splitlines()
+    )
+    for line in symbols:
+        if ptr_string in line:
+            return line.split()[-1]
+    return None
+
+
+def test_resolve_pointer():
+    assert_eq(resolve_pointer(0x80311A9), "RefreshBMapGraphics")
+    assert_eq(resolve_pointer(0x80311AA), None)
+    assert_eq(resolve_pointer(0xB12C14), "gUnknown_08B12C14")
+
+
 def read_procs(f, start_off, end_off):
     procs_found = []
     length = end_off - start_off
@@ -223,7 +298,8 @@ def read_procs(f, start_off, end_off):
             assert proc[0] == "PROC_END"
             if current_script:
                 current_script.append(proc)
-                procs_found.append((current_script_start, current_script[:]))
+                if proc_contains_valid_pointer(current_script):
+                    procs_found.append((current_script_start, current_script[:]))
                 current_script_start = 0
                 current_script = []
 
@@ -261,12 +337,36 @@ def smoketest():
         )
 
 
+def resolve_and_format_command(cmd):
+    # Resolve pointers in command, and return it in a string format that can be pasted into .s files
+    name, imm, ptr = cmd
+    if imm is not None:
+        imm_str = hex(imm)
+    else:
+        imm_str = "0x0"
+    if ptr is None:
+        ptr_string = "0x0"
+    else:
+        resolved = resolve_pointer(ptr)
+        if resolved is not None:
+            ptr_string = resolved
+        else:
+            ptr_string = hex(ptr)
+    code = PROC_OPCODES[name]
+    return f"""\
+        @ {name}
+        .short {hex(code)}, {imm_str}
+        .word {ptr_string}"""
+
+
 if __name__ == "__main__":
     if len(sys.argv) < 2:
         print("Usage: either test or specify a data symbol to read as proc script")
         sys.exit(1)
     if sys.argv[1] == "test":
         test_decode()
+        test_valid_pointer()
+        test_resolve_pointer()
         smoketest()
         print("Ok")
     else:
@@ -275,7 +375,8 @@ if __name__ == "__main__":
             end_off = int(sys.argv[2], base=16)
             procs = read_procs(f, start_off, end_off)
             for start, proc in procs:
-                print(f"Found script at {hex(start)}")
-                print(f"Length {hex(len(proc) * 8)}")
+                symbol = resolve_pointer(start)
+                start_str = symbol or hex(start)
+                print(f"Found script at {start_str}")
                 for cmd in proc:
-                    print(cmd)
+                    print(resolve_and_format_command(cmd))
