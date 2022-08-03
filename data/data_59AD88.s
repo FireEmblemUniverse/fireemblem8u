@@ -154,11 +154,46 @@ gUnknown_0859AEA0:  @ 0x0859AEA0
 
 	.global gUnknown_0859AEC8
 gUnknown_0859AEC8:  @ 0x0859AEC8
-	.incbin "baserom.gba", 0x59AEC8, 0x30
+	.incbin "baserom.gba", 0x59AEC8, 0x20
+
+	.global gUnknown_0859AEE8
+gUnknown_0859AEE8:  @ 0x0859AEE8
+        @ PROC_CALL
+        .short 0x2, 0x0
+        .word sub_801EE98
+        @ PROC_REPEAT
+        .short 0x3, 0x0
+        .word sub_801EEA8
 
 	.global gUnknown_0859AEF8
 gUnknown_0859AEF8:  @ 0x0859AEF8
-	.incbin "baserom.gba", 0x59AEF8, 0x48
+        @ PROC_CALL
+        .short 0x2, 0x0
+        .word sub_801ED58
+        @ PROC_SLEEP
+        .short 0xe, 0x6
+        .word 0x0
+        @ PROC_CALL
+        .short 0x2, 0x0
+        .word sub_801ED30
+        @ PROC_START_CHILD
+        .short 0x5, 0x0
+        .word 0x859aee8
+        @ PROC_REPEAT
+        .short 0x3, 0x0
+        .word sub_801ED94
+        @ PROC_SLEEP
+        .short 0xe, 0x1e
+        .word 0x0
+        @ PROC_REPEAT
+        .short 0x3, 0x0
+        .word sub_801EE08
+        @ PROC_CALL
+        .short 0x2, 0x0
+        .word sub_801EE80
+        @ PROC_END
+        .short 0x0, 0x0
+        .word 0x0
 
 	.global gUnknown_0859AF40
 gUnknown_0859AF40:  @ 0x0859AF40

@@ -764,7 +764,19 @@ gUnknown_089A39E0:  @ 0x089A39E0
 
 	.global gUnknown_089A3A18
 gUnknown_089A3A18:  @ 0x089A3A18
-	.incbin "baserom.gba", 0x9A3A18, 0x28
+	.incbin "baserom.gba", 0x9A3A18, 0x10
+
+	.global gUnknown_089A3A28
+gUnknown_089A3A28:  @ 0x089A3A28
+        @ PROC_CALL
+        .short 0x2, 0x0
+        .word sub_807D2E0
+        @ PROC_REPEAT
+        .short 0x3, 0x0
+        .word sub_807D328
+        @ PROC_END
+        .short 0x0, 0x0
+        .word 0x0
 
 	.global gUnknown_089A3A40
 gUnknown_089A3A40:  @ 0x089A3A40
@@ -1726,7 +1738,936 @@ gUnknown_089A4764:  @ 0x089A4764
         @ PROC_END
         .short 0x0, 0x0
         .word 0x0
-	.incbin "baserom.gba", 0x9A4764 + 0xB8, 0x9C0 - 0xB8
+
+	.global gUnknown_089A481C
+gUnknown_089A481C:  @ 0x089A481C
+        @ PROC_CALL
+        .short 0x2, 0x0
+        .word DisableMapPaletteAnimations
+        @ PROC_CALL
+        .short 0x2, 0x0
+        .word sub_8081E48
+        @ PROC_SLEEP
+        .short 0xe, 0x1
+        .word 0x0
+        @ PROC_CALL
+        .short 0x2, 0x0
+        .word MapAnim_AnimateSubjectIdle
+        @ PROC_SLEEP
+        .short 0xe, 0x1e
+        .word 0x0
+        @ PROC_SLEEP
+        .short 0xe, 0x1a
+        .word 0x0
+        @ PROC_CALL
+        .short 0x2, 0x0
+        .word sub_8081A08
+        @ PROC_SLEEP
+        .short 0xe, 0x2
+        .word 0x0
+        @ PROC_SLEEP
+        .short 0xe, 0xdc
+        .word 0x0
+        @ PROC_SLEEP
+        .short 0xe, 0xa
+        .word 0x0
+        @ PROC_CALL
+        .short 0x2, 0x0
+        .word MapAnim_SubjectResetAnim
+        @ PROC_SLEEP
+        .short 0xe, 0x1e
+        .word 0x0
+        @ PROC_CALL
+        .short 0x2, 0x0
+        .word sub_8081E54
+        @ PROC_SLEEP
+        .short 0xe, 0x1
+        .word 0x0
+        @ PROC_CALL
+        .short 0x2, 0x0
+        .word ResetMapPaletteAnimations
+        @ PROC_END
+        .short 0x0, 0x0
+        .word 0x0
+
+	.global gUnknown_089A489C
+gUnknown_089A489C:  @ 0x089A489C
+        @ PROC_CALL
+        .short 0x2, 0x0
+        .word DisableMapPaletteAnimations
+        @ PROC_CALL
+        .short 0x2, 0x0
+        .word sub_8081E48
+        @ PROC_SLEEP
+        .short 0xe, 0x1
+        .word 0x0
+        @ PROC_CALL
+        .short 0x2, 0x0
+        .word MapAnim_AnimateSubjectIdle
+        @ PROC_SLEEP
+        .short 0xe, 0x1e
+        .word 0x0
+        @ PROC_CALL
+        .short 0x2, 0x0
+        .word sub_80819E8
+        @ PROC_SLEEP
+        .short 0xe, 0x2
+        .word 0x0
+        @ PROC_SLEEP
+        .short 0xe, 0xc8
+        .word 0x0
+        @ PROC_SLEEP
+        .short 0xe, 0xa
+        .word 0x0
+        @ PROC_CALL
+        .short 0x2, 0x0
+        .word MapAnim_SubjectResetAnim
+        @ PROC_SLEEP
+        .short 0xe, 0x1e
+        .word 0x0
+        @ PROC_CALL
+        .short 0x2, 0x0
+        .word sub_8081E54
+        @ PROC_SLEEP
+        .short 0xe, 0x1
+        .word 0x0
+        @ PROC_CALL
+        .short 0x2, 0x0
+        .word ResetMapPaletteAnimations
+        @ PROC_END
+        .short 0x0, 0x0
+        .word 0x0
+
+	.global gUnknown_089A4914
+gUnknown_089A4914:  @ 0x089A4914
+        @ PROC_CALL
+        .short 0x2, 0x0
+        .word MapAnim_AnimateSubjectIdle
+        @ PROC_SLEEP
+        .short 0xe, 0x1e
+        .word 0x0
+        @ PROC_CALL
+        .short 0x2, 0x0
+        .word sub_8081A28
+        @ PROC_SLEEP
+        .short 0xe, 0x2
+        .word 0x0
+        @ PROC_SLEEP
+        .short 0xe, 0x46
+        .word 0x0
+        @ PROC_SLEEP
+        .short 0xe, 0xa
+        .word 0x0
+        @ PROC_CALL
+        .short 0x2, 0x0
+        .word MapAnim_SubjectResetAnim
+        @ PROC_SLEEP
+        .short 0xe, 0x1e
+        .word 0x0
+        @ PROC_END
+        .short 0x0, 0x0
+        .word 0x0
+
+	.global gUnknown_089A495C
+gUnknown_089A495C:  @ 0x089A495C
+        @ PROC_CALL
+        .short 0x2, 0x0
+        .word MapAnim_AnimateSubjectIdle
+        @ PROC_SLEEP
+        .short 0xe, 0x1e
+        .word 0x0
+        @ PROC_CALL
+        .short 0x2, 0x0
+        .word sub_8081A54
+        @ PROC_SLEEP
+        .short 0xe, 0x2
+        .word 0x0
+        @ PROC_SLEEP
+        .short 0xe, 0x46
+        .word 0x0
+        @ PROC_SLEEP
+        .short 0xe, 0xa
+        .word 0x0
+        @ PROC_CALL
+        .short 0x2, 0x0
+        .word MapAnim_SubjectResetAnim
+        @ PROC_SLEEP
+        .short 0xe, 0x1e
+        .word 0x0
+        @ PROC_END
+        .short 0x0, 0x0
+        .word 0x0
+
+	.global gUnknown_089A49A4
+gUnknown_089A49A4:  @ 0x089A49A4
+        @ PROC_CALL
+        .short 0x2, 0x0
+        .word MapAnim_AnimateSubjectIdle
+        @ PROC_SLEEP
+        .short 0xe, 0x1e
+        .word 0x0
+        @ PROC_CALL
+        .short 0x2, 0x0
+        .word sub_8081A80
+        @ PROC_SLEEP
+        .short 0xe, 0x1e
+        .word 0x0
+        @ PROC_CALL
+        .short 0x2, 0x0
+        .word MapAnim_BeginRoundSpecificAnims
+        @ PROC_SLEEP
+        .short 0xe, 0x1e
+        .word 0x0
+        @ PROC_REPEAT
+        .short 0x3, 0x0
+        .word MapAnim_WaitForHPToEndChangingMaybe
+        @ PROC_SLEEP
+        .short 0xe, 0xa
+        .word 0x0
+        @ PROC_CALL
+        .short 0x2, 0x0
+        .word MapAnim_SubjectResetAnim
+        @ PROC_SLEEP
+        .short 0xe, 0x1e
+        .word 0x0
+        @ PROC_END
+        .short 0x0, 0x0
+        .word 0x0
+
+	.global gUnknown_089A49FC
+gUnknown_089A49FC:  @ 0x089A49FC
+        @ PROC_CALL
+        .short 0x2, 0x0
+        .word MapAnim_AnimateSubjectIdle
+        @ PROC_SLEEP
+        .short 0xe, 0x1e
+        .word 0x0
+        @ PROC_CALL
+        .short 0x2, 0x0
+        .word sub_8081B40
+        @ PROC_SLEEP
+        .short 0xe, 0x1e
+        .word 0x0
+        @ PROC_CALL
+        .short 0x2, 0x0
+        .word MapAnim_BeginRoundSpecificAnims
+        @ PROC_SLEEP
+        .short 0xe, 0x1e
+        .word 0x0
+        @ PROC_REPEAT
+        .short 0x3, 0x0
+        .word MapAnim_WaitForHPToEndChangingMaybe
+        @ PROC_SLEEP
+        .short 0xe, 0xa
+        .word 0x0
+        @ PROC_CALL
+        .short 0x2, 0x0
+        .word MapAnim_SubjectResetAnim
+        @ PROC_SLEEP
+        .short 0xe, 0x1e
+        .word 0x0
+        @ PROC_END
+        .short 0x0, 0x0
+        .word 0x0
+
+	.global gUnknown_089A4A54
+gUnknown_089A4A54:  @ 0x089A4A54
+        @ PROC_CALL
+        .short 0x2, 0x0
+        .word MapAnim_MoveCameraOnTarget
+        @ PROC_SLEEP
+        .short 0xe, 0x2
+        .word 0x0
+        @ PROC_CALL
+        .short 0x2, 0x0
+        .word MapAnim_AnimateSubjectIdle
+        @ PROC_SLEEP
+        .short 0xe, 0x1e
+        .word 0x0
+        @ PROC_CALL
+        .short 0x2, 0x0
+        .word sub_8081AB0
+        @ PROC_SLEEP
+        .short 0xe, 0x1e
+        .word 0x0
+        @ PROC_CALL
+        .short 0x2, 0x0
+        .word MapAnim_BeginRoundSpecificAnims
+        @ PROC_SLEEP
+        .short 0xe, 0x1e
+        .word 0x0
+        @ PROC_REPEAT
+        .short 0x3, 0x0
+        .word MapAnim_WaitForHPToEndChangingMaybe
+        @ PROC_SLEEP
+        .short 0xe, 0xa
+        .word 0x0
+        @ PROC_CALL
+        .short 0x2, 0x0
+        .word MapAnim_SubjectResetAnim
+        @ PROC_SLEEP
+        .short 0xe, 0x1e
+        .word 0x0
+        @ PROC_END
+        .short 0x0, 0x0
+        .word 0x0
+
+	.global gUnknown_089A4ABC
+gUnknown_089A4ABC:  @ 0x089A4ABC
+        @ PROC_CALL
+        .short 0x2, 0x0
+        .word MapAnim_MoveCameraOnTarget
+        @ PROC_SLEEP
+        .short 0xe, 0x2
+        .word 0x0
+        @ PROC_CALL
+        .short 0x2, 0x0
+        .word MapAnim_AnimateSubjectIdle
+        @ PROC_SLEEP
+        .short 0xe, 0x1e
+        .word 0x0
+        @ PROC_CALL
+        .short 0x2, 0x0
+        .word sub_8081AE0
+        @ PROC_SLEEP
+        .short 0xe, 0x1e
+        .word 0x0
+        @ PROC_CALL
+        .short 0x2, 0x0
+        .word MapAnim_BeginRoundSpecificAnims
+        @ PROC_SLEEP
+        .short 0xe, 0x1e
+        .word 0x0
+        @ PROC_REPEAT
+        .short 0x3, 0x0
+        .word MapAnim_WaitForHPToEndChangingMaybe
+        @ PROC_SLEEP
+        .short 0xe, 0xa
+        .word 0x0
+        @ PROC_CALL
+        .short 0x2, 0x0
+        .word MapAnim_SubjectResetAnim
+        @ PROC_SLEEP
+        .short 0xe, 0x1e
+        .word 0x0
+        @ PROC_END
+        .short 0x0, 0x0
+        .word 0x0
+
+	.global gUnknown_089A4B24
+gUnknown_089A4B24:  @ 0x089A4B24
+        @ PROC_CALL
+        .short 0x2, 0x0
+        .word MapAnim_MoveCameraOnTarget
+        @ PROC_SLEEP
+        .short 0xe, 0x2
+        .word 0x0
+        @ PROC_CALL
+        .short 0x2, 0x0
+        .word MapAnim_AnimateSubjectIdle
+        @ PROC_SLEEP
+        .short 0xe, 0x1e
+        .word 0x0
+        @ PROC_CALL
+        .short 0x2, 0x0
+        .word sub_8081B10
+        @ PROC_SLEEP
+        .short 0xe, 0x1e
+        .word 0x0
+        @ PROC_CALL
+        .short 0x2, 0x0
+        .word MapAnim_BeginRoundSpecificAnims
+        @ PROC_SLEEP
+        .short 0xe, 0x1e
+        .word 0x0
+        @ PROC_REPEAT
+        .short 0x3, 0x0
+        .word MapAnim_WaitForHPToEndChangingMaybe
+        @ PROC_SLEEP
+        .short 0xe, 0xa
+        .word 0x0
+        @ PROC_CALL
+        .short 0x2, 0x0
+        .word MapAnim_SubjectResetAnim
+        @ PROC_SLEEP
+        .short 0xe, 0x1e
+        .word 0x0
+        @ PROC_END
+        .short 0x0, 0x0
+        .word 0x0
+
+	.global gUnknown_089A4B8C
+gUnknown_089A4B8C:  @ 0x089A4B8C
+        @ PROC_CALL
+        .short 0x2, 0x0
+        .word MapAnim_MoveCameraOnTarget
+        @ PROC_SLEEP
+        .short 0xe, 0x2
+        .word 0x0
+        @ PROC_CALL
+        .short 0x2, 0x0
+        .word MapAnim_AnimateSubjectIdle
+        @ PROC_SLEEP
+        .short 0xe, 0x1e
+        .word 0x0
+        @ PROC_CALL
+        .short 0x2, 0x0
+        .word sub_8081AB0
+        @ PROC_SLEEP
+        .short 0xe, 0x1e
+        .word 0x0
+        @ PROC_CALL
+        .short 0x2, 0x0
+        .word MapAnim_BeginRoundSpecificAnims
+        @ PROC_SLEEP
+        .short 0xe, 0x1e
+        .word 0x0
+        @ PROC_REPEAT
+        .short 0x3, 0x0
+        .word MapAnim_WaitForHPToEndChangingMaybe
+        @ PROC_SLEEP
+        .short 0xe, 0xa
+        .word 0x0
+        @ PROC_CALL
+        .short 0x2, 0x0
+        .word MapAnim_SubjectResetAnim
+        @ PROC_SLEEP
+        .short 0xe, 0x1e
+        .word 0x0
+        @ PROC_END
+        .short 0x0, 0x0
+        .word 0x0
+
+	.global gUnknown_089A4BF4
+gUnknown_089A4BF4:  @ 0x089A4BF4
+        @ PROC_CALL
+        .short 0x2, 0x0
+        .word MapAnim_AnimateSubjectIdle
+        @ PROC_SLEEP
+        .short 0xe, 0x1e
+        .word 0x0
+        @ PROC_CALL
+        .short 0x2, 0x0
+        .word sub_8081BF8
+        @ PROC_SLEEP
+        .short 0xe, 0x2
+        .word 0x0
+        @ PROC_SLEEP
+        .short 0xe, 0x64
+        .word 0x0
+        @ PROC_SLEEP
+        .short 0xe, 0xa
+        .word 0x0
+        @ PROC_CALL
+        .short 0x2, 0x0
+        .word MapAnim_SubjectResetAnim
+        @ PROC_SLEEP
+        .short 0xe, 0x1e
+        .word 0x0
+        @ PROC_END
+        .short 0x0, 0x0
+        .word 0x0
+
+	.global gUnknown_089A4C3C
+gUnknown_089A4C3C:  @ 0x089A4C3C
+        @ PROC_CALL
+        .short 0x2, 0x0
+        .word DisableMapPaletteAnimations
+        @ PROC_CALL
+        .short 0x2, 0x0
+        .word sub_8081E48
+        @ PROC_SLEEP
+        .short 0xe, 0x1
+        .word 0x0
+        @ PROC_CALL
+        .short 0x2, 0x0
+        .word sub_80815EC
+        @ PROC_SLEEP
+        .short 0xe, 0x2
+        .word 0x0
+        @ PROC_CALL
+        .short 0x2, 0x0
+        .word MapAnim_AnimateSubjectIdle
+        @ PROC_SLEEP
+        .short 0xe, 0x1e
+        .word 0x0
+        @ PROC_CALL
+        .short 0x2, 0x0
+        .word sub_8081C18
+        @ PROC_SLEEP
+        .short 0xe, 0x2
+        .word 0x0
+        @ PROC_SLEEP
+        .short 0xe, 0x8c
+        .word 0x0
+        @ PROC_SLEEP
+        .short 0xe, 0xa
+        .word 0x0
+        @ PROC_CALL
+        .short 0x2, 0x0
+        .word MapAnim_SubjectResetAnim
+        @ PROC_SLEEP
+        .short 0xe, 0x1e
+        .word 0x0
+        @ PROC_CALL
+        .short 0x2, 0x0
+        .word sub_8081E54
+        @ PROC_SLEEP
+        .short 0xe, 0x1
+        .word 0x0
+        @ PROC_CALL
+        .short 0x2, 0x0
+        .word ResetMapPaletteAnimations
+        @ PROC_END
+        .short 0x0, 0x0
+        .word 0x0
+
+	.global gUnknown_089A4CC4
+gUnknown_089A4CC4:  @ 0x089A4CC4
+        @ PROC_CALL
+        .short 0x2, 0x0
+        .word DisableMapPaletteAnimations
+        @ PROC_CALL
+        .short 0x2, 0x0
+        .word sub_8081E48
+        @ PROC_SLEEP
+        .short 0xe, 0x1
+        .word 0x0
+        @ PROC_CALL
+        .short 0x2, 0x0
+        .word MapAnim_MoveCameraOnTarget
+        @ PROC_SLEEP
+        .short 0xe, 0x2
+        .word 0x0
+        @ PROC_CALL
+        .short 0x2, 0x0
+        .word MapAnim_AnimateSubjectIdle
+        @ PROC_SLEEP
+        .short 0xe, 0x1e
+        .word 0x0
+        @ PROC_CALL
+        .short 0x2, 0x0
+        .word sub_8081C34
+        @ PROC_SLEEP
+        .short 0xe, 0x2
+        .word 0x0
+        @ PROC_SLEEP
+        .short 0xe, 0x32
+        .word 0x0
+        @ PROC_CALL
+        .short 0x2, 0x0
+        .word MapAnim_BeginRoundSpecificAnims
+        @ PROC_SLEEP
+        .short 0xe, 0x1e
+        .word 0x0
+        @ PROC_REPEAT
+        .short 0x3, 0x0
+        .word MapAnim_WaitForHPToEndChangingMaybe
+        @ PROC_SLEEP
+        .short 0xe, 0xa
+        .word 0x0
+        @ PROC_CALL
+        .short 0x2, 0x0
+        .word MapAnim_SubjectResetAnim
+        @ PROC_SLEEP
+        .short 0xe, 0x1e
+        .word 0x0
+        @ PROC_CALL
+        .short 0x2, 0x0
+        .word sub_8081E54
+        @ PROC_SLEEP
+        .short 0xe, 0x1
+        .word 0x0
+        @ PROC_CALL
+        .short 0x2, 0x0
+        .word ResetMapPaletteAnimations
+        @ PROC_END
+        .short 0x0, 0x0
+        .word 0x0
+
+	.global gUnknown_089A4D64
+gUnknown_089A4D64:  @ 0x089A4D64
+        @ PROC_CALL
+        .short 0x2, 0x0
+        .word DisableMapPaletteAnimations
+        @ PROC_CALL
+        .short 0x2, 0x0
+        .word sub_8081E48
+        @ PROC_SLEEP
+        .short 0xe, 0x1
+        .word 0x0
+        @ PROC_CALL
+        .short 0x2, 0x0
+        .word MapAnim_MoveCameraOnTarget
+        @ PROC_SLEEP
+        .short 0xe, 0x2
+        .word 0x0
+        @ PROC_CALL
+        .short 0x2, 0x0
+        .word MapAnim_AnimateSubjectIdle
+        @ PROC_SLEEP
+        .short 0xe, 0x1e
+        .word 0x0
+        @ PROC_CALL
+        .short 0x2, 0x0
+        .word sub_8081C74
+        @ PROC_SLEEP
+        .short 0xe, 0x2
+        .word 0x0
+        @ PROC_SLEEP
+        .short 0xe, 0x8c
+        .word 0x0
+        @ PROC_CALL
+        .short 0x2, 0x0
+        .word MapAnim_BeginRoundSpecificAnims
+        @ PROC_SLEEP
+        .short 0xe, 0x1e
+        .word 0x0
+        @ PROC_REPEAT
+        .short 0x3, 0x0
+        .word MapAnim_WaitForHPToEndChangingMaybe
+        @ PROC_SLEEP
+        .short 0xe, 0xa
+        .word 0x0
+        @ PROC_CALL
+        .short 0x2, 0x0
+        .word MapAnim_SubjectResetAnim
+        @ PROC_SLEEP
+        .short 0xe, 0x1e
+        .word 0x0
+        @ PROC_CALL
+        .short 0x2, 0x0
+        .word sub_8081E54
+        @ PROC_SLEEP
+        .short 0xe, 0x1
+        .word 0x0
+        @ PROC_CALL
+        .short 0x2, 0x0
+        .word ResetMapPaletteAnimations
+        @ PROC_END
+        .short 0x0, 0x0
+        .word 0x0
+
+	.global gUnknown_089A4E04
+gUnknown_089A4E04:  @ 0x089A4E04
+        @ PROC_CALL
+        .short 0x2, 0x0
+        .word DisableMapPaletteAnimations
+        @ PROC_CALL
+        .short 0x2, 0x0
+        .word sub_8081E48
+        @ PROC_SLEEP
+        .short 0xe, 0x1
+        .word 0x0
+        @ PROC_CALL
+        .short 0x2, 0x0
+        .word MapAnim_MoveCameraOnTarget
+        @ PROC_SLEEP
+        .short 0xe, 0x2
+        .word 0x0
+        @ PROC_CALL
+        .short 0x2, 0x0
+        .word MapAnim_AnimateSubjectIdle
+        @ PROC_SLEEP
+        .short 0xe, 0x1e
+        .word 0x0
+        @ PROC_CALL
+        .short 0x2, 0x0
+        .word sub_8081C94
+        @ PROC_SLEEP
+        .short 0xe, 0x2
+        .word 0x0
+        @ PROC_SLEEP
+        .short 0xe, 0x3c
+        .word 0x0
+        @ PROC_CALL
+        .short 0x2, 0x0
+        .word MapAnim_BeginRoundSpecificAnims
+        @ PROC_SLEEP
+        .short 0xe, 0x1e
+        .word 0x0
+        @ PROC_REPEAT
+        .short 0x3, 0x0
+        .word MapAnim_WaitForHPToEndChangingMaybe
+        @ PROC_SLEEP
+        .short 0xe, 0xa
+        .word 0x0
+        @ PROC_CALL
+        .short 0x2, 0x0
+        .word MapAnim_SubjectResetAnim
+        @ PROC_SLEEP
+        .short 0xe, 0x1e
+        .word 0x0
+        @ PROC_CALL
+        .short 0x2, 0x0
+        .word sub_8081E54
+        @ PROC_SLEEP
+        .short 0xe, 0x1
+        .word 0x0
+        @ PROC_CALL
+        .short 0x2, 0x0
+        .word ResetMapPaletteAnimations
+        @ PROC_END
+        .short 0x0, 0x0
+        .word 0x0
+
+	.global gUnknown_089A4EA4
+gUnknown_089A4EA4:  @ 0x089A4EA4
+        @ PROC_CALL
+        .short 0x2, 0x0
+        .word DisableMapPaletteAnimations
+        @ PROC_CALL
+        .short 0x2, 0x0
+        .word sub_8081E48
+        @ PROC_SLEEP
+        .short 0xe, 0x1
+        .word 0x0
+        @ PROC_CALL
+        .short 0x2, 0x0
+        .word MapAnim_MoveCameraOnTarget
+        @ PROC_SLEEP
+        .short 0xe, 0x2
+        .word 0x0
+        @ PROC_CALL
+        .short 0x2, 0x0
+        .word MapAnim_AnimateSubjectIdle
+        @ PROC_SLEEP
+        .short 0xe, 0x1e
+        .word 0x0
+        @ PROC_CALL
+        .short 0x2, 0x0
+        .word sub_80819A8
+        @ PROC_SLEEP
+        .short 0xe, 0x2
+        .word 0x0
+        @ PROC_SLEEP
+        .short 0xe, 0x40
+        .word 0x0
+        @ PROC_CALL
+        .short 0x2, 0x0
+        .word MapAnim_BeginRoundSpecificAnims
+        @ PROC_SLEEP
+        .short 0xe, 0x1e
+        .word 0x0
+        @ PROC_REPEAT
+        .short 0x3, 0x0
+        .word MapAnim_WaitForHPToEndChangingMaybe
+        @ PROC_SLEEP
+        .short 0xe, 0xa
+        .word 0x0
+        @ PROC_CALL
+        .short 0x2, 0x0
+        .word MapAnim_SubjectResetAnim
+        @ PROC_SLEEP
+        .short 0xe, 0x1e
+        .word 0x0
+        @ PROC_CALL
+        .short 0x2, 0x0
+        .word sub_8081E54
+        @ PROC_SLEEP
+        .short 0xe, 0x1
+        .word 0x0
+        @ PROC_CALL
+        .short 0x2, 0x0
+        .word ResetMapPaletteAnimations
+        @ PROC_END
+        .short 0x0, 0x0
+        .word 0x0
+
+	.global gUnknown_089A4F44
+gUnknown_089A4F44:  @ 0x089A4F44
+        @ PROC_CALL
+        .short 0x2, 0x0
+        .word DisableMapPaletteAnimations
+        @ PROC_CALL
+        .short 0x2, 0x0
+        .word sub_8081E48
+        @ PROC_SLEEP
+        .short 0xe, 0x1
+        .word 0x0
+        @ PROC_CALL
+        .short 0x2, 0x0
+        .word MapAnim_MoveCameraOnTarget
+        @ PROC_SLEEP
+        .short 0xe, 0x2
+        .word 0x0
+        @ PROC_CALL
+        .short 0x2, 0x0
+        .word MapAnim_AnimateSubjectIdle
+        @ PROC_SLEEP
+        .short 0xe, 0x1e
+        .word 0x0
+        @ PROC_CALL
+        .short 0x2, 0x0
+        .word sub_8081C54
+        @ PROC_SLEEP
+        .short 0xe, 0x2
+        .word 0x0
+        @ PROC_SLEEP
+        .short 0xe, 0x50
+        .word 0x0
+        @ PROC_SLEEP
+        .short 0xe, 0xa
+        .word 0x0
+        @ PROC_CALL
+        .short 0x2, 0x0
+        .word MapAnim_SubjectResetAnim
+        @ PROC_SLEEP
+        .short 0xe, 0x1e
+        .word 0x0
+        @ PROC_CALL
+        .short 0x2, 0x0
+        .word sub_8081E54
+        @ PROC_SLEEP
+        .short 0xe, 0x1
+        .word 0x0
+        @ PROC_CALL
+        .short 0x2, 0x0
+        .word ResetMapPaletteAnimations
+        @ PROC_END
+        .short 0x0, 0x0
+        .word 0x0
+
+	.global gUnknown_089A4FCC
+gUnknown_089A4FCC:  @ 0x089A4FCC
+        @ PROC_CALL
+        .short 0x2, 0x0
+        .word DisableMapPaletteAnimations
+        @ PROC_CALL
+        .short 0x2, 0x0
+        .word sub_8081E48
+        @ PROC_SLEEP
+        .short 0xe, 0x1
+        .word 0x0
+        @ PROC_CALL
+        .short 0x2, 0x0
+        .word MapAnim_MoveCameraOnTarget
+        @ PROC_SLEEP
+        .short 0xe, 0x2
+        .word 0x0
+        @ PROC_CALL
+        .short 0x2, 0x0
+        .word MapAnim_AnimateSubjectIdle
+        @ PROC_SLEEP
+        .short 0xe, 0x1e
+        .word 0x0
+        @ PROC_CALL
+        .short 0x2, 0x0
+        .word sub_8081CB4
+        @ PROC_SLEEP
+        .short 0xe, 0x2
+        .word 0x0
+        @ PROC_SLEEP
+        .short 0xe, 0x50
+        .word 0x0
+        @ PROC_SLEEP
+        .short 0xe, 0xa
+        .word 0x0
+        @ PROC_CALL
+        .short 0x2, 0x0
+        .word MapAnim_SubjectResetAnim
+        @ PROC_SLEEP
+        .short 0xe, 0x1e
+        .word 0x0
+        @ PROC_CALL
+        .short 0x2, 0x0
+        .word sub_8081E54
+        @ PROC_SLEEP
+        .short 0xe, 0x1
+        .word 0x0
+        @ PROC_CALL
+        .short 0x2, 0x0
+        .word ResetMapPaletteAnimations
+        @ PROC_END
+        .short 0x0, 0x0
+        .word 0x0
+
+	.global gUnknown_089A5054
+gUnknown_089A5054:  @ 0x089A5054
+        @ PROC_CALL
+        .short 0x2, 0x0
+        .word MapAnim_MoveCameraOnTarget
+        @ PROC_SLEEP
+        .short 0xe, 0x2
+        .word 0x0
+        @ PROC_CALL
+        .short 0x2, 0x0
+        .word MapAnim_PoisonEffectOnTarget
+        @ PROC_SLEEP
+        .short 0xe, 0x2
+        .word 0x0
+        @ PROC_SLEEP
+        .short 0xe, 0x5e
+        .word 0x0
+        @ PROC_SLEEP
+        .short 0xe, 0xa
+        .word 0x0
+        @ PROC_END
+        .short 0x0, 0x0
+        .word 0x0
+
+	.global gUnknown_089A508C
+gUnknown_089A508C:  @ 0x089A508C
+        @ PROC_CALL
+        .short 0x2, 0x0
+        .word MapAnim_MoveCameraOnTarget
+        @ PROC_SLEEP
+        .short 0xe, 0x2
+        .word 0x0
+        @ PROC_CALL
+        .short 0x2, 0x0
+        .word MapAnim_PoisonEffectOnTarget
+        @ PROC_SLEEP
+        .short 0xe, 0x2
+        .word 0x0
+        @ PROC_SLEEP
+        .short 0xe, 0x32
+        .word 0x0
+        @ PROC_CALL
+        .short 0x2, 0x0
+        .word MapAnim_BeginRoundSpecificAnims
+        @ PROC_SLEEP
+        .short 0xe, 0x1e
+        .word 0x0
+        @ PROC_REPEAT
+        .short 0x3, 0x0
+        .word MapAnim_WaitForHPToEndChangingMaybe
+        @ PROC_SLEEP
+        .short 0xe, 0x2c
+        .word 0x0
+        @ PROC_END
+        .short 0x0, 0x0
+        .word 0x0
+
+	.global gUnknown_089A50DC
+gUnknown_089A50DC:  @ 0x089A50DC
+        @ PROC_CALL
+        .short 0x2, 0x0
+        .word MapAnim_MoveCameraOnTarget
+        @ PROC_SLEEP
+        .short 0xe, 0x2
+        .word 0x0
+        @ PROC_CALL
+        .short 0x2, 0x0
+        .word sub_8081CD4
+        @ PROC_CALL
+        .short 0x2, 0x0
+        .word MapAnim_BeginRoundSpecificAnims
+        @ PROC_SLEEP
+        .short 0xe, 0x5
+        .word 0x0
+        @ PROC_REPEAT
+        .short 0x3, 0x0
+        .word MapAnim_WaitForHPToEndChangingMaybe
+        @ PROC_SLEEP
+        .short 0xe, 0x5
+        .word 0x0
+        @ PROC_CALL
+        .short 0x2, 0x0
+        .word sub_8081E60
+        @ PROC_END
+        .short 0x0, 0x0
+        .word 0x0
 
 	.global gUnknown_089A5124
 gUnknown_089A5124:  @ 0x089A5124
@@ -1748,7 +2689,174 @@ gUnknown_089A5124:  @ 0x089A5124
         @ PROC_END
         .short 0x0, 0x0
         .word 0x0
-	.incbin "baserom.gba", 0x9A5154, 0x1A8
+
+	.global gUnknown_089A5154
+gUnknown_089A5154:  @ 0x089A5154
+        @ PROC_CALL
+        .short 0x2, 0x0
+        .word MapAnim_MoveCameraOnTarget
+        @ PROC_SLEEP
+        .short 0xe, 0x2
+        .word 0x0
+        @ PROC_CALL
+        .short 0x2, 0x0
+        .word MapAnim_BeginRoundSpecificAnims
+        @ PROC_SLEEP
+        .short 0xe, 0x1e
+        .word 0x0
+        @ PROC_REPEAT
+        .short 0x3, 0x0
+        .word MapAnim_WaitForHPToEndChangingMaybe
+        @ PROC_SLEEP
+        .short 0xe, 0x14
+        .word 0x0
+        @ PROC_END
+        .short 0x0, 0x0
+        .word 0x0
+
+	.global gUnknown_089A518C
+gUnknown_089A518C:  @ 0x089A518C
+        @ PROC_CALL
+        .short 0x2, 0x0
+        .word DisableMapPaletteAnimations
+        @ PROC_CALL
+        .short 0x2, 0x0
+        .word sub_8081E48
+        @ PROC_SLEEP
+        .short 0xe, 0x1
+        .word 0x0
+        @ PROC_CALL
+        .short 0x2, 0x0
+        .word MapAnim_MoveCameraOnTarget
+        @ PROC_SLEEP
+        .short 0xe, 0x2
+        .word 0x0
+        @ PROC_CALL
+        .short 0x2, 0x0
+        .word MapAnim_AnimateSubjectIdle
+        @ PROC_SLEEP
+        .short 0xe, 0x1e
+        .word 0x0
+        @ PROC_CALL
+        .short 0x2, 0x0
+        .word sub_80819C8
+        @ PROC_SLEEP
+        .short 0xe, 0x2
+        .word 0x0
+        @ PROC_SLEEP
+        .short 0xe, 0x3c
+        .word 0x0
+        @ PROC_SLEEP
+        .short 0xe, 0xa
+        .word 0x0
+        @ PROC_CALL
+        .short 0x2, 0x0
+        .word MapAnim_SubjectResetAnim
+        @ PROC_SLEEP
+        .short 0xe, 0x1e
+        .word 0x0
+        @ PROC_CALL
+        .short 0x2, 0x0
+        .word sub_8081E54
+        @ PROC_SLEEP
+        .short 0xe, 0x1
+        .word 0x0
+        @ PROC_CALL
+        .short 0x2, 0x0
+        .word ResetMapPaletteAnimations
+        @ PROC_END
+        .short 0x0, 0x0
+        .word 0x0
+
+	.global gUnknown_089A5214
+gUnknown_089A5214:  @ 0x089A5214
+        @ PROC_CALL
+        .short 0x2, 0x0
+        .word MapAnim_MoveCameraOnTarget
+        @ PROC_SLEEP
+        .short 0xe, 0x2
+        .word 0x0
+        @ PROC_CALL
+        .short 0x2, 0x0
+        .word MapAnim_AnimateSubjectIdle
+        @ PROC_SLEEP
+        .short 0xe, 0x1e
+        .word 0x0
+        @ PROC_CALL
+        .short 0x2, 0x0
+        .word sub_8081B70
+        @ PROC_SLEEP
+        .short 0xe, 0xa
+        .word 0x0
+        @ PROC_CALL
+        .short 0x2, 0x0
+        .word sub_8081CD4
+        @ PROC_SLEEP
+        .short 0xe, 0x14
+        .word 0x0
+        @ PROC_CALL
+        .short 0x2, 0x0
+        .word sub_8081D40
+        @ PROC_SLEEP
+        .short 0xe, 0x2
+        .word 0x0
+        @ PROC_CALL
+        .short 0x2, 0x0
+        .word sub_8081D1C
+        @ PROC_SLEEP
+        .short 0xe, 0x8
+        .word 0x0
+        @ PROC_CALL
+        .short 0x2, 0x0
+        .word sub_8081E04
+        @ PROC_SLEEP
+        .short 0xe, 0x1e
+        .word 0x0
+        @ PROC_CALL
+        .short 0x2, 0x0
+        .word sub_80815EC
+        @ PROC_SLEEP
+        .short 0xe, 0x2
+        .word 0x0
+        @ PROC_CALL
+        .short 0x2, 0x0
+        .word sub_8081D84
+        @ PROC_SLEEP
+        .short 0xe, 0x28
+        .word 0x0
+        @ PROC_CALL
+        .short 0x2, 0x0
+        .word sub_8081BCC
+        @ PROC_SLEEP
+        .short 0xe, 0xa
+        .word 0x0
+        @ PROC_CALL
+        .short 0x2, 0x0
+        .word sub_8081DE0
+        @ PROC_CALL
+        .short 0x2, 0x0
+        .word sub_8081CF8
+        @ PROC_SLEEP
+        .short 0xe, 0x10
+        .word 0x0
+        @ PROC_SLEEP
+        .short 0xe, 0xa
+        .word 0x0
+        @ PROC_CALL
+        .short 0x2, 0x0
+        .word MapAnim_MoveCameraOnSubject
+        @ PROC_SLEEP
+        .short 0xe, 0x2
+        .word 0x0
+        @ PROC_CALL
+        .short 0x2, 0x0
+        .word MapAnim_SubjectResetAnim
+        @ PROC_SLEEP
+        .short 0xe, 0x1e
+        .word 0x0
+        @ PROC_END
+        .short 0x0, 0x0
+        .word 0x0
 
 	.global gUnknown_089A52FC
 gUnknown_089A52FC:  @ 0x089A52FC
@@ -2107,6 +3215,7 @@ gUnknown_089E84D4:  @ 0x089E84D4
 gUnknown_089E84F4:  @ 0x089E84F4
 	.incbin "baserom.gba", 0x9E84F4, 0x88
 
+@ XXX noah: Appears to contain pointers, possibly procs?
 	.global gUnknown_089E857C
 gUnknown_089E857C:  @ 0x089E857C
 	.incbin "baserom.gba", 0x9E857C, 0x4140

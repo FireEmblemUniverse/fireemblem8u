@@ -8,7 +8,18 @@ gUnknown_08A01628:  @ 0x08A01628
         @ PROC_END
         .short 0x0, 0x0
         .word 0x0
-	.incbin "baserom.gba", 0xA01638, 0x18
+
+	.global gUnknown_08A01638
+gUnknown_08A01638:  @ 0x08A01638
+        @ PROC_YIELD
+        .short 0xe, 0x0
+        .word 0x0
+        @ PROC_CALL
+        .short 0x2, 0x0
+        .word sub_8089EEC
+        @ PROC_END
+        .short 0x0, 0x0
+        .word 0x0
 
 	.global gUnknown_08A01650
 gUnknown_08A01650:  @ 0x08A01650

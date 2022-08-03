@@ -1735,7 +1735,42 @@ gUnknown_08A19064:  @ 0x08A19064
         @ PROC_END
         .short 0x0, 0x0
         .word 0x0
-	.incbin "baserom.gba", 0xA191A4, 0x50
+
+	.global gUnknown_08A191A4
+gUnknown_08A191A4:  @ 0x08A191A4
+        @ PROC_SET_END_CB
+        .short 0x4, 0x0
+        .word sub_809CF8C
+        @ PROC_CALL
+        .short 0x2, 0x0
+        .word sub_809CDD4
+        @ PROC_REPEAT
+        .short 0x3, 0x0
+        .word sub_809CF48
+        @ PROC_END
+        .short 0x0, 0x0
+        .word 0x0
+
+	.global gUnknown_08A191C4
+gUnknown_08A191C4:  @ 0x08A191C4
+        @ PROC_SET_END_CB
+        .short 0x4, 0x0
+        .word sub_809D1C0
+        @ PROC_CALL
+        .short 0x2, 0x0
+        .word sub_809D0D4
+        @ PROC_REPEAT
+        .short 0x3, 0x0
+        .word sub_809D17C
+        @ PROC_CALL
+        .short 0x2, 0x0
+        .word sub_807EE74
+        @ PROC_SLEEP
+        .short 0xe, 0x1
+        .word 0x0
+        @ PROC_END
+        .short 0x0, 0x0
+        .word 0x0
 
 	.global gUnknown_08A191F4
 gUnknown_08A191F4:  @ 0x08A191F4
@@ -2326,7 +2361,129 @@ gUnknown_08A19872:  @ 0x08A19872
 
 	.global gUnknown_08A19880
 gUnknown_08A19880:  @ 0x08A19880
-	.incbin "baserom.gba", 0xA19880, 0x148
+        @ PROC_YIELD
+        .short 0xe, 0x0
+        .word 0x0
+        @ PROC_CALL
+        .short 0x2, 0x0
+        .word sub_80A21D0
+        @ PROC_LABEL
+        .short 0xb, 0x0
+        .word 0x0
+        @ PROC_CALL
+        .short 0x2, 0x0
+        .word sub_80A2274
+        @ PROC_CALL_ARG
+        .short 0x18, 0x8
+        .word NewFadeIn
+        @ PROC_WHILE
+        .short 0x14, 0x0
+        .word FadeInExists
+        @ PROC_WHILE
+        .short 0x14, 0x0
+        .word sub_8002A6C
+        @ PROC_LABEL
+        .short 0xb, 0x1
+        .word 0x0
+        @ PROC_REPEAT
+        .short 0x3, 0x0
+        .word sub_80A2448
+        @ PROC_LABEL
+        .short 0xb, 0x2
+        .word 0x0
+        @ PROC_CALL
+        .short 0x2, 0x0
+        .word sub_80A2B7C
+        @ PROC_CALL_ARG
+        .short 0x18, 0x8
+        .word NewFadeOut
+        @ PROC_WHILE
+        .short 0x14, 0x0
+        .word FadeOutExists
+        @ PROC_CALL
+        .short 0x2, 0x0
+        .word sub_80A2B5C
+        @ PROC_YIELD
+        .short 0xe, 0x0
+        .word 0x0
+        @ PROC_WHILE
+        .short 0x14, 0x0
+        .word sub_8002A6C
+        @ PROC_CALL
+        .short 0x2, 0x0
+        .word sub_80A25F8
+        @ PROC_YIELD
+        .short 0xe, 0x0
+        .word 0x0
+        @ PROC_WHILE
+        .short 0x14, 0x0
+        .word EventEngineExists
+        @ PROC_CALL
+        .short 0x2, 0x0
+        .word sub_80A2BD0
+        @ PROC_SLEEP
+        .short 0xe, 0x8
+        .word 0x0
+        @ PROC_GOTO
+        .short 0xc, 0x0
+        .word 0x0
+        @ PROC_LABEL
+        .short 0xb, 0x4
+        .word 0x0
+        @ PROC_CALL
+        .short 0x2, 0x0
+        .word sub_80A26A8
+        @ PROC_REPEAT
+        .short 0x3, 0x0
+        .word sub_80A2800
+        @ PROC_CALL
+        .short 0x2, 0x0
+        .word sub_80A29C0
+        @ PROC_REPEAT
+        .short 0x3, 0x0
+        .word sub_80A286C
+        @ PROC_CALL
+        .short 0x2, 0x0
+        .word sub_80A2AAC
+        @ PROC_GOTO
+        .short 0xc, 0x1
+        .word 0x0
+        @ PROC_LABEL
+        .short 0xb, 0x5
+        .word 0x0
+        @ PROC_CALL
+        .short 0x2, 0x0
+        .word sub_80A26A8
+        @ PROC_REPEAT
+        .short 0x3, 0x0
+        .word sub_80A28E0
+        @ PROC_CALL
+        .short 0x2, 0x0
+        .word sub_80A29C0
+        @ PROC_REPEAT
+        .short 0x3, 0x0
+        .word sub_80A294C
+        @ PROC_CALL
+        .short 0x2, 0x0
+        .word sub_80A2AAC
+        @ PROC_GOTO
+        .short 0xc, 0x1
+        .word 0x0
+        @ PROC_LABEL
+        .short 0xb, 0x3
+        .word 0x0
+        @ PROC_CALL_ARG
+        .short 0x18, 0x8
+        .word NewFadeOut
+        @ PROC_WHILE
+        .short 0x14, 0x0
+        .word FadeOutExists
+        @ PROC_CALL
+        .short 0x2, 0x0
+        .word sub_80A2B5C
+        @ PROC_END
+        .short 0x0, 0x0
+        .word 0x0
 
 	.global gUnknown_08A199C8
 gUnknown_08A199C8:  @ 0x08A199C8
@@ -4550,7 +4707,21 @@ gUnknown_08A2F038:  @ 0x08A2F038
         @ PROC_END
         .short 0x0, 0x0
         .word 0x0
-	.incbin "baserom.gba", 0xA2F068, 0x20
+
+	.global gUnknown_08A2F068
+gUnknown_08A2F068:  @ 0x08A2F068
+        @ PROC_SLEEP
+        .short 0xe, 0x1e
+        .word 0x0
+        @ PROC_CALL
+        .short 0x2, 0x0
+        .word sub_80B33E4
+        @ PROC_REPEAT
+        .short 0x3, 0x0
+        .word sub_80B3498
+        @ PROC_END
+        .short 0x0, 0x0
+        .word 0x0
 
 	.global gUnknown_08A2F088
 gUnknown_08A2F088:  @ 0x08A2F088
@@ -5303,7 +5474,25 @@ gUnknown_08A3963C:  @ 0x08A3963C
         @ PROC_END
         .short 0x0, 0x0
         .word 0x0
-	.incbin "baserom.gba", 0xA3963C + 0xF0, 0x34C8 - 0xF0
+
+	.global gUnknown_08A3972C
+gUnknown_08A3972C:  @ 0x08A3972C
+        @ PROC_CALL
+        .short 0x2, 0x0
+        .word sub_80B5CE0
+        @ PROC_SLEEP
+        .short 0xe, 0xd2
+        .word 0x0
+        @ PROC_CALL
+        .short 0x2, 0x0
+        .word sub_80B5D2C
+        @ PROC_END
+        .short 0x0, 0x0
+        .word 0x0
+
+	.global gUnknown_08A3974C
+gUnknown_08A3974C:  @ 0x08A3974C
+	.incbin "baserom.gba", 0xA3974C, 0xA3CB04 - 0xA3974C
 
 	.global gUnknown_08A3CB04
 gUnknown_08A3CB04:  @ 0x08A3CB04
@@ -5593,7 +5782,22 @@ gUnknown_08A3D624:  @ 0x08A3D624
 
 	.global gUnknown_08A3D63C
 gUnknown_08A3D63C:  @ 0x08A3D63C
-	.incbin "baserom.gba", 0xA3D63C, 0x38
+	.incbin "baserom.gba", 0xA3D63C, 0x18
+
+	.global gUnknown_08A3D654
+gUnknown_08A3D654:  @ 0x08A3D654
+        @ PROC_YIELD
+        .short 0xe, 0x0
+        .word 0x0
+        @ PROC_CALL
+        .short 0x2, 0x0
+        .word sub_80B75AC
+        @ PROC_REPEAT
+        .short 0x3, 0x0
+        .word sub_80B7614
+        @ PROC_END
+        .short 0x0, 0x0
+        .word 0x0
 
 	.global gUnknown_08A3D674
 gUnknown_08A3D674:  @ 0x08A3D674
@@ -7019,7 +7223,19 @@ gUnknown_08A3E78C:  @ 0x08A3E78C
 
 	.global gUnknown_08A3E888
 gUnknown_08A3E888:  @ 0x08A3E888
-	.incbin "baserom.gba", 0xA3E888, 0x30
+	.incbin "baserom.gba", 0xA3E888, 0x18
+
+	.global gUnknown_08A3E8A0
+gUnknown_08A3E8A0:  @ 0x08A3E8A0
+        @ PROC_MARK
+        .short 0xf, 0x8
+        .word 0x0
+        @ PROC_REPEAT
+        .short 0x3, 0x0
+        .word sub_80C0EBC
+        @ PROC_END
+        .short 0x0, 0x0
+        .word 0x0
 
 	.global gUnknown_08A3E8B8
 gUnknown_08A3E8B8:  @ 0x08A3E8B8
@@ -8061,7 +8277,44 @@ gUnknown_08AA2084:  @ 0x08AA2084
 
 	.global gUnknown_08AA213C
 gUnknown_08AA213C:  @ 0x08AA213C
-	.incbin "baserom.gba", 0xAA213C, 0x68
+	.incbin "baserom.gba", 0xAA213C, 0x18
+
+
+	.global gUnknown_08AA2154
+gUnknown_08AA2154:  @ 0x08AA2154
+        @ PROC_SLEEP
+        .short 0xe, 0x1
+        .word 0x0
+        @ PROC_CALL
+        .short 0x2, 0x0
+        .word sub_80C4A3C
+        @ PROC_REPEAT
+        .short 0x3, 0x0
+        .word sub_80C4A88
+        @ PROC_SLEEP
+        .short 0xe, 0x1
+        .word 0x0
+        @ PROC_CALL
+        .short 0x2, 0x0
+        .word sub_80C4BA0
+        @ PROC_END
+        .short 0x0, 0x0
+        .word 0x0
+
+	.global gUnknown_08AA2184
+gUnknown_08AA2184:  @ 0x08AA2184
+        @ PROC_YIELD
+        .short 0xe, 0x0
+        .word 0x0
+        @ PROC_SLEEP
+        .short 0xe, 0x24
+        .word 0x0
+        @ PROC_CALL
+        .short 0x2, 0x0
+        .word sub_80C51A8
+        @ PROC_END
+        .short 0x0, 0x0
+        .word 0x0
 
 	.global gUnknown_08AA21A4
 gUnknown_08AA21A4:  @ 0x08AA21A4
@@ -8569,7 +8822,15 @@ gUnknown_08AA7034:  @ 0x08AA7034
         @ PROC_END
         .short 0x0, 0x0
         .word 0x0
-	.incbin "baserom.gba", 0xAA7034 + 0x18, 0x28 - 0x18
+
+	.global gUnknown_08AA704C
+gUnknown_08AA704C:  @ 0x08AA704C
+        @ PROC_REPEAT
+        .short 0x3, 0x0
+        .word sub_80C8554
+        @ PROC_END
+        .short 0x0, 0x0
+        .word 0x0
 
 	.global gUnknown_08AA705C
 gUnknown_08AA705C:  @ 0x08AA705C

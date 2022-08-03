@@ -448,7 +448,33 @@ gUnknown_085924D8:  @ 0x085924D8
         @ PROC_END
         .short 0x0, 0x0
         .word 0x0
-	.incbin "baserom.gba", 0x5924F8, 0x38
+
+	.global gUnknown_085924f8
+gUnknown_085924F8:  @ 0x085924F8
+        @ PROC_CALL
+        .short 0x2, 0x0
+        .word sub_8011A48
+        @ PROC_REPEAT
+        .short 0x3, 0x0
+        .word sub_8011AA0
+        @ PROC_END
+        .short 0x0, 0x0
+        .word 0x0
+
+	.global gUnknown_08592510
+gUnknown_08592510:  @ 0x08592510
+        @ PROC_CALL
+        .short 0x2, 0x0
+        .word sub_8011AF4
+        @ PROC_REPEAT
+        .short 0x3, 0x0
+        .word sub_8011B4C
+        @ PROC_CALL
+        .short 0x2, 0x0
+        .word sub_8011B90
+        @ PROC_END
+        .short 0x0, 0x0
+        .word 0x0
 
 	.global gUnknown_08592530
 gUnknown_08592530:  @ 0x08592530

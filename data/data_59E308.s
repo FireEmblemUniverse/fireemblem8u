@@ -161,4 +161,45 @@ gUnknown_0859E438:  @ 0x0859E438
         @ PROC_END
         .short 0x0, 0x0
         .word 0x0
-	.incbin "baserom.gba", 0x59E490, 0xC0 - 0x58
+
+	.global gUnknown_0859E490
+gUnknown_0859E490:  @ 0x0859E490
+        @ PROC_CALL
+        .short 0x2, 0x0
+        .word sub_803629C
+        @ PROC_LABEL
+        .short 0xb, 0x0
+        .word 0x0
+        @ PROC_YIELD
+        .short 0xe, 0x0
+        .word 0x0
+        @ PROC_CALL
+        .short 0x2, 0x0
+        .word sub_80362A4
+        @ PROC_CALL
+        .short 0x2, 0x0
+        .word sub_8036334
+        @ PROC_YIELD
+        .short 0xe, 0x0
+        .word 0x0
+        @ PROC_CALL
+        .short 0x2, 0x0
+        .word sub_8036364
+        @ PROC_YIELD
+        .short 0xe, 0x0
+        .word 0x0
+        @ PROC_CALL
+        .short 0x2, 0x0
+        .word sub_8035F40
+        @ PROC_LABEL
+        .short 0xb, 0x1
+        .word 0x0
+        @ PROC_CALL
+        .short 0x2, 0x0
+        .word sub_8036474
+        @ PROC_GOTO
+        .short 0xc, 0x0
+        .word 0x0
+        @ PROC_END
+        .short 0x0, 0x0
+        .word 0x0
