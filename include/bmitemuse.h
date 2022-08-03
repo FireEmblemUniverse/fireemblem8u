@@ -25,4 +25,7 @@ u8 RepairMenuItemSelect(struct MenuProc*, struct          MenuItemProc*);
 int RepairMenuItemOnChange(struct MenuProc*, struct        MenuItemProc*);
 int RepairMenuItemOnChangeOut(struct MenuProc*, struct MenuItemProc*);
 
+struct SelectTarget;
+u8 StaffSelectOnSelect(ProcPtr proc, struct SelectTarget* target);
+
 #endif // GUARD_ITEMUSE_H

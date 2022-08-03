@@ -436,7 +436,10 @@ gUnknown_08A17B36:  @ 0x08A17B36
 
 	.global gUnknown_08A17B58
 gUnknown_08A17B58:  @ 0x08A17B58
-	.incbin "baserom.gba", 0xA17B58, 0xC
+@ replacing .incbin "baserom.gba", 0x00a17b58, 0xc
+.4byte gUnknown_08A17B36 + 0xa
+.4byte gUnknown_08A17B36 + 0x12
+.4byte gUnknown_08A17B36 + 0x1a
 
 	.global gUnknown_08A17B64
 gUnknown_08A17B64:  @ 0x08A17B64
@@ -448,7 +451,17 @@ gUnknown_08A17B6C:  @ 0x08A17B6C
 
 	.global gUnknown_08A17C20
 gUnknown_08A17C20:  @ 0x08A17C20
-	.incbin "baserom.gba", 0xA17C20, 0x28
+@ replacing .incbin "baserom.gba", 0x00a17c20, 0x28
+.4byte gUnknown_08A17B6C + 0x9e
+.4byte gUnknown_08A17B6C + 0x2c
+.4byte gUnknown_08A17B6C + 0x3a
+.4byte gUnknown_08A17B6C + 0x4e
+.4byte gUnknown_08A17B6C + 0x62
+.4byte gUnknown_08A17B6C + 0x76
+.4byte gUnknown_08A17B6C + 0x8a
+.4byte gUnknown_08A17B6C + 0x8a
+.4byte gUnknown_08A17B6C + 0x8a
+.4byte gUnknown_08A17B6C + 0x8a
 
 	.global gUnknown_08A17C48
 gUnknown_08A17C48:  @ 0x08A17C48
@@ -848,7 +861,13 @@ gUnknown_08A1879C:  @ 0x08A1879C
 
 	.global gUnknown_08A187F0
 gUnknown_08A187F0:  @ 0x08A187F0
-	.incbin "baserom.gba", 0xA187F0, 0x18
+@ replacing .incbin "baserom.gba", 0x00a187f0, 0x18
+.4byte gUnknown_08A1879C + 0x24
+.4byte gUnknown_08A1879C + 0x2c
+.4byte gUnknown_08A1879C + 0x34
+.4byte gUnknown_08A1879C + 0x3c
+.4byte gUnknown_08A1879C + 0x44
+.4byte gUnknown_08A1879C + 0x4c
 
 	.global gUnknown_08A18808
 gUnknown_08A18808:  @ 0x08A18808
@@ -1778,7 +1797,8 @@ gUnknown_08A191F4:  @ 0x08A191F4
 
 	.global gUnknown_08A19200
 gUnknown_08A19200:  @ 0x08A19200
-	.incbin "baserom.gba", 0xA19200, 0x4
+@ replacing .incbin "baserom.gba", 0x00a19200, 0x4
+.4byte gUnknown_0200F15C + 0x20
 
 	.global gUnknown_08A19204
 gUnknown_08A19204:  @ 0x08A19204
@@ -2096,7 +2116,8 @@ gUnknown_08A1951C:  @ 0x08A1951C
 
 	.global gUnknown_08A19524
 gUnknown_08A19524:  @ 0x08A19524
-	.incbin "baserom.gba", 0xA19524, 0x4
+@ replacing .incbin "baserom.gba", 0x00a19524, 0x4
+.4byte gUnknown_0200F15C + 0x20
 
 	.global gUnknown_08A19528
 gUnknown_08A19528:  @ 0x08A19528
@@ -2159,7 +2180,16 @@ gUnknown_08A195F8:  @ 0x08A195F8
 
 	.global gUnknown_08A19608
 gUnknown_08A19608:  @ 0x08A19608
-	.incbin "baserom.gba", 0xA19608, 0x24
+@ replacing .incbin "baserom.gba", 0x00a19608, 0x24
+.4byte gUnknown_08A19528 + 0x88
+.4byte gUnknown_08A19528 + 0x90
+.4byte gUnknown_08A19528 + 0x98
+.4byte gUnknown_08A19528 + 0xa0
+.4byte gUnknown_08A19528 + 0xa8
+.4byte gUnknown_08A19528 + 0xb0
+.4byte gUnknown_08A19528 + 0xb8
+.4byte gUnknown_08A19528 + 0xc0
+.4byte gUnknown_08A19528 + 0xc8
 
 	.global gUnknown_08A1962C
 gUnknown_08A1962C:  @ 0x08A1962C
@@ -2229,7 +2259,8 @@ gUnknown_08A196D0:  @ 0x08A196D0
 
 	.global gUnknown_08A196FC
 gUnknown_08A196FC:  @ 0x08A196FC
-	.incbin "baserom.gba", 0xA196FC, 0x4
+@ replacing .incbin "baserom.gba", 0x00a196fc, 0x4
+.4byte gUnknown_0200F15C + 0x20
 
 	.global gUnknown_08A19700
 gUnknown_08A19700:  @ 0x08A19700
@@ -2707,7 +2738,8 @@ gUnknown_08A1FB30:  @ 0x08A1FB30
 
 	.global gUnknown_08A1FB34
 gUnknown_08A1FB34:  @ 0x08A1FB34
-	.incbin "baserom.gba", 0xA1FB34, 0x4
+@ replacing .incbin "baserom.gba", 0x00a1fb34, 0x4
+.4byte end + 0x48
 
 	.global gUnknown_08A1FB38
 gUnknown_08A1FB38:  @ 0x08A1FB38
@@ -3221,7 +3253,8 @@ gUnknown_08A203A8:  @ 0x08A203A8
 
 	.global gUnknown_08A204B8
 gUnknown_08A204B8:  @ 0x08A204B8
-	.incbin "baserom.gba", 0xA204B8, 0x4
+@ replacing .incbin "baserom.gba", 0x00a204b8, 0x4
+.4byte gUnknown_02000948 + 0x20
 
 	.global gUnknown_08A204BC
 gUnknown_08A204BC:  @ 0x08A204BC
@@ -3293,11 +3326,33 @@ gUnknown_08A20590:  @ 0x08A20590
 
 	.global gUnknown_08A20650
 gUnknown_08A20650:  @ 0x08A20650
-	.incbin "baserom.gba", 0xA20650, 0x2C
+@ replacing .incbin "baserom.gba", 0x00a20650, 0x2c
+.4byte gUnknown_08A20590 + 0xe
+.4byte gUnknown_08A20590 + 0x16
+.4byte gUnknown_08A20590 + 0x1e
+.4byte gUnknown_08A20590 + 0x26
+.4byte gUnknown_08A20590 + 0x2e
+.4byte gUnknown_08A20590 + 0x36
+.4byte gUnknown_08A20590 + 0x3e
+.4byte gUnknown_08A20590 + 0x46
+.4byte gUnknown_08A20590 + 0x4e
+.4byte gUnknown_08A20590 + 0x56
+.4byte gUnknown_08A20590 + 0x5e
 
 	.global gUnknown_08A2067C
 gUnknown_08A2067C:  @ 0x08A2067C
-	.incbin "baserom.gba", 0xA2067C, 0x2C
+@ replacing .incbin "baserom.gba", 0x00a2067c, 0x2c
+.4byte gUnknown_08A20590 + 0x66
+.4byte gUnknown_08A20590 + 0x6e
+.4byte gUnknown_08A20590 + 0x76
+.4byte gUnknown_08A20590 + 0x7e
+.4byte gUnknown_08A20590 + 0x86
+.4byte gUnknown_08A20590 + 0x8e
+.4byte gUnknown_08A20590 + 0x96
+.4byte gUnknown_08A20590 + 0x9e
+.4byte gUnknown_08A20590 + 0xa6
+.4byte gUnknown_08A20590 + 0xae
+.4byte gUnknown_08A20590 + 0xb6
 
 	.global gUnknown_08A206A8
 gUnknown_08A206A8:  @ 0x08A206A8
@@ -3394,19 +3449,43 @@ gUnknown_08A2075C:  @ 0x08A2075C
 
 	.global gUnknown_08A2099C
 gUnknown_08A2099C:  @ 0x08A2099C
-	.incbin "baserom.gba", 0xA2099C, 0x1C
+@ replacing .incbin "baserom.gba", 0x00a2099c, 0x1c
+.4byte gUnknown_08A2075C + 0xee
+.4byte gUnknown_08A2075C + 0x108
+.4byte gUnknown_08A2075C + 0x122
+.4byte gUnknown_08A2075C + 0x13c
+.4byte gUnknown_08A2075C + 0x156
+.4byte gUnknown_08A2075C + 0x170
+.4byte gUnknown_08A2075C + 0x18a
 
 	.global gUnknown_08A209B8
 gUnknown_08A209B8:  @ 0x08A209B8
-	.incbin "baserom.gba", 0xA209B8, 0x2C
+@ replacing .incbin "baserom.gba", 0x00a209b8, 0x2c
+.4byte gUnknown_08A2075C + 0x20
+.4byte gUnknown_08A2075C + 0x3a
+.4byte gUnknown_08A2075C + 0x54
+.4byte gUnknown_08A2075C + 0x68
+.4byte gUnknown_08A2075C + 0x82
+.4byte gUnknown_08A2075C + 0x96
+.4byte gUnknown_08A2075C + 0xa4
+.4byte gUnknown_08A2075C + 0x3a
+.4byte gUnknown_08A2075C + 0xcc
+.4byte gUnknown_08A2075C + 0xe6
+.4byte gUnknown_08A2075C + 0xb2
 
 	.global gUnknown_08A209E4
 gUnknown_08A209E4:  @ 0x08A209E4
-	.incbin "baserom.gba", 0xA209E4, 0xC
+@ replacing .incbin "baserom.gba", 0x00a209e4, 0xc
+.4byte gUnknown_08A2075C + 0x1ce
+.4byte gUnknown_08A2075C + 0x1f4
+.4byte gUnknown_08A2075C + 0x21a
 
 	.global gUnknown_08A209F0
 gUnknown_08A209F0:  @ 0x08A209F0
-	.incbin "baserom.gba", 0xA209F0, 0xC
+@ replacing .incbin "baserom.gba", 0x00a209f0, 0xc
+.4byte gUnknown_08A2075C + 0x192
+.4byte gUnknown_08A2075C + 0x1a6
+.4byte gUnknown_08A2075C + 0x1ba
 
 	.global gUnknown_08A209FC
 gUnknown_08A209FC:  @ 0x08A209FC
@@ -3489,7 +3568,10 @@ gUnknown_08A20AC2:  @ 0x08A20AC2
 
 	.global gUnknown_08A20B08
 gUnknown_08A20B08:  @ 0x08A20B08
-	.incbin "baserom.gba", 0xA20B08, 0xC
+@ replacing .incbin "baserom.gba", 0x00a20b08, 0xc
+.4byte gUnknown_08A20AC2 + 0xe
+.4byte gUnknown_08A20AC2 + 0x22
+.4byte gUnknown_08A20AC2 + 0x30
 
 	.global gUnknown_08A20B14
 gUnknown_08A20B14:  @ 0x08A20B14
@@ -3784,19 +3866,23 @@ gUnknown_08A20E74:  @ 0x08A20E74
 
 	.global gUnknown_08A212D4
 gUnknown_08A212D4:  @ 0x08A212D4
-	.incbin "baserom.gba", 0xA212D4, 0x4
+@ replacing .incbin "baserom.gba", 0x00a212d4, 0x4
+.4byte gUnknown_02020188
 
 	.global gUnknown_08A212D8
 gUnknown_08A212D8:  @ 0x08A212D8
-	.incbin "baserom.gba", 0xA212D8, 0x4
+@ replacing .incbin "baserom.gba", 0x00a212d8, 0x4
+.4byte gUnknown_02020988
 
 	.global gUnknown_08A212DC
 gUnknown_08A212DC:  @ 0x08A212DC
-	.incbin "baserom.gba", 0xA212DC, 0x4
+@ replacing .incbin "baserom.gba", 0x00a212dc, 0x4
+.4byte gUnknown_02021188
 
 	.global gUnknown_08A212E0
 gUnknown_08A212E0:  @ 0x08A212E0
-	.incbin "baserom.gba", 0xA212E0, 0x4
+@ replacing .incbin "baserom.gba", 0x00a212e0, 0x4
+.4byte gUnknown_02021188 + 0x200
 
 	.global gUnknown_08A212E4
 gUnknown_08A212E4:  @ 0x08A212E4
@@ -3816,7 +3902,8 @@ gUnknown_08A212E4:  @ 0x08A212E4
 
 	.global gUnknown_08A21304
 gUnknown_08A21304:  @ 0x08A21304
-	.incbin "baserom.gba", 0xA21304, 0x4
+@ replacing .incbin "baserom.gba", 0x00a21304, 0x4
+.4byte gSoundInfo
 
 	.global gUnknown_08A21308
 gUnknown_08A21308:  @ 0x08A21308
@@ -3977,7 +4064,17 @@ gUnknown_08A214AE:  @ 0x08A214AE
 
 	.global gUnknown_08A21508
 gUnknown_08A21508:  @ 0x08A21508
-	.incbin "baserom.gba", 0xA21508, 0x28
+@ replacing .incbin "baserom.gba", 0x00a21508, 0x28
+.4byte gUnknown_08A214AE + 0x8
+.4byte gUnknown_08A214AE + 0x10
+.4byte gUnknown_08A214AE + 0x18
+.4byte gUnknown_08A214AE + 0x20
+.4byte gUnknown_08A214AE + 0x28
+.4byte gUnknown_08A214AE + 0x30
+.4byte gUnknown_08A214AE + 0x38
+.4byte gUnknown_08A214AE + 0x40
+.4byte gUnknown_08A214AE + 0x48
+.4byte gUnknown_08A214AE + 0x50
 
 	.global gUnknown_08A21530
 gUnknown_08A21530:  @ 0x08A21530
@@ -4020,27 +4117,33 @@ gUnknown_08A21568:  @ 0x08A21568
 
 	.global gUnknown_08A21590
 gUnknown_08A21590:  @ 0x08A21590
-	.incbin "baserom.gba", 0xA21590, 0x4
+@ replacing .incbin "baserom.gba", 0x00a21590, 0x4
+.4byte gUnknown_02000948 + 0x20
 
 	.global gUnknown_08A21594
 gUnknown_08A21594:  @ 0x08A21594
-	.incbin "baserom.gba", 0xA21594, 0x4
+@ replacing .incbin "baserom.gba", 0x00a21594, 0x4
+.4byte gUnknown_02000C78 + 0xf0
 
 	.global gUnknown_08A21598
 gUnknown_08A21598:  @ 0x08A21598
-	.incbin "baserom.gba", 0xA21598, 0x4
+@ replacing .incbin "baserom.gba", 0x00a21598, 0x4
+.4byte gUnknown_02001088 + 0xe0
 
 	.global gUnknown_08A2159C
 gUnknown_08A2159C:  @ 0x08A2159C
-	.incbin "baserom.gba", 0xA2159C, 0x4
+@ replacing .incbin "baserom.gba", 0x00a2159c, 0x4
+.4byte gUnknown_02001188 + 0x3e0
 
 	.global gUnknown_08A215A0
 gUnknown_08A215A0:  @ 0x08A215A0
-	.incbin "baserom.gba", 0xA215A0, 0x4
+@ replacing .incbin "baserom.gba", 0x00a215a0, 0x4
+.4byte gUnknown_02001188 + 0x4e0
 
 	.global gUnknown_08A215A4
 gUnknown_08A215A4:  @ 0x08A215A4
-	.incbin "baserom.gba", 0xA215A4, 0x4
+@ replacing .incbin "baserom.gba", 0x00a215a4, 0x4
+.4byte gUnknown_02001188 + 0x1e0
 
 	.global gUnknown_08A215A8
 gUnknown_08A215A8:  @ 0x08A215A8
@@ -4274,7 +4377,8 @@ gUnknown_08A2E950:  @ 0x08A2E950
 
 	.global gUnknown_08A2E974
 gUnknown_08A2E974:  @ 0x08A2E974
-	.incbin "baserom.gba", 0xA2E974, 0x4
+@ replacing .incbin "baserom.gba", 0x00a2e974, 0x4
+.4byte gUnknown_02020188
 
 	.global gUnknown_08A2E978
 gUnknown_08A2E978:  @ 0x08A2E978
@@ -4818,7 +4922,15 @@ gUnknown_08A2F180:  @ 0x08A2F180
 
 	.global gUnknown_08A2F1D0
 gUnknown_08A2F1D0:  @ 0x08A2F1D0
-	.incbin "baserom.gba", 0xA2F1D0, 0x20
+@ replacing .incbin "baserom.gba", 0x00a2f1d0, 0x20
+.4byte gUnknown_08A2F180 + 0x10
+.4byte gUnknown_08A2F180 + 0x18
+.4byte gUnknown_08A2F180 + 0x20
+.4byte gUnknown_08A2F180 + 0x28
+.4byte gUnknown_08A2F180 + 0x30
+.4byte gUnknown_08A2F180 + 0x38
+.4byte gUnknown_08A2F180 + 0x40
+.4byte gUnknown_08A2F180 + 0x48
 
 	.global gUnknown_08A2F1F0
 gUnknown_08A2F1F0:  @ 0x08A2F1F0
@@ -5244,7 +5356,8 @@ gUnknown_08A394C0:  @ 0x08A394C0
 
 	.global gUnknown_08A394D8
 gUnknown_08A394D8:  @ 0x08A394D8
-	.incbin "baserom.gba", 0xA394D8, 0x4
+@ replacing .incbin "baserom.gba", 0x00a394d8, 0x4
+.4byte gUnknown_0203EF68 + 0x30
 
 	.global gUnknown_08A394DC
 gUnknown_08A394DC:  @ 0x08A394DC
@@ -5520,7 +5633,37 @@ gUnknown_08A3CB50:  @ 0x08A3CB50
 
 	.global gUnknown_08A3CCEC
 gUnknown_08A3CCEC:  @ 0x08A3CCEC
-	.incbin "baserom.gba", 0xA3CCEC, 0x78
+@ replacing .incbin "baserom.gba", 0x00a3ccec, 0x78
+.4byte gUnknown_08A3CB50 + 0xc
+.4byte gUnknown_08A708A7 + 0xf435
+.4byte gUnknown_08A708A7 + 0x1233d
+.4byte gUnknown_08A3CB50 + 0x34
+.4byte gUnknown_08A708A7 + 0xf8e9
+.4byte gUnknown_08A708A7 + 0x123fd
+.4byte gUnknown_08A3CB50 + 0x5c
+.4byte gUnknown_08A708A7 + 0xfd9d
+.4byte gUnknown_08A708A7 + 0x124bd
+.4byte gUnknown_08A3CB50 + 0x84
+.4byte gUnknown_08A708A7 + 0x10251
+.4byte gUnknown_08A708A7 + 0x1257d
+.4byte gUnknown_08A3CB50 + 0xac
+.4byte gUnknown_08A708A7 + 0x10705
+.4byte gUnknown_08A708A7 + 0x1263d
+.4byte gUnknown_08A3CB50 + 0xd4
+.4byte gUnknown_08A708A7 + 0x10bb9
+.4byte gUnknown_08A708A7 + 0x126fd
+.4byte gUnknown_08A3CB50 + 0xfc
+.4byte gUnknown_08A708A7 + 0x1106d
+.4byte gUnknown_08A708A7 + 0x127bd
+.4byte gUnknown_08A3CB50 + 0x124
+.4byte gUnknown_08A708A7 + 0x11521
+.4byte gUnknown_08A708A7 + 0x1287d
+.4byte gUnknown_08A3CB50 + 0x14c
+.4byte gUnknown_08A708A7 + 0x119d5
+.4byte gUnknown_08A708A7 + 0x1293d
+.4byte gUnknown_08A3CB50 + 0x174
+.4byte gUnknown_08A708A7 + 0x11e89
+.4byte gUnknown_08A708A7 + 0x129fd
 
 	.global gUnknown_08A3CD64
 gUnknown_08A3CD64:  @ 0x08A3CD64
@@ -5528,7 +5671,9 @@ gUnknown_08A3CD64:  @ 0x08A3CD64
 
 	.global gUnknown_08A3D1A8
 gUnknown_08A3D1A8:  @ 0x08A3D1A8
-	.incbin "baserom.gba", 0xA3D1A8, 0x8
+@ replacing .incbin "baserom.gba", 0x00a3d1a8, 0x8
+.4byte gUnknown_08A3CD64 + 0x4
+.4byte gUnknown_08A3CD64 + 0x224
 
 	.global gUnknown_08A3D1B0
 gUnknown_08A3D1B0:  @ 0x08A3D1B0
@@ -5540,11 +5685,16 @@ gUnknown_08A3D2C0:  @ 0x08A3D2C0
 
 	.global gUnknown_08A3D348
 gUnknown_08A3D348:  @ 0x08A3D348
-	.incbin "baserom.gba", 0xA3D348, 0x10
+@ replacing .incbin "baserom.gba", 0x00a3d348, 0x10
+.4byte gUnknown_020007A0
+.4byte gUnknown_02000F00 + 0xa0
+.4byte gUnknown_02001188 + 0x618
+.4byte gUnknown_02001F70 + 0x30
 
 	.global gUnknown_08A3D358
 gUnknown_08A3D358:  @ 0x08A3D358
-	.incbin "baserom.gba", 0xA3D358, 0x4
+@ replacing .incbin "baserom.gba", 0x00a3d358, 0x4
+.4byte gTradeMenuText + 0x14
 
 	.global gUnknown_08A3D35C
 gUnknown_08A3D35C:  @ 0x08A3D35C
@@ -5778,11 +5928,23 @@ gUnknown_08A3D5B4:  @ 0x08A3D5B4
 
 	.global gUnknown_08A3D624
 gUnknown_08A3D624:  @ 0x08A3D624
-	.incbin "baserom.gba", 0xA3D624, 0x18
+@ replacing .incbin "baserom.gba", 0x00a3d624, 0x18
+.4byte gUnknown_08A3D5B4 + 0x36
+.4byte gUnknown_08A3D5B4 + 0x2e
+.4byte gUnknown_08A3D5B4 + 0x26
+.4byte gUnknown_08A3D5B4 + 0x1e
+.4byte gUnknown_08A3D5B4 + 0x16
+.4byte gUnknown_08A3D5B4 + 0xe
 
 	.global gUnknown_08A3D63C
 gUnknown_08A3D63C:  @ 0x08A3D63C
-	.incbin "baserom.gba", 0xA3D63C, 0x18
+@ replacing .incbin "baserom.gba", 0x00a3d63c, 0x18
+.4byte gUnknown_08A3D5B4 + 0x66
+.4byte gUnknown_08A3D5B4 + 0x5e
+.4byte gUnknown_08A3D5B4 + 0x56
+.4byte gUnknown_08A3D5B4 + 0x4e
+.4byte gUnknown_08A3D5B4 + 0x46
+.4byte gUnknown_08A3D5B4 + 0x3e
 
 	.global gUnknown_08A3D654
 gUnknown_08A3D654:  @ 0x08A3D654
@@ -5801,7 +5963,8 @@ gUnknown_08A3D654:  @ 0x08A3D654
 
 	.global gUnknown_08A3D674
 gUnknown_08A3D674:  @ 0x08A3D674
-	.incbin "baserom.gba", 0xA3D674, 0x4
+@ replacing .incbin "baserom.gba", 0x00a3d674, 0x4
+.4byte gTradeMenuText + 0x14
 
 	.global gUnknown_08A3D678
 gUnknown_08A3D678:  @ 0x08A3D678
@@ -7768,7 +7931,8 @@ gUnknown_08A3EE44:  @ 0x08A3EE44
 
 	.global gUnknown_08A3EE6C
 gUnknown_08A3EE6C:  @ 0x08A3EE6C
-	.incbin "baserom.gba", 0xA3EE6C, 0x4
+@ replacing .incbin "baserom.gba", 0x00a3ee6c, 0x4
+.4byte 0x8050201
 
 	.global gUnknown_08A3EE70
 gUnknown_08A3EE70:  @ 0x08A3EE70
@@ -8805,11 +8969,211 @@ gUnknown_08AA6D04:  @ 0x08AA6D04
 
 	.global gUnknown_08AA6D14
 gUnknown_08AA6D14:  @ 0x08AA6D14
-	.incbin "baserom.gba", 0xAA6D14, 0x190
+@ replacing .incbin "baserom.gba", 0x00aa6d14, 0x190
+.4byte gUnknown_08AF47F0 + 0x80
+.4byte gUnknown_08AF47F0 + 0x4e8
+.4byte gUnknown_08AF47F0 + 0x94c
+.4byte gUnknown_08AF47F0 + 0xdc4
+.4byte gUnknown_08AF47F0 + 0x1238
+.4byte gUnknown_08AF47F0 + 0x16a8
+.4byte gUnknown_08AF47F0 + 0x1b18
+.4byte gUnknown_08AF47F0 + 0x1f90
+.4byte gUnknown_08AF47F0 + 0x2408
+.4byte gUnknown_08AF47F0 + 0x2880
+.4byte gUnknown_08AF47F0 + 0x2cf8
+.4byte gUnknown_08AF47F0 + 0x3170
+.4byte gUnknown_08AF47F0 + 0x35e4
+.4byte gUnknown_08AF47F0 + 0x3a5c
+.4byte gUnknown_08AF47F0 + 0x3ed4
+.4byte gUnknown_08AF47F0 + 0x4348
+.4byte gUnknown_08AF47F0 + 0x47c0
+.4byte gUnknown_08AF47F0 + 0x4c38
+.4byte gUnknown_08AF47F0 + 0x50b0
+.4byte gUnknown_08AF47F0 + 0x5528
+.4byte gUnknown_08AF47F0 + 0x59a0
+.4byte gUnknown_08AF47F0 + 0x5e18
+.4byte gUnknown_08AF47F0 + 0x6290
+.4byte gUnknown_08AF47F0 + 0x6708
+.4byte gUnknown_08AF47F0 + 0x6b80
+.4byte gUnknown_08AF47F0 + 0x6ff8
+.4byte gUnknown_08AF47F0 + 0x7470
+.4byte gUnknown_08AF47F0 + 0x78e4
+.4byte gUnknown_08AF47F0 + 0x7d58
+.4byte gUnknown_08AF47F0 + 0x81c4
+.4byte gUnknown_08AF47F0 + 0x8638
+.4byte gUnknown_08AF47F0 + 0x8aac
+.4byte gUnknown_08AF47F0 + 0x8f10
+.4byte gUnknown_08AF47F0 + 0x9374
+.4byte gUnknown_08AF47F0 + 0x97e4
+.4byte gUnknown_08AF47F0 + 0x9c58
+.4byte gUnknown_08AF47F0 + 0xa0cc
+.4byte gUnknown_08AF47F0 + 0xa540
+.4byte gUnknown_08AF47F0 + 0xa9b8
+.4byte gUnknown_08AF47F0 + 0xae28
+.4byte gUnknown_08AF47F0 + 0xb290
+.4byte gUnknown_08AF47F0 + 0xb6f8
+.4byte gUnknown_08AF47F0 + 0xbb68
+.4byte gUnknown_08AF47F0 + 0xbfe0
+.4byte gUnknown_08AF47F0 + 0xc458
+.4byte gUnknown_08AF47F0 + 0xc8c8
+.4byte gUnknown_08AF47F0 + 0xcd3c
+.4byte gUnknown_08AF47F0 + 0xd1b4
+.4byte gUnknown_08AF47F0 + 0xd628
+.4byte gUnknown_08AF47F0 + 0xda90
+.4byte gUnknown_08AF47F0 + 0xdf04
+.4byte gUnknown_08AF47F0 + 0xe36c
+.4byte gUnknown_08AF47F0 + 0xe7dc
+.4byte gUnknown_08AF47F0 + 0xec48
+.4byte gUnknown_08AF47F0 + 0xf0bc
+.4byte gUnknown_08AF47F0 + 0xf52c
+.4byte gUnknown_08AF47F0 + 0xf9a4
+.4byte gUnknown_08AF47F0 + 0xfe1c
+.4byte gUnknown_08AF47F0 + 0x10294
+.4byte gUnknown_08AF47F0 + 0x10700
+.4byte gUnknown_08AF47F0 + 0x10b74
+.4byte gUnknown_08AF47F0 + 0x10fe0
+.4byte gUnknown_08AF47F0 + 0x11448
+.4byte gUnknown_08AF47F0 + 0x118bc
+.4byte gUnknown_08AF47F0 + 0x11d34
+.4byte gUnknown_08AF47F0 + 0x121ac
+.4byte gUnknown_08AF47F0 + 0x12620
+.4byte gUnknown_08AF47F0 + 0x12a90
+.4byte gUnknown_08AF47F0 + 0x12f00
+.4byte gUnknown_08AF47F0 + 0x13378
+.4byte gUnknown_08AF47F0 + 0x137e0
+.4byte gUnknown_08AF47F0 + 0x13c50
+.4byte gUnknown_08AF47F0 + 0x140c8
+.4byte gUnknown_08AF47F0 + 0x14540
+.4byte gUnknown_08AF47F0 + 0x149ac
+.4byte gUnknown_08AF47F0 + 0x14e1c
+.4byte gUnknown_08AF47F0 + 0x15294
+.4byte gUnknown_08AF47F0 + 0x15708
+.4byte gUnknown_08AF47F0 + 0x15b80
+.4byte gUnknown_08AF47F0 + 0x15ff4
+.4byte gUnknown_08AF47F0 + 0x1646c
+.4byte gUnknown_08AF47F0 + 0x168e4
+.4byte gUnknown_08AF47F0 + 0x16d54
+.4byte gUnknown_08AF47F0 + 0x171c8
+.4byte gUnknown_08AF47F0 + 0x17640
+.4byte gUnknown_08AF47F0 + 0x17ab4
+.4byte gUnknown_08AF47F0 + 0x17f28
+.4byte gUnknown_08AF47F0 + 0x18398
+.4byte gUnknown_08AF47F0 + 0x1880c
+.4byte gUnknown_08AF47F0 + 0x18c44
+.4byte gUnknown_08AF47F0 + 0x190ac
+.4byte gUnknown_08AF47F0 + 0x194f4
+.4byte gUnknown_08AF47F0 + 0x19920
+.4byte gUnknown_08AF47F0 + 0x19d94
+.4byte gUnknown_08AF47F0 + 0x1a1f0
+.4byte gUnknown_08AF47F0 + 0x1a664
+.4byte gUnknown_08AF47F0 + 0x1aab0
+.4byte gUnknown_08AF47F0 + 0x1af28
+.4byte gUnknown_08AF47F0 + 0x1b32c
+.4byte gUnknown_08AF47F0 + 0x1b77c
 
 	.global gUnknown_08AA6EA4
 gUnknown_08AA6EA4:  @ 0x08AA6EA4
-	.incbin "baserom.gba", 0xAA6EA4, 0x190
+@ replacing .incbin "baserom.gba", 0x00aa6ea4, 0x190
+.4byte gUnknown_08AF47F0 + 0x4ac
+.4byte gUnknown_08AF47F0 + 0x910
+.4byte gUnknown_08AF47F0 + 0xd88
+.4byte gUnknown_08AF47F0 + 0x11fc
+.4byte gUnknown_08AF47F0 + 0x166c
+.4byte gUnknown_08AF47F0 + 0x1adc
+.4byte gUnknown_08AF47F0 + 0x1f54
+.4byte gUnknown_08AF47F0 + 0x23cc
+.4byte gUnknown_08AF47F0 + 0x2844
+.4byte gUnknown_08AF47F0 + 0x2cbc
+.4byte gUnknown_08AF47F0 + 0x3134
+.4byte gUnknown_08AF47F0 + 0x35a8
+.4byte gUnknown_08AF47F0 + 0x3a20
+.4byte gUnknown_08AF47F0 + 0x3e98
+.4byte gUnknown_08AF47F0 + 0x430c
+.4byte gUnknown_08AF47F0 + 0x4784
+.4byte gUnknown_08AF47F0 + 0x4bfc
+.4byte gUnknown_08AF47F0 + 0x5074
+.4byte gUnknown_08AF47F0 + 0x54ec
+.4byte gUnknown_08AF47F0 + 0x5964
+.4byte gUnknown_08AF47F0 + 0x5ddc
+.4byte gUnknown_08AF47F0 + 0x6254
+.4byte gUnknown_08AF47F0 + 0x66cc
+.4byte gUnknown_08AF47F0 + 0x6b44
+.4byte gUnknown_08AF47F0 + 0x6fbc
+.4byte gUnknown_08AF47F0 + 0x7434
+.4byte gUnknown_08AF47F0 + 0x78a8
+.4byte gUnknown_08AF47F0 + 0x7d1c
+.4byte gUnknown_08AF47F0 + 0x8188
+.4byte gUnknown_08AF47F0 + 0x85fc
+.4byte gUnknown_08AF47F0 + 0x8a70
+.4byte gUnknown_08AF47F0 + 0x8ed4
+.4byte gUnknown_08AF47F0 + 0x9338
+.4byte gUnknown_08AF47F0 + 0x97a8
+.4byte gUnknown_08AF47F0 + 0x9c1c
+.4byte gUnknown_08AF47F0 + 0xa090
+.4byte gUnknown_08AF47F0 + 0xa504
+.4byte gUnknown_08AF47F0 + 0xa97c
+.4byte gUnknown_08AF47F0 + 0xadec
+.4byte gUnknown_08AF47F0 + 0xb254
+.4byte gUnknown_08AF47F0 + 0xb6bc
+.4byte gUnknown_08AF47F0 + 0xbb2c
+.4byte gUnknown_08AF47F0 + 0xbfa4
+.4byte gUnknown_08AF47F0 + 0xc41c
+.4byte gUnknown_08AF47F0 + 0xc88c
+.4byte gUnknown_08AF47F0 + 0xcd00
+.4byte gUnknown_08AF47F0 + 0xd178
+.4byte gUnknown_08AF47F0 + 0xd5ec
+.4byte gUnknown_08AF47F0 + 0xda54
+.4byte gUnknown_08AF47F0 + 0xdec8
+.4byte gUnknown_08AF47F0 + 0xe330
+.4byte gUnknown_08AF47F0 + 0xe7a0
+.4byte gUnknown_08AF47F0 + 0xec0c
+.4byte gUnknown_08AF47F0 + 0xf080
+.4byte gUnknown_08AF47F0 + 0xf4f0
+.4byte gUnknown_08AF47F0 + 0xf968
+.4byte gUnknown_08AF47F0 + 0xfde0
+.4byte gUnknown_08AF47F0 + 0x10258
+.4byte gUnknown_08AF47F0 + 0x106c4
+.4byte gUnknown_08AF47F0 + 0x10b38
+.4byte gUnknown_08AF47F0 + 0x10fa4
+.4byte gUnknown_08AF47F0 + 0x1140c
+.4byte gUnknown_08AF47F0 + 0x11880
+.4byte gUnknown_08AF47F0 + 0x11cf8
+.4byte gUnknown_08AF47F0 + 0x12170
+.4byte gUnknown_08AF47F0 + 0x125e4
+.4byte gUnknown_08AF47F0 + 0x12a54
+.4byte gUnknown_08AF47F0 + 0x12ec4
+.4byte gUnknown_08AF47F0 + 0x1333c
+.4byte gUnknown_08AF47F0 + 0x137a4
+.4byte gUnknown_08AF47F0 + 0x13c14
+.4byte gUnknown_08AF47F0 + 0x1408c
+.4byte gUnknown_08AF47F0 + 0x14504
+.4byte gUnknown_08AF47F0 + 0x14970
+.4byte gUnknown_08AF47F0 + 0x14de0
+.4byte gUnknown_08AF47F0 + 0x15258
+.4byte gUnknown_08AF47F0 + 0x156cc
+.4byte gUnknown_08AF47F0 + 0x15b44
+.4byte gUnknown_08AF47F0 + 0x15fb8
+.4byte gUnknown_08AF47F0 + 0x16430
+.4byte gUnknown_08AF47F0 + 0x168a8
+.4byte gUnknown_08AF47F0 + 0x16d18
+.4byte gUnknown_08AF47F0 + 0x1718c
+.4byte gUnknown_08AF47F0 + 0x17604
+.4byte gUnknown_08AF47F0 + 0x17a78
+.4byte gUnknown_08AF47F0 + 0x17eec
+.4byte gUnknown_08AF47F0 + 0x1835c
+.4byte gUnknown_08AF47F0 + 0x187d0
+.4byte gUnknown_08AF47F0 + 0x18c08
+.4byte gUnknown_08AF47F0 + 0x19070
+.4byte gUnknown_08AF47F0 + 0x194b8
+.4byte gUnknown_08AF47F0 + 0x198e4
+.4byte gUnknown_08AF47F0 + 0x19d58
+.4byte gUnknown_08AF47F0 + 0x1a1b4
+.4byte gUnknown_08AF47F0 + 0x1a628
+.4byte gUnknown_08AF47F0 + 0x1aa74
+.4byte gUnknown_08AF47F0 + 0x1aeec
+.4byte gUnknown_08AF47F0 + 0x1b2f0
+.4byte gUnknown_08AF47F0 + 0x1b740
+.4byte gUnknown_08AF47F0 + 0x1bbac
 
 	.global gUnknown_08AA7034
 gUnknown_08AA7034:  @ 0x08AA7034
@@ -10693,7 +11057,8 @@ gUnknown_08B12A64:  @ 0x08B12A64
 
 	.global gUnknown_08B12AA4
 gUnknown_08B12AA4:  @ 0x08B12AA4
-	.incbin "baserom.gba", 0xB12AA4, 0x4
+@ replacing .incbin "baserom.gba", 0x00b12aa4, 0x4
+.4byte gUnknown_02020188
 
 	.global gUnknown_08B12AA8
 gUnknown_08B12AA8:  @ 0x08B12AA8
@@ -11057,3 +11422,4 @@ gUnknown_08B19DEC:  @ 0x08B19DEC
 	.global gUnknown_08B19E0C
 gUnknown_08B19E0C:  @ 0x08B19E0C
 	.incbin "baserom.gba", 0xB19E0C, 0x5928
+

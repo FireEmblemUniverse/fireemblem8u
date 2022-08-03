@@ -13623,7 +13623,8 @@ gUnknown_0815A72C:  @ 0x0815A72C
 
 	.global gUnknown_0815D488
 gUnknown_0815D488:  @ 0x0815D488
-	.incbin "baserom.gba", 0x15D488, 0x4
+@ replacing .incbin "baserom.gba", 0x0015d488, 0x4
+.4byte gUnknown_0815A72C + 0x2d58
 
 	.global gUnknown_0815D48C
 gUnknown_0815D48C:  @ 0x0815D48C
@@ -17032,3 +17033,4 @@ gUnknown_0815D48C:  @ 0x0815D48C
 	.4byte gCompressedText_08159DD8
 	.4byte gCompressedText_08159FBD
 	.4byte gCompressedText_0815A448
+

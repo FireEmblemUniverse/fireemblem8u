@@ -2,7 +2,11 @@
 
     .global gUnknown_080D792C
 gUnknown_080D792C:  @ 0x080D792C
-    .incbin "baserom.gba", 0xD792C, 0x10
+@ replacing .incbin "baserom.gba", 0x000d792c, 0x10
+.4byte gBG0TilemapBuffer
+.4byte gBG1TilemapBuffer
+.4byte gBG2TilemapBuffer
+.4byte gBG3TilemapBuffer
 
     .global gUnknown_080D793C
 gUnknown_080D793C:  @ 0x080D793C
@@ -31,3 +35,4 @@ gUnknown_080D79C4:  @ 0x080D79C4
     .global gUnknown_080D79D0
 gUnknown_080D79D0:  @ 0x080D79D0
     .incbin "baserom.gba", 0xD79D0, 0x8
+

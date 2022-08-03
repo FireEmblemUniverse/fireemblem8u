@@ -297,7 +297,8 @@ gUnknown_0859B630:  @ 0x0859B630
 
 	.global gUnknown_0859B668
 gUnknown_0859B668:  @ 0x0859B668
-	.incbin "baserom.gba", 0x59B668, 0x4
+@ replacing .incbin "baserom.gba", 0x0059b668, 0x4
+.4byte gUnknown_02020188
 
 	.global gUnknown_0859B66C
 gUnknown_0859B66C:  @ 0x0859B66C
@@ -325,7 +326,19 @@ gUnknown_0859B898:  @ 0x0859B898
 
 	.global gUnknown_0859B938
 gUnknown_0859B938:  @ 0x0859B938
-	.incbin "baserom.gba", 0x59B938, 0x30
+@ replacing .incbin "baserom.gba", 0x0059b938, 0x30
+.4byte gUnknown_0859B898 + 0x48
+.4byte gUnknown_0859B898 + 0x56
+.4byte gUnknown_0859B898 + 0x64
+.4byte gUnknown_0859B898 + 0x72
+.4byte gUnknown_0859B898 + 0x80
+.4byte gUnknown_0859B898 + 0x88
+.4byte gUnknown_0859B898 + 0x90
+.4byte gUnknown_0859B898 + 0x98
+.4byte gUnknown_0859B898 + 0x98
+.4byte gUnknown_0859B858 + 0x24
+.4byte gUnknown_0859B858 + 0x24
+.4byte gUnknown_0859B858 + 0x24
 
 	.global gUnknown_0859B968
 gUnknown_0859B968:  @ 0x0859B968
@@ -354,3 +367,4 @@ gUnknown_0859B996:  @ 0x0859B996
 	.global gUnknown_0859B99E
 gUnknown_0859B99E:  @ 0x0859B99E
 	.incbin "baserom.gba", 0x59B99E, 0xA
+

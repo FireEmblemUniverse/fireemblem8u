@@ -12,7 +12,11 @@ gUnknown_08205B94:  @ 0x08205B94
 
 	.global gUnknown_08205BB0
 gUnknown_08205BB0:  @ 0x08205BB0
-	.incbin "baserom.gba", 0x205BB0, 0x10
+@ replacing .incbin "baserom.gba", 0x00205bb0, 0x10
+.4byte gUnknown_08A1D7DC + 0x74
+.4byte gUnknown_08A1D7DC + 0x94
+.4byte gUnknown_08A1D7DC + 0xb4
+.4byte gUnknown_08A1D7DC + 0xd4
 
 	.global gUnknown_08205BC0
 gUnknown_08205BC0:  @ 0x08205BC0
@@ -28,7 +32,11 @@ gUnknown_08205C14:  @ 0x08205C14
 
 	.global gUnknown_08205C34
 gUnknown_08205C34:  @ 0x08205C34
-	.incbin "baserom.gba", 0x205C34, 0x10
+@ replacing .incbin "baserom.gba", 0x00205c34, 0x10
+.4byte gUnknown_08A1D7DC + 0x74
+.4byte gUnknown_08A1D7DC + 0x94
+.4byte gUnknown_08A1D7DC + 0xb4
+.4byte gUnknown_08A1D7DC + 0xd4
 
 	.global gUnknown_08205C44
 gUnknown_08205C44:  @ 0x08205C44
@@ -36,7 +44,10 @@ gUnknown_08205C44:  @ 0x08205C44
 
 	.global gUnknown_08205C64
 gUnknown_08205C64:  @ 0x08205C64
-	.incbin "baserom.gba", 0x205C64, 0xC
+@ replacing .incbin "baserom.gba", 0x00205c64, 0xc
+.4byte gUnknown_02013560
+.4byte gUnknown_02013560 + 0x8
+.4byte gUnknown_02013570 + 0x10
 
 	.global gUnknown_08205C70
 gUnknown_08205C70:  @ 0x08205C70
@@ -88,7 +99,11 @@ gUnknown_08205DE9:  @ 0x08205DE9
 
 	.global gUnknown_08205E18
 gUnknown_08205E18:  @ 0x08205E18
-	.incbin "baserom.gba", 0x205E18, 0x10
+@ replacing .incbin "baserom.gba", 0x00205e18, 0x10
+.4byte gUnknown_08A20C4C + 0x18
+.4byte gUnknown_08A20C4C + 0x50
+.4byte gUnknown_08A20C4C + 0x88
+.4byte gUnknown_08A20C4C + 0xc0
 
 	.global gUnknown_08205E28
 gUnknown_08205E28:  @ 0x08205E28
@@ -220,7 +235,17 @@ gUnknown_08206E24:  @ 0x08206E24
 
 	.global gUnknown_08206FB4
 gUnknown_08206FB4:  @ 0x08206FB4
-	.incbin "baserom.gba", 0x206FB4, 0x28
+@ replacing .incbin "baserom.gba", 0x00206fb4, 0x28
+.4byte gUnknown_08206B70 + 0x90
+.4byte 0
+.4byte 0
+.4byte 0
+.4byte 0
+.4byte 0
+.4byte 0
+.4byte 0
+.4byte 0
+.4byte 0
 
 	.global gUnknown_08206FDC
 gUnknown_08206FDC:  @ 0x08206FDC
@@ -253,3 +278,4 @@ gUnknown_082070A0:  @ 0x082070A0
 	.global gUnknown_082070AC
 gUnknown_082070AC:  @ 0x082070AC
 	.incbin "baserom.gba", 0x2070AC, 0xE4
+

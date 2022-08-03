@@ -668,7 +668,7 @@ void SetItemUseAction(struct Unit* unit)
     gActionData.unitActionType = UNIT_ACTION_USE_ITEM;
 }
 
-static u8 StaffSelectOnSelect(ProcPtr proc, struct SelectTarget* target)
+u8 StaffSelectOnSelect(ProcPtr proc, struct SelectTarget* target)
 {
     gActionData.targetIndex = target->uid;
     SetStaffUseAction(NULL);
