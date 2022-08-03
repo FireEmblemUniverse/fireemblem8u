@@ -42,7 +42,13 @@ if __name__ == "__main__":
             )
         except subprocess.CalledProcessError:
             print(f"unable to find {location} in any data file.")
-            record_unsuccessful_replace(location, script)
+            try:
+                subprocess.check_output(
+                    ["rg", "-l", f"struct ProcCmd .*{location}", "src/"]
+                )
+                print(f"found {location} in src.")
+            except subprocess.CalledProcessError:
+                record_unsuccessful_replace(location, script)
             continue
 
         if len(filename_to_replace) != 1:
@@ -59,7 +65,8 @@ if __name__ == "__main__":
             print(
                 f"unable to find {location} incbin in data file {filename_to_replace[0]}"
             )
-            record_unsuccessful_replace(location, script)
+            # this usually means its already dumped, so ignore
+            # record_unsuccessful_replace(location, script)
             continue
         expected_length = int(contents[incbin_lineno].split()[-1], base=16)
         script_length = script.count("PROC") * 8

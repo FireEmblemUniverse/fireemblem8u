@@ -250,11 +250,50 @@ gUnknown_0859B578:  @ 0x0859B578
 
 	.global gProcScr_0859B600
 gProcScr_0859B600:  @ 0x0859B600
-	.incbin "baserom.gba", 0x59B600, 0x30
+        @ PROC_CALL
+        .short 0x2, 0x0
+        .word AddSkipThread2
+        @ PROC_CALL
+        .short 0x2, 0x0
+        .word sub_80227A4
+        @ PROC_WHILE_EXISTS
+        .short 0x8, 0x0
+        .word gUnknown_0859A548
+        @ PROC_CALL
+        .short 0x2, 0x0
+        .word sub_8022808
+        @ PROC_CALL
+        .short 0x2, 0x0
+        .word SubSkipThread2
+        @ PROC_END
+        .short 0x0, 0x0
+        .word 0x0
+
 
 	.global gUnknown_0859B630
 gUnknown_0859B630:  @ 0x0859B630
-	.incbin "baserom.gba", 0x59B630, 0x38
+        @ PROC_CALL
+        .short 0x2, 0x0
+        .word AddSkipThread2
+        @ PROC_CALL
+        .short 0x2, 0x0
+        .word sub_8022E38
+        @ PROC_WHILE_EXISTS
+        .short 0x8, 0x0
+        .word gProcScr_BKSEL
+        @ PROC_WHILE_EXISTS
+        .short 0x8, 0x0
+        .word gUnknown_0859A548
+        @ PROC_CALL
+        .short 0x2, 0x0
+        .word sub_8022E54
+        @ PROC_CALL
+        .short 0x2, 0x0
+        .word SubSkipThread2
+        @ PROC_END
+        .short 0x0, 0x0
+        .word 0x0
+
 
 	.global gUnknown_0859B668
 gUnknown_0859B668:  @ 0x0859B668

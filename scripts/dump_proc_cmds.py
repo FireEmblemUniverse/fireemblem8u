@@ -349,7 +349,10 @@ def resolve_and_format_command(cmd):
     if imm is not None:
         imm_str = hex(imm)
     else:
-        imm_str = "0x0"
+        if name == "PROC_START_CHILD_BLOCKING":
+            imm_str = "0x1"
+        else:
+            imm_str = "0x0"
     if ptr is None:
         ptr_string = "0x0"
     else:
