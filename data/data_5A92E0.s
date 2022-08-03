@@ -79,7 +79,19 @@ gUnknown_085A9354:  @ 0x085A9354
 
 	.global gUnknown_085A937C
 gUnknown_085A937C:  @ 0x085A937C
-	.incbin "baserom.gba", 0x5A937C, 0x24
+        @ PROC_NAME
+        .short 0x1, 0x0
+        .word 0x80d8738
+        @ PROC_15
+        .short 0x15, 0x0
+        .word 0x0
+        @ PROC_REPEAT
+        .short 0x3, 0x0
+        .word sub_8041DC4
+        @ PROC_END
+        .short 0x0, 0x0
+        .word 0x0
+	.incbin "baserom.gba", 0x5A939C, 0x4
 
 	.global gUnknown_085A93A0
 gUnknown_085A93A0:  @ 0x085A93A0
@@ -96,7 +108,16 @@ gUnknown_085A93A0:  @ 0x085A93A0
 
 	.global gUnknown_085A93B8
 gUnknown_085A93B8:  @ 0x085A93B8
-	.incbin "baserom.gba", 0x5A93B8, 0x28
+        @ PROC_NAME
+        .short 0x1, 0x0
+        .word 0x80d9d48
+        @ PROC_REPEAT
+        .short 0x3, 0x0
+        .word sub_8042FE0
+        @ PROC_END
+        .short 0x0, 0x0
+        .word 0x0
+	.incbin "baserom.gba", 0x5A93D0, 0x10
 
 	.global gUnknown_085A93E0
 gUnknown_085A93E0:  @ 0x085A93E0
@@ -335,11 +356,41 @@ gUnknown_085A96E4:  @ 0x085A96E4
 
 	.global gUnknown_085A96F4
 gUnknown_085A96F4:  @ 0x085A96F4
-	.incbin "baserom.gba", 0x5A96F4, 0x80
+        @ PROC_YIELD
+        .short 0xe, 0x0
+        .word 0x0
+        @ PROC_CALL
+        .short 0x2, 0x0
+        .word sub_8045208
+        @ PROC_REPEAT
+        .short 0x3, 0x0
+        .word sub_8045234
+        @ PROC_REPEAT
+        .short 0x3, 0x0
+        .word sub_804538C
+        @ PROC_END
+        .short 0x0, 0x0
+        .word 0x0
+	.incbin "baserom.gba", 0x5A96F4 + 0x28, 0x80 - 0x28
 
 	.global gUnknown_085A9774
 gUnknown_085A9774:  @ 0x085A9774
-	.incbin "baserom.gba", 0x5A9774, 0xF0
+        @ PROC_SLEEP
+        .short 0xe, 0x10
+        .word 0x0
+        @ PROC_CALL
+        .short 0x2, 0x0
+        .word sub_80458E8
+        @ PROC_SLEEP
+        .short 0xe, 0xd2
+        .word 0x0
+        @ PROC_CALL
+        .short 0x2, 0x0
+        .word sub_8045920
+        @ PROC_END
+        .short 0x0, 0x0
+        .word 0x0
+	.incbin "baserom.gba", 0x5A9774 + 0x28, 0xF0 - 0x28
 
 	.global gUnknown_085A9864
 gUnknown_085A9864:  @ 0x085A9864
@@ -351,7 +402,43 @@ gUnknown_085A9884:  @ 0x085A9884
 
 	.global gUnknown_085A9D98
 gUnknown_085A9D98:  @ 0x085A9D98
-	.incbin "baserom.gba", 0x5A9D98, 0xB0
+        @ PROC_YIELD
+        .short 0xe, 0x0
+        .word 0x0
+        @ PROC_CALL
+        .short 0x2, 0x0
+        .word sub_8047324
+        @ PROC_CALL
+        .short 0x2, 0x0
+        .word sub_8013FC4
+        @ PROC_YIELD
+        .short 0xe, 0x0
+        .word 0x0
+        @ PROC_CALL
+        .short 0x2, 0x0
+        .word sub_804B92C
+        @ PROC_REPEAT
+        .short 0x3, 0x0
+        .word sub_8047570
+        @ PROC_REPEAT
+        .short 0x3, 0x0
+        .word sub_804762C
+        @ PROC_CALL
+        .short 0x2, 0x0
+        .word sub_804B920
+        @ PROC_CALL
+        .short 0x2, 0x0
+        .word sub_8013F40
+        @ PROC_YIELD
+        .short 0xe, 0x0
+        .word 0x0
+        @ PROC_CALL
+        .short 0x2, 0x0
+        .word EndBG3Slider
+        @ PROC_END
+        .short 0x0, 0x0
+        .word 0x0
+	.incbin "baserom.gba", 0x5A9D98 + 0x60, 0xB0 - 0x60
 
 	.global gUnknown_085A9E48
 gUnknown_085A9E48:  @ 0x085A9E48
@@ -1371,7 +1458,19 @@ gUnknown_085AAB40:  @ 0x085AAB40
 
 	.global gUnknown_085AAB48
 gUnknown_085AAB48:  @ 0x085AAB48
-	.incbin "baserom.gba", 0x5AAB48, 0x70
+        @ PROC_YIELD
+        .short 0xe, 0x0
+        .word 0x0
+        @ PROC_CALL
+        .short 0x2, 0x0
+        .word sub_804CFE0
+        @ PROC_REPEAT
+        .short 0x3, 0x0
+        .word sub_804D01C
+        @ PROC_END
+        .short 0x0, 0x0
+        .word 0x0
+	.incbin "baserom.gba", 0x5AAB68, 0x50
 
 	.global gUnknown_085AABB8
 gUnknown_085AABB8:  @ 0x085AABB8
@@ -1389,7 +1488,16 @@ gUnknown_085AABC8:  @ 0x085AABC8
 
 	.global gUnknown_085AABD8
 gUnknown_085AABD8:  @ 0x085AABD8
-	.incbin "baserom.gba", 0x5AABD8, 0x1C8
+        @ PROC_YIELD
+        .short 0xe, 0x0
+        .word 0x0
+        @ PROC_REPEAT
+        .short 0x3, 0x0
+        .word sub_804D7B0
+        @ PROC_END
+        .short 0x0, 0x0
+        .word 0x0
+	.incbin "baserom.gba", 0x5AABD8 + 0x18, 0x1C8 - 0x18
 
 	.global gUnknown_085AADA0
 gUnknown_085AADA0:  @ 0x085AADA0

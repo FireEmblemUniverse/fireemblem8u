@@ -128,4 +128,37 @@ gUnknown_0859E3D0:  @ 0x0859E3D0
 
 	.global gUnknown_0859E438
 gUnknown_0859E438:  @ 0x0859E438
-	.incbin "baserom.gba", 0x59E438, 0xC0
+        @ PROC_CALL
+        .short 0x2, 0x0
+        .word sub_8036188
+        @ PROC_LABEL
+        .short 0xb, 0x0
+        .word 0x0
+        @ PROC_CALL
+        .short 0x2, 0x0
+        .word sub_8035E50
+        @ PROC_CALL
+        .short 0x2, 0x0
+        .word sub_8035ED8
+        @ PROC_YIELD
+        .short 0xe, 0x0
+        .word 0x0
+        @ PROC_CALL
+        .short 0x2, 0x0
+        .word sub_80361AC
+        @ PROC_YIELD
+        .short 0xe, 0x0
+        .word 0x0
+        @ PROC_LABEL
+        .short 0xb, 0x1
+        .word 0x0
+        @ PROC_CALL
+        .short 0x2, 0x0
+        .word sub_803623C
+        @ PROC_GOTO
+        .short 0xc, 0x0
+        .word 0x0
+        @ PROC_END
+        .short 0x0, 0x0
+        .word 0x0
+	.incbin "baserom.gba", 0x59E490, 0xC0 - 0x58

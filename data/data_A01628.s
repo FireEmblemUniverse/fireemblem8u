@@ -2,7 +2,13 @@
 
 	.global gUnknown_08A01628
 gUnknown_08A01628:  @ 0x08A01628
-	.incbin "baserom.gba", 0xA01628, 0x28
+        @ PROC_REPEAT
+        .short 0x3, 0x0
+        .word sub_8089E58
+        @ PROC_END
+        .short 0x0, 0x0
+        .word 0x0
+	.incbin "baserom.gba", 0xA01638, 0x18
 
 	.global gUnknown_08A01650
 gUnknown_08A01650:  @ 0x08A01650
@@ -639,7 +645,19 @@ gUnknown_08A01C7C:  @ 0x08A01C7C
 
 	.global gUnknown_08A01CA4
 gUnknown_08A01CA4:  @ 0x08A01CA4
-	.incbin "baserom.gba", 0xA01CA4, 0x74
+        @ PROC_YIELD
+        .short 0xe, 0x0
+        .word 0x0
+        @ PROC_CALL
+        .short 0x2, 0x0
+        .word sub_808E7B4
+        @ PROC_REPEAT
+        .short 0x3, 0x0
+        .word sub_808E818
+        @ PROC_END
+        .short 0x0, 0x0
+        .word 0x0
+	.incbin "baserom.gba", 0xA01CC4, 0x54
 
 	.global gUnknown_08A01D18
 gUnknown_08A01D18:  @ 0x08A01D18
