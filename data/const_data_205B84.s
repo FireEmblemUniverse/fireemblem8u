@@ -253,7 +253,30 @@ gUnknown_08206FDC:  @ 0x08206FDC
 
 	.global gUnknown_08206FE4
 gUnknown_08206FE4:  @ 0x08206FE4
-	.incbin "baserom.gba", 0x206FE4, 0x60
+    .4byte gUnknown_08AA239C + 0x20
+    .4byte gUnknown_08AA239C + 0x38e8
+    .4byte 0x0000014f
+    .4byte gUnknown_08AA239C + 0xe18
+    .4byte gUnknown_08AA239C + 0x3b44
+    .4byte 0x00000118
+    .4byte gUnknown_08AA239C + 0x1748
+    .4byte gUnknown_08AA239C + 0x3cfc
+    .4byte 0x00000078
+    .4byte gUnknown_08AA239C + 0x19e0
+    .4byte gUnknown_08AA239C + 0x3dd4
+    .4byte 0x00000118
+    .4byte gUnknown_08AA239C + 0x1fc0
+    .4byte gUnknown_08AA239C + 0x3f00
+    .4byte 0x0000014a
+    .4byte gUnknown_08AA239C + 0x2fa8
+    .4byte gUnknown_08AA239C + 0x41ac
+    .4byte 0x0000012c
+    .4byte gUnknown_08AA239C + 0x35b8
+    .4byte gUnknown_08AA239C + 0x42d8
+    .4byte 0x000000fa
+    .4byte 0x61726363
+    .4byte 0x7966696d
+    .4byte 0x00000000
 
 	.global gUnknown_08207044
 gUnknown_08207044:  @ 0x08207044
@@ -278,4 +301,6 @@ gUnknown_082070A0:  @ 0x082070A0
 	.global gUnknown_082070AC
 gUnknown_082070AC:  @ 0x082070AC
 	.incbin "baserom.gba", 0x2070AC, 0xE4
+
+
 
