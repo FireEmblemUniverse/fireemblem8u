@@ -33,8 +33,10 @@ if __name__ == "__main__":
                     table[word] = pointer
                     continue
                 # Just get the nearest match and add offset
-                nearest, distance = get_nearest_match(symbols_by_addr, value)
-                table[word] = f"{nearest} + {distance}"
+                match = get_nearest_match(symbols_by_addr, value)
+                if match is not None:
+                    nearest, distance = match
+                    table[word] = f"{nearest} + {distance}"
 
     for key in table:
         contents = contents.replace(key, table[key])

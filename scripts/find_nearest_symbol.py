@@ -25,10 +25,13 @@ def get_symbols_by_addr():
 def get_nearest_match(symbols_by_addr, search):
     if search < 0x1000000:  # ROM address
         search += 0x8000000
+    found = None
     for i, (addr, name) in enumerate(symbols_by_addr):
         if addr > search:
             found = symbols_by_addr[i - 1]
             break
+    if found is None:
+        return None
     addr, name = found
     return name, hex(search - addr)
 
