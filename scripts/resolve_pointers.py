@@ -9,7 +9,7 @@ from find_nearest_symbol import get_symbols_by_addr, get_nearest_match
 
 if __name__ == "__main__":
     filename = sys.argv[1]
-    resolve_nearest = "--nearest" in sys.argv
+    careful = "--careful" in sys.argv
     symbols_by_addr = get_symbols_by_addr()
     with open(filename) as f:
         contents = f.read()
@@ -26,6 +26,10 @@ if __name__ == "__main__":
                 if word.endswith(","):
                     word = word[:-1]
                 value = int(word, base=16)
+                if value == 0:
+                    continue
+                if careful and (value < 0x8000000 or value > 0x9000000):
+                    continue
                 if word in table:
                     continue
                 pointer = resolve_pointer(value)
