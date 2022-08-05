@@ -10,6 +10,7 @@ from find_nearest_symbol import get_symbols_by_addr, get_nearest_match
 if __name__ == "__main__":
     filename = sys.argv[1]
     careful = "--careful" in sys.argv
+    exact = "--exact" in sys.argv
     symbols_by_addr = get_symbols_by_addr()
     with open(filename) as f:
         contents = f.read()
@@ -36,7 +37,9 @@ if __name__ == "__main__":
                 if pointer is not None:
                     table[word] = pointer
                     continue
-                # Just get the nearest match and add offset
+                if exact:
+                    continue
+                # not exact - just get the nearest match and add offset
                 match = get_nearest_match(symbols_by_addr, value)
                 if match is not None:
                     nearest, distance = match

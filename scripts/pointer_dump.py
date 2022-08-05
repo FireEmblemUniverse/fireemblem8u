@@ -5,7 +5,7 @@ import sys
 
 
 def parse_int(string):
-    return int(string, base=16)
+    return int(string.replace(")", "").replace("(", ""), base=16)
 
 
 def evaluate_expression(expr):
@@ -35,10 +35,7 @@ def incbin_to_words(incbin):
 
 
 def contains_pointers(words):
-    return (
-        len([word for word in words if 0x8000000 <= word <= 0x9000000])
-        > len(words) / 10
-    )
+    return len([word for word in words if 0x8000000 <= word <= 0x9000000]) > 0
 
 
 def string_for_words(words):
@@ -88,6 +85,7 @@ def test():
 
 
 def replace_pointer_incbins(in_f, out_f):
+    replacements = 0
     for line in in_f:
         if "incbin" in line and "replacing" not in line:
             words = incbin_to_words(line)
@@ -95,8 +93,10 @@ def replace_pointer_incbins(in_f, out_f):
                 out_f.write(f"@ Replacing {line.strip()}\n")
                 out_f.write(string_for_words(words))
                 out_f.write("\n")
+                replacements += 1
                 continue
         out_f.write(line)
+    print(f"Replaced {replacements} incbins")
 
 
 if __name__ == "__main__":
