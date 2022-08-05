@@ -19,7 +19,7 @@ gUnknown_089A31F8:  @ 0x089A31F8
         .word 0x0
         @ PROC_START_CHILD_BLOCKING
         .short 0x6, 0x1
-        .word 0x89a508c
+        .word gUnknown_089A508C
         @ PROC_SLEEP
         .short 0xe, 0x1
         .word 0x0
@@ -46,7 +46,7 @@ gUnknown_089A3238:  @ 0x089A3238
         .word 0x0
         @ PROC_START_CHILD_BLOCKING
         .short 0x6, 0x1
-        .word 0x89a50dc
+        .word gUnknown_089A50DC
         @ PROC_SLEEP
         .short 0xe, 0x1
         .word 0x0
@@ -79,7 +79,7 @@ gUnknown_089A3288:  @ 0x089A3288
         .word 0x0
         @ PROC_START_CHILD_BLOCKING
         .short 0x6, 0x1
-        .word 0x89a5154
+        .word gUnknown_089A5154
         @ PROC_SLEEP
         .short 0xe, 0x1
         .word 0x0
@@ -804,7 +804,7 @@ gUnknown_089A39E0:  @ 0x089A39E0
         .word sub_807D1B4
         @ PROC_START_CHILD_BLOCKING
         .short 0x6, 0x1
-        .word 0x89a3a28
+        .word gUnknown_089A3A28
         @ PROC_SLEEP
         .short 0xe, 0x3c
         .word 0x0

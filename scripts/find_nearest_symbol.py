@@ -22,7 +22,7 @@ def get_symbols_by_addr():
     return symbols_by_addr
 
 
-def get_nearest_match(symbols_by_addr, search):
+def get_nearest_match(symbols_by_addr, search, exactfunc=True):
     if search < 0x1000000:  # ROM address
         search += 0x8000000
     found = None
@@ -34,7 +34,7 @@ def get_nearest_match(symbols_by_addr, search):
         return None
     addr, name, is_func = found
     # Don't relative match function pointers
-    if is_func:
+    if is_func and exactfunc:
         return None
     return name, hex(search - addr)
 
@@ -45,6 +45,6 @@ if __name__ == "__main__":
     search = int(sys.argv[1], base=16)
     if search < 0x1000000:  # ROM address
         search += 0x8000000
-    name, distance = get_nearest_match(symbols_by_addr, search)
+    name, distance = get_nearest_match(symbols_by_addr, search, False)
     print(f"closest symbol: {name}")
     print(f"distance: {distance}")

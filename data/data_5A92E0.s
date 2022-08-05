@@ -522,7 +522,7 @@ gUnknown_085A979C:  @ 0x085A979C
         .word 0x0
         @ PROC_START_CHILD_BLOCKING
         .short 0x6, 0x1
-        .word 0x85a971c
+        .word gUnknown_085A971C
         @ PROC_YIELD
         .short 0xe, 0x0
         .word 0x0
@@ -771,7 +771,7 @@ gUnknown_085A9888:  @ 0x085A9888
         .word sub_8045CBC
         @ PROC_START_CHILD_BLOCKING
         .short 0x6, 0x1
-        .word 0x85a971c
+        .word gUnknown_085A971C
         @ PROC_YIELD
         .short 0xe, 0x0
         .word 0x0
@@ -1481,7 +1481,7 @@ gUnknown_085AA2FC:  @ 0x085AA2FC
         .word sub_804B3D0
         @ PROC_START_CHILD_BLOCKING
         .short 0x6, 0x1
-        .word 0x85aa26c
+        .word gUnknown_085AA24C + 0x20
         @ PROC_YIELD
         .short 0xe, 0x0
         .word 0x0
@@ -1623,7 +1623,7 @@ gUnknown_085AA4CC:  @ 0x085AA4CC
         .word 0x0
         @ PROC_START_CHILD_BLOCKING
         .short 0x6, 0x1
-        .word 0x85aa26c
+        .word gUnknown_085AA24C + 0x20
         @ PROC_YIELD
         .short 0xe, 0x0
         .word 0x0
@@ -1826,7 +1826,7 @@ gUnknown_085AA6BC:  @ 0x085AA6BC
         .word 0x0
         @ PROC_START_CHILD_BLOCKING
         .short 0x6, 0x1
-        .word 0x85aab68
+        .word gUnknown_085AAB68
         @ PROC_YIELD
         .short 0xe, 0x0
         .word 0x0

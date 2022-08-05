@@ -114,7 +114,7 @@ gUnknown_0859BDA0:  @ 0x0859BDA0
         .word GenerateDisplayedTrapDamageTargets
         @ PROC_START_CHILD_BLOCKING
         .short 0x6, 0x1
-        .word 0x859e490
+        .word gUnknown_0859E490
         @ PROC_CALL
         .short 0x2, 0x0
         .word ResetCountedDownTraps

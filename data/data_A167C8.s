@@ -1753,7 +1753,7 @@ gUnknown_08A19064:  @ 0x08A19064
         .word sub_809CB38
         @ PROC_START_CHILD_BLOCKING
         .short 0x6, 0x1
-        .word 0x8a191a4
+        .word gUnknown_08A191A4
         @ PROC_GOTO
         .short 0xc, 0x1
         .word 0x0
@@ -1762,7 +1762,7 @@ gUnknown_08A19064:  @ 0x08A19064
         .word 0x0
         @ PROC_START_CHILD_BLOCKING
         .short 0x6, 0x1
-        .word 0x8a191c4
+        .word gUnknown_08A191C4
         @ PROC_GOTO
         .short 0xc, 0x1
         .word 0x0
@@ -6570,7 +6570,7 @@ gUnknown_08A2F038:  @ 0x08A2F038
         .word sub_80B327C
         @ PROC_START_CHILD
         .short 0x5, 0x0
-        .word 0x8a2f068
+        .word gUnknown_08A2F068
         @ PROC_REPEAT
         .short 0x3, 0x0
         .word sub_80B32AC
@@ -7834,7 +7834,7 @@ gUnknown_08A39210:  @ 0x08A39210
         .word sub_80B4474
         @ PROC_START_CHILD
         .short 0x5, 0x0
-        .word 0x8a394d0
+        .word gUnknown_08A394C0 + 0x10
         @ PROC_CALL
         .short 0x2, 0x0
         .word sub_8013FC4
@@ -8035,7 +8035,7 @@ gUnknown_08A39210:  @ 0x08A39210
         .word sub_80B4A20
         @ PROC_END_EACH
         .short 0x9, 0x0
-        .word 0x8a394d0
+        .word gUnknown_08A394C0 + 0x10
         @ PROC_CALL
         .short 0x2, 0x0
         .word sub_80B4BB0
@@ -8246,7 +8246,7 @@ gUnknown_08A3963C:  @ 0x08A3963C
         .word 0x0
         @ PROC_START_CHILD
         .short 0x5, 0x0
-        .word 0x8a3972c
+        .word gUnknown_08A3972C
         @ PROC_CALL
         .short 0x2, 0x0
         .word sub_80B57A0
@@ -8276,7 +8276,7 @@ gUnknown_08A3963C:  @ 0x08A3963C
         .word 0x0
         @ PROC_END_EACH
         .short 0x9, 0x0
-        .word 0x8a3972c
+        .word gUnknown_08A3972C
         @ PROC_YIELD
         .short 0xe, 0x0
         .word 0x0
@@ -10453,7 +10453,7 @@ gUnknown_08A3E8B8:  @ 0x08A3E8B8
         .word sub_80C0E58
         @ PROC_START_CHILD
         .short 0x5, 0x0
-        .word 0x8a3e8a0
+        .word gUnknown_08A3E8A0
         @ PROC_REPEAT
         .short 0x3, 0x0
         .word sub_80C0F00
@@ -11596,10 +11596,10 @@ gUnknown_08AA21BC:  @ 0x08AA21BC
         .word 0x0
         @ PROC_START_CHILD
         .short 0x5, 0x0
-        .word 0x8aa2154
+        .word gUnknown_08AA2154
         @ PROC_START_CHILD
         .short 0x5, 0x0
-        .word 0x8aa2184
+        .word gUnknown_08AA2184
         @ PROC_CALL
         .short 0x2, 0x0
         .word sub_80C50A0
@@ -11680,10 +11680,10 @@ gUnknown_08AA21BC:  @ 0x08AA21BC
         .word 0x0
         @ PROC_END_EACH
         .short 0x9, 0x0
-        .word 0x8aa2154
+        .word gUnknown_08AA2154
         @ PROC_END_EACH
         .short 0x9, 0x0
-        .word 0x8aa2184
+        .word gUnknown_08AA2184
         @ PROC_CALL
         .short 0x2, 0x0
         .word sub_80C5400
@@ -11704,10 +11704,10 @@ gUnknown_08AA21BC:  @ 0x08AA21BC
         .word 0x0
         @ PROC_END_EACH
         .short 0x9, 0x0
-        .word 0x8aa2154
+        .word gUnknown_08AA2154
         @ PROC_END_EACH
         .short 0x9, 0x0
-        .word 0x8aa2184
+        .word gUnknown_08AA2184
         @ PROC_CALL
         .short 0x2, 0x0
         .word sub_8013D80
@@ -12417,7 +12417,7 @@ gUnknown_08AA71C8:  @ 0x08AA71C8
         .word sub_80C8690
         @ PROC_START_CHILD
         .short 0x5, 0x0
-        .word 0x8aa704c
+        .word gUnknown_08AA704C
         @ PROC_CALL
         .short 0x2, 0x0
         .word sub_80C9DF0
@@ -12600,7 +12600,7 @@ gUnknown_08AA71C8:  @ 0x08AA71C8
         .word gUnknown_08AA707C
         @ PROC_END_EACH
         .short 0x9, 0x0
-        .word 0x8aa704c
+        .word gUnknown_08AA704C
         @ PROC_REPEAT
         .short 0x3, 0x0
         .word sub_80C8CE4
