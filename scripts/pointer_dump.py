@@ -22,6 +22,9 @@ def evaluate_expression(expr):
 
 
 def incbin_to_words(incbin):
+    if "," not in incbin and "0x" not in incbin:
+        # Likely including a binary file
+        return []
     start_expr = incbin.split(",")[1]
     length_expr = incbin.split(",")[2]
     start = evaluate_expression(start_expr)
@@ -31,7 +34,7 @@ def incbin_to_words(incbin):
     with open("baserom.gba", "rb") as f:
         f.seek(start)
         buf = f.read(length)
-        return [x for (x,) in struct.iter_unpack("<l", buf)]
+        return [x for (x,) in struct.iter_unpack("<L", buf)]
 
 
 def contains_pointers(words):
