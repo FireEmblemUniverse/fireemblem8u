@@ -38,10 +38,7 @@ def incbin_to_words(incbin):
 
 
 def contains_pointers(words):
-    return (
-        len([word for word in words if 0x8000000 <= word <= 0x9000000])
-        > len(words) / 100
-    )
+    return len([word for word in words if 0x8000000 <= word <= 0x9000000]) > 1
 
 
 def string_for_words(words):
@@ -93,7 +90,7 @@ def test():
 def replace_pointer_incbins(in_f, out_f):
     replacements = 0
     for line in in_f:
-        if "incbin" in line and "replacing" not in line:
+        if "incbin" in line and "eplacing" not in line:
             words = incbin_to_words(line)
             if contains_pointers(words):
                 out_f.write(f"@ Replacing {line.strip()}\n")
