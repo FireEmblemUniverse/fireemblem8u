@@ -44,7 +44,7 @@ if __name__ == "__main__":
     symbols_by_addr = get_symbols_by_addr()
     symbols_map = {}
     symbol_checker = SymChecker()
-    for addr, symbol in symbols_by_addr:
+    for addr, symbol, _ in symbols_by_addr:
         symbols_map[addr] = symbol
     with open("../symbol_map.json", "w") as f:
         json.dump(symbols_map, f)
@@ -82,6 +82,8 @@ if __name__ == "__main__":
                     if symbol_checker.is_good_symbol(nearest):
                         table[word] = f"{nearest} + {distance}"
 
+    with open("../replacements.json", "w") as f:
+        json.dump(table, f)
     for key in table:
         contents = contents.replace(key, table[key])
     with open(filename, "w") as f:

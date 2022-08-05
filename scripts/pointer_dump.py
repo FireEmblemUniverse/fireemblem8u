@@ -38,7 +38,10 @@ def incbin_to_words(incbin):
 
 
 def contains_pointers(words):
-    return len([word for word in words[:10] if 0x8000000 <= word <= 0x9000000]) > 5
+    return (
+        len([word for word in words if 0x8000000 <= word <= 0x9000000])
+        > len(words) / 100
+    )
 
 
 def string_for_words(words):
@@ -69,7 +72,7 @@ def test():
         0x739977DC,
         0x08A5C900,
     ]
-    # assert not contains_pointers(words_without_pointers)
+    assert not contains_pointers(words_without_pointers)
 
     words_with_pointers = [
         0x08F25F5D,
@@ -77,7 +80,7 @@ def test():
         0x739977DC,
         0x08A5C900,
     ]
-    # assert contains_pointers(words_with_pointers)
+    assert contains_pointers(words_with_pointers)
 
     expected_string = """    .4byte 0x08f25f5d
     .4byte 0x08fd00aa

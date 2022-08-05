@@ -17,7 +17,7 @@ def get_symbols_by_addr():
         value = line.split()[1]
         if len(line.split()) == 8:
             name = line.split()[-1]
-            symbols_by_addr.append((int(value, base=16), name))
+            symbols_by_addr.append((int(value, base=16), name, "FUNC" in line))
     symbols_by_addr.sort(key=lambda t: t[0])
     return symbols_by_addr
 
@@ -26,13 +26,16 @@ def get_nearest_match(symbols_by_addr, search):
     if search < 0x1000000:  # ROM address
         search += 0x8000000
     found = None
-    for i, (addr, name) in enumerate(symbols_by_addr):
+    for i, (addr, name, is_func) in enumerate(symbols_by_addr):
         if addr > search:
             found = symbols_by_addr[i - 1]
             break
     if found is None:
         return None
-    addr, name = found
+    addr, name, is_func = found
+    # Don't relative match function pointers
+    if is_func:
+        return None
     return name, hex(search - addr)
 
 
