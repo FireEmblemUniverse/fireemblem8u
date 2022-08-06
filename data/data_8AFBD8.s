@@ -3763,20 +3763,20 @@ gChapterDataAssetTable:  @ 0x088B363C
 .4byte gUnknown_081609BC + 0x56d38
 .4byte gUnknown_0859D478 + 0x20
 .4byte gUnknown_08A1E0D8 + 0x20
-.4byte gUnknown_089E857C + 0xc0
+.4byte gEventTable_Prologue
 .4byte gUnknown_081609BC + 0x56c14
 .4byte gUnknown_08A1E0D8 + 0x2c
-.4byte gUnknown_089E857C + 0x220
+.4byte gEventTable_Chapter1
 .4byte gUnknown_081609BC + 0x56a80
 .4byte gUnknown_08A1E0D8 + 0x88
-.4byte gUnknown_089E857C + 0x3b8
+.4byte gEventTable_Chapter2
 .4byte gUnknown_081609BC + 0x31158
 .4byte gUnknown_081609BC + 0x4e0f4
 .4byte gUnknown_081609BC + 0x49784
 .4byte gUnknown_081609BC + 0x56918
 .4byte gUnknown_0859D478 + 0xf0
 .4byte gUnknown_08A1E0D8 + 0x11c
-.4byte gUnknown_089E857C + 0x4bc
+.4byte gEventTable_Chapter3
 .4byte gUnknown_081609BC + 0x567a0
 .4byte gUnknown_08A1E0D8 + 0x1d4
 .4byte gUnknown_089E857C + 0x5a4

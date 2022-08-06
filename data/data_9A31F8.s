@@ -4236,6 +4236,9 @@ gUnknown_089E857C:  @ 0x089E857C
     .4byte gUnknown_089EEA28 + 0xda0
     .4byte gUnknown_089EEA28 + 0xdd4
     .4byte 0x00000000
+
+	.global gEventTable_Prologue
+gEventTable_Prologue:  @ 0x089E863C
     .4byte gUnknown_089E857C + 0x10
     .4byte gUnknown_089E857C + 0x44
     .4byte gUnknown_089E857C + 0x48
@@ -4256,6 +4259,9 @@ gUnknown_089E857C:  @ 0x089E857C
     .4byte 0x00000000
     .4byte gUnknown_089EEA28 + 0x1c0
     .4byte gUnknown_089EEA28 + 0x73c
+
+	.global gUnknown_089E868C
+gUnknown_089E868C:  @ 0x089E868C
     .4byte 0x00000002
     .4byte gUnknown_089EEA28 + 0x1000
     .4byte 0x00000101
@@ -4324,6 +4330,9 @@ gUnknown_089E857C:  @ 0x089E857C
     .4byte gUnknown_089EEA28 + 0x1814
     .4byte gUnknown_089EEA28 + 0x1848
     .4byte 0x00000000
+
+	.global gEventTable_Chapter1
+gEventTable_Chapter1:  @ 0x089E879C
     .4byte gUnknown_089E857C + 0x110
     .4byte gUnknown_089E857C + 0x144
     .4byte gUnknown_089E857C + 0x188
@@ -4344,6 +4353,9 @@ gUnknown_089E857C:  @ 0x089E857C
     .4byte 0x00000000
     .4byte gUnknown_089EEA28 + 0xe20
     .4byte gUnknown_089EEA28 + 0x109c
+
+	.global gUnknown_089E87EC
+gUnknown_089E87EC:  @ 0x089E87EC
     .4byte 0x00000002
     .4byte gUnknown_089EEA28 + 0x1a5c
     .4byte 0x00000001
@@ -4426,6 +4438,9 @@ gUnknown_089E857C:  @ 0x089E857C
     .4byte gUnknown_089EEA28 + 0x26dc
     .4byte gUnknown_089EEA28 + 0x270c
     .4byte 0x00000000
+
+	.global gEventTable_Chapter2
+gEventTable_Chapter2:  @ 0x089E8934
     .4byte gUnknown_089E857C + 0x270
     .4byte gUnknown_089E857C + 0x298
     .4byte gUnknown_089E857C + 0x2bc
@@ -4446,6 +4461,9 @@ gUnknown_089E857C:  @ 0x089E857C
     .4byte 0x00000000
     .4byte gUnknown_089EEA28 + 0x1878
     .4byte gUnknown_089EEA28 + 0x1a8c
+
+	.global gUnknown_089E8984
+gUnknown_089E8984:  @ 0x089E8984
     .4byte 0x00070002
     .4byte gUnknown_089EEA28 + 0x2924
     .4byte 0x00400101
@@ -4491,6 +4509,9 @@ gUnknown_089E857C:  @ 0x089E857C
     .4byte 0x00000000
     .4byte 0x00000000
     .4byte 0x00000000
+
+	.global gEventTable_Chapter3
+gEventTable_Chapter3:  @ 0x089E8A38
     .4byte gUnknown_089E857C + 0x408
     .4byte gUnknown_089E857C + 0x424
     .4byte gUnknown_089E857C + 0x438
@@ -4511,6 +4532,9 @@ gUnknown_089E857C:  @ 0x089E857C
     .4byte 0x00000000
     .4byte gUnknown_089EEA28 + 0x27d8
     .4byte gUnknown_089EEA28 + 0x29a4
+
+	.global gUnknown_089E8A88
+gUnknown_089E8A88:  @ 0x089E8A88
     .4byte 0x00000002
     .4byte gUnknown_089EEA28 + 0x2f74
     .4byte 0x00400002
@@ -4626,6 +4650,7 @@ gUnknown_089E857C:  @ 0x089E857C
     .4byte 0x00000000
     .4byte 0x00000000
     .4byte 0x00000000
+
     .4byte gUnknown_089E857C + 0x5f4
     .4byte gUnknown_089E857C + 0x61c
     .4byte gUnknown_089E857C + 0x630
@@ -4646,6 +4671,7 @@ gUnknown_089E857C:  @ 0x089E857C
     .4byte 0x00000000
     .4byte gUnknown_089EEA28 + 0x3300
     .4byte gUnknown_089EEA28 + 0x3668
+
     .4byte 0x00000000
     .4byte 0x00000000
     .4byte 0x00000008
