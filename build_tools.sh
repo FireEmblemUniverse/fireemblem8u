@@ -1,7 +1,2 @@
 #!/bin/sh
-make -C tools/gbagfx
-make -C tools/scaninc
-make -C tools/bin2c
-make -C tools/aif2pcm
-make -C tools/mid2agb
-make -C tools/textencode
+make -f make_tools.mk
