@@ -168,8 +168,8 @@ $(ELF): $(ALL_OBJECTS) $(LDSCRIPT) $(SYM_FILES)
 	$(OBJCOPY) --strip-debug -O binary --pad-to 0x9000000 --gap-fill=0xff $< $@
 
 # Generate msg_data.c
-src/msg_data.c include/msg_data.h: msg_list.txt
-	$(TEXTENCODE) $< $@ include/msg_data.h --vanilla-tree
+src/msg_data.c: msg_list.txt
+	$(TEXTENCODE) $< $@ --vanilla-tree
 
 $(C_OBJECTS): %.o: %.c $(DEPS_DIR)/%.d
 	@$(MAKEDEP)
