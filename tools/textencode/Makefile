@@ -4,7 +4,7 @@ CFLAGS = -Wall -Wextra -Werror -std=c11 -O2 -s
 
 .PHONY: clean
 
-SRCS = textencode.c inputfile.c
+SRCS = textencode.c inputfile.c huffman.c vanillaTree.c
 
 textencode: $(SRCS)
 	$(CC) $(CFLAGS) $(SRCS) -o $@ $(LDFLAGS)

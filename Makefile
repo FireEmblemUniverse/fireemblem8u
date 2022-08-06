@@ -169,7 +169,7 @@ $(ELF): $(ALL_OBJECTS) $(LDSCRIPT) $(SYM_FILES)
 
 # Generate msg_data.c
 src/msg_data.c include/msg_data.h: msg_list.txt
-	$(TEXTENCODE) $< $@ include/msg_data.h
+	$(TEXTENCODE) $< $@ include/msg_data.h --vanilla-tree
 
 $(C_OBJECTS): %.o: %.c $(DEPS_DIR)/%.d
 	@$(MAKEDEP)

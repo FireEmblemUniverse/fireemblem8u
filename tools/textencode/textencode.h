@@ -21,6 +21,9 @@
 #ifndef TEXTENCODE_H
 #define TEXTENCODE_H
 
+#define MAX_VALUE_NUM 0x10000
+#define MAX_NODE_NUM 50000
+
 #define ARRAY_COUNT(arr) (sizeof(arr) / sizeof(arr[0]))
 
 #define RESIZE_ARRAY(ptr, nelems) ptr = realloc(ptr, (nelems) * sizeof(*ptr))
@@ -38,9 +41,29 @@ struct String
     char *text;
 };
 
+// A Huffman tree node
+struct MinHeapNode {
+
+	// One of the input characters
+	unsigned data;
+
+	// Frequency of the character
+	unsigned freq;
+
+	// Left and right child of this node
+	struct MinHeapNode *left, *right;
+};
+
 extern struct String *gInputStrings;
 extern int gInputStringsCount;
 
+extern int freq[];
+extern int nodeNum;
+extern int nodeNumVanilla;
+
 void read_input_file(const char *name);
+struct MinHeapNode* buildHuffmanTree();
+void printHuffmanTree(struct MinHeapNode *root, int depth);
+unsigned* buildHuffmanTable();
 
 #endif // TEXTENCODE_H
