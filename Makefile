@@ -26,11 +26,12 @@ STRIP := $(PREFIX)strip$(EXE)
 CC1     := tools/agbcc/bin/agbcc$(EXE)
 CC1_OLD := tools/agbcc/bin/old_agbcc$(EXE)
 
-BIN2C    := tools/bin2c/bin2c$(EXE)
-GBAGFX   := tools/gbagfx/gbagfx$(EXE)
-SCANINC  := tools/scaninc/scaninc$(EXE)
-AIF2PCM  := tools/aif2pcm/aif2pcm$(EXE)
-MID2AGB  := tools/mid2agb/mid2agb$(EXE)
+BIN2C      := tools/bin2c/bin2c$(EXE)
+GBAGFX     := tools/gbagfx/gbagfx$(EXE)
+SCANINC    := tools/scaninc/scaninc$(EXE)
+AIF2PCM    := tools/aif2pcm/aif2pcm$(EXE)
+MID2AGB    := tools/mid2agb/mid2agb$(EXE)
+TEXTENCODE := tools/textencode/textencode$(EXE)
 
 ifeq ($(UNAME),Darwin)
 	SED := sed -i ''
@@ -61,7 +62,11 @@ ELF          := $(ROM:.gba=.elf)
 MAP          := $(ROM:.gba=.map)
 LDSCRIPT     := ldscript.txt
 SYM_FILES    := sym_iwram.txt sym_ewram.txt
+CFILES_GENERATED := $(C_SUBDIR)/msg_data.c
 CFILES       := $(wildcard $(C_SUBDIR)/*.c)
+ifeq (,$(findstring $(CFILES_GENERATED),$(CFILES)))
+CFILES       += $(CFILES_GENERATED)
+endif
 ASM_S_FILES  := $(wildcard $(ASM_SUBDIR)/*.s)
 DATA_S_FILES := $(wildcard $(DATA_SUBDIR)/*.s)
 SOUND_S_FILES := $(wildcard sound/*.s sound/songs/*.s sound/songs/mml/*.s sound/voicegroups/*.s)
@@ -90,7 +95,7 @@ compare: $(ROM)
 
 clean:
 	find . \( -iname '*.1bpp' -o -iname '*.4bpp' -o -iname '*.8bpp' -o -iname '*.gbapal' -o -iname '*.lz' -o -iname '*.fk' -o -iname '*.latfont' -o -iname '*.hwjpnfont' -o -iname '*.fwjpnfont' \) -exec rm {} +
-	$(RM) $(ROM) $(ELF) $(MAP) $(ALL_OBJECTS) src/*.s graphics/*.h
+	$(RM) $(ROM) $(ELF) $(MAP) $(ALL_OBJECTS) src/*.s graphics/*.h $(CFILES_GENERATED)
 	$(RM) -rf $(DEPS_DIR)
 	# Remove battle animation binaries
 	$(RM) -f data/banim/*.bin data/banim/*.o data/banim/*.lz data/banim/*.bak
@@ -161,6 +166,10 @@ $(ELF): $(ALL_OBJECTS) $(LDSCRIPT) $(SYM_FILES)
 
 %.gba: %.elf
 	$(OBJCOPY) --strip-debug -O binary --pad-to 0x9000000 --gap-fill=0xff $< $@
+
+# Generate msg_data.c
+src/msg_data.c include/msg_data.h: msg_list.txt
+	$(TEXTENCODE) $< $@ include/msg_data.h --vanilla-tree
 
 $(C_OBJECTS): %.o: %.c $(DEPS_DIR)/%.d
 	@$(MAKEDEP)

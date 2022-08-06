@@ -1,0 +1,2903 @@
+(node) freq = 463868
+  (node) freq = 188205
+    (node) freq = 86751
+      (node) freq = 41667
+        (node) freq = 20457
+          (node) freq = 10182
+            (leaf) value = 0x2073, freq = 5068
+            (leaf) value = 0x6120, freq = 5114
+          (node) freq = 10275
+            (node) freq = 5121
+              (node) freq = 2547
+                (leaf) value = 0x6177, freq = 1273
+                (node) freq = 1274
+                  (node) freq = 635
+                    (leaf) value = 0x6976, freq = 317
+                    (leaf) value = 0x7227, freq = 318
+                  (node) freq = 639
+                    (node) freq = 319
+                      (node) freq = 159
+                        (leaf) value = 0x6427, freq = 79
+                        (leaf) value = 0x6872, freq = 80
+                      (leaf) value = 0x6841, freq = 160
+                    (node) freq = 320
+                      (node) freq = 160
+                        (node) freq = 80
+                          (leaf) value = 0x6265, freq = 40
+                          (node) freq = 40
+                            (node) freq = 20
+                              (node) freq = 10
+                                (leaf) value = 0x3520, freq = 5
+                                (leaf) value = 0x392C, freq = 5
+                              (node) freq = 10
+                                (leaf) value = 0x4F59, freq = 5
+                                (leaf) value = 0x744D, freq = 5
+                            (node) freq = 20
+                              (leaf) value = 0x3F49, freq = 10
+                              (leaf) value = 0x3F63, freq = 10
+                        (leaf) value = 0x6C73, freq = 80
+                      (node) freq = 160
+                        (node) freq = 80
+                          (node) freq = 40
+                            (node) freq = 20
+                              (node) freq = 10
+                                (leaf) value = 0x544F, freq = 5
+                                (leaf) value = 0x7641, freq = 5
+                              (node) freq = 10
+                                (leaf) value = 0x5A20, freq = 5
+                                (leaf) value = 0x6773, freq = 5
+                            (node) freq = 20
+                              (leaf) value = 0x4F4E, freq = 10
+                              (node) freq = 10
+                                (leaf) value = 0x5241, freq = 5
+                                (leaf) value = 0x0130, freq = 5
+                          (leaf) value = 0x216F, freq = 40
+                        (node) freq = 80
+                          (node) freq = 40
+                            (leaf) value = 0x0148, freq = 20
+                            (node) freq = 20
+                              (leaf) value = 0x622D, freq = 10
+                              (leaf) value = 0x7550, freq = 10
+                          (node) freq = 40
+                            (node) freq = 20
+                              (leaf) value = 0x6473, freq = 10
+                              (leaf) value = 0x2C69, freq = 10
+                            (node) freq = 20
+                              (leaf) value = 0x2D42, freq = 10
+                              (leaf) value = 0x2D48, freq = 10
+              (node) freq = 2574
+                (node) freq = 1282
+                  (leaf) value = 0x2C73, freq = 639
+                  (leaf) value = 0x636E, freq = 643
+                (node) freq = 1292
+                  (node) freq = 644
+                    (node) freq = 320
+                      (node) freq = 160
+                        (node) freq = 80
+                          (node) freq = 40
+                            (node) freq = 20
+                              (node) freq = 10
+                                (leaf) value = 0x6D74, freq = 5
+                                (leaf) value = 0x2169, freq = 5
+                              (node) freq = 10
+                                (leaf) value = 0x4552, freq = 5
+                                (leaf) value = 0x1F31, freq = 5
+                            (node) freq = 20
+                              (node) freq = 10
+                                (leaf) value = 0x6755, freq = 5
+                                (leaf) value = 0x204F, freq = 5
+                              (node) freq = 10
+                                (leaf) value = 0x7366, freq = 5
+                                (leaf) value = 0x013E, freq = 5
+                          (node) freq = 40
+                            (node) freq = 20
+                              (node) freq = 10
+                                (leaf) value = 0x012F, freq = 5
+                                (leaf) value = 0x746D, freq = 5
+                              (node) freq = 10
+                                (node) freq = 5
+                                  (node) freq = 2
+                                    (leaf) value = 0x3939, freq = 1
+                                    (leaf) value = 0x3A2E, freq = 1
+                                  (leaf) value = 0x0023, freq = 3
+                                (leaf) value = 0x0133, freq = 5
+                            (node) freq = 20
+                              (node) freq = 10
+                                (leaf) value = 0x5341, freq = 5
+                                (leaf) value = 0x4544, freq = 5
+                              (node) freq = 10
+                                (leaf) value = 0x7055, freq = 5
+                                (leaf) value = 0x706E, freq = 5
+                        (leaf) value = 0x6475, freq = 80
+                      (node) freq = 160
+                        (node) freq = 80
+                          (node) freq = 40
+                            (node) freq = 20
+                              (node) freq = 10
+                                (leaf) value = 0x632D, freq = 5
+                                (leaf) value = 0x2031, freq = 5
+                              (node) freq = 10
+                                (leaf) value = 0x4841, freq = 5
+                                (leaf) value = 0x7173, freq = 5
+                            (node) freq = 20
+                              (node) freq = 10
+                                (leaf) value = 0x0159, freq = 5
+                                (leaf) value = 0x6878, freq = 5
+                              (node) freq = 10
+                                (leaf) value = 0x6943, freq = 5
+                                (leaf) value = 0x015C, freq = 5
+                          (leaf) value = 0x2772, freq = 40
+                        (node) freq = 80
+                          (node) freq = 40
+                            (node) freq = 20
+                              (node) freq = 10
+                                (leaf) value = 0x6668, freq = 5
+                                (leaf) value = 0x2E76, freq = 5
+                              (node) freq = 10
+                                (leaf) value = 0x012E, freq = 5
+                                (leaf) value = 0x2053, freq = 5
+                            (node) freq = 20
+                              (leaf) value = 0x6B53, freq = 10
+                              (leaf) value = 0x6C45, freq = 10
+                          (node) freq = 40
+                            (leaf) value = 0x7462, freq = 20
+                            (leaf) value = 0x216B, freq = 20
+                    (node) freq = 324
+                      (leaf) value = 0x0015, freq = 161
+                      (node) freq = 163
+                        (leaf) value = 0x216E, freq = 81
+                        (leaf) value = 0x1F77, freq = 82
+                  (leaf) value = 0x616C, freq = 648
+            (node) freq = 5154
+              (leaf) value = 0x7473, freq = 2574
+              (leaf) value = 0x6C6C, freq = 2580
+        (node) freq = 21210
+          (node) freq = 10433
+            (node) freq = 5166
+              (leaf) value = 0x676E, freq = 2581
+              (leaf) value = 0x6F20, freq = 2585
+            (node) freq = 5267
+              (node) freq = 2607
+                (node) freq = 1296
+                  (node) freq = 648
+                    (leaf) value = 0x2C79, freq = 324
+                    (leaf) value = 0x5220, freq = 324
+                  (leaf) value = 0x6761, freq = 648
+                (node) freq = 1311
+                  (leaf) value = 0x7269, freq = 655
+                  (node) freq = 656
+                    (node) freq = 328
+                      (node) freq = 164
+                        (leaf) value = 0x6F76, freq = 82
+                        (leaf) value = 0x2161, freq = 82
+                      (node) freq = 164
+                        (leaf) value = 0x2C6D, freq = 82
+                        (node) freq = 82
+                          (leaf) value = 0x2020, freq = 41
+                          (node) freq = 41
+                            (node) freq = 20
+                              (leaf) value = 0x732D, freq = 10
+                              (leaf) value = 0x2052, freq = 10
+                            (leaf) value = 0x6A6E, freq = 21
+                    (node) freq = 328
+                      (node) freq = 164
+                        (leaf) value = 0x6550, freq = 82
+                        (leaf) value = 0x3F72, freq = 82
+                      (leaf) value = 0x6544, freq = 164
+              (leaf) value = 0x6920, freq = 2660
+          (node) freq = 10777
+            (node) freq = 5367
+              (node) freq = 2678
+                (node) freq = 1331
+                  (node) freq = 662
+                    (node) freq = 329
+                      (leaf) value = 0x6F46, freq = 164
+                      (node) freq = 165
+                        (node) freq = 82
+                          (leaf) value = 0x7973, freq = 41
+                          (leaf) value = 0x6341, freq = 41
+                        (node) freq = 83
+                          (leaf) value = 0x3F6D, freq = 41
+                          (leaf) value = 0x614E, freq = 42
+                    (node) freq = 333
+                      (node) freq = 166
+                        (leaf) value = 0x274C, freq = 83
+                        (leaf) value = 0x6152, freq = 83
+                      (leaf) value = 0x6E77, freq = 167
+                  (leaf) value = 0x616E, freq = 669
+                (node) freq = 1347
+                  (node) freq = 673
+                    (leaf) value = 0x203F, freq = 336
+                    (leaf) value = 0x6B61, freq = 337
+                  (leaf) value = 0x2775, freq = 674
+              (leaf) value = 0x6820, freq = 2689
+            (node) freq = 5410
+              (leaf) value = 0x6576, freq = 2705
+              (node) freq = 2705
+                (node) freq = 1350
+                  (node) freq = 674
+                    (leaf) value = 0x6E72, freq = 337
+                    (node) freq = 337
+                      (node) freq = 168
+                        (node) freq = 84
+                          (leaf) value = 0x012C, freq = 42
+                          (node) freq = 42
+                            (leaf) value = 0x942E, freq = 21
+                            (leaf) value = 0x7165, freq = 21
+                        (node) freq = 84
+                          (leaf) value = 0x6578, freq = 42
+                          (node) freq = 42
+                            (leaf) value = 0x7942, freq = 21
+                            (leaf) value = 0x5048, freq = 21
+                      (node) freq = 169
+                        (node) freq = 84
+                          (node) freq = 42
+                            (leaf) value = 0x013F, freq = 21
+                            (leaf) value = 0x6675, freq = 21
+                          (node) freq = 42
+                            (leaf) value = 0x7053, freq = 21
+                            (leaf) value = 0x6D64, freq = 21
+                        (leaf) value = 0x4E20, freq = 85
+                  (node) freq = 676
+                    (leaf) value = 0x4720, freq = 338
+                    (leaf) value = 0x5420, freq = 338
+                (leaf) value = 0x6E20, freq = 1355
+      (node) freq = 45084
+        (node) freq = 22033
+          (node) freq = 10889
+            (leaf) value = 0x2E2E, freq = 5428
+            (node) freq = 5461
+              (node) freq = 2715
+                (node) freq = 1356
+                  (node) freq = 677
+                    (leaf) value = 0x1F6E, freq = 338
+                    (node) freq = 339
+                      (leaf) value = 0x2E6D, freq = 169
+                      (node) freq = 170
+                        (leaf) value = 0x6946, freq = 85
+                        (leaf) value = 0x001D, freq = 85
+                  (leaf) value = 0x2077, freq = 679
+                (leaf) value = 0x6564, freq = 1359
+              (node) freq = 2746
+                (node) freq = 1369
+                  (node) freq = 684
+                    (leaf) value = 0x6C62, freq = 342
+                    (leaf) value = 0x706F, freq = 342
+                  (leaf) value = 0x6F6F, freq = 685
+                (node) freq = 1377
+                  (node) freq = 688
+                    (node) freq = 344
+                      (leaf) value = 0x6666, freq = 172
+                      (leaf) value = 0x666C, freq = 172
+                    (node) freq = 344
+                      (node) freq = 172
+                        (node) freq = 86
+                          (leaf) value = 0x0121, freq = 43
+                          (leaf) value = 0x754C, freq = 43
+                        (node) freq = 86
+                          (leaf) value = 0x6875, freq = 43
+                          (leaf) value = 0x6161, freq = 43
+                      (node) freq = 172
+                        (leaf) value = 0x6E55, freq = 86
+                        (leaf) value = 0x6F4C, freq = 86
+                  (leaf) value = 0x206B, freq = 689
+          (node) freq = 11144
+            (node) freq = 5542
+              (node) freq = 2761
+                (leaf) value = 0x666F, freq = 1378
+                (node) freq = 1383
+                  (node) freq = 689
+                    (leaf) value = 0x7669, freq = 344
+                    (leaf) value = 0x6166, freq = 345
+                  (leaf) value = 0x6973, freq = 694
+              (leaf) value = 0x6E65, freq = 2781
+            (node) freq = 5602
+              (node) freq = 2783
+                (leaf) value = 0x6563, freq = 1387
+                (node) freq = 1396
+                  (node) freq = 696
+                    (leaf) value = 0x6170, freq = 347
+                    (leaf) value = 0x6649, freq = 349
+                  (node) freq = 700
+                    (node) freq = 349
+                      (leaf) value = 0x1F6D, freq = 174
+                      (node) freq = 175
+                        (node) freq = 87
+                          (leaf) value = 0x6464, freq = 43
+                          (leaf) value = 0x754A, freq = 44
+                        (node) freq = 88
+                          (node) freq = 44
+                            (leaf) value = 0x1F2D, freq = 22
+                            (leaf) value = 0x754D, freq = 22
+                          (node) freq = 44
+                            (leaf) value = 0x6262, freq = 22
+                            (leaf) value = 0x0140, freq = 22
+                    (node) freq = 351
+                      (leaf) value = 0x7563, freq = 175
+                      (node) freq = 176
+                        (node) freq = 88
+                          (leaf) value = 0x6279, freq = 44
+                          (node) freq = 44
+                            (node) freq = 22
+                              (leaf) value = 0x6241, freq = 11
+                              (leaf) value = 0x722D, freq = 11
+                            (leaf) value = 0x6378, freq = 22
+                        (node) freq = 88
+                          (node) freq = 44
+                            (node) freq = 22
+                              (leaf) value = 0x6479, freq = 11
+                              (leaf) value = 0x7679, freq = 11
+                            (node) freq = 22
+                              (leaf) value = 0x6673, freq = 11
+                              (leaf) value = 0x6864, freq = 11
+                          (node) freq = 44
+                            (leaf) value = 0x2E63, freq = 22
+                            (leaf) value = 0x694D, freq = 22
+              (leaf) value = 0x206E, freq = 2819
+        (node) freq = 23051
+          (node) freq = 11382
+            (node) freq = 5652
+              (node) freq = 2825
+                (node) freq = 1409
+                  (leaf) value = 0x000A, freq = 704
+                  (node) freq = 705
+                    (leaf) value = 0x7247, freq = 352
+                    (leaf) value = 0x0002, freq = 353
+                (leaf) value = 0x6C20, freq = 1416
+              (leaf) value = 0x0017, freq = 2827
+            (node) freq = 5730
+              (node) freq = 2844
+                (node) freq = 1418
+                  (node) freq = 708
+                    (leaf) value = 0x2021, freq = 353
+                    (leaf) value = 0x2765, freq = 355
+                  (leaf) value = 0x6569, freq = 710
+                (node) freq = 1426
+                  (node) freq = 711
+                    (node) freq = 355
+                      (leaf) value = 0x6C27, freq = 177
+                      (leaf) value = 0x4120, freq = 178
+                    (node) freq = 356
+                      (node) freq = 178
+                        (leaf) value = 0x3F6E, freq = 89
+                        (leaf) value = 0x0122, freq = 89
+                      (leaf) value = 0x736C, freq = 178
+                  (node) freq = 715
+                    (node) freq = 357
+                      (node) freq = 178
+                        (leaf) value = 0x676F, freq = 89
+                        (leaf) value = 0x6957, freq = 89
+                      (leaf) value = 0x7962, freq = 179
+                    (leaf) value = 0x1F79, freq = 358
+              (node) freq = 2886
+                (node) freq = 1440
+                  (leaf) value = 0x7449, freq = 718
+                  (leaf) value = 0x6873, freq = 722
+                (node) freq = 1446
+                  (leaf) value = 0x796D, freq = 722
+                  (leaf) value = 0x6F6D, freq = 724
+          (node) freq = 11669
+            (node) freq = 5799
+              (leaf) value = 0x6D20, freq = 2894
+              (node) freq = 2905
+                (leaf) value = 0x2061, freq = 1451
+                (leaf) value = 0x2749, freq = 1454
+            (node) freq = 5870
+              (node) freq = 2923
+                (node) freq = 1457
+                  (node) freq = 726
+                    (node) freq = 362
+                      (node) freq = 181
+                        (leaf) value = 0x6C67, freq = 90
+                        (leaf) value = 0x2172, freq = 91
+                      (leaf) value = 0x6E49, freq = 181
+                    (node) freq = 364
+                      (node) freq = 182
+                        (leaf) value = 0x6F57, freq = 91
+                        (node) freq = 91
+                          (node) freq = 45
+                            (node) freq = 22
+                              (node) freq = 11
+                                (leaf) value = 0x0161, freq = 5
+                                (node) freq = 6
+                                  (leaf) value = 0x0160, freq = 3
+                                  (leaf) value = 0x6C2D, freq = 3
+                              (leaf) value = 0x5120, freq = 11
+                            (leaf) value = 0x6D4D, freq = 23
+                          (leaf) value = 0x6E67, freq = 46
+                      (leaf) value = 0x0114, freq = 182
+                  (node) freq = 731
+                    (leaf) value = 0x7263, freq = 365
+                    (node) freq = 366
+                      (leaf) value = 0x7571, freq = 183
+                      (node) freq = 183
+                        (leaf) value = 0x7672, freq = 91
+                        (leaf) value = 0x6D75, freq = 92
+                (node) freq = 1466
+                  (leaf) value = 0x1F74, freq = 732
+                  (node) freq = 734
+                    (leaf) value = 0x2D2D, freq = 366
+                    (leaf) value = 0x6F44, freq = 368
+              (leaf) value = 0x7920, freq = 2947
+    (node) freq = 101454
+      (node) freq = 48573
+        (node) freq = 23991
+          (node) freq = 11913
+            (node) freq = 5919
+              (leaf) value = 0x6E6F, freq = 2948
+              (node) freq = 2971
+                (node) freq = 1482
+                  (node) freq = 740
+                    (node) freq = 369
+                      (node) freq = 184
+                        (node) freq = 92
+                          (node) freq = 46
+                            (leaf) value = 0x6C46, freq = 23
+                            (leaf) value = 0x7362, freq = 23
+                          (leaf) value = 0x7072, freq = 46
+                        (node) freq = 92
+                          (node) freq = 46
+                            (leaf) value = 0x7975, freq = 23
+                            (leaf) value = 0x4B4F, freq = 23
+                          (leaf) value = 0x7279, freq = 46
+                      (leaf) value = 0x794C, freq = 185
+                    (node) freq = 371
+                      (node) freq = 185
+                        (leaf) value = 0x2E6B, freq = 92
+                        (leaf) value = 0x6B6C, freq = 93
+                      (node) freq = 186
+                        (leaf) value = 0x3F64, freq = 93
+                        (leaf) value = 0x776C, freq = 93
+                  (leaf) value = 0x7661, freq = 742
+                (leaf) value = 0x7327, freq = 1489
+            (node) freq = 5994
+              (node) freq = 2990
+                (leaf) value = 0x1F3F, freq = 1493
+                (node) freq = 1497
+                  (node) freq = 748
+                    (leaf) value = 0x7574, freq = 374
+                    (node) freq = 374
+                      (leaf) value = 0x7865, freq = 187
+                      (leaf) value = 0x4820, freq = 187
+                  (node) freq = 749
+                    (leaf) value = 0x7374, freq = 374
+                    (leaf) value = 0x1F2C, freq = 375
+              (node) freq = 3004
+                (leaf) value = 0x6972, freq = 1501
+                (node) freq = 1503
+                  (leaf) value = 0x7468, freq = 750
+                  (node) freq = 753
+                    (node) freq = 376
+                      (node) freq = 188
+                        (node) freq = 94
+                          (node) freq = 47
+                            (node) freq = 23
+                              (leaf) value = 0x6A62, freq = 11
+                              (leaf) value = 0x6C53, freq = 12
+                            (node) freq = 24
+                              (node) freq = 12
+                                (leaf) value = 0x0155, freq = 6
+                                (node) freq = 6
+                                  (leaf) value = 0x0151, freq = 3
+                                  (leaf) value = 0x204C, freq = 3
+                              (node) freq = 12
+                                (leaf) value = 0x6B65, freq = 6
+                                (leaf) value = 0x012D, freq = 6
+                          (leaf) value = 0x012A, freq = 47
+                        (node) freq = 94
+                          (leaf) value = 0x3F6C, freq = 47
+                          (leaf) value = 0x2175, freq = 47
+                      (leaf) value = 0x2E68, freq = 188
+                    (leaf) value = 0x696B, freq = 377
+          (node) freq = 12078
+            (node) freq = 6019
+              (leaf) value = 0x6168, freq = 3009
+              (node) freq = 3010
+                (leaf) value = 0x7361, freq = 1505
+                (leaf) value = 0x6C65, freq = 1505
+            (leaf) value = 0x2074, freq = 6059
+        (node) freq = 24582
+          (node) freq = 12227
+            (node) freq = 6090
+              (node) freq = 3039
+                (leaf) value = 0x6F6E, freq = 1518
+                (node) freq = 1521
+                  (node) freq = 759
+                    (node) freq = 378
+                      (leaf) value = 0x7045, freq = 189
+                      (leaf) value = 0x2C6C, freq = 189
+                    (node) freq = 381
+                      (node) freq = 190
+                        (leaf) value = 0x6269, freq = 95
+                        (leaf) value = 0x7544, freq = 95
+                      (node) freq = 191
+                        (leaf) value = 0x7564, freq = 95
+                        (leaf) value = 0x6F47, freq = 96
+                  (leaf) value = 0x6F6C, freq = 762
+              (node) freq = 3051
+                (leaf) value = 0x6F59, freq = 1521
+                (leaf) value = 0x2067, freq = 1530
+            (node) freq = 6137
+              (node) freq = 3065
+                (node) freq = 1532
+                  (node) freq = 765
+                    (node) freq = 382
+                      (leaf) value = 0x1F61, freq = 191
+                      (leaf) value = 0x7349, freq = 191
+                    (leaf) value = 0x756D, freq = 383
+                  (node) freq = 767
+                    (leaf) value = 0x6169, freq = 383
+                    (node) freq = 384
+                      (node) freq = 192
+                        (leaf) value = 0x7774, freq = 96
+                        (leaf) value = 0x6156, freq = 96
+                      (node) freq = 192
+                        (node) freq = 96
+                          (node) freq = 48
+                            (leaf) value = 0x3030, freq = 24
+                            (node) freq = 24
+                              (node) freq = 12
+                                (node) freq = 6
+                                  (leaf) value = 0x5793, freq = 3
+                                  (leaf) value = 0x7546, freq = 3
+                                (leaf) value = 0x7249, freq = 6
+                              (node) freq = 12
+                                (node) freq = 6
+                                  (leaf) value = 0x2C62, freq = 3
+                                  (leaf) value = 0x6527, freq = 3
+                                (node) freq = 6
+                                  (leaf) value = 0x001B, freq = 3
+                                  (leaf) value = 0x202B, freq = 3
+                          (node) freq = 48
+                            (node) freq = 24
+                              (node) freq = 12
+                                (node) freq = 6
+                                  (leaf) value = 0x015A, freq = 3
+                                  (leaf) value = 0x692D, freq = 3
+                                (node) freq = 6
+                                  (leaf) value = 0x6741, freq = 3
+                                  (leaf) value = 0x676C, freq = 3
+                              (node) freq = 12
+                                (node) freq = 6
+                                  (leaf) value = 0x4948, freq = 3
+                                  (leaf) value = 0x1F37, freq = 3
+                                (node) freq = 6
+                                  (leaf) value = 0x0139, freq = 3
+                                  (leaf) value = 0x754E, freq = 3
+                            (node) freq = 24
+                              (node) freq = 12
+                                (leaf) value = 0x6353, freq = 6
+                                (leaf) value = 0x2D67, freq = 6
+                              (node) freq = 12
+                                (leaf) value = 0x352B, freq = 6
+                                (node) freq = 6
+                                  (leaf) value = 0x3431, freq = 3
+                                  (leaf) value = 0x015D, freq = 3
+                        (node) freq = 96
+                          (node) freq = 48
+                            (node) freq = 24
+                              (node) freq = 12
+                                (node) freq = 6
+                                  (leaf) value = 0x6D2D, freq = 3
+                                  (leaf) value = 0x6D67, freq = 3
+                                (node) freq = 6
+                                  (leaf) value = 0x1F35, freq = 3
+                                  (leaf) value = 0x7248, freq = 3
+                              (leaf) value = 0x7841, freq = 12
+                            (node) freq = 24
+                              (leaf) value = 0x7A6E, freq = 12
+                              (leaf) value = 0x6C68, freq = 12
+                          (node) freq = 48
+                            (node) freq = 24
+                              (node) freq = 12
+                                (node) freq = 6
+                                  (leaf) value = 0x5449, freq = 3
+                                  (leaf) value = 0x6845, freq = 3
+                                (node) freq = 6
+                                  (leaf) value = 0x6F7A, freq = 3
+                                  (leaf) value = 0x454D, freq = 3
+                              (node) freq = 12
+                                (leaf) value = 0x3F94, freq = 6
+                                (node) freq = 6
+                                  (leaf) value = 0x4157, freq = 3
+                                  (leaf) value = 0x4193, freq = 3
+                            (node) freq = 24
+                              (node) freq = 12
+                                (leaf) value = 0x5043, freq = 6
+                                (leaf) value = 0x0131, freq = 6
+                              (node) freq = 12
+                                (node) freq = 6
+                                  (leaf) value = 0x2974, freq = 3
+                                  (leaf) value = 0x612D, freq = 3
+                                (node) freq = 6
+                                  (leaf) value = 0x6127, freq = 3
+                                  (leaf) value = 0x0135, freq = 3
+                (leaf) value = 0x6562, freq = 1533
+              (node) freq = 3072
+                (node) freq = 1536
+                  (node) freq = 768
+                    (node) freq = 384
+                      (node) freq = 192
+                        (node) freq = 96
+                          (node) freq = 48
+                            (node) freq = 24
+                              (node) freq = 12
+                                (node) freq = 6
+                                  (leaf) value = 0x726E, freq = 3
+                                  (leaf) value = 0x7273, freq = 3
+                                (node) freq = 6
+                                  (leaf) value = 0x702D, freq = 3
+                                  (leaf) value = 0x464F, freq = 3
+                              (node) freq = 12
+                                (node) freq = 6
+                                  (leaf) value = 0x9461, freq = 3
+                                  (leaf) value = 0x9465, freq = 3
+                                (node) freq = 6
+                                  (leaf) value = 0x0134, freq = 3
+                                  (leaf) value = 0x6E70, freq = 3
+                            (node) freq = 24
+                              (node) freq = 12
+                                (node) freq = 6
+                                  (leaf) value = 0x792D, freq = 3
+                                  (leaf) value = 0x2D69, freq = 3
+                                (leaf) value = 0x6449, freq = 6
+                              (node) freq = 12
+                                (node) freq = 6
+                                  (leaf) value = 0x744F, freq = 3
+                                  (leaf) value = 0x4F4D, freq = 3
+                                (node) freq = 6
+                                  (leaf) value = 0x754B, freq = 3
+                                  (leaf) value = 0x5245, freq = 3
+                          (node) freq = 48
+                            (leaf) value = 0x2D59, freq = 24
+                            (leaf) value = 0x6E68, freq = 24
+                        (node) freq = 96
+                          (node) freq = 48
+                            (node) freq = 24
+                              (node) freq = 12
+                                (node) freq = 6
+                                  (leaf) value = 0x6D6E, freq = 3
+                                  (leaf) value = 0x2153, freq = 3
+                                (leaf) value = 0x615A, freq = 6
+                              (node) freq = 12
+                                (node) freq = 6
+                                  (leaf) value = 0x2E4B, freq = 3
+                                  (leaf) value = 0x2042, freq = 3
+                                (node) freq = 6
+                                  (leaf) value = 0x6543, freq = 3
+                                  (leaf) value = 0x2033, freq = 3
+                            (node) freq = 24
+                              (node) freq = 12
+                                (leaf) value = 0x4854, freq = 6
+                                (node) freq = 6
+                                  (leaf) value = 0x0137, freq = 3
+                                  (leaf) value = 0x6227, freq = 3
+                              (leaf) value = 0x7A61, freq = 12
+                          (node) freq = 48
+                            (node) freq = 24
+                              (leaf) value = 0x302C, freq = 12
+                              (node) freq = 12
+                                (leaf) value = 0x0152, freq = 6
+                                (leaf) value = 0x6677, freq = 6
+                            (node) freq = 24
+                              (leaf) value = 0x1F63, freq = 12
+                              (leaf) value = 0x7963, freq = 12
+                      (node) freq = 192
+                        (node) freq = 96
+                          (node) freq = 48
+                            (leaf) value = 0x6E79, freq = 24
+                            (leaf) value = 0x7243, freq = 24
+                          (node) freq = 48
+                            (node) freq = 24
+                              (node) freq = 12
+                                (leaf) value = 0x001A, freq = 6
+                                (leaf) value = 0x1F78, freq = 6
+                              (node) freq = 12
+                                (node) freq = 6
+                                  (leaf) value = 0x4E4F, freq = 3
+                                  (leaf) value = 0x2770, freq = 3
+                                (node) freq = 6
+                                  (leaf) value = 0x1F46, freq = 3
+                                  (leaf) value = 0x752D, freq = 3
+                            (node) freq = 24
+                              (node) freq = 12
+                                (node) freq = 6
+                                  (leaf) value = 0x786F, freq = 3
+                                  (leaf) value = 0x5753, freq = 3
+                                (leaf) value = 0x4E41, freq = 6
+                              (node) freq = 12
+                                (leaf) value = 0x2C63, freq = 6
+                                (leaf) value = 0x5453, freq = 6
+                        (node) freq = 96
+                          (node) freq = 48
+                            (node) freq = 24
+                              (leaf) value = 0x2D6E, freq = 12
+                              (leaf) value = 0x6441, freq = 12
+                            (node) freq = 24
+                              (leaf) value = 0x1F7A, freq = 12
+                              (leaf) value = 0x2720, freq = 12
+                          (node) freq = 48
+                            (leaf) value = 0x7753, freq = 24
+                            (node) freq = 24
+                              (node) freq = 12
+                                (leaf) value = 0x774F, freq = 6
+                                (node) freq = 6
+                                  (leaf) value = 0x2D75, freq = 3
+                                  (leaf) value = 0x2D77, freq = 3
+                              (node) freq = 12
+                                (leaf) value = 0x0138, freq = 6
+                                (leaf) value = 0x2E62, freq = 6
+                    (node) freq = 384
+                      (node) freq = 192
+                        (node) freq = 96
+                          (node) freq = 48
+                            (node) freq = 24
+                              (node) freq = 12
+                                (node) freq = 6
+                                  (leaf) value = 0x6F61, freq = 3
+                                  (leaf) value = 0x4548, freq = 3
+                                (node) freq = 6
+                                  (leaf) value = 0x6D77, freq = 3
+                                  (leaf) value = 0x6E66, freq = 3
+                              (node) freq = 12
+                                (node) freq = 6
+                                  (leaf) value = 0x2B20, freq = 3
+                                  (leaf) value = 0x7559, freq = 3
+                                (leaf) value = 0x7A5A, freq = 6
+                            (node) freq = 24
+                              (leaf) value = 0x6F4F, freq = 12
+                              (leaf) value = 0x704F, freq = 12
+                          (node) freq = 48
+                            (node) freq = 24
+                              (node) freq = 12
+                                (node) freq = 6
+                                  (leaf) value = 0x2035, freq = 3
+                                  (leaf) value = 0x7741, freq = 3
+                                (leaf) value = 0x7345, freq = 6
+                              (node) freq = 12
+                                (node) freq = 6
+                                  (leaf) value = 0x0145, freq = 3
+                                  (leaf) value = 0x2D6D, freq = 3
+                                (node) freq = 6
+                                  (leaf) value = 0x652D, freq = 3
+                                  (leaf) value = 0x2E30, freq = 3
+                            (node) freq = 24
+                              (node) freq = 12
+                                (leaf) value = 0x2026, freq = 6
+                                (leaf) value = 0x554F, freq = 6
+                              (node) freq = 12
+                                (leaf) value = 0x2D73, freq = 6
+                                (node) freq = 6
+                                  (leaf) value = 0x626C, freq = 3
+                                  (leaf) value = 0x2D53, freq = 3
+                        (leaf) value = 0x7242, freq = 96
+                      (leaf) value = 0x7453, freq = 192
+                  (leaf) value = 0x1F73, freq = 768
+                (node) freq = 1536
+                  (leaf) value = 0x6557, freq = 768
+                  (leaf) value = 0x6877, freq = 768
+          (node) freq = 12355
+            (node) freq = 6159
+              (leaf) value = 0x6F74, freq = 3077
+              (leaf) value = 0x2072, freq = 3082
+            (node) freq = 6196
+              (node) freq = 3092
+                (node) freq = 1544
+                  (node) freq = 770
+                    (node) freq = 385
+                      (node) freq = 192
+                        (node) freq = 96
+                          (leaf) value = 0x7478, freq = 48
+                          (node) freq = 48
+                            (node) freq = 24
+                              (node) freq = 12
+                                (leaf) value = 0x6C4B, freq = 6
+                                (leaf) value = 0x212E, freq = 6
+                              (node) freq = 12
+                                (leaf) value = 0x016D, freq = 6
+                                (leaf) value = 0x6D68, freq = 6
+                            (leaf) value = 0x6F50, freq = 24
+                        (leaf) value = 0x796F, freq = 96
+                      (leaf) value = 0x6143, freq = 193
+                    (leaf) value = 0x6164, freq = 385
+                  (node) freq = 774
+                    (leaf) value = 0x6669, freq = 387
+                    (leaf) value = 0x7266, freq = 387
+                (leaf) value = 0x0080, freq = 1548
+              (leaf) value = 0x206F, freq = 3104
+      (node) freq = 52881
+        (node) freq = 25799
+          (node) freq = 12710
+            (node) freq = 6312
+              (node) freq = 3137
+                (node) freq = 1561
+                  (node) freq = 779
+                    (node) freq = 389
+                      (leaf) value = 0x6661, freq = 194
+                      (leaf) value = 0x6B72, freq = 195
+                    (leaf) value = 0x2C74, freq = 390
+                  (node) freq = 782
+                    (node) freq = 390
+                      (node) freq = 195
+                        (node) freq = 97
+                          (node) freq = 48
+                            (node) freq = 24
+                              (node) freq = 12
+                                (leaf) value = 0x016A, freq = 6
+                                (leaf) value = 0x2145, freq = 6
+                              (node) freq = 12
+                                (leaf) value = 0x7869, freq = 6
+                                (leaf) value = 0x7966, freq = 6
+                            (node) freq = 24
+                              (node) freq = 12
+                                (node) freq = 6
+                                  (leaf) value = 0x001F, freq = 3
+                                  (leaf) value = 0x0158, freq = 3
+                                (node) freq = 6
+                                  (leaf) value = 0x015B, freq = 3
+                                  (leaf) value = 0x3420, freq = 3
+                              (node) freq = 12
+                                (node) freq = 6
+                                  (leaf) value = 0x3839, freq = 3
+                                  (leaf) value = 0x7578, freq = 3
+                                (node) freq = 6
+                                  (leaf) value = 0x2E78, freq = 3
+                                  (leaf) value = 0x672D, freq = 3
+                          (leaf) value = 0x7254, freq = 49
+                        (leaf) value = 0x6154, freq = 98
+                      (leaf) value = 0x000E, freq = 195
+                    (node) freq = 392
+                      (node) freq = 196
+                        (node) freq = 98
+                          (node) freq = 49
+                            (node) freq = 24
+                              (node) freq = 12
+                                (leaf) value = 0x3038, freq = 6
+                                (node) freq = 6
+                                  (leaf) value = 0x6847, freq = 3
+                                  (leaf) value = 0x2C39, freq = 3
+                              (node) freq = 12
+                                (leaf) value = 0x686E, freq = 6
+                                (leaf) value = 0x6941, freq = 6
+                            (leaf) value = 0x010C, freq = 25
+                          (leaf) value = 0x754F, freq = 49
+                        (node) freq = 98
+                          (leaf) value = 0x216C, freq = 49
+                          (leaf) value = 0x2779, freq = 49
+                      (leaf) value = 0x6D27, freq = 196
+                (node) freq = 1576
+                  (leaf) value = 0x6567, freq = 786
+                  (node) freq = 790
+                    (node) freq = 394
+                      (leaf) value = 0x2E6F, freq = 197
+                      (leaf) value = 0x654C, freq = 197
+                    (node) freq = 396
+                      (node) freq = 198
+                        (leaf) value = 0x7069, freq = 99
+                        (leaf) value = 0x1F6B, freq = 99
+                      (node) freq = 198
+                        (leaf) value = 0x2C67, freq = 99
+                        (leaf) value = 0x636F, freq = 99
+              (node) freq = 3175
+                (node) freq = 1582
+                  (leaf) value = 0x6E75, freq = 790
+                  (leaf) value = 0x7961, freq = 792
+                (node) freq = 1593
+                  (node) freq = 794
+                    (leaf) value = 0x7463, freq = 396
+                    (leaf) value = 0x0011, freq = 398
+                  (node) freq = 799
+                    (node) freq = 399
+                      (node) freq = 199
+                        (leaf) value = 0x276F, freq = 99
+                        (leaf) value = 0x6C66, freq = 100
+                      (node) freq = 200
+                        (node) freq = 100
+                          (leaf) value = 0x2164, freq = 50
+                          (leaf) value = 0x6E4B, freq = 50
+                        (node) freq = 100
+                          (node) freq = 50
+                            (leaf) value = 0x6E53, freq = 25
+                            (leaf) value = 0x7363, freq = 25
+                          (node) freq = 50
+                            (node) freq = 25
+                              (leaf) value = 0x7576, freq = 12
+                              (leaf) value = 0x016F, freq = 13
+                            (leaf) value = 0x7551, freq = 25
+                    (node) freq = 400
+                      (leaf) value = 0x6153, freq = 200
+                      (leaf) value = 0x4620, freq = 200
+            (node) freq = 6398
+              (node) freq = 3193
+                (leaf) value = 0x7275, freq = 1596
+                (leaf) value = 0x6420, freq = 1597
+              (node) freq = 3205
+                (leaf) value = 0x6968, freq = 1597
+                (node) freq = 1608
+                  (leaf) value = 0x6769, freq = 801
+                  (node) freq = 807
+                    (node) freq = 403
+                      (leaf) value = 0x4420, freq = 201
+                      (node) freq = 202
+                        (node) freq = 100
+                          (node) freq = 50
+                            (leaf) value = 0x0107, freq = 25
+                            (leaf) value = 0x012B, freq = 25
+                          (leaf) value = 0x6556, freq = 50
+                        (leaf) value = 0x2179, freq = 102
+                    (leaf) value = 0x6C70, freq = 404
+          (node) freq = 13089
+            (node) freq = 6521
+              (node) freq = 3232
+                (leaf) value = 0x206C, freq = 1608
+                (node) freq = 1624
+                  (node) freq = 810
+                    (node) freq = 404
+                      (leaf) value = 0x7566, freq = 202
+                      (leaf) value = 0x6148, freq = 202
+                    (leaf) value = 0x2774, freq = 406
+                  (leaf) value = 0x6D65, freq = 814
+              (node) freq = 3289
+                (node) freq = 1634
+                  (node) freq = 815
+                    (leaf) value = 0x1F20, freq = 407
+                    (node) freq = 408
+                      (node) freq = 204
+                        (leaf) value = 0x2C6F, freq = 102
+                        (node) freq = 102
+                          (leaf) value = 0x7747, freq = 51
+                          (leaf) value = 0x6F4A, freq = 51
+                      (leaf) value = 0x6975, freq = 204
+                  (node) freq = 819
+                    (leaf) value = 0x7965, freq = 408
+                    (node) freq = 411
+                      (node) freq = 205
+                        (node) freq = 102
+                          (leaf) value = 0x001E, freq = 51
+                          (leaf) value = 0x3F6F, freq = 51
+                        (leaf) value = 0x6374, freq = 103
+                      (node) freq = 206
+                        (leaf) value = 0x7120, freq = 103
+                        (leaf) value = 0x6F6A, freq = 103
+                (node) freq = 1655
+                  (node) freq = 826
+                    (leaf) value = 0x6261, freq = 413
+                    (leaf) value = 0x6B63, freq = 413
+                  (leaf) value = 0x000B, freq = 829
+            (leaf) value = 0x6874, freq = 6568
+        (node) freq = 27082
+          (node) freq = 13407
+            (node) freq = 6667
+              (node) freq = 3326
+                (node) freq = 1661
+                  (node) freq = 830
+                    (leaf) value = 0x6B20, freq = 415
+                    (node) freq = 415
+                      (node) freq = 207
+                        (leaf) value = 0x7479, freq = 103
+                        (leaf) value = 0x7645, freq = 104
+                      (node) freq = 208
+                        (node) freq = 104
+                          (node) freq = 52
+                            (leaf) value = 0x6F42, freq = 26
+                            (leaf) value = 0x6954, freq = 26
+                          (leaf) value = 0x2168, freq = 52
+                        (node) freq = 104
+                          (node) freq = 52
+                            (leaf) value = 0x2C49, freq = 26
+                            (leaf) value = 0x011E, freq = 26
+                          (node) freq = 52
+                            (node) freq = 26
+                              (leaf) value = 0x276D, freq = 13
+                              (leaf) value = 0x2032, freq = 13
+                            (node) freq = 26
+                              (leaf) value = 0x2767, freq = 13
+                              (leaf) value = 0x6A64, freq = 13
+                  (leaf) value = 0x6D69, freq = 831
+                (node) freq = 1665
+                  (leaf) value = 0x7372, freq = 832
+                  (node) freq = 833
+                    (node) freq = 416
+                      (leaf) value = 0x7379, freq = 208
+                      (leaf) value = 0x1F6C, freq = 208
+                    (leaf) value = 0x6F70, freq = 417
+              (node) freq = 3341
+                (node) freq = 1670
+                  (node) freq = 835
+                    (node) freq = 417
+                      (node) freq = 208
+                        (leaf) value = 0x6962, freq = 104
+                        (node) freq = 104
+                          (node) freq = 52
+                            (node) freq = 26
+                              (leaf) value = 0x6141, freq = 13
+                              (leaf) value = 0x2027, freq = 13
+                            (leaf) value = 0x010E, freq = 26
+                          (leaf) value = 0x6C64, freq = 52
+                      (node) freq = 209
+                        (leaf) value = 0x6542, freq = 104
+                        (leaf) value = 0x6E4F, freq = 105
+                    (node) freq = 418
+                      (leaf) value = 0x5920, freq = 209
+                      (leaf) value = 0x3F73, freq = 209
+                  (leaf) value = 0x6F77, freq = 835
+                (node) freq = 1671
+                  (leaf) value = 0x656B, freq = 835
+                  (leaf) value = 0x7274, freq = 836
+            (node) freq = 6740
+              (leaf) value = 0x7320, freq = 3366
+              (node) freq = 3374
+                (node) freq = 1679
+                  (node) freq = 839
+                    (leaf) value = 0x6552, freq = 419
+                    (node) freq = 420
+                      (leaf) value = 0x6970, freq = 210
+                      (leaf) value = 0x2E61, freq = 210
+                  (node) freq = 840
+                    (leaf) value = 0x2E72, freq = 420
+                    (leaf) value = 0x1F72, freq = 420
+                (leaf) value = 0x202E, freq = 1695
+          (node) freq = 13675
+            (node) freq = 6790
+              (leaf) value = 0x2049, freq = 3386
+              (leaf) value = 0x0000, freq = 3404
+            (node) freq = 6885
+              (node) freq = 3416
+                (node) freq = 1697
+                  (node) freq = 845
+                    (leaf) value = 0x6162, freq = 421
+                    (node) freq = 424
+                      (leaf) value = 0x7974, freq = 211
+                      (node) freq = 213
+                        (node) freq = 106
+                          (leaf) value = 0x724F, freq = 53
+                          (node) freq = 53
+                            (node) freq = 26
+                              (leaf) value = 0x0150, freq = 13
+                              (leaf) value = 0x2166, freq = 13
+                            (leaf) value = 0x016B, freq = 27
+                        (node) freq = 107
+                          (leaf) value = 0x6C6B, freq = 53
+                          (leaf) value = 0x1F70, freq = 54
+                  (leaf) value = 0x6570, freq = 852
+                (node) freq = 1719
+                  (node) freq = 857
+                    (node) freq = 427
+                      (leaf) value = 0x6965, freq = 213
+                      (leaf) value = 0x6B6E, freq = 214
+                    (leaf) value = 0x7562, freq = 430
+                  (node) freq = 862
+                    (node) freq = 430
+                      (leaf) value = 0x4D20, freq = 214
+                      (node) freq = 216
+                        (leaf) value = 0x6146, freq = 108
+                        (node) freq = 108
+                          (node) freq = 54
+                            (leaf) value = 0x3A70, freq = 27
+                            (leaf) value = 0x0105, freq = 27
+                          (node) freq = 54
+                            (leaf) value = 0x010A, freq = 27
+                            (leaf) value = 0x014A, freq = 27
+                    (node) freq = 432
+                      (node) freq = 216
+                        (node) freq = 108
+                          (node) freq = 54
+                            (leaf) value = 0x7467, freq = 27
+                            (leaf) value = 0x2C66, freq = 27
+                          (leaf) value = 0x6855, freq = 54
+                        (leaf) value = 0x7370, freq = 108
+                      (leaf) value = 0x1F75, freq = 216
+              (node) freq = 3469
+                (node) freq = 1732
+                  (leaf) value = 0x6520, freq = 865
+                  (leaf) value = 0x796C, freq = 867
+                (leaf) value = 0x6574, freq = 1737
+  (node) freq = 275663
+    (node) freq = 124365
+      (node) freq = 59364
+        (node) freq = 29014
+          (node) freq = 14265
+            (node) freq = 7054
+              (node) freq = 3497
+                (node) freq = 1740
+                  (leaf) value = 0x6863, freq = 870
+                  (node) freq = 870
+                    (node) freq = 434
+                      (node) freq = 216
+                        (leaf) value = 0x6554, freq = 108
+                        (leaf) value = 0x0025, freq = 108
+                      (leaf) value = 0x7561, freq = 218
+                    (leaf) value = 0x6F62, freq = 436
+                (node) freq = 1757
+                  (node) freq = 876
+                    (node) freq = 437
+                      (leaf) value = 0x3F65, freq = 218
+                      (node) freq = 219
+                        (node) freq = 109
+                          (leaf) value = 0x6947, freq = 54
+                          (node) freq = 55
+                            (leaf) value = 0x0111, freq = 27
+                            (leaf) value = 0x2170, freq = 28
+                        (leaf) value = 0x6144, freq = 110
+                    (leaf) value = 0x6C6F, freq = 439
+                  (node) freq = 881
+                    (leaf) value = 0x7250, freq = 440
+                    (node) freq = 441
+                      (leaf) value = 0x0004, freq = 220
+                      (leaf) value = 0x7246, freq = 221
+              (node) freq = 3557
+                (node) freq = 1770
+                  (leaf) value = 0x7373, freq = 884
+                  (node) freq = 886
+                    (node) freq = 442
+                      (leaf) value = 0x7620, freq = 221
+                      (leaf) value = 0x2E67, freq = 221
+                    (node) freq = 444
+                      (node) freq = 222
+                        (leaf) value = 0x3F68, freq = 111
+                        (leaf) value = 0x2173, freq = 111
+                      (leaf) value = 0x5020, freq = 222
+                (node) freq = 1787
+                  (node) freq = 891
+                    (leaf) value = 0x7472, freq = 444
+                    (node) freq = 447
+                      (node) freq = 223
+                        (node) freq = 111
+                          (leaf) value = 0x657A, freq = 55
+                          (node) freq = 56
+                            (leaf) value = 0x7967, freq = 28
+                            (leaf) value = 0x7245, freq = 28
+                        (node) freq = 112
+                          (node) freq = 56
+                            (node) freq = 28
+                              (node) freq = 14
+                                (leaf) value = 0x1F32, freq = 7
+                                (node) freq = 7
+                                  (leaf) value = 0x3A6E, freq = 3
+                                  (node) freq = 4
+                                    (leaf) value = 0x6F56, freq = 2
+                                    (leaf) value = 0x4327, freq = 2
+                              (leaf) value = 0x1F94, freq = 14
+                            (leaf) value = 0x011A, freq = 28
+                          (leaf) value = 0x654A, freq = 56
+                      (node) freq = 224
+                        (node) freq = 112
+                          (node) freq = 56
+                            (leaf) value = 0x5520, freq = 28
+                            (node) freq = 28
+                              (node) freq = 14
+                                (leaf) value = 0x1F3A, freq = 7
+                                (leaf) value = 0x2768, freq = 7
+                              (node) freq = 14
+                                (leaf) value = 0x2054, freq = 7
+                                (leaf) value = 0x6850, freq = 7
+                          (node) freq = 56
+                            (node) freq = 28
+                              (leaf) value = 0x0144, freq = 14
+                              (leaf) value = 0x2D74, freq = 14
+                            (node) freq = 28
+                              (node) freq = 14
+                                (leaf) value = 0x686F, freq = 7
+                                (leaf) value = 0x764F, freq = 7
+                              (node) freq = 14
+                                (leaf) value = 0x0136, freq = 7
+                                (leaf) value = 0x666D, freq = 7
+                        (node) freq = 112
+                          (node) freq = 56
+                            (node) freq = 28
+                              (node) freq = 14
+                                (leaf) value = 0x6273, freq = 7
+                                (leaf) value = 0x2D64, freq = 7
+                              (leaf) value = 0x6C43, freq = 14
+                            (node) freq = 28
+                              (node) freq = 14
+                                (leaf) value = 0x6268, freq = 7
+                                (leaf) value = 0x2D50, freq = 7
+                              (node) freq = 14
+                                (leaf) value = 0x2D6C, freq = 7
+                                (leaf) value = 0x2D6F, freq = 7
+                          (node) freq = 56
+                            (node) freq = 28
+                              (node) freq = 14
+                                (leaf) value = 0x013B, freq = 7
+                                (leaf) value = 0x4148, freq = 7
+                              (node) freq = 14
+                                (leaf) value = 0x6E6D, freq = 7
+                                (leaf) value = 0x013A, freq = 7
+                            (leaf) value = 0x2773, freq = 28
+                  (node) freq = 896
+                    (node) freq = 448
+                      (node) freq = 224
+                        (node) freq = 112
+                          (node) freq = 56
+                            (leaf) value = 0x6C79, freq = 28
+                            (node) freq = 28
+                              (leaf) value = 0x7547, freq = 14
+                              (leaf) value = 0x7543, freq = 14
+                          (node) freq = 56
+                            (node) freq = 28
+                              (leaf) value = 0x2E69, freq = 14
+                              (node) freq = 14
+                                (leaf) value = 0x202D, freq = 7
+                                (leaf) value = 0x2D79, freq = 7
+                            (node) freq = 28
+                              (leaf) value = 0x6145, freq = 14
+                              (node) freq = 14
+                                (leaf) value = 0x7976, freq = 7
+                                (leaf) value = 0x013C, freq = 7
+                        (node) freq = 112
+                          (leaf) value = 0x7244, freq = 56
+                          (node) freq = 56
+                            (node) freq = 28
+                              (node) freq = 14
+                                (leaf) value = 0x6F2D, freq = 7
+                                (leaf) value = 0x9421, freq = 7
+                              (node) freq = 14
+                                (leaf) value = 0x013D, freq = 7
+                                (leaf) value = 0x624F, freq = 7
+                            (node) freq = 28
+                              (node) freq = 14
+                                (leaf) value = 0x764C, freq = 7
+                                (leaf) value = 0x797A, freq = 7
+                              (node) freq = 14
+                                (leaf) value = 0x3A65, freq = 7
+                                (leaf) value = 0x207A, freq = 7
+                      (leaf) value = 0x614D, freq = 224
+                    (leaf) value = 0x736F, freq = 448
+            (node) freq = 7211
+              (node) freq = 3598
+                (leaf) value = 0x6C61, freq = 1790
+                (node) freq = 1808
+                  (node) freq = 903
+                    (node) freq = 450
+                      (node) freq = 225
+                        (leaf) value = 0x656F, freq = 112
+                        (node) freq = 113
+                          (leaf) value = 0x6672, freq = 56
+                          (leaf) value = 0x6363, freq = 57
+                      (leaf) value = 0x2C75, freq = 225
+                    (node) freq = 453
+                      (leaf) value = 0x7065, freq = 226
+                      (node) freq = 227
+                        (leaf) value = 0x2C68, freq = 113
+                        (leaf) value = 0x7470, freq = 114
+                  (leaf) value = 0x7475, freq = 905
+              (leaf) value = 0x6F79, freq = 3613
+          (node) freq = 14749
+            (node) freq = 7337
+              (node) freq = 3644
+                (node) freq = 1816
+                  (leaf) value = 0x6C75, freq = 907
+                  (node) freq = 909
+                    (leaf) value = 0x684F, freq = 454
+                    (node) freq = 455
+                      (leaf) value = 0x1F67, freq = 227
+                      (node) freq = 228
+                        (node) freq = 114
+                          (leaf) value = 0x7745, freq = 57
+                          (leaf) value = 0x6D41, freq = 57
+                        (leaf) value = 0x6948, freq = 114
+                (leaf) value = 0x6320, freq = 1828
+              (node) freq = 3693
+                (node) freq = 1841
+                  (node) freq = 918
+                    (node) freq = 458
+                      (leaf) value = 0x2C6E, freq = 228
+                      (node) freq = 230
+                        (leaf) value = 0x6979, freq = 115
+                        (leaf) value = 0x6F54, freq = 115
+                    (leaf) value = 0x2E64, freq = 460
+                  (leaf) value = 0x6174, freq = 923
+                (leaf) value = 0x4920, freq = 1852
+            (node) freq = 7412
+              (leaf) value = 0x6E61, freq = 3701
+              (node) freq = 3711
+                (node) freq = 1852
+                  (node) freq = 924
+                    (leaf) value = 0x6F69, freq = 462
+                    (node) freq = 462
+                      (node) freq = 231
+                        (node) freq = 115
+                          (leaf) value = 0x6147, freq = 57
+                          (leaf) value = 0x2761, freq = 58
+                        (node) freq = 116
+                          (node) freq = 58
+                            (leaf) value = 0x0110, freq = 29
+                            (leaf) value = 0x2030, freq = 29
+                          (node) freq = 58
+                            (leaf) value = 0x6D79, freq = 29
+                            (leaf) value = 0x6C47, freq = 29
+                      (leaf) value = 0x0005, freq = 231
+                  (node) freq = 928
+                    (leaf) value = 0x696D, freq = 463
+                    (node) freq = 465
+                      (node) freq = 232
+                        (node) freq = 116
+                          (node) freq = 58
+                            (leaf) value = 0x6764, freq = 29
+                            (leaf) value = 0x6561, freq = 29
+                          (node) freq = 58
+                            (node) freq = 29
+                              (node) freq = 14
+                                (leaf) value = 0x942C, freq = 7
+                                (leaf) value = 0x6F75, freq = 7
+                              (leaf) value = 0x2094, freq = 15
+                            (leaf) value = 0x0120, freq = 29
+                        (leaf) value = 0x2C61, freq = 116
+                      (leaf) value = 0x7627, freq = 233
+                (node) freq = 1859
+                  (leaf) value = 0x646C, freq = 929
+                  (leaf) value = 0x6565, freq = 930
+        (node) freq = 30350
+          (node) freq = 15009
+            (node) freq = 7474
+              (leaf) value = 0x7720, freq = 3735
+              (leaf) value = 0x7461, freq = 3739
+            (node) freq = 7535
+              (node) freq = 3739
+                (leaf) value = 0x656C, freq = 1864
+                (node) freq = 1875
+                  (node) freq = 933
+                    (leaf) value = 0x5320, freq = 465
+                    (node) freq = 468
+                      (node) freq = 233
+                        (leaf) value = 0x6865, freq = 116
+                        (leaf) value = 0x7367, freq = 117
+                      (node) freq = 235
+                        (leaf) value = 0x706C, freq = 117
+                        (leaf) value = 0x2C77, freq = 118
+                  (leaf) value = 0x7465, freq = 942
+              (node) freq = 3796
+                (node) freq = 1896
+                  (node) freq = 944
+                    (node) freq = 471
+                      (leaf) value = 0x626D, freq = 235
+                      (node) freq = 236
+                        (node) freq = 118
+                          (node) freq = 59
+                            (leaf) value = 0x7145, freq = 29
+                            (leaf) value = 0x0118, freq = 30
+                          (leaf) value = 0x7970, freq = 59
+                        (leaf) value = 0x2E77, freq = 118
+                    (node) freq = 473
+                      (node) freq = 236
+                        (leaf) value = 0x4B20, freq = 118
+                        (leaf) value = 0x4220, freq = 118
+                      (leaf) value = 0x2165, freq = 237
+                  (leaf) value = 0x6C69, freq = 952
+                (leaf) value = 0x6620, freq = 1900
+          (node) freq = 15341
+            (leaf) value = 0x7420, freq = 7630
+            (node) freq = 7711
+              (node) freq = 3838
+                (node) freq = 1911
+                  (leaf) value = 0x276E, freq = 954
+                  (node) freq = 957
+                    (node) freq = 477
+                      (node) freq = 238
+                        (node) freq = 119
+                          (leaf) value = 0x4F20, freq = 59
+                          (leaf) value = 0x6D55, freq = 60
+                        (leaf) value = 0x6C6E, freq = 119
+                      (leaf) value = 0x696F, freq = 239
+                    (node) freq = 480
+                      (node) freq = 240
+                        (node) freq = 120
+                          (node) freq = 60
+                            (leaf) value = 0x3F2E, freq = 30
+                            (leaf) value = 0x0146, freq = 30
+                          (node) freq = 60
+                            (node) freq = 30
+                              (leaf) value = 0x2D72, freq = 15
+                              (leaf) value = 0x276C, freq = 15
+                            (leaf) value = 0x011B, freq = 30
+                        (node) freq = 120
+                          (node) freq = 60
+                            (leaf) value = 0x6C7A, freq = 30
+                            (leaf) value = 0x0116, freq = 30
+                          (leaf) value = 0x6D6C, freq = 60
+                      (node) freq = 240
+                        (node) freq = 120
+                          (node) freq = 60
+                            (node) freq = 30
+                              (leaf) value = 0x7255, freq = 15
+                              (leaf) value = 0x3F70, freq = 15
+                            (node) freq = 30
+                              (leaf) value = 0x014B, freq = 15
+                              (leaf) value = 0x772D, freq = 15
+                          (node) freq = 60
+                            (leaf) value = 0x3031, freq = 30
+                            (node) freq = 30
+                              (leaf) value = 0x7977, freq = 15
+                              (leaf) value = 0x6664, freq = 15
+                        (leaf) value = 0x7968, freq = 120
+                (leaf) value = 0x6465, freq = 1927
+              (node) freq = 3873
+                (node) freq = 1932
+                  (leaf) value = 0x2068, freq = 962
+                  (node) freq = 970
+                    (node) freq = 485
+                      (leaf) value = 0x7262, freq = 241
+                      (node) freq = 244
+                        (node) freq = 122
+                          (leaf) value = 0x6956, freq = 61
+                          (leaf) value = 0x6952, freq = 61
+                        (node) freq = 122
+                          (leaf) value = 0x6641, freq = 61
+                          (leaf) value = 0x6F52, freq = 61
+                    (leaf) value = 0x696E, freq = 485
+                (node) freq = 1941
+                  (leaf) value = 0x6461, freq = 970
+                  (leaf) value = 0x616D, freq = 971
+      (node) freq = 65001
+        (node) freq = 31936
+          (node) freq = 15797
+            (node) freq = 7821
+              (node) freq = 3900
+                (leaf) value = 0x6854, freq = 1950
+                (leaf) value = 0x6165, freq = 1950
+              (node) freq = 3921
+                (node) freq = 1955
+                  (node) freq = 975
+                    (leaf) value = 0x6365, freq = 486
+                    (leaf) value = 0x6D61, freq = 489
+                  (node) freq = 980
+                    (node) freq = 489
+                      (leaf) value = 0x0102, freq = 244
+                      (leaf) value = 0x6963, freq = 245
+                    (node) freq = 491
+                      (node) freq = 245
+                        (leaf) value = 0x6E73, freq = 122
+                        (leaf) value = 0x7568, freq = 123
+                      (leaf) value = 0x2041, freq = 246
+                (node) freq = 1966
+                  (leaf) value = 0x6361, freq = 980
+                  (leaf) value = 0x1F21, freq = 986
+            (node) freq = 7976
+              (node) freq = 3981
+                (node) freq = 1986
+                  (node) freq = 990
+                    (node) freq = 494
+                      (node) freq = 247
+                        (leaf) value = 0x6F4D, freq = 123
+                        (node) freq = 124
+                          (leaf) value = 0x0006, freq = 62
+                          (leaf) value = 0x654D, freq = 62
+                      (leaf) value = 0x5720, freq = 247
+                    (leaf) value = 0x6B69, freq = 496
+                  (leaf) value = 0x6F66, freq = 996
+                (leaf) value = 0x656E, freq = 1995
+              (leaf) value = 0x202C, freq = 3995
+          (node) freq = 16139
+            (node) freq = 8008
+              (node) freq = 3996
+                (node) freq = 1996
+                  (node) freq = 996
+                    (node) freq = 496
+                      (leaf) value = 0x7075, freq = 248
+                      (node) freq = 248
+                        (node) freq = 124
+                          (leaf) value = 0x4127, freq = 62
+                          (node) freq = 62
+                            (leaf) value = 0x7845, freq = 31
+                            (leaf) value = 0x0108, freq = 31
+                        (node) freq = 124
+                          (node) freq = 62
+                            (leaf) value = 0x682D, freq = 31
+                            (leaf) value = 0x011C, freq = 31
+                          (node) freq = 62
+                            (leaf) value = 0x0109, freq = 31
+                            (node) freq = 31
+                              (leaf) value = 0x2121, freq = 15
+                              (leaf) value = 0x6C77, freq = 16
+                    (leaf) value = 0x0008, freq = 500
+                  (leaf) value = 0x6F63, freq = 1000
+                (leaf) value = 0x6573, freq = 2000
+              (node) freq = 4012
+                (node) freq = 2003
+                  (leaf) value = 0x6F68, freq = 1000
+                  (node) freq = 1003
+                    (node) freq = 501
+                      (leaf) value = 0x6870, freq = 250
+                      (node) freq = 251
+                        (leaf) value = 0x6F65, freq = 125
+                        (leaf) value = 0x1F49, freq = 126
+                    (leaf) value = 0x7061, freq = 502
+                (leaf) value = 0x646E, freq = 2009
+            (node) freq = 8131
+              (node) freq = 4037
+                (node) freq = 2015
+                  (node) freq = 1007
+                    (leaf) value = 0x6559, freq = 503
+                    (node) freq = 504
+                      (leaf) value = 0x6F43, freq = 252
+                      (leaf) value = 0x4C20, freq = 252
+                  (node) freq = 1008
+                    (leaf) value = 0x6E41, freq = 504
+                    (leaf) value = 0x6369, freq = 504
+                (node) freq = 2022
+                  (leaf) value = 0x6961, freq = 1009
+                  (node) freq = 1013
+                    (leaf) value = 0x2E79, freq = 506
+                    (leaf) value = 0x2E6E, freq = 507
+              (node) freq = 4094
+                (node) freq = 2040
+                  (node) freq = 1016
+                    (node) freq = 507
+                      (node) freq = 253
+                        (node) freq = 126
+                          (leaf) value = 0x6843, freq = 63
+                          (leaf) value = 0x664F, freq = 63
+                        (leaf) value = 0x7264, freq = 127
+                      (node) freq = 254
+                        (leaf) value = 0x6C72, freq = 127
+                        (leaf) value = 0x000F, freq = 127
+                    (node) freq = 509
+                      (node) freq = 254
+                        (node) freq = 127
+                          (node) freq = 63
+                            (leaf) value = 0x0124, freq = 31
+                            (node) freq = 32
+                              (node) freq = 16
+                                (node) freq = 8
+                                  (node) freq = 4
+                                    (node) freq = 2
+                                      (leaf) value = 0x5845, freq = 1
+                                      (leaf) value = 0x786E, freq = 1
+                                    (node) freq = 2
+                                      (leaf) value = 0x564C, freq = 1
+                                      (leaf) value = 0x5722, freq = 1
+                                  (node) freq = 4
+                                    (node) freq = 2
+                                      (leaf) value = 0x1F57, freq = 1
+                                      (leaf) value = 0x2C43, freq = 1
+                                    (node) freq = 2
+                                      (leaf) value = 0x1F55, freq = 1
+                                      (leaf) value = 0x5445, freq = 1
+                                (node) freq = 8
+                                  (node) freq = 4
+                                    (leaf) value = 0x7556, freq = 2
+                                    (node) freq = 2
+                                      (leaf) value = 0x296C, freq = 1
+                                      (leaf) value = 0x5242, freq = 1
+                                  (node) freq = 4
+                                    (leaf) value = 0x5428, freq = 2
+                                    (node) freq = 2
+                                      (leaf) value = 0x6959, freq = 1
+                                      (leaf) value = 0x015E, freq = 1
+                              (node) freq = 16
+                                (node) freq = 8
+                                  (leaf) value = 0x7945, freq = 4
+                                  (node) freq = 4
+                                    (leaf) value = 0x4F47, freq = 2
+                                    (node) freq = 2
+                                      (leaf) value = 0x7350, freq = 1
+                                      (leaf) value = 0x4D59, freq = 1
+                                (node) freq = 8
+                                  (node) freq = 4
+                                    (node) freq = 2
+                                      (leaf) value = 0x3045, freq = 1
+                                      (leaf) value = 0x3049, freq = 1
+                                    (node) freq = 2
+                                      (leaf) value = 0x542E, freq = 1
+                                      (leaf) value = 0x7579, freq = 1
+                                  (node) freq = 4
+                                    (node) freq = 2
+                                      (leaf) value = 0x674E, freq = 1
+                                      (leaf) value = 0x2F34, freq = 1
+                                    (node) freq = 2
+                                      (leaf) value = 0x014E, freq = 1
+                                      (leaf) value = 0x2044, freq = 1
+                          (node) freq = 64
+                            (leaf) value = 0x0123, freq = 32
+                            (leaf) value = 0x7779, freq = 32
+                        (leaf) value = 0x7761, freq = 127
+                      (leaf) value = 0x6A20, freq = 255
+                  (node) freq = 1024
+                    (node) freq = 512
+                      (node) freq = 256
+                        (node) freq = 128
+                          (node) freq = 64
+                            (node) freq = 32
+                              (node) freq = 16
+                                (leaf) value = 0x1F41, freq = 8
+                                (node) freq = 8
+                                  (node) freq = 4
+                                    (node) freq = 2
+                                      (leaf) value = 0x4E53, freq = 1
+                                      (leaf) value = 0x4F44, freq = 1
+                                    (node) freq = 2
+                                      (leaf) value = 0x7434, freq = 1
+                                      (leaf) value = 0x4F48, freq = 1
+                                  (node) freq = 4
+                                    (leaf) value = 0x7993, freq = 2
+                                    (leaf) value = 0x7A20, freq = 2
+                              (node) freq = 16
+                                (leaf) value = 0x2E50, freq = 8
+                                (leaf) value = 0x2045, freq = 8
+                            (node) freq = 32
+                              (node) freq = 16
+                                (node) freq = 8
+                                  (leaf) value = 0x0156, freq = 4
+                                  (leaf) value = 0x3032, freq = 4
+                                (node) freq = 8
+                                  (leaf) value = 0x3320, freq = 4
+                                  (node) freq = 4
+                                    (leaf) value = 0x3278, freq = 2
+                                    (leaf) value = 0x3350, freq = 2
+                              (node) freq = 16
+                                (node) freq = 8
+                                  (node) freq = 4
+                                    (node) freq = 2
+                                      (leaf) value = 0x3432, freq = 1
+                                      (leaf) value = 0x3478, freq = 1
+                                    (leaf) value = 0x3620, freq = 2
+                                  (leaf) value = 0x0162, freq = 4
+                                (node) freq = 8
+                                  (leaf) value = 0x3720, freq = 4
+                                  (leaf) value = 0x3820, freq = 4
+                          (node) freq = 64
+                            (node) freq = 32
+                              (node) freq = 16
+                                (node) freq = 8
+                                  (node) freq = 4
+                                    (node) freq = 2
+                                      (leaf) value = 0x3174, freq = 1
+                                      (leaf) value = 0x322F, freq = 1
+                                    (node) freq = 2
+                                      (leaf) value = 0x6848, freq = 1
+                                      (leaf) value = 0x2059, freq = 1
+                                  (leaf) value = 0x0132, freq = 4
+                                (node) freq = 8
+                                  (node) freq = 4
+                                    (node) freq = 2
+                                      (leaf) value = 0x6D2E, freq = 1
+                                      (leaf) value = 0x6D4E, freq = 1
+                                    (leaf) value = 0x6C4F, freq = 2
+                                  (leaf) value = 0x6D93, freq = 4
+                              (node) freq = 16
+                                (node) freq = 8
+                                  (node) freq = 4
+                                    (leaf) value = 0x1F50, freq = 2
+                                    (leaf) value = 0x5349, freq = 2
+                                  (node) freq = 4
+                                    (leaf) value = 0x524F, freq = 2
+                                    (leaf) value = 0x7555, freq = 2
+                                (node) freq = 8
+                                  (node) freq = 4
+                                    (node) freq = 2
+                                      (leaf) value = 0x6745, freq = 1
+                                      (leaf) value = 0x2F33, freq = 1
+                                    (node) freq = 2
+                                      (leaf) value = 0x2F53, freq = 1
+                                      (leaf) value = 0x6768, freq = 1
+                                  (node) freq = 4
+                                    (node) freq = 2
+                                      (leaf) value = 0x686C, freq = 1
+                                      (leaf) value = 0x3149, freq = 1
+                                    (node) freq = 2
+                                      (leaf) value = 0x6879, freq = 1
+                                      (leaf) value = 0x3330, freq = 1
+                            (node) freq = 32
+                              (node) freq = 16
+                                (node) freq = 8
+                                  (leaf) value = 0x666B, freq = 4
+                                  (node) freq = 4
+                                    (node) freq = 2
+                                      (leaf) value = 0x6A6F, freq = 1
+                                      (leaf) value = 0x3A46, freq = 1
+                                    (leaf) value = 0x3A64, freq = 2
+                                (node) freq = 8
+                                  (node) freq = 4
+                                    (leaf) value = 0x2E32, freq = 2
+                                    (leaf) value = 0x6545, freq = 2
+                                  (leaf) value = 0x662D, freq = 4
+                              (node) freq = 16
+                                (leaf) value = 0x1F29, freq = 8
+                                (node) freq = 8
+                                  (node) freq = 4
+                                    (node) freq = 2
+                                      (leaf) value = 0x454C, freq = 1
+                                      (leaf) value = 0x6F93, freq = 1
+                                    (node) freq = 2
+                                      (leaf) value = 0x00E9, freq = 1
+                                      (leaf) value = 0x4547, freq = 1
+                                  (leaf) value = 0x2D41, freq = 4
+                        (node) freq = 128
+                          (node) freq = 64
+                            (leaf) value = 0xFFFF, freq = 32
+                            (node) freq = 32
+                              (leaf) value = 0x7565, freq = 16
+                              (node) freq = 16
+                                (node) freq = 8
+                                  (node) freq = 4
+                                    (node) freq = 2
+                                      (leaf) value = 0x4742, freq = 1
+                                      (leaf) value = 0x2520, freq = 1
+                                    (node) freq = 2
+                                      (leaf) value = 0x1F2F, freq = 1
+                                      (leaf) value = 0x6F6B, freq = 1
+                                  (node) freq = 4
+                                    (node) freq = 2
+                                      (leaf) value = 0x4942, freq = 1
+                                      (leaf) value = 0x724D, freq = 1
+                                    (node) freq = 2
+                                      (leaf) value = 0x716F, freq = 1
+                                      (leaf) value = 0x4893, freq = 1
+                                (node) freq = 8
+                                  (node) freq = 4
+                                    (node) freq = 2
+                                      (leaf) value = 0x4E2D, freq = 1
+                                      (leaf) value = 0x4E52, freq = 1
+                                    (node) freq = 2
+                                      (leaf) value = 0x7450, freq = 1
+                                      (leaf) value = 0x7455, freq = 1
+                                  (node) freq = 4
+                                    (leaf) value = 0x7943, freq = 2
+                                    (node) freq = 2
+                                      (leaf) value = 0x2C33, freq = 1
+                                      (leaf) value = 0x7575, freq = 1
+                          (node) freq = 64
+                            (node) freq = 32
+                              (node) freq = 16
+                                (node) freq = 8
+                                  (node) freq = 4
+                                    (leaf) value = 0x9472, freq = 2
+                                    (leaf) value = 0x9474, freq = 2
+                                  (node) freq = 4
+                                    (node) freq = 2
+                                      (leaf) value = 0x414C, freq = 1
+                                      (leaf) value = 0x4152, freq = 1
+                                    (node) freq = 2
+                                      (leaf) value = 0x6E4E, freq = 1
+                                      (leaf) value = 0x6E52, freq = 1
+                                (node) freq = 8
+                                  (node) freq = 4
+                                    (leaf) value = 0x2E44, freq = 2
+                                    (leaf) value = 0x2E49, freq = 2
+                                  (node) freq = 4
+                                    (leaf) value = 0x6274, freq = 2
+                                    (node) freq = 2
+                                      (leaf) value = 0x3A61, freq = 1
+                                      (leaf) value = 0x3A67, freq = 1
+                              (node) freq = 16
+                                (node) freq = 8
+                                  (node) freq = 4
+                                    (node) freq = 2
+                                      (leaf) value = 0x7777, freq = 1
+                                      (leaf) value = 0x7793, freq = 1
+                                    (node) freq = 2
+                                      (leaf) value = 0x594D, freq = 1
+                                      (leaf) value = 0x6128, freq = 1
+                                  (node) freq = 4
+                                    (node) freq = 2
+                                      (leaf) value = 0x5528, freq = 1
+                                      (leaf) value = 0x5554, freq = 1
+                                    (node) freq = 2
+                                      (leaf) value = 0x7A74, freq = 1
+                                      (leaf) value = 0x7A75, freq = 1
+                                (node) freq = 8
+                                  (node) freq = 4
+                                    (leaf) value = 0x4C4C, freq = 2
+                                    (leaf) value = 0x4D4D, freq = 2
+                                  (node) freq = 4
+                                    (leaf) value = 0x7875, freq = 2
+                                    (leaf) value = 0x5993, freq = 2
+                            (node) freq = 32
+                              (node) freq = 16
+                                (leaf) value = 0x6546, freq = 8
+                                (leaf) value = 0x5493, freq = 8
+                              (node) freq = 16
+                                (leaf) value = 0x7368, freq = 8
+                                (leaf) value = 0x2D57, freq = 8
+                      (node) freq = 256
+                        (node) freq = 128
+                          (node) freq = 64
+                            (node) freq = 32
+                              (leaf) value = 0x654B, freq = 16
+                              (leaf) value = 0x6645, freq = 16
+                            (node) freq = 32
+                              (node) freq = 16
+                                (leaf) value = 0x0153, freq = 8
+                                (leaf) value = 0x7667, freq = 8
+                              (node) freq = 16
+                                (leaf) value = 0x3035, freq = 8
+                                (leaf) value = 0x7079, freq = 8
+                          (node) freq = 64
+                            (node) freq = 32
+                              (node) freq = 16
+                                (node) freq = 8
+                                  (leaf) value = 0x2D45, freq = 4
+                                  (leaf) value = 0x617A, freq = 4
+                                (node) freq = 8
+                                  (leaf) value = 0x2D43, freq = 4
+                                  (leaf) value = 0x1F62, freq = 4
+                              (node) freq = 16
+                                (node) freq = 8
+                                  (leaf) value = 0x2055, freq = 4
+                                  (node) freq = 4
+                                    (node) freq = 2
+                                      (leaf) value = 0x204E, freq = 1
+                                      (leaf) value = 0x2F32, freq = 1
+                                    (leaf) value = 0x2F4E, freq = 2
+                                (node) freq = 8
+                                  (node) freq = 4
+                                    (node) freq = 2
+                                      (leaf) value = 0x2D62, freq = 1
+                                      (leaf) value = 0x6345, freq = 1
+                                    (leaf) value = 0x6393, freq = 2
+                                  (leaf) value = 0x2E35, freq = 4
+                            (node) freq = 32
+                              (node) freq = 16
+                                (leaf) value = 0x3920, freq = 8
+                                (node) freq = 8
+                                  (leaf) value = 0x2069, freq = 4
+                                  (leaf) value = 0x7941, freq = 4
+                              (node) freq = 16
+                                (leaf) value = 0x3F66, freq = 8
+                                (node) freq = 8
+                                  (leaf) value = 0x0169, freq = 4
+                                  (leaf) value = 0x3F4B, freq = 4
+                        (node) freq = 128
+                          (node) freq = 64
+                            (node) freq = 32
+                              (node) freq = 16
+                                (node) freq = 8
+                                  (node) freq = 4
+                                    (node) freq = 2
+                                      (leaf) value = 0x2E43, freq = 1
+                                      (leaf) value = 0x014C, freq = 1
+                                    (node) freq = 2
+                                      (leaf) value = 0x2D70, freq = 1
+                                      (leaf) value = 0x6445, freq = 1
+                                  (node) freq = 4
+                                    (leaf) value = 0x5431, freq = 2
+                                    (node) freq = 2
+                                      (leaf) value = 0x6779, freq = 1
+                                      (leaf) value = 0x3034, freq = 1
+                                (node) freq = 8
+                                  (node) freq = 4
+                                    (node) freq = 2
+                                      (leaf) value = 0x3A68, freq = 1
+                                      (leaf) value = 0x3A6D, freq = 1
+                                    (node) freq = 2
+                                      (leaf) value = 0x5328, freq = 1
+                                      (leaf) value = 0x532D, freq = 1
+                                  (node) freq = 4
+                                    (leaf) value = 0x5427, freq = 2
+                                    (leaf) value = 0x1F53, freq = 2
+                              (node) freq = 16
+                                (node) freq = 8
+                                  (node) freq = 4
+                                    (leaf) value = 0x6A72, freq = 2
+                                    (node) freq = 2
+                                      (leaf) value = 0x3550, freq = 1
+                                      (leaf) value = 0x6969, freq = 1
+                                  (node) freq = 4
+                                    (node) freq = 2
+                                      (leaf) value = 0x7252, freq = 1
+                                      (leaf) value = 0x2763, freq = 1
+                                    (leaf) value = 0x1F38, freq = 2
+                                (node) freq = 8
+                                  (node) freq = 4
+                                    (node) freq = 2
+                                      (leaf) value = 0x3132, freq = 1
+                                      (leaf) value = 0x3145, freq = 1
+                                    (leaf) value = 0x3250, freq = 2
+                                  (node) freq = 4
+                                    (leaf) value = 0x2F73, freq = 2
+                                    (leaf) value = 0x3020, freq = 2
+                            (node) freq = 32
+                              (node) freq = 16
+                                (node) freq = 8
+                                  (leaf) value = 0x7064, freq = 4
+                                  (node) freq = 4
+                                    (leaf) value = 0x4853, freq = 2
+                                    (leaf) value = 0x7228, freq = 2
+                                (node) freq = 8
+                                  (leaf) value = 0x217A, freq = 4
+                                  (leaf) value = 0x4553, freq = 4
+                              (node) freq = 16
+                                (node) freq = 8
+                                  (node) freq = 4
+                                    (leaf) value = 0x2152, freq = 2
+                                    (leaf) value = 0x3F69, freq = 2
+                                  (leaf) value = 0x4142, freq = 4
+                                (node) freq = 8
+                                  (leaf) value = 0x2148, freq = 4
+                                  (node) freq = 4
+                                    (leaf) value = 0x3A77, freq = 2
+                                    (leaf) value = 0x3D20, freq = 2
+                          (node) freq = 64
+                            (node) freq = 32
+                              (node) freq = 16
+                                (node) freq = 8
+                                  (node) freq = 4
+                                    (leaf) value = 0x4159, freq = 2
+                                    (leaf) value = 0x4293, freq = 2
+                                  (node) freq = 4
+                                    (leaf) value = 0x4141, freq = 2
+                                    (node) freq = 2
+                                      (leaf) value = 0x6E4D, freq = 1
+                                      (leaf) value = 0x1F25, freq = 1
+                                (node) freq = 8
+                                  (node) freq = 4
+                                    (node) freq = 2
+                                      (leaf) value = 0x010B, freq = 1
+                                      (leaf) value = 0x2D4A, freq = 1
+                                    (node) freq = 2
+                                      (leaf) value = 0x7A79, freq = 1
+                                      (leaf) value = 0x2C76, freq = 1
+                                  (node) freq = 4
+                                    (node) freq = 2
+                                      (leaf) value = 0x2D32, freq = 1
+                                      (leaf) value = 0x2D33, freq = 1
+                                    (node) freq = 2
+                                      (leaf) value = 0x6228, freq = 1
+                                      (leaf) value = 0x2D4D, freq = 1
+                              (node) freq = 16
+                                (node) freq = 8
+                                  (node) freq = 4
+                                    (node) freq = 2
+                                      (leaf) value = 0x6470, freq = 1
+                                      (leaf) value = 0x2E25, freq = 1
+                                    (node) freq = 2
+                                      (leaf) value = 0x6462, freq = 1
+                                      (leaf) value = 0x2D78, freq = 1
+                                  (node) freq = 4
+                                    (node) freq = 2
+                                      (leaf) value = 0x2047, freq = 1
+                                      (leaf) value = 0x6728, freq = 1
+                                    (node) freq = 2
+                                      (leaf) value = 0x6644, freq = 1
+                                      (leaf) value = 0x2046, freq = 1
+                                (node) freq = 8
+                                  (node) freq = 4
+                                    (leaf) value = 0x7354, freq = 2
+                                    (leaf) value = 0x4D93, freq = 2
+                                  (node) freq = 4
+                                    (leaf) value = 0x2755, freq = 2
+                                    (node) freq = 2
+                                      (leaf) value = 0x482F, freq = 1
+                                      (leaf) value = 0x4848, freq = 1
+                            (node) freq = 32
+                              (leaf) value = 0x2777, freq = 16
+                              (leaf) value = 0x2C7A, freq = 16
+                    (node) freq = 512
+                      (node) freq = 256
+                        (node) freq = 128
+                          (node) freq = 64
+                            (node) freq = 32
+                              (node) freq = 16
+                                (node) freq = 8
+                                  (node) freq = 4
+                                    (leaf) value = 0x2E33, freq = 2
+                                    (node) freq = 2
+                                      (leaf) value = 0x6477, freq = 1
+                                      (leaf) value = 0x6541, freq = 1
+                                  (node) freq = 4
+                                    (leaf) value = 0x2038, freq = 2
+                                    (leaf) value = 0x014F, freq = 2
+                                (node) freq = 8
+                                  (node) freq = 4
+                                    (node) freq = 2
+                                      (leaf) value = 0x6264, freq = 1
+                                      (leaf) value = 0x2D4F, freq = 1
+                                    (leaf) value = 0x6354, freq = 2
+                                  (node) freq = 4
+                                    (node) freq = 2
+                                      (leaf) value = 0x4144, freq = 1
+                                      (leaf) value = 0x6E93, freq = 1
+                                    (node) freq = 2
+                                      (leaf) value = 0x422F, freq = 1
+                                      (leaf) value = 0x432B, freq = 1
+                              (node) freq = 16
+                                (node) freq = 8
+                                  (leaf) value = 0x276B, freq = 4
+                                  (node) freq = 4
+                                    (leaf) value = 0x6593, freq = 2
+                                    (leaf) value = 0x6628, freq = 2
+                                (leaf) value = 0x1F30, freq = 8
+                            (node) freq = 32
+                              (node) freq = 16
+                                (leaf) value = 0x2820, freq = 8
+                                (node) freq = 8
+                                  (leaf) value = 0x2C31, freq = 4
+                                  (node) freq = 4
+                                    (leaf) value = 0x534F, freq = 2
+                                    (leaf) value = 0x5352, freq = 2
+                              (node) freq = 16
+                                (node) freq = 8
+                                  (leaf) value = 0x7041, freq = 4
+                                  (node) freq = 4
+                                    (leaf) value = 0x4493, freq = 2
+                                    (leaf) value = 0x4545, freq = 2
+                                (node) freq = 8
+                                  (leaf) value = 0x2764, freq = 4
+                                  (node) freq = 4
+                                    (leaf) value = 0x6B77, freq = 2
+                                    (leaf) value = 0x3A6C, freq = 2
+                          (node) freq = 64
+                            (node) freq = 32
+                              (node) freq = 16
+                                (node) freq = 8
+                                  (node) freq = 4
+                                    (leaf) value = 0x7233, freq = 2
+                                    (leaf) value = 0x492D, freq = 2
+                                  (node) freq = 4
+                                    (leaf) value = 0x7168, freq = 2
+                                    (leaf) value = 0x4843, freq = 2
+                                (node) freq = 8
+                                  (node) freq = 4
+                                    (node) freq = 2
+                                      (leaf) value = 0x4143, freq = 1
+                                      (leaf) value = 0x1F2B, freq = 1
+                                    (leaf) value = 0x0128, freq = 2
+                                  (node) freq = 4
+                                    (node) freq = 2
+                                      (leaf) value = 0x2149, freq = 1
+                                      (leaf) value = 0x2162, freq = 1
+                                    (leaf) value = 0x4128, freq = 2
+                              (node) freq = 16
+                                (node) freq = 8
+                                  (node) freq = 4
+                                    (node) freq = 2
+                                      (leaf) value = 0x2D54, freq = 1
+                                      (leaf) value = 0x010D, freq = 1
+                                    (node) freq = 2
+                                      (leaf) value = 0x2C50, freq = 1
+                                      (leaf) value = 0x5455, freq = 1
+                                  (node) freq = 4
+                                    (node) freq = 2
+                                      (leaf) value = 0x943F, freq = 1
+                                      (leaf) value = 0x9466, freq = 1
+                                    (node) freq = 2
+                                      (leaf) value = 0x7766, freq = 1
+                                      (leaf) value = 0x7768, freq = 1
+                                (node) freq = 8
+                                  (node) freq = 4
+                                    (node) freq = 2
+                                      (leaf) value = 0x5050, freq = 1
+                                      (leaf) value = 0x5053, freq = 1
+                                    (node) freq = 2
+                                      (leaf) value = 0x7493, freq = 1
+                                      (leaf) value = 0x5222, freq = 1
+                                  (node) freq = 4
+                                    (node) freq = 2
+                                      (leaf) value = 0x2221, freq = 1
+                                      (leaf) value = 0x222E, freq = 1
+                                    (node) freq = 2
+                                      (leaf) value = 0x4749, freq = 1
+                                      (leaf) value = 0x4793, freq = 1
+                            (node) freq = 32
+                              (node) freq = 16
+                                (node) freq = 8
+                                  (node) freq = 4
+                                    (node) freq = 2
+                                      (leaf) value = 0x614A, freq = 1
+                                      (leaf) value = 0x614F, freq = 1
+                                    (leaf) value = 0x2C78, freq = 2
+                                  (node) freq = 4
+                                    (leaf) value = 0x2D44, freq = 2
+                                    (leaf) value = 0x2D4C, freq = 2
+                                (node) freq = 8
+                                  (node) freq = 4
+                                    (node) freq = 2
+                                      (leaf) value = 0x1F27, freq = 1
+                                      (leaf) value = 0x412D, freq = 1
+                                    (node) freq = 2
+                                      (leaf) value = 0x3F7A, freq = 1
+                                      (leaf) value = 0x6E62, freq = 1
+                                  (leaf) value = 0x1F42, freq = 4
+                              (node) freq = 16
+                                (node) freq = 8
+                                  (node) freq = 4
+                                    (leaf) value = 0x2029, freq = 2
+                                    (node) freq = 2
+                                      (leaf) value = 0x6379, freq = 1
+                                      (leaf) value = 0x6428, freq = 1
+                                  (node) freq = 4
+                                    (node) freq = 2
+                                      (leaf) value = 0x2D55, freq = 1
+                                      (leaf) value = 0x6277, freq = 1
+                                    (leaf) value = 0x6349, freq = 2
+                                (node) freq = 8
+                                  (node) freq = 4
+                                    (node) freq = 2
+                                      (leaf) value = 0x6356, freq = 1
+                                      (leaf) value = 0x6364, freq = 1
+                                    (leaf) value = 0x642D, freq = 2
+                                  (node) freq = 4
+                                    (leaf) value = 0x0149, freq = 2
+                                    (leaf) value = 0x2E31, freq = 2
+                        (node) freq = 128
+                          (node) freq = 64
+                            (node) freq = 32
+                              (leaf) value = 0x7554, freq = 16
+                              (node) freq = 16
+                                (node) freq = 8
+                                  (leaf) value = 0x3A73, freq = 4
+                                  (leaf) value = 0x3A74, freq = 4
+                                (leaf) value = 0x1F69, freq = 8
+                            (node) freq = 32
+                              (node) freq = 16
+                                (node) freq = 8
+                                  (node) freq = 4
+                                    (leaf) value = 0x3131, freq = 2
+                                    (node) freq = 2
+                                      (leaf) value = 0x676B, freq = 1
+                                      (leaf) value = 0x0117, freq = 1
+                                  (node) freq = 4
+                                    (leaf) value = 0x6827, freq = 2
+                                    (leaf) value = 0x0157, freq = 2
+                                (node) freq = 8
+                                  (node) freq = 4
+                                    (leaf) value = 0x204D, freq = 2
+                                    (leaf) value = 0x2F31, freq = 2
+                                  (node) freq = 4
+                                    (leaf) value = 0x0154, freq = 2
+                                    (leaf) value = 0x6693, freq = 2
+                              (node) freq = 16
+                                (node) freq = 8
+                                  (node) freq = 4
+                                    (leaf) value = 0x7163, freq = 2
+                                    (leaf) value = 0x0101, freq = 2
+                                  (leaf) value = 0x4993, freq = 4
+                                (node) freq = 8
+                                  (node) freq = 4
+                                    (node) freq = 2
+                                      (leaf) value = 0x1F44, freq = 1
+                                      (leaf) value = 0x4F4C, freq = 1
+                                    (node) freq = 2
+                                      (leaf) value = 0x492E, freq = 1
+                                      (leaf) value = 0x4941, freq = 1
+                                  (node) freq = 4
+                                    (node) freq = 2
+                                      (leaf) value = 0x4557, freq = 1
+                                      (leaf) value = 0x4559, freq = 1
+                                    (leaf) value = 0x2620, freq = 2
+                          (node) freq = 64
+                            (node) freq = 32
+                              (node) freq = 16
+                                (leaf) value = 0x2D66, freq = 8
+                                (node) freq = 8
+                                  (leaf) value = 0x2D61, freq = 4
+                                  (node) freq = 4
+                                    (node) freq = 2
+                                      (leaf) value = 0x9468, freq = 1
+                                      (leaf) value = 0x946F, freq = 1
+                                    (leaf) value = 0x2D52, freq = 2
+                              (leaf) value = 0x7664, freq = 16
+                            (node) freq = 32
+                              (leaf) value = 0x616A, freq = 16
+                              (node) freq = 16
+                                (leaf) value = 0x776E, freq = 8
+                                (node) freq = 8
+                                  (node) freq = 4
+                                    (leaf) value = 0x946E, freq = 2
+                                    (node) freq = 2
+                                      (leaf) value = 0x3A79, freq = 1
+                                      (leaf) value = 0x6C6D, freq = 1
+                                  (node) freq = 4
+                                    (node) freq = 2
+                                      (leaf) value = 0x504D, freq = 1
+                                      (leaf) value = 0x292E, freq = 1
+                                    (leaf) value = 0x5243, freq = 2
+                      (node) freq = 256
+                        (node) freq = 128
+                          (node) freq = 64
+                            (node) freq = 32
+                              (node) freq = 16
+                                (node) freq = 8
+                                  (leaf) value = 0x2D68, freq = 4
+                                  (leaf) value = 0x2025, freq = 4
+                                (node) freq = 8
+                                  (leaf) value = 0x1F76, freq = 4
+                                  (leaf) value = 0x626E, freq = 4
+                              (node) freq = 16
+                                (node) freq = 8
+                                  (node) freq = 4
+                                    (node) freq = 2
+                                      (leaf) value = 0x3A75, freq = 1
+                                      (leaf) value = 0x2139, freq = 1
+                                    (leaf) value = 0x3F3F, freq = 2
+                                  (leaf) value = 0x6E32, freq = 4
+                                (node) freq = 8
+                                  (leaf) value = 0x3531, freq = 4
+                                  (leaf) value = 0x2C35, freq = 4
+                            (node) freq = 32
+                              (node) freq = 16
+                                (node) freq = 8
+                                  (node) freq = 4
+                                    (leaf) value = 0x686B, freq = 2
+                                    (leaf) value = 0x3150, freq = 2
+                                  (node) freq = 4
+                                    (leaf) value = 0x203B, freq = 2
+                                    (node) freq = 2
+                                      (leaf) value = 0x655A, freq = 1
+                                      (leaf) value = 0x0112, freq = 1
+                                (leaf) value = 0x3220, freq = 8
+                              (node) freq = 16
+                                (leaf) value = 0x6942, freq = 8
+                                (leaf) value = 0x5441, freq = 8
+                          (node) freq = 64
+                            (node) freq = 32
+                              (node) freq = 16
+                                (node) freq = 8
+                                  (node) freq = 4
+                                    (leaf) value = 0x6D53, freq = 2
+                                    (leaf) value = 0x2150, freq = 2
+                                  (node) freq = 4
+                                    (node) freq = 2
+                                      (leaf) value = 0x3F30, freq = 1
+                                      (leaf) value = 0x2144, freq = 1
+                                    (node) freq = 2
+                                      (leaf) value = 0x3F20, freq = 1
+                                      (leaf) value = 0x2141, freq = 1
+                                (node) freq = 8
+                                  (leaf) value = 0x6F5A, freq = 4
+                                  (node) freq = 4
+                                    (leaf) value = 0x4E27, freq = 2
+                                    (leaf) value = 0x4E93, freq = 2
+                              (node) freq = 16
+                                (node) freq = 8
+                                  (leaf) value = 0x1F39, freq = 4
+                                  (node) freq = 4
+                                    (leaf) value = 0x3439, freq = 2
+                                    (leaf) value = 0x3450, freq = 2
+                                (node) freq = 8
+                                  (node) freq = 4
+                                    (leaf) value = 0x015F, freq = 2
+                                    (node) freq = 2
+                                      (leaf) value = 0x0022, freq = 1
+                                      (leaf) value = 0x3931, freq = 1
+                                  (node) freq = 4
+                                    (node) freq = 2
+                                      (leaf) value = 0x3574, freq = 1
+                                      (leaf) value = 0x3874, freq = 1
+                                    (leaf) value = 0x3A54, freq = 2
+                            (node) freq = 32
+                              (node) freq = 16
+                                (leaf) value = 0x7957, freq = 8
+                                (node) freq = 8
+                                  (node) freq = 4
+                                    (node) freq = 2
+                                      (leaf) value = 0x4B93, freq = 1
+                                      (leaf) value = 0x726D, freq = 1
+                                    (node) freq = 2
+                                      (leaf) value = 0x4C93, freq = 1
+                                      (leaf) value = 0x7328, freq = 1
+                                  (node) freq = 4
+                                    (node) freq = 2
+                                      (leaf) value = 0x4C2D, freq = 1
+                                      (leaf) value = 0x4C45, freq = 1
+                                    (node) freq = 2
+                                      (leaf) value = 0x7276, freq = 1
+                                      (leaf) value = 0x4C54, freq = 1
+                              (node) freq = 16
+                                (node) freq = 8
+                                  (node) freq = 4
+                                    (leaf) value = 0x2C32, freq = 2
+                                    (node) freq = 2
+                                      (leaf) value = 0x6B2D, freq = 1
+                                      (leaf) value = 0x3A4B, freq = 1
+                                  (leaf) value = 0x2965, freq = 4
+                                (node) freq = 8
+                                  (node) freq = 4
+                                    (leaf) value = 0x4F93, freq = 2
+                                    (leaf) value = 0x1F4B, freq = 2
+                                  (node) freq = 4
+                                    (leaf) value = 0x1F43, freq = 2
+                                    (leaf) value = 0x7393, freq = 2
+                        (node) freq = 128
+                          (node) freq = 64
+                            (node) freq = 32
+                              (leaf) value = 0x2D4E, freq = 16
+                              (leaf) value = 0x7754, freq = 16
+                            (node) freq = 32
+                              (node) freq = 16
+                                (node) freq = 8
+                                  (node) freq = 4
+                                    (node) freq = 2
+                                      (leaf) value = 0x7662, freq = 1
+                                      (leaf) value = 0x544D, freq = 1
+                                    (node) freq = 2
+                                      (leaf) value = 0x2C30, freq = 1
+                                      (leaf) value = 0x7569, freq = 1
+                                  (node) freq = 4
+                                    (leaf) value = 0x1F59, freq = 2
+                                    (leaf) value = 0x7742, freq = 2
+                                (node) freq = 8
+                                  (node) freq = 4
+                                    (node) freq = 2
+                                      (leaf) value = 0x2D6A, freq = 1
+                                      (leaf) value = 0x6377, freq = 1
+                                    (node) freq = 2
+                                      (leaf) value = 0x2D63, freq = 1
+                                      (leaf) value = 0x634F, freq = 1
+                                  (node) freq = 4
+                                    (node) freq = 2
+                                      (leaf) value = 0x2E34, freq = 1
+                                      (leaf) value = 0x2E38, freq = 1
+                                    (node) freq = 2
+                                      (leaf) value = 0x2E45, freq = 1
+                                      (leaf) value = 0x2037, freq = 1
+                              (node) freq = 16
+                                (node) freq = 8
+                                  (node) freq = 4
+                                    (node) freq = 2
+                                      (leaf) value = 0x2964, freq = 1
+                                      (leaf) value = 0x5058, freq = 1
+                                    (node) freq = 2
+                                      (leaf) value = 0x4A93, freq = 1
+                                      (leaf) value = 0x4B43, freq = 1
+                                  (node) freq = 4
+                                    (node) freq = 2
+                                      (leaf) value = 0x1F45, freq = 1
+                                      (leaf) value = 0x2921, freq = 1
+                                    (node) freq = 2
+                                      (leaf) value = 0x7457, freq = 1
+                                      (leaf) value = 0x4F53, freq = 1
+                                (node) freq = 8
+                                  (node) freq = 4
+                                    (node) freq = 2
+                                      (leaf) value = 0x4D2E, freq = 1
+                                      (leaf) value = 0x4D41, freq = 1
+                                    (node) freq = 2
+                                      (leaf) value = 0x7330, freq = 1
+                                      (leaf) value = 0x7331, freq = 1
+                                  (node) freq = 4
+                                    (leaf) value = 0x2766, freq = 2
+                                    (leaf) value = 0x4C49, freq = 2
+                          (node) freq = 64
+                            (leaf) value = 0x2D49, freq = 32
+                            (leaf) value = 0x7772, freq = 32
+                (node) freq = 2054
+                  (leaf) value = 0x6D6F, freq = 1026
+                  (node) freq = 1028
+                    (leaf) value = 0x7427, freq = 514
+                    (node) freq = 514
+                      (node) freq = 257
+                        (node) freq = 128
+                          (node) freq = 64
+                            (node) freq = 32
+                              (leaf) value = 0x694E, freq = 16
+                              (node) freq = 16
+                                (leaf) value = 0x716E, freq = 8
+                                (node) freq = 8
+                                  (leaf) value = 0x7764, freq = 4
+                                  (leaf) value = 0x2D6B, freq = 4
+                            (node) freq = 32
+                              (node) freq = 16
+                                (node) freq = 8
+                                  (node) freq = 4
+                                    (node) freq = 2
+                                      (leaf) value = 0x4393, freq = 1
+                                      (leaf) value = 0x4445, freq = 1
+                                    (leaf) value = 0x2194, freq = 2
+                                  (leaf) value = 0x7A65, freq = 4
+                                (node) freq = 8
+                                  (leaf) value = 0x7257, freq = 4
+                                  (node) freq = 4
+                                    (leaf) value = 0x274F, freq = 2
+                                    (leaf) value = 0x1F36, freq = 2
+                              (node) freq = 16
+                                (node) freq = 8
+                                  (node) freq = 4
+                                    (leaf) value = 0x5544, freq = 2
+                                    (leaf) value = 0x554D, freq = 2
+                                  (node) freq = 4
+                                    (node) freq = 2
+                                      (leaf) value = 0x7649, freq = 1
+                                      (leaf) value = 0x5448, freq = 1
+                                    (node) freq = 2
+                                      (leaf) value = 0x6293, freq = 1
+                                      (leaf) value = 0x6327, freq = 1
+                                (node) freq = 8
+                                  (node) freq = 4
+                                    (node) freq = 2
+                                      (leaf) value = 0x5293, freq = 1
+                                      (leaf) value = 0x1F4D, freq = 1
+                                    (node) freq = 2
+                                      (leaf) value = 0x5253, freq = 1
+                                      (leaf) value = 0x2977, freq = 1
+                                  (node) freq = 4
+                                    (node) freq = 2
+                                      (leaf) value = 0x2B32, freq = 1
+                                      (leaf) value = 0x532E, freq = 1
+                                    (node) freq = 2
+                                      (leaf) value = 0x296E, freq = 1
+                                      (leaf) value = 0x1F4C, freq = 1
+                          (node) freq = 64
+                            (leaf) value = 0x0143, freq = 32
+                            (leaf) value = 0x6C42, freq = 32
+                        (leaf) value = 0x6157, freq = 129
+                      (leaf) value = 0x2E75, freq = 257
+        (node) freq = 33065
+          (leaf) value = 0x0003, freq = 16291
+          (node) freq = 16774
+            (node) freq = 8303
+              (leaf) value = 0x7265, freq = 4144
+              (node) freq = 4159
+                (leaf) value = 0x726F, freq = 2077
+                (node) freq = 2082
+                  (node) freq = 1036
+                    (leaf) value = 0x6472, freq = 517
+                    (leaf) value = 0x6566, freq = 519
+                  (node) freq = 1046
+                    (node) freq = 521
+                      (leaf) value = 0x2C64, freq = 260
+                      (leaf) value = 0x756A, freq = 261
+                    (node) freq = 525
+                      (node) freq = 262
+                        (leaf) value = 0x3F75, freq = 131
+                        (node) freq = 131
+                          (leaf) value = 0x3F67, freq = 65
+                          (leaf) value = 0x766E, freq = 66
+                      (node) freq = 263
+                        (leaf) value = 0x736D, freq = 131
+                        (node) freq = 132
+                          (node) freq = 66
+                            (leaf) value = 0x3F6B, freq = 33
+                            (leaf) value = 0x7861, freq = 33
+                          (node) freq = 66
+                            (leaf) value = 0x0106, freq = 33
+                            (node) freq = 33
+                              (node) freq = 16
+                                (node) freq = 8
+                                  (leaf) value = 0x0019, freq = 4
+                                  (node) freq = 4
+                                    (node) freq = 2
+                                      (leaf) value = 0x6E2D, freq = 1
+                                      (leaf) value = 0x6E48, freq = 1
+                                    (leaf) value = 0x946C, freq = 2
+                                (node) freq = 8
+                                  (leaf) value = 0x5393, freq = 4
+                                  (leaf) value = 0x3A72, freq = 4
+                              (leaf) value = 0x0018, freq = 17
+            (node) freq = 8471
+              (node) freq = 4218
+                (node) freq = 2102
+                  (leaf) value = 0x2E73, freq = 1048
+                  (node) freq = 1054
+                    (node) freq = 526
+                      (leaf) value = 0x3F74, freq = 263
+                      (leaf) value = 0x6B6F, freq = 263
+                    (leaf) value = 0x1F64, freq = 528
+                (leaf) value = 0x0010, freq = 2116
+              (node) freq = 4253
+                (node) freq = 2118
+                  (node) freq = 1058
+                    (node) freq = 528
+                      (leaf) value = 0x1F68, freq = 264
+                      (leaf) value = 0x766F, freq = 264
+                    (node) freq = 530
+                      (node) freq = 265
+                        (node) freq = 132
+                          (leaf) value = 0x5620, freq = 66
+                          (node) freq = 66
+                            (leaf) value = 0x7953, freq = 33
+                            (leaf) value = 0x7355, freq = 33
+                        (leaf) value = 0x6B73, freq = 133
+                      (leaf) value = 0x7364, freq = 265
+                  (leaf) value = 0x6867, freq = 1060
+                (node) freq = 2135
+                  (node) freq = 1064
+                    (node) freq = 530
+                      (leaf) value = 0x2C72, freq = 265
+                      (leaf) value = 0x7572, freq = 265
+                    (node) freq = 534
+                      (leaf) value = 0x7268, freq = 266
+                      (node) freq = 268
+                        (leaf) value = 0x7773, freq = 134
+                        (leaf) value = 0x2174, freq = 134
+                  (leaf) value = 0x6720, freq = 1071
+    (node) freq = 151298
+      (node) freq = 73053
+        (node) freq = 35536
+          (node) freq = 17566
+            (node) freq = 8697
+              (node) freq = 4322
+                (node) freq = 2151
+                  (node) freq = 1072
+                    (node) freq = 536
+                      (node) freq = 268
+                        (node) freq = 134
+                          (leaf) value = 0x656A, freq = 67
+                          (leaf) value = 0x666E, freq = 67
+                        (node) freq = 134
+                          (leaf) value = 0x6142, freq = 67
+                          (leaf) value = 0x7377, freq = 67
+                      (leaf) value = 0x794D, freq = 268
+                    (leaf) value = 0x7573, freq = 536
+                  (node) freq = 1079
+                    (node) freq = 537
+                      (leaf) value = 0x2070, freq = 268
+                      (leaf) value = 0x6D72, freq = 269
+                    (leaf) value = 0x4520, freq = 542
+                (node) freq = 2171
+                  (leaf) value = 0x6977, freq = 1085
+                  (node) freq = 1086
+                    (node) freq = 542
+                      (node) freq = 271
+                        (leaf) value = 0x6E64, freq = 135
+                        (leaf) value = 0x6953, freq = 136
+                      (leaf) value = 0x6375, freq = 271
+                    (leaf) value = 0x7665, freq = 544
+              (node) freq = 4375
+                (node) freq = 2181
+                  (node) freq = 1089
+                    (node) freq = 544
+                      (node) freq = 272
+                        (node) freq = 136
+                          (node) freq = 68
+                            (leaf) value = 0x726C, freq = 34
+                            (leaf) value = 0x6D49, freq = 34
+                          (node) freq = 68
+                            (leaf) value = 0x2C70, freq = 34
+                            (leaf) value = 0x216D, freq = 34
+                        (node) freq = 136
+                          (node) freq = 68
+                            (node) freq = 34
+                              (leaf) value = 0x6868, freq = 17
+                              (leaf) value = 0x2078, freq = 17
+                            (node) freq = 34
+                              (leaf) value = 0x7169, freq = 17
+                              (leaf) value = 0x3120, freq = 17
+                          (node) freq = 68
+                            (leaf) value = 0x0142, freq = 34
+                            (node) freq = 34
+                              (leaf) value = 0x6467, freq = 17
+                              (leaf) value = 0x2743, freq = 17
+                      (leaf) value = 0x616B, freq = 272
+                    (leaf) value = 0x7972, freq = 545
+                  (node) freq = 1092
+                    (node) freq = 545
+                      (leaf) value = 0x796E, freq = 272
+                      (node) freq = 273
+                        (node) freq = 136
+                          (node) freq = 68
+                            (leaf) value = 0x0119, freq = 34
+                            (leaf) value = 0x007F, freq = 34
+                          (node) freq = 68
+                            (leaf) value = 0x0125, freq = 34
+                            (node) freq = 34
+                              (leaf) value = 0x6E74, freq = 17
+                              (leaf) value = 0x6E6C, freq = 17
+                        (leaf) value = 0x6C50, freq = 137
+                    (node) freq = 547
+                      (leaf) value = 0x6575, freq = 273
+                      (leaf) value = 0x6945, freq = 274
+                (node) freq = 2194
+                  (node) freq = 1096
+                    (leaf) value = 0x6F4E, freq = 548
+                    (leaf) value = 0x6469, freq = 548
+                  (node) freq = 1098
+                    (leaf) value = 0x7542, freq = 549
+                    (leaf) value = 0x6548, freq = 549
+            (node) freq = 8869
+              (node) freq = 4427
+                (node) freq = 2201
+                  (leaf) value = 0x6857, freq = 1098
+                  (node) freq = 1103
+                    (leaf) value = 0x6173, freq = 550
+                    (node) freq = 553
+                      (node) freq = 276
+                        (node) freq = 138
+                          (leaf) value = 0x7570, freq = 69
+                          (leaf) value = 0x616F, freq = 69
+                        (leaf) value = 0x6547, freq = 138
+                      (leaf) value = 0x6579, freq = 277
+                (node) freq = 2226
+                  (node) freq = 1111
+                    (node) freq = 555
+                      (leaf) value = 0x7267, freq = 277
+                      (node) freq = 278
+                        (node) freq = 139
+                          (node) freq = 69
+                            (node) freq = 34
+                              (leaf) value = 0x697A, freq = 17
+                              (leaf) value = 0x2177, freq = 17
+                            (leaf) value = 0x6D45, freq = 35
+                          (leaf) value = 0x756E, freq = 70
+                        (leaf) value = 0x001C, freq = 139
+                    (leaf) value = 0x736E, freq = 556
+                  (node) freq = 1115
+                    (node) freq = 556
+                      (leaf) value = 0x6553, freq = 278
+                      (node) freq = 278
+                        (leaf) value = 0x736B, freq = 139
+                        (leaf) value = 0x694B, freq = 139
+                    (leaf) value = 0x7474, freq = 559
+              (leaf) value = 0x2064, freq = 4442
+          (node) freq = 17970
+            (node) freq = 8955
+              (leaf) value = 0x000C, freq = 4467
+              (leaf) value = 0x6572, freq = 4488
+            (node) freq = 9015
+              (node) freq = 4506
+                (node) freq = 2246
+                  (leaf) value = 0x6163, freq = 1122
+                  (node) freq = 1124
+                    (node) freq = 560
+                      (leaf) value = 0x7241, freq = 280
+                      (node) freq = 280
+                        (node) freq = 140
+                          (leaf) value = 0x4A20, freq = 70
+                          (node) freq = 70
+                            (leaf) value = 0x766C, freq = 35
+                            (leaf) value = 0x9320, freq = 35
+                        (node) freq = 140
+                          (leaf) value = 0x010F, freq = 70
+                          (leaf) value = 0x626F, freq = 70
+                    (node) freq = 564
+                      (node) freq = 282
+                        (leaf) value = 0x7466, freq = 141
+                        (leaf) value = 0x6765, freq = 141
+                      (leaf) value = 0x6F48, freq = 282
+                (leaf) value = 0x7261, freq = 2260
+              (leaf) value = 0x0009, freq = 4509
+        (node) freq = 37517
+          (node) freq = 18486
+            (node) freq = 9185
+              (node) freq = 4577
+                (node) freq = 2284
+                  (node) freq = 1134
+                    (node) freq = 565
+                      (leaf) value = 0x6775, freq = 282
+                      (leaf) value = 0x1F6F, freq = 283
+                    (node) freq = 569
+                      (node) freq = 284
+                        (node) freq = 142
+                          (leaf) value = 0x6944, freq = 70
+                          (leaf) value = 0x7548, freq = 72
+                        (leaf) value = 0x6175, freq = 142
+                      (leaf) value = 0x6E6E, freq = 285
+                  (node) freq = 1150
+                    (leaf) value = 0x2C65, freq = 575
+                    (node) freq = 575
+                      (node) freq = 287
+                        (leaf) value = 0x7567, freq = 143
+                        (node) freq = 144
+                          (node) freq = 72
+                            (leaf) value = 0x3F77, freq = 36
+                            (leaf) value = 0x3F61, freq = 36
+                          (node) freq = 72
+                            (leaf) value = 0x2C6B, freq = 36
+                            (leaf) value = 0x0126, freq = 36
+                      (node) freq = 288
+                        (node) freq = 144
+                          (node) freq = 72
+                            (node) freq = 36
+                              (node) freq = 18
+                                (leaf) value = 0x1F34, freq = 9
+                                (leaf) value = 0x6674, freq = 9
+                              (node) freq = 18
+                                (leaf) value = 0x627A, freq = 9
+                                (leaf) value = 0x6468, freq = 9
+                            (node) freq = 36
+                              (leaf) value = 0x742D, freq = 18
+                              (leaf) value = 0x796B, freq = 18
+                          (node) freq = 72
+                            (node) freq = 36
+                              (leaf) value = 0x2D65, freq = 18
+                              (leaf) value = 0x2E7A, freq = 18
+                            (node) freq = 36
+                              (leaf) value = 0x6178, freq = 18
+                              (leaf) value = 0x6272, freq = 18
+                        (leaf) value = 0x6D6D, freq = 144
+                (leaf) value = 0x7369, freq = 2293
+              (node) freq = 4608
+                (leaf) value = 0x7365, freq = 2301
+                (node) freq = 2307
+                  (node) freq = 1153
+                    (leaf) value = 0x0021, freq = 576
+                    (leaf) value = 0x7272, freq = 577
+                  (leaf) value = 0x7020, freq = 1154
+            (node) freq = 9301
+              (node) freq = 4636
+                (node) freq = 2310
+                  (leaf) value = 0x7375, freq = 1154
+                  (leaf) value = 0x746E, freq = 1156
+                (leaf) value = 0x7469, freq = 2326
+              (leaf) value = 0x6568, freq = 4665
+          (node) freq = 19031
+            (node) freq = 9458
+              (node) freq = 4706
+                (node) freq = 2348
+                  (leaf) value = 0x6F64, freq = 1172
+                  (node) freq = 1176
+                    (node) freq = 586
+                      (node) freq = 291
+                        (node) freq = 145
+                          (node) freq = 72
+                            (node) freq = 36
+                              (leaf) value = 0x6978, freq = 18
+                              (leaf) value = 0x0129, freq = 18
+                            (node) freq = 36
+                              (node) freq = 18
+                                (leaf) value = 0x6950, freq = 9
+                                (leaf) value = 0x6159, freq = 9
+                              (node) freq = 18
+                                (leaf) value = 0x2163, freq = 9
+                                (leaf) value = 0x7541, freq = 9
+                          (node) freq = 73
+                            (node) freq = 36
+                              (leaf) value = 0x7A6F, freq = 18
+                              (node) freq = 18
+                                (leaf) value = 0x2050, freq = 9
+                                (leaf) value = 0x1F33, freq = 9
+                            (leaf) value = 0x7277, freq = 37
+                        (node) freq = 146
+                          (leaf) value = 0x6275, freq = 73
+                          (leaf) value = 0x654E, freq = 73
+                      (leaf) value = 0x2E6C, freq = 295
+                    (leaf) value = 0x7270, freq = 590
+                (node) freq = 2358
+                  (leaf) value = 0x7220, freq = 1177
+                  (leaf) value = 0x6F73, freq = 1181
+              (node) freq = 4752
+                (node) freq = 2366
+                  (leaf) value = 0x746F, freq = 1183
+                  (node) freq = 1183
+                    (node) freq = 591
+                      (node) freq = 295
+                        (leaf) value = 0x6772, freq = 147
+                        (leaf) value = 0x6C63, freq = 148
+                      (node) freq = 296
+                        (node) freq = 148
+                          (leaf) value = 0x614C, freq = 74
+                          (leaf) value = 0x2E70, freq = 74
+                        (leaf) value = 0x6373, freq = 148
+                    (leaf) value = 0x2E74, freq = 592
+                (node) freq = 2386
+                  (node) freq = 1188
+                    (node) freq = 593
+                      (node) freq = 296
+                        (node) freq = 148
+                          (node) freq = 74
+                            (leaf) value = 0x794B, freq = 37
+                            (leaf) value = 0x0113, freq = 37
+                          (leaf) value = 0x2E66, freq = 74
+                        (node) freq = 148
+                          (node) freq = 74
+                            (leaf) value = 0x7078, freq = 37
+                            (node) freq = 37
+                              (leaf) value = 0x7552, freq = 18
+                              (leaf) value = 0x636C, freq = 19
+                          (node) freq = 74
+                            (leaf) value = 0x6A61, freq = 37
+                            (leaf) value = 0x6E45, freq = 37
+                      (leaf) value = 0x6C74, freq = 297
+                    (node) freq = 595
+                      (node) freq = 297
+                        (node) freq = 148
+                          (node) freq = 74
+                            (leaf) value = 0x3F21, freq = 37
+                            (leaf) value = 0x6767, freq = 37
+                          (node) freq = 74
+                            (leaf) value = 0x7441, freq = 37
+                            (leaf) value = 0x6150, freq = 37
+                        (leaf) value = 0x7765, freq = 149
+                      (node) freq = 298
+                        (leaf) value = 0x7964, freq = 149
+                        (leaf) value = 0x746C, freq = 149
+                  (node) freq = 1198
+                    (node) freq = 598
+                      (node) freq = 299
+                        (node) freq = 149
+                          (leaf) value = 0x6D73, freq = 74
+                          (leaf) value = 0x7553, freq = 75
+                        (node) freq = 150
+                          (leaf) value = 0x7341, freq = 75
+                          (node) freq = 75
+                            (leaf) value = 0x203A, freq = 37
+                            (node) freq = 38
+                              (leaf) value = 0x2062, freq = 19
+                              (node) freq = 19
+                                (leaf) value = 0x0163, freq = 9
+                                (node) freq = 10
+                                  (leaf) value = 0x0164, freq = 5
+                                  (leaf) value = 0x9479, freq = 5
+                      (leaf) value = 0x6372, freq = 299
+                    (leaf) value = 0x6F67, freq = 600
+            (node) freq = 9573
+              (leaf) value = 0x6E69, freq = 4757
+              (node) freq = 4816
+                (node) freq = 2403
+                  (leaf) value = 0x6577, freq = 1200
+                  (node) freq = 1203
+                    (leaf) value = 0x6966, freq = 601
+                    (node) freq = 602
+                      (leaf) value = 0x6967, freq = 300
+                      (node) freq = 302
+                        (node) freq = 151
+                          (leaf) value = 0x213F, freq = 75
+                          (leaf) value = 0x3F79, freq = 76
+                        (leaf) value = 0x6C41, freq = 151
+                (leaf) value = 0x656D, freq = 2413
+      (node) freq = 78245
+        (node) freq = 38519
+          (node) freq = 19252
+            (leaf) value = 0x1F2E, freq = 9584
+            (leaf) value = 0x2065, freq = 9668
+          (leaf) value = 0x0001, freq = 19267
+        (node) freq = 39726
+          (node) freq = 19643
+            (node) freq = 9773
+              (node) freq = 4861
+                (leaf) value = 0x6220, freq = 2425
+                (leaf) value = 0x2079, freq = 2436
+              (node) freq = 4912
+                (node) freq = 2442
+                  (leaf) value = 0x1F65, freq = 1217
+                  (node) freq = 1225
+                    (node) freq = 611
+                      (node) freq = 305
+                        (leaf) value = 0x1F66, freq = 152
+                        (node) freq = 153
+                          (node) freq = 76
+                            (leaf) value = 0x2167, freq = 38
+                            (leaf) value = 0x0007, freq = 38
+                          (leaf) value = 0x694C, freq = 77
+                      (leaf) value = 0x7070, freq = 306
+                    (leaf) value = 0x000D, freq = 614
+                (node) freq = 2470
+                  (node) freq = 1231
+                    (node) freq = 614
+                      (node) freq = 306
+                        (leaf) value = 0x0104, freq = 153
+                        (leaf) value = 0x6861, freq = 153
+                      (leaf) value = 0x6665, freq = 308
+                    (node) freq = 617
+                      (leaf) value = 0x646F, freq = 308
+                      (leaf) value = 0x7073, freq = 309
+                  (leaf) value = 0x2E65, freq = 1239
+            (leaf) value = 0x0016, freq = 9870
+          (node) freq = 20083
+            (node) freq = 9964
+              (node) freq = 4965
+                (node) freq = 2479
+                  (leaf) value = 0x6974, freq = 1239
+                  (node) freq = 1240
+                    (leaf) value = 0x6E6B, freq = 620
+                    (node) freq = 620
+                      (leaf) value = 0x706D, freq = 309
+                      (node) freq = 311
+                        (leaf) value = 0x6D48, freq = 155
+                        (leaf) value = 0x6176, freq = 156
+                (node) freq = 2486
+                  (leaf) value = 0x206D, freq = 1242
+                  (leaf) value = 0x2066, freq = 1244
+              (node) freq = 4999
+                (node) freq = 2494
+                  (leaf) value = 0x6F72, freq = 1245
+                  (leaf) value = 0x696C, freq = 1249
+                (node) freq = 2505
+                  (node) freq = 1249
+                    (leaf) value = 0x6964, freq = 621
+                    (node) freq = 628
+                      (leaf) value = 0x6F53, freq = 314
+                      (node) freq = 314
+                        (leaf) value = 0x4320, freq = 157
+                        (node) freq = 157
+                          (node) freq = 78
+                            (leaf) value = 0x7A7A, freq = 39
+                            (leaf) value = 0x6179, freq = 39
+                          (leaf) value = 0x756C, freq = 79
+                  (leaf) value = 0x6172, freq = 1256
+            (node) freq = 10119
+              (leaf) value = 0x756F, freq = 5052
+              (node) freq = 5067
+                (leaf) value = 0x2075, freq = 2533
+                (node) freq = 2534
+                  (node) freq = 1261
+                    (leaf) value = 0x7520, freq = 629
+                    (node) freq = 632
+                      (node) freq = 316
+                        (leaf) value = 0x6853, freq = 158
+                        (node) freq = 158
+                          (leaf) value = 0x7A69, freq = 79
+                          (leaf) value = 0x2063, freq = 79
+                      (leaf) value = 0x6167, freq = 316
+                  (leaf) value = 0x776F, freq = 1273

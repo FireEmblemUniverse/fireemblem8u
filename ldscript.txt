@@ -224,7 +224,7 @@ SECTIONS
         . = ALIGN(4); src/uimenu.o(.rodata);
         . = ALIGN(4); src/uiselecttarget.o(.rodata);
         . = ALIGN(4); data/const_data_DA3A4.o(.rodata);
-        . = ALIGN(4); data/text.o(.rodata);
+        . = ALIGN(4); src/msg_data.o(.rodata);
         . = ALIGN(4); data/const_data_1609BC.o(.rodata);
         . = ALIGN(4); data/const_data_unit_icon_wait.o(.rodata);
         . = ALIGN(4); data/const_data_1C0AFC.o(.rodata);
