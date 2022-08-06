@@ -295,11 +295,11 @@ void write_h_file(const char *filename)
 
 int main(int argc, char **argv)
 {
-    if (argc == 5 && strcmp(argv[4], optionToUseVanillaTree) == 0)
+    if (argc == 4 && strcmp(argv[3], optionToUseVanillaTree) == 0)
         useVanillaTree = 1;
 
-    if ((useVanillaTree && argc != 5) || (!useVanillaTree && argc != 4))
-        FATAL_ERROR("usage:\n%s STRING_LIST C_FILE H_FILE [%s]\n", argv[0], optionToUseVanillaTree);
+    if ((useVanillaTree && argc != 4) || (!useVanillaTree && argc != 3))
+        FATAL_ERROR("usage:\n%s STRING_LIST C_FILE [%s]\n", argv[0], optionToUseVanillaTree);
 
     read_input_file(argv[1]);
     write_c_file(argv[2]);
