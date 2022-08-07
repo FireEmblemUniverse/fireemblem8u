@@ -373,7 +373,45 @@ gEvent_GameOver:  @ 0x08592104
 
 	.global gUnknown_08592114
 gUnknown_08592114:  @ 0x08592114
-    .incbin "baserom.gba", 0x592114, 0x98
+@ Replacing .incbin "baserom.gba", 0x592114, 0x98
+    .4byte 0x000a0320
+    .4byte 0x00000c41
+    .4byte 0x0000000c
+    .4byte 0x00000a40
+    .4byte gUnknown_08592114 + 0x2c
+    .4byte 0x00010920
+    .4byte 0x00000820
+    .4byte 0x00000a40
+    .4byte gUnknown_08592114 + 0x5c
+    .4byte 0x00010820
+    .4byte 0x00000120
+    .4byte 0x00080320
+    .4byte 0x00000c41
+    .4byte 0x0000000c
+    .4byte 0x00070320
+    .4byte 0x00630c41
+    .4byte 0x0000000c
+    .4byte 0x00101721
+    .4byte 0x00000820
+    .4byte 0x00002220
+    .4byte 0x00101720
+    .4byte 0x00630820
+    .4byte 0x00000120
+    .4byte 0x00080320
+    .4byte 0x00000c41
+    .4byte 0x0000000c
+    .4byte 0x00101721
+    .4byte 0x00000820
+    .4byte 0x000b0320
+    .4byte 0x00010c40
+    .4byte 0x0000000c
+    .4byte 0x00001921
+    .4byte 0x00c20620
+    .4byte 0x000b0540
+    .4byte 0x00000000
+    .4byte 0xffff2520
+    .4byte 0x00010820
+    .4byte 0x00000120
 
 	.global gUnknown_085921AC
 gUnknown_085921AC:  @ 0x085921AC
