@@ -1,0 +1,2 @@
+
+void StartTradeMenuTutorialHandCursor(void);

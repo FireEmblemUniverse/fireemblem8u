@@ -10,6 +10,7 @@
 #include "statscreen.h"
 
 #include "bmitem.h"
+#include "bmtrade.h"
 #include "bmunit.h"
 
 #include "m4a.h"
@@ -93,7 +94,6 @@ static void TradeMenu_HelpBox_OnEnd(struct Proc* proc);
 static void TradeMenu_TutorialHandCursor_Update(void);
 static void TradeMenu_DoubleTutorialHandCursor_Update(void);
 
-static void StartTradeMenuTutorialHandCursor(void);
 static void StartDoubleTradeMenuTutorialHandCursor(void);
 static void EndTradeMenuTutorialHandCursor(void);
 static void EndDoubleTradeMenuTutorialHandCursor(void);

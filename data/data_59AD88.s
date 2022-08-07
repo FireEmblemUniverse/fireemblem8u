@@ -178,7 +178,7 @@ gUnknown_0859AEF8:  @ 0x0859AEF8
         .word sub_801ED30
         @ PROC_START_CHILD
         .short 0x5, 0x0
-        .word 0x859aee8
+        .word gUnknown_0859AEE8
         @ PROC_REPEAT
         .short 0x3, 0x0
         .word sub_801ED94
