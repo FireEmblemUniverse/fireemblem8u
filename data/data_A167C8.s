@@ -18,15 +18,7 @@ gUnknown_08A1738C:  @ 0x08A1738C
 
 	.global gUnknown_08A173AC
 gUnknown_08A173AC:  @ 0x08A173AC
-@ Replacing .incbin "baserom.gba", 0xA173AC, 0x20
-    .4byte 0x7fff520e
-    .4byte 0x2df25f5d
-    .4byte 0x7bdf00aa
-    .4byte 0x6b7e73bf
-    .4byte 0x56fc633d
-    .4byte 0xd5a117c
-    .4byte 0x9160d38
-    .4byte banim_drmm_sp1_sheet_7 + 0xc3b
+    .incbin "baserom.gba", 0xA173AC, 0x20
 
 	.global gUnknown_08A173CC
 gUnknown_08A173CC:  @ 0x08A173CC
@@ -4376,16 +4368,16 @@ gUnknown_08A1E0D8:  @ 0x08A1E0D8
     .4byte 0xff
     .4byte 0x0
     .4byte 0x0
-    .4byte gCompressedText_08100778 + 0x98
-    .4byte gCompressedText_08100778 + 0x98
+    .4byte 0x8100810
+    .4byte 0x8100810
     .4byte 0x1000100
     .4byte 0x1000100
-    .4byte gCompressedText_08100778 + 0x98
-    .4byte gCompressedText_08100778 + 0x98
+    .4byte 0x8100810
+    .4byte 0x8100810
     .4byte 0x1000100
     .4byte 0x1000100
-    .4byte gCompressedText_08100778 + 0x98
-    .4byte gCompressedText_08100778 + 0x98
+    .4byte 0x8100810
+    .4byte 0x8100810
     .4byte 0x10a0e00
     .4byte 0x1
     .4byte gUnknown_08A1E0D8 + 0x1870
