@@ -2,6 +2,7 @@
 
 #include "anime.h"
 #include "ap.h"
+#include "bmarch.h"
 #include "bmbattle.h"
 #include "bmio.h"
 #include "bmitem.h"
@@ -31,6 +32,10 @@ struct PromoProc
     struct Unit *u38;
     s32 u3c;
     u32 u40;
+    u32 _u44;
+    u32 _u48;
+    u8 u4c;
+    struct MenuProc* u50;
 };
 
 extern const struct ProcCmd gUnknown_08B12614[];
@@ -399,7 +404,7 @@ struct PromoProc3
     s8 _u2b;
     u16 u2c[3];
     u16 u32[3];
-    u16 u38[3];
+    s16 u38[3];
     u16 _u3e;
     u8 u40;
     u8 u41;
@@ -1452,4 +1457,173 @@ u32 sub_80CDB1C(struct MenuProc *proc) {
 u32 sub_80CDB28(struct MenuProc *proc) {
     SyncMenuBgs(proc);
     return 0;
+}
+
+extern struct Font gUnknown_03005360;
+extern u16 gUnknown_02022DBA[];
+extern struct MenuDef gUnknown_08B12930;
+u32 PromotionCommand_OnSelect(struct MenuItemProc *proc, struct MenuItemProc *proc2) {
+    struct Proc *parent;
+    struct PromoProc3 *gparent;
+    struct PromoProc2 *ggparent;
+    parent = proc->proc_parent;
+    gparent = parent->proc_parent;
+    ggparent = gparent->proc_parent;
+    if (gparent->u40 == 0) {
+        struct Unit *unit = GetUnitFromCharId(ggparent->u38);
+        u8 classnumber = unit->pClassData->number;
+        if (proc2->itemNumber <= 1) {
+            classnumber = gUnknown_0895DFA4[classnumber][proc2->itemNumber];
+            ggparent->u3b = classnumber;
+        } else {
+            if (proc2->itemNumber == 2) {
+                switch (classnumber) {
+                case 0x3d:
+                    ggparent->u3b = 0x7e;
+                    break;
+                case 0x3e:
+                    ggparent->u3b = 0x7f;
+                    break;
+                case 0x47:
+                    ggparent->u3b = 0x37;
+                    break;
+                default:
+                    ggparent->u3b = classnumber;
+                    break;
+                }
+            }
+        }
+        switch ((u8) ggparent->u3b) {
+            case 0x1e:
+            case 0x1d:
+            if (unit->state & 0x800) {
+                TryRemoveUnitFromBallista(unit);
+            }
+            break;
+        }
+        Font_InitForUI(&gUnknown_03005360, (void *) 0x06001000, 0x80, 0x5);
+        TileMap_FillRect(gUnknown_02022DBA, 0xa, 0x6, 0);
+        BG_EnableSyncByMask(1);
+        StartMenuExt(&gUnknown_08B12930, 2, 0, 0, 0, (struct Proc *) proc);
+    }
+    return 0;
+}
+
+u32 sub_80CDC14(struct Proc *proc) {
+    struct Proc *parent;
+    struct Proc *gparent;
+    struct Proc *ggparent;
+    struct PromoProc *gggparent;
+    parent = proc->proc_parent;
+    gparent = parent->proc_parent;
+    ggparent = gparent->proc_parent;
+    gggparent = ggparent->proc_parent;
+    if (gggparent->u31 == 0) {
+        return 0;
+    } else {
+        if (gggparent->u31 == 1) {
+            Proc_End(parent);
+            Proc_Goto(gparent, 2);
+            return 11;
+        }
+        if (gggparent->u31 == 2) {
+            Proc_End(parent);
+            Proc_Goto(gparent, 2);
+            return 11;
+        }
+        return 0;
+    }
+}
+
+void sub_80CDC48(struct MenuProc *a, struct MenuItemProc *b, char *c) {
+    u8 unused_stack[32];
+    u16 *mapbuf;
+    if (b->def->color) {
+        Text_SetColorId(&b->text, b->def->color);
+    }
+    if (b->availability == 2) {
+        Text_SetColorId(&b->text, 1);
+    }
+    sub_8003E00(&b->text, 0, 20);
+    Text_SetXCursor(&b->text, 8);
+    Text_AppendString(&b->text, c);
+    mapbuf = BG_GetMapBuffer(a->frontBg);
+
+    Text_Draw(&b->text, &mapbuf[b->yTile * 32 + b->xTile]);
+}
+
+u32 PromotionCommand_OnTextDraw(struct MenuProc *a, struct MenuItemProc *b) {
+    u8 unused_stack[0x48];
+    struct Proc *parent;
+    struct PromoProc3 *gparent;
+    const struct ClassData *class_data;
+    char *string;
+    parent = a->proc_parent;
+    gparent = parent->proc_parent;
+    class_data = GetClassData(gparent->u2c[b->itemNumber]);
+    string = GetStringFromIndex(class_data->nameTextId);
+    sub_80CDC48(a, b, string);
+}
+
+u32 PromotionCommand_OnChange(struct MenuProc *a, struct MenuItemProc *b) {
+    struct Proc *parent;
+    struct PromoProc3 *gparent;
+    const struct ClassData *class_data;
+    const char *string;
+    parent = a->proc_parent;
+    gparent = parent->proc_parent;
+    gparent->u40 = 1;
+    gparent->u41 = b->itemNumber;
+    ChangeClassDescription(gparent->u38[gparent->u41]);
+    sub_8006AF0(-1);
+}
+
+extern struct ProcCmd gUnknown_08B12A08[];
+u32 Usability_ThirdPromotionOption(void) {
+    struct Proc *proc = Proc_Find(gUnknown_08B12A08);
+    struct Proc *parent = proc->proc_parent;
+    struct PromoProc2 *gparent = parent->proc_parent;
+    const struct ClassData *class_data;
+    const char *string;
+    if (sub_80CCCA4()) {
+        struct Unit *unit = GetUnitFromCharId(gparent->u38);
+        switch (unit->pClassData->number) {
+        case 0x3d:
+        case 0x3e:
+        case 0x47:
+            return 1;
+        default:
+            return 3;
+        }
+    } else {
+        return 3;
+    }
+}
+
+extern struct MenuDef gUnknown_08B129E4;
+extern struct MenuRect gUnknown_08B12A60;
+
+void BuildPromotionMenu(struct PromoProc *proc) {
+    proc->u4c = 0;
+    sub_8003D20();
+    Font_InitForUIDefault();
+    SetFontGlyphSet(0);
+    Font_InitForUI(&gUnknown_03005380, (void *) 0x06001400, 160, 5);
+    SetFont(&gUnknown_03005380);
+    proc->u50 = StartMenuCore(
+		&gUnknown_08B129E4,
+		gUnknown_08B12A60,
+		2,
+		0,
+		0,
+		0,
+		(struct Proc *) proc);
+}
+
+void sub_80CDDD4(void) {}
+
+void nullsub_61(void) {}
+
+ProcPtr Make6C_PromotionMenuSelect(ProcPtr parent) {
+	return Proc_Start(gUnknown_08B12A08, parent);
 }
