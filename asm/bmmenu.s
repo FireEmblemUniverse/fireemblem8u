@@ -1283,7 +1283,7 @@ _08022EE8:
 	adds r2, r3, #0
 	bl BattleGenerateSimulation
 _08022EFC:
-	bl sub_803738C
+	bl UpdateBattleForecastContents
 	movs r0, #0
 	add sp, #4
 	pop {r4, r5}
@@ -1303,7 +1303,7 @@ sub_8022F10: @ 0x08022F10
 	movs r0, #4
 	bl BG_EnableSyncByMask
 	bl HideMoveRangeGraphics
-	bl sub_80373B4
+	bl CloseBattleForecast
 	movs r0, #0
 	pop {r1}
 	bx r1

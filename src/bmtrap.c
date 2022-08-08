@@ -40,20 +40,12 @@ void sub_801F9FC(ProcPtr, int, char*);
 struct UnknownBMTrapProc {
     /* 00 */ PROC_HEADER;
 
-    /* 29 */ u8 _pad_29[0x4C-0x29];
+    /* 29 */ u8 _pad_29[0x50-0x29];
 
-    /* 4C */ u16 unk_4C;
-    /* 4E */ u16 _pad_4E;
     /* 50 */ s16 unk_50;
     /* 52 */ s8 unk_52;
     /* 53 */ s8 unk_53;
     /* 54 */ struct Unit* unit;
-};
-
-extern struct ProcCmd CONST_DATA gProcScr_BKSEL[];
-
-u16 CONST_DATA gUnknown_0859E5A0[] = {
-    0x56B, 0x56D, 0x56F, 0x56C, 0x56E, 0x570,
 };
 
 void sub_80374F4(struct UnknownBMTrapProc* proc);
@@ -93,41 +85,6 @@ struct ProcCmd CONST_DATA sProcScr_ExecTrapMine[] = {
 
     PROC_END,
 };
-
-// TODO: Move these first three functions to BKSEL once it is decompiled.
-
-u16 sub_803746C(int r0, s8 r1) {
-
-    int r2 = r1 != 0 ? 3 : 0;
-
-    if (r0 < 0) {
-        r2 += 2;
-    }
-
-    if (r0 > 0) {
-        r2 += 1;
-    }
-
-    return gUnknown_0859E5A0[r2];
-}
-
-void sub_8037494(struct UnknownBMTrapProc* proc) {
-    struct UnknownBMTrapProc* proc2;
-
-    proc2 = Proc_Find(gProcScr_BKSEL);
-    proc->unk_4C = sub_803746C(gBattleActor.wTriangleHitBonus, proc2->unk_52);
-
-    return;
-}
-
-void sub_80374C4(struct UnknownBMTrapProc* proc) {
-    struct UnknownBMTrapProc* proc2;
-
-    proc2 = Proc_Find(gProcScr_BKSEL);
-    proc->unk_4C = sub_803746C(gBattleTarget.wTriangleHitBonus, proc2->unk_53);
-
-    return;
-}
 
 void sub_80374F4(struct UnknownBMTrapProc* proc) {
     struct Unit* unit = proc->unit;

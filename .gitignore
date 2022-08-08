@@ -944,3 +944,7 @@ sound/direct_sound_samples/*.bin
 # Converted songs
 sound/songs/midi/*.s
 .vscode/settings.json
+
+# Generated source files
+src/msg_data.c
+include/msg_data.h

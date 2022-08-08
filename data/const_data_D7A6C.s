@@ -18,8 +18,13 @@ gUnknown_080D7A8C:  @ 0x080D7A8C
 
 	.global gUnknown_080D7AB4
 gUnknown_080D7AB4:  @ 0x080D7AB4
-	.incbin "baserom.gba", 0xD7AB4, 0x10
+@ replacing .incbin "baserom.gba", 0x000d7ab4, 0x10
+.4byte gUnknown_080D7A8C + 0x8
+.4byte gUnknown_080D7A8C + 0x10
+.4byte gUnknown_080D7A8C + 0x18
+.4byte gUnknown_080D7A8C + 0x20
 
 	.global gUnknown_080D7AC4
 gUnknown_080D7AC4:  @ 0x080D7AC4
 	.incbin "baserom.gba", 0xD7AC4, 0x18
+

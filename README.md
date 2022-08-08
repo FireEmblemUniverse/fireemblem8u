@@ -24,9 +24,6 @@ cd /path/to/agbcc
 4. Build tools.
 ```
 cd /path/to/fireemblem8u
-# for Mac users
-./build_tools_mac.sh
-# for other users
 ./build_tools.sh
 ```
 5. Build the project.

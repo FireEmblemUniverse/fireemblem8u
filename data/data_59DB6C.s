@@ -6,4 +6,6 @@ gPathArrowOAMTable:  @ 0x0859DB6C
 
 	.global gUnknown_0859DBA0
 gUnknown_0859DBA0:  @ 0x0859DBA0
-	.incbin "baserom.gba", 0x59DBA0, 0x4
+@ replacing .incbin "baserom.gba", 0x0059dba0, 0x4
+.4byte gUnknown_0203A974 + 0x1c
+

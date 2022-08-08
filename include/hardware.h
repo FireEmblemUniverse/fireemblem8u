@@ -52,7 +52,7 @@ void UpdateKeyStatus(struct KeyStatusBuffer *keyStatus);
 // ??? sub_8001414(???);
 void ResetKeyStatus(struct KeyStatusBuffer *keyStatus);
 void SetKeyStatus_IgnoreMask(int keys);
-// ??? GetKeyStatus_IgnoreMask(???);
+int GetKeyStatus_IgnoreMask(void);
 // ??? KeyStatusSetter_Set(???);
 void NewKeyStatusSetter(int a);
 void BG_SetPosition(u16 a, u16 b, u16 c);

@@ -52,7 +52,7 @@
 // extern ??? gUnknown_02002038
 // extern ??? gUnknown_02002088
 // extern ??? gUnknown_02002774
-// extern ??? gUnknown_02002FDC
+// extern ??? gaBattleForecastTextStructs
 // extern ??? gUnknown_02002FF4
 // extern ??? gUnknown_0200300C
 // extern ??? gUnknown_02003088
@@ -878,7 +878,6 @@ extern short gSinLookup[]; // gSinTable; needs to be non-const to match?
 // extern ??? gUnknown_080D7F64
 // extern ??? gUnknown_080D7F8C
 // extern ??? gUnknown_080D7F92
-// extern ??? gUnknown_080D7FB0
 // extern ??? gUnknown_080D7FD0
 // extern ??? gUnknown_080D8018
 // extern ??? gUnknown_080D8070
@@ -1136,9 +1135,9 @@ extern short gSinLookup[]; // gSinTable; needs to be non-const to match?
 // extern ??? gUnknown_080E834E
 // extern ??? gUnknown_080E836C
 // extern ??? gUnknown_080E838E
-// extern ??? gUnknown_0815A72C
-// extern ??? gUnknown_0815D488
-extern const char *const gUnknown_0815D48C[];
+// extern ??? gMsgHuffmanTable
+// extern ??? gMsgHuffmanTableRoot
+extern const u8 *const gMsgStringTable[];
 // extern ??? gUnknown_08205714
 // extern ??? gUnknown_0820579C
 // extern ??? gUnknown_08205824
@@ -1527,10 +1526,6 @@ extern struct ProcCmd CONST_DATA gProcScr_ADJUSTSFROMXI[];
 // extern ??? gUnknown_0859E188
 // extern ??? gUnknown_0859E1B0
 // extern ??? gUnknown_0859E1B8
-// extern ??? gUnknown_0859E4F8
-// extern ??? gUnknown_0859E518
-// extern ??? gUnknown_0859E51C
-// extern ??? gProcScr_BKSEL
 // extern ??? gUnknown_0859E8E0
 // extern ??? gUnknown_0859ED70
 // extern ??? gUnknown_0859EDB0
@@ -1559,10 +1554,10 @@ extern u16 gUnknown_0859EFC0[];
 // extern ??? gUnknown_085A06D8
 // extern ??? gUnknown_085A0838
 // extern ??? gUnknown_085A08F0
-// extern ??? gUnknown_085A09A8
-// extern ??? gUnknown_085A0AEC
-// extern ??? gUnknown_085A0C80
-// extern ??? gUnknown_085A0D2C
+// extern ??? gTSA_BattleForecastStandard
+// extern ??? gTSA_BattleForecastExtended
+// extern ??? gBattleForecast_x2x4Gfx
+// extern ??? gBattleForecast_x2x4Pal
 // extern ??? gUnknown_085A0D4C
 extern u16 CONST_DATA gUnknown_085A0EA0[]; // ap
 // extern ??? gUnknown_085A0FF8

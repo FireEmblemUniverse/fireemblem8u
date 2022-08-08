@@ -62,5 +62,25 @@ gUnknown_088ADFA6:  @ 0x088ADFA6
 
 	.global gUnknown_088AF834
 gUnknown_088AF834:  @ 0x088AF834
-	.incbin "baserom.gba", 0x8AF834, 0x4C
+@ replacing .incbin "baserom.gba", 0x008af834, 0x4c
+.4byte 0
+.4byte gUnknown_088ADFA6 + 0x174e
+.4byte gUnknown_088ADFA6 + 0x1762
+.4byte gUnknown_088ADFA6 + 0x177a
+.4byte gUnknown_088ADFA6 + 0x1792
+.4byte gUnknown_088ADFA6 + 0x17aa
+.4byte gUnknown_088ADFA6 + 0x17c2
+.4byte gUnknown_088ADFA6 + 0x17ce
+.4byte gUnknown_088ADFA6 + 0x17da
+.4byte gUnknown_088ADFA6 + 0x17e6
+.4byte gUnknown_088ADFA6 + 0x1802
+.4byte gUnknown_088ADFA6 + 0x181a
+.4byte gUnknown_088ADFA6 + 0x1826
+.4byte gUnknown_088ADFA6 + 0x1832
+.4byte gUnknown_088ADFA6 + 0x184a
+.4byte gUnknown_088ADFA6 + 0x1856
+.4byte gUnknown_088ADFA6 + 0x1862
+.4byte gUnknown_088ADFA6 + 0x1876
+.4byte gUnknown_088ADFA6 + 0x1882
+
 

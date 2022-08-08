@@ -82,7 +82,14 @@ gUnknown_080D9EF0:  @ 0x080D9EF0
 
 	.global gUnknown_080D9EFC
 gUnknown_080D9EFC:  @ 0x080D9EFC
-	.incbin "baserom.gba", 0xD9EFC, 0x1C
+@ Replacing .incbin "baserom.gba", 0xD9EFC, 0x1C
+    .4byte gUnknown_085A9BA0
+    .4byte gUnknown_085A979C
+    .4byte gUnknown_085A9888
+    .4byte gUnknown_085A9D38
+    .4byte gUnknown_085A9DF8
+    .4byte 0x4d4f4953
+    .4byte 0x554e45
 
 	.global gUnknown_080D9F18
 gUnknown_080D9F18:  @ 0x080D9F18
@@ -142,7 +149,7 @@ gUnknown_080DA09C:  @ 0x080DA09C
 
 	.global gUnknown_080DA0DA
 gUnknown_080DA0DA:  @ 0x080DA0DA
-	.incbin "baserom.gba", 0xDA0DA, 0x20
+    .incbin "baserom.gba", 0xDA0DA, 0x20
 
 	.global gUnknown_080DA0FA
 gUnknown_080DA0FA:  @ 0x080DA0FA
@@ -150,7 +157,7 @@ gUnknown_080DA0FA:  @ 0x080DA0FA
 
 	.global gUnknown_080DA102
 gUnknown_080DA102:  @ 0x080DA102
-	.incbin "baserom.gba", 0xDA102, 0x30
+    .incbin "baserom.gba", 0xDA102, 0x30
 
 	.global gUnknown_080DA132
 gUnknown_080DA132:  @ 0x080DA132
@@ -178,15 +185,35 @@ gUnknown_080DA1CA:  @ 0x080DA1CA
 
 	.global gUnknown_080DA20C
 gUnknown_080DA20C:  @ 0x080DA20C
-	.incbin "baserom.gba", 0xDA20C, 0x10
+@ replacing .incbin "baserom.gba", 0x000da20c, 0x10
+.4byte gUnknown_085AE7EC + 0x5e8
+.4byte gUnknown_085AE7EC + 0x6a4
+.4byte gUnknown_085AE7EC + 0x768
+.4byte gUnknown_085AE7EC + 0x840
 
 	.global gUnknown_080DA21C
 gUnknown_080DA21C:  @ 0x080DA21C
-	.incbin "baserom.gba", 0xDA21C, 0x10
+@ replacing .incbin "baserom.gba", 0x000da21c, 0x10
+.4byte gUnknown_085AE7EC + 0x904
+.4byte gUnknown_085AE7EC + 0x944
+.4byte gUnknown_085AE7EC + 0x924
+.4byte gUnknown_085AE7EC + 0x964
 
 	.global gUnknown_080DA22C
 gUnknown_080DA22C:  @ 0x080DA22C
-	.incbin "baserom.gba", 0xDA22C, 0x30
+@ replacing .incbin "baserom.gba", 0xDA22C, 0x30
+    .4byte gUnknown_0859FA2C
+    .4byte gUnknown_085A0698
+    .4byte gUnknown_085A0068
+    .4byte gUnknown_085A0698 + 0x20
+    .4byte 0x43000001
+    .4byte 0x37008000
+    .4byte 0x43000001
+    .4byte 0x47048200
+    .4byte 0x43000001
+    .4byte 0x57088400
+    .4byte 0x43000001
+    .4byte 0x670c8600
 
 	.global gUnknown_080DA25C
 gUnknown_080DA25C:  @ 0x080DA25C
@@ -203,3 +230,4 @@ gUnknown_080DA27E:  @ 0x080DA27E
 	.global gUnknown_080DA2B0
 gUnknown_080DA2B0:  @ 0x080DA2B0
 	.incbin "baserom.gba", 0xDA2B0, 0x44
+
