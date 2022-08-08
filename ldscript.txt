@@ -316,6 +316,7 @@ SECTIONS
         . = ALIGN(4); data/data_A01628.o(.data);
         . = ALIGN(4); data/data_chap_title.o(.data);
         . = ALIGN(4); data/data_A167C8.o(.data);
+        . = ALIGN(4); src/branched_promotion.o(.data);
         . = ALIGN(4); data/branched_promotion.o(.data);
         . = ALIGN(4); data/data_B12A60.o(.data);
         . = ALIGN(4); *libc.a:impure.o(.data);

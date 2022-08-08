@@ -38,7 +38,93 @@ struct PromoProc
     struct MenuProc* u50;
 };
 
-extern const struct ProcCmd gUnknown_08B12614[];
+/* Seems like there are a couple of proc structures going on here */
+struct PromoProc2
+{
+    PROC_HEADER;
+    u8 u29;
+    struct Unit *unit;
+    u32 u30;
+    ProcPtr u34;
+    u8 u38;
+    s8 _u39;
+    s8 _u3a;
+    s8 u3b;
+};
+
+struct PromoProc3
+{
+    PROC_HEADER;
+    s8 _u29;
+    s8 _u2a;
+    s8 _u2b;
+    u16 u2c[3];
+    u16 u32[3];
+    s16 u38[3];
+    u16 _u3e;
+    u8 u40;
+    u8 u41;
+    u16 u42;
+    u16 u44;
+    u8 u46;
+    u8 u47;
+    u16 u48;
+    u8 u4a[3];
+    u8 _u4d[3];
+    u32 u50;
+    ProcPtr u54;
+    /* ... more maybe */
+};
+
+struct PromoProc4
+{
+    PROC_HEADER;
+    s8 _u29;
+    u16 u2a;
+    u16 _u2c;
+    u8 u2e;
+    u8 _u2f;
+    ProcPtr u30;
+};
+
+void sub_80CC4AC(struct PromoProc2 *proc);
+void sub_80CC5B4(struct PromoProc2 *proc);
+int sub_80CDA2C(struct PromoProc4 *a);
+u32 sub_80CDA38(struct PromoProc2 *proc);
+void sub_80CC628(struct PromoProc2 *proc);
+u32 sub_80CD2F8(struct PromoProc2 *proc);
+u32 sub_80CD330(struct PromoProc2 *proc);
+void sub_80CDEA8(struct PromoProc2 *proc);
+void sub_80CC66C(struct PromoProc2 *proc);
+void sub_80CC698(struct PromoProc2 *proc);
+
+CONST_DATA
+struct ProcCmd gUnknown_08B12614[] =
+{
+	{ 0x01, 0x0000, (void *) 0x8207038 }, // PROC_NAME("ccramify")
+	PROC_LABEL(0),
+    PROC_CALL(sub_80CC4AC),
+    PROC_SLEEP(3),
+	PROC_LABEL(1),
+    PROC_CALL(sub_80CC5B4),
+    PROC_LABEL(2),
+    PROC_WHILE(sub_80CDA2C),
+    PROC_WHILE(sub_80CDA38),
+    PROC_CALL(sub_80CC628),
+    PROC_LABEL(4),
+    PROC_WHILE(sub_80CD2F8),
+    PROC_SLEEP(5),
+    PROC_REPEAT(sub_80CD330),
+    PROC_LABEL(5),
+    PROC_CALL(sub_80CDEA8),
+    PROC_SLEEP(2),
+    PROC_LABEL(6),
+    PROC_CALL(sub_80CC66C),
+    PROC_LABEL(7),
+    PROC_LABEL(8),
+    PROC_CALL(sub_80CC698),
+    PROC_END,
+};
 
 ProcPtr Make6C_PromotionMain(ProcPtr proc);
 
@@ -57,20 +143,6 @@ void MakePromotionScreen(ProcPtr proc, u32 a, u32 b) {
 ProcPtr Make6C_PromotionMain(ProcPtr proc) {
     Proc_StartBlocking(gUnknown_08B12614, proc);
 }
-
-/* Seems like there are a couple of proc structures going on here */
-struct PromoProc2
-{
-    PROC_HEADER;
-    u8 u29;
-    struct Unit *unit;
-    u32 u30;
-    ProcPtr u34;
-    u8 u38;
-    s8 _u39;
-    s8 _u3a;
-    s8 u3b;
-};
 
 void sub_80CC4AC(struct PromoProc2 *proc) {
     struct PromoProc *parent;
@@ -395,30 +467,6 @@ void ChangeClassDescription(u32 a) {
     sub_8006AA8(0x40);
     sub_8006AF0(4);
 }
-
-struct PromoProc3
-{
-    PROC_HEADER;
-    s8 _u29;
-    s8 _u2a;
-    s8 _u2b;
-    u16 u2c[3];
-    u16 u32[3];
-    s16 u38[3];
-    u16 _u3e;
-    u8 u40;
-    u8 u41;
-    u16 u42;
-    u16 u44;
-    u8 u46;
-    u8 u47;
-    u16 u48;
-    u8 u4a[3];
-    u8 _u4d[3];
-    u32 u50;
-    ProcPtr u54;
-    /* ... more maybe */
-};
 
 struct Struct_80B4108 {
     u16 *a;
@@ -1118,17 +1166,6 @@ void sub_80CD62C(void) {
 }
 
 ProcPtr sub_80CD668(ProcPtr);
-
-struct PromoProc4
-{
-    PROC_HEADER;
-    s8 _u29;
-    u16 u2a;
-    u16 _u2c;
-    u8 u2e;
-    u8 _u2f;
-    ProcPtr u30;
-};
 
 void sub_80CD658(struct PromoProc4 *a) {
     a->u30 = sub_80CD668(a);

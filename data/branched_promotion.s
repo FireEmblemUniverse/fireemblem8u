@@ -1,78 +1,5 @@
     .section .data
 
-	.global gUnknown_08B12614
-gUnknown_08B12614:  @ 0x08B12614
-        @ PROC_NAME
-        .short 0x1, 0x0
-        .word 0x8207038
-        @ PROC_LABEL
-        .short 0xb, 0x0
-        .word 0x0
-        @ PROC_CALL
-        .short 0x2, 0x0
-        .word sub_80CC4AC
-        @ PROC_SLEEP
-        .short 0xe, 0x3
-        .word 0x0
-        @ PROC_LABEL
-        .short 0xb, 0x1
-        .word 0x0
-        @ PROC_CALL
-        .short 0x2, 0x0
-        .word sub_80CC5B4
-        @ PROC_LABEL
-        .short 0xb, 0x2
-        .word 0x0
-        @ PROC_WHILE
-        .short 0x14, 0x0
-        .word sub_80CDA2C
-        @ PROC_WHILE
-        .short 0x14, 0x0
-        .word sub_80CDA38
-        @ PROC_CALL
-        .short 0x2, 0x0
-        .word sub_80CC628
-        @ PROC_LABEL
-        .short 0xb, 0x4
-        .word 0x0
-        @ PROC_WHILE
-        .short 0x14, 0x0
-        .word sub_80CD2F8
-        @ PROC_SLEEP
-        .short 0xe, 0x5
-        .word 0x0
-        @ PROC_REPEAT
-        .short 0x3, 0x0
-        .word sub_80CD330
-        @ PROC_LABEL
-        .short 0xb, 0x5
-        .word 0x0
-        @ PROC_CALL
-        .short 0x2, 0x0
-        .word sub_80CDEA8
-        @ PROC_SLEEP
-        .short 0xe, 0x2
-        .word 0x0
-        @ PROC_LABEL
-        .short 0xb, 0x6
-        .word 0x0
-        @ PROC_CALL
-        .short 0x2, 0x0
-        .word sub_80CC66C
-        @ PROC_LABEL
-        .short 0xb, 0x7
-        .word 0x0
-        @ PROC_LABEL
-        .short 0xb, 0x8
-        .word 0x0
-        @ PROC_CALL
-        .short 0x2, 0x0
-        .word sub_80CC698
-        @ PROC_END
-        .short 0x0, 0x0
-        .word 0x0
-
-
 	.global gUnknown_08B126CC
 gUnknown_08B126CC:  @ 0x08B126CC
         @ PROC_SLEEP
@@ -106,7 +33,7 @@ gUnknown_08B1271C:  @ 0x08B1271C
         @ PROC_REPEAT
         .short 0x3, 0x0
         .word ContinueUntilSomeTransistion6CExists
-        @ PROC_NAME
+        @ PROC_NAME("ccramify")
         .short 0x1, 0x0
         .word 0x8207050
         @ PROC_LABEL
@@ -181,7 +108,7 @@ gUnknown_08B1271C:  @ 0x08B1271C
 
 	.global gUnknown_08B127EC
 gUnknown_08B127EC:  @ 0x08B127EC
-        @ PROC_NAME
+        @ PROC_NAME("ccramify_end")
         .short 0x1, 0x0
         .word 0x820705c
         @ PROC_CALL
@@ -199,7 +126,7 @@ gUnknown_08B1280C:  @ 0x08B1280C
         @ PROC_SLEEP
         .short 0xe, 0x8
         .word 0x0
-        @ PROC_NAME
+        @ PROC_NAME("ccramify_event")
         .short 0x1, 0x0
         .word 0x820706c
         @ PROC_LABEL
@@ -362,7 +289,7 @@ gUnknown_08B12A08:  @ 0x08B12A08
         @ PROC_SLEEP
         .short 0xe, 0x6
         .word 0x0
-        @ PROC_NAME
+        @ PROC_NAME("CCRamifyMenuSelect")
         .short 0x1, 0x0
         .word 0x82070f0
         @ PROC_CALL
