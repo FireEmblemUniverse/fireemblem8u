@@ -131,6 +131,7 @@ SECTIONS
         asm/fx_slidingwallbg.o(.text);
         src/statscreen.o(.text);
         asm/code.o(.text);
+        src/minimap.o(.text);
         asm/minimap.o(.text);
         asm/code_80A882C.o(.text);
         asm/m4a_1.o(.text);
