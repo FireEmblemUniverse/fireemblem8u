@@ -44,10 +44,10 @@ struct PromoProc2
     PROC_HEADER;
     u8 u29;
     struct Unit *unit;
-    u32 u30;
+    ProcPtr u30;
     ProcPtr u34;
     u8 u38;
-    s8 _u39;
+    u8 u39;
     s8 _u3a;
     s8 u3b;
 };
@@ -89,7 +89,7 @@ struct PromoProc4
 
 void sub_80CC4AC(struct PromoProc2 *proc);
 void sub_80CC5B4(struct PromoProc2 *proc);
-int sub_80CDA2C(struct PromoProc4 *a);
+int sub_80CDA2C(struct PromoProc2 *proc);
 u32 sub_80CDA38(struct PromoProc2 *proc);
 void sub_80CC628(struct PromoProc2 *proc);
 u32 sub_80CD2F8(struct PromoProc2 *proc);
@@ -126,21 +126,21 @@ struct ProcCmd gUnknown_08B12614[] =
     PROC_END,
 };
 
-ProcPtr Make6C_PromotionMain(ProcPtr proc);
+struct PromoProc2 *Make6C_PromotionMain(ProcPtr proc);
 
 void MakePromotionScreen(ProcPtr proc, u32 a, u32 b) {
     struct PromoProc *proc_ = (struct PromoProc *) proc;
     u8 a_ = a;
     u8 b_ = b;
-    u8 * res;
+    struct PromoProc2 *res;
     proc_->u30 = 0;
     res = Make6C_PromotionMain(proc_);
     proc_->u2c = res;
-    res[0x38] = a_;
-    res[0x39] = b_;
+    res->u38 = a_;
+    res->u39 = b_;
 }
 
-ProcPtr Make6C_PromotionMain(ProcPtr proc) {
+struct PromoProc2 *Make6C_PromotionMain(ProcPtr proc) {
     Proc_StartBlocking(gUnknown_08B12614, proc);
 }
 
@@ -411,7 +411,14 @@ void sub_80CC940(ProcPtr parent) {
     target->statusOut = -1;
 }
 
-void sub_80CC990(struct PromoProc2 *proc) {
+struct Proc_80CC990 {
+    PROC_HEADER;
+
+    struct Unit *unit;
+    u32 u30;
+};
+
+void sub_80CC990(struct Proc_80CC990 *proc) {
     struct BattleUnit *actor, *target;
     struct PromoProc *new_proc;
     struct PromoProc2 *parent;
@@ -439,7 +446,7 @@ void sub_80CC990(struct PromoProc2 *proc) {
     parent = new_proc->proc_parent;
     new_proc->u33 = parent->unit->pCharacterData->number;
     new_proc->u38 = parent->unit;
-    new_proc->u3c = parent->u30;
+    new_proc->u3c = (s32) parent->u30;
 }
 
 void sub_80CCA14(struct PromoProc2 *proc) {
@@ -1167,13 +1174,13 @@ void sub_80CD62C(void) {
 
 ProcPtr sub_80CD668(ProcPtr);
 
-void sub_80CD658(struct PromoProc4 *a) {
-    a->u30 = sub_80CD668(a);
+void sub_80CD658(struct PromoProc2 *proc) {
+    proc->u30 = sub_80CD668(proc);
 }
 
 extern struct ProcCmd gUnknown_08B1280C[];
-ProcPtr sub_80CD668(ProcPtr a) {
-    return Proc_StartBlocking(gUnknown_08B1280C, a);
+ProcPtr sub_80CD668(ProcPtr proc) {
+    return Proc_StartBlocking(gUnknown_08B1280C, proc);
 }
 
 struct U03004980_Member {
@@ -1423,8 +1430,8 @@ void sub_80CD9B8(struct PromoProc4 *proc) {
     }
 }
 
-int sub_80CDA2C(struct PromoProc4 *a) {
-    sub_80CD658(a);
+int sub_80CDA2C(struct PromoProc2 *proc) {
+    sub_80CD658(proc);
     return 0;
 }
 
