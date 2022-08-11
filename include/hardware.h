@@ -79,7 +79,7 @@ void SoftResetIfKeyComboPressed();
 // ??? sub_8001CB0(???);
 // ??? ExecBothHBlankHandlers(???);
 // ??? UpdateHBlankHandlerState(???);
-// ??? SetPrimaryHBlankHandler(???);
+void SetPrimaryHBlankHandler(void (*hblankHandler)(void));
 void SetSecondaryHBlankHandler(void(*)(void));
 // ??? GetBackgroundFromBufferPointer(???);
 // ??? BG_SetPriority(???);
