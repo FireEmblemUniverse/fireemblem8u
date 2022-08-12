@@ -58,7 +58,7 @@ gUnknown_08B12B04:  @ 0x08B12B04
 
 	.global gUnknown_08B12B1C
 gUnknown_08B12B1C:  @ 0x08B12B1C
-        @ PROC_NAME
+        @ PROC_NAME("E_guideSub")
         .short 0x1, 0x0
         .word 0x8207104
         @ PROC_CALL
@@ -74,7 +74,7 @@ gUnknown_08B12B1C:  @ 0x08B12B1C
 
 	.global gUnknown_08B12B3C
 gUnknown_08B12B3C:  @ 0x08B12B3C
-        @ PROC_NAME
+        @ PROC_NAME("E_guMenu1ReWrite")
         .short 0x1, 0x0
         .word 0x8207110
         @ PROC_SLEEP
@@ -114,7 +114,7 @@ gUnknown_08B12B3C:  @ 0x08B12B3C
 
 	.global gUnknown_08B12B9C
 gUnknown_08B12B9C:  @ 0x08B12B9C
-        @ PROC_NAME
+        @ PROC_NAME("E_guMenu2ReWriteFirst")
         .short 0x1, 0x0
         .word 0x8207124
         @ PROC_SLEEP
@@ -148,7 +148,7 @@ gUnknown_08B12B9C:  @ 0x08B12B9C
 
 	.global gUnknown_08B12BEC
 gUnknown_08B12BEC:  @ 0x08B12BEC
-        @ PROC_NAME
+        @ PROC_NAME("E_guMenu2ReWriteUp")
         .short 0x1, 0x0
         .word 0x820713c
         @ PROC_SLEEP
@@ -167,7 +167,7 @@ gUnknown_08B12BEC:  @ 0x08B12BEC
 
 	.global gUnknown_08B12C14
 gUnknown_08B12C14:  @ 0x08B12C14
-    @ PROC_NAME
+    @ PROC_NAME("E_guMenu2ReWriteDown")
     .short 0x1, 0x0
     .word 0x8207150
     @ PROC_SLEEP
@@ -185,7 +185,7 @@ gUnknown_08B12C14:  @ 0x08B12C14
 
 	.global gUnknown_08B12C3C
 gUnknown_08B12C3C:  @ 0x08B12C3C
-    @ PROC_NAME
+    @ PROC_NAME("E_guMess3ReWrite")
     .short 0x1, 0x0
     .word 0x8207168
     @ PROC_SLEEP
@@ -204,7 +204,7 @@ gUnknown_08B12C3C:  @ 0x08B12C3C
 
 	.global gUnknown_08B12C64
 gUnknown_08B12C64:  @ 0x08B12C64
-        @ PROC_NAME
+        @ PROC_NAME("E_Guide")
         .short 0x1, 0x0
         .word 0x820717c
         @ PROC_CALL

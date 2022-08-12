@@ -154,120 +154,6 @@ const struct ProcCmd gUnknown_08B1280C[] =
     PROC_END,
 };
 
-// Some raw jp text. not moved over yet
-const char gText_082070B8[];
-
-u8 sub_80CDAD8(struct MenuProc *proc, struct MenuItemProc *b);
-
-CONST_DATA
-struct MenuItemDef gUnknown_08B128C4[] = {
-    { gText_082070B8 + 0xC, 35, 0, 0, 0, MenuAlwaysEnabled, 0, sub_80CDAD8, 0, 0 },
-    { gText_082070B8, 36, 0, 0, 1, MenuAlwaysEnabled, 0, sub_80CDAD8, 0, 0 },
-    { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-};
-
-u8 sub_80CDA84(struct MenuProc *proc);
-u8 sub_80CDA90(struct MenuProc *proc);
-u8 sub_80CDB18(struct MenuProc *proc, struct MenuItemProc *proc2);
-
-CONST_DATA
-struct MenuDef gUnknown_08B12930 = {
-    { 9, 4, 6, 0 },
-    1,
-    gUnknown_08B128C4,
-    (void(*)(struct MenuProc*)) sub_80CDA84,
-    (void(*)(struct MenuProc*)) sub_80CDA90,
-    0,
-    sub_80CDB18,
-    0,
-    (void(*)(struct MenuProc*, struct MenuItemProc*))MenuStdHelpBox
-};
-
-int PromotionCommand_OnTextDraw(struct MenuProc *a, struct MenuItemProc *b);
-u8 PromotionCommand_OnSelect(struct MenuProc *proc, struct MenuItemProc *proc2);
-int PromotionCommand_OnChange(struct MenuProc *a, struct MenuItemProc *b);
-u8 Usability_ThirdPromotionOption(const struct MenuItemDef *, int number);
-
-CONST_DATA
-struct MenuItemDef gUnknown_08B12954[] = {
-    {
-        gText_082070B8 + 0x2C,
-        0,
-        0x6DC,
-        0,
-        0,
-        MenuAlwaysEnabled,
-        PromotionCommand_OnTextDraw,
-        PromotionCommand_OnSelect,
-        0,
-        PromotionCommand_OnChange,
-        0
-    },
-    {
-        gText_082070B8 + 0x20,
-        0,
-        0x6DC,
-        0,
-        1,
-        MenuAlwaysEnabled,
-        PromotionCommand_OnTextDraw,
-        PromotionCommand_OnSelect,
-        0,
-        PromotionCommand_OnChange,
-        0
-    },
-    {
-        gText_082070B8 + 0x14,
-        0,
-        0x6DC,
-        0,
-        2,
-        Usability_ThirdPromotionOption,
-        PromotionCommand_OnTextDraw,
-        PromotionCommand_OnSelect,
-        0,
-        PromotionCommand_OnChange,
-        0
-    },
-    { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }
-};
-
-u32 sub_80CDB1C(struct MenuProc *proc);
-u32 sub_80CDB28(struct MenuProc *proc);
-u8 sub_80CDC14(struct MenuProc *proc, struct MenuItemProc *proc2);
-
-CONST_DATA
-struct MenuDef gUnknown_08B129E4 = {
-    { 16, 2, 8, 0 },
-    0,
-    gUnknown_08B12954,
-    (void(*)(struct MenuProc*)) sub_80CDB1C,
-    (void(*)(struct MenuProc*)) sub_80CDB28,
-    0,
-    sub_80CDC14,
-    0,
-    0,
-};
-
-void BuildPromotionMenu(struct PromoProc *proc);
-void sub_80CDDD4(void);
-void nullsub_61(void);
-
-CONST_DATA
-struct ProcCmd gUnknown_08B12A08[] = {
-    PROC_SLEEP(6),
-	{ 0x01, 0x0000, (void *) 0x82070f0 }, // PROC_NAME("CCRamifyMenuSelect")
-    PROC_CALL(BuildPromotionMenu),
-    PROC_REPEAT(sub_80CDDD4),
-    PROC_YIELD,
-    PROC_LABEL(0),
-    PROC_GOTO(2),
-    PROC_LABEL(1),
-    PROC_CALL(nullsub_61),
-    PROC_LABEL(2),
-    PROC_END,
-};
-
 struct PromoProc2 *Make6C_PromotionMain(ProcPtr proc);
 
 void MakePromotionScreen(ProcPtr proc, u32 a, u32 b) {
@@ -1546,9 +1432,6 @@ void sub_80CD9B8(struct PromoProc4 *proc) {
     }
 }
 
-// TODO: write in shift-jis
-const char gText_082070B8[] = { 0x81, 0x40, 0x82, 0xe2, 0x82, 0xdf, 0x82, 0xe9, 0x0 };
-
 int sub_80CDA2C(struct PromoProc2 *proc) {
     sub_80CD658(proc);
     return 0;
@@ -1617,6 +1500,124 @@ u32 sub_80CDB28(struct MenuProc *proc) {
     SyncMenuBgs(proc);
     return 0;
 }
+
+// TODO: write in shift-jis. Also, why so much padding required?
+const char gText_082070B8[] = { 0x81, 0x40, 0x82, 0xe2, 0x82, 0xdf, 0x82, 0xe9, 0x0, 0x0, 0x0, 0x0 };
+const char gText_082070C4[] = { 0x81, 0x40, 0x8c, 0x88, 0x92, 0xe8, 0x0, 0x0 };
+const char gText_082070CC[] = { 0x81, 0x40, 0x91, 0xe6, 0x82, 0x52, 0x95, 0xba, 0x8e, 0xed, 0x0, 0x0, };
+const char gText_082070D8[] = { 0x81, 0x40, 0x91, 0xe6, 0x82, 0x51, 0x95, 0xba, 0x8e, 0xed, 0x0, 0x0, };
+const char gText_082070E4[] = { 0x81, 0x40, 0x91, 0xe6, 0x82, 0x50, 0x95, 0xba, 0x8e, 0xed, 0x0, 0x0, };
+
+u8 sub_80CDAD8(struct MenuProc *proc, struct MenuItemProc *b);
+
+CONST_DATA
+struct MenuItemDef gUnknown_08B128C4[] = {
+    { gText_082070C4, 35, 0, 0, 0, MenuAlwaysEnabled, 0, sub_80CDAD8, 0, 0 },
+    { gText_082070B8, 36, 0, 0, 1, MenuAlwaysEnabled, 0, sub_80CDAD8, 0, 0 },
+    { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+};
+
+u8 sub_80CDA84(struct MenuProc *proc);
+u8 sub_80CDA90(struct MenuProc *proc);
+u8 sub_80CDB18(struct MenuProc *proc, struct MenuItemProc *proc2);
+
+CONST_DATA
+struct MenuDef gUnknown_08B12930 = {
+    { 9, 4, 6, 0 },
+    1,
+    gUnknown_08B128C4,
+    (void(*)(struct MenuProc*)) sub_80CDA84,
+    (void(*)(struct MenuProc*)) sub_80CDA90,
+    0,
+    sub_80CDB18,
+    0,
+    (void(*)(struct MenuProc*, struct MenuItemProc*))MenuStdHelpBox
+};
+
+int PromotionCommand_OnTextDraw(struct MenuProc *a, struct MenuItemProc *b);
+u8 PromotionCommand_OnSelect(struct MenuProc *proc, struct MenuItemProc *proc2);
+int PromotionCommand_OnChange(struct MenuProc *a, struct MenuItemProc *b);
+u8 Usability_ThirdPromotionOption(const struct MenuItemDef *, int number);
+
+CONST_DATA
+struct MenuItemDef gUnknown_08B12954[] = {
+    {
+        gText_082070E4,
+        0,
+        0x6DC,
+        0,
+        0,
+        MenuAlwaysEnabled,
+        PromotionCommand_OnTextDraw,
+        PromotionCommand_OnSelect,
+        0,
+        PromotionCommand_OnChange,
+        0
+    },
+    {
+        gText_082070D8,
+        0,
+        0x6DC,
+        0,
+        1,
+        MenuAlwaysEnabled,
+        PromotionCommand_OnTextDraw,
+        PromotionCommand_OnSelect,
+        0,
+        PromotionCommand_OnChange,
+        0
+    },
+    {
+        gText_082070CC,
+        0,
+        0x6DC,
+        0,
+        2,
+        Usability_ThirdPromotionOption,
+        PromotionCommand_OnTextDraw,
+        PromotionCommand_OnSelect,
+        0,
+        PromotionCommand_OnChange,
+        0
+    },
+    { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }
+};
+
+u32 sub_80CDB1C(struct MenuProc *proc);
+u32 sub_80CDB28(struct MenuProc *proc);
+u8 sub_80CDC14(struct MenuProc *proc, struct MenuItemProc *proc2);
+
+CONST_DATA
+struct MenuDef gUnknown_08B129E4 = {
+    { 16, 2, 8, 0 },
+    0,
+    gUnknown_08B12954,
+    (void(*)(struct MenuProc*)) sub_80CDB1C,
+    (void(*)(struct MenuProc*)) sub_80CDB28,
+    0,
+    sub_80CDC14,
+    0,
+    0,
+};
+
+void BuildPromotionMenu(struct PromoProc *proc);
+void sub_80CDDD4(void);
+void nullsub_61(void);
+
+CONST_DATA
+struct ProcCmd gUnknown_08B12A08[] = {
+    PROC_SLEEP(6),
+	PROC_NAME("CCRamifyMenuSelect"),
+    PROC_CALL(BuildPromotionMenu),
+    PROC_REPEAT(sub_80CDDD4),
+    PROC_YIELD,
+    PROC_LABEL(0),
+    PROC_GOTO(2),
+    PROC_LABEL(1),
+    PROC_CALL(nullsub_61),
+    PROC_LABEL(2),
+    PROC_END,
+};
 
 extern struct Font gUnknown_03005360;
 extern u16 gUnknown_02022DBA[];
@@ -1758,7 +1759,6 @@ u8 Usability_ThirdPromotionOption(const struct MenuItemDef * _def, int _number) 
     }
 }
 
-extern struct MenuDef gUnknown_08B129E4;
 extern struct MenuRect gUnknown_08B12A60;
 
 void BuildPromotionMenu(struct PromoProc *proc) {
@@ -1785,3 +1785,12 @@ void nullsub_61(void) {}
 ProcPtr Make6C_PromotionMenuSelect(ProcPtr parent) {
 	return Proc_Start(gUnknown_08B12A08, parent);
 }
+
+// Some proc names for procs in data_B12A60
+const char gProcName_E_guideSub[] = "E_guideSub";
+const char gProcName_E_guMenu1ReWrite[] = "E_guMenu1ReWrite";
+const char gProcName_E_guMenu2ReWriteFirst[] = "E_guMenu2ReWriteFirst";
+const char gProcName_E_guMenu2ReWriteUp[] = "E_guMenu2ReWriteUp";
+const char gProcName_E_guMenu2ReWriteDown[] = "E_guMenu2ReWriteDown";
+const char gProcName_E_guMess3ReWrite[] = "E_guMess3ReWrite";
+const char gProcName_E_Guide[] = "E_Guide";
