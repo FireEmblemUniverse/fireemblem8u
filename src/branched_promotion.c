@@ -126,6 +126,74 @@ struct ProcCmd gUnknown_08B12614[] =
     PROC_END,
 };
 
+u8 PromotionInit_SetNullState(struct PromoProc *proc);
+void PromotionInit_Loop(struct PromoProc *proc);
+
+CONST_DATA
+struct ProcCmd gUnknown_08B126CC[] =
+{
+    PROC_SLEEP(3),
+    PROC_LABEL(0),
+    PROC_CALL(PromotionInit_SetNullState),
+    PROC_LABEL(1),
+    PROC_REPEAT(PromotionInit_Loop),
+    PROC_LABEL(7),
+    PROC_END,
+};
+
+// Appears unused
+CONST_DATA
+u32 gUnknown_08B12704[] =
+{
+    0x00011e05,
+    0x28050008,
+    0x50050003,
+    0x00080001,
+    0x00032805,
+    0x00000000,
+};
+
+void SetupPromotionScreen(struct PromoProc3 *proc);
+void sub_80CCF60(struct PromoProc3 *proc);
+void sub_8013D8C(struct PromoProc3 *proc);
+void sub_80CD294(struct Proc *proc);
+void sub_80CD1D4(struct Proc *proc);
+void sub_80CD2CC(struct Proc *proc);
+void sub_80CD618(void);
+void sub_80CD218(struct Proc *proc);
+void LoadBattleSpritesForBranchScreen(struct PromoProc3 *proc);
+
+CONST_DATA
+const struct ProcCmd gUnknown_08B1271C[] =
+{
+    PROC_CALL(sub_8013D68),
+    PROC_REPEAT(ContinueUntilSomeTransistion6CExists),
+    { 0x01, 0x0000, (void *) 0x8207050 }, // PROC_NAME("ccramify")
+    PROC_LABEL(0),
+    PROC_CALL(SetupPromotionScreen),
+    PROC_SLEEP(6),
+    PROC_CALL(sub_80CCF60),
+    PROC_LABEL(1),
+    PROC_CALL(sub_8013D8C),
+    PROC_REPEAT(ContinueUntilSomeTransistion6CExists),
+    PROC_REPEAT(LoadBattleSpritesForBranchScreen),
+    PROC_GOTO(3),
+    PROC_LABEL(2),
+    PROC_CALL(sub_80CD294),
+    PROC_CALL(sub_8013D68),
+    PROC_REPEAT(ContinueUntilSomeTransistion6CExists),
+    PROC_LABEL(4),
+    PROC_CALL(sub_80CD1D4),
+    PROC_CALL(sub_80CD2CC),
+    PROC_SET_END_CB(sub_80CD618),
+    PROC_CALL(sub_8013D68),
+    PROC_REPEAT(ContinueUntilSomeTransistion6CExists),
+    PROC_CALL(sub_80CD218),
+    PROC_LABEL(5),
+    PROC_LABEL(3),
+    PROC_END,
+};
+
 struct PromoProc2 *Make6C_PromotionMain(ProcPtr proc);
 
 void MakePromotionScreen(ProcPtr proc, u32 a, u32 b) {
