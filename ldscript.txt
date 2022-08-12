@@ -131,6 +131,9 @@ SECTIONS
         asm/fx_slidingwallbg.o(.text);
         src/statscreen.o(.text);
         asm/code.o(.text);
+        src/branched_promotion_main.o(.text);
+        src/branched_promotion.o(.text);
+        asm/code_80CCA64.o(.text);
         asm/m4a_1.o(.text);
         src/m4a.o(.text);
         asm/libagbsyscall.o(.text);
@@ -234,7 +237,10 @@ SECTIONS
         . = ALIGN(4); data/const_data_205714.o(.rodata);
         . = ALIGN(4); src/statscreen.o(.rodata);
         . = ALIGN(4); data/const_data_205B84.o(.rodata);
-        INCLUDE "linker_script_sound.txt"
+        . = ALIGN(4); src/branched_promotion_main.o(.rodata);
+        . = ALIGN(4); src/branched_promotion.o(.rodata);
+        FILL(0x00);
+        . = 0x207190; INCLUDE "linker_script_sound.txt"
         . = ALIGN(4); src/agb_sram.o(.rodata);
         . = ALIGN(4); *libc.a:vfprintf.o(.rodata);
         . = ALIGN(4); *libc.a:dtoa.o(.rodata);
@@ -313,6 +319,9 @@ SECTIONS
         . = ALIGN(4); data/data_A01628.o(.data);
         . = ALIGN(4); data/data_chap_title.o(.data);
         . = ALIGN(4); data/data_A167C8.o(.data);
+        . = ALIGN(4); src/branched_promotion_main.o(.data);
+        . = ALIGN(4); src/branched_promotion.o(.data);
+        . = ALIGN(4); data/data_B12A60.o(.data);
         . = ALIGN(4); *libc.a:impure.o(.data);
         . = ALIGN(4); *libc.a:locale.o(.data);
         . = ALIGN(4); *libc.a:mallocr.o(.data);

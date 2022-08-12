@@ -260,7 +260,7 @@
 // extern ??? gUnknown_0201FAD0
 // extern ??? gUnknown_0201FAD4
 // extern ??? gUnknown_0201FAD8
-// extern ??? gUnknown_0201FADC
+
 // extern ??? gUnknown_0201FB04
 // extern ??? gUnknown_0201FB0C
 // extern ??? gUnknown_0201FB18
@@ -358,7 +358,7 @@ extern u16 gBG0TilemapBuffer[];
 // extern ??? gUnknown_02022D08
 // extern ??? gUnknown_02022D10
 // extern ??? gUnknown_02022D18
-// extern ??? gUnknown_02022D2E
+extern u16 gUnknown_02022D2E[];
 // extern ??? gUnknown_02022D36
 // extern ??? gUnknown_02022D3C
 // extern ??? gUnknown_02022D40
@@ -804,7 +804,7 @@ extern struct GMapData gUnknown_03005280;
 // extern ??? gUnknown_03005360
 // extern ??? gUnknown_03005380
 // extern ??? gUnknown_03005398
-// extern ??? gUnknown_030053A0
+
 // extern ??? gUnknown_030053E0
 // extern ??? gUnknown_03005408
 // extern ??? gSoundInfo
@@ -2950,10 +2950,9 @@ extern const struct SupportBonuses gAffinityBonuses[];
 // extern ??? gUnknown_088D1F54
 // extern ??? gUnknown_088D2058
 // extern ??? gUnknown_0895DD1C
-// extern ??? gUnknown_0895DFA4
-// extern ??? gUnknown_0895DFA5
-// extern ??? gUnknown_0895E0A4
-// extern ??? gUnknown_0895EEA4
+extern u8 CONST_DATA gUnknown_0895DFA4[][2];
+extern u8 gUnknown_0895E0A4[];
+extern u8 gUnknown_0895EEA4[];
 // extern ??? gUnknown_0895F5A4
 // extern ??? gUnknown_0895F5A5
 // extern ??? gUnknown_089A18D4
@@ -3656,8 +3655,7 @@ extern struct ProcCmd CONST_DATA gUnknown_08A2ED88[];
 // extern ??? gUnknown_08A301A8
 // extern ??? gUnknown_08A301B0
 // extern ??? gUnknown_08A30780
-// extern ??? gUnknown_08A30800
-// extern ??? gUnknown_08A30978
+extern u8 gUnknown_08A30800[];
 // extern ??? gUnknown_08A30E2C
 // extern ??? gUnknown_08A35488
 // extern ??? gUnknown_08A3593C
@@ -3666,8 +3664,8 @@ extern struct ProcCmd CONST_DATA gUnknown_08A2ED88[];
 // extern ??? gUnknown_08A360C8
 // extern ??? gUnknown_08A360E8
 // extern ??? gUnknown_08A36284
-// extern ??? gUnknown_08A36338
-// extern ??? gUnknown_08A372C0
+extern u8 gUnknown_08A36338[];
+extern u8 gUnknown_08A372C0[];
 // extern ??? gUnknown_08A37300
 // extern ??? gUnknown_08A39170
 // extern ??? gUnknown_08A39180
@@ -4123,7 +4121,7 @@ extern struct ProcCmd CONST_DATA gUnknown_08A2ED88[];
 // extern ??? gUnknown_08B125F4
 // extern ??? gUnknown_08B12614
 // extern ??? gUnknown_08B126CC
-// extern ??? gUnknown_08B1271C
+extern const struct ProcCmd gUnknown_08B1271C[];
 // extern ??? gUnknown_08B127EC
 // extern ??? gUnknown_08B1280C
 // extern ??? gUnknown_08B12930
