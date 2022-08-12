@@ -248,28 +248,92 @@ u8 sub_80CDAD8(struct MenuProc *proc, struct MenuItemProc *b);
 
 CONST_DATA
 struct MenuItemDef gUnknown_08B128C4[] = {
+    { gUnknown_082070B8 + 0xC, 35, 0, 0, 0, MenuAlwaysEnabled, 0, sub_80CDAD8, 0, 0 },
+    { gUnknown_082070B8, 36, 0, 0, 1, MenuAlwaysEnabled, 0, sub_80CDAD8, 0, 0 },
+    { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+};
+
+u8 sub_80CDA84(struct MenuProc *proc);
+u8 sub_80CDA90(struct MenuProc *proc);
+u8 sub_80CDB18(struct MenuProc *proc, struct MenuItemProc *proc2);
+
+CONST_DATA
+struct MenuDef gUnknown_08B12930 = {
+    { 9, 4, 6, 0 },
+    1,
+    gUnknown_08B128C4,
+    (void(*)(struct MenuProc*)) sub_80CDA84,
+    (void(*)(struct MenuProc*)) sub_80CDA90,
+    0,
+    sub_80CDB18,
+    0,
+    (void(*)(struct MenuProc*, struct MenuItemProc*))MenuStdHelpBox
+};
+
+int PromotionCommand_OnTextDraw(struct MenuProc *a, struct MenuItemProc *b);
+u8 PromotionCommand_OnSelect(struct MenuProc *proc, struct MenuItemProc *proc2);
+int PromotionCommand_OnChange(struct MenuProc *a, struct MenuItemProc *b);
+u8 Usability_ThirdPromotionOption(const struct MenuItemDef *, int number);
+
+CONST_DATA
+struct MenuItemDef gUnknown_08B12954[] = {
     {
-        gUnknown_082070B8 + 0xC,
-        35,
+        gUnknown_082070B8 + 0x2C,
         0,
+        0x6DC,
         0,
         0,
         MenuAlwaysEnabled,
+        PromotionCommand_OnTextDraw,
+        PromotionCommand_OnSelect,
         0,
-        sub_80CDAD8,
-        0,
-        0},
+        PromotionCommand_OnChange,
+        0
+    },
     {
-        gUnknown_082070B8,
-        36,
+        gUnknown_082070B8 + 0x20,
         0,
+        0x6DC,
         0,
         1,
         MenuAlwaysEnabled,
+        PromotionCommand_OnTextDraw,
+        PromotionCommand_OnSelect,
         0,
-        sub_80CDAD8,
+        PromotionCommand_OnChange,
+        0
+    },
+    {
+        gUnknown_082070B8 + 0x14,
         0,
-        0},
+        0x6DC,
+        0,
+        2,
+        Usability_ThirdPromotionOption,
+        PromotionCommand_OnTextDraw,
+        PromotionCommand_OnSelect,
+        0,
+        PromotionCommand_OnChange,
+        0
+    },
+    { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }
+};
+
+u32 sub_80CDB1C(struct MenuProc *proc);
+u32 sub_80CDB28(struct MenuProc *proc);
+u8 sub_80CDC14(struct MenuProc *proc, struct MenuItemProc *proc2);
+
+CONST_DATA
+struct MenuDef gUnknown_08B129E4 = {
+    { 16, 2, 8, 0 },
+    0,
+    gUnknown_08B12954,
+    (void(*)(struct MenuProc*)) sub_80CDB1C,
+    (void(*)(struct MenuProc*)) sub_80CDB28,
+    0,
+    sub_80CDC14,
+    0,
+    0,
 };
 
 struct PromoProc2 *Make6C_PromotionMain(ProcPtr proc);
@@ -1596,7 +1660,7 @@ void sub_80CDA4C(struct MenuProc *proc) {
     }
 }
 
-u32 sub_80CDA84(struct MenuProc *proc) {
+u8 sub_80CDA84(struct MenuProc *proc) {
     SyncMenuBgs(proc);
     return 0;
 }
@@ -1605,7 +1669,7 @@ extern u16 gUnknown_02022DB8[];
 extern u16 gUnknown_02023DB8[];
 extern struct Font gUnknown_03005380;
 
-u32 sub_80CDA90(struct MenuProc *proc) {
+u8 sub_80CDA90(struct MenuProc *proc) {
     TileMap_FillRect(gUnknown_02022DB8, 0xa, 6, 0);
     TileMap_FillRect(gUnknown_02023DB8, 0xa, 6, 0);
     SetFont(&gUnknown_03005380);
@@ -1629,7 +1693,7 @@ u8 sub_80CDAD8(struct MenuProc *proc, struct MenuItemProc *b) {
     return 7;
 }
 
-u32 sub_80CDB18(void) {
+u8 sub_80CDB18(struct MenuProc *_proc, struct MenuItemProc *_proc2) {
     return 0xb;
 }
 
@@ -1645,8 +1709,7 @@ u32 sub_80CDB28(struct MenuProc *proc) {
 
 extern struct Font gUnknown_03005360;
 extern u16 gUnknown_02022DBA[];
-extern struct MenuDef gUnknown_08B12930;
-u32 PromotionCommand_OnSelect(struct MenuItemProc *proc, struct MenuItemProc *proc2) {
+u8 PromotionCommand_OnSelect(struct MenuProc *proc, struct MenuItemProc *proc2) {
     struct Proc *parent;
     struct PromoProc3 *gparent;
     struct PromoProc2 *ggparent;
@@ -1693,7 +1756,7 @@ u32 PromotionCommand_OnSelect(struct MenuItemProc *proc, struct MenuItemProc *pr
     return 0;
 }
 
-u32 sub_80CDC14(struct Proc *proc) {
+u8 sub_80CDC14(struct MenuProc *proc, struct MenuItemProc *_proc2) {
     struct Proc *parent;
     struct Proc *gparent;
     struct Proc *ggparent;
@@ -1736,7 +1799,7 @@ void sub_80CDC48(struct MenuProc *a, struct MenuItemProc *b, char *c) {
     Text_Draw(&b->text, &mapbuf[b->yTile * 32 + b->xTile]);
 }
 
-u32 PromotionCommand_OnTextDraw(struct MenuProc *a, struct MenuItemProc *b) {
+int PromotionCommand_OnTextDraw(struct MenuProc *a, struct MenuItemProc *b) {
     u8 unused_stack[0x48];
     struct Proc *parent;
     struct PromoProc3 *gparent;
@@ -1749,7 +1812,7 @@ u32 PromotionCommand_OnTextDraw(struct MenuProc *a, struct MenuItemProc *b) {
     sub_80CDC48(a, b, string);
 }
 
-u32 PromotionCommand_OnChange(struct MenuProc *a, struct MenuItemProc *b) {
+int PromotionCommand_OnChange(struct MenuProc *a, struct MenuItemProc *b) {
     struct Proc *parent;
     struct PromoProc3 *gparent;
     const struct ClassData *class_data;
@@ -1763,7 +1826,7 @@ u32 PromotionCommand_OnChange(struct MenuProc *a, struct MenuItemProc *b) {
 }
 
 extern struct ProcCmd gUnknown_08B12A08[];
-u32 Usability_ThirdPromotionOption(void) {
+u8 Usability_ThirdPromotionOption(const struct MenuItemDef * _def, int _number) {
     struct Proc *proc = Proc_Find(gUnknown_08B12A08);
     struct Proc *parent = proc->proc_parent;
     struct PromoProc2 *gparent = parent->proc_parent;
