@@ -155,14 +155,14 @@ const struct ProcCmd gUnknown_08B1280C[] =
 };
 
 // Some raw jp text. not moved over yet
-extern u8 gUnknown_082070B8[];
+const char gText_082070B8[];
 
 u8 sub_80CDAD8(struct MenuProc *proc, struct MenuItemProc *b);
 
 CONST_DATA
 struct MenuItemDef gUnknown_08B128C4[] = {
-    { gUnknown_082070B8 + 0xC, 35, 0, 0, 0, MenuAlwaysEnabled, 0, sub_80CDAD8, 0, 0 },
-    { gUnknown_082070B8, 36, 0, 0, 1, MenuAlwaysEnabled, 0, sub_80CDAD8, 0, 0 },
+    { gText_082070B8 + 0xC, 35, 0, 0, 0, MenuAlwaysEnabled, 0, sub_80CDAD8, 0, 0 },
+    { gText_082070B8, 36, 0, 0, 1, MenuAlwaysEnabled, 0, sub_80CDAD8, 0, 0 },
     { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
 };
 
@@ -191,7 +191,7 @@ u8 Usability_ThirdPromotionOption(const struct MenuItemDef *, int number);
 CONST_DATA
 struct MenuItemDef gUnknown_08B12954[] = {
     {
-        gUnknown_082070B8 + 0x2C,
+        gText_082070B8 + 0x2C,
         0,
         0x6DC,
         0,
@@ -204,7 +204,7 @@ struct MenuItemDef gUnknown_08B12954[] = {
         0
     },
     {
-        gUnknown_082070B8 + 0x20,
+        gText_082070B8 + 0x20,
         0,
         0x6DC,
         0,
@@ -217,7 +217,7 @@ struct MenuItemDef gUnknown_08B12954[] = {
         0
     },
     {
-        gUnknown_082070B8 + 0x14,
+        gText_082070B8 + 0x14,
         0,
         0x6DC,
         0,
@@ -1398,15 +1398,15 @@ void sub_80CD790(struct Proc *proc) {
     gLCDControlBuffer.dispcnt.obj_on = 1;
 }
 
-struct Unknown_0820707C {
+struct Unknown_PromotionTriple {
     u32 a[3];
 };
-const struct Unknown_0820707C gUnknown_0820707C = { 0xc44, 0xc48, 0xc4d };
+const struct Unknown_PromotionTriple gUnknown_0820707C = { 0xc44, 0xc48, 0xc4d };
 
 extern s8 gUnknown_03005398[];
 
 void sub_80CD7FC(struct PromoProc4 *proc) {
-    struct Unknown_0820707C locals = gUnknown_0820707C;
+    struct Unknown_PromotionTriple locals = gUnknown_0820707C;
     struct U03004980_Member *b;
     struct U03004980_Member *c;
     struct U03004980_Member *d;
@@ -1441,13 +1441,10 @@ void sub_80CD7FC(struct PromoProc4 *proc) {
     gUnknown_03005398[0] = negative_one;
 }
 
-struct Unknown_08207088 {
-    u32 a[3];
-};
-extern struct Unknown_08207088 gUnknown_08207088;
+const struct Unknown_PromotionTriple gUnknown_08207088 = { 0xc45, 0xc49, 0xc4e };
 
 void sub_80CD898(struct PromoProc4 *proc) {
-    struct Unknown_08207088 locals = gUnknown_08207088;
+    struct Unknown_PromotionTriple locals = gUnknown_08207088;
     u8 i;
     u8 negative_one;
     switch (proc->u2a) {
@@ -1469,13 +1466,10 @@ void sub_80CD898(struct PromoProc4 *proc) {
     sub_808E9D8(0xa);
 }
 
-struct Unknown_08207094 {
-    u32 a[3];
-};
-extern struct Unknown_08207094 gUnknown_08207094;
+const struct Unknown_PromotionTriple gUnknown_08207094 = { 0xc46, 0xc4a, 0xc4f };
 
 void sub_80CD8F8(struct PromoProc4 *proc) {
-    struct Unknown_08207094 locals = gUnknown_08207094;
+    struct Unknown_PromotionTriple locals = gUnknown_08207094;
     u8 i;
     u8 negative_one;
     switch (proc->u2a) {
@@ -1497,13 +1491,10 @@ void sub_80CD8F8(struct PromoProc4 *proc) {
     sub_808E9D8(0xa);
 }
 
-struct Unknown_082070A0 {
-    u32 a[3];
-};
-extern struct Unknown_082070A0 gUnknown_082070A0;
+const struct Unknown_PromotionTriple gUnknown_082070A0 = { 0xc47, 0xc4b, 0xc50 };
 
 void sub_80CD958(struct PromoProc4 *proc) {
-    struct Unknown_082070A0 locals = gUnknown_082070A0;
+    struct Unknown_PromotionTriple locals = gUnknown_082070A0;
     u8 i;
     u8 negative_one;
     switch (proc->u2a) {
@@ -1525,13 +1516,10 @@ void sub_80CD958(struct PromoProc4 *proc) {
     sub_808E9D8(0xa);
 }
 
-struct Unknown_082070AC {
-    u32 a[3];
-};
-extern struct Unknown_082070AC gUnknown_082070AC;
+const struct Unknown_PromotionTriple gUnknown_082070AC = { -1, 0xc4c, 0xc51 };
 
 void sub_80CD9B8(struct PromoProc4 *proc) {
-    struct Unknown_082070AC locals = gUnknown_082070AC;
+    struct Unknown_PromotionTriple locals = gUnknown_082070AC;
     u8 i;
     u8 negative_one;
     switch (proc->u2a) {
@@ -1557,6 +1545,9 @@ void sub_80CD9B8(struct PromoProc4 *proc) {
         sub_808E9D8(0xa);
     }
 }
+
+// TODO: write in shift-jis
+const char gText_082070B8[] = { 0x81, 0x40, 0x82, 0xe2, 0x82, 0xdf, 0x82, 0xe9, 0x0 };
 
 int sub_80CDA2C(struct PromoProc2 *proc) {
     sub_80CD658(proc);
