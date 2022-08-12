@@ -1,24 +1,6 @@
     .section .data
 
 @ Replacing .incbin "baserom.gba", 0xB1280C + 0xB8, 0x124 - 0xB8
-    .4byte gUnknown_082070AC + 0x18
-    .4byte 0x23
-    .4byte 0x0
-    .4byte MenuAlwaysEnabled
-    .4byte 0x0
-    .4byte sub_80CDAD8
-    .4byte 0x0
-    .4byte 0x0
-    .4byte 0x0
-    .4byte gUnknown_082070AC + 0xc
-    .4byte 0x24
-    .4byte 0x100
-    .4byte MenuAlwaysEnabled
-    .4byte 0x0
-    .4byte sub_80CDAD8
-    .4byte 0x0
-    .4byte 0x0
-    .4byte 0x0
     .4byte 0x0
     .4byte 0x0
     .4byte 0x0
@@ -154,4 +136,8 @@ gUnknown_082070A0:  @ 0x082070A0
 
 	.global gUnknown_082070AC
 gUnknown_082070AC:  @ 0x082070AC
-	.incbin "baserom.gba", 0x2070AC, 0xE4
+	.incbin "baserom.gba", 0x2070AC, 0xC
+
+	.global gUnknown_082070B8
+gUnknown_082070B8:  @ 0x082070B8
+	.incbin "baserom.gba", 0x2070B8, 0xD8

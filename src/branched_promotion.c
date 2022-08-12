@@ -241,6 +241,37 @@ const struct ProcCmd gUnknown_08B1280C[] =
     PROC_END,
 };
 
+// Some raw jp text. not moved over yet
+extern u8 gUnknown_082070B8[];
+
+u8 sub_80CDAD8(struct MenuProc *proc, struct MenuItemProc *b);
+
+CONST_DATA
+struct MenuItemDef gUnknown_08B128C4[] = {
+    {
+        gUnknown_082070B8 + 0xC,
+        35,
+        0,
+        0,
+        0,
+        MenuAlwaysEnabled,
+        0,
+        sub_80CDAD8,
+        0,
+        0},
+    {
+        gUnknown_082070B8,
+        36,
+        0,
+        0,
+        1,
+        MenuAlwaysEnabled,
+        0,
+        sub_80CDAD8,
+        0,
+        0},
+};
+
 struct PromoProc2 *Make6C_PromotionMain(ProcPtr proc);
 
 void MakePromotionScreen(ProcPtr proc, u32 a, u32 b) {
@@ -1584,12 +1615,8 @@ u32 sub_80CDA90(struct MenuProc *proc) {
     return 0;
 }
 
-struct arg_80CDAD8 {
-    u8 _pad[0x3c];
-    s8 u3c;
-};
-u32 sub_80CDAD8(struct MenuProc *proc, struct arg_80CDAD8 *b) {
-    if (b->u3c == 0) {
+u8 sub_80CDAD8(struct MenuProc *proc, struct MenuItemProc *b) {
+    if (b->itemNumber == 0) {
         ProcPtr found;
         EndMenu(proc);
         EndMenu(proc->proc_parent);
