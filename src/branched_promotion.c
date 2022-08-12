@@ -155,7 +155,7 @@ u32 gUnknown_08B12704[] =
 
 void SetupPromotionScreen(struct PromoProc3 *proc);
 void sub_80CCF60(struct PromoProc3 *proc);
-void sub_8013D8C(struct PromoProc3 *proc);
+void sub_8013D8C(ProcPtr);
 void sub_80CD294(struct Proc *proc);
 void sub_80CD1D4(struct Proc *proc);
 void sub_80CD2CC(struct Proc *proc);
@@ -191,6 +191,53 @@ const struct ProcCmd gUnknown_08B1271C[] =
     PROC_CALL(sub_80CD218),
     PROC_LABEL(5),
     PROC_LABEL(3),
+    PROC_END,
+};
+
+CONST_DATA
+const struct ProcCmd gUnknown_08B127EC[] =
+{
+	{ 0x01, 0x0000, (void *) 0x820705c }, // PROC_NAME("ccramify_end")
+    PROC_CALL(sub_8013D8C),
+    PROC_REPEAT(ContinueUntilSomeTransistion6CExists),
+    PROC_END,
+};
+
+void sub_80CD6B0(struct PromoProc4 *proc);
+void sub_80CD7FC(struct PromoProc4 *proc);
+void sub_808F284(ProcPtr);
+void sub_80CD898(struct PromoProc4 *proc);
+void sub_80CD8F8(struct PromoProc4 *proc);
+void sub_80CD958(struct PromoProc4 *proc);
+void sub_80CD9B8(struct PromoProc4 *proc);
+u32 sub_80CD67C(void);
+void sub_80CD790(struct Proc *proc);
+
+CONST_DATA
+const struct ProcCmd gUnknown_08B1280C[] =
+{
+    PROC_SLEEP(8),
+	{ 0x01, 0x0000, (void *) 0x820706c }, // PROC_NAME("ccramify_event")
+    PROC_LABEL(0),
+    PROC_CALL(sub_80CD6B0),
+    PROC_LABEL(1),
+    PROC_CALL(sub_8013D8C),
+    PROC_REPEAT(ContinueUntilSomeTransistion6CExists),
+    PROC_CALL(sub_80CD7FC),
+    PROC_WHILE(sub_808F284),
+    PROC_CALL(sub_80CD898),
+    PROC_WHILE(sub_808F284),
+    PROC_CALL(sub_80CD8F8),
+    PROC_WHILE(sub_808F284),
+    PROC_CALL(sub_80CD958),
+    PROC_WHILE(sub_808F284),
+    PROC_CALL(sub_80CD9B8),
+    PROC_WHILE(sub_808F284),
+    PROC_LABEL(3),
+    PROC_WHILE(sub_80CD67C),
+    PROC_LABEL(2),
+    PROC_CALL(sub_80CD790),
+    PROC_LABEL(4),
     PROC_END,
 };
 
@@ -1225,7 +1272,6 @@ u8 LoadClassBattleSprite(u16 *a, u16 b, u16 c) {
     return 0;
 }
 
-extern struct ProcCmd gUnknown_08B127EC[];
 void sub_80CD618(void) {
     Proc_Start(gUnknown_08B127EC, (ProcPtr)3);
 }
@@ -1246,7 +1292,6 @@ void sub_80CD658(struct PromoProc2 *proc) {
     proc->u30 = sub_80CD668(proc);
 }
 
-extern struct ProcCmd gUnknown_08B1280C[];
 ProcPtr sub_80CD668(ProcPtr proc) {
     return Proc_StartBlocking(gUnknown_08B1280C, proc);
 }
