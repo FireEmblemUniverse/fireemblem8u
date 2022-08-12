@@ -8,6 +8,9 @@
 #include "bmitem.h"
 #include "bmmap.h"
 #include "bmunit.h"
+#include "branched_promotion.h"
+#include "constants/characters.h"
+#include "constants/classes.h"
 #include "ctc.h"
 #include "fontgrp.h"
 #include "functions.h"
@@ -18,113 +21,6 @@
 #include "statscreen.h"
 #include "uimenu.h"
 #include "uiutils.h"
-
-struct PromoProc
-{
-    PROC_HEADER;
-    ProcPtr u2c;
-    u8 u30;
-    u8 u31;
-    s8 u32;
-    u8 u33;
-    u8 u34;
-    s8 u35;
-    struct Unit *u38;
-    s32 u3c;
-    u32 u40;
-    u32 _u44;
-    u32 _u48;
-    u8 u4c;
-    struct MenuProc* u50;
-};
-
-/* Seems like there are a couple of proc structures going on here */
-struct PromoProc2
-{
-    PROC_HEADER;
-    u8 u29;
-    struct Unit *unit;
-    ProcPtr u30;
-    ProcPtr u34;
-    u8 u38;
-    u8 u39;
-    s8 _u3a;
-    s8 u3b;
-};
-
-struct PromoProc3
-{
-    PROC_HEADER;
-    s8 _u29;
-    s8 _u2a;
-    s8 _u2b;
-    u16 u2c[3];
-    u16 u32[3];
-    s16 u38[3];
-    u16 _u3e;
-    u8 u40;
-    u8 u41;
-    u16 u42;
-    u16 u44;
-    u8 u46;
-    u8 u47;
-    u16 u48;
-    u8 u4a[3];
-    u8 _u4d[3];
-    u32 u50;
-    ProcPtr u54;
-    /* ... more maybe */
-};
-
-struct PromoProc4
-{
-    PROC_HEADER;
-    s8 _u29;
-    u16 u2a;
-    u16 _u2c;
-    u8 u2e;
-    u8 _u2f;
-    ProcPtr u30;
-};
-
-void sub_80CC4AC(struct PromoProc2 *proc);
-void sub_80CC5B4(struct PromoProc2 *proc);
-int sub_80CDA2C(struct PromoProc2 *proc);
-u32 sub_80CDA38(struct PromoProc2 *proc);
-void sub_80CC628(struct PromoProc2 *proc);
-u32 sub_80CD2F8(struct PromoProc2 *proc);
-u32 sub_80CD330(struct PromoProc2 *proc);
-void sub_80CDEA8(struct PromoProc2 *proc);
-void sub_80CC66C(struct PromoProc2 *proc);
-void sub_80CC698(struct PromoProc2 *proc);
-
-CONST_DATA
-struct ProcCmd gUnknown_08B12614[] =
-{
-	{ 0x01, 0x0000, (void *) 0x8207038 }, // PROC_NAME("ccramify")
-	PROC_LABEL(0),
-    PROC_CALL(sub_80CC4AC),
-    PROC_SLEEP(3),
-	PROC_LABEL(1),
-    PROC_CALL(sub_80CC5B4),
-    PROC_LABEL(2),
-    PROC_WHILE(sub_80CDA2C),
-    PROC_WHILE(sub_80CDA38),
-    PROC_CALL(sub_80CC628),
-    PROC_LABEL(4),
-    PROC_WHILE(sub_80CD2F8),
-    PROC_SLEEP(5),
-    PROC_REPEAT(sub_80CD330),
-    PROC_LABEL(5),
-    PROC_CALL(sub_80CDEA8),
-    PROC_SLEEP(2),
-    PROC_LABEL(6),
-    PROC_CALL(sub_80CC66C),
-    PROC_LABEL(7),
-    PROC_LABEL(8),
-    PROC_CALL(sub_80CC698),
-    PROC_END,
-};
 
 u8 PromotionInit_SetNullState(struct PromoProc *proc);
 void PromotionInit_Loop(struct PromoProc *proc);
@@ -153,6 +49,23 @@ u32 gUnknown_08B12704[] =
     0x00000000,
 };
 
+struct TraineeData {
+    u8 charId;
+    u8 promotionLevel;
+    u8 class;
+};
+
+struct TraineeList {
+    struct TraineeData members[3];
+};
+const struct TraineeList gTrainees = {
+    {
+        { CHARACTER_ROSS, 10, CLASS_JOURNEYMAN },
+        { CHARACTER_AMELIA, 10, CLASS_RECRUIT },
+        { CHARACTER_EWAN, 10, CLASS_PUPIL }
+    }
+};
+
 void SetupPromotionScreen(struct PromoProc3 *proc);
 void sub_80CCF60(struct PromoProc3 *proc);
 void sub_8013D8C(ProcPtr);
@@ -168,7 +81,7 @@ const struct ProcCmd gUnknown_08B1271C[] =
 {
     PROC_CALL(sub_8013D68),
     PROC_REPEAT(ContinueUntilSomeTransistion6CExists),
-    { 0x01, 0x0000, (void *) 0x8207050 }, // PROC_NAME("ccramify")
+    PROC_NAME("ccramify"),
     PROC_LABEL(0),
     PROC_CALL(SetupPromotionScreen),
     PROC_SLEEP(6),
@@ -197,7 +110,7 @@ const struct ProcCmd gUnknown_08B1271C[] =
 CONST_DATA
 const struct ProcCmd gUnknown_08B127EC[] =
 {
-	{ 0x01, 0x0000, (void *) 0x820705c }, // PROC_NAME("ccramify_end")
+	PROC_NAME("ccramify_end"),
     PROC_CALL(sub_8013D8C),
     PROC_REPEAT(ContinueUntilSomeTransistion6CExists),
     PROC_END,
@@ -217,7 +130,7 @@ CONST_DATA
 const struct ProcCmd gUnknown_08B1280C[] =
 {
     PROC_SLEEP(8),
-	{ 0x01, 0x0000, (void *) 0x820706c }, // PROC_NAME("ccramify_event")
+	PROC_NAME("ccramify_event"),
     PROC_LABEL(0),
     PROC_CALL(sub_80CD6B0),
     PROC_LABEL(1),
@@ -484,20 +397,8 @@ void sub_80CC698(struct PromoProc2 *proc) {
     Proc_End(proc);
 }
 
-struct MaybeTraineeData {
-    u8 a;
-    u8 b;
-    u8 c;
-    u8 d;
-};
-
-struct MaybeTraineeList {
-    struct MaybeTraineeData members[3];
-};
-extern struct MaybeTraineeList gUnknown_08207044;
-
 u32 sub_80CC6D4(struct PromoProc *proc) {
-    struct MaybeTraineeList trainees = gUnknown_08207044;
+    struct TraineeList trainees = gTrainees;
     struct Unit *unit;
     u8 classNumber;
     u32 somethingAboutPath;
@@ -518,18 +419,18 @@ u32 sub_80CC6D4(struct PromoProc *proc) {
         // This probably loops over trainee units - not sure why it goes to 6 though.
         flag = 0;
         for (i = 0; i < 7; i++) {
-            unit = GetUnitFromCharId(trainees.members[i].a);
+            unit = GetUnitFromCharId(trainees.members[i].charId);
             if (!unit) {
                 flag = 1;
             }
             if (unit->state & 0x10004) {
                 flag = 1;
             }
-            if (unit->level < trainees.members[i].b) {
+            if (unit->level < trainees.members[i].promotionLevel) {
                 flag = 1;
             }
             classNumber = unit->pClassData->number;
-            if (classNumber != trainees.members[i].c) {
+            if (classNumber != trainees.members[i].class) {
                 flag = 1;
             }
             if (!gUnknown_0895DFA4[classNumber][0] && !gUnknown_0895DFA4[classNumber][1]) {
@@ -545,8 +446,8 @@ u32 sub_80CC6D4(struct PromoProc *proc) {
                     proc->u34 = 0;
                 }
 
-                if (trainees.members[i].a != somethingAboutPath) {
-                    MakePromotionScreen(proc, trainees.members[i].a, (u8) somethingAboutPath);
+                if (trainees.members[i].charId != somethingAboutPath) {
+                    MakePromotionScreen(proc, trainees.members[i].charId, (u8) somethingAboutPath);
                 } else {
                     MakePromotionScreen(proc, somethingAboutPath, 2);
                 }
@@ -1500,7 +1401,7 @@ void sub_80CD790(struct Proc *proc) {
 struct Unknown_0820707C {
     u32 a[3];
 };
-extern struct Unknown_0820707C gUnknown_0820707C;
+const struct Unknown_0820707C gUnknown_0820707C = { 0xc44, 0xc48, 0xc4d };
 
 extern s8 gUnknown_03005398[];
 

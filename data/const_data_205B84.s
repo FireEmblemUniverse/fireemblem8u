@@ -1014,6 +1014,3 @@ gUnknown_08206FE4:  @ 0x08206FE4
     .4byte gUnknown_08AA239C + 0x35b8
     .4byte gUnknown_08AA239C + 0x42d8
     .4byte 0x000000fa
-    .4byte 0x61726363
-    .4byte 0x7966696d
-    .4byte 0x00000000
