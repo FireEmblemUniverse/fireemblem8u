@@ -477,7 +477,7 @@ u16 GetItemAfterUse(int item) {
     return item; // return used item
 }
 
-u16 GetUnitEquippedWeapon(struct Unit* unit) {
+u32 GetUnitEquippedWeapon(struct Unit* unit) {
     int i;
 
     for (i = 0; i < UNIT_ITEM_COUNT; ++i)
@@ -533,7 +533,7 @@ s8 IsItemEffectiveAgainst(u16 item, struct Unit* unit) {
 
         return FALSE;
 
-        check_flying_effectiveness_negation: { 
+        check_flying_effectiveness_negation: {
             u32 attributes;
             int i;
 

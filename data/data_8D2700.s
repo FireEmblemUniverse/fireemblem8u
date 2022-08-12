@@ -695,11 +695,7 @@ gUnknown_0895DD1C:  @ 0x0895DD1C
 
 	.global gUnknown_0895DFA4
 gUnknown_0895DFA4:  @ 0x0895DFA4
-	.incbin "baserom.gba", 0x95DFA4, 0x1
-
-	.global gUnknown_0895DFA5
-gUnknown_0895DFA5:  @ 0x0895DFA5
-	.incbin "baserom.gba", 0x95DFA5, 0xFF
+	.incbin "baserom.gba", 0x95DFA4, 0x100
 
 	.global gUnknown_0895E0A4
 gUnknown_0895E0A4:  @ 0x0895E0A4

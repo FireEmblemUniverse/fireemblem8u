@@ -88,7 +88,7 @@ void Text_Init(struct TextHandle *a, int tileWidth);
 void Text_Allocate(struct TextHandle *th, int tileWidth);
 void InitTextBatch(const struct TextBatch* a);
 void Text_Clear(struct TextHandle* a);
-// ??? sub_8003E00(???);
+void sub_8003E00(struct TextHandle *th, int b, int c);
 // ??? sub_8003E40(???);
 // ??? Text_GetXCursor(???);
 void Text_SetXCursor(struct TextHandle *th, int x);

@@ -263,7 +263,7 @@ struct Unit* GetFreeBlueUnit(const struct UnitDefinition* uDef) {
 }
 
 inline int GetUnitMaxHp(struct Unit* unit) {
-    return unit->maxHP + GetItemHpBonus(GetUnitEquippedWeapon(unit));
+    return unit->maxHP + GetItemHpBonus((u16) GetUnitEquippedWeapon(unit));
 }
 
 inline int GetUnitCurrentHp(struct Unit* unit) {
@@ -274,11 +274,11 @@ inline int GetUnitCurrentHp(struct Unit* unit) {
 }
 
 inline int GetUnitPower(struct Unit* unit) {
-    return unit->pow + GetItemPowBonus(GetUnitEquippedWeapon(unit));
+    return unit->pow + GetItemPowBonus((u16) GetUnitEquippedWeapon(unit));
 }
 
 inline int GetUnitSkill(struct Unit* unit) {
-    int item = GetUnitEquippedWeapon(unit);
+    u16 item = GetUnitEquippedWeapon(unit);
 
     if (unit->state & US_RESCUING)
         return unit->skl / 2 + GetItemSklBonus(item);
@@ -287,7 +287,7 @@ inline int GetUnitSkill(struct Unit* unit) {
 }
 
 inline int GetUnitSpeed(struct Unit* unit) {
-    int item = GetUnitEquippedWeapon(unit);
+    u16 item = GetUnitEquippedWeapon(unit);
 
     if (unit->state & US_RESCUING)
         return unit->spd / 2 + GetItemSpdBonus(item);
@@ -296,15 +296,15 @@ inline int GetUnitSpeed(struct Unit* unit) {
 }
 
 inline int GetUnitDefense(struct Unit* unit) {
-    return unit->def + GetItemDefBonus(GetUnitEquippedWeapon(unit));
+    return unit->def + GetItemDefBonus((u16) GetUnitEquippedWeapon(unit));
 }
 
 inline int GetUnitResistance(struct Unit* unit) {
-    return unit->res + GetItemResBonus(GetUnitEquippedWeapon(unit)) + unit->barrierDuration;
+    return unit->res + GetItemResBonus((u16) GetUnitEquippedWeapon(unit)) + unit->barrierDuration;
 }
 
 inline int GetUnitLuck(struct Unit* unit) {
-    return unit->lck + GetItemLckBonus(GetUnitEquippedWeapon(unit));
+    return unit->lck + GetItemLckBonus((u16) GetUnitEquippedWeapon(unit));
 }
 
 inline int GetUnitPortraitId(struct Unit* unit) {
