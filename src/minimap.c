@@ -6,6 +6,8 @@
 #include "hardware.h"
 #include "m4a.h"
 #include "soundwrapper.h"
+#include "fontgrp.h"
+#include "uiutils.h"
 
 struct MinimapProc {
     /* 00 */ PROC_HEADER;
@@ -35,15 +37,58 @@ extern s16* gUnknown_02000508;
 
 extern u16 (*gUnknown_0200050C)[8][16];
 
-extern struct ProcCmd gUnknown_08A1FB38[];
+// hino.s
+void sub_80131D0(s16*);
+void sub_80131F0(s16*, int, int, int, int);
+
 
 void sub_80A83D0(int);
 void sub_80A86AC(struct MinimapProc*);
 
+void sub_80A7E84(ProcPtr proc);
+void sub_80A8568(struct MinimapProc* proc);
+void sub_80A7F1C(struct MinimapProc* proc);
+void sub_80A8020(struct MinimapProc* proc);
+void sub_80A8410(void);
+void sub_80A8708(ProcPtr proc);
+void sub_80A81B8(struct MinimapProc* proc);
+void sub_80A8234(struct MinimapProc* proc);
+void sub_80A86CC(struct MinimapProc* proc);
 
-// hino.s
-void sub_80131D0(s16*);
-void sub_80131F0(s16*, int, int, int, int);
+struct ProcCmd CONST_DATA gUnknown_08A1FB38[] = {
+    PROC_CALL(AddSkipThread2),
+
+    PROC_SLEEP(0),
+
+    PROC_CALL(ClearBg0Bg1),
+    PROC_SLEEP(0),
+
+    PROC_CALL(sub_80A7E84),
+    PROC_CALL(sub_80A8568),
+    PROC_CALL(sub_80A7F1C),
+
+    PROC_REPEAT(sub_80A8020),
+
+    PROC_CALL(sub_80A8410),
+
+    PROC_REPEAT(sub_80A8708),
+
+    PROC_CALL(sub_80A81B8),
+
+    PROC_REPEAT(sub_80A8234),
+
+    PROC_CALL(sub_80A86CC),
+    PROC_CALL(ClearBg0Bg1),
+    PROC_SLEEP(0),
+
+    PROC_CALL(LoadUiFrameGraphics),
+    PROC_CALL(Font_InitForUIDefault),
+    PROC_CALL(LoadObjUIGfx),
+
+    PROC_CALL(SubSkipThread2),
+
+    PROC_END,
+};
 
 
 int sub_80A7578(int x, int y) {
@@ -547,20 +592,18 @@ u16* sub_80A7BF8(int x, int y) {
     return (u16*)(gUnknown_02020188 + (sub_80A7A0C(x, y) * 0x20));
 }
 
-extern u8 gUnknown_08205D84[];
-
 u16* sub_80A7C0C(int x, int y) {
-    int unitId;
-    u8 hack[4];
 
-    memcpy(hack, gUnknown_08205D84, 3);
+    u8 gUnknown_08205D84[] = {
+        0x1D, 0x1F, 0x1E,
+    };
 
-    unitId = gBmMapUnit[y][x];
+    int unitId = gBmMapUnit[y][x];
 
     if (unitId == 0) {
         return (u16*)(gUnknown_02020188);
     } else {
-        return (u16*)(gUnknown_02020188 + (hack[unitId >> 6] * 0x20));
+        return (u16*)(gUnknown_02020188 + (gUnknown_08205D84[unitId >> 6] * 0x20));
     }
 }
 
@@ -1060,32 +1103,32 @@ void sub_80A8410() {
 
 #endif // NONMATCHING
 
-extern u8 gUnknown_08205D87[];
-
 void sub_80A849C() {
-    u8 idx;
-    u8 hack[16];
+    u8 gUnknown_08205D87[] = {
+        0, 4, 7, 6, 5, 4, 3, 2, 2, 1, 1, 1, 0, 0, 0, 0,
+    };
 
-    memcpy(hack, gUnknown_08205D87, 0x10);
-
-    idx = hack[(GetGameClock() >> 2) & 0xF];
+    u8 idx = gUnknown_08205D87[(GetGameClock() >> 2) & 0xF];
 
     CopyToPaletteBuffer((*gUnknown_0200050C)[idx], 0x80, 0x20);
 
     return;
 }
 
-extern u8 gUnknown_08205D97[];
-
 void sub_80A84D8() {
     register u8 idx asm("r0");
     register int color asm("r3");
     int r, g, b;
-    u8 hack[32];
 
-    memcpy(hack, gUnknown_08205D97, 0x20);
+    u8 gUnknown_08205D97[] = {
+        0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07,
+        0x08, 0x09, 0x0A, 0x0B, 0x0C, 0x0D, 0x0E, 0x0F,
+        0x0F, 0x0E, 0x0D, 0x0C, 0x0B, 0x0A, 0x09, 0x08,
+        0x07, 0x06, 0x05, 0x04, 0x03, 0x02, 0x01, 0x00,
+    };
 
-    idx = hack[GetGameClock() & 0x1F];
+
+    idx = gUnknown_08205D97[GetGameClock() & 0x1F];
     color = idx + 0x10;
 
     r = color;
@@ -1099,16 +1142,18 @@ void sub_80A84D8() {
     return;
 }
 
-extern u16 gUnknown_08205DB8[];
-
 void sub_80A851C(struct MinimapProc* proc) {
     int xBase;
     int yBase;
     int xNew;
     int yNew;
-    u16 hack[14];
 
-    memcpy(hack, gUnknown_08205DB8, 0x1A);
+    u16 gUnknown_08205DB8[] = {
+        0x0004, 0x00FF, 0x01FF, 0x0028,
+        0x00FF, 0x1035, 0x0028, 0x0021,
+        0x21FF, 0x0028, 0x0021, 0x3035,
+        0x0028,
+    };
 
     xBase = gUnknown_0202BCB0.camera.x;
     if (xBase < 0) {
@@ -1124,7 +1169,7 @@ void sub_80A851C(struct MinimapProc* proc) {
     yBase = yBase >> 2;
     yNew = proc->unk_40 + yBase;
 
-    CallARM_PushToSecondaryOAM(xNew, yNew, hack, 0);
+    CallARM_PushToSecondaryOAM(xNew, yNew, gUnknown_08205DB8, 0);
 
     return;
 }
