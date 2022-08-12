@@ -336,6 +336,25 @@ struct MenuDef gUnknown_08B129E4 = {
     0,
 };
 
+void BuildPromotionMenu(struct PromoProc *proc);
+void sub_80CDDD4(void);
+void nullsub_61(void);
+
+CONST_DATA
+struct ProcCmd gUnknown_08B12A08[] = {
+    PROC_SLEEP(6),
+	{ 0x01, 0x0000, (void *) 0x82070f0 }, // PROC_NAME("CCRamifyMenuSelect")
+    PROC_CALL(BuildPromotionMenu),
+    PROC_REPEAT(sub_80CDDD4),
+    PROC_YIELD,
+    PROC_LABEL(0),
+    PROC_GOTO(2),
+    PROC_LABEL(1),
+    PROC_CALL(nullsub_61),
+    PROC_LABEL(2),
+    PROC_END,
+};
+
 struct PromoProc2 *Make6C_PromotionMain(ProcPtr proc);
 
 void MakePromotionScreen(ProcPtr proc, u32 a, u32 b) {
