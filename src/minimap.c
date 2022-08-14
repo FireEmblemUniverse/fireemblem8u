@@ -9,6 +9,8 @@
 #include "fontgrp.h"
 #include "uiutils.h"
 
+#include "minimap.h"
+
 struct MinimapProc {
     /* 00 */ PROC_HEADER;
 
@@ -25,9 +27,9 @@ struct MinimapProc {
     /* 4C */ s16 unk_4c;
 };
 
-extern u8 gUnknown_08A1FBD8[];
-extern u16 gUnknown_08A1FFB0[];
-extern u16 gUnknown_08A1FFD0[];
+extern u8 gGfx_MinimapTiles[];
+extern u16 gPal_MinimapTiles[];
+extern u16 gPal_08A1FFD0[];
 
 extern s16 gUnknown_02000280;
 
@@ -42,20 +44,20 @@ void sub_80131D0(s16*);
 void sub_80131F0(s16*, int, int, int, int);
 
 
-void sub_80A83D0(int);
+void ApplyMinimapGraphics(int);
 void sub_80A86AC(struct MinimapProc*);
 
-void sub_80A7E84(ProcPtr proc);
+void Minimap_HandleOpen(ProcPtr proc);
 void sub_80A8568(struct MinimapProc* proc);
 void sub_80A7F1C(struct MinimapProc* proc);
-void sub_80A8020(struct MinimapProc* proc);
+void Minimap_LoopRotateIn(struct MinimapProc* proc);
 void sub_80A8410(void);
-void sub_80A8708(ProcPtr proc);
-void sub_80A81B8(struct MinimapProc* proc);
-void sub_80A8234(struct MinimapProc* proc);
-void sub_80A86CC(struct MinimapProc* proc);
+void Minimap_Idle_InputHandler(ProcPtr proc);
+void Minimap_HandleClose(struct MinimapProc* proc);
+void Minimap_LoopRotateOut(struct MinimapProc* proc);
+void Minimap_AdjustCursorOnClose(struct MinimapProc* proc);
 
-struct ProcCmd CONST_DATA gUnknown_08A1FB38[] = {
+struct ProcCmd CONST_DATA gProcScr_Minimap[] = {
     PROC_CALL(AddSkipThread2),
 
     PROC_SLEEP(0),
@@ -63,21 +65,21 @@ struct ProcCmd CONST_DATA gUnknown_08A1FB38[] = {
     PROC_CALL(ClearBg0Bg1),
     PROC_SLEEP(0),
 
-    PROC_CALL(sub_80A7E84),
+    PROC_CALL(Minimap_HandleOpen),
     PROC_CALL(sub_80A8568),
     PROC_CALL(sub_80A7F1C),
 
-    PROC_REPEAT(sub_80A8020),
+    PROC_REPEAT(Minimap_LoopRotateIn),
 
     PROC_CALL(sub_80A8410),
 
-    PROC_REPEAT(sub_80A8708),
+    PROC_REPEAT(Minimap_Idle_InputHandler),
 
-    PROC_CALL(sub_80A81B8),
+    PROC_CALL(Minimap_HandleClose),
 
-    PROC_REPEAT(sub_80A8234),
+    PROC_REPEAT(Minimap_LoopRotateOut),
 
-    PROC_CALL(sub_80A86CC),
+    PROC_CALL(Minimap_AdjustCursorOnClose),
     PROC_CALL(ClearBg0Bg1),
     PROC_SLEEP(0),
 
@@ -91,7 +93,7 @@ struct ProcCmd CONST_DATA gUnknown_08A1FB38[] = {
 };
 
 
-int sub_80A7578(int x, int y) {
+int Minimap_GetRoadTileIndex(int x, int y) {
 
     int index = 0;
 
@@ -122,7 +124,7 @@ int sub_80A7578(int x, int y) {
     return index;
 }
 
-int sub_80A75CC(int terrainId) {
+int NormalizeSeaMinimapTerrain(int terrainId) {
 
     switch (terrainId) {
         case TERRAIN_DEEPS:
@@ -140,17 +142,9 @@ int sub_80A75E8(int x, int y) {
 
     int index = 0;
 
-    terrainIdA = sub_80A75CC(gBmMapTerrain[y][x]);
+    terrainIdA = NormalizeSeaMinimapTerrain(gBmMapTerrain[y][x]);
 
-    terrainIdB = sub_80A75CC(gBmMapTerrain[y + 1][x]);
-
-    if (terrainIdB == terrainIdA) {
-        index += 1;
-    }
-
-    index *= 2;
-
-    terrainIdB = sub_80A75CC(gBmMapTerrain[y - 1][x]);
+    terrainIdB = NormalizeSeaMinimapTerrain(gBmMapTerrain[y + 1][x]);
 
     if (terrainIdB == terrainIdA) {
         index += 1;
@@ -158,7 +152,7 @@ int sub_80A75E8(int x, int y) {
 
     index *= 2;
 
-    terrainIdB = sub_80A75CC(gBmMapTerrain[y][x + 1]);
+    terrainIdB = NormalizeSeaMinimapTerrain(gBmMapTerrain[y - 1][x]);
 
     if (terrainIdB == terrainIdA) {
         index += 1;
@@ -166,7 +160,15 @@ int sub_80A75E8(int x, int y) {
 
     index *= 2;
 
-    terrainIdB = sub_80A75CC(gBmMapTerrain[y][x - 1]);
+    terrainIdB = NormalizeSeaMinimapTerrain(gBmMapTerrain[y][x + 1]);
+
+    if (terrainIdB == terrainIdA) {
+        index += 1;
+    }
+
+    index *= 2;
+
+    terrainIdB = NormalizeSeaMinimapTerrain(gBmMapTerrain[y][x - 1]);
 
     if (terrainIdB == terrainIdA) {
         index += 1;
@@ -175,7 +177,7 @@ int sub_80A75E8(int x, int y) {
     return index;
 }
 
-int sub_80A767C(int terrainId) {
+int NormalizeWaterMinimapTerrain(int terrainId) {
 
     switch (terrainId) {
         case TERRAIN_FLOOR_17:
@@ -188,23 +190,15 @@ int sub_80A767C(int terrainId) {
     }
 }
 
-int sub_80A769C(int x, int y) {
+int Minimap_GetWaterTileIndex(int x, int y) {
     int terrainIdA;
     int terrainIdB;
 
     int index = 0;
 
-    terrainIdA = sub_80A767C(gBmMapTerrain[y][x]);
+    terrainIdA = NormalizeWaterMinimapTerrain(gBmMapTerrain[y][x]);
 
-    terrainIdB = sub_80A767C(gBmMapTerrain[y + 1][x]);
-
-    if (terrainIdB == terrainIdA) {
-        index += 1;
-    }
-
-    index *= 2;
-
-    terrainIdB = sub_80A767C(gBmMapTerrain[y - 1][x]);
+    terrainIdB = NormalizeWaterMinimapTerrain(gBmMapTerrain[y + 1][x]);
 
     if (terrainIdB == terrainIdA) {
         index += 1;
@@ -212,7 +206,7 @@ int sub_80A769C(int x, int y) {
 
     index *= 2;
 
-    terrainIdB = sub_80A767C(gBmMapTerrain[y][x + 1]);
+    terrainIdB = NormalizeWaterMinimapTerrain(gBmMapTerrain[y - 1][x]);
 
     if (terrainIdB == terrainIdA) {
         index += 1;
@@ -220,7 +214,15 @@ int sub_80A769C(int x, int y) {
 
     index *= 2;
 
-    terrainIdB = sub_80A767C(gBmMapTerrain[y][x - 1]);
+    terrainIdB = NormalizeWaterMinimapTerrain(gBmMapTerrain[y][x + 1]);
+
+    if (terrainIdB == terrainIdA) {
+        index += 1;
+    }
+
+    index *= 2;
+
+    terrainIdB = NormalizeWaterMinimapTerrain(gBmMapTerrain[y][x - 1]);
 
     if (terrainIdB == terrainIdA) {
         index += 1;
@@ -229,7 +231,7 @@ int sub_80A769C(int x, int y) {
     return index;
 }
 
-int sub_80A7730(int x, int y) {
+int Minimap_GetRiverTileIndex(int x, int y) {
     int terrainId;
 
     int index = 0;
@@ -283,7 +285,7 @@ int sub_80A7730(int x, int y) {
     return index;
 }
 
-int sub_80A77D4(int x, int y) {
+int Minimap_GetCliffBoneTileIndex(int x, int y) {
 
     int terrainId = gBmMapTerrain[y][x];
 
@@ -379,7 +381,7 @@ int sub_80A77D4(int x, int y) {
     return 8;
 }
 
-int sub_80A78FC(int x, int y) {
+int Minimap_GetStairsTileIndex(int x, int y) {
     if (gBmMapTerrain[y - 1][x] == TERRAIN_STAIRS) {
         return 0x12;
     }
@@ -399,7 +401,7 @@ int sub_80A78FC(int x, int y) {
     return 0x12;
 }
 
-int sub_80A7940(int x, int y) {
+int Minimap_GetDoorTileIndex(int x, int y) {
 
     if (gBmMapTerrain[y][x + 1] == TERRAIN_DOOR) {
         return 0x16;
@@ -413,7 +415,7 @@ int sub_80A7940(int x, int y) {
 
 }
 
-int sub_80A7970(int x, int y) {
+int Minimap_GetBridgeTileIndex(int x, int y) {
     if ((gBmMapTerrain[y][x + 1] == TERRAIN_BRIDGE_13) ||
         (gBmMapTerrain[y][x - 1] == TERRAIN_BRIDGE_13)) {
         return 0x10;
@@ -457,14 +459,14 @@ int sub_80A7970(int x, int y) {
     // return; // BUG?
 }
 
-int sub_80A7A0C(int x, int y) {
+int Minimap_GetTileForTerrainAt(int x, int y) {
 
     switch (gBmMapTerrain[y][x]) {
         case TERRAIN_PLAINS:
             return 1;
 
         case TERRAIN_ROAD:
-            return sub_80A7578(x, y) + 0x40;
+            return Minimap_GetRoadTileIndex(x, y) + 0x40;
 
         case TERRAIN_VILLAGE_03:
         case TERRAIN_VILLAGE_04:
@@ -499,7 +501,7 @@ int sub_80A7A0C(int x, int y) {
             return 0xA;
 
         case TERRAIN_RIVER:
-            return sub_80A7730(x, y) + 0x60;
+            return Minimap_GetRiverTileIndex(x, y) + 0x60;
 
         case TERRAIN_MOUNTAIN:
             return 0xB;
@@ -509,10 +511,10 @@ int sub_80A7A0C(int x, int y) {
 
         case TERRAIN_BRIDGE_13:
         case TERRAIN_BRIDGE_34:
-            return sub_80A7970(x, y);
+            return Minimap_GetBridgeTileIndex(x, y);
 
         case TERRAIN_WATER:
-            return sub_80A769C(x, y) + 0x30;
+            return Minimap_GetWaterTileIndex(x, y) + 0x30;
 
         case TERRAIN_SEA:
         case TERRAIN_LAKE:
@@ -530,7 +532,7 @@ int sub_80A7A0C(int x, int y) {
             return 0xD;
 
         case TERRAIN_DOOR:
-            return sub_80A7940(x, y);
+            return Minimap_GetDoorTileIndex(x, y);
 
         case TERRAIN_THRONE:
             return 0xE;
@@ -547,7 +549,7 @@ int sub_80A7A0C(int x, int y) {
 
         case TERRAIN_CLIFF:
         case TERRAIN_BONE:
-            return sub_80A77D4(x, y) + 0x50;
+            return Minimap_GetCliffBoneTileIndex(x, y) + 0x50;
 
         case TERRAIN_BALLISTA_REGULAR:
         case TERRAIN_BALLISTA_LONG:
@@ -558,7 +560,7 @@ int sub_80A7A0C(int x, int y) {
             return 0x3A;
 
         case TERRAIN_STAIRS:
-            return sub_80A78FC(x, y);
+            return Minimap_GetStairsTileIndex(x, y);
 
         case TERRAIN_FENCE_19:
         case TERRAIN_WALL_1A:
@@ -572,7 +574,7 @@ int sub_80A7A0C(int x, int y) {
         case TERRAIN_GUNNELS:
         case TERRAIN_BRACE:
         case TERRAIN_MAST:
-            return sub_80A7578(x, y) + 0x20;
+            return Minimap_GetRoadTileIndex(x, y) + 0x20;
 
         case TERRAIN_VALLEY:
             return 0x19;
@@ -589,7 +591,7 @@ int sub_80A7A0C(int x, int y) {
 }
 
 u16* sub_80A7BF8(int x, int y) {
-    return (u16*)(gUnknown_02020188 + (sub_80A7A0C(x, y) * 0x20));
+    return (u16*)(gUnknown_02020188 + (Minimap_GetTileForTerrainAt(x, y) * 0x20));
 }
 
 u16* sub_80A7C0C(int x, int y) {
@@ -724,12 +726,12 @@ void sub_80A7C5C(u16* vram, int palId) {
     return;
 }
 
-void sub_80A7E84(ProcPtr proc) {
+void Minimap_HandleOpen(ProcPtr proc) {
 
     PlaySoundEffect(0x78); // TODO: song120_se_sys_small_map_open1.mid
 
     sub_80A86AC(proc);
-    sub_80A83D0(-1);
+    ApplyMinimapGraphics(-1);
     sub_80A7C5C(0, -1);
 
     BG_EnableSyncByMask(3);
@@ -804,7 +806,7 @@ void sub_80A7F1C(struct MinimapProc* proc) {
     return;
 }
 
-void sub_80A8020(struct MinimapProc* proc) {
+void Minimap_LoopRotateIn(struct MinimapProc* proc) {
     int blendY;
     int unk;
     int i;
@@ -876,7 +878,7 @@ void sub_80A8020(struct MinimapProc* proc) {
 
 }
 
-void sub_80A81B8(struct MinimapProc* proc) {
+void Minimap_HandleClose(struct MinimapProc* proc) {
     PlaySoundEffect(0x79); // TODO: song121_se_sys_small_map_close1.mid
 
     sub_8001ED0(0, 0, 1, 1, 0);
@@ -893,7 +895,7 @@ void sub_80A81B8(struct MinimapProc* proc) {
     return;
 }
 
-void sub_80A8234(struct MinimapProc* proc) {
+void Minimap_LoopRotateOut(struct MinimapProc* proc) {
     int blendY;
     int i;
     int unk;
@@ -964,16 +966,16 @@ void sub_80A8234(struct MinimapProc* proc) {
     return;
 }
 
-void sub_80A83D0(int palId) {
+void ApplyMinimapGraphics(int palId) {
 
     if (palId < 0) {
         palId = 3;
     }
 
-    CopyDataWithPossibleUncomp(gUnknown_08A1FBD8, gUnknown_02020188);
+    CopyDataWithPossibleUncomp(gGfx_MinimapTiles, gUnknown_02020188);
 
-    CopyToPaletteBuffer(gUnknown_08A1FFB0, palId * 0x20, 0x20);
-    CopyToPaletteBuffer(gUnknown_08A1FFD0, (palId + 1) * 0x20, 0x20);
+    CopyToPaletteBuffer(gPal_MinimapTiles, palId * 0x20, 0x20);
+    CopyToPaletteBuffer(gPal_08A1FFD0, (palId + 1) * 0x20, 0x20);
 
     return;
 }
@@ -1181,7 +1183,7 @@ void sub_80A8568(struct MinimapProc* proc) {
     x = (240 - (gBmMapSize.x * 4)) >> 1;
     y = (160 - (gBmMapSize.y * 4)) >> 1;
 
-    if ((gBmMapSize.y * 4) > 0x90) {
+    if ((gBmMapSize.y * 4) > 144) {
         int tmp;
 
         y = ((gBmMapSize.y * 4) - 144);
@@ -1205,7 +1207,7 @@ void sub_80A8568(struct MinimapProc* proc) {
 }
 
 
-void sub_80A85E4(struct MinimapProc* proc) {
+void Minimap_HandleDPadInput(struct MinimapProc* proc) {
     int x;
     int y;
 
@@ -1272,7 +1274,7 @@ void sub_80A86AC(struct MinimapProc* proc) {
     return;
 }
 
-void sub_80A86CC(struct MinimapProc* proc) {
+void Minimap_AdjustCursorOnClose(struct MinimapProc* proc) {
     int x;
     int y;
 
@@ -1303,13 +1305,13 @@ void sub_80A86CC(struct MinimapProc* proc) {
     return;
 }
 
-void sub_80A8708(ProcPtr proc) {
+void Minimap_Idle_InputHandler(ProcPtr proc) {
     sub_80A849C();
 
     sub_80A84D8(proc);
     sub_80A8568(proc);
     sub_80A851C(proc);
-    sub_80A85E4(proc);
+    Minimap_HandleDPadInput(proc);
 
     if (gKeyStatusPtr->heldKeys & (R_BUTTON | L_BUTTON)) {
         sub_8001ED0(0, 1, 0, 0, 0);
@@ -1328,13 +1330,13 @@ void sub_80A8708(ProcPtr proc) {
     return;
 }
 
-void sub_80A87C8() {
-    Proc_Start(gUnknown_08A1FB38, PROC_TREE_3);
+void StartMinimapPlayerPhase() {
+    Proc_Start(gProcScr_Minimap, PROC_TREE_3);
     return;
 }
 
-void sub_80A87DC(ProcPtr proc) {
-    Proc_StartBlocking(gUnknown_08A1FB38, proc);
+void StartMinimapPrepPhase(ProcPtr proc) {
+    Proc_StartBlocking(gProcScr_Minimap, proc);
     return;
 }
 
@@ -1344,7 +1346,7 @@ void sub_80A87F0(int chapterId, u16* vram, int palId) {
 
     InitChapterPreviewMap(chapterId);
 
-    sub_80A83D0(palId);
+    ApplyMinimapGraphics(palId);
 
     sub_80A7C5C(vram, palId);
 
