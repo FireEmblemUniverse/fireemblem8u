@@ -3499,10 +3499,6 @@ extern u16 CONST_DATA gUnknown_08A1D79C[]; // 'R is info' palette
 // extern ??? gUnknown_08A1FAF8
 // extern ??? gUnknown_08A1FB08
 // extern ??? gUnknown_08A1FB30
-// extern ??? gUnknown_08A1FB38
-// extern ??? gUnknown_08A1FBD8
-// extern ??? gUnknown_08A1FFB0
-// extern ??? gUnknown_08A1FFD0
 // extern ??? gUnknown_08A20050
 // extern ??? gUnknown_08A20068
 // extern ??? gUnknown_08A20098

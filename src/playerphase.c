@@ -20,6 +20,7 @@
 #include "bmphase.h"
 #include "bmmind.h"
 #include "bmtrap.h"
+#include "minimap.h"
 
 #include "playerphase.h"
 
@@ -60,7 +61,6 @@ s8 CanMoveActiveUnitTo(int, int);
 void New6CPPInterfaceConstructor(ProcPtr);
 void DeletePlayerPhaseInterface6Cs(void);
 void BWL_IncrementMoveValue(u8);
-void sub_80A87C8(void);
 
 // ev_triggercheck.s
 s8 sub_8083250(void);
@@ -375,7 +375,7 @@ void PlayerPhase_MainIdle(ProcPtr proc) {
             }
 
             DeletePlayerPhaseInterface6Cs();
-            sub_80A87C8();
+            StartMinimapPlayerPhase();
 
             Proc_Goto(proc, 9);
             return;

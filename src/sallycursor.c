@@ -20,6 +20,8 @@
 #include "ev_triggercheck.h"
 #include "bmdifficulty.h"
 #include "playerphase.h"
+#include "minimap.h"
+
 #include "sallycursor.h"
 
 // hino.s
@@ -72,7 +74,6 @@ void sub_80972B0();
 void sub_8097340(ProcPtr);
 void sub_8097394(ProcPtr);
 void sub_80A48F0(u8);
-void sub_80A87DC(ProcPtr);
 void sub_80ADDD4(ProcPtr);
 void BWL_IncrementDeployCountMaybe(u8);
 void sub_80B9FC0();
@@ -801,7 +802,7 @@ void sub_8033978(ProcPtr proc) {
 
         if (START_BUTTON & gKeyStatusPtr->newKeys) {
             DeletePlayerPhaseInterface6Cs();
-            sub_80A87DC(proc);
+            StartMinimapPrepPhase(proc);
             Proc_Goto(proc, 9);
             return;
         }

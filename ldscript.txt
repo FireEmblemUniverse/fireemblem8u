@@ -131,6 +131,8 @@ SECTIONS
         asm/fx_slidingwallbg.o(.text);
         src/statscreen.o(.text);
         asm/code.o(.text);
+        src/minimap.o(.text);
+        asm/code_80A882C.o(.text);
         src/branched_promotion_main.o(.text);
         src/branched_promotion.o(.text);
         asm/code_80CCA64.o(.text);
@@ -237,6 +239,8 @@ SECTIONS
         . = ALIGN(4); data/const_data_205714.o(.rodata);
         . = ALIGN(4); src/statscreen.o(.rodata);
         . = ALIGN(4); data/const_data_205B84.o(.rodata);
+        . = ALIGN(4); src/minimap.o(.rodata);
+        . = ALIGN(4); data/const_data_205DE9.o(.rodata);
         . = ALIGN(4); src/branched_promotion_main.o(.rodata);
         . = ALIGN(4); src/branched_promotion.o(.rodata);
         FILL(0x00);
@@ -319,6 +323,9 @@ SECTIONS
         . = ALIGN(4); data/data_A01628.o(.data);
         . = ALIGN(4); data/data_chap_title.o(.data);
         . = ALIGN(4); data/data_A167C8.o(.data);
+        . = ALIGN(4); src/minimap.o(.data);
+        . = ALIGN(4); data/data_minimap.o(.data);
+        . = ALIGN(4); data/data_A20050.o(.data);
         . = ALIGN(4); src/branched_promotion_main.o(.data);
         . = ALIGN(4); src/branched_promotion.o(.data);
         . = ALIGN(4); data/data_B12A60.o(.data);
