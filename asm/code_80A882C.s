@@ -53293,7 +53293,7 @@ _080C1848:
 	bls _080C183A
 	mov r0, sl
 	bl StoreRNState
-	ldr r5, _080C18E0  @ gUnknown_0300534E
+	ldr r5, _080C18E0  @ gGmMonsterRnState
 	adds r0, r5, #0
 	bl LoadRNState
 	movs r6, #0
@@ -53338,7 +53338,7 @@ _080C1868:
 	cmp r6, r8
 	blt _080C1868
 _080C18B4:
-	ldr r0, _080C18E0  @ gUnknown_0300534E
+	ldr r0, _080C18E0  @ gGmMonsterRnState
 	bl StoreRNState
 	mov r0, sl
 	bl LoadRNState
@@ -53356,7 +53356,7 @@ _080C18C2:
 _080C18D4: .4byte gUnknown_08206AAB
 _080C18D8: .4byte gUnknown_08206948
 _080C18DC: .4byte gUnknown_03005280
-_080C18E0: .4byte gUnknown_0300534E
+_080C18E0: .4byte gGmMonsterRnState
 _080C18E4: .4byte gUnknown_03005349
 
 	THUMB_FUNC_END sub_80C1774

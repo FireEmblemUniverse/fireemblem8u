@@ -1208,7 +1208,7 @@ DebugMenu_FogEffect: @ 0x0801C4B0
 	THUMB_FUNC_START DebugContinueMenu_ReleaseEntry
 DebugContinueMenu_ReleaseEntry: @ 0x0801C4B4
 	push {lr}
-	bl NewGameControl
+	bl StartGame
 	movs r0, #7
 	pop {r1}
 	bx r1

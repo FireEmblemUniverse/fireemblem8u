@@ -9,20 +9,34 @@
 #include "rng.h"
 #include "event.h"
 
-extern u16 gUnknown_0300534E[];
+#include "gamecontrol.h"
 
-extern u16 gUnknown_08A0035C[];
-extern u16 gUnknown_08A00364[];
-extern u16 gUnknown_08A0037C[];
-extern u16 gUnknown_08A0048C[];
+extern u16 gGmMonsterRnState[];
 
-extern struct ProcCmd gUnknown_085916D4[];
+extern u16 gEvent_8A0035C[];
+extern u16 gEvent_8A00364[];
+extern u16 gEvent_EirikaModeGameEnd[];
+extern u16 gEvent_EphraimModeGameEnd[];
+
+extern struct ProcCmd CONST_DATA gUnknown_08AA7680[]; // pre-intro cutscene
+extern struct ProcCmd CONST_DATA gUnknown_08AA71C8[]; // intro cutscene
+extern struct ProcCmd CONST_DATA gUnknown_08A3DD50[]; // world map wrapper
+
+// hino.s
+void sub_8013D68(ProcPtr);
+void sub_8013D8C(ProcPtr);
+
+// code_sio.s
+void sub_80481E0(ProcPtr);
+void sub_8048850(ProcPtr);
 
 // ev_triggercheck.s
 void sub_8083D18(void);
 void ClearLocalEvents(void);
 
+// code.s
 void sub_8086BB8(ProcPtr, u8*, int);
+void EndBG3Slider(ProcPtr);
 void sub_80A41C8(void);
 int sub_80A4BB0(void);
 void sub_80A4CD8(void);
@@ -30,10 +44,249 @@ s8 sub_80A5218(int);
 void sub_80A522C(int, struct RAMChapterData*);
 void sub_80A5A20(int);
 void sub_80A6D38(void);
+void Make6C_savemenu(ProcPtr);
 void Make6C_savemenu2(ProcPtr);
 void Make6C_opinfo(int, ProcPtr);
+void EndWM(ProcPtr);
+void sub_80B7598(ProcPtr);
 void sub_80C541C(ProcPtr);
+void sub_80C6424(ProcPtr);
+void sub_80C6444(ProcPtr);
+void sub_80C645C(ProcPtr);
 
+s8 sub_80099E4(ProcPtr);
+void GameControl_HandleSelectRightL(ProcPtr);
+void sub_8009A24(ProcPtr);
+void GameControl_8009A58(struct GameCtrlProc*);
+void GameControl_8009A60_Null(ProcPtr);
+void sub_8009A84(ProcPtr);
+void sub_8009ABC(ProcPtr);
+void GameControl_PostIntro(struct GameCtrlProc*);
+void sub_8009B64(struct GameCtrlProc*);
+void GameControl_MasterSwitch(struct GameCtrlProc*);
+void GameControl_PostChapterSwitch(struct GameCtrlProc*);
+void sub_8009D1C(struct GameCtrlProc*);
+void sub_8009D44(struct GameCtrlProc*);
+void sub_8009D6C(struct GameCtrlProc*);
+void GameControl_ChapterSwitch(struct GameCtrlProc*);
+void GameControl_CallPostChapterSaveMenu(struct GameCtrlProc*);
+void sub_8009E00(struct GameCtrlProc*);
+void sub_8009E28(ProcPtr);
+void CallGameEndingEvent(ProcPtr);
+void sub_8009EFC(ProcPtr);
+void GameControl_RememberChapterId(struct GameCtrlProc*);
+void GameControl_RestoreChapterId(struct GameCtrlProc*);
+void GameControl_EnableSoundEffects(ProcPtr);
+
+
+struct ProcCmd CONST_DATA gUnused_085916BC[] =
+{
+    PROC_CALL(GameControl_8009A58),
+    PROC_REPEAT(GameControl_8009A60_Null),
+
+    PROC_END,
+};
+
+struct ProcCmd CONST_DATA gProcScr_GameControl[] =
+{
+    PROC_NAME("GAMECTRL"),
+    PROC_MARK(PROC_MARK_B),
+
+    PROC_15,
+
+    PROC_CALL(GameControl_HandleSelectRightL),
+
+    PROC_CALL(GameControl_8009A58),
+    PROC_REPEAT(GameControl_8009A60_Null),
+
+    // fallthrough
+
+PROC_LABEL(0),
+    PROC_START_CHILD_BLOCKING(gUnknown_08AA7680),
+
+    // fallthrough
+
+PROC_LABEL(1),
+    PROC_CALL(GameControl_EnableSoundEffects),
+    PROC_START_CHILD_BLOCKING(gUnknown_08AA71C8),
+    PROC_CALL(GameControl_PostIntro),
+    PROC_SLEEP(0),
+
+    PROC_GOTO(4),
+
+PROC_LABEL(2),
+    PROC_CALL_2(sub_80099E4),
+    PROC_CALL(sub_8009B64),
+    PROC_SLEEP(0),
+
+    PROC_GOTO(1),
+
+PROC_LABEL(3),
+    PROC_SLEEP(0),
+
+    PROC_CALL(sub_8009A84),
+    PROC_CALL(sub_8009B64),
+    PROC_SLEEP(0),
+
+    PROC_GOTO(1),
+
+PROC_LABEL(4),
+    PROC_CALL(GameControl_EnableSoundEffects),
+    PROC_CALL(sub_80C6424),
+
+    PROC_GOTO(26),
+
+PROC_LABEL(24),
+    PROC_CALL(GameControl_EnableSoundEffects),
+    PROC_CALL(sub_80C645C),
+
+    PROC_GOTO(26),
+
+PROC_LABEL(25),
+    PROC_CALL(GameControl_EnableSoundEffects),
+    PROC_CALL(sub_80C6444),
+
+    PROC_GOTO(26),
+
+PROC_LABEL(26),
+    PROC_SLEEP(0),
+
+    PROC_CALL(GameControl_PostIntro),
+    PROC_SLEEP(0),
+
+    PROC_GOTO(1),
+
+PROC_LABEL(5),
+    PROC_CALL(GameControl_EnableSoundEffects),
+    PROC_CALL(Make6C_savemenu),
+    PROC_SLEEP(0),
+
+    PROC_CALL(GameControl_MasterSwitch),
+    PROC_SLEEP(0),
+
+    PROC_GOTO(7),
+
+PROC_LABEL(6),
+    PROC_CALL(GameControl_RememberChapterId),
+    PROC_SLEEP(0),
+
+    PROC_CALL(StartBattleMap),
+    PROC_SLEEP(0),
+
+    PROC_GOTO(9),
+
+PROC_LABEL(7),
+    PROC_CALL(sub_8009D1C),
+    PROC_CALL(sub_8009D44),
+    PROC_CALL(GameControl_RememberChapterId),
+    PROC_CALL(sub_8009E00),
+    PROC_SLEEP(0),
+
+    PROC_START_CHILD_BLOCKING(gUnknown_08A3DD50),
+    PROC_CALL(EndWM),
+
+    PROC_CALL(sub_8009E28),
+    PROC_SLEEP(0),
+
+    PROC_CALL(StartBattleMap),
+    PROC_SLEEP(0),
+
+    // fallthrough
+
+PROC_LABEL(9),
+    PROC_SLEEP(0),
+
+    PROC_CALL(GameControl_PostChapterSwitch),
+    PROC_SLEEP(0),
+
+    PROC_CALL(GameControl_RestoreChapterId),
+
+    // fallthrough
+
+PROC_LABEL(19),
+    PROC_CALL(GameControl_ChapterSwitch),
+
+    PROC_CALL(GameControl_CallPostChapterSaveMenu),
+    PROC_SLEEP(0),
+
+    PROC_GOTO(7),
+
+PROC_LABEL(8),
+    PROC_CALL(sub_8009E28),
+
+    PROC_CALL(GameCtrl_StartResumedGame),
+    PROC_SLEEP(0),
+
+    PROC_CALL(GameControl_RememberChapterId),
+    PROC_CALL(sub_8009D6C),
+
+    PROC_GOTO(9),
+
+PROC_LABEL(14),
+    PROC_SLEEP(0),
+
+    // fallthrough
+
+PROC_LABEL(10),
+    PROC_SLEEP(0),
+
+    PROC_GOTO(4),
+
+PROC_LABEL(15),
+    PROC_GOTO(7),
+
+PROC_LABEL(12),
+    PROC_CALL(sub_80481E0),
+    PROC_SLEEP(0),
+
+    PROC_CALL(sub_8009ABC),
+
+    PROC_GOTO(5),
+
+PROC_LABEL(16),
+    PROC_CALL(ClearTemporaryUnits),
+    PROC_CALL(GameCtrl_DeclareCompletedChapter),
+
+    PROC_CALL(Make6C_savemenu2),
+    PROC_SLEEP(0),
+
+    // fallthrough
+
+PROC_LABEL(17),
+    PROC_CALL(GameCtrl_DeclareCompletedPlaythrough),
+
+    PROC_CALL(CallGameEndingEvent),
+    PROC_SLEEP(0),
+
+    PROC_WHILE(EventEngineExists),
+
+    PROC_CALL(sub_80B7598),
+    PROC_CALL(sub_8009EFC),
+
+    PROC_SLEEP(30),
+
+    PROC_GOTO(4),
+
+PROC_LABEL(18),
+    PROC_CALL(sub_8009A24),
+
+    PROC_CALL(sub_8013D8C),
+    PROC_REPEAT(ContinueUntilSomeTransistion6CExists),
+
+    PROC_CALL(sub_8048850),
+
+    PROC_WHILE(EventEngineExists),
+    PROC_SLEEP(0),
+
+    PROC_CALL(sub_8013D68),
+    PROC_REPEAT(ContinueUntilSomeTransistion6CExists),
+
+    PROC_CALL(EndBG3Slider),
+
+    PROC_GOTO(0),
+
+    PROC_END,
+};
 
 int sub_80097E8(int chapterId) {
 
@@ -121,8 +374,8 @@ int sub_80097E8(int chapterId) {
 }
 
 u8 sub_8009950() {
-    int iVar2;
-    int iVar4;
+    int furthestChapter;
+    int chapter;
     int i;
     struct RAMChapterData chapterData;
 
@@ -130,7 +383,7 @@ u8 sub_8009950() {
         return 9;
     }
 
-    iVar2 = 0;
+    furthestChapter = 0;
 
     for (i = 0; i < 3; i++) {
 
@@ -144,29 +397,29 @@ u8 sub_8009950() {
             return 9;
         }
 
-        iVar4 = sub_80097E8(chapterData.chapterIndex);
+        chapter = sub_80097E8(chapterData.chapterIndex);
 
-        if (iVar2 < iVar4) {
-            iVar2 = iVar4;
+        if (furthestChapter < chapter) {
+            furthestChapter = chapter;
         }
 
     }
 
-    if (iVar2 > 0x11) {
+    if (furthestChapter > 17) {
         return 8;
-    } else if (iVar2 > 0xF) {
+    } else if (furthestChapter > 15) {
         return 7;
-    } else if (iVar2 > 0xD) {
+    } else if (furthestChapter > 13) {
         return 6;
-    } else if (iVar2 > 0xB) {
+    } else if (furthestChapter > 11) {
         return 5;
-    } else if (iVar2 > 0x9) {
+    } else if (furthestChapter > 9) {
         return 4;
-    } else if (iVar2 > 0x7) {
+    } else if (furthestChapter > 7) {
         return 3;
-    } else if (iVar2 > 0x5) {
+    } else if (furthestChapter > 5) {
         return 2;
-    } else if (iVar2 > 0x3) {
+    } else if (furthestChapter > 3) {
         return 1;
     } else {
         return 0;
@@ -180,16 +433,16 @@ s8 sub_80099E4(ProcPtr proc) {
     return 0;
 }
 
-void Goto6CLabel12IfSomething(ProcPtr proc) {
+void GameControl_HandleSelectRightL(ProcPtr proc) {
 
     if (gKeyStatusPtr->heldKeys == (L_BUTTON | DPAD_RIGHT | SELECT_BUTTON)) {
-        Proc_Goto(proc, 0x12);
+        Proc_Goto(proc, 18);
     }
 
     return;
 }
 
-void sub_8009A24() {
+void sub_8009A24(ProcPtr proc) {
 
     SetupBackgrounds(0);
     sub_80156D4();
@@ -201,60 +454,60 @@ void sub_8009A24() {
     return;
 }
 
-void sub_8009A58(struct GameCtrlProc* proc) {
+void GameControl_8009A58(struct GameCtrlProc* proc) {
     proc->unk_2E = 20;
 
     return;
 }
 
-void Null6CCallback(ProcPtr proc) {
+void GameControl_8009A60_Null(ProcPtr proc) {
     Proc_Break(proc);
     return;
 }
 
-void Delete6CIfNotMarkedB(ProcPtr proc) {
-    if (((struct Proc*)proc)->proc_mark != 0xB) {
+void EndProcIfNotMarkedB(ProcPtr proc) {
+    if (((struct Proc*)proc)->proc_mark != PROC_MARK_B) {
         Proc_End(proc);
     }
 
     return;
 }
 
-void sub_8009A84() {
+void sub_8009A84(ProcPtr proc) {
     CpuFastFill16(0, gPaletteBuffer, 0x400);
     EnablePaletteSync();
 
-    Proc_ForAll(Delete6CIfNotMarkedB);
+    Proc_ForAll(EndProcIfNotMarkedB);
 
     SetMainUpdateRoutine(SomeUpdateRoutine);
 
     return;
 }
 
-void sub_8009ABC() {
+void sub_8009ABC(ProcPtr proc) {
     Sound_PlaySong8002448(0x43, 0);
     ISuspectThisToBeMusicRelated_8002730(0, 0xC0, 0x3C, 0);
     return;
 }
 
 
-void sub_8009AD8() {
+void sub_8009AD8(ProcPtr proc) {
     ISuspectThisToBeMusicRelated_8002730(0x100, 0xC0, 0x20, 0);
     return;
 }
 
-void sub_8009AEC(struct GameCtrlProc* proc) {
+void GameControl_PostIntro(struct GameCtrlProc* proc) {
     int tmp;
 
-    switch (proc->unk_29) {
-        case 2:
+    switch (proc->nextAction) {
+        case GAME_ACTION_2:
             Proc_Goto(proc, 4);
             break;
-        case 0:
+        case GAME_ACTION_0:
             Proc_Goto(proc, 5);
             sub_8009AD8(proc);
             break;
-        case 1:
+        case GAME_ACTION_1:
 
             tmp = proc->unk_2B;
 
@@ -271,8 +524,8 @@ void sub_8009AEC(struct GameCtrlProc* proc) {
             proc->unk_2B++;
             break;
 
-        case 3:
-            Proc_Goto(proc, 0x18);
+        case GAME_ACTION_3:
+            Proc_Goto(proc, 24);
             break;
     }
 
@@ -281,12 +534,12 @@ void sub_8009AEC(struct GameCtrlProc* proc) {
 
 void sub_8009B64(struct GameCtrlProc* proc) {
 
-    switch (proc->unk_29) {
-        case 0:
+    switch (proc->nextAction) {
+        case GAME_ACTION_0:
             Proc_Goto(proc, 4);
             break;
 
-        case 1:
+        case GAME_ACTION_1:
             Proc_Goto(proc, 1);
             break;
     }
@@ -294,44 +547,44 @@ void sub_8009B64(struct GameCtrlProc* proc) {
     return;
 }
 
-void GAMECTRL_MasterSwitch(struct GameCtrlProc* proc) {
+void GameControl_MasterSwitch(struct GameCtrlProc* proc) {
 
-    switch (proc->unk_29) {
-        case 0:
+    switch (proc->nextAction) {
+        case GAME_ACTION_0:
             sub_80BC81C();
 
             // fallthrough
 
-        case 1:
-        case 2:
-        case 3:
+        case GAME_ACTION_1:
+        case GAME_ACTION_2:
+        case GAME_ACTION_3:
             Proc_Goto(proc, 7);
             return;
 
-        case 4:
+        case GAME_ACTION_4:
             Proc_Goto(proc, 8);
             return;
 
-        case 5:
-            Proc_Goto(proc, 0x19);
+        case GAME_ACTION_5:
+            Proc_Goto(proc, 25);
             return;
 
-        case 6:
-            Proc_Goto(proc, 0xC);
+        case GAME_ACTION_6:
+            Proc_Goto(proc, 12);
             return;
 
-        case 7:
-            Proc_Goto(proc, 0xE);
+        case GAME_ACTION_7:
+            Proc_Goto(proc, 14);
             return;
 
-        case 12:
-            Proc_Goto(proc, 0xF);
+        case GAME_ACTION_C:
+            Proc_Goto(proc, 15);
             return;
 
-        case 8:
-        case 9:
-        case 10:
-        case 11:
+        case GAME_ACTION_8:
+        case GAME_ACTION_9:
+        case GAME_ACTION_A:
+        case GAME_ACTION_B:
         default:
             return;
     }
@@ -341,7 +594,7 @@ void GAMECTRL_MasterSwitch(struct GameCtrlProc* proc) {
 
 void sub_8009C1C(struct GameCtrlProc* proc) {
 
-    if (proc->unk_29 == 5) {
+    if (proc->nextAction == GAME_ACTION_5) {
         Proc_Goto(proc, 4);
     }
 
@@ -356,37 +609,37 @@ void sub_8009C34(struct GameCtrlProc* proc) {
 
 void sub_8009C40(struct GameCtrlProc* proc) {
 
-    if (proc->unk_29 == 0) {
+    if (proc->nextAction == GAME_ACTION_0) {
         return;
     }
 
-    if (proc->unk_29 == 1) {
-        Proc_Goto(proc, 0x13);
+    if (proc->nextAction == GAME_ACTION_1) {
+        Proc_Goto(proc, 19);
     }
 
     return;
 }
 
 void sub_8009C5C(struct GameCtrlProc* proc) {
-    if (proc->unk_29 == 5) {
+    if (proc->nextAction == GAME_ACTION_5) {
         Proc_Goto(proc, 5);
     } else {
         InitPlaythroughState(0, 0);
 
-        gRAMChapterData.chapterStateBits |= 8;
+        gRAMChapterData.chapterStateBits |= CHAPTER_FLAG_3;
 
         sub_8083D18();
         ClearLocalEvents();
 
         ClearUnits();
 
-        gRAMChapterData.chapterIndex = proc->unk_2A;
+        gRAMChapterData.chapterIndex = proc->nextChapter;
     }
 
     return;
 }
 
-void sub_8009CA4() {
+void sub_8009CA4(ProcPtr proc) {
     sub_80A6D38();
     sub_80A41C8();
 
@@ -397,7 +650,7 @@ void sub_8009CA4() {
     return;
 }
 
-void sub_8009CC0() {
+void sub_8009CC0(ProcPtr proc) {
     sub_80A5A20(3);
 
     gRAMChapterData.unk41_1 = 0;
@@ -405,21 +658,21 @@ void sub_8009CC0() {
     return;
 }
 
-void sub_8009CE0(struct GameCtrlProc* proc) {
+void GameControl_PostChapterSwitch(struct GameCtrlProc* proc) {
 
     MU_EndAll();
 
-    switch (proc->unk_29) {
-        case 0:
+    switch (proc->nextAction) {
+        case GAME_ACTION_0:
             Proc_Goto(proc, 4);
             break;
 
-        case 3:
-            Proc_Goto(proc, 0x10);
+        case GAME_ACTION_3:
+            Proc_Goto(proc, 16);
             break;
 
-        case 1:
-        case 2:
+        case GAME_ACTION_1:
+        case GAME_ACTION_2:
         default:
             break;
     }
@@ -472,21 +725,21 @@ void sub_8009D1C(struct GameCtrlProc* proc) {
 #endif // NONMATCHING
 
 void sub_8009D44(struct GameCtrlProc* proc) {
-    if (gRAMChapterData.chapterStateBits & 4) {
+    if (gRAMChapterData.chapterStateBits & CHAPTER_FLAG_POSTGAME) {
         return;
     }
 
-    if (!(gRAMChapterData.chapterStateBits & 0x20)) {
+    if (!(gRAMChapterData.chapterStateBits & CHAPTER_FLAG_5)) {
         return;
     }
 
-    Proc_Goto(proc, 0x11);
+    Proc_Goto(proc, 17);
 
     return;
 }
 
 void sub_8009D6C(struct GameCtrlProc* proc) {
-    if (gRAMChapterData.chapterStateBits & 0x80) {
+    if (gRAMChapterData.chapterStateBits & CHAPTER_FLAG_7) {
         Proc_Goto(proc, 10);
     } else {
         Proc_Goto(proc, 9);
@@ -495,14 +748,14 @@ void sub_8009D6C(struct GameCtrlProc* proc) {
     return;
 }
 
-void sub_8009D98(struct GameCtrlProc* proc) {
+void GameControl_ChapterSwitch(struct GameCtrlProc* proc) {
     int i;
 
     for (i = 0; i <= 2; i++) {
         NextRN();
     }
 
-    StoreRNState(gUnknown_0300534E);
+    StoreRNState(gGmMonsterRnState);
 
     if (CheckEventId(3) != 0) {
         RegisterChapterTimeAndTurnCount(&gRAMChapterData);
@@ -510,14 +763,14 @@ void sub_8009D98(struct GameCtrlProc* proc) {
 
     ComputeChapterRankings();
 
-    gRAMChapterData.chapterIndex = proc->unk_2A;
+    gRAMChapterData.chapterIndex = proc->nextChapter;
 
     ChapterChangeUnitCleanup();
 
     return;
 }
 
-void CallActualSaveMenu(struct GameCtrlProc* proc) {
+void GameControl_CallPostChapterSaveMenu(struct GameCtrlProc* proc) {
     if (gRAMChapterData.chapterIndex != 0x38) {
         Make6C_savemenu2(proc);
     }
@@ -526,7 +779,7 @@ void CallActualSaveMenu(struct GameCtrlProc* proc) {
 }
 
 void sub_8009E00(struct GameCtrlProc* proc) {
-    if (gRAMChapterData.chapterStateBits & 4) {
+    if (gRAMChapterData.chapterStateBits & CHAPTER_FLAG_POSTGAME) {
         return;
     }
 
@@ -539,25 +792,25 @@ void sub_8009E00(struct GameCtrlProc* proc) {
     return;
 }
 
-void sub_8009E28() {
+void sub_8009E28(ProcPtr proc) {
 
-    SetSpecialColorEffectsParameters(3, 0, 0, 0x10);
+    SetSpecialColorEffectsParameters(3, 0, 0, 16);
     sub_8001ED0(1, 1, 1, 1, 1);
     sub_8001F48(1);
 
     return;
 }
 
-void sub_8009E54() {
+void sub_8009E54(ProcPtr proc) {
     SetupBackgrounds(0);
 
     switch (gRAMChapterData.chapterModeIndex) {
         case 2:
-            CallEvent(gUnknown_08A0035C, 1);
+            CallEvent(gEvent_8A0035C, EV_EXEC_CUTSCENE);
             break;
 
         case 3:
-            CallEvent(gUnknown_08A00364, 1);
+            CallEvent(gEvent_8A00364, EV_EXEC_CUTSCENE);
             break;
     }
 
@@ -566,18 +819,18 @@ void sub_8009E54() {
     return;
 }
 
-void sub_8009E98(ProcPtr proc) {
+void CallGameEndingEvent(ProcPtr proc) {
     StartBattleMap(proc);
 
     sub_80141B0();
 
     switch (gRAMChapterData.chapterModeIndex) {
         case 2:
-            CallEvent(gUnknown_08A0037C, 1);
+            CallEvent(gEvent_EirikaModeGameEnd, EV_EXEC_CUTSCENE);
             break;
 
         case 3:
-            CallEvent(gUnknown_08A0048C, 1);
+            CallEvent(gEvent_EphraimModeGameEnd, EV_EXEC_CUTSCENE);
             break;
     }
 
@@ -586,68 +839,68 @@ void sub_8009E98(ProcPtr proc) {
     return;
 }
 
-void GetChapterIdTo6C(struct GameCtrlProc* proc) {
+void GameControl_RememberChapterId(struct GameCtrlProc* proc) {
     proc->unk_30 = gRAMChapterData.chapterIndex;
     return;
 }
 
-void SetChapterIdFrom6C(struct GameCtrlProc* proc) {
+void GameControl_RestoreChapterId(struct GameCtrlProc* proc) {
     gRAMChapterData.chapterIndex = proc->unk_30;
     return;
 }
 
-void sub_8009EFC() {
+void sub_8009EFC(ProcPtr proc) {
     sub_80A4CD8();
     return;
 }
 
-void NewGameControl() {
+void StartGame() {
     struct GameCtrlProc* proc;
 
     SetMainUpdateRoutine(SomeUpdateRoutine);
 
     SetInterrupt_LCDVBlank(GeneralVBlankHandler);
 
-    proc = Proc_Start(gUnknown_085916D4, PROC_TREE_3);
-    proc->unk_29 = 0;
-    proc->unk_2A = 0;
+    proc = Proc_Start(gProcScr_GameControl, PROC_TREE_3);
+    proc->nextAction = GAME_ACTION_0;
+    proc->nextChapter = 0;
     proc->unk_2B = 0;
 
     return;
 }
 
-struct GameCtrlProc* GetGameControl6C() {
-    return Proc_Find(gUnknown_085916D4);
+struct GameCtrlProc* GetGameControl() {
+    return Proc_Find(gProcScr_GameControl);
 }
 
-void SetNextGameActionId(int param_1) {
-    struct GameCtrlProc* proc = GetGameControl6C();
+void SetNextGameActionId(int id) {
+    struct GameCtrlProc* proc = GetGameControl();
 
-    proc->unk_29 = param_1;
+    proc->nextAction = id;
 
     return;
 }
 
-void SetNextChapterId(int param_1) {
-    struct GameCtrlProc* proc = GetGameControl6C();
+void SetNextChapterId(int id) {
+    struct GameCtrlProc* proc = GetGameControl();
 
-    proc->unk_2A = param_1;
+    proc->nextChapter = id;
 
     return;
 }
 
-s8 sub_8009F78() {
-    struct GameCtrlProc* proc = GetGameControl6C();
+s8 HasNextChapter() {
+    struct GameCtrlProc* proc = GetGameControl();
 
-    return proc->unk_2A == 0 ? 0 : 1;
+    return proc->nextChapter == 0 ? 0 : 1;
 }
 
 void RestartGameAndGoto8() {
     struct GameCtrlProc* proc;
 
-    Proc_EndEach(gUnknown_085916D4);
+    Proc_EndEach(gProcScr_GameControl);
 
-    proc = Proc_Start(gUnknown_085916D4, PROC_TREE_3);
+    proc = Proc_Start(gProcScr_GameControl, PROC_TREE_3);
 
     Proc_Goto(proc, 8);
 
@@ -657,16 +910,16 @@ void RestartGameAndGoto8() {
 void RestartGameAndGoto12() {
     struct GameCtrlProc* proc;
 
-    Proc_EndEach(gUnknown_085916D4);
+    Proc_EndEach(gProcScr_GameControl);
 
-    proc = Proc_Start(gUnknown_085916D4, PROC_TREE_3);
+    proc = Proc_Start(gProcScr_GameControl, PROC_TREE_3);
 
-    Proc_Goto(proc, 0x12);
+    Proc_Goto(proc, 18);
 
     return;
 }
 
-void sub_8009FD4() {
+void sub_8009FD4(ProcPtr proc) {
     return;
 }
 
@@ -674,14 +927,14 @@ void nullsub_9() {
     return;
 }
 
-void ForceEnableSoundEffects() {
+void GameControl_EnableSoundEffects(ProcPtr proc) {
     gRAMChapterData.unk41_1 = 0;
     gRAMChapterData.unk41_2 = 0;
 
     return;
 }
 
-void sub_8009FF8() {
+void sub_8009FF8(ProcPtr proc) {
 
     gRAMChapterData.unk42_2 = 0;
     gRAMChapterData.cfgTextSpeed = 1;

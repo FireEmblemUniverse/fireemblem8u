@@ -26215,12 +26215,12 @@ gUnknown_089FFD64:  @ 0x089FFD64
     .4byte 0x00000004
     .4byte 0x00000120
 
-	.global gUnknown_08A0035C
-gUnknown_08A0035C:  @ 0x08A0035C
+	.global gEvent_8A0035C
+gEvent_8A0035C:  @ 0x08A0035C
 	.incbin "baserom.gba", 0xA0035C, 0x8
 
-	.global gUnknown_08A00364
-gUnknown_08A00364:  @ 0x08A00364
+	.global gEvent_8A00364
+gEvent_8A00364:  @ 0x08A00364
 @ Replacing .incbin "baserom.gba", 0xA00364, 0x18
     .4byte 0x00070228
     .4byte 0x00000120
@@ -26229,8 +26229,8 @@ gUnknown_08A00364:  @ 0x08A00364
     .4byte 0x00010e20
     .4byte 0x00000120
 
-	.global gUnknown_08A0037C
-gUnknown_08A0037C:  @ 0x08A0037C
+	.global gEvent_EirikaModeGameEnd
+gEvent_EirikaModeGameEnd:  @ 0x08A0037C
 @ Replacing .incbin "baserom.gba", 0xA0037C, 0x110
     .4byte 0x00021020
     .4byte 0x00331220
@@ -26239,7 +26239,7 @@ gUnknown_08A0037C:  @ 0x08A0037C
     .4byte 0x00030540
     .4byte 0x00000c19
     .4byte 0x00000a40
-    .4byte gUnknown_08A0048C + 0xb8
+    .4byte gEvent_EphraimModeGameEnd + 0xb8
     .4byte 0x00203322
     .4byte 0x00000c40
     .4byte 0x0000000c
@@ -26290,19 +26290,19 @@ gUnknown_08A0037C:  @ 0x08A0037C
     .4byte 0x00030540
     .4byte 0x00000c1c
     .4byte 0x00000a40
-    .4byte gUnknown_08A0048C + 0x128
+    .4byte gEvent_EphraimModeGameEnd + 0x128
     .4byte 0x00020540
     .4byte gUnknown_088B3AD8 + 0x1e260
     .4byte 0x00030540
     .4byte 0x00000c1d
     .4byte 0x00000a40
-    .4byte gUnknown_08A0048C + 0x1a0
+    .4byte gEvent_EphraimModeGameEnd + 0x1a0
     .4byte 0x00000a40
-    .4byte gUnknown_08A0048C + 0x1f4
+    .4byte gEvent_EphraimModeGameEnd + 0x1f4
     .4byte 0x00000120
 
-	.global gUnknown_08A0048C
-gUnknown_08A0048C:  @ 0x08A0048C
+	.global gEvent_EphraimModeGameEnd
+gEvent_EphraimModeGameEnd:  @ 0x08A0048C
 @ Replacing .incbin "baserom.gba", 0xA0048C, 0x258
     .4byte 0x00021020
     .4byte 0x00331220
@@ -26311,7 +26311,7 @@ gUnknown_08A0048C:  @ 0x08A0048C
     .4byte 0x00030540
     .4byte 0x00000c1e
     .4byte 0x00000a40
-    .4byte gUnknown_08A0048C + 0xb8
+    .4byte gEvent_EphraimModeGameEnd + 0xb8
     .4byte 0x00012c41
     .4byte gUnknown_088B3AD8 + 0x1df88
     .4byte 0x00003020
@@ -26340,15 +26340,15 @@ gUnknown_08A0048C:  @ 0x08A0048C
     .4byte 0x00030540
     .4byte 0x00000c20
     .4byte 0x00000a40
-    .4byte gUnknown_08A0048C + 0x128
+    .4byte gEvent_EphraimModeGameEnd + 0x128
     .4byte 0x00020540
     .4byte gUnknown_088B3AD8 + 0x1e29c
     .4byte 0x00030540
     .4byte 0x00000c21
     .4byte 0x00000a40
-    .4byte gUnknown_08A0048C + 0x1a0
+    .4byte gEvent_EphraimModeGameEnd + 0x1a0
     .4byte 0x00000a40
-    .4byte gUnknown_08A0048C + 0x1f4
+    .4byte gEvent_EphraimModeGameEnd + 0x1f4
     .4byte 0x00000120
     .4byte 0x00012c41
     .4byte gUnknown_088B3AD8 + 0x1dc68
@@ -26450,7 +26450,7 @@ gUnknown_08A0048C:  @ 0x08A0048C
     .4byte sub_80B8174
     .4byte 0x00010e20
     .4byte 0x00000a40
-    .4byte gUnknown_08A00364 + 0x8
+    .4byte gEvent_8A00364 + 0x8
     .4byte 0x005a0e20
     .4byte 0x00002a20
     .4byte 0x00000120

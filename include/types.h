@@ -339,7 +339,19 @@ enum
 
 enum
 {
-    GAME_ACTION_3 = 3
+    GAME_ACTION_0 = 0,
+    GAME_ACTION_1 = 1,
+    GAME_ACTION_2 = 2,
+    GAME_ACTION_3 = 3,
+    GAME_ACTION_4 = 4,
+    GAME_ACTION_5 = 5,
+    GAME_ACTION_6 = 6,
+    GAME_ACTION_7 = 7,
+    GAME_ACTION_8 = 8,
+    GAME_ACTION_9 = 9,
+    GAME_ACTION_A = 0xA,
+    GAME_ACTION_B = 0xB,
+    GAME_ACTION_C = 0xC,
 };
 
 enum
