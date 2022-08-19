@@ -45,7 +45,7 @@ SECTIONS
         asm/face.o(.text);
         asm/scene.o(.text);
         src/ap.o(.text);
-        asm/gamectrl.o(.text);
+        src/gamecontrol.o(.text);
         src/messdecode.o(.text);
         asm/spline.o(.text);
         asm/evtcmd_gmap.o(.text);

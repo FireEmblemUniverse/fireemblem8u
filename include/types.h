@@ -171,7 +171,13 @@ struct RAMChapterData { // Chapter Data Struct
     // has to do with allowing unusable weapons to be used
     /* 1C */ u8  unk1C[4];
 
-    /* 20 */ char playerName[0x38 - 0x20]; // unused outside of link arena (was tactician name in FE7); Size unknown
+    /* 20 */ char playerName[0x2C - 0x20]; // unused outside of link arena (was tactician name in FE7); Size unknown
+
+    u32 unk_2C_1:23;
+    u32 unk_2C_2:5;
+    u32 unk_2C_3:4;
+
+    /* 30 */ u8  _unk30[0x38-0x30];
 
     u32 unk_38_1:8;
     u32 unk_38_2:20; // Used by bmdifficulty (Valni/Lagdou)

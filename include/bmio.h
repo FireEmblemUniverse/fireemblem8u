@@ -26,6 +26,14 @@ struct TilePalAnim {
 
 struct GameCtrlProc {
     PROC_HEADER;
+
+    /* 29 */ u8 unk_29;
+    /* 2A */ u8 unk_2A;
+    /* 2B */ u8 unk_2B;
+    /* 2C */ u8 unk_2C;
+    /* 2D */ u8 unk_2D;
+    /* 2E */ u16 unk_2E;
+    /* 30 */ u8 unk_30;
 };
 
 struct BMapMainProc {
