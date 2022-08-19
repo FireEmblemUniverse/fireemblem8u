@@ -2,7 +2,7 @@
 #define GUARD_RNG_H
 
 // rng.c
-// ??? NextRN(???);
+int NextRN(void);
 void InitRN(s32 unk1);
 void StoreRNState(u16* seeds);
 void LoadRNState(const u16* seeds);

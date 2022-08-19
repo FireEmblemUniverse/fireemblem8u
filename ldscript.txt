@@ -45,7 +45,7 @@ SECTIONS
         asm/face.o(.text);
         asm/scene.o(.text);
         src/ap.o(.text);
-        asm/gamectrl.o(.text);
+        src/gamecontrol.o(.text);
         src/messdecode.o(.text);
         asm/spline.o(.text);
         asm/evtcmd_gmap.o(.text);
@@ -200,7 +200,7 @@ SECTIONS
         . = ALIGN(4); src/data_face.o(.rodata);
         . = ALIGN(4); src/data_scene.o(.rodata);
         . = ALIGN(4); src/ap.o(.rodata);
-        . = ALIGN(4); src/data_gamecontrol.o(.rodata);
+        . = ALIGN(4); src/gamecontrol.o(.rodata);
         . = ALIGN(4); src/messdecode.o(.rodata);
         . = ALIGN(4); data/const_data_D792C.o(.rodata);
         . = ALIGN(4); src/bmitem.o(.rodata);
@@ -263,7 +263,7 @@ SECTIONS
         . = ALIGN(4); src/data_face.o(.data);
         . = ALIGN(4); src/data_scene.o(.data);
         . = ALIGN(4); src/ap.o(.data);
-        . = ALIGN(4); src/data_gamecontrol.o(.data);
+        . = ALIGN(4); src/gamecontrol.o(.data);
         . = ALIGN(4); src/messdecode.o(.data);
         . = ALIGN(4); data/data_591AB4.o(.data);
         . = ALIGN(4); data/data_item_icon.o(.data);

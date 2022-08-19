@@ -170,7 +170,7 @@
 . = 0x005280; gUnknown_03005280 = .;
 . = 0x005324; gUnknown_03005324 = .;
 . = 0x005349; gUnknown_03005349 = .;
-. = 0x00534E; gUnknown_0300534E = .;
+. = 0x00534E; gGmMonsterRnState = .;
 . = 0x005360; gUnknown_03005360 = .;
 . = 0x005380; gUnknown_03005380 = .;
 . = 0x005398; gUnknown_03005398 = .;

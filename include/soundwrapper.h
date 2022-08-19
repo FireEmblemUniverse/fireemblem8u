@@ -8,7 +8,7 @@ void Sound_SetSEVolume(int vol);
 void Sound_FadeOutBGM(int speed);
 // ??? Sound_FadeOutBGMAlt(???);
 void Sound_FadeOutSE(int speed);
-// ??? Sound_PlaySong8002448(???);
+void Sound_PlaySong8002448(int songId, struct MusicPlayerInfo *player);
 // ??? PlaySong8002478(???);
 void Sound_PlaySong80024D4(int songId, struct MusicPlayerInfo *player);
 void Sound_PlaySong80024E4(int songId, int speed, struct MusicPlayerInfo *player);

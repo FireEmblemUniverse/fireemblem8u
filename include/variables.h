@@ -800,7 +800,7 @@ extern struct Unit* gActiveUnit;
 extern struct GMapData gUnknown_03005280;
 // extern ??? gUnknown_03005324
 // extern ??? gUnknown_03005349
-// extern ??? gUnknown_0300534E
+// extern ??? gGmMonsterRnState
 // extern ??? gUnknown_03005360
 // extern ??? gUnknown_03005380
 // extern ??? gUnknown_03005398
@@ -1332,7 +1332,6 @@ extern struct Glyph *gUnknown_08590B44[];
 // extern ??? gUnknown_0859160C
 // extern ??? gUnknown_08591624
 // extern ??? gUnknown_0859163C
-// u8 ??? gUnknown_085916D4
 extern const char *gUnknown_08591AA4[][2];
 //extern struct {u32 *unk0; u32 *unk4; u32 *unk8;} gUnknown_08591AA4;
 // extern ??? gUnknown_08591AB4
@@ -3181,10 +3180,10 @@ extern const u8 gUnknown_089ADD4C[];
 // extern ??? gUnknown_089FF480
 // extern ??? gUnknown_089FFC30
 // extern ??? gUnknown_089FFD64
-// extern ??? gUnknown_08A0035C
-// extern ??? gUnknown_08A00364
-// extern ??? gUnknown_08A0037C
-// extern ??? gUnknown_08A0048C
+// extern ??? gEvent_8A0035C
+// extern ??? gEvent_8A00364
+// extern ??? gEvent_EirikaModeGameEnd
+// extern ??? gEvent_EphraimModeGameEnd
 // extern ??? gUnknown_08A006E4
 // extern ??? gProcScr_SSPageSlide
 // extern ??? gProcScr_SSGlowyBlendCtrl

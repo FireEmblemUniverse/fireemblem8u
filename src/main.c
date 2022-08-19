@@ -6,6 +6,7 @@
 #include "rng.h"
 #include "mu.h"
 #include "soundwrapper.h"
+#include "gamecontrol.h"
 
 EWRAM_DATA static struct KeyStatusBuffer sKeyStatusBuffer = {0};
 
@@ -57,7 +58,7 @@ void AgbMain()
     sub_80BC81C();
     SetSomeByte(1);
     Font_InitForUIDefault();
-    NewGameControl();
+    StartGame();
 
     // perform the game loop.
     while (1)

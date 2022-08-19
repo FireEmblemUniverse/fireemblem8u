@@ -18,6 +18,7 @@
 #include "mu.h"
 #include "uimenu.h"
 #include "bmtrap.h"
+#include "gamecontrol.h"
 
 #include "bmio.h"
 
