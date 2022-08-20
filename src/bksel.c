@@ -16,19 +16,6 @@
 
 #include "bksel.h"
 
-extern u16 gBmFrameTmap0[];
-
-extern u16 gUnknown_0200300C[8][16];
-extern struct TextHandle gaBattleForecastTextStructs[6];
-
-extern u16 gUnknown_0200422C[];
-
-extern u16 gTSA_BattleForecastStandard[];
-extern u16 gTSA_BattleForecastExtended[];
-
-extern u16 gBattleForecast_x2x4Gfx[];
-extern u16 gBattleForecast_x2x4Pal[];
-
 extern struct HelpBoxInfo gHelpInfo_MbpHp;
 extern struct HelpBoxInfo gHelpInfo_CbpHp;
 
@@ -59,11 +46,6 @@ struct UnknownBkSelProc {
 
     /* 4C */ u16 unk_4C;
 };
-
-
-// ev_triggercheck.s
-s8 sub_8084560(void);
-void sub_808457C(void);
 
 
 int GetBattleForecastPanelSide() {

@@ -69,5 +69,6 @@ struct PromoProc4
 };
 
 void MakePromotionScreen(ProcPtr proc, u32 a, u32 b);
+void sub_80CCA14(struct PromoProc2 *proc);
 
 extern struct ProcCmd gUnknown_08B12614[];

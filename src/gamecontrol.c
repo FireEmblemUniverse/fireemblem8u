@@ -11,48 +11,10 @@
 
 #include "gamecontrol.h"
 
-extern u16 gGmMonsterRnState[];
-
-extern u16 gEvent_8A0035C[];
-extern u16 gEvent_8A00364[];
-extern u16 gEvent_EirikaModeGameEnd[];
-extern u16 gEvent_EphraimModeGameEnd[];
-
 extern struct ProcCmd CONST_DATA gUnknown_08AA7680[]; // pre-intro cutscene
 extern struct ProcCmd CONST_DATA gUnknown_08AA71C8[]; // intro cutscene
 extern struct ProcCmd CONST_DATA gUnknown_08A3DD50[]; // world map wrapper
 
-// hino.s
-void sub_8013D68(ProcPtr);
-void sub_8013D8C(ProcPtr);
-
-// code_sio.s
-void sub_80481E0(ProcPtr);
-void sub_8048850(ProcPtr);
-
-// ev_triggercheck.s
-void sub_8083D18(void);
-void ClearLocalEvents(void);
-
-// code.s
-void sub_8086BB8(ProcPtr, u8*, int);
-void EndBG3Slider(ProcPtr);
-void sub_80A41C8(void);
-int sub_80A4BB0(void);
-void sub_80A4CD8(void);
-s8 sub_80A5218(int);
-void sub_80A522C(int, struct RAMChapterData*);
-void sub_80A5A20(int);
-void sub_80A6D38(void);
-void Make6C_savemenu(ProcPtr);
-void Make6C_savemenu2(ProcPtr);
-void Make6C_opinfo(int, ProcPtr);
-void EndWM(ProcPtr);
-void sub_80B7598(ProcPtr);
-void sub_80C541C(ProcPtr);
-void sub_80C6424(ProcPtr);
-void sub_80C6444(ProcPtr);
-void sub_80C645C(ProcPtr);
 
 s8 sub_80099E4(ProcPtr);
 void GameControl_HandleSelectRightL(ProcPtr);

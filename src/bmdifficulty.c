@@ -67,15 +67,6 @@ const struct Outer080D7FD0 gUnknown_080D7FD0 = {
     0x11,
 };
 
-
-// popup.s
-void sub_8011728(ProcPtr, int);
-
-// code.s
-int sub_80A49A4(void);
-void sub_80AB760(u16*);
-void sub_80AB77C(void);
-
 // spline.s
 void sub_800A950(struct Struct02003BE8*, int, int*);
 

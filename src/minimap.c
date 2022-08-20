@@ -31,18 +31,6 @@ extern u8 gGfx_MinimapTiles[];
 extern u16 gPal_MinimapTiles[];
 extern u16 gPal_08A1FFD0[];
 
-extern s16 gUnknown_02000280;
-
-extern s16* gUnknown_02000500;
-extern s16* gUnknown_02000504;
-extern s16* gUnknown_02000508;
-
-extern u16 (*gUnknown_0200050C)[8][16];
-
-// hino.s
-void sub_80131D0(s16*);
-void sub_80131F0(s16*, int, int, int, int);
-
 
 void ApplyMinimapGraphics(int);
 void sub_80A86AC(struct MinimapProc*);

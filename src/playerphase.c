@@ -38,43 +38,6 @@ struct MoveLimitViewProc {
 extern const struct MenuDef gMapMenuDef;
 extern const struct MenuDef gUnitActionMenuDef;
 
-extern u16 gUnknown_08A02F34[];
-extern u16 gUnknown_08A02F94[];
-extern u16 gUnknown_08A02FF4[];
-
-extern u8 gUnknown_08A02EB4[];
-
-// bm.s
-void HandleCursorMovement(u16 keys);
-void MoveCameraByStepMaybe(int step);
-void sub_801588C(int step);
-void sub_80160D0(ProcPtr);
-
-// bmudisp.s
-void sub_8027A40(ProcPtr);
-void TrySwitchViewedUnit(int, int);
-int GetUnitSelectionValueThing(struct Unit* unit);
-void DisplayMoveRangeGraphics(int config);
-s8 CanMoveActiveUnitTo(int, int);
-
-// code.s
-void New6CPPInterfaceConstructor(ProcPtr);
-void DeletePlayerPhaseInterface6Cs(void);
-void BWL_IncrementMoveValue(u8);
-
-// ev_triggercheck.s
-s8 sub_8083250(void);
-void sub_808326C(void);
-void sub_80832CC(void);
-s8 sub_80844B0(void);
-s8 sub_8084508(void);
-void sub_8084590(ProcPtr);
-void TryCallSelectEvents(ProcPtr);
-
-// bmudisp.s
-void sub_8027A4C(void);
-s8 sub_8027B0C(int, int);
-
 extern struct ProcCmd gProcScr_0859ACE8[];
 
 void PlayerPhase_Suspend(void);

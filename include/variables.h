@@ -28,11 +28,11 @@
 // extern ??? gUnknown_02000068
 // extern ??? gUnknown_0200006C
 // extern ??? gUnknown_02000088
-// extern ??? gUnknown_02000280
-// extern ??? gUnknown_02000500
-// extern ??? gUnknown_02000504
-// extern ??? gUnknown_02000508
-// extern ??? gUnknown_0200050C
+extern s16 gUnknown_02000280;
+extern s16* gUnknown_02000500;
+extern s16* gUnknown_02000504;
+extern s16* gUnknown_02000508;
+extern u16 (*gUnknown_0200050C)[8][16];
 // extern ??? gUnknown_020007A0
 // extern ??? gUnknown_020007E0
 // extern ??? gUnknown_02000920
@@ -52,9 +52,9 @@
 // extern ??? gUnknown_02002038
 // extern ??? gUnknown_02002088
 // extern ??? gUnknown_02002774
-// extern ??? gaBattleForecastTextStructs
+extern struct TextHandle gaBattleForecastTextStructs[6];
 // extern ??? gUnknown_02002FF4
-// extern ??? gUnknown_0200300C
+extern u16 gUnknown_0200300C[8][16];
 // extern ??? gUnknown_02003088
 // extern ??? gUnknown_0200310C
 // extern ??? gUnknown_020038AC
@@ -70,7 +70,7 @@
 // extern ??? gUnknown_02003BE8
 
 // extern ??? gStatScreen
-// extern ??? gBmFrameTmap0
+extern u16 gBmFrameTmap0[];
 
 // extern ??? gUnknown_02003D54
 
@@ -89,7 +89,7 @@
 // extern ??? gUnknown_020040B2
 // extern ??? gUnknown_02004128
 // extern ??? gUnknown_020041C8
-// extern ??? gUnknown_0200422C
+extern u16 gUnknown_0200422C[];
 // extern ??? gUnknown_02004254
 // extern ??? gUnknown_020044AC
 // extern ??? gUnknown_020044D4
@@ -316,8 +316,8 @@ extern u16 gPaletteBuffer[];
 // extern ??? gUnknown_020228C8
 // extern ??? gUnknown_020228E8
 // extern ??? gUnknown_02022908
-// extern ??? gUnknown_02022928
-// extern ??? gUnknown_02022968
+extern u16 gUnknown_02022928[];
+extern u16 gUnknown_02022968[];
 // extern ??? gUnknown_02022988
 // extern ??? gUnknown_02022A68
 // extern ??? gUnknown_02022A88
@@ -335,9 +335,9 @@ extern u16 gPaletteBuffer[];
 // extern ??? gUnknown_02022BC8
 // extern ??? gUnknown_02022BE8
 // extern ??? gUnknown_02022C08
-// extern ??? gUnknown_02022C28
-// extern ??? gUnknown_02022C48
-// extern ??? gUnknown_02022C68
+extern u16 gUnknown_02022C28[];
+extern u16 gUnknown_02022C48[];
+extern u16 gUnknown_02022C68[];
 extern u16 gBG0TilemapBuffer[];
 // extern ??? gUnknown_02022CAA
 // extern ??? gUnknown_02022CAC
@@ -692,7 +692,7 @@ extern struct OamDataTransfer gUnknown_03000030;
 // extern ??? gUnknown_03000800
 // extern ??? gUnknown_03000808
 // extern ??? gUnknown_03001780
-// extern ??? gUnknown_03001788
+extern struct UnitDefinition gUnknown_03001788;
 // extern ??? gDungeonState
 // extern ??? gUnknown_030017AC
 // extern ??? gUnknown_030017C8
@@ -800,7 +800,7 @@ extern struct Unit* gActiveUnit;
 extern struct GMapData gUnknown_03005280;
 // extern ??? gUnknown_03005324
 // extern ??? gUnknown_03005349
-// extern ??? gGmMonsterRnState
+extern u16 gGmMonsterRnState[];
 // extern ??? gUnknown_03005360
 // extern ??? gUnknown_03005380
 // extern ??? gUnknown_03005398
@@ -871,7 +871,7 @@ extern short gSinLookup[]; // gSinTable; needs to be non-const to match?
 // extern ??? gUnknown_080D7C18
 // extern ??? gUnknown_080D7C40
 // extern ??? gUnknown_080D7C42
-// extern ??? gUnknown_080D7C44
+extern s8 CONST_DATA gUnknown_080D7C44[];
 // extern ??? gUnknown_080D7F4C
 // extern ??? gUnknown_080D7F58
 // extern ??? gUnknown_080D7F5C
@@ -1553,10 +1553,10 @@ extern u16 gUnknown_0859EFC0[];
 // extern ??? gUnknown_085A06D8
 // extern ??? gUnknown_085A0838
 // extern ??? gUnknown_085A08F0
-// extern ??? gTSA_BattleForecastStandard
-// extern ??? gTSA_BattleForecastExtended
-// extern ??? gBattleForecast_x2x4Gfx
-// extern ??? gBattleForecast_x2x4Pal
+extern u16 gTSA_BattleForecastStandard[];
+extern u16 gTSA_BattleForecastExtended[];
+extern u16 gBattleForecast_x2x4Gfx[];
+extern u16 gBattleForecast_x2x4Pal[];
 // extern ??? gUnknown_085A0D4C
 extern u16 CONST_DATA gUnknown_085A0EA0[]; // ap
 // extern ??? gUnknown_085A0FF8
@@ -3180,10 +3180,10 @@ extern const u8 gUnknown_089ADD4C[];
 // extern ??? gUnknown_089FF480
 // extern ??? gUnknown_089FFC30
 // extern ??? gUnknown_089FFD64
-// extern ??? gEvent_8A0035C
-// extern ??? gEvent_8A00364
-// extern ??? gEvent_EirikaModeGameEnd
-// extern ??? gEvent_EphraimModeGameEnd
+extern u16 gEvent_8A0035C[];
+extern u16 gEvent_8A00364[];
+extern u16 gEvent_EirikaModeGameEnd[];
+extern u16 gEvent_EphraimModeGameEnd[];
 // extern ??? gUnknown_08A006E4
 // extern ??? gProcScr_SSPageSlide
 // extern ??? gProcScr_SSGlowyBlendCtrl
@@ -3316,15 +3316,15 @@ extern u16 CONST_DATA gUnknown_08A027FC[][0x10]; // color animation for each pag
 // extern ??? gUnknown_08A02B3C
 // extern ??? gUnknown_08A02BAC
 extern u8 CONST_DATA gUnknown_08A02C34[];
-// extern ??? gUnknown_08A02EB4
-// extern ??? gUnknown_08A02F34
-// extern ??? gUnknown_08A02F94
-// extern ??? gUnknown_08A02FF4
+extern u8 gUnknown_08A02EB4[];
+extern u16 gUnknown_08A02F34[];
+extern u16 gUnknown_08A02F94[];
+extern u16 gUnknown_08A02FF4[];
 extern u8 CONST_DATA gUnknown_08A03054[];
 extern u8 CONST_DATA gUnknown_08A0328C[];
-// extern ??? gUnknown_08A032AC
-// extern ??? gUnknown_08A03334
-// extern ??? gUnknown_08A03354
+extern u16 CONST_DATA gUnknown_08A032AC[];
+extern u16 CONST_DATA gUnknown_08A03334[]; // palette
+extern u16 CONST_DATA gUnknown_08A03354[];
 extern u8  CONST_DATA gUnknown_08A03368[]; // stat screen background img
 extern u8  CONST_DATA gUnknown_08A05F10[]; // stat screen background tsa
 extern u16 CONST_DATA gUnknown_08A06460[]; // stat screen background pal
@@ -4138,21 +4138,21 @@ extern const struct ProcCmd gUnknown_08B1271C[];
 // extern ??? gUnknown_08B12C3C
 // extern ??? gUnknown_08B12C64
 // extern ??? gUnknown_08B12D1C
-// extern ??? gUnknown_08B12DB4
-// extern ??? gUnknown_08B1754C
+extern u8 gUnknown_08B12DB4[];
+extern u8 gUnknown_08B1754C[];
 // extern ??? gUnknown_08B1756C
 // extern ??? gUnknown_08B176CC
 // extern ??? gUnknown_08B177C0
 // extern ??? gUnknown_08B17864
 // extern ??? gUnknown_08B17B44
-// extern ??? gUnknown_08B17B64
-// extern ??? gUnknown_08B18D68
-// extern ??? gUnknown_08B18ED4
-// extern ??? gUnknown_08B18F34
-// extern ??? gUnknown_08B196D8
-// extern ??? gUnknown_08B19854
-// extern ??? gUnknown_08B19874
-// extern ??? gUnknown_08B19DEC
+extern u8 gUnknown_08B17B64[];
+extern u8 gUnknown_08B18D68[];
+extern u8 gUnknown_08B18ED4[];
+extern u16 gUnknown_08B18F34[];
+extern u16 gUnknown_08B196D8[];
+extern u16 gUnknown_08B19854[];
+extern u8 gUnknown_08B19874[];
+extern u8 gUnknown_08B19DEC[];
 // extern ??? gUnknown_08B19E0C
 // extern ??? _impure_ptr
 // extern ??? gUnknown_08B1FA24

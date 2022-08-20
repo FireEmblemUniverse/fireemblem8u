@@ -21,7 +21,7 @@ void DisplayActiveUnitEffectRange(ProcPtr proc);
 // ??? sub_801D434(???);
 // ??? PlayerPhase_ApplyUnitMovement(???);
 int GetUnitSelectionValueThing(struct Unit* unit);
-// ??? CanMoveActiveUnitTo(???);
+s8 CanMoveActiveUnitTo(int, int);
 // ??? PlayerPhase_DisplayUnitMovement(???);
 // ??? PlayerPhase_WaitForUnitMovement(???);
 // ??? PlayerPhase_ResumeRangeDisplay(???);

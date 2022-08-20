@@ -33,34 +33,6 @@ struct ChapterIntroFXProc {
 // arm_call.s
 void sub_80D74B0();
 
-// code.s
-void sub_80895B4(int, int);
-int sub_808979C(struct RAMChapterData*);
-void sub_808966C(int, int);
-void sub_80896FC(u16*, int, int);
-
-void sub_80ADDFC(int, int, int, int, int, int);
-void sub_80ADE90(int, s16, s16);
-void sub_80ADEE0(int, int, int, int, int);
-
-
-extern u8 gUnknown_08B1754C[];
-extern u8 gUnknown_08B12DB4[];
-
-extern u8 gUnknown_08B17B64[];
-extern u8 gUnknown_08B18ED4[];
-extern u8 gUnknown_08B18D68[];
-extern u8 gUnknown_08B19874[];
-extern u8 gUnknown_08B19DEC[];
-
-extern u16 gUnknown_08B18F34[];
-extern u16 gUnknown_08B19854[];
-extern u16 gUnknown_08B196D8[];
-
-extern u16 gUnknown_02022928[];
-
-extern u16 gUnknown_02022968[];
-
 void ChapterIntro_Bg3Scroll_Loop(void);
 
 struct ProcCmd CONST_DATA sProcScr_ChapterIntro_Bg3Scroll[] = {

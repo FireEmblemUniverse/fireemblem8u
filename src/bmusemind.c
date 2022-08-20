@@ -18,12 +18,9 @@
 #include "bmtrick.h"
 #include "bmtrap.h"
 #include "bmtarget.h"
+#include "branched_promotion.h"
 
 #include "bmusemind.h"
-
-extern struct UnitDefinition gUnknown_03001788;
-
-extern s8 CONST_DATA gUnknown_080D7C44[];
 
 static int sub_802EF70(ProcPtr);
 static int sub_802EF80(void);
@@ -53,24 +50,6 @@ static struct ProcCmd CONST_DATA sProcScr_ExecNightmareStaff[] = {
 
     PROC_END,
 };
-
-// notifybox.s
-void sub_801F9FC(ProcPtr, int, char*);
-void sub_801FA8C(ProcPtr, int, s8, int, char*);
-
-// lightrunefx.s
-void sub_8021684(ProcPtr, int, int);
-void sub_8021818(ProcPtr, int, int);
-
-// minefx.s
-void sub_8022300(ProcPtr, int, int);
-
-// ev_triggercheck.s
-void sub_80831C8(s8, s8);
-void sub_808320C(s8, s8);
-
-// code.s
-void sub_80CCA14(ProcPtr);
 
 void ExecStandardHeal(ProcPtr proc) {
     int amount;

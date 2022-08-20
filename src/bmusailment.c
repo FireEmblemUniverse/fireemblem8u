@@ -14,27 +14,6 @@
 #include "mu.h"
 #include "bmtarget.h"
 
-extern u16 gUnknown_08A032AC[];
-extern u16 gUnknown_08A03334[]; // palette
-extern u16 gUnknown_08A03354[];
-
-extern u16 gUnknown_02022C28[];
-extern u16 gUnknown_02022C48[];
-extern u16 gUnknown_02022C68[];
-
-
-// bb.s
-void sub_80357A8(ProcPtr, struct Unit*, int, int);
-void sub_8035804(struct Unit*, s8);
-void sub_803584C(struct Unit*, s8);
-void sub_80358C0(struct Unit*, s8);
-
-// trapfx.s
-void sub_801F68C(ProcPtr, int, int);
-void sub_801F600(ProcPtr, int, int, int);
-void sub_801F844(ProcPtr, int);
-void sub_801F8C8(ProcPtr, int, int);
-
 
 struct UnknownBMUSAilmentProc {
     PROC_HEADER;

@@ -16,13 +16,6 @@
 
 struct Unit* EWRAM_DATA gSubjectUnit = NULL;
 
-// ev_triggercheck.s
-s8 sub_8083F68(u8, u8);
-s8 IsThereClosedDoorAt(s8, s8);
-
-// code.s
-void BWL_AddWinOrLossIdk(u8, u8, int);
-void sub_80A4594(u8);
 
 void ForEachUnitInMovement(void(*func)(struct Unit* unit)) {
     int ix;

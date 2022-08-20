@@ -17,26 +17,6 @@
 
 #include "bmtrap.h"
 
-// code.s
-void sub_80A4594(u8);
-void BWL_AddWinOrLossIdk(u8, u8, int);
-
-// trapfx.s
-void sub_801F68C(ProcPtr, int, int);
-void sub_801F6BC(ProcPtr, int, int);
-
-// bb.s
-void sub_80357A8(ProcPtr, struct Unit*, int, int);
-
-// ev_triggercheck.s
-s8 CheckForWaitEvents(void);
-void RunWaitEvents(void);
-struct TrapData* GetCurrentChapterBallistaePtr(void);
-struct TrapData* GetCurrentChapterBallistae2Ptr(void);
-
-// notifybox.s
-void sub_801F9FC(ProcPtr, int, char*);
-
 struct UnknownBMTrapProc {
     /* 00 */ PROC_HEADER;
 
