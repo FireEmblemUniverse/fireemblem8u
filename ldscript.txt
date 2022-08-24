@@ -131,7 +131,7 @@ SECTIONS
         asm/fx_slidingwallbg.o(.text);
         src/statscreen.o(.text);
         asm/code_80895B4.o(.text);
-        asm/uichapterstatus.o(.text);
+        src/uichapterstatus.o(.text);
         asm/code.o(.text);
         src/minimap.o(.text);
         asm/code_80A882C.o(.text);

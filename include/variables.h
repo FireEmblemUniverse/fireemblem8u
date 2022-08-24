@@ -336,7 +336,7 @@ extern u16 gPaletteBuffer[];
 // extern ??? gUnknown_02022BE8
 // extern ??? gUnknown_02022C08
 // extern ??? gUnknown_02022C28
-// extern ??? gUnknown_02022C48
+extern u16 gUnknown_02022C48[];
 // extern ??? gUnknown_02022C68
 extern u16 gBG0TilemapBuffer[];
 // extern ??? gUnknown_02022CAA
@@ -4138,8 +4138,8 @@ extern const struct ProcCmd gUnknown_08B1271C[];
 // extern ??? gUnknown_08B12C3C
 // extern ??? gUnknown_08B12C64
 // extern ??? gUnknown_08B12D1C
-// extern ??? gUnknown_08B12DB4
-// extern ??? gUnknown_08B1754C
+extern u8 gUnknown_08B12DB4[];
+extern u16 gUnknown_08B1754C[];
 // extern ??? gUnknown_08B1756C
 // extern ??? gUnknown_08B176CC
 // extern ??? gUnknown_08B177C0
