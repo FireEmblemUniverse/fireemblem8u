@@ -323,6 +323,8 @@ SECTIONS
         . = ALIGN(4); src/statscreen.o(.data);
         . = ALIGN(4); src/chap_title_data.o(.data);
         . = ALIGN(4); data/data_A01628.o(.data);
+        . = ALIGN(4); src/uichapterstatus.o(.data);
+        . = ALIGN(4); data/data_A01CC4.o(.data);
         . = ALIGN(4); data/data_chap_title.o(.data);
         . = ALIGN(4); data/data_A167C8.o(.data);
         . = ALIGN(4); src/minimap.o(.data);

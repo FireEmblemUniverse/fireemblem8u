@@ -10,26 +10,29 @@
 #include "m4a.h"
 #include "soundwrapper.h"
 #include "ctc.h"
+#include "bmio.h"
+
+#include "uichapterstatus.h"
 
 #include "constants/characters.h"
 
 struct ChapterStatusProc {
     /* 00 */ PROC_HEADER;
 
-    /* 29 */ u8 unk_29;
-    /* 2A */ u8 unk_2a;
-    /* 2B */ u8 unk_2b;
-    /* 2C */ u8 unk_2c;
+    /* 29 */ u8 restoreStateOnExit;
+    /* 2A */ u8 focusUnitOnExit;
+    /* 2B */ u8 timesCompleted;
+    /* 2C */ u8 numObjectiveTextLines;
     /* 2D */ u8 unk_2d;
-    /* 2E */ u8 unk_2e;
+    /* 2E */ u8 unitIndex;
     /* 2F */ u8 unk_2f;
-    /* 30 */ u8 unk_30;
-    /* 31 */ u8 unk_31;
+    /* 30 */ u8 numAllyUnits;
+    /* 31 */ u8 numEnemyUnits;
 
-    /* 34 */ struct Unit* unk_34[2];
+    /* 34 */ struct Unit* units[2];
 
     /* 3C */ u16 unk_3c;
-    /* 3E */ u8 unk_3e;
+    /* 3E */ u8 helpTextActive;
     /* 3F */ u8 unk_3f;
     /* 40 */ u8 unk_40;
 
@@ -38,7 +41,7 @@ struct ChapterStatusProc {
     /* 64 */ u16 unk_64;
 };
 
-extern struct TextHandle gUnknown_02004BAC[];
+extern struct TextHandle gChapterStatusText[2];
 
 struct Struct2004BBC {
     struct TextHandle th;
@@ -47,40 +50,162 @@ struct Struct2004BBC {
 
 extern struct Struct2004BBC gUnknown_02004BBC;
 
-extern u16 gUnknown_02022BA4[];
-extern u16 gUnknown_02022CDC[];
-extern u16 gUnknown_02022F1A[];
-extern u16 gUnknown_02022F2A[];
-extern u16 gUnknown_02022F6A[];
-extern u16 gUnknown_02023028[];
-extern u16 gUnknown_020230CE[];
-extern u16 gUnknown_020235F0[];
+u16 sSprite_08A01AA4[] = {
+    1,
+    0x0000, 0x4000, 0x4740
+};
 
-extern u8 gUnknown_08A2D32C[]; // Gfx
-extern u16 gUnknown_08A2E1B8[]; // Pal
-extern u8 gUnknown_08A2E1F8[]; // Gfx
-extern u8 gUnknown_08A2E214[]; // Gfx
-extern u16 gUnknown_08A2E4A4[]; // Pal
-extern u8 gUnknown_08A2E4C4[]; // TSA
-extern u8 gUnknown_08A2E5EC[]; // Gfx
-extern u16 gUnknown_08A2E8F0[]; // Pal
+u16 sSprite_08A01AAC[] = {
+    2,
+    0x4000, 0x4000, 0x4754,
+    0x4000, 0x0020, 0x4758
+};
 
-extern u16 gUnknown_08A01AA4[];
-extern u16 gUnknown_08A01AAC[];
-extern u16 gUnknown_08A01ABA[];
-extern u16 gUnknown_08A01AC8[];
-extern u16 gUnknown_08A01AD6[];
-extern u16 gUnknown_08A01ADE[];
-extern u16 gUnknown_08A01AE6[];
-extern u16 gUnknown_08A01B18[];
-extern u16 gUnknown_08A01B2C[];
-extern struct TextBatch gUnknown_08A01B3C[];
-extern struct ProcCmd gUnknown_08A01B54[];
-extern struct ProcCmd gUnknown_08A01C04[];
-extern struct ProcCmd gUnknown_08A01CA4[];
-extern u16 gUnknown_08A01C7C[];
+u16 sSprite_08A01ABA[] = {
+    2,
+    0x4000, 0x4000, 0x475A,
+    0x4000, 0x0020, 0x475E
+};
 
-struct Unit* sub_808DCF8() {
+u16 sSprite_08A01AC8[] = {
+    2,
+    0x4000, 0x8000, 0x4743,
+    0x4000, 0x8020, 0x4747
+};
+
+u16 sSprite_08A01AD6[] = {
+    1,
+    0x4000, 0x8000, 0x474B
+};
+
+u16 sSprite_08A01ADE[] = {
+    1,
+    0x4000, 0x8000, 0x474F
+};
+
+u16 sSprite_08A01AE6[] = {
+    8,
+    0x4000, 0x0000, 0x0018,
+    0x4000, 0x0010, 0x0019,
+    0x4000, 0x0020, 0x0019,
+    0x4000, 0x1030, 0x0018,
+    0x4008, 0x2000, 0x0018,
+    0x4008, 0x2010, 0x0019,
+    0x4008, 0x2020, 0x0019,
+    0x4008, 0x3030, 0x0018
+};
+
+u16 sSprite_08A01B18[] = {
+    3,
+    0x4000, 0xC000, 0x0000,
+    0x4000, 0xC040, 0x0008,
+    0x4000, 0xC080, 0x0010
+};
+
+u16 sSprite_08A01B2C[] = {
+    2,
+    0x4000, 0xC000, 0x0090,
+    0x8000, 0x8040, 0x0098
+};
+
+struct TextBatch gTextBatch_ChapterStatus[] = {
+    { gChapterStatusText + 0, 12 },
+    { gChapterStatusText + 1, 12 },
+
+    { }, // end
+};
+
+void ChapterStatus_Init(struct ChapterStatusProc* proc);
+void ChapterStatus_DrawText(struct ChapterStatusProc* proc);
+void sub_808E3D4(void);
+void ChapterStatus_LoopKeyHandler(struct ChapterStatusProc* proc);
+void ChapterStatus_OnEnd(struct ChapterStatusProc* proc);
+void ChapterStatus_MaybeFocusLeaderUnit(struct ChapterStatusProc* proc);
+
+struct ProcCmd CONST_DATA gProcScr_ChapterStatusScreen[] = {
+    PROC_CALL(AddSkipThread2),
+
+    PROC_CALL(sub_8013D80),
+    PROC_REPEAT(ContinueUntilSomeTransistion6CExists),
+    PROC_CALL(BMapDispSuspend),
+
+    PROC_CALL(ChapterStatus_Init),
+    PROC_CALL(ChapterStatus_DrawText),
+    PROC_CALL(sub_808E3D4),
+
+PROC_LABEL(0),
+    PROC_REPEAT(ChapterStatus_LoopKeyHandler),
+
+PROC_LABEL(1),
+    PROC_CALL(sub_8013F58),
+    PROC_SLEEP(0),
+    PROC_CALL(EndBG3Slider),
+
+    PROC_CALL(ChapterStatus_OnEnd),
+
+    PROC_CALL(BMapDispResume),
+    PROC_CALL(RefreshBMapGraphics),
+    PROC_CALL(sub_8013DA4),
+    PROC_REPEAT(ContinueUntilSomeTransistion6CExists),
+
+    PROC_CALL(ChapterStatus_MaybeFocusLeaderUnit),
+    PROC_SLEEP(0),
+
+    PROC_CALL(SubSkipThread2),
+
+    PROC_END,
+};
+
+struct ProcCmd CONST_DATA gProcScr_08A01C04[] = {
+    PROC_SLEEP(0),
+
+    PROC_CALL(ChapterStatus_Init),
+    PROC_CALL(ChapterStatus_DrawText),
+
+    PROC_SLEEP(0),
+    PROC_CALL(sub_808E3D4),
+    PROC_CALL(sub_8013FD8),
+
+    PROC_SLEEP(0),
+
+PROC_LABEL(0),
+    PROC_REPEAT(ChapterStatus_LoopKeyHandler),
+
+PROC_LABEL(1),
+    PROC_CALL(sub_8013F58),
+    PROC_SLEEP(0),
+
+    PROC_CALL(EndBG3Slider),
+
+    PROC_CALL(ChapterStatus_OnEnd),
+
+    PROC_END,
+};
+
+u16 sSprite_08A01C7C[] = {
+    6,
+    0x4000, 0x8000, 0x0000,
+    0x4000, 0x8020, 0x0004,
+    0x4000, 0x8040, 0x0008,
+    0x4000, 0x8060, 0x000C,
+    0x4000, 0x8080, 0x0010,
+    0x4000, 0x80A0, 0x0014
+};
+
+void sub_808E7B4(struct ChapterStatusProc* proc);
+void sub_808E818(struct ChapterStatusProc* proc);
+
+struct ProcCmd CONST_DATA gProcScr_08A01CA4[] = {
+    PROC_SLEEP(0),
+
+    PROC_CALL(sub_808E7B4),
+    PROC_REPEAT(sub_808E818),
+
+    PROC_END,
+};
+
+
+struct Unit* GetEnemyBossUnit() {
     int i;
 
     struct Unit* unit = NULL;
@@ -91,7 +216,7 @@ struct Unit* sub_808DCF8() {
             break;
 
         case 0x0F:
-            unit = GetUnitFromCharId(CHARACTER_VALER);
+            unit = GetUnitFromCharId(CHARACTER_VALTER);
             break;
 
         case 0x1C:
@@ -125,7 +250,7 @@ struct Unit* sub_808DCF8() {
     return NULL;
 }
 
-int sub_808DDC0() {
+int CountEnemyBossUnits() {
     int count;
     int i;
 
@@ -148,7 +273,7 @@ int sub_808DDC0() {
     return count;
 }
 
-int sub_808DDF8(int faction) {
+int CountUnitsByFaction(int faction) {
     int count;
     int i;
 
@@ -187,8 +312,8 @@ void sub_808DE38(struct ChapterStatusProc* proc) {
         mod = 16 - (mod & 0xF);
     }
 
-    if (proc->unk_2e != proc->unk_2f) {
-        proc->unk_2f = proc->unk_2e;
+    if (proc->unitIndex != proc->unk_2f) {
+        proc->unk_2f = proc->unitIndex;
         proc->unk_40 = 0;
     }
 
@@ -201,7 +326,7 @@ void sub_808DE38(struct ChapterStatusProc* proc) {
     return;
 }
 
-char* sub_808DEBC(char* str) {
+char* SplitObjectiveTextOnNewline(char* str) {
     if (str == 0) {
         return NULL;
     }
@@ -220,7 +345,6 @@ char* sub_808DEBC(char* str) {
             }
         } else {
             return NULL;
-
         }
 
         str = GetCharTextWidth(str, &width);
@@ -239,7 +363,7 @@ void sub_808DEF0(s8 flag) {
     return;
 }
 
-void sub_808DF24(struct ChapterStatusProc* proc) {
+void ChapterStatus_Init(struct ChapterStatusProc* proc) {
     int i;
 
     SetupBackgrounds(0);
@@ -258,8 +382,8 @@ void sub_808DF24(struct ChapterStatusProc* proc) {
     LoadUiFrameGraphics();
 
     proc->unk_3c = 0;
-    proc->unk_3e = 0;
-    proc->unk_2a = 0;
+    proc->helpTextActive = 0;
+    proc->focusUnitOnExit = 0;
 
     BG_SetPosition(0, -2, -4);
     BG_SetPosition(1, 0, -2);
@@ -280,41 +404,41 @@ void sub_808DF24(struct ChapterStatusProc* proc) {
 
     SetDefaultColorEffects();
 
-    BG_EnableSyncByMask(0xF);
+    BG_EnableSyncByMask(BG0_SYNC_BIT | BG1_SYNC_BIT | BG2_SYNC_BIT | BG3_SYNC_BIT);
 
     proc->unk_2d = 0;
-    proc->unk_2e = 0;
+    proc->unitIndex = 0;
     proc->unk_40 = 0;
 
-    proc->unk_34[0] = GetUnitFromCharId(GetPlayerLeaderUnitId());
+    proc->units[0] = GetUnitFromCharId(GetPlayerLeaderUnitId());
 
-    proc->unk_30 = sub_808DDF8(0);
+    proc->numAllyUnits = CountUnitsByFaction(FACTION_BLUE);
 
-    proc->unk_2b = sub_80A4BB0();
+    proc->timesCompleted = sub_80A4BB0();
 
-    if (proc->unk_34[0]->state & US_UNSELECTABLE) {
-        proc->unk_34[0]->state &= ~US_UNSELECTABLE;
-        proc->unk_29 = 1;
+    if (proc->units[0]->state & US_UNSELECTABLE) {
+        proc->units[0]->state &= ~US_UNSELECTABLE;
+        proc->restoreStateOnExit = 1;
     } else {
-        proc->unk_29 = 0;
+        proc->restoreStateOnExit = 0;
     }
 
-    if (sub_808DDC0() != 0) {
-        proc->unk_34[1] = sub_808DCF8();
+    if (CountEnemyBossUnits() != 0) {
+        proc->units[1] = GetEnemyBossUnit();
     } else {
-        proc->unk_34[1] = NULL;
+        proc->units[1] = NULL;
     }
 
-    proc->unk_31 = sub_808DDF8(FACTION_RED);
+    proc->numEnemyUnits = CountUnitsByFaction(FACTION_RED);
 
     SetupMapSpritesPalettes();
 
     for (i = 0; i < 2; i++) {
-        if (proc->unk_34[i] == 0) {
+        if (proc->units[i] == 0) {
             continue;
         }
 
-        SMS_RegisterUsage(GetUnitSMSId(proc->unk_34[i]));
+        SMS_RegisterUsage(GetUnitSMSId(proc->units[i]));
     }
 
     SMS_FlushIndirect();
@@ -346,7 +470,7 @@ void sub_808DF24(struct ChapterStatusProc* proc) {
 
     StartHelpPromptSprite(200, 18, 2, (struct Proc*)proc);
 
-    Proc_Start(gUnknown_08A01CA4, proc);
+    Proc_Start(gProcScr_08A01CA4, proc);
 
     gLCDControlBuffer.dispcnt.bg0_on = 0;
     gLCDControlBuffer.dispcnt.bg1_on = 0;
@@ -357,17 +481,17 @@ void sub_808DF24(struct ChapterStatusProc* proc) {
     return;
 }
 
-void sub_808E19C(struct Unit* unit) {
+void DrawChapterStatusTextForUnit(struct Unit* unit) {
     struct Struct2004BBC* ptr = &gUnknown_02004BBC;
 
-    TileMap_FillRect(gUnknown_02022F1A, 3, 3, 0);
+    TileMap_FillRect(gBG0TilemapBuffer + 0x139, 3, 3, 0);
 
     SetFont(&ptr->font);
     SetFontGlyphSet(0);
 
     Text_80046B4(&ptr->th, 0);
 
-    if (unit != 0) {
+    if (unit) {
         if (unit->state & (US_UNDER_A_ROOF | US_BIT9)) {
             Text_SetColorId(&ptr->th, 2);
 
@@ -411,7 +535,7 @@ void sub_808E19C(struct Unit* unit) {
                 Text_AppendNumberOr2Dashes(&ptr->th, GetUnitMaxHp(unit));
             }
 
-            sub_8005988(GetUnitMiniPortraitId(unit), gUnknown_02022F1A, 0x280, 4, 0);
+            sub_8005988(GetUnitMiniPortraitId(unit), gBG0TilemapBuffer + 0x139, 0x280, 4, 0);
 
             sub_808DEF0(0);
         }
@@ -435,7 +559,7 @@ void sub_808E19C(struct Unit* unit) {
 
     SetFont(0);
 
-    BG_EnableSyncByMask(1);
+    BG_EnableSyncByMask(BG0_SYNC_BIT);
 
     sub_8001ED0(0, 0, 1, 0, 0);
 
@@ -460,7 +584,7 @@ void sub_808E3D4() {
     return;
 }
 
-void sub_808E3F4() {
+void ChapterStatus_SetupFont(ProcPtr proc) {
     CopyToPaletteBuffer(gUnknown_0859EF00, 0x340, 0x20);
 
     InitSomeOtherGraphicsRelatedStruct(&gUnknown_02004BBC.font, OBJ_VRAM0 + 0x7800, 0x1A);
@@ -475,137 +599,141 @@ void sub_808E3F4() {
     return;
 }
 
-void sub_808E43C() {
-    TileMap_FillRect(gUnknown_02023028, 15, 6, 0);
+void DrawChapterStatusStatValues() {
+    TileMap_FillRect(gBG0TilemapBuffer + 0x1C0, 15, 6, 0);
 
-    sub_8004B88(gUnknown_02023028 + 0xC, 2, gRAMChapterData.chapterTurnNumber);
+    sub_8004B88(gBG0TilemapBuffer + 0x1C0 + 0xC, 2, gRAMChapterData.chapterTurnNumber);
 
-    sub_8004B88(gUnknown_02023028 + 0x4B, 2, GetPartyGoldAmount());
+    sub_8004B88(gBG0TilemapBuffer + 0x1C0 + 0x4B, 2, GetPartyGoldAmount());
 
-    sub_8004B0C(gUnknown_02023028 + 0x4C, 3, 30);
+    sub_8004B0C(gBG0TilemapBuffer + 0x1C0 + 0x4C, 3, 30);
 
-    sub_8004D5C(gUnknown_02023028 - 0x8F, 3, 36, 37);
+    sub_8004D5C(gBG0TilemapBuffer + 0x1C0 - 0x8F, 3, 36, 37);
 
-    sub_8004D5C(gUnknown_02023028 - 0x4F, 3, 34, 35);
+    sub_8004D5C(gBG0TilemapBuffer + 0x1C0 - 0x4F, 3, 34, 35);
 
-    BG_EnableSyncByMask(1);
+    BG_EnableSyncByMask(BG0_SYNC_BIT);
 
     return;
 }
 
-void sub_808E4AC(struct ChapterStatusProc* proc) {
+void ChapterStatus_DrawText(struct ChapterStatusProc* proc) {
     char* str;
 
-    InitTextBatch(gUnknown_08A01B3C);
+    InitTextBatch(gTextBatch_ChapterStatus);
 
-    sub_808E3F4(proc);
+    ChapterStatus_SetupFont(proc);
 
-    sub_808E19C(proc->unk_34[proc->unk_2e]);
+    DrawChapterStatusTextForUnit(proc->units[proc->unitIndex]);
 
-    sub_8004B88(gUnknown_020235F0, 2, proc->unk_30);
+    sub_8004B88(gBG1TilemapBuffer + 0xA4, 2, proc->numAllyUnits);
 
     if (gRAMChapterData.chapterVisionRange != 0) {
-        sub_8004B0C(gUnknown_020235F0 + 7, 2, 20);
-        sub_8004B0C(gUnknown_020235F0 + 8, 2, 20);
+        sub_8004B0C(gBG1TilemapBuffer + 0xA4 + 7, 2, 20);
+        sub_8004B0C(gBG1TilemapBuffer + 0xA4 + 8, 2, 20);
     } else {
-        sub_8004B88(gUnknown_020235F0 + 7, 2, proc->unk_31);
+        sub_8004B88(gBG1TilemapBuffer + 0xA4 + 7, 2, proc->numEnemyUnits);
     }
 
-    proc->unk_2c = 1;
+    proc->numObjectiveTextLines = 1;
 
     str = GetStringFromIndex(
         GetChapterThing() != 2 ?
-        GetROMChapterStruct(gRAMChapterData.chapterIndex)->statusObjectiveTextId : 0x1C0
+            GetROMChapterStruct(gRAMChapterData.chapterIndex)->statusObjectiveTextId
+            : 0x1C0 // TODO: Defeat all monsters[.]
     );
 
-    Text_InsertString(gUnknown_02004BAC, GetStringTextCenteredPos(0x60, str), 0, str);
+    Text_InsertString(gChapterStatusText, GetStringTextCenteredPos(0x60, str), 0, str);
 
-    str = sub_808DEBC(str);
+    str = SplitObjectiveTextOnNewline(str);
 
     if (str != 0) {
-        Text_InsertString(gUnknown_02004BAC + 1, GetStringTextCenteredPos(0x60, str), 0, str);
-        proc->unk_2c = 2;
+        Text_InsertString(gChapterStatusText + 1, GetStringTextCenteredPos(0x60, str), 0, str);
+        proc->numObjectiveTextLines = 2;
     }
 
-    if (proc->unk_2c == 2) {
-        Text_Draw(gUnknown_02004BAC, gUnknown_02022F2A);
-        Text_Draw(gUnknown_02004BAC + 1, gUnknown_02022F2A + 0x40);
+    if (proc->numObjectiveTextLines == 2) {
+        Text_Draw(gChapterStatusText + 0, gBG0TilemapBuffer + 0x141);
+        Text_Draw(gChapterStatusText + 1, gBG0TilemapBuffer + 0x181);
     } else {
-        Text_Draw(gUnknown_02004BAC, gUnknown_02022F6A);
+        Text_Draw(gChapterStatusText + 0, gBG0TilemapBuffer + 0x161);
     }
 
-    if (proc->unk_2b != 0) {
+    if (proc->timesCompleted != 0) {
         if (!(gRAMChapterData.chapterStateBits & CHAPTER_FLAG_POSTGAME)) {
-            DrawDecNumber(gUnknown_02022CDC, 0, proc->unk_2b + 1);
+            DrawDecNumber(gBG0TilemapBuffer + 0x1A, 0, proc->timesCompleted + 1);
         }
     }
 
-    sub_808E43C();
+    DrawChapterStatusStatValues();
 
-    BG_EnableSyncByMask(1);
+    BG_EnableSyncByMask(BG0_SYNC_BIT);
 
     return;
 }
 
-void sub_808E608(struct ChapterStatusProc* proc) {
-    int previous = proc->unk_2e;
+void ChapterStatus_LoopKeyHandler(struct ChapterStatusProc* proc) {
+    int previous = proc->unitIndex;
 
-    proc->unk_3e = 0;
+    proc->helpTextActive = 0;
 
     if (gKeyStatusPtr->newKeys & R_BUTTON) {
-        proc->unk_3e = 1;
-
+        proc->helpTextActive = 1;
         sub_808DCAC(proc);
+
         return;
+
     } else if (gKeyStatusPtr->newKeys & A_BUTTON) {
 
-        if ((proc->unk_34[proc->unk_2e] != 0) && !(proc->unk_34[proc->unk_2e]->state & (US_UNDER_A_ROOF | US_BIT9))) {
-            SetLastStatScreenUid(proc->unk_34[proc->unk_2e]->index);
-            proc->unk_2a = 1;
+        if ((proc->units[proc->unitIndex]) && !(proc->units[proc->unitIndex]->state & (US_UNDER_A_ROOF | US_BIT9))) {
+            SetLastStatScreenUid(proc->units[proc->unitIndex]->index);
+            proc->focusUnitOnExit = 1;
         }
 
         PlaySoundEffect(0x6A);
         Proc_Goto(proc, 1);
+
         return;
+
     } else if (gKeyStatusPtr->newKeys & B_BUTTON) {
         Proc_Goto(proc, 1);
-
         PlaySoundEffect(0x6B);
+
         return;
+
     }
 
-    if ((gKeyStatusPtr->repeatedKeys & DPAD_LEFT) && (proc->unk_2e != 0)) {
-        proc->unk_2e--;
+    if ((gKeyStatusPtr->repeatedKeys & DPAD_LEFT) && (proc->unitIndex != 0)) {
+        proc->unitIndex--;
     }
 
-
-    if ((gKeyStatusPtr->repeatedKeys & DPAD_RIGHT) && (proc->unk_2e == 0)) {
-        proc->unk_2e++;
+    if ((gKeyStatusPtr->repeatedKeys & DPAD_RIGHT) && (proc->unitIndex == 0)) {
+        proc->unitIndex++;
     }
 
-    if (proc->unk_2e != previous) {
+    if (proc->unitIndex != previous) {
         PlaySoundEffect(0x66);
-        sub_808E19C(proc->unk_34[proc->unk_2e]);
+        DrawChapterStatusTextForUnit(proc->units[proc->unitIndex]);
     }
 
     return;
 }
 
-void sub_808E71C(struct ChapterStatusProc* proc) {
-    Proc_EndEach(gUnknown_08A01CA4);
+void ChapterStatus_OnEnd(struct ChapterStatusProc* proc) {
+    Proc_EndEach(gProcScr_08A01CA4);
 
     EndHelpPromptSprite();
 
-    if (proc->unk_29 != 0) {
-        proc->unk_34[0]->state |= US_UNSELECTABLE;
+    if (proc->restoreStateOnExit != 0) {
+        proc->units[0]->state |= US_UNSELECTABLE;
     }
 
     return;
 }
 
-void sub_808E748(struct ChapterStatusProc* proc) {
+void ChapterStatus_MaybeFocusLeaderUnit(struct ChapterStatusProc* proc) {
 
-    if (proc->unk_2a != 0) {
+    if (proc->focusUnitOnExit != 0) {
         Proc_StartBlocking(gProcScr_ADJUSTSFROMXI, proc);
     }
 
@@ -616,10 +744,10 @@ void NewChapterStatusScreen(ProcPtr proc) {
     struct ChapterStatusProc* child;
 
     if (proc != 0) {
-        child = Proc_StartBlocking(gUnknown_08A01B54, proc);
+        child = Proc_StartBlocking(gProcScr_ChapterStatusScreen, proc);
         child->unk_3f = 0;
     } else {
-        child = Proc_Start(gUnknown_08A01B54, PROC_TREE_3);
+        child = Proc_Start(gProcScr_ChapterStatusScreen, PROC_TREE_3);
         child->unk_3f = 0;
     }
 
@@ -629,7 +757,7 @@ void NewChapterStatusScreen(ProcPtr proc) {
 void sub_808E79C(ProcPtr proc) {
     struct ChapterStatusProc* child;
 
-    child = Proc_StartBlocking(gUnknown_08A01C04, proc);
+    child = Proc_StartBlocking(gProcScr_08A01C04, proc);
     child->unk_3f = 1;
 
     return;
@@ -657,20 +785,20 @@ void sub_808E818(struct ChapterStatusProc* proc) {
 
     struct ChapterStatusProc* parent = proc->proc_parent;
 
-    PutSprite(4, 4, 3, gUnknown_08A01B18, 0x8580);
-    PutSprite(4, 150, 124, gUnknown_08A01B2C, 0x9580);
+    PutSprite(4, 4, 3, sSprite_08A01B18, 0x8580);
+    PutSprite(4, 150, 124, sSprite_08A01B2C, 0x9580);
 
     if (parent->unk_3f == 0) {
-        PutSprite(4, 4, 11, gUnknown_08A01C7C, 0x3780);
+        PutSprite(4, 4, 11, sSprite_08A01C7C, 0x3780);
     }
 
-    PutSprite(4, parent->unk_2e * 56, 44, gUnknown_08A01AE6, 0x7580);
+    PutSprite(4, parent->unitIndex * 56, 44, sSprite_08A01AE6, 0x7580);
 
-    PutSprite(4, 8, 37, gUnknown_08A01AAC, 0);
-    PutSprite(4, 64, 37, gUnknown_08A01ABA, 0);
-    PutSprite(4, 18, 115, gUnknown_08A01AD6, 0);
-    PutSprite(4, 18, 131, gUnknown_08A01ADE, 0);
-    PutSprite(4, 28, 67, gUnknown_08A01AC8, 0);
+    PutSprite(4, 8, 37, sSprite_08A01AAC, 0);
+    PutSprite(4, 64, 37, sSprite_08A01ABA, 0);
+    PutSprite(4, 18, 115, sSprite_08A01AD6, 0);
+    PutSprite(4, 18, 131, sSprite_08A01ADE, 0);
+    PutSprite(4, 28, 67, sSprite_08A01AC8, 0);
 
     for (i = 0; i < 2; i++) {
         PutSprite(4, 160 + (i * 32), 60, gObject_32x16, 0xA3C0 + (i * 4));
@@ -682,19 +810,19 @@ void sub_808E818(struct ChapterStatusProc* proc) {
         PutSprite(4, 156 + (i * 32), 91, gObject_32x16, 0xA3D4 + (i * 4));
     }
 
-    sub_8004C68(gUnknown_020230CE, 2, GetGameClock(), 0);
+    sub_8004C68(gBG0TilemapBuffer + 0x213, 2, GetGameClock(), 0);
 
-    BG_EnableSyncByMask(1);
+    BG_EnableSyncByMask(BG0_SYNC_BIT);
 
-    if (parent->unk_34[parent->unk_2e] != 0) {
-        sub_8027B60(4, 136, 61, parent->unk_34[parent->unk_2e]);
+    if (parent->units[parent->unitIndex]) {
+        sub_8027B60(4, 136, 61, parent->units[parent->unitIndex]);
     }
 
     SMS_FlushDirect();
 
-    if (parent->unk_2b != 0) {
+    if (parent->timesCompleted != 0) {
         if (!(gRAMChapterData.chapterStateBits & CHAPTER_FLAG_POSTGAME)) {
-            PutSprite(4, 219, 3, gUnknown_08A01AA4, gRAMChapterData.chapterStateBits & CHAPTER_FLAG_POSTGAME);
+            PutSprite(4, 219, 3, sSprite_08A01AA4, gRAMChapterData.chapterStateBits & CHAPTER_FLAG_POSTGAME);
         }
     }
 

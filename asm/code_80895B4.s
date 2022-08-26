@@ -7876,7 +7876,7 @@ _0808D394: .4byte gRAMChapterData
 _0808D398: .4byte 0x00000535
 _0808D39C:
 	movs r0, #0x80
-	bl sub_808DDF8
+	bl CountUnitsByFaction
 	adds r3, r0, #0
 	adds r0, r4, #0
 	movs r1, #0x30

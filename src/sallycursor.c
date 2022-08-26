@@ -21,6 +21,7 @@
 #include "bmdifficulty.h"
 #include "playerphase.h"
 #include "minimap.h"
+#include "uichapterstatus.h"
 
 #include "sallycursor.h"
 
@@ -57,7 +58,6 @@ bool8 IsCharacterForceDeployed(int);
 void SortPlayerUnitsForPrepScreen();
 void MakeShopArmory(int, int, ProcPtr);
 void MakeShopVendor(int, int, ProcPtr);
-void sub_808E79C(ProcPtr);
 bool8 sub_8094FF4();
 int sub_809541C();
 int sub_8095970();
