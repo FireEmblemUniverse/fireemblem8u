@@ -86,7 +86,7 @@
 . = 0x0044D4; gUnknown_020044D4 = .;
 . = 0x0044EC; gUnknown_020044EC = .;
 . = 0x00472C; gBmFrameTmap1 = .;
-. = 0x004BAC; gUnknown_02004BAC = .;
+. = 0x004BAC; gChapterStatusText = .;
 . = 0x004BBC; gUnknown_02004BBC = .;
 . = 0x004BC4; gUnknown_02004BC4 = .;
 . = 0x004BE0; gMUGfxBuffer = .;

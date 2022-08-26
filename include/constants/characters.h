@@ -58,7 +58,7 @@ enum {
     CHARACTER_LYON         = 0x40,
     CHARACTER_MORVA        = 0x41,
     CHARACTER_ORSON_CH5X   = 0x42,
-    CHARACTER_VALER        = 0x43,
+    CHARACTER_VALTER       = 0x43,
     CHARACTER_SELENA       = 0x44,
     CHARACTER_VALTER_PROLOGUE = 0x45,
     CHARACTER_BREGUET      = 0x46,

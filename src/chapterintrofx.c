@@ -44,7 +44,6 @@ void sub_80ADE90(int, s16, s16);
 void sub_80ADEE0(int, int, int, int, int);
 
 
-extern u8 gUnknown_08B1754C[];
 extern u8 gUnknown_08B12DB4[];
 
 extern u8 gUnknown_08B17B64[];
