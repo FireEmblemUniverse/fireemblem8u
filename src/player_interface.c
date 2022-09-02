@@ -52,8 +52,6 @@ struct InterfaceDisplayLutEntry {
 
 extern s8 gUnknown_08A018A6[];
 
-extern s16 gUnknown_02022CCA[];
-extern s16 gUnknown_020234CA[];
 extern s16 gUnknown_0200422C[];
 
 extern struct InterfaceDisplayLutEntry gUnknown_08A01828[4];
@@ -66,10 +64,6 @@ extern s8 gUnknown_08A018A0[];
 
 extern s8 gUnknown_08A018A3[];
 
-extern s16 gUnknown_02022FE8[];
-extern s16 gUnknown_020237E8[];
-extern s16 gUnknown_02023016[];
-extern s16 gUnknown_02023816[];
 extern s16 gUnknown_02003FAC[];
 extern s16 gUnknown_020044AC[];
 
@@ -127,12 +121,6 @@ extern u16 gUnknown_08A176BC[];
 
 extern u16 gUnknown_02004254[];
 extern u16 gUnknown_02003D54[];
-extern u16 gUnknown_020234CE[];
-extern u16 gUnknown_02022CCE[];
-extern u16 gUnknown_02023828[];
-extern u16 gUnknown_02023028[];
-extern u16 gUnknown_0202384E[];
-extern u16 gUnknown_0202304E[];
 
 extern u16 gUnknown_08A199C8[];
 
@@ -275,8 +263,8 @@ void Loop6CUI1_DisplayTransition(struct PlayerInterfaceProc* proc) {
     } else {
         tmIndex = TILEMAP_INDEX(0, y);
 
-        TileMap_FillRect(gUnknown_02022CCA + tmIndex, 13, 6, 0);
-        TileMap_FillRect(gUnknown_020234CA + tmIndex, 13, 6, 0);
+        TileMap_FillRect(gBG0TilemapBuffer + 0x11 + tmIndex, 13, 6, 0);
+        TileMap_FillRect(gBG1TilemapBuffer + 0x11 + tmIndex, 13, 6, 0);
     }
 
     tmIndex = TILEMAP_INDEX(0, y);
@@ -324,8 +312,8 @@ void Loop6CUI1_HideTransition(struct PlayerInterfaceProc* proc) {
     } else {
         tmIndex = TILEMAP_INDEX(0, y);
 
-        TileMap_FillRect(gUnknown_02022CCA + tmIndex, 13, 6, 0);
-        TileMap_FillRect(gUnknown_020234CA + tmIndex, 13, 6, 0);
+        TileMap_FillRect(gBG0TilemapBuffer + 0x11 + tmIndex, 13, 6, 0);
+        TileMap_FillRect(gBG1TilemapBuffer + 0x11 + tmIndex, 13, 6, 0);
     }
 
     tmIndex = TILEMAP_INDEX(0, y);
@@ -360,11 +348,11 @@ void sub_808BFD4(struct PlayerInterfaceProc* proc) {
     int width;
 
     if (gUnknown_08A01828[proc->unk_50].xTerrain < 0) {
-        TileMap_FillRect(gUnknown_02022FE8, 7, 7, 0);
-        TileMap_FillRect(gUnknown_020237E8, 7, 7, 0);
+        TileMap_FillRect(gBG0TilemapBuffer + 0x1A0, 7, 7, 0);
+        TileMap_FillRect(gBG1TilemapBuffer + 0x1A0, 7, 7, 0);
     } else {
-        TileMap_FillRect(gUnknown_02023016, 7, 7, 0);
-        TileMap_FillRect(gUnknown_02023816, 7, 7, 0);
+        TileMap_FillRect(gBG0TilemapBuffer + 0x1B7, 7, 7, 0);
+        TileMap_FillRect(gBG1TilemapBuffer + 0x1B7, 7, 7, 0);
     }
 
     BG_EnableSyncByMask(3);
@@ -372,8 +360,8 @@ void sub_808BFD4(struct PlayerInterfaceProc* proc) {
     width = gUnknown_08A018A3[proc->unk_58] + 1;
 
     if (gUnknown_08A01828[proc->unk_50].xTerrain < 0) {
-        TileMap_CopyRect(gBmFrameTmap0 + (327 - width), gUnknown_02022FE8, width, 7);
-        TileMap_CopyRect(gUnknown_0200422C + (327 - width), gUnknown_020237E8, width, 7);
+        TileMap_CopyRect(gBmFrameTmap0 + (327 - width), gBG0TilemapBuffer + 0x1A0, width, 7);
+        TileMap_CopyRect(gUnknown_0200422C + (327 - width), gBG1TilemapBuffer + 0x1A0, width, 7);
     } else {
         TileMap_CopyRect(gUnknown_02003FAC, gBG0TilemapBuffer + (446 - width), width, 7);
         TileMap_CopyRect(gUnknown_020044AC, gBG1TilemapBuffer + (446 - width), width, 7);
@@ -398,11 +386,11 @@ void sub_808C100(struct PlayerInterfaceProc* proc) {
     proc->unk_55 = 1;
 
     if (gUnknown_08A01828[proc->unk_50].xTerrain < 0) {
-        TileMap_FillRect(gUnknown_02022FE8, 7, 7, 0);
-        TileMap_FillRect(gUnknown_020237E8, 7, 7, 0);
+        TileMap_FillRect(gBG0TilemapBuffer + 0x1A0, 7, 7, 0);
+        TileMap_FillRect(gBG1TilemapBuffer + 0x1A0, 7, 7, 0);
     } else {
-        TileMap_FillRect(gUnknown_02023016, 7, 7, 0);
-        TileMap_FillRect(gUnknown_02023816, 7, 7, 0);
+        TileMap_FillRect(gBG0TilemapBuffer + 0x1B7, 7, 7, 0);
+        TileMap_FillRect(gBG1TilemapBuffer + 0x1B7, 7, 7, 0);
     }
 
     BG_EnableSyncByMask(3);
@@ -410,8 +398,8 @@ void sub_808C100(struct PlayerInterfaceProc* proc) {
     width = gUnknown_08A018A6[proc->unk_58];
 
     if (gUnknown_08A01828[proc->unk_50].xTerrain < 0) {
-        TileMap_CopyRect(gBmFrameTmap0 + (326 - width), gUnknown_02022FE8, width, 7);
-        TileMap_CopyRect(gUnknown_0200422C + (326 - width), gUnknown_020237E8, width, 7);
+        TileMap_CopyRect(gBmFrameTmap0 + (326 - width), gBG0TilemapBuffer + 0x1A0, width, 7);
+        TileMap_CopyRect(gUnknown_0200422C + (326 - width), gBG1TilemapBuffer + 0x1A0, width, 7);
     } else {
         TileMap_CopyRect(gUnknown_02003FAC, gBG0TilemapBuffer + (446 - width), width, 7);
         TileMap_CopyRect(gUnknown_020044AC, gBG1TilemapBuffer + (446 - width), width, 7);
@@ -430,13 +418,21 @@ void sub_808C100(struct PlayerInterfaceProc* proc) {
     return;
 }
 
-#if NONMATCHING
-
 void sub_808C234(struct PlayerInterfaceProc* proc) {
 
-    int x = gUnknown_08A01828[proc->unk_50].xMinimug >= 0 ? 0x12 : 0;
+    int x, y;
 
-    int y = gUnknown_08A01828[proc->unk_50].yMinimug >= 0 ? 0xE : 0;
+    if (gUnknown_08A01828[proc->unk_50].xMinimug < 0) {
+        x = 0;
+    } else {
+        x = 18;
+    }
+
+    if (gUnknown_08A01828[proc->unk_50].yMinimug < 0) {
+        y = 0;
+    } else {
+        y = 14;
+    }
 
     TileMap_CopyRect(gBmFrameTmap0, gBG0TilemapBuffer + TILEMAP_INDEX(x, y), 13, 6);
 
@@ -445,111 +441,22 @@ void sub_808C234(struct PlayerInterfaceProc* proc) {
     return;
 }
 
-#else // if !NONMATCHING
-
-__attribute__((naked))
-void sub_808C234(struct PlayerInterfaceProc* proc) {
-    asm("\n\
-        .syntax unified\n\
-        push {lr}\n\
-        ldr r1, _0808C27C  @ gUnknown_08A01828\n\
-        adds r0, #0x50\n\
-        ldrb r0, [r0]\n\
-        lsls r0, r0, #0x18\n\
-        asrs r0, r0, #0x18\n\
-        lsls r0, r0, #3\n\
-        adds r1, r0, r1\n\
-        movs r0, #2\n\
-        ldrsb r0, [r1, r0]\n\
-        movs r2, #0x12\n\
-        cmp r0, #0\n\
-        bge _0808C250\n\
-        movs r2, #0\n\
-    _0808C250:\n\
-        movs r0, #3\n\
-        ldrsb r0, [r1, r0]\n\
-        movs r1, #0xe\n\
-        cmp r0, #0\n\
-        bge _0808C25C\n\
-        movs r1, #0\n\
-    _0808C25C:\n\
-        ldr r0, _0808C280  @ gBmFrameTmap0\n\
-        lsls r1, r1, #5\n\
-        adds r1, r1, r2\n\
-        lsls r1, r1, #1\n\
-        ldr r2, _0808C284  @ gBG0TilemapBuffer\n\
-        adds r1, r1, r2\n\
-        movs r2, #0xd\n\
-        movs r3, #6\n\
-        bl TileMap_CopyRect\n\
-        movs r0, #3\n\
-        bl BG_EnableSyncByMask\n\
-        pop {r0}\n\
-        bx r0\n\
-        .align 2, 0\n\
-    _0808C27C: .4byte gUnknown_08A01828\n\
-    _0808C280: .4byte gBmFrameTmap0\n\
-    _0808C284: .4byte gBG0TilemapBuffer\n\
-        .syntax divided\n\
-    ");
-}
-
-#endif // NONMATCHING
-
-#if NONMATCHING
-
 void sub_808C288(struct PlayerInterfaceProc* proc) {
-    int x = gUnknown_08A01828[proc->unk_50].xTerrain >= 0 ? 0x17 : 0;
 
-    TileMap_CopyRect(gUnknown_02003FAC, gUnknown_02022FE8 + x, 7, 7);
+    int x;
+
+    if (gUnknown_08A01828[proc->unk_50].xTerrain < 0) {
+        x = 0;
+    } else {
+        x = 23;
+    }
+
+    TileMap_CopyRect(gUnknown_02003FAC, gBG0TilemapBuffer + 0x1A0 + x, 7, 7);
 
     BG_EnableSyncByMask(3);
 
     return;
 }
-
-#else // if !NONMATCHING
-
-__attribute__((naked))
-void sub_808C288(struct PlayerInterfaceProc* proc) {
-    asm("\n\
-        .syntax unified\n\
-        push {lr}\n\
-        ldr r1, _0808C2C0  @ gUnknown_08A01828\n\
-        adds r0, #0x50\n\
-        ldrb r0, [r0]\n\
-        lsls r0, r0, #0x18\n\
-        asrs r0, r0, #0x18\n\
-        lsls r0, r0, #3\n\
-        adds r0, r0, r1\n\
-        ldrb r0, [r0]\n\
-        lsls r0, r0, #0x18\n\
-        asrs r0, r0, #0x18\n\
-        movs r1, #0x17\n\
-        cmp r0, #0\n\
-        bge _0808C2A6\n\
-        movs r1, #0\n\
-    _0808C2A6:\n\
-        ldr r0, _0808C2C4  @ gUnknown_02003FAC\n\
-        lsls r1, r1, #1\n\
-        ldr r2, _0808C2C8  @ gUnknown_02022FE8\n\
-        adds r1, r1, r2\n\
-        movs r2, #7\n\
-        movs r3, #7\n\
-        bl TileMap_CopyRect\n\
-        movs r0, #3\n\
-        bl BG_EnableSyncByMask\n\
-        pop {r0}\n\
-        bx r0\n\
-        .align 2, 0\n\
-    _0808C2C0: .4byte gUnknown_08A01828\n\
-    _0808C2C4: .4byte gUnknown_02003FAC\n\
-    _0808C2C8: .4byte gUnknown_02022FE8\n\
-        .syntax divided\n\
-    ");
-}
-
-#endif
 
 void sub_808C2CC(int faction, int palId) {
 
@@ -1180,21 +1087,23 @@ void Loop6CUI2(struct PlayerInterfaceProc* proc) {
 
     proc->unk_58++;
 
-    if (proc->unk_58 > 7) {
-        if (proc->unk_58 == 8) {
-            sub_808C750(proc, GetUnit(proc->unk_4b));
+    if (proc->unk_58 <= 7) {
+        return;
+    }
+
+    if (proc->unk_58 == 8) {
+        sub_808C750(proc, GetUnit(proc->unk_4b));
+    } else {
+
+        proc->unk_44++;
+
+        if (tiProc) {
+            proc->unk_55 = tiProc->unk_55;
         } else {
-
-            proc->unk_44++;
-
-            if (tiProc) {
-                proc->unk_55 = tiProc->unk_55;
-            } else {
-                proc->unk_55 = 0;
-            }
-
-            DrawMinimugBoxMaybe(proc, GetUnit(proc->unk_4b));
+            proc->unk_55 = 0;
         }
+
+        DrawMinimugBoxMaybe(proc, GetUnit(proc->unk_4b));
     }
 
     return;
@@ -1479,27 +1388,27 @@ void sub_808D514(int param_1, int param_2, int param_3) {
     }
 
     if ((x > 0) && (y < 0)) {
-        TileMap_FillRect(gUnknown_020234CE, 12, 6, 0);
-        TileMap_FillRect(gUnknown_02022CCE, 12, 6, 0);
+        TileMap_FillRect(gBG1TilemapBuffer + 0x13, 12, 6, 0);
+        TileMap_FillRect(gBG0TilemapBuffer + 0x13, 12, 6, 0);
 
-        TileMap_CopyRect(gUnknown_02004254 + TILEMAP_INDEX(1, (16 - param_2)), gUnknown_020234CE, 12, param_2);
-        TileMap_CopyRect(gUnknown_02003D54 + TILEMAP_INDEX(1, (18 - param_2)), gUnknown_02022CCE, 12, param_2);
+        TileMap_CopyRect(gUnknown_02004254 + TILEMAP_INDEX(1, (16 - param_2)), gBG1TilemapBuffer + 0x13, 12, param_2);
+        TileMap_CopyRect(gUnknown_02003D54 + TILEMAP_INDEX(1, (18 - param_2)), gBG0TilemapBuffer + 0x13, 12, param_2);
     }
 
     if ((x < 0) && (y > 0)) {
-        TileMap_FillRect(gUnknown_02023828, 12, 6, 0);
-        TileMap_FillRect(gUnknown_02023028, 12, 6, 0);
+        TileMap_FillRect(gBG1TilemapBuffer + 0x1C0, 12, 6, 0);
+        TileMap_FillRect(gBG0TilemapBuffer + 0x1C0, 12, 6, 0);
 
-        TileMap_CopyRect(gUnknown_020044D4, gUnknown_02023828 + TILEMAP_INDEX((1 - param_3), (20 - param_2)) - 0x1C0, 12, param_2);
-        TileMap_CopyRect(gUnknown_02004054, gUnknown_02023028 + TILEMAP_INDEX((1 - param_3), (20 - param_2)) - 0x1C0, 12, param_2);
+        TileMap_CopyRect(gUnknown_020044D4, gBG1TilemapBuffer + 0x1C0 + TILEMAP_INDEX((1 - param_3), (20 - param_2)) - 0x1C0, 12, param_2);
+        TileMap_CopyRect(gUnknown_02004054, gBG0TilemapBuffer + 0x1C0 + TILEMAP_INDEX((1 - param_3), (20 - param_2)) - 0x1C0, 12, param_2);
     }
 
     if ((x > 0) && (y > 0)) {
-        TileMap_FillRect(gUnknown_0202384E, 12, 6, 0);
-        TileMap_FillRect(gUnknown_0202304E, 12, 6, 0);
+        TileMap_FillRect(gBG1TilemapBuffer + 0x1D3, 12, 6, 0);
+        TileMap_FillRect(gBG0TilemapBuffer + 0x1D3, 12, 6, 0);
 
-        TileMap_CopyRect(gUnknown_020044D4, gUnknown_0202384E + TILEMAP_INDEX((1 - param_3), (20 - param_2)) - 0x1C0, 12, param_2);
-        TileMap_CopyRect(gUnknown_02004054, gUnknown_0202304E + TILEMAP_INDEX((1 - param_3), (20 - param_2)) - 0x1C0, 12, param_2);
+        TileMap_CopyRect(gUnknown_020044D4, gBG1TilemapBuffer + 0x1D3 + TILEMAP_INDEX((1 - param_3), (20 - param_2)) - 0x1C0, 12, param_2);
+        TileMap_CopyRect(gUnknown_02004054, gBG0TilemapBuffer + 0x1D3 + TILEMAP_INDEX((1 - param_3), (20 - param_2)) - 0x1C0, 12, param_2);
     }
 
     BG_EnableSyncByMask(3);
@@ -1890,7 +1799,7 @@ void sub_808D9B8(struct PlayerInterfaceProc* proc) {
     sub_808D8A0(proc, proc->unk_50, proc->unk_58);
     sub_808D924(proc->unk_46, proc->unk_48);
 
-    if (proc->unk_58 == 0x18) {
+    if (proc->unk_58 == 24) {
         Proc_Break(proc);
         proc->unk_56 = 0;
     }
