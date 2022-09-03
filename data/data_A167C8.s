@@ -1,6 +1,6 @@
     .section .data
 
-    .global gUnknown_08A167C8
+	.global gUnknown_08A167C8
 gUnknown_08A167C8:  @ 0x08A167C8
 	.incbin "baserom.gba", 0xA167C8, 0x5A4
 
@@ -26,7 +26,11 @@ gUnknown_08A173CC:  @ 0x08A173CC
 
 	.global gUnknown_08A173EC
 gUnknown_08A173EC:  @ 0x08A173EC
-	.incbin "baserom.gba", 0xA173EC, 0x40
+	.incbin "baserom.gba", 0xA173EC, 0x20
+
+	.global gUnknown_08A1740C
+gUnknown_08A1740C:  @ 0x08A1740C
+	.incbin "baserom.gba", 0xA1740C, 0x20
 
 	.global gUnknown_08A1742C
 gUnknown_08A1742C:  @ 0x08A1742C
@@ -34,11 +38,43 @@ gUnknown_08A1742C:  @ 0x08A1742C
 
 	.global gUnknown_08A17484
 gUnknown_08A17484:  @ 0x08A17484
-	.incbin "baserom.gba", 0xA17484, 0x180
+	.incbin "baserom.gba", 0xA17484, 0x130
+
+	.global gUnknown_08A175B4
+gUnknown_08A175B4:  @ 0x08A175B4
+	.incbin "baserom.gba", 0xA175B4, 0x14
+
+	.global gUnknown_08A175C8
+gUnknown_08A175C8:  @ 0x08A175C8
+	.incbin "baserom.gba", 0xA175C8, 0x14
+
+	.global gUnknown_08A175DC
+gUnknown_08A175DC:  @ 0x08A175DC
+	.incbin "baserom.gba", 0xA175DC, 0x14
+
+	.global gUnknown_08A175F0
+gUnknown_08A175F0:  @ 0x08A175F0
+	.incbin "baserom.gba", 0xA175F0, 0x14
 
 	.global gUnknown_08A17604
 gUnknown_08A17604:  @ 0x08A17604
-	.incbin "baserom.gba", 0xA17604, 0x88
+	.incbin "baserom.gba", 0xA17604, 0x38
+
+	.global gUnknown_08A1763C
+gUnknown_08A1763C:  @ 0x08A1763C
+	.incbin "baserom.gba", 0xA1763C, 0x14
+
+	.global gUnknown_08A17650
+gUnknown_08A17650:  @ 0x08A17650
+	.incbin "baserom.gba", 0xA17650, 0x14
+
+	.global gUnknown_08A17664
+gUnknown_08A17664:  @ 0x08A17664
+	.incbin "baserom.gba", 0xA17664, 0x14
+
+	.global gUnknown_08A17678
+gUnknown_08A17678:  @ 0x08A17678
+	.incbin "baserom.gba", 0xA17678, 0x14
 
 	.global gUnknown_08A1768C
 gUnknown_08A1768C:  @ 0x08A1768C

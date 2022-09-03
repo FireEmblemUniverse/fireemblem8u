@@ -50,83 +50,237 @@ struct InterfaceDisplayLutEntry {
     s8 xGoal, yGoal;
 };
 
-extern s8 gUnknown_08A018A6[];
+struct InterfaceDisplayLutEntry gUnknown_08A01828[4] = {
+    {
+        +1, +1,
+        -1, +1,
+        +1, -1,
+    },
+    {
+        -1, +1,
+        -1, -1,
+        +1, +1,
+    },
+    {
+        +1, +1,
+        -1, -1,
+        +1, -1,
+    },
+    {
+        -1, +1,
+        -1, -1,
+        +1, -1,
+    }
+};
 
-extern s16 gUnknown_0200422C[];
+s8 gUnknown_08A01848[6] = {
+    1, 1, 1, 1, 1, 1
+};
 
-extern struct InterfaceDisplayLutEntry gUnknown_08A01828[4];
-extern s8 gUnknown_08A0189C[];
+s8 gUnknown_08A0184E[18] = {
+    1, 1, 1, 1, 1, 1,
+    1, 1, 1, 1, 1, 1,
+    3, 3, 3, 3, 3, 3
+};
 
-extern u16 gBmFrameTmap0[];
-extern u16 gBmFrameTmap1[];
+s8 gUnknown_08A01860[6] = {
+    0, -1, -6, 0, -1, -6
+};
 
-extern s8 gUnknown_08A018A0[];
+s8 gUnknown_08A01866[6] = {
+    -6, -6, -6, 3, 3, 3
+};
 
-extern s8 gUnknown_08A018A3[];
+u16* gUnknown_08A0186C[6] = {
+    gUnknown_08A175B4,
+    gUnknown_08A175B4,
+    gUnknown_08A175B4,
+    gUnknown_08A175C8,
+    gUnknown_08A175DC,
+    gUnknown_08A175F0
+};
 
-extern s16 gUnknown_02003FAC[];
-extern s16 gUnknown_020044AC[];
+u16* gUnknown_08A01884[6] = {
+    gUnknown_08A1763C,
+    gUnknown_08A17650,
+    gUnknown_08A17664,
+    gUnknown_08A17678,
+    gUnknown_08A17678,
+    gUnknown_08A17678
+};
 
-extern u16 gUnknown_08A1738C[];
-extern u16 gUnknown_08A173AC[];
-extern u16 gUnknown_08A173CC[];
+s8 gUnknown_08A0189C[4] = {
+    5, 9, 11, 13
+};
 
-extern u8 gUnknown_08A16DEC[];
+s8 gUnknown_08A018A0[3] = {
+    11, 7, 0
+};
 
-extern s16 gUnknown_02003E36[];
-extern u8 gUnknown_08A17484[];
+s8 gUnknown_08A018A3[3] = {
+    4, 5, 6
+};
 
-extern s8 gUnknown_08A01860[];
-extern s8 gUnknown_08A01866[];
+s8 gUnknown_08A018A6[6] = {
+    5, 4, 0, 0, 0, 0
+};
 
-extern s8 gUnknown_08A0184E[];
-extern s8 gUnknown_08A01848[];
-extern u16* gUnknown_08A0186C[];
-extern u16 gUnknown_08A17604[];
-extern u16* gUnknown_08A01884[];
+void sub_808CB34(struct PlayerInterfaceProc* proc);
+void sub_808CB5C(struct PlayerInterfaceProc* proc);
+void sub_808BFD4(struct PlayerInterfaceProc* proc);
+void sub_808CC00(struct PlayerInterfaceProc* proc);
+void sub_808C100(struct PlayerInterfaceProc* proc);
 
-extern u8 gUnknown_08A1768C[];
-extern u8 gUnknown_08A1769C[];
-extern u8 gUnknown_08A176A4[];
-extern u8 gUnknown_08A176B4[];
-extern u8 gUnknown_08A1742C[];
+struct ProcCmd CONST_DATA gUnknown_08A018AC[] = {
+    PROC_NAME("TI"),
+    PROC_15,
 
-extern u16 gUnknown_020040AE[];
-extern u16 gUnknown_020044EC[];
+    PROC_SLEEP(0),
+    PROC_CALL(sub_808CB34),
 
-extern s8 gUnknown_0880B90C[];
-extern s8 gUnknown_0880C4BA[];
-extern s8 gUnknown_0880C479[];
+PROC_LABEL(0),
 
-extern u16 gUnknown_08A167C8[]; // Gfx / TSA
-extern u16 gUnknown_08A16D6C[]; // Gfx / TSA
+    PROC_WHILE_EXISTS(gUnknown_0859A548),
 
-extern struct ProcCmd gUnknown_08A018AC[];
-extern struct ProcCmd gUnknown_08A0190C[];
-extern struct ProcCmd gUnknown_08A01994[];
-extern struct ProcCmd gUnknown_08A019C4[];
+    PROC_REPEAT(sub_808CB5C),
+    PROC_REPEAT(sub_808BFD4),
+    PROC_REPEAT(sub_808CC00),
+    PROC_REPEAT(sub_808C100),
 
-extern s8 gUnknown_08A019DC[];
+    PROC_GOTO(0),
 
-extern s8 gUnknown_08A019E1[];
+    PROC_END,
+};
 
-extern struct ProcCmd gUnknown_08A019E4[];
-extern struct ProcCmd gUnknown_08A01A44[];
+void sub_808CCA0(struct PlayerInterfaceProc* proc);
+void Loop6CUI1_Hidden(struct PlayerInterfaceProc* proc);
+void Loop6CUI1_DisplayTransition(struct PlayerInterfaceProc* proc);
+void Loop6CUI1_Displayed(struct PlayerInterfaceProc* proc);
+void Loop6CUI1_HideTransition(struct PlayerInterfaceProc* proc);
+void sub_808CE50(struct PlayerInterfaceProc* proc);
 
-extern u16 gUnknown_020044D4[];
-extern u16 gUnknown_02004054[];
+struct ProcCmd CONST_DATA gUnknown_08A0190C[] = {
+    PROC_NAME("UI1"),
+    PROC_15,
 
-extern u16 gUnknown_08A17744[];
-extern u16 gUnknown_08A176BC[];
+    PROC_SLEEP(0),
+    PROC_CALL(sub_808CCA0),
 
-extern u16 gUnknown_02004254[];
-extern u16 gUnknown_02003D54[];
+PROC_LABEL(0),
+    PROC_WHILE_EXISTS(gUnknown_0859A548),
 
-extern u16 gUnknown_08A199C8[];
+    PROC_REPEAT(Loop6CUI1_Hidden),
+    PROC_REPEAT(Loop6CUI1_DisplayTransition),
 
+    // fallthrough
+
+PROC_LABEL(2),
+    PROC_REPEAT(Loop6CUI1_Displayed),
+
+    // fallthrough
+
+PROC_LABEL(3),
+    PROC_REPEAT(Loop6CUI1_HideTransition),
+
+    PROC_GOTO(0),
+
+PROC_LABEL(1),
+    PROC_CALL(sub_808CE50),
+
+    PROC_GOTO(2),
+
+    PROC_END,
+};
+
+void Init6CUI2(struct PlayerInterfaceProc* proc);
+void Loop6CUI2(struct PlayerInterfaceProc* proc);
+
+struct ProcCmd CONST_DATA gUnknown_08A01994[] = {
+    PROC_NAME("UI2"),
+    PROC_15,
+
+    PROC_SLEEP(0),
+    PROC_CALL(Init6CUI2),
+    PROC_REPEAT(Loop6CUI2),
+
+    PROC_END,
+};
+
+void InitPlayerPhaseInterfaceMaybe(void);
+
+struct ProcCmd CONST_DATA gUnknown_08A019C4[] = {
+    PROC_WHILE(DoesBMXFADEExist),
+
+    PROC_CALL(InitPlayerPhaseInterfaceMaybe),
+
+    PROC_END,
+};
+
+s8 gUnknown_08A019DC[5] = {
+    1, 3, 4, 5, 6
+};
+
+s8 gUnknown_08A019E1[3] = {
+    3, 1, 0
+};
+
+void Init6CPI(struct PlayerInterfaceProc* proc);
+void Loop16CPI(struct PlayerInterfaceProc* proc);
+void Loop26CPI(struct PlayerInterfaceProc* proc);
+void Loop36CPI(struct PlayerInterfaceProc* proc);
+void Loop46CPI(struct PlayerInterfaceProc* proc);
+
+struct ProcCmd CONST_DATA gUnknown_08A019E4[] = {
+    PROC_NAME("PI"),
+    PROC_15,
+
+    PROC_SLEEP(0),
+    PROC_CALL(Init6CPI),
+
+PROC_LABEL(0),
+
+    PROC_WHILE_EXISTS(gUnknown_0859A548),
+
+    PROC_REPEAT(Loop16CPI),
+    PROC_REPEAT(Loop26CPI),
+    PROC_REPEAT(Loop36CPI),
+    PROC_REPEAT(Loop46CPI),
+
+    PROC_GOTO(0),
+
+    PROC_END,
+};
+
+void sub_808D870(struct PlayerInterfaceProc* proc);
+s8 sub_808D814(void);
+void sub_808D97C(struct PlayerInterfaceProc* proc);
+void sub_808D9B8(struct PlayerInterfaceProc* proc);
+void sub_808D9FC(struct PlayerInterfaceProc* proc);
+void sub_808DAA0(struct PlayerInterfaceProc* proc);
+
+struct ProcCmd CONST_DATA gUnknown_08A01A44[] = {
+    PROC_15,
+
+    PROC_SLEEP(0),
+    PROC_CALL(sub_808D870),
+
+PROC_LABEL(0),
+
+    PROC_WHILE_EXISTS(gUnknown_0859A548),
+
+    PROC_WHILE(sub_808D814),
+
+    PROC_CALL(sub_808D97C),
+    PROC_REPEAT(sub_808D9B8),
+    PROC_REPEAT(sub_808D9FC),
+    PROC_REPEAT(sub_808DAA0),
+
+    PROC_GOTO(0),
+
+    PROC_END,
+};
 
 void DrawMinimugBoxMaybe(struct PlayerInterfaceProc*, struct Unit*);
-
 
 int sub_808BBAC(int x, int y) {
 

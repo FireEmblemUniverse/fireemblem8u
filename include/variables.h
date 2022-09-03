@@ -70,31 +70,31 @@
 // extern ??? gUnknown_02003BE8
 
 // extern ??? gStatScreen
-// extern ??? gBmFrameTmap0
+extern u16 gBmFrameTmap0[];
 
-// extern ??? gUnknown_02003D54
+extern u16 gUnknown_02003D54[];
 
 // extern ??? gUnknown_02003DF0
-// extern ??? gUnknown_02003E36
+extern s16 gUnknown_02003E36[];
 // extern ??? gUnknown_02003E70
 // extern ??? gUnknown_02003E7C
 // extern ??? gUnknown_02003E86
 // extern ??? gUnknown_02003F84
-// extern ??? gUnknown_02003FAC
+extern s16 gUnknown_02003FAC[];
 // extern ??? gUnknown_0200400C
-// extern ??? gUnknown_02004054
+extern u16 gUnknown_02004054[];
 // extern ??? gUnknown_0200407C
 // extern ??? gUnknown_02004088
-// extern ??? gUnknown_020040AE
+extern u16 gUnknown_020040AE[];
 // extern ??? gUnknown_020040B2
 // extern ??? gUnknown_02004128
 // extern ??? gUnknown_020041C8
-// extern ??? gUnknown_0200422C
-// extern ??? gUnknown_02004254
-// extern ??? gUnknown_020044AC
-// extern ??? gUnknown_020044D4
-// extern ??? gUnknown_020044EC
-// extern ??? gBmFrameTmap1
+extern u16 gUnknown_0200422C[];
+extern u16 gUnknown_02004254[];
+extern s16 gUnknown_020044AC[];
+extern u16 gUnknown_020044D4[];
+extern u16 gUnknown_020044EC[];
+extern u16 gBmFrameTmap1[];
 
 // extern ??? gChapterStatusText
 // extern ??? gUnknown_02004BBC
@@ -2873,11 +2873,11 @@ extern const u16 gUnkUiFramePalettes[];
 // extern ??? gUnknown_08803CD0
 // extern ??? gCharacterData
 extern const struct ItemData gItemData[];
-// extern ??? gUnknown_0880B90C
+extern const s8 gUnknown_0880B90C[]; // terrainId to ? lookup
 extern const s8 gUnknown_0880BB96[]; // Unit drop movement cost table
 extern const s8 gUnknown_0880BC18[]; // Ballista mov cost table
-// extern ??? gUnknown_0880C479
-// extern ??? gUnknown_0880C4BA
+extern const s8 gUnknown_0880C479[]; // terrainId to ? lookup
+extern const s8 gUnknown_0880C4BA[]; // terrainId to ? lookup
 extern const s8 gUnknown_0880C744[]; // terrainid-to-healamount lookup
 extern const s8 gUnknown_0880C785[]; // terrainid-to-something lookup
 // extern ??? gUnknown_0880C7C6
@@ -3336,22 +3336,31 @@ extern u16 CONST_DATA gUnknown_08A0731C[]; // halo pal
 // extern ??? gUnknown_08A0AE44
 // extern ??? gUnknown_08A0AE64
 // extern ??? gUnknown_08A0AE84
-// extern ??? gUnknown_08A167C8
-// extern ??? gUnknown_08A16D6C
-// extern ??? gUnknown_08A16DEC
-// extern ??? gUnknown_08A1738C
-// extern ??? gUnknown_08A173AC
-// extern ??? gUnknown_08A173CC
+extern u16 gUnknown_08A167C8[];
+extern u16 gUnknown_08A16D6C[];
+extern u8 gUnknown_08A16DEC[];
+extern u16 gUnknown_08A1738C[]; // pal
+extern u16 gUnknown_08A173AC[]; // pal
+extern u16 gUnknown_08A173CC[]; // pal
 // extern ??? gUnknown_08A173EC
-// extern ??? gUnknown_08A1742C
-// extern ??? gUnknown_08A17484
-// extern ??? gUnknown_08A17604
-// extern ??? gUnknown_08A1768C
-// extern ??? gUnknown_08A1769C
-// extern ??? gUnknown_08A176A4
-// extern ??? gUnknown_08A176B4
-// extern ??? gUnknown_08A176BC
-// extern ??? gUnknown_08A17744
+// extern ??? gUnknown_08A1740C
+extern u8 gUnknown_08A1742C[];
+extern u8 gUnknown_08A17484[];
+extern u16 gUnknown_08A175B4[];
+extern u16 gUnknown_08A175C8[];
+extern u16 gUnknown_08A175DC[];
+extern u16 gUnknown_08A175F0[];
+extern u16 gUnknown_08A17604[];
+extern u16 gUnknown_08A1763C[];
+extern u16 gUnknown_08A17650[];
+extern u16 gUnknown_08A17664[];
+extern u16 gUnknown_08A17678[];
+extern u8 gUnknown_08A1768C[];
+extern u8 gUnknown_08A1769C[];
+extern u8 gUnknown_08A176A4[];
+extern u8 gUnknown_08A176B4[];
+extern u16 gUnknown_08A176BC[];
+extern u16 gUnknown_08A17744[];
 // extern ??? gUnknown_08A177A0
 // extern ??? gUnknown_08A178C0
 // extern ??? gUnknown_08A17990
