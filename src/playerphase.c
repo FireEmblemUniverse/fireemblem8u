@@ -21,6 +21,7 @@
 #include "bmmind.h"
 #include "bmtrap.h"
 #include "minimap.h"
+#include "player_interface.h"
 
 #include "playerphase.h"
 
@@ -58,8 +59,6 @@ void DisplayMoveRangeGraphics(int config);
 s8 CanMoveActiveUnitTo(int, int);
 
 // code.s
-void New6CPPInterfaceConstructor(ProcPtr);
-void DeletePlayerPhaseInterface6Cs(void);
 void BWL_IncrementMoveValue(u8);
 
 // ev_triggercheck.s
@@ -116,7 +115,7 @@ PROC_LABEL(0),
     // fallthrough
 
 PROC_LABEL(9),
-    PROC_CALL(New6CPPInterfaceConstructor),
+    PROC_CALL(StartPlayerPhaseSideWindows),
     PROC_CALL(sub_8027A40),
 
     PROC_REPEAT(PlayerPhase_MainIdle),
@@ -124,7 +123,7 @@ PROC_LABEL(9),
     // fallthrough
 
 PROC_LABEL(1),
-    PROC_CALL(DeletePlayerPhaseInterface6Cs),
+    PROC_CALL(EndPlayerPhaseSideWindows),
 
     PROC_WHILE(DoesBMXFADEExist),
 
@@ -190,7 +189,7 @@ PROC_LABEL(8),
     PROC_GOTO(0),
 
 PROC_LABEL(11),
-    PROC_CALL(DeletePlayerPhaseInterface6Cs),
+    PROC_CALL(EndPlayerPhaseSideWindows),
 
     PROC_WHILE(DoesBMXFADEExist),
 
@@ -317,7 +316,7 @@ void PlayerPhase_MainIdle(ProcPtr proc) {
 
                 MU_EndAll();
 
-                DeletePlayerPhaseInterface6Cs();
+                EndPlayerPhaseSideWindows();
                 SetStatScreenConfig(0x1F);
 
                 StartStatScreen(GetUnit(gBmMapUnit[gUnknown_0202BCB0.playerCursor.y][gUnknown_0202BCB0.playerCursor.x]), proc);
@@ -334,7 +333,7 @@ void PlayerPhase_MainIdle(ProcPtr proc) {
             switch (GetUnitSelectionValueThing(unit)) {
                 case 0:
                 case 1:
-                    DeletePlayerPhaseInterface6Cs();
+                    EndPlayerPhaseSideWindows();
 
                     gRAMChapterData.xCursor = gUnknown_0202BCB0.playerCursor.x;
                     gRAMChapterData.yCursor = gUnknown_0202BCB0.playerCursor.y;
@@ -374,7 +373,7 @@ void PlayerPhase_MainIdle(ProcPtr proc) {
                 ShowUnitSMS(unit);
             }
 
-            DeletePlayerPhaseInterface6Cs();
+            EndPlayerPhaseSideWindows();
             StartMinimapPlayerPhase();
 
             Proc_Goto(proc, 9);

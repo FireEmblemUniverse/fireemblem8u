@@ -131,6 +131,8 @@ SECTIONS
         asm/fx_slidingwallbg.o(.text);
         src/statscreen.o(.text);
         asm/code_80895B4.o(.text);
+        src/player_interface.o(.text);
+        asm/code_808DAE4.o(.text);
         src/uichapterstatus.o(.text);
         asm/code.o(.text);
         src/minimap.o(.text);
@@ -240,6 +242,7 @@ SECTIONS
         . = ALIGN(4); data/muctrl_rodata.o(.rodata);
         . = ALIGN(4); data/const_data_205714.o(.rodata);
         . = ALIGN(4); src/statscreen.o(.rodata);
+        . = ALIGN(4); src/player_interface.o(.rodata);
         . = ALIGN(4); data/const_data_205B84.o(.rodata);
         . = ALIGN(4); src/minimap.o(.rodata);
         . = ALIGN(4); data/const_data_205DE9.o(.rodata);
@@ -323,6 +326,7 @@ SECTIONS
         . = ALIGN(4); src/statscreen.o(.data);
         . = ALIGN(4); src/chap_title_data.o(.data);
         . = ALIGN(4); data/data_A01628.o(.data);
+        . = ALIGN(4); src/player_interface.o(.data);
         . = ALIGN(4); src/uichapterstatus.o(.data);
         . = ALIGN(4); data/data_A01CC4.o(.data);
         . = ALIGN(4); data/data_chap_title.o(.data);

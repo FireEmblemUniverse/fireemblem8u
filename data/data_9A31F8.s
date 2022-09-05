@@ -604,7 +604,7 @@ gUnknown_089A3814:  @ 0x089A3814
         .word AddSkipThread2
         @ PROC_CALL
         .short 0x2, 0x0
-        .word DeletePlayerPhaseInterface6Cs
+        .word EndPlayerPhaseSideWindows
         @ PROC_SLEEP
         .short 0xe, 0x1
         .word 0x0

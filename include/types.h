@@ -187,8 +187,8 @@ struct RAMChapterData { // Chapter Data Struct
 
     // option bits
     u32 unk40_1:1; // 1
-    u32 unk40_2:1; // 1
-    u32 unk40_3:2; // 2
+    u32 cfgDisableTerrainDisplay:1; // 1
+    u32 cfgUnitDisplayType:2; // 2
     u32 unk40_5:1; // 1
     u32 cfgTextSpeed:2;
     u32 unk40_8:1; // 1
@@ -199,7 +199,7 @@ struct RAMChapterData { // Chapter Data Struct
     u32 unk41_6:1; // unk
     u32 unk41_7:1; // 1
     u32 unk41_8:1; // 1
-    u32 unk42_1:1; // unk
+    u32 cfgDisableGoalDisplay:1; // unk
     u32 unk42_2:2; // 2
     u32 cfgBattleForecastType:2; // 2
     u32 unk42_6:1; // 1

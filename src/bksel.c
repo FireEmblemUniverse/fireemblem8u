@@ -21,8 +21,6 @@ extern u16 gBmFrameTmap0[];
 extern u16 gUnknown_0200300C[8][16];
 extern struct TextHandle gaBattleForecastTextStructs[6];
 
-extern u16 gUnknown_0200422C[];
-
 extern u16 gTSA_BattleForecastStandard[];
 extern u16 gTSA_BattleForecastExtended[];
 
