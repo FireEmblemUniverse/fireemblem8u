@@ -3255,7 +3255,6 @@ extern unsigned CONST_DATA gMid_Dark;
 // extern ??? gUnknown_08A01760
 // extern ??? gUnknown_08A01800
 // extern ??? gUnknown_08A01818
-// extern ??? gUnknown_08A01D18
 // extern ??? gUnknown_08A01D88
 // extern ??? gUnknown_08A01DAE
 // extern ??? gUnknown_08A01DBC

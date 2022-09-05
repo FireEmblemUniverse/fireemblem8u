@@ -1,6 +1,8 @@
 #ifndef GUARD_UICHAPTERSTATUS_H
 #define GUARD_UICHAPTERSTATUS_H
 
+void StartChapterStatusHelpBox(ProcPtr);
+// ??? sub_808DCD0(???);
 // ??? GetEnemyBossUnit(???);
 // ??? CountEnemyBossUnits(???);
 int CountUnitsByFaction(int faction);
