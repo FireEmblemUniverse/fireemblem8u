@@ -29,28 +29,28 @@ struct PlayerInterfaceProc {
     s16 unk_48;
     u8 unk_4a;
     u8 unk_4b;
-    u8 unk_4c;
-    u8 unk_4d;
-    u8 unk_4e;
-    u8 unk_4f;
+    u8 xCursorPrev;
+    u8 yCursorPrev;
+    u8 xCursor;
+    u8 yCursor;
     s8 unk_50;
     u8 unk_51;
     u8 unk_52;
     u8 unk_53;
     u8 unk_54;
     s8 unk_55;
-    s8 unk_56;
-    s8 unk_57;
+    s8 isRetracting;
+    s8 quadrant;
     int unk_58;
 };
 
-struct InterfaceDisplayLutEntry {
+struct PlayerInterfaceConfigEntry {
     s8 xTerrain, yTerrain;
     s8 xMinimug, yMinimug;
     s8 xGoal, yGoal;
 };
 
-struct InterfaceDisplayLutEntry gUnknown_08A01828[4] = {
+struct PlayerInterfaceConfigEntry sPlayerInterfaceConfigLut[4] = {
     {
         +1, +1,
         -1, +1,
@@ -109,180 +109,188 @@ u16* gUnknown_08A01884[6] = {
     gUnknown_08A17678
 };
 
-s8 gUnknown_08A0189C[4] = {
+s8 sMMBSlideInWidthLut[4] = {
     5, 9, 11, 13
 };
 
-s8 gUnknown_08A018A0[3] = {
+s8 sMMBSlideOutWidthLut[3] = {
     11, 7, 0
 };
 
-s8 gUnknown_08A018A3[3] = {
+s8 sTerrainSlideInWidthLut[3] = {
     4, 5, 6
 };
 
-s8 gUnknown_08A018A6[6] = {
+s8 sTerrainSlideOutWidthLut[6] = {
     5, 4, 0, 0, 0, 0
 };
 
-void sub_808CB34(struct PlayerInterfaceProc* proc);
-void sub_808CB5C(struct PlayerInterfaceProc* proc);
-void sub_808BFD4(struct PlayerInterfaceProc* proc);
-void sub_808CC00(struct PlayerInterfaceProc* proc);
-void sub_808C100(struct PlayerInterfaceProc* proc);
+void TerrainDisplay_Init(struct PlayerInterfaceProc* proc);
+void TerrainDisplay_Loop_OnSideChange(struct PlayerInterfaceProc* proc);
+void TerrainDisplay_Loop_SlideIn(struct PlayerInterfaceProc* proc);
+void TerrainDisplay_Loop_Display(struct PlayerInterfaceProc* proc);
+void TerrainDisplay_Loop_SlideOut(struct PlayerInterfaceProc* proc);
 
-struct ProcCmd CONST_DATA gUnknown_08A018AC[] = {
+struct ProcCmd CONST_DATA gProcScr_TerrainDisplay[] = {
     PROC_NAME("TI"),
     PROC_15,
 
     PROC_SLEEP(0),
-    PROC_CALL(sub_808CB34),
+
+    PROC_CALL(TerrainDisplay_Init),
 
 PROC_LABEL(0),
 
     PROC_WHILE_EXISTS(gUnknown_0859A548),
 
-    PROC_REPEAT(sub_808CB5C),
-    PROC_REPEAT(sub_808BFD4),
-    PROC_REPEAT(sub_808CC00),
-    PROC_REPEAT(sub_808C100),
+    PROC_REPEAT(TerrainDisplay_Loop_OnSideChange),
+    PROC_REPEAT(TerrainDisplay_Loop_SlideIn),
+    PROC_REPEAT(TerrainDisplay_Loop_Display),
+    PROC_REPEAT(TerrainDisplay_Loop_SlideOut),
 
     PROC_GOTO(0),
 
     PROC_END,
 };
 
-void sub_808CCA0(struct PlayerInterfaceProc* proc);
-void Loop6CUI1_Hidden(struct PlayerInterfaceProc* proc);
-void Loop6CUI1_DisplayTransition(struct PlayerInterfaceProc* proc);
-void Loop6CUI1_Displayed(struct PlayerInterfaceProc* proc);
-void Loop6CUI1_HideTransition(struct PlayerInterfaceProc* proc);
-void sub_808CE50(struct PlayerInterfaceProc* proc);
+void MMB_Init(struct PlayerInterfaceProc* proc);
+void MMB_Loop_OnSideChange(struct PlayerInterfaceProc* proc);
+void MMB_Loop_SlideIn(struct PlayerInterfaceProc* proc);
+void MMB_Loop_Display(struct PlayerInterfaceProc* proc);
+void MMB_Loop_SlideOut(struct PlayerInterfaceProc* proc);
+void MMB_CheckForUnit(struct PlayerInterfaceProc* proc);
 
-struct ProcCmd CONST_DATA gUnknown_08A0190C[] = {
+struct ProcCmd CONST_DATA gProcScr_UnitDisplay_MinimugBox[] = {
     PROC_NAME("UI1"),
     PROC_15,
 
     PROC_SLEEP(0),
-    PROC_CALL(sub_808CCA0),
+
+    PROC_CALL(MMB_Init),
 
 PROC_LABEL(0),
+
     PROC_WHILE_EXISTS(gUnknown_0859A548),
 
-    PROC_REPEAT(Loop6CUI1_Hidden),
-    PROC_REPEAT(Loop6CUI1_DisplayTransition),
+    PROC_REPEAT(MMB_Loop_OnSideChange),
+    PROC_REPEAT(MMB_Loop_SlideIn),
 
     // fallthrough
 
 PROC_LABEL(2),
-    PROC_REPEAT(Loop6CUI1_Displayed),
+    PROC_REPEAT(MMB_Loop_Display),
 
     // fallthrough
 
 PROC_LABEL(3),
-    PROC_REPEAT(Loop6CUI1_HideTransition),
+    PROC_REPEAT(MMB_Loop_SlideOut),
 
     PROC_GOTO(0),
 
 PROC_LABEL(1),
-    PROC_CALL(sub_808CE50),
+    PROC_CALL(MMB_CheckForUnit),
 
     PROC_GOTO(2),
 
     PROC_END,
 };
 
-void Init6CUI2(struct PlayerInterfaceProc* proc);
-void Loop6CUI2(struct PlayerInterfaceProc* proc);
+void BurstDisplay_Init(struct PlayerInterfaceProc* proc);
+void BurstDisplay_Loop_Display(struct PlayerInterfaceProc* proc);
 
-struct ProcCmd CONST_DATA gUnknown_08A01994[] = {
+struct ProcCmd CONST_DATA gProcScr_UnitDisplay_Burst[] = {
     PROC_NAME("UI2"),
     PROC_15,
 
     PROC_SLEEP(0),
-    PROC_CALL(Init6CUI2),
-    PROC_REPEAT(Loop6CUI2),
+
+    PROC_CALL(BurstDisplay_Init),
+
+    PROC_REPEAT(BurstDisplay_Loop_Display),
 
     PROC_END,
 };
 
-void InitPlayerPhaseInterfaceMaybe(void);
+void InitPlayerPhaseInterface(void);
 
-struct ProcCmd CONST_DATA gUnknown_08A019C4[] = {
+struct ProcCmd CONST_DATA gProcScr_SideWindowMaker[] = {
     PROC_WHILE(DoesBMXFADEExist),
 
-    PROC_CALL(InitPlayerPhaseInterfaceMaybe),
+    PROC_CALL(InitPlayerPhaseInterface),
 
     PROC_END,
 };
 
-s8 gUnknown_08A019DC[5] = {
+s8 sGoalSlideInWidthLut[5] = {
     1, 3, 4, 5, 6
 };
 
-s8 gUnknown_08A019E1[3] = {
+s8 sGoalSlideOutWidthLut[3] = {
     3, 1, 0
 };
 
-void Init6CPI(struct PlayerInterfaceProc* proc);
-void Loop16CPI(struct PlayerInterfaceProc* proc);
-void Loop26CPI(struct PlayerInterfaceProc* proc);
-void Loop36CPI(struct PlayerInterfaceProc* proc);
-void Loop46CPI(struct PlayerInterfaceProc* proc);
+void GoalDisplay_Init(struct PlayerInterfaceProc* proc);
+void GoalDisplay_Loop_OnSideChange(struct PlayerInterfaceProc* proc);
+void GoalDisplay_Loop_SlideIn(struct PlayerInterfaceProc* proc);
+void GoalDisplay_Loop_Display(struct PlayerInterfaceProc* proc);
+void GoalDisplay_Loop_SlideOut(struct PlayerInterfaceProc* proc);
 
-struct ProcCmd CONST_DATA gUnknown_08A019E4[] = {
+struct ProcCmd CONST_DATA gProcScr_GoalDisplay[] = {
     PROC_NAME("PI"),
     PROC_15,
 
     PROC_SLEEP(0),
-    PROC_CALL(Init6CPI),
+
+    PROC_CALL(GoalDisplay_Init),
 
 PROC_LABEL(0),
 
     PROC_WHILE_EXISTS(gUnknown_0859A548),
 
-    PROC_REPEAT(Loop16CPI),
-    PROC_REPEAT(Loop26CPI),
-    PROC_REPEAT(Loop36CPI),
-    PROC_REPEAT(Loop46CPI),
+    PROC_REPEAT(GoalDisplay_Loop_OnSideChange),
+    PROC_REPEAT(GoalDisplay_Loop_SlideIn),
+    PROC_REPEAT(GoalDisplay_Loop_Display),
+    PROC_REPEAT(GoalDisplay_Loop_SlideOut),
 
     PROC_GOTO(0),
 
     PROC_END,
 };
 
-void sub_808D870(struct PlayerInterfaceProc* proc);
-s8 sub_808D814(void);
-void sub_808D97C(struct PlayerInterfaceProc* proc);
-void sub_808D9B8(struct PlayerInterfaceProc* proc);
-void sub_808D9FC(struct PlayerInterfaceProc* proc);
-void sub_808DAA0(struct PlayerInterfaceProc* proc);
+void MenuButtonDisp_Init(struct PlayerInterfaceProc* proc);
+s8 IsAnyPlayerSideWindowRetracting(void);
+void MenuButtonDisp_UpdateCursorPos(struct PlayerInterfaceProc* proc);
+void MenuButtonDisp_Loop_OnSlideIn(struct PlayerInterfaceProc* proc);
+void MenuButtonDisp_Loop_Display(struct PlayerInterfaceProc* proc);
+void MenuButtonDisp_Loop_OnSlideOut(struct PlayerInterfaceProc* proc);
 
-struct ProcCmd CONST_DATA gUnknown_08A01A44[] = {
+struct ProcCmd CONST_DATA gProcScr_PrepMap_MenuButtonDisplay[] = {
     PROC_15,
 
     PROC_SLEEP(0),
-    PROC_CALL(sub_808D870),
+
+    PROC_CALL(MenuButtonDisp_Init),
 
 PROC_LABEL(0),
 
     PROC_WHILE_EXISTS(gUnknown_0859A548),
 
-    PROC_WHILE(sub_808D814),
+    PROC_WHILE(IsAnyPlayerSideWindowRetracting),
 
-    PROC_CALL(sub_808D97C),
-    PROC_REPEAT(sub_808D9B8),
-    PROC_REPEAT(sub_808D9FC),
-    PROC_REPEAT(sub_808DAA0),
+    PROC_CALL(MenuButtonDisp_UpdateCursorPos),
+
+    PROC_REPEAT(MenuButtonDisp_Loop_OnSlideIn),
+    PROC_REPEAT(MenuButtonDisp_Loop_Display),
+    PROC_REPEAT(MenuButtonDisp_Loop_OnSlideOut),
 
     PROC_GOTO(0),
 
     PROC_END,
 };
 
-void DrawMinimugBoxMaybe(struct PlayerInterfaceProc*, struct Unit*);
+void DrawUnitDisplayHpOrStatus(struct PlayerInterfaceProc*, struct Unit*);
 
-int sub_808BBAC(int x, int y) {
+int GetWindowQuadrant(int x, int y) {
 
     if (x < 0) {
         if (y < 0) {
@@ -298,7 +306,7 @@ int sub_808BBAC(int x, int y) {
 
 }
 
-int GetCameraMovementSpeedMaybe() {
+int GetCursorQuadrant() {
     int cursorX;
     int camX;
     int cursorY;
@@ -334,7 +342,7 @@ int GetCameraMovementSpeedMaybe() {
     }
 }
 
-void sub_808BC10(s16* buffer, s16 hp, int tileBase) {
+void GetHpBarLeftTile(s16* buffer, s16 hp, int tileBase) {
     if (hp > 5) {
         hp = 5;
     }
@@ -344,7 +352,7 @@ void sub_808BC10(s16* buffer, s16 hp, int tileBase) {
     return;
 }
 
-void sub_808BC2C(s16* buffer, s16 hp, int tileBase) {
+void GetHpBarMidTiles(s16* buffer, s16 hp, int tileBase) {
     int i;
 
     int hpEighth = hp >> 3;
@@ -369,7 +377,7 @@ void sub_808BC2C(s16* buffer, s16 hp, int tileBase) {
     return;
 }
 
-void sub_808BC68(s16* buffer, s16 hp, int tileBase) {
+void GetHpBarRightTile(s16* buffer, s16 hp, int tileBase) {
     int base;
 
     if (hp >= 5) {
@@ -387,28 +395,28 @@ void sub_808BC68(s16* buffer, s16 hp, int tileBase) {
     return;
 }
 
-void sub_808BC94(s16* buffer, struct Unit* unit, int tileBase) {
+void DrawHpBar(s16* buffer, struct Unit* unit, int tileBase) {
     s16 hpCurrent = 50 * GetUnitCurrentHp(unit);
 
     s16 hpPercent = Div(hpCurrent, GetUnitMaxHp(unit));
 
-    sub_808BC10(buffer, hpPercent, tileBase);
+    GetHpBarLeftTile(buffer, hpPercent, tileBase);
 
-    sub_808BC2C(buffer + 1, hpPercent - 5, tileBase);
+    GetHpBarMidTiles(buffer + 1, hpPercent - 5, tileBase);
 
-    sub_808BC68(buffer + 6, hpPercent - 45, tileBase);
+    GetHpBarRightTile(buffer + 6, hpPercent - 45, tileBase);
 
     return;
 }
 
-void Loop6CUI1_DisplayTransition(struct PlayerInterfaceProc* proc) {
+void MMB_Loop_SlideIn(struct PlayerInterfaceProc* proc) {
 
     int tmIndex;
     int width;
 
-    int y = gUnknown_08A01828[proc->unk_50].yMinimug < 0 ? 0 : 14;
+    int y = sPlayerInterfaceConfigLut[proc->unk_50].yMinimug < 0 ? 0 : 14;
 
-    if (gUnknown_08A01828[proc->unk_50].xMinimug < 0) {
+    if (sPlayerInterfaceConfigLut[proc->unk_50].xMinimug < 0) {
         tmIndex = TILEMAP_INDEX(0, y);
 
         TileMap_FillRect(gBG0TilemapBuffer + tmIndex, 13, 6, 0);
@@ -423,11 +431,11 @@ void Loop6CUI1_DisplayTransition(struct PlayerInterfaceProc* proc) {
 
     tmIndex = TILEMAP_INDEX(0, y);
 
-    BG_EnableSyncByMask(3);
+    BG_EnableSyncByMask(BG0_SYNC_BIT | BG1_SYNC_BIT);
 
-    width = gUnknown_08A0189C[proc->unk_58];
+    width = sMMBSlideInWidthLut[proc->unk_58];
 
-    if (gUnknown_08A01828[proc->unk_50].xMinimug < 0) {
+    if (sPlayerInterfaceConfigLut[proc->unk_50].xMinimug < 0) {
         TileMap_CopyRect(gBmFrameTmap0 + (13 - width), gBG0TilemapBuffer + tmIndex, width, 6);
         TileMap_CopyRect(gUnknown_0200422C + (13 - width), gBG1TilemapBuffer + tmIndex, width, 6);
     } else {
@@ -443,22 +451,22 @@ void Loop6CUI1_DisplayTransition(struct PlayerInterfaceProc* proc) {
 
         Proc_Break(proc);
 
-        DrawMinimugBoxMaybe(proc, GetUnit(gBmMapUnit[gUnknown_0202BCB0.playerCursor.y][gUnknown_0202BCB0.playerCursor.x]));
+        DrawUnitDisplayHpOrStatus(proc, GetUnit(gBmMapUnit[gUnknown_0202BCB0.playerCursor.y][gUnknown_0202BCB0.playerCursor.x]));
     }
 
     return;
 }
 
-void Loop6CUI1_HideTransition(struct PlayerInterfaceProc* proc) {
+void MMB_Loop_SlideOut(struct PlayerInterfaceProc* proc) {
 
     int tmIndex;
     int width;
 
-    int y = gUnknown_08A01828[proc->unk_50].yMinimug < 0 ? 0 : 14;
+    int y = sPlayerInterfaceConfigLut[proc->unk_50].yMinimug < 0 ? 0 : 14;
 
     proc->unk_55 = 1;
 
-    if (gUnknown_08A01828[proc->unk_50].xMinimug < 0) {
+    if (sPlayerInterfaceConfigLut[proc->unk_50].xMinimug < 0) {
         tmIndex = TILEMAP_INDEX(0, y);
 
         TileMap_FillRect(gBG0TilemapBuffer + tmIndex, 13, 6, 0);
@@ -472,11 +480,11 @@ void Loop6CUI1_HideTransition(struct PlayerInterfaceProc* proc) {
 
     tmIndex = TILEMAP_INDEX(0, y);
 
-    BG_EnableSyncByMask(3);
+    BG_EnableSyncByMask(BG0_SYNC_BIT | BG1_SYNC_BIT);
 
-    width = gUnknown_08A018A0[proc->unk_58];
+    width = sMMBSlideOutWidthLut[proc->unk_58];
 
-    if (gUnknown_08A01828[proc->unk_50].xMinimug < 0) {
+    if (sPlayerInterfaceConfigLut[proc->unk_50].xMinimug < 0) {
         TileMap_CopyRect(gBmFrameTmap0 + (13 - width), gBG0TilemapBuffer + tmIndex, width, 6);
         TileMap_CopyRect(gUnknown_0200422C + (13 - width), gBG1TilemapBuffer + tmIndex, width, 6);
     } else {
@@ -487,9 +495,9 @@ void Loop6CUI1_HideTransition(struct PlayerInterfaceProc* proc) {
     proc->unk_58++;
 
     if (proc->unk_58 == 3) {
-        proc->unk_56 = 0;
+        proc->isRetracting = 0;
         proc->unk_58 = 0;
-        proc->unk_57 = -1;
+        proc->quadrant = -1;
 
         Proc_Break(proc);
     }
@@ -497,11 +505,11 @@ void Loop6CUI1_HideTransition(struct PlayerInterfaceProc* proc) {
     return;
 }
 
-void sub_808BFD4(struct PlayerInterfaceProc* proc) {
+void TerrainDisplay_Loop_SlideIn(struct PlayerInterfaceProc* proc) {
 
     int width;
 
-    if (gUnknown_08A01828[proc->unk_50].xTerrain < 0) {
+    if (sPlayerInterfaceConfigLut[proc->unk_50].xTerrain < 0) {
         TileMap_FillRect(gBG0TilemapBuffer + 0x1A0, 7, 7, 0);
         TileMap_FillRect(gBG1TilemapBuffer + 0x1A0, 7, 7, 0);
     } else {
@@ -509,11 +517,11 @@ void sub_808BFD4(struct PlayerInterfaceProc* proc) {
         TileMap_FillRect(gBG1TilemapBuffer + 0x1B7, 7, 7, 0);
     }
 
-    BG_EnableSyncByMask(3);
+    BG_EnableSyncByMask(BG0_SYNC_BIT | BG1_SYNC_BIT);
 
-    width = gUnknown_08A018A3[proc->unk_58] + 1;
+    width = sTerrainSlideInWidthLut[proc->unk_58] + 1;
 
-    if (gUnknown_08A01828[proc->unk_50].xTerrain < 0) {
+    if (sPlayerInterfaceConfigLut[proc->unk_50].xTerrain < 0) {
         TileMap_CopyRect(gBmFrameTmap0 + (327 - width), gBG0TilemapBuffer + 0x1A0, width, 7);
         TileMap_CopyRect(gUnknown_0200422C + (327 - width), gBG1TilemapBuffer + 0x1A0, width, 7);
     } else {
@@ -533,13 +541,13 @@ void sub_808BFD4(struct PlayerInterfaceProc* proc) {
     return;
 }
 
-void sub_808C100(struct PlayerInterfaceProc* proc) {
+void TerrainDisplay_Loop_SlideOut(struct PlayerInterfaceProc* proc) {
 
     int width;
 
     proc->unk_55 = 1;
 
-    if (gUnknown_08A01828[proc->unk_50].xTerrain < 0) {
+    if (sPlayerInterfaceConfigLut[proc->unk_50].xTerrain < 0) {
         TileMap_FillRect(gBG0TilemapBuffer + 0x1A0, 7, 7, 0);
         TileMap_FillRect(gBG1TilemapBuffer + 0x1A0, 7, 7, 0);
     } else {
@@ -547,11 +555,11 @@ void sub_808C100(struct PlayerInterfaceProc* proc) {
         TileMap_FillRect(gBG1TilemapBuffer + 0x1B7, 7, 7, 0);
     }
 
-    BG_EnableSyncByMask(3);
+    BG_EnableSyncByMask(BG0_SYNC_BIT | BG1_SYNC_BIT);
 
-    width = gUnknown_08A018A6[proc->unk_58];
+    width = sTerrainSlideOutWidthLut[proc->unk_58];
 
-    if (gUnknown_08A01828[proc->unk_50].xTerrain < 0) {
+    if (sPlayerInterfaceConfigLut[proc->unk_50].xTerrain < 0) {
         TileMap_CopyRect(gBmFrameTmap0 + (326 - width), gBG0TilemapBuffer + 0x1A0, width, 7);
         TileMap_CopyRect(gUnknown_0200422C + (326 - width), gBG1TilemapBuffer + 0x1A0, width, 7);
     } else {
@@ -564,7 +572,7 @@ void sub_808C100(struct PlayerInterfaceProc* proc) {
     if (proc->unk_58 == 3) {
         proc->unk_58 = 0;
         proc->unk_55 = 0;
-        proc->unk_56 = 0;
+        proc->isRetracting = 0;
 
         Proc_Break(proc);
     }
@@ -576,13 +584,13 @@ void sub_808C234(struct PlayerInterfaceProc* proc) {
 
     int x, y;
 
-    if (gUnknown_08A01828[proc->unk_50].xMinimug < 0) {
+    if (sPlayerInterfaceConfigLut[proc->unk_50].xMinimug < 0) {
         x = 0;
     } else {
         x = 18;
     }
 
-    if (gUnknown_08A01828[proc->unk_50].yMinimug < 0) {
+    if (sPlayerInterfaceConfigLut[proc->unk_50].yMinimug < 0) {
         y = 0;
     } else {
         y = 14;
@@ -590,7 +598,7 @@ void sub_808C234(struct PlayerInterfaceProc* proc) {
 
     TileMap_CopyRect(gBmFrameTmap0, gBG0TilemapBuffer + TILEMAP_INDEX(x, y), 13, 6);
 
-    BG_EnableSyncByMask(3);
+    BG_EnableSyncByMask(BG0_SYNC_BIT | BG1_SYNC_BIT);
 
     return;
 }
@@ -599,7 +607,7 @@ void sub_808C288(struct PlayerInterfaceProc* proc) {
 
     int x;
 
-    if (gUnknown_08A01828[proc->unk_50].xTerrain < 0) {
+    if (sPlayerInterfaceConfigLut[proc->unk_50].xTerrain < 0) {
         x = 0;
     } else {
         x = 23;
@@ -607,12 +615,12 @@ void sub_808C288(struct PlayerInterfaceProc* proc) {
 
     TileMap_CopyRect(gUnknown_02003FAC, gBG0TilemapBuffer + 0x1A0 + x, 7, 7);
 
-    BG_EnableSyncByMask(3);
+    BG_EnableSyncByMask(BG0_SYNC_BIT | BG1_SYNC_BIT);
 
     return;
 }
 
-void sub_808C2CC(int faction, int palId) {
+void GetMinimugFactionPalette(int faction, int palId) {
 
     u16* pal = NULL;
 
@@ -670,7 +678,7 @@ void sub_808C360(struct PlayerInterfaceProc* proc, s16* buffer, struct Unit* uni
     return;
 }
 
-void sub_808C388(s16* buffer, struct Unit* unit) {
+void MMB_DrawStatusText(s16* buffer, struct Unit* unit) {
     int offset;
 
     int tileIdx = 0x16F;
@@ -739,7 +747,7 @@ void sub_808C388(s16* buffer, struct Unit* unit) {
     return;
 }
 
-void DrawMinimugBoxMaybe(struct PlayerInterfaceProc* proc, struct Unit* unit) {
+void DrawUnitDisplayHpOrStatus(struct PlayerInterfaceProc* proc, struct Unit* unit) {
     s16 frameCount = proc->unk_44;
 
     if (unit->statusIndex == UNIT_STATUS_RECOVER) {
@@ -748,9 +756,9 @@ void DrawMinimugBoxMaybe(struct PlayerInterfaceProc* proc, struct Unit* unit) {
 
     if ((frameCount & 0x3F) == 0) {
         if ((frameCount & 0x40) != 0) {
-            sub_808C388(proc->unk_40, unit);
+            MMB_DrawStatusText(proc->unk_40, unit);
 
-            BG_EnableSyncByMask(1);
+            BG_EnableSyncByMask(BG0_SYNC_BIT);
         } else {
             if (GetUnitCurrentHp(unit) >= 100) {
                 StoreNumberStringOrDashesToSmallBuffer(0xFF);
@@ -772,7 +780,7 @@ void DrawMinimugBoxMaybe(struct PlayerInterfaceProc* proc, struct Unit* unit) {
 
             sub_808C360(proc, proc->unk_40, unit);
 
-            BG_EnableSyncByMask(1);
+            BG_EnableSyncByMask(BG0_SYNC_BIT);
         }
     }
 
@@ -788,16 +796,16 @@ void DrawMinimugBoxMaybe(struct PlayerInterfaceProc* proc, struct Unit* unit) {
         y = proc->unk_48 * 8;
 
         if (proc->unk_51 != 0xF0) {
-            CallARM_PushToSecondaryOAM(x2, y, gObject_8x8, proc->unk_51 + 0x000082E0);
+            CallARM_PushToSecondaryOAM(x2, y, gObject_8x8, proc->unk_51 + 0x82E0);
         }
 
-        CallARM_PushToSecondaryOAM(x + 0x18, y, gObject_8x8, proc->unk_52 + 0x000082E0);
+        CallARM_PushToSecondaryOAM(x + 0x18, y, gObject_8x8, proc->unk_52 + 0x82E0);
 
         if (proc->unk_53 != 0xF0) {
-            CallARM_PushToSecondaryOAM(x + 0x29, y, gObject_8x8, proc->unk_53 + 0x000082E0);
+            CallARM_PushToSecondaryOAM(x + 0x29, y, gObject_8x8, proc->unk_53 + 0x82E0);
         }
 
-        CallARM_PushToSecondaryOAM(x + 0x30, y, gObject_8x8, proc->unk_54 + 0x000082E0);
+        CallARM_PushToSecondaryOAM(x + 0x30, y, gObject_8x8, proc->unk_54 + 0x82E0);
     }
 
     return;
@@ -830,35 +838,35 @@ void InitMinimugBoxMaybe(struct PlayerInterfaceProc* proc, struct Unit* unit) {
 
     proc->unk_44 = 0;
 
-    if (gUnknown_08A01828[proc->unk_50].xMinimug < 0) {
+    if (sPlayerInterfaceConfigLut[proc->unk_50].xMinimug < 0) {
         proc->unk_46 = 5;
     } else {
         proc->unk_46 = 23;
     }
 
-    if (gUnknown_08A01828[proc->unk_50].yMinimug < 0) {
+    if (sPlayerInterfaceConfigLut[proc->unk_50].yMinimug < 0) {
         proc->unk_48 = 3;
     } else {
         proc->unk_48 = 17;
     }
 
-    DrawMinimugBoxMaybe(proc, unit);
+    DrawUnitDisplayHpOrStatus(proc, unit);
 
-    sub_808BC94(gUnknown_02003E36, unit, 0x1140);
+    DrawHpBar(gUnknown_02003E36, unit, 0x1140);
 
     CallARM_FillTileRect(gUnknown_0200422C, gTSA_MinimugBox, 0x3000);
 
-    sub_808C2CC(UNIT_FACTION(unit), 3);
+    GetMinimugFactionPalette(UNIT_FACTION(unit), 3);
 
     return;
 }
 
 int sub_808C710(int x, int y) {
-    int cursorQuadrant = GetCameraMovementSpeedMaybe();
+    int cursorQuadrant = GetCursorQuadrant();
 
     int ret = 1;
 
-    if ((y < 6) || ((y < 12) && (gUnknown_08A01828[cursorQuadrant].yGoal < 0))) {
+    if ((y < 6) || ((y < 12) && (sPlayerInterfaceConfigLut[cursorQuadrant].yGoal < 0))) {
         ret = 4;
     }
 
@@ -928,7 +936,7 @@ void sub_808C750(struct PlayerInterfaceProc* proc, struct Unit* unit) {
     proc->unk_46 = x + 1;
     proc->unk_48 = y + 3;
 
-    DrawMinimugBoxMaybe(proc, unit);
+    DrawUnitDisplayHpOrStatus(proc, unit);
 
     CallARM_FillTileRect(gBG1TilemapBuffer + TILEMAP_INDEX(x, y), gUnknown_08A0186C[unk], 0x3100);
 
@@ -936,9 +944,9 @@ void sub_808C750(struct PlayerInterfaceProc* proc, struct Unit* unit) {
 
     CallARM_FillTileRect(gBG1TilemapBuffer + TILEMAP_INDEX(x, (y + 4)), gUnknown_08A01884[unk], 0x3100);
 
-    BG_EnableSyncByMask(3);
+    BG_EnableSyncByMask(BG0_SYNC_BIT | BG1_SYNC_BIT);
 
-    sub_808C2CC(UNIT_FACTION(unit), 3);
+    GetMinimugFactionPalette(UNIT_FACTION(unit), 3);
 
     return;
 }
@@ -950,7 +958,7 @@ void sub_808C8EC(struct PlayerInterfaceProc* proc) {
 
         TileMap_FillRect(gBG1TilemapBuffer + TILEMAP_INDEX(proc->unk_3c, proc->unk_3d), proc->unk_3e, proc->unk_3f, 0);
 
-        BG_EnableSyncByMask(3);
+        BG_EnableSyncByMask(BG0_SYNC_BIT | BG1_SYNC_BIT);
 
         proc->unk_3e = 0;
         proc->unk_3f = 0;
@@ -959,7 +967,7 @@ void sub_808C8EC(struct PlayerInterfaceProc* proc) {
     return;
 }
 
-void sub_808C964(struct PlayerInterfaceProc* proc) {
+void DrawTerrainDisplayWindow(struct PlayerInterfaceProc* proc) {
     char* str;
     int num;
 
@@ -981,10 +989,10 @@ void sub_808C964(struct PlayerInterfaceProc* proc) {
 
     if (gUnknown_0880B90C[terrainId] > 0) {
         StoreNumberStringToSmallBuffer(gUnknown_0880C4BA[terrainId]);
-        sub_8013138(gUnknown_02003FAC + 0x85, gUnknown_02028E44+7,0x00002128, 2);
+        sub_8013138(gUnknown_02003FAC + 0x85, gUnknown_02028E44+7, 0x2128, 2);
 
         StoreNumberStringToSmallBuffer(gUnknown_0880C479[terrainId]);
-        sub_8013138(gUnknown_02003FAC + 0xA5, gUnknown_02028E44+7, 0x00002128, 2);
+        sub_8013138(gUnknown_02003FAC + 0xA5, gUnknown_02028E44+7, 0x2128, 2);
     }
 
     switch (terrainId) {
@@ -998,7 +1006,7 @@ void sub_808C964(struct PlayerInterfaceProc* proc) {
                 CallARM_FillTileRect(gUnknown_020040AE + 0x23,gUnknown_08A176B4, 0x100);
             } else {
                 StoreNumberStringToSmallBuffer(num);
-                sub_8013138(gUnknown_020040AE + 0x24, gUnknown_02028E44+7, 0x00002128, 2);
+                sub_8013138(gUnknown_020040AE + 0x24, gUnknown_02028E44+7, 0x2128, 2);
             }
 
             break;
@@ -1009,7 +1017,7 @@ void sub_808C964(struct PlayerInterfaceProc* proc) {
             CallARM_FillTileRect(gUnknown_02003FAC + 0x81, gTSA_TerrainBox_Ballistae, 0x100);
 
             StoreNumberStringToSmallBuffer(GetObstacleHpAt(gUnknown_0202BCB0.playerCursor.x, gUnknown_0202BCB0.playerCursor.y));
-            sub_8013138(gUnknown_02003FAC + 0x85, gUnknown_02028E44+7, 0x00002128, 2);
+            sub_8013138(gUnknown_02003FAC + 0x85, gUnknown_02028E44+7, 0x2128, 2);
 
             break;
 
@@ -1020,9 +1028,9 @@ void sub_808C964(struct PlayerInterfaceProc* proc) {
     return;
 }
 
-void sub_808CB34(struct PlayerInterfaceProc* proc) {
-    proc->unk_57 = -1;
-    proc->unk_56 = 0;
+void TerrainDisplay_Init(struct PlayerInterfaceProc* proc) {
+    proc->quadrant = -1;
+    proc->isRetracting = 0;
     proc->unk_58 = 0;
     proc->unk_50 = 1;
 
@@ -1031,81 +1039,82 @@ void sub_808CB34(struct PlayerInterfaceProc* proc) {
     return;
 }
 
-void sub_808CB5C(struct PlayerInterfaceProc* proc) {
+void TerrainDisplay_Loop_OnSideChange(struct PlayerInterfaceProc* proc) {
     int quadrant;
     struct PlayerInterfaceProc* ui1Proc;
     struct PlayerInterfaceProc* piProc;
 
     proc->unk_55 = 1;
 
-    proc->unk_50 = GetCameraMovementSpeedMaybe();
+    proc->unk_50 = GetCursorQuadrant();
 
-    quadrant = sub_808BBAC(gUnknown_08A01828[proc->unk_50].xTerrain, gUnknown_08A01828[proc->unk_50].yTerrain);
+    quadrant = GetWindowQuadrant(sPlayerInterfaceConfigLut[proc->unk_50].xTerrain, sPlayerInterfaceConfigLut[proc->unk_50].yTerrain);
 
-    ui1Proc = Proc_Find(gUnknown_08A0190C);
+    ui1Proc = Proc_Find(gProcScr_UnitDisplay_MinimugBox);
 
-    if ((ui1Proc) && (ui1Proc->unk_57 > -1) && (ui1Proc->unk_57 == quadrant)) {
+    if ((ui1Proc) && (ui1Proc->quadrant > -1) && (ui1Proc->quadrant == quadrant)) {
         return;
     }
 
-    piProc = Proc_Find(gUnknown_08A019E4);
+    piProc = Proc_Find(gProcScr_GoalDisplay);
 
     // BUG?
-    if ((ui1Proc) && (piProc->unk_57 > -1) && (piProc->unk_57 == quadrant)) {
+    if ((ui1Proc) && (piProc->quadrant > -1) && (piProc->quadrant == quadrant)) {
         return;
     }
 
-    proc->unk_57 = quadrant;
+    proc->quadrant = quadrant;
 
-    sub_808C964(proc);
+    DrawTerrainDisplayWindow(proc);
 
-    proc->unk_4e = gUnknown_0202BCB0.playerCursor.x;
-    proc->unk_4f = gUnknown_0202BCB0.playerCursor.y;
+    proc->xCursor = gUnknown_0202BCB0.playerCursor.x;
+    proc->yCursor = gUnknown_0202BCB0.playerCursor.y;
 
     Proc_Break(proc);
 
     return;
 }
 
-void sub_808CC00(struct PlayerInterfaceProc* proc) {
+void TerrainDisplay_Loop_Display(struct PlayerInterfaceProc* proc) {
 
-    proc->unk_4c = proc->unk_4e;
-    proc->unk_4d = proc->unk_4f;
+    proc->xCursorPrev = proc->xCursor;
+    proc->yCursorPrev = proc->yCursor;
 
-    proc->unk_4e = gUnknown_0202BCB0.playerCursor.x;
-    proc->unk_4f = gUnknown_0202BCB0.playerCursor.y;
+    proc->xCursor = gUnknown_0202BCB0.playerCursor.x;
+    proc->yCursor = gUnknown_0202BCB0.playerCursor.y;
 
-    if ((proc->unk_4e == proc->unk_4c) && (proc->unk_4f == proc->unk_4d)) {
+    if ((proc->xCursor == proc->xCursorPrev) && (proc->yCursor == proc->yCursorPrev)) {
         return;
     }
 
     if (!Proc_Find(gUnknown_0859A548)) {
-        int cursorQuadrant = GetCameraMovementSpeedMaybe();
+        int cursorQuadrant = GetCursorQuadrant();
 
-        if ((cursorQuadrant == proc->unk_50) || ((gUnknown_08A01828[cursorQuadrant].xTerrain == gUnknown_08A01828[proc->unk_50].xTerrain) && (gUnknown_08A01828[cursorQuadrant].yTerrain == gUnknown_08A01828[proc->unk_50].yTerrain))) {
-            sub_808C964(proc);
+        if ((cursorQuadrant == proc->unk_50) || ((sPlayerInterfaceConfigLut[cursorQuadrant].xTerrain == sPlayerInterfaceConfigLut[proc->unk_50].xTerrain) && (sPlayerInterfaceConfigLut[cursorQuadrant].yTerrain == sPlayerInterfaceConfigLut[proc->unk_50].yTerrain))) {
+            DrawTerrainDisplayWindow(proc);
             sub_808C288(proc);
             return;
 
         }
     }
 
-    proc->unk_56 = 1;
+    proc->isRetracting = 1;
+
     Proc_Break(proc);
 
     return;
 }
 
-void sub_808CCA0(struct PlayerInterfaceProc* proc) {
-    proc->unk_57 = -1;
+void MMB_Init(struct PlayerInterfaceProc* proc) {
+    proc->quadrant = -1;
     Text_Allocate(proc->unk_2c, 7);
     proc->unk_58 = 0;
-    proc->unk_56 = 0;
+    proc->isRetracting = 0;
 
     return;
 }
 
-void Loop6CUI1_Hidden(struct PlayerInterfaceProc* proc) {
+void MMB_Loop_OnSideChange(struct PlayerInterfaceProc* proc) {
     int quadrant;
     struct PlayerInterfaceProc* tiProc;
 
@@ -1117,64 +1126,67 @@ void Loop6CUI1_Hidden(struct PlayerInterfaceProc* proc) {
 
     proc->unk_55 = 1;
 
-    proc->unk_50 = GetCameraMovementSpeedMaybe();
+    proc->unk_50 = GetCursorQuadrant();
 
-    quadrant = sub_808BBAC(gUnknown_08A01828[proc->unk_50].xMinimug, gUnknown_08A01828[proc->unk_50].yMinimug);
+    quadrant = GetWindowQuadrant(sPlayerInterfaceConfigLut[proc->unk_50].xMinimug, sPlayerInterfaceConfigLut[proc->unk_50].yMinimug);
 
-    tiProc = Proc_Find(gUnknown_08A018AC);
+    tiProc = Proc_Find(gProcScr_TerrainDisplay);
 
-    if (((!tiProc) || (tiProc->unk_57 < 0)) || (tiProc->unk_57 != quadrant)) {
-        proc->unk_57 = quadrant;
-
-        proc->unk_4e = gUnknown_0202BCB0.playerCursor.x;
-        proc->unk_4f = gUnknown_0202BCB0.playerCursor.y;
-
-        InitMinimugBoxMaybe(proc, unit);
-
-        Proc_Break(proc);
-    }
-
-    return;
-}
-
-void Loop6CUI1_Displayed(struct PlayerInterfaceProc* proc) {
-
-    struct Unit* unit = GetUnit(gBmMapUnit[gUnknown_0202BCB0.playerCursor.y][gUnknown_0202BCB0.playerCursor.x]);
-
-    proc->unk_44++;
-
-    DrawMinimugBoxMaybe(proc, unit);
-
-    if ((proc->unk_44 & 0x3F) == 0) {
-        sub_808C234(proc);
-    }
-
-    proc->unk_4c = proc->unk_4e;
-    proc->unk_4d = proc->unk_4f;
-
-    proc->unk_4e = gUnknown_0202BCB0.playerCursor.x;
-    proc->unk_4f = gUnknown_0202BCB0.playerCursor.y;
-
-    if ((proc->unk_4e == proc->unk_4c) && (proc->unk_4f == proc->unk_4d)) {
+    if ((tiProc) && (tiProc->quadrant > -1) && (tiProc->quadrant == quadrant)) {
         return;
     }
 
-    if (unit && !Proc_Find(gUnknown_0859A548)) {
-        int cursorQuadrant = GetCameraMovementSpeedMaybe();
+    proc->quadrant = quadrant;
 
-        if ((cursorQuadrant == proc->unk_50) || ((gUnknown_08A01828[cursorQuadrant].xMinimug == gUnknown_08A01828[proc->unk_50].xMinimug) && (gUnknown_08A01828[cursorQuadrant].yMinimug == gUnknown_08A01828[proc->unk_50].yMinimug))) {
-            Proc_Goto(proc, 1);
-            return;
-        }
-    }
+    proc->xCursor = gUnknown_0202BCB0.playerCursor.x;
+    proc->yCursor = gUnknown_0202BCB0.playerCursor.y;
 
-    proc->unk_56 = 1;
+    InitMinimugBoxMaybe(proc, unit);
+
     Proc_Break(proc);
 
     return;
 }
 
-void sub_808CE50(struct PlayerInterfaceProc* proc) {
+void MMB_Loop_Display(struct PlayerInterfaceProc* proc) {
+
+    struct Unit* unit = GetUnit(gBmMapUnit[gUnknown_0202BCB0.playerCursor.y][gUnknown_0202BCB0.playerCursor.x]);
+
+    proc->unk_44++;
+
+    DrawUnitDisplayHpOrStatus(proc, unit);
+
+    if ((proc->unk_44 & 0x3F) == 0) {
+        sub_808C234(proc);
+    }
+
+    proc->xCursorPrev = proc->xCursor;
+    proc->yCursorPrev = proc->yCursor;
+
+    proc->xCursor = gUnknown_0202BCB0.playerCursor.x;
+    proc->yCursor = gUnknown_0202BCB0.playerCursor.y;
+
+    if ((proc->xCursor == proc->xCursorPrev) && (proc->yCursor == proc->yCursorPrev)) {
+        return;
+    }
+
+    if (unit && !Proc_Find(gUnknown_0859A548)) {
+        int cursorQuadrant = GetCursorQuadrant();
+
+        if ((cursorQuadrant == proc->unk_50) || ((sPlayerInterfaceConfigLut[cursorQuadrant].xMinimug == sPlayerInterfaceConfigLut[proc->unk_50].xMinimug) && (sPlayerInterfaceConfigLut[cursorQuadrant].yMinimug == sPlayerInterfaceConfigLut[proc->unk_50].yMinimug))) {
+            Proc_Goto(proc, 1);
+            return;
+        }
+    }
+
+    proc->isRetracting = 1;
+
+    Proc_Break(proc);
+
+    return;
+}
+
+void MMB_CheckForUnit(struct PlayerInterfaceProc* proc) {
 
     struct Unit* unit = GetUnit(gBmMapUnit[gUnknown_0202BCB0.playerCursor.y][gUnknown_0202BCB0.playerCursor.x]);
 
@@ -1188,7 +1200,7 @@ void sub_808CE50(struct PlayerInterfaceProc* proc) {
     return;
 }
 
-void Init6CUI2(struct PlayerInterfaceProc* proc) {
+void BurstDisplay_Init(struct PlayerInterfaceProc* proc) {
 
     Text_Allocate(proc->unk_2c, 7);
     proc->unk_4b = 0;
@@ -1196,12 +1208,12 @@ void Init6CUI2(struct PlayerInterfaceProc* proc) {
     proc->unk_58 = 0;
     proc->unk_3e = 0;
     proc->unk_3f = 0;
-    proc->unk_56 = 0;
+    proc->isRetracting = 0;
 
     return;
 }
 
-void Loop6CUI2(struct PlayerInterfaceProc* proc) {
+void BurstDisplay_Loop_Display(struct PlayerInterfaceProc* proc) {
     struct PlayerInterfaceProc* tiProc;
     struct PlayerInterfaceProc* piProc;
 
@@ -1220,7 +1232,7 @@ void Loop6CUI2(struct PlayerInterfaceProc* proc) {
         return;
     }
 
-    tiProc = Proc_Find(gUnknown_08A018AC);
+    tiProc = Proc_Find(gProcScr_TerrainDisplay);
 
     if ((tiProc) && (tiProc->unk_55 != 0)) {
         if (proc->unk_58 < 4) {
@@ -1229,7 +1241,7 @@ void Loop6CUI2(struct PlayerInterfaceProc* proc) {
         return;
     }
 
-    piProc = Proc_Find(gUnknown_08A019E4);
+    piProc = Proc_Find(gProcScr_GoalDisplay);
 
     if ((piProc) && (piProc->unk_55 != 0)) {
 
@@ -1257,13 +1269,13 @@ void Loop6CUI2(struct PlayerInterfaceProc* proc) {
             proc->unk_55 = 0;
         }
 
-        DrawMinimugBoxMaybe(proc, GetUnit(proc->unk_4b));
+        DrawUnitDisplayHpOrStatus(proc, GetUnit(proc->unk_4b));
     }
 
     return;
 }
 
-void InitPlayerPhaseInterfaceMaybe() {
+void InitPlayerPhaseInterface() {
 
     gLCDControlBuffer.dispcnt.win0_on = 0;
     gLCDControlBuffer.dispcnt.win1_on = 0;
@@ -1299,41 +1311,41 @@ void InitPlayerPhaseInterfaceMaybe() {
 
     sub_8003D20();
 
-    if (gRAMChapterData.unk40_2 == 0) {
-        Proc_Start(gUnknown_08A018AC, PROC_TREE_3);
+    if (gRAMChapterData.cfgDisableTerrainDisplay == 0) {
+        Proc_Start(gProcScr_TerrainDisplay, PROC_TREE_3);
     }
 
     if (gUnknown_0202BCB0.gameStateBits & 0x10) {
-        Proc_Start(gUnknown_08A01A44, PROC_TREE_3);
+        Proc_Start(gProcScr_PrepMap_MenuButtonDisplay, PROC_TREE_3);
     } else {
-        if ((gRAMChapterData.unk42_1 == 0) && (CheckEventId(0x66) == 0)) {
-            Proc_Start(gUnknown_08A019E4, PROC_TREE_3);
+        if ((gRAMChapterData.cfgDisableGoalDisplay == 0) && (CheckEventId(0x66) == 0)) {
+            Proc_Start(gProcScr_GoalDisplay, PROC_TREE_3);
         }
     }
 
-    if (gRAMChapterData.unk40_3 == 0) {
-        Proc_Start(gUnknown_08A0190C, PROC_TREE_3);
+    if (gRAMChapterData.cfgUnitDisplayType == 0) {
+        Proc_Start(gProcScr_UnitDisplay_MinimugBox, PROC_TREE_3);
     }
 
-    if (gRAMChapterData.unk40_3 == 1) {
-        Proc_Start(gUnknown_08A01994, PROC_TREE_3);
+    if (gRAMChapterData.cfgUnitDisplayType == 1) {
+        Proc_Start(gProcScr_UnitDisplay_Burst, PROC_TREE_3);
     }
 
     return;
 }
 
-void New6CPPInterfaceConstructor() {
-    Proc_Start(gUnknown_08A019C4, PROC_TREE_3);
+void StartPlayerPhaseSideWindows() {
+    Proc_Start(gProcScr_SideWindowMaker, PROC_TREE_3);
     return;
 }
 
-void DeletePlayerPhaseInterface6Cs() {
+void EndPlayerPhaseSideWindows() {
 
-    Proc_EndEach(gUnknown_08A0190C);
-    Proc_EndEach(gUnknown_08A01994);
-    Proc_EndEach(gUnknown_08A018AC);
-    Proc_EndEach(gUnknown_08A019E4);
-    Proc_EndEach(gUnknown_08A01A44);
+    Proc_EndEach(gProcScr_UnitDisplay_MinimugBox);
+    Proc_EndEach(gProcScr_UnitDisplay_Burst);
+    Proc_EndEach(gProcScr_TerrainDisplay);
+    Proc_EndEach(gProcScr_GoalDisplay);
+    Proc_EndEach(gProcScr_PrepMap_MenuButtonDisplay);
 
     SetDefaultColorEffects();
 
@@ -1394,7 +1406,7 @@ void sub_808D200(struct PlayerInterfaceProc* proc) {
     return;
 }
 
-void Init6CPI(struct PlayerInterfaceProc* proc) {
+void GoalDisplay_Init(struct PlayerInterfaceProc* proc) {
     int goalTextId;
     int goalWindowType;
     int turnNumber;
@@ -1403,9 +1415,9 @@ void Init6CPI(struct PlayerInterfaceProc* proc) {
     struct TextHandle* th;
 
     proc->unk_58 = 0;
-    proc->unk_56 = 0;
+    proc->isRetracting = 0;
     proc->unk_50 = 0;
-    proc->unk_57 = -1;
+    proc->quadrant = -1;
 
     Text_Init(&proc->unk_2c[0], 8);
     Text_Init(&proc->unk_2c[1], 8);
@@ -1493,7 +1505,7 @@ void Init6CPI(struct PlayerInterfaceProc* proc) {
     return;
 }
 
-void Loop16CPI(struct PlayerInterfaceProc* proc) {
+void GoalDisplay_Loop_OnSideChange(struct PlayerInterfaceProc* proc) {
 
     int quadrant;
     struct PlayerInterfaceProc* tiProc;
@@ -1501,25 +1513,25 @@ void Loop16CPI(struct PlayerInterfaceProc* proc) {
     proc->unk_58 = 0;
     proc->unk_55 = 1;
 
-    proc->unk_50 = GetCameraMovementSpeedMaybe();
+    proc->unk_50 = GetCursorQuadrant();
 
-    quadrant = sub_808BBAC(gUnknown_08A01828[proc->unk_50].xGoal, gUnknown_08A01828[proc->unk_50].yGoal);
+    quadrant = GetWindowQuadrant(sPlayerInterfaceConfigLut[proc->unk_50].xGoal, sPlayerInterfaceConfigLut[proc->unk_50].yGoal);
 
-    tiProc = Proc_Find(gUnknown_08A018AC);
+    tiProc = Proc_Find(gProcScr_TerrainDisplay);
 
-    if ((tiProc) && (tiProc->unk_57 > -1) && (tiProc->unk_57 == quadrant)) {
+    if ((tiProc) && (tiProc->quadrant > -1) && (tiProc->quadrant == quadrant)) {
         return;
     }
 
-    proc->unk_57 = quadrant;
+    proc->quadrant = quadrant;
 
     sub_808D200(proc);
 
-    proc->unk_4e = gUnknown_0202BCB0.playerCursor.x;
-    proc->unk_4f = gUnknown_0202BCB0.playerCursor.y;
+    proc->xCursor = gUnknown_0202BCB0.playerCursor.x;
+    proc->yCursor = gUnknown_0202BCB0.playerCursor.y;
 
-    proc->unk_4c = proc->unk_4e;
-    proc->unk_4d = proc->unk_4f;
+    proc->xCursorPrev = proc->xCursor;
+    proc->yCursorPrev = proc->yCursor;
 
     Proc_Break(proc);
 
@@ -1530,8 +1542,8 @@ void Loop16CPI(struct PlayerInterfaceProc* proc) {
 
 void sub_808D514(int param_1, int param_2, int param_3) {
 
-    int x = gUnknown_08A01828[param_1].xGoal;
-    int y = gUnknown_08A01828[param_1].yGoal;
+    int x = sPlayerInterfaceConfigLut[param_1].xGoal;
+    int y = sPlayerInterfaceConfigLut[param_1].yGoal;
 
     if ((x < 0) && (y < 0)) {
         TileMap_FillRect(gBG1TilemapBuffer, 12, 6, 0);
@@ -1565,7 +1577,7 @@ void sub_808D514(int param_1, int param_2, int param_3) {
         TileMap_CopyRect(gUnknown_02004054, gBG0TilemapBuffer + 0x1D3 + TILEMAP_INDEX((1 - param_3), (20 - param_2)) - 0x1C0, 12, param_2);
     }
 
-    BG_EnableSyncByMask(3);
+    BG_EnableSyncByMask(BG0_SYNC_BIT | BG1_SYNC_BIT);
 
     return;
 }
@@ -1583,7 +1595,7 @@ void sub_808D514(int param_1, int param_2, int param_3) {
         push {r5, r6, r7}\n\
         adds r7, r1, #0\n\
         mov sl, r2\n\
-        ldr r1, _0808D69C  @ gUnknown_08A01828\n\
+        ldr r1, _0808D69C  @ sPlayerInterfaceConfigLut\n\
         lsls r0, r0, #3\n\
         adds r0, r0, r1\n\
         movs r1, #4\n\
@@ -1759,7 +1771,7 @@ void sub_808D514(int param_1, int param_2, int param_3) {
         pop {r0}\n\
         bx r0\n\
         .align 2, 0\n\
-    _0808D69C: .4byte gUnknown_08A01828\n\
+    _0808D69C: .4byte sPlayerInterfaceConfigLut\n\
     _0808D6A0: .4byte gBG1TilemapBuffer\n\
     _0808D6A4: .4byte gBG0TilemapBuffer\n\
     _0808D6A8: .4byte gUnknown_02004254\n\
@@ -1779,8 +1791,8 @@ void sub_808D514(int param_1, int param_2, int param_3) {
 
 #endif // NONMATCHING
 
-void Loop26CPI(struct PlayerInterfaceProc* proc) {
-    int unk = gUnknown_08A019DC[proc->unk_58];
+void GoalDisplay_Loop_SlideIn(struct PlayerInterfaceProc* proc) {
+    int unk = sGoalSlideInWidthLut[proc->unk_58];
 
     sub_808D514(proc->unk_50, unk, proc->unk_44);
 
@@ -1796,12 +1808,12 @@ void Loop26CPI(struct PlayerInterfaceProc* proc) {
     return;
 }
 
-void Loop46CPI(struct PlayerInterfaceProc* proc) {
+void GoalDisplay_Loop_SlideOut(struct PlayerInterfaceProc* proc) {
     int unk;
 
     proc->unk_55 = 1;
 
-    unk = gUnknown_08A019E1[proc->unk_58];
+    unk = sGoalSlideOutWidthLut[proc->unk_58];
 
     sub_808D514(proc->unk_50, unk, proc->unk_44);
 
@@ -1810,8 +1822,8 @@ void Loop46CPI(struct PlayerInterfaceProc* proc) {
     if (proc->unk_58 == 3) {
         proc->unk_58 = 0;
         proc->unk_55 = 0;
-        proc->unk_56 = 0;
-        proc->unk_57 = -1;
+        proc->isRetracting = 0;
+        proc->quadrant = -1;
 
         Proc_Break(proc);
     }
@@ -1831,76 +1843,76 @@ void sub_808D780() {
     return;
 }
 
-void Loop36CPI(struct PlayerInterfaceProc* proc) {
+void GoalDisplay_Loop_Display(struct PlayerInterfaceProc* proc) {
 
-    proc->unk_4c = proc->unk_4e;
-    proc->unk_4d = proc->unk_4f;
+    proc->xCursorPrev = proc->xCursor;
+    proc->yCursorPrev = proc->yCursor;
 
-    proc->unk_4e = gUnknown_0202BCB0.playerCursor.x;
-    proc->unk_4f = gUnknown_0202BCB0.playerCursor.y;
+    proc->xCursor = gUnknown_0202BCB0.playerCursor.x;
+    proc->yCursor = gUnknown_0202BCB0.playerCursor.y;
 
-    if (proc->unk_4e == proc->unk_4c && proc->unk_4f == proc->unk_4d) {
+    if (proc->xCursor == proc->xCursorPrev && proc->yCursor == proc->yCursorPrev) {
         return;
     }
 
     if (!Proc_Find(gUnknown_0859A548)) {
 
-        int cursorQuadrant = GetCameraMovementSpeedMaybe();
+        int cursorQuadrant = GetCursorQuadrant();
         int quadrant = proc->unk_50;
 
         if (cursorQuadrant == quadrant) {
             return;
         }
 
-        if ((gUnknown_08A01828[cursorQuadrant].xGoal == gUnknown_08A01828[quadrant].xGoal) && (gUnknown_08A01828[cursorQuadrant].yGoal == gUnknown_08A01828[quadrant].yGoal)) {
+        if ((sPlayerInterfaceConfigLut[cursorQuadrant].xGoal == sPlayerInterfaceConfigLut[quadrant].xGoal) && (sPlayerInterfaceConfigLut[cursorQuadrant].yGoal == sPlayerInterfaceConfigLut[quadrant].yGoal)) {
             return;
         }
     }
 
-    proc->unk_56 = 1;
+    proc->isRetracting = 1;
 
     Proc_Break(proc);
 
     return;
 }
 
-s8 sub_808D814() {
+s8 IsAnyPlayerSideWindowRetracting() {
     struct PlayerInterfaceProc* proc;
 
-    proc = Proc_Find(gUnknown_08A0190C);
+    proc = Proc_Find(gProcScr_UnitDisplay_MinimugBox);
 
-    if ((proc) && (proc->unk_56 != 0)) {
+    if ((proc) && (proc->isRetracting != 0)) {
         return 1;
     }
 
-    proc = Proc_Find(gUnknown_08A018AC);
+    proc = Proc_Find(gProcScr_TerrainDisplay);
 
-    if ((proc) && (proc->unk_56 != 0)) {
+    if ((proc) && (proc->isRetracting != 0)) {
         return 1;
     }
 
-    proc = Proc_Find(gUnknown_08A019E4);
+    proc = Proc_Find(gProcScr_GoalDisplay);
 
-    if ((proc) && (proc->unk_56 != 0)) {
+    if ((proc) && (proc->isRetracting != 0)) {
         return 1;
     }
 
     return 0;
 }
 
-void sub_808D870(struct PlayerInterfaceProc* proc) {
+void MenuButtonDisp_Init(struct PlayerInterfaceProc* proc) {
     CopyDataWithPossibleUncomp(gUnknown_08A199C8, OBJ_VRAM1 + 0x1000);
 
     proc->unk_46 = 136;
     proc->unk_48 = 140;
-    proc->unk_56 = 0;
+    proc->isRetracting = 0;
 
     return;
 }
 
 void sub_808D8A0(struct PlayerInterfaceProc* proc, int param_2, int param_3) {
-    int x = gUnknown_08A01828[param_2].xGoal;
-    int y = gUnknown_08A01828[param_2].yGoal;
+    int x = sPlayerInterfaceConfigLut[param_2].xGoal;
+    int y = sPlayerInterfaceConfigLut[param_2].yGoal;
 
     if ((x < 0) && (y < 0)) {
         proc->unk_46 = 8;
@@ -1932,21 +1944,21 @@ void sub_808D924(int param_1, int param_2) {
     return;
 }
 
-void sub_808D97C(struct PlayerInterfaceProc* proc) {
+void MenuButtonDisp_UpdateCursorPos(struct PlayerInterfaceProc* proc) {
 
-    proc->unk_50 = GetCameraMovementSpeedMaybe();
+    proc->unk_50 = GetCursorQuadrant();
 
     sub_808D8A0(proc, proc->unk_50, proc->unk_58);
 
     proc->unk_58 = 0;
 
-    proc->unk_4e = gUnknown_0202BCB0.playerCursor.x;
-    proc->unk_4f = gUnknown_0202BCB0.playerCursor.y;
+    proc->xCursor = gUnknown_0202BCB0.playerCursor.x;
+    proc->yCursor = gUnknown_0202BCB0.playerCursor.y;
 
     return;
 }
 
-void sub_808D9B8(struct PlayerInterfaceProc* proc) {
+void MenuButtonDisp_Loop_OnSlideIn(struct PlayerInterfaceProc* proc) {
 
     proc->unk_58 += 4;
 
@@ -1955,47 +1967,47 @@ void sub_808D9B8(struct PlayerInterfaceProc* proc) {
 
     if (proc->unk_58 == 24) {
         Proc_Break(proc);
-        proc->unk_56 = 0;
+        proc->isRetracting = 0;
     }
 
     return;
 }
 
-void sub_808D9FC(struct PlayerInterfaceProc* proc) {
+void MenuButtonDisp_Loop_Display(struct PlayerInterfaceProc* proc) {
 
     sub_808D924(proc->unk_46, proc->unk_48);
 
-    proc->unk_4c = proc->unk_4e;
-    proc->unk_4d = proc->unk_4f;
+    proc->xCursorPrev = proc->xCursor;
+    proc->yCursorPrev = proc->yCursor;
 
-    proc->unk_4e = gUnknown_0202BCB0.playerCursor.x;
-    proc->unk_4f = gUnknown_0202BCB0.playerCursor.y;
+    proc->xCursor = gUnknown_0202BCB0.playerCursor.x;
+    proc->yCursor = gUnknown_0202BCB0.playerCursor.y;
 
-    if (proc->unk_4e == proc->unk_4c && proc->unk_4f == proc->unk_4d) {
+    if (proc->xCursor == proc->xCursorPrev && proc->yCursor == proc->yCursorPrev) {
         return;
     }
 
     if (!Proc_Find(gUnknown_0859A548)) {
-        int cursorQuadrant = GetCameraMovementSpeedMaybe();
+        int cursorQuadrant = GetCursorQuadrant();
         int quadrant = proc->unk_50;
 
         if (cursorQuadrant == quadrant) {
             return;
         }
 
-        if ((gUnknown_08A01828[cursorQuadrant].xGoal == gUnknown_08A01828[quadrant].xGoal) && (gUnknown_08A01828[cursorQuadrant].yGoal == gUnknown_08A01828[quadrant].yGoal)) {
+        if ((sPlayerInterfaceConfigLut[cursorQuadrant].xGoal == sPlayerInterfaceConfigLut[quadrant].xGoal) && (sPlayerInterfaceConfigLut[cursorQuadrant].yGoal == sPlayerInterfaceConfigLut[quadrant].yGoal)) {
             return;
         }
     }
 
-    proc->unk_56 = 1;
+    proc->isRetracting = 1;
 
     Proc_Break(proc);
 
     return;
 }
 
-void sub_808DAA0(struct PlayerInterfaceProc* proc) {
+void MenuButtonDisp_Loop_OnSlideOut(struct PlayerInterfaceProc* proc) {
 
     proc->unk_58 -= 4;
 
@@ -2004,7 +2016,7 @@ void sub_808DAA0(struct PlayerInterfaceProc* proc) {
     sub_808D924(proc->unk_46, proc->unk_48);
 
     if (proc->unk_58 == 0) {
-        proc->unk_56 = 0;
+        proc->isRetracting = 0;
 
         Proc_Break(proc);
     }

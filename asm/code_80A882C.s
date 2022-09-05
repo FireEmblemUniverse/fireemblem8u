@@ -24625,7 +24625,7 @@ MakeShop: @ 0x080B4240
 	adds r4, r3, #0
 	lsls r2, r2, #0x18
 	lsrs r5, r2, #0x18
-	bl DeletePlayerPhaseInterface6Cs
+	bl EndPlayerPhaseSideWindows
 	cmp r4, #0
 	beq _080B4268
 	ldr r0, _080B4264  @ gUnknown_08A39210
