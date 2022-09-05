@@ -618,15 +618,15 @@ void sub_808C2CC(int faction, int palId) {
 
     switch (faction) {
         case FACTION_BLUE:
-            pal = gUnknown_08A1738C;
+            pal = gPal_PlayerInterface_Blue;
             break;
 
         case FACTION_RED:
-            pal = gUnknown_08A173AC;
+            pal = gPal_PlayerInterface_Red;
             break;
 
         case FACTION_GREEN:
-            pal = gUnknown_08A173CC;
+            pal = gPal_PlayerInterface_Green;
             break;
 
         default:
@@ -641,7 +641,7 @@ void sub_808C2CC(int faction, int palId) {
 
 int sub_808C314() {
 
-    if (((gUnknown_0202BCB0.playerCursor.x * 0x10) - gUnknown_0202BCB0.camera.x) < 0x70) {
+    if (((gUnknown_0202BCB0.playerCursor.x * 16) - gUnknown_0202BCB0.camera.x) < 0x70) {
         return 1;
     } else {
         return -1;
@@ -650,7 +650,7 @@ int sub_808C314() {
 
 int sub_808C33C() {
 
-    if (((gUnknown_0202BCB0.playerCursor.x * 0x10) - gUnknown_0202BCB0.camera.x) > 0x70) {
+    if (((gUnknown_0202BCB0.playerCursor.x * 16) - gUnknown_0202BCB0.camera.x) > 0x70) {
         return -1;
     } else {
         return 1;
@@ -726,7 +726,7 @@ void sub_808C388(s16* buffer, struct Unit* unit) {
             break;
     }
 
-    CpuFastSet(gUnknown_08A16DEC + offset, (void*)(VRAM + 0x2DE0), 0x28);
+    CpuFastSet(gGfx_StatusText + offset, (void*)(VRAM + 0x2DE0), 0x28);
 
     buffer[0] = tileIdx++;
     buffer[1] = tileIdx++;
@@ -833,20 +833,20 @@ void InitMinimugBoxMaybe(struct PlayerInterfaceProc* proc, struct Unit* unit) {
     if (gUnknown_08A01828[proc->unk_50].xMinimug < 0) {
         proc->unk_46 = 5;
     } else {
-        proc->unk_46 = 0x17;
+        proc->unk_46 = 23;
     }
 
     if (gUnknown_08A01828[proc->unk_50].yMinimug < 0) {
         proc->unk_48 = 3;
     } else {
-        proc->unk_48 = 0x11;
+        proc->unk_48 = 17;
     }
 
     DrawMinimugBoxMaybe(proc, unit);
 
     sub_808BC94(gUnknown_02003E36, unit, 0x1140);
 
-    CallARM_FillTileRect(gUnknown_0200422C, gUnknown_08A17484, 0x3000);
+    CallARM_FillTileRect(gUnknown_0200422C, gTSA_MinimugBox, 0x3000);
 
     sub_808C2CC(UNIT_FACTION(unit), 3);
 
@@ -977,7 +977,7 @@ void sub_808C964(struct PlayerInterfaceProc* proc) {
     Text_AppendString(proc->unk_2c, str);
     Text_Draw(proc->unk_2c, gUnknown_02003FAC + 0x41);
 
-    CallARM_FillTileRect(gUnknown_02003FAC + 0x81, gUnknown_08A1768C,0x2100);
+    CallARM_FillTileRect(gUnknown_02003FAC + 0x81, gTSA_TerrainBox_Something, 0x2100);
 
     if (gUnknown_0880B90C[terrainId] > 0) {
         StoreNumberStringToSmallBuffer(gUnknown_0880C4BA[terrainId]);
@@ -990,7 +990,7 @@ void sub_808C964(struct PlayerInterfaceProc* proc) {
     switch (terrainId) {
         case TERRAIN_SNAG:
         case TERRAIN_WALL_1B:
-            CallARM_FillTileRect(gUnknown_020040AE, gUnknown_08A176A4, 0x2100);
+            CallARM_FillTileRect(gUnknown_020040AE, gTSA_TerrainBox_Destructable, 0x2100);
 
             num = GetObstacleHpAt(gUnknown_0202BCB0.playerCursor.x, gUnknown_0202BCB0.playerCursor.y);
 
@@ -1006,7 +1006,7 @@ void sub_808C964(struct PlayerInterfaceProc* proc) {
         case TERRAIN_BALLISTA_REGULAR:
         case TERRAIN_BALLISTA_LONG:
         case TERRAIN_BALLISTA_KILLER:
-            CallARM_FillTileRect(gUnknown_02003FAC + 0x81, gUnknown_08A1769C, 0x100);
+            CallARM_FillTileRect(gUnknown_02003FAC + 0x81, gTSA_TerrainBox_Ballistae, 0x100);
 
             StoreNumberStringToSmallBuffer(GetObstacleHpAt(gUnknown_0202BCB0.playerCursor.x, gUnknown_0202BCB0.playerCursor.y));
             sub_8013138(gUnknown_02003FAC + 0x85, gUnknown_02028E44+7, 0x00002128, 2);
@@ -1015,7 +1015,7 @@ void sub_808C964(struct PlayerInterfaceProc* proc) {
 
     }
 
-    CallARM_FillTileRect(gUnknown_020044EC, gUnknown_08A1742C, 0x1000);
+    CallARM_FillTileRect(gUnknown_020044EC, gTSA_TerrainBox, 0x1000);
 
     return;
 }
@@ -1288,8 +1288,8 @@ void InitPlayerPhaseInterfaceMaybe() {
 
     sub_8001F0C(0, 0, 1, 1, 1);
 
-    CopyDataWithPossibleUncomp(gUnknown_08A167C8, (void*)(VRAM + 0x2000));
-    CopyDataWithPossibleUncomp(gUnknown_08A16D6C, (void*)(VRAM + 0x15C00));
+    CopyDataWithPossibleUncomp(gGfx_PlayerInterfaceFontTiles, (void*)(VRAM + 0x2000));
+    CopyDataWithPossibleUncomp(gGfx_PlayerInterfaceNumbers, (void*)(VRAM + 0x15C00));
 
     CpuFastSet((void*)(VRAM + 0x2EA0), (void*)(VRAM + 0x15D40), 8);
 
@@ -1381,12 +1381,12 @@ void sub_808D200(struct PlayerInterfaceProc* proc) {
     TileMap_FillRect(gUnknown_02004054, 11, 9, 0);
 
     if (proc->unk_44 == 0) {
-        CallARM_FillTileRect(gUnknown_020044D4, gUnknown_08A17744, 0x1000);
+        CallARM_FillTileRect(gUnknown_020044D4, gTSA_GoalBox_OneLine, 0x1000);
         Text_Draw(proc->unk_2c, gUnknown_02004054 + 0x21);
     }
 
     if (proc->unk_44 == 1) {
-        CallARM_FillTileRect(gUnknown_020044D4, gUnknown_08A176BC, 0x1000);
+        CallARM_FillTileRect(gUnknown_020044D4, gTSA_GoalBox_TwoLines, 0x1000);
         Text_Draw(&proc->unk_2c[0], gUnknown_02004054 + 0x21);
         Text_Draw(&proc->unk_2c[1], gUnknown_02004054 + 0x61);
     }
@@ -1439,7 +1439,7 @@ void Init6CPI(struct PlayerInterfaceProc* proc) {
             return;
 
         case 1:
-            Text_InsertString(&proc->unk_2c[1], 0x10, 0, GetStringFromIndex(0x1C1));
+            Text_InsertString(&proc->unk_2c[1], 0x10, 0, GetStringFromIndex(0x1C1)); // TODO: msgid "Left"
 
             if (gRAMChapterData.chapterVisionRange != 0) {
                 Text_InsertString(&proc->unk_2c[1], 0x28, 1, GetStringFromIndex(0x535));

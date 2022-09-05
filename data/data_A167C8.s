@@ -1,43 +1,43 @@
     .section .data
 
-	.global gUnknown_08A167C8
-gUnknown_08A167C8:  @ 0x08A167C8
-	.incbin "baserom.gba", 0xA167C8, 0x5A4
+	.global gGfx_PlayerInterfaceFontTiles
+gGfx_PlayerInterfaceFontTiles:  @ 0x08A167C8
+	.incbin "graphics/player_interface/player_interface_font_tiles.4bpp.lz"
 
-	.global gUnknown_08A16D6C
-gUnknown_08A16D6C:  @ 0x08A16D6C
-	.incbin "baserom.gba", 0xA16D6C, 0x80
+	.global gGfx_PlayerInterfaceNumbers
+gGfx_PlayerInterfaceNumbers:  @ 0x08A16D6C
+	.incbin "graphics/player_interface/player_interface_numbers.4bpp.lz"
 
-	.global gUnknown_08A16DEC
-gUnknown_08A16DEC:  @ 0x08A16DEC
-	.incbin "baserom.gba", 0xA16DEC, 0x5A0
+	.global gGfx_StatusText
+gGfx_StatusText:  @ 0x08A16DEC
+	.incbin "graphics/player_interface/status_text.4bpp"
 
-	.global gUnknown_08A1738C
-gUnknown_08A1738C:  @ 0x08A1738C
-	.incbin "baserom.gba", 0xA1738C, 0x20
+	.global gPal_PlayerInterface_Blue
+gPal_PlayerInterface_Blue:  @ 0x08A1738C
+	.incbin "graphics/player_interface/player_interface_blue.gbapal"
 
-	.global gUnknown_08A173AC
-gUnknown_08A173AC:  @ 0x08A173AC
-    .incbin "baserom.gba", 0xA173AC, 0x20
+	.global gPal_PlayerInterface_Red
+gPal_PlayerInterface_Red:  @ 0x08A173AC
+	.incbin "graphics/player_interface/player_interface_red.gbapal"
 
-	.global gUnknown_08A173CC
-gUnknown_08A173CC:  @ 0x08A173CC
-	.incbin "baserom.gba", 0xA173CC, 0x20
+	.global gPal_PlayerInterface_Green
+gPal_PlayerInterface_Green:  @ 0x08A173CC
+	.incbin "graphics/player_interface/player_interface_green.gbapal"
 
 	.global gUnknown_08A173EC
 gUnknown_08A173EC:  @ 0x08A173EC
-	.incbin "baserom.gba", 0xA173EC, 0x20
+	.incbin "graphics/player_interface/gUnknown_08A173EC.gbapal"
 
 	.global gUnknown_08A1740C
 gUnknown_08A1740C:  @ 0x08A1740C
-	.incbin "baserom.gba", 0xA1740C, 0x20
+	.incbin "graphics/player_interface/gUnknown_08A1740C.gbapal"
 
-	.global gUnknown_08A1742C
-gUnknown_08A1742C:  @ 0x08A1742C
+	.global gTSA_TerrainBox
+gTSA_TerrainBox:  @ 0x08A1742C
 	.incbin "baserom.gba", 0xA1742C, 0x58
 
-	.global gUnknown_08A17484
-gUnknown_08A17484:  @ 0x08A17484
+	.global gTSA_MinimugBox
+gTSA_MinimugBox:  @ 0x08A17484
 	.incbin "baserom.gba", 0xA17484, 0x130
 
 	.global gUnknown_08A175B4
@@ -76,28 +76,28 @@ gUnknown_08A17664:  @ 0x08A17664
 gUnknown_08A17678:  @ 0x08A17678
 	.incbin "baserom.gba", 0xA17678, 0x14
 
-	.global gUnknown_08A1768C
-gUnknown_08A1768C:  @ 0x08A1768C
+	.global gTSA_TerrainBox_Something
+gTSA_TerrainBox_Something:  @ 0x08A1768C
 	.incbin "baserom.gba", 0xA1768C, 0x10
 
-	.global gUnknown_08A1769C
-gUnknown_08A1769C:  @ 0x08A1769C
+	.global gTSA_TerrainBox_Ballistae
+gTSA_TerrainBox_Ballistae:  @ 0x08A1769C
 	.incbin "baserom.gba", 0xA1769C, 0x8
 
-	.global gUnknown_08A176A4
-gUnknown_08A176A4:  @ 0x08A176A4
+	.global gTSA_TerrainBox_Destructable
+gTSA_TerrainBox_Destructable:  @ 0x08A176A4
 	.incbin "baserom.gba", 0xA176A4, 0x10
 
 	.global gUnknown_08A176B4
 gUnknown_08A176B4:  @ 0x08A176B4
 	.incbin "baserom.gba", 0xA176B4, 0x8
 
-	.global gUnknown_08A176BC
-gUnknown_08A176BC:  @ 0x08A176BC
+	.global gTSA_GoalBox_TwoLines
+gTSA_GoalBox_TwoLines:  @ 0x08A176BC
 	.incbin "baserom.gba", 0xA176BC, 0x88
 
-	.global gUnknown_08A17744
-gUnknown_08A17744:  @ 0x08A17744
+	.global gTSA_GoalBox_OneLine
+gTSA_GoalBox_OneLine:  @ 0x08A17744
 	.incbin "baserom.gba", 0xA17744, 0x5C
 
 	.global gUnknown_08A177A0

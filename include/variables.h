@@ -3336,16 +3336,16 @@ extern u16 CONST_DATA gUnknown_08A0731C[]; // halo pal
 // extern ??? gUnknown_08A0AE44
 // extern ??? gUnknown_08A0AE64
 // extern ??? gUnknown_08A0AE84
-extern u16 gUnknown_08A167C8[];
-extern u16 gUnknown_08A16D6C[];
-extern u8 gUnknown_08A16DEC[];
-extern u16 gUnknown_08A1738C[]; // pal
-extern u16 gUnknown_08A173AC[]; // pal
-extern u16 gUnknown_08A173CC[]; // pal
+extern u8 gGfx_PlayerInterfaceFontTiles[];
+extern u8 gGfx_PlayerInterfaceNumbers[];
+extern u8 gGfx_StatusText[];
+extern u16 gPal_PlayerInterface_Blue[];
+extern u16 gPal_PlayerInterface_Red[];
+extern u16 gPal_PlayerInterface_Green[];
 // extern ??? gUnknown_08A173EC
 // extern ??? gUnknown_08A1740C
-extern u8 gUnknown_08A1742C[];
-extern u8 gUnknown_08A17484[];
+extern u16 gTSA_TerrainBox[];
+extern u16 gTSA_MinimugBox[];
 extern u16 gUnknown_08A175B4[];
 extern u16 gUnknown_08A175C8[];
 extern u16 gUnknown_08A175DC[];
@@ -3355,12 +3355,12 @@ extern u16 gUnknown_08A1763C[];
 extern u16 gUnknown_08A17650[];
 extern u16 gUnknown_08A17664[];
 extern u16 gUnknown_08A17678[];
-extern u8 gUnknown_08A1768C[];
-extern u8 gUnknown_08A1769C[];
-extern u8 gUnknown_08A176A4[];
-extern u8 gUnknown_08A176B4[];
-extern u16 gUnknown_08A176BC[];
-extern u16 gUnknown_08A17744[];
+extern u16 gTSA_TerrainBox_Something[];
+extern u16 gTSA_TerrainBox_Ballistae[];
+extern u16 gTSA_TerrainBox_Destructable[];
+extern u16 gUnknown_08A176B4[];
+extern u16 gTSA_GoalBox_TwoLines[];
+extern u16 gTSA_GoalBox_OneLine[];
 // extern ??? gUnknown_08A177A0
 // extern ??? gUnknown_08A178C0
 // extern ??? gUnknown_08A17990
