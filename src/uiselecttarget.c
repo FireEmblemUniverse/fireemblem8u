@@ -14,7 +14,7 @@ static struct SelectTarget EWRAM_DATA sSelectTargetList[MAX_TARGET_LIST_COUNT] =
 
 static int EWRAM_DATA sSelectTargetCount = 0;
 
-struct ProcCmd CONST_DATA gUnknown_085B655C[] =
+struct ProcCmd CONST_DATA gProcScr_TargetSelection[] =
 {
 PROC_LABEL(0),
     PROC_REPEAT(TargetSelection_Loop),
@@ -31,7 +31,7 @@ struct Unk_085B658C
     s8 x, y;
 };
 
-struct Unk_085B658C CONST_DATA gUnknown_085B658C[] =
+struct Unk_085B658C CONST_DATA gNearTargetLinkOrder[] =
 {
     {  0,  0 },
     {  0, -2 },
@@ -52,7 +52,6 @@ void InitTargets(int xRoot, int yRoot) {
     sSelectTargetRoot.x = xRoot;
     sSelectTargetRoot.y = yRoot;
     sSelectTargetCount = 0;
-    return;
 }
 
 void AddTarget(int x, int y, int unitId, int tId) {
@@ -62,96 +61,44 @@ void AddTarget(int x, int y, int unitId, int tId) {
     sSelectTargetList[sSelectTargetCount].extra = tId;
 
     sSelectTargetCount++;
-    return;
 }
 
-#if NONMATCHING
+inline int GetSelectTargetCount(void)
+{
+    return sSelectTargetCount;
+}
 
-// Register allocation is wrong :(
-void LinkTargets() {
-    struct SelectTarget *iter;
-    int r1;
-    int r2 = 0;
+inline struct SelectTarget* GetTarget(int index)
+{
+    return &sSelectTargetList[index];
+}
 
-    if (r2 < sSelectTargetCount) {
-        do {
-            iter = &sSelectTargetList[r2];
-            iter->prev = iter - 1;
-            iter->next = iter + 1;
-            ++r2;
-        } while (r2 < sSelectTargetCount);
+void LinkTargets(void)
+{
+    int i, last;
+
+    for (i = 0; i < GetSelectTargetCount(); i++)
+    {
+        GetTarget(i)->prev = GetTarget(i - 1);
+        GetTarget(i)->next = GetTarget(i + 1);
     }
 
-    r1 = sSelectTargetCount - 1;
+    last = GetSelectTargetCount() - 1;
 
-    iter = &sSelectTargetList[r1];
-    sSelectTargetList[0].prev = iter;
-    iter->next = &sSelectTargetList[0];
-
-    return;
+    GetTarget(0)->prev = GetTarget(last);
+    GetTarget(last)->next = GetTarget(0);
 }
 
-#else // if !NONMATCHING
-
-__attribute__((naked))
-void LinkTargets() {
-    asm("\n\
-        .syntax unified\n\
-        push {r4, r5, r6, lr}\n\
-        movs r2, #0\n\
-        ldr r0, _0804F950  @ sSelectTargetCount\n\
-        ldr r1, [r0]\n\
-        adds r6, r0, #0\n\
-        ldr r4, _0804F954  @ sSelectTargetList\n\
-        cmp r2, r1\n\
-        bge _0804F93A\n\
-        adds r5, r6, #0\n\
-        adds r3, r4, #0\n\
-        adds r3, #0xc\n\
-        adds r1, r4, #0\n\
-        subs r1, #0xc\n\
-    _0804F92A:\n\
-        str r1, [r1, #0x14]\n\
-        str r3, [r1, #0x10]\n\
-        adds r3, #0xc\n\
-        adds r1, #0xc\n\
-        adds r2, #1\n\
-        ldr r0, [r5]\n\
-        cmp r2, r0\n\
-        blt _0804F92A\n\
-    _0804F93A:\n\
-        ldr r1, [r6]\n\
-        subs r1, #1\n\
-        lsls r0, r1, #1\n\
-        adds r0, r0, r1\n\
-        lsls r0, r0, #2\n\
-        adds r0, r0, r4\n\
-        str r0, [r4, #8]\n\
-        str r4, [r0, #4]\n\
-        pop {r4, r5, r6}\n\
-        pop {r0}\n\
-        bx r0\n\
-        .align 2, 0\n\
-    _0804F950: .4byte sSelectTargetCount\n\
-    _0804F954: .4byte sSelectTargetList\n\
-        .syntax divided\n\
-    ");
+void TargetSelection_GetRealCursorPosition(struct SelectTargetProc* proc, int* xPos, int* yPos) {
+    *xPos = proc->currentTarget->x * 16;
+    *yPos = proc->currentTarget->y * 16;
 }
 
-#endif // NONMATCHING
-
-void TargetSelection_GetRealCursorPosition(ProcPtr proc, int* xPos, int* yPos) {
-    *xPos = (((struct SelectTargetProc*)(proc))->currentTarget)->x * 16;
-    *yPos = (((struct SelectTargetProc*)(proc))->currentTarget)->y * 16;
-
-    return;
-}
-
-void TargetSelection_Loop(ProcPtr proc) {
+void TargetSelection_Loop(struct SelectTargetProc* proc) {
     int x, y;
     int r5;
 
-    if ((0x40 & ((struct SelectTargetProc*)(proc))->unk_34) != 0) {
+    if ((TARGETSELECTION_FLAG_FROZEN & proc->flags) != 0) {
         TargetSelection_GetRealCursorPosition(proc, &x, &y);
         DisplayCursor(x, y, 4);
         return;
@@ -161,27 +108,27 @@ void TargetSelection_Loop(ProcPtr proc) {
 
     r5 = TargetSelection_HandleSelectInput(proc);
 
-    if ((2 & r5) != 0) {
+    if ((TARGETSELECTION_ACTION_END & r5) != 0) {
         EndTargetSelection(proc);
     }
 
-    if ((4 & r5) != 0) {
+    if ((TARGETSELECTION_ACTION_SE_6A & r5) != 0) {
         PlaySoundEffect(0x6A);
     }
 
-    if ((8 & r5) != 0) {
+    if ((TARGETSELECTION_ACTION_SE_6B & r5) != 0) {
         PlaySoundEffect(0x6B);
     }
 
-    if ((0x10 & r5) != 0) {
+    if ((TARGETSELECTION_ACTION_CLEARBGS & r5) != 0) {
         ClearBg0Bg1();
     }
 
-    if ((0x20 & r5) != 0) {
+    if ((TARGETSELECTION_ACTION_ENDFACE & r5) != 0) {
         DeleteFaceByIndex(0);
     }
 
-    if ((1 & r5) == 0) {
+    if ((TARGETSELECTION_ACTION_ENDFAST & r5) == 0) {
         TargetSelection_GetRealCursorPosition(proc, &x, &y);
         if (EnsureCameraOntoPosition(proc, x >> 4, y >> 4) != 1) {
             DisplayCursor(x, y, 2);
@@ -195,11 +142,11 @@ ProcPtr NewTargetSelection(const struct SelectInfo* selectInfo) {
     struct SelectTargetProc* proc;
 
     AddSkipThread2();
-    proc = Proc_Start(gUnknown_085B655C, PROC_TREE_3);
+    proc = Proc_Start(gProcScr_TargetSelection, PROC_TREE_3);
 
-    proc->unk_34 = 1;
+    proc->flags = TARGETSELECTION_FLAG_GAMELOCK;
     proc->selectRoutines = selectInfo;
-    proc->currentTarget = GetFirstTargetPointer();
+    proc->currentTarget = GetLinkedTargets();
     proc->onAPress = 0;
 
     if (proc->selectRoutines->onInit) {
@@ -220,24 +167,27 @@ ProcPtr NewTargetSelection(const struct SelectInfo* selectInfo) {
 }
 
 ProcPtr NewTargetSelection_Specialized(const struct SelectInfo* selectInfo, u8(*onSelect)(ProcPtr, struct SelectTarget*)) {
-    struct SelectTargetProc* proc = (struct SelectTargetProc*)NewTargetSelection(selectInfo);
+    struct SelectTargetProc* proc = NewTargetSelection(selectInfo);
 
     proc->onAPress = onSelect;
-    // return proc; // BUG
+
+#if 0
+    return proc; // BUG
+#endif
 }
 
-ProcPtr EndTargetSelection(ProcPtr proc) {
-    if (((struct SelectTargetProc*)(proc))->selectRoutines->onEnd) {
-        ((struct SelectTargetProc*)(proc))->selectRoutines->onEnd(proc);
+ProcPtr EndTargetSelection(struct SelectTargetProc* proc) {
+    if (proc->selectRoutines->onEnd) {
+        proc->selectRoutines->onEnd(proc);
     }
 
-    if ((1 & ((struct SelectTargetProc*)(proc))->unk_34) != 0) {
+    if ((TARGETSELECTION_FLAG_GAMELOCK & proc->flags) != 0) {
         SubSkipThread2();
     }
 
     Proc_End(proc);
 
-    return ((struct SelectTargetProc*)(proc))->proc_parent;
+    return proc->proc_parent;
 }
 
 void TargetSelection_HandleMoveInput(struct SelectTargetProc* proc) {
@@ -268,8 +218,6 @@ void TargetSelection_HandleMoveInput(struct SelectTargetProc* proc) {
     }
 
     PlaySoundEffect(0x67);
-
-    return;
 }
 
 int TargetSelection_HandleSelectInput(struct SelectTargetProc* proc) {
@@ -296,167 +244,81 @@ int TargetSelection_HandleSelectInput(struct SelectTargetProc* proc) {
     return ret;
 }
 
-void sub_804FBBC() {
-    ProcPtr proc = Proc_Find(gUnknown_085B655C);
+void sub_804FBBC(void) {
+    struct SelectTargetProc * proc = Proc_Find(gProcScr_TargetSelection);
     if (proc) {
-        ((struct SelectTargetProc*)(proc))->unk_34 |= 0x40;
+        proc->flags |= TARGETSELECTION_FLAG_FROZEN;
     }
-
-    return;
 }
 
-void sub_804FBDC() {
-    ProcPtr proc = Proc_Find(gUnknown_085B655C);
+void sub_804FBDC(void) {
+    struct SelectTargetProc * proc = Proc_Find(gProcScr_TargetSelection);
     if (proc) {
-        ((struct SelectTargetProc*)(proc))->unk_34 &= 0xBF;
+        proc->flags &= ~TARGETSELECTION_FLAG_FROZEN;
+    }
+}
+
+int GetFurthestTargetDistance(void)
+{
+    int i, result = 0;
+    struct SelectTarget * it = sSelectTargetList;
+
+    for (i = 0; i < GetSelectTargetCount(); i++, it++)
+    {
+        // RECT_DISTANCE
+        int distance = ABS(sSelectTargetRoot.x - it->x) + ABS(sSelectTargetRoot.y - it->y);
+
+        if (result < distance)
+            result = distance;
     }
 
-    return;
+    return result;
 }
 
-#if NONMATCHING
+struct SelectTarget* GetLinkedTargetsNear(void) {
+    int i, j;
 
-// TODO: Seems to be related to the distance more than index
-int GetFarthestTargetIndex() {
-    int r7 = 0;
-    struct SelectTarget *iter = sSelectTargetList;
-    int dist;
-    int r4;
-    if (r7 < sSelectTargetCount) {
-        r4 = sSelectTargetCount;
-        iter = sSelectTargetList;
-        do {
-            dist = ABS(sSelectTargetRoot.x - iter->x) + ABS(sSelectTargetRoot.y - iter->y);
+    struct SelectTarget * first = NULL;
+    struct SelectTarget * last = NULL;
 
-            if (r7 < dist) {
-                r7 = dist;
+    for (i = 0; i < (int) ARRAY_COUNT(gNearTargetLinkOrder); i++)
+    {
+        struct SelectTarget * it;
+
+        int x = sSelectTargetRoot.x + gNearTargetLinkOrder[i].x;
+        int y = sSelectTargetRoot.y + gNearTargetLinkOrder[i].y;
+
+        for (j = 0, it = sSelectTargetList; j < sSelectTargetCount; j++, it++)
+        {
+            if (x == it->x && y == it->y)
+            {
+                it->next = last;
+
+                if (last != NULL)
+                    last->prev = it;
+
+                if (first == NULL)
+                    first = it;
+
+                last = it;
             }
-
-            --r4;
-            ++iter;
-        } while (r4 != 0);
-    }
-
-    return r7;
-}
-
-
-#else // if !NONMATCHING
-
-__attribute__((naked))
-int GetFarthestTargetIndex() {
-    asm("\n\
-        .syntax unified\n\
-        push {r4, r5, r6, r7, lr}\n\
-        movs r7, #0\n\
-        ldr r5, _0804FC34  @ sSelectTargetList\n\
-        ldr r0, _0804FC38  @ sSelectTargetCount\n\
-        ldr r0, [r0]\n\
-        cmp r7, r0\n\
-        bge _0804FC52\n\
-        ldr r1, _0804FC3C  @ sSelectTargetRoot\n\
-        mov ip, r1\n\
-        movs r2, #0\n\
-        ldrsh r6, [r1, r2]\n\
-        adds r4, r0, #0\n\
-    _0804FC14:\n\
-        movs r0, #0\n\
-        ldrsb r0, [r5, r0]\n\
-        subs r2, r6, r0\n\
-        cmp r2, #0\n\
-        bge _0804FC20\n\
-        subs r2, r0, r6\n\
-    _0804FC20:\n\
-        mov r0, ip\n\
-        movs r1, #2\n\
-        ldrsh r3, [r0, r1]\n\
-        movs r0, #1\n\
-        ldrsb r0, [r5, r0]\n\
-        subs r1, r3, r0\n\
-        cmp r1, #0\n\
-        blt _0804FC40\n\
-        adds r0, r2, r1\n\
-        b _0804FC44\n\
-        .align 2, 0\n\
-    _0804FC34: .4byte sSelectTargetList\n\
-    _0804FC38: .4byte sSelectTargetCount\n\
-    _0804FC3C: .4byte sSelectTargetRoot\n\
-    _0804FC40:\n\
-        subs r0, r0, r3\n\
-        adds r0, r2, r0\n\
-    _0804FC44:\n\
-        cmp r7, r0\n\
-        bge _0804FC4A\n\
-        adds r7, r0, #0\n\
-    _0804FC4A:\n\
-        subs r4, #1\n\
-        adds r5, #0xc\n\
-        cmp r4, #0\n\
-        bne _0804FC14\n\
-    _0804FC52:\n\
-        adds r0, r7, #0\n\
-        pop {r4, r5, r6, r7}\n\
-        pop {r1}\n\
-        bx r1\n\
-        .syntax divided\n\
-    ");
-}
-
-#endif // NONMATCHING
-
-struct SelectTarget* LinkTargetsOrdered() {
-    struct SelectTarget* currentIter = NULL;
-    struct SelectTarget* prevIter = NULL;
-    int i = 0;
-    int j;
-    int xDist, yDist;
-    struct SelectTarget* target;
-    do {
-        xDist = sSelectTargetRoot.x + gUnknown_085B658C[i].x;
-        yDist = sSelectTargetRoot.y + gUnknown_085B658C[i].y;
-        j = 0;
-        target = sSelectTargetList;
-        while (j < sSelectTargetCount) {
-            if (xDist == target->x && yDist == target->y) {
-                target->next = prevIter;
-
-                if (prevIter != 0) {
-                    prevIter->prev = target;
-                }
-
-                if (currentIter == 0) {
-                    currentIter = target;
-                }
-
-                prevIter = target;
-            }
-            ++j;
-            ++target;
         }
-    } while(++i < (int)ARRAY_COUNT(gUnknown_085B658C));
+    }
 
-    currentIter->next = prevIter;
-    prevIter->prev = currentIter;
+    first->next = last;
+    last->prev = first;
 
-    return currentIter;
+    return first;
 }
 
-struct SelectTarget* GetLinkedTargetList() {
+struct SelectTarget* GetLinkedTargetsFar(void) {
     LinkTargets();
     return sSelectTargetList;
 }
 
-struct SelectTarget* GetFirstTargetPointer() {
-    if (GetFarthestTargetIndex() > 2) {
-        return GetLinkedTargetList();
+struct SelectTarget* GetLinkedTargets(void) {
+    if (GetFurthestTargetDistance() > 2) {
+        return GetLinkedTargetsFar();
     }
-    return LinkTargetsOrdered();
-}
-
-int GetSelectTargetCount() {
-    return sSelectTargetCount;
-}
-
-struct SelectTarget* GetTarget(int index) {
-    return &sSelectTargetList[index];
+    return GetLinkedTargetsNear();
 }

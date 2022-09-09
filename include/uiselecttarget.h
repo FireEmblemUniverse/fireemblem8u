@@ -3,6 +3,24 @@
 
 enum { MAX_TARGET_LIST_COUNT = 64 };
 
+enum
+{
+    // SelectTargetProc::flags
+
+    TARGETSELECTION_FLAG_GAMELOCK = 1 << 0,
+    TARGETSELECTION_FLAG_FROZEN   = 1 << 6,
+};
+
+enum
+{
+    TARGETSELECTION_ACTION_ENDFAST  = 1 << 0,
+    TARGETSELECTION_ACTION_END      = 1 << 1,
+    TARGETSELECTION_ACTION_SE_6A    = 1 << 2,
+    TARGETSELECTION_ACTION_SE_6B    = 1 << 3,
+    TARGETSELECTION_ACTION_CLEARBGS = 1 << 4,
+    TARGETSELECTION_ACTION_ENDFACE  = 1 << 5,
+};
+
 struct SelectTarget
 {
     /* 00 */ s8 x, y;
@@ -34,7 +52,7 @@ struct SelectTargetProc {
     /* 29 */ u8 _pad[0x2B - 0x29];
     /* 2C */ const struct SelectInfo* selectRoutines;
     /* 30 */ struct SelectTarget* currentTarget;
-    /* 34 */ u8 unk_34;
+    /* 34 */ u8 flags;
     /* 35 */ u8 _pad2[0x38 - 0x35];
     /* 38 */ u8(*onAPress)(ProcPtr proc, struct SelectTarget*);
 };
@@ -42,19 +60,19 @@ struct SelectTargetProc {
 void InitTargets(int xRoot, int yRoot);
 void AddTarget(int x, int y, int uId, int tId);
 void LinkTargets(void);
-void TargetSelection_GetRealCursorPosition(ProcPtr proc, int* xPos, int* yPos);
-void TargetSelection_Loop(ProcPtr proc);
+void TargetSelection_GetRealCursorPosition(struct SelectTargetProc* proc, int* xPos, int* yPos);
+void TargetSelection_Loop(struct SelectTargetProc* proc);
 ProcPtr NewTargetSelection(const struct SelectInfo* selectInfo);
 ProcPtr NewTargetSelection_Specialized(const struct SelectInfo* selectInfo, u8(*onSelect)(ProcPtr, struct SelectTarget*));
-ProcPtr EndTargetSelection(ProcPtr proc);
+ProcPtr EndTargetSelection(struct SelectTargetProc* proc);
 void TargetSelection_HandleMoveInput(struct SelectTargetProc* proc);
 int TargetSelection_HandleSelectInput(struct SelectTargetProc* proc);
 void sub_804FBBC(void);
 void sub_804FBDC(void);
-int GetFarthestTargetIndex(void);
-struct SelectTarget* LinkTargetsOrdered(void);
-struct SelectTarget* GetLinkedTargetList(void);
-struct SelectTarget* GetFirstTargetPointer(void);
+int GetFurthestTargetDistance(void);
+struct SelectTarget* GetLinkedTargetsNear(void);
+struct SelectTarget* GetLinkedTargetsFar(void);
+struct SelectTarget* GetLinkedTargets(void);
 int GetSelectTargetCount(void);
 struct SelectTarget* GetTarget(int index);
 

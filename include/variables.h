@@ -1738,8 +1738,8 @@ extern const u16 gUnknown_085A401C[]; // clouds palette
 // extern ??? gUnknown_085B089C
 // extern ??? gUnknown_085B0DE8
 // extern ??? gUnknown_085B0F2C
-// extern ??? gUnknown_085B655C
-// extern ??? gUnknown_085B658C
+// extern ??? gProcScr_TargetSelection
+// extern ??? gNearTargetLinkOrder
 extern const u8  gUiFrameImage[];
 extern const u16 gUiFramePaletteA[];
 extern const u16 gUiFramePaletteB[];
