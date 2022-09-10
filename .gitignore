@@ -948,3 +948,9 @@ sound/songs/midi/*.s
 # Generated source files
 src/msg_data.c
 include/msg_data.h
+
+
+# Mokha new
+CHAX.code-workspace
+.vscode/
+.ida/

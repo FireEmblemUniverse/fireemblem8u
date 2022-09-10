@@ -88,10 +88,9 @@ src/bmitem.o: CC1FLAGS += -Wno-error
 
 #### Main Targets ####
 
-compare: $(ROM)
-	$(SHASUM) -c checksum.sha1
+CHAX: $(ROM)
 
-.PHONY: compare
+.PHONY: CHAX
 
 clean:
 	find . \( -iname '*.1bpp' -o -iname '*.4bpp' -o -iname '*.8bpp' -o -iname '*.gbapal' -o -iname '*.lz' -o -iname '*.fk' -o -iname '*.latfont' -o -iname '*.hwjpnfont' -o -iname '*.fwjpnfont' \) -exec rm {} +
