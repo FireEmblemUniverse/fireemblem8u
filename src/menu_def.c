@@ -179,7 +179,7 @@ const struct MenuItemDef gUnitActionMenuItems[] = {
 const struct MenuItemDef gMapMenuItems[] = {
     {gTextButai, 0x69A, 0x6DF, 0, 0x6e, MenuAlwaysEnabled, 0, MapMenu_UnitCommand, 0, 0, 0}, // Unit >
     {gTextJoukyou, 0x690, 0x6E0, 0, 0x6f, MenuAlwaysEnabled, 0, MapMenu_StatusCommand, 0, 0, 0}, // Status >
-    {gTextJisho, 0x69C, 0x6E5, 4, 0x74, MapMenu_IsGuideCommandAvailable, MapMenu_GuideCommandDraw, Make6CE_Guide}, // Guide
+    {gTextJisho, 0x69C, 0x6E5, 4, 0x74, MapMenu_IsGuideCommandAvailable, MapMenu_GuideCommandDraw, MapMenu_GuideCommand}, // Guide
     {gTextSenki, 0x69E, 0x6E3, 0, 0x70, MapMenu_IsRecordsCommandAvailable, 0, MapMenu_RecordsCommand, 0, 0, 0}, // Records
     {gTextSettei, 0x69B, 0x6E1, 0, 0x71, MenuAlwaysEnabled, 0, MapMenu_OptionsCommand, 0, 0, 0}, // Options
     {gTextTaikyaku, 0x69D, 0x6E2, 0, 0x72, MapMenu_IsRetreatCommandAvailable, 0, MapMenu_RetreatCommand, 0, 0, 0}, // Retreat
@@ -233,7 +233,7 @@ const struct MenuDef gDebugMenuDef = {
     (void(*)(struct MenuProc*))0,
     EndMenuAndClear,
     (u8(*)(struct MenuProc*))0,
-    (void(*)(struct MenuProc*, struct MenuItemProc*))0
+    0
 };
 
 const struct MenuDef gMenuInfo_RepairItems = {
@@ -292,7 +292,7 @@ const struct MenuDef gItemSubMenuDef = {
     0,
     MenuCommand_SelectNo,
     MenuAutoHelpBoxSelect,
-    (void(*)(struct MenuProc*, struct MenuItemProc*))MenuStdHelpBox
+    MenuStdHelpBox
 };
 
 const struct MenuDef gItemMenuDef = {
@@ -352,7 +352,7 @@ const struct MenuDef gUnitActionMenuDef = {
     0, 0, 0,
     MenuCancelSelect,
     MenuAutoHelpBoxSelect,
-    (void(*)(struct MenuProc*, struct MenuItemProc*))MenuStdHelpBox
+    MenuStdHelpBox
 };
 
 const struct MenuDef gMapMenuDef = {
@@ -362,6 +362,6 @@ const struct MenuDef gMapMenuDef = {
     0, 0, 0,
     MenuCancelSelect,
     MenuAutoHelpBoxSelect,
-    (void(*)(struct MenuProc*, struct MenuItemProc*))MenuStdHelpBox
+    MenuStdHelpBox
 };
 

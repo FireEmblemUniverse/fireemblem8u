@@ -69,7 +69,7 @@ static void DoUseTorchStaff(struct Unit* unit);
 
 extern struct Unit gStatGainSimUnit;
 
-extern struct ProcCmd CONST_DATA gProcScr_0859B600[]; // go back to unit menu proc
+extern struct ProcCmd CONST_DATA gProcScr_BackToUnitMenu[]; // go back to unit menu proc
 
 extern const struct MenuDef gMenuInfo_RepairItems;
 
@@ -806,7 +806,7 @@ void WarpSelect_OnCancel(struct WarpSelectProc* proc)
         gActiveUnit->xPos,
         gActiveUnit->yPos);
 
-    Proc_Start(gProcScr_0859B600, PROC_TREE_3);
+    Proc_Start(gProcScr_BackToUnitMenu, PROC_TREE_3);
 }
 
 void WarpSelect_OnEnd(struct WarpSelectProc* proc)

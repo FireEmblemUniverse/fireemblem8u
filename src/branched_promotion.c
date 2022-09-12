@@ -1401,7 +1401,7 @@ struct MenuDef gUnknown_08B12930 = {
     0,
     sub_80CDB18,
     0,
-    (void(*)(struct MenuProc*, struct MenuItemProc*))MenuStdHelpBox
+    MenuStdHelpBox
 };
 
 int PromotionCommand_OnTextDraw(struct MenuProc *a, struct MenuItemProc *b);

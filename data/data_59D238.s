@@ -84,8 +84,8 @@ gSelectInfo_0859D2F8:  @ 0x0859D2F8
 .4byte GenericSelection_BackToUM_CamWait
 .4byte 0
 
-	.global gUnknown_0859D318
-gUnknown_0859D318:  @ 0x0859D318
+	.global gSelectInfo_Steal
+gSelectInfo_Steal:  @ 0x0859D318
 @ replacing .incbin "baserom.gba", 0x0059d318, 0x20
 .4byte StealTargetSelection_OnInit
 .4byte ClearBg0Bg1
@@ -96,51 +96,51 @@ gUnknown_0859D318:  @ 0x0859D318
 .4byte GenericSelection_BackToUM
 .4byte 0
 
-	.global gUnknown_0859D338
-gUnknown_0859D338:  @ 0x0859D338
+	.global gSelectInfo_Summon
+gSelectInfo_Summon:  @ 0x0859D338
 @ replacing .incbin "baserom.gba", 0x0059d338, 0x20
-.4byte sub_8024868
+.4byte SummonSelection_OnInit
 .4byte ClearBg0Bg1
 .4byte 0
-.4byte nullsub_27
+.4byte SummonSelection_OnChange
 .4byte 0
-.4byte sub_80244D8
+.4byte SummonSelection_OnSelect
 .4byte GenericSelection_BackToUM
 .4byte 0
 
-	.global gUnknown_0859D358
-gUnknown_0859D358:  @ 0x0859D358
+	.global gSelectInfo_Pick
+gSelectInfo_Pick:  @ 0x0859D358
 @ replacing .incbin "baserom.gba", 0x0059d358, 0x20
-.4byte sub_80248A8
+.4byte PickSelection_OnInit
 .4byte ClearBg0Bg1
 .4byte 0
 .4byte 0
 .4byte 0
-.4byte sub_8023ED8
+.4byte PickSelection_OnSelect
 .4byte GenericSelection_BackToUM
 .4byte 0
 
-	.global gUnknown_0859D378
-gUnknown_0859D378:  @ 0x0859D378
+	.global gSelectInfo_Support
+gSelectInfo_Support:  @ 0x0859D378
 @ replacing .incbin "baserom.gba", 0x0059d378, 0x20
-.4byte sub_80247B0
+.4byte TalkSupportSelection_OnInit
 .4byte ClearBg0Bg1
 .4byte 0
-.4byte sub_80247D0
+.4byte TalkSupportSelection_OnChange
 .4byte 0
-.4byte sub_8023DA0
+.4byte SupportSelection_OnSelect
 .4byte GenericSelection_BackToUM
 .4byte 0
 
-	.global gUnknown_0859D398
-gUnknown_0859D398:  @ 0x0859D398
+	.global gSelectInfo_Talk
+gSelectInfo_Talk:  @ 0x0859D398
 @ replacing .incbin "baserom.gba", 0x0059d398, 0x20
-.4byte sub_80247B0
+.4byte TalkSupportSelection_OnInit
 .4byte ClearBg0Bg1
 .4byte 0
-.4byte sub_80247D0
+.4byte TalkSupportSelection_OnChange
 .4byte 0
-.4byte sub_8023D00
+.4byte TalkSelection_OnSelect
 .4byte GenericSelection_BackToUM
 .4byte 0
 
@@ -156,20 +156,20 @@ gSelectInfo_Repair:  @ 0x0859D3B8
 .4byte GenericSelection_BackToUM
 .4byte 0
 
-	.global gUnknown_0859D3D8
-gUnknown_0859D3D8:  @ 0x0859D3D8
+	.global gSelectInfo_Trade
+gSelectInfo_Trade:  @ 0x0859D3D8
 @ replacing .incbin "baserom.gba", 0x0059d3d8, 0x20
 .4byte TradeTargetSelection_OnInit
 .4byte ClearBg0Bg1
 .4byte 0
-.4byte sub_8024788
+.4byte TradeSelection_OnChange
 .4byte 0
-.4byte sub_8022FAC
+.4byte TradeSelection_OnSelect
 .4byte GenericSelection_BackToUM
 .4byte 0
 
-	.global gUnknown_0859D3F8
-gUnknown_0859D3F8:  @ 0x0859D3F8
+	.global gSelectInfo_0859D3F8
+gSelectInfo_0859D3F8:  @ 0x0859D3F8
 @ replacing .incbin "baserom.gba", 0x0059d3f8, 0x20
 .4byte NewBattleForecast
 .4byte sub_8022F10
@@ -180,32 +180,32 @@ gUnknown_0859D3F8:  @ 0x0859D3F8
 .4byte sub_8022E64
 .4byte StartBattleForecastHelpBox
 
-	.global gUnknown_0859D418
-gUnknown_0859D418:  @ 0x0859D418
+	.global gSelectInfo_Give
+gSelectInfo_Give:  @ 0x0859D418
 @ replacing .incbin "baserom.gba", 0x0059d418, 0x20
-.4byte sub_80246E0
+.4byte GiveSelection_OnInit
 .4byte 0
 .4byte 0
-.4byte sub_8024700
+.4byte GiveSelection_OnChange
 .4byte 0
 .4byte GiveSelection_OnSelect
 .4byte GenericSelection_BackToUM
 .4byte 0
 
-	.global gUnknown_0859D438
-gUnknown_0859D438:  @ 0x0859D438
+	.global gSelectInfo_Take
+gSelectInfo_Take:  @ 0x0859D438
 @ replacing .incbin "baserom.gba", 0x0059d438, 0x20
-.4byte sub_8024724
+.4byte TakeSelection_OnInit
 .4byte 0
 .4byte 0
-.4byte sub_8024744
+.4byte TakeSelection_OnChange
 .4byte 0
 .4byte TakeSelection_OnSelect
 .4byte GenericSelection_BackToUM
 .4byte 0
 
-	.global gUnknown_0859D458
-gUnknown_0859D458:  @ 0x0859D458
+	.global gSelectInfo_Drop
+gSelectInfo_Drop:  @ 0x0859D458
 @ replacing .incbin "baserom.gba", 0x0059d458, 0x20
 .4byte DropSelection_OnConstruction
 .4byte ClearBg0Bg1
@@ -216,8 +216,8 @@ gUnknown_0859D458:  @ 0x0859D458
 .4byte GenericSelection_BackToUM
 .4byte 0
 
-	.global gUnknown_0859D478
-gUnknown_0859D478:  @ 0x0859D478
+	.global gSelectInfo_Rescue
+gSelectInfo_Rescue:  @ 0x0859D478
 @ Replacing .incbin "baserom.gba", 0x59D478, 0x440
     .4byte RescueSelection_OnConstruction
     .4byte 0x0
@@ -226,7 +226,7 @@ gUnknown_0859D478:  @ 0x0859D478
     .4byte 0x0
     .4byte RescueSelection_OnSelect
     .4byte GenericSelection_BackToUM
-    .4byte sub_80228A0
+    .4byte RescueSelection_OnHelp
     .4byte 0x1000001c
     .4byte gUnknown_0895F5A5 + 0x7
     .4byte 0x1000001c

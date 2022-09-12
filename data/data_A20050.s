@@ -1621,8 +1621,8 @@ gUnknown_08A2ECA8:  @ 0x08A2ECA8
         .word 0x0
 
 
-	.global gUnknown_08A2ECE0
-gUnknown_08A2ECE0:  @ 0x08A2ECE0
+	.global gProcScr_Config1
+gProcScr_Config1:  @ 0x08A2ECE0
         @ PROC_NAME
         .short 0x1, 0x0
         .word 0x8205e68

@@ -51,7 +51,7 @@ struct MenuDef
     /* 14 */ void(*_u14)(struct MenuProc*);
     /* 18 */ u8(*onBPress)(struct MenuProc*, struct MenuItemProc*);
     /* 1C */ u8(*onRPress)(struct MenuProc*);
-    /* 20 */ void(*onHelpBox)(struct MenuProc*, struct MenuItemProc*);
+    /* 20 */ u8(*onHelpBox)(struct MenuProc*, struct MenuItemProc*);
 };
 
 struct MenuProc

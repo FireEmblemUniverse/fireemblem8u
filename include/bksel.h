@@ -33,5 +33,6 @@ int StartBattleForecastHelpBox(ProcPtr parent);
 // ??? sub_8037494(???);
 // ??? sub_80374C4(???);
 
+extern struct ProcCmd gProcScr_BKSEL[];
 
 #endif  // GUARD_BKSEL_H
