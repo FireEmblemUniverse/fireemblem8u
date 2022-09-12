@@ -118,11 +118,6 @@ PROC_LABEL(1),
     PROC_END,
 };
 
-
-// koido.s
-void Make6CKOIDO(struct Unit*, int, u8, ProcPtr);
-int GetSomeFacingDirection(int, int, int, int);
-
 // ev_triggercheck.s
 void sub_808371C(u8, u8, int);
 void sub_8083FB0(u8, u8);

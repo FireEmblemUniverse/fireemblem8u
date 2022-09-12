@@ -809,11 +809,11 @@ s8 ShouldMoveCameraPosSomething(int x, int y);
 // ??? sub_801C63C(???);
 // ??? sub_801C650(???);
 // ??? sub_801C65C(???);
-// ??? GetSomeFacingDirection(???);
-// ??? Make6CMOVEUNITForUnitBeingRescued(???);
-// ??? Loop6C_KOIDO(???);
-// ??? Make6CKOIDO(???);
-// ??? Make6CKOIDOAMM(???);
+int GetSomeFacingDirection(int x0, int y0, int x1, int y1);
+// ProcPtr Make6CMOVEUNITForUnitBeingRescued(struct Unit* unit);
+// void Loop6C_KOIDO(ProcPtr)
+void Make6CKOIDO(struct Unit* unit, int direction, int config, ProcPtr parent);
+void Make6CKOIDOAMM(struct Unit* unit, int direction);
 // ??? sub_801DD1C(???);
 // ??? sub_801DD54(???);
 // ??? Destruct6CBMXFADE(???);
