@@ -82,7 +82,7 @@ SECTIONS
         asm/emitstarfx.o(.text);
         asm/minefx.o(.text);
         asm/chapterintrofx_title.o(.text);
-        asm/bmmenu.o(.text);
+        src/bmmenu.o(.text);
         src/bmphase.o(.text);
         src/bmgold.o(.text);
         src/bmtarget.o(.text);

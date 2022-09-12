@@ -7,10 +7,10 @@ int GetSomeBallistaItemAt(int xPos, int yPos);
 struct Trap* AddBallista(int xPos, int yPos, int ballistaType);
 void RideBallista(struct Unit* unit);
 void TryRemoveUnitFromBallista(struct Unit* unit);
-// ??? IsBallista(???);
-// ??? sub_8037AC0(???);
-// ??? sub_8037AEC(???);
-// ??? GetBallistaItemUses(???);
+s8 IsBallista(struct Trap* trap);
+int sub_8037AC0(struct Trap* trap);
+int sub_8037AEC(struct Trap* trap);
+int GetBallistaItemUses(struct Trap* trap);
 // ??? ClearBallistaOccupied(???);
 // ??? SetBallistaOccupied(???);
 

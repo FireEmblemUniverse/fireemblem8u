@@ -229,6 +229,7 @@ enum {
     // ...
 
     ITEM_UNK_CC            = 0xCC,
+    ITEM_UNK_CD            = 0xCD,
 };
 
 #endif // GUARD_CONSTANTS_ITEMS_H

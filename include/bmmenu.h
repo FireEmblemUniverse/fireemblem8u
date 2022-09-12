@@ -113,10 +113,10 @@ u8 MapMenu_IsSuspendCommandAvailable(const struct MenuItemDef*, int number);
 u8 MapMenu_SuspendCommand(struct MenuProc*, struct MenuItemProc*);
 u8 CommandEffectEndPlayerPhase(struct MenuProc*, struct MenuItemProc*);
 u8 ItemMenu_ButtonBPressed(struct MenuProc*, struct MenuItemProc*);
-void ItemMenu_HelpBox(struct MenuProc*, struct MenuItemProc*);
-void ConvoyMenu_HelpBox(struct MenuProc*, struct MenuItemProc*);
+u8 ItemMenu_HelpBox(struct MenuProc*, struct MenuItemProc*);
+u8 ConvoyMenu_HelpBox(struct MenuProc*, struct MenuItemProc*);
 void ItemSubMenuEnd(struct MenuProc*);
-void ItemMenuHelpBox(struct MenuProc*, struct MenuItemProc*);
-void BallistaRangeMenuHelpBox(struct MenuProc*, struct MenuItemProc*);
+u8 ItemMenuHelpBox(struct MenuProc*, struct MenuItemProc*);
+u8 BallistaRangeMenuHelpBox(struct MenuProc*, struct MenuItemProc*);
 
 #endif //BMMENU_H

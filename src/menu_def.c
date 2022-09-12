@@ -233,7 +233,7 @@ const struct MenuDef gDebugMenuDef = {
     (void(*)(struct MenuProc*))0,
     EndMenuAndClear,
     (u8(*)(struct MenuProc*))0,
-    (void(*)(struct MenuProc*, struct MenuItemProc*))0
+    0
 };
 
 const struct MenuDef gMenuInfo_RepairItems = {
@@ -292,7 +292,7 @@ const struct MenuDef gItemSubMenuDef = {
     0,
     MenuCommand_SelectNo,
     MenuAutoHelpBoxSelect,
-    (void(*)(struct MenuProc*, struct MenuItemProc*))MenuStdHelpBox
+    MenuStdHelpBox
 };
 
 const struct MenuDef gItemMenuDef = {
@@ -352,7 +352,7 @@ const struct MenuDef gUnitActionMenuDef = {
     0, 0, 0,
     MenuCancelSelect,
     MenuAutoHelpBoxSelect,
-    (void(*)(struct MenuProc*, struct MenuItemProc*))MenuStdHelpBox
+    MenuStdHelpBox
 };
 
 const struct MenuDef gMapMenuDef = {
@@ -362,6 +362,6 @@ const struct MenuDef gMapMenuDef = {
     0, 0, 0,
     MenuCancelSelect,
     MenuAutoHelpBoxSelect,
-    (void(*)(struct MenuProc*, struct MenuItemProc*))MenuStdHelpBox
+    MenuStdHelpBox
 };
 
