@@ -1,37 +1,5 @@
     .section .data
 
-	.global gUnknown_0859AD88
-gUnknown_0859AD88:  @ 0x0859AD88
-        @ PROC_NAME
-        .short 0x1, 0x0
-        .word gUnknown_080D7B04
-        @ PROC_REPEAT
-        .short 0x3, 0x0
-        .word Loop6C_KOIDO
-        @ PROC_END
-        .short 0x0, 0x0
-        .word 0x0
-
-
-	.global gUnknown_0859ADA0
-gUnknown_0859ADA0:  @ 0x0859ADA0
-        @ PROC_NAME
-        .short 0x1, 0x0
-        .word 0x80d7b0c
-        @ PROC_CALL
-        .short 0x2, 0x0
-        .word AddSkipThread2
-        @ PROC_REPEAT
-        .short 0x3, 0x0
-        .word Loop6C_KOIDO
-        @ PROC_CALL
-        .short 0x2, 0x0
-        .word SubSkipThread2
-        @ PROC_END
-        .short 0x0, 0x0
-        .word 0x0
-
-
 	.global gUnknown_0859ADC8
 gUnknown_0859ADC8:  @ 0x0859ADC8
         @ PROC_NAME
