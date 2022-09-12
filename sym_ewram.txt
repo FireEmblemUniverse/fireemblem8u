@@ -527,10 +527,8 @@
 . = ALIGN(4); src/bmbattle.o(ewram_data);
 . = ALIGN(4); src/bmtrade.o(ewram_data);
 . = ALIGN(4); src/bmtrick.o(ewram_data);
-. = 0x03A81C; gConvoyItemArray = .;
-. = 0x03A8E4; gUnknown_0203A8E4 = .;
-. = 0x03A8E8; gUnknown_0203A8E8 = .;
-. = 0x03A8EC; gUnknown_0203A8EC = .;
+. = ALIGN(4); src/bmcontainer.o(ewram_data);
+. = ALIGN(4); src/bmusort.o(ewram_data);
 . = 0x03A8F0; gUnknown_0203A8F0 = .;
 . = 0x03A910; gUnknown_0203A910 = .;
 . = 0x03A958; gActionData = .;
