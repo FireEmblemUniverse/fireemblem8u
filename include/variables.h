@@ -51,7 +51,7 @@
 // extern ??? gUnknown_02001F70
 // extern ??? gUnknown_02002038
 // extern ??? gUnknown_02002088
-// extern ??? gUnknown_02002774
+extern struct Font gUnknown_02002774;
 // extern ??? gaBattleForecastTextStructs
 // extern ??? gUnknown_02002FF4
 // extern ??? gUnknown_0200300C
@@ -362,7 +362,6 @@ extern u16 gUnknown_02022D2E[];
 // extern ??? gUnknown_02022D36
 // extern ??? gUnknown_02022D3C
 // extern ??? gUnknown_02022D40
-// extern ??? gUnknown_02022D6E
 // extern ??? gUnknown_02022D72
 // extern ??? gUnknown_02022D76
 // extern ??? gUnknown_02022D86
@@ -428,8 +427,6 @@ extern u16 gBG1TilemapBuffer[];
 // extern ??? gUnknown_020234D0
 // extern ??? gUnknown_020234E2
 // extern ??? gUnknown_020234E4
-// extern ??? gUnknown_020234FE
-// extern ??? gUnknown_0202352C
 // extern ??? gUnknown_02023548
 // extern ??? gUnknown_020235AA
 // extern ??? gUnknown_020235EA
@@ -1453,8 +1450,6 @@ extern struct ProcCmd CONST_DATA gProcScr_ADJUSTSFROMXI[];
 // extern ??? gUnknown_0859B528
 // extern ??? gUnknown_0859B540
 // extern ??? gUnknown_0859B560
-// extern ??? gProcScr_0859B600
-// extern ??? gUnknown_0859B630
 // extern ??? gUnknown_0859B668
 // extern ??? gUnknown_0859B66C
 // extern ??? gUnknown_0859B67C
@@ -1502,18 +1497,18 @@ extern struct ProcCmd CONST_DATA gProcScr_ADJUSTSFROMXI[];
 // extern ??? gSelectInfo_Dance
 // extern ??? gSelectInfo_PutTrap
 // extern ??? gSelectInfo_0859D2F8
-// extern ??? gUnknown_0859D318
-// extern ??? gUnknown_0859D338
-// extern ??? gUnknown_0859D358
-// extern ??? gUnknown_0859D378
-// extern ??? gUnknown_0859D398
+// extern ??? gSelectInfo_Steal
+// extern ??? gSelectInfo_Summon
+// extern ??? gSelectInfo_Pick
+// extern ??? gSelectInfo_Support
+// extern ??? gSelectInfo_Talk
 // extern ??? gSelectInfo_Repair
-// extern ??? gUnknown_0859D3D8
-// extern ??? gUnknown_0859D3F8
-// extern ??? gUnknown_0859D418
-// extern ??? gUnknown_0859D438
-// extern ??? gUnknown_0859D458
-// extern ??? gUnknown_0859D478
+// extern ??? gSelectInfo_Trade
+// extern ??? gSelectInfo_0859D3F8
+// extern ??? gSelectInfo_Give
+// extern ??? gSelectInfo_Take
+// extern ??? gSelectInfo_Drop
+// extern ??? gSelectInfo_Rescue
 // extern ??? gProc_MapTask
 // extern ??? gUnknown_0859D9FC
 // extern ??? gUnknown_0859DA22
@@ -3602,7 +3597,7 @@ extern u16 gUnknown_08A2E8F0[]; // Pal
 // extern ??? gUnknown_08A2E99C
 // extern ??? gUnknown_08A2EC88
 // extern ??? gUnknown_08A2ECA8
-// extern ??? gUnknown_08A2ECE0
+extern struct ProcCmd CONST_DATA gProcScr_Config1[];
 extern struct ProcCmd CONST_DATA gUnknown_08A2ED88[];
 // extern ??? gUnknown_08A2EE00
 // extern ??? gUnknown_08A2EE90
@@ -4112,7 +4107,7 @@ extern const struct ProcCmd gUnknown_08B1271C[];
 // extern ??? gUnknown_08B12BEC
 // extern ??? gUnknown_08B12C14
 // extern ??? gUnknown_08B12C3C
-// extern ??? gUnknown_08B12C64
+extern struct ProcCmd CONST_DATA gProcScr_Guide[];
 // extern ??? gUnknown_08B12D1C
 extern u8 gUnknown_08B12DB4[];
 extern u16 gUnknown_08B1754C[];

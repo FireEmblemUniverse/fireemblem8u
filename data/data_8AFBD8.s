@@ -3761,7 +3761,7 @@ gChapterDataAssetTable:  @ 0x088B363C
 .4byte gUnknown_081609BC + 0x4e234
 .4byte gUnknown_081609BC + 0x4ace0
 .4byte gUnknown_081609BC + 0x56d38
-.4byte gUnknown_0859D478 + 0x20
+.4byte gSelectInfo_Rescue + 0x20
 .4byte gUnknown_08A1E0D8 + 0x20
 .4byte gEventTable_Prologue
 .4byte gUnknown_081609BC + 0x56c14
@@ -3774,7 +3774,7 @@ gChapterDataAssetTable:  @ 0x088B363C
 .4byte gUnknown_081609BC + 0x4e0f4
 .4byte gUnknown_081609BC + 0x49784
 .4byte gUnknown_081609BC + 0x56918
-.4byte gUnknown_0859D478 + 0xf0
+.4byte gSelectInfo_Rescue + 0xf0
 .4byte gUnknown_08A1E0D8 + 0x11c
 .4byte gEventTable_Chapter3
 .4byte gUnknown_081609BC + 0x567a0
@@ -3784,7 +3784,7 @@ gChapterDataAssetTable:  @ 0x088B363C
 .4byte gUnknown_081609BC + 0x4dfb4
 .4byte gUnknown_081609BC + 0x48310
 .4byte gUnknown_081609BC + 0x565bc
-.4byte gUnknown_0859D478 + 0x280
+.4byte gSelectInfo_Rescue + 0x280
 .4byte gUnknown_08A1E0D8 + 0x2d4
 .4byte gUnknown_089E857C + 0x790
 .4byte gUnknown_081609BC + 0x56400
@@ -3840,7 +3840,7 @@ gChapterDataAssetTable:  @ 0x088B363C
 .4byte gUnknown_081609BC + 0x4d5b4
 .4byte gUnknown_081609BC + 0x43b54
 .4byte gUnknown_081609BC + 0x53f58
-.4byte gUnknown_0859D478 + 0x388
+.4byte gSelectInfo_Rescue + 0x388
 .4byte gUnknown_08A1E0D8 + 0x89c
 .4byte gUnknown_089E857C + 0x182c
 .4byte gUnknown_081609BC + 0x4d474
@@ -3881,7 +3881,7 @@ gChapterDataAssetTable:  @ 0x088B363C
 .4byte gUnknown_081609BC + 0x4ccf4
 .4byte gUnknown_081609BC + 0x40a84
 .4byte gUnknown_081609BC + 0x52208
-.4byte gUnknown_0859D478 + 0x200
+.4byte gSelectInfo_Rescue + 0x200
 .4byte gUnknown_08A1E0D8 + 0xe80
 .4byte gUnknown_089E857C + 0x2550
 .4byte gUnknown_089E857C + 0x2774
@@ -3967,7 +3967,7 @@ gChapterDataAssetTable:  @ 0x088B363C
 .4byte gUnknown_08A1E0D8 + 0x490
 .4byte gUnknown_089E857C + 0xe84
 .4byte gUnknown_081609BC + 0x4f53c
-.4byte gUnknown_0859D478 + 0xa8
+.4byte gSelectInfo_Rescue + 0xa8
 .4byte gUnknown_08A1E0D8 + 0xd50
 .4byte gUnknown_089E857C + 0x2040
 .4byte gUnknown_081609BC + 0x4f3f4

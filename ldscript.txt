@@ -282,6 +282,8 @@ SECTIONS
         . = ALIGN(4); data/data_59AD88.o(.data);
         . = ALIGN(4); src/chapterintrofx.o(.data);
         . = ALIGN(4); data/data_59B358.o(.data);
+        . = ALIGN(4); src/bmmenu.o(.data);
+        . = ALIGN(4); data/data_59B668.o(.data);
         . = ALIGN(4); src/bmreliance.o(.data);
         . = ALIGN(4); src/bmitemuse.o(.data);
         . = ALIGN(4); src/bmbattle.o(.data);

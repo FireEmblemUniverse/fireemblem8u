@@ -202,8 +202,8 @@ gUnknown_08B12C3C:  @ 0x08B12C3C
     .word 0x0
 
 
-	.global gUnknown_08B12C64
-gUnknown_08B12C64:  @ 0x08B12C64
+	.global gProcScr_Guide
+gProcScr_Guide:  @ 0x08B12C64
         @ PROC_NAME("E_Guide")
         .short 0x1, 0x0
         .word 0x820717c
