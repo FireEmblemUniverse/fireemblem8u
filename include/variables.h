@@ -1418,8 +1418,8 @@ extern const struct ProcCmd gUnknown_0859A548[]; // this is GENS/Camera Movement
 // extern ??? gUnknown_0859AA7C
 // extern ??? gUnknown_0859AA84
 // extern ??? gUnknown_0859AA9C
-// extern ??? gUnknown_0859AD88
-// extern ??? gUnknown_0859ADA0
+extern struct ProcCmd CONST_DATA sProcScr_KOIDO[];
+extern struct ProcCmd CONST_DATA sProcScr_KOIDOAMM[];
 // extern ??? gUnknown_0859ADC8
 extern struct ProcCmd CONST_DATA gProcScr_ADJUSTSFROMXI[];
 // extern ??? gUnknown_0859AE38
