@@ -513,7 +513,7 @@ extern struct RAMChapterData gRAMChapterData;
 // extern ??? gUnknown_0202BD44
 extern u8 gActiveUnitId;
 extern struct Vec2 gActiveUnitMoveOrigin;
-// extern ??? gUnitArrayBlue
+extern struct Unit gUnitArrayBlue[62];
 // extern ??? gUnitArrayRed
 // extern ??? gUnitArrayGreen
 // extern ??? gUnknown_02030B8C
@@ -529,9 +529,9 @@ extern u8 gWorkingMovementScript[];
 // extern ??? gUnknown_0203A4CC
 // extern ??? gUnknown_0203A4D0
 extern u16 gConvoyItemArray[];
-// extern ??? gUnknown_0203A8E4
-// extern ??? gUnknown_0203A8E8
-// extern ??? gUnknown_0203A8EC
+extern struct Unit* sUnitStackBase;
+extern struct Unit* sUnitStackTop;
+extern u8 sUnitStackSize;
 extern struct ArenaData gUnknown_0203A8F0;
 extern struct Unit gUnknown_0203A910; // arena opponent unit
 extern struct ActionData gActionData;
