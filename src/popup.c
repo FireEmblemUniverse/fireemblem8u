@@ -1,0 +1,30 @@
+#include "global.h"
+
+#include "hardware.h"
+
+struct gfx_set {
+    const void *gfx;
+    const void *tsa;
+    const void *pal;
+};
+
+extern struct CONST_DATA gfx_set gUnknown_0895DD1C[];
+
+void sub_8010DC0(int index)
+{
+    sub_8010E50();
+
+    BG_SetPosition(0, 0, 0);
+    BG_SetPosition(1, 0, 0);
+    BG_SetPosition(2, 0, 0);
+    BG_SetPosition(3, 0, 0);
+
+    CopyDataWithPossibleUncomp(
+        gUnknown_0895DD1C[index].gfx,
+        (void*)(GetBackgroundTileDataOffset(3) + BG_VRAM));
+
+    CallARM_FillTileRect(gBG3TilemapBuffer, gUnknown_0895DD1C[index].tsa, 0x8000);
+    ApplyPalettes(gUnknown_0895DD1C[index].pal, 0xC, 8);
+    BG_EnableSyncByMask(0x8);
+    gPaletteBuffer[0] = 0;
+}
