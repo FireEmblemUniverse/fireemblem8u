@@ -4,26 +4,6 @@
 
 	@ Tile Fading (for tile changes and such)
 
-	THUMB_FUNC_END sub_801DD54
-
-	THUMB_FUNC_START Destruct6CBMXFADE
-Destruct6CBMXFADE: @ 0x0801DDA8
-	push {r4, lr}
-	adds r4, r0, #0
-	bl SetAllUnitNotBackSprite
-	adds r4, #0x4e
-	movs r1, #0
-	ldrsh r0, [r4, r1]
-	cmp r0, #0
-	beq _0801DDBE
-	bl SubSkipThread2
-_0801DDBE:
-	pop {r4}
-	pop {r0}
-	bx r0
-
-	THUMB_FUNC_END Destruct6CBMXFADE
-
 	THUMB_FUNC_START NewBMXFADE
 NewBMXFADE: @ 0x0801DDC4
 	push {r4, lr}

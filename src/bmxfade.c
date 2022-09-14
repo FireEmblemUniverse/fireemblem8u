@@ -2,11 +2,14 @@
 
 #include "hardware.h"
 
+void SetAllUnitNotBackSprite();
+
 struct BmxfadeProc {
     PROC_HEADER;
 
     /* 29 */ u8 _pad29[0x4C - 0x29];
     /* 4C */ u16 unk_4C;
+    /* 4E */ s16 unk_4E;
 };
 
 void sub_801DD1C(struct BmxfadeProc* proc)
@@ -31,4 +34,12 @@ void sub_801DD54(struct BmxfadeProc* proc)
     SetBackgroundTileDataOffset(2, 0);
     BG_Fill(gBG2TilemapBuffer, 0);
     BG_EnableSyncByMask(4);
+}
+
+void Destruct6CBMXFADE(struct BmxfadeProc* proc)
+{
+    SetAllUnitNotBackSprite();
+
+    if (0 != proc->unk_4E)
+        SubSkipThread2();
 }
