@@ -4,31 +4,6 @@
 
 	@ Tile Fading (for tile changes and such)
 
-	THUMB_FUNC_START NewBMXFADE
-NewBMXFADE: @ 0x0801DDC4
-	push {r4, lr}
-	adds r4, r0, #0
-	lsls r4, r4, #0x18
-	lsrs r4, r4, #0x18
-	ldr r0, _0801DDEC  @ gUnknown_0859ADC8
-	movs r1, #3
-	bl Proc_Start
-	lsls r4, r4, #0x18
-	asrs r4, r4, #0x18
-	adds r0, #0x4e
-	strh r4, [r0]
-	cmp r4, #0
-	beq _0801DDE4
-	bl AddSkipThread2
-_0801DDE4:
-	pop {r4}
-	pop {r0}
-	bx r0
-	.align 2, 0
-_0801DDEC: .4byte gUnknown_0859ADC8
-
-	THUMB_FUNC_END NewBMXFADE
-
 	THUMB_FUNC_START MakeNew6CBMXFADE2
 MakeNew6CBMXFADE2: @ 0x0801DDF0
 	push {r4, lr}
