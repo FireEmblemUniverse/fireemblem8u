@@ -1,6 +1,7 @@
 #include "global.h"
 
 #include "hardware.h"
+#include "proc.h"
 
 void SetAllUnitNotBackSprite();
 
@@ -12,7 +13,8 @@ struct BmxfadeProc {
     /* 4E */ s16 unk_4E;
 };
 
-void sub_801DD1C(struct BmxfadeProc *proc)
+void sub_801DD1C(struct BmxfadeProc *proc);
+void sub_801DD54(struct BmxfadeProc *proc);
 void Destruct6CBMXFADE(struct BmxfadeProc *proc);
 
 struct ProcCmd CONST_DATA gUnknown_0859ADC8[] = {
@@ -21,7 +23,7 @@ struct ProcCmd CONST_DATA gUnknown_0859ADC8[] = {
     PROC_SET_END_CB(Destruct6CBMXFADE),
     PROC_CALL(sub_801DD1C),
     PROC_CALL(sub_801DD54),
-    PROC_REPEAT(PROC_REPEAT),
+    PROC_REPEAT(sub_801DD54),
     PROC_END,
 };
 
