@@ -12,7 +12,18 @@ struct BmxfadeProc {
     /* 4E */ s16 unk_4E;
 };
 
-extern struct ProcCmd CONST_DATA gUnknown_0859ADC8[];
+void sub_801DD1C(struct BmxfadeProc *proc)
+void Destruct6CBMXFADE(struct BmxfadeProc *proc);
+
+extern struct ProcCmd CONST_DATA gUnknown_0859ADC8[] = {
+    PROC_NAME("BMXFADE"),
+    PROC_END_IF_DUPLICATE,
+    PROC_SET_END_CB(Destruct6CBMXFADE),
+    PROC_CALL(sub_801DD1C),
+    PROC_CALL(sub_801DD54),
+    PROC_REPEAT(PROC_REPEAT),
+    PROC_END,
+};
 
 void sub_801DD1C(struct BmxfadeProc *proc)
 {

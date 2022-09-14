@@ -212,7 +212,8 @@ SECTIONS
         . = ALIGN(4); data/const_data_D7A6C.o(.rodata);
         . = ALIGN(4); src/playerphase.o(.rodata);
         . = ALIGN(4); src/koido.o(.rodata);
-        . = ALIGN(4); data/const_data_D7B04.o(.rodata);
+        . = ALIGN(4); src/bmxfade.o(.rodata);
+        . = ALIGN(4); data/const_data_D7B20.o(.rodata);
         . = ALIGN(4); src/bmreliance.o(.rodata);
         . = ALIGN(4); src/bmbattle.o(.rodata);
         . = ALIGN(4); src/bmtrade.o(.rodata);
@@ -281,6 +282,7 @@ SECTIONS
         . = ALIGN(4); data/data_59AA7C.o(.data);
         . = ALIGN(4); src/playerphase.o(.data);
         . = ALIGN(4); src/koido.o(.data);
+        . = ALIGN(4); src/bmxfade.o(.data);
         . = ALIGN(4); data/data_59AD88.o(.data);
         . = ALIGN(4); src/chapterintrofx.o(.data);
         . = ALIGN(4); data/data_59B358.o(.data);
