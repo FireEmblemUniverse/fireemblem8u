@@ -28,9 +28,9 @@ void sub_801DD54(struct BmxfadeProc *proc)
 {
     SetSpecialColorEffectsParameters(1, proc->unk_4C, 0x10 - proc->unk_4C, 0);
 
-    if (--proc->unk_4C > 0)
+    if (--proc->unk_4C >= 0)
         return;
-    
+
     Proc_Break(proc);
     SetDefaultColorEffects();
     SetBackgroundTileDataOffset(2, 0);
@@ -46,11 +46,21 @@ void Destruct6CBMXFADE(struct BmxfadeProc *proc)
         SubSkipThread2();
 }
 
-void NewBMXFADE(s8 lock)
+void NewBMXFADE(s8 lock_game)
 {
     struct BmxfadeProc *proc = Proc_Start(gUnknown_0859ADC8, PROC_TREE_3);
-    proc->unk_4E = lock;
+    proc->unk_4E = lock_game;
 
-    if (0 != lock)
+    if (0 != lock_game)
         AddSkipThread2();
+}
+
+void MakeNew6CBMXFADE2(s8 lock_game, ProcPtr parent)
+{
+    struct BmxfadeProc *proc = 
+        Proc_StartBlocking(gUnknown_0859ADC8, parent);
+    
+    proc->unk_4E = lock_game;
+    if (0 != proc->unk_4E)
+        SubSkipThread2();
 }
