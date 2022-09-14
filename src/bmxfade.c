@@ -23,7 +23,9 @@ void sub_801DD54(struct BmxfadeProc* proc)
 {
     SetSpecialColorEffectsParameters(1, proc->unk_4C, 0x10 - proc->unk_4C, 0);
 
-    if (--proc->unk_4C >= 0)
+    proc->unk_4C--;
+
+    if (proc->unk_4C >= 0)
         return;
     
     Proc_Break(proc);
