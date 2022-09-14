@@ -64,7 +64,6 @@ SECTIONS
         src/playerphase.o(.text);
         src/koido.o(.text);
         src/bmxfade.o(.text);
-        asm/bmxfade.o(.text);
         asm/bmcamadjust.o(.text);
         asm/convoymenu.o(.text);
         asm/code_801E2E0.o(.text); /* 2 fog related functions and FillWarpRangeMap */
