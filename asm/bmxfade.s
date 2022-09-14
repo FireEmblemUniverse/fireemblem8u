@@ -4,34 +4,6 @@
 
 	@ Tile Fading (for tile changes and such)
 
-	THUMB_FUNC_START sub_801DD1C
-sub_801DD1C: @ 0x0801DD1C
-	push {r4, lr}
-	sub sp, #4
-	adds r0, #0x4c
-	movs r4, #0
-	movs r1, #0x10
-	strh r1, [r0]
-	bl SetupBackgroundForWeatherMaybe
-	str r4, [sp]
-	movs r0, #0
-	movs r1, #0
-	movs r2, #1
-	movs r3, #0
-	bl sub_8001ED0
-	movs r0, #1
-	str r0, [sp]
-	movs r0, #0
-	movs r1, #0
-	movs r2, #0
-	movs r3, #1
-	bl sub_8001F0C
-	add sp, #4
-	pop {r4}
-	pop {r0}
-	bx r0
-
-	THUMB_FUNC_END sub_801DD1C
 
 	THUMB_FUNC_START sub_801DD54
 sub_801DD54: @ 0x0801DD54

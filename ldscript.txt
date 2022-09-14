@@ -63,6 +63,7 @@ SECTIONS
         asm/bmdebug.o(.text);
         src/playerphase.o(.text);
         src/koido.o(.text);
+        src/bmxfade.o(.text);
         asm/bmxfade.o(.text);
         asm/bmcamadjust.o(.text);
         asm/convoymenu.o(.text);
