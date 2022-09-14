@@ -2,21 +2,6 @@
 
 	.SYNTAX UNIFIED
 
-	THUMB_FUNC_START sub_8010E50
-sub_8010E50: @ 0x08010E50
-	push {lr}
-	bl sub_80081A8
-	ldr r0, _08010E68  @ gUnknown_08591154
-	bl Proc_EndEach
-	bl ResetFaces
-	bl sub_80067E8
-	pop {r0}
-	bx r0
-	.align 2, 0
-_08010E68: .4byte gUnknown_08591154
-
-	THUMB_FUNC_END sub_8010E50
-
 	THUMB_FUNC_START sub_8010E6C
 sub_8010E6C: @ 0x08010E6C
 	push {r4, r5, lr}

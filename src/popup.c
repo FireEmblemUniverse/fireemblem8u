@@ -1,6 +1,8 @@
 #include "global.h"
 
 #include "hardware.h"
+#include "proc.h"
+#include "functions.h"
 
 struct gfx_set {
     const void *gfx;
@@ -9,6 +11,9 @@ struct gfx_set {
 };
 
 extern struct CONST_DATA gfx_set gUnknown_0895DD1C[];
+extern struct ProcCmd CONST_DATA gUnknown_08591154[]; // proc: gProcFace
+void sub_80081A8(void);
+void sub_80067E8(void);
 
 void sub_8010DC0(int index)
 {
@@ -28,3 +33,12 @@ void sub_8010DC0(int index)
     BG_EnableSyncByMask(0x8);
     gPaletteBuffer[0] = 0;
 }
+
+void sub_8010E50(void) // function: MapLevelUp_EndFace
+{
+    sub_80081A8();
+    Proc_EndEach(gUnknown_08591154);
+    ResetFaces();
+    sub_80067E8();
+}
+
