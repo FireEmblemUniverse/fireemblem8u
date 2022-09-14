@@ -4,46 +4,6 @@
 
 	@ Tile Fading (for tile changes and such)
 
-
-	THUMB_FUNC_START sub_801DD54
-sub_801DD54: @ 0x0801DD54
-	push {r4, r5, lr}
-	adds r5, r0, #0
-	adds r4, r5, #0
-	adds r4, #0x4c
-	ldrb r0, [r4]
-	adds r1, r0, #0
-	movs r2, #0x10
-	subs r2, r2, r0
-	lsls r2, r2, #0x18
-	lsrs r2, r2, #0x18
-	movs r0, #1
-	movs r3, #0
-	bl SetSpecialColorEffectsParameters
-	ldrh r0, [r4]
-	subs r0, #1
-	strh r0, [r4]
-	lsls r0, r0, #0x10
-	cmp r0, #0
-	bge _0801DD9C
-	adds r0, r5, #0
-	bl Proc_Break
-	bl SetDefaultColorEffects
-	movs r0, #2
-	movs r1, #0
-	bl SetBackgroundTileDataOffset
-	ldr r0, _0801DDA4  @ gBG2TilemapBuffer
-	movs r1, #0
-	bl BG_Fill
-	movs r0, #4
-	bl BG_EnableSyncByMask
-_0801DD9C:
-	pop {r4, r5}
-	pop {r0}
-	bx r0
-	.align 2, 0
-_0801DDA4: .4byte gBG2TilemapBuffer
-
 	THUMB_FUNC_END sub_801DD54
 
 	THUMB_FUNC_START Destruct6CBMXFADE

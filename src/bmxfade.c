@@ -19,3 +19,16 @@ void sub_801DD1C(struct BmxfadeProc* proc)
     sub_8001F0C(0, 0, 0, 1, 1);
 }
 
+void sub_801DD54(struct BmxfadeProc* proc)
+{
+    SetSpecialColorEffectsParameters(1, proc->unk_4C, 0x10 - proc->unk_4C, 0);
+
+    if (--proc->unk_4C >= 0)
+        return;
+    
+    Proc_Break(proc);
+    SetDefaultColorEffects();
+    SetBackgroundTileDataOffset(2, 0);
+    BG_Fill(gBG2TilemapBuffer, 0);
+    BG_EnableSyncByMask(4);
+}
