@@ -61,6 +61,7 @@ void MakeNew6CBMXFADE2(s8 lock_game, ProcPtr parent)
         Proc_StartBlocking(gUnknown_0859ADC8, parent);
     
     proc->unk_4E = lock_game;
-    if (0 != proc->unk_4E)
+    
+    if (0 != lock_game)
         SubSkipThread2();
 }
