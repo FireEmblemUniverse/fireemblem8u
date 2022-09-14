@@ -9,27 +9,27 @@ struct BmxfadeProc {
     PROC_HEADER;
 
     /* 29 */ u8 _pad29[0x4C - 0x29];
-    /* 4C */ s16 unk_4C;
-    /* 4E */ s16 unk_4E;
+    /* 4C */ s16 counter;
+    /* 4E */ s16 game_lock;
 };
 
-void sub_801DD1C(struct BmxfadeProc *proc);
-void sub_801DD54(struct BmxfadeProc *proc);
+void bmxfade_init(struct BmxfadeProc *proc);
+void bmxfade_loop(struct BmxfadeProc *proc);
 void Destruct6CBMXFADE(struct BmxfadeProc *proc);
 
-struct ProcCmd CONST_DATA gUnknown_0859ADC8[] = {
+struct ProcCmd CONST_DATA sProcScr_BMXFADE[] = {
     PROC_NAME("BMXFADE"),
     PROC_END_IF_DUPLICATE,
     PROC_SET_END_CB(Destruct6CBMXFADE),
-    PROC_CALL(sub_801DD1C),
-    PROC_CALL(sub_801DD54),
-    PROC_REPEAT(sub_801DD54),
+    PROC_CALL(bmxfade_init),
+    PROC_CALL(bmxfade_loop),
+    PROC_REPEAT(bmxfade_loop),
     PROC_END,
 };
 
-void sub_801DD1C(struct BmxfadeProc *proc)
+void bmxfade_init(struct BmxfadeProc *proc)
 {
-    proc->unk_4C = 0x10;
+    proc->counter = 0x10;
 
     SetupBackgroundForWeatherMaybe();
 
@@ -37,11 +37,11 @@ void sub_801DD1C(struct BmxfadeProc *proc)
     sub_8001F0C(0, 0, 0, 1, 1);
 }
 
-void sub_801DD54(struct BmxfadeProc *proc)
+void bmxfade_loop(struct BmxfadeProc *proc)
 {
-    SetSpecialColorEffectsParameters(1, proc->unk_4C, 0x10 - proc->unk_4C, 0);
+    SetSpecialColorEffectsParameters(1, proc->counter, 0x10 - proc->counter, 0);
 
-    if (--proc->unk_4C >= 0)
+    if (--proc->counter >= 0)
         return;
 
     Proc_Break(proc);
@@ -55,14 +55,14 @@ void Destruct6CBMXFADE(struct BmxfadeProc *proc)
 {
     SetAllUnitNotBackSprite();
 
-    if (0 != proc->unk_4E)
+    if (0 != proc->game_lock)
         SubSkipThread2();
 }
 
 void NewBMXFADE(s8 lock_game)
 {
-    struct BmxfadeProc *proc = Proc_Start(gUnknown_0859ADC8, PROC_TREE_3);
-    proc->unk_4E = lock_game;
+    struct BmxfadeProc *proc = Proc_Start(sProcScr_BMXFADE, PROC_TREE_3);
+    proc->game_lock = lock_game;
 
     if (0 != lock_game)
         AddSkipThread2();
@@ -71,9 +71,9 @@ void NewBMXFADE(s8 lock_game)
 void MakeNew6CBMXFADE2(s8 lock_game, ProcPtr parent)
 {
     struct BmxfadeProc *proc = 
-        Proc_StartBlocking(gUnknown_0859ADC8, parent);
+        Proc_StartBlocking(sProcScr_BMXFADE, parent);
     
-    proc->unk_4E = lock_game;
+    proc->game_lock = lock_game;
 
     if (0 != lock_game)
         AddSkipThread2();
@@ -81,7 +81,7 @@ void MakeNew6CBMXFADE2(s8 lock_game, ProcPtr parent)
 
 bool8 DoesBMXFADEExist(void)
 {
-    return Proc_Find(gUnknown_0859ADC8)
+    return Proc_Find(sProcScr_BMXFADE)
             ? 1
             : 0;
 }
