@@ -1,4 +1,8 @@
 
+	.INCLUDE "macro.inc"
+
+	.SYNTAX UNIFIED
+	
 	THUMB_FUNC_START sub_807F568
 sub_807F568: @ 0x0807F568
 	push {lr}
