@@ -361,7 +361,7 @@ void SetFontGlyphSet(int a)
         gCurrentFont->glyphs = gUnknown_0858F6F4;
 }
 
-void sub_8003D20(void)
+void Font_ResetAllocation(void)
 {
     gCurrentFont->unk12 = 0;
     gUnknown_02028E78[0].unk0 = -1;

@@ -4814,7 +4814,7 @@ _08043968:
 	ldr r0, _08043AF8  @ gUnknown_0203DB64
 	bl SetFont
 	bl Font_LoadForUI
-	bl sub_8003D20
+	bl Font_ResetAllocation
 	bl sub_8043164
 	bl SetupMapSpritesPalettes
 	bl SMS_ClearUsageTable
@@ -6608,7 +6608,7 @@ sub_8044768: @ 0x08044768
 	ldr r0, _080447F4  @ gUnknown_0203DB64
 	bl SetFont
 	bl Font_LoadForUI
-	bl sub_8003D20
+	bl Font_ResetAllocation
 	bl CheckSomethingSomewhere
 	lsls r0, r0, #0x18
 	asrs r1, r0, #0x18
@@ -8547,7 +8547,7 @@ sub_8045640: @ 0x08045640
 	bl CopyToPaletteBuffer
 	movs r0, #0
 	bl SetFontGlyphSet
-	bl sub_8003D20
+	bl Font_ResetAllocation
 	ldr r4, _080457E8  @ gUnknown_0203DB14
 	movs r5, #1
 _080456EC:
@@ -9247,7 +9247,7 @@ sub_8045C68: @ 0x08045C68
 	adds r6, r3, #0
 	bl sub_8006978
 	bl sub_8008250
-	bl sub_8003D20
+	bl Font_ResetAllocation
 	adds r0, r4, #0
 	adds r1, r5, #0
 	mov r2, r8
@@ -9446,7 +9446,7 @@ _08045DFC:
 	ldr r0, _08045EEC  @ gUnknown_0203DB64
 	bl SetFont
 	bl Font_LoadForUI
-	bl sub_8003D20
+	bl Font_ResetAllocation
 	bl sub_8043164
 	movs r5, #0
 	adds r4, #0x9c
@@ -10723,7 +10723,7 @@ sub_8046838: @ 0x08046838
 	bl CallARM_FillTileRect
 	ldr r0, _08046990  @ gUnknown_0203DB64
 	bl SetFont
-	bl sub_8003D20
+	bl Font_ResetAllocation
 	bl sub_8043164
 	bl sub_804CEB0
 	add r0, sp, #4
@@ -10866,7 +10866,7 @@ sub_80469C4: @ 0x080469C4
 	ldr r0, _08046AC0  @ gUnknown_0203DB64
 	bl SetFont
 	bl Font_LoadForUI
-	bl sub_8003D20
+	bl Font_ResetAllocation
 	movs r0, #0xc0
 	movs r1, #0x10
 	adds r2, r7, #0
@@ -11696,7 +11696,7 @@ sub_8047008: @ 0x08047008
 	ldr r0, _080471E0  @ gUnknown_0203DB64
 	bl SetFont
 	bl Font_LoadForUI
-	bl sub_8003D20
+	bl Font_ResetAllocation
 	movs r1, #0
 	movs r0, #0xc8
 	strh r0, [r7, #0x36]
@@ -12061,7 +12061,7 @@ sub_8047324: @ 0x08047324
 	ldr r0, _08047548  @ gUnknown_0203DB64
 	bl SetFont
 	bl Font_LoadForUI
-	bl sub_8003D20
+	bl Font_ResetAllocation
 	adds r1, r7, #0
 	adds r1, #0x34
 	movs r0, #5
@@ -12588,7 +12588,7 @@ sub_8047780: @ 0x08047780
 	bl CallARM_FillTileRect
 	ldr r0, _08047910  @ gUnknown_0203DB64
 	bl SetFont
-	bl sub_8003D20
+	bl Font_ResetAllocation
 	bl sub_8043164
 	mov r1, r8
 	str r5, [r1, #0x30]
@@ -13016,7 +13016,7 @@ sub_8047B34: @ 0x08047B34
 	ldr r0, _08047BD4  @ gUnknown_0203DB64
 	bl SetFont
 	bl Font_LoadForUI
-	bl sub_8003D20
+	bl Font_ResetAllocation
 	bl sub_8043164
 	str r4, [r6, #0x4c]
 	bl sub_80A6A68
@@ -13303,7 +13303,7 @@ sub_8047D88: @ 0x08047D88
 	ldr r0, _08047E30  @ gUnknown_0203DB64
 	bl SetFont
 	bl Font_LoadForUI
-	bl sub_8003D20
+	bl Font_ResetAllocation
 	bl sub_8043164
 	str r4, [r6, #0x4c]
 	bl sub_80A6A68
@@ -14827,7 +14827,7 @@ sub_8048988: @ 0x08048988
 	bl CopyToPaletteBuffer
 	movs r0, #0
 	bl SetFont
-	bl sub_8003D20
+	bl Font_ResetAllocation
 	movs r0, #0
 	mov r9, r0
 	ldr r0, _08048A54  @ gUnknown_080D9F28
@@ -15768,7 +15768,7 @@ sub_80490EC: @ 0x080490EC
 	bl InitSomeOtherGraphicsRelatedStruct
 	movs r0, #0
 	bl SetFontGlyphSet
-	bl sub_8003D20
+	bl Font_ResetAllocation
 	ldr r4, _080491D0  @ gUnknown_02000C78
 	adds r0, r4, #0
 	bl Text_Init3
@@ -17834,7 +17834,7 @@ _0804A104: .4byte gRAMChapterData
 sub_804A108: @ 0x0804A108
 	push {r4, lr}
 	adds r4, r0, #0
-	bl sub_8003D20
+	bl Font_ResetAllocation
 	ldr r2, _0804A148  @ gUnknown_0203DD90
 	movs r0, #0xff
 	strb r0, [r2, #6]

@@ -774,7 +774,7 @@ extern void (*sHBlankHandler2)(void);
 extern u16* gUnknown_03004158;
 // extern ??? gUnknown_03004160
 // extern ??? gUnknown_03004960
-// extern ??? gUnknown_03004980
+// extern ??? gFaceProcs
 // extern ??? gUnknown_03004990
 // extern ??? gStatGainSimUnit
 extern struct Unit* gActiveUnit;

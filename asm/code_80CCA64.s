@@ -2147,7 +2147,7 @@ sub_80CECB0: @ 0x080CECB0
 	movs r1, #0x40
 	movs r2, #0x20
 	bl CopyToPaletteBuffer
-	bl sub_8003D20
+	bl Font_ResetAllocation
 	ldr r0, [r5]
 	adds r0, #0xec
 	movs r1, #0x16

@@ -82,7 +82,7 @@ _0801FA2A:
 	bl DrawIcon
 	adds r4, #2
 _0801FA5A:
-	bl sub_8003D20
+	bl Font_ResetAllocation
 	lsls r1, r4, #1
 	ldr r0, _0801FA84  @ gUnknown_02022EEA
 	adds r1, r1, r0
@@ -182,7 +182,7 @@ _0801FAEC:
 	bl DrawIcon
 	adds r6, #2
 _0801FB1E:
-	bl sub_8003D20
+	bl Font_ResetAllocation
 	add r0, sp, #4
 	adds r1, r5, #0
 	bl Text_Init
@@ -252,7 +252,7 @@ sub_801FBAC: @ 0x0801FBAC
 	mov r8, r0
 	adds r7, r1, #0
 	adds r4, r2, #0
-	bl sub_8003D20
+	bl Font_ResetAllocation
 	add r0, sp, #4
 	movs r1, #0x14
 	bl Text_Init
@@ -338,7 +338,7 @@ sub_801FC68: @ 0x0801FC68
 	adds r7, r1, #0
 	adds r4, r2, #0
 	adds r5, r3, #0
-	bl sub_8003D20
+	bl Font_ResetAllocation
 	add r0, sp, #4
 	movs r1, #0x14
 	bl Text_Init

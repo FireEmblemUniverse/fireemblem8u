@@ -1309,7 +1309,7 @@ void InitPlayerPhaseInterface() {
 
     LoadIconPalette(1, 2);
 
-    sub_8003D20();
+    Font_ResetAllocation();
 
     if (gRAMChapterData.cfgDisableTerrainDisplay == 0) {
         Proc_Start(gProcScr_TerrainDisplay, PROC_TREE_3);

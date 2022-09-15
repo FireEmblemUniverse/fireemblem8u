@@ -2,129 +2,6 @@
     
     .syntax unified
 
-	THUMB_FUNC_START sub_807F1AC
-sub_807F1AC: @ 0x0807F1AC
-	push {r4, r5, r6, lr}
-	sub sp, #4
-	adds r5, r0, #0
-	bl sub_8003D20
-	ldr r0, _0807F29C  @ gBG0TilemapBuffer
-	movs r1, #0
-	bl BG_Fill
-	movs r1, #0x2e
-	ldrsh r0, [r5, r1]
-	movs r1, #1
-	movs r2, #1
-	bl sub_807EA98
-	movs r4, #0
-	movs r6, #0
-_0807F1CE:
-	movs r2, #0x2e
-	ldrsh r0, [r5, r2]
-	str r6, [sp]
-	movs r1, #1
-	movs r2, #1
-	adds r3, r4, #0
-	bl sub_807EBA4
-	adds r4, #1
-	cmp r4, #8
-	ble _0807F1CE
-	movs r0, #1
-	bl BG_EnableSyncByMask
-	adds r0, r5, #0
-	adds r0, #0x30
-	movs r1, #0
-	strb r1, [r0]
-	adds r0, #1
-	strb r1, [r0]
-	ldr r0, _0807F2A0  @ 0x0000FF70
-	strh r0, [r5, #0x32]
-	ldr r4, _0807F2A4  @ gLCDControlBuffer
-	ldrb r2, [r4, #0xc]
-	subs r1, #4
-	adds r0, r1, #0
-	ands r0, r2
-	strb r0, [r4, #0xc]
-	ldrb r2, [r4, #0x10]
-	adds r0, r1, #0
-	ands r0, r2
-	movs r3, #1
-	orrs r0, r3
-	strb r0, [r4, #0x10]
-	ldrb r2, [r4, #0x14]
-	adds r0, r1, #0
-	ands r0, r2
-	orrs r0, r3
-	strb r0, [r4, #0x14]
-	ldrb r0, [r4, #0x18]
-	ands r1, r0
-	movs r0, #2
-	orrs r1, r0
-	strb r1, [r4, #0x18]
-	bl SetDefaultColorEffects
-	ldrb r1, [r4, #1]
-	movs r0, #0x21
-	negs r0, r0
-	ands r0, r1
-	movs r1, #0x41
-	negs r1, r1
-	ands r0, r1
-	movs r1, #0x7f
-	ands r0, r1
-	strb r0, [r4, #1]
-	ldrh r2, [r5, #0x32]
-	movs r0, #0
-	movs r1, #0
-	bl BG_SetPosition
-	ldrh r2, [r5, #0x32]
-	movs r0, #1
-	movs r1, #0
-	bl BG_SetPosition
-	ldr r2, _0807F2A8  @ gCurrentMapAnimState
-	movs r0, #0x2e
-	ldrsh r1, [r5, r0]
-	lsls r0, r1, #2
-	adds r0, r0, r1
-	lsls r0, r0, #2
-	adds r0, r0, r2
-	ldr r0, [r0]
-	ldr r0, [r0]
-	ldrh r1, [r0, #6]
-	movs r2, #0x32
-	ldrsh r0, [r5, r2]
-	movs r3, #0x20
-	subs r3, r3, r0
-	ldr r0, _0807F2AC  @ 0x00001042
-	str r0, [sp]
-	movs r0, #0
-	movs r2, #0xb8
-	bl NewFace
-	ldr r0, _0807F2B0  @ gUnknown_03004980
-	ldr r2, [r0]
-	ldrh r1, [r5, #0x32]
-	movs r0, #0x20
-	subs r0, r0, r1
-	strh r0, [r2, #0x36]
-	movs r0, #0x80
-	lsls r0, r0, #2
-	movs r1, #3
-	movs r2, #1
-	adds r3, r5, #0
-	bl sub_807EDF8
-	add sp, #4
-	pop {r4, r5, r6}
-	pop {r0}
-	bx r0
-	.align 2, 0
-_0807F29C: .4byte gBG0TilemapBuffer
-_0807F2A0: .4byte 0x0000FF70
-_0807F2A4: .4byte gLCDControlBuffer
-_0807F2A8: .4byte gCurrentMapAnimState
-_0807F2AC: .4byte 0x00001042
-_0807F2B0: .4byte gUnknown_03004980
-
-	THUMB_FUNC_END sub_807F1AC
-
 	THUMB_FUNC_START sub_807F2B4
 sub_807F2B4: @ 0x0807F2B4
 	movs r1, #0
@@ -192,7 +69,7 @@ sub_807F30C: @ 0x0807F30C
 	movs r0, #1
 	movs r1, #0
 	bl BG_SetPosition
-	ldr r0, _0807F350  @ gUnknown_03004980
+	ldr r0, _0807F350  @ gFaceProcs
 	ldr r2, [r0]
 	ldrh r1, [r4, #0x32]
 	movs r0, #0x20
@@ -211,7 +88,7 @@ _0807F348:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_0807F350: .4byte gUnknown_03004980
+_0807F350: .4byte gFaceProcs
 
 	THUMB_FUNC_END sub_807F30C
 
@@ -230,7 +107,7 @@ sub_807F354: @ 0x0807F354
 	movs r0, #1
 	movs r1, #0
 	bl BG_SetPosition
-	ldr r0, _0807F398  @ gUnknown_03004980
+	ldr r0, _0807F398  @ gFaceProcs
 	ldr r2, [r0]
 	ldrh r1, [r4, #0x32]
 	movs r0, #0x20
@@ -249,7 +126,7 @@ _0807F390:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_0807F398: .4byte gUnknown_03004980
+_0807F398: .4byte gFaceProcs
 
 	THUMB_FUNC_END sub_807F354
 
@@ -294,7 +171,7 @@ _0807F3CC:
 	str r1, [sp]
 	movs r2, #1
 	adds r3, r6, #0
-	bl sub_807EBA4
+	bl MapAnimLevelUp_DrawStatNum
 	movs r0, #1
 	bl BG_EnableSyncByMask
 	ldr r1, _0807F43C  @ gUnknown_089A3ED4

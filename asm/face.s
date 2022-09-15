@@ -65,7 +65,7 @@ _0800556C: .4byte gUnknown_0202A68C
 sub_8005570: @ 0x08005570
 	push {lr}
 	movs r1, #0
-	ldr r2, _08005580  @ gUnknown_03004980
+	ldr r2, _08005580  @ gFaceProcs
 _08005576:
 	ldr r0, [r2]
 	cmp r0, #0
@@ -73,7 +73,7 @@ _08005576:
 	adds r0, r1, #0
 	b _08005590
 	.align 2, 0
-_08005580: .4byte gUnknown_03004980
+_08005580: .4byte gFaceProcs
 _08005584:
 	adds r2, #4
 	adds r1, #1
@@ -193,7 +193,7 @@ NewFace: @ 0x0800563C
 	mov r8, r1
 	mov r9, r2
 	mov sl, r3
-	ldr r1, _08005660  @ gUnknown_03004980
+	ldr r1, _08005660  @ gFaceProcs
 	lsls r0, r6, #2
 	adds r5, r0, r1
 	ldr r7, [r5]
@@ -202,7 +202,7 @@ NewFace: @ 0x0800563C
 	movs r0, #0
 	b _08005720
 	.align 2, 0
-_08005660: .4byte gUnknown_03004980
+_08005660: .4byte gFaceProcs
 _08005664:
 	ldr r0, _080056A4  @ gUnknown_08591154
 	movs r1, #5
@@ -308,7 +308,7 @@ _08005734: .4byte gUnknown_08591264
 	THUMB_FUNC_START DeleteE_FACEByPointer
 DeleteE_FACEByPointer: @ 0x08005738
 	push {lr}
-	ldr r2, _08005754  @ gUnknown_03004980
+	ldr r2, _08005754  @ gFaceProcs
 	adds r1, r0, #0
 	adds r1, #0x40
 	ldrb r1, [r1]
@@ -320,14 +320,14 @@ DeleteE_FACEByPointer: @ 0x08005738
 	pop {r0}
 	bx r0
 	.align 2, 0
-_08005754: .4byte gUnknown_03004980
+_08005754: .4byte gFaceProcs
 
 	THUMB_FUNC_END DeleteE_FACEByPointer
 
 	THUMB_FUNC_START DeleteFaceByIndex
 DeleteFaceByIndex: @ 0x08005758
 	push {lr}
-	ldr r1, _0800576C  @ gUnknown_03004980
+	ldr r1, _0800576C  @ gFaceProcs
 	lsls r0, r0, #2
 	adds r0, r0, r1
 	ldr r0, [r0]
@@ -335,7 +335,7 @@ DeleteFaceByIndex: @ 0x08005758
 	pop {r0}
 	bx r0
 	.align 2, 0
-_0800576C: .4byte gUnknown_03004980
+_0800576C: .4byte gFaceProcs
 
 	THUMB_FUNC_END DeleteFaceByIndex
 
@@ -361,7 +361,7 @@ _08005784:
 	THUMB_FUNC_START sub_800578C
 sub_800578C: @ 0x0800578C
 	push {lr}
-	ldr r2, _080057A0  @ gUnknown_03004980
+	ldr r2, _080057A0  @ gFaceProcs
 	lsls r0, r0, #2
 	adds r0, r0, r2
 	ldr r0, [r0]
@@ -369,7 +369,7 @@ sub_800578C: @ 0x0800578C
 	pop {r1}
 	bx r1
 	.align 2, 0
-_080057A0: .4byte gUnknown_03004980
+_080057A0: .4byte gFaceProcs
 
 	THUMB_FUNC_END sub_800578C
 
@@ -383,7 +383,7 @@ sub_80057A4: @ 0x080057A4
 	THUMB_FUNC_START sub_80057A8
 sub_80057A8: @ 0x080057A8
 	push {lr}
-	ldr r1, _080057BC  @ gUnknown_03004980
+	ldr r1, _080057BC  @ gFaceProcs
 	lsls r0, r0, #2
 	adds r0, r0, r1
 	ldr r0, [r0]
@@ -391,7 +391,7 @@ sub_80057A8: @ 0x080057A8
 	pop {r1}
 	bx r1
 	.align 2, 0
-_080057BC: .4byte gUnknown_03004980
+_080057BC: .4byte gFaceProcs
 
 	THUMB_FUNC_END sub_80057A8
 
@@ -2081,7 +2081,7 @@ _08006444:
 	THUMB_FUNC_START sub_8006458
 sub_8006458: @ 0x08006458
 	push {lr}
-	ldr r2, _0800646C  @ gUnknown_03004980
+	ldr r2, _0800646C  @ gFaceProcs
 	lsls r0, r0, #2
 	adds r0, r0, r2
 	ldr r0, [r0]
@@ -2089,7 +2089,7 @@ sub_8006458: @ 0x08006458
 	pop {r0}
 	bx r0
 	.align 2, 0
-_0800646C: .4byte gUnknown_03004980
+_0800646C: .4byte gFaceProcs
 
 	THUMB_FUNC_END sub_8006458
 
@@ -2158,7 +2158,7 @@ sub_80064D4: @ 0x080064D4
 	THUMB_FUNC_START sub_80064DC
 sub_80064DC: @ 0x080064DC
 	push {lr}
-	ldr r2, _080064F0  @ gUnknown_03004980
+	ldr r2, _080064F0  @ gFaceProcs
 	lsls r0, r0, #2
 	adds r0, r0, r2
 	ldr r0, [r0]
@@ -2166,7 +2166,7 @@ sub_80064DC: @ 0x080064DC
 	pop {r0}
 	bx r0
 	.align 2, 0
-_080064F0: .4byte gUnknown_03004980
+_080064F0: .4byte gFaceProcs
 
 	THUMB_FUNC_END sub_80064DC
 
@@ -2182,7 +2182,7 @@ sub_80064F4: @ 0x080064F4
 	mov r9, r1
 	mov sl, r2
 	str r3, [sp, #4]
-	ldr r1, _08006518  @ gUnknown_03004980
+	ldr r1, _08006518  @ gFaceProcs
 	lsls r0, r7, #2
 	adds r4, r0, r1
 	ldr r6, [r4]
@@ -2191,7 +2191,7 @@ sub_80064F4: @ 0x080064F4
 	movs r0, #0
 	b _08006602
 	.align 2, 0
-_08006518: .4byte gUnknown_03004980
+_08006518: .4byte gFaceProcs
 _0800651C:
 	ldr r0, _0800655C  @ gUnknown_0859118C
 	movs r1, #5
@@ -2322,7 +2322,7 @@ _08006614: .4byte gUnknown_0202A68C
 
 	THUMB_FUNC_START sub_8006618
 sub_8006618: @ 0x08006618
-	ldr r3, _08006628  @ gUnknown_03004980
+	ldr r3, _08006628  @ gFaceProcs
 	lsls r0, r0, #2
 	adds r0, r0, r3
 	ldr r3, [r0]
@@ -2331,7 +2331,7 @@ sub_8006618: @ 0x08006618
 	strh r2, [r0, #0x36]
 	bx lr
 	.align 2, 0
-_08006628: .4byte gUnknown_03004980
+_08006628: .4byte gFaceProcs
 
 	THUMB_FUNC_END sub_8006618
 
