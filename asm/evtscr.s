@@ -2315,20 +2315,20 @@ sub_800E640: @ 0x0800E640
 	cmp r0, #0
 	beq _0800E668
 	bl sub_80081A8
-	ldr r0, _0800E664  @ gUnknown_08591154
+	ldr r0, _0800E664  @ gProcScr_E_FACE
 	bl Proc_EndEach
 	bl ResetFaces
 	bl sub_80067E8
 	b _0800E686
 	.align 2, 0
-_0800E664: .4byte gUnknown_08591154
+_0800E664: .4byte gProcScr_E_FACE
 _0800E668:
 	bl Face6CExists
 	lsls r0, r0, #0x18
 	cmp r0, #0
 	beq _0800E686
 	bl sub_80081A8
-	ldr r0, _0800E68C  @ gUnknown_08591154
+	ldr r0, _0800E68C  @ gProcScr_E_FACE
 	ldr r1, _0800E690  @ sub_8005F38
 	bl Proc_ForEach
 	ldr r0, _0800E694  @ gUnknown_08591DE8
@@ -2339,7 +2339,7 @@ _0800E686:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_0800E68C: .4byte gUnknown_08591154
+_0800E68C: .4byte gProcScr_E_FACE
 _0800E690: .4byte sub_8005F38
 _0800E694: .4byte gUnknown_08591DE8
 
@@ -2564,7 +2564,7 @@ _0800E834:
 	lsls r0, r0, #0x10
 	lsrs r6, r0, #0x10
 _0800E842:
-	ldr r5, _0800E894  @ gUnknown_0895DD1C
+	ldr r5, _0800E894  @ gConvoBackgroundData
 	lsls r4, r6, #1
 	adds r4, r4, r6
 	lsls r4, r4, #2
@@ -2600,7 +2600,7 @@ _0800E842:
 	strh r0, [r1]
 	b _0800E8BE
 	.align 2, 0
-_0800E894: .4byte gUnknown_0895DD1C
+_0800E894: .4byte gConvoBackgroundData
 _0800E898: .4byte gBG3TilemapBuffer
 _0800E89C: .4byte gPaletteBuffer
 _0800E8A0:
@@ -3113,7 +3113,7 @@ _0800EC86:
 	bl NextRN_N
 	strh r0, [r6, #0x2c]
 _0800EC94:
-	ldr r5, _0800ECF4  @ gUnknown_0895DD1C
+	ldr r5, _0800ECF4  @ gConvoBackgroundData
 	ldrh r1, [r6, #0x2c]
 	lsls r0, r1, #1
 	adds r0, r0, r1
@@ -3156,7 +3156,7 @@ _0800EC94:
 	strh r0, [r1]
 	b _0800ED20
 	.align 2, 0
-_0800ECF4: .4byte gUnknown_0895DD1C
+_0800ECF4: .4byte gConvoBackgroundData
 _0800ECF8: .4byte gBG2TilemapBuffer
 _0800ECFC: .4byte gPaletteBuffer
 _0800ED00:
@@ -3231,7 +3231,7 @@ _0800ED86:
 	bl NextRN_N
 	strh r0, [r6, #0x2c]
 _0800ED94:
-	ldr r5, _0800EDF8  @ gUnknown_0895DD1C
+	ldr r5, _0800EDF8  @ gConvoBackgroundData
 	ldrh r1, [r6, #0x2c]
 	lsls r0, r1, #1
 	adds r0, r0, r1
@@ -3276,7 +3276,7 @@ _0800ED94:
 	strh r0, [r1]
 	b _0800EE24
 	.align 2, 0
-_0800EDF8: .4byte gUnknown_0895DD1C
+_0800EDF8: .4byte gConvoBackgroundData
 _0800EDFC: .4byte gBG3TilemapBuffer
 _0800EE00: .4byte gPaletteBuffer
 _0800EE04:
@@ -3638,7 +3638,7 @@ Event22_: @ 0x0800F0C8
 	movs r0, #2
 	bl BG_EnableSyncByMask
 	bl sub_80081A8
-	ldr r0, _0800F120  @ gUnknown_08591154
+	ldr r0, _0800F120  @ gProcScr_E_FACE
 	bl Proc_EndEach
 	bl ResetFaces
 	bl sub_80067E8
@@ -3652,7 +3652,7 @@ Event22_: @ 0x0800F0C8
 	.align 2, 0
 _0800F118: .4byte gBG0TilemapBuffer
 _0800F11C: .4byte gBG1TilemapBuffer
-_0800F120: .4byte gUnknown_08591154
+_0800F120: .4byte gProcScr_E_FACE
 
 	THUMB_FUNC_END Event22_
 

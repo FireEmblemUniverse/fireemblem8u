@@ -12,8 +12,8 @@ struct gfx_set {
     const void *pal;
 };
 
-extern struct CONST_DATA gfx_set gUnknown_0895DD1C[];
-extern struct ProcCmd CONST_DATA gUnknown_08591154[]; // proc: gProcFace
+extern struct CONST_DATA gfx_set gConvoBackgroundData[];
+extern struct ProcCmd CONST_DATA gProcScr_E_FACE[];
 extern u16 CONST_DATA gUnknown_085921AC[];
 extern u16 CONST_DATA gUnknown_085A7EE8[];
 void sub_80081A8(void);
@@ -21,9 +21,9 @@ void sub_80067E8(void);
 void sub_8010EE8(int, int, int);
 void sub_807132C(void* ptr, int, int, int);
 
-void sub_8010DC0(int index)
+void ReputConvoBg_unused(int index)
 {
-    sub_8010E50();
+    ResetDialogueScreen();
 
     BG_SetPosition(0, 0, 0);
     BG_SetPosition(1, 0, 0);
@@ -31,23 +31,24 @@ void sub_8010DC0(int index)
     BG_SetPosition(3, 0, 0);
 
     CopyDataWithPossibleUncomp(
-        gUnknown_0895DD1C[index].gfx,
+        gConvoBackgroundData[index].gfx,
         (void*)(GetBackgroundTileDataOffset(3) + BG_VRAM));
 
-    CallARM_FillTileRect(gBG3TilemapBuffer, gUnknown_0895DD1C[index].tsa, 0x8000);
-    ApplyPalettes(gUnknown_0895DD1C[index].pal, 0x8, 0x8);
+    CallARM_FillTileRect(gBG3TilemapBuffer, gConvoBackgroundData[index].tsa, 0x8000);
+    ApplyPalettes(gConvoBackgroundData[index].pal, 0x8, 0x8);
     BG_EnableSyncByMask(BG3_SYNC_BIT);
     gPaletteBuffer[0] = 0;
 }
 
-void sub_8010E50(void) // function: MapLevelUp_EndFace
+void ResetDialogueScreen(void) // function: MapLevelUp_EndFace
 {
-    sub_80081A8();
-    Proc_EndEach(gUnknown_08591154);
+    sub_80081A8();  // clear BG1
+    Proc_EndEach(gProcScr_E_FACE);
     ResetFaces();
-    sub_80067E8();
+    sub_80067E8();  // Reset dialogue data array?
 }
 
+/* This is a function related to display cursor (Event3B -> proc-85908<gProc_SetCursorMayBe>) */
 u16 sub_8010E6C(s16 x, s16 y, s16 counter)
 {
     /**
@@ -86,3 +87,4 @@ void sub_8010EE8(int val0, int val1, int val2)
     sub_807132C(gPaletteBuffer, 0x12, 1, var);
     EnablePaletteSync();
 }
+

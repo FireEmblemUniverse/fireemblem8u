@@ -167,7 +167,7 @@ u16 CONST_DATA gUnknown_08591122[] =
 };
 
 // face proc
-struct ProcCmd CONST_DATA gUnknown_08591154[] =
+struct ProcCmd CONST_DATA gProcScr_E_FACE[] =
 {
     PROC_NAME("E_FACE"),
 

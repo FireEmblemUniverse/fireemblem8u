@@ -204,7 +204,7 @@ NewFace: @ 0x0800563C
 	.align 2, 0
 _08005660: .4byte gUnknown_03004980
 _08005664:
-	ldr r0, _080056A4  @ gUnknown_08591154
+	ldr r0, _080056A4  @ gProcScr_E_FACE
 	movs r1, #5
 	bl Proc_Start
 	adds r4, r0, #0
@@ -232,7 +232,7 @@ _08005664:
 	bl EnablePaletteSync
 	b _080056C8
 	.align 2, 0
-_080056A4: .4byte gUnknown_08591154
+_080056A4: .4byte gProcScr_E_FACE
 _080056A8: .4byte gUnknown_0202A68C
 _080056AC: .4byte gUnknown_02022AA8
 _080056B0: .4byte 0x01000008

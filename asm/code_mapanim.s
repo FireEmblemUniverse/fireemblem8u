@@ -9921,7 +9921,7 @@ sub_807F548: @ 0x0807F548
 	THUMB_FUNC_START sub_807F55C
 sub_807F55C: @ 0x0807F55C
 	push {lr}
-	bl sub_8010E50
+	bl ResetDialogueScreen
 	pop {r0}
 	bx r0
 

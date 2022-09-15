@@ -1294,7 +1294,7 @@ extern struct Glyph *gUnknown_08590B44[];
 // extern ??? gUnknown_085910BE
 // extern ??? gUnknown_085910F0
 // extern ??? gUnknown_08591122
-// extern ??? gUnknown_08591154
+// extern ??? gProcScr_E_FACE
 // extern ??? gUnknown_0859118C
 // extern ??? gUnknown_085911C4
 // extern ??? gUnknown_085911D8
@@ -2943,7 +2943,7 @@ extern const struct SupportBonuses gAffinityBonuses[];
 // extern ??? gUnknown_088B3AD8
 // extern ??? gUnknown_088D1F54
 // extern ??? gUnknown_088D2058
-// extern ??? gUnknown_0895DD1C
+// extern ??? gConvoBackgroundData
 extern u8 CONST_DATA gUnknown_0895DFA4[][2];
 extern u8 gUnknown_0895E0A4[];
 extern u8 gUnknown_0895EEA4[];

@@ -25895,7 +25895,7 @@ _080B4BD8: .4byte gUnknown_0202BCB0
 _080B4BDC: .4byte gUnknown_03005280
 _080B4BE0: .4byte gUnknown_08A391D0
 _080B4BE4:
-	bl sub_8010E50
+	bl ResetDialogueScreen
 _080B4BE8:
 	pop {r0}
 	bx r0
@@ -27851,7 +27851,7 @@ sub_80B5AB4: @ 0x080B5AB4
 	push {r4, r5, r6, lr}
 	movs r1, #7
 	bl Proc_SetMark
-	bl sub_8010E50
+	bl ResetDialogueScreen
 	ldr r0, _080B5AF4  @ gUnknown_08A394C0
 	bl Proc_EndEach
 	ldr r5, _080B5AF8  @ gActionData
@@ -29897,7 +29897,7 @@ sub_80B69D4: @ 0x080B69D4
 	ldr r0, _080B6A0C  @ gBG2TilemapBuffer
 	movs r1, #0
 	bl BG_Fill
-	bl sub_8010E50
+	bl ResetDialogueScreen
 	bl sub_80B744C
 	bl sub_80B6810
 	movs r0, #7
@@ -30217,7 +30217,7 @@ sub_80B6C14: @ 0x080B6C14
 	sub sp, #4
 	movs r0, #0
 	bl SetupBackgrounds
-	bl sub_8010E50
+	bl ResetDialogueScreen
 	bl sub_80B744C
 	movs r0, #3
 	movs r1, #0
@@ -36920,7 +36920,7 @@ EndWM: @ 0x080BA024
 	ldr r0, _080BA050  @ gUnknown_08A3D748
 	bl Proc_Find
 	bl Proc_End
-	bl sub_8010E50
+	bl ResetDialogueScreen
 	bl APProc_DeleteAll
 	movs r0, #0
 	bl SetupBackgrounds
