@@ -125,6 +125,7 @@ SECTIONS
         asm/muctrl.o(.text);
         src/mapanim.o(.text);
         asm/code_mapanim.o(.text);
+        src/mapanim_levelup.o(.text);
         asm/mapanim_levelup.o(.text);
         asm/code_mapanim_807F568.o(.text);
         asm/ev_triggercheck.o(.text);
