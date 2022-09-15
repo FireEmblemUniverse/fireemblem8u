@@ -2,44 +2,6 @@
     
     .syntax unified
 
-	THUMB_FUNC_START sub_807F354
-sub_807F354: @ 0x0807F354
-	push {r4, lr}
-	adds r4, r0, #0
-	ldrh r0, [r4, #0x32]
-	subs r0, #8
-	strh r0, [r4, #0x32]
-	ldrh r2, [r4, #0x32]
-	movs r0, #0
-	movs r1, #0
-	bl BG_SetPosition
-	ldrh r2, [r4, #0x32]
-	movs r0, #1
-	movs r1, #0
-	bl BG_SetPosition
-	ldr r0, _0807F398  @ gFaceProcs
-	ldr r2, [r0]
-	ldrh r1, [r4, #0x32]
-	movs r0, #0x20
-	subs r0, r0, r1
-	strh r0, [r2, #0x36]
-	movs r0, #0x32
-	ldrsh r1, [r4, r0]
-	movs r0, #0x90
-	negs r0, r0
-	cmp r1, r0
-	bgt _0807F390
-	adds r0, r4, #0
-	bl Proc_Break
-_0807F390:
-	pop {r4}
-	pop {r0}
-	bx r0
-	.align 2, 0
-_0807F398: .4byte gFaceProcs
-
-	THUMB_FUNC_END sub_807F354
-
 	THUMB_FUNC_START sub_807F39C
 sub_807F39C: @ 0x0807F39C
 	push {r4, r5, r6, r7, lr}

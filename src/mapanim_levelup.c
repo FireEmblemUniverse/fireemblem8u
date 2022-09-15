@@ -154,7 +154,7 @@ void sub_807F2BC(struct Proc_089A3F5C *proc)
         (proc->unk64 + 0x11) * 0x20 + 0x12,0xE);
 }
 
-void sub_807F30C(struct MapAnimLevelUpProc* proc)
+void MapAnimLevelUp_PullUpWindow(struct MapAnimLevelUpProc* proc)
 {
     proc->y_cur += 8;
     BG_SetPosition(0, 0, proc->y_cur);
@@ -162,7 +162,23 @@ void sub_807F30C(struct MapAnimLevelUpProc* proc)
 
     gFaceProcs[0]->yPosition = 0x20 - proc->y_cur;
 
+    /* note y_cur is s16, here (y_cur < -0x30) ==> (u16 var < 0xFFD0) */
     if (proc->y_cur < -0x30)
+        return;
+
+    Proc_Break((ProcPtr)proc);
+}
+
+void MapAnimLevelUp_PullOffWindow(struct MapAnimLevelUpProc* proc)
+{
+    proc->y_cur -= 8;
+    BG_SetPosition(0, 0, proc->y_cur);
+    BG_SetPosition(1, 0, proc->y_cur);
+
+    gFaceProcs[0]->yPosition = 0x20 - proc->y_cur;
+
+    /* note y_cur is s16, here (y_cur > -0x30) ==> (u16 var > 0xFF70) */
+    if (proc->y_cur > -0x90)
         return;
 
     Proc_Break((ProcPtr)proc);

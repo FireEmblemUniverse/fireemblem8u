@@ -1423,7 +1423,7 @@ sProcScr_MapAnimLevelUp:  @ 0x089A3F74
         .word 0x0
         @ PROC_REPEAT
         .short 0x3, 0x0
-        .word sub_807F30C
+        .word MapAnimLevelUp_PullUpWindow
         @ PROC_SLEEP
         .short 0xe, 0x1e
         .word 0x0
@@ -1441,7 +1441,7 @@ sProcScr_MapAnimLevelUp:  @ 0x089A3F74
         .word 0x0
         @ PROC_REPEAT
         .short 0x3, 0x0
-        .word sub_807F354
+        .word MapAnimLevelUp_PullOffWindow
         @ PROC_CALL
         .short 0x2, 0x0
         .word MapAnimLevelUp_ResetLcd
