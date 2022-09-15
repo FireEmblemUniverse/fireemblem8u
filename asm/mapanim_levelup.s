@@ -590,8 +590,6 @@ sub_807F55C: @ 0x0807F55C
 	bx r0
 
 	THUMB_FUNC_END sub_807F55C
-<<<<<<< HEAD
-=======
 
 .align 2, 0
->>>>>>> 31e95551f92c7b33c8a58c924eff7e7427794216
+
