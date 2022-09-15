@@ -1068,34 +1068,17 @@ ProcPtr sub_80CD668(ProcPtr proc) {
     return Proc_StartBlocking(gUnknown_08B1280C, proc);
 }
 
-struct U03004980_Member {
-    u32 _fill[12];
-    u32 u30;
-    u16 u34;
-};
-
-struct Unknown_03004980 {
-    struct U03004980_Member *a;
-    struct U03004980_Member *b;
-    struct U03004980_Member *c;
-    struct U03004980_Member *d;
-};
-extern struct Unknown_03004980 gFaceProcs;
-
 u32 sub_80CD67C(void) {
-    u16 start = gFaceProcs.a->u34;
+    u16 start = gFaceProcs[0].xPosition;
     s16 cmp = start;
 
     if (cmp > 0x150) {
         return 0;
     } else {
-        struct U03004980_Member *b = gFaceProcs.b;
-        struct U03004980_Member *c = gFaceProcs.c;
-        struct U03004980_Member *d = gFaceProcs.d;
-        gFaceProcs.a->u34 = start + 4;
-        d->u34 = start + 4;
-        c->u34 = start + 4;
-        b->u34 = start + 4;
+        gFaceProcs[0].xPosition = start + 4;
+        gFaceProcs[1].xPosition = start + 4;
+        gFaceProcs[2].xPosition = start + 4;
+        gFaceProcs[3].xPosition = start + 4;
 
         return 1;
     }
