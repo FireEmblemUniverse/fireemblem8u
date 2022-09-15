@@ -1390,7 +1390,7 @@ sProcScr_MapAnimLevelUp:  @ 0x089A3F74
         .word 0x0
         @ PROC_CALL
         .short 0x2, 0x0
-        .word MapAnimLevelUp_Init
+        .word MapAnimLevelUp_InitLcd
         @ PROC_CALL
         .short 0x2, 0x0
         .word sub_807F478

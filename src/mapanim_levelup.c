@@ -30,7 +30,7 @@ struct MapAnimLevelUpProc {
 
 extern struct ProcCmd CONST_DATA sProcScr_MapAnimLevelUp[];
 
-ProcPtr StartMapAnimLevelUp(int unit_index, ProcPtr parent)
+void StartMapAnimLevelUp(int unit_index, ProcPtr parent)
 {
     struct MapAnimLevelUpProc *proc =
         Proc_StartBlocking(sProcScr_MapAnimLevelUp, parent);
@@ -38,7 +38,7 @@ ProcPtr StartMapAnimLevelUp(int unit_index, ProcPtr parent)
     proc->unit_index = unit_index;
 }
 
-void MapAnimLevelUp_Init(struct MapAnimLevelUpProc* proc)
+void MapAnimLevelUp_InitLcd(struct MapAnimLevelUpProc* proc)
 {
     gLCDControlBuffer.dispcnt.win0_on = 1;
     gLCDControlBuffer.dispcnt.win1_on = 0;
