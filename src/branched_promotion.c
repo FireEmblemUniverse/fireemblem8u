@@ -1069,7 +1069,7 @@ ProcPtr sub_80CD668(ProcPtr proc) {
 }
 
 u32 sub_80CD67C(void) {
-    u16 start = gFaceProcs[0].xPosition;
+    u16 start = gFaceProcs[0]->xPosition;
     s16 cmp = start;
 
     if (cmp > 0x150) {
