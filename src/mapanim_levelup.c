@@ -1,6 +1,7 @@
 #include "global.h"
 
 #include "proc.h"
+#include "types.h"
 
 enum{
     /* MapAnimLevelUpProc + 0x30 */
@@ -19,7 +20,7 @@ struct MapAnimLevelUpProc {
     PROC_HEADER;
 
     /* 2A */ u8 _spad_2A[0x2E - 0x2A];
-    /* 2E */ s16 unit_index;
+    /* 2E */ u16 unit_index;
 	/* 30 */ u8 stat_cur;
 	/* 31 */ u8 time_delay;
 	/* 32 */ u16 yPos;
@@ -37,3 +38,26 @@ ProcPtr StartMapAnimLevelUp(int unit_index, ProcPtr parent)
     proc->unit_index = unit_index;
 }
 
+void MapAnimLevelUp_Init(struct MapAnimLevelUpProc* proc)
+{
+    gLCDControlBuffer.dispcnt.win0_on = 1;
+    gLCDControlBuffer.dispcnt.win1_on = 0;
+    gLCDControlBuffer.dispcnt.objWin_on = 0;
+
+    gLCDControlBuffer.win1_left = 0;
+    gLCDControlBuffer.win1_top = 0;
+    gLCDControlBuffer.win1_right = 0xF0;
+    gLCDControlBuffer.win1_bottom = 0x30;
+
+    gLCDControlBuffer.wincnt.win0_enableBg0 = 0;
+    gLCDControlBuffer.wincnt.win0_enableBg1 = 0;
+    gLCDControlBuffer.wincnt.win0_enableBg2 = 1;
+    gLCDControlBuffer.wincnt.win0_enableBg3 = 1;
+    gLCDControlBuffer.wincnt.win0_enableObj = 1;
+
+    gLCDControlBuffer.wincnt.wout_enableBg0 = 1;
+    gLCDControlBuffer.wincnt.wout_enableBg1 = 1;
+    gLCDControlBuffer.wincnt.wout_enableBg2 = 1;
+    gLCDControlBuffer.wincnt.wout_enableBg3 = 1;
+    gLCDControlBuffer.wincnt.wout_enableObj = 1;
+}

@@ -2,65 +2,6 @@
     
     .syntax unified
 
-	THUMB_FUNC_START sub_807F124
-sub_807F124: @ 0x0807F124
-	push {r4, r5, lr}
-	ldr r0, _0807F18C  @ gLCDControlBuffer
-	mov ip, r0
-	ldrb r0, [r0, #1]
-	movs r1, #0x20
-	orrs r0, r1
-	movs r1, #0x41
-	negs r1, r1
-	ands r0, r1
-	movs r1, #0x7f
-	ands r0, r1
-	mov r1, ip
-	strb r0, [r1, #1]
-	adds r1, #0x2d
-	movs r0, #0
-	strb r0, [r1]
-	adds r1, #4
-	strb r0, [r1]
-	subs r1, #5
-	movs r0, #0xf0
-	strb r0, [r1]
-	adds r1, #4
-	movs r0, #0x30
-	strb r0, [r1]
-	mov r2, ip
-	adds r2, #0x34
-	ldrb r1, [r2]
-	subs r0, #0x32
-	ands r0, r1
-	movs r1, #3
-	negs r1, r1
-	ands r0, r1
-	movs r5, #4
-	orrs r0, r5
-	movs r4, #8
-	orrs r0, r4
-	movs r3, #0x10
-	orrs r0, r3
-	strb r0, [r2]
-	adds r2, #2
-	ldrb r0, [r2]
-	movs r1, #1
-	orrs r0, r1
-	movs r1, #2
-	orrs r0, r1
-	orrs r0, r5
-	orrs r0, r4
-	orrs r0, r3
-	strb r0, [r2]
-	pop {r4, r5}
-	pop {r0}
-	bx r0
-	.align 2, 0
-_0807F18C: .4byte gLCDControlBuffer
-
-	THUMB_FUNC_END sub_807F124
-
 	THUMB_FUNC_START sub_807F190
 sub_807F190: @ 0x0807F190
 	ldr r2, _0807F1A8  @ gLCDControlBuffer
