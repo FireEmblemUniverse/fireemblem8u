@@ -2,44 +2,6 @@
 
 	.SYNTAX UNIFIED
 
-	THUMB_FUNC_START sub_8010EE8
-sub_8010EE8: @ 0x08010EE8
-	push {r4, r5, lr}
-	sub sp, #4
-	adds r4, r0, #0
-	adds r5, r1, #0
-	adds r3, r2, #0
-	movs r0, #8
-	str r0, [sp]
-	movs r0, #1
-	adds r1, r4, #0
-	adds r2, r5, #0
-	bl sub_8012DCC
-	adds r5, r0, #0
-	ldr r0, _08010F2C  @ gUnknown_085A7EE8
-	ldr r4, _08010F30  @ gUnknown_02022AE8
-	adds r1, r4, #0
-	movs r2, #8
-	bl CpuFastSet
-	ldr r0, _08010F34  @ 0xFFFFFDC0
-	adds r4, r4, r0
-	adds r0, r4, #0
-	movs r1, #0x12
-	movs r2, #1
-	adds r3, r5, #0
-	bl sub_807132C
-	bl EnablePaletteSync
-	add sp, #4
-	pop {r4, r5}
-	pop {r0}
-	bx r0
-	.align 2, 0
-_08010F2C: .4byte gUnknown_085A7EE8
-_08010F30: .4byte gUnknown_02022AE8
-_08010F34: .4byte 0xFFFFFDC0
-
-	THUMB_FUNC_END sub_8010EE8
-
 	THUMB_FUNC_START GetSomeLongPopupLength
 GetSomeLongPopupLength: @ 0x08010F38
 	push {r4, r5, r6, lr}
