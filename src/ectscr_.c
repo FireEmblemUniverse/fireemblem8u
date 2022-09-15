@@ -7,9 +7,9 @@
 #include "variables.h"
 
 struct gfx_set {
-    const void *gfx;
-    const void *tsa;
-    const void *pal;
+    void *gfx;
+    void *tsa;
+    void *pal;
 };
 
 extern struct CONST_DATA gfx_set gConvoBackgroundData[];

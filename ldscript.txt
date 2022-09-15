@@ -51,7 +51,7 @@ SECTIONS
         asm/evtcmd_gmap.o(.text);
         src/event.o(.text);
         asm/evtscr.o(.text);
-        src/ectscr_.c.o(.text);
+        src/ectscr_.o(.text);
         asm/popup.o(.text);
         asm/evtsub.o(.text);
         asm/hino.o(.text);
