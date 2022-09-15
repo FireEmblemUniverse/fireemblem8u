@@ -49,16 +49,12 @@ void sub_8010E50(void) // function: MapLevelUp_EndFace
 u16 sub_8010E6C(s16 x, s16 y, s16 counter)
 {
     u16 tmp_counter0 = counter;
-    s16 x0, x1, y0, y1;
-    x0 = - gUnknown_0202BCB0.camera.x + x * 0x10;
-    y0 = - gUnknown_0202BCB0.camera.y + y * 0x10;
-
-    x1 = (x0 + 0x200) & 0x1FF;
-    y1 = (y0 + 0x100) & 0xFF;
+    s16 x0 = - gUnknown_0202BCB0.camera.x + x * 0x10;
+    s16 y0 = - gUnknown_0202BCB0.camera.y + y * 0x10;
 
     CallARM_PushToSecondaryOAM(
-        x1,
-        y1,
+        (x0 + 0x200) & 0x1FF,
+        (y0 + 0x100) & 0xFF,
         gUnknown_085921AC,
         0x2822);
 
