@@ -1380,8 +1380,8 @@ gUnknown_089A3F5C:  @ 0x089A3F5C
         .short 0x0, 0x0
         .word 0x0
 
-	.global gUnknown_089A3F74
-gUnknown_089A3F74:  @ 0x089A3F74
+	.global sProcScr_MapAnimLevelUp
+sProcScr_MapAnimLevelUp:  @ 0x089A3F74
         @ PROC_SET_END_CB
         .short 0x4, 0x0
         .word sub_807F55C

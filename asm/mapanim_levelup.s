@@ -1,21 +1,6 @@
     .INCLUDE "macro.inc"
     
     .syntax unified
-	
-    THUMB_FUNC_START sub_807F10C
-sub_807F10C: @ 0x0807F10C
-	push {r4, lr}
-	adds r4, r0, #0
-	ldr r0, _0807F120  @ gUnknown_089A3F74
-	bl Proc_StartBlocking
-	strh r4, [r0, #0x2e]
-	pop {r4}
-	pop {r0}
-	bx r0
-	.align 2, 0
-_0807F120: .4byte gUnknown_089A3F74
-
-	THUMB_FUNC_END sub_807F10C
 
 	THUMB_FUNC_START sub_807F124
 sub_807F124: @ 0x0807F124

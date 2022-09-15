@@ -3043,7 +3043,7 @@ extern struct ProcCmd gUnknown_089A35B0;
 // extern ??? gUnknown_089A3ED4
 // extern ??? gUnknown_089A3F4C
 // extern ??? gUnknown_089A3F5C
-// extern ??? gUnknown_089A3F74
+// extern ??? sProcScr_MapAnimLevelUp
 // extern ??? gUnknown_089A4034
 // extern ??? gUnknown_089A404C
 // extern ??? gUnknown_089A4064

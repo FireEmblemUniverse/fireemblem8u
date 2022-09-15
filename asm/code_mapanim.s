@@ -3332,7 +3332,7 @@ sub_807C210: @ 0x0807C210
 	adds r0, #0x68
 	movs r2, #0
 	ldrsh r0, [r0, r2]
-	bl sub_807F10C
+	bl StartMapAnimLevelUp
 _0807C22A:
 	pop {r0}
 	bx r0
