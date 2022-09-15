@@ -1171,13 +1171,10 @@ void sub_80CD7FC(struct PromoProc4 *proc) {
 
     sub_808E9D8(0xa);
 
-    gFaceProcs.a->u30 = 0x82;
-    b = gFaceProcs.b;
-    c = gFaceProcs.c;
-    d = gFaceProcs.d;
-    d->u30 = 0x80 << 7;
-    c->u30 = 0x80 << 7;
-    b->u30 = 0x80 << 7;
+    gFaceProcs[0]->displayBits = 0x82;
+    gFaceProcs[1]->displayBits = 0x80 << 7;
+    gFaceProcs[2]->displayBits = 0x80 << 7;
+    gFaceProcs[3]->displayBits = 0x80 << 7;
     gUnknown_03005398[0] = negative_one;
 }
 
