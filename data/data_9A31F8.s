@@ -1447,7 +1447,7 @@ gUnknown_089A3F74:  @ 0x089A3F74
         .word sub_807F190
         @ PROC_CALL
         .short 0x2, 0x0
-        .word sub_8010E50
+        .word ResetDialogueScreen
         @ PROC_SLEEP
         .short 0xe, 0x4
         .word 0x0

@@ -116,7 +116,7 @@ sub_80CDEA8: @ 0x080CDEA8
 	adds r0, r2, #0
 	strb r0, [r1]
 	bl sub_808F270
-	bl sub_8010E50
+	bl ResetDialogueScreen
 	bl APProc_DeleteAll
 	bl EndBG3Slider_
 	ldr r3, _080CDF44  @ gLCDControlBuffer

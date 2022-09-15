@@ -528,8 +528,8 @@ gUnknown_0895D768:  @ 0x0895D768
 gUnknown_0895DC1C:  @ 0x0895DC1C
 	.incbin "baserom.gba", 0x95DC1C, 0x100
 
-    .global gUnknown_0895DD1C
-gUnknown_0895DD1C:  @ 0x0895DD1C
+    .global gConvoBackgroundData
+gConvoBackgroundData:  @ 0x0895DD1C
 	.4byte gUnknown_088D2700
 	.4byte gUnknown_088D5D24
 	.4byte gUnknown_088D61D8

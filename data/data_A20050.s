@@ -3210,7 +3210,7 @@ gUnknown_08A39198:  @ 0x08A39198
 gUnknown_08A391D0:  @ 0x08A391D0
         @ PROC_CALL
         .short 0x2, 0x0
-        .word sub_8010E50
+        .word ResetDialogueScreen
         @ PROC_CALL
         .short 0x2, 0x0
         .word BMapDispResume
@@ -3622,7 +3622,7 @@ gUnknown_08A394DC:  @ 0x08A394DC
         .word sub_80B5BE4
         @ PROC_CALL
         .short 0x2, 0x0
-        .word sub_8010E50
+        .word ResetDialogueScreen
         @ PROC_CALL
         .short 0x2, 0x0
         .word BMapDispResume
@@ -3716,7 +3716,7 @@ gUnknown_08A3963C:  @ 0x08A3963C
         .word sub_80B5BE4
         @ PROC_CALL
         .short 0x2, 0x0
-        .word sub_8010E50
+        .word ResetDialogueScreen
         @ PROC_CALL
         .short 0x2, 0x0
         .word BMapDispResume

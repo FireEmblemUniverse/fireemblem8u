@@ -790,7 +790,7 @@ _0808EFE4:
 	ands r1, r0
 	cmp r1, #0
 	beq _0808EFFC
-	ldr r0, _0808F004  @ gUnknown_08591154
+	ldr r0, _0808F004  @ gProcScr_E_FACE
 	bl Proc_Find
 	bl sub_8005F38
 _0808EFFC:
@@ -798,7 +798,7 @@ _0808EFFC:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_0808F004: .4byte gUnknown_08591154
+_0808F004: .4byte gProcScr_E_FACE
 
 	THUMB_FUNC_END sub_808EFA8
 
@@ -15918,7 +15918,7 @@ sub_8096494: @ 0x08096494
 	push {lr}
 	sub sp, #4
 	bl sub_808F270
-	bl sub_8010E50
+	bl ResetDialogueScreen
 	bl APProc_DeleteAll
 	ldr r3, _080964F0  @ gLCDControlBuffer
 	ldrb r2, [r3, #0xc]
@@ -16097,7 +16097,7 @@ sub_80965F0: @ 0x080965F0
 	sub sp, #4
 	adds r4, r0, #0
 	bl sub_808F270
-	bl sub_8010E50
+	bl ResetDialogueScreen
 	bl APProc_DeleteAll
 	ldr r3, _08096660  @ gLCDControlBuffer
 	ldrb r2, [r3, #0xc]

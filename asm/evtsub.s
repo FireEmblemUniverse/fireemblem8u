@@ -1479,7 +1479,7 @@ _08012320: .4byte gBattleStats
 sub_8012324: @ 0x08012324
 	push {lr}
 	bl sub_808F270
-	bl sub_8010E50
+	bl ResetDialogueScreen
 	movs r0, #0
 	bl SetupBackgrounds
 	bl sub_80141B0

@@ -4473,7 +4473,7 @@ _080089E4: .4byte gUnknown_08591358
 	THUMB_FUNC_START Face6CExists
 Face6CExists: @ 0x080089E8
 	push {lr}
-	ldr r0, _080089FC  @ gUnknown_08591154
+	ldr r0, _080089FC  @ gProcScr_E_FACE
 	bl Proc_Find
 	cmp r0, #0
 	beq _080089F6
@@ -4482,7 +4482,7 @@ _080089F6:
 	pop {r1}
 	bx r1
 	.align 2, 0
-_080089FC: .4byte gUnknown_08591154
+_080089FC: .4byte gProcScr_E_FACE
 
 	THUMB_FUNC_END Face6CExists
 

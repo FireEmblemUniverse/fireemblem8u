@@ -1137,7 +1137,7 @@ void sub_80CD6B0(struct PromoProc4 *proc) {
 void sub_80CD790(struct Proc *proc) {
     struct PromoProc2 *parent = proc->proc_parent;
     parent->u29 = -1;
-    sub_8010E50();
+    ResetDialogueScreen();
     sub_8096C20();
     APProc_DeleteAll();
     EndBG3Slider_();
