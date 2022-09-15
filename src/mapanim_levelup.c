@@ -61,3 +61,10 @@ void MapAnimLevelUp_InitLcd(struct MapAnimLevelUpProc* proc)
     gLCDControlBuffer.wincnt.wout_enableBg3 = 1;
     gLCDControlBuffer.wincnt.wout_enableObj = 1;
 }
+
+void MapAnimLevelUp_ResetLcd()
+{
+    gLCDControlBuffer.dispcnt.win0_on = 0;
+    gLCDControlBuffer.dispcnt.win1_on = 0;
+    gLCDControlBuffer.dispcnt.objWin_on = 0;
+}

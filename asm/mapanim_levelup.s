@@ -2,25 +2,6 @@
     
     .syntax unified
 
-	THUMB_FUNC_START sub_807F190
-sub_807F190: @ 0x0807F190
-	ldr r2, _0807F1A8  @ gLCDControlBuffer
-	ldrb r1, [r2, #1]
-	movs r0, #0x21
-	negs r0, r0
-	ands r0, r1
-	movs r1, #0x41
-	negs r1, r1
-	ands r0, r1
-	movs r1, #0x7f
-	ands r0, r1
-	strb r0, [r2, #1]
-	bx lr
-	.align 2, 0
-_0807F1A8: .4byte gLCDControlBuffer
-
-	THUMB_FUNC_END sub_807F190
-
 	THUMB_FUNC_START sub_807F1AC
 sub_807F1AC: @ 0x0807F1AC
 	push {r4, r5, r6, lr}
