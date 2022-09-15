@@ -590,3 +590,5 @@ sub_807F55C: @ 0x0807F55C
 	bx r0
 
 	THUMB_FUNC_END sub_807F55C
+
+.align 2, 0
