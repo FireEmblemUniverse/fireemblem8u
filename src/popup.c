@@ -68,8 +68,3 @@ u16 sub_8010E6C(s16 x, s16 y, int counter)
         return tmp_counter0;
     }
 }
-
-s16 test(int a)
-{
-    return a * 0x10;
-}
