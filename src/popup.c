@@ -46,5 +46,30 @@ void sub_8010E50(void) // function: MapLevelUp_EndFace
     sub_80067E8();
 }
 
+u16 sub_8010E6C(s16 x, s16 y, s16 counter)
+{
+    u16 tmp_counter0 = counter;
+    s16 x0, x1, y0, y1;
+    x0 = - gUnknown_0202BCB0.camera.x + x * 0x10;
+    y0 = - gUnknown_0202BCB0.camera.y + y * 0x10;
 
+    x1 = (x0 + 0x200) & 0x1FF;
+    y1 = (y0 + 0x100) & 0xFF;
+
+    CallARM_PushToSecondaryOAM(
+        x1,
+        y1,
+        gUnknown_085921AC,
+        0x2822);
+
+    if (tmp_counter0 <= 0xF) {
+        sub_8010EE8(0x10, 0x0, tmp_counter0 / 2);
+        return tmp_counter0 + 1;
+    } else {
+        sub_8010EE8(0x0, 0x10, tmp_counter0 / 2 - 0x8);
+        if (++tmp_counter0 > 0x1F)
+            tmp_counter0 = 0;
+        return tmp_counter0;
+    }
+}
 
