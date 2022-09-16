@@ -233,13 +233,14 @@ loop_body:
         goto loop_tail;
     /* loop end */
 
+
 exec_stat_up_anime:
     MapAnimLevelUp_DrawStatNum(proc->unit_index, 1, 1, stat_index, 1);
     BG_EnableSyncByMask(BG0_SYNC_BIT);
 
     sub_807EE84(
         LevelUpTextSet_AnimeOff[stat_index].x * 8 + 0x3E,
-        LevelUpTextSet_AnimeOff[stat_index].y * 8 - 0x17 - proc->y_cur,
+        LevelUpTextSet_AnimeOff[stat_index].y * 8 + 0x17 - proc->y_cur,
         stat_index, GetSomeStatUp(proc->unit_index, stat_index));
 
     if (0 == stat_index) {
