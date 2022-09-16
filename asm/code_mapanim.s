@@ -8512,8 +8512,8 @@ sub_807EA60: @ 0x0807EA60
 
 	THUMB_FUNC_END sub_807EA60
 
-	THUMB_FUNC_START sub_807EA98
-sub_807EA98: @ 0x0807EA98
+	THUMB_FUNC_START MapAnimLevelUp_DrawTexts
+MapAnimLevelUp_DrawTexts: @ 0x0807EA98
 	push {r4, r5, r6, r7, lr}
 	mov r7, sl
 	mov r6, r9
@@ -8632,10 +8632,10 @@ _0807EB98: .4byte gBG0TilemapBuffer
 _0807EB9C: .4byte gCurrentMapAnimState
 _0807EBA0: .4byte gUnknown_089A3ED4
 
-	THUMB_FUNC_END sub_807EA98
+	THUMB_FUNC_END MapAnimLevelUp_DrawTexts
 
-	THUMB_FUNC_START sub_807EBA4
-sub_807EBA4: @ 0x0807EBA4
+	THUMB_FUNC_START MapAnimLevelUp_DrawStatNum
+MapAnimLevelUp_DrawStatNum: @ 0x0807EBA4
 	push {r4, r5, r6, r7, lr}
 	mov r7, r8
 	push {r7}
@@ -8683,7 +8683,7 @@ _0807EBEA:
 _0807EC00: .4byte gUnknown_089A3ED4
 _0807EC04: .4byte gBG0TilemapBuffer
 
-	THUMB_FUNC_END sub_807EBA4
+	THUMB_FUNC_END MapAnimLevelUp_DrawStatNum
 
 	THUMB_FUNC_START GetSomeStatUp
 GetSomeStatUp: @ 0x0807EC08
