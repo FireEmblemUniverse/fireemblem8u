@@ -70,7 +70,7 @@ void _InitFontForUIDefault(void) {
 
 void MapAnim_Cleanup(void) {
     MU_AllRestartAnimations();
-	sub_8003D20();
+	Font_ResetAllocation();
 	DeleteBattleAnimInfoThing();
 	SetupBackgroundForWeatherMaybe();
 	LoadUiFrameGraphics();

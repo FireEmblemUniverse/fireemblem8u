@@ -4578,7 +4578,7 @@ sub_8090D80: @ 0x08090D80
 	movs r0, #0
 	bl SetupBackgrounds
 	bl Font_InitForUIDefault
-	bl sub_8003D20
+	bl Font_ResetAllocation
 	bl ResetIconGraphics
 	bl SetupMapSpritesPalettes
 	movs r4, #0
@@ -6455,7 +6455,7 @@ _08091C62:
 	movs r1, #0x7f
 	ands r0, r1
 	strb r0, [r2, #1]
-	bl sub_8003D20
+	bl Font_ResetAllocation
 	bl ResetIconGraphics
 	pop {r4}
 	pop {r0}

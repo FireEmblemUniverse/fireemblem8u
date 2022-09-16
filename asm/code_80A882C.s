@@ -639,7 +639,7 @@ sub_80A8CD4: @ 0x080A8CD4
 	push {r5, r6, r7}
 	sub sp, #0x10
 	mov r8, r0
-	bl sub_8003D20
+	bl Font_ResetAllocation
 	bl LoadUiFrameGraphics
 	bl LoadObjUIGfx
 	ldr r0, _080A8EB0  @ gUnknown_08A25DCC
@@ -3524,7 +3524,7 @@ sub_80AA30C: @ 0x080AA30C
 	ldr r0, _080AA40C  @ gBG1TilemapBuffer
 	movs r1, #0
 	bl BG_Fill
-	bl sub_8003D20
+	bl Font_ResetAllocation
 	bl LoadUiFrameGraphics
 	bl LoadObjUIGfx
 	ldr r0, _080AA410  @ gUnknown_08A25DCC
@@ -7447,7 +7447,7 @@ sub_80AC078: @ 0x080AC078
 sub_80AC084: @ 0x080AC084
 	push {r4, r5, r6, r7, lr}
 	adds r7, r0, #0
-	bl sub_8003D20
+	bl Font_ResetAllocation
 	bl LoadUiFrameGraphics
 	bl Font_InitForUIDefault
 	adds r4, r7, #0
@@ -14828,7 +14828,7 @@ sub_80AF524: @ 0x080AF524
 	adds r4, r0, #0
 	movs r0, #0
 	bl SetupBackgrounds
-	bl sub_8003D20
+	bl Font_ResetAllocation
 	bl Font_InitForUIDefault
 	bl LoadObjUIGfx
 	bl LoadUiFrameGraphics
@@ -19617,7 +19617,7 @@ sub_80B1A08: @ 0x080B1A08
 	adds r0, r5, #0
 	adds r1, r4, #0
 	bl CallARM_FillTileRect
-	bl sub_8003D20
+	bl Font_ResetAllocation
 	ldr r2, _080B1C58  @ gUnknown_08A2E974
 	ldr r0, [r2]
 	adds r0, #0xa8
@@ -23407,7 +23407,7 @@ _080B3852:
 	ands r0, r1
 	strb r0, [r4]
 	bl SetDefaultColorEffects
-	bl sub_8003D20
+	bl Font_ResetAllocation
 	bl Font_InitForUIDefault
 	ldrb r2, [r4, #0xc]
 	movs r1, #4
@@ -34527,7 +34527,7 @@ sub_80B8E60: @ 0x080B8E60
 	bl CopyDataWithPossibleUncomp
 	bl LoadUiFrameGraphics
 	bl Font_InitForUIDefault
-	bl sub_8003D20
+	bl Font_ResetAllocation
 	ldr r4, _080B8FA0  @ gLCDControlBuffer
 	ldrb r1, [r4, #1]
 	movs r0, #0x21
@@ -48012,7 +48012,7 @@ sub_80BF048: @ 0x080BF048
 	movs r1, #0x60
 	movs r2, #0x20
 	bl CopyToPaletteBuffer
-	bl sub_8003D20
+	bl Font_ResetAllocation
 	ldr r0, _080BF138  @ gUnknown_08A3E464
 	ldr r1, [r5, #0x14]
 	bl Proc_Start

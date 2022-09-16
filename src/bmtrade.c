@@ -479,7 +479,7 @@ void TradeMenu_InitItemDisplay(struct TradeMenuProc* proc)
     DrawUiFrame2(1,  8, 14, 12, 0);
     DrawUiFrame2(15, 8, 14, 12, 0);
 
-    sub_8003D20();
+    Font_ResetAllocation();
 
     ResetIconGraphics();
     LoadIconPalettes(4); // TODO: palette id constant

@@ -783,7 +783,7 @@ void WarpSelect_OnIdle(struct WarpSelectProc* proc)
 
 void WarpSelect_OnConfirm(struct WarpSelectProc* proc)
 {
-    sub_8003D20();
+    Font_ResetAllocation();
     HideMoveRangeGraphics();
     DeleteEach6CBB();
 
@@ -798,7 +798,7 @@ void WarpSelect_OnConfirm(struct WarpSelectProc* proc)
 
 void WarpSelect_OnCancel(struct WarpSelectProc* proc)
 {
-    sub_8003D20();
+    Font_ResetAllocation();
     HideMoveRangeGraphics();
     DeleteEach6CBB();
 
@@ -864,7 +864,7 @@ void DoUsePutTrap(struct Unit* unit, void(*func)(struct Unit*), int msgHelp)
 
 int RepairSelectOnSelect(ProcPtr proc, struct SelectTarget* target)
 {
-    sub_8003D20();
+    Font_ResetAllocation();
 
     gActionData.targetIndex = target->uid;
 

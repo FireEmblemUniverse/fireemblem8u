@@ -1380,8 +1380,8 @@ gUnknown_089A3F5C:  @ 0x089A3F5C
         .short 0x0, 0x0
         .word 0x0
 
-	.global gUnknown_089A3F74
-gUnknown_089A3F74:  @ 0x089A3F74
+	.global sProcScr_MapAnimLevelUp
+sProcScr_MapAnimLevelUp:  @ 0x089A3F74
         @ PROC_SET_END_CB
         .short 0x4, 0x0
         .word sub_807F55C
@@ -1390,7 +1390,7 @@ gUnknown_089A3F74:  @ 0x089A3F74
         .word 0x0
         @ PROC_CALL
         .short 0x2, 0x0
-        .word sub_807F124
+        .word MapAnimLevelUp_InitLcd
         @ PROC_CALL
         .short 0x2, 0x0
         .word sub_807F478
@@ -1417,19 +1417,19 @@ gUnknown_089A3F74:  @ 0x089A3F74
         .word 0x0
         @ PROC_CALL
         .short 0x2, 0x0
-        .word sub_807F1AC
+        .word MapAnimLevelUp_InitDisplay
         @ PROC_YIELD
         .short 0xe, 0x0
         .word 0x0
         @ PROC_REPEAT
         .short 0x3, 0x0
-        .word sub_807F30C
+        .word MapAnimLevelUp_PullUpWindow
         @ PROC_SLEEP
         .short 0xe, 0x1e
         .word 0x0
         @ PROC_REPEAT
         .short 0x3, 0x0
-        .word sub_807F39C
+        .word MapAnimLevelUp_DisplayStatUp
         @ PROC_SLEEP
         .short 0xe, 0x3c
         .word 0x0
@@ -1441,10 +1441,10 @@ gUnknown_089A3F74:  @ 0x089A3F74
         .word 0x0
         @ PROC_REPEAT
         .short 0x3, 0x0
-        .word sub_807F354
+        .word MapAnimLevelUp_PullOffWindow
         @ PROC_CALL
         .short 0x2, 0x0
-        .word sub_807F190
+        .word MapAnimLevelUp_ResetLcd
         @ PROC_CALL
         .short 0x2, 0x0
         .word ResetDialogueScreen

@@ -3332,7 +3332,7 @@ sub_807C210: @ 0x0807C210
 	adds r0, #0x68
 	movs r2, #0
 	ldrsh r0, [r0, r2]
-	bl sub_807F10C
+	bl StartMapAnimLevelUp
 _0807C22A:
 	pop {r0}
 	bx r0
@@ -4464,7 +4464,7 @@ _0807CAFE:
 sub_807CB04: @ 0x0807CB04
 	push {lr}
 	bl MU_AllRestartAnimations
-	bl sub_8003D20
+	bl Font_ResetAllocation
 	bl DeleteBattleAnimInfoThing
 	bl SetupBackgroundForWeatherMaybe
 	bl LoadLegacyUiFrameGraphics

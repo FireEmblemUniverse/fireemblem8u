@@ -219,7 +219,7 @@ u8 GenericSelection_BackToUM(ProcPtr proc) {
     BG_Fill(gBG2TilemapBuffer, 0);
     BG_EnableSyncByMask(BG2_SYNC_BIT);
 
-    sub_8003D20();
+    Font_ResetAllocation();
 
     HideMoveRangeGraphics();
 
@@ -265,7 +265,7 @@ u8 GenericSelection_BackToUM_CamWait(ProcPtr proc) {
 
     HideMoveRangeGraphics();
 
-    sub_8003D20();
+    Font_ResetAllocation();
 
     Proc_Start(gProcScr_BackToUnitMenu, PROC_TREE_3);
 
@@ -276,7 +276,7 @@ u8 ItemMenu_ButtonBPressed(struct MenuProc* menu, struct MenuItemProc* menuItem)
     BG_Fill(gBG2TilemapBuffer, 0);
     BG_EnableSyncByMask(BG2_SYNC_BIT);
 
-    sub_8003D20();
+    Font_ResetAllocation();
 
     StartSemiCenteredOrphanMenu(&gUnitActionMenuDef, gUnknown_0202BCB0.unk1C.x - gUnknown_0202BCB0.camera.x, 1, 22);
 
@@ -922,7 +922,7 @@ u8 ItemCommandEffect(struct MenuProc* menu, struct MenuItemProc* menuItem) {
     ResetIconGraphics();
     LoadIconPalettes(4);
 
-    sub_8003D20();
+    Font_ResetAllocation();
 
     proc = StartOrphanMenu(&gItemSelectMenuDef);
 
@@ -1034,7 +1034,7 @@ u8 MenuCommand_SelectNo(struct MenuProc* menu, struct MenuItemProc* menuItem) {
 
 u8 sub_8023538(struct MenuProc* menu) {
     SetFont(NULL);
-    sub_8003D20();
+    Font_ResetAllocation();
 
     EndAllMenus();
 
@@ -1163,7 +1163,7 @@ u8 ItemSubMenu_UseItem(struct MenuProc* menu, struct MenuItemProc* menuItem) {
 
     SetFont(NULL);
 
-    sub_8003D20();
+    Font_ResetAllocation();
 
     EndAllMenus();
 

@@ -20,6 +20,7 @@
 #include "soundwrapper.h"
 #include "uimenu.h"
 #include "uiutils.h"
+#include "face.h"
 
 u8 PromotionInit_SetNullState(struct PromoProc *proc);
 void PromotionInit_Loop(struct PromoProc *proc);
@@ -653,7 +654,7 @@ void sub_800680C(u16, u8, u8);
 void sub_80CCF60(struct PromoProc3 *proc) {
     s16 x;
     u16 tmp;
-    sub_8003D20();
+    Font_ResetAllocation();
     Font_InitForUIDefault();
     BG_EnableSyncByMask(0xf);
     sub_800680C(0x100, 2, 0);
@@ -1073,28 +1074,21 @@ struct U03004980_Member {
     u16 u34;
 };
 
-struct Unknown_03004980 {
-    struct U03004980_Member *a;
-    struct U03004980_Member *b;
-    struct U03004980_Member *c;
-    struct U03004980_Member *d;
-};
-extern struct Unknown_03004980 gUnknown_03004980;
-
 u32 sub_80CD67C(void) {
-    u16 start = gUnknown_03004980.a->u34;
+    struct FaceProc *a = gFaceProcs[0];
+    u16 start = a->xPosition;
     s16 cmp = start;
 
     if (cmp > 0x150) {
         return 0;
     } else {
-        struct U03004980_Member *b = gUnknown_03004980.b;
-        struct U03004980_Member *c = gUnknown_03004980.c;
-        struct U03004980_Member *d = gUnknown_03004980.d;
-        gUnknown_03004980.a->u34 = start + 4;
-        d->u34 = start + 4;
-        c->u34 = start + 4;
-        b->u34 = start + 4;
+        struct FaceProc *b = gFaceProcs[1];
+        struct FaceProc *c = gFaceProcs[2];
+        struct FaceProc *d = gFaceProcs[3];
+        a->xPosition = start + 4;
+        d->xPosition = start + 4;
+        c->xPosition = start + 4;
+        b->xPosition = start + 4;
 
         return 1;
     }
@@ -1163,9 +1157,9 @@ extern s8 gUnknown_03005398[];
 
 void sub_80CD7FC(struct PromoProc4 *proc) {
     struct Unknown_PromotionTriple locals = gUnknown_0820707C;
-    struct U03004980_Member *b;
-    struct U03004980_Member *c;
-    struct U03004980_Member *d;
+    struct FaceProc *b;
+    struct FaceProc *c;
+    struct FaceProc *d;
     u8 i;
     u8 negative_one;
     switch (proc->u2a) {
@@ -1187,13 +1181,13 @@ void sub_80CD7FC(struct PromoProc4 *proc) {
 
     sub_808E9D8(0xa);
 
-    gUnknown_03004980.a->u30 = 0x82;
-    b = gUnknown_03004980.b;
-    c = gUnknown_03004980.c;
-    d = gUnknown_03004980.d;
-    d->u30 = 0x80 << 7;
-    c->u30 = 0x80 << 7;
-    b->u30 = 0x80 << 7;
+    gFaceProcs[0]->displayBits = 0x82;
+    b = gFaceProcs[1];
+    c = gFaceProcs[2];
+    d = gFaceProcs[3];
+    d->displayBits = 0x80 << 7;
+    c->displayBits = 0x80 << 7;
+    b->displayBits = 0x80 << 7;
     gUnknown_03005398[0] = negative_one;
 }
 
@@ -1633,7 +1627,7 @@ extern struct MenuRect gUnknown_08B12A60;
 
 void BuildPromotionMenu(struct PromoProc *proc) {
     proc->u4c = 0;
-    sub_8003D20();
+    Font_ResetAllocation();
     Font_InitForUIDefault();
     SetFontGlyphSet(0);
     Font_InitForUI(&gUnknown_03005380, (void *) 0x06001400, 160, 5);

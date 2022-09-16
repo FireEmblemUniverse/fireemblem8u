@@ -434,7 +434,7 @@ void BattleForecast_Init(struct BattleForecastProc* proc) {
     CopyTileGfxForObj(gUnknown_02020188, (void*)0x06015D00, 4, 2);
     CopyToPaletteBuffer(gBattleForecast_x2x4Pal, 0x240, 0x20);
 
-    sub_8003D20();
+    Font_ResetAllocation();
 
     ResetIconGraphics_();
 
@@ -713,7 +713,7 @@ void NewBattleForecast() {
     struct BattleForecastProc* proc;
 
     if (gRAMChapterData.cfgBattleForecastType == 2) {
-        sub_8003D20();
+        Font_ResetAllocation();
         return;
     }
 

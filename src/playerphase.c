@@ -884,7 +884,7 @@ void PlayerPhase_ApplyUnitMovement(ProcPtr proc) {
         gActionData.moveCount = gBmMapMovement[gActionData.yMove][gActionData.xMove];
     }
 
-    sub_8003D20();
+    Font_ResetAllocation();
 
     if (sub_8084508() == 1) {
         sub_801D434(proc);
