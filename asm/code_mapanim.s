@@ -8569,7 +8569,7 @@ MapAnimLevelUp_DrawTexts: @ 0x0807EA98
 	adds r0, r4, #0
 	movs r1, #0
 	bl sub_801443C
-	ldr r1, _0807EBA0  @ gUnknown_089A3ED4
+	ldr r1, _0807EBA0  @ LevelUpTextSet_AnimeOff
 	ldrb r0, [r1]
 	cmp r0, #0xff
 	beq _0807EB6C
@@ -8630,7 +8630,7 @@ _0807EB90: .4byte gUnknown_02020188
 _0807EB94: .4byte gUnknown_08803B10
 _0807EB98: .4byte gBG0TilemapBuffer
 _0807EB9C: .4byte gCurrentMapAnimState
-_0807EBA0: .4byte gUnknown_089A3ED4
+_0807EBA0: .4byte LevelUpTextSet_AnimeOff
 
 	THUMB_FUNC_END MapAnimLevelUp_DrawTexts
 
@@ -8644,7 +8644,7 @@ MapAnimLevelUp_DrawStatNum: @ 0x0807EBA4
 	ldr r4, [sp, #0x18]
 	lsls r4, r4, #0x18
 	lsrs r4, r4, #0x18
-	ldr r3, _0807EC00  @ gUnknown_089A3ED4
+	ldr r3, _0807EC00  @ LevelUpTextSet_AnimeOff
 	lsls r0, r6, #1
 	adds r0, r0, r6
 	lsls r0, r0, #2
@@ -8680,7 +8680,7 @@ _0807EBEA:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_0807EC00: .4byte gUnknown_089A3ED4
+_0807EC00: .4byte LevelUpTextSet_AnimeOff
 _0807EC04: .4byte gBG0TilemapBuffer
 
 	THUMB_FUNC_END MapAnimLevelUp_DrawStatNum

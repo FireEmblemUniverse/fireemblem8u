@@ -1325,8 +1325,8 @@ gUnknown_089A3EC4:  @ 0x089A3EC4
         .word 0x0
 
 
-	.global gUnknown_089A3ED4
-gUnknown_089A3ED4:  @ 0x089A3ED4
+	.global LevelUpTextSet_AnimeOff
+LevelUpTextSet_AnimeOff:  @ 0x089A3ED4
 @ Replacing .incbin "baserom.gba", 0x9A3ED4, 0x78
     .4byte 0x00000009
     .4byte gMid_Lv
