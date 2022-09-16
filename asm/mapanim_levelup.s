@@ -2,13 +2,14 @@
     
     .syntax unified
 
-	THUMB_FUNC_START sub_807F39C
-sub_807F39C: @ 0x0807F39C
+	THUMB_FUNC_START MapAnimLevelUp_StatUpLoop
+MapAnimLevelUp_StatUpLoop: @ 0x0807F39C
 	push {r4, r5, r6, r7, lr}
 	mov r7, r8
 	push {r7}
 	sub sp, #4
 	adds r7, r0, #0
+
 	adds r1, r7, #0
 	adds r1, #0x31
 	ldrb r0, [r1]
@@ -16,20 +17,28 @@ sub_807F39C: @ 0x0807F39C
 	beq _0807F3B4
 	subs r0, #1
 	b _0807F466
+
+
 _0807F3B4:
 	adds r0, r7, #0
 	adds r0, #0x30
 	ldrb r6, [r0]
 	mov r8, r0
 	b _0807F3C0
+
+@ continue:
 _0807F3BE:
 	adds r6, #1
+
+@　if (i >= STAT_UP_MAX_INDEX)
 _0807F3C0:
 	cmp r6, #8
 	ble _0807F3CC
 	adds r0, r7, #0
 	bl Proc_Break
 	b _0807F468
+
+@ judgement:
 _0807F3CC:
 	movs r1, #0x2e
 	ldrsh r0, [r7, r1]
@@ -37,6 +46,8 @@ _0807F3CC:
 	bl GetSomeStatUp
 	cmp r0, #0
 	beq _0807F3BE
+
+@jump_stat_up:
 	movs r1, #0x2e
 	ldrsh r0, [r7, r1]
 	movs r1, #1
@@ -44,9 +55,11 @@ _0807F3CC:
 	movs r2, #1
 	adds r3, r6, #0
 	bl MapAnimLevelUp_DrawStatNum
+
 	movs r0, #1
 	bl BG_EnableSyncByMask
-	ldr r1, _0807F43C  @ gUnknown_089A3ED4
+
+	ldr r1, _0807F43C  @ LevelUpTextSet_AnimeOff
 	lsls r0, r6, #1
 	adds r0, r0, r6
 	lsls r0, r0, #2
@@ -61,14 +74,17 @@ _0807F3CC:
 	subs r0, #0x17
 	subs r4, r4, r0
 	movs r1, #0x2e
+
 	ldrsh r0, [r7, r1]
 	adds r1, r6, #0
 	bl GetSomeStatUp
+	
 	adds r3, r0, #0
 	adds r0, r5, #0
 	adds r1, r4, #0
 	adds r2, r6, #0
 	bl sub_807EE84
+
 	cmp r6, #0
 	bne _0807F448
 	ldr r0, _0807F440  @ gRAMChapterData
@@ -81,7 +97,7 @@ _0807F3CC:
 	bl m4aSongNumStart
 	b _0807F45A
 	.align 2, 0
-_0807F43C: .4byte gUnknown_089A3ED4
+_0807F43C: .4byte LevelUpTextSet_AnimeOff
 _0807F440: .4byte gRAMChapterData
 _0807F444: .4byte 0x000002CD
 _0807F448:
@@ -112,7 +128,7 @@ _0807F468:
 	.align 2, 0
 _0807F474: .4byte gRAMChapterData
 
-	THUMB_FUNC_END sub_807F39C
+	THUMB_FUNC_END MapAnimLevelUp_StatUpLoop
 
 	THUMB_FUNC_START sub_807F478
 sub_807F478: @ 0x0807F478

@@ -8,6 +8,8 @@
 #include "fontgrp.h"
 #include "face.h"
 #include "mapanim.h"
+#include "m4a.h"
+#include "soundwrapper.h"
 
 enum stat_up_id{
     /* MapAnimLevelUpProc + 0x30 */
@@ -44,11 +46,21 @@ struct MapAnimLevelUpProc {
     /* 36 */ u16 unk_36;
 };
 
+struct TextSet_LevelUpAnimOff{
+	/* 00 */ u8 x;
+	/* 01 */ u8 y;
+	/* 04 */ u16* msg[2];
+};
+
+
 extern struct ProcCmd CONST_DATA sProcScr_MapAnimLevelUp[];
 extern u16 CONST_DATA gUnknown_089AC5CC[]; // palette
+extern struct TextSet_LevelUpAnimOff LevelUpTextSet_AnimeOff[];
 void sub_807EDF8(int, int, int, struct MapAnimLevelUpProc*);
 void MapAnimLevelUp_DrawTexts(int unit_index, u8 x, u8 y);
 void MapAnimLevelUp_DrawStatNum(int unit_index, u8 x, u8 y, enum stat_up_id, bool8 id_up);
+int GetSomeStatUp(int unit_index, int stat_index);
+void sub_807EE84(int x, int y, int stat_index, int value);
 
 
 void StartMapAnimLevelUp(int unit_index, ProcPtr parent)
@@ -182,4 +194,58 @@ void MapAnimLevelUp_PullOffWindow(struct MapAnimLevelUpProc* proc)
         return;
 
     Proc_Break((ProcPtr)proc);
+}
+
+void MapAnimLevelUp_StatUpLoop(struct MapAnimLevelUpProc* proc)
+{
+    int stat_index, timer;
+
+    if (0 != proc->time_delay) {
+        proc->time_delay--;
+        return;
+    }
+
+    stat_index = proc->stat_cur;
+
+/*
+    for (; ; stat_index++) {
+        if (stat_index >= STAT_UP_MAX_INDEX) {
+            Proc_Break(proc);
+            return;
+        }
+        if (0 != GetSomeStatUp(proc->unit_index, stat_index))
+            break;
+    }
+*/
+
+    /* for loop start */
+_0807F3BE:
+    stat_index++;
+_0807F3C0:
+    if (stat_index >= STAT_UP_MAX_INDEX) {
+        Proc_Break(proc);
+        return;
+    }
+_0807F3CC:
+    if (0 == GetSomeStatUp(proc->unit_index, stat_index))
+        goto _0807F3BE;
+    /* for loop end */
+
+exec_stat_up_anime:
+    MapAnimLevelUp_DrawStatNum(proc->unit_index, 1, 1, stat_index, 1);
+    BG_EnableSyncByMask(BG0_SYNC_BIT);
+
+    sub_807EE84(
+        LevelUpTextSet_AnimeOff[stat_index].x * 8 + 0x3E,
+        LevelUpTextSet_AnimeOff[stat_index].y * 8 - 0x17 - proc->y_cur,
+        stat_index, GetSomeStatUp(proc->unit_index, stat_index));
+
+    if (0 == stat_index) {
+        PlaySoundEffect(0x2CD);
+    } else {
+        PlaySoundEffect(0x076);
+    }
+
+    proc->stat_cur = stat_index + 1;
+    proc->time_delay = 0x14;
 }

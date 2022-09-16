@@ -3040,7 +3040,7 @@ extern struct ProcCmd gUnknown_089A35B0;
 // extern ??? gUnknown_089A3E44
 // extern ??? gUnknown_089A3E6C
 // extern ??? gUnknown_089A3EC4
-// extern ??? gUnknown_089A3ED4
+// extern ??? LevelUpTextSet_AnimeOff
 // extern ??? gUnknown_089A3F4C
 // extern ??? gUnknown_089A3F5C
 // extern ??? sProcScr_MapAnimLevelUp

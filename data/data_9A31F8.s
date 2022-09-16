@@ -1325,8 +1325,8 @@ gUnknown_089A3EC4:  @ 0x089A3EC4
         .word 0x0
 
 
-	.global gUnknown_089A3ED4
-gUnknown_089A3ED4:  @ 0x089A3ED4
+	.global LevelUpTextSet_AnimeOff
+LevelUpTextSet_AnimeOff:  @ 0x089A3ED4
 @ Replacing .incbin "baserom.gba", 0x9A3ED4, 0x78
     .4byte 0x00000009
     .4byte gMid_Lv
@@ -1429,7 +1429,7 @@ sProcScr_MapAnimLevelUp:  @ 0x089A3F74
         .word 0x0
         @ PROC_REPEAT
         .short 0x3, 0x0
-        .word sub_807F39C
+        .word MapAnimLevelUp_StatUpLoop
         @ PROC_SLEEP
         .short 0xe, 0x3c
         .word 0x0
