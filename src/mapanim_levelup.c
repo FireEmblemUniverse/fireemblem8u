@@ -206,7 +206,7 @@ void MapAnimLevelUp_StatUpLoop(struct MapAnimLevelUpProc* proc)
     }
 
 #if NONMATCHING
-    for (; ; stat_index++) {
+    for (stat_index = proc->stat_cur; ; stat_index++) {
         if (stat_index >= STAT_UP_MAX_INDEX) {
             Proc_Break(proc);
             return;
