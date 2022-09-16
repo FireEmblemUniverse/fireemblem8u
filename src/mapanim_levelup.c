@@ -56,6 +56,9 @@ struct TextSet_LevelUpAnimOff{
 extern struct ProcCmd CONST_DATA sProcScr_MapAnimLevelUp[];
 extern u16 CONST_DATA gUnknown_089AC5CC[]; // palette
 extern struct TextSet_LevelUpAnimOff LevelUpTextSet_AnimeOff[];
+extern u16 CONST_DATA gUnknown_089AC794[];  // gfx
+extern u16 CONST_DATA gUnknown_089AC9A8[];  // pal
+
 void sub_807EDF8(int, int, int, struct MapAnimLevelUpProc*);
 void MapAnimLevelUp_DrawTexts(int unit_index, u8 x, u8 y);
 void MapAnimLevelUp_DrawStatNum(int unit_index, u8 x, u8 y, enum stat_up_id, bool8 id_up);
