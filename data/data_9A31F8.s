@@ -1393,7 +1393,7 @@ sProcScr_MapAnimLevelUp:  @ 0x089A3F74
         .word MapAnimLevelUp_InitLcd
         @ PROC_CALL
         .short 0x2, 0x0
-        .word sub_807F478
+        .word MapAnimLevelUp_PlayMusic
         @ PROC_YIELD
         .short 0xe, 0x0
         .word 0x0

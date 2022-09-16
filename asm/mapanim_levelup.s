@@ -2,20 +2,6 @@
 
 	.SYNTAX UNIFIED
 
-	THUMB_FUNC_START sub_807F478
-sub_807F478: @ 0x0807F478
-	push {lr}
-	adds r3, r0, #0
-	movs r0, #0x80
-	lsls r0, r0, #1
-	movs r1, #0x80
-	movs r2, #0x10
-	bl ISuspectThisToBeMusicRelated_8002730
-	pop {r0}
-	bx r0
-
-	THUMB_FUNC_END sub_807F478
-
 	THUMB_FUNC_START sub_807F48C
 sub_807F48C: @ 0x0807F48C
 	push {r4, r5, lr}

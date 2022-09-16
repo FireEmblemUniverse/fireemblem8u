@@ -251,3 +251,9 @@ exec_stat_up_anime:
     proc->stat_cur = stat_index + 1;
     proc->time_delay = 0x14;
 }
+
+void MapAnimLevelUp_PlayMusic(struct MapAnimLevelUpProc* proc)
+{
+    ISuspectThisToBeMusicRelated_8002730(
+        0x100, 0x80, 0x10, proc);
+}
