@@ -23,6 +23,7 @@
 #include "minimap.h"
 #include "uichapterstatus.h"
 #include "player_interface.h"
+#include "bb.h"
 
 #include "sallycursor.h"
 
@@ -84,9 +85,6 @@ void PrepScreenTraineePromotionManagerExists(ProcPtr);
 
 // code_sio.s
 int CheckSomethingSomewhere();
-
-// bb.s
-void sub_8035758(ProcPtr);
 
 // asmcs.s
 void nullsub_20(ProcPtr);
@@ -169,7 +167,7 @@ PROC_LABEL(0x3D),
     // fallthrough
 
 PROC_LABEL(9),
-    PROC_WHILE(sub_8035758),
+    PROC_WHILE(IsSubtitleHelpActive),
     PROC_CALL(RefreshEntityBmMaps),
     PROC_CALL(RenderBmMap),
     PROC_CALL(SMS_UpdateFromGameData),
@@ -829,7 +827,7 @@ void SALLYCURSOR6C_StartUnitSwap(struct UnknownSALLYCURSORProc* proc) {
     proc->unk_3C = gUnknown_0202BCB0.playerCursor.x;
     proc->unk_40 = gUnknown_0202BCB0.playerCursor.y;
 
-    NewBottomHelpText(proc, GetStringFromIndex(0x872));
+    StartSubtitleHelp(proc, GetStringFromIndex(0x872)); // TODO: msgid "Reorder your units.[.]"
 
     EnsureCameraOntoPosition(proc, gActiveUnit->xPos, gActiveUnit->yPos);
     PlaySoundEffect(0x69);
@@ -856,7 +854,7 @@ void sub_8033C90(struct UnknownSALLYCURSORProc* proc) {
         if (r7) {
             AP_Delete(proc->unk_54);
             Proc_Break(proc);
-            DeleteEach6CBB();
+            EndSubtitleHelp();
             return;
         }
         PlaySoundEffect(0x6C);
@@ -864,7 +862,7 @@ void sub_8033C90(struct UnknownSALLYCURSORProc* proc) {
     } else if (B_BUTTON & gKeyStatusPtr->newKeys) {
         AP_Delete(proc->unk_54);
         Proc_Goto(proc, 4);
-        DeleteEach6CBB();
+        EndSubtitleHelp();
         PlaySoundEffect(0x6B);
         return;
     }

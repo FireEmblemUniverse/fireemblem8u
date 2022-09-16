@@ -515,7 +515,7 @@ int GetStringTextWidth(const char *str)
     return width;
 }
 
-char *GetCharTextWidth(char *str, u32 *pWidth)
+const char *GetCharTextWidth(const char *str, u32 *pWidth)
 {
     struct Glyph *glyph;
     char byte1;
@@ -930,7 +930,7 @@ const char *Text_AppendCharASCII(struct TextHandle *th, const char *str)
     return str;
 }
 
-char *GetCharTextWidthASCII(char *str, u32 *width)
+const char *GetCharTextWidthASCII(const char *str, u32 *width)
 {
     struct Glyph *glyph = gCurrentFont->glyphs[*str++];
 

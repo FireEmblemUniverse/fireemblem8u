@@ -326,7 +326,7 @@ void sub_808DE38(struct ChapterStatusProc* proc) {
     return;
 }
 
-char* SplitObjectiveTextOnNewline(char* str) {
+const char* SplitObjectiveTextOnNewline(const char* str) {
     if (str == 0) {
         return NULL;
     }
@@ -618,7 +618,7 @@ void DrawChapterStatusStatValues() {
 }
 
 void ChapterStatus_DrawText(struct ChapterStatusProc* proc) {
-    char* str;
+    const char* str;
 
     InitTextBatch(gTextBatch_ChapterStatus);
 

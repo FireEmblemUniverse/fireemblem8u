@@ -27,6 +27,7 @@
 #include "mu.h"
 #include "bmarch.h"
 #include "event.h"
+#include "bb.h"
 
 #include "constants/characters.h"
 #include "constants/classes.h"
@@ -421,7 +422,7 @@ u8 GiveEffect(struct MenuProc* menu, struct MenuItemProc* menuItem) {
 void MakeUnitRescueTransferGraphics(struct Unit* from, struct Unit* to) {
     struct Unit* rescue = GetUnit(from->rescueOtherUnit);
 
-    DeleteEach6CBB();
+    EndSubtitleHelp();
 
     Make6CKOIDOAMM(rescue, GetSomeFacingDirection(to->xPos, to->yPos, from->xPos, from->yPos));
 
@@ -1801,7 +1802,7 @@ u8 StealCommandEffect(struct MenuProc* menu, struct MenuItemProc* menuItem) {
 
 void StealTargetSelection_OnInit(ProcPtr menu) {
     NewUnitInfoWindow_WithAllLines(menu);
-    NewBottomHelpText(menu, GetStringFromIndex(0x86D)); // TODO: msgid "Select which unit to steal from."
+    StartSubtitleHelp(menu, GetStringFromIndex(0x86D)); // TODO: msgid "Select which unit to steal from."
 
     return;
 }
@@ -2044,7 +2045,7 @@ u8 sub_8024658(ProcPtr proc, struct SelectTarget* target) {
 
 void RescueSelection_OnConstruction(ProcPtr proc) {
     sub_80351CC(proc);
-    NewBottomHelpText(proc, GetStringFromIndex(0x868)); // TODO: msgid "Select a unit to rescue."
+    StartSubtitleHelp(proc, GetStringFromIndex(0x868)); // TODO: msgid "Select a unit to rescue."
 
     return;
 }
@@ -2058,7 +2059,7 @@ u8 RescueSelection_OnChange(ProcPtr proc, struct SelectTarget* target) {
 }
 
 void DropSelection_OnConstruction(ProcPtr menu) {
-    NewBottomHelpText(menu, GetStringFromIndex(0x869)); // TODO: msgid "Select which space to drop the unit into.[.]"
+    StartSubtitleHelp(menu, GetStringFromIndex(0x869)); // TODO: msgid "Select which space to drop the unit into.[.]"
 
     return;
 }
@@ -2070,7 +2071,7 @@ void sub_80246DC(void) {
 void GiveSelection_OnInit(ProcPtr menu) {
     sub_8035380(menu);
 
-    NewBottomHelpText(menu, GetStringFromIndex(0x86B)); // TODO: msgid "Select a unit to give the traveler to."
+    StartSubtitleHelp(menu, GetStringFromIndex(0x86B)); // TODO: msgid "Select a unit to give the traveler to."
     return;
 }
 
@@ -2085,7 +2086,7 @@ u8 GiveSelection_OnChange(ProcPtr proc, struct SelectTarget* target) {
 void TakeSelection_OnInit(ProcPtr menu) {
     sub_80351CC(menu);
 
-    NewBottomHelpText(menu, GetStringFromIndex(0x86A)); // TODO: msgid "Select a unit to receive the traveler."
+    StartSubtitleHelp(menu, GetStringFromIndex(0x86A)); // TODO: msgid "Select a unit to receive the traveler."
 
     return;
 }
@@ -2099,7 +2100,7 @@ u8 TakeSelection_OnChange(ProcPtr proc, struct SelectTarget* target) {
 
 void TradeTargetSelection_OnInit(ProcPtr menu) {
     NewUnitInfoWindow_WithAllLines(menu);
-    NewBottomHelpText(menu, GetStringFromIndex(0x86C)); // TODO: msgid "Select which unit to trade with."
+    StartSubtitleHelp(menu, GetStringFromIndex(0x86C)); // TODO: msgid "Select which unit to trade with."
 
     return;
 }
@@ -2114,7 +2115,7 @@ u8 TradeSelection_OnChange(ProcPtr proc, struct SelectTarget* target) {
 
 void TalkSupportSelection_OnInit(ProcPtr menu) {
     sub_8034F9C(menu);
-    NewBottomHelpText(menu, GetStringFromIndex(0x86F)); // TODO: msgid "Select which unit to speak to."
+    StartSubtitleHelp(menu, GetStringFromIndex(0x86F)); // TODO: msgid "Select which unit to speak to."
 
     return;
 }
@@ -2129,7 +2130,7 @@ u8 TalkSupportSelection_OnChange(ProcPtr proc, struct SelectTarget* target) {
 
 void sub_80247F4(ProcPtr menu) {
     sub_8034F9C(menu);
-    NewBottomHelpText(menu, GetStringFromIndex(0x870)); // TODO: msgid "Select unit to refresh.[.]"
+    StartSubtitleHelp(menu, GetStringFromIndex(0x870)); // TODO: msgid "Select unit to refresh.[.]"
 
     return;
 }
@@ -2159,7 +2160,7 @@ u8 sub_8024844(ProcPtr proc, struct SelectTarget* target) {
 
 void SummonSelection_OnInit(ProcPtr menu) {
 
-    NewBottomHelpText(menu, GetStringFromIndex(0x880)); // TODO: msgid "Select which space to summon into."
+    StartSubtitleHelp(menu, GetStringFromIndex(0x880)); // TODO: msgid "Select which space to summon into."
     return;
 }
 
@@ -2169,7 +2170,7 @@ void SummonSelection_OnChange(void) {
 }
 
 void sub_8024888(ProcPtr menu) {
-    NewBottomHelpText(menu, GetStringFromIndex(0x880)); // TODO: msgid "Select which space to summon into."
+    StartSubtitleHelp(menu, GetStringFromIndex(0x880)); // TODO: msgid "Select which space to summon into."
 
     return;
 }
@@ -2180,7 +2181,7 @@ void sub_80248A4(void) {
 
 void PickSelection_OnInit(ProcPtr menu) {
 
-    NewBottomHelpText(menu, GetStringFromIndex(0x881)); // TODO: msgid "Select which space to use picks on.[.]"
+    StartSubtitleHelp(menu, GetStringFromIndex(0x881)); // TODO: msgid "Select which space to use picks on.[.]"
 
     return;
 }

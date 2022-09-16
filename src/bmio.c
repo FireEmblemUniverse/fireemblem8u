@@ -954,7 +954,7 @@ void InitPlaythroughState(int isDifficult, s8 unk) {
     gRAMChapterData.unk41_2 = 0;
     gRAMChapterData.cfgWindowColor = 0;
     gRAMChapterData.unk41_7 = 0;
-    gRAMChapterData.unk41_8 = 0;
+    gRAMChapterData.cfgNoSubtitleHelp = 0;
     gRAMChapterData.cfgBattleForecastType = 0;
     gRAMChapterData.unk42_8 = 0;
     gRAMChapterData.unk43_2 = 0;

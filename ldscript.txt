@@ -104,7 +104,7 @@ SECTIONS
         asm/bmcommanddbg.o(.text);
         src/chapterdata.o(.text);
         asm/unitinfowindow.o(.text);
-        asm/bb.o(.text);
+        src/bb.o(.text);
         src/bmusailment.o(.text);
         src/bksel.o(.text);
         src/bmtrap.o(.text);
@@ -224,6 +224,7 @@ SECTIONS
         . = ALIGN(4); data/const_data_D7F5C.o(.rodata);
         . = ALIGN(4); src/sallycursor.o(.rodata);
         . = ALIGN(4); data/const_data_D7F8C.o(.rodata);
+        . = ALIGN(4); src/bb.o(.rodata);
         . = ALIGN(4); src/bksel.o(.rodata);
         . = ALIGN(4); src/bmdifficulty.o(.rodata);
         . = ALIGN(4); src/cp_phase.o(.rodata);
@@ -303,6 +304,7 @@ SECTIONS
         . = ALIGN(4); data/data_59DB6C.o(.data);
         . = ALIGN(4); src/sallycursor.o(.data);
         . = ALIGN(4); data/data_59E13C.o(.data);
+        . = ALIGN(4); src/bb.o(.data);
         . = ALIGN(4); src/bmusailment.o(.data);
         . = ALIGN(4); data/data_59E308.o(.data);
         . = ALIGN(4); src/bksel.o(.data);

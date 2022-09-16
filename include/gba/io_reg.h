@@ -387,7 +387,7 @@
 #define REG_MOSAIC      (*(vu16 *)REG_ADDR_MOSAIC)
 #define REG_BLDCNT      (*(vu16 *)REG_ADDR_BLDCNT)
 #define REG_BLDALPHA    (*(vu16 *)REG_ADDR_BLDALPHA)
-#define REG_BLDY        (*(vu16 *)REG_ADDR_BLDY)
+#define REG_BLDY        (*(vu8  *)REG_ADDR_BLDY)
 
 #define REG_SOUND1CNT_L (*(vu16 *)REG_ADDR_SOUND1CNT_L)
 #define REG_NR10        (*(vu8  *)REG_ADDR_NR10)
