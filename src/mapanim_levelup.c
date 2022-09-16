@@ -205,7 +205,7 @@ void MapAnimLevelUp_StatUpLoop(struct MapAnimLevelUpProc* proc)
         return;
     }
 
-/*
+#if NONMATCHING
     for (; ; stat_index++) {
         if (stat_index >= STAT_UP_MAX_INDEX) {
             Proc_Break(proc);
@@ -214,8 +214,7 @@ void MapAnimLevelUp_StatUpLoop(struct MapAnimLevelUpProc* proc)
         if (0 != GetSomeStatUp(proc->unit_index, stat_index))
             break;
     }
-*/
-
+#else
     /* loop start */
 loop_start:
     stat_index = proc->stat_cur;
@@ -232,7 +231,7 @@ loop_body:
     if (0 == GetSomeStatUp(proc->unit_index, stat_index))
         goto loop_tail;
     /* loop end */
-
+#endif /* #if NONMATCHING */
 
 exec_stat_up_anime:
     MapAnimLevelUp_DrawStatNum(proc->unit_index, 1, 1, stat_index, 1);
