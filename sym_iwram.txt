@@ -33,9 +33,9 @@
 . = 0x000570; gUnknown_03000570 = .;
 . = 0x0005B0; gUnknown_030005B0 = .;
 . = 0x0005D0; gUnknown_030005D0 = .;
-. = 0x0005F0; gUnknown_030005F0 = .;
-. = 0x0005F4; gUnknown_030005F4 = .;
-. = 0x0005F8; gUnknown_030005F8 = .;
+. = 0x0005F0; gpPopupUnit = .;
+. = 0x0005F4; gPopupItem = .;
+. = 0x0005F8; gPopupNumber = .;
 . = 0x0005FC; gUnknown_030005FC = .;
 . = 0x000600; gUnknown_03000600 = .;
 . = 0x000700; gUnknown_03000700 = .;

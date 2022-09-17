@@ -52,6 +52,7 @@ SECTIONS
         src/event.o(.text);
         asm/evtscr.o(.text);
         src/ectscr_.o(.text);
+        src/popup.o(.text);
         asm/popup.o(.text);
         asm/evtsub.o(.text);
         asm/hino.o(.text);

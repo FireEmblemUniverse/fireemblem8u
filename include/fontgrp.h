@@ -92,7 +92,7 @@ void sub_8003E00(struct TextHandle *th, int b, int c);
 // ??? sub_8003E40(???);
 int Text_GetXCursor(struct TextHandle *th);
 void Text_SetXCursor(struct TextHandle *th, int x);
-// ??? Text_Advance(???);
+void Text_Advance(struct TextHandle *th, int x);
 void Text_SetColorId(struct TextHandle *th, int colorId);
 int Text_GetColorId(struct TextHandle *th);
 void Text_SetParameters(struct TextHandle* th, int x, int colorId);
