@@ -680,9 +680,9 @@ extern struct OamDataTransfer gUnknown_03000030;
 // extern ??? gUnknown_03000570
 // extern ??? gUnknown_030005B0
 // extern ??? gUnknown_030005D0
-// extern ??? gUnknown_030005F0
-// extern ??? gUnknown_030005F4
-// extern ??? gUnknown_030005F8
+// extern ??? gpPopupUnit
+// extern ??? gPopupItem
+// extern ??? gPopupNumber
 // extern ??? gUnknown_030005FC
 // extern ??? gUnknown_03000600
 // extern ??? gUnknown_03000700

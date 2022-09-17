@@ -424,7 +424,7 @@ gUnknown_085921C8:  @ 0x085921C8
         .word LongPopup_Clear
         @ PROC_CALL
         .short 0x2, 0x0
-        .word sub_801116C
+        .word LongPopup_Init
         @ PROC_SLEEP
         .short 0xe, 0xa
         .word 0x0
