@@ -743,12 +743,7 @@ gUnknown_08A20AA0:  @ 0x08A20AA0
 
 	.global gUnknown_08A20AAE
 gUnknown_08A20AAE:  @ 0x08A20AAE
-@ Replacing .incbin "baserom.gba", 0xA20AAE, 0x14
-    .4byte 0x40080003
-    .4byte DirectSoundData_08507D60 + 0x2b0
-    .4byte -0x7fcfbff8
-    .4byte 0x40080854
-    .4byte debug_font_4bpp + 0x610
+    .incbin "baserom.gba", 0xA20AAE, 0x14
 
 	.global gUnknown_08A20AC2
 gUnknown_08A20AC2:  @ 0x08A20AC2
@@ -6763,23 +6758,7 @@ gUnknown_08A409D0:  @ 0x08A409D0
 
 	.global gUnknown_08A40AD4
 gUnknown_08A40AD4:  @ 0x08A40AD4
-@ Replacing .incbin "baserom.gba", 0xA40AD4, 0x40
-    .4byte 0x63f70000
-    .4byte 0x4fb15bf4
-    .4byte 0x3b0a476d
-    .4byte 0x536e32c7
-    .4byte 0x42cb4b2c
-    .4byte 0x2e483689
-    .4byte 0x19a525e6
-    .4byte 0x9021143
-    .4byte 0x432f4290
-    .4byte 0x2ea93aec
-    .4byte 0x1a022665
-    .4byte 0x326611c2
-    .4byte 0x21c32a24
-    .4byte 0xd421582
-    .4byte gUnknown_08A2075C + 0x186
-    .4byte DirectSoundData_mon_gog_move1_13k + 0x1e2
+    .incbin "baserom.gba", 0xA40AD4, 0x40
 
 	.global gUnknown_08A40B14
 gUnknown_08A40B14:  @ 0x08A40B14
@@ -8778,95 +8757,7 @@ gUnknown_08ACC340:  @ 0x08ACC340
 
 	.global gUnknown_08ACC3E0
 gUnknown_08ACC3E0:  @ 0x08ACC3E0
-@ Replacing .incbin "baserom.gba", 0xACC3E0, 0x160
-    .4byte DirectSoundData_mon_gog_attack4_13k + 0x1a13
-    .4byte 0x2e9718c7
-    .4byte 0x273f7fff
-    .4byte 0x43df258e
-    .4byte 0x5b3b4675
-    .4byte 0x212c29f3
-    .4byte 0x5fde3b3e
-    .4byte 0x73df22bc
-    .4byte DirectSoundData_mon_gog_attack4_13k + 0x1a13
-    .4byte 0x5b5d18e8
-    .4byte 0x22372550
-    .4byte 0x5bff2edc
-    .4byte 0x31f12d4a
-    .4byte 0x7fff298b
-    .4byte 0x3e734eb7
-    .4byte 0x292a37df
-    .4byte DirectSoundData_mon_gog_attack4_13k + 0x1a13
-    .4byte 0x56d118e7
-    .4byte 0x32762992
-    .4byte 0x4fbf2dac
-    .4byte 0x299b2abb
-    .4byte 0x424d2f1d
-    .4byte 0x252c679d
-    .4byte 0x6bff4671
-    .4byte DirectSoundData_mon_gog_attack4_13k + 0x1a13
-    .4byte 0x29341d07
-    .4byte 0x529035ab
-    .4byte 0x2d4d2d5a
-    .4byte 0x2ddf420d
-    .4byte 0x2dd3675c
-    .4byte 0x2549316f
-    .4byte 0x2e3a466f
-    .4byte DirectSoundData_mon_gog_attack4_13k + 0x1a13
-    .4byte 0x253018e6
-    .4byte 0x2d6b5691
-    .4byte 0x56f92d59
-    .4byte 0x423135cc
-    .4byte 0x25297fff
-    .4byte 0x420e2d9e
-    .4byte 0x252b2934
-    .4byte DirectSoundData_mon_gog_attack4_13k + 0x1a13
-    .4byte 0x5af91d28
-    .4byte 0x2937252f
-    .4byte 0x2d902d6a
-    .4byte 0x318b2d7d
-    .4byte 0x2d2a7bff
-    .4byte 0x3e0d424f
-    .4byte 0x252b2952
-    .4byte DirectSoundData_mon_gog_attack4_13k + 0x1a13
-    .4byte 0x52b720e8
-    .4byte 0x2d59254f
-    .4byte 0x6fff252a
-    .4byte 0x2d9f31cf
-    .4byte 0x2953252c
-    .4byte 0x2d6c2d4c
-    .4byte 0x5f3b3e13
-    .4byte DirectSoundData_mon_gog_attack4_13k + 0x1a13
-    .4byte 0x5f3b2129
-    .4byte 0x2d4f2d4c
-    .4byte 0x46543175
-    .4byte 0x39cc2549
-    .4byte 0x314c3190
-    .4byte 0x29597bff
-    .4byte 0x52b739cf
-    .4byte 0x18e67c1f
-    .4byte 0x7fff2549
-    .4byte 0x420c2daa
-    .4byte 0x314b528e
-    .4byte 0x294b5f3a
-    .4byte 0x35ec31cb
-    .4byte 0x2989464d
-    .4byte 0x256b4654
-    .4byte DirectSoundData_mon_gog_attack4_13k + 0x1a13
-    .4byte 0x7fff216a
-    .4byte 0x464d3a0c
-    .4byte 0x528e4a6d
-    .4byte 0x56d831cb
-    .4byte 0x35ec422c
-    .4byte 0x6fff3189
-    .4byte 0x422d2dac
-    .4byte DirectSoundData_mon_gog_attack4_13k + 0x1a13
-    .4byte 0x7fff2d4b
-    .4byte 0x3a113a2c
-    .4byte 0x29ae5f3a
-    .4byte 0x2dcd6fff
-    .4byte 0x31cd464d
-    .4byte 0x4a95296c
-    .4byte 0x35ec7fff
+    .incbin "baserom.gba", 0xACC3E0, 0x160
 
 	.global gUnknown_08ACC540
 gUnknown_08ACC540:  @ 0x08ACC540
@@ -9126,15 +9017,7 @@ gUnknown_08AE281C:  @ 0x08AE281C
 
 	.global gUnknown_08AE2BF4
 gUnknown_08AE2BF4:  @ 0x08AE2BF4
-@ Replacing .incbin "baserom.gba", 0xAE2BF4, 0x20
-    .4byte 0x6fff4f34
-    .4byte 0x2e7d473f
-    .4byte 0x2d6e25d3
-    .4byte 0x5dab24a8
-    .4byte 0x25044165
-    .4byte DirectSoundData_horse3_f1_dart1_m1_13k8b + 0xbeb
-    .4byte 0x462b27ff
-    .4byte 0x7ffe7353
+    .incbin "baserom.gba", 0xAE2BF4, 0x20
 
 	.global gUnknown_08AE2C14
 gUnknown_08AE2C14:  @ 0x08AE2C14

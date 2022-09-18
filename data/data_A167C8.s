@@ -2479,12 +2479,7 @@ gUnknown_08A1975C:  @ 0x08A1975C
 
 	.global gUnknown_08A1983C
 gUnknown_08A1983C:  @ 0x08A1983C
-@ Replacing .incbin "baserom.gba", 0xA1983C, 0x14
-    .4byte 0x40000003
-    .4byte DirectSoundData_pr_hyuun1_e4_13k8b + 0x1b58
-    .4byte 0x40204000
-    .4byte 0x40000830
-    .4byte DirectSoundData_nosferatu1b_e_p45_10k8b + 0x2bd4
+    .incbin "baserom.gba", 0xA1983C, 0x14
 
 	.global gUnknown_08A19850
 gUnknown_08A19850:  @ 0x08A19850
@@ -2906,7 +2901,7 @@ gUnknown_08A1E0D8:  @ 0x08A1E0D8
     .4byte 0xa38
     .4byte 0x7100690
     .4byte 0xa38
-    .4byte DirectSoundData_breath_magic1_e1_10k8b + 0x1ec
+    .4byte 0x083804a4 + 0x1ec
     .4byte 0x93408bc
     .4byte gUnknown_08B1FE7C + 0xa089c
     .4byte 0x1000100
