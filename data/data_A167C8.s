@@ -4530,5 +4530,4 @@ gUnknown_08A1FB30:  @ 0x08A1FB30
 
 	.global gUnknown_08A1FB34
 gUnknown_08A1FB34:  @ 0x08A1FB34
-@ replacing .incbin "baserom.gba", 0x00a1fb34, 0x4
-.4byte end + 0x48
+    .incbin "baserom.gba", 0x00a1fb34, 0x4
