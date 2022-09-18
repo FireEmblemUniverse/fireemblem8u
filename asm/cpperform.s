@@ -372,7 +372,7 @@ sub_803A134: @ 0x0803A134
 	bl UnitRemoveItem
 	adds r0, r5, #0
 	mov r1, r8
-	bl sub_8011694
+	bl CreatedItemStealingPopUp
 	pop {r3}
 	mov r8, r3
 	pop {r4, r5, r6}

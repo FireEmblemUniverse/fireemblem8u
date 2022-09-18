@@ -417,8 +417,8 @@ gUnknown_08592114:  @ 0x08592114
 gUnknown_085921AC:  @ 0x085921AC
 	.incbin "baserom.gba", 0x5921AC, 0x1C
 
-	.global gUnknown_085921C8
-gUnknown_085921C8:  @ 0x085921C8
+	.global sProcScr_Popup
+sProcScr_Popup:  @ 0x085921C8
         @ PROC_SET_END_CB
         .short 0x4, 0x0
         .word LongPopup_Clear
@@ -457,22 +457,22 @@ gUnknown_085921C8:  @ 0x085921C8
         .word 0x0
 
 
-	.global gUnknown_08592228
-gUnknown_08592228:  @ 0x08592228
+	.global sProcScr_PopupUpdateIcon
+sProcScr_PopupUpdateIcon:  @ 0x08592228
 @ Replacing .incbin "baserom.gba", 0x592228, 0x8
     .4byte 0x3
     .4byte IconOAMUpdater_Loop
 
-	.global gUnknown_08592230
-gUnknown_08592230:  @ 0x08592230
+	.global gPopup_GotItem
+gPopup_GotItem:  @ 0x08592230
 	.incbin "baserom.gba", 0x592230, 0x58
 
-	.global gUnknown_08592288
-gUnknown_08592288:  @ 0x08592288
+	.global gPopup_ItemWasPilfered
+gPopup_ItemWasPilfered:  @ 0x08592288
 	.incbin "baserom.gba", 0x592288, 0x48
 
-	.global gUnknown_085922D0
-gUnknown_085922D0:  @ 0x085922D0
+	.global sProcScr_GotItem
+sProcScr_GotItem:  @ 0x085922D0
         @ PROC_YIELD
         .short 0xe, 0x0
         .word 0x0
