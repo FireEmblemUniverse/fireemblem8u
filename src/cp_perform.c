@@ -17,6 +17,8 @@
 #include "playerphase.h"
 #include "popup.h"
 
+#include "cp_perform.h"
+
 #include "constants/terrains.h"
 
 struct UnkProcA {
@@ -39,58 +41,58 @@ struct CpPerformProc {
     /* 31 */ u8 isUnitVisible;
 };
 
-void sub_8039E88(struct UnkProcA* proc);
+void AiTargetCursor_Main(struct UnkProcA* proc);
 
-struct ProcCmd CONST_DATA gUnknown_085A8004[] = {
+struct ProcCmd CONST_DATA gProcScr_AiTargetCursor[] = {
     PROC_SLEEP(0),
 
     PROC_WHILE_EXISTS(gUnknown_0859A548),
-    PROC_REPEAT(sub_8039E88),
+    PROC_REPEAT(AiTargetCursor_Main),
 
     PROC_END,
 };
 
-void sub_8039EF4(void);
-void sub_8039F0C(struct CpPerformProc* proc);
-void sub_8039FAC(struct CpPerformProc* proc);
-void sub_803A3C8(struct CpPerformProc* proc);
-void PrepareAIAction(struct CpPerformProc* proc);
-void sub_803A5F8(struct CpPerformProc* proc);
-void sub_803A63C(struct CpPerformProc* proc);
-void sub_803A6D0(struct CpPerformProc* proc);
+void CpPerform_UpdateMapMusic(void);
+void CpPerform_MoveCameraOntoUnit(struct CpPerformProc* proc);
+void CpPerform_BeginUnitMovement(struct CpPerformProc* proc);
+void CpPerform_MoveCameraOntoTarget(struct CpPerformProc* proc);
+void CpPerform_PerformAction(struct CpPerformProc* proc);
+void CpPerform_WaitAction(struct CpPerformProc* proc);
+void CpPerform_803A63C(struct CpPerformProc* proc);
+void CpPerform_803A6D0(struct CpPerformProc* proc);
 
 struct ProcCmd CONST_DATA gProcScr_CpPerform[] = {
     PROC_NAME("E_CPPERFORM"),
 
-    PROC_CALL(sub_8039EF4),
-    PROC_CALL(sub_8039F0C),
+    PROC_CALL(CpPerform_UpdateMapMusic),
+    PROC_CALL(CpPerform_MoveCameraOntoUnit),
     PROC_SLEEP(0),
 
-    PROC_CALL(sub_8039FAC),
+    PROC_CALL(CpPerform_BeginUnitMovement),
     PROC_WHILE(MU_IsAnyActive),
 
-    PROC_CALL(sub_803A3C8),
+    PROC_CALL(CpPerform_MoveCameraOntoTarget),
     PROC_SLEEP(0),
 
-    PROC_CALL(PrepareAIAction),
-    PROC_REPEAT(sub_803A5F8),
+    PROC_CALL(CpPerform_PerformAction),
+    PROC_REPEAT(CpPerform_WaitAction),
 
     PROC_CALL_2(HandlePostActionTraps),
     PROC_CALL_2(RunPotentialWaitEvents),
 
-    PROC_CALL(sub_803A63C),
-    PROC_CALL(sub_803A6D0),
+    PROC_CALL(CpPerform_803A63C),
+    PROC_CALL(CpPerform_803A6D0),
 
 PROC_LABEL(1),
     PROC_END,
 };
 
-s8 sub_803A674(struct CpPerformProc*);
-s8 sub_803A678(struct CpPerformProc*);
-s8 sub_803A69C(struct CpPerformProc*);
+s8 AiDummyAction(struct CpPerformProc*);
+s8 AiEscapeAction(struct CpPerformProc*);
+s8 AiWaitAndClearScreenAction(struct CpPerformProc*);
 
 
-void sub_8039E88(struct UnkProcA* proc) {
+void AiTargetCursor_Main(struct UnkProcA* proc) {
 
     DisplayCursor(proc->unk_2C, proc->unk_30, proc->unk_58);
 
@@ -103,10 +105,10 @@ void sub_8039E88(struct UnkProcA* proc) {
     return;
 }
 
-void sub_8039ECC(int x, int y, int kind, ProcPtr parent) {
+void StartAiTargetCursor(int x, int y, int kind, ProcPtr parent) {
     struct UnkProcA* proc;
 
-    proc = Proc_StartBlocking(gUnknown_085A8004, parent);
+    proc = Proc_StartBlocking(gProcScr_AiTargetCursor, parent);
 
     proc->unk_2C = x;
     proc->unk_30 = y;
@@ -116,7 +118,7 @@ void sub_8039ECC(int x, int y, int kind, ProcPtr parent) {
     return;
 }
 
-void sub_8039EF4() {
+void CpPerform_UpdateMapMusic() {
     if (!Proc_Find(gMusicProc3Script)) {
         sub_80160D0();
     }
@@ -124,7 +126,7 @@ void sub_8039EF4() {
     return;
 }
 
-void sub_8039F0C(struct CpPerformProc* proc) {
+void CpPerform_MoveCameraOntoUnit(struct CpPerformProc* proc) {
     proc->isUnitVisible = 1;
 
     if ((gRAMChapterData.chapterVisionRange != 0) && (gRAMChapterData.chapterPhaseIndex == FACTION_RED)) {
@@ -144,7 +146,7 @@ void sub_8039F0C(struct CpPerformProc* proc) {
     return;
 }
 
-void sub_8039FAC(struct CpPerformProc* proc) {
+void CpPerform_BeginUnitMovement(struct CpPerformProc* proc) {
 
     UnitBeginAction(gActiveUnit);
 
@@ -169,7 +171,7 @@ void sub_8039FAC(struct CpPerformProc* proc) {
     return;
 }
 
-void sub_803A024() {
+void AiRefreshMap() {
     gActiveUnit = GetUnit(gActionData.subjectIndex);
 
     SetCursorMapPosition(gAiDecision.xMove, gAiDecision.yMove);
@@ -191,7 +193,7 @@ void sub_803A024() {
     return;
 }
 
-void ApplyAICombat2(struct CpPerformProc* proc) {
+void AiStartCombatAction(struct CpPerformProc* proc) {
 
     gActionData.subjectIndex = gActiveUnitId;
     gActionData.unitActionType = UNIT_ACTION_COMBAT;
@@ -219,7 +221,7 @@ void ApplyAICombat2(struct CpPerformProc* proc) {
     return;
 }
 
-void sub_803A0F4(struct CpPerformProc* proc) {
+void AiStartEscapeAction(struct CpPerformProc* proc) {
     u8 scripts[4][3] = {
         { MU_COMMAND_MOVE_LEFT,  MU_COMMAND_MOVE_LEFT,  MU_COMMAND_HALT },
         { MU_COMMAND_MOVE_RIGHT, MU_COMMAND_MOVE_RIGHT, MU_COMMAND_HALT },
@@ -234,7 +236,7 @@ void sub_803A0F4(struct CpPerformProc* proc) {
     return;
 }
 
-void sub_803A134(struct CpPerformProc* proc) {
+void AiStartStealAction(struct CpPerformProc* proc) {
     struct Unit* unit = GetUnit(gAiDecision.targetId);
 
     u16 item = unit->items[gAiDecision.itemSlot];
@@ -248,13 +250,13 @@ void sub_803A134(struct CpPerformProc* proc) {
 }
 
 // TODO: Popup macros
-struct PopupInstruction CONST_DATA gUnknown_085A80A4[] = {
+struct PopupInstruction CONST_DATA gPopup_085A80A4[] = {
     { POPUP_SOUND, 0x5C },
     { POPUP_MSG,   0x12 },
     { POPUP_END,   0x00 }
 };
 
-s8 sub_803A17C(struct CpPerformProc* proc) {
+s8 AiPillageAction(struct CpPerformProc* proc) {
 
     int x = gAiDecision.xMove;
     register int y asm("r4") = gAiDecision.yMove;
@@ -273,13 +275,13 @@ s8 sub_803A17C(struct CpPerformProc* proc) {
 
         PlaySoundEffect(0xAB);
 
-        NewPopupSimple(gUnknown_085A80A4, 0x60, 0, proc);
+        NewPopupSimple(gPopup_085A80A4, 0x60, 0, proc);
     }
 
     return 1;
 }
 
-s8 sub_803A204(struct CpPerformProc* proc) {
+s8 AiStaffAction(struct CpPerformProc* proc) {
     gActiveUnit->xPos = gAiDecision.xMove;
     gActiveUnit->yPos = gAiDecision.yMove;
 
@@ -293,7 +295,7 @@ s8 sub_803A204(struct CpPerformProc* proc) {
     return 1;
 }
 
-s8 sub_803A23C(struct CpPerformProc* proc) {
+s8 AiUseItemAction(struct CpPerformProc* proc) {
     gActiveUnit->xPos = gAiDecision.xMove;
     gActiveUnit->yPos = gAiDecision.yMove;
 
@@ -305,11 +307,11 @@ s8 sub_803A23C(struct CpPerformProc* proc) {
     return 1;
 }
 
-s8 sub_803A270(struct CpPerformProc* proc) {
+s8 AiRefreshAction(struct CpPerformProc* proc) {
     return 1;
 }
 
-s8 sub_803A274(struct CpPerformProc* proc) {
+s8 AiTalkAction(struct CpPerformProc* proc) {
     gActiveUnit->xPos = gAiDecision.xMove;
     gActiveUnit->yPos = gAiDecision.yMove;
 
@@ -323,7 +325,7 @@ s8 sub_803A274(struct CpPerformProc* proc) {
     return 1;
 }
 
-s8 sub_803A2B8(struct CpPerformProc* proc) {
+s8 AiRideBallistaAction(struct CpPerformProc* proc) {
     gActiveUnit->xPos = gAiDecision.xMove;
     gActiveUnit->yPos = gAiDecision.yMove;
 
@@ -332,7 +334,7 @@ s8 sub_803A2B8(struct CpPerformProc* proc) {
     return 1;
 }
 
-s8 sub_803A2E0(struct CpPerformProc* proc) {
+s8 AiExitBallistaAction(struct CpPerformProc* proc) {
     gActiveUnit->xPos = gAiDecision.xMove;
     gActiveUnit->yPos = gAiDecision.yMove;
 
@@ -341,7 +343,7 @@ s8 sub_803A2E0(struct CpPerformProc* proc) {
     return 1;
 }
 
-s8 ApplyAICombat(struct CpPerformProc* proc) {
+s8 AiDKNightmareAction(struct CpPerformProc* proc) {
     gActionData.subjectIndex = gActiveUnitId;
 
     gActionData.unitActionType = UNIT_ACTION_COMBAT;
@@ -360,7 +362,7 @@ s8 ApplyAICombat(struct CpPerformProc* proc) {
     return 1;
 }
 
-void ApplyAIDKSummonAction(struct CpPerformProc* proc) {
+void AiDKSummonAction(struct CpPerformProc* proc) {
 
     gActionData.subjectIndex = gActiveUnitId;
     gActionData.unitActionType = UNIT_ACTION_SUMMON_DK;
@@ -373,7 +375,7 @@ void ApplyAIDKSummonAction(struct CpPerformProc* proc) {
     return;
 }
 
-s8 ApplyAIPickAction(struct CpPerformProc* proc) {
+s8 AiPickAction(struct CpPerformProc* proc) {
 
     gActiveUnit->xPos = gAiDecision.xMove;
     gActiveUnit->yPos = gAiDecision.yMove;
@@ -388,7 +390,7 @@ s8 ApplyAIPickAction(struct CpPerformProc* proc) {
     return 1;
 }
 
-void sub_803A3C8(struct CpPerformProc* proc) {
+void CpPerform_MoveCameraOntoTarget(struct CpPerformProc* proc) {
     struct Unit* unit;
 
     int x = 0;
@@ -473,93 +475,93 @@ void sub_803A3C8(struct CpPerformProc* proc) {
     }
 
     EnsureCameraOntoPosition(proc, x, y);
-    sub_8039ECC(x * 16, y * 16, 2, proc);
+    StartAiTargetCursor(x * 16, y * 16, 2, proc);
 
     return;
 }
 
-void PrepareAIAction(struct CpPerformProc* proc) {
+void CpPerform_PerformAction(struct CpPerformProc* proc) {
     proc->unk_30 = 0;
 
     if (gActionData.unitActionType == UNIT_ACTION_TRAPPED) {
-        proc->func = sub_803A674;
+        proc->func = AiDummyAction;
 
         return;
     }
 
     switch (gAiDecision.actionId) {
         case AI_ACTION_NONE:
-            proc->func = sub_803A674;
+            proc->func = AiDummyAction;
 
             break;
 
         case AI_ACTION_COMBAT:
-            proc->func = sub_803A674;
-            ApplyAICombat2(proc);
+            proc->func = AiDummyAction;
+            AiStartCombatAction(proc);
 
             break;
 
         case AI_ACTION_ESCAPE:
-            sub_803A0F4(proc);
-            proc->func = sub_803A678;
+            AiStartEscapeAction(proc);
+            proc->func = AiEscapeAction;
 
             break;
 
         case AI_ACTION_STEAL:
-            sub_803A134(proc);
-            proc->func = sub_803A69C;
+            AiStartStealAction(proc);
+            proc->func = AiWaitAndClearScreenAction;
 
             break;
 
         case AI_ACTION_PILLAGE:
-            proc->func = sub_803A17C;
+            proc->func = AiPillageAction;
 
             break;
 
         case AI_ACTION_STAFF:
-            proc->func = sub_803A204;
+            proc->func = AiStaffAction;
 
             break;
 
         case AI_ACTION_USEITEM:
-            proc->func = sub_803A23C;
+            proc->func = AiUseItemAction;
 
             break;
 
         case AI_ACTION_REFRESH:
-            proc->func = sub_803A270;
+            proc->func = AiRefreshAction;
 
             break;
 
         case AI_ACTION_TALK:
-            proc->func = sub_803A274;
+            proc->func = AiTalkAction;
 
             break;
 
         case AI_ACTION_RIDEBALLISTA:
-            proc->func = sub_803A2B8;
+            proc->func = AiRideBallistaAction;
 
             break;
 
         case AI_ACTION_EXITBALLISTA:
-            proc->func = sub_803A2E0;
+            proc->func = AiExitBallistaAction;
 
             break;
 
         case AI_ACTION_DKNIGHTMARE:
-            proc->func = sub_803A674;
-            ApplyAICombat(proc);
+            proc->func = AiDummyAction;
+            AiDKNightmareAction(proc);
 
             break;
 
         case AI_ACTION_DKSUMMON:
-            proc->func = sub_803A674;
-            ApplyAIDKSummonAction(proc);
+            proc->func = AiDummyAction;
+            AiDKSummonAction(proc);
 
             break;
 
         case AI_ACTION_PICK:
-            proc->func = ApplyAIPickAction;
+            proc->func = AiPickAction;
 
             break;
     }
@@ -567,7 +569,7 @@ void PrepareAIAction(struct CpPerformProc* proc) {
     return;
 }
 
-void sub_803A5F8(struct CpPerformProc* proc) {
+void CpPerform_WaitAction(struct CpPerformProc* proc) {
     proc->unk_30++;
 
     if (proc->func(proc) == 1) {
@@ -580,9 +582,9 @@ void sub_803A5F8(struct CpPerformProc* proc) {
     return;
 }
 
-void sub_803A63C(struct CpPerformProc* proc) {
+void CpPerform_803A63C(struct CpPerformProc* proc) {
     UpdateAllPhaseHealingAIStatus();
-    sub_803A024();
+    AiRefreshMap();
 
     if (!(gActiveUnit->pCharacterData) || (gActiveUnit->state & (US_HIDDEN | US_DEAD | US_BIT16))) {
         Proc_Goto(proc, 1);
@@ -591,11 +593,11 @@ void sub_803A63C(struct CpPerformProc* proc) {
     return;
 }
 
-s8 sub_803A674(struct CpPerformProc* proc) {
+s8 AiDummyAction(struct CpPerformProc* proc) {
     return 1;
 }
 
-s8 sub_803A678(struct CpPerformProc* proc) {
+s8 AiEscapeAction(struct CpPerformProc* proc) {
     if (!MU_IsAnyActive()) {
         gActiveUnit->pCharacterData = NULL;
         return 1;
@@ -604,7 +606,7 @@ s8 sub_803A678(struct CpPerformProc* proc) {
     return 0;
 }
 
-s8 sub_803A69C(struct CpPerformProc* proc) {
+s8 AiWaitAndClearScreenAction(struct CpPerformProc* proc) {
 
     if (proc->unk_30 > 4) {
         BG_Fill(gBG0TilemapBuffer, 0);
@@ -618,7 +620,7 @@ s8 sub_803A69C(struct CpPerformProc* proc) {
     return 0;
 }
 
-void sub_803A6D0(struct CpPerformProc* proc) {
+void CpPerform_803A6D0(struct CpPerformProc* proc) {
     u16 a[6];
     u16 b;
     u16 c;
