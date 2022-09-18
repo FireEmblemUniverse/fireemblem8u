@@ -13,6 +13,9 @@
 #include "soundwrapper.h"
 #include "bmarch.h"
 #include "hardware.h"
+#include "bmtrap.h"
+#include "playerphase.h"
+#include "popup.h"
 
 #include "constants/terrains.h"
 
@@ -36,6 +39,52 @@ struct CpPerformProc {
     /* 31 */ u8 isUnitVisible;
 };
 
+void sub_8039E88(struct UnkProcA* proc);
+
+struct ProcCmd CONST_DATA gUnknown_085A8004[] = {
+    PROC_SLEEP(0),
+
+    PROC_WHILE_EXISTS(gUnknown_0859A548),
+    PROC_REPEAT(sub_8039E88),
+
+    PROC_END,
+};
+
+void sub_8039EF4(void);
+void sub_8039F0C(struct CpPerformProc* proc);
+void sub_8039FAC(struct CpPerformProc* proc);
+void sub_803A3C8(struct CpPerformProc* proc);
+void PrepareAIAction(struct CpPerformProc* proc);
+void sub_803A5F8(struct CpPerformProc* proc);
+void sub_803A63C(struct CpPerformProc* proc);
+void sub_803A6D0(struct CpPerformProc* proc);
+
+struct ProcCmd CONST_DATA gProcScr_CpPerform[] = {
+    PROC_NAME("E_CPPERFORM"),
+
+    PROC_CALL(sub_8039EF4),
+    PROC_CALL(sub_8039F0C),
+    PROC_SLEEP(0),
+
+    PROC_CALL(sub_8039FAC),
+    PROC_WHILE(MU_IsAnyActive),
+
+    PROC_CALL(sub_803A3C8),
+    PROC_SLEEP(0),
+
+    PROC_CALL(PrepareAIAction),
+    PROC_REPEAT(sub_803A5F8),
+
+    PROC_CALL_2(HandlePostActionTraps),
+    PROC_CALL_2(RunPotentialWaitEvents),
+
+    PROC_CALL(sub_803A63C),
+    PROC_CALL(sub_803A6D0),
+
+PROC_LABEL(1),
+    PROC_END,
+};
+
 s8 sub_803A674(struct CpPerformProc*);
 s8 sub_803A678(struct CpPerformProc*);
 s8 sub_803A69C(struct CpPerformProc*);
@@ -53,8 +102,6 @@ void sub_8039E88(struct UnkProcA* proc) {
 
     return;
 }
-
-extern struct ProcCmd CONST_DATA gUnknown_085A8004[];
 
 void sub_8039ECC(int x, int y, int kind, ProcPtr parent) {
     struct UnkProcA* proc;
@@ -172,15 +219,16 @@ void ApplyAICombat2(struct CpPerformProc* proc) {
     return;
 }
 
-extern u8 gUnknown_080D80E8[];
-
 void sub_803A0F4(struct CpPerformProc* proc) {
-    u8 hack[4][3];
-
-    memcpy(hack, gUnknown_080D80E8, 0xC);
+    u8 scripts[4][3] = {
+        { MU_COMMAND_MOVE_LEFT,  MU_COMMAND_MOVE_LEFT,  MU_COMMAND_HALT },
+        { MU_COMMAND_MOVE_RIGHT, MU_COMMAND_MOVE_RIGHT, MU_COMMAND_HALT },
+        { MU_COMMAND_MOVE_DOWN,  MU_COMMAND_MOVE_DOWN,  MU_COMMAND_HALT },
+        { MU_COMMAND_MOVE_UP,    MU_COMMAND_MOVE_UP,    MU_COMMAND_HALT },
+    };
 
     if ((gAiDecision.xTarget != 5) && (proc->isUnitVisible)) {
-        MU_StartMoveScript_Auto(hack[gAiDecision.xTarget]);
+        MU_StartMoveScript_Auto(scripts[gAiDecision.xTarget]);
     }
 
     return;
@@ -199,7 +247,12 @@ void sub_803A134(struct CpPerformProc* proc) {
     return;
 }
 
-extern int gUnknown_085A80A4[];
+// TODO: Popup macros
+struct PopupInstruction CONST_DATA gUnknown_085A80A4[] = {
+    { POPUP_SOUND, 0x5C },
+    { POPUP_MSG,   0x12 },
+    { POPUP_END,   0x00 }
+};
 
 s8 sub_803A17C(struct CpPerformProc* proc) {
 
@@ -343,80 +396,80 @@ void sub_803A3C8(struct CpPerformProc* proc) {
 
     if (gActionData.unitActionType == UNIT_ACTION_TRAPPED) {
         return;
-    } else {
-        switch (gAiDecision.actionId) {
-            case AI_ACTION_NONE:
-            case AI_ACTION_ESCAPE:
-            case AI_ACTION_PILLAGE:
-            case AI_ACTION_USEITEM:
-            case 9:
-            case 10:
-            case 11:
-            case 12:
-            case 13:
+    }
 
+    switch (gAiDecision.actionId) {
+        case AI_ACTION_NONE:
+        case AI_ACTION_ESCAPE:
+        case AI_ACTION_PILLAGE:
+        case AI_ACTION_USEITEM:
+        case AI_ACTION_RIDEBALLISTA:
+        case AI_ACTION_EXITBALLISTA:
+        case AI_ACTION_DKNIGHTMARE:
+        case AI_ACTION_DKSUMMON:
+        case AI_ACTION_PICK:
+
+            return;
+
+        case AI_ACTION_COMBAT:
+            if (gAiDecision.targetId == 0) {
+                x = gAiDecision.xTarget;
+                y = gAiDecision.yTarget;
+            } else {
+                unit = GetUnit(gAiDecision.targetId);
+                x = unit->xPos;
+                y = unit->yPos;
+            }
+
+            if (((s8)gAiDecision.itemSlot == -1) && !(gActiveUnit->state & US_IN_BALLISTA)) {
+                MU_EndAll();
+
+                gActiveUnit->xPos = gAiDecision.xMove;
+                gActiveUnit->yPos = gAiDecision.yMove;
+
+                RideBallista(gActiveUnit);
+
+                MU_Create(gActiveUnit);
+                MU_SetDefaultFacing_Auto();
+            }
+
+            break;
+
+        case AI_ACTION_STEAL:
+            unit = GetUnit(gAiDecision.targetId);
+
+            x = unit->xPos;
+            y = unit->yPos;
+
+            break;
+
+        case AI_ACTION_REFRESH:
+            unit = GetUnit(gAiDecision.targetId);
+
+            x = unit->xPos;
+            y = unit->yPos;
+
+            break;
+
+        case AI_ACTION_TALK:
+            unit = GetUnit(gAiDecision.yTarget);
+
+            x = unit->xPos;
+            y = unit->yPos;
+
+            break;
+
+        case AI_ACTION_STAFF:
+            if (gAiDecision.targetId == 0) {
                 return;
+            }
 
-            case AI_ACTION_COMBAT:
-                if (gAiDecision.targetId == 0) {
-                    x = gAiDecision.xTarget;
-                    y = gAiDecision.yTarget;
-                } else {
-                    unit = GetUnit(gAiDecision.targetId);
-                    x = unit->xPos;
-                    y = unit->yPos;
-                }
+            unit = GetUnit(gAiDecision.targetId);
 
-                if (((s8)gAiDecision.itemSlot == -1) && !(gActiveUnit->state & US_IN_BALLISTA)) {
-                    MU_EndAll();
+            x = unit->xPos;
+            y = unit->yPos;
 
-                    gActiveUnit->xPos = gAiDecision.xMove;
-                    gActiveUnit->yPos = gAiDecision.yMove;
-
-                    RideBallista(gActiveUnit);
-
-                    MU_Create(gActiveUnit);
-                    MU_SetDefaultFacing_Auto();
-                }
-
-                break;
-
-            case AI_ACTION_STEAL:
-                unit = GetUnit(gAiDecision.targetId);
-
-                x = unit->xPos;
-                y = unit->yPos;
-
-                break;
-
-            case AI_ACTION_REFRESH:
-                unit = GetUnit(gAiDecision.targetId);
-
-                x = unit->xPos;
-                y = unit->yPos;
-
-                break;
-
-            case AI_ACTION_TALK:
-                unit = GetUnit(gAiDecision.yTarget);
-
-                x = unit->xPos;
-                y = unit->yPos;
-
-                break;
-
-            case AI_ACTION_STAFF:
-                if (gAiDecision.targetId == 0) {
-                    return;
-                }
-
-                unit = GetUnit(gAiDecision.targetId);
-
-                x = unit->xPos;
-                y = unit->yPos;
-
-                break;
-        }
+            break;
     }
 
     EnsureCameraOntoPosition(proc, x, y);
@@ -430,83 +483,85 @@ void PrepareAIAction(struct CpPerformProc* proc) {
 
     if (gActionData.unitActionType == UNIT_ACTION_TRAPPED) {
         proc->func = sub_803A674;
-    } else {
-        switch (gAiDecision.actionId) {
-            case AI_ACTION_NONE:
-                proc->func = sub_803A674;
 
-                break;
+        return;
+    }
 
-            case AI_ACTION_COMBAT:
-                proc->func = sub_803A674;
-                ApplyAICombat2(proc);
+    switch (gAiDecision.actionId) {
+        case AI_ACTION_NONE:
+            proc->func = sub_803A674;
 
-                break;
+            break;
 
-            case AI_ACTION_ESCAPE:
-                sub_803A0F4(proc);
-                proc->func = sub_803A678;
+        case AI_ACTION_COMBAT:
+            proc->func = sub_803A674;
+            ApplyAICombat2(proc);
 
-                break;
+            break;
 
-            case AI_ACTION_STEAL:
-                sub_803A134(proc);
-                proc->func = sub_803A69C;
+        case AI_ACTION_ESCAPE:
+            sub_803A0F4(proc);
+            proc->func = sub_803A678;
 
-                break;
+            break;
 
-            case AI_ACTION_PILLAGE:
-                proc->func = sub_803A17C;
+        case AI_ACTION_STEAL:
+            sub_803A134(proc);
+            proc->func = sub_803A69C;
 
-                break;
+            break;
 
-            case AI_ACTION_STAFF:
-                proc->func = sub_803A204;
+        case AI_ACTION_PILLAGE:
+            proc->func = sub_803A17C;
 
-                break;
+            break;
 
-            case AI_ACTION_USEITEM:
-                proc->func = sub_803A23C;
+        case AI_ACTION_STAFF:
+            proc->func = sub_803A204;
 
-                break;
+            break;
 
-            case AI_ACTION_REFRESH:
-                proc->func = sub_803A270;
+        case AI_ACTION_USEITEM:
+            proc->func = sub_803A23C;
 
-                break;
+            break;
 
-            case AI_ACTION_TALK:
-                proc->func = sub_803A274;
+        case AI_ACTION_REFRESH:
+            proc->func = sub_803A270;
 
-                break;
+            break;
 
-            case 9:
-                proc->func = sub_803A2B8;
+        case AI_ACTION_TALK:
+            proc->func = sub_803A274;
 
-                break;
+            break;
 
-            case 10:
-                proc->func = sub_803A2E0;
+        case AI_ACTION_RIDEBALLISTA:
+            proc->func = sub_803A2B8;
 
-                break;
+            break;
 
-            case 11:
-                proc->func = sub_803A674;
-                ApplyAICombat(proc);
+        case AI_ACTION_EXITBALLISTA:
+            proc->func = sub_803A2E0;
 
-                break;
+            break;
 
-            case 12:
-                proc->func = sub_803A674;
-                ApplyAIDKSummonAction(proc);
+        case AI_ACTION_DKNIGHTMARE:
+            proc->func = sub_803A674;
+            ApplyAICombat(proc);
 
-                break;
+            break;
 
-            case 13:
-                proc->func = ApplyAIPickAction;
+        case AI_ACTION_DKSUMMON:
+            proc->func = sub_803A674;
+            ApplyAIDKSummonAction(proc);
 
-                break;
-        }
+            break;
+
+        case AI_ACTION_PICK:
+            proc->func = ApplyAIPickAction;
+
+            break;
     }
 
     return;
@@ -554,7 +609,8 @@ s8 sub_803A69C(struct CpPerformProc* proc) {
     if (proc->unk_30 > 4) {
         BG_Fill(gBG0TilemapBuffer, 0);
         BG_Fill(gBG1TilemapBuffer, 0);
-        BG_EnableSyncByMask(3);
+
+        BG_EnableSyncByMask(BG0_SYNC_BIT | BG1_SYNC_BIT);
 
         return 1;
     }

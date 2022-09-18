@@ -81,7 +81,6 @@ void PlayerPhase_InitUnitMovementSelect(void);
 void PlayerPhase_DisplayDangerZone(void);
 void PlayerPhase_RangeDisplayIdle(ProcPtr proc);
 s8 PlayerPhase_PrepareAction(ProcPtr proc);
-s8 RunPotentialWaitEvents(void);
 s8 EnsureCameraOntoActiveUnitPosition(ProcPtr proc);
 void PlayerPhase_FinishAction(ProcPtr proc);
 void PlayerPhase_ApplyUnitMovement(ProcPtr proc);
