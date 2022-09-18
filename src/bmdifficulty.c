@@ -69,7 +69,7 @@ const struct Outer080D7FD0 gUnknown_080D7FD0 = {
 
 
 // popup.s
-void sub_8011728(ProcPtr, int);
+void NewPopup_NewAlly(ProcPtr, int);
 
 // code.s
 int sub_80A49A4(void);
@@ -234,7 +234,7 @@ s8 PrepScreenProc_AddPostgameUnits(ProcPtr proc) {
 s8 TryAddPostgameUnit(ProcPtr proc, const struct UnitDefinition* uDef) {
     if (GetUnitFromCharIdAndFaction(uDef->charIndex, 0) == 0) {
         LoadUnit(uDef);
-        sub_8011728(proc, uDef->charIndex);
+        NewPopup_NewAlly(proc, uDef->charIndex);
         return 1;
     }
 

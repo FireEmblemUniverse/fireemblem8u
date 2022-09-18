@@ -2,25 +2,39 @@
 #define GUARD_POPUP_H
 
 enum popup_opcode_index {
-    POPUP_END,              /* 00 */
-    POPUP_SPACE,            /* 01 */
-    POPUP_ITEM_NAME,        /* 02 */
-    POPUP_ITEM_STR_CAP,     /* 03 */
-    POPUP_ITEM_STR,         /* 04 */
-    POPUP_UNIT_NAME,        /* 05 */
-    POPUP_MSG,              /* 06 */
-    POPUP_STR,              /* 07 */
-    POPUP_COLOR,            /* 08 */
-    POPUP_ITEM_ICON,        /* 09 */
-    POPUP_WTYPE_ICON,       /* 0A */
-    POPUP_NUM,              /* 0B */
-    POPUP_SOUND,            /* 0C */
+    POPUP_OP_END,              /* 00 */
+    POPUP_OP_SPACE,            /* 01 */
+    POPUP_OP_ITEM_NAME,        /* 02 */
+    POPUP_OP_ITEM_STR_CAP,     /* 03 */
+    POPUP_OP_ITEM_STR,         /* 04 */
+    POPUP_OP_UNIT_NAME,        /* 05 */
+    POPUP_OP_MSG,              /* 06 */
+    POPUP_OP_STR,              /* 07 */
+    POPUP_OP_COLOR,            /* 08 */
+    POPUP_OP_ITEM_ICON,        /* 09 */
+    POPUP_OP_WTYPE_ICON,       /* 0A */
+    POPUP_OP_NUM,              /* 0B */
+    POPUP_OP_SOUND,            /* 0C */
 };
 
 struct PopupInstruction {
     u8 opcode;
     u32 data;
 };
+
+#define POPUP_END               {POPUP_OP_END, 0}
+#define POPUP_SPACE(len)        {POPUP_OP_SPACE, len}
+#define POPUP_ITEM_NAME         {POPUP_OP_ITEM_NAME, 0}
+#define POPUP_ITEM_STR_CAP      {POPUP_OP_ITEM_STR_CAP, 0}
+#define POPUP_ITEM_STR          {POPUP_OP_ITEM_STR, 0}
+#define POPUP_UNIT_NAME         {POPUP_OP_UNIT_NAME, 0}
+#define POPUP_MSG(msg)          {POPUP_OP_MSG, msg}
+#define POPUP_STR(ptr)          {POPUP_OP_STR, (ptr)}
+#define POPUP_COLOR(color)      {POPUP_OP_COLOR, color}
+#define POPUP_ITEM_ICON         {POPUP_OP_ITEM_ICON, 0}
+#define POPUP_WTYPE_ICON        {POPUP_OP_WTYPE_ICON, 0}
+#define POPUP_NUM               {POPUP_OP_NUM, 0}
+#define POPUP_SOUND(soundId)    {POPUP_OP_SOUND, soundId}
 
 struct PopupProc {
 	PROC_HEADER;
@@ -62,5 +76,35 @@ struct PopupIconUpdateProc {
     /* 34 */ u8 _pad_34[0x4A - 0x34];
     /* 4A */ u16 unk_4A;
 };
+
+struct GotItemPopupProc {
+    PROC_HEADER;
+    /* 29 */ u8 _pad_29[0x54 - 0x29];
+    /* 54 */ struct Unit* unit;
+    /* 58 */ int item;
+};
+
+void SetPopupUnit(struct Unit* unit);
+void SetPopupItem(u16 item);
+void SetPopupNumber(u32 num);
+
+ProcPtr NewPopupSimple(const struct PopupInstruction *inst,
+                       int clock,
+                       int winStyle,
+                       ProcPtr parent);
+
+ProcPtr NewPopup(const struct PopupInstruction *inst,
+                 int clock,
+                 int winStyle,
+                 int iconObjTileId,
+                 int pal_base, /* proc->iconPalId - 0x10 */
+                 ProcPtr parent);
+
+void NewGotItemPopup(struct Unit* unit, u16 item, ProcPtr parent);
+void NewItemGot(ProcPtr parent, struct Unit *unit, u16 item);
+void NewGeneralItemGot(struct Unit *unit, u16 item, ProcPtr parent);
+void NewGoldGotPopup(ProcPtr parent, struct Unit *unit, int value);
+void CreatedItemStealingPopUp(u16 item, ProcPtr parent);
+void NewPopup_WeaponBroke(u16 item, ProcPtr parent);
 
 #endif /* GUARD_POPUP_H */

@@ -1629,7 +1629,7 @@ gUnknown_085AA4CC:  @ 0x085AA4CC
         .word 0x0
         @ PROC_WHILE_EXISTS
         .short 0x8, 0x0
-        .word gUnknown_085921C8
+        .word sProcScr_Popup
         @ PROC_CALL
         .short 0x2, 0x0
         .word sub_804B554
@@ -1638,7 +1638,7 @@ gUnknown_085AA4CC:  @ 0x085AA4CC
         .word 0x0
         @ PROC_WHILE_EXISTS
         .short 0x8, 0x0
-        .word gUnknown_085921C8
+        .word sProcScr_Popup
         @ PROC_CALL
         .short 0x2, 0x0
         .word sub_804B5E0

@@ -14,13 +14,13 @@
 #include "mapanim.h"
 
 // unreferenced
-void sub_807A708(u32 a) {
+void sub_807A708(ProcPtr proc) {
     if (gCurrentMapAnimState.u62 == 1) {
-        sub_8011694(gCurrentMapAnimState.actors[1].pBattleUnit->weapon, a);
+        CreatedItemStealingPopUp(gCurrentMapAnimState.actors[1].pBattleUnit->weapon, proc);
     }
 }
 
-void DisplayWpnBrokePopup(u32 a) {
+void DisplayWpnBrokePopup(ProcPtr proc) {
     struct BattleUnit *unit = 0;
     if (BattleUnit_ShouldDisplayWpnBroke(&gBattleActor)) {
         unit = &gBattleActor;
@@ -29,7 +29,7 @@ void DisplayWpnBrokePopup(u32 a) {
         unit = &gBattleTarget;
     }
     if (unit) {
-        NewPopup_WeaponBroke(unit->weaponBefore, a);
+        NewPopup_WeaponBroke(unit->weaponBefore, proc);
     }
 }
 
@@ -42,7 +42,7 @@ s8 BattleUnit_ShouldDisplayWpnBroke(struct BattleUnit *u) {
     return result;
 }
 
-void DisplayWRankUpPopup(u32 a) {
+void DisplayWRankUpPopup(ProcPtr proc) {
     struct BattleUnit *unit = 0;
     if (BattleUnit_ShouldDisplayWRankUp(&gBattleActor)) {
         unit = &gBattleActor;
@@ -51,7 +51,7 @@ void DisplayWRankUpPopup(u32 a) {
         unit = &gBattleTarget;
     }
     if (unit) {
-        NewPopup_WRankIncrease(unit->weaponType, a);
+        NewPopup_WRankIncrease(unit->weaponType, proc);
     }
 }
 

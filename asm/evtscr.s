@@ -6657,7 +6657,7 @@ _0801071C:
 	lsls r0, r3, #0x10
 	asrs r0, r0, #0x10
 	adds r2, r4, #0
-	bl sub_8011750
+	bl NewPopupVerySimple
 	b _08010740
 _0801072A:
 	ldrh r2, [r1, #6]
