@@ -17,26 +17,165 @@
 #include "constants/characters.h"
 #include "constants/items.h"
 
-/* convoymenu */
+/* convoymenu.s */
 void HandleNewItemGetFromDrop(struct Unit* unit, int item, ProcPtr parent);
-extern struct PopupInstruction gPopupInst[2];
-extern struct Unit* gpPopupUnit;
-extern u16 gPopupItem;
-extern u32 gPopupNumber;
-extern struct ProcCmd CONST_DATA sProcScr_PopupUpdateIcon[];
-extern struct ProcCmd CONST_DATA sProcScr_Popup[];
-extern struct ProcCmd CONST_DATA sProcScr_GotItem[];
-extern struct PopupInstruction CONST_DATA gPopup_GotItem[];
-extern struct PopupInstruction CONST_DATA gPopup_ItemWasPilfered[];
-extern struct PopupInstruction CONST_DATA gUnknown_08592300[];
-extern struct PopupInstruction CONST_DATA gUnknown_08592348[];
-extern struct PopupInstruction CONST_DATA gUnknown_08592380[]; /* stole */
-extern struct PopupInstruction CONST_DATA gUnknown_085923D8[];
-extern struct PopupInstruction CONST_DATA gUnknown_08592420[]; /* wpn break */
-extern struct PopupInstruction CONST_DATA gUnknown_08592468[]; // wRank increase
-extern struct PopupInstruction CONST_DATA gUnknown_08592490[]; // change fraction
 
-int GetSomeLongPopupLength(struct PopupProc *proc)
+/* functions declearation */
+void PopupProc_GfxClear(struct PopupProc *proc);
+void PopupProc_Init(struct PopupProc *proc);
+void PopupProc_PrepareGfx(struct PopupProc *proc);
+void PopupProc_MaybeSetVolume(struct PopupProc *proc);
+void PopupProc_PlaySound(struct PopupProc *proc);
+void PopupProc_GfxDraw(struct PopupProc *proc);
+void PopupProc_WaitForPress(struct PopupProc *proc);
+void PopupProc_MaybeResetVolume(struct PopupProc *proc);
+void PopupIconUpdateProc_Loop(struct PopupIconUpdateProc *proc);
+void ItemGot_DisplayLePopup(struct GotItemPopupProc *proc);
+void ItemGot_GotLeItem(struct GotItemPopupProc *proc);
+
+/* .section(.bss) */
+static struct PopupInstruction gPopupInst[4];
+static struct Unit* gpPopupUnit;
+static u16 gPopupItem;
+static u32 gPopupNumber;
+
+/* .section(.data) */
+struct ProcCmd CONST_DATA sProcScr_Popup[] = {
+    PROC_SET_END_CB(PopupProc_GfxClear),
+    PROC_CALL(PopupProc_Init),
+    PROC_SLEEP(0xA),
+    PROC_CALL(PopupProc_PrepareGfx),
+    PROC_CALL(PopupProc_MaybeSetVolume),
+    PROC_YIELD,
+    PROC_CALL(PopupProc_PlaySound),
+    PROC_CALL(PopupProc_GfxDraw),
+    PROC_REPEAT(PopupProc_WaitForPress),
+    PROC_CALL(PopupProc_MaybeResetVolume),
+    PROC_YIELD,
+    PROC_END
+};
+
+struct ProcCmd CONST_DATA sProcScr_PopupUpdateIcon[] = {
+    PROC_REPEAT(PopupIconUpdateProc_Loop),
+    /* no PROC_END ... ? */
+};
+
+struct PopupInstruction CONST_DATA gPopup_GotItem[] = {
+    POPUP_SOUND(0x5A),
+    POPUP_COLOR(TEXT_COLOR_NORMAL),
+    POPUP_MSG(0x008),                   /* Got */
+    POPUP_COLOR(TEXT_COLOR_BLUE),
+    POPUP_ITEM_STR,
+    POPUP_SPACE(1),
+    POPUP_ITEM_ICON,
+    POPUP_COLOR(TEXT_COLOR_NORMAL),
+    POPUP_SPACE(1),
+    POPUP_MSG(0x022),                   /* .[.] */
+    POPUP_END
+};
+
+struct PopupInstruction CONST_DATA gPopup_ItemWasPilfered[] = {
+    POPUP_SOUND(0x5C),
+    POPUP_COLOR(TEXT_COLOR_BLUE),
+    POPUP_ITEM_STR_CAP,
+    POPUP_SPACE(1),
+    POPUP_ITEM_ICON,
+    POPUP_SPACE(1),
+    POPUP_COLOR(TEXT_COLOR_NORMAL),
+    POPUP_MSG(0x009),                   /* was pilfered.[.] */
+    POPUP_END
+};
+
+struct ProcCmd CONST_DATA sProcScr_GotItem[] = {
+    PROC_YIELD,
+    PROC_CALL(ItemGot_DisplayLePopup),
+    PROC_YIELD,
+    PROC_CALL(ItemGot_GotLeItem),
+    PROC_YIELD,
+    PROC_END
+};
+
+struct PopupInstruction CONST_DATA gPopup_GotGold[] = {
+    POPUP_SOUND(0x5A),
+    POPUP_COLOR(TEXT_COLOR_NORMAL),
+    POPUP_MSG(0x005),                   /* Got */
+    POPUP_COLOR(TEXT_COLOR_BLUE),
+    POPUP_NUM,
+    POPUP_SPACE(3),
+    POPUP_COLOR(TEXT_COLOR_NORMAL),
+    POPUP_MSG(0x006),                   /* gold.[.] */
+    POPUP_END
+};
+
+struct PopupInstruction CONST_DATA gPopup_GoldWasStole[] = {
+    POPUP_SOUND(0x5C),
+    POPUP_COLOR(TEXT_COLOR_BLUE),
+    POPUP_NUM,
+    POPUP_SPACE(3),
+    POPUP_COLOR(TEXT_COLOR_NORMAL),
+    POPUP_MSG(0x007),                   /* gold was stolen. */
+    POPUP_END
+};
+
+struct PopupInstruction CONST_DATA gPopup_StoleItem[] = {
+    POPUP_SOUND(0x5A),
+    POPUP_COLOR(TEXT_COLOR_NORMAL),
+    POPUP_MSG(0x00A),                   /* Stole */
+    POPUP_COLOR(TEXT_COLOR_BLUE),
+    POPUP_ITEM_STR,
+    POPUP_SPACE(1),
+    POPUP_ITEM_ICON,
+    POPUP_SPACE(1),
+    POPUP_COLOR(TEXT_COLOR_NORMAL),
+    POPUP_MSG(0x022),                   /* .[.] */
+    POPUP_END
+};
+
+struct PopupInstruction CONST_DATA gPopup_ItemStolen[] = {
+    POPUP_SOUND(0x5C),
+    POPUP_COLOR(TEXT_COLOR_BLUE),
+    POPUP_ITEM_STR_CAP,
+    POPUP_SPACE(1),
+    POPUP_ITEM_ICON,
+    POPUP_SPACE(1),
+    POPUP_COLOR(TEXT_COLOR_NORMAL),
+    POPUP_MSG(0x00B),                   /* was stolen.[.] */
+    POPUP_END
+};
+
+struct PopupInstruction CONST_DATA gPopup_WpnBroken[] = {
+    POPUP_SOUND(0x5C),
+    POPUP_COLOR(TEXT_COLOR_BLUE),
+    POPUP_ITEM_STR_CAP,
+    POPUP_SPACE(1),
+    POPUP_ITEM_ICON,
+    POPUP_SPACE(1),
+    POPUP_COLOR(TEXT_COLOR_NORMAL),
+    POPUP_MSG(0x003),                   /* broke! */
+    POPUP_END
+};
+
+struct PopupInstruction CONST_DATA gPopup_WRankUp[] = {
+    POPUP_SOUND(0x5A),
+    POPUP_MSG(0x001),                   /*  [.] */
+    POPUP_WTYPE_ICON,
+    POPUP_MSG(0x002),                   /* Weapon Level increased.[.] */
+    POPUP_END
+};
+
+struct PopupInstruction CONST_DATA gPopup_NewAlly[] = {
+    POPUP_SOUND(0x5A),
+    POPUP_COLOR(TEXT_COLOR_NORMAL),
+    POPUP_MSG(0x00E),                   /* You can now use */
+    POPUP_COLOR(TEXT_COLOR_BLUE),
+    POPUP_UNIT_NAME,
+    POPUP_COLOR(TEXT_COLOR_NORMAL),
+    POPUP_SPACE(1),
+    POPUP_MSG(0x022),                   /* .[.] */
+    POPUP_END
+};
+
+int ParsePopupInstAndGetLen(struct PopupProc *proc)
 {
     char str[0x10];
     int len = 0;
@@ -108,7 +247,7 @@ int GetSomeLongPopupLength(struct PopupProc *proc)
     return len;
 }
 
-void GenSomeLongPopupText(const struct PopupInstruction *inst, struct TextHandle th)
+void GeneratePopupText(const struct PopupInstruction *inst, struct TextHandle th)
 {
     char str[0x10];
     struct TextHandle text = th;
@@ -164,7 +303,7 @@ void GenSomeLongPopupText(const struct PopupInstruction *inst, struct TextHandle
     BG_EnableSyncByMask(BG0_SYNC_BIT | BG1_SYNC_BIT);
 }
 
-void LongPopup_Init(struct PopupProc *proc)
+void PopupProc_Init(struct PopupProc *proc)
 {
     proc->xTileParam = -1;
     proc->yTileParam = -1;
@@ -174,7 +313,7 @@ void LongPopup_Init(struct PopupProc *proc)
     proc->soundId = 0;
 }
 
-void LongPopup_PrepareGfx(struct PopupProc *proc)
+void PopupProc_PrepareGfx(struct PopupProc *proc)
 {
     Font_InitForUI(0, GetBackgroundTileDataOffset(0) +
                    BG_SCREEN_ADDR(4), 0x100, 0);
@@ -186,29 +325,29 @@ void LongPopup_PrepareGfx(struct PopupProc *proc)
     gLCDControlBuffer.dispcnt.win1_on = 0;
     gLCDControlBuffer.dispcnt.objWin_on = 0;
 
-    proc->xGfxSize = GetSomeLongPopupLength(proc);
+    proc->xGfxSize = ParsePopupInstAndGetLen(proc);
 }
 
-void sub_80111F4(struct PopupProc *proc)
+void PopupProc_MaybeSetVolume(struct PopupProc *proc)
 {
     if (0 != proc->soundId)
         ISuspectThisToBeMusicRelated_8002730(0x100, 0x80, 0x10, (ProcPtr)proc);
 }
 
-void LongPopup_PlaySound(struct PopupProc *proc)
+void PopupProc_PlaySound(struct PopupProc *proc)
 {
     if (0 != proc->soundId) {
         PlaySoundEffect(proc->soundId);
     }
 }
 
-void sub_8011238(struct PopupProc *proc)
+void PopupProc_MaybeResetVolume(struct PopupProc *proc)
 {
     if (0 != proc->soundId)
         ISuspectThisToBeMusicRelated_8002730(0x80, 0x100, 0x10, (ProcPtr)proc);
 }
 
-void IconOAMUpdater_Loop(struct PopupIconUpdateProc *proc)
+void PopupIconUpdateProc_Loop(struct PopupIconUpdateProc *proc)
 {
     CallARM_PushToSecondaryOAM(proc->unk_2C, 
                                proc->unk_30, 
@@ -218,7 +357,7 @@ void IconOAMUpdater_Loop(struct PopupIconUpdateProc *proc)
 
 #if NONMATCHING
 
-void LongPopup_Draw(struct PopupProc *proc)
+void PopupProc_GfxDraw(struct PopupProc *proc)
 {
     char *str[0x4];
     struct TextHandle th;
@@ -227,7 +366,7 @@ void LongPopup_Draw(struct PopupProc *proc)
     register s16 icon_pos;
     register s8 x_pos, y_pos;
 
-    proc->xGfxSize = GetSomeLongPopupLength(proc);
+    proc->xGfxSize = ParsePopupInstAndGetLen(proc);
 
     tile_len = proc->xGfxSize >> 0x3;
     if (0 != (proc->xGfxSize & 0x7)) tile_len++;
@@ -251,7 +390,7 @@ void LongPopup_Draw(struct PopupProc *proc)
     Text_Init(&th, tile_len);
     Text_SetColorId(&th, proc->textColorId);
     Text_SetXCursor(&th, icon_pos);
-    GenSomeLongPopupText(proc->pDefinition, th);
+    GeneratePopupText(proc->pDefinition, th);
 
     if (-1 != (s16)proc->iconId)
         LoadIconObjectGraphics(proc->iconId, proc->iconObjTileId);
@@ -272,7 +411,7 @@ void LongPopup_Draw(struct PopupProc *proc)
 #else
 
 __attribute__((naked))
-void LongPopup_Draw(struct PopupProc *r0)
+void PopupProc_GfxDraw(struct PopupProc *r0)
 {
     asm("\n\
         .syntax unified\n\
@@ -283,7 +422,7 @@ void LongPopup_Draw(struct PopupProc *r0)
         push {r5, r6, r7}\n\
         sub sp, #0x10\n\
         adds r5, r0, #0\n\
-        bl GetSomeLongPopupLength\n\
+        bl ParsePopupInstAndGetLen\n\
         adds r2, r5, #0\n\
         adds r2, #0x46\n\
         strh r0, [r2]\n\
@@ -374,7 +513,7 @@ void LongPopup_Draw(struct PopupProc *r0)
         ldr r0, [r5, #0x2c]\n\
         ldr r1, [sp, #4]\n\
         ldr r2, [sp, #8]\n\
-        bl GenSomeLongPopupText\n\
+        bl GeneratePopupText\n\
         ldrh r0, [r5, #0x3e]\n\
         ldr r6, _080113B4  @ 0x0000FFFF\n\
         cmp r0, r6\n\
@@ -444,7 +583,7 @@ void LongPopup_Draw(struct PopupProc *r0)
 
 #endif /* NONMATCHING */
 
-void LongPopup_WaitForPress(struct PopupProc *proc)
+void PopupProc_WaitForPress(struct PopupProc *proc)
 {
     if (proc->clock < 0) {
         if (0 != gKeyStatusPtr->newKeys) {
@@ -458,7 +597,7 @@ void LongPopup_WaitForPress(struct PopupProc *proc)
     }
 }
 
-void LongPopup_Clear(struct PopupProc *proc)
+void PopupProc_GfxClear(struct PopupProc *proc)
 {
     TileMap_FillRect(
         TILEMAP_LOCATED(gBG0TilemapBuffer, proc->xTileReal, proc->yTileReal),
@@ -572,20 +711,20 @@ void NewGeneralItemGot(struct Unit *unit, u16 item, ProcPtr parent)
     } /* switch item index */
 }
 
-void sub_80115DC(u32 num, ProcPtr parent)  /* unused */
+void NewGoldNumPopup_unused(u32 num, ProcPtr parent)  /* unused */
 {
     SetPopupNumber(num);
 
     if (FACTION_BLUE == UNIT_FACTION(gActiveUnit))
-        NewPopupSimple(gUnknown_08592300, 0x60, 0x0, parent);
+        NewPopupSimple(gPopup_GotGold, 0x60, 0x0, parent);
     else
-        NewPopupSimple(gUnknown_08592348, 0x60, 0x0, parent);
+        NewPopupSimple(gPopup_GoldWasStole, 0x60, 0x0, parent);
 }
 
-void sub_8011624(u32 num, ProcPtr parent)  /* unused */
+void NewNumberPopup_unused(u32 num, ProcPtr parent)  /* unused */
 {
     SetPopupNumber(num);
-    NewPopupSimple(gUnknown_08592300, 0x60, 0x0, parent);
+    NewPopupSimple(gPopup_GotGold, 0x60, 0x0, parent);
 }
 
 void NewGoldGotPopup(ProcPtr parent, struct Unit *unit, int value)
@@ -595,9 +734,9 @@ void NewGoldGotPopup(ProcPtr parent, struct Unit *unit, int value)
     if (FACTION_BLUE == UNIT_FACTION(unit)) {
         value += GetPartyGoldAmount();
         SetPartyGoldAmount(value);
-        NewPopupSimple(gUnknown_08592300, 0x60, 0x0, parent);
+        NewPopupSimple(gPopup_GotGold, 0x60, 0x0, parent);
     } else
-        NewPopupSimple(gUnknown_08592348, 0x60, 0x0, parent);
+        NewPopupSimple(gPopup_GoldWasStole, 0x60, 0x0, parent);
 }
 
 void CreatedItemStealingPopUp(u16 item, ProcPtr parent)
@@ -605,27 +744,43 @@ void CreatedItemStealingPopUp(u16 item, ProcPtr parent)
     SetPopupItem(item);
 
     if (FACTION_BLUE == UNIT_FACTION(gActiveUnit))
-        NewPopupSimple(gUnknown_08592380, 0x60, 0x0, parent);
+        NewPopupSimple(gPopup_StoleItem, 0x60, 0x0, parent);
     else
-        NewPopupSimple(gUnknown_085923D8, 0x60, 0x0, parent);
+        NewPopupSimple(gPopup_ItemStolen, 0x60, 0x0, parent);
 }
 
 void NewPopup_WeaponBroke(u16 item, ProcPtr parent)
 {
     SetPopupItem(item);
-    NewPopupSimple(gUnknown_08592420, 0x60, 0x0, parent);
+    NewPopupSimple(gPopup_WpnBroken, 0x60, 0x0, parent);
 }
 
 void NewPopup_WRankIncrease(u16 item, ProcPtr parent)
 {
     SetPopupItem(item);
-    NewPopupSimple(gUnknown_08592468, 0x60, 0x0, parent);
+    NewPopupSimple(gPopup_WRankUp, 0x60, 0x0, parent);
 }
 
 /* maybe change uniy fraction to ally */
-void sub_8011728(ProcPtr parent, u8 char_id)
+void NewPopup_NewAlly(ProcPtr parent, u8 char_id)
 {
     SetPopupUnit(GetUnitFromCharId(char_id));
-    NewPopupSimple(gUnknown_08592490, 0x60, 0x0, parent);
+    NewPopupSimple(gPopup_NewAlly, 0x60, 0x0, parent);
 }
 
+void NewPopupVerySimple(u32 msg, u32 sound_index, ProcPtr parent)
+{
+    gPopupInst[0].opcode = POPUP_OP_SOUND;
+    gPopupInst[0].data   = sound_index;
+
+    gPopupInst[1].opcode = POPUP_OP_COLOR;
+    gPopupInst[1].data   = TEXT_COLOR_NORMAL;
+
+    gPopupInst[2].opcode = POPUP_OP_MSG;
+    gPopupInst[2].data   = msg;
+
+    gPopupInst[3].opcode = POPUP_OP_END;
+    gPopupInst[3].data   = 0;
+
+    NewPopupSimple(gPopupInst, 0x60, 0x0, parent);
+}

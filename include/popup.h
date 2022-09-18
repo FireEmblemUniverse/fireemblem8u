@@ -22,7 +22,19 @@ struct PopupInstruction {
     u32 data;
 };
 
-
+#define POPUP_END               {POPUP_OP_END, 0}
+#define POPUP_SPACE(len)        {POPUP_OP_SPACE, len}
+#define POPUP_ITEM_NAME         {POPUP_OP_ITEM_NAME, 0}
+#define POPUP_ITEM_STR_CAP      {POPUP_OP_ITEM_STR_CAP, 0}
+#define POPUP_ITEM_STR          {POPUP_OP_ITEM_STR, 0}
+#define POPUP_UNIT_NAME         {POPUP_OP_UNIT_NAME, 0}
+#define POPUP_MSG(msg)          {POPUP_OP_MSG, msg}
+#define POPUP_STR(ptr)          {POPUP_OP_STR, (ptr)}
+#define POPUP_COLOR(color)      {POPUP_OP_COLOR, color}
+#define POPUP_ITEM_ICON         {POPUP_OP_ITEM_ICON, 0}
+#define POPUP_WTYPE_ICON        {POPUP_OP_WTYPE_ICON, 0}
+#define POPUP_NUM               {POPUP_OP_NUM, 0}
+#define POPUP_SOUND(soundId)    {POPUP_OP_SOUND, soundId}
 
 struct PopupProc {
 	PROC_HEADER;
@@ -77,16 +89,17 @@ void SetPopupItem(u16 item);
 void SetPopupNumber(u32 num);
 
 ProcPtr NewPopupSimple(const struct PopupInstruction *inst,
-                    int clock,
-                    int winStyle,
-                    ProcPtr parent);
+                       int clock,
+                       int winStyle,
+                       ProcPtr parent);
 
 ProcPtr NewPopup(const struct PopupInstruction *inst,
-                           int clock,
-                           int winStyle,
-                           int iconObjTileId,
-                           int pal_base, /* proc->iconPalId - 0x10 */
-                           ProcPtr parent);
+                 int clock,
+                 int winStyle,
+                 int iconObjTileId,
+                 int pal_base, /* proc->iconPalId - 0x10 */
+                 ProcPtr parent);
+
 void NewGotItemPopup(struct Unit* unit, u16 item, ProcPtr parent);
 void NewItemGot(ProcPtr parent, struct Unit *unit, u16 item);
 void NewGeneralItemGot(struct Unit *unit, u16 item, ProcPtr parent);
