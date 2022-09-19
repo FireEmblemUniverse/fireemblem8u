@@ -13557,7 +13557,7 @@ sub_80AEC54: @ 0x080AEC54
 	push {lr}
 	sub sp, #0x64
 	mov r0, sp
-	bl LoadSomeUnitStatThingUnlockIdk
+	bl VerifySecureHeaderSW
 	movs r0, #0
 	add sp, #0x64
 	pop {r1}
@@ -13570,7 +13570,7 @@ sub_80AEC68: @ 0x080AEC68
 	push {lr}
 	sub sp, #0x64
 	mov r0, sp
-	bl LoadSomeUnitStatThingUnlockIdk
+	bl VerifySecureHeaderSW
 	movs r0, #0
 	add sp, #0x64
 	pop {r1}

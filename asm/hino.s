@@ -1064,8 +1064,8 @@ sub_8012E94: @ 0x08012E94
 
 	THUMB_FUNC_END sub_8012E94
 
-	THUMB_FUNC_START sub_8012E98
-sub_8012E98: @ 0x08012E98
+	THUMB_FUNC_START CheckSaveHeaderMagic
+CheckSaveHeaderMagic: @ 0x08012E98
 	push {r4, lr}
 	adds r4, r0, #0
 	b _08012EAA
@@ -1089,7 +1089,7 @@ _08012EB8:
 	pop {r1}
 	bx r1
 
-	THUMB_FUNC_END sub_8012E98
+	THUMB_FUNC_END CheckSaveHeaderMagic
 
 	THUMB_FUNC_START CopyString
 CopyString: @ 0x08012EC0

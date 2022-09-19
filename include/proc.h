@@ -97,6 +97,7 @@ enum
 #define PROC_TREE_5     ((ProcPtr) 5)
 #define PROC_TREE_6     ((ProcPtr) 6)
 #define PROC_TREE_7     ((ProcPtr) 7)
+#define PROC_IS_ROOT(aProc) ((uintptr_t)aProc <= (u32)PROC_TREE_7)
 
 #define ROOT_PROC(treenum) (*(gProcTreeRootArray + (treenum)))
 

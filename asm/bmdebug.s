@@ -532,7 +532,7 @@ _0801BF9A:
 	adds r5, #1
 _0801BFAE:
 	mov r0, sp
-	bl LoadSomeUnitStatThingUnlockIdk
+	bl VerifySecureHeaderSW
 	add r1, sp, #0x14
 	movs r2, #0
 	mov r0, sp
@@ -572,7 +572,7 @@ _0801BFF0:
 	strb r1, [r0, #0xe]
 _0801BFFA:
 	mov r0, sp
-	bl SaveSomeUnitStatThingUnlockIdk
+	bl SaveSecureHeader
 	adds r0, r6, #0
 	adds r1, r7, #0
 	bl DebugMenu_ClearDraw

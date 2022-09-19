@@ -4507,8 +4507,8 @@ gUnknown_08A1E0D8:  @ 0x08A1E0D8
     .4byte 0x0
     .4byte 0x0
 
-	.global gUnknown_08A1FAF4
-gUnknown_08A1FAF4:  @ 0x08A1FAF4
+	.global gpSaveDataStart
+gpSaveDataStart:  @ 0x08A1FAF4
 	.incbin "baserom.gba", 0xA1FAF4, 0x4
 
 	.global gUnknown_08A1FAF8

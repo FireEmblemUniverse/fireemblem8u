@@ -631,7 +631,7 @@
 . = 0x03E82C; gUnknown_0203E82C = .;
 . = 0x03E87C; gUnknown_0203E87C = .;
 . = 0x03E884; gUnknown_0203E884 = .;
-. = 0x03E88E; gUnknown_0203E88E = .;
+. = 0x03E88E; gBoolSramWorking = .;
 . = 0x03E890; gUnknown_0203E890 = .;
 . = 0x03E894; gUnknown_0203E894 = .;
 . = 0x03ECF4; gUnknown_0203ECF4 = .;

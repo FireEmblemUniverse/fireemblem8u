@@ -53,7 +53,6 @@ SECTIONS
         asm/evtscr.o(.text);
         src/ectscr_.o(.text);
         src/popup.o(.text);
-        asm/popup.o(.text);
         asm/evtsub.o(.text);
         asm/hino.o(.text);
         asm/bm.o(.text);
@@ -137,6 +136,8 @@ SECTIONS
         asm/code_808DAE4.o(.text);
         src/uichapterstatus.o(.text);
         asm/code.o(.text);
+        src/bmsave.o(.text);
+        asm/code_80A2C3C.o(.text);
         src/minimap.o(.text);
         asm/code_80A882C.o(.text);
         src/branched_promotion_main.o(.text);
@@ -276,6 +277,8 @@ SECTIONS
         . = ALIGN(4); src/gamecontrol.o(.data);
         . = ALIGN(4); src/messdecode.o(.data);
         . = ALIGN(4); data/data_591AB4.o(.data);
+        . = ALIGN(4); src/popup.o(.data);
+        . = ALIGN(4); data/data_5924D8.o(.data);
         . = ALIGN(4); data/data_item_icon.o(.data);
         . = ALIGN(4); data/data_599714.o(.data);
         . = ALIGN(4); src/bmunit.o(.data);

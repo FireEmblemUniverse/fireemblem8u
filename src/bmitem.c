@@ -11,9 +11,6 @@
 
 #include "bmitem.h"
 
-#define ITEM_INDEX(aItem) ((aItem) & 0xFF)
-#define ITEM_USES(aItem) ((aItem) >> 8)
-
 // TODO: figure out those two inline functions and where they belong
 
 static inline void SetChapterUnk1C(int arg, u8 val) {
