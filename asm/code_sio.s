@@ -14621,7 +14621,7 @@ sub_804881C: @ 0x0804881C
 	THUMB_FUNC_START sub_8048838
 sub_8048838: @ 0x08048838
 	push {lr}
-	bl sub_80A2DE4
+	bl InitNopSecHeader
 	bl sub_80A39B4
 	bl sub_80A3E28
 	bl sub_80A3F84

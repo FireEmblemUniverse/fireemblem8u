@@ -57,8 +57,8 @@ gUnknown_08205C70:  @ 0x08205C70
 gUnknown_08205C90:  @ 0x08205C90
 	.incbin "baserom.gba", 0x205C90, 0xC
 
-	.global gUnknown_08205C9C
-gUnknown_08205C9C:  @ 0x08205C9C
+	.global gSaveHeaderKeygen
+gSaveHeaderKeygen:  @ 0x08205C9C
 	.incbin "baserom.gba", 0x205C9C, 0x8
 
 	.global gUnknown_08205CA4
