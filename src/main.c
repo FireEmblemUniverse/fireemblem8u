@@ -40,7 +40,7 @@ void AgbMain()
     ResetKeyStatus(gKeyStatusPtr);
     UpdateKeyStatus(gKeyStatusPtr);
     StoreRoutinesToIRAM();
-    sub_80A2C3C();
+    SramInit();
     Proc_Init();
     AP_ClearAll();
     MU_Init();

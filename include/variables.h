@@ -633,7 +633,7 @@ extern struct ActionData gActionData;
 // extern ??? gUnknown_0203E82C
 // extern ??? gUnknown_0203E87C
 // extern ??? gUnknown_0203E884
-// extern ??? gUnknown_0203E88E
+// extern ??? gBoolSramWorking
 // extern ??? gUnknown_0203E890
 // extern ??? gUnknown_0203E894
 // extern ??? gUnknown_0203ECF4
@@ -1168,7 +1168,7 @@ extern const u8 *const gMsgStringTable[];
 // extern ??? gUnknown_08205C64
 // extern ??? gUnknown_08205C70
 // extern ??? gUnknown_08205C90
-// extern ??? gUnknown_08205C9C
+// extern ??? gSaveHeaderKeygen
 // extern ??? gUnknown_08205CA4
 // extern ??? gUnknown_08205CAC
 // extern ??? gUnknown_08205CB4
@@ -3460,7 +3460,7 @@ extern u16 CONST_DATA gUnknown_08A1D79C[]; // 'R is info' palette
 // extern ??? gUnknown_08A1DC1C
 // extern ??? gUnknown_08A1DD0C
 // extern ??? gUnknown_08A1E0D8
-// extern ??? gUnknown_08A1FAF4
+// extern ??? gpSaveDataStart
 // extern ??? gUnknown_08A1FAF8
 // extern ??? gUnknown_08A1FB08
 // extern ??? gUnknown_08A1FB30
