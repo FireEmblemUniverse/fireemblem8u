@@ -4743,7 +4743,7 @@ gUnknown_088B3AD8:  @ 0x088B3AD8
     .4byte gUnknown_088B3AD8 + 0x9fc
     .4byte 0x006c6c09
     .4byte 0x00000000
-    .4byte Text_AppendCharASCII
+    .4byte 0x08004505
     .4byte 0x01000300
     .4byte gUnknown_088B3AD8 + 0xa04
     .4byte 0x0000004b
@@ -4976,7 +4976,7 @@ gUnknown_088B3AD8:  @ 0x088B3AD8
     .4byte 0x00000000
     .4byte 0x00006c3f
     .4byte 0x00000000
-    .4byte Text_AppendCharASCII
+    .4byte 0x08004505
     .4byte 0x00000045
     .4byte 0x00000000
     .4byte 0x0000004b
@@ -5021,7 +5021,7 @@ gUnknown_088B3AD8:  @ 0x088B3AD8
     .4byte gUnknown_088B3AD8 + 0xd5c
     .4byte 0x00006c09
     .4byte 0x00000000
-    .4byte Text_AppendCharASCII
+    .4byte 0x08004505
     .4byte 0x01000005
     .4byte gUnknown_088B3AD8 + 0xd64
     .4byte 0x0000004b
@@ -8734,7 +8734,7 @@ gUnknown_088B3AD8:  @ 0x088B3AD8
     .4byte 0x00000000
     .4byte 0x00000000
     .4byte 0x00000000
-    .4byte Text_AppendCharASCII
+    .4byte 0x08004505
     .4byte 0x000000ca
     .4byte 0x00000000
     .4byte 0x00000000
@@ -34829,7 +34829,7 @@ gUnknown_088B3AD8:  @ 0x088B3AD8
     .4byte 0x0000ffff
     .4byte 0x0b010140
     .4byte 0x00000001
-    .4byte Text_AppendCharASCII
+    .4byte 0x08004505
     .4byte 0x00000084
     .4byte 0x00000000
     .4byte 0x00000000

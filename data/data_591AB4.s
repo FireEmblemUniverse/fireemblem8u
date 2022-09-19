@@ -302,7 +302,25 @@ gEvent_TriggerQueuedTileChanges:  @ 0x08591F9C
 
 	.global gEvent_OpenChest
 gEvent_OpenChest:  @ 0x08591FA8
-    .incbin "baserom.gba", 0x591FA8, 0x48
+@ Replacing .incbin "baserom.gba", 0x591FA8, 0x48
+    .4byte 0x00011020
+    .4byte 0xfffd2720
+    .4byte 0x00070540
+    .4byte 0x000000ff
+    .4byte 0x00000c43
+    .4byte 0x00070003
+    .4byte 0xffff3720
+    .4byte 0x00010920
+    .4byte 0x00000820
+    .4byte 0xffff3721
+    .4byte 0x00010820
+    .4byte 0x00000120
+    .4byte 0x00000a40
+    .4byte gUnknown_08591F28 + 0x3c
+    .4byte 0x00002220
+    .4byte 0x00003e20
+    .4byte 0x00002220
+    .4byte 0x00000120
 
 	.global gEvent_MapSupportConversation
 gEvent_MapSupportConversation:  @ 0x08591FF0
