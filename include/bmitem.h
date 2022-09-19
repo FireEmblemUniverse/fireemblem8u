@@ -142,6 +142,9 @@ enum {
     WPN_EXP_S = 251,
 };
 
+#define ITEM_INDEX(aItem) ((aItem) & 0xFF)
+#define ITEM_USES(aItem) ((aItem) >> 8)
+
 struct TextHandle;
 
 char* GetItemNameWithArticle(int item, s8 capitalize);
