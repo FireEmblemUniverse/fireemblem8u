@@ -244,16 +244,15 @@ void AiStartStealAction(struct CpPerformProc* proc) {
     UnitAddItem(gActiveUnit, item);
     UnitRemoveItem(unit, gAiDecision.itemSlot);
 
-    sub_8011694(item, proc);
+    CreatedItemStealingPopUp(item, proc);
 
     return;
 }
 
-// TODO: Popup macros
 struct PopupInstruction CONST_DATA gPopup_085A80A4[] = {
-    { POPUP_SOUND, 0x5C },
-    { POPUP_MSG,   0x12 },
-    { POPUP_END,   0x00 }
+    POPUP_SOUND(0x5C),
+    POPUP_MSG(0x12), // TODO: msgid "The village was destroyed."
+    POPUP_END
 };
 
 s8 AiPillageAction(struct CpPerformProc* proc) {
