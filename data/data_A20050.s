@@ -11895,15 +11895,7 @@ gUnknown_08AB5D90:  @ 0x08AB5D90
 
 	.global gUnknown_08AB630C
 gUnknown_08AB630C:  @ 0x08AB630C
-@ Replacing .incbin "baserom.gba", 0xAB630C, 0x20
-    .4byte 0x3b1f7c1f
-    .4byte 0x537f473f
-    .4byte 0x2a9d32de
-    .4byte 0x223a267c
-    .4byte 0x19f81e19
-    .4byte 0x117315b5
-    .4byte 0xcee1131
-    .4byte portrait_Vigarde_dead_tileset + 0xfea
+    .incbin "baserom.gba", 0xAB630C, 0x20
 
 	.global gUnknown_08AB632C
 gUnknown_08AB632C:  @ 0x08AB632C
