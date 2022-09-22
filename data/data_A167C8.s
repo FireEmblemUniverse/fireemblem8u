@@ -2479,12 +2479,7 @@ gUnknown_08A1975C:  @ 0x08A1975C
 
 	.global gUnknown_08A1983C
 gUnknown_08A1983C:  @ 0x08A1983C
-@ Replacing .incbin "baserom.gba", 0xA1983C, 0x14
-    .4byte 0x40000003
-    .4byte DirectSoundData_pr_hyuun1_e4_13k8b + 0x1b58
-    .4byte 0x40204000
-    .4byte 0x40000830
-    .4byte DirectSoundData_nosferatu1b_e_p45_10k8b + 0x2bd4
+    .incbin "baserom.gba", 0xA1983C, 0x14
 
 	.global gUnknown_08A19850
 gUnknown_08A19850:  @ 0x08A19850
@@ -2906,7 +2901,7 @@ gUnknown_08A1E0D8:  @ 0x08A1E0D8
     .4byte 0xa38
     .4byte 0x7100690
     .4byte 0xa38
-    .4byte DirectSoundData_breath_magic1_e1_10k8b + 0x1ec
+    .4byte 0x083804a4 + 0x1ec
     .4byte 0x93408bc
     .4byte gUnknown_08B1FE7C + 0xa089c
     .4byte 0x1000100
@@ -3563,7 +3558,7 @@ gUnknown_08A1E0D8:  @ 0x08A1E0D8
     .4byte 0x64c086c
     .4byte gUnknown_0867EEB4 + 0x17b4
     .4byte 0x0
-    .4byte _banim_pal_end + 0x548c
+    .4byte 0x08f0076c
     .4byte 0x37807e8
     .4byte 0x7ec06e4
     .4byte 0x868
@@ -3907,42 +3902,42 @@ gUnknown_08A1E0D8:  @ 0x08A1E0D8
     .4byte 0x8d4
     .4byte 0x8cc
     .4byte 0x140018
-    .4byte 0x1c08c8
-    .4byte banim_swmm_sw1_sheet_1 + 0x11c
-    .4byte banim_data + 0x14
-    .4byte 0x140000
-    .4byte banim_forf_sw1_sheet_2 + 0x8b8
-    .4byte 0x6c8001c
-    .4byte 0x1c08c4
-    .4byte 0x8c0
-    .4byte 0x14
-    .4byte 0x8c8
-    .4byte 0x8c4
-    .4byte 0x140018
-    .4byte 0x1c08c8
-    .4byte 0x1c08c4
-    .4byte 0x140000
-    .4byte 0x1c08c8
-    .4byte 0x1c08c4
-    .4byte 0x140000
-    .4byte banim_fakf_sp1_sheet_4 + 0x92c
-    .4byte banim_genm_al1_sheet_blank_2 + 0x158
-    .4byte 0x180000
-    .4byte banim_fakf_sp1_sheet_4 + 0x830
-    .4byte banim_genm_al1_sheet_blank_2 + 0x158
-    .4byte 0x180000
-    .4byte banim_fakf_sp1_sheet_4 + 0x830
-    .4byte banim_genm_al1_sheet_blank_2 + 0x158
-    .4byte 0x180000
-    .4byte 0x6c80014
-    .4byte banim_data + 0x6c4
-    .4byte 0x180844
-    .4byte banim_forf_sw1_sheet_2 + 0x8d0
-    .4byte banim_swmm_sw1_sheet_0 + 0xb28
-    .4byte 0x1c
-    .4byte 0x1100014
-    .4byte 0x2030500
-    .4byte 0x3
+    .4byte 0x001c08c8
+    .4byte 0x08c406c8
+    .4byte 0x08c0001c
+    .4byte 0x00140000
+    .4byte 0x08c80000
+    .4byte 0x06c8001c
+    .4byte 0x001c08c4
+    .4byte 0x000008c0
+    .4byte 0x00000014
+    .4byte 0x000008c8
+    .4byte 0x000008c4
+    .4byte 0x00140018
+    .4byte 0x001c08c8
+    .4byte 0x001c08c4
+    .4byte 0x00140000
+    .4byte 0x001c08c8
+    .4byte 0x001c08c4
+    .4byte 0x00140000
+    .4byte 0x08d40110
+    .4byte 0x08cc0000
+    .4byte 0x00180000
+    .4byte 0x08d40014
+    .4byte 0x08cc0000
+    .4byte 0x00180000
+    .4byte 0x08d40014
+    .4byte 0x08cc0000
+    .4byte 0x00180000
+    .4byte 0x06c80014
+    .4byte 0x08c006cc
+    .4byte 0x00180844
+    .4byte 0x08c80018
+    .4byte 0x08c4001c
+    .4byte 0x0000001c
+    .4byte 0x01100014
+    .4byte 0x02030500
+    .4byte 0x00000003
     .4byte gUnknown_08A1E0D8 + 0x1084
     .4byte 0x2000801
     .4byte 0x3
@@ -4530,5 +4525,4 @@ gUnknown_08A1FB30:  @ 0x08A1FB30
 
 	.global gUnknown_08A1FB34
 gUnknown_08A1FB34:  @ 0x08A1FB34
-@ replacing .incbin "baserom.gba", 0x00a1fb34, 0x4
-.4byte end + 0x48
+    .incbin "baserom.gba", 0x00a1fb34, 0x4
