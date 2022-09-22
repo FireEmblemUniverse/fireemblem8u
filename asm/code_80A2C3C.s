@@ -2,444 +2,6 @@
 
 	.SYNTAX UNIFIED
 
-	THUMB_FUNC_START sub_80A2EA8
-sub_80A2EA8: @ 0x080A2EA8
-	push {r4, lr}
-	sub sp, #4
-	ldr r4, _080A2ECC  @ gUnknown_02020188
-	mov r1, sp
-	movs r0, #0
-	strh r0, [r1]
-	ldr r2, _080A2ED0  @ 0x010000A2
-	mov r0, sp
-	adds r1, r4, #0
-	bl CpuSet
-	adds r0, r4, #0
-	bl sub_80A3950
-	add sp, #4
-	pop {r4}
-	pop {r0}
-	bx r0
-	.align 2, 0
-_080A2ECC: .4byte gUnknown_02020188
-_080A2ED0: .4byte 0x010000A2
-
-	THUMB_FUNC_END sub_80A2EA8
-
-	THUMB_FUNC_START GetSaveDataOffsetPointer
-GetSaveDataOffsetPointer: @ 0x080A2ED4
-	lsls r0, r0, #0x10
-	lsrs r0, r0, #0x10
-	ldr r1, _080A2EE4  @ gpSaveDataStart
-	ldr r1, [r1]
-	adds r1, r1, r0
-	adds r0, r1, #0
-	bx lr
-	.align 2, 0
-_080A2EE4: .4byte gpSaveDataStart
-
-	THUMB_FUNC_END GetSaveDataOffsetPointer
-
-	THUMB_FUNC_START sub_80A2EE8
-sub_80A2EE8: @ 0x080A2EE8
-	ldr r1, _080A2EF4  @ gpSaveDataStart
-	ldr r1, [r1]
-	subs r0, r0, r1
-	lsls r0, r0, #0x10
-	lsrs r0, r0, #0x10
-	bx lr
-	.align 2, 0
-_080A2EF4: .4byte gpSaveDataStart
-
-	THUMB_FUNC_END sub_80A2EE8
-
-	THUMB_FUNC_START sub_80A2EF8
-sub_80A2EF8: @ 0x080A2EF8
-	push {r4, r5, lr}
-	sub sp, #0x10
-	adds r4, r0, #0
-	adds r5, r1, #0
-	cmp r4, #0
-	bne _080A2F06
-	mov r4, sp
-_080A2F06:
-	ldr r2, _080A2F34  @ ReadSramFast
-	ldr r0, _080A2F38  @ gpSaveDataStart
-	lsls r1, r5, #4
-	adds r1, #0x64
-	ldr r0, [r0]
-	adds r0, r0, r1
-	ldr r3, [r2]
-	adds r1, r4, #0
-	movs r2, #0x10
-	bl _call_via_r3
-	ldrh r1, [r4, #4]
-	ldr r0, _080A2F3C  @ 0x0000200A
-	cmp r1, r0
-	bne _080A2F88
-	cmp r5, #6
-	bhi _080A2F88
-	lsls r0, r5, #2
-	ldr r1, _080A2F40  @ _080A2F44
-	adds r0, r0, r1
-	ldr r0, [r0]
-	mov pc, r0
-	.align 2, 0
-_080A2F34: .4byte ReadSramFast
-_080A2F38: .4byte gpSaveDataStart
-_080A2F3C: .4byte 0x0000200A
-_080A2F40: .4byte _080A2F44
-_080A2F44: @ jump table
-	.4byte _080A2F60 @ case 0
-	.4byte _080A2F60 @ case 1
-	.4byte _080A2F60 @ case 2
-	.4byte _080A2F60 @ case 3
-	.4byte _080A2F60 @ case 4
-	.4byte _080A2F68 @ case 5
-	.4byte _080A2F70 @ case 6
-_080A2F60:
-	ldr r1, _080A2F64  @ 0x00040624
-	b _080A2F72
-	.align 2, 0
-_080A2F64: .4byte 0x00040624
-_080A2F68:
-	ldr r1, _080A2F6C  @ 0x00020112
-	b _080A2F72
-	.align 2, 0
-_080A2F6C: .4byte 0x00020112
-_080A2F70:
-	ldr r1, _080A2F84  @ 0x00020223
-_080A2F72:
-	ldr r0, [r4]
-	cmp r0, r1
-	bne _080A2F88
-	adds r0, r4, #0
-	bl sub_80A6430
-	lsls r0, r0, #0x18
-	asrs r0, r0, #0x18
-	b _080A2F8A
-	.align 2, 0
-_080A2F84: .4byte 0x00020223
-_080A2F88:
-	movs r0, #0
-_080A2F8A:
-	add sp, #0x10
-	pop {r4, r5}
-	pop {r1}
-	bx r1
-
-	THUMB_FUNC_END sub_80A2EF8
-
-	THUMB_FUNC_START sub_80A2F94
-sub_80A2F94: @ 0x080A2F94
-	push {r4, r5, r6, r7, lr}
-	adds r4, r0, #0
-	adds r6, r1, #0
-	movs r7, #0
-	movs r5, #0
-	ldr r0, _080A2FC4  @ 0x0000200A
-	strh r0, [r4, #4]
-	adds r0, r6, #0
-	bl GetSaveDataLocation
-	strh r0, [r4, #8]
-	cmp r6, #6
-	bgt _080A301A
-	ldrb r0, [r4, #6]
-	cmp r0, #2
-	beq _080A2FE8
-	cmp r0, #2
-	bgt _080A2FC8
-	cmp r0, #0
-	beq _080A2FD2
-	cmp r0, #1
-	beq _080A2FDC
-	b _080A301A
-	.align 2, 0
-_080A2FC4: .4byte 0x0000200A
-_080A2FC8:
-	cmp r0, #3
-	beq _080A2FF4
-	cmp r0, #0xff
-	beq _080A2FFC
-	b _080A301A
-_080A2FD2:
-	ldr r0, _080A2FD8  @ 0x00000DC8
-	strh r0, [r4, #0xa]
-	b _080A3002
-	.align 2, 0
-_080A2FD8: .4byte 0x00000DC8
-_080A2FDC:
-	ldr r0, _080A2FE4  @ 0x00001F78
-	strh r0, [r4, #0xa]
-	b _080A3002
-	.align 2, 0
-_080A2FE4: .4byte 0x00001F78
-_080A2FE8:
-	ldr r0, _080A2FF0  @ 0x00000874
-	strh r0, [r4, #0xa]
-	b _080A3002
-	.align 2, 0
-_080A2FF0: .4byte 0x00000874
-_080A2FF4:
-	movs r0, #0xc0
-	lsls r0, r0, #4
-	strh r0, [r4, #0xa]
-	b _080A3002
-_080A2FFC:
-	strh r5, [r4, #0xa]
-	strh r5, [r4, #8]
-	strh r5, [r4, #4]
-_080A3002:
-	adds r0, r4, #0
-	bl sub_80A6454
-	ldr r0, _080A3020  @ gpSaveDataStart
-	lsls r2, r6, #4
-	adds r2, #0x64
-	ldr r1, [r0]
-	adds r1, r1, r2
-	adds r0, r4, #0
-	movs r2, #0x10
-	bl WriteAndVerifySramFast
-_080A301A:
-	pop {r4, r5, r6, r7}
-	pop {r0}
-	bx r0
-	.align 2, 0
-_080A3020: .4byte gpSaveDataStart
-
-	THUMB_FUNC_END sub_80A2F94
-
-	THUMB_FUNC_START sub_80A3024
-sub_80A3024: @ 0x080A3024
-	push {r4, lr}
-	sub sp, #0x14
-	adds r4, r0, #0
-	cmp r4, #6
-	bgt _080A3050
-	add r0, sp, #0x10
-	ldr r2, _080A3058  @ 0x0000FFFF
-	adds r1, r2, #0
-	strh r1, [r0]
-	ldr r2, _080A305C  @ 0x01000008
-	mov r1, sp
-	bl CpuSet
-	ldr r1, _080A3060  @ gpSaveDataStart
-	lsls r0, r4, #4
-	adds r0, #0x64
-	ldr r1, [r1]
-	adds r1, r1, r0
-	mov r0, sp
-	movs r2, #0x10
-	bl WriteAndVerifySramFast
-_080A3050:
-	add sp, #0x14
-	pop {r4}
-	pop {r0}
-	bx r0
-	.align 2, 0
-_080A3058: .4byte 0x0000FFFF
-_080A305C: .4byte 0x01000008
-_080A3060: .4byte gpSaveDataStart
-
-	THUMB_FUNC_END sub_80A3024
-
-	THUMB_FUNC_START GetSaveDataLocation
-GetSaveDataLocation: @ 0x080A3064
-	push {lr}
-	cmp r0, #6
-	bhi _080A310C
-	lsls r0, r0, #2
-	ldr r1, _080A3074  @ _080A3078
-	adds r0, r0, r1
-	ldr r0, [r0]
-	mov pc, r0
-	.align 2, 0
-_080A3074: .4byte _080A3078
-_080A3078: @ jump table
-	.4byte _080A3094 @ case 0
-	.4byte _080A30A8 @ case 1
-	.4byte _080A30BC @ case 2
-	.4byte _080A30D0 @ case 3
-	.4byte _080A30DC @ case 4
-	.4byte _080A30F0 @ case 5
-	.4byte _080A3104 @ case 6
-_080A3094:
-	ldr r0, _080A30A0  @ gpSaveDataStart
-	ldr r0, [r0]
-	ldr r1, _080A30A4  @ 0x00003FC4
-	adds r0, r0, r1
-	b _080A310E
-	.align 2, 0
-_080A30A0: .4byte gpSaveDataStart
-_080A30A4: .4byte 0x00003FC4
-_080A30A8:
-	ldr r0, _080A30B4  @ gpSaveDataStart
-	ldr r0, [r0]
-	ldr r1, _080A30B8  @ 0x00004D8C
-	adds r0, r0, r1
-	b _080A310E
-	.align 2, 0
-_080A30B4: .4byte gpSaveDataStart
-_080A30B8: .4byte 0x00004D8C
-_080A30BC:
-	ldr r0, _080A30C8  @ gpSaveDataStart
-	ldr r0, [r0]
-	ldr r1, _080A30CC  @ 0x00005B54
-	adds r0, r0, r1
-	b _080A310E
-	.align 2, 0
-_080A30C8: .4byte gpSaveDataStart
-_080A30CC: .4byte 0x00005B54
-_080A30D0:
-	ldr r0, _080A30D8  @ gpSaveDataStart
-	ldr r0, [r0]
-	adds r0, #0xd4
-	b _080A310E
-	.align 2, 0
-_080A30D8: .4byte gpSaveDataStart
-_080A30DC:
-	ldr r0, _080A30E8  @ gpSaveDataStart
-	ldr r0, [r0]
-	ldr r1, _080A30EC  @ 0x0000204C
-	adds r0, r0, r1
-	b _080A310E
-	.align 2, 0
-_080A30E8: .4byte gpSaveDataStart
-_080A30EC: .4byte 0x0000204C
-_080A30F0:
-	ldr r0, _080A30FC  @ gpSaveDataStart
-	ldr r0, [r0]
-	ldr r1, _080A3100  @ 0x0000691C
-	adds r0, r0, r1
-	b _080A310E
-	.align 2, 0
-_080A30FC: .4byte gpSaveDataStart
-_080A3100: .4byte 0x0000691C
-_080A3104:
-	ldr r0, _080A3108  @ 0x0E007400
-	b _080A310E
-	.align 2, 0
-_080A3108: .4byte 0x0E007400
-_080A310C:
-	movs r0, #0
-_080A310E:
-	pop {r1}
-	bx r1
-
-	THUMB_FUNC_END GetSaveDataLocation
-
-	THUMB_FUNC_START sub_80A3114
-sub_80A3114: @ 0x080A3114
-	push {lr}
-	sub sp, #0x10
-	adds r1, r0, #0
-	mov r0, sp
-	bl sub_80A2EF8
-	mov r0, sp
-	ldrh r0, [r0, #8]
-	bl GetSaveDataOffsetPointer
-	add sp, #0x10
-	pop {r1}
-	bx r1
-
-	THUMB_FUNC_END sub_80A3114
-
-	THUMB_FUNC_START SaveLocalEventIndexes
-SaveLocalEventIndexes: @ 0x080A3130
-	push {r4, r5, lr}
-	adds r4, r0, #0
-	bl GetLocalEventIdStorage
-	adds r5, r0, #0
-	bl GetLocalEventIdStorageSize
-	adds r2, r0, #0
-	adds r0, r5, #0
-	adds r1, r4, #0
-	bl WriteAndVerifySramFast
-	pop {r4, r5}
-	pop {r0}
-	bx r0
-
-	THUMB_FUNC_END SaveLocalEventIndexes
-
-	THUMB_FUNC_START SaveGlobalEventIndexes
-SaveGlobalEventIndexes: @ 0x080A3150
-	push {r4, r5, lr}
-	adds r4, r0, #0
-	bl GetGlobalEventIdStorage
-	adds r5, r0, #0
-	bl GetGlobalEventIdStorageSize
-	adds r2, r0, #0
-	adds r0, r5, #0
-	adds r1, r4, #0
-	bl WriteAndVerifySramFast
-	pop {r4, r5}
-	pop {r0}
-	bx r0
-
-	THUMB_FUNC_END SaveGlobalEventIndexes
-
-	THUMB_FUNC_START LoadLocalEventIds
-LoadLocalEventIds: @ 0x080A3170
-	push {r4, r5, r6, lr}
-	adds r6, r0, #0
-	ldr r4, _080A3194  @ ReadSramFast
-	bl GetLocalEventIdStorage
-	adds r5, r0, #0
-	bl GetLocalEventIdStorageSize
-	adds r2, r0, #0
-	ldr r3, [r4]
-	adds r0, r6, #0
-	adds r1, r5, #0
-	bl _call_via_r3
-	pop {r4, r5, r6}
-	pop {r0}
-	bx r0
-	.align 2, 0
-_080A3194: .4byte ReadSramFast
-
-	THUMB_FUNC_END LoadLocalEventIds
-
-	THUMB_FUNC_START LoadGlobalEventIds
-LoadGlobalEventIds: @ 0x080A3198
-	push {r4, r5, r6, lr}
-	adds r6, r0, #0
-	ldr r4, _080A31BC  @ ReadSramFast
-	bl GetGlobalEventIdStorage
-	adds r5, r0, #0
-	bl GetGlobalEventIdStorageSize
-	adds r2, r0, #0
-	ldr r3, [r4]
-	adds r0, r6, #0
-	adds r1, r5, #0
-	bl _call_via_r3
-	pop {r4, r5, r6}
-	pop {r0}
-	bx r0
-	.align 2, 0
-_080A31BC: .4byte ReadSramFast
-
-	THUMB_FUNC_END LoadGlobalEventIds
-
-	THUMB_FUNC_START sub_80A31C0
-sub_80A31C0: @ 0x080A31C0
-	push {r4, r5, r6, lr}
-	adds r5, r0, #0
-	adds r6, r1, #0
-	ldr r4, _080A31E0  @ ReadSramFast
-	bl GetGlobalEventIdStorageSize
-	adds r2, r0, #0
-	ldr r3, [r4]
-	adds r0, r5, #0
-	adds r1, r6, #0
-	bl _call_via_r3
-	pop {r4, r5, r6}
-	pop {r0}
-	bx r0
-	.align 2, 0
-_080A31E0: .4byte ReadSramFast
-
-	THUMB_FUNC_END sub_80A31C0
-
 	THUMB_FUNC_START SaveConvoyItems
 SaveConvoyItems: @ 0x080A31E4
 	push {r4, r5, r6, r7, lr}
@@ -3286,10 +2848,10 @@ sub_80A4594: @ 0x080A4594
 	bl WriteAndVerifySramFast
 	mov r0, sp
 	adds r1, r4, #0
-	bl sub_80A2EF8
+	bl SaveMetadata_Check
 	mov r0, sp
 	adds r1, r4, #0
-	bl sub_80A2F94
+	bl SaveMetadata_Generate
 	ldrb r0, [r7, #0xc]
 	bl GetSaveDataLocation
 	adds r1, r0, #0
@@ -3301,10 +2863,10 @@ sub_80A4594: @ 0x080A4594
 	bl WriteAndVerifySramFast
 	ldrb r1, [r7, #0xc]
 	mov r0, sp
-	bl sub_80A2EF8
+	bl SaveMetadata_Check
 	ldrb r1, [r7, #0xc]
 	mov r0, sp
-	bl sub_80A2F94
+	bl SaveMetadata_Generate
 _080A4662:
 	add sp, #0x10
 	pop {r3}
@@ -4425,7 +3987,7 @@ _080A4DF0:
 	strb r0, [r1, #6]
 	mov r0, sp
 	adds r1, r5, #0
-	bl sub_80A2F94
+	bl SaveMetadata_Generate
 	add sp, #0x5c
 	pop {r4, r5}
 	pop {r0}
@@ -4441,7 +4003,7 @@ sub_80A4E08: @ 0x080A4E08
 	push {r5, r6}
 	sub sp, #0x10
 	mov r9, r1
-	bl sub_80A3114
+	bl CheckSaveAndGetPointer
 	adds r6, r0, #0
 	mov r0, r9
 	bl GetSaveDataLocation
@@ -4465,7 +4027,7 @@ sub_80A4E08: @ 0x080A4E08
 	strb r0, [r1, #6]
 	mov r0, sp
 	mov r1, r9
-	bl sub_80A2F94
+	bl SaveMetadata_Generate
 	add sp, #0x10
 	pop {r3, r4}
 	mov r8, r3
@@ -4636,7 +4198,7 @@ _080A4F62:
 	mov r0, sp
 	strb r4, [r0, #6]
 	mov r1, sl
-	bl sub_80A2F94
+	bl SaveMetadata_Generate
 	mov r0, sl
 	bl sub_80A4D80
 	add sp, #0x54
@@ -4758,7 +4320,7 @@ _080A5076:
 	mov r0, sp
 	strb r4, [r0, #6]
 	mov r1, sl
-	bl sub_80A2F94
+	bl SaveMetadata_Generate
 	mov r0, sl
 	bl sub_80A4D80
 	add sp, #0x90
@@ -4790,7 +4352,7 @@ LoadGame: @ 0x080A5128
 	push {r6, r7}
 	sub sp, #0x18
 	mov r9, r0
-	bl sub_80A3114
+	bl CheckSaveAndGetPointer
 	adds r7, r0, #0
 	ldr r0, _080A51F0  @ gUnknown_0202BCB0
 	ldrb r1, [r0, #4]
@@ -4889,7 +4451,7 @@ sub_80A5218: @ 0x080A5218
 	push {lr}
 	adds r1, r0, #0
 	movs r0, #0
-	bl sub_80A2EF8
+	bl SaveMetadata_Check
 	lsls r0, r0, #0x18
 	asrs r0, r0, #0x18
 	pop {r1}
@@ -4901,7 +4463,7 @@ sub_80A5218: @ 0x080A5218
 sub_80A522C: @ 0x080A522C
 	push {r4, lr}
 	adds r4, r1, #0
-	bl sub_80A3114
+	bl CheckSaveAndGetPointer
 	ldr r1, _080A5248  @ ReadSramFast
 	ldr r3, [r1]
 	adds r1, r4, #0
@@ -4919,7 +4481,7 @@ _080A5248: .4byte ReadSramFast
 sub_80A524C: @ 0x080A524C
 	push {lr}
 	sub sp, #4
-	bl sub_80A3114
+	bl CheckSaveAndGetPointer
 	ldr r1, _080A526C  @ ReadSramFast
 	ldr r2, _080A5270  @ 0x00000D88
 	adds r0, r0, r2
@@ -4941,7 +4503,7 @@ _080A5270: .4byte 0x00000D88
 sub_80A5274: @ 0x080A5274
 	push {r4, lr}
 	adds r4, r1, #0
-	bl sub_80A3114
+	bl CheckSaveAndGetPointer
 	ldr r1, _080A528C  @ 0x00000D8C
 	adds r0, r0, r1
 	adds r1, r4, #0
@@ -4957,12 +4519,12 @@ _080A528C: .4byte 0x00000D8C
 	THUMB_FUNC_START sub_80A5290
 sub_80A5290: @ 0x080A5290
 	push {r4, lr}
-	bl sub_80A3114
+	bl CheckSaveAndGetPointer
 	ldr r1, _080A52B4  @ 0x00000D6C
 	adds r0, r0, r1
 	ldr r4, _080A52B8  @ gUnknown_02020188
 	adds r1, r4, #0
-	bl sub_80A31C0
+	bl LoadGlobalEventIds_ret
 	movs r0, #0x8a
 	adds r1, r4, #0
 	bl sub_8083D34
@@ -5969,12 +5531,12 @@ sub_80A5A20: @ 0x080A5A20
 	strb r0, [r1, #6]
 	mov r0, sp
 	adds r1, r4, #0
-	bl sub_80A2F94
+	bl SaveMetadata_Generate
 	cmp r4, #3
 	bne _080A5A40
 	mov r0, sp
 	movs r1, #4
-	bl sub_80A2F94
+	bl SaveMetadata_Generate
 _080A5A40:
 	add sp, #0x10
 	pop {r4}
@@ -6136,7 +5698,7 @@ _080A5AEE:
 	strb r0, [r1, #6]
 	mov r0, sp
 	mov r1, r9
-	bl sub_80A2F94
+	bl SaveMetadata_Generate
 	ldr r0, _080A5C10  @ gUnknown_0202BCB0
 	adds r0, #0x3c
 	strb r4, [r0]
@@ -6184,7 +5746,7 @@ LoadSuspendedGame: @ 0x080A5C14
 	ldr r1, _080A5D58  @ gUnknown_0203EDB8
 	ldrb r1, [r1]
 	adds r0, r0, r1
-	bl sub_80A3114
+	bl CheckSaveAndGetPointer
 	adds r6, r0, #0
 	ldr r5, _080A5D5C  @ ReadSramFast
 	ldr r4, _080A5D60  @ gRAMChapterData
@@ -6355,7 +5917,7 @@ sub_80A5DA8: @ 0x080A5DA8
 	ldrb r1, [r4]
 	adds r1, #3
 	movs r0, #0
-	bl sub_80A2EF8
+	bl SaveMetadata_Check
 	lsls r0, r0, #0x18
 	cmp r0, #0
 	bne _080A5DF4
@@ -6364,7 +5926,7 @@ sub_80A5DA8: @ 0x080A5DA8
 	ldrb r1, [r4]
 	adds r1, #3
 	movs r0, #0
-	bl sub_80A2EF8
+	bl SaveMetadata_Check
 	lsls r0, r0, #0x18
 	cmp r0, #0
 	bne _080A5DF4
@@ -7216,7 +6778,7 @@ sub_80A6430: @ 0x080A6430
 	adds r4, r0, #0
 	ldrh r5, [r4, #0xa]
 	ldrh r0, [r4, #8]
-	bl GetSaveDataOffsetPointer
+	bl SramOffsetToPointer
 	adds r1, r5, #0
 	bl sub_80A6408
 	ldr r1, [r4, #0xc]
@@ -7239,7 +6801,7 @@ sub_80A6454: @ 0x080A6454
 	adds r4, r0, #0
 	ldrh r5, [r4, #0xa]
 	ldrh r0, [r4, #8]
-	bl GetSaveDataOffsetPointer
+	bl SramOffsetToPointer
 	adds r1, r5, #0
 	bl sub_80A6408
 	str r0, [r4, #0xc]
@@ -7366,7 +6928,7 @@ sub_80A654C: @ 0x080A654C
 	push {lr}
 	adds r1, r0, #0
 	movs r0, #0
-	bl sub_80A2EF8
+	bl SaveMetadata_Check
 	lsls r0, r0, #0x18
 	asrs r0, r0, #0x18
 	pop {r1}
@@ -7524,7 +7086,7 @@ _080A6606:
 	strb r0, [r5, #6]
 	ldr r0, [sp, #0x74]
 	movs r1, #5
-	bl sub_80A2F94
+	bl SaveMetadata_Generate
 	add sp, #0x80
 	pop {r3, r4, r5}
 	mov r8, r3
@@ -7549,7 +7111,7 @@ sub_80A66C0: @ 0x080A66C0
 	adds r4, r0, #0
 	adds r5, r1, #0
 	movs r0, #5
-	bl sub_80A3114
+	bl CheckSaveAndGetPointer
 	ldr r2, _080A66E8  @ ReadSramFast
 	movs r1, #0xc4
 	muls r1, r4, r1
@@ -7580,7 +7142,7 @@ sub_80A66F4: @ 0x080A66F4
 	adds r4, r0, #0
 	adds r5, r1, #0
 	movs r0, #5
-	bl sub_80A3114
+	bl CheckSaveAndGetPointer
 	ldr r2, _080A6728  @ ReadSramFast
 	movs r1, #0xc4
 	muls r1, r4, r1
@@ -7632,7 +7194,7 @@ sub_80A6738: @ 0x080A6738
 	strb r0, [r1, #6]
 	mov r0, sp
 	movs r1, #5
-	bl sub_80A2F94
+	bl SaveMetadata_Generate
 	add sp, #0x10
 	pop {r4, r5}
 	pop {r0}
@@ -7671,7 +7233,7 @@ sub_80A6774: @ 0x080A6774
 	strb r0, [r1, #6]
 	mov r0, sp
 	movs r1, #5
-	bl sub_80A2F94
+	bl SaveMetadata_Generate
 	add sp, #0x14
 	pop {r4, r5, r6}
 	pop {r0}
@@ -7693,7 +7255,7 @@ sub_80A67C8: @ 0x080A67C8
 	adds r6, r0, #0
 	mov r9, r1
 	movs r0, #5
-	bl sub_80A3114
+	bl CheckSaveAndGetPointer
 	adds r4, r0, #0
 	movs r0, #5
 	bl GetSaveDataLocation
@@ -7725,7 +7287,7 @@ sub_80A67C8: @ 0x080A67C8
 	strb r0, [r1, #6]
 	mov r0, sp
 	movs r1, #5
-	bl sub_80A2F94
+	bl SaveMetadata_Generate
 	add sp, #0x10
 	pop {r3, r4}
 	mov r8, r3
@@ -7751,7 +7313,7 @@ sub_80A6840: @ 0x080A6840
 	mov r8, r0
 	mov sl, r1
 	movs r0, #5
-	bl sub_80A3114
+	bl CheckSaveAndGetPointer
 	adds r5, r0, #0
 	movs r0, #5
 	bl GetSaveDataLocation
@@ -7795,7 +7357,7 @@ sub_80A6840: @ 0x080A6840
 	strb r0, [r1, #6]
 	mov r0, sp
 	movs r1, #5
-	bl sub_80A2F94
+	bl SaveMetadata_Generate
 	add sp, #0x10
 	pop {r3, r4, r5}
 	mov r8, r3
@@ -7850,7 +7412,7 @@ _080A6908:
 	strb r0, [r1, #6]
 	mov r0, sp
 	movs r1, #5
-	bl sub_80A2F94
+	bl SaveMetadata_Generate
 	add sp, #0x10
 	pop {r3}
 	mov r8, r3
@@ -7871,7 +7433,7 @@ sub_80A693C: @ 0x080A693C
 	adds r6, r1, #0
 	adds r5, r2, #0
 	movs r0, #5
-	bl sub_80A3114
+	bl CheckSaveAndGetPointer
 	adds r7, r0, #0
 	ldr r1, _080A6990  @ ReadSramFast
 	movs r0, #0xc4
@@ -7937,7 +7499,7 @@ sub_80A69A0: @ 0x080A69A0
 	strb r0, [r1, #6]
 	mov r0, sp
 	movs r1, #5
-	bl sub_80A2F94
+	bl SaveMetadata_Generate
 	add sp, #0x10
 	pop {r4}
 	pop {r0}
@@ -7953,7 +7515,7 @@ sub_80A69DC: @ 0x080A69DC
 	push {r4, lr}
 	adds r4, r0, #0
 	movs r0, #5
-	bl sub_80A3114
+	bl CheckSaveAndGetPointer
 	ldr r1, _080A69FC  @ ReadSramFast
 	ldr r2, _080A6A00  @ 0x000007AC
 	adds r0, r0, r2
@@ -7991,7 +7553,7 @@ sub_80A6A04: @ 0x080A6A04
 	strb r0, [r1, #6]
 	mov r0, sp
 	movs r1, #5
-	bl sub_80A2F94
+	bl SaveMetadata_Generate
 	add sp, #0x10
 	pop {r4}
 	pop {r0}
@@ -8006,7 +7568,7 @@ sub_80A6A40: @ 0x080A6A40
 	push {r4, lr}
 	adds r4, r0, #0
 	movs r0, #5
-	bl sub_80A3114
+	bl CheckSaveAndGetPointer
 	ldr r1, _080A6A64  @ ReadSramFast
 	movs r2, #0xf5
 	lsls r2, r2, #3
@@ -9512,7 +9074,7 @@ _080A74E6:
 	bl sub_80A723C
 	adds r0, r6, #0
 	adds r1, r5, #0
-	bl sub_80A2F94
+	bl SaveMetadata_Generate
 	adds r4, #0x10
 	adds r5, #1
 	cmp r5, #6
