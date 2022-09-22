@@ -38,7 +38,7 @@ def incbin_to_words(incbin):
 
 
 def contains_pointers(words):
-    return len([word for word in words if 0x8000000 <= word <= 0x9000000]) > 1
+    return True
 
 
 def string_for_words(words):
