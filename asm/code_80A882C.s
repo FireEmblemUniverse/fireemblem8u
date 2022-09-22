@@ -209,7 +209,7 @@ _080A8980:
 	movs r6, #0xf
 _080A8982:
 	adds r0, r4, #0
-	bl sub_80A3114
+	bl CheckSaveAndGetPointer
 	adds r7, r0, #0
 	movs r5, #0
 	adds r4, r7, #0
