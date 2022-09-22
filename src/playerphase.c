@@ -49,7 +49,6 @@ extern u8 gUnknown_08A02EB4[];
 void HandleCursorMovement(u16 keys);
 void MoveCameraByStepMaybe(int step);
 void sub_801588C(int step);
-void sub_80160D0(ProcPtr);
 
 // bmudisp.s
 void sub_8027A40(ProcPtr);
@@ -82,7 +81,6 @@ void PlayerPhase_InitUnitMovementSelect(void);
 void PlayerPhase_DisplayDangerZone(void);
 void PlayerPhase_RangeDisplayIdle(ProcPtr proc);
 s8 PlayerPhase_PrepareAction(ProcPtr proc);
-s8 RunPotentialWaitEvents(void);
 s8 EnsureCameraOntoActiveUnitPosition(ProcPtr proc);
 void PlayerPhase_FinishAction(ProcPtr proc);
 void PlayerPhase_ApplyUnitMovement(ProcPtr proc);

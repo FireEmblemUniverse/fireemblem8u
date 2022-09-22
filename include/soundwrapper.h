@@ -39,4 +39,6 @@ void DeleteAll6CWaitMusicRelated();
     if (!gRAMChapterData.unk41_2) \
         m4aSongNumStart((id))
 
+extern struct ProcCmd CONST_DATA gMusicProc3Script[];
+
 #endif  // GUARD_SOUNDWRAPPER_H

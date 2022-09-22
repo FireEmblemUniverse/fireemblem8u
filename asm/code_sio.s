@@ -19958,7 +19958,7 @@ sub_804B190: @ 0x0804B190
 	lsls r1, r1, #4
 	movs r2, #2
 	adds r3, r4, #0
-	bl sub_8039ECC
+	bl StartAiTargetCursor
 	pop {r4}
 	pop {r0}
 	bx r0

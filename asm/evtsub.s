@@ -1333,7 +1333,7 @@ sub_80121D4: @ 0x080121D4
 	strb r0, [r7, #0x13]
 	ldr r0, _08012260  @ gActionData
 	str r1, [r0, #0x18]
-	bl sub_803A024
+	bl AiRefreshMap
 	ldr r0, _08012264  @ gUnknown_030005FC
 	ldrh r1, [r0]
 	ldr r0, _08012268  @ 0x0000FFFF
