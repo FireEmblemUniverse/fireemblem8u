@@ -37581,7 +37581,7 @@ _080A0DD4: .4byte gCharacterData+0x2C
 _080A0DD8:
 	add r4, sp, #0x28
 	adds r0, r4, #0
-	bl VerifySecureHeaderSW
+	bl LoadAndVerifySecureHeaderSW
 	ldr r0, _080A0E50  @ 0x0000026A
 	bl GetStringFromIndex
 	bl SetTacticianName

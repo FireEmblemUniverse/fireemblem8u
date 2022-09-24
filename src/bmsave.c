@@ -2,63 +2,8 @@
 
 #include "bmitem.h"
 #include "agb_sram.h"
+#include "bmsave.h"
 #include "functions.h"
-
-#define InterruptEnableRegister ((u16*)0x4000200)
-
-enum save_chunk_index {
-    SAVE_CHUNK_0,
-    SAVE_CHUNK_1,
-    SAVE_CHUNK_2,
-    SAVE_CHUNK_3,
-    SAVE_CHUNK_4,
-    SAVE_CHUNK_5,
-    SAVE_CHUNK_6,
-    SAVE_CHUNK_MAX
-};
-
-struct SecureSaveHeader {
-    /* 00 */ u8 magic[0x6];
-    /* 06 */ u8 _pad[0x8 - 0x6];
-    /* 08 */ u32 _00040624;
-    /* 0C */ u16 _200A;
-
-    /* 0E */ u8 flag0E_0 : 1;
-             u8 flag0E_1 : 1;
-             u8 flag0E_2 : 1;
-             u8 flag0E_3 : 1;
-             u8 flag0E_4 : 1;
-             u8 flag0E_5 : 1;
-             u8 flag0E_6 : 1;
-             u8 flag0E_7 : 1;
-
-    /* 0F */ u8 unk0F_0 : 1;
-             u8 unk0F_1 : 7;
-
-    /* 10 */ u16 unk10;
-    /* 10 */ u16 unk12;
-    /* 14 */ u8 unk14[0x20 - 0x14];
-    /* 20 */ u8 unk20[0x40 - 0x20];
-    /* 40 */ u8 unk40[0x60 - 0x40];
-    /* 60 */ u16 sec_sum;
-    /* 62 */ u8 unk62;
-    /* 63 */ u8 unk63;
-};
-
-struct SramChunk {
-    /* 00 */ u32 unk00;
-    /* 04 */ u16 unk04;
-    /* 06 */ u8 unk06;
-    /* 07 */ s8 _pad_07;
-    /* 08 */ u16 sram_offset;
-    /* 0A */ u16 unk0A;
-    /* 0C */ u8 _pad_0C[0x10 - 0xC];
-};
-
-struct SramHeader {
-    struct SecureSaveHeader SecHead;
-    struct SramChunk chunks[0x7];
-};
 
 /* functions */
 u8 CheckSaveHeaderMagic(void*, u8*);
@@ -71,6 +16,14 @@ int GetLocalEventIdStorageSize();
 void *GetGlobalEventIdStorage();
 int GetGlobalEventIdStorageSize();
 unsigned short *GetConvoyItemArray();
+s8 sub_80A52DC(int);
+int sub_80A6A68();
+int sub_80A3834(int);
+u8 sub_80A3898(void*);
+u8 sub_80A6C1C();
+u8 sub_80A530C(int);
+u8 sub_80A38F4(void*);
+
 
 /* variables */
 extern EWRAM_DATA s8 gBoolSramWorking;
@@ -78,6 +31,8 @@ extern CONST_DATA struct SramHeader *gpSaveDataStart; /* 0x0E000000 */
 extern CONST_DATA u8 gSaveHeaderKeygen[];
 extern CONST_DATA unsigned char gUnknown_08205CA4[]; /* related to convoy */
 extern CONST_DATA unsigned char gUnknown_08205CAC[];
+extern CONST_DATA int gUnknown_08A1FAF8[][2];
+extern CONST_DATA u16 gUnknown_089ED10C[][0x8];
 
 void SramInit()
 {
@@ -130,7 +85,7 @@ u16 SecureHeaderCalc(u16 *src, int size)
 }
 
 
-int VerifySecureHeaderSW(struct SecureSaveHeader *buf)
+u8 LoadAndVerifySecureHeaderSW(struct SecureSaveHeader *buf)
 {
     struct SecureSaveHeader tmp;
     struct SecureSaveHeader *header = buf;
@@ -508,5 +463,293 @@ void LoadGlobalEventIds_ret(void *sram_src, void *ewram_dest)
         sram_src,
         ewram_dest,
         GetGlobalEventIdStorageSize());
+}
+
+void SaveConvoyItems(void *sram_dest) {
+    const unsigned short *items = GetConvoyItemArray();
+    unsigned char *cur;
+    int i, item_use, var0, var1;
+    unsigned char buf[176];
+    cur = &buf[100];
+    var1 = 0;
+
+    for (i = 0; i < 100; i++) {
+        buf[i] = items[0];
+        item_use = ITEM_USES(items[0]) & 0x3F;
+        var0 = var1 & 0x7;
+        *cur = 
+            (*cur & gUnknown_08205CA4[var0]) |
+            (item_use << var0);
+
+        if (var0 > 1) {
+            cur++;
+            if (var0 > 2) {
+                *cur =
+                    (*cur & gUnknown_08205CAC[var0]) |
+                    (item_use >> (8 - var0));
+            }
+        }
+        var1 += 6;
+        ++items;
+    }
+
+    WriteAndVerifySramFast(buf, sram_dest, 0xB0);
+}
+
+void LoadConvoyItems(const void *sram_src)
+{
+    unsigned char buf[176];
+    unsigned short *items;
+    unsigned char *cur, item_use;
+    int i, var0, var1;
+
+    ReadSramFast(sram_src, buf, sizeof(buf));
+    items = GetConvoyItemArray();
+    cur = &buf[100];
+    var1 = 0;
+
+    for (i = 0; i < 100; i++) {
+        items[0] = buf[i];
+        var0 = var1 & 0x7;
+        item_use = (*cur & ~gUnknown_08205CA4[var0]) >> var0;
+
+        if (var0 > 1) {
+            cur++;
+
+            if (var0 > 2) {
+                item_use |= (*cur & ~gUnknown_08205CAC[var0]) << (8 - var0);
+            }
+        }
+
+        items[0] |= item_use << 8;
+        var1 += 6;
+        items++;
+    }
+
+}
+
+int sub_80A32EC()
+{
+    return 1;
+}
+
+s8 sub_80A32F0(int index)
+{
+    int i;
+
+    if (!IsSramWorking())
+        return 0;
+
+    for (i = 0; i < 3; i++)
+        if (sub_80A52DC(i))
+            return 1;
+
+    return sub_80A6A68();
+}
+
+int sub_80A3328()
+{
+    return 1;
+}
+
+signed char sub_80A332C()
+{
+    int tmp0 = sub_80A3834(0);
+    int tmp1 = sub_80A3870();
+    return tmp1 & tmp0;
+}
+
+unsigned int sub_80A3348(void) {
+    unsigned char buf[0x94];
+    int r4 = 0;
+    unsigned char tmp0 = sub_80A3870();
+
+    if (!tmp0)
+        return 0;
+
+    if (sub_80A3898(buf)) {
+        if (buf[0] << 0x1F)
+            r4 = 1;
+    
+        if (buf[0x18] << 0x1F)
+            r4 |= 2;
+    
+        if (buf[0x30] << 0x1F)
+            r4 |= 4;
+    
+        if (buf[0x48] << 0x1F)
+            r4 |= 8;
+    
+        if (buf[0x60] << 0x1F)
+            r4 |= 0x10;
+    
+        if (buf[0x78] << 0x1F)
+            r4 |= 0x20;
+    }
+    return r4;
+}
+
+int sub_80A33C4()
+{
+    struct SecureSaveHeader buf;
+
+    if (!LoadAndVerifySecureHeaderSW(&buf))
+        return 0;
+
+    if (!sub_80A6C1C())
+        return 0;
+    else
+        return 1;
+}
+
+int sub_80A33EC()
+{
+    int i;
+
+    if (!IsSramWorking())
+        return 0;
+
+    for (i = 0; i < 3; i++)
+        if (sub_80A530C(i))
+            return 1;
+
+    return 0;
+}
+
+int sub_80A341C(void) {
+    unsigned char buf0[0x4C];
+    struct bmsave_unkstruct0 *buf1;
+    int i, ret;
+
+    if (sub_80A38F4((void*)gUnknown_02020188)) {
+
+        ret = 0;
+        buf1 = (void*)gUnknown_02020188;
+    
+        for (i = 0; i < 0x10; i++) {
+            if ((0 == buf1[i].unk[0]))
+                continue;
+    
+            if (0 == buf1[i].unk[1])
+                ret = 1;
+
+            if (2 == buf1[i].unk[1])
+                ret = 1;
+        }
+
+        if (0 == ret)
+            return 0;
+        else
+            return 1;
+    }
+    return 0;
+}
+
+int sub_80A3468(const int val0, const int val1) {
+    int i;
+
+    if (0 != gUnknown_08A1FAF8[0][0]) {
+        for (i = 0; 0 != gUnknown_08A1FAF8[i][0]; i++) {
+            if (gUnknown_08A1FAF8[i][0] == val0)
+                if (gUnknown_08A1FAF8[i][1] != val1)
+                    return 2;
+
+            if (gUnknown_08A1FAF8[i][0] == val1)
+                if (gUnknown_08A1FAF8[i][1] != val0)
+                    return 2;
+            
+            if (gUnknown_08A1FAF8[i][1] == val0)
+                if (gUnknown_08A1FAF8[i][0] != val1)
+                    return 2;
+
+            if (gUnknown_08A1FAF8[i][1] == val1)
+                if (gUnknown_08A1FAF8[i][0] != val0)
+                    return 2;
+        }
+    }
+    return 3;
+}
+
+int sub_80A34CC()
+{
+    int ret = 0;
+    struct bmsave_unkstruct_089ED10C *buf = sub_80847F8();
+
+    for (; 0xFFFF != buf->unk00; buf++)
+        ret += sub_80A3468(buf->unk00, buf->unk02);
+
+    return ret;
+}
+
+int sub_80A3500(struct SecureSaveHeader *buf)
+{
+    int i, j, tmp1, tmp2, ret = 0;
+    unsigned char *unk20;
+    struct SecureSaveHeader tmp_header;
+
+    if (0 == buf) {
+        buf = &tmp_header;
+        LoadAndVerifySecureHeaderSW(buf);
+    }
+
+
+    for (i = 0; i < 0x20; i++) {
+        for (j = 0; j < 4; j++) {
+            tmp1 = 1 + i;
+            tmp2 = buf->unk20[tmp1 - 1];
+            ret += (tmp2 >> (j << 1)) & 3;
+        }
+    }
+
+    return ret;
+}
+
+int sub_80A3544(void) {
+    int tmp0 = sub_80A3500(0);
+    int tmp1 = sub_80A34CC();
+
+    if ((tmp0 > 0) && (0 == ((tmp0 * 0x64) / tmp1)))
+            tmp0 = 1;
+    else
+        tmp0 = (tmp0 * 0x64) / tmp1;
+
+    if (tmp0 > 0x64)
+        tmp0 = 0x64;
+    
+    return tmp0;
+}
+
+int sub_80A3584(int param0, int param1, struct SecureSaveHeader *buf)
+{
+    struct SecureSaveHeader tmp_header;
+    int i = 0;
+    int ret = 0;
+    int tmp0, tmp1, tmp2, tmp3;
+    unsigned char *unk20;
+    struct bmsave_unkstruct_089ED10C *cur = sub_80847F8();
+
+    if (buf == NULL) {
+        buf = &tmp_header;
+        LoadAndVerifySecureHeaderSW(buf);
+    }
+
+    while (1) {
+        if (cur->unk00 == 0xFFFF)
+            break;
+        
+        if (cur->unk00 == param0 && cur->unk02 == param1)
+            break;
+    
+        if (cur->unk00 == param1 && cur->unk02 == param0)
+            break;
+
+        i++;
+        cur++;
+    }
+
+    tmp0 =  i >> 2;
+    tmp1 = (3 & i) << 1;
+    ret = 3 & buf->unk20[tmp0] >> tmp1;
+    return ret;
 }
 

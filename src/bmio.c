@@ -925,7 +925,8 @@ u8 GetTextDisplaySpeed(void) {
 }
 
 int IsFirstPlaythrough(void) {
-    if (!sub_80A3870())
+    u8 tmp = sub_80A3870();
+    if (!tmp)
         return TRUE;
 
     if (gRAMChapterData.chapterStateBits & CHAPTER_FLAG_7)
