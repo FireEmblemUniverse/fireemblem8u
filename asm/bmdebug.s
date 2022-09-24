@@ -532,7 +532,7 @@ _0801BF9A:
 	adds r5, #1
 _0801BFAE:
 	mov r0, sp
-	bl VerifySecureHeaderSW
+	bl LoadAndVerifySecureHeaderSW
 	add r1, sp, #0x14
 	movs r2, #0
 	mov r0, sp

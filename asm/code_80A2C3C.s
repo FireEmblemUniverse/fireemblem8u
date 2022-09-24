@@ -2,612 +2,6 @@
 
 	.SYNTAX UNIFIED
 
-	THUMB_FUNC_START SaveConvoyItems
-SaveConvoyItems: @ 0x080A31E4
-	push {r4, r5, r6, r7, lr}
-	mov r7, r8
-	push {r7}
-	sub sp, #0xb0
-	mov r8, r0
-	bl GetConvoyItemArray
-	adds r6, r0, #0
-	add r5, sp, #0x64
-	movs r0, #0
-	mov ip, r0
-	movs r7, #0
-_080A31FC:
-	mov r0, sp
-	adds r1, r0, r7
-	ldrh r0, [r6]
-	strb r0, [r1]
-	ldrh r0, [r6]
-	lsrs r4, r0, #8
-	movs r0, #0x3f
-	ands r4, r0
-	movs r3, #7
-	mov r0, ip
-	ands r3, r0
-	ldr r0, _080A3264  @ gUnknown_08205CA4
-	adds r0, r3, r0
-	ldrb r2, [r5]
-	ldrb r1, [r0]
-	ands r1, r2
-	adds r0, r4, #0
-	lsls r0, r3
-	orrs r1, r0
-	strb r1, [r5]
-	cmp r3, #1
-	ble _080A3242
-	adds r5, #1
-	cmp r3, #2
-	ble _080A3242
-	ldr r0, _080A3268  @ gUnknown_08205CAC
-	adds r0, r3, r0
-	ldrb r2, [r5]
-	ldrb r1, [r0]
-	ands r1, r2
-	movs r0, #8
-	subs r0, r0, r3
-	asrs r4, r0
-	orrs r1, r4
-	strb r1, [r5]
-_080A3242:
-	movs r0, #6
-	add ip, r0
-	adds r6, #2
-	adds r7, #1
-	cmp r7, #0x63
-	ble _080A31FC
-	mov r0, sp
-	mov r1, r8
-	movs r2, #0xb0
-	bl WriteAndVerifySramFast
-	add sp, #0xb0
-	pop {r3}
-	mov r8, r3
-	pop {r4, r5, r6, r7}
-	pop {r0}
-	bx r0
-	.align 2, 0
-_080A3264: .4byte gUnknown_08205CA4
-_080A3268: .4byte gUnknown_08205CAC
-
-	THUMB_FUNC_END SaveConvoyItems
-
-	THUMB_FUNC_START LoadConvoyItems
-LoadConvoyItems: @ 0x080A326C
-	push {r4, r5, r6, r7, lr}
-	sub sp, #0xb0
-	ldr r1, _080A32E0  @ ReadSramFast
-	ldr r3, [r1]
-	mov r1, sp
-	movs r2, #0xb0
-	bl _call_via_r3
-	bl GetConvoyItemArray
-	adds r4, r0, #0
-	add r5, sp, #0x64
-	movs r7, #0
-	movs r6, #0
-_080A3288:
-	mov r1, sp
-	adds r0, r1, r6
-	ldrb r0, [r0]
-	strh r0, [r4]
-	movs r3, #7
-	ands r3, r7
-	ldrb r1, [r5]
-	ldr r0, _080A32E4  @ gUnknown_08205CA4
-	adds r0, r3, r0
-	ldrb r0, [r0]
-	bics r1, r0
-	asrs r1, r3
-	lsls r1, r1, #0x18
-	lsrs r2, r1, #0x18
-	cmp r3, #1
-	ble _080A32C4
-	adds r5, #1
-	cmp r3, #2
-	ble _080A32C4
-	ldrb r1, [r5]
-	ldr r0, _080A32E8  @ gUnknown_08205CAC
-	adds r0, r3, r0
-	ldrb r0, [r0]
-	bics r1, r0
-	movs r0, #8
-	subs r0, r0, r3
-	lsls r1, r0
-	orrs r2, r1
-	lsls r0, r2, #0x18
-	lsrs r2, r0, #0x18
-_080A32C4:
-	lsls r0, r2, #8
-	ldrh r1, [r4]
-	orrs r0, r1
-	strh r0, [r4]
-	adds r7, #6
-	adds r4, #2
-	adds r6, #1
-	cmp r6, #0x63
-	ble _080A3288
-	add sp, #0xb0
-	pop {r4, r5, r6, r7}
-	pop {r0}
-	bx r0
-	.align 2, 0
-_080A32E0: .4byte ReadSramFast
-_080A32E4: .4byte gUnknown_08205CA4
-_080A32E8: .4byte gUnknown_08205CAC
-
-	THUMB_FUNC_END LoadConvoyItems
-
-	THUMB_FUNC_START sub_80A32EC
-sub_80A32EC: @ 0x080A32EC
-	movs r0, #1
-	bx lr
-
-	THUMB_FUNC_END sub_80A32EC
-
-	THUMB_FUNC_START sub_80A32F0
-sub_80A32F0: @ 0x080A32F0
-	push {r4, lr}
-	bl IsSramWorking
-	lsls r0, r0, #0x18
-	cmp r0, #0
-	bne _080A3304
-	movs r0, #0
-	b _080A3320
-_080A3300:
-	movs r0, #1
-	b _080A3320
-_080A3304:
-	movs r4, #0
-_080A3306:
-	adds r0, r4, #0
-	bl sub_80A52DC
-	lsls r0, r0, #0x18
-	cmp r0, #0
-	bne _080A3300
-	adds r4, #1
-	cmp r4, #2
-	ble _080A3306
-	bl sub_80A6A68
-	lsls r0, r0, #0x18
-	asrs r0, r0, #0x18
-_080A3320:
-	pop {r4}
-	pop {r1}
-	bx r1
-
-	THUMB_FUNC_END sub_80A32F0
-
-	THUMB_FUNC_START sub_80A3328
-sub_80A3328: @ 0x080A3328
-	movs r0, #1
-	bx lr
-
-	THUMB_FUNC_END sub_80A3328
-
-	THUMB_FUNC_START sub_80A332C
-sub_80A332C: @ 0x080A332C
-	push {r4, lr}
-	movs r0, #0
-	bl sub_80A3834
-	adds r4, r0, #0
-	bl sub_80A3870
-	ands r0, r4
-	lsls r0, r0, #0x18
-	asrs r0, r0, #0x18
-	pop {r4}
-	pop {r1}
-	bx r1
-
-	THUMB_FUNC_END sub_80A332C
-
-	THUMB_FUNC_START sub_80A3348
-sub_80A3348: @ 0x080A3348
-	push {r4, lr}
-	sub sp, #0x94
-	movs r4, #0
-	bl sub_80A3870
-	lsls r0, r0, #0x18
-	cmp r0, #0
-	bne _080A335C
-	movs r0, #0
-	b _080A33BC
-_080A335C:
-	mov r0, sp
-	bl sub_80A3898
-	lsls r0, r0, #0x18
-	cmp r0, #0
-	beq _080A33BA
-	mov r0, sp
-	ldrb r0, [r0]
-	lsls r0, r0, #0x1f
-	cmp r0, #0
-	beq _080A3374
-	movs r4, #1
-_080A3374:
-	mov r0, sp
-	ldrb r0, [r0, #0x18]
-	lsls r0, r0, #0x1f
-	cmp r0, #0
-	beq _080A3382
-	movs r0, #2
-	orrs r4, r0
-_080A3382:
-	add r0, sp, #0x30
-	ldrb r0, [r0]
-	lsls r0, r0, #0x1f
-	cmp r0, #0
-	beq _080A3390
-	movs r0, #4
-	orrs r4, r0
-_080A3390:
-	add r0, sp, #0x48
-	ldrb r0, [r0]
-	lsls r0, r0, #0x1f
-	cmp r0, #0
-	beq _080A339E
-	movs r0, #8
-	orrs r4, r0
-_080A339E:
-	add r0, sp, #0x60
-	ldrb r0, [r0]
-	lsls r0, r0, #0x1f
-	cmp r0, #0
-	beq _080A33AC
-	movs r0, #0x10
-	orrs r4, r0
-_080A33AC:
-	add r0, sp, #0x78
-	ldrb r0, [r0]
-	lsls r0, r0, #0x1f
-	cmp r0, #0
-	beq _080A33BA
-	movs r0, #0x20
-	orrs r4, r0
-_080A33BA:
-	adds r0, r4, #0
-_080A33BC:
-	add sp, #0x94
-	pop {r4}
-	pop {r1}
-	bx r1
-
-	THUMB_FUNC_END sub_80A3348
-
-	THUMB_FUNC_START sub_80A33C4
-sub_80A33C4: @ 0x080A33C4
-	push {lr}
-	sub sp, #0x64
-	mov r0, sp
-	bl VerifySecureHeaderSW
-	lsls r0, r0, #0x18
-	cmp r0, #0
-	beq _080A33E2
-	bl sub_80A6C1C
-	lsls r0, r0, #0x18
-	cmp r0, #0
-	beq _080A33E2
-	movs r0, #1
-	b _080A33E4
-_080A33E2:
-	movs r0, #0
-_080A33E4:
-	add sp, #0x64
-	pop {r1}
-	bx r1
-
-	THUMB_FUNC_END sub_80A33C4
-
-	THUMB_FUNC_START sub_80A33EC
-sub_80A33EC: @ 0x080A33EC
-	push {r4, lr}
-	bl IsSramWorking
-	lsls r0, r0, #0x18
-	cmp r0, #0
-	bne _080A33FE
-	b _080A3412
-_080A33FA:
-	movs r0, #1
-	b _080A3414
-_080A33FE:
-	movs r4, #0
-_080A3400:
-	adds r0, r4, #0
-	bl sub_80A530C
-	lsls r0, r0, #0x18
-	cmp r0, #0
-	bne _080A33FA
-	adds r4, #1
-	cmp r4, #2
-	ble _080A3400
-_080A3412:
-	movs r0, #0
-_080A3414:
-	pop {r4}
-	pop {r1}
-	bx r1
-
-	THUMB_FUNC_END sub_80A33EC
-
-	THUMB_FUNC_START sub_80A341C
-sub_80A341C: @ 0x080A341C
-	push {r4, lr}
-	sub sp, #0x4c
-	ldr r4, _080A3458  @ gUnknown_02020188
-	adds r0, r4, #0
-	bl sub_80A38F4
-	lsls r0, r0, #0x18
-	cmp r0, #0
-	beq _080A345C
-	movs r3, #0
-	adds r1, r4, #0
-	movs r2, #0xf
-_080A3434:
-	ldrb r0, [r1]
-	cmp r0, #0
-	beq _080A3448
-	ldrb r0, [r1, #1]
-	cmp r0, #0
-	bne _080A3442
-	movs r3, #1
-_080A3442:
-	cmp r0, #2
-	bne _080A3448
-	movs r3, #1
-_080A3448:
-	adds r1, #0x14
-	subs r2, #1
-	cmp r2, #0
-	bge _080A3434
-	cmp r3, #0
-	beq _080A345C
-	movs r0, #1
-	b _080A345E
-	.align 2, 0
-_080A3458: .4byte gUnknown_02020188
-_080A345C:
-	movs r0, #0
-_080A345E:
-	add sp, #0x4c
-	pop {r4}
-	pop {r1}
-	bx r1
-
-	THUMB_FUNC_END sub_80A341C
-
-	THUMB_FUNC_START sub_80A3468
-sub_80A3468: @ 0x080A3468
-	push {r4, r5, r6, r7, lr}
-	adds r2, r0, #0
-	ldr r7, _080A3498  @ gUnknown_08A1FAF8
-	ldr r0, [r7]
-	cmp r0, #0
-	beq _080A34C4
-	movs r6, #0
-	adds r5, r7, #0
-	adds r3, r7, #4
-	adds r4, r7, #0
-_080A347C:
-	ldr r0, [r4]
-	cmp r0, r2
-	bne _080A3488
-	ldr r0, [r3]
-	cmp r0, r1
-	bne _080A3494
-_080A3488:
-	ldr r0, [r4]
-	cmp r0, r1
-	bne _080A349C
-	ldr r0, [r3]
-	cmp r0, r2
-	beq _080A34A2
-_080A3494:
-	movs r0, #2
-	b _080A34C6
-	.align 2, 0
-_080A3498: .4byte gUnknown_08A1FAF8
-_080A349C:
-	ldr r0, [r3]
-	cmp r0, r2
-	bne _080A34A8
-_080A34A2:
-	ldr r0, [r4]
-	cmp r0, r1
-	bne _080A3494
-_080A34A8:
-	ldr r0, [r3]
-	cmp r0, r1
-	bne _080A34B4
-	ldr r0, [r5]
-	cmp r0, r2
-	bne _080A3494
-_080A34B4:
-	adds r6, #8
-	adds r5, #8
-	adds r3, #8
-	adds r4, #8
-	adds r0, r6, r7
-	ldr r0, [r0]
-	cmp r0, #0
-	bne _080A347C
-_080A34C4:
-	movs r0, #3
-_080A34C6:
-	pop {r4, r5, r6, r7}
-	pop {r1}
-	bx r1
-
-	THUMB_FUNC_END sub_80A3468
-
-	THUMB_FUNC_START sub_80A34CC
-sub_80A34CC: @ 0x080A34CC
-	push {r4, r5, r6, lr}
-	movs r5, #0
-	bl sub_80847F8
-	adds r4, r0, #0
-	ldrh r0, [r4]
-	ldr r1, _080A34FC  @ 0x0000FFFF
-	cmp r0, r1
-	beq _080A34F2
-	adds r6, r1, #0
-_080A34E0:
-	ldrh r0, [r4]
-	ldrh r1, [r4, #2]
-	bl sub_80A3468
-	adds r5, r5, r0
-	adds r4, #0x10
-	ldrh r0, [r4]
-	cmp r0, r6
-	bne _080A34E0
-_080A34F2:
-	adds r0, r5, #0
-	pop {r4, r5, r6}
-	pop {r1}
-	bx r1
-	.align 2, 0
-_080A34FC: .4byte 0x0000FFFF
-
-	THUMB_FUNC_END sub_80A34CC
-
-	THUMB_FUNC_START sub_80A3500
-sub_80A3500: @ 0x080A3500
-	push {r4, r5, r6, r7, lr}
-	sub sp, #0x64
-	adds r4, r0, #0
-	movs r5, #0
-	cmp r4, #0
-	bne _080A3514
-	mov r4, sp
-	mov r0, sp
-	bl VerifySecureHeaderSW
-_080A3514:
-	movs r0, #0
-	adds r7, r4, #0
-	adds r7, #0x20
-	movs r6, #3
-_080A351C:
-	movs r2, #0
-	adds r4, r0, #1
-	adds r0, r7, r0
-	ldrb r3, [r0]
-_080A3524:
-	lsls r1, r2, #1
-	adds r0, r3, #0
-	asrs r0, r1
-	ands r0, r6
-	adds r5, r5, r0
-	adds r2, #1
-	cmp r2, #3
-	ble _080A3524
-	adds r0, r4, #0
-	cmp r0, #0x1f
-	ble _080A351C
-	adds r0, r5, #0
-	add sp, #0x64
-	pop {r4, r5, r6, r7}
-	pop {r1}
-	bx r1
-
-	THUMB_FUNC_END sub_80A3500
-
-	THUMB_FUNC_START sub_80A3544
-sub_80A3544: @ 0x080A3544
-	push {r4, r5, lr}
-	movs r0, #0
-	bl sub_80A3500
-	adds r4, r0, #0
-	bl sub_80A34CC
-	adds r5, r0, #0
-	cmp r4, #0
-	ble _080A356A
-	movs r0, #0x64
-	muls r0, r4, r0
-	adds r1, r5, #0
-	bl __divsi3
-	cmp r0, #0
-	bne _080A356A
-	movs r4, #1
-	b _080A3576
-_080A356A:
-	movs r0, #0x64
-	muls r0, r4, r0
-	adds r1, r5, #0
-	bl __divsi3
-	adds r4, r0, #0
-_080A3576:
-	cmp r4, #0x64
-	ble _080A357C
-	movs r4, #0x64
-_080A357C:
-	adds r0, r4, #0
-	pop {r4, r5}
-	pop {r1}
-	bx r1
-
-	THUMB_FUNC_END sub_80A3544
-
-	THUMB_FUNC_START sub_80A3584
-sub_80A3584: @ 0x080A3584
-	push {r4, r5, r6, r7, lr}
-	mov r7, r8
-	push {r7}
-	sub sp, #0x64
-	mov r8, r0
-	adds r7, r1, #0
-	adds r5, r2, #0
-	movs r6, #0
-	bl sub_80847F8
-	adds r4, r0, #0
-	cmp r5, #0
-	bne _080A35A6
-	mov r5, sp
-	mov r0, sp
-	bl VerifySecureHeaderSW
-_080A35A6:
-	adds r3, r5, #0
-	adds r3, #0x20
-	b _080A35B0
-_080A35AC:
-	adds r6, #1
-	adds r4, #0x10
-_080A35B0:
-	ldrh r1, [r4]
-	ldr r0, _080A35E8  @ 0x0000FFFF
-	cmp r1, r0
-	beq _080A35CC
-	cmp r1, r8
-	bne _080A35C2
-	ldrh r0, [r4, #2]
-	cmp r0, r7
-	beq _080A35CC
-_080A35C2:
-	cmp r1, r7
-	bne _080A35AC
-	ldrh r0, [r4, #2]
-	cmp r0, r8
-	bne _080A35AC
-_080A35CC:
-	asrs r0, r6, #2
-	movs r2, #3
-	ands r6, r2
-	lsls r1, r6, #1
-	adds r0, r3, r0
-	ldrb r0, [r0]
-	asrs r0, r1
-	ands r0, r2
-	add sp, #0x64
-	pop {r3}
-	mov r8, r3
-	pop {r4, r5, r6, r7}
-	pop {r1}
-	bx r1
-	.align 2, 0
-_080A35E8: .4byte 0x0000FFFF
-
-	THUMB_FUNC_END sub_80A3584
-
 	THUMB_FUNC_START sub_80A35EC
 sub_80A35EC: @ 0x080A35EC
 	push {r4, r5, r6, r7, lr}
@@ -657,7 +51,7 @@ _080A3634:
 	adds r0, r1, #0
 	str r0, [sp, #0x68]
 	mov r0, sp
-	bl VerifySecureHeaderSW
+	bl LoadAndVerifySecureHeaderSW
 _080A364E:
 	ldrh r0, [r5]
 	ldr r1, _080A36CC  @ 0x0000FFFF
@@ -783,7 +177,7 @@ sub_80A3724: @ 0x080A3724
 	movs r6, #3
 	ands r6, r2
 	mov r0, sp
-	bl VerifySecureHeaderSW
+	bl LoadAndVerifySecureHeaderSW
 	lsls r0, r0, #0x18
 	cmp r0, #0
 	beq _080A379C
@@ -862,7 +256,7 @@ SetSomeUnitStatThingUnlockMaybeIdk: @ 0x080A37A8
 	bne _080A37C8
 	mov r5, sp
 	mov r0, sp
-	bl VerifySecureHeaderSW
+	bl LoadAndVerifySecureHeaderSW
 	movs r3, #1
 _080A37C8:
 	asrs r0, r4, #3
@@ -902,7 +296,7 @@ sub_80A37F0: @ 0x080A37F0
 	bne _080A380C
 	mov r4, sp
 	mov r0, sp
-	bl VerifySecureHeaderSW
+	bl LoadAndVerifySecureHeaderSW
 _080A380C:
 	asrs r1, r5, #3
 	adds r0, r4, #0
@@ -938,7 +332,7 @@ sub_80A3834: @ 0x080A3834
 	bne _080A3846
 	mov r4, sp
 	mov r0, sp
-	bl VerifySecureHeaderSW
+	bl LoadAndVerifySecureHeaderSW
 _080A3846:
 	movs r1, #0
 	adds r2, r4, #0
@@ -980,7 +374,7 @@ sub_80A3870: @ 0x080A3870
 	push {lr}
 	sub sp, #0x64
 	mov r0, sp
-	bl VerifySecureHeaderSW
+	bl LoadAndVerifySecureHeaderSW
 	lsls r0, r0, #0x18
 	cmp r0, #0
 	beq _080A3890
@@ -2086,7 +1480,7 @@ _080A40A0:
 sub_80A40A8: @ 0x080A40A8
 	push {lr}
 	movs r0, #0
-	bl VerifySecureHeaderSW
+	bl LoadAndVerifySecureHeaderSW
 	lsls r0, r0, #0x18
 	cmp r0, #0
 	bne _080A40BA
@@ -3546,7 +2940,7 @@ sub_80A4B1C: @ 0x080A4B1C
 	sub sp, #0xb0
 	adds r6, r0, #0
 	mov r0, sp
-	bl VerifySecureHeaderSW
+	bl LoadAndVerifySecureHeaderSW
 	movs r4, #0
 	add r1, sp, #0x14
 _080A4B2C:
@@ -3639,7 +3033,7 @@ sub_80A4BB0: @ 0x080A4BB0
 	push {lr}
 	sub sp, #0x64
 	mov r0, sp
-	bl VerifySecureHeaderSW
+	bl LoadAndVerifySecureHeaderSW
 	lsls r0, r0, #0x18
 	cmp r0, #0
 	beq _080A4BC8
@@ -3719,13 +3113,13 @@ DeclareCompletedPlaythrough: @ 0x080A4C14
 	lsls r0, r0, #0x1a
 	lsrs r7, r0, #0x1f
 	mov r0, sp
-	bl VerifySecureHeaderSW
+	bl LoadAndVerifySecureHeaderSW
 	lsls r0, r0, #0x18
 	cmp r0, #0
 	bne _080A4C48
 	bl InitNopSecHeader
 	mov r0, sp
-	bl VerifySecureHeaderSW
+	bl LoadAndVerifySecureHeaderSW
 _080A4C48:
 	ldrb r1, [r6, #0x18]
 	mov r0, sp
@@ -3794,7 +3188,7 @@ sub_80A4CB4: @ 0x080A4CB4
 	push {lr}
 	sub sp, #0x64
 	mov r0, sp
-	bl VerifySecureHeaderSW
+	bl LoadAndVerifySecureHeaderSW
 	lsls r0, r0, #0x18
 	cmp r0, #0
 	bne _080A4CC8
@@ -3817,7 +3211,7 @@ sub_80A4CD8: @ 0x080A4CD8
 	push {lr}
 	sub sp, #0x64
 	mov r0, sp
-	bl VerifySecureHeaderSW
+	bl LoadAndVerifySecureHeaderSW
 	lsls r0, r0, #0x18
 	cmp r0, #0
 	beq _080A4CF6
@@ -3924,7 +3318,7 @@ sub_80A4D80: @ 0x080A4D80
 	sub sp, #0x64
 	adds r4, r0, #0
 	mov r0, sp
-	bl VerifySecureHeaderSW
+	bl LoadAndVerifySecureHeaderSW
 	mov r0, sp
 	adds r0, #0x62
 	strb r4, [r0]
@@ -3942,7 +3336,7 @@ sub_80A4DA0: @ 0x080A4DA0
 	push {lr}
 	sub sp, #0x64
 	mov r0, sp
-	bl VerifySecureHeaderSW
+	bl LoadAndVerifySecureHeaderSW
 	lsls r0, r0, #0x18
 	cmp r0, #0
 	beq _080A4DBE
@@ -4268,7 +3662,7 @@ _080A5056:
 	cmp r5, #0
 	bge _080A5056
 	mov r0, r8
-	bl VerifySecureHeaderSW
+	bl LoadAndVerifySecureHeaderSW
 	movs r4, #0
 	ldr r6, _080A5108  @ gUnitArrayBlue
 	movs r5, #0x32
@@ -6698,7 +6092,7 @@ sub_80A63B0: @ 0x080A63B0
 	push {lr}
 	sub sp, #0x64
 	mov r0, sp
-	bl VerifySecureHeaderSW
+	bl LoadAndVerifySecureHeaderSW
 	mov r0, sp
 	adds r0, #0x63
 	ldrb r0, [r0]
@@ -6732,7 +6126,7 @@ sub_80A63E0: @ 0x080A63E0
 	push {lr}
 	sub sp, #0x64
 	mov r0, sp
-	bl VerifySecureHeaderSW
+	bl LoadAndVerifySecureHeaderSW
 	movs r2, #0
 	mov r1, sp
 	adds r1, #0x63

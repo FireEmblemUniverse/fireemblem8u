@@ -503,14 +503,14 @@ struct SomeLocal {
     u8 whatever[0x64];
 };
 
-u8 VerifySecureHeaderSW(struct SomeLocal *);
+u8 LoadAndVerifySecureHeaderSW(struct SomeLocal *);
 
 u8 sub_80CCCA4(void) {
     struct SomeLocal local;
-    u8 unlock = VerifySecureHeaderSW(&local);
+    u8 unlock = LoadAndVerifySecureHeaderSW(&local);
     if (!unlock) {
         InitNopSecHeader();
-        VerifySecureHeaderSW(&local);
+        LoadAndVerifySecureHeaderSW(&local);
     }
 
     if (local.whatever[0xe] & 0x1c) {
