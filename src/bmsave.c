@@ -4,6 +4,8 @@
 #include "agb_sram.h"
 #include "bmsave.h"
 #include "functions.h"
+#include "bmreliance.h"
+#include "bmunit.h"
 
 /* functions */
 u8 CheckSaveHeaderMagic(void*, u8*);
@@ -753,3 +755,106 @@ int sub_80A3584(int param0, int param1, struct SecureSaveHeader *buf)
     return ret;
 }
 
+void sub_80A35EC(int unitId, u8* data, struct SecureSaveHeader* buf) {
+    struct SecureSaveHeader tempHeader;
+    struct bmsave_unkstruct_089ED10C* ptr;
+    int i;
+    int j;
+
+    if (gCharacterData[unitId-1].pSupportData == 0) {
+
+        for (i = 0; i < UNIT_SUPPORT_MAX_COUNT; data++, i++) {
+            *data = 0;
+        }
+
+        return;
+    }
+
+    j = 0;
+    ptr = sub_80847F8();
+
+    if (buf == 0) {
+        buf = &tempHeader;
+        LoadAndVerifySecureHeaderSW(buf);
+    }
+
+    for (; ; j++, ptr++) {
+        int tmp1, tmp2;
+
+        if (ptr->unk00 == 0xFFFF) {
+            break;
+        }
+
+        if ((ptr->unk00 != unitId) && (ptr->unk02 != unitId)) {
+            continue;
+        }
+
+        tmp1 = j >> 2;
+        tmp2 = (j & 3) << 1;
+
+        for (i = 0; i < gCharacterData[unitId-1].pSupportData->supportCount; i++) {
+
+            if ((ptr->unk00 != gCharacterData[unitId-1].pSupportData->characters[i]) &&
+                (ptr->unk02 != gCharacterData[unitId-1].pSupportData->characters[i])) {
+                continue;
+            }
+
+            data[i] = (buf->unk20[tmp1] >> (tmp2)) & 3;
+
+            break;
+        }
+    }
+
+    for (i = gCharacterData[unitId-1].pSupportData->supportCount; i < UNIT_SUPPORT_MAX_COUNT; i++) {
+        data[i] = 0;
+    }
+
+    return;
+}
+
+s8 sub_80A3724(int unitA, int unitB, int supportRank) {
+    int convo;
+    int var0;
+    int var1;
+    struct SecureSaveHeader tempHeader;
+    struct bmsave_unkstruct_089ED10C* ptr;
+
+    supportRank = supportRank & 3;
+
+    if (!LoadAndVerifySecureHeaderSW(&tempHeader)) {
+        return 0;
+    }
+
+    convo = 0;
+
+    for (ptr = sub_80847F8(); ; ptr++) {
+
+        if (ptr->unk00 == 0xFFFF) {
+            break;
+        }
+
+        if ((ptr->unk00 == unitA) && (ptr->unk02 == unitB)) {
+            break;
+        }
+
+        if ((ptr->unk00 == unitB) && (ptr->unk02 == unitA)) {
+            break;
+        }
+
+        convo++;
+    }
+
+    var0 = convo >> 2;
+    var1 = (convo & 3) << 1;
+
+    if (((tempHeader.unk20[var0] >> var1) & 3) >= (supportRank)) {
+        return 0;
+    }
+
+    tempHeader.unk20[var0] &= ~(3 << var1);
+    tempHeader.unk20[var0] += (supportRank << var1);
+
+    SaveSecureHeader(&tempHeader);
+
+    return 1;
+}
