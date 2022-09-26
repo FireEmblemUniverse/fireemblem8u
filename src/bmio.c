@@ -948,7 +948,7 @@ void InitPlaythroughState(int isDifficult, s8 unk) {
     gRAMChapterData.unk42_2 = 0;
     gRAMChapterData.cfgDisableTerrainDisplay = 0;
     gRAMChapterData.cfgUnitDisplayType = 0;
-    gRAMChapterData.unk40_5 = 0;
+    gRAMChapterData.auto_cursor = 0;
     gRAMChapterData.cfgTextSpeed = 1; // TODO: (DEFAULT?) TEXT SPEED DEFINITIONS
     gRAMChapterData.unk40_8 = 0;
     gRAMChapterData.unk41_1 = 0;

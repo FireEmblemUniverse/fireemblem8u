@@ -194,7 +194,7 @@ struct RAMChapterData { // Chapter Data Struct
     u32 unk40_1:1; // 1
     u32 cfgDisableTerrainDisplay:1; // 1
     u32 cfgUnitDisplayType:2; // 2
-    u32 unk40_5:1; // 1
+    u32 auto_cursor:1; // 1
     u32 cfgTextSpeed:2;
     u32 unk40_8:1; // 1
     u32 unk41_1:1; // 1

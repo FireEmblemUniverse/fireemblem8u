@@ -1,33 +1,5 @@
     .section .data
 
-	.global gUnknown_0859AE00
-gUnknown_0859AE00:  @ 0x0859AE00
-        @ PROC_CALL
-        .short 0x2, 0x0
-        .word sub_801DEF0
-        @ PROC_YIELD
-        .short 0xe, 0x0
-        .word 0x0
-        @ PROC_END
-        .short 0x0, 0x0
-        .word 0x0
-
-
-	.global gProcScr_ADJUSTSFROMXI
-gProcScr_ADJUSTSFROMXI:  @ 0x0859AE18
-        @ PROC_NAME
-        .short 0x1, 0x0
-        .word 0x80d7b20
-        @ PROC_CALL
-        .short 0x2, 0x0
-        .word ADJUSTFROMXI_MoveCameraOnSomeUnit
-        @ PROC_SLEEP
-        .short 0xe, 0x1
-        .word 0x0
-        @ PROC_END
-        .short 0x0, 0x0
-        .word 0x0
-
 
 	.global gUnknown_0859AE38
 gUnknown_0859AE38:  @ 0x0859AE38

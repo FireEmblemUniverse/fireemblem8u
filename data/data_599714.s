@@ -358,7 +358,7 @@ gProc_BMapMain:  @ 0x0859A1F0
 
     .2byte 5
     .2byte 0
-    .4byte gUnknown_0859AE00
+    .4byte gProcScr_ResetCursorPosition
 
     .2byte 6
     .2byte 1
@@ -390,7 +390,7 @@ gProc_BMapMain:  @ 0x0859A1F0
 
     .2byte 6
     .2byte 1
-    .4byte gUnknown_0859AE00
+    .4byte gProcScr_ResetCursorPosition
 
     .2byte 22
     .2byte 0
