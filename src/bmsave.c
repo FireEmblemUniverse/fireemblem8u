@@ -120,14 +120,13 @@ void ForceSaveSecureHeader(struct SecureSaveHeader *header)
     WriteAndVerifySramFast((void*)header, (void*)gpSaveDataStart, sizeof(struct SecureSaveHeader));
 }
 
-#if NONMATCHING
-
 void InitNopSecHeader()
 {
     struct SecureSaveHeader header;
+    int i;
 
     EraseSecureHeader();
-    CopyString((void*)(&header), (void*)gUnknown_08205C9C);
+    CopyString((void*)(&header), (void*)gSaveHeaderKeygen);
 
     header._00040624 = 0x00040624;
     header._200A = 0x200A;
@@ -150,119 +149,19 @@ void InitNopSecHeader()
     header.unk63 = 0;
     header.unk62 = 0;
 
-    /* Here shouble be three loops, but I failed to decompile them */
+    for (i = 0; i < 0xC; i++)
+        header.unk14[i] = 0;
+
+    for (i = 0; i < 0x20; i++)
+        header.unk20[i] = 0;
+
+    for (i = 0; i < 0x20; i++)
+        header.unk40[i] = 0;
 
     SaveSecureHeader(&header);
+
+    return;
 }
-
-#else
-
-__attribute__((naked))
-void InitNopSecHeader()
-{
-    asm("\n\
-        .syntax unified\n\
-        push {r4, r5, lr}\n\
-        sub sp, #0x64\n\
-        bl EraseSecureHeader\n\
-        ldr r1, _080A2E9C  @ gSaveHeaderKeygen\n\
-        mov r0, sp\n\
-        bl CopyString\n\
-        ldr r0, _080A2EA0  @ 0x00040624\n\
-        str r0, [sp, #8]\n\
-        mov r1, sp\n\
-        movs r4, #0\n\
-        movs r5, #0\n\
-        ldr r0, _080A2EA4  @ 0x0000200A\n\
-        strh r0, [r1, #0xc]\n\
-        mov r2, sp\n\
-        ldrb r1, [r2, #0xe]\n\
-        movs r3, #2\n\
-        negs r3, r3\n\
-        adds r0, r3, #0\n\
-        ands r0, r1\n\
-        strb r0, [r2, #0xe]\n\
-        movs r1, #3\n\
-        negs r1, r1\n\
-        ands r1, r0\n\
-        strb r1, [r2, #0xe]\n\
-        movs r0, #5\n\
-        negs r0, r0\n\
-        ands r0, r1\n\
-        strb r0, [r2, #0xe]\n\
-        movs r1, #9\n\
-        negs r1, r1\n\
-        ands r1, r0\n\
-        strb r1, [r2, #0xe]\n\
-        movs r0, #0x11\n\
-        negs r0, r0\n\
-        ands r0, r1\n\
-        strb r0, [r2, #0xe]\n\
-        movs r1, #0x21\n\
-        negs r1, r1\n\
-        ands r1, r0\n\
-        strb r1, [r2, #0xe]\n\
-        movs r0, #0x41\n\
-        negs r0, r0\n\
-        ands r0, r1\n\
-        strb r0, [r2, #0xe]\n\
-        mov r1, sp\n\
-        movs r0, #0\n\
-        strb r0, [r1, #0xe]\n\
-        ldrb r0, [r1, #0xf]\n\
-        ands r3, r0\n\
-        strb r3, [r1, #0xf]\n\
-        mov r0, sp\n\
-        strb r4, [r0, #0xf]\n\
-        strh r5, [r0, #0x10]\n\
-        strh r5, [r0, #0x12]\n\
-        adds r0, #0x63\n\
-        strb r4, [r0]\n\
-        subs r0, #1\n\
-        strb r4, [r0]\n\
-        add r3, sp, #0x20\n\
-        add r4, sp, #0x40\n\
-        add r1, sp, #0x14\n\
-        movs r2, #0\n\
-        subs r0, #0x43\n\
-    _080A2E66:\n\
-        strb r2, [r0]\n\
-        subs r0, #1\n\
-        cmp r0, r1\n\
-        bge _080A2E66\n\
-        adds r1, r3, #0\n\
-        movs r2, #0\n\
-        adds r0, r1, #0\n\
-        adds r0, #0x1f\n\
-    _080A2E76:\n\
-        strb r2, [r0]\n\
-        subs r0, #1\n\
-        cmp r0, r1\n\
-        bge _080A2E76\n\
-        adds r1, r4, #0\n\
-        movs r2, #0\n\
-        adds r0, r1, #0\n\
-        adds r0, #0x1f\n\
-    _080A2E86:\n\
-        strb r2, [r0]\n\
-        subs r0, #1\n\
-        cmp r0, r1\n\
-        bge _080A2E86\n\
-        mov r0, sp\n\
-        bl SaveSecureHeader\n\
-        add sp, #0x64\n\
-        pop {r4, r5}\n\
-        pop {r0}\n\
-        bx r0\n\
-        .align 2, 0\n\
-    _080A2E9C: .4byte gSaveHeaderKeygen\n\
-    _080A2EA0: .4byte 0x00040624\n\
-    _080A2EA4: .4byte 0x0000200A\n\
-        .syntax divided\n\
-    ");
-}
-
-#endif /* NONMATCHING */
 
 void sub_80A2EA8()
 {
