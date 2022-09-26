@@ -3634,7 +3634,7 @@ sub_8084748: @ 0x08084748
 	lsrs r4, r0, #0x10
 	lsls r1, r1, #0x10
 	lsrs r1, r1, #0x10
-	ldr r0, _08084784  @ gUnknown_089ED10C
+	ldr r0, _08084784  @ gSupportTalkList
 	ldrh r2, [r0]
 	ldr r3, _08084788  @ 0x0000FFFF
 	cmp r2, r3
@@ -3664,7 +3664,7 @@ _0808477C:
 	pop {r1}
 	bx r1
 	.align 2, 0
-_08084784: .4byte gUnknown_089ED10C
+_08084784: .4byte gSupportTalkList
 _08084788: .4byte 0x0000FFFF
 
 	THUMB_FUNC_END sub_8084748
@@ -3739,10 +3739,10 @@ _080847F0:
 
 	THUMB_FUNC_START sub_80847F8
 sub_80847F8: @ 0x080847F8
-	ldr r0, _080847FC  @ gUnknown_089ED10C
+	ldr r0, _080847FC  @ gSupportTalkList
 	bx lr
 	.align 2, 0
-_080847FC: .4byte gUnknown_089ED10C
+_080847FC: .4byte gSupportTalkList
 
 	THUMB_FUNC_END sub_80847F8
 

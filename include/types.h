@@ -546,4 +546,15 @@ struct FaceVramEntry
     /* 04 */ u16 paletteId;
 };
 
+struct SupportTalkEnt {
+    /* 00 */ u16 unitA;
+    /* 02 */ u16 unitB;
+
+    /* 04 */ u16 msgSupportC;
+    /* 06 */ u16 msgSupportB;
+    /* 08 */ u16 msgSupportA;
+
+    u16 _pad[3];
+};
+
 #endif // GUARD_TYPES_H

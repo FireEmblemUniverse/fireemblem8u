@@ -4,6 +4,8 @@
 #include "agb_sram.h"
 #include "bmsave.h"
 #include "functions.h"
+#include "bmreliance.h"
+#include "bmunit.h"
 
 /* functions */
 u8 CheckSaveHeaderMagic(void*, u8*);
@@ -32,7 +34,6 @@ extern CONST_DATA u8 gSaveHeaderKeygen[];
 extern CONST_DATA unsigned char gUnknown_08205CA4[]; /* related to convoy */
 extern CONST_DATA unsigned char gUnknown_08205CAC[];
 extern CONST_DATA int gUnknown_08A1FAF8[][2];
-extern CONST_DATA u16 gUnknown_089ED10C[][0x8];
 
 void SramInit()
 {
@@ -118,14 +119,13 @@ void ForceSaveSecureHeader(struct SecureSaveHeader *header)
     WriteAndVerifySramFast((void*)header, (void*)gpSaveDataStart, sizeof(struct SecureSaveHeader));
 }
 
-#if NONMATCHING
-
 void InitNopSecHeader()
 {
     struct SecureSaveHeader header;
+    int i;
 
     EraseSecureHeader();
-    CopyString((void*)(&header), (void*)gUnknown_08205C9C);
+    CopyString((void*)(&header), (void*)gSaveHeaderKeygen);
 
     header._00040624 = 0x00040624;
     header._200A = 0x200A;
@@ -148,119 +148,19 @@ void InitNopSecHeader()
     header.unk63 = 0;
     header.unk62 = 0;
 
-    /* Here shouble be three loops, but I failed to decompile them */
+    for (i = 0; i < 0xC; i++)
+        header.unk14[i] = 0;
+
+    for (i = 0; i < 0x20; i++)
+        header.unk20[i] = 0;
+
+    for (i = 0; i < 0x20; i++)
+        header.unk40[i] = 0;
 
     SaveSecureHeader(&header);
+
+    return;
 }
-
-#else
-
-__attribute__((naked))
-void InitNopSecHeader()
-{
-    asm("\n\
-        .syntax unified\n\
-        push {r4, r5, lr}\n\
-        sub sp, #0x64\n\
-        bl EraseSecureHeader\n\
-        ldr r1, _080A2E9C  @ gSaveHeaderKeygen\n\
-        mov r0, sp\n\
-        bl CopyString\n\
-        ldr r0, _080A2EA0  @ 0x00040624\n\
-        str r0, [sp, #8]\n\
-        mov r1, sp\n\
-        movs r4, #0\n\
-        movs r5, #0\n\
-        ldr r0, _080A2EA4  @ 0x0000200A\n\
-        strh r0, [r1, #0xc]\n\
-        mov r2, sp\n\
-        ldrb r1, [r2, #0xe]\n\
-        movs r3, #2\n\
-        negs r3, r3\n\
-        adds r0, r3, #0\n\
-        ands r0, r1\n\
-        strb r0, [r2, #0xe]\n\
-        movs r1, #3\n\
-        negs r1, r1\n\
-        ands r1, r0\n\
-        strb r1, [r2, #0xe]\n\
-        movs r0, #5\n\
-        negs r0, r0\n\
-        ands r0, r1\n\
-        strb r0, [r2, #0xe]\n\
-        movs r1, #9\n\
-        negs r1, r1\n\
-        ands r1, r0\n\
-        strb r1, [r2, #0xe]\n\
-        movs r0, #0x11\n\
-        negs r0, r0\n\
-        ands r0, r1\n\
-        strb r0, [r2, #0xe]\n\
-        movs r1, #0x21\n\
-        negs r1, r1\n\
-        ands r1, r0\n\
-        strb r1, [r2, #0xe]\n\
-        movs r0, #0x41\n\
-        negs r0, r0\n\
-        ands r0, r1\n\
-        strb r0, [r2, #0xe]\n\
-        mov r1, sp\n\
-        movs r0, #0\n\
-        strb r0, [r1, #0xe]\n\
-        ldrb r0, [r1, #0xf]\n\
-        ands r3, r0\n\
-        strb r3, [r1, #0xf]\n\
-        mov r0, sp\n\
-        strb r4, [r0, #0xf]\n\
-        strh r5, [r0, #0x10]\n\
-        strh r5, [r0, #0x12]\n\
-        adds r0, #0x63\n\
-        strb r4, [r0]\n\
-        subs r0, #1\n\
-        strb r4, [r0]\n\
-        add r3, sp, #0x20\n\
-        add r4, sp, #0x40\n\
-        add r1, sp, #0x14\n\
-        movs r2, #0\n\
-        subs r0, #0x43\n\
-    _080A2E66:\n\
-        strb r2, [r0]\n\
-        subs r0, #1\n\
-        cmp r0, r1\n\
-        bge _080A2E66\n\
-        adds r1, r3, #0\n\
-        movs r2, #0\n\
-        adds r0, r1, #0\n\
-        adds r0, #0x1f\n\
-    _080A2E76:\n\
-        strb r2, [r0]\n\
-        subs r0, #1\n\
-        cmp r0, r1\n\
-        bge _080A2E76\n\
-        adds r1, r4, #0\n\
-        movs r2, #0\n\
-        adds r0, r1, #0\n\
-        adds r0, #0x1f\n\
-    _080A2E86:\n\
-        strb r2, [r0]\n\
-        subs r0, #1\n\
-        cmp r0, r1\n\
-        bge _080A2E86\n\
-        mov r0, sp\n\
-        bl SaveSecureHeader\n\
-        add sp, #0x64\n\
-        pop {r4, r5}\n\
-        pop {r0}\n\
-        bx r0\n\
-        .align 2, 0\n\
-    _080A2E9C: .4byte gSaveHeaderKeygen\n\
-    _080A2EA0: .4byte 0x00040624\n\
-    _080A2EA4: .4byte 0x0000200A\n\
-        .syntax divided\n\
-    ");
-}
-
-#endif /* NONMATCHING */
 
 void sub_80A2EA8()
 {
@@ -673,10 +573,10 @@ int sub_80A3468(const int val0, const int val1) {
 int sub_80A34CC()
 {
     int ret = 0;
-    struct bmsave_unkstruct_089ED10C *buf = sub_80847F8();
+    struct SupportTalkEnt *buf = sub_80847F8();
 
-    for (; 0xFFFF != buf->unk00; buf++)
-        ret += sub_80A3468(buf->unk00, buf->unk02);
+    for (; 0xFFFF != buf->unitA; buf++)
+        ret += sub_80A3468(buf->unitA, buf->unitB);
 
     return ret;
 }
@@ -726,7 +626,7 @@ int sub_80A3584(int param0, int param1, struct SecureSaveHeader *buf)
     int ret = 0;
     int tmp0, tmp1, tmp2, tmp3;
     unsigned char *unk20;
-    struct bmsave_unkstruct_089ED10C *cur = sub_80847F8();
+    struct SupportTalkEnt *cur = sub_80847F8();
 
     if (buf == NULL) {
         buf = &tmp_header;
@@ -734,13 +634,13 @@ int sub_80A3584(int param0, int param1, struct SecureSaveHeader *buf)
     }
 
     while (1) {
-        if (cur->unk00 == 0xFFFF)
+        if (cur->unitA == 0xFFFF)
             break;
         
-        if (cur->unk00 == param0 && cur->unk02 == param1)
+        if (cur->unitA == param0 && cur->unitB == param1)
             break;
     
-        if (cur->unk00 == param1 && cur->unk02 == param0)
+        if (cur->unitA == param1 && cur->unitB == param0)
             break;
 
         i++;
@@ -753,3 +653,106 @@ int sub_80A3584(int param0, int param1, struct SecureSaveHeader *buf)
     return ret;
 }
 
+void sub_80A35EC(int unitId, u8* data, struct SecureSaveHeader* buf) {
+    struct SecureSaveHeader tempHeader;
+    struct SupportTalkEnt* ptr;
+    int i;
+    int j;
+
+    if (gCharacterData[unitId-1].pSupportData == 0) {
+
+        for (i = 0; i < UNIT_SUPPORT_MAX_COUNT; data++, i++) {
+            *data = 0;
+        }
+
+        return;
+    }
+
+    j = 0;
+    ptr = sub_80847F8();
+
+    if (buf == 0) {
+        buf = &tempHeader;
+        LoadAndVerifySecureHeaderSW(buf);
+    }
+
+    for (; ; j++, ptr++) {
+        int tmp1, tmp2;
+
+        if (ptr->unitA == 0xFFFF) {
+            break;
+        }
+
+        if ((ptr->unitA != unitId) && (ptr->unitB != unitId)) {
+            continue;
+        }
+
+        tmp1 = j >> 2;
+        tmp2 = (j & 3) << 1;
+
+        for (i = 0; i < gCharacterData[unitId-1].pSupportData->supportCount; i++) {
+
+            if ((ptr->unitA != gCharacterData[unitId-1].pSupportData->characters[i]) &&
+                (ptr->unitB != gCharacterData[unitId-1].pSupportData->characters[i])) {
+                continue;
+            }
+
+            data[i] = (buf->unk20[tmp1] >> (tmp2)) & 3;
+
+            break;
+        }
+    }
+
+    for (i = gCharacterData[unitId-1].pSupportData->supportCount; i < UNIT_SUPPORT_MAX_COUNT; i++) {
+        data[i] = 0;
+    }
+
+    return;
+}
+
+s8 sub_80A3724(int unitA, int unitB, int supportRank) {
+    int convo;
+    int var0;
+    int var1;
+    struct SecureSaveHeader tempHeader;
+    struct SupportTalkEnt* ptr;
+
+    supportRank = supportRank & 3;
+
+    if (!LoadAndVerifySecureHeaderSW(&tempHeader)) {
+        return 0;
+    }
+
+    convo = 0;
+
+    for (ptr = sub_80847F8(); ; ptr++) {
+
+        if (ptr->unitA == 0xFFFF) {
+            break;
+        }
+
+        if ((ptr->unitA == unitA) && (ptr->unitB == unitB)) {
+            break;
+        }
+
+        if ((ptr->unitA == unitB) && (ptr->unitB == unitA)) {
+            break;
+        }
+
+        convo++;
+    }
+
+    var0 = convo >> 2;
+    var1 = (convo & 3) << 1;
+
+    if (((tempHeader.unk20[var0] >> var1) & 3) >= (supportRank)) {
+        return 0;
+    }
+
+    tempHeader.unk20[var0] &= ~(3 << var1);
+    tempHeader.unk20[var0] += (supportRank << var1);
+
+    SaveSecureHeader(&tempHeader);
+
+    return 1;
+}

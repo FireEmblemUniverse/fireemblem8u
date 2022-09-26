@@ -3145,7 +3145,7 @@ extern const u8 gUnknown_089ADD4C[];
 // extern ??? gUnknown_089E857C
 // extern ??? gUnknown_089EC6BC
 // extern ??? gUnknown_089ECD4C
-// extern ??? gUnknown_089ED10C
+extern struct SupportTalkEnt CONST_DATA gSupportTalkList[];
 // extern ??? gUnknown_089ED64C
 // extern ??? gUnknown_089ED674
 // extern ??? gUnknown_089ED67C

@@ -62,12 +62,6 @@ struct bmsave_unkstruct0 {
     u8 unk[0x14];
 };
 
-struct bmsave_unkstruct_089ED10C {
-    u16 unk00;
-    u16 unk02;
-    u8 _pad_04[0X10 - 0x04];
-};
-
 s8 IsSramWorking();
 
 #endif /* BMSAVE_H */
