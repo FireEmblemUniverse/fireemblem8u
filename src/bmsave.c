@@ -34,7 +34,6 @@ extern CONST_DATA u8 gSaveHeaderKeygen[];
 extern CONST_DATA unsigned char gUnknown_08205CA4[]; /* related to convoy */
 extern CONST_DATA unsigned char gUnknown_08205CAC[];
 extern CONST_DATA int gUnknown_08A1FAF8[][2];
-extern CONST_DATA u16 gUnknown_089ED10C[][0x8];
 
 void SramInit()
 {
@@ -574,10 +573,10 @@ int sub_80A3468(const int val0, const int val1) {
 int sub_80A34CC()
 {
     int ret = 0;
-    struct bmsave_unkstruct_089ED10C *buf = sub_80847F8();
+    struct SupportTalkEnt *buf = sub_80847F8();
 
-    for (; 0xFFFF != buf->unk00; buf++)
-        ret += sub_80A3468(buf->unk00, buf->unk02);
+    for (; 0xFFFF != buf->unitA; buf++)
+        ret += sub_80A3468(buf->unitA, buf->unitB);
 
     return ret;
 }
@@ -627,7 +626,7 @@ int sub_80A3584(int param0, int param1, struct SecureSaveHeader *buf)
     int ret = 0;
     int tmp0, tmp1, tmp2, tmp3;
     unsigned char *unk20;
-    struct bmsave_unkstruct_089ED10C *cur = sub_80847F8();
+    struct SupportTalkEnt *cur = sub_80847F8();
 
     if (buf == NULL) {
         buf = &tmp_header;
@@ -635,13 +634,13 @@ int sub_80A3584(int param0, int param1, struct SecureSaveHeader *buf)
     }
 
     while (1) {
-        if (cur->unk00 == 0xFFFF)
+        if (cur->unitA == 0xFFFF)
             break;
         
-        if (cur->unk00 == param0 && cur->unk02 == param1)
+        if (cur->unitA == param0 && cur->unitB == param1)
             break;
     
-        if (cur->unk00 == param1 && cur->unk02 == param0)
+        if (cur->unitA == param1 && cur->unitB == param0)
             break;
 
         i++;
@@ -656,7 +655,7 @@ int sub_80A3584(int param0, int param1, struct SecureSaveHeader *buf)
 
 void sub_80A35EC(int unitId, u8* data, struct SecureSaveHeader* buf) {
     struct SecureSaveHeader tempHeader;
-    struct bmsave_unkstruct_089ED10C* ptr;
+    struct SupportTalkEnt* ptr;
     int i;
     int j;
 
@@ -680,11 +679,11 @@ void sub_80A35EC(int unitId, u8* data, struct SecureSaveHeader* buf) {
     for (; ; j++, ptr++) {
         int tmp1, tmp2;
 
-        if (ptr->unk00 == 0xFFFF) {
+        if (ptr->unitA == 0xFFFF) {
             break;
         }
 
-        if ((ptr->unk00 != unitId) && (ptr->unk02 != unitId)) {
+        if ((ptr->unitA != unitId) && (ptr->unitB != unitId)) {
             continue;
         }
 
@@ -693,8 +692,8 @@ void sub_80A35EC(int unitId, u8* data, struct SecureSaveHeader* buf) {
 
         for (i = 0; i < gCharacterData[unitId-1].pSupportData->supportCount; i++) {
 
-            if ((ptr->unk00 != gCharacterData[unitId-1].pSupportData->characters[i]) &&
-                (ptr->unk02 != gCharacterData[unitId-1].pSupportData->characters[i])) {
+            if ((ptr->unitA != gCharacterData[unitId-1].pSupportData->characters[i]) &&
+                (ptr->unitB != gCharacterData[unitId-1].pSupportData->characters[i])) {
                 continue;
             }
 
@@ -716,7 +715,7 @@ s8 sub_80A3724(int unitA, int unitB, int supportRank) {
     int var0;
     int var1;
     struct SecureSaveHeader tempHeader;
-    struct bmsave_unkstruct_089ED10C* ptr;
+    struct SupportTalkEnt* ptr;
 
     supportRank = supportRank & 3;
 
@@ -728,15 +727,15 @@ s8 sub_80A3724(int unitA, int unitB, int supportRank) {
 
     for (ptr = sub_80847F8(); ; ptr++) {
 
-        if (ptr->unk00 == 0xFFFF) {
+        if (ptr->unitA == 0xFFFF) {
             break;
         }
 
-        if ((ptr->unk00 == unitA) && (ptr->unk02 == unitB)) {
+        if ((ptr->unitA == unitA) && (ptr->unitB == unitB)) {
             break;
         }
 
-        if ((ptr->unk00 == unitB) && (ptr->unk02 == unitA)) {
+        if ((ptr->unitA == unitB) && (ptr->unitB == unitA)) {
             break;
         }
 
