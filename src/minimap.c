@@ -1157,14 +1157,14 @@ void sub_80A851C(struct MinimapProc* proc) {
         0x0028,
     };
 
-    xBase = gUnknown_0202BCB0.camera.x;
+    xBase = gGameState.camera.x;
     if (xBase < 0) {
         xBase = xBase + 3;
     }
     xBase = (xBase >> 2);
     xNew = proc->unk_3c + xBase;
 
-    yBase = gUnknown_0202BCB0.camera.y;
+    yBase = gGameState.camera.y;
     if (yBase < 0) {
         yBase = yBase + 3;
     }
@@ -1188,7 +1188,7 @@ void sub_80A8568(struct MinimapProc* proc) {
 
         y = ((gBmMapSize.y * 4) - 144);
 
-        tmp = ((gUnknown_0202BCB0.camera.y << 16) / gUnknown_0202BCB0.unk28.y) * y;
+        tmp = ((gGameState.camera.y << 16) / gGameState.unk28.y) * y;
 
         tmp = tmp < 0 ? tmp + 0x0000FFFF : tmp;
 
@@ -1211,8 +1211,8 @@ void Minimap_HandleDPadInput(struct MinimapProc* proc) {
     int x;
     int y;
 
-    x = gUnknown_0202BCB0.camera.x;
-    y = gUnknown_0202BCB0.camera.y;
+    x = gGameState.camera.x;
+    y = gGameState.camera.y;
 
     if (((x & 0xF) == 0) && ((y & 0xF) == 0)) {
         proc->unk_2c = 0;
@@ -1246,20 +1246,20 @@ void Minimap_HandleDPadInput(struct MinimapProc* proc) {
         x = 0;
     }
 
-    if (x > gUnknown_0202BCB0.unk28.x) {
-        x = gUnknown_0202BCB0.unk28.x;
+    if (x > gGameState.unk28.x) {
+        x = gGameState.unk28.x;
     }
 
     if (y < 0) {
         y = 0;
     }
 
-    if (y > gUnknown_0202BCB0.unk28.y) {
-        y = gUnknown_0202BCB0.unk28.y;
+    if (y > gGameState.unk28.y) {
+        y = gGameState.unk28.y;
     }
 
-    gUnknown_0202BCB0.camera.x = x;
-    gUnknown_0202BCB0.camera.y = y;
+    gGameState.camera.x = x;
+    gGameState.camera.y = y;
 
     return;
 }
@@ -1279,7 +1279,7 @@ void Minimap_AdjustCursorOnClose(struct MinimapProc* proc) {
     int y;
 
     if (proc->unk_4a != 0) {
-        x = gUnknown_0202BCB0.camera.x;
+        x = gGameState.camera.x;
 
         if (x < 0) {
             x += 15;
@@ -1288,7 +1288,7 @@ void Minimap_AdjustCursorOnClose(struct MinimapProc* proc) {
         x = (x >> 4);
         x += 7;
 
-        y = gUnknown_0202BCB0.camera.y;
+        y = gGameState.camera.y;
 
         if (y < 0) {
             y += 15;
@@ -1323,7 +1323,7 @@ void Minimap_Idle_InputHandler(ProcPtr proc) {
         SetSpecialColorEffectsParameters(3, 16, 0, 4);
     }
 
-    if (((gUnknown_0202BCB0.camera.x & 0xF) == 0) && ((gUnknown_0202BCB0.camera.y & 0xF) == 0) && (gKeyStatusPtr->newKeys & (B_BUTTON | START_BUTTON))) {
+    if (((gGameState.camera.x & 0xF) == 0) && ((gGameState.camera.y & 0xF) == 0) && (gKeyStatusPtr->newKeys & (B_BUTTON | START_BUTTON))) {
         Proc_Break(proc);
     }
 

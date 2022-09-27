@@ -3731,7 +3731,7 @@ _0800F198:
 	bl RestartBattleMap
 	lsls r0, r6, #4
 	bl sub_8015A40
-	ldr r4, _0800F200  @ gUnknown_0202BCB0
+	ldr r4, _0800F200  @ gGameState
 	strh r0, [r4, #0xc]
 	lsls r0, r7, #4
 	bl sub_8015A6C
@@ -3761,7 +3761,7 @@ _0800F198:
 	.align 2, 0
 _0800F1F8: .4byte gUnknown_030004E4
 _0800F1FC: .4byte gRAMChapterData
-_0800F200: .4byte gUnknown_0202BCB0
+_0800F200: .4byte gGameState
 _0800F204: .4byte gBG0TilemapBuffer
 _0800F208: .4byte gBG1TilemapBuffer
 
@@ -6842,7 +6842,7 @@ Event3C_: @ 0x08010850
 	b _080108A2
 _08010864:
 	ldr r2, _08010874  @ gUnknown_030004E8
-	ldr r1, _08010878  @ gUnknown_0202BCB0
+	ldr r1, _08010878  @ gGameState
 	ldrh r0, [r1, #0x14]
 	strh r0, [r2]
 	ldrh r0, [r1, #0x16]
@@ -6850,7 +6850,7 @@ _08010864:
 	b _080108A2
 	.align 2, 0
 _08010874: .4byte gUnknown_030004E8
-_08010878: .4byte gUnknown_0202BCB0
+_08010878: .4byte gGameState
 _0801087C:
 	ldrh r0, [r2, #2]
 	lsrs r1, r0, #8

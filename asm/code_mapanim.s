@@ -225,7 +225,7 @@ _0807AAF6:
 	lsls r0, r0, #0x18
 	asrs r0, r0, #0x18
 	lsls r0, r0, #4
-	ldr r1, _0807AB30  @ gUnknown_0202BCB0
+	ldr r1, _0807AB30  @ gGameState
 	movs r2, #0xe
 	ldrsh r1, [r1, r2]
 	subs r0, r0, r1
@@ -235,12 +235,12 @@ _0807AAF6:
 	b _0807AB9E
 	.align 2, 0
 _0807AB2C: .4byte gCurrentMapAnimState
-_0807AB30: .4byte gUnknown_0202BCB0
+_0807AB30: .4byte gGameState
 _0807AB34:
 	ldrb r1, [r1]
 	cmp r1, #0
 	beq _0807AB5A
-	ldr r0, _0807AB6C  @ gUnknown_0202BCB0
+	ldr r0, _0807AB6C  @ gGameState
 	movs r2, #0xe
 	ldrsh r4, [r0, r2]
 	adds r2, r5, #0
@@ -268,7 +268,7 @@ _0807AB5A:
 	bgt _0807AB76
 	b _0807AB7A
 	.align 2, 0
-_0807AB6C: .4byte gUnknown_0202BCB0
+_0807AB6C: .4byte gGameState
 _0807AB70:
 	subs r0, r2, r3
 	cmp r0, #0x4f
@@ -4485,7 +4485,7 @@ MapAnim_BeginMISSAnim: @ 0x0807CB24
 	ldr r0, _0807CB78  @ gUnknown_089AC194
 	movs r1, #0x10
 	ldrsb r1, [r4, r1]
-	ldr r3, _0807CB7C  @ gUnknown_0202BCB0
+	ldr r3, _0807CB7C  @ gGameState
 	ldrh r2, [r3, #0xc]
 	lsls r2, r2, #0x10
 	asrs r2, r2, #0x14
@@ -4515,7 +4515,7 @@ MapAnim_BeginMISSAnim: @ 0x0807CB24
 _0807CB70: .4byte gUnknown_089AC0A4
 _0807CB74: .4byte 0x06013000
 _0807CB78: .4byte gUnknown_089AC194
-_0807CB7C: .4byte gUnknown_0202BCB0
+_0807CB7C: .4byte gGameState
 
 	THUMB_FUNC_END MapAnim_BeginMISSAnim
 
@@ -4530,7 +4530,7 @@ MapAnim_BeginNODAMAGEAnim: @ 0x0807CB80
 	ldr r0, _0807CBD4  @ gUnknown_089AC440
 	movs r1, #0x10
 	ldrsb r1, [r4, r1]
-	ldr r3, _0807CBD8  @ gUnknown_0202BCB0
+	ldr r3, _0807CBD8  @ gGameState
 	ldrh r2, [r3, #0xc]
 	lsls r2, r2, #0x10
 	asrs r2, r2, #0x14
@@ -4560,7 +4560,7 @@ MapAnim_BeginNODAMAGEAnim: @ 0x0807CB80
 _0807CBCC: .4byte gUnknown_089AC2FC
 _0807CBD0: .4byte 0x06013000
 _0807CBD4: .4byte gUnknown_089AC440
-_0807CBD8: .4byte gUnknown_0202BCB0
+_0807CBD8: .4byte gGameState
 
 	THUMB_FUNC_END MapAnim_BeginNODAMAGEAnim
 
@@ -4575,7 +4575,7 @@ MapAnim_BeginWallBreakAnim: @ 0x0807CBDC
 	str r4, [r0, #0x2c]
 	movs r2, #0x10
 	ldrsb r2, [r4, r2]
-	ldr r3, _0807CC24  @ gUnknown_0202BCB0
+	ldr r3, _0807CC24  @ gGameState
 	ldrh r1, [r3, #0xc]
 	lsls r1, r1, #0x10
 	asrs r1, r1, #0x14
@@ -4601,7 +4601,7 @@ MapAnim_BeginWallBreakAnim: @ 0x0807CBDC
 	bx r0
 	.align 2, 0
 _0807CC20: .4byte gUnknown_089A3924
-_0807CC24: .4byte gUnknown_0202BCB0
+_0807CC24: .4byte gGameState
 
 	THUMB_FUNC_END MapAnim_BeginWallBreakAnim
 
@@ -4653,7 +4653,7 @@ NewMapPoisonEffect: @ 0x0807CC78
 	str r4, [r0, #0x2c]
 	movs r2, #0x10
 	ldrsb r2, [r4, r2]
-	ldr r3, _0807CCBC  @ gUnknown_0202BCB0
+	ldr r3, _0807CCBC  @ gGameState
 	ldrh r1, [r3, #0xc]
 	lsls r1, r1, #0x10
 	asrs r1, r1, #0x14
@@ -4677,7 +4677,7 @@ NewMapPoisonEffect: @ 0x0807CC78
 	bx r0
 	.align 2, 0
 _0807CCB8: .4byte gUnknown_089A3944
-_0807CCBC: .4byte gUnknown_0202BCB0
+_0807CCBC: .4byte gGameState
 
 	THUMB_FUNC_END NewMapPoisonEffect
 
@@ -4731,7 +4731,7 @@ sub_807CD18: @ 0x0807CD18
 	str r4, [r0, #0x2c]
 	movs r2, #0x10
 	ldrsb r2, [r4, r2]
-	ldr r3, _0807CD5C  @ gUnknown_0202BCB0
+	ldr r3, _0807CD5C  @ gGameState
 	ldrh r1, [r3, #0xc]
 	lsls r1, r1, #0x10
 	asrs r1, r1, #0x14
@@ -4755,7 +4755,7 @@ sub_807CD18: @ 0x0807CD18
 	bx r0
 	.align 2, 0
 _0807CD58: .4byte gUnknown_089A3964
-_0807CD5C: .4byte gUnknown_0202BCB0
+_0807CD5C: .4byte gGameState
 
 	THUMB_FUNC_END sub_807CD18
 
@@ -4821,7 +4821,7 @@ sub_807CDD0: @ 0x0807CDD0
 	str r4, [r0, #0x2c]
 	movs r2, #0x10
 	ldrsb r2, [r4, r2]
-	ldr r3, _0807CE14  @ gUnknown_0202BCB0
+	ldr r3, _0807CE14  @ gGameState
 	ldrh r1, [r3, #0xc]
 	lsls r1, r1, #0x10
 	asrs r1, r1, #0x14
@@ -4845,7 +4845,7 @@ sub_807CDD0: @ 0x0807CDD0
 	bx r0
 	.align 2, 0
 _0807CE10: .4byte gUnknown_089A398C
-_0807CE14: .4byte gUnknown_0202BCB0
+_0807CE14: .4byte gGameState
 
 	THUMB_FUNC_END sub_807CDD0
 
@@ -5194,7 +5194,7 @@ sub_807D0B4: @ 0x0807D0B4
 	str r4, [r0, #0x2c]
 	movs r2, #0x10
 	ldrsb r2, [r4, r2]
-	ldr r3, _0807D0F8  @ gUnknown_0202BCB0
+	ldr r3, _0807D0F8  @ gGameState
 	ldrh r1, [r3, #0xc]
 	lsls r1, r1, #0x10
 	asrs r1, r1, #0x14
@@ -5218,7 +5218,7 @@ sub_807D0B4: @ 0x0807D0B4
 	bx r0
 	.align 2, 0
 _0807D0F4: .4byte gUnknown_089A39E0
-_0807D0F8: .4byte gUnknown_0202BCB0
+_0807D0F8: .4byte gGameState
 
 	THUMB_FUNC_END sub_807D0B4
 
@@ -5732,7 +5732,7 @@ sub_807D4D4: @ 0x0807D4D4
 	str r4, [r0, #0x2c]
 	movs r2, #0x10
 	ldrsb r2, [r4, r2]
-	ldr r3, _0807D518  @ gUnknown_0202BCB0
+	ldr r3, _0807D518  @ gGameState
 	ldrh r1, [r3, #0xc]
 	lsls r1, r1, #0x10
 	asrs r1, r1, #0x14
@@ -5756,7 +5756,7 @@ sub_807D4D4: @ 0x0807D4D4
 	bx r0
 	.align 2, 0
 _0807D514: .4byte gUnknown_089A3A80
-_0807D518: .4byte gUnknown_0202BCB0
+_0807D518: .4byte gGameState
 
 	THUMB_FUNC_END sub_807D4D4
 
@@ -5951,7 +5951,7 @@ sub_807D688: @ 0x0807D688
 	str r4, [r0, #0x2c]
 	movs r2, #0x10
 	ldrsb r2, [r4, r2]
-	ldr r3, _0807D6D4  @ gUnknown_0202BCB0
+	ldr r3, _0807D6D4  @ gGameState
 	ldrh r1, [r3, #0xc]
 	lsls r1, r1, #0x10
 	asrs r1, r1, #0x14
@@ -5977,7 +5977,7 @@ sub_807D688: @ 0x0807D688
 	bx r0
 	.align 2, 0
 _0807D6D0: .4byte gUnknown_089A3B3C
-_0807D6D4: .4byte gUnknown_0202BCB0
+_0807D6D4: .4byte gGameState
 
 	THUMB_FUNC_END sub_807D688
 
@@ -6116,7 +6116,7 @@ sub_807D7D8: @ 0x0807D7D8
 	bl Proc_Start
 	movs r2, #0x10
 	ldrsb r2, [r4, r2]
-	ldr r3, _0807D814  @ gUnknown_0202BCB0
+	ldr r3, _0807D814  @ gGameState
 	ldrh r1, [r3, #0xc]
 	lsls r1, r1, #0x10
 	asrs r1, r1, #0x14
@@ -6138,7 +6138,7 @@ sub_807D7D8: @ 0x0807D7D8
 	bx r0
 	.align 2, 0
 _0807D810: .4byte gUnknown_089A3B84
-_0807D814: .4byte gUnknown_0202BCB0
+_0807D814: .4byte gGameState
 
 	THUMB_FUNC_END sub_807D7D8
 
@@ -6229,7 +6229,7 @@ sub_807D860: @ 0x0807D860
 	ldr r3, [r6, #0x2c]
 	movs r1, #0x10
 	ldrsb r1, [r3, r1]
-	ldr r5, _0807D93C  @ gUnknown_0202BCB0
+	ldr r5, _0807D93C  @ gGameState
 	ldrh r2, [r5, #0xc]
 	lsls r2, r2, #0x10
 	asrs r2, r2, #0x14
@@ -6287,7 +6287,7 @@ sub_807D860: @ 0x0807D860
 _0807D930: .4byte gLCDControlBuffer
 _0807D934: .4byte 0x06002C00
 _0807D938: .4byte gBG2TilemapBuffer
-_0807D93C: .4byte gUnknown_0202BCB0
+_0807D93C: .4byte gGameState
 _0807D940: .4byte 0x00004160
 
 	THUMB_FUNC_END sub_807D860
@@ -6479,7 +6479,7 @@ New6C_SomethingFlashy: @ 0x0807DAA8
 	str r4, [r0, #0x2c]
 	movs r2, #0x10
 	ldrsb r2, [r4, r2]
-	ldr r3, _0807DAE4  @ gUnknown_0202BCB0
+	ldr r3, _0807DAE4  @ gGameState
 	ldrh r1, [r3, #0xc]
 	lsls r1, r1, #0x10
 	asrs r1, r1, #0x14
@@ -6499,7 +6499,7 @@ New6C_SomethingFlashy: @ 0x0807DAA8
 	bx r0
 	.align 2, 0
 _0807DAE0: .4byte gUnknown_089A3BDC
-_0807DAE4: .4byte gUnknown_0202BCB0
+_0807DAE4: .4byte gGameState
 
 	THUMB_FUNC_END New6C_SomethingFlashy
 
@@ -6606,7 +6606,7 @@ sub_807DBA8: @ 0x0807DBA8
 	ldr r4, _0807DBDC  @ gActionData
 	ldrb r1, [r4, #0x13]
 	lsls r1, r1, #4
-	ldr r3, _0807DBE0  @ gUnknown_0202BCB0
+	ldr r3, _0807DBE0  @ gGameState
 	movs r5, #0xc
 	ldrsh r2, [r3, r5]
 	subs r1, r1, r2
@@ -6623,7 +6623,7 @@ sub_807DBA8: @ 0x0807DBA8
 	.align 2, 0
 _0807DBD8: .4byte gUnknown_089A3C24
 _0807DBDC: .4byte gActionData
-_0807DBE0: .4byte gUnknown_0202BCB0
+_0807DBE0: .4byte gGameState
 
 	THUMB_FUNC_END sub_807DBA8
 
@@ -6833,7 +6833,7 @@ sub_807DD80: @ 0x0807DD80
 	str r4, [r0, #0x2c]
 	movs r2, #0x10
 	ldrsb r2, [r4, r2]
-	ldr r3, _0807DDC4  @ gUnknown_0202BCB0
+	ldr r3, _0807DDC4  @ gGameState
 	ldrh r1, [r3, #0xc]
 	lsls r1, r1, #0x10
 	asrs r1, r1, #0x14
@@ -6857,7 +6857,7 @@ sub_807DD80: @ 0x0807DD80
 	bx r0
 	.align 2, 0
 _0807DDC0: .4byte gUnknown_089A3C6C
-_0807DDC4: .4byte gUnknown_0202BCB0
+_0807DDC4: .4byte gGameState
 
 	THUMB_FUNC_END sub_807DD80
 
@@ -6916,7 +6916,7 @@ sub_807DE30: @ 0x0807DE30
 	bl Proc_Start
 	movs r2, #0x10
 	ldrsb r2, [r4, r2]
-	ldr r3, _0807DE6C  @ gUnknown_0202BCB0
+	ldr r3, _0807DE6C  @ gGameState
 	ldrh r1, [r3, #0xc]
 	lsls r1, r1, #0x10
 	asrs r1, r1, #0x14
@@ -6938,7 +6938,7 @@ sub_807DE30: @ 0x0807DE30
 	bx r0
 	.align 2, 0
 _0807DE68: .4byte gUnknown_089A3C94
-_0807DE6C: .4byte gUnknown_0202BCB0
+_0807DE6C: .4byte gGameState
 
 	THUMB_FUNC_END sub_807DE30
 
@@ -7150,7 +7150,7 @@ sub_807DFF4: @ 0x0807DFF4
 	bl Proc_Start
 	movs r2, #0x10
 	ldrsb r2, [r4, r2]
-	ldr r3, _0807E034  @ gUnknown_0202BCB0
+	ldr r3, _0807E034  @ gGameState
 	ldrh r1, [r3, #0xc]
 	lsls r1, r1, #0x10
 	asrs r1, r1, #0x14
@@ -7174,7 +7174,7 @@ sub_807DFF4: @ 0x0807DFF4
 	bx r0
 	.align 2, 0
 _0807E030: .4byte gUnknown_089A3CD4
-_0807E034: .4byte gUnknown_0202BCB0
+_0807E034: .4byte gGameState
 
 	THUMB_FUNC_END sub_807DFF4
 
@@ -7269,7 +7269,7 @@ sub_807E0D4: @ 0x0807E0D4
 	bl Proc_Start
 	movs r2, #0x10
 	ldrsb r2, [r4, r2]
-	ldr r3, _0807E114  @ gUnknown_0202BCB0
+	ldr r3, _0807E114  @ gGameState
 	ldrh r1, [r3, #0xc]
 	lsls r1, r1, #0x10
 	asrs r1, r1, #0x14
@@ -7293,7 +7293,7 @@ sub_807E0D4: @ 0x0807E0D4
 	bx r0
 	.align 2, 0
 _0807E110: .4byte gUnknown_089A3D14
-_0807E114: .4byte gUnknown_0202BCB0
+_0807E114: .4byte gGameState
 
 	THUMB_FUNC_END sub_807E0D4
 
@@ -7406,7 +7406,7 @@ sub_807E1E4: @ 0x0807E1E4
 	str r4, [r0, #0x2c]
 	movs r2, #0x10
 	ldrsb r2, [r4, r2]
-	ldr r3, _0807E228  @ gUnknown_0202BCB0
+	ldr r3, _0807E228  @ gGameState
 	ldrh r1, [r3, #0xc]
 	lsls r1, r1, #0x10
 	asrs r1, r1, #0x14
@@ -7430,7 +7430,7 @@ sub_807E1E4: @ 0x0807E1E4
 	bx r0
 	.align 2, 0
 _0807E224: .4byte gUnknown_089A3D54
-_0807E228: .4byte gUnknown_0202BCB0
+_0807E228: .4byte gGameState
 
 	THUMB_FUNC_END sub_807E1E4
 
@@ -7587,7 +7587,7 @@ sub_807E34C: @ 0x0807E34C
 	bl Proc_Start
 	movs r2, #0x10
 	ldrsb r2, [r4, r2]
-	ldr r3, _0807E38C  @ gUnknown_0202BCB0
+	ldr r3, _0807E38C  @ gGameState
 	ldrh r1, [r3, #0xc]
 	lsls r1, r1, #0x10
 	asrs r1, r1, #0x14
@@ -7610,7 +7610,7 @@ sub_807E34C: @ 0x0807E34C
 	bx r0
 	.align 2, 0
 _0807E388: .4byte gUnknown_089A3DB4
-_0807E38C: .4byte gUnknown_0202BCB0
+_0807E38C: .4byte gGameState
 
 	THUMB_FUNC_END sub_807E34C
 
@@ -7746,7 +7746,7 @@ sub_807E48C: @ 0x0807E48C
 	bl Proc_Start
 	movs r2, #0x10
 	ldrsb r2, [r4, r2]
-	ldr r3, _0807E4CC  @ gUnknown_0202BCB0
+	ldr r3, _0807E4CC  @ gGameState
 	ldrh r1, [r3, #0xc]
 	lsls r1, r1, #0x10
 	asrs r1, r1, #0x14
@@ -7770,7 +7770,7 @@ sub_807E48C: @ 0x0807E48C
 	bx r0
 	.align 2, 0
 _0807E4C8: .4byte gUnknown_089A3E04
-_0807E4CC: .4byte gUnknown_0202BCB0
+_0807E4CC: .4byte gGameState
 
 	THUMB_FUNC_END sub_807E48C
 
@@ -7953,7 +7953,7 @@ sub_807E638: @ 0x0807E638
 	bl Proc_Start
 	movs r2, #0x10
 	ldrsb r2, [r4, r2]
-	ldr r3, _0807E678  @ gUnknown_0202BCB0
+	ldr r3, _0807E678  @ gGameState
 	ldrh r1, [r3, #0xc]
 	lsls r1, r1, #0x10
 	asrs r1, r1, #0x14
@@ -7977,7 +7977,7 @@ sub_807E638: @ 0x0807E638
 	bx r0
 	.align 2, 0
 _0807E674: .4byte gUnknown_089A3E44
-_0807E678: .4byte gUnknown_0202BCB0
+_0807E678: .4byte gGameState
 
 	THUMB_FUNC_END sub_807E638
 
@@ -8099,7 +8099,7 @@ sub_807E760: @ 0x0807E760
 	ldr r0, _0807E794  @ gUnknown_089A3E6C
 	movs r1, #3
 	bl Proc_Start
-	ldr r2, _0807E798  @ gUnknown_0202BCB0
+	ldr r2, _0807E798  @ gGameState
 	ldrh r1, [r2, #0xc]
 	lsls r1, r1, #0x10
 	asrs r1, r1, #0x14
@@ -8119,7 +8119,7 @@ sub_807E760: @ 0x0807E760
 	bx r0
 	.align 2, 0
 _0807E794: .4byte gUnknown_089A3E6C
-_0807E798: .4byte gUnknown_0202BCB0
+_0807E798: .4byte gGameState
 
 	THUMB_FUNC_END sub_807E760
 
@@ -9831,7 +9831,7 @@ sub_807F48C: @ 0x0807F48C
 	ldr r3, [r0]
 	movs r1, #0x10
 	ldrsb r1, [r3, r1]
-	ldr r2, _0807F530  @ gUnknown_0202BCB0
+	ldr r2, _0807F530  @ gGameState
 	ldrh r0, [r2, #0xc]
 	lsls r0, r0, #0x10
 	asrs r0, r0, #0x14
@@ -9889,7 +9889,7 @@ _0807F520: .4byte gUnknown_089AC794
 _0807F524: .4byte 0x06013800
 _0807F528: .4byte gUnknown_089AC9A8
 _0807F52C: .4byte gCurrentMapAnimState
-_0807F530: .4byte gUnknown_0202BCB0
+_0807F530: .4byte gGameState
 _0807F534: .4byte gUnknown_089A5A6C
 _0807F538: .4byte gRAMChapterData
 
@@ -12297,7 +12297,7 @@ _08080768:
 	strh r6, [r0]
 	adds r0, #2
 	strh r6, [r0]
-	ldr r1, _080807C4  @ gUnknown_0202BCB0
+	ldr r1, _080807C4  @ gGameState
 	movs r2, #0xc
 	ldrsh r0, [r1, r2]
 	str r0, [r4, #0x30]
@@ -12325,7 +12325,7 @@ _080807A6:
 	.align 2, 0
 _080807BC: .4byte gUnknown_082058DE
 _080807C0: .4byte 0x00000141
-_080807C4: .4byte gUnknown_0202BCB0
+_080807C4: .4byte gGameState
 
 	THUMB_FUNC_END sub_8080730
 
@@ -12876,7 +12876,7 @@ sub_8080BA8: @ 0x08080BA8
 	strb r3, [r1]
 	movs r4, #0
 	strh r3, [r0, #0x2a]
-	ldr r2, _08080BD4  @ gUnknown_0202BCB0
+	ldr r2, _08080BD4  @ gGameState
 	ldrh r1, [r2, #0xc]
 	strh r1, [r0, #0x2c]
 	ldrh r1, [r2, #0xe]
@@ -12892,7 +12892,7 @@ sub_8080BA8: @ 0x08080BA8
 	pop {r0}
 	bx r0
 	.align 2, 0
-_08080BD4: .4byte gUnknown_0202BCB0
+_08080BD4: .4byte gGameState
 
 	THUMB_FUNC_END sub_8080BA8
 
@@ -12906,7 +12906,7 @@ sub_8080BD8: @ 0x08080BD8
 	asrs r0, r0, #0x18
 	cmp r0, #0
 	bne _08080C04
-	ldr r0, _08080C00  @ gUnknown_0202BCB0
+	ldr r0, _08080C00  @ gGameState
 	mov r2, ip
 	ldrh r1, [r2, #0x2c]
 	strh r1, [r0, #0xc]
@@ -12918,7 +12918,7 @@ sub_8080BD8: @ 0x08080BD8
 	bl BG_SetPosition
 	b _08080D1C
 	.align 2, 0
-_08080C00: .4byte gUnknown_0202BCB0
+_08080C00: .4byte gGameState
 _08080C04:
 	mov r3, ip
 	ldrh r1, [r3, #0x36]
@@ -13036,7 +13036,7 @@ _08080CB8:
 	strh r0, [r6, #0x32]
 _08080CE2:
 	adds r4, r1, #0
-	ldr r3, _08080D28  @ gUnknown_0202BCB0
+	ldr r3, _08080D28  @ gGameState
 	mov r0, ip
 	ldrh r1, [r0, #0x30]
 	ldrh r2, [r0, #0x2c]
@@ -13069,7 +13069,7 @@ _08080D1C:
 	bx r0
 	.align 2, 0
 _08080D24: .4byte gUnknown_08205918
-_08080D28: .4byte gUnknown_0202BCB0
+_08080D28: .4byte gGameState
 
 	THUMB_FUNC_END sub_8080BD8
 
@@ -13082,7 +13082,7 @@ New6C_SummonGfx: @ 0x08080D2C
 	ldr r0, _08080D64  @ gUnknown_089A46AC
 	adds r1, r3, #0
 	bl Proc_StartBlocking
-	ldr r2, _08080D68  @ gUnknown_0202BCB0
+	ldr r2, _08080D68  @ gGameState
 	ldrh r1, [r2, #0xc]
 	lsls r1, r1, #0x10
 	asrs r1, r1, #0x14
@@ -13104,7 +13104,7 @@ New6C_SummonGfx: @ 0x08080D2C
 	bx r0
 	.align 2, 0
 _08080D64: .4byte gUnknown_089A46AC
-_08080D68: .4byte gUnknown_0202BCB0
+_08080D68: .4byte gGameState
 
 	THUMB_FUNC_END New6C_SummonGfx
 
@@ -13271,7 +13271,7 @@ sub_8080E9C: @ 0x08080E9C
 	str r4, [r0, #0x2c]
 	movs r2, #0x10
 	ldrsb r2, [r4, r2]
-	ldr r3, _08080EE0  @ gUnknown_0202BCB0
+	ldr r3, _08080EE0  @ gGameState
 	ldrh r1, [r3, #0xc]
 	lsls r1, r1, #0x10
 	asrs r1, r1, #0x14
@@ -13295,7 +13295,7 @@ sub_8080E9C: @ 0x08080E9C
 	bx r0
 	.align 2, 0
 _08080EDC: .4byte gUnknown_089A46DC
-_08080EE0: .4byte gUnknown_0202BCB0
+_08080EE0: .4byte gGameState
 
 	THUMB_FUNC_END sub_8080E9C
 
@@ -13468,7 +13468,7 @@ sub_8081020: @ 0x08081020
 	str r4, [r0, #0x2c]
 	movs r2, #0x10
 	ldrsb r2, [r4, r2]
-	ldr r3, _08081064  @ gUnknown_0202BCB0
+	ldr r3, _08081064  @ gGameState
 	ldrh r1, [r3, #0xc]
 	lsls r1, r1, #0x10
 	asrs r1, r1, #0x14
@@ -13492,7 +13492,7 @@ sub_8081020: @ 0x08081020
 	bx r0
 	.align 2, 0
 _08081060: .4byte gUnknown_089A470C
-_08081064: .4byte gUnknown_0202BCB0
+_08081064: .4byte gGameState
 
 	THUMB_FUNC_END sub_8081020
 
@@ -13911,7 +13911,7 @@ sub_8081348: @ 0x08081348
 	lsls r1, r1, #0x18
 	asrs r1, r1, #0x18
 	lsls r1, r1, #4
-	ldr r2, _08081380  @ gUnknown_0202BCB0
+	ldr r2, _08081380  @ gGameState
 	movs r3, #0xc
 	ldrsh r2, [r2, r3]
 	subs r1, r1, r2
@@ -13921,7 +13921,7 @@ sub_8081348: @ 0x08081348
 	.align 2, 0
 _08081378: .4byte 0x000002D5
 _0808137C: .4byte gCurrentMapAnimState
-_08081380: .4byte gUnknown_0202BCB0
+_08081380: .4byte gGameState
 
 	THUMB_FUNC_END sub_8081348
 
@@ -13942,7 +13942,7 @@ sub_8081384: @ 0x08081384
 	lsls r1, r1, #0x18
 	asrs r1, r1, #0x18
 	lsls r1, r1, #4
-	ldr r2, _080813BC  @ gUnknown_0202BCB0
+	ldr r2, _080813BC  @ gGameState
 	movs r3, #0xc
 	ldrsh r2, [r2, r3]
 	subs r1, r1, r2
@@ -13952,7 +13952,7 @@ sub_8081384: @ 0x08081384
 	.align 2, 0
 _080813B4: .4byte 0x000002D6
 _080813B8: .4byte gCurrentMapAnimState
-_080813BC: .4byte gUnknown_0202BCB0
+_080813BC: .4byte gGameState
 
 	THUMB_FUNC_END sub_8081384
 
@@ -14425,7 +14425,7 @@ _080816F8:
 	movs r1, #0x10
 	ldrsb r1, [r0, r1]
 	lsls r1, r1, #4
-	ldr r0, _0808172C  @ gUnknown_0202BCB0
+	ldr r0, _0808172C  @ gGameState
 	movs r2, #0xc
 	ldrsh r0, [r0, r2]
 	subs r1, r1, r0
@@ -14436,7 +14436,7 @@ _080816F8:
 	b _080818C4
 	.align 2, 0
 _08081728: .4byte gCurrentMapAnimState
-_0808172C: .4byte gUnknown_0202BCB0
+_0808172C: .4byte gGameState
 _08081730:
 	cmp r2, #0
 	bne _08081770
@@ -14457,7 +14457,7 @@ _08081740:
 	lsls r1, r1, #0x18
 	asrs r1, r1, #0x18
 	lsls r1, r1, #4
-	ldr r2, _0808176C  @ gUnknown_0202BCB0
+	ldr r2, _0808176C  @ gGameState
 	movs r3, #0xc
 	ldrsh r2, [r2, r3]
 	subs r1, r1, r2
@@ -14467,7 +14467,7 @@ _08081740:
 	b _080818C4
 	.align 2, 0
 _08081768: .4byte 0x000002CE
-_0808176C: .4byte gUnknown_0202BCB0
+_0808176C: .4byte gGameState
 _08081770:
 	movs r3, #0
 	lsls r2, r5, #2
@@ -14556,7 +14556,7 @@ _080817FA:
 	movs r1, #0x10
 	ldrsb r1, [r0, r1]
 	lsls r1, r1, #4
-	ldr r2, _0808187C  @ gUnknown_0202BCB0
+	ldr r2, _0808187C  @ gGameState
 	mov r8, r2
 	movs r3, #0xc
 	ldrsh r0, [r2, r3]
@@ -14599,7 +14599,7 @@ _080817FA:
 	b _080818C4
 	.align 2, 0
 _08081878: .4byte gCurrentMapAnimState
-_0808187C: .4byte gUnknown_0202BCB0
+_0808187C: .4byte gGameState
 _08081880:
 	adds r4, r4, r5
 	lsls r4, r4, #2
@@ -14608,7 +14608,7 @@ _08081880:
 	movs r1, #0x10
 	ldrsb r1, [r0, r1]
 	lsls r1, r1, #4
-	ldr r0, _080818D4  @ gUnknown_0202BCB0
+	ldr r0, _080818D4  @ gGameState
 	movs r2, #0xc
 	ldrsh r0, [r0, r2]
 	subs r1, r1, r0
@@ -14642,7 +14642,7 @@ _080818C4:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_080818D4: .4byte gUnknown_0202BCB0
+_080818D4: .4byte gGameState
 
 	THUMB_FUNC_END MapAnim_BeginRoundSpecificAnims
 
@@ -15314,7 +15314,7 @@ sub_8081D40: @ 0x08081D40
 	movs r0, #0x10
 	ldrsb r0, [r3, r0]
 	lsls r0, r0, #4
-	ldr r2, _08081D80  @ gUnknown_0202BCB0
+	ldr r2, _08081D80  @ gGameState
 	movs r4, #0xc
 	ldrsh r1, [r2, r4]
 	subs r0, r0, r1
@@ -15332,7 +15332,7 @@ sub_8081D40: @ 0x08081D40
 	bx r0
 	.align 2, 0
 _08081D7C: .4byte gCurrentMapAnimState
-_08081D80: .4byte gUnknown_0202BCB0
+_08081D80: .4byte gGameState
 
 	THUMB_FUNC_END sub_8081D40
 
@@ -15360,7 +15360,7 @@ _08081D98:
 	movs r0, #0x10
 	ldrsb r0, [r3, r0]
 	lsls r0, r0, #4
-	ldr r2, _08081DDC  @ gUnknown_0202BCB0
+	ldr r2, _08081DDC  @ gGameState
 	movs r4, #0xc
 	ldrsh r1, [r2, r4]
 	subs r0, r0, r1
@@ -15379,7 +15379,7 @@ _08081D98:
 	.align 2, 0
 _08081DD4: .4byte gRAMChapterData
 _08081DD8: .4byte gCurrentMapAnimState
-_08081DDC: .4byte gUnknown_0202BCB0
+_08081DDC: .4byte gGameState
 
 	THUMB_FUNC_END sub_8081D84
 

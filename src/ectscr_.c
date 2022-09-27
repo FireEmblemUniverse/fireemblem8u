@@ -56,8 +56,8 @@ u16 sub_8010E6C(s16 x, s16 y, s16 counter)
      * For now, (x * 0x10) outputs (x << 0x10) >> 0x0C in trouble.
      */
     u16 tmp_counter0 = counter;
-    s16 tmp_x = - gUnknown_0202BCB0.camera.x + ((x << 0x14)>>0x10);
-    s16 tmp_y = - gUnknown_0202BCB0.camera.y + ((y << 0x14)>>0x10);
+    s16 tmp_x = - gGameState.camera.x + ((x << 0x14)>>0x10);
+    s16 tmp_y = - gGameState.camera.y + ((y << 0x14)>>0x10);
 
     CallARM_PushToSecondaryOAM(
         (tmp_x + 0x200) & 0x1FF,

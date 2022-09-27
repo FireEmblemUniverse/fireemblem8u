@@ -1634,7 +1634,7 @@ _08012448:
 	negs r0, r0
 	ands r1, r0
 	str r1, [r2, #0xc]
-	ldr r0, _08012478  @ gUnknown_0202BCB0
+	ldr r0, _08012478  @ gGameState
 	ldrb r1, [r0, #4]
 	movs r0, #0x40
 	ands r0, r1
@@ -1654,7 +1654,7 @@ _0801246A:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_08012478: .4byte gUnknown_0202BCB0
+_08012478: .4byte gGameState
 
 	THUMB_FUNC_END sub_801240C
 

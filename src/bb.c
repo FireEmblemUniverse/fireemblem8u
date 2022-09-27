@@ -109,7 +109,7 @@ void SubtitleHelpDarkenerOnHBlank() {
         int bldy;
 
         bldy = bldyLut[vcount - 128];
-        bldy = bldy - gUnknown_0202BCB0.altBlendACa;
+        bldy = bldy - gGameState.altBlendACa;
 
         if (bldy < 0) {
             bldy = 0;
@@ -129,7 +129,7 @@ void SubtitleHelpDarkenerOnHBlank() {
 
 void SubtitleHelpDarkener_Init() {
 
-    gUnknown_0202BCB0.altBlendACa = 8;
+    gGameState.altBlendACa = 8;
     SetPrimaryHBlankHandler(SubtitleHelpDarkenerOnHBlank);
 
     return;
@@ -137,8 +137,8 @@ void SubtitleHelpDarkener_Init() {
 
 void SubtitleHelpDarkener_FadeIn() {
 
-    if (gUnknown_0202BCB0.altBlendACa != 0) {
-        gUnknown_0202BCB0.altBlendACa--;
+    if (gGameState.altBlendACa != 0) {
+        gGameState.altBlendACa--;
     }
 
     return;
@@ -146,9 +146,9 @@ void SubtitleHelpDarkener_FadeIn() {
 
 void SubtitleHelpDarkener_FadeOut(struct SubtitleHelpProc* proc) {
 
-    gUnknown_0202BCB0.altBlendACa++;
+    gGameState.altBlendACa++;
 
-    if (gUnknown_0202BCB0.altBlendACa == 8) {
+    if (gGameState.altBlendACa == 8) {
         SetPrimaryHBlankHandler(0);
         Proc_Break(proc);
     }
@@ -178,7 +178,7 @@ void SubtitleHelp_Init(struct SubtitleHelpProc* proc) {
 
 void SubtitleHelp_OnEnd() {
 
-    gUnknown_0202BCB0.unk28.y -= 16;
+    gGameState.unk28.y -= 16;
 
     sub_8015EDC(0);
 
@@ -235,7 +235,7 @@ void StartSubtitleHelp(ProcPtr parent, const char* string) {
 
         sub_801A278();
 
-        gUnknown_0202BCB0.unk28.y += 16;
+        gGameState.unk28.y += 16;
     }
 
     return;

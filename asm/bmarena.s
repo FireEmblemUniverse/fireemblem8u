@@ -1018,7 +1018,7 @@ _08031EEC: .4byte gUnknown_0203A8F0
 	THUMB_FUNC_START sub_8031EF0
 sub_8031EF0: @ 0x08031EF0
 	push {r4, r5, lr}
-	ldr r0, _08031F3C  @ gUnknown_0202BCB0
+	ldr r0, _08031F3C  @ gGameState
 	adds r0, #0x3c
 	ldrb r5, [r0]
 	ldr r1, _08031F40  @ gActionData
@@ -1053,7 +1053,7 @@ _08031F34:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_08031F3C: .4byte gUnknown_0202BCB0
+_08031F3C: .4byte gGameState
 _08031F40: .4byte gActionData
 _08031F44: .4byte gBattleTarget
 _08031F48: .4byte gUnknown_0203A8F0

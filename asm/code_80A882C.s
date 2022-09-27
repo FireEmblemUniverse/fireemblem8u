@@ -461,7 +461,7 @@ _080A8B4E:
 	ands r0, r1
 	cmp r0, #4
 	beq _080A8B7E
-	ldr r0, _080A8C1C  @ gUnknown_0202BCB0
+	ldr r0, _080A8C1C  @ gGameState
 	ldrb r1, [r0, #4]
 	movs r0, #0x10
 	ands r0, r1
@@ -543,7 +543,7 @@ _080A8B7E:
 	bx r0
 	.align 2, 0
 _080A8C18: .4byte gRAMChapterData
-_080A8C1C: .4byte gUnknown_0202BCB0
+_080A8C1C: .4byte gGameState
 _080A8C20: .4byte gUnknown_03005280
 _080A8C24: .4byte gUnknown_08A20050
 _080A8C28: .4byte gLCDControlBuffer
@@ -3743,7 +3743,7 @@ _080AA4F4: .4byte gRAMChapterData
 sub_80AA4F8: @ 0x080AA4F8
 	push {lr}
 	adds r2, r0, #0
-	ldr r0, _080AA514  @ gUnknown_0202BCB0
+	ldr r0, _080AA514  @ gGameState
 	ldrb r1, [r0, #4]
 	movs r0, #0x10
 	ands r0, r1
@@ -3756,7 +3756,7 @@ _080AA510:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_080AA514: .4byte gUnknown_0202BCB0
+_080AA514: .4byte gGameState
 
 	THUMB_FUNC_END sub_80AA4F8
 
@@ -25845,7 +25845,7 @@ _080B4B78: .4byte gRAMChapterData
 sub_80B4B7C: @ 0x080B4B7C
 	push {lr}
 	adds r2, r0, #0
-	ldr r0, _080B4BA4  @ gUnknown_0202BCB0
+	ldr r0, _080B4BA4  @ gGameState
 	ldrb r1, [r0, #4]
 	movs r0, #0x10
 	ands r0, r1
@@ -25864,7 +25864,7 @@ _080B4BA0:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_080B4BA4: .4byte gUnknown_0202BCB0
+_080B4BA4: .4byte gGameState
 _080B4BA8: .4byte gUnknown_03005280
 _080B4BAC: .4byte gUnknown_08A39198
 
@@ -25874,7 +25874,7 @@ _080B4BAC: .4byte gUnknown_08A39198
 sub_80B4BB0: @ 0x080B4BB0
 	push {lr}
 	adds r2, r0, #0
-	ldr r0, _080B4BD8  @ gUnknown_0202BCB0
+	ldr r0, _080B4BD8  @ gGameState
 	ldrb r1, [r0, #4]
 	movs r0, #0x10
 	ands r0, r1
@@ -25891,7 +25891,7 @@ sub_80B4BB0: @ 0x080B4BB0
 	bl Proc_StartBlocking
 	b _080B4BE8
 	.align 2, 0
-_080B4BD8: .4byte gUnknown_0202BCB0
+_080B4BD8: .4byte gGameState
 _080B4BDC: .4byte gUnknown_03005280
 _080B4BE0: .4byte gUnknown_08A391D0
 _080B4BE4:
@@ -26673,7 +26673,7 @@ sub_80B5220: @ 0x080B5220
 	adds r0, r1, #0
 	bl GetItemCost
 	adds r4, r0, #0
-	ldr r0, _080B5254  @ gUnknown_0202BCB0
+	ldr r0, _080B5254  @ gGameState
 	ldrb r1, [r0, #4]
 	movs r0, #0x10
 	ands r0, r1
@@ -26693,7 +26693,7 @@ _080B5240:
 	lsls r0, r4, #0x10
 	b _080B525E
 	.align 2, 0
-_080B5254: .4byte gUnknown_0202BCB0
+_080B5254: .4byte gGameState
 _080B5258:
 	lsrs r0, r4, #0x1f
 	adds r0, r4, r0
@@ -34424,7 +34424,7 @@ SetupGraphicSystemsForWorldMap: @ 0x080B8D5C
 	bl SMS_ClearUsageTable
 	bl MU_Init
 	bl SetupMapSpritesPalettes
-	ldr r1, _080B8E10  @ gUnknown_0202BCB0
+	ldr r1, _080B8E10  @ gGameState
 	movs r0, #0
 	strh r0, [r1, #0xc]
 	strh r0, [r1, #0xe]
@@ -34438,7 +34438,7 @@ _080B8E00: .4byte gBG1TilemapBuffer
 _080B8E04: .4byte gBG2TilemapBuffer
 _080B8E08: .4byte gBG3TilemapBuffer
 _080B8E0C: .4byte gUnknown_08A3D728
-_080B8E10: .4byte gUnknown_0202BCB0
+_080B8E10: .4byte gGameState
 
 	THUMB_FUNC_END SetupGraphicSystemsForWorldMap
 

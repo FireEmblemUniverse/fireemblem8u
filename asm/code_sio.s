@@ -3327,40 +3327,40 @@ _08042E74: .4byte gUnknown_085A92E0
 
 	THUMB_FUNC_START sub_8042E78
 sub_8042E78: @ 0x08042E78
-	ldr r2, _08042E84  @ gUnknown_0202BCB0
+	ldr r2, _08042E84  @ gGameState
 	ldrb r1, [r2, #4]
 	movs r0, #0x40
 	orrs r0, r1
 	strb r0, [r2, #4]
 	bx lr
 	.align 2, 0
-_08042E84: .4byte gUnknown_0202BCB0
+_08042E84: .4byte gGameState
 
 	THUMB_FUNC_END sub_8042E78
 
 	THUMB_FUNC_START sub_8042E88
 sub_8042E88: @ 0x08042E88
-	ldr r2, _08042E94  @ gUnknown_0202BCB0
+	ldr r2, _08042E94  @ gGameState
 	ldrb r1, [r2, #4]
 	movs r0, #0xbf
 	ands r0, r1
 	strb r0, [r2, #4]
 	bx lr
 	.align 2, 0
-_08042E94: .4byte gUnknown_0202BCB0
+_08042E94: .4byte gGameState
 
 	THUMB_FUNC_END sub_8042E88
 
 	THUMB_FUNC_START CheckSomethingSomewhere
 CheckSomethingSomewhere: @ 0x08042E98
-	ldr r0, _08042EA4  @ gUnknown_0202BCB0
+	ldr r0, _08042EA4  @ gGameState
 	ldrb r0, [r0, #4]
 	lsrs r0, r0, #6
 	movs r1, #1
 	ands r0, r1
 	bx lr
 	.align 2, 0
-_08042EA4: .4byte gUnknown_0202BCB0
+_08042EA4: .4byte gGameState
 
 	THUMB_FUNC_END CheckSomethingSomewhere
 
@@ -16523,7 +16523,7 @@ sub_80496A4: @ 0x080496A4
 	mov r1, sp
 	movs r0, #0
 	strh r0, [r1]
-	ldr r4, _08049700  @ gUnknown_0202BCB0
+	ldr r4, _08049700  @ gGameState
 	ldr r2, _08049704  @ 0x01000020
 	mov r0, sp
 	adds r1, r4, #0
@@ -16559,7 +16559,7 @@ sub_80496A4: @ 0x080496A4
 	pop {r0}
 	bx r0
 	.align 2, 0
-_08049700: .4byte gUnknown_0202BCB0
+_08049700: .4byte gGameState
 _08049704: .4byte 0x01000020
 _08049708: .4byte gRAMChapterData
 
@@ -16766,7 +16766,7 @@ _08049860:
 	ldrsb r1, [r0, r1]
 	adds r0, r2, #0
 	bl SetCursorMapPosition
-	ldr r0, _080498E8  @ gUnknown_0202BCB0
+	ldr r0, _080498E8  @ gGameState
 	strh r4, [r0, #0xc]
 	strh r4, [r0, #0xe]
 	bl LoadGameCoreGfx
@@ -16794,7 +16794,7 @@ _080498D8: .4byte gUnknown_0203DA24
 _080498DC: .4byte gUnknown_085AA158
 _080498E0: .4byte gUnknown_03001818
 _080498E4: .4byte gUnknown_0300182C
-_080498E8: .4byte gUnknown_0202BCB0
+_080498E8: .4byte gGameState
 _080498EC: .4byte gProc_MapTask
 _080498F0: .4byte gRAMChapterData
 
@@ -18493,7 +18493,7 @@ sub_804A614: @ 0x0804A614
 	adds r0, r6, #0
 	mov r1, r8
 	bl BattleGenerateReal
-	ldr r2, _0804A69C  @ gUnknown_0202BCB0
+	ldr r2, _0804A69C  @ gGameState
 	ldrb r1, [r2, #4]
 	movs r0, #0x40
 	orrs r0, r1
@@ -18514,7 +18514,7 @@ _0804A68C: .4byte gUnknown_03001818
 _0804A690: .4byte gUnknown_0203DD90
 _0804A694: .4byte gActionData
 _0804A698: .4byte gUnknown_03001834
-_0804A69C: .4byte gUnknown_0202BCB0
+_0804A69C: .4byte gGameState
 _0804A6A0: .4byte gUnknown_085AA75C
 
 	THUMB_FUNC_END sub_804A614

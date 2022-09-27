@@ -54,7 +54,7 @@ int GetConvoyItemCount() {
 int AddItemToConvoy(int itemNameId) {
     int i;
     u16* convoy;
-    gUnknown_0202BCB0.itemUnk2E = 0;
+    gGameState.itemUnk2E = 0;
     convoy = gConvoyItemArray;
     for (i = 0; i <= 0x63; ++i) {
         if (convoy[i] == 0) {
@@ -62,7 +62,7 @@ int AddItemToConvoy(int itemNameId) {
             return i;
         }
     }
-    gUnknown_0202BCB0.itemUnk2E = itemNameId;
+    gGameState.itemUnk2E = itemNameId;
     return -1;
 }
 

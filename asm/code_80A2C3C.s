@@ -1955,7 +1955,7 @@ sub_80A4594: @ 0x080A4594
 	adds r5, r6, r0
 	cmp r5, #0
 	beq _080A4662
-	ldr r1, _080A4674  @ gUnknown_0202BCB0
+	ldr r1, _080A4674  @ gGameState
 	adds r0, r1, #0
 	adds r0, #0x3c
 	ldrb r0, [r0]
@@ -2031,7 +2031,7 @@ _080A4662:
 	bx r0
 	.align 2, 0
 _080A4670: .4byte gUnknown_0203E884
-_080A4674: .4byte gUnknown_0202BCB0
+_080A4674: .4byte gGameState
 _080A4678: .4byte gRAMChapterData
 _080A467C: .4byte 0x000019E4
 _080A4680: .4byte 0x0000083C
@@ -3509,7 +3509,7 @@ LoadGame: @ 0x080A5128
 	mov r9, r0
 	bl CheckSaveAndGetPointer
 	adds r7, r0, #0
-	ldr r0, _080A51F0  @ gUnknown_0202BCB0
+	ldr r0, _080A51F0  @ gGameState
 	ldrb r1, [r0, #4]
 	movs r0, #0x40
 	ands r0, r1
@@ -3588,7 +3588,7 @@ _080A5176:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_080A51F0: .4byte gUnknown_0202BCB0
+_080A51F0: .4byte gGameState
 _080A51F4: .4byte ReadSramFast
 _080A51F8: .4byte gRAMChapterData
 _080A51FC: .4byte gUnitArrayBlue
@@ -4854,7 +4854,7 @@ _080A5AEE:
 	mov r0, sp
 	mov r1, r9
 	bl SaveMetadata_Generate
-	ldr r0, _080A5C10  @ gUnknown_0202BCB0
+	ldr r0, _080A5C10  @ gGameState
 	adds r0, #0x3c
 	strb r4, [r0]
 	bl sub_80A63E0
@@ -4888,7 +4888,7 @@ _080A5C00: .4byte gUnknown_03005280
 _080A5C04: .4byte 0x00001F68
 _080A5C08: .4byte 0x00001F74
 _080A5C0C: .4byte 0x00040624
-_080A5C10: .4byte gUnknown_0202BCB0
+_080A5C10: .4byte gGameState
 
 	THUMB_FUNC_END SaveSuspendedGame
 
@@ -7065,7 +7065,7 @@ sub_80A6C8C: @ 0x080A6C8C
 	ldr r1, [r4]
 	ldr r0, _080A6D00  @ gRAMChapterData
 	str r0, [r1, #0x18]
-	ldr r0, _080A6D04  @ gUnknown_0202BCB0
+	ldr r0, _080A6D04  @ gGameState
 	str r0, [r1, #0x1c]
 	ldr r0, _080A6D08  @ gActiveUnit
 	str r0, [r1, #0x20]
@@ -7095,7 +7095,7 @@ _080A6CF4: .4byte ReadSramFast
 _080A6CF8: .4byte gUnknown_02020188
 _080A6CFC: .4byte gUnknown_08A1FB34
 _080A6D00: .4byte gRAMChapterData
-_080A6D04: .4byte gUnknown_0202BCB0
+_080A6D04: .4byte gGameState
 _080A6D08: .4byte gActiveUnit
 _080A6D0C: .4byte gUnitLookup
 _080A6D10: .4byte gBattleActor

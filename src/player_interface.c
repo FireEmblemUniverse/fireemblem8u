@@ -315,13 +315,13 @@ int GetCursorQuadrant() {
     int x;
     int y;
 
-    cursorX = (gUnknown_0202BCB0.playerCursor.x * 16);
-    camX = (gUnknown_0202BCB0.camera.x - 8);
+    cursorX = (gGameState.playerCursor.x * 16);
+    camX = (gGameState.camera.x - 8);
 
     x = cursorX - camX;
 
-    cursorY = (gUnknown_0202BCB0.playerCursor.y * 16);
-    camY = (gUnknown_0202BCB0.camera.y - 8);
+    cursorY = (gGameState.playerCursor.y * 16);
+    camY = (gGameState.camera.y - 8);
 
     y = cursorY - camY;
 
@@ -451,7 +451,7 @@ void MMB_Loop_SlideIn(struct PlayerInterfaceProc* proc) {
 
         Proc_Break(proc);
 
-        DrawUnitDisplayHpOrStatus(proc, GetUnit(gBmMapUnit[gUnknown_0202BCB0.playerCursor.y][gUnknown_0202BCB0.playerCursor.x]));
+        DrawUnitDisplayHpOrStatus(proc, GetUnit(gBmMapUnit[gGameState.playerCursor.y][gGameState.playerCursor.x]));
     }
 
     return;
@@ -649,7 +649,7 @@ void GetMinimugFactionPalette(int faction, int palId) {
 
 int sub_808C314() {
 
-    if (((gUnknown_0202BCB0.playerCursor.x * 16) - gUnknown_0202BCB0.camera.x) < 0x70) {
+    if (((gGameState.playerCursor.x * 16) - gGameState.camera.x) < 0x70) {
         return 1;
     } else {
         return -1;
@@ -658,7 +658,7 @@ int sub_808C314() {
 
 int sub_808C33C() {
 
-    if (((gUnknown_0202BCB0.playerCursor.x * 16) - gUnknown_0202BCB0.camera.x) > 0x70) {
+    if (((gGameState.playerCursor.x * 16) - gGameState.camera.x) > 0x70) {
         return -1;
     } else {
         return 1;
@@ -888,7 +888,7 @@ void sub_808C750(struct PlayerInterfaceProc* proc, struct Unit* unit) {
     char* nameStr;
     int pos;
 
-    int tmp = unit->xPos * 16 - gUnknown_0202BCB0.camera.x;
+    int tmp = unit->xPos * 16 - gGameState.camera.x;
 
     if (tmp < 0) {
         tmp += 7;
@@ -896,7 +896,7 @@ void sub_808C750(struct PlayerInterfaceProc* proc, struct Unit* unit) {
 
     x = tmp >> 3;
 
-    tmp = unit->yPos * 16 - gUnknown_0202BCB0.camera.y;
+    tmp = unit->yPos * 16 - gGameState.camera.y;
 
     if (tmp < 0) {
         tmp += 7;
@@ -971,7 +971,7 @@ void DrawTerrainDisplayWindow(struct PlayerInterfaceProc* proc) {
     char* str;
     int num;
 
-    int terrainId = gBmMapTerrain[gUnknown_0202BCB0.playerCursor.y][gUnknown_0202BCB0.playerCursor.x];
+    int terrainId = gBmMapTerrain[gGameState.playerCursor.y][gGameState.playerCursor.x];
 
     TileMap_FillRect(gUnknown_02003FAC, 14, 7, 0);
     TileMap_FillRect(gUnknown_020044AC, 14, 7, 0);
@@ -1000,7 +1000,7 @@ void DrawTerrainDisplayWindow(struct PlayerInterfaceProc* proc) {
         case TERRAIN_WALL_1B:
             CallARM_FillTileRect(gUnknown_020040AE, gTSA_TerrainBox_Destructable, 0x2100);
 
-            num = GetObstacleHpAt(gUnknown_0202BCB0.playerCursor.x, gUnknown_0202BCB0.playerCursor.y);
+            num = GetObstacleHpAt(gGameState.playerCursor.x, gGameState.playerCursor.y);
 
             if (num == 100) {
                 CallARM_FillTileRect(gUnknown_020040AE + 0x23,gUnknown_08A176B4, 0x100);
@@ -1016,7 +1016,7 @@ void DrawTerrainDisplayWindow(struct PlayerInterfaceProc* proc) {
         case TERRAIN_BALLISTA_KILLER:
             CallARM_FillTileRect(gUnknown_02003FAC + 0x81, gTSA_TerrainBox_Ballistae, 0x100);
 
-            StoreNumberStringToSmallBuffer(GetObstacleHpAt(gUnknown_0202BCB0.playerCursor.x, gUnknown_0202BCB0.playerCursor.y));
+            StoreNumberStringToSmallBuffer(GetObstacleHpAt(gGameState.playerCursor.x, gGameState.playerCursor.y));
             sub_8013138(gUnknown_02003FAC + 0x85, gUnknown_02028E44+7, 0x2128, 2);
 
             break;
@@ -1067,8 +1067,8 @@ void TerrainDisplay_Loop_OnSideChange(struct PlayerInterfaceProc* proc) {
 
     DrawTerrainDisplayWindow(proc);
 
-    proc->xCursor = gUnknown_0202BCB0.playerCursor.x;
-    proc->yCursor = gUnknown_0202BCB0.playerCursor.y;
+    proc->xCursor = gGameState.playerCursor.x;
+    proc->yCursor = gGameState.playerCursor.y;
 
     Proc_Break(proc);
 
@@ -1080,8 +1080,8 @@ void TerrainDisplay_Loop_Display(struct PlayerInterfaceProc* proc) {
     proc->xCursorPrev = proc->xCursor;
     proc->yCursorPrev = proc->yCursor;
 
-    proc->xCursor = gUnknown_0202BCB0.playerCursor.x;
-    proc->yCursor = gUnknown_0202BCB0.playerCursor.y;
+    proc->xCursor = gGameState.playerCursor.x;
+    proc->yCursor = gGameState.playerCursor.y;
 
     if ((proc->xCursor == proc->xCursorPrev) && (proc->yCursor == proc->yCursorPrev)) {
         return;
@@ -1118,7 +1118,7 @@ void MMB_Loop_OnSideChange(struct PlayerInterfaceProc* proc) {
     int quadrant;
     struct PlayerInterfaceProc* tiProc;
 
-    struct Unit* unit = GetUnit(gBmMapUnit[gUnknown_0202BCB0.playerCursor.y][gUnknown_0202BCB0.playerCursor.x]);
+    struct Unit* unit = GetUnit(gBmMapUnit[gGameState.playerCursor.y][gGameState.playerCursor.x]);
 
     if (!unit) {
         return;
@@ -1138,8 +1138,8 @@ void MMB_Loop_OnSideChange(struct PlayerInterfaceProc* proc) {
 
     proc->quadrant = quadrant;
 
-    proc->xCursor = gUnknown_0202BCB0.playerCursor.x;
-    proc->yCursor = gUnknown_0202BCB0.playerCursor.y;
+    proc->xCursor = gGameState.playerCursor.x;
+    proc->yCursor = gGameState.playerCursor.y;
 
     InitMinimugBoxMaybe(proc, unit);
 
@@ -1150,7 +1150,7 @@ void MMB_Loop_OnSideChange(struct PlayerInterfaceProc* proc) {
 
 void MMB_Loop_Display(struct PlayerInterfaceProc* proc) {
 
-    struct Unit* unit = GetUnit(gBmMapUnit[gUnknown_0202BCB0.playerCursor.y][gUnknown_0202BCB0.playerCursor.x]);
+    struct Unit* unit = GetUnit(gBmMapUnit[gGameState.playerCursor.y][gGameState.playerCursor.x]);
 
     proc->unk_44++;
 
@@ -1163,8 +1163,8 @@ void MMB_Loop_Display(struct PlayerInterfaceProc* proc) {
     proc->xCursorPrev = proc->xCursor;
     proc->yCursorPrev = proc->yCursor;
 
-    proc->xCursor = gUnknown_0202BCB0.playerCursor.x;
-    proc->yCursor = gUnknown_0202BCB0.playerCursor.y;
+    proc->xCursor = gGameState.playerCursor.x;
+    proc->yCursor = gGameState.playerCursor.y;
 
     if ((proc->xCursor == proc->xCursorPrev) && (proc->yCursor == proc->yCursorPrev)) {
         return;
@@ -1188,7 +1188,7 @@ void MMB_Loop_Display(struct PlayerInterfaceProc* proc) {
 
 void MMB_CheckForUnit(struct PlayerInterfaceProc* proc) {
 
-    struct Unit* unit = GetUnit(gBmMapUnit[gUnknown_0202BCB0.playerCursor.y][gUnknown_0202BCB0.playerCursor.x]);
+    struct Unit* unit = GetUnit(gBmMapUnit[gGameState.playerCursor.y][gGameState.playerCursor.x]);
 
     if (!unit) {
         Proc_Goto(proc, 3);
@@ -1219,7 +1219,7 @@ void BurstDisplay_Loop_Display(struct PlayerInterfaceProc* proc) {
 
     proc->unk_4a = proc->unk_4b;
 
-    proc->unk_4b = gBmMapUnit[gUnknown_0202BCB0.playerCursor.y][gUnknown_0202BCB0.playerCursor.x];
+    proc->unk_4b = gBmMapUnit[gGameState.playerCursor.y][gGameState.playerCursor.x];
 
     if ((proc->unk_4a != proc->unk_4b) && (proc->unk_4a != 0)) {
         sub_808C8EC(proc);
@@ -1315,7 +1315,7 @@ void InitPlayerPhaseInterface() {
         Proc_Start(gProcScr_TerrainDisplay, PROC_TREE_3);
     }
 
-    if (gUnknown_0202BCB0.gameStateBits & 0x10) {
+    if (gGameState.gameStateBits & 0x10) {
         Proc_Start(gProcScr_PrepMap_MenuButtonDisplay, PROC_TREE_3);
     } else {
         if ((gRAMChapterData.cfgDisableGoalDisplay == 0) && (CheckEventId(0x66) == 0)) {
@@ -1356,7 +1356,7 @@ void EndPlayerPhaseSideWindows() {
 
 s8 sub_808D190() {
 
-    if (((gUnknown_0202BCB0.playerCursor.y * 16) - gUnknown_0202BCB0.camera.y) > 0x40) {
+    if (((gGameState.playerCursor.y * 16) - gGameState.camera.y) > 0x40) {
         return 1;
     }
 
@@ -1527,8 +1527,8 @@ void GoalDisplay_Loop_OnSideChange(struct PlayerInterfaceProc* proc) {
 
     sub_808D200(proc);
 
-    proc->xCursor = gUnknown_0202BCB0.playerCursor.x;
-    proc->yCursor = gUnknown_0202BCB0.playerCursor.y;
+    proc->xCursor = gGameState.playerCursor.x;
+    proc->yCursor = gGameState.playerCursor.y;
 
     proc->xCursorPrev = proc->xCursor;
     proc->yCursorPrev = proc->yCursor;
@@ -1848,8 +1848,8 @@ void GoalDisplay_Loop_Display(struct PlayerInterfaceProc* proc) {
     proc->xCursorPrev = proc->xCursor;
     proc->yCursorPrev = proc->yCursor;
 
-    proc->xCursor = gUnknown_0202BCB0.playerCursor.x;
-    proc->yCursor = gUnknown_0202BCB0.playerCursor.y;
+    proc->xCursor = gGameState.playerCursor.x;
+    proc->yCursor = gGameState.playerCursor.y;
 
     if (proc->xCursor == proc->xCursorPrev && proc->yCursor == proc->yCursorPrev) {
         return;
@@ -1952,8 +1952,8 @@ void MenuButtonDisp_UpdateCursorPos(struct PlayerInterfaceProc* proc) {
 
     proc->unk_58 = 0;
 
-    proc->xCursor = gUnknown_0202BCB0.playerCursor.x;
-    proc->yCursor = gUnknown_0202BCB0.playerCursor.y;
+    proc->xCursor = gGameState.playerCursor.x;
+    proc->yCursor = gGameState.playerCursor.y;
 
     return;
 }
@@ -1980,8 +1980,8 @@ void MenuButtonDisp_Loop_Display(struct PlayerInterfaceProc* proc) {
     proc->xCursorPrev = proc->xCursor;
     proc->yCursorPrev = proc->yCursor;
 
-    proc->xCursor = gUnknown_0202BCB0.playerCursor.x;
-    proc->yCursor = gUnknown_0202BCB0.playerCursor.y;
+    proc->xCursor = gGameState.playerCursor.x;
+    proc->yCursor = gGameState.playerCursor.y;
 
     if (proc->xCursor == proc->xCursorPrev && proc->yCursor == proc->yCursorPrev) {
         return;

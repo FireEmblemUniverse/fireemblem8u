@@ -7434,7 +7434,7 @@ gUnknown_08A3D348:  @ 0x08A3D348
 .4byte gUnknown_020007A0
 .4byte gUnknown_02000F00 + 0xa0
 .4byte gUnknown_02001188 + 0x618
-.4byte gUnknown_02001F70 + 0x30
+.4byte gConvoyItemCount + 0x30
 
 	.global gUnknown_08A3D358
 gUnknown_08A3D358:  @ 0x08A3D358

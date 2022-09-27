@@ -231,7 +231,7 @@ sub_8022528: @ 0x08022528
 	movs r1, #0xf8
 	lsls r1, r1, #1
 	ands r0, r1
-	ldr r5, _080225A8  @ gUnknown_0202BCB0
+	ldr r5, _080225A8  @ gGameState
 	strh r0, [r5, #0xc]
 	movs r0, #0xe
 	ldrsb r0, [r4, r0]
@@ -254,7 +254,7 @@ sub_8022528: @ 0x08022528
 	.align 2, 0
 _080225A0: .4byte gBG2TilemapBuffer
 _080225A4: .4byte gRAMChapterData
-_080225A8: .4byte gUnknown_0202BCB0
+_080225A8: .4byte gGameState
 
 	THUMB_FUNC_END sub_8022528
 

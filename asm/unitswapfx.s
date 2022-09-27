@@ -136,7 +136,7 @@ sub_801EAE8: @ 0x0801EAE8
 	mov r1, sl
 	subs r4, r0, r1
 	add r9, r5
-	ldr r1, _0801EBE0  @ gUnknown_0202BCB0
+	ldr r1, _0801EBE0  @ gGameState
 	movs r2, #0xc
 	ldrsh r0, [r1, r2]
 	mov r2, r9
@@ -192,7 +192,7 @@ _0801EBCA:
 	bx r0
 	.align 2, 0
 _0801EBDC: .4byte gSinLookup
-_0801EBE0: .4byte gUnknown_0202BCB0
+_0801EBE0: .4byte gGameState
 _0801EBE4: .4byte gObject_16x16
 
 	THUMB_FUNC_END sub_801EAE8

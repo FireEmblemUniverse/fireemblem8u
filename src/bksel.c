@@ -67,7 +67,7 @@ void sub_808457C(void);
 int GetBattleForecastPanelSide() {
     int x;
 
-    x = (gBattleTarget.unit.xPos * 16) - gUnknown_0202BCB0.camera.x;
+    x = (gBattleTarget.unit.xPos * 16) - gGameState.camera.x;
 
     if (x < 0x70) {
         return 1;

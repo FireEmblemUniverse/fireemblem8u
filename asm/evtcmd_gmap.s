@@ -194,7 +194,7 @@ SetSomeRealCamPos: @ 0x0800BA5C
 	add r3, sp, #4
 	mov r2, sp
 	bl StoreAdjustedCameraPositions
-	ldr r1, _0800BA84  @ gUnknown_0202BCB0
+	ldr r1, _0800BA84  @ gGameState
 	ldr r0, [sp]
 	lsls r0, r0, #4
 	strh r0, [r1, #0xc]
@@ -203,11 +203,11 @@ SetSomeRealCamPos: @ 0x0800BA5C
 	strh r0, [r1, #0xe]
 	b _0800BA9A
 	.align 2, 0
-_0800BA84: .4byte gUnknown_0202BCB0
+_0800BA84: .4byte gGameState
 _0800BA88:
 	lsls r0, r0, #4
 	bl GetSomeAdjustedCameraX
-	ldr r4, _0800BAA4  @ gUnknown_0202BCB0
+	ldr r4, _0800BAA4  @ gGameState
 	strh r0, [r4, #0xc]
 	lsls r0, r5, #4
 	bl GetSomeAdjustedCameraY
@@ -218,7 +218,7 @@ _0800BA9A:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_0800BAA4: .4byte gUnknown_0202BCB0
+_0800BAA4: .4byte gGameState
 
 	THUMB_FUNC_END SetSomeRealCamPos
 

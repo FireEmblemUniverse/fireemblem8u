@@ -32,7 +32,7 @@ sub_8022300: @ 0x08022300
 	adds r5, r1, #0
 	adds r6, r2, #0
 	lsls r0, r5, #4
-	ldr r2, _08022364  @ gUnknown_0202BCB0
+	ldr r2, _08022364  @ gGameState
 	movs r3, #0xc
 	ldrsh r1, [r2, r3]
 	subs r0, r0, r1
@@ -71,7 +71,7 @@ sub_8022300: @ 0x08022300
 	pop {r0}
 	bx r0
 	.align 2, 0
-_08022364: .4byte gUnknown_0202BCB0
+_08022364: .4byte gGameState
 _08022368: .4byte gUnknown_085A7CC0
 _0802236C: .4byte 0x06013000
 _08022370: .4byte gUnknown_085A7EC8

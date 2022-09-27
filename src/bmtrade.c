@@ -617,11 +617,11 @@ void TradeMenu_OnEndSelected(struct TradeMenuProc* proc)
 
 s8 TradeMenu_LoadForcedInitialHover(struct TradeMenuProc* proc)
 {
-    if (gUnknown_0202BCB0.unk3F < 0)
+    if (gGameState.unk3F < 0)
         return TRUE;
 
-    proc->hoverColumn = gUnknown_0202BCB0.unk3F / UNIT_ITEM_COUNT;
-    proc->hoverRow   = gUnknown_0202BCB0.unk3F % UNIT_ITEM_COUNT;
+    proc->hoverColumn = gGameState.unk3F / UNIT_ITEM_COUNT;
+    proc->hoverRow   = gGameState.unk3F % UNIT_ITEM_COUNT;
 
     TradeMenu_RefreshSelectableCells(proc);
     Proc_Goto(proc, L_TRADEMENU_SELECTED);

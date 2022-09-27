@@ -413,13 +413,13 @@ void sub_803336C(struct UnknownSALLYCURSORProc* proc) {
     s16 x, y;
     proc->unk_58 = 2;
 
-    x = gUnknown_0202BCB0.playerCursor.x;
-    y = gUnknown_0202BCB0.playerCursor.y;
+    x = gGameState.playerCursor.x;
+    y = gGameState.playerCursor.y;
 
     TrySwitchViewedUnit(x, y);
 
-    x = gUnknown_0202BCB0.playerCursorDisplay.x;
-    y = gUnknown_0202BCB0.playerCursorDisplay.y;
+    x = gGameState.playerCursorDisplay.x;
+    y = gGameState.playerCursorDisplay.y;
     DisplayCursor(x, y, 0);
 
     Proc_Break(proc);
@@ -654,8 +654,8 @@ void sub_80337F0(struct UnknownSALLYCURSORProc* proc) {
 
     proc->unk_30 += proc->unk_38;
 
-    gUnknown_0202BCB0.camera.x = proc->unk_2C;
-    gUnknown_0202BCB0.camera.y = proc->unk_30;
+    gGameState.camera.x = proc->unk_2C;
+    gGameState.camera.y = proc->unk_30;
 
     proc->unk_4C--;
 
@@ -675,9 +675,9 @@ void InitPrepScreenUnitsAndCamera() {
         gRAMChapterData.chapterStateBits |= CHAPTER_FLAG_PREPSCREEN;
     }
 
-    gUnknown_0202BCB0.camera.x = sub_8015A40(0);
-    gUnknown_0202BCB0.camera.y = sub_8015A6C(0);
-    gUnknown_0202BCB0.gameStateBits |= CHAPTER_FLAG_PREPSCREEN;
+    gGameState.camera.x = sub_8015A40(0);
+    gGameState.camera.y = sub_8015A6C(0);
+    gGameState.gameStateBits |= CHAPTER_FLAG_PREPSCREEN;
 
     RefreshEntityBmMaps();
     RenderBmMap();
@@ -700,8 +700,8 @@ void sub_80338C0() {
         SetCursorMapPosition(x, y);
     }
 
-    gUnknown_0202BCB0.camera.x = sub_8015A40(gUnknown_0202BCB0.playerCursor.x * 16);
-    gUnknown_0202BCB0.camera.y = sub_8015A6C(gUnknown_0202BCB0.playerCursor.y * 16);
+    gGameState.camera.x = sub_8015A40(gGameState.playerCursor.x * 16);
+    gGameState.camera.y = sub_8015A6C(gGameState.playerCursor.y * 16);
 
     return;
 }
@@ -715,8 +715,8 @@ void sub_8033940(struct UnknownSALLYCURSORProc* proc) {
         Proc_Break(proc);
     }
 
-    DisplayCursor(gUnknown_0202BCB0.playerCursorDisplay.x,
-        gUnknown_0202BCB0.playerCursorDisplay.y, 0);
+    DisplayCursor(gGameState.playerCursorDisplay.x,
+        gGameState.playerCursorDisplay.y, 0);
 
     return;
 }
@@ -725,18 +725,18 @@ void sub_8033978(ProcPtr proc) {
     HandlePlayerCursorMovement();
     if (!DoesBMXFADEExist()) {
         if (L_BUTTON & gKeyStatusPtr->newKeys) {
-            TrySwitchViewedUnit(gUnknown_0202BCB0.playerCursor.x, gUnknown_0202BCB0.playerCursor.y);
+            TrySwitchViewedUnit(gGameState.playerCursor.x, gGameState.playerCursor.y);
             PlaySoundEffect(0x6B);
             goto showcursor;
         }
 
         if (R_BUTTON & gKeyStatusPtr->newKeys) {
-            if (gBmMapUnit[gUnknown_0202BCB0.playerCursor.y][gUnknown_0202BCB0.playerCursor.x]) {
-                if (CanShowUnitStatScreen(GetUnit(gBmMapUnit[gUnknown_0202BCB0.playerCursor.y][gUnknown_0202BCB0.playerCursor.x]))) {
+            if (gBmMapUnit[gGameState.playerCursor.y][gGameState.playerCursor.x]) {
+                if (CanShowUnitStatScreen(GetUnit(gBmMapUnit[gGameState.playerCursor.y][gGameState.playerCursor.x]))) {
                     MU_EndAll();
                     EndPlayerPhaseSideWindows();
                     SetStatScreenConfig(0x1F);
-                    StartStatScreen(GetUnit(gBmMapUnit[gUnknown_0202BCB0.playerCursor.y][gUnknown_0202BCB0.playerCursor.x]), proc);
+                    StartStatScreen(GetUnit(gBmMapUnit[gGameState.playerCursor.y][gGameState.playerCursor.x]), proc);
                     Proc_Goto(proc, 5);
                     return;
                 }
@@ -745,23 +745,23 @@ void sub_8033978(ProcPtr proc) {
 
         if (B_BUTTON & gKeyStatusPtr->newKeys) {
             EndPlayerPhaseSideWindows();
-            gRAMChapterData.xCursor = gUnknown_0202BCB0.playerCursor.x;
-            gRAMChapterData.yCursor = gUnknown_0202BCB0.playerCursor.y;
+            gRAMChapterData.xCursor = gGameState.playerCursor.x;
+            gRAMChapterData.yCursor = gGameState.playerCursor.y;
             Proc_Goto(proc, 0);
             PlaySoundEffect(0x69);
             return;
         }
 
         if (A_BUTTON & gKeyStatusPtr->newKeys) {
-            struct Unit* unit = GetUnit(gBmMapUnit[gUnknown_0202BCB0.playerCursor.y][gUnknown_0202BCB0.playerCursor.x]);
+            struct Unit* unit = GetUnit(gBmMapUnit[gGameState.playerCursor.y][gGameState.playerCursor.x]);
             switch (GetUnitSelectionValueThing(unit)) {
                 case 0:
                 case 1:
                     EndPlayerPhaseSideWindows();
-                    gRAMChapterData.xCursor = gUnknown_0202BCB0.playerCursor.x;
-                    gRAMChapterData.yCursor = gUnknown_0202BCB0.playerCursor.y;
+                    gRAMChapterData.xCursor = gGameState.playerCursor.x;
+                    gRAMChapterData.yCursor = gGameState.playerCursor.y;
 
-                    switch (gBmMapTerrain[gUnknown_0202BCB0.playerCursor.y][gUnknown_0202BCB0.playerCursor.x]) {
+                    switch (gBmMapTerrain[gGameState.playerCursor.y][gGameState.playerCursor.x]) {
                         case TERRAIN_VENDOR:
                         case TERRAIN_ARMORY:
                             PlaySoundEffect(0x6A);
@@ -806,7 +806,7 @@ void sub_8033978(ProcPtr proc) {
     }
 
     showcursor:
-    DisplayCursor(gUnknown_0202BCB0.playerCursorDisplay.x, gUnknown_0202BCB0.playerCursorDisplay.y, 0);
+    DisplayCursor(gGameState.playerCursorDisplay.x, gGameState.playerCursorDisplay.y, 0);
 
     return;
 }
@@ -824,8 +824,8 @@ void SALLYCURSOR6C_StartUnitSwap(struct UnknownSALLYCURSORProc* proc) {
 
     proc->unk_54 = ap;
     proc->unk_4A = 2;
-    proc->unk_3C = gUnknown_0202BCB0.playerCursor.x;
-    proc->unk_40 = gUnknown_0202BCB0.playerCursor.y;
+    proc->unk_3C = gGameState.playerCursor.x;
+    proc->unk_40 = gGameState.playerCursor.y;
 
     StartSubtitleHelp(proc, GetStringFromIndex(0x872)); // TODO: msgid "Reorder your units.[.]"
 
@@ -836,16 +836,16 @@ void SALLYCURSOR6C_StartUnitSwap(struct UnknownSALLYCURSORProc* proc) {
 }
 
 void sub_8033C90(struct UnknownSALLYCURSORProc* proc) {
-    s8 r7 = ((s8**) gBmMapRange)[gUnknown_0202BCB0.playerCursor.y][gUnknown_0202BCB0.playerCursor.x];
+    s8 r7 = ((s8**) gBmMapRange)[gGameState.playerCursor.y][gGameState.playerCursor.x];
     u32 xLoc, yLoc;
 
-    if (GetUnitSelectionValueThing(GetUnit(gBmMapUnit[gUnknown_0202BCB0.playerCursor.y][gUnknown_0202BCB0.playerCursor.x])) == 4) {
+    if (GetUnitSelectionValueThing(GetUnit(gBmMapUnit[gGameState.playerCursor.y][gGameState.playerCursor.x])) == 4) {
         r7 = 0;
     }
 
     HandlePlayerCursorMovement();
-    xLoc = (proc->unk_3C * 16) - gUnknown_0202BCB0.camera.x;
-    yLoc = (proc->unk_40 * 16) - gUnknown_0202BCB0.camera.y;
+    xLoc = (proc->unk_3C * 16) - gGameState.camera.x;
+    yLoc = (proc->unk_40 * 16) - gGameState.camera.y;
     if (((xLoc + 0x10) <= 256) && ((yLoc + 0x20) <= 192)) {
         PutSprite(4, xLoc, yLoc - 12, gObject_16x16, 6);
     }
@@ -872,8 +872,8 @@ void sub_8033C90(struct UnknownSALLYCURSORProc* proc) {
     }
 
     AP_Update(proc->unk_54,
-        gUnknown_0202BCB0.playerCursorDisplay.x - gUnknown_0202BCB0.camera.x,
-            gUnknown_0202BCB0.playerCursorDisplay.y - gUnknown_0202BCB0.camera.y);
+        gGameState.playerCursorDisplay.x - gGameState.camera.x,
+            gGameState.playerCursorDisplay.y - gGameState.camera.y);
 
     proc->unk_4A = r7;
 
@@ -888,9 +888,9 @@ void sub_8033DD8(ProcPtr proc) {
 
 void sub_8033E08(ProcPtr proc) {
     struct Unit* activeUnit = gActiveUnit;
-    struct Unit* targetUnit = GetUnit(gBmMapUnit[gUnknown_0202BCB0.playerCursor.y][gUnknown_0202BCB0.playerCursor.x]);
+    struct Unit* targetUnit = GetUnit(gBmMapUnit[gGameState.playerCursor.y][gGameState.playerCursor.x]);
     if (!targetUnit) {
-        sub_801EC10(proc, activeUnit, gUnknown_0202BCB0.playerCursor.x, gUnknown_0202BCB0.playerCursor.y);
+        sub_801EC10(proc, activeUnit, gGameState.playerCursor.x, gGameState.playerCursor.y);
     } else {
         sub_801EC10(proc, activeUnit, targetUnit->xPos, targetUnit->yPos);
         sub_801EC10(proc, targetUnit, activeUnit->xPos, activeUnit->yPos);
@@ -926,8 +926,8 @@ void CallCursorShop(ProcPtr proc) {
     struct EventCheckBuffer *buf;
     r0.eventDef = einfo->unk_08;
 
-    r0.xPos = gUnknown_0202BCB0.playerCursor.x;
-    r0.yPos = gUnknown_0202BCB0.playerCursor.y;
+    r0.xPos = gGameState.playerCursor.x;
+    r0.yPos = gGameState.playerCursor.y;
     buf = CheckForEvents(&r0);
     if (!buf) {
         return;
@@ -951,7 +951,7 @@ void sub_8033F34(ProcPtr proc) {
     if (gKeyStatusPtr->newKeys & (A_BUTTON | B_BUTTON)) {
         MU_EndAll();
         gActiveUnit->state &= ~US_HIDDEN;
-        gUnknown_0202BCB0.gameStateBits &= 0xF7;
+        gGameState.gameStateBits &= 0xF7;
 
         HideMoveRangeGraphics();
         RefreshEntityBmMaps();
@@ -963,9 +963,9 @@ void sub_8033F34(ProcPtr proc) {
     }
 
     if (gKeyStatusPtr->newKeys & R_BUTTON) {
-        u8 uid = gBmMapUnit[gUnknown_0202BCB0.playerCursor.y][gUnknown_0202BCB0.playerCursor.x];
+        u8 uid = gBmMapUnit[gGameState.playerCursor.y][gGameState.playerCursor.x];
 
-        if (gActiveUnitMoveOrigin.x == gUnknown_0202BCB0.playerCursor.x && gActiveUnitMoveOrigin.y == gUnknown_0202BCB0.playerCursor.y) {
+        if (gActiveUnitMoveOrigin.x == gGameState.playerCursor.x && gActiveUnitMoveOrigin.y == gGameState.playerCursor.y) {
             uid = gActiveUnit->index;
         }
 
@@ -988,7 +988,7 @@ void sub_8033F34(ProcPtr proc) {
         }
     }
 
-    DisplayCursor(gUnknown_0202BCB0.playerCursorDisplay.x, gUnknown_0202BCB0.playerCursorDisplay.y, 1);
+    DisplayCursor(gGameState.playerCursorDisplay.x, gGameState.playerCursorDisplay.y, 1);
 
     return;
 }
@@ -1083,7 +1083,7 @@ void ShrinkPlayerUnits() {
         return;
     }
 
-    if ((0x40 & gUnknown_0202BCB0.gameStateBits)) {
+    if ((0x40 & gGameState.gameStateBits)) {
         return;
     }
 
@@ -1128,7 +1128,7 @@ void sub_8034278() {
 
     ShrinkPlayerUnits();
     Proc_EndEach(gProcScr_SALLYCURSOR);
-    gUnknown_0202BCB0.gameStateBits &= 0xEF;
+    gGameState.gameStateBits &= 0xEF;
     gRAMChapterData.chapterStateBits &= 0xEF;
     gRAMChapterData.unk4A_1 = 1;
     return;

@@ -48,7 +48,7 @@
 // extern ??? gUnknown_02001180
 // extern ??? gUnknown_02001184
 // extern ??? gUnknown_02001188
-// extern ??? gUnknown_02001F70
+// extern ??? gConvoyItemCount
 // extern ??? gUnknown_02002038
 // extern ??? gUnknown_02002088
 extern struct Font gUnknown_02002774;
@@ -504,7 +504,7 @@ extern u8 gUnknown_0202B4AC[];
 // extern ??? gUnknown_0202B5AC
 extern int gUnknown_0202B6AC;
 // extern ??? gUnknown_0202B6B0
-extern struct Struct0202BCB0 gUnknown_0202BCB0;
+extern struct Struct0202BCB0 gGameState;
 extern struct RAMChapterData gRAMChapterData;
 // extern ??? gUnknown_0202BD30
 // extern ??? gUnknown_0202BD31
@@ -1422,7 +1422,7 @@ extern struct ProcCmd CONST_DATA sProcScr_KOIDO[];
 extern struct ProcCmd CONST_DATA sProcScr_KOIDOAMM[];
 // extern ??? sProcScr_BMXFADE
 extern struct ProcCmd CONST_DATA gProcScr_ADJUSTSFROMXI[];
-// extern ??? gUnknown_0859AE38
+extern struct ProcCmd CONST_DATA gUnknown_0859AE38[];
 // extern ??? gUnknown_0859AE88
 // extern ??? gUnknown_0859AEA0
 // extern ??? gUnknown_0859AEC8

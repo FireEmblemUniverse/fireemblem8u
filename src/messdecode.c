@@ -132,7 +132,7 @@ char *sub_800A2A4(void)
                 CopyString(r4, GetTacticianName());
                 goto label;
             case 0x22:
-                CopyString(r4, GetItemName(gActionData.unk6));
+                CopyString(r4, GetItemName(gActionData.item));
                 goto label;
             default:
                 *r4++ = 0x80;

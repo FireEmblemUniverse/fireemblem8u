@@ -476,8 +476,8 @@ void sub_80325AC(struct DeathDropAnimProc* proc) {
 
     sub_8027B60(
         7,
-        x - gUnknown_0202BCB0.camera.x,
-        y - gUnknown_0202BCB0.camera.y,
+        x - gGameState.camera.x,
+        y - gGameState.camera.y,
         proc->unit
     );
 

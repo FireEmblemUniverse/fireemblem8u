@@ -427,7 +427,7 @@ void SetBattleUnitWeapon(struct BattleUnit* bu, int itemSlot) {
         // borrowed item?
 
         bu->weaponSlotIndex = 0xFF;
-        bu->weapon = gUnknown_0202BCB0.itemUnk2C;
+        bu->weapon = gGameState.itemUnk2C;
 
         break;
 
@@ -1303,7 +1303,7 @@ int GetAutoleveledStatIncrease(int growth, int levelCount) {
 }
 
 s8 CanBattleUnitGainLevels(struct BattleUnit* bu) {
-    if (gUnknown_0202BCB0.gameStateBits & 0x40)
+    if (gGameState.gameStateBits & 0x40)
         return TRUE;
 
     if (bu->unit.exp == UNIT_EXP_DISABLED)
@@ -1618,7 +1618,7 @@ int GetBattleUnitUpdatedWeaponExp(struct BattleUnit* bu) {
     if (gRAMChapterData.chapterStateBits & CHAPTER_FLAG_7)
         return -1;
 
-    if (gUnknown_0202BCB0.gameStateBits & 0x40) // TODO: GAME STATE BITS CONSTANTS
+    if (gGameState.gameStateBits & 0x40) // TODO: GAME STATE BITS CONSTANTS
         return -1;
 
     if (!(gBattleStats.config & BATTLE_CONFIG_ARENA)) {
@@ -1805,7 +1805,7 @@ int GetUnitKillExpBonus(struct Unit* actor, struct Unit* target) {
     result = 20;
 
     // TODO: All the definitions
-    if ((gUnknown_0202BCB0.gameStateBits & 0x40) || (gRAMChapterData.chapterModeIndex != 1)) {
+    if ((gGameState.gameStateBits & 0x40) || (gRAMChapterData.chapterModeIndex != 1)) {
         result = GetUnitPowerLevel(target);
 
         result += 20;
@@ -2256,7 +2256,7 @@ int GetOffensiveStaffAccuracy(struct Unit* actor, struct Unit* target) {
 
 void BattleGenerateArena(struct Unit* actor) {
     struct Unit* target = gUnknown_0203A8F0.opponentUnit;
-    int something = gUnknown_0202BCB0.unk3C;
+    int something = gGameState.unk3C;
 
     gBattleStats.config = BATTLE_CONFIG_REAL | BATTLE_CONFIG_ARENA;
 
