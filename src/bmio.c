@@ -289,7 +289,7 @@ void BMapVSync_Start(void) {
         Proc_Start(sProc_BMVSync, PROC_TREE_VSYNC));
 
     WfxInit();
-    gUnknown_0202BCB0.gameGfxSemaphore = 0;
+    gGameState.gameGfxSemaphore = 0;
 }
 
 void BMapVSync_End(void) {
@@ -297,7 +297,7 @@ void BMapVSync_End(void) {
 }
 
 void BMapDispSuspend(void) {
-    if (++gUnknown_0202BCB0.gameGfxSemaphore > 1)
+    if (++gGameState.gameGfxSemaphore > 1)
         return; // gfx was already blocked, nothing needs to be done.
 
     SetSecondaryHBlankHandler(NULL);
@@ -309,10 +309,10 @@ void BMapDispSuspend(void) {
 void BMapDispResume(void) {
     struct Proc* proc;
 
-    if (!gUnknown_0202BCB0.gameGfxSemaphore)
+    if (!gGameState.gameGfxSemaphore)
         return; // wasn't blocked
 
-    if (--gUnknown_0202BCB0.gameGfxSemaphore)
+    if (--gGameState.gameGfxSemaphore)
         return; // still blocked
 
     Proc_UnblockEachMarked(1);
@@ -384,14 +384,14 @@ void WfxSnow_VSync(void) {
 
         struct WeatherParticle* it = sWeatherEffect.particles + ((GetGameClock() % 2) * 0x20);
 
-        origins[0].x = (gUnknown_0202BCB0.camera.x * 12) / 16;
-        origins[0].y = gUnknown_0202BCB0.camera.y;
+        origins[0].x = (gGameState.camera.x * 12) / 16;
+        origins[0].y = gGameState.camera.y;
 
-        origins[1].x = gUnknown_0202BCB0.camera.x;
-        origins[1].y = gUnknown_0202BCB0.camera.y;
+        origins[1].x = gGameState.camera.x;
+        origins[1].y = gGameState.camera.y;
 
-        origins[2].x = (gUnknown_0202BCB0.camera.x * 20) / 16;
-        origins[2].y = gUnknown_0202BCB0.camera.y;
+        origins[2].x = (gGameState.camera.x * 20) / 16;
+        origins[2].y = gGameState.camera.y;
 
         for (i = 0; i < 0x20; ++i) {
             it->xPosition += it->xSpeed;
@@ -437,8 +437,8 @@ void WfxRain_VSync(void) {
             it->yPosition += it->ySpeed;
 
             CallARM_PushToPrimaryOAM(
-                ((it->xPosition >> 8) - gUnknown_0202BCB0.camera.x) & 0xFF,
-                ((it->yPosition >> 8) - gUnknown_0202BCB0.camera.y) & 0xFF,
+                ((it->xPosition >> 8) - gGameState.camera.x) & 0xFF,
+                ((it->yPosition >> 8) - gGameState.camera.y) & 0xFF,
                 sRainParticleObjLookup[it->gfxIndex],
                 0
             );
@@ -530,8 +530,8 @@ void WfxSnowStorm_VSync(void) {
             it->yPosition += it->ySpeed;
 
             CallARM_PushToPrimaryOAM(
-                ((it->xPosition >> 8) - gUnknown_0202BCB0.camera.x) & 0xFF,
-                ((it->yPosition >> 8) - gUnknown_0202BCB0.camera.y) & 0xFF,
+                ((it->xPosition >> 8) - gGameState.camera.x) & 0xFF,
+                ((it->yPosition >> 8) - gGameState.camera.y) & 0xFF,
                 gObject_32x32,
                 (BM_OBJPAL_1 << 12) + 0x18 + (it->gfxIndex * 4)
             );
@@ -548,7 +548,7 @@ void WfxBlueHSync(void) {
     if (nextLine > 160)
         nextLine = 0;
 
-    nextLine += gUnknown_0202BCB0.camera.y / 2;
+    nextLine += gGameState.camera.y / 2;
 
     if (nextLine >= 320)
         ((u16*)(PLTT))[0] = 0;
@@ -708,7 +708,7 @@ void WfxFlamesUpdateParticles(void) {
             it->xPosition += it->xSpeed;
             it->yPosition += it->ySpeed;
 
-            yDisplay = ((it->yPosition >> 8) - gUnknown_0202BCB0.camera.y) & 0xFF;
+            yDisplay = ((it->yPosition >> 8) - gGameState.camera.y) & 0xFF;
 
             if (yDisplay < 0x40)
                 continue;
@@ -722,7 +722,7 @@ void WfxFlamesUpdateParticles(void) {
                 objTile = 24;
 
             CallARM_PushToPrimaryOAM(
-                ((it->xPosition >> 8) - gUnknown_0202BCB0.camera.x) & 0xFF,
+                ((it->xPosition >> 8) - gGameState.camera.x) & 0xFF,
                 yDisplay,
                 gObject_8x8,
                 (BM_OBJPAL_10 << 12) + objTile
@@ -810,7 +810,7 @@ void WfxClouds_VSync(void) {
 }
 
 void WfxClouds_Update(void) {
-    int y = gUnknown_0202BCB0.camera.y;
+    int y = gGameState.camera.y;
 
     PutSprite(
         14,
@@ -964,10 +964,10 @@ void InitPlaythroughState(int isDifficult, s8 unk) {
 }
 
 void ClearBattleMapState(void) {
-    int logicLock = gUnknown_0202BCB0.gameLogicSemaphore;
+    int logicLock = gGameState.gameLogicSemaphore;
 
-    CpuFill16(0, &gUnknown_0202BCB0, sizeof(gUnknown_0202BCB0));
-    gUnknown_0202BCB0.gameLogicSemaphore = logicLock;
+    CpuFill16(0, &gGameState, sizeof(gGameState));
+    gGameState.gameLogicSemaphore = logicLock;
 }
 
 void StartBattleMap(struct GameCtrlProc* gameCtrl) {
@@ -1105,12 +1105,12 @@ void GameCtrl_StartResumedGame(struct GameCtrlProc* gameCtrl) {
 
     InitChapterMap(gRAMChapterData.chapterIndex);
 
-    gUnknown_0202BCB0.unk3C = TRUE;
+    gGameState.unk3C = TRUE;
 
     mapMain = StartBMapMain(gameCtrl);
 
-    gUnknown_0202BCB0.camera.x = sub_8015A40(16 * gUnknown_0202BCB0.playerCursor.x);
-    gUnknown_0202BCB0.camera.y = sub_8015A6C(16 * gUnknown_0202BCB0.playerCursor.y);
+    gGameState.camera.x = sub_8015A40(16 * gGameState.playerCursor.x);
+    gGameState.camera.y = sub_8015A6C(16 * gGameState.playerCursor.y);
 
     switch (gActionData.suspendPointType) {
 

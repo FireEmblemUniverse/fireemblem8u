@@ -299,8 +299,8 @@ void sub_8035A0C(struct UnknownBMUSAilmentProc* proc) {
     HideUnitSMS(unit);
     UnitKill(unit);
 
-    x = unit->xPos * 16 - gUnknown_0202BCB0.camera.x;
-    y = unit->yPos * 16 - gUnknown_0202BCB0.camera.y;
+    x = unit->xPos * 16 - gGameState.camera.x;
+    y = unit->yPos * 16 - gGameState.camera.y;
 
     if ((x < 0) || (x > 0xF0) || (y < 0) || (y > 0xA0)) {
         proc->unk_4C++;
@@ -338,7 +338,7 @@ void sub_8035AA4() {
 }
 
 void sub_8035B0C() {
-    BG_SetPosition(0, gUnknown_0202BCB0.camera.x - (gActiveUnit->xPos * 16), GetGameClock());
+    BG_SetPosition(0, gGameState.camera.x - (gActiveUnit->xPos * 16), GetGameClock());
 
     return;
 }
@@ -378,8 +378,8 @@ void sub_8035BEC(struct UnknownBMUSAilmentProc* proc) {
 
     sub_8028014(
         4,
-        gActiveUnit->xPos * 16 - gUnknown_0202BCB0.camera.x,
-        gActiveUnit->yPos * 16 - gUnknown_0202BCB0.camera.y,
+        gActiveUnit->xPos * 16 - gGameState.camera.x,
+        gActiveUnit->yPos * 16 - gGameState.camera.y,
         0x2800,
         gActiveUnit
     );

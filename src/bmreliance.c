@@ -292,7 +292,7 @@ int GetUnitSupportBonuses(struct Unit* unit, struct SupportBonuses* bonuses)
             continue;
 
         // TODO: gameStateBits constants
-        if (!(gUnknown_0202BCB0.gameStateBits & 0x40))
+        if (!(gGameState.gameStateBits & 0x40))
         {
             if (RECT_DISTANCE(unit->xPos, unit->yPos, other->xPos, other->yPos) > SUPPORT_BONUSES_MAX_DISTANCE)
                 continue;

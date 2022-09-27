@@ -184,7 +184,7 @@ sub_8021B30: @ 0x08021B30
 	adds r1, r6, #0
 	bl Proc_StartBlocking
 	lsls r0, r4, #4
-	ldr r2, _08021B98  @ gUnknown_0202BCB0
+	ldr r2, _08021B98  @ gGameState
 	movs r3, #0xc
 	ldrsh r1, [r2, r3]
 	subs r0, r0, r1
@@ -212,7 +212,7 @@ _08021B86:
 _08021B8C: .4byte gBattleStats
 _08021B90: .4byte gActionData
 _08021B94: .4byte gUnknown_0859B410
-_08021B98: .4byte gUnknown_0202BCB0
+_08021B98: .4byte gGameState
 
 	THUMB_FUNC_END sub_8021B30
 

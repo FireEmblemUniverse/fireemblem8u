@@ -170,7 +170,7 @@ sub_8021684: @ 0x08021684
 	adds r1, r3, #0
 	bl Proc_StartBlocking
 	lsls r0, r4, #4
-	ldr r2, _080216CC  @ gUnknown_0202BCB0
+	ldr r2, _080216CC  @ gGameState
 	movs r3, #0xc
 	ldrsh r1, [r2, r3]
 	subs r0, r0, r1
@@ -195,7 +195,7 @@ sub_8021684: @ 0x08021684
 	bx r0
 	.align 2, 0
 _080216C8: .4byte gUnknown_0859B3B0
-_080216CC: .4byte gUnknown_0202BCB0
+_080216CC: .4byte gGameState
 
 	THUMB_FUNC_END sub_8021684
 
@@ -365,7 +365,7 @@ sub_8021818: @ 0x08021818
 	adds r1, r3, #0
 	bl Proc_StartBlocking
 	lsls r0, r4, #4
-	ldr r2, _08021860  @ gUnknown_0202BCB0
+	ldr r2, _08021860  @ gGameState
 	movs r3, #0xc
 	ldrsh r1, [r2, r3]
 	subs r0, r0, r1
@@ -390,7 +390,7 @@ sub_8021818: @ 0x08021818
 	bx r0
 	.align 2, 0
 _0802185C: .4byte gUnknown_0859B3D0
-_08021860: .4byte gUnknown_0202BCB0
+_08021860: .4byte gGameState
 
 	THUMB_FUNC_END sub_8021818
 
@@ -560,7 +560,7 @@ sub_80219AC: @ 0x080219AC
 	adds r1, r3, #0
 	bl Proc_StartBlocking
 	lsls r0, r4, #4
-	ldr r2, _080219F4  @ gUnknown_0202BCB0
+	ldr r2, _080219F4  @ gGameState
 	movs r3, #0xc
 	ldrsh r1, [r2, r3]
 	subs r0, r0, r1
@@ -585,7 +585,7 @@ sub_80219AC: @ 0x080219AC
 	bx r0
 	.align 2, 0
 _080219F0: .4byte gUnknown_0859B3F0
-_080219F4: .4byte gUnknown_0202BCB0
+_080219F4: .4byte gGameState
 
 	THUMB_FUNC_END sub_80219AC
 

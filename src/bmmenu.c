@@ -190,7 +190,7 @@ u8 MapMenu_GuideCommand(struct MenuProc* menu, struct MenuItemProc* menuItem) {
 
 u8 MapMenu_DangerZone_UnusedEffect(void) {
     gActiveUnit = NULL;
-    gUnknown_0202BCB0.unk3E = 0;
+    gGameState.unk3E = 0;
     Proc_Goto(Proc_Find(gProcScr_PlayerPhase), 0xC);
 
     return MENU_ACT_SKIPCURSOR | MENU_ACT_END | MENU_ACT_SND6A | MENU_ACT_CLEAR;
@@ -225,7 +225,7 @@ u8 GenericSelection_BackToUM(ProcPtr proc) {
     HideMoveRangeGraphics();
 
     EnsureCameraOntoPosition(
-        StartSemiCenteredOrphanMenu(&gUnitActionMenuDef, gUnknown_0202BCB0.unk1C.x - gUnknown_0202BCB0.camera.x, 1, 22),
+        StartSemiCenteredOrphanMenu(&gUnitActionMenuDef, gGameState.unk1C.x - gGameState.camera.x, 1, 22),
         gActiveUnit->xPos,
         gActiveUnit->yPos
     );
@@ -241,8 +241,8 @@ void BackToUnitMenu_CamWatch(ProcPtr proc) {
 
         Proc_EndEach(gUnknown_0859A548);
 
-        if (GetSomeAdjustedCameraY(y << 4) > gUnknown_0202BCB0.unk28.y) {
-            y = (gUnknown_0202BCB0.unk28.y >> 4) + 2;
+        if (GetSomeAdjustedCameraY(y << 4) > gGameState.unk28.y) {
+            y = (gGameState.unk28.y >> 4) + 2;
         }
 
         EnsureCameraOntoPosition(proc, gActiveUnit->xPos, y);
@@ -252,7 +252,7 @@ void BackToUnitMenu_CamWatch(ProcPtr proc) {
 }
 
 void BackToUnitMenu_RestartMenu(void) {
-    StartSemiCenteredOrphanMenu(&gUnitActionMenuDef, gUnknown_0202BCB0.unk1C.x - gUnknown_0202BCB0.camera.x, 1, 22);
+    StartSemiCenteredOrphanMenu(&gUnitActionMenuDef, gGameState.unk1C.x - gGameState.camera.x, 1, 22);
 
     return;
 }
@@ -279,7 +279,7 @@ u8 ItemMenu_ButtonBPressed(struct MenuProc* menu, struct MenuItemProc* menuItem)
 
     sub_8003D20();
 
-    StartSemiCenteredOrphanMenu(&gUnitActionMenuDef, gUnknown_0202BCB0.unk1C.x - gUnknown_0202BCB0.camera.x, 1, 22);
+    StartSemiCenteredOrphanMenu(&gUnitActionMenuDef, gGameState.unk1C.x - gGameState.camera.x, 1, 22);
 
     HideMoveRangeGraphics();
 
@@ -366,7 +366,7 @@ u8 TakeUsability(const struct MenuItemDef* def, int number) {
         return MENU_NOTSHOWN;
     }
 
-    if (gUnknown_0202BCB0.unk3D & 1) {
+    if (gGameState.unk3D & 1) {
         return MENU_NOTSHOWN;
     }
 
@@ -395,7 +395,7 @@ u8 GiveUsability(const struct MenuItemDef* def, int number) {
         return MENU_NOTSHOWN;
     }
 
-    if (gUnknown_0202BCB0.unk3D & 1) {
+    if (gGameState.unk3D & 1) {
         return MENU_NOTSHOWN;
     }
 
@@ -685,7 +685,7 @@ u8 ItemSubMenu_IsTradeAvailable(const struct MenuItemDef* def, int number) {
         return MENU_NOTSHOWN;
     }
 
-    if (gUnknown_0202BCB0.unk3D & 2) {
+    if (gGameState.unk3D & 2) {
         return MENU_NOTSHOWN;
     }
 
@@ -824,7 +824,7 @@ u8 PlayCommandUsability(const struct MenuItemDef* def, int number) {
         return MENU_NOTSHOWN;
     }
 
-    gUnknown_0202BCB0.itemUnk2C = ITEM_UNK_CD;
+    gGameState.itemUnk2C = ITEM_UNK_CD;
 
     return sub_80230F0(def);
 }
@@ -835,7 +835,7 @@ u8 DanceCommandUsability(const struct MenuItemDef* def, int number) {
         return MENU_NOTSHOWN;
     }
 
-    gUnknown_0202BCB0.itemUnk2C = ITEM_DANCE;
+    gGameState.itemUnk2C = ITEM_DANCE;
 
     return sub_80230F0(def);
 }
@@ -1082,7 +1082,7 @@ u8 sub_80235A8(struct MenuProc* menu) {
 
         DeleteFaceByIndex(0);
 
-        StartSemiCenteredOrphanMenu(&gUnitActionMenuDef, gUnknown_0202BCB0.unk1C.x - gUnknown_0202BCB0.camera.x, 1, 0x16);
+        StartSemiCenteredOrphanMenu(&gUnitActionMenuDef, gGameState.unk1C.x - gGameState.camera.x, 1, 0x16);
 
         return MENU_ACT_SKIPCURSOR | MENU_ACT_END | MENU_ACT_SND6B | MENU_ACT_CLEAR;
     }
@@ -1184,7 +1184,7 @@ u8 ItemSubMenu_EquipItem(struct MenuProc* menu, struct MenuItemProc* menuItem) {
 
 u8 ItemSubMenu_TradeItem(struct MenuProc* menu, struct MenuItemProc* menuItem) {
 
-    gUnknown_0202BCB0.unk3F = gActionData.itemSlotIndex;
+    gGameState.unk3F = gActionData.itemSlotIndex;
 
     sub_8023538(menu);
 
@@ -1999,7 +1999,7 @@ u8 sub_8024564(ProcPtr proc, struct SelectTarget* target) {
 
 u8 ConvoyMenu_HelpBox(struct MenuProc* menu, struct MenuItemProc* menuItem) {
     if (menuItem->itemNumber >= 5) {
-        StartItemHelpBox(menuItem->xTile << 3, menuItem->yTile << 3, gUnknown_0202BCB0.itemUnk2C);
+        StartItemHelpBox(menuItem->xTile << 3, menuItem->yTile << 3, gGameState.itemUnk2C);
         return 0;
     }
 
@@ -2197,7 +2197,7 @@ u8 RideCommandUsability(const struct MenuItemDef* def, int number) {
         return MENU_NOTSHOWN;
     }
 
-    if (gUnknown_0202BCB0.unk3D & 8) {
+    if (gGameState.unk3D & 8) {
         return MENU_NOTSHOWN;
     }
 
@@ -2230,7 +2230,7 @@ u8 ExitCommandUsability(const struct MenuItemDef* def, int number) {
         return MENU_NOTSHOWN;
     }
 
-    if (gUnknown_0202BCB0.unk3D & 8) {
+    if (gGameState.unk3D & 8) {
         return MENU_NOTSHOWN;
     }
 
@@ -2334,7 +2334,7 @@ u8 ItemMenu_Is1stCommandAvailable(const struct MenuItemDef* def, int number) {
 }
 
 int ItemMenu_Draw1stCommand(struct MenuProc* menu, struct MenuItemProc* menuItem) {
-    Text_InsertString(&menuItem->text, 16, 0, GetItemName(gUnknown_0202BCB0.itemUnk2C));
+    Text_InsertString(&menuItem->text, 16, 0, GetItemName(gGameState.itemUnk2C));
     Text_Draw(&menuItem->text, gBG0TilemapBuffer + TILEMAP_INDEX(menuItem->xTile, menuItem->yTile));
 
     return 0;
@@ -2405,7 +2405,7 @@ u8 ItemMenuHelpBox(struct MenuProc* menu, struct MenuItemProc* menuItem) {
     int item;
 
     if (menuItem->itemNumber == 0) {
-        item = gUnknown_0202BCB0.itemUnk2C;
+        item = gGameState.itemUnk2C;
     } else {
         item = gActiveUnit->items[menuItem->itemNumber - 1];
     }

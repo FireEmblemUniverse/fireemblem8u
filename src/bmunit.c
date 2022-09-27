@@ -1059,8 +1059,8 @@ void UnitBeginAction(struct Unit* unit) {
     gActionData.unitActionType = 0;
     gActionData.moveCount = 0;
 
-    gUnknown_0202BCB0.unk3D = 0;
-    gUnknown_0202BCB0.unk3F = 0xFF;
+    gGameState.unk3D = 0;
+    gGameState.unk3F = 0xFF;
 
     sub_802C334();
 
@@ -1077,7 +1077,7 @@ void UnitBeginCantoAction(struct Unit* unit) {
 
     gActionData.unitActionType = 0;
 
-    gUnknown_0202BCB0.unk3D = 0;
+    gGameState.unk3D = 0;
 
     sub_802C334();
 

@@ -40,7 +40,7 @@
 . = 0x001180; gUnknown_02001180 = .;
 . = 0x001184; gUnknown_02001184 = .;
 . = 0x001188; gUnknown_02001188 = .;
-. = 0x001F70; gUnknown_02001F70 = .;
+. = 0x001F70; gConvoyItemCount = .;
 . = 0x002038; gUnknown_02002038 = .;
 . = 0x002088; gUnknown_02002088 = .;
 . = 0x002774; gUnknown_02002774 = .;
@@ -494,7 +494,7 @@
 . = 0x02B5AC; gUnknown_0202B5AC = .;
 . = 0x02B6AC; gUnknown_0202B6AC = .;
 . = 0x02B6B0; gUnknown_0202B6B0 = .;
-. = 0x02BCB0; gUnknown_0202BCB0 = .;
+. = 0x02BCB0; gGameState = .;
 . = 0x02BCF0; gRAMChapterData = .;
 . = 0x02BCFE; gUnknown_0202BCFE = .;
 . = 0x02BD0B; gUnknown_0202BD0B = .;

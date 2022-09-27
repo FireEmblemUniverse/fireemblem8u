@@ -713,7 +713,7 @@ void WarpSelect_OnInit(struct WarpSelectProc* proc)
 
     FillWarpRangeMap(gActiveUnit, GetUnit(gActionData.targetIndex));
 
-    gUnknown_0202BCB0.gameStateBits &= ~GMAP_STATE_BIT1;
+    gGameState.gameStateBits &= ~GMAP_STATE_BIT1;
 
     DisplayMoveRangeGraphics(1);
 
@@ -732,7 +732,7 @@ void WarpSelect_OnInit(struct WarpSelectProc* proc)
 
 void WarpSelect_OnIdle(struct WarpSelectProc* proc)
 {
-    s8 warpAllowed = ((s8**) gBmMapMovement)[gUnknown_0202BCB0.playerCursor.y][gUnknown_0202BCB0.playerCursor.x] != -1;
+    s8 warpAllowed = ((s8**) gBmMapMovement)[gGameState.playerCursor.y][gGameState.playerCursor.x] != -1;
 
     HandlePlayerCursorMovement();
 
@@ -742,8 +742,8 @@ void WarpSelect_OnIdle(struct WarpSelectProc* proc)
         {
             Proc_Break(proc);
 
-            gActionData.xOther = gUnknown_0202BCB0.playerCursor.x;
-            gActionData.yOther = gUnknown_0202BCB0.playerCursor.y;
+            gActionData.xOther = gGameState.playerCursor.x;
+            gActionData.yOther = gGameState.playerCursor.y;
 
             SetStaffUseAction(gActiveUnit);
 
@@ -776,8 +776,8 @@ void WarpSelect_OnIdle(struct WarpSelectProc* proc)
     }
 
     AP_Update(proc->ap,
-        gUnknown_0202BCB0.playerCursorDisplay.x - gUnknown_0202BCB0.camera.x,
-        gUnknown_0202BCB0.playerCursorDisplay.y - gUnknown_0202BCB0.camera.y);
+        gGameState.playerCursorDisplay.x - gGameState.camera.x,
+        gGameState.playerCursorDisplay.y - gGameState.camera.y);
 
     proc->prevWarpAllowed = warpAllowed;
 }
@@ -1074,7 +1074,7 @@ void sub_8029D6C(void)
 
 void TorchSelect_OnInit(struct WarpSelectProc* proc)
 {
-    gUnknown_0202BCB0.gameStateBits |= GMAP_STATE_BIT0;
+    gGameState.gameStateBits |= GMAP_STATE_BIT0;
 
     StartSubtitleHelp(proc,
         GetStringFromIndex(0x87C)); // TODO: msgid "Select an area to light up."
@@ -1085,8 +1085,8 @@ void TorchSelect_OnInit(struct WarpSelectProc* proc)
 
 void TorchSelect_OnIdle(struct WarpSelectProc* proc)
 {
-    int xTorch = gUnknown_0202BCB0.playerCursor.x;
-    int yTorch = gUnknown_0202BCB0.playerCursor.y;
+    int xTorch = gGameState.playerCursor.x;
+    int yTorch = gGameState.playerCursor.y;
 
     s8 canTorch = ((s8**) gBmMapRange)[yTorch][xTorch];
 
@@ -1100,8 +1100,8 @@ void TorchSelect_OnIdle(struct WarpSelectProc* proc)
 
             Proc_Break(proc);
 
-            gActionData.xOther = gUnknown_0202BCB0.playerCursor.x;
-            gActionData.yOther = gUnknown_0202BCB0.playerCursor.y;
+            gActionData.xOther = gGameState.playerCursor.x;
+            gActionData.yOther = gGameState.playerCursor.y;
 
             SetStaffUseAction(gActiveUnit);
 
@@ -1124,8 +1124,8 @@ void TorchSelect_OnIdle(struct WarpSelectProc* proc)
     }
 
     DisplayCursor(
-        gUnknown_0202BCB0.playerCursorDisplay.x,
-        gUnknown_0202BCB0.playerCursorDisplay.y,
+        gGameState.playerCursorDisplay.x,
+        gGameState.playerCursorDisplay.y,
         TRUE);
 }
 

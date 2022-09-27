@@ -20,9 +20,9 @@ s8 CanUnitUseItemPrepScreen(struct Unit* unit, int item);
 s8 sub_802A108(struct Unit* unit);
 
 u8 RepairMenuItemIsAvailable(const struct MenuItemDef*, int number);
-int RepairMenuItemDraw(struct MenuProc*, struct            MenuItemProc*);
-u8 RepairMenuItemSelect(struct MenuProc*, struct          MenuItemProc*);
-int RepairMenuItemOnChange(struct MenuProc*, struct        MenuItemProc*);
+int RepairMenuItemDraw(struct MenuProc*, struct MenuItemProc*);
+u8 RepairMenuItemSelect(struct MenuProc*, struct MenuItemProc*);
+int RepairMenuItemOnChange(struct MenuProc*, struct MenuItemProc*);
 int RepairMenuItemOnChangeOut(struct MenuProc*, struct MenuItemProc*);
 
 struct SelectTarget;

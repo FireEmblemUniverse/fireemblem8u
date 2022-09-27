@@ -33139,8 +33139,8 @@ _0809EB54: .4byte gUnknown_08A192EC
 
 	THUMB_FUNC_END sub_809EB38
 
-	THUMB_FUNC_START sub_809EB58
-sub_809EB58: @ 0x0809EB58
+	THUMB_FUNC_START MaybeStartSelectConvoyItemProc
+MaybeStartSelectConvoyItemProc: @ 0x0809EB58
 	push {r4, lr}
 	adds r4, r0, #0
 	ldr r0, _0809EB74  @ gUnknown_08A192EC
@@ -33156,7 +33156,7 @@ sub_809EB58: @ 0x0809EB58
 	.align 2, 0
 _0809EB74: .4byte gUnknown_08A192EC
 
-	THUMB_FUNC_END sub_809EB58
+	THUMB_FUNC_END MaybeStartSelectConvoyItemProc
 
 	THUMB_FUNC_START sub_809EB78
 sub_809EB78: @ 0x0809EB78

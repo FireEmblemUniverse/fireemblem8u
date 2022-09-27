@@ -2384,14 +2384,14 @@ sub_8085618: @ 0x08085618
 	ands r1, r0
 	cmp r1, #0
 	beq _0808566A
-	ldr r0, _08085644  @ gUnknown_0202BCB0
+	ldr r0, _08085644  @ gGameState
 	ldrh r1, [r0, #0xc]
 	movs r2, #2
 	eors r1, r2
 	strh r1, [r0, #0xc]
 	b _0808566A
 	.align 2, 0
-_08085644: .4byte gUnknown_0202BCB0
+_08085644: .4byte gGameState
 _08085648:
 	bl GetGameClock
 	movs r1, #1
@@ -2429,7 +2429,7 @@ sub_8085670: @ 0x08085670
 	ands r1, r0
 	cmp r1, #0
 	beq _080856CC
-	ldr r2, _080856A0  @ gUnknown_0202BCB0
+	ldr r2, _080856A0  @ gGameState
 	ldrh r1, [r2, #0xc]
 	ldr r0, _080856A4  @ 0x0000FFFD
 	ands r0, r1
@@ -2438,7 +2438,7 @@ sub_8085670: @ 0x08085670
 	strh r0, [r2, #0xc]
 	b _080856CC
 	.align 2, 0
-_080856A0: .4byte gUnknown_0202BCB0
+_080856A0: .4byte gGameState
 _080856A4: .4byte 0x0000FFFD
 _080856A8:
 	bl GetGameClock
@@ -2491,7 +2491,7 @@ _08085700:
 	ands r1, r0
 	cmp r1, #0
 	beq _0808571A
-	ldr r2, _08085720  @ gUnknown_0202BCB0
+	ldr r2, _08085720  @ gGameState
 	ldrh r1, [r2, #0xe]
 	ldr r0, _08085724  @ 0x0000FFFD
 	ands r0, r1
@@ -2502,7 +2502,7 @@ _0808571A:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_08085720: .4byte gUnknown_0202BCB0
+_08085720: .4byte gGameState
 _08085724: .4byte 0x0000FFFD
 
 	THUMB_FUNC_END sub_80856D0
@@ -2658,7 +2658,7 @@ _08085840: .4byte gUnknown_089EE000
 	THUMB_FUNC_START sub_8085844
 sub_8085844: @ 0x08085844
 	push {lr}
-	ldr r2, _08085860  @ gUnknown_0202BCB0
+	ldr r2, _08085860  @ gGameState
 	ldrh r1, [r2, #0xc]
 	ldr r0, _08085864  @ 0x0000FFFC
 	ands r0, r1
@@ -2670,7 +2670,7 @@ sub_8085844: @ 0x08085844
 	pop {r0}
 	bx r0
 	.align 2, 0
-_08085860: .4byte gUnknown_0202BCB0
+_08085860: .4byte gGameState
 _08085864: .4byte 0x0000FFFC
 _08085868: .4byte gUnknown_089EE000
 
@@ -2679,7 +2679,7 @@ _08085868: .4byte gUnknown_089EE000
 	THUMB_FUNC_START sub_808586C
 sub_808586C: @ 0x0808586C
 	push {lr}
-	ldr r2, _08085888  @ gUnknown_0202BCB0
+	ldr r2, _08085888  @ gGameState
 	ldrh r1, [r2, #0xe]
 	ldr r0, _0808588C  @ 0x0000FFFC
 	ands r0, r1
@@ -2691,7 +2691,7 @@ sub_808586C: @ 0x0808586C
 	pop {r0}
 	bx r0
 	.align 2, 0
-_08085888: .4byte gUnknown_0202BCB0
+_08085888: .4byte gGameState
 _0808588C: .4byte 0x0000FFFC
 _08085890: .4byte gUnknown_089EE030
 
@@ -2723,7 +2723,7 @@ sub_808589C: @ 0x0808589C
 	ands r1, r0
 	cmp r1, #0
 	beq _080858F8
-	ldr r2, _080858CC  @ gUnknown_0202BCB0
+	ldr r2, _080858CC  @ gGameState
 	ldrh r1, [r2, #0xc]
 	ldr r0, _080858D0  @ 0x0000FFFD
 	ands r0, r1
@@ -2732,7 +2732,7 @@ sub_808589C: @ 0x0808589C
 	strh r0, [r2, #0xc]
 	b _080858F8
 	.align 2, 0
-_080858CC: .4byte gUnknown_0202BCB0
+_080858CC: .4byte gGameState
 _080858D0: .4byte 0x0000FFFD
 _080858D4:
 	bl GetGameClock
@@ -2798,7 +2798,7 @@ _08085944: .4byte 0x0000026A
 	THUMB_FUNC_START sub_8085948
 sub_8085948: @ 0x08085948
 	push {lr}
-	ldr r2, _08085964  @ gUnknown_0202BCB0
+	ldr r2, _08085964  @ gGameState
 	ldrh r1, [r2, #0xe]
 	ldr r0, _08085968  @ 0x0000FFFC
 	ands r0, r1
@@ -2810,7 +2810,7 @@ sub_8085948: @ 0x08085948
 	pop {r0}
 	bx r0
 	.align 2, 0
-_08085964: .4byte gUnknown_0202BCB0
+_08085964: .4byte gGameState
 _08085968: .4byte 0x0000FFFC
 _0808596C: .4byte gUnknown_089EE048
 

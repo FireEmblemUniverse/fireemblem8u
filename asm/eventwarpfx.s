@@ -229,7 +229,7 @@ sub_8021D34: @ 0x08021D34
 	adds r0, #0x66
 	strh r5, [r0]
 	lsls r0, r7, #4
-	ldr r2, _08021DA0  @ gUnknown_0202BCB0
+	ldr r2, _08021DA0  @ gGameState
 	movs r3, #0xc
 	ldrsh r1, [r2, r3]
 	subs r0, r0, r1
@@ -256,7 +256,7 @@ sub_8021D34: @ 0x08021D34
 	bx r0
 	.align 2, 0
 _08021D9C: .4byte gUnknown_0859B4D0
-_08021DA0: .4byte gUnknown_0202BCB0
+_08021DA0: .4byte gGameState
 
 	THUMB_FUNC_END sub_8021D34
 

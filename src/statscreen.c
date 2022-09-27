@@ -606,7 +606,7 @@ void DisplayBwl(void)
     if (!stats)
         return;
 
-    if (gUnknown_0202BCB0.gameStateBits & 0x40)
+    if (gGameState.gameStateBits & 0x40)
         return;
 
     if (gRAMChapterData.chapterStateBits & CHAPTER_FLAG_3)

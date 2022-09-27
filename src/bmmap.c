@@ -238,8 +238,8 @@ void UnpackChapterMap(void* into, int chapterId) {
         gChapterDataAssetTable[GetROMChapterStruct(chapterId)->mapTileConfigId], sTilesetConfig);
 
     // Setting max camera offsets (?) TODO: figure out
-    gUnknown_0202BCB0.unk28.x = gBmMapSize.x*16 - 240;
-    gUnknown_0202BCB0.unk28.y = gBmMapSize.y*16 - 160;
+    gGameState.unk28.x = gBmMapSize.x*16 - 240;
+    gGameState.unk28.y = gBmMapSize.y*16 - 160;
 }
 
 void UnpackChapterMapGraphics(int chapterId) {
@@ -379,13 +379,13 @@ void DisplayMovementViewTile(u16* bg, int xBmMap, int yBmMap, int xTileMap, int 
 void RenderBmMap(void) {
     int ix, iy;
 
-    gUnknown_0202BCB0.mapRenderOrigin.x = gUnknown_0202BCB0.camera.x >> 4;
-    gUnknown_0202BCB0.mapRenderOrigin.y = gUnknown_0202BCB0.camera.y >> 4;
+    gGameState.mapRenderOrigin.x = gGameState.camera.x >> 4;
+    gGameState.mapRenderOrigin.y = gGameState.camera.y >> 4;
 
     for (iy = (10 - 1); iy >= 0; --iy)
         for (ix = (15 - 1); ix >= 0; --ix)
             DisplayBmTile(gBG3TilemapBuffer, ix, iy,
-                (short) gUnknown_0202BCB0.mapRenderOrigin.x + ix, (short) gUnknown_0202BCB0.mapRenderOrigin.y + iy);
+                (short) gGameState.mapRenderOrigin.x + ix, (short) gGameState.mapRenderOrigin.y + iy);
 
     BG_EnableSyncByMask(1 << 3);
     BG_SetPosition(3, 0, 0);
@@ -402,13 +402,13 @@ void RenderBmMapOnBg2(void) {
 
     SetBackgroundTileDataOffset(2, 0x8000);
 
-    gUnknown_0202BCB0.mapRenderOrigin.x = gUnknown_0202BCB0.camera.x >> 4;
-    gUnknown_0202BCB0.mapRenderOrigin.y = gUnknown_0202BCB0.camera.y >> 4;
+    gGameState.mapRenderOrigin.x = gGameState.camera.x >> 4;
+    gGameState.mapRenderOrigin.y = gGameState.camera.y >> 4;
 
     for (iy = (10 - 1); iy >= 0; --iy)
         for (ix = (15 - 1); ix >= 0; --ix)
             DisplayBmTile(gBG2TilemapBuffer, ix, iy,
-                (short) gUnknown_0202BCB0.mapRenderOrigin.x + ix, (short) gUnknown_0202BCB0.mapRenderOrigin.y + iy);
+                (short) gGameState.mapRenderOrigin.x + ix, (short) gGameState.mapRenderOrigin.y + iy);
 
     BG_EnableSyncByMask(1 << 2);
     BG_SetPosition(2, 0, 0);
@@ -417,52 +417,52 @@ void RenderBmMapOnBg2(void) {
 void UpdateBmMapDisplay(void) {
     // TODO: figure out
 
-    if (gUnknown_0202BCB0.camera.x != gUnknown_0202BCB0.cameraPrevious.x) {
-        if (gUnknown_0202BCB0.camera.x > gUnknown_0202BCB0.cameraPrevious.x) {
-            if (((gUnknown_0202BCB0.camera.x - 1) ^ (gUnknown_0202BCB0.cameraPrevious.x - 1)) & 0x10)
+    if (gGameState.camera.x != gGameState.cameraPrevious.x) {
+        if (gGameState.camera.x > gGameState.cameraPrevious.x) {
+            if (((gGameState.camera.x - 1) ^ (gGameState.cameraPrevious.x - 1)) & 0x10)
                 RenderBmMapColumn(15);
         } else {
-            if ((gUnknown_0202BCB0.camera.x ^ gUnknown_0202BCB0.cameraPrevious.x) & 0x10)
+            if ((gGameState.camera.x ^ gGameState.cameraPrevious.x) & 0x10)
                 RenderBmMapColumn(0);
         }
     }
 
-    if (gUnknown_0202BCB0.camera.y != gUnknown_0202BCB0.cameraPrevious.y) {
-        if (gUnknown_0202BCB0.camera.y > gUnknown_0202BCB0.cameraPrevious.y) {
-            if (((gUnknown_0202BCB0.camera.y - 1) ^ (gUnknown_0202BCB0.cameraPrevious.y - 1)) & 0x10)
+    if (gGameState.camera.y != gGameState.cameraPrevious.y) {
+        if (gGameState.camera.y > gGameState.cameraPrevious.y) {
+            if (((gGameState.camera.y - 1) ^ (gGameState.cameraPrevious.y - 1)) & 0x10)
                 RenderBmMapLine(10);
         } else {
-            if ((gUnknown_0202BCB0.camera.y ^ gUnknown_0202BCB0.cameraPrevious.y) & 0x10)
+            if ((gGameState.camera.y ^ gGameState.cameraPrevious.y) & 0x10)
                 RenderBmMapLine(0);
         }
     }
 
-    gUnknown_0202BCB0.cameraPrevious = gUnknown_0202BCB0.camera;
+    gGameState.cameraPrevious = gGameState.camera;
 
     BG_SetPosition(3,
-        gUnknown_0202BCB0.camera.x - gUnknown_0202BCB0.mapRenderOrigin.x * 16,
-        gUnknown_0202BCB0.camera.y - gUnknown_0202BCB0.mapRenderOrigin.y * 16
+        gGameState.camera.x - gGameState.mapRenderOrigin.x * 16,
+        gGameState.camera.y - gGameState.mapRenderOrigin.y * 16
     );
 
     // TODO: GAME STATE BITS CONSTANTS
-    if (gUnknown_0202BCB0.gameStateBits & 1) {
+    if (gGameState.gameStateBits & 1) {
         BG_SetPosition(2,
-            gUnknown_0202BCB0.camera.x - gUnknown_0202BCB0.mapRenderOrigin.x * 16,
-            gUnknown_0202BCB0.camera.y - gUnknown_0202BCB0.mapRenderOrigin.y * 16
+            gGameState.camera.x - gGameState.mapRenderOrigin.x * 16,
+            gGameState.camera.y - gGameState.mapRenderOrigin.y * 16
         );
     }
 }
 
 void RenderBmMapColumn(u16 xOffset) {
-    u16 xBmMap = (gUnknown_0202BCB0.camera.x >> 4) + xOffset;
-    u16 yBmMap = (gUnknown_0202BCB0.camera.y >> 4);
+    u16 xBmMap = (gGameState.camera.x >> 4) + xOffset;
+    u16 yBmMap = (gGameState.camera.y >> 4);
 
-    u16 xTileMap = ((gUnknown_0202BCB0.camera.x >> 4) - gUnknown_0202BCB0.mapRenderOrigin.x + xOffset) & 0xF;
-    u16 yTileMap = ((gUnknown_0202BCB0.camera.y >> 4) - gUnknown_0202BCB0.mapRenderOrigin.y);
+    u16 xTileMap = ((gGameState.camera.x >> 4) - gGameState.mapRenderOrigin.x + xOffset) & 0xF;
+    u16 yTileMap = ((gGameState.camera.y >> 4) - gGameState.mapRenderOrigin.y);
 
     int iy;
 
-    if (!(gUnknown_0202BCB0.gameStateBits & 1)) {
+    if (!(gGameState.gameStateBits & 1)) {
         for (iy = 10; iy >= 0; --iy) {
             DisplayBmTile(gBG3TilemapBuffer,
                 xTileMap, (yTileMap + iy) & 0xF,
@@ -486,15 +486,15 @@ void RenderBmMapColumn(u16 xOffset) {
 }
 
 void RenderBmMapLine(u16 yOffset) {
-    u16 xBmMap = (gUnknown_0202BCB0.camera.x >> 4);
-    u16 yBmMap = (gUnknown_0202BCB0.camera.y >> 4) + yOffset;
+    u16 xBmMap = (gGameState.camera.x >> 4);
+    u16 yBmMap = (gGameState.camera.y >> 4) + yOffset;
 
-    u16 xTileMap = ((gUnknown_0202BCB0.camera.x >> 4) - gUnknown_0202BCB0.mapRenderOrigin.x);
-    u16 yTileMap = ((gUnknown_0202BCB0.camera.y >> 4) - gUnknown_0202BCB0.mapRenderOrigin.y + yOffset) & 0xF;
+    u16 xTileMap = ((gGameState.camera.x >> 4) - gGameState.mapRenderOrigin.x);
+    u16 yTileMap = ((gGameState.camera.y >> 4) - gGameState.mapRenderOrigin.y + yOffset) & 0xF;
 
     int ix;
 
-    if (!(gUnknown_0202BCB0.gameStateBits & 1)) {
+    if (!(gGameState.gameStateBits & 1)) {
         for (ix = 15; ix >= 0; --ix) {
             DisplayBmTile(gBG3TilemapBuffer,
                 (xTileMap + ix) & 0xF, yTileMap,
@@ -671,7 +671,7 @@ void sub_801A278(void) {
     const u16* tile = sTilesetConfig;
 
     // TODO: game state bits constants
-    if (!sub_800D208() || (gUnknown_0202BCB0.gameStateBits & 0x10)) {
+    if (!sub_800D208() || (gGameState.gameStateBits & 0x10)) {
         // TODO: macros?
         RegisterBlankTile(0x400 + (*tile++ & 0x3FF));
         RegisterBlankTile(0x400 + (*tile++ & 0x3FF));

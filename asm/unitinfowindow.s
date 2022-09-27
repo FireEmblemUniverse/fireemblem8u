@@ -364,7 +364,7 @@ GetUnitInfoWindowX: @ 0x080349D4
 	lsls r0, r0, #0x18
 	asrs r0, r0, #0x18
 	lsls r0, r0, #4
-	ldr r1, _080349F0  @ gUnknown_0202BCB0
+	ldr r1, _080349F0  @ gGameState
 	movs r3, #0xc
 	ldrsh r1, [r1, r3]
 	subs r0, r0, r1
@@ -373,7 +373,7 @@ GetUnitInfoWindowX: @ 0x080349D4
 	movs r0, #0
 	b _080349F8
 	.align 2, 0
-_080349F0: .4byte gUnknown_0202BCB0
+_080349F0: .4byte gGameState
 _080349F4:
 	movs r0, #0x1e
 	subs r0, r0, r2

@@ -569,7 +569,7 @@ sub_8012AE0: @ 0x08012AE0
 	bl Proc_Start
 	lsls r4, r4, #0x10
 	asrs r4, r4, #0xc
-	ldr r2, _08012B20  @ gUnknown_0202BCB0
+	ldr r2, _08012B20  @ gGameState
 	movs r3, #0xc
 	ldrsh r1, [r2, r3]
 	subs r4, r4, r1
@@ -586,7 +586,7 @@ sub_8012AE0: @ 0x08012AE0
 	bx r0
 	.align 2, 0
 _08012B1C: .4byte gUnknown_08592580
-_08012B20: .4byte gUnknown_0202BCB0
+_08012B20: .4byte gGameState
 
 	THUMB_FUNC_END sub_8012AE0
 
@@ -616,7 +616,7 @@ sub_8012B3C: @ 0x08012B3C
 	str r4, [r0, #0x2c]
 	movs r2, #0x10
 	ldrsb r2, [r4, r2]
-	ldr r3, _08012B80  @ gUnknown_0202BCB0
+	ldr r3, _08012B80  @ gGameState
 	ldrh r1, [r3, #0xc]
 	lsls r1, r1, #0x10
 	asrs r1, r1, #0x14
@@ -640,7 +640,7 @@ sub_8012B3C: @ 0x08012B3C
 	bx r0
 	.align 2, 0
 _08012B7C: .4byte gUnknown_085925D0
-_08012B80: .4byte gUnknown_0202BCB0
+_08012B80: .4byte gGameState
 
 	THUMB_FUNC_END sub_8012B3C
 
@@ -687,16 +687,16 @@ _08012BBC:
 	beq _08012BDC
 	b _08012BE6
 _08012BCC:
-	ldr r0, _08012BD8  @ gUnknown_0202BCB0
+	ldr r0, _08012BD8  @ gGameState
 	ldrh r1, [r0, #0xc]
 	movs r2, #2
 	eors r1, r2
 	strh r1, [r0, #0xc]
 	b _08012BE6
 	.align 2, 0
-_08012BD8: .4byte gUnknown_0202BCB0
+_08012BD8: .4byte gGameState
 _08012BDC:
-	ldr r0, _08012BEC  @ gUnknown_0202BCB0
+	ldr r0, _08012BEC  @ gGameState
 	ldrh r1, [r0, #0xe]
 	movs r2, #2
 	eors r1, r2
@@ -705,7 +705,7 @@ _08012BE6:
 	bl RenderBmMap
 	b _08012C2E
 	.align 2, 0
-_08012BEC: .4byte gUnknown_0202BCB0
+_08012BEC: .4byte gGameState
 _08012BF0:
 	adds r0, r4, #0
 	adds r0, #0x2a
@@ -803,7 +803,7 @@ sub_8012C88: @ 0x08012C88
 	.align 2, 0
 _08012CA4: .4byte gUnknown_085925F0
 _08012CA8:
-	ldr r2, _08012CBC  @ gUnknown_0202BCB0
+	ldr r2, _08012CBC  @ gGameState
 	ldrh r3, [r2, #0xc]
 	ldr r1, _08012CC0  @ 0x0000FFFC
 	adds r0, r1, #0
@@ -814,7 +814,7 @@ _08012CA8:
 	strh r1, [r2, #0xe]
 	b _08012CCE
 	.align 2, 0
-_08012CBC: .4byte gUnknown_0202BCB0
+_08012CBC: .4byte gGameState
 _08012CC0: .4byte 0x0000FFFC
 _08012CC4:
 	movs r0, #3
@@ -899,7 +899,7 @@ sub_8012CFC: @ 0x08012CFC
 	movs r2, #0x10
 	ldrsb r2, [r5, r2]
 	lsls r2, r2, #4
-	ldr r1, _08012DBC  @ gUnknown_0202BCB0
+	ldr r1, _08012DBC  @ gGameState
 	ldrh r0, [r1, #0xc]
 	subs r2, r2, r0
 	subs r2, #0x10
@@ -940,7 +940,7 @@ _08012DAC:
 	.align 2, 0
 _08012DB4: .4byte gUnknown_08592608
 _08012DB8: .4byte gLCDControlBuffer
-_08012DBC: .4byte gUnknown_0202BCB0
+_08012DBC: .4byte gGameState
 _08012DC0: .4byte gUnknown_08592628
 _08012DC4: .4byte gRAMChapterData
 _08012DC8: .4byte 0x000002D6
@@ -6452,7 +6452,7 @@ GeneralVBlankHandler: @ 0x080152A4
 	ldr r0, [r0]
 	bl Proc_Run
 	bl FlushPrimaryOAM
-	ldr r1, _080152F0  @ gUnknown_0202BCB0
+	ldr r1, _080152F0  @ gGameState
 	movs r0, #0
 	ldrsb r0, [r1, r0]
 	cmp r0, #0
@@ -6470,7 +6470,7 @@ _080152DE:
 	.align 2, 0
 _080152E8: .4byte gUnknown_03007FF8
 _080152EC: .4byte gProcTreeRootArray
-_080152F0: .4byte gUnknown_0202BCB0
+_080152F0: .4byte gGameState
 
 	THUMB_FUNC_END GeneralVBlankHandler
 
@@ -6501,7 +6501,7 @@ _0801531A:
 	bl Proc_Run
 	movs r0, #0xd
 	bl PushSpriteLayerObjects
-	ldr r1, _08015358  @ gUnknown_0202BCB0
+	ldr r1, _08015358  @ gGameState
 	movs r0, #1
 	strb r0, [r1]
 	ldr r0, _0801535C  @ 0x04000006
@@ -6514,42 +6514,42 @@ _0801531A:
 	.align 2, 0
 _08015350: .4byte gKeyStatusPtr
 _08015354: .4byte gProcTreeRootArray
-_08015358: .4byte gUnknown_0202BCB0
+_08015358: .4byte gGameState
 _0801535C: .4byte 0x04000006
 
 	THUMB_FUNC_END SomeUpdateRoutine
 
 	THUMB_FUNC_START AddSkipThread2
 AddSkipThread2: @ 0x08015360
-	ldr r1, _0801536C  @ gUnknown_0202BCB0
+	ldr r1, _0801536C  @ gGameState
 	ldrb r0, [r1, #1]
 	adds r0, #1
 	strb r0, [r1, #1]
 	bx lr
 	.align 2, 0
-_0801536C: .4byte gUnknown_0202BCB0
+_0801536C: .4byte gGameState
 
 	THUMB_FUNC_END AddSkipThread2
 
 	THUMB_FUNC_START SubSkipThread2
 SubSkipThread2: @ 0x08015370
-	ldr r1, _0801537C  @ gUnknown_0202BCB0
+	ldr r1, _0801537C  @ gGameState
 	ldrb r0, [r1, #1]
 	subs r0, #1
 	strb r0, [r1, #1]
 	bx lr
 	.align 2, 0
-_0801537C: .4byte gUnknown_0202BCB0
+_0801537C: .4byte gGameState
 
 	THUMB_FUNC_END SubSkipThread2
 
 	THUMB_FUNC_START GetThread2SkipStack
 GetThread2SkipStack: @ 0x08015380
-	ldr r0, _08015388  @ gUnknown_0202BCB0
+	ldr r0, _08015388  @ gGameState
 	ldrb r0, [r0, #1]
 	bx lr
 	.align 2, 0
-_08015388: .4byte gUnknown_0202BCB0
+_08015388: .4byte gGameState
 
 	THUMB_FUNC_END GetThread2SkipStack
 

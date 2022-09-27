@@ -667,7 +667,7 @@ DEBUGONLY_Startup: @ 0x0801C090
 	bl sub_8008A24
 	ldr r0, _0801C0EC  @ gDebugContinueMenuDef
 	bl StartOrphanMenu
-	ldr r4, _0801C0F0  @ gUnknown_0202BCB0
+	ldr r4, _0801C0F0  @ gGameState
 	ldrb r2, [r4, #4]
 	movs r1, #0x40
 	orrs r1, r2
@@ -690,7 +690,7 @@ _0801C0E0: .4byte SomeUpdateRoutine
 _0801C0E4: .4byte GeneralVBlankHandler
 _0801C0E8: .4byte gUnknown_080D7A7C
 _0801C0EC: .4byte gDebugContinueMenuDef
-_0801C0F0: .4byte gUnknown_0202BCB0
+_0801C0F0: .4byte gGameState
 _0801C0F4: .4byte 0x0600B000
 _0801C0F8: .4byte gUnknown_02023CE8
 

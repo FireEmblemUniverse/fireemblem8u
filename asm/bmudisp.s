@@ -24,7 +24,7 @@ SetupMapSpritesPalettes: @ 0x08026628
 	lsls r1, r1, #2
 	movs r2, #0x80
 	bl CopyToPaletteBuffer
-	ldr r0, _08026654  @ gUnknown_0202BCB0
+	ldr r0, _08026654  @ gGameState
 	ldrb r1, [r0, #4]
 	movs r0, #0x40
 	ands r0, r1
@@ -38,7 +38,7 @@ SetupMapSpritesPalettes: @ 0x08026628
 	b _08026668
 	.align 2, 0
 _08026650: .4byte unit_icon_pal_player
-_08026654: .4byte gUnknown_0202BCB0
+_08026654: .4byte gGameState
 _08026658: .4byte unit_icon_pal_p4
 _0802665C:
 	ldr r0, _0802666C  @ gUnknown_0859EEC0
@@ -1816,7 +1816,7 @@ _080273B4:
 	movs r3, #0
 	movs r0, #4
 	ldrsh r1, [r6, r0]
-	ldr r2, _08027420  @ gUnknown_0202BCB0
+	ldr r2, _08027420  @ gGameState
 	movs r4, #0xc
 	ldrsh r0, [r2, r4]
 	subs r4, r1, r0
@@ -1871,7 +1871,7 @@ _08027412:
 	mov pc, r0
 	.align 2, 0
 _0802741C: .4byte gUnknown_0203A018
-_08027420: .4byte gUnknown_0202BCB0
+_08027420: .4byte gGameState
 _08027424: .4byte _08027428
 _08027428: @ jump table
 	.4byte _08027440 @ case 0
@@ -2052,7 +2052,7 @@ _0802755C:
 	cmp r0, #0x22
 	beq _080275C6
 	lsls r1, r5, #4
-	ldr r2, _080275D8  @ gUnknown_0202BCB0
+	ldr r2, _080275D8  @ gGameState
 	movs r3, #0xc
 	ldrsh r0, [r2, r3]
 	subs r3, r1, r0
@@ -2090,7 +2090,7 @@ _080275C6:
 _080275CC: .4byte gRAMChapterData
 _080275D0: .4byte gBmMapFog
 _080275D4: .4byte gBmMapTerrain
-_080275D8: .4byte gUnknown_0202BCB0
+_080275D8: .4byte gGameState
 _080275DC: .4byte 0x00000107
 _080275E0: .4byte gObject_8x8
 _080275E4: .4byte 0x00000C51
@@ -2226,7 +2226,7 @@ _08027700:
 	movs r1, #0x10
 	ldrsb r1, [r4, r1]
 	lsls r1, r1, #4
-	ldr r2, _0802774C  @ gUnknown_0202BCB0
+	ldr r2, _0802774C  @ gGameState
 	movs r3, #0xc
 	ldrsh r0, [r2, r3]
 	subs r3, r1, r0
@@ -2264,13 +2264,13 @@ _08027734:
 	ldr r5, [sp, #8]
 	b _0802783C
 	.align 2, 0
-_0802774C: .4byte gUnknown_0202BCB0
+_0802774C: .4byte gGameState
 _08027750: .4byte gUnknown_0859B938
 _08027754:
 	movs r1, #0x10
 	ldrsb r1, [r4, r1]
 	lsls r1, r1, #4
-	ldr r2, _080277A0  @ gUnknown_0202BCB0
+	ldr r2, _080277A0  @ gGameState
 	movs r3, #0xc
 	ldrsh r0, [r2, r3]
 	subs r3, r1, r0
@@ -2308,13 +2308,13 @@ _08027788:
 	mov r5, sl
 	b _0802783C
 	.align 2, 0
-_080277A0: .4byte gUnknown_0202BCB0
+_080277A0: .4byte gGameState
 _080277A4: .4byte gUnknown_0859B898
 _080277A8:
 	movs r1, #0x10
 	ldrsb r1, [r4, r1]
 	lsls r1, r1, #4
-	ldr r2, _080277EC  @ gUnknown_0202BCB0
+	ldr r2, _080277EC  @ gGameState
 	movs r3, #0xc
 	ldrsh r0, [r2, r3]
 	subs r3, r1, r0
@@ -2346,14 +2346,14 @@ _080277A8:
 	ldr r5, [sp, #0xc]
 	b _0802783C
 	.align 2, 0
-_080277EC: .4byte gUnknown_0202BCB0
+_080277EC: .4byte gGameState
 _080277F0: .4byte 0x00000202
 _080277F4: .4byte gUnknown_0859B7F4
 _080277F8:
 	movs r1, #0x10
 	ldrsb r1, [r4, r1]
 	lsls r1, r1, #4
-	ldr r2, _0802784C  @ gUnknown_0202BCB0
+	ldr r2, _0802784C  @ gGameState
 	movs r3, #0xc
 	ldrsh r0, [r2, r3]
 	subs r3, r1, r0
@@ -2392,7 +2392,7 @@ _0802783C:
 	bl CallARM_PushToSecondaryOAM
 	b _080278A6
 	.align 2, 0
-_0802784C: .4byte gUnknown_0202BCB0
+_0802784C: .4byte gGameState
 _08027850: .4byte 0x00000201
 _08027854: .4byte gUnknown_0859B858
 _08027858:
@@ -2405,7 +2405,7 @@ _08027862:
 	movs r1, #0x10
 	ldrsb r1, [r4, r1]
 	lsls r1, r1, #4
-	ldr r2, _08027914  @ gUnknown_0202BCB0
+	ldr r2, _08027914  @ gGameState
 	movs r3, #0xc
 	ldrsh r0, [r2, r3]
 	subs r3, r1, r0
@@ -2448,7 +2448,7 @@ _080278AC:
 	movs r1, #0x10
 	ldrsb r1, [r4, r1]
 	lsls r1, r1, #4
-	ldr r2, _08027914  @ gUnknown_0202BCB0
+	ldr r2, _08027914  @ gGameState
 	movs r3, #0xc
 	ldrsh r0, [r2, r3]
 	subs r3, r1, r0
@@ -2494,7 +2494,7 @@ _080278E8:
 	bl CallARM_PushToSecondaryOAM
 	b _080279FC
 	.align 2, 0
-_08027914: .4byte gUnknown_0202BCB0
+_08027914: .4byte gGameState
 _08027918: .4byte 0x000001FF
 _0802791C: .4byte gUnknown_0859B968
 _08027920: .4byte 0x00000209
@@ -2521,7 +2521,7 @@ _08027930:
 	movs r1, #0x10
 	ldrsb r1, [r4, r1]
 	lsls r1, r1, #4
-	ldr r2, _0802799C  @ gUnknown_0202BCB0
+	ldr r2, _0802799C  @ gGameState
 	movs r5, #0xc
 	ldrsh r0, [r2, r5]
 	subs r3, r1, r0
@@ -2555,7 +2555,7 @@ _08027930:
 	bl CallARM_PushToSecondaryOAM
 	b _080279FC
 	.align 2, 0
-_0802799C: .4byte gUnknown_0202BCB0
+_0802799C: .4byte gGameState
 _080279A0: .4byte 0x00000209
 _080279A4: .4byte 0x000001FF
 _080279A8: .4byte 0x00000107
@@ -2567,7 +2567,7 @@ _080279B0:
 	movs r1, #0x10
 	ldrsb r1, [r4, r1]
 	lsls r1, r1, #4
-	ldr r2, _08027A18  @ gUnknown_0202BCB0
+	ldr r2, _08027A18  @ gGameState
 	movs r5, #0xc
 	ldrsh r0, [r2, r5]
 	subs r3, r1, r0
@@ -2615,7 +2615,7 @@ _08027A08:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_08027A18: .4byte gUnknown_0202BCB0
+_08027A18: .4byte gGameState
 _08027A1C: .4byte 0x00000209
 _08027A20: .4byte 0x000001FF
 _08027A24: .4byte 0x00000107
@@ -2626,12 +2626,12 @@ _08027A2C: .4byte 0x00000811
 
 	THUMB_FUNC_START sub_8027A30
 sub_8027A30: @ 0x08027A30
-	ldr r1, _08027A38  @ gUnknown_0202BCB0
+	ldr r1, _08027A38  @ gGameState
 	ldr r0, _08027A3C  @ 0x0000FFFF
 	strh r0, [r1, #0x18]
 	bx lr
 	.align 2, 0
-_08027A38: .4byte gUnknown_0202BCB0
+_08027A38: .4byte gGameState
 _08027A3C: .4byte 0x0000FFFF
 
 	THUMB_FUNC_END sub_8027A30
@@ -2650,7 +2650,7 @@ _08027A48: .4byte gUnknown_0203A4D0
 	THUMB_FUNC_START sub_8027A4C
 sub_8027A4C: @ 0x08027A4C
 	push {r4, lr}
-	ldr r2, _08027AB4  @ gUnknown_0202BCB0
+	ldr r2, _08027AB4  @ gGameState
 	movs r1, #0x16
 	ldrsh r0, [r2, r1]
 	ldr r1, _08027AB8  @ gBmMapUnit
@@ -2698,11 +2698,11 @@ sub_8027A4C: @ 0x08027A4C
 	bl HideUnitSMS
 	b _08027AFA
 	.align 2, 0
-_08027AB4: .4byte gUnknown_0202BCB0
+_08027AB4: .4byte gGameState
 _08027AB8: .4byte gBmMapUnit
 _08027ABC: .4byte gUnknown_0203A4D0
 _08027AC0:
-	ldr r2, _08027B00  @ gUnknown_0202BCB0
+	ldr r2, _08027B00  @ gGameState
 	ldr r1, [r2, #0x18]
 	ldr r0, [r2, #0x14]
 	cmp r1, r0
@@ -2733,7 +2733,7 @@ _08027AFA:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_08027B00: .4byte gUnknown_0202BCB0
+_08027B00: .4byte gGameState
 _08027B04: .4byte gUnknown_0203A4D0
 _08027B08: .4byte gBmMapUnit
 

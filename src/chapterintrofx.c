@@ -850,7 +850,7 @@ void ChapterIntro_8020AF8() {
 }
 
 void ChapterIntro_8020B20() {
-    gUnknown_0202BCB0.camera.y = 0xA0 * 4;
+    gGameState.camera.y = 0xA0 * 4;
 
     return;
 }
@@ -889,12 +889,12 @@ void ChapterIntro_InitMapDisplay() {
     var = GetROMChapterStruct(gRAMChapterData.chapterIndex)->unk10;
     var = sub_8015A40(var * 16);
     var = (var + 0xF) & 0x1F0;
-    gUnknown_0202BCB0.camera.x = var;
+    gGameState.camera.x = var;
 
     var = GetROMChapterStruct(gRAMChapterData.chapterIndex)->unk11;
     var = sub_8015A6C(var * 16);
     var = (var + 0xF) & 0x3F0;
-    gUnknown_0202BCB0.camera.y = var;
+    gGameState.camera.y = var;
 
     RefreshEntityBmMaps();
     RenderBmMap();
