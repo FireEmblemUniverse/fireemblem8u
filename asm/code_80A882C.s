@@ -59837,7 +59837,7 @@ sub_80C488C: @ 0x080C488C
 	movs r0, #1
 	lsls r0, r6
 	bl BG_EnableSyncByMask
-	ldr r0, _080C48E8  @ gUnknown_08A708A7
+	ldr r0, _080C48E8  @ 0x08A708A7
 	str r0, [sp, #4]
 	add r0, sp, #4
 	ldr r1, _080C48EC  @ gUnknown_02022A68
@@ -59852,7 +59852,7 @@ sub_80C488C: @ 0x080C488C
 _080C48DC: .4byte gUnknown_08B12DB4
 _080C48E0: .4byte 0x06005000
 _080C48E4: .4byte 0x01000008
-_080C48E8: .4byte gUnknown_08A708A7
+_080C48E8: .4byte 0x08A708A7 @ Not a pointer - this is a palette for text shadow in the intro scroll.
 _080C48EC: .4byte gUnknown_02022A68
 
 	THUMB_FUNC_END sub_80C488C

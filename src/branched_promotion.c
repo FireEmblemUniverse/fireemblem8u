@@ -1664,3 +1664,7 @@ const char gProcName_E_guMenu2ReWriteUp[] = "E_guMenu2ReWriteUp";
 const char gProcName_E_guMenu2ReWriteDown[] = "E_guMenu2ReWriteDown";
 const char gProcName_E_guMess3ReWrite[] = "E_guMess3ReWrite";
 const char gProcName_E_Guide[] = "E_Guide";
+
+// Pad the data here so that the linker script doesn't need to specify the
+// exact location of data after this file.
+const u8 gPromotionData_Filler[] = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
