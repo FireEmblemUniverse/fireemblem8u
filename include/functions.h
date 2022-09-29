@@ -841,7 +841,7 @@ void ConvoyMenuProc_ExecBootlegPopup(ProcPtr proc);
 // ??? UpdateMapViewWithFog(???);
 // ??? FastUpdateMapViewWithFog(???);
 // ??? FillWarpRangeMap(???);
-// ??? MenuItemPanelIdle(???);
+// ??? MenuItemPanelProcIdle(???);
 void ForceMenuItemPanel(ProcPtr, struct Unit*, int, int); // StartEquipInfoWindow
 void UpdateMenuItemPanel(int number); // UpdateEquipInfoWindow
 void EndMenuItemPanel(void);

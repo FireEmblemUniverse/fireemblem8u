@@ -22,17 +22,23 @@ struct MenuItemPanelProc{
 	/* 64 */ u8 draw_arrow;
 };
 
-extern struct ProcCmd CONST_DATA gProcCmd_MenuItemPanel[];
+void MenuItemPanelProcIdle(struct MenuItemPanelProc *proc);
 
-void MenuItemPanelIdle(struct MenuItemPanelProc *proc) {
-    if (0 == proc->draw_arrow)
-        return;
+struct ProcCmd CONST_DATA gProcCmd_MenuItemPanel[] = {
+	PROC_15,
+	PROC_REPEAT(MenuItemPanelProcIdle),
+	PROC_END,
+};
 
-    if (proc->ItemSlotIndex < 0)
-        return;
+void MenuItemPanelProcIdle(struct MenuItemPanelProc *proc) {
+	if (0 == proc->draw_arrow)
+		return;
+
+	if (proc->ItemSlotIndex < 0)
+		return;
     
 	/* atk */
-    if (gBattleActor.battleAttack > gBattleTarget.battleAttack)
+	if (gBattleActor.battleAttack > gBattleTarget.battleAttack)
 		UpdateStatArrowSprites(proc->x * 8 + 0x33, (proc->y + 3) * 8, 0);
 	if (gBattleActor.battleAttack < gBattleTarget.battleAttack)
 		UpdateStatArrowSprites(proc->x * 8 + 0x33, (proc->y + 3) * 8, 1);
@@ -86,10 +92,13 @@ void ForceMenuItemPanel(ProcPtr _menu_proc, struct Unit *unit, int x, int y)
 }
 
 void UpdateMenuItemPanel(int slot) {
-    struct MenuItemPanelProc *proc = Proc_Find(gProcCmd_MenuItemPanel);
+	struct MenuItemPanelProc *proc = Proc_Find(gProcCmd_MenuItemPanel);
+	u16 *bg_base = BG_GetMapBuffer(0) + proc->x + 0x20 * proc->y;
+	struct TextHandle *texts = &proc->text[0];
 	struct Unit *unit = proc->unit;
 	int icon_pal = proc->IconPalIndex;
-	u16 item, color;
+
+	int item, color;
 	char *str;
 	int i;
 
@@ -121,33 +130,32 @@ void UpdateMenuItemPanel(int slot) {
 	switch (GetItemType(item)) {
 	case ITYPE_STAFF:
 	case ITYPE_ITEM:
+	case ITYPE_11:
 	case ITYPE_12:
 		str = GetStringFromIndex(GetItemUseDescId(item));
+		i = 0;
 
-		for (i = 0; 0 != *str; i++, str++) {
-			Text_InsertString(&proc->text[i], 0, TEXT_COLOR_NORMAL, str);
+		while (1) {
+			Text_InsertString(&texts[i], 0, TEXT_COLOR_NORMAL, str);
 			str = String_GetEnd(str);
+
+			if (0 == *str)
+				break;
+
+			str++;
+			i++;
 		}
 		
-		gBattleTarget.battleAttack = gBattleActor.battleAttack;
-		gBattleTarget.battleHitRate = gBattleActor.battleHitRate;
-		gBattleTarget.battleCritRate = gBattleActor.battleCritRate;
-		gBattleTarget.battleAvoidRate = gBattleActor.battleAvoidRate;
+		gBattleActor.battleAttack = gBattleTarget.battleAttack;
+		gBattleActor.battleHitRate = gBattleTarget.battleHitRate;
+		gBattleActor.battleCritRate = gBattleTarget.battleCritRate;
+		gBattleActor.battleAvoidRate = gBattleTarget.battleAvoidRate;
 
-		Text_Draw(&proc->text[0], TILEMAP_LOCATED(BG_GetMapBuffer(0), proc->x, proc->y + 0x1));
-		Text_Draw(&proc->text[1], TILEMAP_LOCATED(BG_GetMapBuffer(0), proc->x, proc->y + 0x3));
-		Text_Draw(&proc->text[2], TILEMAP_LOCATED(BG_GetMapBuffer(0), proc->x, proc->y + 0xA));
+		Text_Draw(&texts[0], TILEMAP_LOCATED(bg_base, 1, 1));
+		Text_Draw(&texts[1], TILEMAP_LOCATED(bg_base, 1, 3));
+		Text_Draw(&texts[2], TILEMAP_LOCATED(bg_base, 1, 5));
 		break;
 	
-	case ITYPE_SWORD:
-	case ITYPE_LANCE:
-	case ITYPE_AXE:
-	case ITYPE_BOW:
-	case ITYPE_ANIMA:
-	case ITYPE_LIGHT:
-	case ITYPE_DARK:
-	case ITYPE_BLLST:
-	case ITYPE_DRAGN:
 	default:
 		BattleGenerateUiStats(unit, slot);
 
@@ -158,29 +166,34 @@ void UpdateMenuItemPanel(int slot) {
 			gBattleTarget.battleAvoidRate = gBattleActor.battleAvoidRate;
 		}
 
-		color = CanUnitUseWeapon(unit, item) ? TEXT_COLOR_BLUE : TEXT_COLOR_GRAY;
+		color = CanUnitUseWeapon(unit, gBattleActor.weapon) ? TEXT_COLOR_BLUE : TEXT_COLOR_GRAY;
 
-		Text_InsertString(&proc->text[0], 0x1C, TEXT_COLOR_NORMAL, GetStringFromIndex(0x4F1));
-		Text_InsertString(&proc->text[1], 0x02, TEXT_COLOR_NORMAL, GetStringFromIndex(0x4F3));
-		Text_InsertString(&proc->text[2], 0x02, TEXT_COLOR_NORMAL, GetStringFromIndex(0x4F4));
-		Text_InsertString(&proc->text[1], 0x32, TEXT_COLOR_NORMAL, GetStringFromIndex(0x501));
-		Text_InsertString(&proc->text[2], 0x32, TEXT_COLOR_NORMAL, GetStringFromIndex(0x4F5));
+		Text_InsertString(&texts[0], 0x1C, TEXT_COLOR_NORMAL, GetStringFromIndex(0x4F1));
+		Text_InsertString(&texts[1], 0x02, TEXT_COLOR_NORMAL, GetStringFromIndex(0x4F3));
+		Text_InsertString(&texts[2], 0x02, TEXT_COLOR_NORMAL, GetStringFromIndex(0x4F4));
+		Text_InsertString(&texts[1], 0x32, TEXT_COLOR_NORMAL, GetStringFromIndex(0x501));
+		Text_InsertString(&texts[2], 0x32, TEXT_COLOR_NORMAL, GetStringFromIndex(0x4F5));
 		
-		Text_InsertNumberOr2Dashes(&proc->text[1], 0x24, color, gBattleActor.battleAttack);
-		Text_InsertNumberOr2Dashes(&proc->text[2], 0x24, color, gBattleActor.battleHitRate);
-		Text_InsertNumberOr2Dashes(&proc->text[1], 0x54, color, gBattleActor.battleCritRate);
-		Text_InsertNumberOr2Dashes(&proc->text[2], 0x54, color, gBattleActor.battleAvoidRate);
-		
-		Text_Draw(&proc->text[0], TILEMAP_LOCATED(BG_GetMapBuffer(0), proc->x, proc->y + 0x1));
-		Text_Draw(&proc->text[1], TILEMAP_LOCATED(BG_GetMapBuffer(0), proc->x, proc->y + 0x3));
-		Text_Draw(&proc->text[2], TILEMAP_LOCATED(BG_GetMapBuffer(0), proc->x, proc->y + 0xA));
+		Text_InsertNumberOr2Dashes(&texts[1], 0x24, color, gBattleActor.battleAttack);
+		Text_InsertNumberOr2Dashes(&texts[2], 0x24, color, gBattleActor.battleHitRate);
+		Text_InsertNumberOr2Dashes(&texts[1], 0x54, color, gBattleActor.battleCritRate);
+		Text_InsertNumberOr2Dashes(&texts[2], 0x54, color, gBattleActor.battleAvoidRate);
+
+		Text_Draw(&proc->text[0], TILEMAP_LOCATED(gBG0TilemapBuffer, proc->x + 1, proc->y + 0x1));
+		Text_Draw(&proc->text[1], TILEMAP_LOCATED(gBG0TilemapBuffer, proc->x + 1, proc->y + 0x3));
+		Text_Draw(&proc->text[2], TILEMAP_LOCATED(gBG0TilemapBuffer, proc->x + 1, proc->y + 0x5));
 		
 		DrawIcon(
-			TILEMAP_LOCATED(BG_GetMapBuffer(0), proc->x + 8, proc->y + 0x1),
-			GetItemType(item) + 0x70,
-			proc->IconPalIndex << 0xC);
+			TILEMAP_LOCATED(bg_base, 8, 1),
+			GetItemType(gBattleActor.weapon) + 0x70,
+			icon_pal << 0xC);
 		break;
 	} /* switch item type */
 
 	BG_EnableSyncByMask(BG0_SYNC_BIT);
+}
+
+void EndMenuItemPanel()
+{
+	Proc_EndEach(gProcCmd_MenuItemPanel);
 }
