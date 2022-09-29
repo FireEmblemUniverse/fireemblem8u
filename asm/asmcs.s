@@ -585,7 +585,7 @@ _08084B86:
 sub_8084B8C: @ 0x08084B8C
 	push {lr}
 	movs r0, #0
-	bl sub_801E2E0
+	bl UpdateMapViewWithFog
 	pop {r0}
 	bx r0
 
