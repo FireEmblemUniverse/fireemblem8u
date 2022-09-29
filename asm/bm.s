@@ -747,8 +747,8 @@ _08015BD0: .4byte gGameState
 
 	THUMB_FUNC_END SetCursorMapPosition
 
-	THUMB_FUNC_START sub_8015BD4
-sub_8015BD4: @ 0x08015BD4
+	THUMB_FUNC_START UpdateStatArrowSprites
+UpdateStatArrowSprites: @ 0x08015BD4
 	push {r4, r5, r6, lr}
 	sub sp, #4
 	adds r5, r0, #0
@@ -784,7 +784,7 @@ _08015BFA:
 	.align 2, 0
 _08015C18: .4byte gUnknown_0859A530
 
-	THUMB_FUNC_END sub_8015BD4
+	THUMB_FUNC_END UpdateStatArrowSprites
 
 	THUMB_FUNC_START Init6C_GENS
 Init6C_GENS: @ 0x08015C1C

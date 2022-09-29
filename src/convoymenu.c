@@ -95,7 +95,7 @@ void HandleNewItemGetFromDrop(struct Unit* unit, int item, ProcPtr proc)
     gGameState.itemUnk2C = item;
     NewFace(0, GetUnitPortraitId(unit), 0xB0, 4, 2);
     sub_8006458(0, 5);
-    sub_801E684(proc, unit, 0xF, 0xA);
+    ForceMenuItemPanel(proc, unit, 0xF, 0xA);
 
     if (HasConvoyAccess() && GetConvoyItemCount() < 100)
         /* Your inventory is full. Send an item to Supply.[.] */

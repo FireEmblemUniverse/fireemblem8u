@@ -68,7 +68,7 @@ SECTIONS
         src/bmcamadjust.o(.text);
         src/convoymenu.o(.text);
         src/fogmap.o(.text);
-        asm/menuitempanel.o(.text);
+        src/menuitempanel.o(.text);
         asm/unitswapfx.o(.text);
         asm/phasechangefx.o(.text);
         src/unit_facing.o(.text);
@@ -292,6 +292,7 @@ SECTIONS
         . = ALIGN(4); src/bmxfade.o(.data);
         . = ALIGN(4); src/bmcamadjust.o(.data);
         . = ALIGN(4); src/convoymenu.o(.data);
+        . = ALIGN(4); src/menuitempanel.o(.data);
         . = ALIGN(4); data/data_59AD88.o(.data);
         . = ALIGN(4); src/chapterintrofx.o(.data);
         . = ALIGN(4); data/data_59B358.o(.data);

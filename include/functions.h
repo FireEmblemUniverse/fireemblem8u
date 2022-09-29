@@ -740,7 +740,7 @@ u16 sub_8015A6C(int yMapCoord);
 void DisplayCursor(int x, int y, int arg2);
 // ??? sub_8015B88(???);
 void SetCursorMapPosition(int, int);
-void sub_8015BD4(int a, int b, int c);
+void UpdateStatArrowSprites(int a, int b, int c);
 // ??? Init6C_GENS(???);
 // ??? Loop6C_GENS(???);
 // ??? StoreAdjustedCameraPositions(???);
@@ -841,9 +841,9 @@ void ConvoyMenuProc_ExecBootlegPopup(ProcPtr proc);
 // ??? UpdateMapViewWithFog(???);
 // ??? FastUpdateMapViewWithFog(???);
 // ??? FillWarpRangeMap(???);
-// ??? sub_801E4F4(???);
-void sub_801E684(ProcPtr, struct Unit*, int, int); // StartEquipInfoWindow
-void sub_801E748(int number); // UpdateEquipInfoWindow
+// ??? MenuItemPanelProcIdle(???);
+void ForceMenuItemPanel(ProcPtr, struct Unit*, int, int); // StartEquipInfoWindow
+void UpdateMenuItemPanel(int number); // UpdateEquipInfoWindow
 void EndMenuItemPanel(void);
 // ??? sub_801EA64(???);
 // ??? sub_801EAE8(???);

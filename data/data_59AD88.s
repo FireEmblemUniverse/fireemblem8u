@@ -1,19 +1,6 @@
     .section .data
 
 
-	.global gUnknown_0859AE88
-gUnknown_0859AE88:  @ 0x0859AE88
-        @ PROC_15
-        .short 0x15, 0x0
-        .word 0x0
-        @ PROC_REPEAT
-        .short 0x3, 0x0
-        .word sub_801E4F4
-        @ PROC_END
-        .short 0x0, 0x0
-        .word 0x0
-
-
 	.global gUnknown_0859AEA0
 gUnknown_0859AEA0:  @ 0x0859AEA0
         @ PROC_YIELD

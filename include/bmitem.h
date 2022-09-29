@@ -91,6 +91,7 @@ enum {
     ITYPE_ITEM  = 9,
     ITYPE_DRAGN = 10,
 
+    ITYPE_11    = 11,
     ITYPE_12    = 12,
 };
 

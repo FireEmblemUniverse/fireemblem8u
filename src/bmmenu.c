@@ -482,7 +482,7 @@ u8 sub_8022B8C(struct MenuProc* menu, struct MenuItemProc* menuItem) {
     NewFace(0, GetUnitPortraitId(gActiveUnit), 0xB0, 0xC, 2);
     sub_8006458(0, 5);
 
-    sub_801E684(proc, gActiveUnit, 0xF, 0xB);
+    ForceMenuItemPanel(proc, gActiveUnit, 0xF, 0xB);
 
     return MENU_ACT_SKIPCURSOR | MENU_ACT_END | MENU_ACT_SND6A | MENU_ACT_CLEAR;
 }
@@ -495,7 +495,7 @@ u8 sub_8022BD8(struct MenuProc* menu, struct MenuItemProc* menuItem) {
         sub_8006458(0, 5);
     }
 
-    sub_801E684(proc, gActiveUnit, 0xF, 0xB);
+    ForceMenuItemPanel(proc, gActiveUnit, 0xF, 0xB);
 
     sub_80832C4();
 
@@ -579,7 +579,7 @@ int UnknownMenu_SwitchIn(struct MenuProc* menu, struct MenuItemProc* menuItem) {
 
     int reach;
 
-    sub_801E748(menuItem->itemNumber);
+    UpdateMenuItemPanel(menuItem->itemNumber);
 
     BmMapFill(gBmMapMovement, -1);
     BmMapFill(gBmMapRange, 0);
@@ -878,7 +878,7 @@ u8 PlayCommandEffect(struct MenuProc* menu, struct MenuItemProc* menuItem) {
 
         NewFace(0, GetUnitPortraitId(gActiveUnit), 0xB0, 0xC, 2);
         sub_8006458(0, 5);
-        sub_801E684(proc, gActiveUnit, 0xF, 0xB);
+        ForceMenuItemPanel(proc, gActiveUnit, 0xF, 0xB);
 
         ResetIconGraphics();
         LoadIconPalettes(4);
@@ -931,7 +931,7 @@ u8 ItemCommandEffect(struct MenuProc* menu, struct MenuItemProc* menuItem) {
 
     sub_8006458(0, 5);
 
-    sub_801E684(proc, gActiveUnit, 0xF, 0xB);
+    ForceMenuItemPanel(proc, gActiveUnit, 0xF, 0xB);
 
     return MENU_ACT_SKIPCURSOR | MENU_ACT_END | MENU_ACT_SND6A | MENU_ACT_CLEAR;
 }
@@ -998,7 +998,7 @@ u8 ItemSelectMenu_Effect(struct MenuProc* menu, struct MenuItemProc* menuItem) {
 }
 
 int Menu_SwitchIn(struct MenuProc* menu, struct MenuItemProc* menuItem) {
-    sub_801E748(menuItem->itemNumber);
+    UpdateMenuItemPanel(menuItem->itemNumber);
 
     // return 0; // BUG?
 }
@@ -1066,7 +1066,7 @@ u8 sub_8023550(struct MenuProc* menu) {
     NewFace(0, GetUnitPortraitId(gActiveUnit), 0xB0, 0xC, 2);
 
     sub_8006458(0, 5);
-    sub_801E684(proc, gActiveUnit, 15, 11);
+    ForceMenuItemPanel(proc, gActiveUnit, 15, 11);
 
     return MENU_ENABLED;
 }
@@ -1101,7 +1101,7 @@ u8 sub_80235A8(struct MenuProc* menu) {
 
     sub_8006458(0, 5);
 
-    sub_801E684(proc, gActiveUnit, 0xF, 0xB);
+    ForceMenuItemPanel(proc, gActiveUnit, 0xF, 0xB);
 
     return MENU_ACT_SKIPCURSOR;
 }
@@ -1280,7 +1280,7 @@ int FillBallistaRange(struct MenuProc* menu, struct MenuItemProc* menuItem) {
 
     item = GetBallistaItemAt(gActiveUnit->xPos, gActiveUnit->yPos);
 
-    sub_801E748(item);
+    UpdateMenuItemPanel(item);
 
     MapAddInBoundedRange(gActiveUnit->xPos, gActiveUnit->yPos, GetItemMinRange(item), GetItemMaxRange(item));
 
@@ -1339,7 +1339,7 @@ u8 StaffCommandEffect(struct MenuProc* menu, struct MenuItemProc* menuItem) {
 
     sub_8006458(0, 5);
 
-    sub_801E684(proc, gActiveUnit, 0xF, 0xB);
+    ForceMenuItemPanel(proc, gActiveUnit, 0xF, 0xB);
 
     return MENU_ACT_SKIPCURSOR | MENU_ACT_END | MENU_ACT_SND6A | MENU_ACT_CLEAR;
 }
@@ -1398,7 +1398,7 @@ int StaffItemSelect_TextDraw(struct MenuProc* menu, struct MenuItemProc* menuIte
 int StaffItemSelect_OnHover(struct MenuProc* menu, struct MenuItemProc* menuItem) {
     int reach = GetUnitItemUseReachBits(gActiveUnit, menuItem->itemNumber);
 
-    sub_801E748(menuItem->itemNumber);
+    UpdateMenuItemPanel(menuItem->itemNumber);
 
     BmMapFill(gBmMapMovement, -1);
     BmMapFill(gBmMapRange, 0);
@@ -2389,9 +2389,9 @@ u8 ItemMenu_SelectOtherCommands(struct MenuProc* menu, struct MenuItemProc* menu
 
 int ItemMenu_SwitchIn(struct MenuProc* menu, struct MenuItemProc* menuItem) {
     if (menuItem->itemNumber == 0) {
-        sub_801E748(5);
+        UpdateMenuItemPanel(5);
     } else {
-        sub_801E748(menuItem->itemNumber - 1);
+        UpdateMenuItemPanel(menuItem->itemNumber - 1);
     }
 
     // return 0; // BUG?
