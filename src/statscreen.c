@@ -1613,8 +1613,8 @@ void PageNumCtrl_DisplayBlinkIcons(struct StatScreenPageNameProc* proc)
     {
         if ((gStatScreen.page == STATSCREEN_PAGE_0) && (gStatScreen.unit->state & US_RESCUING))
         {
-            sub_8015BD4(120, 40, 1);
-            sub_8015BD4(120, 56, 1);
+            UpdateStatArrowSprites(120, 40, 1);
+            UpdateStatArrowSprites(120, 56, 1);
 
             if (displayIcon)
             {

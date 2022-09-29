@@ -1423,7 +1423,7 @@ extern struct ProcCmd CONST_DATA sProcScr_KOIDOAMM[];
 // extern ??? sProcScr_BMXFADE
 extern struct ProcCmd CONST_DATA gProcScr_ADJUSTSFROMXI[];
 extern struct ProcCmd CONST_DATA gProcCmd_ConvoyMenu[];
-// extern ??? gUnknown_0859AE88
+// extern ??? gProcCmd_MenuItemPanel
 // extern ??? gUnknown_0859AEA0
 // extern ??? gUnknown_0859AEC8
 // extern ??? gUnknown_0859AEF8

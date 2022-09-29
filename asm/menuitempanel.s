@@ -4,308 +4,8 @@
 
 	@ Item info panel in item selection menus
 
-	THUMB_FUNC_START sub_801E4F4
-sub_801E4F4: @ 0x0801E4F4
-	push {r4, r5, r6, r7, lr}
-	mov r7, r8
-	push {r7}
-	adds r4, r0, #0
-	adds r0, #0x64
-	ldrb r0, [r0]
-	cmp r0, #0
-	bne _0801E506
-	b _0801E672
-_0801E506:
-	adds r0, r4, #0
-	adds r0, #0x33
-	ldrb r0, [r0]
-	lsls r0, r0, #0x18
-	asrs r0, r0, #0x18
-	cmp r0, #0
-	bge _0801E516
-	b _0801E672
-_0801E516:
-	ldr r6, _0801E67C  @ gBattleActor
-	movs r0, #0x5a
-	adds r0, r0, r6
-	mov r8, r0
-	ldr r5, _0801E680  @ gBattleTarget
-	adds r7, r5, #0
-	adds r7, #0x5a
-	movs r2, #0
-	ldrsh r1, [r0, r2]
-	movs r3, #0
-	ldrsh r0, [r7, r3]
-	cmp r1, r0
-	ble _0801E54A
-	adds r0, r4, #0
-	adds r0, #0x30
-	ldrb r0, [r0]
-	lsls r0, r0, #3
-	adds r0, #0x33
-	adds r1, r4, #0
-	adds r1, #0x31
-	ldrb r1, [r1]
-	adds r1, #3
-	lsls r1, r1, #3
-	movs r2, #0
-	bl sub_8015BD4
-_0801E54A:
-	mov r0, r8
-	movs r2, #0
-	ldrsh r1, [r0, r2]
-	movs r3, #0
-	ldrsh r0, [r7, r3]
-	cmp r1, r0
-	bge _0801E572
-	adds r0, r4, #0
-	adds r0, #0x30
-	ldrb r0, [r0]
-	lsls r0, r0, #3
-	adds r0, #0x33
-	adds r1, r4, #0
-	adds r1, #0x31
-	ldrb r1, [r1]
-	adds r1, #3
-	lsls r1, r1, #3
-	movs r2, #1
-	bl sub_8015BD4
-_0801E572:
-	adds r7, r6, #0
-	adds r7, #0x60
-	movs r0, #0x60
-	adds r0, r0, r5
-	mov r8, r0
-	movs r2, #0
-	ldrsh r1, [r7, r2]
-	movs r3, #0
-	ldrsh r0, [r0, r3]
-	cmp r1, r0
-	ble _0801E5A2
-	adds r0, r4, #0
-	adds r0, #0x30
-	ldrb r0, [r0]
-	lsls r0, r0, #3
-	adds r0, #0x33
-	adds r1, r4, #0
-	adds r1, #0x31
-	ldrb r1, [r1]
-	adds r1, #5
-	lsls r1, r1, #3
-	movs r2, #0
-	bl sub_8015BD4
-_0801E5A2:
-	movs r0, #0
-	ldrsh r1, [r7, r0]
-	mov r2, r8
-	movs r3, #0
-	ldrsh r0, [r2, r3]
-	cmp r1, r0
-	bge _0801E5CA
-	adds r0, r4, #0
-	adds r0, #0x30
-	ldrb r0, [r0]
-	lsls r0, r0, #3
-	adds r0, #0x33
-	adds r1, r4, #0
-	adds r1, #0x31
-	ldrb r1, [r1]
-	adds r1, #5
-	lsls r1, r1, #3
-	movs r2, #1
-	bl sub_8015BD4
-_0801E5CA:
-	adds r7, r6, #0
-	adds r7, #0x66
-	movs r0, #0x66
-	adds r0, r0, r5
-	mov r8, r0
-	movs r2, #0
-	ldrsh r1, [r7, r2]
-	movs r3, #0
-	ldrsh r0, [r0, r3]
-	cmp r1, r0
-	ble _0801E5FA
-	adds r0, r4, #0
-	adds r0, #0x30
-	ldrb r0, [r0]
-	lsls r0, r0, #3
-	adds r0, #0x63
-	adds r1, r4, #0
-	adds r1, #0x31
-	ldrb r1, [r1]
-	adds r1, #3
-	lsls r1, r1, #3
-	movs r2, #0
-	bl sub_8015BD4
-_0801E5FA:
-	movs r0, #0
-	ldrsh r1, [r7, r0]
-	mov r2, r8
-	movs r3, #0
-	ldrsh r0, [r2, r3]
-	cmp r1, r0
-	bge _0801E622
-	adds r0, r4, #0
-	adds r0, #0x30
-	ldrb r0, [r0]
-	lsls r0, r0, #3
-	adds r0, #0x63
-	adds r1, r4, #0
-	adds r1, #0x31
-	ldrb r1, [r1]
-	adds r1, #3
-	lsls r1, r1, #3
-	movs r2, #1
-	bl sub_8015BD4
-_0801E622:
-	adds r6, #0x62
-	adds r5, #0x62
-	movs r0, #0
-	ldrsh r1, [r6, r0]
-	movs r2, #0
-	ldrsh r0, [r5, r2]
-	cmp r1, r0
-	ble _0801E64C
-	adds r0, r4, #0
-	adds r0, #0x30
-	ldrb r0, [r0]
-	lsls r0, r0, #3
-	adds r0, #0x63
-	adds r1, r4, #0
-	adds r1, #0x31
-	ldrb r1, [r1]
-	adds r1, #5
-	lsls r1, r1, #3
-	movs r2, #0
-	bl sub_8015BD4
-_0801E64C:
-	movs r3, #0
-	ldrsh r1, [r6, r3]
-	movs r2, #0
-	ldrsh r0, [r5, r2]
-	cmp r1, r0
-	bge _0801E672
-	adds r0, r4, #0
-	adds r0, #0x30
-	ldrb r0, [r0]
-	lsls r0, r0, #3
-	adds r0, #0x63
-	adds r1, r4, #0
-	adds r1, #0x31
-	ldrb r1, [r1]
-	adds r1, #5
-	lsls r1, r1, #3
-	movs r2, #1
-	bl sub_8015BD4
-_0801E672:
-	pop {r3}
-	mov r8, r3
-	pop {r4, r5, r6, r7}
-	pop {r0}
-	bx r0
-	.align 2, 0
-_0801E67C: .4byte gBattleActor
-_0801E680: .4byte gBattleTarget
-
-	THUMB_FUNC_END sub_801E4F4
-
-	THUMB_FUNC_START sub_801E684
-sub_801E684: @ 0x0801E684
-	push {r4, r5, r6, r7, lr}
-	mov r7, r8
-	push {r7}
-	adds r5, r0, #0
-	adds r6, r1, #0
-	adds r7, r2, #0
-	mov r8, r3
-	ldr r4, _0801E73C  @ gUnknown_0859AE88
-	adds r0, r4, #0
-	bl Proc_Find
-	cmp r0, #0
-	bne _0801E732
-	adds r0, r4, #0
-	adds r1, r5, #0
-	bl Proc_Start
-	adds r4, r0, #0
-	str r6, [r4, #0x2c]
-	adds r0, #0x30
-	strb r7, [r0]
-	adds r0, #1
-	mov r1, r8
-	strb r1, [r0]
-	adds r5, r4, #0
-	adds r5, #0x32
-	movs r0, #3
-	strb r0, [r5]
-	adds r0, r6, #0
-	bl GetUnitEquippedWeaponSlot
-	adds r1, r4, #0
-	adds r1, #0x33
-	strb r0, [r1]
-	adds r1, #0x31
-	movs r0, #1
-	strb r0, [r1]
-	adds r0, r4, #0
-	adds r0, #0x34
-	movs r1, #0xc
-	bl Text_Allocate
-	adds r0, r4, #0
-	adds r0, #0x3c
-	movs r1, #0xc
-	bl Text_Allocate
-	adds r0, r4, #0
-	adds r0, #0x44
-	movs r1, #0xc
-	bl Text_Allocate
-	ldrb r1, [r5]
-	movs r0, #1
-	bl LoadIconPalette
-	ldr r0, [r4, #0x2c]
-	movs r1, #1
-	negs r1, r1
-	bl BattleGenerateUiStats
-	ldr r3, _0801E740  @ gBattleTarget
-	ldr r2, _0801E744  @ gBattleActor
-	adds r0, r2, #0
-	adds r0, #0x5a
-	ldrh r0, [r0]
-	adds r1, r3, #0
-	adds r1, #0x5a
-	strh r0, [r1]
-	adds r0, r2, #0
-	adds r0, #0x60
-	ldrh r1, [r0]
-	adds r0, r3, #0
-	adds r0, #0x60
-	strh r1, [r0]
-	adds r0, r2, #0
-	adds r0, #0x66
-	ldrh r0, [r0]
-	adds r1, r3, #0
-	adds r1, #0x66
-	strh r0, [r1]
-	adds r0, r2, #0
-	adds r0, #0x62
-	ldrh r1, [r0]
-	adds r0, r3, #0
-	adds r0, #0x62
-	strh r1, [r0]
-_0801E732:
-	pop {r3}
-	mov r8, r3
-	pop {r4, r5, r6, r7}
-	pop {r0}
-	bx r0
-	.align 2, 0
-_0801E73C: .4byte gUnknown_0859AE88
-_0801E740: .4byte gBattleTarget
-_0801E744: .4byte gBattleActor
-
-	THUMB_FUNC_END sub_801E684
-
-	THUMB_FUNC_START sub_801E748
-sub_801E748: @ 0x0801E748
+	THUMB_FUNC_START UpdateMenuItemPanel
+UpdateMenuItemPanel: @ 0x0801E748
 	push {r4, r5, r6, r7, lr}
 	mov r7, sl
 	mov r6, r9
@@ -313,7 +13,7 @@ sub_801E748: @ 0x0801E748
 	push {r5, r6, r7}
 	sub sp, #0xc
 	adds r5, r0, #0
-	ldr r0, _0801E7C4  @ gUnknown_0859AE88
+	ldr r0, _0801E7C4  @ gProcCmd_MenuItemPanel
 	bl Proc_Find
 	adds r7, r0, #0
 	movs r0, #0
@@ -362,7 +62,7 @@ sub_801E748: @ 0x0801E748
 	beq _0801E7D4
 	b _0801E7E0
 	.align 2, 0
-_0801E7C4: .4byte gUnknown_0859AE88
+_0801E7C4: .4byte gProcCmd_MenuItemPanel
 _0801E7C8:
 	lsls r1, r5, #1
 	mov r0, r9
@@ -661,17 +361,17 @@ _0801EA48: .4byte 0x00000501
 _0801EA4C: .4byte 0x000004F5
 _0801EA50: .4byte gBG0TilemapBuffer
 
-	THUMB_FUNC_END sub_801E748
+	THUMB_FUNC_END UpdateMenuItemPanel
 
 	THUMB_FUNC_START EndMenuItemPanel
 EndMenuItemPanel: @ 0x0801EA54
 	push {lr}
-	ldr r0, _0801EA60  @ gUnknown_0859AE88
+	ldr r0, _0801EA60  @ gProcCmd_MenuItemPanel
 	bl Proc_EndEach
 	pop {r0}
 	bx r0
 	.align 2, 0
-_0801EA60: .4byte gUnknown_0859AE88
+_0801EA60: .4byte gProcCmd_MenuItemPanel
 
 	THUMB_FUNC_END EndMenuItemPanel
 

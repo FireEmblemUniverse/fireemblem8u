@@ -47,8 +47,8 @@ void DrawHammerneUnitInfoWindow(struct Unit* unit);
 void StartSubtitleHelp(ProcPtr parent, const char* string);
 void EndSubtitleHelp(void);
 
-void sub_801E684(ProcPtr parent, struct Unit* unit, int x, int y);
-void sub_801E748(int number);
+void ForceMenuItemPanel(ProcPtr parent, struct Unit* unit, int x, int y);
+void UpdateMenuItemPanel(int number);
 
 void FillWarpRangeMap(struct Unit* caster, struct Unit* target);
 
@@ -869,7 +869,7 @@ int RepairSelectOnSelect(ProcPtr proc, struct SelectTarget* target)
 
     gActionData.targetIndex = target->uid;
 
-    sub_801E684(
+    ForceMenuItemPanel(
         StartOrphanMenu(&gMenuInfo_RepairItems),
         GetUnit(gActionData.targetIndex),
         16, 11);
@@ -910,7 +910,7 @@ void RepairSelectOnInit(ProcPtr proc)
 
 int RepairMenuItemOnChange(struct MenuProc* menu, struct MenuItemProc* item)
 {
-    sub_801E748(item->itemNumber);
+    UpdateMenuItemPanel(item->itemNumber);
 }
 
 int RepairMenuItemOnChangeOut(struct MenuProc* menu, struct MenuItemProc* item)

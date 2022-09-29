@@ -496,11 +496,11 @@ void PutBattleForecastWeaponTriangleArrows(struct BattleForecastProc* proc) {
     }
 
     if (wtArrowB != 0) {
-        sub_8015BD4((proc->x + 8) * 8 + 3, (proc->y + 11) * 8, wtArrowB == 2 ? 1 : 0);
+        UpdateStatArrowSprites((proc->x + 8) * 8 + 3, (proc->y + 11) * 8, wtArrowB == 2 ? 1 : 0);
     }
 
     if (wtArrowA != 0) {
-        sub_8015BD4((proc->x + 2) * 8 + 3, (proc->y + 1) * 8, wtArrowA == 2 ? 1 : 0);
+        UpdateStatArrowSprites((proc->x + 2) * 8 + 3, (proc->y + 1) * 8, wtArrowA == 2 ? 1 : 0);
     }
 
     return;

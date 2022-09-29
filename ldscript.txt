@@ -68,6 +68,7 @@ SECTIONS
         src/bmcamadjust.o(.text);
         src/convoymenu.o(.text);
         src/fogmap.o(.text);
+        src/menuitempanel.o(.text);
         asm/menuitempanel.o(.text);
         asm/unitswapfx.o(.text);
         asm/phasechangefx.o(.text);
