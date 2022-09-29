@@ -12,13 +12,7 @@
 #include "functions.h"
 #include "variables.h"
 
-struct ConvoyMenuProc {
-    PROC_HEADER;
-
-    /* 29 */ u8 _pad_29[0x6C - 0x29];
-};
-
-struct ProcCmd CONST_DATA gUnknown_0859AE38[] = {
+struct ProcCmd CONST_DATA gProcCmd_ConvoyMenu[] = {
     PROC_CALL_2(ConvoyMenuProc_StarMenu),
     PROC_CALL_2(ConvoyMenuProc_MenuEnd),
     PROC_SLEEP(1),
@@ -111,7 +105,7 @@ void HandleNewItemGetFromDrop(struct Unit* unit, int item, ProcPtr proc)
         StartSubtitleHelp(proc, GetStringFromIndex(0x866));
 
     sub_8008A0C(2);
-    Proc_StartBlocking(gUnknown_0859AE38, proc);
+    Proc_StartBlocking(gProcCmd_ConvoyMenu, proc);
 }
 
 int SendToConvoyMenu_Draw(struct MenuProc* proc_menu, struct MenuItemProc* proc_cmd)

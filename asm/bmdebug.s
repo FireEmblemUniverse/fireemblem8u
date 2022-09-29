@@ -1171,7 +1171,7 @@ DebugMenu_FogIdle: @ 0x0801C448
 	cmp r0, #2
 	bne _0801C488
 	movs r0, #3
-	bl sub_801E2E0
+	bl UpdateMapViewWithFog
 	b _0801C49E
 	.align 2, 0
 _0801C480: .4byte gKeyStatusPtr
@@ -1181,11 +1181,11 @@ _0801C488:
 	ldrsb r0, [r4, r0]
 	bl GetROMChapterStruct
 	ldrb r0, [r0, #0xc]
-	bl sub_801E2E0
+	bl UpdateMapViewWithFog
 	b _0801C49E
 _0801C498:
 	movs r0, #0
-	bl sub_801E2E0
+	bl UpdateMapViewWithFog
 _0801C49E:
 	adds r0, r5, #0
 	adds r1, r6, #0

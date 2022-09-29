@@ -67,7 +67,7 @@ SECTIONS
         src/bmxfade.o(.text);
         src/bmcamadjust.o(.text);
         src/convoymenu.o(.text);
-        asm/code_801E2E0.o(.text); /* 2 fog related functions and FillWarpRangeMap */
+        src/fogmap.o(.text);
         asm/menuitempanel.o(.text);
         asm/unitswapfx.o(.text);
         asm/phasechangefx.o(.text);
