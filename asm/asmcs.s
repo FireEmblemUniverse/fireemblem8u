@@ -3886,7 +3886,7 @@ sub_808613C: @ 0x0808613C
 	str r4, [sp]
 	movs r0, #0
 	movs r2, #0
-	bl sub_8012DCC
+	bl Interpolate
 	mov r9, r0
 	movs r1, #0x80
 	lsls r1, r1, #1
@@ -3897,7 +3897,7 @@ sub_808613C: @ 0x0808613C
 	movs r0, #0
 	movs r1, #2
 	mov r2, r8
-	bl sub_8012DCC
+	bl Interpolate
 	mov sl, r0
 	ldr r4, _08086208  @ gSinLookup
 	ldr r1, _0808620C  @ gCosLookup
@@ -3994,7 +3994,7 @@ sub_808622C: @ 0x0808622C
 	movs r0, #0
 	movs r1, #0
 	movs r2, #0x10
-	bl sub_8012DCC
+	bl Interpolate
 	adds r5, r0, #0
 	adds r0, r4, #0
 	adds r0, #0x64
@@ -4069,7 +4069,7 @@ sub_80862C4: @ 0x080862C4
 	movs r0, #0
 	movs r1, #0x10
 	movs r2, #0
-	bl sub_8012DCC
+	bl Interpolate
 	adds r5, r0, #0
 	adds r0, r4, #0
 	adds r0, #0x64

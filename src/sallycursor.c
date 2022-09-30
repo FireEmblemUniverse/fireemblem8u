@@ -43,10 +43,6 @@ void InitUnitStack(u8*); // accepts generic buffer
 void PushUnit(struct Unit*);
 void LoadPlayerUnitsFromUnitStack2();
 
-// unitswapfx.s
-void sub_801EC10(ProcPtr, struct Unit*, s16, s16);
-void sub_801EC48(ProcPtr);
-
 // ev_triggercheck.s
 const struct UnitDefinition* GetChapterAllyUnitDataPointer();
 struct EventCheckBuffer* CheckForEvents(struct EventCheckBuffer*);
@@ -226,7 +222,7 @@ PROC_LABEL(3),
     PROC_CALL(HideMoveRangeGraphics),
     PROC_CALL(sub_8033E08),
     PROC_WHILE_EXISTS(gUnknown_0859A548),
-    PROC_WHILE(sub_801EC48),
+    PROC_WHILE(PrepUnitSwapProcExits),
     PROC_CALL(sub_8033E8C),
     PROC_CALL(RefreshEntityBmMaps),
     PROC_CALL(SMS_UpdateFromGameData),
@@ -890,10 +886,10 @@ void sub_8033E08(ProcPtr proc) {
     struct Unit* activeUnit = gActiveUnit;
     struct Unit* targetUnit = GetUnit(gBmMapUnit[gGameState.playerCursor.y][gGameState.playerCursor.x]);
     if (!targetUnit) {
-        sub_801EC10(proc, activeUnit, gGameState.playerCursor.x, gGameState.playerCursor.y);
+        StartPrepUnitSwap(proc, activeUnit, gGameState.playerCursor.x, gGameState.playerCursor.y);
     } else {
-        sub_801EC10(proc, activeUnit, targetUnit->xPos, targetUnit->yPos);
-        sub_801EC10(proc, targetUnit, activeUnit->xPos, activeUnit->yPos);
+        StartPrepUnitSwap(proc, activeUnit, targetUnit->xPos, targetUnit->yPos);
+        StartPrepUnitSwap(proc, targetUnit, activeUnit->xPos, activeUnit->yPos);
     }
 
     PlaySoundEffect(0x61);

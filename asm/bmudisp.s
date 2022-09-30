@@ -2785,8 +2785,8 @@ _08027B5A:
 
 	THUMB_FUNC_END sub_8027B0C
 
-	THUMB_FUNC_START sub_8027B60
-sub_8027B60: @ 0x08027B60
+	THUMB_FUNC_START PutUnitSprite
+PutUnitSprite: @ 0x08027B60
 	push {r4, r5, r6, r7, lr}
 	mov r7, r9
 	mov r6, r8
@@ -2898,7 +2898,7 @@ _08027C36:
 	.align 2, 0
 _08027C44: .4byte gObject_32x32
 
-	THUMB_FUNC_END sub_8027B60
+	THUMB_FUNC_END PutUnitSprite
 
 	THUMB_FUNC_START sub_8027C48
 sub_8027C48: @ 0x08027C48

@@ -2589,7 +2589,7 @@ sub_808A8E4: @ 0x0808A8E4
 	str r0, [sp]
 	adds r0, r5, #0
 	mov r3, ip
-	bl sub_8012DCC
+	bl Interpolate
 	str r0, [sp, #4]
 	adds r0, r7, #0
 	adds r0, #0x42
@@ -2605,7 +2605,7 @@ sub_808A8E4: @ 0x0808A8E4
 	ldrsh r0, [r4, r6]
 	str r0, [sp]
 	adds r0, r5, #0
-	bl sub_8012DCC
+	bl Interpolate
 	adds r3, r0, #0
 	mov r0, r8
 	strh r0, [r7, #0x30]

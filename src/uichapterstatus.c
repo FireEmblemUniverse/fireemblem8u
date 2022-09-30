@@ -929,7 +929,7 @@ void sub_808E818(struct ChapterStatusProc* proc) {
     BG_EnableSyncByMask(BG0_SYNC_BIT);
 
     if (parent->units[parent->unitIndex]) {
-        sub_8027B60(4, 136, 61, parent->units[parent->unitIndex]);
+        PutUnitSprite(4, 136, 61, parent->units[parent->unitIndex]);
     }
 
     SMS_FlushDirect();

@@ -114,7 +114,7 @@ sub_8022060: @ 0x08022060
 	str r4, [sp]
 	movs r0, #0
 	adds r3, r6, #0
-	bl sub_8012DCC
+	bl Interpolate
 	str r0, [r5]
 	mov r0, r8
 	ldr r1, [r0]
@@ -122,7 +122,7 @@ sub_8022060: @ 0x08022060
 	movs r0, #0
 	mov r2, r9
 	adds r3, r6, #0
-	bl sub_8012DCC
+	bl Interpolate
 	mov r1, r8
 	str r0, [r1]
 	add sp, #4

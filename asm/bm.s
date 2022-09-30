@@ -1460,7 +1460,7 @@ sub_80160E0: @ 0x080160E0
 	ldrsh r0, [r5, r6]
 	str r0, [sp]
 	movs r0, #0
-	bl sub_8012DCC
+	bl Interpolate
 	adds r4, r0, #0
 	movs r0, #0x32
 	ldrsh r1, [r5, r0]
@@ -1471,7 +1471,7 @@ sub_80160E0: @ 0x080160E0
 	ldrsh r0, [r5, r6]
 	str r0, [sp]
 	movs r0, #0
-	bl sub_8012DCC
+	bl Interpolate
 	ldr r1, _08016138  @ gGameState
 	strh r4, [r1, #0xc]
 	strh r0, [r1, #0xe]

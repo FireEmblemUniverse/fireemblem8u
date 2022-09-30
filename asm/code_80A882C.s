@@ -22667,7 +22667,7 @@ sub_80B32AC: @ 0x080B32AC
 	movs r0, #5
 	movs r1, #4
 	movs r2, #0x32
-	bl sub_8012DCC
+	bl Interpolate
 	adds r7, r0, #0
 	movs r0, #0
 	ldrsh r3, [r5, r0]
@@ -22685,7 +22685,7 @@ _080B32E6:
 	movs r0, #0
 	movs r1, #0x32
 	movs r2, #0x64
-	bl sub_8012DCC
+	bl Interpolate
 	adds r7, r0, #0
 	movs r2, #0
 	ldrsh r3, [r5, r2]
@@ -22695,7 +22695,7 @@ _080B32E6:
 	movs r1, #0x10
 	movs r2, #0
 _080B330A:
-	bl sub_8012DCC
+	bl Interpolate
 	mov sl, r0
 	cmp r7, #0x31
 	ble _080B3318
@@ -22711,7 +22711,7 @@ _080B3318:
 	movs r0, #0
 	movs r1, #0
 	movs r2, #0xd6
-	bl sub_8012DCC
+	bl Interpolate
 	adds r5, r0, #0
 	movs r1, #0
 	ldrsh r3, [r6, r1]
@@ -22719,7 +22719,7 @@ _080B3318:
 	movs r0, #0
 	movs r1, #0x10
 	movs r2, #0x80
-	bl sub_8012DCC
+	bl Interpolate
 	adds r4, r0, #0
 	movs r2, #0x4e
 	add r2, r9
@@ -22835,7 +22835,7 @@ sub_80B33FC: @ 0x080B33FC
 	str r5, [sp]
 	movs r0, #5
 	movs r1, #0x78
-	bl sub_8012DCC
+	bl Interpolate
 	adds r7, r0, #0
 	movs r0, #0
 	ldrsh r3, [r4, r0]
@@ -22843,7 +22843,7 @@ sub_80B33FC: @ 0x080B33FC
 	movs r0, #5
 	movs r1, #0x50
 	mov r2, r8
-	bl sub_8012DCC
+	bl Interpolate
 	mov sl, r0
 	adds r1, r7, #0
 	subs r1, #8
@@ -22919,7 +22919,7 @@ sub_80B3498: @ 0x080B3498
 	str r0, [sp]
 	movs r0, #4
 	movs r2, #0x10
-	bl sub_8012DCC
+	bl Interpolate
 	adds r7, r0, #0
 	ldr r4, _080B3698  @ gSinLookup
 	movs r1, #0x80
@@ -22988,7 +22988,7 @@ _080B3534:
 	str r0, [sp]
 	movs r0, #0
 	movs r2, #0x10
-	bl sub_8012DCC
+	bl Interpolate
 	adds r7, r0, #0
 	ldr r4, _080B3698  @ gSinLookup
 	movs r1, #0x80
@@ -23057,7 +23057,7 @@ _080B35CA:
 	str r0, [sp]
 	movs r0, #1
 	movs r2, #0x10
-	bl sub_8012DCC
+	bl Interpolate
 	adds r7, r0, #0
 	ldr r4, _080B3698  @ gSinLookup
 	movs r1, #0x80
@@ -52889,7 +52889,7 @@ _080C154A:
 	str r0, [sp]
 	movs r0, #5
 	mov r2, sl
-	bl sub_8012DCC
+	bl Interpolate
 	mov r8, r0
 	ldr r4, _080C1604  @ gSinLookup
 	movs r0, #0x80
@@ -60080,7 +60080,7 @@ sub_80C4A88: @ 0x080C4A88
 	movs r0, #5
 	movs r1, #4
 	movs r2, #0x32
-	bl sub_8012DCC
+	bl Interpolate
 	adds r7, r0, #0
 	movs r0, #0
 	ldrsh r3, [r5, r0]
@@ -60098,7 +60098,7 @@ _080C4AC2:
 	movs r0, #0
 	movs r1, #0x32
 	movs r2, #0x64
-	bl sub_8012DCC
+	bl Interpolate
 	adds r7, r0, #0
 	movs r2, #0
 	ldrsh r3, [r5, r2]
@@ -60108,7 +60108,7 @@ _080C4AC2:
 	movs r1, #0x10
 	movs r2, #0
 _080C4AE6:
-	bl sub_8012DCC
+	bl Interpolate
 	mov sl, r0
 	cmp r7, #0x31
 	ble _080C4AF4
@@ -60124,7 +60124,7 @@ _080C4AF4:
 	movs r0, #0
 	movs r1, #0
 	movs r2, #0xd6
-	bl sub_8012DCC
+	bl Interpolate
 	adds r5, r0, #0
 	movs r1, #0
 	ldrsh r3, [r6, r1]
@@ -60132,7 +60132,7 @@ _080C4AF4:
 	movs r0, #0
 	movs r1, #0x10
 	movs r2, #0x80
-	bl sub_8012DCC
+	bl Interpolate
 	adds r4, r0, #0
 	movs r2, #0x4e
 	add r2, r9
@@ -62109,7 +62109,7 @@ _080C5B0C:
 	str r0, [sp]
 	movs r0, #0
 _080C5B1E:
-	bl sub_8012DCC
+	bl Interpolate
 	adds r4, r0, #0
 	ldrh r3, [r5, #0x2a]
 	movs r0, #0x5a
@@ -62117,7 +62117,7 @@ _080C5B1E:
 	movs r0, #0
 	movs r1, #0
 	movs r2, #0x40
-	bl sub_8012DCC
+	bl Interpolate
 	adds r1, r0, #0
 	adds r0, r4, #0
 	bl sub_80C6BF0
@@ -62140,7 +62140,7 @@ _080C5B50:
 	movs r0, #0
 	movs r1, #0x10
 	movs r2, #0
-	bl sub_8012DCC
+	bl Interpolate
 	ldr r1, _080C5BC4  @ gLCDControlBuffer
 	adds r1, #0x46
 	strb r0, [r1]
@@ -62171,7 +62171,7 @@ _080C5B94:
 	movs r1, #0
 	movs r2, #0x10
 	adds r3, r4, #0
-	bl sub_8012DCC
+	bl Interpolate
 	ldr r1, _080C5BC4  @ gLCDControlBuffer
 	adds r1, #0x46
 	strb r0, [r1]
@@ -62282,7 +62282,7 @@ sub_80C5C64: @ 0x080C5C64
 	movs r0, #0
 	movs r1, #0x10
 	movs r2, #0
-	bl sub_8012DCC
+	bl Interpolate
 	adds r2, r0, #0
 	lsls r2, r2, #0x10
 	lsrs r2, r2, #0x10
@@ -62368,7 +62368,7 @@ _080C5D30:
 	movs r0, #1
 	movs r1, #0
 	movs r2, #0x80
-	bl sub_8012DCC
+	bl Interpolate
 	adds r6, r0, #0
 	ldrh r1, [r7, #0x2a]
 	movs r0, #1
@@ -62514,7 +62514,7 @@ sub_80C5E60: @ 0x080C5E60
 	movs r0, #0
 	movs r1, #0
 	movs r2, #0xd
-	bl sub_8012DCC
+	bl Interpolate
 	ldr r1, _080C5E90  @ gLCDControlBuffer
 	adds r1, #0x44
 	strb r0, [r1]
@@ -62550,7 +62550,7 @@ sub_80C5EA0: @ 0x080C5EA0
 	movs r0, #0
 	movs r1, #0
 	movs r2, #0x10
-	bl sub_8012DCC
+	bl Interpolate
 	adds r5, r0, #0
 	ldrh r0, [r7, #0x2a]
 	cmp r0, #0
@@ -62789,7 +62789,7 @@ sub_80C6090: @ 0x080C6090
 	str r0, [sp]
 	movs r0, #1
 	movs r1, #0x20
-	bl sub_8012DCC
+	bl Interpolate
 	bl sub_80C5548
 	ldrh r0, [r4, #0x2a]
 	cmp r0, #0x10
@@ -62910,7 +62910,7 @@ _080C615E:
 	str r7, [sp]
 	movs r0, #0
 	adds r3, r6, #0
-	bl sub_8012DCC
+	bl Interpolate
 	adds r4, r0, #0
 	adds r4, #0x74
 	ldrb r0, [r5, #4]
@@ -62931,7 +62931,7 @@ _080C615E:
 	str r7, [sp]
 	movs r0, #0
 	adds r3, r6, #0
-	bl sub_8012DCC
+	bl Interpolate
 	adds r2, r0, #0
 	adds r2, #0x38
 	ldr r0, _080C61FC  @ 0x000001FF
@@ -62987,7 +62987,7 @@ sub_80C6204: @ 0x080C6204
 	movs r0, #0
 	movs r1, #0x10
 	movs r2, #0
-	bl sub_8012DCC
+	bl Interpolate
 	ldr r1, _080C62B0  @ gLCDControlBuffer
 	adds r1, #0x44
 	strb r0, [r1]
@@ -62997,7 +62997,7 @@ sub_80C6204: @ 0x080C6204
 	movs r0, #0
 	movs r1, #0x10
 	movs r2, #0
-	bl sub_8012DCC
+	bl Interpolate
 	adds r5, r0, #0
 	ldr r0, _080C62B4  @ gUnknown_08AAB3F4
 	movs r1, #0xe0
@@ -63028,7 +63028,7 @@ sub_80C6204: @ 0x080C6204
 	movs r0, #0
 	movs r1, #0
 	movs r2, #0x3f
-	bl sub_8012DCC
+	bl Interpolate
 	adds r5, r0, #0
 	ldr r1, [r7, #0x30]
 	bl nullsub_23
@@ -64251,7 +64251,7 @@ sub_80C6B8C: @ 0x080C6B8C
 	movs r0, #0
 	movs r1, #0
 	movs r2, #0x10
-	bl sub_8012DCC
+	bl Interpolate
 	ldr r1, _080C6BD4  @ gLCDControlBuffer
 	adds r1, #0x46
 	strb r0, [r1]
@@ -64553,7 +64553,7 @@ sub_80C6E1C: @ 0x080C6E1C
 	movs r0, #0
 	movs r1, #0
 	movs r2, #0x1f
-	bl sub_8012DCC
+	bl Interpolate
 	adds r2, r0, #0
 	lsls r0, r2, #0xa
 	lsls r1, r2, #5
@@ -64633,7 +64633,7 @@ sub_80C6EB0: @ 0x080C6EB0
 	movs r0, #0
 	movs r1, #0x10
 	movs r2, #0
-	bl sub_8012DCC
+	bl Interpolate
 	ldr r2, _080C6EE8  @ gLCDControlBuffer
 	adds r1, r2, #0
 	adds r1, #0x44
@@ -64764,7 +64764,7 @@ _080C6F96:
 	movs r0, #0
 	movs r1, #0x10
 	movs r2, #0
-	bl sub_8012DCC
+	bl Interpolate
 	adds r4, r0, #0
 	ldr r0, _080C7034  @ gUnknown_08AB630C
 	movs r1, #0
@@ -64787,7 +64787,7 @@ _080C6FD0:
 	movs r0, #0
 	movs r1, #8
 	movs r2, #0
-	bl sub_8012DCC
+	bl Interpolate
 	ldr r1, _080C7040  @ gLCDControlBuffer
 	adds r1, #0x44
 	strb r0, [r1]
@@ -65550,7 +65550,7 @@ sub_80C7618: @ 0x080C7618
 	movs r0, #0
 	movs r1, #0x10
 	movs r2, #0
-	bl sub_8012DCC
+	bl Interpolate
 	adds r4, r0, #0
 	ldr r0, _080C7668  @ gUnknown_08AB8CAC
 	movs r1, #0xe0
@@ -65647,7 +65647,7 @@ sub_80C76C8: @ 0x080C76C8
 	movs r0, #4
 	movs r1, #0
 	movs r2, #0x80
-	bl sub_8012DCC
+	bl Interpolate
 	adds r6, r0, #0
 	ldrh r0, [r5, #0x2a]
 	subs r0, #0xc
@@ -65755,7 +65755,7 @@ _080C77BA:
 	movs r1, #0
 	movs r2, #0x90
 	adds r3, r4, #0
-	bl sub_8012DCC
+	bl Interpolate
 	adds r6, r0, #0
 	lsls r0, r6, #0x10
 	asrs r0, r0, #0x10
@@ -66042,7 +66042,7 @@ sub_80C79F4: @ 0x080C79F4
 	movs r0, #4
 	movs r1, #0
 	movs r2, #0xf0
-	bl sub_8012DCC
+	bl Interpolate
 	ldr r4, _080C7A6C  @ gUnknown_02022188
 	movs r6, #0
 	strh r0, [r4]
@@ -66051,7 +66051,7 @@ sub_80C79F4: @ 0x080C79F4
 	movs r0, #4
 	movs r1, #0
 	movs r2, #0xa0
-	bl sub_8012DCC
+	bl Interpolate
 	strh r0, [r4, #2]
 	ldr r2, _080C7A70  @ gLCDControlBuffer
 	adds r0, r2, #0
@@ -66115,7 +66115,7 @@ sub_80C7A84: @ 0x080C7A84
 	movs r0, #4
 	movs r1, #0xa0
 	movs r2, #0x78
-	bl sub_8012DCC
+	bl Interpolate
 	ldr r1, _080C7AD0  @ gUnknown_02022188
 	strh r0, [r1, #6]
 	movs r0, #0xe8
@@ -66261,7 +66261,7 @@ _080C7BA8:
 	movs r0, #1
 	movs r1, #0x78
 	movs r2, #0xa0
-	bl sub_8012DCC
+	bl Interpolate
 	ldr r4, _080C7CD8  @ gUnknown_02022188
 	strh r0, [r4, #6]
 	movs r2, #0x80
@@ -66270,7 +66270,7 @@ _080C7BA8:
 	str r5, [sp]
 	movs r0, #1
 	movs r1, #0xe8
-	bl sub_8012DCC
+	bl Interpolate
 	adds r5, r0, #0
 	movs r0, #6
 	ldrsh r1, [r4, r0]
@@ -66298,7 +66298,7 @@ _080C7BEC:
 	str r0, [sp]
 	movs r0, #1
 	adds r3, r7, #0
-	bl sub_8012DCC
+	bl Interpolate
 	adds r5, r0, #0
 	lsls r0, r5, #0x10
 	asrs r0, r0, #0x10
@@ -66346,7 +66346,7 @@ _080C7C5C:
 	movs r0, #0
 	movs r1, #0x10
 	movs r2, #0
-	bl sub_8012DCC
+	bl Interpolate
 	adds r5, r0, #0
 	lsls r1, r5, #0x18
 	lsrs r1, r1, #0x18
@@ -66365,7 +66365,7 @@ _080C7C88:
 	str r0, [sp]
 	movs r0, #1
 	mov r3, r9
-	bl sub_8012DCC
+	bl Interpolate
 	adds r5, r0, #0
 	lsls r0, r5, #0x10
 	asrs r0, r0, #0x10
@@ -66716,7 +66716,7 @@ sub_80C7F90: @ 0x080C7F90
 	movs r0, #4
 	movs r1, #0
 	movs r2, #0x68
-	bl sub_8012DCC
+	bl Interpolate
 	adds r6, r0, #0
 	ldrh r0, [r5, #0x2a]
 	subs r0, #0xc
@@ -66821,7 +66821,7 @@ _080C807A:
 	movs r1, #0
 	movs r2, #0xcc
 	adds r3, r4, #0
-	bl sub_8012DCC
+	bl Interpolate
 	adds r6, r0, #0
 	lsls r0, r6, #0x10
 	asrs r0, r0, #0x10
@@ -66954,7 +66954,7 @@ sub_80C8184: @ 0x080C8184
 	movs r0, #4
 	movs r1, #0xf0
 	movs r2, #0
-	bl sub_8012DCC
+	bl Interpolate
 	ldr r4, _080C81FC  @ gUnknown_02022188
 	movs r6, #0
 	strh r0, [r4]
@@ -66963,7 +66963,7 @@ sub_80C8184: @ 0x080C8184
 	movs r0, #4
 	movs r1, #0
 	movs r2, #0xa0
-	bl sub_8012DCC
+	bl Interpolate
 	strh r0, [r4, #2]
 	ldr r2, _080C8200  @ gLCDControlBuffer
 	ldrh r0, [r4]
@@ -67028,7 +67028,7 @@ sub_80C8214: @ 0x080C8214
 	movs r0, #4
 	movs r1, #0xa0
 	movs r2, #0x78
-	bl sub_8012DCC
+	bl Interpolate
 	ldr r1, _080C8260  @ gUnknown_02022188
 	strh r0, [r1, #6]
 	movs r0, #8
@@ -67217,7 +67217,7 @@ _080C8384:
 	movs r0, #1
 	movs r1, #0x78
 	movs r2, #0xa0
-	bl sub_8012DCC
+	bl Interpolate
 	ldr r4, _080C84B8  @ gUnknown_02022188
 	strh r0, [r4, #6]
 	ldrh r3, [r6, #0x2a]
@@ -67225,7 +67225,7 @@ _080C8384:
 	movs r0, #1
 	movs r1, #8
 	movs r2, #0
-	bl sub_8012DCC
+	bl Interpolate
 	adds r5, r0, #0
 	movs r0, #6
 	ldrsh r1, [r4, r0]
@@ -67253,7 +67253,7 @@ _080C83C6:
 	str r0, [sp]
 	movs r0, #1
 	adds r3, r7, #0
-	bl sub_8012DCC
+	bl Interpolate
 	adds r5, r0, #0
 	lsls r0, r5, #0x10
 	asrs r0, r0, #0x10
@@ -67301,7 +67301,7 @@ _080C8436:
 	movs r0, #0
 	movs r1, #0x10
 	movs r2, #0
-	bl sub_8012DCC
+	bl Interpolate
 	adds r5, r0, #0
 	lsls r1, r5, #0x18
 	lsrs r1, r1, #0x18
@@ -67320,7 +67320,7 @@ _080C8462:
 	str r0, [sp]
 	movs r0, #1
 	mov r3, r9
-	bl sub_8012DCC
+	bl Interpolate
 	adds r5, r0, #0
 	lsls r0, r5, #0x10
 	asrs r0, r0, #0x10
@@ -67409,7 +67409,7 @@ _080C851C:
 	movs r0, #0
 	movs r1, #0
 	movs r2, #0x10
-	bl sub_8012DCC
+	bl Interpolate
 	ldr r1, _080C8544  @ gLCDControlBuffer
 	adds r1, #0x46
 	strb r0, [r1]
@@ -67502,7 +67502,7 @@ sub_80C85B0: @ 0x080C85B0
 	movs r0, #0
 	movs r1, #0xe
 	movs r2, #0
-	bl sub_8012DCC
+	bl Interpolate
 	adds r3, r0, #0
 	lsls r3, r3, #0x18
 	lsrs r3, r3, #0x18
@@ -67578,7 +67578,7 @@ sub_80C8638: @ 0x080C8638
 	movs r0, #0
 	movs r1, #0
 	movs r2, #0xc
-	bl sub_8012DCC
+	bl Interpolate
 	adds r3, r0, #0
 	lsls r3, r3, #0x18
 	lsrs r3, r3, #0x18
@@ -67632,7 +67632,7 @@ sub_80C8690: @ 0x080C8690
 	str r0, [sp]
 	movs r0, #0
 	movs r1, #0
-	bl sub_8012DCC
+	bl Interpolate
 	strh r0, [r5, #0x38]
 	ldrh r0, [r5, #0x3c]
 	adds r0, #1
@@ -67819,7 +67819,7 @@ sub_80C883C: @ 0x080C883C
 	str r0, [sp]
 	movs r0, #0
 	movs r1, #0
-	bl sub_8012DCC
+	bl Interpolate
 	strh r0, [r5, #0x38]
 	ldrh r0, [r5, #0x3c]
 	adds r0, #1
@@ -67931,7 +67931,7 @@ sub_80C8934: @ 0x080C8934
 	str r0, [sp]
 	movs r0, #0
 	movs r1, #0
-	bl sub_8012DCC
+	bl Interpolate
 	strh r0, [r5, #0x38]
 	ldrh r0, [r5, #0x3c]
 	adds r0, #1
@@ -68040,7 +68040,7 @@ sub_80C8A20: @ 0x080C8A20
 	str r0, [sp]
 	movs r0, #0
 	movs r1, #0
-	bl sub_8012DCC
+	bl Interpolate
 	strh r0, [r5, #0x38]
 	ldrh r0, [r5, #0x3c]
 	adds r0, #1
@@ -68149,7 +68149,7 @@ sub_80C8B0C: @ 0x080C8B0C
 	str r0, [sp]
 	movs r0, #0
 	movs r1, #0
-	bl sub_8012DCC
+	bl Interpolate
 	strh r0, [r5, #0x38]
 	ldrh r0, [r5, #0x3c]
 	adds r0, #1
@@ -68258,7 +68258,7 @@ sub_80C8BF8: @ 0x080C8BF8
 	str r0, [sp]
 	movs r0, #0
 	movs r1, #0
-	bl sub_8012DCC
+	bl Interpolate
 	strh r0, [r5, #0x38]
 	ldrh r0, [r5, #0x3c]
 	adds r0, #1
@@ -68367,7 +68367,7 @@ sub_80C8CE4: @ 0x080C8CE4
 	str r0, [sp]
 	movs r0, #0
 	movs r1, #0
-	bl sub_8012DCC
+	bl Interpolate
 	strh r0, [r4, #0x38]
 	ldrh r0, [r4, #0x3c]
 	adds r0, #1
@@ -68406,7 +68406,7 @@ sub_80C8D30: @ 0x080C8D30
 	movs r1, #0
 	movs r2, #0x1a
 	adds r3, r4, #0
-	bl sub_8012DCC
+	bl Interpolate
 	adds r4, r0, #0
 	cmp r4, #0xc
 	bgt _080C8D66
@@ -68441,7 +68441,7 @@ _080C8D78:
 	movs r0, #0
 	movs r1, #0xc
 	movs r2, #0
-	bl sub_8012DCC
+	bl Interpolate
 	ldr r5, _080C8DC8  @ gPaletteBuffer
 	lsls r6, r0, #0x10
 	movs r4, #7
@@ -68588,7 +68588,7 @@ sub_80C8ED4: @ 0x080C8ED4
 	movs r0, #0
 	movs r1, #0
 	movs r2, #0x1a
-	bl sub_8012DCC
+	bl Interpolate
 	adds r3, r0, #0
 	cmp r3, #0xc
 	bgt _080C8F08
@@ -68735,7 +68735,7 @@ sub_80C9024: @ 0x080C9024
 	movs r0, #0
 	movs r1, #0
 	movs r2, #0x1a
-	bl sub_8012DCC
+	bl Interpolate
 	adds r3, r0, #0
 	cmp r3, #0xc
 	bgt _080C9058
@@ -68836,7 +68836,7 @@ sub_80C9100: @ 0x080C9100
 	movs r0, #0
 	movs r1, #0
 	movs r2, #0x1a
-	bl sub_8012DCC
+	bl Interpolate
 	adds r3, r0, #0
 	cmp r3, #0xc
 	bgt _080C9134
@@ -68962,7 +68962,7 @@ sub_80C9218: @ 0x080C9218
 	movs r0, #0
 	movs r1, #0
 	movs r2, #0x1a
-	bl sub_8012DCC
+	bl Interpolate
 	adds r3, r0, #0
 	cmp r3, #0xc
 	bgt _080C924C
@@ -69088,7 +69088,7 @@ sub_80C9330: @ 0x080C9330
 	movs r0, #0
 	movs r1, #0
 	movs r2, #0x1a
-	bl sub_8012DCC
+	bl Interpolate
 	adds r3, r0, #0
 	cmp r3, #0xc
 	bgt _080C9364
@@ -69189,7 +69189,7 @@ sub_80C940C: @ 0x080C940C
 	movs r0, #0
 	movs r1, #0
 	movs r2, #0x1a
-	bl sub_8012DCC
+	bl Interpolate
 	adds r3, r0, #0
 	cmp r3, #0xc
 	bgt _080C9440
@@ -69336,7 +69336,7 @@ sub_80C955C: @ 0x080C955C
 	movs r0, #0
 	movs r1, #0
 	movs r2, #0x1a
-	bl sub_8012DCC
+	bl Interpolate
 	adds r3, r0, #0
 	cmp r3, #0xc
 	bgt _080C9590
@@ -69437,7 +69437,7 @@ sub_80C9638: @ 0x080C9638
 	movs r0, #0
 	movs r1, #0
 	movs r2, #0x1a
-	bl sub_8012DCC
+	bl Interpolate
 	adds r3, r0, #0
 	cmp r3, #0xc
 	bgt _080C966C
@@ -69563,7 +69563,7 @@ sub_80C9750: @ 0x080C9750
 	movs r0, #0
 	movs r1, #0
 	movs r2, #0x1a
-	bl sub_8012DCC
+	bl Interpolate
 	adds r3, r0, #0
 	cmp r3, #0xc
 	bgt _080C9784
@@ -69710,7 +69710,7 @@ sub_80C98A0: @ 0x080C98A0
 	movs r0, #0
 	movs r1, #0
 	movs r2, #0x1a
-	bl sub_8012DCC
+	bl Interpolate
 	adds r3, r0, #0
 	cmp r3, #0xc
 	bgt _080C98D4
@@ -69836,7 +69836,7 @@ sub_80C99B8: @ 0x080C99B8
 	movs r0, #0
 	movs r1, #0
 	movs r2, #0x1a
-	bl sub_8012DCC
+	bl Interpolate
 	adds r3, r0, #0
 	cmp r3, #0xc
 	bgt _080C99EC
@@ -69949,7 +69949,7 @@ sub_80C9A94: @ 0x080C9A94
 	movs r0, #0
 	movs r1, #0
 	movs r2, #0xd
-	bl sub_8012DCC
+	bl Interpolate
 	adds r1, r0, #0
 	lsls r1, r1, #0x18
 	lsrs r1, r1, #0x18
@@ -69989,7 +69989,7 @@ sub_80C9AFC: @ 0x080C9AFC
 	movs r0, #0
 	movs r1, #0
 	movs r2, #0x10
-	bl sub_8012DCC
+	bl Interpolate
 	adds r4, r0, #0
 	ldr r0, _080C9B50  @ gUnknown_08B103D8
 	movs r2, #0x80
@@ -70447,7 +70447,7 @@ sub_80C9E6C: @ 0x080C9E6C
 	str r0, [sp]
 	movs r0, #0
 	movs r1, #0
-	bl sub_8012DCC
+	bl Interpolate
 	strh r0, [r4, #0x38]
 	ldrh r0, [r4, #0x3c]
 	adds r0, #1
@@ -70461,7 +70461,7 @@ sub_80C9E6C: @ 0x080C9E6C
 	movs r0, #0
 	movs r1, #0x10
 	movs r2, #0
-	bl sub_8012DCC
+	bl Interpolate
 	ldr r2, _080C9ED4  @ gLCDControlBuffer
 	adds r1, r2, #0
 	adds r1, #0x44
@@ -70583,7 +70583,7 @@ sub_80C9F7C: @ 0x080C9F7C
 	str r0, [sp]
 	movs r0, #0
 	movs r1, #0
-	bl sub_8012DCC
+	bl Interpolate
 	strh r0, [r4, #0x38]
 	ldrh r0, [r4, #0x3c]
 	adds r0, #1
@@ -70597,7 +70597,7 @@ sub_80C9F7C: @ 0x080C9F7C
 	movs r0, #0
 	movs r1, #0
 	movs r2, #0x10
-	bl sub_8012DCC
+	bl Interpolate
 	ldr r2, _080C9FE4  @ gLCDControlBuffer
 	adds r1, r2, #0
 	adds r1, #0x44
@@ -70646,7 +70646,7 @@ sub_80C9FF8: @ 0x080C9FF8
 	str r0, [sp]
 	movs r0, #0
 	movs r1, #0
-	bl sub_8012DCC
+	bl Interpolate
 	strh r0, [r5, #0x38]
 	ldrh r0, [r5, #0x3c]
 	adds r0, #1
@@ -70661,7 +70661,7 @@ sub_80C9FF8: @ 0x080C9FF8
 	str r0, [sp]
 	movs r0, #4
 	movs r1, #0
-	bl sub_8012DCC
+	bl Interpolate
 	adds r7, r0, #0
 	adds r0, r5, #0
 	adds r0, #0x47
@@ -70784,7 +70784,7 @@ sub_80CA10C: @ 0x080CA10C
 	str r0, [sp]
 	movs r0, #0
 	movs r1, #0
-	bl sub_8012DCC
+	bl Interpolate
 	strh r0, [r6, #0x38]
 	ldrh r0, [r6, #0x3c]
 	adds r0, #1
@@ -70795,7 +70795,7 @@ sub_80CA10C: @ 0x080CA10C
 	movs r0, #1
 	movs r1, #8
 	movs r2, #0
-	bl sub_8012DCC
+	bl Interpolate
 	adds r5, r0, #0
 	lsls r1, r5, #0x18
 	lsrs r1, r1, #0x18
@@ -70817,7 +70817,7 @@ sub_80CA10C: @ 0x080CA10C
 	movs r0, #0x1e
 	str r0, [sp]
 	movs r0, #0
-	bl sub_8012DCC
+	bl Interpolate
 	adds r5, r0, #0
 	adds r0, r6, #0
 	adds r0, #0x47
@@ -70867,14 +70867,14 @@ _080CA1CA:
 	movs r0, #0
 	movs r1, #0
 	movs r2, #0x60
-	bl sub_8012DCC
+	bl Interpolate
 	adds r5, r0, #0
 	ldrh r3, [r6, #0x2a]
 	str r4, [sp]
 	movs r0, #1
 	movs r1, #0
 	movs r2, #0x60
-	bl sub_8012DCC
+	bl Interpolate
 	adds r1, r6, #0
 	adds r1, #0x42
 	ldrh r1, [r1]
@@ -71010,7 +71010,7 @@ _080CA2E6:
 	movs r0, #1
 	movs r1, #8
 	movs r2, #0
-	bl sub_8012DCC
+	bl Interpolate
 	adds r4, r0, #0
 	lsls r1, r4, #0x18
 	lsrs r1, r1, #0x18
@@ -71030,7 +71030,7 @@ _080CA2E6:
 	movs r0, #0
 	movs r1, #0
 	movs r2, #0x60
-	bl sub_8012DCC
+	bl Interpolate
 	adds r5, r0, #0
 	ldrh r3, [r7, #0x2a]
 	adds r3, #0x1e
@@ -71038,7 +71038,7 @@ _080CA2E6:
 	movs r0, #1
 	movs r1, #0
 	movs r2, #0x60
-	bl sub_8012DCC
+	bl Interpolate
 	adds r1, r7, #0
 	adds r1, #0x42
 	ldrh r1, [r1]
@@ -71121,7 +71121,7 @@ sub_80CA3B8: @ 0x080CA3B8
 	str r0, [sp]
 	movs r0, #0
 	movs r1, #0
-	bl sub_8012DCC
+	bl Interpolate
 	strh r0, [r4, #0x38]
 	ldrh r0, [r4, #0x3c]
 	adds r0, #1
@@ -71136,7 +71136,7 @@ sub_80CA3B8: @ 0x080CA3B8
 	movs r0, #0
 	movs r1, #0x10
 	movs r2, #0
-	bl sub_8012DCC
+	bl Interpolate
 	ldr r2, _080CA460  @ gLCDControlBuffer
 	adds r1, r2, #0
 	adds r1, #0x44
@@ -71159,7 +71159,7 @@ _080CA412:
 	movs r0, #0x1e
 	str r0, [sp]
 	movs r0, #1
-	bl sub_8012DCC
+	bl Interpolate
 	adds r6, r0, #0
 	adds r0, r4, #0
 	adds r0, #0x47
@@ -71719,7 +71719,7 @@ _080CA870:
 	movs r1, #0x10
 	movs r2, #0xc
 	adds r3, r4, #0
-	bl sub_8012DCC
+	bl Interpolate
 	ldr r5, _080CA91C  @ gPaletteBuffer
 	lsls r7, r0, #0x10
 	movs r4, #7
@@ -71765,7 +71765,7 @@ _080CA8DC:
 	movs r1, #0x10
 	movs r2, #0
 	adds r3, r4, #0
-	bl sub_8012DCC
+	bl Interpolate
 	ldr r2, _080CA914  @ gLCDControlBuffer
 	adds r1, r2, #0
 	adds r1, #0x44
@@ -71929,7 +71929,7 @@ _080CAA14:
 	str r5, [sp]
 	movs r0, #4
 	adds r2, r4, #0
-	bl sub_8012DCC
+	bl Interpolate
 	b _080CAA2E
 _080CAA2C:
 	adds r0, r4, #0
@@ -73200,7 +73200,7 @@ _080CB49A:
 	movs r0, #4
 	movs r1, #0
 	movs r2, #0x18
-	bl sub_8012DCC
+	bl Interpolate
 	adds r7, r0, #0
 	ldr r3, _080CB54C  @ gLCDControlBuffer
 	adds r1, r3, #0

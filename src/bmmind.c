@@ -135,7 +135,7 @@ void BeginMapAnimForSummonDK(void);
 
 // bmudisp.s
 void SMS_RegisterUsage(int);
-void sub_8027B60(int, int, int, struct Unit*);
+void PutUnitSprite(int, int, int, struct Unit*);
 
 // code.s
 void BWL_AddWinOrLossIdk(u8, u8, int);
@@ -466,15 +466,15 @@ s8 ActionSummonDK(ProcPtr proc) {
 }
 
 void sub_80325AC(struct DeathDropAnimProc* proc) {
-    int x = sub_8012DCC(0, proc->xFrom, proc->xTo, proc->clock, proc->clockEnd);
-    int y = sub_8012DCC(0, proc->yFrom, proc->yTo, proc->clock, proc->clockEnd);
+    int x = Interpolate(0, proc->xFrom, proc->xTo, proc->clock, proc->clockEnd);
+    int y = Interpolate(0, proc->yFrom, proc->yTo, proc->clock, proc->clockEnd);
 
     y += proc->yOffset;
 
     proc->yOffset += proc->ySpeed;
     proc->ySpeed += proc->yAccel;
 
-    sub_8027B60(
+    PutUnitSprite(
         7,
         x - gGameState.camera.x,
         y - gGameState.camera.y,

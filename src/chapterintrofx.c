@@ -525,12 +525,12 @@ void ChapterIntro_Init_PlaySound316(struct ChapterIntroFXProc* proc) {
 }
 
 void ChapterIntro_DrawingLights(struct ChapterIntroFXProc* proc) {
-    proc->unk_2C = sub_8012DCC(0, gUnknown_0859B120[proc->unk_4C], gUnknown_0859B120[proc->unk_4C + 1], proc->unk_4E, proc->unk_68);
+    proc->unk_2C = Interpolate(0, gUnknown_0859B120[proc->unk_4C], gUnknown_0859B120[proc->unk_4C + 1], proc->unk_4E, proc->unk_68);
 
-    proc->unk_30 = sub_8012DCC(0, gUnknown_0859B132[proc->unk_4C], gUnknown_0859B132[proc->unk_4C + 1], proc->unk_4E, proc->unk_68);
+    proc->unk_30 = Interpolate(0, gUnknown_0859B132[proc->unk_4C], gUnknown_0859B132[proc->unk_4C + 1], proc->unk_4E, proc->unk_68);
 
     if (proc->unk_64 < 0x65) {
-        int uVar8 = sub_8012DCC(4, 0x140, 0x40, proc->unk_64, 100);
+        int uVar8 = Interpolate(4, 0x140, 0x40, proc->unk_64, 100);
 
         WriteOAMRotScaleData(
             0,
@@ -563,7 +563,7 @@ void ChapterIntro_DrawingLights(struct ChapterIntroFXProc* proc) {
 
         proc->unk_4C++;
 
-        proc->unk_68 = sub_8012DCC(0, 3, 8, proc->unk_66, 0x12);
+        proc->unk_68 = Interpolate(0, 3, 8, proc->unk_66, 0x12);
 
         proc->unk_66++;
 
@@ -591,9 +591,9 @@ void ChapterIntro_80204AC(struct ChapterIntroFXProc* proc) {
 }
 
 void sub_80204E4(struct ChapterIntroFXProc* proc, int unk2, int unk3, int unk4) {
-    int a = sub_8012DCC(5, DISPLAY_WIDTH / 2, unk3, proc->unk_4C, 0x46);
+    int a = Interpolate(5, DISPLAY_WIDTH / 2, unk3, proc->unk_4C, 0x46);
 
-    int b = sub_8012DCC(5, DISPLAY_HEIGHT / 2, unk4, proc->unk_4C, 0x46);
+    int b = Interpolate(5, DISPLAY_HEIGHT / 2, unk4, proc->unk_4C, 0x46);
 
     CallARM_PushToSecondaryOAM(
         ((a - 8) & 0x1FF) | unk2 << 9,
@@ -616,7 +616,7 @@ void ChapterIntro_UnknownFX8020578(struct ChapterIntroFXProc* proc) {
     int var;
 
     if (proc->unk_64 < 0x47) {
-        var = sub_8012DCC(4, 0x140, 0x10, proc->unk_64, 0x46);
+        var = Interpolate(4, 0x140, 0x10, proc->unk_64, 0x46);
 
         WriteOAMRotScaleData(
             1,
@@ -632,7 +632,7 @@ void ChapterIntro_UnknownFX8020578(struct ChapterIntroFXProc* proc) {
     sub_80204E4(proc, 1, 0xD7, 0x11);
 
     if (proc->unk_66 < 0x47) {
-        var = sub_8012DCC(4, 0x140, 0x10, proc->unk_66, 0x46);
+        var = Interpolate(4, 0x140, 0x10, proc->unk_66, 0x46);
 
         WriteOAMRotScaleData(
             2,
@@ -648,7 +648,7 @@ void ChapterIntro_UnknownFX8020578(struct ChapterIntroFXProc* proc) {
     sub_80204E4(proc, 2, 0xC0, 0x20);
 
     if (proc->unk_68 < 0x47) {
-        var = sub_8012DCC(4, 0x140, 0x10, proc->unk_68, 0x46);
+        var = Interpolate(4, 0x140, 0x10, proc->unk_68, 0x46);
 
         WriteOAMRotScaleData(
             3,
@@ -990,7 +990,7 @@ void ChapterIntro_BeginCloseTextMaybe(struct ChapterIntroFXProc* proc) {
 void ChapterIntro_LoopCloseTextMaybe(struct ChapterIntroFXProc* proc) {
     int var;
 
-    var = sub_8012DCC(5, 0, DISPLAY_WIDTH / 2, proc->unk_4C, 0x28);
+    var = Interpolate(5, 0, DISPLAY_WIDTH / 2, proc->unk_4C, 0x28);
 
     gLCDControlBuffer.win0_left = (DISPLAY_WIDTH / 2) - var;
     gLCDControlBuffer.win0_top = 0;
