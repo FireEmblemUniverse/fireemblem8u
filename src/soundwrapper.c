@@ -158,7 +158,7 @@ void Sound_PlaySong80024E4(int songId, int speed, struct MusicPlayerInfo *player
 static void sub_80024F0(struct Proc *proc)
 {
     struct MusicProc *mproc = (struct MusicProc *)proc;
-    int volume = sub_8012DCC(0, 0, 0x100, mproc->delayCounter, mproc->unk4E);
+    int volume = Interpolate(0, 0, 0x100, mproc->delayCounter, mproc->unk4E);
 
     m4aMPlayVolumeControl(&gMPlayInfo_BGM1, 0xFFFF, volume);
     m4aMPlayVolumeControl(&gMPlayInfo_BGM2, 0xFFFF, volume);
@@ -277,7 +277,7 @@ void ISuspectThisToBeMusicRelated_8002730(int volume, int b, int c, struct Proc 
 static void sub_8002788(struct Proc *proc)
 {
     struct MusicProc *mproc = (struct MusicProc *)proc;
-    Sound_SetSEVolume(sub_8012DCC(4, mproc->unk64, mproc->unk66, mproc->unk68++, mproc->unk6A));
+    Sound_SetSEVolume(Interpolate(4, mproc->unk64, mproc->unk66, mproc->unk68++, mproc->unk6A));
     if (mproc->unk68 >= mproc->unk6A)
     {
         if (mproc->unk66 == 0)

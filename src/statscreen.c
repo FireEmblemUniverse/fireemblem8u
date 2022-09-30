@@ -1288,7 +1288,7 @@ void UnitSlide_FadeOutLoop(struct StatScreenEffectProc* proc)
     MU_SetDisplayPosition(gStatScreen.mu,
         80, 138 + gStatScreen.yDispOff);
 
-    gStatScreen.yDispOff = sub_8012DCC(2, proc->yDispInit, proc->yDispFinal, proc->timer, 0x10);
+    gStatScreen.yDispOff = Interpolate(2, proc->yDispInit, proc->yDispFinal, proc->timer, 0x10);
 
     proc->timer += 3;
 
@@ -1329,7 +1329,7 @@ void UnitSlide_FadeInLoop(struct StatScreenEffectProc* proc)
     MU_SetDisplayPosition(gStatScreen.mu,
         80, 138 + gStatScreen.yDispOff);
 
-    gStatScreen.yDispOff = sub_8012DCC(5, proc->yDispInit, proc->yDispFinal, proc->timer, 0x10);
+    gStatScreen.yDispOff = Interpolate(5, proc->yDispInit, proc->yDispFinal, proc->timer, 0x10);
 
     proc->timer += 3;
 
@@ -2066,10 +2066,10 @@ void HbRedirect_SSSupports(struct HelpBoxProc* proc)
 
 void UpdateHelpBoxDisplay(struct HelpBoxProc* proc, int arg1)
 {
-    proc->xBox = sub_8012DCC(arg1, proc->xBoxInit, proc->xBoxFinal, proc->timer, proc->timerMax);
-    proc->yBox = sub_8012DCC(arg1, proc->yBoxInit, proc->yBoxFinal, proc->timer, proc->timerMax);
-    proc->wBox = sub_8012DCC(arg1, proc->wBoxInit, proc->wBoxFinal, proc->timer, proc->timerMax);
-    proc->hBox = sub_8012DCC(arg1, proc->hBoxInit, proc->hBoxFinal, proc->timer, proc->timerMax);
+    proc->xBox = Interpolate(arg1, proc->xBoxInit, proc->xBoxFinal, proc->timer, proc->timerMax);
+    proc->yBox = Interpolate(arg1, proc->yBoxInit, proc->yBoxFinal, proc->timer, proc->timerMax);
+    proc->wBox = Interpolate(arg1, proc->wBoxInit, proc->wBoxFinal, proc->timer, proc->timerMax);
+    proc->hBox = Interpolate(arg1, proc->hBoxInit, proc->hBoxFinal, proc->timer, proc->timerMax);
 
     sub_8089980(proc->xBox, proc->yBox, proc->wBox, proc->hBox, proc->unk52);
 }

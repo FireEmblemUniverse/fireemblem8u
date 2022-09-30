@@ -1028,7 +1028,7 @@ static void MU_FogBumpFx_TransitionInLoop(struct MUFogBumpFxProc* proc) {
     if (proc->timer++ >= 8)
         Proc_Break(proc);
 
-    scale = sub_8012DCC(5, 0x200, 0x100, proc->timer, 8);
+    scale = Interpolate(5, 0x200, 0x100, proc->timer, 8);
 
     WriteOAMRotScaleData(
         0,  // oam rotscale index

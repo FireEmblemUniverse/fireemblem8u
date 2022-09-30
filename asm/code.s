@@ -4008,7 +4008,7 @@ _08090938:
 	ldr r3, [r0]
 	movs r0, #4
 	movs r1, #8
-	bl sub_8027B60
+	bl PutUnitSprite
 	adds r4, #1
 	adds r5, #1
 	cmp r5, #5
@@ -4038,7 +4038,7 @@ _08090964:
 	ldr r3, [r0]
 	movs r0, #4
 	movs r1, #8
-	bl sub_8027B60
+	bl PutUnitSprite
 _08090990:
 	ldr r2, _08090B30  @ gKeyStatusPtr
 	ldr r0, [r2]
@@ -24061,7 +24061,7 @@ _0809A2EC:
 	movs r0, #0
 	adds r1, r5, #0
 	adds r2, r4, #0
-	bl sub_8027B60
+	bl PutUnitSprite
 _0809A306:
 	adds r6, #1
 _0809A308:
@@ -24545,7 +24545,7 @@ _0809A67A:
 	movs r0, #0
 	adds r1, r4, #0
 	adds r2, r5, #0
-	bl sub_8027B60
+	bl PutUnitSprite
 _0809A6AC:
 	adds r6, #1
 _0809A6AE:

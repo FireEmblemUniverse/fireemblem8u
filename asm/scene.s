@@ -2597,7 +2597,7 @@ _08007BC8:
 	ldr r0, [r4, #0x5c]
 	str r0, [sp]
 	movs r0, #4
-	bl sub_8012DCC
+	bl Interpolate
 	ldr r2, _08007C08  @ gUnknown_03004980
 	movs r3, #0
 	ldrsh r1, [r5, r3]
@@ -4240,7 +4240,7 @@ sub_8008840: @ 0x08008840
 	str r0, [sp]
 	movs r0, #4
 	movs r2, #0
-	bl sub_8012DCC
+	bl Interpolate
 	lsrs r1, r0, #0x1f
 	adds r0, r0, r1
 	asrs r4, r0, #1

@@ -6869,7 +6869,7 @@ _08053260:
 	movs r0, #0
 	movs r1, #0x10
 	movs r2, #0
-	bl sub_8012DCC
+	bl Interpolate
 	adds r1, r0, #0
 	lsls r1, r1, #0x18
 	lsrs r1, r1, #0x18
@@ -7027,7 +7027,7 @@ _080533A4:
 	movs r0, #0
 	movs r1, #0x10
 	movs r2, #0
-	bl sub_8012DCC
+	bl Interpolate
 	adds r1, r0, #0
 	lsls r1, r1, #0x18
 	lsrs r1, r1, #0x18
@@ -7228,7 +7228,7 @@ sub_8053514: @ 0x08053514
 	ldrsh r0, [r4, r5]
 	str r0, [sp]
 	movs r0, #1
-	bl sub_8012DCC
+	bl Interpolate
 	adds r1, r0, #0
 	ldr r5, _08053580  @ gUnknown_0201FB0C
 	str r1, [r5]
@@ -7283,7 +7283,7 @@ sub_8053584: @ 0x08053584
 	ldrsh r0, [r4, r5]
 	str r0, [sp]
 	movs r0, #4
-	bl sub_8012DCC
+	bl Interpolate
 	adds r1, r0, #0
 	ldr r5, _080535EC  @ gUnknown_0201FB0C
 	str r1, [r5]
@@ -8685,7 +8685,7 @@ sub_80540B0: @ 0x080540B0
 	movs r0, #0
 	movs r1, #0
 	movs r2, #0x10
-	bl sub_8012DCC
+	bl Interpolate
 	adds r6, r0, #0
 	ldr r0, _08054118  @ gPaletteBuffer
 	ldr r4, _0805411C  @ gUnknown_020165C8
@@ -8820,7 +8820,7 @@ sub_80541B4: @ 0x080541B4
 	movs r0, #0
 	movs r1, #0x10
 	movs r2, #0
-	bl sub_8012DCC
+	bl Interpolate
 	adds r6, r0, #0
 	ldr r0, _0805421C  @ gPaletteBuffer
 	ldr r4, _08054220  @ gUnknown_020165C8
@@ -8955,7 +8955,7 @@ sub_80542B8: @ 0x080542B8
 	movs r0, #0
 	movs r1, #0
 	movs r2, #0x10
-	bl sub_8012DCC
+	bl Interpolate
 	adds r6, r0, #0
 	ldr r0, _08054320  @ gPaletteBuffer
 	ldr r4, _08054324  @ gUnknown_020165C8
@@ -9090,7 +9090,7 @@ sub_80543BC: @ 0x080543BC
 	movs r0, #0
 	movs r1, #0x10
 	movs r2, #0
-	bl sub_8012DCC
+	bl Interpolate
 	adds r6, r0, #0
 	ldr r0, _08054424  @ gPaletteBuffer
 	ldr r4, _08054428  @ gUnknown_020165C8
@@ -10697,7 +10697,7 @@ sub_8055038: @ 0x08055038
 	movs r0, #0
 	movs r1, #0
 	movs r2, #8
-	bl sub_8012DCC
+	bl Interpolate
 	adds r5, r0, #0
 	ldr r0, _08055094  @ gUnknown_0201C790
 	ldr r4, _08055098  @ gUnknown_02022968
@@ -10781,7 +10781,7 @@ sub_80550DC: @ 0x080550DC
 	movs r0, #0
 	movs r1, #8
 	movs r2, #0
-	bl sub_8012DCC
+	bl Interpolate
 	adds r4, r0, #0
 	ldr r7, _08055150  @ gUnknown_0201C790
 	ldr r6, _08055154  @ gUnknown_02022968
@@ -12559,7 +12559,7 @@ _08055E12:
 	str r0, [sp]
 	movs r0, #0
 	movs r1, #0
-	bl sub_8012DCC
+	bl Interpolate
 	adds r6, r0, #0
 	movs r3, #0x3a
 	ldrsh r2, [r7, r3]
@@ -12570,7 +12570,7 @@ _08055E12:
 	str r0, [sp]
 	movs r0, #0
 	movs r1, #0
-	bl sub_8012DCC
+	bl Interpolate
 	adds r5, r0, #0
 	movs r3, #0x34
 	ldrsh r2, [r7, r3]
@@ -12581,7 +12581,7 @@ _08055E12:
 	str r0, [sp]
 	movs r0, #0
 	movs r1, #0xf0
-	bl sub_8012DCC
+	bl Interpolate
 	adds r4, r0, #0
 	movs r3, #0x3c
 	ldrsh r2, [r7, r3]
@@ -12592,7 +12592,7 @@ _08055E12:
 	str r0, [sp]
 	movs r0, #0
 	movs r1, #0xa0
-	bl sub_8012DCC
+	bl Interpolate
 	ldr r2, _08055EF8  @ gLCDControlBuffer
 	movs r3, #0x2d
 	adds r3, r3, r2
@@ -12783,7 +12783,7 @@ ekrBattleStarting_8055FE8: @ 0x08055FE8
 	movs r0, #0
 	movs r1, #4
 	movs r2, #0x10
-	bl sub_8012DCC
+	bl Interpolate
 	bl sub_807168C
 	ldrh r0, [r4, #0x2c]
 	adds r0, #1
@@ -12858,7 +12858,7 @@ ekrBattleStarting_8056078: @ 0x08056078
 	movs r0, #0
 	movs r1, #0x10
 	movs r2, #0
-	bl sub_8012DCC
+	bl Interpolate
 	adds r4, r0, #0
 	ldr r0, _080560D0  @ gUnknown_0203E0FE
 	movs r1, #0
@@ -12937,7 +12937,7 @@ _08056118:
 	movs r0, #0
 	movs r1, #0
 	movs r2, #0x10
-	bl sub_8012DCC
+	bl Interpolate
 	adds r4, r0, #0
 	ldr r0, _08056168  @ gUnknown_0203E0FE
 	movs r1, #0
@@ -13045,7 +13045,7 @@ _080561F0:
 	movs r0, #0
 	movs r1, #0x10
 	movs r2, #4
-	bl sub_8012DCC
+	bl Interpolate
 	bl sub_807168C
 	ldrh r0, [r4, #0x2c]
 	adds r0, #1
@@ -13268,7 +13268,7 @@ _080563AE:
 	str r0, [sp]
 	movs r0, #0
 	movs r2, #0
-	bl sub_8012DCC
+	bl Interpolate
 	adds r6, r0, #0
 	movs r3, #0x3a
 	ldrsh r1, [r7, r3]
@@ -13279,7 +13279,7 @@ _080563AE:
 	str r0, [sp]
 	movs r0, #0
 	movs r2, #0
-	bl sub_8012DCC
+	bl Interpolate
 	adds r5, r0, #0
 	movs r3, #0x34
 	ldrsh r1, [r7, r3]
@@ -13290,7 +13290,7 @@ _080563AE:
 	str r0, [sp]
 	movs r0, #0
 	movs r2, #0xf0
-	bl sub_8012DCC
+	bl Interpolate
 	adds r4, r0, #0
 	movs r3, #0x3c
 	ldrsh r1, [r7, r3]
@@ -13301,7 +13301,7 @@ _080563AE:
 	str r0, [sp]
 	movs r0, #0
 	movs r2, #0xa0
-	bl sub_8012DCC
+	bl Interpolate
 	ldr r1, _08056478  @ gLCDControlBuffer
 	movs r3, #0x2d
 	adds r3, r3, r1
@@ -13876,7 +13876,7 @@ _08056886:
 	ldrsh r0, [r4, r6]
 	str r0, [sp]
 	movs r0, #0
-	bl sub_8012DCC
+	bl Interpolate
 	strh r0, [r5, #2]
 	movs r0, #0x3a
 	ldrsh r1, [r4, r0]
@@ -13894,7 +13894,7 @@ _080568B0:
 	ldrsh r0, [r4, r6]
 	str r0, [sp]
 	movs r0, #0
-	bl sub_8012DCC
+	bl Interpolate
 	strh r0, [r5, #2]
 	movs r0, #0x3c
 	ldrsh r1, [r4, r0]
@@ -13907,7 +13907,7 @@ _080568D2:
 	ldrsh r0, [r4, r6]
 	str r0, [sp]
 	movs r0, #0
-	bl sub_8012DCC
+	bl Interpolate
 	strh r0, [r5, #4]
 	ldrh r2, [r4, #0x2c]
 	movs r0, #0x2c
@@ -14267,7 +14267,7 @@ _08056BB8:
 	ldrsh r0, [r4, r6]
 	str r0, [sp]
 	movs r0, #0
-	bl sub_8012DCC
+	bl Interpolate
 	lsls r0, r0, #0x10
 	lsrs r7, r0, #0x10
 	ldr r0, [r4, #0x4c]
@@ -14294,7 +14294,7 @@ _08056BB8:
 	ldrsh r0, [r4, r6]
 	str r0, [sp]
 	movs r0, #0
-	bl sub_8012DCC
+	bl Interpolate
 	lsls r0, r0, #0x10
 	lsrs r6, r0, #0x10
 	movs r0, #0x3a
@@ -14318,7 +14318,7 @@ _08056C16:
 	ldrsh r0, [r4, r6]
 	str r0, [sp]
 	movs r0, #0
-	bl sub_8012DCC
+	bl Interpolate
 	lsls r0, r0, #0x10
 	lsrs r6, r0, #0x10
 	movs r0, #0x3a
@@ -14331,7 +14331,7 @@ _08056C16:
 	movs r0, #0
 	movs r1, #0x58
 _08056C44:
-	bl sub_8012DCC
+	bl Interpolate
 	lsls r0, r0, #0x10
 	lsrs r1, r0, #0x10
 	add r2, sp, #4
@@ -14372,7 +14372,7 @@ _08056C6A:
 	ldrsh r0, [r4, r6]
 	str r0, [sp]
 	movs r0, #0
-	bl sub_8012DCC
+	bl Interpolate
 	lsls r0, r0, #0x10
 	lsrs r6, r0, #0x10
 	movs r0, #0x3c
@@ -14396,7 +14396,7 @@ _08056CB6:
 	ldrsh r0, [r4, r6]
 	str r0, [sp]
 	movs r0, #0
-	bl sub_8012DCC
+	bl Interpolate
 	lsls r0, r0, #0x10
 	lsrs r6, r0, #0x10
 	movs r0, #0x3c
@@ -14409,7 +14409,7 @@ _08056CB6:
 	movs r0, #0
 	movs r1, #0x58
 _08056CE4:
-	bl sub_8012DCC
+	bl Interpolate
 	lsls r0, r0, #0x10
 	lsrs r1, r0, #0x10
 	add r2, sp, #4
@@ -14553,7 +14553,7 @@ _08056DDA:
 	movs r0, #4
 	movs r1, #0
 _08056DEC:
-	bl sub_8012DCC
+	bl Interpolate
 	adds r2, r0, #0
 	ldr r1, _08056E0C  @ gUnknown_02000038
 	movs r3, #0
@@ -14700,7 +14700,7 @@ _08056ED8:
 	str r0, [sp]
 	movs r0, #1
 	movs r2, #0
-	bl sub_8012DCC
+	bl Interpolate
 	b _08056F0C
 _08056EF8:
 	ldr r2, [r4, #0x48]
@@ -14711,7 +14711,7 @@ _08056EF8:
 	str r0, [sp]
 	movs r0, #4
 	movs r1, #0
-	bl sub_8012DCC
+	bl Interpolate
 _08056F0C:
 	lsls r1, r0, #0x10
 	lsrs r1, r1, #0x10
@@ -14817,7 +14817,7 @@ _08056FAC:
 	str r0, [sp]
 	movs r0, #1
 	movs r2, #0
-	bl sub_8012DCC
+	bl Interpolate
 	b _08056FE4
 _08056FCE:
 	movs r2, #0x50
@@ -14829,7 +14829,7 @@ _08056FCE:
 	str r0, [sp]
 	movs r0, #4
 	movs r1, #0
-	bl sub_8012DCC
+	bl Interpolate
 _08056FE4:
 	lsls r2, r0, #0x10
 	lsrs r2, r2, #0x10
@@ -23237,7 +23237,7 @@ sub_805B200: @ 0x0805B200
 	movs r0, #0
 	movs r1, #0x10
 	movs r2, #0
-	bl sub_8012DCC
+	bl Interpolate
 	adds r5, r0, #0
 	ldr r0, _0805B25C  @ gUnknown_020165C8
 	ldr r4, _0805B260  @ gPaletteBuffer
@@ -23338,7 +23338,7 @@ sub_805B2BC: @ 0x0805B2BC
 	movs r0, #0
 	movs r1, #0
 	movs r2, #0x10
-	bl sub_8012DCC
+	bl Interpolate
 	adds r5, r0, #0
 	ldr r0, _0805B318  @ gUnknown_020165C8
 	ldr r4, _0805B31C  @ gPaletteBuffer
@@ -24394,7 +24394,7 @@ sub_805BA64: @ 0x0805BA64
 	subs r0, r0, r4
 	str r0, [sp]
 	movs r0, #0
-	bl sub_8012DCC
+	bl Interpolate
 	adds r4, r0, #0
 	ldr r0, [r5, #0x4c]
 	cmp r0, #1
@@ -24437,7 +24437,7 @@ _0805BAD0:
 	movs r0, #0
 	movs r1, #8
 	movs r2, #0x10
-	bl sub_8012DCC
+	bl Interpolate
 	adds r2, r0, #0
 	lsls r1, r4, #0x18
 	lsrs r1, r1, #0x18
@@ -30327,7 +30327,7 @@ sub_805E9E4: @ 0x0805E9E4
 	movs r0, #0
 	movs r1, #0x10
 	movs r2, #0
-	bl sub_8012DCC
+	bl Interpolate
 	adds r5, r0, #0
 	ldr r0, _0805EA44  @ gPaletteBuffer
 	ldr r4, _0805EA48  @ gUnknown_020165C8
@@ -30379,7 +30379,7 @@ sub_805EA4C: @ 0x0805EA4C
 	movs r0, #0
 	movs r1, #0x10
 	movs r2, #0
-	bl sub_8012DCC
+	bl Interpolate
 	adds r1, r0, #0
 	lsls r1, r1, #0x18
 	lsrs r1, r1, #0x18
@@ -30461,7 +30461,7 @@ sub_805EAF0: @ 0x0805EAF0
 	movs r0, #0
 	movs r1, #0
 	movs r2, #0x10
-	bl sub_8012DCC
+	bl Interpolate
 	adds r3, r0, #0
 	ldr r4, _0805EB50  @ gUnknown_020165C8
 	adds r0, r4, #0
@@ -32163,7 +32163,7 @@ sub_805F868: @ 0x0805F868
 	movs r0, #4
 	movs r1, #0
 	movs r2, #0x80
-	bl sub_8012DCC
+	bl Interpolate
 	str r0, [r4, #0x4c]
 	ldrh r0, [r5, #0x2c]
 	adds r0, #1
@@ -35093,7 +35093,7 @@ sub_8060FA4: @ 0x08060FA4
 	str r0, [sp]
 	movs r0, #0
 	movs r1, #0
-	bl sub_8012DCC
+	bl Interpolate
 	ldr r4, _0806101C  @ gSinLookup
 	ldr r2, [r6, #0x44]
 	lsls r1, r2, #1
@@ -36292,7 +36292,7 @@ _0806191C:
 	movs r0, #0
 	movs r1, #0
 	movs r2, #0x10
-	bl sub_8012DCC
+	bl Interpolate
 	b _08061950
 _0806193C:
 	movs r2, #0x2c
@@ -36303,7 +36303,7 @@ _0806193C:
 	movs r0, #0
 	movs r1, #0x10
 	movs r2, #0
-	bl sub_8012DCC
+	bl Interpolate
 _08061950:
 	lsls r1, r0, #0x18
 	lsrs r1, r1, #0x18
@@ -40835,7 +40835,7 @@ sub_8063D1C: @ 0x08063D1C
 	str r0, [sp]
 	movs r0, #0
 	movs r1, #0
-	bl sub_8012DCC
+	bl Interpolate
 	str r0, [r5, #0x44]
 	ldrh r0, [r4, #0x2c]
 	adds r0, #1
@@ -41306,7 +41306,7 @@ sub_80640D0: @ 0x080640D0
 	movs r0, #4
 	movs r1, #0
 	movs r2, #0x32
-	bl sub_8012DCC
+	bl Interpolate
 	movs r2, #0x80
 	lsls r2, r2, #2
 	adds r1, r2, #0
@@ -41458,7 +41458,7 @@ sub_80641F0: @ 0x080641F0
 	movs r0, #1
 	movs r1, #0x32
 	movs r2, #0
-	bl sub_8012DCC
+	bl Interpolate
 	movs r2, #0x80
 	lsls r2, r2, #3
 	adds r1, r2, #0
@@ -41567,7 +41567,7 @@ sub_80642BC: @ 0x080642BC
 	movs r0, #4
 	movs r1, #0x80
 	movs r2, #0
-	bl sub_8012DCC
+	bl Interpolate
 	str r0, [r4, #0x4c]
 	ldrh r0, [r5, #0x2c]
 	adds r0, #1
@@ -41972,7 +41972,7 @@ sub_80645FC: @ 0x080645FC
 	ldrsh r0, [r4, r5]
 	str r0, [sp]
 	movs r0, #0
-	bl sub_8012DCC
+	bl Interpolate
 	ldr r1, _08064648  @ gLCDControlBuffer
 	strh r0, [r1, #0x20]
 	ldrh r0, [r4, #0x2c]
@@ -42250,7 +42250,7 @@ sub_80647F0: @ 0x080647F0
 	str r0, [sp]
 	movs r0, #4
 	movs r2, #0
-	bl sub_8012DCC
+	bl Interpolate
 	str r0, [r5, #0x44]
 	ldrh r0, [r4, #0x2c]
 	adds r0, #1
@@ -45873,7 +45873,7 @@ sub_80664A8: @ 0x080664A8
 	movs r0, #0
 	movs r1, #0
 	movs r2, #0x10
-	bl sub_8012DCC
+	bl Interpolate
 	adds r5, r0, #0
 	ldr r0, _08066508  @ gPaletteBuffer
 	ldr r4, _0806650C  @ gUnknown_020165C8
@@ -46680,7 +46680,7 @@ sub_8066B40: @ 0x08066B40
 	movs r0, #0
 	movs r1, #0
 	movs r2, #0x10
-	bl sub_8012DCC
+	bl Interpolate
 	adds r6, r0, #0
 	ldr r0, _08066BB4  @ gPaletteBuffer
 	ldr r4, _08066BB8  @ gUnknown_020165C8
@@ -50189,7 +50189,7 @@ sub_8068680: @ 0x08068680
 	movs r0, #0
 	movs r1, #0
 	movs r2, #0x10
-	bl sub_8012DCC
+	bl Interpolate
 	adds r5, r0, #0
 	ldr r0, _0806872C  @ gPaletteBuffer
 	ldr r4, _08068730  @ gUnknown_020165C8
@@ -50276,7 +50276,7 @@ sub_8068738: @ 0x08068738
 	movs r0, #0
 	movs r1, #0x10
 	movs r2, #0
-	bl sub_8012DCC
+	bl Interpolate
 	adds r5, r0, #0
 	ldr r0, _080687C8  @ gPaletteBuffer
 	ldr r4, _080687CC  @ gUnknown_020165C8
@@ -51022,7 +51022,7 @@ sub_8068D20: @ 0x08068D20
 	movs r0, #1
 	movs r1, #4
 	movs r2, #0x10
-	bl sub_8012DCC
+	bl Interpolate
 	adds r3, r0, #0
 	ldr r0, _08068D70  @ gPaletteBuffer
 	movs r1, #6
@@ -52127,7 +52127,7 @@ _08069574:
 	movs r1, #0
 	movs r2, #0x10
 _08069582:
-	bl sub_8012DCC
+	bl Interpolate
 	adds r6, r0, #0
 _08069588:
 	mov r2, r9
@@ -53592,7 +53592,7 @@ sub_806A0CC: @ 0x0806A0CC
 	str r0, [sp]
 	movs r0, #0
 	movs r1, #0x78
-	bl sub_8012DCC
+	bl Interpolate
 	ldr r1, [r4, #0x60]
 	strh r0, [r1, #2]
 	movs r0, #0x3a
@@ -53604,7 +53604,7 @@ sub_806A0CC: @ 0x0806A0CC
 	str r0, [sp]
 	movs r0, #0
 	movs r1, #0x40
-	bl sub_8012DCC
+	bl Interpolate
 	ldr r1, [r4, #0x60]
 	strh r0, [r1, #4]
 	ldrh r0, [r4, #0x2c]
@@ -53694,7 +53694,7 @@ _0806A174:
 	str r0, [sp]
 	movs r0, #0
 	movs r1, #0x78
-	bl sub_8012DCC
+	bl Interpolate
 	strh r0, [r4, #2]
 	movs r0, #0x3a
 	ldrsh r2, [r6, r0]
@@ -53705,7 +53705,7 @@ _0806A174:
 	str r0, [sp]
 	movs r0, #0
 	movs r1, #0x40
-	bl sub_8012DCC
+	bl Interpolate
 	strh r0, [r4, #4]
 	add sp, #4
 	pop {r3}
@@ -54228,7 +54228,7 @@ _0806A5A8:
 	str r0, [sp]
 	movs r0, #0
 	movs r2, #0x80
-	bl sub_8012DCC
+	bl Interpolate
 	muls r0, r7, r0
 	asrs r7, r0, #8
 	cmp r7, #1
@@ -54367,7 +54367,7 @@ _0806A6A2:
 	str r0, [sp]
 	movs r0, #0
 	adds r2, r5, #0
-	bl sub_8012DCC
+	bl Interpolate
 	adds r5, r0, #0
 	cmp r4, #0x2c
 	ble _0806A6BA
@@ -54405,7 +54405,7 @@ _0806A6E0:
 	movs r0, #0
 	adds r1, r5, #0
 	adds r3, r4, #0
-	bl sub_8012DCC
+	bl Interpolate
 	adds r5, r0, #0
 	subs r0, r6, r5
 	add sp, #4
@@ -54436,7 +54436,7 @@ _0806A714:
 	movs r1, #0x80
 	movs r2, #0x20
 	adds r3, r7, #0
-	bl sub_8012DCC
+	bl Interpolate
 	adds r5, r0, #0
 	movs r1, #0x80
 	lsls r1, r1, #1
@@ -54445,14 +54445,14 @@ _0806A714:
 	str r4, [sp]
 	movs r0, #0
 	adds r3, r7, #0
-	bl sub_8012DCC
+	bl Interpolate
 	adds r1, r0, #0
 	movs r0, #0x2d
 	str r0, [sp]
 	movs r0, #0
 	adds r2, r5, #0
 	adds r3, r6, #0
-	bl sub_8012DCC
+	bl Interpolate
 	adds r7, r0, #0
 	cmp r7, #1
 	bgt _0806A750
@@ -54592,7 +54592,7 @@ _0806A822:
 	str r0, [sp]
 	movs r0, #4
 	adds r1, r4, #0
-	bl sub_8012DCC
+	bl Interpolate
 	ldrh r1, [r7, #0x32]
 	adds r1, r1, r0
 	strh r1, [r6, #2]
@@ -54610,7 +54610,7 @@ _0806A822:
 	str r0, [sp]
 	movs r0, #4
 	adds r1, r4, #0
-	bl sub_8012DCC
+	bl Interpolate
 	ldrh r1, [r7, #0x3a]
 	adds r1, r1, r0
 	strh r1, [r6, #4]
@@ -54621,7 +54621,7 @@ _0806A822:
 	movs r0, #4
 	movs r1, #2
 	mov r2, r8
-	bl sub_8012DCC
+	bl Interpolate
 	adds r1, r0, #0
 	ldr r0, [sp, #4]
 	adds r2, r5, #0
@@ -54782,7 +54782,7 @@ sub_806A9C4: @ 0x0806A9C4
 	movs r0, #4
 	movs r1, #0
 	movs r2, #0x18
-	bl sub_8012DCC
+	bl Interpolate
 	mov r9, r0
 	movs r7, #0
 _0806A9E6:
@@ -54954,7 +54954,7 @@ _0806AAFC:
 	str r4, [sp]
 	movs r0, #1
 	movs r2, #0
-	bl sub_8012DCC
+	bl Interpolate
 	ldrh r1, [r5, #0x32]
 	adds r1, r1, r0
 	strh r1, [r7, #2]
@@ -54967,7 +54967,7 @@ _0806AAFC:
 	str r4, [sp]
 	movs r0, #1
 	movs r2, #0
-	bl sub_8012DCC
+	bl Interpolate
 	ldrh r1, [r5, #0x3a]
 	adds r1, r1, r0
 	strh r1, [r7, #4]
@@ -54977,7 +54977,7 @@ _0806AAFC:
 	movs r0, #1
 	movs r1, #0x18
 	movs r2, #0
-	bl sub_8012DCC
+	bl Interpolate
 	adds r1, r0, #0
 	mov r0, r9
 	adds r2, r6, #0
@@ -55985,7 +55985,7 @@ _0806B382:
 	movs r1, #0
 	movs r2, #0x10
 _0806B390:
-	bl sub_8012DCC
+	bl Interpolate
 	mov sl, r0
 _0806B396:
 	ldrh r0, [r7]
@@ -56709,7 +56709,7 @@ sub_806B940: @ 0x0806B940
 	movs r0, #0
 	movs r1, #0
 	movs r2, #0x10
-	bl sub_8012DCC
+	bl Interpolate
 	str r0, [sp, #8]
 	ldrh r0, [r6]
 	strh r0, [r5]
@@ -57847,7 +57847,7 @@ sub_806C2D4: @ 0x0806C2D4
 	movs r0, #0
 	movs r1, #0x10
 	movs r2, #0
-	bl sub_8012DCC
+	bl Interpolate
 	str r0, [sp, #8]
 	ldrh r0, [r6]
 	strh r0, [r5]
@@ -58035,7 +58035,7 @@ sub_806C478: @ 0x0806C478
 	movs r0, #0
 	movs r1, #0
 	movs r2, #0x10
-	bl sub_8012DCC
+	bl Interpolate
 	str r0, [sp, #8]
 	ldrh r0, [r6]
 	strh r0, [r5]
@@ -60933,7 +60933,7 @@ sub_806DB54: @ 0x0806DB54
 	str r0, [sp]
 	movs r0, #0
 	movs r1, #0
-	bl sub_8012DCC
+	bl Interpolate
 	str r0, [r5, #0x44]
 	ldrh r0, [r4, #0x2c]
 	adds r0, #1
@@ -63699,7 +63699,7 @@ _0806F132:
 	movs r0, #0
 	movs r1, #0
 	movs r2, #0x10
-	bl sub_8012DCC
+	bl Interpolate
 	b _0806F166
 _0806F152:
 	movs r2, #0x2c
@@ -63710,7 +63710,7 @@ _0806F152:
 	movs r0, #0
 	movs r1, #0x10
 	movs r2, #0
-	bl sub_8012DCC
+	bl Interpolate
 _0806F166:
 	lsls r1, r0, #0x18
 	lsrs r1, r1, #0x18
@@ -65196,7 +65196,7 @@ sub_806FC50: @ 0x0806FC50
 	movs r0, #1
 	movs r1, #4
 	movs r2, #0x10
-	bl sub_8012DCC
+	bl Interpolate
 	bl sub_807168C
 	ldrh r0, [r4, #0x2c]
 	adds r0, #1
@@ -65419,7 +65419,7 @@ _0806FE16:
 	ldrb r0, [r4, #4]
 	str r0, [sp]
 	movs r0, #0
-	bl sub_8012DCC
+	bl Interpolate
 	adds r5, r0, #0
 	movs r1, #0x2e
 	ldrsh r0, [r7, r1]
@@ -65435,7 +65435,7 @@ _0806FE16:
 	ldrb r0, [r4, #4]
 	str r0, [sp]
 	movs r0, #0
-	bl sub_8012DCC
+	bl Interpolate
 	adds r1, r0, #0
 	ldr r0, _0806FEA0  @ gUnknown_0201FB0C
 	ldr r0, [r0]
@@ -65617,7 +65617,7 @@ _0806FFC4:
 	movs r0, #4
 	movs r1, #0
 	movs r2, #0x10
-	bl sub_8012DCC
+	bl Interpolate
 	adds r5, r0, #0
 	ldr r0, _08070004  @ gUnknown_08791D5C
 	ldr r4, _08070008  @ gUnknown_02022968
@@ -65753,7 +65753,7 @@ _080700EA:
 	movs r0, #4
 	movs r1, #0x10
 	movs r2, #4
-	bl sub_8012DCC
+	bl Interpolate
 	adds r6, r0, #0
 	bl sub_807168C
 	ldr r0, [r5, #0x5c]
@@ -65767,7 +65767,7 @@ _080700EA:
 	movs r0, #4
 	movs r1, #0x10
 	movs r2, #0
-	bl sub_8012DCC
+	bl Interpolate
 	adds r6, r0, #0
 	ldr r0, _08070134  @ gUnknown_0203E120
 	movs r1, #0
@@ -66399,7 +66399,7 @@ sub_80705A8: @ 0x080705A8
 	movs r0, #0
 	movs r1, #0
 	movs r2, #0x10
-	bl sub_8012DCC
+	bl Interpolate
 	adds r6, r0, #0
 	ldr r0, _08070610  @ gPaletteBuffer
 	ldr r4, _08070614  @ gUnknown_020165C8
@@ -66498,7 +66498,7 @@ sub_8070670: @ 0x08070670
 	movs r0, #0
 	movs r1, #0x10
 	movs r2, #0
-	bl sub_8012DCC
+	bl Interpolate
 	adds r6, r0, #0
 	ldr r0, _080706D8  @ gPaletteBuffer
 	ldr r4, _080706DC  @ gUnknown_020165C8
@@ -68090,7 +68090,7 @@ _080711F6:
 	str r7, [sp]
 	movs r0, #0
 	mov r3, sl
-	bl sub_8012DCC
+	bl Interpolate
 	adds r5, r0, #0
 	lsls r5, r5, #0x10
 	lsrs r5, r5, #0x10
@@ -68099,7 +68099,7 @@ _080711F6:
 	adds r1, r6, #0
 	adds r2, r4, #0
 	mov r3, sl
-	bl sub_8012DCC
+	bl Interpolate
 	adds r4, r0, #0
 	lsls r4, r4, #0x10
 	lsrs r4, r4, #0x10
@@ -68108,7 +68108,7 @@ _080711F6:
 	mov r1, r9
 	mov r2, r8
 	mov r3, sl
-	bl sub_8012DCC
+	bl Interpolate
 	lsls r0, r0, #0x10
 	lsrs r0, r0, #0x10
 	movs r1, #0xf8
@@ -72318,7 +72318,7 @@ sub_80732E0: @ 0x080732E0
 	ldrsh r0, [r5, r4]
 	str r0, [sp]
 	movs r0, #0
-	bl sub_8012DCC
+	bl Interpolate
 	adds r6, r0, #0
 	ldr r0, [r5, #0x5c]
 	bl GetAISSubjectId
@@ -72429,7 +72429,7 @@ sub_80733C0: @ 0x080733C0
 	ldrsh r0, [r5, r4]
 	str r0, [sp]
 	movs r0, #0
-	bl sub_8012DCC
+	bl Interpolate
 	adds r6, r0, #0
 	ldr r0, [r5, #0x5c]
 	bl GetAISSubjectId
@@ -72542,7 +72542,7 @@ sub_80734AC: @ 0x080734AC
 	ldrsh r0, [r5, r6]
 	str r0, [sp]
 	movs r0, #4
-	bl sub_8012DCC
+	bl Interpolate
 	str r0, [r4, #0x4c]
 	ldrh r0, [r5, #0x2c]
 	adds r0, #1
@@ -73769,14 +73769,14 @@ _08073EE2:
 	str r4, [sp]
 	movs r0, #0
 	movs r2, #0
-	bl sub_8012DCC
+	bl Interpolate
 	mov r8, r0
 	str r4, [sp]
 	movs r0, #0
 	movs r1, #0
 	movs r2, #8
 	adds r3, r5, #0
-	bl sub_8012DCC
+	bl Interpolate
 	mov sl, r0
 	ldr r5, _08073FA0  @ gUnknown_02020134
 	str r4, [sp]
@@ -73784,7 +73784,7 @@ _08073EE2:
 	movs r1, #0x90
 	movs r2, #0
 	adds r3, r6, #0
-	bl sub_8012DCC
+	bl Interpolate
 	strh r0, [r5]
 	ldr r5, _08073FA4  @ gUnknown_02020136
 	str r4, [sp]
@@ -73792,7 +73792,7 @@ _08073EE2:
 	movs r1, #0x90
 	movs r2, #0
 	mov r3, r9
-	bl sub_8012DCC
+	bl Interpolate
 	strh r0, [r5]
 	ldr r0, _08073FA8  @ gUnknown_03004980
 	ldr r1, [r0]
@@ -73940,7 +73940,7 @@ _08074056:
 	str r0, [sp]
 	movs r0, #1
 	movs r1, #0
-	bl sub_8012DCC
+	bl Interpolate
 	strh r0, [r4]
 	ldrh r0, [r5, #0x2c]
 	adds r0, #1
@@ -74006,7 +74006,7 @@ _080740DE:
 	str r0, [sp]
 	movs r0, #4
 	movs r2, #0
-	bl sub_8012DCC
+	bl Interpolate
 	strh r0, [r4]
 	ldrh r0, [r5, #0x2c]
 	adds r0, #1
@@ -74288,7 +74288,7 @@ sub_80742F8: @ 0x080742F8
 	movs r0, #0
 	movs r1, #0
 	movs r2, #0x90
-	bl sub_8012DCC
+	bl Interpolate
 	strh r0, [r5]
 	ldr r5, _080743B0  @ gUnknown_02020136
 	movs r0, #0x2c
@@ -74297,7 +74297,7 @@ sub_80742F8: @ 0x080742F8
 	movs r0, #0
 	movs r1, #0
 	movs r2, #0x90
-	bl sub_8012DCC
+	bl Interpolate
 	strh r0, [r5]
 	movs r2, #0x50
 	negs r2, r2
@@ -74306,7 +74306,7 @@ sub_80742F8: @ 0x080742F8
 	str r4, [sp]
 	movs r0, #0
 	movs r1, #0
-	bl sub_8012DCC
+	bl Interpolate
 	adds r5, r0, #0
 	movs r0, #0x2c
 	ldrsh r3, [r7, r0]
@@ -74314,7 +74314,7 @@ sub_80742F8: @ 0x080742F8
 	movs r0, #0
 	movs r1, #8
 	movs r2, #0
-	bl sub_8012DCC
+	bl Interpolate
 	adds r6, r0, #0
 	ldr r0, _080743B4  @ gUnknown_03004980
 	ldr r1, [r0]
@@ -76854,7 +76854,7 @@ sub_80756BC: @ 0x080756BC
 	movs r0, #0
 	movs r1, #0x20
 	movs r2, #0
-	bl sub_8012DCC
+	bl Interpolate
 	ldr r2, [r4, #0x60]
 	ldr r1, [r4, #0x5c]
 	ldrh r1, [r1, #2]
@@ -77037,7 +77037,7 @@ sub_8075828: @ 0x08075828
 	ldrsh r0, [r4, r5]
 	str r0, [sp]
 	movs r0, #1
-	bl sub_8012DCC
+	bl Interpolate
 	ldr r1, [r4, #0x60]
 	strh r0, [r1, #2]
 	ldrh r0, [r4, #0x2c]
@@ -78570,7 +78570,7 @@ sub_8076400: @ 0x08076400
 	movs r0, #0
 	movs r1, #0x10
 	movs r2, #0
-	bl sub_8012DCC
+	bl Interpolate
 	adds r5, r0, #0
 	ldr r0, _0807645C  @ gUnknown_020165C8
 	ldr r4, _08076460  @ gPaletteBuffer
@@ -78666,7 +78666,7 @@ sub_80764B0: @ 0x080764B0
 	movs r0, #0
 	movs r1, #0
 	movs r2, #0x10
-	bl sub_8012DCC
+	bl Interpolate
 	adds r5, r0, #0
 	ldr r0, _0807650C  @ gUnknown_020165C8
 	ldr r4, _08076510  @ gPaletteBuffer
@@ -78827,7 +78827,7 @@ sub_80765E4: @ 0x080765E4
 	movs r0, #1
 	movs r1, #4
 	movs r2, #0x10
-	bl sub_8012DCC
+	bl Interpolate
 	bl sub_807168C
 	ldrh r0, [r4, #0x2c]
 	adds r0, #1
@@ -78882,7 +78882,7 @@ sub_8076640: @ 0x08076640
 	str r4, [sp]
 	movs r0, #5
 	movs r2, #0
-	bl sub_8012DCC
+	bl Interpolate
 	adds r5, r0, #0
 	movs r1, #0x50
 	negs r1, r1
@@ -78891,7 +78891,7 @@ sub_8076640: @ 0x08076640
 	str r4, [sp]
 	movs r0, #5
 	movs r2, #0
-	bl sub_8012DCC
+	bl Interpolate
 	adds r1, r0, #0
 	ldr r0, _0807668C  @ gUnknown_0201FB0C
 	ldr r0, [r0]
@@ -79178,7 +79178,7 @@ _080768BE:
 	movs r0, #4
 	movs r1, #0x10
 	movs r2, #4
-	bl sub_8012DCC
+	bl Interpolate
 	bl sub_807168C
 	ldrh r0, [r4, #0x2c]
 	adds r0, #1
@@ -79249,7 +79249,7 @@ sub_8076934: @ 0x08076934
 	movs r0, #1
 	movs r1, #0
 	movs r2, #0x10
-	bl sub_8012DCC
+	bl Interpolate
 	adds r5, r0, #0
 	ldr r0, _08076994  @ gUnknown_02020148
 	ldr r4, _08076998  @ gUnknown_02022928
@@ -79357,7 +79357,7 @@ sub_8076A10: @ 0x08076A10
 	movs r0, #1
 	movs r1, #0x10
 	movs r2, #0
-	bl sub_8012DCC
+	bl Interpolate
 	adds r5, r0, #0
 	ldr r0, _08076A70  @ gUnknown_02020148
 	ldr r4, _08076A74  @ gUnknown_02022928
@@ -79716,7 +79716,7 @@ _08076CE8:
 	str r4, [sp]
 	movs r0, #5
 	movs r1, #0
-	bl sub_8012DCC
+	bl Interpolate
 	ldr r1, _08076D44  @ gUnknown_03004FA8
 	str r0, [r1]
 	ldr r3, [r6, #0x54]
@@ -79724,7 +79724,7 @@ _08076CE8:
 	movs r0, #5
 	movs r1, #0
 	movs r2, #0x10
-	bl sub_8012DCC
+	bl Interpolate
 	ldr r1, _08076D48  @ gUnknown_03004FB0
 _08076D0C:
 	str r0, [r1]
@@ -79780,7 +79780,7 @@ sub_8076D60: @ 0x08076D60
 	str r4, [sp]
 	movs r0, #0
 	movs r2, #8
-	bl sub_8012DCC
+	bl Interpolate
 	ldr r5, _08076DC8  @ gUnknown_03004FA8
 	str r0, [r5]
 	movs r2, #8
@@ -79789,7 +79789,7 @@ sub_8076D60: @ 0x08076D60
 	str r4, [sp]
 	movs r0, #0
 	movs r1, #0x10
-	bl sub_8012DCC
+	bl Interpolate
 	ldr r4, _08076DCC  @ gUnknown_03004FB0
 	str r0, [r4]
 	ldr r0, _08076DD0  @ gUnknown_0201FB0C
@@ -79860,7 +79860,7 @@ sub_8076E00: @ 0x08076E00
 	movs r0, #5
 	movs r1, #8
 	movs r2, #0
-	bl sub_8012DCC
+	bl Interpolate
 	ldr r5, _08076E64  @ gUnknown_03004FA8
 	str r0, [r5]
 	movs r1, #8
@@ -79869,7 +79869,7 @@ sub_8076E00: @ 0x08076E00
 	str r4, [sp]
 	movs r0, #5
 	movs r2, #0
-	bl sub_8012DCC
+	bl Interpolate
 	ldr r4, _08076E68  @ gUnknown_03004FB0
 	str r0, [r4]
 	ldr r0, _08076E6C  @ gUnknown_0201FB0C
@@ -79924,7 +79924,7 @@ sub_8076E84: @ 0x08076E84
 	movs r0, #5
 	movs r1, #0
 	movs r2, #0
-	bl sub_8012DCC
+	bl Interpolate
 	ldr r5, _08076EE8  @ gUnknown_03004FA8
 	str r0, [r5]
 	ldr r3, [r6, #0x54]
@@ -79932,7 +79932,7 @@ sub_8076E84: @ 0x08076E84
 	movs r0, #5
 	movs r1, #0
 	movs r2, #0
-	bl sub_8012DCC
+	bl Interpolate
 	ldr r4, _08076EEC  @ gUnknown_03004FB0
 	str r0, [r4]
 	ldr r0, _08076EF0  @ gUnknown_0201FB0C
@@ -80026,7 +80026,7 @@ sub_8076F48: @ 0x08076F48
 	str r4, [sp]
 	movs r0, #5
 	movs r1, #0
-	bl sub_8012DCC
+	bl Interpolate
 	ldr r5, _08076FB0  @ gUnknown_03004FA8
 	str r0, [r5]
 	movs r2, #0xa
@@ -80035,7 +80035,7 @@ sub_8076F48: @ 0x08076F48
 	str r4, [sp]
 	movs r0, #5
 	movs r1, #0
-	bl sub_8012DCC
+	bl Interpolate
 	ldr r4, _08076FB4  @ gUnknown_03004FB0
 	str r0, [r4]
 	ldr r0, _08076FB8  @ gUnknown_0201FB0C
@@ -80097,7 +80097,7 @@ sub_8076FD4: @ 0x08076FD4
 	str r4, [sp]
 	movs r0, #5
 	movs r2, #0
-	bl sub_8012DCC
+	bl Interpolate
 	ldr r5, _0807703C  @ gUnknown_03004FA8
 	str r0, [r5]
 	movs r1, #0xa
@@ -80106,7 +80106,7 @@ sub_8076FD4: @ 0x08076FD4
 	str r4, [sp]
 	movs r0, #5
 	movs r2, #0
-	bl sub_8012DCC
+	bl Interpolate
 	ldr r4, _08077040  @ gUnknown_03004FB0
 	str r0, [r4]
 	ldr r0, _08077044  @ gUnknown_0201FB0C
@@ -80507,7 +80507,7 @@ sub_8077310: @ 0x08077310
 	movs r0, #4
 	movs r1, #0
 	movs r2, #0x10
-	bl sub_8012DCC
+	bl Interpolate
 	adds r5, r0, #0
 	ldr r0, _08077388  @ gUnknown_087F85DC
 	ldr r4, _0807738C  @ gUnknown_02022968
@@ -81535,7 +81535,7 @@ sub_8077AEC: @ 0x08077AEC
 	movs r0, #0
 	movs r1, #0
 	movs r2, #0x10
-	bl sub_8012DCC
+	bl Interpolate
 	adds r6, r0, #0
 	ldr r0, _08077B54  @ gPaletteBuffer
 	ldr r4, _08077B58  @ gUnknown_020165C8
@@ -81634,7 +81634,7 @@ sub_8077BB4: @ 0x08077BB4
 	movs r0, #0
 	movs r1, #0x10
 	movs r2, #0
-	bl sub_8012DCC
+	bl Interpolate
 	adds r6, r0, #0
 	ldr r0, _08077C1C  @ gPaletteBuffer
 	ldr r4, _08077C20  @ gUnknown_020165C8

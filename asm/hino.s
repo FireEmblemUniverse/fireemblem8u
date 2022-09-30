@@ -947,8 +947,8 @@ _08012DC8: .4byte 0x000002D6
 
 	THUMB_FUNC_END sub_8012CFC
 
-	THUMB_FUNC_START sub_8012DCC
-sub_8012DCC: @ 0x08012DCC
+	THUMB_FUNC_START Interpolate
+Interpolate: @ 0x08012DCC
 	push {r4, r5, r6, lr}
 	adds r6, r1, #0
 	ldr r5, [sp, #0x10]
@@ -1056,7 +1056,7 @@ _08012E8E:
 	pop {r1}
 	bx r1
 
-	THUMB_FUNC_END sub_8012DCC
+	THUMB_FUNC_END Interpolate
 
 	THUMB_FUNC_START sub_8012E94
 sub_8012E94: @ 0x08012E94
@@ -2804,7 +2804,7 @@ _080139D4:
 	ldrh r0, [r0, #0x2a]
 	str r0, [sp]
 	movs r0, #0
-	bl sub_8012DCC
+	bl Interpolate
 	adds r5, r0, #0
 	ldr r0, [r7, #0x2c]
 	ldrh r3, [r0, #0x28]
@@ -2813,7 +2813,7 @@ _080139D4:
 	movs r0, #0
 	adds r1, r6, #0
 	adds r2, r4, #0
-	bl sub_8012DCC
+	bl Interpolate
 	adds r4, r0, #0
 	ldr r0, [r7, #0x2c]
 	ldrh r3, [r0, #0x28]
@@ -2822,7 +2822,7 @@ _080139D4:
 	movs r0, #0
 	mov r1, r9
 	mov r2, r8
-	bl sub_8012DCC
+	bl Interpolate
 	movs r1, #0xf8
 	lsls r1, r1, #7
 	ands r0, r1

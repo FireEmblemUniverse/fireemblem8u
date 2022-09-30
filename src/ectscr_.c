@@ -82,7 +82,7 @@ u16 sub_8010E6C(s16 x, s16 y, s16 counter)
 
 void sub_8010EE8(int val0, int val1, int val2)
 {
-    int var = sub_8012DCC(1, val0, val1, val2, 8);
+    int var = Interpolate(1, val0, val1, val2, 8);
     CpuFastCopy(gUnknown_085A7EE8, &gPaletteBuffer[0x12 * 0x10], 0x20);
     sub_807132C(gPaletteBuffer, 0x12, 1, var);
     EnablePaletteSync();

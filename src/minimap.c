@@ -823,7 +823,7 @@ void Minimap_LoopRotateIn(struct MinimapProc* proc) {
 
     SetSpecialColorEffectsParameters(3, 16, 0, blendY);
 
-    unk = sub_8012DCC(5, 0, 256, proc->unk_4c, 16);
+    unk = Interpolate(5, 0, 256, proc->unk_4c, 16);
 
     angle = unk;
 
@@ -912,7 +912,7 @@ void Minimap_LoopRotateOut(struct MinimapProc* proc) {
 
     SetSpecialColorEffectsParameters(3, 16, 0, 4 - blendY);
 
-    unk = sub_8012DCC(2, 256, 0, proc->unk_4c, 16);
+    unk = Interpolate(2, 256, 0, proc->unk_4c, 16);
 
     angle = unk;
 
