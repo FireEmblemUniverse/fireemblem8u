@@ -140,9 +140,6 @@ void PutUnitSprite(int, int, int, struct Unit*);
 // code.s
 void BWL_AddWinOrLossIdk(u8, u8, int);
 
-// bm.s
-int GetCurrentMapMusicIndex(void);
-
 // popup.s
 void NewGeneralItemGot(struct Unit*, int, ProcPtr);
 

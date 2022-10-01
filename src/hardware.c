@@ -259,7 +259,7 @@ void SetInterrupt_LCDVCountMatch(InterruptHandler handler)
     }
 }
 
-void sub_8001308(int a)
+void SetNextVCount(int a)
 {
     u16 dispstat = *(u8 *)&REG_DISPSTAT | (a << 8);
     REG_DISPSTAT = dispstat;

@@ -3,10 +3,15 @@
 
 enum
 {
-    BGPAL_UI_FRAME   = 1,
-    BGPAL_UI_STATBAR = 6,
+    INTERPOLATE_LINEAR,
+    INTERPOLATE_SQUARE,
+    INTERPOLATE_CUBIC,
+    INTERPOLATE_POW4,
+    INTERPOLATE_RSQUARE,
+    INTERPOLATE_RCUBIC,
 };
 
+int Interpolate(int method, int lo, int hi, int x, int end);
 void UnpackLegacyUiFramePalette(int palId);
 void UnpackUiFramePalette(int palId);
 void UnpackLegacyUiFrameImage(void* dest);
