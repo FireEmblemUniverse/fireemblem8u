@@ -2290,10 +2290,10 @@ gUnknown_085AAB68:  @ 0x085AAB68
         .word 0x0
         @ PROC_START_CHILD
         .short 0x5, 0x0
-        .word gUnknown_0859AEF8
+        .word gProcScr_PhaseIntroText
         @ PROC_START_CHILD
         .short 0x5, 0x0
-        .word gUnknown_0859AF40
+        .word gProcScr_PhaseIntroBlendBox
         @ PROC_START_CHILD
         .short 0x5, 0x0
         .word gUnknown_0859AF60

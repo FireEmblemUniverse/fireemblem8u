@@ -43,7 +43,7 @@ void BG_Fill(void *dest, int b);
 void RegisterBlankTile(int a);
 void SetInterrupt_LCDVBlank(InterruptHandler handler);
 void SetInterrupt_LCDVCountMatch(InterruptHandler handler);
-// ??? sub_8001308(???);
+void SetNextVCount(int a);
 // ??? SetLCDVCountSetting(???);
 void SetMainUpdateRoutine(void(*)(void));
 void ExecMainUpdate();

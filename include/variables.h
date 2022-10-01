@@ -1425,9 +1425,9 @@ extern struct ProcCmd CONST_DATA gProcScr_ADJUSTSFROMXI[];
 extern struct ProcCmd CONST_DATA gProcCmd_ConvoyMenu[];
 // extern ??? gProcCmd_MenuItemPanel
 // extern ??? sProcScr_PrepUnitSwap
-// extern ??? gUnknown_0859AEC8
-// extern ??? gUnknown_0859AEF8
-// extern ??? gUnknown_0859AF40
+extern u16 CONST_DATA gUnknown_0859AEC8[];
+// extern ??? gProcScr_PhaseIntroText
+// extern ??? gProcScr_PhaseIntroBlendBox
 // extern ??? gUnknown_0859AF60
 // extern ??? gUnknown_0859AFC8
 // extern ??? gUnknown_0859AFE8

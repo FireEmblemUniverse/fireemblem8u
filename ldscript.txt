@@ -70,6 +70,7 @@ SECTIONS
         src/fogmap.o(.text);
         src/menuitempanel.o(.text);
         src/prep_unitswap.o(.text);
+        src/phasechangefx.o(.text);
         asm/phasechangefx.o(.text);
         src/unit_facing.o(.text);
         asm/trapfx.o(.text);
