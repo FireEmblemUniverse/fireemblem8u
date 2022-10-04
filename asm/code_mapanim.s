@@ -4610,15 +4610,15 @@ WallBreakAnim_Init: @ 0x0807CC28
 	push {r4, r5, lr}
 	sub sp, #8
 	adds r4, r0, #0
-	ldr r0, _0807CC68  @ gUnknown_089ADA80
+	ldr r0, _0807CC68  @ Img_UnkTrap_089ADA80
 	ldr r1, _0807CC6C  @ 0x06013000
 	bl CopyDataWithPossibleUncomp
-	ldr r0, _0807CC70  @ gUnknown_089ADD0C
+	ldr r0, _0807CC70  @ Pal_UnkTrap_089ADD0C
 	movs r1, #0x98
 	lsls r1, r1, #2
 	movs r2, #0x20
 	bl CopyToPaletteBuffer
-	ldr r0, _0807CC74  @ gUnknown_089A6FD8
+	ldr r0, _0807CC74  @ SpriteAnim_UnkTrap_089A6FD8
 	ldr r1, [r4, #0x30]
 	ldr r2, [r4, #0x34]
 	adds r2, #0x10
@@ -4636,10 +4636,10 @@ WallBreakAnim_Init: @ 0x0807CC28
 	pop {r0}
 	bx r0
 	.align 2, 0
-_0807CC68: .4byte gUnknown_089ADA80
+_0807CC68: .4byte Img_UnkTrap_089ADA80
 _0807CC6C: .4byte 0x06013000
-_0807CC70: .4byte gUnknown_089ADD0C
-_0807CC74: .4byte gUnknown_089A6FD8
+_0807CC70: .4byte Pal_UnkTrap_089ADD0C
+_0807CC74: .4byte SpriteAnim_UnkTrap_089A6FD8
 
 	THUMB_FUNC_END WallBreakAnim_Init
 

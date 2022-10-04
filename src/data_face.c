@@ -171,7 +171,7 @@ struct ProcCmd CONST_DATA gProcScr_E_FACE[] =
 {
     PROC_NAME("E_FACE"),
 
-    PROC_WHILE_EXISTS(gUnknown_0859A548),
+    PROC_WHILE_EXISTS(ProcScr_MaybeMapChangeAnim),
     PROC_SLEEP(0),
 
     PROC_CALL(Load6CFACEGraphics),
@@ -187,7 +187,7 @@ struct ProcCmd CONST_DATA gUnknown_0859118C[] =
 {
     PROC_NAME("E_FACE"),
 
-    PROC_WHILE_EXISTS(gUnknown_0859A548),
+    PROC_WHILE_EXISTS(ProcScr_MaybeMapChangeAnim),
     PROC_SLEEP(1),
 
     PROC_CALL(Load6CFACEGraphics),

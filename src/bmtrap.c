@@ -23,8 +23,8 @@ void sub_80A4594(u8);
 void BWL_AddWinOrLossIdk(u8, u8, int);
 
 // trapfx.s
-void sub_801F68C(ProcPtr, int, int);
-void sub_801F6BC(ProcPtr, int, int);
+void StartFireTrapAnim(ProcPtr, int, int);
+void StartFireTrapAnim2(ProcPtr, int, int);
 
 // ev_triggercheck.s
 s8 CheckForWaitEvents(void);
@@ -95,12 +95,12 @@ void sub_80374F4(struct UnknownBMTrapProc* proc) {
 }
 
 void sub_8037510(struct UnknownBMTrapProc* proc) {
-    sub_801F68C(proc, proc->unit->xPos, proc->unit->yPos);
+    StartFireTrapAnim(proc, proc->unit->xPos, proc->unit->yPos);
     return;
 }
 
 void sub_8037528(struct UnknownBMTrapProc* proc) {
-    sub_801F6BC(proc, proc->unit->xPos, proc->unit->yPos);
+    StartFireTrapAnim2(proc, proc->unit->xPos, proc->unit->yPos);
     return;
 }
 

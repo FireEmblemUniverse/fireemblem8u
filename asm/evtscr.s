@@ -5231,7 +5231,7 @@ TryPrepareEventUnitMovement: @ 0x0800FC90
 	ands r0, r1
 	cmp r0, #0
 	beq _0800FCBE
-	ldr r0, _0800FCCC  @ gUnknown_0859A548
+	ldr r0, _0800FCCC  @ ProcScr_MaybeMapChangeAnim
 	bl Proc_Find
 	cmp r0, #0
 	bne _0800FCD0
@@ -5250,7 +5250,7 @@ _0800FCBE:
 	movs r0, #1
 	b _0800FCD2
 	.align 2, 0
-_0800FCCC: .4byte gUnknown_0859A548
+_0800FCCC: .4byte ProcScr_MaybeMapChangeAnim
 _0800FCD0:
 	movs r0, #0
 _0800FCD2:

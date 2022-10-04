@@ -166,7 +166,7 @@ static struct ProcCmd sProcScr_TradeMenu[] = {
     PROC_CALL(AddSkipThread2),
     PROC_YIELD,
 
-    PROC_WHILE_EXISTS(gUnknown_0859A548),
+    PROC_WHILE_EXISTS(ProcScr_MaybeMapChangeAnim),
 
     PROC_CALL(TradeMenu_InitItemDisplay),
     PROC_CALL(TradeMenu_InitUnitNameDisplay),

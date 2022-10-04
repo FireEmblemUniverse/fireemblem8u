@@ -336,7 +336,7 @@ struct APHandle* AP_Find(const u16* definition) {
     return NULL;
 }
 
-struct APProc* APProc_Create(const void* apDefinition, int xPos, int yPos, int tileBase, int anim, u16 aObjNode) {
+ProcPtr APProc_Create(const void* apDefinition, int xPos, int yPos, int tileBase, int anim, u16 aObjNode) {
     struct APHandle* handle;
     struct APProc* proc;
 

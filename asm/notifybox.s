@@ -4,6 +4,15 @@
 
 	@ It's like a popup but for some reason it's not
 
+	THUMB_FUNC_START sub_801F9C4
+sub_801F9C4: @ 0x0801F9C4
+	adds r0, #0x4c
+	movs r1, #0xf0
+	strh r1, [r0]
+	bx lr
+
+	THUMB_FUNC_END sub_801F9C4
+
 	THUMB_FUNC_START sub_801F9CC
 sub_801F9CC: @ 0x0801F9CC
 	push {lr}

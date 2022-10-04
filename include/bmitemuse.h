@@ -1,6 +1,11 @@
 #ifndef GUARD_ITEMUSE_H
 #define GUARD_ITEMUSE_H
 
+struct MenuItemDef;
+struct MenuProc;
+struct MenuItemProc;
+struct SelectTarget;
+
 s8 CanUnitUseItem(struct Unit* unit, int item);
 int GetItemCantUseMsgid(struct Unit* unit, int item);
 void DoItemUse(struct Unit* unit, int item);
@@ -25,7 +30,6 @@ u8 RepairMenuItemSelect(struct MenuProc*, struct MenuItemProc*);
 int RepairMenuItemOnChange(struct MenuProc*, struct MenuItemProc*);
 int RepairMenuItemOnChangeOut(struct MenuProc*, struct MenuItemProc*);
 
-struct SelectTarget;
 u8 StaffSelectOnSelect(ProcPtr proc, struct SelectTarget* target);
 
 #endif // GUARD_ITEMUSE_H

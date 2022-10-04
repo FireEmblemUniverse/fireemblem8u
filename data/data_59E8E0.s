@@ -140,64 +140,64 @@ gUnknown_085A0D4C:  @ 0x085A0D4C
 gUnknown_085A0EA0:  @ 0x085A0EA0
 	.incbin "baserom.gba", 0x5A0EA0, 0x158
 
-	.global gUnknown_085A0FF8
-gUnknown_085A0FF8:  @ 0x085A0FF8
+	.global SpriteAnim_GasTrapVertical
+SpriteAnim_GasTrapVertical:  @ 0x085A0FF8
 	.incbin "baserom.gba", 0x5A0FF8, 0x2A4
 
-	.global gUnknown_085A129C
-gUnknown_085A129C:  @ 0x085A129C
+	.global SpriteAnim_GasTrapHorizontal
+SpriteAnim_GasTrapHorizontal:  @ 0x085A129C
 	.incbin "baserom.gba", 0x5A129C, 0x274
 
-	.global gUnknown_085A1510
-gUnknown_085A1510:  @ 0x085A1510
+	.global Img_GasTrapVertical
+Img_GasTrapVertical:  @ 0x085A1510
 	.incbin "baserom.gba", 0x5A1510, 0x5E8
 
-	.global gUnknown_085A1AF8
-gUnknown_085A1AF8:  @ 0x085A1AF8
+	.global Img_GasTrapHorizontal
+Img_GasTrapHorizontal:  @ 0x085A1AF8
 	.incbin "baserom.gba", 0x5A1AF8, 0x574
 
-	.global gUnknown_085A206C
-gUnknown_085A206C:  @ 0x085A206C
+	.global Pal_GasTrap
+Pal_GasTrap:  @ 0x085A206C
 	.incbin "baserom.gba", 0x5A206C, 0x20
 
-	.global gUnknown_085A208C
-gUnknown_085A208C:  @ 0x085A208C
+	.global Pal_ArrowTrap
+Pal_ArrowTrap:  @ 0x085A208C
 	.incbin "baserom.gba", 0x5A208C, 0x20
 
-	.global gUnknown_085A20AC
-gUnknown_085A20AC:  @ 0x085A20AC
+	.global Img_ArrowTrap
+Img_ArrowTrap:  @ 0x085A20AC
 	.incbin "baserom.gba", 0x5A20AC, 0x2D8
 
-	.global gUnknown_085A2384
-gUnknown_085A2384:  @ 0x085A2384
+	.global SpriteAnim_ArrowTrap
+SpriteAnim_ArrowTrap:  @ 0x085A2384
 	.incbin "baserom.gba", 0x5A2384, 0x5BC
 
-	.global gUnknown_085A2940
-gUnknown_085A2940:  @ 0x085A2940
+	.global Img_FireTrap
+Img_FireTrap:  @ 0x085A2940
 	.incbin "baserom.gba", 0x5A2940, 0x49C
 
-	.global gUnknown_085A2DDC
-gUnknown_085A2DDC:  @ 0x085A2DDC
+	.global Pal_FireTrap
+Pal_FireTrap:  @ 0x085A2DDC
 	.incbin "baserom.gba", 0x5A2DDC, 0x20
 
-	.global gUnknown_085A2DFC
-gUnknown_085A2DFC:  @ 0x085A2DFC
+	.global SpriteAnim_FireTrap
+SpriteAnim_FireTrap:  @ 0x085A2DFC
 	.incbin "baserom.gba", 0x5A2DFC, 0x694
 
-	.global gUnknown_085A3490
-gUnknown_085A3490:  @ 0x085A3490
+	.global Pal_FireTrap2
+Pal_FireTrap2:  @ 0x085A3490
 	.incbin "baserom.gba", 0x5A3490, 0x20
 
-	.global gUnknown_085A34B0
-gUnknown_085A34B0:  @ 0x085A34B0
+	.global Img_PikeTrap
+Img_PikeTrap:  @ 0x085A34B0
 	.incbin "baserom.gba", 0x5A34B0, 0x280
 
-	.global gUnknown_085A3730
-gUnknown_085A3730:  @ 0x085A3730
+	.global SpriteAnim_PikeTrap
+SpriteAnim_PikeTrap:  @ 0x085A3730
 	.incbin "baserom.gba", 0x5A3730, 0x214
 
-	.global gUnknown_085A3944
-gUnknown_085A3944:  @ 0x085A3944
+	.global Pal_PikeTrap
+Pal_PikeTrap:  @ 0x085A3944
 	.incbin "baserom.gba", 0x5A3944, 0x20
 
 	.global gUnknown_085A3964

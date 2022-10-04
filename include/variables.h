@@ -1406,7 +1406,7 @@ extern const u16 gUnknown_0859A1C0[];
 // extern ??? gUnknown_0859A4C0
 // extern ??? gUnknown_0859A530
 // extern ??? gUnknown_0859A53C
-extern const struct ProcCmd gUnknown_0859A548[]; // this is GENS/Camera Movement proc
+extern const struct ProcCmd ProcScr_MaybeMapChangeAnim[]; // this is GENS/Camera Movement proc
 // extern ??? gUnknown_0859A570
 // extern ??? gUnknown_0859A580
 // extern ??? gStatusNameTextIdLookup
@@ -1429,12 +1429,12 @@ extern u16 CONST_DATA obj_0859AEC8[];
 // extern ??? gProcScr_PhaseIntroText
 // extern ??? gProcScr_PhaseIntroSquares
 // extern ??? gProcScr_PhaseIntroBlendBox
-// extern ??? gUnknown_0859AFC8
-// extern ??? gUnknown_0859AFE8
-// extern ??? gUnknown_0859B008
-// extern ??? gUnknown_0859B048
-// extern ??? gUnknown_0859B070
-// extern ??? gUnknown_0859B0A0
+// extern ??? ProcScr_GasTrapAnim
+// extern ??? ProcScr_FireTrapAnim
+// extern ??? ProcScr_UnkTrapAnim
+// extern ??? ProcScr_ArrowTrapAnim
+// extern ??? ProcScr_ShowMapChangeAnim
+// extern ??? ProcScr_PikeTrapAnim
 // extern ??? gUnknown_0859B0C0
  extern struct ProcCmd gProcScr_ChapterIntro[];
 // extern ??? gUnknown_0859B358
@@ -1549,21 +1549,21 @@ extern u16 gUnknown_0859EFC0[];
 // extern ??? gBattleForecast_x2x4Pal
 // extern ??? gUnknown_085A0D4C
 extern u16 CONST_DATA gUnknown_085A0EA0[]; // ap
-// extern ??? gUnknown_085A0FF8
-// extern ??? gUnknown_085A129C
-// extern ??? gUnknown_085A1510
-// extern ??? gUnknown_085A1AF8
-// extern ??? gUnknown_085A206C
-// extern ??? gUnknown_085A208C
-// extern ??? gUnknown_085A20AC
-// extern ??? gUnknown_085A2384
-// extern ??? gUnknown_085A2940
-// extern ??? gUnknown_085A2DDC
-// extern ??? gUnknown_085A2DFC
-// extern ??? gUnknown_085A3490
-// extern ??? gUnknown_085A34B0
-// extern ??? gUnknown_085A3730
-// extern ??? gUnknown_085A3944
+// extern ??? SpriteAnim_GasTrapVertical
+// extern ??? SpriteAnim_GasTrapHorizontal
+// extern ??? Img_GasTrapVertical
+// extern ??? Img_GasTrapHorizontal
+// extern ??? Pal_GasTrap
+// extern ??? Pal_ArrowTrap
+// extern ??? Img_ArrowTrap
+// extern ??? SpriteAnim_ArrowTrap
+// extern ??? Img_FireTrap
+// extern ??? Pal_FireTrap
+// extern ??? SpriteAnim_FireTrap
+// extern ??? Pal_FireTrap2
+// extern ??? Img_PikeTrap
+// extern ??? SpriteAnim_PikeTrap
+// extern ??? Pal_PikeTrap
 
 // Weather graphics
 extern const u8  gUnknown_085A3964[]; // sandstorm particle 4bpp image (compressed)
@@ -3066,7 +3066,7 @@ extern struct ProcCmd gUnknown_089A35B0;
 // extern ??? gUnknown_089A61F8
 // extern ??? gUnknown_089A6254
 // extern ??? gUnknown_089A6F40
-// extern ??? gUnknown_089A6FD8
+// extern ??? SpriteAnim_UnkTrap_089A6FD8
 extern const u16 gUnknown_089A8EF8[];
 // extern ??? gUnknown_089A8F74
 // extern ??? gUnknown_089A8F94
@@ -3091,8 +3091,8 @@ extern const u16 gUnknown_089A8EF8[];
 // extern ??? gUnknown_089AD868
 // extern ??? gUnknown_089AD934
 // extern ??? gUnknown_089AD9F8
-// extern ??? gUnknown_089ADA80
-// extern ??? gUnknown_089ADD0C
+// extern ??? Img_UnkTrap_089ADA80
+// extern ??? Pal_UnkTrap_089ADD0C
 extern const u8 gUnknown_089ADD4C[];
 // extern ??? gUnknown_089ADEB0
 // extern ??? gUnknown_089AE204
