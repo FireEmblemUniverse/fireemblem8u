@@ -28,10 +28,10 @@ extern u16 gUnknown_02022C68[];
 
 
 // trapfx.s
-void sub_801F68C(ProcPtr, int, int);
-void sub_801F600(ProcPtr, int, int, int);
-void sub_801F844(ProcPtr, int);
-void sub_801F8C8(ProcPtr, int, int);
+void StartFireTrapAnim(ProcPtr, int, int);
+void StartGasTrapAnim(ProcPtr, int, int, int);
+void StartArrowTrapAnim(ProcPtr, int);
+void StartShowMapChangeAnim(ProcPtr, int, int);
 
 // code_mapanim.s
 void sub_807B5DC(void);
@@ -810,31 +810,31 @@ void sub_8036364(struct UnknownBMUSAilmentProc* proc) {
     if (target->uid == 0) {
         switch (target->extra) {
             case 4:
-                sub_801F68C(proc, target->x, target->y);
+                StartFireTrapAnim(proc, target->x, target->y);
                 break;
 
             case 0x64:
-                sub_801F600(proc, target->x, target->y, 3);
+                StartGasTrapAnim(proc, target->x, target->y, 3);
                 break;
 
             case 0x65:
-                sub_801F600(proc, target->x, target->y, 2);
+                StartGasTrapAnim(proc, target->x, target->y, 2);
                 break;
 
             case 0x66:
-                sub_801F600(proc, target->x, target->y, 0);
+                StartGasTrapAnim(proc, target->x, target->y, 0);
                 break;
 
             case 0x67:
-                sub_801F600(proc, target->x, target->y, 1);
+                StartGasTrapAnim(proc, target->x, target->y, 1);
                 break;
 
             case 7:
-                sub_801F844(proc, target->x);
+                StartArrowTrapAnim(proc, target->x);
                 break;
 
             case 6:
-                sub_801F8C8(proc, target->x, target->y);
+                StartShowMapChangeAnim(proc, target->x, target->y);
                 break;
         }
 

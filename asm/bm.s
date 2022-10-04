@@ -1016,7 +1016,7 @@ sub_8015D84: @ 0x08015D84
 	cmp r2, r0
 	beq _08015DC4
 _08015DB8:
-	ldr r4, _08015DCC  @ gUnknown_0859A548
+	ldr r4, _08015DCC  @ ProcScr_MaybeMapChangeAnim
 	adds r0, r4, #0
 	bl Proc_Find
 	cmp r0, #0
@@ -1026,7 +1026,7 @@ _08015DC4:
 	b _08015E00
 	.align 2, 0
 _08015DC8: .4byte gGameState
-_08015DCC: .4byte gUnknown_0859A548
+_08015DCC: .4byte ProcScr_MaybeMapChangeAnim
 _08015DD0:
 	cmp r5, #0
 	beq _08015DDE
@@ -1090,7 +1090,7 @@ EnsureCameraOntoPosition: @ 0x08015E0C
 	cmp r6, r0
 	beq _08015E4E
 _08015E42:
-	ldr r4, _08015E58  @ gUnknown_0859A548
+	ldr r4, _08015E58  @ ProcScr_MaybeMapChangeAnim
 	adds r0, r4, #0
 	bl Proc_Find
 	cmp r0, #0
@@ -1100,7 +1100,7 @@ _08015E4E:
 	b _08015E8C
 	.align 2, 0
 _08015E54: .4byte gGameState
-_08015E58: .4byte gUnknown_0859A548
+_08015E58: .4byte ProcScr_MaybeMapChangeAnim
 _08015E5C:
 	cmp r5, #0
 	beq _08015E6A
@@ -1185,7 +1185,7 @@ sub_8015EDC: @ 0x08015EDC
 	ldrsh r0, [r0, r2]
 	cmp r1, r0
 	ble _08015EFA
-	ldr r4, _08015F04  @ gUnknown_0859A548
+	ldr r4, _08015F04  @ ProcScr_MaybeMapChangeAnim
 	adds r0, r4, #0
 	bl Proc_Find
 	cmp r0, #0
@@ -1195,7 +1195,7 @@ _08015EFA:
 	b _08015F34
 	.align 2, 0
 _08015F00: .4byte gGameState
-_08015F04: .4byte gUnknown_0859A548
+_08015F04: .4byte ProcScr_MaybeMapChangeAnim
 _08015F08:
 	cmp r5, #0
 	beq _08015F16

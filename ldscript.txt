@@ -72,7 +72,7 @@ SECTIONS
         src/prep_unitswap.o(.text);
         src/phasechangefx.o(.text);
         src/unit_facing.o(.text);
-        asm/trapfx.o(.text);
+        src/trapfx.o(.text);
         asm/notifybox.o(.text);
         src/chapterintrofx.o(.text);
         asm/gameoverbgfx.o(.text);
@@ -295,6 +295,7 @@ SECTIONS
         . = ALIGN(4); src/menuitempanel.o(.data);
         . = ALIGN(4); src/prep_unitswap.o(.data);
         . = ALIGN(4); src/phasechangefx.o(.data);
+        . = ALIGN(4); src/trapfx.o(.data);
         . = ALIGN(4); data/data_59AD88.o(.data);
         . = ALIGN(4); src/chapterintrofx.o(.data);
         . = ALIGN(4); data/data_59B358.o(.data);

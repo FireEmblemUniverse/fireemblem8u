@@ -7,6 +7,7 @@
 #define CHR_LINE 0x20
 
 #define BG_CHR_ADDR(n)   (void *)(BG_VRAM + (CHR_SIZE * (n)))
+#define OBJ_CHR_ADDR(n)  (void *)(OBJ_VRAM0 + (CHR_SIZE * (n)))
 
 enum
 {

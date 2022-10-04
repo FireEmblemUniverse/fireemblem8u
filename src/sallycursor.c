@@ -180,14 +180,14 @@ PROC_LABEL(1),
 
 PROC_LABEL(0x35),
     PROC_CALL(sub_803348C),
-    PROC_WHILE_EXISTS(gUnknown_0859A548),
+    PROC_WHILE_EXISTS(ProcScr_MaybeMapChangeAnim),
     PROC_CALL(SALLYCURSOR_DeploySupplyUnit), // add convoy unit?
 
     PROC_GOTO(0x34),
 
 PROC_LABEL(0x36),
     PROC_CALL(sub_803348C),
-    PROC_WHILE_EXISTS(gUnknown_0859A548),
+    PROC_WHILE_EXISTS(ProcScr_MaybeMapChangeAnim),
     PROC_CALL(SALLYCURSOR_RemoveSupplyUnit), // remove convoy unit?
 
     PROC_GOTO(0x34),
@@ -214,11 +214,11 @@ PROC_LABEL(6),
 PROC_LABEL(3),
     PROC_CALL(EndPlayerPhaseSideWindows),
     PROC_CALL(SALLYCURSOR6C_StartUnitSwap),
-    PROC_WHILE_EXISTS(gUnknown_0859A548),
+    PROC_WHILE_EXISTS(ProcScr_MaybeMapChangeAnim),
     PROC_REPEAT(sub_8033C90),
     PROC_CALL(HideMoveRangeGraphics),
     PROC_CALL(sub_8033E08),
-    PROC_WHILE_EXISTS(gUnknown_0859A548),
+    PROC_WHILE_EXISTS(ProcScr_MaybeMapChangeAnim),
     PROC_WHILE(PrepUnitSwapProcExits),
     PROC_CALL(sub_8033E8C),
     PROC_CALL(RefreshEntityBmMaps),
@@ -230,7 +230,7 @@ PROC_LABEL(3),
 
 PROC_LABEL(4),
     PROC_CALL(HideMoveRangeGraphics),
-    PROC_WHILE_EXISTS(gUnknown_0859A548),
+    PROC_WHILE_EXISTS(ProcScr_MaybeMapChangeAnim),
     PROC_CALL(sub_8033DD8),
     PROC_SLEEP(0),
 

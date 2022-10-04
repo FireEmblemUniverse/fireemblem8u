@@ -28,7 +28,7 @@ struct ProcCmd sProc_Menu[] =
     PROC_NAME("E_Menu"),
     PROC_SLEEP(0),
 
-    PROC_WHILE_EXISTS(gUnknown_0859A548),
+    PROC_WHILE_EXISTS(ProcScr_MaybeMapChangeAnim),
 
     PROC_CALL(NewGreenTextColorManager),
     PROC_CALL(RedrawMenu),

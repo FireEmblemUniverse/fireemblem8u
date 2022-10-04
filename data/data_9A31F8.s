@@ -3314,8 +3314,8 @@ gUnknown_089A6254:  @ 0x089A6254
 gUnknown_089A6F40:  @ 0x089A6F40
 	.incbin "baserom.gba", 0x9A6F40, 0x98
 
-	.global gUnknown_089A6FD8
-gUnknown_089A6FD8:  @ 0x089A6FD8
+	.global SpriteAnim_UnkTrap_089A6FD8
+SpriteAnim_UnkTrap_089A6FD8:  @ 0x089A6FD8
 	.incbin "baserom.gba", 0x9A6FD8, 0x1F20
 
 	.global gUnknown_089A8EF8
@@ -3414,12 +3414,12 @@ gUnknown_089AD934:  @ 0x089AD934
 gUnknown_089AD9F8:  @ 0x089AD9F8
 	.incbin "baserom.gba", 0x9AD9F8, 0x88
 
-	.global gUnknown_089ADA80
-gUnknown_089ADA80:  @ 0x089ADA80
+	.global Img_UnkTrap_089ADA80
+Img_UnkTrap_089ADA80:  @ 0x089ADA80
     .incbin "baserom.gba", 0x9ADA80, 0x28C
 
-	.global gUnknown_089ADD0C
-gUnknown_089ADD0C:  @ 0x089ADD0C
+	.global Pal_UnkTrap_089ADD0C
+Pal_UnkTrap_089ADD0C:  @ 0x089ADD0C
 	.incbin "baserom.gba", 0x9ADD0C, 0x40
 
 	.global gUnknown_089ADD4C

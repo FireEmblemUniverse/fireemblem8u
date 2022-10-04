@@ -1103,7 +1103,7 @@ static void MU_State_DuringMovement(struct MUProc* proc) {
         proc->ySubPosition &= ~0xF;
     }
 
-    if (proc->boolAttractCamera && !Proc_Find(gUnknown_0859A548)) {
+    if (proc->boolAttractCamera && !Proc_Find(ProcScr_MaybeMapChangeAnim)) {
         gGameState.camera.x = GetSomeAdjustedCameraX(proc->xSubPosition >> MU_SUBPIXEL_PRECISION);
         gGameState.camera.y = GetSomeAdjustedCameraY(proc->ySubPosition >> MU_SUBPIXEL_PRECISION);
     }

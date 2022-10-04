@@ -99,10 +99,10 @@ struct ProcCmd CONST_DATA gProcScr_SquareSelectWarp[] =
 
     PROC_CALL(AddSkipThread2),
 
-    PROC_WHILE_EXISTS(gUnknown_0859A548),
+    PROC_WHILE_EXISTS(ProcScr_MaybeMapChangeAnim),
 
     PROC_CALL(WarpSelect_OnInit),
-    PROC_WHILE_EXISTS(gUnknown_0859A548),
+    PROC_WHILE_EXISTS(ProcScr_MaybeMapChangeAnim),
 
     PROC_REPEAT(WarpSelect_OnIdle),
 
@@ -128,7 +128,7 @@ struct ProcCmd CONST_DATA gProcScr_SquareSelectTorch[] =
     PROC_CALL(AddSkipThread2),
 
     PROC_CALL(TorchSelect_OnInit),
-    PROC_WHILE_EXISTS(gUnknown_0859A548),
+    PROC_WHILE_EXISTS(ProcScr_MaybeMapChangeAnim),
 
     PROC_REPEAT(TorchSelect_OnIdle),
 

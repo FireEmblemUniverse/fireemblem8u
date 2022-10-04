@@ -366,7 +366,7 @@ gProc_BMapMain:  @ 0x0859A1F0
 
     .2byte 8
     .2byte 0
-    .4byte gUnknown_0859A548
+    .4byte ProcScr_MaybeMapChangeAnim
 
     .2byte 2
     .2byte 0
@@ -647,8 +647,8 @@ gUnknown_0859A53C:  @ 0x0859A53C
     .word gUnknown_0859A520
     .word gUnknown_0859A528
 
-    .global gUnknown_0859A548
-gUnknown_0859A548:  @ 0x0859A548
+    .global ProcScr_MaybeMapChangeAnim
+ProcScr_MaybeMapChangeAnim:  @ 0x0859A548
     .2byte 1
     .2byte 0
     .4byte gUnknown_080D79D0
