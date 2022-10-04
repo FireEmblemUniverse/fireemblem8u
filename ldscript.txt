@@ -73,6 +73,7 @@ SECTIONS
         src/phasechangefx.o(.text);
         src/unit_facing.o(.text);
         src/trapfx.o(.text);
+        src/notifybox.o(.text);
         asm/notifybox.o(.text);
         src/chapterintrofx.o(.text);
         asm/gameoverbgfx.o(.text);

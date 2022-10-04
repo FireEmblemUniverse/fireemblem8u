@@ -906,7 +906,7 @@ void DrawDungeonRecordUiText(ProcPtr proc) {
 
     SetGameClock(time);
 
-    sub_8003D20();
+    Font_ResetAllocation();
 
     Font_InitForUI(&gUnknown_020038AC, (void *)(VRAM + 0x20) + GetBackgroundTileDataOffset(0), 1, 0);
     SetFont(&gUnknown_020038AC);

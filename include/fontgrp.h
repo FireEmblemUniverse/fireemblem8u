@@ -82,7 +82,7 @@ void SetSomeByte(int);
 void Font_InitForUIDefault(void);
 void Font_InitForUI(struct Font *a, void *b, int c, int d);
 void SetFontGlyphSet(int a);
-void sub_8003D20(void);
+void Font_ResetAllocation(void);
 void SetFont(struct Font *a);
 void Text_Init(struct TextHandle *a, int tileWidth);
 void Text_Allocate(struct TextHandle *th, int tileWidth);

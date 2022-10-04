@@ -33,7 +33,7 @@ struct TrapData* GetCurrentChapterBallistaePtr(void);
 struct TrapData* GetCurrentChapterBallistae2Ptr(void);
 
 // notifybox.s
-void sub_801F9FC(ProcPtr, int, char*);
+void StartPopup2WithIcon(ProcPtr, int, char*);
 
 struct UnknownBMTrapProc {
     /* 00 */ PROC_HEADER;
@@ -202,13 +202,13 @@ int ExecTrap(ProcPtr proc, struct Unit* unit, int param_3) {
         case 0xF:
             RemoveTrap(GetTrapAt(unit->xPos, unit->yPos));
             PlaySoundEffect(0xB1);
-            sub_801F9FC(proc, -1, GetStringFromIndex(0x20));
+            StartPopup2WithIcon(proc, -1, GetStringFromIndex(0x20));
             break;
 
         case 0x10:
             RemoveTrap(GetTrapAt(unit->xPos, unit->yPos));
             PlaySoundEffect(0xB1);
-            sub_801F9FC(proc, -1, GetStringFromIndex(0x21));
+            StartPopup2WithIcon(proc, -1, GetStringFromIndex(0x21));
             UnitAddItem(unit, MakeNewItem(ITEM_MINE));
             break;
     }

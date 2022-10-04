@@ -274,7 +274,7 @@ s8 AiPillageAction(struct CpPerformProc* proc) {
 
         PlaySoundEffect(0xAB);
 
-        NewPopupSimple(gPopup_085A80A4, 0x60, 0, proc);
+        NewPopup2mple(gPopup_085A80A4, 0x60, 0, proc);
     }
 
     return 1;

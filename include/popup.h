@@ -88,7 +88,7 @@ void SetPopupUnit(struct Unit* unit);
 void SetPopupItem(u16 item);
 void SetPopupNumber(u32 num);
 
-ProcPtr NewPopupSimple(const struct PopupInstruction *inst,
+ProcPtr NewPopup2mple(const struct PopupInstruction *inst,
                        int clock,
                        int winStyle,
                        ProcPtr parent);

@@ -2,121 +2,8 @@
 
 	.SYNTAX UNIFIED
 
-	@ It's like a popup but for some reason it's not
-
-	THUMB_FUNC_START sub_801F9C4
-sub_801F9C4: @ 0x0801F9C4
-	adds r0, #0x4c
-	movs r1, #0xf0
-	strh r1, [r0]
-	bx lr
-
-	THUMB_FUNC_END sub_801F9C4
-
-	THUMB_FUNC_START sub_801F9CC
-sub_801F9CC: @ 0x0801F9CC
-	push {lr}
-	adds r2, r0, #0
-	adds r1, r2, #0
-	adds r1, #0x4c
-	ldrh r0, [r1]
-	subs r0, #1
-	strh r0, [r1]
-	lsls r0, r0, #0x10
-	cmp r0, #0
-	blt _0801F9EE
-	ldr r0, _0801F9F8  @ gKeyStatusPtr
-	ldr r0, [r0]
-	ldrh r1, [r0, #8]
-	movs r0, #3
-	ands r0, r1
-	cmp r0, #0
-	beq _0801F9F4
-_0801F9EE:
-	adds r0, r2, #0
-	bl Proc_Break
-_0801F9F4:
-	pop {r0}
-	bx r0
-	.align 2, 0
-_0801F9F8: .4byte gKeyStatusPtr
-
-	THUMB_FUNC_END sub_801F9CC
-
-	THUMB_FUNC_START sub_801F9FC
-sub_801F9FC: @ 0x0801F9FC
-	push {r4, r5, r6, r7, lr}
-	sub sp, #8
-	adds r7, r0, #0
-	adds r5, r1, #0
-	adds r6, r2, #0
-	adds r0, r6, #0
-	bl GetStringTextWidth
-	adds r2, r0, #0
-	cmp r5, #0
-	blt _0801FA14
-	adds r2, #0x10
-_0801FA14:
-	adds r2, #0x18
-	movs r0, #0xf0
-	subs r0, r0, r2
-	cmp r0, #0
-	bge _0801FA20
-	adds r0, #0xf
-_0801FA20:
-	asrs r4, r0, #4
-	adds r0, r2, #0
-	cmp r0, #0
-	bge _0801FA2A
-	adds r0, #7
-_0801FA2A:
-	asrs r2, r0, #3
-	movs r0, #0
-	str r0, [sp]
-	adds r0, r4, #0
-	movs r1, #8
-	movs r3, #4
-	bl DrawUiFrame2
-	cmp r5, #0
-	blt _0801FA5A
-	bl ResetIconGraphics_
-	movs r0, #4
-	bl LoadIconPalettes
-	lsls r0, r4, #1
-	ldr r1, _0801FA84  @ gUnknown_02022EEA
-	adds r0, r0, r1
-	movs r2, #0x80
-	lsls r2, r2, #7
-	adds r1, r5, #0
-	bl DrawIcon
-	adds r4, #2
-_0801FA5A:
-	bl sub_8003D20
-	lsls r1, r4, #1
-	ldr r0, _0801FA84  @ gUnknown_02022EEA
-	adds r1, r1, r0
-	movs r0, #0x14
-	str r0, [sp]
-	str r6, [sp, #4]
-	movs r0, #0
-	movs r2, #0
-	movs r3, #0
-	bl DrawTextInline
-	ldr r0, _0801FA88  @ gUnknown_0859B0C0
-	adds r1, r7, #0
-	bl Proc_StartBlocking
-	add sp, #8
-	pop {r4, r5, r6, r7}
-	pop {r0}
-	bx r0
-	.align 2, 0
-_0801FA84: .4byte gUnknown_02022EEA
-_0801FA88: .4byte gUnknown_0859B0C0
-
-	THUMB_FUNC_END sub_801F9FC
-
-	THUMB_FUNC_START sub_801FA8C
-sub_801FA8C: @ 0x0801FA8C
+	THUMB_FUNC_START StartPopup2WithIconAndNum
+StartPopup2WithIconAndNum: @ 0x0801FA8C
 	push {r4, r5, r6, r7, lr}
 	mov r7, sl
 	mov r6, r9
@@ -191,7 +78,7 @@ _0801FAEC:
 	bl DrawIcon
 	adds r6, #2
 _0801FB1E:
-	bl sub_8003D20
+	bl Font_ResetAllocation
 	add r0, sp, #4
 	adds r1, r5, #0
 	bl Text_Init
@@ -235,7 +122,7 @@ _0801FB7E:
 	adds r1, r1, r0
 	add r0, sp, #4
 	bl Text_Draw
-	ldr r0, _0801FBA8  @ gUnknown_0859B0C0
+	ldr r0, _0801FBA8  @ ProcScr_Popup2
 	mov r1, sl
 	bl Proc_StartBlocking
 	add sp, #0xc
@@ -248,9 +135,9 @@ _0801FB7E:
 	bx r0
 	.align 2, 0
 _0801FBA4: .4byte gUnknown_02022EEA
-_0801FBA8: .4byte gUnknown_0859B0C0
+_0801FBA8: .4byte ProcScr_Popup2
 
-	THUMB_FUNC_END sub_801FA8C
+	THUMB_FUNC_END StartPopup2WithIconAndNum
 
 	THUMB_FUNC_START sub_801FBAC
 sub_801FBAC: @ 0x0801FBAC
@@ -261,7 +148,7 @@ sub_801FBAC: @ 0x0801FBAC
 	mov r8, r0
 	adds r7, r1, #0
 	adds r4, r2, #0
-	bl sub_8003D20
+	bl Font_ResetAllocation
 	add r0, sp, #4
 	movs r1, #0x14
 	bl Text_Init
@@ -322,7 +209,7 @@ _0801FC18:
 	add r0, sp, #4
 	adds r1, r5, #0
 	bl Text_Draw
-	ldr r0, _0801FC64  @ gUnknown_0859B0C0
+	ldr r0, _0801FC64  @ ProcScr_Popup2
 	mov r1, r8
 	bl Proc_StartBlocking
 	add sp, #0xc
@@ -333,7 +220,7 @@ _0801FC18:
 	bx r0
 	.align 2, 0
 _0801FC60: .4byte gUnknown_02022EEA
-_0801FC64: .4byte gUnknown_0859B0C0
+_0801FC64: .4byte ProcScr_Popup2
 
 	THUMB_FUNC_END sub_801FBAC
 
@@ -347,7 +234,7 @@ sub_801FC68: @ 0x0801FC68
 	adds r7, r1, #0
 	adds r4, r2, #0
 	adds r5, r3, #0
-	bl sub_8003D20
+	bl Font_ResetAllocation
 	add r0, sp, #4
 	movs r1, #0x14
 	bl Text_Init
@@ -444,7 +331,7 @@ _0801FD1A:
 	lsls r2, r2, #7
 	adds r0, r4, #0
 	bl DrawIcon
-	ldr r0, _0801FD6C  @ gUnknown_0859B0C0
+	ldr r0, _0801FD6C  @ ProcScr_Popup2
 	mov r1, r8
 	bl Proc_StartBlocking
 	add sp, #0xc
@@ -455,7 +342,7 @@ _0801FD1A:
 	bx r0
 	.align 2, 0
 _0801FD68: .4byte gUnknown_02022EEA
-_0801FD6C: .4byte gUnknown_0859B0C0
+_0801FD6C: .4byte ProcScr_Popup2
 
 	THUMB_FUNC_END sub_801FC68
 

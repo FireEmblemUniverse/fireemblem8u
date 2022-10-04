@@ -4464,7 +4464,7 @@ _0807CAFE:
 sub_807CB04: @ 0x0807CB04
 	push {lr}
 	bl MU_AllRestartAnimations
-	bl sub_8003D20
+	bl Font_ResetAllocation
 	bl DeleteBattleAnimInfoThing
 	bl SetupBackgroundForWeatherMaybe
 	bl LoadLegacyUiFrameGraphics
@@ -9436,7 +9436,7 @@ sub_807F1AC: @ 0x0807F1AC
 	push {r4, r5, r6, lr}
 	sub sp, #4
 	adds r5, r0, #0
-	bl sub_8003D20
+	bl Font_ResetAllocation
 	ldr r0, _0807F29C  @ gBG0TilemapBuffer
 	movs r1, #0
 	bl BG_Fill
