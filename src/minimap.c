@@ -788,8 +788,8 @@ void sub_80A7F1C(struct MinimapProc* proc) {
     gLCDControlBuffer.win0_right = 0;
     gLCDControlBuffer.win0_bottom = 160;
 
-    sub_8001ED0(0, 0, 1, 1, 0);
-    sub_8001F0C(1, 1, 1, 1, 1);
+    SetBlendTargetA(0, 0, 1, 1, 0);
+    SetBlendTargetB(1, 1, 1, 1, 1);
 
     sub_8001F64(1);
 
@@ -881,8 +881,8 @@ void Minimap_LoopRotateIn(struct MinimapProc* proc) {
 void Minimap_HandleClose(struct MinimapProc* proc) {
     PlaySoundEffect(0x79); // TODO: song121_se_sys_small_map_close1.mid
 
-    sub_8001ED0(0, 0, 1, 1, 0);
-    sub_8001F0C(1, 1, 1, 1, 1);
+    SetBlendTargetA(0, 0, 1, 1, 0);
+    SetBlendTargetB(1, 1, 1, 1, 1);
 
     SetSpecialColorEffectsParameters(3, 16, 0, 4);
 
@@ -1314,12 +1314,12 @@ void Minimap_Idle_InputHandler(ProcPtr proc) {
     Minimap_HandleDPadInput(proc);
 
     if (gKeyStatusPtr->heldKeys & (R_BUTTON | L_BUTTON)) {
-        sub_8001ED0(0, 1, 0, 0, 0);
-        sub_8001F0C(0, 0, 1, 1, 1);
+        SetBlendTargetA(0, 1, 0, 0, 0);
+        SetBlendTargetB(0, 0, 1, 1, 1);
         SetSpecialColorEffectsParameters(1, 8, 8, 0);
     } else {
-        sub_8001ED0(0, 0, 1, 1, gKeyStatusPtr->heldKeys & (R_BUTTON | L_BUTTON));
-        sub_8001F0C(1, 1, 1, 1, 1);
+        SetBlendTargetA(0, 0, 1, 1, gKeyStatusPtr->heldKeys & (R_BUTTON | L_BUTTON));
+        SetBlendTargetB(1, 1, 1, 1, 1);
         SetSpecialColorEffectsParameters(3, 16, 0, 4);
     }
 

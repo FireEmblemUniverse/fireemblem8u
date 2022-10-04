@@ -1425,10 +1425,10 @@ extern struct ProcCmd CONST_DATA gProcScr_ADJUSTSFROMXI[];
 extern struct ProcCmd CONST_DATA gProcCmd_ConvoyMenu[];
 // extern ??? gProcCmd_MenuItemPanel
 // extern ??? sProcScr_PrepUnitSwap
-extern u16 CONST_DATA gUnknown_0859AEC8[];
+extern u16 CONST_DATA obj_0859AEC8[];
 // extern ??? gProcScr_PhaseIntroText
+// extern ??? gProcScr_PhaseIntroSquares
 // extern ??? gProcScr_PhaseIntroBlendBox
-// extern ??? gUnknown_0859AF60
 // extern ??? gUnknown_0859AFC8
 // extern ??? gUnknown_0859AFE8
 // extern ??? gUnknown_0859B008
@@ -1533,14 +1533,14 @@ extern u8 gUnknown_0859EF20[];
 extern u16 gUnknown_0859EFC0[];
 // extern ??? gUnknown_0859EFE0
 // extern ??? gUnknown_0859F000
-// extern ??? gUnknown_0859F020
-// extern ??? gUnknown_0859F3F8
-// extern ??? gUnknown_0859FA2C
-// extern ??? gUnknown_0859FA4C
-// extern ??? gUnknown_085A0068
-// extern ??? gUnknown_085A0088
-// extern ??? gUnknown_085A0698
-// extern ??? gUnknown_085A06D8
+// extern ??? Img_PhaseChangeUnk
+// extern ??? Img_PhaseChangePlayer
+// extern ??? Pal_PhaseChangePlayer
+// extern ??? Img_PhaseChangeEnemy
+// extern ??? Pal_PhaseChangeEnemy
+// extern ??? Img_PhaseChangeOther
+// extern ??? Pal_PhaseChangeOther
+// extern ??? Img_PhaseChangeSquares
 // extern ??? gUnknown_085A0838
 // extern ??? gUnknown_085A08F0
 // extern ??? gTSA_BattleForecastStandard

@@ -202,10 +202,10 @@ gUnknown_080DA21C:  @ 0x080DA21C
 	.global gUnknown_080DA22C
 gUnknown_080DA22C:  @ 0x080DA22C
 @ replacing .incbin "baserom.gba", 0xDA22C, 0x30
-    .4byte gUnknown_0859FA2C
-    .4byte gUnknown_085A0698
-    .4byte gUnknown_085A0068
-    .4byte gUnknown_085A0698 + 0x20
+    .4byte Pal_PhaseChangePlayer
+    .4byte Pal_PhaseChangeOther
+    .4byte Pal_PhaseChangeEnemy
+    .4byte Pal_PhaseChangeOther + 0x20
     .4byte 0x43000001
     .4byte 0x37008000
     .4byte 0x43000001

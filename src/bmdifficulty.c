@@ -560,8 +560,8 @@ void SetupDungeonRecordUi(ProcPtr proc) {
     BG_SetPosition(2, 0, 0);
     BG_SetPosition(3, 0, 0);
 
-    sub_8001ED0(0, 0, 1, 0, 0);
-    sub_8001F0C(0, 0, 0, 1, 0);
+    SetBlendTargetA(0, 0, 1, 0, 0);
+    SetBlendTargetB(0, 0, 0, 1, 0);
 
     sub_8001F48(0);
     sub_8001F64(0);
@@ -1127,7 +1127,7 @@ extern u16 gUnknown_02003B88[];
 extern struct Struct0859E7D4 gUnknown_02003BA8[];
 
 // obj data?
-const u16 CONST_DATA gUnknown_0859E79C[] = {
+const u16 CONST_DATA obj_859E79C[] = {
     0x0002, 0x4000, 0x8000, 0x0100,
     0x4000, 0x8020, 0x0104, 0x0000,
     0x0000, 0x0000, 0x0000, 0x0000,
@@ -1198,7 +1198,7 @@ void sub_80390D4(struct BMDifficultyProc* proc) {
             4,
             (pos[0] >> 4) + ((u8)gUnknown_080D7FD0.current[proc->labelIndex].x * 8),
             ((pos[1] >> 4) + ((u8)gUnknown_080D7FD0.current[proc->labelIndex].y * 8)) & 0x000001FF,
-            gUnknown_0859E79C,
+            obj_859E79C,
             0x5000
         );
     } else {
@@ -1415,7 +1415,7 @@ void sub_80394A8(struct BMDifficultyProc* proc) {
             4,
             pos[0] >> 4,
             ((u32)(pos[1]) << 0x13) >> 0x17,
-            gUnknown_0859E79C,
+            obj_859E79C,
             0x5000
         );
     } else {

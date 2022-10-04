@@ -3386,13 +3386,13 @@ sub_8042EB4: @ 0x08042EB4
 	movs r1, #0
 	movs r2, #1
 	movs r3, #0
-	bl sub_8001ED0
+	bl SetBlendTargetA
 	movs r0, #1
 	str r0, [sp]
 	movs r1, #1
 	movs r2, #0
 	movs r3, #1
-	bl sub_8001F0C
+	bl SetBlendTargetB
 	movs r0, #0
 	movs r1, #0
 	movs r2, #0
@@ -3429,13 +3429,13 @@ _08042F0C:
 	movs r1, #0
 	movs r2, #1
 	movs r3, #0
-	bl sub_8001ED0
+	bl SetBlendTargetA
 	movs r0, #1
 	str r0, [sp]
 	movs r1, #1
 	movs r2, #0
 	movs r3, #1
-	bl sub_8001F0C
+	bl SetBlendTargetB
 	lsls r1, r4, #0x18
 	lsrs r1, r1, #0x18
 	movs r2, #0x10
@@ -8613,13 +8613,13 @@ _080456EC:
 	movs r1, #0
 	movs r2, #1
 	movs r3, #0
-	bl sub_8001ED0
+	bl SetBlendTargetA
 	str r5, [sp]
 	movs r0, #0
 	movs r1, #0
 	movs r2, #0
 	movs r3, #1
-	bl sub_8001F0C
+	bl SetBlendTargetB
 	adds r0, r6, #0
 	bl sub_8045610
 	movs r0, #8
@@ -22014,13 +22014,13 @@ _0804C0C4:
 	movs r1, #0
 	movs r2, #1
 	movs r3, #0
-	bl sub_8001ED0
+	bl SetBlendTargetA
 	movs r0, #1
 	str r0, [sp]
 	movs r1, #1
 	movs r2, #0
 	movs r3, #1
-	bl sub_8001F0C
+	bl SetBlendTargetB
 	movs r0, #1
 	movs r1, #0xc
 	movs r2, #0xc
@@ -22612,13 +22612,13 @@ sub_804C508: @ 0x0804C508
 	movs r1, #0
 	movs r2, #1
 	movs r3, #0
-	bl sub_8001ED0
+	bl SetBlendTargetA
 	str r4, [sp]
 	movs r0, #0
 	movs r1, #0
 	movs r2, #0
 	movs r3, #1
-	bl sub_8001F0C
+	bl SetBlendTargetB
 	ldr r2, _0804C554  @ gLCDControlBuffer
 	ldrb r1, [r2, #1]
 	movs r0, #0x21
@@ -22654,13 +22654,13 @@ sub_804C558: @ 0x0804C558
 	movs r1, #0
 	movs r2, #1
 	movs r3, #0
-	bl sub_8001ED0
+	bl SetBlendTargetA
 	str r4, [sp]
 	movs r0, #0
 	movs r1, #0
 	movs r2, #0
 	movs r3, #1
-	bl sub_8001F0C
+	bl SetBlendTargetB
 	add sp, #4
 	pop {r4}
 	pop {r0}
@@ -24425,10 +24425,10 @@ sub_804D2A4: @ 0x0804D2A4
 	stm r1!, {r2, r3, r4}
 	ldr r0, [r0]
 	str r0, [r1]
-	ldr r0, _0804D354  @ gUnknown_0859F020
+	ldr r0, _0804D354  @ Img_PhaseChangeUnk
 	ldr r1, _0804D358  @ 0x06014000
 	bl CopyDataWithPossibleUncomp
-	ldr r0, _0804D35C  @ gUnknown_085A06D8
+	ldr r0, _0804D35C  @ Img_PhaseChangeSquares
 	ldr r1, _0804D360  @ 0x06002000
 	bl CopyDataWithPossibleUncomp
 	ldr r0, _0804D364  @ gUnknown_085AE7EC
@@ -24478,9 +24478,9 @@ sub_804D2A4: @ 0x0804D2A4
 _0804D348: .4byte gUnknown_080DA20C
 _0804D34C: .4byte gUnknown_080DA21C
 _0804D350: .4byte gUnknown_080DA22C
-_0804D354: .4byte gUnknown_0859F020
+_0804D354: .4byte Img_PhaseChangeUnk
 _0804D358: .4byte 0x06014000
-_0804D35C: .4byte gUnknown_085A06D8
+_0804D35C: .4byte Img_PhaseChangeSquares
 _0804D360: .4byte 0x06002000
 _0804D364: .4byte gUnknown_085AE7EC
 _0804D368: .4byte 0x06002800
@@ -25040,13 +25040,13 @@ sub_804D778: @ 0x0804D778
 	movs r1, #0
 	movs r2, #0
 	movs r3, #0
-	bl sub_8001ED0
+	bl SetBlendTargetA
 	str r4, [sp]
 	movs r0, #0
 	movs r1, #1
 	movs r2, #1
 	movs r3, #1
-	bl sub_8001F0C
+	bl SetBlendTargetB
 	add sp, #4
 	pop {r4}
 	pop {r0}

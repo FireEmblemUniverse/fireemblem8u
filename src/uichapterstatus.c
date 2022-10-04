@@ -675,9 +675,9 @@ void DrawChapterStatusTextForUnit(struct Unit* unit) {
 
     BG_EnableSyncByMask(BG0_SYNC_BIT);
 
-    sub_8001ED0(0, 0, 1, 0, 0);
+    SetBlendTargetA(0, 0, 1, 0, 0);
 
-    sub_8001F0C(0, 0, 0, 1, 0);
+    SetBlendTargetB(0, 0, 0, 1, 0);
 
     SetSpecialColorEffectsParameters(1, 13, 3, 0);
 

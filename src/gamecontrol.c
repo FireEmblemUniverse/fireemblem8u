@@ -795,7 +795,7 @@ void sub_8009E00(struct GameCtrlProc* proc) {
 void sub_8009E28(ProcPtr proc) {
 
     SetSpecialColorEffectsParameters(3, 0, 0, 16);
-    sub_8001ED0(1, 1, 1, 1, 1);
+    SetBlendTargetA(1, 1, 1, 1, 1);
     sub_8001F48(1);
 
     return;

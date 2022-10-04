@@ -2293,16 +2293,16 @@ gUnknown_085AAB68:  @ 0x085AAB68
         .word gProcScr_PhaseIntroText
         @ PROC_START_CHILD
         .short 0x5, 0x0
-        .word gProcScr_PhaseIntroBlendBox
+        .word gProcScr_PhaseIntroSquares
         @ PROC_START_CHILD
         .short 0x5, 0x0
-        .word gUnknown_0859AF60
+        .word gProcScr_PhaseIntroBlendBox
         @ PROC_CALL
         .short 0x2, 0x0
-        .word sub_801F3A8
+        .word PhaseIntro_InitDisp
         @ PROC_REPEAT
         .short 0x3, 0x0
-        .word sub_801F490
+        .word PhaseIntro_WaitForEnd
         @ PROC_CALL
         .short 0x2, 0x0
         .word StopBGM2

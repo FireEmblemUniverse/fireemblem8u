@@ -265,8 +265,8 @@ void TradeMenu_InitUnitNameDisplay(struct TradeMenuProc* proc)
     SetSpecialColorEffectsParameters(1, 12, 6, 0);
 
     // TODO: name functions
-    sub_8001ED0(FALSE, FALSE, FALSE, FALSE, FALSE);
-    sub_8001F0C(TRUE,  TRUE,  TRUE,  TRUE,  TRUE);
+    SetBlendTargetA(FALSE, FALSE, FALSE, FALSE, FALSE);
+    SetBlendTargetB(TRUE,  TRUE,  TRUE,  TRUE,  TRUE);
 
     // TODO: text color constants
 

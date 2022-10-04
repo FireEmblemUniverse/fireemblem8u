@@ -366,8 +366,8 @@ void sub_8035B44(struct UnknownBMUSAilmentProc* proc) {
     gLCDControlBuffer.wincnt.wobj_enableBg3 = 1;
     gLCDControlBuffer.wincnt.wobj_enableObj = 1;
 
-    sub_8001ED0(1, 0, 0, 0, 0);
-    sub_8001F0C(0, 0, 0, 0, 1);
+    SetBlendTargetA(1, 0, 0, 0, 0);
+    SetBlendTargetB(0, 0, 0, 0, 1);
 
     proc->unk_4C = 0x40;
 
@@ -526,7 +526,7 @@ void sub_8035DDC(struct Unit* unit, ProcPtr proc) {
 
 void sub_8035E20(struct UnknownBMUSAilmentProc* proc) {
 
-    MakeTerrainHealTargetList(gRAMChapterData.chapterPhaseIndex);
+    MakeTerrainHealTargetList(gRAMChapterData.faction);
 
     if (GetSelectTargetCount() == 0) {
         Proc_End(proc);
@@ -606,7 +606,7 @@ void sub_8035F6C(struct UnknownBMUSAilmentProc* proc) {
 }
 
 void sub_8035FB8(struct UnknownBMUSAilmentProc* proc) {
-    MakePoisonDamageTargetList(gRAMChapterData.chapterPhaseIndex);
+    MakePoisonDamageTargetList(gRAMChapterData.faction);
     sub_8026414(4);
 
     if (GetSelectTargetCount() == 0) {
@@ -666,7 +666,7 @@ void sub_803608C(struct Unit* unit) {
 
 void sub_80360B8(struct UnknownBMUSAilmentProc* proc) {
 
-    MakeGorgonEggHatchTargetList(gRAMChapterData.chapterPhaseIndex);
+    MakeGorgonEggHatchTargetList(gRAMChapterData.faction);
 
     if (GetSelectTargetCount() == 0) {
         Proc_End(proc);

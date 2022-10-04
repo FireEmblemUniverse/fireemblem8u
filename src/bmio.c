@@ -986,7 +986,7 @@ void StartBattleMap(struct GameCtrlProc* gameCtrl) {
     ResetMenuOverrides();
     ClearTraps();
 
-    gRAMChapterData.chapterPhaseIndex = FACTION_GREEN; // TODO: PHASE/ALLEGIANCE DEFINITIONS
+    gRAMChapterData.faction = FACTION_GREEN; // TODO: PHASE/ALLEGIANCE DEFINITIONS
     gRAMChapterData.chapterTurnNumber = 0;
 
     // TODO: BATTLE MAP/CHAPTER/OBJECTIVE TYPE DEFINITION (STORY/TOWER/SKIRMISH)
@@ -1034,7 +1034,7 @@ void StartBattleMap(struct GameCtrlProc* gameCtrl) {
     gPaletteBuffer[0] = 0;
     EnablePaletteSync();
 
-    sub_8001ED0(TRUE, TRUE, TRUE, TRUE, TRUE);
+    SetBlendTargetA(TRUE, TRUE, TRUE, TRUE, TRUE);
     sub_8001F48(TRUE);
 
     SetSpecialColorEffectsParameters(3, 0, 0, 0x10);
@@ -1137,7 +1137,7 @@ void GameCtrl_StartResumedGame(struct GameCtrlProc* gameCtrl) {
 
     } // switch (gActionData.suspendPointType)
 
-    sub_8001ED0(TRUE, TRUE, TRUE, TRUE, TRUE);
+    SetBlendTargetA(TRUE, TRUE, TRUE, TRUE, TRUE);
     sub_8001F48(TRUE);
 
     SetSpecialColorEffectsParameters(3, 0, 0, 0x10);

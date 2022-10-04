@@ -76,36 +76,36 @@ gUnknown_0859EFE0:  @ 0x0859EFE0
 gUnknown_0859F000:  @ 0x0859F000
 	.incbin "baserom.gba", 0x59F000, 0x20
 
-	.global gUnknown_0859F020
-gUnknown_0859F020:  @ 0x0859F020
+	.global Img_PhaseChangeUnk
+Img_PhaseChangeUnk:  @ 0x0859F020
 	.incbin "baserom.gba", 0x59F020, 0x3D8
 
-	.global gUnknown_0859F3F8
-gUnknown_0859F3F8:  @ 0x0859F3F8
+	.global Img_PhaseChangePlayer
+Img_PhaseChangePlayer:  @ 0x0859F3F8
 	.incbin "baserom.gba", 0x59F3F8, 0x634
 
-	.global gUnknown_0859FA2C
-gUnknown_0859FA2C:  @ 0x0859FA2C
+	.global Pal_PhaseChangePlayer
+Pal_PhaseChangePlayer:  @ 0x0859FA2C
 	.incbin "baserom.gba", 0x59FA2C, 0x20
 
-	.global gUnknown_0859FA4C
-gUnknown_0859FA4C:  @ 0x0859FA4C
+	.global Img_PhaseChangeEnemy
+Img_PhaseChangeEnemy:  @ 0x0859FA4C
 	.incbin "baserom.gba", 0x59FA4C, 0x61C
 
-	.global gUnknown_085A0068
-gUnknown_085A0068:  @ 0x085A0068
+	.global Pal_PhaseChangeEnemy
+Pal_PhaseChangeEnemy:  @ 0x085A0068
 	.incbin "baserom.gba", 0x5A0068, 0x20
 
-	.global gUnknown_085A0088
-gUnknown_085A0088:  @ 0x085A0088
+	.global Img_PhaseChangeOther
+Img_PhaseChangeOther:  @ 0x085A0088
 	.incbin "baserom.gba", 0x5A0088, 0x610
 
-	.global gUnknown_085A0698
-gUnknown_085A0698:  @ 0x085A0698
+	.global Pal_PhaseChangeOther
+Pal_PhaseChangeOther:  @ 0x085A0698
 	.incbin "baserom.gba", 0x5A0698, 0x40
 
-	.global gUnknown_085A06D8
-gUnknown_085A06D8:  @ 0x085A06D8
+	.global Img_PhaseChangeSquares
+Img_PhaseChangeSquares:  @ 0x085A06D8
 	.incbin "baserom.gba", 0x5A06D8, 0x160
 
 	.global gUnknown_085A0838

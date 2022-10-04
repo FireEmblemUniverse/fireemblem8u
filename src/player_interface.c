@@ -1294,11 +1294,11 @@ void InitPlayerPhaseInterface() {
 
     SetSpecialColorEffectsParameters(1, 0xD, 3, 0);
 
-    sub_8001ED0(0, 1, 0, 0, 0);
+    SetBlendTargetA(0, 1, 0, 0, 0);
 
     sub_8001F48(0);
 
-    sub_8001F0C(0, 0, 1, 1, 1);
+    SetBlendTargetB(0, 0, 1, 1, 1);
 
     CopyDataWithPossibleUncomp(gGfx_PlayerInterfaceFontTiles, (void*)(VRAM + 0x2000));
     CopyDataWithPossibleUncomp(gGfx_PlayerInterfaceNumbers, (void*)(VRAM + 0x15C00));

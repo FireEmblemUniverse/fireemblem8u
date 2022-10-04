@@ -362,7 +362,7 @@ gProc_BMapMain:  @ 0x0859A1F0
 
     .2byte 6
     .2byte 1
-    .4byte gUnknown_0859AF80
+    .4byte ProcScr_PhaseIntro
 
     .2byte 8
     .2byte 0

@@ -7,6 +7,12 @@
 #define TILEMAP_LOCATED(aMap, aX, aY) (TILEMAP_INDEX((aX), (aY)) + (aMap))
 
 #define TILEREF(aChar, aPal) ((aChar) + ((aPal) << 12))
+#define TILE_HFLIP 0x0400
+#define TILE_VFLIP 0x0800
+
+#define PAL_COLOR(palid, colornum) gPal[(palid) * 0x10 + (colornum)]
+#define PAL_BG_COLOR(palid, colornum) PAL_COLOR(palid, colornum)
+#define PAL_OBJ_COLOR(palid, colornum) PAL_COLOR((palid) + 0x10, colornum)
 
 #define OAM2_PRIORITY(aValue) (((aValue) & 0x3) << 10)
 
@@ -22,6 +28,58 @@ enum
 
 #define ApplyPalettes(aSrc, aPalId, aPalCount) CopyToPaletteBuffer((aSrc), 0x20 * (aPalId), 0x20 * (aPalCount))
 #define ApplyPalette(aSrc, aPalId) ApplyPalettes((aSrc), (aPalId), 1)
+
+#define SetDispEnable(bg0, bg1, bg2, bg3, obj) \
+    gLCDControlBuffer.dispcnt.bg0_on = (bg0); \
+    gLCDControlBuffer.dispcnt.bg1_on = (bg1); \
+    gLCDControlBuffer.dispcnt.bg2_on = (bg2); \
+    gLCDControlBuffer.dispcnt.bg3_on = (bg3); \
+    gLCDControlBuffer.dispcnt.obj_on = (obj)
+
+#define SetWinEnable(win0, win1, objwin) \
+    gLCDControlBuffer.dispcnt.win0_on = (win0); \
+    gLCDControlBuffer.dispcnt.win1_on = (win1); \
+    gLCDControlBuffer.dispcnt.objWin_on = (objwin)
+
+#define SetWin0Box(left, top, right, bottom) \
+    gLCDControlBuffer.win0_left = (left); \
+    gLCDControlBuffer.win0_top = (top); \
+    gLCDControlBuffer.win0_right = (right); \
+    gLCDControlBuffer.win0_bottom = (bottom)
+
+#define SetWin1Box(left, top, right, bottom) \
+    gLCDControlBuffer.win1_left = (left); \
+    gLCDControlBuffer.win1_top = (top); \
+    gLCDControlBuffer.win1_right = (right); \
+    gLCDControlBuffer.win1_bottom = (bottom)
+
+#define SetWin0Layers(bg0, bg1, bg2, bg3, obj) \
+    gLCDControlBuffer.wincnt.win0_enableBg0 = (bg0); \
+    gLCDControlBuffer.wincnt.win0_enableBg1 = (bg1); \
+    gLCDControlBuffer.wincnt.win0_enableBg2 = (bg2); \
+    gLCDControlBuffer.wincnt.win0_enableBg3 = (bg3); \
+    gLCDControlBuffer.wincnt.win0_enableObj = (obj)
+
+#define SetWin1Layers(bg0, bg1, bg2, bg3, obj) \
+    gLCDControlBuffer.wincnt.win1_enable_bg0 = (bg0); \
+    gLCDControlBuffer.wincnt.win1_enable_bg1 = (bg1); \
+    gLCDControlBuffer.wincnt.win1_enable_bg2 = (bg2); \
+    gLCDControlBuffer.wincnt.win1_enable_bg3 = (bg3); \
+    gLCDControlBuffer.wincnt.win1_enableObj = (obj)
+
+#define SetWObjLayers(bg0, bg1, bg2, bg3, obj) \
+    gLCDControlBuffer.wincnt.wobj_enableBg0 = (bg0); \
+    gLCDControlBuffer.wincnt.wobj_enableBg1 = (bg1); \
+    gLCDControlBuffer.wincnt.wobj_enableBg2 = (bg2); \
+    gLCDControlBuffer.wincnt.wobj_enableBg3 = (bg3); \
+    gLCDControlBuffer.wincnt.wobj_enableObj = (obj)
+
+#define SetWOutLayers(bg0, bg1, bg2, bg3, obj) \
+    gLCDControlBuffer.wincnt.wout_enableBg0 = (bg0); \
+    gLCDControlBuffer.wincnt.wout_enableBg1 = (bg1); \
+    gLCDControlBuffer.wincnt.wout_enableBg2 = (bg2); \
+    gLCDControlBuffer.wincnt.wout_enableBg3 = (bg3); \
+    gLCDControlBuffer.wincnt.wout_enableObj = (obj)
 
 // Functions
 
@@ -44,7 +102,7 @@ void RegisterBlankTile(int a);
 void SetInterrupt_LCDVBlank(InterruptHandler handler);
 void SetInterrupt_LCDVCountMatch(InterruptHandler handler);
 void SetNextVCount(int a);
-// ??? SetLCDVCountSetting(???);
+void SetLCDVCountSetting(int set);
 void SetMainUpdateRoutine(void(*)(void));
 void ExecMainUpdate();
 // ??? _UpdateKeyStatus(???);
@@ -85,8 +143,8 @@ void SetSecondaryHBlankHandler(void(*)(void));
 // ??? BG_SetPriority(???);
 // ??? BG_GetPriority(???);
 void SetSpecialColorEffectsParameters(u16 effect, u8 coeffA, u8 coeffB, u8 blendY);
-void sub_8001ED0(int, int, int, int, int); // SetColorEffectFirstTarget
-void sub_8001F0C(int, int, int, int, int);
+void SetBlendTargetA(int, int, int, int, int); // SetColorEffectFirstTarget
+void SetBlendTargetB(int, int, int, int, int);
 void sub_8001F48(int); // SetColorEffectBackdropFirstTarget
 void sub_8001F64(int a);
 void SetDefaultColorEffects(void);

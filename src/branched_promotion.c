@@ -869,8 +869,8 @@ u32 sub_80CD330(struct PromoProc2 *proc) {
 
 void sub_80CD34C(void) {
     SetSpecialColorEffectsParameters(1, 16, 16, 0);
-    sub_8001ED0(0, 1, 0, 0, 0);
-    sub_8001F0C(0, 0, 1, 1, 1);
+    SetBlendTargetA(0, 1, 0, 0, 0);
+    SetBlendTargetB(0, 0, 1, 1, 1);
     gLCDControlBuffer.dispcnt.win0_on   = TRUE;
     gLCDControlBuffer.dispcnt.win1_on   = FALSE;
     gLCDControlBuffer.dispcnt.objWin_on = FALSE;
@@ -1130,8 +1130,8 @@ void sub_80CD6B0(struct PromoProc4 *proc) {
     gLCDControlBuffer.dispcnt.obj_on = 1;
     sub_800680C(0x200, 3, 1);
     SetSpecialColorEffectsParameters(1, 14, 8, 0);
-    sub_8001ED0(0, 0, 0, 0, 0);
-    sub_8001F0C(0, 0, 0, 1, 0);
+    SetBlendTargetA(0, 0, 0, 0, 0);
+    SetBlendTargetB(0, 0, 0, 1, 0);
 }
 
 void sub_80CD790(struct Proc *proc) {

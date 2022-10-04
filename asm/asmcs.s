@@ -2314,7 +2314,7 @@ sub_80855A0: @ 0x080855A0
 	movs r1, #1
 	movs r2, #1
 	movs r3, #1
-	bl sub_8001ED0
+	bl SetBlendTargetA
 	movs r0, #1
 	bl sub_8001F48
 	add sp, #4
@@ -2915,7 +2915,7 @@ sub_80859EC: @ 0x080859EC
 	movs r1, #1
 	movs r2, #1
 	movs r3, #1
-	bl sub_8001ED0
+	bl SetBlendTargetA
 	ldr r2, _08085ABC  @ gLCDControlBuffer
 	adds r0, r2, #0
 	adds r0, #0x2d
@@ -3322,18 +3322,18 @@ sub_8085C7C: @ 0x08085C7C
 	movs r1, #1
 	movs r2, #0
 	movs r3, #0
-	bl sub_8001ED0
+	bl SetBlendTargetA
 	movs r0, #1
 	str r0, [sp]
 	movs r0, #0
 	movs r1, #0
 	movs r2, #1
 	movs r3, #1
-	bl sub_8001F0C
-	ldr r0, _08085D74  @ gUnknown_085A06D8
+	bl SetBlendTargetB
+	ldr r0, _08085D74  @ Img_PhaseChangeSquares
 	ldr r1, _08085D78  @ 0x06002000
 	bl CopyDataWithPossibleUncomp
-	ldr r0, _08085D7C  @ gUnknown_0859FA2C
+	ldr r0, _08085D7C  @ Pal_PhaseChangePlayer
 	movs r1, #0xa0
 	movs r2, #0x20
 	bl CopyToPaletteBuffer
@@ -3361,9 +3361,9 @@ _08085D64: .4byte gLCDControlBuffer
 _08085D68: .4byte 0x0000FFD4
 _08085D6C: .4byte gBG0TilemapBuffer
 _08085D70: .4byte gBG1TilemapBuffer
-_08085D74: .4byte gUnknown_085A06D8
+_08085D74: .4byte Img_PhaseChangeSquares
 _08085D78: .4byte 0x06002000
-_08085D7C: .4byte gUnknown_0859FA2C
+_08085D7C: .4byte Pal_PhaseChangePlayer
 _08085D80: .4byte gUnknown_089A18D4
 _08085D84: .4byte gUnknown_089A18F4
 _08085D88: .4byte 0x06014000
@@ -3752,14 +3752,14 @@ _08085FF0:
 	movs r1, #0
 	movs r2, #0
 	movs r3, #0
-	bl sub_8001ED0
+	bl SetBlendTargetA
 	movs r0, #1
 	str r0, [sp]
 	movs r0, #0
 	movs r1, #1
 	movs r2, #1
 	movs r3, #1
-	bl sub_8001F0C
+	bl SetBlendTargetB
 	mov r0, sl
 	bl Proc_Break
 _08086080:

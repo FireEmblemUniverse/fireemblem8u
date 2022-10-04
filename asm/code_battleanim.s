@@ -6796,13 +6796,13 @@ sub_80531A4: @ 0x080531A4
 	movs r1, #0
 	movs r2, #0
 	movs r3, #0
-	bl sub_8001ED0
+	bl SetBlendTargetA
 	str r4, [sp]
 	movs r0, #0
 	movs r1, #0
 	movs r2, #1
 	movs r3, #1
-	bl sub_8001F0C
+	bl SetBlendTargetB
 	ldr r1, _08053208  @ gLCDControlBuffer
 	adds r1, #0x3d
 	ldrb r0, [r1]
@@ -6929,14 +6929,14 @@ sub_805328C: @ 0x0805328C
 	movs r1, #0
 	movs r2, #0
 	movs r3, #1
-	bl sub_8001ED0
+	bl SetBlendTargetA
 	mov r2, r8
 	str r2, [sp]
 	movs r0, #0
 	movs r1, #0
 	movs r2, #1
 	movs r3, #0
-	bl sub_8001F0C
+	bl SetBlendTargetB
 	ldr r4, _08053364  @ gLCDControlBuffer
 	ldrb r0, [r4, #1]
 	movs r2, #0x20
@@ -10906,14 +10906,14 @@ sub_80551B0: @ 0x080551B0
 	movs r1, #1
 	movs r2, #0
 	movs r3, #0
-	bl sub_8001ED0
+	bl SetBlendTargetA
 	movs r0, #1
 	str r0, [sp]
 	movs r0, #0
 	movs r1, #0
 	movs r2, #1
 	movs r3, #1
-	bl sub_8001F0C
+	bl SetBlendTargetB
 	ldr r0, _08055268  @ gLCDControlBuffer
 	mov ip, r0
 	ldrb r0, [r0, #1]
@@ -12455,7 +12455,7 @@ ekrBattleStarting_8055CF0: @ 0x08055CF0
 	movs r1, #0
 	movs r2, #0
 	movs r3, #1
-	bl sub_8001ED0
+	bl SetBlendTargetA
 	ldr r7, _08055DF0  @ gLCDControlBuffer
 	mov r8, r7
 	mov r1, r8
@@ -13206,7 +13206,7 @@ ekrBattleEnding_8056310: @ 0x08056310
 	movs r1, #0
 	movs r2, #0
 	movs r3, #1
-	bl sub_8001ED0
+	bl SetBlendTargetA
 	ldr r2, _0805638C  @ gLCDControlBuffer
 	adds r3, r2, #0
 	adds r3, #0x34
@@ -13389,13 +13389,13 @@ sub_805649C: @ 0x0805649C
 	movs r1, #0
 	movs r2, #0
 	movs r3, #0
-	bl sub_8001ED0
+	bl SetBlendTargetA
 	str r4, [sp]
 	movs r0, #0
 	movs r1, #0
 	movs r2, #1
 	movs r3, #1
-	bl sub_8001F0C
+	bl SetBlendTargetB
 	ldr r1, _080564F8  @ gLCDControlBuffer
 	adds r1, #0x3d
 	ldrb r0, [r1]
@@ -37072,14 +37072,14 @@ _08061F26:
 	movs r1, #1
 	movs r2, #0
 	movs r3, #0
-	bl sub_8001ED0
+	bl SetBlendTargetA
 	mov r1, r8
 	str r1, [sp]
 	movs r0, #0
 	movs r1, #0
 	movs r2, #0
 	movs r3, #1
-	bl sub_8001F0C
+	bl SetBlendTargetB
 	add sp, #4
 	pop {r3}
 	mov r8, r3
@@ -38897,14 +38897,14 @@ sub_8062D30: @ 0x08062D30
 	movs r1, #1
 	movs r2, #0
 	movs r3, #0
-	bl sub_8001ED0
+	bl SetBlendTargetA
 	mov r1, r8
 	str r1, [sp]
 	movs r0, #0
 	movs r1, #0
 	movs r2, #1
 	movs r3, #1
-	bl sub_8001F0C
+	bl SetBlendTargetB
 	adds r4, #0x3d
 	ldrb r0, [r4]
 	orrs r0, r6
@@ -44362,14 +44362,14 @@ _080658CE:
 	movs r1, #1
 	movs r2, #0
 	movs r3, #0
-	bl sub_8001ED0
+	bl SetBlendTargetA
 	movs r0, #1
 	str r0, [sp]
 	movs r0, #0
 	movs r1, #0
 	movs r2, #1
 	movs r3, #1
-	bl sub_8001F0C
+	bl SetBlendTargetB
 	adds r0, r5, #0
 	movs r1, #0x3c
 	movs r2, #0x1e
@@ -72103,14 +72103,14 @@ sub_80730C4: @ 0x080730C4
 	movs r1, #1
 	movs r2, #0
 	movs r3, #0
-	bl sub_8001ED0
+	bl SetBlendTargetA
 	mov r1, r8
 	str r1, [sp]
 	movs r0, #0
 	movs r1, #0
 	movs r2, #1
 	movs r3, #1
-	bl sub_8001F0C
+	bl SetBlendTargetB
 	adds r4, #0x3d
 	ldrb r0, [r4]
 	orrs r0, r6
@@ -81941,13 +81941,13 @@ sub_8077DC8: @ 0x08077DC8
 	movs r1, #1
 	movs r2, #0
 	movs r3, #0
-	bl sub_8001ED0
+	bl SetBlendTargetA
 	str r5, [sp]
 	movs r0, #0
 	movs r1, #0
 	movs r2, #0
 	movs r3, #0
-	bl sub_8001F0C
+	bl SetBlendTargetB
 	add sp, #0xc
 	pop {r4, r5}
 	pop {r0}
