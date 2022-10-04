@@ -2900,13 +2900,13 @@ _0800EACE:
 	movs r1, #0
 	movs r2, #0
 	movs r3, #1
-	bl sub_8001ED0
+	bl SetBlendTargetA
 	str r4, [sp]
 	movs r0, #0
 	movs r1, #0
 	movs r2, #1
 	movs r3, #0
-	bl sub_8001F0C
+	bl SetBlendTargetB
 	ldrb r1, [r5, #0xc]
 	movs r2, #4
 	negs r2, r2
@@ -2940,7 +2940,7 @@ _0800EB22:
 	movs r1, #0
 	movs r2, #1
 	movs r3, #0
-	bl sub_8001ED0
+	bl SetBlendTargetA
 	str r4, [sp]
 	b _0800EB5E
 _0800EB40:
@@ -2954,7 +2954,7 @@ _0800EB40:
 	movs r1, #0
 	movs r2, #1
 	movs r3, #0
-	bl sub_8001ED0
+	bl SetBlendTargetA
 	movs r0, #1
 	str r0, [sp]
 _0800EB5E:
@@ -2962,7 +2962,7 @@ _0800EB5E:
 	movs r1, #0
 	movs r2, #0
 	movs r3, #1
-	bl sub_8001F0C
+	bl SetBlendTargetB
 	ldrb r1, [r5, #0xc]
 	movs r2, #4
 	negs r2, r2
@@ -3555,14 +3555,14 @@ _0800EFE2:
 	movs r1, #0
 	movs r2, #0
 	movs r3, #0
-	bl sub_8001ED0
+	bl SetBlendTargetA
 	mov r0, r8
 	str r0, [sp]
 	movs r0, #0
 	movs r1, #0
 	movs r2, #0
 	movs r3, #0
-	bl sub_8001F0C
+	bl SetBlendTargetB
 	movs r0, #1
 	bl sub_8001F48
 	movs r0, #1

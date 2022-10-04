@@ -6,6 +6,8 @@
 #define CHR_SIZE 0x20
 #define CHR_LINE 0x20
 
+#define BG_CHR_ADDR(n)   (void *)(BG_VRAM + (CHR_SIZE * (n)))
+
 enum
 {
     BGCHR_WINDOW_FRAME = 0,

@@ -225,7 +225,7 @@ void BmMapFillEdges(u8** map, u8 value) {
 }
 
 void UnpackChapterMap(void* into, int chapterId) {
-    // Decompress map data
+    // CopyDataWithPossibleUncomp map data
     CopyDataWithPossibleUncomp(
         GetChapterMapPointer(chapterId), into);
 
@@ -233,7 +233,7 @@ void UnpackChapterMap(void* into, int chapterId) {
     gBmMapSize.x = ((u8*)(into))[0];
     gBmMapSize.y = ((u8*)(into))[1];
 
-    // Decompress tileset config
+    // CopyDataWithPossibleUncomp tileset config
     CopyDataWithPossibleUncomp(
         gChapterDataAssetTable[GetROMChapterStruct(chapterId)->mapTileConfigId], sTilesetConfig);
 
@@ -243,12 +243,12 @@ void UnpackChapterMap(void* into, int chapterId) {
 }
 
 void UnpackChapterMapGraphics(int chapterId) {
-    // Decompress tileset graphics (part 1)
+    // CopyDataWithPossibleUncomp tileset graphics (part 1)
     CopyDataWithPossibleUncomp(
         gChapterDataAssetTable[GetROMChapterStruct(chapterId)->mapObj1Id],
         (void*)(BG_VRAM + 0x20 * 0x400)); // TODO: tile id constant?
 
-    // Decompress tileset graphics (part 2, if it exists)
+    // CopyDataWithPossibleUncomp tileset graphics (part 2, if it exists)
     if (gChapterDataAssetTable[GetROMChapterStruct(chapterId)->mapObj2Id])
         CopyDataWithPossibleUncomp(
             gChapterDataAssetTable[GetROMChapterStruct(chapterId)->mapObj2Id],
@@ -542,7 +542,7 @@ void RefreshUnitsOnBmMap(void) {
 
     // 2. Red (& Purple) units
 
-    if (gRAMChapterData.chapterPhaseIndex != FACTION_RED) {
+    if (gRAMChapterData.faction != FACTION_RED) {
         // 2.1. No red phase
 
         for (i = FACTION_RED + 1; i < FACTION_PURPLE + 6; ++i) {

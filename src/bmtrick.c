@@ -625,12 +625,12 @@ void ResetCountedDownTraps(void)
 
 void sub_802EA00(void)
 {
-    int truePhase = gRAMChapterData.chapterPhaseIndex;
-    gRAMChapterData.chapterPhaseIndex = FACTION_RED;
+    int truePhase = gRAMChapterData.faction;
+    gRAMChapterData.faction = FACTION_RED;
 
     RefreshEntityBmMaps();
 
-    gRAMChapterData.chapterPhaseIndex = truePhase;
+    gRAMChapterData.faction = truePhase;
 }
 
 void sub_802EA1C(void)

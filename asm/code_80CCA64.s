@@ -151,7 +151,7 @@ sub_80CDEA8: @ 0x080CDEA8
 	movs r1, #1
 	movs r2, #1
 	movs r3, #1
-	bl sub_8001ED0
+	bl SetBlendTargetA
 	adds r0, r4, #0
 	bl sub_80ADDD4
 	ldr r0, _080CDF48  @ gUnknown_08B12A64
@@ -2261,13 +2261,13 @@ sub_80CEF10: @ 0x080CEF10
 	movs r1, #0
 	movs r2, #1
 	movs r3, #0
-	bl sub_8001ED0
+	bl SetBlendTargetA
 	str r4, [sp]
 	movs r0, #0
 	movs r1, #0
 	movs r2, #0
 	movs r3, #1
-	bl sub_8001F0C
+	bl SetBlendTargetB
 	add sp, #4
 	pop {r4}
 	pop {r0}

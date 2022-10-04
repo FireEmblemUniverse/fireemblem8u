@@ -59,14 +59,14 @@ _08021BF8:
 	movs r1, #0
 	movs r2, #0
 	movs r3, #0
-	bl sub_8001ED0
+	bl SetBlendTargetA
 	movs r0, #1
 	str r0, [sp]
 	movs r0, #0
 	movs r1, #1
 	movs r2, #1
 	movs r3, #1
-	bl sub_8001F0C
+	bl SetBlendTargetB
 	ldr r2, _08021C64  @ gLCDControlBuffer
 	ldrb r1, [r2, #1]
 	movs r0, #0x21

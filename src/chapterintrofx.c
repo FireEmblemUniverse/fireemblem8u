@@ -752,8 +752,8 @@ void ChapterIntro_InitBLDCNT() {
     gLCDControlBuffer.dispcnt.bg3_on = 0;
     gLCDControlBuffer.dispcnt.obj_on = 1;
 
-    sub_8001ED0(0, 0, 1, 0, 0);
-    sub_8001F0C(0, 1, 0, 0, 0);
+    SetBlendTargetA(0, 0, 1, 0, 0);
+    SetBlendTargetB(0, 1, 0, 0, 0);
 
     return;
 }
@@ -767,8 +767,8 @@ void ChapterIntro_8020944(struct ChapterIntroFXProc* proc) {
 
     proc->unk_4C = 0;
 
-    sub_8001ED0(0, 0, 1, 0, 0);
-    sub_8001F0C(0, 1, 0, 0, 0);
+    SetBlendTargetA(0, 0, 1, 0, 0);
+    SetBlendTargetB(0, 1, 0, 0, 0);
 
     CopyDataWithPossibleUncomp(gUnknown_08B18F34, BG_CHAR_ADDR(2));
     CopyToPaletteBuffer(gUnknown_08B19854, 0x80, 0x20);
@@ -866,8 +866,8 @@ void ChapterIntro_InitMapDisplay() {
 
     SetSpecialColorEffectsParameters(1, 0x10, 0, 0);
 
-    sub_8001ED0(0, 1, 0, 0, 0);
-    sub_8001F0C(0, 0, 0, 1, 1);
+    SetBlendTargetA(0, 1, 0, 0, 0);
+    SetBlendTargetB(0, 0, 0, 1, 1);
 
     sub_8001F64(1);
 

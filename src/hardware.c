@@ -1049,13 +1049,13 @@ void SetSpecialColorEffectsParameters(u16 effect, u8 coeffA, u8 coeffB, u8 blend
     gLCDControlBuffer.blendY = blendY;
 }
 
-void sub_8001ED0(int a, int b, int c, int d, int e)
+void SetBlendTargetA(int a, int b, int c, int d, int e)
 {
     gUnknown_030030BC &= 0xFFE0;
     gUnknown_030030BC |= (a << 0) | (b << 1) | (c << 2) | (d << 3) | (e << 4);
 }
 
-void sub_8001F0C(int a, int b, int c, int d, int e)
+void SetBlendTargetB(int a, int b, int c, int d, int e)
 {
     gUnknown_030030BC &= 0xE0FF;
     gUnknown_030030BC |= (a << 8) | (b << 9) | (c << 10) | (d << 11) | (e << 12);

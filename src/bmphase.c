@@ -64,9 +64,9 @@ s8 IsSameAllegiance(int left, int right) {
 }
 
 int GetCurrentPhase(void) {
-    return gRAMChapterData.chapterPhaseIndex & FACTION_RED;
+    return gRAMChapterData.faction & FACTION_RED;
 }
 
 int GetNonActiveFaction(void) {
-    return (gRAMChapterData.chapterPhaseIndex & FACTION_RED) ^ FACTION_RED;
+    return (gRAMChapterData.faction & FACTION_RED) ^ FACTION_RED;
 }

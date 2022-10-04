@@ -6227,13 +6227,13 @@ sub_8091AB4: @ 0x08091AB4
 	movs r1, #1
 	movs r2, #0
 	movs r3, #0
-	bl sub_8001ED0
+	bl SetBlendTargetA
 	str r4, [sp]
 	movs r0, #0
 	movs r1, #0
 	movs r2, #0
 	movs r3, #1
-	bl sub_8001F0C
+	bl SetBlendTargetB
 	add sp, #4
 	pop {r4}
 	pop {r0}
@@ -15663,7 +15663,7 @@ sub_8096294: @ 0x08096294
 	movs r1, #1
 	movs r2, #1
 	movs r3, #1
-	bl sub_8001ED0
+	bl SetBlendTargetA
 	movs r0, #1
 	bl sub_8001F48
 	adds r0, r4, #0
@@ -15952,7 +15952,7 @@ sub_8096494: @ 0x08096494
 	movs r1, #1
 	movs r2, #1
 	movs r3, #1
-	bl sub_8001ED0
+	bl SetBlendTargetA
 	add sp, #4
 	pop {r0}
 	bx r0
@@ -16131,7 +16131,7 @@ sub_80965F0: @ 0x080965F0
 	movs r1, #1
 	movs r2, #1
 	movs r3, #1
-	bl sub_8001ED0
+	bl SetBlendTargetA
 	adds r0, r4, #0
 	bl sub_80ADDD4
 	ldr r0, _08096664  @ gUnknown_08A184B4
@@ -20736,14 +20736,14 @@ _08098746:
 	movs r0, #0
 	movs r2, #0
 	movs r3, #0
-	bl sub_8001ED0
+	bl SetBlendTargetA
 	mov r2, r9
 	str r2, [sp]
 	movs r0, #0
 	movs r1, #0
 	movs r2, #0
 	movs r3, #0
-	bl sub_8001F0C
+	bl SetBlendTargetB
 	ldr r3, _08098978  @ gLCDControlBuffer
 	movs r4, #0x36
 	adds r4, r4, r3
@@ -20904,14 +20904,14 @@ _080988E2:
 	movs r1, #1
 	movs r2, #0
 	movs r3, #0
-	bl sub_8001ED0
+	bl SetBlendTargetA
 	mov r1, r9
 	str r1, [sp]
 	movs r0, #0
 	movs r1, #1
 	movs r2, #0
 	movs r3, #0
-	bl sub_8001F0C
+	bl SetBlendTargetB
 	ldr r0, _080989B8  @ sub_80983D4
 	bl SetPrimaryHBlankHandler
 	movs r0, #0xa8
@@ -27139,13 +27139,13 @@ _0809B992:
 	movs r1, #0
 	movs r2, #0
 	movs r3, #0
-	bl sub_8001ED0
+	bl SetBlendTargetA
 	str r6, [sp]
 	movs r0, #0
 	movs r1, #0
 	movs r2, #0
 	movs r3, #1
-	bl sub_8001F0C
+	bl SetBlendTargetB
 	add sp, #0x28
 	pop {r3, r4}
 	mov r8, r3
@@ -28649,7 +28649,7 @@ _0809C5CA:
 	movs r1, #0
 	movs r2, #0
 	movs r3, #1
-	bl sub_8001ED0
+	bl SetBlendTargetA
 	adds r0, r7, #0
 	bl NewGreenTextColorManager
 	movs r0, #0xc0
@@ -33742,13 +33742,13 @@ _0809EF4A:
 	movs r1, #0
 	movs r2, #0
 	movs r3, #0
-	bl sub_8001ED0
+	bl SetBlendTargetA
 	str r4, [sp]
 	movs r0, #0
 	movs r1, #0
 	movs r2, #0
 	movs r3, #1
-	bl sub_8001F0C
+	bl SetBlendTargetB
 	movs r0, #0x30
 	mov r1, r8
 	bl GetStringTextCenteredPos
@@ -38354,7 +38354,7 @@ sub_80A1270: @ 0x080A1270
 	movs r1, #1
 	movs r2, #1
 	movs r3, #1
-	bl sub_8001ED0
+	bl SetBlendTargetA
 	ldr r5, _080A14F0  @ gUnknown_02013498
 	movs r4, #0x14
 _080A140A:
@@ -38537,13 +38537,13 @@ sub_80A157C: @ 0x080A157C
 	movs r1, #1
 	movs r2, #0
 	movs r3, #0
-	bl sub_8001ED0
+	bl SetBlendTargetA
 	movs r0, #0
 	str r0, [sp]
 	movs r1, #0
 	movs r2, #0
 	movs r3, #1
-	bl sub_8001F0C
+	bl SetBlendTargetB
 	add sp, #4
 	pop {r0}
 	bx r0
@@ -40325,13 +40325,13 @@ _080A2340:
 	movs r1, #1
 	movs r2, #0
 	movs r3, #0
-	bl sub_8001ED0
+	bl SetBlendTargetA
 	str r4, [sp]
 	movs r0, #0
 	movs r1, #0
 	movs r2, #0
 	movs r3, #1
-	bl sub_8001F0C
+	bl SetBlendTargetB
 	movs r0, #0
 	bl sub_8001F48
 	movs r0, #0
@@ -40662,13 +40662,13 @@ sub_80A25F8: @ 0x080A25F8
 	movs r1, #1
 	movs r2, #1
 	movs r3, #1
-	bl sub_8001ED0
+	bl SetBlendTargetA
 	movs r0, #0
 	str r0, [sp]
 	movs r1, #1
 	movs r2, #0
 	movs r3, #0
-	bl sub_8001F0C
+	bl SetBlendTargetB
 	bl ResetFaces
 	bl Font_InitForUIDefault
 	bl ResetIconGraphics_
@@ -40743,13 +40743,13 @@ sub_80A26A8: @ 0x080A26A8
 	movs r1, #0
 	movs r2, #0
 	movs r3, #1
-	bl sub_8001ED0
+	bl SetBlendTargetA
 	movs r0, #1
 	str r0, [sp]
 	movs r1, #1
 	movs r2, #1
 	movs r3, #0
-	bl sub_8001F0C
+	bl SetBlendTargetB
 	bl sub_80A1AE4
 	ldr r0, _080A272C  @ gRAMChapterData
 	adds r0, #0x41
@@ -41233,13 +41233,13 @@ sub_80A2AAC: @ 0x080A2AAC
 	movs r1, #0
 	movs r2, #0
 	movs r3, #0
-	bl sub_8001ED0
+	bl SetBlendTargetA
 	movs r0, #1
 	str r0, [sp]
 	movs r1, #1
 	movs r2, #1
 	movs r3, #1
-	bl sub_8001F0C
+	bl SetBlendTargetB
 	movs r0, #0
 	bl sub_8001F48
 	movs r0, #0

@@ -1212,8 +1212,8 @@ void GlowBlendCtrl_OnInit(struct StatScreenEffectProc* proc)
 
     SetSpecialColorEffectsParameters(1, proc->timer, 0x10, 0);
 
-    sub_8001ED0(0, 1, 0, 0, 0);
-    sub_8001F0C(0, 0, 0, 1, 0);
+    SetBlendTargetA(0, 1, 0, 0, 0);
+    SetBlendTargetB(0, 0, 0, 1, 0);
 }
 
 static
@@ -1263,8 +1263,8 @@ void UnitSlide_InitFadeOut(struct StatScreenEffectProc* proc)
     gLCDControlBuffer.bg2cnt.priority = 2;
     gLCDControlBuffer.bg3cnt.priority = 0;
 
-    sub_8001ED0(0, 0, 0, 1, 0);
-    sub_8001F0C(1, 1, 1, 0, 1);
+    SetBlendTargetA(0, 0, 0, 1, 0);
+    SetBlendTargetB(1, 1, 1, 0, 1);
 
     sub_8001F64(0);
 
@@ -1306,8 +1306,8 @@ void UnitSlide_InitFadeIn(struct StatScreenEffectProc* proc)
     gLCDControlBuffer.bg2cnt.priority = 2;
     gLCDControlBuffer.bg3cnt.priority = 0;
 
-    sub_8001ED0(0, 0, 0, 1, 0);
-    sub_8001F0C(1, 1, 1, 0, 1);
+    SetBlendTargetA(0, 0, 0, 1, 0);
+    SetBlendTargetB(1, 1, 1, 0, 1);
 
     if (proc->direction > 0)
     {
@@ -1647,7 +1647,7 @@ void StatScreen_BlackenScreen(void)
 
     SetSpecialColorEffectsParameters(3, 0, 0, 0x10);
 
-    sub_8001ED0(0, 0, 0, 0, 0);
+    SetBlendTargetA(0, 0, 0, 0, 0);
     sub_8001F48(1);
     sub_8001F64(0);
 
@@ -1820,7 +1820,7 @@ void StatScreen_OnIdle(struct Proc* proc)
 
         SetSpecialColorEffectsParameters(3, 0, 0, 0x10);
 
-        sub_8001ED0(0, 0, 0, 0, 0);
+        SetBlendTargetA(0, 0, 0, 0, 0);
         sub_8001F48(1);
 
         // TODO: ResetBackdropColor macro?

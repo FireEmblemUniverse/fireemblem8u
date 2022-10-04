@@ -849,7 +849,7 @@ void PlayerPhase_FinishAction(ProcPtr proc) {
 }
 
 void sub_801D404() {  
-    if (gRAMChapterData.chapterPhaseIndex == 0) {
+    if (gRAMChapterData.faction == 0) {
         MoveActiveUnit(gActionData.xMove, gActionData.yMove);
         RefreshEntityBmMaps();
         RenderBmMap();
@@ -899,7 +899,7 @@ void PlayerPhase_ApplyUnitMovement(ProcPtr proc) {
 }
 
 int GetUnitSelectionValueThing(struct Unit* unit) {
-    u8 faction = gRAMChapterData.chapterPhaseIndex;
+    u8 faction = gRAMChapterData.faction;
 
     if (!unit) {
         return 0;
@@ -1022,7 +1022,7 @@ void PlayerPhase_ReloadGameGfx() {
 void MakeMoveunitForActiveUnit() {
 
     if (!MU_Exists()) {
-        if (UNIT_FACTION(gActiveUnit) == gRAMChapterData.chapterPhaseIndex) {
+        if (UNIT_FACTION(gActiveUnit) == gRAMChapterData.faction) {
             if ((gActiveUnit->statusIndex != UNIT_STATUS_SLEEP) && (gActiveUnit->statusIndex != UNIT_STATUS_BERSERK)) {
                 MU_Create(gActiveUnit);
                 HideUnitSMS(gActiveUnit);
@@ -1174,10 +1174,10 @@ void MoveLimitView_OnInit(ProcPtr proc) {
 
     SetSpecialColorEffectsParameters(1, 10, 6, 0);
 
-    sub_8001ED0(0, 0, 1, 0, 0);
+    SetBlendTargetA(0, 0, 1, 0, 0);
     sub_8001F48(0);
 
-    sub_8001F0C(0, 0, 0, 1, 1);
+    SetBlendTargetB(0, 0, 0, 1, 1);
     sub_8001F64(1);
 
     SetupBackgroundForWeatherMaybe();
@@ -1300,7 +1300,7 @@ void TrySwitchViewedUnit(int x, int y) {
 
 void PlayerPhase_HandleAutoEnd(ProcPtr proc) {
 
-    if (!(gRAMChapterData.unk41_7) && (GetPhaseAbleUnitCount(gRAMChapterData.chapterPhaseIndex) == 0)) {
+    if (!(gRAMChapterData.unk41_7) && (GetPhaseAbleUnitCount(gRAMChapterData.faction) == 0)) {
         Proc_Goto(proc, 3);
     }
 

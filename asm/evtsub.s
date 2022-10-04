@@ -377,13 +377,13 @@ sub_8011A48: @ 0x08011A48
 	movs r1, #0
 	movs r2, #0
 	movs r3, #0
-	bl sub_8001ED0
+	bl SetBlendTargetA
 	movs r0, #1
 	str r0, [sp]
 	movs r1, #1
 	movs r2, #1
 	movs r3, #1
-	bl sub_8001F0C
+	bl SetBlendTargetB
 	movs r0, #1
 	bl sub_8001F48
 	movs r0, #1
@@ -460,13 +460,13 @@ sub_8011AF4: @ 0x08011AF4
 	movs r1, #0
 	movs r2, #0
 	movs r3, #0
-	bl sub_8001ED0
+	bl SetBlendTargetA
 	movs r0, #1
 	str r0, [sp]
 	movs r1, #1
 	movs r2, #1
 	movs r3, #1
-	bl sub_8001F0C
+	bl SetBlendTargetB
 	movs r0, #1
 	bl sub_8001F48
 	movs r0, #1
@@ -1433,7 +1433,7 @@ sub_8012270: @ 0x08012270
 	movs r1, #1
 	movs r2, #1
 	movs r3, #1
-	bl sub_8001ED0
+	bl SetBlendTargetA
 	ldrb r1, [r4, #1]
 	movs r0, #0x21
 	negs r0, r0

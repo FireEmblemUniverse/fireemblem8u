@@ -404,7 +404,7 @@ sub_8012984: @ 0x08012984
 	movs r1, #0
 	movs r2, #1
 	movs r3, #0
-	bl sub_8001ED0
+	bl SetBlendTargetA
 	movs r0, #0
 	bl sub_8001F48
 	movs r0, #1
@@ -413,7 +413,7 @@ sub_8012984: @ 0x08012984
 	movs r1, #0
 	movs r2, #0
 	movs r3, #1
-	bl sub_8001F0C
+	bl SetBlendTargetB
 	movs r0, #1
 	bl sub_8001F64
 	movs r0, #0x34
@@ -888,14 +888,14 @@ sub_8012CFC: @ 0x08012CFC
 	movs r1, #0
 	movs r2, #1
 	movs r3, #0
-	bl sub_8001ED0
+	bl SetBlendTargetA
 	movs r0, #1
 	str r0, [sp]
 	movs r0, #0
 	movs r1, #0
 	movs r2, #0
 	movs r3, #1
-	bl sub_8001F0C
+	bl SetBlendTargetB
 	movs r2, #0x10
 	ldrsb r2, [r5, r2]
 	lsls r2, r2, #4
@@ -2961,7 +2961,7 @@ sub_8013AF4: @ 0x08013AF4
 	movs r1, #1
 	movs r2, #1
 	movs r3, #1
-	bl sub_8001ED0
+	bl SetBlendTargetA
 	movs r0, #1
 	bl sub_8001F48
 	adds r1, r4, #0
@@ -3056,13 +3056,13 @@ sub_8013BA0: @ 0x08013BA0
 	movs r1, #1
 	movs r2, #1
 	movs r3, #1
-	bl sub_8001ED0
+	bl SetBlendTargetA
 	str r4, [sp]
 	movs r0, #1
 	movs r1, #1
 	movs r2, #1
 	movs r3, #1
-	bl sub_8001F0C
+	bl SetBlendTargetB
 	movs r0, #1
 	bl sub_8001F48
 	adds r1, r5, #0
@@ -4005,7 +4005,7 @@ sub_80141B0: @ 0x080141B0
 	movs r1, #1
 	movs r2, #1
 	movs r3, #1
-	bl sub_8001ED0
+	bl SetBlendTargetA
 	movs r0, #1
 	bl sub_8001F48
 	ldr r1, _08014204  @ gPaletteBuffer
@@ -4050,7 +4050,7 @@ sub_801420C: @ 0x0801420C
 	movs r1, #1
 	movs r2, #1
 	movs r3, #1
-	bl sub_8001ED0
+	bl SetBlendTargetA
 	movs r0, #1
 	bl sub_8001F48
 	add sp, #4

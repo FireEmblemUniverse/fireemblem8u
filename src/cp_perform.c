@@ -129,7 +129,7 @@ void CpPerform_UpdateMapMusic() {
 void CpPerform_MoveCameraOntoUnit(struct CpPerformProc* proc) {
     proc->isUnitVisible = 1;
 
-    if ((gRAMChapterData.chapterVisionRange != 0) && (gRAMChapterData.chapterPhaseIndex == FACTION_RED)) {
+    if ((gRAMChapterData.chapterVisionRange != 0) && (gRAMChapterData.faction == FACTION_RED)) {
         if ((gBmMapFog[gActiveUnit->yPos][gActiveUnit->xPos] != 0) || (gBmMapFog[gAiDecision.yMove][gAiDecision.xMove] != 0)) {
             EnsureCameraOntoPosition(proc, gActiveUnit->xPos, gActiveUnit->yPos);
         } else {

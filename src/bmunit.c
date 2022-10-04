@@ -920,7 +920,7 @@ void UnitDrop(struct Unit* actor, int xTarget, int yTarget) {
     actor->state = actor->state &~ (US_RESCUING | US_RESCUED);
     target->state = target->state &~ (US_RESCUING | US_RESCUED | US_HIDDEN);
 
-    if (UNIT_FACTION(target) == gRAMChapterData.chapterPhaseIndex)
+    if (UNIT_FACTION(target) == gRAMChapterData.faction)
         target->state |= US_UNSELECTABLE; // TODO: US_GRAYED
 
     actor->rescueOtherUnit = 0;
@@ -1102,7 +1102,7 @@ void MoveActiveUnit(int x, int y) {
 void ClearActiveFactionGrayedStates(void) {
     int i;
 
-    if (gRAMChapterData.chapterPhaseIndex == FACTION_BLUE) {
+    if (gRAMChapterData.faction == FACTION_BLUE) {
         int i;
 
         for (i = 1; i < 0x40; ++i) {
@@ -1121,7 +1121,7 @@ void ClearActiveFactionGrayedStates(void) {
         }
     }
 
-    for (i = gRAMChapterData.chapterPhaseIndex + 1; i < gRAMChapterData.chapterPhaseIndex + 0x40; ++i) {
+    for (i = gRAMChapterData.faction + 1; i < gRAMChapterData.faction + 0x40; ++i) {
         struct Unit* unit = GetUnit(i);
 
         if (UNIT_IS_VALID(unit))
@@ -1134,7 +1134,7 @@ void TickActiveFactionTurn(void) {
 
     InitTargets(0, 0);
 
-    for (i = gRAMChapterData.chapterPhaseIndex + 1; i < gRAMChapterData.chapterPhaseIndex + 0x40; ++i) {
+    for (i = gRAMChapterData.faction + 1; i < gRAMChapterData.faction + 0x40; ++i) {
         struct Unit* unit = GetUnit(i);
 
         if (!UNIT_IS_VALID(unit))
