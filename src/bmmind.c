@@ -141,7 +141,7 @@ void PutUnitSprite(int, int, int, struct Unit*);
 void BWL_AddWinOrLossIdk(u8, u8, int);
 
 // popup.s
-void NewGeneralItemGot(struct Unit*, int, ProcPtr);
+void NewPopup_GeneralItemGot(struct Unit*, int, ProcPtr);
 
 s8 ActionRescue(ProcPtr);
 s8 ActionDrop(ProcPtr);
@@ -677,7 +677,7 @@ bool8 BATTLE_HandleItemDrop(ProcPtr proc) {
         return 1;
     }
 
-    NewGeneralItemGot(
+    NewPopup_GeneralItemGot(
         unitB,
         GetUnitLastItem(unitA),
         proc

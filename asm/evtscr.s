@@ -6473,7 +6473,7 @@ _080105D8:
 	ldr r0, _080105E4  @ gEventSlots
 	ldrh r2, [r0, #0xc]
 	adds r0, r5, #0
-	bl NewItemGot
+	bl NewPopup_ItemGot
 	b _0801060C
 	.align 2, 0
 _080105E4: .4byte gEventSlots
@@ -6481,7 +6481,7 @@ _080105E8:
 	ldr r0, _080105F4  @ gEventSlots
 	ldr r2, [r0, #0xc]
 	adds r0, r5, #0
-	bl NewGoldGotPopup
+	bl NewPopup_GoldGot
 	b _0801060C
 	.align 2, 0
 _080105F4: .4byte gEventSlots
@@ -6657,7 +6657,7 @@ _0801071C:
 	lsls r0, r3, #0x10
 	asrs r0, r0, #0x10
 	adds r2, r4, #0
-	bl NewPopupVerySimple
+	bl NewPopup_VerySimple
 	b _08010740
 _0801072A:
 	ldrh r2, [r1, #6]

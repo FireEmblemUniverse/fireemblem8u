@@ -1,4 +1,6 @@
 #include "global.h"
+#include "functions.h"
+#include "variables.h"
 #include "proc.h"
 #include "bmcontainer.h"
 #include "icon.h"
@@ -9,8 +11,8 @@
 #include "bmmenu.h"
 #include "bmitem.h"
 #include "hardware.h"
-#include "functions.h"
-#include "variables.h"
+#include "popup.h"
+
 
 struct ProcCmd CONST_DATA gProcCmd_ConvoyMenu[] = {
     PROC_CALL_2(ConvoyMenuProc_StarMenu),
@@ -78,11 +80,11 @@ void ConvoyMenuProc_ExecBootlegPopup(ProcPtr proc)
 {
     if (HasConvoyAccess()) {
         if (gConvoyItemCount < 100)
-            sub_801FD80(proc, gActionData.item);
+            NewPopup2_SendItem(proc, gActionData.item);
         else
-            sub_801FD70(proc, gActionData.item);
+            NewPopup2_DropItem(proc, gActionData.item);
     } else
-        sub_801FD70(proc, gActionData.item);
+        NewPopup2_DropItem(proc, gActionData.item);
 }
 
 void HandleNewItemGetFromDrop(struct Unit* unit, int item, ProcPtr proc)

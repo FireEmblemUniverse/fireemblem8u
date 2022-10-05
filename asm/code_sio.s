@@ -19126,7 +19126,7 @@ _0804AB54:
 	movs r1, #0x60
 	movs r2, #0
 	movs r3, #0
-	bl NewPopup2mple
+	bl NewPopup_Simple
 	adds r0, r5, #0
 	movs r1, #3
 	bl Proc_Goto
@@ -19141,7 +19141,7 @@ _0804AB8C:
 	movs r1, #0x60
 	movs r2, #0
 	movs r3, #0
-	bl NewPopup2mple
+	bl NewPopup_Simple
 	adds r0, r5, #0
 	movs r1, #4
 	bl Proc_Goto

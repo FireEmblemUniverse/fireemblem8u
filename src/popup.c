@@ -625,15 +625,15 @@ void SetPopupNumber(u32 num)
     gPopupNumber = num;
 }
 
-ProcPtr NewPopup2mple(const struct PopupInstruction *inst,
+ProcPtr NewPopup_Simple(const struct PopupInstruction *inst,
                     int clock,
                     int winStyle,
                     ProcPtr parent)
 {
-    return NewPopup(inst, clock, winStyle, 0x240, 4, parent);
+    return NewPopupCore(inst, clock, winStyle, 0x240, 4, parent);
 }
 
-ProcPtr NewPopup(const struct PopupInstruction *inst,
+ProcPtr NewPopupCore(const struct PopupInstruction *inst,
                            int clock,
                            int winStyle,
                            int iconObjTileId,
@@ -655,19 +655,19 @@ ProcPtr NewPopup(const struct PopupInstruction *inst,
     return proc;
 }
 
-void NewGotItemPopup(struct Unit* unit, u16 item, ProcPtr parent)
+void NewPopup_ItemGot_unused(struct Unit* unit, u16 item, ProcPtr parent)
 {
     SetPopupItem(item);
 
     if (FACTION_BLUE == UNIT_FACTION(unit))
-        NewPopup2mple(gPopup_GotItem, 0x60, 0x0, parent);
+        NewPopup_Simple(gPopup_GotItem, 0x60, 0x0, parent);
     else
-        NewPopup2mple(gPopup_ItemWasPilfered, 0x60, 0x0, parent);
+        NewPopup_Simple(gPopup_ItemWasPilfered, 0x60, 0x0, parent);
 }
 
 void ItemGot_DisplayLePopup(struct GotItemPopupProc *proc)
 {
-    NewGotItemPopup(proc->unit, proc->item, proc);
+    NewPopup_ItemGot_unused(proc->unit, proc->item, proc);
 }
 
 void ItemGot_GotLeItem(struct GotItemPopupProc *proc)
@@ -675,7 +675,7 @@ void ItemGot_GotLeItem(struct GotItemPopupProc *proc)
     HandleNewItemGetFromDrop(proc->unit, MakeNewItem(proc->item), proc);
 }
 
-void NewItemGot(ProcPtr parent, struct Unit *unit, u16 item)
+void NewPopup_ItemGot(ProcPtr parent, struct Unit *unit, u16 item)
 {
     struct GotItemPopupProc *proc;
 
@@ -690,7 +690,7 @@ void NewItemGot(ProcPtr parent, struct Unit *unit, u16 item)
         unit->state |= US_DROP_ITEM;
 }
 
-void NewGeneralItemGot(struct Unit *unit, u16 item, ProcPtr parent)
+void NewPopup_GeneralItemGot(struct Unit *unit, u16 item, ProcPtr parent)
 {
     switch (ITEM_INDEX(item)) {
     case ITEM_1G:
@@ -702,11 +702,11 @@ void NewGeneralItemGot(struct Unit *unit, u16 item, ProcPtr parent)
     case ITEM_5000G:
     case ITEM_150G:
     case ITEM_200G:
-        NewGoldGotPopup(parent, unit, GetItemCost(item));
+        NewPopup_GoldGot(parent, unit, GetItemCost(item));
         break;
 
     default:
-        NewItemGot(parent, unit, item);
+        NewPopup_ItemGot(parent, unit, item);
         break;
     } /* switch item index */
 }
@@ -716,59 +716,59 @@ void NewGoldNumPopup_unused(u32 num, ProcPtr parent)  /* unused */
     SetPopupNumber(num);
 
     if (FACTION_BLUE == UNIT_FACTION(gActiveUnit))
-        NewPopup2mple(gPopup_GotGold, 0x60, 0x0, parent);
+        NewPopup_Simple(gPopup_GotGold, 0x60, 0x0, parent);
     else
-        NewPopup2mple(gPopup_GoldWasStole, 0x60, 0x0, parent);
+        NewPopup_Simple(gPopup_GoldWasStole, 0x60, 0x0, parent);
 }
 
 void NewNumberPopup_unused(u32 num, ProcPtr parent)  /* unused */
 {
     SetPopupNumber(num);
-    NewPopup2mple(gPopup_GotGold, 0x60, 0x0, parent);
+    NewPopup_Simple(gPopup_GotGold, 0x60, 0x0, parent);
 }
 
-void NewGoldGotPopup(ProcPtr parent, struct Unit *unit, int value)
+void NewPopup_GoldGot(ProcPtr parent, struct Unit *unit, int value)
 {
     SetPopupNumber(value);
 
     if (FACTION_BLUE == UNIT_FACTION(unit)) {
         value += GetPartyGoldAmount();
         SetPartyGoldAmount(value);
-        NewPopup2mple(gPopup_GotGold, 0x60, 0x0, parent);
+        NewPopup_Simple(gPopup_GotGold, 0x60, 0x0, parent);
     } else
-        NewPopup2mple(gPopup_GoldWasStole, 0x60, 0x0, parent);
+        NewPopup_Simple(gPopup_GoldWasStole, 0x60, 0x0, parent);
 }
 
-void CreatedItemStealingPopUp(u16 item, ProcPtr parent)
+void NewPopup_ItemStealing(u16 item, ProcPtr parent)
 {
     SetPopupItem(item);
 
     if (FACTION_BLUE == UNIT_FACTION(gActiveUnit))
-        NewPopup2mple(gPopup_StoleItem, 0x60, 0x0, parent);
+        NewPopup_Simple(gPopup_StoleItem, 0x60, 0x0, parent);
     else
-        NewPopup2mple(gPopup_ItemStolen, 0x60, 0x0, parent);
+        NewPopup_Simple(gPopup_ItemStolen, 0x60, 0x0, parent);
 }
 
 void NewPopup_WeaponBroke(u16 item, ProcPtr parent)
 {
     SetPopupItem(item);
-    NewPopup2mple(gPopup_WpnBroken, 0x60, 0x0, parent);
+    NewPopup_Simple(gPopup_WpnBroken, 0x60, 0x0, parent);
 }
 
 void NewPopup_WRankIncrease(u16 item, ProcPtr parent)
 {
     SetPopupItem(item);
-    NewPopup2mple(gPopup_WRankUp, 0x60, 0x0, parent);
+    NewPopup_Simple(gPopup_WRankUp, 0x60, 0x0, parent);
 }
 
 /* maybe change uniy fraction to ally */
 void NewPopup_NewAlly(ProcPtr parent, u8 char_id)
 {
     SetPopupUnit(GetUnitFromCharId(char_id));
-    NewPopup2mple(gPopup_NewAlly, 0x60, 0x0, parent);
+    NewPopup_Simple(gPopup_NewAlly, 0x60, 0x0, parent);
 }
 
-void NewPopupVerySimple(u32 msg, u32 sound_index, ProcPtr parent)
+void NewPopup_VerySimple(u32 msg, u32 sound_index, ProcPtr parent)
 {
     gPopupInst[0].opcode = POPUP_OP_SOUND;
     gPopupInst[0].data   = sound_index;
@@ -782,5 +782,5 @@ void NewPopupVerySimple(u32 msg, u32 sound_index, ProcPtr parent)
     gPopupInst[3].opcode = POPUP_OP_END;
     gPopupInst[3].data   = 0;
 
-    NewPopup2mple(gPopupInst, 0x60, 0x0, parent);
+    NewPopup_Simple(gPopupInst, 0x60, 0x0, parent);
 }
