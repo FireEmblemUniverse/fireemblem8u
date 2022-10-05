@@ -858,9 +858,9 @@ extern short gSinLookup[]; // gSinTable; needs to be non-const to match?
 // extern ??? gUnknown_080D7A8C
 // extern ??? gUnknown_080D7AB4
 // extern ??? gUnknown_080D7AC4
-// extern ??? gUnknown_080D7B30
-// extern ??? gUnknown_080D7B64
-// extern ??? gUnknown_080D7B98
+// extern ??? Vectors_LightRune
+// extern ??? Vectors_LightRune2
+// extern ??? Vectors_LightRune3
 // extern ??? gUnknown_080D7BCC
 // extern ??? gUnknown_080D7C04
 // extern ??? gUnknown_080D7C0C
@@ -1438,9 +1438,9 @@ extern u16 CONST_DATA obj_0859AEC8[];
 // extern ??? ProcScr_Popup2
  extern struct ProcCmd gProcScr_ChapterIntro[];
 // extern ??? ProcScr_GameOverScreen
-// extern ??? gUnknown_0859B3B0
-// extern ??? gUnknown_0859B3D0
-// extern ??? gUnknown_0859B3F0
+// extern ??? ProcScr_LightRuneAnim
+// extern ??? ProcScr_LightRuneAnim2
+// extern ??? ProcScr_LightRuneAnim3
 // extern ??? gUnknown_0859B410
 // extern ??? gUnknown_0859B448
 // extern ??? gUnknown_0859B48C
@@ -1573,9 +1573,10 @@ extern const u16 gUnknown_085A3AC0[]; // flames particle palette
 extern const u8  gUnknown_085A3B00[]; // clouds 4bpp image (compressed)
 extern const u16 gUnknown_085A401C[]; // clouds palette
 
-// extern ??? gUnknown_085A403C
-// extern ??? gUnknown_085A5760
-// extern ??? gUnknown_085A5780
+extern u16 CONST_DATA Img_LightRune[];
+extern u16 CONST_DATA Pal_LightRune[];
+extern u16 CONST_DATA Tsa_LightRune[];
+
 // extern ??? gUnknown_085A5A60
 // extern ??? gUnknown_085A61A8
 // extern ??? gUnknown_085A61C8

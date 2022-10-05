@@ -91,6 +91,7 @@ PROC_LABEL(0x63),
 
 
 /* section.text */
+
 void GameOverScreen_RandomScroll_Init(struct ProcGameOverScroll *proc)
 {
     proc->bg2_xdiff = +46;

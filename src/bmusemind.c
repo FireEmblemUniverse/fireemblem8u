@@ -56,8 +56,8 @@ static struct ProcCmd CONST_DATA sProcScr_ExecNightmareStaff[] = {
 };
 
 // lightrunefx.s
-void sub_8021684(ProcPtr, int, int);
-void sub_8021818(ProcPtr, int, int);
+void StartLightRuneAnim(ProcPtr, int, int);
+void StartLightRuneAnim2(ProcPtr, int, int);
 
 // minefx.s
 void sub_8022300(ProcPtr, int, int);
@@ -831,7 +831,7 @@ void ExecLightRune(ProcPtr proc) {
 
     BattleApplyItemEffect(proc);
 
-    sub_8021684(proc, gActionData.xOther, gActionData.yOther);
+    StartLightRuneAnim(proc, gActionData.xOther, gActionData.yOther);
 
     gBattleTarget.statusOut = -1;
 
@@ -849,7 +849,7 @@ void sub_802FAD0(ProcPtr proc) {
     xPos = gActionData.xOther;
     yPos = gActionData.yOther;
 
-    sub_8021818(proc, xPos, yPos);
+    StartLightRuneAnim2(proc, xPos, yPos);
 
     // Seems to be required
     unit = 0;
