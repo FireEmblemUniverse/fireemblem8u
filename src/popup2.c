@@ -10,7 +10,7 @@
 
 /**
  * It's like a popup but for some reason it's not
-*/
+ */
 
 
 /* struct definitions */
@@ -92,7 +92,7 @@ void NewPopup2_PlanA(ProcPtr parent, int IconIndex, char *str)
 
 void NewPopup2_PlanB(ProcPtr proc, int icon_index, char *str0, int num, char *str1)
 {
-    int tmp, tiles, x, y, x_tile, y_tile;
+    int tmp, tiles, x, x_tile;
     struct TextHandle th;
     int len = 1;
 

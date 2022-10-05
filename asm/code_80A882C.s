@@ -31422,7 +31422,7 @@ sub_80B75AC: @ 0x080B75AC
 	movs r1, #0xa0
 	movs r2, #0x20
 	bl CopyToPaletteBuffer
-	ldr r0, _080B7604  @ gUnknown_08A07DD8
+	ldr r0, _080B7604  @ Img_ChapterIntroFog
 	ldr r1, _080B7608  @ 0x06004000
 	bl CopyDataWithPossibleUncomp
 	ldr r0, _080B760C  @ gBG2TilemapBuffer
@@ -31441,7 +31441,7 @@ sub_80B75AC: @ 0x080B75AC
 	.align 2, 0
 _080B75FC: .4byte gLCDControlBuffer
 _080B7600: .4byte gUnknown_08A09A5C
-_080B7604: .4byte gUnknown_08A07DD8
+_080B7604: .4byte Img_ChapterIntroFog
 _080B7608: .4byte 0x06004000
 _080B760C: .4byte gBG2TilemapBuffer
 _080B7610: .4byte gUnknown_085A647C

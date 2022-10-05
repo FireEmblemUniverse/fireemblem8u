@@ -3929,7 +3929,7 @@ _08014142:
 	subs r0, #0x10
 	str r0, [r4, #0x58]
 _08014148:
-	bl sub_80D74B0
+	bl CALLARM_MaybeScreenFadeIn
 	ldr r1, _08014168  @ gPaletteBuffer
 	movs r0, #0
 	strh r0, [r1]

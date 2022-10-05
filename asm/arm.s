@@ -9,8 +9,8 @@ _08000228: .4byte gPaletteBuffer @ pool
 _0800022C: .4byte gUnknown_020222A8 @ pool
 _08000230: .4byte gUnknown_02022288 @ pool
 
-	ARM_FUNC_START sub_8000234
-sub_8000234: @ 0x08000234
+	ARM_FUNC_START ARM_MaybeScreenFadeIn
+ARM_MaybeScreenFadeIn: @ 0x08000234
 	push {r4, r5, r6, r7}
 	mov r7, #0x3e0
 _0800023C:
@@ -73,7 +73,7 @@ _080002F4:
 	pop {r4, r5, r6, r7}
 	bx lr
 
-	ARM_FUNC_END sub_8000234
+	ARM_FUNC_END ARM_MaybeScreenFadeIn
 
 	ARM_FUNC_START ARM_MoveOBJsOffscreen
 ARM_MoveOBJsOffscreen: @ 0x08000304
