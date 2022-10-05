@@ -1,48 +1,16 @@
     .section .data
 
-	.global gUnknown_0859B3B0
-gUnknown_0859B3B0:  @ 0x0859B3B0
-        @ PROC_CALL
-        .short 0x2, 0x0
-        .word sub_802153C
-        @ PROC_REPEAT
-        .short 0x3, 0x0
-        .word sub_80215F0
-        @ PROC_CALL
-        .short 0x2, 0x0
-        .word sub_8021668
-        @ PROC_END
-        .short 0x0, 0x0
-        .word 0x0
-
-
-	.global gUnknown_0859B3D0
-gUnknown_0859B3D0:  @ 0x0859B3D0
-        @ PROC_CALL
-        .short 0x2, 0x0
-        .word sub_80216D0
-        @ PROC_REPEAT
-        .short 0x3, 0x0
-        .word sub_8021784
-        @ PROC_CALL
-        .short 0x2, 0x0
-        .word sub_80217FC
-        @ PROC_END
-        .short 0x0, 0x0
-        .word 0x0
-
-
 	.global gUnknown_0859B3F0
 gUnknown_0859B3F0:  @ 0x0859B3F0
         @ PROC_CALL
         .short 0x2, 0x0
-        .word sub_80216D0
+        .word ProcUnkMapAnim_Init
         @ PROC_REPEAT
         .short 0x3, 0x0
-        .word sub_8021784
+        .word ProcUnkMapAnim_Loop
         @ PROC_CALL
         .short 0x2, 0x0
-        .word sub_80217FC
+        .word ProcUnkMapAnim_End
         @ PROC_END
         .short 0x0, 0x0
         .word 0x0
@@ -67,7 +35,7 @@ gUnknown_0859B410:  @ 0x0859B410
         .word sub_8021B04
         @ PROC_CALL
         .short 0x2, 0x0
-        .word sub_8021668
+        .word ProcLightRuneAnim_End
         @ PROC_END
         .short 0x0, 0x0
         .word 0x0

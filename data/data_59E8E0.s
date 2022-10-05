@@ -224,16 +224,16 @@ gUnknown_085A3B00:  @ 0x085A3B00
 gUnknown_085A401C:  @ 0x085A401C
 	.incbin "baserom.gba", 0x5A401C, 0x20
 
-	.global gUnknown_085A403C
-gUnknown_085A403C:  @ 0x085A403C
+	.global Img_LightRune
+Img_LightRune:  @ 0x085A403C
 	.incbin "baserom.gba", 0x5A403C, 0x1724
 
-	.global gUnknown_085A5760
-gUnknown_085A5760:  @ 0x085A5760
+	.global Pal_LightRune
+Pal_LightRune:  @ 0x085A5760
 	.incbin "baserom.gba", 0x5A5760, 0x20
 
-	.global gUnknown_085A5780
-gUnknown_085A5780:  @ 0x085A5780
+	.global Tsa_LightRune
+Tsa_LightRune:  @ 0x085A5780
 	.incbin "baserom.gba", 0x5A5780, 0x2E0
 
 	.global gUnknown_085A5A60
