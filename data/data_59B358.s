@@ -1,21 +1,5 @@
     .section .data
 
-	.global gUnknown_0859B3F0
-gUnknown_0859B3F0:  @ 0x0859B3F0
-        @ PROC_CALL
-        .short 0x2, 0x0
-        .word ProcUnkMapAnim_Init
-        @ PROC_REPEAT
-        .short 0x3, 0x0
-        .word ProcUnkMapAnim_Loop
-        @ PROC_CALL
-        .short 0x2, 0x0
-        .word ProcUnkMapAnim_End
-        @ PROC_END
-        .short 0x0, 0x0
-        .word 0x0
-
-
 	.global gUnknown_0859B410
 gUnknown_0859B410:  @ 0x0859B410
         @ PROC_CALL

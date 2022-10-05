@@ -858,9 +858,9 @@ extern short gSinLookup[]; // gSinTable; needs to be non-const to match?
 // extern ??? gUnknown_080D7A8C
 // extern ??? gUnknown_080D7AB4
 // extern ??? gUnknown_080D7AC4
-// extern ??? gUnknown_080D7B30
-// extern ??? gUnknown_080D7B64
-// extern ??? gUnknown_080D7B98
+// extern ??? Vectors_LightRune
+// extern ??? Vectors_LightRune2
+// extern ??? Vectors_LightRune3
 // extern ??? gUnknown_080D7BCC
 // extern ??? gUnknown_080D7C04
 // extern ??? gUnknown_080D7C0C
@@ -1439,8 +1439,8 @@ extern u16 CONST_DATA obj_0859AEC8[];
  extern struct ProcCmd gProcScr_ChapterIntro[];
 // extern ??? ProcScr_GameOverScreen
 // extern ??? ProcScr_LightRuneAnim
-// extern ??? ProcScr_UnkMapAnim
-// extern ??? gUnknown_0859B3F0
+// extern ??? ProcScr_LightRuneAnim2
+// extern ??? ProcScr_LightRuneAnim3
 // extern ??? gUnknown_0859B410
 // extern ??? gUnknown_0859B448
 // extern ??? gUnknown_0859B48C

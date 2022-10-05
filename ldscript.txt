@@ -77,7 +77,6 @@ SECTIONS
         src/chapterintrofx.o(.text);
         src/gameoverbgfx.o(.text);
         src/lightrunefx.o(.text);
-        asm/lightrunefx.o(.text);
         asm/danceringfx.o(.text);
         asm/eventwarpfx.o(.text);
         asm/whitecircularfadefx.o(.text);
