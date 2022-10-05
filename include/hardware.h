@@ -2,6 +2,7 @@
 #define GUARD_HARDWARE_H
 
 // Utility macros and constants
+extern u16 gPaletteBuffer[];
 
 #define TILEMAP_INDEX(aX, aY) (0x20 * (aY) + (aX))
 #define TILEMAP_LOCATED(aMap, aX, aY) (TILEMAP_INDEX((aX), (aY)) + (aMap))
@@ -10,7 +11,7 @@
 #define TILE_HFLIP 0x0400
 #define TILE_VFLIP 0x0800
 
-#define PAL_COLOR(palid, colornum) gPal[(palid) * 0x10 + (colornum)]
+#define PAL_COLOR(palid, colornum) gPaletteBuffer[(palid) * 0x10 + (colornum)]
 #define PAL_BG_COLOR(palid, colornum) PAL_COLOR(palid, colornum)
 #define PAL_OBJ_COLOR(palid, colornum) PAL_COLOR((palid) + 0x10, colornum)
 
@@ -18,8 +19,14 @@
 
 #define BG_SYNC_BIT(aBg) (1 << (aBg))
 
-enum
-{
+enum {
+    BG_0 = 0,
+    BG_1,
+    BG_2,
+    BG_3,
+};
+
+enum {
     BG0_SYNC_BIT = BG_SYNC_BIT(0),
     BG1_SYNC_BIT = BG_SYNC_BIT(1),
     BG2_SYNC_BIT = BG_SYNC_BIT(2),
@@ -120,8 +127,8 @@ void BG_SetPosition(u16 a, u16 b, u16 c);
 void sub_800154C(void* outTm, void const* inData, u8 base, u8 linebits);
 // ??? sub_800159C(???);
 // ??? sub_80016C4(???);
-void sub_8001710(void);
-void sub_800172C(u16 *src, int b, int c, int d);
+void MaybeResetSomePal(void);
+void MaybeSmoothChangeSomePal(u16 *src, int b, int c, int d);
 void sub_80017B4(int a, int b, int c, int d);
 // ??? sub_800183C(???);
 // ??? sub_8001860(???);

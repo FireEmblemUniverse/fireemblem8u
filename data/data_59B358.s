@@ -1,42 +1,5 @@
     .section .data
 
-	.global gUnknown_0859B358
-gUnknown_0859B358:  @ 0x0859B358
-        @ PROC_SET_END_CB
-        .short 0x4, 0x0
-        .word sub_80214D4
-        @ PROC_CALL
-        .short 0x2, 0x0
-        .word sub_80212C0
-        @ PROC_CALL
-        .short 0x2, 0x0
-        .word MU_EndAll
-        @ PROC_START_CHILD
-        .short 0x5, 0x0
-        .word sProcScr_GameOverSomething
-        @ PROC_REPEAT
-        .short 0x3, 0x0
-        .word sub_80213F4
-        @ PROC_CALL
-        .short 0x2, 0x0
-        .word sub_8021428
-        @ PROC_REPEAT
-        .short 0x3, 0x0
-        .word sub_8021434
-        @ PROC_LABEL
-        .short 0xb, 0x63
-        .word 0x0
-        @ PROC_CALL
-        .short 0x2, 0x0
-        .word sub_8021470
-        @ PROC_REPEAT
-        .short 0x3, 0x0
-        .word sub_80214A8
-        @ PROC_END
-        .short 0x0, 0x0
-        .word 0x0
-
-
 	.global gUnknown_0859B3B0
 gUnknown_0859B3B0:  @ 0x0859B3B0
         @ PROC_CALL

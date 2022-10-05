@@ -45,7 +45,7 @@ gUnknown_089EDF78:  @ 0x089EDF78
         .word sub_80853B0
         @ PROC_CALL
         .short 0x2, 0x0
-        .word sub_8021518
+        .word StartGameOverScreen
         @ PROC_YIELD
         .short 0xe, 0x0
         .word 0x0

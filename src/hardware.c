@@ -696,7 +696,7 @@ void sub_80016C4(u16 *a, struct UnknownDmaStruct *b)
     }
 }
 
-void sub_8001710(void)
+void MaybeResetSomePal(void)
 {
     int i;
 
@@ -704,7 +704,7 @@ void sub_8001710(void)
         gUnknown_02022288[i] = 0;
 }
 
-void sub_800172C(u16 *src, int b, int c, int d)
+void MaybeSmoothChangeSomePal(u16 *src, int b, int c, int d)
 {
     int i;
     int j;

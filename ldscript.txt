@@ -75,7 +75,7 @@ SECTIONS
         src/trapfx.o(.text);
         src/popup2.o(.text);
         src/chapterintrofx.o(.text);
-        asm/gameoverbgfx.o(.text);
+        src/gameoverbgfx.o(.text);
         asm/lightrunefx.o(.text);
         asm/danceringfx.o(.text);
         asm/eventwarpfx.o(.text);
@@ -298,6 +298,7 @@ SECTIONS
         . = ALIGN(4); src/trapfx.o(.data);
         . = ALIGN(4); src/popup2.o(.data);
         . = ALIGN(4); src/chapterintrofx.o(.data);
+        . = ALIGN(4); src/gameoverbgfx.o(.data);
         . = ALIGN(4); data/data_59B358.o(.data);
         . = ALIGN(4); src/bmmenu.o(.data);
         . = ALIGN(4); data/data_59B668.o(.data);

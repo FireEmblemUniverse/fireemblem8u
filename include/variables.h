@@ -1437,7 +1437,7 @@ extern u16 CONST_DATA obj_0859AEC8[];
 // extern ??? ProcScr_PikeTrapAnim
 // extern ??? ProcScr_Popup2
  extern struct ProcCmd gProcScr_ChapterIntro[];
-// extern ??? gUnknown_0859B358
+// extern ??? ProcScr_GameOverScreen
 // extern ??? gUnknown_0859B3B0
 // extern ??? gUnknown_0859B3D0
 // extern ??? gUnknown_0859B3F0
@@ -3294,15 +3294,15 @@ extern u16 CONST_DATA gUnknown_08A0731C[]; // halo pal
 // extern ??? gUnknown_08A07BEA
 // extern ??? gUnknown_08A07C0A
 // extern ??? gUnknown_08A07C58
-// extern ??? gUnknown_08A07DD8
+extern u16 CONST_DATA Img_ChapterIntroFog[];
 // extern ??? gUnknown_08A09A5C
 // extern ??? gUnknown_08A09E4C
 // extern ??? gUnknown_08A0A4E8
 // extern ??? gUnknown_08A0A9F8
-// extern ??? gUnknown_08A0AB0C
-// extern ??? gUnknown_08A0AE44
-// extern ??? gUnknown_08A0AE64
-// extern ??? gUnknown_08A0AE84
+extern u16 CONST_DATA Img_GameOverText[];
+extern u16 CONST_DATA Pal_GameOverText2[];
+extern u16 CONST_DATA Pal_GameOverText1[];
+extern u16 CONST_DATA Tsa_GameOverFx[];
 extern u8 gGfx_PlayerInterfaceFontTiles[];
 extern u8 gGfx_PlayerInterfaceNumbers[];
 extern u8 gGfx_StatusText[];

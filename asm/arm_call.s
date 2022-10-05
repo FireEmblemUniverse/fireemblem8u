@@ -29,14 +29,14 @@ TileMap_FillRect: @ 0x080D74A8
 
 	THUMB_FUNC_END TileMap_FillRect
 
-	THUMB_FUNC_START sub_80D74B0
-sub_80D74B0: @ 0x080D74B0
+	THUMB_FUNC_START CALLARM_MaybeScreenFadeIn
+CALLARM_MaybeScreenFadeIn: @ 0x080D74B0
 	bx pc
 	nop
 	.ARM
-	b sub_8000234
+	b ARM_MaybeScreenFadeIn
 
-	THUMB_FUNC_END sub_80D74B0
+	THUMB_FUNC_END CALLARM_MaybeScreenFadeIn
 
 	THUMB_FUNC_START TileMap_CopyRect
 TileMap_CopyRect: @ 0x080D74B8
