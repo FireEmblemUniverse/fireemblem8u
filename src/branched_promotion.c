@@ -653,7 +653,7 @@ void sub_800680C(u16, u8, u8);
 void sub_80CCF60(struct PromoProc3 *proc) {
     s16 x;
     u16 tmp;
-    sub_8003D20();
+    Font_ResetAllocation();
     Font_InitForUIDefault();
     BG_EnableSyncByMask(0xf);
     sub_800680C(0x100, 2, 0);
@@ -1633,7 +1633,7 @@ extern struct MenuRect gUnknown_08B12A60;
 
 void BuildPromotionMenu(struct PromoProc *proc) {
     proc->u4c = 0;
-    sub_8003D20();
+    Font_ResetAllocation();
     Font_InitForUIDefault();
     SetFontGlyphSet(0);
     Font_InitForUI(&gUnknown_03005380, (void *) 0x06001400, 160, 5);

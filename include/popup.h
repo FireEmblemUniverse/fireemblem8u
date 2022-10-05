@@ -88,23 +88,30 @@ void SetPopupUnit(struct Unit* unit);
 void SetPopupItem(u16 item);
 void SetPopupNumber(u32 num);
 
-ProcPtr NewPopupSimple(const struct PopupInstruction *inst,
-                       int clock,
-                       int winStyle,
-                       ProcPtr parent);
-
-ProcPtr NewPopup(const struct PopupInstruction *inst,
+ProcPtr NewPopupCore(const struct PopupInstruction *inst,
                  int clock,
                  int winStyle,
                  int iconObjTileId,
                  int pal_base, /* proc->iconPalId - 0x10 */
                  ProcPtr parent);
+ProcPtr NewPopup_Simple(const struct PopupInstruction *inst,
+                       int clock,
+                       int winStyle,
+                       ProcPtr parent);
+void NewPopup_VerySimple(u32 msg, u32 sound_index, ProcPtr parent);
 
-void NewGotItemPopup(struct Unit* unit, u16 item, ProcPtr parent);
-void NewItemGot(ProcPtr parent, struct Unit *unit, u16 item);
-void NewGeneralItemGot(struct Unit *unit, u16 item, ProcPtr parent);
-void NewGoldGotPopup(ProcPtr parent, struct Unit *unit, int value);
-void CreatedItemStealingPopUp(u16 item, ProcPtr parent);
+void NewPopup_ItemGot_unused(struct Unit* unit, u16 item, ProcPtr parent);
+void NewPopup_ItemGot(ProcPtr parent, struct Unit *unit, u16 item);
+void NewPopup_GeneralItemGot(struct Unit *unit, u16 item, ProcPtr parent);
+void NewPopup_GoldGot(ProcPtr parent, struct Unit *unit, int value);
+void NewPopup_ItemStealing(u16 item, ProcPtr parent);
 void NewPopup_WeaponBroke(u16 item, ProcPtr parent);
+
+void NewPopup2_PlanA(ProcPtr parent, int IconIndex, char *str);
+void NewPopup2_PlanB(ProcPtr proc, int icon_index, char *str0, int num, char *str1);
+void NewPopup2_PlanC(ProcPtr parent, int item, int msg);
+void NewPopup2_PlanD(ProcPtr parent, int item, int msg0, int msg1);
+void NewPopup2_DropItem(ProcPtr parent, int item);
+void NewPopup2_SendItem(ProcPtr parent, int item);
 
 #endif /* GUARD_POPUP_H */

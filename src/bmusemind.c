@@ -18,6 +18,7 @@
 #include "bmtrick.h"
 #include "bmtrap.h"
 #include "bmtarget.h"
+#include "popup.h"
 
 #include "bmusemind.h"
 
@@ -53,10 +54,6 @@ static struct ProcCmd CONST_DATA sProcScr_ExecNightmareStaff[] = {
 
     PROC_END,
 };
-
-// notifybox.s
-void sub_801F9FC(ProcPtr, int, char*);
-void sub_801FA8C(ProcPtr, int, s8, int, char*);
 
 // lightrunefx.s
 void sub_8021684(ProcPtr, int, int);
@@ -759,7 +756,7 @@ void ExecStatBoostItem(ProcPtr proc) {
 
     PlaySoundEffect(0x5A);
 
-    sub_801F9FC(proc, GetItemIconId(item), GetStringFromIndex(messageId));
+    NewPopup2_PlanA(proc, GetItemIconId(item), GetStringFromIndex(messageId));
 
     return;
 }
@@ -806,7 +803,7 @@ void ExecJunaFruitItem(ProcPtr proc) {
 
     PlaySoundEffect(0x5A);
 
-    sub_801FA8C(proc, GetItemIconId(itemId), 0, levelCount, GetStringFromIndex(0x1E));
+    NewPopup2_PlanB(proc, GetItemIconId(itemId), 0, levelCount, GetStringFromIndex(0x1E));
 
     return;
 }

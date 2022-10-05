@@ -244,7 +244,7 @@ void AiStartStealAction(struct CpPerformProc* proc) {
     UnitAddItem(gActiveUnit, item);
     UnitRemoveItem(unit, gAiDecision.itemSlot);
 
-    CreatedItemStealingPopUp(item, proc);
+    NewPopup_ItemStealing(item, proc);
 
     return;
 }
@@ -274,7 +274,7 @@ s8 AiPillageAction(struct CpPerformProc* proc) {
 
         PlaySoundEffect(0xAB);
 
-        NewPopupSimple(gPopup_085A80A4, 0x60, 0, proc);
+        NewPopup_Simple(gPopup_085A80A4, 0x60, 0, proc);
     }
 
     return 1;

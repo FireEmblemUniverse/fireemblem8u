@@ -16,7 +16,7 @@
 // unreferenced
 void sub_807A708(ProcPtr proc) {
     if (gCurrentMapAnimState.u62 == 1) {
-        CreatedItemStealingPopUp(gCurrentMapAnimState.actors[1].pBattleUnit->weapon, proc);
+        NewPopup_ItemStealing(gCurrentMapAnimState.actors[1].pBattleUnit->weapon, proc);
     }
 }
 
@@ -70,7 +70,7 @@ void _InitFontForUIDefault(void) {
 
 void MapAnim_Cleanup(void) {
     MU_AllRestartAnimations();
-	sub_8003D20();
+	Font_ResetAllocation();
 	DeleteBattleAnimInfoThing();
 	SetupBackgroundForWeatherMaybe();
 	LoadUiFrameGraphics();

@@ -1435,7 +1435,7 @@ extern u16 CONST_DATA obj_0859AEC8[];
 // extern ??? ProcScr_ArrowTrapAnim
 // extern ??? ProcScr_ShowMapChangeAnim
 // extern ??? ProcScr_PikeTrapAnim
-// extern ??? gUnknown_0859B0C0
+// extern ??? ProcScr_Popup2
  extern struct ProcCmd gProcScr_ChapterIntro[];
 // extern ??? gUnknown_0859B358
 // extern ??? gUnknown_0859B3B0
