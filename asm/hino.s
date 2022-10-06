@@ -354,7 +354,7 @@ sub_8012950: @ 0x08012950
 	lsls r4, r4, #0x18
 	asrs r4, r4, #0x18
 	str r4, [sp]
-	bl sub_8021D34
+	bl StartEventWarpAnim
 	add sp, #4
 	pop {r4}
 	pop {r0}
@@ -365,7 +365,7 @@ sub_8012950: @ 0x08012950
 	THUMB_FUNC_START sub_8012974
 sub_8012974: @ 0x08012974
 	push {lr}
-	bl sub_8021DF8
+	bl EventWarpAnimExists
 	lsls r0, r0, #0x18
 	asrs r0, r0, #0x18
 	pop {r1}

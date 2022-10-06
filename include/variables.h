@@ -1442,9 +1442,9 @@ extern u16 CONST_DATA obj_0859AEC8[];
 // extern ??? ProcScr_LightRuneAnim2
 // extern ??? ProcScr_LightRuneAnim3
 // extern ??? ProcScr_DanceringAnim
-// extern ??? gUnknown_0859B448
-// extern ??? gUnknown_0859B48C
-// extern ??? gUnknown_0859B4D0
+// extern ??? Vectors_EventWarp1
+// extern ??? Vectors_EventWarp2
+// extern ??? ProcScr_EventWrapAnim
 // extern ??? gUnknown_0859B4F8
 // extern ??? gUnknown_0859B510
 // extern ??? gUnknown_0859B528
@@ -1577,9 +1577,10 @@ extern u16 CONST_DATA Img_LightRune[];
 extern u16 CONST_DATA Pal_LightRune[];
 extern u16 CONST_DATA Tsa_LightRune[];
 
-// extern ??? gUnknown_085A5A60
-// extern ??? gUnknown_085A61A8
-// extern ??? gUnknown_085A61C8
+extern u16 CONST_DATA Img_EventWarp[];
+extern u16 CONST_DATA Pal_EventWarp[];
+extern u16 CONST_DATA Tsa_EventWarp[];
+
 // extern ??? gUnknown_085A638C
 // extern ??? gUnknown_085A643C
 // extern ??? gUnknown_085A647C
