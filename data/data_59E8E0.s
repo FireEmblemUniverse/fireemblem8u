@@ -260,16 +260,16 @@ gUnknown_085A643C:  @ 0x085A643C
 gUnknown_085A647C:  @ 0x085A647C
 	.incbin "baserom.gba", 0x5A647C, 0x804
 
-	.global gUnknown_085A6C80
-gUnknown_085A6C80:  @ 0x085A6C80
+	.global Img_DanceringFx
+Img_DanceringFx:  @ 0x085A6C80
 	.incbin "baserom.gba", 0x5A6C80, 0xDE4
 
-	.global gUnknown_085A7A64
-gUnknown_085A7A64:  @ 0x085A7A64
+	.global Tsa_DanceringFx
+Tsa_DanceringFx:  @ 0x085A7A64
 	.incbin "baserom.gba", 0x5A7A64, 0x23C
 
-	.global gUnknown_085A7CA0
-gUnknown_085A7CA0:  @ 0x085A7CA0
+	.global Pal_DanceringFx
+Pal_DanceringFx:  @ 0x085A7CA0
 	.incbin "baserom.gba", 0x5A7CA0, 0x20
 
 	.global gUnknown_085A7CC0

@@ -153,7 +153,7 @@ void GameOverScreen_Init(struct ProcGameOverScreen *proc)
 
     CopyDataWithPossibleUncomp(Img_GameOverText, BG_CHR_ADDR(BGCHR_GAMEOVER_TEXT));
     ApplyPalette(Pal_GameOverText1, BGPAL_GAMEOVER_4);
-    CopyDataWithPossibleUncomp(Img_ChapterIntroFog, BG_CHR_ADDR(BGCHR_GAMEOVER_100));
+    CopyDataWithPossibleUncomp(Img_ChapterIntroFog, BG_CHR_ADDR(BGCHR_BMFX_IMG));
     ApplyPalette(Pal_GameOverText2, BGPAL_GAMEOVER_TEXT);
 
     BG_SetPosition(0, 0, 0);

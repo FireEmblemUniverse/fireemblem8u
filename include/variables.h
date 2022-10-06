@@ -861,7 +861,7 @@ extern short gSinLookup[]; // gSinTable; needs to be non-const to match?
 // extern ??? Vectors_LightRune
 // extern ??? Vectors_LightRune2
 // extern ??? Vectors_LightRune3
-// extern ??? gUnknown_080D7BCC
+// extern ??? Vectors_DanceringFx
 // extern ??? gUnknown_080D7C04
 // extern ??? gUnknown_080D7C0C
 // extern ??? gUnknown_080D7C14
@@ -1441,7 +1441,7 @@ extern u16 CONST_DATA obj_0859AEC8[];
 // extern ??? ProcScr_LightRuneAnim
 // extern ??? ProcScr_LightRuneAnim2
 // extern ??? ProcScr_LightRuneAnim3
-// extern ??? gUnknown_0859B410
+// extern ??? ProcScr_DanceringAnim
 // extern ??? gUnknown_0859B448
 // extern ??? gUnknown_0859B48C
 // extern ??? gUnknown_0859B4D0
@@ -1583,9 +1583,11 @@ extern u16 CONST_DATA Tsa_LightRune[];
 // extern ??? gUnknown_085A638C
 // extern ??? gUnknown_085A643C
 // extern ??? gUnknown_085A647C
-// extern ??? gUnknown_085A6C80
-// extern ??? gUnknown_085A7A64
-// extern ??? gUnknown_085A7CA0
+
+extern u16 CONST_DATA Img_DanceringFx[];
+extern u16 CONST_DATA Tsa_DanceringFx[];
+extern u16 CONST_DATA Pal_DanceringFx[];
+
 // extern ??? gUnknown_085A7CC0
 // extern ??? gUnknown_085A7E34
 // extern ??? gUnknown_085A7EC8
