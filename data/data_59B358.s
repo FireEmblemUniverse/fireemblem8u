@@ -1,18 +1,5 @@
     .section .data
 
-	.global gUnknown_0859B4F8
-gUnknown_0859B4F8:  @ 0x0859B4F8
-        @ PROC_REPEAT
-        .short 0x3, 0x0
-        .word sub_8021E10
-        @ PROC_CALL
-        .short 0x2, 0x0
-        .word sub_8021ECC
-        @ PROC_END
-        .short 0x0, 0x0
-        .word 0x0
-
-
 	.global gUnknown_0859B510
 gUnknown_0859B510:  @ 0x0859B510
         @ PROC_CALL

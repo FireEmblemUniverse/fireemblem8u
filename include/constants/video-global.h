@@ -2,13 +2,6 @@
 
 #include "gba/gba.h"
 
-// TODO: move elsewhere
-#define CHR_SIZE 0x20
-#define CHR_LINE 0x20
-
-#define BG_CHR_ADDR(n)   (void *)(BG_VRAM + (CHR_SIZE * (n)))
-#define OBJ_CHR_ADDR(n)  (void *)(OBJ_VRAM0 + (CHR_SIZE * (n)))
-
 enum
 {
     BGCHR_WINDOW_FRAME = 0,
@@ -81,6 +74,7 @@ enum
     BGPAL_LIGHTRUNE_IMG = 2,
     BGPAL_DANCERING_IMG = 2,
     BGPAL_EVENTWARP_IMG = 5,
+    BGPAL_WHILTECIRCLE_FADE = 2,
 
     BGPAL_STEALSELECT_FACE = 5,
 
