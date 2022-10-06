@@ -301,7 +301,7 @@ gUnknown_089A34B0:  @ 0x089A34B0
         .word 0x0
         @ PROC_CALL
         .short 0x2, 0x0
-        .word sub_8021B30
+        .word StartDanceringAnim
         @ PROC_SLEEP
         .short 0xe, 0xa
         .word 0x0

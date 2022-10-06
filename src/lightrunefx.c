@@ -5,6 +5,7 @@
 #include "proc.h"
 #include "hardware.h"
 #include "soundwrapper.h"
+#include "bmfx.h"
 
 
 /**
@@ -13,69 +14,79 @@
 
 
 
-/* struct definitions */
-
-struct ProcMapEffectAnimFx {
-    PROC_HEADER;
-
-    /* 29 */ u8 _pad_29[0x4C - 0x29];
-
-    /* 4C */ s16 counter;
-};
-
-
 /* function declarations */
-void ProcLightRuneAnim_Init(struct ProcMapEffectAnimFx *proc);
-void ProcLightRuneAnim_Loop(struct ProcMapEffectAnimFx *proc);
-void ProcLightRuneAnim_End(struct ProcMapEffectAnimFx *proc);
+void ProcLightRuneAnim_Init(struct ProcBmFx *proc);
+void ProcLightRuneAnim_Loop(struct ProcBmFx *proc);
 
-void ProcLightRuneAnim2_Init(struct ProcMapEffectAnimFx *proc);
-void ProcLightRuneAnim2_Loop(struct ProcMapEffectAnimFx *proc);
-void ProcLightRuneAnim2_End(struct ProcMapEffectAnimFx *proc);
+void ProcLightRuneAnim2_Init(struct ProcBmFx *proc);
+void ProcLightRuneAnim2_Loop(struct ProcBmFx *proc);
+void ProcLightRuneAnim2_End(struct ProcBmFx *proc);
 
-void ProcLightRuneAnim3_Init(struct ProcMapEffectAnimFx *proc);
-void ProcLightRuneAnim3_Loop(struct ProcMapEffectAnimFx *proc);
-void ProcLightRuneAnim3_End(struct ProcMapEffectAnimFx *proc);
+void ProcLightRuneAnim3_Init(struct ProcBmFx *proc);
+void ProcLightRuneAnim3_Loop(struct ProcBmFx *proc);
+void ProcLightRuneAnim3_End(struct ProcBmFx *proc);
 
 
 /* section.rodata */
-const u8 Vectors_LightRune[0x34] = {
-    0x00, 0x00,   0x00, 0x00,   0x08, 0x00,   0x00, 0x00,
-    0x10, 0x00,   0x00, 0x00,   0x18, 0x00,   0x00, 0x00,
 
-    0x00, 0x09,   0x00, 0x00,   0x08, 0x09,   0x00, 0x00,
-    0x10, 0x09,   0x00, 0x00,   0x18, 0x09,   0x00, 0x00,
+const struct VectorBmfx Vectors_LightRune[13] = {
+    {0x00, 0x00, 0},
 
-    0x00, 0x12,   0x00, 0x00,   0x08, 0x12,   0x00, 0x00,
-    0x10, 0x12,   0x00, 0x00,   0x18, 0x12,   0x00, 0x00,
+    {0x08, 0x00, 0},
+    {0x10, 0x00, 0},
+    {0x18, 0x00, 0},
 
-    0xFF, 0xFF,   0x00, 0x00
+    {0x00, 0x09, 0},
+    {0x08, 0x09, 0},
+    {0x10, 0x09, 0},
+    {0x18, 0x09, 0},
+
+    {0x00, 0x12, 0},
+    {0x08, 0x12, 0},
+    {0x10, 0x12, 0},
+    {0x18, 0x12, 0},
+
+    {0xFF, 0xFF, 0},
 };
 
-const u8 Vectors_LightRune2[0x34] = {
-    0x00, 0x00,   0x00, 0x00,   0x08, 0x00,   0x00, 0x00,
-    0x10, 0x00,   0x00, 0x00,   0x18, 0x00,   0x00, 0x00,
+const struct VectorBmfx Vectors_LightRune2[13] = {
+    {0x00, 0x00, 0},
 
-    0x00, 0x09,   0x00, 0x00,   0x08, 0x09,   0x00, 0x00,
-    0x10, 0x09,   0x00, 0x00,   0x18, 0x09,   0x00, 0x00,
+    {0x08, 0x00, 0},
+    {0x10, 0x00, 0},
+    {0x18, 0x00, 0},
 
-    0x00, 0x12,   0x00, 0x00,   0x08, 0x12,   0x00, 0x00,
-    0x10, 0x12,   0x00, 0x00,   0x18, 0x12,   0x00, 0x00,
+    {0x00, 0x09, 0},
+    {0x08, 0x09, 0},
+    {0x10, 0x09, 0},
+    {0x18, 0x09, 0},
 
-    0xFF, 0xFF,   0x00, 0x00
+    {0x00, 0x12, 0},
+    {0x08, 0x12, 0},
+    {0x10, 0x12, 0},
+    {0x18, 0x12, 0},
+
+    {0xFF, 0xFF, 0},
 };
 
-const u8 Vectors_LightRune3[0x34] = {
-    0x00, 0x00,   0x00, 0x00,   0x08, 0x00,   0x00, 0x00,
-    0x10, 0x00,   0x00, 0x00,   0x18, 0x00,   0x00, 0x00,
+const struct VectorBmfx Vectors_LightRune3[13] = {
+    {0x00, 0x00, 0},
 
-    0x00, 0x09,   0x00, 0x00,   0x08, 0x09,   0x00, 0x00,
-    0x10, 0x09,   0x00, 0x00,   0x18, 0x09,   0x00, 0x00,
+    {0x08, 0x00, 0},
+    {0x10, 0x00, 0},
+    {0x18, 0x00, 0},
 
-    0x00, 0x12,   0x00, 0x00,   0x08, 0x12,   0x00, 0x00,
-    0x10, 0x12,   0x00, 0x00,   0x18, 0x12,   0x00, 0x00,
+    {0x00, 0x09, 0},
+    {0x08, 0x09, 0},
+    {0x10, 0x09, 0},
+    {0x18, 0x09, 0},
 
-    0xFF, 0xFF,   0x00, 0x00
+    {0x00, 0x12, 0},
+    {0x08, 0x12, 0},
+    {0x10, 0x12, 0},
+    {0x18, 0x12, 0},
+
+    {0xFF, 0xFF, 0},
 };
 
 
@@ -83,7 +94,7 @@ const u8 Vectors_LightRune3[0x34] = {
 struct ProcCmd CONST_DATA ProcScr_LightRuneAnim[] = {
     PROC_CALL(ProcLightRuneAnim_Init),
     PROC_REPEAT(ProcLightRuneAnim_Loop),
-    PROC_CALL(ProcLightRuneAnim_End),
+    PROC_CALL(ProcBmFx_CommonEnd),
     PROC_END
 };
 
@@ -104,18 +115,18 @@ struct ProcCmd CONST_DATA ProcScr_LightRuneAnim3[] = {
 
 /* section.text */
 
-void ProcLightRuneAnim_Init(struct ProcMapEffectAnimFx *proc)
+void ProcLightRuneAnim_Init(struct ProcBmFx *proc)
 {
     int i;
 
-    CopyDataWithPossibleUncomp(Img_LightRune, BG_CHR_ADDR(BGCHR_LIGHTRUNE_IMG));
+    CopyDataWithPossibleUncomp(Img_LightRune, BG_CHR_ADDR(BGCHR_BMFX_IMG));
     ApplyPalette(Pal_LightRune, BGPAL_LIGHTRUNE_IMG);
     CopyDataWithPossibleUncomp(Tsa_LightRune, gBmFrameTmap0);
 
     for (i = 0; i < 0x360; i++)
-        gBmFrameTmap0[i] += TILEREF(BGCHR_LIGHTRUNE_IMG, BGPAL_LIGHTRUNE_IMG);
+        gBmFrameTmap0[i] += TILEREF(BGCHR_BMFX_IMG, BGPAL_LIGHTRUNE_IMG);
 
-    BG_Fill(gBG0TilemapBuffer, TILEREF(BGCHR_LIGHTRUNE_IMG, 0));
+    BG_Fill(gBG0TilemapBuffer, TILEREF(BGCHR_BMFX_IMG, 0));
     BG_EnableSyncByMask(BG0_SYNC_BIT);
     PlaySoundEffect(0x2D8);
 
@@ -126,22 +137,16 @@ void ProcLightRuneAnim_Init(struct ProcMapEffectAnimFx *proc)
     proc->counter = 0;
 }
 
-void ProcLightRuneAnim_Loop(struct ProcMapEffectAnimFx *proc)
+void ProcLightRuneAnim_Loop(struct ProcBmFx *proc)
 {
-    u8 buf[0x34];
-    u8 *pbuf;
-    int index;
+    struct VectorBmfx buf[13];
     int x, y;
 
     memcpy(buf, Vectors_LightRune, 0x34);
     proc->counter++;
 
-    index = (proc->counter / 3);
-    index = (index << 0x10) >> 0xE; /* todo: index *= 4 */
-
-    pbuf = buf;
-    x = pbuf[index];
-    y = pbuf[index + 1];
+    x = buf[proc->counter / 3].x;
+    y = buf[proc->counter / 3].y;
 
     if (0xFF == x) {
         Proc_Break(proc);
@@ -156,7 +161,7 @@ void ProcLightRuneAnim_Loop(struct ProcMapEffectAnimFx *proc)
     
 }
 
-void ProcLightRuneAnim_End(struct ProcMapEffectAnimFx *proc)
+void ProcBmFx_CommonEnd(struct ProcBmFx *proc)
 {
     SetDefaultColorEffects();
     BG_Fill(gBG0TilemapBuffer, 0x0);
@@ -173,18 +178,18 @@ void StartLightRuneAnim(ProcPtr parent, int x, int y)
     BG_SetPosition(0, -x, -y);
 }
 
-void ProcLightRuneAnim2_Init(struct ProcMapEffectAnimFx *proc)
+void ProcLightRuneAnim2_Init(struct ProcBmFx *proc)
 {
     int i;
 
-    CopyDataWithPossibleUncomp(Img_LightRune, BG_CHR_ADDR(BGCHR_LIGHTRUNE_IMG));
+    CopyDataWithPossibleUncomp(Img_LightRune, BG_CHR_ADDR(BGCHR_BMFX_IMG));
     ApplyPalette(Pal_LightRune, BGPAL_LIGHTRUNE_IMG);
     CopyDataWithPossibleUncomp(Tsa_LightRune, gBmFrameTmap0);
 
     for (i = 0; i < 0x360; i++)
-        gBmFrameTmap0[i] += TILEREF(BGCHR_LIGHTRUNE_IMG, BGPAL_LIGHTRUNE_IMG);
+        gBmFrameTmap0[i] += TILEREF(BGCHR_BMFX_IMG, BGPAL_LIGHTRUNE_IMG);
 
-    BG_Fill(gBG0TilemapBuffer, TILEREF(BGCHR_LIGHTRUNE_IMG, 0));
+    BG_Fill(gBG0TilemapBuffer, TILEREF(BGCHR_BMFX_IMG, 0));
     BG_EnableSyncByMask(BG0_SYNC_BIT);
     PlaySoundEffect(0x2D8);
 
@@ -195,22 +200,16 @@ void ProcLightRuneAnim2_Init(struct ProcMapEffectAnimFx *proc)
     proc->counter = 0;
 }
 
-void ProcLightRuneAnim2_Loop(struct ProcMapEffectAnimFx *proc)
+void ProcLightRuneAnim2_Loop(struct ProcBmFx *proc)
 {
-    u8 buf[0x34];
-    u8 *pbuf;
-    int index;
+    struct VectorBmfx buf[13];
     int x, y;
 
     memcpy(buf, Vectors_LightRune2, 0x34);
     proc->counter++;
 
-    index = (proc->counter / 3);
-    index = (index << 0x10) >> 0xE; /* todo: index *= 4 */
-
-    pbuf = buf;
-    x = pbuf[index];
-    y = pbuf[index + 1];
+    x = buf[proc->counter / 3].x;
+    y = buf[proc->counter / 3].y;
 
     if (0xFF == x) {
         Proc_Break(proc);
@@ -225,7 +224,7 @@ void ProcLightRuneAnim2_Loop(struct ProcMapEffectAnimFx *proc)
     
 }
 
-void ProcLightRuneAnim2_End(struct ProcMapEffectAnimFx *proc)
+void ProcLightRuneAnim2_End(struct ProcBmFx *proc)
 {
     SetDefaultColorEffects();
     BG_Fill(gBG0TilemapBuffer, 0x0);
@@ -242,18 +241,18 @@ void StartLightRuneAnim2(ProcPtr parent, int x, int y)
     BG_SetPosition(0, -x, -y);
 }
 
-void ProcLightRuneAnim3_Init(struct ProcMapEffectAnimFx *proc)
+void ProcLightRuneAnim3_Init(struct ProcBmFx *proc)
 {
     int i;
 
-    CopyDataWithPossibleUncomp(Img_LightRune, BG_CHR_ADDR(BGCHR_LIGHTRUNE_IMG));
+    CopyDataWithPossibleUncomp(Img_LightRune, BG_CHR_ADDR(BGCHR_BMFX_IMG));
     ApplyPalette(Pal_LightRune, BGPAL_LIGHTRUNE_IMG);
     CopyDataWithPossibleUncomp(Tsa_LightRune, gBmFrameTmap0);
 
     for (i = 0; i < 0x360; i++)
-        gBmFrameTmap0[i] += TILEREF(BGCHR_LIGHTRUNE_IMG, BGPAL_LIGHTRUNE_IMG);
+        gBmFrameTmap0[i] += TILEREF(BGCHR_BMFX_IMG, BGPAL_LIGHTRUNE_IMG);
 
-    BG_Fill(gBG0TilemapBuffer, TILEREF(BGCHR_LIGHTRUNE_IMG, 0));
+    BG_Fill(gBG0TilemapBuffer, TILEREF(BGCHR_BMFX_IMG, 0));
     BG_EnableSyncByMask(BG0_SYNC_BIT);
     PlaySoundEffect(0x2D8);
 
@@ -264,22 +263,16 @@ void ProcLightRuneAnim3_Init(struct ProcMapEffectAnimFx *proc)
     proc->counter = 0;
 }
 
-void ProcLightRuneAnim3_Loop(struct ProcMapEffectAnimFx *proc)
+void ProcLightRuneAnim3_Loop(struct ProcBmFx *proc)
 {
-    u8 buf[0x34];
-    u8 *pbuf;
-    int index;
+    struct VectorBmfx buf[13];
     int x, y;
 
     memcpy(buf, Vectors_LightRune3, 0x34);
     proc->counter++;
 
-    index = (proc->counter / 3);
-    index = (index << 0x10) >> 0xE; /* todo: index *= 4 */
-
-    pbuf = buf;
-    x = pbuf[index];
-    y = pbuf[index + 1];
+    x = buf[proc->counter / 3].x;
+    y = buf[proc->counter / 3].y;
 
     if (0xFF == x) {
         Proc_Break(proc);
@@ -294,7 +287,7 @@ void ProcLightRuneAnim3_Loop(struct ProcMapEffectAnimFx *proc)
     
 }
 
-void ProcLightRuneAnim3_End(struct ProcMapEffectAnimFx *proc)
+void ProcLightRuneAnim3_End(struct ProcBmFx *proc)
 {
     SetDefaultColorEffects();
     BG_Fill(gBG0TilemapBuffer, 0x0);

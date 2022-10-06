@@ -77,7 +77,7 @@ SECTIONS
         src/chapterintrofx.o(.text);
         src/gameoverbgfx.o(.text);
         src/lightrunefx.o(.text);
-        asm/danceringfx.o(.text);
+        src/danceringfx.o(.text);
         asm/eventwarpfx.o(.text);
         asm/whitecircularfadefx.o(.text);
         asm/emitstarfx.o(.text);
@@ -218,6 +218,7 @@ SECTIONS
         . = ALIGN(4); src/bmxfade.o(.rodata);
         . = ALIGN(4); src/bmcamadjust.o(.rodata);
         . = ALIGN(4); src/lightrunefx.o(.rodata);
+        . = ALIGN(4); src/danceringfx.o(.rodata);
         . = ALIGN(4); data/const_data_D7B20.o(.rodata);
         . = ALIGN(4); src/bmreliance.o(.rodata);
         . = ALIGN(4); src/bmbattle.o(.rodata);
@@ -301,6 +302,7 @@ SECTIONS
         . = ALIGN(4); src/chapterintrofx.o(.data);
         . = ALIGN(4); src/gameoverbgfx.o(.data);
         . = ALIGN(4); src/lightrunefx.o(.data);
+        . = ALIGN(4); src/danceringfx.o(.data);
         . = ALIGN(4); data/data_59B358.o(.data);
         . = ALIGN(4); src/bmmenu.o(.data);
         . = ALIGN(4); data/data_59B668.o(.data);
