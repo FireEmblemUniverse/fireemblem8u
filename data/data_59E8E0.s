@@ -272,16 +272,16 @@ Tsa_DanceringFx:  @ 0x085A7A64
 Pal_DanceringFx:  @ 0x085A7CA0
 	.incbin "baserom.gba", 0x5A7CA0, 0x20
 
-	.global gUnknown_085A7CC0
-gUnknown_085A7CC0:  @ 0x085A7CC0
+	.global Img_MineFx
+Img_MineFx:  @ 0x085A7CC0
 	.incbin "baserom.gba", 0x5A7CC0, 0x174
 
-	.global gUnknown_085A7E34
-gUnknown_085A7E34:  @ 0x085A7E34
+	.global SpritAnim_MineFx
+SpritAnim_MineFx:  @ 0x085A7E34
 	.incbin "baserom.gba", 0x5A7E34, 0x94
 
-	.global gUnknown_085A7EC8
-gUnknown_085A7EC8:  @ 0x085A7EC8
+	.global Pal_MineFx
+Pal_MineFx:  @ 0x085A7EC8
 	.incbin "baserom.gba", 0x5A7EC8, 0x20
 
 	.global gUnknown_085A7EE8
