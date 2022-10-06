@@ -11,6 +11,11 @@ extern u16 gPaletteBuffer[];
 #define TILE_HFLIP 0x0400
 #define TILE_VFLIP 0x0800
 
+#define CHR_SIZE 0x20
+#define CHR_LINE 0x20
+#define BG_CHR_ADDR(n)   (void *)(BG_VRAM + (CHR_SIZE * (n)))
+#define OBJ_CHR_ADDR(n)  (void *)(OBJ_VRAM0 + (CHR_SIZE * (n)))
+
 #define PAL_COLOR(palid, colornum) gPaletteBuffer[(palid) * 0x10 + (colornum)]
 #define PAL_BG_COLOR(palid, colornum) PAL_COLOR(palid, colornum)
 #define PAL_OBJ_COLOR(palid, colornum) PAL_COLOR((palid) + 0x10, colornum)

@@ -26,4 +26,10 @@
 
 #define RECT_DISTANCE(aXA, aYA, aXB, aYB) (ABS((aXA) - (aXB)) + ABS((aYA) - (aYB)))
 
+#define LIMIT_AREA(num, min, max)   \
+    if (num > max)                  \
+        num = max;                  \
+    if (num < min)                  \
+        num = min;
+
 #endif  // GUARD_GLOBAL_H
