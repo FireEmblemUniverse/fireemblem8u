@@ -37,5 +37,7 @@ void StartDanceringAnim(ProcPtr parent);
 void StartEventWarpAnim(ProcPtr parent, int xCamera, int yCamera, s8 xWarp, s8 yWarp);
 void StartEventWarpAnim_unused(ProcPtr parent, int xCamera, int yCamera, s8 xWarp);
 int EventWarpAnimExists();
-
+void StartEmitStarsAnim(ProcPtr parent, int r1, int r2, int r3, int r4);
+void ClearEmitedStars();
+void EndEmitStars();
 #endif /* GUARD_BMFX_H */

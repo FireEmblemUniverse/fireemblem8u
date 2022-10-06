@@ -44,28 +44,53 @@ struct ProcCmd
 // allows local Proc structs to invoke the general Proc
 // fields when creating local Proc definitions.
 #define PROC_HEADER                                                                        \
-    const struct ProcCmd* proc_script; /* pointer to proc script */                        \
-    const struct ProcCmd* proc_scrCur; /* pointer to currently executing script command */ \
-    ProcFunc proc_endCb; /* callback to run upon delegint the process */                   \
-    ProcFunc proc_idleCb; /* callback to run once each frame. */                           \
-                          /* disables script execution when not null */                    \
-    const char* proc_name;                                                                 \
-    ProcPtr proc_parent; /* pointer to parent proc. If this proc is a root proc, */        \
-                         /* this member is an integer which is the root index. */          \
-    ProcPtr proc_child; /* pointer to most recently added child */                         \
-    ProcPtr proc_next; /* next sibling */                                                  \
-    ProcPtr proc_prev; /* previous sibling */                                              \
-    s16 proc_sleepTime;                                                                    \
-    u8 proc_mark;                                                                          \
-    u8 proc_flags;                                                                         \
-    u8 proc_lockCnt; /* wait semaphore. Process execution */                               \
-                     /* is blocked when this is nonzero. */                                \
+    /* 00 */ const struct ProcCmd* proc_script; /* pointer to proc script */                        \
+    /* 04 */ const struct ProcCmd* proc_scrCur; /* pointer to currently executing script command */ \
+    /* 08 */ ProcFunc proc_endCb; /* callback to run upon delegint the process */                   \
+    /* 0C */ ProcFunc proc_idleCb; /* callback to run once each frame. */                           \
+                                   /* disables script execution when not null */                    \
+    /* 10 */ const char* proc_name;                                                                 \
+    /* 14 */ ProcPtr proc_parent; /* pointer to parent proc. If this proc is a root proc, */        \
+                                  /* this member is an integer which is the root index. */          \
+    /* 18 */ ProcPtr proc_child; /* pointer to most recently added child */                         \
+    /* 1C */ ProcPtr proc_next; /* next sibling */                                                  \
+    /* 20 */ ProcPtr proc_prev; /* previous sibling */                                              \
+    /* 24 */ s16 proc_sleepTime;                                                                    \
+    /* 26 */ u8 proc_mark;                                                                          \
+    /* 27 */ u8 proc_flags;                                                                         \
+    /* 28 */ u8 proc_lockCnt; /* wait semaphore. Process execution */                               \
+                              /* is blocked when this is nonzero. */                                \
 
 // general Proc struct for use in proc.c when initializing and using the proc.
 struct Proc
 {
     /* 00 */ PROC_HEADER;
-    /* 2C */ u32 data[0x10];
+
+    /* 2C */ int x, y;
+    /* 34 */ int unk34;
+    /* 38 */ int unk38;
+    /* 3C */ int unk3C;
+    /* 40 */ int unk40;
+
+    /* 44 */ u8 pad38[0x4A - 0x44];
+
+    /* 4A */ short unk4A;
+
+    // Is this part of that?
+    /* 4C */ short unk4C; 
+    /* 4E */ short unk4E;
+    /* 50 */ short unk50;
+
+    /* 52 */ u16 unk52;
+
+    /* 54 */ void * ptr;
+    /* 58 */ int unk58;
+    /* 5C */ int unk5C;
+    /* 60 */ int unk60;
+    /* 64 */ short unk64;
+    /* 66 */ short unk66;
+    /* 68 */ short unk68;
+    /* 6A */ short unk6A;
 };
 
 struct ProcFindIterator
