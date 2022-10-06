@@ -1446,9 +1446,9 @@ extern u16 CONST_DATA obj_0859AEC8[];
 // extern ??? Vectors_EventWarp2
 // extern ??? ProcScr_EventWrapAnim
 // extern ??? ProcScr_WhiteCircleFx
-// extern ??? gUnknown_0859B510
-// extern ??? gUnknown_0859B528
-// extern ??? gUnknown_0859B540
+// extern ??? ProcScr_EmitSingleStar
+// extern ??? ProcScr_EmitStars
+// extern ??? Img_EmitedStar
 // extern ??? gUnknown_0859B560
 // extern ??? gUnknown_0859B668
 // extern ??? gUnknown_0859B66C

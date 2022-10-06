@@ -1,35 +1,5 @@
     .section .data
 
-	.global gUnknown_0859B510
-gUnknown_0859B510:  @ 0x0859B510
-        @ PROC_CALL
-        .short 0x2, 0x0
-        .word sub_8021FB8
-        @ PROC_REPEAT
-        .short 0x3, 0x0
-        .word sub_8021FEC
-        @ PROC_END
-        .short 0x0, 0x0
-        .word 0x0
-
-
-	.global gUnknown_0859B528
-gUnknown_0859B528:  @ 0x0859B528
-        @ PROC_REPEAT
-        .short 0x3, 0x0
-        .word sub_80220A8
-        @ PROC_REPEAT
-        .short 0x3, 0x0
-        .word sub_8022200
-        @ PROC_END
-        .short 0x0, 0x0
-        .word 0x0
-
-
-	.global gUnknown_0859B540
-gUnknown_0859B540:  @ 0x0859B540
-	.incbin "baserom.gba", 0x59B540, 0x20
-
 	.global gUnknown_0859B560
 gUnknown_0859B560:  @ 0x0859B560
         @ PROC_SLEEP
