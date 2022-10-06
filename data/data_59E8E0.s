@@ -236,16 +236,16 @@ Pal_LightRune:  @ 0x085A5760
 Tsa_LightRune:  @ 0x085A5780
 	.incbin "baserom.gba", 0x5A5780, 0x2E0
 
-	.global gUnknown_085A5A60
-gUnknown_085A5A60:  @ 0x085A5A60
+	.global Img_EventWarp
+Img_EventWarp:  @ 0x085A5A60
 	.incbin "baserom.gba", 0x5A5A60, 0x748
 
-	.global gUnknown_085A61A8
-gUnknown_085A61A8:  @ 0x085A61A8
+	.global Pal_EventWarp
+Pal_EventWarp:  @ 0x085A61A8
 	.incbin "baserom.gba", 0x5A61A8, 0x20
 
-	.global gUnknown_085A61C8
-gUnknown_085A61C8:  @ 0x085A61C8
+	.global Tsa_EventWarp
+Tsa_EventWarp:  @ 0x085A61C8
 	.incbin "baserom.gba", 0x5A61C8, 0x1C4
 
 	.global gUnknown_085A638C
