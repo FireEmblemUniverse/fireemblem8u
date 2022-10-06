@@ -355,35 +355,42 @@ void PopupIconUpdateProc_Loop(struct PopupIconUpdateProc *proc)
                                proc->unk_4A);
 }
 
-#if NONMATCHING
-
 void PopupProc_GfxDraw(struct PopupProc *proc)
 {
-    char *str[0x4];
     struct TextHandle th;
+    int icon_pos;
+    int tile_len;
+    int x_pos, y_pos;
+    int temp;
 
-    register u16 tile_len;
-    register s16 icon_pos;
-    register s8 x_pos, y_pos;
+    u32 len;
 
-    proc->xGfxSize = ParsePopupInstAndGetLen(proc);
+    len = ParsePopupInstAndGetLen(proc);
+    proc->xGfxSize = len;
+    tile_len = (len << 0x10) >> 0x13;
 
-    tile_len = proc->xGfxSize >> 0x3;
-    if (0 != (proc->xGfxSize & 0x7)) tile_len++;
-    icon_pos = (tile_len * 8 - proc->xGfxSize) / 2;
+    if (0 != (len & 7))
+        tile_len++;
 
-    x_pos = -1 == proc->xTileParam
-          ? (0x1E - tile_len) / 2 - 1
-          : proc->xTileParam;
-    y_pos = -1 == proc->yTileParam
-          ? proc->yTileParam
-          : 8;
+    icon_pos = (tile_len * 8 - proc->xGfxSize) >> 1;
 
-    DrawUiFrame2(x_pos, y_pos, tile_len, 4, proc->winStyle);
+    if (-1 == proc->xTileParam)
+        x_pos = ((0x1E - tile_len) >> 1) - 1;
+    else
+        x_pos = proc->xTileParam;
+
+
+    if (-1 != proc->yTileParam)
+        y_pos = proc->yTileParam;
+    else
+        y_pos = 8;
+
+    temp = tile_len + 2;
+    DrawUiFrame2(x_pos, y_pos, temp, 4, proc->winStyle);
 
     proc->xTileReal = x_pos;
     proc->yTileReal = y_pos;
-    proc->xTileSize = tile_len;
+    proc->xTileSize = temp;
     proc->yTileSize = 3;
     proc->iconX += icon_pos;
 
@@ -392,196 +399,21 @@ void PopupProc_GfxDraw(struct PopupProc *proc)
     Text_SetXCursor(&th, icon_pos);
     GeneratePopupText(proc->pDefinition, th);
 
-    if (-1 != (s16)proc->iconId)
+    if (0xFFFF != proc->iconId)
         LoadIconObjectGraphics(proc->iconId, proc->iconObjTileId);
 
-    Text_Draw(&th, TILEMAP_LOCATED(gBG0TilemapBuffer, x_pos, y_pos));
+    Text_Draw(&th, TILEMAP_LOCATED(gBG0TilemapBuffer, x_pos + 1, y_pos + 1));
     Font_InitForUIDefault();
 
-    if (-1 != (s16)proc->iconId) {
-        struct PopupIconUpdateProc* child =
-                        Proc_Start(sProcScr_PopupUpdateIcon, proc);
+    if (0xFFFF != proc->iconId) {
+        struct PopupIconUpdateProc *child =
+            Proc_Start(sProcScr_PopupUpdateIcon, proc);
 
         child->unk_2C = (proc->xTileReal + 1) * 8 + proc->iconX;
         child->unk_30 = (proc->yTileReal + 1) * 8;
-        child->unk_4A = (proc->iconPalId & 0xF) << 0xC | proc->iconObjTileId;
+        child->unk_4A = proc->iconObjTileId | (proc->iconPalId & 0xf) << 0xC;
     }
 }
-
-#else
-
-__attribute__((naked))
-void PopupProc_GfxDraw(struct PopupProc *r0)
-{
-    asm("\n\
-        .syntax unified\n\
-        push {r4, r5, r6, r7, lr}\n\
-        mov r7, sl\n\
-        mov r6, r9\n\
-        mov r5, r8\n\
-        push {r5, r6, r7}\n\
-        sub sp, #0x10\n\
-        adds r5, r0, #0\n\
-        bl ParsePopupInstAndGetLen\n\
-        adds r2, r5, #0\n\
-        adds r2, #0x46\n\
-        strh r0, [r2]\n\
-        lsls r1, r0, #0x10\n\
-        lsrs r6, r1, #0x13\n\
-        movs r1, #7\n\
-        ands r1, r0\n\
-        cmp r1, #0\n\
-        beq _08011296\n\
-        adds r6, #1\n\
-    _08011296:\n\
-        lsls r0, r6, #3\n\
-        ldrh r1, [r2]\n\
-        subs r0, r0, r1\n\
-        asrs r0, r0, #1\n\
-        mov r9, r0\n\
-        adds r2, r5, #0\n\
-        adds r2, #0x34\n\
-        movs r1, #0\n\
-        ldrsb r1, [r2, r1]\n\
-        movs r0, #1\n\
-        negs r0, r0\n\
-        cmp r1, r0\n\
-        bne _080112BA\n\
-        movs r0, #0x1e\n\
-        subs r0, r0, r6\n\
-        asrs r0, r0, #1\n\
-        subs r7, r0, #1\n\
-        b _080112BE\n\
-    _080112BA:\n\
-        movs r7, #0\n\
-        ldrsb r7, [r2, r7]\n\
-    _080112BE:\n\
-        adds r2, r5, #0\n\
-        adds r2, #0x35\n\
-        movs r1, #0\n\
-        ldrsb r1, [r2, r1]\n\
-        movs r0, #1\n\
-        negs r0, r0\n\
-        movs r3, #8\n\
-        mov r8, r3\n\
-        cmp r1, r0\n\
-        beq _080112D6\n\
-        adds r2, r1, #0\n\
-        mov r8, r2\n\
-    _080112D6:\n\
-        adds r4, r6, #2\n\
-        adds r0, r5, #0\n\
-        adds r0, #0x36\n\
-        ldrb r0, [r0]\n\
-        str r0, [sp]\n\
-        adds r0, r7, #0\n\
-        mov r1, r8\n\
-        adds r2, r4, #0\n\
-        movs r3, #4\n\
-        bl DrawUiFrame2\n\
-        movs r0, #0x37\n\
-        adds r0, r0, r5\n\
-        mov sl, r0\n\
-        strb r7, [r0]\n\
-        adds r1, r5, #0\n\
-        adds r1, #0x38\n\
-        str r1, [sp, #0xc]\n\
-        mov r2, r8\n\
-        strb r2, [r1]\n\
-        adds r0, r5, #0\n\
-        adds r0, #0x39\n\
-        strb r4, [r0]\n\
-        adds r1, #2\n\
-        movs r0, #3\n\
-        strb r0, [r1]\n\
-        adds r4, r5, #0\n\
-        adds r4, #0x44\n\
-        ldrb r0, [r4]\n\
-        add r0, r9\n\
-        strb r0, [r4]\n\
-        add r0, sp, #4\n\
-        adds r1, r6, #0\n\
-        bl Text_Init\n\
-        adds r0, r5, #0\n\
-        adds r0, #0x3b\n\
-        ldrb r1, [r0]\n\
-        add r0, sp, #4\n\
-        bl Text_SetColorId\n\
-        add r0, sp, #4\n\
-        mov r1, r9\n\
-        bl Text_SetXCursor\n\
-        ldr r0, [r5, #0x2c]\n\
-        ldr r1, [sp, #4]\n\
-        ldr r2, [sp, #8]\n\
-        bl GeneratePopupText\n\
-        ldrh r0, [r5, #0x3e]\n\
-        ldr r6, _080113B4  @ 0x0000FFFF\n\
-        cmp r0, r6\n\
-        beq _0801134C\n\
-        adds r1, r5, #0\n\
-        adds r1, #0x40\n\
-        ldrh r1, [r1]\n\
-        bl LoadIconObjectGraphics\n\
-    _0801134C:\n\
-        mov r1, r8\n\
-        adds r1, #1\n\
-        lsls r1, r1, #5\n\
-        adds r1, #1\n\
-        adds r1, r1, r7\n\
-        lsls r1, r1, #1\n\
-        ldr r0, _080113B8  @ gBG0TilemapBuffer\n\
-        adds r1, r1, r0\n\
-        add r0, sp, #4\n\
-        bl Text_Draw\n\
-        bl Font_InitForUIDefault\n\
-        ldrh r0, [r5, #0x3e]\n\
-        cmp r0, r6\n\
-        beq _080113A4\n\
-        ldr r0, _080113BC  @ sProcScr_PopupUpdateIcon\n\
-        adds r1, r5, #0\n\
-        bl Proc_Start\n\
-        mov r3, sl\n\
-        ldrb r1, [r3]\n\
-        adds r1, #1\n\
-        lsls r1, r1, #3\n\
-        ldrb r4, [r4]\n\
-        adds r1, r1, r4\n\
-        str r1, [r0, #0x2c]\n\
-        ldr r2, [sp, #0xc]\n\
-        ldrb r1, [r2]\n\
-        adds r1, #1\n\
-        lsls r1, r1, #3\n\
-        str r1, [r0, #0x30]\n\
-        adds r3, r5, #0\n\
-        adds r3, #0x40\n\
-        adds r1, r5, #0\n\
-        adds r1, #0x42\n\
-        ldrb r2, [r1]\n\
-        movs r1, #0xf\n\
-        ands r1, r2\n\
-        lsls r1, r1, #0xc\n\
-        ldrh r2, [r3]\n\
-        orrs r1, r2\n\
-        adds r0, #0x4a\n\
-        strh r1, [r0]\n\
-    _080113A4:\n\
-        add sp, #0x10\n\
-        pop {r3, r4, r5}\n\
-        mov r8, r3\n\
-        mov r9, r4\n\
-        mov sl, r5\n\
-        pop {r4, r5, r6, r7}\n\
-        pop {r0}\n\
-        bx r0\n\
-        .align 2, 0\n\
-    _080113B4: .4byte 0x0000FFFF\n\
-    _080113B8: .4byte gBG0TilemapBuffer\n\
-    _080113BC: .4byte sProcScr_PopupUpdateIcon\n\
-        .syntax divided\n\
-    ");
-}
-
-#endif /* NONMATCHING */
 
 void PopupProc_WaitForPress(struct PopupProc *proc)
 {
