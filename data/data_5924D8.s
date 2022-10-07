@@ -113,8 +113,8 @@ gUnknown_08592580:  @ 0x08592580
         .word 0x0
 
 
-	.global gUnknown_085925D0
-gUnknown_085925D0:  @ 0x085925D0
+	.global ProcScr_BoomFogFx
+ProcScr_BoomFogFx:  @ 0x085925D0
         @ PROC_SLEEP
         .short 0xe, 0x1
         .word 0x0

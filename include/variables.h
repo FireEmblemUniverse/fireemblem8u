@@ -1370,7 +1370,7 @@ extern const char *gUnknown_08591AA4[][2];
 // extern ??? gUnknown_08592530
 // extern ??? gUnknown_08592568
 // extern ??? gUnknown_08592580
-// extern ??? gUnknown_085925D0
+// extern ??? ProcScr_BoomFogFx
 // extern ??? gUnknown_085925F0
 // extern ??? gUnknown_08592608
 // extern ??? gUnknown_08592628
