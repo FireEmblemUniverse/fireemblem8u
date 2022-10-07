@@ -1,6 +1,5 @@
     .section .data
 
-
 	.global gUnknown_0859B578
 gUnknown_0859B578:  @ 0x0859B578
         @ PROC_CALL
