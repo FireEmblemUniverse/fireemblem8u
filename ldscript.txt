@@ -82,7 +82,7 @@ SECTIONS
         src/whitecircularfadefx.o(.text);
         src/emitstarfx.o(.text);
         src/minefx.o(.text);
-        asm/chapterintrofx_title.o(.text);
+        src/chapterintrofx_title.o(.text);
         src/bmmenu.o(.text);
         src/bmphase.o(.text);
         src/bmgold.o(.text);
