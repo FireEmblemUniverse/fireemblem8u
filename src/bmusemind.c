@@ -60,7 +60,7 @@ void StartLightRuneAnim(ProcPtr, int, int);
 void StartLightRuneAnim2(ProcPtr, int, int);
 
 // minefx.s
-void sub_8022300(ProcPtr, int, int);
+void StartMineAnim(ProcPtr, int, int);
 
 // ev_triggercheck.s
 void sub_80831C8(s8, s8);
@@ -818,7 +818,7 @@ void ExecMine(ProcPtr proc) {
 
     gBattleTarget.statusOut = -1;
 
-    sub_8022300(proc, gActionData.xOther, gActionData.yOther);
+    StartMineAnim(proc, gActionData.xOther, gActionData.yOther);
 
     return;
 }

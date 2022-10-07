@@ -81,7 +81,7 @@ SECTIONS
         src/eventwarpfx.o(.text);
         src/whitecircularfadefx.o(.text);
         src/emitstarfx.o(.text);
-        asm/minefx.o(.text);
+        src/minefx.o(.text);
         asm/chapterintrofx_title.o(.text);
         src/bmmenu.o(.text);
         src/bmphase.o(.text);
@@ -306,6 +306,7 @@ SECTIONS
         . = ALIGN(4); src/eventwarpfx.o(.data);
         . = ALIGN(4); src/whitecircularfadefx.o(.data);
         . = ALIGN(4); src/emitstarfx.o(.data);
+        . = ALIGN(4); src/minefx.o(.data);
         . = ALIGN(4); data/data_59B358.o(.data);
         . = ALIGN(4); src/bmmenu.o(.data);
         . = ALIGN(4); data/data_59B668.o(.data);

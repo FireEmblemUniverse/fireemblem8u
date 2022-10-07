@@ -1449,7 +1449,7 @@ extern u16 CONST_DATA obj_0859AEC8[];
 // extern ??? ProcScr_EmitSingleStar
 // extern ??? ProcScr_EmitStars
 // extern ??? Img_EmitedStar
-// extern ??? gUnknown_0859B560
+// extern ??? ProcScr_MineFx
 // extern ??? gUnknown_0859B668
 // extern ??? gUnknown_0859B66C
 // extern ??? gUnknown_0859B67C
@@ -1589,9 +1589,10 @@ extern u16 CONST_DATA Img_DanceringFx[];
 extern u16 CONST_DATA Tsa_DanceringFx[];
 extern u16 CONST_DATA Pal_DanceringFx[];
 
-// extern ??? gUnknown_085A7CC0
-// extern ??? gUnknown_085A7E34
-// extern ??? gUnknown_085A7EC8
+extern u16 CONST_DATA Img_MineFx[];
+extern u16 CONST_DATA SpritAnim_MineFx[];
+extern u16 CONST_DATA Pal_MineFx[];
+
 // extern ??? gUnknown_085A7EE8
 // extern ??? gProcScr_CpPhase
 // extern ??? gProcScr_BerserkCpPhase

@@ -1,18 +1,5 @@
     .section .data
 
-	.global gUnknown_0859B560
-gUnknown_0859B560:  @ 0x0859B560
-        @ PROC_SLEEP
-        .short 0xe, 0x18
-        .word 0x0
-        @ PROC_CALL
-        .short 0x2, 0x0
-        .word sub_80222E0
-        @ PROC_END
-        .short 0x0, 0x0
-        .word 0x0
-
-
 	.global gUnknown_0859B578
 gUnknown_0859B578:  @ 0x0859B578
         @ PROC_CALL
