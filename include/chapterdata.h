@@ -20,8 +20,8 @@ struct ROMChapterData {
 
     /* 0E */ u16 _unk0E;
 
-    /* 10 */ u8 unk10;
-    /* 11 */ u8 unk11;
+    /* 10 */ u8 unk10; /* xMapCoord */
+    /* 11 */ u8 unk11; /* yMapCoord */
     /* 12 */ u8 initialWeather;
     /* 13 */ u8 battleTileSet;
 

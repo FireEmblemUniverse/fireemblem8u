@@ -9,26 +9,7 @@
 #include "fontgrp.h"
 #include "bmmap.h"
 #include "chapterdata.h"
-
-struct ChapterIntroFXProc {
-    /* 00 */ PROC_HEADER;
-
-    /* 2C */ int unk_2C;
-    /* 30 */ int unk_30;
-
-    u8 _pad1[0x4C-0x34];
-
-    /* 4C */ s16 unk_4C;
-    /* 4E */ s16 unk_4E;
-    /* 50 */ s16 unk_50;
-    /* 52 */ u16 unk_52;
-
-    u8 _pad2[0x64-0x54];
-
-    /* 64 */ s16 unk_64;
-    /* 66 */ s16 unk_66;
-    /* 68 */ s16 unk_68;
-};
+#include "bmfx.h"
 
 // arm_call.s
 void CALLARM_MaybeScreenFadeIn();

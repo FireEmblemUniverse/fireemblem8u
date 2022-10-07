@@ -7,7 +7,7 @@ gUnknown_0859B578:  @ 0x0859B578
         .word BMapDispSuspend
         @ PROC_CALL
         .short 0x2, 0x0
-        .word sub_802237C
+        .word ChapterIntroTitle_InitBgImg
         @ PROC_START_CHILD
         .short 0x5, 0x0
         .word sProcScr_ChapterIntro_KeyListen
@@ -37,7 +37,7 @@ gUnknown_0859B578:  @ 0x0859B578
         .word 0x0
         @ PROC_CALL
         .short 0x2, 0x0
-        .word sub_80224EC
+        .word ChapterIntroTitle_ResetBg
         @ PROC_CALL
         .short 0x2, 0x0
         .word ChapterIntro_8020B20
@@ -46,7 +46,7 @@ gUnknown_0859B578:  @ 0x0859B578
         .word BMapDispResume
         @ PROC_CALL
         .short 0x2, 0x0
-        .word sub_8022528
+        .word ChapterIntroTitle_End
         @ PROC_YIELD
         .short 0xe, 0x0
         .word 0x0
