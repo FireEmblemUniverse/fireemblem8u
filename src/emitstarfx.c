@@ -15,32 +15,32 @@
 struct ProcEmitSingleStarFx {
     PROC_HEADER;
 
-    /* 2C */ int star_loc;
-    /* 30 */ int unk30;
-    /* 34 */ int unk34;
-    /* 38 */ int unk38;
-    /* 3C */ int unk3C;
-    /* 40 */ int unk40;
+    /* 2C */ int loc_x;
+    /* 30 */ int loc_y;
+    /* 34 */ int xdiff_cur;
+    /* 38 */ int ydiff_cur;
+    /* 3C */ int xdiff_const;
+    /* 40 */ int ydiff_const;
 };
 
 struct ProcEmitStars {
     PROC_HEADER;
 
-    /* 2C */ int star_loc;
-    /* 30 */ int unk30;
-    /* 34 */ int unk34;
-    /* 38 */ int unk38;
-    /* 3C */ int unk3C;
-    /* 40 */ int unk40;
-    /* 44 */ int unk44;
-    /* 48 */ int unk48;
+    /* 44 */ u8 _pad_29[0x34 - 0x29];
+
+    /* 34 */ int xloc;
+    /* 38 */ int yloc;
+    /* 3C */ int xdiff_const;
+    /* 40 */ int ydiff_const;
+
+    /* 44 */ u8 _pad_44[0x4C - 0x44];
 
     /* 4C */ s16 counter;
 
     /* 4E */ u8 _pad_4E[0x64 - 0x4E];
 
     /* 64 */ s16 stars;
-    /* 66 */ s16 move_star_ctr;
+    /* 66 */ s16 star_cannot_move;
 };
 
 
@@ -81,44 +81,42 @@ u8 CONST_DATA Img_EmitedStar[0x20] = {
 
 void ProcEmitSingleStar_Init(struct ProcEmitSingleStarFx *proc)
 {
-    int val, tmp1, tmp2;
+    int ydiff, ydiff_tmp;
 
-    proc->unk34 = 0;
-    proc->unk38 = 0;
-    proc->unk3C = 0;
+    proc->xdiff_cur = 0;
+    proc->ydiff_cur = 0;
+    proc->xdiff_const = 0;
     
-    tmp1 = AdvanceGetLCGRNValue() % 0x400;
-    tmp2 = ((struct ProcEmitStars*)proc->proc_parent)->stars * 0x10;
-    tmp2 += 0xC00;
-    val = tmp1 + tmp2;
+    ydiff_tmp = AdvanceGetLCGRNValue() % 0x400;
+    ydiff = ydiff_tmp + 0xC00 + ((struct ProcEmitStars*)proc->proc_parent)->stars * 0x10;
 
-    proc->unk40 = -val;
+    proc->ydiff_const = -ydiff;
 }
 
 void ProcEmitSingleStar_Loop(struct ProcEmitSingleStarFx *proc)
 {
-    int val0, val1;
+    int xdiff, ydiff;
 
     struct ProcEmitStars *parent = proc->proc_parent;
-    if (0 == parent->move_star_ctr || 0 == GetGameClock() % 4) {
-        val0 = proc->unk34 + proc->unk3C;
-        proc->unk34 = val0;
+    if (0 == parent->star_cannot_move || 0 == GetGameClock() % 4) {
+        xdiff = proc->xdiff_cur + proc->xdiff_const;
+        proc->xdiff_cur = xdiff;
 
-        val1 = proc->unk38 + proc->unk40;
-        proc->unk38 = val1;
-        proc->star_loc += val0;
-        proc->unk30 += val1;
+        ydiff = proc->ydiff_cur + proc->ydiff_const;
+        proc->ydiff_cur = ydiff;
+        proc->loc_x += xdiff;
+        proc->loc_y += ydiff;
     }
 
-    if (proc->unk30 < 0) {
+    if (proc->loc_y < 0) {
         Proc_Break(proc);
         ((struct ProcEmitStars*)proc->proc_parent)->counter--;
     } else {
-        struct Vec2 *vec = (struct Vec2*)(&proc->star_loc);
         PutSprite(0xA,
-                vec->y, /* wtf?? */
-                proc->unk30 >> 0x10,
-                gObject_8x8, 0xA00);
+                proc->loc_x >> 0x10,
+                proc->loc_y >> 0x10,
+                gObject_8x8,
+                OAM2_PAL(0) + OAM2_LAYER(2) + OAM2_CHR(OBJCHR_EMITSTARTS));
     }
 }
 
@@ -130,7 +128,7 @@ void Calcs_Interpolate(int *buf1, int *buf2, int r2, int r3, int r4)
 
 void LetsEmitStars(struct ProcEmitStars *proc)
 {
-    int val, val1;
+    int val;
     struct ProcEmitSingleStarFx * child;
     
     if (0 == GetGameClock() % 4)
@@ -143,16 +141,16 @@ void LetsEmitStars(struct ProcEmitStars *proc)
 
     while (1) {
         child = Proc_Start(ProcScr_EmitSingleStar, proc);
-        child->star_loc = (proc->unk34 * 0x10000)
+        child->loc_x = (proc->xloc * 0x10000)
                      + (AdvanceGetLCGRNValue() % 0x10000) * 0x10;
-        child->unk30 = (proc->unk38 + 8) * 0x10000
+        child->loc_y = (proc->yloc + 8) * 0x10000
                      + (AdvanceGetLCGRNValue() % 0x10000) * 0x8;
 
         Calcs_Interpolate(
-            &child->star_loc,
-            &child->unk30,
-            proc->unk3C,
-            proc->unk40,
+            &child->loc_x,
+            &child->loc_y,
+            proc->xdiff_const,
+            proc->ydiff_const,
             proc->stars <= 0x100 ? proc->stars : 0x100
         );
 
@@ -170,16 +168,16 @@ void LetsEmitStars(struct ProcEmitStars *proc)
         return;
 
     child = Proc_Start(ProcScr_EmitSingleStar, proc);
-    child->star_loc = (proc->unk34 - 0x8) * 0x10000
+    child->loc_x = (proc->xloc - 0x8) * 0x10000
                      + (AdvanceGetLCGRNValue() % 0x10000) * 0x20;
-    child->unk30 = (proc->unk38 + 8) * 0x10000
+    child->loc_y = (proc->yloc + 8) * 0x10000
                      + (AdvanceGetLCGRNValue() % 0x10000) * 0x8;
 
     Calcs_Interpolate(
-            &child->star_loc,
-            &child->unk30,
-            proc->unk3C,
-            proc->unk40,
+            &child->loc_x,
+            &child->loc_y,
+            proc->xdiff_const,
+            proc->ydiff_const,
             proc->stars <= 0x100 ? proc->stars : 0x100
         );
 
@@ -191,7 +189,7 @@ void LetsEmitStars(struct ProcEmitStars *proc)
     if (proc->stars > 0x140) {
         Proc_Break(proc);
         proc->stars = 0;
-        proc->move_star_ctr = 1;
+        proc->star_cannot_move = 1;
     }
 }
 
@@ -206,7 +204,7 @@ void StarsBlinking(struct ProcEmitStars *proc)
     proc->stars++;
 }
 
-void StartEmitStarsAnim(ProcPtr parent, int r1, int r2, int r3, int r4)
+void StartEmitStarsAnim(ProcPtr parent, int xloc, int yloc, int xdiff, int ydiff)
 {
     struct ProcEmitStars *proc;
 
@@ -218,13 +216,13 @@ void StartEmitStarsAnim(ProcPtr parent, int r1, int r2, int r3, int r4)
 
     proc = Proc_Start(ProcScr_EmitStars, parent);
 
-    proc->unk34 = r1;
-    proc->unk38 = r2;
-    proc->unk3C = r3 << 0x10;
-    proc->unk40 = r4 << 0x10;
+    proc->xloc = xloc;
+    proc->yloc = yloc;
+    proc->xdiff_const = xdiff << 0x10;
+    proc->ydiff_const = ydiff << 0x10;
     proc->counter = 0;
     proc->stars = -1;
-    proc->move_star_ctr = 0;
+    proc->star_cannot_move = 0;
 }
 
 void ClearEmitedStars()
