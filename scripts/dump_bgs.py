@@ -47,10 +47,8 @@ with open('../data/data_bg.s', 'w') as f:
                         f'\t.incbin "graphics/bg/{filename}"\n',])
 
 with open('../include/bg.h', 'w') as f:
-    for i in range(table_entries):
-        f.writelines([f'extern unsigned char bg_{i}_tiles[];\n',
-                        f'extern unsigned short bg_{i}_map[];\n',
-                        f'extern unsigned short bg_{i}_palette[];\n'])
+    for ptr in sorted(ptrs.keys()):
+        f.write(f'extern unsigned char {ptrs[ptr]}[];\n')
 
 with open('../src/ectscr_.c', 'a') as f:
     f.write('\nstruct CONST_DATA gfx_set gConvoBackgroundData[] = {\n')
