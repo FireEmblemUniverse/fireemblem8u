@@ -354,7 +354,9 @@ SECTIONS
         . = ALIGN(4); src/unit_icon_wait_data.o(.data);
         . = ALIGN(4); data/data_8AFBD8.o(.data);
         . = ALIGN(4); src/monstergen_data.o(.data);
-        . = ALIGN(4); data/data_8D2700.o(.data);
+        . = ALIGN(4); data/data_bg.o(.data);
+        . = ALIGN(4); src/ectscr_.o(.data);
+        . = ALIGN(4); data/data_95DFA4.o(.data);
         . = ALIGN(4); src/mu.o(.data);
         . = ALIGN(4); data/data_9A2DB0.o(.data);
         . = ALIGN(4); src/unit_icon_move_data.o(.data);

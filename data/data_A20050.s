@@ -12248,7 +12248,7 @@ gUnknown_08ADFA08:  @ 0x08ADFA08
     .4byte 0x2e7d473f
     .4byte 0x2d6e25d3
     .4byte 0x14fd24a8
-    .4byte gUnknown_088FD9D8 + 0x32a1
+    .4byte 0x08900c79
     .4byte 0x31ff52ff
     .4byte 0x20ac27ff
     .4byte 0x67354e73

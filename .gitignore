@@ -948,3 +948,6 @@ sound/songs/midi/*.s
 # Generated source files
 src/msg_data.c
 include/msg_data.h
+
+# Generated tileset images
+graphics/bg/*_tiles.png
