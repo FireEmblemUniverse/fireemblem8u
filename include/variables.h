@@ -2770,7 +2770,7 @@ extern const u16 gUnkUiFramePalettes[];
 // extern ??? gUnknown_0875A314
 // extern ??? gUnknown_0875A468
 // extern ??? gUnknown_0875A730
-// extern ??? gUnknown_0875A794
+// extern ??? gBattleBGDataTable
 // extern ??? gUnknown_0878D518
 // extern ??? gUnknown_0878D520
 // extern ??? gUnknown_0878D588

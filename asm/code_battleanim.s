@@ -77299,7 +77299,7 @@ sub_8075A50: @ 0x08075A50
 	push {lr}
 	lsls r1, r0, #1
 	adds r1, r1, r0
-	ldr r0, _08075A68  @ gUnknown_0875A794
+	ldr r0, _08075A68  @ gBattleBGDataTable
 	lsls r1, r1, #2
 	adds r1, r1, r0
 	ldr r0, [r1]
@@ -77308,7 +77308,7 @@ sub_8075A50: @ 0x08075A50
 	pop {r0}
 	bx r0
 	.align 2, 0
-_08075A68: .4byte gUnknown_0875A794
+_08075A68: .4byte gBattleBGDataTable
 _08075A6C: .4byte 0x06008000
 
 	THUMB_FUNC_END sub_8075A50
@@ -77320,7 +77320,7 @@ sub_8075A70: @ 0x08075A70
 	lsls r1, r0, #1
 	adds r1, r1, r0
 	adds r1, #1
-	ldr r0, _08075AA8  @ gUnknown_0875A794
+	ldr r0, _08075AA8  @ gBattleBGDataTable
 	lsls r1, r1, #2
 	adds r1, r1, r0
 	ldr r0, [r1]
@@ -77341,7 +77341,7 @@ sub_8075A70: @ 0x08075A70
 	pop {r0}
 	bx r0
 	.align 2, 0
-_08075AA8: .4byte gUnknown_0875A794
+_08075AA8: .4byte gBattleBGDataTable
 _08075AAC: .4byte gUnknown_02019790
 _08075AB0: .4byte gBG3TilemapBuffer
 
@@ -77353,7 +77353,7 @@ sub_8075AB4: @ 0x08075AB4
 	lsls r1, r0, #1
 	adds r1, r1, r0
 	adds r1, #2
-	ldr r0, _08075AD0  @ gUnknown_0875A794
+	ldr r0, _08075AD0  @ gBattleBGDataTable
 	lsls r1, r1, #2
 	adds r1, r1, r0
 	ldr r0, [r1]
@@ -77362,7 +77362,7 @@ sub_8075AB4: @ 0x08075AB4
 	pop {r0}
 	bx r0
 	.align 2, 0
-_08075AD0: .4byte gUnknown_0875A794
+_08075AD0: .4byte gBattleBGDataTable
 _08075AD4: .4byte gUnknown_02022968
 
 	THUMB_FUNC_END sub_8075AB4
