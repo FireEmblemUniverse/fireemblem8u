@@ -103,8 +103,6 @@ clean:
 	$(RM) -f $(SAMPLE_SUBDIR)/*.bin
 	# Remove converted songs
 	$(RM) -f $(MID_SUBDIR)/*.s
-	# Remove generated tilesets
-	$(RM) -f graphics/bg/*_tiles.png
 
 .PHONY: clean
 

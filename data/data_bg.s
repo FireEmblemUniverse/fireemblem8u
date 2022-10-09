@@ -3,7 +3,7 @@
 	.align 2, 0
 	.global bg_0_tiles
 bg_0_tiles:
-	.incbin "graphics/bg/bg_0_tiles.4bpp.lz"
+	.incbin "graphics/bg/bg_0.4bpp.lz"
 
 	.align 2, 0
 	.global bg_0_map
@@ -18,7 +18,7 @@ bg_0_palette:
 	.align 2, 0
 	.global bg_1_tiles
 bg_1_tiles:
-	.incbin "graphics/bg/bg_1_tiles.4bpp.lz"
+	.incbin "graphics/bg/bg_1.4bpp.lz"
 
 	.align 2, 0
 	.global bg_1_map
@@ -33,7 +33,7 @@ bg_1_palette:
 	.align 2, 0
 	.global bg_2_tiles
 bg_2_tiles:
-	.incbin "graphics/bg/bg_2_tiles.4bpp.lz"
+	.incbin "graphics/bg/bg_2.4bpp.lz"
 
 	.align 2, 0
 	.global bg_2_map
@@ -48,7 +48,7 @@ bg_2_palette:
 	.align 2, 0
 	.global bg_3_tiles
 bg_3_tiles:
-	.incbin "graphics/bg/bg_3_tiles.4bpp.lz"
+	.incbin "graphics/bg/bg_3.4bpp.lz"
 
 	.align 2, 0
 	.global bg_3_map
@@ -68,7 +68,7 @@ bg_4_palette:
 	.align 2, 0
 	.global bg_5_tiles
 bg_5_tiles:
-	.incbin "graphics/bg/bg_5_tiles.4bpp.lz"
+	.incbin "graphics/bg/bg_5.4bpp.lz"
 
 	.align 2, 0
 	.global bg_5_map
@@ -88,7 +88,7 @@ bg_6_palette:
 	.align 2, 0
 	.global bg_7_tiles
 bg_7_tiles:
-	.incbin "graphics/bg/bg_7_tiles.4bpp.lz"
+	.incbin "graphics/bg/bg_7.4bpp.lz"
 
 	.align 2, 0
 	.global bg_7_map
@@ -103,7 +103,7 @@ bg_7_palette:
 	.align 2, 0
 	.global bg_8_tiles
 bg_8_tiles:
-	.incbin "graphics/bg/bg_8_tiles.4bpp.lz"
+	.incbin "graphics/bg/bg_8.4bpp.lz"
 
 	.align 2, 0
 	.global bg_8_map
@@ -118,7 +118,7 @@ bg_8_palette:
 	.align 2, 0
 	.global bg_9_tiles
 bg_9_tiles:
-	.incbin "graphics/bg/bg_9_tiles.4bpp.lz"
+	.incbin "graphics/bg/bg_9.4bpp.lz"
 
 	.align 2, 0
 	.global bg_9_map
@@ -133,7 +133,7 @@ bg_9_palette:
 	.align 2, 0
 	.global bg_10_tiles
 bg_10_tiles:
-	.incbin "graphics/bg/bg_10_tiles.4bpp.lz"
+	.incbin "graphics/bg/bg_10.4bpp.lz"
 
 	.align 2, 0
 	.global bg_10_map
@@ -153,7 +153,7 @@ bg_11_palette:
 	.align 2, 0
 	.global bg_12_tiles
 bg_12_tiles:
-	.incbin "graphics/bg/bg_12_tiles.4bpp.lz"
+	.incbin "graphics/bg/bg_12.4bpp.lz"
 
 	.align 2, 0
 	.global bg_12_map
@@ -173,7 +173,7 @@ bg_13_palette:
 	.align 2, 0
 	.global bg_14_tiles
 bg_14_tiles:
-	.incbin "graphics/bg/bg_14_tiles.4bpp.lz"
+	.incbin "graphics/bg/bg_14.4bpp.lz"
 
 	.align 2, 0
 	.global bg_14_map
@@ -193,7 +193,7 @@ bg_15_palette:
 	.align 2, 0
 	.global bg_16_tiles
 bg_16_tiles:
-	.incbin "graphics/bg/bg_16_tiles.4bpp.lz"
+	.incbin "graphics/bg/bg_16.4bpp.lz"
 
 	.align 2, 0
 	.global bg_16_map
@@ -213,7 +213,7 @@ bg_17_palette:
 	.align 2, 0
 	.global bg_18_tiles
 bg_18_tiles:
-	.incbin "graphics/bg/bg_18_tiles.4bpp.lz"
+	.incbin "graphics/bg/bg_18.4bpp.lz"
 
 	.align 2, 0
 	.global bg_18_map
@@ -228,7 +228,7 @@ bg_18_palette:
 	.align 2, 0
 	.global bg_19_tiles
 bg_19_tiles:
-	.incbin "graphics/bg/bg_19_tiles.4bpp.lz"
+	.incbin "graphics/bg/bg_19.4bpp.lz"
 
 	.align 2, 0
 	.global bg_19_map
@@ -248,7 +248,7 @@ bg_20_palette:
 	.align 2, 0
 	.global bg_21_tiles
 bg_21_tiles:
-	.incbin "graphics/bg/bg_21_tiles.4bpp.lz"
+	.incbin "graphics/bg/bg_21.4bpp.lz"
 
 	.align 2, 0
 	.global bg_21_map
@@ -268,7 +268,7 @@ bg_22_palette:
 	.align 2, 0
 	.global bg_23_tiles
 bg_23_tiles:
-	.incbin "graphics/bg/bg_23_tiles.4bpp.lz"
+	.incbin "graphics/bg/bg_23.4bpp.lz"
 
 	.align 2, 0
 	.global bg_23_map
@@ -283,7 +283,7 @@ bg_23_palette:
 	.align 2, 0
 	.global bg_24_tiles
 bg_24_tiles:
-	.incbin "graphics/bg/bg_24_tiles.4bpp.lz"
+	.incbin "graphics/bg/bg_24.4bpp.lz"
 
 	.align 2, 0
 	.global bg_24_map
@@ -308,7 +308,7 @@ bg_26_palette:
 	.align 2, 0
 	.global bg_27_tiles
 bg_27_tiles:
-	.incbin "graphics/bg/bg_27_tiles.4bpp.lz"
+	.incbin "graphics/bg/bg_27.4bpp.lz"
 
 	.align 2, 0
 	.global bg_27_map
@@ -323,7 +323,7 @@ bg_27_palette:
 	.align 2, 0
 	.global bg_28_tiles
 bg_28_tiles:
-	.incbin "graphics/bg/bg_28_tiles.4bpp.lz"
+	.incbin "graphics/bg/bg_28.4bpp.lz"
 
 	.align 2, 0
 	.global bg_28_map
@@ -338,7 +338,7 @@ bg_28_palette:
 	.align 2, 0
 	.global bg_29_tiles
 bg_29_tiles:
-	.incbin "graphics/bg/bg_29_tiles.4bpp.lz"
+	.incbin "graphics/bg/bg_29.4bpp.lz"
 
 	.align 2, 0
 	.global bg_29_map
@@ -368,7 +368,7 @@ bg_32_palette:
 	.align 2, 0
 	.global bg_33_tiles
 bg_33_tiles:
-	.incbin "graphics/bg/bg_33_tiles.4bpp.lz"
+	.incbin "graphics/bg/bg_33.4bpp.lz"
 
 	.align 2, 0
 	.global bg_33_map
@@ -383,7 +383,7 @@ bg_33_palette:
 	.align 2, 0
 	.global bg_34_tiles
 bg_34_tiles:
-	.incbin "graphics/bg/bg_34_tiles.4bpp.lz"
+	.incbin "graphics/bg/bg_34.4bpp.lz"
 
 	.align 2, 0
 	.global bg_34_map
@@ -398,7 +398,7 @@ bg_34_palette:
 	.align 2, 0
 	.global bg_35_tiles
 bg_35_tiles:
-	.incbin "graphics/bg/bg_35_tiles.4bpp.lz"
+	.incbin "graphics/bg/bg_35.4bpp.lz"
 
 	.align 2, 0
 	.global bg_35_map
@@ -413,7 +413,7 @@ bg_35_palette:
 	.align 2, 0
 	.global bg_36_tiles
 bg_36_tiles:
-	.incbin "graphics/bg/bg_36_tiles.4bpp.lz"
+	.incbin "graphics/bg/bg_36.4bpp.lz"
 
 	.align 2, 0
 	.global bg_36_map
@@ -428,7 +428,7 @@ bg_36_palette:
 	.align 2, 0
 	.global bg_37_tiles
 bg_37_tiles:
-	.incbin "graphics/bg/bg_37_tiles.4bpp.lz"
+	.incbin "graphics/bg/bg_37.4bpp.lz"
 
 	.align 2, 0
 	.global bg_37_map
@@ -443,7 +443,7 @@ bg_37_palette:
 	.align 2, 0
 	.global bg_38_tiles
 bg_38_tiles:
-	.incbin "graphics/bg/bg_38_tiles.4bpp.lz"
+	.incbin "graphics/bg/bg_38.4bpp.lz"
 
 	.align 2, 0
 	.global bg_38_map
@@ -463,7 +463,7 @@ bg_39_palette:
 	.align 2, 0
 	.global bg_40_tiles
 bg_40_tiles:
-	.incbin "graphics/bg/bg_40_tiles.4bpp.lz"
+	.incbin "graphics/bg/bg_40.4bpp.lz"
 
 	.align 2, 0
 	.global bg_40_map
@@ -478,7 +478,7 @@ bg_40_palette:
 	.align 2, 0
 	.global bg_41_tiles
 bg_41_tiles:
-	.incbin "graphics/bg/bg_41_tiles.4bpp.lz"
+	.incbin "graphics/bg/bg_41.4bpp.lz"
 
 	.align 2, 0
 	.global bg_41_map
@@ -493,7 +493,7 @@ bg_41_palette:
 	.align 2, 0
 	.global bg_42_tiles
 bg_42_tiles:
-	.incbin "graphics/bg/bg_42_tiles.4bpp.lz"
+	.incbin "graphics/bg/bg_42.4bpp.lz"
 
 	.align 2, 0
 	.global bg_42_map
@@ -508,7 +508,7 @@ bg_42_palette:
 	.align 2, 0
 	.global bg_43_tiles
 bg_43_tiles:
-	.incbin "graphics/bg/bg_43_tiles.4bpp.lz"
+	.incbin "graphics/bg/bg_43.4bpp.lz"
 
 	.align 2, 0
 	.global bg_43_map
@@ -523,7 +523,7 @@ bg_43_palette:
 	.align 2, 0
 	.global bg_44_tiles
 bg_44_tiles:
-	.incbin "graphics/bg/bg_44_tiles.4bpp.lz"
+	.incbin "graphics/bg/bg_44.4bpp.lz"
 
 	.align 2, 0
 	.global bg_44_map
@@ -543,7 +543,7 @@ bg_45_palette:
 	.align 2, 0
 	.global bg_46_tiles
 bg_46_tiles:
-	.incbin "graphics/bg/bg_46_tiles.4bpp.lz"
+	.incbin "graphics/bg/bg_46.4bpp.lz"
 
 	.align 2, 0
 	.global bg_46_map
@@ -558,7 +558,7 @@ bg_46_palette:
 	.align 2, 0
 	.global bg_47_tiles
 bg_47_tiles:
-	.incbin "graphics/bg/bg_47_tiles.4bpp.lz"
+	.incbin "graphics/bg/bg_47.4bpp.lz"
 
 	.align 2, 0
 	.global bg_47_map
@@ -573,7 +573,7 @@ bg_47_palette:
 	.align 2, 0
 	.global bg_48_tiles
 bg_48_tiles:
-	.incbin "graphics/bg/bg_48_tiles.4bpp.lz"
+	.incbin "graphics/bg/bg_48.4bpp.lz"
 
 	.align 2, 0
 	.global bg_48_map
@@ -588,7 +588,7 @@ bg_48_palette:
 	.align 2, 0
 	.global bg_49_tiles
 bg_49_tiles:
-	.incbin "graphics/bg/bg_49_tiles.4bpp.lz"
+	.incbin "graphics/bg/bg_49.4bpp.lz"
 
 	.align 2, 0
 	.global bg_49_map
@@ -603,7 +603,7 @@ bg_49_palette:
 	.align 2, 0
 	.global bg_50_tiles
 bg_50_tiles:
-	.incbin "graphics/bg/bg_50_tiles.4bpp.lz"
+	.incbin "graphics/bg/bg_50.4bpp.lz"
 
 	.align 2, 0
 	.global bg_50_map
@@ -618,7 +618,7 @@ bg_50_palette:
 	.align 2, 0
 	.global bg_51_tiles
 bg_51_tiles:
-	.incbin "graphics/bg/bg_51_tiles.4bpp.lz"
+	.incbin "graphics/bg/bg_51.4bpp.lz"
 
 	.align 2, 0
 	.global bg_51_map
@@ -633,7 +633,7 @@ bg_51_palette:
 	.align 2, 0
 	.global bg_52_tiles
 bg_52_tiles:
-	.incbin "graphics/bg/bg_52_tiles.4bpp.lz"
+	.incbin "graphics/bg/bg_52.4bpp.lz"
 
 	.align 2, 0
 	.global bg_52_map
@@ -648,7 +648,7 @@ bg_52_palette:
 	.align 2, 0
 	.global bg_53_tiles
 bg_53_tiles:
-	.incbin "graphics/bg/bg_53_tiles.4bpp.lz"
+	.incbin "graphics/bg/bg_53.4bpp.lz"
 
 	.align 2, 0
 	.global bg_53_map

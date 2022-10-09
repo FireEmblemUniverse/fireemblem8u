@@ -61,6 +61,3 @@ $(MOVEUNITGFXDIR)/unit_icon_move_105_sheet.4bpp: %.4bpp: %.png
 
 $(MOVEUNITGFXDIR)/unit_icon_move_107_sheet.4bpp: %.4bpp: %.png
 	$(GBAGFX) $< $@ -num_tiles 252
-
-%_tiles.png: %.png %.bin
-	python ./scripts/make_tiles_from_map.py $@ $^

@@ -51,10 +51,6 @@ Q: `.dep/src/xxx.d:2: *** missing separator.  Stop.`
 
 A: `rm -rf .dep` or disable [VSCode Extension: Makefile Tools](https://marketplace.visualstudio.com/items?itemName=ms-vscode.makefile-tools) if installed.
 
-Q: `ModuleNotFoundError: No module named 'PIL'`
-
-A: `pip install Pillow`. Read [this](https://pypi.org/project/Pillow/) for more info.
-
 Check [INSTALL.md](https://github.com/pret/pokeruby/blob/master/INSTALL.md) and [INSTALL.md](https://github.com/pret/pokeemerald/blob/master/INSTALL.md) if you have trouble in setting up.
 
 Check [remove_tools](https://github.com/laqieer/fireemblem8u/tree/remove_tools) branch if you don't want to build agbcc and other tools by yourself. It uses docker to make setting up easier. Follow its [README.md](https://github.com/laqieer/fireemblem8u/blob/remove_tools/README.md) instead.
