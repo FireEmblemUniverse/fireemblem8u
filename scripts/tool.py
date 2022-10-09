@@ -241,10 +241,15 @@ def dump_palette(fp, offset, comp_type=None, color_number=16, name=None):
             raise CompTypeError(offset, data.comp_type)
         with open(compfile, 'wb') as fp_comp:
             data.write_comp_data(fp_comp)
-        decomp_file(fp_comp, name)
+        decomp_file(compfile, name + '.gbapal')
     else:
         with open(name + '.gbapal', 'wb') as fp_pal:
             fp_pal.write(fp.read(2 * color_number))
+    cmd = "%s %s.gbapal %s.pal" % (gbagfx, name, name)
+    p = Popen(cmd, stderr=PIPE, cwd=cwd, shell=True)
+    p.wait()
+    if p.returncode != 0:
+        raise GbagfxError(cmd, p.stderr)
 
 def dump_map(fp, offset, comp_type=None, name=None):
     if offset > 0x8000000:
@@ -262,7 +267,7 @@ def dump_map(fp, offset, comp_type=None, name=None):
             raise CompTypeError(offset, data.comp_type)
         with open(compfile, 'wb') as fp_comp:
             data.write_comp_data(fp_comp)
-        decomp_file(fp_comp, name)
+        decomp_file(compfile, name + '.bin')
     else:
         with open(name + '.bin', 'wb') as fp_map:
             w = fp.read(1)
