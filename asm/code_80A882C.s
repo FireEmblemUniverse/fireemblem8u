@@ -29362,10 +29362,10 @@ _080B65E8: .4byte 0xFFFFE00F
 
 	THUMB_FUNC_START sub_80B65EC
 sub_80B65EC: @ 0x080B65EC
-	ldr r0, _080B65F0  @ gUnknown_08A3CCEC
+	ldr r0, _080B65F0  @ gCGDataTable
 	bx lr
 	.align 2, 0
-_080B65F0: .4byte gUnknown_08A3CCEC
+_080B65F0: .4byte gCGDataTable
 
 	THUMB_FUNC_END sub_80B65EC
 

@@ -3648,7 +3648,7 @@ extern u8 gUnknown_08A372C0[];
 // extern ??? gUnknown_08A3CB3A
 // extern ??? gUnknown_08A3CB46
 // extern ??? gUnknown_08A3CB50
-// extern ??? gUnknown_08A3CCEC
+// extern ??? gCGDataTable
 // extern ??? gUnknown_08A3CD64
 // extern ??? gUnknown_08A3D1A8
 // extern ??? gUnknown_08A3D1B0
@@ -3760,7 +3760,6 @@ extern u8 gUnknown_08A372C0[];
 // extern ??? gUnknown_08A40FC8
 // extern ??? gUnknown_08A4CF2C
 // extern ??? gUnknown_08A4D0CC
-// extern ??? gUnknown_08A708A7
 // extern ??? gUnknown_08A83364
 // extern ??? gUnknown_08A95F64
 // extern ??? gUnknown_08A95FE4
