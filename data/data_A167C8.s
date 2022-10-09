@@ -2658,7 +2658,7 @@ gUnknown_08A1A3FC:  @ 0x08A1A3FC
     .4byte 0x5ab50000
     .4byte 0x2508462f
     .4byte 0x26b50000
-    .4byte gUnknown_08A708A7 + 0xa5
+    .4byte 0x8A708A7 + 0xa5
     .4byte 0x59400956
     .4byte 0x394e520e
     .4byte 0x32ca01a1
