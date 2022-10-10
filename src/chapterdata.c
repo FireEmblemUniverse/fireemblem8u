@@ -1,5 +1,6 @@
 #include "global.h"
 #include "chapterdata.h"
+#include "hardware.h"
 #include "agb_sram.h"
 
 const struct ROMChapterData* GetROMChapterStruct(unsigned chIndex) {
@@ -13,8 +14,8 @@ const void* GetChapterMapPointer(unsigned chIndex) {
     if (chIndex != 0x7F)
         return gChapterDataAssetTable[GetROMChapterStruct(chIndex)->mapMainLayerId];
 
-    ReadSramFast(sub_80A6B70(), gUnknown_02020188, sub_80A6B90());
-    return gUnknown_02020188;
+    ReadSramFast(sub_80A6B70(), gGenericBuffer, sub_80A6B90());
+    return gGenericBuffer;
 }
 
 const void* GetChapterMapChangesPointer(unsigned chIndex) {

@@ -3,6 +3,7 @@
 #include "variables.h"
 #include "bmitem.h"
 #include "chapterdata.h"
+#include "hardware.h"
 #include "bmunit.h"
 
 EWRAM_DATA u16 gConvoyItemArray[100] = {0};
@@ -20,7 +21,7 @@ void ClearConvoyItems() {
 
 void ShrinkConvoyItemList() {
     u16 i;
-    u16* buffer = (void*) gUnknown_02020188;
+    u16* buffer = gGenericBuffer;
     u16* bufferIt = buffer;
     u16* convoy = GetConvoyItemArray();
 

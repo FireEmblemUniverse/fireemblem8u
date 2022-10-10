@@ -93,6 +93,10 @@ enum {
     gLCDControlBuffer.wincnt.wout_enableBg3 = (bg3); \
     gLCDControlBuffer.wincnt.wout_enableObj = (obj)
 
+extern u8 _gGenericBuffer[];
+#define gGenericBuffer ((void*)_gGenericBuffer)
+
+
 // Functions
 
 void CopyToPaletteBuffer(const void* src, int b, int size);

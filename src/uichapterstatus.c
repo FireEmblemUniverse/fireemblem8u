@@ -508,8 +508,8 @@ void ChapterStatus_Init(struct ChapterStatusProc* proc) {
 
     CopyToPaletteBuffer(gUiFramePaletteA, 0x40, 0x60);
     CopyDataWithPossibleUncomp(gUnknown_08A2E5EC, (void*)(BG_VRAM + 0x5800));
-    CopyDataWithPossibleUncomp(gUnknown_08A2E4C4, gUnknown_02020188);
-    CallARM_FillTileRect(gBG2TilemapBuffer, gUnknown_02020188, 0x1000);
+    CopyDataWithPossibleUncomp(gUnknown_08A2E4C4, gGenericBuffer);
+    CallARM_FillTileRect(gBG2TilemapBuffer, gGenericBuffer, 0x1000);
 
     CopyDataWithPossibleUncomp(gUnknown_08A2D32C, OBJ_VRAM0 + 0x3000);
     CopyToPaletteBuffer(gUnknown_08A2E1B8, 0x300, 0x40);

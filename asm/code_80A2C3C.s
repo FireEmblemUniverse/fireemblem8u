@@ -166,7 +166,7 @@ sub_80A3898: @ 0x080A3898
 	beq _080A38EC
 	cmp r5, #0
 	bne _080A38AC
-	ldr r5, _080A38DC  @ gUnknown_02020188
+	ldr r5, _080A38DC  @ _gGenericBuffer
 _080A38AC:
 	ldr r1, _080A38E0  @ ReadSramFast
 	ldr r0, _080A38E4  @ gpSaveDataStart
@@ -190,7 +190,7 @@ _080A38AC:
 	movs r0, #1
 	b _080A38EE
 	.align 2, 0
-_080A38DC: .4byte gUnknown_02020188
+_080A38DC: .4byte _gGenericBuffer
 _080A38E0: .4byte ReadSramFast
 _080A38E4: .4byte gpSaveDataStart
 _080A38E8: .4byte 0x00007190
@@ -213,7 +213,7 @@ sub_80A38F4: @ 0x080A38F4
 	beq _080A3948
 	cmp r5, #0
 	bne _080A3908
-	ldr r5, _080A3938  @ gUnknown_02020188
+	ldr r5, _080A3938  @ _gGenericBuffer
 _080A3908:
 	ldr r1, _080A393C  @ ReadSramFast
 	ldr r0, _080A3940  @ gpSaveDataStart
@@ -238,7 +238,7 @@ _080A3908:
 	movs r0, #1
 	b _080A394A
 	.align 2, 0
-_080A3938: .4byte gUnknown_02020188
+_080A3938: .4byte _gGenericBuffer
 _080A393C: .4byte ReadSramFast
 _080A3940: .4byte gpSaveDataStart
 _080A3944: .4byte 0x0000725C
@@ -3164,7 +3164,7 @@ sub_80A4E08: @ 0x080A4E08
 	bl GetSaveDataLocation
 	mov r8, r0
 	ldr r0, _080A4E60  @ ReadSramFast
-	ldr r4, _080A4E64  @ gUnknown_02020188
+	ldr r4, _080A4E64  @ _gGenericBuffer
 	ldr r5, _080A4E68  @ 0x00000DC8
 	ldr r3, [r0]
 	adds r0, r6, #0
@@ -3192,7 +3192,7 @@ sub_80A4E08: @ 0x080A4E08
 	bx r0
 	.align 2, 0
 _080A4E60: .4byte ReadSramFast
-_080A4E64: .4byte gUnknown_02020188
+_080A4E64: .4byte _gGenericBuffer
 _080A4E68: .4byte 0x00000DC8
 _080A4E6C: .4byte 0x00040624
 
@@ -3677,7 +3677,7 @@ sub_80A5290: @ 0x080A5290
 	bl CheckSaveAndGetPointer
 	ldr r1, _080A52B4  @ 0x00000D6C
 	adds r0, r0, r1
-	ldr r4, _080A52B8  @ gUnknown_02020188
+	ldr r4, _080A52B8  @ _gGenericBuffer
 	adds r1, r4, #0
 	bl LoadGlobalEventIds_ret
 	movs r0, #0x8a
@@ -3690,7 +3690,7 @@ sub_80A5290: @ 0x080A5290
 	bx r1
 	.align 2, 0
 _080A52B4: .4byte 0x00000D6C
-_080A52B8: .4byte gUnknown_02020188
+_080A52B8: .4byte _gGenericBuffer
 
 	THUMB_FUNC_END sub_80A5290
 
@@ -4740,7 +4740,7 @@ _080A5A70:
 	adds r1, #0x4c
 	movs r2, #0x38
 	bl WriteAndVerifySramFast
-	ldr r5, _080A5BC8  @ gUnknown_02020188
+	ldr r5, _080A5BC8  @ _gGenericBuffer
 	add r0, sp, #0x10
 	mov sl, r0
 	add r1, sp, #0x20
@@ -4759,7 +4759,7 @@ _080A5AB2:
 	subs r4, #1
 	cmp r4, #0
 	bge _080A5AB2
-	ldr r4, _080A5BC8  @ gUnknown_02020188
+	ldr r4, _080A5BC8  @ _gGenericBuffer
 	ldr r2, _080A5BD0  @ 0x00000A5C
 	adds r1, r7, #0
 	adds r1, #0x84
@@ -4789,7 +4789,7 @@ _080A5AEE:
 	cmp r4, #0
 	bge _080A5AEE
 	movs r4, #0
-	ldr r0, _080A5BC8  @ gUnknown_02020188
+	ldr r0, _080A5BC8  @ _gGenericBuffer
 	ldr r2, _080A5BDC  @ 0x00000B14
 	adds r1, r7, r2
 	movs r2, #0xc3
@@ -4870,7 +4870,7 @@ _080A5BB0:
 	.align 2, 0
 _080A5BC0: .4byte gRAMChapterData
 _080A5BC4: .4byte gActionData
-_080A5BC8: .4byte gUnknown_02020188
+_080A5BC8: .4byte _gGenericBuffer
 _080A5BCC: .4byte gUnitArrayBlue
 _080A5BD0: .4byte 0x00000A5C
 _080A5BD4: .4byte gUnitArrayRed
@@ -5910,7 +5910,7 @@ sub_80A6408: @ 0x080A6408
 	push {r4, r5, lr}
 	adds r5, r1, #0
 	ldr r1, _080A6428  @ ReadSramFast
-	ldr r4, _080A642C  @ gUnknown_02020188
+	ldr r4, _080A642C  @ _gGenericBuffer
 	ldr r3, [r1]
 	adds r1, r4, #0
 	adds r2, r5, #0
@@ -5923,7 +5923,7 @@ sub_80A6408: @ 0x080A6408
 	bx r1
 	.align 2, 0
 _080A6428: .4byte ReadSramFast
-_080A642C: .4byte gUnknown_02020188
+_080A642C: .4byte _gGenericBuffer
 
 	THUMB_FUNC_END sub_80A6408
 
@@ -6992,7 +6992,7 @@ _080A6C14:
 	THUMB_FUNC_START sub_80A6C1C
 sub_80A6C1C: @ 0x080A6C1C
 	push {r4, lr}
-	ldr r4, _080A6C70  @ gUnknown_02020188
+	ldr r4, _080A6C70  @ _gGenericBuffer
 	bl IsSramWorking
 	lsls r0, r0, #0x18
 	cmp r0, #0
@@ -7030,7 +7030,7 @@ sub_80A6C1C: @ 0x080A6C1C
 	movs r0, #1
 	b _080A6C86
 	.align 2, 0
-_080A6C70: .4byte gUnknown_02020188
+_080A6C70: .4byte _gGenericBuffer
 _080A6C74: .4byte ReadSramFast
 _080A6C78: .4byte 0x0E007400
 _080A6C7C: .4byte 0x50414D58
@@ -7051,7 +7051,7 @@ sub_80A6C8C: @ 0x080A6C8C
 	ldr r5, _080A6CF4  @ ReadSramFast
 	bl sub_80A6BB4
 	adds r4, r0, #0
-	ldr r6, _080A6CF8  @ gUnknown_02020188
+	ldr r6, _080A6CF8  @ _gGenericBuffer
 	bl sub_80A6BD4
 	adds r2, r0, #0
 	ldr r3, [r5]
@@ -7092,7 +7092,7 @@ sub_80A6C8C: @ 0x080A6C8C
 	bx r0
 	.align 2, 0
 _080A6CF4: .4byte ReadSramFast
-_080A6CF8: .4byte gUnknown_02020188
+_080A6CF8: .4byte _gGenericBuffer
 _080A6CFC: .4byte gUnknown_08A1FB34
 _080A6D00: .4byte gRAMChapterData
 _080A6D04: .4byte gGameState

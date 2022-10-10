@@ -740,8 +740,8 @@ void ChapterIntro_8020944(struct ChapterIntroFXProc* proc) {
     CopyDataWithPossibleUncomp(gUnknown_08B18F34, BG_CHAR_ADDR(2));
     CopyToPaletteBuffer(gUnknown_08B19854, 0x80, 0x20);
 
-    CopyDataWithPossibleUncomp(gUnknown_08B196D8, gUnknown_02020188);
-    CallARM_FillTileRect(gBG2TilemapBuffer, gUnknown_02020188, 0x4000);
+    CopyDataWithPossibleUncomp(gUnknown_08B196D8, gGenericBuffer);
+    CallARM_FillTileRect(gBG2TilemapBuffer, gGenericBuffer, 0x4000);
 
     BG_EnableSyncByMask(4);
 

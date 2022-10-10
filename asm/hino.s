@@ -210,7 +210,7 @@ sub_8012F20: @ 0x08012F20
 	push {r4, r5, r6, lr}
 	adds r4, r0, #0
 	adds r5, r1, #0
-	ldr r6, _08012F4C  @ gUnknown_02020188
+	ldr r6, _08012F4C  @ _gGenericBuffer
 	adds r1, r6, #0
 	bl LZ77UnCompWram
 	adds r0, r4, #0
@@ -228,7 +228,7 @@ _08012F3A:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_08012F4C: .4byte gUnknown_02020188
+_08012F4C: .4byte _gGenericBuffer
 
 	THUMB_FUNC_END sub_8012F20
 
@@ -765,7 +765,7 @@ _08013290:
 	str r3, [sp, #4]
 	ldr r4, [sp]
 	lsls r0, r4, #2
-	ldr r7, _0801339C  @ gUnknown_02020188
+	ldr r7, _0801339C  @ _gGenericBuffer
 	adds r0, r0, r7
 	mov sl, r0
 	str r0, [sp, #8]
@@ -833,7 +833,7 @@ _08013316:
 	bhi _08013328
 	mov r4, r8
 	lsls r0, r4, #2
-	ldr r7, _0801339C  @ gUnknown_02020188
+	ldr r7, _0801339C  @ _gGenericBuffer
 	adds r0, r0, r7
 	mov r4, sp
 	ldrh r4, [r4, #0xc]
@@ -843,7 +843,7 @@ _08013328:
 	bhi _0801333A
 	mov r7, ip
 	lsls r0, r7, #2
-	ldr r3, _0801339C  @ gUnknown_02020188
+	ldr r3, _0801339C  @ _gGenericBuffer
 	adds r0, r0, r3
 	mov r4, sp
 	ldrh r4, [r4, #4]
@@ -852,7 +852,7 @@ _0801333A:
 	cmp r1, #0x9f
 	bhi _0801334A
 	lsls r0, r5, #2
-	ldr r7, _0801339C  @ gUnknown_02020188
+	ldr r7, _0801339C  @ _gGenericBuffer
 	adds r0, r0, r7
 	mov r1, sp
 	ldrh r1, [r1, #4]
@@ -891,7 +891,7 @@ _08013370:
 	cmp r2, r9
 	bge _080132BC
 _08013388:
-	ldr r0, _0801339C  @ gUnknown_02020188
+	ldr r0, _0801339C  @ _gGenericBuffer
 	add sp, #0x1c
 	pop {r3, r4, r5}
 	mov r8, r3
@@ -901,7 +901,7 @@ _08013388:
 	pop {r1}
 	bx r1
 	.align 2, 0
-_0801339C: .4byte gUnknown_02020188
+_0801339C: .4byte _gGenericBuffer
 
 	THUMB_FUNC_END sub_8013278
 
@@ -909,7 +909,7 @@ _0801339C: .4byte gUnknown_02020188
 sub_80133A0: @ 0x080133A0
 	push {r4, r5, r6, r7, lr}
 	adds r3, r0, #0
-	ldr r7, _080133BC  @ gUnknown_02020188
+	ldr r7, _080133BC  @ _gGenericBuffer
 	movs r6, #0
 	adds r5, r7, #0
 	ldr r4, _080133C0  @ gPaletteBuffer
@@ -922,7 +922,7 @@ _080133AC:
 	subs r1, r1, r3
 	b _080133C8
 	.align 2, 0
-_080133BC: .4byte gUnknown_02020188
+_080133BC: .4byte _gGenericBuffer
 _080133C0: .4byte gPaletteBuffer
 _080133C4:
 	ldr r0, _080133D8  @ 0x0000FFE0

@@ -591,7 +591,7 @@ int Minimap_GetTileForTerrainAt(int x, int y) {
 }
 
 u16* sub_80A7BF8(int x, int y) {
-    return (u16*)(gUnknown_02020188 + (Minimap_GetTileForTerrainAt(x, y) * 0x20));
+    return TILEMAP_LOCATED(gGenericBuffer, 0, Minimap_GetTileForTerrainAt(x, y));
 }
 
 u16* sub_80A7C0C(int x, int y) {
@@ -602,11 +602,10 @@ u16* sub_80A7C0C(int x, int y) {
 
     int unitId = gBmMapUnit[y][x];
 
-    if (unitId == 0) {
-        return (u16*)(gUnknown_02020188);
-    } else {
-        return (u16*)(gUnknown_02020188 + (gUnknown_08205D84[unitId >> 6] * 0x20));
-    }
+    if (unitId == 0)
+        return gGenericBuffer;
+    else
+        return TILEMAP_LOCATED(gGenericBuffer, 0, gUnknown_08205D84[unitId >> 6]);
 }
 
 void sub_80A7C5C(u16* vram, int palId) {
@@ -972,7 +971,7 @@ void ApplyMinimapGraphics(int palId) {
         palId = 3;
     }
 
-    CopyDataWithPossibleUncomp(gGfx_MinimapTiles, gUnknown_02020188);
+    CopyDataWithPossibleUncomp(gGfx_MinimapTiles, gGenericBuffer);
 
     CopyToPaletteBuffer(gPal_MinimapTiles, palId * 0x20, 0x20);
     CopyToPaletteBuffer(gPal_08A1FFD0, (palId + 1) * 0x20, 0x20);
@@ -987,7 +986,7 @@ void sub_80A8410() {
     int iVar7;
     int iVar8;
 
-    (u16**)gUnknown_0200050C = &gUnknown_02020188;
+    (u16**)gUnknown_0200050C = &gGenericBuffer;
 
     for (iVar7 = 1; iVar7 < 16; ++iVar7) {
         int color = gPaletteBuffer[(4 * 0x10) + iVar7];
@@ -1032,7 +1031,7 @@ void sub_80A8410() {
         mov r5, r8\n\
         push {r5, r6, r7}\n\
         ldr r1, _080A8490  @ gUnknown_0200050C\n\
-        ldr r0, _080A8494  @ gUnknown_02020188\n\
+        ldr r0, _080A8494  @ _gGenericBuffer\n\
         str r0, [r1]\n\
         movs r2, #1\n\
         ldr r0, _080A8498  @ gPaletteBuffer\n\
@@ -1097,7 +1096,7 @@ void sub_80A8410() {
         bx r0\n\
         .align 2, 0\n\
         _080A8490: .4byte gUnknown_0200050C\n\
-        _080A8494: .4byte gUnknown_02020188\n\
+        _080A8494: .4byte _gGenericBuffer\n\
         _080A8498: .4byte gPaletteBuffer\n\
         .syntax divided\n\
     ");

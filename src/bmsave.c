@@ -5,6 +5,7 @@
 #include "bmsave.h"
 #include "functions.h"
 #include "bmreliance.h"
+#include "hardware.h"
 #include "bmunit.h"
 
 /* functions */
@@ -164,7 +165,7 @@ void InitNopSecHeader()
 
 void sub_80A2EA8()
 {
-    u8 *buf = gUnknown_02020188;
+    u8 *buf = gGenericBuffer;
     CPU_FILL(0, buf, 0x144, 16);
     sub_80A3950(buf);
 }
@@ -521,10 +522,10 @@ int sub_80A341C(void) {
     struct bmsave_unkstruct0 *buf1;
     int i, ret;
 
-    if (sub_80A38F4((void*)gUnknown_02020188)) {
+    if (sub_80A38F4(gGenericBuffer)) {
 
         ret = 0;
-        buf1 = (void*)gUnknown_02020188;
+        buf1 = gGenericBuffer;
     
         for (i = 0; i < 0x10; i++) {
             if ((0 == buf1[i].unk[0]))

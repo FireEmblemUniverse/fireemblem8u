@@ -1080,7 +1080,7 @@ void ShrinkPlayerUnits() {
         return;
     }
 
-    InitUnitStack(gUnknown_02020188);
+    InitUnitStack(gGenericBuffer);
     for (uid = 1; uid <= 0x3F; ++uid) {
         struct Unit* unit = GetUnit(uid);
         if (UNIT_IS_VALID(unit)) {
