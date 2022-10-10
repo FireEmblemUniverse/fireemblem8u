@@ -62,6 +62,21 @@ struct bmsave_unkstruct0 {
     u8 unk[0x14];
 };
 
+struct bmsave_unkstruct1 {
+    int unk0;
+    int unk4;
+    int unk8;
+    int unkC;
+    int unk10;
+    int unk14;
+};
+
+struct bmsave_unkstruct2 {
+    struct bmsave_unkstruct1 unk0[0x6];
+    int unk90;
+};
+
+
 s8 IsSramWorking();
 
 #endif /* BMSAVE_H */

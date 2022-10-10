@@ -2,11 +2,12 @@
 
 #include "bmitem.h"
 #include "agb_sram.h"
-#include "bmsave.h"
 #include "functions.h"
 #include "bmreliance.h"
 #include "hardware.h"
 #include "bmunit.h"
+
+#include "bmsave.h"
 
 /* functions */
 u8 CheckSaveHeaderMagic(void*, u8*);
@@ -21,7 +22,7 @@ int GetGlobalEventIdStorageSize();
 unsigned short *GetConvoyItemArray();
 s8 sub_80A52DC(int);
 int sub_80A6A68();
-int sub_80A3834(int);
+int sub_80A3834(struct SecureSaveHeader *buf);
 u8 sub_80A3898(void*);
 u8 sub_80A6C1C();
 u8 sub_80A530C(int);
@@ -455,7 +456,7 @@ int sub_80A3328()
 
 signed char sub_80A332C()
 {
-    int tmp0 = sub_80A3834(0);
+    int tmp0 = sub_80A3834(NULL);
     int tmp1 = sub_80A3870();
     return tmp1 & tmp0;
 }
@@ -756,4 +757,196 @@ s8 sub_80A3724(int unitA, int unitB, int supportRank) {
     SaveSecureHeader(&tempHeader);
 
     return 1;
+}
+
+void SetSomeUnitStatThingUnlockMaybeIdk(int index, struct SecureSaveHeader *buf)
+{
+    struct SecureSaveHeader tmp_header;
+    u32 _index = index;
+    int save = 0;
+
+    if (index > 0x100)
+        return;
+
+    if (0 == buf) {
+        buf = &tmp_header;
+        LoadAndVerifySecureHeaderSW(&tmp_header);
+        save = 1;
+    }
+
+    buf->unk40[index >> 3] |= 1 << (_index % 8);
+
+    if (save)
+        SaveSecureHeader(buf);
+}
+
+int sub_80A37F0(int index, struct SecureSaveHeader *buf)
+{
+    struct SecureSaveHeader tmp_header;
+    u32 _index = index;
+
+    if (index > 0x100)
+        return 0;
+
+    if (0 == buf) {
+        buf = &tmp_header;
+        LoadAndVerifySecureHeaderSW(&tmp_header);
+    }
+
+    if (1 & buf->unk40[index >> 3] >> (_index % 8))
+        return 1;
+    else
+        return 0;
+}
+
+int sub_80A3834(struct SecureSaveHeader *buf)
+{
+    int i;
+    struct SecureSaveHeader tmp_header;
+
+    if (NULL == buf) {
+        buf = &tmp_header;
+        LoadAndVerifySecureHeaderSW(&tmp_header);
+    }
+
+    for (i = 0; i < 0x20; i++) {
+        if (0 != buf->unk40[i])
+            return 1;
+    }
+    return 0;
+}
+
+void sub_80A3868()
+{
+    return;
+}
+
+void __malloc_unlock_3()
+{
+    return;
+}
+
+int sub_80A3870(void)
+{
+    struct SecureSaveHeader tmp_header;
+
+    if (!LoadAndVerifySecureHeaderSW(&tmp_header))
+        return 0;
+
+    if (0 == tmp_header.flag0E_0)
+        return 0;
+    else
+        return 1;
+}
+
+u8 sub_80A3898(void *buf)
+{
+    u16 *_buf = buf;
+
+    if (!IsSramWorking())
+        return 0;
+
+    if (0 == _buf)
+        _buf = gGenericBuffer;
+
+    (*ReadSramFast)(
+        (void*)gpSaveDataStart + 0x7190,
+        (void*)_buf,
+        0x94
+    );
+
+    if (_buf[0x90 / 2] != SecureHeaderCalc(_buf, 0x90))
+        return 0;
+    else
+        return 1;
+}
+
+u8 sub_80A38F4(void *buf)
+{
+    u16 *_buf = buf;
+    
+    if (!IsSramWorking())
+        return 0;
+
+    if (0 == _buf)
+        _buf = gGenericBuffer;
+
+    (*ReadSramFast)(
+        (void*)gpSaveDataStart + 0x725C,
+        (void*)_buf,
+        0x144
+    );
+
+    if (_buf[0x140 / 2] != SecureHeaderCalc(_buf, 0x140))
+        return 0;
+    else
+        return 1;
+}
+
+void sub_80A3950(void *buf)
+{
+    u16 *_buf = buf;
+
+    _buf[0x140/2] = SecureHeaderCalc(buf, 0x140);
+
+    WriteAndVerifySramFast(
+        buf,
+        (void*)gpSaveDataStart + 0x725C,
+        0x144
+    );
+}
+
+void sub_80A3984(void *buf)
+{
+    u16 *_buf = buf;
+
+    _buf[0x90 / 2] = SecureHeaderCalc(buf, 0x90);
+
+    WriteAndVerifySramFast(
+        buf,
+        (void*)gpSaveDataStart + 0x7190,
+        0x94
+    );
+}
+
+void sub_80A39B4()
+{
+    u16 _buf[0x94 / 2];
+
+    CpuFill16(0, _buf, 0x128 / 2);
+    sub_80A3984(_buf);
+}
+
+int sub_80A39D8()
+{
+    return gRAMChapterData.chapterModeIndex - 1;
+}
+
+int sub_80A39E4(void *buf, int param0, int param1)
+{
+    struct bmsave_unkstruct2 _buf;
+    struct bmsave_unkstruct1 *src;
+    struct bmsave_unkstruct1 *dest = buf;
+
+    CpuFill16(0, buf, 0x18);
+    CpuFill16(0, &_buf, sizeof(_buf));
+
+    if (0 != sub_80A3898(&_buf)) {
+        src = &_buf.unk0[(param0 + param1 * 3)];
+        *dest = *src;
+        return 1;
+    }
+    
+    return 0;
+}
+
+void sub_80A3A48(void *buf, int param0, int param1)
+{
+    struct bmsave_unkstruct2 _buf;
+    struct bmsave_unkstruct1 *src = buf;
+
+    if (0 != sub_80A3898(&_buf)) {
+        _buf.unk0[param0 + param1 * 3] = *src;
+        sub_80A3984(&_buf);
+    }
 }
