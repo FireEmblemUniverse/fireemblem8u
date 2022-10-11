@@ -853,12 +853,12 @@ void ChapterIntro_InitMapDisplay() {
     SetupMapSpritesPalettes();
     LoadObjUIGfx();
 
-    var = GetROMChapterStruct(gRAMChapterData.chapterIndex)->unk10;
+    var = GetROMChapterStruct(gRAMChapterData.chapterIndex)->initialPosX;
     var = sub_8015A40(var * 16);
     var = (var + 0xF) & 0x1F0;
     gGameState.camera.x = var;
 
-    var = GetROMChapterStruct(gRAMChapterData.chapterIndex)->unk11;
+    var = GetROMChapterStruct(gRAMChapterData.chapterIndex)->initialPosY;
     var = sub_8015A6C(var * 16);
     var = (var + 0xF) & 0x3F0;
     gGameState.camera.y = var;
@@ -898,8 +898,8 @@ void ChapterIntro_LoopFadeToMap(struct ChapterIntroFXProc* proc) {
         }
 
         if ((GetChapterThing() == 2) || GetROMChapterStruct(gRAMChapterData.chapterIndex)->boolFadeToBlack) {
-            if ((GetROMChapterStruct(gRAMChapterData.chapterIndex)->unk28) != 0xFFFF) {
-                Sound_PlaySong80024D4(GetROMChapterStruct(gRAMChapterData.chapterIndex)->unk28, 0);
+            if ((GetROMChapterStruct(gRAMChapterData.chapterIndex)->mapPrologueBgmId) != 0xFFFF) {
+                Sound_PlaySong80024D4(GetROMChapterStruct(gRAMChapterData.chapterIndex)->mapPrologueBgmId, 0);
             }
 
             proc->unk_4C = 0;
@@ -929,8 +929,8 @@ void ChapterIntro_LoopFadeToMap(struct ChapterIntroFXProc* proc) {
         proc->unk_4C--;
 
         if ((proc->unk_4C == 0x18) &&
-            ((GetROMChapterStruct(gRAMChapterData.chapterIndex)->unk28) != 0xFFFF)) {
-            Sound_PlaySong80024D4(GetROMChapterStruct(gRAMChapterData.chapterIndex)->unk28, 0);
+            ((GetROMChapterStruct(gRAMChapterData.chapterIndex)->mapPrologueBgmId) != 0xFFFF)) {
+            Sound_PlaySong80024D4(GetROMChapterStruct(gRAMChapterData.chapterIndex)->mapPrologueBgmId, 0);
         }
 
         if (proc->unk_4C < 0) {
@@ -1038,8 +1038,8 @@ void ChapterIntro_BeginFastFadeToMap(struct ChapterIntroFXProc* proc) {
 
     proc->unk_4C = 0xE;
 
-    if ((GetROMChapterStruct(gRAMChapterData.chapterIndex)->unk28) != 0xFFFF) {
-        Sound_PlaySong80024D4(GetROMChapterStruct(gRAMChapterData.chapterIndex)->unk28, 0);
+    if ((GetROMChapterStruct(gRAMChapterData.chapterIndex)->mapPrologueBgmId) != 0xFFFF) {
+        Sound_PlaySong80024D4(GetROMChapterStruct(gRAMChapterData.chapterIndex)->mapPrologueBgmId, 0);
     }
 
     return;

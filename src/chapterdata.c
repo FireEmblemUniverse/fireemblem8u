@@ -31,10 +31,10 @@ const struct ChapterEventInfo* GetChapterEventDataPointer(unsigned chIndex) {
     return gUnknown_08A1FB34[2];
 }
 
-const char* sub_80346E0(unsigned chIndex) {
+const char* GetChapterTitle(unsigned chIndex) {
     if (chIndex != 0x7F)
         // ???????????????????
-        return GetStringFromIndex((int)(&GetROMChapterStruct(chIndex)->unk70));
+        return GetStringFromIndex((int)(&GetROMChapterStruct(chIndex)->chapTitleTextId));
 
     return gUnknown_08A1FB34[3];
 }
