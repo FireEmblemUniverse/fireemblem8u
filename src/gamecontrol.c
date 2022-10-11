@@ -393,7 +393,7 @@ u8 sub_8009950() {
 
         sub_80A522C(i, &chapterData);
 
-        if (chapterData.unk_2C_2 != 0) {
+        if (chapterData.unk_2C_17 != 0) {
             return 9;
         }
 

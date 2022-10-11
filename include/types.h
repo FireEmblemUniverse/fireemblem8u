@@ -178,9 +178,12 @@ struct RAMChapterData { // Chapter Data Struct
 
     /* 20 */ char playerName[0x2C - 0x20]; // unused outside of link arena (was tactician name in FE7); Size unknown
 
-    u32 unk_2C_1:23;
-    u32 unk_2C_2:5;
-    u32 unk_2C_3:4;
+    u32 unk_2C_00 : 0x01;
+    u32 unk_2C_01 : 0x03;
+    u32 unk_2C_04 : 0x09;
+    u32 unk_2C_0D : 0x0A;
+    u32 unk_2C_17 : 0x05;
+    u32 unk_2C_22 : 0x04;
 
     /* 30 */ u8  _unk30[0x38-0x30];
 

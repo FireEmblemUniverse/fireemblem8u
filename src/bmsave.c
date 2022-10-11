@@ -6,6 +6,8 @@
 #include "bmreliance.h"
 #include "hardware.h"
 #include "bmunit.h"
+#include "bmitem.h"
+#include "bmio.h"
 
 #include "bmsave.h"
 
@@ -949,4 +951,43 @@ void sub_80A3A48(void *buf, int param0, int param1)
         _buf.unk0[param0 + param1 * 3] = *src;
         sub_80A3984(&_buf);
     }
+}
+
+int sub_80A3A88(struct bmsave_unkstruct1 *buf0, struct bmsave_unkstruct1 *buf1)
+{
+    int tmp0, tmp1;
+    int val0, val1;
+    int var0, var1;
+    
+    if (0 == buf0->unk00_00)
+        return 1;
+
+    if (buf1->unk00_01 > buf0->unk00_01)
+        return 1;
+    else if (buf1->unk00_01 != buf0->unk00_01)
+        return 0;
+
+    if (buf1->best_unit != 0 && buf1->best_unit != buf0->best_unit)
+        return 1;
+
+    if (buf1->unk00_17 > buf0->unk00_17)
+        return 1;
+
+    if (buf1->unk04_1D > buf0->unk04_1D)
+        return 1;
+    else if (buf1->unk04_1D != buf0->unk04_1D)
+        return 0;
+
+    var0 = buf1->unk04_07 * 3600
+         + buf1->unk04_11 * 60
+         + buf1->unk04_17;
+
+    var1 = buf0->unk04_07 * 3600
+         + buf0->unk04_11 * 60
+         + buf0->unk04_17;
+
+    if (var0 >= var1)
+        return 0;
+
+    return 1;
 }

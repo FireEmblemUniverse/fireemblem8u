@@ -2,110 +2,6 @@
 
 	.SYNTAX UNIFIED
 
-	THUMB_FUNC_START sub_80A3A88
-sub_80A3A88: @ 0x080A3A88
-	push {r4, r5, lr}
-	adds r5, r0, #0
-	adds r4, r1, #0
-	ldrb r2, [r5]
-	lsls r0, r2, #0x1f
-	cmp r0, #0
-	beq _080A3B36
-	ldrb r0, [r4]
-	lsls r0, r0, #0x1c
-	lsrs r1, r0, #0x1d
-	lsls r0, r2, #0x1c
-	lsrs r0, r0, #0x1d
-	cmp r1, r0
-	bgt _080A3B36
-	cmp r1, r0
-	bne _080A3B40
-	ldrb r0, [r4, #0x17]
-	cmp r0, #0
-	beq _080A3AB4
-	ldrb r1, [r5, #0x17]
-	cmp r0, r1
-	bne _080A3B36
-_080A3AB4:
-	ldrh r1, [r4, #2]
-	lsls r1, r1, #0x11
-	lsrs r1, r1, #0x18
-	ldrh r0, [r5, #2]
-	lsls r0, r0, #0x11
-	lsrs r0, r0, #0x18
-	cmp r1, r0
-	bgt _080A3B36
-	ldrb r1, [r4, #7]
-	lsrs r1, r1, #5
-	ldr r0, [r4, #8]
-	ldr r2, _080A3B3C  @ 0x001FFFFF
-	ands r0, r2
-	lsls r3, r0, #3
-	orrs r3, r1
-	ldrb r1, [r5, #7]
-	lsrs r1, r1, #5
-	ldr r0, [r5, #8]
-	ands r0, r2
-	lsls r0, r0, #3
-	orrs r0, r1
-	cmp r3, r0
-	bgt _080A3B36
-	cmp r3, r0
-	bne _080A3B40
-	ldr r0, [r4, #4]
-	lsls r0, r0, #0xf
-	lsrs r0, r0, #0x16
-	lsls r3, r0, #3
-	subs r3, r3, r0
-	lsls r3, r3, #5
-	adds r3, r3, r0
-	lsls r3, r3, #4
-	ldrb r1, [r4, #6]
-	lsls r1, r1, #0x19
-	lsrs r1, r1, #0x1a
-	lsls r0, r1, #4
-	subs r0, r0, r1
-	lsls r0, r0, #2
-	adds r3, r3, r0
-	ldrh r0, [r4, #6]
-	lsls r0, r0, #0x13
-	lsrs r0, r0, #0x1a
-	adds r3, r3, r0
-	ldr r0, [r5, #4]
-	lsls r0, r0, #0xf
-	lsrs r0, r0, #0x16
-	lsls r2, r0, #3
-	subs r2, r2, r0
-	lsls r2, r2, #5
-	adds r2, r2, r0
-	lsls r2, r2, #4
-	ldrb r1, [r5, #6]
-	lsls r1, r1, #0x19
-	lsrs r1, r1, #0x1a
-	lsls r0, r1, #4
-	subs r0, r0, r1
-	lsls r0, r0, #2
-	adds r2, r2, r0
-	ldrh r0, [r5, #6]
-	lsls r0, r0, #0x13
-	lsrs r0, r0, #0x1a
-	adds r2, r2, r0
-	cmp r3, r2
-	bge _080A3B40
-_080A3B36:
-	movs r0, #1
-	b _080A3B42
-	.align 2, 0
-_080A3B3C: .4byte 0x001FFFFF
-_080A3B40:
-	movs r0, #0
-_080A3B42:
-	pop {r4, r5}
-	pop {r1}
-	bx r1
-
-	THUMB_FUNC_END sub_80A3A88
-
 	THUMB_FUNC_START sub_80A3B48
 sub_80A3B48: @ 0x080A3B48
 	push {r4, r5, r6, r7, lr}
@@ -127,18 +23,23 @@ sub_80A3B48: @ 0x080A3B48
 	ldr r2, _080A3C54  @ 0x0100000C
 	adds r1, r7, #0
 	bl CpuSet
+
 	ldrb r0, [r7]
 	movs r6, #1
 	orrs r0, r6
 	strb r0, [r7]
+
+	@ (r1 % 4) * 8
 	movs r0, #3
 	ands r4, r0
 	lsls r4, r4, #3
+
 	ldrb r1, [r7, #2]
 	movs r0, #0x19
 	negs r0, r0
 	ands r0, r1
 	orrs r0, r4
+
 	ands r5, r6
 	lsls r5, r5, #5
 	movs r1, #0x21
@@ -146,6 +47,7 @@ sub_80A3B48: @ 0x080A3B48
 	ands r0, r1
 	orrs r0, r5
 	strb r0, [r7, #2]
+
 	bl GetPartyTotalGoldValue
 	movs r2, #7
 	ands r2, r0
@@ -155,6 +57,7 @@ sub_80A3B48: @ 0x080A3B48
 	ands r1, r3
 	orrs r1, r2
 	strb r1, [r7, #7]
+
 	lsls r0, r0, #8
 	lsrs r0, r0, #0xb
 	ldr r1, [r7, #8]
@@ -162,20 +65,28 @@ sub_80A3B48: @ 0x080A3B48
 	ands r1, r2
 	orrs r1, r0
 	str r1, [r7, #8]
+
+	
+	
 	ldr r3, _080A3C5C  @ gRAMChapterData
 	adds r0, r3, #0
 	adds r0, #0x2b
 	ldrb r1, [r0]
+
 	lsls r1, r1, #0x1f
 	lsrs r1, r1, #0x1f
 	ands r1, r6
 	lsls r1, r1, #6
+
 	ldrb r2, [r7, #2]
 	movs r0, #0x41
 	negs r0, r0
 	ands r0, r2
 	orrs r0, r1
 	strb r0, [r7, #2]
+
+
+
 	ldrh r1, [r3, #0x2c]
 	lsls r1, r1, #0x13
 	lsrs r1, r1, #0x17
@@ -187,6 +98,8 @@ sub_80A3B48: @ 0x080A3B48
 	ands r0, r2
 	orrs r0, r1
 	strh r0, [r7, #2]
+
+
 	bl GetGameTotalTime
 	mov r4, sp
 	adds r4, #6
@@ -206,6 +119,7 @@ sub_80A3B48: @ 0x080A3B48
 	ands r0, r1
 	orrs r0, r2
 	str r0, [r7, #4]
+
 	ldrh r1, [r5]
 	movs r0, #0x3f
 	ands r1, r0
@@ -216,6 +130,7 @@ sub_80A3B48: @ 0x080A3B48
 	ands r0, r2
 	orrs r0, r1
 	strb r0, [r7, #6]
+
 	ldrh r1, [r6]
 	movs r0, #0x3f
 	ands r1, r0
@@ -225,15 +140,21 @@ sub_80A3B48: @ 0x080A3B48
 	ands r0, r2
 	orrs r0, r1
 	strh r0, [r7, #6]
+
+
 	ldrb r1, [r7, #3]
 	movs r0, #0x7f
 	ands r0, r1
 	strb r0, [r7, #3]
+
+
 	ldrb r1, [r7, #4]
 	movs r0, #0x80
 	negs r0, r0
 	ands r0, r1
 	strb r0, [r7, #4]
+
+
 	mov r0, r8
 	strb r0, [r7, #0x17]
 	movs r4, #1
@@ -295,12 +216,12 @@ _080A3CAE:
 	cmp r0, #0
 	bne _080A3D08
 	ldrb r0, [r2, #4]
-	bl sub_80A49FC
+	bl GetBwlFavoritism
 	cmp r0, r9
 	ble _080A3D08
 	ldr r0, [r4]
 	ldrb r0, [r0, #4]
-	bl sub_80A49FC
+	bl GetBwlFavoritism
 	mov r9, r0
 	ldr r0, [r4]
 	ldrb r2, [r0, #4]
@@ -337,6 +258,7 @@ _080A3D08:
 	ands r1, r2
 	orrs r1, r0
 	strb r1, [r7]
+
 	bl sub_80B5FD0
 	ands r0, r5
 	lsls r0, r0, #2
@@ -346,6 +268,7 @@ _080A3D08:
 	ands r1, r2
 	orrs r1, r0
 	strb r1, [r7, #1]
+
 	bl sub_80B5E6C
 	movs r1, #7
 	ands r0, r1
@@ -355,6 +278,8 @@ _080A3D08:
 	ands r1, r2
 	orrs r1, r0
 	strh r1, [r7]
+
+
 	bl sub_80B5EA4
 	lsls r0, r0, #5
 	ldrb r2, [r7, #1]
@@ -362,6 +287,8 @@ _080A3D08:
 	ands r1, r2
 	orrs r1, r0
 	strb r1, [r7, #1]
+
+
 	bl sub_80B5F9C
 	ands r0, r5
 	ldrb r1, [r7, #2]
@@ -370,12 +297,14 @@ _080A3D08:
 	ands r4, r1
 	orrs r4, r0
 	strb r4, [r7, #2]
+
 	ldrb r0, [r7]
 	lsls r0, r0, #0x19
 	lsrs r0, r0, #0x1d
 	ldrh r1, [r7]
 	lsls r1, r1, #0x16
 	lsrs r1, r1, #0x1d
+
 	ldrb r3, [r7, #1]
 	lsls r2, r3, #0x1b
 	lsrs r2, r2, #0x1d
@@ -384,6 +313,7 @@ _080A3D08:
 	lsrs r4, r4, #0x1d
 	str r4, [sp]
 	bl sub_80B6070
+
 	ands r0, r5
 	lsls r0, r0, #1
 	ldrb r2, [r7]
@@ -392,6 +322,8 @@ _080A3D08:
 	ands r1, r2
 	orrs r1, r0
 	strb r1, [r7]
+
+
 	bl GetWonChapterCount
 	movs r1, #0x3f
 	ands r0, r1
@@ -401,6 +333,8 @@ _080A3D08:
 	ands r1, r2
 	orrs r1, r0
 	strh r1, [r7, #0xa]
+
+
 	bl GetTacticianName
 	adds r1, r0, #0
 	mov r0, sl
@@ -2118,8 +2052,8 @@ _080A49F6:
 
 	THUMB_FUNC_END sub_80A49C8
 
-	THUMB_FUNC_START sub_80A49FC
-sub_80A49FC: @ 0x080A49FC
+	THUMB_FUNC_START GetBwlFavoritism
+GetBwlFavoritism: @ 0x080A49FC
 	push {r4, lr}
 	lsls r0, r0, #0x18
 	lsrs r0, r0, #0x18
@@ -2150,7 +2084,7 @@ _080A4A2E:
 	pop {r1}
 	bx r1
 
-	THUMB_FUNC_END sub_80A49FC
+	THUMB_FUNC_END GetBwlFavoritism
 
 	THUMB_FUNC_START BWL_AddFavoritismValue
 BWL_AddFavoritismValue: @ 0x080A4A34

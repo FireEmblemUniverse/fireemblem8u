@@ -63,12 +63,31 @@ struct bmsave_unkstruct0 {
 };
 
 struct bmsave_unkstruct1 {
-    int unk0;
-    int unk4;
-    int unk8;
-    int unkC;
-    int unk10;
-    int unk14;
+    /* 00 */ u32 unk00_00 : 0x01;
+             u32 unk00_01 : 0x03;
+             u32 unk00_04 : 0x03; 
+             u32 unk00_07 : 0x03; 
+             u32 unk00_0A : 0x03;
+             u32 unk00_0D : 0x03;
+             u32 unk00_10 : 0x03;
+
+             u32 unk00_13 : 0x02;
+             u32 unk00_15 : 0x01;
+             u32 unk00_16 : 0x01;
+             u32 unk00_17 : 0x08;
+             u32 unk00_1F : 0x08;
+
+             u32 unk04_07 : 0x0A;
+             u32 unk04_11 : 0x06;
+             u32 unk04_17 : 0x06;
+             u32 unk04_1D : 0x18;
+
+    /* 08 */ u32 unk08_15 : 0x06;
+             u32 unk08_1F : 0x01;
+
+    /* 0C */ char unk0C[0xB];
+
+    /* 17 */ u8 best_unit;
 };
 
 struct bmsave_unkstruct2 {
