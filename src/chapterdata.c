@@ -2,6 +2,8 @@
 #include "chapterdata.h"
 #include "agb_sram.h"
 
+#include "data/chapter_settings.h"
+
 const struct ROMChapterData* GetROMChapterStruct(unsigned chIndex) {
     if (chIndex == 0x7F)
         return (const struct ROMChapterData*) gUnknown_08A1FB34[0];

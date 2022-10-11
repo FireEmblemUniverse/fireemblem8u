@@ -362,6 +362,32 @@ def read_rom_offset_here(fp):
         return pointer - 0x8000000
     return None
 
+def read_u8_here(fp):
+    return struct.unpack('<B', fp.read(1))[0]
+
+def read_s8_here(fp):
+    return struct.unpack('<b', fp.read(1))[0]
+
+def read_u16_here(fp):
+    return struct.unpack('<H', fp.read(2))[0]
+
+def read_s16_here(fp):
+    return struct.unpack('<h', fp.read(2))[0]
+
+def read_u32_here(fp):
+    return struct.unpack('<I', fp.read(4))[0]
+
+def read_s32_here(fp):
+    return struct.unpack('<i', fp.read(4))[0]
+
+def read_ascii_here(fp):
+    s = ''
+    c = struct.unpack('<c', fp.read(1))[0].decode('ascii')
+    while c != '\0':
+        s += c
+        c = struct.unpack('<c', fp.read(1))[0].decode('ascii')
+    return s
+
 def read_asm_macro(fp):
     """
     make dict: value -> name from assembler macro.

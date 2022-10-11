@@ -28,8 +28,8 @@ struct ROMChapterData {
 
     // This may need a type change.
     /* 14 */ u16 easyModeLevelMalus      : 4;
-    /* 14 */ u16 normalModeLevelMalus    : 4;
     /* 14 */ u16 difficultModeLevelBonus : 4;
+    /* 14 */ u16 normalModeLevelMalus    : 4;
 
     /* 16 */ u16 mapBgmIdBluePhase;
     /* 18 */ u16 mapBgmIdRedPhase;
@@ -120,7 +120,9 @@ struct ROMChapterData {
     /* 8F */ u8 xMarkedTile;
     /* 90 */ u8 yMarkedTile;
 
-    /* 91 */ u8 _unk91[0x94 - 0x91]; // padding?
+    /* 91 */ u8 unk91; // ?
+    /* 92 */ u8 unk92; // ?
+    /* 93 */ u8 unk93; // ?
 };
 
 struct ChapterEventInfo
@@ -130,7 +132,7 @@ struct ChapterEventInfo
     /* 08 */ struct EventCheckBuffer* unk_08;
 };
 
-extern const struct ROMChapterData gChapterDataTable[];
+extern struct ROMChapterData CONST_DATA gChapterDataTable[];
 extern const void** gUnknown_08A1FB34;
 extern const void* gChapterDataAssetTable[];
 
