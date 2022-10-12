@@ -9,8 +9,8 @@ struct ChapterMap {
     u8  paletteId;
     u8  tileConfigId;
     u8  mainLayerId;
-    u8  tileAnim1Id;
-    u8  tileAnim2Id;
+    u8  objAnimId;
+    u8  paletteAnimId;
     u8  changeLayerId;
 };
 
