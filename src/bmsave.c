@@ -991,3 +991,70 @@ int sub_80A3A88(struct bmsave_unkstruct1 *buf0, struct bmsave_unkstruct1 *buf1)
 
     return 1;
 }
+
+void sub_80A3B48(struct bmsave_unkstruct1 *buf, int r1, int prep_mode)
+{
+    int i, j;
+    int best = 0;
+    u16 hours, minutes, seconds;
+
+    CpuFill16(0, buf, sizeof(struct bmsave_unkstruct1));
+
+    buf->unk00_00 = 1;
+    buf->unk00_13 = r1;
+    buf->unk00_15 = prep_mode;
+
+    buf->unk04_1D = GetPartyTotalGoldValue();
+    
+    buf->unk00_16 = gRAMChapterData.unk_2B_00;
+    buf->unk00_17 = gRAMChapterData.unk_2C_04;
+
+    ComputeDisplayTime(GetGameTotalTime(), &hours, &minutes, &seconds);
+    buf->unk04_07 = hours;
+    buf->unk04_11 = minutes;
+    buf->unk04_17 = seconds;
+
+    buf->unk00_1F = 0;
+    buf->best_unit = 0;
+
+    for (i = 1; i < FACTION_GREEN; i++) {
+        struct Unit *unit = GetUnit(i);
+
+        if (!UNIT_IS_VALID(unit))
+            continue;
+
+        if (US_GROWTH_BOOST & unit->state) {
+            if (US_DEAD & unit->state)
+                break;
+            
+            buf->best_unit = unit->pCharacterData->number;
+            break;
+        }
+    }
+
+    for (j = 1; j < FACTION_GREEN; j++) {
+        struct Unit *unit = GetUnit(j);
+
+        if (0 == UNIT_IS_VALID(unit))
+            continue;
+
+        if (0 != ((CA_LOCK_1 | CA_STEAL) & unit->state))
+            continue;
+
+        if (sub_80A49FC(unit->pCharacterData->number) <= best)
+            continue;
+
+        best = sub_80A49FC(unit->pCharacterData->number);
+        buf->unk00_1F = unit->pCharacterData->number;
+    }
+
+    buf->unk00_04 = sub_80B5D74();
+    buf->unk00_0A = sub_80B5FD0();
+    buf->unk00_07 = sub_80B5E6C();
+    buf->unk00_0D = sub_80B5EA4();
+    buf->unk00_10 = sub_80B5F9C();
+
+    buf->unk00_01 = sub_80B6070(buf->unk00_04, buf->unk00_07, buf->unk00_0A, buf->unk00_0D, buf->unk00_10);
+    buf->unk08_15 = GetWonChapterCount();
+    strcpy((void*)&buf->unk0C, GetTacticianName());
+}
