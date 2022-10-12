@@ -16,7 +16,7 @@ struct ROMChapterData {
     /* 0B */ u8  mapChangeLayerId;
 
     /* 0C */ u8  initialFogLevel;
-    /* 0D */ u8  boolHasPrepScreen; // left over from FE7
+    /* 0D */ bool8  hasPrepScreen; // left over from FE7
 
     /* 0E */ u8 chapTitleId;
     /* 0F */ u8 chapTitleIdInHectorStory; // left over from FE7
@@ -109,7 +109,7 @@ struct ROMChapterData {
     /* 85 */ u8 merchantPosYInHectorStory; // left over from FE7
 
     /* 86 */ u8 victorySongEnemyThreshold;
-    /* 87 */ u8 boolFadeToBlack;
+    /* 87 */ bool8 fadeToBlack;
 
     /* 88 */ u16 statusObjectiveTextId;
     /* 8A */ u16 goalWindowTextId;

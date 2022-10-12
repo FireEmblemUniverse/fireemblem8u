@@ -368,6 +368,9 @@ def read_u8_here(fp):
 def read_s8_here(fp):
     return struct.unpack('<b', fp.read(1))[0]
 
+def read_bool8_here(fp):
+    return struct.unpack('<B', fp.read(1))[0] > 0
+
 def read_u16_here(fp):
     return struct.unpack('<H', fp.read(2))[0]
 

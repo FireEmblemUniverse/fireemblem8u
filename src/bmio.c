@@ -767,7 +767,7 @@ void WfxCloudsOffsetGraphicsEffect(u32* lines) {
 }
 
 void WfxClouds_Init(void) {
-    AllocWeatherParticles(WEATHER_NONE);
+    AllocWeatherParticles(WEATHER_FINE);
 
     CopyDataWithPossibleUncomp(
         gUnknown_085A3B00,
@@ -823,7 +823,7 @@ void WfxClouds_Update(void) {
 void WfxInit(void) {
     switch (gRAMChapterData.chapterWeatherId) {
 
-    case WEATHER_NONE:
+    case WEATHER_FINE:
         WfxNone_Init();
         break;
 

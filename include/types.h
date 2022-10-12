@@ -362,7 +362,7 @@ enum
 
 enum
 {
-    WEATHER_NONE = 0,
+    WEATHER_FINE = 0,
     WEATHER_SNOW = 1,
     WEATHER_SNOWSTORM = 2,
     WEATHER_3 = 3,
@@ -370,6 +370,15 @@ enum
     WEATHER_FLAMES = 5,
     WEATHER_SANDSTORM = 6,
     WEATHER_CLOUDS = 7
+};
+
+enum
+{
+    GOAL_TYPE_SEIZE = 0,
+    GOAL_TYPE_DEFEAT_ALL = 1,
+    GOAL_TYPE_DEFENSE = 2,
+    GOAL_TYPE_DEFEAT_BOSS = 3,
+    GOAL_TYPE_SPECIAL = 4,
 };
 
 struct SMSHandle

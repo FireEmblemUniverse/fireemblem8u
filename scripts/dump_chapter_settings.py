@@ -8,6 +8,9 @@ table_entries = 79
 
 chapters = []
 
+weather = ('fine', 'snow', 'snowstorm', '3', 'rain', 'flames', 'sandstorm', 'clouds')
+goal = ('seize', 'defeat_all', 'defense', 'defeat_boss', 'special')
+
 with open('../baserom.gba', 'rb') as f_rom:
     f_rom.seek(table_address)
     for i in range(table_entries):
@@ -22,12 +25,12 @@ with open('../baserom.gba', 'rb') as f_rom:
         chapter['mapTileAnim2Id'] = tool.read_u8_here(f_rom)
         chapter['mapChangeLayerId'] = tool.read_u8_here(f_rom)
         chapter['initialFogLevel'] = tool.read_u8_here(f_rom)
-        chapter['boolHasPrepScreen'] = tool.read_u8_here(f_rom)
+        chapter['hasPrepScreen'] = tool.read_bool8_here(f_rom)
         chapter['chapTitleId'] = tool.read_u8_here(f_rom)
         chapter['chapTitleIdInHectorStory'] = tool.read_u8_here(f_rom)
         chapter['initialPosX'] = tool.read_u8_here(f_rom)
         chapter['initialPosY'] = tool.read_u8_here(f_rom)
-        chapter['initialWeather'] = tool.read_u8_here(f_rom)
+        chapter['initialWeather'] = weather[tool.read_u8_here(f_rom)]
         chapter['battleTileSet'] = tool.read_u8_here(f_rom)
         level = tool.read_u16_here(f_rom)
         chapter['easyModeLevelMalus'] = level & 0xf
@@ -100,10 +103,10 @@ with open('../baserom.gba', 'rb') as f_rom:
         chapter['merchantPosY'] = tool.read_u8_here(f_rom)
         chapter['merchantPosYInHectorStory'] = tool.read_u8_here(f_rom)
         chapter['victorySongEnemyThreshold'] = tool.read_u8_here(f_rom)
-        chapter['boolFadeToBlack'] = tool.read_u8_here(f_rom)
+        chapter['fadeToBlack'] = tool.read_u8_here(f_rom)
         chapter['statusObjectiveTextId'] = tool.read_u16_here(f_rom)
         chapter['goalWindowTextId'] = tool.read_u16_here(f_rom)
-        chapter['goalWindowDataType'] = tool.read_u8_here(f_rom)
+        chapter['goalWindowDataType'] = goal[tool.read_u8_here(f_rom)]
         chapter['goalWindowEndTurnNumber'] = tool.read_u8_here(f_rom)
         chapter['protectCharacterIndex'] = tool.read_u8_here(f_rom)
         chapter['xMarkedTile'] = tool.read_u8_here(f_rom)
