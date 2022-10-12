@@ -13,7 +13,7 @@ const struct ROMChapterData* GetROMChapterStruct(unsigned chIndex) {
 
 const void* GetChapterMapPointer(unsigned chIndex) {
     if (chIndex != 0x7F)
-        return gChapterDataAssetTable[GetROMChapterStruct(chIndex)->mapMainLayerId];
+        return gChapterDataAssetTable[GetROMChapterStruct(chIndex)->map.mainLayerId];
 
     ReadSramFast(sub_80A6B70(), gUnknown_02020188, sub_80A6B90());
     return gUnknown_02020188;
@@ -21,7 +21,7 @@ const void* GetChapterMapPointer(unsigned chIndex) {
 
 const void* GetChapterMapChangesPointer(unsigned chIndex) {
     if (chIndex != 0x7F)
-        return gChapterDataAssetTable[GetROMChapterStruct(chIndex)->mapChangeLayerId];
+        return gChapterDataAssetTable[GetROMChapterStruct(chIndex)->map.changeLayerId];
 
     return gUnknown_08A1FB34[1];
 }

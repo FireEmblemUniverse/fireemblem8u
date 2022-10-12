@@ -3,17 +3,21 @@
 
 #include "ev_triggercheck.h"
 
+struct ChapterMap {
+    u8  obj1Id;
+    u8  obj2Id;
+    u8  paletteId;
+    u8  tileConfigId;
+    u8  mainLayerId;
+    u8  tileAnim1Id;
+    u8  tileAnim2Id;
+    u8  changeLayerId;
+};
+
 struct ROMChapterData {
     /* 00 */ const char* internalName;
 
-    /* 04 */ u8  mapObj1Id;
-    /* 05 */ u8  mapObj2Id;
-    /* 06 */ u8  mapPaletteId;
-    /* 07 */ u8  mapTileConfigId;
-    /* 08 */ u8  mapMainLayerId;
-    /* 09 */ u8  mapTileAnim1Id;
-    /* 0A */ u8  mapTileAnim2Id;
-    /* 0B */ u8  mapChangeLayerId;
+    /* 04 */ struct ChapterMap map;
 
     /* 0C */ u8  initialFogLevel;
     /* 0D */ bool8  hasPrepScreen; // left over from FE7
@@ -117,8 +121,8 @@ struct ROMChapterData {
     /* 8D */ u8 goalWindowEndTurnNumber;
     /* 8E */ u8 protectCharacterIndex;
 
-    /* 8F */ u8 xMarkedTile;
-    /* 90 */ u8 yMarkedTile;
+    /* 8F */ u8 destPosX;
+    /* 90 */ u8 destPosY;
 
     /* 91 */ u8 unk91; // ?
     /* 92 */ u8 unk92; // ?

@@ -270,10 +270,10 @@ void BMapVSync_InitMapAnimations(struct BMVSyncProc* proc) {
     proc->tilePalAnimClock = 0;
 
     proc->tileGfxAnimStart = proc->tileGfxAnimCurrent =
-        gChapterDataAssetTable[GetROMChapterStruct(gRAMChapterData.chapterIndex)->mapTileAnim1Id];
+        gChapterDataAssetTable[GetROMChapterStruct(gRAMChapterData.chapterIndex)->map.tileAnim1Id];
 
     proc->tilePalAnimStart = proc->tilePalAnimCurrent =
-        gChapterDataAssetTable[GetROMChapterStruct(gRAMChapterData.chapterIndex)->mapTileAnim2Id];
+        gChapterDataAssetTable[GetROMChapterStruct(gRAMChapterData.chapterIndex)->map.tileAnim2Id];
 }
 
 void BMapVSync_OnEnd(struct BMVSyncProc* proc) {
@@ -909,7 +909,7 @@ void ResetMapPaletteAnimations(void) {
 
     if (proc)
         proc->tilePalAnimStart = proc->tilePalAnimCurrent =
-            gChapterDataAssetTable[GetROMChapterStruct(gRAMChapterData.chapterIndex)->mapTileAnim2Id];
+            gChapterDataAssetTable[GetROMChapterStruct(gRAMChapterData.chapterIndex)->map.tileAnim2Id];
 }
 
 void SetWeather(unsigned weatherId) {
