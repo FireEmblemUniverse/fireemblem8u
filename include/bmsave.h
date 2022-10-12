@@ -57,45 +57,52 @@ struct SramHeader {
     struct SramChunk chunks[0x7];
 };
 
-/* used in sub_80A341C */
+struct GameRankSaveDataPacks {
+    struct GameRankSaveData pack[0x6];
+    u16 magic0;
+    u16 unk92;
+};
+
 struct bmsave_unkstruct0 {
-    u8 unk[0x14];
+    u8 unk[0x10];
+};
+
+struct bmsave_unkstruct0_ {
+    struct bmsave_unkstruct0 data;
+    u16 magic1;
+    u16 magic2;
 };
 
 struct bmsave_unkstruct1 {
-    /* 00 */ u32 unk00_00 : 0x01;
-             u32 unk00_01 : 0x03;
-             u32 unk00_04 : 0x03; 
-             u32 unk00_07 : 0x03; 
-             u32 unk00_0A : 0x03;
-             u32 unk00_0D : 0x03;
-             u32 unk00_10 : 0x03;
+    u32 unk[0x8];
+};
 
-             u32 unk00_13 : 0x02;
-             u32 unk00_15 : 0x01;
-             u32 unk00_16 : 0x01;
-             u32 unk00_17 : 0x08;
-             u32 unk00_1F : 0x08;
-
-             u32 unk04_07 : 0x0A;
-             u32 unk04_11 : 0x06;
-             u32 unk04_17 : 0x06;
-             u32 unk04_1D : 0x18;
-
-    /* 08 */ u32 unk08_15 : 0x06;
-             u32 unk08_1F : 0x01;
-
-    /* 0C */ char unk0C[0xB];
-
-    /* 17 */ u8 best_unit;
+struct bmsave_unkstruct1_ {
+    struct bmsave_unkstruct1 data;
+    u16 magic1;
+    u16 magic2;
 };
 
 struct bmsave_unkstruct2 {
-    struct bmsave_unkstruct1 unk0[0x6];
-    int unk90;
+    u32 unk[0x4];
+};
+
+struct bmsave_unkstruct2_ {
+    struct bmsave_unkstruct2 data;
+    u16 magic1;
+    u16 magic2;
 };
 
 
 s8 IsSramWorking();
+u8 LoadAndVerifySecureHeaderSW(void *buf);
+u16 CalcSaveDataMagic(void *src, int size);
+void WriteUnkBmSave2(struct bmsave_unkstruct2_*);
+void sub_80A6AA0();
+
+void LoadBWLEntries(void *sram_src);
+void LoadChapterWinData(void *sram_src);
+void SaveBWLEntries(void *sram_dest);
+void SaveChapterWinData(void *sram_dest);
 
 #endif /* BMSAVE_H */

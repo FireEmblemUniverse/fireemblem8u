@@ -2,682 +2,6 @@
 
 	.SYNTAX UNIFIED
 
-	THUMB_FUNC_START SaveChapterRankings
-SaveChapterRankings: @ 0x080A3DD8
-	push {r4, r5, r6, lr}
-	sub sp, #0x30
-	bl sub_80A39D8
-	adds r6, r0, #0
-	ldr r0, _080A3E24  @ gRAMChapterData
-	ldrb r0, [r0, #0x14]
-	lsrs r4, r0, #6
-	movs r0, #1
-	ands r4, r0
-	add r5, sp, #0x18
-	adds r0, r5, #0
-	adds r1, r6, #0
-	adds r2, r4, #0
-	bl sub_80A3B48
-	mov r0, sp
-	adds r1, r6, #0
-	adds r2, r4, #0
-	bl sub_80A39E4
-	mov r0, sp
-	adds r1, r5, #0
-	bl sub_80A3A88
-	lsls r0, r0, #0x18
-	cmp r0, #0
-	beq _080A3E1A
-	adds r0, r5, #0
-	adds r1, r6, #0
-	adds r2, r4, #0
-	bl sub_80A3A48
-_080A3E1A:
-	add sp, #0x30
-	pop {r4, r5, r6}
-	pop {r0}
-	bx r0
-	.align 2, 0
-_080A3E24: .4byte gRAMChapterData
-
-	THUMB_FUNC_END SaveChapterRankings
-
-	THUMB_FUNC_START sub_80A3E28
-sub_80A3E28: @ 0x080A3E28
-	push {lr}
-	sub sp, #0x28
-	add r0, sp, #0x24
-	movs r1, #0
-	strh r1, [r0]
-	ldr r2, _080A3E48  @ 0x01000012
-	mov r1, sp
-	bl CpuSet
-	mov r0, sp
-	bl sub_80A3EA4
-	add sp, #0x28
-	pop {r0}
-	bx r0
-	.align 2, 0
-_080A3E48: .4byte 0x01000012
-
-	THUMB_FUNC_END sub_80A3E28
-
-	THUMB_FUNC_START sub_80A3E4C
-sub_80A3E4C: @ 0x080A3E4C
-	push {r4, lr}
-	sub sp, #0x24
-	adds r4, r0, #0
-	bl IsSramWorking
-	lsls r0, r0, #0x18
-	cmp r0, #0
-	beq _080A3E98
-	cmp r4, #0
-	bne _080A3E62
-	mov r4, sp
-_080A3E62:
-	ldr r1, _080A3E8C  @ ReadSramFast
-	ldr r0, _080A3E90  @ gpSaveDataStart
-	ldr r0, [r0]
-	ldr r2, _080A3E94  @ 0x00007224
-	adds r0, r0, r2
-	ldr r3, [r1]
-	adds r1, r4, #0
-	movs r2, #0x24
-	bl _call_via_r3
-	adds r0, r4, #0
-	movs r1, #0x20
-	bl SecureHeaderCalc
-	ldrh r1, [r4, #0x20]
-	lsls r0, r0, #0x10
-	lsrs r0, r0, #0x10
-	cmp r1, r0
-	bne _080A3E98
-	movs r0, #1
-	b _080A3E9A
-	.align 2, 0
-_080A3E8C: .4byte ReadSramFast
-_080A3E90: .4byte gpSaveDataStart
-_080A3E94: .4byte 0x00007224
-_080A3E98:
-	movs r0, #0
-_080A3E9A:
-	add sp, #0x24
-	pop {r4}
-	pop {r1}
-	bx r1
-
-	THUMB_FUNC_END sub_80A3E4C
-
-	THUMB_FUNC_START sub_80A3EA4
-sub_80A3EA4: @ 0x080A3EA4
-	push {r4, lr}
-	adds r4, r0, #0
-	movs r1, #0x20
-	bl SecureHeaderCalc
-	strh r0, [r4, #0x20]
-	ldr r0, _080A3EC8  @ gpSaveDataStart
-	ldr r1, [r0]
-	ldr r0, _080A3ECC  @ 0x00007224
-	adds r1, r1, r0
-	adds r0, r4, #0
-	movs r2, #0x24
-	bl WriteAndVerifySramFast
-	pop {r4}
-	pop {r0}
-	bx r0
-	.align 2, 0
-_080A3EC8: .4byte gpSaveDataStart
-_080A3ECC: .4byte 0x00007224
-
-	THUMB_FUNC_END sub_80A3EA4
-
-	THUMB_FUNC_START sub_80A3ED0
-sub_80A3ED0: @ 0x080A3ED0
-	push {r4, r5, lr}
-	sub sp, #0x24
-	adds r4, r0, #0
-	adds r5, r1, #0
-	cmp r4, #0
-	bne _080A3EE4
-	mov r4, sp
-	mov r0, sp
-	bl sub_80A3E4C
-_080A3EE4:
-	asrs r0, r5, #5
-	lsls r0, r0, #2
-	adds r0, r4, r0
-	movs r1, #0x1f
-	ands r1, r5
-	ldr r0, [r0]
-	lsrs r0, r1
-	movs r1, #1
-	ands r0, r1
-	cmp r0, #0
-	bne _080A3EFE
-	movs r0, #0
-	b _080A3F00
-_080A3EFE:
-	movs r0, #1
-_080A3F00:
-	add sp, #0x24
-	pop {r4, r5}
-	pop {r1}
-	bx r1
-
-	THUMB_FUNC_END sub_80A3ED0
-
-	THUMB_FUNC_START sub_80A3F08
-sub_80A3F08: @ 0x080A3F08
-	push {r4, r5, lr}
-	sub sp, #0x24
-	adds r4, r0, #0
-	adds r5, r1, #0
-	cmp r4, #0
-	bne _080A3F22
-	mov r4, sp
-	mov r0, sp
-	bl sub_80A3E4C
-	lsls r0, r0, #0x18
-	cmp r0, #0
-	beq _080A3F7C
-_080A3F22:
-	asrs r0, r5, #5
-	lsls r0, r0, #2
-	adds r3, r4, r0
-	movs r0, #0x1f
-	ands r0, r5
-	movs r2, #1
-	lsls r2, r0
-	ldr r1, [r3]
-	adds r0, r1, #0
-	ands r0, r2
-	cmp r0, #0
-	bne _080A3F7C
-	orrs r1, r2
-	str r1, [r3]
-	cmp r5, #0x43
-	bne _080A3F4C
-	ldr r0, [r4]
-	movs r1, #4
-	orrs r0, r1
-	str r0, [r4]
-	b _080A3F58
-_080A3F4C:
-	cmp r5, #2
-	bne _080A3F58
-	ldr r0, [r4, #8]
-	movs r1, #8
-	orrs r0, r1
-	str r0, [r4, #8]
-_080A3F58:
-	cmp r5, #0x54
-	bne _080A3F68
-	ldr r0, [r4, #4]
-	movs r1, #0x80
-	lsls r1, r1, #9
-	orrs r0, r1
-	str r0, [r4, #4]
-	b _080A3F76
-_080A3F68:
-	cmp r5, #0x30
-	bne _080A3F76
-	ldr r0, [r4, #8]
-	movs r1, #0x80
-	lsls r1, r1, #0xd
-	orrs r0, r1
-	str r0, [r4, #8]
-_080A3F76:
-	adds r0, r4, #0
-	bl sub_80A3EA4
-_080A3F7C:
-	add sp, #0x24
-	pop {r4, r5}
-	pop {r0}
-	bx r0
-
-	THUMB_FUNC_END sub_80A3F08
-
-	THUMB_FUNC_START sub_80A3F84
-sub_80A3F84: @ 0x080A3F84
-	push {lr}
-	sub sp, #0x18
-	add r0, sp, #0x14
-	movs r1, #0
-	strh r1, [r0]
-	ldr r2, _080A3FA4  @ 0x0100000A
-	mov r1, sp
-	bl CpuSet
-	mov r0, sp
-	bl sub_80A4000
-	add sp, #0x18
-	pop {r0}
-	bx r0
-	.align 2, 0
-_080A3FA4: .4byte 0x0100000A
-
-	THUMB_FUNC_END sub_80A3F84
-
-	THUMB_FUNC_START sub_80A3FA8
-sub_80A3FA8: @ 0x080A3FA8
-	push {r4, lr}
-	sub sp, #0x14
-	adds r4, r0, #0
-	bl IsSramWorking
-	lsls r0, r0, #0x18
-	cmp r0, #0
-	beq _080A3FF4
-	cmp r4, #0
-	bne _080A3FBE
-	mov r4, sp
-_080A3FBE:
-	ldr r1, _080A3FE8  @ ReadSramFast
-	ldr r0, _080A3FEC  @ gpSaveDataStart
-	ldr r0, [r0]
-	ldr r2, _080A3FF0  @ 0x00007248
-	adds r0, r0, r2
-	ldr r3, [r1]
-	adds r1, r4, #0
-	movs r2, #0x14
-	bl _call_via_r3
-	adds r0, r4, #0
-	movs r1, #0x10
-	bl SecureHeaderCalc
-	ldrh r1, [r4, #0x10]
-	lsls r0, r0, #0x10
-	lsrs r0, r0, #0x10
-	cmp r1, r0
-	bne _080A3FF4
-	movs r0, #1
-	b _080A3FF6
-	.align 2, 0
-_080A3FE8: .4byte ReadSramFast
-_080A3FEC: .4byte gpSaveDataStart
-_080A3FF0: .4byte 0x00007248
-_080A3FF4:
-	movs r0, #0
-_080A3FF6:
-	add sp, #0x14
-	pop {r4}
-	pop {r1}
-	bx r1
-
-	THUMB_FUNC_END sub_80A3FA8
-
-	THUMB_FUNC_START sub_80A4000
-sub_80A4000: @ 0x080A4000
-	push {r4, lr}
-	adds r4, r0, #0
-	movs r1, #0x10
-	bl SecureHeaderCalc
-	strh r0, [r4, #0x10]
-	ldr r0, _080A4024  @ gpSaveDataStart
-	ldr r1, [r0]
-	ldr r0, _080A4028  @ 0x00007248
-	adds r1, r1, r0
-	adds r0, r4, #0
-	movs r2, #0x14
-	bl WriteAndVerifySramFast
-	pop {r4}
-	pop {r0}
-	bx r0
-	.align 2, 0
-_080A4024: .4byte gpSaveDataStart
-_080A4028: .4byte 0x00007248
-
-	THUMB_FUNC_END sub_80A4000
-
-	THUMB_FUNC_START sub_80A402C
-sub_80A402C: @ 0x080A402C
-	push {r4, r5, lr}
-	sub sp, #0x14
-	adds r4, r0, #0
-	adds r5, r1, #0
-	cmp r4, #0
-	bne _080A4040
-	mov r4, sp
-	mov r0, sp
-	bl sub_80A3FA8
-_080A4040:
-	asrs r0, r5, #5
-	lsls r0, r0, #2
-	adds r0, r4, r0
-	movs r1, #0x1f
-	ands r1, r5
-	ldr r0, [r0]
-	lsrs r0, r1
-	movs r1, #1
-	ands r0, r1
-	cmp r0, #0
-	bne _080A405A
-	movs r0, #0
-	b _080A405C
-_080A405A:
-	movs r0, #1
-_080A405C:
-	add sp, #0x14
-	pop {r4, r5}
-	pop {r1}
-	bx r1
-
-	THUMB_FUNC_END sub_80A402C
-
-	THUMB_FUNC_START sub_80A4064
-sub_80A4064: @ 0x080A4064
-	push {r4, r5, lr}
-	sub sp, #0x14
-	adds r4, r0, #0
-	adds r5, r1, #0
-	cmp r4, #0
-	bne _080A407E
-	mov r4, sp
-	mov r0, sp
-	bl sub_80A3FA8
-	lsls r0, r0, #0x18
-	cmp r0, #0
-	beq _080A40A0
-_080A407E:
-	asrs r0, r5, #5
-	lsls r0, r0, #2
-	adds r3, r4, r0
-	movs r0, #0x1f
-	ands r0, r5
-	movs r2, #1
-	lsls r2, r0
-	ldr r1, [r3]
-	adds r0, r1, #0
-	ands r0, r2
-	cmp r0, #0
-	bne _080A40A0
-	orrs r1, r2
-	str r1, [r3]
-	adds r0, r4, #0
-	bl sub_80A4000
-_080A40A0:
-	add sp, #0x14
-	pop {r4, r5}
-	pop {r0}
-	bx r0
-
-	THUMB_FUNC_END sub_80A4064
-
-	THUMB_FUNC_START sub_80A40A8
-sub_80A40A8: @ 0x080A40A8
-	push {lr}
-	movs r0, #0
-	bl LoadAndVerifySecureHeaderSW
-	lsls r0, r0, #0x18
-	cmp r0, #0
-	bne _080A40BA
-	bl InitNopSecHeader
-_080A40BA:
-	movs r0, #0
-	bl sub_80A38F4
-	lsls r0, r0, #0x18
-	cmp r0, #0
-	bne _080A40CA
-	bl sub_80A2EA8
-_080A40CA:
-	movs r0, #0
-	bl sub_80A3898
-	lsls r0, r0, #0x18
-	cmp r0, #0
-	bne _080A40DA
-	bl sub_80A39B4
-_080A40DA:
-	movs r0, #0
-	bl sub_80A3E4C
-	lsls r0, r0, #0x18
-	cmp r0, #0
-	bne _080A40EA
-	bl sub_80A3E28
-_080A40EA:
-	movs r0, #0
-	bl sub_80A3FA8
-	lsls r0, r0, #0x18
-	cmp r0, #0
-	bne _080A40FA
-	bl sub_80A3F84
-_080A40FA:
-	bl sub_80A6AA0
-	pop {r0}
-	bx r0
-
-	THUMB_FUNC_END sub_80A40A8
-
-	THUMB_FUNC_START sub_80A4104
-sub_80A4104: @ 0x080A4104
-	push {r4, r5, r6, r7, lr}
-	mov r7, r8
-	push {r7}
-	sub sp, #4
-	mov r8, r0
-	mov r0, sp
-	movs r4, #0
-	strh r4, [r0]
-	ldr r5, _080A4184  @ gUnknown_0203E894
-	ldr r2, _080A4188  @ 0x01000230
-	adds r1, r5, #0
-	bl CpuSet
-	mov r0, sp
-	adds r0, #2
-	strh r4, [r0]
-	ldr r1, _080A418C  @ gUnknown_0203ECF4
-	ldr r2, _080A4190  @ 0x01000060
-	bl CpuSet
-	adds r7, r5, #0
-	ldr r6, _080A4194  @ 0x0000084C
-	add r6, r8
-	adds r4, r7, #0
-	movs r5, #0x45
-_080A4136:
-	ldr r0, [r4]
-	ldr r1, _080A4198  @ 0xFF0000FF
-	ands r0, r1
-	movs r1, #0x80
-	lsls r1, r1, #0xe
-	orrs r0, r1
-	str r0, [r4]
-	adds r0, r7, #0
-	adds r1, r6, #0
-	movs r2, #0x10
-	bl WriteAndVerifySramFast
-	adds r6, #0x10
-	adds r4, #0x10
-	subs r5, #1
-	cmp r5, #0
-	bge _080A4136
-	ldr r4, _080A419C  @ 0x00000CAC
-	add r4, r8
-	movs r5, #0x2f
-_080A415E:
-	ldr r0, _080A418C  @ gUnknown_0203ECF4
-	adds r1, r4, #0
-	movs r2, #4
-	bl WriteAndVerifySramFast
-	adds r4, #4
-	subs r5, #1
-	cmp r5, #0
-	bge _080A415E
-	ldr r1, _080A41A0  @ gUnknown_0203E890
-	ldr r0, _080A4194  @ 0x0000084C
-	add r0, r8
-	str r0, [r1]
-	add sp, #4
-	pop {r3}
-	mov r8, r3
-	pop {r4, r5, r6, r7}
-	pop {r0}
-	bx r0
-	.align 2, 0
-_080A4184: .4byte gUnknown_0203E894
-_080A4188: .4byte 0x01000230
-_080A418C: .4byte gUnknown_0203ECF4
-_080A4190: .4byte 0x01000060
-_080A4194: .4byte 0x0000084C
-_080A4198: .4byte 0xFF0000FF
-_080A419C: .4byte 0x00000CAC
-_080A41A0: .4byte gUnknown_0203E890
-
-	THUMB_FUNC_END sub_80A4104
-
-	THUMB_FUNC_START sub_80A41A4
-sub_80A41A4: @ 0x080A41A4
-	push {lr}
-	ldr r2, _080A41C0  @ gRAMChapterData
-	ldrh r1, [r2, #0x2c]
-	ldr r0, _080A41C4  @ 0xFFFFE00F
-	ands r0, r1
-	strh r0, [r2, #0x2c]
-	movs r0, #0
-	bl SetPartyGoldAmount
-	bl sub_80A41C8
-	pop {r0}
-	bx r0
-	.align 2, 0
-_080A41C0: .4byte gRAMChapterData
-_080A41C4: .4byte 0xFFFFE00F
-
-	THUMB_FUNC_END sub_80A41A4
-
-	THUMB_FUNC_START sub_80A41C8
-sub_80A41C8: @ 0x080A41C8
-	push {r4, r5, lr}
-	sub sp, #4
-	mov r0, sp
-	movs r5, #0
-	strh r5, [r0]
-	ldr r1, _080A4208  @ gUnknown_0203E894
-	ldr r2, _080A420C  @ 0x01000230
-	bl CpuSet
-	ldr r4, _080A4210  @ gRAMChapterData
-	ldr r0, [r4, #0x38]
-	ldr r1, _080A4214  @ 0xF00000FF
-	ands r0, r1
-	str r0, [r4, #0x38]
-	ldrh r1, [r4, #0x36]
-	movs r0, #0xf
-	ands r0, r1
-	strh r0, [r4, #0x36]
-	adds r0, r4, #0
-	adds r0, #0x38
-	strb r5, [r0]
-	ldr r0, [r4, #0x34]
-	ldr r1, _080A4218  @ 0xFFF00000
-	ands r0, r1
-	str r0, [r4, #0x34]
-	bl GetPartyTotalGoldValue
-	str r0, [r4, #0x30]
-	add sp, #4
-	pop {r4, r5}
-	pop {r0}
-	bx r0
-	.align 2, 0
-_080A4208: .4byte gUnknown_0203E894
-_080A420C: .4byte 0x01000230
-_080A4210: .4byte gRAMChapterData
-_080A4214: .4byte 0xF00000FF
-_080A4218: .4byte 0xFFF00000
-
-	THUMB_FUNC_END sub_80A41C8
-
-	THUMB_FUNC_START LoadBWLEntries
-LoadBWLEntries: @ 0x080A421C
-	push {r4, lr}
-	adds r4, r0, #0
-	ldr r0, _080A423C  @ ReadSramFast
-	ldr r1, _080A4240  @ gUnknown_0203E894
-	movs r2, #0x8c
-	lsls r2, r2, #3
-	ldr r3, [r0]
-	adds r0, r4, #0
-	bl _call_via_r3
-	ldr r0, _080A4244  @ gUnknown_0203E890
-	str r4, [r0]
-	pop {r4}
-	pop {r0}
-	bx r0
-	.align 2, 0
-_080A423C: .4byte ReadSramFast
-_080A4240: .4byte gUnknown_0203E894
-_080A4244: .4byte gUnknown_0203E890
-
-	THUMB_FUNC_END LoadBWLEntries
-
-	THUMB_FUNC_START LoadSomeTable
-LoadSomeTable: @ 0x080A4248
-	push {lr}
-	ldr r2, _080A425C  @ ReadSramFast
-	ldr r1, _080A4260  @ gUnknown_0203ECF4
-	ldr r3, [r2]
-	movs r2, #0xc0
-	bl _call_via_r3
-	pop {r0}
-	bx r0
-	.align 2, 0
-_080A425C: .4byte ReadSramFast
-_080A4260: .4byte gUnknown_0203ECF4
-
-	THUMB_FUNC_END LoadSomeTable
-
-	THUMB_FUNC_START SaveBWLEntries
-SaveBWLEntries: @ 0x080A4264
-	push {r4, lr}
-	adds r4, r0, #0
-	ldr r0, _080A4280  @ gUnknown_0203E894
-	movs r2, #0x8c
-	lsls r2, r2, #3
-	adds r1, r4, #0
-	bl WriteAndVerifySramFast
-	ldr r0, _080A4284  @ gUnknown_0203E890
-	str r4, [r0]
-	pop {r4}
-	pop {r0}
-	bx r0
-	.align 2, 0
-_080A4280: .4byte gUnknown_0203E894
-_080A4284: .4byte gUnknown_0203E890
-
-	THUMB_FUNC_END SaveBWLEntries
-
-	THUMB_FUNC_START SaveChapterWinData
-SaveChapterWinData: @ 0x080A4288
-	push {lr}
-	adds r1, r0, #0
-	ldr r0, _080A4298  @ gUnknown_0203ECF4
-	movs r2, #0xc0
-	bl WriteAndVerifySramFast
-	pop {r0}
-	bx r0
-	.align 2, 0
-_080A4298: .4byte gUnknown_0203ECF4
-
-	THUMB_FUNC_END SaveChapterWinData
-
-	THUMB_FUNC_START GetChapterWinDataEntry
-GetChapterWinDataEntry: @ 0x080A429C
-	lsls r0, r0, #2
-	ldr r1, _080A42A4  @ gUnknown_0203ECF4
-	adds r0, r0, r1
-	bx lr
-	.align 2, 0
-_080A42A4: .4byte gUnknown_0203ECF4
-
-	THUMB_FUNC_END GetChapterWinDataEntry
-
-	THUMB_FUNC_START sub_80A42A8
-sub_80A42A8: @ 0x080A42A8
-	ldrh r0, [r0]
-	ldr r1, _080A42B8  @ 0x0000FF80
-	ands r1, r0
-	negs r0, r1
-	orrs r0, r1
-	lsrs r0, r0, #0x1f
-	bx lr
-	.align 2, 0
-_080A42B8: .4byte 0x0000FF80
-
-	THUMB_FUNC_END sub_80A42A8
-
 	THUMB_FUNC_START GetNextChapterWinDataEntryIndex
 GetNextChapterWinDataEntryIndex: @ 0x080A42BC
 	push {r4, lr}
@@ -1549,7 +873,7 @@ _080A4900: .4byte 0xFFFFFF00
 sub_80A4904: @ 0x080A4904
 	push {lr}
 	movs r3, #0
-	ldr r2, _080A4924  @ gUnknown_0203E894
+	ldr r2, _080A4924  @ gBWLDataStorage
 	movs r1, #0x45
 _080A490C:
 	ldrh r0, [r2, #0xc]
@@ -1564,7 +888,7 @@ _080A490C:
 	pop {r1}
 	bx r1
 	.align 2, 0
-_080A4924: .4byte gUnknown_0203E894
+_080A4924: .4byte gBWLDataStorage
 
 	THUMB_FUNC_END sub_80A4904
 
@@ -1572,7 +896,7 @@ _080A4924: .4byte gUnknown_0203E894
 sub_80A4928: @ 0x080A4928
 	push {r4, r5, lr}
 	movs r4, #0
-	ldr r0, _080A4954  @ gUnknown_0203E894
+	ldr r0, _080A4954  @ gBWLDataStorage
 	movs r5, #3
 	adds r2, r0, #0
 	adds r2, #0xb
@@ -1593,7 +917,7 @@ _080A4936:
 	pop {r1}
 	bx r1
 	.align 2, 0
-_080A4954: .4byte gUnknown_0203E894
+_080A4954: .4byte gBWLDataStorage
 
 	THUMB_FUNC_END sub_80A4928
 
@@ -1601,7 +925,7 @@ _080A4954: .4byte gUnknown_0203E894
 sub_80A4958: @ 0x080A4958
 	push {lr}
 	movs r3, #0
-	ldr r2, _080A4974  @ gUnknown_0203E894
+	ldr r2, _080A4974  @ gBWLDataStorage
 	movs r1, #0x45
 _080A4960:
 	ldrb r0, [r2]
@@ -1614,7 +938,7 @@ _080A4960:
 	pop {r1}
 	bx r1
 	.align 2, 0
-_080A4974: .4byte gUnknown_0203E894
+_080A4974: .4byte gBWLDataStorage
 
 	THUMB_FUNC_END sub_80A4958
 
@@ -1622,7 +946,7 @@ _080A4974: .4byte gUnknown_0203E894
 sub_80A4978: @ 0x080A4978
 	push {r4, r5, r6, lr}
 	movs r6, #0
-	ldr r5, _080A49A0  @ gUnknown_0203E894
+	ldr r5, _080A49A0  @ gBWLDataStorage
 	movs r4, #0x45
 _080A4980:
 	ldr r0, [r5, #8]
@@ -1640,7 +964,7 @@ _080A4980:
 	pop {r1}
 	bx r1
 	.align 2, 0
-_080A49A0: .4byte gUnknown_0203E894
+_080A49A0: .4byte gBWLDataStorage
 
 	THUMB_FUNC_END sub_80A4978
 
@@ -1648,7 +972,7 @@ _080A49A0: .4byte gUnknown_0203E894
 sub_80A49A4: @ 0x080A49A4
 	push {lr}
 	movs r3, #0
-	ldr r2, _080A49C4  @ gUnknown_0203E894
+	ldr r2, _080A49C4  @ gBWLDataStorage
 	movs r1, #0x45
 _080A49AC:
 	ldr r0, [r2, #8]
@@ -1663,7 +987,7 @@ _080A49AC:
 	pop {r1}
 	bx r1
 	.align 2, 0
-_080A49C4: .4byte gUnknown_0203E894
+_080A49C4: .4byte gBWLDataStorage
 
 	THUMB_FUNC_END sub_80A49A4
 
@@ -2492,7 +1816,7 @@ _080A4F62:
 	adds r0, r7, r1
 	bl SaveConvoyItems
 	adds r0, r7, #0
-	bl sub_80A4104
+	bl SaveClearedBWLAndChapterWinData
 	ldr r1, _080A5000  @ 0x00000D6C
 	adds r0, r7, r1
 	bl SaveGlobalEventIndexes
@@ -2724,7 +2048,7 @@ _080A5176:
 	bl LoadBWLEntries
 	ldr r1, _080A520C  @ 0x00000CAC
 	adds r0, r7, r1
-	bl LoadSomeTable
+	bl LoadChapterWinData
 	adds r0, r7, #0
 	bl Load0203EDB4
 	ldr r2, _080A5210  @ 0x00000D8C
@@ -4134,7 +3458,7 @@ _080A5C96:
 	bl LoadBWLEntries
 	ldr r1, _080A5D80  @ 0x00001E54
 	adds r0, r6, r1
-	bl LoadSomeTable
+	bl LoadChapterWinData
 	ldr r1, _080A5D84  @ 0x00001944
 	adds r0, r6, r1
 	bl LoadConvoyItems
@@ -7342,7 +6666,7 @@ _080A743A:
 	adds r1, r4, #0
 	bl sub_80A7360
 	adds r0, r4, #0
-	bl sub_80A3984
+	bl UpdateAllGameRankSaveData
 	str r7, [sp, #0x10]
 	ldr r2, _080A755C  @ 0x01000009
 	ldr r0, [sp, #0x24]
@@ -7353,7 +6677,7 @@ _080A743A:
 	adds r1, r4, #0
 	bl sub_80A734C
 	adds r0, r4, #0
-	bl sub_80A3EA4
+	bl WriteUnkBmSave1
 	str r7, [sp, #0x14]
 	ldr r2, _080A7564  @ 0x01000005
 	ldr r0, [sp, #0x28]
@@ -7364,7 +6688,7 @@ _080A743A:
 	adds r1, r4, #0
 	bl sub_80A733C
 	adds r0, r4, #0
-	bl sub_80A4000
+	bl WriteUnkBmSave2
 	str r7, [sp, #0x18]
 	ldr r2, _080A756C  @ 0x01000051
 	ldr r0, [sp, #0x2c]

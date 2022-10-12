@@ -632,9 +632,9 @@
 . = 0x03E87C; gUnknown_0203E87C = .;
 . = 0x03E884; gUnknown_0203E884 = .;
 . = 0x03E88E; gBoolSramWorking = .;
-. = 0x03E890; gUnknown_0203E890 = .;
-. = 0x03E894; gUnknown_0203E894 = .;
-. = 0x03ECF4; gUnknown_0203ECF4 = .;
+. = 0x03E890; gpBWLSaveTarget = .;
+. = 0x03E894; gBWLDataStorage = .;
+. = 0x03ECF4; gChapterWinDataArray = .;
 . = 0x03EDB4; gUnknown_0203EDB4 = .;
 . = 0x03EDB8; gUnknown_0203EDB8 = .;
 . = 0x03EDBC; gUnknown_0203EDBC = .;

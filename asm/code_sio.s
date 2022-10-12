@@ -14622,9 +14622,9 @@ sub_804881C: @ 0x0804881C
 sub_8048838: @ 0x08048838
 	push {lr}
 	bl InitNopSecHeader
-	bl sub_80A39B4
-	bl sub_80A3E28
-	bl sub_80A3F84
+	bl EraseAllGameRankSaveData
+	bl EraseUnkBmSave1
+	bl EraseUnkBmSave2
 	pop {r0}
 	bx r0
 

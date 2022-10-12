@@ -3844,7 +3844,7 @@ _080AA588:
 	strb r0, [r2]
 	movs r0, #0
 	movs r1, #0x75
-	bl sub_80A3F08
+	bl ModifyUnkBmSave1
 _080AA5B2:
 	mov r1, r8
 	ldr r0, [r1]
@@ -3860,7 +3860,7 @@ _080AA5B2:
 	strb r0, [r2]
 	movs r0, #0
 	movs r1, #0x76
-	bl sub_80A3F08
+	bl ModifyUnkBmSave1
 _080AA5D2:
 	adds r6, #0x14
 	subs r7, #1
@@ -13761,7 +13761,7 @@ sub_80AED64: @ 0x080AED64
 	adds r5, #0x33
 	strb r4, [r5]
 	mov r0, sp
-	bl sub_80A3E4C
+	bl ReadAndVerifyUnkBmSave1
 	lsls r0, r0, #0x18
 	cmp r0, #0
 	beq _080AEE9A
@@ -29427,7 +29427,7 @@ _080B661A:
 	bgt _080B6666
 	movs r0, #0
 	ldr r1, [sp, #0x20]
-	bl sub_80A4064
+	bl ModifyUnkBmSave2
 _080B6666:
 	pop {r3, r4, r5}
 	mov r8, r3

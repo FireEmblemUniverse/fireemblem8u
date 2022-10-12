@@ -25,7 +25,7 @@ unsigned short *GetConvoyItemArray();
 s8 sub_80A52DC(int);
 int sub_80A6A68();
 int sub_80A3834(struct SecureSaveHeader *buf);
-u8 sub_80A3898(void*);
+u8 ReadAndVerifyGameRankSaveDataAll(void*);
 u8 sub_80A6C1C();
 u8 sub_80A530C(int);
 u8 sub_80A38F4(void*);
@@ -73,24 +73,25 @@ void EraseSecureHeader()
         WriteAndVerifySramFast((void*)buf, (void*)gpSaveDataStart + i * 0x40, 0x40);
 }
 
-u16 SecureHeaderCalc(u16 *src, int size)
+u16 CalcSaveDataMagic(void *src, int size)
 {
+    u16 *_src = src;
     int num0 = 0;
     int num1 = 0;
     int i = size / 2;
 
     if (num0 < i) {
         do{
-            num0 += *src;
-            num1 ^= *src;
-            src++;
+            num0 += *_src;
+            num1 ^= *_src;
+            _src++;
         } while(--i != 0);
     }
     return num0 + num1;
 }
 
 
-u8 LoadAndVerifySecureHeaderSW(struct SecureSaveHeader *buf)
+u8 LoadAndVerifySecureHeaderSW(void *buf)
 {
     struct SecureSaveHeader tmp;
     struct SecureSaveHeader *header = buf;
@@ -106,7 +107,7 @@ u8 LoadAndVerifySecureHeaderSW(struct SecureSaveHeader *buf)
     if ((0 != CheckSaveHeaderMagic(header, gSaveHeaderKeygen)) &&
         (0x40624 == header->_00040624) &&
         (0x200A == header->_200A) &&
-        (header->sec_sum == SecureHeaderCalc((void*)header, 0x50)))
+        (header->sec_sum == CalcSaveDataMagic((void*)header, 0x50)))
         return 1;
 
     return 0;
@@ -114,7 +115,7 @@ u8 LoadAndVerifySecureHeaderSW(struct SecureSaveHeader *buf)
 
 void SaveSecureHeader(struct SecureSaveHeader *header)
 {
-    header->sec_sum = SecureHeaderCalc((void*)header, 0x50);
+    header->sec_sum = CalcSaveDataMagic((void*)header, 0x50);
     WriteAndVerifySramFast((void*)header, (void*)gpSaveDataStart, sizeof(struct SecureSaveHeader));
 }
 
@@ -471,7 +472,7 @@ unsigned int sub_80A3348(void) {
     if (!tmp0)
         return 0;
 
-    if (sub_80A3898(buf)) {
+    if (ReadAndVerifyGameRankSaveDataAll(buf)) {
         if (buf[0] << 0x1F)
             r4 = 1;
     
@@ -522,22 +523,22 @@ int sub_80A33EC()
 
 int sub_80A341C(void) {
     unsigned char buf0[0x4C];
-    struct bmsave_unkstruct0 *buf1;
+    struct bmsave_unkstruct0_ *buf;
     int i, ret;
 
     if (sub_80A38F4(gGenericBuffer)) {
 
         ret = 0;
-        buf1 = gGenericBuffer;
+        buf = gGenericBuffer;
     
         for (i = 0; i < 0x10; i++) {
-            if ((0 == buf1[i].unk[0]))
+            if ((0 == buf[i].data.unk[0]))
                 continue;
     
-            if (0 == buf1[i].unk[1])
+            if (0 == buf[i].data.unk[1])
                 ret = 1;
 
-            if (2 == buf1[i].unk[1])
+            if (2 == buf[i].data.unk[1])
                 ret = 1;
         }
 
@@ -841,23 +842,23 @@ int sub_80A3870(void)
         return 1;
 }
 
-u8 sub_80A3898(void *buf)
+u8 ReadAndVerifyGameRankSaveDataAll(void *buf)
 {
-    u16 *_buf = buf;
+    struct GameRankSaveDataPacks *_buf = buf;
 
     if (!IsSramWorking())
         return 0;
 
-    if (0 == _buf)
+    if (NULL == _buf)
         _buf = gGenericBuffer;
 
     (*ReadSramFast)(
         (void*)gpSaveDataStart + 0x7190,
         (void*)_buf,
-        0x94
+        sizeof(struct GameRankSaveDataPacks)
     );
 
-    if (_buf[0x90 / 2] != SecureHeaderCalc(_buf, 0x90))
+    if (_buf->magic0 != CalcSaveDataMagic((void*)_buf, 0x90))
         return 0;
     else
         return 1;
@@ -879,7 +880,7 @@ u8 sub_80A38F4(void *buf)
         0x144
     );
 
-    if (_buf[0x140 / 2] != SecureHeaderCalc(_buf, 0x140))
+    if (_buf[0x140 / 2] != CalcSaveDataMagic(_buf, 0x140))
         return 0;
     else
         return 1;
@@ -889,7 +890,7 @@ void sub_80A3950(void *buf)
 {
     u16 *_buf = buf;
 
-    _buf[0x140/2] = SecureHeaderCalc(buf, 0x140);
+    _buf[0x140/2] = CalcSaveDataMagic(buf, 0x140);
 
     WriteAndVerifySramFast(
         buf,
@@ -898,43 +899,43 @@ void sub_80A3950(void *buf)
     );
 }
 
-void sub_80A3984(void *buf)
+void UpdateAllGameRankSaveData(void *buf)
 {
-    u16 *_buf = buf;
+    struct GameRankSaveDataPacks *_buf = buf;
 
-    _buf[0x90 / 2] = SecureHeaderCalc(buf, 0x90);
+    _buf->magic0 = CalcSaveDataMagic(buf, 0x90);
 
     WriteAndVerifySramFast(
         buf,
         (void*)gpSaveDataStart + 0x7190,
-        0x94
+        sizeof(struct GameRankSaveDataPacks)
     );
 }
 
-void sub_80A39B4()
+void EraseAllGameRankSaveData()
 {
     u16 _buf[0x94 / 2];
 
     CpuFill16(0, _buf, 0x128 / 2);
-    sub_80A3984(_buf);
+    UpdateAllGameRankSaveData(_buf);
 }
 
-int sub_80A39D8()
+int GetChapterDataMode()
 {
     return gRAMChapterData.chapterModeIndex - 1;
 }
 
-int sub_80A39E4(void *buf, int param0, int param1)
+int GetGameRankSaveData(void *buf, int chapter_mode, int difficulty)
 {
-    struct bmsave_unkstruct2 _buf;
-    struct bmsave_unkstruct1 *src;
-    struct bmsave_unkstruct1 *dest = buf;
+    struct GameRankSaveDataPacks _buf;
+    struct GameRankSaveData *src;
+    struct GameRankSaveData *dest = buf;
 
     CpuFill16(0, buf, 0x18);
     CpuFill16(0, &_buf, sizeof(_buf));
 
-    if (0 != sub_80A3898(&_buf)) {
-        src = &_buf.unk0[(param0 + param1 * 3)];
+    if (0 != ReadAndVerifyGameRankSaveDataAll(&_buf)) {
+        src = &_buf.pack[(chapter_mode + difficulty * 3)];
         *dest = *src;
         return 1;
     }
@@ -942,80 +943,78 @@ int sub_80A39E4(void *buf, int param0, int param1)
     return 0;
 }
 
-void sub_80A3A48(void *buf, int param0, int param1)
+void WriteMiscGameSavePack(void *buf, int chapter_mode, int difficulty)
 {
-    struct bmsave_unkstruct2 _buf;
-    struct bmsave_unkstruct1 *src = buf;
+    struct GameRankSaveDataPacks _buf;
+    struct GameRankSaveData *src = buf;
 
-    if (0 != sub_80A3898(&_buf)) {
-        _buf.unk0[param0 + param1 * 3] = *src;
-        sub_80A3984(&_buf);
+    if (0 != ReadAndVerifyGameRankSaveDataAll(&_buf)) {
+        _buf.pack[chapter_mode + difficulty * 3] = *src;
+        UpdateAllGameRankSaveData(&_buf);
     }
 }
 
-int sub_80A3A88(struct bmsave_unkstruct1 *buf0, struct bmsave_unkstruct1 *buf1)
+u8 IsGameRankSaveDataBetter(struct GameRankSaveData *old, struct GameRankSaveData *new)
 {
-    int tmp0, tmp1;
-    int val0, val1;
-    int var0, var1;
+    int newtime, oldtime;
     
-    if (0 == buf0->unk00_00)
+    if (0 == old->unk00_00)
         return 1;
 
-    if (buf1->unk00_01 > buf0->unk00_01)
+    if (new->unk00_01 > old->unk00_01)
         return 1;
-    else if (buf1->unk00_01 != buf0->unk00_01)
+    else if (new->unk00_01 != old->unk00_01)
         return 0;
 
-    if (buf1->best_unit != 0 && buf1->best_unit != buf0->best_unit)
+    if (new->luckydog != 0 && new->luckydog != old->luckydog)
         return 1;
 
-    if (buf1->unk00_17 > buf0->unk00_17)
+    if (new->unk00_17 > old->unk00_17)
         return 1;
 
-    if (buf1->unk04_1D > buf0->unk04_1D)
+    if (new->gold > old->gold)
         return 1;
-    else if (buf1->unk04_1D != buf0->unk04_1D)
+    else if (new->gold != old->gold)
         return 0;
 
-    var0 = buf1->unk04_07 * 3600
-         + buf1->unk04_11 * 60
-         + buf1->unk04_17;
+    newtime = new->hours * 3600
+         + new->minutes * 60
+         + new->seconds;
 
-    var1 = buf0->unk04_07 * 3600
-         + buf0->unk04_11 * 60
-         + buf0->unk04_17;
+    oldtime = old->hours * 3600
+         + old->minutes * 60
+         + old->seconds;
 
-    if (var0 >= var1)
+    if (newtime >= oldtime)
         return 0;
 
     return 1;
 }
 
-void sub_80A3B48(struct bmsave_unkstruct1 *buf, int r1, int prep_mode)
+void GenerateGameRankSaveData(struct GameRankSaveData *buf, int chapter_mode, int difficulty)
 {
     int i, j;
     int best = 0;
     u16 hours, minutes, seconds;
 
-    CpuFill16(0, buf, sizeof(struct bmsave_unkstruct1));
+    CpuFill16(0, buf, sizeof(struct GameRankSaveData));
 
     buf->unk00_00 = 1;
-    buf->unk00_13 = r1;
-    buf->unk00_15 = prep_mode;
+    buf->chapter_mode = chapter_mode;
+    buf->chapter_stat = difficulty;
 
-    buf->unk04_1D = GetPartyTotalGoldValue();
+    buf->gold = GetPartyTotalGoldValue();
     
     buf->unk00_16 = gRAMChapterData.unk_2B_00;
     buf->unk00_17 = gRAMChapterData.unk_2C_04;
 
     ComputeDisplayTime(GetGameTotalTime(), &hours, &minutes, &seconds);
-    buf->unk04_07 = hours;
-    buf->unk04_11 = minutes;
-    buf->unk04_17 = seconds;
+    buf->hours = hours;
+    buf->minutes = minutes;
+    buf->seconds = seconds;
 
-    buf->unk00_1F = 0;
-    buf->best_unit = 0;
+    buf->cuteguy = 0;
+    buf->luckydog = 0;
 
     for (i = 1; i < FACTION_GREEN; i++) {
         struct Unit *unit = GetUnit(i);
@@ -1027,7 +1026,7 @@ void sub_80A3B48(struct bmsave_unkstruct1 *buf, int r1, int prep_mode)
             if (US_DEAD & unit->state)
                 break;
             
-            buf->best_unit = unit->pCharacterData->number;
+            buf->luckydog = unit->pCharacterData->number;
             break;
         }
     }
@@ -1041,11 +1040,11 @@ void sub_80A3B48(struct bmsave_unkstruct1 *buf, int r1, int prep_mode)
         if (0 != ((CA_LOCK_1 | CA_STEAL) & unit->state))
             continue;
 
-        if (sub_80A49FC(unit->pCharacterData->number) <= best)
+        if (GetBwlFavoritism(unit->pCharacterData->number) <= best)
             continue;
 
-        best = sub_80A49FC(unit->pCharacterData->number);
-        buf->unk00_1F = unit->pCharacterData->number;
+        best = GetBwlFavoritism(unit->pCharacterData->number);
+        buf->cuteguy = unit->pCharacterData->number;
     }
 
     buf->unk00_04 = sub_80B5D74();
@@ -1056,5 +1055,290 @@ void sub_80A3B48(struct bmsave_unkstruct1 *buf, int r1, int prep_mode)
 
     buf->unk00_01 = sub_80B6070(buf->unk00_04, buf->unk00_07, buf->unk00_0A, buf->unk00_0D, buf->unk00_10);
     buf->unk08_15 = GetWonChapterCount();
-    strcpy((void*)&buf->unk0C, GetTacticianName());
+    strcpy((void*)&buf->tactician_name, GetTacticianName());
+}
+
+void UpdateGameRankSaveData()
+{
+    struct GameRankSaveData old, new;
+
+    int chapter_mode = GetChapterDataMode();
+    int diffcult = 1 & gRAMChapterData.chapterStateBits >> 6;
+
+    GenerateGameRankSaveData(&new, chapter_mode, diffcult);
+    GetGameRankSaveData(&old, chapter_mode, diffcult);
+
+    if (0 != IsGameRankSaveDataBetter(&old, &new))
+        WriteMiscGameSavePack(&new, chapter_mode, diffcult);
+}
+
+void EraseUnkBmSave1()
+{
+    u16 buf[0x12];
+    
+    CpuFill16(0, buf, sizeof(buf));
+    WriteUnkBmSave1(buf);
+}
+
+u8 ReadAndVerifyUnkBmSave1(void *buf)
+{
+    struct bmsave_unkstruct1_ *_buf = buf;
+    struct bmsave_unkstruct1_ tmp;
+
+    if (!IsSramWorking())
+        return 0;
+
+    if (NULL == buf)
+        _buf = &tmp;
+    
+    (*ReadSramFast)((void*)gpSaveDataStart + 0x7224,
+                    (void*)_buf,
+                    sizeof(struct bmsave_unkstruct1_));
+
+    if (_buf->magic1 != CalcSaveDataMagic(_buf, sizeof(struct bmsave_unkstruct1)))
+        return 0;
+    else
+        return 1;
+}
+
+void WriteUnkBmSave1(void *buf)
+{
+    struct bmsave_unkstruct1_ *_buf = buf;
+
+    _buf->magic1 = CalcSaveDataMagic(buf, sizeof(struct bmsave_unkstruct1));
+
+    WriteAndVerifySramFast((void*)_buf,
+                           (void*)gpSaveDataStart + 0x7224,
+                            sizeof(struct bmsave_unkstruct1_));
+}
+
+
+int ReadAndVerifyUnkBmSave1Bit(void *buf, int val) {
+    struct bmsave_unkstruct1_ tmp;
+    struct bmsave_unkstruct1_ *_buf;
+    u32 _val = val;
+
+    if (0 == buf) {
+        buf = &tmp;
+        ReadAndVerifyUnkBmSave1(&tmp);
+    }
+
+    _buf = buf;
+    if (1 & (_buf->data.unk[val >> 5] >> (_val % 0x20)))
+        return 1;
+    else
+        return 0;
+}
+
+void ModifyUnkBmSave1(struct bmsave_unkstruct1_ *buf, int val)
+{
+    struct bmsave_unkstruct1_ tmp;
+    u32 _val = val;
+    
+    if (NULL == buf) {
+        buf = &tmp;
+        
+        if (!ReadAndVerifyUnkBmSave1(&tmp))
+            return;
+    }
+
+    if (buf->data.unk[val >> 5] & (1 << (_val % 0x20)))
+        return;
+
+    buf->data.unk[val >> 5] |= 1 << (_val % 0x20);
+
+    if (0x43 == val)
+        buf->data.unk[0] |= 4;
+    else if (2 == val)
+        buf->data.unk[2] |= 8;
+
+    if (0x54 == val)
+        buf->data.unk[1] |= 1 << 0x10;
+    else if (0x30 == val)
+        buf->data.unk[2] |= 1 << 0x14;
+
+    WriteUnkBmSave1(buf);
+}
+
+void EraseUnkBmSave2()
+{
+    struct bmsave_unkstruct2_ buf;
+    
+    CpuFill16(0, (void*)&buf, sizeof(buf));
+    WriteUnkBmSave2(&buf);
+}
+
+u8 ReadAndVerifyUnkBmSave2(void *buf)
+{
+    struct bmsave_unkstruct2_ tmp, *_buf = buf;
+
+    if (!IsSramWorking())
+        return 0;
+
+    if (0 == _buf)
+        _buf = &tmp;
+
+    (*ReadSramFast)((void*)gpSaveDataStart + 0x7248, (void*)_buf, sizeof(*_buf));
+
+    if (_buf->magic1 != CalcSaveDataMagic(_buf, sizeof(_buf->data)))
+        return 0;
+    else
+        return 1;
+}
+
+void WriteUnkBmSave2(struct bmsave_unkstruct2_ *buf)
+{
+    buf->magic1 = CalcSaveDataMagic(buf, sizeof(struct bmsave_unkstruct2));
+
+    WriteAndVerifySramFast((void*)buf,
+                           (void*)gpSaveDataStart + 0x7248,
+                            sizeof(struct bmsave_unkstruct2_));
+}
+
+int ReadAndVerifyUnkBmSave2Bit(void *buf, int val) {
+    struct bmsave_unkstruct2_ tmp;
+    struct bmsave_unkstruct2_ *_buf;
+    u32 _val = val;
+
+    if (0 == buf) {
+        buf = &tmp;
+        ReadAndVerifyUnkBmSave2(&tmp);
+    }
+
+    _buf = buf;
+    if (1 & (_buf->data.unk[val >> 5] >> (_val % 0x20)))
+        return 1;
+    else
+        return 0;
+}
+
+void ModifyUnkBmSave2(struct bmsave_unkstruct2_ *buf, int val)
+{
+    struct bmsave_unkstruct2_ tmp;
+    u32 _val = val;
+    
+    if (NULL == buf) {
+        buf = &tmp;
+        
+        if (!ReadAndVerifyUnkBmSave2(&tmp))
+            return;
+    }
+
+    if (buf->data.unk[val >> 5] & (1 << (_val % 0x20)))
+        return;
+
+    buf->data.unk[val >> 5] |= (1 << (_val % 0x20));
+    WriteUnkBmSave2(buf);
+}
+
+void VerfyMiscSaveData()
+{
+    if (!LoadAndVerifySecureHeaderSW(NULL))
+        InitNopSecHeader();
+
+    if (!sub_80A38F4(NULL))
+        sub_80A2EA8();
+    
+    if (!ReadAndVerifyGameRankSaveDataAll(NULL))
+        EraseAllGameRankSaveData();
+    
+    if (!ReadAndVerifyUnkBmSave1(NULL))
+        EraseUnkBmSave1();
+    
+    if (!ReadAndVerifyUnkBmSave2(NULL))
+        EraseUnkBmSave2();
+    
+    sub_80A6AA0();
+}
+
+void SaveClearedBWLAndChapterWinData(void *sram_dest)
+{
+    int i, j;
+    void *dest0 ,*dest1, *src;
+
+    CpuFill16(0, (void*)gBWLDataStorage, sizeof(gBWLDataStorage));
+    CpuFill16(0, (void*)gChapterWinDataArray, sizeof(gChapterWinDataArray));
+
+    src = gBWLDataStorage;
+    dest0 = sram_dest + 0x084C;
+
+    for (i = 0; i < BWL_ARRAY_NUM; i++) {
+        gBWLDataStorage[i].favoritism = 0x2000;
+        WriteAndVerifySramFast(src, dest0, sizeof(struct BwlData));
+
+        dest0 += sizeof(struct BwlData);
+        /* bug? */
+        // src += sizeof(struct BwlData);
+    }
+
+    dest1 = sram_dest + 0x0CAC;
+
+    for (i = 0; i < WIN_ARRAY_NUM; i++) {
+        WriteAndVerifySramFast((void*)&gChapterWinDataArray[0], /* bug? */
+                                dest1,
+                                sizeof(struct ChapterWinData));
+        dest1 += sizeof(struct ChapterWinData);
+    }
+
+    gpBWLSaveTarget = sram_dest + 0x084C;
+}
+
+void ClearRAMChapterData()
+{
+    gRAMChapterData.unk_2C_04 = 0;
+    SetPartyGoldAmount(0);
+    ResetRAMChapterData();
+}
+
+void ResetRAMChapterData()
+{
+    CpuFill16(0, (void*)gBWLDataStorage, sizeof(gBWLDataStorage));
+    gRAMChapterData.unk_38_2 = 0;
+    gRAMChapterData.unk_34_14 = 0;
+    gRAMChapterData.unk_38_1 = 0;
+    gRAMChapterData.unk_34_00 = 0;
+    gRAMChapterData.total_gold = GetPartyTotalGoldValue();
+}
+
+void LoadBWLEntries(void *sram_src)
+{
+    ReadSramFast(sram_src,
+                 (void*)gBWLDataStorage,
+                 sizeof(gBWLDataStorage));
+    
+    gpBWLSaveTarget = sram_src;
+}
+
+void LoadChapterWinData(void *sram_src)
+{
+    ReadSramFast(sram_src,
+                 (void*)gChapterWinDataArray,
+                 sizeof(gChapterWinDataArray));
+}
+
+void SaveBWLEntries(void *sram_dest)
+{
+    WriteAndVerifySramFast((void*)gBWLDataStorage,
+                            sram_dest,
+                            sizeof(gBWLDataStorage));
+
+    gpBWLSaveTarget = sram_dest;
+}
+
+void SaveChapterWinData(void *sram_dest)
+{
+    WriteAndVerifySramFast((void*)gChapterWinDataArray,
+                            sram_dest,
+                            sizeof(gChapterWinDataArray));
+}
+
+struct ChapterWinData *GetChapterWinDataEntry(int index)
+{
+    return &gChapterWinDataArray[index];
+}
+
+u32 sub_80A42A8(u16 *pval)
+{
+    u32 ret = *pval & 0xFF80;
+    return ((-ret) | ret) >> 0x1F;
 }

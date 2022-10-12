@@ -1356,7 +1356,7 @@ void GameCtrl_DeclareCompletedChapter(void) {
     RegisterChapterTimeAndTurnCount(&gRAMChapterData);
 
     ComputeChapterRankings();
-    SaveChapterRankings();
+    UpdateGameRankSaveData();
 
     gRAMChapterData.chapterStateBits |= CHAPTER_FLAG_5;
 }

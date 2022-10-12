@@ -634,9 +634,9 @@ extern struct ActionData gActionData;
 // extern ??? gUnknown_0203E87C
 // extern ??? gUnknown_0203E884
 // extern ??? gBoolSramWorking
-// extern ??? gUnknown_0203E890
-// extern ??? gUnknown_0203E894
-// extern ??? gUnknown_0203ECF4
+extern struct BwlData *gpBWLSaveTarget;
+extern struct BwlData gBWLDataStorage[BWL_ARRAY_NUM];
+extern struct ChapterWinData gChapterWinDataArray[WIN_ARRAY_NUM];
 // extern ??? gUnknown_0203EDB4
 // extern ??? gUnknown_0203EDB8
 // extern ??? gUnknown_0203EDBC

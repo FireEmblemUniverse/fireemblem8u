@@ -37,7 +37,7 @@ void ClearLocalEvents(void);
 // code.s
 void sub_8086BB8(ProcPtr, u8*, int);
 void EndBG3Slider(ProcPtr);
-void sub_80A41C8(void);
+void ResetRAMChapterData(void);
 int sub_80A4BB0(void);
 void sub_80A4CD8(void);
 s8 sub_80A5218(int);
@@ -641,7 +641,7 @@ void sub_8009C5C(struct GameCtrlProc* proc) {
 
 void sub_8009CA4(ProcPtr proc) {
     sub_80A6D38();
-    sub_80A41C8();
+    ResetRAMChapterData();
 
     ChapterChangeUnitCleanup();
 
