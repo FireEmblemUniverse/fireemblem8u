@@ -604,29 +604,8 @@ struct GameRankSaveData {
     /* 17 */ u8 luckydog;
 };
 
-enum {
-    BWL_ARRAY_NUM = 0x46,
-    WIN_ARRAY_NUM = 0x30,
-};
 
-struct BwlData {
-    /* 00 */ u32 loss_count : 0x08;
-             u32 favoritism : 0x10;
-             u32 unit_move_count : 0x08;
-             
-    /* 04 */ u32 stat_screen_view_count : 0x08;
-             u32 death_loc_id : 0x06;
-             u32 death_turn_num : 0x0A;
-             u32 deploy_count : 0x06;
-             u32 tiles_move_count : 0x0A;
-             u32 death_type : 0x04;
-             u32 total_exp_gain : 0x0C;
-             u32 win_count : 0x0A;
-             u32 battle_count : 0x0C;
-             u32 killer : 0x09;
-             u32 dead_in_skirmish : 0x01;
-             u32 _pad_ : 0x08;
-};
+#define WIN_ARRAY_NUM 0x30
 
 struct ChapterWinData {
     /* 00 */ u16 chapter_index : 0x07;

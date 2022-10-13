@@ -9,6 +9,7 @@
 #include "bmitem.h"
 #include "bmio.h"
 
+#include "bwl.h"
 #include "bmsave.h"
 
 /* functions */
@@ -1479,4 +1480,85 @@ int GetGameTotalTurnCount2()
     return count;
 }
 
+void BWL_IncrementBattleCount(struct Unit* unit)
+{
+    u32 char_id;
+    struct BwlData *bwl;
+    
+    if (FACTION_BLUE != UNIT_FACTION(unit))
+        return;
 
+    char_id = UNIT_CHAR_ID(unit);
+    
+    bwl = GetBWL(char_id);
+    if (NULL == bwl)
+        return;
+
+    if (bwl->battle_count < 4000)
+        bwl->battle_count++;
+
+    BWL_AddFavoritismValue(UNIT_CHAR_ID(unit), 4);
+}
+
+void BWL_IncrementWinCount(u8 char_id)
+{
+    struct BwlData *bwl = GetBWL(char_id);
+    if (NULL == bwl)
+        return;
+
+    if (bwl->win_count < 0x3E8)
+        bwl->win_count++;
+
+    BWL_AddFavoritismValue(char_id, 0x10);
+}
+
+void BWL_IncrementAndSaveLossCount(u8 char_id)
+{
+    struct SramChunk buf;
+    int val;
+    
+    if (IsSramWorking()){
+
+        struct BwlData *bwl = GetBWL(char_id);
+        if (0 == bwl)
+            return;
+    
+        if (1 == gGameState.unk3C)
+            return;
+    
+        if (0x08 & gRAMChapterData.chapterStateBits)
+            return;
+    
+        if (0x40 & gGameState.gameStateBits)
+            return;
+    
+        if (0x20 & gGameState.gameStateBits)
+            return;
+    
+        if (0x80 & gRAMChapterData.chapterStateBits)
+            return;
+    
+        if (bwl->loss_count >= 0xC8)
+            return;
+        
+        bwl->loss_count++;
+    
+        BWL_AddFavoritismValue(char_id, -0x80);
+    
+        val = CheckSecHeader_BIT63() + 3;
+    
+        WriteAndVerifySramFast((void*)bwl,
+            (void*)GetSaveDataLocation(val) + 0x19E4 + char_id * 0x10,
+            1);
+    
+        SaveMetadata_Check(&buf, val);
+        SaveMetadata_Generate(&buf, val);
+    
+        WriteAndVerifySramFast((void*)bwl,
+                (void*)GetSaveDataLocation(gRAMChapterData.gameSaveSlot) + 0x083C + char_id * 0x10,
+                3);
+    
+        SaveMetadata_Check(&buf, gRAMChapterData.gameSaveSlot);
+        SaveMetadata_Generate(&buf, gRAMChapterData.gameSaveSlot);
+    }
+}
