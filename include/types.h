@@ -619,7 +619,9 @@ struct BwlData {
 };
 
 struct ChapterWinData {
-    /* 00 */ u8 unk00[0x04];
+    /* 00 */ u16 chapter_index : 0x07;
+             u16 chapter_turn : 0x09;
+             u16 chapter_time : 0x10;
 };
 
 #endif // GUARD_TYPES_H

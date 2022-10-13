@@ -1342,3 +1342,84 @@ u32 sub_80A42A8(u16 *pval)
     u32 ret = *pval & 0xFF80;
     return ((-ret) | ret) >> 0x1F;
 }
+
+int GetNextChapterWinDataEntryIndex()
+{
+    struct ChapterWinData *cur = GetChapterWinDataEntry(0);
+    int ret = 0;
+
+    while (cur->chapter_turn) {
+        ++ret;
+        ++cur;
+    }
+
+    return ret;
+}
+
+int GetWonChapterCount()
+{
+    struct ChapterWinData *cur = GetChapterWinDataEntry(0);
+    int ret;
+
+    for (ret = 0; cur->chapter_turn; cur++) {
+        if (DoesThisChapterCount(cur->chapter_index))
+            ret++;
+    }
+
+    return ret;
+}
+
+int sub_80A4330()
+{
+    int index = GetNextChapterWinDataEntryIndex();
+
+    if (0 == index)
+        return -1;
+    else
+        return GetChapterWinDataEntry(index - 1)->chapter_index;
+}
+
+void RegisterChapterTimeAndTurnCount(struct RAMChapterData* chData)
+{
+    struct ChapterWinData *win_data = GetChapterWinDataEntry(GetNextChapterWinDataEntryIndex());
+    int time, turn;
+    
+    time = (GetGameClock() - chData->unk4) / 0xB4;
+    if (time > 0xEA60)
+        time = 0xEA60;
+
+    turn = chData->chapterTurnNumber;
+    if (turn > 0x1F4)
+        turn = 0x1F4;
+
+    win_data->chapter_index = chData->chapterIndex;
+    win_data->chapter_turn = turn;
+    win_data->chapter_time = time;
+    
+}
+
+int CalcTotalGameTime()
+{
+    int ret = 0;
+    int index = GetNextChapterWinDataEntryIndex();
+    int i = 0;
+
+    if (ret < index)
+        for (; i < index; i++)
+            ret += GetChapterWinDataEntry(i)->chapter_time * 0xB4;
+
+    return ret;
+}
+
+int GetGameTotalTurnCount()
+{
+    int ret = 0;
+    int index = GetNextChapterWinDataEntryIndex();
+    int i = 0;
+
+    if (ret < index)
+        for (; i < index; i++)
+            ret += GetChapterWinDataEntry(i)->chapter_turn;
+
+    return ret;
+}
