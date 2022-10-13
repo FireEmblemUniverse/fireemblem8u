@@ -41404,12 +41404,12 @@ _080A2C28: .4byte gUnknown_08A19880
 
 	THUMB_FUNC_START sub_80A2C2C
 sub_80A2C2C: @ 0x080A2C2C
-	ldr r0, _080A2C34  @ gUnknown_0203E884
+	ldr r0, _080A2C34  @ gBWLDataArray
 	movs r1, #0
 	strb r1, [r0]
 	bx lr
 	.align 2, 0
-_080A2C34: .4byte gUnknown_0203E884
+_080A2C34: .4byte gBWLDataArray
 
 	THUMB_FUNC_END sub_80A2C2C
 

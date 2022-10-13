@@ -2,86 +2,6 @@
 
 	.SYNTAX UNIFIED
 
-	THUMB_FUNC_START DoesThisChapterCount
-DoesThisChapterCount: @ 0x080A4404
-	push {lr}
-	adds r1, r0, #0
-	ldr r0, _080A441C  @ gRAMChapterData
-	ldrb r0, [r0, #0x1b]
-	cmp r0, #2
-	beq _080A442E
-	cmp r0, #2
-	bgt _080A4420
-	cmp r0, #1
-	beq _080A4426
-	b _080A4440
-	.align 2, 0
-_080A441C: .4byte gRAMChapterData
-_080A4420:
-	cmp r0, #3
-	beq _080A4434
-	b _080A4440
-_080A4426:
-	cmp r1, #9
-	bhi _080A4440
-	movs r0, #1
-	b _080A4442
-_080A442E:
-	adds r0, r1, #0
-	subs r0, #0xa
-	b _080A4438
-_080A4434:
-	adds r0, r1, #0
-	subs r0, #0x17
-_080A4438:
-	cmp r0, #0xb
-	bhi _080A4440
-	movs r0, #1
-	b _080A4442
-_080A4440:
-	movs r0, #0
-_080A4442:
-	pop {r1}
-	bx r1
-
-	THUMB_FUNC_END DoesThisChapterCount
-
-	THUMB_FUNC_START GetGameTotalTime
-GetGameTotalTime: @ 0x080A4448
-	push {r4, r5, r6, r7, lr}
-	movs r7, #0
-	bl GetNextChapterWinDataEntryIndex
-	adds r6, r0, #0
-	movs r5, #0
-	cmp r7, r6
-	bge _080A447E
-_080A4458:
-	adds r0, r5, #0
-	bl GetChapterWinDataEntry
-	adds r4, r0, #0
-	ldr r0, [r4]
-	lsls r0, r0, #0x19
-	lsrs r0, r0, #0x19
-	bl DoesThisChapterCount
-	lsls r0, r0, #0x18
-	cmp r0, #0
-	beq _080A4478
-	ldrh r0, [r4, #2]
-	movs r1, #0xb4
-	muls r0, r1, r0
-	adds r7, r7, r0
-_080A4478:
-	adds r5, #1
-	cmp r5, r6
-	blt _080A4458
-_080A447E:
-	adds r0, r7, #0
-	pop {r4, r5, r6, r7}
-	pop {r1}
-	bx r1
-
-	THUMB_FUNC_END GetGameTotalTime
-
 	THUMB_FUNC_START GetGameTotalTurnCount2
 GetGameTotalTurnCount2: @ 0x080A4488
 	push {r4, r5, r6, r7, lr}
@@ -98,7 +18,7 @@ _080A4498:
 	ldr r0, [r4]
 	lsls r0, r0, #0x19
 	lsrs r0, r0, #0x19
-	bl DoesThisChapterCount
+	bl IsChapterIndexValid
 	lsls r0, r0, #0x18
 	cmp r0, #0
 	beq _080A44B8
@@ -138,7 +58,7 @@ sub_80A44C8: @ 0x080A44C8
 	cmp r0, #0
 	beq _080A451E
 	lsls r1, r5, #4
-	ldr r0, _080A4524  @ gUnknown_0203E884
+	ldr r0, _080A4524  @ gBWLDataArray
 	adds r2, r1, r0
 	cmp r2, #0
 	beq _080A451E
@@ -167,7 +87,7 @@ _080A451E:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_080A4524: .4byte gUnknown_0203E884
+_080A4524: .4byte gBWLDataArray
 _080A4528: .4byte 0x00000F9F
 _080A452C: .4byte 0x00000FFF
 _080A4530: .4byte 0xFFFFC003
@@ -188,7 +108,7 @@ sub_80A4534: @ 0x080A4534
 	cmp r0, #0
 	beq _080A4584
 	lsls r1, r4, #4
-	ldr r0, _080A458C  @ gUnknown_0203E884
+	ldr r0, _080A458C  @ gBWLDataArray
 	adds r3, r1, r0
 	cmp r3, #0
 	beq _080A4584
@@ -220,7 +140,7 @@ _080A4584:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_080A458C: .4byte gUnknown_0203E884
+_080A458C: .4byte gBWLDataArray
 _080A4590: .4byte 0x000003E7
 
 	THUMB_FUNC_END sub_80A4534
@@ -247,7 +167,7 @@ sub_80A4594: @ 0x080A4594
 	beq _080A4662
 	mov r0, r8
 	lsls r6, r0, #4
-	ldr r0, _080A4670  @ gUnknown_0203E884
+	ldr r0, _080A4670  @ gBWLDataArray
 	adds r5, r6, r0
 	cmp r5, #0
 	beq _080A4662
@@ -326,7 +246,7 @@ _080A4662:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_080A4670: .4byte gUnknown_0203E884
+_080A4670: .4byte gBWLDataArray
 _080A4674: .4byte gGameState
 _080A4678: .4byte gRAMChapterData
 _080A467C: .4byte 0x000019E4
@@ -350,7 +270,7 @@ BWL_AddWinOrLossIdk: @ 0x080A4684
 	cmp r0, #0
 	beq _080A4734
 	lsls r1, r4, #4
-	ldr r0, _080A46DC  @ gUnknown_0203E884
+	ldr r0, _080A46DC  @ gBWLDataArray
 	adds r4, r1, r0
 	cmp r4, #0
 	beq _080A4734
@@ -378,7 +298,7 @@ BWL_AddWinOrLossIdk: @ 0x080A4684
 	ldr r3, _080A46E4  @ gRAMChapterData
 	b _080A4706
 	.align 2, 0
-_080A46DC: .4byte gUnknown_0203E884
+_080A46DC: .4byte gBWLDataArray
 _080A46E0: .4byte gUnknown_03005280
 _080A46E4: .4byte gRAMChapterData
 _080A46E8:
@@ -447,7 +367,7 @@ BWL_IncrementMoveValue: @ 0x080A474C
 	cmp r0, #0
 	beq _080A4780
 	lsls r1, r4, #4
-	ldr r0, _080A4788  @ gUnknown_0203E884
+	ldr r0, _080A4788  @ gBWLDataArray
 	adds r1, r1, r0
 	cmp r1, #0
 	beq _080A4780
@@ -465,7 +385,7 @@ _080A4780:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_080A4788: .4byte gUnknown_0203E884
+_080A4788: .4byte gBWLDataArray
 
 	THUMB_FUNC_END BWL_IncrementMoveValue
 
@@ -483,7 +403,7 @@ BWL_IncrementStatScreenViews: @ 0x080A478C
 	cmp r0, #0
 	beq _080A47C0
 	lsls r1, r4, #4
-	ldr r0, _080A47C8  @ gUnknown_0203E884
+	ldr r0, _080A47C8  @ gBWLDataArray
 	adds r1, r1, r0
 	cmp r1, #0
 	beq _080A47C0
@@ -501,7 +421,7 @@ _080A47C0:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_080A47C8: .4byte gUnknown_0203E884
+_080A47C8: .4byte gBWLDataArray
 
 	THUMB_FUNC_END BWL_IncrementStatScreenViews
 
@@ -519,7 +439,7 @@ BWL_IncrementDeployCountMaybe: @ 0x080A47CC
 	cmp r0, #0
 	beq _080A4810
 	lsls r1, r4, #4
-	ldr r0, _080A4818  @ gUnknown_0203E884
+	ldr r0, _080A4818  @ gBWLDataArray
 	adds r2, r1, r0
 	cmp r2, #0
 	beq _080A4810
@@ -545,7 +465,7 @@ _080A4810:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_080A4818: .4byte gUnknown_0203E884
+_080A4818: .4byte gBWLDataArray
 
 	THUMB_FUNC_END BWL_IncrementDeployCountMaybe
 
@@ -564,7 +484,7 @@ BWL_AddTilesMoved: @ 0x080A481C
 	cmp r0, #0
 	beq _080A4870
 	lsls r1, r4, #4
-	ldr r0, _080A4878  @ gUnknown_0203E884
+	ldr r0, _080A4878  @ gBWLDataArray
 	adds r3, r1, r0
 	cmp r3, #0
 	beq _080A4870
@@ -597,7 +517,7 @@ _080A4870:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_080A4878: .4byte gUnknown_0203E884
+_080A4878: .4byte gBWLDataArray
 
 	THUMB_FUNC_END BWL_AddTilesMoved
 
@@ -616,7 +536,7 @@ BWL_AddExpGained: @ 0x080A487C
 	cmp r0, #0
 	beq _080A48C8
 	lsls r1, r4, #4
-	ldr r0, _080A48D0  @ gUnknown_0203E884
+	ldr r0, _080A48D0  @ gBWLDataArray
 	adds r2, r1, r0
 	cmp r2, #0
 	beq _080A48C8
@@ -645,7 +565,7 @@ _080A48C8:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_080A48D0: .4byte gUnknown_0203E884
+_080A48D0: .4byte gBWLDataArray
 _080A48D4: .4byte 0x00000FFF
 _080A48D8: .4byte 0xFF000FFF
 
@@ -813,7 +733,7 @@ sub_80A49C8: @ 0x080A49C8
 	cmp r0, #0
 	beq _080A49E8
 	lsls r1, r4, #4
-	ldr r0, _080A49EC  @ gUnknown_0203E884
+	ldr r0, _080A49EC  @ gBWLDataArray
 	adds r1, r1, r0
 	cmp r1, #0
 	bne _080A49F0
@@ -821,7 +741,7 @@ _080A49E8:
 	movs r0, #0
 	b _080A49F6
 	.align 2, 0
-_080A49EC: .4byte gUnknown_0203E884
+_080A49EC: .4byte gBWLDataArray
 _080A49F0:
 	ldr r0, [r1, #8]
 	lsls r0, r0, #8
@@ -846,7 +766,7 @@ GetBwlFavoritism: @ 0x080A49FC
 	cmp r0, #0
 	beq _080A4A1C
 	lsls r1, r4, #4
-	ldr r0, _080A4A24  @ gUnknown_0203E884
+	ldr r0, _080A4A24  @ gBWLDataArray
 	adds r0, r1, r0
 	cmp r0, #0
 	bne _080A4A28
@@ -855,7 +775,7 @@ _080A4A1C:
 	lsls r0, r0, #6
 	b _080A4A2E
 	.align 2, 0
-_080A4A24: .4byte gUnknown_0203E884
+_080A4A24: .4byte gBWLDataArray
 _080A4A28:
 	ldr r0, [r0]
 	lsls r0, r0, #8
@@ -881,7 +801,7 @@ BWL_AddFavoritismValue: @ 0x080A4A34
 	cmp r0, #0
 	beq _080A4A96
 	lsls r1, r4, #4
-	ldr r0, _080A4A70  @ gUnknown_0203E884
+	ldr r0, _080A4A70  @ gBWLDataArray
 	adds r3, r1, r0
 	cmp r3, #0
 	beq _080A4A96
@@ -899,7 +819,7 @@ BWL_AddFavoritismValue: @ 0x080A4A34
 	lsls r1, r1, #0xf
 	b _080A4A92
 	.align 2, 0
-_080A4A70: .4byte gUnknown_0203E884
+_080A4A70: .4byte gBWLDataArray
 _080A4A74: .4byte 0xFF0000FF
 _080A4A78:
 	cmp r1, #0
@@ -1299,11 +1219,11 @@ BWL_GetEntry: @ 0x080A4CFC
 	cmp r0, #0
 	beq _080A4D20
 	lsls r0, r4, #4
-	ldr r1, _080A4D1C  @ gUnknown_0203E884
+	ldr r1, _080A4D1C  @ gBWLDataArray
 	adds r0, r0, r1
 	b _080A4D22
 	.align 2, 0
-_080A4D1C: .4byte gUnknown_0203E884
+_080A4D1C: .4byte gBWLDataArray
 _080A4D20:
 	movs r0, #0
 _080A4D22:

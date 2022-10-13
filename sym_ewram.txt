@@ -630,7 +630,7 @@
 . = 0x03E828; gUnknown_0203E828 = .;
 . = 0x03E82C; gUnknown_0203E82C = .;
 . = 0x03E87C; gUnknown_0203E87C = .;
-. = 0x03E884; gUnknown_0203E884 = .;
+. = 0x03E884; gBWLDataArray = .;
 . = 0x03E88E; gBoolSramWorking = .;
 . = 0x03E890; gpBWLSaveTarget = .;
 . = 0x03E894; gBWLDataStorage = .;

@@ -1362,7 +1362,7 @@ int GetWonChapterCount()
     int ret;
 
     for (ret = 0; cur->chapter_turn; cur++) {
-        if (DoesThisChapterCount(cur->chapter_index))
+        if (IsChapterIndexValid(cur->chapter_index))
             ret++;
     }
 
@@ -1406,7 +1406,7 @@ int CalcTotalGameTime()
 
     if (ret < index)
         for (; i < index; i++)
-            ret += GetChapterWinDataEntry(i)->chapter_time * 0xB4;
+            ret += GetChapterWinDataEntry(i)->chapter_time * 180;
 
     return ret;
 }
@@ -1422,4 +1422,46 @@ int GetGameTotalTurnCount()
             ret += GetChapterWinDataEntry(i)->chapter_turn;
 
     return ret;
+}
+
+u8 IsChapterIndexValid(int ch_index)
+{
+    u32 _index = ch_index;
+    
+    switch (gRAMChapterData.chapterModeIndex) {
+    case CHAPTER_MODE_COMMON:
+        if (_index < 10)
+            return 1;
+        break;
+
+    case CHAPTER_MODE_EIRIKA:
+        if (_index >= 10 && _index <= 21)
+            return 1;
+        break;
+
+    case CHAPTER_MODE_EPHRAIM:
+        if (_index <= 34 && _index >= 23)
+            return 1;
+        break;
+    }
+    return 0;
+}
+
+int GetGameTotalTime()
+{
+    int time = 0;
+    int ch_index = GetNextChapterWinDataEntryIndex();
+    int i = 0;
+    struct ChapterWinData *cur;
+
+    for(; i < ch_index; i++) {
+        cur = GetChapterWinDataEntry(i);
+
+        if (IsChapterIndexValid(cur->chapter_index))
+            time += cur->chapter_time * 180;
+    }
+
+
+    return time;
+    
 }

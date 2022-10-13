@@ -232,6 +232,16 @@ struct RAMChapterData { // Chapter Data Struct
 };
 
 /**
+ * Use with RAMChapterData field chapterModeIndex
+ */
+
+enum {
+    CHAPTER_MODE_COMMON = 1,
+    CHAPTER_MODE_EIRIKA = 2,
+    CHAPTER_MODE_EPHRAIM = 3,
+};
+
+/**
  * Use with RAMChapterData field chapterStateBits
  */
 enum

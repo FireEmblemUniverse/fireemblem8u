@@ -632,7 +632,7 @@ extern struct ActionData gActionData;
 // extern ??? gUnknown_0203E828
 // extern ??? gUnknown_0203E82C
 // extern ??? gUnknown_0203E87C
-// extern ??? gUnknown_0203E884
+// extern ??? gBWLDataArray
 // extern ??? gBoolSramWorking
 extern struct BwlData *gpBWLSaveTarget;
 extern struct BwlData gBWLDataStorage[BWL_ARRAY_NUM];

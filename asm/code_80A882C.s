@@ -28243,7 +28243,7 @@ _080B5DA8:
 	ldr r0, [r4]
 	lsls r0, r0, #0x19
 	lsrs r0, r0, #0x19
-	bl DoesThisChapterCount
+	bl IsChapterIndexValid
 	lsls r0, r0, #0x18
 	cmp r0, #0
 	beq _080B5E3C
@@ -28402,7 +28402,7 @@ _080B5ED8:
 	ldr r0, [r4]
 	lsls r0, r0, #0x19
 	lsrs r0, r0, #0x19
-	bl DoesThisChapterCount
+	bl IsChapterIndexValid
 	lsls r0, r0, #0x18
 	cmp r0, #0
 	beq _080B5F6C
@@ -28548,7 +28548,7 @@ _080B5FF0:
 	ldr r0, [r4]
 	lsls r0, r0, #0x19
 	lsrs r0, r0, #0x19
-	bl DoesThisChapterCount
+	bl IsChapterIndexValid
 	lsls r0, r0, #0x18
 	cmp r0, #0
 	beq _080B6022
