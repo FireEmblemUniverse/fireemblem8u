@@ -2,48 +2,12 @@
 
 	.SYNTAX UNIFIED
 
-	THUMB_FUNC_START GetGameTotalTurnCount2
-GetGameTotalTurnCount2: @ 0x080A4488
-	push {r4, r5, r6, r7, lr}
-	movs r7, #0
-	bl GetNextChapterWinDataEntryIndex
-	adds r6, r0, #0
-	movs r5, #0
-	cmp r7, r6
-	bge _080A44BE
-_080A4498:
-	adds r0, r5, #0
-	bl GetChapterWinDataEntry
-	adds r4, r0, #0
-	ldr r0, [r4]
-	lsls r0, r0, #0x19
-	lsrs r0, r0, #0x19
-	bl IsChapterIndexValid
-	lsls r0, r0, #0x18
-	cmp r0, #0
-	beq _080A44B8
-	ldr r0, [r4]
-	lsls r0, r0, #0x10
-	lsrs r0, r0, #0x17
-	adds r7, r7, r0
-_080A44B8:
-	adds r5, #1
-	cmp r5, r6
-	blt _080A4498
-_080A44BE:
-	adds r0, r7, #0
-	pop {r4, r5, r6, r7}
-	pop {r1}
-	bx r1
-
-	THUMB_FUNC_END GetGameTotalTurnCount2
-
-	THUMB_FUNC_START sub_80A44C8
-sub_80A44C8: @ 0x080A44C8
+	THUMB_FUNC_START BWL_IncrementBattleCount
+BWL_IncrementBattleCount: @ 0x080A44C8
 	push {r4, r5, lr}
 	adds r4, r0, #0
 	movs r0, #0xb
-	ldrsb r0, [r4, r0]
+	ldrsb r0, [r4, r0] 
 	movs r1, #0xc0
 	ands r0, r1
 	cmp r0, #0
@@ -57,11 +21,13 @@ sub_80A44C8: @ 0x080A44C8
 	ldrb r0, [r0, #9]
 	cmp r0, #0
 	beq _080A451E
+
 	lsls r1, r5, #4
 	ldr r0, _080A4524  @ gBWLDataArray
 	adds r2, r1, r0
 	cmp r2, #0
 	beq _080A451E
+
 	ldrh r3, [r2, #0xc]
 	lsls r0, r3, #0x12
 	lsrs r1, r0, #0x14
@@ -92,10 +58,10 @@ _080A4528: .4byte 0x00000F9F
 _080A452C: .4byte 0x00000FFF
 _080A4530: .4byte 0xFFFFC003
 
-	THUMB_FUNC_END sub_80A44C8
+	THUMB_FUNC_END BWL_IncrementBattleCount
 
-	THUMB_FUNC_START sub_80A4534
-sub_80A4534: @ 0x080A4534
+	THUMB_FUNC_START BWL_IncrementWinCount
+BWL_IncrementWinCount: @ 0x080A4534
 	push {r4, r5, lr}
 	lsls r0, r0, #0x18
 	lsrs r4, r0, #0x18
@@ -143,10 +109,10 @@ _080A4584:
 _080A458C: .4byte gBWLDataArray
 _080A4590: .4byte 0x000003E7
 
-	THUMB_FUNC_END sub_80A4534
+	THUMB_FUNC_END BWL_IncrementWinCount
 
-	THUMB_FUNC_START sub_80A4594
-sub_80A4594: @ 0x080A4594
+	THUMB_FUNC_START BWL_IncrementAndSaveLossCount
+BWL_IncrementAndSaveLossCount: @ 0x080A4594
 	push {r4, r5, r6, r7, lr}
 	mov r7, r8
 	push {r7}
@@ -157,55 +123,63 @@ sub_80A4594: @ 0x080A4594
 	bl IsSramWorking
 	lsls r0, r0, #0x18
 	cmp r0, #0
-	beq _080A4662
+	beq _080A4662_return
 	cmp r4, #0x45
-	bhi _080A4662
+	bhi _080A4662_return
 	adds r0, r4, #0
 	bl GetCharacterData
 	ldrb r0, [r0, #9]
 	cmp r0, #0
-	beq _080A4662
+	beq _080A4662_return
 	mov r0, r8
 	lsls r6, r0, #4
 	ldr r0, _080A4670  @ gBWLDataArray
 	adds r5, r6, r0
 	cmp r5, #0
-	beq _080A4662
+	beq _080A4662_return
+
 	ldr r1, _080A4674  @ gGameState
 	adds r0, r1, #0
 	adds r0, #0x3c
 	ldrb r0, [r0]
 	cmp r0, #1
-	beq _080A4662
+	beq _080A4662_return
+
 	ldr r7, _080A4678  @ gRAMChapterData
 	ldrb r2, [r7, #0x14]
 	movs r0, #8
 	ands r0, r2
 	cmp r0, #0
-	bne _080A4662
+	bne _080A4662_return
+
 	ldrb r1, [r1, #4]
 	movs r0, #0x40
 	ands r0, r1
 	cmp r0, #0
-	bne _080A4662
+	bne _080A4662_return
+
 	movs r0, #0x20
 	ands r0, r1
 	cmp r0, #0
-	bne _080A4662
+	bne _080A4662_return
+
 	movs r0, #0x80
 	ands r0, r2
 	cmp r0, #0
-	bne _080A4662
+	bne _080A4662_return
+
 	ldrb r0, [r5]
 	cmp r0, #0xc7
-	bhi _080A4662
+	bhi _080A4662_return
 	adds r0, #1
 	strb r0, [r5]
+
 	movs r1, #0x80
 	negs r1, r1
 	mov r0, r8
 	bl BWL_AddFavoritismValue
-	bl sub_80A63B0
+
+	bl CheckSecHeader_BIT63
 	adds r4, r0, #0
 	adds r4, #3
 	adds r0, r4, #0
@@ -238,7 +212,7 @@ sub_80A4594: @ 0x080A4594
 	ldrb r1, [r7, #0xc]
 	mov r0, sp
 	bl SaveMetadata_Generate
-_080A4662:
+_080A4662_return:
 	add sp, #0x10
 	pop {r3}
 	mov r8, r3
@@ -252,7 +226,7 @@ _080A4678: .4byte gRAMChapterData
 _080A467C: .4byte 0x000019E4
 _080A4680: .4byte 0x0000083C
 
-	THUMB_FUNC_END sub_80A4594
+	THUMB_FUNC_END BWL_IncrementAndSaveLossCount
 
 	THUMB_FUNC_START BWL_AddWinOrLossIdk
 BWL_AddWinOrLossIdk: @ 0x080A4684
@@ -882,7 +856,7 @@ _080A4ACA:
 	bne _080A4AF0
 	ldr r0, [r5]
 	ldrb r0, [r0, #4]
-	bl sub_80A4534
+	bl BWL_IncrementWinCount
 	ldr r1, _080A4B18  @ gRAMChapterData
 	adds r1, #0x48
 	ldrh r0, [r1]
@@ -899,7 +873,7 @@ _080A4AF0:
 	bne _080A4B08
 	ldr r0, [r7]
 	ldrb r0, [r0, #4]
-	bl sub_80A4594
+	bl BWL_IncrementAndSaveLossCount
 _080A4B08:
 	pop {r4, r5, r6, r7}
 	pop {r0}
@@ -2939,7 +2913,7 @@ _080A5A64:
 	bne _080A5A70
 	b _080A5BB0
 _080A5A70:
-	bl sub_80A63D0
+	bl CheckSecHeader_rB63
 	add r9, r0
 	mov r0, r9
 	bl GetSaveDataLocation
@@ -3073,7 +3047,7 @@ _080A5AEE:
 	ldr r0, _080A5C10  @ gGameState
 	adds r0, #0x3c
 	strb r4, [r0]
-	bl sub_80A63E0
+	bl SetSecHeader_BIT63
 _080A5BB0:
 	add sp, #0x40
 	pop {r3, r4, r5}
@@ -3283,7 +3257,7 @@ sub_80A5DA8: @ 0x080A5DA8
 	cmp r4, #3
 	bne _080A5DEC
 	ldr r4, _080A5DF0  @ gUnknown_0203EDB8
-	bl sub_80A63B0
+	bl CheckSecHeader_BIT63
 	strb r0, [r4]
 	ldrb r1, [r4]
 	adds r1, #3
@@ -3292,7 +3266,7 @@ sub_80A5DA8: @ 0x080A5DA8
 	lsls r0, r0, #0x18
 	cmp r0, #0
 	bne _080A5DF4
-	bl sub_80A63D0
+	bl CheckSecHeader_rB63
 	strb r0, [r4]
 	ldrb r1, [r4]
 	adds r1, #3
@@ -4064,8 +4038,8 @@ _080A63AC: .4byte ReadSramFast
 
 	THUMB_FUNC_END sub_80A638C
 
-	THUMB_FUNC_START sub_80A63B0
-sub_80A63B0: @ 0x080A63B0
+	THUMB_FUNC_START CheckSecHeader_BIT63
+CheckSecHeader_BIT63: @ 0x080A63B0
 	push {lr}
 	sub sp, #0x64
 	mov r0, sp
@@ -4084,22 +4058,22 @@ _080A63CA:
 	pop {r1}
 	bx r1
 
-	THUMB_FUNC_END sub_80A63B0
+	THUMB_FUNC_END CheckSecHeader_BIT63
 
-	THUMB_FUNC_START sub_80A63D0
-sub_80A63D0: @ 0x080A63D0
+	THUMB_FUNC_START CheckSecHeader_rB63
+CheckSecHeader_rB63: @ 0x080A63D0
 	push {lr}
-	bl sub_80A63B0
+	bl CheckSecHeader_BIT63
 	adds r1, r0, #0
 	movs r0, #1
 	subs r0, r0, r1
 	pop {r1}
 	bx r1
 
-	THUMB_FUNC_END sub_80A63D0
+	THUMB_FUNC_END CheckSecHeader_rB63
 
-	THUMB_FUNC_START sub_80A63E0
-sub_80A63E0: @ 0x080A63E0
+	THUMB_FUNC_START SetSecHeader_BIT63
+SetSecHeader_BIT63: @ 0x080A63E0
 	push {lr}
 	sub sp, #0x64
 	mov r0, sp
@@ -4119,10 +4093,10 @@ _080A63F8:
 	pop {r0}
 	bx r0
 
-	THUMB_FUNC_END sub_80A63E0
+	THUMB_FUNC_END SetSecHeader_BIT63
 
-	THUMB_FUNC_START sub_80A6408
-sub_80A6408: @ 0x080A6408
+	THUMB_FUNC_START ReadAndCalcSomeCheckSum
+ReadAndCalcSomeCheckSum: @ 0x080A6408
 	push {r4, r5, lr}
 	adds r5, r1, #0
 	ldr r1, _080A6428  @ ReadSramFast
@@ -4141,17 +4115,17 @@ sub_80A6408: @ 0x080A6408
 _080A6428: .4byte ReadSramFast
 _080A642C: .4byte _gGenericBuffer
 
-	THUMB_FUNC_END sub_80A6408
+	THUMB_FUNC_END ReadAndCalcSomeCheckSum
 
-	THUMB_FUNC_START sub_80A6430
-sub_80A6430: @ 0x080A6430
+	THUMB_FUNC_START VerifySaveChunk
+VerifySaveChunk: @ 0x080A6430
 	push {r4, r5, lr}
 	adds r4, r0, #0
 	ldrh r5, [r4, #0xa]
 	ldrh r0, [r4, #8]
 	bl SramOffsetToPointer
 	adds r1, r5, #0
-	bl sub_80A6408
+	bl ReadAndCalcSomeCheckSum
 	ldr r1, [r4, #0xc]
 	cmp r1, r0
 	bne _080A644C
@@ -4164,23 +4138,23 @@ _080A644E:
 	pop {r1}
 	bx r1
 
-	THUMB_FUNC_END sub_80A6430
+	THUMB_FUNC_END VerifySaveChunk
 
-	THUMB_FUNC_START sub_80A6454
-sub_80A6454: @ 0x080A6454
+	THUMB_FUNC_START SetSaveChunkCheckSum
+SetSaveChunkCheckSum: @ 0x080A6454
 	push {r4, r5, lr}
 	adds r4, r0, #0
 	ldrh r5, [r4, #0xa]
 	ldrh r0, [r4, #8]
 	bl SramOffsetToPointer
 	adds r1, r5, #0
-	bl sub_80A6408
+	bl ReadAndCalcSomeCheckSum
 	str r0, [r4, #0xc]
 	pop {r4, r5}
 	pop {r0}
 	bx r0
 
-	THUMB_FUNC_END sub_80A6454
+	THUMB_FUNC_END SetSaveChunkCheckSum
 
 	THUMB_FUNC_START sub_80A6470
 sub_80A6470: @ 0x080A6470
@@ -4196,7 +4170,7 @@ _080A6478:
 	str r0, [r4, #0x3c]
 	adds r0, r4, #0
 	movs r1, #0x24
-	bl sub_80A6408
+	bl ReadAndCalcSomeCheckSum
 	adds r0, r6, r0
 	lsls r0, r0, #0x10
 	lsrs r6, r0, #0x10
@@ -4215,7 +4189,7 @@ _080A649C:
 	str r0, [r4, #0x3c]
 	adds r0, r4, #0
 	movs r1, #0x24
-	bl sub_80A6408
+	bl ReadAndCalcSomeCheckSum
 	adds r0, r6, r0
 	lsls r0, r0, #0x10
 	lsrs r6, r0, #0x10
@@ -4234,7 +4208,7 @@ _080A64C0:
 	str r0, [r4, #0x3c]
 	adds r0, r4, #0
 	movs r1, #0x24
-	bl sub_80A6408
+	bl ReadAndCalcSomeCheckSum
 	adds r0, r6, r0
 	lsls r0, r0, #0x10
 	lsrs r6, r0, #0x10
@@ -4251,7 +4225,7 @@ _080A64D8:
 	adds r1, r1, r0
 	asrs r1, r1, #1
 	adds r0, r4, #0
-	bl sub_80A6408
+	bl ReadAndCalcSomeCheckSum
 	adds r0, r6, r0
 	lsls r0, r0, #0x10
 	lsrs r6, r0, #0x10
@@ -4263,7 +4237,7 @@ _080A64D8:
 	adds r1, r1, r0
 	asrs r1, r1, #1
 	adds r0, r4, #0
-	bl sub_80A6408
+	bl ReadAndCalcSomeCheckSum
 	adds r0, r6, r0
 	lsls r0, r0, #0x10
 	lsrs r6, r0, #0x10
@@ -4271,7 +4245,7 @@ _080A64D8:
 	bl GetTrap
 	movs r1, #0x80
 	lsls r1, r1, #1
-	bl sub_80A6408
+	bl ReadAndCalcSomeCheckSum
 	adds r0, r6, r0
 	lsls r0, r0, #0x10
 	lsrs r6, r0, #0x10

@@ -27864,7 +27864,7 @@ sub_80B5AB4: @ 0x080B5AB4
 	movs r2, #0x40
 	orrs r1, r2
 	str r1, [r0, #0xc]
-	bl sub_80A44C8
+	bl BWL_IncrementBattleCount
 	bl MU_EndAll
 	strb r6, [r5, #0x15]
 	ldr r0, [r4]

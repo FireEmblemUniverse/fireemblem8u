@@ -204,8 +204,8 @@ void BattleGenerateRealInternal(struct Unit* actor, struct Unit* target) {
         BattleApplyExpGains();
         sub_80A4AA4();
 
-        sub_80A44C8(actor);
-        sub_80A44C8(target);
+        BWL_IncrementBattleCount(actor);
+        BWL_IncrementBattleCount(target);
     }
 }
 

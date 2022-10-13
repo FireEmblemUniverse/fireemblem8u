@@ -97,12 +97,17 @@ struct bmsave_unkstruct2_ {
 s8 IsSramWorking();
 u8 LoadAndVerifySecureHeaderSW(void *buf);
 u16 CalcSaveDataMagic(void *src, int size);
+uintptr_t GetSaveDataLocation(int index);
+s8 SaveMetadata_Check(struct SramChunk *buf, int index);
+void SaveMetadata_Generate(struct SramChunk *buf, int index);
+
 void WriteUnkBmSave2(struct bmsave_unkstruct2_*);
 void sub_80A6AA0();
-
 void LoadBWLEntries(void *sram_src);
 void LoadChapterWinData(void *sram_src);
 void SaveBWLEntries(void *sram_dest);
 void SaveChapterWinData(void *sram_dest);
+
+int CheckSecHeader_BIT63();
 
 #endif /* BMSAVE_H */

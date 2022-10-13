@@ -14,9 +14,9 @@
 /* functions */
 u8 CheckSaveHeaderMagic(void*, u8*);
 void sub_80A3950(void*);
-char sub_80A6430(void *buf);
+char VerifySaveChunk(void *buf);
 uintptr_t GetSaveDataLocation(int index);
-void sub_80A6454(struct SramChunk*);
+void SetSaveChunkCheckSum(struct SramChunk*);
 void *GetLocalEventIdStorage();
 int GetLocalEventIdStorageSize();
 void *GetGlobalEventIdStorage();
@@ -228,7 +228,7 @@ s8 SaveMetadata_Check(struct SramChunk *buf, int index)
     if (buf->unk00 != key)
         return 0;
 
-    return sub_80A6430(buf);
+    return VerifySaveChunk(buf);
 }
 
 void SaveMetadata_Generate(struct SramChunk *buf, int index) {
@@ -266,7 +266,7 @@ void SaveMetadata_Generate(struct SramChunk *buf, int index) {
         return;
     }
 
-    sub_80A6454(buf);
+    SetSaveChunkCheckSum(buf);
     WriteAndVerifySramFast(
         (void*)buf,
         (void*)(&gpSaveDataStart->chunks[index]),
@@ -1460,6 +1460,23 @@ int GetGameTotalTime()
     }
 
     return time;
+}
+
+int GetGameTotalTurnCount2()
+{
+    int count = 0;
+    int ch_index = GetNextChapterWinDataEntryIndex();
+    int i = 0;
+    struct ChapterWinData *cur;
+
+    for(; i < ch_index; i++) {
+        cur = GetChapterWinDataEntry(i);
+
+        if (IsChapterIndexValid(cur->chapter_index))
+            count += cur->chapter_turn;
+    }
+
+    return count;
 }
 
 

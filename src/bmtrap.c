@@ -19,7 +19,7 @@
 #include "bmtrap.h"
 
 // code.s
-void sub_80A4594(u8);
+void BWL_IncrementAndSaveLossCount(u8);
 void BWL_AddWinOrLossIdk(u8, u8, int);
 
 // trapfx.s
@@ -88,7 +88,7 @@ void sub_80374F4(struct UnknownBMTrapProc* proc) {
     struct Unit* unit = proc->unit;
 
     if (GetUnitCurrentHp(unit) <= 10) {
-        sub_80A4594(unit->pCharacterData->number);
+        BWL_IncrementAndSaveLossCount(unit->pCharacterData->number);
     }
 
     return;
