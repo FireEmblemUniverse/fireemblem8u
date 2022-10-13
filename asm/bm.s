@@ -1378,7 +1378,7 @@ _08016040:
 	ldrh r0, [r0]
 	b _080160C4
 _0801605E:
-	bl GetChapterThing
+	bl GetBattleMapType
 	cmp r0, #2
 	beq _0801607A
 	movs r0, #0xe
@@ -1395,7 +1395,7 @@ _0801607A:
 	movs r0, #0x80
 	bl CountUnitsInState
 	adds r4, r0, #0
-	bl GetChapterThing
+	bl GetBattleMapType
 	cmp r0, #2
 	beq _080160A8
 	movs r0, #0xe

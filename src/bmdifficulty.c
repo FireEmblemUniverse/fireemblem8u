@@ -72,7 +72,7 @@ const struct Outer080D7FD0 gUnknown_080D7FD0 = {
 void NewPopup_NewAlly(ProcPtr, int);
 
 // code.s
-int sub_80A49A4(void);
+int BWL_CalcTotalExpGain(void);
 void sub_80AB760(u16*);
 void sub_80AB77C(void);
 
@@ -296,7 +296,7 @@ void UpdateDungeonStats(struct Dungeon* dungeon) {
 
     val = dungeon->expEarned;
 
-    val += (sub_80A49A4() - gRAMChapterData.unk_38_2);
+    val += (BWL_CalcTotalExpGain() - gRAMChapterData.unk_38_2);
 
     if (val > 50000) {
         val = 50000;

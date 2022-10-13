@@ -2,539 +2,6 @@
 
 	.SYNTAX UNIFIED
 
-	THUMB_FUNC_START BWL_AddWinOrLossIdk
-BWL_AddWinOrLossIdk: @ 0x080A4684
-	push {r4, r5, r6, lr}
-	adds r5, r2, #0
-	lsls r0, r0, #0x18
-	lsrs r0, r0, #0x18
-	adds r4, r0, #0
-	lsls r1, r1, #0x18
-	lsrs r6, r1, #0x18
-	cmp r0, #0x45
-	bhi _080A4734
-	bl GetCharacterData
-	ldrb r0, [r0, #9]
-	cmp r0, #0
-	beq _080A4734
-	lsls r1, r4, #4
-	ldr r0, _080A46DC  @ gBWLDataArray
-	adds r4, r1, r0
-	cmp r4, #0
-	beq _080A4734
-	bl GetChapterThing
-	cmp r0, #0
-	blt _080A46E8
-	cmp r0, #1
-	ble _080A46E8
-	cmp r0, #2
-	bne _080A46E8
-	ldrb r0, [r4, #0xe]
-	movs r1, #0x80
-	orrs r0, r1
-	strb r0, [r4, #0xe]
-	ldr r0, _080A46E0  @ gUnknown_03005280
-	ldrb r1, [r0, #0x11]
-	movs r0, #0x3f
-	ands r1, r0
-	ldrb r2, [r4, #5]
-	movs r0, #0x40
-	negs r0, r0
-	ands r0, r2
-	orrs r0, r1
-	strb r0, [r4, #5]
-	ldr r3, _080A46E4  @ gRAMChapterData
-	b _080A4706
-	.align 2, 0
-_080A46DC: .4byte gBWLDataArray
-_080A46E0: .4byte gUnknown_03005280
-_080A46E4: .4byte gRAMChapterData
-_080A46E8:
-	ldrb r1, [r4, #0xe]
-	movs r0, #0x7f
-	ands r0, r1
-	strb r0, [r4, #0xe]
-	ldr r3, _080A473C  @ gRAMChapterData
-	movs r1, #0xe
-	ldrsb r1, [r3, r1]
-	movs r0, #0x3f
-	ands r1, r0
-	ldrb r2, [r4, #5]
-	movs r0, #0x40
-	negs r0, r0
-	ands r0, r2
-	orrs r0, r1
-	strb r0, [r4, #5]
-_080A4706:
-	ldrh r2, [r3, #0x10]
-	ldr r0, _080A4740  @ 0x000003FF
-	ands r2, r0
-	lsls r2, r2, #0xe
-	ldr r0, [r4, #4]
-	ldr r1, _080A4744  @ 0xFF003FFF
-	ands r0, r1
-	orrs r0, r2
-	str r0, [r4, #4]
-	lsls r2, r6, #0xe
-	ldr r0, [r4, #0xc]
-	ldr r1, _080A4748  @ 0xFF803FFF
-	ands r0, r1
-	orrs r0, r2
-	str r0, [r4, #0xc]
-	movs r0, #0xf
-	ands r5, r0
-	ldrb r1, [r4, #9]
-	movs r0, #0x10
-	negs r0, r0
-	ands r0, r1
-	orrs r0, r5
-	strb r0, [r4, #9]
-_080A4734:
-	pop {r4, r5, r6}
-	pop {r0}
-	bx r0
-	.align 2, 0
-_080A473C: .4byte gRAMChapterData
-_080A4740: .4byte 0x000003FF
-_080A4744: .4byte 0xFF003FFF
-_080A4748: .4byte 0xFF803FFF
-
-	THUMB_FUNC_END BWL_AddWinOrLossIdk
-
-	THUMB_FUNC_START BWL_IncrementMoveValue
-BWL_IncrementMoveValue: @ 0x080A474C
-	push {r4, r5, lr}
-	lsls r0, r0, #0x18
-	lsrs r4, r0, #0x18
-	adds r5, r4, #0
-	cmp r4, #0x45
-	bhi _080A4780
-	adds r0, r4, #0
-	bl GetCharacterData
-	ldrb r0, [r0, #9]
-	cmp r0, #0
-	beq _080A4780
-	lsls r1, r4, #4
-	ldr r0, _080A4788  @ gBWLDataArray
-	adds r1, r1, r0
-	cmp r1, #0
-	beq _080A4780
-	ldrb r0, [r1, #3]
-	cmp r0, #0xc7
-	bhi _080A4778
-	adds r0, #1
-	strb r0, [r1, #3]
-_080A4778:
-	adds r0, r5, #0
-	movs r1, #2
-	bl BWL_AddFavoritismValue
-_080A4780:
-	pop {r4, r5}
-	pop {r0}
-	bx r0
-	.align 2, 0
-_080A4788: .4byte gBWLDataArray
-
-	THUMB_FUNC_END BWL_IncrementMoveValue
-
-	THUMB_FUNC_START BWL_IncrementStatScreenViews
-BWL_IncrementStatScreenViews: @ 0x080A478C
-	push {r4, r5, lr}
-	lsls r0, r0, #0x18
-	lsrs r4, r0, #0x18
-	adds r5, r4, #0
-	cmp r4, #0x45
-	bhi _080A47C0
-	adds r0, r4, #0
-	bl GetCharacterData
-	ldrb r0, [r0, #9]
-	cmp r0, #0
-	beq _080A47C0
-	lsls r1, r4, #4
-	ldr r0, _080A47C8  @ gBWLDataArray
-	adds r1, r1, r0
-	cmp r1, #0
-	beq _080A47C0
-	ldrb r0, [r1, #4]
-	cmp r0, #0xc7
-	bhi _080A47B8
-	adds r0, #1
-	strb r0, [r1, #4]
-_080A47B8:
-	adds r0, r5, #0
-	movs r1, #2
-	bl BWL_AddFavoritismValue
-_080A47C0:
-	pop {r4, r5}
-	pop {r0}
-	bx r0
-	.align 2, 0
-_080A47C8: .4byte gBWLDataArray
-
-	THUMB_FUNC_END BWL_IncrementStatScreenViews
-
-	THUMB_FUNC_START BWL_IncrementDeployCountMaybe
-BWL_IncrementDeployCountMaybe: @ 0x080A47CC
-	push {r4, r5, lr}
-	lsls r0, r0, #0x18
-	lsrs r4, r0, #0x18
-	adds r5, r4, #0
-	cmp r4, #0x45
-	bhi _080A4810
-	adds r0, r4, #0
-	bl GetCharacterData
-	ldrb r0, [r0, #9]
-	cmp r0, #0
-	beq _080A4810
-	lsls r1, r4, #4
-	ldr r0, _080A4818  @ gBWLDataArray
-	adds r2, r1, r0
-	cmp r2, #0
-	beq _080A4810
-	ldrb r3, [r2, #7]
-	lsls r0, r3, #0x1a
-	lsrs r0, r0, #0x1a
-	cmp r0, #0x3b
-	bgt _080A4808
-	adds r1, r0, #1
-	movs r0, #0x3f
-	ands r1, r0
-	movs r0, #0x40
-	negs r0, r0
-	ands r0, r3
-	orrs r0, r1
-	strb r0, [r2, #7]
-_080A4808:
-	adds r0, r5, #0
-	movs r1, #0x40
-	bl BWL_AddFavoritismValue
-_080A4810:
-	pop {r4, r5}
-	pop {r0}
-	bx r0
-	.align 2, 0
-_080A4818: .4byte gBWLDataArray
-
-	THUMB_FUNC_END BWL_IncrementDeployCountMaybe
-
-	THUMB_FUNC_START BWL_AddTilesMoved
-BWL_AddTilesMoved: @ 0x080A481C
-	push {r4, r5, r6, lr}
-	adds r5, r1, #0
-	lsls r0, r0, #0x18
-	lsrs r4, r0, #0x18
-	adds r6, r4, #0
-	cmp r4, #0x45
-	bhi _080A4870
-	adds r0, r4, #0
-	bl GetCharacterData
-	ldrb r0, [r0, #9]
-	cmp r0, #0
-	beq _080A4870
-	lsls r1, r4, #4
-	ldr r0, _080A4878  @ gBWLDataArray
-	adds r3, r1, r0
-	cmp r3, #0
-	beq _080A4870
-	ldrb r4, [r3, #7]
-	lsrs r1, r4, #6
-	ldrb r0, [r3, #8]
-	lsls r0, r0, #2
-	orrs r0, r1
-	adds r2, r0, r5
-	movs r0, #0xfa
-	lsls r0, r0, #2
-	cmp r2, r0
-	ble _080A4856
-	adds r2, r0, #0
-_080A4856:
-	movs r0, #3
-	ands r0, r2
-	lsls r0, r0, #6
-	movs r1, #0x3f
-	ands r1, r4
-	orrs r1, r0
-	strb r1, [r3, #7]
-	lsrs r0, r2, #2
-	strb r0, [r3, #8]
-	adds r0, r6, #0
-	movs r1, #2
-	bl BWL_AddFavoritismValue
-_080A4870:
-	pop {r4, r5, r6}
-	pop {r0}
-	bx r0
-	.align 2, 0
-_080A4878: .4byte gBWLDataArray
-
-	THUMB_FUNC_END BWL_AddTilesMoved
-
-	THUMB_FUNC_START BWL_AddExpGained
-BWL_AddExpGained: @ 0x080A487C
-	push {r4, r5, r6, lr}
-	adds r5, r1, #0
-	lsls r0, r0, #0x18
-	lsrs r4, r0, #0x18
-	adds r6, r4, #0
-	cmp r4, #0x45
-	bhi _080A48C8
-	adds r0, r4, #0
-	bl GetCharacterData
-	ldrb r0, [r0, #9]
-	cmp r0, #0
-	beq _080A48C8
-	lsls r1, r4, #4
-	ldr r0, _080A48D0  @ gBWLDataArray
-	adds r2, r1, r0
-	cmp r2, #0
-	beq _080A48C8
-	ldr r3, [r2, #8]
-	lsls r0, r3, #8
-	lsrs r0, r0, #0x14
-	adds r0, r0, r5
-	movs r1, #0xfa
-	lsls r1, r1, #4
-	cmp r0, r1
-	ble _080A48B2
-	adds r0, r1, #0
-_080A48B2:
-	ldr r1, _080A48D4  @ 0x00000FFF
-	ands r1, r0
-	lsls r1, r1, #0xc
-	ldr r0, _080A48D8  @ 0xFF000FFF
-	ands r0, r3
-	orrs r0, r1
-	str r0, [r2, #8]
-	adds r0, r6, #0
-	adds r1, r5, #0
-	bl BWL_AddFavoritismValue
-_080A48C8:
-	pop {r4, r5, r6}
-	pop {r0}
-	bx r0
-	.align 2, 0
-_080A48D0: .4byte gBWLDataArray
-_080A48D4: .4byte 0x00000FFF
-_080A48D8: .4byte 0xFF000FFF
-
-	THUMB_FUNC_END BWL_AddExpGained
-
-	THUMB_FUNC_START StoreSomeUnitSetFlags
-StoreSomeUnitSetFlags: @ 0x080A48DC
-	push {lr}
-	lsls r0, r0, #0x18
-	lsrs r0, r0, #0x18
-	movs r1, #8
-	negs r1, r1
-	bl BWL_AddFavoritismValue
-	pop {r0}
-	bx r0
-
-	THUMB_FUNC_END StoreSomeUnitSetFlags
-
-	THUMB_FUNC_START sub_80A48F0
-sub_80A48F0: @ 0x080A48F0
-	push {lr}
-	lsls r0, r0, #0x18
-	lsrs r0, r0, #0x18
-	ldr r1, _080A4900  @ 0xFFFFFF00
-	bl BWL_AddFavoritismValue
-	pop {r0}
-	bx r0
-	.align 2, 0
-_080A4900: .4byte 0xFFFFFF00
-
-	THUMB_FUNC_END sub_80A48F0
-
-	THUMB_FUNC_START sub_80A4904
-sub_80A4904: @ 0x080A4904
-	push {lr}
-	movs r3, #0
-	ldr r2, _080A4924  @ gBWLDataStorage
-	movs r1, #0x45
-_080A490C:
-	ldrh r0, [r2, #0xc]
-	lsls r0, r0, #0x12
-	lsrs r0, r0, #0x14
-	adds r3, r3, r0
-	adds r2, #0x10
-	subs r1, #1
-	cmp r1, #0
-	bge _080A490C
-	adds r0, r3, #0
-	pop {r1}
-	bx r1
-	.align 2, 0
-_080A4924: .4byte gBWLDataStorage
-
-	THUMB_FUNC_END sub_80A4904
-
-	THUMB_FUNC_START sub_80A4928
-sub_80A4928: @ 0x080A4928
-	push {r4, r5, lr}
-	movs r4, #0
-	ldr r0, _080A4954  @ gBWLDataStorage
-	movs r5, #3
-	adds r2, r0, #0
-	adds r2, #0xb
-	movs r3, #0x45
-_080A4936:
-	ldrb r1, [r2]
-	ldrb r0, [r2, #1]
-	ands r0, r5
-	lsls r0, r0, #8
-	orrs r0, r1
-	adds r4, r4, r0
-	adds r2, #0x10
-	subs r3, #1
-	cmp r3, #0
-	bge _080A4936
-	adds r0, r4, #0
-	pop {r4, r5}
-	pop {r1}
-	bx r1
-	.align 2, 0
-_080A4954: .4byte gBWLDataStorage
-
-	THUMB_FUNC_END sub_80A4928
-
-	THUMB_FUNC_START sub_80A4958
-sub_80A4958: @ 0x080A4958
-	push {lr}
-	movs r3, #0
-	ldr r2, _080A4974  @ gBWLDataStorage
-	movs r1, #0x45
-_080A4960:
-	ldrb r0, [r2]
-	adds r3, r3, r0
-	adds r2, #0x10
-	subs r1, #1
-	cmp r1, #0
-	bge _080A4960
-	adds r0, r3, #0
-	pop {r1}
-	bx r1
-	.align 2, 0
-_080A4974: .4byte gBWLDataStorage
-
-	THUMB_FUNC_END sub_80A4958
-
-	THUMB_FUNC_START sub_80A4978
-sub_80A4978: @ 0x080A4978
-	push {r4, r5, r6, lr}
-	movs r6, #0
-	ldr r5, _080A49A0  @ gBWLDataStorage
-	movs r4, #0x45
-_080A4980:
-	ldr r0, [r5, #8]
-	lsls r0, r0, #8
-	lsrs r0, r0, #0x14
-	movs r1, #0x64
-	bl __divsi3
-	adds r6, r6, r0
-	adds r5, #0x10
-	subs r4, #1
-	cmp r4, #0
-	bge _080A4980
-	adds r0, r6, #0
-	pop {r4, r5, r6}
-	pop {r1}
-	bx r1
-	.align 2, 0
-_080A49A0: .4byte gBWLDataStorage
-
-	THUMB_FUNC_END sub_80A4978
-
-	THUMB_FUNC_START sub_80A49A4
-sub_80A49A4: @ 0x080A49A4
-	push {lr}
-	movs r3, #0
-	ldr r2, _080A49C4  @ gBWLDataStorage
-	movs r1, #0x45
-_080A49AC:
-	ldr r0, [r2, #8]
-	lsls r0, r0, #8
-	lsrs r0, r0, #0x14
-	adds r3, r3, r0
-	adds r2, #0x10
-	subs r1, #1
-	cmp r1, #0
-	bge _080A49AC
-	adds r0, r3, #0
-	pop {r1}
-	bx r1
-	.align 2, 0
-_080A49C4: .4byte gBWLDataStorage
-
-	THUMB_FUNC_END sub_80A49A4
-
-	THUMB_FUNC_START sub_80A49C8
-sub_80A49C8: @ 0x080A49C8
-	push {r4, lr}
-	lsls r0, r0, #0x18
-	lsrs r0, r0, #0x18
-	adds r4, r0, #0
-	cmp r0, #0x45
-	bhi _080A49E8
-	bl GetCharacterData
-	ldrb r0, [r0, #9]
-	cmp r0, #0
-	beq _080A49E8
-	lsls r1, r4, #4
-	ldr r0, _080A49EC  @ gBWLDataArray
-	adds r1, r1, r0
-	cmp r1, #0
-	bne _080A49F0
-_080A49E8:
-	movs r0, #0
-	b _080A49F6
-	.align 2, 0
-_080A49EC: .4byte gBWLDataArray
-_080A49F0:
-	ldr r0, [r1, #8]
-	lsls r0, r0, #8
-	lsrs r0, r0, #0x14
-_080A49F6:
-	pop {r4}
-	pop {r1}
-	bx r1
-
-	THUMB_FUNC_END sub_80A49C8
-
-	THUMB_FUNC_START GetBwlFavoritism
-GetBwlFavoritism: @ 0x080A49FC
-	push {r4, lr}
-	lsls r0, r0, #0x18
-	lsrs r0, r0, #0x18
-	adds r4, r0, #0
-	cmp r0, #0x45
-	bhi _080A4A1C
-	bl GetCharacterData
-	ldrb r0, [r0, #9]
-	cmp r0, #0
-	beq _080A4A1C
-	lsls r1, r4, #4
-	ldr r0, _080A4A24  @ gBWLDataArray
-	adds r0, r1, r0
-	cmp r0, #0
-	bne _080A4A28
-_080A4A1C:
-	movs r0, #0x80
-	lsls r0, r0, #6
-	b _080A4A2E
-	.align 2, 0
-_080A4A24: .4byte gBWLDataArray
-_080A4A28:
-	ldr r0, [r0]
-	lsls r0, r0, #8
-	lsrs r0, r0, #0x16
-_080A4A2E:
-	pop {r4}
-	pop {r1}
-	bx r1
-
-	THUMB_FUNC_END GetBwlFavoritism
-
 	THUMB_FUNC_START BWL_AddFavoritismValue
 BWL_AddFavoritismValue: @ 0x080A4A34
 	push {r4, r5, lr}
@@ -1424,7 +891,7 @@ _080A5076:
 	bl SaveGlobalEventIndexes
 	ldr r1, _080A511C  @ 0x00000D8C
 	adds r0, r7, r1
-	ldr r1, _080A5120  @ gUnknown_03005280
+	ldr r1, _080A5120  @ gGMData
 	bl sub_80A70B0
 	ldr r0, [sp, #0x8c]
 	bl sub_8037E4C
@@ -1458,7 +925,7 @@ _080A5110: .4byte 0x0000084C
 _080A5114: .4byte 0x00000CAC
 _080A5118: .4byte 0x00000D6C
 _080A511C: .4byte 0x00000D8C
-_080A5120: .4byte gUnknown_03005280
+_080A5120: .4byte gGMData
 _080A5124: .4byte 0x00040624
 
 	THUMB_FUNC_END SaveGame
@@ -1530,7 +997,7 @@ _080A5176:
 	bl Load0203EDB4
 	ldr r2, _080A5210  @ 0x00000D8C
 	adds r0, r7, r2
-	ldr r1, _080A5214  @ gUnknown_03005280
+	ldr r1, _080A5214  @ gGMData
 	bl sub_80A7138
 	ldr r1, _080A51F4  @ ReadSramFast
 	movs r2, #0xdb
@@ -1561,7 +1028,7 @@ _080A5204: .4byte 0x00000D6C
 _080A5208: .4byte 0x0000084C
 _080A520C: .4byte 0x00000CAC
 _080A5210: .4byte 0x00000D8C
-_080A5214: .4byte gUnknown_03005280
+_080A5214: .4byte gGMData
 
 	THUMB_FUNC_END LoadGame
 
@@ -2786,7 +2253,7 @@ _080A5AEE:
 	bl WriteAndVerifySramFast
 	ldr r1, _080A5BFC  @ 0x00001F44
 	adds r0, r7, r1
-	ldr r1, _080A5C00  @ gUnknown_03005280
+	ldr r1, _080A5C00  @ gGMData
 	bl sub_80A70B0
 	mov r0, r8
 	bl sub_8037E4C
@@ -2848,7 +2315,7 @@ _080A5BF0: .4byte 0x00001E54
 _080A5BF4: .4byte 0x00001744
 _080A5BF8: .4byte 0x00001F14
 _080A5BFC: .4byte 0x00001F44
-_080A5C00: .4byte gUnknown_03005280
+_080A5C00: .4byte gGMData
 _080A5C04: .4byte 0x00001F68
 _080A5C08: .4byte 0x00001F74
 _080A5C0C: .4byte 0x00040624
@@ -2959,7 +2426,7 @@ _080A5C96:
 	bl SetForceDisabledMenuItems
 	ldr r1, _080A5D98  @ 0x00001F44
 	adds r0, r6, r1
-	ldr r1, _080A5D9C  @ gUnknown_03005280
+	ldr r1, _080A5D9C  @ gGMData
 	bl sub_80A7138
 	movs r1, #0xae
 	lsls r1, r1, #4
@@ -3014,7 +2481,7 @@ _080A5D8C: .4byte 0x00001F3D
 _080A5D90: .4byte 0x00001744
 _080A5D94: .4byte 0x00001F14
 _080A5D98: .4byte 0x00001F44
-_080A5D9C: .4byte gUnknown_03005280
+_080A5D9C: .4byte gGMData
 _080A5DA0: .4byte 0x00001F68
 _080A5DA4: .4byte 0x00001F74
 
@@ -5778,12 +5245,12 @@ _080A71B6:
 sub_80A71E4: @ 0x080A71E4
 	push {lr}
 	adds r1, r0, #0
-	ldr r0, _080A71F4  @ gUnknown_03005280
+	ldr r0, _080A71F4  @ gGMData
 	bl sub_80BD260
 	pop {r0}
 	bx r0
 	.align 2, 0
-_080A71F4: .4byte gUnknown_03005280
+_080A71F4: .4byte gGMData
 
 	THUMB_FUNC_END sub_80A71E4
 
@@ -5791,12 +5258,12 @@ _080A71F4: .4byte gUnknown_03005280
 sub_80A71F8: @ 0x080A71F8
 	push {lr}
 	adds r1, r0, #0
-	ldr r0, _080A7208  @ gUnknown_03005280
+	ldr r0, _080A7208  @ gGMData
 	bl sub_80BD270
 	pop {r0}
 	bx r0
 	.align 2, 0
-_080A7208: .4byte gUnknown_03005280
+_080A7208: .4byte gGMData
 
 	THUMB_FUNC_END sub_80A71F8
 

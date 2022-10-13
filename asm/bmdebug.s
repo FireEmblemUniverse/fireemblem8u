@@ -1167,7 +1167,7 @@ DebugMenu_FogIdle: @ 0x0801C448
 	ldrb r0, [r4, #0xd]
 	cmp r0, #0
 	bne _0801C498
-	bl GetChapterThing
+	bl GetBattleMapType
 	cmp r0, #2
 	bne _0801C488
 	movs r0, #3

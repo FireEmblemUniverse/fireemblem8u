@@ -138,7 +138,7 @@ void SMS_RegisterUsage(int);
 void PutUnitSprite(int, int, int, struct Unit*);
 
 // code.s
-void BWL_AddWinOrLossIdk(u8, u8, int);
+void BWL_SetUnitLossInfo(u8, u8, int);
 
 // popup.s
 void NewPopup_GeneralItemGot(struct Unit*, int, ProcPtr);
@@ -539,7 +539,7 @@ void KillUnitOnCombatDeath(struct Unit* unitA, struct Unit* unitB) {
         return;
     }
 
-    BWL_AddWinOrLossIdk(unitA->pCharacterData->number, unitB->pCharacterData->number, 2);
+    BWL_SetUnitLossInfo(unitA->pCharacterData->number, unitB->pCharacterData->number, 2);
 
     UnitKill(unitA);
 
@@ -553,7 +553,7 @@ void KillUnitOnArenaDeathMaybe(struct Unit* unit) {
 
     UnitKill(unit);
 
-    BWL_AddWinOrLossIdk(unit->pCharacterData->number, 0, 6);
+    BWL_SetUnitLossInfo(unit->pCharacterData->number, 0, 6);
 
     return;
 }

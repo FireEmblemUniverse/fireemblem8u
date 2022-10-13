@@ -897,7 +897,7 @@ void ChapterIntro_LoopFadeToMap(struct ChapterIntroFXProc* proc) {
             WfxFlamesInitGradientPublic();
         }
 
-        if ((GetChapterThing() == 2) || GetROMChapterStruct(gRAMChapterData.chapterIndex)->boolFadeToBlack) {
+        if ((GetBattleMapType() == 2) || GetROMChapterStruct(gRAMChapterData.chapterIndex)->boolFadeToBlack) {
             if ((GetROMChapterStruct(gRAMChapterData.chapterIndex)->unk28) != 0xFFFF) {
                 Sound_PlaySong80024D4(GetROMChapterStruct(gRAMChapterData.chapterIndex)->unk28, 0);
             }
@@ -1052,7 +1052,7 @@ void ChapterIntro_LoopFastFadeToMap(struct ChapterIntroFXProc* proc) {
         WfxFlamesInitGradientPublic();
     }
 
-    if ((GetChapterThing() == 2) || (GetROMChapterStruct(gRAMChapterData.chapterIndex)->boolFadeToBlack)) {
+    if ((GetBattleMapType() == 2) || (GetROMChapterStruct(gRAMChapterData.chapterIndex)->boolFadeToBlack)) {
         proc->unk_4C = 0;
 
         gLCDControlBuffer.dispcnt.bg0_on = 1;
@@ -1129,7 +1129,7 @@ void ChapterIntro_80210C8() {
     gLCDControlBuffer.bg2cnt.priority = 2;
     gLCDControlBuffer.bg3cnt.priority = 3;
 
-    if ((GetChapterThing() == 2) ||
+    if ((GetBattleMapType() == 2) ||
     (GetROMChapterStruct(gRAMChapterData.chapterIndex)->boolFadeToBlack)) {
         RefreshBMapGraphics();
         sub_80141B0();

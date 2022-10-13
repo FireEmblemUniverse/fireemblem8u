@@ -20,7 +20,7 @@
 
 // code.s
 void BWL_IncrementAndSaveLossCount(u8);
-void BWL_AddWinOrLossIdk(u8, u8, int);
+void BWL_SetUnitLossInfo(u8, u8, int);
 
 // trapfx.s
 void StartFireTrapAnim(ProcPtr, int, int);
@@ -138,7 +138,7 @@ void sub_80375A0(struct UnknownBMTrapProc* proc) {
         struct Unit* tmp = gActiveUnit;
         gActiveUnit = unit;
         
-        BWL_AddWinOrLossIdk(unit->pCharacterData->number, 0, 3);
+        BWL_SetUnitLossInfo(unit->pCharacterData->number, 0, 3);
 
         if (CheckForWaitEvents() != 0) {
             RunWaitEvents();

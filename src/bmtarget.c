@@ -21,7 +21,7 @@ s8 sub_8083F68(u8, u8);
 s8 IsThereClosedDoorAt(s8, s8);
 
 // code.s
-void BWL_AddWinOrLossIdk(u8, u8, int);
+void BWL_SetUnitLossInfo(u8, u8, int);
 void BWL_IncrementAndSaveLossCount(u8);
 
 void ForEachUnitInMovement(void(*func)(struct Unit* unit)) {
@@ -1240,7 +1240,7 @@ void sub_8026414(int unk) {
         struct Unit* unit = GetUnit(target->uid);
 
         if (GetUnitCurrentHp(unit) <= target->extra) {
-            BWL_AddWinOrLossIdk(unit->pCharacterData->number, 0, unk);
+            BWL_SetUnitLossInfo(unit->pCharacterData->number, 0, unk);
             BWL_IncrementAndSaveLossCount(unit->pCharacterData->number);
         }
     }

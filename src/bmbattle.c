@@ -280,7 +280,7 @@ void BattleGenerateUiStats(struct Unit* unit, s8 itemSlot) {
     } else
         InitBattleUnit(&gBattleActor, unit);
 
-    if (gUnknown_03005280.state & GMAP_STATE_BIT0)
+    if (gGMData.state & GMAP_STATE_BIT0)
         SetBattleUnitTerrainBonuses(&gBattleActor, 0); // TODO: TERRAIN ID DEFINITIONS
     else
         SetBattleUnitTerrainBonusesAuto(&gBattleActor);

@@ -5662,7 +5662,7 @@ CallBeginningEvents: @ 0x080153D4
 	asrs r0, r0, #0x18
 	bl GetChapterEventDataPointer
 	adds r4, r0, #0
-	bl GetChapterThing
+	bl GetBattleMapType
 	cmp r0, #2
 	beq _080153FC
 	ldr r0, [r4, #0x48]

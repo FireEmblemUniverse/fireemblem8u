@@ -2109,7 +2109,7 @@ DisplayUnitAdditionalBlinkingIcons: @ 0x080275E8
 	mov r0, sp
 	movs r2, #6
 	bl memcpy
-	bl GetChapterThing
+	bl GetBattleMapType
 	cmp r0, #2
 	beq _08027620
 	ldr r0, _0802761C  @ gRAMChapterData
