@@ -4591,7 +4591,7 @@ int GetWonChapterCount();
 void RegisterChapterTimeAndTurnCount(struct RAMChapterData* chData);
 // ??? CalcTotalGameTime(???);
 // ??? GetGameTotalTurnCount(???);
-u8 IsChapterIndexValid(int);
+u8 IsChapterIndexValid(u32);
 int GetGameTotalTime();
 // ??? GetGameTotalTurnCount2(???);
 void sub_80A44C8(struct Unit* unit);

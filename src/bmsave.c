@@ -1424,23 +1424,21 @@ int GetGameTotalTurnCount()
     return ret;
 }
 
-u8 IsChapterIndexValid(int ch_index)
+u8 IsChapterIndexValid(u32 ch_index)
 {
-    u32 _index = ch_index;
-    
     switch (gRAMChapterData.chapterModeIndex) {
     case CHAPTER_MODE_COMMON:
-        if (_index < 10)
+        if (ch_index < 10)
             return 1;
         break;
 
     case CHAPTER_MODE_EIRIKA:
-        if (_index >= 10 && _index <= 21)
+        if (ch_index >= 10 && ch_index <= 21)
             return 1;
         break;
 
     case CHAPTER_MODE_EPHRAIM:
-        if (_index <= 34 && _index >= 23)
+        if (ch_index <= 34 && ch_index >= 23)
             return 1;
         break;
     }
@@ -1461,7 +1459,7 @@ int GetGameTotalTime()
             time += cur->chapter_time * 180;
     }
 
-
     return time;
-    
 }
+
+
