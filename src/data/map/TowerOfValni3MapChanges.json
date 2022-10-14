@@ -1,0 +1,13 @@
+{
+  "name": "TowerOfValni3MapChanges",
+  "changes": [
+    {
+      "id": 0,
+      "x": 10,
+      "y": 3,
+      "w": 1,
+      "h": 1,
+      "tiles": "TowerOfValni3MapChanges_change_0"
+    }
+  ]
+}

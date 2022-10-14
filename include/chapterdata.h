@@ -129,12 +129,64 @@ struct ROMChapterData {
     /* 93 */ u8 unk93; // ?
 };
 
-struct ChapterEventInfo
+struct ChapterEventGroup
 {
-    /* 00 */ u32 unk_00;
-    /* 04 */ u32 unk_04;
-    /* 08 */ struct EventCheckBuffer* unk_08;
+    /* 00 */ void *turnBasedEvents;
+    /* 04 */ void *characterBasedEvents; // must be 32-Aligned?
+    /* 08 */ struct EventCheckBuffer* locationBasedEvents;
+    /* 0C */ void *miscBasedEvents;
+
+    // select unit -> select destination -> move unit to destination
+    /* 10 */ void *specialEventsWhenUnitSelected;
+    /* 14 */ void *specialEventsWhenDestSelected;
+    /* 18 */ void *specialEventsAfterUnitMoved;
+
+    /* 1C */ void *tutorialEvents;
+
+    /* 20 */ void *traps;
+    /* 24 */ void *extraTrapsInHard;
+
+    /* 28 */ void *playerUnitsInNormal;
+    /* 2C */ void *playerUnitsInHard;
+
+    /* 30 */ void *playerUnitsChoice1InEncounter;
+    /* 34 */ void *playerUnitsChoice2InEncounter;
+    /* 38 */ void *playerUnitsChoice3InEncounter;
+
+    /* 3C */ void *enemyUnitsChoice1InEncounter;
+    /* 40 */ void *enemyUnitsChoice2InEncounter;
+    /* 44 */ void *enemyUnitsChoice3InEncounter;
+
+    /* 48 */ void *beginningSceneEvents;
+    /* 4C */ void *endingSceneEvents;
 };
+
+struct MapObjAnimFrm
+{
+    /* 00 */ u16 duration;
+    /* 04 */ u16 size;
+    /* 08 */ u8 *gfx;
+};
+
+struct MapPaletteAnimFrm
+{
+    /* 00 */ u16 *pal;
+    /* 04 */ u8 duration;
+    /* 05 */ u8 colorNum;
+    /* 06 */ u8 colorPos;
+    /* 07 */ u8 padding;
+};
+
+struct MapChangeInfo
+{
+    /* 00 */ u8 id;
+    /* 01 */ u8 x;
+    /* 02 */ u8 y;
+    /* 03 */ u8 w;
+    /* 04 */ u8 h;
+    /* 05 */ u8 paddings[3];
+    /* 08 */ u16 *tiles;
+}
 
 extern struct ROMChapterData CONST_DATA gChapterDataTable[];
 extern const void** gUnknown_08A1FB34;
@@ -143,7 +195,7 @@ extern const void* gChapterDataAssetTable[];
 const struct ROMChapterData* GetROMChapterStruct(unsigned chIndex);
 const void* GetChapterMapPointer(unsigned chIndex);
 const void* GetChapterMapChangesPointer(unsigned chIndex);
-const struct ChapterEventInfo* GetChapterEventDataPointer(unsigned chIndex);
+const struct ChapterEventGroup* GetChapterEventDataPointer(unsigned chIndex);
 const char* GetChapterTitle(unsigned chIndex);
 int IsDifficultMode(void);
 

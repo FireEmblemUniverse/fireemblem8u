@@ -915,7 +915,7 @@ void sub_8033EC0(ProcPtr proc) {
 
 void CallCursorShop(ProcPtr proc) {
     struct EventCheckBuffer r0;
-    const struct ChapterEventInfo *einfo = GetChapterEventDataPointer(gRAMChapterData.chapterIndex);
+    const struct ChapterEventGroup *einfo = GetChapterEventDataPointer(gRAMChapterData.chapterIndex);
     struct EventCheckBuffer *buf;
     r0.eventDef = einfo->unk_08;
 

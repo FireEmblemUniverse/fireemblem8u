@@ -1,0 +1,45 @@
+{
+  "name": "LagdouRuins5MapChanges",
+  "changes": [
+    {
+      "id": 0,
+      "x": 4,
+      "y": 4,
+      "w": 1,
+      "h": 1,
+      "tiles": "LagdouRuins5MapChanges_change_0"
+    },
+    {
+      "id": 1,
+      "x": 13,
+      "y": 10,
+      "w": 1,
+      "h": 1,
+      "tiles": "LagdouRuins5MapChanges_change_1"
+    },
+    {
+      "id": 2,
+      "x": 17,
+      "y": 21,
+      "w": 1,
+      "h": 1,
+      "tiles": "LagdouRuins5MapChanges_change_2"
+    },
+    {
+      "id": 3,
+      "x": 0,
+      "y": 6,
+      "w": 2,
+      "h": 3,
+      "tiles": "LagdouRuins5MapChanges_change_3"
+    },
+    {
+      "id": 4,
+      "x": 8,
+      "y": 5,
+      "w": 2,
+      "h": 3,
+      "tiles": "LagdouRuins5MapChanges_change_4"
+    }
+  ]
+}

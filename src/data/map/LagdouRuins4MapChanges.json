@@ -1,0 +1,149 @@
+{
+  "name": "LagdouRuins4MapChanges",
+  "changes": [
+    {
+      "id": 0,
+      "x": 4,
+      "y": 3,
+      "w": 2,
+      "h": 3,
+      "tiles": "LagdouRuins4MapChanges_change_0"
+    },
+    {
+      "id": 1,
+      "x": 12,
+      "y": 2,
+      "w": 3,
+      "h": 3,
+      "tiles": "LagdouRuins4MapChanges_change_1"
+    },
+    {
+      "id": 2,
+      "x": 18,
+      "y": 2,
+      "w": 1,
+      "h": 1,
+      "tiles": "LagdouRuins4MapChanges_change_2"
+    },
+    {
+      "id": 3,
+      "x": 1,
+      "y": 26,
+      "w": 1,
+      "h": 1,
+      "tiles": "LagdouRuins4MapChanges_change_3"
+    },
+    {
+      "id": 4,
+      "x": 1,
+      "y": 9,
+      "w": 2,
+      "h": 3,
+      "tiles": "LagdouRuins4MapChanges_change_4"
+    },
+    {
+      "id": 5,
+      "x": 7,
+      "y": 9,
+      "w": 3,
+      "h": 3,
+      "tiles": "LagdouRuins4MapChanges_change_5"
+    },
+    {
+      "id": 6,
+      "x": 12,
+      "y": 9,
+      "w": 2,
+      "h": 3,
+      "tiles": "LagdouRuins4MapChanges_change_6"
+    },
+    {
+      "id": 7,
+      "x": 1,
+      "y": 13,
+      "w": 2,
+      "h": 3,
+      "tiles": "LagdouRuins4MapChanges_change_7"
+    },
+    {
+      "id": 8,
+      "x": 4,
+      "y": 9,
+      "w": 2,
+      "h": 3,
+      "tiles": "LagdouRuins4MapChanges_change_8"
+    },
+    {
+      "id": 9,
+      "x": 6,
+      "y": 13,
+      "w": 2,
+      "h": 3,
+      "tiles": "LagdouRuins4MapChanges_change_9"
+    },
+    {
+      "id": 10,
+      "x": 11,
+      "y": 13,
+      "w": 2,
+      "h": 3,
+      "tiles": "LagdouRuins4MapChanges_change_10"
+    },
+    {
+      "id": 11,
+      "x": 4,
+      "y": 17,
+      "w": 2,
+      "h": 3,
+      "tiles": "LagdouRuins4MapChanges_change_11"
+    },
+    {
+      "id": 12,
+      "x": 7,
+      "y": 16,
+      "w": 3,
+      "h": 3,
+      "tiles": "LagdouRuins4MapChanges_change_12"
+    },
+    {
+      "id": 13,
+      "x": 14,
+      "y": 16,
+      "w": 2,
+      "h": 3,
+      "tiles": "LagdouRuins4MapChanges_change_13"
+    },
+    {
+      "id": 14,
+      "x": 16,
+      "y": 15,
+      "w": 3,
+      "h": 3,
+      "tiles": "LagdouRuins4MapChanges_change_14"
+    },
+    {
+      "id": 15,
+      "x": 6,
+      "y": 20,
+      "w": 2,
+      "h": 3,
+      "tiles": "LagdouRuins4MapChanges_change_15"
+    },
+    {
+      "id": 16,
+      "x": 11,
+      "y": 20,
+      "w": 2,
+      "h": 3,
+      "tiles": "LagdouRuins4MapChanges_change_16"
+    },
+    {
+      "id": 17,
+      "x": 9,
+      "y": 24,
+      "w": 2,
+      "h": 3,
+      "tiles": "LagdouRuins4MapChanges_change_17"
+    }
+  ]
+}
