@@ -1,0 +1,7 @@
+{{ doNotModifyHeader }}
+
+## for frame in frames
+    .word {{ frame.pal }}
+    .byte {{ frame.duration }}, {{ frame.colorNum }}, {{ frame.colorPos }}, 0
+## endfor
+    .word 0, 0

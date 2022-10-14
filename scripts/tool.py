@@ -351,6 +351,7 @@ def decomp_image(fp, offset_img, width=32, height=0, bitdepth=4, comp_type_img=N
             with open(compfile, 'wb') as fp_comp:
                 data_img.write_comp_data(fp_comp)
             decomp_file(compfile, imagefile)
+            print(f'{os.path.basename(imagefile)}: -num_tiles {os.path.getsize(imagefile) // 32}')
     if offset_pal is None:
         save_image(imagefile, width=width)
     else:

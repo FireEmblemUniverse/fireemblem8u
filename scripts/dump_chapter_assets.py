@@ -28,7 +28,7 @@ assets = [
     {'id': 0, 'name': '', 'type': AssetType.NONE, 'addr':0},
     {'id': 1, 'name': 'ObjectType1', 'type': AssetType.OBJ},
     {'id': 2, 'name': 'MapPalette1', 'type': AssetType.PAL},
-    {'id': 3, 'name': 'TileConfiguration', 'type': AssetType.CONFIG},
+    {'id': 3, 'name': 'TileConfiguration1', 'type': AssetType.CONFIG},
     {'id': 4, 'name': 'PrologueMap', 'type': AssetType.MAP},
     {'id': 5, 'name': 'TileAnimations1', 'type': AssetType.OBJANIME},
     {'id': 6, 'name': 'PrologueMapChanges', 'type': AssetType.MAPCHANGE},
@@ -134,20 +134,20 @@ assets = [
     {'id': 106, 'name': 'Ch9EphMapChanges', 'type': AssetType.MAPCHANGE},
     {'id': 107, 'name': 'Ch9Events', 'type': AssetType.EVENT},
     {'id': 108, 'name': 'ObjectType9', 'type': AssetType.OBJ},
-    {'id': 109, 'name': 'MapPalette15', 'type': AssetType.PAL},
+    {'id': 109, 'name': 'MapPalette16', 'type': AssetType.PAL},
     {'id': 110, 'name': 'TileConfiguration9', 'type': AssetType.CONFIG},
     {'id': 111, 'name': 'Ch10EphraimMap', 'type': AssetType.MAP},
     {'id': 112, 'name': 'Ch10EphraimMapChanges', 'type': AssetType.MAPCHANGE},
     {'id': 113, 'name': 'Ch10EphraimEvents', 'type': AssetType.EVENT},
-    {'id': 114, 'name': 'MapPalette16', 'type': AssetType.PAL},
-    {'id': 115, 'name': 'Ch11EphraimMap', 'type': AssetType.MAP},
-    {'id': 116, 'name': 'Ch11EphraimMapChanges', 'type': AssetType.MAPCHANGE},
-    {'id': 117, 'name': 'Ch11EphraimEvents', 'type': AssetType.EVENT},
+    {'id': 114, 'name': 'MapPalette17', 'type': AssetType.PAL},
+    {'id': 115, 'name': 'Ch12EphraimMap', 'type': AssetType.MAP},
+    {'id': 116, 'name': 'Ch12EphraimMapChanges', 'type': AssetType.MAPCHANGE},
+    {'id': 117, 'name': 'Ch12EphraimEvents', 'type': AssetType.EVENT},
     {'id': 118, 'name': 'Ch13EphraimMap', 'type': AssetType.MAP},
     {'id': 119, 'name': 'Ch13EphraimMapChanges', 'type': AssetType.MAPCHANGE},
     {'id': 120, 'name': 'Ch13EphraimEventData', 'type': AssetType.EVENT},
     {'id': 121, 'name': 'ObjectType10', 'type': AssetType.OBJ},
-    {'id': 122, 'name': 'MapPalette17', 'type': AssetType.PAL},
+    {'id': 122, 'name': 'MapPalette18', 'type': AssetType.PAL},
     {'id': 123, 'name': 'TileConfiguration10', 'type': AssetType.CONFIG},
     {'id': 124, 'name': 'Ch14EphraimMap', 'type': AssetType.MAP},
     {'id': 125, 'name': 'TileAnimations5', 'type': AssetType.OBJANIME},
@@ -231,7 +231,7 @@ assets = [
     {'id': 203, 'name': 'AnInterestingMapEvents', 'type': AssetType.EVENT},
     {'id': 204, 'name': 'DebugMap', 'type': AssetType.MAP},
     {'id': 205, 'name': 'DebugMapEvents', 'type': AssetType.EVENT},
-    {'id': 206, 'name': 'MapPalette', 'type': AssetType.PAL},
+    {'id': 206, 'name': 'MapPalette19', 'type': AssetType.PAL},
     {'id': 207, 'name': 'Ch11EirikaMap', 'type': AssetType.MAP},
     {'id': 208, 'name': 'Ch11EirikaMapChanges', 'type': AssetType.MAPCHANGE},
     {'id': 209, 'name': 'Ch11EirikaEvents', 'type': AssetType.EVENT},
@@ -260,14 +260,30 @@ assets = [
     {'id': 232, 'name': 'AnotherPathMap', 'type': AssetType.MAP},
     {'id': 233, 'name': 'GradoShrineMapPresent', 'type': AssetType.MAP},
     {'id': 234, 'name': 'Ch5TownPalettePast', 'type': AssetType.PAL},
-    {'id': 235, 'name': 'Ch5TownMapPast', 'type': AssetType.MAP}
+    {'id': 235, 'name': 'Ch5TownMapPast', 'type': AssetType.MAP},
+    {'id': 236, 'name': 'TileAnimationsUnused1', 'type': AssetType.OBJANIME, 'addr': 0x59d5f0},
+    {'id': 237, 'name': 'TileAnimationsUnused2', 'type': AssetType.OBJANIME, 'addr': 0x59d6b0},
+    {'id': 238, 'name': 'TileAnimationsUnused3', 'type': AssetType.PALANIME, 'addr': 0x59d740},
+    {'id': 239, 'name': 'TileAnimationsUnused4', 'type': AssetType.PALANIME, 'addr': 0x59d788},
+    {'id': 240, 'name': 'TileAnimationsUnused5', 'type': AssetType.PALANIME, 'addr': 0x59d880},
+    {'id': 241, 'name': 'UnusedMapChanges1', 'type': AssetType.MAPCHANGE, 'addr': 0xa1efd0},
+    {'id': 242, 'name': 'UnusedMapChanges2', 'type': AssetType.MAPCHANGE, 'addr': 0xa1eff8},
+    {'id': 243, 'name': 'UnusedMapChanges3', 'type': AssetType.MAPCHANGE, 'addr': 0xa1f04c},
+    {'id': 244, 'name': 'UnusedMapChanges4', 'type': AssetType.MAPCHANGE, 'addr': 0xa1f070},
+    {'id': 245, 'name': 'UnusedMapChanges5', 'type': AssetType.MAPCHANGE, 'addr': 0xa1f088},
+    {'id': 246, 'name': 'UnusedMapChanges6', 'type': AssetType.MAPCHANGE, 'addr': 0xa1f0d0},
+    {'id': 247, 'name': 'UnusedMapChanges7', 'type': AssetType.MAPCHANGE, 'addr': 0xa1f0dc},
+    {'id': 248, 'name': 'UnusedMapChanges8', 'type': AssetType.MAPCHANGE, 'addr': 0xa1f0e8},
+    {'id': 249, 'name': 'UnusedMapChanges9', 'type': AssetType.MAPCHANGE, 'addr': 0xa1f3a8},
+    {'id': 250, 'name': 'UnusedMapChanges10', 'type': AssetType.MAPCHANGE, 'addr': 0xa1f3b4},
+    {'id': 251, 'name': 'UnusedMapChanges11', 'type': AssetType.MAPCHANGE, 'addr': 0xa1f970},
 ]
 
 def dumpOBJ(fp, addr, name):
     tool.decomp_image(fp, addr, comp_type_img=tool.lz77, name=name)
 
 def dumpPAL(fp, addr, name):
-    tool.dump_palette(fp, addr, color_number=16 * 5, name=name)
+    tool.dump_palette(fp, addr, color_number=16 * 10, name=name)
 
 def dumpCONFIG(fp, addr, name):
     tool.dump_binary(fp, addr, comp_type=tool.lz77, name=name)
@@ -289,7 +305,14 @@ def dumpOBJANIME(fp, addr, name):
         if offset is None:
             break
         frame['gfx'] = f'{os.path.basename(name)}_frame_{i}'
-        tool.decomp_image(fp, offset, comp_type_img='NoComp', height=frame['size']//1024, name=f'{name}_frame_{i}')
+        size = frame['size']
+        if os.path.basename(name) in ('TileAnimations3' ,'TileAnimations5'):
+            size //= 2
+        width = 32
+        if os.path.basename(name) == 'TileAnimationsUnused2':
+            width //= 4
+        height=size//(width * 32)
+        tool.decomp_image(fp, offset, comp_type_img='NoComp', width=width, height=height, name=f'{name}_frame_{i}')
         frames.append(frame)
         labels.append({'addr': offset, 'name': frame['gfx'], 'type': AssetType.FRAME})
         i += 1
@@ -384,16 +407,16 @@ def printCONFIG(i):
     print(f'\t.incbin "graphics/map/{labels[i]["name"]}.bin.lz"\n')
 
 def printOBJANIME(i):
-    print(f'\t.include "src/data/map/{labels[i]["name"]}.inc"\n')
+    print(f'\t.include "src/data/map/obj_anim/{labels[i]["name"]}.inc"\n')
 
 def printPALANIME(i):
-    print(f'\t.include "src/data/map/{labels[i]["name"]}.inc"\n')
+    print(f'\t.include "src/data/map/pal_anim/{labels[i]["name"]}.inc"\n')
 
 def printMAP(i):
     print(f'\t.incbin "graphics/map/{labels[i]["name"]}.bin.lz"\n')
 
 def printMAPCHANGE(i):
-    print(f'\t.include "src/data/map/{labels[i]["name"]}.inc"\n')
+    print(f'\t.include "src/data/map/change/{labels[i]["name"]}.inc"\n')
 
 def printEVENT(i):
     print(f'\t.incbin "baserom.gba", 0x{labels[i]["addr"]:06x}, 0x{labels[i+1]["addr"]:x} - 0x{labels[i]["addr"]:x}\n')
@@ -420,7 +443,8 @@ printers = {
 with open('../baserom.gba', 'rb') as f:
     f.seek(table_addr + 4)
     for i in range(1, len(assets)):
-        assets[i]['addr'] = tool.read_rom_offset_here(f)
+        if 'addr' not in assets[i]:
+            assets[i]['addr'] = tool.read_rom_offset_here(f)
         labels.append({'addr': assets[i]['addr'], 'name': assets[i]['name'], 'type': assets[i]['type']})
     for i in range(1, len(assets)):
         if assets[i]['type'] in dumpers:
@@ -433,10 +457,14 @@ labels.sort(key=lambda x:x['addr'])
 print('\t.section .data\n')
 
 for i, label in enumerate(labels):
-    print('\t.align 2, 0')
+    if label['type'] != AssetType.TILES:
+        print('\t.align 2, 0')
     print(f'\t.global {label["name"]}')
     print(f'{label["name"]}: @0x8{label["addr"]:06x}')
     if label['type'] in printers:
         printers[label['type']](i)
     else:
         warn('no printer defined for asset type: ' + label['type'])
+
+for i, asset in enumerate(assets):
+    print('\t.word ' + asset['name'])

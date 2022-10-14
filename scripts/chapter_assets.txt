@@ -1,7 +1,7 @@
 None
 Object type 1
 Map Palette 1
-Tile Configuration
+Tile Configuration 1
 Prologue Map
 Tile animations 1
 Prologue Map changes
@@ -58,7 +58,7 @@ Map palette 6
 Ch 13 Eir. Map
 Ch 13 Eir. Map changes
 Ch 13 Eir. Events (3B)
-Object type
+Object type 5
 Map palette 7
 Tile configuration 5
 Ch 14 Eir. Map
@@ -107,20 +107,20 @@ Ch 9 Eph map
 Ch 9 Eph Map changes
 Ch 9 events
 Object type 9
-Map palette 15
+Map palette 16
 Tile configuration 9
 Ch 10 Ephraim map
 Ch 10 Ephraim map changes
 Ch 10 Ephraim events
-Map palette 16
-Ch 11 Ephraim map
-Ch 11 Ephraim map changes
-Ch 11 Ephraim events
+Map palette 17
+Ch 12 Ephraim map
+Ch 12 Ephraim map changes
+Ch 12 Ephraim events
 Ch 13 Ephraim map
 Ch 13 Ephraim map changes
 Ch 13 Ephraim event data
 Object type 10
-Map palette 17
+Map palette 18
 Tile configuration 10
 Ch 14 Ephraim map
 Tile animations 5
@@ -204,7 +204,7 @@ An interesting map...
 An interesting map events...
 Debug map
 Debug map events
-Map palette
+Map palette 19
 Ch 11 Eirika map
 Ch 11 Eirika map changes D0
 Ch 11 Eirika events

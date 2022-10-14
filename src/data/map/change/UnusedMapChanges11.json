@@ -1,0 +1,165 @@
+{
+  "name": "UnusedMapChanges11",
+  "changes": [
+    {
+      "id": 0,
+      "x": 14,
+      "y": 10,
+      "w": 1,
+      "h": 1,
+      "tiles": "UnusedMapChanges11_change_0"
+    },
+    {
+      "id": 1,
+      "x": 13,
+      "y": 10,
+      "w": 1,
+      "h": 1,
+      "tiles": "UnusedMapChanges11_change_1"
+    },
+    {
+      "id": 2,
+      "x": 12,
+      "y": 10,
+      "w": 1,
+      "h": 1,
+      "tiles": "UnusedMapChanges11_change_2"
+    },
+    {
+      "id": 3,
+      "x": 11,
+      "y": 10,
+      "w": 1,
+      "h": 1,
+      "tiles": "UnusedMapChanges11_change_3"
+    },
+    {
+      "id": 4,
+      "x": 14,
+      "y": 11,
+      "w": 1,
+      "h": 1,
+      "tiles": "UnusedMapChanges11_change_4"
+    },
+    {
+      "id": 5,
+      "x": 13,
+      "y": 11,
+      "w": 1,
+      "h": 1,
+      "tiles": "UnusedMapChanges11_change_5"
+    },
+    {
+      "id": 6,
+      "x": 12,
+      "y": 11,
+      "w": 1,
+      "h": 1,
+      "tiles": "UnusedMapChanges11_change_6"
+    },
+    {
+      "id": 7,
+      "x": 11,
+      "y": 11,
+      "w": 1,
+      "h": 1,
+      "tiles": "UnusedMapChanges11_change_7"
+    },
+    {
+      "id": 8,
+      "x": 14,
+      "y": 12,
+      "w": 1,
+      "h": 1,
+      "tiles": "UnusedMapChanges11_change_8"
+    },
+    {
+      "id": 9,
+      "x": 13,
+      "y": 12,
+      "w": 1,
+      "h": 1,
+      "tiles": "UnusedMapChanges11_change_9"
+    },
+    {
+      "id": 10,
+      "x": 12,
+      "y": 12,
+      "w": 1,
+      "h": 1,
+      "tiles": "UnusedMapChanges11_change_10"
+    },
+    {
+      "id": 11,
+      "x": 11,
+      "y": 12,
+      "w": 1,
+      "h": 1,
+      "tiles": "UnusedMapChanges11_change_11"
+    },
+    {
+      "id": 12,
+      "x": 14,
+      "y": 13,
+      "w": 1,
+      "h": 1,
+      "tiles": "UnusedMapChanges11_change_12"
+    },
+    {
+      "id": 13,
+      "x": 13,
+      "y": 13,
+      "w": 1,
+      "h": 1,
+      "tiles": "UnusedMapChanges11_change_13"
+    },
+    {
+      "id": 14,
+      "x": 12,
+      "y": 13,
+      "w": 1,
+      "h": 1,
+      "tiles": "UnusedMapChanges11_change_14"
+    },
+    {
+      "id": 15,
+      "x": 11,
+      "y": 13,
+      "w": 1,
+      "h": 1,
+      "tiles": "UnusedMapChanges11_change_15"
+    },
+    {
+      "id": 16,
+      "x": 14,
+      "y": 14,
+      "w": 1,
+      "h": 1,
+      "tiles": "UnusedMapChanges11_change_16"
+    },
+    {
+      "id": 17,
+      "x": 13,
+      "y": 14,
+      "w": 1,
+      "h": 1,
+      "tiles": "UnusedMapChanges11_change_17"
+    },
+    {
+      "id": 18,
+      "x": 12,
+      "y": 14,
+      "w": 1,
+      "h": 1,
+      "tiles": "UnusedMapChanges11_change_18"
+    },
+    {
+      "id": 19,
+      "x": 11,
+      "y": 14,
+      "w": 1,
+      "h": 1,
+      "tiles": "UnusedMapChanges11_change_19"
+    }
+  ]
+}

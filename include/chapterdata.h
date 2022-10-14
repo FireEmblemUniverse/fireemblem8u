@@ -186,7 +186,7 @@ struct MapChangeInfo
     /* 04 */ u8 h;
     /* 05 */ u8 paddings[3];
     /* 08 */ u16 *tiles;
-}
+};
 
 extern struct ROMChapterData CONST_DATA gChapterDataTable[];
 extern const void** gUnknown_08A1FB34;

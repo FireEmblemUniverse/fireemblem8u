@@ -917,7 +917,7 @@ void CallCursorShop(ProcPtr proc) {
     struct EventCheckBuffer r0;
     const struct ChapterEventGroup *einfo = GetChapterEventDataPointer(gRAMChapterData.chapterIndex);
     struct EventCheckBuffer *buf;
-    r0.eventDef = einfo->unk_08;
+    r0.eventDef = einfo->locationBasedEvents;
 
     r0.xPos = gGameState.playerCursor.x;
     r0.yPos = gGameState.playerCursor.y;

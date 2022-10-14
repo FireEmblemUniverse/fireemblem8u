@@ -2,7 +2,7 @@
 #include "chapterdata.h"
 #include "agb_sram.h"
 
-#include "data/chapter_settings.h"
+#include "src/data/chapter_settings.h"
 
 const struct ROMChapterData* GetROMChapterStruct(unsigned chIndex) {
     if (chIndex == 0x7F)
