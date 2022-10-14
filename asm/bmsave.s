@@ -2,95 +2,8 @@
 
 	.SYNTAX UNIFIED
 
-	THUMB_FUNC_START DeclareCompletedPlaythrough
-DeclareCompletedPlaythrough: @ 0x080A4C14
-	push {r4, r5, r6, r7, lr}
-	sub sp, #0x64
-	bl GetchapterModeIndex
-	adds r5, r0, #0
-	ldr r6, _080A4C6C  @ gRAMChapterData
-	ldrb r0, [r6, #0x14]
-	lsrs r4, r0, #6
-	movs r0, #1
-	ands r4, r0
-	adds r0, r6, #0
-	adds r0, #0x42
-	ldrb r0, [r0]
-	lsls r0, r0, #0x1a
-	lsrs r7, r0, #0x1f
-	mov r0, sp
-	bl LoadAndVerifySecureHeaderSW
-	lsls r0, r0, #0x18
-	cmp r0, #0
-	bne _080A4C48
-	bl InitNopSecHeader
-	mov r0, sp
-	bl LoadAndVerifySecureHeaderSW
-_080A4C48:
-	ldrb r1, [r6, #0x18]
-	mov r0, sp
-	bl SetNewPlayThroughIndex
-	mov r2, sp
-	ldrb r1, [r2, #0xe]
-	movs r0, #1
-	adds r3, r1, #0
-	orrs r3, r0
-	strb r3, [r2, #0xe]
-	cmp r5, #2
-	beq _080A4C70
-	cmp r5, #2
-	ble _080A4CA6
-	cmp r5, #3
-	beq _080A4C8A
-	b _080A4CA6
-	.align 2, 0
-_080A4C6C: .4byte gRAMChapterData
-_080A4C70:
-	cmp r7, #0
-	bne _080A4C7A
-	mov r1, sp
-	movs r0, #4
-	b _080A4CA2
-_080A4C7A:
-	cmp r4, #0
-	beq _080A4C84
-	mov r1, sp
-	movs r0, #0x10
-	b _080A4CA2
-_080A4C84:
-	mov r1, sp
-	movs r0, #8
-	b _080A4CA2
-_080A4C8A:
-	cmp r7, #0
-	bne _080A4C94
-	mov r1, sp
-	movs r0, #0x20
-	b _080A4CA2
-_080A4C94:
-	cmp r4, #0
-	beq _080A4C9E
-	mov r1, sp
-	movs r0, #0x80
-	b _080A4CA2
-_080A4C9E:
-	mov r1, sp
-	movs r0, #0x40
-_080A4CA2:
-	orrs r3, r0
-	strb r3, [r1, #0xe]
-_080A4CA6:
-	mov r0, sp
-	bl SaveSecureHeader
-	add sp, #0x64
-	pop {r4, r5, r6, r7}
-	pop {r0}
-	bx r0
-
-	THUMB_FUNC_END DeclareCompletedPlaythrough
-
-	THUMB_FUNC_START sub_80A4CB4
-sub_80A4CB4: @ 0x080A4CB4
+	THUMB_FUNC_START IsGamePlayedThrough
+IsGamePlayedThrough: @ 0x080A4CB4
 	push {lr}
 	sub sp, #0x64
 	mov r0, sp
@@ -110,10 +23,10 @@ _080A4CD0:
 	pop {r1}
 	bx r1
 
-	THUMB_FUNC_END sub_80A4CB4
+	THUMB_FUNC_END IsGamePlayedThrough
 
-	THUMB_FUNC_START sub_80A4CD8
-sub_80A4CD8: @ 0x080A4CD8
+	THUMB_FUNC_START SetGamePlayedThrough
+SetGamePlayedThrough: @ 0x080A4CD8
 	push {lr}
 	sub sp, #0x64
 	mov r0, sp
@@ -132,7 +45,7 @@ _080A4CF6:
 	pop {r0}
 	bx r0
 
-	THUMB_FUNC_END sub_80A4CD8
+	THUMB_FUNC_END SetGamePlayedThrough
 
 	THUMB_FUNC_START BWL_GetEntry
 BWL_GetEntry: @ 0x080A4CFC

@@ -20,14 +20,14 @@ struct SecureSaveHeader {
     /* 08 */ u32 _00040624;
     /* 0C */ u16 _200A;
 
-    /* 0E */ u8 flag0E_0 : 1;
+    /* 0E */ u8 play_through_declared : 1;
              u8 flag0E_1 : 1;
-             u8 flag0E_2 : 1;
-             u8 flag0E_3 : 1;
-             u8 flag0E_4 : 1;
-             u8 flag0E_5 : 1;
-             u8 flag0E_6 : 1;
-             u8 flag0E_7 : 1;
+             u8 Eirk_mode_toturial_maybe : 1;
+             u8 Eirk_mode_normal : 1;
+             u8 Eirk_mode_difficult : 1;
+             u8 Ephy_mode_toturial_maybe : 1;
+             u8 Ephy_mode_normal : 1;
+             u8 Ephy_mode_difficult : 1;
 
     /* 0F */ u8 unk0F_0 : 1;
              u8 unk0F_1 : 7;

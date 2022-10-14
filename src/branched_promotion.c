@@ -509,7 +509,7 @@ u8 sub_80CCCA4(void) {
     struct SomeLocal local;
     u8 unlock = LoadAndVerifySecureHeaderSW(&local);
     if (!unlock) {
-        InitNopSecHeader();
+        ResetSecureHeader();
         LoadAndVerifySecureHeaderSW(&local);
     }
 

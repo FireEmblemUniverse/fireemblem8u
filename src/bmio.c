@@ -944,7 +944,7 @@ void InitPlaythroughState(int isDifficult, s8 unk) {
         gRAMChapterData.chapterStateBits |= CHAPTER_FLAG_DIFFICULT;
 
     // TODO: WHAT ARE THOSE
-    gRAMChapterData.unk42_6 = unk;
+    gRAMChapterData.toturial_mode_maybe = unk;
     gRAMChapterData.unk42_2 = 0;
     gRAMChapterData.cfgDisableTerrainDisplay = 0;
     gRAMChapterData.cfgUnitDisplayType = 0;

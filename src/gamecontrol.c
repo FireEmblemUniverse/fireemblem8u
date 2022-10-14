@@ -39,7 +39,7 @@ void sub_8086BB8(ProcPtr, u8*, int);
 void EndBG3Slider(ProcPtr);
 void ResetRAMChapterData(void);
 int CountVerifiedSecHeaderUnk14(void);
-void sub_80A4CD8(void);
+void SetGamePlayedThrough(void);
 s8 DoSaveMetaCheck(int);
 void GetSaveChunkData(int, struct RAMChapterData*);
 void sub_80A5A20(int);
@@ -850,7 +850,7 @@ void GameControl_RestoreChapterId(struct GameCtrlProc* proc) {
 }
 
 void sub_8009EFC(ProcPtr proc) {
-    sub_80A4CD8();
+    SetGamePlayedThrough();
     return;
 }
 

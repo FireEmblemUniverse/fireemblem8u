@@ -215,7 +215,7 @@ struct RAMChapterData { // Chapter Data Struct
     u32 cfgDisableGoalDisplay:1; // unk
     u32 unk42_2:2; // 2
     u32 cfgBattleForecastType:2; // 2
-    u32 unk42_6:1; // 1
+    u32 toturial_mode_maybe:1; // 1
     u32 unk42_7:1; // unk
     u32 unk42_8:2; // 2 (!)
     u32 unk43_2:2; // 2

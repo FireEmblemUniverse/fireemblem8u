@@ -126,7 +126,7 @@ void ForceSaveSecureHeader(struct SecureSaveHeader *header)
     WriteAndVerifySramFast((void*)header, (void*)gpSaveDataStart, sizeof(struct SecureSaveHeader));
 }
 
-void InitNopSecHeader()
+void ResetSecureHeader()
 {
     struct SecureSaveHeader header;
     int i;
@@ -137,14 +137,14 @@ void InitNopSecHeader()
     header._00040624 = 0x00040624;
     header._200A = 0x200A;
 
-    header.flag0E_0 = 0;
+    header.play_through_declared = 0;
     header.flag0E_1 = 0;
-    header.flag0E_2 = 0;
-    header.flag0E_3 = 0;
-    header.flag0E_4 = 0;
-    header.flag0E_5 = 0;
-    header.flag0E_6 = 0;
-    header.flag0E_7 = 0;
+    header.Eirk_mode_toturial_maybe = 0;
+    header.Eirk_mode_normal = 0;
+    header.Eirk_mode_difficult = 0;
+    header.Ephy_mode_toturial_maybe = 0;
+    header.Ephy_mode_normal = 0;
+    header.Ephy_mode_difficult = 0;
 
     header.unk0F_0 = 0;
     header.unk0F_1 = 0;
@@ -838,7 +838,7 @@ int sub_80A3870(void)
     if (!LoadAndVerifySecureHeaderSW(&tmp_header))
         return 0;
 
-    if (0 == tmp_header.flag0E_0)
+    if (0 == tmp_header.play_through_declared)
         return 0;
     else
         return 1;
@@ -1236,7 +1236,7 @@ void ModifyUnkBmSave2(struct bmsave_unkstruct2_ *buf, int val)
 void VerfyMiscSaveData()
 {
     if (!LoadAndVerifySecureHeaderSW(NULL))
-        InitNopSecHeader();
+        ResetSecureHeader();
 
     if (!sub_80A38F4(NULL))
         sub_80A2EA8();
@@ -1371,7 +1371,7 @@ int GetWonChapterCount()
     return ret;
 }
 
-int sub_80A4330()
+int GetNextChapterWinDataEntry()
 {
     int index = GetNextChapterWinDataEntryIndex();
 
@@ -1855,4 +1855,53 @@ int SetNewPlayThroughIndex(struct SecureSaveHeader *sec_head, int index)
 int GetchapterModeIndex()
 {
     return gRAMChapterData.chapterModeIndex;
+}
+
+void DeclareCompletedPlaythrough()
+{
+    struct SecureSaveHeader sec_head;
+    int mode, diffcult, toturial_maybe;
+    
+    mode = GetchapterModeIndex();
+
+    /* Maybe flag definition should be modified? */
+    diffcult = (gRAMChapterData.chapterStateBits >> 6);
+    diffcult &= 1;
+
+    toturial_maybe = gRAMChapterData.toturial_mode_maybe;
+
+    if (0 == LoadAndVerifySecureHeaderSW(&sec_head)) {
+        ResetSecureHeader();
+        LoadAndVerifySecureHeaderSW(&sec_head);
+    }
+
+    SetNewPlayThroughIndex(&sec_head, gRAMChapterData.playthroughIdentifier);
+    sec_head.play_through_declared = 1;
+
+    switch (mode) {
+    case CHAPTER_MODE_EIRIKA:
+        if (0 == toturial_maybe)
+            sec_head.Eirk_mode_toturial_maybe = 1;
+        else if (0 != diffcult)
+            sec_head.Eirk_mode_difficult = 1;
+        else
+            sec_head.Eirk_mode_normal = 1;
+        break;
+    
+    case CHAPTER_MODE_EPHRAIM:
+        if (0 == toturial_maybe)
+            sec_head.Ephy_mode_toturial_maybe = 1;
+        else if (0 != diffcult)
+            sec_head.Ephy_mode_difficult = 1;
+        else
+            sec_head.Ephy_mode_normal = 1;
+        break;
+
+        
+    case CHAPTER_MODE_COMMON:
+    default:
+        break;
+    }
+
+    SaveSecureHeader(&sec_head);
 }

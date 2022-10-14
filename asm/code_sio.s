@@ -14621,7 +14621,7 @@ sub_804881C: @ 0x0804881C
 	THUMB_FUNC_START sub_8048838
 sub_8048838: @ 0x08048838
 	push {lr}
-	bl InitNopSecHeader
+	bl ResetSecureHeader
 	bl EraseAllGameRankSaveData
 	bl EraseUnkBmSave1
 	bl EraseUnkBmSave2
