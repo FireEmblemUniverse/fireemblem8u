@@ -2,6 +2,8 @@
 #include "chapterdata.h"
 #include "agb_sram.h"
 
+#include "src/data/chapter_settings.h"
+
 const struct ROMChapterData* GetROMChapterStruct(unsigned chIndex) {
     if (chIndex == 0x7F)
         return (const struct ROMChapterData*) gUnknown_08A1FB34[0];
@@ -11,7 +13,7 @@ const struct ROMChapterData* GetROMChapterStruct(unsigned chIndex) {
 
 const void* GetChapterMapPointer(unsigned chIndex) {
     if (chIndex != 0x7F)
-        return gChapterDataAssetTable[GetROMChapterStruct(chIndex)->mapMainLayerId];
+        return gChapterDataAssetTable[GetROMChapterStruct(chIndex)->map.mainLayerId];
 
     ReadSramFast(sub_80A6B70(), gUnknown_02020188, sub_80A6B90());
     return gUnknown_02020188;
@@ -19,22 +21,22 @@ const void* GetChapterMapPointer(unsigned chIndex) {
 
 const void* GetChapterMapChangesPointer(unsigned chIndex) {
     if (chIndex != 0x7F)
-        return gChapterDataAssetTable[GetROMChapterStruct(chIndex)->mapChangeLayerId];
+        return gChapterDataAssetTable[GetROMChapterStruct(chIndex)->map.changeLayerId];
 
     return gUnknown_08A1FB34[1];
 }
 
-const struct ChapterEventInfo* GetChapterEventDataPointer(unsigned chIndex) {
+const struct ChapterEventGroup* GetChapterEventDataPointer(unsigned chIndex) {
     if (chIndex != 0x7F)
         return gChapterDataAssetTable[GetROMChapterStruct(chIndex)->mapEventDataId];
 
     return gUnknown_08A1FB34[2];
 }
 
-const char* sub_80346E0(unsigned chIndex) {
+const char* GetChapterTitle(unsigned chIndex) {
     if (chIndex != 0x7F)
         // ???????????????????
-        return GetStringFromIndex((int)(&GetROMChapterStruct(chIndex)->unk70));
+        return GetStringFromIndex((int)(&GetROMChapterStruct(chIndex)->chapTitleTextId));
 
     return gUnknown_08A1FB34[3];
 }

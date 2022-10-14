@@ -3725,8 +3725,8 @@ gUnknown_089E857C:  @ 0x089E857C
     .4byte gUnknown_089EEA28 + 0xdd4
     .4byte 0x00000000
 
-	.global gEventTable_Prologue
-gEventTable_Prologue:  @ 0x089E863C
+	.global PrologueEvents
+PrologueEvents:  @ 0x089E863C
     .4byte gUnknown_089E857C + 0x10
     .4byte gUnknown_089E857C + 0x44
     .4byte gUnknown_089E857C + 0x48
@@ -3819,8 +3819,8 @@ gUnknown_089E868C:  @ 0x089E868C
     .4byte gUnknown_089EEA28 + 0x1848
     .4byte 0x00000000
 
-	.global gEventTable_Chapter1
-gEventTable_Chapter1:  @ 0x089E879C
+	.global Ch1Events
+Ch1Events:  @ 0x089E879C
     .4byte gUnknown_089E857C + 0x110
     .4byte gUnknown_089E857C + 0x144
     .4byte gUnknown_089E857C + 0x188
@@ -3927,8 +3927,8 @@ gUnknown_089E87EC:  @ 0x089E87EC
     .4byte gUnknown_089EEA28 + 0x270c
     .4byte 0x00000000
 
-	.global gEventTable_Chapter2
-gEventTable_Chapter2:  @ 0x089E8934
+	.global Ch2Events
+Ch2Events:  @ 0x089E8934
     .4byte gUnknown_089E857C + 0x270
     .4byte gUnknown_089E857C + 0x298
     .4byte gUnknown_089E857C + 0x2bc
@@ -3998,8 +3998,8 @@ gUnknown_089E8984:  @ 0x089E8984
     .4byte 0x00000000
     .4byte 0x00000000
 
-	.global gEventTable_Chapter3
-gEventTable_Chapter3:  @ 0x089E8A38
+	.global Ch3Events
+Ch3Events:  @ 0x089E8A38
     .4byte gUnknown_089E857C + 0x408
     .4byte gUnknown_089E857C + 0x424
     .4byte gUnknown_089E857C + 0x438
@@ -4061,6 +4061,9 @@ gUnknown_089E8A88:  @ 0x089E8A88
     .4byte 0x00000000
     .4byte 0x00000000
     .4byte 0x00000000
+
+	.global Ch4Events
+Ch4Events: @0x89e8b20
     .4byte gUnknown_089E857C + 0x50c
     .4byte gUnknown_089E857C + 0x534
     .4byte gUnknown_089E857C + 0x538
@@ -4139,6 +4142,8 @@ gUnknown_089E8A88:  @ 0x089E8A88
     .4byte 0x00000000
     .4byte 0x00000000
 
+	.global Ch5EventData
+Ch5EventData: @0x89e8c54
     .4byte gUnknown_089E857C + 0x5f4
     .4byte gUnknown_089E857C + 0x61c
     .4byte gUnknown_089E857C + 0x630
@@ -4186,6 +4191,9 @@ gUnknown_089E8A88:  @ 0x089E8A88
     .4byte 0x00000000
     .4byte 0x00000000
     .4byte 0x00000000
+
+	.global Ch5XEvents
+Ch5XEvents: @0x89e8d0c
     .4byte gUnknown_089E857C + 0x728
     .4byte gUnknown_089E857C + 0x72c
     .4byte gUnknown_089E857C + 0x730
@@ -4232,6 +4240,9 @@ gUnknown_089E8A88:  @ 0x089E8A88
     .4byte 0x00000000
     .4byte 0x00000000
     .4byte 0x00000000
+
+	.global Ch6Events
+Ch6Events: @0x89e8dc4
     .4byte gUnknown_089E857C + 0x7e0
     .4byte gUnknown_089E857C + 0x7f0
     .4byte gUnknown_089E857C + 0x7f4
@@ -4275,6 +4286,9 @@ gUnknown_089E8A88:  @ 0x089E8A88
     .4byte 0x00000000
     .4byte 0x00000000
     .4byte 0x00000000
+
+	.global Ch7EventData
+Ch7EventData: @0x89e8e70
     .4byte gUnknown_089E857C + 0x898
     .4byte gUnknown_089E857C + 0x8a8
     .4byte gUnknown_089E857C + 0x8ac
@@ -4368,6 +4382,9 @@ gUnknown_089E8A88:  @ 0x089E8A88
     .4byte 0x00000000
     .4byte 0x00000000
     .4byte 0x00000000
+
+	.global Ch8EventData
+Ch8EventData: @0x89e8fe4
     .4byte gUnknown_089E857C + 0x944
     .4byte gUnknown_089E857C + 0x96c
     .4byte gUnknown_089E857C + 0x9f0
@@ -4455,6 +4472,9 @@ gUnknown_089E8A88:  @ 0x089E8A88
     .4byte 0x00000000
     .4byte 0x00000000
     .4byte 0x00000000
+
+	.global Ch9EirikaEvents
+Ch9EirikaEvents: @0x89e9140
     .4byte gUnknown_089E857C + 0xab8
     .4byte gUnknown_089E857C + 0xb28
     .4byte gUnknown_089E857C + 0xb4c
@@ -4547,6 +4567,9 @@ gUnknown_089E8A88:  @ 0x089E8A88
     .4byte 0x00000000
     .4byte 0x00000000
     .4byte 0x00000000
+
+	.global Ch10EirikaEvents
+Ch10EirikaEvents: @0x89e92b0
     .4byte gUnknown_089E857C + 0xc14
     .4byte gUnknown_089E857C + 0xc48
     .4byte gUnknown_089E857C + 0xcbc
@@ -4631,6 +4654,9 @@ gUnknown_089E8A88:  @ 0x089E8A88
     .4byte 0x00000000
     .4byte 0x00000000
     .4byte 0x00000000
+
+	.global Ch11EirikaEvents
+Ch11EirikaEvents: @0x89e9400
     .4byte gUnknown_089E857C + 0xd84
     .4byte gUnknown_089E857C + 0xdb8
     .4byte gUnknown_089E857C + 0xddc
@@ -4689,6 +4715,9 @@ gUnknown_089E8A88:  @ 0x089E8A88
     .4byte 0x00000000
     .4byte 0x00000000
     .4byte 0x00000000
+
+	.global Ch12EirikaEventData
+Ch12EirikaEventData: @0x89e94e8
     .4byte gUnknown_089E857C + 0xed4
     .4byte gUnknown_089E857C + 0xef0
     .4byte gUnknown_089E857C + 0xef4
@@ -4753,6 +4782,9 @@ gUnknown_089E8A88:  @ 0x089E8A88
     .4byte 0x00000000
     .4byte 0x00000000
     .4byte 0x00000000
+
+	.global Ch13EirikaEvents
+Ch13EirikaEvents: @0x89e95e8
     .4byte gUnknown_089E857C + 0xfbc
     .4byte gUnknown_089E857C + 0x1008
     .4byte gUnknown_089E857C + 0x103c
@@ -4867,6 +4899,9 @@ gUnknown_089E8A88:  @ 0x089E8A88
     .4byte 0x00000000
     .4byte 0x00000000
     .4byte 0x00000000
+
+	.global Ch14EirikaEvents
+Ch14EirikaEvents: @0x89e97b0
     .4byte gUnknown_089E857C + 0x10bc
     .4byte gUnknown_089E857C + 0x10fc
     .4byte gUnknown_089E857C + 0x1120
@@ -5015,6 +5050,9 @@ gUnknown_089E8A88:  @ 0x089E8A88
     .4byte 0x00000000
     .4byte 0x00000000
     .4byte 0x00000000
+
+	.global Ch15EirikaEvents
+Ch15EirikaEvents: @0x89e9a00
     .4byte gUnknown_089E857C + 0x1284
     .4byte gUnknown_089E857C + 0x12d0
     .4byte gUnknown_089E857C + 0x1394
@@ -5085,6 +5123,9 @@ gUnknown_089E8A88:  @ 0x089E8A88
     .4byte 0x00000000
     .4byte 0x00000000
     .4byte 0x00000000
+
+	.global Ch16EirEvents
+Ch16EirEvents: @0x89e9b18
     .4byte gUnknown_089E857C + 0x14d4
     .4byte gUnknown_089E857C + 0x14fc
     .4byte gUnknown_089E857C + 0x1500
@@ -5188,6 +5229,9 @@ gUnknown_089E8A88:  @ 0x089E8A88
     .4byte 0x00000000
     .4byte 0x00000000
     .4byte 0x00000000
+
+	.global Ch17EirikaEvents
+Ch17EirikaEvents: @0x89e9cb4
     .4byte gUnknown_089E857C + 0x15ec
     .4byte gUnknown_089E857C + 0x1698
     .4byte gUnknown_089E857C + 0x16cc
@@ -5249,6 +5293,9 @@ gUnknown_089E8A88:  @ 0x089E8A88
     .4byte 0x00000000
     .4byte 0x00000000
     .4byte 0x00000000
+
+	.global Ch18EirikaEvents
+Ch18EirikaEvents: @0x89e9da8
     .4byte gUnknown_089E857C + 0x1788
     .4byte gUnknown_089E857C + 0x17c8
     .4byte gUnknown_089E857C + 0x17cc
@@ -5337,6 +5384,9 @@ gUnknown_089E8A88:  @ 0x089E8A88
     .4byte 0x00000000
     .4byte 0x00000000
     .4byte 0x00000000
+
+	.global Ch19EirikaEvents
+Ch19EirikaEvents: @0x89e9f08
     .4byte gUnknown_089E857C + 0x187c
     .4byte gUnknown_089E857C + 0x18f8
     .4byte gUnknown_089E857C + 0x18fc
@@ -5410,6 +5460,9 @@ gUnknown_089E8A88:  @ 0x089E8A88
     .4byte 0x00000000
     .4byte 0x00000000
     .4byte 0x00000000
+
+	.global Ch20EirikaEvents
+Ch20EirikaEvents: @0x89ea02c
     .4byte gUnknown_089E857C + 0x19dc
     .4byte gUnknown_089E857C + 0x1a4c
     .4byte gUnknown_089E857C + 0x1a50
@@ -5477,6 +5530,9 @@ gUnknown_089E8A88:  @ 0x089E8A88
     .4byte 0x00000000
     .4byte 0x00000000
     .4byte 0x00000000
+
+	.global FinalEirikaEvents1
+FinalEirikaEvents1: @0x89ea138
     .4byte gUnknown_089E857C + 0x1b00
     .4byte gUnknown_089E857C + 0x1b28
     .4byte gUnknown_089E857C + 0x1b2c
@@ -5511,6 +5567,9 @@ gUnknown_089E8A88:  @ 0x089E8A88
     .4byte 0x00000000
     .4byte 0x00000000
     .4byte 0x00000000
+
+	.global FinalEirikaEvents2
+FinalEirikaEvents2: @0x89ea1c0
     .4byte gUnknown_089E857C + 0x1c0c
     .4byte gUnknown_089E857C + 0x1c10
     .4byte gUnknown_089E857C + 0x1c14
@@ -5609,6 +5668,9 @@ gUnknown_089E8A88:  @ 0x089E8A88
     .4byte 0x00000000
     .4byte 0x00000000
     .4byte 0x00000000
+
+	.global Ch9Events
+Ch9Events: @0x89ea348
     .4byte gUnknown_089E857C + 0x1c94
     .4byte gUnknown_089E857C + 0x1cc8
     .4byte gUnknown_089E857C + 0x1d0c
@@ -5697,6 +5759,9 @@ gUnknown_089E8A88:  @ 0x089E8A88
     .4byte 0x00000000
     .4byte 0x00000000
     .4byte 0x00000000
+
+	.global Ch10EphraimEvents
+Ch10EphraimEvents: @0x89ea4a8
     .4byte gUnknown_089E857C + 0x1e1c
     .4byte gUnknown_089E857C + 0x1e68
     .4byte gUnknown_089E857C + 0x1e9c
@@ -5766,6 +5831,9 @@ gUnknown_089E8A88:  @ 0x089E8A88
     .4byte 0x00000000
     .4byte 0x00000000
     .4byte 0x00000000
+
+	.global Ch11EphraimEvents
+Ch11EphraimEvents: @0x89ea5bc
     .4byte gUnknown_089E857C + 0x1f7c
     .4byte gUnknown_089E857C + 0x1fec
     .4byte gUnknown_089E857C + 0x2010
@@ -5834,6 +5902,9 @@ gUnknown_089E8A88:  @ 0x089E8A88
     .4byte 0x00000000
     .4byte 0x00000000
     .4byte 0x00000000
+    
+	.global Ch12EphraimEvents
+Ch12EphraimEvents: @0x89ea6cc
     .4byte gUnknown_089E857C + 0x2090
     .4byte gUnknown_089E857C + 0x20dc
     .4byte gUnknown_089E857C + 0x20f0
@@ -5931,6 +6002,9 @@ gUnknown_089E8A88:  @ 0x089E8A88
     .4byte 0x00000000
     .4byte 0x00000000
     .4byte 0x00000000
+    
+	.global Ch13EphraimEventData
+Ch13EphraimEventData: @0x89ea850
     .4byte gUnknown_089E857C + 0x21a0
     .4byte gUnknown_089E857C + 0x21d4
     .4byte gUnknown_089E857C + 0x2238
@@ -6090,6 +6164,9 @@ gUnknown_089E8A88:  @ 0x089E8A88
     .4byte 0x00000000
     .4byte 0x00000000
     .4byte 0x00000000
+    
+	.global Ch14EphraimEventData
+Ch14EphraimEventData: @0x89eaacc
     .4byte gUnknown_089E857C + 0x2324
     .4byte gUnknown_089E857C + 0x237c
     .4byte gUnknown_089E857C + 0x23a0
@@ -6227,6 +6304,9 @@ gUnknown_089E8A88:  @ 0x089E8A88
     .4byte 0x00000000
     .4byte 0x00000000
     .4byte 0x00000000
+    
+	.global Ch15EphraimEventData
+Ch15EphraimEventData: @0x89eacf0
     .4byte gUnknown_089E857C + 0x25a0
     .4byte gUnknown_089E857C + 0x25e0
     .4byte gUnknown_089E857C + 0x2684
@@ -6306,6 +6386,9 @@ gUnknown_089E8A88:  @ 0x089E8A88
     .4byte 0x00000000
     .4byte 0x00000000
     .4byte 0x00000000
+    
+	.global Ch16EphraimEventData
+Ch16EphraimEventData: @0x89eae2c
     .4byte gUnknown_089E857C + 0x27c4
     .4byte gUnknown_089E857C + 0x27f8
     .4byte gUnknown_089E857C + 0x27fc
@@ -6409,6 +6492,9 @@ gUnknown_089E8A88:  @ 0x089E8A88
     .4byte 0x00000000
     .4byte 0x00000000
     .4byte 0x00000000
+
+	.global Ch17EphraimEventData
+Ch17EphraimEventData: @0x89eafc8
     .4byte gUnknown_089E857C + 0x2900
     .4byte gUnknown_089E857C + 0x29ac
     .4byte gUnknown_089E857C + 0x29e0
@@ -6470,6 +6556,9 @@ gUnknown_089E8A88:  @ 0x089E8A88
     .4byte 0x00000000
     .4byte 0x00000000
     .4byte 0x00000000
+    
+	.global Ch18EphraimEventData
+Ch18EphraimEventData: @0x89eb0bc
     .4byte gUnknown_089E857C + 0x2a9c
     .4byte gUnknown_089E857C + 0x2adc
     .4byte gUnknown_089E857C + 0x2ae0
@@ -6558,6 +6647,9 @@ gUnknown_089E8A88:  @ 0x089E8A88
     .4byte 0x00000000
     .4byte 0x00000000
     .4byte 0x00000000
+
+	.global Ch19EphraimEventData
+Ch19EphraimEventData: @0x89eb21c
     .4byte gUnknown_089E857C + 0x2b90
     .4byte gUnknown_089E857C + 0x2c0c
     .4byte gUnknown_089E857C + 0x2c10
@@ -6631,6 +6723,9 @@ gUnknown_089E8A88:  @ 0x089E8A88
     .4byte 0x00000000
     .4byte 0x00000000
     .4byte 0x00000000
+
+	.global Ch20EphraimEventData
+Ch20EphraimEventData: @0x89eb340
     .4byte gUnknown_089E857C + 0x2cf0
     .4byte gUnknown_089E857C + 0x2d60
     .4byte gUnknown_089E857C + 0x2d64
@@ -6698,6 +6793,9 @@ gUnknown_089E8A88:  @ 0x089E8A88
     .4byte 0x00000000
     .4byte 0x00000000
     .4byte 0x00000000
+    
+	.global FinalEphraimEvents1
+FinalEphraimEvents1: @0x89eb44c
     .4byte gUnknown_089E857C + 0x2e14
     .4byte gUnknown_089E857C + 0x2e3c
     .4byte gUnknown_089E857C + 0x2e40
@@ -6732,6 +6830,9 @@ gUnknown_089E8A88:  @ 0x089E8A88
     .4byte 0x00000000
     .4byte 0x00000000
     .4byte 0x00000000
+    
+	.global FinalEphraimEvents2
+FinalEphraimEvents2: @0x89eb4d4
     .4byte gUnknown_089E857C + 0x2f20
     .4byte gUnknown_089E857C + 0x2f24
     .4byte gUnknown_089E857C + 0x2f28
@@ -6772,6 +6873,9 @@ gUnknown_089E8A88:  @ 0x089E8A88
     .4byte 0x00000000
     .4byte 0x00000000
     .4byte 0x00000000
+
+	.global TowerOfValni1Events
+TowerOfValni1Events: @0x89eb574
     .4byte gUnknown_089E857C + 0x2fa8
     .4byte gUnknown_089E857C + 0x2fac
     .4byte gUnknown_089E857C + 0x2fb0
@@ -6812,6 +6916,9 @@ gUnknown_089E8A88:  @ 0x089E8A88
     .4byte 0x00000000
     .4byte 0x00000000
     .4byte 0x00000000
+    
+	.global TowerOfValni2Events
+TowerOfValni2Events: @0x89eb614
     .4byte gUnknown_089E857C + 0x3048
     .4byte gUnknown_089E857C + 0x3058
     .4byte gUnknown_089E857C + 0x305c
@@ -6849,6 +6956,9 @@ gUnknown_089E8A88:  @ 0x089E8A88
     .4byte 0x00000000
     .4byte 0x00000000
     .4byte 0x00000000
+
+	.global TowerOfValni3Events
+TowerOfValni3Events: @0x89eb6a8
     .4byte gUnknown_089E857C + 0x30e8
     .4byte gUnknown_089E857C + 0x30ec
     .4byte gUnknown_089E857C + 0x30f0
@@ -6883,6 +6993,9 @@ gUnknown_089E8A88:  @ 0x089E8A88
     .4byte 0x00000000
     .4byte 0x00000000
     .4byte 0x00000000
+    
+	.global TowerOfValni4Events
+TowerOfValni4Events: @0x89eb730
     .4byte gUnknown_089E857C + 0x317c
     .4byte gUnknown_089E857C + 0x3180
     .4byte gUnknown_089E857C + 0x3184
@@ -6926,6 +7039,9 @@ gUnknown_089E8A88:  @ 0x089E8A88
     .4byte 0x00000000
     .4byte 0x00000000
     .4byte 0x00000000
+    
+	.global TowerOfValni5Events
+TowerOfValni5Events: @0x89eb7dc
     .4byte gUnknown_089E857C + 0x3204
     .4byte gUnknown_089E857C + 0x3214
     .4byte gUnknown_089E857C + 0x3218
@@ -6972,6 +7088,9 @@ gUnknown_089E8A88:  @ 0x089E8A88
     .4byte 0x00000000
     .4byte 0x00000000
     .4byte 0x00000000
+    
+	.global TowerOfValni6Events
+TowerOfValni6Events: @0x89eb894
     .4byte gUnknown_089E857C + 0x32b0
     .4byte gUnknown_089E857C + 0x32b4
     .4byte gUnknown_089E857C + 0x32b8
@@ -7030,6 +7149,9 @@ gUnknown_089E8A88:  @ 0x089E8A88
     .4byte 0x00000000
     .4byte 0x00000000
     .4byte 0x00000000
+    
+	.global TowerOfValni7Events
+TowerOfValni7Events: @0x89eb97c
     .4byte gUnknown_089E857C + 0x3368
     .4byte gUnknown_089E857C + 0x3390
     .4byte gUnknown_089E857C + 0x3394
@@ -7067,6 +7189,9 @@ gUnknown_089E8A88:  @ 0x089E8A88
     .4byte 0x00000000
     .4byte 0x00000000
     .4byte 0x00000000
+    
+	.global TowerOfValni8Events
+TowerOfValni8Events: @0x89eba10
     .4byte gUnknown_089E857C + 0x3450
     .4byte gUnknown_089E857C + 0x3454
     .4byte gUnknown_089E857C + 0x3458
@@ -7119,6 +7244,9 @@ gUnknown_089E8A88:  @ 0x089E8A88
     .4byte 0x00000000
     .4byte 0x00000000
     .4byte 0x00000000
+    
+	.global LagdouRuins1Event
+LagdouRuins1Event: @0x89ebae0
     .4byte gUnknown_089E857C + 0x34e4
     .4byte gUnknown_089E857C + 0x3518
     .4byte gUnknown_089E857C + 0x351c
@@ -7159,6 +7287,9 @@ gUnknown_089E8A88:  @ 0x089E8A88
     .4byte 0x00000000
     .4byte 0x00000000
     .4byte 0x00000000
+
+	.global LagdouRuins2Event
+LagdouRuins2Event: @0x89ebb80
     .4byte gUnknown_089E857C + 0x35b4
     .4byte gUnknown_089E857C + 0x35b8
     .4byte gUnknown_089E857C + 0x35bc
@@ -7232,6 +7363,9 @@ gUnknown_089E8A88:  @ 0x089E8A88
     .4byte 0x00000000
     .4byte 0x00000000
     .4byte 0x00000000
+    
+	.global LagdouRuins3Event
+LagdouRuins3Event: @0x89ebca4
     .4byte gUnknown_089E857C + 0x3654
     .4byte gUnknown_089E857C + 0x3694
     .4byte gUnknown_089E857C + 0x3698
@@ -7278,6 +7412,9 @@ gUnknown_089E8A88:  @ 0x089E8A88
     .4byte 0x00000000
     .4byte 0x00000000
     .4byte 0x00000000
+    
+	.global LagdouRuins4Event
+LagdouRuins4Event: @0x89ebd5c
     .4byte gUnknown_089E857C + 0x3778
     .4byte gUnknown_089E857C + 0x3794
     .4byte gUnknown_089E857C + 0x3798
@@ -7330,6 +7467,9 @@ gUnknown_089E8A88:  @ 0x089E8A88
     .4byte 0x00000000
     .4byte 0x00000000
     .4byte 0x00000000
+    
+	.global LagdouRuins5Event
+LagdouRuins5Event: @0x89ebe2c
     .4byte gUnknown_089E857C + 0x3830
     .4byte gUnknown_089E857C + 0x3858
     .4byte gUnknown_089E857C + 0x385c
@@ -7388,6 +7528,9 @@ gUnknown_089E8A88:  @ 0x089E8A88
     .4byte 0x00000000
     .4byte 0x00000000
     .4byte 0x00000000
+    
+	.global LagdouRuins6Event
+LagdouRuins6Event: @0x89ebf14
     .4byte gUnknown_089E857C + 0x3900
     .4byte gUnknown_089E857C + 0x3958
     .4byte gUnknown_089E857C + 0x395c
@@ -7461,6 +7604,9 @@ gUnknown_089E8A88:  @ 0x089E8A88
     .4byte 0x00000000
     .4byte 0x00000000
     .4byte 0x00000000
+    
+	.global LagdouRuins7Event
+LagdouRuins7Event: @0x89ec038
     .4byte gUnknown_089E857C + 0x39e8
     .4byte gUnknown_089E857C + 0x3a4c
     .4byte gUnknown_089E857C + 0x3a50
@@ -7567,6 +7713,9 @@ gUnknown_089E8A88:  @ 0x089E8A88
     .4byte 0x00000000
     .4byte 0x00000000
     .4byte 0x00000000
+    
+	.global LagdouRuins8Event
+LagdouRuins8Event: @0x89ec1e0
     .4byte gUnknown_089E857C + 0x3b0c
     .4byte gUnknown_089E857C + 0x3bd0
     .4byte gUnknown_089E857C + 0x3bd4
@@ -7613,6 +7762,9 @@ gUnknown_089E8A88:  @ 0x089E8A88
     .4byte 0x00000000
     .4byte 0x00000000
     .4byte 0x00000000
+    
+	.global LagdouRuins9Event
+LagdouRuins9Event: @0x89ec298
     .4byte gUnknown_089E857C + 0x3cb4
     .4byte gUnknown_089E857C + 0x3cc4
     .4byte gUnknown_089E857C + 0x3cc8
@@ -7650,6 +7802,9 @@ gUnknown_089E8A88:  @ 0x089E8A88
     .4byte 0x00000000
     .4byte 0x00000000
     .4byte 0x00000000
+    
+	.global LagdouRuins10Event
+LagdouRuins10Event: @0x89ec32c
     .4byte gUnknown_089E857C + 0x3d6c
     .4byte gUnknown_089E857C + 0x3d70
     .4byte gUnknown_089E857C + 0x3d74
@@ -7684,6 +7839,9 @@ gUnknown_089E8A88:  @ 0x089E8A88
     .4byte 0x00000000
     .4byte 0x00000000
     .4byte 0x00000000
+    
+	.global LordsSplitEvents
+LordsSplitEvents: @0x89ec3b4
     .4byte gUnknown_089E857C + 0x3e00
     .4byte gUnknown_089E857C + 0x3e04
     .4byte gUnknown_089E857C + 0x3e08
@@ -7718,6 +7876,9 @@ gUnknown_089E8A88:  @ 0x089E8A88
     .4byte 0x00000000
     .4byte 0x00000000
     .4byte 0x00000000
+    
+	.global MelkaenCoastEvent
+MelkaenCoastEvent: @0x89ec43c
     .4byte gUnknown_089E857C + 0x3e88
     .4byte gUnknown_089E857C + 0x3e8c
     .4byte gUnknown_089E857C + 0x3e90
@@ -7809,6 +7970,9 @@ gUnknown_089E8A88:  @ 0x089E8A88
     .4byte 0x00000000
     .4byte 0x00000000
     .4byte 0x00000000
+    
+	.global AnInterestingMapEvents
+AnInterestingMapEvents: @0x89ec5a8
     .4byte gUnknown_089E857C + 0x3f10
     .4byte gUnknown_089E857C + 0x4004
     .4byte gUnknown_089E857C + 0x4008
@@ -7858,6 +8022,9 @@ gUnknown_089E8A88:  @ 0x089E8A88
     .4byte 0x00000000
     .4byte 0x00000000
     .4byte 0x00000000
+    
+	.global DebugMapEvents
+DebugMapEvents: @0x89ec66c
     .4byte gUnknown_089E857C + 0x407c
     .4byte gUnknown_089E857C + 0x4080
     .4byte gUnknown_089E857C + 0x4084

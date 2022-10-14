@@ -79,11 +79,11 @@ void ChapterIntroTitle_End(struct ChapterIntroFXProc *proc)
     SetupMapSpritesPalettes();
     LoadObjUIGfx();
 
-    x = sub_8015A40(GetROMChapterStruct(gRAMChapterData.chapterIndex)->unk10 * 0x10);
+    x = sub_8015A40(GetROMChapterStruct(gRAMChapterData.chapterIndex)->initialPosX * 0x10);
     _x = (x + 0xF) & 0x1F0;
     gGameState.camera.x = _x;
 
-    y = sub_8015A6C(GetROMChapterStruct(gRAMChapterData.chapterIndex)->unk11 * 0x10);
+    y = sub_8015A6C(GetROMChapterStruct(gRAMChapterData.chapterIndex)->initialPosY * 0x10);
     _y = (y + 0xF) & 0x3F0;
     gGameState.camera.y = _y;
 

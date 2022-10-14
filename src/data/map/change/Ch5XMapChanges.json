@@ -1,0 +1,29 @@
+{
+  "name": "Ch5XMapChanges",
+  "changes": [
+    {
+      "id": 0,
+      "x": 4,
+      "y": 8,
+      "w": 1,
+      "h": 1,
+      "tiles": "Ch5XMapChanges_change_0"
+    },
+    {
+      "id": 1,
+      "x": 5,
+      "y": 8,
+      "w": 1,
+      "h": 1,
+      "tiles": "Ch5XMapChanges_change_1"
+    },
+    {
+      "id": 2,
+      "x": 4,
+      "y": 10,
+      "w": 1,
+      "h": 1,
+      "tiles": "Ch5XMapChanges_change_2"
+    }
+  ]
+}

@@ -7116,7 +7116,7 @@ sub_80A6D1C: @ 0x080A6D1C
 	THUMB_FUNC_START sub_80A6D24
 sub_80A6D24: @ 0x080A6D24
 	push {lr}
-	bl sub_80346E0
+	bl GetChapterTitle
 	pop {r1}
 	bx r1
 

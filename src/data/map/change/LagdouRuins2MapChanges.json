@@ -1,0 +1,13 @@
+{
+  "name": "LagdouRuins2MapChanges",
+  "changes": [
+    {
+      "id": 0,
+      "x": 9,
+      "y": 13,
+      "w": 2,
+      "h": 3,
+      "tiles": "LagdouRuins2MapChanges_change_0"
+    }
+  ]
+}

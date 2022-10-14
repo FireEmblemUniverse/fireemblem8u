@@ -1,0 +1,37 @@
+{
+  "name": "Ch11EphraimMapChanges",
+  "changes": [
+    {
+      "id": 0,
+      "x": 14,
+      "y": 7,
+      "w": 7,
+      "h": 12,
+      "tiles": "Ch11EphraimMapChanges_change_0"
+    },
+    {
+      "id": 1,
+      "x": 9,
+      "y": 0,
+      "w": 8,
+      "h": 19,
+      "tiles": "Ch11EphraimMapChanges_change_1"
+    },
+    {
+      "id": 2,
+      "x": 7,
+      "y": 7,
+      "w": 4,
+      "h": 5,
+      "tiles": "Ch11EphraimMapChanges_change_2"
+    },
+    {
+      "id": 3,
+      "x": 15,
+      "y": 2,
+      "w": 6,
+      "h": 17,
+      "tiles": "Ch11EphraimMapChanges_change_3"
+    }
+  ]
+}
