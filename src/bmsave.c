@@ -8,6 +8,7 @@
 #include "bmunit.h"
 #include "bmitem.h"
 #include "bmio.h"
+#include "bmbattle.h"
 
 #include "bwl.h"
 #include "bmsave.h"
@@ -1735,4 +1736,123 @@ int GetBwlFavoritism(u8 char_id)
         return 0x2000;
     else
         return bwl->favoritism >> 6;
+}
+
+void BWL_AddFavoritismValue(u8 char_id, int val)
+{
+    int cur;
+    
+    struct BwlData *bwl = GetBWL(char_id);
+    if (0 == bwl)
+        return;
+
+    cur = bwl->favoritism + val;
+    
+    if (cur > 0x4000)
+        bwl->favoritism = 0x4000;
+    else if (cur < 0)
+        bwl->favoritism = 0;
+    else
+        bwl->favoritism = cur;
+}
+
+void BWL_HandleBattleDiedUnit()
+{
+    struct BattleUnit *buA = 0, *buB = 0;
+
+    if (0 == GetUnitCurrentHp(&gBattleActor.unit)) {
+        buA = &gBattleActor;
+        buB = &gBattleTarget;
+    }
+
+    if (0 == GetUnitCurrentHp(&gBattleTarget.unit)) {
+        buA = &gBattleTarget;
+        buB = &gBattleActor;
+    }
+
+    if (0 != buA) {
+        if (0 != buB && FACTION_BLUE == UNIT_FACTION(&buB->unit)) {
+            BWL_IncrementWinCount(UNIT_CHAR_ID(&buB->unit));
+            gRAMChapterData.unk48++;
+        }
+
+        if (0 != buA && FACTION_BLUE == UNIT_FACTION(&buA->unit))
+            BWL_IncrementAndSaveLossCount(UNIT_CHAR_ID(&buA->unit));
+    }
+}
+
+u8 IsPlayThroughIdUnique(int index)
+{
+    int i;
+    struct SecureSaveHeader sec_head;
+    struct RAMChapterData ram_ch;
+
+    LoadAndVerifySecureHeaderSW(&sec_head);
+
+    for (i = 0; i < 0xC; i++)
+        if (sec_head.unk14[i] == index)
+            return 0;
+
+    for (i = 0; i < 3; i++) {
+        if (!DoSaveMetaCheck(i))
+            continue;
+
+        GetSaveChunkData(i, &ram_ch);
+
+        if (ram_ch.playthroughIdentifier == index)
+            return 0;
+    }
+    
+    return 1;
+}
+
+int GetNextUniquePlayThroughId()
+{
+    int i;
+    for (i = 1; i < 0x100; i++)
+        if (IsPlayThroughIdUnique(i))
+            return i;
+}
+
+int CountSecHeaderUnk14(struct SecureSaveHeader *sec_head)
+{
+    int i, ret = 0;
+
+    for (i = 0; i < 0xC; i++)
+        if (0 != sec_head->unk14[i])
+            ret++;
+
+    return ret;
+}
+
+int CountVerifiedSecHeaderUnk14()
+{
+    struct SecureSaveHeader sec_head;
+
+    if (!LoadAndVerifySecureHeaderSW(&sec_head))
+        return 0;
+    else
+        return CountSecHeaderUnk14(&sec_head);
+}
+
+int SetNewPlayThroughIndex(struct SecureSaveHeader *sec_head, int index)
+{
+    int i;
+    for (i = 0; i < 0xC; i++)
+        if (sec_head->unk14[i] == index)
+            return 0;
+
+    for(i = 0; i < 0xC; i++)
+        if (0 == sec_head->unk14[i]) {
+            sec_head->unk14[i] = index;
+            return 1;
+        }
+
+    return 0;
+    
+}
+
+int GetchapterModeIndex()
+{
+    return gRAMChapterData.chapterModeIndex;
 }

@@ -468,7 +468,7 @@ DebugMenu_ClearDraw: @ 0x0801BF00
 	movs r1, #0x48
 	movs r2, #2
 	bl Text_InsertString
-	bl sub_80A4BB0
+	bl CountVerifiedSecHeaderUnk14
 	adds r3, r0, #0
 	adds r3, #1
 	adds r0, r4, #0
@@ -508,7 +508,7 @@ DebugMenu_ClearIdle: @ 0x0801BF6C
 	ands r0, r1
 	cmp r0, #0
 	beq _0801C008
-	bl sub_80A4BB0
+	bl CountVerifiedSecHeaderUnk14
 	adds r5, r0, #0
 	ldr r0, [r4]
 	ldrh r1, [r0, #6]
@@ -549,7 +549,7 @@ _0801BFCA:
 	adds r4, #1
 	mov r0, sp
 	adds r1, r4, #0
-	bl sub_80A4BD0
+	bl SetNewPlayThroughIndex
 	cmp r4, r5
 	blt _0801BFCA
 _0801BFD8:

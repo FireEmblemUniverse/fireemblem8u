@@ -184,7 +184,7 @@ sub_80A8950: @ 0x080A8950
 	push {r4, r5, r6, r7, lr}
 	sub sp, #0x168
 	adds r4, r0, #0
-	bl sub_80A5218
+	bl DoSaveMetaCheck
 	lsls r0, r0, #0x18
 	cmp r0, #0
 	bne _080A8964
@@ -193,7 +193,7 @@ sub_80A8950: @ 0x080A8950
 _080A8964:
 	adds r0, r4, #0
 	mov r1, sp
-	bl sub_80A522C
+	bl GetSaveChunkData
 	mov r0, sp
 	ldrb r0, [r0, #0x1b]
 	cmp r0, #1
@@ -6479,7 +6479,7 @@ sub_80AB98C: @ 0x080AB98C
 	lsls r6, r1, #0x18
 _080AB9A0:
 	adds r0, r4, #0
-	bl sub_80A5218
+	bl DoSaveMetaCheck
 	lsls r0, r0, #0x18
 	cmp r0, r6
 	beq _080AB9C6
@@ -6506,7 +6506,7 @@ _080AB9CA:
 	lsls r6, r1, #0x18
 _080AB9CE:
 	adds r0, r4, #0
-	bl sub_80A5218
+	bl DoSaveMetaCheck
 	lsls r0, r0, #0x18
 	cmp r0, r6
 	beq _080AB9C6
@@ -6851,14 +6851,14 @@ sub_80ABC14: @ 0x080ABC14
 	b _080ABD48
 _080ABC26:
 	adds r0, r5, #0
-	bl sub_80A5218
+	bl DoSaveMetaCheck
 	lsls r0, r0, #0x18
 	asrs r2, r0, #0x18
 	cmp r2, #0
 	beq _080ABD04
 	adds r0, r5, #0
 	mov r1, sp
-	bl sub_80A522C
+	bl GetSaveChunkData
 	mov r0, sp
 	movs r2, #0xe
 	ldrsb r2, [r0, r2]

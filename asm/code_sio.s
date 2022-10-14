@@ -10901,13 +10901,13 @@ _08046A4A:
 	movs r0, #0
 	strb r0, [r4]
 	mov r0, r9
-	bl sub_80A5218
+	bl DoSaveMetaCheck
 	lsls r0, r0, #0x18
 	cmp r0, #0
 	beq _08046B34
 	mov r0, r9
 	add r1, sp, #4
-	bl sub_80A522C
+	bl GetSaveChunkData
 	add r0, sp, #4
 	bl sub_8089768
 	adds r2, r7, #0
@@ -12923,13 +12923,13 @@ sub_8047AB8: @ 0x08047AB8
 	movs r4, #0
 _08047ABE:
 	adds r0, r4, #0
-	bl sub_80A5218
+	bl DoSaveMetaCheck
 	lsls r0, r0, #0x18
 	cmp r0, #0
 	beq _08047AE2
 	adds r0, r4, #0
 	mov r1, sp
-	bl sub_80A522C
+	bl GetSaveChunkData
 	mov r0, sp
 	bl sub_80A52BC
 	lsls r0, r0, #0x18
@@ -13813,7 +13813,7 @@ sub_80481E0: @ 0x080481E0
 	movs r3, #0
 	bl Font_InitForUI
 	movs r0, #5
-	bl sub_80A5218
+	bl DoSaveMetaCheck
 	lsls r0, r0, #0x18
 	cmp r0, #0
 	bne _08048204

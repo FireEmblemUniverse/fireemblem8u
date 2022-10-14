@@ -108,6 +108,8 @@ void LoadChapterWinData(void *sram_src);
 void SaveBWLEntries(void *sram_dest);
 void SaveChapterWinData(void *sram_dest);
 
+s8 DoSaveMetaCheck(int);
+void GetSaveChunkData(int, struct RAMChapterData*);
 int CheckSecHeader_BIT63();
 
 #endif /* BMSAVE_H */

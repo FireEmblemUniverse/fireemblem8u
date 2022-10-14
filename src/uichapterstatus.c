@@ -528,7 +528,7 @@ void ChapterStatus_Init(struct ChapterStatusProc* proc) {
 
     proc->numAllyUnits = CountUnitsByFaction(FACTION_BLUE);
 
-    proc->timesCompleted = sub_80A4BB0();
+    proc->timesCompleted = CountVerifiedSecHeaderUnk14();
 
     if (proc->units[0]->state & US_UNSELECTABLE) {
         proc->units[0]->state &= ~US_UNSELECTABLE;

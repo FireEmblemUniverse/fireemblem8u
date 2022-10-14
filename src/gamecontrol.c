@@ -38,10 +38,10 @@ void ClearLocalEvents(void);
 void sub_8086BB8(ProcPtr, u8*, int);
 void EndBG3Slider(ProcPtr);
 void ResetRAMChapterData(void);
-int sub_80A4BB0(void);
+int CountVerifiedSecHeaderUnk14(void);
 void sub_80A4CD8(void);
-s8 sub_80A5218(int);
-void sub_80A522C(int, struct RAMChapterData*);
+s8 DoSaveMetaCheck(int);
+void GetSaveChunkData(int, struct RAMChapterData*);
 void sub_80A5A20(int);
 void sub_80A6D38(void);
 void Make6C_savemenu(ProcPtr);
@@ -379,7 +379,7 @@ u8 sub_8009950() {
     int i;
     struct RAMChapterData chapterData;
 
-    if (sub_80A4BB0() != 0) {
+    if (CountVerifiedSecHeaderUnk14() != 0) {
         return 9;
     }
 
@@ -387,11 +387,11 @@ u8 sub_8009950() {
 
     for (i = 0; i < 3; i++) {
 
-        if (sub_80A5218(i) == 0) {
+        if (DoSaveMetaCheck(i) == 0) {
             continue;
         }
 
-        sub_80A522C(i, &chapterData);
+        GetSaveChunkData(i, &chapterData);
 
         if (chapterData.unk_2C_17 != 0) {
             return 9;

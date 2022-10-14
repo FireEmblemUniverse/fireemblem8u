@@ -2,297 +2,11 @@
 
 	.SYNTAX UNIFIED
 
-	THUMB_FUNC_START BWL_AddFavoritismValue
-BWL_AddFavoritismValue: @ 0x080A4A34
-	push {r4, r5, lr}
-	adds r5, r1, #0
-	lsls r0, r0, #0x18
-	lsrs r0, r0, #0x18
-	adds r4, r0, #0
-	cmp r0, #0x45
-	bhi _080A4A96
-	bl GetCharacterData
-	ldrb r0, [r0, #9]
-	cmp r0, #0
-	beq _080A4A96
-	lsls r1, r4, #4
-	ldr r0, _080A4A70  @ gBWLDataArray
-	adds r3, r1, r0
-	cmp r3, #0
-	beq _080A4A96
-	ldr r2, [r3]
-	lsls r0, r2, #8
-	lsrs r0, r0, #0x10
-	adds r1, r0, r5
-	movs r0, #0x80
-	lsls r0, r0, #7
-	cmp r1, r0
-	ble _080A4A78
-	ldr r0, _080A4A74  @ 0xFF0000FF
-	ands r0, r2
-	movs r1, #0x80
-	lsls r1, r1, #0xf
-	b _080A4A92
-	.align 2, 0
-_080A4A70: .4byte gBWLDataArray
-_080A4A74: .4byte 0xFF0000FF
-_080A4A78:
-	cmp r1, #0
-	bge _080A4A88
-	ldr r0, _080A4A84  @ 0xFF0000FF
-	ands r2, r0
-	str r2, [r3]
-	b _080A4A96
-	.align 2, 0
-_080A4A84: .4byte 0xFF0000FF
-_080A4A88:
-	ldr r0, _080A4A9C  @ 0x0000FFFF
-	ands r1, r0
-	lsls r1, r1, #8
-	ldr r0, _080A4AA0  @ 0xFF0000FF
-	ands r0, r2
-_080A4A92:
-	orrs r0, r1
-	str r0, [r3]
-_080A4A96:
-	pop {r4, r5}
-	pop {r0}
-	bx r0
-	.align 2, 0
-_080A4A9C: .4byte 0x0000FFFF
-_080A4AA0: .4byte 0xFF0000FF
-
-	THUMB_FUNC_END BWL_AddFavoritismValue
-
-	THUMB_FUNC_START sub_80A4AA4
-sub_80A4AA4: @ 0x080A4AA4
-	push {r4, r5, r6, r7, lr}
-	movs r7, #0
-	movs r5, #0
-	ldr r4, _080A4B10  @ gBattleActor
-	adds r0, r4, #0
-	bl GetUnitCurrentHp
-	cmp r0, #0
-	bne _080A4ABA
-	adds r7, r4, #0
-	ldr r5, _080A4B14  @ gBattleTarget
-_080A4ABA:
-	ldr r6, _080A4B14  @ gBattleTarget
-	adds r0, r6, #0
-	bl GetUnitCurrentHp
-	cmp r0, #0
-	bne _080A4ACA
-	adds r7, r6, #0
-	adds r5, r4, #0
-_080A4ACA:
-	cmp r7, #0
-	beq _080A4B08
-	cmp r5, #0
-	beq _080A4AF0
-	movs r0, #0xb
-	ldrsb r0, [r5, r0]
-	movs r1, #0xc0
-	ands r0, r1
-	cmp r0, #0
-	bne _080A4AF0
-	ldr r0, [r5]
-	ldrb r0, [r0, #4]
-	bl BWL_IncrementWinCount
-	ldr r1, _080A4B18  @ gRAMChapterData
-	adds r1, #0x48
-	ldrh r0, [r1]
-	adds r0, #1
-	strh r0, [r1]
-_080A4AF0:
-	cmp r7, #0
-	beq _080A4B08
-	movs r0, #0xb
-	ldrsb r0, [r7, r0]
-	movs r1, #0xc0
-	ands r0, r1
-	cmp r0, #0
-	bne _080A4B08
-	ldr r0, [r7]
-	ldrb r0, [r0, #4]
-	bl BWL_IncrementAndSaveLossCount
-_080A4B08:
-	pop {r4, r5, r6, r7}
-	pop {r0}
-	bx r0
-	.align 2, 0
-_080A4B10: .4byte gBattleActor
-_080A4B14: .4byte gBattleTarget
-_080A4B18: .4byte gRAMChapterData
-
-	THUMB_FUNC_END sub_80A4AA4
-
-	THUMB_FUNC_START sub_80A4B1C
-sub_80A4B1C: @ 0x080A4B1C
-	push {r4, r5, r6, lr}
-	sub sp, #0xb0
-	adds r6, r0, #0
-	mov r0, sp
-	bl LoadAndVerifySecureHeaderSW
-	movs r4, #0
-	add r1, sp, #0x14
-_080A4B2C:
-	adds r0, r1, r4
-	ldrb r0, [r0]
-	cmp r0, r6
-	beq _080A4B58
-	adds r4, #1
-	cmp r4, #0xb
-	ble _080A4B2C
-	movs r4, #0
-	add r5, sp, #0x64
-_080A4B3E:
-	adds r0, r4, #0
-	bl sub_80A5218
-	lsls r0, r0, #0x18
-	cmp r0, #0
-	beq _080A4B5C
-	adds r0, r4, #0
-	adds r1, r5, #0
-	bl sub_80A522C
-	ldrb r0, [r5, #0x18]
-	cmp r0, r6
-	bne _080A4B5C
-_080A4B58:
-	movs r0, #0
-	b _080A4B64
-_080A4B5C:
-	adds r4, #1
-	cmp r4, #2
-	ble _080A4B3E
-	movs r0, #1
-_080A4B64:
-	add sp, #0xb0
-	pop {r4, r5, r6}
-	pop {r1}
-	bx r1
-
-	THUMB_FUNC_END sub_80A4B1C
-
-	THUMB_FUNC_START sub_80A4B6C
-sub_80A4B6C: @ 0x080A4B6C
-	push {r4, lr}
-	movs r4, #1
-_080A4B70:
-	adds r0, r4, #0
-	bl sub_80A4B1C
-	adds r1, r0, #0
-	lsls r1, r1, #0x18
-	cmp r1, #0
-	beq _080A4B82
-	adds r0, r4, #0
-	b _080A4B88
-_080A4B82:
-	adds r4, #1
-	cmp r4, #0xff
-	ble _080A4B70
-_080A4B88:
-	pop {r4}
-	pop {r1}
-	bx r1
-
-	THUMB_FUNC_END sub_80A4B6C
-
-	THUMB_FUNC_START sub_80A4B90
-sub_80A4B90: @ 0x080A4B90
-	push {lr}
-	movs r2, #0
-	movs r1, #0
-	adds r3, r0, #0
-	adds r3, #0x14
-_080A4B9A:
-	adds r0, r3, r1
-	ldrb r0, [r0]
-	cmp r0, #0
-	beq _080A4BA4
-	adds r2, #1
-_080A4BA4:
-	adds r1, #1
-	cmp r1, #0xb
-	ble _080A4B9A
-	adds r0, r2, #0
-	pop {r1}
-	bx r1
-
-	THUMB_FUNC_END sub_80A4B90
-
-	THUMB_FUNC_START sub_80A4BB0
-sub_80A4BB0: @ 0x080A4BB0
-	push {lr}
-	sub sp, #0x64
-	mov r0, sp
-	bl LoadAndVerifySecureHeaderSW
-	lsls r0, r0, #0x18
-	cmp r0, #0
-	beq _080A4BC8
-	mov r0, sp
-	bl sub_80A4B90
-	b _080A4BCA
-_080A4BC8:
-	movs r0, #0
-_080A4BCA:
-	add sp, #0x64
-	pop {r1}
-	bx r1
-
-	THUMB_FUNC_END sub_80A4BB0
-
-	THUMB_FUNC_START sub_80A4BD0
-sub_80A4BD0: @ 0x080A4BD0
-	push {r4, lr}
-	movs r3, #0
-	adds r4, r0, #0
-	adds r4, #0x14
-	adds r2, r4, #0
-_080A4BDA:
-	adds r0, r2, r3
-	ldrb r0, [r0]
-	cmp r0, r1
-	beq _080A4BFE
-	adds r3, #1
-	cmp r3, #0xb
-	ble _080A4BDA
-	movs r3, #0
-_080A4BEA:
-	adds r2, r4, r3
-	ldrb r0, [r2]
-	cmp r0, #0
-	bne _080A4BF8
-	strb r1, [r2]
-	movs r0, #1
-	b _080A4C00
-_080A4BF8:
-	adds r3, #1
-	cmp r3, #0xb
-	ble _080A4BEA
-_080A4BFE:
-	movs r0, #0
-_080A4C00:
-	pop {r4}
-	pop {r1}
-	bx r1
-
-	THUMB_FUNC_END sub_80A4BD0
-
-	THUMB_FUNC_START sub_80A4C08
-sub_80A4C08: @ 0x080A4C08
-	ldr r0, _080A4C10  @ gRAMChapterData
-	ldrb r0, [r0, #0x1b]
-	bx lr
-	.align 2, 0
-_080A4C10: .4byte gRAMChapterData
-
-	THUMB_FUNC_END sub_80A4C08
-
 	THUMB_FUNC_START DeclareCompletedPlaythrough
 DeclareCompletedPlaythrough: @ 0x080A4C14
 	push {r4, r5, r6, r7, lr}
 	sub sp, #0x64
-	bl sub_80A4C08
+	bl GetchapterModeIndex
 	adds r5, r0, #0
 	ldr r6, _080A4C6C  @ gRAMChapterData
 	ldrb r0, [r6, #0x14]
@@ -315,7 +29,7 @@ DeclareCompletedPlaythrough: @ 0x080A4C14
 _080A4C48:
 	ldrb r1, [r6, #0x18]
 	mov r0, sp
-	bl sub_80A4BD0
+	bl SetNewPlayThroughIndex
 	mov r2, sp
 	ldrb r1, [r2, #0xe]
 	movs r0, #1
@@ -705,11 +419,11 @@ _080A4EA4:
 	adds r0, #0x20
 	strb r4, [r0]
 	strb r4, [r6, #0xe]
-	bl sub_80A4B6C
+	bl GetNextUniquePlayThroughId
 	strb r0, [r6, #0x18]
 	mov r0, sl
 	strb r0, [r6, #0xc]
-	bl sub_80A4BB0
+	bl CountVerifiedSecHeaderUnk14
 	movs r1, #0x1f
 	ands r0, r1
 	lsls r0, r0, #7
@@ -1032,8 +746,8 @@ _080A5214: .4byte gGMData
 
 	THUMB_FUNC_END LoadGame
 
-	THUMB_FUNC_START sub_80A5218
-sub_80A5218: @ 0x080A5218
+	THUMB_FUNC_START DoSaveMetaCheck
+DoSaveMetaCheck: @ 0x080A5218
 	push {lr}
 	adds r1, r0, #0
 	movs r0, #0
@@ -1043,10 +757,10 @@ sub_80A5218: @ 0x080A5218
 	pop {r1}
 	bx r1
 
-	THUMB_FUNC_END sub_80A5218
+	THUMB_FUNC_END DoSaveMetaCheck
 
-	THUMB_FUNC_START sub_80A522C
-sub_80A522C: @ 0x080A522C
+	THUMB_FUNC_START GetSaveChunkData
+GetSaveChunkData: @ 0x080A522C
 	push {r4, lr}
 	adds r4, r1, #0
 	bl CheckSaveAndGetPointer
@@ -1061,7 +775,7 @@ sub_80A522C: @ 0x080A522C
 	.align 2, 0
 _080A5248: .4byte ReadSramFast
 
-	THUMB_FUNC_END sub_80A522C
+	THUMB_FUNC_END GetSaveChunkData
 
 	THUMB_FUNC_START sub_80A524C
 sub_80A524C: @ 0x080A524C
@@ -1153,13 +867,13 @@ sub_80A52DC: @ 0x080A52DC
 	push {r4, lr}
 	sub sp, #0x4c
 	adds r4, r0, #0
-	bl sub_80A5218
+	bl DoSaveMetaCheck
 	lsls r0, r0, #0x18
 	cmp r0, #0
 	beq _080A5300
 	adds r0, r4, #0
 	mov r1, sp
-	bl sub_80A522C
+	bl GetSaveChunkData
 	mov r0, sp
 	bl sub_80A52BC
 	lsls r0, r0, #0x18
@@ -1180,13 +894,13 @@ sub_80A530C: @ 0x080A530C
 	push {r4, lr}
 	sub sp, #0x4c
 	adds r4, r0, #0
-	bl sub_80A5218
+	bl DoSaveMetaCheck
 	lsls r0, r0, #0x18
 	cmp r0, #0
 	beq _080A5332
 	adds r0, r4, #0
 	mov r1, sp
-	bl sub_80A522C
+	bl GetSaveChunkData
 	mov r0, sp
 	ldrb r1, [r0, #0x14]
 	movs r0, #0x20
@@ -2538,7 +2252,7 @@ sub_80A5DFC: @ 0x080A5DFC
 	ldr r2, _080A5E0C  @ gUnknown_0203EDB8
 	ldrb r2, [r2]
 	adds r0, r0, r2
-	bl sub_80A522C
+	bl GetSaveChunkData
 	pop {r0}
 	bx r0
 	.align 2, 0
@@ -4570,7 +4284,7 @@ sub_80A6D34: @ 0x080A6D34
 	THUMB_FUNC_START sub_80A6D38
 sub_80A6D38: @ 0x080A6D38
 	push {lr}
-	bl sub_80A4BB0
+	bl CountVerifiedSecHeaderUnk14
 	ldr r1, _080A6D48  @ gBmMapHidden
 	movs r0, #0
 	str r0, [r1]
