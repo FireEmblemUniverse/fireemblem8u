@@ -396,7 +396,7 @@ def printMAPCHANGE(i):
     print(f'\t.include "src/data/map/{labels[i]["name"]}.inc"\n')
 
 def printEVENT(i):
-    print(f'\t.incbin "baserom.gba", 0x8{labels[i]["addr"]:06x}, 0x{labels[i+1]["addr"]:x} - 0x{labels[i]["addr"]:x}\n')
+    print(f'\t.incbin "baserom.gba", 0x{labels[i]["addr"]:06x}, 0x{labels[i+1]["addr"]:x} - 0x{labels[i]["addr"]:x}\n')
 
 def printFRAME(i):
     print(f'\t.incbin "graphics/map/{labels[i]["name"]}.4bpp"\n')

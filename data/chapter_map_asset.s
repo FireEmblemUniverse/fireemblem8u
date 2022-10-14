@@ -953,302 +953,302 @@ TileAnimations4_frame_14: @0x899d6d4
 	.align 2, 0
 	.global PrologueEvents
 PrologueEvents: @0x89e863c
-	.incbin "baserom.gba", 0x89e863c, 0x9e879c - 0x9e863c
+	.incbin "baserom.gba", 0x9e863c, 0x9e879c - 0x9e863c
 
 	.align 2, 0
 	.global Ch1Events
 Ch1Events: @0x89e879c
-	.incbin "baserom.gba", 0x89e879c, 0x9e8934 - 0x9e879c
+	.incbin "baserom.gba", 0x9e879c, 0x9e8934 - 0x9e879c
 
 	.align 2, 0
 	.global Ch2Events
 Ch2Events: @0x89e8934
-	.incbin "baserom.gba", 0x89e8934, 0x9e8a38 - 0x9e8934
+	.incbin "baserom.gba", 0x9e8934, 0x9e8a38 - 0x9e8934
 
 	.align 2, 0
 	.global Ch3Events
 Ch3Events: @0x89e8a38
-	.incbin "baserom.gba", 0x89e8a38, 0x9e8b20 - 0x9e8a38
+	.incbin "baserom.gba", 0x9e8a38, 0x9e8b20 - 0x9e8a38
 
 	.align 2, 0
 	.global Ch4Events
 Ch4Events: @0x89e8b20
-	.incbin "baserom.gba", 0x89e8b20, 0x9e8c54 - 0x9e8b20
+	.incbin "baserom.gba", 0x9e8b20, 0x9e8c54 - 0x9e8b20
 
 	.align 2, 0
 	.global Ch5EventData
 Ch5EventData: @0x89e8c54
-	.incbin "baserom.gba", 0x89e8c54, 0x9e8d0c - 0x9e8c54
+	.incbin "baserom.gba", 0x9e8c54, 0x9e8d0c - 0x9e8c54
 
 	.align 2, 0
 	.global Ch5XEvents
 Ch5XEvents: @0x89e8d0c
-	.incbin "baserom.gba", 0x89e8d0c, 0x9e8dc4 - 0x9e8d0c
+	.incbin "baserom.gba", 0x9e8d0c, 0x9e8dc4 - 0x9e8d0c
 
 	.align 2, 0
 	.global Ch6Events
 Ch6Events: @0x89e8dc4
-	.incbin "baserom.gba", 0x89e8dc4, 0x9e8e70 - 0x9e8dc4
+	.incbin "baserom.gba", 0x9e8dc4, 0x9e8e70 - 0x9e8dc4
 
 	.align 2, 0
 	.global Ch7EventData
 Ch7EventData: @0x89e8e70
-	.incbin "baserom.gba", 0x89e8e70, 0x9e8fe4 - 0x9e8e70
+	.incbin "baserom.gba", 0x9e8e70, 0x9e8fe4 - 0x9e8e70
 
 	.align 2, 0
 	.global Ch8EventData
 Ch8EventData: @0x89e8fe4
-	.incbin "baserom.gba", 0x89e8fe4, 0x9e9140 - 0x9e8fe4
+	.incbin "baserom.gba", 0x9e8fe4, 0x9e9140 - 0x9e8fe4
 
 	.align 2, 0
 	.global Ch9EirikaEvents
 Ch9EirikaEvents: @0x89e9140
-	.incbin "baserom.gba", 0x89e9140, 0x9e92b0 - 0x9e9140
+	.incbin "baserom.gba", 0x9e9140, 0x9e92b0 - 0x9e9140
 
 	.align 2, 0
 	.global Ch10EirikaEvents
 Ch10EirikaEvents: @0x89e92b0
-	.incbin "baserom.gba", 0x89e92b0, 0x9e9400 - 0x9e92b0
+	.incbin "baserom.gba", 0x9e92b0, 0x9e9400 - 0x9e92b0
 
 	.align 2, 0
 	.global Ch11EirikaEvents
 Ch11EirikaEvents: @0x89e9400
-	.incbin "baserom.gba", 0x89e9400, 0x9e94e8 - 0x9e9400
+	.incbin "baserom.gba", 0x9e9400, 0x9e94e8 - 0x9e9400
 
 	.align 2, 0
 	.global Ch12EirikaEventData
 Ch12EirikaEventData: @0x89e94e8
-	.incbin "baserom.gba", 0x89e94e8, 0x9e95e8 - 0x9e94e8
+	.incbin "baserom.gba", 0x9e94e8, 0x9e95e8 - 0x9e94e8
 
 	.align 2, 0
 	.global Ch13EirikaEvents
 Ch13EirikaEvents: @0x89e95e8
-	.incbin "baserom.gba", 0x89e95e8, 0x9e97b0 - 0x9e95e8
+	.incbin "baserom.gba", 0x9e95e8, 0x9e97b0 - 0x9e95e8
 
 	.align 2, 0
 	.global Ch14EirikaEvents
 Ch14EirikaEvents: @0x89e97b0
-	.incbin "baserom.gba", 0x89e97b0, 0x9e9a00 - 0x9e97b0
+	.incbin "baserom.gba", 0x9e97b0, 0x9e9a00 - 0x9e97b0
 
 	.align 2, 0
 	.global Ch15EirikaEvents
 Ch15EirikaEvents: @0x89e9a00
-	.incbin "baserom.gba", 0x89e9a00, 0x9e9b18 - 0x9e9a00
+	.incbin "baserom.gba", 0x9e9a00, 0x9e9b18 - 0x9e9a00
 
 	.align 2, 0
 	.global Ch16EirEvents
 Ch16EirEvents: @0x89e9b18
-	.incbin "baserom.gba", 0x89e9b18, 0x9e9cb4 - 0x9e9b18
+	.incbin "baserom.gba", 0x9e9b18, 0x9e9cb4 - 0x9e9b18
 
 	.align 2, 0
 	.global Ch17EirikaEvents
 Ch17EirikaEvents: @0x89e9cb4
-	.incbin "baserom.gba", 0x89e9cb4, 0x9e9da8 - 0x9e9cb4
+	.incbin "baserom.gba", 0x9e9cb4, 0x9e9da8 - 0x9e9cb4
 
 	.align 2, 0
 	.global Ch18EirikaEvents
 Ch18EirikaEvents: @0x89e9da8
-	.incbin "baserom.gba", 0x89e9da8, 0x9e9f08 - 0x9e9da8
+	.incbin "baserom.gba", 0x9e9da8, 0x9e9f08 - 0x9e9da8
 
 	.align 2, 0
 	.global Ch19EirikaEvents
 Ch19EirikaEvents: @0x89e9f08
-	.incbin "baserom.gba", 0x89e9f08, 0x9ea02c - 0x9e9f08
+	.incbin "baserom.gba", 0x9e9f08, 0x9ea02c - 0x9e9f08
 
 	.align 2, 0
 	.global Ch20EirikaEvents
 Ch20EirikaEvents: @0x89ea02c
-	.incbin "baserom.gba", 0x89ea02c, 0x9ea138 - 0x9ea02c
+	.incbin "baserom.gba", 0x9ea02c, 0x9ea138 - 0x9ea02c
 
 	.align 2, 0
 	.global FinalEirikaEvents1
 FinalEirikaEvents1: @0x89ea138
-	.incbin "baserom.gba", 0x89ea138, 0x9ea1c0 - 0x9ea138
+	.incbin "baserom.gba", 0x9ea138, 0x9ea1c0 - 0x9ea138
 
 	.align 2, 0
 	.global FinalEirikaEvents2
 FinalEirikaEvents2: @0x89ea1c0
-	.incbin "baserom.gba", 0x89ea1c0, 0x9ea348 - 0x9ea1c0
+	.incbin "baserom.gba", 0x9ea1c0, 0x9ea348 - 0x9ea1c0
 
 	.align 2, 0
 	.global Ch9Events
 Ch9Events: @0x89ea348
-	.incbin "baserom.gba", 0x89ea348, 0x9ea4a8 - 0x9ea348
+	.incbin "baserom.gba", 0x9ea348, 0x9ea4a8 - 0x9ea348
 
 	.align 2, 0
 	.global Ch10EphraimEvents
 Ch10EphraimEvents: @0x89ea4a8
-	.incbin "baserom.gba", 0x89ea4a8, 0x9ea5bc - 0x9ea4a8
+	.incbin "baserom.gba", 0x9ea4a8, 0x9ea5bc - 0x9ea4a8
 
 	.align 2, 0
 	.global Ch11EphraimEvents
 Ch11EphraimEvents: @0x89ea5bc
-	.incbin "baserom.gba", 0x89ea5bc, 0x9ea6cc - 0x9ea5bc
+	.incbin "baserom.gba", 0x9ea5bc, 0x9ea6cc - 0x9ea5bc
 
 	.align 2, 0
 	.global Ch11EphraimEvents
 Ch11EphraimEvents: @0x89ea6cc
-	.incbin "baserom.gba", 0x89ea6cc, 0x9ea850 - 0x9ea6cc
+	.incbin "baserom.gba", 0x9ea6cc, 0x9ea850 - 0x9ea6cc
 
 	.align 2, 0
 	.global Ch13EphraimEventData
 Ch13EphraimEventData: @0x89ea850
-	.incbin "baserom.gba", 0x89ea850, 0x9eaacc - 0x9ea850
+	.incbin "baserom.gba", 0x9ea850, 0x9eaacc - 0x9ea850
 
 	.align 2, 0
 	.global Ch14EphraimEventData
 Ch14EphraimEventData: @0x89eaacc
-	.incbin "baserom.gba", 0x89eaacc, 0x9eacf0 - 0x9eaacc
+	.incbin "baserom.gba", 0x9eaacc, 0x9eacf0 - 0x9eaacc
 
 	.align 2, 0
 	.global Ch15EphraimEventData
 Ch15EphraimEventData: @0x89eacf0
-	.incbin "baserom.gba", 0x89eacf0, 0x9eae2c - 0x9eacf0
+	.incbin "baserom.gba", 0x9eacf0, 0x9eae2c - 0x9eacf0
 
 	.align 2, 0
 	.global Ch16EphraimEventData
 Ch16EphraimEventData: @0x89eae2c
-	.incbin "baserom.gba", 0x89eae2c, 0x9eafc8 - 0x9eae2c
+	.incbin "baserom.gba", 0x9eae2c, 0x9eafc8 - 0x9eae2c
 
 	.align 2, 0
 	.global Ch17EphraimEventData
 Ch17EphraimEventData: @0x89eafc8
-	.incbin "baserom.gba", 0x89eafc8, 0x9eb0bc - 0x9eafc8
+	.incbin "baserom.gba", 0x9eafc8, 0x9eb0bc - 0x9eafc8
 
 	.align 2, 0
 	.global Ch18EphraimEventData
 Ch18EphraimEventData: @0x89eb0bc
-	.incbin "baserom.gba", 0x89eb0bc, 0x9eb21c - 0x9eb0bc
+	.incbin "baserom.gba", 0x9eb0bc, 0x9eb21c - 0x9eb0bc
 
 	.align 2, 0
 	.global Ch19EphraimEventData
 Ch19EphraimEventData: @0x89eb21c
-	.incbin "baserom.gba", 0x89eb21c, 0x9eb340 - 0x9eb21c
+	.incbin "baserom.gba", 0x9eb21c, 0x9eb340 - 0x9eb21c
 
 	.align 2, 0
 	.global Ch20EphraimEventData
 Ch20EphraimEventData: @0x89eb340
-	.incbin "baserom.gba", 0x89eb340, 0x9eb44c - 0x9eb340
+	.incbin "baserom.gba", 0x9eb340, 0x9eb44c - 0x9eb340
 
 	.align 2, 0
 	.global FinalEphraimEvents1
 FinalEphraimEvents1: @0x89eb44c
-	.incbin "baserom.gba", 0x89eb44c, 0x9eb4d4 - 0x9eb44c
+	.incbin "baserom.gba", 0x9eb44c, 0x9eb4d4 - 0x9eb44c
 
 	.align 2, 0
 	.global FinalEphraimEvents2
 FinalEphraimEvents2: @0x89eb4d4
-	.incbin "baserom.gba", 0x89eb4d4, 0x9eb574 - 0x9eb4d4
+	.incbin "baserom.gba", 0x9eb4d4, 0x9eb574 - 0x9eb4d4
 
 	.align 2, 0
 	.global TowerOfValni1Events
 TowerOfValni1Events: @0x89eb574
-	.incbin "baserom.gba", 0x89eb574, 0x9eb614 - 0x9eb574
+	.incbin "baserom.gba", 0x9eb574, 0x9eb614 - 0x9eb574
 
 	.align 2, 0
 	.global TowerOfValni2Events
 TowerOfValni2Events: @0x89eb614
-	.incbin "baserom.gba", 0x89eb614, 0x9eb6a8 - 0x9eb614
+	.incbin "baserom.gba", 0x9eb614, 0x9eb6a8 - 0x9eb614
 
 	.align 2, 0
 	.global TowerOfValni3Events
 TowerOfValni3Events: @0x89eb6a8
-	.incbin "baserom.gba", 0x89eb6a8, 0x9eb730 - 0x9eb6a8
+	.incbin "baserom.gba", 0x9eb6a8, 0x9eb730 - 0x9eb6a8
 
 	.align 2, 0
 	.global TowerOfValni4Events
 TowerOfValni4Events: @0x89eb730
-	.incbin "baserom.gba", 0x89eb730, 0x9eb7dc - 0x9eb730
+	.incbin "baserom.gba", 0x9eb730, 0x9eb7dc - 0x9eb730
 
 	.align 2, 0
 	.global TowerOfValni5Events
 TowerOfValni5Events: @0x89eb7dc
-	.incbin "baserom.gba", 0x89eb7dc, 0x9eb894 - 0x9eb7dc
+	.incbin "baserom.gba", 0x9eb7dc, 0x9eb894 - 0x9eb7dc
 
 	.align 2, 0
 	.global TowerOfValni6Events
 TowerOfValni6Events: @0x89eb894
-	.incbin "baserom.gba", 0x89eb894, 0x9eb97c - 0x9eb894
+	.incbin "baserom.gba", 0x9eb894, 0x9eb97c - 0x9eb894
 
 	.align 2, 0
 	.global TowerOfValni7Events
 TowerOfValni7Events: @0x89eb97c
-	.incbin "baserom.gba", 0x89eb97c, 0x9eba10 - 0x9eb97c
+	.incbin "baserom.gba", 0x9eb97c, 0x9eba10 - 0x9eb97c
 
 	.align 2, 0
 	.global TowerOfValni8Events
 TowerOfValni8Events: @0x89eba10
-	.incbin "baserom.gba", 0x89eba10, 0x9ebae0 - 0x9eba10
+	.incbin "baserom.gba", 0x9eba10, 0x9ebae0 - 0x9eba10
 
 	.align 2, 0
 	.global LagdouRuins1Event
 LagdouRuins1Event: @0x89ebae0
-	.incbin "baserom.gba", 0x89ebae0, 0x9ebb80 - 0x9ebae0
+	.incbin "baserom.gba", 0x9ebae0, 0x9ebb80 - 0x9ebae0
 
 	.align 2, 0
 	.global LagdouRuins2Event
 LagdouRuins2Event: @0x89ebb80
-	.incbin "baserom.gba", 0x89ebb80, 0x9ebca4 - 0x9ebb80
+	.incbin "baserom.gba", 0x9ebb80, 0x9ebca4 - 0x9ebb80
 
 	.align 2, 0
 	.global LagdouRuins3Event
 LagdouRuins3Event: @0x89ebca4
-	.incbin "baserom.gba", 0x89ebca4, 0x9ebd5c - 0x9ebca4
+	.incbin "baserom.gba", 0x9ebca4, 0x9ebd5c - 0x9ebca4
 
 	.align 2, 0
 	.global LagdouRuins4Event
 LagdouRuins4Event: @0x89ebd5c
-	.incbin "baserom.gba", 0x89ebd5c, 0x9ebe2c - 0x9ebd5c
+	.incbin "baserom.gba", 0x9ebd5c, 0x9ebe2c - 0x9ebd5c
 
 	.align 2, 0
 	.global LagdouRuins5Event
 LagdouRuins5Event: @0x89ebe2c
-	.incbin "baserom.gba", 0x89ebe2c, 0x9ebf14 - 0x9ebe2c
+	.incbin "baserom.gba", 0x9ebe2c, 0x9ebf14 - 0x9ebe2c
 
 	.align 2, 0
 	.global LagdouRuins6Event
 LagdouRuins6Event: @0x89ebf14
-	.incbin "baserom.gba", 0x89ebf14, 0x9ec038 - 0x9ebf14
+	.incbin "baserom.gba", 0x9ebf14, 0x9ec038 - 0x9ebf14
 
 	.align 2, 0
 	.global LagdouRuins7Event
 LagdouRuins7Event: @0x89ec038
-	.incbin "baserom.gba", 0x89ec038, 0x9ec1e0 - 0x9ec038
+	.incbin "baserom.gba", 0x9ec038, 0x9ec1e0 - 0x9ec038
 
 	.align 2, 0
 	.global LagdouRuins8Event
 LagdouRuins8Event: @0x89ec1e0
-	.incbin "baserom.gba", 0x89ec1e0, 0x9ec298 - 0x9ec1e0
+	.incbin "baserom.gba", 0x9ec1e0, 0x9ec298 - 0x9ec1e0
 
 	.align 2, 0
 	.global LagdouRuins9Event
 LagdouRuins9Event: @0x89ec298
-	.incbin "baserom.gba", 0x89ec298, 0x9ec32c - 0x9ec298
+	.incbin "baserom.gba", 0x9ec298, 0x9ec32c - 0x9ec298
 
 	.align 2, 0
 	.global LagdouRuins10Event
 LagdouRuins10Event: @0x89ec32c
-	.incbin "baserom.gba", 0x89ec32c, 0x9ec3b4 - 0x9ec32c
+	.incbin "baserom.gba", 0x9ec32c, 0x9ec3b4 - 0x9ec32c
 
 	.align 2, 0
 	.global LordsSplitEvents
 LordsSplitEvents: @0x89ec3b4
-	.incbin "baserom.gba", 0x89ec3b4, 0x9ec43c - 0x9ec3b4
+	.incbin "baserom.gba", 0x9ec3b4, 0x9ec43c - 0x9ec3b4
 
 	.align 2, 0
 	.global MelkaenCoastEvent
 MelkaenCoastEvent: @0x89ec43c
-	.incbin "baserom.gba", 0x89ec43c, 0x9ec5a8 - 0x9ec43c
+	.incbin "baserom.gba", 0x9ec43c, 0x9ec5a8 - 0x9ec43c
 
 	.align 2, 0
 	.global AnInterestingMapEvents
 AnInterestingMapEvents: @0x89ec5a8
-	.incbin "baserom.gba", 0x89ec5a8, 0x9ec66c - 0x9ec5a8
+	.incbin "baserom.gba", 0x9ec5a8, 0x9ec66c - 0x9ec5a8
 
 	.align 2, 0
 	.global DebugMapEvents
 DebugMapEvents: @0x89ec66c
-	.incbin "baserom.gba", 0x89ec66c, 0xa1e0f8 - 0x9ec66c
+	.incbin "baserom.gba", 0x9ec66c, 0xa1e0f8 - 0x9ec66c
 
 	.align 2, 0
 	.global PrologueMapChanges
