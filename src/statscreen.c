@@ -17,6 +17,7 @@
 #include "bmreliance.h"
 #include "uiutils.h"
 #include "mu.h"
+#include "bwl.h"
 
 #include "constants/classes.h"
 
@@ -601,7 +602,7 @@ void DisplayLeftPanel(void)
 static
 void DisplayBwl(void)
 {
-    struct UnitUsageStats* stats = BWL_GetEntry(gStatScreen.unit->pCharacterData->number);
+    struct BwlData* stats = BWL_GetEntry(gStatScreen.unit->pCharacterData->number);
 
     if (!stats)
         return;

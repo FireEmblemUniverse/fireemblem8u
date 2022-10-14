@@ -1265,7 +1265,7 @@ void SaveClearedBWLAndChapterWinData(void *sram_dest)
     dest0 = sram_dest + 0x084C;
 
     for (i = 0; i < BWL_ARRAY_NUM; i++) {
-        gBWLDataStorage[i].favoritism = 0x2000;
+        gBWLDataStorage[i].favval = 0x2000;
         WriteAndVerifySramFast(src, dest0, sizeof(struct BwlData));
 
         dest0 += sizeof(struct BwlData);
@@ -1495,8 +1495,8 @@ void BWL_IncrementBattleCount(struct Unit* unit)
     if (NULL == bwl)
         return;
 
-    if (bwl->battle_count < 4000)
-        bwl->battle_count++;
+    if (bwl->battleAmt < 4000)
+        bwl->battleAmt++;
 
     BWL_AddFavoritismValue(UNIT_CHAR_ID(unit), 4);
 }
@@ -1507,8 +1507,8 @@ void BWL_IncrementWinCount(u8 char_id)
     if (NULL == bwl)
         return;
 
-    if (bwl->win_count < 0x3E8)
-        bwl->win_count++;
+    if (bwl->winAmt < 0x3E8)
+        bwl->winAmt++;
 
     BWL_AddFavoritismValue(char_id, 0x10);
 }
@@ -1539,10 +1539,10 @@ void BWL_IncrementAndSaveLossCount(u8 char_id)
         if (0x80 & gRAMChapterData.chapterStateBits)
             return;
     
-        if (bwl->loss_count >= 0xC8)
+        if (bwl->lossAmt >= 0xC8)
             return;
         
-        bwl->loss_count++;
+        bwl->lossAmt++;
     
         BWL_AddFavoritismValue(char_id, -0x80);
     
@@ -1564,7 +1564,7 @@ void BWL_IncrementAndSaveLossCount(u8 char_id)
     }
 }
 
-void BWL_SetUnitLossInfo(u8 char_id, u8 killer, int death_type)
+void BWL_SetUnitLossInfo(u8 char_id, u8 killerPid, int deathCause)
 {
     int type;
     struct BwlData *bwl = GetBWL(char_id);
@@ -1574,22 +1574,22 @@ void BWL_SetUnitLossInfo(u8 char_id, u8 killer, int death_type)
     type = GetBattleMapType();
     switch (type) {
     case 2:
-        bwl->dead_in_skirmish = 1;
-        bwl->death_loc_id = gGMData.unk10[0].location;
+        bwl->deathSkirm = 1;
+        bwl->deathLoc = gGMData.unk10[0].location;
         break;
 
 
     case 0:
     case 1:
     default:
-        bwl->dead_in_skirmish = 0;
-        bwl->death_loc_id = gRAMChapterData.chapterIndex;
+        bwl->deathSkirm = 0;
+        bwl->deathLoc = gRAMChapterData.chapterIndex;
         break;
     }
 
-    bwl->death_turn_num = gRAMChapterData.chapterTurnNumber;
-    bwl->killer = killer;
-    bwl->death_type = death_type;
+    bwl->deathTurn = gRAMChapterData.chapterTurnNumber;
+    bwl->killerPid = killerPid;
+    bwl->deathCause = deathCause;
 }
 
 void BWL_IncrementMoveValue(u8 char_id)
@@ -1598,8 +1598,8 @@ void BWL_IncrementMoveValue(u8 char_id)
     if (0 == bwl)
         return;
 
-    if (bwl->unit_move_count < 200)
-        bwl->unit_move_count++;
+    if (bwl->actAmt < 200)
+        bwl->actAmt++;
     
     BWL_AddFavoritismValue(char_id, 2);
 }
@@ -1610,8 +1610,8 @@ void BWL_IncrementStatScreenViews(u8 char_id)
     if (0 == bwl)
         return;
 
-    if (bwl->stat_screen_view_count < 200)
-        bwl->stat_screen_view_count++;
+    if (bwl->statViewAmt < 200)
+        bwl->statViewAmt++;
     
     BWL_AddFavoritismValue(char_id, 2);
 }
@@ -1622,8 +1622,8 @@ void BWL_IncrementDeployCount(u8 char_id)
     if (0 == bwl)
         return;
 
-    if (bwl->deploy_count < 60)
-        bwl->deploy_count++;
+    if (bwl->deployAmt < 60)
+        bwl->deployAmt++;
     
     BWL_AddFavoritismValue(char_id, 0x40);
 }
@@ -1635,11 +1635,11 @@ void BWL_AddTilesMoved(u8 char_id, int amount)
     if (0 == bwl)
         return;
 
-    move_count = bwl->tiles_move_count + amount;
+    move_count = bwl->moveAmt + amount;
     if (move_count > 1000)
         move_count = 1000;
 
-    bwl->tiles_move_count = move_count;
+    bwl->moveAmt = move_count;
     
     BWL_AddFavoritismValue(char_id, 2);
 }
@@ -1651,11 +1651,11 @@ void BWL_AddExpGained(u8 char_id, int expGain)
     if (0 == bwl)
         return;
 
-    exp = bwl->total_exp_gain + expGain;
+    exp = bwl->expGained + expGain;
     if (exp > 4000)
         exp = 4000;
 
-    bwl->total_exp_gain = exp;
+    bwl->expGained = exp;
     
     BWL_AddFavoritismValue(char_id, expGain);
 }
@@ -1675,7 +1675,7 @@ int BWL_CalcTotalBattleCount()
     int i, ret = 0;
 
     for (i = 0; i < BWL_ARRAY_NUM; i++)
-        ret += gBWLDataStorage[i].battle_count;
+        ret += gBWLDataStorage[i].battleAmt;
 
     return ret;
 }
@@ -1685,7 +1685,7 @@ int BWL_CalcTotalWinCount()
     int i, ret = 0;
 
     for (i = 0; i < BWL_ARRAY_NUM; i++)
-        ret += gBWLDataStorage[i].win_count;
+        ret += gBWLDataStorage[i].winAmt;
 
     return ret;
 }
@@ -1695,7 +1695,7 @@ int BWL_CalcTotalLossCount()
     int i, ret = 0;
 
     for (i = 0; i < BWL_ARRAY_NUM; i++)
-        ret += gBWLDataStorage[i].loss_count;
+        ret += gBWLDataStorage[i].lossAmt;
 
     return ret;
 }
@@ -1705,7 +1705,7 @@ int BWL_CalcTotalLevel()
     int i, ret = 0;
 
     for (i = 0; i < BWL_ARRAY_NUM; i++)
-        ret += gBWLDataStorage[i].total_exp_gain / 100;
+        ret += gBWLDataStorage[i].expGained / 100;
 
     return ret;
 }
@@ -1715,7 +1715,7 @@ int BWL_CalcTotalExpGain()
     int i, ret = 0;
 
     for (i = 0; i < BWL_ARRAY_NUM; i++)
-        ret += gBWLDataStorage[i].total_exp_gain;
+        ret += gBWLDataStorage[i].expGained;
 
     return ret;
 }
@@ -1726,7 +1726,7 @@ int GetBwlExpGain(u8 char_id)
     if (0 == bwl)
         return 0;
     else
-        return bwl->total_exp_gain;
+        return bwl->expGained;
 }
 
 int GetBwlFavoritism(u8 char_id)
@@ -1735,7 +1735,7 @@ int GetBwlFavoritism(u8 char_id)
     if (0 == bwl)
         return 0x2000;
     else
-        return bwl->favoritism >> 6;
+        return bwl->favval >> 6;
 }
 
 void BWL_AddFavoritismValue(u8 char_id, int val)
@@ -1746,14 +1746,14 @@ void BWL_AddFavoritismValue(u8 char_id, int val)
     if (0 == bwl)
         return;
 
-    cur = bwl->favoritism + val;
+    cur = bwl->favval + val;
     
     if (cur > 0x4000)
-        bwl->favoritism = 0x4000;
+        bwl->favval = 0x4000;
     else if (cur < 0)
-        bwl->favoritism = 0;
+        bwl->favval = 0;
     else
-        bwl->favoritism = cur;
+        bwl->favval = cur;
 }
 
 void BWL_HandleBattleDiedUnit()
@@ -1904,4 +1904,34 @@ void DeclareCompletedPlaythrough()
     }
 
     SaveSecureHeader(&sec_head);
+}
+
+int CheckSaveSecHead_0F_B0()
+{
+    struct SecureSaveHeader sec_head;
+
+    if (LoadAndVerifySecureHeaderSW(&sec_head))
+        return sec_head.unk0F_0;
+    else
+        return 0;
+}
+
+void SetSaveSecHead_0F_B0()
+{
+    struct SecureSaveHeader sec_head;
+
+    if (LoadAndVerifySecureHeaderSW(&sec_head)) {
+        sec_head.unk0F_0 = 1;
+        SaveSecureHeader(&sec_head);
+    }
+}
+
+struct BwlData *BWL_GetEntry(u8 char_id)
+{
+    if (char_id >= BWL_ARRAY_NUM)
+        return 0;
+    else if (0 == GetCharacterData(char_id)->affinity)
+        return 0;
+    else
+        return &gBWLDataArray[char_id];  
 }

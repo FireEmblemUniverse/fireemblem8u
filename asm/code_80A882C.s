@@ -31089,7 +31089,7 @@ sub_80B734C: @ 0x080B734C
 	ands r0, r1
 	cmp r0, #0
 	beq _080B737C
-	bl IsGamePlayedThrough
+	bl CheckSaveSecHead_0F_B0
 	lsls r0, r0, #0x18
 	cmp r0, #0
 	beq _080B737C
@@ -59548,7 +59548,7 @@ sub_80C4664: @ 0x080C4664
 	ands r0, r1
 	cmp r0, #0
 	beq _080C468C
-	bl IsGamePlayedThrough
+	bl CheckSaveSecHead_0F_B0
 	cmp r0, #0
 	beq _080C468C
 	adds r0, r4, #0
@@ -59718,7 +59718,7 @@ sub_80C47B0: @ 0x080C47B0
 	ands r0, r1
 	cmp r0, #0
 	beq _080C47D8
-	bl IsGamePlayedThrough
+	bl CheckSaveSecHead_0F_B0
 	cmp r0, #0
 	beq _080C47D8
 	movs r0, #0
