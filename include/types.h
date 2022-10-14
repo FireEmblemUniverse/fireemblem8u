@@ -594,4 +594,9 @@ struct ChapterWinData {
              u16 chapter_time : 0x10;
 };
 
+struct DungeonState {
+    u32 unk00[0x6];
+};
+
+
 #endif // GUARD_TYPES_H

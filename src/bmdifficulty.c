@@ -260,7 +260,7 @@ void sub_8037E30(struct Dungeon* savedDungeon) {
 }
 
 // SaveDungeonRecords?
-void sub_8037E4C(struct Dungeon* savedDungeon) {
+void SaveDungeonState(struct Dungeon* savedDungeon) {
 
     memcpy(savedDungeon, gDungeonState.dungeon, 2 * sizeof(struct Dungeon));
 
@@ -268,7 +268,7 @@ void sub_8037E4C(struct Dungeon* savedDungeon) {
 }
 
 // LoadDungeonRecords?
-void sub_8037E64(struct Dungeon* savedDungeon) {
+void LoadDungeonState(struct Dungeon* savedDungeon) {
 
     memcpy(gDungeonState.dungeon, savedDungeon, 2 * sizeof(struct Dungeon));
 

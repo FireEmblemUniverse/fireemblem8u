@@ -49,7 +49,8 @@ struct SramChunk {
     /* 07 */ s8 _pad_07;
     /* 08 */ u16 sram_offset;
     /* 0A */ u16 unk0A;
-    /* 0C */ u8 _pad_0C[0x10 - 0xC];
+    /* 0A */ u8 unk0C;
+    /* 0C */ u8 _pad_0D[0x10 - 0x0D];
 };
 
 struct SramHeader {
@@ -93,23 +94,44 @@ struct bmsave_unkstruct2_ {
     u16 magic2;
 };
 
-
 s8 IsSramWorking();
 u8 LoadAndVerifySecureHeaderSW(void *buf);
 u16 CalcSaveDataMagic(void *src, int size);
-uintptr_t GetSaveDataLocation(int index);
+void *GetSaveDataLocation(int index);
 s8 SaveMetadata_Check(struct SramChunk *buf, int index);
 void SaveMetadata_Generate(struct SramChunk *buf, int index);
+int GetNextUniquePlayThroughId();
 
 void WriteUnkBmSave2(struct bmsave_unkstruct2_*);
 void sub_80A6AA0();
-void LoadBWLEntries(void *sram_src);
-void LoadChapterWinData(void *sram_src);
 void SaveBWLEntries(void *sram_dest);
 void SaveChapterWinData(void *sram_dest);
+void CopyGameSave(int index_src, int index_dest);
+void SaveConvoyItems(void *sram_dest);
+void SaveClearedBWLAndChapterWinData(void *sram_dest);
+void SaveGlobalEventIndexes(void *sram_dest);
+void sub_80A7074(void *sram_dest);
+void SetSecHeader_unk62(int num);
+void SaveUnit(struct Unit *unit, void *sram_dest);
+void SaveRNGState_Maybe(void *sram_dest);
+void SaveWMStaff(void *sram_dest, void *src);
+void SaveDungeonState(void *ram_dest);
+void LoadSavedUnit(const void *sram_src, struct Unit *unit);
+void LoadGMMonsterRNState(const void *sram_src);
+void LoadConvoyItems(const void *sram_src);
+void LoadGlobalEventIds(const void *sram_src);
+void LoadBWLEntries(void *sram_src);
+void LoadChapterWinData(const void *sram_src);
+void Load0203EDB4(const void *sram_src);
+void LoadWMStaff(const void *sram_src, void *src);
+void LoadDungeonState(const void *sram_src);
 
+u8 VerifySecHeaderBySomeIndex(int);
+void sub_80A5DFC(int);
+void LoadChunkBySomeIndex(int index, void *buf);
 s8 DoSaveMetaCheck(int);
 void GetSaveChunkData(int, struct RAMChapterData*);
 int CheckSecHeader_BIT63();
+void MakeMetaDataBySomeIndex(int);
 
 #endif /* BMSAVE_H */

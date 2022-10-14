@@ -637,7 +637,7 @@ extern struct ActionData gActionData;
 // extern ??? gpBWLSaveTarget
 // extern ??? gBWLDataStorage
 extern struct ChapterWinData gChapterWinDataArray[WIN_ARRAY_NUM];
-// extern ??? gUnknown_0203EDB4
+extern u32 gUnknown_0203EDB4;
 // extern ??? gUnknown_0203EDB8
 // extern ??? gUnknown_0203EDBC
 // extern ??? gUnknown_0203EE80
@@ -691,7 +691,7 @@ extern struct OamDataTransfer gUnknown_03000030;
 // extern ??? gUnknown_03001780
 // extern ??? gUnknown_03001788
 // extern ??? gDungeonState
-// extern ??? gUnknown_030017AC
+extern struct DungeonState gUnknown_030017AC;
 // extern ??? gUnknown_030017C8
 // extern ??? gUnknown_030017CC
 // extern ??? gUnknown_030017D0

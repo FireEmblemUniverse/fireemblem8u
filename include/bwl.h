@@ -40,6 +40,8 @@ static inline struct BwlData *GetBWL(u8 char_id)
         return &gBWLDataArray[char_id];  
 }
 
+struct BwlData *BWL_GetEntry(u8 char_id);
+
 void BWL_IncrementBattleCount(struct Unit* unit);
 void BWL_IncrementWinCount(u8 char_id);
 void BWL_IncrementAndSaveLossCount(u8 char_id);
@@ -58,7 +60,5 @@ int BWL_CalcTotalLevel();
 int BWL_CalcTotalExpGain();
 int GetBwlExpGain(u8 char_id);
 int GetBwlFavoritism(u8 char_id);
-
-struct BwlData *BWL_GetEntry(u8 char_id);
 
 #endif /* GUARD_BWL_H */

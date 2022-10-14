@@ -2239,8 +2239,8 @@ _08083D30: .4byte gUnknown_03005250
 
 	THUMB_FUNC_END sub_8083D18
 
-	THUMB_FUNC_START sub_8083D34
-sub_8083D34: @ 0x08083D34
+	THUMB_FUNC_START IsEventIdMaskedMaybe
+IsEventIdMaskedMaybe: @ 0x08083D34
 	push {lr}
 	adds r3, r0, #0
 	cmp r3, #0x64
@@ -2273,13 +2273,13 @@ _08083D66:
 	pop {r1}
 	bx r1
 
-	THUMB_FUNC_END sub_8083D34
+	THUMB_FUNC_END IsEventIdMaskedMaybe
 
 	THUMB_FUNC_START CheckGlobalEventId
 CheckGlobalEventId: @ 0x08083D6C
 	push {lr}
 	ldr r1, _08083D7C  @ gUnknown_03005250
-	bl sub_8083D34
+	bl IsEventIdMaskedMaybe
 	lsls r0, r0, #0x18
 	asrs r0, r0, #0x18
 	pop {r1}

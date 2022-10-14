@@ -9,6 +9,7 @@
 #include "bmitem.h"
 #include "bmio.h"
 #include "bmbattle.h"
+#include "bmcontainer.h"
 
 #include "bwl.h"
 #include "bmsave.h"
@@ -17,7 +18,7 @@
 u8 CheckSaveHeaderMagic(void*, u8*);
 void sub_80A3950(void*);
 char VerifySaveChunk(void *buf);
-uintptr_t GetSaveDataLocation(int index);
+void *GetSaveDataLocation(int index);
 void SetSaveChunkCheckSum(struct SramChunk*);
 void *GetLocalEventIdStorage();
 int GetLocalEventIdStorageSize();
@@ -176,9 +177,9 @@ void sub_80A2EA8()
     sub_80A3950(buf);
 }
 
-uintptr_t SramOffsetToPointer(u16 off)
+void *SramOffsetToPointer(u16 off)
 {
-    return (uintptr_t)gpSaveDataStart + off;
+    return (void*)gpSaveDataStart + off;
 }
 
 u16 SramPointerToOffset(uintptr_t addr)
@@ -288,35 +289,35 @@ void SaveMetadata_Erase(int index)
     }
 }
 
-uintptr_t GetSaveDataLocation(int index)
+void *GetSaveDataLocation(int index)
 {
     switch (index) {
         case SAVE_CHUNK_0:
-            return 0x00003FC4 + (uintptr_t)gpSaveDataStart;
+            return 0x00003FC4 + (void*)gpSaveDataStart;
             break;
 
         case SAVE_CHUNK_1:
-            return 0x00004D8C + (uintptr_t)gpSaveDataStart;
+            return 0x00004D8C + (void*)gpSaveDataStart;
             break;
 
         case SAVE_CHUNK_2:
-            return 0x00005B54 + (uintptr_t)gpSaveDataStart;
+            return 0x00005B54 + (void*)gpSaveDataStart;
             break;
 
         case SAVE_CHUNK_3:
-            return 0x000000d4 + (uintptr_t)gpSaveDataStart;
+            return 0x000000d4 + (void*)gpSaveDataStart;
             break;
 
         case SAVE_CHUNK_4:
-            return 0x0000204C + (uintptr_t)gpSaveDataStart;
+            return 0x0000204C + (void*)gpSaveDataStart;
             break;
 
         case SAVE_CHUNK_5:
-            return 0x0000691C + (uintptr_t)gpSaveDataStart;
+            return 0x0000691C + (void*)gpSaveDataStart;
             break;
 
         case SAVE_CHUNK_6:
-            return (uintptr_t)0x0E007400;
+            return (void*)0x0E007400;
             break;
 
         default:
@@ -325,7 +326,7 @@ uintptr_t GetSaveDataLocation(int index)
     }
 }
 
-uintptr_t CheckSaveAndGetPointer(int index)
+void *CheckSaveAndGetPointer(int index)
 {
     struct SramChunk chunk;
     SaveMetadata_Check(&chunk, index);
@@ -348,23 +349,23 @@ void SaveGlobalEventIndexes(void *sram_dest)
         GetGlobalEventIdStorageSize());
 }
 
-void LoadLocalEventIds(void *ewram_dest)
+void LoadLocalEventIds(const void *sram_src)
 {
     (*ReadSramFast)(
-        ewram_dest,
+        sram_src,
         GetLocalEventIdStorage(),
         GetLocalEventIdStorageSize());
 }
 
-void LoadGlobalEventIds(void *ewram_dest)
+void LoadGlobalEventIds(const void *sram_src)
 {
     (*ReadSramFast)(
-        ewram_dest,
+        sram_src,
         GetGlobalEventIdStorage(),
         GetGlobalEventIdStorageSize());
 }
 
-void LoadGlobalEventIds_ret(void *sram_src, void *ewram_dest)
+void LoadGlobalEventIds_ret(const void *sram_src, void *ewram_dest)
 {
     (*ReadSramFast)(
         sram_src,
@@ -1258,8 +1259,8 @@ void SaveClearedBWLAndChapterWinData(void *sram_dest)
     int i, j;
     void *dest0 ,*dest1, *src;
 
-    CpuFill16(0, (void*)gBWLDataStorage, sizeof(gBWLDataStorage));
-    CpuFill16(0, (void*)gChapterWinDataArray, sizeof(gChapterWinDataArray));
+    CpuFill16(0, gBWLDataStorage, sizeof(gBWLDataStorage));
+    CpuFill16(0, gChapterWinDataArray, sizeof(gChapterWinDataArray));
 
     src = gBWLDataStorage;
     dest0 = sram_dest + 0x084C;
@@ -1269,16 +1270,12 @@ void SaveClearedBWLAndChapterWinData(void *sram_dest)
         WriteAndVerifySramFast(src, dest0, sizeof(struct BwlData));
 
         dest0 += sizeof(struct BwlData);
-        /* bug? */
-        // src += sizeof(struct BwlData);
     }
 
     dest1 = sram_dest + 0x0CAC;
 
     for (i = 0; i < WIN_ARRAY_NUM; i++) {
-        WriteAndVerifySramFast((void*)&gChapterWinDataArray[0], /* bug? */
-                                dest1,
-                                sizeof(struct ChapterWinData));
+        WriteAndVerifySramFast(gChapterWinDataArray, dest1, sizeof(struct ChapterWinData));
         dest1 += sizeof(struct ChapterWinData);
     }
 
@@ -1294,7 +1291,7 @@ void ClearRAMChapterData()
 
 void ResetRAMChapterData()
 {
-    CpuFill16(0, (void*)gBWLDataStorage, sizeof(gBWLDataStorage));
+    CpuFill16(0, gBWLDataStorage, sizeof(gBWLDataStorage));
     gRAMChapterData.unk_38_2 = 0;
     gRAMChapterData.unk_34_14 = 0;
     gRAMChapterData.unk_38_1 = 0;
@@ -1304,34 +1301,24 @@ void ResetRAMChapterData()
 
 void LoadBWLEntries(void *sram_src)
 {
-    ReadSramFast(sram_src,
-                 (void*)gBWLDataStorage,
-                 sizeof(gBWLDataStorage));
-    
+    ReadSramFast(sram_src, gBWLDataStorage, sizeof(gBWLDataStorage));
     gpBWLSaveTarget = sram_src;
 }
 
-void LoadChapterWinData(void *sram_src)
+void LoadChapterWinData(const void *sram_src)
 {
-    ReadSramFast(sram_src,
-                 (void*)gChapterWinDataArray,
-                 sizeof(gChapterWinDataArray));
+    ReadSramFast(sram_src, gChapterWinDataArray, sizeof(gChapterWinDataArray));
 }
 
 void SaveBWLEntries(void *sram_dest)
 {
-    WriteAndVerifySramFast((void*)gBWLDataStorage,
-                            sram_dest,
-                            sizeof(gBWLDataStorage));
-
+    WriteAndVerifySramFast(gBWLDataStorage, sram_dest, sizeof(gBWLDataStorage));
     gpBWLSaveTarget = sram_dest;
 }
 
 void SaveChapterWinData(void *sram_dest)
 {
-    WriteAndVerifySramFast((void*)gChapterWinDataArray,
-                            sram_dest,
-                            sizeof(gChapterWinDataArray));
+    WriteAndVerifySramFast(gChapterWinDataArray, sram_dest, sizeof(gChapterWinDataArray));
 }
 
 struct ChapterWinData *GetChapterWinDataEntry(int index)
@@ -1934,4 +1921,240 @@ struct BwlData *BWL_GetEntry(u8 char_id)
         return 0;
     else
         return &gBWLDataArray[char_id];  
+}
+
+u32 Get0203EDB4()
+{
+    return gUnknown_0203EDB4;
+}
+
+void Set0203EDB4(u32 num)
+{
+    gUnknown_0203EDB4 = num;
+}
+
+void Save0203EDB4(void *sram_dest)
+{
+    WriteAndVerifySramFast((void*)&gUnknown_0203EDB4,
+                           sram_dest + 0x0D88,
+                           sizeof(gUnknown_0203EDB4));
+}
+
+void Load0203EDB4(const void *sram_src)
+{
+    (*ReadSramFast)(sram_src + 0x0D88,
+                    (void*)&gUnknown_0203EDB4,
+                    sizeof(gUnknown_0203EDB4));
+}
+
+void SetSecHeader_unk62(int num)
+{
+    struct SecureSaveHeader sec_head;
+
+    LoadAndVerifySecureHeaderSW(&sec_head);
+    sec_head.unk62 = num;
+    ForceSaveSecureHeader(&sec_head);
+}
+
+int GetSecHeader_unk62()
+{
+    int ret;
+    struct SecureSaveHeader sec_head;
+
+    if (!LoadAndVerifySecureHeaderSW(&sec_head))
+        return 0;
+    
+    ret = sec_head.unk62;
+
+    if (ret > 2)
+        return 0;
+    else if (ret < 0)
+        return 0;
+    else
+        return ret;
+}
+
+void sub_80A4DC8(int val)
+{
+    struct SramChunk chunks[0x5];
+    u8 buf[0xC];
+
+    if (VerifySecHeaderBySomeIndex(3)) {
+        struct SramChunk *cur = &chunks[1];
+        LoadChunkBySomeIndex(3, cur);
+
+        if (cur->unk0C == val)
+            MakeMetaDataBySomeIndex(3);
+    }
+
+    chunks[0].unk06 = -1;
+    SaveMetadata_Generate(chunks, val);
+}
+
+void CopyGameSave(int index_src, int index_dest)
+{
+    struct SramChunk chunk;
+    void *src = CheckSaveAndGetPointer(index_src);
+    void *dest = GetSaveDataLocation(index_dest);
+
+    (*ReadSramFast)(src, gGenericBuffer, 0xDC8);
+    WriteAndVerifySramFast(gGenericBuffer, dest, 0xDC8);
+
+    chunk.unk00 = 0x40624;
+    chunk.unk06 = 0;
+    SaveMetadata_Generate(&chunk, index_dest);
+}
+
+void SaveNewGame(int index, int isDifficult, int mode, int isToturial)
+{
+    int i;
+    struct SramChunk chunk;
+    u8 buf0[0x24];
+
+    void *dest = GetSaveDataLocation(index);
+    void *tmp_dest;
+
+    if (0 == mode)
+        mode = gRAMChapterData.chapterModeIndex;
+
+    if (isToturial < 0)
+        isToturial = gRAMChapterData.toturial_mode_maybe;
+
+    SetGameClock(0);
+    InitPlaythroughState(isDifficult, isToturial);
+    ClearUnits();
+    ClearConvoyItems();
+    sub_8083D18();
+    MakeMetaDataBySomeIndex(3);
+    
+    gRAMChapterData.unk_2C_00 = 0;
+    gRAMChapterData.unk_2C_04 = 0;
+    CpuFill16(0, &gRAMChapterData.total_gold, 0x10);
+    gRAMChapterData.unk_2C_0D = 0;
+    gRAMChapterData.chapterModeIndex = mode;
+    gRAMChapterData.unk_2B_00 = 1;
+    gRAMChapterData.playerName[0] = '\0';
+    gRAMChapterData.chapterIndex = 0;
+    gRAMChapterData.playthroughIdentifier = GetNextUniquePlayThroughId();
+    gRAMChapterData.gameSaveSlot = index;
+    gRAMChapterData.unk_2C_17 = CountVerifiedSecHeaderUnk14();
+
+    WriteAndVerifySramFast((void*)&gRAMChapterData, dest, sizeof(gRAMChapterData));
+    Set0203EDB4(0);
+    Save0203EDB4(dest);
+    
+    CpuFill16(0, buf0, 0x24);
+
+    for (i = 0; i < 0x33; i++) {
+        WriteAndVerifySramFast(buf0, dest + 0x4C + 0x24 * i, 0x24);
+    }
+    WriteAndVerifySramFast(buf0, dest + 0x778, 0x24);
+    SaveConvoyItems(dest + 0x79C);
+    SaveClearedBWLAndChapterWinData(dest);
+    SaveGlobalEventIndexes(dest + 0xD6C);
+    sub_80A7074(dest + 0xD8C);
+    {
+        u8 buf1[0x18];   
+        CpuFill16(0, buf1, 0x18);
+        WriteAndVerifySramFast(buf1, dest + 0xDB0, 0x18);
+    
+        chunk.unk00 = 0x40624;
+        chunk.unk06 = 0;
+        SaveMetadata_Generate(&chunk, index);
+        SetSecHeader_unk62(index);
+    }
+}
+
+void SaveGame(int slot)
+{
+    int i;
+    struct SramChunk chunk;
+    struct SecureSaveHeader sec_head;
+    struct DungeonState dungeon;
+    
+    void *dest = GetSaveDataLocation(slot);
+    MakeMetaDataBySomeIndex(3);
+    gRAMChapterData.gameSaveSlot = slot;
+    gRAMChapterData.unk0 = GetGameClock();
+    WriteAndVerifySramFast(&gRAMChapterData, dest, sizeof(gRAMChapterData));
+
+    for (i = 0; i < 0x33; i++)
+        SaveUnit(&gUnitArrayBlue[i], dest + 0x4C + 0x24 * i);
+
+    LoadAndVerifySecureHeaderSW(&sec_head);
+    
+    for (i = 0; i < 0x33; i++)
+        SetSomeUnitStatThingUnlockMaybeIdk(UNIT_CHAR_ID(&gUnitArrayBlue[i]), &sec_head);
+
+    SaveSecureHeader(&sec_head);
+    SaveRNGState_Maybe(dest + 0x778);
+    SaveConvoyItems(dest + 0x079C);
+    SaveBWLEntries(dest + 0x84C);
+    SaveChapterWinData(dest + 0xCAC);
+    Save0203EDB4(dest);
+    SaveGlobalEventIndexes(dest + 0xD6C);
+    SaveWMStaff(dest + 0xD8C, &gGMData);
+    SaveDungeonState(&dungeon);
+    WriteAndVerifySramFast(&dungeon, dest + 0xDB0 ,sizeof(dungeon));
+
+    chunk.unk00 = 0x40624;
+    chunk.unk06 = 0;
+    SaveMetadata_Generate(&chunk, slot);
+    SetSecHeader_unk62(slot);
+    
+}
+
+void LoadGame(int slot)
+{
+    int i;
+    struct DungeonState dungeon;
+    void *src = CheckSaveAndGetPointer(slot);
+
+    if (0 == (CHAPTER_FLAG_DIFFICULT & gGameState.gameStateBits))
+        MakeMetaDataBySomeIndex(3);
+
+    (*ReadSramFast)(src, &gRAMChapterData, sizeof(gRAMChapterData));
+    SetGameClock(gRAMChapterData.unk0);
+    gRAMChapterData.gameSaveSlot = slot;
+
+    ClearUnits();
+
+    for (i = 0; i < 0x33; i++)
+        LoadSavedUnit(src + 0x4C + 0x24 * i, &gUnitArrayBlue[i]);
+
+    LoadGMMonsterRNState(src + 0x778);
+    LoadConvoyItems(src + 0x79C);
+    LoadGlobalEventIds(src + 0xD6C);
+    LoadBWLEntries(src + 0x84C);
+    LoadChapterWinData(src + 0xCAC);
+    Load0203EDB4(src);
+    LoadWMStaff(src + 0xD8C, &gGMData);
+    (*ReadSramFast)(src + 0xDB0, &dungeon, sizeof(dungeon));
+    LoadDungeonState(&dungeon);
+    SetSecHeader_unk62(slot);
+}
+
+s8 DoSaveMetaCheck(int index)
+{
+    return SaveMetadata_Check(NULL, index);
+}
+
+void GetSaveChunkData(int slot, struct RAMChapterData* buf)
+{
+    void *src = CheckSaveAndGetPointer(slot);
+    (*ReadSramFast)(src, buf, sizeof(*buf));
+}
+
+u32 Get0203EDB4_FromSram(int slot)
+{
+    u32 buf;
+    void *src = CheckSaveAndGetPointer(slot);
+    (*ReadSramFast)(src + 0xD88, &buf, sizeof(buf));
+    return buf;
+}
+
+void LoadWMStaffBySlot(int slot, void *dest)
+{
+    void *src = CheckSaveAndGetPointer(slot);
+    LoadWMStaff(src + 0xD8C, dest);
 }

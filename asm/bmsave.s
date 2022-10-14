@@ -2,662 +2,8 @@
 
 	.SYNTAX UNIFIED
 
-	THUMB_FUNC_START sub_80A4D28
-sub_80A4D28: @ 0x080A4D28
-	ldr r0, _080A4D30  @ gUnknown_0203EDB4
-	ldr r0, [r0]
-	bx lr
-	.align 2, 0
-_080A4D30: .4byte gUnknown_0203EDB4
-
-	THUMB_FUNC_END sub_80A4D28
-
-	THUMB_FUNC_START Set0203EDB4
-Set0203EDB4: @ 0x080A4D34
-	ldr r1, _080A4D3C  @ gUnknown_0203EDB4
-	str r0, [r1]
-	bx lr
-	.align 2, 0
-_080A4D3C: .4byte gUnknown_0203EDB4
-
-	THUMB_FUNC_END Set0203EDB4
-
-	THUMB_FUNC_START Save0203EDB4
-Save0203EDB4: @ 0x080A4D40
-	push {lr}
-	adds r1, r0, #0
-	ldr r0, _080A4D54  @ gUnknown_0203EDB4
-	ldr r2, _080A4D58  @ 0x00000D88
-	adds r1, r1, r2
-	movs r2, #4
-	bl WriteAndVerifySramFast
-	pop {r0}
-	bx r0
-	.align 2, 0
-_080A4D54: .4byte gUnknown_0203EDB4
-_080A4D58: .4byte 0x00000D88
-
-	THUMB_FUNC_END Save0203EDB4
-
-	THUMB_FUNC_START Load0203EDB4
-Load0203EDB4: @ 0x080A4D5C
-	push {lr}
-	ldr r2, _080A4D74  @ ReadSramFast
-	ldr r1, _080A4D78  @ 0x00000D88
-	adds r0, r0, r1
-	ldr r1, _080A4D7C  @ gUnknown_0203EDB4
-	ldr r3, [r2]
-	movs r2, #4
-	bl _call_via_r3
-	pop {r0}
-	bx r0
-	.align 2, 0
-_080A4D74: .4byte ReadSramFast
-_080A4D78: .4byte 0x00000D88
-_080A4D7C: .4byte gUnknown_0203EDB4
-
-	THUMB_FUNC_END Load0203EDB4
-
-	THUMB_FUNC_START sub_80A4D80
-sub_80A4D80: @ 0x080A4D80
-	push {r4, lr}
-	sub sp, #0x64
-	adds r4, r0, #0
-	mov r0, sp
-	bl LoadAndVerifySecureHeaderSW
-	mov r0, sp
-	adds r0, #0x62
-	strb r4, [r0]
-	mov r0, sp
-	bl ForceSaveSecureHeader
-	add sp, #0x64
-	pop {r4}
-	pop {r0}
-	bx r0
-
-	THUMB_FUNC_END sub_80A4D80
-
-	THUMB_FUNC_START sub_80A4DA0
-sub_80A4DA0: @ 0x080A4DA0
-	push {lr}
-	sub sp, #0x64
-	mov r0, sp
-	bl LoadAndVerifySecureHeaderSW
-	lsls r0, r0, #0x18
-	cmp r0, #0
-	beq _080A4DBE
-	mov r0, sp
-	adds r0, #0x62
-	ldrb r0, [r0]
-	cmp r0, #2
-	bgt _080A4DBE
-	cmp r0, #0
-	bge _080A4DC0
-_080A4DBE:
-	movs r0, #0
-_080A4DC0:
-	add sp, #0x64
-	pop {r1}
-	bx r1
-
-	THUMB_FUNC_END sub_80A4DA0
-
-	THUMB_FUNC_START sub_80A4DC8
-sub_80A4DC8: @ 0x080A4DC8
-	push {r4, r5, lr}
-	sub sp, #0x5c
-	adds r5, r0, #0
-	movs r0, #3
-	bl sub_80A5DA8
-	lsls r0, r0, #0x18
-	cmp r0, #0
-	beq _080A4DF0
-	add r4, sp, #0x10
-	movs r0, #3
-	adds r1, r4, #0
-	bl sub_80A5DFC
-	ldrb r0, [r4, #0xc]
-	cmp r0, r5
-	bne _080A4DF0
-	movs r0, #3
-	bl sub_80A5A20
-_080A4DF0:
-	mov r1, sp
-	movs r0, #0xff
-	strb r0, [r1, #6]
-	mov r0, sp
-	adds r1, r5, #0
-	bl SaveMetadata_Generate
-	add sp, #0x5c
-	pop {r4, r5}
-	pop {r0}
-	bx r0
-
-	THUMB_FUNC_END sub_80A4DC8
-
-	THUMB_FUNC_START sub_80A4E08
-sub_80A4E08: @ 0x080A4E08
-	push {r4, r5, r6, lr}
-	mov r6, r9
-	mov r5, r8
-	push {r5, r6}
-	sub sp, #0x10
-	mov r9, r1
-	bl CheckSaveAndGetPointer
-	adds r6, r0, #0
-	mov r0, r9
-	bl GetSaveDataLocation
-	mov r8, r0
-	ldr r0, _080A4E60  @ ReadSramFast
-	ldr r4, _080A4E64  @ _gGenericBuffer
-	ldr r5, _080A4E68  @ 0x00000DC8
-	ldr r3, [r0]
-	adds r0, r6, #0
-	adds r1, r4, #0
-	adds r2, r5, #0
-	bl _call_via_r3
-	adds r0, r4, #0
-	mov r1, r8
-	adds r2, r5, #0
-	bl WriteAndVerifySramFast
-	ldr r0, _080A4E6C  @ 0x00040624
-	str r0, [sp]
-	mov r1, sp
-	movs r0, #0
-	strb r0, [r1, #6]
-	mov r0, sp
-	mov r1, r9
-	bl SaveMetadata_Generate
-	add sp, #0x10
-	pop {r3, r4}
-	mov r8, r3
-	mov r9, r4
-	pop {r4, r5, r6}
-	pop {r0}
-	bx r0
-	.align 2, 0
-_080A4E60: .4byte ReadSramFast
-_080A4E64: .4byte _gGenericBuffer
-_080A4E68: .4byte 0x00000DC8
-_080A4E6C: .4byte 0x00040624
-
-	THUMB_FUNC_END sub_80A4E08
-
-	THUMB_FUNC_START sub_80A4E70
-sub_80A4E70: @ 0x080A4E70
-	push {r4, r5, r6, r7, lr}
-	mov r7, sl
-	mov r6, r9
-	mov r5, r8
-	push {r5, r6, r7}
-	sub sp, #0x54
-	mov sl, r0
-	adds r5, r1, #0
-	mov r8, r2
-	adds r4, r3, #0
-	bl GetSaveDataLocation
-	adds r7, r0, #0
-	mov r0, r8
-	cmp r0, #0
-	bne _080A4E96
-	ldr r0, _080A4FE4  @ gRAMChapterData
-	ldrb r0, [r0, #0x1b]
-	mov r8, r0
-_080A4E96:
-	cmp r4, #0
-	bge _080A4EA4
-	ldr r0, _080A4FE4  @ gRAMChapterData
-	adds r0, #0x42
-	ldrb r0, [r0]
-	lsls r0, r0, #0x1a
-	lsrs r4, r0, #0x1f
-_080A4EA4:
-	movs r0, #0
-	bl SetGameClock
-	lsls r1, r4, #0x18
-	asrs r1, r1, #0x18
-	adds r0, r5, #0
-	bl InitPlaythroughState
-	bl ClearUnits
-	bl ClearConvoyItems
-	bl sub_8083D18
-	movs r0, #3
-	bl sub_80A5A20
-	ldr r6, _080A4FE4  @ gRAMChapterData
-	adds r2, r6, #0
-	adds r2, #0x2c
-	ldrb r1, [r2]
-	movs r0, #2
-	negs r0, r0
-	ands r0, r1
-	strb r0, [r2]
-	ldrh r1, [r6, #0x2c]
-	ldr r0, _080A4FE8  @ 0xFFFFE00F
-	ands r0, r1
-	strh r0, [r6, #0x2c]
-	add r0, sp, #0x34
-	movs r4, #0
-	strh r4, [r0]
-	adds r1, r6, #0
-	adds r1, #0x30
-	ldr r2, _080A4FEC  @ 0x01000008
-	bl CpuSet
-	ldr r0, [r6, #0x2c]
-	ldr r1, _080A4FF0  @ 0xFF801FFF
-	ands r0, r1
-	str r0, [r6, #0x2c]
-	movs r5, #0
-	mov r1, r8
-	strb r1, [r6, #0x1b]
-	adds r2, r6, #0
-	adds r2, #0x2b
-	ldrb r0, [r2]
-	movs r1, #1
-	orrs r0, r1
-	strb r0, [r2]
-	adds r0, r6, #0
-	adds r0, #0x20
-	strb r4, [r0]
-	strb r4, [r6, #0xe]
-	bl GetNextUniquePlayThroughId
-	strb r0, [r6, #0x18]
-	mov r0, sl
-	strb r0, [r6, #0xc]
-	bl CountVerifiedSecHeaderUnk14
-	movs r1, #0x1f
-	ands r0, r1
-	lsls r0, r0, #7
-	ldrh r2, [r6, #0x2e]
-	ldr r1, _080A4FF4  @ 0xFFFFF07F
-	ands r1, r2
-	orrs r1, r0
-	strh r1, [r6, #0x2e]
-	adds r0, r6, #0
-	adds r1, r7, #0
-	movs r2, #0x4c
-	bl WriteAndVerifySramFast
-	movs r0, #0
-	bl Set0203EDB4
-	adds r0, r7, #0
-	bl Save0203EDB4
-	mov r0, sp
-	adds r0, #0x36
-	strh r5, [r0]
-	add r4, sp, #0x10
-	ldr r2, _080A4FF8  @ 0x01000012
-	adds r1, r4, #0
-	bl CpuSet
-	add r1, sp, #0x50
-	mov r8, r1
-	add r0, sp, #0x38
-	mov r9, r0
-	adds r5, r7, #0
-	adds r5, #0x4c
-	movs r6, #0x32
-_080A4F62:
-	adds r0, r4, #0
-	adds r1, r5, #0
-	movs r2, #0x24
-	bl WriteAndVerifySramFast
-	adds r5, #0x24
-	subs r6, #1
-	cmp r6, #0
-	bge _080A4F62
-	movs r5, #0
-	movs r0, #0xef
-	lsls r0, r0, #3
-	adds r1, r7, r0
-	adds r0, r4, #0
-	movs r2, #0x24
-	bl WriteAndVerifySramFast
-	ldr r1, _080A4FFC  @ 0x0000079C
-	adds r0, r7, r1
-	bl SaveConvoyItems
-	adds r0, r7, #0
-	bl SaveClearedBWLAndChapterWinData
-	ldr r1, _080A5000  @ 0x00000D6C
-	adds r0, r7, r1
-	bl SaveGlobalEventIndexes
-	ldr r1, _080A5004  @ 0x00000D8C
-	adds r0, r7, r1
-	bl sub_80A7074
-	movs r4, #0
-	mov r0, r8
-	strh r5, [r0]
-	ldr r2, _080A5008  @ 0x0100000C
-	mov r1, r9
-	bl CpuSet
-	movs r0, #0xdb
-	lsls r0, r0, #4
-	adds r1, r7, r0
-	mov r0, r9
-	movs r2, #0x18
-	bl WriteAndVerifySramFast
-	ldr r0, _080A500C  @ 0x00040624
-	str r0, [sp]
-	mov r0, sp
-	strb r4, [r0, #6]
-	mov r1, sl
-	bl SaveMetadata_Generate
-	mov r0, sl
-	bl sub_80A4D80
-	add sp, #0x54
-	pop {r3, r4, r5}
-	mov r8, r3
-	mov r9, r4
-	mov sl, r5
-	pop {r4, r5, r6, r7}
-	pop {r0}
-	bx r0
-	.align 2, 0
-_080A4FE4: .4byte gRAMChapterData
-_080A4FE8: .4byte 0xFFFFE00F
-_080A4FEC: .4byte 0x01000008
-_080A4FF0: .4byte 0xFF801FFF
-_080A4FF4: .4byte 0xFFFFF07F
-_080A4FF8: .4byte 0x01000012
-_080A4FFC: .4byte 0x0000079C
-_080A5000: .4byte 0x00000D6C
-_080A5004: .4byte 0x00000D8C
-_080A5008: .4byte 0x0100000C
-_080A500C: .4byte 0x00040624
-
-	THUMB_FUNC_END sub_80A4E70
-
-	THUMB_FUNC_START SaveGame
-SaveGame: @ 0x080A5010
-	push {r4, r5, r6, r7, lr}
-	mov r7, sl
-	mov r6, r9
-	mov r5, r8
-	push {r5, r6, r7}
-	sub sp, #0x90
-	mov sl, r0
-	bl GetSaveDataLocation
-	adds r7, r0, #0
-	movs r0, #3
-	bl sub_80A5A20
-	ldr r4, _080A5104  @ gRAMChapterData
-	mov r0, sl
-	strb r0, [r4, #0xc]
-	bl GetGameClock
-	str r0, [r4]
-	adds r0, r4, #0
-	adds r1, r7, #0
-	movs r2, #0x4c
-	bl WriteAndVerifySramFast
-	add r1, sp, #0x10
-	mov r8, r1
-	mov r0, sp
-	adds r0, #0x74
-	str r0, [sp, #0x8c]
-	adds r4, r7, #0
-	adds r4, #0x4c
-	movs r6, #0
-	ldr r1, _080A5108  @ gUnitArrayBlue
-	mov r9, r1
-	movs r5, #0x32
-_080A5056:
-	mov r1, r9
-	adds r0, r6, r1
-	adds r1, r4, #0
-	bl SaveUnit
-	adds r4, #0x24
-	adds r6, #0x48
-	subs r5, #1
-	cmp r5, #0
-	bge _080A5056
-	mov r0, r8
-	bl LoadAndVerifySecureHeaderSW
-	movs r4, #0
-	ldr r6, _080A5108  @ gUnitArrayBlue
-	movs r5, #0x32
-_080A5076:
-	adds r0, r4, r6
-	ldr r0, [r0]
-	ldrb r0, [r0, #4]
-	mov r1, r8
-	bl SetSomeUnitStatThingUnlockMaybeIdk
-	adds r4, #0x48
-	subs r5, #1
-	cmp r5, #0
-	bge _080A5076
-	movs r4, #0
-	mov r0, r8
-	bl SaveSecureHeader
-	movs r1, #0xef
-	lsls r1, r1, #3
-	adds r0, r7, r1
-	bl SaveRNGState_Maybe
-	ldr r1, _080A510C  @ 0x0000079C
-	adds r0, r7, r1
-	bl SaveConvoyItems
-	ldr r1, _080A5110  @ 0x0000084C
-	adds r0, r7, r1
-	bl SaveBWLEntries
-	ldr r1, _080A5114  @ 0x00000CAC
-	adds r0, r7, r1
-	bl SaveChapterWinData
-	adds r0, r7, #0
-	bl Save0203EDB4
-	ldr r1, _080A5118  @ 0x00000D6C
-	adds r0, r7, r1
-	bl SaveGlobalEventIndexes
-	ldr r1, _080A511C  @ 0x00000D8C
-	adds r0, r7, r1
-	ldr r1, _080A5120  @ gGMData
-	bl sub_80A70B0
-	ldr r0, [sp, #0x8c]
-	bl sub_8037E4C
-	movs r0, #0xdb
-	lsls r0, r0, #4
-	adds r1, r7, r0
-	ldr r0, [sp, #0x8c]
-	movs r2, #0x18
-	bl WriteAndVerifySramFast
-	ldr r0, _080A5124  @ 0x00040624
-	str r0, [sp]
-	mov r0, sp
-	strb r4, [r0, #6]
-	mov r1, sl
-	bl SaveMetadata_Generate
-	mov r0, sl
-	bl sub_80A4D80
-	add sp, #0x90
-	pop {r3, r4, r5}
-	mov r8, r3
-	mov r9, r4
-	mov sl, r5
-	pop {r4, r5, r6, r7}
-	pop {r0}
-	bx r0
-	.align 2, 0
-_080A5104: .4byte gRAMChapterData
-_080A5108: .4byte gUnitArrayBlue
-_080A510C: .4byte 0x0000079C
-_080A5110: .4byte 0x0000084C
-_080A5114: .4byte 0x00000CAC
-_080A5118: .4byte 0x00000D6C
-_080A511C: .4byte 0x00000D8C
-_080A5120: .4byte gGMData
-_080A5124: .4byte 0x00040624
-
-	THUMB_FUNC_END SaveGame
-
-	THUMB_FUNC_START LoadGame
-LoadGame: @ 0x080A5128
-	push {r4, r5, r6, r7, lr}
-	mov r7, r9
-	mov r6, r8
-	push {r6, r7}
-	sub sp, #0x18
-	mov r9, r0
-	bl CheckSaveAndGetPointer
-	adds r7, r0, #0
-	ldr r0, _080A51F0  @ gGameState
-	ldrb r1, [r0, #4]
-	movs r0, #0x40
-	ands r0, r1
-	cmp r0, #0
-	bne _080A514C
-	movs r0, #3
-	bl sub_80A5A20
-_080A514C:
-	ldr r0, _080A51F4  @ ReadSramFast
-	ldr r4, _080A51F8  @ gRAMChapterData
-	ldr r3, [r0]
-	adds r0, r7, #0
-	adds r1, r4, #0
-	movs r2, #0x4c
-	bl _call_via_r3
-	ldr r0, [r4]
-	bl SetGameClock
-	mov r0, r9
-	strb r0, [r4, #0xc]
-	bl ClearUnits
-	movs r6, #0
-	adds r4, r7, #0
-	adds r4, #0x4c
-	ldr r1, _080A51FC  @ gUnitArrayBlue
-	mov r8, r1
-	movs r5, #0x32
-_080A5176:
-	mov r2, r8
-	adds r1, r6, r2
-	adds r0, r4, #0
-	bl LoadSavedUnit
-	adds r6, #0x48
-	adds r4, #0x24
-	subs r5, #1
-	cmp r5, #0
-	bge _080A5176
-	movs r1, #0xef
-	lsls r1, r1, #3
-	adds r0, r7, r1
-	bl sub_80A5A00
-	ldr r2, _080A5200  @ 0x0000079C
-	adds r0, r7, r2
-	bl LoadConvoyItems
-	ldr r1, _080A5204  @ 0x00000D6C
-	adds r0, r7, r1
-	bl LoadGlobalEventIds
-	ldr r2, _080A5208  @ 0x0000084C
-	adds r0, r7, r2
-	bl LoadBWLEntries
-	ldr r1, _080A520C  @ 0x00000CAC
-	adds r0, r7, r1
-	bl LoadChapterWinData
-	adds r0, r7, #0
-	bl Load0203EDB4
-	ldr r2, _080A5210  @ 0x00000D8C
-	adds r0, r7, r2
-	ldr r1, _080A5214  @ gGMData
-	bl sub_80A7138
-	ldr r1, _080A51F4  @ ReadSramFast
-	movs r2, #0xdb
-	lsls r2, r2, #4
-	adds r0, r7, r2
-	ldr r3, [r1]
-	mov r1, sp
-	movs r2, #0x18
-	bl _call_via_r3
-	mov r0, sp
-	bl sub_8037E64
-	mov r0, r9
-	bl sub_80A4D80
-	add sp, #0x18
-	pop {r3, r4}
-	mov r8, r3
-	mov r9, r4
-	pop {r4, r5, r6, r7}
-	pop {r0}
-	bx r0
-	.align 2, 0
-_080A51F0: .4byte gGameState
-_080A51F4: .4byte ReadSramFast
-_080A51F8: .4byte gRAMChapterData
-_080A51FC: .4byte gUnitArrayBlue
-_080A5200: .4byte 0x0000079C
-_080A5204: .4byte 0x00000D6C
-_080A5208: .4byte 0x0000084C
-_080A520C: .4byte 0x00000CAC
-_080A5210: .4byte 0x00000D8C
-_080A5214: .4byte gGMData
-
-	THUMB_FUNC_END LoadGame
-
-	THUMB_FUNC_START DoSaveMetaCheck
-DoSaveMetaCheck: @ 0x080A5218
-	push {lr}
-	adds r1, r0, #0
-	movs r0, #0
-	bl SaveMetadata_Check
-	lsls r0, r0, #0x18
-	asrs r0, r0, #0x18
-	pop {r1}
-	bx r1
-
-	THUMB_FUNC_END DoSaveMetaCheck
-
-	THUMB_FUNC_START GetSaveChunkData
-GetSaveChunkData: @ 0x080A522C
-	push {r4, lr}
-	adds r4, r1, #0
-	bl CheckSaveAndGetPointer
-	ldr r1, _080A5248  @ ReadSramFast
-	ldr r3, [r1]
-	adds r1, r4, #0
-	movs r2, #0x4c
-	bl _call_via_r3
-	pop {r4}
-	pop {r0}
-	bx r0
-	.align 2, 0
-_080A5248: .4byte ReadSramFast
-
-	THUMB_FUNC_END GetSaveChunkData
-
-	THUMB_FUNC_START sub_80A524C
-sub_80A524C: @ 0x080A524C
-	push {lr}
-	sub sp, #4
-	bl CheckSaveAndGetPointer
-	ldr r1, _080A526C  @ ReadSramFast
-	ldr r2, _080A5270  @ 0x00000D88
-	adds r0, r0, r2
-	ldr r3, [r1]
-	mov r1, sp
-	movs r2, #4
-	bl _call_via_r3
-	ldr r0, [sp]
-	add sp, #4
-	pop {r1}
-	bx r1
-	.align 2, 0
-_080A526C: .4byte ReadSramFast
-_080A5270: .4byte 0x00000D88
-
-	THUMB_FUNC_END sub_80A524C
-
-	THUMB_FUNC_START sub_80A5274
-sub_80A5274: @ 0x080A5274
-	push {r4, lr}
-	adds r4, r1, #0
-	bl CheckSaveAndGetPointer
-	ldr r1, _080A528C  @ 0x00000D8C
-	adds r0, r0, r1
-	adds r1, r4, #0
-	bl sub_80A7138
-	pop {r4}
-	pop {r0}
-	bx r0
-	.align 2, 0
-_080A528C: .4byte 0x00000D8C
-
-	THUMB_FUNC_END sub_80A5274
-
-	THUMB_FUNC_START sub_80A5290
-sub_80A5290: @ 0x080A5290
+	THUMB_FUNC_START loadAndCheckGlobalEventIds
+loadAndCheckGlobalEventIds: @ 0x080A5290
 	push {r4, lr}
 	bl CheckSaveAndGetPointer
 	ldr r1, _080A52B4  @ 0x00000D6C
@@ -667,7 +13,7 @@ sub_80A5290: @ 0x080A5290
 	bl LoadGlobalEventIds_ret
 	movs r0, #0x8a
 	adds r1, r4, #0
-	bl sub_8083D34
+	bl IsEventIdMaskedMaybe
 	lsls r0, r0, #0x18
 	asrs r0, r0, #0x18
 	pop {r4}
@@ -677,7 +23,7 @@ sub_80A5290: @ 0x080A5290
 _080A52B4: .4byte 0x00000D6C
 _080A52B8: .4byte _gGenericBuffer
 
-	THUMB_FUNC_END sub_80A5290
+	THUMB_FUNC_END loadAndCheckGlobalEventIds
 
 	THUMB_FUNC_START sub_80A52BC
 sub_80A52BC: @ 0x080A52BC
@@ -1642,8 +988,8 @@ SaveRNGState_Maybe: @ 0x080A59E0
 
 	THUMB_FUNC_END SaveRNGState_Maybe
 
-	THUMB_FUNC_START sub_80A5A00
-sub_80A5A00: @ 0x080A5A00
+	THUMB_FUNC_START LoadGMMonsterRNState
+LoadGMMonsterRNState: @ 0x080A5A00
 	push {lr}
 	sub sp, #8
 	ldr r1, _080A5A1C  @ ReadSramFast
@@ -1659,10 +1005,10 @@ sub_80A5A00: @ 0x080A5A00
 	.align 2, 0
 _080A5A1C: .4byte ReadSramFast
 
-	THUMB_FUNC_END sub_80A5A00
+	THUMB_FUNC_END LoadGMMonsterRNState
 
-	THUMB_FUNC_START sub_80A5A20
-sub_80A5A20: @ 0x080A5A20
+	THUMB_FUNC_START MakeMetaDataBySomeIndex
+MakeMetaDataBySomeIndex: @ 0x080A5A20
 	push {r4, lr}
 	sub sp, #0x10
 	adds r4, r0, #0
@@ -1683,7 +1029,7 @@ _080A5A40:
 	pop {r0}
 	bx r0
 
-	THUMB_FUNC_END sub_80A5A20
+	THUMB_FUNC_END MakeMetaDataBySomeIndex
 
 	THUMB_FUNC_START SaveSuspendedGame
 SaveSuspendedGame: @ 0x080A5A48
@@ -1808,9 +1154,9 @@ _080A5AEE:
 	ldr r1, _080A5BFC  @ 0x00001F44
 	adds r0, r7, r1
 	ldr r1, _080A5C00  @ gGMData
-	bl sub_80A70B0
+	bl SaveWMStaff
 	mov r0, r8
-	bl sub_8037E4C
+	bl SaveDungeonState
 	movs r2, #0xae
 	lsls r2, r2, #4
 	adds r1, r7, r2
@@ -1981,7 +1327,7 @@ _080A5C96:
 	ldr r1, _080A5D98  @ 0x00001F44
 	adds r0, r6, r1
 	ldr r1, _080A5D9C  @ gGMData
-	bl sub_80A7138
+	bl LoadWMStaff
 	movs r1, #0xae
 	lsls r1, r1, #4
 	adds r0, r6, r1
@@ -1990,7 +1336,7 @@ _080A5C96:
 	movs r2, #0x18
 	bl _call_via_r3
 	adds r0, r7, #0
-	bl sub_8037E64
+	bl LoadDungeonState
 	ldr r1, _080A5DA0  @ 0x00001F68
 	adds r0, r6, r1
 	ldr r3, [r4]
@@ -2009,7 +1355,7 @@ _080A5C96:
 	bl SetEventSlotCounter
 	ldr r0, _080A5D60  @ gRAMChapterData
 	ldrb r0, [r0, #0xc]
-	bl sub_80A524C
+	bl Get0203EDB4_FromSram
 	bl Set0203EDB4
 	add sp, #0x2c
 	pop {r3}
@@ -2041,8 +1387,8 @@ _080A5DA4: .4byte 0x00001F74
 
 	THUMB_FUNC_END LoadSuspendedGame
 
-	THUMB_FUNC_START sub_80A5DA8
-sub_80A5DA8: @ 0x080A5DA8
+	THUMB_FUNC_START VerifySecHeaderBySomeIndex
+VerifySecHeaderBySomeIndex: @ 0x080A5DA8
 	push {r4, lr}
 	adds r4, r0, #0
 	bl IsSramWorking
@@ -2084,10 +1430,10 @@ _080A5DF6:
 	pop {r1}
 	bx r1
 
-	THUMB_FUNC_END sub_80A5DA8
+	THUMB_FUNC_END VerifySecHeaderBySomeIndex
 
-	THUMB_FUNC_START sub_80A5DFC
-sub_80A5DFC: @ 0x080A5DFC
+	THUMB_FUNC_START LoadChunkBySomeIndex
+LoadChunkBySomeIndex: @ 0x080A5DFC
 	push {lr}
 	ldr r2, _080A5E0C  @ gUnknown_0203EDB8
 	ldrb r2, [r2]
@@ -2098,7 +1444,7 @@ sub_80A5DFC: @ 0x080A5DFC
 	.align 2, 0
 _080A5E0C: .4byte gUnknown_0203EDB8
 
-	THUMB_FUNC_END sub_80A5DFC
+	THUMB_FUNC_END LoadChunkBySomeIndex
 
 	THUMB_FUNC_START PackUnitStructForSuspend
 PackUnitStructForSuspend: @ 0x080A5E10
@@ -3766,13 +3112,13 @@ sub_80A6AA0: @ 0x080A6AA0
 	push {r4, lr}
 	sub sp, #0x4c
 	movs r0, #3
-	bl sub_80A5DA8
+	bl VerifySecHeaderBySomeIndex
 	lsls r0, r0, #0x18
 	cmp r0, #0
 	beq _080A6AE8
 	movs r0, #3
 	mov r1, sp
-	bl sub_80A5DFC
+	bl LoadChunkBySomeIndex
 	mov r0, sp
 	ldrb r0, [r0, #0xe]
 	lsls r0, r0, #0x18
@@ -3794,7 +3140,7 @@ sub_80A6AA0: @ 0x080A6AA0
 	cmp r0, r4
 	beq _080A6AE8
 	movs r0, #3
-	bl sub_80A5A20
+	bl MakeMetaDataBySomeIndex
 _080A6AE8:
 	add sp, #0x4c
 	pop {r4}
@@ -4639,8 +3985,8 @@ _080A70AC: .4byte 0x01000012
 
 	THUMB_FUNC_END sub_80A7074
 
-	THUMB_FUNC_START sub_80A70B0
-sub_80A70B0: @ 0x080A70B0
+	THUMB_FUNC_START SaveWMStaff
+SaveWMStaff: @ 0x080A70B0
 	push {r4, r5, r6, lr}
 	sub sp, #0x24
 	adds r6, r0, #0
@@ -4705,10 +4051,10 @@ sub_80A70B0: @ 0x080A70B0
 	pop {r0}
 	bx r0
 
-	THUMB_FUNC_END sub_80A70B0
+	THUMB_FUNC_END SaveWMStaff
 
-	THUMB_FUNC_START sub_80A7138
-sub_80A7138: @ 0x080A7138
+	THUMB_FUNC_START LoadWMStaff
+LoadWMStaff: @ 0x080A7138
 	push {r4, lr}
 	sub sp, #0x24
 	adds r4, r1, #0
@@ -4793,7 +4139,7 @@ _080A71B6:
 	pop {r0}
 	bx r0
 
-	THUMB_FUNC_END sub_80A7138
+	THUMB_FUNC_END LoadWMStaff
 
 	THUMB_FUNC_START sub_80A71E4
 sub_80A71E4: @ 0x080A71E4

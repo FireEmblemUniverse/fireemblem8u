@@ -239,7 +239,7 @@ _080A8996:
 	adds r0, r7, r1
 	add r5, sp, #0x94
 	adds r1, r5, #0
-	bl sub_80A7138
+	bl LoadWMStaff
 	ldrb r0, [r5, #0x11]
 	strb r0, [r4, #2]
 	b _080A89D8
@@ -948,7 +948,7 @@ sub_80A8F8C: @ 0x080A8F8C
 	movs r4, #0
 	movs r0, #5
 	strb r0, [r1]
-	bl sub_80A4DA0
+	bl GetSecHeader_unk62
 	adds r1, r5, #0
 	adds r1, #0x2c
 	strb r0, [r1]
@@ -986,7 +986,7 @@ sub_80A8FD0: @ 0x080A8FD0
 	movs r4, #0
 	movs r0, #5
 	strb r0, [r1]
-	bl sub_80A4DA0
+	bl GetSecHeader_unk62
 	adds r1, r5, #0
 	adds r1, #0x2c
 	strb r0, [r1]
@@ -1200,7 +1200,7 @@ _080A91A8:
 	strb r1, [r0]
 	b _080A91CA
 _080A91B4:
-	bl sub_80A4DA0
+	bl GetSecHeader_unk62
 	lsls r0, r0, #0x18
 	lsrs r0, r0, #0x18
 	movs r1, #1
@@ -1313,7 +1313,7 @@ _080A927C:
 	lsls r3, r3, #0x18
 	asrs r3, r3, #0x18
 	movs r2, #1
-	bl sub_80A4E70
+	bl SaveNewGame
 	pop {r0}
 	bx r0
 
@@ -1382,7 +1382,7 @@ _080A92FC:
 	adds r1, r4, #0
 	adds r1, #0x2c
 	ldrb r1, [r1]
-	bl sub_80A4E08
+	bl CopyGameSave
 	adds r0, r4, #0
 	movs r1, #6
 	bl Proc_Goto
@@ -2637,7 +2637,7 @@ _080A9C96:
 	bl Proc_Goto
 	b _080A9D14
 _080A9CA6:
-	bl sub_80A4DA0
+	bl GetSecHeader_unk62
 	lsls r0, r0, #0x18
 	lsrs r0, r0, #0x18
 	movs r1, #1
@@ -6877,7 +6877,7 @@ _080ABC26:
 	add r4, sp, #0x4c
 	adds r0, r5, #0
 	adds r1, r4, #0
-	bl sub_80A5274
+	bl LoadWMStaffBySlot
 	adds r0, r4, #0
 	bl sub_80BD224
 	adds r2, r0, #0
@@ -6915,7 +6915,7 @@ _080ABC6C:
 	strb r0, [r4]
 _080ABCAE:
 	adds r0, r6, #0
-	bl sub_80A5290
+	bl loadAndCheckGlobalEventIds
 	lsls r0, r0, #0x18
 	cmp r0, #0
 	beq _080ABCC2
@@ -6997,13 +6997,13 @@ _080ABD48:
 	cmp r1, r0
 	bne _080ABD7E
 	movs r0, #3
-	bl sub_80A5DA8
+	bl VerifySecHeaderBySomeIndex
 	lsls r0, r0, #0x18
 	cmp r0, #0
 	beq _080ABD7A
 	movs r0, #3
 	mov r1, sp
-	bl sub_80A5DFC
+	bl LoadChunkBySomeIndex
 	mov r0, sp
 	ldrb r0, [r0, #0xc]
 	adds r1, r7, #0
@@ -17184,7 +17184,7 @@ _080B07F6:
 	movs r6, #0
 	mov r3, r8
 	strb r3, [r0]
-	bl sub_80A4D28
+	bl Get0203EDB4
 	movs r2, #1
 	adds r1, r2, #0
 	mov r3, r8
@@ -17461,7 +17461,7 @@ sub_80B0A24: @ 0x080B0A24
 	adds r4, r4, r0
 	movs r5, #0
 	ldrsb r5, [r4, r5]
-	bl sub_80A4D28
+	bl Get0203EDB4
 	adds r1, r0, #0
 	movs r0, #1
 	lsls r0, r5
@@ -17847,7 +17847,7 @@ _080B0D58:
 	adds r0, r0, r1
 	movs r4, #0
 	ldrsb r4, [r0, r4]
-	bl sub_80A4D28
+	bl Get0203EDB4
 	adds r1, r7, #0
 	lsls r1, r4
 	ands r1, r0
@@ -18702,7 +18702,7 @@ sub_80B13BC: @ 0x080B13BC
 	bl BG_EnableSyncByMask
 	adds r0, r4, #0
 	bl sub_80B1008
-	bl sub_80A4DA0
+	bl GetSecHeader_unk62
 	bl SaveGame
 	movs r0, #0
 	str r0, [r4, #0x30]
