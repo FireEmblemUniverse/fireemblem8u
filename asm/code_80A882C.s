@@ -223,7 +223,7 @@ _080A8996:
 	bgt _080A89D4
 	adds r0, r4, #0
 	add r1, sp, #0x4c
-	bl LoadSavedUnit
+	bl LoadAndUnpackUnit
 	ldr r0, [sp, #0x4c]
 	add r1, sp, #0x4c
 	cmp r0, #0
@@ -6905,7 +6905,7 @@ _080ABC6C:
 	adds r4, r0, r6
 	strb r5, [r4]
 	adds r0, r6, #0
-	bl sub_80A52BC
+	bl CheckRamChapterDataUnk
 	lsls r0, r0, #0x18
 	cmp r0, #0
 	beq _080ABCAE
@@ -43852,8 +43852,8 @@ _080BD258:
 
 	THUMB_FUNC_END sub_80BD224
 
-	THUMB_FUNC_START sub_80BD260
-sub_80BD260: @ 0x080BD260
+	THUMB_FUNC_START CpuSetSomeValue
+CpuSetSomeValue: @ 0x080BD260
 	push {lr}
 	adds r0, #0xce
 	movs r2, #3
@@ -43861,7 +43861,7 @@ sub_80BD260: @ 0x080BD260
 	pop {r0}
 	bx r0
 
-	THUMB_FUNC_END sub_80BD260
+	THUMB_FUNC_END CpuSetSomeValue
 
 	THUMB_FUNC_START sub_80BD270
 sub_80BD270: @ 0x080BD270

@@ -42,7 +42,7 @@ int CountVerifiedSecHeaderUnk14(void);
 void SetSaveSecHead_0F_B0(void);
 s8 DoSaveMetaCheck(int);
 void GetSaveChunkData(int, struct RAMChapterData*);
-void MakeMetaDataBySomeIndex(int);
+void MakeMetaDataBySlot(int);
 void sub_80A6D38(void);
 void Make6C_savemenu(ProcPtr);
 void Make6C_savemenu2(ProcPtr);
@@ -651,7 +651,7 @@ void sub_8009CA4(ProcPtr proc) {
 }
 
 void sub_8009CC0(ProcPtr proc) {
-    MakeMetaDataBySomeIndex(3);
+    MakeMetaDataBySlot(3);
 
     gRAMChapterData.unk41_1 = 0;
 

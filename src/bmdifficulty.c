@@ -241,8 +241,8 @@ s8 TryAddPostgameUnit(ProcPtr proc, const struct UnitDefinition* uDef) {
     return 0;
 }
 
-// SaveDungeonState?
-void sub_8037E08(struct Dungeon* savedDungeon) {
+// Save2DungeonStates?
+void Save1DungeonState(struct Dungeon* savedDungeon) {
 
     *savedDungeon = gDungeonState.current;
     gDungeonState.current.unk_0B_4 = gDungeonState.type;
@@ -250,8 +250,8 @@ void sub_8037E08(struct Dungeon* savedDungeon) {
     return;
 }
 
-// LoadDungeonState?
-void sub_8037E30(struct Dungeon* savedDungeon) {
+// Load2DungeonStates?
+void Load1DungeonState(struct Dungeon* savedDungeon) {
 
     gDungeonState.current = *savedDungeon;
     gDungeonState.type = gDungeonState.current.unk_0B_4;
@@ -260,7 +260,7 @@ void sub_8037E30(struct Dungeon* savedDungeon) {
 }
 
 // SaveDungeonRecords?
-void SaveDungeonState(struct Dungeon* savedDungeon) {
+void Save2DungeonStates(struct Dungeon* savedDungeon) {
 
     memcpy(savedDungeon, gDungeonState.dungeon, 2 * sizeof(struct Dungeon));
 
@@ -268,7 +268,7 @@ void SaveDungeonState(struct Dungeon* savedDungeon) {
 }
 
 // LoadDungeonRecords?
-void LoadDungeonState(struct Dungeon* savedDungeon) {
+void Load2DungeonStates(struct Dungeon* savedDungeon) {
 
     memcpy(gDungeonState.dungeon, savedDungeon, 2 * sizeof(struct Dungeon));
 

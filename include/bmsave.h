@@ -94,6 +94,98 @@ struct bmsave_unkstruct2_ {
     u16 magic2;
 };
 
+struct PackedSaveUnit {
+    /* 00 */ u32 class      : 7;
+             u32 level      : 5;
+             u32 exp        : 7;
+             u32 xPos       : 6;
+             u32 yPos       : 6;
+
+             u32 flag       : 13;
+
+             u32 max_hp     : 6;
+             u32 pow        : 5;
+             u32 skl        : 5;
+             u32 spd        : 5;
+             u32 def        : 5;
+             u32 res        : 5;
+             u32 lck        : 5;
+             u32 con_bonus  : 5;
+             u32 mov_bonus  : 5;
+             u32 item1      : 14;
+             u32 item2      : 14;
+             u32 item3      : 14;
+             u32 item4      : 14;
+             u32 item5      : 14;
+    
+    /* 14 */ u8 char_index;
+    /* 15 */ u8 wpnRanks[0x8];
+    /* 1D */ u8 supports[UNIT_SUPPORT_MAX_COUNT];
+
+    /* End at 0x24 */
+};
+
+enum packed_unit_state_bits {
+    PACKED_US_DEAD       = 1 << 0,
+    PACKED_US_UNDEPLOYED = 1 << 1,
+    PACKED_US_SOLO_ANIM1 = 1 << 2,
+    PACKED_US_SOLO_ANIM2 = 1 << 3,
+    PACKED_US_METIS_TOME = 1 << 4,
+    PACKED_US_B4         = 1 << 5,
+    PACKED_US_B5         = 1 << 6,
+    PACKED_US_NEW_FRIEND = 1 << 7,
+};
+
+struct PackedSaveSuUnit {
+    /* 00 */ u8 char_id;
+    /* 01 */ u8 class;
+    /* 02 */ u8 ai1;
+    /* 03 */ u8 rescueOtherUnit;
+    /* 04 */ u32 state;
+
+    /* 08 */ u16 item1;
+    /* 0A */ u16 item2;
+    /* 0C */ u16 item3;
+    
+    /* 0E */ s8 maxHP;
+    /* 0F */ s8 curHP;
+    /* 10 */ u8 exp;
+    /* 11 */ u8 aiFlags;
+    /* 12 */ u8 ranks[8];
+    /* 1A */ u8 supports[UNIT_SUPPORT_MAX_COUNT];
+    /* 21 */ u8 ai1data;
+    /* 22 */ u8 ai2;
+    /* 23 */ u8 ai2data;
+
+    /* 24 */ u32 level      : 5;
+             u32 xPos       : 6;
+             u32 yPos       : 6;
+             u32 pow        : 5;
+             u32 skl        : 5;
+             u32 spd        : 5;
+    /* 28 */ u32 def        : 5;
+             u32 res        : 5;
+             u32 lck        : 5;
+             u32 conBonus   : 5;
+
+             u32 statusIndex_l      : 3;
+             u32 statusDuration     : 3;
+             u32 torchDuration      : 3;
+             u32 barrierDuration    : 3;
+    
+    /* 2C */ u32 movBonus   : 4;
+             u16 item4      : 14;
+             u16 item5      : 14;
+    
+    /* 30 */ u8 ballistaIndex;
+    
+    /* 31 */ u8 _u46;
+    /* 32 */ u16 ai3And4;
+
+    /* Total 0x34 long */
+};
+
+
 s8 IsSramWorking();
 u8 LoadAndVerifySecureHeaderSW(void *buf);
 u16 CalcSaveDataMagic(void *src, int size);
@@ -112,11 +204,10 @@ void SaveClearedBWLAndChapterWinData(void *sram_dest);
 void SaveGlobalEventIndexes(void *sram_dest);
 void sub_80A7074(void *sram_dest);
 void SetSecHeader_unk62(int num);
-void SaveUnit(struct Unit *unit, void *sram_dest);
+void PackAndSaveUnit(struct Unit *unit, void *sram_dest);
 void SaveRNGState_Maybe(void *sram_dest);
 void SaveWMStaff(void *sram_dest, void *src);
-void SaveDungeonState(void *ram_dest);
-void LoadSavedUnit(const void *sram_src, struct Unit *unit);
+void LoadAndUnpackUnit(const void *sram_src, struct Unit *unit);
 void LoadGMMonsterRNState(const void *sram_src);
 void LoadConvoyItems(const void *sram_src);
 void LoadGlobalEventIds(const void *sram_src);
@@ -124,7 +215,6 @@ void LoadBWLEntries(void *sram_src);
 void LoadChapterWinData(const void *sram_src);
 void Load0203EDB4(const void *sram_src);
 void LoadWMStaff(const void *sram_src, void *src);
-void LoadDungeonState(const void *sram_src);
 
 u8 VerifySecHeaderBySomeIndex(int);
 void sub_80A5DFC(int);
@@ -132,6 +222,11 @@ void LoadChunkBySomeIndex(int index, void *buf);
 s8 DoSaveMetaCheck(int);
 void GetSaveChunkData(int, struct RAMChapterData*);
 int CheckSecHeader_BIT63();
-void MakeMetaDataBySomeIndex(int);
+void MakeMetaDataBySlot(int);
+
+void SaveGame(int slot);
+void LoadGame(int slot);
+void SaveSuspendedGame(int slot);
+void LoadSuspendedGame(int slot);
 
 #endif /* BMSAVE_H */

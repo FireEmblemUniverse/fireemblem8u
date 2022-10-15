@@ -514,8 +514,8 @@ extern struct RAMChapterData gRAMChapterData;
 extern u8 gActiveUnitId;
 extern struct Vec2 gActiveUnitMoveOrigin;
 extern struct Unit gUnitArrayBlue[62];
-// extern ??? gUnitArrayRed
-// extern ??? gUnitArrayGreen
+extern struct Unit gUnitArrayRed[50];
+extern struct Unit gUnitArrayGreen[20];
 // extern ??? gUnknown_02030B8C
 extern u8 gWorkingMovementScript[];
 // extern ??? gUnknown_02033F40
@@ -638,7 +638,7 @@ extern struct ActionData gActionData;
 // extern ??? gBWLDataStorage
 extern struct ChapterWinData gChapterWinDataArray[WIN_ARRAY_NUM];
 extern u32 gUnknown_0203EDB4;
-// extern ??? gUnknown_0203EDB8
+extern u8 gSaveSuBaseSlotMaybe;
 // extern ??? gUnknown_0203EDBC
 // extern ??? gUnknown_0203EE80
 // extern ??? gUnknown_0203EF44

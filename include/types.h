@@ -590,12 +590,8 @@ struct GameRankSaveData {
 
 struct ChapterWinData {
     /* 00 */ u16 chapter_index : 0x07;
-             u16 chapter_turn : 0x09;
-             u16 chapter_time : 0x10;
-};
-
-struct DungeonState {
-    u32 unk00[0x6];
+             u16 chapter_turn  : 0x09;
+             u16 chapter_time  : 0x10;
 };
 
 

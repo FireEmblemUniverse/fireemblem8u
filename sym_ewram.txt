@@ -636,7 +636,7 @@
 . = 0x03E894; gBWLDataStorage = .;
 . = 0x03ECF4; gChapterWinDataArray = .;
 . = 0x03EDB4; gUnknown_0203EDB4 = .;
-. = 0x03EDB8; gUnknown_0203EDB8 = .;
+. = 0x03EDB8; gSaveSuBaseSlotMaybe = .;
 . = 0x03EDBC; gUnknown_0203EDBC = .;
 . = 0x03EE80; gUnknown_0203EE80 = .;
 . = 0x03EF44; gUnknown_0203EF44 = .;

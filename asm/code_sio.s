@@ -10282,7 +10282,7 @@ _080464EA:
 	ldr r0, [r1]
 	adds r0, r0, r7
 	adds r1, r5, #0
-	bl LoadSavedUnit
+	bl LoadAndUnpackUnit
 	adds r0, r5, #0
 	bl sub_8046478
 	strb r4, [r5, #0xb]
@@ -10441,7 +10441,7 @@ _08046606:
 	bl ClearUnit
 	mov r0, sp
 	adds r1, r5, #0
-	bl LoadSavedUnit
+	bl LoadAndUnpackUnit
 	adds r0, r5, #0
 	bl sub_8046478
 	ldrb r0, [r6]
@@ -10975,7 +10975,7 @@ _08046AE0:
 	strb r0, [r4]
 _08046AE4:
 	add r0, sp, #4
-	bl sub_80A52BC
+	bl CheckRamChapterDataUnk
 	lsls r0, r0, #0x18
 	cmp r0, #0
 	beq _08046B02
@@ -12931,7 +12931,7 @@ _08047ABE:
 	mov r1, sp
 	bl GetSaveChunkData
 	mov r0, sp
-	bl sub_80A52BC
+	bl CheckRamChapterDataUnk
 	lsls r0, r0, #0x18
 	cmp r0, #0
 	beq _08047AE2
