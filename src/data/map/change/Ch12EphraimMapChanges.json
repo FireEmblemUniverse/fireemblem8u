@@ -1,0 +1,21 @@
+{
+  "name": "Ch12EphraimMapChanges",
+  "changes": [
+    {
+      "id": 0,
+      "x": 4,
+      "y": 4,
+      "w": 3,
+      "h": 2,
+      "tiles": "Ch12EphraimMapChanges_change_0"
+    },
+    {
+      "id": 1,
+      "x": 5,
+      "y": 5,
+      "w": 1,
+      "h": 1,
+      "tiles": "Ch12EphraimMapChanges_change_1"
+    }
+  ]
+}

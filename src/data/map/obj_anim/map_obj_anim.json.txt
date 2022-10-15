@@ -1,0 +1,7 @@
+{{ doNotModifyHeader }}
+
+## for frame in frames
+    .hword {{ frame.duration }}, {{ frame.size }}
+    .word {{ frame.gfx }}
+## endfor
+    .word 0, 0

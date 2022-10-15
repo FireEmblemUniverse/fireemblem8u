@@ -32,6 +32,7 @@ SCANINC    := tools/scaninc/scaninc$(EXE)
 AIF2PCM    := tools/aif2pcm/aif2pcm$(EXE)
 MID2AGB    := tools/mid2agb/mid2agb$(EXE)
 TEXTENCODE := tools/textencode/textencode$(EXE)
+JSONPROC   := tools/jsonproc/jsonproc$(EXE)
 
 ifeq ($(UNAME),Darwin)
 	SED := sed -i ''
@@ -54,6 +55,7 @@ ASFLAGS  := -mcpu=arm7tdmi -mthumb-interwork -I include
 C_SUBDIR = src
 ASM_SUBDIR = asm
 DATA_SUBDIR = data
+DATA_SRC_SUBDIR = src/data
 SAMPLE_SUBDIR = sound/direct_sound_samples
 MID_SUBDIR = sound/songs/midi
 
@@ -79,6 +81,8 @@ MID_OBJECTS  := $(MID_FILES:.mid=.o)
 ALL_OBJECTS  := $(C_OBJECTS) $(ASM_OBJECTS) $(BANIM_OBJECT) $(MID_OBJECTS)
 DEPS_DIR     := .dep
 
+AUTO_GEN_TARGETS :=
+
 # Use the older compiler to build library code
 src/agb_sram.o: CC1FLAGS := -mthumb-interwork -Wimplicit -Wparentheses -Werror -O1 -g
 src/m4a.o: CC1 := $(CC1_OLD)
@@ -103,6 +107,7 @@ clean:
 	$(RM) -f $(SAMPLE_SUBDIR)/*.bin
 	# Remove converted songs
 	$(RM) -f $(MID_SUBDIR)/*.s
+	$(RM) -f $(AUTO_GEN_TARGETS)
 
 .PHONY: clean
 
@@ -117,6 +122,7 @@ tag:
 
 include graphics_file_rules.mk
 include songs.mk
+include json_data_rules.mk
 
 %.s: ;
 %.png: ;

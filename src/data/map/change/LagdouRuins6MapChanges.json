@@ -1,0 +1,29 @@
+{
+  "name": "LagdouRuins6MapChanges",
+  "changes": [
+    {
+      "id": 0,
+      "x": 7,
+      "y": 1,
+      "w": 2,
+      "h": 2,
+      "tiles": "LagdouRuins6MapChanges_change_0"
+    },
+    {
+      "id": 1,
+      "x": 17,
+      "y": 4,
+      "w": 1,
+      "h": 2,
+      "tiles": "LagdouRuins6MapChanges_change_1"
+    },
+    {
+      "id": 2,
+      "x": 16,
+      "y": 7,
+      "w": 1,
+      "h": 1,
+      "tiles": "LagdouRuins6MapChanges_change_2"
+    }
+  ]
+}

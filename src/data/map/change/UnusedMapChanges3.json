@@ -1,0 +1,21 @@
+{
+  "name": "UnusedMapChanges3",
+  "changes": [
+    {
+      "id": 0,
+      "x": 4,
+      "y": 14,
+      "w": 1,
+      "h": 3,
+      "tiles": "UnusedMapChanges3_change_0"
+    },
+    {
+      "id": 1,
+      "x": 15,
+      "y": 13,
+      "w": 3,
+      "h": 1,
+      "tiles": "UnusedMapChanges3_change_1"
+    }
+  ]
+}

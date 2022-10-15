@@ -1,0 +1,45 @@
+{
+  "name": "UnusedMapChanges5",
+  "changes": [
+    {
+      "id": 0,
+      "x": 2,
+      "y": 12,
+      "w": 1,
+      "h": 1,
+      "tiles": "UnusedMapChanges5_change_0"
+    },
+    {
+      "id": 1,
+      "x": 4,
+      "y": 12,
+      "w": 1,
+      "h": 1,
+      "tiles": "UnusedMapChanges5_change_1"
+    },
+    {
+      "id": 2,
+      "x": 3,
+      "y": 15,
+      "w": 1,
+      "h": 2,
+      "tiles": "UnusedMapChanges5_change_2"
+    },
+    {
+      "id": 3,
+      "x": 27,
+      "y": 12,
+      "w": 1,
+      "h": 1,
+      "tiles": "UnusedMapChanges5_change_3"
+    },
+    {
+      "id": 4,
+      "x": 27,
+      "y": 10,
+      "w": 1,
+      "h": 1,
+      "tiles": "UnusedMapChanges5_change_4"
+    }
+  ]
+}

@@ -270,10 +270,10 @@ void BMapVSync_InitMapAnimations(struct BMVSyncProc* proc) {
     proc->tilePalAnimClock = 0;
 
     proc->tileGfxAnimStart = proc->tileGfxAnimCurrent =
-        gChapterDataAssetTable[GetROMChapterStruct(gRAMChapterData.chapterIndex)->mapTileAnim1Id];
+        gChapterDataAssetTable[GetROMChapterStruct(gRAMChapterData.chapterIndex)->map.objAnimId];
 
     proc->tilePalAnimStart = proc->tilePalAnimCurrent =
-        gChapterDataAssetTable[GetROMChapterStruct(gRAMChapterData.chapterIndex)->mapTileAnim2Id];
+        gChapterDataAssetTable[GetROMChapterStruct(gRAMChapterData.chapterIndex)->map.paletteAnimId];
 }
 
 void BMapVSync_OnEnd(struct BMVSyncProc* proc) {
@@ -767,7 +767,7 @@ void WfxCloudsOffsetGraphicsEffect(u32* lines) {
 }
 
 void WfxClouds_Init(void) {
-    AllocWeatherParticles(WEATHER_NONE);
+    AllocWeatherParticles(WEATHER_FINE);
 
     CopyDataWithPossibleUncomp(
         gUnknown_085A3B00,
@@ -823,7 +823,7 @@ void WfxClouds_Update(void) {
 void WfxInit(void) {
     switch (gRAMChapterData.chapterWeatherId) {
 
-    case WEATHER_NONE:
+    case WEATHER_FINE:
         WfxNone_Init();
         break;
 
@@ -909,7 +909,7 @@ void ResetMapPaletteAnimations(void) {
 
     if (proc)
         proc->tilePalAnimStart = proc->tilePalAnimCurrent =
-            gChapterDataAssetTable[GetROMChapterStruct(gRAMChapterData.chapterIndex)->mapTileAnim2Id];
+            gChapterDataAssetTable[GetROMChapterStruct(gRAMChapterData.chapterIndex)->map.paletteAnimId];
 }
 
 void SetWeather(unsigned weatherId) {
