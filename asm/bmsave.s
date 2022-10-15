@@ -120,6 +120,7 @@ _080A61F4:
 	ands r2, r5
 	orrs r2, r0
 	strb r2, [r4]
+
 	mov r0, sp
 	adds r0, #0x2b
 	ldrb r1, [r0]
@@ -132,19 +133,26 @@ _080A61F4:
 	ands r0, r5
 	orrs r0, r1
 	strb r0, [r2]
+
 	mov r0, sp
 	ldrb r0, [r0, #3]
 	strb r0, [r6, #0x1b]
+
+	@ movBonus
 	add r0, sp, #0x2c
 	ldrb r0, [r0]
 	lsls r0, r0, #0x1c
 	lsrs r0, r0, #0x1c
 	strb r0, [r6, #0x1d]
+
+	@ ballistaIndex
 	add r0, sp, #0x30
 	ldrb r2, [r0]
 	movs r0, #0x7f
 	ands r0, r2
 	strb r0, [r6, #0x1c]
+
+	@ items
 	mov r0, sp
 	ldrh r5, [r0, #8]
 	ldr r1, _080A636C  @ 0x00003FFF
@@ -168,6 +176,8 @@ _080A61F4:
 	ldrh r0, [r0, #0x2e]
 	lsrs r0, r0, #2
 	strh r0, [r6, #0x26]
+
+
 	mov r1, r8
 	ands r1, r2
 	lsls r1, r1, #0x18
@@ -187,7 +197,8 @@ _080A61F4:
 	orrs r2, r1
 	adds r0, r6, #0
 	adds r0, #0x39
-	strb r2, [r0]
+	strb r2, [r0]		@ supportBits
+
 	movs r2, #0
 	adds r7, r6, #0
 	adds r7, #0x32
@@ -202,6 +213,7 @@ _080A61F4:
 	adds r1, r6, #0
 	adds r1, #0x43
 	str r1, [sp, #0x3c]
+
 	movs r0, #0x22
 	add r0, sp
 	mov r8, r0
