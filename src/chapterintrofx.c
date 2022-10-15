@@ -740,8 +740,8 @@ void ChapterIntro_8020944(struct ChapterIntroFXProc* proc) {
     CopyDataWithPossibleUncomp(gUnknown_08B18F34, BG_CHAR_ADDR(2));
     CopyToPaletteBuffer(gUnknown_08B19854, 0x80, 0x20);
 
-    CopyDataWithPossibleUncomp(gUnknown_08B196D8, gUnknown_02020188);
-    CallARM_FillTileRect(gBG2TilemapBuffer, gUnknown_02020188, 0x4000);
+    CopyDataWithPossibleUncomp(gUnknown_08B196D8, gGenericBuffer);
+    CallARM_FillTileRect(gBG2TilemapBuffer, gGenericBuffer, 0x4000);
 
     BG_EnableSyncByMask(4);
 
@@ -897,9 +897,9 @@ void ChapterIntro_LoopFadeToMap(struct ChapterIntroFXProc* proc) {
             WfxFlamesInitGradientPublic();
         }
 
-        if ((GetChapterThing() == 2) || GetROMChapterStruct(gRAMChapterData.chapterIndex)->fadeToBlack) {
-            if ((GetROMChapterStruct(gRAMChapterData.chapterIndex)->mapPrologueBgmId) != 0xFFFF) {
-                Sound_PlaySong80024D4(GetROMChapterStruct(gRAMChapterData.chapterIndex)->mapPrologueBgmId, 0);
+        if ((GetBattleMapType() == 2) || GetROMChapterStruct(gRAMChapterData.chapterIndex)->boolFadeToBlack) {
+            if ((GetROMChapterStruct(gRAMChapterData.chapterIndex)->unk28) != 0xFFFF) {
+                Sound_PlaySong80024D4(GetROMChapterStruct(gRAMChapterData.chapterIndex)->unk28, 0);
             }
 
             proc->unk_4C = 0;
@@ -1052,7 +1052,7 @@ void ChapterIntro_LoopFastFadeToMap(struct ChapterIntroFXProc* proc) {
         WfxFlamesInitGradientPublic();
     }
 
-    if ((GetChapterThing() == 2) || (GetROMChapterStruct(gRAMChapterData.chapterIndex)->fadeToBlack)) {
+    if ((GetBattleMapType() == 2) || (GetROMChapterStruct(gRAMChapterData.chapterIndex)->boolFadeToBlack)) {
         proc->unk_4C = 0;
 
         gLCDControlBuffer.dispcnt.bg0_on = 1;
@@ -1129,8 +1129,8 @@ void ChapterIntro_80210C8() {
     gLCDControlBuffer.bg2cnt.priority = 2;
     gLCDControlBuffer.bg3cnt.priority = 3;
 
-    if ((GetChapterThing() == 2) ||
-    (GetROMChapterStruct(gRAMChapterData.chapterIndex)->fadeToBlack)) {
+    if ((GetBattleMapType() == 2) ||
+    (GetROMChapterStruct(gRAMChapterData.chapterIndex)->boolFadeToBlack)) {
         RefreshBMapGraphics();
         sub_80141B0();
     }

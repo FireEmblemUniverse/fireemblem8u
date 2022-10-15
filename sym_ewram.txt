@@ -293,7 +293,7 @@
 . = 0x020140; gUnknown_02020140 = .;
 . = 0x020144; gUnknown_02020144 = .;
 . = 0x020148; gUnknown_02020148 = .;
-. = 0x020188; gUnknown_02020188 = .;
+. = 0x020188; _gGenericBuffer = .;
 . = 0x020208; gUnknown_02020208 = .;
 . = 0x020288; gUnknown_02020288 = .;
 . = 0x020988; gUnknown_02020988 = .;
@@ -630,13 +630,13 @@
 . = 0x03E828; gUnknown_0203E828 = .;
 . = 0x03E82C; gUnknown_0203E82C = .;
 . = 0x03E87C; gUnknown_0203E87C = .;
-. = 0x03E884; gUnknown_0203E884 = .;
+. = 0x03E884; gBWLDataArray = .;
 . = 0x03E88E; gBoolSramWorking = .;
-. = 0x03E890; gUnknown_0203E890 = .;
-. = 0x03E894; gUnknown_0203E894 = .;
-. = 0x03ECF4; gUnknown_0203ECF4 = .;
+. = 0x03E890; gpBWLSaveTarget = .;
+. = 0x03E894; gBWLDataStorage = .;
+. = 0x03ECF4; gChapterWinDataArray = .;
 . = 0x03EDB4; gUnknown_0203EDB4 = .;
-. = 0x03EDB8; gUnknown_0203EDB8 = .;
+. = 0x03EDB8; gSaveSuBaseSlotMaybe = .;
 . = 0x03EDBC; gUnknown_0203EDBC = .;
 . = 0x03EE80; gUnknown_0203EE80 = .;
 . = 0x03EF44; gUnknown_0203EF44 = .;

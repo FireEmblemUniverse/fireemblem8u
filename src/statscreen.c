@@ -17,6 +17,7 @@
 #include "bmreliance.h"
 #include "uiutils.h"
 #include "mu.h"
+#include "bwl.h"
 
 #include "constants/classes.h"
 
@@ -601,7 +602,7 @@ void DisplayLeftPanel(void)
 static
 void DisplayBwl(void)
 {
-    struct UnitUsageStats* stats = BWL_GetEntry(gStatScreen.unit->pCharacterData->number);
+    struct BwlData* stats = BWL_GetEntry(gStatScreen.unit->pCharacterData->number);
 
     if (!stats)
         return;
@@ -841,11 +842,11 @@ void DisplayPage1(void)
 
     CopyDataWithPossibleUncomp(
         gUnknown_08A02204,
-        gUnknown_02020188);
+        gGenericBuffer);
 
     CallARM_FillTileRect(
         gBmFrameTmap1 + TILEMAP_INDEX(1, 11),
-        gUnknown_02020188, TILEREF(0x40, STATSCREEN_BGPAL_3));
+        gGenericBuffer, TILEREF(0x40, STATSCREEN_BGPAL_3));
 
     DisplayTexts(sPage1TextInfo);
 
@@ -1713,10 +1714,10 @@ void StatScreen_InitDisplay(struct Proc* proc)
     ApplyPalette(gUnknown_08A0731C, STATSCREEN_BGPAL_HALO);
 
     CopyDataWithPossibleUncomp(
-        gUnknown_08A071FC, gUnknown_02020188);
+        gUnknown_08A071FC, gGenericBuffer);
 
     CallARM_FillTileRect(gBG1TilemapBuffer + TILEMAP_INDEX(12, 0),
-        gUnknown_02020188, TILEREF(0x220, STATSCREEN_BGPAL_HALO));
+        gGenericBuffer, TILEREF(0x220, STATSCREEN_BGPAL_HALO));
 
     // Load and display Background
 
@@ -1725,9 +1726,9 @@ void StatScreen_InitDisplay(struct Proc* proc)
 
     ApplyPalettes(gUnknown_08A06460, STATSCREEN_BGPAL_BACKGROUND, 4);
 
-    CopyDataWithPossibleUncomp(gUnknown_08A05F10, gUnknown_02020188);
+    CopyDataWithPossibleUncomp(gUnknown_08A05F10, gGenericBuffer);
 
-    CallARM_FillTileRect(gBG3TilemapBuffer, gUnknown_02020188,
+    CallARM_FillTileRect(gBG3TilemapBuffer, gGenericBuffer,
         TILEREF(0x180, 12));
 
     // Load object graphics

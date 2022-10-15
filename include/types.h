@@ -176,13 +176,21 @@ struct RAMChapterData { // Chapter Data Struct
     // has to do with allowing unusable weapons to be used
     /* 1C */ u8  unk1C[4];
 
-    /* 20 */ char playerName[0x2C - 0x20]; // unused outside of link arena (was tactician name in FE7); Size unknown
+    /* 20 */ char playerName[0x2B - 0x20]; // unused outside of link arena (was tactician name in FE7); Size unknown
 
-    u32 unk_2C_1:23;
-    u32 unk_2C_2:5;
-    u32 unk_2C_3:4;
+    u8 unk_2B_00 : 0x01;
+    u8 unk_2B_01 : 0x07;
+    u32 unk_2C_00 : 0x01;
+    u32 unk_2C_01 : 0x03;
+    u32 unk_2C_04 : 0x09;
+    u32 unk_2C_0D : 0x0A;
+    u32 unk_2C_17 : 0x05;
+    u32 unk_2C_22 : 0x04;
 
-    /* 30 */ u8  _unk30[0x38-0x30];
+    /* 30 */ int total_gold;
+
+    /* 34 */ u32 unk_34_00 : 0x14;
+             u32 unk_34_14 : 0x0C;
 
     u32 unk_38_1:8;
     u32 unk_38_2:20; // Used by bmdifficulty (Valni/Lagdou)
@@ -207,7 +215,7 @@ struct RAMChapterData { // Chapter Data Struct
     u32 cfgDisableGoalDisplay:1; // unk
     u32 unk42_2:2; // 2
     u32 cfgBattleForecastType:2; // 2
-    u32 unk42_6:1; // 1
+    u32 toturial_mode_maybe:1; // 1
     u32 unk42_7:1; // unk
     u32 unk42_8:2; // 2 (!)
     u32 unk43_2:2; // 2
@@ -221,6 +229,16 @@ struct RAMChapterData { // Chapter Data Struct
     unsigned unk4A_2 : 3;
     unsigned unk4A_5 : 4;
     u8 unk4B;
+};
+
+/**
+ * Use with RAMChapterData field chapterModeIndex
+ */
+
+enum {
+    CHAPTER_MODE_COMMON = 1,
+    CHAPTER_MODE_EIRIKA = 2,
+    CHAPTER_MODE_EPHRAIM = 3,
 };
 
 /**
@@ -498,25 +516,6 @@ struct MapChange
     /* 08 */ const void* data;
 };
 
-struct UnitUsageStats
-{
-	/* 000 */ unsigned lossAmt     : 8;
-	/* 008 */ unsigned favval      : 16;
-	/* 024 */ unsigned actAmt      : 8;
-	/* 032 */ unsigned statViewAmt : 8;
-	/* 040 */ unsigned deathLoc    : 6;
-	/* 046 */ unsigned deathTurn   : 10;
-	/* 056 */ unsigned deployAmt   : 6;
-	/* 062 */ unsigned moveAmt     : 10;
-	/* 072 */ unsigned deathCause  : 4;
-	/* 076 */ unsigned expGained   : 12;
-	/* 088 */ unsigned winAmt      : 10;
-	/* 098 */ unsigned battleAmt   : 12;
-	/* 110 */ unsigned killerPid   : 9;
-	/* 119 */ unsigned deathSkirm  : 1;
-	/* 120 */ /* 8bit pad */
-};
-
 enum { UNIT_SUPPORT_MAX_COUNT = 7 };
 
 enum
@@ -566,5 +565,43 @@ struct SupportTalkEnt {
 
     u16 _pad[3];
 };
+
+struct GameRankSaveData {
+    /* 00 */ u32 unk00_00 : 0x01;
+             u32 unk00_01 : 0x03;
+             u32 unk00_04 : 0x03; 
+             u32 unk00_07 : 0x03; 
+             u32 unk00_0A : 0x03;
+             u32 unk00_0D : 0x03;
+             u32 unk00_10 : 0x03;
+
+             u32 chapter_mode : 0x02;
+             u32 chapter_stat : 0x01;
+             u32 unk00_16 : 0x01;
+             u32 unk00_17 : 0x08;
+             u32 cuteguy : 0x08;
+
+             u32 hours : 0x0A;
+             u32 minutes : 0x06;
+             u32 seconds : 0x06;
+             u32 gold : 0x18;
+
+    /* 08 */ u32 unk08_15 : 0x06;
+             u32 unk08_1F : 0x01;
+
+    /* 0C */ char tactician_name[0xB];
+
+    /* 17 */ u8 luckydog;
+};
+
+
+#define WIN_ARRAY_NUM 0x30
+
+struct ChapterWinData {
+    /* 00 */ u16 chapter_index : 0x07;
+             u16 chapter_turn  : 0x09;
+             u16 chapter_time  : 0x10;
+};
+
 
 #endif // GUARD_TYPES_H

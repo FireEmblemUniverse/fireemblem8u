@@ -6,7 +6,7 @@
 LoadObjUIGfx: @ 0x08015680
 	push {r4, lr}
 	ldr r0, _080156AC  @ gUnknown_0859E8E0
-	ldr r4, _080156B0  @ gUnknown_02020188
+	ldr r4, _080156B0  @ _gGenericBuffer
 	adds r1, r4, #0
 	bl CopyDataWithPossibleUncomp
 	ldr r1, _080156B4  @ 0x06010000
@@ -24,7 +24,7 @@ LoadObjUIGfx: @ 0x08015680
 	bx r0
 	.align 2, 0
 _080156AC: .4byte gUnknown_0859E8E0
-_080156B0: .4byte gUnknown_02020188
+_080156B0: .4byte _gGenericBuffer
 _080156B4: .4byte 0x06010000
 _080156B8: .4byte gUnknown_0859ED70
 
@@ -1378,7 +1378,7 @@ _08016040:
 	ldrh r0, [r0]
 	b _080160C4
 _0801605E:
-	bl GetChapterThing
+	bl GetBattleMapType
 	cmp r0, #2
 	beq _0801607A
 	movs r0, #0xe
@@ -1395,7 +1395,7 @@ _0801607A:
 	movs r0, #0x80
 	bl CountUnitsInState
 	adds r4, r0, #0
-	bl GetChapterThing
+	bl GetBattleMapType
 	cmp r0, #2
 	beq _080160A8
 	movs r0, #0xe

@@ -48,7 +48,7 @@ void AgbMain()
     InitRN(AdvanceGetLCGRNValue());
     sub_8000D0C();
     sub_80A7374();
-    sub_80A40A8();
+    VerfyMiscSaveData();
 
     // initialize sound
     m4aSoundInit();

@@ -72,7 +72,7 @@ const struct Outer080D7FD0 gUnknown_080D7FD0 = {
 void NewPopup_NewAlly(ProcPtr, int);
 
 // code.s
-int sub_80A49A4(void);
+int BWL_CalcTotalExpGain(void);
 void sub_80AB760(u16*);
 void sub_80AB77C(void);
 
@@ -241,8 +241,8 @@ s8 TryAddPostgameUnit(ProcPtr proc, const struct UnitDefinition* uDef) {
     return 0;
 }
 
-// SaveDungeonState?
-void sub_8037E08(struct Dungeon* savedDungeon) {
+// Save2DungeonStates?
+void Save1DungeonState(struct Dungeon* savedDungeon) {
 
     *savedDungeon = gDungeonState.current;
     gDungeonState.current.unk_0B_4 = gDungeonState.type;
@@ -250,8 +250,8 @@ void sub_8037E08(struct Dungeon* savedDungeon) {
     return;
 }
 
-// LoadDungeonState?
-void sub_8037E30(struct Dungeon* savedDungeon) {
+// Load2DungeonStates?
+void Load1DungeonState(struct Dungeon* savedDungeon) {
 
     gDungeonState.current = *savedDungeon;
     gDungeonState.type = gDungeonState.current.unk_0B_4;
@@ -260,7 +260,7 @@ void sub_8037E30(struct Dungeon* savedDungeon) {
 }
 
 // SaveDungeonRecords?
-void sub_8037E4C(struct Dungeon* savedDungeon) {
+void Save2DungeonStates(struct Dungeon* savedDungeon) {
 
     memcpy(savedDungeon, gDungeonState.dungeon, 2 * sizeof(struct Dungeon));
 
@@ -268,7 +268,7 @@ void sub_8037E4C(struct Dungeon* savedDungeon) {
 }
 
 // LoadDungeonRecords?
-void sub_8037E64(struct Dungeon* savedDungeon) {
+void Load2DungeonStates(struct Dungeon* savedDungeon) {
 
     memcpy(gDungeonState.dungeon, savedDungeon, 2 * sizeof(struct Dungeon));
 
@@ -296,7 +296,7 @@ void UpdateDungeonStats(struct Dungeon* dungeon) {
 
     val = dungeon->expEarned;
 
-    val += (sub_80A49A4() - gRAMChapterData.unk_38_2);
+    val += (BWL_CalcTotalExpGain() - gRAMChapterData.unk_38_2);
 
     if (val > 50000) {
         val = 50000;
@@ -580,11 +580,11 @@ void SetupDungeonRecordUi(ProcPtr proc) {
 
     CopyDataWithPossibleUncomp(gUnknown_08A26380, (void *)(BG_VRAM + 0x4C00) + GetBackgroundTileDataOffset(2));
 
-    CopyDataWithPossibleUncomp(gUnknown_08A268F8, gUnknown_02020188);
+    CopyDataWithPossibleUncomp(gUnknown_08A268F8, gGenericBuffer);
 
     CopyToPaletteBuffer(gUnknown_08A268D8, 0xE0, 0x20);
 
-    CallARM_FillTileRect(gBG2TilemapBuffer, gUnknown_02020188, 0x7260);
+    CallARM_FillTileRect(gBG2TilemapBuffer, gGenericBuffer, 0x7260);
 
     // Load and display "Combat Record" graphic
 

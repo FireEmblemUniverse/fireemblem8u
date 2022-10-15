@@ -1616,7 +1616,7 @@ _0800E0FE:
 	bl CountGreenUnits
 	b _0800E14A
 _0800E104:
-	bl GetChapterThing
+	bl GetBattleMapType
 	b _0800E138
 _0800E10A:
 	ldr r1, _0800E12C  @ gRAMChapterData

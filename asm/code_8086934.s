@@ -183,7 +183,7 @@ sub_8086A40: @ 0x08086A40
 	mov r8, r1
 	mov r9, r2
 	mov sl, r3
-	ldr r7, _08086B24  @ gUnknown_02020188
+	ldr r7, _08086B24  @ _gGenericBuffer
 	movs r0, #0
 	str r0, [sp]
 	lsls r2, r2, #4
@@ -285,7 +285,7 @@ _08086B02:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_08086B24: .4byte gUnknown_02020188
+_08086B24: .4byte _gGenericBuffer
 _08086B28: .4byte 0x001FFFFF
 
 	THUMB_FUNC_END sub_8086A40

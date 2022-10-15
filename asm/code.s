@@ -13132,7 +13132,7 @@ sub_8094FF4: @ 0x08094FF4
 	ldr r0, _08095014  @ gRAMChapterData
 	movs r2, #0xe
 	ldrsb r2, [r0, r2]
-	ldr r0, _08095018  @ gUnknown_03005280
+	ldr r0, _08095018  @ gGMData
 	ldrb r1, [r0]
 	movs r0, #1
 	ands r0, r1
@@ -13146,7 +13146,7 @@ sub_8094FF4: @ 0x08094FF4
 	b _0809501E
 	.align 2, 0
 _08095014: .4byte gRAMChapterData
-_08095018: .4byte gUnknown_03005280
+_08095018: .4byte gGMData
 _0809501C:
 	movs r0, #1
 _0809501E:
@@ -13704,7 +13704,7 @@ _08095390: .4byte gUnknown_020121CC
 	THUMB_FUNC_START sub_8095394
 sub_8095394: @ 0x08095394
 	push {lr}
-	ldr r0, _080953A8  @ gUnknown_03005280
+	ldr r0, _080953A8  @ gGMData
 	ldrb r1, [r0]
 	movs r0, #1
 	ands r0, r1
@@ -13713,7 +13713,7 @@ sub_8095394: @ 0x08095394
 	bl sub_80C4088
 	b _080953B6
 	.align 2, 0
-_080953A8: .4byte gUnknown_03005280
+_080953A8: .4byte gGMData
 _080953AC:
 	ldr r0, _080953BC  @ gUnknown_020121CC
 	movs r1, #0x82
@@ -13732,7 +13732,7 @@ _080953BC: .4byte gUnknown_020121CC
 sub_80953C0: @ 0x080953C0
 	push {lr}
 	adds r2, r0, #0
-	ldr r0, _080953D8  @ gUnknown_03005280
+	ldr r0, _080953D8  @ gGMData
 	ldrb r1, [r0]
 	movs r0, #1
 	ands r0, r1
@@ -13742,7 +13742,7 @@ sub_80953C0: @ 0x080953C0
 	bl sub_80C409C
 	b _080953E6
 	.align 2, 0
-_080953D8: .4byte gUnknown_03005280
+_080953D8: .4byte gGMData
 _080953DC:
 	ldr r0, _080953EC  @ gUnknown_020121CC
 	movs r1, #0x82
@@ -13765,7 +13765,7 @@ IsCharacterForceDeployed: @ 0x080953F0
 	lsls r0, r0, #0x18
 	cmp r0, #0
 	bne _08095414
-	bl GetChapterThing
+	bl GetBattleMapType
 	cmp r0, #0
 	bne _08095414
 	lsls r0, r4, #0x10
@@ -14644,7 +14644,7 @@ sub_8095A44: @ 0x08095A44
 	adds r0, r4, #0
 	movs r1, #0
 	bl Text_80046B4
-	bl GetChapterThing
+	bl GetBattleMapType
 	adds r5, r4, #0
 	cmp r0, #2
 	beq _08095AAC
@@ -15071,7 +15071,7 @@ _08095D0C:
 	cmp r0, #0
 	beq _08095E48
 	ldr r0, _08095E3C  @ gUnknown_08A1B698
-	ldr r4, _08095E40  @ gUnknown_02020188
+	ldr r4, _08095E40  @ _gGenericBuffer
 	adds r1, r4, #0
 	bl CopyDataWithPossibleUncomp
 	ldr r0, _08095E44  @ gUnknown_020235EA
@@ -15097,11 +15097,11 @@ _08095E30: .4byte gUnknown_08A1B154
 _08095E34: .4byte gUnknown_08A1D4C8
 _08095E38: .4byte gUiFramePaletteB
 _08095E3C: .4byte gUnknown_08A1B698
-_08095E40: .4byte gUnknown_02020188
+_08095E40: .4byte _gGenericBuffer
 _08095E44: .4byte gUnknown_020235EA
 _08095E48:
 	ldr r0, _08095EAC  @ gUnknown_08A1B658
-	ldr r5, _08095EB0  @ gUnknown_02020188
+	ldr r5, _08095EB0  @ _gGenericBuffer
 	adds r1, r5, #0
 	bl CopyDataWithPossibleUncomp
 	ldr r4, _08095EB4  @ gUnknown_02023548
@@ -15142,7 +15142,7 @@ _08095E76:
 	bx r0
 	.align 2, 0
 _08095EAC: .4byte gUnknown_08A1B658
-_08095EB0: .4byte gUnknown_02020188
+_08095EB0: .4byte _gGenericBuffer
 _08095EB4: .4byte gUnknown_02023548
 _08095EB8: .4byte gUnknown_08A1B698
 
@@ -15459,7 +15459,7 @@ _08096110:
 	adds r0, r7, #0
 	bl sub_8095FD8
 	ldr r0, _08096170  @ gUnknown_08A1B658
-	ldr r5, _08096174  @ gUnknown_02020188
+	ldr r5, _08096174  @ _gGenericBuffer
 	adds r1, r5, #0
 	bl CopyDataWithPossibleUncomp
 	ldr r4, _08096178  @ gUnknown_02023548
@@ -15494,7 +15494,7 @@ _08096166:
 	b _08096246
 	.align 2, 0
 _08096170: .4byte gUnknown_08A1B658
-_08096174: .4byte gUnknown_02020188
+_08096174: .4byte _gGenericBuffer
 _08096178: .4byte gUnknown_02023548
 _0809617C: .4byte gUnknown_08A1B698
 _08096180: .4byte gRAMChapterData
@@ -21227,7 +21227,7 @@ _08098BE4: .4byte 0x0000A840
 	THUMB_FUNC_START sub_8098BE8
 sub_8098BE8: @ 0x08098BE8
 	push {lr}
-	ldr r0, _08098C04  @ gUnknown_03005280
+	ldr r0, _08098C04  @ gGMData
 	ldrb r1, [r0]
 	movs r0, #1
 	ands r0, r1
@@ -21238,7 +21238,7 @@ sub_8098BE8: @ 0x08098BE8
 	bl Proc_End
 	b _08098C16
 	.align 2, 0
-_08098C04: .4byte gUnknown_03005280
+_08098C04: .4byte gGMData
 _08098C08: .4byte sub_8098B68
 _08098C0C:
 	ldr r0, _08098C30  @ sub_8098B48
@@ -21359,7 +21359,7 @@ sub_8098CC0: @ 0x08098CC0
 	movs r1, #0xa
 	bl sub_8098C8C
 	ldr r0, _08098D78  @ gUnknown_08A1B8B8
-	ldr r4, _08098D7C  @ gUnknown_02020188
+	ldr r4, _08098D7C  @ _gGenericBuffer
 	adds r1, r4, #0
 	bl CopyDataWithPossibleUncomp
 	ldr r0, _08098D80  @ gBG1TilemapBuffer
@@ -21391,7 +21391,7 @@ sub_8098CC0: @ 0x08098CC0
 	adds r1, r7, #0
 	movs r3, #2
 	bl sub_8099F7C
-	ldr r0, _08098D94  @ gUnknown_03005280
+	ldr r0, _08098D94  @ gGMData
 	ldrb r1, [r0]
 	movs r0, #1
 	ands r0, r1
@@ -21403,13 +21403,13 @@ sub_8098CC0: @ 0x08098CC0
 	b _08098DA0
 	.align 2, 0
 _08098D78: .4byte gUnknown_08A1B8B8
-_08098D7C: .4byte gUnknown_02020188
+_08098D7C: .4byte _gGenericBuffer
 _08098D80: .4byte gBG1TilemapBuffer
 _08098D84: .4byte gUiFramePaletteD
 _08098D88: .4byte 0x00000503
 _08098D8C: .4byte gUnknown_02013510
 _08098D90: .4byte gUnknown_02022EEC
-_08098D94: .4byte gUnknown_03005280
+_08098D94: .4byte gGMData
 _08098D98:
 	adds r0, r7, #0
 	adds r0, #0x60
@@ -21454,7 +21454,7 @@ _08098DA0:
 	adds r3, r6, #0
 	bl StartHelpPromptSprite
 	bl sub_8098BE8
-	ldr r0, _08098E14  @ gUnknown_03005280
+	ldr r0, _08098E14  @ gGMData
 	ldrb r1, [r0]
 	movs r0, #1
 	ands r0, r1
@@ -21465,7 +21465,7 @@ _08098DA0:
 	bl Get6CDifferedLoop6C
 	b _08098E24
 	.align 2, 0
-_08098E14: .4byte gUnknown_03005280
+_08098E14: .4byte gGMData
 _08098E18: .4byte sub_8098B68
 _08098E1C:
 	ldr r0, _08098E3C  @ sub_8098B48
@@ -21878,7 +21878,7 @@ _08099150:
 	bne _0809915C
 	b _08099288
 _0809915C:
-	ldr r0, _080991A4  @ gUnknown_03005280
+	ldr r0, _080991A4  @ gGMData
 	ldrb r1, [r0]
 	adds r0, r2, #0
 	ands r0, r1
@@ -21911,7 +21911,7 @@ _0809915C:
 	adds r0, #1
 	b _08099234
 	.align 2, 0
-_080991A4: .4byte gUnknown_03005280
+_080991A4: .4byte gGMData
 _080991A8:
 	adds r0, r6, #0
 	adds r0, #0x2a
@@ -22023,7 +22023,7 @@ _08099288:
 	ands r0, r1
 	cmp r0, #0
 	beq _080992CC
-	ldr r0, _080992C4  @ gUnknown_03005280
+	ldr r0, _080992C4  @ gGMData
 	ldrb r1, [r0]
 	adds r0, r2, #0
 	ands r0, r1
@@ -22049,7 +22049,7 @@ _080992A8:
 	bl m4aSongNumStart
 	b _08099314
 	.align 2, 0
-_080992C4: .4byte gUnknown_03005280
+_080992C4: .4byte gGMData
 _080992C8: .4byte gRAMChapterData
 _080992CC:
 	adds r0, r6, #0
@@ -22200,7 +22200,7 @@ _08099400:
 	movs r1, #0
 	adds r2, r6, #0
 	bl Text_InsertString
-	ldr r0, _08099468  @ gUnknown_03005280
+	ldr r0, _08099468  @ gGMData
 	ldrb r1, [r0]
 	movs r0, #1
 	ands r0, r1
@@ -22236,7 +22236,7 @@ _08099458: .4byte 0x00000594
 _0809945C: .4byte 0x00000595
 _08099460: .4byte 0x00000596
 _08099464: .4byte 0x0000059A
-_08099468: .4byte gUnknown_03005280
+_08099468: .4byte gGMData
 _0809946C: .4byte 0x00000597
 _08099470:
 	bl CheckSomethingSomewhere
@@ -22313,7 +22313,7 @@ sub_80994C4: @ 0x080994C4
 	movs r3, #0
 	bl sub_8099F7C
 	ldr r0, _080995C0  @ gUnknown_08A1B8B8
-	ldr r4, _080995C4  @ gUnknown_02020188
+	ldr r4, _080995C4  @ _gGenericBuffer
 	adds r1, r4, #0
 	bl CopyDataWithPossibleUncomp
 	ldr r0, _080995C8  @ gBG1TilemapBuffer
@@ -22388,7 +22388,7 @@ sub_80994C4: @ 0x080994C4
 _080995B8: .4byte gUnknown_02013510
 _080995BC: .4byte gUnknown_02022EEC
 _080995C0: .4byte gUnknown_08A1B8B8
-_080995C4: .4byte gUnknown_02020188
+_080995C4: .4byte _gGenericBuffer
 _080995C8: .4byte gBG1TilemapBuffer
 _080995CC: .4byte 0xFFFFFEC0
 _080995D0: .4byte 0xFFFFFECC
@@ -22552,7 +22552,7 @@ _08099704:
 	beq _08099754
 	mov r1, r8
 	strb r1, [r4]
-	ldr r0, _08099738  @ gUnknown_03005280
+	ldr r0, _08099738  @ gGMData
 	ldrb r1, [r0]
 	movs r2, #1
 	adds r0, r2, #0
@@ -22567,7 +22567,7 @@ _08099704:
 	b _08099A4C
 	.align 2, 0
 _08099734: .4byte gKeyStatusPtr
-_08099738: .4byte gUnknown_03005280
+_08099738: .4byte gGMData
 _0809973C:
 	ldrb r1, [r6]
 	adds r0, r2, #0
@@ -22710,7 +22710,7 @@ _08099854:
 	movs r1, #0xa
 	b _080998B4
 _08099868:
-	ldr r0, _080998A4  @ gUnknown_03005280
+	ldr r0, _080998A4  @ gGMData
 	ldrb r1, [r0]
 	movs r0, #1
 	ands r0, r1
@@ -22737,7 +22737,7 @@ _08099868:
 	movs r1, #0xb
 	b _080998B4
 	.align 2, 0
-_080998A4: .4byte gUnknown_03005280
+_080998A4: .4byte gGMData
 _080998A8:
 	bl CheckSomethingSomewhere
 	cmp r0, #0
@@ -22945,7 +22945,7 @@ _08099A0E:
 	ldrb r0, [r0]
 	cmp r0, #0xff
 	beq _08099A90
-	ldr r0, _08099A68  @ gUnknown_03005280
+	ldr r0, _08099A68  @ gGMData
 	ldrb r1, [r0]
 	adds r0, r7, #0
 	ands r0, r1
@@ -22971,7 +22971,7 @@ _08099A54:
 	b _08099A90
 	.align 2, 0
 _08099A64: .4byte gRAMChapterData
-_08099A68: .4byte gUnknown_03005280
+_08099A68: .4byte gGMData
 _08099A6C: .4byte gUnknown_08A18910
 _08099A70:
 	ldrb r1, [r4]
@@ -23069,7 +23069,7 @@ sub_8099AF8: @ 0x08099AF8
 	movs r1, #5
 	bl sub_8098C3C
 	ldr r0, _08099C40  @ gUnknown_08A1B8B8
-	ldr r5, _08099C44  @ gUnknown_02020188
+	ldr r5, _08099C44  @ _gGenericBuffer
 	adds r1, r5, #0
 	bl CopyDataWithPossibleUncomp
 	ldr r4, _08099C48  @ gBG1TilemapBuffer
@@ -23180,7 +23180,7 @@ sub_8099AF8: @ 0x08099AF8
 	.align 2, 0
 _08099C3C: .4byte gBG0TilemapBuffer
 _08099C40: .4byte gUnknown_08A1B8B8
-_08099C44: .4byte gUnknown_02020188
+_08099C44: .4byte _gGenericBuffer
 _08099C48: .4byte gBG1TilemapBuffer
 _08099C4C: .4byte gUnknown_08A1B990
 _08099C50: .4byte 0x0000025E
@@ -23459,7 +23459,7 @@ _08099E64: .4byte gUnknown_08A188E4
 sub_8099E68: @ 0x08099E68
 	push {lr}
 	adds r2, r0, #0
-	ldr r0, _08099E94  @ gUnknown_03005280
+	ldr r0, _08099E94  @ gGMData
 	ldrb r1, [r0]
 	movs r3, #1
 	adds r0, r3, #0
@@ -23479,7 +23479,7 @@ _08099E8E:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_08099E94: .4byte gUnknown_03005280
+_08099E94: .4byte gGMData
 
 	THUMB_FUNC_END sub_8099E68
 
@@ -23829,7 +23829,7 @@ sub_809A114: @ 0x0809A114
 	lsls r0, r0, #3
 	ldr r1, _0809A1C0  @ gUnknown_02013498
 	adds r4, r0, r1
-	ldr r0, _0809A1C4  @ gUnknown_03005280
+	ldr r0, _0809A1C4  @ gGMData
 	ldrb r1, [r0]
 	movs r0, #1
 	ands r0, r1
@@ -23893,7 +23893,7 @@ _0809A16C:
 	b _0809A1DA
 	.align 2, 0
 _0809A1C0: .4byte gUnknown_02013498
-_0809A1C4: .4byte gUnknown_03005280
+_0809A1C4: .4byte gGMData
 _0809A1C8:
 	adds r0, r4, #0
 	movs r1, #1
@@ -24028,7 +24028,7 @@ _0809A27C:
 	cmp r0, #0
 	bne _0809A306
 _0809A2B8:
-	ldr r0, _0809A2E8  @ gUnknown_03005280
+	ldr r0, _0809A2E8  @ gGMData
 	ldrb r1, [r0]
 	movs r0, #1
 	ands r0, r1
@@ -24049,7 +24049,7 @@ _0809A2B8:
 	bl sub_809A230
 	b _0809A306
 	.align 2, 0
-_0809A2E8: .4byte gUnknown_03005280
+_0809A2E8: .4byte gGMData
 _0809A2EC:
 	adds r5, #0x18
 	adds r4, #4
@@ -24793,7 +24793,7 @@ sub_809A874: @ 0x0809A874
 	ldr r1, _0809A8DC  @ 0x06000440
 	bl CopyDataWithPossibleUncomp
 	ldr r0, _0809A8E0  @ gUnknown_08A1B7C8
-	ldr r4, _0809A8E4  @ gUnknown_02020188
+	ldr r4, _0809A8E4  @ _gGenericBuffer
 	adds r1, r4, #0
 	bl CopyDataWithPossibleUncomp
 	ldr r0, _0809A8E8  @ gBG1TilemapBuffer
@@ -24817,7 +24817,7 @@ sub_809A874: @ 0x0809A874
 _0809A8D8: .4byte gUnknown_08A1B730
 _0809A8DC: .4byte 0x06000440
 _0809A8E0: .4byte gUnknown_08A1B7C8
-_0809A8E4: .4byte gUnknown_02020188
+_0809A8E4: .4byte _gGenericBuffer
 _0809A8E8: .4byte gBG1TilemapBuffer
 _0809A8EC: .4byte gUnknown_08A1D510
 _0809A8F0: .4byte 0x06010800
@@ -28524,7 +28524,7 @@ _0809C5CA:
 	ldr r1, _0809C800  @ 0x06000440
 	bl CopyDataWithPossibleUncomp
 	ldr r0, _0809C804  @ gUnknown_08A1BAE4
-	ldr r4, _0809C808  @ gUnknown_02020188
+	ldr r4, _0809C808  @ _gGenericBuffer
 	adds r1, r4, #0
 	bl CopyDataWithPossibleUncomp
 	ldr r0, _0809C80C  @ gBG1TilemapBuffer
@@ -28703,7 +28703,7 @@ _0809C7F8: .4byte 0x00000203
 _0809C7FC: .4byte gUnknown_08A1BAB8
 _0809C800: .4byte 0x06000440
 _0809C804: .4byte gUnknown_08A1BAE4
-_0809C808: .4byte gUnknown_02020188
+_0809C808: .4byte _gGenericBuffer
 _0809C80C: .4byte gBG1TilemapBuffer
 _0809C810: .4byte gBG0TilemapBuffer
 _0809C814: .4byte sub_809C4B4
@@ -29294,7 +29294,7 @@ sub_809CC9C: @ 0x0809CC9C
 	bl sub_8002620
 	b _0809CCDA
 _0809CCB8:
-	ldr r0, _0809CCD0  @ gUnknown_03005280
+	ldr r0, _0809CCD0  @ gGMData
 	ldrb r1, [r0]
 	movs r0, #1
 	ands r0, r1
@@ -29304,7 +29304,7 @@ _0809CCB8:
 	bl sub_80B9FC0
 	b _0809CCDA
 	.align 2, 0
-_0809CCD0: .4byte gUnknown_03005280
+_0809CCD0: .4byte gGMData
 _0809CCD4:
 	movs r0, #0x34
 	bl sub_8002620
@@ -30422,7 +30422,7 @@ _0809D58E:
 	movs r0, #0
 _0809D594:
 	strb r0, [r1]
-	ldr r0, _0809D5B0  @ gUnknown_03005280
+	ldr r0, _0809D5B0  @ gGMData
 	ldrb r0, [r0]
 	movs r1, #1
 	ands r1, r0
@@ -30434,7 +30434,7 @@ _0809D594:
 	adds r0, #0x2b
 	b _0809D5C6
 	.align 2, 0
-_0809D5B0: .4byte gUnknown_03005280
+_0809D5B0: .4byte gGMData
 _0809D5B4:
 	adds r0, r4, #0
 	adds r0, #0x30
@@ -30977,7 +30977,7 @@ sub_809DA00: @ 0x0809DA00
 	movs r1, #0xa
 	bl sub_8098C8C
 	ldr r0, _0809DC38  @ gUnknown_08A1B9EC
-	ldr r4, _0809DC3C  @ gUnknown_02020188
+	ldr r4, _0809DC3C  @ _gGenericBuffer
 	adds r1, r4, #0
 	bl CopyDataWithPossibleUncomp
 	ldr r5, _0809DC40  @ gBG1TilemapBuffer
@@ -31210,7 +31210,7 @@ _0809DB5C:
 	bx r0
 	.align 2, 0
 _0809DC38: .4byte gUnknown_08A1B9EC
-_0809DC3C: .4byte gUnknown_02020188
+_0809DC3C: .4byte _gGenericBuffer
 _0809DC40: .4byte gBG1TilemapBuffer
 _0809DC44: .4byte gUnknown_08A1BCC0
 _0809DC48: .4byte gLCDControlBuffer
@@ -33019,7 +33019,7 @@ _0809EA76:
 sub_809EA7C: @ 0x0809EA7C
 	push {r4, lr}
 	adds r4, r0, #0
-	ldr r0, _0809EAA0  @ gUnknown_03005280
+	ldr r0, _0809EAA0  @ gGMData
 	ldrb r1, [r0]
 	movs r0, #1
 	ands r0, r1
@@ -33034,7 +33034,7 @@ sub_809EA7C: @ 0x0809EA7C
 	adds r0, #0x2b
 	b _0809EABC
 	.align 2, 0
-_0809EAA0: .4byte gUnknown_03005280
+_0809EAA0: .4byte gGMData
 _0809EAA4:
 	adds r0, r4, #0
 	adds r0, #0x30
@@ -33169,7 +33169,7 @@ sub_809EB78: @ 0x0809EB78
 	strh r0, [r4, #0x36]
 	movs r0, #0xff
 	strh r0, [r4, #0x34]
-	ldr r0, _0809EBA8  @ gUnknown_03005280
+	ldr r0, _0809EBA8  @ gGMData
 	ldrb r1, [r0]
 	movs r0, #1
 	ands r0, r1
@@ -33182,7 +33182,7 @@ sub_809EB78: @ 0x0809EB78
 	b _0809EBB8
 	.align 2, 0
 _0809EBA4: .4byte gUnknown_08A1829C
-_0809EBA8: .4byte gUnknown_03005280
+_0809EBA8: .4byte gGMData
 _0809EBAC:
 	adds r1, r4, #0
 	adds r1, #0x33
@@ -33511,7 +33511,7 @@ sub_809ED8C: @ 0x0809ED8C
 	movs r1, #5
 	bl sub_8098C3C
 	ldr r0, _0809F0C8  @ gUnknown_08A1B9EC
-	ldr r4, _0809F0CC  @ gUnknown_02020188
+	ldr r4, _0809F0CC  @ _gGenericBuffer
 	adds r1, r4, #0
 	bl CopyDataWithPossibleUncomp
 	ldr r0, _0809F0D0  @ gBG1TilemapBuffer
@@ -33774,7 +33774,7 @@ _0809EF4A:
 _0809F0C0: .4byte gLCDControlBuffer
 _0809F0C4: .4byte 0x06012000
 _0809F0C8: .4byte gUnknown_08A1B9EC
-_0809F0CC: .4byte gUnknown_02020188
+_0809F0CC: .4byte _gGenericBuffer
 _0809F0D0: .4byte gBG1TilemapBuffer
 _0809F0D4: .4byte gUnknown_02013660
 _0809F0D8: .4byte gUnknown_02013698
@@ -33793,7 +33793,7 @@ _0809F0F8: .4byte gBG0TilemapBuffer
 sub_809F0FC: @ 0x0809F0FC
 	push {r4, lr}
 	adds r4, r0, #0
-	ldr r0, _0809F120  @ gUnknown_03005280
+	ldr r0, _0809F120  @ gGMData
 	ldrb r1, [r0]
 	movs r0, #1
 	ands r0, r1
@@ -33808,7 +33808,7 @@ sub_809F0FC: @ 0x0809F0FC
 	adds r0, #0x2a
 	b _0809F132
 	.align 2, 0
-_0809F120: .4byte gUnknown_03005280
+_0809F120: .4byte gGMData
 _0809F124:
 	ldr r0, _0809F14C  @ gUnknown_08A1829C
 	bl Proc_Find
@@ -35909,7 +35909,7 @@ sub_80A00DC: @ 0x080A00DC
 	movs r1, #8
 	bl sub_8098C8C
 	ldr r0, _080A0308  @ gUnknown_08A1BBD0
-	ldr r4, _080A030C  @ gUnknown_02020188
+	ldr r4, _080A030C  @ _gGenericBuffer
 	adds r1, r4, #0
 	bl CopyDataWithPossibleUncomp
 	ldr r0, _080A0310  @ gBG1TilemapBuffer
@@ -36062,7 +36062,7 @@ _080A029E:
 _080A0300: .4byte gLCDControlBuffer
 _080A0304: .4byte 0x06014000
 _080A0308: .4byte gUnknown_08A1BBD0
-_080A030C: .4byte gUnknown_02020188
+_080A030C: .4byte _gGenericBuffer
 _080A0310: .4byte gBG1TilemapBuffer
 _080A0314: .4byte 0x00000503
 _080A0318: .4byte gUnknown_02013660
@@ -38271,7 +38271,7 @@ sub_80A1270: @ 0x080A1270
 	movs r1, #5
 	bl sub_8098C3C
 	ldr r0, _080A14D8  @ gUnknown_08A1DB80
-	ldr r4, _080A14DC  @ gUnknown_02020188
+	ldr r4, _080A14DC  @ _gGenericBuffer
 	adds r1, r4, #0
 	bl CopyDataWithPossibleUncomp
 	ldr r0, _080A14E0  @ gUnknown_020235AA
@@ -38448,7 +38448,7 @@ _080A14C8:
 _080A14D0: .4byte gLCDControlBuffer
 _080A14D4: .4byte 0x0000FFD8
 _080A14D8: .4byte gUnknown_08A1DB80
-_080A14DC: .4byte gUnknown_02020188
+_080A14DC: .4byte _gGenericBuffer
 _080A14E0: .4byte gUnknown_020235AA
 _080A14E4: .4byte gUnknown_08A1A8E4
 _080A14E8: .4byte 0x06013800
@@ -40342,7 +40342,7 @@ _080A2340:
 	movs r1, #5
 	bl sub_8098C3C
 	ldr r0, _080A2420  @ gUnknown_08A1DC1C
-	ldr r4, _080A2424  @ gUnknown_02020188
+	ldr r4, _080A2424  @ _gGenericBuffer
 	adds r1, r4, #0
 	bl CopyDataWithPossibleUncomp
 	ldr r0, _080A2428  @ gBG1TilemapBuffer
@@ -40393,7 +40393,7 @@ _080A2340:
 _080A2418: .4byte gLCDControlBuffer
 _080A241C: .4byte gRAMChapterData
 _080A2420: .4byte gUnknown_08A1DC1C
-_080A2424: .4byte gUnknown_02020188
+_080A2424: .4byte _gGenericBuffer
 _080A2428: .4byte gBG1TilemapBuffer
 _080A242C: .4byte gCharacterData
 _080A2430: .4byte gUnknown_02022CEC
@@ -41149,7 +41149,7 @@ sub_80A29C0: @ 0x080A29C0
 	movs r2, #1
 	bl sub_80A2154
 	ldr r0, _080A2AA0  @ gUnknown_08A1DC1C
-	ldr r5, _080A2AA4  @ gUnknown_02020188
+	ldr r5, _080A2AA4  @ _gGenericBuffer
 	adds r1, r5, #0
 	bl CopyDataWithPossibleUncomp
 	movs r2, #0x80
@@ -41193,7 +41193,7 @@ _080A2A94: .4byte gBG0TilemapBuffer
 _080A2A98: .4byte gBG1TilemapBuffer
 _080A2A9C: .4byte gBG2TilemapBuffer
 _080A2AA0: .4byte gUnknown_08A1DC1C
-_080A2AA4: .4byte gUnknown_02020188
+_080A2AA4: .4byte _gGenericBuffer
 _080A2AA8: .4byte gCharacterData
 
 	THUMB_FUNC_END sub_80A29C0
@@ -41404,12 +41404,12 @@ _080A2C28: .4byte gUnknown_08A19880
 
 	THUMB_FUNC_START sub_80A2C2C
 sub_80A2C2C: @ 0x080A2C2C
-	ldr r0, _080A2C34  @ gUnknown_0203E884
+	ldr r0, _080A2C34  @ gBWLDataArray
 	movs r1, #0
 	strb r1, [r0]
 	bx lr
 	.align 2, 0
-_080A2C34: .4byte gUnknown_0203E884
+_080A2C34: .4byte gBWLDataArray
 
 	THUMB_FUNC_END sub_80A2C2C
 

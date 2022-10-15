@@ -71,9 +71,9 @@ void sub_8097154(int, int);
 void sub_80972B0();
 void sub_8097340(ProcPtr);
 void sub_8097394(ProcPtr);
-void sub_80A48F0(u8);
+void BWL_FavorDecreaseDrastically(u8);
 void sub_80ADDD4(ProcPtr);
-void BWL_IncrementDeployCountMaybe(u8);
+void BWL_IncrementDeployCount(u8);
 void sub_80B9FC0();
 void Make6C_savemenu2(ProcPtr);
 void NewPrepScreenTraineePromotionManager(ProcPtr);
@@ -347,7 +347,7 @@ int GetPlayerLeaderUnitId() {
 
     do {
         struct Unit* unit;
-        if (GetChapterThing() == 0) {
+        if (GetBattleMapType() == 0) {
             return unitId;
         }
 
@@ -1015,7 +1015,7 @@ void sub_8034090(ProcPtr proc) {
 void sub_803410C(ProcPtr proc) {
     gRAMChapterData.unk4A_2 = 2;
 
-    if (!(0x20 & gRAMChapterData.chapterStateBits) && ((GetChapterThing() - 1) <= 1)) {
+    if (!(0x20 & gRAMChapterData.chapterStateBits) && ((GetBattleMapType() - 1) <= 1)) {
         gRAMChapterData.unk4A_2 = 4;
     }
 
@@ -1037,7 +1037,7 @@ void sub_8034194() {
         return;
     }
 
-    if (GMAP_STATE_BIT0 & gUnknown_03005280.state) {
+    if (GMAP_STATE_BIT0 & gGMData.state) {
         sub_80B9FC0();
         return;
     }
@@ -1080,7 +1080,7 @@ void ShrinkPlayerUnits() {
         return;
     }
 
-    InitUnitStack(gUnknown_02020188);
+    InitUnitStack(gGenericBuffer);
     for (uid = 1; uid <= 0x3F; ++uid) {
         struct Unit* unit = GetUnit(uid);
         if (UNIT_IS_VALID(unit)) {
@@ -1113,9 +1113,9 @@ void sub_8034278() {
         }
 
         if (unit->state & US_NOT_DEPLOYED) {
-            sub_80A48F0(unit->pCharacterData->number);
+            BWL_FavorDecreaseDrastically(unit->pCharacterData->number);
         } else {
-            BWL_IncrementDeployCountMaybe(unit->pCharacterData->number);
+            BWL_IncrementDeployCount(unit->pCharacterData->number);
         }
     }
 

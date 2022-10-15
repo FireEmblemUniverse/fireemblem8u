@@ -453,8 +453,8 @@ void WfxSandStorm_Init(void) {
 
     AllocWeatherParticles(gRAMChapterData.chapterWeatherId);
 
-    CopyDataWithPossibleUncomp(gUnknown_085A3964, gUnknown_02020188);
-    CopyTileGfxForObj(gUnknown_02020188, OBJ_VRAM0 + 0x1C * 0x20, 4, 4);
+    CopyDataWithPossibleUncomp(gUnknown_085A3964, gGenericBuffer);
+    CopyTileGfxForObj(gGenericBuffer, OBJ_VRAM0 + 0x1C * 0x20, 4, 4);
 
     for (i = 0; i < 0x40; ++i) {
         sWeatherEffect.particles[i].xPosition = AdvanceGetLCGRNValue();
@@ -493,8 +493,8 @@ void WfxSnowStorm_Init(void) {
 
     AllocWeatherParticles(gRAMChapterData.chapterWeatherId);
 
-    CopyDataWithPossibleUncomp(gUnknown_085A39EC, gUnknown_02020188);
-    CopyTileGfxForObj(gUnknown_02020188, OBJ_VRAM0 + 0x18 * 0x20, 8, 4);
+    CopyDataWithPossibleUncomp(gUnknown_085A39EC, gGenericBuffer);
+    CopyTileGfxForObj(gGenericBuffer, OBJ_VRAM0 + 0x18 * 0x20, 8, 4);
 
     for (i = 0; i < 0x40; ++i) {
         unsigned type = typeLookup[i & 7];
@@ -944,7 +944,7 @@ void InitPlaythroughState(int isDifficult, s8 unk) {
         gRAMChapterData.chapterStateBits |= CHAPTER_FLAG_DIFFICULT;
 
     // TODO: WHAT ARE THOSE
-    gRAMChapterData.unk42_6 = unk;
+    gRAMChapterData.toturial_mode_maybe = unk;
     gRAMChapterData.unk42_2 = 0;
     gRAMChapterData.cfgDisableTerrainDisplay = 0;
     gRAMChapterData.cfgUnitDisplayType = 0;
@@ -990,7 +990,7 @@ void StartBattleMap(struct GameCtrlProc* gameCtrl) {
     gRAMChapterData.chapterTurnNumber = 0;
 
     // TODO: BATTLE MAP/CHAPTER/OBJECTIVE TYPE DEFINITION (STORY/TOWER/SKIRMISH)
-    if (GetChapterThing() == 2) {
+    if (GetBattleMapType() == 2) {
         if (!(gRAMChapterData.chapterStateBits & CHAPTER_FLAG_PREPSCREEN))
             gRAMChapterData.chapterVisionRange = 3 * (NextRN_100() & 1);
     } else {
@@ -1356,7 +1356,7 @@ void GameCtrl_DeclareCompletedChapter(void) {
     RegisterChapterTimeAndTurnCount(&gRAMChapterData);
 
     ComputeChapterRankings();
-    SaveChapterRankings();
+    UpdateGameRankSaveData();
 
     gRAMChapterData.chapterStateBits |= CHAPTER_FLAG_5;
 }

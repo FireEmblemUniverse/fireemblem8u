@@ -589,7 +589,7 @@ _0808324C:
 	THUMB_FUNC_START sub_8083250
 sub_8083250: @ 0x08083250
 	push {lr}
-	bl GetChapterThing
+	bl GetBattleMapType
 	cmp r0, #2
 	beq _08083264
 	bl CheckEventId3
@@ -607,7 +607,7 @@ _08083266:
 	THUMB_FUNC_START sub_808326C
 sub_808326C: @ 0x0808326C
 	push {lr}
-	bl GetChapterThing
+	bl GetBattleMapType
 	cmp r0, #2
 	beq _0808327A
 	bl sub_80832E8
@@ -626,7 +626,7 @@ sub_8083280: @ 0x08083280
 	asrs r0, r0, #0x18
 	bl GetChapterEventDataPointer
 	adds r4, r0, #0
-	bl GetChapterThing
+	bl GetBattleMapType
 	cmp r0, #2
 	beq _080832A8
 	ldr r0, [r4, #0x4c]
@@ -767,7 +767,7 @@ GetChapterAllyUnitDataPointer: @ 0x08083348
 	ldrsb r0, [r5, r0]
 	bl GetChapterEventDataPointer
 	adds r4, r0, #0
-	bl GetChapterThing
+	bl GetBattleMapType
 	adds r1, r0, #0
 	cmp r1, #2
 	beq _08083378
@@ -784,7 +784,7 @@ _08083374:
 	ldr r0, [r4, #0x28]
 	b _080833A8
 _08083378:
-	ldr r1, _08083394  @ gUnknown_03005280
+	ldr r1, _08083394  @ gGMData
 	adds r2, r1, #0
 	adds r2, #0xcc
 	adds r1, #0xc9
@@ -799,7 +799,7 @@ _08083378:
 	beq _0808339E
 	b _080833A8
 	.align 2, 0
-_08083394: .4byte gUnknown_03005280
+_08083394: .4byte gGMData
 _08083398:
 	cmp r1, #2
 	beq _080833A6
@@ -829,7 +829,7 @@ sub_80833B0: @ 0x080833B0
 	bl GetChapterEventDataPointer
 	adds r2, r0, #0
 	movs r3, #0
-	ldr r0, _080833E4  @ gUnknown_03005280
+	ldr r0, _080833E4  @ gGMData
 	adds r1, r0, #0
 	adds r1, #0xcc
 	adds r0, #0xc9
@@ -845,7 +845,7 @@ sub_80833B0: @ 0x080833B0
 	b _080833F8
 	.align 2, 0
 _080833E0: .4byte gRAMChapterData
-_080833E4: .4byte gUnknown_03005280
+_080833E4: .4byte gGMData
 _080833E8:
 	cmp r0, #2
 	beq _080833F6
@@ -980,7 +980,7 @@ ShouldCallBattleQuote: @ 0x080834B0
 	lsls r1, r1, #0x18
 	lsrs r4, r1, #0x18
 	adds r7, r4, #0
-	bl GetChapterThing
+	bl GetBattleMapType
 	cmp r0, #2
 	beq _080834F2
 	ldr r0, _080834F8  @ gActionData
@@ -1023,7 +1023,7 @@ CallBattleQuoteEventsIfAny: @ 0x08083504
 	lsrs r5, r0, #0x18
 	lsls r1, r1, #0x18
 	lsrs r6, r1, #0x18
-	bl GetChapterThing
+	bl GetBattleMapType
 	cmp r0, #2
 	beq _08083568
 	ldr r0, _08083554  @ gActionData
@@ -1077,7 +1077,7 @@ sub_8083570: @ 0x08083570
 	adds r4, r1, #0
 	lsls r0, r0, #0x18
 	lsrs r5, r0, #0x18
-	bl GetChapterThing
+	bl GetBattleMapType
 	cmp r0, #0
 	beq _08083598
 	ldr r0, _080835A4  @ gRAMChapterData
@@ -1226,7 +1226,7 @@ _0808365E:
 	lsrs r0, r0, #0x18
 	movs r1, #0
 	movs r2, #7
-	bl BWL_AddWinOrLossIdk
+	bl BWL_SetUnitLossInfo
 	adds r0, r4, #0
 	bl UnitKill
 	adds r0, r4, #0
@@ -2239,8 +2239,8 @@ _08083D30: .4byte gUnknown_03005250
 
 	THUMB_FUNC_END sub_8083D18
 
-	THUMB_FUNC_START sub_8083D34
-sub_8083D34: @ 0x08083D34
+	THUMB_FUNC_START IsEventIdMaskedMaybe
+IsEventIdMaskedMaybe: @ 0x08083D34
 	push {lr}
 	adds r3, r0, #0
 	cmp r3, #0x64
@@ -2273,13 +2273,13 @@ _08083D66:
 	pop {r1}
 	bx r1
 
-	THUMB_FUNC_END sub_8083D34
+	THUMB_FUNC_END IsEventIdMaskedMaybe
 
 	THUMB_FUNC_START CheckGlobalEventId
 CheckGlobalEventId: @ 0x08083D6C
 	push {lr}
 	ldr r1, _08083D7C  @ gUnknown_03005250
-	bl sub_8083D34
+	bl IsEventIdMaskedMaybe
 	lsls r0, r0, #0x18
 	asrs r0, r0, #0x18
 	pop {r1}
@@ -2500,7 +2500,7 @@ _08083EB2:
 sub_8083EB8: @ 0x08083EB8
 	push {r4, lr}
 	sub sp, #0x1c
-	bl GetChapterThing
+	bl GetBattleMapType
 	cmp r0, #2
 	bne _08083EC8
 	movs r0, #0
@@ -2514,7 +2514,7 @@ _08083EC8:
 	lsrs r4, r0, #0x10
 	cmp r4, #0
 	beq _08083F18
-	bl GetChapterThing
+	bl GetBattleMapType
 	cmp r0, #2
 	beq _08083EF0
 	adds r0, r4, #0
@@ -2535,7 +2535,7 @@ _08083EFA:
 	bl AreAnyEnemyUnitDead
 	cmp r0, #0
 	bne _08083F18
-	bl GetChapterThing
+	bl GetBattleMapType
 	cmp r0, #0
 	bne _08083F10
 	movs r0, #3
@@ -2592,7 +2592,7 @@ sub_8083F68: @ 0x08083F68
 	lsrs r4, r0, #0x18
 	lsls r1, r1, #0x18
 	lsrs r5, r1, #0x18
-	bl GetChapterThing
+	bl GetBattleMapType
 	cmp r0, #2
 	beq _08083F9A
 	ldr r0, _08083FA0  @ gRAMChapterData
@@ -2631,7 +2631,7 @@ sub_8083FB0: @ 0x08083FB0
 	lsrs r4, r0, #0x18
 	lsls r1, r1, #0x18
 	lsrs r5, r1, #0x18
-	bl GetChapterThing
+	bl GetBattleMapType
 	cmp r0, #2
 	beq _08083FEE
 	ldr r0, _08083FF8  @ gRAMChapterData
@@ -2755,7 +2755,7 @@ GetAvailableLocaCommandAt: @ 0x08084078
 	bl CheckForEvents
 	cmp r0, #0
 	beq _080840B8
-	bl GetChapterThing
+	bl GetBattleMapType
 	cmp r0, #2
 	beq _080840B8
 	ldr r0, [sp, #0xc]
@@ -2858,7 +2858,7 @@ _08084190:
 	ldrb r0, [r0, #4]
 	strb r0, [r1]
 _080841AC:
-	bl GetChapterThing
+	bl GetBattleMapType
 	cmp r0, #2
 	bne _080841B6
 	b _08084326
@@ -2877,7 +2877,7 @@ _080841CA:
 _080841CC: .4byte gBmMapUnit
 _080841D0: .4byte gActiveUnit
 _080841D4:
-	bl GetChapterThing
+	bl GetBattleMapType
 	cmp r0, #2
 	bne _080841DE
 	b _08084326
@@ -2896,7 +2896,7 @@ _080841DE:
 	bl CallTileChangeEvent
 	b _08084326
 _080841FC:
-	bl GetChapterThing
+	bl GetBattleMapType
 	cmp r0, #2
 	bne _08084206
 	b _08084326
@@ -2924,7 +2924,7 @@ _0808422A:
 	bl CallEventsFromBuffer
 	b _08084326
 _08084238:
-	bl GetChapterThing
+	bl GetBattleMapType
 	cmp r0, #2
 	beq _08084326
 	ldr r0, [sp, #0x14]
@@ -3004,7 +3004,7 @@ _080842D0:
 	bl SetEventId
 	b _08084326
 _080842D8:
-	bl GetChapterThing
+	bl GetBattleMapType
 	cmp r0, #2
 	beq _08084326
 	ldr r0, _080842EC  @ gActiveUnit
@@ -3015,7 +3015,7 @@ _080842D8:
 	.align 2, 0
 _080842EC: .4byte gActiveUnit
 _080842F0:
-	bl GetChapterThing
+	bl GetBattleMapType
 	cmp r0, #2
 	beq _08084326
 	ldr r0, _08084304  @ gActiveUnit
@@ -3026,7 +3026,7 @@ _080842F0:
 	.align 2, 0
 _08084304: .4byte gActiveUnit
 _08084308:
-	bl GetChapterThing
+	bl GetBattleMapType
 	cmp r0, #2
 	beq _08084326
 	ldr r0, _0808431C  @ gActiveUnit
@@ -3058,7 +3058,7 @@ CheckForWaitEvents: @ 0x08084330
 	bne _0808434C
 	movs r0, #6
 	bl SetEventId
-	bl GetChapterThing
+	bl GetBattleMapType
 	cmp r0, #2
 	bne _08084352
 	b _080843B4
@@ -3075,7 +3075,7 @@ _08084352:
 	lsls r0, r0, #0x10
 	cmp r0, #0
 	beq _080843B4
-	bl GetChapterThing
+	bl GetBattleMapType
 	cmp r0, #2
 	bne _08084374
 	movs r0, #0
@@ -3128,7 +3128,7 @@ RunWaitEvents: @ 0x080843C0
 	bne _080843E0
 	movs r0, #6
 	bl SetEventId
-	bl GetChapterThing
+	bl GetBattleMapType
 	cmp r0, #2
 	bne _080843E6
 	bl sub_8083280
@@ -3150,7 +3150,7 @@ _080843FC:
 	bl sub_80837B0
 	b _0808444E
 _08084402:
-	bl GetChapterThing
+	bl GetBattleMapType
 	cmp r0, #2
 	beq _0808444E
 	movs r0, #1
@@ -3196,7 +3196,7 @@ _08084458: .4byte gActiveUnit
 TryCallSelectEvents: @ 0x0808445C
 	push {r4, lr}
 	sub sp, #0x1c
-	bl GetChapterThing
+	bl GetBattleMapType
 	cmp r0, #2
 	bne _0808446C
 	movs r0, #0
@@ -3241,7 +3241,7 @@ _080844A8:
 sub_80844B0: @ 0x080844B0
 	push {r4, lr}
 	sub sp, #0x1c
-	bl GetChapterThing
+	bl GetBattleMapType
 	cmp r0, #2
 	bne _080844C0
 	movs r0, #0
@@ -3285,7 +3285,7 @@ _080844FE:
 sub_8084508: @ 0x08084508
 	push {r4, lr}
 	sub sp, #0x1c
-	bl GetChapterThing
+	bl GetBattleMapType
 	cmp r0, #2
 	bne _08084518
 	movs r0, #0
@@ -3328,7 +3328,7 @@ _08084556:
 	THUMB_FUNC_START sub_8084560
 sub_8084560: @ 0x08084560
 	push {lr}
-	bl GetChapterThing
+	bl GetBattleMapType
 	cmp r0, #2
 	beq _08084576
 	movs r0, #5
@@ -3347,7 +3347,7 @@ _08084578:
 	THUMB_FUNC_START sub_808457C
 sub_808457C: @ 0x0808457C
 	push {lr}
-	bl GetChapterThing
+	bl GetBattleMapType
 	cmp r0, #2
 	beq _0808458C
 	movs r0, #5
@@ -3361,7 +3361,7 @@ _0808458C:
 	THUMB_FUNC_START sub_8084590
 sub_8084590: @ 0x08084590
 	push {lr}
-	bl GetChapterThing
+	bl GetBattleMapType
 	cmp r0, #2
 	beq _080845A0
 	movs r0, #6

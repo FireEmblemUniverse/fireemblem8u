@@ -468,7 +468,7 @@ DebugMenu_ClearDraw: @ 0x0801BF00
 	movs r1, #0x48
 	movs r2, #2
 	bl Text_InsertString
-	bl sub_80A4BB0
+	bl CountVerifiedSecHeaderUnk14
 	adds r3, r0, #0
 	adds r3, #1
 	adds r0, r4, #0
@@ -508,7 +508,7 @@ DebugMenu_ClearIdle: @ 0x0801BF6C
 	ands r0, r1
 	cmp r0, #0
 	beq _0801C008
-	bl sub_80A4BB0
+	bl CountVerifiedSecHeaderUnk14
 	adds r5, r0, #0
 	ldr r0, [r4]
 	ldrh r1, [r0, #6]
@@ -549,7 +549,7 @@ _0801BFCA:
 	adds r4, #1
 	mov r0, sp
 	adds r1, r4, #0
-	bl sub_80A4BD0
+	bl SetNewPlayThroughIndex
 	cmp r4, r5
 	blt _0801BFCA
 _0801BFD8:
@@ -616,7 +616,7 @@ DebugClearMenu_ClearFile: @ 0x0801C030
 	ands r0, r1
 	strb r0, [r2, #0x14]
 	bl ChapterChangeUnitCleanup
-	bl sub_80A4DA0
+	bl GetSecHeader_unk62
 	bl SaveGame
 	movs r0, #0xff
 	bl SoftReset
@@ -819,7 +819,7 @@ sub_801C1DC: @ 0x0801C1DC
 	movs r0, #0
 	movs r1, #0
 	movs r2, #0
-	bl sub_80A4E70
+	bl SaveNewGame
 	ldr r0, _0801C21C  @ 0x0000026A
 	bl GetStringFromIndex
 	bl SetTacticianName
@@ -881,7 +881,7 @@ sub_801C248: @ 0x0801C248
 	movs r0, #0
 	movs r1, #1
 	movs r2, #0
-	bl sub_80A4E70
+	bl SaveNewGame
 	b _0801C28A
 	.align 2, 0
 _0801C278: .4byte gKeyStatusPtr
@@ -891,7 +891,7 @@ _0801C27C:
 	movs r0, #0
 	movs r1, #0
 	movs r2, #0
-	bl sub_80A4E70
+	bl SaveNewGame
 _0801C28A:
 	ldr r0, _0801C2C4  @ 0x0000026A
 	bl GetStringFromIndex
@@ -989,7 +989,7 @@ _0801C322:
 DebugContinueMenu_IsManualContinueAvailable: @ 0x0801C328
 	push {lr}
 	movs r0, #4
-	bl sub_80A5DA8
+	bl VerifySecHeaderBySomeIndex
 	lsls r0, r0, #0x18
 	movs r1, #2
 	cmp r0, #0
@@ -1060,7 +1060,7 @@ _0801C398: .4byte gProc_BMapMain
 DebugContinueMenu_IsContinueChapterAvailable: @ 0x0801C39C
 	push {lr}
 	movs r0, #3
-	bl sub_80A5DA8
+	bl VerifySecHeaderBySomeIndex
 	lsls r0, r0, #0x18
 	movs r1, #2
 	cmp r0, #0
@@ -1167,7 +1167,7 @@ DebugMenu_FogIdle: @ 0x0801C448
 	ldrb r0, [r4, #0xd]
 	cmp r0, #0
 	bne _0801C498
-	bl GetChapterThing
+	bl GetBattleMapType
 	cmp r0, #2
 	bne _0801C488
 	movs r0, #3

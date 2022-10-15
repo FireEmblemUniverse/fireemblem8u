@@ -308,7 +308,7 @@ _080897AE:
 	ands r0, r1
 	cmp r0, #0
 	bne _080897CC
-	ldr r0, _080897F8  @ gUnknown_03005280
+	ldr r0, _080897F8  @ gGMData
 	bl sub_80BD014
 	cmp r0, r5
 	beq _080897E8
@@ -338,7 +338,7 @@ _080897F2:
 	pop {r1}
 	bx r1
 	.align 2, 0
-_080897F8: .4byte gUnknown_03005280
+_080897F8: .4byte gGMData
 _080897FC: .4byte gUnknown_08206951
 _08089800: .4byte gUnknown_08206948
 

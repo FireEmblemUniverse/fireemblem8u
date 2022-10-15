@@ -93,7 +93,7 @@ void CallGameOverEvent(void);
 // ??? sub_800D524(???);
 // ??? SlotQueuePush(???);
 // ??? SlotQueuePop(???);
-// ??? SetEventSlotCounter(???);
-// ??? GetEventSlotCounter(???);
+void SetEventSlotCounter(unsigned value);
+unsigned GetEventSlotCounter(void);
 
 #endif // GUARD_EVENT_H

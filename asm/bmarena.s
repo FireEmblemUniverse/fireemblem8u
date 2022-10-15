@@ -1047,7 +1047,7 @@ _08031F1A:
 	cmp r0, #0
 	bne _08031F34
 _08031F30:
-	bl sub_80A4AA4
+	bl BWL_HandleBattleDiedUnit
 _08031F34:
 	pop {r4, r5}
 	pop {r0}

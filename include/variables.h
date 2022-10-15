@@ -302,7 +302,7 @@ extern u16 gBmFrameTmap1[];
 // extern ??? gUnknown_02020140
 // extern ??? gUnknown_02020144
 // extern ??? gUnknown_02020148
-extern u8 gUnknown_02020188[]; // gGenericBuffer
+extern u8 _gGenericBuffer[]; // gGenericBuffer
 // extern ??? gUnknown_02020208
 // extern ??? gUnknown_02020288
 // extern ??? gUnknown_02020988
@@ -514,8 +514,8 @@ extern struct RAMChapterData gRAMChapterData;
 extern u8 gActiveUnitId;
 extern struct Vec2 gActiveUnitMoveOrigin;
 extern struct Unit gUnitArrayBlue[62];
-// extern ??? gUnitArrayRed
-// extern ??? gUnitArrayGreen
+extern struct Unit gUnitArrayRed[50];
+extern struct Unit gUnitArrayGreen[20];
 // extern ??? gUnknown_02030B8C
 extern u8 gWorkingMovementScript[];
 // extern ??? gUnknown_02033F40
@@ -632,13 +632,13 @@ extern struct ActionData gActionData;
 // extern ??? gUnknown_0203E828
 // extern ??? gUnknown_0203E82C
 // extern ??? gUnknown_0203E87C
-// extern ??? gUnknown_0203E884
+// extern ??? gBWLDataArray
 // extern ??? gBoolSramWorking
-// extern ??? gUnknown_0203E890
-// extern ??? gUnknown_0203E894
-// extern ??? gUnknown_0203ECF4
-// extern ??? gUnknown_0203EDB4
-// extern ??? gUnknown_0203EDB8
+// extern ??? gpBWLSaveTarget
+// extern ??? gBWLDataStorage
+extern struct ChapterWinData gChapterWinDataArray[WIN_ARRAY_NUM];
+extern u32 gUnknown_0203EDB4;
+extern u8 gSaveSuBaseSlotMaybe;
 // extern ??? gUnknown_0203EDBC
 // extern ??? gUnknown_0203EE80
 // extern ??? gUnknown_0203EF44
@@ -691,7 +691,7 @@ extern struct OamDataTransfer gUnknown_03000030;
 // extern ??? gUnknown_03001780
 // extern ??? gUnknown_03001788
 // extern ??? gDungeonState
-// extern ??? gUnknown_030017AC
+extern struct DungeonState gUnknown_030017AC;
 // extern ??? gUnknown_030017C8
 // extern ??? gUnknown_030017CC
 // extern ??? gUnknown_030017D0
@@ -794,7 +794,7 @@ extern struct Unit* gActiveUnit;
 // extern ??? gUnknown_03005110
 // extern ??? gUnknown_03005250
 // extern ??? gUnknown_03005270
-extern struct GMapData gUnknown_03005280;
+extern struct GMapData gGMData;
 // extern ??? gUnknown_03005324
 // extern ??? gUnknown_03005349
 // extern ??? gGmMonsterRnState

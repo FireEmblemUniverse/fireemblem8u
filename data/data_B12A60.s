@@ -34,7 +34,7 @@ gUnknown_08B12A64:  @ 0x08B12A64
 	.global gUnknown_08B12AA4
 gUnknown_08B12AA4:  @ 0x08B12AA4
 @ replacing .incbin "baserom.gba", 0x00b12aa4, 0x4
-.4byte gUnknown_02020188
+.4byte _gGenericBuffer
 
 	.global gUnknown_08B12AA8
 gUnknown_08B12AA8:  @ 0x08B12AA8

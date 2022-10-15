@@ -37,12 +37,12 @@ void ClearLocalEvents(void);
 // code.s
 void sub_8086BB8(ProcPtr, u8*, int);
 void EndBG3Slider(ProcPtr);
-void sub_80A41C8(void);
-int sub_80A4BB0(void);
-void sub_80A4CD8(void);
-s8 sub_80A5218(int);
-void sub_80A522C(int, struct RAMChapterData*);
-void sub_80A5A20(int);
+void ResetRAMChapterData(void);
+int CountVerifiedSecHeaderUnk14(void);
+void SetSaveSecHead_0F_B0(void);
+s8 DoSaveMetaCheck(int);
+void GetSaveChunkData(int, struct RAMChapterData*);
+void MakeMetaDataBySlot(int);
 void sub_80A6D38(void);
 void Make6C_savemenu(ProcPtr);
 void Make6C_savemenu2(ProcPtr);
@@ -379,7 +379,7 @@ u8 sub_8009950() {
     int i;
     struct RAMChapterData chapterData;
 
-    if (sub_80A4BB0() != 0) {
+    if (CountVerifiedSecHeaderUnk14() != 0) {
         return 9;
     }
 
@@ -387,13 +387,13 @@ u8 sub_8009950() {
 
     for (i = 0; i < 3; i++) {
 
-        if (sub_80A5218(i) == 0) {
+        if (DoSaveMetaCheck(i) == 0) {
             continue;
         }
 
-        sub_80A522C(i, &chapterData);
+        GetSaveChunkData(i, &chapterData);
 
-        if (chapterData.unk_2C_2 != 0) {
+        if (chapterData.unk_2C_17 != 0) {
             return 9;
         }
 
@@ -641,7 +641,7 @@ void sub_8009C5C(struct GameCtrlProc* proc) {
 
 void sub_8009CA4(ProcPtr proc) {
     sub_80A6D38();
-    sub_80A41C8();
+    ResetRAMChapterData();
 
     ChapterChangeUnitCleanup();
 
@@ -651,7 +651,7 @@ void sub_8009CA4(ProcPtr proc) {
 }
 
 void sub_8009CC0(ProcPtr proc) {
-    sub_80A5A20(3);
+    MakeMetaDataBySlot(3);
 
     gRAMChapterData.unk41_1 = 0;
 
@@ -850,7 +850,7 @@ void GameControl_RestoreChapterId(struct GameCtrlProc* proc) {
 }
 
 void sub_8009EFC(ProcPtr proc) {
-    sub_80A4CD8();
+    SetSaveSecHead_0F_B0();
     return;
 }
 
