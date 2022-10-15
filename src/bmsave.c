@@ -2598,3 +2598,74 @@ void PackUnitStructForSuspend(struct Unit *unit, void *buf)
     unit_su->aiFlags = unit->aiFlags; 
 }
 
+void UnpackUnitStructFromSuspend(const void *sram_src, struct Unit *unit)
+{
+    int i;
+
+    struct PackedSaveSuUnit unit_su;
+
+    (*ReadSramFast)(sram_src, &unit_su, sizeof(unit_su));
+
+    unit->pCharacterData = GetCharacterData(unit_su.char_id);
+    unit->pClassData = GetClassData(unit_su.class);
+    unit->level = unit_su.level;
+    unit->exp = unit_su.exp;
+    unit->state = unit_su.state;
+    unit->xPos = unit_su.xPos;
+    unit->yPos = unit_su.yPos;
+
+    unit->maxHP = unit_su.maxHP;
+    unit->curHP = unit_su.curHP;
+    unit->pow = unit_su.pow;
+    unit->skl = unit_su.skl;
+    unit->spd = unit_su.spd;
+    unit->def = unit_su.def;
+    unit->res = unit_su.res;
+    unit->lck = unit_su.lck;
+    unit->conBonus = unit_su.conBonus;
+
+    unit->statusIndex = unit_su.statusIndex_l;
+    unit->statusIndex |= (unit_su.ai1 & 0x80) ? 8 : 0;
+    unit->statusDuration = unit_su.statusDuration;
+    unit->torchDuration = unit_su.torchDuration;
+    unit->barrierDuration = unit_su.barrierDuration;
+
+    unit->rescueOtherUnit = unit_su.rescueOtherUnit;
+    unit->movBonus = unit_su.movBonus;
+    unit->ballistaIndex = unit_su.ballistaIndex & 0x7F;
+
+    unit->items[0] = unit_su.item1 & 0x3FFF;
+    unit->items[1] = unit_su.item2 & 0x3FFF;
+    unit->items[2] = unit_su.item3 & 0x3FFF;
+    unit->items[3] = unit_su.item4;
+    unit->items[4] = unit_su.item5;
+
+    unit->supportBits = (unit_su.ballistaIndex & 0x80) >> 7 |
+                        (unit_su.item1 & 0xC000) >> 0x0D |
+                        (unit_su.item2 & 0xC000) >> 0x0B |
+                        (unit_su.item3 & 0xC000) >> 0x09;
+
+    for (i = 0; i < 8; i++)
+        unit->ranks[i] = unit_su.ranks[i];
+
+    for (i = 0; i < UNIT_SUPPORT_MAX_COUNT; i++)
+        unit->supports[i] = unit_su.supports[i];
+
+    unit->ai1 = unit_su.ai1 & 0x7F;
+    unit->ai1data = unit_su.ai1data;
+    unit->ai2 = unit_su.ai2;
+    unit->ai2data = unit_su.ai2data;
+    unit->ai3And4 = unit_su.ai3And4;
+    unit->_u46 = unit_su._u46;
+    unit->aiFlags = unit_su.aiFlags;
+
+    if (0x7F == unit->exp)
+        unit->exp = -1;
+
+    if (0x3F == unit->xPos)
+        unit->xPos = -1;
+
+    if (0x3F == unit->yPos)
+        unit->yPos = -1;
+}
+
