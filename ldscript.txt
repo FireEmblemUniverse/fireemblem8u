@@ -264,6 +264,8 @@ SECTIONS
         . = ALIGN(4); data/const_data_205B84.o(.rodata);
         . = ALIGN(4); src/minimap.o(.rodata);
         . = ALIGN(4); data/const_data_205DE9.o(.rodata);
+        . = ALIGN(4); src/opinfo.o(.rodata);
+        . = ALIGN(4); data/const_data_205E94.o(.rodata);
         . = ALIGN(4); src/branched_promotion_main.o(.rodata);
         . = ALIGN(4); src/branched_promotion.o(.rodata);
         . = ALIGN(4); INCLUDE "linker_script_sound.txt"
@@ -378,6 +380,8 @@ SECTIONS
         . = ALIGN(4); src/minimap.o(.data);
         . = ALIGN(4); data/data_minimap.o(.data);
         . = ALIGN(4); data/data_A20050.o(.data);
+        . = ALIGN(4); src/opinfo.o(.data);
+        . = ALIGN(4); data/data_A2EEF0.o(.data);
         . = ALIGN(4); src/branched_promotion_main.o(.data);
         . = ALIGN(4); src/branched_promotion.o(.data);
         . = ALIGN(4); data/data_B12A60.o(.data);

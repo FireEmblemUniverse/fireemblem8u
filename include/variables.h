@@ -3514,8 +3514,8 @@ extern u16 CONST_DATA gUnknown_08A1D79C[]; // 'R is info' palette
 // extern ??? gUnknown_08A20C4C
 // extern ??? gUnknown_08A20D6C
 // extern ??? gUnknown_08A20D8C
-// extern ??? gUnknown_08A20DA4
-// extern ??? gUnknown_08A20DCC
+extern struct ProcCmd CONST_DATA gUnknown_08A20DA4[];
+extern struct ProcCmd CONST_DATA gUnknown_08A20DCC[];
 // extern ??? gUnknown_08A20DFC
 // extern ??? gUnknown_08A20E24
 // extern ??? gUnknown_08A20E44
