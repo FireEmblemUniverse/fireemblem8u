@@ -34,18 +34,18 @@ struct SecureSaveHeader {
 
     /* 10 */ u16 unk10;
     /* 10 */ u16 unk12;
-    /* 14 */ u8 unk14[0x20 - 0x14];
+    /* 14 */ u8 playthrough_ids[0x20 - 0x14];
     /* 20 */ u8 unk20[0x40 - 0x20];
     /* 40 */ u8 unk40[0x60 - 0x40];
     /* 60 */ u16 sec_sum;
-    /* 62 */ u8 unk62;
+    /* 62 */ u8 slotCur;
     /* 63 */ u8 unk63;
 };
 
 struct SramChunk {
-    /* 00 */ u32 unk00;
-    /* 04 */ u16 unk04;
-    /* 06 */ u8 unk06;
+    /* 00 */ u32 magic1;
+    /* 04 */ u16 magic2;
+    /* 06 */ u8 slot_index;
     /* 07 */ s8 _pad_07;
     /* 08 */ u16 sram_offset;
     /* 0A */ u16 unk0A;
@@ -203,7 +203,7 @@ void SaveConvoyItems(void *sram_dest);
 void SaveClearedBWLAndChapterWinData(void *sram_dest);
 void SaveGlobalEventIndexes(void *sram_dest);
 void sub_80A7074(void *sram_dest);
-void SetSecHeader_unk62(int num);
+void SetSecHeader_slotCur(int num);
 void PackAndSaveUnit(struct Unit *unit, void *sram_dest);
 void SaveRNGState_Maybe(void *sram_dest);
 void SaveWMStaff(void *sram_dest, void *src);

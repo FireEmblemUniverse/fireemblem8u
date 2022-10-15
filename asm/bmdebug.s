@@ -468,7 +468,7 @@ DebugMenu_ClearDraw: @ 0x0801BF00
 	movs r1, #0x48
 	movs r2, #2
 	bl Text_InsertString
-	bl CountVerifiedSecHeaderUnk14
+	bl CountVerifiedPlayThroughTotal
 	adds r3, r0, #0
 	adds r3, #1
 	adds r0, r4, #0
@@ -508,7 +508,7 @@ DebugMenu_ClearIdle: @ 0x0801BF6C
 	ands r0, r1
 	cmp r0, #0
 	beq _0801C008
-	bl CountVerifiedSecHeaderUnk14
+	bl CountVerifiedPlayThroughTotal
 	adds r5, r0, #0
 	ldr r0, [r4]
 	ldrh r1, [r0, #6]
@@ -616,7 +616,7 @@ DebugClearMenu_ClearFile: @ 0x0801C030
 	ands r0, r1
 	strb r0, [r2, #0x14]
 	bl ChapterChangeUnitCleanup
-	bl GetSecHeader_unk62
+	bl GetSecHeader_slotCur
 	bl SaveGame
 	movs r0, #0xff
 	bl SoftReset

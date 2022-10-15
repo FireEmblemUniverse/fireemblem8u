@@ -948,7 +948,7 @@ sub_80A8F8C: @ 0x080A8F8C
 	movs r4, #0
 	movs r0, #5
 	strb r0, [r1]
-	bl GetSecHeader_unk62
+	bl GetSecHeader_slotCur
 	adds r1, r5, #0
 	adds r1, #0x2c
 	strb r0, [r1]
@@ -986,7 +986,7 @@ sub_80A8FD0: @ 0x080A8FD0
 	movs r4, #0
 	movs r0, #5
 	strb r0, [r1]
-	bl GetSecHeader_unk62
+	bl GetSecHeader_slotCur
 	adds r1, r5, #0
 	adds r1, #0x2c
 	strb r0, [r1]
@@ -1200,7 +1200,7 @@ _080A91A8:
 	strb r1, [r0]
 	b _080A91CA
 _080A91B4:
-	bl GetSecHeader_unk62
+	bl GetSecHeader_slotCur
 	lsls r0, r0, #0x18
 	lsrs r0, r0, #0x18
 	movs r1, #1
@@ -2637,7 +2637,7 @@ _080A9C96:
 	bl Proc_Goto
 	b _080A9D14
 _080A9CA6:
-	bl GetSecHeader_unk62
+	bl GetSecHeader_slotCur
 	lsls r0, r0, #0x18
 	lsrs r0, r0, #0x18
 	movs r1, #1
@@ -18702,7 +18702,7 @@ sub_80B13BC: @ 0x080B13BC
 	bl BG_EnableSyncByMask
 	adds r0, r4, #0
 	bl sub_80B1008
-	bl GetSecHeader_unk62
+	bl GetSecHeader_slotCur
 	bl SaveGame
 	movs r0, #0
 	str r0, [r4, #0x30]

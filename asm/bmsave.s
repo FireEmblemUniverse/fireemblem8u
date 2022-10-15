@@ -1330,7 +1330,7 @@ sub_80A6D34: @ 0x080A6D34
 	THUMB_FUNC_START sub_80A6D38
 sub_80A6D38: @ 0x080A6D38
 	push {lr}
-	bl CountVerifiedSecHeaderUnk14
+	bl CountVerifiedPlayThroughTotal
 	ldr r1, _080A6D48  @ gBmMapHidden
 	movs r0, #0
 	str r0, [r1]

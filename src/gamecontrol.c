@@ -38,7 +38,7 @@ void ClearLocalEvents(void);
 void sub_8086BB8(ProcPtr, u8*, int);
 void EndBG3Slider(ProcPtr);
 void ResetRAMChapterData(void);
-int CountVerifiedSecHeaderUnk14(void);
+int CountVerifiedPlayThroughTotal(void);
 void SetSaveSecHead_0F_B0(void);
 s8 DoSaveMetaCheck(int);
 void GetSaveChunkData(int, struct RAMChapterData*);
@@ -379,7 +379,7 @@ u8 sub_8009950() {
     int i;
     struct RAMChapterData chapterData;
 
-    if (CountVerifiedSecHeaderUnk14() != 0) {
+    if (CountVerifiedPlayThroughTotal() != 0) {
         return 9;
     }
 

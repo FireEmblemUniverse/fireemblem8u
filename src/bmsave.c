@@ -159,10 +159,10 @@ void ResetSecureHeader()
     header.unk12 = 0;
 
     header.unk63 = 0;
-    header.unk62 = 0;
+    header.slotCur = 0;
 
     for (i = 0; i < 0xC; i++)
-        header.unk14[i] = 0;
+        header.playthrough_ids[i] = 0;
 
     for (i = 0; i < 0x20; i++)
         header.unk20[i] = 0;
@@ -205,7 +205,7 @@ s8 SaveMetadata_Check(struct SramChunk *buf, int index)
         (void*)buf,
         sizeof(struct SramChunk));
 
-    if (0x200A != buf->unk04)
+    if (0x200A != buf->magic2)
         return 0;
 
     switch (index) {
@@ -233,7 +233,7 @@ s8 SaveMetadata_Check(struct SramChunk *buf, int index)
         break;
     } /* switch */
 
-    if (buf->unk00 != key)
+    if (buf->magic1 != key)
         return 0;
 
     return VerifySaveChunk(buf);
@@ -241,13 +241,13 @@ s8 SaveMetadata_Check(struct SramChunk *buf, int index)
 
 void SaveMetadata_Generate(struct SramChunk *buf, int index) {
 
-    buf->unk04 = 0x200A;
+    buf->magic2 = 0x200A;
     buf->sram_offset = (uintptr_t)GetSaveDataLocation(index);
 
     if (!(index < SAVE_CHUNK_MAX))
         return;
 
-    switch (buf->unk06) {
+    switch (buf->slot_index) {
     case SAVE_CHUNK_0:
         buf->unk0A = 0x0DC8;
         break;
@@ -267,7 +267,7 @@ void SaveMetadata_Generate(struct SramChunk *buf, int index) {
     case 0xFF:
         buf->unk0A = 0;
         buf->sram_offset = 0;
-        buf->unk04 = 0;
+        buf->magic2 = 0;
         break;
 
     default:
@@ -1782,7 +1782,7 @@ u8 IsPlayThroughIdUnique(int index)
     LoadAndVerifySecureHeaderSW(&sec_head);
 
     for (i = 0; i < 0xC; i++)
-        if (sec_head.unk14[i] == index)
+        if (sec_head.playthrough_ids[i] == index)
             return 0;
 
     for (i = 0; i < 3; i++) {
@@ -1806,37 +1806,37 @@ int GetNextUniquePlayThroughId()
             return i;
 }
 
-int CountSecHeaderUnk14(struct SecureSaveHeader *sec_head)
+int CountGamePlayThroughTotal(struct SecureSaveHeader *sec_head)
 {
     int i, ret = 0;
 
     for (i = 0; i < 0xC; i++)
-        if (0 != sec_head->unk14[i])
+        if (0 != sec_head->playthrough_ids[i])
             ret++;
 
     return ret;
 }
 
-int CountVerifiedSecHeaderUnk14()
+int CountVerifiedPlayThroughTotal()
 {
     struct SecureSaveHeader sec_head;
 
     if (!LoadAndVerifySecureHeaderSW(&sec_head))
         return 0;
     else
-        return CountSecHeaderUnk14(&sec_head);
+        return CountGamePlayThroughTotal(&sec_head);
 }
 
 int SetNewPlayThroughIndex(struct SecureSaveHeader *sec_head, int index)
 {
     int i;
     for (i = 0; i < 0xC; i++)
-        if (sec_head->unk14[i] == index)
+        if (sec_head->playthrough_ids[i] == index)
             return 0;
 
     for(i = 0; i < 0xC; i++)
-        if (0 == sec_head->unk14[i]) {
-            sec_head->unk14[i] = index;
+        if (0 == sec_head->playthrough_ids[i]) {
+            sec_head->playthrough_ids[i] = index;
             return 1;
         }
 
@@ -1952,16 +1952,16 @@ void Load0203EDB4(const void *sram_src)
                     sizeof(gUnknown_0203EDB4));
 }
 
-void SetSecHeader_unk62(int num)
+void SetSecHeader_slotCur(int num)
 {
     struct SecureSaveHeader sec_head;
 
     LoadAndVerifySecureHeaderSW(&sec_head);
-    sec_head.unk62 = num;
+    sec_head.slotCur = num;
     ForceSaveSecureHeader(&sec_head);
 }
 
-int GetSecHeader_unk62()
+int GetSecHeader_slotCur()
 {
     int ret;
     struct SecureSaveHeader sec_head;
@@ -1969,7 +1969,7 @@ int GetSecHeader_unk62()
     if (!LoadAndVerifySecureHeaderSW(&sec_head))
         return 0;
     
-    ret = sec_head.unk62;
+    ret = sec_head.slotCur;
 
     if (ret > 2)
         return 0;
@@ -1992,7 +1992,7 @@ void sub_80A4DC8(int val)
             MakeMetaDataBySlot(3);
     }
 
-    chunks[0].unk06 = -1;
+    chunks[0].slot_index = -1;
     SaveMetadata_Generate(chunks, val);
 }
 
@@ -2005,8 +2005,8 @@ void CopyGameSave(int index_src, int index_dest)
     (*ReadSramFast)(src, gGenericBuffer, 0xDC8);
     WriteAndVerifySramFast(gGenericBuffer, dest, 0xDC8);
 
-    chunk.unk00 = 0x40624;
-    chunk.unk06 = 0;
+    chunk.magic1 = 0x40624;
+    chunk.slot_index = 0;
     SaveMetadata_Generate(&chunk, index_dest);
 }
 
@@ -2042,7 +2042,7 @@ void SaveNewGame(int index, int isDifficult, int mode, int isToturial)
     gRAMChapterData.chapterIndex = 0;
     gRAMChapterData.playthroughIdentifier = GetNextUniquePlayThroughId();
     gRAMChapterData.gameSaveSlot = index;
-    gRAMChapterData.unk_2C_17 = CountVerifiedSecHeaderUnk14();
+    gRAMChapterData.unk_2C_17 = CountVerifiedPlayThroughTotal();
 
     WriteAndVerifySramFast((void*)&gRAMChapterData, dest, sizeof(gRAMChapterData));
     Set0203EDB4(0);
@@ -2063,10 +2063,10 @@ void SaveNewGame(int index, int isDifficult, int mode, int isToturial)
         CpuFill16(0, buf1, 0x18);
         WriteAndVerifySramFast(buf1, dest + 0xDB0, 0x18);
 
-        chunk.unk00 = 0x40624;
-        chunk.unk06 = 0;
+        chunk.magic1 = 0x40624;
+        chunk.slot_index = 0;
         SaveMetadata_Generate(&chunk, index);
-        SetSecHeader_unk62(index);
+        SetSecHeader_slotCur(index);
     }
 }
 
@@ -2102,10 +2102,10 @@ void SaveGame(int slot)
     Save2DungeonStates(dungeon);
     WriteAndVerifySramFast(dungeon, dest + 0xDB0 ,sizeof(dungeon));
 
-    chunk.unk00 = 0x40624;
-    chunk.unk06 = 0;
+    chunk.magic1 = 0x40624;
+    chunk.slot_index = 0;
     SaveMetadata_Generate(&chunk, slot);
-    SetSecHeader_unk62(slot);
+    SetSecHeader_slotCur(slot);
 
 }
 
@@ -2136,7 +2136,7 @@ void LoadGame(int slot)
     LoadWMStaff(src + 0xD8C, &gGMData);
     (*ReadSramFast)(src + 0xDB0, dungeon, sizeof(dungeon));
     Load2DungeonStates(dungeon);
-    SetSecHeader_unk62(slot);
+    SetSecHeader_slotCur(slot);
 }
 
 s8 DoSaveMetaCheck(int index)
@@ -2373,7 +2373,7 @@ void LoadGMMonsterRNState(const void *sram_src)
 void MakeMetaDataBySlot(int slot)
 {
     struct SramChunk chunk;
-    chunk.unk06 = -1;
+    chunk.slot_index = -1;
 
     SaveMetadata_Generate(&chunk, slot);
 
@@ -2436,8 +2436,8 @@ void SaveSuspendedGame(int slot)
     val = GetEventSlotCounter();
     WriteAndVerifySramFast(&val, dest + 0x1F74, sizeof(int));
 
-    chunk.unk00 = 0x40624;
-    chunk.unk06 = 1;
+    chunk.magic1 = 0x40624;
+    chunk.slot_index = 1;
     SaveMetadata_Generate(&chunk, slot);
 
     gGameState.unk3C = 0;
