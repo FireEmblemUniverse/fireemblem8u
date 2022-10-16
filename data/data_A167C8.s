@@ -736,7 +736,7 @@ gUnknown_08A1829C:  @ 0x08A1829C
         .word sub_809643C
         @ PROC_CALL
         .short 0x2, 0x0
-        .word sub_80ADDD4
+        .word EndAllProcChildren
         @ PROC_END
         .short 0x0, 0x0
         .word 0x0

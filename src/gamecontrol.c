@@ -8,6 +8,7 @@
 #include "mu.h"
 #include "rng.h"
 #include "event.h"
+#include "opinfo.h"
 
 #include "gamecontrol.h"
 
@@ -46,7 +47,6 @@ void sub_80A5A20(int);
 void sub_80A6D38(void);
 void Make6C_savemenu(ProcPtr);
 void Make6C_savemenu2(ProcPtr);
-void Make6C_opinfo(int, ProcPtr);
 void EndWM(ProcPtr);
 void sub_80B7598(ProcPtr);
 void sub_80C541C(ProcPtr);
@@ -428,7 +428,7 @@ u8 sub_8009950() {
 
 s8 sub_80099E4(ProcPtr proc) {
 
-    Make6C_opinfo(sub_8009950(), proc);
+    StartClassReel(sub_8009950(), proc);
 
     return 0;
 }

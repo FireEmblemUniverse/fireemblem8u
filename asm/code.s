@@ -16133,7 +16133,7 @@ sub_80965F0: @ 0x080965F0
 	movs r3, #1
 	bl SetBlendTargetA
 	adds r0, r4, #0
-	bl sub_80ADDD4
+	bl EndAllProcChildren
 	ldr r0, _08096664  @ gUnknown_08A184B4
 	adds r1, r4, #0
 	bl Proc_StartBlocking
@@ -33051,7 +33051,7 @@ _0809EABC:
 	strb r1, [r0]
 _0809EABE:
 	adds r0, r4, #0
-	bl sub_80ADDD4
+	bl EndAllProcChildren
 	bl EndBG3Slider_
 	movs r0, #0
 	bl SetPrimaryHBlankHandler
@@ -33820,7 +33820,7 @@ _0809F132:
 	strb r1, [r0]
 _0809F134:
 	adds r0, r4, #0
-	bl sub_80ADDD4
+	bl EndAllProcChildren
 	movs r0, #0
 	bl DeleteFaceByIndex
 	bl EndBG3Slider_
@@ -36850,7 +36850,7 @@ sub_80A0900: @ 0x080A0900
 	adds r4, r0, #0
 	bl sub_808F270
 	adds r0, r4, #0
-	bl sub_80ADDD4
+	bl EndAllProcChildren
 	bl EndBG3Slider_
 	movs r0, #0
 	bl DeleteFaceByIndex
@@ -38509,7 +38509,7 @@ sub_80A1554: @ 0x080A1554
 	adds r4, r0, #0
 	bl sub_808F270
 	adds r0, r4, #0
-	bl sub_80ADDD4
+	bl EndAllProcChildren
 	bl EndBG3Slider_
 	movs r0, #0
 	bl DeleteFaceByIndex
@@ -41290,7 +41290,7 @@ _080A2B58: .4byte gLCDControlBuffer
 sub_80A2B5C: @ 0x080A2B5C
 	push {r4, lr}
 	adds r4, r0, #0
-	bl sub_80ADDD4
+	bl EndAllProcChildren
 	bl EndBG3Slider_
 	movs r0, #0
 	bl DeleteFaceByIndex
