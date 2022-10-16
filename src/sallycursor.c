@@ -72,7 +72,6 @@ void sub_80972B0();
 void sub_8097340(ProcPtr);
 void sub_8097394(ProcPtr);
 void sub_80A48F0(u8);
-void sub_80ADDD4(ProcPtr);
 void BWL_IncrementDeployCountMaybe(u8);
 void sub_80B9FC0();
 void Make6C_savemenu2(ProcPtr);
@@ -988,7 +987,7 @@ void sub_8033F34(ProcPtr proc) {
 
 void sub_8034078(ProcPtr proc) {
     SetupBackgrounds(0);
-    sub_80ADDD4(proc);
+    EndAllProcChildren(proc);
     return;
 }
 

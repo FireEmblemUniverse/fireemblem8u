@@ -38719,7 +38719,7 @@ _080C63C0: .4byte 0x0000032F
 	THUMB_FUNC_START sub_80C63C4
 sub_80C63C4: @ 0x080C63C4
 	push {lr}
-	bl sub_80ADDD4
+	bl EndAllProcChildren
 	pop {r0}
 	bx r0
 
@@ -38729,7 +38729,7 @@ sub_80C63C4: @ 0x080C63C4
 sub_80C63D0: @ 0x080C63D0
 	push {r4, r5, lr}
 	adds r4, r0, #0
-	bl sub_80ADDD4
+	bl EndAllProcChildren
 	bl sub_80C55B8
 	ldr r1, _080C641C  @ gPaletteBuffer
 	movs r5, #0
@@ -49788,7 +49788,7 @@ _080CBD6A:
 	THUMB_FUNC_START sub_80CBD7C
 sub_80CBD7C: @ 0x080CBD7C
 	push {r4, lr}
-	bl sub_80ADDD4
+	bl EndAllProcChildren
 	bl sub_80C71D4
 	movs r0, #0
 	bl SetPrimaryHBlankHandler

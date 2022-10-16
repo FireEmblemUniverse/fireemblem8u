@@ -9,6 +9,7 @@
 #include "bmmap.h"
 #include "bmunit.h"
 #include "branched_promotion.h"
+#include "classdisplayfont.h"
 #include "constants/characters.h"
 #include "constants/classes.h"
 #include "ctc.h"
@@ -361,15 +362,6 @@ void ChangeClassDescription(u32 a) {
     sub_8006AF0(4);
 }
 
-struct Struct_80B4108 {
-    u16 *a;
-    s8 b;
-    s8 c;
-    s8 d;
-};
-
-struct Struct_80B4108 *sub_80B4108(u8 a);
-
 void LoadClassReelFontPalette(struct PromoProc3 *proc, s32 b) {
     u16 tmp = b;
     s8 buffer[0x20];
@@ -383,9 +375,9 @@ void LoadClassReelFontPalette(struct PromoProc3 *proc, s32 b) {
 
     for (index = 0; buffer[index] != 0;) {
         s32 ptr;
-        struct Struct_80B4108 *res = sub_80B4108(buffer[index]);
+        struct ClassDisplayFont *res = GetClassDisplayFontInfo(buffer[index]);
         if (res) {
-            proc->u46 += res->c - res->b;
+            proc->u46 += res->width - res->xBase;
         } else {
             proc->u46 += 4;
         }
@@ -406,11 +398,11 @@ void LoadClassNameInClassReelFont(struct PromoProc3 *proc) {
     const struct ClassData *class = GetClassData(classNum);
     GetStringFromIndexInBuffer(class->nameTextId, buffer);
     for (index = 0; buffer[index] != 0;) {
-        struct Struct_80B4108 *res = sub_80B4108(buffer[index]);
+        struct ClassDisplayFont *res = GetClassDisplayFontInfo(buffer[index]);
         if (res) {
             if (res->a) {
-                PutSpriteExt(4, xOffs - res->b - 2, res->d + 6, res->a, 0x81 << 7);
-                xOffs += res->c - res->b;
+                PutSpriteExt(4, xOffs - res->xBase - 2, res->yBase + 6, res->a, 0x81 << 7);
+                xOffs += res->width - res->xBase;
             }
         } else {
             xOffs += 4;
@@ -1350,7 +1342,7 @@ u8 sub_80CDAD8(struct MenuProc *proc, struct MenuItemProc *b) {
         EndMenu(proc->proc_parent);
         found = Proc_Find(gUnknown_08B12614);
 
-        sub_80ADDD4(found);
+        EndAllProcChildren(found);
         sub_80CCBD4();
         Proc_Goto(found, 5);
     }

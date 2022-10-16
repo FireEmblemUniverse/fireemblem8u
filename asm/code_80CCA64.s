@@ -153,7 +153,7 @@ sub_80CDEA8: @ 0x080CDEA8
 	movs r3, #1
 	bl SetBlendTargetA
 	adds r0, r4, #0
-	bl sub_80ADDD4
+	bl EndAllProcChildren
 	ldr r0, _080CDF48  @ gUnknown_08B12A64
 	adds r1, r4, #0
 	bl Proc_StartBlocking

@@ -172,7 +172,7 @@ void sub_80CC698(struct PromoProc2 *proc) {
         sub_8002620(0x34);
     }
     parent->u30 = 2;
-    sub_80ADDD4(proc);
+    EndAllProcChildren(proc);
     Proc_End(proc);
 }
 

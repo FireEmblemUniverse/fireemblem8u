@@ -11439,8 +11439,8 @@ _080ADDD0: .4byte gUnknown_0859EF00
 
 	THUMB_FUNC_END sub_80ADD24
 
-	THUMB_FUNC_START sub_80ADDD4
-sub_80ADDD4: @ 0x080ADDD4
+	THUMB_FUNC_START EndAllProcChildren
+EndAllProcChildren: @ 0x080ADDD4
 	push {r4, r5, lr}
 	adds r5, r0, #0
 	movs r4, #0
@@ -11459,7 +11459,7 @@ _080ADDE2:
 	pop {r0}
 	bx r0
 
-	THUMB_FUNC_END sub_80ADDD4
+	THUMB_FUNC_END EndAllProcChildren
 
 	THUMB_FUNC_START sub_80ADDF8
 sub_80ADDF8: @ 0x080ADDF8
@@ -15481,7 +15481,7 @@ sub_80AFA94: @ 0x080AFA94
 	adds r4, r0, #0
 	bl EndBG3Slider
 	adds r0, r4, #0
-	bl sub_80ADDD4
+	bl EndAllProcChildren
 	ldr r0, _080AFAB0  @ gUnknown_08A21308
 	bl Proc_EndEach
 	pop {r4}
@@ -18971,7 +18971,7 @@ sub_80B166C: @ 0x080B166C
 	adds r4, r0, #0
 	bl EndGreenTextColorManager
 	adds r0, r4, #0
-	bl sub_80ADDD4
+	bl EndAllProcChildren
 	movs r0, #0
 	bl SetPrimaryHBlankHandler
 	pop {r4}

@@ -147,6 +147,7 @@ SECTIONS
         src/minimap.o(.text);
         asm/code_80A882C.o(.text);
         src/opinfo.o(.text);
+        src/classdisplayfont.o(.text);
         asm/code_80B4154.o(.text);
         src/branched_promotion_main.o(.text);
         src/branched_promotion.o(.text);
@@ -381,6 +382,7 @@ SECTIONS
         . = ALIGN(4); data/data_minimap.o(.data);
         . = ALIGN(4); data/data_A20050.o(.data);
         . = ALIGN(4); src/opinfo.o(.data);
+        . = ALIGN(4); src/classdisplayfont.o(.data);
         . = ALIGN(4); data/data_A2EEF0.o(.data);
         . = ALIGN(4); src/branched_promotion_main.o(.data);
         . = ALIGN(4); src/branched_promotion.o(.data);

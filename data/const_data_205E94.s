@@ -1,23 +1,5 @@
     .section .rodata
 
-@	.global gUnknown_08205E94
-@gUnknown_08205E94:  @ 0x08205E94
-@	.incbin "baserom.gba", 0x205E94, 0x3C
-@	.incbin "baserom.gba", 0x205EB8, 0x18
-@	.incbin "baserom.gba", 0x205EC4, 0xC
-
-	@ .global gUnknown_08205ED0
-@ gUnknown_08205ED0:  @ 0x08205ED0
-	@ .incbin "baserom.gba", 0x205ED0, 0x4
-
-	@ .global gUnknown_08205ED4
-@ gUnknown_08205ED4:  @ 0x08205ED4
-	@ .incbin "baserom.gba", 0x205ED4, 0x8
-
-	@ .global gUnknown_08205EDC
-@ gUnknown_08205EDC:  @ 0x08205EDC
-	@ .incbin "baserom.gba", 0x205EDC, 0x40
-
 	.global gUnknown_08205F1C
 gUnknown_08205F1C:  @ 0x08205F1C
 	.incbin "baserom.gba", 0x205F1C, 0x4
