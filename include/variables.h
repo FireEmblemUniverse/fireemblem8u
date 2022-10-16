@@ -2930,6 +2930,8 @@ extern u8 CONST_DATA gUnknown_088ADF9E[]; // Ocean seal class list
 extern u8 CONST_DATA gUnknown_088ADFA3[]; // Unk (C1) class list
 extern u8 CONST_DATA gUnknown_088ADFA4[]; // Lunar Brace class list
 extern u8 CONST_DATA gUnknown_088ADFA6[]; // Solar Brace class list
+// extern ??? gSupportData
+// extern ??? gUnknown_088AEEC4
 // extern ??? gUnknown_088AF834
 // extern ??? gUnknown_088AF880
 // extern ??? gUnknown_088AFB5A
