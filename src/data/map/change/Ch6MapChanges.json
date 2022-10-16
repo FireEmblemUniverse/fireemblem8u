@@ -1,0 +1,21 @@
+{
+  "name": "Ch6MapChanges",
+  "changes": [
+    {
+      "id": 0,
+      "x": 10,
+      "y": 16,
+      "w": 3,
+      "h": 3,
+      "tiles": "Ch6MapChanges_change_0"
+    },
+    {
+      "id": 1,
+      "x": 11,
+      "y": 18,
+      "w": 1,
+      "h": 1,
+      "tiles": "Ch6MapChanges_change_1"
+    }
+  ]
+}

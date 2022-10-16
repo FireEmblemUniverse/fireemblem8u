@@ -111,7 +111,7 @@ bool8 HasConvoyAccess() {
 
 bool8 sub_8031660() {
     const struct ROMChapterData* chapterData = GetROMChapterStruct(gRAMChapterData.chapterIndex);
-    if (chapterData->_unk81[1] == 0xFF) { // ROM Chapter Data @ 0x82
+    if (chapterData->merchantPosX == 0xFF) { // ROM Chapter Data @ 0x82
         return 0;
     }
     return 1;

@@ -4069,7 +4069,7 @@ sub_80B5FD0: @ 0x080B5FD0
 	movs r5, #0
 	cmp r6, r7
 	bge _080B6028
-	ldr r0, _080B603C  @ gUnknown_088B08F0
+	ldr r0, _080B603C  @ gChapterDataTable[0].goldForFundsRankInEliwoodStoryNormal
 	mov r9, r0
 _080B5FF0:
 	adds r0, r5, #0
@@ -4110,7 +4110,7 @@ _080B6028:
 	movs r0, #4
 	b _080B6064
 	.align 2, 0
-_080B603C: .4byte gUnknown_088B08F0
+_080B603C: .4byte gChapterDataTable+0x60
 _080B6040:
 	lsls r0, r6, #4
 	subs r0, r0, r6

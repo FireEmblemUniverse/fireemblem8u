@@ -1,0 +1,45 @@
+{
+  "name": "Ch11EirikaMapChanges",
+  "changes": [
+    {
+      "id": 0,
+      "x": 3,
+      "y": 8,
+      "w": 1,
+      "h": 1,
+      "tiles": "Ch11EirikaMapChanges_change_0"
+    },
+    {
+      "id": 1,
+      "x": 12,
+      "y": 11,
+      "w": 1,
+      "h": 1,
+      "tiles": "Ch11EirikaMapChanges_change_1"
+    },
+    {
+      "id": 2,
+      "x": 17,
+      "y": 5,
+      "w": 1,
+      "h": 1,
+      "tiles": "Ch11EirikaMapChanges_change_2"
+    },
+    {
+      "id": 3,
+      "x": 4,
+      "y": 11,
+      "w": 1,
+      "h": 1,
+      "tiles": "Ch11EirikaMapChanges_change_3"
+    },
+    {
+      "id": 4,
+      "x": 17,
+      "y": 13,
+      "w": 2,
+      "h": 1,
+      "tiles": "Ch11EirikaMapChanges_change_4"
+    }
+  ]
+}

@@ -44,6 +44,8 @@ struct SupportBonuses
     /* 06 */ u8 bonusDodge;
 };
 
+extern struct SupportData CONST_DATA gSupportData[];
+
 int GetUnitSupporterCount(struct Unit* unit);
 u8 GetUnitSupporterCharacter(struct Unit* unit, int num);
 struct Unit* GetUnitSupporterUnit(struct Unit* unit, int num);

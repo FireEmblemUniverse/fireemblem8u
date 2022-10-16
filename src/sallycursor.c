@@ -436,8 +436,8 @@ void SALLYCURSOR_DeploySupplyUnit() {
     if (unit) {
         unit->state &= ~US_NOT_DEPLOYED;
 
-        unit->xPos = GetROMChapterStruct(gRAMChapterData.chapterIndex)->_unk81[1];
-        unit->yPos = GetROMChapterStruct(gRAMChapterData.chapterIndex)->_unk81[3];
+        unit->xPos = GetROMChapterStruct(gRAMChapterData.chapterIndex)->merchantPosX;
+        unit->yPos = GetROMChapterStruct(gRAMChapterData.chapterIndex)->merchantPosY;
 
         RefreshEntityBmMaps();
         SMS_UpdateFromGameData();
@@ -481,8 +481,8 @@ void sub_8033468(struct UnknownSALLYCURSORProc* proc) {
 
 void sub_803348C(ProcPtr proc) {
     EnsureCameraOntoPosition(proc,
-        GetROMChapterStruct(gRAMChapterData.chapterIndex)->_unk81[1],
-            GetROMChapterStruct(gRAMChapterData.chapterIndex)->_unk81[3]);
+        GetROMChapterStruct(gRAMChapterData.chapterIndex)->merchantPosX,
+            GetROMChapterStruct(gRAMChapterData.chapterIndex)->merchantPosY);
     return;
 }
 
@@ -914,9 +914,9 @@ void sub_8033EC0(ProcPtr proc) {
 
 void CallCursorShop(ProcPtr proc) {
     struct EventCheckBuffer r0;
-    const struct ChapterEventInfo *einfo = GetChapterEventDataPointer(gRAMChapterData.chapterIndex);
+    const struct ChapterEventGroup *einfo = GetChapterEventDataPointer(gRAMChapterData.chapterIndex);
     struct EventCheckBuffer *buf;
-    r0.eventDef = einfo->unk_08;
+    r0.eventDef = einfo->locationBasedEvents;
 
     r0.xPos = gGameState.playerCursor.x;
     r0.yPos = gGameState.playerCursor.y;

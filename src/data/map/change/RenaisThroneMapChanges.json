@@ -1,0 +1,13 @@
+{
+  "name": "RenaisThroneMapChanges",
+  "changes": [
+    {
+      "id": 0,
+      "x": 7,
+      "y": 7,
+      "w": 2,
+      "h": 1,
+      "tiles": "RenaisThroneMapChanges_change_0"
+    }
+  ]
+}

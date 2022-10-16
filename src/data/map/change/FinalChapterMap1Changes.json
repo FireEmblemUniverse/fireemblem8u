@@ -1,0 +1,37 @@
+{
+  "name": "FinalChapterMap1Changes",
+  "changes": [
+    {
+      "id": 0,
+      "x": 4,
+      "y": 19,
+      "w": 1,
+      "h": 2,
+      "tiles": "FinalChapterMap1Changes_change_0"
+    },
+    {
+      "id": 1,
+      "x": 18,
+      "y": 19,
+      "w": 1,
+      "h": 2,
+      "tiles": "FinalChapterMap1Changes_change_1"
+    },
+    {
+      "id": 2,
+      "x": 21,
+      "y": 18,
+      "w": 1,
+      "h": 1,
+      "tiles": "FinalChapterMap1Changes_change_2"
+    },
+    {
+      "id": 3,
+      "x": 2,
+      "y": 18,
+      "w": 1,
+      "h": 1,
+      "tiles": "FinalChapterMap1Changes_change_3"
+    }
+  ]
+}

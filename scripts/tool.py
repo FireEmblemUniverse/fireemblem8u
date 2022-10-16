@@ -225,6 +225,27 @@ def save_image(infile, outfile=None, width=32, palfile=None, mapfile=None, palba
                                 im_withmap.putpixel((8 * col + c, 8 * row + r), im_withmap.getpixel((8 * col + c, 8 * row + r)) + 16 * pal)
             im_withmap.save(outfile_withmap)
 
+def dump_binary(fp, offset, comp_type=None, size=0, name=None):
+    if offset > 0x8000000:
+        offset -= 0x8000000
+    fp.seek(offset)
+    if name is None:
+        name = 'bin_%X' % offset
+    if comp_type is not None:
+        data = CompData(fp, offset, comp_type)
+        if data.comp_type == lz77:
+            compfile = name + '.bin.lz'
+        elif data.comp_type == runlength:
+            compfile = name + '.bin.rl'
+        else:
+            raise CompTypeError(offset, data.comp_type)
+        with open(compfile, 'wb') as fp_comp:
+            data.write_comp_data(fp_comp)
+        decomp_file(compfile, name + '.bin')
+    else:
+        with open(name + '.bin', 'wb') as fp_bin:
+            fp_bin.write(fp.read(size))
+
 def dump_palette(fp, offset, comp_type=None, color_number=16, name=None):
     if offset > 0x8000000:
         offset -= 0x8000000
@@ -330,6 +351,7 @@ def decomp_image(fp, offset_img, width=32, height=0, bitdepth=4, comp_type_img=N
             with open(compfile, 'wb') as fp_comp:
                 data_img.write_comp_data(fp_comp)
             decomp_file(compfile, imagefile)
+            print(f'{os.path.basename(imagefile)}: -num_tiles {os.path.getsize(imagefile) // 32}')
     if offset_pal is None:
         save_image(imagefile, width=width)
     else:
@@ -358,9 +380,40 @@ def read_pointer_here(fp):
 
 def read_rom_offset_here(fp):
     pointer = read_pointer_here(fp)
+    if pointer is None:
+        return None
     if pointer >= 0x8000000:
         return pointer - 0x8000000
     return None
+
+def read_u8_here(fp):
+    return struct.unpack('<B', fp.read(1))[0]
+
+def read_s8_here(fp):
+    return struct.unpack('<b', fp.read(1))[0]
+
+def read_bool8_here(fp):
+    return struct.unpack('<B', fp.read(1))[0] > 0
+
+def read_u16_here(fp):
+    return struct.unpack('<H', fp.read(2))[0]
+
+def read_s16_here(fp):
+    return struct.unpack('<h', fp.read(2))[0]
+
+def read_u32_here(fp):
+    return struct.unpack('<I', fp.read(4))[0]
+
+def read_s32_here(fp):
+    return struct.unpack('<i', fp.read(4))[0]
+
+def read_ascii_here(fp):
+    s = ''
+    c = struct.unpack('<c', fp.read(1))[0].decode('ascii')
+    while c != '\0':
+        s += c
+        c = struct.unpack('<c', fp.read(1))[0].decode('ascii')
+    return s
 
 def read_asm_macro(fp):
     """
@@ -387,6 +440,9 @@ def read_asm_macro(fp):
                 value = int(value)
             result[value] = name
     return result
+
+def PascalCase(str):
+    return ''.join(x for x in str.title() if not x.isspace())
 
 def main():
     with open('../baserom.gba', 'rb') as fp_rom:

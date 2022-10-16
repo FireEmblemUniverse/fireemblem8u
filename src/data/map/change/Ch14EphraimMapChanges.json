@@ -1,0 +1,77 @@
+{
+  "name": "Ch14EphraimMapChanges",
+  "changes": [
+    {
+      "id": 0,
+      "x": 13,
+      "y": 7,
+      "w": 3,
+      "h": 2,
+      "tiles": "Ch14EphraimMapChanges_change_0"
+    },
+    {
+      "id": 1,
+      "x": 6,
+      "y": 12,
+      "w": 3,
+      "h": 3,
+      "tiles": "Ch14EphraimMapChanges_change_1"
+    },
+    {
+      "id": 2,
+      "x": 20,
+      "y": 12,
+      "w": 3,
+      "h": 3,
+      "tiles": "Ch14EphraimMapChanges_change_2"
+    },
+    {
+      "id": 3,
+      "x": 13,
+      "y": 20,
+      "w": 3,
+      "h": 2,
+      "tiles": "Ch14EphraimMapChanges_change_3"
+    },
+    {
+      "id": 4,
+      "x": 13,
+      "y": 18,
+      "w": 1,
+      "h": 1,
+      "tiles": "Ch14EphraimMapChanges_change_4"
+    },
+    {
+      "id": 5,
+      "x": 15,
+      "y": 18,
+      "w": 1,
+      "h": 1,
+      "tiles": "Ch14EphraimMapChanges_change_5"
+    },
+    {
+      "id": 6,
+      "x": 3,
+      "y": 1,
+      "w": 1,
+      "h": 1,
+      "tiles": "Ch14EphraimMapChanges_change_6"
+    },
+    {
+      "id": 7,
+      "x": 27,
+      "y": 1,
+      "w": 1,
+      "h": 1,
+      "tiles": "Ch14EphraimMapChanges_change_7"
+    },
+    {
+      "id": 8,
+      "x": 14,
+      "y": 18,
+      "w": 1,
+      "h": 1,
+      "tiles": "Ch14EphraimMapChanges_change_8"
+    }
+  ]
+}

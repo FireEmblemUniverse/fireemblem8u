@@ -58,7 +58,15 @@ gUnknown_088ADFA4:  @ 0x088ADFA4
 
 	.global gUnknown_088ADFA6
 gUnknown_088ADFA6:  @ 0x088ADFA6
-	.incbin "baserom.gba", 0x8ADFA6, 0x188E
+	.incbin "baserom.gba", 0x8ADFA6, 0xC06
+
+	.global gSupportData
+gSupportData:		@ 0x088AEBAC
+	.incbin "baserom.gba", 0x8AEBAC, 0x318
+
+	.global gUnknown_088AEEC4
+gUnknown_088AEEC4:  @ 0x088AEEC4
+	.incbin "baserom.gba", 0x8AEEC4, 0x970
 
 	.global gUnknown_088AF834
 gUnknown_088AF834:  @ 0x088AF834

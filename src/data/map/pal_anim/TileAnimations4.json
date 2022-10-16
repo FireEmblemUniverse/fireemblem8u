@@ -1,0 +1,110 @@
+{
+  "name": "TileAnimations4",
+  "frames": [
+    {
+      "id": 0,
+      "duration": 19,
+      "colorNum": 4,
+      "colorPos": 60,
+      "pal": "TileAnimations4_frame_0"
+    },
+    {
+      "id": 1,
+      "duration": 18,
+      "colorNum": 4,
+      "colorPos": 60,
+      "pal": "TileAnimations4_frame_1"
+    },
+    {
+      "id": 2,
+      "duration": 17,
+      "colorNum": 4,
+      "colorPos": 60,
+      "pal": "TileAnimations4_frame_2"
+    },
+    {
+      "id": 3,
+      "duration": 16,
+      "colorNum": 4,
+      "colorPos": 60,
+      "pal": "TileAnimations4_frame_3"
+    },
+    {
+      "id": 4,
+      "duration": 16,
+      "colorNum": 4,
+      "colorPos": 60,
+      "pal": "TileAnimations4_frame_4"
+    },
+    {
+      "id": 5,
+      "duration": 16,
+      "colorNum": 4,
+      "colorPos": 60,
+      "pal": "TileAnimations4_frame_5"
+    },
+    {
+      "id": 6,
+      "duration": 17,
+      "colorNum": 4,
+      "colorPos": 60,
+      "pal": "TileAnimations4_frame_6"
+    },
+    {
+      "id": 7,
+      "duration": 18,
+      "colorNum": 4,
+      "colorPos": 60,
+      "pal": "TileAnimations4_frame_7"
+    },
+    {
+      "id": 8,
+      "duration": 19,
+      "colorNum": 4,
+      "colorPos": 60,
+      "pal": "TileAnimations4_frame_8"
+    },
+    {
+      "id": 9,
+      "duration": 18,
+      "colorNum": 4,
+      "colorPos": 60,
+      "pal": "TileAnimations4_frame_9"
+    },
+    {
+      "id": 10,
+      "duration": 17,
+      "colorNum": 4,
+      "colorPos": 60,
+      "pal": "TileAnimations4_frame_10"
+    },
+    {
+      "id": 11,
+      "duration": 16,
+      "colorNum": 4,
+      "colorPos": 60,
+      "pal": "TileAnimations4_frame_11"
+    },
+    {
+      "id": 12,
+      "duration": 16,
+      "colorNum": 4,
+      "colorPos": 60,
+      "pal": "TileAnimations4_frame_12"
+    },
+    {
+      "id": 13,
+      "duration": 17,
+      "colorNum": 4,
+      "colorPos": 60,
+      "pal": "TileAnimations4_frame_13"
+    },
+    {
+      "id": 14,
+      "duration": 18,
+      "colorNum": 4,
+      "colorPos": 60,
+      "pal": "TileAnimations4_frame_14"
+    }
+  ]
+}
