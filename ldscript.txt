@@ -352,6 +352,11 @@ SECTIONS
         . = ALIGN(4); data/data_5B65C0.o(.data);
         . = ALIGN(4); data/data_btl_bg.o(.data);
         . = ALIGN(4); data/data_78D500.o(.data);
+        . = ALIGN(4); src/data_characters.o(.data);
+        . = ALIGN(4); data/data_characters.o(.data);
+        . = ALIGN(4); data/data_classes.o(.data);
+        . = ALIGN(4); data/data_items.o(.data);
+        . = ALIGN(4); data/data_80B90C.o(.data);
         . = ALIGN(4); data/data_portrait.o(.data);
         . = ALIGN(4); src/portrait_data.o(.data);
         . = ALIGN(4); data/data_8ADEB0.o(.data);
