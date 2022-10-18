@@ -374,19 +374,19 @@ gProc_BMapMain:  @ 0x0859A1F0
 
     .2byte 6
     .2byte 1
-    .4byte gUnknown_0859E438
+    .4byte gProcScr_StatusDecayDisplay
 
     .2byte 6
     .2byte 1
-    .4byte gUnknown_0859E308
+    .4byte gProcScr_TerrainHealDisplay
 
     .2byte 6
     .2byte 1
-    .4byte gUnknown_0859E368
+    .4byte gProcScr_PoisonDamageDisplay
 
     .2byte 6
     .2byte 1
-    .4byte gUnknown_0859E3D0
+    .4byte gProcScr_GorgonEggHatchDisplay
 
     .2byte 6
     .2byte 1
