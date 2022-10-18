@@ -339,7 +339,6 @@ SECTIONS
         . = ALIGN(4); data/data_59E13C.o(.data);
         . = ALIGN(4); src/bb.o(.data);
         . = ALIGN(4); src/bmusailment.o(.data);
-        . = ALIGN(4); data/data_59E308.o(.data);
         . = ALIGN(4); src/bksel.o(.data);
         . = ALIGN(4); src/bmtrap.o(.data);
         . = ALIGN(4); src/bmdifficulty.o(.data);

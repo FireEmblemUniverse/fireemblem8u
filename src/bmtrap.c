@@ -124,7 +124,7 @@ void sub_8037540(struct UnknownBMTrapProc* proc) {
     }
 
     gActionData.trapType = TRAP_TORCHLIGHT;
-    sub_803592C(unit, TRAP_TORCHLIGHT);
+    BeginUnitCritDamageAnim(unit, TRAP_TORCHLIGHT);
 
     return;
 }
@@ -132,7 +132,7 @@ void sub_8037540(struct UnknownBMTrapProc* proc) {
 void sub_80375A0(struct UnknownBMTrapProc* proc) {
     struct Unit* unit = proc->unit;
 
-    sub_80357A8(proc, unit, -10, -1);
+    ApplyHazardHealing(proc, unit, -10, -1);
 
     if (GetUnitCurrentHp(unit) == 0) {
         struct Unit* tmp = gActiveUnit;

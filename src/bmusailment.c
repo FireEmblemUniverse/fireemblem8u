@@ -15,23 +15,14 @@
 #include "mu.h"
 #include "bmmind.h"
 #include "bmtarget.h"
+#include "bmtrick.h"
+#include "trapfx.h"
 
 #include "bmusailment.h"
 
 extern u16 gUnknown_08A032AC[];
 extern u16 gUnknown_08A03334[]; // palette
 extern u16 gUnknown_08A03354[];
-
-extern u16 gUnknown_02022C28[];
-extern u16 gUnknown_02022C48[];
-extern u16 gUnknown_02022C68[];
-
-
-// trapfx.s
-void StartFireTrapAnim(ProcPtr, int, int);
-void StartGasTrapAnim(ProcPtr, int, int, int);
-void StartArrowTrapAnim(ProcPtr, int);
-void StartShowMapChangeAnim(ProcPtr, int, int);
 
 // code_mapanim.s
 void sub_807B5DC(void);
@@ -54,94 +45,7 @@ struct UnknownBMUSAilmentProc {
     /* 58 */ int unk_58;
 };
 
-void sub_80359B4(struct UnknownBMUSAilmentProc* proc);
-void sub_8035A0C(struct UnknownBMUSAilmentProc* proc);
-
-struct ProcCmd CONST_DATA gProcScr_0859E1F0[] = {
-    PROC_CALL(sub_80359B4),
-
-PROC_LABEL(0),
-    PROC_REPEAT(sub_8035A0C),
-    PROC_SLEEP(32),
-
-    PROC_CALL(MU_EndAll),
-
-    PROC_GOTO(0),
-
-PROC_LABEL(99),
-    PROC_CALL(RefreshEntityBmMaps),
-    PROC_CALL(RenderBmMap),
-    PROC_CALL(SMS_UpdateFromGameData),
-
-    PROC_END,
-};
-
-void sub_8035AA4(void);
-void sub_8035B0C(void);
-
-struct ProcCmd CONST_DATA sProcScr_0859E248[] = {
-    PROC_CALL(sub_8035AA4),
-    PROC_REPEAT(sub_8035B0C),
-
-    PROC_END,
-};
-
-void sub_8035B44(struct UnknownBMUSAilmentProc* proc);
-void sub_8035BEC(struct UnknownBMUSAilmentProc* proc);
-void sub_8035C44(void);
-
-struct ProcCmd CONST_DATA sProcScr_0859E260[] = {
-    PROC_CALL(sub_8035B44),
-    PROC_REPEAT(sub_8035BEC),
-    PROC_CALL(sub_8035C44),
-
-    PROC_END,
-};
-
-void sub_8035C58(struct UnknownBMUSAilmentProc* proc);
-void sub_8035C80(struct UnknownBMUSAilmentProc* proc);
-void sub_8035C6C(struct UnknownBMUSAilmentProc* proc);
-
-struct ProcCmd CONST_DATA sProcScr_0859E280[] = {
-    PROC_CALL(sub_8035C58),
-    PROC_REPEAT(sub_8035C80),
-
-    PROC_SLEEP(0x20),
-
-    PROC_CALL(sub_8035C6C),
-    PROC_REPEAT(sub_8035C80),
-
-    PROC_END,
-};
-
-void sub_8035CB8(struct UnknownBMUSAilmentProc* proc);
-void sub_8035D44(struct UnknownBMUSAilmentProc* proc);
-void sub_8035D70(struct UnknownBMUSAilmentProc* proc);
-
-struct ProcCmd CONST_DATA sProcScr_0859E2B0[] = {
-    PROC_CALL(sub_8035CB8),
-    PROC_REPEAT(sub_8035D44),
-    PROC_REPEAT(sub_8035D70),
-
-    PROC_END,
-};
-
-void sub_8035D9C(void);
-
-struct ProcCmd CONST_DATA sProcScr_0859E2D0[] = {
-    PROC_START_CHILD(sProcScr_0859E248),
-    PROC_START_CHILD(sProcScr_0859E260),
-    PROC_START_CHILD(sProcScr_0859E280),
-    PROC_START_CHILD(sProcScr_0859E2B0),
-
-    PROC_SLEEP(66),
-
-    PROC_CALL(sub_8035D9C),
-
-    PROC_END,
-};
-
-void sub_80357A8(ProcPtr proc, struct Unit* unit, int hp, int status) {
+void ApplyHazardHealing(ProcPtr proc, struct Unit* unit, int hp, int status) {
 
     if (status >= 0) {
         SetUnitStatus(unit, status);
@@ -158,7 +62,7 @@ void sub_80357A8(ProcPtr proc, struct Unit* unit, int hp, int status) {
     return;
 }
 
-void sub_80357E4(struct Unit* unit) {
+void RenderMapForFogFadeIfUnitDied(struct Unit* unit) {
 
     if ((GetUnitCurrentHp(unit) == 0) && (gRAMChapterData.chapterVisionRange != 0)) {
         RenderBmMapOnBg2();
@@ -167,7 +71,7 @@ void sub_80357E4(struct Unit* unit) {
     return;
 }
 
-void sub_8035804(struct Unit* unit, int hp) {
+void BeginUnitHealAnim(struct Unit* unit, int hp) {
 
     BattleInitItemEffect(unit, -1);
 
@@ -184,7 +88,7 @@ void sub_8035804(struct Unit* unit, int hp) {
     return;
 }
 
-void sub_803584C(struct Unit* unit, int damage) {
+void BeginUnitPoisonDamageAnim(struct Unit* unit, int damage) {
 
     BattleInitItemEffect(unit, -1);
 
@@ -204,12 +108,12 @@ void sub_803584C(struct Unit* unit, int damage) {
 
     sub_807B5DC();
 
-    sub_80357E4(unit);
+    RenderMapForFogFadeIfUnitDied(unit);
 
     return;
 }
 
-void sub_80358C0(struct Unit* unit, int damage) {
+void BeginGorgonEggHatchDamageAnim(struct Unit* unit, int damage) {
 
     BattleInitItemEffect(unit, -1);
 
@@ -233,7 +137,7 @@ void sub_80358C0(struct Unit* unit, int damage) {
     return;
 }
 
-void sub_803592C(struct Unit* unit, int damage) {
+void BeginUnitCritDamageAnim(struct Unit* unit, int damage) {
 
     BattleInitItemEffect(unit, -1);
 
@@ -255,12 +159,12 @@ void sub_803592C(struct Unit* unit, int damage) {
 
     sub_807B68C();
 
-    sub_80357E4(unit);
+    RenderMapForFogFadeIfUnitDied(unit);
 
     return;
 }
 
-void sub_80359B4(struct UnknownBMUSAilmentProc* proc) {
+void KillAllRedUnits_Init(struct UnknownBMUSAilmentProc* proc) {
     int i;
 
     InitTargets(0, 0);
@@ -284,7 +188,7 @@ void sub_80359B4(struct UnknownBMUSAilmentProc* proc) {
     return;
 }
 
-void sub_8035A0C(struct UnknownBMUSAilmentProc* proc) {
+void KillAllRedUnits_Loop(struct UnknownBMUSAilmentProc* proc) {
     struct Unit* unit;
     int x;
     int y;
@@ -302,7 +206,7 @@ void sub_8035A0C(struct UnknownBMUSAilmentProc* proc) {
     x = unit->xPos * 16 - gGameState.camera.x;
     y = unit->yPos * 16 - gGameState.camera.y;
 
-    if ((x < 0) || (x > 0xF0) || (y < 0) || (y > 0xA0)) {
+    if ((x < 0) || (x > DISPLAY_WIDTH) || (y < 0) || (y > DISPLAY_HEIGHT)) {
         proc->unk_4C++;
         Proc_Goto(proc, 0);
     } else {
@@ -314,7 +218,26 @@ void sub_8035A0C(struct UnknownBMUSAilmentProc* proc) {
     return;
 }
 
-void sub_8035AA4() {
+struct ProcCmd CONST_DATA gProcScr_Unused_KillAllRedUnits[] = {
+    PROC_CALL(KillAllRedUnits_Init),
+
+PROC_LABEL(0),
+    PROC_REPEAT(KillAllRedUnits_Loop),
+    PROC_SLEEP(32),
+
+    PROC_CALL(MU_EndAll),
+
+    PROC_GOTO(0),
+
+PROC_LABEL(99),
+    PROC_CALL(RefreshEntityBmMaps),
+    PROC_CALL(RenderBmMap),
+    PROC_CALL(SMS_UpdateFromGameData),
+
+    PROC_END,
+};
+
+void StatusHealEffect_OverlayBg_Init() {
     int i;
     u16* src;
     u16* dst;
@@ -337,13 +260,20 @@ void sub_8035AA4() {
     return;
 }
 
-void sub_8035B0C() {
+void StatusHealEffect_OverlayBg_Loop() {
     BG_SetPosition(0, gGameState.camera.x - (gActiveUnit->xPos * 16), GetGameClock());
 
     return;
 }
 
-void sub_8035B44(struct UnknownBMUSAilmentProc* proc) {
+struct ProcCmd CONST_DATA sProcScr_StatusHealEffect_OverlayBg[] = {
+    PROC_CALL(StatusHealEffect_OverlayBg_Init),
+    PROC_REPEAT(StatusHealEffect_OverlayBg_Loop),
+
+    PROC_END,
+};
+
+void StatusHealEffect_BlendedSprite_Init(struct UnknownBMUSAilmentProc* proc) {
 
     HideUnitSMS(gActiveUnit);
 
@@ -369,12 +299,12 @@ void sub_8035B44(struct UnknownBMUSAilmentProc* proc) {
     SetBlendTargetA(1, 0, 0, 0, 0);
     SetBlendTargetB(0, 0, 0, 0, 1);
 
-    proc->unk_4C = 0x40;
+    proc->unk_4C = 64;
 
     return;
 }
 
-void sub_8035BEC(struct UnknownBMUSAilmentProc* proc) {
+void StatusHealEffect_BlendedSprite_Loop(struct UnknownBMUSAilmentProc* proc) {
 
     sub_8028014(
         4,
@@ -393,12 +323,20 @@ void sub_8035BEC(struct UnknownBMUSAilmentProc* proc) {
     return;
 }
 
-void sub_8035C44() {
+void StatusHealEffect_BlendedSprite_Finish() {
     ShowUnitSMS(gActiveUnit);
     return;
 }
 
-void sub_8035C58(struct UnknownBMUSAilmentProc* proc) {
+struct ProcCmd CONST_DATA sProcScr_StatusHealEffect_BlendedSprite[] = {
+    PROC_CALL(StatusHealEffect_BlendedSprite_Init),
+    PROC_REPEAT(StatusHealEffect_BlendedSprite_Loop),
+    PROC_CALL(StatusHealEffect_BlendedSprite_Finish),
+
+    PROC_END,
+};
+
+void StatusHealEffect_BlendSpriteAnim_InitIn(struct UnknownBMUSAilmentProc* proc) {
     proc->unk_4C = 15;
     proc->unk_2C = 0;
     proc->unk_34 = 1;
@@ -406,7 +344,7 @@ void sub_8035C58(struct UnknownBMUSAilmentProc* proc) {
     return;
 }
 
-void sub_8035C6C(struct UnknownBMUSAilmentProc* proc) {
+void StatusHealEffect_BlendSpriteAnim_InitOut(struct UnknownBMUSAilmentProc* proc) {
     proc->unk_4C = 15;
     proc->unk_2C = 16;
     proc->unk_34 = -1;
@@ -414,7 +352,7 @@ void sub_8035C6C(struct UnknownBMUSAilmentProc* proc) {
     return;
 }
 
-void sub_8035C80(struct UnknownBMUSAilmentProc* proc) {
+void StatusHealEffect_BlendSpriteAnim_Loop(struct UnknownBMUSAilmentProc* proc) {
 
     proc->unk_2C += proc->unk_34;
 
@@ -429,20 +367,32 @@ void sub_8035C80(struct UnknownBMUSAilmentProc* proc) {
     return;
 }
 
-void sub_8035CB8(struct UnknownBMUSAilmentProc* proc) {
+struct ProcCmd CONST_DATA sProcScr_StatusHealEffect_BlendAnim[] = {
+    PROC_CALL(StatusHealEffect_BlendSpriteAnim_InitIn),
+    PROC_REPEAT(StatusHealEffect_BlendSpriteAnim_Loop),
+
+    PROC_SLEEP(32),
+
+    PROC_CALL(StatusHealEffect_BlendSpriteAnim_InitOut),
+    PROC_REPEAT(StatusHealEffect_BlendSpriteAnim_Loop),
+
+    PROC_END,
+};
+
+void StatusHealEffect_PalSpriteAnim_Init(struct UnknownBMUSAilmentProc* proc) {
     u16* pal = NULL;
 
     switch (UNIT_FACTION(gActiveUnit)) {
         case FACTION_BLUE:
-            pal = gUnknown_02022C28;
+            pal = &PAL_OBJ_COLOR(12, 0);
             break;
 
         case FACTION_RED:
-            pal = gUnknown_02022C48;
+            pal = &PAL_OBJ_COLOR(13, 0);
             break;
 
         case FACTION_GREEN:
-            pal = gUnknown_02022C68;
+            pal = &PAL_OBJ_COLOR(14, 0);
             break;
     }
 
@@ -453,25 +403,25 @@ void sub_8035CB8(struct UnknownBMUSAilmentProc* proc) {
     return;
 }
 
-void sub_8035D14(struct UnknownBMUSAilmentProc* proc, int unk) {
-    if (unk > 31) {
-        unk = 31;
+void StatusHealEffect_PalSpriteAnim_SetOutlineIntensity(struct UnknownBMUSAilmentProc* proc, int intensity) {
+    if (intensity > 31) {
+        intensity = 31;
     }
 
-    if (unk < 0) {
-        unk = 0;
+    if (intensity < 0) {
+        intensity = 0;
     }
 
-    gPaletteBuffer[0x12F] = (unk << 10) + (unk << 5) + unk;
+    PAL_OBJ_COLOR(2, 15) = (intensity << 10) + (intensity << 5) + intensity;
 
     EnablePaletteSync();
 
     return;
 }
 
-void sub_8035D44(struct UnknownBMUSAilmentProc* proc) {
+void StatusHealEffect_PalSpriteAnim_LoopIn(struct UnknownBMUSAilmentProc* proc) {
 
-    sub_8035D14(proc, proc->unk_4C);
+    StatusHealEffect_PalSpriteAnim_SetOutlineIntensity(proc, proc->unk_4C);
     
     proc->unk_4C++;
 
@@ -482,9 +432,9 @@ void sub_8035D44(struct UnknownBMUSAilmentProc* proc) {
     return;
 }
 
-void sub_8035D70(struct UnknownBMUSAilmentProc* proc) {
+void StatusHealEffect_PalSpriteAnim_LoopOut(struct UnknownBMUSAilmentProc* proc) {
 
-    sub_8035D14(proc, proc->unk_4C);
+    StatusHealEffect_PalSpriteAnim_SetOutlineIntensity(proc, proc->unk_4C);
 
     proc->unk_4C--;
 
@@ -495,7 +445,15 @@ void sub_8035D70(struct UnknownBMUSAilmentProc* proc) {
     return;
 }
 
-void sub_8035D9C() {
+struct ProcCmd CONST_DATA sProcScr_StatusHealEffect_PalAnim[] = {
+    PROC_CALL(StatusHealEffect_PalSpriteAnim_Init),
+    PROC_REPEAT(StatusHealEffect_PalSpriteAnim_LoopIn),
+    PROC_REPEAT(StatusHealEffect_PalSpriteAnim_LoopOut),
+
+    PROC_END,
+};
+
+void StatusHealEffect_Finish() {
 
     ClearBg0Bg1();
 
@@ -511,20 +469,33 @@ void sub_8035D9C() {
     return;
 }
 
-void sub_8035DDC(struct Unit* unit, ProcPtr proc) {
+struct ProcCmd CONST_DATA sProcScr_StatusHealEffect[] = {
+    PROC_START_CHILD(sProcScr_StatusHealEffect_OverlayBg),
+    PROC_START_CHILD(sProcScr_StatusHealEffect_BlendedSprite),
+    PROC_START_CHILD(sProcScr_StatusHealEffect_BlendAnim),
+    PROC_START_CHILD(sProcScr_StatusHealEffect_PalAnim),
+
+    PROC_SLEEP(66),
+
+    PROC_CALL(StatusHealEffect_Finish),
+
+    PROC_END,
+};
+
+void StartStatusHealEffect(struct Unit* unit, ProcPtr proc) {
     gActiveUnit = unit;
 
     if (proc) {
-        Proc_StartBlocking(sProcScr_0859E2D0, proc);
+        Proc_StartBlocking(sProcScr_StatusHealEffect, proc);
         PlaySoundEffect(0xAA);
         return;
     }
 
-    Proc_StartBlocking(sProcScr_0859E2D0, (ProcPtr) 3);
+    Proc_StartBlocking(sProcScr_StatusHealEffect, PROC_TREE_3);
     return;
 }
 
-void sub_8035E20(struct UnknownBMUSAilmentProc* proc) {
+void TerrainHealDisplay_Init(struct UnknownBMUSAilmentProc* proc) {
 
     MakeTerrainHealTargetList(gRAMChapterData.faction);
 
@@ -537,7 +508,7 @@ void sub_8035E20(struct UnknownBMUSAilmentProc* proc) {
     return;
 }
 
-void sub_8035E50(struct UnknownBMUSAilmentProc* proc) {
+void MassEffectDisplay_Check(struct UnknownBMUSAilmentProc* proc) {
     struct SelectTarget* target = GetTarget(proc->unk_4C);
     struct Unit* unit = GetUnit(target->uid);
 
@@ -559,28 +530,28 @@ void sub_8035E50(struct UnknownBMUSAilmentProc* proc) {
     return;
 }
 
-void sub_8035ED8(struct UnknownBMUSAilmentProc* proc) {
+void MassEffectDisplay_Watch(struct UnknownBMUSAilmentProc* proc) {
     struct SelectTarget* target = GetTarget(proc->unk_4C);
     EnsureCameraOntoPosition(proc, target->x, target->y);
 
     return;
 }
 
-void sub_8035EFC(struct UnknownBMUSAilmentProc* proc) {
+void TerrainHealDisplay_Display(struct UnknownBMUSAilmentProc* proc) {
     struct SelectTarget* target = GetTarget(proc->unk_4C);
     struct Unit* unit = GetUnit(target->uid);
 
     if (target->extra < 0) {
-        sub_8035DDC(unit, proc);
+        StartStatusHealEffect(unit, proc);
     } else {
         HideUnitSMS(unit);
-        sub_8035804(unit, target->extra);
+        BeginUnitHealAnim(unit, target->extra);
     }
 
     return;
 }
 
-void sub_8035F40() {
+void FinishDamageDisplay() {
     MU_EndAll();
 
     if (gBattleActor.unit.curHP != 0) {
@@ -590,14 +561,14 @@ void sub_8035F40() {
     return;
 }
 
-void sub_8035F6C(struct UnknownBMUSAilmentProc* proc) {
+void TerrainHealDisplay_Next(struct UnknownBMUSAilmentProc* proc) {
     struct SelectTarget* target = GetTarget(proc->unk_4C);
     struct Unit* unit = GetUnit(target->uid);
 
     if (target->extra < 0) {
-        sub_80357A8(proc, unit, 0, 0);
+        ApplyHazardHealing(proc, unit, 0, 0);
     } else {
-        sub_80357A8(proc, unit, target->extra, -1);
+        ApplyHazardHealing(proc, unit, target->extra, -1);
     }
 
     proc->unk_4C++;
@@ -605,7 +576,28 @@ void sub_8035F6C(struct UnknownBMUSAilmentProc* proc) {
     return;
 }
 
-void sub_8035FB8(struct UnknownBMUSAilmentProc* proc) {
+struct ProcCmd CONST_DATA gProcScr_TerrainHealDisplay[] = {
+    PROC_CALL(TerrainHealDisplay_Init),
+
+PROC_LABEL(0),
+    PROC_CALL(MassEffectDisplay_Check),
+    PROC_CALL(MassEffectDisplay_Watch),
+    PROC_SLEEP(0),
+
+    PROC_CALL(TerrainHealDisplay_Display),
+    PROC_SLEEP(0),
+
+    PROC_CALL(FinishDamageDisplay),
+
+PROC_LABEL(1),
+    PROC_CALL(TerrainHealDisplay_Next),
+
+    PROC_GOTO(0),
+
+    PROC_END,
+};
+
+void PoisonDamageDisplay_Init(struct UnknownBMUSAilmentProc* proc) {
     MakePoisonDamageTargetList(gRAMChapterData.faction);
     sub_8026414(4);
 
@@ -618,22 +610,22 @@ void sub_8035FB8(struct UnknownBMUSAilmentProc* proc) {
     return;
 }
 
-void sub_8035FF0(struct UnknownBMUSAilmentProc* proc) {
+void PoisonDamageDisplay_Display(struct UnknownBMUSAilmentProc* proc) {
     struct SelectTarget* target = GetTarget(proc->unk_4C);
     struct Unit* unit = GetUnit(target->uid);
 
     HideUnitSMS(unit);
 
-    sub_803584C(unit, target->extra);
+    BeginUnitPoisonDamageAnim(unit, target->extra);
 
     return;
 }
 
-void sub_803601C(struct UnknownBMUSAilmentProc* proc) {
+void PoisonDamageDisplay_Next(struct UnknownBMUSAilmentProc* proc) {
     struct SelectTarget* target = GetTarget(proc->unk_4C);
     struct Unit* unit = GetUnit(target->uid);
 
-    sub_80357A8(proc, unit, -(target->extra), -1);
+    ApplyHazardHealing(proc, unit, -(target->extra), -1);
 
     proc->unk_4C++;
 
@@ -650,7 +642,29 @@ void sub_803601C(struct UnknownBMUSAilmentProc* proc) {
     return;
 }
 
-void sub_803608C(struct Unit* unit) {
+struct ProcCmd CONST_DATA gProcScr_PoisonDamageDisplay[] = {
+    PROC_CALL(PoisonDamageDisplay_Init),
+
+PROC_LABEL(0),
+    PROC_CALL(MassEffectDisplay_Check),
+    PROC_CALL(MassEffectDisplay_Watch),
+    PROC_SLEEP(0),
+
+    PROC_CALL(PoisonDamageDisplay_Display),
+    PROC_SLEEP(0),
+
+    PROC_CALL(FinishDamageDisplay),
+
+PROC_LABEL(1),
+    PROC_CALL(PoisonDamageDisplay_Next),
+    PROC_SLEEP(0),
+
+    PROC_GOTO(0),
+
+    PROC_END,
+};
+
+void SetClassToHatchingGorgonEgg(struct Unit* unit) {
 
     if (unit->pClassData->number != CLASS_GORGONEGG2) {
         unit->pClassData = GetClassData(CLASS_GORGONEGG2);
@@ -664,7 +678,7 @@ void sub_803608C(struct Unit* unit) {
     return;
 }
 
-void sub_80360B8(struct UnknownBMUSAilmentProc* proc) {
+void GorgonEggHatchDisplay_Init(struct UnknownBMUSAilmentProc* proc) {
 
     MakeGorgonEggHatchTargetList(gRAMChapterData.faction);
 
@@ -677,23 +691,23 @@ void sub_80360B8(struct UnknownBMUSAilmentProc* proc) {
     return;
 }
 
-void sub_80360E8(struct UnknownBMUSAilmentProc* proc) {
+void GorgonEggHatchDisplay_Display(struct UnknownBMUSAilmentProc* proc) {
     struct SelectTarget* target = GetTarget(proc->unk_4C);
     struct Unit* unit = GetUnit(target->uid);
 
     HideUnitSMS(unit);
 
-    sub_803608C(unit);
-    sub_80358C0(unit, target->extra);
+    SetClassToHatchingGorgonEgg(unit);
+    BeginGorgonEggHatchDamageAnim(unit, target->extra);
 
     return;
 }
 
-void sub_803611C(struct UnknownBMUSAilmentProc* proc) {
+void GorgonEggHatchDisplay_Next(struct UnknownBMUSAilmentProc* proc) {
     struct SelectTarget* target = GetTarget(proc->unk_4C);
     struct Unit* unit = GetUnit(target->uid);
 
-    sub_80357A8(proc, unit, target->extra, -1);
+    ApplyHazardHealing(proc, unit, target->extra, -1);
 
     proc->unk_4C++;
 
@@ -710,7 +724,29 @@ void sub_803611C(struct UnknownBMUSAilmentProc* proc) {
     return;
 }
 
-void sub_8036188(struct UnknownBMUSAilmentProc* proc) {
+struct ProcCmd CONST_DATA gProcScr_GorgonEggHatchDisplay[] = {
+    PROC_CALL(GorgonEggHatchDisplay_Init),
+
+PROC_LABEL(0),
+    PROC_CALL(MassEffectDisplay_Check),
+    PROC_CALL(MassEffectDisplay_Watch),
+    PROC_SLEEP(0),
+
+    PROC_CALL(GorgonEggHatchDisplay_Display),
+    PROC_SLEEP(0),
+
+    PROC_CALL(FinishDamageDisplay),
+
+PROC_LABEL(1),
+    PROC_CALL(GorgonEggHatchDisplay_Next),
+    PROC_SLEEP(0),
+
+    PROC_GOTO(0),
+
+    PROC_END,
+};
+
+void StatusDecayDisplay_Init(struct UnknownBMUSAilmentProc* proc) {
     if (GetSelectTargetCount() == 0) {
         Proc_End(proc);
     } else {
@@ -721,13 +757,13 @@ void sub_8036188(struct UnknownBMUSAilmentProc* proc) {
     return;
 }
 
-void sub_80361AC(struct UnknownBMUSAilmentProc* proc) {
+void StatusDecayDisplay_Display(struct UnknownBMUSAilmentProc* proc) {
     struct SelectTarget* target = GetTarget(proc->unk_4C);
     int status = GetUnit(gActionData.subjectIndex)->statusIndex;
 
     proc->unk_58 = status;
 
-    SetUnitStatus(GetUnit(gActionData.subjectIndex), 0);
+    SetUnitStatus(GetUnit(gActionData.subjectIndex), UNIT_STATUS_NONE);
 
     switch (status) {
         case UNIT_STATUS_POISON:
@@ -737,14 +773,14 @@ void sub_80361AC(struct UnknownBMUSAilmentProc* proc) {
         case UNIT_STATUS_RECOVER:
         case UNIT_STATUS_PETRIFY:
         case UNIT_STATUS_13:
-            sub_8035DDC(GetUnit(target->uid), proc);
+            StartStatusHealEffect(GetUnit(target->uid), proc);
             break;
     }
 
     return;
 }
 
-void sub_803623C(struct UnknownBMUSAilmentProc* proc) {
+void StatusDecayDisplay_Next(struct UnknownBMUSAilmentProc* proc) {
 
     if ((proc->unk_58 == UNIT_STATUS_PETRIFY) || (proc->unk_58 == UNIT_STATUS_13)) {
         SetUnitStatus(GetUnit(gActionData.subjectIndex), 0);
@@ -763,12 +799,31 @@ void sub_803623C(struct UnknownBMUSAilmentProc* proc) {
     return;
 }
 
-void sub_803629C(struct UnknownBMUSAilmentProc* proc) {
+struct ProcCmd CONST_DATA gProcScr_StatusDecayDisplay[] = {
+    PROC_CALL(StatusDecayDisplay_Init),
+
+PROC_LABEL(0),
+    PROC_CALL(MassEffectDisplay_Check),
+    PROC_CALL(MassEffectDisplay_Watch),
+    PROC_SLEEP(0),
+
+    PROC_CALL(StatusDecayDisplay_Display),
+    PROC_SLEEP(0),
+
+PROC_LABEL(1),
+    PROC_CALL(StatusDecayDisplay_Next),
+
+    PROC_GOTO(0),
+
+    PROC_END,
+};
+
+void TrapDamageDisplay_Init(struct UnknownBMUSAilmentProc* proc) {
     proc->unk_4C = 0;
     return;
 }
 
-void sub_80362A4(struct UnknownBMUSAilmentProc* proc) {
+void TrapDamageDisplay_Check(struct UnknownBMUSAilmentProc* proc) {
     struct SelectTarget* target = GetTarget(proc->unk_4C);
     struct Unit* unit = GetUnit(target->uid);
 
@@ -794,7 +849,7 @@ void sub_80362A4(struct UnknownBMUSAilmentProc* proc) {
     return;
 }
 
-void sub_8036334(struct UnknownBMUSAilmentProc* proc) {
+void TrapDamageDisplay_Watch(struct UnknownBMUSAilmentProc* proc) {
     struct SelectTarget* target = GetTarget(proc->unk_4C);
 
     if (target->uid != 0 || target->extra != 6) {
@@ -804,12 +859,12 @@ void sub_8036334(struct UnknownBMUSAilmentProc* proc) {
     return;
 }
 
-void sub_8036364(struct UnknownBMUSAilmentProc* proc) {
+void TrapDamageDisplay_Display(struct UnknownBMUSAilmentProc* proc) {
     struct SelectTarget* target = GetTarget(proc->unk_4C);
 
     if (target->uid == 0) {
         switch (target->extra) {
-            case 4:
+            case TRAP_FIRETILE:
                 StartFireTrapAnim(proc, target->x, target->y);
                 break;
 
@@ -829,11 +884,11 @@ void sub_8036364(struct UnknownBMUSAilmentProc* proc) {
                 StartGasTrapAnim(proc, target->x, target->y, 1);
                 break;
 
-            case 7:
+            case TRAP_LIGHTARROW:
                 StartArrowTrapAnim(proc, target->x);
                 break;
 
-            case 6:
+            case TRAP_MAPCHANGE2:
                 StartShowMapChangeAnim(proc, target->x, target->y);
                 break;
         }
@@ -848,23 +903,23 @@ void sub_8036364(struct UnknownBMUSAilmentProc* proc) {
         HideUnitSMS(GetUnit(gActionData.subjectIndex));
 
         if (gActionData.trapType < 6) {
-            sub_803584C(GetUnit(gActionData.subjectIndex), target->extra);
+            BeginUnitPoisonDamageAnim(GetUnit(gActionData.subjectIndex), target->extra);
         } else {
-            sub_803592C(GetUnit(gActionData.subjectIndex), target->extra);
+            BeginUnitCritDamageAnim(GetUnit(gActionData.subjectIndex), target->extra);
         }
     }
 
     return;
 }
 
-void sub_8036474(struct UnknownBMUSAilmentProc* proc) {
+void TrapDamageDisplay_Next(struct UnknownBMUSAilmentProc* proc) {
     struct SelectTarget* target = GetTarget(proc->unk_4C);
     struct Unit* unit = GetUnit(target->uid);
 
     if (target->extra < 6) {
-        sub_80357A8(proc, unit, -(target->extra), 1);
+        ApplyHazardHealing(proc, unit, -(target->extra), UNIT_STATUS_POISON);
     } else {
-        sub_80357A8(proc, unit, -(target->extra), -1);
+        ApplyHazardHealing(proc, unit, -(target->extra), -1);
     }
 
     if (GetUnitCurrentHp(unit) <= 0) {
@@ -875,3 +930,27 @@ void sub_8036474(struct UnknownBMUSAilmentProc* proc) {
 
     return;
 }
+
+struct ProcCmd CONST_DATA gProcScr_TrapDamageDisplay[] = {
+    PROC_CALL(TrapDamageDisplay_Init),
+
+PROC_LABEL(0),
+    PROC_SLEEP(0),
+
+    PROC_CALL(TrapDamageDisplay_Check),
+
+    PROC_CALL(TrapDamageDisplay_Watch),
+    PROC_SLEEP(0),
+
+    PROC_CALL(TrapDamageDisplay_Display),
+    PROC_SLEEP(0),
+
+    PROC_CALL(FinishDamageDisplay),
+
+PROC_LABEL(1),
+    PROC_CALL(TrapDamageDisplay_Next),
+
+    PROC_GOTO(0),
+
+    PROC_END,
+};
