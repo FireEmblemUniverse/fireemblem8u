@@ -97,7 +97,7 @@ void Text_SetColorId(struct TextHandle *th, int colorId);
 int Text_GetColorId(struct TextHandle *th);
 void Text_SetParameters(struct TextHandle* th, int x, int colorId);
 void Text_Draw(struct TextHandle* th, u16* dest);
-// ??? Text_DrawBlank(???);
+void Text_DrawBlank(struct TextHandle *th, u16 *dest);
 int GetStringTextWidth(const char *str);
 const char *GetCharTextWidth(const char *str, u32 *pWidth);
 int GetStringTextCenteredPos(int x, const char* str);
