@@ -148,7 +148,8 @@ SECTIONS
         asm/code_80A882C.o(.text);
         src/opinfo.o(.text);
         src/classdisplayfont.o(.text);
-        asm/code_80B4154.o(.text);
+        asm/bmshop.o(.text);
+        asm/code_80B5730.o(.text);
         src/branched_promotion_main.o(.text);
         src/branched_promotion.o(.text);
         asm/code_80CCA64.o(.text);
