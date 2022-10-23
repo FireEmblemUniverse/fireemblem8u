@@ -13,6 +13,7 @@
 #include "mu.h"
 #include "icon.h"
 #include "ctc.h"
+#include "bmio.h"
 
 #include "constants/items.h"
 
@@ -49,53 +50,6 @@ struct BmShop2Proc {
 
 typedef void (*ShopFunc)(struct BmShopProc*, int);
 
-
-extern int gUnknown_08A3918C[]; // portrait lut
-extern int gUnknown_08A39180[]; // dialogue lut
-
-extern u16 gUnknown_08A39170[]; // default inventory?
-
-extern struct ProcCmd gUnknown_08A39210[];
-
-extern struct ProcCmd gUnknown_08A394C0[];
-
-extern struct TextHandle gUnknown_0203EF68[];
-extern u16 gUnknown_02023CB6[]; // offset of BG2
-
-extern struct ProcCmd gUnknown_08A39198[];
-
-extern struct ProcCmd gUnknown_08A391D0[];
-
-extern u8 gUnknown_089AD934[]; // tsa
-
-extern u16 gUnknown_08B1754C[]; // pal
-extern u8 gUnknown_08B12DB4[]; // gfx
-
-extern u8 gUnknown_08A295D4[]; // tsa
-
-extern u16 gUnknown_02022E5E[];
-
-extern u16 gUnknown_089AD9F8[]; // pal
-
-extern struct ProcCmd gUnknown_08A394C0[];
-
-extern u16 gUnknown_02022E60[]; // offset of bg0
-
-extern int gUnknown_0203EFB4;
-
-extern struct ProcCmd gUnknown_08A39488[];
-
-struct TextHandle gUnknown_03001DA0;
-
-extern u16 gUnknown_02023CB6[]; // offset of bg
-
-extern struct ProcCmd gUnknown_08A39478[];
-
-extern u16 gUnknown_08A39498[]; // sprite
-
-extern u8 gUnknown_08A1C704[]; // icon gfx?
-extern u16 gUnknown_08A1A084[]; // pal
-
 struct ShopState {
     /* 00 */ u16 unk_00;
     /* 02 */ u16 unk_02;
@@ -109,9 +63,268 @@ struct ShopState {
     /* 18 */ ProcPtr unk_18;
 };
 
-extern struct ShopState gUnknown_0203EF98;
-extern struct ShopState* gUnknown_08A394D8;// = &gUnknown_0203EF98;
+u16 CONST_DATA gUnknown_08A39170[] = {
+    ITEM_SWORD_IRON,
+    ITEM_LANCE_IRON,
+    ITEM_AXE_IRON,
+    ITEM_BOW_IRON,
+    ITEM_ANIMA_FIRE,
+    ITEM_STAFF_HEAL,
+    ITEM_NONE,
+    ITEM_NONE,
+};
 
+int CONST_DATA gUnknown_08A39180[] = {
+    0,
+    1,
+    2
+};
+
+int CONST_DATA gUnknown_08A3918C[] = {
+    0x65,
+    0x66,
+    0x68
+};
+
+struct ProcCmd CONST_DATA gUnknown_08A39198[] = {
+    PROC_CALL(AddSkipThread2),
+    PROC_SLEEP(1),
+
+    PROC_CALL_ARG(sub_8014BD0, -1),
+    PROC_CALL(sub_8013D68),
+
+    PROC_REPEAT(ContinueUntilSomeTransistion6CExists),
+    PROC_CALL(BMapDispSuspend),
+
+    PROC_END,
+};
+
+struct ProcCmd CONST_DATA gUnknown_08A391D0[] = {
+    PROC_CALL(ResetDialogueScreen),
+
+    PROC_CALL(BMapDispResume),
+    PROC_CALL(RefreshBMapGraphics),
+
+    PROC_CALL(sub_80160D0),
+    PROC_CALL(sub_8013D8C),
+
+    PROC_REPEAT(ContinueUntilSomeTransistion6CExists),
+    PROC_CALL(SubSkipThread2),
+
+    PROC_END,
+};
+
+void sub_80B4B7C(struct BmShopProc* proc);
+void sub_80B4BEC(struct BmShopProc* proc);
+void sub_80B4474(struct BmShopProc* proc);
+void sub_80B432C(struct BmShopProc* proc);
+void sub_80B4350(struct BmShopProc* proc);
+void sub_80B43A8(struct BmShopProc* proc);
+void sub_80B44A8(struct BmShopProc* proc);
+void sub_80B4630(struct BmShopProc* proc);
+void sub_80B4760(struct BmShopProc* proc);
+void sub_80B4774(struct BmShopProc* proc);
+void sub_80B4788(struct BmShopProc* proc);
+void sub_80B47B4(struct BmShopProc* proc);
+void sub_80B4930(struct BmShopProc* proc);
+void sub_80B49B8(struct BmShopProc* proc);
+void sub_80B49CC(struct BmShopProc* proc);
+void sub_80B49E8(struct BmShopProc* proc);
+void sub_80B464C(struct BmShopProc* proc);
+void sub_80B46B0(struct BmShopProc* proc);
+void sub_80B4730(struct BmShopProc* proc);
+void sub_80B474C(struct BmShopProc* proc);
+void sub_80B46FC(struct BmShopProc* proc);
+void sub_80B471C(struct BmShopProc* proc);
+void sub_80B46CC(struct BmShopProc* proc);
+void sub_80B4A40(struct BmShopProc* proc);
+void sub_80B4A54(struct BmShopProc* proc);
+void sub_80B49F8(struct BmShopProc* proc);
+void sub_80B4A20(void);
+void sub_80B4BB0(struct BmShopProc* proc);
+
+extern struct ProcCmd CONST_DATA gUnknown_08A394D0[];
+
+struct ProcCmd CONST_DATA gUnknown_08A39210[] = {
+    PROC_CALL(sub_80B4B7C),
+    PROC_SLEEP(0),
+
+    PROC_CALL(AddSkipThread2),
+
+    PROC_CALL(sub_80B4BEC),
+    PROC_CALL(sub_80B4474),
+
+    PROC_START_CHILD(gUnknown_08A394D0),
+
+    PROC_CALL(sub_8013FC4),
+
+    PROC_SLEEP(1),
+
+    PROC_CALL(sub_80B432C),
+
+PROC_LABEL(0),
+    PROC_SLEEP(1),
+
+    PROC_REPEAT(sub_80B4350),
+
+    // fallthrough
+
+PROC_LABEL(1),
+    PROC_CALL(sub_80B43A8),
+
+    // fallthrough
+
+PROC_LABEL(2),
+    PROC_CALL(sub_80B4474),
+
+    PROC_SLEEP(1),
+    PROC_REPEAT(sub_80B44A8),
+    PROC_CALL(sub_80B4630),
+
+    PROC_GOTO(9),
+
+PROC_LABEL(3),
+    PROC_CALL(sub_80B4760),
+
+    PROC_GOTO(2),
+
+PROC_LABEL(4),
+    PROC_CALL(sub_80B4774),
+
+    // fallthrough
+
+PROC_LABEL(5),
+    PROC_CALL(sub_80B4788),
+    PROC_SLEEP(1),
+
+    PROC_REPEAT(sub_80B47B4),
+
+    PROC_CALL(sub_80B4930),
+    PROC_SLEEP(2),
+
+    PROC_CALL(sub_80B49B8),
+
+    PROC_GOTO(5),
+
+PROC_LABEL(7),
+    PROC_SLEEP(2),
+    PROC_CALL(sub_80B49CC),
+
+    PROC_GOTO(0),
+
+PROC_LABEL(8),
+    PROC_SLEEP(1),
+    PROC_CALL(sub_80B49E8),
+
+    PROC_GOTO(0),
+
+PROC_LABEL(9),
+    PROC_CALL(sub_80B464C),
+    PROC_SLEEP(0),
+
+    PROC_CALL(sub_80B46B0),
+    PROC_SLEEP(0),
+
+    PROC_CALL(sub_80B4730),
+
+    PROC_CALL(sub_80B474C),
+    PROC_SLEEP(0),
+
+    PROC_GOTO(7),
+
+PROC_LABEL(10),
+    PROC_CALL(sub_80B46FC),
+    PROC_SLEEP(0),
+
+    PROC_CALL(sub_80B471C),
+    PROC_SLEEP(0),
+
+    PROC_GOTO(3),
+
+PROC_LABEL(11),
+    PROC_SLEEP(0),
+
+    PROC_CALL(sub_80B46CC),
+    PROC_SLEEP(0),
+
+    PROC_GOTO(7),
+
+PROC_LABEL(13),
+    PROC_CALL(sub_80B4A40),
+    PROC_SLEEP(0),
+
+    PROC_REPEAT(sub_80B4A54),
+
+    // fallthrough
+
+PROC_LABEL(12),
+    PROC_CALL(sub_80B49F8),
+    PROC_SLEEP(1),
+
+    PROC_CALL_ARG(sub_8014BD0, 2),
+
+    PROC_CALL(sub_8013F40),
+    PROC_SLEEP(1),
+
+    PROC_CALL(sub_80B4A20),
+
+    PROC_END_EACH(gUnknown_08A394D0),
+
+    PROC_CALL(sub_80B4BB0),
+    PROC_SLEEP(0),
+
+    PROC_CALL(SubSkipThread2),
+
+    PROC_END,
+};
+
+void sub_80B5040(struct BmShop2Proc* proc);
+
+struct ProcCmd CONST_DATA gUnknown_08A39478[] = {
+    PROC_REPEAT(sub_80B5040),
+
+    PROC_END,
+};
+
+void sub_80B5148(struct BmShop2Proc* proc);
+
+struct ProcCmd CONST_DATA gUnknown_08A39488[] = {
+    PROC_REPEAT(sub_80B5148),
+
+    PROC_END,
+};
+
+u16 CONST_DATA gUnknown_08A39498[] = {
+    0x0006,
+    0x4000, 0x4000, 0x0400,
+    0x4000, 0x4020, 0x0402,
+    0x4008, 0x4000, 0x0406,
+    0x4008, 0x4020, 0x0408,
+    0x4010, 0x4000, 0x040C,
+    0x4010, 0x4020, 0x040E,
+};
+
+void sub_80B52A4(struct BmShopProc* proc);
+
+struct ProcCmd CONST_DATA gUnknown_08A394C0[] = {
+    PROC_REPEAT(sub_80B52A4),
+
+    PROC_END,
+};
+
+void sub_80B5378(void);
+
+struct ProcCmd CONST_DATA gUnknown_08A394D0[] = {
+    PROC_REPEAT(sub_80B5378),
+};
+
+extern struct TextHandle gUnknown_0203EF68[6];
+
+extern struct ShopState gUnknown_0203EF98;
+extern int gUnknown_0203EFB4; // TODO: Is this meant to be part of ShopState?
+struct ShopState* CONST_DATA gUnknown_08A394D8 = &gUnknown_0203EF98;
+
+struct TextHandle gUnknown_03001DA0;
 
 // forward declaration
 void MakeShop(struct Unit*, u16*, u8, ProcPtr);
@@ -337,7 +550,7 @@ void sub_80B43BC(struct BmShopProc* proc, int itemIndex) {
     item = proc->unk_30[itemIndex];
 
     if (item != 0) {
-        sub_80B5164(&gUnknown_0203EF68[index], item, proc->unk_2c, gUnknown_02023CB6 + (itemIndex * 2 & 0x1F) * 0x20);
+        sub_80B5164(&gUnknown_0203EF68[index], item, proc->unk_2c, gBG2TilemapBuffer + 7 + (itemIndex * 2 & 0x1F) * 0x20);
     }
 
     return;
@@ -358,7 +571,7 @@ void sub_80B4418(struct BmShopProc* proc, int itemIndex) {
     item = proc->unk_30[itemIndex];
 
     if (item != 0) {
-        sub_80B51C0(&gUnknown_0203EF68[index], item, proc->unk_2c, gUnknown_02023CB6 + (itemIndex * 2 & 0x1F) * 0x20);
+        sub_80B51C0(&gUnknown_0203EF68[index], item, proc->unk_2c, gBG2TilemapBuffer + 7 + (itemIndex * 2 & 0x1F) * 0x20);
     }
 
     return;
@@ -649,7 +862,7 @@ void sub_80B4930(struct BmShopProc* proc) {
 
         sub_80B42B4(proc);
         sub_80B505C(proc);
-        sub_80B4ED4(gUnknown_02022E5E);
+        sub_80B4ED4(gBG0TilemapBuffer + 0xDB);
 
         if (proc->unk_5b == 0) {
             Proc_Goto(proc, 7);
@@ -917,9 +1130,9 @@ void sub_80B4E24(struct BmShopProc* parent) {
 
     CopyToPaletteBuffer(gUiFramePaletteA, 0x280, 0x20);
 
-    sub_80B4E88(gUnknown_02022E60);
+    sub_80B4E88(gBG0TilemapBuffer + 0xDC);
 
-    sub_80B4ED4(gUnknown_02022E60 - 1);
+    sub_80B4ED4(gBG0TilemapBuffer + 0xDC - 1);
 
     return;
 }
@@ -973,7 +1186,7 @@ void sub_80B4F04(struct BmShopProc* parent) {
     Font_LoadForUI();
 
     for (i = parent->unk_5f; i < parent->unk_5f + 5; i++) {
-        Text_DrawBlank(&gUnknown_0203EF68[DivRem(i, 6)],gUnknown_02023CB6 + (((i*2) & 0x1F) * 0x20));
+        Text_DrawBlank(&gUnknown_0203EF68[DivRem(i, 6)], gBG2TilemapBuffer + 7 + (((i*2) & 0x1F) * 0x20));
     }
 
     BG_SetPosition(2, 0, (((parent->unk_5f) << 0x14) + 0xFFB80000) >> 0x10);
@@ -1004,7 +1217,7 @@ void sub_80B4F90(struct BmShopProc* proc) {
             break;
         }
 
-        sub_80B5164(&gUnknown_0203EF68[index], item, proc->unk_2c, gUnknown_02023CB6 + ((i * 2) & 0x1F) * 0x20);
+        sub_80B5164(&gUnknown_0203EF68[index], item, proc->unk_2c, gBG2TilemapBuffer + 7 + ((i * 2) & 0x1F) * 0x20);
     }
 
     BG_SetPosition(2, 0, ((proc->unk_5f << 0x14) + 0xFFB80000) >> 0x10);
@@ -1036,7 +1249,7 @@ void sub_80B505C(struct BmShopProc* parent) {
     Font_LoadForUI();
 
     for (i = 0; i < 5; i++) {
-        Text_DrawBlank(&gUnknown_0203EF68[DivRem(i, 6)], gUnknown_02023CB6 + ((i * 2) & 0x1F) * 0x20);
+        Text_DrawBlank(&gUnknown_0203EF68[DivRem(i, 6)], gBG2TilemapBuffer + 7 + ((i * 2) & 0x1F) * 0x20);
     }
 
     BG_SetPosition(2, 0, 0x0000FFB8);
@@ -1068,7 +1281,7 @@ void sub_80B50C8(struct BmShopProc* proc) {
             break;
         }
 
-        sub_80B51C0(&gUnknown_0203EF68[index], item, proc->unk_2c, gUnknown_02023CB6 + ((i * 2) & 0x1F) * 0x20);
+        sub_80B51C0(&gUnknown_0203EF68[index], item, proc->unk_2c, gBG2TilemapBuffer + 7 + ((i * 2) & 0x1F) * 0x20);
     }
 
     BG_EnableSyncByMask(BG2_SYNC_BIT);
@@ -1248,7 +1461,7 @@ void sub_80B5440(struct BmShopProc* proc) {
     sub_80B42B4(proc);
     sub_80B4F90(proc);
 
-    sub_80B4ED4(gUnknown_02022E5E);
+    sub_80B4ED4(gBG0TilemapBuffer + 0xDB);
 
     return;
 }
