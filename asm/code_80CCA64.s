@@ -215,7 +215,7 @@ sub_80CDF78: @ 0x080CDF78
 	push {lr}
 	movs r0, #0xe0
 	movs r1, #3
-	bl sub_80B53BC
+	bl UnpackUiVArrowGfx
 	pop {r0}
 	bx r0
 
@@ -334,7 +334,7 @@ _080CE054:
 	movs r0, #0x20
 	movs r1, #0x20
 	movs r3, #1
-	bl sub_80B53F8
+	bl DisplayUiVArrow
 _080CE070:
 	ldr r1, [r4]
 	adds r0, r1, #0
@@ -367,7 +367,7 @@ _080CE0A4:
 	movs r0, #0x20
 	movs r1, #0x88
 	movs r3, #0
-	bl sub_80B53F8
+	bl DisplayUiVArrow
 	b _080CE11A
 	.align 2, 0
 _080CE0B4: .4byte 0x000030E0
@@ -400,7 +400,7 @@ _080CE0CA:
 	movs r0, #0x90
 	movs r1, #0x38
 	movs r3, #1
-	bl sub_80B53F8
+	bl DisplayUiVArrow
 _080CE0F8:
 	ldr r0, [r5]
 	adds r1, r0, #0
@@ -417,7 +417,7 @@ _080CE0F8:
 	movs r0, #0x90
 	movs r1, #0x80
 	movs r3, #0
-	bl sub_80B53F8
+	bl DisplayUiVArrow
 _080CE11A:
 	ldr r0, _080CE144  @ gUnknown_08B12AA4
 	ldr r0, [r0]

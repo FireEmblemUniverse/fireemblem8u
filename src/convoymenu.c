@@ -164,7 +164,7 @@ u8 SendToConvoyMenu_Selected2(struct MenuProc* proc_menu, struct MenuItemProc* p
 
 u8 SendToConvoyMenu_Idle(struct MenuProc* proc_menu, struct MenuItemProc* proc_cmd)
 {
-    if (1 != sub_8008A00())
+    if (1 != GetDialoguePromptResult())
         return 0;
 
     gKeyStatusPtr->newKeys = 0;

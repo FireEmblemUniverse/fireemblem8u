@@ -376,7 +376,6 @@ extern u16 gUnknown_02022D2E[];
 // extern ??? gUnknown_02022E30
 // extern ??? gUnknown_02022E34
 // extern ??? gUnknown_02022E5E
-// extern ??? gUnknown_02022E60
 // extern ??? gUnknown_02022E68
 // extern ??? gUnknown_02022E76
 // extern ??? gUnknown_02022E90
@@ -454,7 +453,6 @@ extern u16 gBG1TilemapBuffer[];
 extern u16 gBG2TilemapBuffer[];
 // extern ??? gUnknown_02023CAA
 // extern ??? gUnknown_02023CAE
-// extern ??? gUnknown_02023CB6
 // extern ??? gUnknown_02023CC0
 // extern ??? gUnknown_02023CC2
 // extern ??? gUnknown_02023CC6
@@ -644,7 +642,6 @@ extern struct ActionData gActionData;
 // extern ??? gUnknown_0203EF44
 // extern ??? gUnknown_0203EF60
 // extern ??? gUnknown_0203EF64
-// extern ??? gUnknown_0203EF68
 // extern ??? gUnknown_0203EFB4
 // extern ??? end
 // extern ??? gUnknown_03000000
@@ -734,7 +731,6 @@ extern struct OamDataTransfer gUnknown_03000030;
 // extern ??? gUnknown_03001CC8
 // extern ??? gUnknown_03001CE8
 // extern ??? gUnknown_03001D50
-// extern ??? gUnknown_03001DA0
 // extern ??? gUnknown_03001DA8
 // extern ??? gUnknown_03001DE8
 // extern ??? gUnknown_03001E30
@@ -3091,8 +3087,8 @@ extern const u16 gUnknown_089A8EF8[];
 // extern ??? gUnknown_089AD6A8
 // extern ??? gUnknown_089AD78C
 // extern ??? gUnknown_089AD868
-// extern ??? gUnknown_089AD934
-// extern ??? gUnknown_089AD9F8
+extern u8 gUnknown_089AD934[]; // tsa
+extern u16 gUnknown_089AD9F8[]; // pal
 // extern ??? Img_UnkTrap_089ADA80
 // extern ??? Pal_UnkTrap_089ADD0C
 extern const u8 gUnknown_089ADD4C[];
@@ -3411,7 +3407,7 @@ extern u16 CONST_DATA gUnknown_08A199C8[]; // TODO - Not sure; used in sallycurs
 // extern ??? gUnknown_08A19C0C
 // extern ??? gUnknown_08A19CAC
 // extern ??? gUnknown_08A19CCC
-// extern ??? gUnknown_08A1A084
+extern u16 gUnknown_08A1A084[]; // pal
 // extern ??? gUnknown_08A1A0A4
 // extern ??? gUnknown_08A1A23C
 // extern ??? gUnknown_08A1A3FC
@@ -3441,7 +3437,7 @@ extern u16 CONST_DATA gUnknown_08A1B154[]; // TODO - palette data from sallycurs
 // extern ??? gUnknown_08A1BD00
 // extern ??? gUnknown_08A1BD40
 // extern ??? gUnknown_08A1BD60
-// extern ??? gUnknown_08A1C704
+extern u8 gUnknown_08A1C704[]; // arrow gfx
 // extern ??? gUnknown_08A1C7D8
 // extern ??? gUnknown_08A1C8B4
 // extern ??? gUnknown_08A1CD68
@@ -3561,7 +3557,7 @@ extern struct ProcCmd CONST_DATA gUnknown_08A20DCC[];
 // extern ??? gUnknown_08A294BA
 // extern ??? gUnknown_08A29558
 // extern ??? gUnknown_08A295B4
-// extern ??? gUnknown_08A295D4
+extern u8 gUnknown_08A295D4[]; // tsa
 // extern ??? gUnknown_08A29A88
 // extern ??? gUnknown_08A2B1E4
 // extern ??? gUnknown_08A2C11C
@@ -3609,17 +3605,6 @@ extern u8 gUnknown_08A36284[]; // tsa?
 extern u8 gUnknown_08A36338[]; // gfx
 extern u8 gUnknown_08A372C0[]; // pal
 extern u16 gUnknown_08A37300[]; // pal
-// extern ??? gUnknown_08A39170
-// extern ??? gUnknown_08A39180
-// extern ??? gUnknown_08A3918C
-// extern ??? gUnknown_08A39198
-// extern ??? gUnknown_08A391D0
-// extern ??? gUnknown_08A39210
-// extern ??? gUnknown_08A39478
-// extern ??? gUnknown_08A39488
-// extern ??? gUnknown_08A39498
-// extern ??? gUnknown_08A394C0
-// extern ??? gUnknown_08A394D8
 // extern ??? gUnknown_08A394DC
 // extern ??? gUnknown_08A3963C
 // extern ??? gUnknown_08A3CB04
@@ -4084,8 +4069,8 @@ extern const struct ProcCmd gUnknown_08B1271C[];
 // extern ??? gUnknown_08B12C3C
 extern struct ProcCmd CONST_DATA gProcScr_Guide[];
 // extern ??? gUnknown_08B12D1C
-extern u8 gUnknown_08B12DB4[];
-extern u16 gUnknown_08B1754C[];
+extern u8 gUnknown_08B12DB4[];  // gfx
+extern u16 gUnknown_08B1754C[]; // pal
 // extern ??? gUnknown_08B1756C
 // extern ??? gUnknown_08B176CC
 // extern ??? gUnknown_08B177C0

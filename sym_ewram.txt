@@ -368,7 +368,6 @@
 . = 0x022E30; gUnknown_02022E30 = .;
 . = 0x022E34; gUnknown_02022E34 = .;
 . = 0x022E5E; gUnknown_02022E5E = .;
-. = 0x022E60; gUnknown_02022E60 = .;
 . = 0x022E68; gUnknown_02022E68 = .;
 . = 0x022E76; gUnknown_02022E76 = .;
 . = 0x022E90; gUnknown_02022E90 = .;
@@ -443,7 +442,6 @@
 . = 0x023CA8; gBG2TilemapBuffer = .;
 . = 0x023CAA; gUnknown_02023CAA = .;
 . = 0x023CAE; gUnknown_02023CAE = .;
-. = 0x023CB6; gUnknown_02023CB6 = .;
 . = 0x023CC0; gUnknown_02023CC0 = .;
 . = 0x023CC2; gUnknown_02023CC2 = .;
 . = 0x023CC6; gUnknown_02023CC6 = .;
@@ -642,6 +640,7 @@
 . = 0x03EF44; gUnknown_0203EF44 = .;
 . = 0x03EF60; gUnknown_0203EF60 = .;
 . = 0x03EF64; gUnknown_0203EF64 = .;
-. = 0x03EF68; gUnknown_0203EF68 = .;
+. = 0x03EF68; gShopItemTexts = .;
+. = 0x03EF98; sShopState = .;
 . = 0x03EFB4; gUnknown_0203EFB4 = .;
 . = 0x03EFB8; end = .;

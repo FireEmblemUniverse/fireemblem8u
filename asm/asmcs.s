@@ -1901,7 +1901,7 @@ _08085320: .4byte 0x00001387
 	THUMB_FUNC_START sub_8085324
 sub_8085324: @ 0x08085324
 	push {lr}
-	bl sub_8008A00
+	bl GetDialoguePromptResult
 	movs r1, #0
 	cmp r0, #1
 	bne _08085332

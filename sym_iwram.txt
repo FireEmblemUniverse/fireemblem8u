@@ -89,7 +89,7 @@
 . = 0x001CC8; gUnknown_03001CC8 = .;
 . = 0x001CE8; gUnknown_03001CE8 = .;
 . = 0x001D50; gUnknown_03001D50 = .;
-. = 0x001DA0; gUnknown_03001DA0 = .;
+. = 0x001DA0; gText_GoldBox = .;
 . = 0x001DA8; gUnknown_03001DA8 = .;
 . = 0x001DE8; gUnknown_03001DE8 = .;
 . = 0x001E30; gUnknown_03001E30 = .;
