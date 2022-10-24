@@ -642,7 +642,6 @@ extern struct ActionData gActionData;
 // extern ??? gUnknown_0203EF44
 // extern ??? gUnknown_0203EF60
 // extern ??? gUnknown_0203EF64
-// extern ??? gUnknown_0203EF68
 // extern ??? gUnknown_0203EFB4
 // extern ??? end
 // extern ??? gUnknown_03000000
@@ -732,7 +731,6 @@ extern struct OamDataTransfer gUnknown_03000030;
 // extern ??? gUnknown_03001CC8
 // extern ??? gUnknown_03001CE8
 // extern ??? gUnknown_03001D50
-// extern ??? gUnknown_03001DA0
 // extern ??? gUnknown_03001DA8
 // extern ??? gUnknown_03001DE8
 // extern ??? gUnknown_03001E30
@@ -3607,17 +3605,6 @@ extern u8 gUnknown_08A36284[]; // tsa?
 extern u8 gUnknown_08A36338[]; // gfx
 extern u8 gUnknown_08A372C0[]; // pal
 extern u16 gUnknown_08A37300[]; // pal
-// extern ??? gUnknown_08A39170
-// extern ??? gUnknown_08A39180
-// extern ??? gUnknown_08A3918C
-// extern ??? gUnknown_08A39198
-// extern ??? gUnknown_08A391D0
-// extern ??? gUnknown_08A39210
-// extern ??? gUnknown_08A39478
-// extern ??? gUnknown_08A39488
-// extern ??? gUnknown_08A39498
-// extern ??? gUnknown_08A394C0
-// extern ??? gUnknown_08A394D8
 // extern ??? gUnknown_08A394DC
 // extern ??? gUnknown_08A3963C
 // extern ??? gUnknown_08A3CB04

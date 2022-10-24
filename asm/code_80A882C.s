@@ -19331,7 +19331,7 @@ sub_80B1920: @ 0x080B1920
 	bl LoadIconPalette
 	movs r0, #0x80
 	movs r1, #3
-	bl sub_80B53BC
+	bl UnpackUiVArrowGfx
 	pop {r0}
 	bx r0
 

@@ -2269,7 +2269,7 @@ _0800E5F8:
 	.align 2, 0
 _0800E5FC: .4byte gUnknown_08A016E0
 _0800E600:
-	bl sub_8008A00
+	bl GetDialoguePromptResult
 	ldr r1, _0800E638  @ gEventSlots
 _0800E606:
 	str r0, [r1, #0x30]

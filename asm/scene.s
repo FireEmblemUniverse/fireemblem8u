@@ -4486,15 +4486,15 @@ _080089FC: .4byte gProcScr_E_FACE
 
 	THUMB_FUNC_END Face6CExists
 
-	THUMB_FUNC_START sub_8008A00
-sub_8008A00: @ 0x08008A00
+	THUMB_FUNC_START GetDialoguePromptResult
+GetDialoguePromptResult: @ 0x08008A00
 	ldr r0, _08008A08  @ gUnknown_030000E8
 	ldr r0, [r0]
 	bx lr
 	.align 2, 0
 _08008A08: .4byte gUnknown_030000E8
 
-	THUMB_FUNC_END sub_8008A00
+	THUMB_FUNC_END GetDialoguePromptResult
 
 	THUMB_FUNC_START sub_8008A0C
 sub_8008A0C: @ 0x08008A0C

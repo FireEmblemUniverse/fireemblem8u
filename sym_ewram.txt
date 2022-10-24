@@ -640,7 +640,7 @@
 . = 0x03EF44; gUnknown_0203EF44 = .;
 . = 0x03EF60; gUnknown_0203EF60 = .;
 . = 0x03EF64; gUnknown_0203EF64 = .;
-. = 0x03EF68; gUnknown_0203EF68 = .;
-. = 0x03EF98; gUnknown_0203EF98 = .;
+. = 0x03EF68; gShopItemTexts = .;
+. = 0x03EF98; sShopState = .;
 . = 0x03EFB4; gUnknown_0203EFB4 = .;
 . = 0x03EFB8; end = .;

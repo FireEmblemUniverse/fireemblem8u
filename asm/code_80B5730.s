@@ -134,7 +134,7 @@ sub_80B57A0: @ 0x080B57A0
 	movs r0, #2
 	bl BG_EnableSyncByMask
 	adds r0, r6, #0
-	bl sub_80B4E24
+	bl StartUiGoldBox
 	ldrb r0, [r7, #1]
 	movs r6, #0x20
 	orrs r0, r6
@@ -347,7 +347,7 @@ _080B59E8: .4byte 0x000008D2
 sub_80B59EC: @ 0x080B59EC
 	push {r4, r5, lr}
 	adds r5, r0, #0
-	bl sub_8008A00
+	bl GetDialoguePromptResult
 	cmp r0, #1
 	beq _080B5A10
 	ldr r0, _080B5A0C  @ 0x000008D4
@@ -400,7 +400,7 @@ sub_80B5A38: @ 0x080B5A38
 	bl m4aSongNumStart
 _080B5A60:
 	ldr r0, _080B5A78  @ gUnknown_02022E5E
-	bl sub_80B4ED4
+	bl DisplayGoldBoxText
 	adds r0, r5, #0
 	bl sub_80B5C48
 	pop {r4, r5}
@@ -455,7 +455,7 @@ sub_80B5AB4: @ 0x080B5AB4
 	movs r1, #7
 	bl Proc_SetMark
 	bl ResetDialogueScreen
-	ldr r0, _080B5AF4  @ gUnknown_08A394C0
+	ldr r0, _080B5AF4  @ gProcScr_GoldBox
 	bl Proc_EndEach
 	ldr r5, _080B5AF8  @ gActionData
 	movs r6, #0
@@ -477,7 +477,7 @@ sub_80B5AB4: @ 0x080B5AB4
 	pop {r0}
 	bx r0
 	.align 2, 0
-_080B5AF4: .4byte gUnknown_08A394C0
+_080B5AF4: .4byte gProcScr_GoldBox
 _080B5AF8: .4byte gActionData
 _080B5AFC: .4byte gActiveUnit
 
@@ -582,7 +582,7 @@ _080B5BB2:
 	bne _080B5BD6
 _080B5BB6:
 	ldr r0, _080B5BDC  @ gUnknown_02022E5E
-	bl sub_80B4ED4
+	bl DisplayGoldBoxText
 	ldr r0, _080B5BE0  @ gRAMChapterData
 	adds r0, #0x41
 	ldrb r0, [r0]
@@ -608,7 +608,7 @@ _080B5BE0: .4byte gRAMChapterData
 	THUMB_FUNC_START sub_80B5BE4
 sub_80B5BE4: @ 0x080B5BE4
 	push {lr}
-	ldr r0, _080B5BF8  @ gUnknown_08A394C0
+	ldr r0, _080B5BF8  @ gProcScr_GoldBox
 	bl Proc_EndEach
 	ldr r0, _080B5BFC  @ gProcScr_MoveUnit
 	ldr r1, _080B5C00  @ MU_Show
@@ -616,7 +616,7 @@ sub_80B5BE4: @ 0x080B5BE4
 	pop {r0}
 	bx r0
 	.align 2, 0
-_080B5BF8: .4byte gUnknown_08A394C0
+_080B5BF8: .4byte gProcScr_GoldBox
 _080B5BFC: .4byte gProcScr_MoveUnit
 _080B5C00: .4byte MU_Show
 
@@ -784,7 +784,7 @@ sub_80B5D3C: @ 0x080B5D3C
 	THUMB_FUNC_START sub_80B5D48
 sub_80B5D48: @ 0x080B5D48
 	push {lr}
-	bl sub_8008A00
+	bl GetDialoguePromptResult
 	cmp r0, #1
 	bne _080B5D56
 	movs r0, #1
@@ -31216,7 +31216,7 @@ sub_80C3F88: @ 0x080C3F88
 	adds r1, r1, r2
 	ldr r1, [r1, #0xc]
 	adds r2, r4, #0
-	bl MakeShopArmory
+	bl StartArmoryScreen
 	pop {r4}
 	pop {r0}
 	bx r0
@@ -31239,7 +31239,7 @@ sub_80C3FB4: @ 0x080C3FB4
 	adds r1, r1, r2
 	ldr r1, [r1, #0x10]
 	adds r2, r4, #0
-	bl MakeShopVendor
+	bl StartVendorScreen
 	pop {r4}
 	pop {r0}
 	bx r0
@@ -31262,7 +31262,7 @@ sub_80C3FE0: @ 0x080C3FE0
 	adds r1, r1, r2
 	ldr r1, [r1, #0x14]
 	adds r2, r4, #0
-	bl sub_80B4220
+	bl StartSecretShopScreen
 	pop {r4}
 	pop {r0}
 	bx r0

@@ -3010,7 +3010,7 @@ _080842D8:
 	ldr r0, _080842EC  @ gActiveUnit
 	ldr r0, [r0]
 	ldr r1, [sp, #4]
-	bl sub_80B41D0
+	bl StartArmoryScreenOrphaned
 	b _08084326
 	.align 2, 0
 _080842EC: .4byte gActiveUnit
@@ -3021,7 +3021,7 @@ _080842F0:
 	ldr r0, _08084304  @ gActiveUnit
 	ldr r0, [r0]
 	ldr r1, [sp, #4]
-	bl sub_80B41F0
+	bl StartVendorScreenOrphaned
 	b _08084326
 	.align 2, 0
 _08084304: .4byte gActiveUnit
@@ -3032,7 +3032,7 @@ _08084308:
 	ldr r0, _0808431C  @ gActiveUnit
 	ldr r0, [r0]
 	ldr r1, [sp, #4]
-	bl sub_80B4210
+	bl StartSecretShopScreenOrphaned
 	b _08084326
 	.align 2, 0
 _0808431C: .4byte gActiveUnit

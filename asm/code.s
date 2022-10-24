@@ -23446,7 +23446,7 @@ sub_8099E48: @ 0x08099E48
 	bl sub_8095354
 	ldr r1, _08099E64  @ gUnknown_08A188E4
 	adds r2, r4, #0
-	bl MakeShopArmory
+	bl StartArmoryScreen
 	pop {r4}
 	pop {r0}
 	bx r0
@@ -35696,7 +35696,7 @@ sub_809FFB0: @ 0x0809FFB0
 	cmp r4, #0
 	beq _080A0022
 	adds r0, r4, #0
-	bl sub_80B5268
+	bl GetItemSellPrice
 	lsls r0, r0, #0x10
 	lsrs r5, r0, #0x10
 	cmp r5, #0
@@ -36267,7 +36267,7 @@ _080A0488:
 	adds r1, r1, r0
 	ldrh r5, [r1]
 	adds r0, r5, #0
-	bl sub_80B5268
+	bl GetItemSellPrice
 	lsls r0, r0, #0x10
 	cmp r0, #0
 	beq _080A04BA
@@ -36417,7 +36417,7 @@ sub_80A05BC: @ 0x080A05BC
 	adds r1, #0x1e
 	adds r1, r1, r0
 	ldrh r0, [r1]
-	bl sub_80B5268
+	bl GetItemSellPrice
 	lsls r0, r0, #0x10
 	lsrs r0, r0, #0x10
 	bl sub_8024E20

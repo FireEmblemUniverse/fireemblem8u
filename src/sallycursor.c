@@ -24,6 +24,7 @@
 #include "uichapterstatus.h"
 #include "player_interface.h"
 #include "bb.h"
+#include "bmshop.h"
 
 #include "sallycursor.h"
 
@@ -54,8 +55,6 @@ void sub_801240C();
 // code.s
 bool8 IsCharacterForceDeployed(int);
 void SortPlayerUnitsForPrepScreen();
-void MakeShopArmory(int, int, ProcPtr);
-void MakeShopVendor(int, int, ProcPtr);
 bool8 sub_8094FF4();
 int sub_809541C();
 int sub_8095970();
@@ -927,10 +926,10 @@ void CallCursorShop(ProcPtr proc) {
 
     switch (r0.commandId) {
         case 0x16:
-            MakeShopArmory(0, r0.eventCode, proc);
+            StartArmoryScreen(0, (u16*) r0.eventCode, proc);
             break;
         case 0x17:
-            MakeShopVendor(0, r0.eventCode, proc);
+            StartVendorScreen(0, (u16*) r0.eventCode, proc);
             break;
     }
 
