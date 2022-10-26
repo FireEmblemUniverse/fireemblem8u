@@ -1044,7 +1044,7 @@ _080504CA:
 	cmp r0, #0
 	bne _08050510
 	movs r0, #1
-	bl sub_8031EE4
+	bl ArenaSetResult
 	b _080505CC
 	.align 2, 0
 _080504FC: .4byte gUnknown_0201FB04
@@ -1059,7 +1059,7 @@ _08050510:
 	bne _08050522
 	movs r0, #2
 _0805051A:
-	bl sub_8031EE4
+	bl ArenaSetResult
 	strh r7, [r4, #2]
 	b _080505CC
 _08050522:
@@ -1122,7 +1122,7 @@ _08050586:
 	adds r0, r4, #0
 	bl sub_80533D0
 _08050598:
-	bl sub_8031EF0
+	bl ArenaContinueBattle
 	bl sub_80581EC
 	bl AnimClearAll
 	bl sub_80599E8

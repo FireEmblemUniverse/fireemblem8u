@@ -4,86 +4,94 @@
 #include "rng.h"
 #include "bmitem.h"
 #include "bmbattle.h"
+#include "bmarena.h"
+
+#include "constants/characters.h"
+#include "constants/classes.h"
+#include "constants/items.h"
 
 int GetUnitBestWRankType(struct Unit*);
 int GetClassBestWRankType(const struct ClassData*);
-int sub_803190C(int);
+int ArenaGenerateOpposingClassId(int);
 s8 IsWeaponMagic(int);
-int GetNearLevel(int);
-int GetUnitArenaWeight(struct Unit*, s8);
-void LoadArenaOpponentStruct(void);
-void LoadArenaWeapons(void);
-s8 PrepareBalancedArenaFight(void);
-s8 AdjustArenaOpponentPower(void);
-void sub_8031EA0(void);
-void sub_8031EE4(int);
-void sub_8031FC8(void);
+int ArenaGetOpposingLevel(int);
+int ArenaGetPowerRanking(struct Unit*, s8);
+void ArenaGenerateOpponentUnit(void);
+void ArenaGenerateBaseWeapons(void);
+s8 ArenaAdjustOpponentDamage(void);
+s8 ArenaAdjustOpponentPowerRanking(void);
+void ArenaGenerateMatchupGoldValue(void);
+void ArenaSetResult(int);
+void ArenaSetFallbackWeaponsMaybe(void);
 
-void PrepareArenaStruct(struct Unit* unit) {
+struct ArenaData EWRAM_DATA gArenaState = {};
+struct Unit EWRAM_DATA gArenaOpponent = {};
+
+void ArenaBeginInternal(struct Unit* unit) {
     int i;
 
-    gUnknown_0203A8F0.playerUnit = unit;
-    gUnknown_0203A8F0.opponentUnit = &gUnknown_0203A910;
+    gArenaState.playerUnit = unit;
+    gArenaState.opponentUnit = &gArenaOpponent;
 
     gUnknown_03003060 = UNIT_ARENA_LEVEL(unit);
 
-    gUnknown_0203A8F0.playerClassId = unit->pClassData->number;
-    gUnknown_0203A8F0.playerWpnType = GetUnitBestWRankType(unit);
+    gArenaState.playerClassId = unit->pClassData->number;
+    gArenaState.playerWpnType = GetUnitBestWRankType(unit);
 
-    gUnknown_0203A8F0.opponentClassId = sub_803190C(gUnknown_0203A8F0.playerWpnType);
-    gUnknown_0203A8F0.opponentWpnType = GetClassBestWRankType(GetClassData(gUnknown_0203A8F0.opponentClassId));
+    gArenaState.opponentClassId = ArenaGenerateOpposingClassId(gArenaState.playerWpnType);
+    gArenaState.opponentWpnType = GetClassBestWRankType(GetClassData(gArenaState.opponentClassId));
 
-    gUnknown_0203A8F0.playerIsMagic = IsWeaponMagic(gUnknown_0203A8F0.playerWpnType);
-    gUnknown_0203A8F0.opponentIsMagic = IsWeaponMagic(gUnknown_0203A8F0.opponentWpnType);
+    gArenaState.playerIsMagic = IsWeaponMagic(gArenaState.playerWpnType);
+    gArenaState.opponentIsMagic = IsWeaponMagic(gArenaState.opponentWpnType);
 
-    gUnknown_0203A8F0.playerLevel = unit->level;
+    gArenaState.playerLevel = unit->level;
 
     if (UNIT_ARENA_LEVEL(unit) < 5) {
-        gUnknown_0203A8F0.oppenentLevel = GetNearLevel(gUnknown_0203A8F0.playerLevel);
+        gArenaState.oppenentLevel = ArenaGetOpposingLevel(gArenaState.playerLevel);
     } else {
-        gUnknown_0203A8F0.oppenentLevel = GetNearLevel(gUnknown_0203A8F0.playerLevel) + 7;
+        gArenaState.oppenentLevel = ArenaGetOpposingLevel(gArenaState.playerLevel) + 7;
     }
 
-    LoadArenaOpponentStruct();
-    LoadArenaWeapons();
+    ArenaGenerateOpponentUnit();
+    ArenaGenerateBaseWeapons();
 
     for (i = 0; i < 10; i++) {
-        if (!AdjustArenaOpponentPower()) {
+        if (!ArenaAdjustOpponentPowerRanking()) {
             break;
         }
     }
 
     for (i = 0; i < 5; i++) {
-        if (!PrepareBalancedArenaFight()) {
+        if (!ArenaAdjustOpponentDamage()) {
             break;
         }
     }
 
-    gUnknown_0203A8F0.playerPowerWeight = GetUnitArenaWeight(gUnknown_0203A8F0.playerUnit, gUnknown_0203A8F0.opponentIsMagic);
+    gArenaState.playerPowerWeight = ArenaGetPowerRanking(gArenaState.playerUnit, gArenaState.opponentIsMagic);
 
-    gUnknown_0203A8F0.opponentPowerWeight = GetUnitArenaWeight(gUnknown_0203A8F0.opponentUnit, gUnknown_0203A8F0.playerIsMagic);
+    gArenaState.opponentPowerWeight = ArenaGetPowerRanking(gArenaState.opponentUnit, gArenaState.playerIsMagic);
 
-    sub_8031EA0();
+    ArenaGenerateMatchupGoldValue();
 
-    gUnknown_0203A8F0.unk0B = 1;
+    gArenaState.unk0B = 1;
 
-    sub_8031EE4(0);
+    ArenaSetResult(0);
 
-    sub_8031FC8();
+    ArenaSetFallbackWeaponsMaybe();
 
     return;
 }
 
-void PrepareArena(struct Unit* unit) {
+void ArenaBegin(struct Unit* unit) {
     StoreRNState(&gActionData.item);
-    PrepareArenaStruct(unit);
+    ArenaBeginInternal(unit);
 
     return;
 }
 
-void PrepareArena2(struct Unit* unit) {
+void ArenaResume(struct Unit* unit) {
     LoadRNState(&gActionData.item);
-    PrepareArenaStruct(unit);
+    ArenaBeginInternal(unit);
     LoadRNState(gActionData._u00);
 
     return;
@@ -131,11 +139,133 @@ int GetClassBestWRankType(const struct ClassData* class) {
     return type;
 }
 
-extern u8 gUnknown_0859D9FC[];
-extern u8 gUnknown_0859DA4A[];
-extern u8 gUnknown_0859DA22[];
+u8 CONST_DATA gClassList_MeleeArena[] = {
+    CLASS_MERCENARY,
+    CLASS_HERO,
+    CLASS_MYRMIDON,
+    CLASS_SWORDMASTER,
+    CLASS_FIGHTER,
+    CLASS_WARRIOR,
+    CLASS_ARMOR_KNIGHT,
+    CLASS_GENERAL,
+    CLASS_BISHOP,
+    CLASS_MAGE,
+    CLASS_SAGE,
+    CLASS_SHAMAN,
+    CLASS_DRUID,
+    CLASS_CAVALIER,
+    CLASS_PALADIN,
+    CLASS_VALKYRIE,
+    CLASS_PEGASUS_KNIGHT,
+    CLASS_FALCON_KNIGHT,
+    CLASS_WYVERN_RIDER,
+    CLASS_WYVERN_LORD,
+    CLASS_SOLDIER,
+    CLASS_BRIGAND,
+    CLASS_PIRATE,
+    CLASS_BERSERKER,
+    CLASS_MERCENARY,
+    CLASS_MYRMIDON,
+    CLASS_FIGHTER,
+    CLASS_ARMOR_KNIGHT,
+    CLASS_MAGE,
+    CLASS_SHAMAN,
+    CLASS_CAVALIER,
+    CLASS_PEGASUS_KNIGHT,
+    CLASS_WYVERN_RIDER,
+    CLASS_BRIGAND,
+    CLASS_PIRATE,
+    CLASS_SOLDIER,
+    CLASS_SOLDIER,
 
-int sub_803190C(int weaponType) {
+    CLASS_NONE
+};
+
+u8 CONST_DATA gClassList_MagicArena[] = {
+    CLASS_MERCENARY,
+    CLASS_HERO,
+    CLASS_MYRMIDON,
+    CLASS_SWORDMASTER,
+    CLASS_FIGHTER,
+    CLASS_WARRIOR,
+    CLASS_ARMOR_KNIGHT,
+    CLASS_GENERAL,
+    CLASS_ARCHER,
+    CLASS_SNIPER,
+    CLASS_BISHOP,
+    CLASS_MAGE,
+    CLASS_SAGE,
+    CLASS_SHAMAN,
+    CLASS_DRUID,
+    CLASS_CAVALIER,
+    CLASS_PALADIN,
+    CLASS_VALKYRIE,
+    CLASS_PEGASUS_KNIGHT,
+    CLASS_FALCON_KNIGHT,
+    CLASS_WYVERN_RIDER,
+    CLASS_WYVERN_LORD,
+    CLASS_SOLDIER,
+    CLASS_BRIGAND,
+    CLASS_PIRATE,
+    CLASS_BERSERKER,
+    CLASS_THIEF,
+    CLASS_MERCENARY,
+    CLASS_MYRMIDON,
+    CLASS_FIGHTER,
+    CLASS_ARMOR_KNIGHT,
+    CLASS_ARCHER,
+    CLASS_MAGE,
+    CLASS_SHAMAN,
+    CLASS_CAVALIER,
+    CLASS_PEGASUS_KNIGHT,
+    CLASS_WYVERN_RIDER,
+    CLASS_SOLDIER,
+    CLASS_SOLDIER,
+
+    CLASS_NONE
+};
+
+u8 CONST_DATA gClassList_BowArena[] = {
+    CLASS_ARCHER,
+    CLASS_SNIPER,
+    CLASS_BISHOP,
+    CLASS_MAGE,
+    CLASS_SAGE,
+    CLASS_SHAMAN,
+    CLASS_DRUID,
+    CLASS_VALKYRIE,
+
+    CLASS_NONE,
+};
+
+u8 CONST_DATA gClassList_UnusedArena[] = {
+    CLASS_MERCENARY,
+    CLASS_MYRMIDON,
+    CLASS_SWORDMASTER,
+    CLASS_FIGHTER,
+    CLASS_WARRIOR,
+    CLASS_BISHOP,
+    CLASS_MAGE,
+    CLASS_SAGE,
+    CLASS_SHAMAN,
+    CLASS_DRUID,
+    CLASS_CAVALIER,
+    CLASS_VALKYRIE,
+    CLASS_PEGASUS_KNIGHT,
+    CLASS_WYVERN_RIDER,
+    CLASS_SOLDIER,
+    CLASS_BRIGAND,
+    CLASS_PIRATE,
+    CLASS_BERSERKER,
+    CLASS_THIEF,
+    CLASS_FIGHTER,
+    CLASS_FIGHTER,
+    CLASS_THIEF,
+
+    CLASS_NONE,
+};
+
+int ArenaGenerateOpposingClassId(int weaponType) {
     int i;
     int promotedFlag;
     int classNum;
@@ -147,21 +277,21 @@ int sub_803190C(int weaponType) {
         case ITYPE_SWORD:
         case ITYPE_LANCE:
         case ITYPE_AXE:
-            classList = gUnknown_0859D9FC;
+            classList = gClassList_MeleeArena;
             break;
 
         case ITYPE_BOW:
-            classList = gUnknown_0859DA4A;
+            classList = gClassList_BowArena;
             break;
 
         case ITYPE_ANIMA:
         case ITYPE_LIGHT:
         case ITYPE_DARK:
-            classList = gUnknown_0859DA22;
+            classList = gClassList_MagicArena;
             break;
     }
 
-    promotedFlag = UNIT_CATTRIBUTES(gUnknown_0203A8F0.playerUnit) & CA_PROMOTED;
+    promotedFlag = UNIT_CATTRIBUTES(gArenaState.playerUnit) & CA_PROMOTED;
 
     for (i = 0; classList[i] != 0; i++) {
 
@@ -206,7 +336,7 @@ s8 IsWeaponMagic(int weaponType) {
 
 }
 
-int GetNearLevel(int level) {
+int ArenaGetOpposingLevel(int level) {
     int result = level + NextRN_N(1 + 2 * 4) - 4;
 
     if (result < 1) {
@@ -216,7 +346,7 @@ int GetNearLevel(int level) {
     return result;
 }
 
-int GetUnitArenaWeight(struct Unit* unit, s8 opponentIsMagic) {
+int ArenaGetPowerRanking(struct Unit* unit, s8 opponentIsMagic) {
     int result = unit->maxHP;
 
     result += unit->maxHP;
@@ -239,18 +369,18 @@ int GetUnitArenaWeight(struct Unit* unit, s8 opponentIsMagic) {
     return result;
 }
 
-void LoadArenaOpponentStruct(void) {
+void ArenaGenerateOpponentUnit(void) {
     int level;
     int i;
 
     struct UnitDefinition udef;
 
-    struct Unit* unit = &gUnknown_0203A910;
+    struct Unit* unit = &gArenaOpponent;
 
-    udef.charIndex = 0xfd;
-    udef.classIndex = gUnknown_0203A8F0.opponentClassId;
+    udef.charIndex = CHARACTER_ARENA_OPPONENT;
+    udef.classIndex = gArenaState.opponentClassId;
     udef.allegiance = 0;
-    udef.level = gUnknown_0203A8F0.oppenentLevel;
+    udef.level = gArenaState.oppenentLevel;
     udef.autolevel = 1;
     udef.items[0] = 0;
     udef.items[1] = 0;
@@ -262,7 +392,7 @@ void LoadArenaOpponentStruct(void) {
     udef.ai[2] = 0;
     udef.ai[3] = 0;
 
-    ClearUnit(&gUnknown_0203A910);
+    ClearUnit(&gArenaOpponent);
     unit->index = 0x80;
 
     UnitInitFromDefinition(unit, &udef);
@@ -296,39 +426,51 @@ void LoadArenaOpponentStruct(void) {
     return;
 }
 
-extern u8 gUnknown_080D7F5C[];
+void ArenaGenerateBaseWeapons(void) {
+    u8 arenaWeapons[] = {
+        [ITYPE_SWORD] = ITEM_SWORD_IRON,
+        [ITYPE_LANCE] = ITEM_LANCE_IRON,
+        [ITYPE_AXE] = ITEM_AXE_IRON,
+        [ITYPE_BOW] = ITEM_BOW_IRON,
+        [ITYPE_STAFF] = ITEM_NONE,
+        [ITYPE_ANIMA] = ITEM_ANIMA_FIRE,
+        [ITYPE_LIGHT] = ITEM_LIGHT_LIGHTNING,
+        [ITYPE_DARK] = ITEM_DARK_FLUX
+    };
 
-void LoadArenaWeapons(void) {
-    u8 hack[8];
+    gArenaState.playerWeapon = MakeNewItem(arenaWeapons[gArenaState.playerWpnType]);
 
-    memcpy(hack, gUnknown_080D7F5C, 8);
+    gArenaState.opponentWeapon = MakeNewItem(arenaWeapons[gArenaState.opponentWpnType]);
 
-    gUnknown_0203A8F0.playerWeapon = MakeNewItem(hack[gUnknown_0203A8F0.playerWpnType]);
+    gArenaState.range = 1;
 
-    gUnknown_0203A8F0.opponentWeapon = MakeNewItem(hack[gUnknown_0203A8F0.opponentWpnType]);
-
-    gUnknown_0203A8F0.range = 1;
-
-    if (gUnknown_0203A8F0.playerWpnType == ITYPE_BOW) {
-        gUnknown_0203A8F0.range = 2;
+    if (gArenaState.playerWpnType == ITYPE_BOW) {
+        gArenaState.range = 2;
     }
 
-    if (gUnknown_0203A8F0.opponentWpnType == ITYPE_BOW) {
-        gUnknown_0203A8F0.range = 2;
+    if (gArenaState.opponentWpnType == ITYPE_BOW) {
+        gArenaState.range = 2;
     }
 
     return;
 }
 
-extern u16 gUnknown_080D7F64[];
-
-u16 GetArenaBetterItem(u16 item) {
+u16 ArenaGetUpgradedWeapon(u16 item) {
     u8* iter;
-    u8 hack[28];
 
-    memcpy(hack, gUnknown_080D7F64, 0x1a);
+    u8 arenaWeaponUpgrades[] = {
+        ITEM_SWORD_IRON, ITEM_SWORD_STEEL, ITEM_SWORD_SILVER, 0,
+        ITEM_LANCE_IRON, ITEM_LANCE_STEEL, ITEM_LANCE_SILVER, 0,
+        ITEM_AXE_IRON, ITEM_AXE_STEEL, ITEM_AXE_SILVER, 0,
+        ITEM_BOW_IRON, ITEM_BOW_STEEL, ITEM_BOW_SILVER, 0,
+        ITEM_ANIMA_FIRE, ITEM_ANIMA_ELFIRE, ITEM_ANIMA_FIMBULVETR, 0,
+        ITEM_LIGHT_LIGHTNING, ITEM_LIGHT_DIVINE, 0,
+        ITEM_DARK_FLUX, 0,
 
-    for (iter = hack; *iter != (u8) -1; iter++) {
+        -1
+    };
+
+    for (iter = arenaWeaponUpgrades; *iter != (u8) -1; iter++) {
         if (GetItemIndex(item) != *iter) {
             continue;
         }
@@ -341,169 +483,169 @@ u16 GetArenaBetterItem(u16 item) {
     }
 }
 
-s8 PrepareBalancedArenaFight(void) {
+s8 ArenaAdjustOpponentDamage(void) {
     s8 result = 0;
 
-    gBattleActor.battleAttack = GetUnitPower(gUnknown_0203A8F0.playerUnit) + 5;
+    gBattleActor.battleAttack = GetUnitPower(gArenaState.playerUnit) + 5;
 
-    if (gUnknown_0203A8F0.opponentIsMagic) {
-        gBattleActor.battleDefense = GetUnitResistance(gUnknown_0203A8F0.playerUnit);
+    if (gArenaState.opponentIsMagic) {
+        gBattleActor.battleDefense = GetUnitResistance(gArenaState.playerUnit);
     } else {
-        gBattleActor.battleDefense = GetUnitDefense(gUnknown_0203A8F0.playerUnit);
+        gBattleActor.battleDefense = GetUnitDefense(gArenaState.playerUnit);
     }
 
-    gBattleTarget.battleAttack = GetUnitPower(gUnknown_0203A8F0.opponentUnit) + 5;
+    gBattleTarget.battleAttack = GetUnitPower(gArenaState.opponentUnit) + 5;
 
-    if (gUnknown_0203A8F0.playerIsMagic) {
-        gBattleTarget.battleDefense = GetUnitResistance(gUnknown_0203A8F0.opponentUnit);
+    if (gArenaState.playerIsMagic) {
+        gBattleTarget.battleDefense = GetUnitResistance(gArenaState.opponentUnit);
     } else {
-        gBattleTarget.battleDefense = GetUnitDefense(gUnknown_0203A8F0.opponentUnit);
+        gBattleTarget.battleDefense = GetUnitDefense(gArenaState.opponentUnit);
     }
 
-    if ((gBattleActor.battleAttack - gBattleTarget.battleDefense) < (GetUnitMaxHp(gUnknown_0203A8F0.opponentUnit) / 6)) {
+    if ((gBattleActor.battleAttack - gBattleTarget.battleDefense) < (GetUnitMaxHp(gArenaState.opponentUnit) / 6)) {
         result = 1;
 
-        if (gUnknown_0203A8F0.playerIsMagic) {
-            gUnknown_0203A8F0.opponentUnit->res -= 4;
+        if (gArenaState.playerIsMagic) {
+            gArenaState.opponentUnit->res -= 4;
 
-            if (gUnknown_0203A8F0.opponentUnit->res < 0) {
-                gUnknown_0203A8F0.opponentUnit->res = 0;
+            if (gArenaState.opponentUnit->res < 0) {
+                gArenaState.opponentUnit->res = 0;
             }
         } else {
-            gUnknown_0203A8F0.opponentUnit->def -= 4;
+            gArenaState.opponentUnit->def -= 4;
 
-            if (gUnknown_0203A8F0.opponentUnit->def < 0) {
-                gUnknown_0203A8F0.opponentUnit->def = 0;
+            if (gArenaState.opponentUnit->def < 0) {
+                gArenaState.opponentUnit->def = 0;
             }
         }
 
-        gUnknown_0203A8F0.opponentUnit->spd += 1;
-        gUnknown_0203A8F0.opponentUnit->skl += 1;
+        gArenaState.opponentUnit->spd += 1;
+        gArenaState.opponentUnit->skl += 1;
     }
 
-    if (gBattleTarget.battleAttack - gBattleActor.battleDefense < (GetUnitMaxHp(gUnknown_0203A8F0.playerUnit) / 6)) {
+    if (gBattleTarget.battleAttack - gBattleActor.battleDefense < (GetUnitMaxHp(gArenaState.playerUnit) / 6)) {
         result = 1;
 
-        gUnknown_0203A8F0.opponentUnit->pow += 3;
-        gUnknown_0203A8F0.opponentUnit->spd += 2;
-        gUnknown_0203A8F0.opponentUnit->skl += 2;
+        gArenaState.opponentUnit->pow += 3;
+        gArenaState.opponentUnit->spd += 2;
+        gArenaState.opponentUnit->skl += 2;
 
-        gUnknown_0203A8F0.opponentWeapon = GetArenaBetterItem(gUnknown_0203A8F0.opponentWeapon);
+        gArenaState.opponentWeapon = ArenaGetUpgradedWeapon(gArenaState.opponentWeapon);
     }
 
     return result;
 }
 
-s8 AdjustArenaOpponentPower(void) {
+s8 ArenaAdjustOpponentPowerRanking(void) {
     int max;
     int diff;
 
-    gUnknown_0203A8F0.playerPowerWeight = GetUnitArenaWeight(gUnknown_0203A8F0.playerUnit, gUnknown_0203A8F0.opponentIsMagic);
+    gArenaState.playerPowerWeight = ArenaGetPowerRanking(gArenaState.playerUnit, gArenaState.opponentIsMagic);
 
-    gUnknown_0203A8F0.opponentPowerWeight = GetUnitArenaWeight(gUnknown_0203A8F0.opponentUnit, gUnknown_0203A8F0.playerIsMagic);
+    gArenaState.opponentPowerWeight = ArenaGetPowerRanking(gArenaState.opponentUnit, gArenaState.playerIsMagic);
 
-    max = gUnknown_0203A8F0.playerPowerWeight > gUnknown_0203A8F0.opponentPowerWeight
-        ? gUnknown_0203A8F0.playerPowerWeight
-        : gUnknown_0203A8F0.opponentPowerWeight;
+    max = gArenaState.playerPowerWeight > gArenaState.opponentPowerWeight
+        ? gArenaState.playerPowerWeight
+        : gArenaState.opponentPowerWeight;
 
-    diff = ABS(gUnknown_0203A8F0.playerPowerWeight - gUnknown_0203A8F0.opponentPowerWeight);
+    diff = ABS(gArenaState.playerPowerWeight - gArenaState.opponentPowerWeight);
 
     if (((diff * 100) / max) <= 20) {
         return 0;
     }
 
-    if (gUnknown_0203A8F0.playerPowerWeight < gUnknown_0203A8F0.opponentPowerWeight) {
-        if (gUnknown_0203A8F0.opponentUnit->maxHP != 0) {
-            gUnknown_0203A8F0.opponentUnit->maxHP -= 1;
-            gUnknown_0203A8F0.opponentUnit->curHP -= 1;
+    if (gArenaState.playerPowerWeight < gArenaState.opponentPowerWeight) {
+        if (gArenaState.opponentUnit->maxHP != 0) {
+            gArenaState.opponentUnit->maxHP -= 1;
+            gArenaState.opponentUnit->curHP -= 1;
         }
 
-        if (gUnknown_0203A8F0.opponentUnit->pow != 0) {
-            gUnknown_0203A8F0.opponentUnit->pow -= 1;
+        if (gArenaState.opponentUnit->pow != 0) {
+            gArenaState.opponentUnit->pow -= 1;
         }
 
-        if (gUnknown_0203A8F0.opponentUnit->skl != 0) {
-            gUnknown_0203A8F0.opponentUnit->skl -= 1;
+        if (gArenaState.opponentUnit->skl != 0) {
+            gArenaState.opponentUnit->skl -= 1;
         }
 
-        if (gUnknown_0203A8F0.opponentUnit->spd != 0) {
-            gUnknown_0203A8F0.opponentUnit->spd -= 1;
+        if (gArenaState.opponentUnit->spd != 0) {
+            gArenaState.opponentUnit->spd -= 1;
         }
 
-        if (gUnknown_0203A8F0.opponentUnit->def != 0) {
-            gUnknown_0203A8F0.opponentUnit->def -= 1;
+        if (gArenaState.opponentUnit->def != 0) {
+            gArenaState.opponentUnit->def -= 1;
         }
 
-        if (gUnknown_0203A8F0.opponentUnit->res != 0) {
-            gUnknown_0203A8F0.opponentUnit->res -= 1;
+        if (gArenaState.opponentUnit->res != 0) {
+            gArenaState.opponentUnit->res -= 1;
         }
 
-        if (gUnknown_0203A8F0.opponentUnit->lck != 0) {
-            gUnknown_0203A8F0.opponentUnit->lck -= 1;
+        if (gArenaState.opponentUnit->lck != 0) {
+            gArenaState.opponentUnit->lck -= 1;
         }
     } else {
-        if (gUnknown_0203A8F0.opponentUnit->maxHP < 80) {
-            gUnknown_0203A8F0.opponentUnit->maxHP += 2;
-            gUnknown_0203A8F0.opponentUnit->curHP += 2;
+        if (gArenaState.opponentUnit->maxHP < 80) {
+            gArenaState.opponentUnit->maxHP += 2;
+            gArenaState.opponentUnit->curHP += 2;
         }
 
-        if (gUnknown_0203A8F0.opponentUnit->pow < 30) {
-            gUnknown_0203A8F0.opponentUnit->pow += 1;
+        if (gArenaState.opponentUnit->pow < 30) {
+            gArenaState.opponentUnit->pow += 1;
         }
 
-        if (gUnknown_0203A8F0.opponentUnit->skl < 30) {
-            gUnknown_0203A8F0.opponentUnit->skl += 1;
+        if (gArenaState.opponentUnit->skl < 30) {
+            gArenaState.opponentUnit->skl += 1;
         }
 
-        if (gUnknown_0203A8F0.opponentUnit->spd < 30) {
-            gUnknown_0203A8F0.opponentUnit->spd += 1;
+        if (gArenaState.opponentUnit->spd < 30) {
+            gArenaState.opponentUnit->spd += 1;
         }
 
-        if (gUnknown_0203A8F0.opponentUnit->def < 30) {
-            gUnknown_0203A8F0.opponentUnit->def += 1;
+        if (gArenaState.opponentUnit->def < 30) {
+            gArenaState.opponentUnit->def += 1;
         }
 
-        if (gUnknown_0203A8F0.opponentUnit->res < 30) {
-            gUnknown_0203A8F0.opponentUnit->res += 1;
+        if (gArenaState.opponentUnit->res < 30) {
+            gArenaState.opponentUnit->res += 1;
         }
 
-        if (gUnknown_0203A8F0.opponentUnit->lck < 30) {
-            gUnknown_0203A8F0.opponentUnit->lck += 1;
+        if (gArenaState.opponentUnit->lck < 30) {
+            gArenaState.opponentUnit->lck += 1;
         }
     }
 
     return 1;
 }
 
-void sub_8031EA0(void) {
+void ArenaGenerateMatchupGoldValue(void) {
     int value;
 
-    value = gUnknown_0203A8F0.opponentPowerWeight - gUnknown_0203A8F0.playerPowerWeight;
+    value = gArenaState.opponentPowerWeight - gArenaState.playerPowerWeight;
     value = 800 + 10 * (value / 2);
 
     if (value < 1) {
         value = 1;
     }
 
-    gUnknown_0203A8F0.unk08 = value;
+    gArenaState.matchupGoldValue = value;
 
     return;
 }
 
-int sub_8031ECC(void) {
-    return gUnknown_0203A8F0.unk08;
+int ArenaGetMatchupGoldValue(void) {
+    return gArenaState.matchupGoldValue;
 }
 
-int sub_8031ED8(void) {
-    return gUnknown_0203A8F0.unk0A;
+int ArenaGetResult(void) {
+    return gArenaState.result;
 }
 
-void sub_8031EE4(int result) {
-    gUnknown_0203A8F0.unk0A = result;
+void ArenaSetResult(int result) {
+    gArenaState.result = result;
     return;
 }
 
-void sub_8031EF0(void) {
+void ArenaContinueBattle(void) {
     int unk = gGameState.unk3C;
 
     gActionData.trapType = gBattleTarget.unit.curHP;
@@ -517,7 +659,7 @@ void sub_8031EF0(void) {
         BattleApplyExpGains();
     }
 
-    UpdateUnitDuringBattle(gUnknown_0203A8F0.playerUnit, &gBattleActor);
+    UpdateUnitDuringBattle(gArenaState.playerUnit, &gBattleActor);
 
     if (!(unk) || (gBattleTarget.unit.curHP == 0)) {
         sub_80A4AA4();
@@ -526,7 +668,7 @@ void sub_8031EF0(void) {
     return;
 }
 
-s8 sub_8031F50(struct Unit* unit) {
+s8 ArenaIsUnitAllowed(struct Unit* unit) {
     if (unit->statusIndex == UNIT_STATUS_SILENCED) {
         return 0;
     }
@@ -538,14 +680,20 @@ s8 sub_8031F50(struct Unit* unit) {
     return 1;
 }
 
-extern u8 gUnknown_080D7F5C[];
-
-void sub_8031F74(struct Unit* unit, u16* pItem) {
+void ArenaSetFallbackWeaponForUnit(struct Unit* unit, u16* pItem) {
 
     int i;
-    u8 hack[8];
 
-    memcpy(hack, gUnknown_080D7F5C, 8);
+    u8 arenaWeapons[] = {
+        [ITYPE_SWORD] = ITEM_SWORD_IRON,
+        [ITYPE_LANCE] = ITEM_LANCE_IRON,
+        [ITYPE_AXE] = ITEM_AXE_IRON,
+        [ITYPE_BOW] = ITEM_BOW_IRON,
+        [ITYPE_STAFF] = ITEM_NONE,
+        [ITYPE_ANIMA] = ITEM_ANIMA_FIRE,
+        [ITYPE_LIGHT] = ITEM_LIGHT_LIGHTNING,
+        [ITYPE_DARK] = ITEM_DARK_FLUX
+    };
 
     if (CanUnitUseWeapon(unit, *pItem) != 0) {
         return;
@@ -554,7 +702,7 @@ void sub_8031F74(struct Unit* unit, u16* pItem) {
     for (i = 0; i < 8; i++) {
 
         if (unit->pClassData->baseRanks[i] != 0) {
-            *pItem = MakeNewItem(hack[i]);
+            *pItem = MakeNewItem(arenaWeapons[i]);
             return;
         }
     }
@@ -562,9 +710,9 @@ void sub_8031F74(struct Unit* unit, u16* pItem) {
     return;
 }
 
-void sub_8031FC8(void) {
-    sub_8031F74(gUnknown_0203A8F0.playerUnit, &gUnknown_0203A8F0.playerWeapon);
-    sub_8031F74(gUnknown_0203A8F0.opponentUnit, &gUnknown_0203A8F0.opponentWeapon);
+void ArenaSetFallbackWeaponsMaybe(void) {
+    ArenaSetFallbackWeaponForUnit(gArenaState.playerUnit, &gArenaState.playerWeapon);
+    ArenaSetFallbackWeaponForUnit(gArenaState.opponentUnit, &gArenaState.opponentWeapon);
 
     return;
 }

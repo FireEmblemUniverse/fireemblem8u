@@ -523,8 +523,7 @@
 . = ALIGN(4); src/bmtrick.o(ewram_data);
 . = ALIGN(4); src/bmcontainer.o(ewram_data);
 . = ALIGN(4); src/bmusort.o(ewram_data);
-. = 0x03A8F0; gUnknown_0203A8F0 = .;
-. = 0x03A910; gUnknown_0203A910 = .;
+. = ALIGN(4); src/bmarena.o(ewram_data);
 . = 0x03A958; gActionData = .;
 . = 0x03A95E; gUnknown_0203A95E = .;
 . = 0x03A974; gUnknown_0203A974 = .;

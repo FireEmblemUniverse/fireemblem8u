@@ -439,28 +439,6 @@ struct MMSData
     const void* pAnimation;
 };
 
-struct ArenaData
-{
-    /* 00 */ struct Unit* playerUnit;
-    /* 04 */ struct Unit* opponentUnit;
-    /* 08 */ short unk08;
-    /* 0A */ u8 unk0A;
-    /* 0B */ u8 unk0B;
-    /* 0C */ u8 range;
-    /* 0D */ u8 playerWpnType;
-    /* 0E */ u8 opponentWpnType;
-    /* 0F */ u8 playerClassId;
-    /* 10 */ u8 opponentClassId;
-    /* 11 */ u8 playerLevel;
-    /* 12 */ u8 oppenentLevel;
-    /* 13 */ s8 playerIsMagic;
-    /* 14 */ s8 opponentIsMagic;
-    /* 16 */ u16 playerPowerWeight;
-    /* 18 */ u16 opponentPowerWeight;
-    /* 1A */ u16 playerWeapon;
-    /* 1C */ u16 opponentWeapon;
-};
-
 struct GMapData
 {
     /* 00 */ u8 state;

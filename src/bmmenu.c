@@ -28,6 +28,7 @@
 #include "bmarch.h"
 #include "event.h"
 #include "bb.h"
+#include "bmarena.h"
 
 #include "constants/characters.h"
 #include "constants/classes.h"
@@ -1742,7 +1743,7 @@ u8 ArenaCommandUsability(const struct MenuItemDef* def, int number) {
         return MENU_NOTSHOWN;
     }
 
-    return sub_8031F50(gActiveUnit)
+    return ArenaIsUnitAllowed(gActiveUnit)
         ? MENU_ENABLED : MENU_DISABLED;
 }
 

@@ -530,8 +530,6 @@ extern u16 gConvoyItemArray[];
 extern struct Unit* sUnitStackBase;
 extern struct Unit* sUnitStackTop;
 extern u8 sUnitStackSize;
-extern struct ArenaData gUnknown_0203A8F0;
-extern struct Unit gUnknown_0203A910; // arena opponent unit
 extern struct ActionData gActionData;
 // extern ??? gUnknown_0203A95E
 // extern ??? gUnknown_0203A974
@@ -867,8 +865,6 @@ extern short gSinLookup[]; // gSinTable; needs to be non-const to match?
 // extern ??? gUnknown_080D7C44
 // extern ??? gUnknown_080D7F4C
 // extern ??? gUnknown_080D7F58
-// extern ??? gUnknown_080D7F5C
-// extern ??? gUnknown_080D7F64
 // extern ??? gUnknown_080D7F8C
 // extern ??? gUnknown_080D7F92
 // extern ??? gUnknown_080D7FD0
@@ -1502,9 +1498,6 @@ extern u16 CONST_DATA obj_0859AEC8[];
 // extern ??? gSelectInfo_Drop
 // extern ??? gSelectInfo_Rescue
 // extern ??? gProc_MapTask
-// extern ??? gUnknown_0859D9FC
-// extern ??? gUnknown_0859DA22
-// extern ??? gUnknown_0859DA4A
 // extern ??? gUnknown_0859DBA0
 // extern ??? gUnknown_0859E13C
 // extern ??? gUnknown_0859E8E0
