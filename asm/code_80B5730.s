@@ -40,7 +40,7 @@ sub_80B576C: @ 0x080B576C
 	push {lr}
 	ldr r0, _080B5784  @ gActiveUnit
 	ldr r0, [r0]
-	bl PrepareArena
+	bl ArenaBegin
 	ldr r0, _080B5788  @ gUnknown_08A394DC
 	movs r1, #3
 	bl Proc_Start
@@ -278,7 +278,7 @@ _080B596C: .4byte gUnknown_089AC024
 	THUMB_FUNC_START sub_80B5970
 sub_80B5970: @ 0x080B5970
 	push {lr}
-	ldr r0, _080B598C  @ gUnknown_0203A8F0
+	ldr r0, _080B598C  @ gArenaState
 	ldr r0, [r0]
 	ldr r1, _080B5990  @ gBattleActor
 	bl UpdateUnitFromBattle
@@ -289,7 +289,7 @@ sub_80B5970: @ 0x080B5970
 	pop {r0}
 	bx r0
 	.align 2, 0
-_080B598C: .4byte gUnknown_0203A8F0
+_080B598C: .4byte gArenaState
 _080B5990: .4byte gBattleActor
 _080B5994: .4byte gActiveUnit
 
@@ -299,7 +299,7 @@ _080B5994: .4byte gActiveUnit
 sub_80B5998: @ 0x080B5998
 	push {lr}
 	adds r2, r0, #0
-	ldr r0, _080B59B8  @ gUnknown_0203A8F0
+	ldr r0, _080B59B8  @ gArenaState
 	ldr r0, [r0]
 	ldr r0, [r0, #0xc]
 	lsrs r0, r0, #0x11
@@ -313,7 +313,7 @@ sub_80B5998: @ 0x080B5998
 	bl sub_80B5C04
 	b _080B59C4
 	.align 2, 0
-_080B59B8: .4byte gUnknown_0203A8F0
+_080B59B8: .4byte gArenaState
 _080B59BC:
 	ldr r0, _080B59C8  @ 0x000008D1
 	adds r1, r2, #0
@@ -330,7 +330,7 @@ _080B59C8: .4byte 0x000008D1
 sub_80B59CC: @ 0x080B59CC
 	push {r4, lr}
 	adds r4, r0, #0
-	bl sub_8031ECC
+	bl ArenaGetMatchupGoldValue
 	bl sub_8008A18
 	ldr r0, _080B59E8  @ 0x000008D2
 	adds r1, r4, #0
@@ -360,7 +360,7 @@ sub_80B59EC: @ 0x080B59EC
 	.align 2, 0
 _080B5A0C: .4byte 0x000008D4
 _080B5A10:
-	bl sub_8031ECC
+	bl ArenaGetMatchupGoldValue
 	adds r4, r0, #0
 	bl GetPartyGoldAmount
 	cmp r4, r0
@@ -386,7 +386,7 @@ sub_80B5A38: @ 0x080B5A38
 	adds r5, r0, #0
 	bl GetPartyGoldAmount
 	adds r4, r0, #0
-	bl sub_8031ECC
+	bl ArenaGetMatchupGoldValue
 	subs r4, r4, r0
 	adds r0, r4, #0
 	bl SetPartyGoldAmount
@@ -507,7 +507,7 @@ sub_80B5B18: @ 0x080B5B18
 	adds r5, r0, #0
 	bl GetPartyGoldAmount
 	adds r4, r0, #0
-	bl sub_8031ED8
+	bl ArenaGetResult
 	cmp r0, #2
 	beq _080B5B5C
 	cmp r0, #2
@@ -522,13 +522,13 @@ _080B5B34:
 	beq _080B5B88
 	b _080B5B90
 _080B5B3E:
-	bl sub_8031ECC
+	bl ArenaGetMatchupGoldValue
 	lsls r0, r0, #1
 	bl sub_8008A18
 	ldr r0, _080B5B58  @ 0x000008D6
 	adds r1, r5, #0
 	bl sub_80B5C04
-	bl sub_8031ECC
+	bl ArenaGetMatchupGoldValue
 	lsls r0, r0, #1
 	b _080B5B78
 	.align 2, 0
@@ -544,7 +544,7 @@ _080B5B6C:
 	ldr r0, _080B5B84  @ 0x000008D9
 	adds r1, r5, #0
 	bl sub_80B5C04
-	bl sub_8031ECC
+	bl ArenaGetMatchupGoldValue
 _080B5B78:
 	adds r4, r4, r0
 	adds r0, r4, #0
@@ -569,7 +569,7 @@ _080B5B98: .4byte 0x000008D8
 sub_80B5B9C: @ 0x080B5B9C
 	push {r4, lr}
 	adds r4, r0, #0
-	bl sub_8031ED8
+	bl ArenaGetResult
 	cmp r0, #2
 	beq _080B5BD6
 	cmp r0, #2
@@ -676,7 +676,7 @@ sub_80B5C48: @ 0x080B5C48
 	bl sub_801443C
 	adds r0, r4, #0
 	adds r0, #8
-	ldr r5, _080B5CDC  @ gUnknown_0203A8F0
+	ldr r5, _080B5CDC  @ gArenaState
 	ldr r1, [r5, #4]
 	movs r2, #8
 	ldrsb r2, [r1, r2]
@@ -715,7 +715,7 @@ sub_80B5C48: @ 0x080B5C48
 	.align 2, 0
 _080B5CD4: .4byte gUnknown_02022F38
 _080B5CD8: .4byte gMid_Lv
-_080B5CDC: .4byte gUnknown_0203A8F0
+_080B5CDC: .4byte gArenaState
 
 	THUMB_FUNC_END sub_80B5C48
 
@@ -723,7 +723,7 @@ _080B5CDC: .4byte gUnknown_0203A8F0
 sub_80B5CE0: @ 0x080B5CE0
 	push {r4, lr}
 	adds r4, r0, #0
-	bl sub_8031ED8
+	bl ArenaGetResult
 	cmp r0, #1
 	bne _080B5D08
 	ldr r0, _080B5D04  @ gRAMChapterData

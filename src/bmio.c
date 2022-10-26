@@ -19,6 +19,7 @@
 #include "uimenu.h"
 #include "bmtrap.h"
 #include "gamecontrol.h"
+#include "bmarena.h"
 
 #include "bmio.h"
 
@@ -1317,7 +1318,7 @@ void MapMain_ResumeFromBskPhase(struct BMapMainProc* mapMain) {
 void MapMain_ResumeFromArenaFight(struct BMapMainProc* mapMain) {
     gActiveUnit = GetUnit(gActionData.subjectIndex);
 
-    PrepareArena2(gActiveUnit);
+    ArenaResume(gActiveUnit);
 
     BattleGenerateArena(gActiveUnit);
     BeginBattleAnimations();

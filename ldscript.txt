@@ -103,7 +103,7 @@ SECTIONS
         src/bmio.o(.text);
         src/bmcontainer.o(.text);
         src/bmusort.o(.text);
-        asm/bmarena.o(.text);
+        src/bmarena.o(.text);
         src/bmmind.o(.text);
         src/bmpatharrowdisp.o(.text);
         src/sallycursor.o(.text);
@@ -236,7 +236,7 @@ SECTIONS
         . = ALIGN(4); data/const_data_D7C44.o(.rodata);
         . = ALIGN(4); src/raw_text_jp.o(.rodata);
         . = ALIGN(4); src/bmio.o(.rodata);
-        . = ALIGN(4); data/const_data_D7F5C.o(.rodata);
+        . = ALIGN(4); src/bmarena.o(.rodata);
         . = ALIGN(4); src/sallycursor.o(.rodata);
         . = ALIGN(4); data/const_data_D7F8C.o(.rodata);
         . = ALIGN(4); src/bb.o(.rodata);
@@ -333,7 +333,7 @@ SECTIONS
         . = ALIGN(4); data/data_59D238.o(.data);
         . = ALIGN(4); data/data_map_anim.o(.data);
         . = ALIGN(4); src/bmio.o(.data);
-        . = ALIGN(4); data/data_59D9FC.o(.data);
+        . = ALIGN(4); src/bmarena.o(.data);
         . = ALIGN(4); src/bmmind.o(.data);
         . = ALIGN(4); data/data_59DB6C.o(.data);
         . = ALIGN(4); src/sallycursor.o(.data);

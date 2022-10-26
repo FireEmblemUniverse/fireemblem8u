@@ -19442,7 +19442,7 @@ sub_8097E38: @ 0x08097E38
 	cmp r0, #0
 	bne _08097E6A
 	adds r0, r4, #0
-	bl sub_8031F50
+	bl ArenaIsUnitAllowed
 	lsls r0, r0, #0x18
 	cmp r0, #0
 	beq _08097E6A
