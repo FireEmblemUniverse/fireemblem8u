@@ -455,8 +455,8 @@ struct ArenaData
     /* 12 */ u8 oppenentLevel;
     /* 13 */ s8 playerIsMagic;
     /* 14 */ s8 opponentIsMagic;
-    /* 16 */ short playerPowerWeight;
-    /* 18 */ short opponentPowerWeight;
+    /* 16 */ u16 playerPowerWeight;
+    /* 18 */ u16 opponentPowerWeight;
     /* 1A */ u16 playerWeapon;
     /* 1C */ u16 opponentWeapon;
 };
