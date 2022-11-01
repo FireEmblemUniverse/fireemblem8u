@@ -7367,10 +7367,10 @@ _08010C44:
 	str r4, [sp]
 _08010C4E:
 	adds r0, r5, #0
-	bl sub_8012950
+	bl StartEventWarpAnim_ret
 	b _08010C66
 _08010C56:
-	bl sub_8012974
+	bl EventWarpAnimExists_ret
 	lsls r0, r0, #0x18
 	asrs r0, r0, #0x18
 	cmp r0, #1
