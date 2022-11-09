@@ -247,17 +247,21 @@ static void write_c_file(const char * filename)
         count_freq((uint8_t *)gInputStrings[i].text);
     }
 
+    BENCH_WAYPOINT(huffbuild);
     BuildHuffmanTree(freq);
     huffmanTable = BuildHuffmanTable();
+    BENCH_REPORT(huffbuild, "huffman tree");
 
     //*
     // compressed string data
+    BENCH_WAYPOINT(compress);
     for (i = 0; i < gInputStringsCount; i++)
     {
         size = compress_string((uint8_t *)gInputStrings[i].text, outputBuffer);
         print_compressed_string(
             outCFile, gInputStrings[i].id, outputBuffer, size);
     }
+    BENCH_REPORT(compress, "compress and write out");
     fputs("\n", outCFile);
 
     // Huffman table

@@ -38,6 +38,33 @@
         exit(1);                                                               \
     } while (0)
 
+#ifdef BENCHMARK
+
+#include <time.h>
+
+// TODO: somehow ensure that ids are unique
+// XXX: This should probably be clock_gettime(CLOCK_MONOTONIC, ...) to be
+// really accurate
+
+#define PPCAT(A, B) A ## B
+
+#define BENCH_WAYPOINT(name) double PPCAT(name, START) = (double) clock()/CLOCKS_PER_SEC;
+
+#define BENCH_REPORT(name, msg)                                                \
+  do                                                                           \
+  {                                                                            \
+      double PPCAT(name, END) = (double) clock()/CLOCKS_PER_SEC;               \
+      fprintf(stderr, "%s: %.3fs\n", msg, PPCAT(name, END)-PPCAT(name, START));\
+  } while (0)
+
+#else
+
+#define BENCH_WAYPOINT(name)
+
+#define BENCH_REPORT(name, msg)
+
+#endif
+
 typedef uint32_t u32;
 
 typedef void * HuffTree_t;
