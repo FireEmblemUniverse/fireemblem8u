@@ -34,9 +34,10 @@ unsigned * huffmanTable;
 
 u32 freq[MAX_VALUE_NUM] = { 0 };
 
-typedef enum Direction {
-  LEFT,
-  RIGHT,
+typedef enum Direction
+{
+    LEFT,
+    RIGHT,
 } Direction_t;
 
 int node_is_leaf(uint32_t node)
@@ -46,7 +47,8 @@ int node_is_leaf(uint32_t node)
 }
 
 // searches tree for value
-int search(uint32_t node, uint16_t value, Direction_t * out, int len) {
+int search(uint32_t node, uint16_t value, Direction_t * out, int len)
+{
     // Amazingly, attempting to factor out this use of [hipart] and [lopart]
     // into helpers (e.g. [node_is_leaf]) causes a ~0.8x slowdown; presumably
     // there is some inlining and constant lifting that isn't firing. Alas.
@@ -72,14 +74,14 @@ int search(uint32_t node, uint16_t value, Direction_t * out, int len) {
         // The lower 16 bits of the node are the left child index
 
         // search left child
-        int left_len = search(huffmanTable[lopart], value, out, len+1);
+        int left_len = search(huffmanTable[lopart], value, out, len + 1);
         if (left_len != -1)
         {
             out[len] = LEFT;
             return left_len;
         }
 
-        int right_len = search(huffmanTable[hipart], value, out, len+1);
+        int right_len = search(huffmanTable[hipart], value, out, len + 1);
         if (right_len != -1)
         {
             out[len] = RIGHT;
@@ -91,27 +93,31 @@ int search(uint32_t node, uint16_t value, Direction_t * out, int len) {
     return -1;
 }
 
-typedef struct Entry {
+typedef struct Entry
+{
     // XXX: The maximum tree depth in the FE8U corpus is 19 so we should be
     // okay fixing this value at 32, but it would be nice to be more general.
     u32 path;
     int len;
 } Entry_t;
 
-Entry_t cache[1<<16];
+Entry_t cache[1 << 16];
 
 void write_from_cache(uint16_t value, uint8_t * output, unsigned int * bit)
 {
     int len = cache[value].len;
     int path = cache[value].path;
-    for (int i = 0; i < len ; i += 1, *bit += 1) {
+    for (int i = 0; i < len; i += 1, *bit += 1)
+    {
         unsigned int byte = *bit / 8;
         unsigned int bit_ = *bit % 8;
 
-        if (path & (1 << i)) {
+        if (path & (1 << i))
+        {
             output[byte] |= (1 << bit_);
         }
-        else {
+        else
+        {
             output[byte] &= ~(1 << bit_);
         }
     }
@@ -120,27 +126,34 @@ void write_from_cache(uint16_t value, uint8_t * output, unsigned int * bit)
 int compress_value(
     uint32_t node, uint16_t value, uint8_t * output, unsigned int * bit)
 {
-    if (cache[value].len > 0) {
+    if (cache[value].len > 0)
+    {
         write_from_cache(value, output, bit);
         return 1;
     }
 
     Direction_t path[32] = { LEFT };
-    int len = search(node, value, (Direction_t *) &path, 0);
+    int len = search(node, value, (Direction_t *)&path, 0);
 
-    if (len == -1) { return 0; }
+    if (len == -1)
+    {
+        return 0;
+    }
 
     cache[value].len = len;
     cache[value].path = 0;
-    for (int i = 0; i < len; i += 1, *bit += 1) {
+    for (int i = 0; i < len; i += 1, *bit += 1)
+    {
         unsigned int byte = *bit / 8;
         unsigned int bit_ = *bit % 8;
 
-        if (path[i] == LEFT) {
+        if (path[i] == LEFT)
+        {
             cache[value].path &= ~(1 << i);
             output[byte] &= ~(1 << bit_);
         }
-        else {
+        else
+        {
             cache[value].path |= (1 << i);
             output[byte] |= (1 << bit_);
         }
@@ -237,8 +250,7 @@ int compress_string(uint8_t * input, uint8_t * output)
                     // 2-byte
                     value = *input++;
                     value |= *input++ << 8;
-                    if (!compress_value(
-                            rootNode, value, output, &bit))
+                    if (!compress_value(rootNode, value, output, &bit))
                         goto error;
                     break;
                 }
@@ -294,7 +306,7 @@ static void write_c_file(const char * filename)
 {
     FILE * outCFile;
     int i;
-    uint8_t outputBuffer[10000] = {0}; // TODO: allocate this dynamically
+    uint8_t outputBuffer[10000] = { 0 }; // TODO: allocate this dynamically
     int size;
 
     outCFile = fopen(filename, "wb");
@@ -342,7 +354,7 @@ static void write_c_file(const char * filename)
     fprintf(
         outCFile,
         "const u32 *const gMsgHuffmanTableRoot = gMsgHuffmanTable + %d;\n\n",
-        (int) g_node_count - 1);
+        (int)g_node_count - 1);
 
     // string table
     fputs("const u8 *const gMsgStringTable[] =\n{\n", outCFile);
