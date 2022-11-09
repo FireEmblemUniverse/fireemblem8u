@@ -163,7 +163,6 @@ struct HuffNode * HuffListPopHead(struct HuffList ** p_self)
 HuffTree_t BuildHuffmanTree(u32 * freq_table)
 {
     struct HuffList * list = HuffListCreate();
-    //uint8_t * cache = calloc(1<<16, sizeof(uint8_t));
 
     // TODO: this better
 

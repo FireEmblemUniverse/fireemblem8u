@@ -33,7 +33,6 @@
 unsigned * huffmanTable;
 
 u32 freq[MAX_VALUE_NUM] = { 0 };
-uint8_t cache[1 << 16] = { 0xFF };
 
 typedef enum Direction {
   LEFT,
@@ -92,22 +91,57 @@ int search(uint32_t node, uint16_t value, Direction_t * out, int len) {
     return -1;
 }
 
+typedef struct Entry {
+    // XXX: The maximum tree depth in the FE8U corpus is 19 so we should be
+    // okay fixing this value at 32, but it would be nice to be more general.
+    u32 path;
+    int len;
+} Entry_t;
+
+Entry_t cache[1<<16];
+
+void write_from_cache(uint16_t value, uint8_t * output, unsigned int * bit)
+{
+    int len = cache[value].len;
+    int path = cache[value].path;
+    for (int i = 0; i < len ; i += 1, *bit += 1) {
+        unsigned int byte = *bit / 8;
+        unsigned int bit_ = *bit % 8;
+
+        if (path & (1 << i)) {
+            output[byte] |= (1 << bit_);
+        }
+        else {
+            output[byte] &= ~(1 << bit_);
+        }
+    }
+}
+
 int compress_value(
     uint32_t node, uint16_t value, uint8_t * output, unsigned int * bit)
 {
+    if (cache[value].len > 0) {
+        write_from_cache(value, output, bit);
+        return 1;
+    }
+
     Direction_t path[32] = { LEFT };
     int len = search(node, value, (Direction_t *) &path, 0);
 
     if (len == -1) { return 0; }
 
+    cache[value].len = len;
+    cache[value].path = 0;
     for (int i = 0; i < len; i += 1, *bit += 1) {
         unsigned int byte = *bit / 8;
         unsigned int bit_ = *bit % 8;
 
         if (path[i] == LEFT) {
+            cache[value].path &= ~(1 << i);
             output[byte] &= ~(1 << bit_);
         }
         else {
+            cache[value].path |= (1 << i);
             output[byte] |= (1 << bit_);
         }
     }
@@ -285,6 +319,7 @@ static void write_c_file(const char * filename)
     for (i = 0; i < gInputStringsCount; i++)
     {
         size = compress_string((uint8_t *)gInputStrings[i].text, outputBuffer);
+
         print_compressed_string(
             outCFile, gInputStrings[i].id, outputBuffer, size);
     }
