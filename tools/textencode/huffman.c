@@ -1,289 +1,238 @@
-// C program for Huffman Coding
+#include <assert.h>
+#include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
 
 #include "textencode.h"
 
-// A Min Heap: Collection of
-// min-heap (or Huffman tree) nodes
-struct MinHeap {
+// ================
+// = HUFFMAN NODE =
+// ================
 
-	// Current size of min heap
-	unsigned size;
-
-	// capacity of min heap
-	unsigned capacity;
-
-	// Array of minheap node pointers
-	struct MinHeapNode** array;
+struct HuffNode
+{
+    struct HuffNode * left;
+    struct HuffNode * right;
+    union
+    {
+        struct
+        {
+            u32 data; // One of the input characters
+            u32 freq; // Frequency of the character
+        } leaf;
+        struct
+        {
+            u32 freq;
+        } node;
+    };
 };
 
-int nodeNum = 0;
+struct HuffNode * g_nodes[MAX_NODE_NUM] = { NULL };
+size_t g_node_count = 0;
 
-struct MinHeapNode* nodes[MAX_NODE_NUM] = {NULL};
+static struct HuffNode * HuffNodeCreateLeaf(u32 data, u32 freq);
+static struct HuffNode *
+HuffNodeCreateNode(struct HuffNode * left, struct HuffNode * right);
+static void HuffNodeDestroy(struct HuffNode * node);
+static bool HuffNodeIsLeaf(struct HuffNode * node);
+static u32 HuffNodeGetFreq(struct HuffNode * node);
+static size_t HuffNodeFindIdx(struct HuffNode * node);
 
-// A utility function allocate a new
-// min heap node with given character
-// and frequency of the character
-struct MinHeapNode* newNode(unsigned data, unsigned freq)
+struct HuffNode * HuffNodeCreateLeaf(u32 data, u32 freq)
 {
-	struct MinHeapNode* temp = (struct MinHeapNode*)malloc(
-		sizeof(struct MinHeapNode));
+    struct HuffNode * result = calloc(1, sizeof(struct HuffNode));
+    g_nodes[g_node_count++] = result;
 
-	temp->left = temp->right = NULL;
-	temp->data = data;
-	temp->freq = freq;
+    result->leaf.data = data;
+    result->leaf.freq = freq;
 
-    nodes[nodeNum++] = temp;
-
-	return temp;
+    return result;
 }
 
-int indexOfNode(struct MinHeapNode* node)
+struct HuffNode *
+HuffNodeCreateNode(struct HuffNode * left, struct HuffNode * right)
 {
-    for (int i = 0; i < nodeNum; i++)
-        if (nodes[i] == node)
+    struct HuffNode * result = calloc(1, sizeof(struct HuffNode));
+    g_nodes[g_node_count++] = result;
+
+    result->left = left;
+    result->right = right;
+    result->node.freq = HuffNodeGetFreq(left) + HuffNodeGetFreq(right);
+
+    return result;
+}
+
+void HuffNodeDestroy(struct HuffNode * node)
+{
+    if (!HuffNodeIsLeaf(node))
+    {
+        HuffNodeDestroy(node->left);
+        HuffNodeDestroy(node->right);
+    }
+
+    free(node);
+}
+
+bool HuffNodeIsLeaf(struct HuffNode * node)
+{
+    return node->left == NULL && node->right == NULL;
+}
+
+u32 HuffNodeGetFreq(struct HuffNode * node)
+{
+    return HuffNodeIsLeaf(node) ? node->leaf.freq : node->node.freq;
+}
+
+size_t HuffNodeFindIdx(struct HuffNode * node)
+{
+    for (size_t i = 0; i < g_node_count; i++)
+        if (g_nodes[i] == node)
             return i;
 
-    FATAL_ERROR("could not find node 0x%p\n", node);
+    FATAL_ERROR("could not find node 0x%p\n", (void *)node);
 }
 
-// A utility function to create
-// a min heap of given capacity
-struct MinHeap* createMinHeap(unsigned capacity)
+// =====================
+// = HUFFMAN NODE LIST =
+// =====================
+// this is used exclusively internally by the build func
 
+struct HuffList
 {
+    struct HuffNode * node;
+    struct HuffList * next;
+};
 
-	struct MinHeap* minHeap
-		= (struct MinHeap*)malloc(sizeof(struct MinHeap));
+static struct HuffList * HuffListCreate(void);
+static void HuffListDestroy(struct HuffList * list);
+static bool HuffListIsEmpty(struct HuffList * list);
+static void HuffListAdd(struct HuffList ** p_self, struct HuffNode * node);
+static struct HuffNode * HuffListPopHead(struct HuffList ** p_self);
 
-	// current size is 0
-	minHeap->size = 0;
+struct HuffList * HuffListCreate(void) { return NULL; }
 
-	minHeap->capacity = capacity;
-
-	minHeap->array = (struct MinHeapNode**)malloc(
-		minHeap->capacity * sizeof(struct MinHeapNode*));
-	return minHeap;
-}
-
-// A utility function to
-// swap two min heap nodes
-void swapMinHeapNode(struct MinHeapNode** a,
-					struct MinHeapNode** b)
-
+void HuffListDestroy(struct HuffList * list)
 {
-
-	struct MinHeapNode* t = *a;
-	*a = *b;
-	*b = t;
-}
-
-// The standard minHeapify function.
-void minHeapify(struct MinHeap* minHeap, int idx)
-
-{
-
-	int smallest = idx;
-	int left = 2 * idx + 1;
-	int right = 2 * idx + 2;
-
-	if ((unsigned)left < minHeap->size
-		&& minHeap->array[left]->freq
-			< minHeap->array[smallest]->freq)
-		smallest = left;
-
-	if ((unsigned)right < minHeap->size
-		&& minHeap->array[right]->freq
-			< minHeap->array[smallest]->freq)
-		smallest = right;
-
-	if (smallest != idx) {
-		swapMinHeapNode(&minHeap->array[smallest],
-						&minHeap->array[idx]);
-		minHeapify(minHeap, smallest);
-	}
-}
-
-// A utility function to check
-// if size of heap is 1 or not
-int isSizeOne(struct MinHeap* minHeap)
-{
-
-	return (minHeap->size == 1);
-}
-
-// A standard function to extract
-// minimum value node from heap
-struct MinHeapNode* extractMin(struct MinHeap* minHeap)
-
-{
-
-	struct MinHeapNode* temp = minHeap->array[0];
-	minHeap->array[0] = minHeap->array[minHeap->size - 1];
-
-	--minHeap->size;
-	minHeapify(minHeap, 0);
-
-	return temp;
-}
-
-// A utility function to insert
-// a new node to Min Heap
-void insertMinHeap(struct MinHeap* minHeap,
-				struct MinHeapNode* minHeapNode)
-
-{
-
-	++minHeap->size;
-	int i = minHeap->size - 1;
-
-	while (i
-		&& minHeapNode->freq
-				< minHeap->array[(i - 1) / 2]->freq) {
-
-		minHeap->array[i] = minHeap->array[(i - 1) / 2];
-		i = (i - 1) / 2;
-	}
-
-	minHeap->array[i] = minHeapNode;
-}
-
-// A standard function to build min heap
-void buildMinHeap(struct MinHeap* minHeap)
-
-{
-
-	int n = minHeap->size - 1;
-	int i;
-
-	for (i = (n - 1) / 2; i >= 0; --i)
-		minHeapify(minHeap, i);
-}
-
-// A utility function to print an array of size n
-void printArr(int arr[], int n)
-{
-	int i;
-	for (i = 0; i < n; ++i)
-		printf("%d", arr[i]);
-
-	printf("\n");
-}
-
-// Utility function to check if this node is leaf
-int isLeaf(struct MinHeapNode* root)
-
-{
-
-	return !(root->left) && !(root->right);
-}
-
-// Creates a min heap of capacity
-// equal to size and inserts all characters
-// counted in min heap. Initially size of
-// min heap is equal to capacity
-struct MinHeap* createAndBuildMinHeap()
-
-{
-    int size = 0;
-
-    for (unsigned value = 0; value < MAX_VALUE_NUM; ++value) {
-        if (freq[value] > 0) {
-            size++;
-        }
+    if (list != NULL)
+    {
+        HuffListDestroy(list->next);
+        free(list);
     }
-
-	struct MinHeap* minHeap = createMinHeap(size);
-
-    size = 0;
-
-	for (unsigned value = 0; value < MAX_VALUE_NUM; ++value) {
-        if (freq[value] > 0) {
-            minHeap->array[size] = newNode(value, freq[value]);
-            size++;
-        }
-    }
-
-	minHeap->size = size;
-	buildMinHeap(minHeap);
-
-	return minHeap;
 }
 
-// The main function that builds Huffman tree
-struct MinHeapNode* buildHuffmanTree()
+bool HuffListIsEmpty(struct HuffList * list) { return list == NULL; }
 
+void HuffListAdd(struct HuffList ** p_self, struct HuffNode * node)
 {
-	struct MinHeapNode *left, *right, *top;
+    struct HuffList * self = *p_self;
 
-	// Step 1: Create a min heap of capacity
-	// equal to size. Initially, there are
-	// modes equal to size.
-	struct MinHeap* minHeap
-		= createAndBuildMinHeap();
+    assert(p_self != NULL);
 
-	// Iterate while size of heap doesn't become 1
-	while (!isSizeOne(minHeap)) {
+    if (self == NULL || HuffNodeGetFreq(node) < HuffNodeGetFreq(self->node))
+    {
+        struct HuffList * new_list = calloc(1, sizeof(struct HuffList));
 
-		// Step 2: Extract the two minimum
-		// freq items from min heap
-		left = extractMin(minHeap);
-		right = extractMin(minHeap);
+        new_list->node = node;
+        new_list->next = self;
 
-		// Step 3: Create a new internal
-		// node with frequency equal to the
-		// sum of the two nodes frequencies.
-		// Make the two extracted node as
-		// left and right children of this new node.
-		// Add this node to the min heap
-		// 0 is a special value for internal nodes, not
-		// used
-		top = newNode(0, left->freq + right->freq);
+        *p_self = new_list;
 
-		top->left = left;
-		top->right = right;
-
-		insertMinHeap(minHeap, top);
-	}
-
-	// Step 4: The remaining node is the
-	// root node and the tree is complete.
-	return extractMin(minHeap);
-}
-
-unsigned* buildHuffmanTable()
-{
-    unsigned* huffmanTable = malloc(sizeof(unsigned) * nodeNum);
-
-    for (int i = 0; i < nodeNum; i++) {
-        if (isLeaf(nodes[i])) {
-            huffmanTable[i] = 0xffff0000 | nodes[i]->data;
-        } else {
-            huffmanTable[i] = (indexOfNode(nodes[i]->right) << 16) | indexOfNode(nodes[i]->left);
-        }
-    }
-
-    return huffmanTable;
-}
-
-void printHuffmanTree(struct MinHeapNode *root, int depth)
-{
-    for (int i = 0; i < depth; i++)
-        printf("  ");
-
-    if (isLeaf(root)) {
-        printf("(leaf) value = 0x%04X, freq = %d\n", root->data, root->freq);
         return;
     }
 
-    printf("(node) freq = %d\n", root->freq);
+    HuffListAdd(&self->next, node);
+}
 
-    if(root->left) {
-        printHuffmanTree(root->left, depth + 1);
+struct HuffNode * HuffListPopHead(struct HuffList ** p_self)
+{
+    struct HuffList * self = *p_self;
+    struct HuffNode * result = self->node;
+
+    assert(p_self != NULL);
+
+    *p_self = self->next;
+    free(self);
+
+    return result;
+}
+
+// ================
+// = HUFFMAN TREE =
+// ================
+
+HuffTree_t BuildHuffmanTree(u32 * freq_table)
+{
+    struct HuffList * list = HuffListCreate();
+
+    // TODO: this better
+
+    // single byte values
+    for (size_t i = 0; i < 0x100; i++)
+    {
+        if (freq_table[i] > 0)
+            HuffListAdd(&list, HuffNodeCreateLeaf(i, freq_table[i]));
     }
 
-    if(root->right) {
-        printHuffmanTree(root->right, depth + 1);
+    // portrait codes
+    for (size_t i = 0; i < 0x100; i++)
+    {
+        size_t code = 0x0100 | i;
+
+        if (freq_table[code] > 0)
+            HuffListAdd(&list, HuffNodeCreateLeaf(code, freq_table[code]));
     }
+
+    // everything else (double byte values)
+    for (size_t lo = 0; lo < 0x100; lo++)
+    {
+        for (size_t hi = 2; hi < 0x100; hi++)
+        {
+            size_t code = (hi << 8) | lo;
+
+            if (freq_table[code] > 0)
+                HuffListAdd(&list, HuffNodeCreateLeaf(code, freq_table[code]));
+        }
+    }
+
+    assert(!HuffListIsEmpty(list));
+
+    for (;;)
+    {
+        struct HuffNode * head = HuffListPopHead(&list);
+
+        if (HuffListIsEmpty(list))
+        {
+            HuffListDestroy(list);
+            return head;
+        }
+
+        HuffListAdd(&list, HuffNodeCreateNode(head, HuffListPopHead(&list)));
+    }
+}
+
+void FreeHuffmanTree(HuffTree_t tree)
+{
+    HuffNodeDestroy((struct HuffNode *)tree);
+}
+
+u32 * BuildHuffmanTable(void)
+{
+    u32 * result = calloc(g_node_count, sizeof(u32));
+
+    for (size_t i = 0; i < g_node_count; i++)
+    {
+        struct HuffNode * node = g_nodes[i];
+
+        if (HuffNodeIsLeaf(node))
+        {
+            result[i] = 0xFFFF0000 | node->leaf.data;
+        }
+        else
+        {
+            result[i] = (HuffNodeFindIdx(node->right) << 16) |
+                        HuffNodeFindIdx(node->left);
+        }
+    }
+
+    return result;
 }
