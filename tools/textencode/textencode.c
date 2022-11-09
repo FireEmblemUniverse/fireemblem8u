@@ -34,10 +34,27 @@ unsigned * huffmanTable;
 
 u32 freq[MAX_VALUE_NUM] = { 0 };
 
-// searches tree for value, and appends the Huffman to the output
-int compress_value_recursive(
-    uint32_t node, uint16_t value, uint8_t * output, unsigned int * bit)
+typedef enum Direction
 {
+    LEFT,
+    RIGHT,
+} Direction_t;
+
+int node_is_leaf(uint32_t node)
+{
+    uint16_t hipart = (uint16_t)(node >> 16);
+    return hipart == 0xFFFF;
+}
+
+// searches tree for value
+int search(uint32_t node, uint16_t value, Direction_t * out, int len)
+{
+    // Amazingly, attempting to factor out this use of [hipart] and [lopart]
+    // into helpers (e.g. [node_is_leaf]) causes a ~0.8x slowdown; presumably
+    // there is some inlining and constant lifting that isn't firing. Alas.
+    //
+    // Changing this code to use the [HuffTree_t] performs even worse (0.5x),
+    // probably because of the extra pointer indirections.
     uint16_t lopart = (uint16_t)node;
     uint16_t hipart = (uint16_t)(node >> 16);
 
@@ -48,44 +65,101 @@ int compress_value_recursive(
         // The lower 16 bits are the output data.
 
         if (lopart == value)
-            return 1; // found the value
-        else
-            return 0;
+            return len; // found the value
     }
     else
     {
-        unsigned int byte = *bit / 8;
-        unsigned int bit_ = *bit % 8;
-
         // non-leaf node
         // The upper 16 bits of the node are the right child index
         // The lower 16 bits of the node are the left child index
 
         // search left child
-        (*bit)++;
-        if (compress_value_recursive(huffmanTable[lopart], value, output, bit))
+        int left_len = search(huffmanTable[lopart], value, out, len + 1);
+        if (left_len != -1)
         {
-            // clear current output bit because value was found
-            // in left subtree
-            output[byte] &= ~(1 << bit_);
-            return 1;
+            out[len] = LEFT;
+            return left_len;
         }
-        (*bit)--;
 
-        // search right child
-        (*bit)++;
-        if (compress_value_recursive(huffmanTable[hipart], value, output, bit))
+        int right_len = search(huffmanTable[hipart], value, out, len + 1);
+        if (right_len != -1)
         {
-            // set current output bit because value was found
-            // in right subtree
+            out[len] = RIGHT;
+            return right_len;
+        }
+    }
+
+    // not found
+    return -1;
+}
+
+typedef struct Entry
+{
+    // XXX: The maximum tree depth in the FE8U corpus is 19 so we should be
+    // okay fixing this value at 32, but it would be nice to be more general.
+    u32 path;
+    int len;
+} Entry_t;
+
+Entry_t cache[1 << 16];
+
+void write_from_cache(uint16_t value, uint8_t * output, unsigned int * bit)
+{
+    int len = cache[value].len;
+    int path = cache[value].path;
+    for (int i = 0; i < len; i += 1, *bit += 1)
+    {
+        unsigned int byte = *bit / 8;
+        unsigned int bit_ = *bit % 8;
+
+        if (path & (1 << i))
+        {
             output[byte] |= (1 << bit_);
-            return 1;
         }
-        (*bit)--;
+        else
+        {
+            output[byte] &= ~(1 << bit_);
+        }
+    }
+}
 
-        // not found
+int compress_value(
+    uint32_t node, uint16_t value, uint8_t * output, unsigned int * bit)
+{
+    if (cache[value].len > 0)
+    {
+        write_from_cache(value, output, bit);
+        return 1;
+    }
+
+    Direction_t path[32] = { LEFT };
+    int len = search(node, value, (Direction_t *)&path, 0);
+
+    if (len == -1)
+    {
         return 0;
     }
+
+    cache[value].len = len;
+    cache[value].path = 0;
+    for (int i = 0; i < len; i += 1, *bit += 1)
+    {
+        unsigned int byte = *bit / 8;
+        unsigned int bit_ = *bit % 8;
+
+        if (path[i] == LEFT)
+        {
+            cache[value].path &= ~(1 << i);
+            output[byte] &= ~(1 << bit_);
+        }
+        else
+        {
+            cache[value].path |= (1 << i);
+            output[byte] |= (1 << bit_);
+        }
+    }
+
+    return 1;
 }
 
 void count_freq(uint8_t * input)
@@ -152,22 +226,22 @@ int compress_string(uint8_t * input, uint8_t * output)
             case 0x80:
                 // 1-byte
                 value = *input++;
-                if (!compress_value_recursive(rootNode, value, output, &bit))
+                if (!compress_value(rootNode, value, output, &bit))
                     goto error;
                 // 1-byte
                 value = *input++;
-                if (!compress_value_recursive(rootNode, value, output, &bit))
+                if (!compress_value(rootNode, value, output, &bit))
                     goto error;
                 break;
             case 0x10:
                 // 1-byte
                 value = *input++;
-                if (!compress_value_recursive(rootNode, value, output, &bit))
+                if (!compress_value(rootNode, value, output, &bit))
                     goto error;
                 // 2-byte
                 value = *input++;
                 value |= *input++ << 8;
-                if (!compress_value_recursive(rootNode, value, output, &bit))
+                if (!compress_value(rootNode, value, output, &bit))
                     goto error;
                 break;
             default:
@@ -176,8 +250,7 @@ int compress_string(uint8_t * input, uint8_t * output)
                     // 2-byte
                     value = *input++;
                     value |= *input++ << 8;
-                    if (!compress_value_recursive(
-                            rootNode, value, output, &bit))
+                    if (!compress_value(rootNode, value, output, &bit))
                         goto error;
                     break;
                 }
@@ -187,7 +260,7 @@ int compress_string(uint8_t * input, uint8_t * output)
             case 0xE9:
                 // 1-byte
                 value = *input++;
-                if (!compress_value_recursive(rootNode, value, output, &bit))
+                if (!compress_value(rootNode, value, output, &bit))
                     goto error;
                 if (value == 0)
                     goto done;
@@ -233,7 +306,7 @@ static void write_c_file(const char * filename)
 {
     FILE * outCFile;
     int i;
-    uint8_t outputBuffer[10000]; // TODO: allocate this dynamically
+    uint8_t outputBuffer[10000] = { 0 }; // TODO: allocate this dynamically
     int size;
 
     outCFile = fopen(filename, "wb");
@@ -247,17 +320,22 @@ static void write_c_file(const char * filename)
         count_freq((uint8_t *)gInputStrings[i].text);
     }
 
+    BENCH_WAYPOINT(huffbuild);
     BuildHuffmanTree(freq);
     huffmanTable = BuildHuffmanTable();
+    BENCH_REPORT(huffbuild, "initial tree build");
 
     //*
     // compressed string data
+    BENCH_WAYPOINT(compress);
     for (i = 0; i < gInputStringsCount; i++)
     {
         size = compress_string((uint8_t *)gInputStrings[i].text, outputBuffer);
+
         print_compressed_string(
             outCFile, gInputStrings[i].id, outputBuffer, size);
     }
+    BENCH_REPORT(compress, "compress and write out");
     fputs("\n", outCFile);
 
     // Huffman table
@@ -276,7 +354,7 @@ static void write_c_file(const char * filename)
     fprintf(
         outCFile,
         "const u32 *const gMsgHuffmanTableRoot = gMsgHuffmanTable + %d;\n\n",
-        (int) g_node_count - 1);
+        (int)g_node_count - 1);
 
     // string table
     fputs("const u8 *const gMsgStringTable[] =\n{\n", outCFile);

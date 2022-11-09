@@ -170,7 +170,9 @@ HuffTree_t BuildHuffmanTree(u32 * freq_table)
     for (size_t i = 0; i < 0x100; i++)
     {
         if (freq_table[i] > 0)
+        {
             HuffListAdd(&list, HuffNodeCreateLeaf(i, freq_table[i]));
+        }
     }
 
     // portrait codes
@@ -179,7 +181,9 @@ HuffTree_t BuildHuffmanTree(u32 * freq_table)
         size_t code = 0x0100 | i;
 
         if (freq_table[code] > 0)
+        {
             HuffListAdd(&list, HuffNodeCreateLeaf(code, freq_table[code]));
+        }
     }
 
     // everything else (double byte values)
@@ -189,25 +193,30 @@ HuffTree_t BuildHuffmanTree(u32 * freq_table)
         {
             size_t code = (hi << 8) | lo;
 
-            if (freq_table[code] > 0)
+            if (freq_table[code] > 0) {
                 HuffListAdd(&list, HuffNodeCreateLeaf(code, freq_table[code]));
+            }
         }
     }
 
     assert(!HuffListIsEmpty(list));
 
+    struct HuffNode * head;
+
     for (;;)
     {
-        struct HuffNode * head = HuffListPopHead(&list);
+        head = HuffListPopHead(&list);
 
         if (HuffListIsEmpty(list))
         {
             HuffListDestroy(list);
-            return head;
+            break;
         }
 
         HuffListAdd(&list, HuffNodeCreateNode(head, HuffListPopHead(&list)));
     }
+
+    return head;
 }
 
 void FreeHuffmanTree(HuffTree_t tree)
