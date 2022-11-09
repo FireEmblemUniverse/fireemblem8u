@@ -21,6 +21,9 @@
 #ifndef TEXTENCODE_H
 #define TEXTENCODE_H
 
+#include <stdint.h>
+#include <stdlib.h>
+
 #define MAX_VALUE_NUM 0x10000
 #define MAX_NODE_NUM 50000
 
@@ -28,42 +31,34 @@
 
 #define RESIZE_ARRAY(ptr, nelems) ptr = realloc(ptr, (nelems) * sizeof(*ptr))
 
-#define FATAL_ERROR(message, ...) \
-do { \
-    fprintf(stderr, message, ##__VA_ARGS__); \
-    exit(1); \
-} while (0)
+#define FATAL_ERROR(message, ...)                                              \
+    do                                                                         \
+    {                                                                          \
+        fprintf(stderr, message, ##__VA_ARGS__);                               \
+        exit(1);                                                               \
+    } while (0)
 
+typedef uint32_t u32;
+
+typedef void * HuffTree_t;
 
 struct String
 {
-    char *id;
-    char *text;
+    char * id;
+    char * text;
 };
 
-// A Huffman tree node
-struct MinHeapNode {
-
-	// One of the input characters
-	unsigned data;
-
-	// Frequency of the character
-	unsigned freq;
-
-	// Left and right child of this node
-	struct MinHeapNode *left, *right;
-};
-
-extern struct String *gInputStrings;
+extern struct String * gInputStrings;
 extern int gInputStringsCount;
 
-extern int freq[];
-extern int nodeNum;
+extern u32 freq[];
+extern size_t g_node_count;
 extern int nodeNumVanilla;
 
-void read_input_file(const char *name);
-struct MinHeapNode* buildHuffmanTree();
-void printHuffmanTree(struct MinHeapNode *root, int depth);
-unsigned* buildHuffmanTable();
+HuffTree_t BuildHuffmanTree(u32 * freq_table);
+void FreeHuffmanTree(HuffTree_t tree);
+u32 * BuildHuffmanTable(void);
+
+void read_input_file(const char * name);
 
 #endif // TEXTENCODE_H

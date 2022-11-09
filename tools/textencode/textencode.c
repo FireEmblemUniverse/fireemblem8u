@@ -18,34 +18,37 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
+#include "textencode.h"
 #include <stdarg.h>
+#include <stdbool.h>
 #include <stdint.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include "textencode.h"
 
-int useVanillaTree = 0;
-const char optionToUseVanillaTree[] = "--vanilla-tree";
-extern unsigned huffmanTableVanilla[];
-unsigned* huffmanTable;
+// int useVanillaTree = 0;
+// const char optionToUseVanillaTree[] = "--vanilla-tree";
+// extern unsigned huffmanTableVanilla[];
 
-int freq[MAX_VALUE_NUM] = {0};
+unsigned * huffmanTable;
+
+u32 freq[MAX_VALUE_NUM] = { 0 };
 
 // searches tree for value, and appends the Huffman to the output
-int compress_value_recursive(uint32_t node, uint16_t value, uint8_t *output, unsigned int *bit)
+int compress_value_recursive(
+    uint32_t node, uint16_t value, uint8_t * output, unsigned int * bit)
 {
     uint16_t lopart = (uint16_t)node;
     uint16_t hipart = (uint16_t)(node >> 16);
 
-    if (hipart == 0xFFFF)  // leaf node
+    if (hipart == 0xFFFF) // leaf node
     {
         // leaf node
         // The upper 16 bits of a leaf node are always 0xFFFF.
         // The lower 16 bits are the output data.
 
         if (lopart == value)
-            return 1;  // found the value
+            return 1; // found the value
         else
             return 0;
     }
@@ -85,7 +88,7 @@ int compress_value_recursive(uint32_t node, uint16_t value, uint8_t *output, uns
     }
 }
 
-void count_freq(uint8_t *input)
+void count_freq(uint8_t * input)
 {
     unsigned int value;
 
@@ -93,101 +96,102 @@ void count_freq(uint8_t *input)
     {
         switch (*input)
         {
-        case 0x80:
-            // 1-byte
-            value = *input++;
-            freq[value]++;
-            // 1-byte
-            value = *input++;
-            freq[value]++;
-            break;
-        case 0x10:
-            // 1-byte
-            value = *input++;
-            freq[value]++;
-            // 2-byte
-            value = *input++;
-            value |= *input++ << 8;
-            freq[value]++;
-            break;
-        default:
-            if (*input >= 0x20)
-            {
+            case 0x80:
+                // 1-byte
+                value = *input++;
+                freq[value]++;
+                // 1-byte
+                value = *input++;
+                freq[value]++;
+                break;
+            case 0x10:
+                // 1-byte
+                value = *input++;
+                freq[value]++;
                 // 2-byte
                 value = *input++;
                 value |= *input++ << 8;
                 freq[value]++;
                 break;
-            }
-            // else fall through
-        case '#':
-        case 0x7F:
-        case 0xE9:
-            // 1-byte
-            value = *input++;
-            freq[value]++;
-            if (value == 0)
-                return;
-            break;
+            default:
+                if (*input >= 0x20)
+                {
+                    // 2-byte
+                    value = *input++;
+                    value |= *input++ << 8;
+                    freq[value]++;
+                    break;
+                }
+                // else fall through
+            case '#':
+            case 0x7F:
+            case 0xE9:
+                // 1-byte
+                value = *input++;
+                freq[value]++;
+                if (value == 0)
+                    return;
+                break;
         }
     }
 }
 
-int compress_string(uint8_t *input, uint8_t *output)
+int compress_string(uint8_t * input, uint8_t * output)
 {
     unsigned int value;
     unsigned int size;
     unsigned int bit = 0;
 
     // Root node is the last element of the table.
-    const int rootNode = huffmanTable[nodeNum - 1];
+    const int rootNode = huffmanTable[g_node_count - 1];
 
     while (1)
     {
         switch (*input)
         {
-        case 0x80:
-            // 1-byte
-            value = *input++;
-            if (!compress_value_recursive(rootNode, value, output, &bit))
-                goto error;
-            // 1-byte
-            value = *input++;
-            if (!compress_value_recursive(rootNode, value, output, &bit))
-                goto error;
-            break;
-        case 0x10:
-            // 1-byte
-            value = *input++;
-            if (!compress_value_recursive(rootNode, value, output, &bit))
-                goto error;
-            // 2-byte
-            value = *input++;
-            value |= *input++ << 8;
-            if (!compress_value_recursive(rootNode, value, output, &bit))
-                goto error;
-            break;
-        default:
-            if (*input >= 0x20)
-            {
+            case 0x80:
+                // 1-byte
+                value = *input++;
+                if (!compress_value_recursive(rootNode, value, output, &bit))
+                    goto error;
+                // 1-byte
+                value = *input++;
+                if (!compress_value_recursive(rootNode, value, output, &bit))
+                    goto error;
+                break;
+            case 0x10:
+                // 1-byte
+                value = *input++;
+                if (!compress_value_recursive(rootNode, value, output, &bit))
+                    goto error;
                 // 2-byte
                 value = *input++;
                 value |= *input++ << 8;
                 if (!compress_value_recursive(rootNode, value, output, &bit))
                     goto error;
                 break;
-            }
-            // else fall through
-        case '#':
-        case 0x7F:
-        case 0xE9:
-            // 1-byte
-            value = *input++;
-            if (!compress_value_recursive(rootNode, value, output, &bit))
-                goto error;
-            if (value == 0)
-                goto done;
-            break;
+            default:
+                if (*input >= 0x20)
+                {
+                    // 2-byte
+                    value = *input++;
+                    value |= *input++ << 8;
+                    if (!compress_value_recursive(
+                            rootNode, value, output, &bit))
+                        goto error;
+                    break;
+                }
+                // else fall through
+            case '#':
+            case 0x7F:
+            case 0xE9:
+                // 1-byte
+                value = *input++;
+                if (!compress_value_recursive(rootNode, value, output, &bit))
+                    goto error;
+                if (value == 0)
+                    goto done;
+                break;
         }
     }
 done:
@@ -204,7 +208,9 @@ error:
     FATAL_ERROR("could not compress value 0x%X\n", value);
 }
 
-static void print_compressed_string(FILE *file, const char *id, const uint8_t *compressed, int compressedLength)
+static void print_compressed_string(
+    FILE * file, const char * id, const uint8_t * compressed,
+    int compressedLength)
 {
     int i;
 
@@ -214,7 +220,7 @@ static void print_compressed_string(FILE *file, const char *id, const uint8_t *c
     fprintf(file, "0x%02X};\n", compressed[i]);
 }
 
-void print_bytes(FILE *file, const uint8_t *bytes, int length)
+void print_bytes(FILE * file, const uint8_t * bytes, int length)
 {
     int i;
 
@@ -223,11 +229,11 @@ void print_bytes(FILE *file, const uint8_t *bytes, int length)
     fprintf(file, "0x%02X", bytes[i]);
 }
 
-static void write_c_file(const char *filename)
+static void write_c_file(const char * filename)
 {
-    FILE *outCFile;
+    FILE * outCFile;
     int i;
-    uint8_t outputBuffer[10000];  // TODO: allocate this dynamically
+    uint8_t outputBuffer[10000]; // TODO: allocate this dynamically
     int size;
 
     outCFile = fopen(filename, "wb");
@@ -236,70 +242,70 @@ static void write_c_file(const char *filename)
 
     fputs("#include \"global.h\"\n\n", outCFile);
 
-    if (useVanillaTree) {
-        huffmanTable = huffmanTableVanilla;
-        nodeNum = nodeNumVanilla;
-    } else {
-        for (i = 0; i < gInputStringsCount; i++)
-        {
-            count_freq((uint8_t *)gInputStrings[i].text);
-        }
-        printHuffmanTree(buildHuffmanTree(), 0);
-        huffmanTable = buildHuffmanTable();
+    for (i = 0; i < gInputStringsCount; i++)
+    {
+        count_freq((uint8_t *)gInputStrings[i].text);
     }
 
+    BuildHuffmanTree(freq);
+    huffmanTable = BuildHuffmanTable();
+
+    //*
     // compressed string data
     for (i = 0; i < gInputStringsCount; i++)
     {
         size = compress_string((uint8_t *)gInputStrings[i].text, outputBuffer);
-        print_compressed_string(outCFile, gInputStrings[i].id, outputBuffer, size);
+        print_compressed_string(
+            outCFile, gInputStrings[i].id, outputBuffer, size);
     }
     fputs("\n", outCFile);
 
     // Huffman table
     fprintf(outCFile, "const u32 gMsgHuffmanTable[] =\n{");
-    for (i = 0; i < (int)nodeNum; i++)
+    for (size_t i = 0; i < g_node_count; i++)
     {
         if (i % 8 == 0)
             fprintf(outCFile, "\n    ");
+
         fprintf(outCFile, "0x%08X, ", huffmanTable[i]);
     }
+
     fputs("\n};\n\n", outCFile);
 
     // pointer to root node of Huffman tree
-    fprintf(outCFile, "const u32 *const gMsgHuffmanTableRoot = gMsgHuffmanTable + %d;\n\n", nodeNum - 1);
+    fprintf(
+        outCFile,
+        "const u32 *const gMsgHuffmanTableRoot = gMsgHuffmanTable + %d;\n\n",
+        (int) g_node_count - 1);
 
     // string table
     fputs("const u8 *const gMsgStringTable[] =\n{\n", outCFile);
     for (i = 0; i < gInputStringsCount; i++)
         fprintf(outCFile, "    gCompressedText_%s,\n", gInputStrings[i].id);
     fputs("};\n", outCFile);
-    
+
     fclose(outCFile);
 }
 
-void write_h_file(const char *filename)
+void write_h_file(const char * filename)
 {
-    FILE *outHFile;
+    FILE * outHFile;
     int i;
-    
+
     outHFile = fopen(filename, "wb");
     if (outHFile == NULL)
         FATAL_ERROR("failed to open file '%s' for writing\n", filename);
-    
+
     for (i = 0; i < gInputStringsCount; i++)
         fprintf(outHFile, "#define %s %i\n", gInputStrings[i].id, i);
-    
+
     fclose(outHFile);
 }
 
-int main(int argc, char **argv)
+int main(int argc, char ** argv)
 {
-    if (argc == 4 && strcmp(argv[3], optionToUseVanillaTree) == 0)
-        useVanillaTree = 1;
-
-    if ((useVanillaTree && argc != 4) || (!useVanillaTree && argc != 3))
-        FATAL_ERROR("usage:\n%s STRING_LIST C_FILE [%s]\n", argv[0], optionToUseVanillaTree);
+    if (argc != 3)
+        FATAL_ERROR("usage:\n%s STRING_LIST C_FILE\n", argv[0]);
 
     read_input_file(argv[1]);
     write_c_file(argv[2]);
