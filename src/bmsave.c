@@ -756,3 +756,24 @@ s8 sub_80A3724(int unitA, int unitB, int supportRank) {
 
     return 1;
 }
+
+void SetSavedCharacterKnownFlag(s32 charId, struct SecureSaveHeader* buf)
+{
+  s32 boolLoadedSecureHeader = 0;
+  struct SecureSaveHeader tmp_header;
+  
+  if (charId > 256) {
+    return;
+  }
+  if (buf == NULL) {
+    buf = &tmp_header;
+    LoadAndVerifySecureHeaderSW(buf);
+    boolLoadedSecureHeader = 1;
+  }
+  
+  buf->charKnownFlags[charId >> 3] |= 1 << (charId & 7);
+  
+  if (boolLoadedSecureHeader) {
+    SaveSecureHeader(buf);
+  }
+}

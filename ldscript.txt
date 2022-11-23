@@ -143,7 +143,6 @@ SECTIONS
         src/uichapterstatus.o(.text);
         asm/code.o(.text);
         src/bmsave.o(.text);
-        src/code_80A2C3C.o(.text);
         asm/code_80A2C3C.o(.text);
         src/minimap.o(.text);
         asm/code_80A882C.o(.text);
