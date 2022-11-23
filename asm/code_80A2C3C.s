@@ -3391,7 +3391,7 @@ _080A5076:
 	ldr r0, [r0]
 	ldrb r0, [r0, #4]
 	mov r1, r8
-	bl SetSomeUnitStatThingUnlockMaybeIdk
+	bl SetSavedCharacterKnownFlag
 	adds r4, #0x48
 	subs r5, #1
 	cmp r5, #0

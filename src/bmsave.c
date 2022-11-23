@@ -155,7 +155,7 @@ void InitNopSecHeader()
         header.unk20[i] = 0;
 
     for (i = 0; i < 0x20; i++)
-        header.unk40[i] = 0;
+        header.charKnownFlags[i] = 0;
 
     SaveSecureHeader(&header);
 

@@ -37351,10 +37351,10 @@ sub_80A0BF4: @ 0x080A0BF4
 _080A0C06:
 	ldrh r0, [r6]
 	movs r1, #0
-	bl SetSomeUnitStatThingUnlockMaybeIdk
+	bl SetSavedCharacterKnownFlag
 	ldrh r0, [r6, #2]
 	movs r1, #0
-	bl SetSomeUnitStatThingUnlockMaybeIdk
+	bl SetSavedCharacterKnownFlag
 	ldrh r4, [r6]
 	ldrh r5, [r6, #2]
 	adds r0, r4, #0
