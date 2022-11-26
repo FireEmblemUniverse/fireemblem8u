@@ -2,47 +2,6 @@
 
 	.SYNTAX UNIFIED
 
-	THUMB_FUNC_START SetSomeUnitStatThingUnlockMaybeIdk
-SetSomeUnitStatThingUnlockMaybeIdk: @ 0x080A37A8
-	push {r4, r5, lr}
-	sub sp, #0x64
-	adds r4, r0, #0
-	adds r5, r1, #0
-	movs r3, #0
-	movs r0, #0x80
-	lsls r0, r0, #1
-	cmp r4, r0
-	bgt _080A37E8
-	cmp r5, #0
-	bne _080A37C8
-	mov r5, sp
-	mov r0, sp
-	bl LoadAndVerifySecureHeaderSW
-	movs r3, #1
-_080A37C8:
-	asrs r0, r4, #3
-	adds r2, r5, #0
-	adds r2, #0x40
-	adds r2, r2, r0
-	movs r1, #7
-	ands r1, r4
-	movs r0, #1
-	lsls r0, r1
-	ldrb r1, [r2]
-	orrs r0, r1
-	strb r0, [r2]
-	cmp r3, #0
-	beq _080A37E8
-	adds r0, r5, #0
-	bl SaveSecureHeader
-_080A37E8:
-	add sp, #0x64
-	pop {r4, r5}
-	pop {r0}
-	bx r0
-
-	THUMB_FUNC_END SetSomeUnitStatThingUnlockMaybeIdk
-
 	THUMB_FUNC_START sub_80A37F0
 sub_80A37F0: @ 0x080A37F0
 	push {r4, r5, lr}
@@ -3432,7 +3391,7 @@ _080A5076:
 	ldr r0, [r0]
 	ldrb r0, [r0, #4]
 	mov r1, r8
-	bl SetSomeUnitStatThingUnlockMaybeIdk
+	bl SetSavedCharacterKnownFlag
 	adds r4, #0x48
 	subs r5, #1
 	cmp r5, #0

@@ -155,7 +155,7 @@ void InitNopSecHeader()
         header.unk20[i] = 0;
 
     for (i = 0; i < 0x20; i++)
-        header.unk40[i] = 0;
+        header.charKnownFlags[i] = 0;
 
     SaveSecureHeader(&header);
 
@@ -755,4 +755,25 @@ s8 sub_80A3724(int unitA, int unitB, int supportRank) {
     SaveSecureHeader(&tempHeader);
 
     return 1;
+}
+
+void SetSavedCharacterKnownFlag(s32 charId, struct SecureSaveHeader* buf)
+{
+  s32 boolLoadedSecureHeader = 0;
+  struct SecureSaveHeader tmp_header;
+  
+  if (charId > 256) {
+    return;
+  }
+  if (buf == NULL) {
+    buf = &tmp_header;
+    LoadAndVerifySecureHeaderSW(buf);
+    boolLoadedSecureHeader = 1;
+  }
+  
+  buf->charKnownFlags[charId >> 3] |= 1 << (charId & 7);
+  
+  if (boolLoadedSecureHeader) {
+    SaveSecureHeader(buf);
+  }
 }

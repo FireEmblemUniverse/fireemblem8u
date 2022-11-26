@@ -36,7 +36,7 @@ struct SecureSaveHeader {
     /* 10 */ u16 unk12;
     /* 14 */ u8 unk14[0x20 - 0x14];
     /* 20 */ u8 unk20[0x40 - 0x20];
-    /* 40 */ u8 unk40[0x60 - 0x40];
+    /* 40 */ u8 charKnownFlags[0x60 - 0x40];
     /* 60 */ u16 sec_sum;
     /* 62 */ u8 unk62;
     /* 63 */ u8 unk63;
