@@ -176,13 +176,22 @@ struct RAMChapterData { // Chapter Data Struct
     // has to do with allowing unusable weapons to be used
     /* 1C */ u8  unk1C[4];
 
-    /* 20 */ char playerName[0x2C - 0x20]; // unused outside of link arena (was tactician name in FE7); Size unknown
+    /* 20 */ char playerName[0x2B - 0x20]; // unused outside of link arena (was tactician name in FE7); Size unknown
 
-    u32 unk_2C_1:23;
+    /* 2B */ u8 unk_2B_00 : 0x01;
+             u8 unk_2B_01 : 0x07;
+
+    u32 unk_2C_1:1;
+    u32 unk_2C_01 : 0x03;
+    u32 unk_2C_04 : 0x09;
+    u32 unk_2C_0D : 0x0A;
     u32 unk_2C_2:5;
     u32 unk_2C_3:4;
 
-    /* 30 */ u8  _unk30[0x38-0x30];
+    /* 30 */ int total_gold;
+
+    /* 34 */ u32 unk_34_00 : 0x14;
+             u32 unk_34_14 : 0x0C;
 
     u32 unk_38_1:8;
     u32 unk_38_2:20; // Used by bmdifficulty (Valni/Lagdou)
@@ -236,6 +245,16 @@ enum
     CHAPTER_FLAG_5          = (1 << 5),
     CHAPTER_FLAG_DIFFICULT  = (1 << 6),
     CHAPTER_FLAG_7          = (1 << 7)
+};
+
+/**
+ * Use with RAMChapterData field chapterModeIndex
+ */
+
+enum {
+    CHAPTER_MODE_COMMON = 1,
+    CHAPTER_MODE_EIRIKA = 2,
+    CHAPTER_MODE_EPHRAIM = 3,
 };
 
 struct TextBuffer0202A6AC
@@ -494,6 +513,16 @@ struct UnitUsageStats
 	/* 119 */ unsigned deathSkirm  : 1;
 	/* 120 */ /* 8bit pad */
 };
+
+#define BWL_ARRAY_NUM 0x46
+
+struct ChapterWinData {
+    /* 00 */ u16 chapter_index : 0x07;
+             u16 chapter_turn  : 0x09;
+             u16 chapter_time  : 0x10;
+};
+
+#define WIN_ARRAY_NUM 0x30
 
 enum { UNIT_SUPPORT_MAX_COUNT = 7 };
 

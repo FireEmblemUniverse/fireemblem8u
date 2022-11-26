@@ -512,8 +512,8 @@ extern struct RAMChapterData gRAMChapterData;
 extern u8 gActiveUnitId;
 extern struct Vec2 gActiveUnitMoveOrigin;
 extern struct Unit gUnitArrayBlue[62];
-// extern ??? gUnitArrayRed
-// extern ??? gUnitArrayGreen
+extern struct Unit gUnitArrayRed[50];
+extern struct Unit gUnitArrayGreen[20];
 // extern ??? gUnknown_02030B8C
 extern u8 gWorkingMovementScript[];
 // extern ??? gUnknown_02033F40
@@ -630,11 +630,12 @@ extern struct ActionData gActionData;
 // extern ??? gUnknown_0203E87C
 // extern ??? gUnknown_0203E884
 // extern ??? gBoolSramWorking
-// extern ??? gUnknown_0203E890
-// extern ??? gUnknown_0203E894
-// extern ??? gUnknown_0203ECF4
-// extern ??? gUnknown_0203EDB4
-// extern ??? gUnknown_0203EDB8
+extern struct UnitUsageStats *gpBWLSaveTarget;
+extern struct UnitUsageStats gBWLDataStorage[BWL_ARRAY_NUM];
+#define gBWLDataArray (&gBWLDataStorage[-1])
+extern struct ChapterWinData gChapterWinDataArray[WIN_ARRAY_NUM];
+extern u32 gUnknown_0203EDB4;
+extern u8 gUnknown_0203EDB8;    /* gSaveSuBaseSlot */
 // extern ??? gUnknown_0203EDBC
 // extern ??? gUnknown_0203EE80
 // extern ??? gUnknown_0203EF44
