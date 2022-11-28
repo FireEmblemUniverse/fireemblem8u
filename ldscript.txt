@@ -58,7 +58,7 @@ SECTIONS
         src/eventcmd_warp.o(.text);
         asm/shinningstonefx.o(.text);
         asm/boomfogfx.o(.text);
-        asm/eventcmd_42.o(.text);
+        src/eventcmd_42.o(.text);
         asm/eventcmd_44.o(.text);
         asm/hino.o(.text);
         asm/bm.o(.text);
