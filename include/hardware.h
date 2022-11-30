@@ -151,7 +151,7 @@ void SoftResetIfKeyComboPressed();
 // ??? UpdateHBlankHandlerState(???);
 void SetPrimaryHBlankHandler(void (*hblankHandler)(void));
 void SetSecondaryHBlankHandler(void(*)(void));
-// ??? GetBackgroundFromBufferPointer(???);
+int GetBackgroundFromBufferPointer(u16 *ptr);
 // ??? BG_SetPriority(???);
 // ??? BG_GetPriority(???);
 void SetSpecialColorEffectsParameters(u16 effect, u8 coeffA, u8 coeffB, u8 blendY);

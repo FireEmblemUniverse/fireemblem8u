@@ -49,9 +49,6 @@ extern u8 CONST_DATA gUnknown_089E82E0[];
 extern u8 CONST_DATA gUnknown_089E8238[];
 
 // funcs
-void sub_800662C(ProcPtr);
-void sub_8006650(ProcPtr);
-void sub_80066A8(ProcPtr);
 void sub_8006B4C(ProcPtr);
 void sub_8007C0C(ProcPtr);
 void sub_8006C00(ProcPtr);
@@ -82,20 +79,6 @@ void sub_8009100(ProcPtr);
 void sub_8009250(ProcPtr);
 void sub_8009198(ProcPtr);
 void sub_8009200(ProcPtr);
-
-struct ProcCmd CONST_DATA gUnknown_08591304[] =
-{
-    PROC_SLEEP(0),
-    PROC_CALL(sub_800662C),
-
-    PROC_SLEEP(2),
-    PROC_CALL(sub_8006650),
-
-    PROC_SLEEP(0),
-    PROC_CALL(sub_80066A8),
-
-    PROC_END,
-};
 
 static struct SceneState sSceneStateCore;
 struct SceneState* CONST_DATA gUnknown_0859133C = &sSceneStateCore;
