@@ -3629,12 +3629,12 @@ sub_808B0D4: @ 0x0808B0D4
 	cmp r1, #0
 	beq _0808B0F4
 	movs r0, #0
-	bl sub_80057A8
+	bl GetFaceDisplayBitsById
 	movs r1, #0x11
 	negs r1, r1
 	ands r1, r0
 	movs r0, #0
-	bl sub_800578C
+	bl SetFaceDisplayBitsById
 _0808B0F4:
 	pop {r0}
 	bx r0
@@ -3650,11 +3650,11 @@ sub_808B0F8: @ 0x0808B0F8
 	cmp r1, #0
 	beq _0808B116
 	movs r0, #0
-	bl sub_80057A8
+	bl GetFaceDisplayBitsById
 	movs r1, #0x10
 	orrs r1, r0
 	movs r0, #0
-	bl sub_800578C
+	bl SetFaceDisplayBitsById
 _0808B116:
 	pop {r0}
 	bx r0

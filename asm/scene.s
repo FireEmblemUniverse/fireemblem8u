@@ -1577,7 +1577,7 @@ _080073FA:
 	adds r0, #0x18
 	adds r0, r0, r1
 	ldr r0, [r0]
-	bl sub_8005F38
+	bl StartFaceFadeOut
 	ldr r2, [r4]
 	ldrb r0, [r2, #0x11]
 	lsls r0, r0, #2
@@ -2013,7 +2013,7 @@ _080077B2:
 	ldr r0, [r1]
 	movs r1, #5
 _080077C6:
-	bl sub_8006438
+	bl SetFaceBlinkControl
 	b _0800728A
 _080077CC:
 	ldr r1, [r7]
@@ -2178,7 +2178,7 @@ _080078E8:
 	adds r0, r4, #0
 	movs r2, #0x50
 	adds r3, r6, #0
-	bl sub_8005610
+	bl StartFaceAuto
 	ldr r3, [r5]
 	ldrb r1, [r3, #0x11]
 	lsls r1, r1, #2
@@ -2190,7 +2190,7 @@ _080078E8:
 	lsls r0, r0, #2
 	adds r2, r2, r0
 	ldr r0, [r2]
-	bl sub_8005EF0
+	bl StartFaceFadeIn
 	ldr r0, [r5]
 	ldrb r4, [r0, #0x11]
 	movs r0, #0x10
@@ -2212,7 +2212,7 @@ _08007930:
 sub_8007938: @ 0x08007938
 	push {r4, lr}
 	ldr r4, [sp, #8]
-	bl sub_8005610
+	bl StartFaceAuto
 	ldr r1, _08007954  @ gUnknown_0859133C
 	ldr r1, [r1]
 	lsls r4, r4, #2
@@ -2232,7 +2232,7 @@ sub_8007958: @ 0x08007958
 	push {r4, lr}
 	adds r3, r0, #0
 	movs r1, #0
-	ldr r2, _08007974  @ gUnknown_03004980
+	ldr r2, _08007974  @ gFaces
 _08007960:
 	ldr r0, [r2]
 	cmp r0, #0
@@ -2244,7 +2244,7 @@ _08007960:
 	adds r0, r1, #0
 	b _08007984
 	.align 2, 0
-_08007974: .4byte gUnknown_03004980
+_08007974: .4byte gFaces
 _08007978:
 	adds r2, #4
 	adds r1, #1
@@ -2395,7 +2395,7 @@ sub_8007A58: @ 0x08007A58
 	cmp r5, r0
 	beq _08007AA0
 	ldr r0, _08007AA8  @ gUnknown_085913B0
-	ldr r1, _08007AAC  @ gUnknown_03004980
+	ldr r1, _08007AAC  @ gFaces
 	lsls r4, r5, #2
 	adds r4, r4, r1
 	ldr r1, [r4]
@@ -2421,7 +2421,7 @@ _08007AA0:
 	bx r0
 	.align 2, 0
 _08007AA8: .4byte gUnknown_085913B0
-_08007AAC: .4byte gUnknown_03004980
+_08007AAC: .4byte gFaces
 
 	THUMB_FUNC_END sub_8007A58
 
@@ -2496,7 +2496,7 @@ _08007B20:
 	adds r5, #0x64
 	cmp r0, r1
 	bne _08007B3E
-	ldr r1, _08007B7C  @ gUnknown_03004980
+	ldr r1, _08007B7C  @ gFaces
 	movs r2, #0
 	ldrsh r0, [r5, r2]
 	lsls r0, r0, #2
@@ -2513,7 +2513,7 @@ _08007B3E:
 	ldr r1, [r4, #0x58]
 	cmp r1, r0
 	bne _08007B5E
-	ldr r1, _08007B7C  @ gUnknown_03004980
+	ldr r1, _08007B7C  @ gFaces
 	movs r3, #0
 	ldrsh r0, [r5, r3]
 	lsls r0, r0, #2
@@ -2534,12 +2534,12 @@ _08007B6A:
 	ldr r0, [r4, #0x58]
 	cmp r0, r1
 	bne _08007BA2
-	ldr r1, _08007B7C  @ gUnknown_03004980
+	ldr r1, _08007B7C  @ gFaces
 	movs r2, #0
 	ldrsh r0, [r5, r2]
 	b _08007B96
 	.align 2, 0
-_08007B7C: .4byte gUnknown_03004980
+_08007B7C: .4byte gFaces
 _08007B80:
 	lsrs r0, r2, #0x1f
 	adds r0, r2, r0
@@ -2549,7 +2549,7 @@ _08007B80:
 	adds r5, #0x64
 	cmp r1, r0
 	bne _08007BA2
-	ldr r1, _08007BC4  @ gUnknown_03004980
+	ldr r1, _08007BC4  @ gFaces
 	movs r3, #0
 	ldrsh r0, [r5, r3]
 _08007B96:
@@ -2564,7 +2564,7 @@ _08007BA2:
 	ldr r0, [r4, #0x5c]
 	cmp r1, r0
 	blt _08007BC8
-	ldr r1, _08007BC4  @ gUnknown_03004980
+	ldr r1, _08007BC4  @ gFaces
 	movs r2, #0
 	ldrsh r0, [r5, r2]
 	lsls r0, r0, #2
@@ -2577,7 +2577,7 @@ _08007BA2:
 	bl Proc_Break
 	b _08007C00
 	.align 2, 0
-_08007BC4: .4byte gUnknown_03004980
+_08007BC4: .4byte gFaces
 _08007BC8:
 	adds r0, r4, #0
 	adds r0, #0x66
@@ -2598,7 +2598,7 @@ _08007BC8:
 	str r0, [sp]
 	movs r0, #4
 	bl Interpolate
-	ldr r2, _08007C08  @ gUnknown_03004980
+	ldr r2, _08007C08  @ gFaces
 	movs r3, #0
 	ldrsh r1, [r5, r3]
 	lsls r1, r1, #2
@@ -2611,7 +2611,7 @@ _08007C00:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_08007C08: .4byte gUnknown_03004980
+_08007C08: .4byte gFaces
 
 	THUMB_FUNC_END sub_8007B0C
 
@@ -4407,7 +4407,7 @@ sub_8008960: @ 0x08008960
 	adds r0, #0x18
 	adds r0, r0, r5
 	ldr r0, [r0]
-	bl sub_80057A4
+	bl GetFaceDisplayBits
 	movs r1, #0x39
 	negs r1, r1
 	ands r1, r0
@@ -4422,7 +4422,7 @@ sub_8008960: @ 0x08008960
 	add r2, sp
 	ldr r2, [r2]
 	orrs r1, r2
-	bl sub_8005770
+	bl SetFaceDisplayBits
 _080089A6:
 	add sp, #8
 	pop {r4, r5, r6}

@@ -2329,7 +2329,7 @@ _0800E668:
 	beq _0800E686
 	bl sub_80081A8
 	ldr r0, _0800E68C  @ gProcScr_E_FACE
-	ldr r1, _0800E690  @ sub_8005F38
+	ldr r1, _0800E690  @ StartFaceFadeOut
 	bl Proc_ForEach
 	ldr r0, _0800E694  @ gUnknown_08591DE8
 	adds r1, r4, #0
@@ -2340,7 +2340,7 @@ _0800E686:
 	bx r0
 	.align 2, 0
 _0800E68C: .4byte gProcScr_E_FACE
-_0800E690: .4byte sub_8005F38
+_0800E690: .4byte StartFaceFadeOut
 _0800E694: .4byte gUnknown_08591DE8
 
 	THUMB_FUNC_END sub_800E640

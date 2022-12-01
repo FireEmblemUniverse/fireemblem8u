@@ -29,6 +29,7 @@
 #include "event.h"
 #include "bb.h"
 #include "bmarena.h"
+#include "face.h"
 
 #include "constants/characters.h"
 #include "constants/classes.h"
@@ -480,8 +481,8 @@ u8 sub_8022B8C(struct MenuProc* menu, struct MenuItemProc* menuItem) {
 
     ProcPtr proc = StartOrphanMenu(&gBallistaRangeMenuDef);
 
-    NewFace(0, GetUnitPortraitId(gActiveUnit), 0xB0, 0xC, 2);
-    sub_8006458(0, 5);
+    StartFace(0, GetUnitPortraitId(gActiveUnit), 0xB0, 0xC, 2);
+    SetFaceBlinkControlById(0, 5);
 
     ForceMenuItemPanel(proc, gActiveUnit, 0xF, 0xB);
 
@@ -492,8 +493,8 @@ u8 sub_8022BD8(struct MenuProc* menu, struct MenuItemProc* menuItem) {
     ProcPtr proc = StartOrphanMenu(&gUnknownMenuDef);
 
     if (gActiveUnit->pClassData->number != CLASS_PHANTOM) {
-        NewFace(0, GetUnitPortraitId(gActiveUnit), 0xB0, 0xC, 2);
-        sub_8006458(0, 5);
+        StartFace(0, GetUnitPortraitId(gActiveUnit), 0xB0, 0xC, 2);
+        SetFaceBlinkControlById(0, 5);
     }
 
     ForceMenuItemPanel(proc, gActiveUnit, 0xF, 0xB);
@@ -877,8 +878,8 @@ u8 PlayCommandEffect(struct MenuProc* menu, struct MenuItemProc* menuItem) {
     } else {
         ProcPtr proc = StartOrphanMenu(&gItemMenuDef);
 
-        NewFace(0, GetUnitPortraitId(gActiveUnit), 0xB0, 0xC, 2);
-        sub_8006458(0, 5);
+        StartFace(0, GetUnitPortraitId(gActiveUnit), 0xB0, 0xC, 2);
+        SetFaceBlinkControlById(0, 5);
         ForceMenuItemPanel(proc, gActiveUnit, 0xF, 0xB);
 
         ResetIconGraphics();
@@ -928,9 +929,9 @@ u8 ItemCommandEffect(struct MenuProc* menu, struct MenuItemProc* menuItem) {
 
     proc = StartOrphanMenu(&gItemSelectMenuDef);
 
-    NewFace(0, GetUnitPortraitId(gActiveUnit), 0xB0, 0xC, 2);
+    StartFace(0, GetUnitPortraitId(gActiveUnit), 0xB0, 0xC, 2);
 
-    sub_8006458(0, 5);
+    SetFaceBlinkControlById(0, 5);
 
     ForceMenuItemPanel(proc, gActiveUnit, 0xF, 0xB);
 
@@ -1064,9 +1065,9 @@ u8 sub_8023550(struct MenuProc* menu) {
 
     proc = StartOrphanMenu(&gItemSelectMenuDef);
 
-    NewFace(0, GetUnitPortraitId(gActiveUnit), 0xB0, 0xC, 2);
+    StartFace(0, GetUnitPortraitId(gActiveUnit), 0xB0, 0xC, 2);
 
-    sub_8006458(0, 5);
+    SetFaceBlinkControlById(0, 5);
     ForceMenuItemPanel(proc, gActiveUnit, 15, 11);
 
     return MENU_ENABLED;
@@ -1081,7 +1082,7 @@ u8 sub_80235A8(struct MenuProc* menu) {
     if (GetUnitItemCount(gActiveUnit) == 0) {
         ClearBg0Bg1();
 
-        DeleteFaceByIndex(0);
+        EndFaceById(0);
 
         StartSemiCenteredOrphanMenu(&gUnitActionMenuDef, gGameState.unk1C.x - gGameState.camera.x, 1, 0x16);
 
@@ -1098,9 +1099,9 @@ u8 sub_80235A8(struct MenuProc* menu) {
 
     proc = StartOrphanMenu(&gItemSelectMenuDef);
 
-    NewFace(0, GetUnitPortraitId(gActiveUnit), 0xB0, 0xC, 2);
+    StartFace(0, GetUnitPortraitId(gActiveUnit), 0xB0, 0xC, 2);
 
-    sub_8006458(0, 5);
+    SetFaceBlinkControlById(0, 5);
 
     ForceMenuItemPanel(proc, gActiveUnit, 0xF, 0xB);
 
@@ -1189,7 +1190,7 @@ u8 ItemSubMenu_TradeItem(struct MenuProc* menu, struct MenuItemProc* menuItem) {
 
     sub_8023538(menu);
 
-    DeleteFaceByIndex(0);
+    EndFaceById(0);
 
     TradeCommandEffect(menu, menuItem);
 
@@ -1336,9 +1337,9 @@ u8 StaffCommandEffect(struct MenuProc* menu, struct MenuItemProc* menuItem) {
 
     proc = StartOrphanMenu(&gStaffItemSelectMenuDef);
 
-    NewFace(0, GetUnitPortraitId(gActiveUnit), 0xB0, 0xC, 2);
+    StartFace(0, GetUnitPortraitId(gActiveUnit), 0xB0, 0xC, 2);
 
-    sub_8006458(0, 5);
+    SetFaceBlinkControlById(0, 5);
 
     ForceMenuItemPanel(proc, gActiveUnit, 0xF, 0xB);
 
@@ -1834,7 +1835,7 @@ int sub_8024260(ProcPtr proc, struct SelectTarget* target) {
 
     DrawTextInline(0, gBG0TilemapBuffer + 0x63, 0, pos, 7, GetStringFromIndex(GetUnit(gActionData.targetIndex)->pCharacterData->nameTextId));
 
-    sub_8005CA4(gBG0TilemapBuffer + 0x63 + 0x40, GetUnitPortraitId(GetUnit(gActionData.targetIndex)), 0x200, 5);
+    PutFace80x72_Core(gBG0TilemapBuffer + 0x63 + 0x40, GetUnitPortraitId(GetUnit(gActionData.targetIndex)), 0x200, 5);
 
     return 0;
 }

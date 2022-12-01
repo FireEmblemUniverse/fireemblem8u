@@ -17,6 +17,7 @@
 #include "bmreliance.h"
 #include "uiutils.h"
 #include "mu.h"
+#include "face.h"
 
 #include "constants/classes.h"
 
@@ -1778,10 +1779,10 @@ void StatScreen_Display(struct Proc* proc)
 
     // Display portrait
 
-    sub_8005E98(proc, gBG2TilemapBuffer + TILEMAP_INDEX(1, 1), fid,
+    PutFace80x72(proc, gBG2TilemapBuffer + TILEMAP_INDEX(1, 1), fid,
         0x4E0, STATSCREEN_BGPAL_FACE);
 
-    if (GetPortraitStructPointer(fid)->img)
+    if (GetPortraitData(fid)->img)
         ApplyPalette(gUnknown_08A01EE4, STATSCREEN_BGPAL_2);
     else
         ApplyPalette(gUnknown_08A01F04, STATSCREEN_BGPAL_2);

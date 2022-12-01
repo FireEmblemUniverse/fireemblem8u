@@ -5,6 +5,7 @@
 #include "soundwrapper.h"
 #include "uiutils.h"
 #include "bmio.h"
+#include "face.h"
 
 #include "uiselecttarget.h"
 
@@ -125,7 +126,7 @@ void TargetSelection_Loop(struct SelectTargetProc* proc) {
     }
 
     if ((TARGETSELECTION_ACTION_ENDFACE & r5) != 0) {
-        DeleteFaceByIndex(0);
+        EndFaceById(0);
     }
 
     if ((TARGETSELECTION_ACTION_ENDFAST & r5) == 0) {

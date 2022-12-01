@@ -73606,8 +73606,8 @@ _08073DBA:
 	adds r1, r4, #0
 	movs r2, #0xbc
 	movs r3, #0x50
-	bl NewFace
-	ldr r0, _08073E0C  @ gUnknown_03004980
+	bl StartFace
+	ldr r0, _08073E0C  @ gFaces
 	ldr r1, [r0]
 	movs r2, #0
 	movs r0, #0xa0
@@ -73631,7 +73631,7 @@ _08073DBA:
 	.align 2, 0
 _08073E04: .4byte gUnknown_087592CC
 _08073E08: .4byte 0x00001042
-_08073E0C: .4byte gUnknown_03004980
+_08073E0C: .4byte gFaces
 _08073E10: .4byte gBG2TilemapBuffer
 _08073E14: .4byte 0x01000200
 
@@ -73794,7 +73794,7 @@ _08073EE2:
 	mov r3, r9
 	bl Interpolate
 	strh r0, [r5]
-	ldr r0, _08073FA8  @ gUnknown_03004980
+	ldr r0, _08073FA8  @ gFaces
 	ldr r1, [r0]
 	movs r0, #0x50
 	mov r2, r8
@@ -73840,7 +73840,7 @@ _08073F8E:
 	.align 2, 0
 _08073FA0: .4byte gUnknown_02020134
 _08073FA4: .4byte gUnknown_02020136
-_08073FA8: .4byte gUnknown_03004980
+_08073FA8: .4byte gFaces
 _08073FAC: .4byte gUnknown_020165C8
 _08073FB0: .4byte gPaletteBuffer
 
@@ -74316,7 +74316,7 @@ sub_80742F8: @ 0x080742F8
 	movs r2, #0
 	bl Interpolate
 	adds r6, r0, #0
-	ldr r0, _080743B4  @ gUnknown_03004980
+	ldr r0, _080743B4  @ gFaces
 	ldr r1, [r0]
 	movs r0, #0x50
 	subs r0, r0, r5
@@ -74362,7 +74362,7 @@ _080743A2:
 	.align 2, 0
 _080743AC: .4byte gUnknown_02020134
 _080743B0: .4byte gUnknown_02020136
-_080743B4: .4byte gUnknown_03004980
+_080743B4: .4byte gFaces
 _080743B8: .4byte gUnknown_020165C8
 _080743BC: .4byte gPaletteBuffer
 
@@ -74532,7 +74532,7 @@ _08074500:
 	strb r0, [r3, #0x18]
 _0807452C:
 	movs r0, #0
-	bl DeleteFaceByIndex
+	bl EndFaceById
 	adds r0, r5, #0
 	bl Proc_Break
 	add sp, #0x2c

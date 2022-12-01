@@ -3105,7 +3105,7 @@ sub_80B6D24: @ 0x080B6D24
 	str r0, [sp]
 	movs r0, #0
 	movs r3, #0x38
-	bl sub_80064F4
+	bl StartFace2
 	ldr r0, [r7, #0x2c]
 	ldr r0, [r0, #0xc]
 	movs r1, #4
@@ -3445,7 +3445,7 @@ sub_80B6F34: @ 0x080B6F34
 	str r0, [sp]
 	movs r0, #0
 	movs r3, #0x30
-	bl sub_80064F4
+	bl StartFace2
 	ldr r0, [r7, #0x38]
 	ldrb r0, [r0, #2]
 	subs r0, #1
@@ -3458,7 +3458,7 @@ sub_80B6F34: @ 0x080B6F34
 	str r0, [sp]
 	movs r0, #1
 	movs r3, #0x30
-	bl sub_80064F4
+	bl StartFace2
 	add sp, #8
 	pop {r3, r4, r5}
 	mov r8, r3
@@ -5711,7 +5711,7 @@ _080B8392:
 	cmp r0, r9
 	bne _080B83C4
 	adds r0, r6, #0
-	bl DeleteFaceByIndex
+	bl EndFaceById
 	ldr r0, [r7, #0x2c]
 	adds r0, r0, r4
 	adds r0, #0x36
@@ -5755,11 +5755,11 @@ _080B83E6:
 	cmp r0, #1
 	bne _080B841C
 	adds r0, r4, #0
-	bl sub_80057A4
+	bl GetFaceDisplayBits
 	ldr r1, _080B8438  @ 0xFFFFFBFF
 	ands r1, r0
 	adds r0, r4, #0
-	bl sub_8005770
+	bl SetFaceDisplayBits
 	ldr r0, [r7, #0x2c]
 	adds r0, r0, r5
 	adds r0, #0x36
@@ -5884,11 +5884,11 @@ _080B84E2:
 	bls _080B850C
 	movs r7, #2
 	adds r0, r6, #0
-	bl sub_80057A4
+	bl GetFaceDisplayBits
 	ldr r1, _080B85AC  @ 0xFFFFBFFF
 	ands r1, r0
 	adds r0, r6, #0
-	bl sub_8005770
+	bl SetFaceDisplayBits
 	ldrh r0, [r5]
 	ldr r2, _080B85B0  @ 0x0000F7FF
 	adds r1, r2, #0
@@ -5910,12 +5910,12 @@ _080B850C:
 	cmp r0, #0
 	bne _080B853A
 	adds r0, r6, #0
-	bl sub_80057A4
+	bl GetFaceDisplayBits
 	movs r1, #0x80
 	lsls r1, r1, #7
 	orrs r1, r0
 	adds r0, r6, #0
-	bl sub_8005770
+	bl SetFaceDisplayBits
 _080B853A:
 	ldrh r1, [r5]
 	movs r2, #0x80
@@ -6251,7 +6251,7 @@ _080B87B4:
 	mov r0, r8
 	adds r1, r6, #0
 	movs r3, #0x1c
-	bl sub_80064F4
+	bl StartFace2
 	adds r2, r0, #0
 	str r2, [r5, #4]
 	movs r1, #0xc0
@@ -6294,7 +6294,7 @@ _080B8806:
 	strb r0, [r1]
 	mov r0, r8
 	movs r1, #5
-	bl sub_8006458
+	bl SetFaceBlinkControlById
 	movs r0, #1
 	strb r0, [r5, #0xa]
 	mov r1, r9
@@ -6499,12 +6499,12 @@ _080B8994:
 	cmp r0, #0
 	bne _080B89F0
 	adds r0, r4, #0
-	bl sub_80057A4
+	bl GetFaceDisplayBits
 	movs r1, #0x80
 	lsls r1, r1, #7
 	orrs r1, r0
 	adds r0, r4, #0
-	bl sub_8005770
+	bl SetFaceDisplayBits
 	ldrh r0, [r5, #2]
 	ldr r2, _080B8A14  @ 0xFFFFFF00
 	adds r1, r2, #0
@@ -19634,7 +19634,7 @@ _080BE980:
 	str r0, [sp]
 	adds r0, r3, #0
 	movs r3, #4
-	bl sub_8005988
+	bl PutFaceChibi
 	add sp, #4
 	pop {r0}
 	bx r0
@@ -24365,9 +24365,9 @@ _080C0C7A:
 	str r0, [sp]
 	adds r0, r5, #0
 	adds r2, r4, #0
-	bl sub_8005E98
+	bl PutFace80x72
 	adds r0, r4, #0
-	bl GetPortraitStructPointer
+	bl GetPortraitData
 	ldr r0, [r0]
 	cmp r0, #0
 	beq _080C0CC0

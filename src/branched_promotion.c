@@ -13,6 +13,7 @@
 #include "constants/characters.h"
 #include "constants/classes.h"
 #include "ctc.h"
+#include "face.h"
 #include "fontgrp.h"
 #include "functions.h"
 #include "hardware.h"
@@ -1059,34 +1060,20 @@ ProcPtr sub_80CD668(ProcPtr proc) {
     return Proc_StartBlocking(gUnknown_08B1280C, proc);
 }
 
-struct U03004980_Member {
-    u32 _fill[12];
-    u32 u30;
-    u16 u34;
-};
-
-struct Unknown_03004980 {
-    struct U03004980_Member *a;
-    struct U03004980_Member *b;
-    struct U03004980_Member *c;
-    struct U03004980_Member *d;
-};
-extern struct Unknown_03004980 gUnknown_03004980;
-
 u32 sub_80CD67C(void) {
-    u16 start = gUnknown_03004980.a->u34;
+    u16 start = gFaces[0]->xPos;
     s16 cmp = start;
 
     if (cmp > 0x150) {
         return 0;
     } else {
-        struct U03004980_Member *b = gUnknown_03004980.b;
-        struct U03004980_Member *c = gUnknown_03004980.c;
-        struct U03004980_Member *d = gUnknown_03004980.d;
-        gUnknown_03004980.a->u34 = start + 4;
-        d->u34 = start + 4;
-        c->u34 = start + 4;
-        b->u34 = start + 4;
+        struct FaceProc *b = gFaces[1];
+        struct FaceProc *c = gFaces[2];
+        struct FaceProc *d = gFaces[3];
+        gFaces[0]->xPos = start + 4;
+        d->xPos = start + 4;
+        c->xPos = start + 4;
+        b->xPos = start + 4;
 
         return 1;
     }
@@ -1155,9 +1142,9 @@ extern s8 gUnknown_03005398[];
 
 void sub_80CD7FC(struct PromoProc4 *proc) {
     struct Unknown_PromotionTriple locals = gUnknown_0820707C;
-    struct U03004980_Member *b;
-    struct U03004980_Member *c;
-    struct U03004980_Member *d;
+    struct FaceProc *b;
+    struct FaceProc *c;
+    struct FaceProc *d;
     u8 i;
     u8 negative_one;
     switch (proc->u2a) {
@@ -1179,13 +1166,14 @@ void sub_80CD7FC(struct PromoProc4 *proc) {
 
     sub_808E9D8(0xa);
 
-    gUnknown_03004980.a->u30 = 0x82;
-    b = gUnknown_03004980.b;
-    c = gUnknown_03004980.c;
-    d = gUnknown_03004980.d;
-    d->u30 = 0x80 << 7;
-    c->u30 = 0x80 << 7;
-    b->u30 = 0x80 << 7;
+    gFaces[0]->displayBits = FACE_DISP_KIND(2) | FACE_DISP_HLAYER(2);
+    b = gFaces[1];
+    c = gFaces[2];
+    d = gFaces[3];
+    d->displayBits = FACE_DISP_BIT_14;
+    c->displayBits = FACE_DISP_BIT_14;
+    b->displayBits = FACE_DISP_BIT_14;
+
     gUnknown_03005398[0] = negative_one;
 }
 

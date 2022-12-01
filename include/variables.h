@@ -494,7 +494,6 @@ extern struct TileDataTransfer gUnknown_02024CDC[];
 // extern ??? gUnknown_02026E10
 // extern ??? gUnknown_02028F78
 // extern ??? gUnknown_02029D88
-// extern ??? gUnknown_0202A68C
 extern struct TextBuffer0202A6AC gUnknown_0202A6AC;
 //extern u8 gUnknown_0202AC01[];
 //extern u8 gUnknown_0202B156[];
@@ -769,7 +768,6 @@ extern void (*sHBlankHandler2)(void);
 extern u16* gUnknown_03004158;
 // extern ??? gUnknown_03004160
 // extern ??? gUnknown_03004960
-// extern ??? gUnknown_03004980
 // extern ??? gUnknown_03004990
 // extern ??? gStatGainSimUnit
 extern struct Unit* gActiveUnit;
@@ -1274,26 +1272,6 @@ extern u16 gUnknown_08589A9C[];
 extern struct Glyph *gUnknown_0858C7EC[];
 extern struct Glyph *gUnknown_0858F6F4[];
 extern struct Glyph *gUnknown_08590B44[];
-// extern ??? gUnknown_08590FEC
-// extern ??? gUnknown_0859100C
-// extern ??? gUnknown_08591026
-// extern ??? gUnknown_08591040
-// extern ??? gUnknown_08591066
-// extern ??? gUnknown_0859108C
-// extern ??? gUnknown_085910BE
-// extern ??? gUnknown_085910F0
-// extern ??? gUnknown_08591122
-// extern ??? gProcScr_E_FACE
-// extern ??? gUnknown_0859118C
-// extern ??? gUnknown_085911C4
-// extern ??? gUnknown_085911D8
-// extern ??? gUnknown_085911E8
-// extern ??? gUnknown_085911F6
-// extern ??? gUnknown_08591204
-// extern ??? gUnknown_08591234
-// extern ??? gUnknown_0859124C
-// extern ??? gUnknown_08591264
-// extern ??? gUnknown_08591304
 // extern ??? gUnknown_0859133C
 // extern ??? gUnknown_08591340
 // extern ??? gUnknown_08591358

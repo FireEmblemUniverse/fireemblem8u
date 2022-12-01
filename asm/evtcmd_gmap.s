@@ -2917,7 +2917,7 @@ EventC5_: @ 0x0800CCF0
 	cmp r1, #0
 	beq _0800CD10
 	adds r0, r2, #0
-	bl DeleteFaceByIndex
+	bl EndFaceById
 	b _0800CD2E
 _0800CD10:
 	cmp r3, #0
@@ -2960,7 +2960,7 @@ sub_800CD40: @ 0x0800CD40
 	push {lr}
 	movs r1, #0x2a
 	ldrsh r0, [r0, r1]
-	bl DeleteFaceByIndex
+	bl EndFaceById
 	pop {r0}
 	bx r0
 

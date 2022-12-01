@@ -166,7 +166,7 @@ EndMenuAndClear: @ 0x0801BCCC
 	push {lr}
 	bl EndMenu
 	movs r0, #0
-	bl DeleteFaceByIndex
+	bl EndFaceById
 	bl ClearBg0Bg1
 	movs r0, #1
 	pop {r1}
@@ -727,7 +727,7 @@ _0801C12C:
 	movs r1, #0x14
 	movs r2, #0x20
 	movs r3, #0x50
-	bl NewFace
+	bl StartFace
 	movs r0, #0x81
 	lsls r0, r0, #1
 	str r0, [sp]
@@ -748,7 +748,7 @@ _0801C14C:
 	movs r0, #0
 	movs r2, #0x20
 	movs r3, #0x50
-	bl NewFace
+	bl StartFace
 	ldr r0, [sp, #0x10]
 	movs r1, #0xff
 	lsls r1, r1, #8
@@ -764,7 +764,7 @@ _0801C14C:
 _0801C182:
 	movs r2, #0xd0
 	movs r3, #0x50
-	bl NewFace
+	bl StartFace
 	movs r0, #0
 	add sp, #0x14
 	pop {r1}
@@ -778,9 +778,9 @@ _0801C194: .4byte 0x00000103
 DebugContinueMenuEnd: @ 0x0801C198
 	push {lr}
 	movs r0, #0
-	bl DeleteFaceByIndex
+	bl EndFaceById
 	movs r0, #1
-	bl DeleteFaceByIndex
+	bl EndFaceById
 	ldr r2, _0801C1D4  @ gLCDControlBuffer
 	ldrb r1, [r2, #1]
 	movs r0, #2

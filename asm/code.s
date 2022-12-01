@@ -762,12 +762,12 @@ sub_808EFA8: @ 0x0808EFA8
 	adds r4, r0, #0
 	bl sub_808F2BC
 	movs r0, #0
-	bl sub_80057A8
+	bl GetFaceDisplayBitsById
 	movs r1, #0x11
 	negs r1, r1
 	ands r1, r0
 	movs r0, #0
-	bl sub_800578C
+	bl SetFaceDisplayBitsById
 	bl sub_808FFE8
 	bl sub_808EA3C
 	movs r1, #1
@@ -792,7 +792,7 @@ _0808EFE4:
 	beq _0808EFFC
 	ldr r0, _0808F004  @ gProcScr_E_FACE
 	bl Proc_Find
-	bl sub_8005F38
+	bl StartFaceFadeOut
 _0808EFFC:
 	pop {r4}
 	pop {r0}
@@ -908,12 +908,12 @@ sub_808F0C4: @ 0x0808F0C4
 	push {r4, lr}
 	adds r4, r0, #0
 	movs r0, #0
-	bl sub_80057A8
+	bl GetFaceDisplayBitsById
 	movs r1, #0x11
 	negs r1, r1
 	ands r1, r0
 	movs r0, #0
-	bl sub_800578C
+	bl SetFaceDisplayBitsById
 	adds r0, r4, #0
 	bl sub_808F084
 	movs r0, #0
@@ -1907,7 +1907,7 @@ _0808F882:
 	movs r0, #0
 	movs r1, #5
 _0808F886:
-	bl sub_8006458
+	bl SetFaceBlinkControlById
 	movs r0, #1
 	b _0808F8AE
 _0808F88E:
@@ -1995,46 +1995,46 @@ _0808F90E:
 	cmp r0, #1
 	beq _0808F95E
 	movs r0, #0
-	bl sub_80057A8
+	bl GetFaceDisplayBitsById
 	movs r1, #0x10
 	orrs r0, r1
 	lsls r0, r0, #0x10
 	lsrs r7, r0, #0x10
 	movs r0, #0
 	movs r1, #3
-	bl sub_8006458
+	bl SetFaceBlinkControlById
 	movs r0, #1
 	movs r1, #1
-	bl sub_8006458
+	bl SetFaceBlinkControlById
 	b _0808F990
 	.align 2, 0
 _0808F940: .4byte gUnknown_03005398
 _0808F944:
 	movs r0, #0
-	bl sub_80057A8
+	bl GetFaceDisplayBitsById
 	movs r1, #0x10
 	orrs r0, r1
 	lsls r0, r0, #0x10
 	lsrs r7, r0, #0x10
 	movs r0, #0
 	movs r1, #3
-	bl sub_8006458
+	bl SetFaceBlinkControlById
 	movs r0, #1
 	b _0808F976
 _0808F95E:
 	movs r0, #1
-	bl sub_80057A8
+	bl GetFaceDisplayBitsById
 	movs r1, #0x10
 	orrs r0, r1
 	lsls r0, r0, #0x10
 	lsrs r7, r0, #0x10
 	movs r0, #1
 	movs r1, #3
-	bl sub_8006458
+	bl SetFaceBlinkControlById
 	movs r0, #0
 _0808F976:
 	movs r1, #1
-	bl sub_8006458
+	bl SetFaceBlinkControlById
 	b _0808F990
 _0808F97E:
 	adds r1, r6, #0
@@ -2566,7 +2566,7 @@ _0808FE8C:
 	movs r0, #1
 _0808FE8E:
 	adds r1, r7, #0
-	bl sub_800578C
+	bl SetFaceDisplayBitsById
 _0808FE94:
 	add sp, #0xc
 	pop {r3, r4, r5}
@@ -22333,7 +22333,7 @@ sub_80994C4: @ 0x080994C4
 	mov r3, r8
 	str r3, [sp]
 	movs r3, #3
-	bl sub_8005988
+	bl PutFaceChibi
 	adds r5, #0x80
 	adds r0, r5, #0
 	bl Text_Clear
@@ -23513,7 +23513,7 @@ sub_8099E98: @ 0x08099E98
 	cmp r0, #0
 	beq _08099ED6
 	adds r0, r4, #0
-	bl DeleteFaceByIndex
+	bl EndFaceById
 _08099ED6:
 	cmp r6, #0
 	beq _08099F18
@@ -23528,7 +23528,7 @@ _08099ED6:
 	mov r0, r9
 	str r0, [sp]
 	adds r0, r4, #0
-	bl sub_80064F4
+	bl StartFace2
 	b _08099F18
 	.align 2, 0
 _08099EF8: .4byte gUnknown_08A189A4
@@ -23544,7 +23544,7 @@ _08099EFC:
 	bl sub_8006618
 	adds r0, r4, #0
 	mov r1, r9
-	bl sub_800578C
+	bl SetFaceDisplayBitsById
 _08099F18:
 	lsls r1, r4, #2
 	adds r0, r5, #0
@@ -24875,7 +24875,7 @@ sub_809A930: @ 0x0809A930
 	mov r9, r3
 	str r3, [sp]
 	movs r3, #2
-	bl sub_8005988
+	bl PutFaceChibi
 	ldr r0, _0809A9E4  @ gUnknown_02013630
 	mov r8, r0
 	bl Text_Clear
@@ -26991,7 +26991,7 @@ _0809B992:
 	movs r0, #0
 	movs r2, #0x40
 	adds r3, r4, #0
-	bl sub_80064F4
+	bl StartFace2
 	mov r1, r8
 	ldr r0, [r1, #0x30]
 	bl GetUnitPortraitId
@@ -27001,7 +27001,7 @@ _0809B992:
 	movs r0, #1
 	movs r2, #0xae
 	adds r3, r4, #0
-	bl sub_80064F4
+	bl StartFace2
 	movs r6, #0
 	str r6, [sp]
 	movs r0, #1
@@ -27543,9 +27543,9 @@ sub_809BE24: @ 0x0809BE24
 	push {lr}
 	bl EndBG3Slider_
 	movs r0, #0
-	bl DeleteFaceByIndex
+	bl EndFaceById
 	movs r0, #1
-	bl DeleteFaceByIndex
+	bl EndFaceById
 	pop {r0}
 	bx r0
 
@@ -28511,7 +28511,7 @@ _0809C5CA:
 	str r0, [sp]
 	movs r0, #0
 	movs r2, #0x40
-	bl sub_80064F4
+	bl StartFace2
 	movs r0, #0xc0
 	lsls r0, r0, #7
 	movs r1, #5
@@ -28860,9 +28860,9 @@ sub_809C940: @ 0x0809C940
 	push {lr}
 	bl EndBG3Slider_
 	movs r0, #0
-	bl DeleteFaceByIndex
+	bl EndFaceById
 	movs r0, #1
-	bl DeleteFaceByIndex
+	bl EndFaceById
 	pop {r0}
 	bx r0
 
@@ -29206,7 +29206,7 @@ sub_809CBA8: @ 0x0809CBA8
 	bl sub_80ADC90
 	bl DeleteEach6CDifferedLoop
 	movs r0, #0
-	bl DeleteFaceByIndex
+	bl EndFaceById
 	movs r0, #0
 	bl sub_80ACA84
 	ldr r0, [r4, #0x2c]
@@ -30608,7 +30608,7 @@ sub_809D6CC: @ 0x0809D6CC
 	str r0, [sp]
 	movs r0, #0xab
 	movs r3, #2
-	bl sub_8005988
+	bl PutFaceChibi
 	movs r0, #0xb4
 	lsls r0, r0, #3
 	bl GetStringFromIndex
@@ -33702,7 +33702,7 @@ _0809EF4A:
 	str r0, [sp]
 	movs r0, #0
 	movs r2, #0x40
-	bl sub_80064F4
+	bl StartFace2
 	ldr r0, [r7, #0x2c]
 	ldr r0, [r0]
 	ldrh r0, [r0]
@@ -33822,7 +33822,7 @@ _0809F134:
 	adds r0, r4, #0
 	bl EndAllProcChildren
 	movs r0, #0
-	bl DeleteFaceByIndex
+	bl EndFaceById
 	bl EndBG3Slider_
 	pop {r4}
 	pop {r0}
@@ -35814,7 +35814,7 @@ sub_80A007C: @ 0x080A007C
 	movs r0, #0xab
 	adds r1, r4, #0
 	movs r3, #2
-	bl sub_8005988
+	bl PutFaceChibi
 	movs r0, #1
 	bl BG_EnableSyncByMask
 	add sp, #8
@@ -35927,7 +35927,7 @@ sub_80A00DC: @ 0x080A00DC
 	movs r0, #0
 	movs r2, #0x44
 	movs r3, #0x48
-	bl sub_80064F4
+	bl StartFace2
 	adds r0, r7, #0
 	bl sub_80AC9C0
 	adds r0, r7, #0
@@ -36568,7 +36568,7 @@ sub_80A06F0: @ 0x080A06F0
 	push {lr}
 	bl EndBG3Slider_
 	movs r0, #0
-	bl DeleteFaceByIndex
+	bl EndFaceById
 	movs r0, #0
 	bl SetPrimaryHBlankHandler
 	bl sub_8098500
@@ -36853,7 +36853,7 @@ sub_80A0900: @ 0x080A0900
 	bl EndAllProcChildren
 	bl EndBG3Slider_
 	movs r0, #0
-	bl DeleteFaceByIndex
+	bl EndFaceById
 	movs r0, #0
 	bl SetPrimaryHBlankHandler
 	pop {r4}
@@ -38512,7 +38512,7 @@ sub_80A1554: @ 0x080A1554
 	bl EndAllProcChildren
 	bl EndBG3Slider_
 	movs r0, #0
-	bl DeleteFaceByIndex
+	bl EndFaceById
 	movs r0, #0
 	bl SetPrimaryHBlankHandler
 	bl sub_80A1160
@@ -40364,7 +40364,7 @@ _080A2340:
 	movs r0, #2
 	str r0, [sp]
 	adds r0, r5, #0
-	bl sub_8005E98
+	bl PutFace80x72
 	adds r0, r5, #0
 	bl sub_80A20FC
 	adds r0, r5, #0
@@ -41172,7 +41172,7 @@ sub_80A29C0: @ 0x080A29C0
 	str r0, [sp]
 	adds r0, r4, #0
 	adds r1, r6, #0
-	bl sub_8005E98
+	bl PutFace80x72
 	adds r0, r4, #0
 	bl sub_80A20FC
 	adds r0, r4, #0
@@ -41293,7 +41293,7 @@ sub_80A2B5C: @ 0x080A2B5C
 	bl EndAllProcChildren
 	bl EndBG3Slider_
 	movs r0, #0
-	bl DeleteFaceByIndex
+	bl EndFaceById
 	ldr r0, [r4, #0x2c]
 	bl sub_80A1A90
 	pop {r4}

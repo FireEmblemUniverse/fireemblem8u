@@ -8,6 +8,7 @@
 #include "bmio.h"
 #include "uiutils.h"
 #include "statscreen.h"
+#include "face.h"
 
 #include "uimenu.h"
 
@@ -407,7 +408,7 @@ void Menu_OnIdle(struct MenuProc* proc)
         ClearMenuBgs(proc);
 
     if (actions & MENU_ACT_ENDFACE)
-        DeleteFaceByIndex(0);
+        EndFaceById(0);
 
     if (actions & MENU_ACT_DOOM)
         proc->state |= MENU_STATE_DOOMED;

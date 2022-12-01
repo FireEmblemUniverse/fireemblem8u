@@ -9527,8 +9527,8 @@ _0807F1CE:
 	str r0, [sp]
 	movs r0, #0
 	movs r2, #0xb8
-	bl NewFace
-	ldr r0, _0807F2B0  @ gUnknown_03004980
+	bl StartFace
+	ldr r0, _0807F2B0  @ gFaces
 	ldr r2, [r0]
 	ldrh r1, [r5, #0x32]
 	movs r0, #0x20
@@ -9550,7 +9550,7 @@ _0807F2A0: .4byte 0x0000FF70
 _0807F2A4: .4byte gLCDControlBuffer
 _0807F2A8: .4byte gCurrentMapAnimState
 _0807F2AC: .4byte 0x00001042
-_0807F2B0: .4byte gUnknown_03004980
+_0807F2B0: .4byte gFaces
 
 	THUMB_FUNC_END sub_807F1AC
 
@@ -9621,7 +9621,7 @@ sub_807F30C: @ 0x0807F30C
 	movs r0, #1
 	movs r1, #0
 	bl BG_SetPosition
-	ldr r0, _0807F350  @ gUnknown_03004980
+	ldr r0, _0807F350  @ gFaces
 	ldr r2, [r0]
 	ldrh r1, [r4, #0x32]
 	movs r0, #0x20
@@ -9640,7 +9640,7 @@ _0807F348:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_0807F350: .4byte gUnknown_03004980
+_0807F350: .4byte gFaces
 
 	THUMB_FUNC_END sub_807F30C
 
@@ -9659,7 +9659,7 @@ sub_807F354: @ 0x0807F354
 	movs r0, #1
 	movs r1, #0
 	bl BG_SetPosition
-	ldr r0, _0807F398  @ gUnknown_03004980
+	ldr r0, _0807F398  @ gFaces
 	ldr r2, [r0]
 	ldrh r1, [r4, #0x32]
 	movs r0, #0x20
@@ -9678,7 +9678,7 @@ _0807F390:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_0807F398: .4byte gUnknown_03004980
+_0807F398: .4byte gFaces
 
 	THUMB_FUNC_END sub_807F354
 
