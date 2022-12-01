@@ -7946,7 +7946,7 @@ sub_8045208: @ 0x08045208
 	lsls r3, r3, #1
 	adds r1, r1, r3
 	adds r2, #0xa
-	bl sub_80059CC
+	bl UnpackFaceChibiSprGraphics
 	movs r0, #0
 	str r0, [r4, #0x3c]
 	subs r0, #0x26
@@ -9492,7 +9492,7 @@ _08045E46:
 	movs r1, #0x64
 	movs r2, #0xd0
 	movs r3, #0x50
-	bl NewFace
+	bl StartFace
 	ldr r0, [r6, #0x2c]
 	ldr r2, _08045EF8  @ gUnknown_080D9D5E
 	ldr r1, _08045EE8  @ gUnknown_0203DA24
@@ -10632,7 +10632,7 @@ sub_80467AC: @ 0x080467AC
 	bl sub_8086CE8
 	bl sub_804D6B4
 	movs r0, #3
-	bl DeleteFaceByIndex
+	bl EndFaceById
 	ldr r4, _08046828  @ gUnknown_0203DA78
 	adds r0, r4, #0
 	bl Text_Clear
@@ -13100,7 +13100,7 @@ _08047BFC:
 	movs r1, #0x64
 	movs r2, #0xd0
 	movs r3, #0x50
-	bl NewFace
+	bl StartFace
 	movs r0, #0
 	str r0, [r6, #0x54]
 	movs r0, #0x38
@@ -13398,7 +13398,7 @@ _08047E68:
 	movs r1, #0x64
 	movs r2, #0xd0
 	movs r3, #0x50
-	bl NewFace
+	bl StartFace
 	adds r0, r6, #0
 	movs r1, #0
 	bl sub_8047A54
@@ -13759,7 +13759,7 @@ sub_8048168: @ 0x08048168
 	stm r1!, {r2, r3}
 	bl EndBG3Slider
 	movs r0, #3
-	bl DeleteFaceByIndex
+	bl EndFaceById
 	adds r5, r6, #0
 	adds r5, #0x2c
 	movs r4, #4
@@ -14569,7 +14569,7 @@ sub_80487C0: @ 0x080487C0
 	push {r4, r5, lr}
 	ldr r4, [r0, #0x14]
 	movs r0, #3
-	bl DeleteFaceByIndex
+	bl EndFaceById
 	adds r5, r4, #0
 	adds r5, #0x2c
 	movs r4, #4

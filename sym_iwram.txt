@@ -138,7 +138,7 @@
 . = 0x004160; IntrMain_Buffer = .;
 . = 0x004960; gUnknown_03004960 = .;
 . = 0x004970; gSpriteAllocIt = .;
-. = 0x004980; gUnknown_03004980 = .;
+. = 0x004980; gFaces = .;
 . = 0x004990; gUnknown_03004990 = .;
 . = 0x0049A0; gWorkingBmMap = .;
 . = 0x0049B0; gUnknown_030049B0 = .;

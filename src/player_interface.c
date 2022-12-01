@@ -10,6 +10,7 @@
 #include "uiutils.h"
 #include "uichapterstatus.h"
 #include "chapterdata.h"
+#include "face.h"
 
 #include "constants/terrains.h"
 
@@ -832,7 +833,7 @@ void InitMinimugBoxMaybe(struct PlayerInterfaceProc* proc, struct Unit* unit) {
         faceId = faceId + 1;
     }
 
-    sub_8005988(faceId, gBmFrameTmap0 + 0x21, 0xF0, 4, 0);
+    PutFaceChibi(faceId, gBmFrameTmap0 + 0x21, 0xF0, 4, 0);
 
     proc->unk_40 = gBmFrameTmap0 + 0x65;
 

@@ -11,6 +11,7 @@
 #include "soundwrapper.h"
 #include "ctc.h"
 #include "bmio.h"
+#include "face.h"
 
 #include "uichapterstatus.h"
 
@@ -649,7 +650,7 @@ void DrawChapterStatusTextForUnit(struct Unit* unit) {
                 Text_AppendNumberOr2Dashes(&ptr->th, GetUnitMaxHp(unit));
             }
 
-            sub_8005988(GetUnitMiniPortraitId(unit), gBG0TilemapBuffer + 0x139, 0x280, 4, 0);
+            PutFaceChibi(GetUnitMiniPortraitId(unit), gBG0TilemapBuffer + 0x139, 0x280, 4, 0);
 
             sub_808DEF0(0);
         }

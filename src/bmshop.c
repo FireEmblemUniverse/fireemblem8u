@@ -14,8 +14,11 @@
 #include "icon.h"
 #include "ctc.h"
 #include "bmio.h"
+#include "face.h"
+
 #include "bmshop.h"
 
+#include "constants/faces.h"
 #include "constants/items.h"
 
 struct BmShopProc {
@@ -82,9 +85,9 @@ int CONST_DATA gShopDialogueOffsetLut[] = {
 };
 
 int CONST_DATA gShopPortraitLut[] = {
-    [SHOP_TYPE_ARMORY]      = 0x65,
-    [SHOP_TYPE_VENDOR]      = 0x66,
-    [SHOP_TYPE_SECRET_SHOP] = 0x68
+    [SHOP_TYPE_ARMORY]      = FID_SHOP_ARMORY,
+    [SHOP_TYPE_VENDOR]      = FID_SHOP_VENDOR,
+    [SHOP_TYPE_SECRET_SHOP] = FID_SHOP_SECRET
 };
 
 struct ProcCmd CONST_DATA gProcScr_ShopFadeIn[] = {

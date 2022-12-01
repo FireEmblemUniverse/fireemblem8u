@@ -2,6 +2,7 @@
 
 #include "hardware.h"
 #include "proc.h"
+#include "face.h"
 
 #include "functions.h"
 #include "variables.h"

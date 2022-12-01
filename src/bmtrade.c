@@ -8,6 +8,7 @@
 #include "fontgrp.h"
 #include "uiutils.h"
 #include "statscreen.h"
+#include "face.h"
 
 #include "bmitem.h"
 #include "bmtrade.h"
@@ -488,11 +489,11 @@ void TradeMenu_InitItemDisplay(struct TradeMenuProc* proc)
     TradeMenu_RefreshItemText(proc);
 
     // TODO: face display type (arg 5) constants
-    NewFace(0, GetUnitPortraitId(proc->units[0]), 64,  -4, 3);
-    NewFace(1, GetUnitPortraitId(proc->units[1]), 176, -4, 2);
+    StartFace(0, GetUnitPortraitId(proc->units[0]), 64,  -4, 3);
+    StartFace(1, GetUnitPortraitId(proc->units[1]), 176, -4, 2);
 
-    sub_8006458(0, 5);
-    sub_8006458(1, 5);
+    SetFaceBlinkControlById(0, 5);
+    SetFaceBlinkControlById(1, 5);
 
     BG_EnableSyncByMask(BG0_SYNC_BIT | BG1_SYNC_BIT);
 }
@@ -631,8 +632,8 @@ s8 TradeMenu_LoadForcedInitialHover(struct TradeMenuProc* proc)
 
 void TradeMenu_ClearDisplay(struct TradeMenuProc* proc)
 {
-    DeleteFaceByIndex(0);
-    DeleteFaceByIndex(1);
+    EndFaceById(0);
+    EndFaceById(1);
 }
 
 void TradeMenu_HelpBox_OnInit(struct Proc* proc)

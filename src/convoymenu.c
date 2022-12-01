@@ -12,6 +12,7 @@
 #include "bmitem.h"
 #include "hardware.h"
 #include "popup.h"
+#include "face.h"
 
 
 struct ProcCmd CONST_DATA gProcCmd_ConvoyMenu[] = {
@@ -95,8 +96,8 @@ void HandleNewItemGetFromDrop(struct Unit* unit, int item, ProcPtr proc)
 
     gActiveUnit = unit;
     gGameState.itemUnk2C = item;
-    NewFace(0, GetUnitPortraitId(unit), 0xB0, 4, 2);
-    sub_8006458(0, 5);
+    StartFace(0, GetUnitPortraitId(unit), 0xB0, 4, 2);
+    SetFaceBlinkControlById(0, 5);
     ForceMenuItemPanel(proc, unit, 0xF, 0xA);
 
     if (HasConvoyAccess() && GetConvoyItemCount() < 100)

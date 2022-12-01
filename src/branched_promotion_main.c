@@ -1,6 +1,7 @@
 #include "branched_promotion.h"
 
 #include "bmio.h"
+#include "face.h"
 #include "fontgrp.h"
 #include "hardware.h"
 #include "proc.h"
@@ -90,7 +91,7 @@ void sub_80CC4AC(struct PromoProc2 *proc) {
         EndHelpPromptSprite();
         sub_80ADC90();
         DeleteEach6CDifferedLoop();
-        DeleteFaceByIndex(0);
+        EndFaceById(0);
         sub_80ACA84(0);
         ResetFaces();
         Font_InitForUIDefault();

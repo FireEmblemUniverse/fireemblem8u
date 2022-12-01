@@ -18,6 +18,7 @@
 #include "uiselecttarget.h"
 #include "playerphase.h"
 #include "bb.h"
+#include "face.h"
 
 #include "constants/characters.h"
 #include "constants/items.h"
@@ -345,7 +346,7 @@ int GetItemCantUseMsgid(struct Unit* unit, int item)
 void DoItemUse(struct Unit* unit, int item)
 {
     ClearBg0Bg1();
-    DeleteFaceByIndex(0);
+    EndFaceById(0);
 
     switch (GetItemIndex(item))
     {
@@ -875,10 +876,10 @@ int RepairSelectOnSelect(ProcPtr proc, struct SelectTarget* target)
         16, 11);
 
     // TODO: UNIT_HAS_PORTRAIT macro?
-    if (GetPortraitStructPointer(GetUnitPortraitId(GetUnit(gActionData.targetIndex)))->img)
+    if (GetPortraitData(GetUnitPortraitId(GetUnit(gActionData.targetIndex)))->img)
     {
-        NewFace(0, GetUnitPortraitId(GetUnit(gActionData.targetIndex)), 184, 12, 2);
-        sub_8006458(0, 5);
+        StartFace(0, GetUnitPortraitId(GetUnit(gActionData.targetIndex)), 184, 12, 2);
+        SetFaceBlinkControlById(0, 5);
     }
 
     return 0x17; // TODO: Map Select Return Constants
