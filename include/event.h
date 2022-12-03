@@ -23,9 +23,12 @@ struct EventEngineProc {
     /* 46 */ // pad
 
     /* 48 */ const void* pUnitLoadData;
-    /* 4C */ u16 unitLoadCount;
+    /* 4C */ s16 unitLoadCount;
 
     /* 4E */ u8  idk4E;
+
+    /* 4F */ u8 _pad_4F[0x54 - 0x4F];
+    /* 54 */ struct Unit *unit;
 };
 
 enum EventExecType {

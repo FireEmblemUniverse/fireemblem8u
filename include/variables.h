@@ -3126,8 +3126,8 @@ extern struct ProcCmd gUnknown_089EDFD8[];
 extern struct ProcCmd gUnknown_089EE000[];
 extern struct ProcCmd gUnknown_089EE030[];
 extern struct ProcCmd gUnknown_089EE048[];
-// extern ??? gUnknown_089EE068
-// extern ??? gUnknown_089EE088
+extern struct ProcCmd gUnknown_089EE068[];
+extern struct ProcCmd gUnknown_089EE088[];
 // extern ??? gUnknown_089EE99C
 // extern ??? gUnknown_089EE9B0
 // extern ??? gUnknown_089EE9C8

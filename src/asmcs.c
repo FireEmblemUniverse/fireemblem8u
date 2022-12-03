@@ -19,10 +19,13 @@
 #include "bmmap.h"
 #include "mu.h"
 #include "bmreliance.h"
+#include "bmtrick.h"
+#include "bmdifficulty.h"
 
 struct UnkProc80855A0 {
-    u8 _pad_[0x4D];
-    u8 unk4D;
+    PROC_HEADER;
+    /* 29 */ u8 _pad_29[0x4D - 0x29];
+    /* 4D */ u8 unk4D;
 };
 
 struct Proc8085618 {
@@ -30,6 +33,19 @@ struct Proc8085618 {
     /* 29 */ u8 _pad_29[0x4C - 0x29];
     /* 4C */ s8 unk4C;
 };
+
+struct Proc89EE068 {
+    PROC_HEADER;
+    /* 29 */ u8 _pad_29[0x54 - 0x29];
+    /* 54 */ ProcPtr unk_proc;
+};
+
+struct Proc89EE088 {
+    PROC_HEADER;
+    /* 29 */ u8 _pad_29[0x2C - 0x29];
+    /* 2C */ u32 count;
+};
+
 
 void sub_8085374(struct EventEngineProc *proc)
 {
@@ -112,7 +128,7 @@ __attribute__((naked))
 void sub_8085428(struct EventEngineProc *proc)
 {
     asm("\n\
-            .syntax unified\n\
+        .syntax unified\n\
         push {r4, r5, r6, r7, lr}\n\
         bl GetPlayerLeaderUnitId\n\
         bl GetUnitFromCharId\n\
@@ -363,7 +379,7 @@ void sub_808589C(struct EventEngineProc *proc)
             BG_SetPosition(3, sub_80AEA24(3) ^ 1, 0);
     }
 
-    if (0x10 == ++(s16)proc->unitLoadCount) {
+    if (0x10 == ++proc->unitLoadCount) {
         Proc_Break(proc);
         Sound_FadeOutSE(4);
     }
@@ -397,3 +413,165 @@ void sub_8085988(struct EventEngineProc *proc)
     proc->unitLoadCount = 0;
 }
 
+void sub_8085990(struct EventEngineProc *proc)
+{
+    struct Unit *unit = proc->unit;
+    int count = proc->unitLoadCount;
+    sub_8026C1C(unit, count);
+    
+    if (63 == proc->unitLoadCount++) {
+        unit->state |= CA_MOUNTEDAID | CA_THIEF;
+        RefreshEntityBmMaps();
+        SMS_UpdateFromGameData();
+        Proc_Break(proc);
+    }    
+}
+
+void sub_80859D0(ProcPtr *proc, ProcPtr parent)
+{
+    struct Proc89EE068 *_proc;
+    _proc = Proc_Start(gUnknown_089EE068, parent);
+    _proc->unk_proc = proc;
+}
+
+void nullsub_20()
+{
+    return;
+}
+
+void sub_80859EC(struct Proc89EE088 *proc)
+{
+    proc->count = 0;
+    sub_8081E78();
+    SetBlendTargetA(1, 1, 1, 1, 1);
+    SetWin0Box(0, 0, 0xF0, 0xA0);
+    SetWinEnable(1, 0, 0);
+
+    gLCDControlBuffer.wincnt.win0_enableBlend = 1;
+    gLCDControlBuffer.wincnt.wout_enableBlend = 0;
+
+    SetWin0Layers(1, 1, 1, 1, 1);
+    SetWOutLayers(1, 1, 1, 1, 1);
+
+    gLCDControlBuffer.wincnt.win0_enableBlend = 1;
+    gLCDControlBuffer.wincnt.wout_enableBlend = 0;
+
+    SetSpecialColorEffectsParameters(2, 0, 0, 0);
+    SetPrimaryHBlankHandler(sub_808285C);
+    PlaySoundEffect(0x269);
+}
+
+void sub_8085ACC(struct Proc89EE088 *proc)
+{
+    int val0, val1, val2, val3, count, max_count;
+    
+    val2 = 0x40;
+    val1 = 0xF0;
+
+    proc->count += 1;
+
+    val1 = val1 * proc->count * proc->count;
+    val0 = 0x1000;
+    val1 = val1 / val0;
+
+    val2 = val2 - proc->count;
+    val2 = (0x10 * val2 * val2) / val0;
+    val3 = 0x10 - val2;
+
+    sub_8082730(0x78, 0x68, val1);
+    SetSpecialColorEffectsParameters(2, 0, 0, val3);
+
+    count = proc->count;
+    max_count = 0x40;
+    if (count >= max_count)
+        Proc_Break(proc);
+}
+
+void sub_8085B30(struct Proc89EE088 *proc)
+{
+    ApplyMapChangesById(1);
+    EnableMapChange(1);
+    RefreshTerrainBmMap();
+    UpdateRoofedUnits();
+    RenderBmMap();
+    proc->count = 0;
+}
+
+/* https://decomp.me/scratch/sgFDG */
+void sub_8085B58(struct Proc89EE088 *proc)
+{
+    int val0, val1, val3, val4, val5, count, max_count;
+    register int val2 asm("r5");
+    
+    val1 = 0x80;
+    val2 = 0xF0;
+
+    proc->count += 1;
+
+    val1 = val1 - proc->count;
+    val5 = val1 * val2;
+    val5 = val5 * val1;
+    val4 = 0x4000;
+    val2 = val5 / val4;
+
+    val3 = (int)((proc->count *  0x10) *proc->count) / val4;
+    val0 = 0x10 - val3;
+
+    sub_8082730(0x78, 0x30, val2);
+    SetSpecialColorEffectsParameters(2, 0, 0, val0);
+
+    count = proc->count;
+    max_count = 0x80;
+    if (count >= max_count)
+        Proc_Break(proc);
+}
+
+void sub_8085BB4(struct Proc89EE088 *proc)
+{
+    SetPrimaryHBlankHandler(0);
+    SetSpecialColorEffectsParameters(0, 0, 0, 0);
+    
+    SetWinEnable(0, 0, 0);
+    gLCDControlBuffer.wincnt.win0_enableBlend = 1;
+    gLCDControlBuffer.wincnt.wout_enableBlend = 1;
+}
+
+void sub_8085BFC(struct EventEngineProc *proc)
+{
+    Proc_StartBlocking(gUnknown_089EE088, proc);
+}
+
+void sub_8085C10()
+{
+    sub_80A3724(0x100, 0x100, 1);
+}
+
+void sub_8085C24()
+{
+    sub_80A3724(0x100, 0x100, 2);
+}
+
+void sub_8085C38()
+{
+    sub_80A3724(0x100, 0x100, 3);
+}
+
+void sub_8085C4C()
+{
+    InitDungeon(0);
+}
+
+void sub_8085C58()
+{
+    InitDungeon(1);
+}
+
+void sub_8085C64(ProcPtr proc)
+{
+    sub_8085C7C(proc, 1);
+}
+
+void sub_8085C70(ProcPtr proc)
+{
+    sub_8085C7C(proc, 0);
+}
