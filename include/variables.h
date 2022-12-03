@@ -3123,9 +3123,9 @@ extern struct SupportTalkEnt CONST_DATA gSupportTalkList[];
 // extern ??? gUnknown_089ED6AC
 extern struct ProcCmd gUnknown_089EDF78[];
 extern struct ProcCmd gUnknown_089EDFD8[];
-// extern ??? gUnknown_089EE000
-// extern ??? gUnknown_089EE030
-// extern ??? gUnknown_089EE048
+extern struct ProcCmd gUnknown_089EE000[];
+extern struct ProcCmd gUnknown_089EE030[];
+extern struct ProcCmd gUnknown_089EE048[];
 // extern ??? gUnknown_089EE068
 // extern ??? gUnknown_089EE088
 // extern ??? gUnknown_089EE99C

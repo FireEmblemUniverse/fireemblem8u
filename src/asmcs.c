@@ -20,6 +20,17 @@
 #include "mu.h"
 #include "bmreliance.h"
 
+struct UnkProc80855A0 {
+    u8 _pad_[0x4D];
+    u8 unk4D;
+};
+
+struct Proc8085618 {
+    PROC_HEADER;
+    /* 29 */ u8 _pad_29[0x4C - 0x29];
+    /* 4C */ s8 unk4C;
+};
+
 void sub_8085374(struct EventEngineProc *proc)
 {
     Proc_StartBlocking(gUnknown_089EDF78, proc);
@@ -211,11 +222,6 @@ void sub_8085578(struct EventEngineProc *proc)
     sub_800915C(-1, 2, 0x20, 4, 0x200, 0x140, 0x140, proc);
 }
 
-struct UnkProc80855A0 {
-    u8 _pad_[0x4D];
-    u8 unk4D;
-};
-
 void sub_80855A0(struct UnkProc80855A0 *proc)
 {
     proc->unk4D = 1;
@@ -233,3 +239,161 @@ void sub_80855F8(struct EventEngineProc *proc)
 {
     SetDispEnable(1, 1, 1, 1, 1);
 }
+
+void sub_8085618(struct EventEngineProc *proc)
+{
+    struct Proc8085618 *parent = proc->proc_parent;
+
+    if (-1 == parent->unk4C) {
+        if (GetGameClock() % 2)
+            gGameState.camera.x ^= 2;
+    } else {
+        if (GetGameClock() % 2)
+            BG_SetPosition(3, GetGameClock() & 2, 0);
+    }
+}
+
+void sub_8085670(struct EventEngineProc *proc)
+{
+    struct Proc8085618 *parent = proc->proc_parent;
+
+    if (-1 == parent->unk4C) {
+        if (GetGameClock() % 2) {
+            (u16)gGameState.camera.x &= 0xFFFD;
+            gGameState.camera.x ^= 1;
+        }
+    } else {
+        if (GetGameClock() % 2)
+            BG_SetPosition(3, sub_80AEA24(3) ^ 1, 0);
+    }
+}
+
+void sub_80856D0(struct EventEngineProc *proc)
+{
+    struct Proc8085618 *parent = proc->proc_parent;
+
+    if (0x36 == parent->unk4C) {
+        if (GetGameClock() % 2) {
+            BG_SetPosition(3, GetGameClock() & 1, 0);
+        }
+    } else {
+        if (GetGameClock() % 2) {
+            (u16)gGameState.camera.y &= 0xFFFD;
+            gGameState.camera.y ^= 1;
+        }
+    }
+}
+
+void sub_8085728(struct EventEngineProc *parent)
+{
+    ProcPtr proc = Proc_Find(gUnknown_089EE030);
+    if (!proc)
+        proc = Proc_Start(gUnknown_089EE030, parent);
+
+    Proc_Goto(proc, 0);
+    PlaySoundEffect(0x26A);
+}
+
+void sub_808576C(struct EventEngineProc *parent)
+{
+    ProcPtr proc = Proc_Find(gUnknown_089EE000);
+    if (!proc) {
+        PlaySoundEffect(0x26A);
+        proc = Proc_Start(gUnknown_089EE000, parent);
+    }
+    Proc_Goto(proc, 0);
+}
+
+void sub_80857B0(struct EventEngineProc *parent)
+{
+    ProcPtr proc = Proc_Find(gUnknown_089EE000);
+    if (!proc) {
+        PlaySoundEffect(0x26A);
+        proc = Proc_Start(gUnknown_089EE000, parent);
+    }
+    Proc_Goto(proc, 1);
+}
+
+void sub_80857F4(struct EventEngineProc *parent)
+{
+    ProcPtr proc = Proc_Find(gUnknown_089EE000);
+    if (!proc)
+        proc = Proc_Start(gUnknown_089EE000, parent);
+    Proc_Goto(proc, 0);
+}
+
+void sub_808581C(struct EventEngineProc *parent)
+{
+    ProcPtr proc = Proc_Find(gUnknown_089EE000);
+    if (!proc)
+        proc = Proc_Start(gUnknown_089EE000, parent);
+    Proc_Goto(proc, 1);
+}
+
+void sub_8085844(struct EventEngineProc *parent)
+{
+    (u16)gGameState.camera.x &= 0xFFFC;
+    Proc_EndEach(gUnknown_089EE000);
+    Sound_FadeOutSE(4);
+}
+
+void sub_808586C(struct EventEngineProc *parent)
+{
+    (u16)gGameState.camera.y &= 0xFFFC;
+    Proc_EndEach(gUnknown_089EE030);
+    Sound_FadeOutSE(4);
+}
+
+void sub_8085894(struct EventEngineProc *proc)
+{
+    proc->unitLoadCount = 0;
+}
+
+void sub_808589C(struct EventEngineProc *proc)
+{
+    struct Proc8085618 *parent = proc->proc_parent;
+
+    if (-1 == parent->unk4C) {
+        if (GetGameClock() % 2) {
+            (u16)gGameState.camera.x &= 0xFFFD;
+            gGameState.camera.x ^= 1;
+        }
+    } else {
+        if (GetGameClock() % 2)
+            BG_SetPosition(3, sub_80AEA24(3) ^ 1, 0);
+    }
+
+    if (0x10 == ++(s16)proc->unitLoadCount) {
+        Proc_Break(proc);
+        Sound_FadeOutSE(4);
+    }
+}
+
+void sub_808591C(struct EventEngineProc *proc)
+{
+    Proc_Start(gUnknown_089EE048, proc);
+    PlaySoundEffect(0x26A);
+}
+
+void sub_8085948(struct EventEngineProc *proc)
+{
+    (u16)gGameState.camera.y &= 0xFFFC;
+    Sound_FadeOutSE(4);
+    Proc_EndEach(gUnknown_089EE048);
+}
+
+void SetEventId_0x84(struct EventEngineProc *proc)
+{
+    SetEventId(0x84);
+}
+
+void UnsetEventId_0x84(struct EventEngineProc *proc)
+{
+    UnsetEventId(0x84);
+}
+
+void sub_8085988(struct EventEngineProc *proc)
+{
+    proc->unitLoadCount = 0;
+}
+
