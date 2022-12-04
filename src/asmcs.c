@@ -7,6 +7,8 @@
 #include "global.h"
 #include "variables.h"
 #include "functions.h"
+#include "constants/video-global.h"
+#include "constants/characters.h"
 
 #include "proc.h"
 #include "event.h"
@@ -21,6 +23,11 @@
 #include "bmreliance.h"
 #include "bmtrick.h"
 #include "bmdifficulty.h"
+#include "ctc.h"
+#include "fontgrp.h"
+#include "uimenu.h"
+#include "uiutils.h"
+
 
 struct UnkProc80855A0 {
     PROC_HEADER;
@@ -44,6 +51,26 @@ struct Proc89EE088 {
     PROC_HEADER;
     /* 29 */ u8 _pad_29[0x2C - 0x29];
     /* 2C */ u32 count;
+};
+
+struct Proc89EE9E0 {
+    PROC_HEADER;
+    /* 29 */ u8 _pad_29[0x4C - 0x29];
+    /* 4C */ s16 timer;
+    /* 4E */ u8 _pad_4E[0x52 - 0x4E];
+    /* 52 */ u16 count;
+    /* 54 */ u8 _pad_54[0x64 - 0x54];
+    /* 64 */ s16 mode;
+};
+
+struct Proc89EEA28 {
+    PROC_HEADER;
+    /* 29 */ u8 _pad_29[0x4C - 0x29];
+    /* 4C */ s16 timer;
+    /* 4E */ u8 _pad_4E[0x52 - 0x4E];
+    /* 52 */ u16 count;
+    /* 54 */ u8 _pad_54[0x64 - 0x54];
+    /* 64 */ s16 mode;
 };
 
 
@@ -91,17 +118,13 @@ void sub_8085414(struct EventEngineProc *proc)
     Proc_Start(gUnknown_089EDFD8, PROC_TREE_4);
 }
 
-#if NONMATCHING
 void sub_8085428(struct EventEngineProc *proc)
 {
     struct Unit *leader = GetUnitFromCharId(GetPlayerLeaderUnitId());
-    s8 x, y;
     int i;
 
-    x = leader->xPos;
-    y = leader->yPos;
-
-    i = 1;
+    int x = leader->xPos;
+    int y = leader->yPos;
 
     for (i = 1; i < FACTION_GREEN; i++) {
         struct Unit *unit = GetUnit(i);
@@ -123,60 +146,6 @@ void sub_8085428(struct EventEngineProc *proc)
 
     SMS_UpdateFromGameData();
 }
-#else
-__attribute__((naked))
-void sub_8085428(struct EventEngineProc *proc)
-{
-    asm("\n\
-        .syntax unified\n\
-        push {r4, r5, r6, r7, lr}\n\
-        bl GetPlayerLeaderUnitId\n\
-        bl GetUnitFromCharId\n\
-        adds r5, r0, #0\n\
-        movs r7, #0x10\n\
-        ldrsb r7, [r5, r7]\n\
-        movs r6, #0x11\n\
-        ldrsb r6, [r5, r6]\n\
-        movs r4, #1\n\
-    _0808543E:\n\
-        adds r0, r4, #0\n\
-        bl GetUnit\n\
-        adds r2, r0, #0\n\
-        cmp r2, #0\n\
-        beq _08085474\n\
-        ldr r0, [r2]\n\
-        cmp r0, #0\n\
-        beq _08085474\n\
-        cmp r2, r5\n\
-        beq _08085474\n\
-        movs r0, #0x10\n\
-        ldrsb r0, [r2, r0]\n\
-        cmp r0, r7\n\
-        bne _08085474\n\
-        movs r0, #0x11\n\
-        ldrsb r0, [r2, r0]\n\
-        cmp r0, r6\n\
-        bne _08085474\n\
-        ldr r1, [r2, #0xc]\n\
-        movs r0, #0x30\n\
-        ands r0, r1\n\
-        cmp r0, #0\n\
-        bne _08085474\n\
-        movs r0, #9\n\
-        orrs r1, r0\n\
-        str r1, [r2, #0xc]\n\
-    _08085474:\n\
-        adds r4, #1\n\
-        cmp r4, #0x3f\n\
-        ble _0808543E\n\
-        bl SMS_UpdateFromGameData\n\
-        pop {r4, r5, r6, r7}\n\
-        pop {r0}\n\
-        bx r0\n\
-        .syntax divided\n\
-    ");
-}
-#endif /* NONMATCHING */
 
 void ResetAllPlayerUnitState(void)
 {
@@ -575,3 +544,683 @@ void sub_8085C70(ProcPtr proc)
 {
     sub_8085C7C(proc, 0);
 }
+
+void sub_8085C7C(ProcPtr parent, int val)
+{
+    struct Proc89EE9E0 *proc = Proc_StartBlocking(gUnknown_089EE9E0, parent);
+
+    asm("add r2, r0, #0");
+
+    proc->mode = val;
+
+    SetDispEnable(0, 0, 1, 1, 1);
+    FlushLCDControl();
+    
+    BG_SetPosition(0, 0, 0xFFD4);
+    BG_SetPosition(1, 0, 0);
+
+    BG_Fill(gBG0TilemapBuffer, 0);
+    BG_Fill(gBG1TilemapBuffer, 0);
+
+    SetWinEnable(0, 0, 0);
+    gLCDControlBuffer.wincnt.wout_enableBlend = 1;
+    SetSpecialColorEffectsParameters(1, 4, 0xC, 0);
+    SetBlendTargetA(0, 1, 0, 0, 0);
+    SetBlendTargetB(0, 0, 1, 1, 1);
+
+    CopyDataWithPossibleUncomp(Img_PhaseChangeSquares, BG_CHR_ADDR(BGCHR_PHASE_CHANGE_SQUARES));
+    ApplyPalette(Pal_PhaseChangePlayer, BGPAL_PHASE_CHANGE);
+
+    sub_8085DCC(0, 0);
+    ApplyPalette(gUnknown_089A18D4, 0);
+
+    if (0 == val) {
+        CopyDataWithPossibleUncomp(gUnknown_089A18F4, BG_CHR_ADDR(0xA00));
+        ApplyPalette(gUnknown_089A230C, 0x12);
+    } else {
+        CopyDataWithPossibleUncomp(gUnknown_089A1E70, BG_CHR_ADDR(0xA00));
+        ApplyPalette(gUnknown_089A232C, 0x12);
+    }
+
+    BG_EnableSyncByMask(3);
+    gPaletteBuffer[0] = 0;
+    EnablePaletteSync();
+}
+
+void sub_8085DCC(int index, int mode)
+{
+    if (0 == mode)
+        CopyDataWithPossibleUncomp(gUnknown_089EE9B0[index], BG_CHR_ADDR(0x140));
+    else
+        CopyDataWithPossibleUncomp(gUnknown_089EE9B0[index], BG_CHR_ADDR(0x200));
+}
+
+void sub_8085E08(int index, int mode)
+{
+    int i;
+    u16 *buf = gBG0TilemapBuffer;
+    int val = 0x200;
+    if (0 == mode)
+        val = 0x140;
+
+    CopyDataWithPossibleUncomp(gUnknown_089EE9C8[index], buf);
+
+    for (i = 0; i < 0x160; i++, buf++)
+        *buf += val;
+}
+
+void sub_8085E48(struct Proc89EE9E0 *proc)
+{
+    if (0 == proc->mode)
+        Sound_PlaySong80024D4(0x3D, 0);
+    else
+        Sound_PlaySong80024D4(0x3C, 0);
+
+    SetDispEnable(1, 1, 1, 1, 1);
+    proc->timer = 0;
+}
+
+void sub_8085E94(struct Proc89EE9E0 *proc)
+{
+    int iy, ix;
+    struct Proc89EEA28 *child;
+
+    for (iy = 2; iy >= 0; --iy) {
+        for (ix = 14; ix >= 0; --ix) {
+            int val = (ix - proc->timer) + (0xE - iy);
+            int newX, newY;
+
+            if (val > 0x10)
+                val = 0x10;
+            if (val < 0)
+                val = 0;
+
+            val = (0x10 - val) & 0xFE;
+
+            newX = ix * 2;
+            newY = iy * 2 + 0x07;
+
+            gBG1TilemapBuffer[TILEMAP_INDEX(newX + 0, newY + 0)] =
+                TILEREF(BGCHR_PHASE_CHANGE_SQUARES + val + 0x00, BGPAL_PHASE_CHANGE);
+            gBG1TilemapBuffer[TILEMAP_INDEX(newX + 1, newY + 0)] =
+                TILEREF(BGCHR_PHASE_CHANGE_SQUARES + val + 0x01, BGPAL_PHASE_CHANGE);
+            gBG1TilemapBuffer[TILEMAP_INDEX(newX + 0, newY + 1)] =
+                TILEREF(BGCHR_PHASE_CHANGE_SQUARES + val + 0x20, BGPAL_PHASE_CHANGE);
+            gBG1TilemapBuffer[TILEMAP_INDEX(newX + 1, newY + 1)] =
+                TILEREF(BGCHR_PHASE_CHANGE_SQUARES + val + 0x21, BGPAL_PHASE_CHANGE);
+        }
+    }
+
+    proc->timer++;
+    BG_EnableSyncByMask(2);
+
+    if (0x1C == proc->timer) {
+        proc->timer = 0;
+        child = Proc_Start(gUnknown_089EEA28, proc);
+        child->mode = proc->mode;
+        Proc_Break(proc);
+    }
+}
+
+void nullsub_30()
+{
+    return;
+}
+
+void sub_8085F88(struct Proc89EE9E0 *proc)
+{
+    int iy, ix;
+
+    for (iy = 2; iy >= 0; --iy) {
+        for (ix = 14; ix >= 0; --ix) {
+            int val = (ix - proc->timer) + (0xE - iy);
+            int newX, newY;
+
+            if (val > 0x10)
+                val = 0x10;
+            if (val < 0)
+                val = 0;
+
+            val = val & 0xFE;
+
+            newX = ix * 2;
+            newY = iy * 2 + 0x07;
+
+            gBG1TilemapBuffer[TILEMAP_INDEX(newX + 0, newY + 0)] =
+                TILEREF(BGCHR_PHASE_CHANGE_SQUARES + val + 0x01, BGPAL_PHASE_CHANGE) + TILE_HFLIP;
+            gBG1TilemapBuffer[TILEMAP_INDEX(newX + 1, newY + 0)] =
+                TILEREF(BGCHR_PHASE_CHANGE_SQUARES + val + 0x00, BGPAL_PHASE_CHANGE) + TILE_HFLIP;
+            gBG1TilemapBuffer[TILEMAP_INDEX(newX + 0, newY + 1)] =
+                TILEREF(BGCHR_PHASE_CHANGE_SQUARES + val + 0x21, BGPAL_PHASE_CHANGE) + TILE_HFLIP;
+            gBG1TilemapBuffer[TILEMAP_INDEX(newX + 1, newY + 1)] =
+                TILEREF(BGCHR_PHASE_CHANGE_SQUARES + val + 0x20, BGPAL_PHASE_CHANGE) + TILE_HFLIP;
+        }
+    }
+    
+    proc->timer++;
+    BG_EnableSyncByMask(2);
+
+    if (0x1C == proc->timer) {
+        Proc_EndEach(gUnknown_089EEA28);
+        proc->timer = 0;
+        proc->count = 0;
+        SetSpecialColorEffectsParameters(1, 0x10, 0x10, 0);
+        SetBlendTargetA(1, 0, 0, 0, 0);
+        SetBlendTargetB(0, 1, 1, 1, 1);
+        Proc_Break(proc);
+    }
+}
+
+/* https://decomp.me/scratch/PjzLv */
+#if NONMATCHING
+void sub_808609C(struct Proc89EE9E0 *proc)
+{
+    int count = proc->unk4C;
+    switch (count) {
+        case 0:
+            sub_8085E08(proc->unk52, 1 & proc->unk52);
+            BG_EnableSyncByMask(1);
+            proc->unk52 += 1;
+            break;
+
+        case 1:
+            if (6 == proc->unk52) {
+                Proc_Break(proc);
+                return;
+            }
+            sub_8085DCC(proc->unk52, 1 & proc->unk52);
+            proc->unk52 = -1;
+            break;
+
+        default:
+            break;
+    }
+
+    proc->unk4C++;
+}
+
+#else /* NONMATCHING */
+__attribute__((naked))
+void sub_808609C(struct Proc89EE9E0 *proc)
+{
+    asm("\n\
+        .syntax unified\n\
+        push {r4, r5, lr}\n\
+        adds r5, r0, #0\n\
+        adds r4, r5, #0\n\
+        adds r4, #0x4c\n\
+        movs r0, #0\n\
+        ldrsh r1, [r4, r0]\n\
+        cmp r1, #0\n\
+        beq _080860B2\n\
+        cmp r1, #1\n\
+        beq _080860CC\n\
+        b _080860EA\n\
+    _080860B2:\n\
+        adds r4, r5, #0\n\
+        adds r4, #0x52\n\
+        ldrh r0, [r4]\n\
+        movs r1, #1\n\
+        ands r1, r0\n\
+        bl sub_8085E08\n\
+        movs r0, #1\n\
+        bl BG_EnableSyncByMask\n\
+        ldrh r0, [r4]\n\
+        adds r0, #1\n\
+        b _080860E8\n\
+    _080860CC:\n\
+        adds r2, r5, #0\n\
+        adds r2, #0x52\n\
+        ldrh r0, [r2]\n\
+        cmp r0, #6\n\
+        bne _080860DE\n\
+        adds r0, r5, #0\n\
+        bl Proc_Break\n\
+        b _080860F4\n\
+    _080860DE:\n\
+        ldrh r0, [r2]\n\
+        ands r1, r0\n\
+        bl sub_8085DCC\n\
+        ldr r0, _080860FC\n\
+    _080860E8:\n\
+        strh r0, [r4]\n\
+    _080860EA:\n\
+        adds r1, r5, #0\n\
+        adds r1, #0x4c\n\
+        ldrh r0, [r1]\n\
+        adds r0, #1\n\
+        strh r0, [r1]\n\
+    _080860F4:\n\
+        pop {r4, r5}\n\
+        pop {r0}\n\
+        bx r0\n\
+        .align 2, 0\n\
+    _080860FC: .4byte 0x0000FFFF\n\
+        .syntax divided\n\
+    ");
+}
+#endif /* NONMATCHING */
+
+void sub_8086100(struct Proc89EE9E0 *proc)
+{
+    BG_SetPosition(0, 0, 0);
+    BG_Fill(gBG0TilemapBuffer, 0);
+    BG_Fill(gBG1TilemapBuffer, 0);
+    BG_EnableSyncByMask(3);
+    SetDefaultColorEffects();
+}
+
+void sub_8086134(struct Proc89EEA28 *proc)
+{
+    proc->timer = 0;
+}
+
+void sub_808613C(struct Proc89EEA28 *proc)
+{
+    int val1 = Interpolate(0, -24, 0, proc->timer, 0x10);
+    int val2 = Interpolate(0, 2, 0x100, proc->timer, 0x10);
+
+    WriteOAMRotScaleData(
+        0,
+        Div(+COS(0) * 0x10, 0x100),
+        Div(-SIN(0) * 0x10, val2),
+        Div(+SIN(0) * 0x10, 0x100),
+        Div(+COS(0) * 0x10, val2)
+    );
+    
+    PutSprite(
+        0, 0x1FF & (val1 + 0x18), 0x40,
+        gUnknown_089EE99C, 0
+    );
+
+    if (0x10 == proc->timer) {
+        proc->timer = 0;
+        Proc_Break(proc);
+        return;
+    }
+
+    proc->timer++;
+}
+
+void sub_808622C(struct Proc89EEA28 *proc)
+{
+    int val = Interpolate(0, 0, 0x10, proc->timer, 8);
+
+    if (0 == proc->mode)
+        ApplyPalette(gUnknown_089A230C, 0x12);
+    else
+        ApplyPalette(gUnknown_089A232C, 0x12);
+
+    sub_807132C(gPaletteBuffer, 0x12, 1, val);
+    EnablePaletteSync();
+    PutSprite(0, 0x18, 0x40, gUnknown_089EE99C, 0);
+
+    if (8 == proc->timer) {
+        proc->timer = 0;
+        Proc_Break(proc);
+        return;
+    }
+
+    proc->timer++;
+}
+
+void sub_80862C4(struct Proc89EEA28 *proc)
+{
+    int val = Interpolate(0, 0x10, 0, proc->timer, 8);
+
+    if (0 == proc->mode)
+        ApplyPalette(gUnknown_089A230C, 0x12);
+    else
+        ApplyPalette(gUnknown_089A232C, 0x12);
+
+    sub_807132C(gPaletteBuffer, 0x12, 1, val);
+    EnablePaletteSync();
+    PutSprite(0, 0x18, 0x40, gUnknown_089EE99C, 0);
+
+    if (8 == proc->timer) {
+        proc->timer = 0;
+        Proc_Break(proc);
+        return;
+    }
+
+    proc->timer++;
+}
+
+void sub_808635C(struct Proc89EEA28 *proc)
+{
+    WriteOAMRotScaleData(
+        0,
+        Div(+COS(0) * 0x10, 0x100),
+        Div(-SIN(0) * 0x10, 0x100),
+        Div(+SIN(0) * 0x10, 0x100),
+        Div(+COS(0) * 0x10, 0x100)
+    );
+    PutSprite(0, 0x18, 0x40, gUnknown_089EE99C, 0);
+
+    if (0x20 == proc->timer)
+        Proc_BreakEach(gUnknown_089EE9E0);
+
+    proc->timer++;
+}
+
+void HandleCh5xUnits_Start()
+{
+    int i;
+    for (i = FACTION_BLUE + 1; i < FACTION_GREEN; i++) {
+        struct Unit *unit = GetUnit(i);
+
+        if (!UNIT_IS_VALID(unit))
+            continue;
+
+        switch (unit->pCharacterData->number) {
+            case CHARACTER_EPHRAIM:
+            case CHARACTER_FORDE:
+            case CHARACTER_KYLE:
+            case CHARACTER_ORSON_CH5X:
+                continue;
+        }
+        if (US_BIT16 & unit->state)
+            unit->state |= US_BIT26;
+
+        unit->state |= US_BIT16 | US_HIDDEN;
+    }
+}
+
+void HandleCh5xUnits_End()
+{
+    int i;
+    for (i = FACTION_BLUE + 1; i < FACTION_GREEN; i++) {
+        struct Unit *unit = GetUnit(i);
+
+        if (!UNIT_IS_VALID(unit))
+            continue;
+
+        switch (unit->pCharacterData->number) {
+            case CHARACTER_EPHRAIM:
+            case CHARACTER_FORDE:
+            case CHARACTER_KYLE:
+                unit->state &= ~US_DEAD;
+                unit->state |= US_HIDDEN | US_BIT16;
+                continue;
+
+            case CHARACTER_ORSON_CH5X:
+                ClearUnit(unit);
+                continue;
+        }
+
+        if (0 == (unit->state & US_BIT26))
+            unit->state &= ~(US_BIT16 | US_HIDDEN);
+
+    }
+}
+
+void CallRouteSplitMenu(ProcPtr proc)
+{
+    ClearBg0Bg1();
+    SetDispEnable(1, 1, 1, 1, 1);
+    SetFont(0);
+    Font_LoadForUI();
+    LoadUiFrameGraphics();
+    StartMenu(&gUnknown_089F36A0, proc);
+}
+
+int MenuCommand_DrawRouteSplit(struct MenuProc* menu, struct MenuItemProc* menu_item)
+{
+    const char *str = GetStringFromIndex(menu_item->def->nameMsgId);
+
+    Text_SetParameters(&menu_item->text, 0, TEXT_COLOR_NORMAL);
+    Text_AppendString(&menu_item->text, str);
+    Text_Draw(
+        &menu_item->text,
+        TILEMAP_LOCATED(gBG0TilemapBuffer, menu_item->xTile + 1, menu_item->yTile)
+    );
+    Font_InitForUIDefault();
+    return 0;
+}
+
+u8 Command_EirikaMode(struct MenuProc* menu, struct MenuItemProc* menu_item)
+{
+    gRAMChapterData.chapterModeIndex = CHAPTER_MODE_EIRIKA;
+    SetEventSlotC(0xC17);
+    return MENU_ACT_CLEAR | MENU_ACT_SND6A | MENU_ACT_END | MENU_ACT_SKIPCURSOR;
+}
+
+u8 Command_EphraimMode(struct MenuProc* menu, struct MenuItemProc* menu_item)
+{
+    gRAMChapterData.chapterModeIndex = CHAPTER_MODE_EPHRAIM;
+    SetEventSlotC(0xC18);
+    return MENU_ACT_CLEAR | MENU_ACT_SND6A | MENU_ACT_END | MENU_ACT_SKIPCURSOR;
+}
+
+/* https://decomp.me/scratch/ArPqb */
+#if NONMATCHING
+void sub_808659C()
+{
+    u8 i;
+    struct BattleUnit bunit;
+    struct Unit *unit;
+
+    switch (gRAMChapterData.chapterModeIndex) {
+    case CHAPTER_MODE_EIRIKA:
+        unit = GetUnitFromCharId(CHARACTER_EPHRAIM);
+        break;
+
+    case CHAPTER_MODE_EPHRAIM:
+        unit = GetUnitFromCharId(CHARACTER_EIRIKA);
+        break;
+
+    default:
+        break;
+    }
+
+    /** 
+     * This may cause bug if unit is not initialized!
+     *
+     * if (!UNIT_IS_VALID(unit))
+     *     return;
+     */
+
+    if (unit->level < 15) {
+        u8 old_level = unit->level;
+        u8 tar_level = unit->level + 6;
+
+        if (tar_level < 10)
+            tar_level = 10;
+        if (tar_level > 15)
+            tar_level = 15;
+
+        while (old_level < tar_level) {
+            InitBattleUnit(&bunit, unit);
+            bunit.unit.exp += 100;
+            CheckBattleUnitLevelUp(&bunit);
+            UpdateUnitFromBattle(unit, &bunit);
+            old_level++;
+        }
+        unit->exp = 0;
+    }
+
+    for (i = 0; i < 8; i++) {
+        u8 rank = unit->ranks[i] - 1;
+        if (rank <= 0x45)
+            unit->ranks[i] = 0x47;
+    }
+
+#if 0
+    i = 0;
+    while (1) {
+        if (i >= 5)
+            return;
+
+        if (0 == unit->items[i])
+            break;
+
+        ++i;
+    }
+#else
+loop_head:
+    i = 0;
+    goto loop_end;
+
+loop_tail:
+    ++i;
+
+loop_end:
+    if (i >= 5)
+        return;
+
+loop_body:
+    if (unit->items[i])
+        goto loop_tail;
+#endif
+
+    switch (gRAMChapterData.chapterModeIndex) {
+    case CHAPTER_MODE_EIRIKA:
+        UnitAddItem(unit, MakeNewItem(ITEM_LANCE_STEEL));
+        break;
+    
+    case CHAPTER_MODE_EPHRAIM:
+        UnitAddItem(unit, MakeNewItem(ITEM_SWORD_STEEL));
+        break;
+    
+    default:
+        break;
+    }
+}
+#else /* NONMATCHING */
+__attribute__((naked))
+void sub_808659C()
+{
+    asm("\n\
+        .syntax unified\n\
+        push {r4, r5, r6, r7, lr}\n\
+        mov r7, r8\n\
+        push {r7}\n\
+        sub sp, #0x80\n\
+        ldr r0, _080865B4\n\
+        ldrb r0, [r0, #0x1b]\n\
+        cmp r0, #2\n\
+        beq _080865B8\n\
+        cmp r0, #3\n\
+        beq _080865BC\n\
+        b _080865C4\n\
+        .align 2, 0\n\
+    _080865B4: .4byte gRAMChapterData\n\
+    _080865B8:\n\
+        movs r0, #0xf\n\
+        b _080865BE\n\
+    _080865BC:\n\
+        movs r0, #1\n\
+    _080865BE:\n\
+        bl GetUnitFromCharId\n\
+        adds r6, r0, #0\n\
+    _080865C4:\n\
+        movs r0, #8\n\
+        ldrsb r0, [r6, r0]\n\
+        movs r1, #0x28\n\
+        adds r1, r1, r6\n\
+        mov r8, r1\n\
+        cmp r0, #0xe\n\
+        bgt _08086616\n\
+        ldrb r4, [r6, #8]\n\
+        adds r0, r4, #6\n\
+        lsls r0, r0, #0x18\n\
+        lsrs r5, r0, #0x18\n\
+        cmp r5, #9\n\
+        bhi _080865E0\n\
+        movs r5, #0xa\n\
+    _080865E0:\n\
+        cmp r5, #0xf\n\
+        bls _080865E6\n\
+        movs r5, #0xf\n\
+    _080865E6:\n\
+        cmp r4, r5\n\
+        bcs _08086612\n\
+        mov r7, sp\n\
+    _080865EC:\n\
+        mov r0, sp\n\
+        adds r1, r6, #0\n\
+        bl InitBattleUnit\n\
+        ldrb r0, [r7, #9]\n\
+        adds r0, #0x64\n\
+        strb r0, [r7, #9]\n\
+        mov r0, sp\n\
+        bl CheckBattleUnitLevelUp\n\
+        adds r0, r6, #0\n\
+        mov r1, sp\n\
+        bl UpdateUnitFromBattle\n\
+        adds r0, r4, #1\n\
+        lsls r0, r0, #0x18\n\
+        lsrs r4, r0, #0x18\n\
+        cmp r4, r5\n\
+        bcc _080865EC\n\
+    _08086612:\n\
+        movs r0, #0\n\
+        strb r0, [r6, #9]\n\
+    _08086616:\n\
+        movs r2, #0\n\
+        mov r3, r8\n\
+        movs r4, #0x47\n\
+    _0808661C:\n\
+        adds r1, r3, r2\n\
+        ldrb r0, [r1]\n\
+        subs r0, #1\n\
+        lsls r0, r0, #0x18\n\
+        lsrs r0, r0, #0x18\n\
+        cmp r0, #0x45\n\
+        bhi _0808662C\n\
+        strb r4, [r1]\n\
+    _0808662C:\n\
+        adds r0, r2, #1\n\
+        lsls r0, r0, #0x18\n\
+        lsrs r2, r0, #0x18\n\
+        cmp r2, #7\n\
+        bls _0808661C\n\
+        movs r2, #0\n\
+        b _08086640\n\
+    _0808663A:\n\
+        adds r0, r2, #1\n\
+        lsls r0, r0, #0x18\n\
+        lsrs r2, r0, #0x18\n\
+    _08086640:\n\
+        cmp r2, #4\n\
+        bhi _08086682\n\
+        lsls r0, r2, #1\n\
+        adds r1, r6, #0\n\
+        adds r1, #0x1e\n\
+        adds r1, r1, r0\n\
+        ldrh r0, [r1]\n\
+        cmp r0, #0\n\
+        bne _0808663A\n\
+        ldr r0, _08086660\n\
+        ldrb r0, [r0, #0x1b]\n\
+        cmp r0, #2\n\
+        beq _08086664\n\
+        cmp r0, #3\n\
+        beq _08086674\n\
+        b _08086682\n\
+        .align 2, 0\n\
+    _08086660: .4byte gRAMChapterData\n\
+    _08086664:\n\
+        movs r0, #0x16\n\
+        bl MakeNewItem\n\
+        adds r1, r0, #0\n\
+        adds r0, r6, #0\n\
+        bl UnitAddItem\n\
+        b _08086682\n\
+    _08086674:\n\
+        movs r0, #3\n\
+        bl MakeNewItem\n\
+        adds r1, r0, #0\n\
+        adds r0, r6, #0\n\
+        bl UnitAddItem\n\
+    _08086682:\n\
+        add sp, #0x80\n\
+        pop {r3}\n\
+        mov r8, r3\n\
+        pop {r4, r5, r6, r7}\n\
+        pop {r0}\n\
+        bx r0\n\
+        .syntax divided\n\
+    ");
+}
+#endif /* NONMATCHING */

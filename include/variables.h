@@ -1499,12 +1499,12 @@ extern u16 gUnknown_0859EFC0[];
 // extern ??? gUnknown_0859F000
 // extern ??? Img_PhaseChangeUnk
 // extern ??? Img_PhaseChangePlayer
-// extern ??? Pal_PhaseChangePlayer
+extern CONST_DATA u16 Pal_PhaseChangePlayer[];
 // extern ??? Img_PhaseChangeEnemy
 // extern ??? Pal_PhaseChangeEnemy
 // extern ??? Img_PhaseChangeOther
 // extern ??? Pal_PhaseChangeOther
-// extern ??? Img_PhaseChangeSquares
+extern CONST_DATA u16 Img_PhaseChangeSquares[];
 // extern ??? gUnknown_085A0838
 // extern ??? gUnknown_085A08F0
 // extern ??? gTSA_BattleForecastStandard
@@ -2911,11 +2911,11 @@ extern u8 gUnknown_0895E0A4[];
 extern u8 gUnknown_0895EEA4[];
 // extern ??? gUnknown_0895F5A4
 // extern ??? gUnknown_0895F5A5
-// extern ??? gUnknown_089A18D4
-// extern ??? gUnknown_089A18F4
-// extern ??? gUnknown_089A1E70
-// extern ??? gUnknown_089A230C
-// extern ??? gUnknown_089A232C
+extern u16 CONST_DATA gUnknown_089A18D4[];      /* a palatte */
+extern u16 CONST_DATA gUnknown_089A18F4[];      /* a image */
+extern u16 CONST_DATA gUnknown_089A1E70[];      /* a image */
+extern u16 CONST_DATA gUnknown_089A230C[];      /* a palatte */
+extern u16 CONST_DATA gUnknown_089A232C[];      /* a palatte */
 // extern ??? gUnknown_089A234C
 // extern ??? gUnknown_089A27B4
 // extern ??? gUnknown_089A28E0
@@ -3128,12 +3128,12 @@ extern struct ProcCmd gUnknown_089EE030[];
 extern struct ProcCmd gUnknown_089EE048[];
 extern struct ProcCmd gUnknown_089EE068[];
 extern struct ProcCmd gUnknown_089EE088[];
-// extern ??? gUnknown_089EE99C
-// extern ??? gUnknown_089EE9B0
-// extern ??? gUnknown_089EE9C8
-// extern ??? gUnknown_089EE9E0
-// extern ??? gUnknown_089EEA28
-// extern ??? gUnknown_089F36A0
+extern const u16 gUnknown_089EE99C[];
+extern u16 CONST_DATA *gUnknown_089EE9B0[];    /* images */
+extern u16 CONST_DATA *gUnknown_089EE9C8[];    /* images */
+extern struct ProcCmd gUnknown_089EE9E0[];
+extern struct ProcCmd gUnknown_089EEA28[];
+extern const struct MenuDef gUnknown_089F36A0;
 // extern ??? gUnknown_089FF480
 // extern ??? gUnknown_089FFC30
 // extern ??? gUnknown_089FFD64
