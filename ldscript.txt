@@ -135,7 +135,6 @@ SECTIONS
         asm/ev_triggercheck.o(.text);
         src/uidebug.o(.text);
         src/asmcs.o(.text);
-        asm/asmcs.o(.text);
         asm/code_8086934.o(.text);
         asm/fx_slidingwallbg.o(.text);
         src/statscreen.o(.text);

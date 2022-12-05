@@ -9,6 +9,7 @@
 #include "functions.h"
 #include "constants/video-global.h"
 #include "constants/characters.h"
+#include "constants/items.h"
 
 #include "proc.h"
 #include "event.h"
@@ -27,6 +28,8 @@
 #include "fontgrp.h"
 #include "uimenu.h"
 #include "uiutils.h"
+#include "bmbattle.h"
+#include "bmitem.h"
 
 
 struct UnkProc80855A0 {
@@ -711,95 +714,30 @@ void sub_8085F88(struct Proc89EE9E0 *proc)
     }
 }
 
-/* https://decomp.me/scratch/PjzLv */
-#if NONMATCHING
 void sub_808609C(struct Proc89EE9E0 *proc)
 {
-    int count = proc->unk4C;
-    switch (count) {
+    switch (proc->timer) {
         case 0:
-            sub_8085E08(proc->unk52, 1 & proc->unk52);
+            sub_8085E08(proc->count, 1 & proc->count);
             BG_EnableSyncByMask(1);
-            proc->unk52 += 1;
+            proc->count += 1;
             break;
 
         case 1:
-            if (6 == proc->unk52) {
+            if (6 == proc->count) {
                 Proc_Break(proc);
                 return;
             }
-            sub_8085DCC(proc->unk52, 1 & proc->unk52);
-            proc->unk52 = -1;
+            sub_8085DCC(proc->count, 1 & proc->count);
+            proc->timer = -1;
             break;
 
         default:
             break;
     }
 
-    proc->unk4C++;
+    proc->timer++;
 }
-
-#else /* NONMATCHING */
-__attribute__((naked))
-void sub_808609C(struct Proc89EE9E0 *proc)
-{
-    asm("\n\
-        .syntax unified\n\
-        push {r4, r5, lr}\n\
-        adds r5, r0, #0\n\
-        adds r4, r5, #0\n\
-        adds r4, #0x4c\n\
-        movs r0, #0\n\
-        ldrsh r1, [r4, r0]\n\
-        cmp r1, #0\n\
-        beq _080860B2\n\
-        cmp r1, #1\n\
-        beq _080860CC\n\
-        b _080860EA\n\
-    _080860B2:\n\
-        adds r4, r5, #0\n\
-        adds r4, #0x52\n\
-        ldrh r0, [r4]\n\
-        movs r1, #1\n\
-        ands r1, r0\n\
-        bl sub_8085E08\n\
-        movs r0, #1\n\
-        bl BG_EnableSyncByMask\n\
-        ldrh r0, [r4]\n\
-        adds r0, #1\n\
-        b _080860E8\n\
-    _080860CC:\n\
-        adds r2, r5, #0\n\
-        adds r2, #0x52\n\
-        ldrh r0, [r2]\n\
-        cmp r0, #6\n\
-        bne _080860DE\n\
-        adds r0, r5, #0\n\
-        bl Proc_Break\n\
-        b _080860F4\n\
-    _080860DE:\n\
-        ldrh r0, [r2]\n\
-        ands r1, r0\n\
-        bl sub_8085DCC\n\
-        ldr r0, _080860FC\n\
-    _080860E8:\n\
-        strh r0, [r4]\n\
-    _080860EA:\n\
-        adds r1, r5, #0\n\
-        adds r1, #0x4c\n\
-        ldrh r0, [r1]\n\
-        adds r0, #1\n\
-        strh r0, [r1]\n\
-    _080860F4:\n\
-        pop {r4, r5}\n\
-        pop {r0}\n\
-        bx r0\n\
-        .align 2, 0\n\
-    _080860FC: .4byte 0x0000FFFF\n\
-        .syntax divided\n\
-    ");
-}
-#endif /* NONMATCHING */
 
 void sub_8086100(struct Proc89EE9E0 *proc)
 {
@@ -992,8 +930,6 @@ u8 Command_EphraimMode(struct MenuProc* menu, struct MenuItemProc* menu_item)
     return MENU_ACT_CLEAR | MENU_ACT_SND6A | MENU_ACT_END | MENU_ACT_SKIPCURSOR;
 }
 
-/* https://decomp.me/scratch/ArPqb */
-#if NONMATCHING
 void sub_808659C()
 {
     u8 i;
@@ -1007,9 +943,6 @@ void sub_808659C()
 
     case CHAPTER_MODE_EPHRAIM:
         unit = GetUnitFromCharId(CHARACTER_EIRIKA);
-        break;
-
-    default:
         break;
     }
 
@@ -1045,182 +978,18 @@ void sub_808659C()
             unit->ranks[i] = 0x47;
     }
 
-#if 0
-    i = 0;
-    while (1) {
-        if (i >= 5)
-            return;
-
-        if (0 == unit->items[i])
+    for (i = 0; i < 5; i++) {
+        if (0 == unit->items[i]) {
+            switch (gRAMChapterData.chapterModeIndex) {
+            case CHAPTER_MODE_EIRIKA:
+                UnitAddItem(unit, MakeNewItem(ITEM_LANCE_STEEL));
+                break;
+            
+            case CHAPTER_MODE_EPHRAIM:
+                UnitAddItem(unit, MakeNewItem(ITEM_SWORD_STEEL));
+                break;
+            }
             break;
-
-        ++i;
-    }
-#else
-loop_head:
-    i = 0;
-    goto loop_end;
-
-loop_tail:
-    ++i;
-
-loop_end:
-    if (i >= 5)
-        return;
-
-loop_body:
-    if (unit->items[i])
-        goto loop_tail;
-#endif
-
-    switch (gRAMChapterData.chapterModeIndex) {
-    case CHAPTER_MODE_EIRIKA:
-        UnitAddItem(unit, MakeNewItem(ITEM_LANCE_STEEL));
-        break;
-    
-    case CHAPTER_MODE_EPHRAIM:
-        UnitAddItem(unit, MakeNewItem(ITEM_SWORD_STEEL));
-        break;
-    
-    default:
-        break;
+        }
     }
 }
-#else /* NONMATCHING */
-__attribute__((naked))
-void sub_808659C()
-{
-    asm("\n\
-        .syntax unified\n\
-        push {r4, r5, r6, r7, lr}\n\
-        mov r7, r8\n\
-        push {r7}\n\
-        sub sp, #0x80\n\
-        ldr r0, _080865B4\n\
-        ldrb r0, [r0, #0x1b]\n\
-        cmp r0, #2\n\
-        beq _080865B8\n\
-        cmp r0, #3\n\
-        beq _080865BC\n\
-        b _080865C4\n\
-        .align 2, 0\n\
-    _080865B4: .4byte gRAMChapterData\n\
-    _080865B8:\n\
-        movs r0, #0xf\n\
-        b _080865BE\n\
-    _080865BC:\n\
-        movs r0, #1\n\
-    _080865BE:\n\
-        bl GetUnitFromCharId\n\
-        adds r6, r0, #0\n\
-    _080865C4:\n\
-        movs r0, #8\n\
-        ldrsb r0, [r6, r0]\n\
-        movs r1, #0x28\n\
-        adds r1, r1, r6\n\
-        mov r8, r1\n\
-        cmp r0, #0xe\n\
-        bgt _08086616\n\
-        ldrb r4, [r6, #8]\n\
-        adds r0, r4, #6\n\
-        lsls r0, r0, #0x18\n\
-        lsrs r5, r0, #0x18\n\
-        cmp r5, #9\n\
-        bhi _080865E0\n\
-        movs r5, #0xa\n\
-    _080865E0:\n\
-        cmp r5, #0xf\n\
-        bls _080865E6\n\
-        movs r5, #0xf\n\
-    _080865E6:\n\
-        cmp r4, r5\n\
-        bcs _08086612\n\
-        mov r7, sp\n\
-    _080865EC:\n\
-        mov r0, sp\n\
-        adds r1, r6, #0\n\
-        bl InitBattleUnit\n\
-        ldrb r0, [r7, #9]\n\
-        adds r0, #0x64\n\
-        strb r0, [r7, #9]\n\
-        mov r0, sp\n\
-        bl CheckBattleUnitLevelUp\n\
-        adds r0, r6, #0\n\
-        mov r1, sp\n\
-        bl UpdateUnitFromBattle\n\
-        adds r0, r4, #1\n\
-        lsls r0, r0, #0x18\n\
-        lsrs r4, r0, #0x18\n\
-        cmp r4, r5\n\
-        bcc _080865EC\n\
-    _08086612:\n\
-        movs r0, #0\n\
-        strb r0, [r6, #9]\n\
-    _08086616:\n\
-        movs r2, #0\n\
-        mov r3, r8\n\
-        movs r4, #0x47\n\
-    _0808661C:\n\
-        adds r1, r3, r2\n\
-        ldrb r0, [r1]\n\
-        subs r0, #1\n\
-        lsls r0, r0, #0x18\n\
-        lsrs r0, r0, #0x18\n\
-        cmp r0, #0x45\n\
-        bhi _0808662C\n\
-        strb r4, [r1]\n\
-    _0808662C:\n\
-        adds r0, r2, #1\n\
-        lsls r0, r0, #0x18\n\
-        lsrs r2, r0, #0x18\n\
-        cmp r2, #7\n\
-        bls _0808661C\n\
-        movs r2, #0\n\
-        b _08086640\n\
-    _0808663A:\n\
-        adds r0, r2, #1\n\
-        lsls r0, r0, #0x18\n\
-        lsrs r2, r0, #0x18\n\
-    _08086640:\n\
-        cmp r2, #4\n\
-        bhi _08086682\n\
-        lsls r0, r2, #1\n\
-        adds r1, r6, #0\n\
-        adds r1, #0x1e\n\
-        adds r1, r1, r0\n\
-        ldrh r0, [r1]\n\
-        cmp r0, #0\n\
-        bne _0808663A\n\
-        ldr r0, _08086660\n\
-        ldrb r0, [r0, #0x1b]\n\
-        cmp r0, #2\n\
-        beq _08086664\n\
-        cmp r0, #3\n\
-        beq _08086674\n\
-        b _08086682\n\
-        .align 2, 0\n\
-    _08086660: .4byte gRAMChapterData\n\
-    _08086664:\n\
-        movs r0, #0x16\n\
-        bl MakeNewItem\n\
-        adds r1, r0, #0\n\
-        adds r0, r6, #0\n\
-        bl UnitAddItem\n\
-        b _08086682\n\
-    _08086674:\n\
-        movs r0, #3\n\
-        bl MakeNewItem\n\
-        adds r1, r0, #0\n\
-        adds r0, r6, #0\n\
-        bl UnitAddItem\n\
-    _08086682:\n\
-        add sp, #0x80\n\
-        pop {r3}\n\
-        mov r8, r3\n\
-        pop {r4, r5, r6, r7}\n\
-        pop {r0}\n\
-        bx r0\n\
-        .syntax divided\n\
-    ");
-}
-#endif /* NONMATCHING */
