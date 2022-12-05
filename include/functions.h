@@ -1003,7 +1003,7 @@ void sub_80353B8(struct Unit*); // RefreshUnitGivePanels
 // ??? sub_803B808(???);
 // ??? sub_803B8FC(???);
 // ??? sub_803B994(???);
-void AiTryMoveTowards(int x, int y, int arg2, int arg3, int arg4);
+void AiTryMoveTowards(s16, s16, u8, u8, u8);
 // ??? sub_803BBF4(???);
 // ??? sub_803BDE0(???);
 // ??? sub_803BF4C(???);
@@ -1088,11 +1088,11 @@ void AiDoBerserkMove(void);
 // ??? sub_803E150(???);
 // ??? sub_803E178(???);
 // ??? sub_803E1EC(???);
-// ??? sub_803E23C(???);
-// ??? sub_803E27C(???);
+int sub_803E23C(int, int); // AiGetPositionTerrainSafetyWeight
+int sub_803E27C(int, int); // AiGetPositionUnitSafetyWeight
 void AiInitDangerMap(void);
 // ??? sub_803E320(???);
-// ??? sub_803E448(???);
+s8 sub_803E448(int, int, u8); // IsAiTileSafe
 s8 AiTryGetNearestHealPoint(struct Vec2* out);
 void UpdateAllPhaseHealingAIStatus(void);
 s8 AiUpdateGetUnitIsHealing(struct Unit* unit);
@@ -1164,15 +1164,15 @@ void InitAiMoveMapForUnit(struct Unit*);
 // ??? sub_8040E98(???);
 // ??? sub_8040EC8(???);
 // ??? sub_8040EF8(???);
-// ??? sub_8040F28(???);
-// ??? sub_8040F54(???);
+void sub_8040F28(int x, int y, const s8* cost); // AiMapRangeFillMovementWithPassableWalls
+void sub_8040F54(int, int, struct Unit*);
 // ??? sub_8040F88(???);
 // ??? sub_8040FBC(???);
 // ??? sub_8040FEC(???);
 // ??? sub_8041020(???);
 // ??? sub_8041054(???);
 void AiUpdateNoMoveFlag(struct Unit* unit);
-// ??? sub_80410C4(???);
+void sub_80410C4(int, int, struct Unit*);
 // ??? AiDetermineNightmareEffectiveness(???);
 // ??? AiTryUseNightmareStaff(???);
 // ??? AiDecideNightmareStaff(???);
