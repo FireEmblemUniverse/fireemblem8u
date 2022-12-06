@@ -1,17 +1,5 @@
     .section .data
 
-	.global gUnknown_085A80BC
-gUnknown_085A80BC:  @ 0x085A80BC
-	.incbin "baserom.gba", 0x5A80BC, 0x64
-
-	.global gUnknown_085A8120
-gUnknown_085A8120:  @ 0x085A8120
-	.incbin "baserom.gba", 0x5A8120, 0x4
-
-	.global gUnknown_085A8124
-gUnknown_085A8124:  @ 0x085A8124
-	.incbin "baserom.gba", 0x5A8124, 0x8
-
 	.global gUnknown_085A812C
 gUnknown_085A812C:  @ 0x085A812C
 	.incbin "baserom.gba", 0x5A812C, 0x10

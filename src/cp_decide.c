@@ -6,6 +6,7 @@
 #include "bmmap.h"
 #include "bmtrick.h"
 #include "bmarch.h"
+#include "cp_utility.h"
 
 #include "constants/classes.h"
 

@@ -871,7 +871,6 @@ extern short gSinLookup[]; // gSinTable; needs to be non-const to match?
 // extern ??? gUnknown_080D8070
 // extern ??? gUnknown_080D80C4
 // extern ??? gUnknown_080D80E8
-// extern ??? gUnknown_080D80F4
 // extern ??? gUnknown_080D80FC
 // extern ??? gUnknown_080D8178
 // extern ??? gUnknown_080D8538
@@ -1561,9 +1560,6 @@ extern u16 CONST_DATA Pal_MineFx[];
 // extern ??? gProcScr_CpPhase
 // extern ??? gProcScr_BerserkCpPhase
 // extern ??? gProcScr_CpDecide
-// extern ??? gUnknown_085A80BC
-// extern ??? gUnknown_085A8120
-// extern ??? gUnknown_085A8124
 // extern ??? gUnknown_085A812C
 // extern ??? gUnknown_085A813C
 // extern ??? gUnknown_085A814C

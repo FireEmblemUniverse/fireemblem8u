@@ -120,6 +120,7 @@ SECTIONS
         src/cp_order.o(.text);
         src/cp_decide.o(.text);
         src/cp_perform.o(.text);
+        src/cp_utility.o(.text);
         asm/code_cpextra.o(.text);
         src/cpextra_80407F0.o(.text);
         asm/code_sio.o(.text);
@@ -247,6 +248,7 @@ SECTIONS
         . = ALIGN(4); src/cp_order.o(.rodata);
         . = ALIGN(4); src/cp_decide.o(.rodata);
         . = ALIGN(4); src/cp_perform.o(.rodata);
+        . = ALIGN(4); src/cp_utility.o(.rodata);
         . = ALIGN(4); data/const_data_D80F4.o(.rodata);
         . = ALIGN(4); src/cpextra_80407F0.o(.rodata);
         . = ALIGN(4); data/const_data_D8714.o(.rodata);
@@ -349,6 +351,7 @@ SECTIONS
         . = ALIGN(4); src/cp_order.o(.data);
         . = ALIGN(4); src/cp_decide.o(.data);
         . = ALIGN(4); src/cp_perform.o(.data);
+        . = ALIGN(4); src/cp_utility.o(.data);
         . = ALIGN(4); data/data_5A80BC.o(.data);
         . = ALIGN(4); src/cpextra_80407F0.o(.data);
         . = ALIGN(4); data/data_5A92E0.o(.data);

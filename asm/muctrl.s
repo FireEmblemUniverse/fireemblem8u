@@ -1255,7 +1255,7 @@ _0807A604:
 	beq _0807A62E
 	adds r0, r3, #0
 	adds r3, r6, #0
-	bl sub_803BDE0
+	bl AiGetUnitClosestValidPosition
 _0807A62E:
 	add sp, #0x24
 	pop {r3, r4, r5}
@@ -1322,7 +1322,7 @@ _0807A6A4: .4byte gBmMapTerrain
 _0807A6A8:
 	adds r0, r4, #0
 	adds r3, r5, #0
-	bl sub_803BDE0
+	bl AiGetUnitClosestValidPosition
 	ldrb r7, [r5]
 	ldrb r6, [r5, #2]
 	movs r0, #0
