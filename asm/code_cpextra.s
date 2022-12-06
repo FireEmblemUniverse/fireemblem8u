@@ -210,7 +210,7 @@ sub_803C648: @ 0x0803C648
 	ldr r0, [r2, #8]
 	ldrb r1, [r2, #1]
 	ldr r2, [r2, #4]
-	bl sub_803A71C
+	bl AiCompare
 	lsls r0, r0, #0x18
 	asrs r0, r0, #0x18
 	cmp r0, #1
@@ -506,7 +506,7 @@ sub_803C864: @ 0x0803C864
 	ldr r0, [r0, #8]
 	ldr r1, [r4]
 	ldrb r1, [r1, #4]
-	bl sub_803ACF8
+	bl AiIsInShortList
 	lsls r0, r0, #0x18
 	asrs r0, r0, #0x18
 	cmp r0, #1
@@ -545,7 +545,7 @@ sub_803C8AC: @ 0x0803C8AC
 	ldr r0, [r0, #8]
 	ldr r1, [r4]
 	ldrb r1, [r1, #4]
-	bl sub_803ACF8
+	bl AiIsInShortList
 	lsls r0, r0, #0x18
 	asrs r0, r0, #0x18
 	cmp r0, #1
@@ -667,7 +667,7 @@ sub_803C974: @ 0x0803C974
 	bne _0803C9FC
 	ldr r0, [r5]
 	ldrh r0, [r0, #4]
-	bl sub_803BF84
+	bl AiUnitWithCharIdExists
 	lsls r0, r0, #0x18
 	asrs r0, r0, #0x18
 	cmp r0, #1
@@ -983,7 +983,7 @@ sub_803CBD4: @ 0x0803CBD4
 	ldr r0, [r0, #4]
 	add r5, sp, #4
 	adds r1, r5, #0
-	bl sub_803A788
+	bl AiFindTargetInReachByCharId
 	lsls r0, r0, #0x18
 	asrs r4, r0, #0x18
 	cmp r4, #1
@@ -1007,7 +1007,7 @@ sub_803CBD4: @ 0x0803CBD4
 	ldrb r2, [r5, #2]
 	ldrb r3, [r5, #3]
 	str r4, [sp]
-	bl sub_803BFD0
+	bl AiIsWithinRectDistance
 	lsls r0, r0, #0x18
 	asrs r0, r0, #0x18
 	cmp r0, #1
@@ -1085,7 +1085,7 @@ sub_803CC98: @ 0x0803CC98
 	ldr r0, [r0, #4]
 	add r5, sp, #4
 	adds r1, r5, #0
-	bl sub_803A878
+	bl AiFindTargetInReachByClassId
 	lsls r0, r0, #0x18
 	asrs r4, r0, #0x18
 	cmp r4, #1
@@ -1155,7 +1155,7 @@ _0803CD2C:
 	add r4, sp, #0x10
 	adds r0, r4, #0
 	add r1, sp, #0xc
-	bl sub_803B8FC
+	bl AiFindPillageLocation
 	lsls r0, r0, #0x18
 	asrs r2, r0, #0x18
 	cmp r2, #1
@@ -1171,7 +1171,7 @@ _0803CD2C:
 	ldr r4, _0803CDAC  @ gAiDecision
 	ldrb r0, [r4, #2]
 	ldrb r1, [r4, #3]
-	bl sub_803C014
+	bl AiLocationIsPillageTarget
 	lsls r0, r0, #0x18
 	asrs r0, r0, #0x18
 	cmp r0, #1
@@ -1243,7 +1243,7 @@ sub_803CDD4: @ 0x0803CDD4
 	ldr r0, [r0]
 	add r4, sp, #0xc
 	adds r1, r4, #0
-	bl sub_803B808
+	bl AiFindSafestReachableLocation
 	lsls r0, r0, #0x18
 	asrs r0, r0, #0x18
 	cmp r0, #1
@@ -1285,7 +1285,7 @@ sub_803CE18: @ 0x0803CE18
 	ldr r0, _0803CE58  @ sub_803C818
 	add r5, sp, #4
 	adds r1, r5, #0
-	bl sub_803A924
+	bl AiFindTargetInReachByFunc
 	lsls r0, r0, #0x18
 	asrs r4, r0, #0x18
 	cmp r4, #1
@@ -1308,7 +1308,7 @@ _0803CE5C:
 	ldr r0, _0803CE94  @ sub_803C864
 	add r5, sp, #4
 	adds r1, r5, #0
-	bl sub_803A924
+	bl AiFindTargetInReachByFunc
 	lsls r0, r0, #0x18
 	asrs r4, r0, #0x18
 	cmp r4, #1
@@ -1422,7 +1422,7 @@ sub_803CF20: @ 0x0803CF20
 sub_803CF28: @ 0x0803CF28
 	push {r4, lr}
 	adds r4, r0, #0
-	bl sub_803AB5C
+	bl AiRandomMove
 	ldrb r0, [r4]
 	adds r0, #1
 	strb r0, [r4]
@@ -1725,7 +1725,7 @@ _0803D158:
 	adds r0, r0, r4
 	ldrb r1, [r0]
 	ldr r0, [sp]
-	bl sub_803AD18
+	bl AiIsInByteList
 	lsls r0, r0, #0x18
 	cmp r0, #0
 	beq _0803D1EA
@@ -1762,7 +1762,7 @@ _0803D1B0:
 	asrs r0, r0, #0x10
 	lsls r1, r5, #0x10
 	asrs r1, r1, #0x10
-	bl sub_803B41C
+	bl AiCountNearbyEnemyUnits
 	cmp r0, #0
 	bne _0803D1EA
 _0803D1CA:
@@ -1927,7 +1927,7 @@ sub_803D2D8: @ 0x0803D2D8
 	add r5, sp, #4
 	movs r1, #0
 	adds r2, r5, #0
-	bl sub_803AD38
+	bl AiFindClosestTerrainPosition
 	lsls r0, r0, #0x18
 	asrs r4, r0, #0x18
 	cmp r4, #1
@@ -1990,7 +1990,7 @@ sub_803D354: @ 0x0803D354
 	add r5, sp, #4
 	movs r1, #0
 	adds r2, r5, #0
-	bl sub_803AD38
+	bl AiFindClosestTerrainPosition
 	lsls r0, r0, #0x18
 	asrs r4, r0, #0x18
 	cmp r4, #1
@@ -2071,7 +2071,7 @@ AiDoBerserkMove: @ 0x0803D404
 	ldr r0, _0803D438  @ sub_803C848
 	add r4, sp, #4
 	adds r1, r4, #0
-	bl sub_803A924
+	bl AiFindTargetInReachByFunc
 	lsls r0, r0, #0x18
 	asrs r2, r0, #0x18
 	cmp r2, #1
@@ -2106,7 +2106,7 @@ sub_803D43C: @ 0x0803D43C
 sub_803D440: @ 0x0803D440
 	push {lr}
 	ldrb r0, [r0]
-	bl sub_803BF4C
+	bl AiGetClassRank
 	movs r0, #1
 	pop {r1}
 	bx r1
@@ -2292,7 +2292,7 @@ _0803D596:
 	ldr r0, [r1]
 	adds r1, r4, #0
 	adds r2, r5, #0
-	bl sub_803AC3C
+	bl AiReachesByBirdsEyeDistance
 	adds r1, r0, #0
 	lsls r1, r1, #0x18
 	cmp r1, #0
@@ -2516,7 +2516,7 @@ _0803D758:
 	ldr r0, [r1]
 	adds r1, r4, #0
 	adds r2, r5, #0
-	bl sub_803AC3C
+	bl AiReachesByBirdsEyeDistance
 	adds r1, r0, #0
 	lsls r1, r1, #0x18
 	cmp r1, #0
@@ -2903,7 +2903,7 @@ _0803DA5A:
 	ldr r0, [r0]
 	adds r1, r4, #0
 	adds r2, r5, #0
-	bl sub_803AC3C
+	bl AiReachesByBirdsEyeDistance
 	lsls r0, r0, #0x18
 	cmp r0, #0
 	beq _0803DAC8
@@ -3080,7 +3080,7 @@ _0803DB9C:
 	mov r1, r8
 	ldr r2, _0803DC80  @ sub_803DB08
 	add r3, sp, #0xc
-	bl sub_803B718
+	bl AiFindBestAdjacentPositionByFunc
 	lsls r0, r0, #0x18
 	cmp r0, #0
 	beq _0803DC56
@@ -3101,7 +3101,7 @@ _0803DB9C:
 	cmp r1, r0
 	blt _0803DC56
 	adds r0, r4, #0
-	bl sub_803B7C8
+	bl AiGetUnitStealItemSlot
 	lsls r6, r0, #0x18
 	asrs r1, r6, #0x18
 	cmp r1, #0
@@ -3111,7 +3111,7 @@ _0803DB9C:
 	adds r0, #0x1e
 	adds r0, r0, r1
 	ldrb r0, [r0]
-	bl sub_803B794
+	bl AiGetItemStealRank
 	lsls r0, r0, #0x18
 	lsrs r0, r0, #0x18
 	ldr r3, [sp, #0x14]
@@ -3696,7 +3696,7 @@ sub_803E068: @ 0x0803E068
 	ldr r0, _0803E094  @ gBattleTarget
 	ldr r0, [r0, #4]
 	ldrb r0, [r0, #4]
-	bl sub_803BF4C
+	bl AiGetClassRank
 	lsls r0, r0, #0x18
 	lsrs r0, r0, #0x18
 	ldr r1, _0803E098  @ gUnknown_030017D8
@@ -4151,7 +4151,7 @@ _0803E3A6:
 	ldr r0, [r0]
 	adds r1, r6, #0
 	mov r2, r8
-	bl sub_803AC90
+	bl AiCouldReachByBirdsEyeDistance
 	lsls r0, r0, #0x18
 	cmp r0, #0
 	beq _0803E41C
@@ -4325,7 +4325,7 @@ _0803E4DA:
 	adds r0, r0, r4
 	ldrb r1, [r0]
 	ldr r0, _0803E548  @ gUnknown_085A92B8
-	bl sub_803AD18
+	bl AiIsInByteList
 	lsls r0, r0, #0x18
 	cmp r0, #0
 	bne _0803E554
@@ -4403,7 +4403,7 @@ _0803E59E:
 	asrs r0, r0, #0x10
 	lsls r1, r7, #0x10
 	asrs r1, r1, #0x10
-	bl sub_803B41C
+	bl AiCountNearbyEnemyUnits
 	adds r2, r0, #0
 	ldr r0, [sp]
 	cmp r2, r0
@@ -4644,7 +4644,7 @@ _0803E744:
 	add r5, sp, #0xc
 	adds r0, r2, #0
 	adds r1, r5, #0
-	bl sub_803B808
+	bl AiFindSafestReachableLocation
 	lsls r0, r0, #0x18
 	asrs r0, r0, #0x18
 	cmp r0, #1
@@ -6377,7 +6377,7 @@ sub_803F434: @ 0x0803F434
 	beq _0803F46C
 	ldr r0, [r4]
 	bl FillMovementAndRangeMapForItem
-	bl sub_803B298
+	bl AiCountEnemyUnitsInRange
 	adds r1, r0, #0
 	cmp r1, #0
 	beq _0803F472
@@ -6626,7 +6626,7 @@ sub_803F61C: @ 0x0803F61C
 	ldrb r1, [r0]
 	strb r1, [r2]
 	ldrb r0, [r0]
-	bl sub_803BF84
+	bl AiUnitWithCharIdExists
 	lsls r0, r0, #0x18
 	asrs r0, r0, #0x18
 	cmp r0, #1
@@ -7676,7 +7676,7 @@ _0803FDF2:
 	ldrb r3, [r6, #0x11]
 	str r0, [sp]
 	adds r0, r4, #0
-	bl sub_803BFD0
+	bl AiIsWithinRectDistance
 	lsls r0, r0, #0x18
 	cmp r0, #0
 	beq _0803FEA0
@@ -8439,7 +8439,7 @@ _080403D4:
 	ldrb r3, [r6, #0x11]
 	str r0, [sp]
 	adds r0, r4, #0
-	bl sub_803BFD0
+	bl AiIsWithinRectDistance
 	lsls r0, r0, #0x18
 	cmp r0, #0
 	beq _08040490
@@ -8624,7 +8624,7 @@ _08040560:
 	ldrb r3, [r6, #0x11]
 	str r0, [sp]
 	adds r0, r4, #0
-	bl sub_803BFD0
+	bl AiIsWithinRectDistance
 	lsls r0, r0, #0x18
 	cmp r0, #0
 	beq _08040612

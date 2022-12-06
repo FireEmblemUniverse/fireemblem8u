@@ -12,61 +12,70 @@
 #include "constants/items.h"
 #include "constants/terrains.h"
 
+#include "cp_utility.h"
+
+extern u8* gUnknown_085A8150[];
+extern u16 gUnknown_085A83A4[];
+
 // forward decl.
-int sub_803B41C(s16, s16);
-s8 sub_803B718(int, int, u8(*)(int, int), struct Vec2*);
-s8 sub_803B994(u8*);
+s8 AiGetChestUnlockItemSlot(u8*);
 void SetupUnitStatusStaffAIFlags(struct Unit*, u16);
 void SetupUnitHealStaffAIFlags(struct Unit*, u16);
 void SaveNumberOfAlliedUnitsIn0To8Range(struct Unit*);
 
-extern u8 gUnknown_085A8120[];
-extern u8 gUnknown_085A8124[];
-extern u8* gUnknown_085A8150[];
-extern u16 gUnknown_085A83A4[];
+struct Vec2 CONST_DATA sRange3OffsetLut[] =
+{
+                                        {  0, -3 },
+                            { -1, -2 }, {  0, -2 }, { +1, -2 },
+                { -2, -1 }, { -1, -1 }, {  0, -1 }, { +1, -1 }, { +2, -1 },
+    { -3,  0 }, { -2,  0 }, { -1,  0 }, /* unit */  { +1,  0 }, { +2,  0 }, { +3,  0 },
+                { -2, +1 }, { -1, +1 }, {  0, +1 }, { +1, +1 }, { +2, +1 },
+                            { -1, +2 }, {  0, +2 }, { +1, +2 },
+                                        {  0, +3 },
 
-extern s8 gUnknown_080D80F4[];
-extern struct Vec2 gUnknown_085A80BC[];
+    { 9999, 9999 },
+};
+
 
 //! FE8U = 0x0803A71C
-s8 sub_803A71C(u8* left, u8 op, u32 right) {
+s8 AiCompare(u8* left, u8 op, u32 right) {
     switch (op) {
-        case 0:
+        case AI_COMPARE_GT:
             if (*left > right) {
                 return 1;
             }
 
             break;
 
-        case 1:
+        case AI_COMPARE_GE:
             if (*left >= right) {
                 return 1;
             }
 
             break;
 
-        case 2:
+        case AI_COMPARE_EQ:
             if (*left == right) {
                 return 1;
             }
 
             break;
 
-        case 3:
+        case AI_COMPARE_LE:
             if (*left <= right) {
                 return 1;
             }
 
             break;
 
-        case 4:
+        case AI_COMPARE_LT:
             if (*left < right) {
                 return 1;
             }
 
             break;
 
-        case 5:
+        case AI_COMPARE_NE:
             if (*left != right) {
                 return 1;
             }
@@ -78,7 +87,7 @@ s8 sub_803A71C(u8* left, u8 op, u32 right) {
 }
 
 //! FE8U = 0x0803A788
-s8 sub_803A788(int uid, struct Vec2* out) {
+s8 AiFindTargetInReachByCharId(int uid, struct Vec2* out) {
 
     int i;
 
@@ -119,7 +128,7 @@ s8 sub_803A788(int uid, struct Vec2* out) {
         return 1;
     }
 
-    if (!(GetUnitFromCharId(uid)->state & 0x0001000C)) {
+    if (!(GetUnitFromCharId(uid)->state & US_UNAVAILABLE)) {
         gAiState.unk86[0] = 4;
         return 0;
     }
@@ -130,7 +139,7 @@ s8 sub_803A788(int uid, struct Vec2* out) {
 }
 
 //! FE8U = 0x0803A878
-s8 sub_803A878(int uid, struct Vec2* out) {
+s8 AiFindTargetInReachByClassId(int classId, struct Vec2* out) {
     int i;
 
     u8 bestDistance = 0xff;
@@ -146,7 +155,7 @@ s8 sub_803A878(int uid, struct Vec2* out) {
             continue;
         }
 
-        if (unit->state & 0x00010025) {
+        if (unit->state & (US_HIDDEN | US_DEAD | US_RESCUED | US_BIT16)) {
             continue;
         }
 
@@ -154,7 +163,7 @@ s8 sub_803A878(int uid, struct Vec2* out) {
             continue;
         }
 
-        if (unit->pClassData->number != uid) {
+        if (unit->pClassData->number != classId) {
             continue;
         }
 
@@ -175,7 +184,7 @@ s8 sub_803A878(int uid, struct Vec2* out) {
 }
 
 //! FE8U = 0x0803A924
-s8 sub_803A924(s8(*func)(struct Unit* unit), struct Vec2* out) {
+s8 AiFindTargetInReachByFunc(s8(*func)(struct Unit* unit), struct Vec2* out) {
     s16 ix;
     s16 iy;
 
@@ -280,7 +289,7 @@ s8 sub_803AA40(s8(*func)(struct Unit* unit), struct Vec2* out) {
 }
 
 //! FE8U = 0x0803AB5C
-void sub_803AB5C(void) {
+void AiRandomMove(void) {
     s16 ix;
     s16 iy;
 
@@ -325,7 +334,7 @@ void sub_803AB5C(void) {
 }
 
 //! FE8U = 0x0803AC3C
-s8 sub_803AC3C(struct Unit* unit, struct Unit* other, u16 item) {
+s8 AiReachesByBirdsEyeDistance(struct Unit* unit, struct Unit* other, u16 item) {
 
     int distance = RECT_DISTANCE(unit->xPos, unit->yPos, other->xPos, other->yPos);
 
@@ -337,7 +346,7 @@ s8 sub_803AC3C(struct Unit* unit, struct Unit* other, u16 item) {
 }
 
 //! FE8U = 0x0803AC90
-s8 sub_803AC90(struct Unit* unit, struct Unit* other, u16 item) {
+s8 AiCouldReachByBirdsEyeDistance(struct Unit* unit, struct Unit* other, u16 item) {
 
     int distance = RECT_DISTANCE(unit->xPos, unit->yPos, other->xPos, other->yPos);
 
@@ -349,7 +358,7 @@ s8 sub_803AC90(struct Unit* unit, struct Unit* other, u16 item) {
 }
 
 //! FE8U = 0x0803ACF8
-s8 sub_803ACF8(u16* list, u16 item) {
+s8 AiIsInShortList(const u16* list, u16 item) {
 
     while (*list) {
         if (*list == item) {
@@ -363,7 +372,7 @@ s8 sub_803ACF8(u16* list, u16 item) {
 }
 
 //! FE8U = 0x0803AD18
-s8 sub_803AD18(u8* list, u8 item) {
+s8 AiIsInByteList(const u8* list, u8 item) {
     while (*list) {
         if (*list == item) {
             return 1;
@@ -376,7 +385,7 @@ s8 sub_803AD18(u8* list, u8 item) {
 }
 
 //! FE8U = 0x0803AD38
-s8 sub_803AD38(u8* terrainList, int flags, struct Vec2* out) {
+s8 AiFindClosestTerrainPosition(const u8* terrainList, int flags, struct Vec2* out) {
     int ix;
     int iy;
 
@@ -389,18 +398,18 @@ s8 sub_803AD38(u8* terrainList, int flags, struct Vec2* out) {
                 continue;
             }
 
-            if (sub_803AD18(terrainList, gBmMapTerrain[iy][ix]) == 0) {
+            if (AiIsInByteList(terrainList, gBmMapTerrain[iy][ix]) == 0) {
                 continue;
             }
 
-            if (flags & 1) {
+            if (flags & AI_FLAG_0) {
                 if ((gBmMapUnit[iy][ix] != 0) && (AreUnitsAllied(gActiveUnit->index, gBmMapUnit[iy][ix]) == 0)) {
                     continue;
                 }
             }
 
-            if (flags & 2) {
-                if (sub_803B41C(ix, iy) != 0) {
+            if (flags & AI_FLAG_1) {
+                if (AiCountNearbyEnemyUnits(ix, iy) != 0) {
                     continue;
                 }
             }
@@ -424,7 +433,7 @@ s8 sub_803AD38(u8* terrainList, int flags, struct Vec2* out) {
 }
 
 //! FE8U = 0x0803AE3C
-u8 sub_803AE3C(int x, int y) {
+u8 AiGetPositionRange(int x, int y) {
 
     if (((s8**) gBmMapRange)[y][x] >= MAP_MOVEMENT_MAX) {
         return 0xFF;
@@ -438,7 +447,7 @@ u8 sub_803AE3C(int x, int y) {
 }
 
 //! FE8U = 0x0803AE94
-s8 sub_803AE94(u8* terrainList, int flags, struct Vec2* out) {
+s8 AiFindClosestTerrainAdjacentPosition(const u8* terrainList, int flags, struct Vec2* out) {
     int ix;
     int iy;
     struct Vec2 tmp;
@@ -452,23 +461,23 @@ s8 sub_803AE94(u8* terrainList, int flags, struct Vec2* out) {
                 continue;
             }
 
-            if (!sub_803AD18(terrainList, gBmMapTerrain[iy][ix])) {
+            if (!AiIsInByteList(terrainList, gBmMapTerrain[iy][ix])) {
                 continue;
             }
 
-            if (flags & 1) {
+            if (flags & AI_FLAG_0) {
                 if (gBmMapUnit[iy][ix] != 0 && !AreUnitsAllied(gActiveUnit->index, gBmMapUnit[iy][ix])) {
                     continue;
                 }
             }
 
-            if (flags & 2) {
-                if (sub_803B41C(ix, iy) != 0) {
+            if (flags & AI_FLAG_1) {
+                if (AiCountNearbyEnemyUnits(ix, iy) != 0) {
                     continue;
                 }
             }
 
-            if (!sub_803B718(ix, iy, sub_803AE3C, &tmp)) {
+            if (!AiFindBestAdjacentPositionByFunc(ix, iy, AiGetPositionRange, &tmp)) {
                 continue;
             }
 
@@ -490,7 +499,7 @@ s8 sub_803AE94(u8* terrainList, int flags, struct Vec2* out) {
 }
 
 //! FE8U = 0x0803AFDC
-s8 sub_803AFDC(int flags, struct Vec2* outA, struct Vec2* outB) {
+s8 AiFindClosestUnlockPosition(int flags, struct Vec2* outA, struct Vec2* outB) {
     int ix;
     int iy;
     struct Vec2 tmp;
@@ -509,11 +518,11 @@ s8 sub_803AFDC(int flags, struct Vec2* outA, struct Vec2* outB) {
                 case TERRAIN_DOOR:
                     count++;
 
-                    if (flags & 8) {
+                    if (flags & AI_FLAG_3) {
                         continue;
                     }
 
-                    if (!sub_803B718(ix, iy, sub_803AE3C, &tmp)) {
+                    if (!AiFindBestAdjacentPositionByFunc(ix, iy, AiGetPositionRange, &tmp)) {
                         continue;
                     }
 
@@ -522,7 +531,7 @@ s8 sub_803AFDC(int flags, struct Vec2* outA, struct Vec2* outB) {
                 case TERRAIN_CHEST_21:
                     count++;
 
-                    if (flags & 4) {
+                    if (flags & AI_FLAG_BERSERKED) {
                         continue;
                     }
 
@@ -530,14 +539,14 @@ s8 sub_803AFDC(int flags, struct Vec2* outA, struct Vec2* outB) {
                     tmp.y = iy;
 
                     if (gBmMapMovement[iy][ix] <= UNIT_MOV(gActiveUnit)) {
-                        if (flags & 1) {
+                        if (flags & AI_FLAG_0) {
                             if (gBmMapUnit[tmp.y][tmp.x] != 0 && !AreUnitsAllied(gActiveUnit->index, gBmMapUnit[tmp.y][tmp.x])) {
                                 continue;
                             }
                         }
 
-                        if (flags & 2) {
-                            if (sub_803B41C(tmp.x, tmp.y) != 0) {
+                        if (flags & AI_FLAG_1) {
+                            if (AiCountNearbyEnemyUnits(tmp.x, tmp.y) != 0) {
                                 continue;
                             }
                         }
@@ -566,7 +575,7 @@ s8 sub_803AFDC(int flags, struct Vec2* outA, struct Vec2* outB) {
             }
 
             if (flags & 2) {
-                if (sub_803B41C(tmp.x, tmp.y) != 0) {
+                if (AiCountNearbyEnemyUnits(tmp.x, tmp.y) != 0) {
                     continue;
                 }
             }
@@ -614,7 +623,7 @@ s8 sub_803AFDC(int flags, struct Vec2* outA, struct Vec2* outB) {
 }
 
 //! FE8U = 0x0803B224
-int sub_803B224(void) {
+int AiCountUnitsInRange(void) {
     int ix;
     int iy;
 
@@ -639,7 +648,7 @@ int sub_803B224(void) {
 }
 
 //! FE8U = 0x0803B298
-int sub_803B298(void) {
+int AiCountEnemyUnitsInRange(void) {
     int ix;
     int iy;
 
@@ -668,7 +677,7 @@ int sub_803B298(void) {
 }
 
 //! FE8U = 0x0803B314
-int sub_803B314(void) {
+int AiCountAlliedUnitsInRange(void) {
     int ix;
     int iy;
 
@@ -697,10 +706,10 @@ int sub_803B314(void) {
 }
 
 //! FE8U = 0x0803B390
-int sub_803B390(s16 x, s16 y) {
+int AiCountNearbyUnits(s16 x, s16 y) {
     int count = 0;
 
-    struct Vec2* it = gUnknown_085A80BC;
+    struct Vec2* it = sRange3OffsetLut;
 
     it--;
 
@@ -726,10 +735,10 @@ int sub_803B390(s16 x, s16 y) {
 }
 
 //! FE8U = 0x0803B41C
-int sub_803B41C(s16 x, s16 y) {
+int AiCountNearbyEnemyUnits(s16 x, s16 y) {
     int count = 0;
 
-    struct Vec2* it = gUnknown_085A80BC;
+    struct Vec2* it = sRange3OffsetLut;
 
     it--;
 
@@ -759,10 +768,10 @@ int sub_803B41C(s16 x, s16 y) {
 }
 
 //! FE8U = 0x0803B4B8
-int sub_803B4B8(s16 x, s16 y) {
+int AiCountNearbyAlliedUnits(s16 x, s16 y) {
     int count = 0;
 
-    struct Vec2* it = gUnknown_085A80BC;
+    struct Vec2* it = sRange3OffsetLut;
 
     it--;
 
@@ -814,7 +823,7 @@ void FillMovementAndRangeMapForItem(struct Unit* unit, u16 item) {
 }
 
 //! FE8U = 0x0803B5F8
-void sub_803B5F8(struct Unit* unit) {
+void AiMakeMoveRangeUnitPowerMaps(struct Unit* unit) {
     int ix;
     int iy;
 
@@ -860,18 +869,22 @@ void sub_803B678(struct Unit* unit, u16 item) {
 }
 
 //! FE8U = 0x0803B718
-s8 sub_803B718(int x, int y, u8(*funcArg)(int x, int y), struct Vec2* out) {
+s8 AiFindBestAdjacentPositionByFunc(int x, int y, u8(*funcArg)(int x, int y), struct Vec2* out) {
     int i;
 
     u8(*func)(int x, int y) = funcArg;
 
     u8 best = 0xff;
 
-    s8 hack[8];
-    memcpy(hack, gUnknown_080D80F4, 8);
+    s8 adjacencyLut[8] = {
+        +1,  0,
+        -1,  0,
+         0, +1,
+         0, -1,
+    };
 
     for (i = 0; i < 4; i++) {
-        u8 val = func(x + hack[i * 2 + 0], y + hack[i * 2 + 1]);
+        u8 val = func(x + adjacencyLut[i * 2 + 0], y + adjacencyLut[i * 2 + 1]);
 
         if (val == 0xFF) {
             continue;
@@ -882,8 +895,8 @@ s8 sub_803B718(int x, int y, u8(*funcArg)(int x, int y), struct Vec2* out) {
         }
 
         best = val;
-        out->x = x + hack[i * 2 + 0];
-        out->y = y + hack[i * 2 + 1];
+        out->x = x + adjacencyLut[i * 2 + 0];
+        out->y = y + adjacencyLut[i * 2 + 1];
     }
 
     if (best != 0xFF) {
@@ -894,7 +907,7 @@ s8 sub_803B718(int x, int y, u8(*funcArg)(int x, int y), struct Vec2* out) {
 }
 
 //! FE8U = 0x0803B794
-int sub_803B794(u16 item) {
+int AiGetItemStealRank(u16 item) {
     int result = 0;
 
     u16* it = gUnknown_085A83A4;
@@ -912,7 +925,7 @@ int sub_803B794(u16 item) {
 }
 
 //! FE8U = 0x0803B7C8
-s8 sub_803B7C8(struct Unit* unit) {
+s8 AiGetUnitStealItemSlot(struct Unit* unit) {
     int i;
 
     u8 rank = 0xff;
@@ -927,7 +940,7 @@ s8 sub_803B7C8(struct Unit* unit) {
             return slot;
         }
 
-        rankNew = sub_803B794(ITEM_INDEX(item));
+        rankNew = AiGetItemStealRank(ITEM_INDEX(item));
 
         if (rank < rankNew) {
             continue;
@@ -941,13 +954,13 @@ s8 sub_803B7C8(struct Unit* unit) {
 }
 
 //! FE8U = 0x0803B808
-s8 sub_803B808(struct Unit* unit, struct Vec2* out) {
+s8 AiFindSafestReachableLocation(struct Unit* unit, struct Vec2* out) {
     int ix;
     int iy;
 
     u8 bestDanger = 0xff;
 
-    if (gAiState.flags & 2) {
+    if (gAiState.flags & AI_FLAG_1) {
         BmMapFill(gBmMapMovement, -1);
         gBmMapMovement[unit->yPos][unit->xPos] = 0;
     } else {
@@ -983,8 +996,12 @@ s8 sub_803B808(struct Unit* unit, struct Vec2* out) {
     return 0;
 }
 
+u8 CONST_DATA gTerrainList_LootableVillages[] = { TERRAIN_VILLAGE_03, TERRAIN_CHURCH, TERRAIN_RUINS_37, 0, };
+
+u8 CONST_DATA gTerrainList_LootableVillagesAndChests[] = { TERRAIN_VILLAGE_03, TERRAIN_CHURCH, TERRAIN_RUINS_37, TERRAIN_CHEST_21, 0, };
+
 //! FE8U = 0x0803B8FC
-s8 sub_803B8FC(struct Vec2* out, u8* outItemSlot) {
+s8 AiFindPillageLocation(struct Vec2* out, u8* outItemSlot) {
     u8* terrainList;
 
     SetWorkingMoveCosts(GetUnitMovementCost(gActiveUnit));
@@ -992,17 +1009,17 @@ s8 sub_803B8FC(struct Vec2* out, u8* outItemSlot) {
 
     GenerateMovementMap(gActiveUnit->xPos, gActiveUnit->yPos, 0x7c, gActiveUnit->index);
 
-    terrainList = sub_803B994(outItemSlot) == 1
-        ? gUnknown_085A8124
-        : gUnknown_085A8120;
+    terrainList = AiGetChestUnlockItemSlot(outItemSlot) == 1
+        ? gTerrainList_LootableVillagesAndChests
+        : gTerrainList_LootableVillages;
 
-    if (sub_803AD38(terrainList, 1, out) == 1) {
+    if (AiFindClosestTerrainPosition(terrainList, 1, out) == 1) {
         return 1;
     }
 
     GenerateExtendedMovementMapOnRange(gActiveUnit->xPos, gActiveUnit->yPos, GetUnitMovementCost(gActiveUnit));
 
-    if (sub_803AD38(terrainList, 0, out) == 1) {
+    if (AiFindClosestTerrainPosition(terrainList, 0, out) == 1) {
         return 1;
     }
 
@@ -1010,13 +1027,13 @@ s8 sub_803B8FC(struct Vec2* out, u8* outItemSlot) {
 }
 
 //! FE8U = 0x0803B994
-s8 sub_803B994(u8* out) {
+s8 AiGetChestUnlockItemSlot(u8* out) {
     int i;
 
     *out = 0;
 
-    if (GetUnitItemCount(gActiveUnit) == 5) {
-        gActiveUnit->aiFlags |= 8;
+    if (GetUnitItemCount(gActiveUnit) == UNIT_ITEM_COUNT) {
+        gActiveUnit->aiFlags |= AI_UNIT_FLAG_3;
         return 0;
     }
 
@@ -1170,7 +1187,7 @@ void sub_803BBF4(s16 x, s16 y, u8 action, u8 maxDanger, u8 unk) {
 }
 
 //! FE8U = 0x0803BDE0
-s8 sub_803BDE0(struct Unit* unit, s16 x, s16 y, struct Vec2* out) {
+s8 AiGetUnitClosestValidPosition(struct Unit* unit, s16 x, s16 y, struct Vec2* out) {
     s16 ix;
     s16 iy;
     u8 bestRange;
@@ -1217,7 +1234,7 @@ s8 sub_803BDE0(struct Unit* unit, s16 x, s16 y, struct Vec2* out) {
 }
 
 //! FE8U = 0x0803BF4C
-u8 sub_803BF4C(u8 classId) {
+u8 AiGetClassRank(u8 classId) {
     u8 num = 0;
     u8** it = gUnknown_085A8150;
 
@@ -1240,7 +1257,7 @@ u8 sub_803BF4C(u8 classId) {
 }
 
 //! FE8U = 0x0803BF84
-s8 sub_803BF84(u16 uid) {
+s8 AiUnitWithCharIdExists(u16 uid) {
     int i;
 
     for (i = 1; i < 0xC0; i++) {
@@ -1258,7 +1275,7 @@ s8 sub_803BF84(u16 uid) {
             return 1;
         }
 
-        if (unit->state & 0x00010005) {
+        if (unit->state & (US_HIDDEN | US_DEAD | US_BIT16)) {
             return 0;
         }
 
@@ -1269,7 +1286,7 @@ s8 sub_803BF84(u16 uid) {
 }
 
 //! FE8U = 0x0803BFD0
-s8 sub_803BFD0(s16 x, s16 y, u8 x2, u8 y2, u8 maxDistance) {
+s8 AiIsWithinRectDistance(s16 x, s16 y, u8 x2, u8 y2, u8 maxDistance) {
     u16 distance = RECT_DISTANCE(x, y, x2, y2);
 
     if (distance <= maxDistance) {
@@ -1280,7 +1297,7 @@ s8 sub_803BFD0(s16 x, s16 y, u8 x2, u8 y2, u8 maxDistance) {
 }
 
 //! FE8U = 0x0803C014
-s8 sub_803C014(u8 x, u8 y) {
+s8 AiLocationIsPillageTarget(u8 x, u8 y) {
     u8 tmp;
 
     switch (gBmMapTerrain[y][x]) {
@@ -1294,7 +1311,7 @@ s8 sub_803C014(u8 x, u8 y) {
             return 1;
 
         case TERRAIN_CHEST_21:
-            if (sub_803B994(&tmp) == 1) {
+            if (AiGetChestUnlockItemSlot(&tmp) == 1) {
                 return 1;
             }
 
@@ -1321,7 +1338,7 @@ void SetupUnitInventoryAIFlags(void) {
             continue;
         }
 
-        if (unit->state & 0x00010005) {
+        if (unit->state & (US_HIDDEN | US_DEAD | US_BIT16)) {
             continue;
         }
 
@@ -1338,7 +1355,7 @@ void SetupUnitInventoryAIFlags(void) {
             }
 
             if (GetItemAttributes(item) & IA_MAGIC) {
-                unit->aiFlags |= 1;
+                unit->aiFlags |= AI_UNIT_FLAG_0;
             }
 
             SetupUnitStatusStaffAIFlags(unit, item);
@@ -1359,21 +1376,21 @@ void SetupUnitStatusStaffAIFlags(struct Unit* unit, u16 item) {
         return;
     }
 
-    flags = 2;
+    flags = AI_UNIT_FLAG_1;
 
     switch (GetItemIndex(item)) {
         case ITEM_STAFF_SILENCE:
-            flags = 8;
+            flags = AI_UNIT_FLAG_3;
 
             break;
 
         case ITEM_STAFF_SLEEP:
-            flags = 0x10;
+            flags = AI_UNIT_FLAG_4;
 
             break;
 
         case ITEM_STAFF_BERSERK:
-            flags = 0x20;
+            flags = AI_UNIT_FLAG_5;
 
             break;
     }
@@ -1388,8 +1405,8 @@ void SetupUnitHealStaffAIFlags(struct Unit* unit, u16 item) {
 
     int flags = 0;
 
-    if (((GetItemAttributes(item) & 1) != 0) && (GetItemMaxRange(item) > 1)) {
-        flags = 0x40;
+    if ((GetItemAttributes(item) & IA_WEAPON) && (GetItemMaxRange(item) > 1)) {
+        flags = AI_UNIT_FLAG_6;
     }
 
     switch (GetItemUseEffect(item)) {
@@ -1400,7 +1417,7 @@ void SetupUnitHealStaffAIFlags(struct Unit* unit, u16 item) {
         case 0x05:
         case 0x21:
         case 0x22:
-            flags |= 4;
+            flags |= AI_UNIT_FLAG_2;
             break;
     }
 
@@ -1510,7 +1527,7 @@ int sub_803C364(void) {
             continue;
         }
 
-        if (unit->state & 0x00010005) {
+        if (unit->state & (US_HIDDEN | US_DEAD | US_BIT16)) {
             continue;
         }
 
@@ -1544,7 +1561,7 @@ int sub_803C3B0(void) {
                 continue;
             }
 
-            if (GetUnit(gBmMapUnit[iy][ix])->aiFlags & 1) {
+            if (GetUnit(gBmMapUnit[iy][ix])->aiFlags & AI_UNIT_FLAG_0) {
                 count++;
             }
         }

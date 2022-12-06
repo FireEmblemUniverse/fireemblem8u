@@ -1,6 +1,7 @@
 #include "global.h"
 
 #include "cp_common.h"
+#include "cp_utility.h"
 #include "bmunit.h"
 #include "bmitem.h"
 #include "bmmap.h"
@@ -12,16 +13,6 @@
 #include "constants/classes.h"
 #include "constants/items.h"
 #include "constants/terrains.h"
-
-
-
-// code_cpextra.s
-s8 sub_803AD38(const u8*, int, struct Vec2*);
-s8 sub_803AE94(const u8*, int, struct Vec2*);
-s8 sub_803AFDC(u32, struct Vec2*, struct Vec2*);
-s8 sub_803B808(struct Unit*, struct Vec2*);
-s8 sub_803BFD0(s16, s16, u16, u16, int);
-void sub_803C490(struct Unit*);
 
 
 s8 sub_8040B38(struct Unit*, struct Vec2*);
@@ -123,7 +114,7 @@ void AiSpecialItemDoorKey(int item) {
         return;
     }
 
-    if (sub_803BFD0(pos.x, pos.y, gAiDecision.xMove, gAiDecision.yMove, 0) == 1) {
+    if (AiIsWithinRectDistance(pos.x, pos.y, gAiDecision.xMove, gAiDecision.yMove, 0) == 1) {
         AiSetDecision(gAiDecision.xMove, gAiDecision.yMove, 6, 0, item, 0, 0);
     }
 
@@ -168,7 +159,7 @@ void AiSpecialItemLockpick(int item) {
             return;
         }
 
-        if ((sub_803BFD0(pos.x, pos.y, gAiDecision.xMove, gAiDecision.yMove, 0) == 1)) {
+        if ((AiIsWithinRectDistance(pos.x, pos.y, gAiDecision.xMove, gAiDecision.yMove, 0) == 1)) {
             AiSetDecision(gAiDecision.xMove, gAiDecision.yMove, 6, 0, item, 0, 0);
         }
     }
@@ -188,7 +179,7 @@ void AiSpecialItemAntitoxin(int item) {
         return;
     }
 
-    if (sub_803B808(gActiveUnit, &pos) == 1) {
+    if (AiFindSafestReachableLocation(gActiveUnit, &pos) == 1) {
         AiSetDecision(pos.x, pos.y, 6, 0, item, 0, 0);
     }
 
@@ -216,7 +207,7 @@ s8 sub_8040B38(struct Unit* unit, struct Vec2* pos) {
 
     sub_8040FBC(unit);
 
-    if (!sub_803AE94(gUnknown_085A92DC, 0, pos)) {
+    if (!AiFindClosestTerrainAdjacentPosition(gUnknown_085A92DC, 0, pos)) {
         return 0;
     }
 
@@ -236,7 +227,7 @@ const u8 CONST_DATA gUnknown_085A92DE[] = {
 s8 sub_8040B8C(struct Unit* unit, struct Vec2* pos) {
     sub_8040E98(unit);
 
-    if (sub_803AD38(gUnknown_085A92DE, 0, pos) == 0) {
+    if (AiFindClosestTerrainPosition(gUnknown_085A92DE, 0, pos) == 0) {
         return 0;
     }
 
@@ -248,13 +239,13 @@ s8 sub_8040BB4(struct Unit* unit, u32 flags, struct Vec2* posA, struct Vec2* pos
     InitAiMoveMapForUnit(unit);
     sub_8040F88(unit);
 
-    if ((sub_803AFDC(flags | 1, posA, posB) == 1) && ((s8)gBmMapMovement[posA->y][posA->x] < MAP_MOVEMENT_MAX)) {
+    if ((AiFindClosestUnlockPosition(flags | 1, posA, posB) == 1) && ((s8)gBmMapMovement[posA->y][posA->x] < MAP_MOVEMENT_MAX)) {
         return 1;
     } else {
 
         sub_8040FBC(unit);
 
-        if (sub_803AFDC(flags, posA, posB) == 1) {
+        if (AiFindClosestUnlockPosition(flags, posA, posB) == 1) {
 
             if (((s8)gBmMapMovement[posA->y][posA->x] < MAP_MOVEMENT_MAX) && (gBmMapUnit[posA->y][posA->x] == 0)) {
                 return 0;
@@ -293,7 +284,7 @@ s8 sub_8040C5C() {
                     AiTryMoveTowards(posA.x, posA.y, 0, gAiState.unk7E, 0);
 
                     if (gAiDecision.actionPerformed == 1) {
-                        if (sub_803BFD0(posA.x, posA.y, gAiDecision.xMove, gAiDecision.yMove, 0) == 1) {
+                        if (AiIsWithinRectDistance(posA.x, posA.y, gAiDecision.xMove, gAiDecision.yMove, 0) == 1) {
                             AiSetDecision(gAiDecision.xMove, gAiDecision.yMove, 0xD, 0, 0, posB.x, posB.y);
                             return 1;
                         }
@@ -304,7 +295,7 @@ s8 sub_8040C5C() {
                     AiTryMoveTowards(posA.x, posA.y, 0, gAiState.unk7E, 0);
 
                     if (gAiDecision.actionPerformed == 1) {
-                        if (sub_803BFD0(posA.x, posA.y, gAiDecision.xMove, gAiDecision.yMove, 0) == 1) {
+                        if (AiIsWithinRectDistance(posA.x, posA.y, gAiDecision.xMove, gAiDecision.yMove, 0) == 1) {
                             AiSetDecision(gAiDecision.xMove, gAiDecision.yMove, 0xD, 0, 0, gAiDecision.xMove, gAiDecision.yMove);
                             return 1;
                         }

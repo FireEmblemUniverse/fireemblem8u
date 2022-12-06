@@ -2,6 +2,7 @@
 #include "global.h"
 
 #include "proc.h"
+#include "cp_utility.h"
 
 #include "cp_common.h"
 
