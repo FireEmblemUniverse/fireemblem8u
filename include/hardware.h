@@ -73,10 +73,10 @@ enum {
     gLCDControlBuffer.wincnt.win0_enableObj = (obj)
 
 #define SetWin1Layers(bg0, bg1, bg2, bg3, obj) \
-    gLCDControlBuffer.wincnt.win1_enable_bg0 = (bg0); \
-    gLCDControlBuffer.wincnt.win1_enable_bg1 = (bg1); \
-    gLCDControlBuffer.wincnt.win1_enable_bg2 = (bg2); \
-    gLCDControlBuffer.wincnt.win1_enable_bg3 = (bg3); \
+    gLCDControlBuffer.wincnt.win1_enableBg0 = (bg0); \
+    gLCDControlBuffer.wincnt.win1_enableBg1 = (bg1); \
+    gLCDControlBuffer.wincnt.win1_enableBg2 = (bg2); \
+    gLCDControlBuffer.wincnt.win1_enableBg3 = (bg3); \
     gLCDControlBuffer.wincnt.win1_enableObj = (obj)
 
 #define SetWObjLayers(bg0, bg1, bg2, bg3, obj) \

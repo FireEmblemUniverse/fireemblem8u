@@ -13,6 +13,7 @@
 #include "bmusemind.h"
 #include "player_interface.h"
 #include "bmtrick.h"
+#include "bmreliance.h"
 
 struct Struct089ED67C {
     /* 00 */ u8 _pad00[0x0C];
@@ -347,3 +348,227 @@ s8 sub_8084E88(u8 pid)
 s8 sub_8084EB8() {return sub_8084E88(0);}
 s8 sub_8084EC8() {return sub_8084E88(0);}
 s8 sub_8084ED8() {return sub_8084E88(0);}
+
+int AreAnyEnemyUnitDead(void)
+{
+    int i;
+    struct Unit *unit;
+    for (i = FACTION_RED + 1; i < FACTION_PURPLE; i++) {
+        unit = GetUnit(i);
+        if (UNIT_IS_VALID(unit)) {
+            if (0 == (US_DEAD & unit->state))
+                return 1;
+        }
+    }
+    return 0;
+}
+
+u16 GetDeadEnemyAmount()
+{
+    int i;
+    u16 ret = 0;
+    struct Unit *unit;
+    for (i = FACTION_RED + 1; i < FACTION_PURPLE; i++) {
+        unit = GetUnit(i);
+        if (UNIT_IS_VALID(unit)) {
+            if (0 == (US_DEAD & unit->state))
+                ret++;
+        }
+    }
+    return ret;
+}
+
+int sub_8084F54()
+{
+    int dead = AreAnyEnemyUnitDead();
+    int ret = 0;
+    u8 _dead = dead;
+    ret = 0 == _dead ? 1 : 0;
+    return ret;
+}
+
+s8 IsCharDeadAsNonPlayerUnit(u8 pid)
+{
+    int i;
+    struct Unit *unit;
+    for (i = FACTION_GREEN + 1; i < FACTION_PURPLE; i++) {
+        unit = GetUnit(i);
+        if (UNIT_IS_VALID(unit)) {
+            if (0 == (US_DEAD & unit->state))
+                if (unit->pCharacterData->number == pid)
+                    return 1;
+        }
+    }
+    return 0;
+}
+
+int sub_8084FA8()
+{
+    int i;
+    int ret = 0;
+    struct Unit *unit;
+    for (i = FACTION_BLUE + 1; i < FACTION_GREEN; i++) {
+        unit = GetUnit(i);
+        if (UNIT_IS_VALID(unit)) {
+            if (0 == ((US_NOT_DEPLOYED | US_DEAD) & unit->state))
+                if (0 == (US_UNSELECTABLE & unit->state))
+                    ret++;
+        }
+    }
+    return ret;
+}
+
+int sub_8084FE4()
+{
+    int i;
+    struct Unit *unit;
+    for (i = FACTION_GREEN + 1; i < FACTION_RED; i++) {
+        unit = GetUnit(i);
+        if (UNIT_IS_VALID(unit)) {
+            if (0 == (US_UNSELECTABLE & unit->state))
+                return 0;
+        }
+    }
+    return 1;
+}
+
+s8 sub_8085018() {return IsCharDeadAsNonPlayerUnit(0);}
+s8 sub_8085028() {return IsCharDeadAsNonPlayerUnit(0);}
+s8 sub_8085038() {return IsCharDeadAsNonPlayerUnit(0);}
+s8 sub_8085048() {return IsCharDeadAsNonPlayerUnit(0);}
+s8 sub_8085058() {return IsCharDeadAsNonPlayerUnit(0);}
+s8 sub_8085068() {return IsCharDeadAsNonPlayerUnit(0);}
+s8 sub_8085078() {return IsCharDeadAsNonPlayerUnit(0);}
+s8 sub_8085088() {return IsCharDeadAsNonPlayerUnit(0);}
+s8 sub_8085098() {return IsCharDeadAsNonPlayerUnit(0);}
+s8 sub_80850A8() {return IsCharDeadAsNonPlayerUnit(0);}
+s8 sub_80850B8() {return IsCharDeadAsNonPlayerUnit(0);}
+s8 sub_80850C8() {return IsCharDeadAsNonPlayerUnit(0);}
+s8 sub_80850D8() {return IsCharDeadAsNonPlayerUnit(0);}
+s8 sub_80850E8() {return IsCharDeadAsNonPlayerUnit(0);}
+s8 sub_80850F8() {return IsCharDeadAsNonPlayerUnit(0);}
+s8 sub_8085108() {return IsCharDeadAsNonPlayerUnit(0);}
+s8 sub_8085118() {return IsCharDeadAsNonPlayerUnit(0);}
+
+s8 sub_8085128() {return HaveCharactersMaxSupport(0, 0);}
+s8 sub_808513C() {return HaveCharactersMaxSupport(0, 0);}
+s8 sub_8085150() {return HaveCharactersMaxSupport(0, 0);}
+s8 sub_8085164() {return HaveCharactersMaxSupport(0, 0);}
+s8 sub_8085178() {return HaveCharactersMaxSupport(0, 0);}
+s8 sub_808518C() {return HaveCharactersMaxSupport(0, 0);}
+
+int sub_80851A0(u8 pid, int faction)
+{
+    int i;
+    struct Unit * unit;
+    int ret = 0;
+
+    for (i = faction + 1; i < faction + 0x40; i++) {
+        unit = GetUnit(i);
+        if (!UNIT_IS_VALID(unit))
+            continue;
+
+        if (US_DEAD & unit->state)
+            continue;
+
+        if (unit->pCharacterData->number == pid)
+            ret++;
+    }
+
+    return ret;
+}
+
+int sub_80851E4(int faction)
+{
+    int i;
+    struct Unit * unit;
+    int ret = 0;
+
+    for (i = faction + 1; i < faction + 0x40; i++) {
+        unit = GetUnit(i);
+        if (!UNIT_IS_VALID(unit))
+            continue;
+
+        if (0 == (US_DEAD & unit->state))
+            ret++;
+    }
+    return ret;
+}
+
+int sub_8085220()
+{
+    return gRAMChapterData.chapterTurnNumber > 20;
+}
+
+int sub_8085238()
+{
+    return gRAMChapterData.chapterTurnNumber > 25;
+}
+
+int sub_8085250()
+{
+    return gRAMChapterData.chapterTurnNumber > 30;
+}
+
+int sub_8085268()
+{
+    return FACTION_BLUE == gRAMChapterData.faction;
+}
+
+int sub_8085280()
+{
+    return FACTION_RED == gRAMChapterData.faction;
+}
+
+int sub_8085298()
+{
+    return 0 == (CA_FEMALE & UNIT_CATTRIBUTES(gActiveUnit));
+}
+
+int sub_80852B4()
+{
+    return (int)GetPartyGoldAmount() > 9999;
+}
+
+int sub_80852D0()
+{
+    return (int)GetPartyGoldAmount() > 7999;
+}
+
+int sub_80852EC()
+{
+    return (int)GetPartyGoldAmount() > 5999;
+}
+
+int sub_8085308()
+{
+    return (int)GetPartyGoldAmount() > 4999;
+}
+
+int sub_8085324()
+{
+    return 1 == GetDialoguePromptResult();
+}
+
+int sub_8085338()
+{
+    if (GetDeadEnemyAmount() >= 50)
+        return 1;
+    else
+        return 0;
+}
+
+int sub_8085350()
+{
+    return 0;
+}
+
+int sub_8085354()
+{
+    return GetUnitCurrentHp(gActiveUnit) == 0;
+}
+
+int sub_8085370()
+{
+    return 0;
+}
