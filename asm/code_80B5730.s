@@ -114,7 +114,7 @@ sub_80B57A0: @ 0x080B57A0
 	movs r3, #3
 	bl sub_8007938
 	ldr r0, _080B5954  @ gUnknown_089AD934
-	ldr r5, _080B5958  @ gUnknown_02020188
+	ldr r5, _080B5958  @ gGenericBuffer
 	adds r1, r5, #0
 	bl CopyDataWithPossibleUncomp
 	ldr r4, _080B595C  @ gBG1TilemapBuffer
@@ -266,7 +266,7 @@ _080B5948: .4byte gProcScr_MoveUnit
 _080B594C: .4byte MU_Hide
 _080B5950: .4byte gLCDControlBuffer
 _080B5954: .4byte gUnknown_089AD934
-_080B5958: .4byte gUnknown_02020188
+_080B5958: .4byte gGenericBuffer
 _080B595C: .4byte gBG1TilemapBuffer
 _080B5960: .4byte gUnknown_089A8F94
 _080B5964: .4byte gBG3TilemapBuffer
@@ -979,7 +979,7 @@ sub_80B5EA4: @ 0x080B5EA4
 	mov r5, r8
 	push {r5, r6, r7}
 	sub sp, #0x10
-	bl sub_80A49A4
+	bl BWL_GetTotalExpGained
 	mov r9, r0
 	movs r1, #0
 	add r0, sp, #0xc
@@ -1497,9 +1497,9 @@ _080B6260: .4byte 0x00010004
 	THUMB_FUNC_START sub_80B6264
 sub_80B6264: @ 0x080B6264
 	push {r4, lr}
-	bl sub_80A4904
+	bl BWL_GetTotalBattles
 	adds r4, r0, #0
-	bl sub_80A4928
+	bl BWL_GetTotalWins
 	movs r1, #0x64
 	muls r0, r1, r0
 	adds r1, r4, #0
@@ -1635,9 +1635,9 @@ sub_80B6358: @ 0x080B6358
 	mov r7, r9
 	mov r6, r8
 	push {r6, r7}
-	bl sub_80A4904
+	bl BWL_GetTotalBattles
 	adds r4, r0, #0
-	bl sub_80A4928
+	bl BWL_GetTotalWins
 	adds r5, r0, #0
 	ldr r7, _080B638C  @ 0x000FFFFF
 	cmp r4, r7
@@ -1751,7 +1751,7 @@ _080B642C:
 	subs r0, #4
 	cmp r0, sp
 	bge _080B642C
-	bl sub_80A49A4
+	bl BWL_GetTotalExpGained
 	adds r1, r0, #0
 	ldr r4, _080B64F4  @ 0x000FFFFF
 	cmp r1, r4
@@ -2984,7 +2984,7 @@ sub_80B6D24: @ 0x080B6D24
 	movs r1, #0
 	bl BG_Fill
 	ldr r0, _080B6EAC  @ gUnknown_08A40204
-	ldr r4, _080B6EB0  @ gUnknown_02020188
+	ldr r4, _080B6EB0  @ gGenericBuffer
 	adds r1, r4, #0
 	bl CopyDataWithPossibleUncomp
 	ldr r0, [r5, #8]
@@ -3133,7 +3133,7 @@ _080B6E92:
 	.align 2, 0
 _080B6EA8: .4byte gUnknown_08A3D348
 _080B6EAC: .4byte gUnknown_08A40204
-_080B6EB0: .4byte gUnknown_02020188
+_080B6EB0: .4byte gGenericBuffer
 _080B6EB4: .4byte 0x0000C260
 _080B6EB8: .4byte gUnknown_08A400E4
 _080B6EBC: .4byte gUnknown_08A3D358
@@ -3223,7 +3223,7 @@ sub_80B6F34: @ 0x080B6F34
 	movs r1, #0
 	bl BG_Fill
 	ldr r0, _080B71A4  @ gUnknown_08A40470
-	ldr r4, _080B71A8  @ gUnknown_02020188
+	ldr r4, _080B71A8  @ gGenericBuffer
 	adds r1, r4, #0
 	bl CopyDataWithPossibleUncomp
 	ldr r0, [r5, #8]
@@ -3470,7 +3470,7 @@ sub_80B6F34: @ 0x080B6F34
 	.align 2, 0
 _080B71A0: .4byte gUnknown_08A3D348
 _080B71A4: .4byte gUnknown_08A40470
-_080B71A8: .4byte gUnknown_02020188
+_080B71A8: .4byte gGenericBuffer
 _080B71AC: .4byte 0x0000C260
 _080B71B0: .4byte gUnknown_08A4034C
 _080B71B4: .4byte gUnknown_08A3D358
@@ -3838,7 +3838,7 @@ sub_80B745C: @ 0x080B745C
 	ldr r1, _080B749C  @ 0x06001000
 	bl CopyDataWithPossibleUncomp
 	ldr r0, _080B74A0  @ gUnknown_08A409D0
-	ldr r4, _080B74A4  @ gUnknown_02020188
+	ldr r4, _080B74A4  @ gGenericBuffer
 	adds r1, r4, #0
 	bl CopyDataWithPossibleUncomp
 	ldr r0, _080B74A8  @ gBG2TilemapBuffer
@@ -3855,7 +3855,7 @@ _080B7494: .4byte gUnknown_08A405B4
 _080B7498: .4byte gUnknown_08A405D4
 _080B749C: .4byte 0x06001000
 _080B74A0: .4byte gUnknown_08A409D0
-_080B74A4: .4byte gUnknown_02020188
+_080B74A4: .4byte gGenericBuffer
 _080B74A8: .4byte gBG2TilemapBuffer
 _080B74AC: .4byte 0x0000E080
 
@@ -5325,7 +5325,7 @@ sub_80B8014: @ 0x080B8014
 	adds r0, r4, #0
 	bl CopyDataWithPossibleUncomp
 	ldr r0, _080B8154  @ gUnknown_08A268F8
-	ldr r4, _080B8158  @ gUnknown_02020188
+	ldr r4, _080B8158  @ gGenericBuffer
 	adds r1, r4, #0
 	bl CopyDataWithPossibleUncomp
 	ldr r0, _080B815C  @ gUnknown_08A268D8
@@ -5357,7 +5357,7 @@ _080B8148: .4byte gUnknown_08A25ECC
 _080B814C: .4byte gUnknown_08A26380
 _080B8150: .4byte 0x06004C00
 _080B8154: .4byte gUnknown_08A268F8
-_080B8158: .4byte gUnknown_02020188
+_080B8158: .4byte gGenericBuffer
 _080B815C: .4byte gUnknown_08A268D8
 _080B8160: .4byte 0x00007260
 _080B8164: .4byte gUnknown_02000000
@@ -5554,7 +5554,7 @@ _080B827E:
 	THUMB_FUNC_START sub_80B828C
 sub_80B828C: @ 0x080B828C
 	push {lr}
-	ldr r0, _080B82A4  @ gUnknown_03005280
+	ldr r0, _080B82A4  @ gGMData
 	ldrb r1, [r0]
 	movs r0, #8
 	ands r0, r1
@@ -5567,14 +5567,14 @@ _080B829E:
 	pop {r1}
 	bx r1
 	.align 2, 0
-_080B82A4: .4byte gUnknown_03005280
+_080B82A4: .4byte gGMData
 
 	THUMB_FUNC_END sub_80B828C
 
 	THUMB_FUNC_START sub_80B82A8
 sub_80B82A8: @ 0x080B82A8
 	push {lr}
-	ldr r0, _080B82C4  @ gUnknown_03005280
+	ldr r0, _080B82C4  @ gGMData
 	ldrb r1, [r0]
 	movs r0, #8
 	ands r0, r1
@@ -5589,7 +5589,7 @@ _080B82BE:
 	pop {r1}
 	bx r1
 	.align 2, 0
-_080B82C4: .4byte gUnknown_03005280
+_080B82C4: .4byte gGMData
 
 	THUMB_FUNC_END sub_80B82A8
 
@@ -6160,7 +6160,7 @@ sub_80B86CC: @ 0x080B86CC
 	mov r2, r9
 	ldr r1, [r2, #0x2c]
 	adds r5, r1, r0
-	ldr r0, _080B872C  @ gUnknown_03005280
+	ldr r0, _080B872C  @ gGMData
 	ldrb r1, [r0]
 	movs r0, #8
 	ands r0, r1
@@ -6184,7 +6184,7 @@ sub_80B86CC: @ 0x080B86CC
 	b _080B874E
 	.align 2, 0
 _080B8728: .4byte gUnknown_08A3D700
-_080B872C: .4byte gUnknown_03005280
+_080B872C: .4byte gGMData
 _080B8730:
 	str r0, [sp]
 	movs r0, #0
@@ -6339,7 +6339,7 @@ sub_80B8844: @ 0x080B8844
 	adds r0, #0x2c
 	ldr r1, [r6, #0x2c]
 	adds r4, r1, r0
-	ldr r0, _080B8898  @ gUnknown_03005280
+	ldr r0, _080B8898  @ gGMData
 	ldrb r1, [r0]
 	movs r0, #8
 	ands r0, r1
@@ -6363,7 +6363,7 @@ sub_80B8844: @ 0x080B8844
 	b _080B88BA
 	.align 2, 0
 _080B8894: .4byte gUnknown_08A3D700
-_080B8898: .4byte gUnknown_03005280
+_080B8898: .4byte gGMData
 _080B889C:
 	str r0, [sp]
 	movs r0, #0
@@ -6575,7 +6575,7 @@ WorldMap_Destruct: @ 0x080B8A18
 	bl SetSpecialColorEffectsParameters
 	bl sub_80BF15C
 	bl sub_80C3E94
-	ldr r2, _080B8A78  @ gUnknown_03005280
+	ldr r2, _080B8A78  @ gGMData
 	ldrb r1, [r2]
 	movs r0, #0x41
 	negs r0, r0
@@ -6589,7 +6589,7 @@ WorldMap_Destruct: @ 0x080B8A18
 	pop {r0}
 	bx r0
 	.align 2, 0
-_080B8A78: .4byte gUnknown_03005280
+_080B8A78: .4byte gGMData
 
 	THUMB_FUNC_END WorldMap_Destruct
 
@@ -6611,7 +6611,7 @@ sub_80B8A7C: @ 0x080B8A7C
 	movs r1, #2
 	orrs r0, r1
 	strb r0, [r3]
-	ldr r0, _080B8B00  @ gUnknown_03005280
+	ldr r0, _080B8B00  @ gGMData
 	mov r8, r0
 	strb r2, [r0, #1]
 	ldr r0, [r7, #0x54]
@@ -6658,7 +6658,7 @@ sub_80B8A7C: @ 0x080B8A7C
 	bl Proc_Goto
 	b _080B8B2E
 	.align 2, 0
-_080B8B00: .4byte gUnknown_03005280
+_080B8B00: .4byte gGMData
 _080B8B04:
 	cmp r0, #0xf
 	bgt _080B8B0C
@@ -6717,7 +6717,7 @@ _080B8B58:
 sub_80B8B60: @ 0x080B8B60
 	push {r4, lr}
 	adds r3, r0, #0
-	ldr r4, _080B8B90  @ gUnknown_03005280
+	ldr r4, _080B8B90  @ gGMData
 	lsls r0, r3, #2
 	adds r0, r0, r4
 	adds r0, #0x30
@@ -6740,7 +6740,7 @@ _080B8B7C:
 	movs r0, #1
 	b _080B8B9E
 	.align 2, 0
-_080B8B90: .4byte gUnknown_03005280
+_080B8B90: .4byte gGMData
 _080B8B94:
 	adds r1, #4
 	adds r2, #1
@@ -6799,7 +6799,7 @@ _080B8BD4:
 _080B8BFA:
 	adds r0, r1, #1
 	bl sub_80BD28C
-	ldr r1, _080B8CB8  @ gUnknown_03005280
+	ldr r1, _080B8CB8  @ gGMData
 	lsls r0, r0, #2
 	adds r0, r0, r1
 	adds r0, #0x30
@@ -6885,7 +6885,7 @@ _080B8C40:
 	strb r0, [r1]
 	b _080B8D50
 	.align 2, 0
-_080B8CB8: .4byte gUnknown_03005280
+_080B8CB8: .4byte gGMData
 _080B8CBC: .4byte gUnknown_082060B0
 _080B8CC0:
 	adds r0, r6, #0
@@ -6922,7 +6922,7 @@ _080B8CEC:
 	movs r0, #0
 	ldrsb r0, [r5, r0]
 	bl sub_80BD28C
-	ldr r4, _080B8D28  @ gUnknown_03005280
+	ldr r4, _080B8D28  @ gGMData
 	strb r0, [r4, #0x11]
 	ldr r0, [r6, #0x54]
 	movs r1, #0
@@ -6940,7 +6940,7 @@ _080B8CEC:
 	bl Proc_Goto
 	b _080B8D50
 	.align 2, 0
-_080B8D28: .4byte gUnknown_03005280
+_080B8D28: .4byte gGMData
 _080B8D2C: .4byte gUnknown_082060B0
 _080B8D30:
 	adds r0, r2, #0
@@ -7018,7 +7018,7 @@ SetupGraphicSystemsForWorldMap: @ 0x080B8D5C
 	orrs r0, r1
 	strb r0, [r4, #0x18]
 	movs r0, #6
-	bl GetSaveDataLocation
+	bl GetSaveTargetAddress
 	bl LoadLegacyUiFrameGraphics
 	bl Font_InitForUIDefault
 	bl ResetFaces
@@ -7057,7 +7057,7 @@ sub_80B8E14: @ 0x080B8E14
 	ldr r1, _080B8E50  @ 0x06011000
 	bl CopyDataWithPossibleUncomp
 	ldr r0, _080B8E54  @ gUnknown_08A97410
-	ldr r4, _080B8E58  @ gUnknown_02020188
+	ldr r4, _080B8E58  @ gGenericBuffer
 	adds r1, r4, #0
 	bl CopyDataWithPossibleUncomp
 	ldr r1, _080B8E5C  @ 0x06010280
@@ -7073,7 +7073,7 @@ _080B8E48: .4byte gUnknown_08A97A40
 _080B8E4C: .4byte gUnknown_08A96308
 _080B8E50: .4byte 0x06011000
 _080B8E54: .4byte gUnknown_08A97410
-_080B8E58: .4byte gUnknown_02020188
+_080B8E58: .4byte gGenericBuffer
 _080B8E5C: .4byte 0x06010280
 
 	THUMB_FUNC_END sub_80B8E14
@@ -7111,7 +7111,7 @@ sub_80B8E60: @ 0x080B8E60
 	movs r2, #0x20
 	bl CopyToPaletteBuffer
 	ldr r0, _080B8F88  @ gUnknown_08AA11D0
-	ldr r4, _080B8F8C  @ gUnknown_02020188
+	ldr r4, _080B8F8C  @ gGenericBuffer
 	adds r1, r4, #0
 	bl CopyDataWithPossibleUncomp
 	ldr r1, _080B8F90  @ 0x06015300
@@ -7203,7 +7203,7 @@ _080B8F7C: .4byte gBG2TilemapBuffer
 _080B8F80: .4byte gBG3TilemapBuffer
 _080B8F84: .4byte gUnknown_0859ED70
 _080B8F88: .4byte gUnknown_08AA11D0
-_080B8F8C: .4byte gUnknown_02020188
+_080B8F8C: .4byte gGenericBuffer
 _080B8F90: .4byte 0x06015300
 _080B8F94: .4byte gUnknown_08A97FA4
 _080B8F98: .4byte gUnknown_08A97ED8
@@ -7248,7 +7248,7 @@ nullsub_22: @ 0x080B8FD0
 
 	THUMB_FUNC_START sub_80B8FD4
 sub_80B8FD4: @ 0x080B8FD4
-	ldr r2, _080B8FE8  @ gUnknown_03005280
+	ldr r2, _080B8FE8  @ gGMData
 	ldrb r0, [r2]
 	movs r1, #1
 	orrs r0, r1
@@ -7258,7 +7258,7 @@ sub_80B8FD4: @ 0x080B8FD4
 	strb r0, [r2]
 	bx lr
 	.align 2, 0
-_080B8FE8: .4byte gUnknown_03005280
+_080B8FE8: .4byte gGMData
 
 	THUMB_FUNC_END sub_80B8FD4
 
@@ -7266,7 +7266,7 @@ _080B8FE8: .4byte gUnknown_03005280
 sub_80B8FEC: @ 0x080B8FEC
 	push {r4, lr}
 	adds r4, r0, #0
-	ldr r0, _080B9010  @ gUnknown_03005280
+	ldr r0, _080B9010  @ gGMData
 	bl sub_80BD014
 	adds r1, r0, #0
 	cmp r1, #0
@@ -7282,7 +7282,7 @@ sub_80B8FEC: @ 0x080B8FEC
 	strb r0, [r1]
 	b _080B9022
 	.align 2, 0
-_080B9010: .4byte gUnknown_03005280
+_080B9010: .4byte gGMData
 _080B9014:
 	ldr r0, [r4, #0x48]
 	adds r0, #0x32
@@ -7309,7 +7309,7 @@ sub_80B9028: @ 0x080B9028
 	movs r6, #0
 	add r0, sp, #4
 	mov r8, r0
-	ldr r4, _080B906C  @ gUnknown_03005280
+	ldr r4, _080B906C  @ gGMData
 	ldr r1, _080B9070  @ gUnknown_082060B0
 	mov r9, r1
 	mov r7, sp
@@ -7335,7 +7335,7 @@ _080B9044:
 	bl MapMU_SetUnitClass
 	b _080B9088
 	.align 2, 0
-_080B906C: .4byte gUnknown_03005280
+_080B906C: .4byte gGMData
 _080B9070: .4byte gUnknown_082060B0
 _080B9074:
 	ldr r0, [r5, #0x54]
@@ -7388,7 +7388,7 @@ _080B90B6:
 sub_80B90CC: @ 0x080B90CC
 	push {r4, r5, r6, lr}
 	adds r6, r0, #0
-	ldr r2, _080B9110  @ gUnknown_03005280
+	ldr r2, _080B9110  @ gGMData
 	ldrb r1, [r2]
 	movs r0, #2
 	ands r0, r1
@@ -7420,7 +7420,7 @@ _080B9102:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_080B9110: .4byte gUnknown_03005280
+_080B9110: .4byte gGMData
 
 	THUMB_FUNC_END sub_80B90CC
 
@@ -7429,7 +7429,7 @@ sub_80B9114: @ 0x080B9114
 	push {r4, r5, r6, lr}
 	adds r4, r0, #0
 	movs r2, #0
-	ldr r0, _080B9140  @ gUnknown_03005280
+	ldr r0, _080B9140  @ gGMData
 	movs r6, #2
 	adds r3, r0, #0
 	adds r3, #0x30
@@ -7450,7 +7450,7 @@ _080B9124:
 	strb r0, [r1]
 	b _080B914C
 	.align 2, 0
-_080B9140: .4byte gUnknown_03005280
+_080B9140: .4byte gGMData
 _080B9144:
 	adds r3, #4
 	adds r2, #1
@@ -7499,7 +7499,7 @@ sub_80B9154: @ 0x080B9154
 	adds r0, r5, #0
 	bl NewMapMU
 	str r0, [r5, #0x54]
-	ldr r4, _080B9210  @ gUnknown_03005280
+	ldr r4, _080B9210  @ gGMData
 	adds r0, r4, #0
 	bl sub_80BCA0C
 	adds r0, r5, #0
@@ -7547,7 +7547,7 @@ _080B91FE:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_080B9210: .4byte gUnknown_03005280
+_080B9210: .4byte gGMData
 _080B9214: .4byte gRAMChapterData
 
 	THUMB_FUNC_END sub_80B9154
@@ -7557,7 +7557,7 @@ sub_80B9218: @ 0x080B9218
 	push {r4, r5, r6, lr}
 	sub sp, #8
 	mov r2, sp
-	ldr r1, _080B9260  @ gUnknown_03005280
+	ldr r1, _080B9260  @ gGMData
 	ldr r0, [r1, #8]
 	asrs r0, r0, #8
 	strh r0, [r2]
@@ -7590,7 +7590,7 @@ sub_80B9218: @ 0x080B9218
 	subs r0, #0x20
 	b _080B9282
 	.align 2, 0
-_080B9260: .4byte gUnknown_03005280
+_080B9260: .4byte gGMData
 _080B9264:
 	movs r0, #0
 	b _080B9282
@@ -7661,7 +7661,7 @@ sub_80B92D0: @ 0x080B92D0
 	push {r4, r5, r6, r7, lr}
 	adds r5, r0, #0
 	adds r4, r1, #0
-	ldr r7, _080B930C  @ gUnknown_03005280
+	ldr r7, _080B930C  @ gGMData
 	ldrb r0, [r7, #0x11]
 	cmp r0, r4
 	bne _080B9356
@@ -7687,7 +7687,7 @@ sub_80B92D0: @ 0x080B92D0
 	movs r1, #0x10
 	b _080B934E
 	.align 2, 0
-_080B930C: .4byte gUnknown_03005280
+_080B930C: .4byte gGMData
 _080B9310: .4byte gUnknown_082060B0
 _080B9314:
 	adds r0, r7, #0
@@ -7876,7 +7876,7 @@ _080B9468:
 _080B946E:
 	cmp r3, #0
 	beq _080B954A
-	ldr r2, _080B94A8  @ gUnknown_03005280
+	ldr r2, _080B94A8  @ gGMData
 	ldr r0, [r2, #8]
 	asrs r0, r0, #8
 	cmp r0, #0
@@ -7905,7 +7905,7 @@ _080B948C:
 	lsls r2, r2, #9
 	b _080B94B8
 	.align 2, 0
-_080B94A8: .4byte gUnknown_03005280
+_080B94A8: .4byte gGMData
 _080B94AC:
 	movs r0, #0x20
 	ands r0, r3
@@ -8024,7 +8024,7 @@ _080B9566:
 	bne _080B9564
 _080B9574:
 	movs r4, #1
-	ldr r6, _080B959C  @ gUnknown_03005280
+	ldr r6, _080B959C  @ gGMData
 _080B9578:
 	adds r0, r5, r4
 	cmp r0, #0x1c
@@ -8044,7 +8044,7 @@ _080B9580:
 	adds r0, r2, #0
 	b _080B95AA
 	.align 2, 0
-_080B959C: .4byte gUnknown_03005280
+_080B959C: .4byte gGMData
 _080B95A0:
 	adds r4, #1
 	cmp r4, #0x1c
@@ -8064,7 +8064,7 @@ sub_80B95B0: @ 0x080B95B0
 	mov r7, r8
 	push {r7}
 	sub sp, #4
-	ldr r0, _080B9614  @ gUnknown_03005280
+	ldr r0, _080B9614  @ gGMData
 	ldr r1, [r0, #8]
 	asrs r1, r1, #8
 	mov r8, r1
@@ -8075,7 +8075,7 @@ sub_80B95B0: @ 0x080B95B0
 	movs r6, #0
 	movs r4, #0
 _080B95CC:
-	ldr r1, _080B9614  @ gUnknown_03005280
+	ldr r1, _080B9614  @ gGMData
 	lsls r0, r4, #2
 	adds r0, r0, r1
 	adds r0, #0x30
@@ -8112,7 +8112,7 @@ _080B9600:
 	pop {r1}
 	bx r1
 	.align 2, 0
-_080B9614: .4byte gUnknown_03005280
+_080B9614: .4byte gGMData
 _080B9618: .4byte gUnknown_082060B0
 
 	THUMB_FUNC_END sub_80B95B0
@@ -8133,7 +8133,7 @@ sub_80B961C: @ 0x080B961C
 	adds r2, #2
 	ldrh r0, [r1, #0x1a]
 	strh r0, [r2]
-	ldr r7, _080B96D4  @ gUnknown_03005280
+	ldr r7, _080B96D4  @ gGMData
 	add r0, sp, #8
 	movs r1, #0
 	ldrsh r0, [r0, r1]
@@ -8208,7 +8208,7 @@ _080B969C:
 	bx r0
 	.align 2, 0
 _080B96D0: .4byte gUnknown_082060B0
-_080B96D4: .4byte gUnknown_03005280
+_080B96D4: .4byte gGMData
 _080B96D8: .4byte 0x000001FF
 
 	THUMB_FUNC_END sub_80B961C
@@ -8235,7 +8235,7 @@ sub_80B96F8: @ 0x080B96F8
 	push {r4, r5, r6, lr}
 	sub sp, #4
 	adds r4, r0, #0
-	ldr r2, _080B9728  @ gUnknown_03005280
+	ldr r2, _080B9728  @ gGMData
 	ldr r5, [r2, #8]
 	ldr r6, [r2, #0xc]
 	ldr r0, _080B972C  @ gKeyStatusPtr
@@ -8256,7 +8256,7 @@ sub_80B96F8: @ 0x080B96F8
 	ands r0, r1
 	b _080B9734
 	.align 2, 0
-_080B9728: .4byte gUnknown_03005280
+_080B9728: .4byte gGMData
 _080B972C: .4byte gKeyStatusPtr
 _080B9730:
 	movs r0, #4
@@ -8343,7 +8343,7 @@ _080B97D4: .4byte gKeyStatusPtr
 _080B97D8:
 	adds r0, r4, #0
 	bl sub_80B93E0
-	ldr r0, _080B97F4  @ gUnknown_03005280
+	ldr r0, _080B97F4  @ gGMData
 	str r5, [r0, #8]
 	str r6, [r0, #0xc]
 	adds r0, r4, #0
@@ -8354,18 +8354,18 @@ _080B97EA:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_080B97F4: .4byte gUnknown_03005280
+_080B97F4: .4byte gGMData
 
 	THUMB_FUNC_END sub_80B96F8
 
 	THUMB_FUNC_START sub_80B97F8
 sub_80B97F8: @ 0x080B97F8
-	ldr r1, _080B9800  @ gUnknown_03005280
+	ldr r1, _080B9800  @ gGMData
 	movs r0, #1
 	strb r0, [r1, #1]
 	bx lr
 	.align 2, 0
-_080B9800: .4byte gUnknown_03005280
+_080B9800: .4byte gGMData
 
 	THUMB_FUNC_END sub_80B97F8
 
@@ -8732,7 +8732,7 @@ sub_80B9A58: @ 0x080B9A58
 	movs r1, #0
 	movs r2, #0
 	bl MapMU_80BE108
-	ldr r4, _080B9A8C  @ gUnknown_03005280
+	ldr r4, _080B9A8C  @ gGMData
 	ldrb r0, [r4, #0x11]
 	bl WMLoc_GetChapterId
 	ldr r1, _080B9A90  @ gRAMChapterData
@@ -8749,7 +8749,7 @@ sub_80B9A58: @ 0x080B9A58
 	pop {r0}
 	bx r0
 	.align 2, 0
-_080B9A8C: .4byte gUnknown_03005280
+_080B9A8C: .4byte gGMData
 _080B9A90: .4byte gRAMChapterData
 
 	THUMB_FUNC_END sub_80B9A58
@@ -8808,7 +8808,7 @@ sub_80B9AEC: @ 0x080B9AEC
 	push {r7}
 	adds r7, r0, #0
 	movs r4, #4
-	ldr r6, _080B9B34  @ gUnknown_03005280
+	ldr r6, _080B9B34  @ gGMData
 	movs r0, #0xcc
 	adds r0, r0, r6
 	mov r8, r0
@@ -8840,7 +8840,7 @@ _080B9B20:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_080B9B34: .4byte gUnknown_03005280
+_080B9B34: .4byte gGMData
 
 	THUMB_FUNC_END sub_80B9AEC
 
@@ -8852,7 +8852,7 @@ WorldMap_InitChapterTransition: @ 0x080B9B38
 	movs r1, #0
 	movs r2, #0
 	bl MapMU_80BE108
-	ldr r5, _080B9B70  @ gUnknown_03005280
+	ldr r5, _080B9B70  @ gGMData
 	ldrb r2, [r5, #0x11]
 	lsls r0, r2, #5
 	ldr r1, _080B9B74  @ gUnknown_082060B0
@@ -8873,7 +8873,7 @@ WorldMap_InitChapterTransition: @ 0x080B9B38
 	strb r0, [r5]
 	b _080B9B86
 	.align 2, 0
-_080B9B70: .4byte gUnknown_03005280
+_080B9B70: .4byte gGMData
 _080B9B74: .4byte gUnknown_082060B0
 _080B9B78: .4byte gRAMChapterData
 _080B9B7C:
@@ -8884,7 +8884,7 @@ _080B9B7C:
 _080B9B86:
 	adds r0, r4, #0
 	bl CallChapterWMIntroEvents
-	ldr r1, _080B9BA0  @ gUnknown_03005280
+	ldr r1, _080B9BA0  @ gGMData
 	movs r0, #0
 	strb r0, [r1, #1]
 	bl sub_80C1AB0
@@ -8893,7 +8893,7 @@ _080B9B86:
 	bx r0
 	.align 2, 0
 _080B9B9C: .4byte gRAMChapterData
-_080B9BA0: .4byte gUnknown_03005280
+_080B9BA0: .4byte gGMData
 
 	THUMB_FUNC_END WorldMap_InitChapterTransition
 
@@ -8909,7 +8909,7 @@ sub_80B9BA4: @ 0x080B9BA4
 	ldr r0, [r6, #0x44]
 	ldr r0, [r0, #0x4c]
 	bl MapRoute_80BC2DC
-	ldr r0, _080B9C04  @ gUnknown_03005280
+	ldr r0, _080B9C04  @ gGMData
 	ldrb r1, [r0]
 	movs r0, #0x80
 	ands r0, r1
@@ -8940,7 +8940,7 @@ sub_80B9BA4: @ 0x080B9BA4
 	bl sub_8001F64
 	b _080B9C26
 	.align 2, 0
-_080B9C04: .4byte gUnknown_03005280
+_080B9C04: .4byte gGMData
 _080B9C08:
 	ldr r2, _080B9C68  @ gLCDControlBuffer
 	ldrb r1, [r2, #1]
@@ -8964,7 +8964,7 @@ _080B9C26:
 	bl sub_80C0200
 	bl sub_80C2460
 	bl sub_80C1F5C
-	ldr r5, _080B9C6C  @ gUnknown_03005280
+	ldr r5, _080B9C6C  @ gGMData
 	ldrb r1, [r5]
 	movs r0, #0xc0
 	ands r0, r1
@@ -8984,7 +8984,7 @@ _080B9C26:
 	b _080B9CA4
 	.align 2, 0
 _080B9C68: .4byte gLCDControlBuffer
-_080B9C6C: .4byte gUnknown_03005280
+_080B9C6C: .4byte gGMData
 _080B9C70:
 	ldrb r1, [r5, #0x11]
 	lsls r1, r1, #5
@@ -9062,14 +9062,14 @@ _080B9D00: .4byte gLCDControlBuffer
 
 	THUMB_FUNC_START sub_80B9D04
 sub_80B9D04: @ 0x080B9D04
-	ldr r0, _080B9D10  @ gUnknown_03005280
+	ldr r0, _080B9D10  @ gGMData
 	ldrb r1, [r0]
 	movs r2, #2
 	orrs r1, r2
 	strb r1, [r0]
 	bx lr
 	.align 2, 0
-_080B9D10: .4byte gUnknown_03005280
+_080B9D10: .4byte gGMData
 
 	THUMB_FUNC_END sub_80B9D04
 
@@ -9079,7 +9079,7 @@ sub_80B9D14: @ 0x080B9D14
 	sub sp, #4
 	adds r5, r0, #0
 	movs r4, #0
-	ldr r3, _080B9D2C  @ gUnknown_03005280
+	ldr r3, _080B9D2C  @ gGMData
 	ldrb r1, [r3]
 	movs r0, #2
 	ands r0, r1
@@ -9088,7 +9088,7 @@ sub_80B9D14: @ 0x080B9D14
 	movs r4, #1
 	b _080B9D96
 	.align 2, 0
-_080B9D2C: .4byte gUnknown_03005280
+_080B9D2C: .4byte gGMData
 _080B9D30:
 	ldr r0, _080B9D44  @ gRAMChapterData
 	ldrb r1, [r0, #0x14]
@@ -9211,7 +9211,7 @@ sub_80B9DE0: @ 0x080B9DE0
 	ldrsh r1, [r4, r2]
 	bl sub_80C168C
 	mov r3, sp
-	ldr r1, _080B9E38  @ gUnknown_03005280
+	ldr r1, _080B9E38  @ gGMData
 	ldrb r0, [r1, #0x11]
 	lsls r0, r0, #5
 	ldr r2, _080B9E3C  @ gUnknown_082060B0
@@ -9237,7 +9237,7 @@ sub_80B9DE0: @ 0x080B9DE0
 	pop {r0}
 	bx r0
 	.align 2, 0
-_080B9E38: .4byte gUnknown_03005280
+_080B9E38: .4byte gGMData
 _080B9E3C: .4byte gUnknown_082060B0
 
 	THUMB_FUNC_END sub_80B9DE0
@@ -9250,7 +9250,7 @@ sub_80B9E40: @ 0x080B9E40
 	lsls r0, r0, #0x18
 	cmp r0, #0
 	bne _080B9E5A
-	ldr r1, _080B9E60  @ gUnknown_03005280
+	ldr r1, _080B9E60  @ gGMData
 	movs r0, #1
 	strb r0, [r1, #1]
 	adds r0, r4, #0
@@ -9260,7 +9260,7 @@ _080B9E5A:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_080B9E60: .4byte gUnknown_03005280
+_080B9E60: .4byte gGMData
 
 	THUMB_FUNC_END sub_80B9E40
 
@@ -9272,7 +9272,7 @@ sub_80B9E64: @ 0x080B9E64
 	bl sub_80C3660
 	bl sub_80B8694
 	mov r2, sp
-	ldr r1, _080B9EA0  @ gUnknown_03005280
+	ldr r1, _080B9EA0  @ gGMData
 	ldrh r0, [r1, #2]
 	strh r0, [r2]
 	adds r2, #2
@@ -9293,7 +9293,7 @@ sub_80B9E64: @ 0x080B9E64
 	pop {r0}
 	bx r0
 	.align 2, 0
-_080B9EA0: .4byte gUnknown_03005280
+_080B9EA0: .4byte gGMData
 
 	THUMB_FUNC_END sub_80B9E64
 
@@ -9413,7 +9413,7 @@ sub_80B9F54: @ 0x080B9F54
 	.align 2, 0
 _080B9F68: .4byte gRAMChapterData
 _080B9F6C:
-	ldr r0, _080B9F90  @ gUnknown_03005280
+	ldr r0, _080B9F90  @ gGMData
 	bl sub_80BD014
 	cmp r0, #0
 	blt _080B9FA8
@@ -9431,7 +9431,7 @@ _080B9F84:
 	ldrh r4, [r0]
 	b _080B9FAA
 	.align 2, 0
-_080B9F90: .4byte gUnknown_03005280
+_080B9F90: .4byte gGMData
 _080B9F94: .4byte gUnknown_08A3DD88
 _080B9F98:
 	ldr r1, _080B9FA4  @ gUnknown_08A3DD88
@@ -9472,7 +9472,7 @@ _080B9FD0: .4byte gUnknown_08A3D748
 	THUMB_FUNC_START sub_80B9FD4
 sub_80B9FD4: @ 0x080B9FD4
 	push {lr}
-	ldr r0, _080BA000  @ gUnknown_03005280
+	ldr r0, _080BA000  @ gGMData
 	bl sub_80BD014
 	cmp r0, #0
 	bge _080B9FE2
@@ -9492,7 +9492,7 @@ _080B9FE2:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_080BA000: .4byte gUnknown_03005280
+_080BA000: .4byte gGMData
 _080BA004: .4byte gRAMChapterData
 
 	THUMB_FUNC_END sub_80B9FD4
@@ -9910,7 +9910,7 @@ NewWorldMap: @ 0x080BA2E4
 _080BA310: .4byte gUnknown_08A3D748
 _080BA314: .4byte gRAMChapterData
 _080BA318:
-	ldr r0, _080BA328  @ gUnknown_03005280
+	ldr r0, _080BA328  @ gGMData
 	ldrb r1, [r0]
 	movs r0, #2
 	ands r0, r1
@@ -9919,7 +9919,7 @@ _080BA318:
 	movs r0, #0xc
 	b _080BA32E
 	.align 2, 0
-_080BA328: .4byte gUnknown_03005280
+_080BA328: .4byte gGMData
 _080BA32C:
 	movs r0, #0x10
 _080BA32E:
@@ -9936,7 +9936,7 @@ WorldMap_SetupChapterStuff: @ 0x080BA334
 	adds r5, r0, #0
 	movs r0, #4
 	bl Sound_FadeOutBGM
-	ldr r2, _080BA360  @ gUnknown_03005280
+	ldr r2, _080BA360  @ gGMData
 	ldrb r1, [r2]
 	movs r0, #2
 	ands r0, r1
@@ -9953,7 +9953,7 @@ _080BA356:
 	bl sub_80BA008
 	b _080BA3BC
 	.align 2, 0
-_080BA360: .4byte gUnknown_03005280
+_080BA360: .4byte gGMData
 _080BA364: .4byte gRAMChapterData
 _080BA368:
 	ldrb r0, [r2, #0x11]
@@ -10994,7 +10994,7 @@ sub_80BAB0C: @ 0x080BAB0C
 	ands r0, r1
 	cmp r0, #0
 	beq _080BABE6
-	ldr r0, _080BAB34  @ gUnknown_03005280
+	ldr r0, _080BAB34  @ gGMData
 	ldrh r1, [r0, #2]
 	strh r1, [r4, #0x34]
 	ldrh r0, [r0, #4]
@@ -11006,7 +11006,7 @@ sub_80BAB0C: @ 0x080BAB0C
 	movs r0, #0
 	b _080BAB3E
 	.align 2, 0
-_080BAB34: .4byte gUnknown_03005280
+_080BAB34: .4byte gGMData
 _080BAB38:
 	cmp r1, #0xf0
 	ble _080BAB40
@@ -11212,7 +11212,7 @@ GmapUnit_Loop: @ 0x080BAC78
 	bne _080BAC90
 	b _080BADC2
 _080BAC90:
-	ldr r0, _080BACAC  @ gUnknown_03005280
+	ldr r0, _080BACAC  @ gGMData
 	ldrb r1, [r0]
 	movs r0, #8
 	ands r0, r1
@@ -11225,7 +11225,7 @@ _080BAC90:
 	bl GetWMDisplayPosition
 	b _080BACC0
 	.align 2, 0
-_080BACAC: .4byte gUnknown_03005280
+_080BACAC: .4byte gGMData
 _080BACB0:
 	add r1, sp, #8
 	ldr r2, [r7, #0x14]
@@ -12598,7 +12598,7 @@ sub_80BB628: @ 0x080BB628
 _080BB642:
 	mov r2, r9
 	lsls r0, r2, #2
-	ldr r3, _080BB670  @ gUnknown_03005280
+	ldr r3, _080BB670  @ gGMData
 	adds r0, r0, r3
 	adds r0, #0x30
 	ldrb r1, [r0]
@@ -12618,7 +12618,7 @@ _080BB642:
 	b _080BB682
 	.align 2, 0
 _080BB66C: .4byte gUnknown_082060B0
-_080BB670: .4byte gUnknown_03005280
+_080BB670: .4byte gGMData
 _080BB674: .4byte gUnknown_08205FA0
 _080BB678:
 	mov r7, ip
@@ -12822,7 +12822,7 @@ _080BB7B6:
 	add r2, sp, #4
 	mov r9, r2
 _080BB7C6:
-	ldr r0, _080BB7EC  @ gUnknown_03005280
+	ldr r0, _080BB7EC  @ gGMData
 	lsls r1, r7, #2
 	adds r1, r1, r0
 	adds r1, #0x30
@@ -12841,7 +12841,7 @@ _080BB7C6:
 	ldrb r0, [r6, #2]
 	b _080BB7F6
 	.align 2, 0
-_080BB7EC: .4byte gUnknown_03005280
+_080BB7EC: .4byte gGMData
 _080BB7F0: .4byte gUnknown_082060B0
 _080BB7F4:
 	ldrb r0, [r6, #3]
@@ -12942,7 +12942,7 @@ _080BB894:
 	lsls r2, r0, #5
 	ldr r1, _080BB8D8  @ gUnknown_082060B0
 	adds r6, r2, r1
-	ldr r2, _080BB8DC  @ gUnknown_03005280
+	ldr r2, _080BB8DC  @ gGMData
 	lsls r0, r0, #2
 	adds r0, r0, r2
 	adds r0, #0x30
@@ -12959,7 +12959,7 @@ _080BB894:
 _080BB8D0: .4byte gUnknown_08205FA0
 _080BB8D4: .4byte 0x000001FF
 _080BB8D8: .4byte gUnknown_082060B0
-_080BB8DC: .4byte gUnknown_03005280
+_080BB8DC: .4byte gGMData
 _080BB8E0:
 	ldrb r0, [r6, #3]
 _080BB8E2:
@@ -13238,7 +13238,7 @@ GmapCursor_Destruct: @ 0x080BBAD4
 	push {r4, r5, r6, r7, lr}
 	sub sp, #8
 	adds r6, r0, #0
-	ldr r0, _080BBBB4  @ gUnknown_03005280
+	ldr r0, _080BBBB4  @ gGMData
 	ldrb r1, [r0, #1]
 	adds r2, r6, #0
 	adds r2, #0x32
@@ -13348,7 +13348,7 @@ _080BBBAA:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_080BBBB4: .4byte gUnknown_03005280
+_080BBBB4: .4byte gGMData
 _080BBBB8: .4byte gUnknown_08206498
 _080BBBBC: .4byte gPaletteBuffer
 _080BBBC0: .4byte gUnknown_08A97ACC
@@ -14521,7 +14521,7 @@ _080BC44E:
 sub_80BC454: @ 0x080BC454
 	push {r4, lr}
 	adds r4, r0, #0
-	ldr r1, _080BC47C  @ gUnknown_03005280
+	ldr r1, _080BC47C  @ gGMData
 	movs r0, #0
 	strb r0, [r1, #1]
 	ldr r0, _080BC480  @ gUnknown_0201AFC0
@@ -14538,7 +14538,7 @@ sub_80BC454: @ 0x080BC454
 	pop {r1}
 	bx r1
 	.align 2, 0
-_080BC47C: .4byte gUnknown_03005280
+_080BC47C: .4byte gGMData
 _080BC480: .4byte gUnknown_0201AFC0
 _080BC484: .4byte 0x06001000
 _080BC488: .4byte gUnknown_08A3E124
@@ -14722,7 +14722,7 @@ _080BC5B0: .4byte gUnknown_08A3D748
 sub_80BC5B4: @ 0x080BC5B4
 	push {r4, r5, lr}
 	adds r5, r0, #0
-	ldr r4, _080BC5E0  @ gUnknown_03005280
+	ldr r4, _080BC5E0  @ gGMData
 	movs r0, #0
 	strb r0, [r4, #1]
 	ldr r0, _080BC5E4  @ gUnknown_0201AFC0
@@ -14741,7 +14741,7 @@ sub_80BC5B4: @ 0x080BC5B4
 	ldr r1, _080BC5F0  @ gUnknown_08A3E224
 	b _080BC5F8
 	.align 2, 0
-_080BC5E0: .4byte gUnknown_03005280
+_080BC5E0: .4byte gGMData
 _080BC5E4: .4byte gUnknown_0201AFC0
 _080BC5E8: .4byte 0x06001000
 _080BC5EC: .4byte gUnknown_08A3E200
@@ -14754,7 +14754,7 @@ _080BC5F8:
 	adds r2, r5, #0
 	bl StartMenuAt
 	adds r3, r0, #0
-	ldr r0, _080BC620  @ gUnknown_03005280
+	ldr r0, _080BC620  @ gGMData
 	adds r0, #0xcd
 	adds r1, r3, #0
 	adds r1, #0x60
@@ -14768,7 +14768,7 @@ _080BC5F8:
 	.align 2, 0
 _080BC618: .4byte gUnknown_08A3E200
 _080BC61C: .4byte gUnknown_08A3E228
-_080BC620: .4byte gUnknown_03005280
+_080BC620: .4byte gGMData
 _080BC624:
 	subs r0, #1
 	adds r2, r3, #0
@@ -14806,7 +14806,7 @@ sub_80BC644: @ 0x080BC644
 	THUMB_FUNC_START sub_80BC650
 sub_80BC650: @ 0x080BC650
 	push {lr}
-	ldr r0, _080BC66C  @ gUnknown_03005280
+	ldr r0, _080BC66C  @ gGMData
 	adds r0, #0xcd
 	movs r1, #0
 	strb r1, [r0]
@@ -14818,7 +14818,7 @@ sub_80BC650: @ 0x080BC650
 	pop {r1}
 	bx r1
 	.align 2, 0
-_080BC66C: .4byte gUnknown_03005280
+_080BC66C: .4byte gGMData
 _080BC670: .4byte gUnknown_08A3D748
 
 	THUMB_FUNC_END sub_80BC650
@@ -14826,7 +14826,7 @@ _080BC670: .4byte gUnknown_08A3D748
 	THUMB_FUNC_START sub_80BC674
 sub_80BC674: @ 0x080BC674
 	push {lr}
-	ldr r1, _080BC69C  @ gUnknown_03005280
+	ldr r1, _080BC69C  @ gGMData
 	ldrb r2, [r1, #0x11]
 	lsls r0, r2, #2
 	adds r0, r0, r1
@@ -14846,7 +14846,7 @@ sub_80BC674: @ 0x080BC674
 	movs r0, #1
 	b _080BC6A6
 	.align 2, 0
-_080BC69C: .4byte gUnknown_03005280
+_080BC69C: .4byte gGMData
 _080BC6A0: .4byte gUnknown_082060B0
 _080BC6A4:
 	movs r0, #3
@@ -14859,7 +14859,7 @@ _080BC6A6:
 	THUMB_FUNC_START sub_80BC6AC
 sub_80BC6AC: @ 0x080BC6AC
 	push {lr}
-	ldr r1, _080BC6D4  @ gUnknown_03005280
+	ldr r1, _080BC6D4  @ gGMData
 	ldrb r2, [r1, #0x11]
 	lsls r0, r2, #2
 	adds r0, r0, r1
@@ -14879,7 +14879,7 @@ sub_80BC6AC: @ 0x080BC6AC
 	movs r0, #1
 	b _080BC6DE
 	.align 2, 0
-_080BC6D4: .4byte gUnknown_03005280
+_080BC6D4: .4byte gGMData
 _080BC6D8: .4byte gUnknown_082060B0
 _080BC6DC:
 	movs r0, #3
@@ -14892,7 +14892,7 @@ _080BC6DE:
 	THUMB_FUNC_START sub_80BC6E4
 sub_80BC6E4: @ 0x080BC6E4
 	push {lr}
-	ldr r1, _080BC718  @ gUnknown_03005280
+	ldr r1, _080BC718  @ gGMData
 	ldrb r2, [r1, #0x11]
 	lsls r0, r2, #2
 	adds r0, r0, r1
@@ -14918,7 +14918,7 @@ sub_80BC6E4: @ 0x080BC6E4
 	movs r0, #1
 	b _080BC726
 	.align 2, 0
-_080BC718: .4byte gUnknown_03005280
+_080BC718: .4byte gGMData
 _080BC71C: .4byte gUnknown_082060B0
 _080BC720: .4byte gRAMChapterData
 _080BC724:
@@ -14932,7 +14932,7 @@ _080BC726:
 	THUMB_FUNC_START sub_80BC72C
 sub_80BC72C: @ 0x080BC72C
 	push {lr}
-	ldr r1, _080BC748  @ gUnknown_03005280
+	ldr r1, _080BC748  @ gGMData
 	ldrb r0, [r1, #0x11]
 	lsls r0, r0, #2
 	adds r0, r0, r1
@@ -14945,7 +14945,7 @@ sub_80BC72C: @ 0x080BC72C
 	movs r0, #3
 	b _080BC74E
 	.align 2, 0
-_080BC748: .4byte gUnknown_03005280
+_080BC748: .4byte gGMData
 _080BC74C:
 	movs r0, #1
 _080BC74E:
@@ -14957,7 +14957,7 @@ _080BC74E:
 	THUMB_FUNC_START sub_80BC754
 sub_80BC754: @ 0x080BC754
 	push {lr}
-	ldr r1, _080BC770  @ gUnknown_03005280
+	ldr r1, _080BC770  @ gGMData
 	ldrb r0, [r1, #0x11]
 	lsls r0, r0, #2
 	adds r0, r0, r1
@@ -14970,7 +14970,7 @@ sub_80BC754: @ 0x080BC754
 	movs r0, #3
 	b _080BC776
 	.align 2, 0
-_080BC770: .4byte gUnknown_03005280
+_080BC770: .4byte gGMData
 _080BC774:
 	movs r0, #1
 _080BC776:
@@ -14982,7 +14982,7 @@ _080BC776:
 	THUMB_FUNC_START sub_80BC77C
 sub_80BC77C: @ 0x080BC77C
 	push {lr}
-	ldr r1, _080BC79C  @ gUnknown_03005280
+	ldr r1, _080BC79C  @ gGMData
 	adds r0, #0x61
 	ldrb r0, [r0]
 	adds r1, #0xcd
@@ -14995,7 +14995,7 @@ sub_80BC77C: @ 0x080BC77C
 	pop {r1}
 	bx r1
 	.align 2, 0
-_080BC79C: .4byte gUnknown_03005280
+_080BC79C: .4byte gGMData
 _080BC7A0: .4byte gUnknown_08A3D748
 
 	THUMB_FUNC_END sub_80BC77C
@@ -15003,7 +15003,7 @@ _080BC7A0: .4byte gUnknown_08A3D748
 	THUMB_FUNC_START sub_80BC7A4
 sub_80BC7A4: @ 0x080BC7A4
 	push {lr}
-	ldr r1, _080BC7C4  @ gUnknown_03005280
+	ldr r1, _080BC7C4  @ gGMData
 	adds r0, #0x61
 	ldrb r0, [r0]
 	adds r1, #0xcd
@@ -15016,7 +15016,7 @@ sub_80BC7A4: @ 0x080BC7A4
 	pop {r1}
 	bx r1
 	.align 2, 0
-_080BC7C4: .4byte gUnknown_03005280
+_080BC7C4: .4byte gGMData
 _080BC7C8: .4byte gUnknown_08A3D748
 
 	THUMB_FUNC_END sub_80BC7A4
@@ -15024,7 +15024,7 @@ _080BC7C8: .4byte gUnknown_08A3D748
 	THUMB_FUNC_START sub_80BC7CC
 sub_80BC7CC: @ 0x080BC7CC
 	push {lr}
-	ldr r1, _080BC7EC  @ gUnknown_03005280
+	ldr r1, _080BC7EC  @ gGMData
 	adds r0, #0x61
 	ldrb r0, [r0]
 	adds r1, #0xcd
@@ -15037,7 +15037,7 @@ sub_80BC7CC: @ 0x080BC7CC
 	pop {r1}
 	bx r1
 	.align 2, 0
-_080BC7EC: .4byte gUnknown_03005280
+_080BC7EC: .4byte gGMData
 _080BC7F0: .4byte gUnknown_08A3D748
 
 	THUMB_FUNC_END sub_80BC7CC
@@ -15045,7 +15045,7 @@ _080BC7F0: .4byte gUnknown_08A3D748
 	THUMB_FUNC_START sub_80BC7F4
 sub_80BC7F4: @ 0x080BC7F4
 	push {lr}
-	ldr r1, _080BC814  @ gUnknown_03005280
+	ldr r1, _080BC814  @ gGMData
 	adds r0, #0x61
 	ldrb r0, [r0]
 	adds r1, #0xcd
@@ -15058,7 +15058,7 @@ sub_80BC7F4: @ 0x080BC7F4
 	pop {r1}
 	bx r1
 	.align 2, 0
-_080BC814: .4byte gUnknown_03005280
+_080BC814: .4byte gGMData
 _080BC818: .4byte gUnknown_08A3D748
 
 	THUMB_FUNC_END sub_80BC7F4
@@ -15069,7 +15069,7 @@ sub_80BC81C: @ 0x080BC81C
 	sub sp, #4
 	movs r0, #0
 	str r0, [sp]
-	ldr r4, _080BC890  @ gUnknown_03005280
+	ldr r4, _080BC890  @ gGMData
 	ldr r2, _080BC894  @ 0x05000035
 	mov r0, sp
 	adds r1, r4, #0
@@ -15122,7 +15122,7 @@ _080BC842:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_080BC890: .4byte gUnknown_03005280
+_080BC890: .4byte gGMData
 _080BC894: .4byte 0x05000035
 
 	THUMB_FUNC_END sub_80BC81C
@@ -15359,7 +15359,7 @@ sub_80BCA1C: @ 0x080BCA1C
 	push {r4, lr}
 	adds r3, r0, #0
 	movs r2, #4
-	ldr r0, _080BCA3C  @ gUnknown_03005280
+	ldr r0, _080BCA3C  @ gGMData
 	adds r1, r0, #0
 	adds r1, #0x10
 _080BCA28:
@@ -15373,7 +15373,7 @@ _080BCA28:
 	adds r0, r2, #0
 	b _080BCA4C
 	.align 2, 0
-_080BCA3C: .4byte gUnknown_03005280
+_080BCA3C: .4byte gGMData
 _080BCA40:
 	adds r1, #4
 	adds r2, #1
@@ -15394,7 +15394,7 @@ sub_80BCA54: @ 0x080BCA54
 	adds r2, r0, #0
 	movs r0, #0
 	strb r0, [r2]
-	ldr r0, _080BCA8C  @ gUnknown_03005280
+	ldr r0, _080BCA8C  @ gGMData
 	adds r5, r2, #1
 	adds r3, r0, #0
 	adds r3, #0x10
@@ -15420,7 +15420,7 @@ _080BCA7C:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_080BCA8C: .4byte gUnknown_03005280
+_080BCA8C: .4byte gGMData
 
 	THUMB_FUNC_END sub_80BCA54
 
@@ -16138,7 +16138,7 @@ _080BCFB0: .4byte gUnknown_082060B0
 	THUMB_FUNC_START sub_80BCFB4
 sub_80BCFB4: @ 0x080BCFB4
 	push {r4, lr}
-	ldr r0, _080BCFD8  @ gUnknown_03005280
+	ldr r0, _080BCFD8  @ gGMData
 	movs r4, #0xfd
 	adds r2, r0, #0
 	adds r2, #0x30
@@ -16156,7 +16156,7 @@ _080BCFC0:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_080BCFD8: .4byte gUnknown_03005280
+_080BCFD8: .4byte gGMData
 
 	THUMB_FUNC_END sub_80BCFB4
 
@@ -16234,14 +16234,14 @@ _080BD042:
 	THUMB_FUNC_START sub_80BD048
 sub_80BD048: @ 0x080BD048
 	push {lr}
-	ldr r0, _080BD05C  @ gUnknown_03005280
+	ldr r0, _080BD05C  @ gGMData
 	bl sub_80BD014
 	cmp r0, #0
 	blt _080BD060
 	bl WMLoc_GetChapterId
 	b _080BD064
 	.align 2, 0
-_080BD05C: .4byte gUnknown_03005280
+_080BD05C: .4byte gGMData
 _080BD060:
 	movs r0, #1
 	negs r0, r0
@@ -16363,7 +16363,7 @@ _080BD1C2:
 	bl WMLoc_GetChapterId
 	cmp r5, r0
 	bne _080BD1FA
-	ldr r1, _080BD1EC  @ gUnknown_03005280
+	ldr r1, _080BD1EC  @ gGMData
 	lsls r0, r4, #2
 	adds r0, r0, r1
 	adds r0, #0x30
@@ -16380,7 +16380,7 @@ _080BD1E4:
 	b _080BD204
 	.align 2, 0
 _080BD1E8: .4byte gUnknown_082060B0
-_080BD1EC: .4byte gUnknown_03005280
+_080BD1EC: .4byte gGMData
 _080BD1F0:
 	ldrb r0, [r6, #1]
 	cmp r0, #3
@@ -17239,7 +17239,7 @@ _080BD7C8:
 	adds r2, r4, #0
 	adds r3, r5, #0
 	bl GetWMCenteredCameraPosition
-	ldr r1, _080BD82C  @ gUnknown_03005280
+	ldr r1, _080BD82C  @ gGMData
 	ldrh r0, [r4]
 	strh r0, [r1, #2]
 	ldrh r0, [r5]
@@ -17261,7 +17261,7 @@ _080BD81E:
 	bx r0
 	.align 2, 0
 _080BD828: .4byte gKeyStatusPtr
-_080BD82C: .4byte gUnknown_03005280
+_080BD82C: .4byte gGMData
 
 	THUMB_FUNC_END sub_80BD740
 
@@ -17416,7 +17416,7 @@ _080BD910:
 	asrs r2, r2, #0x18
 	bl MapUnitC_SetTCSAnim
 _080BD95C:
-	ldr r0, _080BD9D4  @ gUnknown_03005280
+	ldr r0, _080BD9D4  @ gGMData
 	mov r8, r0
 	adds r0, r6, #0
 	adds r0, #0x2a
@@ -17475,7 +17475,7 @@ _080BD9C4:
 	bx r0
 	.align 2, 0
 _080BD9D0: .4byte gUnknown_082060B0
-_080BD9D4: .4byte gUnknown_03005280
+_080BD9D4: .4byte gGMData
 
 	THUMB_FUNC_END sub_80BD830
 
@@ -17737,7 +17737,7 @@ _080BDBA2:
 	adds r2, r4, #0
 	adds r3, r5, #0
 	bl GetWMCenteredCameraPosition
-	ldr r1, _080BDBFC  @ gUnknown_03005280
+	ldr r1, _080BDBFC  @ gGMData
 	ldrh r0, [r4]
 	strh r0, [r1, #2]
 	ldrh r0, [r5]
@@ -17756,7 +17756,7 @@ _080BDBF4:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_080BDBFC: .4byte gUnknown_03005280
+_080BDBFC: .4byte gGMData
 
 	THUMB_FUNC_END sub_80BDA78
 
@@ -17839,7 +17839,7 @@ _080BDC70:
 	adds r1, r6, #0
 	ldr r2, [sp, #0x24]
 	bl MapMUPrim_MakeUnitForClass
-	ldr r0, _080BDC94  @ gUnknown_03005280
+	ldr r0, _080BDC94  @ gGMData
 	adds r0, r7, r0
 	strh r6, [r0, #0x12]
 	ldrb r1, [r0, #0x10]
@@ -17847,13 +17847,13 @@ _080BDC70:
 	orrs r1, r2
 	b _080BDCAE
 	.align 2, 0
-_080BDC94: .4byte gUnknown_03005280
+_080BDC94: .4byte gGMData
 _080BDC98:
 	adds r0, r4, #0
 	adds r1, r6, #0
 	ldr r2, [sp, #0x24]
 	bl MapMUPrim_MakeUnitForChar
-	ldr r0, _080BDD24  @ gUnknown_03005280
+	ldr r0, _080BDD24  @ gGMData
 	adds r0, r7, r0
 	strh r6, [r0, #0x12]
 	ldrb r2, [r0, #0x10]
@@ -17861,7 +17861,7 @@ _080BDC98:
 	ands r1, r2
 _080BDCAE:
 	strb r1, [r0, #0x10]
-	ldr r1, _080BDD24  @ gUnknown_03005280
+	ldr r1, _080BDD24  @ gGMData
 	lsls r0, r5, #2
 	adds r0, r0, r1
 	add r1, sp, #0x24
@@ -17917,7 +17917,7 @@ _080BDCCA:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_080BDD24: .4byte gUnknown_03005280
+_080BDD24: .4byte gGMData
 _080BDD28: .4byte gUnknown_08A3E2F0
 
 	THUMB_FUNC_END MapMU_SetUnit
@@ -17943,7 +17943,7 @@ MapMU_RemoveUnit: @ 0x080BDD2C
 	strb r0, [r2]
 	adds r0, r1, #0
 	bl MapMUPrim_RemoveLinkedMapUnit
-	ldr r0, _080BDD70  @ gUnknown_03005280
+	ldr r0, _080BDD70  @ gGMData
 	adds r1, r4, r0
 	ldrb r2, [r1, #0x10]
 	movs r0, #2
@@ -17958,14 +17958,14 @@ MapMU_RemoveUnit: @ 0x080BDD2C
 	orrs r0, r2
 	b _080BDD7A
 	.align 2, 0
-_080BDD70: .4byte gUnknown_03005280
+_080BDD70: .4byte gGMData
 _080BDD74:
 	strh r0, [r1, #0x12]
 	movs r0, #0xfd
 	ands r0, r2
 _080BDD7A:
 	strb r0, [r1, #0x10]
-	ldr r0, _080BDD90  @ gUnknown_03005280
+	ldr r0, _080BDD90  @ gGMData
 	lsls r1, r5, #2
 	adds r1, r1, r0
 	ldrb r2, [r1, #0x10]
@@ -17977,7 +17977,7 @@ _080BDD8A:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_080BDD90: .4byte gUnknown_03005280
+_080BDD90: .4byte gGMData
 
 	THUMB_FUNC_END MapMU_RemoveUnit
 
@@ -18029,7 +18029,7 @@ sub_80BDDC4: @ 0x080BDDC4
 	asrs r1, r1, #0x18
 	movs r2, #1
 	bl sub_80BAFA4
-	ldr r0, _080BDDF4  @ gUnknown_03005280
+	ldr r0, _080BDDF4  @ gGMData
 	adds r4, r4, r0
 	ldrb r1, [r4, #0x10]
 	movs r0, #1
@@ -18037,7 +18037,7 @@ sub_80BDDC4: @ 0x080BDDC4
 	strb r0, [r4, #0x10]
 	b _080BDE30
 	.align 2, 0
-_080BDDF4: .4byte gUnknown_03005280
+_080BDDF4: .4byte gGMData
 _080BDDF8:
 	movs r6, #0
 	adds r4, r7, #0
@@ -18057,7 +18057,7 @@ _080BDDFE:
 	asrs r1, r1, #0x18
 	movs r2, #1
 	bl sub_80BAFA4
-	ldr r1, _080BDE38  @ gUnknown_03005280
+	ldr r1, _080BDE38  @ gGMData
 	adds r1, r5, r1
 	ldrb r2, [r1, #0x10]
 	movs r0, #1
@@ -18073,7 +18073,7 @@ _080BDE30:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_080BDE38: .4byte gUnknown_03005280
+_080BDE38: .4byte gGMData
 
 	THUMB_FUNC_END sub_80BDDC4
 
@@ -18095,7 +18095,7 @@ sub_80BDE3C: @ 0x080BDE3C
 	asrs r1, r1, #0x18
 	movs r2, #0
 	bl sub_80BAFA4
-	ldr r0, _080BDE6C  @ gUnknown_03005280
+	ldr r0, _080BDE6C  @ gGMData
 	adds r4, r4, r0
 	ldrb r1, [r4, #0x10]
 	movs r0, #0xfe
@@ -18103,7 +18103,7 @@ sub_80BDE3C: @ 0x080BDE3C
 	strb r0, [r4, #0x10]
 	b _080BDEA8
 	.align 2, 0
-_080BDE6C: .4byte gUnknown_03005280
+_080BDE6C: .4byte gGMData
 _080BDE70:
 	movs r5, #0
 	adds r4, r7, #0
@@ -18123,7 +18123,7 @@ _080BDE76:
 	asrs r1, r1, #0x18
 	movs r2, #0
 	bl sub_80BAFA4
-	ldr r1, _080BDEB0  @ gUnknown_03005280
+	ldr r1, _080BDEB0  @ gGMData
 	adds r1, r6, r1
 	ldrb r2, [r1, #0x10]
 	movs r0, #0xfe
@@ -18139,7 +18139,7 @@ _080BDEA8:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_080BDEB0: .4byte gUnknown_03005280
+_080BDEB0: .4byte gGMData
 
 	THUMB_FUNC_END sub_80BDE3C
 
@@ -18637,7 +18637,7 @@ _080BE200:
 	ldrsb r1, [r4, r1]
 	movs r2, #4
 	bl MapUnitC_SetTCSAnim
-	ldr r0, _080BE294  @ gUnknown_03005280
+	ldr r0, _080BE294  @ gGMData
 	mov r8, r0
 	adds r0, r6, #0
 	adds r0, #0x2a
@@ -18685,7 +18685,7 @@ _080BE200:
 	b _080BE30C
 	.align 2, 0
 _080BE290: .4byte gUnknown_082060B0
-_080BE294: .4byte gUnknown_03005280
+_080BE294: .4byte gGMData
 _080BE298:
 	ldr r0, [r6, #0x14]
 	ldr r0, [r0, #0x4c]
@@ -18736,7 +18736,7 @@ _080BE298:
 	adds r2, r4, #0
 	adds r3, r5, #0
 	bl GetWMCenteredCameraPosition
-	ldr r1, _080BE32C  @ gUnknown_03005280
+	ldr r1, _080BE32C  @ gGMData
 	ldrh r0, [r4]
 	strh r0, [r1, #2]
 	ldrh r0, [r5]
@@ -18759,7 +18759,7 @@ _080BE31E:
 	pop {r1}
 	bx r1
 	.align 2, 0
-_080BE32C: .4byte gUnknown_03005280
+_080BE32C: .4byte gGMData
 
 	THUMB_FUNC_END sub_80BE194
 
@@ -19675,7 +19675,7 @@ sub_80BE9A0: @ 0x080BE9A0
 sub_80BE9D8: @ 0x080BE9D8
 	push {r4, r5, lr}
 	adds r2, r1, #0
-	ldr r1, _080BEA0C  @ gUnknown_03005280
+	ldr r1, _080BEA0C  @ gGMData
 	lsls r0, r2, #2
 	adds r0, r0, r1
 	adds r0, #0x30
@@ -19700,7 +19700,7 @@ sub_80BE9D8: @ 0x080BE9D8
 	strh r0, [r1]
 	b _080BEA2A
 	.align 2, 0
-_080BEA0C: .4byte gUnknown_03005280
+_080BEA0C: .4byte gGMData
 _080BEA10: .4byte gUnknown_082060B0
 _080BEA14: .4byte gUnknown_0201B430
 _080BEA18: .4byte 0x000002BA
@@ -19958,7 +19958,7 @@ sub_80BEBD4: @ 0x080BEBD4
 	bl sub_80BEB2C
 	adds r3, r4, #0
 	adds r3, #0x4e
-	ldr r1, _080BEC54  @ gUnknown_03005280
+	ldr r1, _080BEC54  @ gGMData
 	ldr r0, [r1, #8]
 	asrs r0, r0, #8
 	strb r0, [r3]
@@ -19982,7 +19982,7 @@ sub_80BEBD4: @ 0x080BEBD4
 	bx r0
 	.align 2, 0
 _080BEC50: .4byte gUnknown_08A3E448
-_080BEC54: .4byte gUnknown_03005280
+_080BEC54: .4byte gGMData
 
 	THUMB_FUNC_END sub_80BEBD4
 
@@ -20061,7 +20061,7 @@ sub_80BECB8: @ 0x080BECB8
 	adds r1, r4, #0
 	adds r1, #0x4d
 	strb r0, [r1]
-	ldr r1, _080BED18  @ gUnknown_03005280
+	ldr r1, _080BED18  @ gGMData
 	ldr r0, [r1, #8]
 	asrs r5, r0, #8
 	strb r5, [r3]
@@ -20089,7 +20089,7 @@ sub_80BECB8: @ 0x080BECB8
 	bl Proc_Break
 	b _080BEDB6
 	.align 2, 0
-_080BED18: .4byte gUnknown_03005280
+_080BED18: .4byte gGMData
 _080BED1C:
 	adds r0, r4, #0
 	adds r0, #0x5c
@@ -20261,7 +20261,7 @@ sub_80BEE48: @ 0x080BEE48
 	adds r2, r0, #0
 	adds r4, r1, #0
 	movs r5, #0
-	ldr r1, _080BEE78  @ gUnknown_03005280
+	ldr r1, _080BEE78  @ gGMData
 _080BEE52:
 	movs r3, #0x12
 	ldrsh r0, [r1, r3]
@@ -20282,7 +20282,7 @@ _080BEE72:
 	movs r0, #0
 	b _080BEE82
 	.align 2, 0
-_080BEE78: .4byte gUnknown_03005280
+_080BEE78: .4byte gGMData
 _080BEE7C:
 	movs r0, #0x80
 	b _080BEE82
@@ -20317,7 +20317,7 @@ sub_80BEE9C: @ 0x080BEE9C
 	bl sub_80BEE48
 	cmp r0, #0
 	blt _080BEF00
-	ldr r1, _080BEEDC  @ gUnknown_03005280
+	ldr r1, _080BEEDC  @ gGMData
 	lsls r0, r0, #2
 	adds r2, r0, r1
 	ldrb r1, [r2, #0x10]
@@ -20340,7 +20340,7 @@ sub_80BEE9C: @ 0x080BEE9C
 	ldrb r1, [r2, #0x12]
 	b _080BEEE2
 	.align 2, 0
-_080BEEDC: .4byte gUnknown_03005280
+_080BEEDC: .4byte gGMData
 _080BEEE0:
 	movs r1, #0
 _080BEEE2:
@@ -20426,7 +20426,7 @@ sub_80BEF6C: @ 0x080BEF6C
 	sub sp, #8
 	adds r4, r0, #0
 	add r2, sp, #4
-	ldr r1, _080BEFB4  @ gUnknown_03005280
+	ldr r1, _080BEFB4  @ gGMData
 	ldr r0, [r1, #8]
 	asrs r0, r0, #8
 	strh r0, [r2]
@@ -20457,7 +20457,7 @@ _080BEFAC:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_080BEFB4: .4byte gUnknown_03005280
+_080BEFB4: .4byte gGMData
 
 	THUMB_FUNC_END sub_80BEF6C
 
@@ -20497,7 +20497,7 @@ sub_80BEFB8: @ 0x080BEFB8
 	adds r0, r4, #0
 	bl Text_Clear
 	add r2, sp, #4
-	ldr r1, _080BF044  @ gUnknown_03005280
+	ldr r1, _080BF044  @ gGMData
 	ldr r0, [r1, #8]
 	asrs r0, r0, #8
 	strh r0, [r2]
@@ -20528,7 +20528,7 @@ _080BF038:
 	bx r0
 	.align 2, 0
 _080BF040: .4byte 0x0000FFFF
-_080BF044: .4byte gUnknown_03005280
+_080BF044: .4byte gGMData
 
 	THUMB_FUNC_END sub_80BEFB8
 
@@ -20596,7 +20596,7 @@ sub_80BF048: @ 0x080BF048
 	movs r0, #0
 	bl sub_8001F48
 	ldr r0, _080BF11C  @ gUnknown_08A9901C
-	ldr r4, _080BF120  @ gUnknown_02020188
+	ldr r4, _080BF120  @ gGenericBuffer
 	adds r1, r4, #0
 	bl CopyDataWithPossibleUncomp
 	ldr r1, _080BF124  @ 0x06004660
@@ -20626,7 +20626,7 @@ sub_80BF048: @ 0x080BF048
 	.align 2, 0
 _080BF118: .4byte gLCDControlBuffer
 _080BF11C: .4byte gUnknown_08A9901C
-_080BF120: .4byte gUnknown_02020188
+_080BF120: .4byte gGenericBuffer
 _080BF124: .4byte 0x06004660
 _080BF128: .4byte gUnknown_08A99120
 _080BF12C: .4byte gUnknown_08A97A80
@@ -20672,14 +20672,14 @@ _080BF17C: .4byte gUnknown_08A3E4D4
 
 	THUMB_FUNC_START sub_80BF180
 sub_80BF180: @ 0x080BF180
-	ldr r2, _080BF18C  @ gUnknown_03005280
+	ldr r2, _080BF18C  @ gGMData
 	ldr r1, [r0, #0x38]
 	str r1, [r2, #8]
 	ldr r0, [r0, #0x3c]
 	str r0, [r2, #0xc]
 	bx lr
 	.align 2, 0
-_080BF18C: .4byte gUnknown_03005280
+_080BF18C: .4byte gGMData
 
 	THUMB_FUNC_END sub_80BF180
 
@@ -20729,14 +20729,14 @@ sub_80BF198: @ 0x080BF198
 	bl DivArm
 	ldr r1, [r7, #0x34]
 	adds r1, r1, r0
-	ldr r0, _080BF1F0  @ gUnknown_03005280
+	ldr r0, _080BF1F0  @ gGMData
 	str r4, [r0, #8]
 	str r1, [r0, #0xc]
 	b _080BF204
 	.align 2, 0
-_080BF1F0: .4byte gUnknown_03005280
+_080BF1F0: .4byte gGMData
 _080BF1F4:
-	ldr r0, _080BF20C  @ gUnknown_03005280
+	ldr r0, _080BF20C  @ gGMData
 	ldr r1, [r7, #0x38]
 	str r1, [r0, #8]
 	ldr r1, [r7, #0x3c]
@@ -20748,7 +20748,7 @@ _080BF204:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_080BF20C: .4byte gUnknown_03005280
+_080BF20C: .4byte gGMData
 
 	THUMB_FUNC_END sub_80BF198
 
@@ -20774,14 +20774,14 @@ _080BF22C:
 	adds r2, r0, #0
 	cmp r4, #0
 	bne _080BF248
-	ldr r0, _080BF244  @ gUnknown_03005280
+	ldr r0, _080BF244  @ gGMData
 	ldr r1, [r0, #8]
 	str r1, [r2, #0x30]
 	ldr r0, [r0, #0xc]
 	b _080BF256
 	.align 2, 0
 _080BF240: .4byte gUnknown_08A3E4F4
-_080BF244: .4byte gUnknown_03005280
+_080BF244: .4byte gGMData
 _080BF248:
 	movs r1, #0
 	ldrsh r0, [r4, r1]
@@ -20846,7 +20846,7 @@ _080BF2A8: .4byte gUnknown_08A3E4F4
 sub_80BF2AC: @ 0x080BF2AC
 	push {lr}
 	adds r3, r0, #0
-	ldr r0, _080BF2CC  @ gUnknown_03005280
+	ldr r0, _080BF2CC  @ gGMData
 	ldrh r1, [r3, #0x3a]
 	strh r1, [r0, #2]
 	ldrh r1, [r3, #0x3c]
@@ -20862,7 +20862,7 @@ _080BF2C8:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_080BF2CC: .4byte gUnknown_03005280
+_080BF2CC: .4byte gGMData
 
 	THUMB_FUNC_END sub_80BF2AC
 
@@ -20940,12 +20940,12 @@ _080BF310:
 	movs r3, #0x38
 	ldrsh r1, [r7, r3]
 	adds r1, r1, r0
-	ldr r0, _080BF360  @ gUnknown_03005280
+	ldr r0, _080BF360  @ gGMData
 	strh r4, [r0, #2]
 	strh r1, [r0, #4]
 	b _080BF36A
 	.align 2, 0
-_080BF360: .4byte gUnknown_03005280
+_080BF360: .4byte gGMData
 _080BF364:
 	adds r0, r7, #0
 	bl Proc_Break
@@ -20969,11 +20969,11 @@ sub_80BF370: @ 0x080BF370
 	blt _080BF38E
 	movs r5, #0xc
 	ldrsh r0, [r4, r5]
-	ldr r2, _080BF3BC  @ gUnknown_03005280
+	ldr r2, _080BF3BC  @ gGMData
 	cmp r0, #0
 	bge _080BF39A
 _080BF38E:
-	ldr r0, _080BF3BC  @ gUnknown_03005280
+	ldr r0, _080BF3BC  @ gGMData
 	ldrh r1, [r0, #2]
 	strh r1, [r4, #0xa]
 	ldrh r1, [r0, #4]
@@ -20996,7 +20996,7 @@ _080BF39A:
 	b _080BF3C2
 	.align 2, 0
 _080BF3B8: .4byte gUnknown_08A3E52C
-_080BF3BC: .4byte gUnknown_03005280
+_080BF3BC: .4byte gGMData
 _080BF3C0:
 	strh r2, [r3, #0x3a]
 _080BF3C2:
@@ -21262,7 +21262,7 @@ WM_DrawPath: @ 0x080BF58C
 	push {r4, lr}
 	adds r2, r0, #0
 	adds r4, r1, #0
-	ldr r0, _080BF5B8  @ gUnknown_03005280
+	ldr r0, _080BF5B8  @ gGMData
 	adds r1, r0, #0
 	adds r1, #0xa4
 	bl SetupNewWMRoute
@@ -21280,7 +21280,7 @@ _080BF5B2:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_080BF5B8: .4byte gUnknown_03005280
+_080BF5B8: .4byte gGMData
 _080BF5BC: .4byte gUnknown_08A3D748
 
 	THUMB_FUNC_END WM_DrawPath
@@ -21635,7 +21635,7 @@ sub_80BF804: @ 0x080BF804
 	bics r0, r1
 	str r0, [r3]
 	bl EnablePaletteSync
-	ldr r3, _080BF88C  @ gUnknown_03005280
+	ldr r3, _080BF88C  @ gGMData
 	ldrb r1, [r4]
 	lsls r1, r1, #2
 	adds r1, r1, r3
@@ -21677,7 +21677,7 @@ _080BF876:
 	bx r0
 	.align 2, 0
 _080BF888: .4byte gUnknown_08A3D748
-_080BF88C: .4byte gUnknown_03005280
+_080BF88C: .4byte gGMData
 
 	THUMB_FUNC_END sub_80BF804
 
@@ -21715,7 +21715,7 @@ sub_80BF890: @ 0x080BF890
 sub_80BF8CC: @ 0x080BF8CC
 	push {r4, r5, r6, r7, lr}
 	adds r5, r0, #0
-	ldr r4, _080BF95C  @ gUnknown_03005280
+	ldr r4, _080BF95C  @ gGMData
 	adds r6, r5, #0
 	adds r6, #0x29
 	ldrb r1, [r6]
@@ -21782,7 +21782,7 @@ _080BF93C:
 	adds r0, #1
 	b _080BF972
 	.align 2, 0
-_080BF95C: .4byte gUnknown_03005280
+_080BF95C: .4byte gGMData
 _080BF960: .4byte gUnknown_08A3D748
 _080BF964:
 	adds r0, r5, #0
@@ -21892,7 +21892,7 @@ _080BFA18: .4byte gUnknown_08A3D748
 sub_80BFA1C: @ 0x080BFA1C
 	push {r4, r5, r6, lr}
 	adds r5, r0, #0
-	ldr r1, _080BFA40  @ gUnknown_03005280
+	ldr r1, _080BFA40  @ gGMData
 	adds r0, #0x29
 	ldrb r2, [r0]
 	lsls r0, r2, #2
@@ -21909,7 +21909,7 @@ sub_80BFA1C: @ 0x080BFA1C
 	ldrb r0, [r0, #2]
 	b _080BFA50
 	.align 2, 0
-_080BFA40: .4byte gUnknown_03005280
+_080BFA40: .4byte gGMData
 _080BFA44: .4byte gUnknown_082060B0
 _080BFA48:
 	lsls r0, r2, #5
@@ -22069,7 +22069,7 @@ sub_80BFB4C: @ 0x080BFB4C
 	ldrb r1, [r5]
 	movs r2, #0
 	bl sub_80BE080
-	ldr r0, _080BFB8C  @ gUnknown_03005280
+	ldr r0, _080BFB8C  @ gGMData
 	ldrb r1, [r5]
 	lsls r1, r1, #2
 	adds r1, r1, r0
@@ -22086,7 +22086,7 @@ sub_80BFB4C: @ 0x080BFB4C
 	bx r0
 	.align 2, 0
 _080BFB88: .4byte gUnknown_08A3D748
-_080BFB8C: .4byte gUnknown_03005280
+_080BFB8C: .4byte gGMData
 
 	THUMB_FUNC_END sub_80BFB4C
 
@@ -22124,7 +22124,7 @@ sub_80BFB90: @ 0x080BFB90
 sub_80BFBCC: @ 0x080BFBCC
 	push {r4, r5, lr}
 	adds r4, r0, #0
-	ldr r0, _080BFC14  @ gUnknown_03005280
+	ldr r0, _080BFC14  @ gGMData
 	adds r5, r4, #0
 	adds r5, #0x29
 	ldrb r1, [r5]
@@ -22155,7 +22155,7 @@ sub_80BFBCC: @ 0x080BFBCC
 	adds r0, #1
 	b _080BFC2E
 	.align 2, 0
-_080BFC14: .4byte gUnknown_03005280
+_080BFC14: .4byte gGMData
 _080BFC18: .4byte gUnknown_08A3D748
 _080BFC1C:
 	adds r1, r4, #0
@@ -22326,7 +22326,7 @@ sub_80BFD28: @ 0x080BFD28
 	ldr r1, _080BFD68  @ 0x06004C00
 	bl CopyDataWithPossibleUncomp
 	ldr r0, _080BFD6C  @ gUnknown_08A9E5DC
-	ldr r4, _080BFD70  @ gUnknown_02020188
+	ldr r4, _080BFD70  @ gGenericBuffer
 	adds r1, r4, #0
 	bl CopyDataWithPossibleUncomp
 	ldr r0, _080BFD74  @ gBG0TilemapBuffer
@@ -22343,7 +22343,7 @@ _080BFD60: .4byte gUnknown_08A9E5BC
 _080BFD64: .4byte gUnknown_08A9E544
 _080BFD68: .4byte 0x06004C00
 _080BFD6C: .4byte gUnknown_08A9E5DC
-_080BFD70: .4byte gUnknown_02020188
+_080BFD70: .4byte gGenericBuffer
 _080BFD74: .4byte gBG0TilemapBuffer
 _080BFD78: .4byte 0x00002260
 
@@ -23642,7 +23642,7 @@ _080C0706:
 	lsrs r0, r0, #0x1f
 	adds r1, r1, r0
 	add r2, sp, #8
-	ldr r3, _080C07AC  @ gUnknown_03005280
+	ldr r3, _080C07AC  @ gGMData
 	ldrh r0, [r3, #2]
 	asrs r1, r1, #1
 	subs r1, r1, r0
@@ -23696,7 +23696,7 @@ _080C0798:
 _080C07A0: .4byte gUnknown_08AA1970
 _080C07A4: .4byte 0x06013000
 _080C07A8: .4byte gUnknown_08A3D748
-_080C07AC: .4byte gUnknown_03005280
+_080C07AC: .4byte gGMData
 _080C07B0: .4byte gUnknown_08AA1C70
 _080C07B4: .4byte gRAMChapterData
 
@@ -23855,7 +23855,7 @@ sub_80C089C: @ 0x080C089C
 	adds r6, r2, #0
 	adds r7, r3, #0
 	mov r2, sp
-	ldr r1, _080C0928  @ gUnknown_03005280
+	ldr r1, _080C0928  @ gGMData
 	ldr r0, [r1, #8]
 	asrs r0, r0, #8
 	strh r0, [r2]
@@ -23921,7 +23921,7 @@ _080C0924:
 	movs r0, #4
 	b _080C0954
 	.align 2, 0
-_080C0928: .4byte gUnknown_03005280
+_080C0928: .4byte gGMData
 _080C092C:
 	mov r0, sp
 	movs r1, #0
@@ -23967,7 +23967,7 @@ sub_80C0960: @ 0x080C0960
 	ands r0, r1
 	cmp r0, #0
 	bne _080C097E
-	ldr r0, _080C099C  @ gUnknown_03005280
+	ldr r0, _080C099C  @ gGMData
 	bl sub_80BD014
 	cmp r0, r4
 	beq _080C09AE
@@ -23988,7 +23988,7 @@ _080C098C:
 	b _080C09B0
 	.align 2, 0
 _080C0998: .4byte gRAMChapterData
-_080C099C: .4byte gUnknown_03005280
+_080C099C: .4byte gGMData
 _080C09A0: .4byte gUnknown_08206951
 _080C09A4: .4byte gUnknown_08206948
 _080C09A8:
@@ -24267,7 +24267,7 @@ _080C0BB8:
 	movs r1, #2
 	bl DrawDecNumber
 _080C0BCA:
-	ldr r0, _080C0C20  @ gUnknown_03005280
+	ldr r0, _080C0C20  @ gGMData
 	bl sub_80BD014
 	bl sub_80BBA28
 	adds r6, r0, #0
@@ -24303,7 +24303,7 @@ _080C0BCA:
 	bx r0
 	.align 2, 0
 _080C0C1C: .4byte gUnknown_02023116
-_080C0C20: .4byte gUnknown_03005280
+_080C0C20: .4byte gGMData
 _080C0C24: .4byte gUnknown_02022E2E
 
 	THUMB_FUNC_END sub_80C0A9C
@@ -24330,7 +24330,7 @@ sub_80C0C44: @ 0x080C0C44
 	push {r4, r5, lr}
 	sub sp, #4
 	adds r5, r0, #0
-	ldr r2, _080C0CB4  @ gUnknown_03005280
+	ldr r2, _080C0CB4  @ gGMData
 	ldrb r1, [r2, #0x10]
 	movs r0, #2
 	ands r0, r1
@@ -24377,7 +24377,7 @@ _080C0C7A:
 	bl CopyToPaletteBuffer
 	b _080C0CCA
 	.align 2, 0
-_080C0CB4: .4byte gUnknown_03005280
+_080C0CB4: .4byte gGMData
 _080C0CB8: .4byte gUnknown_02023D0C
 _080C0CBC: .4byte gUnknown_08A01EE4
 _080C0CC0:
@@ -24440,7 +24440,7 @@ sub_80C0CF4: @ 0x080C0CF4
 	bl CopyToPaletteBuffer
 	bl EnablePaletteSync
 	ldr r0, _080C0DD0  @ gUnknown_08A98BF8
-	ldr r4, _080C0DD4  @ gUnknown_02020188
+	ldr r4, _080C0DD4  @ gGenericBuffer
 	adds r1, r4, #0
 	bl CopyDataWithPossibleUncomp
 	movs r2, #0x80
@@ -24493,7 +24493,7 @@ _080C0DC4: .4byte gUnknown_08A986C0
 _080C0DC8: .4byte 0x06003000
 _080C0DCC: .4byte gUnknown_08A98DCC
 _080C0DD0: .4byte gUnknown_08A98BF8
-_080C0DD4: .4byte gUnknown_02020188
+_080C0DD4: .4byte gGenericBuffer
 _080C0DD8: .4byte gUnknown_08A98CFC
 _080C0DDC: .4byte gUnknown_08A98D58
 _080C0DE0: .4byte gUnknown_08A98D88
@@ -24779,7 +24779,7 @@ sub_80C0FE8: @ 0x080C0FE8
 	negs r4, r4
 	ands r4, r0
 	strb r4, [r2]
-	ldr r0, _080C1024  @ gUnknown_03005280
+	ldr r0, _080C1024  @ gGMData
 	ldrb r1, [r0]
 	movs r0, #8
 	ands r0, r1
@@ -24794,7 +24794,7 @@ sub_80C0FE8: @ 0x080C0FE8
 	movs r0, #0xff
 	b _080C1036
 	.align 2, 0
-_080C1024: .4byte gUnknown_03005280
+_080C1024: .4byte gGMData
 _080C1028:
 	movs r0, #3
 	negs r0, r0
@@ -24994,7 +24994,7 @@ sub_80C119C: @ 0x080C119C
 	push {r5, r6, r7}
 	sub sp, #8
 	mov r8, r0
-	ldr r2, _080C11C8  @ gUnknown_03005280
+	ldr r2, _080C11C8  @ gGMData
 	ldrb r1, [r2]
 	movs r0, #8
 	ands r0, r1
@@ -25008,7 +25008,7 @@ sub_80C119C: @ 0x080C119C
 	mov sl, r4
 	b _080C11DA
 	.align 2, 0
-_080C11C8: .4byte gUnknown_03005280
+_080C11C8: .4byte gGMData
 _080C11CC:
 	add r1, sp, #4
 	ldrh r0, [r2, #2]
@@ -25066,7 +25066,7 @@ _080C11E2:
 	adds r2, r1, #0
 	cmp r0, #0xc0
 	bhi _080C1274
-	ldr r0, _080C1250  @ gUnknown_03005280
+	ldr r0, _080C1250  @ gGMData
 	ldrb r1, [r0]
 	movs r0, #8
 	ands r0, r1
@@ -25078,7 +25078,7 @@ _080C11E2:
 	b _080C125A
 	.align 2, 0
 _080C124C: .4byte gUnknown_08A3E9A0
-_080C1250: .4byte gUnknown_03005280
+_080C1250: .4byte gGMData
 _080C1254:
 	movs r6, #0xd
 	movs r4, #0x80
@@ -25144,7 +25144,7 @@ sub_80C12AC: @ 0x080C12AC
 	bl CopyToPaletteBuffer
 	bl EnablePaletteSync
 	ldr r0, _080C1314  @ gUnknown_08A97C98
-	ldr r4, _080C1318  @ gUnknown_02020188
+	ldr r4, _080C1318  @ gGenericBuffer
 	adds r1, r4, #0
 	bl CopyDataWithPossibleUncomp
 	ldr r1, _080C131C  @ 0x06013000
@@ -25178,7 +25178,7 @@ _080C12F4:
 _080C130C: .4byte gUnknown_08A3EA38
 _080C1310: .4byte gUnknown_08A97E28
 _080C1314: .4byte gUnknown_08A97C98
-_080C1318: .4byte gUnknown_02020188
+_080C1318: .4byte gGenericBuffer
 _080C131C: .4byte 0x06013000
 _080C1320: .4byte gUnknown_08A3EA00
 
@@ -25232,7 +25232,7 @@ sub_80C1370: @ 0x080C1370
 	adds r4, r1, #0
 	cmp r2, #0
 	beq _080C1394
-	ldr r0, _080C138C  @ gUnknown_03005280
+	ldr r0, _080C138C  @ gGMData
 	ldrb r1, [r0]
 	movs r0, #8
 	ands r0, r1
@@ -25241,10 +25241,10 @@ sub_80C1370: @ 0x080C1370
 	bl Proc_StartBlocking
 	b _080C13BC
 	.align 2, 0
-_080C138C: .4byte gUnknown_03005280
+_080C138C: .4byte gGMData
 _080C1390: .4byte gUnknown_08A3EA38
 _080C1394:
-	ldr r0, _080C13AC  @ gUnknown_03005280
+	ldr r0, _080C13AC  @ gGMData
 	ldrb r1, [r0]
 	movs r0, #8
 	ands r0, r1
@@ -25255,7 +25255,7 @@ _080C1394:
 	bl Proc_Start
 	b _080C13BC
 	.align 2, 0
-_080C13AC: .4byte gUnknown_03005280
+_080C13AC: .4byte gGMData
 _080C13B0: .4byte gUnknown_08A3EA38
 _080C13B4:
 	ldr r0, _080C13C8  @ gUnknown_08A3EA38
@@ -25879,7 +25879,7 @@ _080C1822:
 	add r1, sp, #0x10
 	mov sl, r1
 	ldr r3, _080C18D8  @ gUnknown_08206948
-	ldr r0, _080C18DC  @ gUnknown_03005280
+	ldr r0, _080C18DC  @ gGMData
 	ldrb r1, [r0, #0x11]
 	movs r2, #0
 _080C183A:
@@ -25958,7 +25958,7 @@ _080C18C2:
 	.align 2, 0
 _080C18D4: .4byte gUnknown_08206AAB
 _080C18D8: .4byte gUnknown_08206948
-_080C18DC: .4byte gUnknown_03005280
+_080C18DC: .4byte gGMData
 _080C18E0: .4byte gGmMonsterRnState
 _080C18E4: .4byte gUnknown_03005349
 
@@ -26108,7 +26108,7 @@ _080C19EE:
 	adds r0, r4, #0
 	movs r2, #1
 	bl WM_PutClassSprite
-	ldr r0, _080C1A54  @ gUnknown_03005280
+	ldr r0, _080C1A54  @ gGMData
 	lsls r1, r4, #2
 	adds r1, r1, r0
 	ldrb r2, [r1, #0x10]
@@ -26147,7 +26147,7 @@ _080C1A44: .4byte 0x00000312
 _080C1A48: .4byte gUnknown_082060B0
 _080C1A4C: .4byte gUnknown_08A3D748
 _080C1A50: .4byte gUnknown_08A97AEC
-_080C1A54: .4byte gUnknown_03005280
+_080C1A54: .4byte gGMData
 
 	THUMB_FUNC_END sub_80C1920
 
@@ -26254,7 +26254,7 @@ sub_80C1AF8: @ 0x080C1AF8
 	push {r6, r7}
 	sub sp, #8
 	movs r6, #4
-	ldr r0, _080C1B54  @ gUnknown_03005280
+	ldr r0, _080C1B54  @ gGMData
 	add r1, sp, #4
 	mov r8, r1
 	adds r5, r0, #0
@@ -26295,7 +26295,7 @@ _080C1B42:
 	bl MapMU_SetUnitClass
 	b _080C1B88
 	.align 2, 0
-_080C1B54: .4byte gUnknown_03005280
+_080C1B54: .4byte gGMData
 _080C1B58: .4byte gUnknown_082060B0
 _080C1B5C: .4byte gUnknown_08A3D748
 _080C1B60:
@@ -26900,7 +26900,7 @@ sub_80C1F6C: @ 0x080C1F6C
 	movs r0, #2
 	bl BG_EnableSyncByMask
 	bl LoadLegacyUiFrameGraphics
-	ldr r2, _080C1FD8  @ gUnknown_03005280
+	ldr r2, _080C1FD8  @ gGMData
 	ldrb r1, [r2]
 	movs r0, #9
 	negs r0, r0
@@ -26912,7 +26912,7 @@ sub_80C1F6C: @ 0x080C1F6C
 	.align 2, 0
 _080C1FD0: .4byte gUnknown_08A3D748
 _080C1FD4: .4byte gBG1TilemapBuffer
-_080C1FD8: .4byte gUnknown_03005280
+_080C1FD8: .4byte gGMData
 
 	THUMB_FUNC_END sub_80C1F6C
 
@@ -26948,7 +26948,7 @@ sub_80C1FE0: @ 0x080C1FE0
 	movs r2, #0x80
 	bl CopyToPaletteBuffer
 	ldr r0, _080C204C  @ gUnknown_08A9DF74
-	ldr r4, _080C2050  @ gUnknown_02020188
+	ldr r4, _080C2050  @ gGenericBuffer
 	adds r1, r4, #0
 	bl CopyDataWithPossibleUncomp
 	ldr r0, _080C2054  @ gBG1TilemapBuffer
@@ -26969,7 +26969,7 @@ _080C2040: .4byte gUnknown_08A3D748
 _080C2044: .4byte gUnknown_08A99140
 _080C2048: .4byte gUnknown_08A9E4C4
 _080C204C: .4byte gUnknown_08A9DF74
-_080C2050: .4byte gUnknown_02020188
+_080C2050: .4byte gGenericBuffer
 _080C2054: .4byte gBG1TilemapBuffer
 _080C2058: .4byte gUnknown_08A3EAF0
 
@@ -27203,7 +27203,7 @@ sub_80C214C: @ 0x080C214C
 	movs r1, #0x10
 	orrs r0, r1
 	strb r0, [r4, #1]
-	ldr r2, _080C2248  @ gUnknown_03005280
+	ldr r2, _080C2248  @ gGMData
 	ldrb r1, [r2]
 	movs r0, #9
 	negs r0, r0
@@ -27227,7 +27227,7 @@ _080C2238: .4byte gUnknown_08A97ED8
 _080C223C: .4byte 0x06005000
 _080C2240: .4byte gUnknown_08A3D748
 _080C2244: .4byte gLCDControlBuffer
-_080C2248: .4byte gUnknown_03005280
+_080C2248: .4byte gGMData
 
 	THUMB_FUNC_END sub_80C214C
 
@@ -27273,7 +27273,7 @@ sub_80C2290: @ 0x080C2290
 	push {r4, r5, r6, r7, lr}
 	adds r6, r0, #0
 	movs r5, #2
-	ldr r7, _080C22D4  @ gUnknown_03005280
+	ldr r7, _080C22D4  @ gGMData
 	adds r4, r7, #0
 	adds r4, #8
 _080C229C:
@@ -27293,7 +27293,7 @@ _080C22B4:
 	adds r5, #1
 	cmp r5, #6
 	ble _080C229C
-	ldr r0, _080C22D4  @ gUnknown_03005280
+	ldr r0, _080C22D4  @ gGMData
 	ldrb r1, [r0, #0x10]
 	movs r0, #1
 	ands r0, r1
@@ -27306,7 +27306,7 @@ _080C22B4:
 	orrs r0, r1
 	b _080C22E2
 	.align 2, 0
-_080C22D4: .4byte gUnknown_03005280
+_080C22D4: .4byte gGMData
 _080C22D8:
 	adds r2, r6, #0
 	adds r2, #0x29
@@ -27390,7 +27390,7 @@ sub_80C2320: @ 0x080C2320
 	bl BG_Fill
 	movs r0, #4
 	bl BG_EnableSyncByMask
-	ldr r2, _080C2394  @ gUnknown_03005280
+	ldr r2, _080C2394  @ gGMData
 	ldrb r0, [r2]
 	movs r1, #8
 	orrs r0, r1
@@ -27401,7 +27401,7 @@ sub_80C2320: @ 0x080C2320
 	.align 2, 0
 _080C238C: .4byte gUnknown_08A3D748
 _080C2390: .4byte gLCDControlBuffer
-_080C2394: .4byte gUnknown_03005280
+_080C2394: .4byte gGMData
 
 	THUMB_FUNC_END sub_80C2320
 
@@ -27450,7 +27450,7 @@ sub_80C2398: @ 0x080C2398
 	movs r1, #0x10
 	orrs r0, r1
 	strb r0, [r2, #1]
-	ldr r2, _080C2418  @ gUnknown_03005280
+	ldr r2, _080C2418  @ gGMData
 	ldrb r1, [r2]
 	movs r0, #9
 	negs r0, r0
@@ -27464,7 +27464,7 @@ sub_80C2398: @ 0x080C2398
 	.align 2, 0
 _080C2410: .4byte gUnknown_08A3D748
 _080C2414: .4byte gLCDControlBuffer
-_080C2418: .4byte gUnknown_03005280
+_080C2418: .4byte gGMData
 _080C241C: .4byte gUnknown_08A3EAF0
 
 	THUMB_FUNC_END sub_80C2398
@@ -27641,7 +27641,7 @@ sub_80C24F8: @ 0x080C24F8
 	ldrb r0, [r2, #0x18]
 	orrs r0, r1
 	strb r0, [r2, #0x18]
-	ldr r3, _080C2590  @ gUnknown_03005280
+	ldr r3, _080C2590  @ gGMData
 	ldrb r1, [r3]
 	movs r4, #9
 	negs r4, r4
@@ -27673,7 +27673,7 @@ _080C257E:
 _080C2584: .4byte gUnknown_08A3EB50
 _080C2588: .4byte gUnknown_08A3D748
 _080C258C: .4byte gLCDControlBuffer
-_080C2590: .4byte gUnknown_03005280
+_080C2590: .4byte gGMData
 _080C2594: .4byte gUnknown_08A3EAF0
 
 	THUMB_FUNC_END sub_80C24F8
@@ -29308,7 +29308,7 @@ _080C314C:
 	cmp r0, #1
 	beq _080C3178
 _080C315E:
-	ldr r1, _080C3174  @ gUnknown_03005280
+	ldr r1, _080C3174  @ gGMData
 	ldrh r0, [r4, #0x2c]
 	lsls r0, r0, #2
 	adds r0, r0, r1
@@ -29319,7 +29319,7 @@ _080C315E:
 	b _080C318E
 	.align 2, 0
 _080C3170: .4byte gUnknown_08A3D748
-_080C3174: .4byte gUnknown_03005280
+_080C3174: .4byte gGMData
 _080C3178:
 	adds r0, r5, #0
 	bl Proc_Find
@@ -30092,7 +30092,7 @@ sub_80C36E8: @ 0x080C36E8
 	push {r4, r5, r6, lr}
 	sub sp, #4
 	adds r4, r0, #0
-	ldr r0, _080C375C  @ gUnknown_03005280
+	ldr r0, _080C375C  @ gGMData
 	ldr r1, [r0, #8]
 	asrs r1, r1, #8
 	ldr r6, [r0, #0xc]
@@ -30146,7 +30146,7 @@ _080C3754:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_080C375C: .4byte gUnknown_03005280
+_080C375C: .4byte gGMData
 _080C3760: .4byte 0x0000012F
 _080C3764: .4byte 0x000001FF
 _080C3768: .4byte gObject_8x8
@@ -30159,7 +30159,7 @@ sub_80C3770: @ 0x080C3770
 	push {r4, r5, r6, lr}
 	sub sp, #4
 	adds r4, r0, #0
-	ldr r0, _080C37F4  @ gUnknown_03005280
+	ldr r0, _080C37F4  @ gGMData
 	bl sub_80BD014
 	cmp r0, #0
 	blt _080C37EA
@@ -30219,7 +30219,7 @@ _080C37EA:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_080C37F4: .4byte gUnknown_03005280
+_080C37F4: .4byte gGMData
 _080C37F8: .4byte gUnknown_082060B0
 _080C37FC: .4byte 0x0000012F
 _080C3800: .4byte 0x000001FF
@@ -30233,7 +30233,7 @@ sub_80C380C: @ 0x080C380C
 	push {r4, r5, r6, r7, lr}
 	sub sp, #8
 	adds r7, r0, #0
-	ldr r0, _080C38A4  @ gUnknown_03005280
+	ldr r0, _080C38A4  @ gGMData
 	ldrb r1, [r0, #0x10]
 	movs r0, #1
 	ands r0, r1
@@ -30302,7 +30302,7 @@ _080C389A:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_080C38A4: .4byte gUnknown_03005280
+_080C38A4: .4byte gGMData
 _080C38A8: .4byte gUnknown_08A3D748
 _080C38AC: .4byte 0x0000012F
 _080C38B0: .4byte 0x000001FF
@@ -30333,7 +30333,7 @@ sub_80C38BC: @ 0x080C38BC
 	add r0, sp, #4
 	mov r8, r0
 _080C38E2:
-	ldr r1, _080C3A10  @ gUnknown_03005280
+	ldr r1, _080C3A10  @ gGMData
 	mov r2, r9
 	lsls r0, r2, #2
 	adds r0, r0, r1
@@ -30489,7 +30489,7 @@ _080C3A00:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_080C3A10: .4byte gUnknown_03005280
+_080C3A10: .4byte gGMData
 _080C3A14: .4byte gUnknown_08A3D748
 _080C3A18: .4byte 0x0000012F
 _080C3A1C: .4byte 0x000001FF
@@ -30573,7 +30573,7 @@ _080C3AB4: .4byte 0x000071E0
 sub_80C3AB8: @ 0x080C3AB8
 	push {r4, r5, r6, lr}
 	adds r5, r0, #0
-	ldr r6, _080C3B38  @ gUnknown_03005280
+	ldr r6, _080C3B38  @ gGMData
 	ldrb r1, [r6]
 	movs r0, #4
 	ands r0, r1
@@ -30634,7 +30634,7 @@ _080C3B32:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_080C3B38: .4byte gUnknown_03005280
+_080C3B38: .4byte gGMData
 _080C3B3C: .4byte gUnknown_08206B70
 
 	THUMB_FUNC_END sub_80C3AB8
@@ -30656,7 +30656,7 @@ sub_80C3B40: @ 0x080C3B40
 	adds r7, r4, #0
 	adds r7, #0x2c
 	strb r0, [r7]
-	ldr r6, _080C3BDC  @ gUnknown_03005280
+	ldr r6, _080C3BDC  @ gGMData
 	ldr r0, [r6, #8]
 	asrs r0, r0, #8
 	strb r0, [r2]
@@ -30719,7 +30719,7 @@ _080C3BD4:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_080C3BDC: .4byte gUnknown_03005280
+_080C3BDC: .4byte gGMData
 _080C3BE0: .4byte gUnknown_08206B70
 
 	THUMB_FUNC_END sub_80C3B40
@@ -30733,7 +30733,7 @@ sub_80C3BE4: @ 0x080C3BE4
 	adds r0, #0x2a
 	movs r2, #0
 	ldrsb r2, [r0, r2]
-	ldr r0, _080C3C18  @ gUnknown_03005280
+	ldr r0, _080C3C18  @ gGMData
 	ldrb r1, [r0]
 	lsls r1, r1, #0x1a
 	lsrs r1, r1, #0x1e
@@ -30751,7 +30751,7 @@ sub_80C3BE4: @ 0x080C3BE4
 	b _080C3D0C
 	.align 2, 0
 _080C3C14: .4byte gUnknown_08206B70
-_080C3C18: .4byte gUnknown_03005280
+_080C3C18: .4byte gGMData
 _080C3C1C:
 	cmp r5, #2
 	beq _080C3CA4
@@ -31209,7 +31209,7 @@ sub_80C3F88: @ 0x080C3F88
 	adds r4, r0, #0
 	ldr r0, [r4, #0x2c]
 	bl GetUnitFromCharId
-	ldr r1, _080C3FAC  @ gUnknown_03005280
+	ldr r1, _080C3FAC  @ gGMData
 	ldrb r1, [r1, #0x11]
 	lsls r1, r1, #5
 	ldr r2, _080C3FB0  @ gUnknown_082060B0
@@ -31221,7 +31221,7 @@ sub_80C3F88: @ 0x080C3F88
 	pop {r0}
 	bx r0
 	.align 2, 0
-_080C3FAC: .4byte gUnknown_03005280
+_080C3FAC: .4byte gGMData
 _080C3FB0: .4byte gUnknown_082060B0
 
 	THUMB_FUNC_END sub_80C3F88
@@ -31232,7 +31232,7 @@ sub_80C3FB4: @ 0x080C3FB4
 	adds r4, r0, #0
 	ldr r0, [r4, #0x2c]
 	bl GetUnitFromCharId
-	ldr r1, _080C3FD8  @ gUnknown_03005280
+	ldr r1, _080C3FD8  @ gGMData
 	ldrb r1, [r1, #0x11]
 	lsls r1, r1, #5
 	ldr r2, _080C3FDC  @ gUnknown_082060B0
@@ -31244,7 +31244,7 @@ sub_80C3FB4: @ 0x080C3FB4
 	pop {r0}
 	bx r0
 	.align 2, 0
-_080C3FD8: .4byte gUnknown_03005280
+_080C3FD8: .4byte gGMData
 _080C3FDC: .4byte gUnknown_082060B0
 
 	THUMB_FUNC_END sub_80C3FB4
@@ -31255,7 +31255,7 @@ sub_80C3FE0: @ 0x080C3FE0
 	adds r4, r0, #0
 	ldr r0, [r4, #0x2c]
 	bl GetUnitFromCharId
-	ldr r1, _080C4004  @ gUnknown_03005280
+	ldr r1, _080C4004  @ gGMData
 	ldrb r1, [r1, #0x11]
 	lsls r1, r1, #5
 	ldr r2, _080C4008  @ gUnknown_082060B0
@@ -31267,7 +31267,7 @@ sub_80C3FE0: @ 0x080C3FE0
 	pop {r0}
 	bx r0
 	.align 2, 0
-_080C4004: .4byte gUnknown_03005280
+_080C4004: .4byte gGMData
 _080C4008: .4byte gUnknown_082060B0
 
 	THUMB_FUNC_END sub_80C3FE0
@@ -31748,7 +31748,7 @@ _080C4302:
 	bl CopyDataWithPossibleUncomp
 	ldr r0, [r5]
 	ldr r0, [r0, #4]
-	ldr r5, _080C4354  @ gUnknown_02020188
+	ldr r5, _080C4354  @ gGenericBuffer
 	adds r1, r5, #0
 	bl CopyDataWithPossibleUncomp
 	ldr r0, _080C4358  @ gUnknown_0201C5D4
@@ -31763,7 +31763,7 @@ _080C4302:
 	bl CallARM_FillTileRect
 	b _080C4390
 	.align 2, 0
-_080C4354: .4byte gUnknown_02020188
+_080C4354: .4byte gGenericBuffer
 _080C4358: .4byte gUnknown_0201C5D4
 _080C435C:
 	movs r0, #1
@@ -32266,7 +32266,7 @@ sub_80C4738: @ 0x080C4738
 	adds r1, r4, r2
 	bl CopyDataWithPossibleUncomp
 	ldr r0, [r5, #4]
-	ldr r5, _080C47A0  @ gUnknown_02020188
+	ldr r5, _080C47A0  @ gGenericBuffer
 	adds r1, r5, #0
 	bl CopyDataWithPossibleUncomp
 	ldr r0, _080C47A4  @ gBG0TilemapBuffer
@@ -32298,7 +32298,7 @@ sub_80C4738: @ 0x080C4738
 	.align 2, 0
 _080C4798: .4byte gUnknown_08206FB4
 _080C479C: .4byte gUnknown_08206FDC
-_080C47A0: .4byte gUnknown_02020188
+_080C47A0: .4byte gGenericBuffer
 _080C47A4: .4byte gBG0TilemapBuffer
 _080C47A8: .4byte gPaletteBuffer
 _080C47AC: .4byte gUnknown_08A40FC8
@@ -32932,7 +32932,7 @@ sub_80C4C60: @ 0x080C4C60
 	adds r4, #4
 	adds r0, r0, r4
 	ldr r0, [r0]
-	ldr r4, _080C4CC4  @ gUnknown_02020188
+	ldr r4, _080C4CC4  @ gGenericBuffer
 	adds r1, r4, #0
 	bl CopyDataWithPossibleUncomp
 	ldr r0, _080C4CC8  @ gBG0TilemapBuffer
@@ -32955,7 +32955,7 @@ sub_80C4C60: @ 0x080C4C60
 	.align 2, 0
 _080C4CBC: .4byte gUnknown_08206FE4
 _080C4CC0: .4byte 0x06001000
-_080C4CC4: .4byte gUnknown_02020188
+_080C4CC4: .4byte gGenericBuffer
 _080C4CC8: .4byte gBG0TilemapBuffer
 _080C4CCC: .4byte gLCDControlBuffer
 
@@ -32985,7 +32985,7 @@ sub_80C4CD0: @ 0x080C4CD0
 	adds r4, #4
 	adds r0, r0, r4
 	ldr r0, [r0]
-	ldr r4, _080C4D40  @ gUnknown_02020188
+	ldr r4, _080C4D40  @ gGenericBuffer
 	adds r1, r4, #0
 	bl CopyDataWithPossibleUncomp
 	ldr r0, _080C4D44  @ gBG0TilemapBuffer
@@ -33012,7 +33012,7 @@ sub_80C4CD0: @ 0x080C4CD0
 	.align 2, 0
 _080C4D38: .4byte gUnknown_08206FE4
 _080C4D3C: .4byte 0x06001000
-_080C4D40: .4byte gUnknown_02020188
+_080C4D40: .4byte gGenericBuffer
 _080C4D44: .4byte gBG0TilemapBuffer
 _080C4D48: .4byte gBG1TilemapBuffer
 _080C4D4C: .4byte 0x0000E080
@@ -33034,7 +33034,7 @@ sub_80C4D54: @ 0x080C4D54
 	adds r5, #4
 	adds r4, r4, r5
 	ldr r0, [r4]
-	ldr r4, _080C4D98  @ gUnknown_02020188
+	ldr r4, _080C4D98  @ gGenericBuffer
 	adds r1, r4, #0
 	bl CopyDataWithPossibleUncomp
 	ldr r0, _080C4D9C  @ gBG0TilemapBuffer
@@ -33050,7 +33050,7 @@ sub_80C4D54: @ 0x080C4D54
 	.align 2, 0
 _080C4D90: .4byte gUnknown_08206FE4
 _080C4D94: .4byte 0x06005000
-_080C4D98: .4byte gUnknown_02020188
+_080C4D98: .4byte gGenericBuffer
 _080C4D9C: .4byte gBG0TilemapBuffer
 
 	THUMB_FUNC_END sub_80C4D54
@@ -35417,7 +35417,7 @@ _080C60C2:
 sub_80C60CC: @ 0x080C60CC
 	push {r4, r5, r6, lr}
 	sub sp, #4
-	ldr r5, _080C60F8  @ gUnknown_02020188
+	ldr r5, _080C60F8  @ gGenericBuffer
 	movs r6, #0
 	movs r4, #3
 _080C60D6:
@@ -35437,7 +35437,7 @@ _080C60D6:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_080C60F8: .4byte gUnknown_02020188
+_080C60F8: .4byte gGenericBuffer
 _080C60FC: .4byte 0x01000080
 
 	THUMB_FUNC_END sub_80C60CC
@@ -37945,13 +37945,13 @@ _080C7454:
 	adds r0, r4, #0
 	bl CopyDataWithPossibleUncomp
 	ldr r0, _080C7478  @ gUnknown_08AC1878
-	ldr r1, _080C747C  @ gUnknown_02020188
+	ldr r1, _080C747C  @ gGenericBuffer
 	bl CopyDataWithPossibleUncomp
 	b _080C7604
 	.align 2, 0
 _080C7474: .4byte gUnknown_08ABF168
 _080C7478: .4byte gUnknown_08AC1878
-_080C747C: .4byte gUnknown_02020188
+_080C747C: .4byte gGenericBuffer
 _080C7480:
 	ldr r4, _080C74A0  @ gUnknown_08AC0BD8
 	movs r0, #0
@@ -38364,7 +38364,7 @@ _080C77BA:
 	asrs r0, r0, #0x10
 	movs r2, #0x32
 	ldrsh r1, [r5, r2]
-	ldr r7, _080C782C  @ gUnknown_02020188
+	ldr r7, _080C782C  @ gGenericBuffer
 	str r7, [sp]
 	movs r2, #0x80
 	lsls r2, r2, #4
@@ -38400,7 +38400,7 @@ _080C77BA:
 	.align 2, 0
 _080C7824: .4byte gUnknown_02021188
 _080C7828: .4byte gUnknown_08AA7034
-_080C782C: .4byte gUnknown_02020188
+_080C782C: .4byte gGenericBuffer
 _080C7830:
 	ldrh r0, [r5, #0x2a]
 	adds r0, #1
@@ -38974,7 +38974,7 @@ _080C7C88:
 	asrs r0, r0, #0x10
 	movs r2, #0x32
 	ldrsh r1, [r6, r2]
-	ldr r2, _080C7CE0  @ gUnknown_02020188
+	ldr r2, _080C7CE0  @ gGenericBuffer
 	str r2, [sp]
 	movs r3, #0x80
 	lsls r3, r3, #4
@@ -38998,7 +38998,7 @@ _080C7CD0: .4byte gUnknown_08AA6BFA
 _080C7CD4: .4byte 0x00002046
 _080C7CD8: .4byte gUnknown_02022188
 _080C7CDC: .4byte gUnknown_02021188
-_080C7CE0: .4byte gUnknown_02020188
+_080C7CE0: .4byte gGenericBuffer
 _080C7CE4:
 	ldrh r0, [r6, #0x2a]
 	adds r0, #1
@@ -39128,13 +39128,13 @@ _080C7DEC:
 	adds r0, r4, #0
 	bl CopyDataWithPossibleUncomp
 	ldr r0, _080C7E10  @ gUnknown_08AC8DDC
-	ldr r1, _080C7E14  @ gUnknown_02020188
+	ldr r1, _080C7E14  @ gGenericBuffer
 	bl CopyDataWithPossibleUncomp
 	b _080C7F80
 	.align 2, 0
 _080C7E0C: .4byte gUnknown_08AC5614
 _080C7E10: .4byte gUnknown_08AC8DDC
-_080C7E14: .4byte gUnknown_02020188
+_080C7E14: .4byte gGenericBuffer
 _080C7E18:
 	ldr r4, _080C7E38  @ gUnknown_08AC7374
 	movs r0, #0
@@ -39430,7 +39430,7 @@ _080C807A:
 	asrs r0, r0, #0x10
 	movs r2, #0x32
 	ldrsh r1, [r5, r2]
-	ldr r7, _080C80E8  @ gUnknown_02020188
+	ldr r7, _080C80E8  @ gGenericBuffer
 	str r7, [sp]
 	movs r2, #0x80
 	lsls r2, r2, #4
@@ -39465,7 +39465,7 @@ _080C807A:
 	b _080C80F2
 	.align 2, 0
 _080C80E4: .4byte gUnknown_02021188
-_080C80E8: .4byte gUnknown_02020188
+_080C80E8: .4byte gGenericBuffer
 _080C80EC:
 	ldrh r0, [r5, #0x2a]
 	adds r0, #1
@@ -39929,7 +39929,7 @@ _080C8462:
 	asrs r0, r0, #0x10
 	movs r2, #0x32
 	ldrsh r1, [r6, r2]
-	ldr r2, _080C84C0  @ gUnknown_02020188
+	ldr r2, _080C84C0  @ gGenericBuffer
 	str r2, [sp]
 	movs r3, #0x80
 	lsls r3, r3, #4
@@ -39955,7 +39955,7 @@ _080C84B0: .4byte gUnknown_08AA6C0E
 _080C84B4: .4byte 0x0000206E
 _080C84B8: .4byte gUnknown_02022188
 _080C84BC: .4byte gUnknown_02021188
-_080C84C0: .4byte gUnknown_02020188
+_080C84C0: .4byte gGenericBuffer
 _080C84C4:
 	ldrh r0, [r6, #0x2a]
 	adds r0, #1
@@ -40305,13 +40305,13 @@ _080C8740:
 	adds r0, r4, #0
 	bl CopyDataWithPossibleUncomp
 	ldr r0, _080C8764  @ gUnknown_08ACBF58
-	ldr r1, _080C8768  @ gUnknown_02020188
+	ldr r1, _080C8768  @ gGenericBuffer
 	bl CopyDataWithPossibleUncomp
 	b _080C8802
 	.align 2, 0
 _080C8760: .4byte gUnknown_08AC949C
 _080C8764: .4byte gUnknown_08ACBF58
-_080C8768: .4byte gUnknown_02020188
+_080C8768: .4byte gGenericBuffer
 _080C876C:
 	ldr r4, _080C878C  @ gUnknown_08ACAF70
 	movs r0, #0
@@ -40450,13 +40450,13 @@ _080C8880:
 	adds r0, r4, #0
 	bl CopyDataWithPossibleUncomp
 	ldr r0, _080C88A4  @ gUnknown_08ACEED0
-	ldr r1, _080C88A8  @ gUnknown_02020188
+	ldr r1, _080C88A8  @ gGenericBuffer
 	bl CopyDataWithPossibleUncomp
 	b _080C88FA
 	.align 2, 0
 _080C88A0: .4byte gUnknown_08ACC540
 _080C88A4: .4byte gUnknown_08ACEED0
-_080C88A8: .4byte gUnknown_02020188
+_080C88A8: .4byte gGenericBuffer
 _080C88AC:
 	ldr r4, _080C88CC  @ gUnknown_08ACE0B8
 	movs r0, #0
@@ -40562,13 +40562,13 @@ _080C8978:
 	adds r0, r4, #0
 	bl CopyDataWithPossibleUncomp
 	ldr r0, _080C899C  @ gUnknown_08AD206C
-	ldr r1, _080C89A0  @ gUnknown_02020188
+	ldr r1, _080C89A0  @ gGenericBuffer
 	bl CopyDataWithPossibleUncomp
 	b _080C89F2
 	.align 2, 0
 _080C8998: .4byte gUnknown_08ACF474
 _080C899C: .4byte gUnknown_08AD206C
-_080C89A0: .4byte gUnknown_02020188
+_080C89A0: .4byte gGenericBuffer
 _080C89A4:
 	ldr r4, _080C89C4  @ gUnknown_08AD1048
 	movs r0, #0
@@ -40671,13 +40671,13 @@ _080C8A64:
 	adds r0, r4, #0
 	bl CopyDataWithPossibleUncomp
 	ldr r0, _080C8A88  @ gUnknown_08AD5094
-	ldr r1, _080C8A8C  @ gUnknown_02020188
+	ldr r1, _080C8A8C  @ gGenericBuffer
 	bl CopyDataWithPossibleUncomp
 	b _080C8ADE
 	.align 2, 0
 _080C8A84: .4byte gUnknown_08AD2614
 _080C8A88: .4byte gUnknown_08AD5094
-_080C8A8C: .4byte gUnknown_02020188
+_080C8A8C: .4byte gGenericBuffer
 _080C8A90:
 	ldr r4, _080C8AB0  @ gUnknown_08AD423C
 	movs r0, #0
@@ -40780,13 +40780,13 @@ _080C8B50:
 	adds r0, r4, #0
 	bl CopyDataWithPossibleUncomp
 	ldr r0, _080C8B74  @ gUnknown_08AD8518
-	ldr r1, _080C8B78  @ gUnknown_02020188
+	ldr r1, _080C8B78  @ gGenericBuffer
 	bl CopyDataWithPossibleUncomp
 	b _080C8BCA
 	.align 2, 0
 _080C8B70: .4byte gUnknown_08AD563C
 _080C8B74: .4byte gUnknown_08AD8518
-_080C8B78: .4byte gUnknown_02020188
+_080C8B78: .4byte gGenericBuffer
 _080C8B7C:
 	ldr r4, _080C8B9C  @ gUnknown_08AD72FC
 	movs r0, #0
@@ -40889,13 +40889,13 @@ _080C8C3C:
 	adds r0, r4, #0
 	bl CopyDataWithPossibleUncomp
 	ldr r0, _080C8C60  @ gUnknown_08ADB804
-	ldr r1, _080C8C64  @ gUnknown_02020188
+	ldr r1, _080C8C64  @ gGenericBuffer
 	bl CopyDataWithPossibleUncomp
 	b _080C8CB6
 	.align 2, 0
 _080C8C5C: .4byte gUnknown_08AD8B08
 _080C8C60: .4byte gUnknown_08ADB804
-_080C8C64: .4byte gUnknown_02020188
+_080C8C64: .4byte gGenericBuffer
 _080C8C68:
 	ldr r4, _080C8C88  @ gUnknown_08ADA31C
 	movs r0, #0
@@ -42731,7 +42731,7 @@ sub_80C9C08: @ 0x080C9C08
 	movs r2, #0
 	movs r0, #1
 	strb r0, [r1]
-	ldr r0, _080C9C58  @ gUnknown_02020188
+	ldr r0, _080C9C58  @ gGenericBuffer
 	str r0, [r4, #0x48]
 	movs r1, #0x80
 	lsls r1, r1, #4
@@ -42755,7 +42755,7 @@ sub_80C9C08: @ 0x080C9C08
 	bx r0
 	.align 2, 0
 _080C9C54: .4byte gUnknown_08ACC3E0
-_080C9C58: .4byte gUnknown_02020188
+_080C9C58: .4byte gGenericBuffer
 
 	THUMB_FUNC_END sub_80C9C08
 
@@ -42773,7 +42773,7 @@ sub_80C9C5C: @ 0x080C9C5C
 	adds r0, #0x47
 	movs r2, #0
 	strb r2, [r0]
-	ldr r0, _080C9CA8  @ gUnknown_02020188
+	ldr r0, _080C9CA8  @ gGenericBuffer
 	str r0, [r4, #0x48]
 	movs r1, #0x80
 	lsls r1, r1, #4
@@ -42796,7 +42796,7 @@ sub_80C9C5C: @ 0x080C9C5C
 	bx r0
 	.align 2, 0
 _080C9CA4: .4byte gUnknown_08ACF314
-_080C9CA8: .4byte gUnknown_02020188
+_080C9CA8: .4byte gGenericBuffer
 
 	THUMB_FUNC_END sub_80C9C5C
 
@@ -42815,7 +42815,7 @@ sub_80C9CAC: @ 0x080C9CAC
 	movs r2, #0
 	movs r0, #1
 	strb r0, [r1]
-	ldr r0, _080C9CF8  @ gUnknown_02020188
+	ldr r0, _080C9CF8  @ gGenericBuffer
 	str r0, [r4, #0x48]
 	movs r1, #0x80
 	lsls r1, r1, #4
@@ -42838,7 +42838,7 @@ sub_80C9CAC: @ 0x080C9CAC
 	bx r0
 	.align 2, 0
 _080C9CF4: .4byte gUnknown_08AD24B4
-_080C9CF8: .4byte gUnknown_02020188
+_080C9CF8: .4byte gGenericBuffer
 
 	THUMB_FUNC_END sub_80C9CAC
 
@@ -42856,7 +42856,7 @@ sub_80C9CFC: @ 0x080C9CFC
 	adds r0, #0x47
 	movs r2, #0
 	strb r2, [r0]
-	ldr r0, _080C9D48  @ gUnknown_02020188
+	ldr r0, _080C9D48  @ gGenericBuffer
 	str r0, [r4, #0x48]
 	movs r1, #0x80
 	lsls r1, r1, #4
@@ -42880,7 +42880,7 @@ sub_80C9CFC: @ 0x080C9CFC
 	bx r0
 	.align 2, 0
 _080C9D44: .4byte gUnknown_08AD54DC
-_080C9D48: .4byte gUnknown_02020188
+_080C9D48: .4byte gGenericBuffer
 
 	THUMB_FUNC_END sub_80C9CFC
 
@@ -42899,7 +42899,7 @@ sub_80C9D4C: @ 0x080C9D4C
 	movs r2, #0
 	movs r0, #1
 	strb r0, [r1]
-	ldr r0, _080C9D9C  @ gUnknown_02020188
+	ldr r0, _080C9D9C  @ gGenericBuffer
 	str r0, [r4, #0x48]
 	movs r1, #0x80
 	lsls r1, r1, #4
@@ -42924,7 +42924,7 @@ sub_80C9D4C: @ 0x080C9D4C
 	bx r0
 	.align 2, 0
 _080C9D98: .4byte gUnknown_08AD89A8
-_080C9D9C: .4byte gUnknown_02020188
+_080C9D9C: .4byte gGenericBuffer
 
 	THUMB_FUNC_END sub_80C9D4C
 
@@ -42942,7 +42942,7 @@ sub_80C9DA0: @ 0x080C9DA0
 	adds r0, #0x47
 	movs r2, #0
 	strb r2, [r0]
-	ldr r0, _080C9DEC  @ gUnknown_02020188
+	ldr r0, _080C9DEC  @ gGenericBuffer
 	str r0, [r4, #0x48]
 	movs r1, #0x80
 	lsls r1, r1, #4
@@ -42965,7 +42965,7 @@ sub_80C9DA0: @ 0x080C9DA0
 	bx r0
 	.align 2, 0
 _080C9DE8: .4byte gUnknown_08ADBD18
-_080C9DEC: .4byte gUnknown_02020188
+_080C9DEC: .4byte gGenericBuffer
 
 	THUMB_FUNC_END sub_80C9DA0
 
@@ -46970,7 +46970,7 @@ sub_80CBE0C: @ 0x080CBE0C
 	lsls r1, r1, #0x13
 	bl CopyDataWithPossibleUncomp
 	ldr r0, _080CBED4  @ gUnknown_08B104D8
-	ldr r4, _080CBED8  @ gUnknown_02020188
+	ldr r4, _080CBED8  @ gGenericBuffer
 	adds r1, r4, #0
 	bl CopyDataWithPossibleUncomp
 	ldr r0, _080CBEDC  @ gBG0TilemapBuffer
@@ -47021,7 +47021,7 @@ sub_80CBE0C: @ 0x080CBE0C
 _080CBECC: .4byte gLCDControlBuffer
 _080CBED0: .4byte gUnknown_08B10630
 _080CBED4: .4byte gUnknown_08B104D8
-_080CBED8: .4byte gUnknown_02020188
+_080CBED8: .4byte gGenericBuffer
 _080CBEDC: .4byte gBG0TilemapBuffer
 _080CBEE0: .4byte gUnknown_08B10CA4
 _080CBEE4: .4byte 0x06002000
@@ -47497,7 +47497,7 @@ _080CC21C:
 	lsls r1, r1, #0x13
 	bl CopyDataWithPossibleUncomp
 	ldr r0, _080CC2D4  @ gUnknown_08B118C4
-	ldr r5, _080CC2D8  @ gUnknown_02020188
+	ldr r5, _080CC2D8  @ gGenericBuffer
 	adds r1, r5, #0
 	bl CopyDataWithPossibleUncomp
 	ldr r0, _080CC2DC  @ gBG1TilemapBuffer
@@ -47547,7 +47547,7 @@ _080CC2BA:
 _080CC2CC: .4byte gLCDControlBuffer
 _080CC2D0: .4byte gUnknown_08B11D0C
 _080CC2D4: .4byte gUnknown_08B118C4
-_080CC2D8: .4byte gUnknown_02020188
+_080CC2D8: .4byte gGenericBuffer
 _080CC2DC: .4byte gBG1TilemapBuffer
 _080CC2E0: .4byte gUnknown_08B11C0C
 _080CC2E4: .4byte gBG0TilemapBuffer

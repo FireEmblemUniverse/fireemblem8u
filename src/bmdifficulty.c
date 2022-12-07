@@ -72,7 +72,7 @@ const struct Outer080D7FD0 gUnknown_080D7FD0 = {
 void NewPopup_NewAlly(ProcPtr, int);
 
 // code.s
-int sub_80A49A4(void);
+int BWL_GetTotalExpGained(void);
 void sub_80AB760(u16*);
 void sub_80AB77C(void);
 
@@ -296,7 +296,7 @@ void UpdateDungeonStats(struct Dungeon* dungeon) {
 
     val = dungeon->expEarned;
 
-    val += (sub_80A49A4() - gRAMChapterData.unk_38_2);
+    val += (BWL_GetTotalExpGained() - gRAMChapterData.unk_38_2);
 
     if (val > 50000) {
         val = 50000;
@@ -580,11 +580,11 @@ void SetupDungeonRecordUi(ProcPtr proc) {
 
     CopyDataWithPossibleUncomp(gUnknown_08A26380, (void *)(BG_VRAM + 0x4C00) + GetBackgroundTileDataOffset(2));
 
-    CopyDataWithPossibleUncomp(gUnknown_08A268F8, gUnknown_02020188);
+    CopyDataWithPossibleUncomp(gUnknown_08A268F8, gGenericBuffer);
 
     CopyToPaletteBuffer(gUnknown_08A268D8, 0xE0, 0x20);
 
-    CallARM_FillTileRect(gBG2TilemapBuffer, gUnknown_02020188, 0x7260);
+    CallARM_FillTileRect(gBG2TilemapBuffer, gGenericBuffer, 0x7260);
 
     // Load and display "Combat Record" graphic
 

@@ -184,7 +184,7 @@ sub_80A8950: @ 0x080A8950
 	push {r4, r5, r6, r7, lr}
 	sub sp, #0x168
 	adds r4, r0, #0
-	bl sub_80A5218
+	bl SaveMetadata_LoadId
 	lsls r0, r0, #0x18
 	cmp r0, #0
 	bne _080A8964
@@ -193,7 +193,7 @@ sub_80A8950: @ 0x080A8950
 _080A8964:
 	adds r0, r4, #0
 	mov r1, sp
-	bl sub_80A522C
+	bl LoadSavedChapterState
 	mov r0, sp
 	ldrb r0, [r0, #0x1b]
 	cmp r0, #1
@@ -209,7 +209,7 @@ _080A8980:
 	movs r6, #0xf
 _080A8982:
 	adds r0, r4, #0
-	bl CheckSaveAndGetPointer
+	bl GetSaveSourceAddress
 	adds r7, r0, #0
 	movs r5, #0
 	adds r4, r7, #0
@@ -239,7 +239,7 @@ _080A8996:
 	adds r0, r7, r1
 	add r5, sp, #0x94
 	adds r1, r5, #0
-	bl sub_80A7138
+	bl LoadWMStuff
 	ldrb r0, [r5, #0x11]
 	strb r0, [r4, #2]
 	b _080A89D8
@@ -411,7 +411,7 @@ sub_80A8AF0: @ 0x080A8AF0
 	bne _080A8B7E
 	movs r4, #0xe
 	ldrsb r4, [r5, r4]
-	ldr r2, _080A8B30  @ gUnknown_03005280
+	ldr r2, _080A8B30  @ gGMData
 	ldrb r1, [r2]
 	movs r0, #3
 	ands r0, r1
@@ -432,7 +432,7 @@ _080A8B24:
 	b _080A8B7E
 	.align 2, 0
 _080A8B2C: .4byte gRAMChapterData
-_080A8B30: .4byte gUnknown_03005280
+_080A8B30: .4byte gGMData
 _080A8B34:
 	movs r0, #0xe
 	ldrsb r0, [r5, r0]
@@ -467,7 +467,7 @@ _080A8B4E:
 	ands r0, r1
 	cmp r0, #0
 	bne _080A8B7E
-	ldr r0, _080A8C20  @ gUnknown_03005280
+	ldr r0, _080A8C20  @ gGMData
 	bl sub_80BD224
 	strb r0, [r4, #0xe]
 _080A8B7E:
@@ -544,7 +544,7 @@ _080A8B7E:
 	.align 2, 0
 _080A8C18: .4byte gRAMChapterData
 _080A8C1C: .4byte gGameState
-_080A8C20: .4byte gUnknown_03005280
+_080A8C20: .4byte gGMData
 _080A8C24: .4byte gUnknown_08A20050
 _080A8C28: .4byte gLCDControlBuffer
 
@@ -675,7 +675,7 @@ sub_80A8CD4: @ 0x080A8CD4
 	adds r0, r4, #0
 	bl CopyDataWithPossibleUncomp
 	ldr r0, _080A8ECC  @ gUnknown_08A268F8
-	ldr r4, _080A8ED0  @ gUnknown_02020188
+	ldr r4, _080A8ED0  @ gGenericBuffer
 	adds r1, r4, #0
 	bl CopyDataWithPossibleUncomp
 	ldr r0, _080A8ED4  @ gBG2TilemapBuffer
@@ -851,7 +851,7 @@ _080A8EC0: .4byte gUnknown_08A268D8
 _080A8EC4: .4byte gUnknown_08A26380
 _080A8EC8: .4byte 0x06004C00
 _080A8ECC: .4byte gUnknown_08A268F8
-_080A8ED0: .4byte gUnknown_02020188
+_080A8ED0: .4byte gGenericBuffer
 _080A8ED4: .4byte gBG2TilemapBuffer
 _080A8ED8: .4byte 0x00007260
 _080A8EDC: .4byte gUnknown_08A26A74
@@ -948,7 +948,7 @@ sub_80A8F8C: @ 0x080A8F8C
 	movs r4, #0
 	movs r0, #5
 	strb r0, [r1]
-	bl sub_80A4DA0
+	bl GetLastUsedGameSaveSlot
 	adds r1, r5, #0
 	adds r1, #0x2c
 	strb r0, [r1]
@@ -986,7 +986,7 @@ sub_80A8FD0: @ 0x080A8FD0
 	movs r4, #0
 	movs r0, #5
 	strb r0, [r1]
-	bl sub_80A4DA0
+	bl GetLastUsedGameSaveSlot
 	adds r1, r5, #0
 	adds r1, #0x2c
 	strb r0, [r1]
@@ -1200,7 +1200,7 @@ _080A91A8:
 	strb r1, [r0]
 	b _080A91CA
 _080A91B4:
-	bl sub_80A4DA0
+	bl GetLastUsedGameSaveSlot
 	lsls r0, r0, #0x18
 	lsrs r0, r0, #0x18
 	movs r1, #1
@@ -1313,7 +1313,7 @@ _080A927C:
 	lsls r3, r3, #0x18
 	asrs r3, r3, #0x18
 	movs r2, #1
-	bl sub_80A4E70
+	bl SaveNewGame
 	pop {r0}
 	bx r0
 
@@ -1382,7 +1382,7 @@ _080A92FC:
 	adds r1, r4, #0
 	adds r1, #0x2c
 	ldrb r1, [r1]
-	bl sub_80A4E08
+	bl CopyGameSave
 	adds r0, r4, #0
 	movs r1, #6
 	bl Proc_Goto
@@ -2637,7 +2637,7 @@ _080A9C96:
 	bl Proc_Goto
 	b _080A9D14
 _080A9CA6:
-	bl sub_80A4DA0
+	bl GetLastUsedGameSaveSlot
 	lsls r0, r0, #0x18
 	lsrs r0, r0, #0x18
 	movs r1, #1
@@ -3560,7 +3560,7 @@ sub_80AA30C: @ 0x080AA30C
 	adds r0, r4, #0
 	bl CopyDataWithPossibleUncomp
 	ldr r0, _080AA42C  @ gUnknown_08A268F8
-	ldr r4, _080AA430  @ gUnknown_02020188
+	ldr r4, _080AA430  @ gGenericBuffer
 	adds r1, r4, #0
 	bl CopyDataWithPossibleUncomp
 	ldr r0, _080AA434  @ gBG2TilemapBuffer
@@ -3628,7 +3628,7 @@ _080AA420: .4byte gUnknown_08A268D8
 _080AA424: .4byte gUnknown_08A26380
 _080AA428: .4byte 0x06004C00
 _080AA42C: .4byte gUnknown_08A268F8
-_080AA430: .4byte gUnknown_02020188
+_080AA430: .4byte gGenericBuffer
 _080AA434: .4byte gBG2TilemapBuffer
 _080AA438: .4byte 0x00007260
 _080AA43C: .4byte gUnknown_08A26A74
@@ -3813,7 +3813,7 @@ sub_80AA550: @ 0x080AA550
 	mov r0, sp
 	bl CpuSet
 	ldr r0, [r4]
-	bl sub_80A38F4
+	bl LoadBonusContentData
 	cmp r0, #0
 	beq _080AA5E6
 	movs r0, #0
@@ -4008,7 +4008,7 @@ sub_80AA6D8: @ 0x080AA6D8
 	push {lr}
 	ldr r0, _080AA6E8  @ gUnknown_08A204B8
 	ldr r0, [r0]
-	bl sub_80A3950
+	bl SaveBonusContentData
 	pop {r0}
 	bx r0
 	.align 2, 0
@@ -6479,7 +6479,7 @@ sub_80AB98C: @ 0x080AB98C
 	lsls r6, r1, #0x18
 _080AB9A0:
 	adds r0, r4, #0
-	bl sub_80A5218
+	bl SaveMetadata_LoadId
 	lsls r0, r0, #0x18
 	cmp r0, r6
 	beq _080AB9C6
@@ -6506,7 +6506,7 @@ _080AB9CA:
 	lsls r6, r1, #0x18
 _080AB9CE:
 	adds r0, r4, #0
-	bl sub_80A5218
+	bl SaveMetadata_LoadId
 	lsls r0, r0, #0x18
 	cmp r0, r6
 	beq _080AB9C6
@@ -6851,14 +6851,14 @@ sub_80ABC14: @ 0x080ABC14
 	b _080ABD48
 _080ABC26:
 	adds r0, r5, #0
-	bl sub_80A5218
+	bl SaveMetadata_LoadId
 	lsls r0, r0, #0x18
 	asrs r2, r0, #0x18
 	cmp r2, #0
 	beq _080ABD04
 	adds r0, r5, #0
 	mov r1, sp
-	bl sub_80A522C
+	bl LoadSavedChapterState
 	mov r0, sp
 	movs r2, #0xe
 	ldrsb r2, [r0, r2]
@@ -6877,7 +6877,7 @@ _080ABC26:
 	add r4, sp, #0x4c
 	adds r0, r5, #0
 	adds r1, r4, #0
-	bl sub_80A5274
+	bl LoadSavedWMStuff
 	adds r0, r4, #0
 	bl sub_80BD224
 	adds r2, r0, #0
@@ -6905,7 +6905,7 @@ _080ABC6C:
 	adds r4, r0, r6
 	strb r5, [r4]
 	adds r0, r6, #0
-	bl sub_80A52BC
+	bl CheckChapterCompleted
 	lsls r0, r0, #0x18
 	cmp r0, #0
 	beq _080ABCAE
@@ -6915,7 +6915,7 @@ _080ABC6C:
 	strb r0, [r4]
 _080ABCAE:
 	adds r0, r6, #0
-	bl sub_80A5290
+	bl LoadSavedEid8A
 	lsls r0, r0, #0x18
 	cmp r0, #0
 	beq _080ABCC2
@@ -7503,7 +7503,7 @@ _080AC09A:
 	movs r1, #0
 	bl BG_Fill
 	ldr r0, _080AC19C  @ gUnknown_08A29558
-	ldr r5, _080AC1A0  @ gUnknown_02020188
+	ldr r5, _080AC1A0  @ gGenericBuffer
 	adds r1, r5, #0
 	bl CopyDataWithPossibleUncomp
 	movs r0, #0xd1
@@ -7560,7 +7560,7 @@ _080AC190: .4byte gUnknown_08A29418
 _080AC194: .4byte gBG0TilemapBuffer
 _080AC198: .4byte gBG1TilemapBuffer
 _080AC19C: .4byte gUnknown_08A29558
-_080AC1A0: .4byte gUnknown_02020188
+_080AC1A0: .4byte gGenericBuffer
 _080AC1A4: .4byte gUnknown_08A209FC
 
 	THUMB_FUNC_END sub_80AC084
@@ -13557,7 +13557,7 @@ sub_80AEC54: @ 0x080AEC54
 	push {lr}
 	sub sp, #0x64
 	mov r0, sp
-	bl LoadAndVerifySecureHeaderSW
+	bl LoadGeneralGameMetadata
 	movs r0, #0
 	add sp, #0x64
 	pop {r1}
@@ -13570,7 +13570,7 @@ sub_80AEC68: @ 0x080AEC68
 	push {lr}
 	sub sp, #0x64
 	mov r0, sp
-	bl LoadAndVerifySecureHeaderSW
+	bl LoadGeneralGameMetadata
 	movs r0, #0
 	add sp, #0x64
 	pop {r1}
@@ -17130,7 +17130,7 @@ sub_80B0760: @ 0x080B0760
 	ldr r2, _080B07DC  @ 0x010000A2
 	bl CpuSet
 	ldr r0, [r4]
-	bl sub_80A38F4
+	bl LoadBonusContentData
 	cmp r0, #0
 	beq _080B086E
 	ldr r0, [r4]
@@ -17184,7 +17184,7 @@ _080B07F6:
 	movs r6, #0
 	mov r3, r8
 	strb r3, [r0]
-	bl sub_80A4D28
+	bl GetBonusContentClaimFlags
 	movs r2, #1
 	adds r1, r2, #0
 	mov r3, r8
@@ -17236,7 +17236,7 @@ _080B0852:
 	str r1, [r0]
 	ldr r0, _080B087C  @ gUnknown_08A21594
 	ldr r0, [r0]
-	bl sub_80A3950
+	bl SaveBonusContentData
 _080B086E:
 	mov r3, r9
 	cmp r3, #0
@@ -17461,12 +17461,12 @@ sub_80B0A24: @ 0x080B0A24
 	adds r4, r4, r0
 	movs r5, #0
 	ldrsb r5, [r4, r5]
-	bl sub_80A4D28
+	bl GetBonusContentClaimFlags
 	adds r1, r0, #0
 	movs r0, #1
 	lsls r0, r5
 	orrs r0, r1
-	bl Set0203EDB4
+	bl SetBonusContentClaimFlags
 	movs r0, #0
 	strb r0, [r4, #1]
 	pop {r4, r5}
@@ -17847,7 +17847,7 @@ _080B0D58:
 	adds r0, r0, r1
 	movs r4, #0
 	ldrsb r4, [r0, r4]
-	bl sub_80A4D28
+	bl GetBonusContentClaimFlags
 	adds r1, r7, #0
 	lsls r1, r4
 	ands r1, r0
@@ -18702,7 +18702,7 @@ sub_80B13BC: @ 0x080B13BC
 	bl BG_EnableSyncByMask
 	adds r0, r4, #0
 	bl sub_80B1008
-	bl sub_80A4DA0
+	bl GetLastUsedGameSaveSlot
 	bl SaveGame
 	movs r0, #0
 	str r0, [r4, #0x30]

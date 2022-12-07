@@ -730,13 +730,13 @@ Event83_WM_SETCAM: @ 0x0800BE38
 	ldr r0, [r0, #0x38]
 	ldrh r1, [r0, #4]
 	ldrh r2, [r0, #6]
-	ldr r0, _0800BE48  @ gUnknown_03005280
+	ldr r0, _0800BE48  @ gGMData
 	strh r1, [r0, #2]
 	strh r2, [r0, #4]
 	movs r0, #0
 	bx lr
 	.align 2, 0
-_0800BE48: .4byte gUnknown_03005280
+_0800BE48: .4byte gGMData
 
 	THUMB_FUNC_END Event83_WM_SETCAM
 
@@ -758,7 +758,7 @@ Event84_WM_SETCAMONLOC: @ 0x0800BE4C
 	mov r2, sp
 	adds r3, r4, #0
 	bl GetWMCenteredCameraPosition
-	ldr r1, _0800BE88  @ gUnknown_03005280
+	ldr r1, _0800BE88  @ gGMData
 	mov r0, sp
 	ldrh r0, [r0]
 	strh r0, [r1, #2]
@@ -771,7 +771,7 @@ Event84_WM_SETCAMONLOC: @ 0x0800BE4C
 	bx r1
 	.align 2, 0
 _0800BE84: .4byte gUnknown_082060B0
-_0800BE88: .4byte gUnknown_03005280
+_0800BE88: .4byte gGMData
 
 	THUMB_FUNC_END Event84_WM_SETCAMONLOC
 
@@ -781,7 +781,7 @@ Event85_WM_SETCAMONSPRITE: @ 0x0800BE8C
 	sub sp, #4
 	ldr r0, [r0, #0x38]
 	ldr r0, [r0, #4]
-	ldr r4, _0800BECC  @ gUnknown_03005280
+	ldr r4, _0800BECC  @ gGMData
 	lsls r0, r0, #2
 	adds r0, r0, r4
 	ldrb r1, [r0, #0x11]
@@ -808,7 +808,7 @@ Event85_WM_SETCAMONSPRITE: @ 0x0800BE8C
 	pop {r1}
 	bx r1
 	.align 2, 0
-_0800BECC: .4byte gUnknown_03005280
+_0800BECC: .4byte gGMData
 _0800BED0: .4byte gUnknown_082060B0
 
 	THUMB_FUNC_END Event85_WM_SETCAMONSPRITE
@@ -839,13 +839,13 @@ Event86_WM_MOVECAM: @ 0x0800BED4
 	cmp r5, #0
 	bne _0800BF10
 _0800BF02:
-	ldr r0, _0800BF0C  @ gUnknown_03005280
+	ldr r0, _0800BF0C  @ gGMData
 	strh r3, [r0, #2]
 	strh r6, [r0, #4]
 	movs r0, #0
 	b _0800BF30
 	.align 2, 0
-_0800BF0C: .4byte gUnknown_03005280
+_0800BF0C: .4byte gGMData
 _0800BF10:
 	lsls r0, r7, #0x10
 	asrs r0, r0, #0x10
@@ -913,7 +913,7 @@ Event87_: @ 0x0800BF38
 	cmp r5, #0
 	bne _0800BFA4
 _0800BF8A:
-	ldr r1, _0800BFA0  @ gUnknown_03005280
+	ldr r1, _0800BFA0  @ gGMData
 	add r0, sp, #8
 	ldrh r0, [r0]
 	strh r0, [r1, #2]
@@ -923,7 +923,7 @@ _0800BF8A:
 	b _0800BFC8
 	.align 2, 0
 _0800BF9C: .4byte gUnknown_082060B0
-_0800BFA0: .4byte gUnknown_03005280
+_0800BFA0: .4byte gGMData
 _0800BFA4:
 	mov r6, r8
 	lsls r0, r6, #0x10
@@ -971,7 +971,7 @@ Event88_: @ 0x0800BFD8
 	ldrh r7, [r0, #0xa]
 	ldrh r0, [r0, #0xc]
 	mov r8, r0
-	ldr r6, _0800C048  @ gUnknown_03005280
+	ldr r6, _0800C048  @ gGMData
 	lsls r1, r1, #2
 	adds r1, r1, r6
 	ldrb r1, [r1, #0x11]
@@ -1011,7 +1011,7 @@ _0800C038:
 	movs r0, #0
 	b _0800C074
 	.align 2, 0
-_0800C048: .4byte gUnknown_03005280
+_0800C048: .4byte gGMData
 _0800C04C: .4byte gUnknown_082060B0
 _0800C050:
 	mov r1, r9
@@ -1077,24 +1077,24 @@ _0800C0B4:
 
 	THUMB_FUNC_START Event8A_
 Event8A_: @ 0x0800C0B8
-	ldr r1, _0800C0C4  @ gUnknown_03005280
+	ldr r1, _0800C0C4  @ gGMData
 	movs r0, #1
 	strb r0, [r1, #1]
 	movs r0, #0
 	bx lr
 	.align 2, 0
-_0800C0C4: .4byte gUnknown_03005280
+_0800C0C4: .4byte gGMData
 
 	THUMB_FUNC_END Event8A_
 
 	THUMB_FUNC_START Event8B_
 Event8B_: @ 0x0800C0C8
-	ldr r1, _0800C0D0  @ gUnknown_03005280
+	ldr r1, _0800C0D0  @ gGMData
 	movs r0, #0
 	strb r0, [r1, #1]
 	bx lr
 	.align 2, 0
-_0800C0D0: .4byte gUnknown_03005280
+_0800C0D0: .4byte gGMData
 
 	THUMB_FUNC_END Event8B_
 
@@ -1102,7 +1102,7 @@ _0800C0D0: .4byte gUnknown_03005280
 Event8C_: @ 0x0800C0D4
 	ldr r0, [r0, #0x38]
 	ldrh r1, [r0, #6]
-	ldr r2, _0800C0EC  @ gUnknown_03005280
+	ldr r2, _0800C0EC  @ gGMData
 	movs r3, #4
 	ldrsh r0, [r0, r3]
 	lsls r0, r0, #8
@@ -1113,7 +1113,7 @@ Event8C_: @ 0x0800C0D4
 	movs r0, #0
 	bx lr
 	.align 2, 0
-_0800C0EC: .4byte gUnknown_03005280
+_0800C0EC: .4byte gGMData
 
 	THUMB_FUNC_END Event8C_
 
@@ -1206,7 +1206,7 @@ Event91_WM_DRAWPATH_Silent: @ 0x0800C164
 	push {lr}
 	ldr r0, [r0, #0x38]
 	ldr r2, [r0, #4]
-	ldr r0, _0800C190  @ gUnknown_03005280
+	ldr r0, _0800C190  @ gGMData
 	adds r1, r0, #0
 	adds r1, #0xa4
 	bl SetupNewWMRoute
@@ -1223,7 +1223,7 @@ Event91_WM_DRAWPATH_Silent: @ 0x0800C164
 	pop {r1}
 	bx r1
 	.align 2, 0
-_0800C190: .4byte gUnknown_03005280
+_0800C190: .4byte gGMData
 _0800C194: .4byte gUnknown_08A3D748
 
 	THUMB_FUNC_END Event91_WM_DRAWPATH_Silent
@@ -1233,7 +1233,7 @@ Event92_REMOVEPATH: @ 0x0800C198
 	push {lr}
 	ldr r0, [r0, #0x38]
 	ldr r2, [r0, #4]
-	ldr r0, _0800C1C4  @ gUnknown_03005280
+	ldr r0, _0800C1C4  @ gGMData
 	adds r1, r0, #0
 	adds r1, #0xa4
 	bl WM_RemovePath
@@ -1250,7 +1250,7 @@ Event92_REMOVEPATH: @ 0x0800C198
 	pop {r1}
 	bx r1
 	.align 2, 0
-_0800C1C4: .4byte gUnknown_03005280
+_0800C1C4: .4byte gGMData
 _0800C1C8: .4byte gUnknown_08A3D748
 
 	THUMB_FUNC_END Event92_REMOVEPATH
@@ -1259,7 +1259,7 @@ _0800C1C8: .4byte gUnknown_08A3D748
 Event93_: @ 0x0800C1CC
 	ldr r0, [r0, #0x38]
 	ldr r1, [r0, #4]
-	ldr r0, _0800C1E4  @ gUnknown_03005280
+	ldr r0, _0800C1E4  @ gGMData
 	lsls r1, r1, #2
 	adds r1, r1, r0
 	adds r1, #0x30
@@ -1270,7 +1270,7 @@ Event93_: @ 0x0800C1CC
 	movs r0, #0
 	bx lr
 	.align 2, 0
-_0800C1E4: .4byte gUnknown_03005280
+_0800C1E4: .4byte gGMData
 
 	THUMB_FUNC_END Event93_
 
@@ -1278,7 +1278,7 @@ _0800C1E4: .4byte gUnknown_03005280
 Event94_: @ 0x0800C1E8
 	ldr r0, [r0, #0x38]
 	ldr r1, [r0, #4]
-	ldr r0, _0800C200  @ gUnknown_03005280
+	ldr r0, _0800C200  @ gGMData
 	lsls r1, r1, #2
 	adds r1, r1, r0
 	adds r1, #0x30
@@ -1289,7 +1289,7 @@ Event94_: @ 0x0800C1E8
 	movs r0, #0
 	bx lr
 	.align 2, 0
-_0800C200: .4byte gUnknown_03005280
+_0800C200: .4byte gGMData
 
 	THUMB_FUNC_END Event94_
 
@@ -1304,7 +1304,7 @@ Event95_: @ 0x0800C204
 	ands r0, r1
 	cmp r0, #0
 	beq _0800C22C
-	ldr r0, _0800C228  @ gUnknown_03005280
+	ldr r0, _0800C228  @ gGMData
 	lsls r1, r2, #2
 	adds r1, r1, r0
 	adds r1, #0x30
@@ -1314,9 +1314,9 @@ Event95_: @ 0x0800C204
 	strb r0, [r1]
 	b _0800C248
 	.align 2, 0
-_0800C228: .4byte gUnknown_03005280
+_0800C228: .4byte gGMData
 _0800C22C:
-	ldr r1, _0800C250  @ gUnknown_03005280
+	ldr r1, _0800C250  @ gGMData
 	lsls r0, r2, #2
 	adds r0, r0, r1
 	adds r0, #0x30
@@ -1334,7 +1334,7 @@ _0800C248:
 	pop {r1}
 	bx r1
 	.align 2, 0
-_0800C250: .4byte gUnknown_03005280
+_0800C250: .4byte gGMData
 
 	THUMB_FUNC_END Event95_
 
@@ -1352,7 +1352,7 @@ Event96_: @ 0x0800C254
 	adds r5, r0, r1
 	movs r3, #4
 	ldrsb r3, [r5, r3]
-	ldr r2, _0800C2C4  @ gUnknown_03005280
+	ldr r2, _0800C2C4  @ gGMData
 	lsls r0, r3, #2
 	adds r0, r0, r2
 	adds r0, #0x30
@@ -1397,7 +1397,7 @@ _0800C2A0:
 	b _0800C2D2
 	.align 2, 0
 _0800C2C0: .4byte gUnknown_08206674
-_0800C2C4: .4byte gUnknown_03005280
+_0800C2C4: .4byte gGMData
 _0800C2C8:
 	adds r0, r3, #0
 	movs r1, #0
@@ -1415,7 +1415,7 @@ _0800C2D2:
 Event97_: @ 0x0800C2DC
 	push {r4, r5, r6, lr}
 	adds r4, r0, #0
-	ldr r5, _0800C334  @ gUnknown_03005280
+	ldr r5, _0800C334  @ gGMData
 	adds r0, r5, #0
 	adds r0, #0xc8
 	ldrb r0, [r0]
@@ -1454,7 +1454,7 @@ Event97_: @ 0x0800C2DC
 	strb r0, [r1]
 	b _0800C364
 	.align 2, 0
-_0800C334: .4byte gUnknown_03005280
+_0800C334: .4byte gGMData
 _0800C338: .4byte gUnknown_08A3D748
 _0800C33C:
 	lsls r0, r6, #2
@@ -1497,7 +1497,7 @@ Event98_: @ 0x0800C36C
 	adds r4, r0, r1
 	movs r6, #4
 	ldrsb r6, [r4, r6]
-	ldr r2, _0800C400  @ gUnknown_03005280
+	ldr r2, _0800C400  @ gGMData
 	lsls r0, r6, #2
 	adds r0, r0, r2
 	adds r0, #0x30
@@ -1558,7 +1558,7 @@ _0800C3BA:
 	b _0800C424
 	.align 2, 0
 _0800C3FC: .4byte gUnknown_08206674
-_0800C400: .4byte gUnknown_03005280
+_0800C400: .4byte gGMData
 _0800C404: .4byte gUnknown_08A3D748
 _0800C408:
 	adds r0, r6, #0
@@ -1566,7 +1566,7 @@ _0800C408:
 	movs r2, #0
 	bl sub_80BFAEC
 	bl sub_80BCFB4
-	ldr r0, _0800C430  @ gUnknown_03005280
+	ldr r0, _0800C430  @ gGMData
 	lsls r1, r6, #2
 	adds r1, r1, r0
 	adds r1, #0x30
@@ -1581,7 +1581,7 @@ _0800C426:
 	pop {r1}
 	bx r1
 	.align 2, 0
-_0800C430: .4byte gUnknown_03005280
+_0800C430: .4byte gGMData
 
 	THUMB_FUNC_END Event98_
 
@@ -1625,7 +1625,7 @@ Event9A_: @ 0x0800C468
 	mov r8, r0
 	ldr r0, [r0, #0x38]
 	ldr r5, [r0, #4]
-	ldr r1, _0800C4B4  @ gUnknown_03005280
+	ldr r1, _0800C4B4  @ gGMData
 	lsls r0, r5, #2
 	adds r0, r0, r1
 	adds r0, #0x30
@@ -1656,7 +1656,7 @@ Event9A_: @ 0x0800C468
 	movs r0, #2
 	b _0800C4BE
 	.align 2, 0
-_0800C4B4: .4byte gUnknown_03005280
+_0800C4B4: .4byte gGMData
 _0800C4B8: .4byte gUnknown_08A3D748
 _0800C4BC:
 	movs r0, #0
@@ -1673,7 +1673,7 @@ _0800C4BE:
 Event9B_: @ 0x0800C4C8
 	ldr r0, [r0, #0x38]
 	ldr r1, [r0, #4]
-	ldr r0, _0800C4E0  @ gUnknown_03005280
+	ldr r0, _0800C4E0  @ gGMData
 	lsls r1, r1, #2
 	adds r1, r1, r0
 	adds r1, #0x30
@@ -1684,14 +1684,14 @@ Event9B_: @ 0x0800C4C8
 	movs r0, #0
 	bx lr
 	.align 2, 0
-_0800C4E0: .4byte gUnknown_03005280
+_0800C4E0: .4byte gGMData
 
 	THUMB_FUNC_END Event9B_
 
 	THUMB_FUNC_START Event9C_
 Event9C_: @ 0x0800C4E4
 	push {r4, r5, lr}
-	ldr r5, _0800C520  @ gUnknown_03005280
+	ldr r5, _0800C520  @ gGMData
 	adds r0, r5, #0
 	adds r0, #0xc8
 	ldrb r0, [r0]
@@ -1718,7 +1718,7 @@ _0800C516:
 	pop {r1}
 	bx r1
 	.align 2, 0
-_0800C520: .4byte gUnknown_03005280
+_0800C520: .4byte gGMData
 _0800C524: .4byte gUnknown_08A3D748
 
 	THUMB_FUNC_END Event9C_
@@ -1728,7 +1728,7 @@ Event9D_: @ 0x0800C528
 	push {lr}
 	ldr r1, [r0, #0x38]
 	ldr r2, [r1, #4]
-	ldr r1, _0800C550  @ gUnknown_03005280
+	ldr r1, _0800C550  @ gGMData
 	lsls r2, r2, #2
 	adds r2, r2, r1
 	adds r2, #0x30
@@ -1745,7 +1745,7 @@ Event9D_: @ 0x0800C528
 	movs r0, #2
 	b _0800C556
 	.align 2, 0
-_0800C550: .4byte gUnknown_03005280
+_0800C550: .4byte gGMData
 _0800C554:
 	movs r0, #0
 _0800C556:
@@ -1917,7 +1917,7 @@ EventA6_: @ 0x0800C65C
 	ldr r0, [r0, #0x38]
 	ldrh r4, [r0, #4]
 	ldrh r5, [r0, #6]
-	ldr r1, _0800C684  @ gUnknown_03005280
+	ldr r1, _0800C684  @ gGMData
 	lsls r0, r4, #2
 	adds r0, r0, r1
 	strb r5, [r0, #0x11]
@@ -1932,7 +1932,7 @@ EventA6_: @ 0x0800C65C
 	pop {r1}
 	bx r1
 	.align 2, 0
-_0800C684: .4byte gUnknown_03005280
+_0800C684: .4byte gGMData
 _0800C688: .4byte gUnknown_08A3D748
 
 	THUMB_FUNC_END EventA6_
@@ -2059,7 +2059,7 @@ EventA9_: @ 0x0800C754
 	ands r1, r0
 	cmp r1, #0
 	beq _0800C794
-	ldr r1, _0800C790  @ gUnknown_03005280
+	ldr r1, _0800C790  @ gGMData
 	lsls r0, r3, #0x10
 	asrs r3, r0, #0x10
 	lsls r0, r3, #2
@@ -2073,7 +2073,7 @@ EventA9_: @ 0x0800C754
 	bl sub_80BF570
 	b _0800C7AA
 	.align 2, 0
-_0800C790: .4byte gUnknown_03005280
+_0800C790: .4byte gGMData
 _0800C794:
 	mov r0, sp
 	strb r3, [r0]
@@ -2735,7 +2735,7 @@ _0800CBEC: .4byte gUnknown_08A3D748
 
 	THUMB_FUNC_START EventC1_SKIPWM
 EventC1_SKIPWM: @ 0x0800CBF0
-	ldr r0, _0800CC00  @ gUnknown_03005280
+	ldr r0, _0800CC00  @ gGMData
 	ldrb r1, [r0]
 	movs r2, #0x40
 	orrs r1, r2
@@ -2743,13 +2743,13 @@ EventC1_SKIPWM: @ 0x0800CBF0
 	movs r0, #0
 	bx lr
 	.align 2, 0
-_0800CC00: .4byte gUnknown_03005280
+_0800CC00: .4byte gGMData
 
 	THUMB_FUNC_END EventC1_SKIPWM
 
 	THUMB_FUNC_START EventC2_
 EventC2_: @ 0x0800CC04
-	ldr r0, _0800CC14  @ gUnknown_03005280
+	ldr r0, _0800CC14  @ gGMData
 	ldrb r1, [r0]
 	movs r2, #0x80
 	orrs r1, r2
@@ -2757,7 +2757,7 @@ EventC2_: @ 0x0800CC04
 	movs r0, #0
 	bx lr
 	.align 2, 0
-_0800CC14: .4byte gUnknown_03005280
+_0800CC14: .4byte gGMData
 
 	THUMB_FUNC_END EventC2_
 
@@ -2768,7 +2768,7 @@ EventC3_: @ 0x0800CC18
 	ldrh r4, [r0, #4]
 	ldrh r3, [r0, #6]
 	ldr r5, [r0, #8]
-	ldr r1, _0800CC3C  @ gUnknown_03005280
+	ldr r1, _0800CC3C  @ gGMData
 	lsls r0, r4, #2
 	adds r2, r0, r1
 	ldrb r1, [r2, #0x10]
@@ -2782,7 +2782,7 @@ EventC3_: @ 0x0800CC18
 	bne _0800CC44
 	b _0800CC52
 	.align 2, 0
-_0800CC3C: .4byte gUnknown_03005280
+_0800CC3C: .4byte gGMData
 _0800CC40:
 	cmp r3, #0
 	beq _0800CC52

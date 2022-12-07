@@ -302,7 +302,7 @@ extern u16 gBmFrameTmap1[];
 // extern ??? gUnknown_02020140
 // extern ??? gUnknown_02020144
 // extern ??? gUnknown_02020148
-extern u8 gUnknown_02020188[]; // gGenericBuffer
+extern u8 gGenericBuffer[]; // gGenericBuffer
 // extern ??? gUnknown_02020208
 // extern ??? gUnknown_02020288
 // extern ??? gUnknown_02020988
@@ -633,7 +633,7 @@ extern struct UnitUsageStats *gpBWLSaveTarget;
 extern struct UnitUsageStats gBWLDataStorage[BWL_ARRAY_NUM];
 #define gBWLDataArray (&gBWLDataStorage[-1])
 extern struct ChapterWinData gChapterWinDataArray[WIN_ARRAY_NUM];
-extern u32 gUnknown_0203EDB4;
+extern u32 gBonusContentClaimFlags;
 extern u8 gUnknown_0203EDB8;    /* gSaveSuBaseSlot */
 // extern ??? gUnknown_0203EDBC
 // extern ??? gUnknown_0203EE80
@@ -787,7 +787,7 @@ extern struct Unit* gActiveUnit;
 // extern ??? gUnknown_03005110
 // extern ??? gUnknown_03005250
 // extern ??? gUnknown_03005270
-extern struct GMapData gUnknown_03005280;
+extern struct GMapData gGMData;
 // extern ??? gUnknown_03005324
 // extern ??? gUnknown_03005349
 // extern ??? gGmMonsterRnState

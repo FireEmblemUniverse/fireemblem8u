@@ -108,8 +108,8 @@ ARM_MoveOBJsOffscreen: @ 0x08000304
 
 	ARM_FUNC_END ARM_MoveOBJsOffscreen
 
-	ARM_FUNC_START ARM_CalcSomeChecksum
-ARM_CalcSomeChecksum: @ 0x08000360
+	ARM_FUNC_START ARM_ComputeChecksum32
+ARM_ComputeChecksum32: @ 0x08000360
 	push {r4, r5, r6, r7}
 	sub r1, r1, #2
 	mov r2, #0
@@ -130,7 +130,7 @@ _08000370:
 	pop {r4, r5, r6, r7}
 	bx lr
 
-	ARM_FUNC_END ARM_CalcSomeChecksum
+	ARM_FUNC_END ARM_ComputeChecksum32
 
 	ARM_FUNC_START ARM_FillRect
 ARM_FillRect: @ 0x080003A8

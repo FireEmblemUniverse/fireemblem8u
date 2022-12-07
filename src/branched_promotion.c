@@ -496,14 +496,14 @@ struct SomeLocal {
     u8 whatever[0x64];
 };
 
-u8 LoadAndVerifySecureHeaderSW(struct SomeLocal *);
+u8 LoadGeneralGameMetadata(struct SomeLocal *);
 
 u8 sub_80CCCA4(void) {
     struct SomeLocal local;
-    u8 unlock = LoadAndVerifySecureHeaderSW(&local);
+    u8 unlock = LoadGeneralGameMetadata(&local);
     if (!unlock) {
-        InitNopSecHeader();
-        LoadAndVerifySecureHeaderSW(&local);
+        InitSaveMetadata();
+        LoadGeneralGameMetadata(&local);
     }
 
     if (local.whatever[0xe] & 0x1c) {

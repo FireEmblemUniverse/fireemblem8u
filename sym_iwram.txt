@@ -164,7 +164,7 @@
 . = 0x005110; gUnknown_03005110 = .;
 . = 0x005250; gUnknown_03005250 = .;
 . = 0x005270; gUnknown_03005270 = .;
-. = 0x005280; gUnknown_03005280 = .;
+. = 0x005280; gGMData = .;
 . = 0x005324; gUnknown_03005324 = .;
 . = 0x005349; gUnknown_03005349 = .;
 . = 0x00534E; gGmMonsterRnState = .;

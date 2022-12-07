@@ -654,8 +654,8 @@ void ClassIntro_Init(struct OpInfoEnterProc* proc) {
     proc->classNameLength = strlen(str);
 
     while (*str != 0) {
-        CopyDataWithPossibleUncomp((gUnknown_08A2F2C0[*str] != 0) ? gUnknown_08A2F2C0[*str] : gUnknown_08A2F2C0[0x58], gUnknown_02020188);
-        CopyTileGfxForObj(gUnknown_02020188, (void*)(ptr + 0x06010000), 2, 4);
+        CopyDataWithPossibleUncomp((gUnknown_08A2F2C0[*str] != 0) ? gUnknown_08A2F2C0[*str] : gUnknown_08A2F2C0[0x58], gGenericBuffer);
+        CopyTileGfxForObj(gGenericBuffer, (void*)(ptr + 0x06010000), 2, 4);
 
         str++;
         ptr += 0x40;
@@ -672,13 +672,13 @@ void ClassIntro_Init(struct OpInfoEnterProc* proc) {
 
     CopyDataWithPossibleUncomp(gUnknown_08A360E8, (void *)0x6000000);
 
-    CopyDataWithPossibleUncomp(gUnknown_08A36284, gUnknown_02020188);
-    CallARM_FillTileRect(gUnknown_02022E68, gUnknown_02020188, 0x4000);
+    CopyDataWithPossibleUncomp(gUnknown_08A36284, gGenericBuffer);
+    CallARM_FillTileRect(gUnknown_02022E68, gGenericBuffer, 0x4000);
 
     CopyDataWithPossibleUncomp(gUnknown_08A35A3C, (void *)0x06000800);
 
-    CopyDataWithPossibleUncomp(gUnknown_08A35FD0, gUnknown_02020188);
-    CallARM_FillTileRect(gBG1TilemapBuffer, gUnknown_02020188, 0x5040);
+    CopyDataWithPossibleUncomp(gUnknown_08A35FD0, gGenericBuffer);
+    CallARM_FillTileRect(gBG1TilemapBuffer, gGenericBuffer, 0x5040);
     CopyToPaletteBuffer(gUnknown_08A360C8, 0xA0, 0x20);
 
     CopyDataWithPossibleUncomp(gUnknown_08B17B64, (void *)0x06008000);
