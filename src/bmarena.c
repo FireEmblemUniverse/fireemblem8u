@@ -662,7 +662,7 @@ void ArenaContinueBattle(void) {
     UpdateUnitDuringBattle(gArenaState.playerUnit, &gBattleActor);
 
     if (!(unk) || (gBattleTarget.unit.curHP == 0)) {
-        sub_80A4AA4();
+        RecordUnitBattleResult();
     }
 
     return;

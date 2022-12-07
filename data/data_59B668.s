@@ -3,7 +3,7 @@
 	.global gUnknown_0859B668
 gUnknown_0859B668:  @ 0x0859B668
 @ replacing .incbin "baserom.gba", 0x0059b668, 0x4
-.4byte gUnknown_02020188
+.4byte gGenericBuffer
 
 	.global gUnknown_0859B66C
 gUnknown_0859B66C:  @ 0x0859B66C

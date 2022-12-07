@@ -1072,7 +1072,7 @@ void StartShopFadeIn(struct BmShopProc* proc) {
         return;
     }
 
-    if (gUnknown_03005280.state & GMAP_STATE_BIT0) {
+    if (gGMData.state & GMAP_STATE_BIT0) {
         return;
     }
 
@@ -1083,7 +1083,7 @@ void StartShopFadeIn(struct BmShopProc* proc) {
 
 void StartShopFadeOut(struct BmShopProc* proc) {
 
-    if ((!(gGameState.gameStateBits & 0x10)) && (!(gUnknown_03005280.state & GMAP_STATE_BIT0))) {
+    if ((!(gGameState.gameStateBits & 0x10)) && (!(gGMData.state & GMAP_STATE_BIT0))) {
         Proc_StartBlocking(gProcScr_ShopFadeOut, proc);
         return;
     }
@@ -1126,8 +1126,8 @@ void ShopProc_Init(struct BmShopProc* proc) {
 
     sub_8007938(ShopProc_GetPortraitIndex(proc), 32, 8, 3, 1);
 
-    CopyDataWithPossibleUncomp(gUnknown_089AD934, gUnknown_02020188);
-    CallARM_FillTileRect(gBG1TilemapBuffer, gUnknown_02020188, 0x1000);
+    CopyDataWithPossibleUncomp(gUnknown_089AD934, gGenericBuffer);
+    CallARM_FillTileRect(gBG1TilemapBuffer, gGenericBuffer, 0x1000);
 
     DrawUiFrame2(6, 8, 20, 12, 0);
 

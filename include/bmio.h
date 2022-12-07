@@ -74,7 +74,7 @@ void MapMain_ResumeFromBskPhase(struct BMapMainProc* mapMain);
 void MapMain_ResumeFromArenaFight(struct BMapMainProc* mapMain);
 void MapMain_ResumeFromPhaseChange(struct BMapMainProc* mapMain);
 void GameCtrl_DeclareCompletedChapter(void);
-void GameCtrl_DeclareCompletedPlaythrough(void);
+void GameCtrl_RegisterCompletedPlaythrough(void);
 char* GetTacticianName(void);
 void SetTacticianName(const char* newName);
 

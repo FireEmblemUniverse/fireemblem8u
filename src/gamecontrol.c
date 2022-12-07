@@ -39,11 +39,11 @@ void ClearLocalEvents(void);
 void sub_8086BB8(ProcPtr, u8*, int);
 void EndBG3Slider(ProcPtr);
 void sub_80A41C8(void);
-int sub_80A4BB0(void);
+int GetGlobalCompletionCount(void);
 void sub_80A4CD8(void);
-s8 sub_80A5218(int);
-void sub_80A522C(int, struct RAMChapterData*);
-void sub_80A5A20(int);
+s8 SaveMetadata_LoadId(int);
+void LoadSavedChapterState(int, struct RAMChapterData*);
+void ClearSaveBlock(int);
 void sub_80A6D38(void);
 void Make6C_savemenu(ProcPtr);
 void Make6C_savemenu2(ProcPtr);
@@ -253,7 +253,7 @@ PROC_LABEL(16),
     // fallthrough
 
 PROC_LABEL(17),
-    PROC_CALL(GameCtrl_DeclareCompletedPlaythrough),
+    PROC_CALL(GameCtrl_RegisterCompletedPlaythrough),
 
     PROC_CALL(CallGameEndingEvent),
     PROC_SLEEP(0),
@@ -379,7 +379,7 @@ u8 sub_8009950() {
     int i;
     struct RAMChapterData chapterData;
 
-    if (sub_80A4BB0() != 0) {
+    if (GetGlobalCompletionCount() != 0) {
         return 9;
     }
 
@@ -387,11 +387,11 @@ u8 sub_8009950() {
 
     for (i = 0; i < 3; i++) {
 
-        if (sub_80A5218(i) == 0) {
+        if (SaveMetadata_LoadId(i) == 0) {
             continue;
         }
 
-        sub_80A522C(i, &chapterData);
+        LoadSavedChapterState(i, &chapterData);
 
         if (chapterData.unk_2C_2 != 0) {
             return 9;
@@ -651,7 +651,7 @@ void sub_8009CA4(ProcPtr proc) {
 }
 
 void sub_8009CC0(ProcPtr proc) {
-    sub_80A5A20(3);
+    ClearSaveBlock(3);
 
     gRAMChapterData.unk41_1 = 0;
 
@@ -729,7 +729,7 @@ void sub_8009D44(struct GameCtrlProc* proc) {
         return;
     }
 
-    if (!(gRAMChapterData.chapterStateBits & CHAPTER_FLAG_5)) {
+    if (!(gRAMChapterData.chapterStateBits & CHAPTER_FLAG_COMPLETE)) {
         return;
     }
 

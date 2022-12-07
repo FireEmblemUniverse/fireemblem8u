@@ -468,7 +468,7 @@ DebugMenu_ClearDraw: @ 0x0801BF00
 	movs r1, #0x48
 	movs r2, #2
 	bl Text_InsertString
-	bl sub_80A4BB0
+	bl GetGlobalCompletionCount
 	adds r3, r0, #0
 	adds r3, #1
 	adds r0, r4, #0
@@ -508,7 +508,7 @@ DebugMenu_ClearIdle: @ 0x0801BF6C
 	ands r0, r1
 	cmp r0, #0
 	beq _0801C008
-	bl sub_80A4BB0
+	bl GetGlobalCompletionCount
 	adds r5, r0, #0
 	ldr r0, [r4]
 	ldrh r1, [r0, #6]
@@ -532,7 +532,7 @@ _0801BF9A:
 	adds r5, #1
 _0801BFAE:
 	mov r0, sp
-	bl LoadAndVerifySecureHeaderSW
+	bl LoadGeneralGameMetadata
 	add r1, sp, #0x14
 	movs r2, #0
 	mov r0, sp
@@ -549,7 +549,7 @@ _0801BFCA:
 	adds r4, #1
 	mov r0, sp
 	adds r1, r4, #0
-	bl sub_80A4BD0
+	bl GGM_RegisterCompletedPlaythrough
 	cmp r4, r5
 	blt _0801BFCA
 _0801BFD8:
@@ -572,7 +572,7 @@ _0801BFF0:
 	strb r1, [r0, #0xe]
 _0801BFFA:
 	mov r0, sp
-	bl SaveSecureHeader
+	bl SaveGeneralGameMetadata
 	adds r0, r6, #0
 	adds r1, r7, #0
 	bl DebugMenu_ClearDraw
@@ -609,14 +609,14 @@ _0801C02C: .4byte gDebugClearMenuDef
 	THUMB_FUNC_START DebugClearMenu_ClearFile
 DebugClearMenu_ClearFile: @ 0x0801C030
 	push {lr}
-	bl DeclareCompletedPlaythrough
+	bl RegisterCompletedPlaythrough
 	ldr r2, _0801C058  @ gRAMChapterData
 	ldrb r1, [r2, #0x14]
 	movs r0, #0xef
 	ands r0, r1
 	strb r0, [r2, #0x14]
 	bl ChapterChangeUnitCleanup
-	bl sub_80A4DA0
+	bl GetLastUsedGameSaveSlot
 	bl SaveGame
 	movs r0, #0xff
 	bl SoftReset
@@ -708,7 +708,7 @@ DebugContinueMenuInit: @ 0x0801C0FC
 	bl BG_EnableSyncByMask
 	add r0, sp, #4
 	movs r1, #3
-	bl SaveMetadata_Check
+	bl SaveMetadata_Load
 	lsls r0, r0, #0x18
 	asrs r0, r0, #0x18
 	cmp r0, #1
@@ -819,7 +819,7 @@ sub_801C1DC: @ 0x0801C1DC
 	movs r0, #0
 	movs r1, #0
 	movs r2, #0
-	bl sub_80A4E70
+	bl SaveNewGame
 	ldr r0, _0801C21C  @ 0x0000026A
 	bl GetStringFromIndex
 	bl SetTacticianName
@@ -881,7 +881,7 @@ sub_801C248: @ 0x0801C248
 	movs r0, #0
 	movs r1, #1
 	movs r2, #0
-	bl sub_80A4E70
+	bl SaveNewGame
 	b _0801C28A
 	.align 2, 0
 _0801C278: .4byte gKeyStatusPtr
@@ -891,7 +891,7 @@ _0801C27C:
 	movs r0, #0
 	movs r1, #0
 	movs r2, #0
-	bl sub_80A4E70
+	bl SaveNewGame
 _0801C28A:
 	ldr r0, _0801C2C4  @ 0x0000026A
 	bl GetStringFromIndex

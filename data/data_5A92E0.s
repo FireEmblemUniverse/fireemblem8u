@@ -91,7 +91,7 @@ gUnknown_085A937C:  @ 0x085A937C
         @ PROC_END
         .short 0x0, 0x0
         .word 0x0
-    .4byte gUnknown_02020188
+    .4byte gGenericBuffer
 
 	.global gUnknown_085A93A0
 gUnknown_085A93A0:  @ 0x085A93A0
@@ -555,7 +555,7 @@ gUnknown_085A9864:  @ 0x085A9864
 	.global gUnknown_085A9884
 gUnknown_085A9884:  @ 0x085A9884
 @ replacing .incbin "baserom.gba", 0x005a9884, 0x4
-.4byte gUnknown_02020188
+.4byte gGenericBuffer
 
 	.global gUnknown_085A9888
 gUnknown_085A9888:  @ 0x085A9888

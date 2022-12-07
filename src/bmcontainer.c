@@ -20,7 +20,7 @@ void ClearConvoyItems() {
 
 void ShrinkConvoyItemList() {
     u16 i;
-    u16* buffer = (void*) gUnknown_02020188;
+    u16* buffer = (void*) gGenericBuffer;
     u16* bufferIt = buffer;
     u16* convoy = GetConvoyItemArray();
 
@@ -88,7 +88,7 @@ int GetConvoyItemSlot(int r0) {
 
 bool8 HasConvoyAccess() {
     unsigned int chapterId;
-    if (GMAP_STATE_BIT0 & gUnknown_03005280.state) {
+    if (GMAP_STATE_BIT0 & gGMData.state) {
         chapterId = sub_80BD048();
         if (chapterId <= 1) {
             return 0;

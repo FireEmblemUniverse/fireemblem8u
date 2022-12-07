@@ -47,13 +47,13 @@ TileMap_CopyRect: @ 0x080D74B8
 
 	THUMB_FUNC_END TileMap_CopyRect
 
-	THUMB_FUNC_START CalcSomeChecksum
-CalcSomeChecksum: @ 0x080D74C0
+	THUMB_FUNC_START ComputeChecksum32
+ComputeChecksum32: @ 0x080D74C0
 	bx pc
     nop
 	.ARM
-	b ARM_CalcSomeChecksum
+	b ARM_ComputeChecksum32
 
-	THUMB_FUNC_END CalcSomeChecksum
+	THUMB_FUNC_END ComputeChecksum32
 
 	.align 2, 0

@@ -3020,7 +3020,7 @@ sub_8042C44: @ 0x08042C44
 	push {r4, r5, r6, lr}
 	sub sp, #4
 	adds r4, r0, #0
-	ldr r5, _08042C80  @ gUnknown_02020188
+	ldr r5, _08042C80  @ gGenericBuffer
 	ldrh r1, [r4, #0x38]
 	ldrh r0, [r4, #0x36]
 	subs r0, #1
@@ -3046,7 +3046,7 @@ sub_8042C44: @ 0x08042C44
 	strb r0, [r1]
 	b _08042CC8
 	.align 2, 0
-_08042C80: .4byte gUnknown_02020188
+_08042C80: .4byte gGenericBuffer
 _08042C84:
 	adds r0, r5, #0
 	mov r1, sp
@@ -8528,7 +8528,7 @@ sub_8045640: @ 0x08045640
 	movs r2, #0x80
 	bl CopyToPaletteBuffer
 	ldr r0, _080457D0  @ gUnknown_085B089C
-	ldr r4, _080457D4  @ gUnknown_02020188
+	ldr r4, _080457D4  @ gGenericBuffer
 	adds r1, r4, #0
 	bl CopyDataWithPossibleUncomp
 	ldr r0, _080457D8  @ gBG3TilemapBuffer
@@ -8643,7 +8643,7 @@ _080457C4: .4byte gUnknown_085ADE08
 _080457C8: .4byte gUnknown_085AF170
 _080457CC: .4byte gUnknown_085B081C
 _080457D0: .4byte gUnknown_085B089C
-_080457D4: .4byte gUnknown_02020188
+_080457D4: .4byte gGenericBuffer
 _080457D8: .4byte gBG3TilemapBuffer
 _080457DC: .4byte gUnknown_02000C60
 _080457E0: .4byte 0x06012000
@@ -10713,7 +10713,7 @@ sub_8046838: @ 0x08046838
 	movs r0, #0
 	bl sub_804C3A4
 	ldr r0, _08046984  @ gUnknown_085AE778
-	ldr r4, _08046988  @ gUnknown_02020188
+	ldr r4, _08046988  @ gGenericBuffer
 	adds r1, r4, #0
 	bl CopyDataWithPossibleUncomp
 	ldr r0, _0804698C  @ gUnknown_02023DEA
@@ -10808,7 +10808,7 @@ _08046978: .4byte gUnknown_085ABD68
 _0804697C: .4byte 0x06014800
 _08046980: .4byte gUnknown_085ADC48
 _08046984: .4byte gUnknown_085AE778
-_08046988: .4byte gUnknown_02020188
+_08046988: .4byte gGenericBuffer
 _0804698C: .4byte gUnknown_02023DEA
 _08046990: .4byte gUnknown_0203DB64
 _08046994: .4byte gUnknown_080D9E50
@@ -10901,13 +10901,13 @@ _08046A4A:
 	movs r0, #0
 	strb r0, [r4]
 	mov r0, r9
-	bl sub_80A5218
+	bl SaveMetadata_LoadId
 	lsls r0, r0, #0x18
 	cmp r0, #0
 	beq _08046B34
 	mov r0, r9
 	add r1, sp, #4
-	bl sub_80A522C
+	bl LoadSavedChapterState
 	add r0, sp, #4
 	bl sub_8089768
 	adds r2, r7, #0
@@ -10975,7 +10975,7 @@ _08046AE0:
 	strb r0, [r4]
 _08046AE4:
 	add r0, sp, #4
-	bl sub_80A52BC
+	bl CheckChapterCompleted
 	lsls r0, r0, #0x18
 	cmp r0, #0
 	beq _08046B02
@@ -12578,7 +12578,7 @@ sub_8047780: @ 0x08047780
 	movs r0, #0
 	bl sub_804C3A4
 	ldr r0, _08047904  @ gUnknown_085AE778
-	ldr r4, _08047908  @ gUnknown_02020188
+	ldr r4, _08047908  @ gGenericBuffer
 	adds r1, r4, #0
 	bl CopyDataWithPossibleUncomp
 	ldr r0, _0804790C  @ gUnknown_02023DEA
@@ -12701,7 +12701,7 @@ _080478F8: .4byte gUnknown_085ABD68
 _080478FC: .4byte 0x06014800
 _08047900: .4byte gUnknown_085ADC48
 _08047904: .4byte gUnknown_085AE778
-_08047908: .4byte gUnknown_02020188
+_08047908: .4byte gGenericBuffer
 _0804790C: .4byte gUnknown_02023DEA
 _08047910: .4byte gUnknown_0203DB64
 _08047914: .4byte gUnknown_080D9E50
@@ -12923,15 +12923,15 @@ sub_8047AB8: @ 0x08047AB8
 	movs r4, #0
 _08047ABE:
 	adds r0, r4, #0
-	bl sub_80A5218
+	bl SaveMetadata_LoadId
 	lsls r0, r0, #0x18
 	cmp r0, #0
 	beq _08047AE2
 	adds r0, r4, #0
 	mov r1, sp
-	bl sub_80A522C
+	bl LoadSavedChapterState
 	mov r0, sp
-	bl sub_80A52BC
+	bl CheckChapterCompleted
 	lsls r0, r0, #0x18
 	cmp r0, #0
 	beq _08047AE2
@@ -13813,7 +13813,7 @@ sub_80481E0: @ 0x080481E0
 	movs r3, #0
 	bl Font_InitForUI
 	movs r0, #5
-	bl sub_80A5218
+	bl SaveMetadata_LoadId
 	lsls r0, r0, #0x18
 	cmp r0, #0
 	bne _08048204
@@ -14621,7 +14621,7 @@ sub_804881C: @ 0x0804881C
 	THUMB_FUNC_START sub_8048838
 sub_8048838: @ 0x08048838
 	push {lr}
-	bl InitNopSecHeader
+	bl InitSaveMetadata
 	bl sub_80A39B4
 	bl sub_80A3E28
 	bl sub_80A3F84
@@ -22481,7 +22481,7 @@ sub_804C3EC: @ 0x0804C3EC
 	adds r1, r1, r3
 	bl CopyDataWithPossibleUncomp
 	ldr r0, _0804C468  @ gUnknown_085AAE0C
-	ldr r6, _0804C46C  @ gUnknown_02020188
+	ldr r6, _0804C46C  @ gGenericBuffer
 	adds r1, r6, #0
 	bl CopyDataWithPossibleUncomp
 	adds r4, r4, r5
@@ -22512,7 +22512,7 @@ sub_804C3EC: @ 0x0804C3EC
 	.align 2, 0
 _0804C464: .4byte gUnknown_085B0DE8
 _0804C468: .4byte gUnknown_085AAE0C
-_0804C46C: .4byte gUnknown_02020188
+_0804C46C: .4byte gGenericBuffer
 _0804C470: .4byte 0x06014000
 _0804C474: .4byte gBG2TilemapBuffer
 _0804C478: .4byte gUnknown_085B0F2C
@@ -24439,7 +24439,7 @@ sub_804D2A4: @ 0x0804D2A4
 	lsls r0, r0, #2
 	add r0, sp
 	ldr r0, [r0]
-	ldr r4, _0804D370  @ gUnknown_02020188
+	ldr r4, _0804D370  @ gGenericBuffer
 	adds r1, r4, #0
 	bl CopyDataWithPossibleUncomp
 	ldr r1, _0804D374  @ 0x06002980
@@ -24485,7 +24485,7 @@ _0804D360: .4byte 0x06002000
 _0804D364: .4byte gUnknown_085AE7EC
 _0804D368: .4byte 0x06002800
 _0804D36C: .4byte gRAMChapterData
-_0804D370: .4byte gUnknown_02020188
+_0804D370: .4byte gGenericBuffer
 _0804D374: .4byte 0x06002980
 _0804D378: .4byte gUnknown_03001860
 

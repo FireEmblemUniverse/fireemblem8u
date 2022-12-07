@@ -454,8 +454,8 @@ void WfxSandStorm_Init(void) {
 
     AllocWeatherParticles(gRAMChapterData.chapterWeatherId);
 
-    CopyDataWithPossibleUncomp(gUnknown_085A3964, gUnknown_02020188);
-    CopyTileGfxForObj(gUnknown_02020188, OBJ_VRAM0 + 0x1C * 0x20, 4, 4);
+    CopyDataWithPossibleUncomp(gUnknown_085A3964, gGenericBuffer);
+    CopyTileGfxForObj(gGenericBuffer, OBJ_VRAM0 + 0x1C * 0x20, 4, 4);
 
     for (i = 0; i < 0x40; ++i) {
         sWeatherEffect.particles[i].xPosition = AdvanceGetLCGRNValue();
@@ -494,8 +494,8 @@ void WfxSnowStorm_Init(void) {
 
     AllocWeatherParticles(gRAMChapterData.chapterWeatherId);
 
-    CopyDataWithPossibleUncomp(gUnknown_085A39EC, gUnknown_02020188);
-    CopyTileGfxForObj(gUnknown_02020188, OBJ_VRAM0 + 0x18 * 0x20, 8, 4);
+    CopyDataWithPossibleUncomp(gUnknown_085A39EC, gGenericBuffer);
+    CopyTileGfxForObj(gGenericBuffer, OBJ_VRAM0 + 0x18 * 0x20, 8, 4);
 
     for (i = 0; i < 0x40; ++i) {
         unsigned type = typeLookup[i & 7];
@@ -926,7 +926,7 @@ u8 GetTextDisplaySpeed(void) {
 }
 
 int IsFirstPlaythrough(void) {
-    u8 tmp = sub_80A3870();
+    u8 tmp = IsGamePlayedThrough();
     if (!tmp)
         return TRUE;
 
@@ -1357,14 +1357,14 @@ void GameCtrl_DeclareCompletedChapter(void) {
     RegisterChapterTimeAndTurnCount(&gRAMChapterData);
 
     ComputeChapterRankings();
-    SaveChapterRankings();
+    SaveEndgameRankings();
 
-    gRAMChapterData.chapterStateBits |= CHAPTER_FLAG_5;
+    gRAMChapterData.chapterStateBits |= CHAPTER_FLAG_COMPLETE;
 }
 
-void GameCtrl_DeclareCompletedPlaythrough(void) {
+void GameCtrl_RegisterCompletedPlaythrough(void) {
     SetNextGameActionId(GAME_ACTION_3);
-    DeclareCompletedPlaythrough();
+    RegisterCompletedPlaythrough();
 }
 
 char* GetTacticianName(void) {

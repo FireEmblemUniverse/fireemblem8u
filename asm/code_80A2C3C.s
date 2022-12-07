@@ -11,7 +11,7 @@ sub_80A6560: @ 0x080A6560
 	push {r5, r6, r7}
 	sub sp, #0x80
 	movs r0, #5
-	bl GetSaveDataLocation
+	bl GetSaveTargetAddress
 	mov r9, r0
 	add r0, sp, #0x6c
 	movs r4, #0
@@ -152,7 +152,7 @@ _080A6606:
 	strb r0, [r5, #6]
 	ldr r0, [sp, #0x74]
 	movs r1, #5
-	bl SaveMetadata_Generate
+	bl SaveMetadata_Save
 	add sp, #0x80
 	pop {r3, r4, r5}
 	mov r8, r3
@@ -177,7 +177,7 @@ sub_80A66C0: @ 0x080A66C0
 	adds r4, r0, #0
 	adds r5, r1, #0
 	movs r0, #5
-	bl CheckSaveAndGetPointer
+	bl GetSaveSourceAddress
 	ldr r2, _080A66E8  @ ReadSramFast
 	movs r1, #0xc4
 	muls r1, r4, r1
@@ -208,7 +208,7 @@ sub_80A66F4: @ 0x080A66F4
 	adds r4, r0, #0
 	adds r5, r1, #0
 	movs r0, #5
-	bl CheckSaveAndGetPointer
+	bl GetSaveSourceAddress
 	ldr r2, _080A6728  @ ReadSramFast
 	movs r1, #0xc4
 	muls r1, r4, r1
@@ -245,7 +245,7 @@ sub_80A6738: @ 0x080A6738
 	adds r4, r0, #0
 	adds r5, r1, #0
 	movs r0, #5
-	bl GetSaveDataLocation
+	bl GetSaveTargetAddress
 	adds r1, r0, #0
 	movs r0, #0xc4
 	muls r0, r4, r0
@@ -260,7 +260,7 @@ sub_80A6738: @ 0x080A6738
 	strb r0, [r1, #6]
 	mov r0, sp
 	movs r1, #5
-	bl SaveMetadata_Generate
+	bl SaveMetadata_Save
 	add sp, #0x10
 	pop {r4, r5}
 	pop {r0}
@@ -276,7 +276,7 @@ sub_80A6774: @ 0x080A6774
 	sub sp, #0x14
 	adds r6, r0, #0
 	movs r0, #5
-	bl GetSaveDataLocation
+	bl GetSaveTargetAddress
 	adds r4, r0, #0
 	add r0, sp, #0x10
 	movs r1, #0
@@ -299,7 +299,7 @@ sub_80A6774: @ 0x080A6774
 	strb r0, [r1, #6]
 	mov r0, sp
 	movs r1, #5
-	bl SaveMetadata_Generate
+	bl SaveMetadata_Save
 	add sp, #0x14
 	pop {r4, r5, r6}
 	pop {r0}
@@ -321,10 +321,10 @@ sub_80A67C8: @ 0x080A67C8
 	adds r6, r0, #0
 	mov r9, r1
 	movs r0, #5
-	bl CheckSaveAndGetPointer
+	bl GetSaveSourceAddress
 	adds r4, r0, #0
 	movs r0, #5
-	bl GetSaveDataLocation
+	bl GetSaveTargetAddress
 	adds r5, r0, #0
 	ldr r1, _080A6834  @ ReadSramFast
 	movs r0, #0xc4
@@ -353,7 +353,7 @@ sub_80A67C8: @ 0x080A67C8
 	strb r0, [r1, #6]
 	mov r0, sp
 	movs r1, #5
-	bl SaveMetadata_Generate
+	bl SaveMetadata_Save
 	add sp, #0x10
 	pop {r3, r4}
 	mov r8, r3
@@ -379,10 +379,10 @@ sub_80A6840: @ 0x080A6840
 	mov r8, r0
 	mov sl, r1
 	movs r0, #5
-	bl CheckSaveAndGetPointer
+	bl GetSaveSourceAddress
 	adds r5, r0, #0
 	movs r0, #5
-	bl GetSaveDataLocation
+	bl GetSaveTargetAddress
 	adds r6, r0, #0
 	ldr r0, _080A68CC  @ ReadSramFast
 	mov r9, r0
@@ -423,7 +423,7 @@ sub_80A6840: @ 0x080A6840
 	strb r0, [r1, #6]
 	mov r0, sp
 	movs r1, #5
-	bl SaveMetadata_Generate
+	bl SaveMetadata_Save
 	add sp, #0x10
 	pop {r3, r4, r5}
 	mov r8, r3
@@ -450,7 +450,7 @@ sub_80A68DC: @ 0x080A68DC
 	mov r8, r1
 	adds r6, r2, #0
 	movs r0, #5
-	bl GetSaveDataLocation
+	bl GetSaveTargetAddress
 	adds r5, r0, #0
 	movs r0, #0xc4
 	muls r4, r0, r4
@@ -478,7 +478,7 @@ _080A6908:
 	strb r0, [r1, #6]
 	mov r0, sp
 	movs r1, #5
-	bl SaveMetadata_Generate
+	bl SaveMetadata_Save
 	add sp, #0x10
 	pop {r3}
 	mov r8, r3
@@ -499,7 +499,7 @@ sub_80A693C: @ 0x080A693C
 	adds r6, r1, #0
 	adds r5, r2, #0
 	movs r0, #5
-	bl CheckSaveAndGetPointer
+	bl GetSaveSourceAddress
 	adds r7, r0, #0
 	ldr r1, _080A6990  @ ReadSramFast
 	movs r0, #0xc4
@@ -551,7 +551,7 @@ sub_80A69A0: @ 0x080A69A0
 	sub sp, #0x10
 	adds r4, r0, #0
 	movs r0, #5
-	bl GetSaveDataLocation
+	bl GetSaveTargetAddress
 	adds r1, r0, #0
 	ldr r0, _080A69D4  @ 0x000007AC
 	adds r1, r1, r0
@@ -565,7 +565,7 @@ sub_80A69A0: @ 0x080A69A0
 	strb r0, [r1, #6]
 	mov r0, sp
 	movs r1, #5
-	bl SaveMetadata_Generate
+	bl SaveMetadata_Save
 	add sp, #0x10
 	pop {r4}
 	pop {r0}
@@ -581,7 +581,7 @@ sub_80A69DC: @ 0x080A69DC
 	push {r4, lr}
 	adds r4, r0, #0
 	movs r0, #5
-	bl CheckSaveAndGetPointer
+	bl GetSaveSourceAddress
 	ldr r1, _080A69FC  @ ReadSramFast
 	ldr r2, _080A6A00  @ 0x000007AC
 	adds r0, r0, r2
@@ -604,7 +604,7 @@ sub_80A6A04: @ 0x080A6A04
 	sub sp, #0x10
 	adds r4, r0, #0
 	movs r0, #5
-	bl GetSaveDataLocation
+	bl GetSaveTargetAddress
 	adds r1, r0, #0
 	movs r0, #0xf5
 	lsls r0, r0, #3
@@ -619,7 +619,7 @@ sub_80A6A04: @ 0x080A6A04
 	strb r0, [r1, #6]
 	mov r0, sp
 	movs r1, #5
-	bl SaveMetadata_Generate
+	bl SaveMetadata_Save
 	add sp, #0x10
 	pop {r4}
 	pop {r0}
@@ -634,7 +634,7 @@ sub_80A6A40: @ 0x080A6A40
 	push {r4, lr}
 	adds r4, r0, #0
 	movs r0, #5
-	bl CheckSaveAndGetPointer
+	bl GetSaveSourceAddress
 	ldr r1, _080A6A64  @ ReadSramFast
 	movs r2, #0xf5
 	lsls r2, r2, #3
@@ -720,7 +720,7 @@ sub_80A6AA0: @ 0x080A6AA0
 	cmp r0, r4
 	beq _080A6AE8
 	movs r0, #3
-	bl sub_80A5A20
+	bl ClearSaveBlock
 _080A6AE8:
 	add sp, #0x4c
 	pop {r4}
@@ -903,7 +903,7 @@ _080A6C14:
 	THUMB_FUNC_START sub_80A6C1C
 sub_80A6C1C: @ 0x080A6C1C
 	push {r4, lr}
-	ldr r4, _080A6C70  @ gUnknown_02020188
+	ldr r4, _080A6C70  @ gGenericBuffer
 	bl IsSramWorking
 	lsls r0, r0, #0x18
 	cmp r0, #0
@@ -941,7 +941,7 @@ sub_80A6C1C: @ 0x080A6C1C
 	movs r0, #1
 	b _080A6C86
 	.align 2, 0
-_080A6C70: .4byte gUnknown_02020188
+_080A6C70: .4byte gGenericBuffer
 _080A6C74: .4byte ReadSramFast
 _080A6C78: .4byte 0x0E007400
 _080A6C7C: .4byte 0x50414D58
@@ -962,7 +962,7 @@ sub_80A6C8C: @ 0x080A6C8C
 	ldr r5, _080A6CF4  @ ReadSramFast
 	bl sub_80A6BB4
 	adds r4, r0, #0
-	ldr r6, _080A6CF8  @ gUnknown_02020188
+	ldr r6, _080A6CF8  @ gGenericBuffer
 	bl sub_80A6BD4
 	adds r2, r0, #0
 	ldr r3, [r5]
@@ -1003,7 +1003,7 @@ sub_80A6C8C: @ 0x080A6C8C
 	bx r0
 	.align 2, 0
 _080A6CF4: .4byte ReadSramFast
-_080A6CF8: .4byte gUnknown_02020188
+_080A6CF8: .4byte gGenericBuffer
 _080A6CFC: .4byte gUnknown_08A1FB34
 _080A6D00: .4byte gRAMChapterData
 _080A6D04: .4byte gGameState
@@ -1050,7 +1050,7 @@ sub_80A6D34: @ 0x080A6D34
 	THUMB_FUNC_START sub_80A6D38
 sub_80A6D38: @ 0x080A6D38
 	push {lr}
-	bl sub_80A4BB0
+	bl GetGlobalCompletionCount
 	ldr r1, _080A6D48  @ gBmMapHidden
 	movs r0, #0
 	str r0, [r1]
@@ -1565,8 +1565,8 @@ _080A70AC: .4byte 0x01000012
 
 	THUMB_FUNC_END sub_80A7074
 
-	THUMB_FUNC_START sub_80A70B0
-sub_80A70B0: @ 0x080A70B0
+	THUMB_FUNC_START SaveWMStuff
+SaveWMStuff: @ 0x080A70B0
 	push {r4, r5, r6, lr}
 	sub sp, #0x24
 	adds r6, r0, #0
@@ -1631,10 +1631,10 @@ sub_80A70B0: @ 0x080A70B0
 	pop {r0}
 	bx r0
 
-	THUMB_FUNC_END sub_80A70B0
+	THUMB_FUNC_END SaveWMStuff
 
-	THUMB_FUNC_START sub_80A7138
-sub_80A7138: @ 0x080A7138
+	THUMB_FUNC_START LoadWMStuff
+LoadWMStuff: @ 0x080A7138
 	push {r4, lr}
 	sub sp, #0x24
 	adds r4, r1, #0
@@ -1719,18 +1719,18 @@ _080A71B6:
 	pop {r0}
 	bx r0
 
-	THUMB_FUNC_END sub_80A7138
+	THUMB_FUNC_END LoadWMStuff
 
 	THUMB_FUNC_START sub_80A71E4
 sub_80A71E4: @ 0x080A71E4
 	push {lr}
 	adds r1, r0, #0
-	ldr r0, _080A71F4  @ gUnknown_03005280
+	ldr r0, _080A71F4  @ gGMData
 	bl sub_80BD260
 	pop {r0}
 	bx r0
 	.align 2, 0
-_080A71F4: .4byte gUnknown_03005280
+_080A71F4: .4byte gGMData
 
 	THUMB_FUNC_END sub_80A71E4
 
@@ -1738,12 +1738,12 @@ _080A71F4: .4byte gUnknown_03005280
 sub_80A71F8: @ 0x080A71F8
 	push {lr}
 	adds r1, r0, #0
-	ldr r0, _080A7208  @ gUnknown_03005280
+	ldr r0, _080A7208  @ gGMData
 	bl sub_80BD270
 	pop {r0}
 	bx r0
 	.align 2, 0
-_080A7208: .4byte gUnknown_03005280
+_080A7208: .4byte gGMData
 
 	THUMB_FUNC_END sub_80A71F8
 
@@ -2010,7 +2010,7 @@ _080A73BA:
 	adds r1, r4, #0
 	bl sub_80A720C
 	adds r0, r4, #0
-	bl SaveSecureHeader
+	bl SaveGeneralGameMetadata
 	movs r5, #0
 	add r7, sp, #4
 	add r1, sp, #8
@@ -2090,7 +2090,7 @@ _080A743A:
 	adds r1, r4, #0
 	bl sub_80A7360
 	adds r0, r4, #0
-	bl sub_80A3984
+	bl SaveRankings
 	str r7, [sp, #0x10]
 	ldr r2, _080A755C  @ 0x01000009
 	ldr r0, [sp, #0x24]
@@ -2123,7 +2123,7 @@ _080A743A:
 	adds r1, r4, #0
 	bl sub_80A7328
 	adds r0, r4, #0
-	bl sub_80A3950
+	bl SaveBonusContentData
 	movs r5, #0
 	adds r6, r4, #0
 	mov r4, r8
@@ -2140,7 +2140,7 @@ _080A74E6:
 	bl sub_80A723C
 	adds r0, r6, #0
 	adds r1, r5, #0
-	bl SaveMetadata_Generate
+	bl SaveMetadata_Save
 	adds r4, #0x10
 	adds r5, #1
 	cmp r5, #6

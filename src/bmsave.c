@@ -18,27 +18,33 @@
 
 /* functions */
 u8 CheckSaveHeaderMagic(void*, u8*);
-void sub_80A3950(void*);
-int sub_80A6430(struct SramChunk *buf);
-uintptr_t GetSaveDataLocation(int index);
-void sub_80A6454(struct SramChunk*);
+void SaveBonusContentData(void*);
+int SaveMetadata_VerifyChecksum(struct SramChunk *buf);
+uintptr_t GetSaveTargetAddress(int index);
+void SaveMetadata_ComputeChecksum(struct SramChunk*);
 void *GetLocalEventIdStorage();
 int GetLocalEventIdStorageSize();
 void *GetGlobalEventIdStorage();
 int GetGlobalEventIdStorageSize();
 unsigned short *GetConvoyItemArray();
-s8 sub_80A52DC(int);
+s8 LoadAndCheckChComplete(int);
 int sub_80A6A68();
-int sub_80A3834(struct SecureSaveHeader *buf);
-u8 sub_80A3898(void*);
+int GGM_IsAnyCharacterKnown(struct SaveMeta *buf);
+u8 LoadAndVerfyRankData(void*);
 u8 sub_80A6C1C();
-u8 sub_80A38F4(void*);
+u8 LoadBonusContentData(void*);
 void sub_80A4000(struct bmsave_unkstruct2 *buf);
 
 
 /* variables */
 extern EWRAM_DATA s8 gBoolSramWorking;
-extern CONST_DATA struct SramHeader *gpSaveDataStart; /* 0x0E000000 */
+EWRAM_DATA struct UnitUsageStats *gpBWLSaveTarget = NULL;
+EWRAM_DATA struct UnitUsageStats gBWLDataStorage[BWL_ARRAY_NUM] = {0};
+EWRAM_DATA struct ChapterWinData gChapterWinDataArray[WIN_ARRAY_NUM] = {0};
+EWRAM_DATA u32 gBonusContentClaimFlags = 0;
+EWRAM_DATA u8 gUnknown_0203EDB8 = 0;
+
+extern struct SramHeader *gpSaveDataStart; /* 0x0E000000 */
 extern CONST_DATA u8 gSaveHeaderKeygen[];
 extern CONST_DATA unsigned char gUnknown_08205CA4[]; /* related to convoy */
 extern CONST_DATA unsigned char gUnknown_08205CAC[];
@@ -70,7 +76,6 @@ void EraseSecureHeader()
     int buf[0x10];
     int i;
 
-    /* Appparently it lost one unit lol */
     for (i = 0; i < 0x10; i++)
         buf[i] = -1;
 
@@ -78,27 +83,25 @@ void EraseSecureHeader()
         WriteAndVerifySramFast((void*)buf, (void*)gpSaveDataStart + i * 0x40, 0x40);
 }
 
-u16 SecureHeaderCalc(u16 *src, int size)
+u16 ComputeChecksum16(const u16* data, int size)
 {
-    int num0 = 0;
-    int num1 = 0;
-    int i = size / 2;
-
-    if (num0 < i) {
-        do{
-            num0 += *src;
-            num1 ^= *src;
-            src++;
-        } while(--i != 0);
+    int i;
+    u32 addAcc = 0;
+    u32 xorAcc = 0;
+    
+    for (i = 0; i < size/2; ++i) {
+        addAcc += data[i];
+        xorAcc ^= data[i];
     }
-    return num0 + num1;
+    
+    return addAcc + xorAcc;
 }
 
 
-u8 LoadAndVerifySecureHeaderSW(struct SecureSaveHeader *buf)
+u8 LoadGeneralGameMetadata(struct SaveMeta *buf)
 {
-    struct SecureSaveHeader tmp;
-    struct SecureSaveHeader *header = buf;
+    struct SaveMeta tmp;
+    struct SaveMeta *header = buf;
 
     if (!IsSramWorking())
         return 0;
@@ -106,31 +109,31 @@ u8 LoadAndVerifySecureHeaderSW(struct SecureSaveHeader *buf)
     if (NULL == buf)
         header = &tmp;
 
-    (*ReadSramFast)((void*)gpSaveDataStart, (void*)header, sizeof(struct SecureSaveHeader));
+    (*ReadSramFast)((void*)gpSaveDataStart, (void*)header, sizeof(struct SaveMeta));
 
     if ((0 != CheckSaveHeaderMagic(header, gSaveHeaderKeygen)) &&
         (0x40624 == header->_00040624) &&
         (0x200A == header->_200A) &&
-        (header->sec_sum == SecureHeaderCalc((void*)header, 0x50)))
+        (header->sec_sum == ComputeChecksum16((void*)header, 0x50)))
         return 1;
 
     return 0;
 }
 
-void SaveSecureHeader(struct SecureSaveHeader *header)
+void SaveGeneralGameMetadata(struct SaveMeta *header)
 {
-    header->sec_sum = SecureHeaderCalc((void*)header, 0x50);
-    WriteAndVerifySramFast((void*)header, (void*)gpSaveDataStart, sizeof(struct SecureSaveHeader));
+    header->sec_sum = ComputeChecksum16((void*)header, 0x50);
+    WriteAndVerifySramFast((void*)header, (void*)gpSaveDataStart, sizeof(struct SaveMeta));
 }
 
-void ForceSaveSecureHeader(struct SecureSaveHeader *header)
+void SaveGeneralGameMetadataNoChecksum(struct SaveMeta *header)
 {
-    WriteAndVerifySramFast((void*)header, (void*)gpSaveDataStart, sizeof(struct SecureSaveHeader));
+    WriteAndVerifySramFast((void*)header, (void*)gpSaveDataStart, sizeof(struct SaveMeta));
 }
 
-void InitNopSecHeader()
+void InitSaveMetadata()
 {
-    struct SecureSaveHeader header;
+    struct SaveMeta header;
     int i;
 
     EraseSecureHeader();
@@ -139,14 +142,14 @@ void InitNopSecHeader()
     header._00040624 = 0x00040624;
     header._200A = 0x200A;
 
-    header.flag0E_0 = 0;
+    header.play_through_declared  = 0;
     header.flag0E_1 = 0;
-    header.flag0E_2 = 0;
-    header.flag0E_3 = 0;
-    header.flag0E_4 = 0;
-    header.flag0E_5 = 0;
-    header.flag0E_6 = 0;
-    header.flag0E_7 = 0;
+    header.Eirk_mode_easy = 0;
+    header.Eirk_mode_norm = 0;
+    header.Eirk_mode_hard = 0;
+    header.Ephy_mode_easy = 0;
+    header.Ephy_mode_norm = 0;
+    header.Ephy_mode_hard = 0;
 
     header.unk0F_0 = 0;
     header.unk0F_1 = 0;
@@ -154,28 +157,28 @@ void InitNopSecHeader()
     header.unk10 = 0;
     header.unk12 = 0;
 
-    header.unk63 = 0;
-    header.unk62 = 0;
+    header.slot_su = 0;
+    header.slot_sa = 0;
 
     for (i = 0; i < 0xC; i++)
-        header.unk14[i] = 0;
+        header.playthrough_ids[i] = 0;
 
     for (i = 0; i < 0x20; i++)
-        header.unk20[i] = 0;
+        header.SuppordRecord[i] = 0;
 
     for (i = 0; i < 0x20; i++)
         header.charKnownFlags[i] = 0;
 
-    SaveSecureHeader(&header);
+    SaveGeneralGameMetadata(&header);
 
     return;
 }
 
-void sub_80A2EA8()
+void EraseBonusContentData()
 {
-    u8 *buf = gUnknown_02020188;
+    u8 *buf = gGenericBuffer;
     CPU_FILL(0, buf, 0x144, 16);
-    sub_80A3950(buf);
+    SaveBonusContentData(buf);
 }
 
 uintptr_t SramOffsetToPointer(u16 off)
@@ -188,7 +191,7 @@ u16 SramPointerToOffset(uintptr_t addr)
     return addr - (uintptr_t)gpSaveDataStart;
 }
 
-s8 SaveMetadata_Check(struct SramChunk *buf, int index)
+s8 SaveMetadata_Load(struct SramChunk *buf, int index)
 {
     struct SramChunk tmp;
     u32 key;
@@ -201,7 +204,7 @@ s8 SaveMetadata_Check(struct SramChunk *buf, int index)
         (void*)buf,
         sizeof(struct SramChunk));
 
-    if (0x200A != buf->unk04)
+    if (0x200A != buf->magic2)
         return 0;
 
     switch (index) {
@@ -229,48 +232,48 @@ s8 SaveMetadata_Check(struct SramChunk *buf, int index)
         break;
     } /* switch */
 
-    if (buf->unk00 != key)
+    if (buf->magic1 != key)
         return 0;
 
-    return sub_80A6430(buf);
+    return SaveMetadata_VerifyChecksum(buf);
 }
 
-void SaveMetadata_Generate(struct SramChunk *buf, int index) {
+void SaveMetadata_Save(struct SramChunk *buf, int index) {
 
-    buf->unk04 = 0x200A;
-    buf->sram_offset = (uintptr_t)GetSaveDataLocation(index);
+    buf->magic2 = 0x200A;
+    buf->sram_offset = (uintptr_t)GetSaveTargetAddress(index);
 
     if (!(index < SAVE_CHUNK_MAX))
         return;
 
-    switch (buf->unk06) {
+    switch (buf->type) {
     case SAVE_CHUNK_0:
-        buf->unk0A = 0x0DC8;
+        buf->size = 0x0DC8;
         break;
 
     case SAVE_CHUNK_1:
-        buf->unk0A = 0x1F78;
+        buf->size = 0x1F78;
         break;
 
     case SAVE_CHUNK_2:
-        buf->unk0A = 0x0874;
+        buf->size = 0x0874;
         break;
 
     case SAVE_CHUNK_3:
-        buf->unk0A = 0xC00;
+        buf->size = 0xC00;
         break;
 
     case 0xFF:
-        buf->unk0A = 0;
+        buf->size = 0;
         buf->sram_offset = 0;
-        buf->unk04 = 0;
+        buf->magic2 = 0;
         break;
 
     default:
         return;
     }
 
-    sub_80A6454(buf);
+    SaveMetadata_ComputeChecksum(buf);
     WriteAndVerifySramFast(
         (void*)buf,
         (void*)(&gpSaveDataStart->chunks[index]),
@@ -290,7 +293,7 @@ void SaveMetadata_Erase(int index)
     }
 }
 
-uintptr_t GetSaveDataLocation(int index)
+uintptr_t GetSaveTargetAddress(int index)
 {
     switch (index) {
         case SAVE_CHUNK_0:
@@ -327,10 +330,10 @@ uintptr_t GetSaveDataLocation(int index)
     }
 }
 
-uintptr_t CheckSaveAndGetPointer(int index)
+uintptr_t GetSaveSourceAddress(int index)
 {
     struct SramChunk chunk;
-    SaveMetadata_Check(&chunk, index);
+    SaveMetadata_Load(&chunk, index);
     return SramOffsetToPointer(chunk.sram_offset);
 }
 
@@ -450,7 +453,7 @@ s8 sub_80A32F0(int index)
         return 0;
 
     for (i = 0; i < 3; i++)
-        if (sub_80A52DC(i))
+        if (LoadAndCheckChComplete(i))
             return 1;
 
     return sub_80A6A68();
@@ -463,20 +466,20 @@ int sub_80A3328()
 
 signed char sub_80A332C()
 {
-    int tmp0 = sub_80A3834(NULL);
-    int tmp1 = sub_80A3870();
+    int tmp0 = GGM_IsAnyCharacterKnown(NULL);
+    int tmp1 = IsGamePlayedThrough();
     return tmp1 & tmp0;
 }
 
 unsigned int sub_80A3348(void) {
     unsigned char buf[0x94];
     int r4 = 0;
-    unsigned char tmp0 = sub_80A3870();
+    unsigned char tmp0 = IsGamePlayedThrough();
 
     if (!tmp0)
         return 0;
 
-    if (sub_80A3898(buf)) {
+    if (LoadAndVerfyRankData(buf)) {
         if (buf[0] << 0x1F)
             r4 = 1;
     
@@ -500,9 +503,9 @@ unsigned int sub_80A3348(void) {
 
 int sub_80A33C4()
 {
-    struct SecureSaveHeader buf;
+    struct SaveMeta buf;
 
-    if (!LoadAndVerifySecureHeaderSW(&buf))
+    if (!LoadGeneralGameMetadata(&buf))
         return 0;
 
     if (!sub_80A6C1C())
@@ -519,7 +522,7 @@ int sub_80A33EC()
         return 0;
 
     for (i = 0; i < 3; i++)
-        if (sub_80A530C(i))
+        if (LoadAndCheckChComplete2(i))
             return 1;
 
     return 0;
@@ -530,10 +533,10 @@ int sub_80A341C(void) {
     struct bmsave_unkstruct0 *buf1;
     int i, ret;
 
-    if (sub_80A38F4((void*)gUnknown_02020188)) {
+    if (LoadBonusContentData((void*)gGenericBuffer)) {
 
         ret = 0;
-        buf1 = (void*)gUnknown_02020188;
+        buf1 = (void*)gGenericBuffer;
     
         for (i = 0; i < 0x10; i++) {
             if ((0 == buf1[i].unk[0]))
@@ -590,22 +593,22 @@ int sub_80A34CC()
     return ret;
 }
 
-int sub_80A3500(struct SecureSaveHeader *buf)
+int sub_80A3500(struct SaveMeta *buf)
 {
     int i, j, tmp1, tmp2, ret = 0;
-    unsigned char *unk20;
-    struct SecureSaveHeader tmp_header;
+    unsigned char *SuppordRecord;
+    struct SaveMeta tmp_header;
 
     if (0 == buf) {
         buf = &tmp_header;
-        LoadAndVerifySecureHeaderSW(buf);
+        LoadGeneralGameMetadata(buf);
     }
 
 
     for (i = 0; i < 0x20; i++) {
         for (j = 0; j < 4; j++) {
             tmp1 = 1 + i;
-            tmp2 = buf->unk20[tmp1 - 1];
+            tmp2 = buf->SuppordRecord[tmp1 - 1];
             ret += (tmp2 >> (j << 1)) & 3;
         }
     }
@@ -628,18 +631,18 @@ int sub_80A3544(void) {
     return tmp0;
 }
 
-int sub_80A3584(int param0, int param1, struct SecureSaveHeader *buf)
+int sub_80A3584(int param0, int param1, struct SaveMeta *buf)
 {
-    struct SecureSaveHeader tmp_header;
+    struct SaveMeta tmp_header;
     int i = 0;
     int ret = 0;
     int tmp0, tmp1, tmp2, tmp3;
-    unsigned char *unk20;
+    unsigned char *SuppordRecord;
     struct SupportTalkEnt *cur = sub_80847F8();
 
     if (buf == NULL) {
         buf = &tmp_header;
-        LoadAndVerifySecureHeaderSW(buf);
+        LoadGeneralGameMetadata(buf);
     }
 
     while (1) {
@@ -658,12 +661,12 @@ int sub_80A3584(int param0, int param1, struct SecureSaveHeader *buf)
 
     tmp0 =  i >> 2;
     tmp1 = (3 & i) << 1;
-    ret = 3 & buf->unk20[tmp0] >> tmp1;
+    ret = 3 & buf->SuppordRecord[tmp0] >> tmp1;
     return ret;
 }
 
-void sub_80A35EC(int unitId, u8* data, struct SecureSaveHeader* buf) {
-    struct SecureSaveHeader tempHeader;
+void sub_80A35EC(int unitId, u8* data, struct SaveMeta* buf) {
+    struct SaveMeta tempHeader;
     struct SupportTalkEnt* ptr;
     int i;
     int j;
@@ -682,7 +685,7 @@ void sub_80A35EC(int unitId, u8* data, struct SecureSaveHeader* buf) {
 
     if (buf == 0) {
         buf = &tempHeader;
-        LoadAndVerifySecureHeaderSW(buf);
+        LoadGeneralGameMetadata(buf);
     }
 
     for (; ; j++, ptr++) {
@@ -706,7 +709,7 @@ void sub_80A35EC(int unitId, u8* data, struct SecureSaveHeader* buf) {
                 continue;
             }
 
-            data[i] = (buf->unk20[tmp1] >> (tmp2)) & 3;
+            data[i] = (buf->SuppordRecord[tmp1] >> (tmp2)) & 3;
 
             break;
         }
@@ -723,12 +726,12 @@ s8 sub_80A3724(int unitA, int unitB, int supportRank) {
     int convo;
     int var0;
     int var1;
-    struct SecureSaveHeader tempHeader;
+    struct SaveMeta tempHeader;
     struct SupportTalkEnt* ptr;
 
     supportRank = supportRank & 3;
 
-    if (!LoadAndVerifySecureHeaderSW(&tempHeader)) {
+    if (!LoadGeneralGameMetadata(&tempHeader)) {
         return 0;
     }
 
@@ -754,42 +757,42 @@ s8 sub_80A3724(int unitA, int unitB, int supportRank) {
     var0 = convo >> 2;
     var1 = (convo & 3) << 1;
 
-    if (((tempHeader.unk20[var0] >> var1) & 3) >= (supportRank)) {
+    if (((tempHeader.SuppordRecord[var0] >> var1) & 3) >= (supportRank)) {
         return 0;
     }
 
-    tempHeader.unk20[var0] &= ~(3 << var1);
-    tempHeader.unk20[var0] += (supportRank << var1);
+    tempHeader.SuppordRecord[var0] &= ~(3 << var1);
+    tempHeader.SuppordRecord[var0] += (supportRank << var1);
 
-    SaveSecureHeader(&tempHeader);
+    SaveGeneralGameMetadata(&tempHeader);
 
     return 1;
 }
 
-void SetSavedCharacterKnownFlag(s32 charId, struct SecureSaveHeader* buf)
+void SGM_SetCharacterKnown(s32 charId, struct SaveMeta* buf)
 {
   s32 boolLoadedSecureHeader = 0;
-  struct SecureSaveHeader tmp_header;
+  struct SaveMeta tmp_header;
   
   if (charId > 256) {
     return;
   }
   if (buf == NULL) {
     buf = &tmp_header;
-    LoadAndVerifySecureHeaderSW(buf);
+    LoadGeneralGameMetadata(buf);
     boolLoadedSecureHeader = 1;
   }
   
   buf->charKnownFlags[charId >> 3] |= 1 << (charId & 7);
   
   if (boolLoadedSecureHeader) {
-    SaveSecureHeader(buf);
+    SaveGeneralGameMetadata(buf);
   }
 }
 
-int sub_80A37F0(int index, struct SecureSaveHeader *buf)
+int GGM_IsCharacterKnown(int index, struct SaveMeta *buf)
 {
-    struct SecureSaveHeader tmp_header;
+    struct SaveMeta tmp_header;
     u32 _index = index;
 
     if (index > 0x100)
@@ -797,7 +800,7 @@ int sub_80A37F0(int index, struct SecureSaveHeader *buf)
 
     if (0 == buf) {
         buf = &tmp_header;
-        LoadAndVerifySecureHeaderSW(&tmp_header);
+        LoadGeneralGameMetadata(&tmp_header);
     }
 
     if (1 & buf->charKnownFlags[index >> 3] >> (_index % 8))
@@ -806,14 +809,14 @@ int sub_80A37F0(int index, struct SecureSaveHeader *buf)
         return 0;
 }
 
-int sub_80A3834(struct SecureSaveHeader *buf)
+int GGM_IsAnyCharacterKnown(struct SaveMeta *buf)
 {
     int i;
-    struct SecureSaveHeader tmp_header;
+    struct SaveMeta tmp_header;
 
     if (NULL == buf) {
         buf = &tmp_header;
-        LoadAndVerifySecureHeaderSW(&tmp_header);
+        LoadGeneralGameMetadata(&tmp_header);
     }
 
     for (i = 0; i < 0x20; i++) {
@@ -827,20 +830,20 @@ void sub_80A3868() {}
 
 void __malloc_unlock_3() {}
 
-int sub_80A3870(void)
+int IsGamePlayedThrough(void)
 {
-    struct SecureSaveHeader tmp_header;
+    struct SaveMeta tmp_header;
 
-    if (!LoadAndVerifySecureHeaderSW(&tmp_header))
+    if (!LoadGeneralGameMetadata(&tmp_header))
         return 0;
 
-    if (0 == tmp_header.flag0E_0)
+    if (0 == tmp_header.play_through_declared )
         return 0;
     else
         return 1;
 }
 
-u8 sub_80A3898(void *buf)
+u8 LoadAndVerfyRankData(void *buf)
 {
     struct GameRankSaveDataPacks *_buf = buf;
 
@@ -848,7 +851,7 @@ u8 sub_80A3898(void *buf)
         return 0;
 
     if (NULL == _buf)
-        _buf = (void*)gUnknown_02020188;
+        _buf = (void*)gGenericBuffer;
 
     (*ReadSramFast)(
         (void*)gpSaveDataStart + 0x7190,
@@ -856,13 +859,13 @@ u8 sub_80A3898(void *buf)
         sizeof(struct GameRankSaveDataPacks)
     );
 
-    if (_buf->magic0 != SecureHeaderCalc((void*)_buf, 0x90))
+    if (_buf->magic0 != ComputeChecksum16((void*)_buf, 0x90))
         return 0;
     else
         return 1;
 }
 
-u8 sub_80A38F4(void *buf)
+u8 LoadBonusContentData(void *buf)
 {
     u16 *_buf = buf;
     
@@ -870,7 +873,7 @@ u8 sub_80A38F4(void *buf)
         return 0;
 
     if (0 == _buf)
-        _buf = (void*)gUnknown_02020188;
+        _buf = (void*)gGenericBuffer;
 
     (*ReadSramFast)(
         (void*)gpSaveDataStart + 0x725C,
@@ -878,17 +881,17 @@ u8 sub_80A38F4(void *buf)
         0x144
     );
 
-    if (_buf[0x140 / 2] != SecureHeaderCalc(_buf, 0x140))
+    if (_buf[0x140 / 2] != ComputeChecksum16(_buf, 0x140))
         return 0;
     else
         return 1;
 }
 
-void sub_80A3950(void *buf)
+void SaveBonusContentData(void *buf)
 {
     u16 *_buf = buf;
 
-    _buf[0x140/2] = SecureHeaderCalc(buf, 0x140);
+    _buf[0x140/2] = ComputeChecksum16(buf, 0x140);
 
     WriteAndVerifySramFast(
         buf,
@@ -897,11 +900,11 @@ void sub_80A3950(void *buf)
     );
 }
 
-void sub_80A3984(void *buf)
+void SaveRankings(void *buf)
 {
     struct GameRankSaveDataPacks *_buf = buf;
 
-    _buf->magic0 = SecureHeaderCalc(buf, 0x90);
+    _buf->magic0 = ComputeChecksum16(buf, 0x90);
 
     WriteAndVerifySramFast(
         buf,
@@ -915,10 +918,10 @@ void sub_80A39B4()
     u16 _buf[0x94 / 2];
 
     CpuFill16(0, _buf, 0x128 / 2);
-    sub_80A3984(_buf);
+    SaveRankings(_buf);
 }
 
-int sub_80A39D8()
+int GetNextChapterMode()
 {
     return gRAMChapterData.chapterModeIndex - 1;
 }
@@ -932,7 +935,7 @@ int sub_80A39E4(void *buf, int chapter_mode, int difficulty)
     CpuFill16(0, buf, 0x18);
     CpuFill16(0, &_buf, sizeof(_buf));
 
-    if (0 != sub_80A3898(&_buf)) {
+    if (0 != LoadAndVerfyRankData(&_buf)) {
         src = &_buf.pack[(chapter_mode + difficulty * 3)];
         *dest = *src;
         return 1;
@@ -941,22 +944,22 @@ int sub_80A39E4(void *buf, int chapter_mode, int difficulty)
     return 0;
 }
 
-void sub_80A3A48(void *buf, int chapter_mode, int difficulty)
+void SaveNewRankData(void *buf, int chapter_mode, int difficulty)
 {
     struct GameRankSaveDataPacks _buf;
     struct GameRankSaveData *src = buf;
 
-    if (0 != sub_80A3898(&_buf)) {
+    if (0 != LoadAndVerfyRankData(&_buf)) {
         _buf.pack[chapter_mode + difficulty * 3] = *src;
-        sub_80A3984(&_buf);
+        SaveRankings(&_buf);
     }
 }
 
-u8 sub_80A3A88(struct GameRankSaveData *old, struct GameRankSaveData *new)
+u8 JudgeGameRankSaveData(struct GameRankSaveData *old, struct GameRankSaveData *new)
 {
     int newtime, oldtime;
     
-    if (0 == old->unk00_00)
+    if (0 == old->valid)
         return 1;
 
     if (new->unk00_01 > old->unk00_01)
@@ -989,7 +992,7 @@ u8 sub_80A3A88(struct GameRankSaveData *old, struct GameRankSaveData *new)
     return 1;
 }
 
-void sub_80A3B48(struct GameRankSaveData *buf, int chapter_mode, int difficulty)
+void GenerateGameRankSaveData(struct GameRankSaveData *buf, int chapter_mode, int difficulty)
 {
     int i, j;
     int best = 0;
@@ -997,7 +1000,7 @@ void sub_80A3B48(struct GameRankSaveData *buf, int chapter_mode, int difficulty)
 
     CpuFill16(0, buf, sizeof(struct GameRankSaveData));
 
-    buf->unk00_00 = 1;
+    buf->valid = 1;
     buf->chapter_mode = chapter_mode;
     buf->chapter_stat = difficulty;
 
@@ -1038,10 +1041,10 @@ void sub_80A3B48(struct GameRankSaveData *buf, int chapter_mode, int difficulty)
         if (0 != ((CA_LOCK_1 | CA_STEAL) & unit->state))
             continue;
 
-        if (sub_80A49FC(unit->pCharacterData->number) <= best)
+        if (BWL_GetFavoritismValue(unit->pCharacterData->number) <= best)
             continue;
 
-        best = sub_80A49FC(unit->pCharacterData->number);
+        best = BWL_GetFavoritismValue(unit->pCharacterData->number);
         buf->cuteguy = unit->pCharacterData->number;
     }
 
@@ -1056,18 +1059,18 @@ void sub_80A3B48(struct GameRankSaveData *buf, int chapter_mode, int difficulty)
     strcpy((void*)&buf->tactician_name, GetTacticianName());
 }
 
-void SaveChapterRankings()
+void SaveEndgameRankings()
 {
     struct GameRankSaveData old, new;
 
-    int chapter_mode = sub_80A39D8();
+    int chapter_mode = GetNextChapterMode();
     int diffcult = 1 & gRAMChapterData.chapterStateBits >> 6;
 
-    sub_80A3B48(&new, chapter_mode, diffcult);
+    GenerateGameRankSaveData(&new, chapter_mode, diffcult);
     sub_80A39E4(&old, chapter_mode, diffcult);
 
-    if (0 != sub_80A3A88(&old, &new))
-        sub_80A3A48(&new, chapter_mode, diffcult);
+    if (0 != JudgeGameRankSaveData(&old, &new))
+        SaveNewRankData(&new, chapter_mode, diffcult);
 }
 
 void sub_80A3E28()
@@ -1093,7 +1096,7 @@ u8 sub_80A3E4C(void *buf)
                     (void*)_buf,
                     sizeof(struct bmsave_unkstruct1));
 
-    if (_buf->magic1 != SecureHeaderCalc((u16*)_buf, sizeof(struct bmsave_unkstruct1) - 4))
+    if (_buf->magic1 != ComputeChecksum16((u16*)_buf, sizeof(struct bmsave_unkstruct1) - 4))
         return 0;
     else
         return 1;
@@ -1103,7 +1106,7 @@ void sub_80A3EA4(void *buf)
 {
     struct bmsave_unkstruct1 *_buf = buf;
 
-    _buf->magic1 = SecureHeaderCalc(buf, sizeof(struct bmsave_unkstruct1) - 4);
+    _buf->magic1 = ComputeChecksum16(buf, sizeof(struct bmsave_unkstruct1) - 4);
 
     WriteAndVerifySramFast((void*)_buf,
                            (void*)gpSaveDataStart + 0x7224,
@@ -1177,7 +1180,7 @@ u8 sub_80A3FA8(void *buf)
 
     (*ReadSramFast)((void*)gpSaveDataStart + 0x7248, (void*)_buf, sizeof(struct bmsave_unkstruct2));
 
-    if (_buf->magic1 != SecureHeaderCalc((u16*)_buf, sizeof(struct bmsave_unkstruct2) - 4))
+    if (_buf->magic1 != ComputeChecksum16((u16*)_buf, sizeof(struct bmsave_unkstruct2) - 4))
         return 0;
     else
         return 1;
@@ -1185,7 +1188,7 @@ u8 sub_80A3FA8(void *buf)
 
 void sub_80A4000(struct bmsave_unkstruct2 *buf)
 {
-    buf->magic1 = SecureHeaderCalc((u16*)buf, sizeof(struct bmsave_unkstruct2) - 4);
+    buf->magic1 = ComputeChecksum16((u16*)buf, sizeof(struct bmsave_unkstruct2) - 4);
 
     WriteAndVerifySramFast((void*)buf,
                            (void*)gpSaveDataStart + 0x7248,
@@ -1230,13 +1233,13 @@ void sub_80A4064(struct bmsave_unkstruct2 *buf, int val)
 
 void sub_80A40A8()
 {
-    if (!LoadAndVerifySecureHeaderSW(NULL))
-        InitNopSecHeader();
+    if (!LoadGeneralGameMetadata(NULL))
+        InitSaveMetadata();
 
-    if (!sub_80A38F4(NULL))
-        sub_80A2EA8();
+    if (!LoadBonusContentData(NULL))
+        EraseBonusContentData();
     
-    if (!sub_80A3898(NULL))
+    if (!LoadAndVerfyRankData(NULL))
         sub_80A39B4();
     
     if (!sub_80A3E4C(NULL))
@@ -1248,7 +1251,7 @@ void sub_80A40A8()
     sub_80A6AA0();
 }
 
-void sub_80A4104(void *sram_dest)
+void SaveClearedBWLAndChapterWinData(void *sram_dest)
 {
     int i, j;
     void *dest0 ,*dest1, *src;
@@ -1299,7 +1302,7 @@ void LoadBWLEntries(void *sram_src)
     gpBWLSaveTarget = sram_src;
 }
 
-void LoadSomeTable(const void *sram_src)
+void LoadChapterDataWinArray(const void *sram_src)
 {
     ReadSramFast(sram_src, (u8*)gChapterWinDataArray, sizeof(gChapterWinDataArray));
 }
@@ -1504,7 +1507,7 @@ void BWL_IncrementWinCount(u8 char_id)
     BWL_AddFavoritismValue(char_id, 0x10);
 }
 
-void sub_80A4594(u8 char_id)
+void RecordUnitLossData(u8 char_id)
 {
     struct SramChunk buf;
     int val;
@@ -1537,21 +1540,21 @@ void sub_80A4594(u8 char_id)
     
         BWL_AddFavoritismValue(char_id, -0x80);
     
-        val = sub_80A63B0() + 3;
+        val = GetLastSuspendSaveId() + 3;
     
         WriteAndVerifySramFast((void*)bwl,
-            (void*)GetSaveDataLocation(val) + 0x19E4 + char_id * 0x10,
+            (void*)GetSaveTargetAddress(val) + 0x19E4 + char_id * 0x10,
             1);
     
-        SaveMetadata_Check(&buf, val);
-        SaveMetadata_Generate(&buf, val);
+        SaveMetadata_Load(&buf, val);
+        SaveMetadata_Save(&buf, val);
     
         WriteAndVerifySramFast((void*)bwl,
-                (void*)GetSaveDataLocation(gRAMChapterData.gameSaveSlot) + 0x083C + char_id * 0x10,
+                (void*)GetSaveTargetAddress(gRAMChapterData.gameSaveSlot) + 0x083C + char_id * 0x10,
                 3);
     
-        SaveMetadata_Check(&buf, gRAMChapterData.gameSaveSlot);
-        SaveMetadata_Generate(&buf, gRAMChapterData.gameSaveSlot);
+        SaveMetadata_Load(&buf, gRAMChapterData.gameSaveSlot);
+        SaveMetadata_Save(&buf, gRAMChapterData.gameSaveSlot);
     }
 }
 
@@ -1566,7 +1569,7 @@ void BWL_AddWinOrLossIdk(u8 char_id, u8 killerPid, int deathCause)
     switch (type) {
     case 2:
         bwl->deathSkirm = 1;
-        bwl->deathLoc = gUnknown_03005280.unk10[0].location;
+        bwl->deathLoc = gGMData.unk10[0].location;
         break;
 
 
@@ -1651,17 +1654,17 @@ void BWL_AddExpGained(u8 char_id, int expGain)
     BWL_AddFavoritismValue(char_id, expGain);
 }
 
-void StoreSomeUnitSetFlags(u8 char_id)
+void BWL_FavorReduced(u8 char_id)
 {
     BWL_AddFavoritismValue(char_id, -0x08);
 }
 
-void sub_80A48F0(u8 char_id)
+void BWL_FavorReduced_H(u8 char_id)
 {
     BWL_AddFavoritismValue(char_id, -0x100);
 }
 
-int sub_80A4904()
+int BWL_GetTotalBattles()
 {
     int i, ret = 0;
 
@@ -1671,7 +1674,7 @@ int sub_80A4904()
     return ret;
 }
 
-int sub_80A4928()
+int BWL_GetTotalWins()
 {
     int i, ret = 0;
 
@@ -1681,7 +1684,7 @@ int sub_80A4928()
     return ret;
 }
 
-int sub_80A4958()
+int BWL_GetTotalLoss()
 {
     int i, ret = 0;
 
@@ -1691,7 +1694,7 @@ int sub_80A4958()
     return ret;
 }
 
-int sub_80A4978()
+int BWL_GetTotalLevel()
 {
     int i, ret = 0;
 
@@ -1701,7 +1704,7 @@ int sub_80A4978()
     return ret;
 }
 
-int sub_80A49A4()
+int BWL_GetTotalExpGained()
 {
     int i, ret = 0;
 
@@ -1711,7 +1714,7 @@ int sub_80A49A4()
     return ret;
 }
 
-int sub_80A49C8(u8 char_id)
+int BWL_GetUnitExpGained(u8 char_id)
 {
     struct UnitUsageStats *bwl = BWL_GetEntry_Inline(char_id);
     if (0 == bwl)
@@ -1720,7 +1723,7 @@ int sub_80A49C8(u8 char_id)
         return bwl->expGained;
 }
 
-int sub_80A49FC(u8 char_id)
+int BWL_GetFavoritismValue(u8 char_id)
 {
     struct UnitUsageStats *bwl = BWL_GetEntry_Inline(char_id);
     if (0 == bwl)
@@ -1747,9 +1750,9 @@ void BWL_AddFavoritismValue(u8 char_id, int val)
         bwl->favval = cur;
 }
 
-void sub_80A4AA4()
+void RecordUnitBattleResult()
 {
-    struct BattleUnit *buA = 0, *buB = 0;
+    struct BattleUnit *buA = NULL, *buB = NULL;
 
     if (0 == GetUnitCurrentHp(&gBattleActor.unit)) {
         buA = &gBattleActor;
@@ -1761,34 +1764,34 @@ void sub_80A4AA4()
         buB = &gBattleActor;
     }
 
-    if (0 != buA) {
-        if (0 != buB && FACTION_BLUE == UNIT_FACTION(&buB->unit)) {
+    if (NULL != buA) {
+        if (NULL != buB && FACTION_BLUE == UNIT_FACTION(&buB->unit)) {
             BWL_IncrementWinCount(UNIT_CHAR_ID(&buB->unit));
             gRAMChapterData.unk48++;
         }
 
-        if (0 != buA && FACTION_BLUE == UNIT_FACTION(&buA->unit))
-            sub_80A4594(UNIT_CHAR_ID(&buA->unit));
+        if (NULL != buA && FACTION_BLUE == UNIT_FACTION(&buA->unit))
+            RecordUnitLossData(UNIT_CHAR_ID(&buA->unit));
     }
 }
 
-u8 sub_80A4B1C(int index)
+u8 IsPlaythroughIdUnique(int index)
 {
     int i;
-    struct SecureSaveHeader sec_head;
+    struct SaveMeta sec_head;
     struct RAMChapterData ram_ch;
 
-    LoadAndVerifySecureHeaderSW(&sec_head);
+    LoadGeneralGameMetadata(&sec_head);
 
     for (i = 0; i < 0xC; i++)
-        if (sec_head.unk14[i] == index)
+        if (sec_head.playthrough_ids[i] == index)
             return 0;
 
     for (i = 0; i < 3; i++) {
-        if (!sub_80A5218(i))
+        if (!SaveMetadata_LoadId(i))
             continue;
 
-        sub_80A522C(i, &ram_ch);
+        LoadSavedChapterState(i, &ram_ch);
 
         if (ram_ch.playthroughIdentifier == index)
             return 0;
@@ -1797,62 +1800,62 @@ u8 sub_80A4B1C(int index)
     return 1;
 }
 
-int sub_80A4B6C()
+int GetNewPlaythroughId()
 {
     int i;
     for (i = 1; i < 0x100; i++)
-        if (sub_80A4B1C(i))
+        if (IsPlaythroughIdUnique(i))
             return i;
 }
 
-int sub_80A4B90(struct SecureSaveHeader *sec_head)
+int GGM_GetCompletionCount(struct SaveMeta *sec_head)
 {
     int i, ret = 0;
 
     for (i = 0; i < 0xC; i++)
-        if (0 != sec_head->unk14[i])
+        if (0 != sec_head->playthrough_ids[i])
             ret++;
 
     return ret;
 }
 
-int sub_80A4BB0()
+int GetGlobalCompletionCount()
 {
-    struct SecureSaveHeader sec_head;
+    struct SaveMeta sec_head;
 
-    if (!LoadAndVerifySecureHeaderSW(&sec_head))
+    if (!LoadGeneralGameMetadata(&sec_head))
         return 0;
     else
-        return sub_80A4B90(&sec_head);
+        return GGM_GetCompletionCount(&sec_head);
 }
 
-int sub_80A4BD0(struct SecureSaveHeader *sec_head, int index)
+int GGM_RegisterCompletedPlaythrough(struct SaveMeta *sec_head, int index)
 {
     int i;
     for (i = 0; i < 0xC; i++)
-        if (sec_head->unk14[i] == index)
+        if (sec_head->playthrough_ids[i] == index)
             return 0;
 
     for(i = 0; i < 0xC; i++)
-        if (0 == sec_head->unk14[i]) {
-            sec_head->unk14[i] = index;
+        if (0 == sec_head->playthrough_ids[i]) {
+            sec_head->playthrough_ids[i] = index;
             return 1;
         }
 
     return 0;    
 }
 
-int GetchapterModeIndex()
+int GetCurerentGameMode()
 {
     return gRAMChapterData.chapterModeIndex;
 }
 
-void DeclareCompletedPlaythrough()
+void RegisterCompletedPlaythrough()
 {
-    struct SecureSaveHeader sec_head;
+    struct SaveMeta sec_head;
     int mode, diffcult, is_toturial;
     
-    mode = GetchapterModeIndex();
+    mode = GetCurerentGameMode();
 
     /* Maybe flag definition should be modified? */
     diffcult = (gRAMChapterData.chapterStateBits >> 6);
@@ -1860,31 +1863,31 @@ void DeclareCompletedPlaythrough()
 
     is_toturial = gRAMChapterData.unk42_6;
 
-    if (0 == LoadAndVerifySecureHeaderSW(&sec_head)) {
-        InitNopSecHeader();
-        LoadAndVerifySecureHeaderSW(&sec_head);
+    if (0 == LoadGeneralGameMetadata(&sec_head)) {
+        InitSaveMetadata();
+        LoadGeneralGameMetadata(&sec_head);
     }
 
-    sub_80A4BD0(&sec_head, gRAMChapterData.playthroughIdentifier);
-    sec_head.flag0E_0 = 1;
+    GGM_RegisterCompletedPlaythrough(&sec_head, gRAMChapterData.playthroughIdentifier);
+    sec_head.play_through_declared  = 1;
 
     switch (mode) {
     case CHAPTER_MODE_EIRIKA:
         if (0 == is_toturial)
-            sec_head.flag0E_2 = 1;
+            sec_head.Eirk_mode_easy = 1;
         else if (0 != diffcult)
-            sec_head.flag0E_4 = 1;
+            sec_head.Eirk_mode_hard = 1;
         else
-            sec_head.flag0E_3 = 1;
+            sec_head.Eirk_mode_norm = 1;
         break;
     
     case CHAPTER_MODE_EPHRAIM:
         if (0 == is_toturial)
-            sec_head.flag0E_5 = 1;
+            sec_head.Ephy_mode_easy = 1;
         else if (0 != diffcult)
-            sec_head.flag0E_7 = 1;
+            sec_head.Ephy_mode_hard = 1;
         else
-            sec_head.flag0E_6 = 1;
+            sec_head.Ephy_mode_norm = 1;
         break;
 
         
@@ -1893,14 +1896,14 @@ void DeclareCompletedPlaythrough()
         break;
     }
 
-    SaveSecureHeader(&sec_head);
+    SaveGeneralGameMetadata(&sec_head);
 }
 
 int sub_80A4CB4()
 {
-    struct SecureSaveHeader sec_head;
+    struct SaveMeta sec_head;
 
-    if (LoadAndVerifySecureHeaderSW(&sec_head))
+    if (LoadGeneralGameMetadata(&sec_head))
         return sec_head.unk0F_0;
     else
         return 0;
@@ -1908,11 +1911,11 @@ int sub_80A4CB4()
 
 void sub_80A4CD8()
 {
-    struct SecureSaveHeader sec_head;
+    struct SaveMeta sec_head;
 
-    if (LoadAndVerifySecureHeaderSW(&sec_head)) {
+    if (LoadGeneralGameMetadata(&sec_head)) {
         sec_head.unk0F_0 = 1;
-        SaveSecureHeader(&sec_head);
+        SaveGeneralGameMetadata(&sec_head);
     }
 }
 
@@ -1926,48 +1929,48 @@ struct UnitUsageStats *BWL_GetEntry(u8 char_id)
         return &gBWLDataArray[char_id];  
 }
 
-u32 sub_80A4D28()
+u32 GetBonusContentClaimFlags()
 {
-    return gUnknown_0203EDB4;
+    return gBonusContentClaimFlags;
 }
 
-void Set0203EDB4(u32 num)
+void SetBonusContentClaimFlags(u32 num)
 {
-    gUnknown_0203EDB4 = num;
+    gBonusContentClaimFlags = num;
 }
 
-void Save0203EDB4(void *sram_dest)
+void SaveBonusContentClaimFlags(void *sram_dest)
 {
-    WriteAndVerifySramFast((void*)&gUnknown_0203EDB4,
+    WriteAndVerifySramFast((void*)&gBonusContentClaimFlags,
                            sram_dest + 0x0D88,
-                           sizeof(gUnknown_0203EDB4));
+                           sizeof(gBonusContentClaimFlags));
 }
 
-void Load0203EDB4(const void *sram_src)
+void LoadBonusContentClaimFlags(const void *sram_src)
 {
     (*ReadSramFast)(sram_src + 0x0D88,
-                    (void*)&gUnknown_0203EDB4,
-                    sizeof(gUnknown_0203EDB4));
+                    (void*)&gBonusContentClaimFlags,
+                    sizeof(gBonusContentClaimFlags));
 }
 
-void sub_80A4D80(int num)
+void UpdateLastUsedGameSaveSlot(int num)
 {
-    struct SecureSaveHeader sec_head;
+    struct SaveMeta sec_head;
 
-    LoadAndVerifySecureHeaderSW(&sec_head);
-    sec_head.unk62 = num;
-    ForceSaveSecureHeader(&sec_head);
+    LoadGeneralGameMetadata(&sec_head);
+    sec_head.slot_sa = num;
+    SaveGeneralGameMetadataNoChecksum(&sec_head);
 }
 
-int sub_80A4DA0()
+int GetLastUsedGameSaveSlot()
 {
     int ret;
-    struct SecureSaveHeader sec_head;
+    struct SaveMeta sec_head;
 
-    if (!LoadAndVerifySecureHeaderSW(&sec_head))
+    if (!LoadGeneralGameMetadata(&sec_head))
         return 0;
     
-    ret = sec_head.unk62;
+    ret = sec_head.slot_sa;
 
     if (ret > 2)
         return 0;
@@ -1987,35 +1990,35 @@ void sub_80A4DC8(int val)
         sub_80A5DFC(3, cur);
 
         /* +0C is u32 check-sum, here u8 maybe a bug? */
-        if ((u8)cur->unk0C == val)
-            sub_80A5A20(3);
+        if ((u8)cur->cksum32 == val)
+            ClearSaveBlock(3);
     }
 
-    chunks[0].unk06 = -1;
-    SaveMetadata_Generate(chunks, val);
+    chunks[0].type = -1;
+    SaveMetadata_Save(chunks, val);
 }
 
-void sub_80A4E08(int index_src, int index_dest)
+void CopyGameSave(int index_src, int index_dest)
 {
     struct SramChunk chunk;
-    void *src = (void*)CheckSaveAndGetPointer(index_src);
-    void *dest = (void*)GetSaveDataLocation(index_dest);
+    void *src = (void*)GetSaveSourceAddress(index_src);
+    void *dest = (void*)GetSaveTargetAddress(index_dest);
 
-    (*ReadSramFast)(src, gUnknown_02020188, 0xDC8);
-    WriteAndVerifySramFast(gUnknown_02020188, dest, 0xDC8);
+    (*ReadSramFast)(src, gGenericBuffer, 0xDC8);
+    WriteAndVerifySramFast(gGenericBuffer, dest, 0xDC8);
 
-    chunk.unk00 = 0x40624;
-    chunk.unk06 = 0;
-    SaveMetadata_Generate(&chunk, index_dest);
+    chunk.magic1 = 0x40624;
+    chunk.type = 0;
+    SaveMetadata_Save(&chunk, index_dest);
 }
 
-void sub_80A4E70(int index, int isDifficult, int mode, int isToturial)
+void SaveNewGame(int index, int isDifficult, int mode, int isToturial)
 {
     int i;
     struct SramChunk chunk;
     u8 buf0[0x24];
 
-    void *dest = (void*)GetSaveDataLocation(index);
+    void *dest = (void*)GetSaveTargetAddress(index);
     void *tmp_dest;
 
     if (0 == mode)
@@ -2029,7 +2032,7 @@ void sub_80A4E70(int index, int isDifficult, int mode, int isToturial)
     ClearUnits();
     ClearConvoyItems();
     sub_8083D18();
-    sub_80A5A20(3);
+    ClearSaveBlock(3);
     
     gRAMChapterData.unk_2C_1 = 0;
     gRAMChapterData.unk_2C_04 = 0;
@@ -2039,13 +2042,13 @@ void sub_80A4E70(int index, int isDifficult, int mode, int isToturial)
     gRAMChapterData.unk_2B_00 = 1;
     gRAMChapterData.playerName[0] = '\0';
     gRAMChapterData.chapterIndex = 0;
-    gRAMChapterData.playthroughIdentifier = sub_80A4B6C();
+    gRAMChapterData.playthroughIdentifier = GetNewPlaythroughId();
     gRAMChapterData.gameSaveSlot = index;
-    gRAMChapterData.unk_2C_2 = sub_80A4BB0();
+    gRAMChapterData.unk_2C_2 = GetGlobalCompletionCount();
 
     WriteAndVerifySramFast((void*)&gRAMChapterData, dest, sizeof(gRAMChapterData));
-    Set0203EDB4(0);
-    Save0203EDB4(dest);
+    SetBonusContentClaimFlags(0);
+    SaveBonusContentClaimFlags(dest);
     
     CpuFill16(0, buf0, 0x24);
 
@@ -2054,7 +2057,7 @@ void sub_80A4E70(int index, int isDifficult, int mode, int isToturial)
     }
     WriteAndVerifySramFast(buf0, dest + 0x778, 0x24);
     SaveConvoyItems(dest + 0x79C);
-    sub_80A4104(dest);
+    SaveClearedBWLAndChapterWinData(dest);
     SaveGlobalEventIndexes(dest + 0xD6C);
     sub_80A7074(dest + 0xD8C);
     {
@@ -2062,10 +2065,10 @@ void sub_80A4E70(int index, int isDifficult, int mode, int isToturial)
         CpuFill16(0, buf1, 0x18);
         WriteAndVerifySramFast(buf1, dest + 0xDB0, 0x18);
     
-        chunk.unk00 = 0x40624;
-        chunk.unk06 = 0;
-        SaveMetadata_Generate(&chunk, index);
-        sub_80A4D80(index);
+        chunk.magic1 = 0x40624;
+        chunk.type = 0;
+        SaveMetadata_Save(&chunk, index);
+        UpdateLastUsedGameSaveSlot(index);
     }
 }
 
@@ -2073,11 +2076,11 @@ void SaveGame(int slot)
 {
     int i;
     struct SramChunk chunk;
-    struct SecureSaveHeader sec_head;
+    struct SaveMeta sec_head;
     struct Dungeon dungeon[2];
 
-    void *dest = (void*)GetSaveDataLocation(slot);
-    sub_80A5A20(3);
+    void *dest = (void*)GetSaveTargetAddress(slot);
+    ClearSaveBlock(3);
     gRAMChapterData.gameSaveSlot = slot;
     gRAMChapterData.unk0 = GetGameClock();
     WriteAndVerifySramFast((u8*)&gRAMChapterData, dest, sizeof(gRAMChapterData));
@@ -2085,36 +2088,36 @@ void SaveGame(int slot)
     for (i = 0; i < 0x33; i++)
         SaveUnit(&gUnitArrayBlue[i], dest + 0x4C + 0x24 * i);
 
-    LoadAndVerifySecureHeaderSW(&sec_head);
+    LoadGeneralGameMetadata(&sec_head);
     
     for (i = 0; i < 0x33; i++)
-        SetSavedCharacterKnownFlag(UNIT_CHAR_ID(&gUnitArrayBlue[i]), &sec_head);
+        SGM_SetCharacterKnown(UNIT_CHAR_ID(&gUnitArrayBlue[i]), &sec_head);
 
-    SaveSecureHeader(&sec_head);
-    SaveRNGState_Maybe(dest + 0x778);
+    SaveGeneralGameMetadata(&sec_head);
+    SaveGMMonsterRnState(dest + 0x778);
     SaveConvoyItems(dest + 0x079C);
     SaveBWLEntries(dest + 0x84C);
     SaveChapterWinData(dest + 0xCAC);
-    Save0203EDB4(dest);
+    SaveBonusContentClaimFlags(dest);
     SaveGlobalEventIndexes(dest + 0xD6C);
-    sub_80A70B0(dest + 0xD8C, &gUnknown_03005280);
+    SaveWMStuff(dest + 0xD8C, &gGMData);
     sub_8037E4C(dungeon);
     WriteAndVerifySramFast((u8*)dungeon, dest + 0xDB0 ,sizeof(dungeon));
 
-    chunk.unk00 = 0x40624;
-    chunk.unk06 = 0;
-    SaveMetadata_Generate(&chunk, slot);
-    sub_80A4D80(slot);
+    chunk.magic1 = 0x40624;
+    chunk.type = 0;
+    SaveMetadata_Save(&chunk, slot);
+    UpdateLastUsedGameSaveSlot(slot);
 }
 
 void LoadGame(int slot)
 {
     int i;
     struct Dungeon dungeon[2];
-    void *src = (void*)CheckSaveAndGetPointer(slot);
+    void *src = (void*)GetSaveSourceAddress(slot);
 
     if (0 == (CHAPTER_FLAG_DIFFICULT & gGameState.gameStateBits))
-        sub_80A5A20(3);
+        ClearSaveBlock(3);
 
     (*ReadSramFast)(src, (void*)&gRAMChapterData, sizeof(gRAMChapterData));
     SetGameClock(gRAMChapterData.unk0);
@@ -2125,53 +2128,53 @@ void LoadGame(int slot)
     for (i = 0; i < 0x33; i++)
         LoadSavedUnit(src + 0x4C + 0x24 * i, &gUnitArrayBlue[i]);
 
-    sub_80A5A00(src + 0x778);
+    LoadGMMonsterRnState(src + 0x778);
     LoadConvoyItems(src + 0x79C);
     LoadGlobalEventIds(src + 0xD6C);
     LoadBWLEntries(src + 0x84C);
-    LoadSomeTable(src + 0xCAC);
-    Load0203EDB4(src);
-    sub_80A7138(src + 0xD8C, &gUnknown_03005280);
+    LoadChapterDataWinArray(src + 0xCAC);
+    LoadBonusContentClaimFlags(src);
+    LoadWMStuff(src + 0xD8C, &gGMData);
     (*ReadSramFast)(src + 0xDB0, (u8*)dungeon, sizeof(dungeon));
     sub_8037E64(dungeon);
-    sub_80A4D80(slot);
+    UpdateLastUsedGameSaveSlot(slot);
 }
 
-s8 sub_80A5218(int index)
+s8 SaveMetadata_LoadId(int index)
 {
-    return SaveMetadata_Check(NULL, index);
+    return SaveMetadata_Load(NULL, index);
 }
 
-void sub_80A522C(int slot, struct RAMChapterData* buf)
+void LoadSavedChapterState(int slot, struct RAMChapterData* buf)
 {
-    void *src = (void*)CheckSaveAndGetPointer(slot);
+    void *src = (void*)GetSaveSourceAddress(slot);
     (*ReadSramFast)(src, (u8*)buf, sizeof(*buf));
 }
 
-u32 sub_80A524C(int slot)
+u32 LoadSavedBonusClaimFlags(int slot)
 {
     u32 buf;
-    void *src = (void*)CheckSaveAndGetPointer(slot);
+    void *src = (void*)GetSaveSourceAddress(slot);
     (*ReadSramFast)(src + 0xD88, (u8*)&buf, sizeof(buf));
     return buf;
 }
 
-void sub_80A5274(int slot, void *dest)
+void LoadSavedWMStuff(int slot, void *dest)
 {
-    void *src = (void*)CheckSaveAndGetPointer(slot);
-    sub_80A7138(src + 0xD8C, dest);
+    void *src = (void*)GetSaveSourceAddress(slot);
+    LoadWMStuff(src + 0xD8C, dest);
 }
 
-s8 sub_80A5290(int slot)
+s8 LoadSavedEid8A(int slot)
 {
-    void *sram_base = (void*)CheckSaveAndGetPointer(slot);
-    LoadGlobalEventIds_ret(sram_base + 0xD6C, gUnknown_02020188);
-    return sub_8083D34(0x8A, gUnknown_02020188);
+    void *sram_base = (void*)GetSaveSourceAddress(slot);
+    LoadGlobalEventIds_ret(sram_base + 0xD6C, gGenericBuffer);
+    return sub_8083D34(0x8A, gGenericBuffer);
 }
 
-s8 sub_80A52BC(struct RAMChapterData *chapter_data)
+s8 CheckChapterCompleted(struct RAMChapterData *chapter_data)
 {
-    if (CHAPTER_FLAG_5 & chapter_data->chapterStateBits)
+    if (CHAPTER_FLAG_COMPLETE & chapter_data->chapterStateBits)
         return 1;
     else if (0 != chapter_data->chapterIndex)
         return 1;
@@ -2179,27 +2182,27 @@ s8 sub_80A52BC(struct RAMChapterData *chapter_data)
         return 0;
 }
 
-s8 sub_80A52DC(int slot)
+s8 LoadAndCheckChComplete(int slot)
 {
     struct RAMChapterData chapter_data;
 
-    if (!sub_80A5218(slot))
+    if (!SaveMetadata_LoadId(slot))
         return 0;
 
-    sub_80A522C(slot, &chapter_data);
-    return sub_80A52BC(&chapter_data);
+    LoadSavedChapterState(slot, &chapter_data);
+    return CheckChapterCompleted(&chapter_data);
 }
 
-s8 sub_80A530C(int slot)
+s8 LoadAndCheckChComplete2(int slot)
 {
     struct RAMChapterData chapter_data;
 
-    if (!sub_80A5218(slot))
+    if (!SaveMetadata_LoadId(slot))
         return 0;
 
-    sub_80A522C(slot, &chapter_data);
+    LoadSavedChapterState(slot, &chapter_data);
 
-    return (CHAPTER_FLAG_5 & chapter_data.chapterStateBits);
+    return (CHAPTER_FLAG_COMPLETE & chapter_data.chapterStateBits);
 }
 
 void SaveUnit(struct Unit *unit, void *sram_dest)
@@ -2354,29 +2357,29 @@ void LoadSavedUnit(const void *sram_src, struct Unit *unit)
         unit->yPos = -1;
 }
 
-void SaveRNGState_Maybe(void *sram_dest)
+void SaveGMMonsterRnState(void *sram_dest)
 {
     u32 buf[2];
     sub_80A71E4(buf);
     WriteAndVerifySramFast((u8*)buf, sram_dest, sizeof(buf));
 }
 
-void sub_80A5A00(const void *sram_src)
+void LoadGMMonsterRnState(const void *sram_src)
 {
     u32 buf[2];
     (*ReadSramFast)(sram_src, (u8*)buf, sizeof(buf));
     sub_80A71F8(buf);
 }
 
-void sub_80A5A20(int slot)
+void ClearSaveBlock(int slot)
 {
     struct SramChunk chunk;
-    chunk.unk06 = -1;
+    chunk.type = -1;
 
-    SaveMetadata_Generate(&chunk, slot);
+    SaveMetadata_Save(&chunk, slot);
 
     if (3 == slot)
-        SaveMetadata_Generate(&chunk, 4);
+        SaveMetadata_Save(&chunk, 4);
 }
 
 void SaveSuspendedGame(int slot)
@@ -2394,24 +2397,24 @@ void SaveSuspendedGame(int slot)
     if (!IsSramWorking())
         return;
 
-    slot += sub_80A63D0();
-    dest = (void*)GetSaveDataLocation(slot);
+    slot += GetNextSuspendSaveId();
+    dest = (void*)GetSaveTargetAddress(slot);
     gRAMChapterData.unk0 = GetGameClock();
     WriteAndVerifySramFast((u8*)&gRAMChapterData, dest, sizeof(gRAMChapterData));
     StoreRNStateToActionStruct();
     WriteAndVerifySramFast((u8*)&gActionData, dest + 0x4C, 0x38);
 
-    buf = (void*)gUnknown_02020188;
+    buf = (void*)gGenericBuffer;
     for (i = 0; i < 51; i++)
         PackUnitStructForSuspend(&gUnitArrayBlue[i], buf++);
-    WriteSramFast(gUnknown_02020188, dest + 0x84, 0xA5C);
+    WriteSramFast(gGenericBuffer, dest + 0x84, 0xA5C);
 
-    buf = (void*)gUnknown_02020188;
+    buf = (void*)gGenericBuffer;
     for (i = 0; i < 50; i++)
         PackUnitStructForSuspend(&gUnitArrayRed[i], buf++);
     for (i = 0; i < 10; i++)
         PackUnitStructForSuspend(&gUnitArrayGreen[i], buf++);
-    WriteSramFast(gUnknown_02020188, dest + 0xB14, 0xC30);
+    WriteSramFast(gGenericBuffer, dest + 0xB14, 0xC30);
 
     SaveGlobalEventIndexes(dest + 0x1F24);
     SaveLocalEventIndexes(dest + 0x1F3D);
@@ -2423,7 +2426,7 @@ void SaveSuspendedGame(int slot)
     GetForceDisabledMenuItems(list);
     WriteAndVerifySramFast(list, dest + 0x1F14, sizeof(list));
 
-    sub_80A70B0(dest + 0x1F44, &gUnknown_03005280);
+    SaveWMStuff(dest + 0x1F44, &gGMData);
 
     sub_8037E4C(dungeon);
     WriteAndVerifySramFast((u8*)dungeon, dest + 0xAE0, 2 * sizeof(struct Dungeon));
@@ -2433,12 +2436,12 @@ void SaveSuspendedGame(int slot)
     val = GetEventSlotCounter();
     WriteAndVerifySramFast((u8*)&val, dest + 0x1F74, sizeof(int));
 
-    chunk.unk00 = 0x40624;
-    chunk.unk06 = 1;
-    SaveMetadata_Generate(&chunk, slot);
+    chunk.magic1 = 0x40624;
+    chunk.type = 1;
+    SaveMetadata_Save(&chunk, slot);
 
     gGameState.unk3C = 0;
-    sub_80A63E0();
+    ChangeSuspendSaveId();
 }
 
 void LoadSuspendedGame(int slot)
@@ -2446,7 +2449,7 @@ void LoadSuspendedGame(int slot)
     int i, val;
     u8 list[MENU_OVERRIDE_MAX];
     struct Dungeon dungeon[2];
-    void *src = (void*)CheckSaveAndGetPointer(slot + gUnknown_0203EDB8);
+    void *src = (void*)GetSaveSourceAddress(slot + gUnknown_0203EDB8);
 
     (*ReadSramFast)(src, (u8*)&gRAMChapterData, sizeof(gRAMChapterData));
     SetGameClock(gRAMChapterData.unk0);
@@ -2466,16 +2469,16 @@ void LoadSuspendedGame(int slot)
                                     &gUnitArrayGreen[i]);
 
     LoadBWLEntries(src + 0x19F4);
-    LoadSomeTable(src + 0x1E54);
+    LoadChapterDataWinArray(src + 0x1E54);
     LoadConvoyItems(src + 0x1944);
     LoadGlobalEventIds(src + 0x1F24);
     LoadLocalEventIds(src + 0x1F3D);
-    sub_80A638C(src + 0x1744);
+    LoadTrapStructs(src + 0x1744);
 
     (*ReadSramFast)(src + 0x1F14, list, sizeof(list));
     SetForceDisabledMenuItems(list);
 
-    sub_80A7138(src + 0x1F44, &gUnknown_03005280);
+    LoadWMStuff(src + 0x1F44, &gGMData);
 
     (*ReadSramFast)(src + 0xAE0, (u8*)dungeon, 2 * sizeof(struct Dungeon));
     sub_8037E64(dungeon);
@@ -2485,7 +2488,7 @@ void LoadSuspendedGame(int slot)
     (*ReadSramFast)(src + 0x1F74, (u8*)&val, sizeof(int));
     SetEventSlotCounter(val);
 
-    Set0203EDB4(sub_80A524C(gRAMChapterData.gameSaveSlot));
+    SetBonusContentClaimFlags(LoadSavedBonusClaimFlags(gRAMChapterData.gameSaveSlot));
 }
 
 u8 sub_80A5DA8(int slot)
@@ -2496,12 +2499,12 @@ u8 sub_80A5DA8(int slot)
     if (3 != slot)
         return 0;
 
-    gUnknown_0203EDB8 = sub_80A63B0();
-    if (SaveMetadata_Check(0, gUnknown_0203EDB8 + 3))
+    gUnknown_0203EDB8 = GetLastSuspendSaveId();
+    if (SaveMetadata_Load(0, gUnknown_0203EDB8 + 3))
         return 1;
 
-    gUnknown_0203EDB8 = sub_80A63D0();
-    if (SaveMetadata_Check(0, gUnknown_0203EDB8 + 3))
+    gUnknown_0203EDB8 = GetNextSuspendSaveId();
+    if (SaveMetadata_Load(0, gUnknown_0203EDB8 + 3))
         return 1;
     
     gUnknown_0203EDB8 = 0x7F;
@@ -2510,7 +2513,7 @@ u8 sub_80A5DA8(int slot)
 
 void sub_80A5DFC(int slot, void *buf)
 {
-    sub_80A522C(slot + gUnknown_0203EDB8, buf);
+    LoadSavedChapterState(slot + gUnknown_0203EDB8, buf);
 }
 
 void PackUnitStructForSuspend(struct Unit *unit, void *buf)
@@ -2669,61 +2672,61 @@ void SaveTrapStructs(void *sram_dest)
     WriteAndVerifySramFast((u8*)GetTrap(0), sram_dest, TRAP_MAX_COUNT * sizeof(struct Trap));
 }
 
-void sub_80A638C(void *sram_dest)
+void LoadTrapStructs(void *sram_dest)
 {
     (*ReadSramFast)(sram_dest, (u8*)GetTrap(0), TRAP_MAX_COUNT * sizeof(struct Trap));
 }
 
-int sub_80A63B0()
+int GetLastSuspendSaveId()
 {
-    struct SecureSaveHeader header;
-    LoadAndVerifySecureHeaderSW(&header);
+    struct SaveMeta header;
+    LoadGeneralGameMetadata(&header);
 
-    if (1 == header.unk63)
+    if (1 == header.slot_su)
         return 1;
     else
         return 0;
 }
 
-int sub_80A63D0()
+int GetNextSuspendSaveId()
 {
-    return 1 - sub_80A63B0();
+    return 1 - GetLastSuspendSaveId();
 }
 
-void sub_80A63E0()
+void ChangeSuspendSaveId()
 {
-    struct SecureSaveHeader header;   
-    LoadAndVerifySecureHeaderSW(&header);
-    header.unk63 = 0 == header.unk63;
-    ForceSaveSecureHeader(&header);
+    struct SaveMeta header;   
+    LoadGeneralGameMetadata(&header);
+    header.slot_su = 0 == header.slot_su;
+    SaveGeneralGameMetadataNoChecksum(&header);
 }
 
-int sub_80A6408(void *sram_src, int size)
+int ComputeSaveChecksum(void *sram_src, int size)
 {
-    (*ReadSramFast)(sram_src, gUnknown_02020188, size);
-    return CalcSomeChecksum(gUnknown_02020188, size);
+    (*ReadSramFast)(sram_src, gGenericBuffer, size);
+    return ComputeChecksum32((const u16*)gGenericBuffer, size);
 }
 
-int sub_80A6430(struct SramChunk *buf)
+int SaveMetadata_VerifyChecksum(struct SramChunk *buf)
 {
-    int size = buf->unk0A;
+    int size = buf->size;
     void *sram_dest = (u8*)SramOffsetToPointer(buf->sram_offset);
-    int check_sum = sub_80A6408(sram_dest, size);
+    int check_sum = ComputeSaveChecksum(sram_dest, size);
 
-    if (buf->unk0C != check_sum)
+    if (buf->cksum32 != check_sum)
         return 0;
     else
         return 1;
 }
 
-void sub_80A6454(struct SramChunk* buf)
+void SaveMetadata_ComputeChecksum(struct SramChunk* buf)
 {
-    int size = buf->unk0A;
+    int size = buf->size;
     void *sram_dest = (u8*)SramOffsetToPointer(buf->sram_offset);
-    buf->unk0C = sub_80A6408(sram_dest, size);
+    buf->cksum32 = ComputeSaveChecksum(sram_dest, size);
 }
 
-u16 sub_80A6470()
+u16 GenerateSaveDataSum()
 {
     int i;
     u16 ret = 0;
@@ -2733,7 +2736,7 @@ u16 sub_80A6470()
             continue;
 
         gUnitArrayBlue[i].pMapSpriteHandle = 0;
-        ret += sub_80A6408(&gUnitArrayBlue[i], 0x24);
+        ret += ComputeSaveChecksum(&gUnitArrayBlue[i], 0x24);
     }
 
     for (i = 0; i < 0x32; i++) {
@@ -2741,7 +2744,7 @@ u16 sub_80A6470()
             continue;
 
         gUnitArrayRed[i].pMapSpriteHandle = 0;
-        ret += sub_80A6408(&gUnitArrayRed[i], 0x24);
+        ret += ComputeSaveChecksum(&gUnitArrayRed[i], 0x24);
     }
 
     for (i = 0; i < 0x0A; i++) {
@@ -2749,14 +2752,14 @@ u16 sub_80A6470()
             continue;
 
         gUnitArrayGreen[i].pMapSpriteHandle = 0;
-        ret += sub_80A6408(&gUnitArrayGreen[i], 0x24);
+        ret += ComputeSaveChecksum(&gUnitArrayGreen[i], 0x24);
     }
 
-    ret += sub_80A6408(GetGlobalEventIdStorage(), GetGlobalEventIdStorageSize() / 2);
+    ret += ComputeSaveChecksum(GetGlobalEventIdStorage(), GetGlobalEventIdStorageSize() / 2);
 
-    ret += sub_80A6408(GetLocalEventIdStorage(), GetLocalEventIdStorageSize() / 2);
+    ret += ComputeSaveChecksum(GetLocalEventIdStorage(), GetLocalEventIdStorageSize() / 2);
 
-    ret += sub_80A6408(GetTrap(0), 0x100);
+    ret += ComputeSaveChecksum(GetTrap(0), 0x100);
 
     return ret;
 }
@@ -2768,5 +2771,5 @@ void sub_80A6544()
 
 s8 sub_80A654C(int index)
 {
-    return SaveMetadata_Check(NULL, index);
+    return SaveMetadata_Load(NULL, index);
 }

@@ -1118,7 +1118,7 @@ void ClearActiveFactionGrayedStates(void) {
             if (unit->state & (US_UNAVAILABLE | US_UNSELECTABLE))
                 continue;
 
-            StoreSomeUnitSetFlags(unit->pCharacterData->number);
+            BWL_FavorReduced(unit->pCharacterData->number);
         }
     }
 

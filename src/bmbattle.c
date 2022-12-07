@@ -203,7 +203,7 @@ void BattleGenerateRealInternal(struct Unit* actor, struct Unit* target) {
 
     if (gBattleTarget.unit.index) {
         BattleApplyExpGains();
-        sub_80A4AA4();
+        RecordUnitBattleResult();
 
         sub_80A44C8(actor);
         sub_80A44C8(target);
@@ -281,7 +281,7 @@ void BattleGenerateUiStats(struct Unit* unit, s8 itemSlot) {
     } else
         InitBattleUnit(&gBattleActor, unit);
 
-    if (gUnknown_03005280.state & GMAP_STATE_BIT0)
+    if (gGMData.state & GMAP_STATE_BIT0)
         SetBattleUnitTerrainBonuses(&gBattleActor, 0); // TODO: TERRAIN ID DEFINITIONS
     else
         SetBattleUnitTerrainBonusesAuto(&gBattleActor);
@@ -2293,7 +2293,7 @@ void BattleGenerateArena(struct Unit* actor) {
     UpdateUnitDuringBattle(actor, &gBattleActor);
 
     if (!something || (gBattleTarget.unit.curHP == 0)) {
-        sub_80A4AA4();
+        RecordUnitBattleResult();
 
         actor->state = (actor->state &~ (US_BIT17 | US_BIT18 | US_BIT19))
             + ((((UNIT_ARENA_LEVEL(actor) + 1) <= 7) ? (UNIT_ARENA_LEVEL(actor) + 1) << 17 : 7 << 17));
