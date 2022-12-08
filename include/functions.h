@@ -975,9 +975,9 @@ void sub_80352BC(struct Unit*); // RefreshUnitTakePanels
 void sub_8035380(ProcPtr); // StartUnitGiveRescuePanels
 void sub_80353B8(struct Unit*); // RefreshUnitGivePanels
 s8 AiTryExecScriptA(void);
-void AiExecFallbackScriptA(void);
+s8 AiExecFallbackScriptA(void);
 s8 AiTryExecScriptB(void);
-void AiExecFallbackScriptB(void);
+s8 AiExecFallbackScriptB(void);
 // ??? sub_803C5DC(???);
 // ??? sub_803C648(???);
 // ??? sub_803C6EC(???);
@@ -1020,7 +1020,7 @@ void AiDoBerserkAction(void);
 void AiDoBerserkMove(void);
 // ??? sub_803D43C(???);
 // ??? sub_803D440(???);
-// ??? sub_803D450(???);
+s8 sub_803D450(s8 (*isEnemy)(struct Unit* unit)); // AiTryDoOffensiveAction
 // ??? sub_803D6B8(???);
 // ??? sub_803D880(???);
 // ??? sub_803D8D4(???);
@@ -1088,7 +1088,7 @@ void AiTryActionAfterMove(void);
 // ??? sub_803F9A8(???);
 // ??? sub_803F9C8(???);
 // ??? sub_803F9D8(???);
-// ??? sub_803FA40(???);
+s8 sub_803FA40(s8 (*isEnemy)(struct Unit* unit)); // AiTryDoStaff
 // ??? sub_803FAE8(???);
 // ??? sub_803FBB8(???);
 // ??? sub_803FD30(???);
@@ -1123,7 +1123,7 @@ void sub_8040F54(int, int, struct Unit*);
 // ??? sub_8040F88(???);
 // ??? sub_8040FBC(???);
 // ??? sub_8040FEC(???);
-// ??? sub_8041020(???);
+void sub_8041020(struct Unit* unit);
 // ??? sub_8041054(???);
 void AiUpdateNoMoveFlag(struct Unit* unit);
 void sub_80410C4(int, int, struct Unit*);

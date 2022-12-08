@@ -1,16 +1,16 @@
 #ifndef GUARD_CP_UTILITY_H
 #define GUARD_CP_UTILITY_H
 
-// ??? AiCompare(???);
-// ??? AiFindTargetInReachByCharId(???);
-// ??? AiFindTargetInReachByClassId(???);
-// ??? AiFindTargetInReachByFunc(???);
-// ??? sub_803AA40(???);
-// ??? AiRandomMove(???);
+s8 AiCompare(u8* left, u8 op, u32 right);
+s8 AiFindTargetInReachByCharId(int uid, struct Vec2* out);
+s8 AiFindTargetInReachByClassId(int classId, struct Vec2* out);
+s8 AiFindTargetInReachByFunc(s8(*func)(struct Unit* unit), struct Vec2* out);
+s8 sub_803AA40(s8(*func)(struct Unit* unit), struct Vec2* out);
+void AiRandomMove(void);
 // ??? AiReachesByBirdsEyeDistance(???);
 // ??? AiCouldReachByBirdsEyeDistance(???);
-// ??? AiIsInShortList(???);
-// ??? AiIsInByteList(???);
+s8 AiIsInShortList(const u16* list, u16 item);
+s8 AiIsInByteList(const u8* list, u8 item);
 s8 AiFindClosestTerrainPosition(const u8*, int, struct Vec2*);
 // ??? AiGetPositionRange(???);
 s8 AiFindClosestTerrainAdjacentPosition(const u8*, int, struct Vec2*);
@@ -28,15 +28,15 @@ s8 AiFindBestAdjacentPositionByFunc(int, int, u8(*)(int, int), struct Vec2*);
 // ??? AiGetItemStealRank(???);
 // ??? AiGetUnitStealItemSlot(???);
 s8 AiFindSafestReachableLocation(struct Unit*, struct Vec2*);
-// ??? AiFindPillageLocation(???);
+s8 AiFindPillageLocation(struct Vec2* out, u8* outItemSlot);
 // ??? AiGetChestUnlockItemSlot(???);
 void AiTryMoveTowards(s16, s16, u8, u8, u8);
-// ??? sub_803BBF4(???);
+void sub_803BBF4(s16 x, s16 y, u8 action, u8 maxDanger, u8 unk);
 // ??? AiGetUnitClosestValidPosition(???);
-// ??? AiGetClassRank(???);
-// ??? AiUnitWithCharIdExists(???);
+u8 AiGetClassRank(u8 classId);
+s8 AiUnitWithCharIdExists(u16 uid);
 s8 AiIsWithinRectDistance(s16, s16, u8, u8, u8);
-// ??? AiLocationIsPillageTarget(???);
+s8 AiLocationIsPillageTarget(u8 x, u8 y);
 void SetupUnitInventoryAIFlags(void);
 // ??? SetupUnitStatusStaffAIFlags(???);
 // ??? SetupUnitHealStaffAIFlags(???);
