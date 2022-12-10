@@ -7,6 +7,7 @@
 #include "bmtrick.h"
 #include "bmarch.h"
 #include "cp_utility.h"
+#include "cp_script.h"
 
 #include "constants/classes.h"
 
