@@ -10,129 +10,179 @@
 #include "bmitem.h"
 #include "bmtrick.h"
 
-struct AiScr
-{
-    /* 00 */ u8 cmd;
-    /* 01 */ u8 unk_01;
-    /* 02 */ u8 unk_02;
-    /* 03 */ u8 unk_03;
-    /* 04 */ u32 unk_04;
-    /* 08 */ void* unk_08;
-    /* 0C */ void* unk_0C;
+#include "cp_script.h"
+
+enum ScriptKind {
+    AI_SCRIPT_AI1,
+    AI_SCRIPT_AI2,
 };
 
 typedef void(*AiScrCmd)(u8* pc);
 
-typedef s8(*AiScrFunc)(void* arg);
+static s8 gAiScriptEnded;
+static int gAiScriptKind;
+static struct AiScr* gpAiScriptCurrent;
+static AiScrFunc gpCurrentAiFunctionCall;
 
-
-extern s8 gUnknown_030017C8;
-extern int gUnknown_030017CC;
-extern struct AiScr* gUnknown_030017D0;
-extern AiScrFunc gUnknown_030017D4;
-
-extern struct AiScr gUnknown_085A812C[];
-extern struct AiScr gUnknown_085A813C[];
+extern struct AiScr gAiScript_FallbackAi1[];
+extern struct AiScr gAiScript_FallbackAi2[];
 extern u8 gUnknown_085A814C[];
-extern struct AiScr** gUnknown_085A91D8[];
-extern struct AiScr** gUnknown_085A91E4[];
+extern struct AiScr** gpAi2Table[];
+extern struct AiScr** gpAi1Table[];
 
 extern AiScrCmd gUnknown_080D80FC[];
 
 // forward decl.
-void sub_803C5DC(u8*);
+void AiScript_Exec(u8*);
+
+void AiScriptCmd_00_ConditionalGoto(u8* pc);
+void AiScriptCmd_01_FunctionCall(u8* pc);
+void AiScriptCmd_02_ChangeAi(u8* pc);
+void AiScriptCmd_03_Goto(u8* pc);
+void AiScriptCmd_04_ActionOnSelectedCharacter(u8* pc);
+void AiScriptCmd_05_DoStandardAction(u8* pc);
+void AiScriptCmd_06_DoNothing(u8* pc);
+void AiScriptCmd_07_DoStandardActionNoMove(u8* pc);
+void AiScriptCmd_08_DoStandardActionAgainstClass(u8* pc);
+void AiScriptCmd_09_DoStaffAction(u8* pc);
+void AiScriptCmd_0A_DoStaffAction(u8* pc);
+void AiScriptCmd_0B_DoStaffAction(u8* pc);
+void AiScriptCmd_0C_MoveTowardsSetPoint(u8* pc);
+void AiScriptCmd_0D_MoveTowardsCharacterUntilInRange(u8* pc);
+void AiScriptCmd_0E_DoNothing(u8* pc);
+void AiScriptCmd_0F_MoveTowardsUnitWithClass(u8* pc);
+void AiScriptCmd_10_DoLooting(u8* pc);
+void AiScriptCmd_11_MoveTowardsSafety(u8* pc);
+void AiScriptCmd_12_MoveTowardsEnemy(u8* pc);
+void AiScriptCmd_13(u8* pc);
+void AiScriptCmd_14_DoNothing(u8* pc);
+void AiScriptCmd_15_DoNothing(u8* pc);
+void AiScriptCmd_16_RandomMovement(u8* pc);
+void AiScriptCmd_17_DoEscape(u8* pc);
+void AiScriptCmd_18_TryAttackSnagWall(u8* pc);
+void AiScriptCmd_19_MoveTowardsTerrain(u8* pc);
+void AiScriptCmd_1A_MoveTowardsTerrain(u8* pc);
+void AiScriptCmd_1B_NoOp(u8* pc);
 
 //! FE8U = 0x0803C4BC
 s8 AiTryExecScriptA(void) {
-    gUnknown_030017D0 = gUnknown_085A91E4[0][gActiveUnit->ai1];
-    gUnknown_030017D0 = gUnknown_030017D0 + gActiveUnit->ai1data;
+    gpAiScriptCurrent = gpAi1Table[0][gActiveUnit->ai1];
+    gpAiScriptCurrent = gpAiScriptCurrent + gActiveUnit->ai1data;
 
-    gUnknown_030017C8 = 1;
-    gUnknown_030017CC = 0;
+    gAiScriptEnded = 1;
+    gAiScriptKind = AI_SCRIPT_AI1;
 
-    sub_803C5DC(&gActiveUnit->ai1data);
+    AiScript_Exec(&gActiveUnit->ai1data);
 
-    return gUnknown_030017C8;
+    return gAiScriptEnded;
 }
 
 //! FE8U = 0x0803C510
 s8 AiExecFallbackScriptA(void) {
-    gUnknown_030017D0 = gUnknown_085A812C;
+    gpAiScriptCurrent = gAiScript_FallbackAi1;
 
-    gUnknown_030017C8 = 1;
-    gUnknown_030017CC = 0;
+    gAiScriptEnded = 1;
+    gAiScriptKind = AI_SCRIPT_AI1;
 
-    sub_803C5DC(&gActiveUnit->ai1data);
+    AiScript_Exec(&gActiveUnit->ai1data);
 
-    return gUnknown_030017C8;
+    return gAiScriptEnded;
 }
 
 //! FE8U = 0x0803C54C
 s8 AiTryExecScriptB(void) {
-    gUnknown_030017D0 = gUnknown_085A91D8[0][gActiveUnit->ai2];
-    gUnknown_030017D0 = gUnknown_030017D0 + gActiveUnit->ai2data;
+    gpAiScriptCurrent = gpAi2Table[0][gActiveUnit->ai2];
+    gpAiScriptCurrent = gpAiScriptCurrent + gActiveUnit->ai2data;
 
-    gUnknown_030017C8 = 1;
-    gUnknown_030017CC = 1;
+    gAiScriptEnded = 1;
+    gAiScriptKind = AI_SCRIPT_AI2;
 
-    sub_803C5DC(&gActiveUnit->ai2data);
+    AiScript_Exec(&gActiveUnit->ai2data);
 
-    return gUnknown_030017C8;
+    return gAiScriptEnded;
 }
 
 //! FE8U = 0x0803C5A0
 s8 AiExecFallbackScriptB(void) {
 
-    gUnknown_030017D0 = gUnknown_085A813C;
+    gpAiScriptCurrent = gAiScript_FallbackAi2;
 
-    gUnknown_030017C8 = 1;
-    gUnknown_030017CC = 1;
+    gAiScriptEnded = 1;
+    gAiScriptKind = AI_SCRIPT_AI2;
 
-    sub_803C5DC(&gActiveUnit->ai2data);
+    AiScript_Exec(&gActiveUnit->ai2data);
 
-    return gUnknown_030017C8;
+    return gAiScriptEnded;
 }
 
 //! FE8U = 0x0803C5DC
-void sub_803C5DC(u8* pc) {
+void AiScript_Exec(u8* pc) {
 
-    AiScrCmd hack[28];
-    memcpy(hack, gUnknown_080D80FC, 0x70);
+    AiScrCmd funcLut[] = {
+        [AI_CMD_CONDITIONAL]        = AiScriptCmd_00_ConditionalGoto,
+        [AI_CMD_CALL_FUNC]          = AiScriptCmd_01_FunctionCall,
+        [AI_CMD_SET_AI]             = AiScriptCmd_02_ChangeAi,
+        [AI_CMD_GOTO]               = AiScriptCmd_03_Goto,
+        [AI_CMD_ACTION_ON_CHAR]     = AiScriptCmd_04_ActionOnSelectedCharacter,
+        [AI_CMD_ACTION]             = AiScriptCmd_05_DoStandardAction,
+        [AI_CMD_NOP]                = AiScriptCmd_06_DoNothing,
+        [AI_CMD_ACTION_IN_PLACE]    = AiScriptCmd_07_DoStandardActionNoMove,
+        [AI_CMD_ACTION_ON_CLASS]    = AiScriptCmd_08_DoStandardActionAgainstClass,
+        [AI_CMD_STAFF_ACTION]       = AiScriptCmd_09_DoStaffAction,
+        [AI_CMD_STAFF_ACTION_2]     = AiScriptCmd_0A_DoStaffAction,
+        [AI_CMD_STAFF_ACTION_3]     = AiScriptCmd_0B_DoStaffAction,
+        [AI_CMD_MOVE_TOWARDS]       = AiScriptCmd_0C_MoveTowardsSetPoint,
+        [AI_CMD_MOVE_TOWARDS_CHAR]  = AiScriptCmd_0D_MoveTowardsCharacterUntilInRange,
+        [AI_CMD_NOP_0E]             = AiScriptCmd_0E_DoNothing,
+        [AI_CMD_MOVE_TOWARDS_CLASS] = AiScriptCmd_0F_MoveTowardsUnitWithClass,
+        [AI_CMD_PILLAGE]            = AiScriptCmd_10_DoLooting,
+        [AI_CMD_MOVE_TO_SAFETY]     = AiScriptCmd_11_MoveTowardsSafety,
+        [AI_CMD_MOVE_TO_ENEMY]      = AiScriptCmd_12_MoveTowardsEnemy,
+        [AI_CMD_MOVE_TO_ENEMY_2]    = AiScriptCmd_13,
+        [AI_CMD_NOP_14]             = AiScriptCmd_14_DoNothing,
+        [AI_CMD_NOP_15]             = AiScriptCmd_15_DoNothing,
+        [AI_CMD_MOVE_RANDOM]        = AiScriptCmd_16_RandomMovement,
+        [AI_CMD_ESCAPE]             = AiScriptCmd_17_DoEscape,
+        [AI_CMD_ATTACK_WALLS]       = AiScriptCmd_18_TryAttackSnagWall,
+        [AI_CMD_MOVE_TO_TERRAIN]    = AiScriptCmd_19_MoveTowardsTerrain,
+        [AI_CMD_MOVE_TO_LISTED_TERRAIN] = AiScriptCmd_1A_MoveTowardsTerrain,
+        [AI_CMD_1B]                 = AiScriptCmd_1B_NoOp,
+    };
 
-    if (gUnknown_030017D0->cmd >= 0x1D) {
+    if (gpAiScriptCurrent->cmd >= AI_CMD_COUNT) {
 
-        if (gUnknown_030017CC == 0) {
-            gUnknown_030017D0 = gUnknown_085A812C;
+        if (gAiScriptKind == AI_SCRIPT_AI1) {
+            gpAiScriptCurrent = gAiScript_FallbackAi1;
         } else {
-            gUnknown_030017D0 = gUnknown_085A813C;
+            gpAiScriptCurrent = gAiScript_FallbackAi2;
         }
 
     }
 
-    gAiState.unk7E = gUnknown_030017D0->unk_02;
+    gAiState.unk7E = gpAiScriptCurrent->unk_02;
 
-    hack[gUnknown_030017D0->cmd](pc);
+    funcLut[gpAiScriptCurrent->cmd](pc);
 
     return;
 }
 
 //! FE8U = 0x0803C648
-void sub_803C648(u8* pc) {
-    u8 target = gUnknown_030017D0->unk_03;
+void AiScriptCmd_00_ConditionalGoto(u8* pc) {
+    u8 target = gpAiScriptCurrent->unk_03;
     u8 i = 0;
 
-    if (AiCompare(gUnknown_030017D0->unk_08, gUnknown_030017D0->unk_01, gUnknown_030017D0->unk_04) == 1) {
+    if (AiCompare(gpAiScriptCurrent->unk_08, gpAiScriptCurrent->unk_01, gpAiScriptCurrent->unk_04) == 1) {
         const struct AiScr* script;
 
-        if (gUnknown_030017CC == 0) {
-            script = gUnknown_085A91E4[0][gActiveUnit->ai1];
+        if (gAiScriptKind == AI_SCRIPT_AI1) {
+            script = gpAi1Table[0][gActiveUnit->ai1];
         } else {
-            script = gUnknown_085A91D8[0][gActiveUnit->ai2];
+            script = gpAi2Table[0][gActiveUnit->ai2];
         }
 
         if (target != 0) {
 
-            while ((script[i].cmd != 0x1C) || (script[i].unk_03 != target)) {
+            while ((script[i].cmd != AI_CMD_LABEL) || (script[i].unk_03 != target)) {
                 i++;
             }
 
@@ -144,16 +194,16 @@ void sub_803C648(u8* pc) {
         (*pc)++;
     }
 
-    gUnknown_030017C8 = 0;
+    gAiScriptEnded = 0;
 
     return;
 }
 
 //! FE8U = 0x0803C6EC
-void sub_803C6EC(u8* pc) {
-    gUnknown_030017D4 = gUnknown_030017D0->unk_08;
+void AiScriptCmd_01_FunctionCall(u8* pc) {
+    gpCurrentAiFunctionCall = gpAiScriptCurrent->unk_08;
 
-    gUnknown_030017C8 = gUnknown_030017D4(gUnknown_030017D0->unk_0C);
+    gAiScriptEnded = gpCurrentAiFunctionCall(gpAiScriptCurrent->unk_0C);
 
     (*pc)++;
 
@@ -161,9 +211,9 @@ void sub_803C6EC(u8* pc) {
 }
 
 //! FE8U = 0x0803C71C
-void sub_803C71C(u8* pc) {
-    u8 ai1 = gUnknown_030017D0->unk_01;
-    u8 ai2 = gUnknown_030017D0->unk_02;
+void AiScriptCmd_02_ChangeAi(u8* pc) {
+    u8 ai1 = gpAiScriptCurrent->unk_01;
+    u8 ai2 = gpAiScriptCurrent->unk_02;
 
     if (ai1 != 0xFF) {
         gActiveUnit->ai1 = ai1;
@@ -175,7 +225,7 @@ void sub_803C71C(u8* pc) {
         gActiveUnit->ai2data = 0;
     }
 
-    if (((gUnknown_030017CC == 0) && (ai1 == 0xFF)) || ((gUnknown_030017CC == 1 && (ai2 == 0xFF))))  {
+    if (((gAiScriptKind == 0) && (ai1 == 0xFF)) || ((gAiScriptKind == 1 && (ai2 == 0xFF))))  {
         (*pc)++;
     }
 
@@ -185,20 +235,20 @@ void sub_803C71C(u8* pc) {
 }
 
 //! FE8U = 0x0803C78C
-void sub_803C78C(u8* pc) {
+void AiScriptCmd_03_Goto(u8* pc) {
     struct AiScr* script;
 
-    u8 target = gUnknown_030017D0->unk_03;
+    u8 target = gpAiScriptCurrent->unk_03;
     u8 i = 0;
 
-    if (gUnknown_030017CC == 0) {
-        script = gUnknown_085A91E4[0][gActiveUnit->ai1];
+    if (gAiScriptKind == AI_SCRIPT_AI1) {
+        script = gpAi1Table[0][gActiveUnit->ai1];
     } else {
-        script = gUnknown_085A91D8[0][gActiveUnit->ai2];
+        script = gpAi2Table[0][gActiveUnit->ai2];
     }
 
     if (target != 0) {
-        while ((script[i].cmd != 0x1C || (script[i].unk_03 != target))) {
+        while ((script[i].cmd != AI_CMD_LABEL || (script[i].unk_03 != target))) {
             i++;
         }
 
@@ -207,13 +257,13 @@ void sub_803C78C(u8* pc) {
         *pc = 0;
     }
 
-    gUnknown_030017C8 = 0;
+    gAiScriptEnded = 0;
 
     return;
 }
 
 //! FE8U = 0x0803C818
-s8 sub_803C818(struct Unit* unit) {
+s8 AiIsUnitEnemy(struct Unit* unit) {
 
     if (AreUnitsAllied(gActiveUnit->index, unit->index)) {
         return 0;
@@ -223,7 +273,7 @@ s8 sub_803C818(struct Unit* unit) {
 }
 
 //! FE8U = 0x0803C848
-s8 sub_803C848(struct Unit* unit) {
+s8 AiIsUnitNonActive(struct Unit* unit) {
 
     if (unit == gActiveUnit) {
         return 0;
@@ -233,9 +283,9 @@ s8 sub_803C848(struct Unit* unit) {
 }
 
 //! FE8U = 0x0803C864
-s8 sub_803C864(struct Unit* unit) {
+s8 AiIsUnitEnemyAndNotInScrList(struct Unit* unit) {
 
-    if ((AiIsInShortList(gUnknown_030017D0->unk_08, unit->pCharacterData->number) != 1) && !(AreUnitsAllied(gActiveUnit->index, unit->index))) {
+    if ((AiIsInShortList(gpAiScriptCurrent->unk_08, unit->pCharacterData->number) != 1) && !(AreUnitsAllied(gActiveUnit->index, unit->index))) {
         return 1;
     }
 
@@ -243,9 +293,9 @@ s8 sub_803C864(struct Unit* unit) {
 }
 
 //! FE8U = 0x0803C8AC
-s8 sub_803C8AC(struct Unit* unit) {
+s8 AiIsUnitEnemyOrInScrList(struct Unit* unit) {
 
-    if ((AiIsInShortList(gUnknown_030017D0->unk_08, unit->pCharacterData->number) == 1) || !(AreUnitsAllied(gActiveUnit->index, unit->index))) {
+    if ((AiIsInShortList(gpAiScriptCurrent->unk_08, unit->pCharacterData->number) == 1) || !(AreUnitsAllied(gActiveUnit->index, unit->index))) {
         return 1;
     }
 
@@ -253,9 +303,9 @@ s8 sub_803C8AC(struct Unit* unit) {
 }
 
 //! FE8U = 0x0803C8F4
-s8 sub_803C8F4(struct Unit* unit) {
+s8 AiIsUnitEnemyAndScrCharId(struct Unit* unit) {
 
-    if ((unit->pCharacterData->number == gUnknown_030017D0->unk_04) && !(AreUnitsAllied(gActiveUnit->index, unit->index))) {
+    if ((unit->pCharacterData->number == gpAiScriptCurrent->unk_04) && !(AreUnitsAllied(gActiveUnit->index, unit->index))) {
         return 1;
     }
 
@@ -263,9 +313,9 @@ s8 sub_803C8F4(struct Unit* unit) {
 }
 
 //! FE8U = 0x0803C934
-s8 sub_803C934(struct Unit* unit) {
+s8 AiIsUnitEnemyAndScrClassId(struct Unit* unit) {
 
-    if ((unit->pClassData->number == gUnknown_030017D0->unk_04) && (!AreUnitsAllied(gActiveUnit->index, unit->index))) {
+    if ((unit->pClassData->number == gpAiScriptCurrent->unk_04) && (!AreUnitsAllied(gActiveUnit->index, unit->index))) {
         return 1;
     }
 
@@ -273,23 +323,23 @@ s8 sub_803C934(struct Unit* unit) {
 }
 
 //! FE8U = 0x0803C974
-void sub_803C974(u8* pc) {
+void AiScriptCmd_04_ActionOnSelectedCharacter(u8* pc) {
     u8 rand = NextRN_N(100);
 
-    if (rand <= gUnknown_030017D0->unk_01) {
+    if (rand <= gpAiScriptCurrent->unk_01) {
 
-        if (!sub_803FA40(sub_803C818)) {
+        if (!sub_803FA40(AiIsUnitEnemy)) {
 
-            if (AiUnitWithCharIdExists(gUnknown_030017D0->unk_04) == 1) {
-                if (GetUnitFromCharId(gUnknown_030017D0->unk_04)->state & 0x20) {
+            if (AiUnitWithCharIdExists(gpAiScriptCurrent->unk_04) == 1) {
+                if (GetUnitFromCharId(gpAiScriptCurrent->unk_04)->state & US_RESCUED) {
                     gAiState.unk86[0] = 3;
-                    gUnknown_030017C8 = 0;
+                    gAiScriptEnded = 0;
                 } else {
-                    sub_803D450(sub_803C8F4);
+                    sub_803D450(AiIsUnitEnemyAndScrCharId);
                 }
             } else {
                 gAiState.unk86[0] = 1;
-                gUnknown_030017C8 = 0;
+                gAiScriptEnded = 0;
             }
         }
     } else {
@@ -302,17 +352,17 @@ void sub_803C974(u8* pc) {
 }
 
 //! FE8U = 0x0803CA0C
-void sub_803CA0C(u8* pc) {
+void AiScriptCmd_05_DoStandardAction(u8* pc) {
     u8 rand = NextRN_N(100);
 
-    if (rand <= gUnknown_030017D0->unk_01) {
-        if (gUnknown_030017D0->unk_08 == 0) {
-            if (sub_803FA40(sub_803C818) == 0) {
-                sub_803D450(sub_803C818);
+    if (rand <= gpAiScriptCurrent->unk_01) {
+        if (gpAiScriptCurrent->unk_08 == 0) {
+            if (sub_803FA40(AiIsUnitEnemy) == 0) {
+                sub_803D450(AiIsUnitEnemy);
             }
         } else {
-            if (sub_803FA40(sub_803C8AC) == 0) {
-                sub_803D450(sub_803C864);
+            if (sub_803FA40(AiIsUnitEnemyOrInScrList) == 0) {
+                sub_803D450(AiIsUnitEnemyAndNotInScrList);
             }
         }
     } else {
@@ -325,20 +375,20 @@ void sub_803CA0C(u8* pc) {
 }
 
 //! FE8U = 0x0803CA7C
-void sub_803CA7C(u8* pc) {
+void AiScriptCmd_06_DoNothing(u8* pc) {
     (*pc)++;
     return;
 }
 
 //! FE8U = 0x0803CA84
-void sub_803CA84(u8* pc) {
+void AiScriptCmd_07_DoStandardActionNoMove(u8* pc) {
     u8 rand = NextRN_N(100);
 
-    if (rand <= gUnknown_030017D0->unk_01) {
-        gAiState.flags |= 2;
+    if (rand <= gpAiScriptCurrent->unk_01) {
+        gAiState.flags |= AI_FLAG_1;
 
-        if (!sub_803FA40(sub_803C818)) {
-            sub_803D450(sub_803C818);
+        if (!sub_803FA40(AiIsUnitEnemy)) {
+            sub_803D450(AiIsUnitEnemy);
         }
     } else {
         gAiState.decideState = 4;
@@ -350,13 +400,13 @@ void sub_803CA84(u8* pc) {
 }
 
 //! FE8U = 0x0803CAE4
-void sub_803CAE4(u8* pc) {
+void AiScriptCmd_08_DoStandardActionAgainstClass(u8* pc) {
     u8 rand = NextRN_N(100);
 
-    if (rand <= gUnknown_030017D0->unk_01) {
+    if (rand <= gpAiScriptCurrent->unk_01) {
 
-        if (sub_803FA40(sub_803C934) == 0) {
-            sub_803D450(sub_803C934);
+        if (sub_803FA40(AiIsUnitEnemyAndScrClassId) == 0) {
+            sub_803D450(AiIsUnitEnemyAndScrClassId);
         }
     } else {
         gAiState.decideState = 4;
@@ -368,39 +418,39 @@ void sub_803CAE4(u8* pc) {
 }
 
 //! FE8U = 0x0803CB34
-void sub_803CB34(u8* pc) {
+void AiScriptCmd_09_DoStaffAction(u8* pc) {
 
-    sub_803FA40(sub_803C818);
+    sub_803FA40(AiIsUnitEnemy);
     (*pc)++;
 
     return;
 }
 
 //! FE8U = 0x0803CB50
-void sub_803CB50(u8* pc) {
+void AiScriptCmd_0A_DoStaffAction(u8* pc) {
 
-    sub_803FA40(sub_803C818);
+    sub_803FA40(AiIsUnitEnemy);
     (*pc)++;
 
     return;
 }
 
 //! FE8U = 0x0803CB6C
-void sub_803CB6C(u8* pc) {
+void AiScriptCmd_0B_DoStaffAction(u8* pc) {
 
-    sub_803FA40(sub_803C818);
+    sub_803FA40(AiIsUnitEnemy);
     (*pc)++;
 
     return;
 }
 
 //! FE8U = 0x0803CB88
-void sub_803CB88(u8* pc) {
-    AiTryMoveTowards(gUnknown_030017D0->unk_01, gUnknown_030017D0->unk_03, 0, gUnknown_030017D0->unk_02, 1);
+void AiScriptCmd_0C_MoveTowardsSetPoint(u8* pc) {
+    AiTryMoveTowards(gpAiScriptCurrent->unk_01, gpAiScriptCurrent->unk_03, 0, gpAiScriptCurrent->unk_02, 1);
 
     if (gAiDecision.actionPerformed == 1) {
-        if (gAiDecision.xMove == gUnknown_030017D0->unk_01) {
-            if (gAiDecision.yMove == gUnknown_030017D0->unk_03) {
+        if (gAiDecision.xMove == gpAiScriptCurrent->unk_01) {
+            if (gAiDecision.yMove == gpAiScriptCurrent->unk_03) {
                 (*pc)++;
             }
         }
@@ -410,26 +460,26 @@ void sub_803CB88(u8* pc) {
 }
 
 //! FE8U = 0x0803CBD4
-void sub_803CBD4(u8* pc) {
+void AiScriptCmd_0D_MoveTowardsCharacterUntilInRange(u8* pc) {
     struct Vec2 pos;
 
-    if (AiFindTargetInReachByCharId(gUnknown_030017D0->unk_04, &pos) == 1) {
-        AiTryMoveTowards(pos.x, pos.y, 0, gUnknown_030017D0->unk_02, 1);
+    if (AiFindTargetInReachByCharId(gpAiScriptCurrent->unk_04, &pos) == 1) {
+        AiTryMoveTowards(pos.x, pos.y, 0, gpAiScriptCurrent->unk_02, 1);
 
         if (AiIsWithinRectDistance(pos.x, pos.y, gAiDecision.xMove, gAiDecision.yMove, 1) == 1) {
-            struct Unit* unit = GetUnitFromCharId(gUnknown_030017D0->unk_04);
-            if ((unit->state & 0x20) != 0) {
+            struct Unit* unit = GetUnitFromCharId(gpAiScriptCurrent->unk_04);
+            if ((unit->state & US_RESCUED) != 0) {
                 gAiState.unk86[0] = 3;
             } else {
                 AiUpdateDecision(0, 0, 0, 0, unit->index);
 
                 gAiState.unk86[0] = 2;
                 gAiDecision.actionPerformed = 0;
-                gUnknown_030017C8 = 0;
+                gAiScriptEnded = 0;
             }
         }
     } else {
-        gUnknown_030017C8 = 0;
+        gAiScriptEnded = 0;
     }
 
     (*pc)++;
@@ -438,17 +488,17 @@ void sub_803CBD4(u8* pc) {
 }
 
 //! FE8U = 0x0803CC90
-void sub_803CC90(u8* pc) {
+void AiScriptCmd_0E_DoNothing(u8* pc) {
     (*pc)++;
     return;
 }
 
 //! FE8U = 0x0803CC98
-void sub_803CC98(u8* pc) {
+void AiScriptCmd_0F_MoveTowardsUnitWithClass(u8* pc) {
     struct Vec2 pos;
 
-    if (AiFindTargetInReachByClassId(gUnknown_030017D0->unk_04, &pos) == 1) {
-        AiTryMoveTowards(pos.x, pos.y, 0, gUnknown_030017D0->unk_02, 1);
+    if (AiFindTargetInReachByClassId(gpAiScriptCurrent->unk_04, &pos) == 1) {
+        AiTryMoveTowards(pos.x, pos.y, 0, gpAiScriptCurrent->unk_02, 1);
     }
 
     (*pc)++;
@@ -457,21 +507,21 @@ void sub_803CC98(u8* pc) {
 }
 
 //! FE8U = 0x0803CCDC
-void sub_803CCDC(u8* pc) {
+void AiScriptCmd_10_DoLooting(u8* pc) {
 
     if (AiTryDoSpecialItems() == 1) {
-        if (gUnknown_030017D0->unk_03 == 0) {
+        if (gpAiScriptCurrent->unk_03 == 0) {
             return;
         }
 
         gActiveUnit->_u46++;
 
-        if (gActiveUnit->_u46 != gUnknown_030017D0->unk_03) {
+        if (gActiveUnit->_u46 != gpAiScriptCurrent->unk_03) {
             return;
         }
 
         (*pc)++;
-        gUnknown_030017C8 = 0;
+        gAiScriptEnded = 0;
     } else {
         struct Vec2 pos;
         u8 itemSlot;
@@ -485,21 +535,21 @@ void sub_803CCDC(u8* pc) {
 
             AiSetDecision(gAiDecision.xMove, gAiDecision.yMove, 4, 0, itemSlot, 0, 0);
 
-            if (gUnknown_030017D0->unk_03 == 0) {
+            if (gpAiScriptCurrent->unk_03 == 0) {
                 return;
             }
 
             gActiveUnit->_u46++;
 
-            if (gActiveUnit->_u46 != gUnknown_030017D0->unk_03) {
+            if (gActiveUnit->_u46 != gpAiScriptCurrent->unk_03) {
                 return;
             }
 
             (*pc)++;
-            gUnknown_030017C8 = 0;
+            gAiScriptEnded = 0;
         } else {
             (*pc)++;
-            gUnknown_030017C8 = 0;
+            gAiScriptEnded = 0;
         }
     }
 
@@ -507,7 +557,7 @@ void sub_803CCDC(u8* pc) {
 }
 
 //! FE8U = 0x0803CDD4
-void sub_803CDD4(u8* pc) {
+void AiScriptCmd_11_MoveTowardsSafety(u8* pc) {
     struct Vec2 pos;
 
     if (AiFindSafestReachableLocation(gActiveUnit, &pos) == 1) {
@@ -520,16 +570,16 @@ void sub_803CDD4(u8* pc) {
 }
 
 //! FE8U = 0x0803CE18
-void sub_803CE18(u8* pc) {
+void AiScriptCmd_12_MoveTowardsEnemy(u8* pc) {
     struct Vec2 pos;
 
-    if (gUnknown_030017D0->unk_08 == 0) {
-        if (AiFindTargetInReachByFunc(sub_803C818, &pos) == 1) {
-            AiTryMoveTowards(pos.x, pos.y, 0, gUnknown_030017D0->unk_02, 1);
+    if (gpAiScriptCurrent->unk_08 == 0) {
+        if (AiFindTargetInReachByFunc(AiIsUnitEnemy, &pos) == 1) {
+            AiTryMoveTowards(pos.x, pos.y, 0, gpAiScriptCurrent->unk_02, 1);
         }
     } else {
-        if (AiFindTargetInReachByFunc(sub_803C864, &pos) == 1) {
-            AiTryMoveTowards(pos.x, pos.y, 0, gUnknown_030017D0->unk_02, 1);
+        if (AiFindTargetInReachByFunc(AiIsUnitEnemyAndNotInScrList, &pos) == 1) {
+            AiTryMoveTowards(pos.x, pos.y, 0, gpAiScriptCurrent->unk_02, 1);
         }
     }
 
@@ -539,16 +589,16 @@ void sub_803CE18(u8* pc) {
 }
 
 //! FE8U = 0x0803CE98
-void sub_803CE98(u8* pc) {
+void AiScriptCmd_13(u8* pc) {
     struct Vec2 pos;
 
-    if (gUnknown_030017D0->unk_08 == 0) {
-        if (sub_803AA40(sub_803C818, &pos) == 1) {
-            sub_803BBF4(pos.x, pos.y, 0, gUnknown_030017D0->unk_02, 1);
+    if (gpAiScriptCurrent->unk_08 == 0) {
+        if (sub_803AA40(AiIsUnitEnemy, &pos) == 1) {
+            sub_803BBF4(pos.x, pos.y, 0, gpAiScriptCurrent->unk_02, 1);
         }
     } else {
-        if (sub_803AA40(sub_803C864, &pos) == 1) {
-            sub_803BBF4(pos.x, pos.y, 0, gUnknown_030017D0->unk_02, 1);
+        if (sub_803AA40(AiIsUnitEnemyAndNotInScrList, &pos) == 1) {
+            sub_803BBF4(pos.x, pos.y, 0, gpAiScriptCurrent->unk_02, 1);
         }
     }
 
@@ -558,19 +608,19 @@ void sub_803CE98(u8* pc) {
 }
 
 //! FE8U = 0x0803CF18
-void sub_803CF18(u8* pc) {
+void AiScriptCmd_14_DoNothing(u8* pc) {
     (*pc)++;
     return;
 }
 
 //! FE8U = 0x0803CF20
-void sub_803CF20(u8* pc) {
+void AiScriptCmd_15_DoNothing(u8* pc) {
     (*pc)++;
     return;
 }
 
 //! FE8U = 0x0803CF28
-void sub_803CF28(u8* pc) {
+void AiScriptCmd_16_RandomMovement(u8* pc) {
     AiRandomMove();
 
     (*pc)++;
@@ -579,8 +629,8 @@ void sub_803CF28(u8* pc) {
 }
 
 //! FE8U = 0x0803CF3C
-void sub_803CF3C(u8* pc) {
-    gActiveUnit->aiFlags |= 8;
+void AiScriptCmd_17_DoEscape(u8* pc) {
+    gActiveUnit->aiFlags |= AI_UNIT_FLAG_3;
     AiTryMoveTowardsEscape();
 
     (*pc)++;
@@ -708,7 +758,7 @@ s8 sub_803D124(const u8* terrainList, u32 flags, struct Vec2* out) {
 }
 
 //! FE8U = 0x0803D228
-void sub_803D228(u8* pc) {
+void AiScriptCmd_18_TryAttackSnagWall(u8* pc) {
     struct Vec2 posA;
     struct Vec2 posB;
     u8 slot;
@@ -730,7 +780,7 @@ void sub_803D228(u8* pc) {
         }
     } else {
         gAiState.unk86[0] = 4;
-        gUnknown_030017C8 = 0;
+        gAiScriptEnded = 0;
     }
 
     (*pc)++;
@@ -739,16 +789,16 @@ void sub_803D228(u8* pc) {
 }
 
 //! FE8U = 0x0803D2D8
-void sub_803D2D8(u8* pc) {
+void AiScriptCmd_19_MoveTowardsTerrain(u8* pc) {
     struct Vec2 pos;
 
     GenerateExtendedMovementMapOnRange(gActiveUnit->xPos, gActiveUnit->yPos, GetUnitMovementCost(gActiveUnit));
 
-    if (AiFindClosestTerrainPosition(&gUnknown_030017D0->unk_03, 0, &pos) == 1) {
-        AiTryMoveTowards(pos.x, pos.y, 0, gUnknown_030017D0->unk_02, 1);
+    if (AiFindClosestTerrainPosition(&gpAiScriptCurrent->unk_03, 0, &pos) == 1) {
+        AiTryMoveTowards(pos.x, pos.y, 0, gpAiScriptCurrent->unk_02, 1);
     } else {
         gAiState.unk86[0] = 4;
-        gUnknown_030017C8 = 0;
+        gAiScriptEnded = 0;
     }
 
     (*pc)++;
@@ -757,16 +807,16 @@ void sub_803D2D8(u8* pc) {
 }
 
 //! FE8U = 0x0803D354
-void sub_803D354(u8* pc) {
+void AiScriptCmd_1A_MoveTowardsTerrain(u8* pc) {
     struct Vec2 pos;
 
     GenerateExtendedMovementMapOnRange(gActiveUnit->xPos, gActiveUnit->yPos, GetUnitMovementCost(gActiveUnit));
 
-    if (AiFindClosestTerrainPosition(gUnknown_030017D0->unk_08, 0, &pos) == 1) {
-        AiTryMoveTowards(pos.x, pos.y, 0, gUnknown_030017D0->unk_02, 1);
+    if (AiFindClosestTerrainPosition(gpAiScriptCurrent->unk_08, 0, &pos) == 1) {
+        AiTryMoveTowards(pos.x, pos.y, 0, gpAiScriptCurrent->unk_02, 1);
     } else {
         gAiState.unk86[0] = 4;
-        gUnknown_030017C8 = 0;
+        gAiScriptEnded = 0;
     }
 
     (*pc)++;
@@ -775,17 +825,17 @@ void sub_803D354(u8* pc) {
 }
 
 //! FE8U = 0x0803D3D0
-void sub_803D3D0(u8* pc) {
+void AiScriptCmd_1B_NoOp(u8* pc) {
     (*pc)++;
-    gUnknown_030017C8 = 0;
+    gAiScriptEnded = 0;
 
     return;
 }
 
 //! FE8U = 0x0803D3E4
 void AiDoBerserkAction(void) {
-    if (!sub_803FA40(sub_803C818)) {
-        sub_803D450(sub_803C848);
+    if (!sub_803FA40(AiIsUnitEnemy)) {
+        sub_803D450(AiIsUnitNonActive);
     }
 
     return;
@@ -795,7 +845,7 @@ void AiDoBerserkAction(void) {
 void AiDoBerserkMove(void) {
     struct Vec2 pos;
 
-    if (AiFindTargetInReachByFunc(sub_803C848, &pos) == 1) {
+    if (AiFindTargetInReachByFunc(AiIsUnitNonActive, &pos) == 1) {
         AiTryMoveTowards(pos.x, pos.y , 0, -1, 1);
     }
 

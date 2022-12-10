@@ -4072,7 +4072,7 @@ _0803F2EC:
 	cmp r5, #0
 	bge _0803F26A
 _0803F2F2:
-	ldr r0, _0803F328  @ sub_803C818
+	ldr r0, _0803F328  @ AiIsUnitEnemy
 	bl sub_803D6B8
 	ldr r0, _0803F32C  @ gAiDecision
 	ldrb r0, [r0, #0xa]
@@ -4099,7 +4099,7 @@ _0803F314:
 	pop {r1}
 	bx r1
 	.align 2, 0
-_0803F328: .4byte sub_803C818
+_0803F328: .4byte AiIsUnitEnemy
 _0803F32C: .4byte gAiDecision
 
 	THUMB_FUNC_END sub_803F15C
@@ -4720,7 +4720,7 @@ sub_803F790: @ 0x0803F790
 	ldrb r4, [r4]
 	cmp r0, r4
 	bhi _0803F7CC
-	ldr r4, _0803F7C8  @ sub_803C818
+	ldr r4, _0803F7C8  @ AiIsUnitEnemy
 	adds r0, r4, #0
 	bl sub_803FA40
 	lsls r0, r0, #0x18
@@ -4731,7 +4731,7 @@ sub_803F790: @ 0x0803F790
 	b _0803F7D4
 	.align 2, 0
 _0803F7C4: .4byte gAiState
-_0803F7C8: .4byte sub_803C818
+_0803F7C8: .4byte AiIsUnitEnemy
 _0803F7CC:
 	adds r1, r3, #0
 	adds r1, #0x79
@@ -4767,11 +4767,11 @@ sub_803F7DC: @ 0x0803F7DC
 	ldrb r4, [r4, #1]
 	cmp r0, r4
 	bhi _0803F820
-	ldr r0, _0803F814  @ sub_803C818
+	ldr r0, _0803F814  @ AiIsUnitEnemy
 	bl sub_803D450
 	b _0803F820
 	.align 2, 0
-_0803F814: .4byte sub_803C818
+_0803F814: .4byte AiIsUnitEnemy
 _0803F818:
 	ldr r0, _0803F828  @ gAiState
 	adds r0, #0x79

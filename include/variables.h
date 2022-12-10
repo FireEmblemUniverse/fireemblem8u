@@ -687,10 +687,6 @@ extern struct OamDataTransfer gUnknown_03000030;
 // extern ??? gUnknown_03001788
 // extern ??? gDungeonState
 // extern ??? gUnknown_030017AC
-// extern ??? gUnknown_030017C8
-// extern ??? gUnknown_030017CC
-// extern ??? gUnknown_030017D0
-// extern ??? gUnknown_030017D4
 // extern ??? gUnknown_030017D8
 // extern ??? gUnknown_030017E0
 // extern ??? gUnknown_030017E4
@@ -871,7 +867,6 @@ extern short gSinLookup[]; // gSinTable; needs to be non-const to match?
 // extern ??? gUnknown_080D8070
 // extern ??? gUnknown_080D80C4
 // extern ??? gUnknown_080D80E8
-// extern ??? gUnknown_080D80FC
 // extern ??? gUnknown_080D8178
 // extern ??? gUnknown_080D8538
 // extern ??? gUnknown_080D867C
@@ -1560,8 +1555,8 @@ extern u16 CONST_DATA Pal_MineFx[];
 // extern ??? gProcScr_CpPhase
 // extern ??? gProcScr_BerserkCpPhase
 // extern ??? gProcScr_CpDecide
-// extern ??? gUnknown_085A812C
-// extern ??? gUnknown_085A813C
+// extern ??? gAiScript_FallbackAi1
+// extern ??? gAiScript_FallbackAi2
 // extern ??? gUnknown_085A814C
 // extern ??? gUnknown_085A8150
 // extern ??? gUnknown_085A8188
@@ -1569,8 +1564,8 @@ extern u16 CONST_DATA Pal_MineFx[];
 // extern ??? gUnknown_085A8390
 // extern ??? gUnknown_085A83A4
 // extern ??? gUnknown_085A8400
-// extern ??? gUnknown_085A91D8
-// extern ??? gUnknown_085A91E4
+// extern ??? gpAi2Table
+// extern ??? gpAi1Table
 // extern ??? gUnknown_085A91F0
 // extern ??? gUnknown_085A9254
 // extern ??? gUnknown_085A92B8

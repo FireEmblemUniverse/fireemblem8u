@@ -1,11 +1,11 @@
     .section .data
 
-	.global gUnknown_085A812C
-gUnknown_085A812C:  @ 0x085A812C
+	.global gAiScript_FallbackAi1
+gAiScript_FallbackAi1:  @ 0x085A812C
 	.incbin "baserom.gba", 0x5A812C, 0x10
 
-	.global gUnknown_085A813C
-gUnknown_085A813C:  @ 0x085A813C
+	.global gAiScript_FallbackAi2
+gAiScript_FallbackAi2:  @ 0x085A813C
 	.incbin "baserom.gba", 0x5A813C, 0x10
 
 	.global gUnknown_085A814C
@@ -15,15 +15,15 @@ gUnknown_085A814C:  @ 0x085A814C
 	.global gUnknown_085A8150
 gUnknown_085A8150:  @ 0x085A8150
 @ Replacing .incbin "baserom.gba", 0x5A8150, 0x38
-    .4byte gUnknown_080D80FC + 0x70
-    .4byte gUnknown_080D80FC + 0x71
-    .4byte gUnknown_080D80FC + 0x72
-    .4byte gUnknown_080D80FC + 0x73
-    .4byte gUnknown_080D80FC + 0x74
-    .4byte gUnknown_080D80FC + 0x75
-    .4byte gUnknown_080D80FC + 0x76
-    .4byte gUnknown_080D80FC + 0x77
-    .4byte gUnknown_080D80FC + 0x78
+    .4byte 0x080D816C
+    .4byte 0x080D816D
+    .4byte 0x080D816E
+    .4byte 0x080D816F
+    .4byte 0x080D8170
+    .4byte 0x080D8171
+    .4byte 0x080D8172
+    .4byte 0x080D8173
+    .4byte 0x080D8174
     .4byte 0x0
     .4byte 0x0
     .4byte 0x0
@@ -1089,15 +1089,15 @@ gUnknown_085A8400:  @ 0x085A8400
     .4byte gUnknown_085A8400 + 0x650
     .4byte gUnknown_085A8400 + 0x67c
 
-	.global gUnknown_085A91D8
-gUnknown_085A91D8:  @ 0x085A91D8
+	.global gpAi2Table
+gpAi2Table:  @ 0x085A91D8
 @ replacing .incbin "baserom.gba", 0x005a91d8, 0xc
 .4byte gUnknown_085A8400 + 0xd38
 .4byte gUnknown_085A8400 + 0xd38
 .4byte gUnknown_085A8400 + 0xd38
 
-	.global gUnknown_085A91E4
-gUnknown_085A91E4:  @ 0x085A91E4
+	.global gpAi1Table
+gpAi1Table:  @ 0x085A91E4
 @ replacing .incbin "baserom.gba", 0x005a91e4, 0xc
 .4byte gUnknown_085A8400 + 0xd84
 .4byte gUnknown_085A8400 + 0xd84
