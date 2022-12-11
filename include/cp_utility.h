@@ -1,7 +1,7 @@
 #ifndef GUARD_CP_UTILITY_H
 #define GUARD_CP_UTILITY_H
 
-s8 AiCompare(u8* left, u8 op, u32 right);
+s8 AiCompare(const u8* left, u8 op, u32 right);
 s8 AiFindTargetInReachByCharId(int uid, struct Vec2* out);
 s8 AiFindTargetInReachByClassId(int classId, struct Vec2* out);
 s8 AiFindTargetInReachByFunc(s8(*func)(struct Unit* unit), struct Vec2* out);

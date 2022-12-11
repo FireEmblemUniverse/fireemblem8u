@@ -93,6 +93,7 @@ enum {
 
     CHARACTER_FOMORTIIS    = 0xBE,
 
+    CHARACTER_CITIZEN      = 0xFC,
     CHARACTER_ARENA_OPPONENT = 0xFD,
     CHARACTER_WALL         = 0xFE,
     CHARACTER_SNAG         = 0xFF,

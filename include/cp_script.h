@@ -43,11 +43,11 @@ struct AiScr
     /* 02 */ u8 unk_02;
     /* 03 */ u8 unk_03;
     /* 04 */ u32 unk_04;
-    /* 08 */ void* unk_08;
-    /* 0C */ void* unk_0C;
+    /* 08 */ const void* unk_08;
+    /* 0C */ const void* unk_0C;
 };
 
-typedef s8(*AiScrFunc)(void* arg);
+typedef s8(*AiScrFunc)(const void* arg);
 
 s8 AiTryExecScriptA(void);
 s8 AiExecFallbackScriptA(void);

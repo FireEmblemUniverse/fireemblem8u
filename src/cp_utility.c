@@ -2,6 +2,7 @@
 
 #include "cp_common.h"
 
+#include "cp_data.h"
 #include "bmunit.h"
 #include "bmidoten.h"
 #include "bmmap.h"
@@ -13,9 +14,6 @@
 #include "constants/terrains.h"
 
 #include "cp_utility.h"
-
-extern u8* gUnknown_085A8150[];
-extern u16 gUnknown_085A83A4[];
 
 // forward decl.
 s8 AiGetChestUnlockItemSlot(u8*);
@@ -38,7 +36,7 @@ struct Vec2 CONST_DATA sRange3OffsetLut[] =
 
 
 //! FE8U = 0x0803A71C
-s8 AiCompare(u8* left, u8 op, u32 right) {
+s8 AiCompare(const u8* left, u8 op, u32 right) {
     switch (op) {
         case AI_COMPARE_GT:
             if (*left > right) {
@@ -910,7 +908,7 @@ s8 AiFindBestAdjacentPositionByFunc(int x, int y, u8(*funcArg)(int x, int y), st
 int AiGetItemStealRank(u16 item) {
     int result = 0;
 
-    u16* it = gUnknown_085A83A4;
+    u16* it = gAiStealPriorityItemList;
 
     while (*it != 0xFFFF) {
         if (*it == item) {
@@ -1236,10 +1234,10 @@ s8 AiGetUnitClosestValidPosition(struct Unit* unit, s16 x, s16 y, struct Vec2* o
 //! FE8U = 0x0803BF4C
 u8 AiGetClassRank(u8 classId) {
     u8 num = 0;
-    u8** it = gUnknown_085A8150;
+    const u8** it = gAiClassRankLists;
 
     while (*it != NULL) {
-        u8* itClass = *it;
+        const u8* itClass = *it;
 
         while (*itClass != 0) {
             if (*itClass == classId) {

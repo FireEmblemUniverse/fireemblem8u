@@ -867,8 +867,6 @@ extern short gSinLookup[]; // gSinTable; needs to be non-const to match?
 // extern ??? gUnknown_080D8070
 // extern ??? gUnknown_080D80C4
 // extern ??? gUnknown_080D80E8
-// extern ??? gUnknown_080D8178
-// extern ??? gUnknown_080D8538
 // extern ??? gUnknown_080D867C
 // extern ??? gUnknown_080D8680
 // extern ??? gUnknown_080D868C
@@ -1555,17 +1553,6 @@ extern u16 CONST_DATA Pal_MineFx[];
 // extern ??? gProcScr_CpPhase
 // extern ??? gProcScr_BerserkCpPhase
 // extern ??? gProcScr_CpDecide
-// extern ??? gAiScript_FallbackAi1
-// extern ??? gAiScript_FallbackAi2
-// extern ??? gUnknown_085A814C
-// extern ??? gUnknown_085A8150
-// extern ??? gUnknown_085A8188
-// extern ??? gUnknown_085A828C
-// extern ??? gUnknown_085A8390
-// extern ??? gUnknown_085A83A4
-// extern ??? gUnknown_085A8400
-// extern ??? gpAi2Table
-// extern ??? gpAi1Table
 // extern ??? gUnknown_085A91F0
 // extern ??? gUnknown_085A9254
 // extern ??? gUnknown_085A92B8
@@ -2894,7 +2881,7 @@ extern u8 CONST_DATA gUnknown_088ADFA6[]; // Solar Brace class list
 extern const struct SupportBonuses gAffinityBonuses[];
 // extern ??? gUnknown_088B39EC
 // extern ??? gUnknown_088B3AD8
-// extern ??? gUnknown_088D1F54
+extern struct UnitDefinition gUnknown_088D1F54[];
 // extern ??? gUnknown_088D2058
 // extern ??? gConvoBackgroundData
 extern u8 CONST_DATA gUnknown_0895DFA4[][2];
