@@ -2894,7 +2894,7 @@ extern u8 CONST_DATA gUnknown_088ADFA6[]; // Solar Brace class list
 extern const struct SupportBonuses gAffinityBonuses[];
 // extern ??? gUnknown_088B39EC
 // extern ??? gUnknown_088B3AD8
-// extern ??? gUnknown_088D1F54
+extern struct UnitDefinition gUnknown_088D1F54[];
 // extern ??? gUnknown_088D2058
 // extern ??? gConvoBackgroundData
 extern u8 CONST_DATA gUnknown_0895DFA4[][2];

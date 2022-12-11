@@ -38,7 +38,7 @@ struct Vec2 CONST_DATA sRange3OffsetLut[] =
 
 
 //! FE8U = 0x0803A71C
-s8 AiCompare(u8* left, u8 op, u32 right) {
+s8 AiCompare(const u8* left, u8 op, u32 right) {
     switch (op) {
         case AI_COMPARE_GT:
             if (*left > right) {
