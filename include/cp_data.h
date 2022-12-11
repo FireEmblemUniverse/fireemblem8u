@@ -23,11 +23,22 @@ struct AiHealThreshold {
     /* 01 */ u8 enterThreshold;
 };
 
-
 enum {
     AI_ENABLE_DOOR_KEY  = (1 << 0),
     AI_ENABLE_LOCKPICK  = (1 << 1),
     AI_ENABLE_ANTITOXIN = (1 << 2),
 };
+
+extern const struct AiCombatScoreCoefficients gAiCombatScoreCoefficientTable[];
+extern const u32 gAiItemConfigTable[];
+
+extern u8 CONST_DATA gUnknown_085A814C[];
+extern const u8* CONST_DATA gAiClassRankLists[];
+extern const struct AiEscapePt* CONST_DATA gRedAiEscapePoints[];
+extern const struct AiEscapePt* CONST_DATA gGreenAiEscapePoints[];
+extern struct AiHealThreshold CONST_DATA gAI3HealingThresholdTable[];
+extern u16 CONST_DATA gAiStealPriorityItemList[];
+extern struct AiScr** CONST_DATA gpAi2Table[];
+extern struct AiScr** CONST_DATA gpAi1Table[];
 
 #endif // GUARD_CP_DATA_H

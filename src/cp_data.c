@@ -20,38 +20,39 @@ u8 CONST_DATA gUnknown_085A814C[] = {
     TERRAIN_WALL_1B, TERRAIN_SNAG, 0,
 };
 
-const u8 gUnknown_080D816C[] = { 0, };
+const u8 gClassList_Empty1[] = { 0 };
 
-const u8 gUnknown_080D816D[] = { 0, };
+const u8 gClassList_Empty2[] = { 0 };
 
-const u8 gUnknown_080D816E[] = { 0, };
+const u8 gClassList_Empty3[] = { 0 };
 
-const u8 gUnknown_080D816F[] = { 0, };
+const u8 gClassList_Empty4[] = { 0 };
 
-const u8 gUnknown_080D8170[] = { 0, };
+const u8 gClassList_Empty5[] = { 0 };
 
-const u8 gUnknown_080D8171[] = { 0, };
+const u8 gClassList_Empty6[] = { 0 };
 
-const u8 gUnknown_080D8172[] = { 0, };
+const u8 gClassList_Empty7[] = { 0 };
 
-const u8 gUnknown_080D8173[] = { 0, };
+const u8 gClassList_Empty8[] = { 0 };
 
-const u8 gUnknown_080D8174[] = { 0, };
+const u8 gClassList_Empty9[] = { 0 };
 
-const u8* CONST_DATA gUnknown_085A8150[] = {
-    gUnknown_080D816C,
-    gUnknown_080D816D,
-    gUnknown_080D816E,
-    gUnknown_080D816F,
-    gUnknown_080D8170,
-    gUnknown_080D8171,
-    gUnknown_080D8172,
-    gUnknown_080D8173,
-    gUnknown_080D8174,
+// unused in FE8; leftover from FE6
+const u8* CONST_DATA gAiClassRankLists[] = {
+    gClassList_Empty1,
+    gClassList_Empty2,
+    gClassList_Empty3,
+    gClassList_Empty4,
+    gClassList_Empty5,
+    gClassList_Empty6,
+    gClassList_Empty7,
+    gClassList_Empty8,
+    gClassList_Empty9,
     0,
 };
 
-const struct AiCombatScoreCoefficients gUnknown_080D8178[] = {
+const struct AiCombatScoreCoefficients gAiCombatScoreCoefficientTable[] = {
     [0] = {
         .coeffDamageDealt = 2,
         .coeffLowHpOpponent = 1,
@@ -772,7 +773,7 @@ const struct AiEscapePt AiEscapePts_32[] = {
     { -1, 0, 0 },
 };
 
-const struct AiEscapePt* CONST_DATA gUnknown_085A8188[] = {
+const struct AiEscapePt* CONST_DATA gRedAiEscapePoints[] = {
     [0x00] = AiEscapePts_None,
     [0x01] = AiEscapePts_None,
     [0x02] = AiEscapePts_None,
@@ -840,7 +841,7 @@ const struct AiEscapePt* CONST_DATA gUnknown_085A8188[] = {
     [0x40] = AiEscapePts_None,
 };
 
-const struct AiEscapePt* CONST_DATA gUnknown_085A828C[] = {
+const struct AiEscapePt* CONST_DATA gGreenAiEscapePoints[] = {
     [0x00] = AiEscapePts_None,
     [0x01] = AiEscapePts_None,
     [0x02] = AiEscapePts_None,
@@ -908,7 +909,7 @@ const struct AiEscapePt* CONST_DATA gUnknown_085A828C[] = {
     [0x40] = AiEscapePts_None,
 };
 
-struct AiHealThreshold CONST_DATA gUnknown_085A8390[] = {
+struct AiHealThreshold CONST_DATA gAI3HealingThresholdTable[] = {
     { 100,  50, },
     {  80,  30, },
     {  50,  10, },
@@ -916,7 +917,7 @@ struct AiHealThreshold CONST_DATA gUnknown_085A8390[] = {
     {   0,   0, },
 };
 
-u16 CONST_DATA gUnknown_085A83A4[] = {
+u16 CONST_DATA gAiStealPriorityItemList[] = {
     ITEM_MEMBERCARD,
     ITEM_SILVERCARD,
     ITEM_HOPLON_SHIELD,
@@ -961,7 +962,7 @@ u16 CONST_DATA gUnknown_085A83A4[] = {
     -1,
 };
 
-const u32 gUnknown_080D8538[] = {
+const u32 gAiItemConfigTable[] = {
     [0x00] = (AI_ENABLE_DOOR_KEY | AI_ENABLE_LOCKPICK | AI_ENABLE_ANTITOXIN),
     [0x01] = (AI_ENABLE_DOOR_KEY | AI_ENABLE_LOCKPICK | AI_ENABLE_ANTITOXIN),
     [0x02] = (AI_ENABLE_DOOR_KEY | AI_ENABLE_LOCKPICK | AI_ENABLE_ANTITOXIN),
@@ -1097,71 +1098,71 @@ s8 AiTryDKSummon(const void*);
 s8 AiDecideDKSummon(const void*);
 
 // 0x00 = Move towards opponents. If blocked, do nothing
-struct AiScr CONST_DATA AiScr_Unk_085A8410[] = {
+struct AiScr CONST_DATA gAiScript_Ai2x00[] = {
     AI_MOVE_TO_ENEMY,
     AI_GOTO_START,
 };
 
 // 0x0F = Move towards opponents. Move as close as possible when blocked.
-struct AiScr CONST_DATA AiScr_Unk_085A8430[] = {
+struct AiScr CONST_DATA gAiScript_085A8430[] = {
     AI_MOVE_TO_ENEMY_2,
     AI_GOTO_START,
 };
 
 // 0x12 = Wait one turn, then change AI2 to 0x0 (Pursue)
-struct AiScr CONST_DATA AiScr_Unk_085A8450[] = {
+struct AiScr CONST_DATA gAiScript_Ai2x12_85A8450[] = {
     AI_NOP_0E,
     AI_SET_AI2(0x0),
     AI_GOTO_START,
 };
 
 // 0x11 = Wait one turn, then change AI2 to 0x4 (raid then attack)
-struct AiScr CONST_DATA AiScr_Unk_085A8480[] = {
+struct AiScr CONST_DATA gAiScript_Ai2x11_85A8480[] = {
     AI_NOP_0E,
     AI_SET_AI2(0x4),
     AI_GOTO_START,
 };
 
 // 0x01 = Move towards opponents, but not character(s) 0x0 (5A817A)
-struct AiScr CONST_DATA AiScr_Unk_085A84B0[] = {
+struct AiScr CONST_DATA gAiScript_085A84B0[] = {
     AI_MOVE_TO_ENEMY_IGNORING(gUnknown_085A817A),
     AI_GOTO_START,
 };
 
 // 0x02 = Move towards opponents, but not character(s) 0x0 (5A817C)
-struct AiScr CONST_DATA AiScr_Unk_085A84D0[] = {
+struct AiScr CONST_DATA gAiScript_085A84D0[] = {
     AI_MOVE_TO_ENEMY_IGNORING(gUnknown_085A817C),
     AI_GOTO_START,
 };
 
 // 0x03 = Do nothing
-struct AiScr CONST_DATA AiScr_Unk_085A84F0[] = {
+struct AiScr CONST_DATA gAiScript_085A84F0[] = {
     AI_NOP_0E,
     AI_GOTO_START,
 };
 
 // 0x04 = Loot villages/open chests, then change AI2 to 0x0
-struct AiScr CONST_DATA AiScr_Unk_085A8510[] = {
+struct AiScr CONST_DATA gAiScript_Ai2x04_85A8510[] = {
     AI_PILLAGE,
     AI_SET_AI(0x0, 0x0),
     AI_GOTO_START,
 };
 
 // 0x05 = Loot villages/open chests, then change AI2 to 0xC
-struct AiScr CONST_DATA AiScr_Unk_085A8540[] = {
+struct AiScr CONST_DATA gAiScript_085A8540[] = {
     AI_PILLAGE,
     AI_SET_AI(0x6, 0xC),
     AI_GOTO_START,
 };
 
 // 0x0C = Move to escape point and escape; if cannot escape, do nothing
-struct AiScr CONST_DATA AiScr_Unk_085A8570[] = {
+struct AiScr CONST_DATA gAiScript_Escape[] = {
     AI_ESCAPE,
     AI_GOTO_START,
 };
 
 // unused?
-struct AiScr CONST_DATA AiScr_Unk_085A8590[] =
+struct AiScr CONST_DATA gAiScript_085A8590[] =
 {
     AI_MOVE_TOWARDS(21, 17),
 AI_LABEL(0x1),
@@ -1170,7 +1171,7 @@ AI_LABEL(0x1),
 };
 
 // 0x08 = ?
-struct AiScr CONST_DATA AiScr_Unk_085A85D0[] = {
+struct AiScr CONST_DATA gAiScript_085A85D0[] = {
     AI_CALL_FUNC(sub_803F434, 0x0),
     AI_GOTO_IFGT(0x1, gAiState.unk86+0, 0x0),
     AI_GOTO_START,
@@ -1179,7 +1180,7 @@ AI_LABEL(0x1),
 };
 
 // 0x06 = If could reach opponents in two turns, change AI2 to 0x0
-struct AiScr CONST_DATA AiScr_Unk_085A8620[] = {
+struct AiScr CONST_DATA gAiScript_085A8620[] = {
     AI_CALL_FUNC(sub_803F018, gUnknown_080D8664),
     AI_GOTO_IFGT(0x1, gAiState.unk86+0, 0x0),
     AI_NOP_0E,
@@ -1190,7 +1191,7 @@ AI_LABEL(0x1),
 };
 
 // 0x07 = If could reach opponents in two turns, change AI2 to 0x1
-struct AiScr CONST_DATA AiScr_Unk_085A8690[] = {
+struct AiScr CONST_DATA gAiScript_085A8690[] = {
     AI_CALL_FUNC(sub_803F018, gUnknown_080D8664),
     AI_GOTO_IFGT(0x1, gAiState.unk86+0, 0x0),
     AI_NOP_0E,
@@ -1201,7 +1202,7 @@ AI_LABEL(0x1),
 };
 
 // unused?
-struct AiScr CONST_DATA AiScr_Unk_085A8700[] = {
+struct AiScr CONST_DATA gAiScript_085A8700[] = {
     AI_CALL_FUNC(sub_803F018, gUnknown_080D8664),
     AI_GOTO_IFGT(0x1, gAiState.unk86+0, 0),
     AI_NOP_0E,
@@ -1214,13 +1215,13 @@ AI_LABEL(0x1),
 };
 
 // 0x09 = Random movement
-struct AiScr CONST_DATA AiScr_Unk_085A8790[] = {
+struct AiScr CONST_DATA gAiScript_085A8790[] = {
     AI_MOVE_RANDOM,
     AI_GOTO_START,
 };
 
 // unused?
-struct AiScr CONST_DATA AiScr_Unk_085A87B0[] = {
+struct AiScr CONST_DATA gAiScript_085A87B0[] = {
     AI_MOVE_TO_LISTED_TERRAIN(gUnknown_085A8180),
     AI_GOTO_IFEQ(0x1, gAiState.unk86+0, 0x4),
     AI_GOTO_START,
@@ -1230,63 +1231,63 @@ AI_BAD_LABEL(0x1),
 };
 
 // 0x0D = Move on to nearest terrain 0x1B/0x1F (Throne/Fence) (0x5A8182)
-struct AiScr CONST_DATA AiScr_Unk_085A8810[] = {
+struct AiScr CONST_DATA gAiScript_085A8810[] = {
     AI_MOVE_TO_LISTED_TERRAIN(gUnknown_085A8182),
     AI_GOTO_IFEQ(0x1, gAiState.unk86+0, 0x4),
     AI_GOTO_START,
 };
 
 // unused
-struct AiScr CONST_DATA AiScr_Unk_085A8840[] = {
+struct AiScr CONST_DATA gAiScript_085A8840[] = {
     AI_BAD_LABEL(0x1),
     AI_MOVE_TO_ENEMY,
     AI_GOTO_START,
 };
 
 // 0x00 = Action 100%
-struct AiScr CONST_DATA AiScr_Unk_085A8870[] = {
+struct AiScr CONST_DATA gAiScript_ActionInRange[] = {
     AI_ACTION(100),
     AI_GOTO_START,
 };
 
 // 0x01 = Action 80%, end turn without moving/acting 20%
-struct AiScr CONST_DATA AiScr_Unk_085A8890[] = {
+struct AiScr CONST_DATA gAiScript_ActionInRange_80Perc[] = {
     AI_ACTION(80),
     AI_GOTO_START,
 };
 
 // 0x02 = Action 50%, end turn without moving/acting 50%
-struct AiScr CONST_DATA AiScr_Unk_085A88B0[] = {
+struct AiScr CONST_DATA gAiScript_ActionInRange_50Perc[] = {
     AI_ACTION(50),
     AI_GOTO_START,
 };
 
 // 0x03 = Action without moving 100%
-struct AiScr CONST_DATA AiScr_Unk_085A88D0[] = {
+struct AiScr CONST_DATA gAiScript_ActionStanding[] = {
     AI_ACTION_IN_PLACE(100),
     AI_GOTO_START,
 };
 
 // 0x04 = Action without moving 80%, end turn without moving/acting 20%
-struct AiScr CONST_DATA AiScr_Unk_085A88F0[] = {
+struct AiScr CONST_DATA gAiScript_ActionStanding_80Perc[] = {
     AI_ACTION_IN_PLACE(80),
     AI_GOTO_START,
 };
 
 // 0x05 = Action without moving 50%, end turn without moving/acting 50%
-struct AiScr CONST_DATA AiScr_Unk_085A8910[] = {
+struct AiScr CONST_DATA gAiScript_ActionStanding_50Perc[] = {
     AI_ACTION_IN_PLACE(50),
     AI_GOTO_START,
 };
 
 // 0x06 = Do Nothing
-struct AiScr CONST_DATA AiScr_Unk_085A8930[] = {
+struct AiScr CONST_DATA gAiScript_DoNothing[] = {
     AI_NOP,
     AI_GOTO_START,
 };
 
 // unused
-struct AiScr CONST_DATA AiScr_Unk_085A8950[] = {
+struct AiScr CONST_DATA gAiScript_085A8950[] = {
     AI_ACTION(100),
     AI_CALL_FUNC(sub_803F330, NULL),
     AI_GOTO_IFGT(0x1, gAiState.unk86+0, 0x0),
@@ -1297,13 +1298,13 @@ AI_LABEL(0x1),
 };
 
 // unused
-struct AiScr CONST_DATA AiScr_Unk_085A89C0[] = {
+struct AiScr CONST_DATA gAiScript_085A89C0[] = {
     AI_ACTION(100),
     AI_GOTO_START,
 };
 
 // unused
-struct AiScr CONST_DATA AiScr_Unk_085A89E0[] = {
+struct AiScr CONST_DATA gAiScript_085A89E0[] = {
     AI_ACTION(100),
     AI_GOTO_START,
 };
@@ -1311,7 +1312,7 @@ struct AiScr CONST_DATA AiScr_Unk_085A89E0[] = {
 u8 CONST_DATA gUnknown_085A8A00[] = { CHARACTER_NATASHA, 0, 0, 0 };
 
 // 0x07 = Do not attack character 0xD (Natasha, character at 5A8A00)
-struct AiScr CONST_DATA AiScr_Unk_085A8A04[] = {
+struct AiScr CONST_DATA gAiScript_ActionInRange_ExceptNatasha[] = {
     AI_ACTION_IGNORING(100, gUnknown_085A8A00),
     AI_GOTO_START,
 };
@@ -1319,7 +1320,7 @@ struct AiScr CONST_DATA AiScr_Unk_085A8A04[] = {
 const u16 CONST_DATA gUnknown_085A8A24[] = { 0x100, 0x100, 0 };
 
 // 0x12 = Do not attack character ??? (points to 00 01 00 01)
-struct AiScr CONST_DATA AiScr_Unk_085A8A2C[] = {
+struct AiScr CONST_DATA gAiScript_085A8A2C[] = {
     AI_ACTION_IGNORING(100, gUnknown_085A8A24),
     AI_GOTO_START,
 };
@@ -1327,7 +1328,7 @@ struct AiScr CONST_DATA AiScr_Unk_085A8A2C[] = {
 const u16 CONST_DATA gUnknown_085A8A4C[] = { 0x100, 0 };
 
 // 0x13 = Do not attack character ??? (points to 00 01 00 00)
-struct AiScr CONST_DATA AiScr_Unk_085A8A50[] = {
+struct AiScr CONST_DATA gAiScript_085A8A50[] = {
     AI_ACTION_IGNORING(100, gUnknown_085A8A4C),
     AI_GOTO_START,
 };
@@ -1343,7 +1344,7 @@ const u8 CONST_DATA gUnknown_085A8A74[] = {
 struct UnitDefinition* CONST_DATA gUnknown_085A8A78 = gUnknown_088D1F54;
 
 // 0x14 = Try to use Nightmare (but not on turn one), then try to Summon Units, then act like 0x0 (AttackInRange)
-struct AiScr CONST_DATA AiScr_Unk_085A8A7C[] = {
+struct AiScr CONST_DATA gAiScript_085A8A7C[] = {
     AI_CALL_FUNC(AiTryUseNightmareStaff, gUnknown_085A8A70),
     AI_GOTO_IFEQ(0x1, gAiState.unk86+0, 0x0),
     AI_CALL_FUNC(AiDecideNightmareStaff, 0x0),
@@ -1361,25 +1362,25 @@ AI_LABEL(0x2),
 u8 CONST_DATA gUnknown_085A8B3C[] = { CHARACTER_CITIZEN, 0, 0, 0 };
 
 // 0x08 = Do not attack character 0xFC (character at 5A8B3C)
-struct AiScr CONST_DATA AiScr_Unk_085A8B40[] = {
+struct AiScr CONST_DATA gAiScript_ActionInRange_ExceptCivilian[] = {
     AI_ACTION_IGNORING(100, gUnknown_085A8B3C),
     AI_GOTO_START,
 };
 
 // unused
-struct AiScr CONST_DATA AiScr_Unk_085A8B60[] = {
+struct AiScr CONST_DATA gAiScript_085A8B60[] = {
     AI_ACTION_IGNORING(100, gUnknown_085A817C),
     AI_GOTO_START,
 };
 
 // 0x09 = Do not attack character 0x0 (character at 5A817C)
-struct AiScr CONST_DATA AiScr_Unk_085A8B80[] = {
+struct AiScr CONST_DATA gAiScript_085A8B80[] = {
     AI_ACTION_IGNORING(100, gUnknown_085A817E),
     AI_GOTO_START,
 };
 
 // 0x0A = Only attack character ??? if deployed. (currently 00 01, set it at 5A8BA4)
-struct AiScr CONST_DATA AiScr_Unk_085A8BA0[] = {
+struct AiScr CONST_DATA gAiScript_085A8BA0[] = {
     AI_ACTION_ON_CHAR(100, 0x100),
     AI_GOTO_IFNE(0x0, gAiState.unk86+0, 0x3),
     AI_ACTION(100),
@@ -1387,13 +1388,13 @@ struct AiScr CONST_DATA AiScr_Unk_085A8BA0[] = {
 };
 
 // 0x0B = Same as 0x0
-struct AiScr CONST_DATA AiScr_Unk_085A8BE0[] = {
+struct AiScr CONST_DATA gAiScript_085A8BE0[] = {
     AI_ACTION(100),
     AI_GOTO_START,
 };
 
 // 0x0C = Attack if within Mov/2+Range(?)
-struct AiScr CONST_DATA AiScr_Unk_085A8C00[] = {
+struct AiScr CONST_DATA gAiScript_085A8C00[] = {
     AI_CALL_FUNC(sub_803F018, gUnknown_080D8668),
     AI_GOTO_IFGT(0x1, gAiState.unk86+0, 0x0),
     AI_ACTION_IN_PLACE(100),
@@ -1404,7 +1405,7 @@ AI_LABEL(0x1),
 };
 
 // 0x0D = CHAI [0x0, 0x0] if the unit's leader has foe in range.(?)
-struct AiScr CONST_DATA AiScr_Unk_085A8C70[] = {
+struct AiScr CONST_DATA gAiScript_085A8C70[] = {
     AI_CALL_FUNC(sub_803F51C, NULL),
     AI_GOTO_IFEQ(0x1, gAiState.unk86+1, 0x1),
     AI_CALL_FUNC(sub_803F72C, NULL),
@@ -1415,13 +1416,13 @@ AI_LABEL(0x1),
 };
 
 // unused
-struct AiScr CONST_DATA AiScr_Unk_085A8CE0[] = {
+struct AiScr CONST_DATA gAiScript_085A8CE0[] = {
     AI_SET_AI(0x0, 0x0),
     AI_GOTO_START,
 };
 
 // unused
-struct AiScr CONST_DATA AiScr_Unk_085A8D00[] = {
+struct AiScr CONST_DATA gAiScript_085A8D00[] = {
     AI_CALL_FUNC(sub_803F018, gUnknown_080D866C),
     AI_GOTO_IFGT(0x1, gAiState.unk86+0, 0x0),
     AI_MOVE_TOWARDS(5, 7),
@@ -1433,7 +1434,7 @@ AI_LABEL(0x1),
 };
 
 // unused
-struct AiScr CONST_DATA AiScr_Unk_085A8D80[] = {
+struct AiScr CONST_DATA gAiScript_085A8D80[] = {
     AI_CALL_FUNC(sub_803F018, gUnknown_080D866C),
     AI_GOTO_IFGT(0x1, gAiState.unk86+0, 0x0),
     AI_MOVE_TOWARDS(17, 6),
@@ -1445,7 +1446,7 @@ AI_LABEL(0x1),
 };
 
 // 0x0A = Move to character 0x1 Eirika if not in range, or move to opponents if so
-struct AiScr CONST_DATA AiScr_Unk_085A8E00[] = {
+struct AiScr CONST_DATA gAiScript_085A8E00[] = {
     AI_MOVE_TOWARDS_CHAR(CHARACTER_EIRIKA),
     AI_GOTO_IFEQ(0x1, gAiState.unk86+0, 0x4),
     AI_GOTO_IFEQ(0x2, gAiState.unk86+0, 0x1),
@@ -1460,7 +1461,7 @@ AI_LABEL(0x2),
 };
 
 // 0x0B = Move to character 0xF Ephraim if not in range, or move to opponents if so
-struct AiScr CONST_DATA AiScr_Unk_085A8EB0[] = {
+struct AiScr CONST_DATA gAiScript_085A8EB0[] = {
     AI_MOVE_TOWARDS_CHAR(CHARACTER_EPHRAIM),
     AI_GOTO_IFEQ(0x1, gAiState.unk86+0, 0x4),
     AI_GOTO_IFEQ(0x2, gAiState.unk86+0, 0x1),
@@ -1475,27 +1476,27 @@ AI_LABEL(0x2),
 };
 
 // unused
-struct AiScr CONST_DATA AiScr_Unk_085A8F60[] = {
+struct AiScr CONST_DATA gAiScript_085A8F60[] = {
     AI_CALL_FUNC(sub_803F51C, NULL),
     AI_CALL_FUNC(sub_803F72C, NULL),
     AI_GOTO_START,
 };
 
 // 0x0E = Heal allies under 50% HP(?)
-struct AiScr CONST_DATA AiScr_Unk_085A8F90[] = {
+struct AiScr CONST_DATA gAiScript_085A8F90[] = {
     AI_CALL_FUNC(sub_803F790, gUnknown_080D8670),
     AI_GOTO_START,
 };
 
 // 0x0F = Alternate between 0xE and 0x3
-struct AiScr CONST_DATA AiScr_Unk_085A8FB0[] = {
+struct AiScr CONST_DATA gAiScript_085A8FB0[] = {
     AI_CALL_FUNC(sub_803F790, gUnknown_080D8670),
     AI_ACTION_IN_PLACE(100),
     AI_GOTO_START,
 };
 
 // 0x10 = Pick Locks/Steal, then CHAI [0x6, 0xC] (Escape)
-struct AiScr CONST_DATA AiScr_Unk_085A8FE0[] = {
+struct AiScr CONST_DATA gAiScript_085A8FE0[] = {
     AI_CALL_FUNC(sub_803F7DC, gUnknown_080D8674),
     AI_GOTO_IFEQ(0x1, gAiState.unk86+0, 0x5),
     AI_GOTO_START,
@@ -1505,13 +1506,13 @@ AI_LABEL(0x1),
 };
 
 // 0x11 = Pick Locks/Steal
-struct AiScr CONST_DATA AiScr_Unk_085A9040[] = {
+struct AiScr CONST_DATA gAiScript_085A9040[] = {
     AI_CALL_FUNC(sub_803F7DC, gUnknown_080D8678),
     AI_GOTO_START,
 };
 
 // 0x0E = Attack walls until no more remain(?), then CHAI [0x0,0x0]
-struct AiScr CONST_DATA AiScr_Unk_085A9060[] = {
+struct AiScr CONST_DATA gAiScript_AttackWallsSnags[] = {
     AI_ATTACK_WALLS,
     AI_GOTO_IFEQ(0x1, gAiState.unk86+0, 0x4),
     AI_GOTO_START,
@@ -1529,7 +1530,7 @@ const u8 CONST_DATA gUnknown_085A90C4[] = {
 };
 
 // 0x10 = If not in area [13,15]-[18,19], move to [15,17]; if in area, CHAI [0x0,0x0]
-struct AiScr CONST_DATA AiScr_Unk_085A90C8[] = {
+struct AiScr CONST_DATA gAiScript_085A90C8[] = {
     AI_CALL_FUNC(sub_803F4A4, gUnknown_085A90C4),
     AI_GOTO_IFEQ(0x1, gAiState.unk86+0, 0x1),
     AI_CALL_FUNC(sub_803F9A8, gUnknown_085A90C0),
@@ -1539,60 +1540,60 @@ AI_LABEL(0x1),
     AI_GOTO_START,
 };
 
-struct AiScr* CONST_DATA gUnknown_085A9138[] = {
-    AiScr_Unk_085A8410,
-    AiScr_Unk_085A84B0,
-    AiScr_Unk_085A84D0,
-    AiScr_Unk_085A84F0,
-    AiScr_Unk_085A8510,
-    AiScr_Unk_085A8540,
-    AiScr_Unk_085A8620,
-    AiScr_Unk_085A8690,
-    AiScr_Unk_085A85D0,
-    AiScr_Unk_085A8790,
-    AiScr_Unk_085A8E00,
-    AiScr_Unk_085A8EB0,
-    AiScr_Unk_085A8570,
-    AiScr_Unk_085A8810,
-    AiScr_Unk_085A9060,
-    AiScr_Unk_085A8430,
-    AiScr_Unk_085A90C8,
-    AiScr_Unk_085A8480,
-    AiScr_Unk_085A8450,
+struct AiScr* CONST_DATA gAi2ScriptTable[] = {
+    gAiScript_Ai2x00,
+    gAiScript_085A84B0,
+    gAiScript_085A84D0,
+    gAiScript_085A84F0,
+    gAiScript_Ai2x04_85A8510,
+    gAiScript_085A8540,
+    gAiScript_085A8620,
+    gAiScript_085A8690,
+    gAiScript_085A85D0,
+    gAiScript_085A8790,
+    gAiScript_085A8E00,
+    gAiScript_085A8EB0,
+    gAiScript_Escape,
+    gAiScript_085A8810,
+    gAiScript_AttackWallsSnags,
+    gAiScript_085A8430,
+    gAiScript_085A90C8,
+    gAiScript_Ai2x11_85A8480,
+    gAiScript_Ai2x12_85A8450,
 };
 
-struct AiScr* CONST_DATA gUnknown_085A9184[] = {
-    AiScr_Unk_085A8870,
-    AiScr_Unk_085A8890,
-    AiScr_Unk_085A88B0,
-    AiScr_Unk_085A88D0,
-    AiScr_Unk_085A88F0,
-    AiScr_Unk_085A8910,
-    AiScr_Unk_085A8930,
-    AiScr_Unk_085A8A04,
-    AiScr_Unk_085A8B40,
-    AiScr_Unk_085A8B80,
-    AiScr_Unk_085A8BA0,
-    AiScr_Unk_085A8BE0,
-    AiScr_Unk_085A8C00,
-    AiScr_Unk_085A8C70,
-    AiScr_Unk_085A8F90,
-    AiScr_Unk_085A8FB0,
-    AiScr_Unk_085A8FE0,
-    AiScr_Unk_085A9040,
-    AiScr_Unk_085A8A2C,
-    AiScr_Unk_085A8A50,
-    AiScr_Unk_085A8A7C,
+struct AiScr* CONST_DATA gAi1ScriptTable[] = {
+    gAiScript_ActionInRange,
+    gAiScript_ActionInRange_80Perc,
+    gAiScript_ActionInRange_50Perc,
+    gAiScript_ActionStanding,
+    gAiScript_ActionStanding_80Perc,
+    gAiScript_ActionStanding_50Perc,
+    gAiScript_DoNothing,
+    gAiScript_ActionInRange_ExceptNatasha,
+    gAiScript_ActionInRange_ExceptCivilian,
+    gAiScript_085A8B80,
+    gAiScript_085A8BA0,
+    gAiScript_085A8BE0,
+    gAiScript_085A8C00,
+    gAiScript_085A8C70,
+    gAiScript_085A8F90,
+    gAiScript_085A8FB0,
+    gAiScript_085A8FE0,
+    gAiScript_085A9040,
+    gAiScript_085A8A2C,
+    gAiScript_085A8A50,
+    gAiScript_085A8A7C,
 };
 
 struct AiScr** CONST_DATA gpAi2Table[] = {
-    gUnknown_085A9138,
-    gUnknown_085A9138,
-    gUnknown_085A9138,
+    gAi2ScriptTable,
+    gAi2ScriptTable,
+    gAi2ScriptTable,
 };
 
 struct AiScr** CONST_DATA gpAi1Table[] = {
-    gUnknown_085A9184,
-    gUnknown_085A9184,
-    gUnknown_085A9184,
+    gAi1ScriptTable,
+    gAi1ScriptTable,
+    gAi1ScriptTable,
 };

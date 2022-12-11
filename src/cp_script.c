@@ -1,6 +1,7 @@
 #include "global.h"
 
 #include "cp_common.h"
+#include "cp_data.h"
 #include "bmunit.h"
 #include "cp_utility.h"
 #include "bmphase.h"
@@ -26,11 +27,6 @@ static AiScrFunc gpCurrentAiFunctionCall;
 
 extern struct AiScr gAiScript_FallbackAi1[];
 extern struct AiScr gAiScript_FallbackAi2[];
-extern u8 gUnknown_085A814C[];
-extern struct AiScr** gpAi2Table[];
-extern struct AiScr** gpAi1Table[];
-
-extern AiScrCmd gUnknown_080D80FC[];
 
 // forward decl.
 void AiScript_Exec(u8*);

@@ -1751,7 +1751,7 @@ sub_803E178: @ 0x0803E178
 	lsls r0, r1, #2
 	adds r0, r0, r1
 	lsls r0, r0, #2
-	ldr r1, _0803E1DC  @ gUnknown_080D8178
+	ldr r1, _0803E1DC  @ gAiCombatScoreCoefficientTable
 	adds r0, r0, r1
 	str r0, [r2]
 	bl sub_803DF34
@@ -1784,7 +1784,7 @@ _0803E1C8:
 	.align 2, 0
 _0803E1D4: .4byte gUnknown_030017D8
 _0803E1D8: .4byte gAiState
-_0803E1DC: .4byte gUnknown_080D8178
+_0803E1DC: .4byte gAiCombatScoreCoefficientTable
 _0803E1E0:
 	adds r4, r5, #0
 _0803E1E2:
@@ -2442,7 +2442,7 @@ AiUpdateGetUnitIsHealing: @ 0x0803E698
 	ands r0, r3
 	cmp r0, #0
 	beq _0803E6E8
-	ldr r2, _0803E6E4  @ gUnknown_085A8390
+	ldr r2, _0803E6E4  @ gAI3HealingThresholdTable
 	adds r0, r5, #0
 	adds r0, #0x40
 	ldrh r1, [r0]
@@ -2459,9 +2459,9 @@ AiUpdateGetUnitIsHealing: @ 0x0803E698
 	movs r0, #0
 	b _0803E710
 	.align 2, 0
-_0803E6E4: .4byte gUnknown_085A8390
+_0803E6E4: .4byte gAI3HealingThresholdTable
 _0803E6E8:
-	ldr r2, _0803E704  @ gUnknown_085A8390
+	ldr r2, _0803E704  @ gAI3HealingThresholdTable
 	adds r0, r5, #0
 	adds r0, #0x40
 	ldrh r1, [r0]
@@ -2475,7 +2475,7 @@ _0803E6E8:
 	movs r0, #0
 	b _0803E710
 	.align 2, 0
-_0803E704: .4byte gUnknown_085A8390
+_0803E704: .4byte gAI3HealingThresholdTable
 _0803E708:
 	movs r0, #1
 	orrs r0, r3
@@ -2696,12 +2696,12 @@ _0803E8A2:
 	movs r0, #0
 	b _0803E8F2
 _0803E8A6:
-	ldr r1, _0803E8AC  @ gUnknown_085A8188
+	ldr r1, _0803E8AC  @ gRedAiEscapePoints
 	b _0803E8B2
 	.align 2, 0
-_0803E8AC: .4byte gUnknown_085A8188
+_0803E8AC: .4byte gRedAiEscapePoints
 _0803E8B0:
-	ldr r1, _0803E8F8  @ gUnknown_085A828C
+	ldr r1, _0803E8F8  @ gGreenAiEscapePoints
 _0803E8B2:
 	lsls r0, r2, #2
 	adds r0, r0, r1
@@ -2744,7 +2744,7 @@ _0803E8F2:
 	pop {r1}
 	bx r1
 	.align 2, 0
-_0803E8F8: .4byte gUnknown_085A828C
+_0803E8F8: .4byte gGreenAiEscapePoints
 _0803E8FC: .4byte gBmMapMovement
 
 	THUMB_FUNC_END GetEscapePointStructThingMaybe

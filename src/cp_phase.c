@@ -2,11 +2,10 @@
 #include "global.h"
 
 #include "proc.h"
+#include "cp_data.h"
 #include "cp_utility.h"
 
 #include "cp_common.h"
-
-extern const u32 gUnknown_080D8538[];
 
 static void AiPhaseInit(struct Proc* proc);
 static void AiPhaseBerserkInit(struct Proc* proc);
@@ -50,7 +49,7 @@ static void AiPhaseInit(struct Proc* proc)
     for (i = 0; i < 8; ++i)
         gAiState.unk86[i] = 0;
 
-    gAiState.specialItemFlags = gUnknown_080D8538[gRAMChapterData.chapterIndex];
+    gAiState.specialItemFlags = gAiItemConfigTable[gRAMChapterData.chapterIndex];
     gAiState.unk84 = 0;
 
     UpdateAllPhaseHealingAIStatus();
@@ -69,7 +68,7 @@ static void AiPhaseBerserkInit(struct Proc* proc)
     for (i = 0; i < 8; ++i)
         gAiState.unk86[i] = 0;
 
-    gAiState.specialItemFlags = gUnknown_080D8538[gRAMChapterData.chapterIndex];
+    gAiState.specialItemFlags = gAiItemConfigTable[gRAMChapterData.chapterIndex];
 
     UpdateAllPhaseHealingAIStatus();
     SetupUnitInventoryAIFlags();
