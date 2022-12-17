@@ -149,6 +149,8 @@ SECTIONS
         asm/code_80A2C3C.o(.text);
         src/minimap.o(.text);
         asm/code_80A882C.o(.text);
+        asm/uiconfig.o(.text);
+        asm/code_80B24DC.o(.text);
         src/opinfo.o(.text);
         src/classdisplayfont.o(.text);
         src/bmshop.o(.text);
