@@ -37,7 +37,6 @@ void ClearLocalEvents(void);
 
 // code.s
 void sub_8086BB8(ProcPtr, u8*, int);
-void EndBG3Slider(ProcPtr);
 void sub_80A41C8(void);
 int GetGlobalCompletionCount(void);
 void sub_80A4CD8(void);
