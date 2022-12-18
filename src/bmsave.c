@@ -1064,13 +1064,13 @@ void SaveEndgameRankings()
     struct GameRankSaveData old, new;
 
     int chapter_mode = GetNextChapterMode();
-    int diffcult = 1 & gRAMChapterData.chapterStateBits >> 6;
+    int difficult = 1 & gRAMChapterData.chapterStateBits >> 6;
 
-    GenerateGameRankSaveData(&new, chapter_mode, diffcult);
-    sub_80A39E4(&old, chapter_mode, diffcult);
+    GenerateGameRankSaveData(&new, chapter_mode, difficult);
+    sub_80A39E4(&old, chapter_mode, difficult);
 
     if (0 != JudgeGameRankSaveData(&old, &new))
-        SaveNewRankData(&new, chapter_mode, diffcult);
+        SaveNewRankData(&new, chapter_mode, difficult);
 }
 
 void sub_80A3E28()
@@ -1853,15 +1853,15 @@ int GetCurerentGameMode()
 void RegisterCompletedPlaythrough()
 {
     struct SaveMeta sec_head;
-    int mode, diffcult, is_toturial;
+    int mode, difficult, isTutorial;
     
     mode = GetCurerentGameMode();
 
     /* Maybe flag definition should be modified? */
-    diffcult = (gRAMChapterData.chapterStateBits >> 6);
-    diffcult &= 1;
+    difficult = (gRAMChapterData.chapterStateBits >> 6);
+    difficult &= 1;
 
-    is_toturial = gRAMChapterData.unk42_6;
+    isTutorial = gRAMChapterData.cfgController;
 
     if (0 == LoadGeneralGameMetadata(&sec_head)) {
         InitSaveMetadata();
@@ -1873,18 +1873,18 @@ void RegisterCompletedPlaythrough()
 
     switch (mode) {
     case CHAPTER_MODE_EIRIKA:
-        if (0 == is_toturial)
+        if (0 == isTutorial)
             sec_head.Eirk_mode_easy = 1;
-        else if (0 != diffcult)
+        else if (0 != difficult)
             sec_head.Eirk_mode_hard = 1;
         else
             sec_head.Eirk_mode_norm = 1;
         break;
     
     case CHAPTER_MODE_EPHRAIM:
-        if (0 == is_toturial)
+        if (0 == isTutorial)
             sec_head.Ephy_mode_easy = 1;
-        else if (0 != diffcult)
+        else if (0 != difficult)
             sec_head.Ephy_mode_hard = 1;
         else
             sec_head.Ephy_mode_norm = 1;
@@ -2012,7 +2012,7 @@ void CopyGameSave(int index_src, int index_dest)
     SaveMetadata_Save(&chunk, index_dest);
 }
 
-void SaveNewGame(int index, int isDifficult, int mode, int isToturial)
+void SaveNewGame(int index, int isDifficult, int mode, int isTutorial)
 {
     int i;
     struct SramChunk chunk;
@@ -2024,11 +2024,11 @@ void SaveNewGame(int index, int isDifficult, int mode, int isToturial)
     if (0 == mode)
         mode = gRAMChapterData.chapterModeIndex;
 
-    if (isToturial < 0)
-        isToturial = gRAMChapterData.unk42_6;
+    if (isTutorial < 0)
+        isTutorial = gRAMChapterData.cfgController;
 
     SetGameClock(0);
-    InitPlaythroughState(isDifficult, isToturial);
+    InitPlaythroughState(isDifficult, isTutorial);
     ClearUnits();
     ClearConvoyItems();
     sub_8083D18();

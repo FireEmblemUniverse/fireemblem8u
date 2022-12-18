@@ -1471,7 +1471,7 @@ static u16 MU_GetMovementSpeed(struct MUProc* proc) {
 
             if (speed & 0x40)
                 speed ^= 0x40;
-            else if (gRAMChapterData.unk40_8 || (gKeyStatusPtr->heldKeys & A_BUTTON))
+            else if (gRAMChapterData.cfgGameSpeed || (gKeyStatusPtr->heldKeys & A_BUTTON))
                 speed *= 4;
 
             if (speed > 0x80)
@@ -1483,7 +1483,7 @@ static u16 MU_GetMovementSpeed(struct MUProc* proc) {
         if (!IsFirstPlaythrough() && (gKeyStatusPtr->heldKeys & A_BUTTON))
             return 0x80;
 
-        if (gRAMChapterData.unk40_8)
+        if (gRAMChapterData.cfgGameSpeed)
             return 0x40;
     }
 

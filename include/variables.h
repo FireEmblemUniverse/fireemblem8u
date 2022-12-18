@@ -1163,7 +1163,6 @@ extern const u8 *const gMsgStringTable[];
 // extern ??? gUnknown_08205DE9
 // extern ??? gUnknown_08205E18
 // extern ??? gUnknown_08205E28
-// extern ??? gUnknown_08205E50
 // extern ??? gUnknown_08205F1C
 // extern ??? gUnknown_08205F20
 // extern ??? gUnknown_08205F24
@@ -3530,15 +3529,6 @@ extern u8 gUnknown_08A2E4C4[]; // TSA
 extern u8 gUnknown_08A2E5EC[]; // Gfx
 extern u16 gUnknown_08A2E8F0[]; // Pal
 // extern ??? gUnknown_08A2E950
-// extern ??? gUnknown_08A2E974
-// extern ??? gUnknown_08A2E978
-// extern ??? gUnknown_08A2E986
-// extern ??? gUnknown_08A2E99C
-// extern ??? gUnknown_08A2EC88
-// extern ??? gUnknown_08A2ECA8
-extern struct ProcCmd CONST_DATA gProcScr_Config1[];
-extern struct ProcCmd CONST_DATA gUnknown_08A2ED88[];
-// extern ??? gUnknown_08A2EE00
 // extern ??? gUnknown_08A2EE90
 // extern ??? gUnknown_08A2EEC0
 extern u8 gUnknown_08A301B0[]; // gfx?

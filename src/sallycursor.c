@@ -25,6 +25,7 @@
 #include "player_interface.h"
 #include "bb.h"
 #include "bmshop.h"
+#include "uiconfig.h"
 
 #include "sallycursor.h"
 
@@ -85,7 +86,6 @@ extern struct Vec2 gActiveUnitMoveOrigin;
 
 extern struct ProcCmd CONST_DATA gProcScr_ADJUSTSFROMXI[];
 extern u16 CONST_DATA gUnknown_085A0EA0[]; // ap
-extern struct ProcCmd CONST_DATA gUnknown_08A2ED88[];
 
 static struct ProcCmd CONST_DATA sProcScr_SALLYCURSORHelpPrompt[] = {
     PROC_CALL(sub_8033548),
@@ -907,7 +907,7 @@ void sub_8033EA4() {
 }
 
 void sub_8033EC0(ProcPtr proc) {
-    Proc_StartBlocking(gUnknown_08A2ED88, proc);
+    Proc_StartBlocking(gProcScr_Config2, proc);
     return;
 }
 

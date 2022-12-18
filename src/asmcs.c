@@ -84,7 +84,7 @@ void sub_8085374(struct EventEngineProc *proc)
 
 void sub_8085388(struct EventEngineProc *proc)
 {
-    if ((CHAPTER_FLAG_3 & gRAMChapterData.chapterStateBits) || 0 == gRAMChapterData.unk41_1)
+    if ((CHAPTER_FLAG_3 & gRAMChapterData.chapterStateBits) || 0 == gRAMChapterData.cfgDisableBgm)
         Sound_FadeOutBGM(4);
 }
 

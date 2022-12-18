@@ -33,10 +33,10 @@ void sub_80029E8(int songId, int b, int c, int d, struct Proc *parent);
 // ??? sub_8002A6C(???);
 // ??? sub_8002A88(???);
 void DeleteAll6CWaitMusicRelated();
-// ??? sub_8002AC8(???);
+void sub_8002AC8(void);
 
 #define PlaySoundEffect(id) \
-    if (!gRAMChapterData.unk41_2) \
+    if (!gRAMChapterData.cfgDisableSoundEffects) \
         m4aSongNumStart((id))
 
 extern struct ProcCmd CONST_DATA gMusicProc3Script[];
