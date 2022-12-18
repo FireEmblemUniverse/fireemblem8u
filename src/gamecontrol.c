@@ -652,7 +652,7 @@ void sub_8009CA4(ProcPtr proc) {
 void sub_8009CC0(ProcPtr proc) {
     ClearSaveBlock(3);
 
-    gRAMChapterData.unk41_1 = 0;
+    gRAMChapterData.cfgDisableBgm = 0;
 
     return;
 }
@@ -927,21 +927,21 @@ void nullsub_9() {
 }
 
 void GameControl_EnableSoundEffects(ProcPtr proc) {
-    gRAMChapterData.unk41_1 = 0;
-    gRAMChapterData.unk41_2 = 0;
+    gRAMChapterData.cfgDisableBgm = 0;
+    gRAMChapterData.cfgDisableSoundEffects = 0;
 
     return;
 }
 
 void sub_8009FF8(ProcPtr proc) {
 
-    gRAMChapterData.unk42_2 = 0;
+    gRAMChapterData.cfgAnimationType = 0;
     gRAMChapterData.cfgTextSpeed = 1;
-    gRAMChapterData.unk40_8 = 0;
-    gRAMChapterData.unk41_1 = 0;
-    gRAMChapterData.unk41_2 = 1;
+    gRAMChapterData.cfgGameSpeed = 0;
+    gRAMChapterData.cfgDisableBgm = 0;
+    gRAMChapterData.cfgDisableSoundEffects = 1;
     gRAMChapterData.cfgWindowColor = 0;
-    gRAMChapterData.unk40_1 = 0;
+    gRAMChapterData.cfgUnitColor = 0;
 
     return;
 }

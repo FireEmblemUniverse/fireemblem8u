@@ -33,7 +33,7 @@ void GetPlayerStartCursorPosition(int *px, int *py)
         gRAMChapterData.yCursor = unit->yPos;
     }
 
-    if (1 != gRAMChapterData.auto_cursor) {
+    if (1 != gRAMChapterData.cfgAutoCursor) {
         unit = GetUnitFromCharId(GetPlayerLeaderUnitId());
         *px = unit->xPos;
         *py = unit->yPos;

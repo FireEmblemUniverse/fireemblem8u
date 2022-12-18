@@ -945,22 +945,22 @@ void InitPlaythroughState(int isDifficult, s8 unk) {
         gRAMChapterData.chapterStateBits |= CHAPTER_FLAG_DIFFICULT;
 
     // TODO: WHAT ARE THOSE
-    gRAMChapterData.unk42_6 = unk;
-    gRAMChapterData.unk42_2 = 0;
+    gRAMChapterData.cfgController = unk;
+    gRAMChapterData.cfgAnimationType = 0;
     gRAMChapterData.cfgDisableTerrainDisplay = 0;
     gRAMChapterData.cfgUnitDisplayType = 0;
-    gRAMChapterData.auto_cursor = 0;
+    gRAMChapterData.cfgAutoCursor = 0;
     gRAMChapterData.cfgTextSpeed = 1; // TODO: (DEFAULT?) TEXT SPEED DEFINITIONS
-    gRAMChapterData.unk40_8 = 0;
-    gRAMChapterData.unk41_1 = 0;
-    gRAMChapterData.unk41_2 = 0;
+    gRAMChapterData.cfgGameSpeed = 0;
+    gRAMChapterData.cfgDisableBgm = 0;
+    gRAMChapterData.cfgDisableSoundEffects = 0;
     gRAMChapterData.cfgWindowColor = 0;
-    gRAMChapterData.unk41_7 = 0;
+    gRAMChapterData.cfgDisableAutoEndTurns = 0;
     gRAMChapterData.cfgNoSubtitleHelp = 0;
     gRAMChapterData.cfgBattleForecastType = 0;
     gRAMChapterData.unk42_8 = 0;
     gRAMChapterData.unk43_2 = 0;
-    gRAMChapterData.unk40_1 = 0;
+    gRAMChapterData.cfgUnitColor = 0;
     gRAMChapterData.unk41_5 = 0;
 }
 

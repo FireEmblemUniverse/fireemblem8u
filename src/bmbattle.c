@@ -2120,8 +2120,8 @@ int GetBattleAnimType(void) {
     // TODO: battle anim type constants
 
     // If not solo anim, return global type
-    if (gRAMChapterData.unk42_2 != 2)
-        return gRAMChapterData.unk42_2;
+    if (gRAMChapterData.cfgAnimationType != 2)
+        return gRAMChapterData.cfgAnimationType;
 
     // If both units are players, use actor solo anim type
     if (UNIT_FACTION(&gBattleActor.unit) == FACTION_BLUE)

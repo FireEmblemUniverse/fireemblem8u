@@ -1300,7 +1300,7 @@ void TrySwitchViewedUnit(int x, int y) {
 
 void PlayerPhase_HandleAutoEnd(ProcPtr proc) {
 
-    if (!(gRAMChapterData.unk41_7) && (GetPhaseAbleUnitCount(gRAMChapterData.faction) == 0)) {
+    if (!(gRAMChapterData.cfgDisableAutoEndTurns) && (GetPhaseAbleUnitCount(gRAMChapterData.faction) == 0)) {
         Proc_Goto(proc, 3);
     }
 

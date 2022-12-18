@@ -11,6 +11,7 @@
 #include "bmio.h"
 #include "statscreen.h"
 
+#include "uiconfig.h"
 
 struct Selector {
     /* 00 */ u16 helpTextId;
@@ -56,56 +57,36 @@ struct ConfigProc {
     /* 36 */ u8 unk_36;
 };
 
-enum {
-    GAME_OPTION_ANIMATION      =  0,
-    GAME_OPTION_TERRAIN        =  1,
-    GAME_OPTION_UNIT           =  2,
-    GAME_OPTION_AUTOCURSOR     =  3,
-    GAME_OPTION_TEXT_SPEED     =  4,
-    GAME_OPTION_GAME_SPEED     =  5,
-    GAME_OPTION_MUSIC          =  6,
-    GAME_OPTION_SOUND_EFFECTS  =  7,
-    GAME_OPTION_WINDOW_COLOR   =  8,
-    GAME_OPTION_CPU_LEVEL      =  9,
-    GAME_OPTION_COMBAT         = 10,
-    GAME_OPTION_SUBTITLE_HELP  = 11,
-    GAME_OPTION_AUTOEND_TURNS  = 12,
-    GAME_OPTION_UNIT_COLOR     = 13,
-    GAME_OPTION_OBJECTIVE      = 14,
-    GAME_OPTION_CONTROLLER     = 15,
-    GAME_OPTION_RANK_DISPLAY   = 16,
+struct ConfigScreen* CONST_DATA gConfigUiState = (struct ConfigScreen*) gGenericBuffer;
+
+u8 CONST_DATA gGameOptionsUiOrder[] = {
+    [ 0] = GAME_OPTION_ANIMATION,
+    [ 1] = GAME_OPTION_GAME_SPEED,
+    [ 2] = GAME_OPTION_TEXT_SPEED,
+    [ 3] = GAME_OPTION_TERRAIN,
+    [ 4] = GAME_OPTION_UNIT,
+    [ 5] = GAME_OPTION_COMBAT,
+    [ 6] = GAME_OPTION_OBJECTIVE,
+    [ 7] = GAME_OPTION_SUBTITLE_HELP,
+    [ 8] = GAME_OPTION_AUTOCURSOR,
+    [ 9] = GAME_OPTION_AUTOEND_TURNS,
+    [10] = GAME_OPTION_MUSIC,
+    [11] = GAME_OPTION_SOUND_EFFECTS,
+    [12] = GAME_OPTION_WINDOW_COLOR,
 };
 
-struct ConfigScreen* CONST_DATA gUnknown_08A2E974 = (struct ConfigScreen*) gGenericBuffer;
-
-u8 CONST_DATA gUnknown_08A2E978[] = {
-    GAME_OPTION_ANIMATION,
-    GAME_OPTION_GAME_SPEED,
-    GAME_OPTION_TEXT_SPEED,
-    GAME_OPTION_TERRAIN,
-    GAME_OPTION_UNIT,
-    GAME_OPTION_COMBAT,
-    GAME_OPTION_OBJECTIVE,
-    GAME_OPTION_SUBTITLE_HELP,
-    GAME_OPTION_AUTOCURSOR,
-    GAME_OPTION_AUTOEND_TURNS,
-    GAME_OPTION_MUSIC,
-    GAME_OPTION_SOUND_EFFECTS,
-    GAME_OPTION_WINDOW_COLOR,
-};
-
-u16 CONST_DATA gUnknown_08A2E986[] = {
+u16 CONST_DATA gSprite_ConfigurationUiHeader[] = {
     3,
     0x4000, 0x8000, 0x0000,
     0x4000, 0x8020, 0x0004,
     0x4000, 0x8040, 0x0008,
 };
 
-s8 sub_80B1C90(ProcPtr proc);
-s8 sub_80B1CAC(ProcPtr proc);
-s8 sub_80B1D14(ProcPtr);
+s8 WindowColorOptionChangeHandler(ProcPtr proc);
+s8 MusicOptionChangeHandler(ProcPtr proc);
+s8 GenericOptionChangeHandler(ProcPtr);
 
-struct GameOption CONST_DATA gUnknown_08A2E99C[] = {
+struct GameOption CONST_DATA gGameOptions[] = {
     [GAME_OPTION_ANIMATION] = {
         .msgId = 0x90, // Animation[.]
         .selectors = {
@@ -115,7 +96,7 @@ struct GameOption CONST_DATA gUnknown_08A2E99C[] = {
             { 0xa4, 0xc7, 0xa5, 2 },
         },
         .icon = 0x0,
-        .func = sub_80B1D14
+        .func = GenericOptionChangeHandler
     },
 
     [GAME_OPTION_TERRAIN] = {
@@ -127,7 +108,7 @@ struct GameOption CONST_DATA gUnknown_08A2E99C[] = {
             { 0x00, 0x00, 0xbd, 0 },
         },
         .icon = 0x02,
-        .func = sub_80B1D14,
+        .func = GenericOptionChangeHandler,
     },
 
     [GAME_OPTION_UNIT] = {
@@ -139,7 +120,7 @@ struct GameOption CONST_DATA gUnknown_08A2E99C[] = {
             { 0x00, 0x00, 0xbd, 0 },
         },
         .icon = 0x04,
-        .func = sub_80B1D14,
+        .func = GenericOptionChangeHandler,
     },
 
     [GAME_OPTION_AUTOCURSOR] = {
@@ -151,7 +132,7 @@ struct GameOption CONST_DATA gUnknown_08A2E99C[] = {
             { 0x00, 0x00, 0xbd, 0 },
         },
         .icon = 0x06,
-        .func = sub_80B1D14,
+        .func = GenericOptionChangeHandler,
     },
 
     [GAME_OPTION_TEXT_SPEED] = {
@@ -163,7 +144,7 @@ struct GameOption CONST_DATA gUnknown_08A2E99C[] = {
             { 0xaa, 0xc6, 0xcd, 2 },
         },
         .icon = 0x08,
-        .func = sub_80B1D14,
+        .func = GenericOptionChangeHandler,
     },
 
     [GAME_OPTION_GAME_SPEED] = {
@@ -175,7 +156,7 @@ struct GameOption CONST_DATA gUnknown_08A2E99C[] = {
             { 0x00, 0x00, 0xbd, 0 },
         },
         .icon = 0x0a,
-        .func = sub_80B1D14,
+        .func = GenericOptionChangeHandler,
     },
 
     [GAME_OPTION_MUSIC] =  {
@@ -187,7 +168,7 @@ struct GameOption CONST_DATA gUnknown_08A2E99C[] = {
             { 0x00, 0x00, 0xbd, 0 },
         },
         .icon = 0x0c,
-        .func = sub_80B1CAC,
+        .func = MusicOptionChangeHandler,
     },
 
     [GAME_OPTION_SOUND_EFFECTS] = {
@@ -199,7 +180,7 @@ struct GameOption CONST_DATA gUnknown_08A2E99C[] = {
             { 0x00, 0x00, 0xbd, 0 },
         },
         .icon = 0x0e,
-        .func = sub_80B1D14,
+        .func = GenericOptionChangeHandler,
     },
 
     [GAME_OPTION_WINDOW_COLOR] = {
@@ -211,7 +192,7 @@ struct GameOption CONST_DATA gUnknown_08A2E99C[] = {
             { 0xb7, 0xc2, 0x9d, 1 },
         },
         .icon = 0x10,
-        .func = sub_80B1C90,
+        .func = WindowColorOptionChangeHandler,
     },
 
     [GAME_OPTION_CPU_LEVEL] = {
@@ -223,7 +204,7 @@ struct GameOption CONST_DATA gUnknown_08A2E99C[] = {
             { 0x00, 0x00, 0xbd, 0 },
         },
         .icon = 0x12,
-        .func = sub_80B1D14,
+        .func = GenericOptionChangeHandler,
     },
 
     [GAME_OPTION_COMBAT] = {
@@ -235,7 +216,7 @@ struct GameOption CONST_DATA gUnknown_08A2E99C[] = {
             { 0x00, 0x00, 0xbd, 0 },
         },
         .icon = 0x14,
-        .func = sub_80B1D14,
+        .func = GenericOptionChangeHandler,
     },
 
     [GAME_OPTION_SUBTITLE_HELP] = {
@@ -247,7 +228,7 @@ struct GameOption CONST_DATA gUnknown_08A2E99C[] = {
             { 0x00, 0x00, 0xbd, 0 },
         },
         .icon = 0x16,
-        .func = sub_80B1D14,
+        .func = GenericOptionChangeHandler,
     },
 
     [GAME_OPTION_AUTOEND_TURNS] = {
@@ -259,7 +240,7 @@ struct GameOption CONST_DATA gUnknown_08A2E99C[] = {
             { 0x00, 0x00, 0xbd, 0 },
         },
         .icon = 0x18,
-        .func = sub_80B1D14,
+        .func = GenericOptionChangeHandler,
     },
 
     [GAME_OPTION_UNIT_COLOR] = {
@@ -271,7 +252,7 @@ struct GameOption CONST_DATA gUnknown_08A2E99C[] = {
             { 0x00, 0x00, 0xbd, 0 },
         },
         .icon = 0x1a,
-        .func = sub_80B1D14,
+        .func = GenericOptionChangeHandler,
     },
 
     [GAME_OPTION_OBJECTIVE] = {
@@ -283,7 +264,7 @@ struct GameOption CONST_DATA gUnknown_08A2E99C[] = {
             { 0x00, 0x00, 0xbd, 0 },
         },
         .icon = 0x1c,
-        .func = sub_80B1D14,
+        .func = GenericOptionChangeHandler,
     },
 
     [GAME_OPTION_CONTROLLER] = {
@@ -295,7 +276,7 @@ struct GameOption CONST_DATA gUnknown_08A2E99C[] = {
             { 0x00, 0x00, 0xbd, 0 },
         },
         .icon = 0x1e,
-        .func = sub_80B1D14,
+        .func = GenericOptionChangeHandler,
     },
 
     [GAME_OPTION_RANK_DISPLAY] = {
@@ -307,31 +288,31 @@ struct GameOption CONST_DATA gUnknown_08A2E99C[] = {
             { 0x00, 0x00, 0xbd, 0 },
         },
         .icon = 0x20,
-        .func = sub_80B1D14,
+        .func = GenericOptionChangeHandler,
     }
 };
 
-void sub_80B1784(void);
+void DrawGameOptionHelpText(void);
 
-struct ProcCmd CONST_DATA gUnknown_08A2EC88[] = {
+struct ProcCmd CONST_DATA gProcScr_RedrawConfigHelpText[] = {
     PROC_NAME("E_CfExplReWrite"),
 
     PROC_SLEEP(1),
-    PROC_CALL(sub_80B1784),
+    PROC_CALL(DrawGameOptionHelpText),
 
     PROC_END,
 };
 
-void sub_80B1920(void);
-void sub_80B1938(void);
+void ConfigSprites_Init(void);
+void DrawConfigUiSprites(void);
 
-struct ProcCmd CONST_DATA gUnknown_08A2ECA8[] = {
+struct ProcCmd CONST_DATA gProcScr_DrawConfigUiSprites[] = {
     PROC_NAME("E_cfObj"),
 
-    PROC_CALL(sub_80B1920),
+    PROC_CALL(ConfigSprites_Init),
 
 PROC_LABEL(0),
-    PROC_CALL(sub_80B1938),
+    PROC_CALL(DrawConfigUiSprites),
     PROC_SLEEP(0),
 
     PROC_GOTO(0),
@@ -344,12 +325,12 @@ extern u8 gUnknown_08A0733C[]; // gfx
 extern u8 gUnknown_08A0754C[]; // gfx
 extern u8 gUnknown_08A079B4[]; // tsa
 
-u8 sub_80B1DE8(u8);
-void sub_80B1F64(u8, u8);
+u8 GetGameOption(u8);
+void SetGameOption(u8, u8);
 
 //! FE8U: 0x080B169C
 s16 sub_80B169C(void) {
-    int unk = gUnknown_08A2E974->unk_32;
+    int unk = gConfigUiState->unk_32;
 
     if (!(gRAMChapterData.chapterStateBits & CHAPTER_FLAG_DIFFICULT)) {
         return unk;
@@ -359,19 +340,19 @@ s16 sub_80B169C(void) {
 }
 
 //! FE8U = 0x080B16CC
-u8 sub_80B16CC(void) {
-    return gUnknown_08A2E974->unk_2a;
+u8 GetSelectedGameOption(void) {
+    return gConfigUiState->unk_2a;
 }
 
 //! FE8U = 0x080B16DC
-u8 sub_80B16DC(void) {
-    return sub_80B1DE8(gUnknown_08A2E978[gUnknown_08A2E974->unk_2a]);
+u8 GetSelectedOptionValue(void) {
+    return GetGameOption(gGameOptionsUiOrder[gConfigUiState->unk_2a]);
 }
 
 #if NONMATCHING
 
 //! FE8U: 0x080B1700
-void sub_80B1700(int a, int b) {
+void DrawGameOptionIcon(int a, int b) {
     int tmpA;
     int tmpB;
     int tmpC;
@@ -381,7 +362,7 @@ void sub_80B1700(int a, int b) {
     tmpC = (a * 2 + b) & 0x1f;
     tmpE = 0x20 * tmpC;
 
-    tmpA = gUnknown_08A2E99C[gUnknown_08A2E978[a]].icon;
+    tmpA = gGameOptions[gGameOptionsUiOrder[a]].icon;
 
     tmpB = (tmpA & 0x1f) + ((((tmpA) << 1) & 0xFFC0));
     tmpB += 0x200;
@@ -399,7 +380,7 @@ void sub_80B1700(int a, int b) {
 #else // if !NONMATCHING
 
 __attribute__((naked))
-void sub_80B1700(int a, int b) {
+void DrawGameOptionIcon(int a, int b) {
 
     asm("\n\
         .syntax unified\n\
@@ -409,8 +390,8 @@ void sub_80B1700(int a, int b) {
         movs r4, #0x1f\n\
         ands r2, r4\n\
         lsls r2, r2, #5\n\
-        ldr r3, _080B176C  @ gUnknown_08A2E99C\n\
-        ldr r1, _080B1770  @ gUnknown_08A2E978\n\
+        ldr r3, _080B176C  @ gGameOptions\n\
+        ldr r1, _080B1770  @ gGameOptionsUiOrder\n\
         adds r0, r0, r1\n\
         ldrb r1, [r0]\n\
         movs r0, #0x2c\n\
@@ -458,8 +439,8 @@ void sub_80B1700(int a, int b) {
         pop {r0}\n\
         bx r0\n\
         .align 2, 0\n\
-    _080B176C: .4byte gUnknown_08A2E99C\n\
-    _080B1770: .4byte gUnknown_08A2E978\n\
+    _080B176C: .4byte gGameOptions\n\
+    _080B1770: .4byte gGameOptionsUiOrder\n\
     _080B1774: .4byte 0x0000FFC0\n\
     _080B1778: .4byte gBG1TilemapBuffer\n\
     _080B177C: .4byte 0x00004001\n\
@@ -472,101 +453,101 @@ void sub_80B1700(int a, int b) {
 #endif // NONMATCHING
 
 //! FE8U: 0x080B1784
-void sub_80B1784(void) {
+void DrawGameOptionHelpText(void) {
     const char* str;
 
-    Text_Clear(&gUnknown_08A2E974->unk_a8);
+    Text_Clear(&gConfigUiState->unk_a8);
 
-    str = GetStringFromIndex(gUnknown_08A2E99C[gUnknown_08A2E978[gUnknown_08A2E974->unk_2a]].selectors[sub_80B16DC()].helpTextId);
+    str = GetStringFromIndex(gGameOptions[gGameOptionsUiOrder[gConfigUiState->unk_2a]].selectors[GetSelectedOptionValue()].helpTextId);
 
-    DrawTextInline(&gUnknown_08A2E974->unk_a8, gBG0TilemapBuffer + 0x244, 0, 0, 0x16, str);
+    DrawTextInline(&gConfigUiState->unk_a8, gBG0TilemapBuffer + 0x244, 0, 0, 22, str);
 
     return;
 }
 
 //! FE8U = 0x080B17E4
-void sub_80B17E4(int selectedIdx, int textIdx, int y) {
+void DrawGameOptionText(int selectedIdx, int textIdx, int y) {
     const char* str;
 
-    Text_Clear(&gUnknown_08A2E974->unk_38[textIdx]);
+    Text_Clear(&gConfigUiState->unk_38[textIdx]);
 
-    str = GetStringFromIndex(gUnknown_08A2E99C[gUnknown_08A2E978[selectedIdx]].msgId);
+    str = GetStringFromIndex(gGameOptions[gGameOptionsUiOrder[selectedIdx]].msgId);
 
-    DrawTextInline(&gUnknown_08A2E974->unk_38[textIdx], gBG1TilemapBuffer + 4 + y * 0x20, 0, 0, 9, str);
+    DrawTextInline(&gConfigUiState->unk_38[textIdx], gBG1TilemapBuffer + 4 + y * 0x20, 0, 0, 9, str);
 
     return;
 }
 
 //! FE8U: 0x080B1850
-void sub_80B1850(int selectedIdx, int textIdx, int y) {
+void DrawOptionValueTexts(int selectedIdx, int textIdx, int y) {
     int i;
 
-    int optionIdx = gUnknown_08A2E978[selectedIdx];
+    int optionIdx = gGameOptionsUiOrder[selectedIdx];
 
-    int x = gUnknown_08A2E99C[optionIdx].selectors[0].xPos / 8;
+    int x = gGameOptions[optionIdx].selectors[0].xPos / 8;
 
-    Text_Clear(&gUnknown_08A2E974->unk_70[textIdx]);
+    Text_Clear(&gConfigUiState->unk_70[textIdx]);
 
     for (i = 0; i < 4; i++) {
 
-        if (gUnknown_08A2E99C[optionIdx].selectors[i].optionTextId == 0) {
+        if (gGameOptions[optionIdx].selectors[i].optionTextId == 0) {
             break;
         }
 
         Text_InsertString(
-            &gUnknown_08A2E974->unk_70[textIdx],
-            gUnknown_08A2E99C[optionIdx].selectors[i].xPos - 0x70,
-            (i == sub_80B1DE8(optionIdx)) ? 2 : 1,
-            GetStringFromIndex(gUnknown_08A2E99C[optionIdx].selectors[i].optionTextId)
+            &gConfigUiState->unk_70[textIdx],
+            gGameOptions[optionIdx].selectors[i].xPos - 0x70,
+            (i == GetGameOption(optionIdx)) ? 2 : 1,
+            GetStringFromIndex(gGameOptions[optionIdx].selectors[i].optionTextId)
         );
 
     }
 
-    Text_Draw(&gUnknown_08A2E974->unk_70[textIdx], gBG1TilemapBuffer + (y * 0x20 + (x)));
+    Text_Draw(&gConfigUiState->unk_70[textIdx], gBG1TilemapBuffer + (y * 0x20 + (x)));
 
     return;
 }
 
 //! FE8U: 0x080B1920
-void sub_80B1920(void) {
+void ConfigSprites_Init(void) {
     LoadIconPalette(1, 0x12);
     UnpackUiVArrowGfx(0x80, 3);
     return;
 }
 
 //! FE8U = 0x080B1938
-void sub_80B1938(void) {
+void DrawConfigUiSprites(void) {
     int y;
 
-    int optionIdx = gUnknown_08A2E978[gUnknown_08A2E974->unk_2a];
+    int optionIdx = gGameOptionsUiOrder[gConfigUiState->unk_2a];
 
     u8 time = (GetGameClock() % 16) & 8;
 
-    CallARM_PushToSecondaryOAM(0x12, 8, gUnknown_08A2E986, 0x20c0);
+    CallARM_PushToSecondaryOAM(18, 8, gSprite_ConfigurationUiHeader, 0x20C0);
 
     // current option position on screen (cur index - top index)
-    y = (gUnknown_08A2E974->unk_2a - gUnknown_08A2E974->unk_2c) * 0x10 + 0x28;
+    y = (gConfigUiState->unk_2a - gConfigUiState->unk_2c) * 16 + 40;
 
-    DisplayFrozenUiHand(0x10, y);
+    DisplayFrozenUiHand(16, y);
 
-    DisplayUiHand(gUnknown_08A2E99C[optionIdx].selectors[sub_80B1DE8(optionIdx)].xPos - 2, y);
+    DisplayUiHand(gGameOptions[optionIdx].selectors[GetGameOption(optionIdx)].xPos - 2, y);
 
-    if (((gUnknown_08A2E974->unk_37 & 1) == 0) || (sub_8095970() != 0)) {
-        if ((sub_80B16CC() == 0) && (sub_80B16DC() == 3)) {
-            CallARM_PushToSecondaryOAM(0xc0, 0x28, gObject_16x16, (time  != 0) ? 0x20CC + 2 : 0x20CC);
+    if (((gConfigUiState->unk_37 & 1) == 0) || (sub_8095970() != 0)) {
+        if ((GetSelectedGameOption() == GAME_OPTION_ANIMATION) && (GetSelectedOptionValue() == 3)) {
+            CallARM_PushToSecondaryOAM(192, 40, gObject_16x16, (time  != 0) ? 0x20CC + 2 : 0x20CC);
         }
     }
 
-    sub_80976CC(10, gUnknown_08A2E974->unk_2e, (u16)gUnknown_08A2E974->unk_34, 6);
+    sub_80976CC(10, gConfigUiState->unk_2e, (u16)gConfigUiState->unk_34, 6);
 
     return;
 }
 
 //! FE8U = 0x080B1A08
-void sub_80B1A08(struct ConfigProc* proc) {
+void Config_Init(struct ConfigProc* proc) {
     int i;
 
-    u16 gUnknown_08205E50[12] = {
+    u16 bgConfig[12] = {
         0x0000, 0x6000, 0,
         0x0000, 0x6800, 0,
         0x0000, 0x7000, 0,
@@ -575,19 +556,19 @@ void sub_80B1A08(struct ConfigProc* proc) {
 
     i = 0;
 
-    SetupBackgrounds(gUnknown_08205E50);
+    SetupBackgrounds(bgConfig);
 
-    gUnknown_08A2E974->unk_32 = 0;
-    gUnknown_08A2E974->unk_34 = 0xd;
-    gUnknown_08A2E974->unk_2a = 0;
-    gUnknown_08A2E974->unk_2c = 0;
-    gUnknown_08A2E974->unk_2e = 0;
+    gConfigUiState->unk_32 = 0;
+    gConfigUiState->unk_34 = 13;
+    gConfigUiState->unk_2a = 0;
+    gConfigUiState->unk_2c = 0;
+    gConfigUiState->unk_2e = 0;
 
     proc->unk_30 = 0;
     proc->unk_36 = 0;
 
-    gUnknown_08A2E974->unk_37 &= ~1;
-    gUnknown_08A2E974->unk_37 &= ~2;
+    gConfigUiState->unk_37 &= ~1;
+    gConfigUiState->unk_37 &= ~2;
 
     Font_InitForUIDefault();
 
@@ -602,7 +583,7 @@ void sub_80B1A08(struct ConfigProc* proc) {
     gLCDControlBuffer.dispcnt.obj_on = 1;
 
     BG_SetPosition(0, 0, 0);
-    BG_SetPosition(1, 0, gUnknown_08A2E974->unk_2e);
+    BG_SetPosition(1, 0, gConfigUiState->unk_2e);
     BG_SetPosition(2, 0, 0);
     BG_SetPosition(3, 0, 0);
 
@@ -611,9 +592,9 @@ void sub_80B1A08(struct ConfigProc* proc) {
     gLCDControlBuffer.dispcnt.objWin_on = 0;
 
     gLCDControlBuffer.win0_left = 0;
-    gLCDControlBuffer.win0_top = 0x28;
-    gLCDControlBuffer.win0_right = 0xf0;
-    gLCDControlBuffer.win0_bottom = 0x88;
+    gLCDControlBuffer.win0_top = 40;
+    gLCDControlBuffer.win0_right = 240;
+    gLCDControlBuffer.win0_bottom = 136;
 
     gLCDControlBuffer.wincnt.win0_enableBg0 = 1;
     gLCDControlBuffer.wincnt.win0_enableBg1 = 1;
@@ -627,7 +608,7 @@ void sub_80B1A08(struct ConfigProc* proc) {
     gLCDControlBuffer.wincnt.wout_enableBg3 = 1;
     gLCDControlBuffer.wincnt.wout_enableObj = 1;
 
-    SetSpecialColorEffectsParameters(1, 0xe, 4, 0);
+    SetSpecialColorEffectsParameters(1, 14, 4, 0);
 
     SetBlendTargetA(0, 0, 1, 0, 0);
     SetBlendTargetB(0, 0, 0, 1, 0);
@@ -648,41 +629,41 @@ void sub_80B1A08(struct ConfigProc* proc) {
 
     Font_ResetAllocation();
 
-    Text_Init(&gUnknown_08A2E974->unk_a8, 0x16);
+    Text_Init(&gConfigUiState->unk_a8, 22);
 
-    sub_80B1784();
+    DrawGameOptionHelpText();
 
-    sub_8097748(proc, 0xe0, 0x2f, 0x7200, 1);
+    sub_8097748(proc, 224, 47, 0x7200, 1);
 
-    Text_Init(&gUnknown_08A2E974->unk_68, 9);
-    Text_Init(&gUnknown_08A2E974->unk_a0, 0xe);
+    Text_Init(&gConfigUiState->unk_68, 9);
+    Text_Init(&gConfigUiState->unk_a0, 14);
 
 
     for (; i < 6; i++) {
         int y = (i * 2) + 5;
 
-        sub_80B1700(i, 5);
+        DrawGameOptionIcon(i, 5);
 
-        Text_Init(&gUnknown_08A2E974->unk_38[i], 9);
-        Text_Init(&gUnknown_08A2E974->unk_70[i], 0xe);
+        Text_Init(&gConfigUiState->unk_38[i], 9);
+        Text_Init(&gConfigUiState->unk_70[i], 14);
 
-        sub_80B17E4(i, i, y);
-        sub_80B1850(i, i, y);
+        DrawGameOptionText(i, i, y);
+        DrawOptionValueTexts(i, i, y);
     }
 
-    sub_8086CE8(proc, 0, 0x12, 2, 0);
+    sub_8086CE8(proc, 0, 18, 2, 0);
 
-    Proc_Start(gUnknown_08A2ECA8, proc);
+    Proc_Start(gProcScr_DrawConfigUiSprites, proc);
 
-    BG_EnableSyncByMask(0xf);
+    BG_EnableSyncByMask(BG0_SYNC_BIT | BG1_SYNC_BIT | BG2_SYNC_BIT | BG3_SYNC_BIT);
 
     return;
 }
 
 //! FE8U = 0x080B1C90
-s8 sub_80B1C90(ProcPtr proc) {
+s8 WindowColorOptionChangeHandler(ProcPtr proc) {
 
-    if (sub_80B1D14(proc) != 0) {
+    if (GenericOptionChangeHandler(proc) != 0) {
         UnpackUiFrameBuffered(-1);
     }
 
@@ -690,23 +671,23 @@ s8 sub_80B1C90(ProcPtr proc) {
 }
 
 //! FE8U: 0x080B1CAC
-s8 sub_80B1CAC(ProcPtr proc) {
+s8 MusicOptionChangeHandler(ProcPtr proc) {
 
-    if (sub_80B1D14(proc) == 0) {
+    if (GenericOptionChangeHandler(proc) == 0) {
         return 0;
     }
 
-    if (sub_80B1DE8(gUnknown_08A2E978[gUnknown_08A2E974->unk_2a]) != 0) {
+    if (GetGameOption(gGameOptionsUiOrder[gConfigUiState->unk_2a]) != 0) {
         sub_8002AC8();
         return 0;
     }
 
-    if ((gUnknown_08A2E974->unk_37 & 1) != 0) {
+    if ((gConfigUiState->unk_37 & 1) != 0) {
         Sound_PlaySong80024D4(0x34, 0);
         return 0;
     }
 
-    if ((gUnknown_08A2E974->unk_37 & 2) != 0) {
+    if ((gConfigUiState->unk_37 & 2) != 0) {
         sub_80B9FC0();
     } else {
         sub_80160D0();
@@ -716,29 +697,29 @@ s8 sub_80B1CAC(ProcPtr proc) {
 }
 
 //! FE8U: 0x080B1D14
-s8 sub_80B1D14(ProcPtr proc) {
+s8 GenericOptionChangeHandler(ProcPtr proc) {
 
     int valueChanged = 0;
 
-    int selectedIdx = gUnknown_08A2E974->unk_2a;
-    u8 optionIdx = gUnknown_08A2E978[selectedIdx];
+    int selectedIdx = gConfigUiState->unk_2a;
+    u8 optionIdx = gGameOptionsUiOrder[selectedIdx];
 
-    u8 selectedValue = sub_80B16DC();
+    u8 selectedValue = GetSelectedOptionValue();
 
     if (gKeyStatusPtr->repeatedKeys & (DPAD_LEFT | DPAD_RIGHT)) {
 
         if (gKeyStatusPtr->repeatedKeys & (DPAD_LEFT)) {
             if (selectedValue != 0) {
                 selectedValue--;
-                sub_80B1F64(optionIdx, selectedValue);
+                SetGameOption(optionIdx, selectedValue);
 
                 valueChanged = 1;
             }
         } else { // if (gKeyStatusPtr->repeatedKeys & (DPAD_RIGHT))
-            if (gUnknown_08A2E99C[optionIdx].selectors[selectedValue+1].optionTextId != 0) {
+            if (gGameOptions[optionIdx].selectors[selectedValue+1].optionTextId != 0) {
                 if (selectedValue < 3) {
                     selectedValue++;
-                    sub_80B1F64(optionIdx, selectedValue);
+                    SetGameOption(optionIdx, selectedValue);
 
                     valueChanged = 1;
                 }
@@ -747,11 +728,11 @@ s8 sub_80B1D14(ProcPtr proc) {
 
         if (valueChanged != 0) {
 
-            Proc_Start(gUnknown_08A2EC88, proc);
+            Proc_Start(gProcScr_RedrawConfigHelpText, proc);
 
-            sub_80B1850(selectedIdx, selectedIdx % 7, selectedIdx * 2 + 5);
+            DrawOptionValueTexts(selectedIdx, selectedIdx % 7, selectedIdx * 2 + 5);
 
-            BG_EnableSyncByMask(3);
+            BG_EnableSyncByMask(BG0_SYNC_BIT | BG1_SYNC_BIT);
 
             PlaySoundEffect(0x67);
         }
@@ -761,12 +742,12 @@ s8 sub_80B1D14(ProcPtr proc) {
 }
 
 //! FE8U: 0x080B1DE8
-u8 sub_80B1DE8(u8 index) {
+u8 GetGameOption(u8 index) {
     int value = 0;
 
     switch (index) {
         case GAME_OPTION_ANIMATION:
-            switch (gRAMChapterData.unk42_2) {
+            switch (gRAMChapterData.cfgAnimationType) {
                 case 0:
                     return 0;
                 case 3:
@@ -790,7 +771,7 @@ u8 sub_80B1DE8(u8 index) {
             break;
 
         case GAME_OPTION_AUTOCURSOR:
-            value = gRAMChapterData.auto_cursor;
+            value = gRAMChapterData.cfgAutoCursor;
 
             break;
 
@@ -800,17 +781,17 @@ u8 sub_80B1DE8(u8 index) {
             break;
 
         case GAME_OPTION_GAME_SPEED:
-            value = gRAMChapterData.unk40_8;
+            value = gRAMChapterData.cfgGameSpeed;
 
             break;
 
         case GAME_OPTION_MUSIC:
-            value = gRAMChapterData.unk41_1;
+            value = gRAMChapterData.cfgDisableBgm;
 
             break;
 
         case GAME_OPTION_SOUND_EFFECTS:
-            value = gRAMChapterData.unk41_2;
+            value = gRAMChapterData.cfgDisableSoundEffects;
 
             break;
 
@@ -830,12 +811,12 @@ u8 sub_80B1DE8(u8 index) {
             break;
 
         case GAME_OPTION_AUTOEND_TURNS:
-            value = gRAMChapterData.unk41_7;
+            value = gRAMChapterData.cfgDisableAutoEndTurns;
 
             break;
 
         case GAME_OPTION_UNIT_COLOR:
-            value = gRAMChapterData.unk40_1;
+            value = gRAMChapterData.cfgUnitColor;
 
             break;
 
@@ -845,12 +826,12 @@ u8 sub_80B1DE8(u8 index) {
             break;
 
         case GAME_OPTION_CONTROLLER:
-            value = gRAMChapterData.unk42_6;
+            value = gRAMChapterData.cfgController;
 
             break;
 
         case GAME_OPTION_RANK_DISPLAY:
-            value = gRAMChapterData.unk42_7;
+            value = gRAMChapterData.cfgRankDisplay;
 
             break;
 
@@ -860,25 +841,25 @@ u8 sub_80B1DE8(u8 index) {
 }
 
 //! FE8U: 0x080B1F64
-void sub_80B1F64(u8 index, u8 newValue) {
+void SetGameOption(u8 index, u8 newValue) {
 
     switch (index) {
         case GAME_OPTION_ANIMATION:
             switch (newValue) {
                 case 0:
-                    gRAMChapterData.unk42_2 = 0;
+                    gRAMChapterData.cfgAnimationType = 0;
                     return;
 
                 case 1:
-                    gRAMChapterData.unk42_2 = 3;
+                    gRAMChapterData.cfgAnimationType = 3;
                     return;
 
                 case 2:
-                    gRAMChapterData.unk42_2 = 1;
+                    gRAMChapterData.cfgAnimationType = 1;
                     return;
 
                 case 3:
-                    gRAMChapterData.unk42_2 = 2;
+                    gRAMChapterData.cfgAnimationType = 2;
                     return;
             }
 
@@ -895,7 +876,7 @@ void sub_80B1F64(u8 index, u8 newValue) {
             break;
 
         case GAME_OPTION_AUTOCURSOR:
-            gRAMChapterData.auto_cursor = newValue;
+            gRAMChapterData.cfgAutoCursor = newValue;
 
             break;
 
@@ -905,17 +886,17 @@ void sub_80B1F64(u8 index, u8 newValue) {
             break;
 
         case GAME_OPTION_GAME_SPEED:
-            gRAMChapterData.unk40_8 = newValue;
+            gRAMChapterData.cfgGameSpeed = newValue;
 
             break;
 
         case GAME_OPTION_MUSIC:
-            gRAMChapterData.unk41_1 = newValue;
+            gRAMChapterData.cfgDisableBgm = newValue;
 
             break;
 
         case GAME_OPTION_SOUND_EFFECTS:
-            gRAMChapterData.unk41_2 = newValue;
+            gRAMChapterData.cfgDisableSoundEffects = newValue;
 
             break;
 
@@ -935,12 +916,12 @@ void sub_80B1F64(u8 index, u8 newValue) {
             break;
 
         case GAME_OPTION_AUTOEND_TURNS:
-            gRAMChapterData.unk41_7 = newValue;
+            gRAMChapterData.cfgDisableAutoEndTurns = newValue;
 
             break;
 
         case GAME_OPTION_UNIT_COLOR:
-            gRAMChapterData.unk40_1 = newValue;
+            gRAMChapterData.cfgUnitColor = newValue;
 
             break;
 
@@ -950,12 +931,12 @@ void sub_80B1F64(u8 index, u8 newValue) {
             break;
 
         case GAME_OPTION_CONTROLLER:
-            gRAMChapterData.unk42_6 = newValue;
+            gRAMChapterData.cfgController = newValue;
 
             break;
 
         case GAME_OPTION_RANK_DISPLAY:
-            gRAMChapterData.unk42_7 = newValue;
+            gRAMChapterData.cfgRankDisplay = newValue;
 
             break;
 
@@ -980,21 +961,21 @@ void sub_80B2188(ProcPtr proc, int selectedIdx, int c) {
 
     textIdx = selectedIdx % 7;
 
-    sub_80B1700(selectedIdx, 5);
-    sub_80B17E4(selectedIdx, textIdx, y);
-    sub_80B1850(selectedIdx, textIdx, y);
+    DrawGameOptionIcon(selectedIdx, 5);
+    DrawGameOptionText(selectedIdx, textIdx, y);
+    DrawOptionValueTexts(selectedIdx, textIdx, y);
 
     for (i = 0; i <= 0x1a; i++) {
         gBG0TilemapBuffer[c + 0x62 + i] = 0;
     }
 
-    BG_EnableSyncByMask(3);
+    BG_EnableSyncByMask(BG0_SYNC_BIT | BG1_SYNC_BIT);
 
     return;
 }
 
 //! FE8U: 0x080B220C
-void sub_80B220C(struct ConfigProc* proc) {
+void Config_Loop_KeyHandler(struct ConfigProc* proc) {
     s8 valueChanged = 0;
 
     switch (proc->unk_30) {
@@ -1007,15 +988,15 @@ void sub_80B220C(struct ConfigProc* proc) {
                 break;
 
             } else if (gKeyStatusPtr->newKeys & (A_BUTTON)) {
-                if (((gUnknown_08A2E974->unk_37 & 1) != 0) && (sub_8095970() == 0)) {
+                if (((gConfigUiState->unk_37 & 1) != 0) && (sub_8095970() == 0)) {
                     break;
                 }
 
-                if (gUnknown_08A2E978[gUnknown_08A2E974->unk_2a] != 0) {
+                if (gGameOptionsUiOrder[gConfigUiState->unk_2a] != 0) {
                     break;
                 }
 
-                if (sub_80B1DE8(0) != 3) {
+                if (GetGameOption(0) != 3) {
                     break;
                 }
 
@@ -1030,16 +1011,16 @@ void sub_80B220C(struct ConfigProc* proc) {
             } else if (gKeyStatusPtr->repeatedKeys & (DPAD_UP | DPAD_DOWN)) {
                 if (gKeyStatusPtr->repeatedKeys & (DPAD_UP)) {
 
-                    if (gUnknown_08A2E974->unk_2a != 0) {
-                        gUnknown_08A2E974->unk_2a--;
+                    if (gConfigUiState->unk_2a != 0) {
+                        gConfigUiState->unk_2a--;
 
-                        if ((gUnknown_08A2E974->unk_2a - gUnknown_08A2E974->unk_2c < 1)
-                            && (gUnknown_08A2E974->unk_2c != 0)) {
-                            gUnknown_08A2E974->unk_2c--;
+                        if ((gConfigUiState->unk_2a - gConfigUiState->unk_2c < 1)
+                            && (gConfigUiState->unk_2c != 0)) {
+                            gConfigUiState->unk_2c--;
 
-                            sub_80B2188(proc, gUnknown_08A2E974->unk_2a - 1, 0);
+                            sub_80B2188(proc, gConfigUiState->unk_2a - 1, 0);
 
-                            gUnknown_08A2E974->unk_2e -= 4;
+                            gConfigUiState->unk_2e -= 4;
 
                             proc->unk_30 = 1;
 
@@ -1051,16 +1032,16 @@ void sub_80B220C(struct ConfigProc* proc) {
 
                 } else { // if (gKeyStatusPtr->repeatedKeys & (DPAD_DOWN))
 
-                    if (gUnknown_08A2E974->unk_2a < gUnknown_08A2E974->unk_34 - 1) {
-                        gUnknown_08A2E974->unk_2a++;
+                    if (gConfigUiState->unk_2a < gConfigUiState->unk_34 - 1) {
+                        gConfigUiState->unk_2a++;
 
-                        if ((gUnknown_08A2E974->unk_2a - gUnknown_08A2E974->unk_2c > 4)
-                            && (gUnknown_08A2E974->unk_2a < gUnknown_08A2E974->unk_34 - 1)) {
-                            gUnknown_08A2E974->unk_2c++;
+                        if ((gConfigUiState->unk_2a - gConfigUiState->unk_2c > 4)
+                            && (gConfigUiState->unk_2a < gConfigUiState->unk_34 - 1)) {
+                            gConfigUiState->unk_2c++;
 
-                            sub_80B2188(proc, gUnknown_08A2E974->unk_2a + 1, 0x140);
+                            sub_80B2188(proc, gConfigUiState->unk_2a + 1, 0x140);
 
-                            gUnknown_08A2E974->unk_2e += 4;
+                            gConfigUiState->unk_2e += 4;
 
                             proc->unk_30 = 4;
 
@@ -1072,9 +1053,9 @@ void sub_80B220C(struct ConfigProc* proc) {
 
                 if (valueChanged != 0) {
 
-                    Proc_Start(gUnknown_08A2EC88, proc);
+                    Proc_Start(gProcScr_RedrawConfigHelpText, proc);
 
-                    BG_EnableSyncByMask(3);
+                    BG_EnableSyncByMask(BG0_SYNC_BIT | BG1_SYNC_BIT);
 
                     PlaySoundEffect(0x66);
 
@@ -1084,8 +1065,8 @@ void sub_80B220C(struct ConfigProc* proc) {
 
             if (gKeyStatusPtr->newKeys & (DPAD_LEFT | DPAD_RIGHT)) {
 
-                if (gUnknown_08A2E99C[gUnknown_08A2E978[gUnknown_08A2E974->unk_2a]].func != 0) {
-                    gUnknown_08A2E99C[gUnknown_08A2E978[gUnknown_08A2E974->unk_2a]].func(proc);
+                if (gGameOptions[gGameOptionsUiOrder[gConfigUiState->unk_2a]].func != 0) {
+                    gGameOptions[gGameOptionsUiOrder[gConfigUiState->unk_2a]].func(proc);
                 }
 
             }
@@ -1096,7 +1077,7 @@ void sub_80B220C(struct ConfigProc* proc) {
         case 2:
         case 3:
 
-            gUnknown_08A2E974->unk_2e -= 4;
+            gConfigUiState->unk_2e -= 4;
 
             if (proc->unk_30 == 3) {
                 proc->unk_30 = 0;
@@ -1110,7 +1091,7 @@ void sub_80B220C(struct ConfigProc* proc) {
         case 5:
         case 6:
 
-            gUnknown_08A2E974->unk_2e += 4;
+            gConfigUiState->unk_2e += 4;
 
             if (proc->unk_30 == 6) {
                 proc->unk_30 = 0;
@@ -1121,7 +1102,7 @@ void sub_80B220C(struct ConfigProc* proc) {
             break;
     }
 
-    BG_SetPosition(1, 0, gUnknown_08A2E974->unk_2e);
+    BG_SetPosition(1, 0, gConfigUiState->unk_2e);
 
     return;
 }
@@ -1132,8 +1113,8 @@ s8 sub_80B2464(struct ConfigProc* proc) {
 
     EndBG3Slider();
 
-    Proc_EndEach(gUnknown_08A2ECA8);
-    Proc_EndEach(gUnknown_08A2EC88);
+    Proc_EndEach(gProcScr_DrawConfigUiSprites);
+    Proc_EndEach(gProcScr_RedrawConfigHelpText);
 
     if (proc->unk_36 != 0) {
         sub_8092134(proc);
@@ -1146,7 +1127,7 @@ s8 sub_80B2464(struct ConfigProc* proc) {
 }
 
 static inline s8* GetConfigUnk37() {
-    return &gUnknown_08A2E974->unk_37;
+    return &gConfigUiState->unk_37;
 }
 
 //! FE8U: 0x080B24AC
@@ -1176,12 +1157,12 @@ struct ProcCmd CONST_DATA gProcScr_Config1[] = {
 PROC_LABEL(0),
     PROC_SLEEP(0),
 
-    PROC_CALL(sub_80B1A08),
+    PROC_CALL(Config_Init),
 
     PROC_CALL_ARG(NewFadeIn, 16),
     PROC_WHILE(FadeInExists),
 
-    PROC_REPEAT(sub_80B220C),
+    PROC_REPEAT(Config_Loop_KeyHandler),
     PROC_CALL(sub_8013D80),
 
     PROC_REPEAT(ContinueUntilSomeTransistion6CExists),
@@ -1200,7 +1181,7 @@ PROC_LABEL(0),
     PROC_END,
 };
 
-struct ProcCmd CONST_DATA gUnknown_08A2ED88[] = {
+struct ProcCmd CONST_DATA gProcScr_Config2[] = {
     PROC_NAME("E_config"),
 
     PROC_CALL(AddSkipThread2),
@@ -1208,13 +1189,13 @@ struct ProcCmd CONST_DATA gUnknown_08A2ED88[] = {
 PROC_LABEL(0),
     PROC_SLEEP(0),
 
-    PROC_CALL(sub_80B1A08),
+    PROC_CALL(Config_Init),
     PROC_CALL(sub_80B24AC),
 
     PROC_CALL_ARG(NewFadeIn, 16),
     PROC_WHILE(FadeInExists),
 
-    PROC_REPEAT(sub_80B220C),
+    PROC_REPEAT(Config_Loop_KeyHandler),
 
     PROC_CALL(sub_8013D80),
     PROC_REPEAT(ContinueUntilSomeTransistion6CExists),
@@ -1227,7 +1208,7 @@ PROC_LABEL(0),
     PROC_END,
 };
 
-struct ProcCmd CONST_DATA gUnknown_08A2EE00[] = {
+struct ProcCmd CONST_DATA gProcScr_Config3[] = {
     PROC_NAME("E_config"),
 
     PROC_CALL(AddSkipThread2),
@@ -1236,13 +1217,13 @@ struct ProcCmd CONST_DATA gUnknown_08A2EE00[] = {
 PROC_LABEL(0),
     PROC_SLEEP(0),
 
-    PROC_CALL(sub_80B1A08),
+    PROC_CALL(Config_Init),
     PROC_CALL(sub_80B24C0),
 
     PROC_CALL(sub_8013DA4),
     PROC_REPEAT(ContinueUntilSomeTransistion6CExists),
 
-    PROC_REPEAT(sub_80B220C),
+    PROC_REPEAT(Config_Loop_KeyHandler),
 
     PROC_CALL(sub_8013D80),
     PROC_REPEAT(ContinueUntilSomeTransistion6CExists),

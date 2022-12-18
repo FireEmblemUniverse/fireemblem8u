@@ -200,24 +200,24 @@ struct RAMChapterData { // Chapter Data Struct
     u8 _unk3A[0x40-0x3C];
 
     // option bits
-    u32 unk40_1:1; // 1
+    u32 cfgUnitColor:1; // 1
     u32 cfgDisableTerrainDisplay:1; // 1
     u32 cfgUnitDisplayType:2; // 2
-    u32 auto_cursor:1; // 1
+    u32 cfgAutoCursor:1; // 1
     u32 cfgTextSpeed:2;
-    u32 unk40_8:1; // 1
-    u32 unk41_1:1; // 1
-    u32 unk41_2:1; // 1
+    u32 cfgGameSpeed:1; // 1
+    u32 cfgDisableBgm:1; // 1
+    u32 cfgDisableSoundEffects:1; // 1
     u32 cfgWindowColor:2;
     u32 unk41_5:1; // 1
     u32 unk41_6:1; // unk
-    u32 unk41_7:1; // 1
+    u32 cfgDisableAutoEndTurns:1; // 1
     u32 cfgNoSubtitleHelp:1; // 1
     u32 cfgDisableGoalDisplay:1; // unk
-    u32 unk42_2:2; // 2
+    u32 cfgAnimationType:2; // 2
     u32 cfgBattleForecastType:2; // 2
-    u32 unk42_6:1; // 1
-    u32 unk42_7:1; // unk
+    u32 cfgController:1; // 1
+    u32 cfgRankDisplay:1; // unk
     u32 unk42_8:2; // 2 (!)
     u32 unk43_2:2; // 2
     u32 unk43_4:5; // unk

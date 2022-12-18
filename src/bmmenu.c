@@ -30,6 +30,7 @@
 #include "bb.h"
 #include "bmarena.h"
 #include "face.h"
+#include "uiconfig.h"
 
 #include "constants/characters.h"
 #include "constants/classes.h"
