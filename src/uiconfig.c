@@ -8,18 +8,22 @@
 #include "ctc.h"
 #include "m4a.h"
 #include "soundwrapper.h"
+#include "bmio.h"
+#include "statscreen.h"
+
 
 struct Selector {
     /* 00 */ u16 helpTextId;
     /* 02 */ u16 optionTextId;
     /* 04 */ u8 xPos;
+    /* 05 */ u8 unk_05;
 };
 
 struct GameOption {
     /* 00 */ u16 msgId;
     /* 04 */ struct Selector selectors[4];
     /* 24 */ u8 icon;
-    /* 28 */ void (*func)(ProcPtr);
+    /* 28 */ s8 (*func)(ProcPtr);
 };
 
 struct ConfigScreen {
@@ -52,29 +56,294 @@ struct ConfigProc {
     /* 36 */ u8 unk_36;
 };
 
-extern u16 gUnknown_08205E50[]; // bgconfig
+enum {
+    GAME_OPTION_ANIMATION      =  0,
+    GAME_OPTION_TERRAIN        =  1,
+    GAME_OPTION_UNIT           =  2,
+    GAME_OPTION_AUTOCURSOR     =  3,
+    GAME_OPTION_TEXT_SPEED     =  4,
+    GAME_OPTION_GAME_SPEED     =  5,
+    GAME_OPTION_MUSIC          =  6,
+    GAME_OPTION_SOUND_EFFECTS  =  7,
+    GAME_OPTION_WINDOW_COLOR   =  8,
+    GAME_OPTION_CPU_LEVEL      =  9,
+    GAME_OPTION_COMBAT         = 10,
+    GAME_OPTION_SUBTITLE_HELP  = 11,
+    GAME_OPTION_AUTOEND_TURNS  = 12,
+    GAME_OPTION_UNIT_COLOR     = 13,
+    GAME_OPTION_OBJECTIVE      = 14,
+    GAME_OPTION_CONTROLLER     = 15,
+    GAME_OPTION_RANK_DISPLAY   = 16,
+};
 
-extern struct ConfigScreen* gUnknown_08A2E974;
-extern u8 gUnknown_08A2E978[];
-extern u16 gUnknown_08A2E986[];
-extern struct GameOption gUnknown_08A2E99C[];
-extern struct ProcCmd gUnknown_08A2EC88[];
-extern struct ProcCmd gUnknown_08A2ECA8[];
+struct ConfigScreen* CONST_DATA gUnknown_08A2E974 = (struct ConfigScreen*) gGenericBuffer;
+
+u8 CONST_DATA gUnknown_08A2E978[] = {
+    GAME_OPTION_ANIMATION,
+    GAME_OPTION_GAME_SPEED,
+    GAME_OPTION_TEXT_SPEED,
+    GAME_OPTION_TERRAIN,
+    GAME_OPTION_UNIT,
+    GAME_OPTION_COMBAT,
+    GAME_OPTION_OBJECTIVE,
+    GAME_OPTION_SUBTITLE_HELP,
+    GAME_OPTION_AUTOCURSOR,
+    GAME_OPTION_AUTOEND_TURNS,
+    GAME_OPTION_MUSIC,
+    GAME_OPTION_SOUND_EFFECTS,
+    GAME_OPTION_WINDOW_COLOR,
+};
+
+u16 CONST_DATA gUnknown_08A2E986[] = {
+    3,
+    0x4000, 0x8000, 0x0000,
+    0x4000, 0x8020, 0x0004,
+    0x4000, 0x8040, 0x0008,
+};
+
+s8 sub_80B1C90(ProcPtr proc);
+s8 sub_80B1CAC(ProcPtr proc);
+s8 sub_80B1D14(ProcPtr);
+
+struct GameOption CONST_DATA gUnknown_08A2E99C[] = {
+    [GAME_OPTION_ANIMATION] = {
+        .msgId = 0x90, // Animation[.]
+        .selectors = {
+            { 0xa1, 0xbf, 0x70, 1 },
+            { 0xa2, 0xc0, 0x7f, 1 },
+            { 0xa3, 0xbe, 0x8e, 2 },
+            { 0xa4, 0xc7, 0xa5, 2 },
+        },
+        .icon = 0x0,
+        .func = sub_80B1D14
+    },
+
+    [GAME_OPTION_TERRAIN] = {
+        .msgId = 0x91, // Terrain[.]
+        .selectors = {
+            { 0xab, 0xbd, 0x70, 2 },
+            { 0xab, 0xbe, 0x87, 2 },
+            { 0x00, 0x00, 0xbe, 0 },
+            { 0x00, 0x00, 0xbd, 0 },
+        },
+        .icon = 0x02,
+        .func = sub_80B1D14,
+    },
+
+    [GAME_OPTION_UNIT] = {
+        .msgId = 0x92, // Unit
+        .selectors = {
+            { 0xac, 0xca, 0x70, 3 },
+            { 0xad, 0xcb, 0x8f, 4 },
+            { 0xae, 0xbe, 0xb6, 2 },
+            { 0x00, 0x00, 0xbd, 0 },
+        },
+        .icon = 0x04,
+        .func = sub_80B1D14,
+    },
+
+    [GAME_OPTION_AUTOCURSOR] = {
+        .msgId = 0x95, // Autocursor
+        .selectors = {
+            { 0xb3, 0xbd, 0x70, 2 },
+            { 0xb3, 0xbe, 0x87, 2 },
+            { 0x00, 0x00, 0xbe, 0 },
+            { 0x00, 0x00, 0xbd, 0 },
+        },
+        .icon = 0x06,
+        .func = sub_80B1D14,
+    },
+
+    [GAME_OPTION_TEXT_SPEED] = {
+        .msgId = 0x96, // Text Speed
+        .selectors = {
+            { 0xa7, 0xc3, 0x70, 3 },
+            { 0xa8, 0xc4, 0x8f, 3 },
+            { 0xa9, 0xc5, 0xae, 3 },
+            { 0xaa, 0xc6, 0xcd, 2 },
+        },
+        .icon = 0x08,
+        .func = sub_80B1D14,
+    },
+
+    [GAME_OPTION_GAME_SPEED] = {
+        .msgId = 0x97, // Game Speed
+        .selectors = {
+            { 0xa5, 0xc4, 0x70, 3 },
+            { 0xa6, 0xc5, 0x8f, 3 },
+            { 0x00, 0x00, 0xbe, 0 },
+            { 0x00, 0x00, 0xbd, 0 },
+        },
+        .icon = 0x0a,
+        .func = sub_80B1D14,
+    },
+
+    [GAME_OPTION_MUSIC] =  {
+        .msgId = 0x98, // Music[.]
+        .selectors = {
+            { 0xb5, 0xbd, 0x70, 2 },
+            { 0xb5, 0xbe, 0x87, 2 },
+            { 0x00, 0x00, 0xbe, 0 },
+            { 0x00, 0x00, 0xbd, 0 },
+        },
+        .icon = 0x0c,
+        .func = sub_80B1CAC,
+    },
+
+    [GAME_OPTION_SOUND_EFFECTS] = {
+        .msgId = 0x99, // Sound Effects[.],
+        .selectors = {
+            { 0xb6, 0xbd, 0x70, 2 },
+            { 0xb6, 0xbe, 0x87, 2 },
+            { 0x00, 0x00, 0xbe, 0 },
+            { 0x00, 0x00, 0xbd, 0 },
+        },
+        .icon = 0x0e,
+        .func = sub_80B1D14,
+    },
+
+    [GAME_OPTION_WINDOW_COLOR] = {
+        .msgId = 0x9a, // Window Color
+        .selectors = {
+            { 0xb7, 0xbf, 0x70, 1 },
+            { 0xb7, 0xc0, 0x7f, 1 },
+            { 0xb7, 0xc1, 0x8e, 1 },
+            { 0xb7, 0xc2, 0x9d, 1 },
+        },
+        .icon = 0x10,
+        .func = sub_80B1C90,
+    },
+
+    [GAME_OPTION_CPU_LEVEL] = {
+        .msgId = 0x9b, // CPU Level[.]
+        .selectors = {
+            { 0xb8, 0xbf, 0x70, 1 },
+            { 0xb8, 0xc0, 0x7f, 1 },
+            { 0xb8, 0xc1, 0x8e, 1 },
+            { 0x00, 0x00, 0xbd, 0 },
+        },
+        .icon = 0x12,
+        .func = sub_80B1D14,
+    },
+
+    [GAME_OPTION_COMBAT] = {
+        .msgId = 0x93, // Combat
+        .selectors = {
+            { 0xaf, 0xc8, 0x70, 3 },
+            { 0xb0, 0xc9, 0x8f, 3 },
+            { 0xb1, 0xbe, 0xb6, 2 },
+            { 0x00, 0x00, 0xbd, 0 },
+        },
+        .icon = 0x14,
+        .func = sub_80B1D14,
+    },
+
+    [GAME_OPTION_SUBTITLE_HELP] = {
+        .msgId = 0x94, // Subtitle Help[.]
+        .selectors = {
+            { 0xb2, 0xbd, 0x70, 2 },
+            { 0xb2, 0xbe, 0x87, 2 },
+            { 0x00, 0x00, 0xbe, 0 },
+            { 0x00, 0x00, 0xbd, 0 },
+        },
+        .icon = 0x16,
+        .func = sub_80B1D14,
+    },
+
+    [GAME_OPTION_AUTOEND_TURNS] = {
+        .msgId = 0x9c, // Autoend Turns[.]
+        .selectors = {
+            { 0xb4, 0xbd, 0x70, 2 },
+            { 0xb4, 0xbe, 0x87, 2 },
+            { 0x00, 0x00, 0xbe, 0 },
+            { 0x00, 0x00, 0xbd, 0 },
+        },
+        .icon = 0x18,
+        .func = sub_80B1D14,
+    },
+
+    [GAME_OPTION_UNIT_COLOR] = {
+        .msgId = 0x9d, // Unit Color
+        .selectors = {
+            { 0xb9, 0xbd, 0x70, 2 },
+            { 0xb9, 0xbe, 0x87, 2 },
+            { 0x00, 0x00, 0xbe, 0 },
+            { 0x00, 0x00, 0xbd, 0 },
+        },
+        .icon = 0x1a,
+        .func = sub_80B1D14,
+    },
+
+    [GAME_OPTION_OBJECTIVE] = {
+        .msgId = 0x9e, // Show Objective
+        .selectors = {
+            { 0xba, 0xbd, 0x70, 2 },
+            { 0xba, 0xbe, 0x87, 2 },
+            { 0x00, 0x00, 0xbe, 0 },
+            { 0x00, 0x00, 0xbd, 0 },
+        },
+        .icon = 0x1c,
+        .func = sub_80B1D14,
+    },
+
+    [GAME_OPTION_CONTROLLER] = {
+        .msgId = 0x9f, // Controller
+        .selectors = {
+            { 0xbb, 0xbd, 0x70, 2 },
+            { 0xbb, 0xbe, 0x87, 2 },
+            { 0x00, 0x00, 0xbe, 0 },
+            { 0x00, 0x00, 0xbd, 0 },
+        },
+        .icon = 0x1e,
+        .func = sub_80B1D14,
+    },
+
+    [GAME_OPTION_RANK_DISPLAY] = {
+        .msgId = 0xa0, // Rank Display
+        .selectors = {
+            { 0xbc, 0xbd, 0x70, 2 },
+            { 0xbc, 0xbe, 0x87, 2 },
+            { 0x00, 0x00, 0xbe, 0 },
+            { 0x00, 0x00, 0xbd, 0 },
+        },
+        .icon = 0x20,
+        .func = sub_80B1D14,
+    }
+};
+
+void sub_80B1784(void);
+
+struct ProcCmd CONST_DATA gUnknown_08A2EC88[] = {
+    PROC_NAME("E_CfExplReWrite"),
+
+    PROC_SLEEP(1),
+    PROC_CALL(sub_80B1784),
+
+    PROC_END,
+};
+
+void sub_80B1920(void);
+void sub_80B1938(void);
+
+struct ProcCmd CONST_DATA gUnknown_08A2ECA8[] = {
+    PROC_NAME("E_cfObj"),
+
+    PROC_CALL(sub_80B1920),
+
+PROC_LABEL(0),
+    PROC_CALL(sub_80B1938),
+    PROC_SLEEP(0),
+
+    PROC_GOTO(0),
+
+    PROC_END,
+};
 
 extern u16 gUnknown_08A07A98[]; // pal
 extern u8 gUnknown_08A0733C[]; // gfx
 extern u8 gUnknown_08A0754C[]; // gfx
 extern u8 gUnknown_08A079B4[]; // tsa
 
-extern u8 gUnknown_02020208[]; // buffer?
-
-// TODO: BG1 offset?
-extern u16 gUnknown_020234B0[];
-
-// TODO: BG0 offset?
-extern u16 gUnknown_02023130[];
-
-s8 sub_80B1D14(ProcPtr);
 u8 sub_80B1DE8(u8);
 void sub_80B1F64(u8, u8);
 
@@ -210,8 +479,7 @@ void sub_80B1784(void) {
 
     str = GetStringFromIndex(gUnknown_08A2E99C[gUnknown_08A2E978[gUnknown_08A2E974->unk_2a]].selectors[sub_80B16DC()].helpTextId);
 
-    // TODO: BG0 buffer?
-    DrawTextInline(&gUnknown_08A2E974->unk_a8, gUnknown_02023130, 0, 0, 0x16, str);
+    DrawTextInline(&gUnknown_08A2E974->unk_a8, gBG0TilemapBuffer + 0x244, 0, 0, 0x16, str);
 
     return;
 }
@@ -224,8 +492,7 @@ void sub_80B17E4(int selectedIdx, int textIdx, int y) {
 
     str = GetStringFromIndex(gUnknown_08A2E99C[gUnknown_08A2E978[selectedIdx]].msgId);
 
-    // TODO: BG1 buffer
-    DrawTextInline(&gUnknown_08A2E974->unk_38[textIdx], gUnknown_020234B0 + y * 0x20, 0, 0, 9, str);
+    DrawTextInline(&gUnknown_08A2E974->unk_38[textIdx], gBG1TilemapBuffer + 4 + y * 0x20, 0, 0, 9, str);
 
     return;
 }
@@ -299,13 +566,16 @@ void sub_80B1938(void) {
 void sub_80B1A08(struct ConfigProc* proc) {
     int i;
 
-    // TODO: Extract data
-    u16 hack[12];
-    memcpy(hack, gUnknown_08205E50, 0x18);
+    u16 gUnknown_08205E50[12] = {
+        0x0000, 0x6000, 0,
+        0x0000, 0x6800, 0,
+        0x0000, 0x7000, 0,
+        0x8000, 0x7800, 0,
+    };
 
     i = 0;
 
-    SetupBackgrounds(hack);
+    SetupBackgrounds(gUnknown_08205E50);
 
     gUnknown_08A2E974->unk_32 = 0;
     gUnknown_08A2E974->unk_34 = 0xd;
@@ -373,8 +643,8 @@ void sub_80B1A08(struct ConfigProc* proc) {
     CopyDataWithPossibleUncomp(gUnknown_08A0733C, (void*)0x06011800);
     CopyDataWithPossibleUncomp(gUnknown_08A0754C, (void*)0x06004000);
 
-    CopyDataWithPossibleUncomp(gUnknown_08A079B4, gUnknown_02020208);
-    CallARM_FillTileRect(gBG2TilemapBuffer, gUnknown_02020208, 0x1000);
+    CopyDataWithPossibleUncomp(gUnknown_08A079B4, gGenericBuffer + 0x80);
+    CallARM_FillTileRect(gBG2TilemapBuffer, gGenericBuffer + 0x80, 0x1000);
 
     Font_ResetAllocation();
 
@@ -410,7 +680,7 @@ void sub_80B1A08(struct ConfigProc* proc) {
 }
 
 //! FE8U = 0x080B1C90
-int sub_80B1C90(ProcPtr proc) {
+s8 sub_80B1C90(ProcPtr proc) {
 
     if (sub_80B1D14(proc) != 0) {
         UnpackUiFrameBuffered(-1);
@@ -420,7 +690,7 @@ int sub_80B1C90(ProcPtr proc) {
 }
 
 //! FE8U: 0x080B1CAC
-int sub_80B1CAC(ProcPtr proc) {
+s8 sub_80B1CAC(ProcPtr proc) {
 
     if (sub_80B1D14(proc) == 0) {
         return 0;
@@ -495,7 +765,7 @@ u8 sub_80B1DE8(u8 index) {
     int value = 0;
 
     switch (index) {
-        case 0:
+        case GAME_OPTION_ANIMATION:
             switch (gRAMChapterData.unk42_2) {
                 case 0:
                     return 0;
@@ -509,77 +779,77 @@ u8 sub_80B1DE8(u8 index) {
 
             // fallthrough
 
-        case 1:
+        case GAME_OPTION_TERRAIN:
             value = gRAMChapterData.cfgDisableTerrainDisplay;
 
             break;
 
-        case 2:
+        case GAME_OPTION_UNIT:
             value = gRAMChapterData.cfgUnitDisplayType;
 
             break;
 
-        case 3:
+        case GAME_OPTION_AUTOCURSOR:
             value = gRAMChapterData.auto_cursor;
 
             break;
 
-        case 4:
+        case GAME_OPTION_TEXT_SPEED:
             value = gRAMChapterData.cfgTextSpeed;
 
             break;
 
-        case 5:
+        case GAME_OPTION_GAME_SPEED:
             value = gRAMChapterData.unk40_8;
 
             break;
 
-        case 6:
+        case GAME_OPTION_MUSIC:
             value = gRAMChapterData.unk41_1;
 
             break;
 
-        case 7:
+        case GAME_OPTION_SOUND_EFFECTS:
             value = gRAMChapterData.unk41_2;
 
             break;
 
-        case 8:
+        case GAME_OPTION_WINDOW_COLOR:
             value = gRAMChapterData.cfgWindowColor;
 
             break;
 
-        case 10:
+        case GAME_OPTION_COMBAT:
             value = gRAMChapterData.cfgBattleForecastType;
 
             break;
 
-        case 11:
+        case GAME_OPTION_SUBTITLE_HELP:
             value = gRAMChapterData.cfgNoSubtitleHelp;
 
             break;
 
-        case 12:
+        case GAME_OPTION_AUTOEND_TURNS:
             value = gRAMChapterData.unk41_7;
 
             break;
 
-        case 13:
+        case GAME_OPTION_UNIT_COLOR:
             value = gRAMChapterData.unk40_1;
 
             break;
 
-        case 14:
+        case GAME_OPTION_OBJECTIVE:
             value = gRAMChapterData.cfgDisableGoalDisplay;
 
             break;
 
-        case 15:
+        case GAME_OPTION_CONTROLLER:
             value = gRAMChapterData.unk42_6;
 
             break;
 
-        case 16:
+        case GAME_OPTION_RANK_DISPLAY:
             value = gRAMChapterData.unk42_7;
 
             break;
@@ -593,7 +863,7 @@ u8 sub_80B1DE8(u8 index) {
 void sub_80B1F64(u8 index, u8 newValue) {
 
     switch (index) {
-        case 0:
+        case GAME_OPTION_ANIMATION:
             switch (newValue) {
                 case 0:
                     gRAMChapterData.unk42_2 = 0;
@@ -614,77 +884,77 @@ void sub_80B1F64(u8 index, u8 newValue) {
 
             // fallthrough
 
-        case 1:
+        case GAME_OPTION_TERRAIN:
             gRAMChapterData.cfgDisableTerrainDisplay = newValue;
 
             break;
 
-        case 2:
+        case GAME_OPTION_UNIT:
             gRAMChapterData.cfgUnitDisplayType = newValue;
 
             break;
 
-        case 3:
+        case GAME_OPTION_AUTOCURSOR:
             gRAMChapterData.auto_cursor = newValue;
 
             break;
 
-        case 4:
+        case GAME_OPTION_TEXT_SPEED:
             gRAMChapterData.cfgTextSpeed = newValue;
 
             break;
 
-        case 5:
+        case GAME_OPTION_GAME_SPEED:
             gRAMChapterData.unk40_8 = newValue;
 
             break;
 
-        case 6:
+        case GAME_OPTION_MUSIC:
             gRAMChapterData.unk41_1 = newValue;
 
             break;
 
-        case 7:
+        case GAME_OPTION_SOUND_EFFECTS:
             gRAMChapterData.unk41_2 = newValue;
 
             break;
 
-        case 8:
+        case GAME_OPTION_WINDOW_COLOR:
             gRAMChapterData.cfgWindowColor = newValue;
 
             break;
 
-        case 10:
+        case GAME_OPTION_COMBAT:
             gRAMChapterData.cfgBattleForecastType = newValue;
 
             break;
 
-        case 11:
+        case GAME_OPTION_SUBTITLE_HELP:
             gRAMChapterData.cfgNoSubtitleHelp = newValue;
 
             break;
 
-        case 12:
+        case GAME_OPTION_AUTOEND_TURNS:
             gRAMChapterData.unk41_7 = newValue;
 
             break;
 
-        case 13:
+        case GAME_OPTION_UNIT_COLOR:
             gRAMChapterData.unk40_1 = newValue;
 
             break;
 
-        case 14:
+        case GAME_OPTION_OBJECTIVE:
             gRAMChapterData.cfgDisableGoalDisplay = newValue;
 
             break;
 
-        case 15:
+        case GAME_OPTION_CONTROLLER:
             gRAMChapterData.unk42_6 = newValue;
 
             break;
 
-        case 16:
+        case GAME_OPTION_RANK_DISPLAY:
             gRAMChapterData.unk42_7 = newValue;
 
             break;
@@ -894,3 +1164,96 @@ void sub_80B24C0(void) {
 
     return;
 }
+
+struct ProcCmd CONST_DATA gProcScr_Config1[] = {
+    PROC_NAME("E_config"),
+
+    PROC_CALL(AddSkipThread2),
+    PROC_CALL_ARG(NewFadeOut, 16),
+    PROC_WHILE(FadeOutExists),
+    PROC_CALL(BMapDispSuspend),
+
+PROC_LABEL(0),
+    PROC_SLEEP(0),
+
+    PROC_CALL(sub_80B1A08),
+
+    PROC_CALL_ARG(NewFadeIn, 16),
+    PROC_WHILE(FadeInExists),
+
+    PROC_REPEAT(sub_80B220C),
+    PROC_CALL(sub_8013D80),
+
+    PROC_REPEAT(ContinueUntilSomeTransistion6CExists),
+
+    PROC_CALL(EndHelpBox),
+    PROC_CALL_2(sub_80B2464),
+
+    PROC_CALL(BMapDispResume),
+    PROC_CALL(RefreshBMapGraphics),
+    PROC_CALL(sub_8013DA4),
+
+    PROC_REPEAT(ContinueUntilSomeTransistion6CExists),
+
+    PROC_CALL(SubSkipThread2),
+
+    PROC_END,
+};
+
+struct ProcCmd CONST_DATA gUnknown_08A2ED88[] = {
+    PROC_NAME("E_config"),
+
+    PROC_CALL(AddSkipThread2),
+
+PROC_LABEL(0),
+    PROC_SLEEP(0),
+
+    PROC_CALL(sub_80B1A08),
+    PROC_CALL(sub_80B24AC),
+
+    PROC_CALL_ARG(NewFadeIn, 16),
+    PROC_WHILE(FadeInExists),
+
+    PROC_REPEAT(sub_80B220C),
+
+    PROC_CALL(sub_8013D80),
+    PROC_REPEAT(ContinueUntilSomeTransistion6CExists),
+
+    PROC_CALL(EndHelpBox),
+    PROC_CALL_2(sub_80B2464),
+
+    PROC_CALL(SubSkipThread2),
+
+    PROC_END,
+};
+
+struct ProcCmd CONST_DATA gUnknown_08A2EE00[] = {
+    PROC_NAME("E_config"),
+
+    PROC_CALL(AddSkipThread2),
+    PROC_CALL(BMapDispSuspend),
+
+PROC_LABEL(0),
+    PROC_SLEEP(0),
+
+    PROC_CALL(sub_80B1A08),
+    PROC_CALL(sub_80B24C0),
+
+    PROC_CALL(sub_8013DA4),
+    PROC_REPEAT(ContinueUntilSomeTransistion6CExists),
+
+    PROC_REPEAT(sub_80B220C),
+
+    PROC_CALL(sub_8013D80),
+    PROC_REPEAT(ContinueUntilSomeTransistion6CExists),
+
+    PROC_CALL(EndHelpBox),
+    PROC_CALL_2(sub_80B2464),
+
+    PROC_CALL(BMapDispResume),
+    PROC_CALL(RefreshBMapGraphics),
+
+    PROC_CALL(SubSkipThread2),
+
+    PROC_END,
+};

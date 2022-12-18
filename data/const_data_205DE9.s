@@ -16,18 +16,8 @@ gUnknown_08205E18:  @ 0x08205E18
 
 	.global gUnknown_08205E28
 gUnknown_08205E28:  @ 0x08205E28
-@ Replacing .incbin "baserom.gba", 0x205E28, 0x28
+@ Replacing .incbin "baserom.gba", 0x205E28, 0x10
     .4byte gUnknown_08A20C4C + 0xf8
     .4byte gUnknown_08A20C4C + 0xf8
     .4byte gUnknown_08A20C4C + 0x10c
     .4byte gUnknown_08A20C4C + 0x10c
-    .4byte 0x66435f45
-    .4byte 0x6c707845
-    .4byte 0x72576552
-    .4byte 0x00657469
-    .4byte 0x66635f45
-    .4byte 0x006a624f
-
-	.global gUnknown_08205E50
-gUnknown_08205E50:  @ 0x08205E50
-	.incbin "baserom.gba", 0x205E50, 0x3C
