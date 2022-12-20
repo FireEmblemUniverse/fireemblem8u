@@ -13,6 +13,13 @@ struct TitleScreenProc {
     /* 2A */ u16 unk_2a;
     /* 2C */ int unk_2c;
     /* 30 */ int unk_30;
+
+    /* 34 */ u8 _pad[0x4C-0x34];
+
+    /* 4C */ s16 unk_4c;
+    /* 4E */ s16 unk_4e; // unused/pad?
+    /* 50 */ s16 unk_50; // unused/pad?
+    /* 52 */ u16 unk_52;
 };
 
 struct Unknown08AA6858 {
@@ -22,13 +29,19 @@ struct Unknown08AA6858 {
     /* 05 */ u8 d;
 };
 
-extern struct ProcCmd gUnknown_08AA67FC[];
+extern struct BgAffineDstData gUnknown_030030C8;
+
+extern u16 gUnknown_08AA6774[]; // sprite
 extern u16 gUnknown_08AA6794[]; // sprite
+extern u16 gUnknown_08AA67E0[]; // sprite
+extern u16 gUnknown_08AA67AE[]; // sprite
+extern struct ProcCmd gUnknown_08AA67FC[];
 extern struct ProcCmd gUnknown_08AA6814[];
 extern s8 gUnknown_08AA682C[];
 extern struct Unknown08AA6858 gUnknown_08AA6858[];
 extern struct ProcCmd gUnknown_08AA6A50[];
 
+extern u16 gUnknown_08AADBE8[]; // pal
 
 extern u8 gUnknown_08AA7760[]; // gfx
 
@@ -73,6 +86,59 @@ extern u8 gUnknown_08AB0134[]; // gfx
 extern u8 gUnknown_08AB0A20[]; // tsa
 extern u16 gUnknown_08AB0B24[]; // pal
 
+
+//! FE8U = 0x080C5430
+void sub_80C5430(struct TitleScreenProc* proc) {
+    proc->unk_4c = 0;
+    proc->unk_52 = 0;
+
+    return;
+}
+
+//! FE8U = 0x080C5440
+void sub_80C5440(struct TitleScreenProc* proc) {
+
+    PutSpriteExt(0, 4, 0x30, gUnknown_08AA6774, 0x2000);
+    PutSpriteExt(0, 0xdc, 0x29, gObject_16x16, 0x201E);
+    PutSpriteExt(2, 4, 0x435, gUnknown_08AA6774, 0x2080);
+    PutSpriteExt(1, 0x10, 0x55, gUnknown_08AA6794, 0x31A0);
+    PutSpriteExt(1, 0x48, 0x7c, gUnknown_08AA67E0, 0x1ba);
+    PutSpriteExt(1, 4, 0x94, gUnknown_08AA67AE, 0x1180);
+
+    if (DivRem(proc->unk_4c, 3) == 0) {
+        proc->unk_52 = (proc->unk_52 + 1) & 0x1f;
+    }
+
+    if ((proc->unk_52 & 0x10) != 0) {
+        CopyToPaletteBuffer(gUnknown_08AADBE8 + (proc->unk_52 & 0xf), 0x210, 2);
+    } else {
+        CopyToPaletteBuffer(gUnknown_08AADBE8 + ((0x1f - proc->unk_52) & 0xf), 0x210, 2);
+    }
+
+    proc->unk_4c++;
+
+    return;
+}
+
+//! FE8U = 0x080C5548
+void sub_80C5548(int arg) {
+    struct BgAffineSrcData src;
+
+    src.texX = 0x7800;
+    src.texY = 0x5000;
+    src.scrX = 0x78;
+    src.scrY = 0x50;
+
+
+    src.sx = arg;
+    src.sy = arg;
+
+    src.alpha = 0;
+
+    BgAffineSet(&src, &gUnknown_030030C8, 1);
+
+    return;
+}
 
 //! FE8U = 0x080C5580
 void sub_80C5580(struct Proc* proc) {
