@@ -65,7 +65,7 @@ struct Struct0858791C
 
 struct TileDataTransfer
 {
-    void *src;
+    const void *src;
     void *dest;
     u16 size;
     u16 mode;

@@ -60,6 +60,7 @@ SECTIONS
         asm/boomfogfx.o(.text);
         src/eventcmd_42.o(.text);
         asm/eventcmd_44.o(.text);
+        src/bmlib.o(.text);
         asm/hino.o(.text);
         asm/bm.o(.text);
         src/bmitem.o(.text);
