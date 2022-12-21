@@ -946,96 +946,96 @@ gUnknown_08AA7680:  @ 0x08AA7680
         .word 0x0
 
 
-	.global gUnknown_08AA7760
-gUnknown_08AA7760:  @ 0x08AA7760
+	.global gGfx_TitleMainBackground_1
+gGfx_TitleMainBackground_1:  @ 0x08AA7760
 	.incbin "baserom.gba", 0xAA7760, 0x1FA8
 
-	.global gUnknown_08AA9708
-gUnknown_08AA9708:  @ 0x08AA9708
+	.global gGfx_TitleMainBackground_2
+gGfx_TitleMainBackground_2:  @ 0x08AA9708
 	.incbin "baserom.gba", 0xAA9708, 0x1788
 
-	.global gUnknown_08AAAE90
-gUnknown_08AAAE90:  @ 0x08AAAE90
+	.global gTsa_TitleMainBackground
+gTsa_TitleMainBackground:  @ 0x08AAAE90
 	.incbin "baserom.gba", 0xAAAE90, 0x564
 
-	.global gUnknown_08AAB3F4
-gUnknown_08AAB3F4:  @ 0x08AAB3F4
+	.global gPal_TitleMainBackground
+gPal_TitleMainBackground:  @ 0x08AAB3F4
 	.incbin "baserom.gba", 0xAAB3F4, 0x20
 
-	.global gUnknown_08AAB414
-gUnknown_08AAB414:  @ 0x08AAB414
+	.global gGfx_TitleDragonForeground
+gGfx_TitleDragonForeground:  @ 0x08AAB414
 	.incbin "baserom.gba", 0xAAB414, 0xE90
 
-	.global gUnknown_08AAC2A4
-gUnknown_08AAC2A4:  @ 0x08AAC2A4
+	.global gTsa_TitleDragonForeground
+gTsa_TitleDragonForeground:  @ 0x08AAC2A4
 	.incbin "baserom.gba", 0xAAC2A4, 0x2E8
 
-	.global gUnknown_08AAC58C
-gUnknown_08AAC58C:  @ 0x08AAC58C
+	.global gPal_TitleDragonForeground
+gPal_TitleDragonForeground:  @ 0x08AAC58C
 	.incbin "baserom.gba", 0xAAC58C, 0x20
 
-	.global gUnknown_08AAC5AC
-gUnknown_08AAC5AC:  @ 0x08AAC5AC
+	.global gGfx_FireEmblemLogo
+gGfx_FireEmblemLogo:  @ 0x08AAC5AC
 	.incbin "baserom.gba", 0xAAC5AC, 0x930
 
-	.global gUnknown_08AACEDC
-gUnknown_08AACEDC:  @ 0x08AACEDC
+	.global gGfx_SubtitlePressStart
+gGfx_SubtitlePressStart:  @ 0x08AACEDC
 	.incbin "baserom.gba", 0xAACEDC, 0xC8C
 
-	.global gUnknown_08AADB68
-gUnknown_08AADB68:  @ 0x08AADB68
+	.global gPal_PressStart
+gPal_PressStart:  @ 0x08AADB68
 	.incbin "baserom.gba", 0xAADB68, 0x80
 
-	.global gUnknown_08AADBE8
-gUnknown_08AADBE8:  @ 0x08AADBE8
+	.global gPal_08AADBE8
+gPal_08AADBE8:  @ 0x08AADBE8
 	.incbin "baserom.gba", 0xAADBE8, 0x20
 
-	.global gUnknown_08AADC08
-gUnknown_08AADC08:  @ 0x08AADC08
+	.global gGfx_08AADC08
+gGfx_08AADC08:  @ 0x08AADC08
 	.incbin "baserom.gba", 0xAADC08, 0xA14
 
-	.global gUnknown_08AAE61C
-gUnknown_08AAE61C:  @ 0x08AAE61C
+	.global gTsa_08AAE61C
+gTsa_08AAE61C:  @ 0x08AAE61C
 	.incbin "baserom.gba", 0xAAE61C, 0x2B0
 
-	.global gUnknown_08AAE8CC
-gUnknown_08AAE8CC:  @ 0x08AAE8CC
+	.global gPal_08AAE8CC
+gPal_08AAE8CC:  @ 0x08AAE8CC
 	.incbin "baserom.gba", 0xAAE8CC, 0x20
 
-	.global gUnknown_08AAE8EC
-gUnknown_08AAE8EC:  @ 0x08AAE8EC
+	.global gGfx_08AAE8EC
+gGfx_08AAE8EC:  @ 0x08AAE8EC
 	.incbin "baserom.gba", 0xAAE8EC, 0x103C
 
-	.global gUnknown_08AAF928
-gUnknown_08AAF928:  @ 0x08AAF928
+	.global gTsa_08AAF928
+gTsa_08AAF928:  @ 0x08AAF928
 	.incbin "baserom.gba", 0xAAF928, 0x3CC
 
-	.global gUnknown_08AAFCF4
-gUnknown_08AAFCF4:  @ 0x08AAFCF4
+	.global gPal_08AAFCF4
+gPal_08AAFCF4:  @ 0x08AAFCF4
 	.incbin "baserom.gba", 0xAAFCF4, 0x20
 
-	.global gUnknown_08AAFD14
-gUnknown_08AAFD14:  @ 0x08AAFD14
+	.global gGfx_08AAFD14
+gGfx_08AAFD14:  @ 0x08AAFD14
 	.incbin "baserom.gba", 0xAAFD14, 0x1FC
 
-	.global gUnknown_08AAFF10
-gUnknown_08AAFF10:  @ 0x08AAFF10
+	.global gTsa_08AAFF10
+gTsa_08AAFF10:  @ 0x08AAFF10
 	.incbin "baserom.gba", 0xAAFF10, 0x204
 
-	.global gUnknown_08AB0114
-gUnknown_08AB0114:  @ 0x08AB0114
+	.global gPal_08AB0114
+gPal_08AB0114:  @ 0x08AB0114
 	.incbin "baserom.gba", 0xAB0114, 0x20
 
-	.global gUnknown_08AB0134
-gUnknown_08AB0134:  @ 0x08AB0134
+	.global gGfx_08AB0134
+gGfx_08AB0134:  @ 0x08AB0134
 	.incbin "baserom.gba", 0xAB0134, 0x8EC
 
-	.global gUnknown_08AB0A20
-gUnknown_08AB0A20:  @ 0x08AB0A20
+	.global gTsa_08AB0A20
+gTsa_08AB0A20:  @ 0x08AB0A20
 	.incbin "baserom.gba", 0xAB0A20, 0x104
 
-	.global gUnknown_08AB0B24
-gUnknown_08AB0B24:  @ 0x08AB0B24
+	.global gPal_08AB0B24
+gPal_08AB0B24:  @ 0x08AB0B24
 @ Replacing .incbin "baserom.gba", 0xAB0B24, 0x20
     .4byte 0x4414290
     .4byte 0x1f3e571d
@@ -1046,32 +1046,32 @@ gUnknown_08AB0B24:  @ 0x08AB0B24
     .4byte 0xcd2467b
     .4byte 0x7fff044a
 
-	.global gUnknown_08AB0B44
-gUnknown_08AB0B44:  @ 0x08AB0B44
+	.global gGfx_TitleDemonKing
+gGfx_TitleDemonKing:  @ 0x08AB0B44
 	.incbin "baserom.gba", 0xAB0B44, 0xD4C
 
-	.global gUnknown_08AB1890
-gUnknown_08AB1890:  @ 0x08AB1890
+	.global gTsa_TitleDemonKing
+gTsa_TitleDemonKing:  @ 0x08AB1890
 	.incbin "baserom.gba", 0xAB1890, 0x374
 
-	.global gUnknown_08AB1C04
-gUnknown_08AB1C04:  @ 0x08AB1C04
+	.global gPal_TitleDemonKing
+gPal_TitleDemonKing:  @ 0x08AB1C04
 	.incbin "baserom.gba", 0xAB1C04, 0x20
 
-	.global gUnknown_08AB1C24
-gUnknown_08AB1C24:  @ 0x08AB1C24
+	.global gGfx_TitleLargeGlowingOrb
+gGfx_TitleLargeGlowingOrb:  @ 0x08AB1C24
 	.incbin "baserom.gba", 0xAB1C24, 0x4E8
 
-	.global gUnknown_08AB210C
-gUnknown_08AB210C:  @ 0x08AB210C
+	.global gPal_TitleLargeGlowingOrb
+gPal_TitleLargeGlowingOrb:  @ 0x08AB210C
 	.incbin "baserom.gba", 0xAB210C, 0x60
 
-	.global gUnknown_08AB216C
-gUnknown_08AB216C:  @ 0x08AB216C
+	.global gGfx_TitleSmallLightBubbles
+gGfx_TitleSmallLightBubbles:  @ 0x08AB216C
 	.incbin "baserom.gba", 0xAB216C, 0x4C
 
-	.global gUnknown_08AB21B8
-gUnknown_08AB21B8:  @ 0x08AB21B8
+	.global gPal_TitleSmallLightBubbles
+gPal_TitleSmallLightBubbles:  @ 0x08AB21B8
 	.incbin "baserom.gba", 0xAB21B8, 0x20
 
 	.global gUnknown_08AB21D8
