@@ -574,4 +574,13 @@ struct SupportTalkEnt {
     u16 _pad[3];
 };
 
+struct Struct202B6B0 {
+    u8 _pad00_[0x2A - 0x00];
+    u16 unk2A;
+    u8 _pad2C[0x5A - 0x2C];
+    u16 unk5A;
+    u8 _pad5C[0x8A - 0x5C];
+    u16 unk8A;
+};
+
 #endif // GUARD_TYPES_H
