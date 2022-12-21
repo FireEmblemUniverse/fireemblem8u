@@ -500,7 +500,7 @@ extern struct TextBuffer0202A6AC gUnknown_0202A6AC;
 extern u8 gUnknown_0202B4AC[];
 // extern ??? gUnknown_0202B5AC
 extern int gUnknown_0202B6AC;
-// extern ??? gUnknown_0202B6B0
+extern struct Struct202B6B0 gUnknown_0202B6B0;
 extern struct Struct0202BCB0 gGameState;
 extern struct RAMChapterData gRAMChapterData;
 // extern ??? gUnknown_0202BD30
@@ -833,7 +833,7 @@ extern short gSinLookup[]; // gSinTable; needs to be non-const to match?
 // extern ??? gUnknown_080D793C
 // extern ??? gUnknown_080D793F
 // extern ??? gUnknown_080D794E
-// extern ??? gUnknown_080D7954
+extern const char gUnknown_080D7954[];
 // extern ??? gUnknown_080D7964
 // extern ??? gUnknown_080D79D8
 // extern ??? gUnknown_080D79E0

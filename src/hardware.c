@@ -1120,7 +1120,7 @@ void ClearTileRigistry(void)
     gUnknown_02024CDC[0].src = 0;
 }
 
-void RegisterTileGraphics(void *a, void *b, int c)
+void RegisterTileGraphics(const void *a, void *b, int c)
 {
     struct TileDataTransfer *ptr = &gUnknown_02024CDC[gUnknown_02024CD4.unk0];
 
@@ -1132,7 +1132,7 @@ void RegisterTileGraphics(void *a, void *b, int c)
     gUnknown_02024CD4.unk0++;
 }
 
-void RegisterFillTile(void *a, void *b, int c)
+void RegisterFillTile(const void *a, void *b, int c)
 {
     struct TileDataTransfer *ptr = &gUnknown_02024CDC[gUnknown_02024CD4.unk0];
 
