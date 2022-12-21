@@ -599,7 +599,7 @@ void sub_8013278(int a1)
         cmp r2, r9\n\
         bge _080132BC\n\
     _08013388:\n\
-        ldr r0, _0801339C\n\ 
+        ldr r0, _0801339C\n\
         add sp, #0x1c\n\
         pop {r3, r4, r5}\n\
         mov r8, r3\n\
@@ -699,4 +699,32 @@ int GetSomethingInPaletteBB_5A()
 int GetSomethingInPaletteBB_8A()
 {
     return GetPaletteBufferBuffer()->unk8A;
+}
+
+void ArchiveCurrentPalettes()
+{
+    int i, j;
+    u16 *dst = (void*)GetPaletteBufferBuffer();
+    u16 *src = (void*)&gPaletteBuffer;
+
+    for (i = 0; i < 32; i++) {
+        for (j = 0; j < 16; j++)
+            dst[j] = *src++;
+
+        dst += 24;
+    }
+
+    SetSomethingInPaletteBB_2A(0x100);
+    SetSomethingInPaletteBB_5A(0x100);
+    SetSomethingInPaletteBB_8A(0x100);
+}
+
+void ArchivePalette(int index)
+{
+    int i;
+    u16 *dst = (void*)GetPaletteBufferBuffer();
+    u16 *src = (void*)&gPaletteBuffer[16 * index];
+
+    for (i = 0; i < 16; i++)
+        dst[24 * index + i] = *src++;
 }
