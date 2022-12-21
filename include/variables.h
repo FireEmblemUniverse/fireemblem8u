@@ -786,7 +786,7 @@ extern struct Unit* gActiveUnit;
 extern struct GMapData gGMData;
 // extern ??? gUnknown_03005324
 // extern ??? gUnknown_03005349
-// extern ??? gGmMonsterRnState
+extern u16 gGmMonsterRnState[];
 // extern ??? gUnknown_03005360
 // extern ??? gUnknown_03005380
 // extern ??? gUnknown_03005398
@@ -3721,15 +3721,6 @@ extern u16 gUnknown_08A37300[]; // pal
 // extern ??? gUnknown_08AA21A4
 // extern ??? gUnknown_08AA21BC
 // extern ??? gUnknown_08AA239C
-// extern ??? gUnknown_08AA6774
-// extern ??? gUnknown_08AA6794
-// extern ??? gUnknown_08AA67AE
-// extern ??? gUnknown_08AA67E0
-// extern ??? gUnknown_08AA67FC
-// extern ??? gUnknown_08AA6814
-// extern ??? gUnknown_08AA682C
-// extern ??? gUnknown_08AA6858
-// extern ??? gUnknown_08AA6A50
 // extern ??? gUnknown_08AA6BFA
 // extern ??? gUnknown_08AA6C0E
 // extern ??? gUnknown_08AA6C22
@@ -3759,36 +3750,36 @@ extern u16 gUnknown_08A37300[]; // pal
 // extern ??? gUnknown_08AA712A
 // extern ??? gUnknown_08AA715C
 // extern ??? gUnknown_08AA7194
-// extern ??? gUnknown_08AA7760
-// extern ??? gUnknown_08AA9708
-// extern ??? gUnknown_08AAAE90
-// extern ??? gUnknown_08AAB3F4
-// extern ??? gUnknown_08AAB414
-// extern ??? gUnknown_08AAC2A4
-// extern ??? gUnknown_08AAC58C
-// extern ??? gUnknown_08AAC5AC
-// extern ??? gUnknown_08AACEDC
-// extern ??? gUnknown_08AADB68
-// extern ??? gUnknown_08AADBE8
-// extern ??? gUnknown_08AADC08
-// extern ??? gUnknown_08AAE61C
-// extern ??? gUnknown_08AAE8CC
-// extern ??? gUnknown_08AAE8EC
-// extern ??? gUnknown_08AAF928
-// extern ??? gUnknown_08AAFCF4
-// extern ??? gUnknown_08AAFD14
-// extern ??? gUnknown_08AAFF10
-// extern ??? gUnknown_08AB0114
-// extern ??? gUnknown_08AB0134
-// extern ??? gUnknown_08AB0A20
-// extern ??? gUnknown_08AB0B24
-// extern ??? gUnknown_08AB0B44
-// extern ??? gUnknown_08AB1890
-// extern ??? gUnknown_08AB1C04
-// extern ??? gUnknown_08AB1C24
-// extern ??? gUnknown_08AB210C
-// extern ??? gUnknown_08AB216C
-// extern ??? gUnknown_08AB21B8
+extern u8 gGfx_TitleMainBackground_1[];
+extern u8 gGfx_TitleMainBackground_2[];
+extern u8 gTsa_TitleMainBackground[];
+extern u16 gPal_TitleMainBackground[];
+extern u8 gGfx_TitleDragonForeground[];
+extern u8 gTsa_TitleDragonForeground[];
+extern u16 gPal_TitleDragonForeground[];
+extern u8 gGfx_FireEmblemLogo[];
+extern u8 gGfx_SubtitlePressStart[];
+extern u16 gPal_PressStart[];
+extern u16 gPal_08AADBE8[];
+extern u8 gGfx_08AADC08[];
+extern u8 gTsa_08AAE61C[];
+extern u16 gPal_08AAE8CC[];
+extern u8 gGfx_08AAE8EC[];
+extern u8 gTsa_08AAF928[];
+extern u16 gPal_08AAFCF4[];
+extern u8 gGfx_08AAFD14[];
+extern u8 gTsa_08AAFF10[];
+extern u16 gPal_08AB0114[];
+extern u8 gGfx_08AB0134[];
+extern u8 gTsa_08AB0A20[];
+extern u16 gPal_08AB0B24[];
+extern u8 gGfx_TitleDemonKing[];
+extern u8 gTsa_TitleDemonKing[];
+extern u16 gPal_TitleDemonKing[];
+extern u8 gGfx_TitleLargeGlowingOrb[];
+extern u16 gPal_TitleLargeGlowingOrb[];
+extern u8 gGfx_TitleSmallLightBubbles[];
+extern u16 gPal_TitleSmallLightBubbles[];
 // extern ??? gUnknown_08AB21D8
 // extern ??? gUnknown_08AB5D90
 // extern ??? gUnknown_08AB630C

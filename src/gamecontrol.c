@@ -12,8 +12,6 @@
 
 #include "gamecontrol.h"
 
-extern u16 gGmMonsterRnState[];
-
 extern u16 gEvent_8A0035C[];
 extern u16 gEvent_8A00364[];
 extern u16 gEvent_EirikaModeGameEnd[];
@@ -22,36 +20,6 @@ extern u16 gEvent_EphraimModeGameEnd[];
 extern struct ProcCmd CONST_DATA gUnknown_08AA7680[]; // pre-intro cutscene
 extern struct ProcCmd CONST_DATA gUnknown_08AA71C8[]; // intro cutscene
 extern struct ProcCmd CONST_DATA gUnknown_08A3DD50[]; // world map wrapper
-
-// hino.s
-void sub_8013D68(ProcPtr);
-void sub_8013D8C(ProcPtr);
-
-// code_sio.s
-void sub_80481E0(ProcPtr);
-void sub_8048850(ProcPtr);
-
-// ev_triggercheck.s
-void sub_8083D18(void);
-void ClearLocalEvents(void);
-
-// code.s
-void sub_8086BB8(ProcPtr, u8*, int);
-void sub_80A41C8(void);
-int GetGlobalCompletionCount(void);
-void sub_80A4CD8(void);
-s8 SaveMetadata_LoadId(int);
-void LoadSavedChapterState(int, struct RAMChapterData*);
-void ClearSaveBlock(int);
-void sub_80A6D38(void);
-void Make6C_savemenu(ProcPtr);
-void Make6C_savemenu2(ProcPtr);
-void EndWM(ProcPtr);
-void sub_80B7598(ProcPtr);
-void sub_80C541C(ProcPtr);
-void sub_80C6424(ProcPtr);
-void sub_80C6444(ProcPtr);
-void sub_80C645C(ProcPtr);
 
 s8 sub_80099E4(ProcPtr);
 void GameControl_HandleSelectRightL(ProcPtr);
@@ -131,19 +99,19 @@ PROC_LABEL(3),
 
 PROC_LABEL(4),
     PROC_CALL(GameControl_EnableSoundEffects),
-    PROC_CALL(sub_80C6424),
+    PROC_CALL(StartTitleScreen_WithMusic),
 
     PROC_GOTO(26),
 
 PROC_LABEL(24),
     PROC_CALL(GameControl_EnableSoundEffects),
-    PROC_CALL(sub_80C645C),
+    PROC_CALL(StartTitleScreen_FlagTrue),
 
     PROC_GOTO(26),
 
 PROC_LABEL(25),
     PROC_CALL(GameControl_EnableSoundEffects),
-    PROC_CALL(sub_80C6444),
+    PROC_CALL(StartTitleScreen_FlagFalse),
 
     PROC_GOTO(26),
 
