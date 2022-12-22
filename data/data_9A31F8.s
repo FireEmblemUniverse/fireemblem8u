@@ -87,8 +87,8 @@ gUnknown_089A3288:  @ 0x089A3288
         .short 0xd, 0x0
         .word gUnknown_089A35B0
 
-	.global gUnknown_089A32C8
-gUnknown_089A32C8:  @ 0x089A32C8
+	.global ProcScr_MapAnimSteal
+ProcScr_MapAnimSteal:  @ 0x089A32C8
         @ PROC_CALL
         .short 0x2, 0x0
         .word AddSkipThread2
@@ -168,8 +168,8 @@ gUnknown_089A32C8:  @ 0x089A32C8
         .short 0xd, 0x0
         .word gUnknown_089A35B0
 
-	.global gUnknown_089A3398
-gUnknown_089A3398:  @ 0x089A3398
+	.global ProcScr_MapAnimSummon
+ProcScr_MapAnimSummon:  @ 0x089A3398
         @ PROC_CALL
         .short 0x2, 0x0
         .word AddSkipThread2
@@ -279,8 +279,8 @@ ProcScr_MapAnimSumDK:  @ 0x089A33C0
         .short 0xd, 0x0
         .word gUnknown_089A35B0
 
-	.global gUnknown_089A34B0
-gUnknown_089A34B0:  @ 0x089A34B0
+	.global ProcScr_MapAnimDance
+ProcScr_MapAnimDance:  @ 0x089A34B0
         @ PROC_CALL
         .short 0x2, 0x0
         .word AddSkipThread2
@@ -315,8 +315,8 @@ gUnknown_089A34B0:  @ 0x089A34B0
         .short 0xd, 0x0
         .word gUnknown_089A35B0
 
-	.global ProcScr_MapBattleAnim
-ProcScr_MapBattleAnim:  @ 0x089A3508
+	.global ProcScr_MapAnimBattle
+ProcScr_MapAnimBattle:  @ 0x089A3508
         @ PROC_CALL
         .short 0x2, 0x0
         .word AddSkipThread2
@@ -625,7 +625,7 @@ gUnknown_089A3814:  @ 0x089A3814
         .word sub_807CAA8
         @ PROC_WHILE_EXISTS
         .short 0x8, 0x0
-        .word ProcScr_MapBattleAnim
+        .word ProcScr_MapAnimBattle
         @ PROC_GOTO
         .short 0xc, 0x0
         .word 0x0
@@ -634,8 +634,8 @@ gUnknown_089A3814:  @ 0x089A3814
         .word 0x0
 
 
-	.global ProcScr_EventMapBattleAnim
-ProcScr_EventMapBattleAnim:  @ 0x089A3874
+	.global ProcScr_MapAnimEventBattle
+ProcScr_MapAnimEventBattle:  @ 0x089A3874
         @ PROC_CALL
         .short 0x2, 0x0
         .word AddSkipThread2

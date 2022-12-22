@@ -1118,7 +1118,7 @@ extern const char gUnknown_080D7954[];
 // extern ??? gMsgHuffmanTable
 // extern ??? gMsgHuffmanTableRoot
 extern const u8 *const gMsgStringTable[];
-// extern ??? gUnknown_08205714
+extern const u8 gUnknown_08205714[4];
 // extern ??? gUnknown_0820579C
 // extern ??? gUnknown_08205824
 // extern ??? gUnknown_08205833
@@ -2932,11 +2932,11 @@ extern CONST_DATA struct MMSData gMMSDataTable[]; // Moving Map Sprite Table
 extern CONST_DATA struct ProcCmd gUnknown_089A31F8[];
 extern CONST_DATA struct ProcCmd gUnknown_089A3238[];
 extern CONST_DATA struct ProcCmd gUnknown_089A3288[];
-extern CONST_DATA struct ProcCmd gUnknown_089A32C8[];
-extern CONST_DATA struct ProcCmd gUnknown_089A3398[];
+extern CONST_DATA struct ProcCmd ProcScr_MapAnimSteal[];
+extern CONST_DATA struct ProcCmd ProcScr_MapAnimSummon[];
 extern CONST_DATA struct ProcCmd ProcScr_MapAnimSumDK[];
-extern CONST_DATA struct ProcCmd gUnknown_089A34B0[];
-extern CONST_DATA struct ProcCmd ProcScr_MapBattleAnim[];
+extern CONST_DATA struct ProcCmd ProcScr_MapAnimDance[];
+extern CONST_DATA struct ProcCmd ProcScr_MapAnimBattle[];
 extern CONST_DATA struct ProcCmd gUnknown_089A35B0[];
 // extern ??? gUnknown_089A3648
 // extern ??? gUnknown_089A3668
@@ -2949,7 +2949,7 @@ extern CONST_DATA struct ProcCmd gUnknown_089A36F8[];
 // extern ??? gUnknown_089A37E8
 // extern ??? gUnknown_089A3810
 // extern ??? gUnknown_089A3814
-// extern ??? ProcScr_EventMapBattleAnim
+extern CONST_DATA struct ProcCmd ProcScr_MapAnimEventBattle[];
 // extern ??? gUnknown_089A3924
 // extern ??? gUnknown_089A3944
 // extern ??? gUnknown_089A3964
