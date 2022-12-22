@@ -31314,6 +31314,6 @@ gUnknown_088B3AD8:  @ 0x088B3AD8
     .4byte 0x00000000
     .4byte 0x00000000
 
-	.global gUnknown_088D1F54
-gUnknown_088D1F54:  @ 0x088D1F54
+	.global gUnitDefSumDK
+gUnitDefSumDK:  @ 0x088D1F54
 	.incbin "baserom.gba", 0x8D1F54, 0x104

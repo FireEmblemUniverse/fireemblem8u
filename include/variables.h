@@ -714,9 +714,9 @@ extern struct OamDataTransfer gUnknown_03000030;
 // extern ??? gUnknown_03001C34
 // extern ??? gUnknown_03001C35
 // extern ??? gUnknown_03001C36
-// extern ??? gUnknown_03001C38
+// extern ??? gUnitDef1
 // extern ??? gUnknown_03001C48
-// extern ??? gUnknown_03001C50
+// extern ??? gUnitDef2
 // extern ??? gUnknown_03001C68
 // extern ??? gUnknown_03001C74
 // extern ??? gUnknown_03001C7C
@@ -2880,13 +2880,13 @@ extern u8 CONST_DATA gUnknown_088ADFA6[]; // Solar Brace class list
 extern const struct SupportBonuses gAffinityBonuses[];
 // extern ??? gUnknown_088B39EC
 // extern ??? gUnknown_088B3AD8
-extern struct UnitDefinition gUnknown_088D1F54[];
+extern struct UnitDefinition gUnitDefSumDK[];
 // extern ??? gUnknown_088D2058
 // extern ??? gConvoBackgroundData
 extern u8 CONST_DATA gUnknown_0895DFA4[][2];
 extern u8 gUnknown_0895E0A4[];
 extern u8 gUnknown_0895EEA4[];
-// extern ??? gUnknown_0895F5A4
+extern u8 gUnknown_0895F5A4[4][2];
 // extern ??? gUnknown_0895F5A5
 extern u16 CONST_DATA gUnknown_089A18D4[];      /* a palatte */
 extern u16 CONST_DATA gUnknown_089A18F4[];      /* a image */
@@ -2928,28 +2928,28 @@ extern u16 CONST_DATA gUnknown_089A232C[];      /* a palatte */
 // extern ??? gUnknown_089A2D98
 // extern ??? gUnknown_089A2DB0
 #define gMMSDataTable unit_icon_move_table
-extern const struct MMSData gMMSDataTable[]; // Moving Map Sprite Table
-// extern ??? gUnknown_089A31F8
-// extern ??? gUnknown_089A3238
-// extern ??? gUnknown_089A3288
-// extern ??? gUnknown_089A32C8
-// extern ??? gUnknown_089A3398
-// extern ??? gUnknown_089A33C0
-// extern ??? gUnknown_089A34B0
-// extern ??? gUnknown_089A3508
-extern struct ProcCmd gUnknown_089A35B0;
+extern CONST_DATA struct MMSData gMMSDataTable[]; // Moving Map Sprite Table
+extern CONST_DATA struct ProcCmd gUnknown_089A31F8[];
+extern CONST_DATA struct ProcCmd gUnknown_089A3238[];
+extern CONST_DATA struct ProcCmd gUnknown_089A3288[];
+extern CONST_DATA struct ProcCmd gUnknown_089A32C8[];
+extern CONST_DATA struct ProcCmd gUnknown_089A3398[];
+extern CONST_DATA struct ProcCmd ProcScr_MapAnimSumDK[];
+extern CONST_DATA struct ProcCmd gUnknown_089A34B0[];
+extern CONST_DATA struct ProcCmd ProcScr_MapBattleAnim[];
+extern CONST_DATA struct ProcCmd gUnknown_089A35B0[];
 // extern ??? gUnknown_089A3648
 // extern ??? gUnknown_089A3668
 // extern ??? gUnknown_089A3670
 // extern ??? gUnknown_089A3688
 // extern ??? gUnknown_089A36C0
-// extern ??? gUnknown_089A36F8
+extern CONST_DATA struct ProcCmd gUnknown_089A36F8[];
 // extern ??? gUnknown_089A3770
 // extern ??? gUnknown_089A3798
 // extern ??? gUnknown_089A37E8
 // extern ??? gUnknown_089A3810
 // extern ??? gUnknown_089A3814
-// extern ??? gUnknown_089A3874
+// extern ??? ProcScr_EventMapBattleAnim
 // extern ??? gUnknown_089A3924
 // extern ??? gUnknown_089A3944
 // extern ??? gUnknown_089A3964
@@ -3015,7 +3015,7 @@ extern struct ProcCmd gUnknown_089A35B0;
 // extern ??? gUnknown_089A6F40
 // extern ??? SpriteAnim_UnkTrap_089A6FD8
 extern const u16 gUnknown_089A8EF8[];
-// extern ??? gUnknown_089A8F74
+extern const u16 gUnknown_089A8F74[];
 // extern ??? gUnknown_089A8F94
 // extern ??? gUnknown_089ABB70
 // extern ??? gUnknown_089AC024

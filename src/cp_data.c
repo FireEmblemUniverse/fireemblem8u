@@ -1341,7 +1341,7 @@ const u8 CONST_DATA gUnknown_085A8A74[] = {
     5, 3, 0, 0
 };
 
-struct UnitDefinition* CONST_DATA gUnknown_085A8A78 = gUnknown_088D1F54;
+struct UnitDefinition* CONST_DATA gUnknown_085A8A78 = gUnitDefSumDK;
 
 // 0x14 = Try to use Nightmare (but not on turn one), then try to Summon Units, then act like 0x0 (AttackInRange)
 struct AiScr CONST_DATA gAiScript_085A8A7C[] = {

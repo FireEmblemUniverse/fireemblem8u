@@ -76,9 +76,9 @@
 . = 0x001C34; gUnknown_03001C34 = .;
 . = 0x001C35; gUnknown_03001C35 = .;
 . = 0x001C36; gUnknown_03001C36 = .;
-. = 0x001C38; gUnknown_03001C38 = .;
+. = 0x001C38; gUnitDef1 = .;
 . = 0x001C48; gUnknown_03001C48 = .;
-. = 0x001C50; gUnknown_03001C50 = .;
+. = 0x001C50; gUnitDef2 = .;
 . = 0x001C68; gUnknown_03001C68 = .;
 . = 0x001C74; gUnknown_03001C74 = .;
 . = 0x001C7C; gUnknown_03001C7C = .;

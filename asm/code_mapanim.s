@@ -5,1436 +5,6 @@
 	@ Everything related to map battle animations
 	@ Needs further splitting
 
-	THUMB_FUNC_START sub_807A984
-sub_807A984: @ 0x0807A984
-	push {r4, lr}
-	movs r2, #1
-	negs r2, r2
-	ldr r0, _0807A9FC  @ gCurrentMapAnimState
-	adds r1, r0, #0
-	adds r1, #0x5e
-	ldrb r1, [r1]
-	adds r3, r0, #0
-	cmp r1, #1
-	beq _0807A9A6
-	cmp r1, #2
-	bne _0807A9AE
-	adds r0, #0x21
-	ldrb r0, [r0]
-	cmp r0, #0
-	bne _0807A9A6
-	movs r2, #1
-_0807A9A6:
-	ldrb r0, [r3, #0xd]
-	cmp r0, #0
-	bne _0807A9AE
-	movs r2, #0
-_0807A9AE:
-	movs r0, #1
-	negs r0, r0
-	cmp r2, r0
-	beq _0807A9F4
-	lsls r0, r2, #2
-	adds r0, r0, r2
-	lsls r0, r0, #2
-	adds r0, r0, r3
-	ldr r0, [r0]
-	ldr r0, [r0]
-	ldrb r4, [r0, #4]
-	cmp r4, #1
-	beq _0807A9CC
-	cmp r4, #0xf
-	bne _0807A9DE
-_0807A9CC:
-	movs r0, #0x65
-	bl CheckEventId
-	lsls r0, r0, #0x18
-	cmp r0, #0
-	beq _0807A9DE
-	movs r0, #0x65
-	bl UnsetEventId
-_0807A9DE:
-	adds r0, r4, #0
-	bl sub_80835A8
-	lsls r0, r0, #0x18
-	cmp r0, #0
-	beq _0807A9F4
-	bl DeleteBattleAnimInfoThing
-	adds r0, r4, #0
-	bl sub_80835DC
-_0807A9F4:
-	pop {r4}
-	pop {r0}
-	bx r0
-	.align 2, 0
-_0807A9FC: .4byte gCurrentMapAnimState
-
-	THUMB_FUNC_END sub_807A984
-
-	THUMB_FUNC_START sub_807AA00
-sub_807AA00: @ 0x0807AA00
-	push {lr}
-	movs r3, #1
-	negs r3, r3
-	ldr r0, _0807AA48  @ gCurrentMapAnimState
-	adds r2, r0, #0
-	adds r2, #0x5e
-	ldrb r2, [r2]
-	adds r1, r0, #0
-	cmp r2, #1
-	beq _0807AA22
-	cmp r2, #2
-	bne _0807AA2A
-	adds r0, #0x21
-	ldrb r0, [r0]
-	cmp r0, #0
-	bne _0807AA22
-	movs r3, #1
-_0807AA22:
-	ldrb r0, [r1, #0xd]
-	cmp r0, #0
-	bne _0807AA2A
-	movs r3, #0
-_0807AA2A:
-	movs r0, #1
-	negs r0, r0
-	cmp r3, r0
-	beq _0807AA42
-	lsls r0, r3, #2
-	adds r0, r0, r3
-	lsls r0, r0, #2
-	adds r1, #8
-	adds r0, r0, r1
-	ldr r0, [r0]
-	bl MU_StartDeathFade
-_0807AA42:
-	pop {r0}
-	bx r0
-	.align 2, 0
-_0807AA48: .4byte gCurrentMapAnimState
-
-	THUMB_FUNC_END sub_807AA00
-
-	THUMB_FUNC_START sub_807AA4C
-sub_807AA4C: @ 0x0807AA4C
-	push {r4, lr}
-	adds r1, r0, #0
-	movs r4, #1
-	negs r4, r4
-	ldr r0, _0807AAD4  @ gCurrentMapAnimState
-	adds r2, r0, #0
-	adds r2, #0x5e
-	ldrb r2, [r2]
-	adds r3, r0, #0
-	cmp r2, #1
-	beq _0807AA76
-	cmp r2, #2
-	bne _0807AA86
-	ldr r0, [r3, #0x18]
-	adds r0, #0x6e
-	ldrb r0, [r0]
-	lsls r0, r0, #0x18
-	asrs r0, r0, #0x18
-	cmp r0, #0
-	beq _0807AA76
-	movs r4, #1
-_0807AA76:
-	ldr r0, [r3, #4]
-	adds r0, #0x6e
-	ldrb r0, [r0]
-	lsls r0, r0, #0x18
-	asrs r0, r0, #0x18
-	cmp r0, #0
-	beq _0807AA86
-	movs r4, #0
-_0807AA86:
-	cmp r4, #0
-	blt _0807AACE
-	ldr r0, _0807AAD8  @ gUnknown_089A36F8
-	bl Proc_StartBlocking
-	adds r3, r0, #0
-	ldr r0, _0807AAD4  @ gCurrentMapAnimState
-	lsls r1, r4, #2
-	adds r1, r1, r4
-	lsls r1, r1, #2
-	adds r0, #4
-	adds r1, r1, r0
-	ldr r0, [r1]
-	adds r0, #0x71
-	movs r2, #0
-	ldrsb r2, [r0, r2]
-	adds r0, r3, #0
-	adds r0, #0x64
-	strh r2, [r0]
-	ldr r0, [r1]
-	adds r1, r0, #0
-	adds r1, #0x71
-	ldrb r1, [r1]
-	lsls r1, r1, #0x18
-	asrs r1, r1, #0x18
-	adds r0, #0x6e
-	ldrb r0, [r0]
-	lsls r0, r0, #0x18
-	asrs r0, r0, #0x18
-	adds r1, r1, r0
-	adds r2, r3, #0
-	adds r2, #0x66
-	strh r1, [r2]
-	adds r0, r3, #0
-	adds r0, #0x68
-	strh r4, [r0]
-_0807AACE:
-	pop {r4}
-	pop {r0}
-	bx r0
-	.align 2, 0
-_0807AAD4: .4byte gCurrentMapAnimState
-_0807AAD8: .4byte gUnknown_089A36F8
-
-	THUMB_FUNC_END sub_807AA4C
-
-	THUMB_FUNC_START sub_807AADC
-sub_807AADC: @ 0x0807AADC
-	push {r4, r5, r6, lr}
-	sub sp, #8
-	adds r6, r0, #0
-	bl SetDefaultColorEffects
-	ldr r5, _0807AB2C  @ gCurrentMapAnimState
-	adds r0, r5, #0
-	adds r0, #0x62
-	ldrb r0, [r0]
-	cmp r0, #2
-	bgt _0807AAF6
-	cmp r0, #1
-	bge _0807ABAE
-_0807AAF6:
-	ldr r0, [r5, #4]
-	adds r0, #0x4a
-	ldrh r0, [r0]
-	bl GetSpellAssocReturnBool
-	lsls r0, r0, #0x18
-	cmp r0, #0
-	beq _0807ABAE
-	adds r1, r5, #0
-	adds r1, #0x5e
-	ldrb r0, [r1]
-	cmp r0, #1
-	bne _0807AB34
-	ldr r0, [r5]
-	ldrb r0, [r0, #0x11]
-	lsls r0, r0, #0x18
-	asrs r0, r0, #0x18
-	lsls r0, r0, #4
-	ldr r1, _0807AB30  @ gGameState
-	movs r2, #0xe
-	ldrsh r1, [r1, r2]
-	subs r0, r0, r1
-	cmp r0, #0x6f
-	ble _0807AB9C
-	subs r0, #0x28
-	b _0807AB9E
-	.align 2, 0
-_0807AB2C: .4byte gCurrentMapAnimState
-_0807AB30: .4byte gGameState
-_0807AB34:
-	ldrb r1, [r1]
-	cmp r1, #0
-	beq _0807AB5A
-	ldr r0, _0807AB6C  @ gGameState
-	movs r2, #0xe
-	ldrsh r4, [r0, r2]
-	adds r2, r5, #0
-	mov r3, sp
-_0807AB44:
-	ldr r0, [r2]
-	ldrb r0, [r0, #0x11]
-	lsls r0, r0, #0x18
-	asrs r0, r0, #0x18
-	lsls r0, r0, #4
-	subs r0, r0, r4
-	stm r3!, {r0}
-	adds r2, #0x14
-	subs r1, #1
-	cmp r1, #0
-	bne _0807AB44
-_0807AB5A:
-	ldr r0, [sp]
-	ldr r2, [sp, #4]
-	subs r1, r0, r2
-	adds r3, r0, #0
-	cmp r1, #0
-	blt _0807AB70
-	cmp r1, #0x4f
-	bgt _0807AB76
-	b _0807AB7A
-	.align 2, 0
-_0807AB6C: .4byte gGameState
-_0807AB70:
-	subs r0, r2, r3
-	cmp r0, #0x4f
-	ble _0807AB7A
-_0807AB76:
-	movs r0, #0x40
-	b _0807AB9E
-_0807AB7A:
-	movs r1, #0
-	ldr r0, [sp, #4]
-	cmp r3, r0
-	bgt _0807AB84
-	movs r1, #1
-_0807AB84:
-	lsls r0, r1, #2
-	add r0, sp
-	ldr r0, [r0]
-	cmp r0, #0x6f
-	ble _0807AB9C
-	movs r0, #1
-	subs r0, r0, r1
-	lsls r0, r0, #2
-	add r0, sp
-	ldr r0, [r0]
-	subs r0, #0x28
-	b _0807AB9E
-_0807AB9C:
-	adds r0, #0x18
-_0807AB9E:
-	cmp r0, #0
-	bge _0807ABA4
-	adds r0, #7
-_0807ABA4:
-	asrs r1, r0, #3
-	movs r0, #0xf
-	adds r2, r6, #0
-	bl NewMapBattleInfoThing
-_0807ABAE:
-	add sp, #8
-	pop {r4, r5, r6}
-	pop {r0}
-	bx r0
-
-	THUMB_FUNC_END sub_807AADC
-
-	THUMB_FUNC_START MapAnim_CallBattleQuoteEvents
-MapAnim_CallBattleQuoteEvents: @ 0x0807ABB8
-	push {lr}
-	ldr r1, _0807ABDC  @ gCurrentMapAnimState
-	adds r0, r1, #0
-	adds r0, #0x5e
-	ldrb r0, [r0]
-	cmp r0, #2
-	bne _0807ABD6
-	ldr r0, [r1]
-	ldr r0, [r0]
-	ldrb r0, [r0, #4]
-	ldr r1, [r1, #0x14]
-	ldr r1, [r1]
-	ldrb r1, [r1, #4]
-	bl CallBattleQuoteEventsIfAny
-_0807ABD6:
-	pop {r0}
-	bx r0
-	.align 2, 0
-_0807ABDC: .4byte gCurrentMapAnimState
-
-	THUMB_FUNC_END MapAnim_CallBattleQuoteEvents
-
-	THUMB_FUNC_START sub_807ABE0
-sub_807ABE0: @ 0x0807ABE0
-	push {r4, r5, r6, r7, lr}
-	adds r6, r0, #0
-	ldr r2, _0807AC48  @ gCurrentMapAnimState
-	ldr r0, [r2]
-	movs r1, #0xb
-	ldrsb r1, [r0, r1]
-	movs r3, #0xc0
-	ands r1, r3
-	ldr r0, [r2, #0x14]
-	ldrb r0, [r0, #0xb]
-	lsls r0, r0, #0x18
-	asrs r0, r0, #0x18
-	ands r0, r3
-	adds r7, r2, #0
-	cmp r1, r0
-	bne _0807AC1C
-	ldr r0, [r7, #4]
-	adds r0, #0x55
-	ldrb r0, [r0]
-	cmp r0, #0x1b
-	beq _0807AC1C
-	cmp r0, #0x33
-	beq _0807AC1C
-	ldr r0, [r7, #0x18]
-	adds r0, #0x55
-	ldrb r0, [r0]
-	cmp r0, #0x1b
-	beq _0807AC1C
-	cmp r0, #0x33
-	bne _0807ACA2
-_0807AC1C:
-	lsls r1, r6, #2
-	adds r0, r1, r6
-	lsls r0, r0, #2
-	adds r0, r0, r7
-	ldr r2, [r0]
-	ldr r0, [r2, #4]
-	ldrb r0, [r0, #4]
-	adds r5, r1, #0
-	cmp r0, #0x3c
-	bne _0807ACA2
-	adds r0, r2, #0
-	adds r0, #0x30
-	ldrb r0, [r0]
-	lsls r0, r0, #0x1c
-	lsrs r0, r0, #0x1c
-	cmp r0, #0xb
-	beq _0807ACA2
-	cmp r0, #0xb
-	bgt _0807AC4C
-	cmp r0, #2
-	beq _0807ACA2
-	b _0807AC50
-	.align 2, 0
-_0807AC48: .4byte gCurrentMapAnimState
-_0807AC4C:
-	cmp r0, #0xd
-	beq _0807ACA2
-_0807AC50:
-	movs r1, #1
-	eors r1, r6
-	lsls r0, r1, #2
-	adds r0, r0, r1
-	lsls r0, r0, #2
-	adds r4, r7, #4
-	adds r0, r0, r4
-	ldr r0, [r0]
-	adds r0, #0x4a
-	ldrh r0, [r0]
-	bl GetItemIndex
-	cmp r0, #0x51
-	blt _0807AC74
-	cmp r0, #0x53
-	ble _0807ACA2
-	cmp r0, #0xb5
-	beq _0807ACA2
-_0807AC74:
-	adds r0, r5, r6
-	lsls r5, r0, #2
-	adds r0, r5, r4
-	ldr r0, [r0]
-	adds r0, #0x4a
-	ldrh r0, [r0]
-	bl GetItemIndex
-	cmp r0, #0xaa
-	bne _0807ACA2
-	adds r4, r7, #0
-	adds r4, #8
-	adds r4, r5, r4
-	ldr r0, [r4]
-	adds r1, r6, #0
-	adds r1, #8
-	bl MU_SetPaletteId
-	ldr r0, [r4]
-	ldr r2, _0807ACA8  @ gUnknown_089A8F74
-	movs r1, #0xe
-	bl MU_SetSpecialSprite
-_0807ACA2:
-	pop {r4, r5, r6, r7}
-	pop {r0}
-	bx r0
-	.align 2, 0
-_0807ACA8: .4byte gUnknown_089A8F74
-
-	THUMB_FUNC_END sub_807ABE0
-
-	THUMB_FUNC_START sub_807ACAC
-sub_807ACAC: @ 0x0807ACAC
-	push {lr}
-	ldr r0, _0807ACCC  @ gCurrentMapAnimState
-	adds r0, #0x5e
-	ldrb r0, [r0]
-	cmp r0, #1
-	beq _0807ACC2
-	cmp r0, #2
-	bne _0807ACC8
-	movs r0, #1
-	bl sub_807ABE0
-_0807ACC2:
-	movs r0, #0
-	bl sub_807ABE0
-_0807ACC8:
-	pop {r0}
-	bx r0
-	.align 2, 0
-_0807ACCC: .4byte gCurrentMapAnimState
-
-	THUMB_FUNC_END sub_807ACAC
-
-	THUMB_FUNC_START PlaySoundIdA0
-PlaySoundIdA0: @ 0x0807ACD0
-	push {lr}
-	ldr r0, _0807ACE8  @ gRAMChapterData
-	adds r0, #0x41
-	ldrb r0, [r0]
-	lsls r0, r0, #0x1e
-	cmp r0, #0
-	blt _0807ACE4
-	movs r0, #0xa0
-	bl m4aSongNumStart
-_0807ACE4:
-	pop {r0}
-	bx r0
-	.align 2, 0
-_0807ACE8: .4byte gRAMChapterData
-
-	THUMB_FUNC_END PlaySoundIdA0
-
-	THUMB_FUNC_START sub_807ACEC
-sub_807ACEC: @ 0x0807ACEC
-	push {lr}
-	ldr r0, _0807AD04  @ gRAMChapterData
-	adds r0, #0x41
-	ldrb r0, [r0]
-	lsls r0, r0, #0x1e
-	cmp r0, #0
-	blt _0807AD00
-	movs r0, #0xa0
-	bl m4aSongNumStart
-_0807AD00:
-	pop {r0}
-	bx r0
-	.align 2, 0
-_0807AD04: .4byte gRAMChapterData
-
-	THUMB_FUNC_END sub_807ACEC
-
-	THUMB_FUNC_START New6C_SummonGfx_FromActionPos
-New6C_SummonGfx_FromActionPos: @ 0x0807AD08
-	push {lr}
-	ldr r2, _0807AD18  @ gActionData
-	ldrb r1, [r2, #0x13]
-	ldrb r2, [r2, #0x14]
-	bl New6C_SummonGfx
-	pop {r0}
-	bx r0
-	.align 2, 0
-_0807AD18: .4byte gActionData
-
-	THUMB_FUNC_END New6C_SummonGfx_FromActionPos
-
-	THUMB_FUNC_START sub_807AD1C
-sub_807AD1C: @ 0x0807AD1C
-	push {r4, r5, r6, r7, lr}
-	mov r7, r9
-	mov r6, r8
-	push {r6, r7}
-	sub sp, #0x80
-	bl AdvanceGetLCGRNValue
-	movs r1, #0x65
-	bl DivRem
-	lsls r0, r0, #0x18
-	lsrs r7, r0, #0x18
-	ldr r6, _0807AD4C  @ 0x0000FFFF
-	movs r4, #0
-	ldr r0, _0807AD50  @ gActiveUnit
-	ldr r0, [r0]
-	ldr r0, [r0]
-	ldr r1, _0807AD54  @ gUnknown_0895F5A4
-	ldrb r0, [r0, #4]
-	ldrb r1, [r1]
-	cmp r0, r1
-	bne _0807AD58
-	movs r6, #0
-	b _0807AD80
-	.align 2, 0
-_0807AD4C: .4byte 0x0000FFFF
-_0807AD50: .4byte gActiveUnit
-_0807AD54: .4byte gUnknown_0895F5A4
-_0807AD58:
-	lsls r0, r4, #0x10
-	movs r1, #0x80
-	lsls r1, r1, #9
-	adds r0, r0, r1
-	lsrs r4, r0, #0x10
-	lsls r5, r4, #0x10
-	asrs r3, r5, #0x10
-	cmp r3, #2
-	bgt _0807AD80
-	ldr r0, _0807ADFC  @ gActiveUnit
-	ldr r0, [r0]
-	ldr r2, [r0]
-	ldr r1, _0807AE00  @ gUnknown_0895F5A4
-	lsls r0, r3, #1
-	adds r0, r0, r1
-	ldrb r1, [r2, #4]
-	ldrb r0, [r0]
-	cmp r1, r0
-	bne _0807AD58
-	lsrs r6, r5, #0x10
-_0807AD80:
-	lsls r0, r6, #0x10
-	asrs r2, r0, #0x10
-	movs r1, #1
-	negs r1, r1
-	mov r8, r0
-	cmp r2, r1
-	bne _0807AD90
-	b _0807AFC0
-_0807AD90:
-	movs r4, #1
-	lsls r1, r2, #1
-	ldr r0, _0807AE04  @ gUnknown_0895F5A5
-	adds r5, r1, r0
-_0807AD98:
-	adds r0, r4, #0
-	bl GetUnit
-	adds r1, r0, #0
-	cmp r1, #0
-	beq _0807ADB8
-	ldr r0, [r1]
-	cmp r0, #0
-	beq _0807ADB8
-	ldrb r0, [r0, #4]
-	ldrb r2, [r5]
-	cmp r0, r2
-	bne _0807ADB8
-	adds r0, r1, #0
-	bl ClearUnit
-_0807ADB8:
-	adds r4, #1
-	cmp r4, #0x3f
-	ble _0807AD98
-	movs r5, #0
-	ldr r2, _0807AE08  @ gUnknown_03001C38
-	ldr r3, _0807AE00  @ gUnknown_0895F5A4
-	mov r1, r8
-	asrs r0, r1, #0xf
-	adds r1, r3, #1
-	adds r0, r0, r1
-	ldrb r0, [r0]
-	strb r0, [r2]
-	movs r0, #0x51
-	strb r0, [r2, #1]
-	strb r5, [r2, #2]
-	ldrb r1, [r2, #3]
-	movs r0, #1
-	adds r4, r1, #0
-	orrs r4, r0
-	strb r4, [r2, #3]
-	ldr r1, _0807ADFC  @ gActiveUnit
-	ldr r0, [r1]
-	movs r5, #0xb
-	ldrsb r5, [r0, r5]
-	movs r0, #0xc0
-	ands r5, r0
-	mov ip, r1
-	mov r9, r3
-	adds r6, r2, #0
-	cmp r5, #0
-	bne _0807AE0C
-	subs r0, #0xc7
-	ands r4, r0
-	b _0807AE28
-	.align 2, 0
-_0807ADFC: .4byte gActiveUnit
-_0807AE00: .4byte gUnknown_0895F5A4
-_0807AE04: .4byte gUnknown_0895F5A5
-_0807AE08: .4byte gUnknown_03001C38
-_0807AE0C:
-	cmp r5, #0x80
-	bne _0807AE1A
-	movs r0, #7
-	negs r0, r0
-	ands r4, r0
-	movs r0, #4
-	b _0807AE26
-_0807AE1A:
-	cmp r5, #0x40
-	bne _0807AE2A
-	movs r0, #7
-	negs r0, r0
-	ands r4, r0
-	movs r0, #2
-_0807AE26:
-	orrs r4, r0
-_0807AE28:
-	strb r4, [r6, #3]
-_0807AE2A:
-	mov r2, ip
-	ldr r0, [r2]
-	ldrb r1, [r0, #8]
-	lsls r1, r1, #3
-	ldrb r2, [r6, #3]
-	movs r0, #7
-	ands r0, r2
-	orrs r0, r1
-	strb r0, [r6, #3]
-	ldr r3, _0807AEAC  @ gActionData
-	movs r0, #0x3f
-	ldrb r1, [r3, #0x13]
-	ands r1, r0
-	ldrb r2, [r6, #4]
-	movs r0, #0x40
-	negs r0, r0
-	ands r0, r2
-	orrs r0, r1
-	strb r0, [r6, #4]
-	ldrb r1, [r3, #0x14]
-	movs r0, #0x3f
-	ands r1, r0
-	lsls r1, r1, #6
-	ldrh r2, [r6, #4]
-	ldr r0, _0807AEB0  @ 0xFFFFF03F
-	ands r0, r2
-	orrs r0, r1
-	strh r0, [r6, #4]
-	movs r0, #0
-	strb r0, [r6, #7]
-	str r0, [r6, #8]
-	ldrb r1, [r6, #5]
-	subs r0, #0x11
-	ands r0, r1
-	movs r1, #0x21
-	negs r1, r1
-	ands r0, r1
-	strb r0, [r6, #5]
-	movs r4, #0
-	adds r3, r6, #0
-	adds r3, #0xc
-	movs r2, #0
-_0807AE7E:
-	lsls r0, r4, #0x10
-	asrs r0, r0, #0x10
-	adds r1, r0, r3
-	strb r2, [r1]
-	adds r0, #1
-	lsls r0, r0, #0x10
-	lsrs r4, r0, #0x10
-	asrs r0, r0, #0x10
-	cmp r0, #3
-	ble _0807AE7E
-	mov r1, ip
-	ldr r0, [r1]
-	ldrb r0, [r0, #8]
-	lsls r0, r0, #0x18
-	asrs r0, r0, #0x18
-	cmp r0, #5
-	ble _0807AEF8
-	cmp r0, #0xa
-	bgt _0807AEB4
-	cmp r7, #5
-	bhi _0807AEF8
-	movs r0, #0x27
-	b _0807AEFA
-	.align 2, 0
-_0807AEAC: .4byte gActionData
-_0807AEB0: .4byte 0xFFFFF03F
-_0807AEB4:
-	cmp r0, #0xf
-	bgt _0807AECE
-	cmp r7, #5
-	bhi _0807AEC0
-	movs r0, #0x27
-	b _0807AEFA
-_0807AEC0:
-	subs r0, r7, #6
-	lsls r0, r0, #0x18
-	lsrs r0, r0, #0x18
-	cmp r0, #0x13
-	bhi _0807AEF8
-	movs r0, #0x24
-	b _0807AEFA
-_0807AECE:
-	cmp r0, #0x14
-	bgt _0807AEFC
-	cmp r7, #5
-	bhi _0807AEDA
-	movs r0, #0x27
-	b _0807AEFA
-_0807AEDA:
-	subs r0, r7, #6
-	lsls r0, r0, #0x18
-	lsrs r0, r0, #0x18
-	cmp r0, #0x13
-	bhi _0807AEE8
-	movs r0, #0x24
-	b _0807AEFA
-_0807AEE8:
-	adds r0, r7, #0
-	subs r0, #0x1a
-	lsls r0, r0, #0x18
-	lsrs r0, r0, #0x18
-	cmp r0, #0xa
-	bhi _0807AEF8
-	movs r0, #0x29
-	b _0807AEFA
-_0807AEF8:
-	movs r0, #0x1f
-_0807AEFA:
-	strb r0, [r6, #0xc]
-_0807AEFC:
-	movs r4, #0
-	ldr r3, _0807AF8C  @ gUnknown_03001C48
-	movs r2, #0
-_0807AF02:
-	lsls r0, r4, #0x10
-	asrs r0, r0, #0x10
-	adds r1, r0, r3
-	strb r2, [r1]
-	adds r0, #1
-	lsls r0, r0, #0x10
-	lsrs r4, r0, #0x10
-	asrs r0, r0, #0x10
-	cmp r0, #3
-	ble _0807AF02
-	mov r2, r8
-	asrs r0, r2, #0xf
-	mov r1, r9
-	adds r1, #1
-	adds r6, r0, r1
-	ldrb r0, [r6]
-	bl GetUnitFromCharId
-	adds r5, r0, #0
-	cmp r5, #0
-	bne _0807AF48
-	ldr r4, _0807AF90  @ gBattleActor
-	mov r0, sp
-	adds r1, r4, #0
-	movs r2, #0x80
-	bl memcpy
-	ldr r0, _0807AF94  @ gUnknown_03001C38
-	bl LoadUnits
-	adds r0, r4, #0
-	mov r1, sp
-	movs r2, #0x80
-	bl memcpy
-_0807AF48:
-	ldrb r0, [r6]
-	bl GetUnitFromCharId
-	adds r5, r0, #0
-	movs r4, #0
-	adds r2, r5, #0
-	adds r2, #0x28
-	movs r3, #0
-_0807AF58:
-	lsls r0, r4, #0x10
-	asrs r0, r0, #0x10
-	adds r1, r2, r0
-	strb r3, [r1]
-	adds r0, #1
-	lsls r0, r0, #0x10
-	lsrs r4, r0, #0x10
-	asrs r0, r0, #0x10
-	cmp r0, #3
-	ble _0807AF58
-	ldr r1, _0807AF98  @ gActiveUnit
-	ldr r0, [r1]
-	ldrb r0, [r0, #8]
-	strb r0, [r5, #8]
-	movs r0, #0xff
-	strb r0, [r5, #9]
-	ldr r0, [r1]
-	ldrb r0, [r0, #8]
-	lsls r0, r0, #0x18
-	asrs r0, r0, #0x18
-	cmp r0, #5
-	bgt _0807AF9C
-	adds r1, r5, #0
-	adds r1, #0x2a
-	movs r0, #0x1f
-	b _0807AFBE
-	.align 2, 0
-_0807AF8C: .4byte gUnknown_03001C48
-_0807AF90: .4byte gBattleActor
-_0807AF94: .4byte gUnknown_03001C38
-_0807AF98: .4byte gActiveUnit
-_0807AF9C:
-	cmp r0, #0xa
-	bgt _0807AFA8
-	adds r1, r5, #0
-	adds r1, #0x2a
-	movs r0, #0x47
-	b _0807AFBE
-_0807AFA8:
-	cmp r0, #0xf
-	bgt _0807AFB4
-	adds r1, r5, #0
-	adds r1, #0x2a
-	movs r0, #0x79
-	b _0807AFBE
-_0807AFB4:
-	cmp r0, #0x14
-	bgt _0807AFC0
-	adds r1, r5, #0
-	adds r1, #0x2a
-	movs r0, #0xb5
-_0807AFBE:
-	strb r0, [r1]
-_0807AFC0:
-	add sp, #0x80
-	pop {r3, r4}
-	mov r8, r3
-	mov r9, r4
-	pop {r4, r5, r6, r7}
-	pop {r0}
-	bx r0
-
-	THUMB_FUNC_END sub_807AD1C
-
-	THUMB_FUNC_START sub_807AFD0
-sub_807AFD0: @ 0x0807AFD0
-	adds r1, r0, #0
-	adds r1, #0x64
-	movs r2, #0
-	strh r2, [r1]
-	adds r0, #0x66
-	strh r2, [r0]
-	bx lr
-
-	THUMB_FUNC_END sub_807AFD0
-
-	THUMB_FUNC_START sub_807AFE0
-sub_807AFE0: @ 0x0807AFE0
-	push {lr}
-	adds r1, r0, #0
-	adds r0, #0x64
-	movs r2, #0
-	ldrsh r0, [r0, r2]
-	cmp r0, #7
-	bgt _0807AFF6
-	adds r0, r1, #0
-	movs r1, #0
-	bl Proc_Goto
-_0807AFF6:
-	pop {r0}
-	bx r0
-
-	THUMB_FUNC_END sub_807AFE0
-
-	THUMB_FUNC_START sub_807AFFC
-sub_807AFFC: @ 0x0807AFFC
-	push {r4, r5, r6, lr}
-	adds r6, r0, #0
-	movs r5, #0
-	movs r4, #0x81
-_0807B004:
-	adds r0, r4, #0
-	bl GetUnit
-	cmp r0, #0
-	beq _0807B022
-	ldr r0, [r0]
-	cmp r0, #0
-	beq _0807B022
-	lsls r0, r5, #0x18
-	asrs r0, r0, #0x18
-	cmp r0, #0x27
-	bgt _0807B044
-	adds r0, #1
-	lsls r0, r0, #0x18
-	lsrs r5, r0, #0x18
-_0807B022:
-	adds r4, #1
-	cmp r4, #0xbf
-	ble _0807B004
-	adds r0, r6, #0
-	adds r0, #0x64
-	movs r1, #0
-	ldrsh r0, [r0, r1]
-	cmp r0, #7
-	bgt _0807B044
-	adds r0, r6, #0
-	adds r0, #0x66
-	movs r1, #0
-	ldrsh r0, [r0, r1]
-	cmp r0, #3
-	bgt _0807B044
-	movs r0, #0
-	b _0807B04E
-_0807B044:
-	adds r0, r6, #0
-	movs r1, #1
-	bl Proc_Goto
-	movs r0, #1
-_0807B04E:
-	pop {r4, r5, r6}
-	pop {r1}
-	bx r1
-
-	THUMB_FUNC_END sub_807AFFC
-
-	THUMB_FUNC_START sub_807B054
-sub_807B054: @ 0x0807B054
-	push {lr}
-	ldr r0, _0807B06C  @ gRAMChapterData
-	adds r0, #0x41
-	ldrb r0, [r0]
-	lsls r0, r0, #0x1e
-	cmp r0, #0
-	blt _0807B068
-	movs r0, #0xa0
-	bl m4aSongNumStart
-_0807B068:
-	pop {r0}
-	bx r0
-	.align 2, 0
-_0807B06C: .4byte gRAMChapterData
-
-	THUMB_FUNC_END sub_807B054
-
-	THUMB_FUNC_START sub_807B070
-sub_807B070: @ 0x0807B070
-	push {lr}
-	adds r2, r0, #0
-	adds r2, #0x64
-	ldrh r1, [r2]
-	adds r1, #1
-	movs r3, #0
-	strh r1, [r2]
-	adds r1, r0, #0
-	adds r1, #0x66
-	strh r3, [r1]
-	ldr r1, [r0, #0x3c]
-	ldr r2, [r0, #0x40]
-	bl New6C_SummonGfx
-	pop {r0}
-	bx r0
-
-	THUMB_FUNC_END sub_807B070
-
-	THUMB_FUNC_START sub_807B090
-sub_807B090: @ 0x0807B090
-	push {r4, r5, r6, r7, lr}
-	mov r7, sl
-	mov r6, r9
-	mov r5, r8
-	push {r5, r6, r7}
-	sub sp, #0x74
-	mov r9, r0
-	mov r8, r1
-	str r2, [sp, #0x6c]
-	movs r6, #0
-	mov r0, r8
-	subs r0, #1
-	lsls r0, r0, #0x10
-	lsrs r5, r0, #0x10
-	lsls r2, r5, #0x10
-	asrs r1, r2, #0x10
-	mov r0, r8
-	adds r0, #2
-	cmp r1, r0
-	bge _0807B172
-_0807B0B8:
-	asrs r1, r2, #0x10
-	lsls r3, r5, #0x10
-	movs r0, #2
-	add r0, r8
-	mov sl, r0
-	cmp r1, #0
-	blt _0807B162
-	ldr r0, _0807B194  @ gBmMapSize
-	movs r2, #2
-	ldrsh r0, [r0, r2]
-	cmp r0, r1
-	ble _0807B162
-	mov r0, r9
-	subs r0, #1
-	lsls r0, r0, #0x10
-	lsrs r4, r0, #0x10
-	lsls r1, r4, #0x10
-	asrs r0, r1, #0x10
-	mov r7, r9
-	adds r7, #2
-	cmp r0, r7
-	bge _0807B162
-_0807B0E4:
-	asrs r1, r1, #0x10
-	cmp r1, #0
-	blt _0807B150
-	ldr r0, _0807B194  @ gBmMapSize
-	movs r2, #0
-	ldrsh r0, [r0, r2]
-	cmp r0, r1
-	ble _0807B150
-	ldr r0, _0807B198  @ gBmMapUnit
-	ldr r0, [r0]
-	asrs r2, r3, #0xe
-	adds r0, r2, r0
-	ldr r0, [r0]
-	adds r0, r0, r1
-	ldrb r0, [r0]
-	cmp r0, #0
-	bne _0807B150
-	ldr r0, _0807B19C  @ gRAMChapterData
-	ldrb r0, [r0, #0xd]
-	cmp r0, #0
-	beq _0807B11E
-	ldr r0, _0807B1A0  @ gBmMapFog
-	ldr r0, [r0]
-	adds r0, r2, r0
-	ldr r0, [r0]
-	adds r0, r0, r1
-	ldrb r0, [r0]
-	cmp r0, #0
-	beq _0807B150
-_0807B11E:
-	ldr r0, _0807B1A4  @ gBmMapTerrain
-	ldr r0, [r0]
-	adds r0, r2, r0
-	ldr r0, [r0]
-	adds r0, r0, r1
-	ldrb r1, [r0]
-	ldr r0, _0807B1A8  @ gBattleActor
-	str r3, [sp, #0x70]
-	bl CanUnitCrossTerrain
-	ldr r3, [sp, #0x70]
-	cmp r0, #0
-	beq _0807B150
-	lsls r0, r6, #1
-	adds r0, r0, r6
-	lsls r0, r0, #2
-	mov r2, sp
-	adds r1, r2, r0
-	strb r4, [r1]
-	strb r5, [r1, #1]
-	movs r0, #1
-	strb r0, [r1, #2]
-	adds r0, r6, #1
-	lsls r0, r0, #0x18
-	lsrs r6, r0, #0x18
-_0807B150:
-	lsls r0, r4, #0x10
-	movs r4, #0x80
-	lsls r4, r4, #9
-	adds r0, r0, r4
-	lsrs r4, r0, #0x10
-	lsls r1, r4, #0x10
-	asrs r0, r1, #0x10
-	cmp r0, r7
-	blt _0807B0E4
-_0807B162:
-	movs r1, #0x80
-	lsls r1, r1, #9
-	adds r0, r3, r1
-	lsrs r5, r0, #0x10
-	lsls r2, r5, #0x10
-	asrs r0, r2, #0x10
-	cmp r0, sl
-	blt _0807B0B8
-_0807B172:
-	cmp r6, #0
-	beq _0807B1AC
-	adds r0, r6, #0
-	bl NextRN_N
-	lsls r0, r0, #0x18
-	lsrs r0, r0, #0x18
-	lsls r2, r0, #1
-	adds r2, r2, r0
-	lsls r2, r2, #2
-	ldr r1, [sp, #0x6c]
-	mov r3, sp
-	adds r0, r3, r2
-	ldm r0!, {r2, r3, r4}
-	stm r1!, {r2, r3, r4}
-	movs r0, #1
-	b _0807B1B0
-	.align 2, 0
-_0807B194: .4byte gBmMapSize
-_0807B198: .4byte gBmMapUnit
-_0807B19C: .4byte gRAMChapterData
-_0807B1A0: .4byte gBmMapFog
-_0807B1A4: .4byte gBmMapTerrain
-_0807B1A8: .4byte gBattleActor
-_0807B1AC:
-	movs r0, #1
-	negs r0, r0
-_0807B1B0:
-	add sp, #0x74
-	pop {r3, r4, r5}
-	mov r8, r3
-	mov r9, r4
-	mov sl, r5
-	pop {r4, r5, r6, r7}
-	pop {r1}
-	bx r1
-
-	THUMB_FUNC_END sub_807B090
-
-	THUMB_FUNC_START sub_807B1C0
-sub_807B1C0: @ 0x0807B1C0
-	push {r4, r5, r6, r7, lr}
-	sub sp, #0xc
-	adds r4, r0, #0
-	lsls r1, r1, #0x18
-	lsrs r5, r1, #0x18
-	lsls r2, r2, #0x18
-	lsrs r6, r2, #0x18
-	lsls r3, r3, #0x10
-	lsrs r7, r3, #0x10
-	bl sub_807AFFC
-	lsls r0, r0, #0x18
-	cmp r0, #0
-	bne _0807B22C
-	lsls r0, r5, #0x18
-	asrs r0, r0, #0x18
-	lsls r1, r6, #0x18
-	asrs r1, r1, #0x18
-	mov r2, sp
-	bl sub_807B090
-	lsls r0, r0, #0x18
-	asrs r0, r0, #0x18
-	movs r1, #1
-	negs r1, r1
-	cmp r0, r1
-	beq _0807B202
-	mov r0, sp
-	ldrb r0, [r0, #2]
-	lsls r0, r0, #0x18
-	asrs r0, r0, #0x18
-	cmp r0, r1
-	bne _0807B218
-_0807B202:
-	adds r1, r4, #0
-	adds r1, #0x66
-	ldrh r0, [r1]
-	adds r0, #1
-	strh r0, [r1]
-	lsls r1, r7, #0x10
-	asrs r1, r1, #0x10
-	adds r0, r4, #0
-	bl Proc_Goto
-	b _0807B22C
-_0807B218:
-	mov r0, sp
-	movs r1, #0
-	ldrsb r1, [r0, r1]
-	str r1, [r4, #0x3c]
-	movs r2, #1
-	ldrsb r2, [r0, r2]
-	str r2, [r4, #0x40]
-	adds r0, r4, #0
-	bl EnsureCameraOntoPosition
-_0807B22C:
-	add sp, #0xc
-	pop {r4, r5, r6, r7}
-	pop {r0}
-	bx r0
-
-	THUMB_FUNC_END sub_807B1C0
-
-	THUMB_FUNC_START sub_807B234
-sub_807B234: @ 0x0807B234
-	push {lr}
-	ldr r2, _0807B250  @ gBattleActor
-	movs r1, #0x10
-	ldrsb r1, [r2, r1]
-	ldrb r2, [r2, #0x11]
-	adds r2, #4
-	lsls r2, r2, #0x18
-	asrs r2, r2, #0x18
-	movs r3, #3
-	bl sub_807B1C0
-	pop {r0}
-	bx r0
-	.align 2, 0
-_0807B250: .4byte gBattleActor
-
-	THUMB_FUNC_END sub_807B234
-
-	THUMB_FUNC_START sub_807B254
-sub_807B254: @ 0x0807B254
-	push {lr}
-	ldr r2, _0807B270  @ gBattleActor
-	ldrb r1, [r2, #0x10]
-	adds r1, #4
-	lsls r1, r1, #0x18
-	asrs r1, r1, #0x18
-	ldrb r2, [r2, #0x11]
-	lsls r2, r2, #0x18
-	asrs r2, r2, #0x18
-	movs r3, #4
-	bl sub_807B1C0
-	pop {r0}
-	bx r0
-	.align 2, 0
-_0807B270: .4byte gBattleActor
-
-	THUMB_FUNC_END sub_807B254
-
-	THUMB_FUNC_START sub_807B274
-sub_807B274: @ 0x0807B274
-	push {lr}
-	ldr r2, _0807B290  @ gBattleActor
-	ldrb r1, [r2, #0x10]
-	subs r1, #4
-	lsls r1, r1, #0x18
-	asrs r1, r1, #0x18
-	ldrb r2, [r2, #0x11]
-	lsls r2, r2, #0x18
-	asrs r2, r2, #0x18
-	movs r3, #5
-	bl sub_807B1C0
-	pop {r0}
-	bx r0
-	.align 2, 0
-_0807B290: .4byte gBattleActor
-
-	THUMB_FUNC_END sub_807B274
-
-	THUMB_FUNC_START sub_807B294
-sub_807B294: @ 0x0807B294
-	push {lr}
-	ldr r2, _0807B2B0  @ gBattleActor
-	movs r1, #0x10
-	ldrsb r1, [r2, r1]
-	ldrb r2, [r2, #0x11]
-	subs r2, #4
-	lsls r2, r2, #0x18
-	asrs r2, r2, #0x18
-	movs r3, #6
-	bl sub_807B1C0
-	pop {r0}
-	bx r0
-	.align 2, 0
-_0807B2B0: .4byte gBattleActor
-
-	THUMB_FUNC_END sub_807B294
-
-	THUMB_FUNC_START sub_807B2B4
-sub_807B2B4: @ 0x0807B2B4
-	push {r4, r5, r6, r7, lr}
-	adds r5, r0, #0
-	bl AdvanceGetLCGRNValue
-	movs r1, #0xb
-	bl DivRem
-	lsls r0, r0, #0x18
-	lsrs r0, r0, #0x18
-	ldr r3, _0807B328  @ gUnknown_03001C50
-	ldr r4, _0807B32C  @ gUnknown_088D1F54
-	lsls r1, r0, #2
-	adds r1, r1, r0
-	lsls r1, r1, #2
-	adds r2, r3, #0
-	adds r1, r1, r4
-	ldm r1!, {r4, r6, r7}
-	stm r2!, {r4, r6, r7}
-	ldm r1!, {r4, r6}
-	stm r2!, {r4, r6}
-	ldrb r1, [r3, #3]
-	movs r2, #1
-	orrs r1, r2
-	movs r2, #7
-	negs r2, r2
-	ands r1, r2
-	movs r2, #4
-	orrs r1, r2
-	adds r0, #5
-	lsls r0, r0, #3
-	movs r2, #7
-	ands r1, r2
-	orrs r1, r0
-	strb r1, [r3, #3]
-	movs r0, #0x3f
-	ldrh r1, [r5, #0x3c]
-	ands r1, r0
-	ldrb r2, [r3, #4]
-	movs r0, #0x40
-	negs r0, r0
-	ands r0, r2
-	orrs r0, r1
-	strb r0, [r3, #4]
-	ldr r1, [r5, #0x40]
-	movs r0, #0x3f
-	ands r1, r0
-	lsls r1, r1, #6
-	ldrh r2, [r3, #4]
-	ldr r0, _0807B330  @ 0xFFFFF03F
-	ands r0, r2
-	orrs r0, r1
-	strh r0, [r3, #4]
-	adds r0, r3, #0
-	bl LoadUnits
-	pop {r4, r5, r6, r7}
-	pop {r0}
-	bx r0
-	.align 2, 0
-_0807B328: .4byte gUnknown_03001C50
-_0807B32C: .4byte gUnknown_088D1F54
-_0807B330: .4byte 0xFFFFF03F
-
-	THUMB_FUNC_END sub_807B2B4
-
-	THUMB_FUNC_START MakeBattleMOVEUNIT
-MakeBattleMOVEUNIT: @ 0x0807B334
-	push {r4, r5, r6, r7, lr}
-	mov r7, r9
-	mov r6, r8
-	push {r6, r7}
-	mov r9, r0
-	adds r7, r1, #0
-	mov r8, r2
-	cmp r7, #0
-	beq _0807B3AA
-	ldr r5, _0807B3B8  @ gCurrentMapAnimState
-	lsls r6, r0, #2
-	adds r4, r6, r0
-	lsls r4, r4, #2
-	adds r0, r4, r5
-	str r2, [r0]
-	adds r0, r5, #4
-	adds r0, r4, r0
-	str r7, [r0]
-	mov r0, r8
-	bl MU_Create
-	adds r5, #8
-	adds r4, r4, r5
-	str r0, [r4]
-	ldr r0, [r0, #0x30]
-	movs r1, #0
-	strh r1, [r0, #0x18]
-	ldr r0, [r4]
-	ldr r0, [r0, #0x30]
-	strh r1, [r0, #0x1a]
-	adds r0, r7, #0
-	adds r0, #0x55
-	ldrb r0, [r0]
-	cmp r0, #0x1b
-	beq _0807B37E
-	cmp r0, #0x33
-	bne _0807B384
-_0807B37E:
-	ldr r0, [r4]
-	bl MU_Hide
-_0807B384:
-	mov r0, r8
-	adds r0, #0x30
-	ldrb r0, [r0]
-	lsls r0, r0, #0x1c
-	lsrs r0, r0, #0x1c
-	cmp r0, #0xb
-	beq _0807B396
-	cmp r0, #0xd
-	bne _0807B3AA
-_0807B396:
-	ldr r0, _0807B3B8  @ gCurrentMapAnimState
-	mov r2, r9
-	adds r1, r6, r2
-	lsls r1, r1, #2
-	adds r0, #8
-	adds r1, r1, r0
-	ldr r0, [r1]
-	movs r1, #0xf
-	bl MU_SetPaletteId
-_0807B3AA:
-	pop {r3, r4}
-	mov r8, r3
-	mov r9, r4
-	pop {r4, r5, r6, r7}
-	pop {r0}
-	bx r0
-	.align 2, 0
-_0807B3B8: .4byte gCurrentMapAnimState
-
-	THUMB_FUNC_END MakeBattleMOVEUNIT
-
 	THUMB_FUNC_START SetBattleAnimFacing
 SetBattleAnimFacing: @ 0x0807B3BC
 	push {r4, r5, r6, lr}
@@ -1452,7 +22,7 @@ _0807B3D0:
 	beq _0807B430
 	b _0807B45A
 _0807B3D6:
-	ldr r5, _0807B414  @ gCurrentMapAnimState
+	ldr r5, _0807B414  @ gMapBattle
 	lsls r4, r3, #2
 	adds r4, r4, r3
 	lsls r4, r4, #2
@@ -1481,9 +51,9 @@ _0807B3D6:
 	bl MU_SetFacing
 	b _0807B45A
 	.align 2, 0
-_0807B414: .4byte gCurrentMapAnimState
+_0807B414: .4byte gMapBattle
 _0807B418:
-	ldr r0, _0807B42C  @ gCurrentMapAnimState
+	ldr r0, _0807B42C  @ gMapBattle
 	lsls r1, r3, #2
 	adds r1, r1, r3
 	lsls r1, r1, #2
@@ -1493,9 +63,9 @@ _0807B418:
 	bl MU_SetDefaultFacing
 	b _0807B45A
 	.align 2, 0
-_0807B42C: .4byte gCurrentMapAnimState
+_0807B42C: .4byte gMapBattle
 _0807B430:
-	ldr r5, _0807B460  @ gCurrentMapAnimState
+	ldr r5, _0807B460  @ gMapBattle
 	lsls r4, r3, #2
 	adds r4, r4, r3
 	lsls r4, r4, #2
@@ -1519,14 +89,14 @@ _0807B45A:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_0807B460: .4byte gCurrentMapAnimState
+_0807B460: .4byte gMapBattle
 
 	THUMB_FUNC_END SetBattleAnimFacing
 
 	THUMB_FUNC_START SetupBattleMOVEUNITs
 SetupBattleMOVEUNITs: @ 0x0807B464
 	push {r4, r5, lr}
-	ldr r4, _0807B4C8  @ gCurrentMapAnimState
+	ldr r4, _0807B4C8  @ gMapBattle
 	ldr r0, [r4, #4]
 	adds r0, #0x4a
 	ldrh r0, [r0]
@@ -1572,7 +142,7 @@ _0807B4C0:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_0807B4C8: .4byte gCurrentMapAnimState
+_0807B4C8: .4byte gMapBattle
 _0807B4CC: .4byte gBattleHitArray
 
 	THUMB_FUNC_END SetupBattleMOVEUNITs
@@ -1585,7 +155,7 @@ sub_807B4D0: @ 0x0807B4D0
 	mov r5, r8
 	push {r5, r6, r7}
 	sub sp, #4
-	ldr r0, _0807B570  @ gCurrentMapAnimState
+	ldr r0, _0807B570  @ gMapBattle
 	adds r0, #0x5e
 	ldrb r0, [r0]
 	mov ip, r0
@@ -1627,7 +197,7 @@ _0807B522:
 	adds r7, r2, #1
 	cmp r7, ip
 	bge _0807B596
-	ldr r0, _0807B570  @ gCurrentMapAnimState
+	ldr r0, _0807B570  @ gMapBattle
 	mov r9, r0
 	mov r1, sp
 	adds r6, r1, r2
@@ -1664,7 +234,7 @@ _0807B536:
 	blt _0807B580
 	b _0807B586
 	.align 2, 0
-_0807B570: .4byte gCurrentMapAnimState
+_0807B570: .4byte gMapBattle
 _0807B574: .4byte gBattleHitArray
 _0807B578:
 	cmp r2, r1
@@ -1735,7 +305,7 @@ sub_807B5DC: @ 0x0807B5DC
 	movs r1, #0
 	movs r0, #0x6c
 	strh r0, [r2]
-	ldr r2, _0807B624  @ gCurrentMapAnimState
+	ldr r2, _0807B624  @ gMapBattle
 	adds r0, r2, #0
 	adds r0, #0x5f
 	strb r1, [r0]
@@ -1760,7 +330,7 @@ sub_807B5DC: @ 0x0807B5DC
 	bx r0
 	.align 2, 0
 _0807B620: .4byte gBattleActor
-_0807B624: .4byte gCurrentMapAnimState
+_0807B624: .4byte gMapBattle
 _0807B628: .4byte gBattleHitArray
 _0807B62C: .4byte gBattleTarget
 _0807B630: .4byte gUnknown_089A31F8
@@ -1776,7 +346,7 @@ sub_807B634: @ 0x0807B634
 	movs r1, #0
 	movs r0, #0x6c
 	strh r0, [r2]
-	ldr r2, _0807B67C  @ gCurrentMapAnimState
+	ldr r2, _0807B67C  @ gMapBattle
 	adds r0, r2, #0
 	adds r0, #0x5f
 	strb r1, [r0]
@@ -1801,7 +371,7 @@ sub_807B634: @ 0x0807B634
 	bx r0
 	.align 2, 0
 _0807B678: .4byte gBattleActor
-_0807B67C: .4byte gCurrentMapAnimState
+_0807B67C: .4byte gMapBattle
 _0807B680: .4byte gBattleHitArray
 _0807B684: .4byte gBattleTarget
 _0807B688: .4byte gUnknown_089A3238
@@ -1817,7 +387,7 @@ sub_807B68C: @ 0x0807B68C
 	movs r1, #0
 	movs r0, #0x6c
 	strh r0, [r2]
-	ldr r2, _0807B6D4  @ gCurrentMapAnimState
+	ldr r2, _0807B6D4  @ gMapBattle
 	adds r0, r2, #0
 	adds r0, #0x5f
 	strb r1, [r0]
@@ -1842,7 +412,7 @@ sub_807B68C: @ 0x0807B68C
 	bx r0
 	.align 2, 0
 _0807B6D0: .4byte gBattleActor
-_0807B6D4: .4byte gCurrentMapAnimState
+_0807B6D4: .4byte gMapBattle
 _0807B6D8: .4byte gBattleHitArray
 _0807B6DC: .4byte gBattleTarget
 _0807B6E0: .4byte gUnknown_089A3288
@@ -1859,7 +429,7 @@ BeginMapAnimForSteal: @ 0x0807B6E4
 	movs r3, #1
 	movs r1, #1
 	strh r1, [r4]
-	ldr r1, _0807B730  @ gCurrentMapAnimState
+	ldr r1, _0807B730  @ gMapBattle
 	mov ip, r1
 	adds r1, #0x5f
 	strb r2, [r1]
@@ -1886,7 +456,7 @@ BeginMapAnimForSteal: @ 0x0807B6E4
 	bx r0
 	.align 2, 0
 _0807B72C: .4byte gBattleActor
-_0807B730: .4byte gCurrentMapAnimState
+_0807B730: .4byte gMapBattle
 _0807B734: .4byte gBattleTarget
 _0807B738: .4byte gBattleHitArray
 _0807B73C: .4byte gUnknown_089A32C8
@@ -1902,7 +472,7 @@ BeginMapAnimForSummon: @ 0x0807B740
 	movs r3, #0
 	movs r1, #0x4f
 	strh r1, [r2]
-	ldr r1, _0807B788  @ gCurrentMapAnimState
+	ldr r1, _0807B788  @ gMapBattle
 	mov ip, r1
 	adds r1, #0x5f
 	strb r3, [r1]
@@ -1928,7 +498,7 @@ BeginMapAnimForSummon: @ 0x0807B740
 	bx r0
 	.align 2, 0
 _0807B784: .4byte gBattleActor
-_0807B788: .4byte gCurrentMapAnimState
+_0807B788: .4byte gMapBattle
 _0807B78C: .4byte gBattleTarget
 _0807B790: .4byte gBattleHitArray
 _0807B794: .4byte gUnknown_089A3398
@@ -1944,7 +514,7 @@ BeginMapAnimForSummonDK: @ 0x0807B798
 	movs r3, #0
 	movs r1, #0x4f
 	strh r1, [r2]
-	ldr r1, _0807B7E0  @ gCurrentMapAnimState
+	ldr r1, _0807B7E0  @ gMapBattle
 	mov ip, r1
 	adds r1, #0x5f
 	strb r3, [r1]
@@ -1963,17 +533,17 @@ BeginMapAnimForSummonDK: @ 0x0807B798
 	ldr r1, _0807B7E4  @ gBattleTarget
 	ldr r2, _0807B7E8  @ gBattleHitArray
 	bl SetupMapBattleAnim
-	ldr r0, _0807B7EC  @ gUnknown_089A33C0
+	ldr r0, _0807B7EC  @ ProcScr_MapAnimSumDK
 	movs r1, #3
 	bl Proc_Start
 	pop {r0}
 	bx r0
 	.align 2, 0
 _0807B7DC: .4byte gBattleActor
-_0807B7E0: .4byte gCurrentMapAnimState
+_0807B7E0: .4byte gMapBattle
 _0807B7E4: .4byte gBattleTarget
 _0807B7E8: .4byte gBattleHitArray
-_0807B7EC: .4byte gUnknown_089A33C0
+_0807B7EC: .4byte ProcScr_MapAnimSumDK
 
 	THUMB_FUNC_END BeginMapAnimForSummonDK
 
@@ -1986,7 +556,7 @@ sub_807B7F0: @ 0x0807B7F0
 	movs r2, #0
 	movs r1, #0x4f
 	strh r1, [r3]
-	ldr r3, _0807B844  @ gCurrentMapAnimState
+	ldr r3, _0807B844  @ gMapBattle
 	adds r1, r3, #0
 	adds r1, #0x5f
 	strb r2, [r1]
@@ -2018,7 +588,7 @@ sub_807B7F0: @ 0x0807B7F0
 	bx r0
 	.align 2, 0
 _0807B840: .4byte gBattleActor
-_0807B844: .4byte gCurrentMapAnimState
+_0807B844: .4byte gMapBattle
 _0807B848: .4byte gBattleTarget
 _0807B84C: .4byte gBattleHitArray
 _0807B850: .4byte gUnknown_089A34B0
@@ -2040,7 +610,7 @@ BeginBattleMapAnims: @ 0x0807B854
 	.align 2, 0
 _0807B86C: .4byte gBattleStats
 _0807B870:
-	ldr r0, _0807B8AC  @ gCurrentMapAnimState
+	ldr r0, _0807B8AC  @ gMapBattle
 	adds r2, r0, #0
 	adds r2, #0x5f
 	strb r1, [r2]
@@ -2061,18 +631,18 @@ _0807B870:
 	lsls r0, r0, #0x18
 	cmp r0, #0
 	bne _0807B8C0
-	ldr r0, _0807B8BC  @ gUnknown_089A3508
+	ldr r0, _0807B8BC  @ ProcScr_MapBattleAnim
 	movs r1, #3
 	bl Proc_Start
 	b _0807B8C8
 	.align 2, 0
-_0807B8AC: .4byte gCurrentMapAnimState
+_0807B8AC: .4byte gMapBattle
 _0807B8B0: .4byte gBattleActor
 _0807B8B4: .4byte gBattleTarget
 _0807B8B8: .4byte gBattleHitArray
-_0807B8BC: .4byte gUnknown_089A3508
+_0807B8BC: .4byte ProcScr_MapBattleAnim
 _0807B8C0:
-	ldr r0, _0807B8D0  @ gUnknown_089A3874
+	ldr r0, _0807B8D0  @ ProcScr_EventMapBattleAnim
 	movs r1, #3
 	bl Proc_Start
 _0807B8C8:
@@ -2080,7 +650,7 @@ _0807B8C8:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_0807B8D0: .4byte gUnknown_089A3874
+_0807B8D0: .4byte ProcScr_EventMapBattleAnim
 
 	THUMB_FUNC_END BeginBattleMapAnims
 
@@ -2092,7 +662,7 @@ SetupMapAnimSpellData: @ 0x0807B8D4
 	adds r5, #0x4a
 	ldrh r0, [r5]
 	bl GetSpellAssocCharCount
-	ldr r4, _0807B8FC  @ gCurrentMapAnimState
+	ldr r4, _0807B8FC  @ gMapBattle
 	adds r1, r4, #0
 	adds r1, #0x5e
 	strb r0, [r1]
@@ -2104,7 +674,7 @@ SetupMapAnimSpellData: @ 0x0807B8D4
 	pop {r0}
 	bx r0
 	.align 2, 0
-_0807B8FC: .4byte gCurrentMapAnimState
+_0807B8FC: .4byte gMapBattle
 
 	THUMB_FUNC_END SetupMapAnimSpellData
 
@@ -2119,7 +689,7 @@ SetupMapBattleAnim: @ 0x0807B900
 	adds r1, r5, #0
 	adds r2, r5, #0
 	bl MakeBattleMOVEUNIT
-	ldr r7, _0807B9A8  @ gCurrentMapAnimState
+	ldr r7, _0807B9A8  @ gMapBattle
 	adds r6, r7, #0
 	adds r6, #0x5e
 	ldrb r0, [r6]
@@ -2188,7 +758,7 @@ _0807B998:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_0807B9A8: .4byte gCurrentMapAnimState
+_0807B9A8: .4byte gMapBattle
 _0807B9AC: .4byte gBattleTarget
 _0807B9B0: .4byte gBattleHitArray
 _0807B9B4: .4byte gBattleStats
@@ -2556,7 +1126,7 @@ sub_807BC00: @ 0x0807BC00
 	bl CopyDataWithPossibleUncomp
 	ldr r0, _0807BC4C  @ gUnknown_089AD78C
 	bl sub_807BAE4
-	ldr r0, _0807BC50  @ gCurrentMapAnimState
+	ldr r0, _0807BC50  @ gMapBattle
 	adds r0, #0x5e
 	ldrb r0, [r0]
 	cmp r0, #1
@@ -2568,7 +1138,7 @@ sub_807BC00: @ 0x0807BC00
 _0807BC44: .4byte gUnknown_089AD500
 _0807BC48: .4byte 0x06000020
 _0807BC4C: .4byte gUnknown_089AD78C
-_0807BC50: .4byte gCurrentMapAnimState
+_0807BC50: .4byte gMapBattle
 _0807BC54:
 	movs r2, #5
 	negs r2, r2
@@ -2589,7 +1159,7 @@ _0807BC62:
 	bl sub_807BE1C
 _0807BC7A:
 	bl sub_8081E78
-	ldr r0, _0807BCA0  @ gCurrentMapAnimState
+	ldr r0, _0807BCA0  @ gMapBattle
 	ldrb r1, [r0, #0x11]
 	lsls r0, r1, #3
 	lsls r1, r1, #0x13
@@ -2606,7 +1176,7 @@ _0807BC7A:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_0807BCA0: .4byte gCurrentMapAnimState
+_0807BCA0: .4byte gMapBattle
 _0807BCA4: .4byte gPaletteBuffer
 
 	THUMB_FUNC_END sub_807BC00
@@ -2621,7 +1191,7 @@ sub_807BCA8: @ 0x0807BCA8
 	mov r8, r0
 	movs r2, #0
 	movs r7, #0
-	ldr r0, _0807BD4C  @ gCurrentMapAnimState
+	ldr r0, _0807BD4C  @ gMapBattle
 	adds r0, #0x5e
 	ldrb r0, [r0]
 	cmp r2, r0
@@ -2630,7 +1200,7 @@ sub_807BCA8: @ 0x0807BCA8
 	ldr r0, _0807BD50  @ gUnknown_0202BD31
 	mov r9, r0
 _0807BCC8:
-	ldr r0, _0807BD4C  @ gCurrentMapAnimState
+	ldr r0, _0807BD4C  @ gMapBattle
 	adds r0, r6, r0
 	ldrh r4, [r0, #0xe]
 	ldrb r0, [r0, #0xd]
@@ -2661,7 +1231,7 @@ _0807BCDE:
 	bl m4aSongNumStart
 	ldr r2, [sp]
 _0807BD04:
-	ldr r5, _0807BD4C  @ gCurrentMapAnimState
+	ldr r5, _0807BD4C  @ gMapBattle
 	adds r0, r6, r5
 	ldrh r1, [r0, #0xe]
 	cmp r4, r1
@@ -2683,7 +1253,7 @@ _0807BD28:
 	adds r1, r2, #0
 	cmp r1, #0
 	bne _0807BD3C
-	ldr r0, _0807BD4C  @ gCurrentMapAnimState
+	ldr r0, _0807BD4C  @ gMapBattle
 	adds r2, r0, #0
 	adds r2, #0x5f
 	ldrb r0, [r2]
@@ -2699,7 +1269,7 @@ _0807BD3C:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_0807BD4C: .4byte gCurrentMapAnimState
+_0807BD4C: .4byte gMapBattle
 _0807BD50: .4byte gUnknown_0202BD31
 
 	THUMB_FUNC_END sub_807BCA8
@@ -2708,7 +1278,7 @@ _0807BD50: .4byte gUnknown_0202BD31
 sub_807BD54: @ 0x0807BD54
 	push {r4, r5, r6, lr}
 	sub sp, #8
-	ldr r2, _0807BDC0  @ gCurrentMapAnimState
+	ldr r2, _0807BDC0  @ gMapBattle
 	lsls r0, r1, #2
 	adds r0, r0, r1
 	lsls r0, r0, #2
@@ -2758,7 +1328,7 @@ _0807BD6E:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_0807BDC0: .4byte gCurrentMapAnimState
+_0807BDC0: .4byte gMapBattle
 _0807BDC4: .4byte gBG0TilemapBuffer
 _0807BDC8: .4byte 0x00005020
 _0807BDCC: .4byte gUnknown_089A3648
@@ -2822,7 +1392,7 @@ sub_807BE1C: @ 0x0807BE1C
 	push {r4, r5, r6}
 	mov sl, r0
 	mov r9, r1
-	ldr r0, _0807BEE4  @ gCurrentMapAnimState
+	ldr r0, _0807BEE4  @ gMapBattle
 	mov r8, r0
 	lsls r6, r1, #2
 	adds r5, r6, r1
@@ -2907,7 +1477,7 @@ sub_807BE1C: @ 0x0807BE1C
 	pop {r0}
 	bx r0
 	.align 2, 0
-_0807BEE4: .4byte gCurrentMapAnimState
+_0807BEE4: .4byte gMapBattle
 _0807BEE8: .4byte gUnknown_089A3670
 _0807BEEC: .4byte gGenericBuffer
 _0807BEF0: .4byte gBG1TilemapBuffer
@@ -4434,7 +3004,7 @@ _0807CACC: .4byte gBG1TilemapBuffer
 sub_807CAD0: @ 0x0807CAD0
 	push {r4, lr}
 	adds r4, r0, #0
-	ldr r0, _0807CAF0  @ gCurrentMapAnimState
+	ldr r0, _0807CAF0  @ gMapBattle
 	ldr r0, [r0, #0x50]
 	ldr r0, [r0]
 	lsls r0, r0, #8
@@ -4448,7 +3018,7 @@ sub_807CAD0: @ 0x0807CAD0
 	bl Proc_Goto
 	b _0807CAFE
 	.align 2, 0
-_0807CAF0: .4byte gCurrentMapAnimState
+_0807CAF0: .4byte gMapBattle
 _0807CAF4:
 	bl MapAnim_AdvanceBattleRound
 	adds r0, r4, #0
@@ -5268,7 +3838,7 @@ sub_807D0FC: @ 0x0807D0FC
 	strh r4, [r0]
 	adds r0, #2
 	strh r4, [r0]
-	ldr r0, _0807D190  @ gCurrentMapAnimState
+	ldr r0, _0807D190  @ gMapBattle
 	ldr r0, [r0, #4]
 	adds r0, #0x4a
 	ldrh r0, [r0]
@@ -5285,7 +3855,7 @@ sub_807D0FC: @ 0x0807D0FC
 	.align 2, 0
 _0807D188: .4byte gUnknown_089AF950
 _0807D18C: .4byte 0x06002C00
-_0807D190: .4byte gCurrentMapAnimState
+_0807D190: .4byte gMapBattle
 _0807D194: .4byte gUnknown_089AFFB8
 _0807D198:
 	ldr r0, _0807D1B0  @ gUnknown_089AFF78
@@ -5322,7 +3892,7 @@ sub_807D1B4: @ 0x0807D1B4
 	movs r2, #0x20
 	movs r3, #4
 	bl NewPaletteAnimator_
-	ldr r0, _0807D1FC  @ gCurrentMapAnimState
+	ldr r0, _0807D1FC  @ gMapBattle
 	ldr r0, [r0, #4]
 	adds r0, #0x4a
 	ldrh r0, [r0]
@@ -5338,7 +3908,7 @@ sub_807D1B4: @ 0x0807D1B4
 	b _0807D212
 	.align 2, 0
 _0807D1F8: .4byte gUnknown_089AFF78
-_0807D1FC: .4byte gCurrentMapAnimState
+_0807D1FC: .4byte gMapBattle
 _0807D200: .4byte gUnknown_089AFFB8
 _0807D204:
 	str r5, [sp]
@@ -8556,7 +7126,7 @@ sub_807EA98: @ 0x0807EA98
 	lsls r4, r4, #1
 	ldr r0, _0807EB98  @ gBG0TilemapBuffer
 	adds r4, r4, r0
-	ldr r1, _0807EB9C  @ gCurrentMapAnimState
+	ldr r1, _0807EB9C  @ gMapBattle
 	lsls r0, r6, #2
 	adds r0, r0, r6
 	lsls r0, r0, #2
@@ -8629,7 +7199,7 @@ _0807EB8C: .4byte gUnknown_088039E8
 _0807EB90: .4byte gGenericBuffer
 _0807EB94: .4byte gUnknown_08803B10
 _0807EB98: .4byte gBG0TilemapBuffer
-_0807EB9C: .4byte gCurrentMapAnimState
+_0807EB9C: .4byte gMapBattle
 _0807EBA0: .4byte gUnknown_089A3ED4
 
 	THUMB_FUNC_END sub_807EA98
@@ -8714,7 +7284,7 @@ _0807EC44:
 	movs r0, #1
 	b _0807ED2A
 _0807EC48:
-	ldr r1, _0807EC60  @ gCurrentMapAnimState
+	ldr r1, _0807EC60  @ gMapBattle
 	lsls r0, r2, #2
 	adds r0, r0, r2
 	lsls r0, r0, #2
@@ -8727,9 +7297,9 @@ _0807EC48:
 	asrs r0, r0, #0x18
 	b _0807ED2A
 	.align 2, 0
-_0807EC60: .4byte gCurrentMapAnimState
+_0807EC60: .4byte gMapBattle
 _0807EC64:
-	ldr r1, _0807EC7C  @ gCurrentMapAnimState
+	ldr r1, _0807EC7C  @ gMapBattle
 	lsls r0, r2, #2
 	adds r0, r0, r2
 	lsls r0, r0, #2
@@ -8742,9 +7312,9 @@ _0807EC64:
 	asrs r0, r0, #0x18
 	b _0807ED2A
 	.align 2, 0
-_0807EC7C: .4byte gCurrentMapAnimState
+_0807EC7C: .4byte gMapBattle
 _0807EC80:
-	ldr r1, _0807EC98  @ gCurrentMapAnimState
+	ldr r1, _0807EC98  @ gMapBattle
 	lsls r0, r2, #2
 	adds r0, r0, r2
 	lsls r0, r0, #2
@@ -8757,9 +7327,9 @@ _0807EC80:
 	asrs r0, r0, #0x18
 	b _0807ED2A
 	.align 2, 0
-_0807EC98: .4byte gCurrentMapAnimState
+_0807EC98: .4byte gMapBattle
 _0807EC9C:
-	ldr r1, _0807ECB4  @ gCurrentMapAnimState
+	ldr r1, _0807ECB4  @ gMapBattle
 	lsls r0, r2, #2
 	adds r0, r0, r2
 	lsls r0, r0, #2
@@ -8772,9 +7342,9 @@ _0807EC9C:
 	asrs r0, r0, #0x18
 	b _0807ED2A
 	.align 2, 0
-_0807ECB4: .4byte gCurrentMapAnimState
+_0807ECB4: .4byte gMapBattle
 _0807ECB8:
-	ldr r1, _0807ECD0  @ gCurrentMapAnimState
+	ldr r1, _0807ECD0  @ gMapBattle
 	lsls r0, r2, #2
 	adds r0, r0, r2
 	lsls r0, r0, #2
@@ -8787,9 +7357,9 @@ _0807ECB8:
 	asrs r0, r0, #0x18
 	b _0807ED2A
 	.align 2, 0
-_0807ECD0: .4byte gCurrentMapAnimState
+_0807ECD0: .4byte gMapBattle
 _0807ECD4:
-	ldr r1, _0807ECEC  @ gCurrentMapAnimState
+	ldr r1, _0807ECEC  @ gMapBattle
 	lsls r0, r2, #2
 	adds r0, r0, r2
 	lsls r0, r0, #2
@@ -8802,9 +7372,9 @@ _0807ECD4:
 	asrs r0, r0, #0x18
 	b _0807ED2A
 	.align 2, 0
-_0807ECEC: .4byte gCurrentMapAnimState
+_0807ECEC: .4byte gMapBattle
 _0807ECF0:
-	ldr r1, _0807ED08  @ gCurrentMapAnimState
+	ldr r1, _0807ED08  @ gMapBattle
 	lsls r0, r2, #2
 	adds r0, r0, r2
 	lsls r0, r0, #2
@@ -8817,9 +7387,9 @@ _0807ECF0:
 	asrs r0, r0, #0x18
 	b _0807ED2A
 	.align 2, 0
-_0807ED08: .4byte gCurrentMapAnimState
+_0807ED08: .4byte gMapBattle
 _0807ED0C:
-	ldr r1, _0807ED24  @ gCurrentMapAnimState
+	ldr r1, _0807ED24  @ gMapBattle
 	lsls r0, r2, #2
 	adds r0, r0, r2
 	lsls r0, r0, #2
@@ -8832,7 +7402,7 @@ _0807ED0C:
 	asrs r0, r0, #0x18
 	b _0807ED2A
 	.align 2, 0
-_0807ED24: .4byte gCurrentMapAnimState
+_0807ED24: .4byte gMapBattle
 _0807ED28:
 	movs r0, #0
 _0807ED2A:
@@ -8846,7 +7416,7 @@ GetSomeStatBase: @ 0x0807ED30
 	push {r4, r5, lr}
 	adds r4, r0, #0
 	adds r5, r1, #0
-	ldr r1, _0807ED5C  @ gCurrentMapAnimState
+	ldr r1, _0807ED5C  @ gMapBattle
 	lsls r0, r4, #2
 	adds r0, r0, r4
 	lsls r0, r0, #2
@@ -8865,7 +7435,7 @@ GetSomeStatBase: @ 0x0807ED30
 	ldr r0, [r0]
 	mov pc, r0
 	.align 2, 0
-_0807ED5C: .4byte gCurrentMapAnimState
+_0807ED5C: .4byte gMapBattle
 _0807ED60: .4byte _0807ED64
 _0807ED64: @ jump table
 	.4byte _0807ED88 @ case 0
@@ -8878,7 +7448,7 @@ _0807ED64: @ jump table
 	.4byte _0807EDC8 @ case 7
 	.4byte _0807EDCE @ case 8
 _0807ED88:
-	ldr r1, _0807EDA0  @ gCurrentMapAnimState
+	ldr r1, _0807EDA0  @ gMapBattle
 	lsls r0, r4, #2
 	adds r0, r0, r4
 	lsls r0, r0, #2
@@ -8891,7 +7461,7 @@ _0807ED88:
 	asrs r0, r0, #0x18
 	b _0807EDE4
 	.align 2, 0
-_0807EDA0: .4byte gCurrentMapAnimState
+_0807EDA0: .4byte gMapBattle
 _0807EDA4:
 	movs r0, #0x12
 	ldrsb r0, [r2, r0]
@@ -9509,7 +8079,7 @@ _0807F1CE:
 	movs r0, #1
 	movs r1, #0
 	bl BG_SetPosition
-	ldr r2, _0807F2A8  @ gCurrentMapAnimState
+	ldr r2, _0807F2A8  @ gMapBattle
 	movs r0, #0x2e
 	ldrsh r1, [r5, r0]
 	lsls r0, r1, #2
@@ -9548,7 +8118,7 @@ _0807F1CE:
 _0807F29C: .4byte gBG0TilemapBuffer
 _0807F2A0: .4byte 0x0000FF70
 _0807F2A4: .4byte gLCDControlBuffer
-_0807F2A8: .4byte gCurrentMapAnimState
+_0807F2A8: .4byte gMapBattle
 _0807F2AC: .4byte 0x00001042
 _0807F2B0: .4byte gFaces
 
@@ -9821,7 +8391,7 @@ sub_807F48C: @ 0x0807F48C
 	lsls r1, r1, #2
 	movs r2, #0x60
 	bl CopyToPaletteBuffer
-	ldr r2, _0807F52C  @ gCurrentMapAnimState
+	ldr r2, _0807F52C  @ gMapBattle
 	movs r0, #0x2e
 	ldrsh r1, [r4, r0]
 	lsls r0, r1, #2
@@ -9888,7 +8458,7 @@ _0807F518:
 _0807F520: .4byte gUnknown_089AC794
 _0807F524: .4byte 0x06013800
 _0807F528: .4byte gUnknown_089AC9A8
-_0807F52C: .4byte gCurrentMapAnimState
+_0807F52C: .4byte gMapBattle
 _0807F530: .4byte gGameState
 _0807F534: .4byte gUnknown_089A5A6C
 _0807F538: .4byte gRAMChapterData
@@ -13770,7 +12340,7 @@ nullsub_58: @ 0x0808125C
 	THUMB_FUNC_START GetItemAnim6CCode
 GetItemAnim6CCode: @ 0x08081260
 	push {lr}
-	ldr r0, _08081270  @ gCurrentMapAnimState
+	ldr r0, _08081270  @ gMapBattle
 	ldr r0, [r0, #0x54]
 	cmp r0, #0
 	bne _0808126C
@@ -13779,7 +12349,7 @@ _0808126C:
 	pop {r1}
 	bx r1
 	.align 2, 0
-_08081270: .4byte gCurrentMapAnimState
+_08081270: .4byte gMapBattle
 _08081274: .4byte gUnknown_089A4764
 
 	THUMB_FUNC_END GetItemAnim6CCode
@@ -13787,7 +12357,7 @@ _08081274: .4byte gUnknown_089A4764
 	THUMB_FUNC_START MapAnim_AnimateSubjectIdle
 MapAnim_AnimateSubjectIdle: @ 0x08081278
 	push {lr}
-	ldr r2, _08081298  @ gCurrentMapAnimState
+	ldr r2, _08081298  @ gMapBattle
 	adds r0, r2, #0
 	adds r0, #0x58
 	ldrb r1, [r0]
@@ -13801,14 +12371,14 @@ MapAnim_AnimateSubjectIdle: @ 0x08081278
 	pop {r0}
 	bx r0
 	.align 2, 0
-_08081298: .4byte gCurrentMapAnimState
+_08081298: .4byte gMapBattle
 
 	THUMB_FUNC_END MapAnim_AnimateSubjectIdle
 
 	THUMB_FUNC_START MapAnim_SubjectResetAnim
 MapAnim_SubjectResetAnim: @ 0x0808129C
 	push {lr}
-	ldr r2, _080812BC  @ gCurrentMapAnimState
+	ldr r2, _080812BC  @ gMapBattle
 	adds r0, r2, #0
 	adds r0, #0x58
 	ldrb r1, [r0]
@@ -13822,14 +12392,14 @@ MapAnim_SubjectResetAnim: @ 0x0808129C
 	pop {r0}
 	bx r0
 	.align 2, 0
-_080812BC: .4byte gCurrentMapAnimState
+_080812BC: .4byte gMapBattle
 
 	THUMB_FUNC_END MapAnim_SubjectResetAnim
 
 	THUMB_FUNC_START sub_80812C0
 sub_80812C0: @ 0x080812C0
 	push {lr}
-	ldr r2, _080812E8  @ gCurrentMapAnimState
+	ldr r2, _080812E8  @ gMapBattle
 	adds r0, r2, #0
 	adds r0, #0x58
 	ldrb r1, [r0]
@@ -13847,14 +12417,14 @@ sub_80812C0: @ 0x080812C0
 	bl SetupFutureCall2
 	b _080812F8
 	.align 2, 0
-_080812E8: .4byte gCurrentMapAnimState
+_080812E8: .4byte gMapBattle
 _080812EC: .4byte sub_8081348
 _080812F0:
 	ldr r0, _08081340  @ sub_8081384
 	movs r1, #0xc
 	bl SetupFutureCall2
 _080812F8:
-	ldr r2, _08081344  @ gCurrentMapAnimState
+	ldr r2, _08081344  @ gMapBattle
 	adds r3, r2, #0
 	adds r3, #0x58
 	ldrb r1, [r3]
@@ -13890,7 +12460,7 @@ _080812F8:
 	bx r0
 	.align 2, 0
 _08081340: .4byte sub_8081384
-_08081344: .4byte gCurrentMapAnimState
+_08081344: .4byte gMapBattle
 
 	THUMB_FUNC_END sub_80812C0
 
@@ -13898,7 +12468,7 @@ _08081344: .4byte gCurrentMapAnimState
 sub_8081348: @ 0x08081348
 	push {lr}
 	ldr r0, _08081378  @ 0x000002D5
-	ldr r3, _0808137C  @ gCurrentMapAnimState
+	ldr r3, _0808137C  @ gMapBattle
 	adds r1, r3, #0
 	adds r1, #0x58
 	ldrb r2, [r1]
@@ -13920,7 +12490,7 @@ sub_8081348: @ 0x08081348
 	bx r0
 	.align 2, 0
 _08081378: .4byte 0x000002D5
-_0808137C: .4byte gCurrentMapAnimState
+_0808137C: .4byte gMapBattle
 _08081380: .4byte gGameState
 
 	THUMB_FUNC_END sub_8081348
@@ -13929,7 +12499,7 @@ _08081380: .4byte gGameState
 sub_8081384: @ 0x08081384
 	push {lr}
 	ldr r0, _080813B4  @ 0x000002D6
-	ldr r3, _080813B8  @ gCurrentMapAnimState
+	ldr r3, _080813B8  @ gMapBattle
 	adds r1, r3, #0
 	adds r1, #0x58
 	ldrb r2, [r1]
@@ -13951,7 +12521,7 @@ sub_8081384: @ 0x08081384
 	bx r0
 	.align 2, 0
 _080813B4: .4byte 0x000002D6
-_080813B8: .4byte gCurrentMapAnimState
+_080813B8: .4byte gMapBattle
 _080813BC: .4byte gGameState
 
 	THUMB_FUNC_END sub_8081384
@@ -13959,7 +12529,7 @@ _080813BC: .4byte gGameState
 	THUMB_FUNC_START sub_80813C0
 sub_80813C0: @ 0x080813C0
 	push {r4, lr}
-	ldr r2, _080813F4  @ gCurrentMapAnimState
+	ldr r2, _080813F4  @ gMapBattle
 	adds r4, r2, #0
 	adds r4, #0x58
 	ldrb r1, [r4]
@@ -13984,14 +12554,14 @@ sub_80813C0: @ 0x080813C0
 	pop {r0}
 	bx r0
 	.align 2, 0
-_080813F4: .4byte gCurrentMapAnimState
+_080813F4: .4byte gMapBattle
 
 	THUMB_FUNC_END sub_80813C0
 
 	THUMB_FUNC_START MapAnim_BeginSubjectFastAnim
 MapAnim_BeginSubjectFastAnim: @ 0x080813F8
 	push {lr}
-	ldr r2, _08081418  @ gCurrentMapAnimState
+	ldr r2, _08081418  @ gMapBattle
 	adds r0, r2, #0
 	adds r0, #0x58
 	ldrb r1, [r0]
@@ -14005,7 +12575,7 @@ MapAnim_BeginSubjectFastAnim: @ 0x080813F8
 	pop {r0}
 	bx r0
 	.align 2, 0
-_08081418: .4byte gCurrentMapAnimState
+_08081418: .4byte gMapBattle
 
 	THUMB_FUNC_END MapAnim_BeginSubjectFastAnim
 
@@ -14124,7 +12694,7 @@ _080814CA:
 	THUMB_FUNC_START MapAnim_MoveSubjectsTowardsTarget
 MapAnim_MoveSubjectsTowardsTarget: @ 0x080814D4
 	push {r4, r5, lr}
-	ldr r4, _08081530  @ gCurrentMapAnimState
+	ldr r4, _08081530  @ gMapBattle
 	adds r0, r4, #0
 	adds r0, #0x58
 	ldrb r1, [r0]
@@ -14167,14 +12737,14 @@ _08081528:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_08081530: .4byte gCurrentMapAnimState
+_08081530: .4byte gMapBattle
 
 	THUMB_FUNC_END MapAnim_MoveSubjectsTowardsTarget
 
 	THUMB_FUNC_START MapAnim_MoveSubjectsAwayFromTarget
 MapAnim_MoveSubjectsAwayFromTarget: @ 0x08081534
 	push {r4, r5, lr}
-	ldr r4, _08081590  @ gCurrentMapAnimState
+	ldr r4, _08081590  @ gMapBattle
 	adds r0, r4, #0
 	adds r0, #0x58
 	ldrb r1, [r0]
@@ -14217,14 +12787,14 @@ _08081588:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_08081590: .4byte gCurrentMapAnimState
+_08081590: .4byte gMapBattle
 
 	THUMB_FUNC_END MapAnim_MoveSubjectsAwayFromTarget
 
 	THUMB_FUNC_START MapAnim_MoveCameraOnSubject
 MapAnim_MoveCameraOnSubject: @ 0x08081594
 	push {lr}
-	ldr r3, _080815BC  @ gCurrentMapAnimState
+	ldr r3, _080815BC  @ gMapBattle
 	adds r1, r3, #0
 	adds r1, #0x58
 	ldrb r2, [r1]
@@ -14242,14 +12812,14 @@ MapAnim_MoveCameraOnSubject: @ 0x08081594
 	pop {r0}
 	bx r0
 	.align 2, 0
-_080815BC: .4byte gCurrentMapAnimState
+_080815BC: .4byte gMapBattle
 
 	THUMB_FUNC_END MapAnim_MoveCameraOnSubject
 
 	THUMB_FUNC_START MapAnim_MoveCameraOnTarget
 MapAnim_MoveCameraOnTarget: @ 0x080815C0
 	push {lr}
-	ldr r3, _080815E8  @ gCurrentMapAnimState
+	ldr r3, _080815E8  @ gMapBattle
 	adds r1, r3, #0
 	adds r1, #0x59
 	ldrb r2, [r1]
@@ -14267,14 +12837,14 @@ MapAnim_MoveCameraOnTarget: @ 0x080815C0
 	pop {r0}
 	bx r0
 	.align 2, 0
-_080815E8: .4byte gCurrentMapAnimState
+_080815E8: .4byte gMapBattle
 
 	THUMB_FUNC_END MapAnim_MoveCameraOnTarget
 
 	THUMB_FUNC_START sub_80815EC
 sub_80815EC: @ 0x080815EC
 	push {r4, lr}
-	ldr r2, _08081614  @ gCurrentMapAnimState
+	ldr r2, _08081614  @ gMapBattle
 	ldr r1, _08081618  @ gBattleTarget
 	adds r3, r1, #0
 	adds r3, #0x73
@@ -14293,7 +12863,7 @@ sub_80815EC: @ 0x080815EC
 	pop {r0}
 	bx r0
 	.align 2, 0
-_08081614: .4byte gCurrentMapAnimState
+_08081614: .4byte gMapBattle
 _08081618: .4byte gBattleTarget
 
 	THUMB_FUNC_END sub_80815EC
@@ -14306,7 +12876,7 @@ MapAnim_BeginRoundSpecificAnims: @ 0x0808161C
 	mov r5, r8
 	push {r5, r6, r7}
 	sub sp, #4
-	ldr r1, _08081648  @ gCurrentMapAnimState
+	ldr r1, _08081648  @ gMapBattle
 	adds r0, r1, #0
 	adds r0, #0x58
 	ldrb r0, [r0]
@@ -14322,7 +12892,7 @@ MapAnim_BeginRoundSpecificAnims: @ 0x0808161C
 	mov r5, sl
 	b _08081652
 	.align 2, 0
-_08081648: .4byte gCurrentMapAnimState
+_08081648: .4byte gMapBattle
 _0808164C:
 	adds r0, r7, #0
 	adds r0, #0x59
@@ -14387,7 +12957,7 @@ _080816BA:
 	adds r0, r5, #0
 	bl sub_80818D8
 _080816C8:
-	ldr r6, _08081728  @ gCurrentMapAnimState
+	ldr r6, _08081728  @ gMapBattle
 	adds r4, r6, #0
 	adds r4, #0x5a
 	ldrh r1, [r4]
@@ -14435,7 +13005,7 @@ _080816F8:
 	bl MapAnim_BeginMISSAnim
 	b _080818C4
 	.align 2, 0
-_08081728: .4byte gCurrentMapAnimState
+_08081728: .4byte gMapBattle
 _0808172C: .4byte gGameState
 _08081730:
 	cmp r2, #0
@@ -14488,7 +13058,7 @@ _0808178C:
 _0808178E:
 	cmp r3, #0
 	beq _080817CA
-	ldr r2, _080817B4  @ gCurrentMapAnimState
+	ldr r2, _080817B4  @ gMapBattle
 	adds r0, r2, #0
 	adds r0, #0x5c
 	ldrb r1, [r0]
@@ -14505,7 +13075,7 @@ _0808178E:
 	bl MapAnim_BeginWallBreakAnim
 	b _080817FA
 	.align 2, 0
-_080817B4: .4byte gCurrentMapAnimState
+_080817B4: .4byte gMapBattle
 _080817B8:
 	movs r6, #0xb0
 	adds r0, r4, r5
@@ -14516,7 +13086,7 @@ _080817B8:
 	bl MapAnim_BeginWallBreakAnim
 	b _080817FA
 _080817CA:
-	ldr r2, _080817E0  @ gCurrentMapAnimState
+	ldr r2, _080817E0  @ gMapBattle
 	ldr r0, [r2]
 	adds r0, #0x30
 	ldrb r1, [r0]
@@ -14527,7 +13097,7 @@ _080817CA:
 	ldr r6, _080817E4  @ 0x000003C9
 	b _080817FA
 	.align 2, 0
-_080817E0: .4byte gCurrentMapAnimState
+_080817E0: .4byte gMapBattle
 _080817E4: .4byte 0x000003C9
 _080817E8:
 	adds r0, r2, #0
@@ -14540,7 +13110,7 @@ _080817E8:
 	beq _080817FA
 	movs r6, #0xd5
 _080817FA:
-	ldr r7, _08081878  @ gCurrentMapAnimState
+	ldr r7, _08081878  @ gMapBattle
 	adds r0, r7, #0
 	adds r0, #0x5a
 	ldrh r1, [r0]
@@ -14598,7 +13168,7 @@ _080817FA:
 	bl MU_StartFastMoveAnim
 	b _080818C4
 	.align 2, 0
-_08081878: .4byte gCurrentMapAnimState
+_08081878: .4byte gMapBattle
 _0808187C: .4byte gGameState
 _08081880:
 	adds r4, r4, r5
@@ -14651,7 +13221,7 @@ sub_80818D8: @ 0x080818D8
 	push {r4, lr}
 	adds r3, r0, #0
 	adds r4, r1, #0
-	ldr r1, _080818F4  @ gCurrentMapAnimState
+	ldr r1, _080818F4  @ gMapBattle
 	lsls r0, r3, #2
 	adds r0, r0, r3
 	lsls r0, r0, #2
@@ -14662,7 +13232,7 @@ sub_80818D8: @ 0x080818D8
 	movs r0, #0
 	b _080818FA
 	.align 2, 0
-_080818F4: .4byte gCurrentMapAnimState
+_080818F4: .4byte gMapBattle
 _080818F8:
 	subs r0, r0, r4
 _080818FA:
@@ -14687,7 +13257,7 @@ _0808190E:
 MapAnim_WaitForHPToEndChangingMaybe: @ 0x08081914
 	push {lr}
 	adds r1, r0, #0
-	ldr r0, _0808192C  @ gCurrentMapAnimState
+	ldr r0, _0808192C  @ gMapBattle
 	adds r0, #0x5f
 	ldrb r0, [r0]
 	cmp r0, #0
@@ -14698,14 +13268,14 @@ _08081928:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_0808192C: .4byte gCurrentMapAnimState
+_0808192C: .4byte gMapBattle
 
 	THUMB_FUNC_END MapAnim_WaitForHPToEndChangingMaybe
 
 	THUMB_FUNC_START MapAnim_PoisonEffectOnTarget
 MapAnim_PoisonEffectOnTarget: @ 0x08081930
 	push {lr}
-	ldr r2, _0808194C  @ gCurrentMapAnimState
+	ldr r2, _0808194C  @ gMapBattle
 	adds r0, r2, #0
 	adds r0, #0x59
 	ldrb r1, [r0]
@@ -14718,14 +13288,14 @@ MapAnim_PoisonEffectOnTarget: @ 0x08081930
 	pop {r0}
 	bx r0
 	.align 2, 0
-_0808194C: .4byte gCurrentMapAnimState
+_0808194C: .4byte gMapBattle
 
 	THUMB_FUNC_END MapAnim_PoisonEffectOnTarget
 
 	THUMB_FUNC_START sub_8081950
 sub_8081950: @ 0x08081950
 	push {lr}
-	ldr r2, _0808196C  @ gCurrentMapAnimState
+	ldr r2, _0808196C  @ gMapBattle
 	adds r0, r2, #0
 	adds r0, #0x59
 	ldrb r1, [r0]
@@ -14738,14 +13308,14 @@ sub_8081950: @ 0x08081950
 	pop {r0}
 	bx r0
 	.align 2, 0
-_0808196C: .4byte gCurrentMapAnimState
+_0808196C: .4byte gMapBattle
 
 	THUMB_FUNC_END sub_8081950
 
 	THUMB_FUNC_START sub_8081970
 sub_8081970: @ 0x08081970
 	push {lr}
-	ldr r2, _08081994  @ gCurrentMapAnimState
+	ldr r2, _08081994  @ gMapBattle
 	ldrb r0, [r2, #0xd]
 	ldrb r1, [r2, #0xc]
 	cmp r0, r1
@@ -14761,7 +13331,7 @@ sub_8081970: @ 0x08081970
 	bl sub_807CDD0
 	b _0808199E
 	.align 2, 0
-_08081994: .4byte gCurrentMapAnimState
+_08081994: .4byte gMapBattle
 _08081998:
 	ldr r0, _080819A4  @ gUnknown_089A5124
 	bl Proc_EndEach
@@ -14776,7 +13346,7 @@ _080819A4: .4byte gUnknown_089A5124
 	THUMB_FUNC_START sub_80819A8
 sub_80819A8: @ 0x080819A8
 	push {lr}
-	ldr r2, _080819C4  @ gCurrentMapAnimState
+	ldr r2, _080819C4  @ gMapBattle
 	adds r0, r2, #0
 	adds r0, #0x59
 	ldrb r1, [r0]
@@ -14789,14 +13359,14 @@ sub_80819A8: @ 0x080819A8
 	pop {r0}
 	bx r0
 	.align 2, 0
-_080819C4: .4byte gCurrentMapAnimState
+_080819C4: .4byte gMapBattle
 
 	THUMB_FUNC_END sub_80819A8
 
 	THUMB_FUNC_START sub_80819C8
 sub_80819C8: @ 0x080819C8
 	push {lr}
-	ldr r2, _080819E4  @ gCurrentMapAnimState
+	ldr r2, _080819E4  @ gMapBattle
 	adds r0, r2, #0
 	adds r0, #0x59
 	ldrb r1, [r0]
@@ -14809,14 +13379,14 @@ sub_80819C8: @ 0x080819C8
 	pop {r0}
 	bx r0
 	.align 2, 0
-_080819E4: .4byte gCurrentMapAnimState
+_080819E4: .4byte gMapBattle
 
 	THUMB_FUNC_END sub_80819C8
 
 	THUMB_FUNC_START sub_80819E8
 sub_80819E8: @ 0x080819E8
 	push {lr}
-	ldr r2, _08081A04  @ gCurrentMapAnimState
+	ldr r2, _08081A04  @ gMapBattle
 	adds r0, r2, #0
 	adds r0, #0x58
 	ldrb r1, [r0]
@@ -14829,14 +13399,14 @@ sub_80819E8: @ 0x080819E8
 	pop {r0}
 	bx r0
 	.align 2, 0
-_08081A04: .4byte gCurrentMapAnimState
+_08081A04: .4byte gMapBattle
 
 	THUMB_FUNC_END sub_80819E8
 
 	THUMB_FUNC_START sub_8081A08
 sub_8081A08: @ 0x08081A08
 	push {lr}
-	ldr r2, _08081A24  @ gCurrentMapAnimState
+	ldr r2, _08081A24  @ gMapBattle
 	adds r0, r2, #0
 	adds r0, #0x58
 	ldrb r1, [r0]
@@ -14849,14 +13419,14 @@ sub_8081A08: @ 0x08081A08
 	pop {r0}
 	bx r0
 	.align 2, 0
-_08081A24: .4byte gCurrentMapAnimState
+_08081A24: .4byte gMapBattle
 
 	THUMB_FUNC_END sub_8081A08
 
 	THUMB_FUNC_START sub_8081A28
 sub_8081A28: @ 0x08081A28
 	push {lr}
-	ldr r2, _08081A48  @ gCurrentMapAnimState
+	ldr r2, _08081A48  @ gMapBattle
 	adds r0, r2, #0
 	adds r0, #0x58
 	ldrb r1, [r0]
@@ -14871,7 +13441,7 @@ sub_8081A28: @ 0x08081A28
 	pop {r0}
 	bx r0
 	.align 2, 0
-_08081A48: .4byte gCurrentMapAnimState
+_08081A48: .4byte gMapBattle
 _08081A4C: .4byte gUnknown_089AE804
 _08081A50: .4byte gUnknown_089AF930
 
@@ -14880,7 +13450,7 @@ _08081A50: .4byte gUnknown_089AF930
 	THUMB_FUNC_START sub_8081A54
 sub_8081A54: @ 0x08081A54
 	push {lr}
-	ldr r2, _08081A74  @ gCurrentMapAnimState
+	ldr r2, _08081A74  @ gMapBattle
 	adds r0, r2, #0
 	adds r0, #0x58
 	ldrb r1, [r0]
@@ -14895,7 +13465,7 @@ sub_8081A54: @ 0x08081A54
 	pop {r0}
 	bx r0
 	.align 2, 0
-_08081A74: .4byte gCurrentMapAnimState
+_08081A74: .4byte gMapBattle
 _08081A78: .4byte gUnknown_089AE804
 _08081A7C: .4byte gUnknown_089AF910
 
@@ -14904,7 +13474,7 @@ _08081A7C: .4byte gUnknown_089AF910
 	THUMB_FUNC_START sub_8081A80
 sub_8081A80: @ 0x08081A80
 	push {lr}
-	ldr r2, _08081AA4  @ gCurrentMapAnimState
+	ldr r2, _08081AA4  @ gMapBattle
 	adds r0, r2, #0
 	adds r0, #0x59
 	ldrb r1, [r0]
@@ -14920,7 +13490,7 @@ sub_8081A80: @ 0x08081A80
 	pop {r0}
 	bx r0
 	.align 2, 0
-_08081AA4: .4byte gCurrentMapAnimState
+_08081AA4: .4byte gMapBattle
 _08081AA8: .4byte gUnknown_089AFCBC
 _08081AAC: .4byte gUnknown_089AFF78
 
@@ -14929,7 +13499,7 @@ _08081AAC: .4byte gUnknown_089AFF78
 	THUMB_FUNC_START sub_8081AB0
 sub_8081AB0: @ 0x08081AB0
 	push {lr}
-	ldr r2, _08081AD4  @ gCurrentMapAnimState
+	ldr r2, _08081AD4  @ gMapBattle
 	adds r0, r2, #0
 	adds r0, #0x59
 	ldrb r1, [r0]
@@ -14945,7 +13515,7 @@ sub_8081AB0: @ 0x08081AB0
 	pop {r0}
 	bx r0
 	.align 2, 0
-_08081AD4: .4byte gCurrentMapAnimState
+_08081AD4: .4byte gMapBattle
 _08081AD8: .4byte gUnknown_089AF950
 _08081ADC: .4byte gUnknown_089AFF78
 
@@ -14954,7 +13524,7 @@ _08081ADC: .4byte gUnknown_089AFF78
 	THUMB_FUNC_START sub_8081AE0
 sub_8081AE0: @ 0x08081AE0
 	push {lr}
-	ldr r2, _08081B04  @ gCurrentMapAnimState
+	ldr r2, _08081B04  @ gMapBattle
 	adds r0, r2, #0
 	adds r0, #0x59
 	ldrb r1, [r0]
@@ -14970,7 +13540,7 @@ sub_8081AE0: @ 0x08081AE0
 	pop {r0}
 	bx r0
 	.align 2, 0
-_08081B04: .4byte gCurrentMapAnimState
+_08081B04: .4byte gMapBattle
 _08081B08: .4byte gUnknown_089AFAC4
 _08081B0C: .4byte gUnknown_089AFF78
 
@@ -14979,7 +13549,7 @@ _08081B0C: .4byte gUnknown_089AFF78
 	THUMB_FUNC_START sub_8081B10
 sub_8081B10: @ 0x08081B10
 	push {lr}
-	ldr r2, _08081B34  @ gCurrentMapAnimState
+	ldr r2, _08081B34  @ gMapBattle
 	adds r0, r2, #0
 	adds r0, #0x59
 	ldrb r1, [r0]
@@ -14995,7 +13565,7 @@ sub_8081B10: @ 0x08081B10
 	pop {r0}
 	bx r0
 	.align 2, 0
-_08081B34: .4byte gCurrentMapAnimState
+_08081B34: .4byte gMapBattle
 _08081B38: .4byte gUnknown_089AFCBC
 _08081B3C: .4byte gUnknown_089AFF78
 
@@ -15004,7 +13574,7 @@ _08081B3C: .4byte gUnknown_089AFF78
 	THUMB_FUNC_START sub_8081B40
 sub_8081B40: @ 0x08081B40
 	push {lr}
-	ldr r2, _08081B64  @ gCurrentMapAnimState
+	ldr r2, _08081B64  @ gMapBattle
 	adds r0, r2, #0
 	adds r0, #0x59
 	ldrb r1, [r0]
@@ -15020,7 +13590,7 @@ sub_8081B40: @ 0x08081B40
 	pop {r0}
 	bx r0
 	.align 2, 0
-_08081B64: .4byte gCurrentMapAnimState
+_08081B64: .4byte gMapBattle
 _08081B68: .4byte gUnknown_089AF950
 _08081B6C: .4byte gUnknown_089AFF78
 
@@ -15038,7 +13608,7 @@ sub_8081B70: @ 0x08081B70
 	movs r0, #0xb4
 	bl m4aSongNumStart
 _08081B84:
-	ldr r3, _08081BC4  @ gCurrentMapAnimState
+	ldr r3, _08081BC4  @ gMapBattle
 	ldr r1, _08081BC8  @ gBattleTarget
 	adds r0, r1, #0
 	adds r0, #0x73
@@ -15068,7 +13638,7 @@ _08081B84:
 	bx r0
 	.align 2, 0
 _08081BC0: .4byte gRAMChapterData
-_08081BC4: .4byte gCurrentMapAnimState
+_08081BC4: .4byte gMapBattle
 _08081BC8: .4byte gBattleTarget
 
 	THUMB_FUNC_END sub_8081B70
@@ -15076,7 +13646,7 @@ _08081BC8: .4byte gBattleTarget
 	THUMB_FUNC_START sub_8081BCC
 sub_8081BCC: @ 0x08081BCC
 	push {lr}
-	ldr r2, _08081BF4  @ gCurrentMapAnimState
+	ldr r2, _08081BF4  @ gMapBattle
 	adds r0, r2, #0
 	adds r0, #0x59
 	ldrb r1, [r0]
@@ -15094,14 +13664,14 @@ sub_8081BCC: @ 0x08081BCC
 	pop {r0}
 	bx r0
 	.align 2, 0
-_08081BF4: .4byte gCurrentMapAnimState
+_08081BF4: .4byte gMapBattle
 
 	THUMB_FUNC_END sub_8081BCC
 
 	THUMB_FUNC_START sub_8081BF8
 sub_8081BF8: @ 0x08081BF8
 	push {lr}
-	ldr r2, _08081C14  @ gCurrentMapAnimState
+	ldr r2, _08081C14  @ gMapBattle
 	adds r0, r2, #0
 	adds r0, #0x58
 	ldrb r1, [r0]
@@ -15114,14 +13684,14 @@ sub_8081BF8: @ 0x08081BF8
 	pop {r0}
 	bx r0
 	.align 2, 0
-_08081C14: .4byte gCurrentMapAnimState
+_08081C14: .4byte gMapBattle
 
 	THUMB_FUNC_END sub_8081BF8
 
 	THUMB_FUNC_START sub_8081C18
 sub_8081C18: @ 0x08081C18
 	push {lr}
-	ldr r1, _08081C30  @ gCurrentMapAnimState
+	ldr r1, _08081C30  @ gMapBattle
 	adds r0, r1, #0
 	adds r0, #0x60
 	ldrb r0, [r0]
@@ -15131,14 +13701,14 @@ sub_8081C18: @ 0x08081C18
 	pop {r0}
 	bx r0
 	.align 2, 0
-_08081C30: .4byte gCurrentMapAnimState
+_08081C30: .4byte gMapBattle
 
 	THUMB_FUNC_END sub_8081C18
 
 	THUMB_FUNC_START sub_8081C34
 sub_8081C34: @ 0x08081C34
 	push {lr}
-	ldr r2, _08081C50  @ gCurrentMapAnimState
+	ldr r2, _08081C50  @ gMapBattle
 	adds r0, r2, #0
 	adds r0, #0x59
 	ldrb r1, [r0]
@@ -15151,14 +13721,14 @@ sub_8081C34: @ 0x08081C34
 	pop {r0}
 	bx r0
 	.align 2, 0
-_08081C50: .4byte gCurrentMapAnimState
+_08081C50: .4byte gMapBattle
 
 	THUMB_FUNC_END sub_8081C34
 
 	THUMB_FUNC_START sub_8081C54
 sub_8081C54: @ 0x08081C54
 	push {lr}
-	ldr r2, _08081C70  @ gCurrentMapAnimState
+	ldr r2, _08081C70  @ gMapBattle
 	adds r0, r2, #0
 	adds r0, #0x59
 	ldrb r1, [r0]
@@ -15171,14 +13741,14 @@ sub_8081C54: @ 0x08081C54
 	pop {r0}
 	bx r0
 	.align 2, 0
-_08081C70: .4byte gCurrentMapAnimState
+_08081C70: .4byte gMapBattle
 
 	THUMB_FUNC_END sub_8081C54
 
 	THUMB_FUNC_START sub_8081C74
 sub_8081C74: @ 0x08081C74
 	push {lr}
-	ldr r2, _08081C90  @ gCurrentMapAnimState
+	ldr r2, _08081C90  @ gMapBattle
 	adds r0, r2, #0
 	adds r0, #0x59
 	ldrb r1, [r0]
@@ -15191,14 +13761,14 @@ sub_8081C74: @ 0x08081C74
 	pop {r0}
 	bx r0
 	.align 2, 0
-_08081C90: .4byte gCurrentMapAnimState
+_08081C90: .4byte gMapBattle
 
 	THUMB_FUNC_END sub_8081C74
 
 	THUMB_FUNC_START sub_8081C94
 sub_8081C94: @ 0x08081C94
 	push {lr}
-	ldr r2, _08081CB0  @ gCurrentMapAnimState
+	ldr r2, _08081CB0  @ gMapBattle
 	adds r0, r2, #0
 	adds r0, #0x59
 	ldrb r1, [r0]
@@ -15211,14 +13781,14 @@ sub_8081C94: @ 0x08081C94
 	pop {r0}
 	bx r0
 	.align 2, 0
-_08081CB0: .4byte gCurrentMapAnimState
+_08081CB0: .4byte gMapBattle
 
 	THUMB_FUNC_END sub_8081C94
 
 	THUMB_FUNC_START sub_8081CB4
 sub_8081CB4: @ 0x08081CB4
 	push {lr}
-	ldr r2, _08081CD0  @ gCurrentMapAnimState
+	ldr r2, _08081CD0  @ gMapBattle
 	adds r0, r2, #0
 	adds r0, #0x59
 	ldrb r1, [r0]
@@ -15231,14 +13801,14 @@ sub_8081CB4: @ 0x08081CB4
 	pop {r0}
 	bx r0
 	.align 2, 0
-_08081CD0: .4byte gCurrentMapAnimState
+_08081CD0: .4byte gMapBattle
 
 	THUMB_FUNC_END sub_8081CB4
 
 	THUMB_FUNC_START sub_8081CD4
 sub_8081CD4: @ 0x08081CD4
 	push {lr}
-	ldr r2, _08081CF4  @ gCurrentMapAnimState
+	ldr r2, _08081CF4  @ gMapBattle
 	adds r0, r2, #0
 	adds r0, #0x59
 	ldrb r1, [r0]
@@ -15253,14 +13823,14 @@ sub_8081CD4: @ 0x08081CD4
 	pop {r0}
 	bx r0
 	.align 2, 0
-_08081CF4: .4byte gCurrentMapAnimState
+_08081CF4: .4byte gMapBattle
 
 	THUMB_FUNC_END sub_8081CD4
 
 	THUMB_FUNC_START sub_8081CF8
 sub_8081CF8: @ 0x08081CF8
 	push {lr}
-	ldr r2, _08081D18  @ gCurrentMapAnimState
+	ldr r2, _08081D18  @ gMapBattle
 	adds r0, r2, #0
 	adds r0, #0x59
 	ldrb r1, [r0]
@@ -15274,14 +13844,14 @@ sub_8081CF8: @ 0x08081CF8
 	pop {r0}
 	bx r0
 	.align 2, 0
-_08081D18: .4byte gCurrentMapAnimState
+_08081D18: .4byte gMapBattle
 
 	THUMB_FUNC_END sub_8081CF8
 
 	THUMB_FUNC_START sub_8081D1C
 sub_8081D1C: @ 0x08081D1C
 	push {lr}
-	ldr r2, _08081D3C  @ gCurrentMapAnimState
+	ldr r2, _08081D3C  @ gMapBattle
 	adds r0, r2, #0
 	adds r0, #0x59
 	ldrb r1, [r0]
@@ -15295,14 +13865,14 @@ sub_8081D1C: @ 0x08081D1C
 	pop {r0}
 	bx r0
 	.align 2, 0
-_08081D3C: .4byte gCurrentMapAnimState
+_08081D3C: .4byte gMapBattle
 
 	THUMB_FUNC_END sub_8081D1C
 
 	THUMB_FUNC_START sub_8081D40
 sub_8081D40: @ 0x08081D40
 	push {r4, lr}
-	ldr r2, _08081D7C  @ gCurrentMapAnimState
+	ldr r2, _08081D7C  @ gMapBattle
 	adds r0, r2, #0
 	adds r0, #0x59
 	ldrb r1, [r0]
@@ -15331,7 +13901,7 @@ sub_8081D40: @ 0x08081D40
 	pop {r0}
 	bx r0
 	.align 2, 0
-_08081D7C: .4byte gCurrentMapAnimState
+_08081D7C: .4byte gMapBattle
 _08081D80: .4byte gGameState
 
 	THUMB_FUNC_END sub_8081D40
@@ -15348,7 +13918,7 @@ sub_8081D84: @ 0x08081D84
 	movs r0, #0xb5
 	bl m4aSongNumStart
 _08081D98:
-	ldr r2, _08081DD8  @ gCurrentMapAnimState
+	ldr r2, _08081DD8  @ gMapBattle
 	adds r0, r2, #0
 	adds r0, #0x59
 	ldrb r1, [r0]
@@ -15378,7 +13948,7 @@ _08081D98:
 	bx r0
 	.align 2, 0
 _08081DD4: .4byte gRAMChapterData
-_08081DD8: .4byte gCurrentMapAnimState
+_08081DD8: .4byte gMapBattle
 _08081DDC: .4byte gGameState
 
 	THUMB_FUNC_END sub_8081D84
@@ -15386,7 +13956,7 @@ _08081DDC: .4byte gGameState
 	THUMB_FUNC_START sub_8081DE0
 sub_8081DE0: @ 0x08081DE0
 	push {lr}
-	ldr r2, _08081E00  @ gCurrentMapAnimState
+	ldr r2, _08081E00  @ gMapBattle
 	adds r0, r2, #0
 	adds r0, #0x59
 	ldrb r1, [r0]
@@ -15400,14 +13970,14 @@ sub_8081DE0: @ 0x08081DE0
 	pop {r0}
 	bx r0
 	.align 2, 0
-_08081E00: .4byte gCurrentMapAnimState
+_08081E00: .4byte gMapBattle
 
 	THUMB_FUNC_END sub_8081DE0
 
 	THUMB_FUNC_START sub_8081E04
 sub_8081E04: @ 0x08081E04
 	push {r4, r5, r6, lr}
-	ldr r2, _08081E44  @ gCurrentMapAnimState
+	ldr r2, _08081E44  @ gMapBattle
 	adds r0, r2, #0
 	adds r0, #0x59
 	ldrb r1, [r0]
@@ -15437,7 +14007,7 @@ sub_8081E04: @ 0x08081E04
 	pop {r0}
 	bx r0
 	.align 2, 0
-_08081E44: .4byte gCurrentMapAnimState
+_08081E44: .4byte gMapBattle
 
 	THUMB_FUNC_END sub_8081E04
 

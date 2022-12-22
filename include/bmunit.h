@@ -339,6 +339,8 @@ enum unit_affinity_index {
 // TODO: MOVE ELSEWHERE
 extern CONST_DATA struct ClassData gClassData[]; // gClassData
 extern CONST_DATA struct CharacterData gCharacterData[]; // gCharacterData
+extern struct UnitDefinition gUnitDef1;
+extern struct UnitDefinition gUnitDef2;
 
 void ClearUnits(void);
 void ClearUnit(struct Unit* unit);
@@ -432,10 +434,10 @@ struct Unit* GetUnit(int id);
 const struct ClassData* GetClassData(int classId);
 const struct CharacterData* GetCharacterData(int charId);
 void UnitRemoveItem(struct Unit* unit, int slot);
-s8 CanUnitCrossTerrain(struct Unit* unit, int terrain);
 
 #define UNIT_IS_VALID(aUnit) ((aUnit) && (aUnit)->pCharacterData)
 #define UNIT_CHAR_ID(aUnit) ((aUnit)->pCharacterData->number)
+#define UNIT_CLASS_ID(aUnit) ((aUnit)->pClassData->number)
 #define UNIT_FACTION(aUnit) ((aUnit)->index & 0xC0)
 
 #define UNIT_CATTRIBUTES(aUnit) ((aUnit)->pCharacterData->attributes | (aUnit)->pClassData->attributes)

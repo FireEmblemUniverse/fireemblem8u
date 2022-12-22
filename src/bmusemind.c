@@ -29,6 +29,8 @@ extern s8 CONST_DATA gUnknown_080D7C44[];
 static int sub_802EF70(ProcPtr);
 static int sub_802EF80(void);
 
+s8 CanUnitCrossTerrain(struct Unit* unit, int terrain);
+
 static struct ProcCmd CONST_DATA sProcScr_ExecWarpStaff[] = {
     PROC_SLEEP(0),
     PROC_CALL_2(sub_802EF70),

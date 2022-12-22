@@ -24,6 +24,8 @@ s8 IsThereClosedDoorAt(s8, s8);
 void BWL_AddWinOrLossIdk(u8, u8, int);
 void RecordUnitLossData(u8);
 
+s8 CanUnitCrossTerrain(struct Unit* unit, int terrain);
+
 void ForEachUnitInMovement(void(*func)(struct Unit* unit)) {
     int ix;
     int iy;

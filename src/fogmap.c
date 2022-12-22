@@ -7,6 +7,8 @@
 #include "chapterdata.h"
 #include "hardware.h"
 
+s8 CanUnitCrossTerrain(struct Unit* unit, int terrain);
+
 void UpdateMapViewWithFog(int vision_range)
 {
     if (vision_range < 0)

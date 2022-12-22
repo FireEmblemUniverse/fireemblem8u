@@ -186,8 +186,8 @@ gUnknown_089A3398:  @ 0x089A3398
         .short 0xd, 0x0
         .word gUnknown_089A35B0
 
-	.global gUnknown_089A33C0
-gUnknown_089A33C0:  @ 0x089A33C0
+	.global ProcScr_MapAnimSumDK
+ProcScr_MapAnimSumDK:  @ 0x089A33C0
         @ PROC_CALL
         .short 0x2, 0x0
         .word AddSkipThread2
@@ -199,13 +199,13 @@ gUnknown_089A33C0:  @ 0x089A33C0
         .word 0x0
         @ PROC_CALL
         .short 0x2, 0x0
-        .word sub_807B234
+        .word SelSumAtDownPos
         @ PROC_SLEEP
         .short 0xe, 0x5
         .word 0x0
         @ PROC_CALL
         .short 0x2, 0x0
-        .word sub_807B2B4
+        .word LoadSumMonsterFromDK
         @ PROC_CALL
         .short 0x2, 0x0
         .word sub_807B070
@@ -217,13 +217,13 @@ gUnknown_089A33C0:  @ 0x089A33C0
         .word 0x0
         @ PROC_CALL
         .short 0x2, 0x0
-        .word sub_807B254
+        .word SelSumAtRightPos
         @ PROC_SLEEP
         .short 0xe, 0x5
         .word 0x0
         @ PROC_CALL
         .short 0x2, 0x0
-        .word sub_807B2B4
+        .word LoadSumMonsterFromDK
         @ PROC_CALL
         .short 0x2, 0x0
         .word sub_807B070
@@ -235,13 +235,13 @@ gUnknown_089A33C0:  @ 0x089A33C0
         .word 0x0
         @ PROC_CALL
         .short 0x2, 0x0
-        .word sub_807B274
+        .word SelSumAtLeftPos
         @ PROC_SLEEP
         .short 0xe, 0x5
         .word 0x0
         @ PROC_CALL
         .short 0x2, 0x0
-        .word sub_807B2B4
+        .word LoadSumMonsterFromDK
         @ PROC_CALL
         .short 0x2, 0x0
         .word sub_807B070
@@ -253,13 +253,13 @@ gUnknown_089A33C0:  @ 0x089A33C0
         .word 0x0
         @ PROC_CALL
         .short 0x2, 0x0
-        .word sub_807B294
+        .word SelSumAtUpPos
         @ PROC_SLEEP
         .short 0xe, 0x5
         .word 0x0
         @ PROC_CALL
         .short 0x2, 0x0
-        .word sub_807B2B4
+        .word LoadSumMonsterFromDK
         @ PROC_CALL
         .short 0x2, 0x0
         .word sub_807B070
@@ -315,8 +315,8 @@ gUnknown_089A34B0:  @ 0x089A34B0
         .short 0xd, 0x0
         .word gUnknown_089A35B0
 
-	.global gUnknown_089A3508
-gUnknown_089A3508:  @ 0x089A3508
+	.global ProcScr_MapBattleAnim
+ProcScr_MapBattleAnim:  @ 0x089A3508
         @ PROC_CALL
         .short 0x2, 0x0
         .word AddSkipThread2
@@ -343,7 +343,7 @@ gUnknown_089A3508:  @ 0x089A3508
         .word 0x0
         @ PROC_CALL
         .short 0x2, 0x0
-        .word sub_807ACAC
+        .word SetBattleMuPalette
         @ PROC_CALL
         .short 0x2, 0x0
         .word SetupBattleMOVEUNITs
@@ -625,7 +625,7 @@ gUnknown_089A3814:  @ 0x089A3814
         .word sub_807CAA8
         @ PROC_WHILE_EXISTS
         .short 0x8, 0x0
-        .word gUnknown_089A3508
+        .word ProcScr_MapBattleAnim
         @ PROC_GOTO
         .short 0xc, 0x0
         .word 0x0
@@ -634,8 +634,8 @@ gUnknown_089A3814:  @ 0x089A3814
         .word 0x0
 
 
-	.global gUnknown_089A3874
-gUnknown_089A3874:  @ 0x089A3874
+	.global ProcScr_EventMapBattleAnim
+ProcScr_EventMapBattleAnim:  @ 0x089A3874
         @ PROC_CALL
         .short 0x2, 0x0
         .word AddSkipThread2
