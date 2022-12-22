@@ -1,8 +1,7 @@
 #ifndef GUARD_BMIO_H
 #define GUARD_BMIO_H
 
-enum
-{
+enum {
     BM_BGPAL_6 = 6,
     BM_BGPAL_TILESET_BASE = 7,
 
@@ -11,8 +10,7 @@ enum
     BM_BGPAL_BANIM_UNK5 = 5,
 };
 
-enum
-{
+enum {
     BM_BGCHR_BANIM_IFBACK = 1,
     BM_BGCHR_BANIM_UNK160 = 0x160,
     BM_BGCHR_BANIM_UNK200 = 0x200,
@@ -21,8 +19,7 @@ enum
     BM_OBJCHR_BANIM_EFFECT2 = 448,
 };
 
-enum
-{
+enum {
     BM_OBJPAL_1  = 1,
     BM_OBJPAL_10 = 10,
 

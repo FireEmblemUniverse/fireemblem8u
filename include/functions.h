@@ -3065,7 +3065,7 @@ void MapAnim_ShowPoisonEffectIfAny(ProcPtr p);
 // ??? SelSumAtUpPos(???);
 // ??? LoadSumMonsterFromDK(???);
 // ??? MakeBattleMOVEUNIT(???);
-void SetBattleAnimFacing(int actorId1, int actorId2, int facing);
+void SetBattleAnimFacing(int actorId1, int actorId2, u8 facing);
 // ??? SetupBattleMOVEUNITs(???);
 // ??? sub_807B4D0(???);
 // ??? sub_807B5DC(???);
