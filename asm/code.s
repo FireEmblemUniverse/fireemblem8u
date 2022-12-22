@@ -28006,7 +28006,7 @@ _0809C1BE:
 	movs r1, #4
 	movs r3, #0xc0
 	lsls r3, r3, #6
-	bl sub_8086B2C
+	bl DrawStatBarGfx
 	b _0809C22E
 	.align 2, 0
 _0809C1FC: .4byte gBG0TilemapBuffer
@@ -28032,7 +28032,7 @@ _0809C200:
 	movs r1, #4
 	movs r3, #0x80
 	lsls r3, r3, #6
-	bl sub_8086B2C
+	bl DrawStatBarGfx
 _0809C22E:
 	adds r6, #4
 	movs r0, #0x80

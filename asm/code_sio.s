@@ -14269,7 +14269,7 @@ _08048548:
 	subs r4, r4, r1
 	str r4, [sp, #8]
 	movs r1, #0xe
-	bl sub_8086B2C
+	bl DrawStatBarGfx
 	movs r0, #1
 	bl BG_EnableSyncByMask
 _0804857C:
@@ -14325,7 +14325,7 @@ _080485B8:
 	subs r4, r4, r1
 	str r4, [sp, #8]
 	movs r1, #0xe
-	bl sub_8086B2C
+	bl DrawStatBarGfx
 	movs r0, #1
 	bl BG_EnableSyncByMask
 _080485EC:
@@ -14527,7 +14527,7 @@ sub_8048730: @ 0x08048730
 	str r5, [sp, #4]
 	str r1, [sp, #8]
 	movs r1, #0xd
-	bl sub_8086B2C
+	bl DrawStatBarGfx
 	movs r0, #1
 	bl BG_EnableSyncByMask
 	add sp, #0xc

@@ -669,7 +669,7 @@ void DrawStatWithBar(int num, int x, int y, int base, int total, int max)
         diff = total - base;
     }
 
-    sub_8086B2C(0x401 + num*6, 6,
+    DrawStatBarGfx(0x401 + num*6, 6,
         gBmFrameTmap1 + TILEMAP_INDEX(x - 2, y + 1),
         TILEREF(0, STATSCREEN_BGPAL_6), max * 41 / 30, base * 41 / 30, diff * 41 / 30);
 }
@@ -1017,7 +1017,7 @@ void DisplayWeaponExp(int num, int x, int y, int wtype)
 
     GetWeaponExpProgressState(wexp, &progress, &progressMax);
 
-    sub_8086B2C(0x401 + num*6, 5,
+    DrawStatBarGfx(0x401 + num*6, 5,
         gBmFrameTmap1 + TILEMAP_INDEX(x + 2, y + 1), TILEREF(0, STATSCREEN_BGPAL_6),
         0x22, (progress*34)/(progressMax-1), 0);
 }

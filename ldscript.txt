@@ -139,6 +139,7 @@ SECTIONS
         src/uidebug.o(.text);
         src/asmcs.o(.text);
         asm/code_8086934.o(.text);
+        src/statbar.o(.text);
         asm/fx_slidingwallbg.o(.text);
         src/statscreen.o(.text);
         asm/code_80895B4.o(.text);
