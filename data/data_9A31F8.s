@@ -459,23 +459,23 @@ gUnknown_089A3670:  @ 0x089A3670
 .4byte gUnknown_089AD6A8 + 0xa4
 .4byte gUnknown_089AD6A8 + 0x6c
 
-	.global gUnknown_089A3688
-gUnknown_089A3688:  @ 0x089A3688
+	.global ProcScr_MapBattleInfoBox
+ProcScr_MapBattleInfoBox:  @ 0x089A3688
         @ PROC_SET_END_CB
         .short 0x4, 0x0
-        .word sub_807BBF0
+        .word ProcMapInfoBox_OnEnd
         @ PROC_SLEEP
         .short 0xe, 0x1
         .word 0x0
         @ PROC_CALL
         .short 0x2, 0x0
-        .word sub_807BEF8
+        .word MapInfoBox_PrepareForShake
         @ PROC_CALL
         .short 0x2, 0x0
         .word sub_807BC00
         @ PROC_REPEAT
         .short 0x3, 0x0
-        .word sub_807BF54
+        .word MapInfoBoxShake
         @ PROC_REPEAT
         .short 0x3, 0x0
         .word sub_807BCA8
@@ -492,7 +492,7 @@ gUnknown_089A36C0:  @ 0x089A36C0
 gUnknown_089A36F8:  @ 0x089A36F8
         @ PROC_SET_END_CB
         .short 0x4, 0x0
-        .word sub_807BBF0
+        .word ProcMapInfoBox_OnEnd
         @ PROC_SLEEP
         .short 0xe, 0x1
         .word 0x0
@@ -522,7 +522,7 @@ gUnknown_089A36F8:  @ 0x089A36F8
         .word 0x0
         @ PROC_CALL
         .short 0x2, 0x0
-        .word sub_807BBF0
+        .word ProcMapInfoBox_OnEnd
         @ PROC_SLEEP
         .short 0xe, 0x8
         .word 0x0

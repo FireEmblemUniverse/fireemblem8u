@@ -11,6 +11,7 @@ struct UnitDefinition; // currently in bmunit.h
 struct Trap;
 struct BattleHit;
 struct PopupInstruction;
+struct MAInfoFrameProc;
 
 // Type definitions for types without any other home :/
 

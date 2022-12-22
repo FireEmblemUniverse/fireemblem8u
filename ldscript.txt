@@ -134,6 +134,8 @@ SECTIONS
         src/mu.o(.text);
         asm/muctrl.o(.text);
         src/mapanim.o(.text);
+        src/mapanim_api.o(.text);
+        src/mapanim_infobox.o(.text);
         asm/code_mapanim.o(.text);
         asm/ev_triggercheck.o(.text);
         src/uidebug.o(.text);

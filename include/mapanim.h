@@ -1,16 +1,14 @@
 #ifndef GUARD_MAPANIM_H
 #define GUARD_MAPANIM_H
 
-enum
-{
+enum {
     MA_FACING_OPPONENT,
     MA_FACING_DEFAULT,
     MA_FACING_UNK,
     MA_FACING_STANDING,
 };
 
-struct MAExpBarProc
-{
+struct MAExpBarProc {
     /* 00 */ PROC_HEADER;
 
     /* 29 */ u8    pad29[0x64 - 0x29];
@@ -20,8 +18,7 @@ struct MAExpBarProc
     /* 6A */ short unk6A;
 };
 
-struct SumProc
-{
+struct SumProc {
     /* 00 */ PROC_HEADER;
 
     /* 29 */ u8 pad29[0x3C - 0x29];
@@ -35,11 +32,20 @@ struct SumProc
     /* 66 */ short monsters;
 };
 
-struct SumThing
-{
+struct SumThing {
     s8 x, y;
     s8 boolAvailable;
     u32 unk04, unk08;
+};
+
+struct MAInfoFrameProc {
+    PROC_HEADER;
+
+    /* 2A */ short unk2A;
+    /* 2C */ u16 unk2C;
+    /* 2E */ u8 unk2E;
+    /* 2F */ u8 unk2F;
+    /* 30 */ struct Proc* maMain;
 };
 
 extern struct MapAnimState gMapBattle;
