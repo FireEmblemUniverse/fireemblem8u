@@ -9,10 +9,10 @@
 
 #include "mapanim.h"
 
-void sub_807B9F8(int tileNum)
+void UncompMapBattleBoxNumGfx(int tileNum)
 {
     CopyDataWithPossibleUncomp(
-        gUnknown_089AD868,
+        Img_MapBattleInfoNum,
         (u8*)(VRAM) + GetBackgroundTileDataOffset(0) + 0x20*(tileNum & 0x3FF));
 }
 
@@ -39,11 +39,11 @@ void sub_807BA28(u16* tilemap, int num, int tileref, int len, u16 blankref, int 
         tilemap[-i] = blankref;
 }
 
-void sub_807BAE4(const u8* src)
+void PrepareMapBattleBoxNumGfx(const u8* src)
 {
-    sub_807B9F8(0x20);
+    UncompMapBattleBoxNumGfx(0x20);
     CopyDataWithPossibleUncomp(src, (u8*)(VRAM + 0x20 * 43)); // TODO: named constants
-    ApplyPalette(gUnknown_08A1D79C, 5);
+    ApplyPalette(Pal_MapBattleInfoNum, 5);
 }
 
 void sub_807BB10(u16* arg0, int* arg1, int arg2, int arg3, int arg4)
@@ -88,12 +88,12 @@ void DeleteBattleAnimInfoThing(void)
     Proc_EndEach(ProcScr_MapBattleInfoBox);
 }
 
-void NewMapBattleInfoThing(int arg0, int arg1, struct Proc* parent)
+void NewMapBattleInfoThing(int x, int y, struct Proc* parent)
 {
     struct MAInfoFrameProc* proc = Proc_Start(ProcScr_MapBattleInfoBox, PROC_TREE_3);
 
-    proc->unk2E = arg0;
-    proc->unk2F = arg1;
+    proc->x = x;
+    proc->y = y;
 
     proc->maMain = parent;
 }
@@ -110,19 +110,19 @@ void sub_807BC00(struct MAInfoFrameProc* proc)
     BG_SetPosition(1, 0, 0);
 
     CopyDataWithPossibleUncomp(
-        gUnknown_089AD500,
+        Img_MapBattleInfoBox,
         (void*)(VRAM) + GetBackgroundTileDataOffset(1) + BM_BGCHR_BANIM_IFBACK * 0x20); //< TODO: put in macro?
 
-    sub_807BAE4(gUnknown_089AD78C);
+    PrepareMapBattleBoxNumGfx(Img_MapBattleInfoHpBar);
 
     switch (gMapBattle.actorCount_maybe) {
     case 1:
-        sub_807BE1C(proc, 0, -5);
+        DisplayBattleInfoBox(proc, 0, -5);
         break;
 
     case 2:
-        sub_807BE1C(proc, 0, -1);
-        sub_807BE1C(proc, 1, -11);
+        DisplayBattleInfoBox(proc, 0, -1);
+        DisplayBattleInfoBox(proc, 1, -11);
         break;
     } // switch (gMapBattle.actorCount_maybe)
 
@@ -187,58 +187,58 @@ void sub_807BD54(struct MAInfoFrameProc* proc, int a)
     BG_EnableSyncByMask(BG0_SYNC_BIT);
 }
 
-u16* sub_807BDD0(struct Unit* unit)
+u16* GetBattleInfoPalByFaction(struct Unit* unit)
 {
     switch (UNIT_FACTION(unit)) {
     case FACTION_BLUE:
-        return gUnknown_089AD648;
+        return Pal_MapBattleInfoBlue;
 
     case FACTION_RED:
-        return gUnknown_089AD668;
+        return Pal_MapBattleInfoRed;
 
     case FACTION_GREEN:
-        return gUnknown_089AD688;
+        return Pal_MapBattleInfoGreen;
 
     case FACTION_PURPLE:
-        return gUnknown_089AD6A8;
+        return Pal_MapBattleInfoPurple;
     } // switch (UNIT_FACTION(unit))
 
     return NULL;
 }
 
-void sub_807BE1C(struct MAInfoFrameProc* proc, int a, int arg2)
+void DisplayBattleInfoBox(struct MAInfoFrameProc* proc, int index, int arg2)
 {
-    gMapBattle.actors[a].u10 = proc->unk2E + arg2;
-    gMapBattle.actors[a].u11 = proc->unk2F;
+    gMapBattle.actors[index].u10 = proc->x + arg2;
+    gMapBattle.actors[index].u11 = proc->y;
 
     ApplyPalette(
-        sub_807BDD0(gMapBattle.actors[a].pUnit),
-        BM_BGPAL_BANIM_IFBACK + a);
+        GetBattleInfoPalByFaction(gMapBattle.actors[index].pUnit),
+        BM_BGPAL_BANIM_IFBACK + index);
 
     CopyDataWithPossibleUncomp(
-        gUnknown_089A3670[gMapBattle.actorCount_maybe][a], gGenericBuffer);
+        TsaSet_MapBattleBoxGfx[gMapBattle.actorCount_maybe][index], gGenericBuffer);
 
     CallARM_FillTileRect(
         TILEMAP_LOCATED(gBG1TilemapBuffer,
-            gMapBattle.actors[a].u10,
-            gMapBattle.actors[a].u11),
+            gMapBattle.actors[index].u10,
+            gMapBattle.actors[index].u11),
         (u16*) gGenericBuffer,
-        (u16)(BM_BGCHR_BANIM_IFBACK | TILEREF(0, BM_BGPAL_BANIM_IFBACK + a)));
+        (u16)(BM_BGCHR_BANIM_IFBACK | TILEREF(0, BM_BGPAL_BANIM_IFBACK + index)));
 
     BG_EnableSyncByMask(BG1_SYNC_BIT);
 
-    sub_80143D8(
+    DrawMapBattleInfoText(
         TILEMAP_LOCATED(gBG0TilemapBuffer,
-            gMapBattle.actors[a].u10 + 2,
-            gMapBattle.actors[a].u11 + 1),
+            gMapBattle.actors[index].u10 + 2,
+            gMapBattle.actors[index].u11 + 1),
         0, 9,
-        GetStringFromIndex(UNIT_NAME_ID(gMapBattle.actors[a].pUnit)));
+        GetStringFromIndex(UNIT_NAME_ID(gMapBattle.actors[index].pUnit)));
 
     BG_EnableSyncByMask(BG0_SYNC_BIT);
 
-    gMapBattle.actors[a].u0E = gMapBattle.actors[a].u0D*16;
+    gMapBattle.actors[index].u0E = gMapBattle.actors[index].u0D*16;
 
-    sub_807BD54(proc, a);
+    sub_807BD54(proc, index);
 }
 
 void MapInfoBox_PrepareForShake(struct MAInfoFrameProc* proc)
@@ -257,11 +257,11 @@ void MapInfoBoxShake(struct MAInfoFrameProc* proc)
 {
     // TODO: SetWin0PtA macro?
     gLCDControlBuffer.win0_left   = 0;
-    gLCDControlBuffer.win0_top    = (proc->unk2F+2)*8 - proc->unk2A;
+    gLCDControlBuffer.win0_top    = (proc->y+2)*8 - proc->unk2A;
 
     // TODO: SetWin0PtB macro?
     gLCDControlBuffer.win0_right  = 240; // TODO: SCREEN_WIDTH?
-    gLCDControlBuffer.win0_bottom = (proc->unk2F+2)*8 + proc->unk2A;
+    gLCDControlBuffer.win0_bottom = (proc->y+2)*8 + proc->unk2A;
 
     proc->unk2A += 2;
 

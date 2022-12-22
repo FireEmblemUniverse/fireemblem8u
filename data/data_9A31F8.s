@@ -1,284 +1,5 @@
     .section .data
 
-	.global gUnknown_089A31F8
-gUnknown_089A31F8:  @ 0x089A31F8
-        @ PROC_CALL
-        .short 0x2, 0x0
-        .word AddSkipThread2
-        @ PROC_CALL
-        .short 0x2, 0x0
-        .word MapAnim_MoveCameraOntoSubject
-        @ PROC_SLEEP
-        .short 0xe, 0x2
-        .word 0x0
-        @ PROC_CALL
-        .short 0x2, 0x0
-        .word sub_807AADC
-        @ PROC_SLEEP
-        .short 0xe, 0xf
-        .word 0x0
-        @ PROC_START_CHILD_BLOCKING
-        .short 0x6, 0x1
-        .word gUnknown_089A508C
-        @ PROC_SLEEP
-        .short 0xe, 0x1
-        .word 0x0
-        @ PROC_JUMP
-        .short 0xd, 0x0
-        .word gUnknown_089A35B0
-
-	.global gUnknown_089A3238
-gUnknown_089A3238:  @ 0x089A3238
-        @ PROC_CALL
-        .short 0x2, 0x0
-        .word AddSkipThread2
-        @ PROC_CALL
-        .short 0x2, 0x0
-        .word MapAnim_MoveCameraOntoSubject
-        @ PROC_SLEEP
-        .short 0xe, 0x2
-        .word 0x0
-        @ PROC_CALL
-        .short 0x2, 0x0
-        .word sub_807AADC
-        @ PROC_SLEEP
-        .short 0xe, 0xf
-        .word 0x0
-        @ PROC_START_CHILD_BLOCKING
-        .short 0x6, 0x1
-        .word gUnknown_089A50DC
-        @ PROC_SLEEP
-        .short 0xe, 0x1
-        .word 0x0
-        @ PROC_START_CHILD_BLOCKING
-        .short 0x6, 0x1
-        .word gUnknown_089A5124
-        @ PROC_SLEEP
-        .short 0xe, 0x1
-        .word 0x0
-        @ PROC_JUMP
-        .short 0xd, 0x0
-        .word gUnknown_089A35B0
-
-	.global gUnknown_089A3288
-gUnknown_089A3288:  @ 0x089A3288
-        @ PROC_CALL
-        .short 0x2, 0x0
-        .word AddSkipThread2
-        @ PROC_CALL
-        .short 0x2, 0x0
-        .word MapAnim_MoveCameraOntoSubject
-        @ PROC_SLEEP
-        .short 0xe, 0x2
-        .word 0x0
-        @ PROC_CALL
-        .short 0x2, 0x0
-        .word sub_807AADC
-        @ PROC_SLEEP
-        .short 0xe, 0xf
-        .word 0x0
-        @ PROC_START_CHILD_BLOCKING
-        .short 0x6, 0x1
-        .word gUnknown_089A5154
-        @ PROC_SLEEP
-        .short 0xe, 0x1
-        .word 0x0
-        @ PROC_JUMP
-        .short 0xd, 0x0
-        .word gUnknown_089A35B0
-
-	.global ProcScr_MapAnimSteal
-ProcScr_MapAnimSteal:  @ 0x089A32C8
-        @ PROC_CALL
-        .short 0x2, 0x0
-        .word AddSkipThread2
-        @ PROC_CALL
-        .short 0x2, 0x0
-        .word MapAnim_MoveCameraOntoTarget
-        @ PROC_SLEEP
-        .short 0xe, 0x2
-        .word 0x0
-        @ PROC_CALL
-        .short 0x2, 0x0
-        .word MapAnim_MoveCameraOntoSubject
-        @ PROC_SLEEP
-        .short 0xe, 0x2
-        .word 0x0
-        @ PROC_SLEEP
-        .short 0xe, 0x14
-        .word 0x0
-        @ PROC_CALL
-        .short 0x2, 0x0
-        .word MapAnim_BeginSubjectFastAnim
-        @ PROC_CALL
-        .short 0x2, 0x0
-        .word MapAnim_MoveSubjectsTowardsTarget
-        @ PROC_SLEEP
-        .short 0xe, 0x1
-        .word 0x0
-        @ PROC_CALL
-        .short 0x2, 0x0
-        .word MapAnim_MoveSubjectsTowardsTarget
-        @ PROC_SLEEP
-        .short 0xe, 0x1
-        .word 0x0
-        @ PROC_CALL
-        .short 0x2, 0x0
-        .word MapAnim_MoveSubjectsTowardsTarget
-        @ PROC_SLEEP
-        .short 0xe, 0x1
-        .word 0x0
-        @ PROC_CALL
-        .short 0x2, 0x0
-        .word MapAnim_MoveSubjectsTowardsTarget
-        @ PROC_SLEEP
-        .short 0xe, 0x1
-        .word 0x0
-        @ PROC_CALL
-        .short 0x2, 0x0
-        .word PlaySoundIdA0
-        @ PROC_SLEEP
-        .short 0xe, 0x14
-        .word 0x0
-        @ PROC_CALL
-        .short 0x2, 0x0
-        .word MapAnim_MoveSubjectsAwayFromTarget
-        @ PROC_SLEEP
-        .short 0xe, 0x1
-        .word 0x0
-        @ PROC_CALL
-        .short 0x2, 0x0
-        .word MapAnim_MoveSubjectsAwayFromTarget
-        @ PROC_SLEEP
-        .short 0xe, 0x1
-        .word 0x0
-        @ PROC_CALL
-        .short 0x2, 0x0
-        .word MapAnim_MoveSubjectsAwayFromTarget
-        @ PROC_SLEEP
-        .short 0xe, 0x1
-        .word 0x0
-        @ PROC_CALL
-        .short 0x2, 0x0
-        .word MapAnim_MoveSubjectsAwayFromTarget
-        @ PROC_SLEEP
-        .short 0xe, 0x14
-        .word 0x0
-        @ PROC_JUMP
-        .short 0xd, 0x0
-        .word gUnknown_089A35B0
-
-	.global ProcScr_MapAnimSummon
-ProcScr_MapAnimSummon:  @ 0x089A3398
-        @ PROC_CALL
-        .short 0x2, 0x0
-        .word AddSkipThread2
-        @ PROC_CALL
-        .short 0x2, 0x0
-        .word sub_807AD1C
-        @ PROC_CALL
-        .short 0x2, 0x0
-        .word New6C_SummonGfx_FromActionPos
-        @ PROC_SLEEP
-        .short 0xe, 0x5
-        .word 0x0
-        @ PROC_JUMP
-        .short 0xd, 0x0
-        .word gUnknown_089A35B0
-
-	.global ProcScr_MapAnimSumDK
-ProcScr_MapAnimSumDK:  @ 0x089A33C0
-        @ PROC_CALL
-        .short 0x2, 0x0
-        .word AddSkipThread2
-        @ PROC_CALL
-        .short 0x2, 0x0
-        .word sub_807AFD0
-        @ PROC_LABEL
-        .short 0xb, 0x0
-        .word 0x0
-        @ PROC_CALL
-        .short 0x2, 0x0
-        .word SelSumAtDownPos
-        @ PROC_SLEEP
-        .short 0xe, 0x5
-        .word 0x0
-        @ PROC_CALL
-        .short 0x2, 0x0
-        .word LoadSumMonsterFromDK
-        @ PROC_CALL
-        .short 0x2, 0x0
-        .word sub_807B070
-        @ PROC_SLEEP
-        .short 0xe, 0x5
-        .word 0x0
-        @ PROC_LABEL
-        .short 0xb, 0x3
-        .word 0x0
-        @ PROC_CALL
-        .short 0x2, 0x0
-        .word SelSumAtRightPos
-        @ PROC_SLEEP
-        .short 0xe, 0x5
-        .word 0x0
-        @ PROC_CALL
-        .short 0x2, 0x0
-        .word LoadSumMonsterFromDK
-        @ PROC_CALL
-        .short 0x2, 0x0
-        .word sub_807B070
-        @ PROC_SLEEP
-        .short 0xe, 0x5
-        .word 0x0
-        @ PROC_LABEL
-        .short 0xb, 0x4
-        .word 0x0
-        @ PROC_CALL
-        .short 0x2, 0x0
-        .word SelSumAtLeftPos
-        @ PROC_SLEEP
-        .short 0xe, 0x5
-        .word 0x0
-        @ PROC_CALL
-        .short 0x2, 0x0
-        .word LoadSumMonsterFromDK
-        @ PROC_CALL
-        .short 0x2, 0x0
-        .word sub_807B070
-        @ PROC_SLEEP
-        .short 0xe, 0x5
-        .word 0x0
-        @ PROC_LABEL
-        .short 0xb, 0x5
-        .word 0x0
-        @ PROC_CALL
-        .short 0x2, 0x0
-        .word SelSumAtUpPos
-        @ PROC_SLEEP
-        .short 0xe, 0x5
-        .word 0x0
-        @ PROC_CALL
-        .short 0x2, 0x0
-        .word LoadSumMonsterFromDK
-        @ PROC_CALL
-        .short 0x2, 0x0
-        .word sub_807B070
-        @ PROC_SLEEP
-        .short 0xe, 0x5
-        .word 0x0
-        @ PROC_LABEL
-        .short 0xb, 0x6
-        .word 0x0
-        @ PROC_CALL
-        .short 0x2, 0x0
-        .word sub_807AFE0
-        @ PROC_LABEL
-        .short 0xb, 0x1
-        .word 0x0
-        @ PROC_JUMP
-        .short 0xd, 0x0
-        .word gUnknown_089A35B0
-
 	.global ProcScr_MapAnimDance
 ProcScr_MapAnimDance:  @ 0x089A34B0
         @ PROC_CALL
@@ -313,7 +34,7 @@ ProcScr_MapAnimDance:  @ 0x089A34B0
         .word 0x0
         @ PROC_JUMP
         .short 0xd, 0x0
-        .word gUnknown_089A35B0
+        .word gProc_MapAnimEnd
 
 	.global ProcScr_MapAnimBattle
 ProcScr_MapAnimBattle:  @ 0x089A3508
@@ -352,7 +73,7 @@ ProcScr_MapAnimBattle:  @ 0x089A3508
         .word 0x0
         @ PROC_CALL
         .short 0x2, 0x0
-        .word sub_807AADC
+        .word MapAnim_InitInfoBox
         @ PROC_SLEEP
         .short 0xe, 0xf
         .word 0x0
@@ -381,17 +102,17 @@ ProcScr_MapAnimBattle:  @ 0x089A3508
         .short 0xc, 0x0
         .word 0x0
 
-	.global gUnknown_089A35B0
-gUnknown_089A35B0:  @ 0x089A35B0
+	.global gProc_MapAnimEnd
+gProc_MapAnimEnd:  @ 0x089A35B0
         @ PROC_CALL
         .short 0x2, 0x0
-        .word sub_807A984
+        .word MapAnimProc_DisplayDeahQuote
         @ PROC_WHILE
         .short 0x14, 0x0
         .word BattleEventEngineExists
         @ PROC_CALL
         .short 0x2, 0x0
-        .word sub_807AA00
+        .word MapAnmiProc_DisplayDeathFade
         @ PROC_WHILE_EXISTS
         .short 0x8, 0x0
         .word gProcScr_MUDeathFade
@@ -403,13 +124,13 @@ gUnknown_089A35B0:  @ 0x089A35B0
         .word 0x0
         @ PROC_CALL
         .short 0x2, 0x0
-        .word sub_807A708
+        .word MapAnimProc_DisplayItemStealingPopup
         @ PROC_YIELD
         .short 0xe, 0x0
         .word 0x0
         @ PROC_CALL
         .short 0x2, 0x0
-        .word sub_807AA4C
+        .word MapAnimProc_DisplayExpBar
         @ PROC_YIELD
         .short 0xe, 0x0
         .word 0x0
@@ -449,15 +170,15 @@ gUnknown_089A3648:  @ 0x089A3648
 gUnknown_089A3668:  @ 0x089A3668
 	.incbin "baserom.gba", 0x9A3668, 0x8
 
-	.global gUnknown_089A3670
-gUnknown_089A3670:  @ 0x089A3670
+	.global TsaSet_MapBattleBoxGfx
+TsaSet_MapBattleBoxGfx:  @ 0x089A3670
 @ replacing .incbin "baserom.gba", 0x009a3670, 0x18
-.4byte gUnknown_089AD6A8 + 0x20
-.4byte gUnknown_089AD6A8 + 0x20
-.4byte gUnknown_089AD6A8 + 0x20
-.4byte gUnknown_089AD6A8 + 0x20
-.4byte gUnknown_089AD6A8 + 0xa4
-.4byte gUnknown_089AD6A8 + 0x6c
+.4byte Pal_MapBattleInfoPurple + 0x20
+.4byte Pal_MapBattleInfoPurple + 0x20
+.4byte Pal_MapBattleInfoPurple + 0x20
+.4byte Pal_MapBattleInfoPurple + 0x20
+.4byte Pal_MapBattleInfoPurple + 0xa4
+.4byte Pal_MapBattleInfoPurple + 0x6c
 
 	.global ProcScr_MapBattleInfoBox
 ProcScr_MapBattleInfoBox:  @ 0x089A3688
@@ -488,8 +209,8 @@ ProcScr_MapBattleInfoBox:  @ 0x089A3688
 gUnknown_089A36C0:  @ 0x089A36C0
 	.incbin "baserom.gba", 0x9A36C0, 0x38
 
-	.global gUnknown_089A36F8
-gUnknown_089A36F8:  @ 0x089A36F8
+	.global gProc_MapAnimExpBar
+gProc_MapAnimExpBar:  @ 0x089A36F8
         @ PROC_SET_END_CB
         .short 0x4, 0x0
         .word ProcMapInfoBox_OnEnd
@@ -650,7 +371,7 @@ ProcScr_MapAnimEventBattle:  @ 0x089A3874
         .word 0x0
         @ PROC_CALL
         .short 0x2, 0x0
-        .word sub_807AADC
+        .word MapAnim_InitInfoBox
         @ PROC_SLEEP
         .short 0xe, 0xf
         .word 0x0
@@ -683,7 +404,7 @@ ProcScr_MapAnimEventBattle:  @ 0x089A3874
         .word 0x0
         @ PROC_CALL
         .short 0x2, 0x0
-        .word sub_807AA00
+        .word MapAnmiProc_DisplayDeathFade
         @ PROC_WHILE_EXISTS
         .short 0x8, 0x0
         .word gProcScr_MUDeathFade
@@ -704,8 +425,8 @@ ProcScr_MapAnimEventBattle:  @ 0x089A3874
         .word 0x0
 
 
-	.global gUnknown_089A3924
-gUnknown_089A3924:  @ 0x089A3924
+	.global ProcScr_MapAnimWallBreak
+ProcScr_MapAnimWallBreak:  @ 0x089A3924
         @ PROC_SLEEP
         .short 0xe, 0x1
         .word 0x0
@@ -720,8 +441,8 @@ gUnknown_089A3924:  @ 0x089A3924
         .word 0x0
 
 
-	.global gUnknown_089A3944
-gUnknown_089A3944:  @ 0x089A3944
+	.global ProcScr_PoisonAnimHandler
+ProcScr_PoisonAnimHandler:  @ 0x089A3944
         @ PROC_SLEEP
         .short 0xe, 0x1
         .word 0x0
@@ -2090,8 +1811,8 @@ gUnknown_089A4734:  @ 0x089A4734
         .word 0x0
 
 
-	.global gUnknown_089A4764
-gUnknown_089A4764:  @ 0x089A4764
+	.global ProcScr_MapAnimDefaultItemEffect
+ProcScr_MapAnimDefaultItemEffect:  @ 0x089A4764
         @ PROC_CALL
         .short 0x2, 0x0
         .word MapAnim_BeginSubjectFastAnim
@@ -3029,8 +2750,8 @@ gUnknown_089A5054:  @ 0x089A5054
         .short 0x0, 0x0
         .word 0x0
 
-	.global gUnknown_089A508C
-gUnknown_089A508C:  @ 0x089A508C
+	.global ProcScr_PoisonDmgMapEffect
+ProcScr_PoisonDmgMapEffect:  @ 0x089A508C
         @ PROC_CALL
         .short 0x2, 0x0
         .word MapAnim_MoveCameraOnTarget
@@ -3062,8 +2783,8 @@ gUnknown_089A508C:  @ 0x089A508C
         .short 0x0, 0x0
         .word 0x0
 
-	.global gUnknown_089A50DC
-gUnknown_089A50DC:  @ 0x089A50DC
+	.global ProcScr_EggDmgMapEffect1
+ProcScr_EggDmgMapEffect1:  @ 0x089A50DC
         @ PROC_CALL
         .short 0x2, 0x0
         .word MapAnim_MoveCameraOnTarget
@@ -3092,8 +2813,8 @@ gUnknown_089A50DC:  @ 0x089A50DC
         .short 0x0, 0x0
         .word 0x0
 
-	.global gUnknown_089A5124
-gUnknown_089A5124:  @ 0x089A5124
+	.global ProcScr_EggDmgMapEffect2
+ProcScr_EggDmgMapEffect2:  @ 0x089A5124
         @ PROC_CALL
         .short 0x2, 0x0
         .word MapAnim_MoveCameraOnTarget
@@ -3113,8 +2834,8 @@ gUnknown_089A5124:  @ 0x089A5124
         .short 0x0, 0x0
         .word 0x0
 
-	.global gUnknown_089A5154
-gUnknown_089A5154:  @ 0x089A5154
+	.global ProcScr_CritAtkMapEffect
+ProcScr_CritAtkMapEffect:  @ 0x089A5154
         @ PROC_CALL
         .short 0x2, 0x0
         .word MapAnim_MoveCameraOnTarget
@@ -3378,32 +3099,32 @@ gUnknown_089ACC98:  @ 0x089ACC98
 gUnknown_089AD498:  @ 0x089AD498
 	.incbin "baserom.gba", 0x9AD498, 0x68
 
-	.global gUnknown_089AD500
-gUnknown_089AD500:  @ 0x089AD500
+	.global Img_MapBattleInfoBox
+Img_MapBattleInfoBox:  @ 0x089AD500
 	.incbin "baserom.gba", 0x9AD500, 0x148
 
-	.global gUnknown_089AD648
-gUnknown_089AD648:  @ 0x089AD648
+	.global Pal_MapBattleInfoBlue
+Pal_MapBattleInfoBlue:  @ 0x089AD648
 	.incbin "baserom.gba", 0x9AD648, 0x20
 
-	.global gUnknown_089AD668
-gUnknown_089AD668:  @ 0x089AD668
+	.global Pal_MapBattleInfoRed
+Pal_MapBattleInfoRed:  @ 0x089AD668
     .incbin "baserom.gba", 0x9AD668, 0x20
 
-	.global gUnknown_089AD688
-gUnknown_089AD688:  @ 0x089AD688
+	.global Pal_MapBattleInfoGreen
+Pal_MapBattleInfoGreen:  @ 0x089AD688
 	.incbin "baserom.gba", 0x9AD688, 0x20
 
-	.global gUnknown_089AD6A8
-gUnknown_089AD6A8:  @ 0x089AD6A8
+	.global Pal_MapBattleInfoPurple
+Pal_MapBattleInfoPurple:  @ 0x089AD6A8
     .incbin "baserom.gba", 0x9AD6A8, 0xE4
 
-	.global gUnknown_089AD78C
-gUnknown_089AD78C:  @ 0x089AD78C
+	.global Img_MapBattleInfoHpBar
+Img_MapBattleInfoHpBar:  @ 0x089AD78C
 	.incbin "baserom.gba", 0x9AD78C, 0xDC
 
-	.global gUnknown_089AD868
-gUnknown_089AD868:  @ 0x089AD868
+	.global Img_MapBattleInfoNum
+Img_MapBattleInfoNum:  @ 0x089AD868
 	.incbin "baserom.gba", 0x9AD868, 0xCC
 
 	.global gUnknown_089AD934

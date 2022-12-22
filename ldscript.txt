@@ -134,6 +134,7 @@ SECTIONS
         src/mu.o(.text);
         asm/muctrl.o(.text);
         src/mapanim.o(.text);
+        src/mapanim_summon.o(.text);
         src/mapanim_api.o(.text);
         src/mapanim_infobox.o(.text);
         asm/code_mapanim.o(.text);
@@ -395,6 +396,8 @@ SECTIONS
         . = ALIGN(4); src/mu.o(.data);
         . = ALIGN(4); data/data_9A2DB0.o(.data);
         . = ALIGN(4); src/unit_icon_move_data.o(.data);
+        . = ALIGN(4); src/mapanim.o(.data);
+        . = ALIGN(4); src/mapanim_summon.o(.data);
         . = ALIGN(4); data/data_9A31F8.o(.data);
         . = ALIGN(4); src/data_support_conversations.o(.data);
         . = ALIGN(4); data/data_9ED64C.o(.data);

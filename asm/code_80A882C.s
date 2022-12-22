@@ -9128,7 +9128,7 @@ sub_80ACCF4: @ 0x080ACCF4
 	adds r5, r0, #0
 	cmp r5, #0
 	beq _080ACD44
-	ldr r0, _080ACD50  @ gUnknown_08A1D79C
+	ldr r0, _080ACD50  @ Pal_MapBattleInfoNum
 	adds r1, r7, #0
 	adds r1, #0x10
 	lsls r1, r1, #5
@@ -9163,7 +9163,7 @@ _080ACD44:
 	bx r1
 	.align 2, 0
 _080ACD4C: .4byte gUnknown_08A20B94
-_080ACD50: .4byte gUnknown_08A1D79C
+_080ACD50: .4byte Pal_MapBattleInfoNum
 _080ACD54: .4byte gUnknown_08A1C7D8
 _080ACD58: .4byte 0x06010000
 _080ACD5C: .4byte gUnknown_08A1C704

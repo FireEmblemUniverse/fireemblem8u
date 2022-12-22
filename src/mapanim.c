@@ -24,7 +24,7 @@
 #include "mapanim.h"
 
 // unreferenced
-void sub_807A708(ProcPtr proc) {
+void MapAnimProc_DisplayItemStealingPopup(ProcPtr proc) {
     if (gMapBattle.u62 == 1) {
         NewPopup_ItemStealing(gMapBattle.actors[1].pBattleUnit->weapon, proc);
     }
@@ -111,7 +111,7 @@ void MapAnim_PrepareNextBattleRound(ProcPtr p) {
     struct BattleUnit *unit;
     if (state->pCurrentRound->info & 0x10) {
         Proc_Break(p);
-        Proc_GotoScript(p, gUnknown_089A35B0);
+        Proc_GotoScript(p, gProc_MapAnimEnd);
         return;
     }
     MapAnim_AdvanceBattleRound();
@@ -149,7 +149,7 @@ void MapAnim_MoveCameraOntoTarget(ProcPtr p) {
     }
 }
 
-void sub_807A984(void)
+void MapAnimProc_DisplayDeahQuote(void)
 {
     int actorNum = -1;
     switch (gMapBattle.actorCount_maybe) {
@@ -182,7 +182,7 @@ void sub_807A984(void)
     }
 }
 
-void sub_807AA00(void)
+void MapAnmiProc_DisplayDeathFade(void)
 {
     int actorNum = -1;
     switch (gMapBattle.actorCount_maybe) {
@@ -201,7 +201,7 @@ void sub_807AA00(void)
         MU_StartDeathFade(gMapBattle.actors[actorNum].pMUProc);
 }
 
-void sub_807AA4C(struct Proc* proc)
+void MapAnimProc_DisplayExpBar(struct Proc* proc)
 {
     int actorNum = -1;
     switch (gMapBattle.actorCount_maybe) {
@@ -216,7 +216,7 @@ void sub_807AA4C(struct Proc* proc)
     }
 
     if (actorNum >= 0) {
-        struct MAExpBarProc* expProc = Proc_StartBlocking(gUnknown_089A36F8, proc);
+        struct MAExpBarProc* expProc = Proc_StartBlocking(gProc_MapAnimExpBar, proc);
 
         expProc->expFrom = gMapBattle.actors[actorNum].pBattleUnit->expPrevious;
         expProc->expTo   = gMapBattle.actors[actorNum].pBattleUnit->expPrevious + gMapBattle.actors[actorNum].pBattleUnit->expGain;
@@ -224,7 +224,7 @@ void sub_807AA4C(struct Proc* proc)
     }
 }
 
-void sub_807AADC(struct Proc* proc)
+void MapAnim_InitInfoBox(ProcPtr proc)
 {
     SetDefaultColorEffects();
 
@@ -237,8 +237,7 @@ void sub_807AADC(struct Proc* proc)
         break;
     }
 
-    if (GetSpellAssocReturnBool(gMapBattle.actors[0].pBattleUnit->weaponBefore))
-    {
+    if (GetSpellAssocReturnBool(gMapBattle.actors[0].pBattleUnit->weaponBefore)) {
         int y;
         if (gMapBattle.actorCount_maybe == 1) {
             y = gMapBattle.actors[0].pUnit->yPos*16 - gGameState.camera.y;
@@ -345,288 +344,71 @@ void sub_807ACEC(void)
     PlaySoundEffect(0xA0); // TODO: song ids!
 }
 
-void New6C_SummonGfx_FromActionPos(ProcPtr proc)
-{
-    New6C_SummonGfx(proc, gActionData.xOther, gActionData.yOther);
-}
 
-void sub_807AD1C(void)
-{
-    u8 rand100 = DivRem(AdvanceGetLCGRNValue(), 101);
+/** 
+ * section.data
+*/
 
-    struct Unit* unit;
-    short summonerNum, i;
+CONST_DATA struct ProcCmd ProcScr_MapAnimPoisonDmg[] = {
+    PROC_CALL(AddSkipThread2),
+    PROC_CALL(MapAnim_MoveCameraOntoSubject),
+    PROC_SLEEP(0x2),
+    PROC_CALL(MapAnim_InitInfoBox),
+    PROC_SLEEP(0xF),
+    PROC_START_CHILD_BLOCKING(ProcScr_PoisonDmgMapEffect),
+    PROC_SLEEP(0x1),
+    PROC_JUMP(gProc_MapAnimEnd),
+};
 
-    // 1. Find summoner number from active unit
-    summonerNum = -1;
-    for (i = 0; i < 3; ++i) {
-        if (UNIT_CHAR_ID(gActiveUnit) == gUnknown_0895F5A4[i][0]) {
-            summonerNum = i;
-            break;
-        }
-    }
+CONST_DATA struct ProcCmd ProcScr_MapAnimEggDmg[] = {
+    PROC_CALL(AddSkipThread2),
+    PROC_CALL(MapAnim_MoveCameraOntoSubject),
+    PROC_SLEEP(0x2),
+    PROC_CALL(MapAnim_InitInfoBox),
+    PROC_SLEEP(0xF),
+    PROC_START_CHILD_BLOCKING(ProcScr_EggDmgMapEffect1),
+    PROC_SLEEP(0x1),
+    PROC_START_CHILD_BLOCKING(ProcScr_EggDmgMapEffect2),
+    PROC_SLEEP(0x1),
+    PROC_JUMP(gProc_MapAnimEnd),
+};
 
-    if (summonerNum == -1)
-        return;
+CONST_DATA struct ProcCmd ProcScr_MapAnimCritAtk[] = {
+    PROC_CALL(AddSkipThread2),
+    PROC_CALL(MapAnim_MoveCameraOntoSubject),
+    PROC_SLEEP(0x2),
+    PROC_CALL(MapAnim_InitInfoBox),
+    PROC_SLEEP(0xF),
+    PROC_START_CHILD_BLOCKING(ProcScr_CritAtkMapEffect),
+    PROC_SLEEP(0x1),
+    PROC_JUMP(gProc_MapAnimEnd),
+};
 
-    // 2. Clear existing summon
-    // NOTE: this may have been a macro? (because of different i and unit?)
-    {
-        int i;
-        for (i = 1; i < 0x40; ++i) {
-            struct Unit* unit = GetUnit(i);
-
-            if (UNIT_IS_VALID(unit)) {
-                if (UNIT_CHAR_ID(unit) == gUnknown_0895F5A4[summonerNum][1])
-                    ClearUnit(unit);
-            }
-        }
-    }
-
-    // 3. Set up unit definition
-    unit = NULL;
-
-    // 3.1. Character/Class/Faction/Level/Position
-    gUnitDef1.charIndex       = gUnknown_0895F5A4[summonerNum][1];
-    gUnitDef1.classIndex      = CLASS_PHANTOM;
-    gUnitDef1.leaderCharIndex = CHARACTER_NONE;
-    gUnitDef1.autolevel       = TRUE;
-
-    if (UNIT_FACTION(gActiveUnit) == FACTION_BLUE)
-        gUnitDef1.allegiance = 0;
-
-    else if (UNIT_FACTION(gActiveUnit) == FACTION_RED)
-        gUnitDef1.allegiance = 2;
-
-    else if (UNIT_FACTION(gActiveUnit) == FACTION_GREEN)
-        gUnitDef1.allegiance = 1;
-
-    gUnitDef1.level = gActiveUnit->level;
-
-    gUnitDef1.xPosition = gActionData.xOther;
-    gUnitDef1.yPosition = gActionData.yOther;
-
-    gUnitDef1.redaCount = 0;
-    gUnitDef1.redas = NULL;
-
-    gUnitDef1.genMonster = FALSE;
-    gUnitDef1.itemDrop = FALSE;
-
-    // 3.2. Items (generated from random number)
-    for (i = 0; i < UNIT_DEFINITION_ITEM_COUNT; ++i)
-        gUnitDef1.items[i] = ITEM_NONE;
-
-    if (gActiveUnit->level <= 5)
-        gUnitDef1.items[0] = ITEM_AXE_IRON;
-    else if (gActiveUnit->level <= 10) {
-        if (rand100 < 6)
-            gUnitDef1.items[0] = ITEM_AXE_DEVIL;
-        else
-            gUnitDef1.items[0] = ITEM_AXE_IRON;
-    }
-    else if (gActiveUnit->level <= 15) {
-        if (rand100 < 6)
-            gUnitDef1.items[0] = ITEM_AXE_DEVIL;
-
-        else if (rand100 >= 6 && rand100 < 26)
-            gUnitDef1.items[0] = ITEM_AXE_KILLER;
-
-        else
-            gUnitDef1.items[0] = ITEM_AXE_IRON;
-    }
-    else if (gActiveUnit->level <= 20) {
-        if (rand100 < 6)
-            gUnitDef1.items[0] = ITEM_AXE_DEVIL;
-
-        else if (rand100 >= 6 && rand100 < 26)
-            gUnitDef1.items[0] = ITEM_AXE_KILLER;
-
-        else if (rand100 >= 26 && rand100 < 37)
-            gUnitDef1.items[0] = ITEM_AXE_TOMAHAWK;
-
-        else
-            gUnitDef1.items[0] = ITEM_AXE_IRON;
-    }
-
-    // 3.3. Ai (is null)
-    for (i = 0; i < 4; ++i)
-        gUnitDef1.ai[i] = 0;
-
-    // 4. Load unit
-    unit = GetUnitFromCharId(gUnknown_0895F5A4[summonerNum][1]);
-
-    if (unit == NULL) {
-        struct BattleUnit bu = gBattleActor;
-        LoadUnits(&gUnitDef1);
-        gBattleActor = bu;
-    }
-
-    // 5. Set level and weapon ranks
-    unit = GetUnitFromCharId(gUnknown_0895F5A4[summonerNum][1]);
-
-    for (i = 0; i < 4; ++i)
-        unit->ranks[i] = 0;
-
-    unit->level = gActiveUnit->level;
-    unit->exp   = UNIT_EXP_DISABLED;
-
-    if (gActiveUnit->level <= 5)
-        unit->ranks[ITYPE_AXE] = WPN_EXP_D;
-    else if (gActiveUnit->level <= 10)
-        unit->ranks[ITYPE_AXE] = WPN_EXP_C;
-    else if (gActiveUnit->level <= 15)
-        unit->ranks[ITYPE_AXE] = WPN_EXP_B;
-    else if (gActiveUnit->level <= 20)
-        unit->ranks[ITYPE_AXE] = WPN_EXP_A;
-}
-
-void sub_807AFD0(struct SumProc* proc)
-{
-    proc->unk64 = 0;
-    proc->monsters = 0;
-}
-
-void sub_807AFE0(struct SumProc* proc)
-{
-    if (proc->unk64 < 8)
-        Proc_Goto(proc, 0); // TODO: this proc's label enum
-}
-
-s8 CheckCanSummon(struct SumProc* proc)
-{
-    s8 count = 0;
-    int i;
-
-    for (i = FACTION_RED + 1; i < FACTION_RED + 0x40; ++i) {
-        struct Unit* unit = GetUnit(i);
-
-        if (UNIT_IS_VALID(unit)) {
-            if (count >= 40) {
-                Proc_Goto(proc, 1); // TODO: this proc's label enum
-                return TRUE;
-            }
-            count++;
-        }
-    }
-
-    if (proc->unk64 < 8 && proc->monsters < 4)
-        return FALSE;
-
-    Proc_Goto(proc, 1); // TODO: this proc's label enum
-    return TRUE;
-}
-
-void sub_807B054(void)
-{
-    PlaySoundEffect(0xA0); // TODO: song ids!
-}
-
-void sub_807B070(struct SumProc* proc)
-{
-    proc->unk64++;
-    proc->monsters = 0;
-
-    New6C_SummonGfx(proc, proc->x, proc->y);
-}
-
-s8 SelectSummonPos(int x, int y, struct SumThing* result)
-{
-    // It is very strange that in this function, CanUnitCrossTerrain should return as int(*)(Unit*, int)
-    extern int CanUnitCrossTerrain(struct Unit* unit, int terrain);
-
-    struct SumThing array[9];
-    u8 chosen, count = 0;
-    short iy, ix;
-
-    for (iy = y - 1; iy < y + 2; ++iy) {
-        if (iy < 0 || gBmMapSize.y <= iy)
-            continue;
-
-        for (ix = x - 1; ix < x + 2; ++ix) {
-            if (ix < 0 || gBmMapSize.x <= ix)
-                continue;
-
-            if (gBmMapUnit[iy][ix] != 0)
-                continue; // there's a unit here!
-
-            if (gRAMChapterData.chapterVisionRange && gBmMapFog[iy][ix] == 0)
-                continue; // there's fog here!
-
-            if (!CanUnitCrossTerrain(&gBattleActor.unit, gBmMapTerrain[iy][ix]))
-                continue; // can't cross terrain!
-
-            array[count].x = ix;
-            array[count].y = iy;
-            array[count].boolAvailable = TRUE;
-            count++;
-        }
-    }
-
-    if (!count)
-        return -1;
-
-    chosen = NextRN_N(count);
-    *result = array[chosen];
-    return 1;
-}
-
-void SelSumPosAndMoveCamera(struct SumProc* proc, s8 x, s8 y, short arg3)
-{
-    struct SumThing thing;
-    if (CheckCanSummon(proc))
-        return;
-
-    if (SelectSummonPos(x, y, &thing) == -1 || thing.boolAvailable == -1) {
-        proc->monsters++;
-        Proc_Goto((struct Proc*) proc, arg3);
-    } else {
-        proc->x = thing.x;
-        proc->y = thing.y;
-
-        EnsureCameraOntoPosition(proc, proc->x, proc->y);
-    }
-}
-
-void SelSumAtDownPos(struct SumProc* proc)
-{
-    SelSumPosAndMoveCamera(proc,
-        gBattleActor.unit.xPos, gBattleActor.unit.yPos + 4,
-        3); // TODO: proc label enums!
-}
-
-void SelSumAtRightPos(struct SumProc* proc)
-{
-    SelSumPosAndMoveCamera(proc,
-        gBattleActor.unit.xPos + 4, gBattleActor.unit.yPos,
-        4); // TODO: proc label enums!
-}
-
-void SelSumAtLeftPos(struct SumProc* proc)
-{
-    SelSumPosAndMoveCamera(proc,
-        gBattleActor.unit.xPos - 4, gBattleActor.unit.yPos,
-        5); // TODO: proc label enums!
-}
-
-void SelSumAtUpPos(struct SumProc* proc)
-{
-    SelSumPosAndMoveCamera(proc,
-        gBattleActor.unit.xPos, gBattleActor.unit.yPos - 4,
-        6); // TODO: proc label enums!
-}
-
-void LoadSumMonsterFromDK(struct SumProc* proc)
-{
-    u8 num = DivRem(AdvanceGetLCGRNValue(), 11);
-
-    gUnitDef2 = gUnitDefSumDK[num];
-
-    gUnitDef2.autolevel = TRUE;
-    gUnitDef2.allegiance = 2;
-    gUnitDef2.level = 5 + num;
-
-    gUnitDef2.xPosition = proc->x;
-    gUnitDef2.yPosition = proc->y;
-
-    LoadUnits(&gUnitDef2);
-}
+CONST_DATA struct ProcCmd ProcScr_MapAnimSteal[] = {
+    PROC_CALL(AddSkipThread2),
+    PROC_CALL(MapAnim_MoveCameraOntoTarget),
+    PROC_SLEEP(0x2),
+    PROC_CALL(MapAnim_MoveCameraOntoSubject),
+    PROC_SLEEP(0x2),
+    PROC_SLEEP(0x14),
+    PROC_CALL(MapAnim_BeginSubjectFastAnim),
+    PROC_CALL(MapAnim_MoveSubjectsTowardsTarget),
+    PROC_SLEEP(0x1),
+    PROC_CALL(MapAnim_MoveSubjectsTowardsTarget),
+    PROC_SLEEP(0x1),
+    PROC_CALL(MapAnim_MoveSubjectsTowardsTarget),
+    PROC_SLEEP(0x1),
+    PROC_CALL(MapAnim_MoveSubjectsTowardsTarget),
+    PROC_SLEEP(0x1),
+    PROC_CALL(PlaySoundIdA0),
+    PROC_SLEEP(0x14),
+    PROC_CALL(MapAnim_MoveSubjectsAwayFromTarget),
+    PROC_SLEEP(0x1),
+    PROC_CALL(MapAnim_MoveSubjectsAwayFromTarget),
+    PROC_SLEEP(0x1),
+    PROC_CALL(MapAnim_MoveSubjectsAwayFromTarget),
+    PROC_SLEEP(0x1),
+    PROC_CALL(MapAnim_MoveSubjectsAwayFromTarget),
+    PROC_SLEEP(0x14),
+    PROC_JUMP(gProc_MapAnimEnd),
+};

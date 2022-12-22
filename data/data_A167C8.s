@@ -2808,8 +2808,8 @@ gUnknown_08A1D4E8:  @ 0x08A1D4E8
 gUnknown_08A1D510:  @ 0x08A1D510
 	.incbin "baserom.gba", 0xA1D510, 0x28C
 
-	.global gUnknown_08A1D79C
-gUnknown_08A1D79C:  @ 0x08A1D79C
+	.global Pal_MapBattleInfoNum
+Pal_MapBattleInfoNum:  @ 0x08A1D79C
 	.incbin "baserom.gba", 0xA1D79C, 0x40
 
 	.global gUnknown_08A1D7DC

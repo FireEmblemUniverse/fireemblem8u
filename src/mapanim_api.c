@@ -126,7 +126,7 @@ void sub_807B4D0(void)
         gMapBattle.actors[array[i]].pMUProc->pAPHandle->objLayer = gUnknown_08205714[i];
 }
 
-void sub_807B5DC(void)
+void BeginMapAnimForPoisonDmg(void)
 {
     gBattleActor.weaponBefore = ITEM_VULNERARY;
 
@@ -138,10 +138,10 @@ void sub_807B5DC(void)
     MapAnim_AdvanceBattleRound();
 
     SetupMapBattleAnim(&gBattleActor, &gBattleTarget, gBattleHitArray);
-    Proc_Start(gUnknown_089A31F8, PROC_TREE_3);
+    Proc_Start(ProcScr_MapAnimPoisonDmg, PROC_TREE_3);
 }
 
-void sub_807B634(void)
+void BeginMapAnimForEggDmg(void)
 {
     gBattleActor.weaponBefore = ITEM_VULNERARY;
 
@@ -153,10 +153,10 @@ void sub_807B634(void)
     MapAnim_AdvanceBattleRound();
 
     SetupMapBattleAnim(&gBattleActor, &gBattleTarget, gBattleHitArray);
-    Proc_Start(gUnknown_089A3238, PROC_TREE_3);
+    Proc_Start(ProcScr_MapAnimEggDmg, PROC_TREE_3);
 }
 
-void sub_807B68C(void)
+void BeginMapAnimForCritAtk(void)
 {
     gBattleActor.weaponBefore = ITEM_VULNERARY;
 
@@ -168,7 +168,7 @@ void sub_807B68C(void)
     MapAnim_AdvanceBattleRound();
 
     SetupMapBattleAnim(&gBattleActor, &gBattleTarget, gBattleHitArray);
-    Proc_Start(gUnknown_089A3288, PROC_TREE_3);
+    Proc_Start(ProcScr_MapAnimCritAtk, PROC_TREE_3);
 }
 
 void BeginMapAnimForSteal(void)

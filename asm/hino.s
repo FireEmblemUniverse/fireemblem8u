@@ -2183,8 +2183,8 @@ _080143D4: .4byte gUnknown_0859A0F3
 
 	THUMB_FUNC_END String_FromNumber
 
-	THUMB_FUNC_START sub_80143D8
-sub_80143D8: @ 0x080143D8
+	THUMB_FUNC_START DrawMapBattleInfoText
+DrawMapBattleInfoText: @ 0x080143D8
 	push {r4, r5, r6, lr}
 	mov r6, r9
 	mov r5, r8
@@ -2229,7 +2229,7 @@ sub_80143D8: @ 0x080143D8
 	.align 2, 0
 _08014438: .4byte gUnknown_03000800
 
-	THUMB_FUNC_END sub_80143D8
+	THUMB_FUNC_END DrawMapBattleInfoText
 
 	THUMB_FUNC_START sub_801443C
 sub_801443C: @ 0x0801443C

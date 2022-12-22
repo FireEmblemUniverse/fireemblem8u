@@ -1549,7 +1549,7 @@ MapAnim_BeginWallBreakAnim: @ 0x0807CBDC
 	push {r4, r5, lr}
 	adds r4, r0, #0
 	adds r5, r1, #0
-	ldr r0, _0807CC20  @ gUnknown_089A3924
+	ldr r0, _0807CC20  @ ProcScr_MapAnimWallBreak
 	movs r1, #3
 	bl Proc_Start
 	str r4, [r0, #0x2c]
@@ -1580,7 +1580,7 @@ MapAnim_BeginWallBreakAnim: @ 0x0807CBDC
 	pop {r0}
 	bx r0
 	.align 2, 0
-_0807CC20: .4byte gUnknown_089A3924
+_0807CC20: .4byte ProcScr_MapAnimWallBreak
 _0807CC24: .4byte gGameState
 
 	THUMB_FUNC_END MapAnim_BeginWallBreakAnim
@@ -1627,7 +1627,7 @@ _0807CC74: .4byte SpriteAnim_UnkTrap_089A6FD8
 NewMapPoisonEffect: @ 0x0807CC78
 	push {r4, lr}
 	adds r4, r0, #0
-	ldr r0, _0807CCB8  @ gUnknown_089A3944
+	ldr r0, _0807CCB8  @ ProcScr_PoisonAnimHandler
 	movs r1, #3
 	bl Proc_Start
 	str r4, [r0, #0x2c]
@@ -1656,7 +1656,7 @@ NewMapPoisonEffect: @ 0x0807CC78
 	pop {r0}
 	bx r0
 	.align 2, 0
-_0807CCB8: .4byte gUnknown_089A3944
+_0807CCB8: .4byte ProcScr_PoisonAnimHandler
 _0807CCBC: .4byte gGameState
 
 	THUMB_FUNC_END NewMapPoisonEffect
@@ -5585,7 +5585,7 @@ _0807EB48:
 	adds r0, r4, #0
 	movs r1, #3
 	movs r2, #3
-	bl sub_80143D8
+	bl DrawMapBattleInfoText
 	adds r5, #0xc
 	adds r6, #0xc
 	ldrb r0, [r5]
@@ -10754,13 +10754,13 @@ GetItemAnim6CCode: @ 0x08081260
 	ldr r0, [r0, #0x54]
 	cmp r0, #0
 	bne _0808126C
-	ldr r0, _08081274  @ gUnknown_089A4764
+	ldr r0, _08081274  @ ProcScr_MapAnimDefaultItemEffect
 _0808126C:
 	pop {r1}
 	bx r1
 	.align 2, 0
 _08081270: .4byte gMapBattle
-_08081274: .4byte gUnknown_089A4764
+_08081274: .4byte ProcScr_MapAnimDefaultItemEffect
 
 	THUMB_FUNC_END GetItemAnim6CCode
 
@@ -11743,13 +11743,13 @@ sub_8081970: @ 0x08081970
 	.align 2, 0
 _08081994: .4byte gMapBattle
 _08081998:
-	ldr r0, _080819A4  @ gUnknown_089A5124
+	ldr r0, _080819A4  @ ProcScr_EggDmgMapEffect2
 	bl Proc_EndEach
 _0808199E:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_080819A4: .4byte gUnknown_089A5124
+_080819A4: .4byte ProcScr_EggDmgMapEffect2
 
 	THUMB_FUNC_END sub_8081970
 
