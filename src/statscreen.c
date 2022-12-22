@@ -2579,7 +2579,7 @@ struct Proc* StartHelpPromptSprite(int x, int y, int palid, struct Proc* parent)
 {
     struct HelpPromptSprProc* proc = (void*) Proc_Find(gProcScr_HelpPromptSpr);
 
-    ApplyPalette(gUnknown_08A1D79C, palid + 0x10);
+    ApplyPalette(Pal_MapBattleInfoNum, palid + 0x10);
 
     if (!proc)
         proc = (void*) Proc_Start(gProcScr_HelpPromptSpr, parent);

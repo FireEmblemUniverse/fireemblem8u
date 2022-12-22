@@ -24804,7 +24804,7 @@ sub_809A874: @ 0x0809A874
 	ldr r0, _0809A8EC  @ gUnknown_08A1D510
 	ldr r1, _0809A8F0  @ 0x06010800
 	bl CopyDataWithPossibleUncomp
-	ldr r0, _0809A8F4  @ gUnknown_08A1D79C
+	ldr r0, _0809A8F4  @ Pal_MapBattleInfoNum
 	movs r1, #0xc8
 	lsls r1, r1, #2
 	movs r2, #0x20
@@ -24821,7 +24821,7 @@ _0809A8E4: .4byte gGenericBuffer
 _0809A8E8: .4byte gBG1TilemapBuffer
 _0809A8EC: .4byte gUnknown_08A1D510
 _0809A8F0: .4byte 0x06010800
-_0809A8F4: .4byte gUnknown_08A1D79C
+_0809A8F4: .4byte Pal_MapBattleInfoNum
 
 	THUMB_FUNC_END sub_809A874
 
@@ -40377,7 +40377,7 @@ _080A2340:
 	lsls r1, r1, #2
 	movs r2, #0x20
 	bl CopyToPaletteBuffer
-	ldr r0, _080A2440  @ gUnknown_08A1D79C
+	ldr r0, _080A2440  @ Pal_MapBattleInfoNum
 	movs r1, #0x90
 	lsls r1, r1, #2
 	movs r2, #0x20
@@ -40400,7 +40400,7 @@ _080A2430: .4byte gUnknown_02022CEC
 _080A2434: .4byte gUnknown_08A1DD0C
 _080A2438: .4byte 0x06017800
 _080A243C: .4byte gUnknown_08A1E0D8
-_080A2440: .4byte gUnknown_08A1D79C
+_080A2440: .4byte Pal_MapBattleInfoNum
 _080A2444: .4byte sub_80A1B90
 
 	THUMB_FUNC_END sub_80A2274

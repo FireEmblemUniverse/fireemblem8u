@@ -4,11 +4,31 @@
 enum {
     BM_BGPAL_6 = 6,
     BM_BGPAL_TILESET_BASE = 7,
+
+    BM_BGPAL_BANIM_IFBACK = 1, /* size: 2 */
+    BM_BGPAL_BANIM_UNK4 = 4,
+    BM_BGPAL_BANIM_UNK5 = 5,
+};
+
+enum {
+    BM_BGCHR_BANIM_IFBACK = 1,
+    BM_BGCHR_BANIM_UNK160 = 0x160,
+    BM_BGCHR_BANIM_UNK200 = 0x200,
+
+    BM_OBJCHR_BANIM_EFFECT = 384,
+    BM_OBJCHR_BANIM_EFFECT2 = 448,
 };
 
 enum {
     BM_OBJPAL_1  = 1,
     BM_OBJPAL_10 = 10,
+
+    BM_OBJPAL_BANIM_EFFECT1 = 3,
+    BM_OBJPAL_BANIM_EFFECT2 = 4,
+
+    BM_OBJPAL_BANIM_SPECIALMU = 8, /* size: 2 */
+
+    BM_OBJPAL_UNIT_GRAYED = 15,
 };
 
 struct TileGfxAnim {

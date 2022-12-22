@@ -25,9 +25,9 @@ extern u16 gUnknown_08A03334[]; // palette
 extern u16 gUnknown_08A03354[];
 
 // code_mapanim.s
-void sub_807B5DC(void);
-void sub_807B634(void);
-void sub_807B68C(void);
+void BeginMapAnimForPoisonDmg(void);
+void BeginMapAnimForEggDmg(void);
+void BeginMapAnimForCritAtk(void);
 
 
 struct UnknownBMUSAilmentProc {
@@ -106,7 +106,7 @@ void BeginUnitPoisonDamageAnim(struct Unit* unit, int damage) {
 
     BattleHitTerminate();
 
-    sub_807B5DC();
+    BeginMapAnimForPoisonDmg();
 
     RenderMapForFogFadeIfUnitDied(unit);
 
@@ -132,7 +132,7 @@ void BeginGorgonEggHatchDamageAnim(struct Unit* unit, int damage) {
 
     BattleHitTerminate();
 
-    sub_807B634();
+    BeginMapAnimForEggDmg();
 
     return;
 }
@@ -157,7 +157,7 @@ void BeginUnitCritDamageAnim(struct Unit* unit, int damage) {
 
     BattleHitTerminate();
 
-    sub_807B68C();
+    BeginMapAnimForCritAtk();
 
     RenderMapForFogFadeIfUnitDied(unit);
 
