@@ -58,7 +58,7 @@ struct MAInfoFrameProc {
     /* 30 */ struct Proc* maMain;
 };
 
-extern struct MapAnimState gMapBattle;
+extern struct MapAnimState gCurrentMapAnimState;
 
 void MapAnimProc_DisplayItemStealingPopup(ProcPtr proc);
 void DisplayWpnBrokePopup(ProcPtr proc);

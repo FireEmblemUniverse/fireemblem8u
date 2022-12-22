@@ -25,8 +25,8 @@
 
 // unreferenced
 void MapAnimProc_DisplayItemStealingPopup(ProcPtr proc) {
-    if (gMapBattle.u62 == 1) {
-        NewPopup_ItemStealing(gMapBattle.actors[1].pBattleUnit->weapon, proc);
+    if (gCurrentMapAnimState.u62 == 1) {
+        NewPopup_ItemStealing(gCurrentMapAnimState.actors[1].pBattleUnit->weapon, proc);
     }
 }
 
@@ -90,7 +90,7 @@ void MapAnim_Cleanup(void) {
 }
 
 void MapAnim_AdvanceBattleRound(void) {
-    struct MapAnimState *state = &gMapBattle;
+    struct MapAnimState *state = &gCurrentMapAnimState;
     struct BattleHit *round = state->pCurrentRound;
     u8 r = (round->info >> 3);
     state->subjectActorId = r % 2;
@@ -106,7 +106,7 @@ void MapAnim_AdvanceBattleRound(void) {
 }
 
 void MapAnim_PrepareNextBattleRound(ProcPtr p) {
-    struct MapAnimState *state = &gMapBattle;
+    struct MapAnimState *state = &gCurrentMapAnimState;
     u16 weapon;
     struct BattleUnit *unit;
     if (state->pCurrentRound->info & 0x10) {
@@ -126,7 +126,7 @@ void MapAnim_DisplayRoundAnim(ProcPtr p) {
 }
 
 void MapAnim_ShowPoisonEffectIfAny(ProcPtr p) {
-    struct MapAnimState *state = &gMapBattle;
+    struct MapAnimState *state = &gCurrentMapAnimState;
     if (state->hitAttributes & 0x40) {
         NewMapPoisonEffect(state->actors[state->targetActorId].pUnit);
         NewBlockingTimer(p, 100);
@@ -134,14 +134,14 @@ void MapAnim_ShowPoisonEffectIfAny(ProcPtr p) {
 }
 
 void MapAnim_MoveCameraOntoSubject(ProcPtr p) {
-    struct MapAnimState *state = &gMapBattle;
+    struct MapAnimState *state = &gCurrentMapAnimState;
 	int x = state->actors[0].pUnit->xPos;
 	int y = state->actors[0].pUnit->yPos;
     EnsureCameraOntoPosition(p, x, y);
 }
 
 void MapAnim_MoveCameraOntoTarget(ProcPtr p) {
-    struct MapAnimState *state = &gMapBattle;
+    struct MapAnimState *state = &gCurrentMapAnimState;
     if (state->actorCount_maybe != 1) {
         int x = state->actors[1].pUnit->xPos;
         int y = state->actors[1].pUnit->yPos;
@@ -152,20 +152,20 @@ void MapAnim_MoveCameraOntoTarget(ProcPtr p) {
 void MapAnimProc_DisplayDeahQuote(void)
 {
     int actorNum = -1;
-    switch (gMapBattle.actorCount_maybe) {
+    switch (gCurrentMapAnimState.actorCount_maybe) {
     case 2:
-        if (gMapBattle.actors[1].u0D == 0)
+        if (gCurrentMapAnimState.actors[1].u0D == 0)
             actorNum = 1;
         // fallthrough
 
     case 1:
-        if (gMapBattle.actors[0].u0D == 0)
+        if (gCurrentMapAnimState.actors[0].u0D == 0)
             actorNum = 0;
         break;
-    } // switch (gMapBattle.actorCount_maybe)
+    } // switch (gCurrentMapAnimState.actorCount_maybe)
 
     if (actorNum != -1) {
-        int charid = UNIT_CHAR_ID(gMapBattle.actors[actorNum].pUnit);
+        int charid = UNIT_CHAR_ID(gCurrentMapAnimState.actors[actorNum].pUnit);
 
         switch (charid) {
         case CHARACTER_EIRIKA:
@@ -185,32 +185,32 @@ void MapAnimProc_DisplayDeahQuote(void)
 void MapAnmiProc_DisplayDeathFade(void)
 {
     int actorNum = -1;
-    switch (gMapBattle.actorCount_maybe) {
+    switch (gCurrentMapAnimState.actorCount_maybe) {
     case 2:
-        if (gMapBattle.actors[1].u0D == 0)
+        if (gCurrentMapAnimState.actors[1].u0D == 0)
             actorNum = 1;
         // fallthrough
 
     case 1:
-        if (gMapBattle.actors[0].u0D == 0)
+        if (gCurrentMapAnimState.actors[0].u0D == 0)
             actorNum = 0;
         break;
-    } // switch (gMapBattle.actorCount_maybe)
+    } // switch (gCurrentMapAnimState.actorCount_maybe)
 
     if (actorNum != -1)
-        MU_StartDeathFade(gMapBattle.actors[actorNum].pMUProc);
+        MU_StartDeathFade(gCurrentMapAnimState.actors[actorNum].pMUProc);
 }
 
 void MapAnimProc_DisplayExpBar(struct Proc* proc)
 {
     int actorNum = -1;
-    switch (gMapBattle.actorCount_maybe) {
+    switch (gCurrentMapAnimState.actorCount_maybe) {
     case 2:
-        if (gMapBattle.actors[1].pBattleUnit->expGain != 0)
+        if (gCurrentMapAnimState.actors[1].pBattleUnit->expGain != 0)
             actorNum = 1;
 
     case 1:
-        if (gMapBattle.actors[0].pBattleUnit->expGain != 0)
+        if (gCurrentMapAnimState.actors[0].pBattleUnit->expGain != 0)
             actorNum = 0;
         break;
     }
@@ -218,8 +218,8 @@ void MapAnimProc_DisplayExpBar(struct Proc* proc)
     if (actorNum >= 0) {
         struct MAExpBarProc* expProc = Proc_StartBlocking(gProc_MapAnimExpBar, proc);
 
-        expProc->expFrom = gMapBattle.actors[actorNum].pBattleUnit->expPrevious;
-        expProc->expTo   = gMapBattle.actors[actorNum].pBattleUnit->expPrevious + gMapBattle.actors[actorNum].pBattleUnit->expGain;
+        expProc->expFrom = gCurrentMapAnimState.actors[actorNum].pBattleUnit->expPrevious;
+        expProc->expTo   = gCurrentMapAnimState.actors[actorNum].pBattleUnit->expPrevious + gCurrentMapAnimState.actors[actorNum].pBattleUnit->expGain;
         expProc->actorId = actorNum;
     }
 }
@@ -228,7 +228,7 @@ void MapAnim_InitInfoBox(ProcPtr proc)
 {
     SetDefaultColorEffects();
 
-    switch (gMapBattle.u62) {
+    switch (gCurrentMapAnimState.u62) {
     case 1:
     case 2:
         return;
@@ -237,10 +237,10 @@ void MapAnim_InitInfoBox(ProcPtr proc)
         break;
     }
 
-    if (GetSpellAssocReturnBool(gMapBattle.actors[0].pBattleUnit->weaponBefore)) {
+    if (GetSpellAssocReturnBool(gCurrentMapAnimState.actors[0].pBattleUnit->weaponBefore)) {
         int y;
-        if (gMapBattle.actorCount_maybe == 1) {
-            y = gMapBattle.actors[0].pUnit->yPos*16 - gGameState.camera.y;
+        if (gCurrentMapAnimState.actorCount_maybe == 1) {
+            y = gCurrentMapAnimState.actors[0].pUnit->yPos*16 - gGameState.camera.y;
 
             if (y >= 112)
                 y = y - 40;
@@ -251,8 +251,8 @@ void MapAnim_InitInfoBox(ProcPtr proc)
             int array[2];
             int i, actorNum;
 
-            for (i = 0; i < gMapBattle.actorCount_maybe; ++i)
-                array[i] = gMapBattle.actors[i].pUnit->yPos*16 - gGameState.camera.y;
+            for (i = 0; i < gCurrentMapAnimState.actorCount_maybe; ++i)
+                array[i] = gCurrentMapAnimState.actors[i].pUnit->yPos*16 - gGameState.camera.y;
 
             if (array[0] - array[1] >= 0) {
                 if (array[0] - array[1] >= 80)
@@ -278,52 +278,52 @@ void MapAnim_InitInfoBox(ProcPtr proc)
 
 void MapAnim_CallBattleQuoteEvents(void)
 {
-    if (gMapBattle.actorCount_maybe == 2) {
+    if (gCurrentMapAnimState.actorCount_maybe == 2) {
         CallBattleQuoteEventsIfAny(
-            UNIT_CHAR_ID(gMapBattle.actors[0].pUnit), UNIT_CHAR_ID(gMapBattle.actors[1].pUnit));
+            UNIT_CHAR_ID(gCurrentMapAnimState.actors[0].pUnit), UNIT_CHAR_ID(gCurrentMapAnimState.actors[1].pUnit));
     }
 }
 
 void SetBattleMuPaletteByIndex(int actorNum)
 {
-    if (UNIT_FACTION(gMapBattle.actors[0].pUnit) == UNIT_FACTION(gMapBattle.actors[1].pUnit))
-        if (!BUNIT_IS_OBSTACLE(gMapBattle.actors[0].pBattleUnit) && !BUNIT_IS_OBSTACLE(gMapBattle.actors[1].pBattleUnit))
+    if (UNIT_FACTION(gCurrentMapAnimState.actors[0].pUnit) == UNIT_FACTION(gCurrentMapAnimState.actors[1].pUnit))
+        if (!BUNIT_IS_OBSTACLE(gCurrentMapAnimState.actors[0].pBattleUnit) && !BUNIT_IS_OBSTACLE(gCurrentMapAnimState.actors[1].pBattleUnit))
             return;
 
     // Check actor class
-    if (UNIT_CLASS_ID(gMapBattle.actors[actorNum].pUnit) != CLASS_MANAKETE_MYRRH)
+    if (UNIT_CLASS_ID(gCurrentMapAnimState.actors[actorNum].pUnit) != CLASS_MANAKETE_MYRRH)
         return;
 
     // Check actor status
-    switch (gMapBattle.actors[actorNum].pUnit->statusIndex) {
+    switch (gCurrentMapAnimState.actors[actorNum].pUnit->statusIndex) {
     case UNIT_STATUS_SLEEP:
     case UNIT_STATUS_PETRIFY:
     case UNIT_STATUS_13:
         return;
 
-    } // switch (gMapBattle.actors[actorNum].unit->statusIndex)
+    } // switch (gCurrentMapAnimState.actors[actorNum].unit->statusIndex)
 
     // Check other actor weapon
-    switch (GetItemIndex(gMapBattle.actors[actorNum ^ 1 ].pBattleUnit->weaponBefore)) {
+    switch (GetItemIndex(gCurrentMapAnimState.actors[actorNum ^ 1 ].pBattleUnit->weaponBefore)) {
     case ITEM_STAFF_SILENCE:
     case ITEM_STAFF_SLEEP:
     case ITEM_STAFF_BERSERK:
     case ITEM_MONSTER_STONE:
         return;
 
-    } // switch (GetItemIndex(gMapBattle.actors[actorNum ^ 1 ].pBattleUnit->weaponBefore))
+    } // switch (GetItemIndex(gCurrentMapAnimState.actors[actorNum ^ 1 ].pBattleUnit->weaponBefore))
 
     // Check actor weapon
-    if (GetItemIndex(gMapBattle.actors[actorNum].pBattleUnit->weaponBefore) != ITEM_DIVINESTONE)
+    if (GetItemIndex(gCurrentMapAnimState.actors[actorNum].pBattleUnit->weaponBefore) != ITEM_DIVINESTONE)
         return;
 
-    MU_SetPaletteId(gMapBattle.actors[actorNum].pMUProc, BM_OBJPAL_BANIM_SPECIALMU + actorNum);
-    MU_SetSpecialSprite(gMapBattle.actors[actorNum].pMUProc, CLASS_MANAKETE, gUnknown_089A8F74);
+    MU_SetPaletteId(gCurrentMapAnimState.actors[actorNum].pMUProc, BM_OBJPAL_BANIM_SPECIALMU + actorNum);
+    MU_SetSpecialSprite(gCurrentMapAnimState.actors[actorNum].pMUProc, CLASS_MANAKETE, gUnknown_089A8F74);
 }
 
 void SetBattleMuPalette(void)
 {
-    switch (gMapBattle.actorCount_maybe) {
+    switch (gCurrentMapAnimState.actorCount_maybe) {
     case 2:
         SetBattleMuPaletteByIndex(1);
         // fallthrough
@@ -331,7 +331,7 @@ void SetBattleMuPalette(void)
         SetBattleMuPaletteByIndex(0);
         break;
 
-    } // switch (gMapBattle.actorCount_maybe)
+    } // switch (gCurrentMapAnimState.actorCount_maybe)
 }
 
 void PlaySoundIdA0(void)
