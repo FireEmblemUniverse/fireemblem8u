@@ -12,6 +12,7 @@ struct Trap;
 struct BattleHit;
 struct PopupInstruction;
 struct MAInfoFrameProc;
+struct MAExpBarProc;
 
 // Type definitions for types without any other home :/
 

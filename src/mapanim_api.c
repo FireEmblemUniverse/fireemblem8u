@@ -7,6 +7,7 @@
 #include "hardware.h"
 #include "ap.h"
 #include "bmio.h"
+#include "event.h"
 #include "constants/items.h"
 #include "mapanim.h"
 
@@ -306,3 +307,70 @@ int GetFacingDirection(int xFrom, int yFrom, int xTo, int yTo)
             return MU_FACING_LEFT;
     }
 }
+
+/* section.rodata */
+const u8 gUnknown_08205714[4] = {
+    10, 9, 8, 7,
+};
+
+
+/* section.data */
+CONST_DATA struct ProcCmd ProcScr_MapAnimDance[] = {
+    PROC_CALL(AddSkipThread2),
+    PROC_CALL(MapAnim_MoveCameraOntoSubject),
+    PROC_SLEEP(0x2),
+    PROC_SLEEP(0x14),
+    PROC_CALL(sub_80812C0),
+    PROC_SLEEP(0x50),
+    PROC_CALL(StartDanceringAnim),
+    PROC_SLEEP(0xA),
+    PROC_CALL(sub_80813C0),
+    PROC_SLEEP(0x14),
+    PROC_JUMP(gProc_MapAnimEnd),
+};
+
+CONST_DATA struct ProcCmd ProcScr_MapAnimBattle[] = {
+    PROC_CALL(AddSkipThread2),
+    PROC_CALL(_InitFontForUIDefault),
+    PROC_SLEEP(0x1),
+    PROC_CALL(MapAnim_MoveCameraOntoSubject),
+    PROC_SLEEP(0x2),
+    PROC_CALL(MapAnim_CallBattleQuoteEvents),
+    PROC_WHILE(BattleEventEngineExists),
+    PROC_SLEEP(0x5),
+    PROC_CALL(SetBattleMuPalette),
+    PROC_CALL(SetupBattleMOVEUNITs),
+    PROC_SLEEP(0x1),
+    PROC_CALL(MapAnim_InitInfoBox),
+    PROC_SLEEP(0xF),
+PROC_LABEL(0x0),
+    PROC_REPEAT(MapAnim_PrepareNextBattleRound),
+    PROC_CALL(MapAnim_DisplayRoundAnim),
+    PROC_SLEEP(0x1),
+    PROC_CALL(MapAnim_ShowPoisonEffectIfAny),
+    PROC_SLEEP(0x1),
+    PROC_SLEEP(0x5),
+    PROC_GOTO(0x0),
+};
+
+CONST_DATA struct ProcCmd gProc_MapAnimEnd[] = {
+    PROC_CALL(MapAnimProc_DisplayDeahQuote),
+    PROC_WHILE(BattleEventEngineExists),
+    PROC_CALL(MapAnmiProc_DisplayDeathFade),
+    PROC_WHILE_EXISTS(gProcScr_MUDeathFade),
+    PROC_CALL(DeleteBattleAnimInfoThing),
+    PROC_SLEEP(0x1),
+    PROC_CALL(MapAnimProc_DisplayItemStealingPopup),
+    PROC_YIELD,
+    PROC_CALL(MapAnimProc_DisplayExpBar),
+    PROC_YIELD,
+    PROC_CALL(DisplayWpnBrokePopup),
+    PROC_SLEEP(0x8),
+    PROC_CALL(DisplayWRankUpPopup),
+    PROC_YIELD,
+    PROC_CALL(MapAnim_MoveCameraOntoSubject),
+    PROC_SLEEP(0x2),
+    PROC_CALL(SubSkipThread2),
+    PROC_CALL(MapAnim_Cleanup),
+    PROC_END
+};

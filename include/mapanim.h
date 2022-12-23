@@ -1,6 +1,8 @@
 #ifndef GUARD_MAPANIM_H
 #define GUARD_MAPANIM_H
 
+#include "fontgrp.h"
+
 enum {
     MA_FACING_OPPONENT,
     MA_FACING_DEFAULT,
@@ -15,7 +17,7 @@ struct MAExpBarProc {
     /* 64 */ short expFrom;
     /* 66 */ short expTo;
     /* 68 */ short actorId;
-    /* 6A */ short unk6A;
+    /* 6A */ short timer;
 };
 
 enum summonDK_proc_lables {
@@ -58,7 +60,31 @@ struct MAInfoFrameProc {
     /* 30 */ struct Proc* maMain;
 };
 
+struct MADebugProc {
+    PROC_HEADER;
+
+    /* 29 */ u8 pad29[0x64 - 0x29];
+    /* 64 */ short unk64;
+    /* 66 */ short unk66;
+};
+
+struct MADebugInfoEntry {
+    /* 00 */ short data[10];
+    /* 14 */ struct TextHandle text[10];
+};
+
+struct MADebugInfo {
+    /* 00 */ u8 pad00[8];
+    /* 08 */ struct MADebugInfoEntry infos[2];
+};
+
+struct Unk089A3798 {
+    /* 00 */ u8 a; s8 b, c, d, e; u8 f, g;
+};
+
 extern struct MapAnimState gCurrentMapAnimState;
+extern CONST_DATA struct MADebugInfo* gUnknown_089A3810;
+extern CONST_DATA struct Unk089A3798 gUnknown_089A3798[];
 
 void MapAnimProc_DisplayItemStealingPopup(ProcPtr proc);
 void DisplayWpnBrokePopup(ProcPtr proc);

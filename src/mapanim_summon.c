@@ -300,6 +300,10 @@ void LoadSumMonsterFromDK(struct SumProc* proc)
     LoadUnits(&gUnitDef2);
 }
 
+/** 
+ * section.data
+*/
+
 CONST_DATA struct ProcCmd ProcScr_MapAnimSummon[] = {
     PROC_CALL(AddSkipThread2),
     PROC_CALL(GenerateSummonUnitDef),
