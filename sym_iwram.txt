@@ -158,6 +158,8 @@
 . = 0x004FA8; gUnknown_03004FA8 = .;
 . = 0x004FAC; gUnknown_03004FAC = .;
 . = 0x004FB0; gUnknown_03004FB0 = .;
+. = 0x004FC0;
+. = ALIGN(4); src/mapanim_debug.o(.bss);
 . = 0x005090; gUnknown_03005090 = .;
 . = 0x005110; gUnknown_03005110 = .;
 . = 0x005250; gUnknown_03005250 = .;

@@ -46,27 +46,27 @@ void PrepareMapBattleBoxNumGfx(const u8* src)
     ApplyPalette(Pal_MapBattleInfoNum, 5);
 }
 
-void sub_807BB10(u16* arg0, int* arg1, int arg2, int arg3, int arg4)
+void sub_807BB10(u16* buf1, int* buf2, int arg2, int arg3, int arg4)
 {
     int r1;
-    if (*arg1 > arg3)
+    if (*buf2 > arg3)
         r1 = arg3;
     else
-        r1 = *arg1;
+        r1 = *buf2;
 
-    *arg0 = TILEREF(arg4 + r1, arg2);
-    *arg1 += 1 - arg3;
+    *buf1 = TILEREF(arg4 + r1, arg2);
+    *buf2 += 1 - arg3;
 
-    if (*arg1 < 0)
-        *arg1 = 0;
+    if (*buf2 < 0)
+        *buf2 = 0;
 }
 
-void sub_807BB40(u16* tilemap, int arg1, int arg2, int arg3, u16* arg4)
+void sub_807BB40(u16* tilemap, int arg1, int arg2, int arg3, u16* buf)
 {
     int unk4, count = 0;
     u16* it;
 
-    for (it = arg4; it[0]; it += 2)
+    for (it = buf; it[0]; it += 2)
         count -= 1 - it[0];
 
     count += 1;
@@ -79,7 +79,7 @@ void sub_807BB40(u16* tilemap, int arg1, int arg2, int arg3, u16* arg4)
     if (unk4 == 0 && arg2 > 0)
         unk4 = 1;
 
-    for (it = arg4; it[0]; ++tilemap, it += 2)
+    for (it = buf; it[0]; ++tilemap, it += 2)
         sub_807BB10(tilemap, &unk4, gUnknown_089A3668[arg3], it[0], it[1]);
 }
 
@@ -104,7 +104,7 @@ void ProcMapInfoBox_OnEnd(void)
     ClearBg0Bg1();
 }
 
-void sub_807BC00(struct MAInfoFrameProc* proc)
+void ProcMapInfoBox_OnDraw(struct MAInfoFrameProc* proc)
 {
     BG_SetPosition(0, 0, 0);
     BG_SetPosition(1, 0, 0);
@@ -270,3 +270,34 @@ void MapInfoBoxShake(struct MAInfoFrameProc* proc)
         Proc_Break(proc);
     }
 }
+
+/** 
+ * section.data
+*/
+
+CONST_DATA u16 gUnknown_089A3648[] = {
+    0x05, 0x2B, 0x08, 0x31,
+    0x08, 0x31, 0x08, 0x31,
+    0x08, 0x31, 0x08, 0x31,
+    0x05, 0x3A, 0x00, 0x00
+};
+
+CONST_DATA int gUnknown_089A3668[] = {
+    0x05, 0x06
+};
+
+CONST_DATA u8* TsaSet_MapBattleBoxGfx[3][2] = {
+    {Tsa_MapBattleBoxGfx1, Tsa_MapBattleBoxGfx1},
+    {Tsa_MapBattleBoxGfx1, Tsa_MapBattleBoxGfx1},
+    {Tsa_MapBattleBoxGfx3, Tsa_MapBattleBoxGfx2},
+};
+
+CONST_DATA struct ProcCmd ProcScr_MapBattleInfoBox[] = {
+    PROC_SET_END_CB(ProcMapInfoBox_OnEnd),
+    PROC_SLEEP(0x1),
+    PROC_CALL(MapInfoBox_PrepareForShake),
+    PROC_CALL(ProcMapInfoBox_OnDraw),
+    PROC_REPEAT(MapInfoBoxShake),
+    PROC_REPEAT(sub_807BCA8),
+    PROC_END
+};

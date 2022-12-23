@@ -673,7 +673,7 @@ sub_80B5C48: @ 0x080B5C48
 	adds r2, r0, #0
 	adds r0, r4, #0
 	movs r1, #0
-	bl sub_801443C
+	bl MADrawTextMaybe
 	adds r0, r4, #0
 	adds r0, #8
 	ldr r5, _080B5CDC  @ gArenaState
@@ -691,7 +691,7 @@ sub_80B5C48: @ 0x080B5C48
 	adds r2, r0, #0
 	adds r0, r6, #0
 	movs r1, #0
-	bl sub_801443C
+	bl MADrawTextMaybe
 	subs r6, #0x72
 	ldr r0, [r5, #4]
 	ldr r0, [r0, #4]
@@ -700,14 +700,14 @@ sub_80B5C48: @ 0x080B5C48
 	adds r2, r0, #0
 	adds r0, r6, #0
 	movs r1, #0
-	bl sub_801443C
+	bl MADrawTextMaybe
 	adds r4, #0x8e
 	ldrh r0, [r5, #0x1c]
 	bl GetItemName
 	adds r2, r0, #0
 	adds r0, r4, #0
 	movs r1, #0
-	bl sub_801443C
+	bl MADrawTextMaybe
 	add sp, #4
 	pop {r4, r5, r6}
 	pop {r0}

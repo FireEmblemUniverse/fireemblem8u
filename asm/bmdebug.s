@@ -178,7 +178,7 @@ EndMenuAndClear: @ 0x0801BCCC
 DebugMapMenu_DisplayInfoDraw: @ 0x0801BCE4
 	push {r4, r5, r6, lr}
 	adds r5, r1, #0
-	ldr r0, _0801BD4C  @ gUnknown_0859AA5C
+	ldr r0, _0801BD4C  @ ProcScr_DebugMonitor
 	bl Proc_Find
 	adds r4, r0, #0
 	adds r6, r5, #0
@@ -222,7 +222,7 @@ DebugMapMenu_DisplayInfoDraw: @ 0x0801BCE4
 	pop {r1}
 	bx r1
 	.align 2, 0
-_0801BD4C: .4byte gUnknown_0859AA5C
+_0801BD4C: .4byte ProcScr_DebugMonitor
 _0801BD50: .4byte gUnknown_0859AA7C
 _0801BD54: .4byte gBG0TilemapBuffer
 
@@ -233,7 +233,7 @@ DebugMapMenu_DisplayInfoIdle: @ 0x0801BD58
 	push {r4, r5, lr}
 	adds r4, r0, #0
 	adds r5, r1, #0
-	ldr r0, _0801BD98  @ gUnknown_0859AA5C
+	ldr r0, _0801BD98  @ ProcScr_DebugMonitor
 	bl Proc_Find
 	adds r2, r0, #0
 	ldr r0, _0801BD9C  @ gKeyStatusPtr
@@ -261,7 +261,7 @@ _0801BD90:
 	pop {r1}
 	bx r1
 	.align 2, 0
-_0801BD98: .4byte gUnknown_0859AA5C
+_0801BD98: .4byte ProcScr_DebugMonitor
 _0801BD9C: .4byte gKeyStatusPtr
 
 	THUMB_FUNC_END DebugMapMenu_DisplayInfoIdle
@@ -282,7 +282,7 @@ DebugMenu_WeatherDraw: @ 0x0801BDA4
 	mov r0, sp
 	movs r2, #0xe
 	bl memcpy
-	ldr r0, _0801BE20  @ gUnknown_0859AA5C
+	ldr r0, _0801BE20  @ ProcScr_DebugMonitor
 	bl Proc_Find
 	adds r6, r0, #0
 	adds r4, r5, #0
@@ -327,7 +327,7 @@ DebugMenu_WeatherDraw: @ 0x0801BDA4
 	bx r1
 	.align 2, 0
 _0801BE1C: .4byte gUnknown_080D7A6C
-_0801BE20: .4byte gUnknown_0859AA5C
+_0801BE20: .4byte ProcScr_DebugMonitor
 _0801BE24: .4byte gBG0TilemapBuffer
 
 	THUMB_FUNC_END DebugMenu_WeatherDraw
@@ -337,7 +337,7 @@ DebugMenu_WeatherIdle: @ 0x0801BE28
 	push {r4, r5, r6, r7, lr}
 	adds r6, r0, #0
 	adds r7, r1, #0
-	ldr r0, _0801BE94  @ gUnknown_0859AA5C
+	ldr r0, _0801BE94  @ ProcScr_DebugMonitor
 	bl Proc_Find
 	adds r4, r0, #0
 	ldr r5, _0801BE98  @ gKeyStatusPtr
@@ -391,7 +391,7 @@ _0801BE70:
 	ldr r0, [r0]
 	mov pc, r0
 	.align 2, 0
-_0801BE94: .4byte gUnknown_0859AA5C
+_0801BE94: .4byte ProcScr_DebugMonitor
 _0801BE98: .4byte gKeyStatusPtr
 _0801BE9C: .4byte _0801BEA0
 _0801BEA0: @ jump table

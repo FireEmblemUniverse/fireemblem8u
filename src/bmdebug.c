@@ -1,7 +1,10 @@
 //
 // Created by laqieer on 2020/3/3.
 //
-
+#include "global.h"
+#include "functions.h"
+#include "variables.h"
+#include "proc.h"
 #include "bmdebug.h"
 
 // if current seconds is even, return 2; else return 3
@@ -96,10 +99,6 @@ void DebugPrintWithProc(struct DebugPrintProc *proc)
     BG_EnableSyncByMask(3);
 }
 
-struct ProcCmd gProc_DebugPrintWithProc[] = {
-    PROC_SLEEP(1), PROC_CALL(DebugPrintWithProc), PROC_END
-};
-
 void DebugPrint(int x, int y, int width, const char *text)
 {
     struct DebugPrintProc *proc;
@@ -136,3 +135,14 @@ u8 DebugMenu_MapEffect(struct MenuProc *menuProc, struct MenuItemProc *menuItemP
   gRAMChapterData.unk4A_2 = 2;
   return 23;
 }
+
+/* .section.data */
+CONST_DATA struct ProcCmd ProcScr_DebugMonitor[] = {
+    PROC_END
+};
+
+CONST_DATA struct ProcCmd gProc_DebugPrintWithProc[] = {
+    PROC_SLEEP(1),
+    PROC_CALL(DebugPrintWithProc),
+    PROC_END
+};

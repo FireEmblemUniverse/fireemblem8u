@@ -72,7 +72,7 @@ void CallEvent(const u16* events, u8 execType);
 struct EventEngineProc* EventEngine_Create(const u16* events, u8 idk);
 // ??? EventEngine_CreateBattle(???);
 s8 EventEngineExists(void);
-// ??? BattleEventEngineExists(???);
+int BattleEventEngineExists(void);
 void DeleteEventEngines(void);
 // ??? sub_800D1E4(???);
 void SetEventSlotC(unsigned value);

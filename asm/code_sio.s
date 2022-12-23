@@ -13777,7 +13777,7 @@ _0804818A:
 	bl BMapVSync_End
 	bl nullsub_13
 	bl sub_8042E88
-	ldr r0, _080481C4  @ gUnknown_0859AA5C
+	ldr r0, _080481C4  @ ProcScr_DebugMonitor
 	bl Proc_EndEach
 	adds r0, r6, #0
 	bl Proc_End
@@ -13785,7 +13785,7 @@ _0804818A:
 	.align 2, 0
 _080481BC: .4byte gUnknown_080D9EFC
 _080481C0: .4byte gUnknown_0203DA24
-_080481C4: .4byte gUnknown_0859AA5C
+_080481C4: .4byte ProcScr_DebugMonitor
 _080481C8:
 	strb r2, [r1, #1]
 	ldrb r0, [r1]
@@ -13841,7 +13841,7 @@ _08048204:
 	ldr r0, _08048258  @ gUnknown_085A9E88
 	adds r1, r4, #0
 	bl Proc_StartBlocking
-	ldr r0, _0804825C  @ gUnknown_0859AA5C
+	ldr r0, _0804825C  @ ProcScr_DebugMonitor
 	movs r1, #3
 	bl Proc_Start
 	pop {r4}
@@ -13853,7 +13853,7 @@ _0804824C: .4byte 0x06001800
 _08048250: .4byte gUnknown_0203DA24
 _08048254: .4byte gRAMChapterData
 _08048258: .4byte gUnknown_085A9E88
-_0804825C: .4byte gUnknown_0859AA5C
+_0804825C: .4byte ProcScr_DebugMonitor
 
 	THUMB_FUNC_END sub_80481E0
 

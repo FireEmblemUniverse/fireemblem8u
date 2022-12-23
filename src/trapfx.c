@@ -66,9 +66,9 @@ extern u16 CONST_DATA Img_FireTrap[];
 extern u16 CONST_DATA SpriteAnim_FireTrap[];
 extern u16 CONST_DATA Pal_FireTrap[];
 extern u16 CONST_DATA Pal_FireTrap2[];
-extern u16 CONST_DATA SpriteAnim_UnkTrap_089A6FD8[];
-extern u16 CONST_DATA Img_UnkTrap_089ADA80[];
-extern u16 CONST_DATA Pal_UnkTrap_089ADD0C[];
+extern u16 CONST_DATA Obj_WallBreakAnim[];
+extern u16 CONST_DATA Img_WallBreakAnim[];
+extern u16 CONST_DATA Pal_WallBreakAnim[];
 extern u16 CONST_DATA Img_ArrowTrap[];
 extern u16 CONST_DATA Pal_ArrowTrap[];
 extern u16 CONST_DATA SpriteAnim_ArrowTrap[];
@@ -225,7 +225,7 @@ void ProcUnkTrapAnimFunc(struct UnkTrapfxProc *proc)
     int y = (proc->y * 16 + 8 - gGameState.camera.y) & 0x0FF;
     int tileBase = 0x2640;
 
-    APProc_Create(SpriteAnim_UnkTrap_089A6FD8, x, y, tileBase, 0, 0);
+    APProc_Create(Obj_WallBreakAnim, x, y, tileBase, 0, 0);
 
     if (--proc->timer <= 0)
         Proc_Goto(proc, 0x64);
@@ -256,8 +256,8 @@ void StartUnkTrapAnim(ProcPtr parent, int x, int y, int direction, int time)
 {
     struct UnkTrapfxProc *proc;
 
-    CopyDataWithPossibleUncomp(Img_UnkTrap_089ADA80, OBJ_CHR_ADDR(OBJCHR_TRAPFX));
-    ApplyPalette(Pal_UnkTrap_089ADD0C, 0x10 + OBJPAL_TRAPFX);
+    CopyDataWithPossibleUncomp(Img_WallBreakAnim, OBJ_CHR_ADDR(OBJCHR_TRAPFX));
+    ApplyPalette(Pal_WallBreakAnim, 0x10 + OBJPAL_TRAPFX);
 
     proc = Proc_StartBlocking(ProcScr_UnkTrapAnim, parent);
     proc->direction = direction;

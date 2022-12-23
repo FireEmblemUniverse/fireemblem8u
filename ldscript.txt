@@ -137,6 +137,10 @@ SECTIONS
         src/mapanim_summon.o(.text);
         src/mapanim_api.o(.text);
         src/mapanim_infobox.o(.text);
+        src/mapanim_expbar.o(.text);
+        src/mapanim_debug.o(.text);
+        src/mapanim_eventbattle.o(.text);
+        src/mapanim_specialeffect.o(.text);
         asm/code_mapanim.o(.text);
         asm/ev_triggercheck.o(.text);
         src/uidebug.o(.text);
@@ -276,6 +280,8 @@ SECTIONS
         . = ALIGN(4); data/const_data_unit_icon_move.o(.rodata);
         . = ALIGN(4); src/mu.o(.rodata);
         . = ALIGN(4); data/muctrl_rodata.o(.rodata);
+        . = ALIGN(4); src/mapanim_api.o(.rodata);
+        . = ALIGN(4); src/mapanim_debug.o(.rodata);
         . = ALIGN(4); data/const_data_205714.o(.rodata);
         . = ALIGN(4); src/statscreen.o(.rodata);
         . = ALIGN(4); src/player_interface.o(.rodata);
@@ -399,6 +405,12 @@ SECTIONS
         . = ALIGN(4); src/unit_icon_move_data.o(.data);
         . = ALIGN(4); src/mapanim.o(.data);
         . = ALIGN(4); src/mapanim_summon.o(.data);
+        . = ALIGN(4); src/mapanim_api.o(.data);
+        . = ALIGN(4); src/mapanim_infobox.o(.data);
+        . = ALIGN(4); src/mapanim_expbar.o(.data);
+        . = ALIGN(4); src/mapanim_debug.o(.data);
+        . = ALIGN(4); src/mapanim_eventbattle.o(.data);
+        . = ALIGN(4); src/mapanim_specialeffect.o(.data);
         . = ALIGN(4); data/data_9A31F8.o(.data);
         . = ALIGN(4); src/data_support_conversations.o(.data);
         . = ALIGN(4); data/data_9ED64C.o(.data);
