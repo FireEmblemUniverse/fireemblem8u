@@ -1,223 +1,5 @@
     .section .data
 
-	.global gUnknown_089A3770
-gUnknown_089A3770:  @ 0x089A3770
-@ replacing .incbin "baserom.gba", 0x009a3770, 0x28
-.4byte gUnknown_08205714 + 0x4c
-.4byte gUnknown_08205714 + 0x44
-.4byte gUnknown_08205714 + 0x3c
-.4byte gUnknown_08205714 + 0x34
-.4byte gUnknown_08205714 + 0x2c
-.4byte gUnknown_08205714 + 0x24
-.4byte gUnknown_08205714 + 0x1c
-.4byte gUnknown_08205714 + 0x14
-.4byte gUnknown_08205714 + 0xc
-.4byte gUnknown_08205714 + 0x4
-
-	.global gUnknown_089A3798
-gUnknown_089A3798:  @ 0x089A3798
-@ Replacing .incbin "baserom.gba", 0x9A3798, 0x50
-    .4byte 0x00010909
-    .4byte 0x00010100
-    .4byte 0x02030002
-    .4byte 0x00200002
-    .4byte 0x01030002
-    .4byte 0x00200001
-    .4byte 0x0304010b
-    .4byte 0x00800103
-    .4byte 0x0405030a
-    .4byte 0x00ce0104
-    .4byte 0x05060409
-    .4byte 0x000a0005
-    .4byte 0x06070505
-    .4byte 0x000a0006
-    .4byte 0x07080605
-    .4byte 0x000a0007
-    .4byte 0x08090705
-    .4byte 0x000a0008
-    .4byte 0x09000805
-    .4byte 0x000a0009
-
-	.global gUnknown_089A37E8
-gUnknown_089A37E8:  @ 0x089A37E8
-@ replacing .incbin "baserom.gba", 0x009a37e8, 0x28
-.4byte gUnknown_08205714 + 0x80
-.4byte gUnknown_08205714 + 0x78
-.4byte gUnknown_08205714 + 0x70
-.4byte gUnknown_08205714 + 0x68
-.4byte gUnknown_08205714 + 0x64
-.4byte gUnknown_08205714 + 0x60
-.4byte gUnknown_08205714 + 0x5c
-.4byte gUnknown_08205714 + 0x58
-.4byte gUnknown_08205714 + 0x54
-.4byte 0
-
-	.global gUnknown_089A3810
-gUnknown_089A3810:  @ 0x089A3810
-@ replacing .incbin "baserom.gba", 0x009a3810, 0x4
-.4byte gUnknown_03004FB0 + 0x10
-
-	.global gUnknown_089A3814
-gUnknown_089A3814:  @ 0x089A3814
-        @ PROC_SLEEP
-        .short 0xe, 0x1
-        .word 0x0
-        @ PROC_CALL
-        .short 0x2, 0x0
-        .word AddSkipThread2
-        @ PROC_CALL
-        .short 0x2, 0x0
-        .word EndPlayerPhaseSideWindows
-        @ PROC_SLEEP
-        .short 0xe, 0x1
-        .word 0x0
-        @ PROC_CALL
-        .short 0x2, 0x0
-        .word sub_807C4F0
-        @ PROC_LABEL
-        .short 0xb, 0x0
-        .word 0x0
-        @ PROC_CALL
-        .short 0x2, 0x0
-        .word sub_807C568
-        @ PROC_REPEAT
-        .short 0x3, 0x0
-        .word sub_807C680
-        @ PROC_CALL
-        .short 0x2, 0x0
-        .word sub_807CAA8
-        @ PROC_WHILE_EXISTS
-        .short 0x8, 0x0
-        .word ProcScr_MapAnimBattle
-        @ PROC_GOTO
-        .short 0xc, 0x0
-        .word 0x0
-        @ PROC_END
-        .short 0x0, 0x0
-        .word 0x0
-
-
-	.global ProcScr_MapAnimEventBattle
-ProcScr_MapAnimEventBattle:  @ 0x089A3874
-        @ PROC_CALL
-        .short 0x2, 0x0
-        .word AddSkipThread2
-        @ PROC_CALL
-        .short 0x2, 0x0
-        .word _InitFontForUIDefault
-        @ PROC_SLEEP
-        .short 0xe, 0x1
-        .word 0x0
-        @ PROC_SLEEP
-        .short 0xe, 0x5
-        .word 0x0
-        @ PROC_CALL
-        .short 0x2, 0x0
-        .word MapAnim_InitInfoBox
-        @ PROC_SLEEP
-        .short 0xe, 0xf
-        .word 0x0
-        @ PROC_LABEL
-        .short 0xb, 0x0
-        .word 0x0
-        @ PROC_REPEAT
-        .short 0x3, 0x0
-        .word sub_807CAD0
-        @ PROC_CALL
-        .short 0x2, 0x0
-        .word MapAnim_DisplayRoundAnim
-        @ PROC_SLEEP
-        .short 0xe, 0x1
-        .word 0x0
-        @ PROC_CALL
-        .short 0x2, 0x0
-        .word MapAnim_ShowPoisonEffectIfAny
-        @ PROC_SLEEP
-        .short 0xe, 0x1
-        .word 0x0
-        @ PROC_SLEEP
-        .short 0xe, 0x5
-        .word 0x0
-        @ PROC_GOTO
-        .short 0xc, 0x0
-        .word 0x0
-        @ PROC_LABEL
-        .short 0xb, 0x1
-        .word 0x0
-        @ PROC_CALL
-        .short 0x2, 0x0
-        .word MapAnmiProc_DisplayDeathFade
-        @ PROC_WHILE_EXISTS
-        .short 0x8, 0x0
-        .word gProcScr_MUDeathFade
-        @ PROC_CALL
-        .short 0x2, 0x0
-        .word DeleteBattleAnimInfoThing
-        @ PROC_SLEEP
-        .short 0xe, 0x1
-        .word 0x0
-        @ PROC_CALL
-        .short 0x2, 0x0
-        .word SubSkipThread2
-        @ PROC_CALL
-        .short 0x2, 0x0
-        .word sub_807CB04
-        @ PROC_END
-        .short 0x0, 0x0
-        .word 0x0
-
-
-	.global ProcScr_MapAnimWallBreak
-ProcScr_MapAnimWallBreak:  @ 0x089A3924
-        @ PROC_SLEEP
-        .short 0xe, 0x1
-        .word 0x0
-        @ PROC_CALL
-        .short 0x2, 0x0
-        .word WallBreakAnim_Init
-        @ PROC_WHILE
-        .short 0x14, 0x0
-        .word APProc_Exists
-        @ PROC_END
-        .short 0x0, 0x0
-        .word 0x0
-
-
-	.global ProcScr_PoisonAnimHandler
-ProcScr_PoisonAnimHandler:  @ 0x089A3944
-        @ PROC_SLEEP
-        .short 0xe, 0x1
-        .word 0x0
-        @ PROC_CALL
-        .short 0x2, 0x0
-        .word MapAnim_BeginPoisonAnim
-        @ PROC_WHILE
-        .short 0x14, 0x0
-        .word APProc_Exists
-        @ PROC_END
-        .short 0x0, 0x0
-        .word 0x0
-
-
-	.global gUnknown_089A3964
-gUnknown_089A3964:  @ 0x089A3964
-        @ PROC_SLEEP
-        .short 0xe, 0x1
-        .word 0x0
-        @ PROC_CALL
-        .short 0x2, 0x0
-        .word sub_807CD60
-        @ PROC_WHILE
-        .short 0x14, 0x0
-        .word APProc_Exists
-        @ PROC_CALL
-        .short 0x2, 0x0
-        .word sub_807CDB8
-        @ PROC_END
-        .short 0x0, 0x0
-        .word 0x0
-
-
 	.global gUnknown_089A398C
 gUnknown_089A398C:  @ 0x089A398C
         @ PROC_SLEEP
@@ -2773,12 +2555,12 @@ gUnknown_089A61F8:  @ 0x089A61F8
 gUnknown_089A6254:  @ 0x089A6254
 	.incbin "baserom.gba", 0x9A6254, 0xCEC
 
-	.global gUnknown_089A6F40
-gUnknown_089A6F40:  @ 0x089A6F40
+	.global Obj_PoisonAnim
+Obj_PoisonAnim:  @ 0x089A6F40
 	.incbin "baserom.gba", 0x9A6F40, 0x98
 
-	.global SpriteAnim_UnkTrap_089A6FD8
-SpriteAnim_UnkTrap_089A6FD8:  @ 0x089A6FD8
+	.global Obj_WallBreakAnim
+Obj_WallBreakAnim:  @ 0x089A6FD8
 	.incbin "baserom.gba", 0x9A6FD8, 0x1F20
 
 	.global gUnknown_089A8EF8
@@ -2801,20 +2583,20 @@ gUnknown_089ABB70:  @ 0x089ABB70
 gUnknown_089AC024:  @ 0x089AC024
 	.incbin "baserom.gba", 0x9AC024, 0x80
 
-	.global gUnknown_089AC0A4
-gUnknown_089AC0A4:  @ 0x089AC0A4
+	.global Img_MapAnimMISS
+Img_MapAnimMISS:  @ 0x089AC0A4
 	.incbin "baserom.gba", 0x9AC0A4, 0xF0
 
-	.global gUnknown_089AC194
-gUnknown_089AC194:  @ 0x089AC194
+	.global Obj_MapAnimMISS
+Obj_MapAnimMISS:  @ 0x089AC194
 	.incbin "baserom.gba", 0x9AC194, 0x168
 
-	.global gUnknown_089AC2FC
-gUnknown_089AC2FC:  @ 0x089AC2FC
+	.global Img_MapAnimNODAMAGE
+Img_MapAnimNODAMAGE:  @ 0x089AC2FC
 	.incbin "baserom.gba", 0x9AC2FC, 0x144
 
-	.global gUnknown_089AC440
-gUnknown_089AC440:  @ 0x089AC440
+	.global obj_MapAnimNODAMAGE
+obj_MapAnimNODAMAGE:  @ 0x089AC440
 	.incbin "baserom.gba", 0x9AC440, 0x18C
 
 	.global gUnknown_089AC5CC
@@ -2889,24 +2671,24 @@ gUnknown_089AD934:  @ 0x089AD934
 gUnknown_089AD9F8:  @ 0x089AD9F8
 	.incbin "baserom.gba", 0x9AD9F8, 0x88
 
-	.global Img_UnkTrap_089ADA80
-Img_UnkTrap_089ADA80:  @ 0x089ADA80
+	.global Img_WallBreakAnim
+Img_WallBreakAnim:  @ 0x089ADA80
     .incbin "baserom.gba", 0x9ADA80, 0x28C
 
-	.global Pal_UnkTrap_089ADD0C
-Pal_UnkTrap_089ADD0C:  @ 0x089ADD0C
+	.global Pal_WallBreakAnim
+Pal_WallBreakAnim:  @ 0x089ADD0C
 	.incbin "baserom.gba", 0x9ADD0C, 0x40
 
 	.global gUnknown_089ADD4C
 gUnknown_089ADD4C:  @ 0x089ADD4C
 	.incbin "baserom.gba", 0x9ADD4C, 0x164
 
-	.global gUnknown_089ADEB0
-gUnknown_089ADEB0:  @ 0x089ADEB0
+	.global Img_PoisonAnim
+Img_PoisonAnim:  @ 0x089ADEB0
 	.incbin "baserom.gba", 0x9ADEB0, 0x354
 
-	.global gUnknown_089AE204
-gUnknown_089AE204:  @ 0x089AE204
+	.global Pal_PoisonAnim
+Pal_PoisonAnim:  @ 0x089AE204
 	.incbin "baserom.gba", 0x9AE204, 0x20
 
 	.global gUnknown_089AE224

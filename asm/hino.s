@@ -2231,8 +2231,8 @@ _08014438: .4byte gUnknown_03000800
 
 	THUMB_FUNC_END DrawMapBattleInfoText
 
-	THUMB_FUNC_START sub_801443C
-sub_801443C: @ 0x0801443C
+	THUMB_FUNC_START MADrawTextMaybe
+MADrawTextMaybe: @ 0x0801443C
 	push {r4, r5, r6, r7, lr}
 	adds r7, r0, #0
 	adds r6, r1, #0
@@ -2264,7 +2264,7 @@ _08014454:
 	.align 2, 0
 _0801447C: .4byte gUnknown_03000800
 
-	THUMB_FUNC_END sub_801443C
+	THUMB_FUNC_END MADrawTextMaybe
 
 	THUMB_FUNC_START DeleteAllPaletteAnimator
 DeleteAllPaletteAnimator: @ 0x08014480

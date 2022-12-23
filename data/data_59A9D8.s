@@ -48,8 +48,3 @@
         @ PROC_END
         .short 0x0, 0x0
         .word 0x0
-
-     .global gUnknown_0859AA5C
- gUnknown_0859AA5C:  @ 0x0859AA5C
-     .incbin "baserom.gba", 0x59AA5C, 0x8
-

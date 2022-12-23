@@ -82,8 +82,84 @@ struct Unk089A3798 {
     /* 00 */ u8 a; s8 b, c, d, e; u8 f, g;
 };
 
+struct MAEffectProc {
+    /* 00 */ PROC_HEADER;
+    /* 2C */ struct Unit* unit;
+    /* 30 */ int xDisplay;
+    /* 34 */ int yDisplay;
+    /* 38 */ u8 pad38[0x40 - 0x38];
+    /* 40 */ u16 unk40;
+    /* 42 */ u16 unk42;
+    /* 44 */ u16 unk44;
+    /* 44 */ u8 pad46[0x48 - 0x46];
+    /* 48 */ short unk48;
+    /* 4A */ short unk4A;
+    /* 4C */ short unk4C;
+    /* 4E */ /* pad */
+    /* 50 */ const void* img;
+    /* 54 */ const void* pal;
+    /* 58 */ u16 unk58;
+    /* 5A */ u8 pad5A[0x64 - 0x5A];
+    /* 64 */ short unk64;
+};
+
+struct MAAnotherProc {
+    /* 00 */ PROC_HEADER;
+    /* 2C */ int unk2C;
+    /* 30 */ int unk30;
+    /* 34 */ u8 pad34[0x44 - 0x34];
+    /* 44 */ short unk44;
+    /* 46 */ u8 pad46[0x54 - 0x46];
+    /* 54 */ int unk54;
+    /* 58 */ int unk58;
+    /* 5C */ u8 pad5C[0x64 - 0x5C];
+    /* 64 */ short unk64;
+};
+
+struct MALevelUpProc {
+    /* 00 */ PROC_HEADER;
+
+    /* 2A */ short pad2A;
+    /* 2C */ short pad2C;
+    /* 2E */ short actor;
+    /* 30 */ u8 unk30;
+    /* 31 */ u8 unk31;
+    /* 32 */ short unk32;
+};
+
+struct MAFrameShakeProc {
+    PROC_HEADER;
+
+    /* 29 */ u8 pad29[0x64 - 0x29];
+    /* 64 */ short unk64;
+};
+
+struct MAStarProc {
+    PROC_HEADER;
+
+    /* 2A */ short xCenter;
+    /* 2C */ short yCenter;
+    /* 2E */ short unk2E;
+    /* 30 */ short unk30;
+
+    /* 29 */ u8    pad32[0x36 - 0x32];
+
+    /* 36 */ u16 unk36;
+    /* 38 */ u16 unk38;
+    /* 3A */ u16 unk3A;
+    /* 3C */ u16 unk3C;
+    /* 3E */ u16 unk3E;
+    /* 40 */ u16 unk40;
+};
+
+struct Unk03005090 {
+    /* 00 */ u16 unk00;
+    /* 02 */ u16 unk02;
+    /* 04 */ int pad04;
+};
+
 extern struct MapAnimState gCurrentMapAnimState;
-extern CONST_DATA struct MADebugInfo* gUnknown_089A3810;
+extern CONST_DATA struct MADebugInfo* pMADebugInfoData;
 extern CONST_DATA struct Unk089A3798 gUnknown_089A3798[];
 
 void MapAnimProc_DisplayItemStealingPopup(ProcPtr proc);

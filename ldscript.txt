@@ -139,6 +139,8 @@ SECTIONS
         src/mapanim_infobox.o(.text);
         src/mapanim_expbar.o(.text);
         src/mapanim_debug.o(.text);
+        src/mapanim_eventbattle.o(.text);
+        src/mapanim_specialeffect.o(.text);
         asm/code_mapanim.o(.text);
         asm/ev_triggercheck.o(.text);
         src/uidebug.o(.text);
@@ -406,6 +408,9 @@ SECTIONS
         . = ALIGN(4); src/mapanim_api.o(.data);
         . = ALIGN(4); src/mapanim_infobox.o(.data);
         . = ALIGN(4); src/mapanim_expbar.o(.data);
+        . = ALIGN(4); src/mapanim_debug.o(.data);
+        . = ALIGN(4); src/mapanim_eventbattle.o(.data);
+        . = ALIGN(4); src/mapanim_specialeffect.o(.data);
         . = ALIGN(4); data/data_9A31F8.o(.data);
         . = ALIGN(4); src/data_support_conversations.o(.data);
         . = ALIGN(4); data/data_9ED64C.o(.data);

@@ -779,6 +779,7 @@ extern struct Unit* gActiveUnit;
 // extern ??? gUnknown_03004FA8
 // extern ??? gUnknown_03004FAC
 // extern ??? gUnknown_03004FB0
+// extern ??? MADebugInfo
 // extern ??? gUnknown_03005090
 // extern ??? gUnknown_03005110
 // extern ??? gUnknown_03005250
@@ -1119,8 +1120,6 @@ extern const char gUnknown_080D7954[];
 // extern ??? gMsgHuffmanTableRoot
 extern const u8 *const gMsgStringTable[];
 extern const u8 gUnknown_08205714[4];
-extern const char *gUnknown_08205718[];
-extern const char *gUnknown_08205768[];
 // extern ??? gUnknown_0820579C
 // extern ??? gUnknown_08205824
 // extern ??? gUnknown_08205833
@@ -1373,8 +1372,8 @@ extern const struct ProcCmd ProcScr_MaybeMapChangeAnim[]; // this is GENS/Camera
 // extern ??? gUnitLookup
 // extern ??? gTilesetTerrainLookup
 // extern ??? gBmMapBaseTiles
-extern struct ProcCmd CONST_DATA gUnknown_0859AA5C[];
-// extern ??? gUnknown_0859AA64
+extern struct ProcCmd CONST_DATA ProcScr_DebugMonitor[];
+extern struct ProcCmd CONST_DATA gProc_DebugPrintWithProc[];
 // extern ??? gUnknown_0859AA7C
 // extern ??? gUnknown_0859AA84
 // extern ??? gUnknown_0859AA9C
@@ -2946,15 +2945,15 @@ extern CONST_DATA u8* TsaSet_MapBattleBoxGfx[3][2];
 extern CONST_DATA struct ProcCmd ProcScr_MapBattleInfoBox[];
 extern CONST_DATA u16 gUnknown_089A36C0[];
 extern CONST_DATA struct ProcCmd gProc_MapAnimExpBar[];
-extern const char *gUnknown_089A3770[];
+extern CONST_DATA char *MADebugStrings1[];
 // extern ??? gUnknown_089A3798
-extern CONST_DATA char* gUnknown_089A37E8[];
-// extern ??? gUnknown_089A3810
-extern CONST_DATA struct ProcCmd gUnknown_089A3814[];
+extern CONST_DATA char* MADebugStrings2[];
+// extern ??? pMADebugInfoData
+extern CONST_DATA struct ProcCmd ProcScr_MADebug[];
 extern CONST_DATA struct ProcCmd ProcScr_MapAnimEventBattle[];
 extern CONST_DATA struct ProcCmd ProcScr_MapAnimWallBreak[];
 extern CONST_DATA struct ProcCmd ProcScr_PoisonAnimHandler[];
-extern CONST_DATA struct ProcCmd gUnknown_089A3964[];
+extern CONST_DATA struct ProcCmd ProcScr_PoisonAnim2[];
 extern CONST_DATA struct ProcCmd gUnknown_089A398C[];
 // extern ??? gUnknown_089A39C4
 // extern ??? gUnknown_089A39E0
@@ -3036,17 +3035,17 @@ extern CONST_DATA struct ProcCmd ProcScr_CritAtkMapEffect[];
 // extern ??? gUnknown_089A5A6C
 // extern ??? gUnknown_089A61F8
 // extern ??? gUnknown_089A6254
-// extern ??? gUnknown_089A6F40
-// extern ??? SpriteAnim_UnkTrap_089A6FD8
+extern u16 CONST_DATA Obj_PoisonAnim[];
+extern u16 CONST_DATA Obj_WallBreakAnim[];
 extern const u16 gUnknown_089A8EF8[];
 extern const u16 gUnknown_089A8F74[];
 // extern ??? gUnknown_089A8F94
 // extern ??? gUnknown_089ABB70
 // extern ??? gUnknown_089AC024
-// extern ??? gUnknown_089AC0A4
-// extern ??? gUnknown_089AC194
-// extern ??? gUnknown_089AC2FC
-// extern ??? gUnknown_089AC440
+extern u8 Img_MapAnimMISS[];
+ extern u16 Obj_MapAnimMISS[];
+extern u8 Img_MapAnimNODAMAGE[];
+ extern u16 obj_MapAnimNODAMAGE[];
 // extern ??? gUnknown_089AC5CC
 // extern ??? gUnknown_089AC794
 // extern ??? gUnknown_089AC9A8
@@ -3065,11 +3064,11 @@ extern u8 Img_MapBattleInfoHpBar[];
 extern u16 Img_MapBattleInfoNum[]; // gfx
 extern u8 gUnknown_089AD934[]; // tsa
 extern u16 gUnknown_089AD9F8[]; // pal
-// extern ??? Img_UnkTrap_089ADA80
-// extern ??? Pal_UnkTrap_089ADD0C
+extern u16 CONST_DATA Img_WallBreakAnim[];
+extern u16 CONST_DATA Pal_WallBreakAnim[];
 extern const u8 gUnknown_089ADD4C[];
-// extern ??? gUnknown_089ADEB0
-// extern ??? gUnknown_089AE204
+extern u16 CONST_DATA Img_PoisonAnim[];
+extern u16 CONST_DATA Pal_PoisonAnim[];
 // extern ??? gUnknown_089AE224
 // extern ??? gUnknown_089AE484
 // extern ??? gUnknown_089AE4A4
