@@ -3317,7 +3317,7 @@ extern u16 gTSA_GoalBox_OneLine[];
 // extern ??? gUnknown_08A181E8
 // extern ??? gUnknown_08A18200
 // extern ??? gUnknown_08A1826C
-// extern ??? gUnknown_08A1829C
+extern CONST_DATA struct ProcCmd ProcScr_AtMenu[];
 // extern ??? gUnknown_08A184B4
 // extern ??? gUnknown_08A184F4
 // extern ??? gUnknown_08A1856E

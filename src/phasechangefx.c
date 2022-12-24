@@ -49,6 +49,7 @@ void PhaseIntro_EndIfNoUnits(ProcPtr proc);
 void PhaseIntro_InitGraphics(ProcPtr proc);
 void PhaseIntro_InitDisp(ProcPtr proc);
 void PhaseIntro_WaitForEnd(ProcPtr proc);
+int CheckSomethingSomewhere();
 
 
 /* section.data */

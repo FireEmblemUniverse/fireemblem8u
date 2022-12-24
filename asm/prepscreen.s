@@ -367,8 +367,8 @@ _08095500: .4byte 0x00000577
 
 	THUMB_FUNC_END sub_8095498
 
-	THUMB_FUNC_START sub_8095504
-sub_8095504: @ 0x08095504
+	THUMB_FUNC_START CanPrepScreenCheckMap
+CanPrepScreenCheckMap: @ 0x08095504
 	push {lr}
 	ldr r0, _08095518  @ gRAMChapterData
 	ldrb r0, [r0, #0xe]
@@ -386,7 +386,7 @@ _0809551E:
 	pop {r1}
 	bx r1
 
-	THUMB_FUNC_END sub_8095504
+	THUMB_FUNC_END CanPrepScreenCheckMap
 
 	THUMB_FUNC_START AtMenu_InitPrepScreenMenu
 AtMenu_InitPrepScreenMenu: @ 0x08095524
@@ -413,7 +413,7 @@ AtMenu_InitPrepScreenMenu: @ 0x08095524
 	bl SetPrepScreenMenuItem
 	adds r0, r5, #0
 	bl sub_8095498
-	bl sub_8095504
+	bl CanPrepScreenCheckMap
 	lsls r0, r0, #0x18
 	asrs r0, r0, #0x18
 	cmp r0, #0

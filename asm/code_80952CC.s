@@ -12477,7 +12477,7 @@ _0809D5B4:
 	ldrb r0, [r0]
 	cmp r0, #0
 	bne _0809D5D4
-	ldr r0, _0809D5D0  @ gUnknown_08A1829C
+	ldr r0, _0809D5D0  @ ProcScr_AtMenu
 	bl Proc_Find
 	adds r0, #0x32
 _0809D5C6:
@@ -12488,7 +12488,7 @@ _0809D5C8:
 	strb r0, [r1]
 	b _0809D5DA
 	.align 2, 0
-_0809D5D0: .4byte gUnknown_08A1829C
+_0809D5D0: .4byte ProcScr_AtMenu
 _0809D5D4:
 	adds r0, r4, #0
 	adds r0, #0x35
@@ -15077,7 +15077,7 @@ _0809EAA4:
 	ldrb r0, [r0]
 	cmp r0, #0
 	bne _0809EABE
-	ldr r0, _0809EAD4  @ gUnknown_08A1829C
+	ldr r0, _0809EAD4  @ ProcScr_AtMenu
 	bl Proc_Find
 	adds r1, r4, #0
 	adds r1, #0x35
@@ -15095,7 +15095,7 @@ _0809EABE:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_0809EAD4: .4byte gUnknown_08A1829C
+_0809EAD4: .4byte ProcScr_AtMenu
 
 	THUMB_FUNC_END sub_809EA7C
 
@@ -15198,7 +15198,7 @@ _0809EB74: .4byte gUnknown_08A192EC
 sub_809EB78: @ 0x0809EB78
 	push {r4, lr}
 	adds r4, r0, #0
-	ldr r0, _0809EBA4  @ gUnknown_08A1829C
+	ldr r0, _0809EBA4  @ ProcScr_AtMenu
 	bl Proc_Find
 	adds r2, r0, #0
 	movs r0, #0
@@ -15217,7 +15217,7 @@ sub_809EB78: @ 0x0809EB78
 	adds r0, #0x2a
 	b _0809EBB8
 	.align 2, 0
-_0809EBA4: .4byte gUnknown_08A1829C
+_0809EBA4: .4byte ProcScr_AtMenu
 _0809EBA8: .4byte gGMData
 _0809EBAC:
 	adds r1, r4, #0
@@ -15846,7 +15846,7 @@ sub_809F0FC: @ 0x0809F0FC
 	.align 2, 0
 _0809F120: .4byte gGMData
 _0809F124:
-	ldr r0, _0809F14C  @ gUnknown_08A1829C
+	ldr r0, _0809F14C  @ ProcScr_AtMenu
 	bl Proc_Find
 	adds r1, r4, #0
 	adds r1, #0x33
@@ -15864,7 +15864,7 @@ _0809F134:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_0809F14C: .4byte gUnknown_08A1829C
+_0809F14C: .4byte ProcScr_AtMenu
 
 	THUMB_FUNC_END sub_809F0FC
 

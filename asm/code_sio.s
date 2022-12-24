@@ -11385,7 +11385,7 @@ _08046DE8: .4byte gUnknown_0203DA24
 sub_8046DEC: @ 0x08046DEC
 	push {r4, lr}
 	adds r4, r0, #0
-	ldr r0, _08046E08  @ gUnknown_08A1829C
+	ldr r0, _08046E08  @ ProcScr_AtMenu
 	bl Proc_Find
 	cmp r0, #0
 	bne _08046E00
@@ -11396,7 +11396,7 @@ _08046E00:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_08046E08: .4byte gUnknown_08A1829C
+_08046E08: .4byte ProcScr_AtMenu
 
 	THUMB_FUNC_END sub_8046DEC
 

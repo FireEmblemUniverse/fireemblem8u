@@ -297,7 +297,7 @@ _080966AC: .4byte gUnknown_08A184F4
 	THUMB_FUNC_START sub_80966B0
 sub_80966B0: @ 0x080966B0
 	push {lr}
-	ldr r0, _080966C4  @ gUnknown_08A1829C
+	ldr r0, _080966C4  @ ProcScr_AtMenu
 	bl Proc_Find
 	cmp r0, #0
 	beq _080966BE
@@ -306,7 +306,7 @@ _080966BE:
 	pop {r1}
 	bx r1
 	.align 2, 0
-_080966C4: .4byte gUnknown_08A1829C
+_080966C4: .4byte ProcScr_AtMenu
 
 	THUMB_FUNC_END sub_80966B0
 
@@ -785,7 +785,7 @@ _08096A74: .4byte gUnknown_08A18E4E
 _08096A78: .4byte gUnknown_08A18E76
 _08096A7C: .4byte 0x00009380
 _08096A80:
-	bl sub_8095264
+	bl Prep_HasUnitDeployed
 	cmp r0, #0
 	beq _08096A9A
 	ldr r3, _08096AB4  @ gUnknown_08A18E62
@@ -957,8 +957,8 @@ sub_8096BB8: @ 0x08096BB8
 
 	THUMB_FUNC_END sub_8096BB8
 
-	THUMB_FUNC_START sub_8096BC4
-sub_8096BC4: @ 0x08096BC4
+	THUMB_FUNC_START PrepSpecialChar_BlinkButtonStart
+PrepSpecialChar_BlinkButtonStart: @ 0x08096BC4
 	push {lr}
 	ldr r0, _08096BDC  @ gUnknown_08A186B4
 	bl Proc_Find
@@ -974,10 +974,10 @@ _08096BD8:
 	.align 2, 0
 _08096BDC: .4byte gUnknown_08A186B4
 
-	THUMB_FUNC_END sub_8096BC4
+	THUMB_FUNC_END PrepSpecialChar_BlinkButtonStart
 
-	THUMB_FUNC_START sub_8096BE0
-sub_8096BE0: @ 0x08096BE0
+	THUMB_FUNC_START PrepSpecialChar_BlinkButtonB
+PrepSpecialChar_BlinkButtonB: @ 0x08096BE0
 	push {lr}
 	ldr r0, _08096BF8  @ gUnknown_08A186B4
 	bl Proc_Find
@@ -993,7 +993,7 @@ _08096BF4:
 	.align 2, 0
 _08096BF8: .4byte gUnknown_08A186B4
 
-	THUMB_FUNC_END sub_8096BE0
+	THUMB_FUNC_END PrepSpecialChar_BlinkButtonB
 
 	THUMB_FUNC_START sub_8096BFC
 sub_8096BFC: @ 0x08096BFC
