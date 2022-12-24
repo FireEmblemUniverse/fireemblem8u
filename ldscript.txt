@@ -154,6 +154,11 @@ SECTIONS
         asm/code_808DAE4.o(.text);
         src/uichapterstatus.o(.text);
         asm/code.o(.text);
+        asm/prep_menu.o(.text);
+        asm/prepscreen.o(.text);
+        asm/prep_atmenu.o(.text);
+        asm/prep_menuproc.o(.text);
+        asm/code_80952CC.o(.text);
         src/bmsave.o(.text);
         asm/code_80A2C3C.o(.text);
         src/minimap.o(.text);

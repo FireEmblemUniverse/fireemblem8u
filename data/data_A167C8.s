@@ -544,7 +544,7 @@ gUnknown_08A1829C:  @ 0x08A1829C
         .word 0x8205bd0
         @ PROC_CALL
         .short 0x2, 0x0
-        .word sub_8096424
+        .word AtMenu_LockGame
         @ PROC_CALL
         .short 0x2, 0x0
         .word sub_8095EBC
@@ -556,7 +556,7 @@ gUnknown_08A1829C:  @ 0x08A1829C
         .word 0x0
         @ PROC_CALL
         .short 0x2, 0x0
-        .word sub_8095C84
+        .word AtMenu_Reinitialize
         @ PROC_SLEEP
         .short 0xe, 0x2
         .word 0x0
@@ -574,7 +574,7 @@ gUnknown_08A1829C:  @ 0x08A1829C
         .word 0x0
         @ PROC_CALL
         .short 0x2, 0x0
-        .word sub_8097394
+        .word EnablePrepScreenMenu
         @ PROC_REPEAT
         .short 0x3, 0x0
         .word sub_8095F2C
@@ -598,7 +598,7 @@ gUnknown_08A1829C:  @ 0x08A1829C
         .word 0x0
         @ PROC_CALL
         .short 0x2, 0x0
-        .word sub_8095C84
+        .word AtMenu_Reinitialize
         @ PROC_CALL
         .short 0x2, 0x0
         .word sub_8096004
@@ -622,10 +622,10 @@ gUnknown_08A1829C:  @ 0x08A1829C
         .word 0x0
         @ PROC_REPEAT
         .short 0x3, 0x0
-        .word sub_809631C
+        .word AtMenu_StartSubmenu
         @ PROC_REPEAT
         .short 0x3, 0x0
-        .word sub_8096390
+        .word AtMenu_OnSubmenuEnd
         @ PROC_BLOCK
         .short 0x10, 0x0
         .word 0x0
@@ -646,7 +646,7 @@ gUnknown_08A1829C:  @ 0x08A1829C
         .word 0x0
         @ PROC_CALL
         .short 0x2, 0x0
-        .word sub_8095C84
+        .word AtMenu_Reinitialize
         @ PROC_CALL_ARG
         .short 0x18, 0x10
         .word NewFadeIn
@@ -673,7 +673,7 @@ gUnknown_08A1829C:  @ 0x08A1829C
         .word 0x0
         @ PROC_CALL
         .short 0x2, 0x0
-        .word sub_8095C84
+        .word AtMenu_Reinitialize
         @ PROC_CALL_ARG
         .short 0x18, 0x8
         .word NewFadeIn
@@ -774,7 +774,7 @@ gUnknown_08A184B4:  @ 0x08A184B4
 gUnknown_08A184F4:  @ 0x08A184F4
         @ PROC_CALL
         .short 0x2, 0x0
-        .word sub_8096424
+        .word AtMenu_LockGame
         @ PROC_CALL
         .short 0x2, 0x0
         .word sub_80CC940
@@ -886,10 +886,10 @@ gUnknown_08A186DC:  @ 0x08A186DC
 gUnknown_08A186EC:  @ 0x08A186EC
         @ PROC_CALL
         .short 0x2, 0x0
-        .word sub_8096CCC
+        .word PrepScreenMenu_OnInit
         @ PROC_SET_END_CB
         .short 0x4, 0x0
-        .word sub_8096F98
+        .word PrepScreenMenu_OnEnd
         @ PROC_YIELD
         .short 0xe, 0x0
         .word 0x0
@@ -898,19 +898,19 @@ gUnknown_08A186EC:  @ 0x08A186EC
         .word 0x0
         @ PROC_REPEAT
         .short 0x3, 0x0
-        .word sub_8096F6C
+        .word PrepScreenMenu_OnLoop_0
         @ PROC_LABEL
         .short 0xb, 0x1
         .word 0x0
         @ PROC_REPEAT
         .short 0x3, 0x0
-        .word sub_8096D10
+        .word PrepScreenMenu_OnActiveLoop
         @ PROC_LABEL
         .short 0xb, 0x2
         .word 0x0
         @ PROC_REPEAT
         .short 0x3, 0x0
-        .word sub_8096F44
+        .word PrepScreenMenu_OnLoop_2
         @ PROC_LABEL
         .short 0xb, 0xa
         .word 0x0
@@ -1557,16 +1557,16 @@ gUnknown_08A18E8C:  @ 0x08A18E8C
         .word 0x0
         @ PROC_SET_END_CB
         .short 0x4, 0x0
-        .word sub_809B40C
+        .word ProcPrepUnit_OnEnd
         @ PROC_LABEL
         .short 0xb, 0x0
         .word 0x0
         @ PROC_CALL
         .short 0x2, 0x0
-        .word sub_809AE3C
+        .word ProcPrepUnit_OnInit
         @ PROC_CALL
         .short 0x2, 0x0
-        .word sub_809AE7C
+        .word ProcPrepUnit_InitScreen
         @ PROC_CALL_ARG
         .short 0x18, 0x10
         .word NewFadeIn
@@ -1578,7 +1578,7 @@ gUnknown_08A18E8C:  @ 0x08A18E8C
         .word 0x0
         @ PROC_REPEAT
         .short 0x3, 0x0
-        .word sub_809B038
+        .word ProcPrepUnit_Idle
         @ PROC_LABEL
         .short 0xb, 0x2
         .word 0x0
@@ -1623,7 +1623,7 @@ gUnknown_08A18E8C:  @ 0x08A18E8C
         .word sub_809B478
         @ PROC_CALL
         .short 0x2, 0x0
-        .word sub_809AE7C
+        .word ProcPrepUnit_InitScreen
         @ PROC_YIELD
         .short 0xe, 0x0
         .word 0x0
@@ -1659,7 +1659,7 @@ gUnknown_08A18E8C:  @ 0x08A18E8C
         .word sub_809B520
         @ PROC_CALL
         .short 0x2, 0x0
-        .word sub_809AE7C
+        .word ProcPrepUnit_InitScreen
         @ PROC_SLEEP
         .short 0xe, 0x2
         .word 0x0
@@ -1674,7 +1674,7 @@ gUnknown_08A18E8C:  @ 0x08A18E8C
         .word 0x0
         @ PROC_CALL
         .short 0x2, 0x0
-        .word sub_809B438
+        .word ProcPrepUnit_OnGameStart
         @ PROC_SLEEP
         .short 0xe, 0x1e
         .word 0x0
@@ -1748,7 +1748,7 @@ gUnknown_08A19064:  @ 0x08A19064
         .word sub_809C4D8
         @ PROC_CALL
         .short 0x2, 0x0
-        .word sub_809C4E4
+        .word PrepItemUse_InitDisplay
         @ PROC_CALL_ARG
         .short 0x18, 0x10
         .word NewFadeIn
@@ -1778,7 +1778,7 @@ gUnknown_08A19064:  @ 0x08A19064
         .word 0x0
         @ PROC_CALL
         .short 0x2, 0x0
-        .word sub_809CB38
+        .word PrepItemUse_HandleItemEffect
         @ PROC_START_CHILD_BLOCKING
         .short 0x6, 0x1
         .word gUnknown_08A191A4
@@ -1826,7 +1826,7 @@ gUnknown_08A19064:  @ 0x08A19064
         .word sub_809CC60
         @ PROC_CALL
         .short 0x2, 0x0
-        .word sub_809C4E4
+        .word PrepItemUse_InitDisplay
         @ PROC_CALL_ARG
         .short 0x18, 0x10
         .word NewFadeIn
@@ -1862,13 +1862,13 @@ gUnknown_08A19064:  @ 0x08A19064
 gUnknown_08A191A4:  @ 0x08A191A4
         @ PROC_SET_END_CB
         .short 0x4, 0x0
-        .word sub_809CF8C
+        .word PrepItemBooster_OnEnd
         @ PROC_CALL
         .short 0x2, 0x0
-        .word sub_809CDD4
+        .word PrepItemBooster_OnInit
         @ PROC_REPEAT
         .short 0x3, 0x0
-        .word sub_809CF48
+        .word PrepItemBooster_Idle
         @ PROC_END
         .short 0x0, 0x0
         .word 0x0
@@ -1877,10 +1877,10 @@ gUnknown_08A191A4:  @ 0x08A191A4
 gUnknown_08A191C4:  @ 0x08A191C4
         @ PROC_SET_END_CB
         .short 0x4, 0x0
-        .word sub_809D1C0
+        .word PrepJunaEffect_OnEnd
         @ PROC_CALL
         .short 0x2, 0x0
-        .word sub_809D0D4
+        .word PrepJunaEffect_OnInit
         @ PROC_REPEAT
         .short 0x3, 0x0
         .word sub_809D17C
