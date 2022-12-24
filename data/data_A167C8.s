@@ -537,8 +537,8 @@ gUnknown_08A1826C:  @ 0x08A1826C
         .word 0x0
 
 
-	.global gUnknown_08A1829C
-gUnknown_08A1829C:  @ 0x08A1829C
+	.global ProcScr_AtMenu
+ProcScr_AtMenu:  @ 0x08A1829C
         @ PROC_NAME
         .short 0x1, 0x0
         .word 0x8205bd0

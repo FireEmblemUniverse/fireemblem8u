@@ -1026,20 +1026,20 @@ _08096450:
 	THUMB_FUNC_START sub_8096454
 sub_8096454: @ 0x08096454
 	push {lr}
-	ldr r0, _08096464  @ gUnknown_08A1829C
+	ldr r0, _08096464  @ ProcScr_AtMenu
 	movs r1, #3
 	bl Proc_Start
 	pop {r0}
 	bx r0
 	.align 2, 0
-_08096464: .4byte gUnknown_08A1829C
+_08096464: .4byte ProcScr_AtMenu
 
 	THUMB_FUNC_END sub_8096454
 
 	THUMB_FUNC_START sub_8096468
 sub_8096468: @ 0x08096468
 	push {lr}
-	ldr r0, _08096480  @ gUnknown_08A1829C
+	ldr r0, _08096480  @ ProcScr_AtMenu
 	movs r1, #3
 	bl Proc_Start
 	bl sub_8095840
@@ -1047,7 +1047,7 @@ sub_8096468: @ 0x08096468
 	pop {r0}
 	bx r0
 	.align 2, 0
-_08096480: .4byte gUnknown_08A1829C
+_08096480: .4byte ProcScr_AtMenu
 
 	THUMB_FUNC_END sub_8096468
 

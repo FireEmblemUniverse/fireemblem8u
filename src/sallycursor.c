@@ -77,6 +77,7 @@ void sub_80B9FC0();
 void Make6C_savemenu2(ProcPtr);
 void NewPrepScreenTraineePromotionManager(ProcPtr);
 void PrepScreenTraineePromotionManagerExists(ProcPtr);
+int CheckSomethingSomewhere();
 
 // asmcs.s
 void nullsub_20(ProcPtr);
