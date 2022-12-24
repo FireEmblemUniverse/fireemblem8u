@@ -13378,8 +13378,8 @@ _080951B4: .4byte gUnknown_08A1A474
 
 	THUMB_FUNC_END sub_8095138
 
-	THUMB_FUNC_START sub_80951B8
-sub_80951B8: @ 0x080951B8
+	THUMB_FUNC_START PrepScreenMenu_OnPickUnits
+PrepScreenMenu_OnPickUnits: @ 0x080951B8
 	push {lr}
 	adds r2, r0, #0
 	adds r2, #0x33
@@ -13390,10 +13390,10 @@ sub_80951B8: @ 0x080951B8
 	pop {r0}
 	bx r0
 
-	THUMB_FUNC_END sub_80951B8
+	THUMB_FUNC_END PrepScreenMenu_OnPickUnits
 
-	THUMB_FUNC_START sub_80951CC
-sub_80951CC: @ 0x080951CC
+	THUMB_FUNC_START PrepScreenMenu_OnItems
+PrepScreenMenu_OnItems: @ 0x080951CC
 	push {lr}
 	adds r2, r0, #0
 	adds r2, #0x33
@@ -13404,10 +13404,10 @@ sub_80951CC: @ 0x080951CC
 	pop {r0}
 	bx r0
 
-	THUMB_FUNC_END sub_80951CC
+	THUMB_FUNC_END PrepScreenMenu_OnItems
 
-	THUMB_FUNC_START sub_80951E0
-sub_80951E0: @ 0x080951E0
+	THUMB_FUNC_START PrepScreenMenu_OnSupport
+PrepScreenMenu_OnSupport: @ 0x080951E0
 	push {r4, lr}
 	sub sp, #4
 	adds r4, r0, #0
@@ -13431,10 +13431,10 @@ sub_80951E0: @ 0x080951E0
 	pop {r0}
 	bx r0
 
-	THUMB_FUNC_END sub_80951E0
+	THUMB_FUNC_END PrepScreenMenu_OnSupport
 
-	THUMB_FUNC_START sub_8095210
-sub_8095210: @ 0x08095210
+	THUMB_FUNC_START PrepScreenMenu_OnSave
+PrepScreenMenu_OnSave: @ 0x08095210
 	push {r4, lr}
 	adds r4, r0, #0
 	ldr r0, _0809523C  @ gRAMChapterData
@@ -13459,10 +13459,10 @@ _08095226:
 	.align 2, 0
 _0809523C: .4byte gRAMChapterData
 
-	THUMB_FUNC_END sub_8095210
+	THUMB_FUNC_END PrepScreenMenu_OnSave
 
-	THUMB_FUNC_START sub_8095240
-sub_8095240: @ 0x08095240
+	THUMB_FUNC_START PrepScreenMenu_OnStartPress
+PrepScreenMenu_OnStartPress: @ 0x08095240
 	push {r4, lr}
 	adds r4, r0, #0
 	adds r0, #0x2b
@@ -13482,7 +13482,7 @@ _0809525E:
 	pop {r1}
 	bx r1
 
-	THUMB_FUNC_END sub_8095240
+	THUMB_FUNC_END PrepScreenMenu_OnStartPress
 
 	THUMB_FUNC_START sub_8095264
 sub_8095264: @ 0x08095264
@@ -13515,8 +13515,8 @@ sub_8095284: @ 0x08095284
 
 	THUMB_FUNC_END sub_8095284
 
-	THUMB_FUNC_START sub_8095290
-sub_8095290: @ 0x08095290
+	THUMB_FUNC_START PrepScreenMenu_OnBPress
+PrepScreenMenu_OnBPress: @ 0x08095290
 	push {r4, lr}
 	adds r4, r0, #0
 	bl CheckSomethingSomewhere
@@ -13541,17 +13541,17 @@ _080952BA:
 	pop {r1}
 	bx r1
 
-	THUMB_FUNC_END sub_8095290
+	THUMB_FUNC_END PrepScreenMenu_OnBPress
 
-	THUMB_FUNC_START sub_80952C0
-sub_80952C0: @ 0x080952C0
+	THUMB_FUNC_START PrepScreenMenu_OnCheckMap
+PrepScreenMenu_OnCheckMap: @ 0x080952C0
 	push {lr}
 	movs r1, #5
 	bl Proc_Goto
 	pop {r0}
 	bx r0
 
-	THUMB_FUNC_END sub_80952C0
+	THUMB_FUNC_END PrepScreenMenu_OnCheckMap
 
 	THUMB_FUNC_START sub_80952CC
 sub_80952CC: @ 0x080952CC
@@ -13899,13 +13899,13 @@ _080954CA:
 	bne _080954DE
 	movs r6, #1
 _080954DE:
-	ldr r1, _080954FC  @ sub_80951E0
+	ldr r1, _080954FC  @ PrepScreenMenu_OnSupport
 	ldr r3, _08095500  @ 0x00000577
 	movs r0, #0
 	str r0, [sp]
 	movs r0, #4
 	adds r2, r6, #0
-	bl sub_8097024
+	bl SetPrepScreenMenuItem
 _080954EE:
 	add sp, #4
 	pop {r4, r5, r6}
@@ -13913,7 +13913,7 @@ _080954EE:
 	bx r0
 	.align 2, 0
 _080954F8: .4byte gRAMChapterData
-_080954FC: .4byte sub_80951E0
+_080954FC: .4byte PrepScreenMenu_OnSupport
 _08095500: .4byte 0x00000577
 
 	THUMB_FUNC_END sub_8095498
@@ -13939,29 +13939,29 @@ _0809551E:
 
 	THUMB_FUNC_END sub_8095504
 
-	THUMB_FUNC_START sub_8095524
-sub_8095524: @ 0x08095524
+	THUMB_FUNC_START AtMenu_InitPrepScreenMenu
+AtMenu_InitPrepScreenMenu: @ 0x08095524
 	push {r4, r5, lr}
 	sub sp, #4
 	adds r5, r0, #0
-	bl sub_8096FAC
+	bl StartPrepScreenMenu
 	bl CheckSomethingSomewhere
 	lsls r0, r0, #0x18
 	asrs r4, r0, #0x18
 	cmp r4, #0
 	bne _080955CC
-	ldr r1, _0809557C  @ sub_80951B8
+	ldr r1, _0809557C  @ PrepScreenMenu_OnPickUnits
 	ldr r3, _08095580  @ 0x00000574
 	str r4, [sp]
 	movs r0, #0
 	movs r2, #0
-	bl sub_8097024
-	ldr r1, _08095584  @ sub_80951CC
+	bl SetPrepScreenMenuItem
+	ldr r1, _08095584  @ PrepScreenMenu_OnItems
 	ldr r3, _08095588  @ 0x00000576
 	str r4, [sp]
 	movs r0, #1
 	movs r2, #0
-	bl sub_8097024
+	bl SetPrepScreenMenuItem
 	adds r0, r5, #0
 	bl sub_8095498
 	bl sub_8095504
@@ -13969,28 +13969,28 @@ sub_8095524: @ 0x08095524
 	asrs r0, r0, #0x18
 	cmp r0, #0
 	beq _08095590
-	ldr r1, _0809558C  @ sub_80952C0
+	ldr r1, _0809558C  @ PrepScreenMenu_OnCheckMap
 	movs r3, #0xaf
 	lsls r3, r3, #3
 	str r4, [sp]
 	movs r0, #7
 	movs r2, #0
-	bl sub_8097024
+	bl SetPrepScreenMenuItem
 	b _080955A0
 	.align 2, 0
-_0809557C: .4byte sub_80951B8
+_0809557C: .4byte PrepScreenMenu_OnPickUnits
 _08095580: .4byte 0x00000574
-_08095584: .4byte sub_80951CC
+_08095584: .4byte PrepScreenMenu_OnItems
 _08095588: .4byte 0x00000576
-_0809558C: .4byte sub_80952C0
+_0809558C: .4byte PrepScreenMenu_OnCheckMap
 _08095590:
-	ldr r1, _080955C0  @ sub_80952C0
+	ldr r1, _080955C0  @ PrepScreenMenu_OnCheckMap
 	movs r3, #0xaf
 	lsls r3, r3, #3
 	str r0, [sp]
 	movs r0, #7
 	movs r2, #1
-	bl sub_8097024
+	bl SetPrepScreenMenuItem
 _080955A0:
 	movs r4, #0
 	bl sub_8094FF4
@@ -13999,42 +13999,42 @@ _080955A0:
 	bne _080955AE
 	movs r4, #1
 _080955AE:
-	ldr r1, _080955C4  @ sub_8095210
+	ldr r1, _080955C4  @ PrepScreenMenu_OnSave
 	ldr r3, _080955C8  @ 0x00000579
 	movs r0, #0
 	str r0, [sp]
 	movs r0, #2
 	adds r2, r4, #0
-	bl sub_8097024
+	bl SetPrepScreenMenuItem
 	b _080955F8
 	.align 2, 0
-_080955C0: .4byte sub_80952C0
-_080955C4: .4byte sub_8095210
+_080955C0: .4byte PrepScreenMenu_OnCheckMap
+_080955C4: .4byte PrepScreenMenu_OnSave
 _080955C8: .4byte 0x00000579
 _080955CC:
-	ldr r1, _08095630  @ sub_80951B8
+	ldr r1, _08095630  @ PrepScreenMenu_OnPickUnits
 	ldr r3, _08095634  @ 0x00000574
 	movs r4, #0
 	str r4, [sp]
 	movs r0, #0
 	movs r2, #0
-	bl sub_8097024
-	ldr r1, _08095638  @ sub_80951CC
+	bl SetPrepScreenMenuItem
+	ldr r1, _08095638  @ PrepScreenMenu_OnItems
 	ldr r3, _0809563C  @ 0x00000576
 	str r4, [sp]
 	movs r0, #1
 	movs r2, #0
-	bl sub_8097024
+	bl SetPrepScreenMenuItem
 	ldr r1, _08095640  @ sub_8095284
 	ldr r3, _08095644  @ 0x0000075C
 	str r4, [sp]
 	movs r0, #3
 	movs r2, #0
-	bl sub_8097024
+	bl SetPrepScreenMenuItem
 _080955F8:
-	ldr r0, _08095648  @ sub_8095290
+	ldr r0, _08095648  @ PrepScreenMenu_OnBPress
 	bl sub_8096FD0
-	ldr r0, _0809564C  @ sub_8095240
+	ldr r0, _0809564C  @ PrepScreenMenu_OnStartPress
 	bl sub_8096FEC
 	ldr r0, _08095650  @ gBG0TilemapBuffer
 	movs r1, #0xc
@@ -14055,14 +14055,14 @@ _080955F8:
 	bl sub_8097200
 	b _08095660
 	.align 2, 0
-_08095630: .4byte sub_80951B8
+_08095630: .4byte PrepScreenMenu_OnPickUnits
 _08095634: .4byte 0x00000574
-_08095638: .4byte sub_80951CC
+_08095638: .4byte PrepScreenMenu_OnItems
 _0809563C: .4byte 0x00000576
 _08095640: .4byte sub_8095284
 _08095644: .4byte 0x0000075C
-_08095648: .4byte sub_8095290
-_0809564C: .4byte sub_8095240
+_08095648: .4byte PrepScreenMenu_OnBPress
+_0809564C: .4byte PrepScreenMenu_OnStartPress
 _08095650: .4byte gBG0TilemapBuffer
 _08095654: .4byte gBG1TilemapBuffer
 _08095658:
@@ -14079,7 +14079,7 @@ _08095660:
 	pop {r0}
 	bx r0
 
-	THUMB_FUNC_END sub_8095524
+	THUMB_FUNC_END AtMenu_InitPrepScreenMenu
 
 	THUMB_FUNC_START sub_8095674
 sub_8095674: @ 0x08095674
@@ -14141,8 +14141,8 @@ _080956D0:
 
 	THUMB_FUNC_END sub_80956A8
 
-	THUMB_FUNC_START sub_80956D8
-sub_80956D8: @ 0x080956D8
+	THUMB_FUNC_START ReorderPlayerUnitsBasedOnDeployment
+ReorderPlayerUnitsBasedOnDeployment: @ 0x080956D8
 	push {r4, lr}
 	ldr r0, _08095740  @ gUnknown_020111CC
 	bl InitUnitStack
@@ -14196,7 +14196,7 @@ _0809572E:
 _08095740: .4byte gUnknown_020111CC
 _08095744: .4byte 0x0001000C
 
-	THUMB_FUNC_END sub_80956D8
+	THUMB_FUNC_END ReorderPlayerUnitsBasedOnDeployment
 
 	THUMB_FUNC_START SortPlayerUnitsForPrepScreen
 SortPlayerUnitsForPrepScreen: @ 0x08095748
@@ -14531,8 +14531,8 @@ _080959A0:
 
 	THUMB_FUNC_END sub_8095970
 
-	THUMB_FUNC_START sub_80959B4
-sub_80959B4: @ 0x080959B4
+	THUMB_FUNC_START AtMenu_AutoCapDeployPrepScreenUnits
+AtMenu_AutoCapDeployPrepScreenUnits: @ 0x080959B4
 	push {r4, r5, r6, r7, lr}
 	adds r4, r0, #0
 	adds r1, r4, #0
@@ -14589,7 +14589,7 @@ _08095A16:
 	pop {r0}
 	bx r0
 
-	THUMB_FUNC_END sub_80959B4
+	THUMB_FUNC_END AtMenu_AutoCapDeployPrepScreenUnits
 
 	THUMB_FUNC_START sub_8095A1C
 sub_8095A1C: @ 0x08095A1C
@@ -14616,8 +14616,8 @@ EndBG3Slider_: @ 0x08095A38
 
 	THUMB_FUNC_END EndBG3Slider_
 
-	THUMB_FUNC_START sub_8095A44
-sub_8095A44: @ 0x08095A44
+	THUMB_FUNC_START Prep_DrawChapterGoal
+Prep_DrawChapterGoal: @ 0x08095A44
 	push {r4, r5, lr}
 	sub sp, #0x20
 	adds r2, r0, #0
@@ -14681,7 +14681,7 @@ _08095AB0:
 	pop {r0}
 	bx r0
 
-	THUMB_FUNC_END sub_8095A44
+	THUMB_FUNC_END Prep_DrawChapterGoal
 
 	THUMB_FUNC_START sub_8095AD8
 sub_8095AD8: @ 0x08095AD8
@@ -14887,7 +14887,7 @@ sub_8095C2C: @ 0x08095C2C
 	bl sub_809710C
 	adds r4, #0x2d
 	strb r0, [r4]
-	bl sub_80972B0
+	bl EndPrepScreenMenu
 	pop {r4}
 	pop {r0}
 	bx r0
@@ -14920,8 +14920,8 @@ _08095C80: .4byte gUnknown_08A1B174
 
 	THUMB_FUNC_END sub_8095C50
 
-	THUMB_FUNC_START sub_8095C84
-sub_8095C84: @ 0x08095C84
+	THUMB_FUNC_START AtMenu_Reinitialize
+AtMenu_Reinitialize: @ 0x08095C84
 	push {r4, r5, r6, r7, lr}
 	mov r7, r8
 	push {r7}
@@ -14952,8 +14952,8 @@ sub_8095C84: @ 0x08095C84
 	bl SMS_ClearUsageTable
 	bl sub_80958BC
 	adds r0, r7, #0
-	bl sub_80959B4
-	bl sub_80956D8
+	bl AtMenu_AutoCapDeployPrepScreenUnits
+	bl ReorderPlayerUnitsBasedOnDeployment
 	ldr r0, _08095E08  @ gBG0TilemapBuffer
 	movs r1, #0
 	bl BG_Fill
@@ -15055,7 +15055,7 @@ _08095D0C:
 	movs r2, #0
 	bl BG_SetPosition
 	adds r0, r7, #0
-	bl sub_8095524
+	bl AtMenu_InitPrepScreenMenu
 	movs r0, #0xf
 	bl BG_EnableSyncByMask
 	bl SetDefaultColorEffects
@@ -15123,7 +15123,7 @@ _08095E76:
 	movs r0, #0xb0
 	lsls r0, r0, #7
 	movs r1, #0xb
-	bl sub_8095A44
+	bl Prep_DrawChapterGoal
 	adds r0, r7, #0
 	bl sub_80AD1AC
 	movs r0, #0xd0
@@ -15146,7 +15146,7 @@ _08095EB0: .4byte gGenericBuffer
 _08095EB4: .4byte gUnknown_02023548
 _08095EB8: .4byte gUnknown_08A1B698
 
-	THUMB_FUNC_END sub_8095C84
+	THUMB_FUNC_END AtMenu_Reinitialize
 
 	THUMB_FUNC_START sub_8095EBC
 sub_8095EBC: @ 0x08095EBC
@@ -15685,12 +15685,12 @@ _080962D8:
 sub_80962E0: @ 0x080962E0
 	push {r4, lr}
 	adds r4, r0, #0
-	bl sub_80956D8
+	bl ReorderPlayerUnitsBasedOnDeployment
 	adds r4, #0x36
 	ldrb r0, [r4]
 	cmp r0, #0
 	beq _080962F6
-	bl sub_8034278
+	bl EndPrepScreen
 	b _08096304
 _080962F6:
 	bl CheckSomethingSomewhere
@@ -15709,8 +15709,8 @@ _08096304:
 
 	THUMB_FUNC_END sub_80962E0
 
-	THUMB_FUNC_START sub_809631C
-sub_809631C: @ 0x0809631C
+	THUMB_FUNC_START AtMenu_StartSubmenu
+AtMenu_StartSubmenu: @ 0x0809631C
 	push {r4, lr}
 	adds r4, r0, #0
 	bl sub_8095C2C
@@ -15763,10 +15763,10 @@ _08096384:
 	pop {r0}
 	bx r0
 
-	THUMB_FUNC_END sub_809631C
+	THUMB_FUNC_END AtMenu_StartSubmenu
 
-	THUMB_FUNC_START sub_8096390
-sub_8096390: @ 0x08096390
+	THUMB_FUNC_START AtMenu_OnSubmenuEnd
+AtMenu_OnSubmenuEnd: @ 0x08096390
 	push {r4, r5, lr}
 	adds r4, r0, #0
 	adds r5, r4, #0
@@ -15821,7 +15821,7 @@ _080963F4:
 	pop {r0}
 	bx r0
 
-	THUMB_FUNC_END sub_8096390
+	THUMB_FUNC_END AtMenu_OnSubmenuEnd
 
 	THUMB_FUNC_START sub_8096404
 sub_8096404: @ 0x08096404
@@ -15844,8 +15844,8 @@ _08096420: .4byte gLCDControlBuffer
 
 	THUMB_FUNC_END sub_8096404
 
-	THUMB_FUNC_START sub_8096424
-sub_8096424: @ 0x08096424
+	THUMB_FUNC_START AtMenu_LockGame
+AtMenu_LockGame: @ 0x08096424
 	push {lr}
 	bl CheckSomethingSomewhere
 	lsls r0, r0, #0x18
@@ -15857,7 +15857,7 @@ _08096438:
 	pop {r0}
 	bx r0
 
-	THUMB_FUNC_END sub_8096424
+	THUMB_FUNC_END AtMenu_LockGame
 
 	THUMB_FUNC_START sub_809643C
 sub_809643C: @ 0x0809643C
@@ -17008,8 +17008,8 @@ _08096CC8: .4byte gUnknown_02022CB0
 
 	THUMB_FUNC_END sub_8096C34
 
-	THUMB_FUNC_START sub_8096CCC
-sub_8096CCC: @ 0x08096CCC
+	THUMB_FUNC_START PrepScreenMenu_OnInit
+PrepScreenMenu_OnInit: @ 0x08096CCC
 	push {r4, r5, lr}
 	adds r5, r0, #0
 	movs r2, #0
@@ -17043,10 +17043,10 @@ _08096CD6:
 	pop {r0}
 	bx r0
 
-	THUMB_FUNC_END sub_8096CCC
+	THUMB_FUNC_END PrepScreenMenu_OnInit
 
-	THUMB_FUNC_START sub_8096D10
-sub_8096D10: @ 0x08096D10
+	THUMB_FUNC_START PrepScreenMenu_OnActiveLoop
+PrepScreenMenu_OnActiveLoop: @ 0x08096D10
 	push {r4, r5, r6, r7, lr}
 	mov r7, r9
 	mov r6, r8
@@ -17331,10 +17331,10 @@ _08096F34:
 	.align 2, 0
 _08096F40: .4byte gRAMChapterData
 
-	THUMB_FUNC_END sub_8096D10
+	THUMB_FUNC_END PrepScreenMenu_OnActiveLoop
 
-	THUMB_FUNC_START sub_8096F44
-sub_8096F44: @ 0x08096F44
+	THUMB_FUNC_START PrepScreenMenu_OnLoop_2
+PrepScreenMenu_OnLoop_2: @ 0x08096F44
 	push {lr}
 	adds r2, r0, #0
 	movs r1, #0x34
@@ -17354,10 +17354,10 @@ sub_8096F44: @ 0x08096F44
 	pop {r0}
 	bx r0
 
-	THUMB_FUNC_END sub_8096F44
+	THUMB_FUNC_END PrepScreenMenu_OnLoop_2
 
-	THUMB_FUNC_START sub_8096F6C
-sub_8096F6C: @ 0x08096F6C
+	THUMB_FUNC_START PrepScreenMenu_OnLoop_0
+PrepScreenMenu_OnLoop_0: @ 0x08096F6C
 	push {lr}
 	adds r2, r0, #0
 	movs r1, #0x34
@@ -17380,10 +17380,10 @@ sub_8096F6C: @ 0x08096F6C
 	pop {r0}
 	bx r0
 
-	THUMB_FUNC_END sub_8096F6C
+	THUMB_FUNC_END PrepScreenMenu_OnLoop_0
 
-	THUMB_FUNC_START sub_8096F98
-sub_8096F98: @ 0x08096F98
+	THUMB_FUNC_START PrepScreenMenu_OnEnd
+PrepScreenMenu_OnEnd: @ 0x08096F98
 	push {lr}
 	ldr r1, [r0, #0x60]
 	cmp r1, #0
@@ -17394,10 +17394,10 @@ _08096FA6:
 	pop {r0}
 	bx r0
 
-	THUMB_FUNC_END sub_8096F98
+	THUMB_FUNC_END PrepScreenMenu_OnEnd
 
-	THUMB_FUNC_START sub_8096FAC
-sub_8096FAC: @ 0x08096FAC
+	THUMB_FUNC_START StartPrepScreenMenu
+StartPrepScreenMenu: @ 0x08096FAC
 	push {r4, r5, lr}
 	adds r5, r0, #0
 	ldr r4, _08096FCC  @ gUnknown_08A186EC
@@ -17413,7 +17413,7 @@ sub_8096FAC: @ 0x08096FAC
 	.align 2, 0
 _08096FCC: .4byte gUnknown_08A186EC
 
-	THUMB_FUNC_END sub_8096FAC
+	THUMB_FUNC_END StartPrepScreenMenu
 
 	THUMB_FUNC_START sub_8096FD0
 sub_8096FD0: @ 0x08096FD0
@@ -17469,8 +17469,8 @@ _08097020: .4byte gUnknown_08A186EC
 
 	THUMB_FUNC_END sub_8097008
 
-	THUMB_FUNC_START sub_8097024
-sub_8097024: @ 0x08097024
+	THUMB_FUNC_START SetPrepScreenMenuItem
+SetPrepScreenMenuItem: @ 0x08097024
 	push {r4, r5, r6, r7, lr}
 	mov r7, sl
 	mov r6, r9
@@ -17554,7 +17554,7 @@ _080970B8:
 	.align 2, 0
 _080970C8: .4byte gUnknown_08A186DC
 
-	THUMB_FUNC_END sub_8097024
+	THUMB_FUNC_END SetPrepScreenMenuItem
 
 	THUMB_FUNC_START sub_80970CC
 sub_80970CC: @ 0x080970CC
@@ -17640,8 +17640,8 @@ _0809714C:
 
 	THUMB_FUNC_END sub_809710C
 
-	THUMB_FUNC_START sub_8097154
-sub_8097154: @ 0x08097154
+	THUMB_FUNC_START DrawPrepScreenMenuFrameAt
+DrawPrepScreenMenuFrameAt: @ 0x08097154
 	push {r4, r5, r6, r7, lr}
 	mov r7, r9
 	mov r6, r8
@@ -17725,7 +17725,7 @@ _080971EA:
 _080971F8: .4byte gUnknown_08A186EC
 _080971FC: .4byte gBG0TilemapBuffer
 
-	THUMB_FUNC_END sub_8097154
+	THUMB_FUNC_END DrawPrepScreenMenuFrameAt
 
 	THUMB_FUNC_START sub_8097200
 sub_8097200: @ 0x08097200
@@ -17823,8 +17823,8 @@ _080972AC:
 
 	THUMB_FUNC_END sub_8097294
 
-	THUMB_FUNC_START sub_80972B0
-sub_80972B0: @ 0x080972B0
+	THUMB_FUNC_START EndPrepScreenMenu
+EndPrepScreenMenu: @ 0x080972B0
 	push {r4, lr}
 	ldr r0, _080972D0  @ gUnknown_08A186EC
 	bl Proc_Find
@@ -17842,7 +17842,7 @@ _080972CA:
 	.align 2, 0
 _080972D0: .4byte gUnknown_08A186EC
 
-	THUMB_FUNC_END sub_80972B0
+	THUMB_FUNC_END EndPrepScreenMenu
 
 	THUMB_FUNC_START sub_80972D4
 sub_80972D4: @ 0x080972D4
@@ -17897,8 +17897,8 @@ _0809733C: .4byte gBG1TilemapBuffer
 
 	THUMB_FUNC_END sub_80972D4
 
-	THUMB_FUNC_START sub_8097340
-sub_8097340: @ 0x08097340
+	THUMB_FUNC_START PrepScreenMenuExists
+PrepScreenMenuExists: @ 0x08097340
 	push {lr}
 	ldr r0, _08097350  @ gUnknown_08A186EC
 	bl Proc_Find
@@ -17914,7 +17914,7 @@ _08097356:
 	pop {r1}
 	bx r1
 
-	THUMB_FUNC_END sub_8097340
+	THUMB_FUNC_END PrepScreenMenuExists
 
 	THUMB_FUNC_START sub_809735C
 sub_809735C: @ 0x0809735C
@@ -17950,8 +17950,8 @@ _08097390: .4byte gUnknown_08A186EC
 
 	THUMB_FUNC_END sub_8097378
 
-	THUMB_FUNC_START sub_8097394
-sub_8097394: @ 0x08097394
+	THUMB_FUNC_START EnablePrepScreenMenu
+EnablePrepScreenMenu: @ 0x08097394
 	push {lr}
 	ldr r0, _080973AC  @ gUnknown_08A186EC
 	bl Proc_Find
@@ -17965,7 +17965,7 @@ _080973A6:
 	.align 2, 0
 _080973AC: .4byte gUnknown_08A186EC
 
-	THUMB_FUNC_END sub_8097394
+	THUMB_FUNC_END EnablePrepScreenMenu
 
 	THUMB_FUNC_START sub_80973B0
 sub_80973B0: @ 0x080973B0
@@ -23385,7 +23385,7 @@ sub_8099DE8: @ 0x08099DE8
 	ldrb r0, [r0]
 	bl sub_8095354
 	adds r1, r4, #0
-	bl sub_809CCFC
+	bl StartPrepItemUseScreen
 	pop {r4}
 	pop {r0}
 	bx r0
@@ -24395,8 +24395,8 @@ _0809A578:
 
 	THUMB_FUNC_END sub_809A538
 
-	THUMB_FUNC_START sub_809A580
-sub_809A580: @ 0x0809A580
+	THUMB_FUNC_START PrepUnit_DrawUnitListNames
+PrepUnit_DrawUnitListNames: @ 0x0809A580
 	push {r4, r5, r6, r7, lr}
 	mov r7, sl
 	mov r6, r9
@@ -24489,7 +24489,7 @@ _0809A61A:
 _0809A63C: .4byte gUnknown_02013598
 _0809A640: .4byte gBG2TilemapBuffer
 
-	THUMB_FUNC_END sub_809A580
+	THUMB_FUNC_END PrepUnit_DrawUnitListNames
 
 	THUMB_FUNC_START sub_809A644
 sub_809A644: @ 0x0809A644
@@ -24513,8 +24513,8 @@ _0809A668: .4byte gUnknown_02023CC8
 
 	THUMB_FUNC_END sub_809A644
 
-	THUMB_FUNC_START sub_809A66C
-sub_809A66C: @ 0x0809A66C
+	THUMB_FUNC_START PrepUnit_DrawSMSAndObjs
+PrepUnit_DrawSMSAndObjs: @ 0x0809A66C
 	push {r4, r5, r6, r7, lr}
 	mov r7, r8
 	push {r7}
@@ -24725,10 +24725,10 @@ _0809A7EC:
 _0809A80C: .4byte gUnknown_08A18E4E
 _0809A810: .4byte gUnknown_08A18E34
 
-	THUMB_FUNC_END sub_809A66C
+	THUMB_FUNC_END PrepUnit_DrawSMSAndObjs
 
-	THUMB_FUNC_START sub_809A814
-sub_809A814: @ 0x0809A814
+	THUMB_FUNC_START PrepUnit_InitTexts
+PrepUnit_InitTexts: @ 0x0809A814
 	push {r4, r5, lr}
 	bl Font_InitForUIDefault
 	ldr r5, _0809A868  @ gUnknown_02013598
@@ -24771,10 +24771,10 @@ _0809A868: .4byte gUnknown_02013598
 _0809A86C: .4byte gUnknown_02013608
 _0809A870: .4byte gUnknown_02013630
 
-	THUMB_FUNC_END sub_809A814
+	THUMB_FUNC_END PrepUnit_InitTexts
 
-	THUMB_FUNC_START sub_809A874
-sub_809A874: @ 0x0809A874
+	THUMB_FUNC_START PrepUnit_InitGfx
+PrepUnit_InitGfx: @ 0x0809A874
 	push {r4, lr}
 	bl ResetIconGraphics_
 	bl LoadUiFrameGraphics
@@ -24785,7 +24785,7 @@ sub_809A874: @ 0x0809A874
 	lsls r4, r4, #7
 	adds r0, r4, #0
 	movs r1, #8
-	bl sub_8095A44
+	bl Prep_DrawChapterGoal
 	adds r0, r4, #0
 	movs r1, #0xf
 	bl sub_80950E8
@@ -24823,7 +24823,7 @@ _0809A8EC: .4byte gUnknown_08A1D510
 _0809A8F0: .4byte 0x06010800
 _0809A8F4: .4byte Pal_MapBattleInfoNum
 
-	THUMB_FUNC_END sub_809A874
+	THUMB_FUNC_END PrepUnit_InitGfx
 
 	THUMB_FUNC_START sub_809A8F8
 sub_809A8F8: @ 0x0809A8F8
@@ -24839,7 +24839,7 @@ sub_809A8F8: @ 0x0809A8F8
 	bl CpuFastSet
 	bl sub_80958BC
 	ldr r0, [r4, #0x14]
-	bl sub_80959B4
+	bl AtMenu_AutoCapDeployPrepScreenUnits
 	bl sub_8095928
 	add sp, #4
 	pop {r4}
@@ -24944,8 +24944,8 @@ sub_809A9E8: @ 0x0809A9E8
 
 	THUMB_FUNC_END sub_809A9E8
 
-	THUMB_FUNC_START sub_809A9F8
-sub_809A9F8: @ 0x0809A9F8
+	THUMB_FUNC_START PrepUnit_DrawUnitItems
+PrepUnit_DrawUnitItems: @ 0x0809A9F8
 	push {r4, r5, r6, r7, lr}
 	mov r7, sl
 	mov r6, r9
@@ -25059,7 +25059,7 @@ _0809AAE4: .4byte gUnknown_02022DEA
 _0809AAE8: .4byte gUnknown_02013608
 _0809AAEC: .4byte gUnknown_02022CAA
 
-	THUMB_FUNC_END sub_809A9F8
+	THUMB_FUNC_END PrepUnit_DrawUnitItems
 
 	THUMB_FUNC_START sub_809AAF0
 sub_809AAF0: @ 0x0809AAF0
@@ -25200,7 +25200,7 @@ _0809AC0C:
 	ldrh r1, [r4, #0x2e]
 	lsrs r1, r1, #1
 	adds r0, r4, #0
-	bl sub_809A580
+	bl PrepUnit_DrawUnitListNames
 	movs r0, #1
 	b _0809AC34
 	.align 2, 0
@@ -25260,7 +25260,7 @@ _0809AC80:
 	ldrh r1, [r5, #0x2e]
 	lsrs r1, r1, #1
 	adds r0, r5, #0
-	bl sub_809A580
+	bl PrepUnit_DrawUnitListNames
 	movs r0, #1
 	b _0809ACA8
 	.align 2, 0
@@ -25397,8 +25397,8 @@ _0809AD8A:
 
 	THUMB_FUNC_END sub_809ACB4
 
-	THUMB_FUNC_START sub_809AD90
-sub_809AD90: @ 0x0809AD90
+	THUMB_FUNC_START ShouldPrepUnitMenuScroll
+ShouldPrepUnitMenuScroll: @ 0x0809AD90
 	push {r4, r5, lr}
 	adds r4, r0, #0
 	ldrh r0, [r4, #0x30]
@@ -25430,13 +25430,13 @@ _0809ADC0:
 	pop {r1}
 	bx r1
 
-	THUMB_FUNC_END sub_809AD90
+	THUMB_FUNC_END ShouldPrepUnitMenuScroll
 
 	THUMB_FUNC_START sub_809ADC8
 sub_809ADC8: @ 0x0809ADC8
 	push {r4, r5, r6, lr}
 	adds r5, r0, #0
-	bl sub_809AD90
+	bl ShouldPrepUnitMenuScroll
 	lsls r0, r0, #0x18
 	cmp r0, #0
 	beq _0809AE0A
@@ -25504,8 +25504,8 @@ _0809AE30:
 
 	THUMB_FUNC_END sub_809AE10
 
-	THUMB_FUNC_START sub_809AE3C
-sub_809AE3C: @ 0x0809AE3C
+	THUMB_FUNC_START ProcPrepUnit_OnInit
+ProcPrepUnit_OnInit: @ 0x0809AE3C
 	push {r4, lr}
 	adds r4, r0, #0
 	bl sub_80958BC
@@ -25536,10 +25536,10 @@ sub_809AE3C: @ 0x0809AE3C
 	pop {r0}
 	bx r0
 
-	THUMB_FUNC_END sub_809AE3C
+	THUMB_FUNC_END ProcPrepUnit_OnInit
 
-	THUMB_FUNC_START sub_809AE7C
-sub_809AE7C: @ 0x0809AE7C
+	THUMB_FUNC_START ProcPrepUnit_InitScreen
+ProcPrepUnit_InitScreen: @ 0x0809AE7C
 	push {r4, r5, lr}
 	sub sp, #4
 	adds r5, r0, #0
@@ -25612,14 +25612,14 @@ sub_809AE7C: @ 0x0809AE7C
 	movs r1, #0
 	movs r2, #0
 	bl BG_SetPosition
-	bl sub_809A814
-	bl sub_809A874
+	bl PrepUnit_InitTexts
+	bl PrepUnit_InitGfx
 	movs r0, #7
 	bl BG_EnableSyncByMask
 	bl SetDefaultColorEffects
 	adds r0, r5, #0
 	bl sub_809A8F8
-	ldr r0, _0809B00C  @ sub_809A66C
+	ldr r0, _0809B00C  @ PrepUnit_DrawSMSAndObjs
 	adds r1, r5, #0
 	bl Get6CDifferedLoop6C
 	adds r0, r5, #0
@@ -25673,7 +25673,7 @@ sub_809AE7C: @ 0x0809AE7C
 	bl StartHelpPromptSprite
 	ldrh r0, [r5, #0x2e]
 	bl sub_8095354
-	bl sub_809A9F8
+	bl PrepUnit_DrawUnitItems
 	ldrh r0, [r5, #0x2e]
 	bl sub_8095354
 	bl sub_809A930
@@ -25683,7 +25683,7 @@ _0809AFC4:
 	lsrs r1, r1, #4
 	adds r1, r1, r4
 	adds r0, r5, #0
-	bl sub_809A580
+	bl PrepUnit_DrawUnitListNames
 	adds r4, #1
 	cmp r4, #5
 	ble _0809AFC4
@@ -25706,10 +25706,10 @@ _0809AFFC: .4byte gLCDControlBuffer
 _0809B000: .4byte gBG0TilemapBuffer
 _0809B004: .4byte gBG1TilemapBuffer
 _0809B008: .4byte gBG2TilemapBuffer
-_0809B00C: .4byte sub_809A66C
+_0809B00C: .4byte PrepUnit_DrawSMSAndObjs
 _0809B010: .4byte 0x06014800
 
-	THUMB_FUNC_END sub_809AE7C
+	THUMB_FUNC_END ProcPrepUnit_InitScreen
 
 	THUMB_FUNC_START sub_809B014
 sub_809B014: @ 0x0809B014
@@ -25726,8 +25726,8 @@ sub_809B014: @ 0x0809B014
 
 	THUMB_FUNC_END sub_809B014
 
-	THUMB_FUNC_START sub_809B038
-sub_809B038: @ 0x0809B038
+	THUMB_FUNC_START ProcPrepUnit_Idle
+ProcPrepUnit_Idle: @ 0x0809B038
 	push {r4, r5, r6, r7, lr}
 	adds r5, r0, #0
 	ldrh r0, [r5, #0x2c]
@@ -25924,7 +25924,7 @@ _0809B1AC:
 _0809B1B6:
 	ldrh r0, [r5, #0x2e]
 	bl sub_8095354
-	bl sub_809A9F8
+	bl PrepUnit_DrawUnitItems
 	ldr r0, _0809B224  @ sub_809A9E8
 	movs r1, #1
 	adds r2, r5, #0
@@ -25939,7 +25939,7 @@ _0809B1B6:
 	bl m4aSongNumStart
 _0809B1DC:
 	adds r0, r5, #0
-	bl sub_809AD90
+	bl ShouldPrepUnitMenuScroll
 	lsls r0, r0, #0x18
 	cmp r0, #0
 	beq _0809B22C
@@ -25951,7 +25951,7 @@ _0809B1DC:
 	lsrs r1, r1, #4
 	subs r1, #1
 	adds r0, r5, #0
-	bl sub_809A580
+	bl PrepUnit_DrawUnitListNames
 _0809B1FC:
 	ldrh r0, [r5, #0x2e]
 	ldrh r1, [r5, #0x2c]
@@ -25961,7 +25961,7 @@ _0809B1FC:
 	lsrs r1, r1, #4
 	adds r1, #6
 	adds r0, r5, #0
-	bl sub_809A580
+	bl PrepUnit_DrawUnitListNames
 _0809B210:
 	ldrh r0, [r5, #0x2e]
 	movs r1, #1
@@ -26063,7 +26063,7 @@ _0809B2D4:
 	pop {r0}
 	bx r0
 
-	THUMB_FUNC_END sub_809B038
+	THUMB_FUNC_END ProcPrepUnit_Idle
 
 	THUMB_FUNC_START sub_809B2DC
 sub_809B2DC: @ 0x0809B2DC
@@ -26116,7 +26116,7 @@ sub_809B324: @ 0x0809B324
 	lsrs r1, r1, #4
 	subs r1, #1
 	adds r0, r4, #0
-	bl sub_809A580
+	bl PrepUnit_DrawUnitListNames
 _0809B33C:
 	ldrh r1, [r4, #0x34]
 	subs r1, #4
@@ -26237,8 +26237,8 @@ _0809B408: .4byte gRAMChapterData
 
 	THUMB_FUNC_END sub_809B3B4
 
-	THUMB_FUNC_START sub_809B40C
-sub_809B40C: @ 0x0809B40C
+	THUMB_FUNC_START ProcPrepUnit_OnEnd
+ProcPrepUnit_OnEnd: @ 0x0809B40C
 	push {lr}
 	ldr r2, [r0, #0x14]
 	ldrh r1, [r0, #0x30]
@@ -26258,10 +26258,10 @@ sub_809B40C: @ 0x0809B40C
 	pop {r0}
 	bx r0
 
-	THUMB_FUNC_END sub_809B40C
+	THUMB_FUNC_END ProcPrepUnit_OnEnd
 
-	THUMB_FUNC_START sub_809B438
-sub_809B438: @ 0x0809B438
+	THUMB_FUNC_START ProcPrepUnit_OnGameStart
+ProcPrepUnit_OnGameStart: @ 0x0809B438
 	push {r4, r5, lr}
 	adds r4, r0, #0
 	ldr r0, [r4, #0x14]
@@ -26277,7 +26277,7 @@ sub_809B438: @ 0x0809B438
 	pop {r0}
 	bx r0
 
-	THUMB_FUNC_END sub_809B438
+	THUMB_FUNC_END ProcPrepUnit_OnGameStart
 
 	THUMB_FUNC_START sub_809B458
 sub_809B458: @ 0x0809B458
@@ -27673,8 +27673,8 @@ _0809BF0A:
 
 	THUMB_FUNC_END sub_809BE80
 
-	THUMB_FUNC_START sub_809BF10
-sub_809BF10: @ 0x0809BF10
+	THUMB_FUNC_START DrawPrepScreenItemUseStatLabels
+DrawPrepScreenItemUseStatLabels: @ 0x0809BF10
 	push {r4, r5, r6, r7, lr}
 	mov r7, r8
 	push {r7}
@@ -27854,10 +27854,10 @@ _0809C0A8: .4byte 0x000004F7
 _0809C0AC: .4byte 0xFFFFFE8A
 _0809C0B0: .4byte 0xFFFFFE82
 
-	THUMB_FUNC_END sub_809BF10
+	THUMB_FUNC_END DrawPrepScreenItemUseStatLabels
 
-	THUMB_FUNC_START sub_809C0B4
-sub_809C0B4: @ 0x0809C0B4
+	THUMB_FUNC_START DrawPrepScreenItemUseStatBars
+DrawPrepScreenItemUseStatBars: @ 0x0809C0B4
 	push {r4, r5, r6, r7, lr}
 	mov r7, r8
 	push {r7}
@@ -28052,10 +28052,10 @@ _0809C22E:
 	.align 2, 0
 _0809C250: .4byte gBG0TilemapBuffer
 
-	THUMB_FUNC_END sub_809C0B4
+	THUMB_FUNC_END DrawPrepScreenItemUseStatBars
 
-	THUMB_FUNC_START sub_809C254
-sub_809C254: @ 0x0809C254
+	THUMB_FUNC_START DrawPrepScreenItemUseStatValues
+DrawPrepScreenItemUseStatValues: @ 0x0809C254
 	push {r4, r5, r6, r7, lr}
 	adds r4, r0, #0
 	ldr r6, _0809C274  @ gUnknown_02023D90
@@ -28243,10 +28243,10 @@ _0809C3E0: .4byte gUnknown_02023E10
 _0809C3E4: .4byte 0xFFFFFEFE
 _0809C3E8: .4byte 0xFFFFFF00
 
-	THUMB_FUNC_END sub_809C254
+	THUMB_FUNC_END DrawPrepScreenItemUseStatValues
 
-	THUMB_FUNC_START sub_809C3EC
-sub_809C3EC: @ 0x0809C3EC
+	THUMB_FUNC_START DrawPrepScreenItemUseItemUseDesc
+DrawPrepScreenItemUseItemUseDesc: @ 0x0809C3EC
 	push {r4, r5, r6, r7, lr}
 	sub sp, #0xc
 	adds r6, r0, #0
@@ -28331,7 +28331,7 @@ _0809C4A2:
 	.align 2, 0
 _0809C4B0: .4byte gUnknown_02022FC6
 
-	THUMB_FUNC_END sub_809C3EC
+	THUMB_FUNC_END DrawPrepScreenItemUseItemUseDesc
 
 	THUMB_FUNC_START sub_809C4B4
 sub_809C4B4: @ 0x0809C4B4
@@ -28364,8 +28364,8 @@ sub_809C4D8: @ 0x0809C4D8
 
 	THUMB_FUNC_END sub_809C4D8
 
-	THUMB_FUNC_START sub_809C4E4
-sub_809C4E4: @ 0x0809C4E4
+	THUMB_FUNC_START PrepItemUse_InitDisplay
+PrepItemUse_InitDisplay: @ 0x0809C4E4
 	push {r4, r5, r6, r7, lr}
 	mov r7, sl
 	mov r6, r9
@@ -28496,12 +28496,12 @@ _0809C5CA:
 	movs r1, #8
 	bl Text_Init
 	ldr r0, [r7, #0x2c]
-	bl sub_809BF10
+	bl DrawPrepScreenItemUseStatLabels
 	ldr r0, [r7, #0x2c]
-	bl sub_809C254
+	bl DrawPrepScreenItemUseStatValues
 	ldr r0, [r7, #0x2c]
 	movs r1, #0
-	bl sub_809C0B4
+	bl DrawPrepScreenItemUseStatBars
 	ldr r0, [r7, #0x2c]
 	bl GetUnitPortraitId
 	adds r1, r0, #0
@@ -28659,7 +28659,7 @@ _0809C5CA:
 	bl StartHelpPromptSprite
 	ldr r0, [r7, #0x2c]
 	ldr r1, [r7, #0x30]
-	bl sub_809C3EC
+	bl DrawPrepScreenItemUseItemUseDesc
 	mov r1, sl
 	adds r1, #0x78
 	ldr r2, [r7, #0x2c]
@@ -28710,7 +28710,7 @@ _0809C814: .4byte sub_809C4B4
 _0809C818: .4byte gUnknown_030030B6
 _0809C81C: .4byte gUnknown_02022EEC
 
-	THUMB_FUNC_END sub_809C4E4
+	THUMB_FUNC_END PrepItemUse_InitDisplay
 
 	THUMB_FUNC_START sub_809C820
 sub_809C820: @ 0x0809C820
@@ -28828,7 +28828,7 @@ _0809C8F0:
 	bl sub_80AD51C
 	ldr r0, [r4, #0x2c]
 	ldr r1, [r4, #0x30]
-	bl sub_809C3EC
+	bl DrawPrepScreenItemUseItemUseDesc
 	ldr r0, [r4, #0x38]
 	cmp r0, #0xff
 	beq _0809C93A
@@ -29100,8 +29100,8 @@ _0809CB34: .4byte gRAMChapterData
 
 	THUMB_FUNC_END sub_809CA14
 
-	THUMB_FUNC_START sub_809CB38
-sub_809CB38: @ 0x0809CB38
+	THUMB_FUNC_START PrepItemUse_HandleItemEffect
+PrepItemUse_HandleItemEffect: @ 0x0809CB38
 	push {r4, lr}
 	adds r4, r0, #0
 	ldr r0, [r4, #0x2c]
@@ -29160,7 +29160,7 @@ _0809CBA0:
 	pop {r0}
 	bx r0
 
-	THUMB_FUNC_END sub_809CB38
+	THUMB_FUNC_END PrepItemUse_HandleItemEffect
 
 	THUMB_FUNC_START sub_809CBA8
 sub_809CBA8: @ 0x0809CBA8
@@ -29331,8 +29331,8 @@ sub_809CCE0: @ 0x0809CCE0
 
 	THUMB_FUNC_END sub_809CCE0
 
-	THUMB_FUNC_START sub_809CCFC
-sub_809CCFC: @ 0x0809CCFC
+	THUMB_FUNC_START StartPrepItemUseScreen
+StartPrepItemUseScreen: @ 0x0809CCFC
 	push {r4, lr}
 	adds r4, r0, #0
 	ldr r0, _0809CD10  @ gUnknown_08A19064
@@ -29344,10 +29344,10 @@ sub_809CCFC: @ 0x0809CCFC
 	.align 2, 0
 _0809CD10: .4byte gUnknown_08A19064
 
-	THUMB_FUNC_END sub_809CCFC
+	THUMB_FUNC_END StartPrepItemUseScreen
 
-	THUMB_FUNC_START sub_809CD14
-sub_809CD14: @ 0x0809CD14
+	THUMB_FUNC_START PrepItemBooster_DrawPopup
+PrepItemBooster_DrawPopup: @ 0x0809CD14
 	push {r4, r5, r6, r7, lr}
 	mov r7, sl
 	mov r6, r9
@@ -29439,10 +29439,10 @@ _0809CDB6:
 _0809CDCC: .4byte gBG2TilemapBuffer
 _0809CDD0: .4byte gUnknown_02013570
 
-	THUMB_FUNC_END sub_809CD14
+	THUMB_FUNC_END PrepItemBooster_DrawPopup
 
-	THUMB_FUNC_START sub_809CDD4
-sub_809CDD4: @ 0x0809CDD4
+	THUMB_FUNC_START PrepItemBooster_OnInit
+PrepItemBooster_OnInit: @ 0x0809CDD4
 	push {r4, r5, r6, r7, lr}
 	sub sp, #4
 	adds r7, r0, #0
@@ -29510,9 +29510,9 @@ sub_809CDD4: @ 0x0809CDD4
 	adds r6, r0, #0
 	ldr r0, [r4, #0x2c]
 	movs r1, #0
-	bl sub_809C0B4
+	bl DrawPrepScreenItemUseStatBars
 	ldr r0, [r4, #0x2c]
-	bl sub_809C254
+	bl DrawPrepScreenItemUseStatValues
 	ldr r0, [r4, #0x2c]
 	bl GetUnitCurrentHp
 	adds r1, r7, #0
@@ -29564,7 +29564,7 @@ sub_809CDD4: @ 0x0809CDD4
 	movs r1, #0xe
 	movs r2, #0xe
 	adds r3, r6, #0
-	bl sub_809CD14
+	bl PrepItemBooster_DrawPopup
 	movs r4, #0
 _0809CEF0:
 	adds r0, r7, #0
@@ -29611,10 +29611,10 @@ _0809CF3A:
 	.align 2, 0
 _0809CF44: .4byte gRAMChapterData
 
-	THUMB_FUNC_END sub_809CDD4
+	THUMB_FUNC_END PrepItemBooster_OnInit
 
-	THUMB_FUNC_START sub_809CF48
-sub_809CF48: @ 0x0809CF48
+	THUMB_FUNC_START PrepItemBooster_Idle
+PrepItemBooster_Idle: @ 0x0809CF48
 	push {r4, r5, lr}
 	sub sp, #4
 	adds r5, r0, #0
@@ -29649,10 +29649,10 @@ _0809CF7C:
 _0809CF84: .4byte 0x0000A440
 _0809CF88: .4byte gKeyStatusPtr
 
-	THUMB_FUNC_END sub_809CF48
+	THUMB_FUNC_END PrepItemBooster_Idle
 
-	THUMB_FUNC_START sub_809CF8C
-sub_809CF8C: @ 0x0809CF8C
+	THUMB_FUNC_START PrepItemBooster_OnEnd
+PrepItemBooster_OnEnd: @ 0x0809CF8C
 	push {r4, r5, lr}
 	ldr r4, [r0, #0x14]
 	ldr r0, [r4, #0x2c]
@@ -29694,7 +29694,7 @@ _0809CFD4:
 	bl sub_809B74C
 	ldr r0, [r4, #0x2c]
 	ldr r1, [r4, #0x30]
-	bl sub_809C3EC
+	bl DrawPrepScreenItemUseItemUseDesc
 	movs r0, #0
 	bl sub_80ACA84
 	bl sub_807EE74
@@ -29712,7 +29712,7 @@ _0809D008: .4byte gUnknown_02022EEC
 _0809D00C: .4byte gUnknown_02013510
 _0809D010: .4byte 0x06014000
 
-	THUMB_FUNC_END sub_809CF8C
+	THUMB_FUNC_END PrepItemBooster_OnEnd
 
 	THUMB_FUNC_START sub_809D014
 sub_809D014: @ 0x0809D014
@@ -29809,8 +29809,8 @@ _0809D0D0: .4byte gUnknown_02013570
 
 	THUMB_FUNC_END sub_809D014
 
-	THUMB_FUNC_START sub_809D0D4
-sub_809D0D4: @ 0x0809D0D4
+	THUMB_FUNC_START PrepJunaEffect_OnInit
+PrepJunaEffect_OnInit: @ 0x0809D0D4
 	push {r4, r5, r6, r7, lr}
 	mov r7, r8
 	push {r7}
@@ -29840,9 +29840,9 @@ sub_809D0D4: @ 0x0809D0D4
 	adds r6, r0, #0
 	ldr r0, [r4, #0x2c]
 	movs r1, #0
-	bl sub_809C0B4
+	bl DrawPrepScreenItemUseStatBars
 	ldr r0, [r4, #0x2c]
-	bl sub_809C254
+	bl DrawPrepScreenItemUseStatValues
 	ldr r0, [r4, #0x2c]
 	ldrb r0, [r0, #8]
 	adds r4, r7, #0
@@ -29890,7 +29890,7 @@ _0809D16A:
 	.align 2, 0
 _0809D178: .4byte gRAMChapterData
 
-	THUMB_FUNC_END sub_809D0D4
+	THUMB_FUNC_END PrepJunaEffect_OnInit
 
 	THUMB_FUNC_START sub_809D17C
 sub_809D17C: @ 0x0809D17C
@@ -29930,8 +29930,8 @@ _0809D1BC: .4byte gKeyStatusPtr
 
 	THUMB_FUNC_END sub_809D17C
 
-	THUMB_FUNC_START sub_809D1C0
-sub_809D1C0: @ 0x0809D1C0
+	THUMB_FUNC_START PrepJunaEffect_OnEnd
+PrepJunaEffect_OnEnd: @ 0x0809D1C0
 	push {r4, r5, lr}
 	ldr r4, [r0, #0x14]
 	ldr r0, [r4, #0x2c]
@@ -29973,7 +29973,7 @@ _0809D208:
 	bl sub_809B74C
 	ldr r0, [r4, #0x2c]
 	ldr r1, [r4, #0x30]
-	bl sub_809C3EC
+	bl DrawPrepScreenItemUseItemUseDesc
 	movs r0, #0
 	bl sub_80ACA84
 	movs r0, #5
@@ -29990,7 +29990,7 @@ _0809D238: .4byte gUnknown_02022EEC
 _0809D23C: .4byte gUnknown_02013510
 _0809D240: .4byte 0x06014000
 
-	THUMB_FUNC_END sub_809D1C0
+	THUMB_FUNC_END PrepJunaEffect_OnEnd
 
 	THUMB_FUNC_START sub_809D244
 sub_809D244: @ 0x0809D244
