@@ -54,7 +54,7 @@ void InitPlayerUnitPositionsForPrepScreen();
 void sub_801240C();
 
 // code.s
-bool8 IsCharacterForceDeployed(int);
+s8 IsCharacterForceDeployed(int);
 void SortPlayerUnitsForPrepScreen();
 bool8 sub_8094FF4();
 int sub_809541C();
@@ -571,7 +571,7 @@ void PrepScreenProc_StartMapMenu(struct UnknownSALLYCURSORProc* proc) {
 }
 
 bool8 CanCharacterBePrepMoved(int unitId) {
-    if ((IsCharacterForceDeployed(unitId) << 0x18) == 0) {
+    if ((IsCharacterForceDeployed(unitId)) == 0) {
         if (unitId != 0x100) {
             return 1;
         }

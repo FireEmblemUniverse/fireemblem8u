@@ -131,7 +131,7 @@ extern u16 gBmFrameTmap1[];
 // extern ??? gUnknown_020111A4
 // extern ??? gUnknown_020111CC
 // extern ??? gUnknown_02011BC8
-// extern ??? gUnknown_020121CC
+extern struct Struct20121CC gUnknown_020121CC;
 // extern ??? gUnknown_020122D4
 // extern ??? gUnknown_02012914
 // extern ??? gUnknown_02012F54
@@ -626,7 +626,7 @@ extern struct ActionData gActionData;
 // extern ??? gUnknown_0203E800
 // extern ??? gUnknown_0203E828
 // extern ??? gUnknown_0203E82C
-// extern ??? gUnknown_0203E87C
+extern struct Struct203E87C gUnknown_0203E87C;
 // extern ??? gUnknown_0203E884
 // extern ??? gBoolSramWorking
 extern struct UnitUsageStats *gpBWLSaveTarget;

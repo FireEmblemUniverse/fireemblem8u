@@ -13,6 +13,7 @@ struct BattleHit;
 struct PopupInstruction;
 struct MAInfoFrameProc;
 struct MAExpBarProc;
+struct ProcAtMenu;
 
 // Type definitions for types without any other home :/
 
@@ -576,6 +577,14 @@ struct Struct202B6B0 {
     u16 unk5A;
     u8 _pad5C[0x8A - 0x5C];
     u16 unk8A;
+};
+
+struct Struct203E87C {
+    u8 unk00[5];
+};
+
+struct Struct20121CC {
+    int data[0x42];
 };
 
 #endif // GUARD_TYPES_H
