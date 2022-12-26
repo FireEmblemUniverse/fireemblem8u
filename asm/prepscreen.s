@@ -2,65 +2,6 @@
 
 	.SYNTAX UNIFIED
 
-	THUMB_FUNC_START sub_8095498
-sub_8095498: @ 0x08095498
-	push {r4, r5, r6, lr}
-	sub sp, #4
-	movs r6, #0
-	adds r2, r0, #0
-	adds r2, #0x2f
-	strb r6, [r2]
-	ldr r0, _080954F8  @ gRAMChapterData
-	ldrb r1, [r0, #0x14]
-	movs r0, #0x80
-	ands r0, r1
-	cmp r0, #0
-	bne _080954EE
-	movs r4, #0
-	adds r5, r2, #0
-
-_080954B4:
-	adds r0, r4, #0
-	bl sub_80A095C
-	lsls r0, r0, #0x18
-	cmp r0, #0
-	beq _080954CA
-	movs r0, #1
-	lsls r0, r4
-	ldrb r1, [r5]
-	orrs r0, r1
-	strb r0, [r5]
-_080954CA:
-	adds r4, #1
-	cmp r4, #3
-	ble _080954B4
-
-	movs r0, #2
-	bl sub_80A095C
-	lsls r0, r0, #0x18
-	cmp r0, #0
-	bne _080954DE
-	movs r6, #1
-_080954DE:
-	ldr r1, _080954FC  @ PrepScreenMenu_OnSupport
-	ldr r3, _08095500  @ 0x00000577
-	movs r0, #0
-	str r0, [sp]
-	movs r0, #4
-	adds r2, r6, #0
-	bl SetPrepScreenMenuItem
-_080954EE:
-	add sp, #4
-	pop {r4, r5, r6}
-	pop {r0}
-	bx r0
-	.align 2, 0
-_080954F8: .4byte gRAMChapterData
-_080954FC: .4byte PrepScreenMenu_OnSupport
-_08095500: .4byte 0x00000577
-
-	THUMB_FUNC_END sub_8095498
-
 	THUMB_FUNC_START CanPrepScreenCheckMap
 CanPrepScreenCheckMap: @ 0x08095504
 	push {lr}

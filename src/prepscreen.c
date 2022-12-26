@@ -206,3 +206,26 @@ s8 IsUnitInCurrentRoster(struct Unit *unit)
 
     return 1;
 }
+
+// AtMenu_AddPrepScreenSupportMenuItem
+void sub_8095498(struct ProcAtMenu *proc)
+{
+    int i;
+    int color = 0;
+
+    proc->unk_2F = 0;
+    if (0 != (CHAPTER_FLAG_7 & gRAMChapterData.chapterStateBits))
+        return;
+
+    for (i = 0; i < 4; i++) {
+        if (0 == sub_80A095C(i))
+            continue;
+
+        proc->unk_2F |= 1 << i;
+    }
+
+    if (0 == sub_80A095C(2))
+        color = 1;
+
+    SetPrepScreenMenuItem(4, PrepScreenMenu_OnSupport, color, 0x577, 0);
+}
