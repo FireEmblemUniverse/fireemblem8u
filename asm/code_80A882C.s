@@ -11415,7 +11415,7 @@ _080ADD88:
 	cmp r5, #0
 	bne _080ADD88
 _080ADD9E:
-	ldr r0, _080ADDD0  @ gUnknown_0859EF00
+	ldr r0, _080ADDD0  @ Pal_UIFont
 	lsls r1, r7, #5
 	movs r2, #0x20
 	bl CopyToPaletteBuffer
@@ -11435,7 +11435,7 @@ _080ADD9E:
 	.align 2, 0
 _080ADDC8: .4byte gUnknown_08A20D8C
 _080ADDCC: .4byte 0x06010000
-_080ADDD0: .4byte gUnknown_0859EF00
+_080ADDD0: .4byte Pal_UIFont
 
 	THUMB_FUNC_END sub_80ADD24
 
@@ -16081,7 +16081,7 @@ sub_80AFF30: @ 0x080AFF30
 	adds r1, r6, #0
 	movs r2, #5
 	bl InitSomeOtherGraphicsRelatedStruct
-	ldr r0, _080B0000  @ gUnknown_0859EF00
+	ldr r0, _080B0000  @ Pal_UIFont
 	movs r5, #0xd0
 	lsls r5, r5, #2
 	adds r1, r5, #0
@@ -16160,7 +16160,7 @@ _080AFF74:
 	.align 2, 0
 _080AFFF8: .4byte 0x06014000
 _080AFFFC: .4byte gUnknown_0201F148
-_080B0000: .4byte gUnknown_0859EF00
+_080B0000: .4byte Pal_UIFont
 _080B0004: .4byte gPaletteBuffer
 _080B0008: .4byte 0x0001FFFF
 _080B000C: .4byte 0x000003FF

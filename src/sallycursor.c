@@ -40,11 +40,6 @@ void sub_8013D80(ProcPtr);
 void sub_8013D8C(ProcPtr);
 void sub_8013DA4(ProcPtr);
 
-// bmusort.s
-void InitUnitStack(u8*); // accepts generic buffer
-void PushUnit(struct Unit*);
-void LoadPlayerUnitsFromUnitStack2();
-
 // ev_triggercheck.s
 const struct UnitDefinition* GetChapterAllyUnitDataPointer();
 struct EventCheckBuffer* CheckForEvents(struct EventCheckBuffer*);
@@ -54,19 +49,18 @@ void InitPlayerUnitPositionsForPrepScreen();
 void sub_801240C();
 
 // code.s
-bool8 IsCharacterForceDeployed(int);
+s8 IsCharacterForceDeployed(int);
 void SortPlayerUnitsForPrepScreen();
-bool8 sub_8094FF4();
-int sub_809541C();
-int sub_8095970();
+u8 CanPrepScreenSave();
+int CalcForceDeployedUnitCounts();
 void sub_8096454(ProcPtr);
 void sub_80966B0(ProcPtr);
 void StartPrepScreenMenu();
-void sub_8096FD0(const void*);
-void sub_8096FEC(const void*);
+void SetPrepScreenMenuOnBPress(const void*);
+void SetPrepScreenMenuOnStartPress(const void*);
 void sub_8097008(const void*);
 void SetPrepScreenMenuItem(int, const void*, int, int, int);
-void sub_80970CC(int);
+void SetPrepScreenMenuSelectedItem(int);
 void DrawPrepScreenMenuFrameAt(int, int);
 void EndPrepScreenMenu();
 void PrepScreenMenuExists(ProcPtr);
@@ -375,7 +369,7 @@ void sub_80332D0() {
     const struct UnitDefinition* uDef = GetChapterAllyUnitDataPointer();
     BmMapFill(gBmMapRange, 0);
     BmMapFill(gBmMapMovement, -1);
-    uDef += sub_809541C(); // TODO - Seems to be count of non-deployable / force-deployed characters
+    uDef += CalcForceDeployedUnitCounts(); // TODO - Seems to be count of non-deployable / force-deployed characters
 
     if (uDef->charIndex != 0) {
         while (uDef->charIndex) {
@@ -419,7 +413,7 @@ void PrepMapMenu_OnFormation(struct UnknownSALLYCURSORProc* proc) {
 }
 
 bool8 PrepMapMenu_OnStartPress(ProcPtr proc) {
-    if (sub_8095970() == 0) {
+    if (PrepGetDeployedUnitAmt() == 0) {
         return 0;
     }
     Proc_Goto(proc, 55);
@@ -549,29 +543,29 @@ void PrepScreenProc_StartMapMenu(struct UnknownSALLYCURSORProc* proc) {
 
     SetPrepScreenMenuItem(1, *PrepMapMenu_OnViewMap, 0, 0x590, 0x5BB);
 
-    SetPrepScreenMenuItem(2, *PrepMapMenu_OnFormation, (sub_8095970() ? 0 : 1), 0x591, 0x5BC);
+    SetPrepScreenMenuItem(2, *PrepMapMenu_OnFormation, (PrepGetDeployedUnitAmt() ? 0 : 1), 0x591, 0x5BC);
 
     SetPrepScreenMenuItem(8, *PrepMapMenu_OnOptions, 0, 0x592, 0x5BD);
 
-    if ((sub_8094FF4() << 0x18) != 0) {
+    if (CanPrepScreenSave() != 0) {
         SetPrepScreenMenuItem(9, *PrepMapMenu_OnSave, 0, 0x579, 0x5BE);
     } else {
         SetPrepScreenMenuItem(9, *PrepMapMenu_OnSave, 1, 0x579, 0x5BE);
     }
 
     sub_8033620(proc);
-    sub_8096FD0(*PrepMapMenu_OnBPress);
-    sub_8096FEC(*PrepMapMenu_OnStartPress);
+    SetPrepScreenMenuOnBPress(*PrepMapMenu_OnBPress);
+    SetPrepScreenMenuOnStartPress(*PrepMapMenu_OnStartPress);
     sub_8097008(*PrepMapMenu_OnEnd);
     DrawPrepScreenMenuFrameAt(0xA, 2);
 
-    sub_80970CC(proc->unk_58);
+    SetPrepScreenMenuSelectedItem(proc->unk_58);
     BG_EnableSyncByMask(3);
     return;
 }
 
 bool8 CanCharacterBePrepMoved(int unitId) {
-    if ((IsCharacterForceDeployed(unitId) << 0x18) == 0) {
+    if ((IsCharacterForceDeployed(unitId)) == 0) {
         if (unitId != 0x100) {
             return 1;
         }
@@ -683,11 +677,11 @@ void sub_80338C0() {
     s8 y;
     struct Unit* unit = GetUnitFromCharId(GetPlayerLeaderUnitId());
 
-    if (unit && sub_8095970()) {
+    if (unit && PrepGetDeployedUnitAmt()) {
         SetCursorMapPosition(unit->xPos, unit->yPos);
     } else {
         uDef = GetChapterAllyUnitDataPointer();
-        uDef = uDef + sub_809541C();
+        uDef = uDef + CalcForceDeployedUnitCounts();
         GetPreferredPositionForUNIT(uDef, &x, &y, 0);
         SetCursorMapPosition(x, y);
     }

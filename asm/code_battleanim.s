@@ -4475,7 +4475,7 @@ _08051F18: .4byte gUnknown_0203E102
 sub_8051F1C: @ 0x08051F1C
 	push {r4, r5, r6, lr}
 	sub sp, #8
-	ldr r4, _08051F5C  @ gUnknown_0859EF00
+	ldr r4, _08051F5C  @ Pal_UIFont
 	adds r0, r4, #0
 	movs r1, #0x40
 	movs r2, #0x20
@@ -4501,7 +4501,7 @@ sub_8051F1C: @ 0x08051F1C
 	ldr r5, _08051F74  @ gUnknown_085B9354
 	b _08051F86
 	.align 2, 0
-_08051F5C: .4byte gUnknown_0859EF00
+_08051F5C: .4byte Pal_UIFont
 _08051F60: .4byte gUnknown_02017648
 _08051F64: .4byte 0x06001880
 _08051F68: .4byte gUnknown_08801C14

@@ -111,7 +111,7 @@ _08086C26:
 	adds r2, #1
 	cmp r2, r3
 	ble _08086C26
-	ldr r0, _08086C4C  @ gUnknown_08A006E4
+	ldr r0, _08086C4C  @ ProcScr_SlidingWallBg
 	adds r1, r7, #0
 	bl Proc_Start
 	pop {r4, r5, r6, r7}
@@ -121,7 +121,7 @@ _08086C26:
 _08086C40: .4byte gUnknown_08B1754C
 _08086C44: .4byte gUnknown_08B12DB4
 _08086C48: .4byte 0x0000027F
-_08086C4C: .4byte gUnknown_08A006E4
+_08086C4C: .4byte ProcScr_SlidingWallBg
 
 	THUMB_FUNC_END sub_8086BB8
 
@@ -185,7 +185,7 @@ _08086CBA:
 	adds r2, #1
 	cmp r2, r3
 	ble _08086CBA
-	ldr r0, _08086CE4  @ gUnknown_08A006E4
+	ldr r0, _08086CE4  @ ProcScr_SlidingWallBg
 	mov r1, r8
 	bl Proc_Start
 	pop {r3}
@@ -197,7 +197,7 @@ _08086CBA:
 _08086CD8: .4byte gUnknown_08B1754C
 _08086CDC: .4byte gUnknown_08B12DB4
 _08086CE0: .4byte 0x0000027F
-_08086CE4: .4byte gUnknown_08A006E4
+_08086CE4: .4byte ProcScr_SlidingWallBg
 
 	THUMB_FUNC_END sub_8086C50
 
@@ -290,7 +290,7 @@ _08086D88:
 	cmp r4, r2
 	ble _08086D88
 _08086D94:
-	ldr r0, _08086DB8  @ gUnknown_08A006E4
+	ldr r0, _08086DB8  @ ProcScr_SlidingWallBg
 	mov r1, r9
 	bl Proc_Start
 	pop {r3, r4}
@@ -304,19 +304,19 @@ _08086DA8: .4byte gBG3TilemapBuffer
 _08086DAC: .4byte gUnknown_08B1754C
 _08086DB0: .4byte gUnknown_08B12DB4
 _08086DB4: .4byte 0x0000027F
-_08086DB8: .4byte gUnknown_08A006E4
+_08086DB8: .4byte ProcScr_SlidingWallBg
 
 	THUMB_FUNC_END sub_8086CE8
 
 	THUMB_FUNC_START EndBG3Slider
 EndBG3Slider: @ 0x08086DBC
 	push {lr}
-	ldr r0, _08086DC8  @ gUnknown_08A006E4
+	ldr r0, _08086DC8  @ ProcScr_SlidingWallBg
 	bl Proc_EndEach
 	pop {r0}
 	bx r0
 	.align 2, 0
-_08086DC8: .4byte gUnknown_08A006E4
+_08086DC8: .4byte ProcScr_SlidingWallBg
 
 	THUMB_FUNC_END EndBG3Slider
 

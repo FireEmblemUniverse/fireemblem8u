@@ -2675,9 +2675,9 @@ sub_8098620: @ 0x08098620
 	movs r2, #0x20
 	bl CopyToPaletteBuffer
 	bl LoadObjUIGfx
-	bl sub_80958BC
-	bl sub_8095394
-	bl sub_80958FC
+	bl MakePrepUnitList
+	bl PrepGetLatestCharId
+	bl UnitGetIndexInPrepList
 	adds r1, r7, #0
 	adds r1, #0x2a
 	movs r4, #0
@@ -2870,7 +2870,7 @@ _08098746:
 	lsls r0, r0, #3
 	movs r1, #1
 	bl sub_80AD4A0
-	bl sub_8095A1C
+	bl EndSlidingWallEffectMaybe
 	mov r1, r8
 	ldrb r0, [r1]
 	cmp r0, #0xff
@@ -2897,7 +2897,7 @@ _08098746:
 	bl sub_80AC9D4
 	mov r2, r8
 	ldrb r0, [r2]
-	bl sub_8095354
+	bl GetUnitFromPrepList
 	adds r1, r0, #0
 	ldr r0, _080989B4  @ 0x00000503
 	str r0, [sp]
@@ -2915,7 +2915,7 @@ _080988E2:
 	movs r2, #0xb
 	bl sub_8097748
 	ldrh r4, [r7, #0x34]
-	bl sub_8095374
+	bl PrepGetUnitAmount
 	subs r0, #1
 	movs r1, #3
 	bl __divsi3
@@ -2928,7 +2928,7 @@ _080988E2:
 	movs r3, #4
 	bl sub_80976CC
 	bl sub_8097668
-	bl sub_8095928
+	bl PrepUpdateSMS
 	movs r0, #1
 	movs r1, #8
 	movs r2, #8
@@ -2993,10 +2993,10 @@ sub_80989BC: @ 0x080989BC
 	push {lr}
 	adds r0, #0x2a
 	ldrb r0, [r0]
-	bl sub_8095354
+	bl GetUnitFromPrepList
 	ldr r0, [r0]
 	ldrb r0, [r0, #4]
-	bl sub_80953C0
+	bl PrepSetLatestCharId
 	bl DeleteEach6CDifferedLoop
 	bl sub_80AD580
 	bl sub_80ACB00
@@ -3410,7 +3410,7 @@ sub_8098CC0: @ 0x08098CC0
 	adds r5, r6, #0
 	adds r5, #0x2a
 	ldrb r0, [r5]
-	bl sub_8095354
+	bl GetUnitFromPrepList
 	adds r1, r0, #0
 	ldr r0, _08098D88  @ 0x00000503
 	str r0, [sp]
@@ -3421,7 +3421,7 @@ sub_8098CC0: @ 0x08098CC0
 	ldr r4, _08098D8C  @ gUnknown_02013510
 	ldr r7, _08098D90  @ gUnknown_02022EEC
 	ldrb r0, [r5]
-	bl sub_8095354
+	bl GetUnitFromPrepList
 	adds r2, r0, #0
 	adds r0, r4, #0
 	adds r1, r7, #0
@@ -3565,7 +3565,7 @@ _08098E80:
 	beq _08098E9E
 	ldrb r4, [r6]
 	adds r4, #3
-	bl sub_8095374
+	bl PrepGetUnitAmount
 	cmp r4, r0
 	bge _08098E9E
 	ldrb r0, [r6]
@@ -3599,7 +3599,7 @@ _08098EBA:
 	cmp r0, #1
 	bhi _08098EE4
 	adds r4, #1
-	bl sub_8095374
+	bl PrepGetUnitAmount
 	cmp r4, r0
 	bge _08098EE4
 	ldrb r0, [r6]
@@ -3613,7 +3613,7 @@ _08098EE4:
 	bl __udivsi3
 	lsls r0, r0, #0x18
 	lsrs r4, r0, #0x14
-	bl sub_8095374
+	bl PrepGetUnitAmount
 	subs r0, #1
 	movs r1, #3
 	bl __divsi3
@@ -3714,7 +3714,7 @@ sub_8098FAC: @ 0x08098FAC
 	bl __udivsi3
 	lsls r0, r0, #0x18
 	lsrs r7, r0, #0x14
-	bl sub_8095374
+	bl PrepGetUnitAmount
 	subs r0, #1
 	movs r1, #3
 	bl __divsi3
@@ -3765,7 +3765,7 @@ sub_8098FAC: @ 0x08098FAC
 	bl sub_80AC9D4
 _0809902C:
 	ldrh r4, [r6, #0x34]
-	bl sub_8095374
+	bl PrepGetUnitAmount
 	subs r0, #1
 	movs r1, #3
 	bl __divsi3
@@ -3822,7 +3822,7 @@ _0809904C:
 	bl sub_80AC9D4
 _080990A8:
 	ldrh r4, [r6, #0x34]
-	bl sub_8095374
+	bl PrepGetUnitAmount
 	subs r0, #1
 	movs r1, #3
 	bl __divsi3
@@ -3853,7 +3853,7 @@ sub_80990D4: @ 0x080990D4
 	adds r0, r4, #0
 	adds r0, #0x2a
 	ldrb r0, [r0]
-	bl sub_8095354
+	bl GetUnitFromPrepList
 	adds r1, r4, #0
 	bl StartStatScreen
 	adds r0, r4, #0
@@ -3869,7 +3869,7 @@ sub_8099100: @ 0x08099100
 	push {r4, lr}
 	adds r4, r0, #0
 	bl sub_8098620
-	bl sub_8095674
+	bl GetLatestUnitIndexInPrepListByUId
 	adds r1, r4, #0
 	adds r1, #0x2a
 	strb r0, [r1]
@@ -3939,7 +3939,7 @@ _0809915C:
 	lsrs r0, r0, #0x18
 	cmp r0, #1
 	bhi _08099230
-	bl sub_8095374
+	bl PrepGetUnitAmount
 	subs r0, #1
 	cmp r7, r0
 	bge _08099230
@@ -3952,7 +3952,7 @@ _080991A8:
 	adds r0, r6, #0
 	adds r0, #0x2a
 	ldrb r0, [r0]
-	bl sub_8095354
+	bl GetUnitFromPrepList
 	movs r1, #0x72
 	bl UnitHasItem
 	lsls r0, r0, #0x18
@@ -4006,7 +4006,7 @@ _08099202:
 	lsrs r0, r0, #0x18
 	cmp r0, #1
 	bhi _08099230
-	bl sub_8095374
+	bl PrepGetUnitAmount
 	subs r0, #1
 	cmp r7, r0
 	bge _08099230
@@ -4096,7 +4096,7 @@ _080992CC:
 	adds r7, r6, #0
 	adds r7, #0x2a
 	ldrb r0, [r7]
-	bl sub_8095354
+	bl GetUnitFromPrepList
 	adds r1, r0, #0
 	ldr r0, _0809931C  @ 0x00000503
 	str r0, [sp]
@@ -4107,7 +4107,7 @@ _080992CC:
 	ldr r4, _08099320  @ gUnknown_02013510
 	ldr r5, _08099324  @ gUnknown_02022EEC
 	ldrb r0, [r7]
-	bl sub_8095354
+	bl GetUnitFromPrepList
 	adds r2, r0, #0
 	adds r0, r4, #0
 	adds r1, r5, #0
@@ -4148,7 +4148,7 @@ sub_8099328: @ 0x08099328
 	ldr r7, _08099454  @ gUnknown_02013560
 	adds r0, r7, #0
 	bl Text_Clear
-	bl sub_8095374
+	bl PrepGetUnitAmount
 	movs r4, #0
 	cmp r0, #1
 	bgt _08099358
@@ -4161,7 +4161,7 @@ _08099358:
 	movs r1, #0
 	adds r2, r4, #0
 	bl Text_InsertString
-	bl sub_8095374
+	bl PrepGetUnitAmount
 	movs r4, #0
 	cmp r0, #1
 	bgt _08099376
@@ -4327,7 +4327,7 @@ sub_80994C4: @ 0x080994C4
 	adds r0, r0, r4
 	mov r9, r0
 	ldrb r0, [r0]
-	bl sub_8095354
+	bl GetUnitFromPrepList
 	adds r6, r0, #0
 	adds r4, #0x32
 	movs r1, #0
@@ -4342,7 +4342,7 @@ sub_80994C4: @ 0x080994C4
 	ldr r7, _080995BC  @ gUnknown_02022EEC
 	mov r2, r9
 	ldrb r0, [r2]
-	bl sub_8095354
+	bl GetUnitFromPrepList
 	adds r2, r0, #0
 	adds r0, r5, #0
 	adds r1, r7, #0
@@ -4497,7 +4497,7 @@ sub_8099654: @ 0x08099654
 	ldr r5, _080996A8  @ gUnknown_02022F0E
 	adds r0, #0x2b
 	ldrb r0, [r0]
-	bl sub_8095354
+	bl GetUnitFromPrepList
 	adds r2, r0, #0
 	adds r0, r4, #0
 	adds r1, r5, #0
@@ -4540,7 +4540,7 @@ sub_80996B0: @ 0x080996B0
 	adds r4, r0, #0
 	adds r0, #0x2b
 	ldrb r0, [r0]
-	bl sub_8095354
+	bl GetUnitFromPrepList
 	adds r5, r0, #0
 	adds r0, r4, #0
 	movs r1, #0
@@ -4644,7 +4644,7 @@ _08099774: @ jump table
 	.4byte _08099854 @ case 4
 	.4byte _08099868 @ case 5
 _0809978C:
-	bl sub_8095374
+	bl PrepGetUnitAmount
 	cmp r0, #1
 	bgt _08099796
 	b _080998D4
@@ -4653,7 +4653,7 @@ _08099796:
 	movs r1, #4
 	b _080998B4
 _0809979C:
-	bl sub_8095374
+	bl PrepGetUnitAmount
 	cmp r0, #1
 	bgt _080997A6
 	b _080998D4
@@ -4665,7 +4665,7 @@ _080997AC:
 	adds r0, r5, #0
 	adds r0, #0x2b
 	ldrb r0, [r0]
-	bl sub_8095354
+	bl GetUnitFromPrepList
 	bl CanUnitPrepScreenUse
 	lsls r0, r0, #0x18
 	cmp r0, #0
@@ -4682,7 +4682,7 @@ _080997C8:
 	adds r0, r5, #0
 	adds r0, #0x2b
 	ldrb r0, [r0]
-	bl sub_8095354
+	bl GetUnitFromPrepList
 	ldr r0, [r0, #0xc]
 	movs r1, #8
 	ands r0, r1
@@ -4707,14 +4707,14 @@ _080997F8:
 	adds r6, r5, #0
 	adds r6, #0x2b
 	ldrb r0, [r6]
-	bl sub_8095354
+	bl GetUnitFromPrepList
 	bl sub_809A538
 	lsls r0, r0, #0x18
 	cmp r0, #0
 	beq _080998D4
 	ldr r4, _0809984C  @ gUnknown_02022F0E
 	ldrb r0, [r6]
-	bl sub_8095354
+	bl GetUnitFromPrepList
 	adds r2, r0, #0
 	adds r0, r5, #0
 	adds r1, r4, #0
@@ -4722,7 +4722,7 @@ _080997F8:
 	ldr r5, _08099850  @ gUnknown_02013510
 	subs r4, #0x22
 	ldrb r0, [r6]
-	bl sub_8095354
+	bl GetUnitFromPrepList
 	adds r2, r0, #0
 	adds r0, r5, #0
 	adds r1, r4, #0
@@ -4762,7 +4762,7 @@ _08099868:
 	adds r0, r5, #0
 	adds r0, #0x2b
 	ldrb r0, [r0]
-	bl sub_8095354
+	bl GetUnitFromPrepList
 	bl GetUnitItemCount
 	cmp r0, #0
 	ble _080998D4
@@ -5049,7 +5049,7 @@ sub_8099AA0: @ 0x08099AA0
 	adds r0, r6, #0
 	adds r0, #0x2b
 	ldrb r0, [r0]
-	bl sub_8095354
+	bl GetUnitFromPrepList
 	adds r2, r0, #0
 	adds r0, r4, #0
 	adds r1, r5, #0
@@ -5059,7 +5059,7 @@ sub_8099AA0: @ 0x08099AA0
 	adds r5, #0x1e
 	adds r6, #0x2a
 	ldrb r0, [r6]
-	bl sub_8095354
+	bl GetUnitFromPrepList
 	adds r2, r0, #0
 	adds r0, r4, #0
 	adds r1, r5, #0
@@ -5161,7 +5161,7 @@ sub_8099AF8: @ 0x08099AF8
 	mov r4, r8
 	adds r4, #0x2b
 	ldrb r0, [r4]
-	bl sub_8095354
+	bl GetUnitFromPrepList
 	adds r1, r0, #0
 	ldr r0, _08099C54  @ 0x00000503
 	str r0, [sp]
@@ -5170,7 +5170,7 @@ sub_8099AF8: @ 0x08099AF8
 	movs r3, #0x4c
 	bl sub_8099E98
 	ldrb r0, [r6]
-	bl sub_8095354
+	bl GetUnitFromPrepList
 	adds r1, r0, #0
 	ldr r0, _08099C58  @ 0x00000502
 	str r0, [sp]
@@ -5270,13 +5270,13 @@ _08099CA0:
 	adds r5, r6, #0
 	adds r5, #0x2a
 	ldrb r0, [r5]
-	bl sub_8095354
+	bl GetUnitFromPrepList
 	bl GetUnitItemCount
 	adds r7, r0, #0
 	adds r4, r6, #0
 	adds r4, #0x2b
 	ldrb r0, [r4]
-	bl sub_8095354
+	bl GetUnitFromPrepList
 	bl GetUnitItemCount
 	adds r1, r0, #0
 	ldrb r0, [r5]
@@ -5344,7 +5344,7 @@ _08099D40:
 	adds r7, r6, #0
 	adds r7, #0x2a
 	ldrb r0, [r7]
-	bl sub_8095354
+	bl GetUnitFromPrepList
 	adds r1, r0, #0
 	ldr r0, _08099DAC  @ 0x00000502
 	str r0, [sp]
@@ -5355,7 +5355,7 @@ _08099D40:
 	ldr r4, _08099DB0  @ gUnknown_02013538
 	ldr r5, _08099DB4  @ gUnknown_02022F0A
 	ldrb r0, [r7]
-	bl sub_8095354
+	bl GetUnitFromPrepList
 	adds r2, r0, #0
 	adds r0, r4, #0
 	adds r1, r5, #0
@@ -5366,7 +5366,7 @@ _08099D40:
 	adds r0, r6, #0
 	adds r0, #0x2b
 	ldrb r0, [r0]
-	bl sub_8095354
+	bl GetUnitFromPrepList
 	adds r2, r0, #0
 	adds r0, r4, #0
 	adds r1, r5, #0
@@ -5397,12 +5397,12 @@ sub_8099DB8: @ 0x08099DB8
 	adds r0, r4, #0
 	adds r0, #0x2b
 	ldrb r0, [r0]
-	bl sub_8095354
+	bl GetUnitFromPrepList
 	adds r5, r0, #0
 	adds r0, r4, #0
 	adds r0, #0x2a
 	ldrb r0, [r0]
-	bl sub_8095354
+	bl GetUnitFromPrepList
 	adds r1, r0, #0
 	adds r0, r5, #0
 	adds r2, r4, #0
@@ -5419,7 +5419,7 @@ sub_8099DE8: @ 0x08099DE8
 	adds r4, r0, #0
 	adds r0, #0x2b
 	ldrb r0, [r0]
-	bl sub_8095354
+	bl GetUnitFromPrepList
 	adds r1, r4, #0
 	bl StartPrepItemUseScreen
 	pop {r4}
@@ -5434,7 +5434,7 @@ sub_8099E00: @ 0x08099E00
 	adds r4, r0, #0
 	adds r0, #0x2b
 	ldrb r0, [r0]
-	bl sub_8095354
+	bl GetUnitFromPrepList
 	adds r1, r4, #0
 	bl sub_809EAD8
 	pop {r4}
@@ -5449,7 +5449,7 @@ sub_8099E18: @ 0x08099E18
 	adds r4, r0, #0
 	adds r0, #0x2b
 	ldrb r0, [r0]
-	bl sub_8095354
+	bl GetUnitFromPrepList
 	adds r1, r4, #0
 	bl sub_80A070C
 	pop {r4}
@@ -5464,7 +5464,7 @@ sub_8099E30: @ 0x08099E30
 	adds r4, r0, #0
 	adds r0, #0x2b
 	ldrb r0, [r0]
-	bl sub_8095354
+	bl GetUnitFromPrepList
 	adds r1, r4, #0
 	bl sub_809FD88
 	pop {r4}
@@ -5479,7 +5479,7 @@ sub_8099E48: @ 0x08099E48
 	adds r4, r0, #0
 	adds r0, #0x2b
 	ldrb r0, [r0]
-	bl sub_8095354
+	bl GetUnitFromPrepList
 	ldr r1, _08099E64  @ gUnknown_08A188E4
 	adds r2, r4, #0
 	bl StartArmoryScreen
@@ -5785,7 +5785,7 @@ sub_809A08C: @ 0x0809A08C
 	lsls r0, r0, #0x18
 	lsrs r4, r0, #0x14
 	adds r6, r4, #0
-	bl sub_8095374
+	bl PrepGetUnitAmount
 	subs r0, #1
 	movs r1, #3
 	bl __divsi3
@@ -5824,7 +5824,7 @@ _0809A0D8:
 	movs r0, #2
 	bl BG_SetPosition
 	ldrh r4, [r5, #0x34]
-	bl sub_8095374
+	bl PrepGetUnitAmount
 	subs r0, #1
 	movs r1, #3
 	bl __divsi3
@@ -5893,7 +5893,7 @@ _0809A160:
 _0809A16C:
 	ldr r0, [sp]
 	adds r5, r0, r7
-	bl sub_8095374
+	bl PrepGetUnitAmount
 	cmp r5, r0
 	bge _0809A1FA
 	adds r0, r7, #0
@@ -5909,7 +5909,7 @@ _0809A16C:
 	cmp r0, #0
 	bne _0809A1EA
 	adds r0, r5, #0
-	bl sub_8095354
+	bl GetUnitFromPrepList
 	adds r5, r0, #0
 	adds r0, r4, #0
 	movs r1, #0
@@ -6074,7 +6074,7 @@ _0809A2B8:
 	cmp r0, #2
 	bne _0809A2EC
 	adds r0, r6, #0
-	bl sub_8095354
+	bl GetUnitFromPrepList
 	adds r1, r5, #0
 	adds r1, #0x18
 	lsls r1, r1, #0x10
@@ -6092,7 +6092,7 @@ _0809A2EC:
 	movs r0, #0xff
 	ands r4, r0
 	adds r0, r6, #0
-	bl sub_8095354
+	bl GetUnitFromPrepList
 	adds r3, r0, #0
 	movs r0, #0
 	adds r1, r5, #0
@@ -6101,7 +6101,7 @@ _0809A2EC:
 _0809A306:
 	adds r6, #1
 _0809A308:
-	bl sub_8095374
+	bl PrepGetUnitAmount
 	cmp r6, r0
 	blt _0809A27C
 	bl SMS_FlushDirect
@@ -6451,11 +6451,11 @@ PrepUnit_DrawUnitListNames: @ 0x0809A580
 _0809A5A0:
 	mov r0, r8
 	adds r4, r0, r7
-	bl sub_8095374
+	bl PrepGetUnitAmount
 	cmp r4, r0
 	bge _0809A61A
 	adds r0, r4, #0
-	bl sub_8095354
+	bl GetUnitFromPrepList
 	adds r5, r0, #0
 	movs r6, #0
 	bl CheckSomethingSomewhere
@@ -6576,7 +6576,7 @@ _0809A67A:
 	adds r4, #0x70
 	adds r5, #0x18
 	adds r0, r6, #0
-	bl sub_8095354
+	bl GetUnitFromPrepList
 	adds r3, r0, #0
 	movs r0, #0
 	adds r1, r4, #0
@@ -6585,7 +6585,7 @@ _0809A67A:
 _0809A6AC:
 	adds r6, #1
 _0809A6AE:
-	bl sub_8095374
+	bl PrepGetUnitAmount
 	cmp r6, r0
 	blt _0809A67A
 	mov r0, r8
@@ -6873,10 +6873,10 @@ sub_809A8F8: @ 0x0809A8F8
 	ldr r2, _0809A92C  @ 0x01000008
 	mov r0, sp
 	bl CpuFastSet
-	bl sub_80958BC
+	bl MakePrepUnitList
 	ldr r0, [r4, #0x14]
-	bl AtMenu_AutoCapDeployPrepScreenUnits
-	bl sub_8095928
+	bl PrepAutoCapDeployUnits
+	bl PrepUpdateSMS
 	add sp, #4
 	pop {r4}
 	pop {r0}
@@ -6973,7 +6973,7 @@ _0809A9E4: .4byte gUnknown_02013630
 sub_809A9E8: @ 0x0809A9E8
 	push {lr}
 	ldrh r0, [r0, #0x2e]
-	bl sub_8095354
+	bl GetUnitFromPrepList
 	bl sub_809A930
 	pop {r0}
 	bx r0
@@ -7223,7 +7223,7 @@ sub_809ABD0: @ 0x0809ABD0
 	str r0, [r2, #0xc]
 	ldr r0, [r2]
 	ldrb r0, [r0, #4]
-	bl sub_80952EC
+	bl Reset203E87C_WithVal
 	ldr r0, _0809AC1C  @ gRAMChapterData
 	adds r0, #0x41
 	ldrb r0, [r0]
@@ -7283,7 +7283,7 @@ sub_809AC40: @ 0x0809AC40
 	str r0, [r4, #0xc]
 	ldr r0, [r4]
 	ldrb r0, [r0, #4]
-	bl sub_8095314
+	bl Modify203E87C
 	ldr r0, _0809AC90  @ gRAMChapterData
 	adds r0, #0x41
 	ldrb r0, [r0]
@@ -7326,7 +7326,7 @@ sub_809ACB4: @ 0x0809ACB4
 	push {r4, r5, lr}
 	adds r4, r0, #0
 	ldrh r0, [r4, #0x2e]
-	bl sub_8095354
+	bl GetUnitFromPrepList
 	adds r5, r0, #0
 	ldr r1, [r5, #0xc]
 	movs r0, #0x80
@@ -7447,7 +7447,7 @@ ShouldPrepUnitMenuScroll: @ 0x0809AD90
 	ble _0809ADBA
 _0809ADA4:
 	adds r5, r1, #5
-	bl sub_8095374
+	bl PrepGetUnitAmount
 	subs r0, #1
 	asrs r0, r0, #1
 	cmp r5, r0
@@ -7480,7 +7480,7 @@ sub_809ADC8: @ 0x0809ADC8
 	lsrs r4, r0, #1
 	ldrh r0, [r5, #0x30]
 	lsrs r6, r0, #4
-	bl sub_8095374
+	bl PrepGetUnitAmount
 	subs r0, #1
 	asrs r1, r0, #1
 	cmp r4, r6
@@ -7519,7 +7519,7 @@ sub_809AE10: @ 0x0809AE10
 	movs r5, #0
 	ldrh r0, [r0, #0x30]
 	lsrs r4, r0, #4
-	bl sub_8095374
+	bl PrepGetUnitAmount
 	subs r0, #1
 	asrs r1, r0, #1
 	cmp r4, #0
@@ -7544,9 +7544,9 @@ _0809AE30:
 ProcPrepUnit_OnInit: @ 0x0809AE3C
 	push {r4, lr}
 	adds r4, r0, #0
-	bl sub_80958BC
-	bl sub_8095394
-	bl sub_80958FC
+	bl MakePrepUnitList
+	bl PrepGetLatestCharId
+	bl UnitGetIndexInPrepList
 	movs r1, #0
 	strh r0, [r4, #0x2e]
 	ldr r0, [r4, #0x14]
@@ -7689,7 +7689,7 @@ ProcPrepUnit_InitScreen: @ 0x0809AE7C
 	movs r2, #0x20
 	bl sub_8097748
 	ldrh r4, [r5, #0x30]
-	bl sub_8095374
+	bl PrepGetUnitAmount
 	adds r2, r0, #0
 	subs r2, #1
 	lsrs r0, r2, #0x1f
@@ -7708,10 +7708,10 @@ ProcPrepUnit_InitScreen: @ 0x0809AE7C
 	adds r3, r5, #0
 	bl StartHelpPromptSprite
 	ldrh r0, [r5, #0x2e]
-	bl sub_8095354
+	bl GetUnitFromPrepList
 	bl PrepUnit_DrawUnitItems
 	ldrh r0, [r5, #0x2e]
-	bl sub_8095354
+	bl GetUnitFromPrepList
 	bl sub_809A930
 	movs r4, #0
 _0809AFC4:
@@ -7731,7 +7731,7 @@ _0809AFC4:
 	ldr r0, _0809B010  @ 0x06014800
 	movs r1, #5
 	bl LoadDialogueBoxGfx
-	bl sub_8095A1C
+	bl EndSlidingWallEffectMaybe
 	add sp, #4
 	pop {r4, r5}
 	pop {r0}
@@ -7920,7 +7920,7 @@ _0809B15A:
 	cmp r0, #0
 	bne _0809B17E
 	ldrh r4, [r5, #0x2e]
-	bl sub_8095374
+	bl PrepGetUnitAmount
 	subs r0, #1
 	cmp r4, r0
 	bge _0809B17E
@@ -7944,7 +7944,7 @@ _0809B190:
 	beq _0809B1AC
 	ldrh r4, [r5, #0x2e]
 	adds r4, #2
-	bl sub_8095374
+	bl PrepGetUnitAmount
 	subs r0, #1
 	cmp r4, r0
 	bgt _0809B1AC
@@ -7959,7 +7959,7 @@ _0809B1AC:
 	b _0809B2D4
 _0809B1B6:
 	ldrh r0, [r5, #0x2e]
-	bl sub_8095354
+	bl GetUnitFromPrepList
 	bl PrepUnit_DrawUnitItems
 	ldr r0, _0809B224  @ sub_809A9E8
 	movs r1, #1
@@ -8081,7 +8081,7 @@ _0809B2A4:
 	movs r1, #0
 	bl BG_SetPosition
 	ldrh r4, [r5, #0x30]
-	bl sub_8095374
+	bl PrepGetUnitAmount
 	adds r2, r0, #0
 	subs r2, #1
 	lsrs r0, r2, #0x1f
@@ -8286,10 +8286,10 @@ ProcPrepUnit_OnEnd: @ 0x0809B40C
 	adds r1, #0x2b
 	strb r2, [r1]
 	ldrh r0, [r0, #0x2e]
-	bl sub_8095354
+	bl GetUnitFromPrepList
 	ldr r0, [r0]
 	ldrb r0, [r0, #4]
-	bl sub_80953C0
+	bl PrepSetLatestCharId
 	bl EndBG3Slider_
 	pop {r0}
 	bx r0
@@ -8320,10 +8320,10 @@ sub_809B458: @ 0x0809B458
 	push {r4, lr}
 	adds r4, r0, #0
 	ldrh r0, [r4, #0x2e]
-	bl sub_8095354
+	bl GetUnitFromPrepList
 	ldr r0, [r0]
 	ldrb r0, [r0, #4]
-	bl sub_80953C0
+	bl PrepSetLatestCharId
 	adds r0, r4, #0
 	bl sub_80920DC
 	pop {r4}
@@ -8336,7 +8336,7 @@ sub_809B458: @ 0x0809B458
 sub_809B478: @ 0x0809B478
 	push {r4, r5, lr}
 	adds r4, r0, #0
-	bl sub_80956A8
+	bl GetLatestUnitIndexInPrepListByCharId
 	movs r1, #0
 	strh r0, [r4, #0x2c]
 	strh r0, [r4, #0x2e]
@@ -8423,7 +8423,7 @@ sub_809B504: @ 0x0809B504
 	movs r0, #0x11
 	bl SetStatScreenConfig
 	ldrh r0, [r4, #0x2e]
-	bl sub_8095354
+	bl GetUnitFromPrepList
 	adds r1, r4, #0
 	bl StartStatScreen
 	pop {r4}
@@ -8436,8 +8436,8 @@ sub_809B504: @ 0x0809B504
 sub_809B520: @ 0x0809B520
 	push {r4, lr}
 	adds r4, r0, #0
-	bl sub_80958BC
-	bl sub_8095674
+	bl MakePrepUnitList
+	bl GetLatestUnitIndexInPrepListByUId
 	strh r0, [r4, #0x2c]
 	strh r0, [r4, #0x2e]
 	pop {r4}
@@ -8963,7 +8963,7 @@ sub_809B86C: @ 0x0809B86C
 	bl LoadDialogueBoxGfx
 	movs r0, #4
 	bl LoadIconPalettes
-	bl sub_8095A1C
+	bl EndSlidingWallEffectMaybe
 	ldr r0, _0809B974  @ gUnknown_02013510
 	adds r6, r0, #0
 	adds r6, #0x28
@@ -10485,7 +10485,7 @@ PrepItemUse_InitDisplay: @ 0x0809C4E4
 	bl LoadDialogueBoxGfx
 	movs r0, #4
 	bl LoadIconPalettes
-	bl sub_8095A1C
+	bl EndSlidingWallEffectMaybe
 	ldr r5, _0809C7F0  @ gUnknown_02013510
 	movs r4, #4
 _0809C5B6:
@@ -11293,7 +11293,7 @@ sub_809CC60: @ 0x0809CC60
 	ldr r0, [r4, #0x2c]
 	ldr r0, [r0]
 	ldrb r0, [r0, #4]
-	bl sub_80953C0
+	bl PrepSetLatestCharId
 	cmp r5, #0
 	bne _0809CC84
 	adds r0, r4, #0
@@ -12529,7 +12529,7 @@ sub_809D608: @ 0x0809D608
 	adds r0, r4, #0
 	movs r2, #0xb
 	bl InitSomeOtherGraphicsRelatedStruct
-	ldr r0, _0809D640  @ gUnknown_0859EF00
+	ldr r0, _0809D640  @ Pal_UIFont
 	movs r1, #0xd8
 	lsls r1, r1, #2
 	movs r2, #0x20
@@ -12545,7 +12545,7 @@ sub_809D608: @ 0x0809D608
 	.align 2, 0
 _0809D638: .4byte gUnknown_02013648
 _0809D63C: .4byte 0x06011000
-_0809D640: .4byte gUnknown_0859EF00
+_0809D640: .4byte Pal_UIFont
 
 	THUMB_FUNC_END sub_809D608
 
@@ -12970,7 +12970,7 @@ sub_809D914: @ 0x0809D914
 	bl LoadDialogueBoxGfx
 	movs r0, #4
 	bl LoadIconPalettes
-	bl sub_8095A1C
+	bl EndSlidingWallEffectMaybe
 	movs r0, #8
 	bl BG_EnableSyncByMask
 	ldrb r1, [r4, #1]
@@ -15541,7 +15541,7 @@ sub_809ED8C: @ 0x0809ED8C
 	bl LoadDialogueBoxGfx
 	movs r0, #4
 	bl LoadIconPalettes
-	bl sub_8095A1C
+	bl EndSlidingWallEffectMaybe
 	movs r0, #0xa0
 	lsls r0, r0, #7
 	movs r1, #5
@@ -17584,7 +17584,7 @@ sub_809FE68: @ 0x0809FE68
 	adds r0, r4, #0
 	movs r2, #0xb
 	bl InitSomeOtherGraphicsRelatedStruct
-	ldr r0, _0809FEEC  @ gUnknown_0859EF00
+	ldr r0, _0809FEEC  @ Pal_UIFont
 	movs r1, #0xd8
 	lsls r1, r1, #2
 	movs r2, #0x20
@@ -17629,7 +17629,7 @@ sub_809FE68: @ 0x0809FE68
 	.align 2, 0
 _0809FEE4: .4byte gUnknown_02013648
 _0809FEE8: .4byte 0x06011000
-_0809FEEC: .4byte gUnknown_0859EF00
+_0809FEEC: .4byte Pal_UIFont
 _0809FEF0: .4byte 0x0000059C
 _0809FEF4: .4byte 0x0000059B
 _0809FEF8: .4byte 0x0000059D
@@ -17935,7 +17935,7 @@ sub_80A00DC: @ 0x080A00DC
 	bl LoadDialogueBoxGfx
 	movs r0, #4
 	bl LoadIconPalettes
-	bl sub_8095A1C
+	bl EndSlidingWallEffectMaybe
 	movs r0, #0xa0
 	lsls r0, r0, #7
 	movs r1, #5
@@ -21734,7 +21734,7 @@ sub_80A1E7C: @ 0x080A1E7C
 	mov r0, sp
 	movs r2, #0xe
 	bl InitSomeOtherGraphicsRelatedStruct
-	ldr r0, _080A1F58  @ gUnknown_0859EF00
+	ldr r0, _080A1F58  @ Pal_UIFont
 	movs r1, #0xf0
 	lsls r1, r1, #2
 	movs r2, #0x20
@@ -21820,7 +21820,7 @@ _080A1F36:
 	bx r0
 	.align 2, 0
 _080A1F54: .4byte 0x06015000
-_080A1F58: .4byte gUnknown_0859EF00
+_080A1F58: .4byte Pal_UIFont
 _080A1F5C: .4byte gCharacterData
 _080A1F60: .4byte 0x000005AB
 _080A1F64: .4byte 0x000005AC
@@ -22372,7 +22372,7 @@ _080A2340:
 	bl sub_8001F48
 	movs r0, #0
 	bl sub_8001F64
-	bl sub_8095A1C
+	bl EndSlidingWallEffectMaybe
 	movs r0, #0x80
 	lsls r0, r0, #7
 	movs r1, #5

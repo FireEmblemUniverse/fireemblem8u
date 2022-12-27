@@ -1,5 +1,4 @@
 . = 0x000000; gUnknown_02000000 = .;
-. = 0x000008; gUnknown_02000008 = .;
 . = 0x000010; gUnknown_02000010 = .;
 . = 0x000018; gUnknown_02000018 = .;
 . = 0x00001C; gUnknown_0200001C = .;
@@ -120,9 +119,9 @@
 . = 0x01117C; gUnknown_0201117C = .;
 . = 0x011184; gUnknown_02011184 = .;
 . = 0x0111A4; gUnknown_020111A4 = .;
-. = 0x0111CC; gUnknown_020111CC = .;
+. = 0x0111CC; gPrepUnitPool = .;
 . = 0x011BC8; gUnknown_02011BC8 = .;
-. = 0x0121CC; gUnknown_020121CC = .;
+. = 0x0121CC; gPrepUnitList = .;
 . = 0x0122D4; gUnknown_020122D4 = .;
 . = 0x012914; gUnknown_02012914 = .;
 . = 0x012F54; gUnknown_02012F54 = .;

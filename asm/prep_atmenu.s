@@ -2,6 +2,176 @@
 
 	.SYNTAX UNIFIED
 
+	THUMB_FUNC_START sub_8095AD8
+sub_8095AD8: @ 0x08095AD8
+	push {r4, lr}
+	adds r4, r0, #0
+	movs r0, #0
+	bl PrepSetLatestCharId
+	movs r0, #0
+	str r0, [r4, #0x40]
+	strh r0, [r4, #0x3c]
+	bl CheckSomethingSomewhere
+	lsls r0, r0, #0x18
+	cmp r0, #0
+	beq _08095AFA
+	adds r1, r4, #0
+	adds r1, #0x2a
+	movs r0, #5
+	b _08095B02
+_08095AFA:
+	bl GetChapterAllyUnitCount
+	adds r1, r4, #0
+	adds r1, #0x2a
+_08095B02:
+	strb r0, [r1]
+	adds r0, r4, #0
+	adds r0, #0x30
+	movs r1, #0
+	strb r1, [r0]
+	adds r0, #1
+	strb r1, [r0]
+	adds r0, #1
+	strb r1, [r0]
+	adds r0, #1
+	strb r1, [r0]
+	adds r0, #1
+	strb r1, [r0]
+	adds r0, #2
+	strb r1, [r0]
+	subs r0, #9
+	strb r1, [r0]
+	adds r0, #1
+	strb r1, [r0]
+	pop {r4}
+	pop {r0}
+	bx r0
+
+	THUMB_FUNC_END sub_8095AD8
+
+	THUMB_FUNC_START sub_8095B30
+sub_8095B30: @ 0x08095B30
+	push {r4, r5, lr}
+	ldr r5, _08095B5C  @ gUnknown_020111A4
+	movs r4, #4
+_08095B36:
+	adds r0, r5, #0
+	bl Text_Clear
+	adds r5, #8
+	subs r4, #1
+	cmp r4, #0
+	bge _08095B36
+	ldr r0, _08095B60  @ gUnknown_02023E42
+	movs r1, #0xf
+	movs r2, #0xa
+	movs r3, #0
+	bl TileMap_FillRect
+	movs r0, #4
+	bl BG_EnableSyncByMask
+	pop {r4, r5}
+	pop {r0}
+	bx r0
+	.align 2, 0
+_08095B5C: .4byte gUnknown_020111A4
+_08095B60: .4byte gUnknown_02023E42
+
+	THUMB_FUNC_END sub_8095B30
+
+	THUMB_FUNC_START sub_8095B64
+sub_8095B64: @ 0x08095B64
+	push {r4, lr}
+	ldr r4, _08095B80  @ gUnknown_020111A4
+	bl GetStringFromIndex
+_08095B6C:
+	adds r1, r0, #0
+_08095B6E:
+	ldrb r0, [r1]
+	cmp r0, #0
+	beq _08095B8C
+	cmp r0, #1
+	bne _08095B84
+	adds r4, #8
+	adds r1, #1
+	b _08095B6E
+	.align 2, 0
+_08095B80: .4byte gUnknown_020111A4
+_08095B84:
+	adds r0, r4, #0
+	bl Text_AppendChar
+	b _08095B6C
+_08095B8C:
+	pop {r4}
+	pop {r0}
+	bx r0
+
+	THUMB_FUNC_END sub_8095B64
+
+	THUMB_FUNC_START sub_8095B94
+sub_8095B94: @ 0x08095B94
+	push {r4, r5, lr}
+	bl CheckSomethingSomewhere
+	lsls r0, r0, #0x18
+	asrs r0, r0, #0x18
+	negs r1, r0
+	orrs r1, r0
+	lsrs r1, r1, #0x1f
+	movs r5, #0
+	negs r1, r1
+	adds r4, r1, #7
+_08095BAA:
+	lsls r0, r5, #3
+	ldr r1, _08095BD0  @ gUnknown_020111A4
+	adds r0, r0, r1
+	lsls r1, r4, #6
+	ldr r2, _08095BD4  @ gUnknown_02023CC2
+	adds r1, r1, r2
+	bl Text_Draw
+	adds r4, #2
+	adds r5, #1
+	cmp r5, #4
+	ble _08095BAA
+	movs r0, #4
+	bl BG_EnableSyncByMask
+	pop {r4, r5}
+	pop {r0}
+	bx r0
+	.align 2, 0
+_08095BD0: .4byte gUnknown_020111A4
+_08095BD4: .4byte gUnknown_02023CC2
+
+	THUMB_FUNC_END sub_8095B94
+
+	THUMB_FUNC_START sub_8095BD8
+sub_8095BD8: @ 0x08095BD8
+	push {lr}
+	adds r0, #0x4c
+	movs r1, #0
+	strh r1, [r0]
+	bl sub_8095B30
+	pop {r0}
+	bx r0
+
+	THUMB_FUNC_END sub_8095BD8
+
+	THUMB_FUNC_START sub_8095BE8
+sub_8095BE8: @ 0x08095BE8
+	push {lr}
+	ldr r0, [r0, #0x58]
+	bl sub_8095B64
+	pop {r0}
+	bx r0
+
+	THUMB_FUNC_END sub_8095BE8
+
+	THUMB_FUNC_START sub_8095BF4
+sub_8095BF4: @ 0x08095BF4
+	push {lr}
+	bl sub_8095B94
+	pop {r0}
+	bx r0
+
+	THUMB_FUNC_END sub_8095BF4
+
 	THUMB_FUNC_START sub_8095C00
 sub_8095C00: @ 0x08095C00
 	push {r4, r5, r6, lr}
@@ -99,9 +269,9 @@ AtMenu_Reinitialize: @ 0x08095C84
 	strb r0, [r2, #1]
 	bl LoadObjUIGfx
 	bl SMS_ClearUsageTable
-	bl sub_80958BC
+	bl MakePrepUnitList
 	adds r0, r7, #0
-	bl AtMenu_AutoCapDeployPrepScreenUnits
+	bl PrepAutoCapDeployUnits
 	bl ReorderPlayerUnitsBasedOnDeployment
 	ldr r0, _08095E08  @ gBG0TilemapBuffer
 	movs r1, #0
@@ -204,13 +374,13 @@ _08095D0C:
 	movs r2, #0
 	bl BG_SetPosition
 	adds r0, r7, #0
-	bl AtMenu_InitPrepScreenMenu
+	bl InitPrepScreenMainMenu
 	movs r0, #0xf
 	bl BG_EnableSyncByMask
 	bl SetDefaultColorEffects
 	adds r0, r7, #0
 	bl sub_8096BFC
-	bl sub_8095A1C
+	bl EndSlidingWallEffectMaybe
 	ldr r0, _08095E38  @ gUiFramePaletteB
 	movs r1, #0x40
 	movs r2, #0x60
@@ -628,7 +798,7 @@ _08096110:
 	bl CallARM_FillTileRect
 	movs r0, #1
 	movs r1, #6
-	bl sub_8097200
+	bl SetPrepScreenMenuPosition
 	ldr r0, _08096180  @ gRAMChapterData
 	adds r0, #0x41
 	ldrb r0, [r0]
@@ -1042,8 +1212,8 @@ sub_8096468: @ 0x08096468
 	ldr r0, _08096480  @ ProcScr_AtMenu
 	movs r1, #3
 	bl Proc_Start
-	bl sub_8095840
-	bl sub_80952D4
+	bl RemoveSomeUnitItems
+	bl Reset203E87C
 	pop {r0}
 	bx r0
 	.align 2, 0

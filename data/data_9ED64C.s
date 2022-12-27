@@ -18564,8 +18564,8 @@ gEvent_EphraimModeGameEnd:  @ 0x08A0048C
     .4byte 0x00002a20
     .4byte 0x00000120
 
-	.global gUnknown_08A006E4
-gUnknown_08A006E4:  @ 0x08A006E4
+	.global ProcScr_SlidingWallBg
+ProcScr_SlidingWallBg:  @ 0x08A006E4
         @ PROC_CALL
         .short 0x2, 0x0
         .word sub_8086B74

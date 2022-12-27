@@ -4765,7 +4765,7 @@ sub_8043904: @ 0x08043904
 	push {r7}
 	sub sp, #0xc
 	adds r7, r0, #0
-	ldr r5, _08043AD0  @ gUnknown_0859EF00
+	ldr r5, _08043AD0  @ Pal_UIFont
 	bl sub_8043044
 	bl sub_804C33C
 	movs r4, #0
@@ -4967,7 +4967,7 @@ _080439EA:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_08043AD0: .4byte gUnknown_0859EF00
+_08043AD0: .4byte Pal_UIFont
 _08043AD4: .4byte gUnknown_085ABD68
 _08043AD8: .4byte 0x06014800
 _08043ADC: .4byte gUnknown_02023DBA
@@ -8540,7 +8540,7 @@ sub_8045640: @ 0x08045640
 	ldr r1, _080457E0  @ 0x06012000
 	movs r2, #0xe
 	bl InitSomeOtherGraphicsRelatedStruct
-	ldr r0, _080457E4  @ gUnknown_0859EF00
+	ldr r0, _080457E4  @ Pal_UIFont
 	movs r1, #0xf0
 	lsls r1, r1, #2
 	movs r2, #0x20
@@ -8647,7 +8647,7 @@ _080457D4: .4byte gGenericBuffer
 _080457D8: .4byte gBG3TilemapBuffer
 _080457DC: .4byte gUnknown_02000C60
 _080457E0: .4byte 0x06012000
-_080457E4: .4byte gUnknown_0859EF00
+_080457E4: .4byte Pal_UIFont
 _080457E8: .4byte gUnknown_0203DB14
 _080457EC: .4byte gUnknown_085A92E0
 _080457F0: .4byte 0x01000010
@@ -15757,7 +15757,7 @@ sub_80490EC: @ 0x080490EC
 	mov r9, r3
 	movs r0, #0
 	mov sl, r0
-	ldr r0, _080491C4  @ gUnknown_0859EF00
+	ldr r0, _080491C4  @ Pal_UIFont
 	movs r1, #0xc8
 	lsls r1, r1, #2
 	movs r2, #0x20
@@ -15843,7 +15843,7 @@ _080491A4:
 	add sl, r0
 	b _080491F0
 	.align 2, 0
-_080491C4: .4byte gUnknown_0859EF00
+_080491C4: .4byte Pal_UIFont
 _080491C8: .4byte gUnknown_02000C60
 _080491CC: .4byte 0x06016800
 _080491D0: .4byte gUnknown_02000C78

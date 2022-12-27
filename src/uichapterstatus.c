@@ -700,7 +700,7 @@ void sub_808E3D4() {
 }
 
 void ChapterStatus_SetupFont(ProcPtr proc) {
-    CopyToPaletteBuffer(gUnknown_0859EF00, 0x340, 0x20);
+    CopyToPaletteBuffer(Pal_UIFont, 0x340, 0x20);
 
     InitSomeOtherGraphicsRelatedStruct(&gUnknown_02004BBC.font, OBJ_VRAM0 + 0x7800, 0x1A);
 
