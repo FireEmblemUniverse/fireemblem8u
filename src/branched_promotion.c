@@ -547,7 +547,7 @@ u8 LoadClassBattleSprite(u16*, u16, u16);
 void sub_80CD47C(int, int, int, int, int);
 void sub_80CD408(u32, s16, s16);
 
-void sub_8095A1C(void);
+void EndSlidingWallEffectMaybe(void);
 
 ProcPtr Make6C_PromotionMenuSelect(ProcPtr);
 
@@ -636,7 +636,7 @@ void SetupPromotionScreen(struct PromoProc3* proc) {
     proc->u54 = select;
     grandparent = parent->proc_parent;
     if (grandparent->u31 == 1) {
-        sub_8095A1C();
+        EndSlidingWallEffectMaybe();
         BG_EnableSyncByMask(0xf);
     }
 }
@@ -1098,7 +1098,7 @@ void sub_80CD6B0(struct PromoProc4 *proc) {
     gLCDControlBuffer.bg2cnt.priority = 1;
     gLCDControlBuffer.bg3cnt.priority = 3;
     BG_EnableSyncByMask(2);
-    sub_8095A1C();
+    EndSlidingWallEffectMaybe();
     BG_Fill(gBG2TilemapBuffer, 0);
     BG_EnableSyncByMask(0xf);
 

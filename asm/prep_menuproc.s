@@ -1516,8 +1516,8 @@ _08096FCC: .4byte gUnknown_08A186EC
 
 	THUMB_FUNC_END StartPrepScreenMenu
 
-	THUMB_FUNC_START sub_8096FD0
-sub_8096FD0: @ 0x08096FD0
+	THUMB_FUNC_START SetPrepScreenMenuOnBPress
+SetPrepScreenMenuOnBPress: @ 0x08096FD0
 	push {r4, lr}
 	adds r4, r0, #0
 	ldr r0, _08096FE8  @ gUnknown_08A186EC
@@ -1532,10 +1532,10 @@ _08096FE0:
 	.align 2, 0
 _08096FE8: .4byte gUnknown_08A186EC
 
-	THUMB_FUNC_END sub_8096FD0
+	THUMB_FUNC_END SetPrepScreenMenuOnBPress
 
-	THUMB_FUNC_START sub_8096FEC
-sub_8096FEC: @ 0x08096FEC
+	THUMB_FUNC_START SetPrepScreenMenuOnStartPress
+SetPrepScreenMenuOnStartPress: @ 0x08096FEC
 	push {r4, lr}
 	adds r4, r0, #0
 	ldr r0, _08097004  @ gUnknown_08A186EC
@@ -1550,7 +1550,7 @@ _08096FFC:
 	.align 2, 0
 _08097004: .4byte gUnknown_08A186EC
 
-	THUMB_FUNC_END sub_8096FEC
+	THUMB_FUNC_END SetPrepScreenMenuOnStartPress
 
 	THUMB_FUNC_START sub_8097008
 sub_8097008: @ 0x08097008
@@ -1657,8 +1657,8 @@ _080970C8: .4byte gUnknown_08A186DC
 
 	THUMB_FUNC_END SetPrepScreenMenuItem
 
-	THUMB_FUNC_START sub_80970CC
-sub_80970CC: @ 0x080970CC
+	THUMB_FUNC_START SetPrepScreenMenuSelectedItem
+SetPrepScreenMenuSelectedItem: @ 0x080970CC
 	push {r4, r5, lr}
 	adds r5, r0, #0
 	movs r4, #0
@@ -1695,7 +1695,7 @@ _08097106:
 	pop {r0}
 	bx r0
 
-	THUMB_FUNC_END sub_80970CC
+	THUMB_FUNC_END SetPrepScreenMenuSelectedItem
 
 	THUMB_FUNC_START sub_809710C
 sub_809710C: @ 0x0809710C
@@ -1828,8 +1828,8 @@ _080971FC: .4byte gBG0TilemapBuffer
 
 	THUMB_FUNC_END DrawPrepScreenMenuFrameAt
 
-	THUMB_FUNC_START sub_8097200
-sub_8097200: @ 0x08097200
+	THUMB_FUNC_START SetPrepScreenMenuPosition
+SetPrepScreenMenuPosition: @ 0x08097200
 	push {r4, r5, r6, r7, lr}
 	mov r7, r9
 	mov r6, r8
@@ -1902,7 +1902,7 @@ _0809727E:
 _0809728C: .4byte gUnknown_08A186EC
 _08097290: .4byte gBG0TilemapBuffer
 
-	THUMB_FUNC_END sub_8097200
+	THUMB_FUNC_END SetPrepScreenMenuPosition
 
 	THUMB_FUNC_START sub_8097294
 sub_8097294: @ 0x08097294

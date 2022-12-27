@@ -2340,7 +2340,7 @@ _0808A748:
 	blt _0808A73C
 	movs r0, #0
 	bl SetFont
-	ldr r0, _0808A7A0  @ gUnknown_0859EF00
+	ldr r0, _0808A7A0  @ Pal_UIFont
 	adds r1, r7, #0
 	movs r2, #0x20
 	bl CopyToPaletteBuffer
@@ -2373,7 +2373,7 @@ _0808A794:
 	bx r0
 	.align 2, 0
 _0808A79C: .4byte gUnknown_0203E800
-_0808A7A0: .4byte gUnknown_0859EF00
+_0808A7A0: .4byte Pal_UIFont
 _0808A7A4: .4byte gUnknown_0203E7E8
 _0808A7A8: .4byte gRAMChapterData
 _0808A7AC: .4byte 0x000002E6

@@ -7,7 +7,6 @@
 #include "proc.h"
 
 // extern ??? gUnknown_02000000
-// extern ??? gUnknown_02000008
 // extern ??? gUnknown_02000010
 // extern ??? gUnknown_02000018
 // extern ??? gUnknown_0200001C
@@ -129,9 +128,9 @@ extern u16 gBmFrameTmap1[];
 // extern ??? gUnknown_0201117C
 // extern ??? gUnknown_02011184
 // extern ??? gUnknown_020111A4
-// extern ??? gUnknown_020111CC
+extern u8 gPrepUnitPool[];
 // extern ??? gUnknown_02011BC8
-extern struct Struct20121CC gUnknown_020121CC;
+extern struct PrepUnitList gPrepUnitList;
 // extern ??? gUnknown_020122D4
 // extern ??? gUnknown_02012914
 // extern ??? gUnknown_02012F54
@@ -1481,7 +1480,7 @@ extern u16 CONST_DATA obj_0859AEC8[];
 // extern ??? gUnknown_0859EEA0
 // extern ??? gUnknown_0859EEC0
 // extern ??? gUnknown_0859EEE0
-extern u8 gUnknown_0859EF00[];
+extern u8 Pal_UIFont[];
 extern u8 gUnknown_0859EF20[];
 // extern ??? gUnknown_0859EF40
 // extern ??? gUnknown_0859EF60
@@ -3144,7 +3143,7 @@ extern const struct MenuDef gUnknown_089F36A0;
 // extern ??? gEvent_8A00364
 // extern ??? gEvent_EirikaModeGameEnd
 // extern ??? gEvent_EphraimModeGameEnd
-// extern ??? gUnknown_08A006E4
+extern struct ProcCmd ProcScr_SlidingWallBg[];
 // extern ??? gProcScr_SSPageSlide
 // extern ??? gProcScr_SSGlowyBlendCtrl
 // extern ??? gProcScr_SSUnitSlide

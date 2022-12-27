@@ -155,7 +155,6 @@ SECTIONS
         src/uichapterstatus.o(.text);
         asm/code.o(.text);
         src/prepscreen.o(.text);
-        asm/prepscreen.o(.text);
         asm/prep_atmenu.o(.text);
         asm/prep_menuproc.o(.text);
         asm/code_80952CC.o(.text);

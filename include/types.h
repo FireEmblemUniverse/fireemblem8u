@@ -14,6 +14,7 @@ struct PopupInstruction;
 struct MAInfoFrameProc;
 struct MAExpBarProc;
 struct ProcAtMenu;
+struct PrepUnitList;
 
 // Type definitions for types without any other home :/
 
@@ -581,10 +582,6 @@ struct Struct202B6B0 {
 
 struct Struct203E87C {
     u8 unk00[5];
-};
-
-struct Struct20121CC {
-    int data[0x42];
 };
 
 #endif // GUARD_TYPES_H

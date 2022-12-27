@@ -254,7 +254,7 @@ _0808EB46:
 	bl Text_InsertString
 	movs r0, #0
 	bl SetFont
-	ldr r0, _0808EBC4  @ gUnknown_0859EF00
+	ldr r0, _0808EBC4  @ Pal_UIFont
 	movs r1, #0x90
 	lsls r1, r1, #2
 	movs r2, #0x20
@@ -274,7 +274,7 @@ _0808EBB6:
 	bx r0
 	.align 2, 0
 _0808EBC0: .4byte 0x06017800
-_0808EBC4: .4byte gUnknown_0859EF00
+_0808EBC4: .4byte Pal_UIFont
 _0808EBC8: .4byte gUnknown_085A643C
 _0808EBCC: .4byte gUnknown_085A638C
 _0808EBD0: .4byte 0x06017900
@@ -3337,7 +3337,7 @@ sub_8090418: @ 0x08090418
 	lsrs r5, r1, #0x18
 	cmp r1, #0
 	beq _0809045A
-	bl sub_8095394
+	bl PrepGetLatestCharId
 	b _0809045E
 _08090430:
 	adds r0, r4, #0
@@ -5081,7 +5081,7 @@ sub_80911E4: @ 0x080911E4
 	str r0, [r2, #0xc]
 	ldr r0, [r2]
 	ldrb r0, [r0, #4]
-	bl sub_80952EC
+	bl Reset203E87C_WithVal
 	ldrh r0, [r5, #0x3e]
 	lsrs r4, r0, #4
 	adds r0, r4, #6
@@ -5162,7 +5162,7 @@ sub_8091288: @ 0x08091288
 	str r0, [r4, #0xc]
 	ldr r0, [r4]
 	ldrb r0, [r0, #4]
-	bl sub_8095314
+	bl Modify203E87C
 	ldrh r0, [r5, #0x3e]
 	lsrs r4, r0, #4
 	adds r0, r4, #6
@@ -6400,7 +6400,7 @@ sub_8091C00: @ 0x08091C00
 	ldr r0, [r0]
 	ldr r0, [r0]
 	ldrb r0, [r0, #4]
-	bl sub_80953C0
+	bl PrepSetLatestCharId
 	bl sub_809014C
 _08091C28:
 	ldr r3, _08091CAC  @ gRAMChapterData
@@ -13126,8 +13126,8 @@ _08094FE2:
 
 	THUMB_FUNC_END sub_8092BF0
 
-	THUMB_FUNC_START sub_8094FF4
-sub_8094FF4: @ 0x08094FF4
+	THUMB_FUNC_START CanPrepScreenSave
+CanPrepScreenSave: @ 0x08094FF4
 	push {lr}
 	ldr r0, _08095014  @ gRAMChapterData
 	movs r2, #0xe
@@ -13153,7 +13153,7 @@ _0809501E:
 	pop {r1}
 	bx r1
 
-	THUMB_FUNC_END sub_8094FF4
+	THUMB_FUNC_END CanPrepScreenSave
 
 	THUMB_FUNC_START sub_8095024
 sub_8095024: @ 0x08095024
@@ -13188,7 +13188,7 @@ _08095060: .4byte gUnknown_08A18200
 _08095064:
 	cmp r4, #2
 	bne _0809507C
-	bl sub_8094FF4
+	bl CanPrepScreenSave
 	lsls r0, r0, #0x18
 	cmp r0, #0
 	bne _0809507C

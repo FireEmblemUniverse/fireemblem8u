@@ -570,7 +570,7 @@ sub_8011BA4: @ 0x08011BA4
 	lsls r1, r1, #5
 	movs r2, #0x20
 	bl CopyToPaletteBuffer
-	ldr r0, _08011C84  @ gUnknown_0859EF00
+	ldr r0, _08011C84  @ Pal_UIFont
 	ldr r1, [r7, #0x3c]
 	adds r1, #0x11
 	lsls r1, r1, #5
@@ -632,7 +632,7 @@ _08011C1A:
 	.align 2, 0
 _08011C7C: .4byte gUnknown_085924D8
 _08011C80: .4byte gUnknown_08A4D0CC
-_08011C84: .4byte gUnknown_0859EF00
+_08011C84: .4byte Pal_UIFont
 _08011C88: .4byte gUnknown_08A4CF2C
 _08011C8C: .4byte 0x06010000
 _08011C90: .4byte 0x06010400

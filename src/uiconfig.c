@@ -532,7 +532,7 @@ void DrawConfigUiSprites(void) {
 
     DisplayUiHand(gGameOptions[optionIdx].selectors[GetGameOption(optionIdx)].xPos - 2, y);
 
-    if (((gConfigUiState->unk_37 & 1) == 0) || (sub_8095970() != 0)) {
+    if (((gConfigUiState->unk_37 & 1) == 0) || (PrepGetDeployedUnitAmt() != 0)) {
         if ((GetSelectedGameOption() == GAME_OPTION_ANIMATION) && (GetSelectedOptionValue() == 3)) {
             CallARM_PushToSecondaryOAM(192, 40, gObject_16x16, (time  != 0) ? 0x20CC + 2 : 0x20CC);
         }
@@ -988,7 +988,7 @@ void Config_Loop_KeyHandler(struct ConfigProc* proc) {
                 break;
 
             } else if (gKeyStatusPtr->newKeys & (A_BUTTON)) {
-                if (((gConfigUiState->unk_37 & 1) != 0) && (sub_8095970() == 0)) {
+                if (((gConfigUiState->unk_37 & 1) != 0) && (PrepGetDeployedUnitAmt() == 0)) {
                     break;
                 }
 

@@ -280,14 +280,14 @@ _08006960: .4byte gUnknown_030000D0
 	THUMB_FUNC_START sub_8006964
 sub_8006964: @ 0x08006964
 	push {lr}
-	ldr r0, _08006974  @ gUnknown_0859EF00
+	ldr r0, _08006974  @ Pal_UIFont
 	movs r1, #0x40
 	movs r2, #0x20
 	bl CopyToPaletteBuffer
 	pop {r0}
 	bx r0
 	.align 2, 0
-_08006974: .4byte gUnknown_0859EF00
+_08006974: .4byte Pal_UIFont
 
 	THUMB_FUNC_END sub_8006964
 
@@ -1147,7 +1147,7 @@ _08006FB0:
 	movs r1, #0x60
 	movs r2, #0x20
 	bl CopyToPaletteBuffer
-	ldr r0, _08006FCC  @ gUnknown_0859EF00
+	ldr r0, _08006FCC  @ Pal_UIFont
 	movs r1, #0x40
 	movs r2, #0x20
 	bl CopyToPaletteBuffer
@@ -1156,7 +1156,7 @@ _08006FC4:
 	bx r0
 	.align 2, 0
 _08006FC8: .4byte gUnknown_089E84D4
-_08006FCC: .4byte gUnknown_0859EF00
+_08006FCC: .4byte Pal_UIFont
 
 	THUMB_FUNC_END sub_8006F8C
 

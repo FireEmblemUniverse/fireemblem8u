@@ -860,7 +860,7 @@ void Font_SpecializedGlyphDrawer(struct TextHandle *th, struct Glyph *glyph)
 
 void Font_LoadForUI(void)
 {
-    CopyToPaletteBuffer(gUnknown_0859EF00, gCurrentFont->paletteNum * 32, 32);
+    CopyToPaletteBuffer(Pal_UIFont, gCurrentFont->paletteNum * 32, 32);
     gPaletteBuffer[gCurrentFont->paletteNum * 16] = 0;
     gCurrentFont->drawGlyph = Font_StandardGlyphDrawer;
     SetFontGlyphSet(0);
