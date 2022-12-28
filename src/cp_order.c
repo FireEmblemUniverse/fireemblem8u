@@ -204,7 +204,7 @@ void SortAiUnitList(int count)
 
     if (count <= 1) // Redundant check
         return;
-	++count; --count;
+    ++count; --count;
 
     // this is a bubble sort, I think
 

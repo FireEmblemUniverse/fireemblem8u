@@ -271,11 +271,6 @@ struct ProcCmd CONST_DATA gProcScr_OpSubtitle_LightFlareFx[] = {
     PROC_END,
 };
 
-#if NONMATCHING
-
-/* https://decomp.me/scratch/GbVMW */
-
-//! FE8U = 0x080C4BB4
 void sub_80C4BB4(u16* src, u16* dst, int count, int coeff) {
     u16* srcIt;
     u16* dstIt;
@@ -286,12 +281,8 @@ void sub_80C4BB4(u16* src, u16* dst, int count, int coeff) {
     }
 
     dstIt = dst;
-
-    // TODO: Nonmatch seems to be caused by these two assignments being out of order
-    i = count;
     srcIt = src;
-
-    while (i != 0) {
+    for (i = count; i; i--) {
         int color = (*srcIt);
 
         s16 r = DivArm(0x1000, (color & 0x1f) * coeff);
@@ -299,92 +290,9 @@ void sub_80C4BB4(u16* src, u16* dst, int count, int coeff) {
         s16 b = DivArm(0x1000, ((color >> 10) & 0x1f) * coeff);
 
         *dstIt++ = (u32)r + ((u32)g << 5) + ((u32)b << 10);
-
-        srcIt++;
-        i--;
+        do srcIt++; while (0);
     }
-
-    return;
 }
-
-#else // if !NONMATCHING
-
-__attribute__((naked))
-void sub_80C4BB4(u16* src, u16* dst, int count, int coeff) {
-    asm("\n\
-        .syntax unified\n\
-        push {r4, r5, r6, r7, lr}\n\
-        mov r7, sl\n\
-        mov r6, r9\n\
-        mov r5, r8\n\
-        push {r5, r6, r7}\n\
-        mov sl, r3\n\
-        cmp r2, #0\n\
-        ble _080C4C2E\n\
-        mov r9, r1\n\
-        adds r7, r0, #0\n\
-        mov r8, r2\n\
-    _080C4BCA:\n\
-        ldrh r6, [r7]\n\
-        adds r0, r6, #0\n\
-        movs r1, #0x1f\n\
-        ands r0, r1\n\
-        mov r1, sl\n\
-        muls r1, r0, r1\n\
-        movs r0, #0x80\n\
-        lsls r0, r0, #5\n\
-        bl DivArm\n\
-        adds r5, r0, #0\n\
-        lsls r5, r5, #0x10\n\
-        lsrs r5, r5, #0x10\n\
-        asrs r0, r6, #5\n\
-        movs r1, #0x1f\n\
-        ands r0, r1\n\
-        mov r1, sl\n\
-        muls r1, r0, r1\n\
-        movs r0, #0x80\n\
-        lsls r0, r0, #5\n\
-        bl DivArm\n\
-        adds r4, r0, #0\n\
-        lsls r4, r4, #0x10\n\
-        lsrs r4, r4, #0x10\n\
-        asrs r6, r6, #0xa\n\
-        movs r0, #0x1f\n\
-        ands r6, r0\n\
-        mov r1, sl\n\
-        muls r1, r6, r1\n\
-        movs r0, #0x80\n\
-        lsls r0, r0, #5\n\
-        bl DivArm\n\
-        lsls r0, r0, #0x10\n\
-        lsls r4, r4, #5\n\
-        adds r5, r5, r4\n\
-        lsrs r0, r0, #6\n\
-        adds r5, r5, r0\n\
-        mov r1, r9\n\
-        strh r5, [r1]\n\
-        movs r0, #2\n\
-        add r9, r0\n\
-        adds r7, #2\n\
-        movs r1, #1\n\
-        negs r1, r1\n\
-        add r8, r1\n\
-        mov r0, r8\n\
-        cmp r0, #0\n\
-        bne _080C4BCA\n\
-    _080C4C2E:\n\
-        pop {r3, r4, r5}\n\
-        mov r8, r3\n\
-        mov r9, r4\n\
-        mov sl, r5\n\
-        pop {r4, r5, r6, r7}\n\
-        pop {r0}\n\
-        bx r0\n\
-        .syntax divided\n\
-    ");
-}
-
-#endif // NONMATCHING
 
 //! FE8U = 0x080C4C3C
 void OpSubtitle_AwaitTimer2a(struct OpSubtitleProc* proc) {
