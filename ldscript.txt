@@ -168,7 +168,7 @@ SECTIONS
         src/classdisplayfont.o(.text);
         src/bmshop.o(.text);
         asm/code_80B5730.o(.text);
-        asm/opsubtitle.o(.text);
+        src/opsubtitle.o(.text);
         src/titlescreen.o(.text);
         asm/code_80C6474.o(.text);
         src/branched_promotion_main.o(.text);
