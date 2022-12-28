@@ -188,8 +188,8 @@ struct UnitSaveSuPack {     /* Suspend Data */
              u32 barrierDuration    : 3;
     
     /* 2C */ u32 movBonus   : 4;
-             u16 item4      : 14;
-             u16 item5      : 14;
+             u32 item4      : 14;
+             u32 item5      : 14;
     
     /* 30 */ u8 ballistaIndex;
     
