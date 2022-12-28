@@ -2683,10 +2683,10 @@ sub_8098620: @ 0x08098620
 	movs r4, #0
 	strb r0, [r1]
 	adds r0, r7, #0
-	bl sub_80AD47C
+	bl ResetPrepScreenHandCursor
 	ldr r0, _08098984  @ sub_809A274
 	adds r1, r7, #0
-	bl Get6CDifferedLoop6C
+	bl StartParallelWorker
 	adds r0, r7, #0
 	bl sub_80AC9C0
 	movs r0, #0
@@ -2997,8 +2997,8 @@ sub_80989BC: @ 0x080989BC
 	ldr r0, [r0]
 	ldrb r0, [r0, #4]
 	bl PrepSetLatestCharId
-	bl DeleteEach6CDifferedLoop
-	bl sub_80AD580
+	bl EndAllParallelWorkers
+	bl EndPrepScreenHandCursor
 	bl sub_80ACB00
 	movs r0, #0
 	bl sub_8099F50
@@ -3270,7 +3270,7 @@ sub_8098BE8: @ 0x08098BE8
 	cmp r0, #0
 	beq _08098C0C
 	ldr r0, _08098C08  @ sub_8098B68
-	bl Find6CDifferedLoop
+	bl GetParallelWorker
 	bl Proc_End
 	b _08098C16
 	.align 2, 0
@@ -3278,14 +3278,14 @@ _08098C04: .4byte gGMData
 _08098C08: .4byte sub_8098B68
 _08098C0C:
 	ldr r0, _08098C30  @ sub_8098B48
-	bl Find6CDifferedLoop
+	bl GetParallelWorker
 	bl Proc_End
 _08098C16:
 	ldr r0, _08098C34  @ sub_8098BA8
-	bl Find6CDifferedLoop
+	bl GetParallelWorker
 	bl Proc_End
 	ldr r0, _08098C38  @ sub_8098BC8
-	bl Find6CDifferedLoop
+	bl GetParallelWorker
 	bl Proc_End
 	pop {r0}
 	bx r0
@@ -3498,7 +3498,7 @@ _08098DA0:
 	beq _08098E1C
 	ldr r0, _08098E18  @ sub_8098B68
 	adds r1, r6, #0
-	bl Get6CDifferedLoop6C
+	bl StartParallelWorker
 	b _08098E24
 	.align 2, 0
 _08098E14: .4byte gGMData
@@ -3506,7 +3506,7 @@ _08098E18: .4byte sub_8098B68
 _08098E1C:
 	ldr r0, _08098E3C  @ sub_8098B48
 	adds r1, r6, #0
-	bl Get6CDifferedLoop6C
+	bl StartParallelWorker
 _08098E24:
 	bl sub_80985B8
 	bl sub_8098590
@@ -4504,7 +4504,7 @@ sub_8099654: @ 0x08099654
 	bl sub_8099328
 	ldr r0, _080996AC  @ sub_8098BC8
 	adds r1, r4, #0
-	bl Get6CDifferedLoop6C
+	bl StartParallelWorker
 	movs r0, #0x78
 	movs r1, #0x8c
 	movs r2, #9
@@ -7657,9 +7657,9 @@ ProcPrepUnit_InitScreen: @ 0x0809AE7C
 	bl sub_809A8F8
 	ldr r0, _0809B00C  @ PrepUnit_DrawSMSAndObjs
 	adds r1, r5, #0
-	bl Get6CDifferedLoop6C
+	bl StartParallelWorker
 	adds r0, r5, #0
-	bl sub_80AD47C
+	bl ResetPrepScreenHandCursor
 	movs r0, #0xc0
 	lsls r0, r0, #3
 	movs r1, #1
@@ -7751,9 +7751,9 @@ _0809B010: .4byte 0x06014800
 sub_809B014: @ 0x0809B014
 	push {lr}
 	bl Delete6CMenuScroll
-	bl DeleteEach6CDifferedLoop
+	bl EndAllParallelWorkers
 	bl sub_80AD2D4
-	bl sub_80AD580
+	bl EndPrepScreenHandCursor
 	bl EndHelpPromptSprite
 	bl sub_80ACDDC
 	bl EndBG3Slider_
@@ -9115,7 +9115,7 @@ _0809B992:
 	mov r0, r8
 	bl sub_80AC9C0
 	mov r0, r8
-	bl sub_80AD47C
+	bl ResetPrepScreenHandCursor
 	movs r0, #0xc0
 	lsls r0, r0, #3
 	movs r1, #1
@@ -9151,7 +9151,7 @@ _0809B992:
 	str r4, [sp, #4]
 	movs r0, #0xd
 	movs r2, #0xf
-	bl sub_80ADB7C
+	bl StartSmallBrownNameBoxes
 	movs r1, #0x28
 	negs r1, r1
 	movs r4, #1
@@ -10579,7 +10579,7 @@ _0809C5CA:
 	str r7, [sp, #4]
 	movs r0, #0xd
 	movs r2, #0xf
-	bl sub_80ADB7C
+	bl StartSmallBrownNameBoxes
 	movs r1, #0x28
 	negs r1, r1
 	movs r2, #1
@@ -10608,14 +10608,14 @@ _0809C5CA:
 	adds r0, r7, #0
 	bl sub_80AC9C0
 	adds r0, r7, #0
-	bl sub_80AD47C
+	bl ResetPrepScreenHandCursor
 	movs r0, #0xc0
 	lsls r0, r0, #3
 	movs r1, #1
 	bl sub_80AD4A0
 	ldr r0, _0809C814  @ sub_809C4B4
 	adds r1, r7, #0
-	bl Get6CDifferedLoop6C
+	bl StartParallelWorker
 	ldr r6, _0809C7E4  @ gLCDControlBuffer
 	ldrb r0, [r6, #1]
 	movs r3, #0x20
@@ -11050,7 +11050,7 @@ _0809CA78:
 	ldr r0, [r4, #0x3c]
 	cmp r0, #0
 	bne _0809CAB0
-	bl sub_80AD564
+	bl HidePrepScreenHandCursor
 	ldr r0, _0809CAAC  @ gRAMChapterData
 	adds r0, #0x41
 	ldrb r0, [r0]
@@ -11239,8 +11239,8 @@ sub_809CBA8: @ 0x0809CBA8
 	movs r2, #0
 	movs r3, #8
 	bl SetSpecialColorEffectsParameters
-	bl sub_80ADC90
-	bl DeleteEach6CDifferedLoop
+	bl EndSmallBrownNameBoxes
+	bl EndAllParallelWorkers
 	movs r0, #0
 	bl EndFaceById
 	movs r0, #0
@@ -12064,7 +12064,7 @@ sub_809D278: @ 0x0809D278
 	adds r4, r0, #0
 	adds r5, r1, #0
 	ldr r0, _0809D2B8  @ sub_809D244
-	bl Get6CDifferedLoop6C
+	bl StartParallelWorker
 	ldr r0, _0809D2BC  @ gUnknown_08A191F4
 	lsls r4, r4, #2
 	adds r4, r4, r0
@@ -13041,7 +13041,7 @@ sub_809DA00: @ 0x0809DA00
 	str r7, [sp, #4]
 	movs r0, #0xd
 	movs r2, #0xf
-	bl sub_80ADB7C
+	bl StartSmallBrownNameBoxes
 	movs r0, #0
 	movs r1, #0x90
 	movs r2, #6
@@ -13054,7 +13054,7 @@ sub_809DA00: @ 0x0809DA00
 	adds r0, r7, #0
 	bl sub_80AC9C0
 	adds r0, r7, #0
-	bl sub_80AD47C
+	bl ResetPrepScreenHandCursor
 	movs r0, #0xc0
 	lsls r0, r0, #3
 	movs r1, #1
@@ -13236,7 +13236,7 @@ _0809DB5C:
 	bl sub_80ACD60
 	ldr r0, _0809DC6C  @ sub_809D844
 	adds r1, r7, #0
-	bl Get6CDifferedLoop6C
+	bl StartParallelWorker
 	add sp, #8
 	pop {r3, r4}
 	mov r8, r3
@@ -13284,14 +13284,14 @@ sub_809DC70: @ 0x0809DC70
 	movs r2, #4
 	bl sub_80AD51C
 	ldr r0, _0809DCC8  @ sub_809D7D4
-	bl Find6CDifferedLoop
+	bl GetParallelWorker
 	bl Proc_End
 	ldr r0, _0809DCCC  @ sub_809D80C
-	bl Find6CDifferedLoop
+	bl GetParallelWorker
 	bl Proc_End
 	ldr r0, _0809DCD0  @ sub_809D784
 	adds r1, r4, #0
-	bl Get6CDifferedLoop6C
+	bl StartParallelWorker
 	movs r0, #7
 	bl BG_EnableSyncByMask
 	pop {r4}
@@ -13350,11 +13350,11 @@ _0809DD08:
 	movs r3, #2
 	bl sub_80AC9D4
 	ldr r0, _0809DD64  @ sub_809D784
-	bl Find6CDifferedLoop
+	bl GetParallelWorker
 	bl Proc_End
 	ldr r0, _0809DD68  @ sub_809D7D4
 	adds r1, r5, #0
-	bl Get6CDifferedLoop6C
+	bl StartParallelWorker
 	movs r0, #1
 	adds r1, r5, #0
 	bl sub_809D278
@@ -13388,11 +13388,11 @@ _0809DD70:
 	movs r3, #2
 	bl sub_80AC9D4
 	ldr r0, _0809DDC0  @ sub_809D784
-	bl Find6CDifferedLoop
+	bl GetParallelWorker
 	bl Proc_End
 	ldr r0, _0809DDC4  @ sub_809D80C
 	adds r1, r5, #0
-	bl Get6CDifferedLoop6C
+	bl StartParallelWorker
 	movs r0, #2
 	adds r1, r5, #0
 	bl sub_809D278
@@ -15560,7 +15560,7 @@ sub_809ED8C: @ 0x0809ED8C
 	adds r0, r7, #0
 	bl sub_80AC9C0
 	adds r0, r7, #0
-	bl sub_80AD47C
+	bl ResetPrepScreenHandCursor
 	movs r0, #0xc0
 	lsls r0, r0, #3
 	movs r1, #1
@@ -15728,7 +15728,7 @@ _0809EF4A:
 	bl sub_80ACD60
 	ldr r0, _0809F0F0  @ sub_809ECFC
 	adds r1, r7, #0
-	bl Get6CDifferedLoop6C
+	bl StartParallelWorker
 	ldr r0, [r7, #0x2c]
 	bl GetUnitPortraitId
 	adds r1, r0, #0
@@ -15754,7 +15754,7 @@ _0809EF4A:
 	str r7, [sp, #4]
 	movs r0, #0xd
 	movs r2, #0xf
-	bl sub_80ADB7C
+	bl StartSmallBrownNameBoxes
 	movs r1, #0x28
 	negs r1, r1
 	movs r2, #1
@@ -17497,7 +17497,7 @@ sub_809FDD4: @ 0x0809FDD4
 	adds r4, r0, #0
 	adds r5, r1, #0
 	ldr r0, _0809FE10  @ sub_809FDA0
-	bl Get6CDifferedLoop6C
+	bl StartParallelWorker
 	ldr r0, _0809FE14  @ gUnknown_08A1951C
 	lsls r4, r4, #2
 	adds r4, r4, r0
@@ -17967,7 +17967,7 @@ sub_80A00DC: @ 0x080A00DC
 	adds r0, r7, #0
 	bl sub_80AC9C0
 	adds r0, r7, #0
-	bl sub_80AD47C
+	bl ResetPrepScreenHandCursor
 	movs r0, #0xc0
 	lsls r0, r0, #3
 	movs r1, #1
@@ -18076,7 +18076,7 @@ _080A029E:
 	bl sub_80A007C
 	ldr r0, _080A0328  @ sub_809FF74
 	adds r1, r7, #0
-	bl Get6CDifferedLoop6C
+	bl StartParallelWorker
 	ldr r1, [r7, #0x2c]
 	adds r0, r7, #0
 	adds r0, #0x30
@@ -18215,7 +18215,7 @@ sub_80A03C4: @ 0x080A03C4
 	movs r0, #0
 	bl sub_80ACA84
 	ldr r0, _080A0420  @ sub_809FEFC
-	bl Find6CDifferedLoop
+	bl GetParallelWorker
 	bl Proc_End
 	ldrb r1, [r5]
 	lsls r1, r1, #4
@@ -18412,7 +18412,7 @@ sub_80A0570: @ 0x080A0570
 	strb r0, [r5]
 	ldr r0, _080A05B8  @ sub_809FEFC
 	adds r1, r4, #0
-	bl Get6CDifferedLoop6C
+	bl StartParallelWorker
 	adds r0, r4, #0
 	adds r0, #0x30
 	ldrb r2, [r0]
@@ -20406,7 +20406,7 @@ _080A140A:
 	cmp r0, #0
 	beq _080A1476
 	adds r0, r6, #0
-	bl sub_80AD47C
+	bl ResetPrepScreenHandCursor
 	movs r0, #0xc0
 	lsls r0, r0, #3
 	movs r1, #1
@@ -20448,7 +20448,7 @@ _080A1476:
 	bl sub_80A1140
 	ldr r0, _080A14F4  @ sub_80A1174
 	adds r1, r6, #0
-	bl Get6CDifferedLoop6C
+	bl StartParallelWorker
 	movs r3, #0x80
 	lsls r3, r3, #2
 	movs r0, #4
@@ -22305,7 +22305,7 @@ sub_80A2274: @ 0x080A2274
 	orrs r0, r1
 	strb r0, [r2]
 	adds r0, r5, #0
-	bl sub_80AD47C
+	bl ResetPrepScreenHandCursor
 	movs r0, #0xc0
 	lsls r0, r0, #3
 	movs r1, #1
@@ -22420,7 +22420,7 @@ _080A2340:
 	bl CopyToPaletteBuffer
 	ldr r0, _080A2444  @ sub_80A1B90
 	adds r1, r5, #0
-	bl Get6CDifferedLoop6C
+	bl StartParallelWorker
 	add sp, #4
 	pop {r4, r5}
 	pop {r0}
@@ -22747,7 +22747,7 @@ sub_80A26A8: @ 0x080A26A8
 	adds r0, #0x3a
 	movs r5, #0
 	strb r5, [r0]
-	bl sub_80AD564
+	bl HidePrepScreenHandCursor
 	ldr r2, _080A2728  @ gLCDControlBuffer
 	ldrb r1, [r2, #0xc]
 	movs r3, #4

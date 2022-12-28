@@ -38,4 +38,12 @@ struct ProcAtMenu {
     /* 40 */ u32 xDiff;
 };
 
+struct ProcPrepMenuDesc {
+    PROC_HEADER;
+    /* 29 */ u8 _pad29_[0x4C - 0x29];
+    /* 4C */ u16 unk4C;
+    /* 4E */ u8 _pad4E_[0x58 - 0x4E];
+    /* 58 */ int msg;
+};
+
 #endif /* PREP_SCREEN_H */

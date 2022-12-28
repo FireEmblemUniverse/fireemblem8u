@@ -89,8 +89,8 @@ void sub_80CC4AC(struct PromoProc2 *proc) {
         EndGreenTextColorManager();
         gparent->u40 = GetThread2SkipStack();
         EndHelpPromptSprite();
-        sub_80ADC90();
-        DeleteEach6CDifferedLoop();
+        EndSmallBrownNameBoxes();
+        EndAllParallelWorkers();
         EndFaceById(0);
         sub_80ACA84(0);
         ResetFaces();

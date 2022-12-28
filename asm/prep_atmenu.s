@@ -2,243 +2,6 @@
 
 	.SYNTAX UNIFIED
 
-	THUMB_FUNC_START sub_8095AD8
-sub_8095AD8: @ 0x08095AD8
-	push {r4, lr}
-	adds r4, r0, #0
-	movs r0, #0
-	bl PrepSetLatestCharId
-	movs r0, #0
-	str r0, [r4, #0x40]
-	strh r0, [r4, #0x3c]
-	bl CheckSomethingSomewhere
-	lsls r0, r0, #0x18
-	cmp r0, #0
-	beq _08095AFA
-	adds r1, r4, #0
-	adds r1, #0x2a
-	movs r0, #5
-	b _08095B02
-_08095AFA:
-	bl GetChapterAllyUnitCount
-	adds r1, r4, #0
-	adds r1, #0x2a
-_08095B02:
-	strb r0, [r1]
-	adds r0, r4, #0
-	adds r0, #0x30
-	movs r1, #0
-	strb r1, [r0]
-	adds r0, #1
-	strb r1, [r0]
-	adds r0, #1
-	strb r1, [r0]
-	adds r0, #1
-	strb r1, [r0]
-	adds r0, #1
-	strb r1, [r0]
-	adds r0, #2
-	strb r1, [r0]
-	subs r0, #9
-	strb r1, [r0]
-	adds r0, #1
-	strb r1, [r0]
-	pop {r4}
-	pop {r0}
-	bx r0
-
-	THUMB_FUNC_END sub_8095AD8
-
-	THUMB_FUNC_START sub_8095B30
-sub_8095B30: @ 0x08095B30
-	push {r4, r5, lr}
-	ldr r5, _08095B5C  @ gUnknown_020111A4
-	movs r4, #4
-_08095B36:
-	adds r0, r5, #0
-	bl Text_Clear
-	adds r5, #8
-	subs r4, #1
-	cmp r4, #0
-	bge _08095B36
-	ldr r0, _08095B60  @ gUnknown_02023E42
-	movs r1, #0xf
-	movs r2, #0xa
-	movs r3, #0
-	bl TileMap_FillRect
-	movs r0, #4
-	bl BG_EnableSyncByMask
-	pop {r4, r5}
-	pop {r0}
-	bx r0
-	.align 2, 0
-_08095B5C: .4byte gUnknown_020111A4
-_08095B60: .4byte gUnknown_02023E42
-
-	THUMB_FUNC_END sub_8095B30
-
-	THUMB_FUNC_START sub_8095B64
-sub_8095B64: @ 0x08095B64
-	push {r4, lr}
-	ldr r4, _08095B80  @ gUnknown_020111A4
-	bl GetStringFromIndex
-_08095B6C:
-	adds r1, r0, #0
-_08095B6E:
-	ldrb r0, [r1]
-	cmp r0, #0
-	beq _08095B8C
-	cmp r0, #1
-	bne _08095B84
-	adds r4, #8
-	adds r1, #1
-	b _08095B6E
-	.align 2, 0
-_08095B80: .4byte gUnknown_020111A4
-_08095B84:
-	adds r0, r4, #0
-	bl Text_AppendChar
-	b _08095B6C
-_08095B8C:
-	pop {r4}
-	pop {r0}
-	bx r0
-
-	THUMB_FUNC_END sub_8095B64
-
-	THUMB_FUNC_START sub_8095B94
-sub_8095B94: @ 0x08095B94
-	push {r4, r5, lr}
-	bl CheckSomethingSomewhere
-	lsls r0, r0, #0x18
-	asrs r0, r0, #0x18
-	negs r1, r0
-	orrs r1, r0
-	lsrs r1, r1, #0x1f
-	movs r5, #0
-	negs r1, r1
-	adds r4, r1, #7
-_08095BAA:
-	lsls r0, r5, #3
-	ldr r1, _08095BD0  @ gUnknown_020111A4
-	adds r0, r0, r1
-	lsls r1, r4, #6
-	ldr r2, _08095BD4  @ gUnknown_02023CC2
-	adds r1, r1, r2
-	bl Text_Draw
-	adds r4, #2
-	adds r5, #1
-	cmp r5, #4
-	ble _08095BAA
-	movs r0, #4
-	bl BG_EnableSyncByMask
-	pop {r4, r5}
-	pop {r0}
-	bx r0
-	.align 2, 0
-_08095BD0: .4byte gUnknown_020111A4
-_08095BD4: .4byte gUnknown_02023CC2
-
-	THUMB_FUNC_END sub_8095B94
-
-	THUMB_FUNC_START sub_8095BD8
-sub_8095BD8: @ 0x08095BD8
-	push {lr}
-	adds r0, #0x4c
-	movs r1, #0
-	strh r1, [r0]
-	bl sub_8095B30
-	pop {r0}
-	bx r0
-
-	THUMB_FUNC_END sub_8095BD8
-
-	THUMB_FUNC_START sub_8095BE8
-sub_8095BE8: @ 0x08095BE8
-	push {lr}
-	ldr r0, [r0, #0x58]
-	bl sub_8095B64
-	pop {r0}
-	bx r0
-
-	THUMB_FUNC_END sub_8095BE8
-
-	THUMB_FUNC_START sub_8095BF4
-sub_8095BF4: @ 0x08095BF4
-	push {lr}
-	bl sub_8095B94
-	pop {r0}
-	bx r0
-
-	THUMB_FUNC_END sub_8095BF4
-
-	THUMB_FUNC_START sub_8095C00
-sub_8095C00: @ 0x08095C00
-	push {r4, r5, r6, lr}
-	adds r6, r0, #0
-	adds r4, r1, #0
-	ldr r5, _08095C28  @ gUnknown_08A1826C
-	adds r0, r5, #0
-	bl Proc_Find
-	cmp r0, #0
-	beq _08095C16
-	bl Proc_End
-_08095C16:
-	adds r0, r5, #0
-	adds r1, r4, #0
-	bl Proc_Start
-	str r6, [r0, #0x58]
-	pop {r4, r5, r6}
-	pop {r0}
-	bx r0
-	.align 2, 0
-_08095C28: .4byte gUnknown_08A1826C
-
-	THUMB_FUNC_END sub_8095C00
-
-	THUMB_FUNC_START sub_8095C2C
-sub_8095C2C: @ 0x08095C2C
-	push {r4, lr}
-	adds r4, r0, #0
-	bl sub_80AD2D4
-	bl sub_8096C20
-	bl EndBG3Slider_
-	bl sub_809710C
-	adds r4, #0x2d
-	strb r0, [r4]
-	bl EndPrepScreenMenu
-	pop {r4}
-	pop {r0}
-	bx r0
-
-	THUMB_FUNC_END sub_8095C2C
-
-	THUMB_FUNC_START sub_8095C50
-sub_8095C50: @ 0x08095C50
-	push {r4, lr}
-	adds r2, r0, #0
-	adds r4, r1, #0
-	ldr r0, _08095C78  @ gUnknown_08A1AC88
-	ldr r1, _08095C7C  @ 0x06010000
-	adds r2, r2, r1
-	adds r1, r2, #0
-	bl CopyDataWithPossibleUncomp
-	ldr r0, _08095C80  @ gUnknown_08A1B174
-	adds r4, #0x10
-	lsls r4, r4, #5
-	adds r1, r4, #0
-	movs r2, #0x20
-	bl CopyToPaletteBuffer
-	pop {r4}
-	pop {r0}
-	bx r0
-	.align 2, 0
-_08095C78: .4byte gUnknown_08A1AC88
-_08095C7C: .4byte 0x06010000
-_08095C80: .4byte gUnknown_08A1B174
-
-	THUMB_FUNC_END sub_8095C50
-
 	THUMB_FUNC_START AtMenu_Reinitialize
 AtMenu_Reinitialize: @ 0x08095C84
 	push {r4, r5, r6, r7, lr}
@@ -282,7 +45,7 @@ AtMenu_Reinitialize: @ 0x08095C84
 	ldr r0, _08095E10  @ gBG2TilemapBuffer
 	movs r1, #0
 	bl BG_Fill
-	ldr r5, _08095E14  @ gUnknown_020111A4
+	ldr r5, _08095E14  @ gPrepMenuDescTexts
 	movs r4, #4
 _08095CF2:
 	adds r0, r5, #0
@@ -405,7 +168,7 @@ _08095E04: .4byte gLCDControlBuffer
 _08095E08: .4byte gBG0TilemapBuffer
 _08095E0C: .4byte gBG1TilemapBuffer
 _08095E10: .4byte gBG2TilemapBuffer
-_08095E14: .4byte gUnknown_020111A4
+_08095E14: .4byte gPrepMenuDescTexts
 _08095E18: .4byte gUnknown_02011184
 _08095E1C: .4byte gUnknown_0201117C
 _08095E20: .4byte gUnknown_08A1A4C8
@@ -452,8 +215,8 @@ _08095E76:
 	mov r1, r8
 	strb r0, [r1]
 	bl sub_8095024
-	bl sub_8095B64
-	bl sub_8095B94
+	bl ParsePrepMenuDescTexts
+	bl DrawPrepMenuDescTexts
 	pop {r3}
 	mov r8, r3
 	pop {r4, r5, r6, r7}

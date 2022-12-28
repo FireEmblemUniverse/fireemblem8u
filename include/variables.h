@@ -127,7 +127,7 @@ extern u16 gBmFrameTmap1[];
 // extern ??? gUnknown_0201000C
 // extern ??? gUnknown_0201117C
 // extern ??? gUnknown_02011184
-// extern ??? gUnknown_020111A4
+extern struct TextHandle gPrepMenuDescTexts[5];
 extern u8 gPrepUnitPool[];
 // extern ??? gUnknown_02011BC8
 extern struct PrepUnitList gPrepUnitList;
@@ -3315,7 +3315,7 @@ extern u16 gTSA_GoalBox_OneLine[];
 // extern ??? gUnknown_08A17C4C
 // extern ??? gUnknown_08A181E8
 // extern ??? gUnknown_08A18200
-// extern ??? gUnknown_08A1826C
+extern CONST_DATA struct ProcCmd ProcScr_PrepMenuDescHandler[];
 extern CONST_DATA struct ProcCmd ProcScr_AtMenu[];
 // extern ??? gUnknown_08A184B4
 // extern ??? gUnknown_08A184F4
@@ -3390,10 +3390,10 @@ extern u16 gUnknown_08A1A084[]; // pal
 // extern ??? gUnknown_08A1A474
 // extern ??? gUnknown_08A1A4C8
 // extern ??? gUnknown_08A1A8E4
-// extern ??? gUnknown_08A1AC88
-// extern ??? gUnknown_08A1B0D8
+extern u8 CONST_DATA gUnknown_08A1AC88[];
+extern u16 CONST_DATA gUnknown_08A1B0D8[];
 extern u16 CONST_DATA gUnknown_08A1B154[]; // TODO - palette data from sallycursor
-// extern ??? gUnknown_08A1B174
+extern u16 CONST_DATA gUnknown_08A1B174[];
 // extern ??? gUnknown_08A1B194
 // extern ??? gUnknown_08A1B1FC
 // extern ??? gUnknown_08A1B638
@@ -3476,7 +3476,7 @@ extern u16 CONST_DATA Pal_MapBattleInfoNum[]; // 'R is info' palette
 // extern ??? gUnknown_08A20B94
 // extern ??? gUnknown_08A20BB4
 // extern ??? gUnknown_08A20BD4
-// extern ??? gUnknown_08A20C04
+// extern ??? ProcScr_ParallelWorker
 // extern ??? gUnknown_08A20C1C
 // extern ??? gUnknown_08A20C4C
 // extern ??? gUnknown_08A20D6C

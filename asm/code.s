@@ -540,7 +540,7 @@ _0808EDE6:
 	bl sub_808F3D8
 	ldr r0, _0808EE5C  @ sub_808F5C8
 	adds r1, r6, #0
-	bl Get6CDifferedLoop6C
+	bl StartParallelWorker
 	ldr r0, [r6, #0x30]
 	bl SetFont
 	movs r0, #1

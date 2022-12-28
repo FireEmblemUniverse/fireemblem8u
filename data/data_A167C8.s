@@ -515,23 +515,23 @@ gUnknown_08A181E8:  @ 0x08A181E8
 gUnknown_08A18200:  @ 0x08A18200
 	.incbin "baserom.gba", 0xA18200, 0x6C
 
-	.global gUnknown_08A1826C
-gUnknown_08A1826C:  @ 0x08A1826C
+	.global ProcScr_PrepMenuDescHandler
+ProcScr_PrepMenuDescHandler:  @ 0x08A1826C
         @ PROC_CALL
         .short 0x2, 0x0
-        .word sub_8095BD8
+        .word PrepMenuDescOnInit
         @ PROC_SLEEP
         .short 0xe, 0x1
         .word 0x0
         @ PROC_CALL
         .short 0x2, 0x0
-        .word sub_8095BE8
+        .word PrepMenuDescOnParse
         @ PROC_YIELD
         .short 0xe, 0x0
         .word 0x0
         @ PROC_CALL
         .short 0x2, 0x0
-        .word sub_8095BF4
+        .word PrepMenuDescOnDraw
         @ PROC_END
         .short 0x0, 0x0
         .word 0x0
@@ -550,7 +550,7 @@ ProcScr_AtMenu:  @ 0x08A1829C
         .word sub_8095EBC
         @ PROC_CALL
         .short 0x2, 0x0
-        .word sub_8095AD8
+        .word PrepAtMenu_OnInit
         @ PROC_SLEEP
         .short 0xe, 0x2
         .word 0x0

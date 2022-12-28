@@ -62,7 +62,6 @@ void sub_8097008(const void*);
 void SetPrepScreenMenuItem(int, const void*, int, int, int);
 void SetPrepScreenMenuSelectedItem(int);
 void DrawPrepScreenMenuFrameAt(int, int);
-void EndPrepScreenMenu();
 void PrepScreenMenuExists(ProcPtr);
 void EnablePrepScreenMenu(ProcPtr);
 void BWL_FavorReduced_H(u8);

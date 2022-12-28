@@ -257,7 +257,7 @@ void TradeMenu_InitUnitNameDisplay(struct TradeMenuProc* proc)
     int xStart;
 
     // TODO: constants
-    sub_80ADB7C(6, 0x4800, 0x08, 0x800, 0x400, (struct Proc*) (proc));
+    StartSmallBrownNameBoxes(6, 0x4800, 0x08, 0x800, 0x400, (struct Proc*) (proc));
 
     sub_80ADBFC(0, -40, -1, 1);
     sub_80ADBFC(1, 184, -1, 0);

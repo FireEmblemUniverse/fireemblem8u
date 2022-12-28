@@ -1129,7 +1129,7 @@ _08096CD6:
 	adds r0, #1
 	strb r4, [r0]
 	adds r0, r5, #0
-	bl sub_80AD47C
+	bl ResetPrepScreenHandCursor
 	movs r0, #0xc0
 	lsls r0, r0, #3
 	movs r1, #1
