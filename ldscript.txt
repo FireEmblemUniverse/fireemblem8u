@@ -168,6 +168,7 @@ SECTIONS
         src/classdisplayfont.o(.text);
         src/bmshop.o(.text);
         asm/code_80B5730.o(.text);
+        src/opsubtitle.o(.text);
         src/titlescreen.o(.text);
         asm/code_80C6474.o(.text);
         src/branched_promotion_main.o(.text);
@@ -296,6 +297,7 @@ SECTIONS
         . = ALIGN(4); data/const_data_205E74.o(.rodata);
         . = ALIGN(4); src/opinfo.o(.rodata);
         . = ALIGN(4); data/const_data_205E94.o(.rodata);
+        . = ALIGN(4); src/opsubtitle.o(.rodata);
         . = ALIGN(4); src/branched_promotion_main.o(.rodata);
         . = ALIGN(4); src/branched_promotion.o(.rodata);
         . = ALIGN(4); INCLUDE "linker_script_sound.txt"
@@ -438,6 +440,8 @@ SECTIONS
         . = ALIGN(4); data/data_A2EEF0.o(.data);
         . = ALIGN(4); src/bmshop.o(.data);
         . = ALIGN(4); data/data_A394DC.o(.data);
+        . = ALIGN(4); src/opsubtitle.o(.data);
+        . = ALIGN(4); data/data_opsubtitle.o(.data);
         . = ALIGN(4); src/titlescreen.o(.data);
         . = ALIGN(4); data/data_AA6BFA.o(.data);
         . = ALIGN(4); src/branched_promotion_main.o(.data);

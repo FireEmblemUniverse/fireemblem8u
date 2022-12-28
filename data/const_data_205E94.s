@@ -970,28 +970,3 @@ gUnknown_08206FB4:  @ 0x08206FB4
 	.global gUnknown_08206FDC
 gUnknown_08206FDC:  @ 0x08206FDC
 	.incbin "baserom.gba", 0x206FDC, 0x8
-
-	.global gUnknown_08206FE4
-gUnknown_08206FE4:  @ 0x08206FE4
-    .4byte gUnknown_08AA239C + 0x20
-    .4byte gUnknown_08AA239C + 0x38e8
-    .4byte 0x0000014f
-    .4byte gUnknown_08AA239C + 0xe18
-    .4byte gUnknown_08AA239C + 0x3b44
-    .4byte 0x00000118
-    .4byte gUnknown_08AA239C + 0x1748
-    .4byte gUnknown_08AA239C + 0x3cfc
-    .4byte 0x00000078
-    .4byte gUnknown_08AA239C + 0x19e0
-    .4byte gUnknown_08AA239C + 0x3dd4
-    .4byte 0x00000118
-    .4byte gUnknown_08AA239C + 0x1fc0
-    .4byte gUnknown_08AA239C + 0x3f00
-    .4byte 0x0000014a
-    .4byte gUnknown_08AA239C + 0x2fa8
-    .4byte gUnknown_08AA239C + 0x41ac
-    .4byte 0x0000012c
-    .4byte gUnknown_08AA239C + 0x35b8
-    .4byte gUnknown_08AA239C + 0x42d8
-    .4byte 0x000000fa
-
