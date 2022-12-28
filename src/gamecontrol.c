@@ -754,7 +754,7 @@ void sub_8009E00(struct GameCtrlProc* proc) {
         return;
     }
 
-    sub_80C541C(proc);
+    StartIntroMonologue(proc);
 
     return;
 }

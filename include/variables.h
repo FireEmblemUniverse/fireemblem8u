@@ -237,7 +237,7 @@ extern struct PrepUnitList gPrepUnitList;
 // extern ??? gUnknown_0201C790
 // extern ??? gUnknown_0201C8D0
 // extern ??? gUnknown_0201C912
-// extern ??? gUnknown_0201CDD4
+extern u16 gUnknown_0201CDD4[]; // used as a palette buffer in opsubtitle
 // extern ??? gUnknown_0201CF84
 // extern ??? gUnknown_0201D428
 // extern ??? gUnknown_0201D438
@@ -1191,7 +1191,7 @@ extern const u8 gUnknown_08205714[4];
 // extern ??? gUnknown_08206E24
 // extern ??? gUnknown_08206FB4
 // extern ??? gUnknown_08206FDC
-// extern ??? gUnknown_08206FE4
+// extern ??? gOpSubtitleGfxLut
 // extern ??? gUnknown_08207044
 // extern ??? gUnknown_0820707C
 // extern ??? gUnknown_08207088
@@ -3742,10 +3742,24 @@ extern u16 gUnknown_08A37300[]; // pal
 // extern ??? gUnknown_08AA1C70
 // extern ??? gUnknown_08AA2044
 // extern ??? gUnknown_08AA2084
-// extern ??? gUnknown_08AA213C
+// extern ??? gBgConfig_OpSubtitle
 // extern ??? gUnknown_08AA21A4
-// extern ??? gUnknown_08AA21BC
-// extern ??? gUnknown_08AA239C
+// extern ??? gProcScr_OpSubtitle
+extern u16 CONST_DATA gPal_OpSubtitle[]; // pal
+extern u8 CONST_DATA gGfx_OpSubtitle_00[]; // gfx
+extern u8 CONST_DATA gGfx_OpSubtitle_01[]; // gfx
+extern u8 CONST_DATA gGfx_OpSubtitle_02[]; // gfx
+extern u8 CONST_DATA gGfx_OpSubtitle_03[]; // gfx
+extern u8 CONST_DATA gGfx_OpSubtitle_04[]; // gfx
+extern u8 CONST_DATA gGfx_OpSubtitle_05[]; // gfx
+extern u8 CONST_DATA gGfx_OpSubtitle_06[]; // gfx
+extern u8 CONST_DATA gTsa_OpSubtitle_00[]; // tsa
+extern u8 CONST_DATA gTsa_OpSubtitle_01[]; // tsa
+extern u8 CONST_DATA gTsa_OpSubtitle_02[]; // tsa
+extern u8 CONST_DATA gTsa_OpSubtitle_03[]; // tsa
+extern u8 CONST_DATA gTsa_OpSubtitle_04[]; // tsa
+extern u8 CONST_DATA gTsa_OpSubtitle_05[]; // tsa
+extern u8 CONST_DATA gTsa_OpSubtitle_06[]; // tsa
 // extern ??? gUnknown_08AA6BFA
 // extern ??? gUnknown_08AA6C0E
 // extern ??? gUnknown_08AA6C22
@@ -4027,7 +4041,7 @@ extern struct ProcCmd CONST_DATA gProcScr_Guide[];
 // extern ??? gUnknown_08B12D1C
 extern u8 gUnknown_08B12DB4[];  // gfx
 extern u16 gUnknown_08B1754C[]; // pal
-// extern ??? gUnknown_08B1756C
+extern u16 gUnknown_08B1756C[]; // pal, used in opsubtitle
 // extern ??? gUnknown_08B176CC
 // extern ??? gUnknown_08B177C0
 // extern ??? gUnknown_08B17864
