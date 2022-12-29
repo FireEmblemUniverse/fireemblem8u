@@ -31,7 +31,7 @@
 // extern ??? gUnknown_02000500
 // extern ??? gUnknown_02000504
 // extern ??? gUnknown_02000508
-// extern ??? gUnknown_0200050C
+extern u16 *gUnknown_0200050C;
 // extern ??? gUnknown_020007A0
 // extern ??? gUnknown_020007E0
 // extern ??? gUnknown_02000920
