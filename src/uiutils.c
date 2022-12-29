@@ -279,8 +279,6 @@ void DrawUiFrame(u16* tilemap, int x, int y, int width, int height, int tilebase
     tilemap[TILEMAP_INDEX(xMax, yMax)] = model[15] + tilebase; // bottom right tile
 }
 
-#ifdef NONMATCHING
-
 void ClearUiFrame(u16* tilemap, int x, int y, int width, int height)
 {
     int i;
@@ -290,67 +288,10 @@ void ClearUiFrame(u16* tilemap, int x, int y, int width, int height)
 
     for (i = 0; i < height; ++i)
     {
-        CpuFill16(0, tilemap + i*0x20, width);
+        CpuFill16(0, tilemap, width);
+        tilemap += 0x20;
     }
 }
-
-#else // NONMATCHING
-
-__attribute__((naked))
-void ClearUiFrame(u16* tilemap, int x, int y, int width, int height)
-{
-    // :/
-
-    asm("\n\
-        .syntax unified\n\
-        push {r4, r5, r6, r7, lr}\n\
-        mov r7, r9\n\
-        mov r6, r8\n\
-        push {r6, r7}\n\
-        sub sp, #4\n\
-        adds r5, r0, #0\n\
-        ldr r0, [sp, #0x20]\n\
-        lsls r3, r3, #1\n\
-        lsls r2, r2, #5\n\
-        adds r2, r2, r1\n\
-        lsls r2, r2, #1\n\
-        adds r5, r5, r2\n\
-        cmp r0, #0\n\
-        ble _0804E35A\n\
-        mov r7, sp\n\
-        adds r4, r0, #0\n\
-        movs r0, #0\n\
-        mov r9, r0\n\
-        lsls r0, r3, #0xa\n\
-        lsrs r6, r0, #0xb\n\
-        movs r0, #0x80\n\
-        lsls r0, r0, #0x11\n\
-        mov r8, r0\n\
-    _0804E342:\n\
-        mov r0, r9\n\
-        strh r0, [r7]\n\
-        mov r0, sp\n\
-        adds r1, r5, #0\n\
-        mov r2, r8\n\
-        orrs r2, r6\n\
-        bl CpuSet\n\
-        adds r5, #0x40\n\
-        subs r4, #1\n\
-        cmp r4, #0\n\
-        bne _0804E342\n\
-    _0804E35A:\n\
-        add sp, #4\n\
-        pop {r3, r4}\n\
-        mov r8, r3\n\
-        mov r9, r4\n\
-        pop {r4, r5, r6, r7}\n\
-        pop {r0}\n\
-        bx r0\n\
-        .syntax divided\n\
-    ");
-}
-
-#endif // NONMATCHING
 
 #ifdef NONMATCHING
 
