@@ -615,18 +615,8 @@ void ShopProc_Loop_BuyKeyHandler(struct BmShopProc* proc) {
     proc->unk_5e = proc->curIndex;
     proc->unk_5f = proc->unk_5d;
 
-    #if NONMATCHING
-
-    a = (proc->curIndex * 16);
-
-    #else // if !NONMATCHING
-
-    asm("\n\
-        ldrb %0, [r6]\n\
-        lsl %0, %0, #4\n\
-    " : "=r" (a));
-
-    #endif // NONMATCHING
+    a = proc->curIndex;
+    a *= 16;
 
     b = ((proc->unk_5d * 16)) - 72;
 
