@@ -3713,7 +3713,7 @@ void sub_8086CE8(ProcPtr, int, int, int, int);
 void EndBG3Slider(void);
 
 void sub_80895B4(int, int);
-void sub_8089624(int, int);
+void sub_8089624(int, u32);
 // ??? sub_808966C(???);
 // ??? sub_8089678(???);
 // ??? sub_80896A8(???);
@@ -5203,8 +5203,8 @@ void sub_80BC81C(void);
 // ??? sub_80BCDE4(???);
 // ??? sub_80BCE34(???);
 // ??? sub_80BCFB4(???);
-// ??? sub_80BCFDC(???);
-// ??? sub_80BD014(???);
+int sub_80BCFDC(int);
+int sub_80BD014(struct GMapData*); // Get next WM Destination?
 // ??? sub_80BD048(???);
 unsigned int GetChapterThing(void);
 // ??? sub_80BD20C(???);

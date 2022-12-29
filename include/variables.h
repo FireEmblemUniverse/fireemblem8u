@@ -1177,8 +1177,8 @@ extern const u8 gUnknown_08205714[4];
 // extern ??? gUnknown_082068F4
 // extern ??? gUnknown_082068FC
 // extern ??? gUnknown_08206904
-// extern ??? gUnknown_08206948
-// extern ??? gUnknown_08206951
+extern u8 gWMMonsterSpawnLocations[];
+extern u8 gWMMonsterSpawnsSize;
 // extern ??? gUnknown_08206954
 // extern ??? gUnknown_082069D8
 // extern ??? gUnknown_082069E3
@@ -3260,17 +3260,17 @@ extern u16 CONST_DATA gUnknown_08A0731C[]; // halo pal
 // extern ??? gUnknown_08A0754C
 // extern ??? gUnknown_08A079B4
 // extern ??? gUnknown_08A07A98
-// extern ??? gUnknown_08A07AD8
+extern u16 gPal_08A07AD8[]; // pal
 // extern ??? gUnknown_08A07AEA
 // extern ??? gUnknown_08A07B0A
 // extern ??? gUnknown_08A07BEA
 // extern ??? gUnknown_08A07C0A
-// extern ??? gUnknown_08A07C58
+extern u16 gPal_08A07C58[]; // pal
 extern u16 CONST_DATA Img_ChapterIntroFog[];
 // extern ??? gUnknown_08A09A5C
-// extern ??? gUnknown_08A09E4C
+extern u8 gGfx_08A09E4C[]; // gfx
 // extern ??? gUnknown_08A0A4E8
-// extern ??? gUnknown_08A0A9F8
+extern u8 gTsa_08A0A9F8[]; // tsa
 extern u16 CONST_DATA Img_GameOverText[];
 extern u16 CONST_DATA Pal_GameOverText2[];
 extern u16 CONST_DATA Pal_GameOverText1[];

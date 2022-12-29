@@ -23973,11 +23973,11 @@ sub_80C0960: @ 0x080C0960
 	beq _080C09AE
 _080C097E:
 	movs r1, #0
-	ldr r0, _080C09A0  @ gUnknown_08206951
+	ldr r0, _080C09A0  @ gWMMonsterSpawnsSize
 	ldrb r0, [r0]
 	cmp r1, r0
 	bge _080C09AE
-	ldr r3, _080C09A4  @ gUnknown_08206948
+	ldr r3, _080C09A4  @ gWMMonsterSpawnLocations
 	adds r2, r0, #0
 _080C098C:
 	adds r0, r1, r3
@@ -23989,8 +23989,8 @@ _080C098C:
 	.align 2, 0
 _080C0998: .4byte gRAMChapterData
 _080C099C: .4byte gGMData
-_080C09A0: .4byte gUnknown_08206951
-_080C09A4: .4byte gUnknown_08206948
+_080C09A0: .4byte gWMMonsterSpawnsSize
+_080C09A4: .4byte gWMMonsterSpawnLocations
 _080C09A8:
 	adds r1, #1
 	cmp r1, r2
@@ -25878,7 +25878,7 @@ _080C1822:
 	movs r6, #0
 	add r1, sp, #0x10
 	mov sl, r1
-	ldr r3, _080C18D8  @ gUnknown_08206948
+	ldr r3, _080C18D8  @ gWMMonsterSpawnLocations
 	ldr r0, _080C18DC  @ gGMData
 	ldrb r1, [r0, #0x11]
 	movs r2, #0
@@ -25912,7 +25912,7 @@ _080C1868:
 	adds r5, r0, #0
 	cmp r5, #0
 	blt _080C1818
-	ldr r0, _080C18D8  @ gUnknown_08206948
+	ldr r0, _080C18D8  @ gWMMonsterSpawnLocations
 	adds r0, r5, r0
 	ldrb r0, [r0]
 	strb r0, [r4]
@@ -25957,7 +25957,7 @@ _080C18C2:
 	bx r1
 	.align 2, 0
 _080C18D4: .4byte gUnknown_08206AAB
-_080C18D8: .4byte gUnknown_08206948
+_080C18D8: .4byte gWMMonsterSpawnLocations
 _080C18DC: .4byte gGMData
 _080C18E0: .4byte gGmMonsterRnState
 _080C18E4: .4byte gUnknown_03005349
