@@ -664,58 +664,17 @@ void Title_Loop_MainLogoZoom(struct TitleScreenProc* proc) {
     return;
 }
 
-#if NONMATCHING
-
 //! FE8U = 0x080C60CC
 void sub_80C60CC(void) {
     int i;
 
-    u8* buf = gGenericBuffer;
-
     for (i = 0; i <= 3; i++) {
+        u8* buf = gGenericBuffer;
         CpuFastFill(0, buf + (i * 0x400), 0x200);
     }
 
     return;
 }
-
-#else // if !NONMATCHING
-
-__attribute__((naked))
-void sub_80C60CC(void) {
-
-    asm("\n\
-        .syntax unified\n\
-        push {r4, r5, r6, lr}\n\
-        sub sp, #4\n\
-        ldr r5, _080C60F8  @ gGenericBuffer\n\
-        movs r6, #0\n\
-        movs r4, #3\n\
-    _080C60D6:\n\
-        str r6, [sp]\n\
-        mov r0, sp\n\
-        adds r1, r5, #0\n\
-        ldr r2, _080C60FC  @ 0x01000080\n\
-        bl CpuFastSet\n\
-        movs r0, #0x80\n\
-        lsls r0, r0, #3\n\
-        adds r5, r5, r0\n\
-        subs r4, #1\n\
-        cmp r4, #0\n\
-        bge _080C60D6\n\
-        add sp, #4\n\
-        pop {r4, r5, r6}\n\
-        pop {r0}\n\
-        bx r0\n\
-        .align 2, 0\n\
-    _080C60F8: .4byte gGenericBuffer\n\
-    _080C60FC: .4byte 0x01000080\n\
-        .syntax divided\n\
-    ");
-
-}
-
-#endif
 
 //! FE8U = 0x080C6100
 void nullsub_23(int a, int b) {
