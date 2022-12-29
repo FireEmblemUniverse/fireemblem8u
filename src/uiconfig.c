@@ -349,26 +349,21 @@ u8 GetSelectedOptionValue(void) {
     return GetGameOption(gGameOptionsUiOrder[gConfigUiState->unk_2a]);
 }
 
-#if NONMATCHING
-
 //! FE8U: 0x080B1700
 void DrawGameOptionIcon(int a, int b) {
     int tmpA;
     int tmpB;
     int tmpC;
-    int tmpD;
     int tmpE;
 
     tmpC = (a * 2 + b) & 0x1f;
     tmpE = 0x20 * tmpC;
 
     tmpA = gGameOptions[gGameOptionsUiOrder[a]].icon;
+    tmpB = (tmpA & 0x1f) + ({ (((tmpA) << 1) & 0xFFC0) + 0x200; });
 
-    tmpB = (tmpA & 0x1f) + ((((tmpA) << 1) & 0xFFC0));
-    tmpB += 0x200;
-
-    tmpD = tmpB + 0x4000;
-    gBG1TilemapBuffer[tmpE + 0x02] = tmpD;
+    tmpA = tmpB + 0x4000;
+    gBG1TilemapBuffer[tmpE + 0x02] = tmpA;
     gBG1TilemapBuffer[tmpE + 0x03] = tmpB + 0x4001;
 
     gBG1TilemapBuffer[tmpE + 0x22] = tmpB + 0x4020;
@@ -376,81 +371,6 @@ void DrawGameOptionIcon(int a, int b) {
 
     return;
 }
-
-#else // if !NONMATCHING
-
-__attribute__((naked))
-void DrawGameOptionIcon(int a, int b) {
-
-    asm("\n\
-        .syntax unified\n\
-        push {r4, r5, lr}\n\
-        lsls r2, r0, #1\n\
-        adds r2, r2, r1\n\
-        movs r4, #0x1f\n\
-        ands r2, r4\n\
-        lsls r2, r2, #5\n\
-        ldr r3, _080B176C  @ gGameOptions\n\
-        ldr r1, _080B1770  @ gGameOptionsUiOrder\n\
-        adds r0, r0, r1\n\
-        ldrb r1, [r0]\n\
-        movs r0, #0x2c\n\
-        muls r0, r1, r0\n\
-        adds r0, r0, r3\n\
-        adds r0, #0x24\n\
-        ldrb r1, [r0]\n\
-        adds r3, r1, #0\n\
-        ands r3, r4\n\
-        lsls r0, r1, #1\n\
-        ldr r1, _080B1774  @ 0x0000FFC0\n\
-        ands r0, r1\n\
-        movs r1, #0x80\n\
-        lsls r1, r1, #2\n\
-        adds r0, r0, r1\n\
-        adds r3, r3, r0\n\
-        movs r0, #0x80\n\
-        lsls r0, r0, #7\n\
-        adds r1, r3, r0\n\
-        ldr r4, _080B1778  @ gBG1TilemapBuffer\n\
-        adds r0, r2, #2\n\
-        lsls r0, r0, #1\n\
-        adds r0, r0, r4\n\
-        strh r1, [r0]\n\
-        adds r0, r2, #3\n\
-        lsls r0, r0, #1\n\
-        adds r0, r0, r4\n\
-        ldr r5, _080B177C  @ 0x00004001\n\
-        adds r1, r3, r5\n\
-        strh r1, [r0]\n\
-        adds r0, r2, #0\n\
-        adds r0, #0x22\n\
-        lsls r0, r0, #1\n\
-        adds r0, r0, r4\n\
-        adds r5, #0x1f\n\
-        adds r1, r3, r5\n\
-        strh r1, [r0]\n\
-        adds r2, #0x23\n\
-        lsls r2, r2, #1\n\
-        adds r2, r2, r4\n\
-        ldr r0, _080B1780  @ 0x00004021\n\
-        adds r3, r3, r0\n\
-        strh r3, [r2]\n\
-        pop {r4, r5}\n\
-        pop {r0}\n\
-        bx r0\n\
-        .align 2, 0\n\
-    _080B176C: .4byte gGameOptions\n\
-    _080B1770: .4byte gGameOptionsUiOrder\n\
-    _080B1774: .4byte 0x0000FFC0\n\
-    _080B1778: .4byte gBG1TilemapBuffer\n\
-    _080B177C: .4byte 0x00004001\n\
-    _080B1780: .4byte 0x00004021\n\
-        .syntax divided\n\
-    ");
-
-}
-
-#endif // NONMATCHING
 
 //! FE8U: 0x080B1784
 void DrawGameOptionHelpText(void) {
