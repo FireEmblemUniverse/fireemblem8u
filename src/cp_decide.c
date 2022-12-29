@@ -66,8 +66,6 @@ void CpDecide_Suspend(ProcPtr proc)
     SaveSuspendedGame(SAVE_BLOCK_SUSPEND_BASE);
 }
 
-#if NONMATCHING
-
 void CpDecide_Main(ProcPtr proc)
 {
 next_unit:
@@ -86,171 +84,44 @@ next_unit:
             goto next_unit;
         }
 
-        RefreshEntityBmMaps();
-        RenderBmMap();
-        SMS_UpdateFromGameData();
-
-        AiUpdateNoMoveFlag(gActiveUnit);
-
-        gAiState.combatWeightTableId = (gActiveUnit->ai3And4 & 0xF8) >> 3;
-
-        gAiState.dangerMapFilled = FALSE;
-        AiInitDangerMap();
-
-        AiClearDecision();
-        AiDecideMainFunc();
-
-        gActiveUnit->state |= US_HAS_MOVED_AI;
-
-        if (!gAiDecision.actionPerformed ||
-            (gActiveUnit->xPos == gAiDecision.xMove && gActiveUnit->yPos == gAiDecision.yMove && gAiDecision.actionId == AI_ACTION_NONE))
+        do
         {
-            // Ignoring actions that are just moving to the same square
+            RefreshEntityBmMaps();
+            RenderBmMap();
+            SMS_UpdateFromGameData();
 
-            gAiState.unitIt++;
-            Proc_Goto(proc, 0);
-        }
-        else
-        {
-            gAiState.unitIt++;
-            Proc_StartBlocking(gProcScr_CpPerform, proc);
-        }
+            AiUpdateNoMoveFlag(gActiveUnit);
+
+            gAiState.combatWeightTableId = (gActiveUnit->ai3And4 & 0xF8) >> 3;
+
+            gAiState.dangerMapFilled = FALSE;
+            AiInitDangerMap();
+
+            AiClearDecision();
+            AiDecideMainFunc();
+
+            gActiveUnit->state |= US_HAS_MOVED_AI;
+
+            if (!gAiDecision.actionPerformed ||
+                (gActiveUnit->xPos == gAiDecision.xMove && gActiveUnit->yPos == gAiDecision.yMove && gAiDecision.actionId == AI_ACTION_NONE))
+            {
+                // Ignoring actions that are just moving to the same square
+
+                gAiState.unitIt++;
+                Proc_Goto(proc, 0);
+            }
+            else
+            {
+                gAiState.unitIt++;
+                Proc_StartBlocking(gProcScr_CpPerform, proc);
+            }
+        } while (0);
     }
     else
     {
         Proc_End(proc);
     }
 }
-
-#else // if !NONMATCHING
-
-__attribute__((naked))
-void CpDecide_Main(ProcPtr proc)
-{
-    asm("\n\
-        .syntax unified\n\
-        push {r4, r5, r6, r7, lr}\n\
-        adds r7, r0, #0\n\
-    _08039B04:\n\
-        ldr r4, _08039B48  @ gAiState\n\
-        adds r0, r4, #0\n\
-        adds r0, #0x79\n\
-        movs r1, #0\n\
-        strb r1, [r0]\n\
-        ldr r2, [r4, #0x74]\n\
-        ldrb r0, [r2]\n\
-        cmp r0, #0\n\
-        beq _08039BF4\n\
-        adds r0, r4, #0\n\
-        adds r0, #0x7c\n\
-        strb r1, [r0]\n\
-        ldr r1, _08039B4C  @ gActiveUnitId\n\
-        ldrb r0, [r2]\n\
-        strb r0, [r1]\n\
-        ldrb r0, [r1]\n\
-        bl GetUnit\n\
-        adds r1, r0, #0\n\
-        ldr r6, _08039B50  @ gActiveUnit\n\
-        str r1, [r6]\n\
-        ldr r5, [r1, #0xc]\n\
-        movs r0, #6\n\
-        ands r5, r0\n\
-        cmp r5, #0\n\
-        bne _08039B3E\n\
-        ldr r0, [r1]\n\
-        cmp r0, #0\n\
-        bne _08039B54\n\
-    _08039B3E:\n\
-        ldr r0, [r4, #0x74]\n\
-        adds r0, #1\n\
-        str r0, [r4, #0x74]\n\
-        b _08039B04\n\
-        .align 2, 0\n\
-    _08039B48: .4byte gAiState\n\
-    _08039B4C: .4byte gActiveUnitId\n\
-    _08039B50: .4byte gActiveUnit\n\
-    _08039B54:\n\
-        bl RefreshEntityBmMaps\n\
-        bl RenderBmMap\n\
-        bl SMS_UpdateFromGameData\n\
-        ldr r0, [r6]\n\
-        bl AiUpdateNoMoveFlag\n\
-        ldr r0, [r6]\n\
-        adds r0, #0x40\n\
-        ldrh r1, [r0]\n\
-        movs r0, #0xf8\n\
-        ands r0, r1\n\
-        lsrs r0, r0, #3\n\
-        adds r1, r4, #0\n\
-        adds r1, #0x7d\n\
-        strb r0, [r1]\n\
-        adds r0, r4, #0\n\
-        adds r0, #0x7a\n\
-        strb r5, [r0]\n\
-        bl AiInitDangerMap\n\
-        bl AiClearDecision\n\
-        ldr r0, _08039BD0  @ AiDecideMainFunc\n\
-        ldr r0, [r0]\n\
-        bl _call_via_r0\n\
-        ldr r2, [r6]\n\
-        ldr r0, [r2, #0xc]\n\
-        movs r1, #0x80\n\
-        lsls r1, r1, #3\n\
-        orrs r0, r1\n\
-        str r0, [r2, #0xc]\n\
-        ldr r1, _08039BD4  @ gAiDecision\n\
-        movs r0, #0xa\n\
-        ldrsb r0, [r1, r0]\n\
-        cmp r0, #0\n\
-        beq _08039BBE\n\
-        movs r0, #0x10\n\
-        ldrsb r0, [r2, r0]\n\
-        ldrb r3, [r1, #2]\n\
-        cmp r0, r3\n\
-        bne _08039BD8\n\
-        movs r0, #0x11\n\
-        ldrsb r0, [r2, r0]\n\
-        ldrb r2, [r1, #3]\n\
-        cmp r0, r2\n\
-        bne _08039BD8\n\
-        ldrb r0, [r1]\n\
-        cmp r0, #0\n\
-        bne _08039BD8\n\
-    _08039BBE:\n\
-        ldr r0, [r4, #0x74]\n\
-        adds r0, #1\n\
-        str r0, [r4, #0x74]\n\
-        adds r0, r7, #0\n\
-        movs r1, #0\n\
-        bl Proc_Goto\n\
-        b _08039BFA\n\
-        .align 2, 0\n\
-    _08039BD0: .4byte AiDecideMainFunc\n\
-    _08039BD4: .4byte gAiDecision\n\
-    _08039BD8:\n\
-        ldr r0, _08039BEC  @ gAiState\n\
-        ldr r1, [r0, #0x74]\n\
-        adds r1, #1\n\
-        str r1, [r0, #0x74]\n\
-        ldr r0, _08039BF0  @ gProcScr_CpPerform\n\
-        adds r1, r7, #0\n\
-        bl Proc_StartBlocking\n\
-        b _08039BFA\n\
-        .align 2, 0\n\
-    _08039BEC: .4byte gAiState\n\
-    _08039BF0: .4byte gProcScr_CpPerform\n\
-    _08039BF4:\n\
-        adds r0, r7, #0\n\
-        bl Proc_End\n\
-    _08039BFA:\n\
-        pop {r4, r5, r6, r7}\n\
-        pop {r0}\n\
-        bx r0\n\
-        .syntax divided\n\
-    ");
-}
-
-#endif // NONMATCHING
 
 void AiClearDecision(void)
 {
