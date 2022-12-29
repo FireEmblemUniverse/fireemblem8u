@@ -647,49 +647,13 @@ void GameControl_PostChapterSwitch(struct GameCtrlProc* proc) {
     return;
 }
 
-#if NONMATCHING
-
 void sub_8009D1C(struct GameCtrlProc* proc) {
-    if ((gRAMChapterData.unk4A_2 == 4) || (gRAMChapterData.unk4A_2 == 8)) {
+    if ((gRAMChapterData.unk4A_2 == 2) || (gRAMChapterData.unk4A_2 == 4)) {
         Proc_Goto(proc, 6);
     }
 
     return;
 }
-
-#else // if !NONMATCHING
-
-__attribute__((naked))
-void sub_8009D1C(struct GameCtrlProc* proc) {
-
-    asm("\n\
-        .syntax unified\n\
-        push {lr}\n\
-        adds r2, r0, #0\n\
-        ldr r0, _08009D40  @ gRAMChapterData\n\
-        adds r0, #0x4a\n\
-        ldrb r0, [r0]\n\
-        movs r1, #0xe\n\
-        ands r1, r0\n\
-        cmp r1, #4\n\
-        beq _08009D32\n\
-        cmp r1, #8\n\
-        bne _08009D3A\n\
-    _08009D32:\n\
-        adds r0, r2, #0\n\
-        movs r1, #6\n\
-        bl Proc_Goto\n\
-    _08009D3A:\n\
-        pop {r0}\n\
-        bx r0\n\
-        .align 2, 0\n\
-    _08009D40: .4byte gRAMChapterData\n\
-        .syntax divided\n\
-    ");
-
-}
-
-#endif // NONMATCHING
 
 void sub_8009D44(struct GameCtrlProc* proc) {
     if (gRAMChapterData.chapterStateBits & CHAPTER_FLAG_POSTGAME) {
