@@ -37,8 +37,6 @@ extern s16* gUnknown_02000500;
 extern s16* gUnknown_02000504;
 extern s16* gUnknown_02000508;
 
-extern u16 (*gUnknown_0200050C)[8][16];
-
 // hino.s
 void sub_80131D0(s16*);
 void sub_80131F0(s16*, int, int, int, int);
@@ -980,14 +978,12 @@ void ApplyMinimapGraphics(int palId) {
     return;
 }
 
-#if NONMATCHING
-
 void sub_80A8410() {
 
     int iVar7;
     int iVar8;
 
-    (u16**)gUnknown_0200050C = &gGenericBuffer;
+    gUnknown_0200050C = (u16 *)gGenericBuffer;
 
     for (iVar7 = 1; iVar7 < 16; ++iVar7) {
         int color = gPaletteBuffer[(4 * 0x10) + iVar7];
@@ -997,7 +993,7 @@ void sub_80A8410() {
         int blue = BLUE_VALUE(color);
 
         for (iVar8 = 0; iVar8 < 8; ++iVar8) {
-            (**gUnknown_0200050C)[iVar7] = ((blue << 10) + (green << 5)) + red;
+            gUnknown_0200050C[iVar7 + 0x10 * iVar8] = ((blue << 10) + (green << 5)) + red;
 
             red += 3;
             if (red > 31) {
@@ -1019,92 +1015,6 @@ void sub_80A8410() {
     return;
 }
 
-#else // if !NONMATCHING
-
-__attribute__((naked))
-void sub_80A8410() {
-
-    asm("\n\
-        .syntax unified\n\
-        push {r4, r5, r6, r7, lr}\n\
-        mov r7, sl\n\
-        mov r6, r9\n\
-        mov r5, r8\n\
-        push {r5, r6, r7}\n\
-        ldr r1, _080A8490  @ gUnknown_0200050C\n\
-        ldr r0, _080A8494  @ gGenericBuffer\n\
-        str r0, [r1]\n\
-        movs r2, #1\n\
-        ldr r0, _080A8498  @ gPaletteBuffer\n\
-        mov sl, r0\n\
-        movs r0, #0x1f\n\
-        mov r8, r0\n\
-        mov r9, r1\n\
-    _080A842C:\n\
-        adds r0, r2, #0\n\
-        adds r0, #0x40\n\
-        lsls r0, r0, #1\n\
-        add r0, sl\n\
-        ldrh r0, [r0]\n\
-        adds r5, r0, #0\n\
-        mov r1, r8\n\
-        ands r5, r1\n\
-        asrs r4, r0, #5\n\
-        ands r4, r1\n\
-        asrs r3, r0, #0xa\n\
-        ands r3, r1\n\
-        adds r0, r2, #1\n\
-        mov ip, r0\n\
-        lsls r6, r2, #1\n\
-        movs r7, #7\n\
-    _080A844C:\n\
-        mov r1, r9\n\
-        ldr r0, [r1]\n\
-        adds r0, r6, r0\n\
-        lsls r1, r3, #0xa\n\
-        lsls r2, r4, #5\n\
-        adds r1, r1, r2\n\
-        adds r1, r1, r5\n\
-        strh r1, [r0]\n\
-        adds r5, #3\n\
-        cmp r5, #0x1f\n\
-        ble _080A8464\n\
-        movs r5, #0x1f\n\
-    _080A8464:\n\
-        adds r4, #3\n\
-        cmp r4, #0x1f\n\
-        ble _080A846C\n\
-        movs r4, #0x1f\n\
-    _080A846C:\n\
-        adds r3, #3\n\
-        cmp r3, #0x1f\n\
-        ble _080A8474\n\
-        movs r3, #0x1f\n\
-    _080A8474:\n\
-        adds r6, #0x20\n\
-        subs r7, #1\n\
-        cmp r7, #0\n\
-        bge _080A844C\n\
-        mov r2, ip\n\
-        cmp r2, #0xf\n\
-        ble _080A842C\n\
-        pop {r3, r4, r5}\n\
-        mov r8, r3\n\
-        mov r9, r4\n\
-        mov sl, r5\n\
-        pop {r4, r5, r6, r7}\n\
-        pop {r0}\n\
-        bx r0\n\
-        .align 2, 0\n\
-        _080A8490: .4byte gUnknown_0200050C\n\
-        _080A8494: .4byte gGenericBuffer\n\
-        _080A8498: .4byte gPaletteBuffer\n\
-        .syntax divided\n\
-    ");
-}
-
-#endif // NONMATCHING
-
 void sub_80A849C() {
     u8 gUnknown_08205D87[] = {
         0, 4, 7, 6, 5, 4, 3, 2, 2, 1, 1, 1, 0, 0, 0, 0,
@@ -1112,7 +1022,7 @@ void sub_80A849C() {
 
     u8 idx = gUnknown_08205D87[(GetGameClock() >> 2) & 0xF];
 
-    CopyToPaletteBuffer((*gUnknown_0200050C)[idx], 0x80, 0x20);
+    CopyToPaletteBuffer(gUnknown_0200050C + idx * 0x10, 0x80, 0x20);
 
     return;
 }

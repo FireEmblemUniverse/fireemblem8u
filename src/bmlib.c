@@ -129,35 +129,15 @@ int FilterR0ForRawCopy(const void* data)
     return _data[0] >> 8;
 }
 
-#if NONMATCHING
 void sub_8012F98(struct Struct8012F98 *buf, int a2, int a3)
 {
-    buf->unk0 = (u8*)a3;
-    buf->unk4 = ((a2 & 0xFFE0) / 32) - ((a3 & 0xFFE0) / 32);
+    int a, b = a3;
+    buf->unk0 = (u8*)b;
+    a3 = 0xFFE0;
+    a = (a2 & a3) >> 5;
+    b = (b & a3) >> 5;
+    buf->unk4 = a = b - a;
 }
-
-#else
-__attribute__((naked))
-void sub_8012F98(struct Struct8012F98 *buf, int a2, int a3)
-{
-    asm("\n\
-        .syntax unified\n\
-        adds r3, r2, #0\n\
-        str r3, [r0]\n\
-        ldr r2, _08012FAC\n\
-        ands r1, r2\n\
-        asrs r1, r1, #5\n\
-        ands r2, r3\n\
-        asrs r3, r2, #5\n\
-        subs r1, r3, r1\n\
-        str r1, [r0, #4]\n\
-        bx lr\n\
-        .align 2, 0\n\
-    _08012FAC: .4byte 0x0000FFE0\n\
-        .syntax divided\n\
-    ");
-}
-#endif
 
 int sub_8012FB0(struct Struct8012F98 *buf, u8 *src)
 {

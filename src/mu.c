@@ -770,70 +770,26 @@ s8 MU_Exists(void) {
     return Proc_Find(gProcScr_MoveUnit) ? TRUE : FALSE;
 }
 
-#if NONMATCHING
-
 s8 MU_IsAnyActive(void) {
-    struct MUProc* proc;
     int i;
 
     for (i = 0; i < MU_MAX_COUNT; ++i) {
-        if (sMUConfigArray[i].muIndex) {
-			proc = sMUConfigArray[i].pMUProc;
-
-            if (proc->stateId != MU_STATE_NONACTIVE)
-				break;
+#ifndef NONMATCHING
+        asm(""::"r"(&sMUConfigArray[i].muIndex));
+        asm(""::"r"(&sMUConfigArray[i].pMUProc));
+#endif
+        if (sMUConfigArray[i].muIndex == 0) continue;
+        while (0) ;
+        if (sMUConfigArray[i].pMUProc->stateId != MU_STATE_NONACTIVE) {
+            return TRUE;
         }
     }
 
-    if (i >= 4)
+    if (i >= MU_MAX_COUNT)
         return FALSE;
 
     return TRUE;
 }
-
-#else // NONMATCHING
-
-__attribute__((naked))
-s8 MU_IsAnyActive(void) {
-    asm(
-        ".syntax unified\n"
-
-        "push {lr}\n"
-        "movs r3, #0\n"
-        "ldr r0, _08078764  @ sMUConfigArray\n"
-        "adds r2, r0, #0\n"
-        "adds r2, #0x48\n"
-        "adds r1, r0, #0\n"
-    "_08078744:\n"
-        "ldrb r0, [r1]\n"
-        "cmp r0, #0\n"
-        "beq _08078754\n"
-        "ldr r0, [r2]\n"
-        "adds r0, #0x3f\n"
-        "ldrb r0, [r0]\n"
-        "cmp r0, #1\n"
-        "bne _08078768\n"
-    "_08078754:\n"
-        "adds r2, #0x4c\n"
-        "adds r1, #0x4c\n"
-        "adds r3, #1\n"
-        "cmp r3, #3\n"
-        "ble _08078744\n"
-        "movs r0, #0\n"
-        "b _0807876A\n"
-        ".align 2, 0\n"
-    "_08078764: .4byte sMUConfigArray\n"
-    "_08078768:\n"
-        "movs r0, #1\n"
-    "_0807876A:\n"
-        "pop {r1}\n"
-        "bx r1\n"
-
-        ".syntax divided\n"
-    );
-}
-
-#endif // NONMATCHING
 
 int MU_IsActive(struct MUProc* proc) {
     if (proc->pMUConfig->muIndex && proc->stateId != MU_STATE_NONACTIVE)
