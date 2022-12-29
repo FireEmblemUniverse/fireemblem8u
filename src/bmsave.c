@@ -2556,24 +2556,7 @@ void PackUnitStructForSuspend(struct Unit *unit, void *buf)
     unit_su->item2 = (0x3FFF & unit->items[1]) | (0x18 & unit->supportBits) << 0x0B;
     unit_su->item3 = (0x3FFF & unit->items[2]) | (0x60 & unit->supportBits) << 0x09;
     unit_su->item4 = unit->items[3];
-
-#if NONMATCHING
     unit_su->item5 = unit->items[4];
-#else
-    asm("\n\
-        .syntax unified\n\
-        ldrh r1, [r7, #0x26]\n\
-    	lsls r1, r1, #2\n\
-    	mov r0, ip\n\
-    	ldrh r2, [r0, #0x2e]\n\
-    	movs r0, #3\n\
-    	ands r0, r2\n\
-    	orrs r0, r1\n\
-    	mov r1, ip\n\
-    	strh r0, [r1, #0x2e]\n\
-        .syntax divided\n\
-    ");
-#endif /* NONMATCHING */
 
     for (i = 0; i < 8; i++)
         unit_su->ranks[i] = unit->ranks[i];
