@@ -881,18 +881,10 @@ void sub_80C62DC(struct TitleScreenProc* proc) {
     return;
 }
 
-#if NONMATCHING
-
 //! FE8U = 0x080C6354
 void Title_Loop_MainScreenKeyListener(struct TitleScreenProc* proc) {
-    register int r3 asm("r3");
-
     proc->unk_2c++;
-
-    proc->timer++;
-    r3 = 0xFFFF; // TODO: For some reason, this must get loaded into r3, then moved to r1
-    proc->timer &= r3;
-    proc->timer = ((proc->timer) & 0x3f);
+    proc->timer = (++proc->timer & 0x3f);
 
     if (gKeyStatusPtr->newKeys & (A_BUTTON | START_BUTTON)) {
         PlaySoundEffect(0x6D);
@@ -909,70 +901,6 @@ void Title_Loop_MainScreenKeyListener(struct TitleScreenProc* proc) {
 
     return;
 }
-
-#else // if !NONMATCHING
-
-__attribute__((naked))
-void Title_Loop_MainScreenKeyListener(struct TitleScreenProc* proc) {
-    asm("\n\
-        .syntax unified\n\
-        push {r4, lr}\n\
-        adds r4, r0, #0\n\
-        ldr r0, [r4, #0x2c]\n\
-        adds r2, r0, #1\n\
-        str r2, [r4, #0x2c]\n\
-        ldrh r0, [r4, #0x2a]\n\
-        adds r0, #1\n\
-        ldr r3, _080C639C  @ 0xFFFF\n\
-        adds r1, r3, #0\n\
-        ands r0, r1\n\
-        movs r1, #0x3f\n\
-        ands r0, r1\n\
-        strh r0, [r4, #0x2a]\n\
-        ldr r0, _080C63A0  @ gKeyStatusPtr\n\
-        ldr r0, [r0]\n\
-        ldrh r1, [r0, #8]\n\
-        movs r0, #9\n\
-        ands r0, r1\n\
-        cmp r0, #0\n\
-        beq _080C63A8\n\
-        ldr r0, _080C63A4  @ gRAMChapterData\n\
-        adds r0, #0x41\n\
-        ldrb r0, [r0]\n\
-        lsls r0, r0, #0x1e\n\
-        cmp r0, #0\n\
-        blt _080C638E\n\
-        movs r0, #0x6d\n\
-        bl m4aSongNumStart\n\
-    _080C638E:\n\
-        movs r0, #0\n\
-        bl SetNextGameActionId\n\
-        adds r0, r4, #0\n\
-        bl Proc_Break\n\
-        b _080C63BA\n\
-        .align 2, 0\n\
-    _080C639C: .4byte 0xFFFF\n\
-    _080C63A0: .4byte gKeyStatusPtr\n\
-    _080C63A4: .4byte gRAMChapterData\n\
-    _080C63A8:\n\
-        ldr r0, _080C63C0  @ 0x032F\n\
-        cmp r2, r0\n\
-        bne _080C63BA\n\
-        movs r0, #1\n\
-        bl SetNextGameActionId\n\
-        adds r0, r4, #0\n\
-        bl Proc_Break\n\
-    _080C63BA:\n\
-        pop {r4}\n\
-        pop {r0}\n\
-        bx r0\n\
-        .align 2, 0\n\
-    _080C63C0: .4byte 0x032F\n\
-        .syntax divided\n\
-    ");
-}
-
-#endif
 
 //! FE8U = 0x080C63C4
 void Title_EndAllProcChildren(ProcPtr proc) {
