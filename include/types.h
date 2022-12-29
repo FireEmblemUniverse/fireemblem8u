@@ -230,9 +230,9 @@ struct RAMChapterData { // Chapter Data Struct
 
     u16 unk48;
 
-    unsigned unk4A_1 : 1;
-    unsigned unk4A_2 : 3;
-    unsigned unk4A_5 : 4;
+    u8 unk4A_1 : 1;
+    u8 unk4A_2 : 3;
+    u8 unk4A_5 : 4;
     u8 unk4B;
 };
 
