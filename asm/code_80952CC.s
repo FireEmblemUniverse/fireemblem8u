@@ -5627,8 +5627,8 @@ sub_8099F50: @ 0x08099F50
 
 	THUMB_FUNC_END sub_8099F50
 
-	THUMB_FUNC_START sub_8099F68
-sub_8099F68: @ 0x08099F68
+	THUMB_FUNC_START StartPrepItemScreen
+StartPrepItemScreen: @ 0x08099F68
 	push {lr}
 	adds r1, r0, #0
 	ldr r0, _08099F78  @ gUnknown_08A189A4
@@ -5638,7 +5638,7 @@ sub_8099F68: @ 0x08099F68
 	.align 2, 0
 _08099F78: .4byte gUnknown_08A189A4
 
-	THUMB_FUNC_END sub_8099F68
+	THUMB_FUNC_END StartPrepItemScreen
 
 	THUMB_FUNC_START sub_8099F7C
 sub_8099F7C: @ 0x08099F7C
@@ -18918,8 +18918,8 @@ _080A093E:
 
 	THUMB_FUNC_END sub_80A0924
 
-	THUMB_FUNC_START sub_80A0944
-sub_80A0944: @ 0x080A0944
+	THUMB_FUNC_START StartPrepSupportScreen
+StartPrepSupportScreen: @ 0x080A0944
 	push {r4, lr}
 	adds r4, r0, #0
 	ldr r0, _080A0958  @ gUnknown_08A1962C
@@ -18932,7 +18932,7 @@ sub_80A0944: @ 0x080A0944
 	.align 2, 0
 _080A0958: .4byte gUnknown_08A1962C
 
-	THUMB_FUNC_END sub_80A0944
+	THUMB_FUNC_END StartPrepSupportScreen
 
 	THUMB_FUNC_START sub_80A095C
 sub_80A095C: @ 0x080A095C

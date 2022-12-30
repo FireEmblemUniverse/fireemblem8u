@@ -68,7 +68,7 @@ void CallCursorShop(ProcPtr);
 void PrepScreenProc_MapMovementLoop(ProcPtr);
 void sub_8034078(ProcPtr);
 void sub_8034090(ProcPtr);
-void sub_803410C(ProcPtr);
+void StartPrepSaveScreen(ProcPtr);
 void sub_8034168(void);
 void sub_8034194(void);
 void sub_80341D0(void);

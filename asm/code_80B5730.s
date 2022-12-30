@@ -31120,7 +31120,7 @@ sub_80C3EDC: @ 0x080C3EDC
 	str r0, [r4, #0x34]
 _080C3EF6:
 	adds r0, r4, #0
-	bl sub_8099F68
+	bl StartPrepItemScreen
 	pop {r4}
 	pop {r0}
 	bx r0

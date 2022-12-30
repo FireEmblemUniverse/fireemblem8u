@@ -259,7 +259,7 @@ PROC_LABEL(0x3B),
     PROC_REPEAT(ContinueUntilSomeTransistion6CExists),
     PROC_CALL(BMapDispSuspend),
     PROC_CALL(sub_803334C),
-    PROC_CALL(sub_803410C),
+    PROC_CALL(StartPrepSaveScreen),
     PROC_SLEEP(0),
     PROC_CALL(BMapDispResume),
     PROC_CALL(sub_8034168),
@@ -1004,7 +1004,7 @@ void sub_8034090(ProcPtr proc) {
     return;
 }
 
-void sub_803410C(ProcPtr proc) {
+void StartPrepSaveScreen(ProcPtr proc) {
     gRAMChapterData.unk4A_2 = 2;
 
     if (!(0x20 & gRAMChapterData.chapterStateBits) && ((GetChapterThing() - 1) <= 1)) {

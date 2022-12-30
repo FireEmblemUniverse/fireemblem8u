@@ -808,8 +808,8 @@ gUnknown_08A18E62:  @ 0x08A18E62
 gUnknown_08A18E76:  @ 0x08A18E76
 	.incbin "baserom.gba", 0xA18E76, 0x16
 
-	.global gUnknown_08A18E8C
-gUnknown_08A18E8C:  @ 0x08A18E8C
+	.global ProcScr_PrepUnitScreen
+ProcScr_PrepUnitScreen:  @ 0x08A18E8C
         @ PROC_YIELD
         .short 0xe, 0x0
         .word 0x0

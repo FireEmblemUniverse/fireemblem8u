@@ -3348,7 +3348,7 @@ extern CONST_DATA struct ProcCmd ProcScr_AtMenu[];
 // extern ??? gUnknown_08A18E4E
 // extern ??? gUnknown_08A18E62
 // extern ??? gUnknown_08A18E76
-extern CONST_DATA struct ProcCmd gUnknown_08A18E8C[];
+extern CONST_DATA struct ProcCmd ProcScr_PrepUnitScreen[];
 // extern ??? gUnknown_08A1901C
 // extern ??? gUnknown_08A19064
 // extern ??? gUnknown_08A191F4

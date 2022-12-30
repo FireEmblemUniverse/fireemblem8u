@@ -411,20 +411,20 @@ void AtMenu_StartSubmenu(struct ProcAtMenu *proc)
         sub_808E79C(proc);
         break;
 
-    case 2:
-        sub_8099F68(proc);
+    case 2: /* Items */
+        StartPrepItemScreen(proc);
         break;
 
-    case 1:
-        Proc_StartBlocking(gUnknown_08A18E8C, proc);
+    case 1: /* Pick Units */
+        Proc_StartBlocking(ProcScr_PrepUnitScreen, proc);
         break;
 
-    case 4:
-        sub_80A0944(2, proc);
+    case 4: /* Support */
+        StartPrepSupportScreen(2, proc);
         break;
 
-    case 3:
-        sub_803410C(proc);
+    case 3: /* Save */
+        StartPrepSaveScreen(proc);
         break;
 
     default:
