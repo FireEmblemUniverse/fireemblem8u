@@ -116,9 +116,7 @@
 . = 0x00F1C8; gUnknown_0200F1C8 = .;
 . = 0x010004; src/sallycursor.o(ewram_data);
 . = 0x01000C; gUnknown_0201000C = .;
-. = 0x01117C; gUnknown_0201117C = .;
-. = 0x011184; gUnknown_02011184 = .;
-. = 0x0111A4; gPrepMenuDescTexts = .;
+. = 0x01117C; gPrepMainMenuTexts = .;
 . = 0x0111CC; gPrepUnitPool = .;
 . = 0x011BC8; gUnknown_02011BC8 = .;
 . = 0x0121CC; gPrepUnitList = .;

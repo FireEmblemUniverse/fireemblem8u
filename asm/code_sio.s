@@ -11416,7 +11416,7 @@ sub_8046E0C: @ 0x08046E0C
 	bl sub_804C590
 	bl sub_804C31C
 	bl BMapVSync_End
-	bl sub_8096454
+	bl StartPrepAtMenu
 	adds r0, r4, #0
 	movs r1, #5
 	bl Proc_Goto

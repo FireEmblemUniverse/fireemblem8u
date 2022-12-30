@@ -178,7 +178,6 @@ void StartItemHelpBox(int x, int y, int item);
 void StartHelpBoxExt(const struct HelpBoxInfo* info, int unk);
 void StartHelpBoxExt_Unk(int x, int y, int mid);
 void CloseHelpBox(void);
-void CloseHelpBox(void);
 void EndHelpBox(void);
 void StartMovingHelpBox(const struct HelpBoxInfo* info, struct Proc* parent);
 void StartMovingHelpBoxExt(const struct HelpBoxInfo* info, struct Proc* parent, int x, int y);

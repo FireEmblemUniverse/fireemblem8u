@@ -3478,7 +3478,7 @@ _08098DA0:
 	lsls r3, r3, #4
 	adds r0, r4, #0
 	movs r2, #7
-	bl sub_80AD51C
+	bl ShowPrepScreenHandCursor
 	adds r0, r6, #0
 	movs r1, #0
 	bl sub_809A504
@@ -3655,7 +3655,7 @@ _08098F34:
 	lsls r0, r0, #0x18
 	lsrs r0, r0, #0x12
 	adds r0, #0x18
-	bl sub_80AD4E4
+	bl SetPrepScreenHandXPos
 	b _08098F84
 _08098F54:
 	ldrb r5, [r6]
@@ -3678,7 +3678,7 @@ _08098F54:
 	lsls r3, r3, #4
 	adds r0, r4, #0
 	movs r2, #7
-	bl sub_80AD51C
+	bl ShowPrepScreenHandCursor
 _08098F84:
 	ldr r0, _08098F9C  @ gRAMChapterData
 	adds r0, #0x41
@@ -4522,7 +4522,7 @@ sub_8099654: @ 0x08099654
 	movs r3, #0x80
 	lsls r3, r3, #3
 	movs r2, #3
-	bl sub_80AD51C
+	bl ShowPrepScreenHandCursor
 	movs r0, #1
 	bl BG_EnableSyncByMask
 	pop {r4, r5}
@@ -4975,7 +4975,7 @@ _08099A0E:
 	movs r3, #0x80
 	lsls r3, r3, #3
 	movs r2, #3
-	bl sub_80AD51C
+	bl ShowPrepScreenHandCursor
 	adds r0, r5, #0
 	adds r0, #0x2d
 	ldrb r0, [r0]
@@ -5152,7 +5152,7 @@ sub_8099AF8: @ 0x08099AF8
 	lsls r3, r3, #4
 	adds r0, r4, #0
 	movs r2, #7
-	bl sub_80AD51C
+	bl ShowPrepScreenHandCursor
 	mov r0, r8
 	movs r1, #0
 	bl sub_809A504
@@ -7679,7 +7679,7 @@ ProcPrepUnit_InitScreen: @ 0x0809AE7C
 	movs r3, #0x80
 	lsls r3, r3, #4
 	movs r2, #7
-	bl sub_80AD51C
+	bl ShowPrepScreenHandCursor
 	movs r3, #0x80
 	lsls r3, r3, #2
 	movs r0, #2
@@ -8006,7 +8006,7 @@ _0809B210:
 	subs r0, r0, r1
 	lsls r0, r0, #3
 	adds r0, #0x70
-	bl sub_80AD4E4
+	bl SetPrepScreenHandXPos
 	b _0809B252
 	.align 2, 0
 _0809B224: .4byte sub_809A9E8
@@ -8029,7 +8029,7 @@ _0809B22C:
 	movs r3, #0x80
 	lsls r3, r3, #4
 	movs r2, #7
-	bl sub_80AD51C
+	bl ShowPrepScreenHandCursor
 _0809B252:
 	ldrh r0, [r5, #0x2c]
 	ldrh r1, [r5, #0x2e]
@@ -8194,7 +8194,7 @@ sub_809B370: @ 0x0809B370
 	movs r0, #0xd0
 	movs r1, #0x68
 	movs r2, #0
-	bl sub_80AD51C
+	bl ShowPrepScreenHandCursor
 	pop {r0}
 	bx r0
 
@@ -8219,7 +8219,7 @@ sub_809B388: @ 0x0809B388
 	movs r3, #0x80
 	lsls r3, r3, #4
 	movs r2, #7
-	bl sub_80AD51C
+	bl ShowPrepScreenHandCursor
 	pop {r0}
 	bx r0
 
@@ -9134,7 +9134,7 @@ _0809B992:
 	movs r3, #0x80
 	lsls r3, r3, #4
 	movs r2, #0xb
-	bl sub_80AD51C
+	bl ShowPrepScreenHandCursor
 	movs r0, #0xc8
 	movs r1, #0x93
 	movs r2, #2
@@ -9387,7 +9387,7 @@ _0809BC88:
 	movs r3, #0x80
 	lsls r3, r3, #4
 	movs r2, #0xb
-	bl sub_80AD51C
+	bl ShowPrepScreenHandCursor
 	b _0809BE1A
 	.align 2, 0
 _0809BCB4: .4byte gRAMChapterData
@@ -9412,7 +9412,7 @@ _0809BCC2:
 	movs r3, #0x80
 	lsls r3, r3, #4
 	movs r2, #0xb
-	bl sub_80AD51C
+	bl ShowPrepScreenHandCursor
 	ldr r0, _0809BCFC  @ gRAMChapterData
 	adds r0, #0x41
 	ldrb r0, [r0]
@@ -9486,7 +9486,7 @@ _0809BD58:
 	movs r3, #0x80
 	lsls r3, r3, #4
 	movs r2, #0xb
-	bl sub_80AD51C
+	bl ShowPrepScreenHandCursor
 	ldr r0, _0809BD8C  @ gRAMChapterData
 	adds r0, #0x41
 	ldrb r0, [r0]
@@ -9535,7 +9535,7 @@ _0809BDB8:
 	movs r3, #0x80
 	lsls r3, r3, #4
 	movs r2, #0xb
-	bl sub_80AD51C
+	bl ShowPrepScreenHandCursor
 	ldr r0, [r6, #0x3c]
 	cmp r0, #0xff
 	beq _0809BE1A
@@ -10715,7 +10715,7 @@ _0809C5CA:
 	movs r2, #0xb
 	movs r3, #0x80
 	lsls r3, r3, #4
-	bl sub_80AD51C
+	bl ShowPrepScreenHandCursor
 	ldr r0, [r7, #0x2c]
 	bl GetUnitSMSId
 	bl SMS_RegisterUsage
@@ -10861,7 +10861,7 @@ _0809C8F0:
 	lsls r3, r3, #4
 	movs r0, #0x10
 	movs r2, #0xb
-	bl sub_80AD51C
+	bl ShowPrepScreenHandCursor
 	ldr r0, [r4, #0x2c]
 	ldr r1, [r4, #0x30]
 	bl DrawPrepScreenItemUseItemUseDesc
@@ -10989,7 +10989,7 @@ sub_809C9F4: @ 0x0809C9F4
 	lsls r3, r3, #4
 	movs r1, #0x78
 	movs r2, #0
-	bl sub_80AD51C
+	bl ShowPrepScreenHandCursor
 	pop {r4}
 	pop {r0}
 	bx r0
@@ -11023,7 +11023,7 @@ sub_809CA14: @ 0x0809CA14
 	lsls r3, r3, #4
 	movs r0, #0x10
 	movs r2, #0xb
-	bl sub_80AD51C
+	bl ShowPrepScreenHandCursor
 	movs r0, #0
 	bl sub_80ACA84
 	bl sub_809C9D8
@@ -11074,7 +11074,7 @@ _0809CAB0:
 	lsls r3, r3, #4
 	movs r0, #0x10
 	movs r2, #0xb
-	bl sub_80AD51C
+	bl ShowPrepScreenHandCursor
 	ldr r0, _0809CAE4  @ gRAMChapterData
 	adds r0, #0x41
 	ldrb r0, [r0]
@@ -11117,7 +11117,7 @@ _0809CB02:
 	lsls r3, r3, #4
 	movs r1, #0x78
 	movs r2, #0
-	bl sub_80AD51C
+	bl ShowPrepScreenHandCursor
 	ldr r0, _0809CB34  @ gRAMChapterData
 	adds r0, #0x41
 	ldrb r0, [r0]
@@ -11721,7 +11721,7 @@ _0809CFC2:
 	lsls r3, r3, #4
 	movs r0, #0x10
 	movs r2, #0xb
-	bl sub_80AD51C
+	bl ShowPrepScreenHandCursor
 _0809CFD4:
 	ldr r0, _0809D008  @ gUnknown_02022EEC
 	ldr r1, _0809D00C  @ gUnknown_02013510
@@ -12000,7 +12000,7 @@ _0809D1F6:
 	lsls r3, r3, #4
 	movs r0, #0x10
 	movs r2, #0xb
-	bl sub_80AD51C
+	bl ShowPrepScreenHandCursor
 _0809D208:
 	ldr r0, _0809D238  @ gUnknown_02022EEC
 	ldr r1, _0809D23C  @ gUnknown_02013510
@@ -13282,7 +13282,7 @@ sub_809DC70: @ 0x0809DC70
 	lsls r3, r3, #3
 	movs r0, #0x44
 	movs r2, #4
-	bl sub_80AD51C
+	bl ShowPrepScreenHandCursor
 	ldr r0, _0809DCC8  @ sub_809D7D4
 	bl GetParallelWorker
 	bl Proc_End
@@ -13548,7 +13548,7 @@ _0809DEC0:
 	lsls r3, r3, #3
 	movs r0, #0x44
 	movs r2, #4
-	bl sub_80AD51C
+	bl ShowPrepScreenHandCursor
 	ldrh r0, [r5, #0x38]
 	cmp r0, #0
 	beq _0809DEEC
@@ -13611,7 +13611,7 @@ sub_809DEFC: @ 0x0809DEFC
 	lsls r3, r3, #4
 	movs r0, #0x80
 	movs r2, #0xb
-	bl sub_80AD51C
+	bl ShowPrepScreenHandCursor
 	movs r0, #5
 	bl BG_EnableSyncByMask
 	ldrh r0, [r4, #0x38]
@@ -13976,7 +13976,7 @@ _0809E1E4:
 	lsls r3, r3, #4
 	movs r0, #0x80
 	movs r2, #0xb
-	bl sub_80AD51C
+	bl ShowPrepScreenHandCursor
 	pop {r3}
 	mov r8, r3
 	pop {r4, r5, r6, r7}
@@ -14183,7 +14183,7 @@ _0809E304:
 	lsls r3, r3, #4
 	movs r0, #0x80
 	movs r2, #0xb
-	bl sub_80AD51C
+	bl ShowPrepScreenHandCursor
 	movs r0, #5
 	bl BG_EnableSyncByMask
 	ldr r1, _0809E3F8  @ gActionData
@@ -14679,7 +14679,7 @@ _0809E77C:
 	lsls r3, r3, #4
 	movs r0, #0x80
 	movs r2, #0xb
-	bl sub_80AD51C
+	bl ShowPrepScreenHandCursor
 _0809E79A:
 	pop {r3, r4, r5}
 	mov r8, r3
@@ -14787,7 +14787,7 @@ sub_809E840: @ 0x0809E840
 	lsls r3, r3, #4
 	movs r0, #0x10
 	movs r2, #0xb
-	bl sub_80AD51C
+	bl ShowPrepScreenHandCursor
 	pop {r0}
 	bx r0
 
@@ -14909,7 +14909,7 @@ _0809E94E:
 	lsls r3, r3, #4
 	movs r0, #0x10
 	movs r2, #0xb
-	bl sub_80AD51C
+	bl ShowPrepScreenHandCursor
 _0809E96A:
 	pop {r4, r5, r6, r7}
 	pop {r0}
@@ -15028,7 +15028,7 @@ _0809EA34:
 	lsls r3, r3, #4
 	movs r0, #0x10
 	movs r2, #0xb
-	bl sub_80AD51C
+	bl ShowPrepScreenHandCursor
 	ldrh r0, [r4, #0x38]
 	cmp r0, #1
 	bne _0809EA76
@@ -15910,7 +15910,7 @@ sub_809F150: @ 0x0809F150
 	lsls r3, r3, #4
 	movs r0, #0x80
 	movs r2, #0xb
-	bl sub_80AD51C
+	bl ShowPrepScreenHandCursor
 	movs r0, #5
 	bl BG_EnableSyncByMask
 	ldr r0, _0809F1FC  @ sub_809EC38
@@ -16412,7 +16412,7 @@ _0809F56E:
 	lsls r3, r3, #4
 	movs r0, #0x80
 	movs r2, #0xb
-	bl sub_80AD51C
+	bl ShowPrepScreenHandCursor
 	movs r0, #5
 	bl BG_EnableSyncByMask
 	ldr r0, [r6, #0x2c]
@@ -16526,7 +16526,7 @@ _0809F654:
 	lsls r3, r3, #4
 	movs r0, #0x80
 	movs r2, #0xb
-	bl sub_80AD51C
+	bl ShowPrepScreenHandCursor
 	pop {r3}
 	mov r8, r3
 	pop {r4, r5, r6, r7}
@@ -17042,7 +17042,7 @@ _0809FA5C:
 	lsls r3, r3, #4
 	movs r0, #0x80
 	movs r2, #0xb
-	bl sub_80AD51C
+	bl ShowPrepScreenHandCursor
 _0809FA7A:
 	pop {r3, r4, r5}
 	mov r8, r3
@@ -17178,7 +17178,7 @@ _0809FB56:
 	lsls r3, r3, #4
 	movs r0, #0x10
 	movs r2, #0xb
-	bl sub_80AD51C
+	bl ShowPrepScreenHandCursor
 	pop {r4}
 	pop {r0}
 	bx r0
@@ -17394,7 +17394,7 @@ _0809FD0C:
 	lsls r3, r3, #4
 	movs r0, #0x10
 	movs r2, #0xb
-	bl sub_80AD51C
+	bl ShowPrepScreenHandCursor
 	ldrh r0, [r5, #0x36]
 	cmp r0, #1
 	bne _0809FD4E
@@ -18224,7 +18224,7 @@ sub_80A03C4: @ 0x080A03C4
 	lsls r3, r3, #3
 	movs r0, #0x10
 	movs r2, #0xb
-	bl sub_80AD51C
+	bl ShowPrepScreenHandCursor
 	movs r0, #0
 	adds r1, r4, #0
 	bl sub_809FDD4
@@ -18372,7 +18372,7 @@ _080A0518:
 	lsls r3, r3, #3
 	movs r0, #0x10
 	movs r2, #0xb
-	bl sub_80AD51C
+	bl ShowPrepScreenHandCursor
 	ldr r1, [r4, #0x2c]
 	ldrb r0, [r5]
 	lsls r0, r0, #1
@@ -18429,7 +18429,7 @@ sub_80A0570: @ 0x080A0570
 	lsls r3, r3, #3
 	movs r1, #0x6f
 	movs r2, #0
-	bl sub_80AD51C
+	bl ShowPrepScreenHandCursor
 	movs r0, #1
 	adds r1, r4, #0
 	bl sub_809FDD4
@@ -18589,7 +18589,7 @@ _080A06D4:
 	lsls r3, r3, #3
 	movs r1, #0x6f
 	movs r2, #0
-	bl sub_80AD51C
+	bl ShowPrepScreenHandCursor
 _080A06E6:
 	pop {r4, r5, r6}
 	pop {r0}
@@ -20434,7 +20434,7 @@ _080A1456:
 	lsls r3, r3, #4
 	adds r0, r5, #0
 	movs r2, #7
-	bl sub_80AD51C
+	bl ShowPrepScreenHandCursor
 	movs r0, #0xc0
 	movs r1, #1
 	movs r2, #9
@@ -20865,7 +20865,7 @@ _080A17D4:
 	bl __modsi3
 	lsls r0, r0, #6
 	adds r0, #0x14
-	bl sub_80AD4E4
+	bl SetPrepScreenHandXPos
 	b _080A1804
 _080A17EA:
 	ldr r0, [r6, #0x38]
@@ -20878,7 +20878,7 @@ _080A17EA:
 	movs r3, #0x80
 	lsls r3, r3, #4
 	movs r2, #7
-	bl sub_80AD51C
+	bl ShowPrepScreenHandCursor
 _080A1804:
 	mov r1, r9
 	movs r0, #0
@@ -22336,7 +22336,7 @@ sub_80A2274: @ 0x080A2274
 	movs r3, #0x80
 	lsls r3, r3, #4
 	movs r2, #1
-	bl sub_80AD51C
+	bl ShowPrepScreenHandCursor
 _080A2340:
 	movs r0, #0
 	movs r1, #4
@@ -22622,7 +22622,7 @@ _080A2590:
 	movs r3, #0x80
 	lsls r3, r3, #4
 	movs r2, #1
-	bl sub_80AD51C
+	bl ShowPrepScreenHandCursor
 	ldr r0, _080A25CC  @ gRAMChapterData
 	adds r0, #0x41
 	ldrb r0, [r0]
@@ -23307,7 +23307,7 @@ sub_80A2AAC: @ 0x080A2AAC
 	movs r3, #0x80
 	lsls r3, r3, #4
 	movs r2, #1
-	bl sub_80AD51C
+	bl ShowPrepScreenHandCursor
 	adds r1, r5, #0
 	adds r1, #0x3a
 	movs r0, #0xff
