@@ -156,7 +156,6 @@ SECTIONS
         asm/code.o(.text);
         src/prepscreen.o(.text);
         src/prep_atmenu.o(.text);
-        asm/prep_atmenu.o(.text);
         asm/prep_menuproc.o(.text);
         asm/code_80952CC.o(.text);
         src/bmsave.o(.text);
@@ -292,6 +291,8 @@ SECTIONS
         . = ALIGN(4); src/statscreen.o(.rodata);
         . = ALIGN(4); src/player_interface.o(.rodata);
         . = ALIGN(4); data/const_data_205B84.o(.rodata);
+        . = ALIGN(4); src/prep_atmenu.o(.rodata);
+        . = ALIGN(4); data/const_data_205BD0.o(.rodata);
         . = ALIGN(4); src/minimap.o(.rodata);
         . = ALIGN(4); data/const_data_205DE9.o(.rodata);
         . = ALIGN(4); src/uiconfig.o(.rodata);
@@ -429,6 +430,8 @@ SECTIONS
         . = ALIGN(4); data/data_A01CC4.o(.data);
         . = ALIGN(4); data/data_chap_title.o(.data);
         . = ALIGN(4); data/data_A167C8.o(.data);
+        . = ALIGN(4); src/prep_atmenu.o(.data);
+        . = ALIGN(4); data/data_A184B4.o(.data);
         . = ALIGN(4); data/data_map_change.o(.data);
         . = ALIGN(4); data/data_A1FAF4.o(.data);
         . = ALIGN(4); src/minimap.o(.data);

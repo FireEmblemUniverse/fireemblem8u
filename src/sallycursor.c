@@ -53,7 +53,7 @@ s8 IsCharacterForceDeployed(int);
 void SortPlayerUnitsForPrepScreen();
 u8 CanPrepScreenSave();
 int CalcForceDeployedUnitCounts();
-void sub_8096454(ProcPtr);
+void StartPrepAtMenu(ProcPtr);
 void sub_80966B0(ProcPtr);
 void StartPrepScreenMenu();
 void SetPrepScreenMenuOnBPress(const void*);
@@ -108,7 +108,7 @@ struct ProcCmd CONST_DATA gProcScr_SALLYCURSOR[] = {
     PROC_WHILE(PrepScreenTraineePromotionManagerExists),
 
 PROC_LABEL(2),
-    PROC_CALL(sub_8096454),
+    PROC_CALL(StartPrepAtMenu),
     PROC_WHILE(sub_80966B0),
     PROC_SLEEP(0),
     PROC_CALL(sub_80338C0),
@@ -118,7 +118,7 @@ PROC_LABEL(2),
 PROC_LABEL(0x33),
     PROC_CALL(sub_8013D68),
     PROC_REPEAT(ContinueUntilSomeTransistion6CExists),
-    PROC_CALL(sub_8096454),
+    PROC_CALL(StartPrepAtMenu),
     PROC_WHILE(sub_80966B0),
     PROC_SLEEP(0),
 

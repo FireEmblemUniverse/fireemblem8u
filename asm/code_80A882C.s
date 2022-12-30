@@ -10218,8 +10218,8 @@ _080AD4E0: .4byte 0x06010000
 
 	THUMB_FUNC_END sub_80AD4A0
 
-	THUMB_FUNC_START sub_80AD4E4
-sub_80AD4E4: @ 0x080AD4E4
+	THUMB_FUNC_START SetPrepScreenHandXPos
+SetPrepScreenHandXPos: @ 0x080AD4E4
 	push {r4, lr}
 	adds r4, r0, #0
 	ldr r0, _080AD4FC  @ gUnknown_08A20C1C
@@ -10234,10 +10234,10 @@ _080AD4F4:
 	.align 2, 0
 _080AD4FC: .4byte gUnknown_08A20C1C
 
-	THUMB_FUNC_END sub_80AD4E4
+	THUMB_FUNC_END SetPrepScreenHandXPos
 
-	THUMB_FUNC_START sub_80AD500
-sub_80AD500: @ 0x080AD500
+	THUMB_FUNC_START SetPrepScreenHandYPos
+SetPrepScreenHandYPos: @ 0x080AD500
 	push {r4, lr}
 	adds r4, r0, #0
 	ldr r0, _080AD518  @ gUnknown_08A20C1C
@@ -10252,10 +10252,10 @@ _080AD510:
 	.align 2, 0
 _080AD518: .4byte gUnknown_08A20C1C
 
-	THUMB_FUNC_END sub_80AD500
+	THUMB_FUNC_END SetPrepScreenHandYPos
 
-	THUMB_FUNC_START sub_80AD51C
-sub_80AD51C: @ 0x080AD51C
+	THUMB_FUNC_START ShowPrepScreenHandCursor
+ShowPrepScreenHandCursor: @ 0x080AD51C
 	push {r4, r5, r6, r7, lr}
 	adds r5, r0, #0
 	adds r6, r1, #0
@@ -10292,7 +10292,7 @@ _080AD55C:
 	pop {r0}
 	bx r0
 
-	THUMB_FUNC_END sub_80AD51C
+	THUMB_FUNC_END ShowPrepScreenHandCursor
 
 	THUMB_FUNC_START HidePrepScreenHandCursor
 HidePrepScreenHandCursor: @ 0x080AD564
@@ -14575,7 +14575,7 @@ sub_80AF350: @ 0x080AF350
 	movs r3, #0x80
 	lsls r3, r3, #4
 	movs r2, #2
-	bl sub_80AD51C
+	bl ShowPrepScreenHandCursor
 	pop {r0}
 	bx r0
 
@@ -17763,7 +17763,7 @@ _080B0C2A:
 	lsls r3, r3, #4
 	movs r0, #0x28
 	movs r2, #0x13
-	bl sub_80AD51C
+	bl ShowPrepScreenHandCursor
 	adds r0, r6, #0
 	bl NewGreenTextColorManager
 	adds r0, r6, #0
@@ -18055,7 +18055,7 @@ _080B0F10:
 	lsls r3, r3, #4
 	movs r0, #0x28
 	movs r2, #0x13
-	bl sub_80AD51C
+	bl ShowPrepScreenHandCursor
 _080B0F28:
 	adds r0, r5, #0
 	adds r0, #0x2e
@@ -18282,7 +18282,7 @@ sub_80B1020: @ 0x080B1020
 	lsls r3, r3, #4
 	movs r0, #0x5c
 	movs r2, #0xc
-	bl sub_80AD51C
+	bl ShowPrepScreenHandCursor
 	movs r0, #0
 	mov r9, r0
 	cmp r9, sl
@@ -18589,7 +18589,7 @@ _080B1330:
 	lsls r3, r3, #4
 	movs r0, #0x5c
 	movs r2, #0xc
-	bl sub_80AD51C
+	bl ShowPrepScreenHandCursor
 _080B1344:
 	pop {r4, r5, r6}
 	pop {r0}
@@ -18637,7 +18637,7 @@ sub_80B1350: @ 0x080B1350
 	lsls r3, r3, #4
 	movs r0, #0x28
 	movs r2, #0x13
-	bl sub_80AD51C
+	bl ShowPrepScreenHandCursor
 	pop {r4}
 	pop {r0}
 	bx r0
@@ -18717,7 +18717,7 @@ sub_80B13BC: @ 0x080B13BC
 	lsls r3, r3, #4
 	movs r0, #0x28
 	movs r2, #0x13
-	bl sub_80AD51C
+	bl ShowPrepScreenHandCursor
 	adds r0, r5, #0
 	bl Text_Clear
 	adds r0, r5, #0

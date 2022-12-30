@@ -24,13 +24,13 @@ struct ProcAtMenu {
     /* 2B */ u8 cur_counter; // Total unit number to be on battle
     /* 2C */ u8 unk_2C;
     /* 2D */ u8 cur_cmd;
-    /* 2E */ u8 unk_2E;
+    /* 2E */ u8 hand_pos;     // related to the displayed line maybe (also for handle sprite)
     /* 2F */ u8 unk_2F;
     /* 30 */ u8 unk_30;
     /* 31 */ u8 unk_31;
     /* 32 */ u8 unk_32;
     /* 33 */ u8 state;
-    /* 34 */ u8 unk_34;
+    /* 34 */ u8 do_help;     // 1 if helpBox on
     /* 35 */ u8 unk_35;
     /* 36 */ bool8 end_prep;
     /* 38 */ u8 unk_38[0x3C - 0x38];

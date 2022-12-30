@@ -930,7 +930,7 @@ gUnknown_085A9BA0:  @ 0x085A9BA0
         .word 0x0
         @ PROC_CALL
         .short 0x2, 0x0
-        .word sub_8096468
+        .word StartPrepAtMenuWithConfig
         @ PROC_LABEL
         .short 0xb, 0x5
         .word 0x0

@@ -406,7 +406,7 @@ void sub_80859D0(ProcPtr *proc, ProcPtr parent)
     _proc->unk_proc = proc;
 }
 
-void nullsub_20()
+void nullsub_20(ProcPtr proc)
 {
     return;
 }
