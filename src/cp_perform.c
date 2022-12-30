@@ -258,19 +258,20 @@ struct PopupInstruction CONST_DATA gPopup_085A80A4[] = {
 s8 AiPillageAction(struct CpPerformProc* proc) {
 
     int x = gAiDecision.xMove;
-    register int y asm("r4") = gAiDecision.yMove;
+    int y = gAiDecision.yMove;
 
     if (gBmMapTerrain[y][x] == TERRAIN_CHEST_21) {
         gActiveUnit->xPos = gAiDecision.xMove;
         gActiveUnit->yPos = gAiDecision.yMove;
 
         gActionData.unitActionType = UNIT_ACTION_USE_ITEM;
+        gAiDecision.itemSlot = gAiDecision.itemSlot; // dummy
         gActionData.itemSlotIndex = gAiDecision.itemSlot;
 
         ActionStaffDoorChestUseItem(proc);
     } else {
         s8 y2 = y - 1;
-        sub_80840C4((s8)x, (s8)(y2));
+        sub_80840C4((s8)x, y2);
 
         PlaySoundEffect(0xAB);
 
