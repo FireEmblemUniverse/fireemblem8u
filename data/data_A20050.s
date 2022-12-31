@@ -868,14 +868,14 @@ gUnknown_08A20BD4:  @ 0x08A20BD4
         .word 0x0
 
 
-	.global gUnknown_08A20C04
-gUnknown_08A20C04:  @ 0x08A20C04
+	.global ProcScr_ParallelWorker
+ProcScr_ParallelWorker:  @ 0x08A20C04
         @ PROC_YIELD
         .short 0xe, 0x0
         .word 0x0
         @ PROC_REPEAT
         .short 0x3, 0x0
-        .word _CallDifferedLoop
+        .word ParallelWorker_OnLoop
         @ PROC_END
         .short 0x0, 0x0
         .word 0x0

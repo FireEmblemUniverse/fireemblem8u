@@ -256,7 +256,7 @@ struct ProcCmd sMusicProc2Script[] =
     PROC_END,
 };
 
-void ISuspectThisToBeMusicRelated_8002730(int volume, int b, int c, struct Proc *parent)
+void ISuspectThisToBeMusicRelated_8002730(int volume, int b, int c, ProcPtr parent)
 {
     struct MusicProc *proc;
 
@@ -271,7 +271,7 @@ void ISuspectThisToBeMusicRelated_8002730(int volume, int b, int c, struct Proc 
     if (volume == 0)
         volume = 1;
     Sound_SetSEVolume(volume);
-    sMusicProc2 = (struct Proc *)proc;
+    sMusicProc2 = (ProcPtr)proc;
 }
 
 static void sub_8002788(struct Proc *proc)
@@ -420,7 +420,7 @@ static struct ProcCmd sMusicProc4Script[] =
     PROC_END,
 };
 
-void sub_80029E8(int songId, int b, int c, int d, struct Proc *parent)
+void sub_80029E8(int songId, int b, int c, int d, ProcPtr parent)
 {
     struct MusicProc *mproc;
 

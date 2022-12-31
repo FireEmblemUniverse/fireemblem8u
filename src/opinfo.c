@@ -2209,7 +2209,7 @@ void ClassInfoDisplay_LoopWindowIn(struct OpInfoClassDisplayProc* proc) {
 
         Proc_Break(proc);
 
-        Get6CDifferedLoop6C(sub_80B3C14, proc);
+        StartParallelWorker(sub_80B3C14, proc);
     } else {
         proc->unk_2a += 4;
     }

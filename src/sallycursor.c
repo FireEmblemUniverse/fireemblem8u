@@ -53,7 +53,7 @@ s8 IsCharacterForceDeployed(int);
 void SortPlayerUnitsForPrepScreen();
 u8 CanPrepScreenSave();
 int CalcForceDeployedUnitCounts();
-void sub_8096454(ProcPtr);
+void StartPrepAtMenu(ProcPtr);
 void sub_80966B0(ProcPtr);
 void StartPrepScreenMenu();
 void SetPrepScreenMenuOnBPress(const void*);
@@ -62,7 +62,6 @@ void sub_8097008(const void*);
 void SetPrepScreenMenuItem(int, const void*, int, int, int);
 void SetPrepScreenMenuSelectedItem(int);
 void DrawPrepScreenMenuFrameAt(int, int);
-void EndPrepScreenMenu();
 void PrepScreenMenuExists(ProcPtr);
 void EnablePrepScreenMenu(ProcPtr);
 void BWL_FavorReduced_H(u8);
@@ -109,7 +108,7 @@ struct ProcCmd CONST_DATA gProcScr_SALLYCURSOR[] = {
     PROC_WHILE(PrepScreenTraineePromotionManagerExists),
 
 PROC_LABEL(2),
-    PROC_CALL(sub_8096454),
+    PROC_CALL(StartPrepAtMenu),
     PROC_WHILE(sub_80966B0),
     PROC_SLEEP(0),
     PROC_CALL(sub_80338C0),
@@ -119,7 +118,7 @@ PROC_LABEL(2),
 PROC_LABEL(0x33),
     PROC_CALL(sub_8013D68),
     PROC_REPEAT(ContinueUntilSomeTransistion6CExists),
-    PROC_CALL(sub_8096454),
+    PROC_CALL(StartPrepAtMenu),
     PROC_WHILE(sub_80966B0),
     PROC_SLEEP(0),
 
@@ -260,7 +259,7 @@ PROC_LABEL(0x3B),
     PROC_REPEAT(ContinueUntilSomeTransistion6CExists),
     PROC_CALL(BMapDispSuspend),
     PROC_CALL(sub_803334C),
-    PROC_CALL(sub_803410C),
+    PROC_CALL(StartPrepSaveScreen),
     PROC_SLEEP(0),
     PROC_CALL(BMapDispResume),
     PROC_CALL(sub_8034168),
@@ -1005,7 +1004,7 @@ void sub_8034090(ProcPtr proc) {
     return;
 }
 
-void sub_803410C(ProcPtr proc) {
+void StartPrepSaveScreen(ProcPtr proc) {
     gRAMChapterData.unk4A_2 = 2;
 
     if (!(0x20 & gRAMChapterData.chapterStateBits) && ((GetChapterThing() - 1) <= 1)) {

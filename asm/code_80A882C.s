@@ -9939,8 +9939,8 @@ _080AD2E4: .4byte gUnknown_08A20BD4
 
 	THUMB_FUNC_END sub_80AD2D4
 
-	THUMB_FUNC_START _CallDifferedLoop
-_CallDifferedLoop: @ 0x080AD2E8
+	THUMB_FUNC_START ParallelWorker_OnLoop
+ParallelWorker_OnLoop: @ 0x080AD2E8
 	push {lr}
 	ldr r1, [r0, #0x14]
 	ldr r2, [r0, #0x2c]
@@ -9949,17 +9949,17 @@ _CallDifferedLoop: @ 0x080AD2E8
 	pop {r0}
 	bx r0
 
-	THUMB_FUNC_END _CallDifferedLoop
+	THUMB_FUNC_END ParallelWorker_OnLoop
 
-	THUMB_FUNC_START Get6CDifferedLoop6C
-Get6CDifferedLoop6C: @ 0x080AD2F8
+	THUMB_FUNC_START StartParallelWorker
+StartParallelWorker: @ 0x080AD2F8
 	push {r4, r5, lr}
 	adds r4, r0, #0
 	adds r5, r1, #0
-	bl Find6CDifferedLoop
+	bl GetParallelWorker
 	cmp r0, #0
 	bne _080AD310
-	ldr r0, _080AD318  @ gUnknown_08A20C04
+	ldr r0, _080AD318  @ ProcScr_ParallelWorker
 	adds r1, r5, #0
 	bl Proc_Start
 	str r4, [r0, #0x2c]
@@ -9968,30 +9968,30 @@ _080AD310:
 	pop {r1}
 	bx r1
 	.align 2, 0
-_080AD318: .4byte gUnknown_08A20C04
+_080AD318: .4byte ProcScr_ParallelWorker
 
-	THUMB_FUNC_END Get6CDifferedLoop6C
+	THUMB_FUNC_END StartParallelWorker
 
-	THUMB_FUNC_START DeleteEach6CDifferedLoop
-DeleteEach6CDifferedLoop: @ 0x080AD31C
+	THUMB_FUNC_START EndAllParallelWorkers
+EndAllParallelWorkers: @ 0x080AD31C
 	push {lr}
 	b _080AD324
 _080AD320:
 	bl Proc_End
 _080AD324:
-	ldr r0, _080AD334  @ gUnknown_08A20C04
+	ldr r0, _080AD334  @ ProcScr_ParallelWorker
 	bl Proc_Find
 	cmp r0, #0
 	bne _080AD320
 	pop {r0}
 	bx r0
 	.align 2, 0
-_080AD334: .4byte gUnknown_08A20C04
+_080AD334: .4byte ProcScr_ParallelWorker
 
-	THUMB_FUNC_END DeleteEach6CDifferedLoop
+	THUMB_FUNC_END EndAllParallelWorkers
 
-	THUMB_FUNC_START Find6CDifferedLoop
-Find6CDifferedLoop: @ 0x080AD338
+	THUMB_FUNC_START GetParallelWorker
+GetParallelWorker: @ 0x080AD338
 	push {r4, lr}
 	adds r4, r0, #0
 	movs r1, #0
@@ -10003,7 +10003,7 @@ _080AD340:
 	adds r0, r1, #0
 	b _080AD358
 _080AD34A:
-	ldr r0, _080AD360  @ gUnknown_08A20C04
+	ldr r0, _080AD360  @ ProcScr_ParallelWorker
 	bl Proc_FindAfter
 	adds r1, r0, #0
 	cmp r1, #0
@@ -10014,9 +10014,9 @@ _080AD358:
 	pop {r1}
 	bx r1
 	.align 2, 0
-_080AD360: .4byte gUnknown_08A20C04
+_080AD360: .4byte ProcScr_ParallelWorker
 
-	THUMB_FUNC_END Find6CDifferedLoop
+	THUMB_FUNC_END GetParallelWorker
 
 	THUMB_FUNC_START sub_80AD364
 sub_80AD364: @ 0x080AD364
@@ -10164,8 +10164,8 @@ _080AD474:
 
 	THUMB_FUNC_END sub_80AD43C
 
-	THUMB_FUNC_START sub_80AD47C
-sub_80AD47C: @ 0x080AD47C
+	THUMB_FUNC_START ResetPrepScreenHandCursor
+ResetPrepScreenHandCursor: @ 0x080AD47C
 	push {r4, r5, lr}
 	adds r5, r0, #0
 	ldr r4, _080AD49C  @ gUnknown_08A20C1C
@@ -10181,7 +10181,7 @@ sub_80AD47C: @ 0x080AD47C
 	.align 2, 0
 _080AD49C: .4byte gUnknown_08A20C1C
 
-	THUMB_FUNC_END sub_80AD47C
+	THUMB_FUNC_END ResetPrepScreenHandCursor
 
 	THUMB_FUNC_START sub_80AD4A0
 sub_80AD4A0: @ 0x080AD4A0
@@ -10218,8 +10218,8 @@ _080AD4E0: .4byte 0x06010000
 
 	THUMB_FUNC_END sub_80AD4A0
 
-	THUMB_FUNC_START sub_80AD4E4
-sub_80AD4E4: @ 0x080AD4E4
+	THUMB_FUNC_START SetPrepScreenHandXPos
+SetPrepScreenHandXPos: @ 0x080AD4E4
 	push {r4, lr}
 	adds r4, r0, #0
 	ldr r0, _080AD4FC  @ gUnknown_08A20C1C
@@ -10234,10 +10234,10 @@ _080AD4F4:
 	.align 2, 0
 _080AD4FC: .4byte gUnknown_08A20C1C
 
-	THUMB_FUNC_END sub_80AD4E4
+	THUMB_FUNC_END SetPrepScreenHandXPos
 
-	THUMB_FUNC_START sub_80AD500
-sub_80AD500: @ 0x080AD500
+	THUMB_FUNC_START SetPrepScreenHandYPos
+SetPrepScreenHandYPos: @ 0x080AD500
 	push {r4, lr}
 	adds r4, r0, #0
 	ldr r0, _080AD518  @ gUnknown_08A20C1C
@@ -10252,10 +10252,10 @@ _080AD510:
 	.align 2, 0
 _080AD518: .4byte gUnknown_08A20C1C
 
-	THUMB_FUNC_END sub_80AD500
+	THUMB_FUNC_END SetPrepScreenHandYPos
 
-	THUMB_FUNC_START sub_80AD51C
-sub_80AD51C: @ 0x080AD51C
+	THUMB_FUNC_START ShowPrepScreenHandCursor
+ShowPrepScreenHandCursor: @ 0x080AD51C
 	push {r4, r5, r6, r7, lr}
 	adds r5, r0, #0
 	adds r6, r1, #0
@@ -10292,10 +10292,10 @@ _080AD55C:
 	pop {r0}
 	bx r0
 
-	THUMB_FUNC_END sub_80AD51C
+	THUMB_FUNC_END ShowPrepScreenHandCursor
 
-	THUMB_FUNC_START sub_80AD564
-sub_80AD564: @ 0x080AD564
+	THUMB_FUNC_START HidePrepScreenHandCursor
+HidePrepScreenHandCursor: @ 0x080AD564
 	push {lr}
 	ldr r0, _080AD57C  @ gUnknown_08A20C1C
 	bl Proc_Find
@@ -10309,10 +10309,10 @@ _080AD576:
 	.align 2, 0
 _080AD57C: .4byte gUnknown_08A20C1C
 
-	THUMB_FUNC_END sub_80AD564
+	THUMB_FUNC_END HidePrepScreenHandCursor
 
-	THUMB_FUNC_START sub_80AD580
-sub_80AD580: @ 0x080AD580
+	THUMB_FUNC_START EndPrepScreenHandCursor
+EndPrepScreenHandCursor: @ 0x080AD580
 	push {lr}
 	ldr r0, _080AD590  @ gUnknown_08A20C1C
 	bl Proc_Find
@@ -10322,7 +10322,7 @@ sub_80AD580: @ 0x080AD580
 	.align 2, 0
 _080AD590: .4byte gUnknown_08A20C1C
 
-	THUMB_FUNC_END sub_80AD580
+	THUMB_FUNC_END EndPrepScreenHandCursor
 
 	THUMB_FUNC_START sub_80AD594
 sub_80AD594: @ 0x080AD594
@@ -11125,8 +11125,8 @@ _080ADB6C:
 
 	THUMB_FUNC_END sub_80ADA3C
 
-	THUMB_FUNC_START sub_80ADB7C
-sub_80ADB7C: @ 0x080ADB7C
+	THUMB_FUNC_START StartSmallBrownNameBoxes
+StartSmallBrownNameBoxes: @ 0x080ADB7C
 	push {r4, r5, r6, r7, lr}
 	mov r7, r9
 	mov r6, r8
@@ -11141,7 +11141,7 @@ sub_80ADB7C: @ 0x080ADB7C
 	lsrs r5, r5, #0x10
 	lsls r6, r6, #0x10
 	lsrs r6, r6, #0x10
-	bl sub_80ADC90
+	bl EndSmallBrownNameBoxes
 	ldr r0, _080ADBEC  @ gUnknown_08A20D6C
 	adds r1, r7, #0
 	bl Proc_Start
@@ -11184,7 +11184,7 @@ _080ADBF0: .4byte gUnknown_08A1B0D8
 _080ADBF4: .4byte 0x06010000
 _080ADBF8: .4byte gUnknown_08A1B154
 
-	THUMB_FUNC_END sub_80ADB7C
+	THUMB_FUNC_END StartSmallBrownNameBoxes
 
 	THUMB_FUNC_START sub_80ADBFC
 sub_80ADBFC: @ 0x080ADBFC
@@ -11271,8 +11271,8 @@ _080ADC8C: .4byte gUnknown_08A20D6C
 
 	THUMB_FUNC_END sub_80ADC68
 
-	THUMB_FUNC_START sub_80ADC90
-sub_80ADC90: @ 0x080ADC90
+	THUMB_FUNC_START EndSmallBrownNameBoxes
+EndSmallBrownNameBoxes: @ 0x080ADC90
 	push {lr}
 	ldr r0, _080ADCA0  @ gUnknown_08A20D6C
 	bl Proc_Find
@@ -11282,7 +11282,7 @@ sub_80ADC90: @ 0x080ADC90
 	.align 2, 0
 _080ADCA0: .4byte gUnknown_08A20D6C
 
-	THUMB_FUNC_END sub_80ADC90
+	THUMB_FUNC_END EndSmallBrownNameBoxes
 
 	THUMB_FUNC_START sub_80ADCA4
 sub_80ADCA4: @ 0x080ADCA4
@@ -14575,7 +14575,7 @@ sub_80AF350: @ 0x080AF350
 	movs r3, #0x80
 	lsls r3, r3, #4
 	movs r2, #2
-	bl sub_80AD51C
+	bl ShowPrepScreenHandCursor
 	pop {r0}
 	bx r0
 
@@ -14932,7 +14932,7 @@ sub_80AF524: @ 0x080AF524
 	adds r0, r4, #0
 	bl sub_80AF878
 	adds r0, r4, #0
-	bl sub_80AD47C
+	bl ResetPrepScreenHandCursor
 	movs r0, #0xa0
 	lsls r0, r0, #2
 	movs r1, #2
@@ -15085,7 +15085,7 @@ sub_80AF524: @ 0x080AF524
 	bl sub_80AF1D8
 	ldr r0, _080AF7EC  @ sub_80AF510
 	adds r1, r4, #0
-	bl Get6CDifferedLoop6C
+	bl StartParallelWorker
 	ldr r0, _080AF7F0  @ gUnknown_08A21308
 	adds r1, r4, #0
 	bl Proc_Start
@@ -15663,7 +15663,7 @@ sub_80AFBBC: @ 0x080AFBBC
 	ldr r1, _080AFC5C  @ gUnknown_08A2C7A4
 	mov r2, r8
 	bl CallARM_FillTileRect
-	bl sub_80AD564
+	bl HidePrepScreenHandCursor
 	adds r5, #0x3a
 	mov r0, r9
 	strb r0, [r5]
@@ -17722,7 +17722,7 @@ _080B0C2A:
 	bl Text_Init
 	ldr r0, _080B0D28  @ sub_80B0638
 	adds r1, r6, #0
-	bl Get6CDifferedLoop6C
+	bl StartParallelWorker
 	movs r0, #2
 	bl BG_EnableSyncByMask
 	ldr r0, _080B0D2C  @ sub_80B06FC
@@ -17747,7 +17747,7 @@ _080B0C2A:
 	movs r0, #2
 	bl BG_SetPosition
 	adds r0, r6, #0
-	bl sub_80AD47C
+	bl ResetPrepScreenHandCursor
 	movs r0, #0xc0
 	lsls r0, r0, #3
 	movs r1, #1
@@ -17763,7 +17763,7 @@ _080B0C2A:
 	lsls r3, r3, #4
 	movs r0, #0x28
 	movs r2, #0x13
-	bl sub_80AD51C
+	bl ShowPrepScreenHandCursor
 	adds r0, r6, #0
 	bl NewGreenTextColorManager
 	adds r0, r6, #0
@@ -18055,7 +18055,7 @@ _080B0F10:
 	lsls r3, r3, #4
 	movs r0, #0x28
 	movs r2, #0x13
-	bl sub_80AD51C
+	bl ShowPrepScreenHandCursor
 _080B0F28:
 	adds r0, r5, #0
 	adds r0, #0x2e
@@ -18282,7 +18282,7 @@ sub_80B1020: @ 0x080B1020
 	lsls r3, r3, #4
 	movs r0, #0x5c
 	movs r2, #0xc
-	bl sub_80AD51C
+	bl ShowPrepScreenHandCursor
 	movs r0, #0
 	mov r9, r0
 	cmp r9, sl
@@ -18397,7 +18397,7 @@ _080B119E:
 _080B11C0:
 	ldr r0, _080B11E0  @ sub_80B0F94
 	ldr r1, [sp, #4]
-	bl Get6CDifferedLoop6C
+	bl StartParallelWorker
 	ldr r1, [sp, #4]
 	str r0, [r1, #0x34]
 	add sp, #0x10
@@ -18589,7 +18589,7 @@ _080B1330:
 	lsls r3, r3, #4
 	movs r0, #0x5c
 	movs r2, #0xc
-	bl sub_80AD51C
+	bl ShowPrepScreenHandCursor
 _080B1344:
 	pop {r4, r5, r6}
 	pop {r0}
@@ -18637,7 +18637,7 @@ sub_80B1350: @ 0x080B1350
 	lsls r3, r3, #4
 	movs r0, #0x28
 	movs r2, #0x13
-	bl sub_80AD51C
+	bl ShowPrepScreenHandCursor
 	pop {r4}
 	pop {r0}
 	bx r0
@@ -18717,7 +18717,7 @@ sub_80B13BC: @ 0x080B13BC
 	lsls r3, r3, #4
 	movs r0, #0x28
 	movs r2, #0x13
-	bl sub_80AD51C
+	bl ShowPrepScreenHandCursor
 	adds r0, r5, #0
 	bl Text_Clear
 	adds r0, r5, #0

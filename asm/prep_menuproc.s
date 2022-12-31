@@ -995,8 +995,8 @@ _08096BF8: .4byte gUnknown_08A186B4
 
 	THUMB_FUNC_END PrepSpecialChar_BlinkButtonB
 
-	THUMB_FUNC_START sub_8096BFC
-sub_8096BFC: @ 0x08096BFC
+	THUMB_FUNC_START PrepReDrawSpecialChar
+PrepReDrawSpecialChar: @ 0x08096BFC
 	push {r4, r5, lr}
 	adds r5, r0, #0
 	ldr r4, _08096C1C  @ gUnknown_08A186B4
@@ -1012,7 +1012,7 @@ sub_8096BFC: @ 0x08096BFC
 	.align 2, 0
 _08096C1C: .4byte gUnknown_08A186B4
 
-	THUMB_FUNC_END sub_8096BFC
+	THUMB_FUNC_END PrepReDrawSpecialChar
 
 	THUMB_FUNC_START sub_8096C20
 sub_8096C20: @ 0x08096C20
@@ -1129,7 +1129,7 @@ _08096CD6:
 	adds r0, #1
 	strb r4, [r0]
 	adds r0, r5, #0
-	bl sub_80AD47C
+	bl ResetPrepScreenHandCursor
 	movs r0, #0xc0
 	lsls r0, r0, #3
 	movs r1, #1
@@ -1175,7 +1175,7 @@ PrepScreenMenu_OnActiveLoop: @ 0x08096D10
 	mov r0, r8
 	adds r1, r7, #0
 	movs r2, #6
-	bl sub_80AD51C
+	bl ShowPrepScreenHandCursor
 	ldrb r1, [r5]
 	lsls r1, r1, #2
 	adds r0, r4, #0
@@ -1477,7 +1477,7 @@ PrepScreenMenu_OnLoop_0: @ 0x08096F6C
 	movs r3, #0x80
 	lsls r3, r3, #3
 	movs r2, #6
-	bl sub_80AD51C
+	bl ShowPrepScreenHandCursor
 	pop {r0}
 	bx r0
 
