@@ -27,7 +27,7 @@ u8 PromotionInit_SetNullState(struct PromoProc *proc);
 void PromotionInit_Loop(struct PromoProc *proc);
 
 CONST_DATA
-struct ProcCmd gUnknown_08B126CC[] =
+struct ProcCmd ProcScr_BranchedPromotion[] =
 {
     PROC_SLEEP(3),
     PROC_LABEL(0),
@@ -281,11 +281,11 @@ void PromotionInit_Loop(struct PromoProc *proc) {
     }
 }
 
-extern struct ProcCmd gUnknown_08B126CC[];
+extern struct ProcCmd ProcScr_BranchedPromotion[];
 
-void sub_80CC940(ProcPtr parent) {
+void StartBranchedPromoScreen(ProcPtr parent) {
     struct BattleUnit *actor, *target;
-    struct PromoProc *proc = Proc_StartBlocking(gUnknown_08B126CC, parent);
+    struct PromoProc *proc = Proc_StartBlocking(ProcScr_BranchedPromotion, parent);
     proc->u31 = 0;
     proc->u32 = 0;
     proc->u38 = 0;
@@ -327,7 +327,7 @@ void sub_80CC990(struct Proc_80CC990 *proc) {
     actor->weapon = weapon;
     target->statusOut = -1;
 
-    new_proc = Proc_StartBlocking(gUnknown_08B126CC, proc);
+    new_proc = Proc_StartBlocking(ProcScr_BranchedPromotion, proc);
     new_proc->u31 = 1;
     new_proc->u32 = 0;
 
@@ -339,7 +339,7 @@ void sub_80CC990(struct Proc_80CC990 *proc) {
 
 void sub_80CCA14(struct PromoProc2 *proc) {
     struct Unit *unit;
-    struct PromoProc *new_proc = Proc_StartBlocking(gUnknown_08B126CC, proc);
+    struct PromoProc *new_proc = Proc_StartBlocking(ProcScr_BranchedPromotion, proc);
     new_proc->u31 = 2;
     new_proc->u32 = 0;
     unit = GetUnit(gActionData.subjectIndex);
@@ -1117,7 +1117,7 @@ void sub_80CD790(struct Proc *proc) {
     struct PromoProc2 *parent = proc->proc_parent;
     parent->u29 = -1;
     ResetDialogueScreen();
-    sub_8096C20();
+    EndPrepSpecialCharEffect();
     APProc_DeleteAll();
     EndBG3Slider_();
     BG_SetPosition(1, 0, 0);

@@ -1,182 +1,5 @@
     .section .data
 
-	.global gUnknown_08A184B4
-gUnknown_08A184B4:  @ 0x08A184B4
-        @ PROC_WHILE
-        .short 0x14, 0x0
-        .word sub_8002A6C
-        @ PROC_CALL
-        .short 0x2, 0x0
-        .word sub_80964F4
-        @ PROC_REPEAT
-        .short 0x3, 0x0
-        .word sub_809656C
-        @ PROC_SLEEP
-        .short 0xe, 0x8
-        .word 0x0
-        @ PROC_CALL
-        .short 0x2, 0x0
-        .word sub_8096590
-        @ PROC_SLEEP
-        .short 0xe, 0x1e
-        .word 0x0
-        @ PROC_WHILE
-        .short 0x14, 0x0
-        .word sub_8002A6C
-        @ PROC_END
-        .short 0x0, 0x0
-        .word 0x0
-
-
-	.global gUnknown_08A184F4
-gUnknown_08A184F4:  @ 0x08A184F4
-        @ PROC_CALL
-        .short 0x2, 0x0
-        .word AtMenu_LockGame
-        @ PROC_CALL
-        .short 0x2, 0x0
-        .word sub_80CC940
-        @ PROC_YIELD
-        .short 0xe, 0x0
-        .word 0x0
-        @ PROC_LABEL
-        .short 0xb, 0xc8
-        .word 0x0
-        @ PROC_CALL
-        .short 0x2, 0x0
-        .word sub_8096494
-        @ PROC_CALL
-        .short 0x2, 0x0
-        .word AtMenu_UnlockGame
-        @ PROC_END
-        .short 0x0, 0x0
-        .word 0x0
-	.incbin "baserom.gba", 0xA184F4 + 0x38, 0x7A - 0x38
-
-	.global gUnknown_08A1856E
-gUnknown_08A1856E:  @ 0x08A1856E
-	.incbin "baserom.gba", 0xA1856E, 0x14
-
-	.global gUnknown_08A18582
-gUnknown_08A18582:  @ 0x08A18582
-	.incbin "baserom.gba", 0xA18582, 0xE
-
-	.global gUnknown_08A18590
-gUnknown_08A18590:  @ 0x08A18590
-	.incbin "baserom.gba", 0xA18590, 0xE
-
-	.global gUnknown_08A1859E
-gUnknown_08A1859E:  @ 0x08A1859E
-	.incbin "baserom.gba", 0xA1859E, 0xE
-
-	.global gUnknown_08A185AC
-gUnknown_08A185AC:  @ 0x08A185AC
-	.incbin "baserom.gba", 0xA185AC, 0x68
-
-	.global gUnknown_08A18614
-gUnknown_08A18614:  @ 0x08A18614
-@ Replacing .incbin "baserom.gba", 0xA18614, 0xA0
-    .4byte gUnknown_08A185AC + 0xe
-    .4byte gUnknown_08A185AC + 0x16
-    .4byte gUnknown_08A185AC + 0x1e
-    .4byte gUnknown_08A185AC + 0x26
-    .4byte gUnknown_08A185AC + 0x2e
-    .4byte gUnknown_08A185AC + 0x36
-    .4byte gUnknown_08A185AC + 0x3e
-    .4byte gUnknown_08A185AC + 0x46
-    .4byte gUnknown_08A185AC + 0x4e
-    .4byte gUnknown_08A185AC + 0x56
-    .4byte gUnknown_08A185AC + 0x5e
-    .4byte gUnknown_08A185AC + 0xe
-    .4byte 0x4000001
-    .4byte 0xc808000
-    .4byte 0x44000003
-    .4byte 0xc948020
-    .4byte -0x7fb7bc00
-    .4byte 0x4000c98
-    .4byte 0xc9c4068
-    .4byte 0x44000004
-    .4byte 0xc948008
-    .4byte -0x7fcfbc00
-    .4byte 0x44000cc4
-    .4byte 0xcc88050
-    .4byte 0x40700400
-    .4byte 0x40ccc
-    .4byte -0x7fffbc00
-    .4byte 0x44000c84
-    .4byte 0xc888020
-    .4byte -0x7fbfbc00
-    .4byte 0x44000c8c
-    .4byte 0xc908060
-    .4byte 0x44000002
-    .4byte 0xc948030
-    .4byte -0x7fa7bc00
-    .4byte 0xcce
-    .4byte gUnknown_08A18614 + 0x38
-    .4byte gUnknown_08A18614 + 0x4c
-    .4byte gUnknown_08A18614 + 0x66
-    .4byte gUnknown_08A18614 + 0x80
-
-	.global gUnknown_08A186B4
-gUnknown_08A186B4:  @ 0x08A186B4
-        @ PROC_YIELD
-        .short 0xe, 0x0
-        .word 0x0
-        @ PROC_CALL
-        .short 0x2, 0x0
-        .word sub_8096ABC
-        @ PROC_SET_END_CB
-        .short 0x4, 0x0
-        .word sub_8096BB8
-        @ PROC_REPEAT
-        .short 0x3, 0x0
-        .word sub_8096BA4
-        @ PROC_END
-        .short 0x0, 0x0
-        .word 0x0
-
-
-	.global gUnknown_08A186DC
-gUnknown_08A186DC:  @ 0x08A186DC
-	.incbin "baserom.gba", 0xA186DC, 0x10
-
-	.global gUnknown_08A186EC
-gUnknown_08A186EC:  @ 0x08A186EC
-        @ PROC_CALL
-        .short 0x2, 0x0
-        .word PrepScreenMenu_OnInit
-        @ PROC_SET_END_CB
-        .short 0x4, 0x0
-        .word PrepScreenMenu_OnEnd
-        @ PROC_YIELD
-        .short 0xe, 0x0
-        .word 0x0
-        @ PROC_LABEL
-        .short 0xb, 0x0
-        .word 0x0
-        @ PROC_REPEAT
-        .short 0x3, 0x0
-        .word PrepScreenMenu_OnLoop_0
-        @ PROC_LABEL
-        .short 0xb, 0x1
-        .word 0x0
-        @ PROC_REPEAT
-        .short 0x3, 0x0
-        .word PrepScreenMenu_OnActiveLoop
-        @ PROC_LABEL
-        .short 0xb, 0x2
-        .word 0x0
-        @ PROC_REPEAT
-        .short 0x3, 0x0
-        .word PrepScreenMenu_OnLoop_2
-        @ PROC_LABEL
-        .short 0xb, 0xa
-        .word 0x0
-        @ PROC_END
-        .short 0x0, 0x0
-        .word 0x0
-
-
 	.global gUnknown_08A18744
 gUnknown_08A18744:  @ 0x08A18744
 	.incbin "baserom.gba", 0xA18744, 0x8
@@ -224,8 +47,8 @@ gUnknown_08A187F0:  @ 0x08A187F0
 .4byte gUnknown_08A1879C + 0x44
 .4byte gUnknown_08A1879C + 0x4c
 
-	.global gUnknown_08A18808
-gUnknown_08A18808:  @ 0x08A18808
+	.global ProcScr_PrepSideBarHandler
+ProcScr_PrepSideBarHandler:  @ 0x08A18808
         @ PROC_NAME
         .short 0x1, 0x0
         .word 0x8205bd8
@@ -1093,7 +916,7 @@ gUnknown_08A19064:  @ 0x08A19064
         .word FadeInExists
         @ PROC_WHILE
         .short 0x14, 0x0
-        .word sub_8002A6C
+        .word MusicProc4Exists
         @ PROC_GOTO
         .short 0xc, 0x1
         .word 0x0
@@ -1678,7 +1501,7 @@ gUnknown_08A1975C:  @ 0x08A1975C
         .word ContinueUntilSomeTransistion6CExists
         @ PROC_WHILE
         .short 0x14, 0x0
-        .word sub_8002A6C
+        .word MusicProc4Exists
         @ PROC_LABEL
         .short 0xb, 0x1
         .word 0x0
@@ -1778,7 +1601,7 @@ gUnknown_08A19880:  @ 0x08A19880
         .word FadeInExists
         @ PROC_WHILE
         .short 0x14, 0x0
-        .word sub_8002A6C
+        .word MusicProc4Exists
         @ PROC_LABEL
         .short 0xb, 0x1
         .word 0x0
@@ -1805,7 +1628,7 @@ gUnknown_08A19880:  @ 0x08A19880
         .word 0x0
         @ PROC_WHILE
         .short 0x14, 0x0
-        .word sub_8002A6C
+        .word MusicProc4Exists
         @ PROC_CALL
         .short 0x2, 0x0
         .word sub_80A25F8
@@ -1886,12 +1709,12 @@ gUnknown_08A19880:  @ 0x08A19880
 gUnknown_08A199C8:  @ 0x08A199C8
 	.incbin "baserom.gba", 0xA199C8, 0x244
 
-	.global gUnknown_08A19C0C
-gUnknown_08A19C0C:  @ 0x08A19C0C
+	.global Img_PrepWindowSideBar
+Img_PrepWindowSideBar:  @ 0x08A19C0C
 	.incbin "baserom.gba", 0xA19C0C, 0xA0
 
-	.global gUnknown_08A19CAC
-gUnknown_08A19CAC:  @ 0x08A19CAC
+	.global Pal_PrepWindowSideBar
+Pal_PrepWindowSideBar:  @ 0x08A19CAC
 	.incbin "baserom.gba", 0xA19CAC, 0x20
 
 	.global gUnknown_08A19CCC
@@ -2058,8 +1881,8 @@ gUnknown_08A1D448:  @ 0x08A1D448
 gUnknown_08A1D4C8:  @ 0x08A1D4C8
 	.incbin "baserom.gba", 0xA1D4C8, 0x20
 
-	.global gUnknown_08A1D4E8
-gUnknown_08A1D4E8:  @ 0x08A1D4E8
+	.global Img_PrepTextShadow
+Img_PrepTextShadow:  @ 0x08A1D4E8
 	.incbin "baserom.gba", 0xA1D4E8, 0x28
 
 	.global gUnknown_08A1D510
@@ -2070,12 +1893,12 @@ gUnknown_08A1D510:  @ 0x08A1D510
 Pal_MapBattleInfoNum:  @ 0x08A1D79C
 	.incbin "baserom.gba", 0xA1D79C, 0x40
 
-	.global gUnknown_08A1D7DC
-gUnknown_08A1D7DC:  @ 0x08A1D7DC
+	.global Img_PrepPopupWindow
+Img_PrepPopupWindow:  @ 0x08A1D7DC
 	.incbin "baserom.gba", 0xA1D7DC, 0xF4
 
-	.global gUnknown_08A1D8D0
-gUnknown_08A1D8D0:  @ 0x08A1D8D0
+	.global Img_PrepWindow
+Img_PrepWindow:  @ 0x08A1D8D0
 	.incbin "baserom.gba", 0xA1D8D0, 0x2B0
 
 	.global gUnknown_08A1DB80

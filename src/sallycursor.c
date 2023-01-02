@@ -54,22 +54,22 @@ void SortPlayerUnitsForPrepScreen();
 u8 CanPrepScreenSave();
 int CalcForceDeployedUnitCounts();
 void StartPrepAtMenu(ProcPtr);
-void sub_80966B0(ProcPtr);
-void StartPrepScreenMenu();
+void PrepAtMenuExists(ProcPtr);
+void StartPrepScreenMenu(ProcPtr);
 void SetPrepScreenMenuOnBPress(const void*);
 void SetPrepScreenMenuOnStartPress(const void*);
-void sub_8097008(const void*);
+void SetPrepScreenMenuOnEnd(const void*);
 void SetPrepScreenMenuItem(int, const void*, int, int, int);
 void SetPrepScreenMenuSelectedItem(int);
 void DrawPrepScreenMenuFrameAt(int, int);
-void PrepScreenMenuExists(ProcPtr);
+int PrepScreenMenuExists();
 void EnablePrepScreenMenu(ProcPtr);
 void BWL_FavorReduced_H(u8);
 void BWL_IncrementDeployCountMaybe(u8);
 void sub_80B9FC0();
 void Make6C_savemenu2(ProcPtr);
 void NewPrepScreenTraineePromotionManager(ProcPtr);
-void PrepScreenTraineePromotionManagerExists(ProcPtr);
+int PrepScreenTraineePromotionManagerExists(ProcPtr);
 int CheckSomethingSomewhere();
 
 // asmcs.s
@@ -109,7 +109,7 @@ struct ProcCmd CONST_DATA gProcScr_SALLYCURSOR[] = {
 
 PROC_LABEL(2),
     PROC_CALL(StartPrepAtMenu),
-    PROC_WHILE(sub_80966B0),
+    PROC_WHILE(PrepAtMenuExists),
     PROC_SLEEP(0),
     PROC_CALL(sub_80338C0),
 
@@ -119,7 +119,7 @@ PROC_LABEL(0x33),
     PROC_CALL(sub_8013D68),
     PROC_REPEAT(ContinueUntilSomeTransistion6CExists),
     PROC_CALL(StartPrepAtMenu),
-    PROC_WHILE(sub_80966B0),
+    PROC_WHILE(PrepAtMenuExists),
     PROC_SLEEP(0),
 
     // fallthrough
@@ -555,7 +555,7 @@ void PrepScreenProc_StartMapMenu(struct UnknownSALLYCURSORProc* proc) {
     sub_8033620(proc);
     SetPrepScreenMenuOnBPress(*PrepMapMenu_OnBPress);
     SetPrepScreenMenuOnStartPress(*PrepMapMenu_OnStartPress);
-    sub_8097008(*PrepMapMenu_OnEnd);
+    SetPrepScreenMenuOnEnd(*PrepMapMenu_OnEnd);
     DrawPrepScreenMenuFrameAt(0xA, 2);
 
     SetPrepScreenMenuSelectedItem(proc->unk_58);

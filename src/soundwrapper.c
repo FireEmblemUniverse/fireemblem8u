@@ -440,7 +440,7 @@ void sub_80029E8(int songId, int b, int c, int d, ProcPtr parent)
     mproc->unk66 = c;
 }
 
-int sub_8002A6C(void)
+int MusicProc4Exists(void)
 {
     if (Proc_Find(sMusicProc4Script) != NULL)
         return TRUE;

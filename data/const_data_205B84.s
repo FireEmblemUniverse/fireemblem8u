@@ -13,7 +13,7 @@ gUnknown_08205B94:  @ 0x08205B94
 	.global gUnknown_08205BB0
 gUnknown_08205BB0:  @ 0x08205BB0
 @ replacing .incbin "baserom.gba", 0x00205bb0, 0x10
-.4byte gUnknown_08A1D7DC + 0x74
-.4byte gUnknown_08A1D7DC + 0x94
-.4byte gUnknown_08A1D7DC + 0xb4
-.4byte gUnknown_08A1D7DC + 0xd4
+.4byte Img_PrepPopupWindow + 0x74
+.4byte Img_PrepPopupWindow + 0x94
+.4byte Img_PrepPopupWindow + 0xb4
+.4byte Img_PrepPopupWindow + 0xd4

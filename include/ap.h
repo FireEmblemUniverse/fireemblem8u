@@ -1,6 +1,7 @@
 #ifndef GUARD_AP_H
 #define GUARD_AP_H
 
+struct APProc;
 
 struct APHandle {
     /* 00 */ const u16* pDefinition;      // Pointer to Definition Root
@@ -38,7 +39,7 @@ ProcPtr APProc_Create(const void* apDefinition, int xPos, int yPos, int tileBase
 // ??? APProc_OnUpdate(???);
 // ??? APProc_OnEnd(???);
 // ??? APProc_SetParameters(???);
-// ??? APProc_Delete(???);
+void APProc_Delete(struct APProc* proc);
 void APProc_DeleteAll(void);
 int APProc_Exists(void);
 

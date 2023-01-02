@@ -114,9 +114,9 @@ void sub_8095C00(int msg, ProcPtr parent)
 void sub_8095C2C(struct ProcAtMenu *proc)
 {
     sub_80AD2D4();
-    sub_8096C20();
+    EndPrepSpecialCharEffect();
     EndBG3Slider_();
-    proc->cur_cmd = sub_809710C();
+    proc->cur_cmd = GetActivePrepMenuItemIndex();
     EndPrepScreenMenu();
 }
 
@@ -180,7 +180,7 @@ void AtMenu_Reinitialize(struct ProcAtMenu* proc)
     BG_EnableSyncByMask(0xF);
     SetDefaultColorEffects();
 
-    PrepReDrawSpecialChar(proc);
+    StartPrepSpecialCharEffect(proc);
     EndSlidingWallEffectMaybe();
     ApplyPalettes(gUiFramePaletteB, 0x2, 3);
 
@@ -197,7 +197,7 @@ void AtMenu_Reinitialize(struct ProcAtMenu* proc)
     Prep_DrawChapterGoal(0x5800, 0xB);
     sub_80AD1AC(proc);
     sub_80AD1D0(0x6800);
-    proc->unk_35 = sub_809710C();
+    proc->unk_35 = GetActivePrepMenuItemIndex();
     ParsePrepMenuDescTexts(sub_8095024());
     DrawPrepMenuDescTexts();
 }
@@ -229,7 +229,7 @@ void EndPrepAtMenuIfNoUnitAvailable(struct ProcAtMenu *proc)
 
 void sub_8095F2C(struct ProcAtMenu *proc)
 {
-    int val = sub_809710C();
+    int val = GetActivePrepMenuItemIndex();
 
     if (proc->unk_35 != val) {
         sub_8095C00(sub_8095024(), proc);
@@ -275,7 +275,7 @@ void CleanupPrepMenuScreen(ProcPtr proc)
 
 void sub_8096004(struct ProcAtMenu *proc)
 {
-    sub_809735C();
+    ShowPrepScreenMenuFrozenHand();
     sub_8095F54(proc);
     ShowPrepScreenHandCursor(0x1C, proc->hand_pos * 16 + 0x30, 7, 0x400);
 }
@@ -377,7 +377,7 @@ void AtMenuSetUnitStateAndEndFlag(struct ProcAtMenu *proc)
 void AtMenu_ResetScreenEffect(struct ProcAtMenu *proc)
 {
     EndBG3Slider_();
-    sub_8096C20();
+    EndPrepSpecialCharEffect();
     SetupBackgrounds(0);
     SetSpecialColorEffectsParameters(3, 0, 0, 0x10);
     SetBlendTargetA(1, 1, 1, 1, 1);
@@ -492,7 +492,6 @@ void StartPrepAtMenuWithConfig()
 }
 
 
-
 /* section.data */
 
 CONST_DATA struct ProcCmd ProcScr_PrepMenuDescHandler[] = {
@@ -514,7 +513,7 @@ CONST_DATA struct ProcCmd ProcScr_AtMenu[] = {
     PROC_SLEEP(0x2),
     PROC_CALL_ARG(NewFadeIn, 0x8),
     PROC_WHILE(FadeInExists),
-    PROC_WHILE(sub_8002A6C),
+    PROC_WHILE(MusicProc4Exists),
 
 PROC_LABEL(0x1),
     PROC_CALL(EnablePrepScreenMenu),
@@ -531,7 +530,7 @@ PROC_LABEL(0xD),
     PROC_CALL(sub_8096004),
     PROC_CALL_ARG(NewFadeIn, 0x8),
     PROC_WHILE(FadeInExists),
-    PROC_WHILE(sub_8002A6C),
+    PROC_WHILE(MusicProc4Exists),
     PROC_REPEAT(AtMenu_CtrlLoop),
     PROC_GOTO(0x1),
 

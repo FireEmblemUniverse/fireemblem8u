@@ -79,7 +79,7 @@ gUnknown_08A200B8:  @ 0x08A200B8
         .word 0x0
         @ PROC_WHILE
         .short 0x14, 0x0
-        .word sub_8002A6C
+        .word MusicProc4Exists
         @ PROC_CALL
         .short 0x2, 0x0
         .word sub_80A9014
@@ -1126,7 +1126,7 @@ gUnknown_08A21338:  @ 0x08A21338
         .word FadeInExists
         @ PROC_WHILE
         .short 0x14, 0x0
-        .word sub_8002A6C
+        .word MusicProc4Exists
         @ PROC_LABEL
         .short 0xb, 0x0
         .word 0x0

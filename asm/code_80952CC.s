@@ -349,7 +349,7 @@ _08097648: .4byte gUnknown_08A18754
 	THUMB_FUNC_START sub_809764C
 sub_809764C: @ 0x0809764C
 	push {lr}
-	ldr r0, _08097664  @ gUnknown_08A18808
+	ldr r0, _08097664  @ ProcScr_PrepSideBarHandler
 	bl Proc_Find
 	cmp r0, #0
 	beq _0809765E
@@ -359,14 +359,14 @@ _0809765E:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_08097664: .4byte gUnknown_08A18808
+_08097664: .4byte ProcScr_PrepSideBarHandler
 
 	THUMB_FUNC_END sub_809764C
 
 	THUMB_FUNC_START sub_8097668
 sub_8097668: @ 0x08097668
 	push {lr}
-	ldr r0, _08097680  @ gUnknown_08A18808
+	ldr r0, _08097680  @ ProcScr_PrepSideBarHandler
 	bl Proc_Find
 	cmp r0, #0
 	beq _0809767A
@@ -376,20 +376,20 @@ _0809767A:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_08097680: .4byte gUnknown_08A18808
+_08097680: .4byte ProcScr_PrepSideBarHandler
 
 	THUMB_FUNC_END sub_8097668
 
 	THUMB_FUNC_START Delete6CMenuScroll
 Delete6CMenuScroll: @ 0x08097684
 	push {lr}
-	ldr r0, _08097694  @ gUnknown_08A18808
+	ldr r0, _08097694  @ ProcScr_PrepSideBarHandler
 	bl Proc_Find
 	bl Proc_End
 	pop {r0}
 	bx r0
 	.align 2, 0
-_08097694: .4byte gUnknown_08A18808
+_08097694: .4byte ProcScr_PrepSideBarHandler
 
 	THUMB_FUNC_END Delete6CMenuScroll
 
@@ -397,12 +397,12 @@ _08097694: .4byte gUnknown_08A18808
 Make6CMenuScroll: @ 0x08097698
 	push {lr}
 	adds r1, r0, #0
-	ldr r0, _080976A8  @ gUnknown_08A18808
+	ldr r0, _080976A8  @ ProcScr_PrepSideBarHandler
 	bl Proc_Start
 	pop {r1}
 	bx r1
 	.align 2, 0
-_080976A8: .4byte gUnknown_08A18808
+_080976A8: .4byte ProcScr_PrepSideBarHandler
 
 	THUMB_FUNC_END Make6CMenuScroll
 
@@ -411,7 +411,7 @@ sub_80976AC: @ 0x080976AC
 	push {r4, r5, lr}
 	adds r4, r0, #0
 	adds r5, r1, #0
-	ldr r0, _080976C8  @ gUnknown_08A18808
+	ldr r0, _080976C8  @ ProcScr_PrepSideBarHandler
 	bl Proc_Find
 	cmp r0, #0
 	beq _080976C2
@@ -423,7 +423,7 @@ _080976C2:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_080976C8: .4byte gUnknown_08A18808
+_080976C8: .4byte ProcScr_PrepSideBarHandler
 
 	THUMB_FUNC_END sub_80976AC
 
@@ -438,7 +438,7 @@ sub_80976CC: @ 0x080976CC
 	lsrs r4, r2, #0x10
 	lsls r3, r3, #0x18
 	lsrs r5, r3, #0x18
-	ldr r0, _080976FC  @ gUnknown_08A18808
+	ldr r0, _080976FC  @ ProcScr_PrepSideBarHandler
 	bl Proc_Find
 	cmp r0, #0
 	beq _080976F6
@@ -454,25 +454,25 @@ _080976F6:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_080976FC: .4byte gUnknown_08A18808
+_080976FC: .4byte ProcScr_PrepSideBarHandler
 
 	THUMB_FUNC_END sub_80976CC
 
-	THUMB_FUNC_START sub_8097700
-sub_8097700: @ 0x08097700
+	THUMB_FUNC_START InitPrepSideBarImg
+InitPrepSideBarImg: @ 0x08097700
 	push {r4, r5, lr}
 	adds r4, r0, #0
 	adds r5, r1, #0
-	ldr r0, _08097738  @ gUnknown_08A19CAC
+	ldr r0, _08097738  @ Pal_PrepWindowSideBar
 	adds r1, #0x10
 	lsls r1, r1, #5
 	movs r2, #0x20
 	bl CopyToPaletteBuffer
-	ldr r0, _0809773C  @ gUnknown_08A19C0C
+	ldr r0, _0809773C  @ Img_PrepWindowSideBar
 	ldr r2, _08097740  @ 0x06010000
 	adds r1, r4, r2
 	bl CopyDataWithPossibleUncomp
-	ldr r0, _08097744  @ gUnknown_08A18808
+	ldr r0, _08097744  @ ProcScr_PrepSideBarHandler
 	bl Proc_Find
 	adds r2, r0, #0
 	cmp r2, #0
@@ -486,12 +486,12 @@ _08097730:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_08097738: .4byte gUnknown_08A19CAC
-_0809773C: .4byte gUnknown_08A19C0C
+_08097738: .4byte Pal_PrepWindowSideBar
+_0809773C: .4byte Img_PrepWindowSideBar
 _08097740: .4byte 0x06010000
-_08097744: .4byte gUnknown_08A18808
+_08097744: .4byte ProcScr_PrepSideBarHandler
 
-	THUMB_FUNC_END sub_8097700
+	THUMB_FUNC_END InitPrepSideBarImg
 
 	THUMB_FUNC_START sub_8097748
 sub_8097748: @ 0x08097748
@@ -504,7 +504,7 @@ sub_8097748: @ 0x08097748
 	mov r9, r2
 	adds r5, r3, #0
 	ldr r6, [sp, #0x18]
-	ldr r0, _0809779C  @ gUnknown_08A18808
+	ldr r0, _0809779C  @ ProcScr_PrepSideBarHandler
 	adds r1, r4, #0
 	bl Proc_Start
 	adds r4, r0, #0
@@ -514,13 +514,13 @@ sub_8097748: @ 0x08097748
 	adds r0, #0x2c
 	mov r1, r9
 	strb r1, [r0]
-	ldr r0, _080977A0  @ gUnknown_08A19CAC
+	ldr r0, _080977A0  @ Pal_PrepWindowSideBar
 	adds r1, r6, #0
 	adds r1, #0x10
 	lsls r1, r1, #5
 	movs r2, #0x20
 	bl CopyToPaletteBuffer
-	ldr r0, _080977A4  @ gUnknown_08A19C0C
+	ldr r0, _080977A4  @ Img_PrepWindowSideBar
 	ldr r2, _080977A8  @ 0x06010000
 	adds r1, r5, r2
 	bl CopyDataWithPossibleUncomp
@@ -535,9 +535,9 @@ sub_8097748: @ 0x08097748
 	pop {r1}
 	bx r1
 	.align 2, 0
-_0809779C: .4byte gUnknown_08A18808
-_080977A0: .4byte gUnknown_08A19CAC
-_080977A4: .4byte gUnknown_08A19C0C
+_0809779C: .4byte ProcScr_PrepSideBarHandler
+_080977A0: .4byte Pal_PrepWindowSideBar
+_080977A4: .4byte Img_PrepWindowSideBar
 _080977A8: .4byte 0x06010000
 
 	THUMB_FUNC_END sub_8097748
@@ -1241,8 +1241,8 @@ sub_8097CC4: @ 0x08097CC4
 
 	THUMB_FUNC_END sub_8097CC4
 
-	THUMB_FUNC_START sub_8097CC8
-sub_8097CC8: @ 0x08097CC8
+	THUMB_FUNC_START GetConvoyItemCount_
+GetConvoyItemCount_: @ 0x08097CC8
 	push {lr}
 	bl GetConvoyItemCount
 	lsls r0, r0, #0x18
@@ -1250,7 +1250,7 @@ sub_8097CC8: @ 0x08097CC8
 	pop {r1}
 	bx r1
 
-	THUMB_FUNC_END sub_8097CC8
+	THUMB_FUNC_END GetConvoyItemCount_
 
 	THUMB_FUNC_START sub_8097CD8
 sub_8097CD8: @ 0x08097CD8
@@ -2314,7 +2314,7 @@ sub_8098408: @ 0x08098408
 	strh r0, [r4, #0x34]
 	str r0, [r4, #0x48]
 	str r0, [r4, #0x44]
-	bl sub_8096484
+	bl HasConvoyAccess_
 	adds r1, r4, #0
 	adds r1, #0x2c
 	strb r0, [r1]
@@ -2856,7 +2856,7 @@ _08098746:
 	mov r0, sl
 	bl CpuFastSet
 	bl SMS_FlushIndirect
-	ldr r0, _080989AC  @ gUnknown_08A1D4E8
+	ldr r0, _080989AC  @ Img_PrepTextShadow
 	ldr r1, _080989B0  @ 0x06013E00
 	bl CopyDataWithPossibleUncomp
 	movs r0, #0x3c
@@ -2981,7 +2981,7 @@ _0809899C: .4byte 0x0000FFFC
 _080989A0: .4byte 0x0000FFD8
 _080989A4: .4byte gUnknown_02022C08
 _080989A8: .4byte 0x01000008
-_080989AC: .4byte gUnknown_08A1D4E8
+_080989AC: .4byte Img_PrepTextShadow
 _080989B0: .4byte 0x06013E00
 _080989B4: .4byte 0x00000503
 _080989B8: .4byte sub_80983D4
@@ -3303,12 +3303,12 @@ sub_8098C3C: @ 0x08098C3C
 	adds r2, r0, #0
 	adds r4, r1, #0
 	mov r1, sp
-	ldr r0, _08098C80  @ gUnknown_08205C34
+	ldr r0, _08098C80  @ Pals_PrepWindow
 	ldm r0!, {r3, r5, r6}
 	stm r1!, {r3, r5, r6}
 	ldr r0, [r0]
 	str r0, [r1]
-	ldr r0, _08098C84  @ gUnknown_08A1D8D0
+	ldr r0, _08098C84  @ Img_PrepWindow
 	movs r1, #0xc0
 	lsls r1, r1, #0x13
 	adds r2, r2, r1
@@ -3330,18 +3330,18 @@ sub_8098C3C: @ 0x08098C3C
 	pop {r0}
 	bx r0
 	.align 2, 0
-_08098C80: .4byte gUnknown_08205C34
-_08098C84: .4byte gUnknown_08A1D8D0
+_08098C80: .4byte Pals_PrepWindow
+_08098C84: .4byte Img_PrepWindow
 _08098C88: .4byte gRAMChapterData
 
 	THUMB_FUNC_END sub_8098C3C
 
-	THUMB_FUNC_START sub_8098C8C
-sub_8098C8C: @ 0x08098C8C
+	THUMB_FUNC_START PutImg_PrepPopupWindow
+PutImg_PrepPopupWindow: @ 0x08098C8C
 	push {r4, lr}
 	adds r2, r0, #0
 	adds r4, r1, #0
-	ldr r0, _08098CB4  @ gUnknown_08A1D7DC
+	ldr r0, _08098CB4  @ Img_PrepPopupWindow
 	ldr r1, _08098CB8  @ 0x06010000
 	adds r2, r2, r1
 	adds r1, r2, #0
@@ -3356,11 +3356,11 @@ sub_8098C8C: @ 0x08098C8C
 	pop {r0}
 	bx r0
 	.align 2, 0
-_08098CB4: .4byte gUnknown_08A1D7DC
+_08098CB4: .4byte Img_PrepPopupWindow
 _08098CB8: .4byte 0x06010000
 _08098CBC: .4byte gUiFramePaletteD
 
-	THUMB_FUNC_END sub_8098C8C
+	THUMB_FUNC_END PutImg_PrepPopupWindow
 
 	THUMB_FUNC_START sub_8098CC0
 sub_8098CC0: @ 0x08098CC0
@@ -3393,7 +3393,7 @@ sub_8098CC0: @ 0x08098CC0
 	movs r0, #0x80
 	lsls r0, r0, #4
 	movs r1, #0xa
-	bl sub_8098C8C
+	bl PutImg_PrepPopupWindow
 	ldr r0, _08098D78  @ gUnknown_08A1B8B8
 	ldr r4, _08098D7C  @ gGenericBuffer
 	adds r1, r4, #0
@@ -4447,7 +4447,7 @@ sub_80995D4: @ 0x080995D4
 	movs r0, #0x80
 	lsls r0, r0, #4
 	movs r1, #0xa
-	bl sub_8098C8C
+	bl PutImg_PrepPopupWindow
 	adds r0, r6, #0
 	bl sub_80994C4
 	adds r0, r6, #0
@@ -6397,7 +6397,7 @@ sub_809A538: @ 0x0809A538
 	adds r5, r0, #0
 	bl GetUnitItemCount
 	adds r7, r0, #0
-	bl sub_8097CC8
+	bl GetConvoyItemCount_
 	lsls r0, r0, #0x18
 	lsrs r6, r0, #0x18
 	movs r4, #0
@@ -10555,7 +10555,7 @@ _0809C5CA:
 	movs r0, #0x80
 	lsls r0, r0, #4
 	movs r1, #0xa
-	bl sub_8098C8C
+	bl PutImg_PrepPopupWindow
 	ldr r0, _0809C7FC  @ gUnknown_08A1BAB8
 	ldr r1, _0809C800  @ 0x06000440
 	bl CopyDataWithPossibleUncomp
@@ -12553,7 +12553,7 @@ _0809D640: .4byte Pal_UIFont
 sub_809D644: @ 0x0809D644
 	push {r4, r5, r6, r7, lr}
 	adds r4, r0, #0
-	bl sub_8097CC8
+	bl GetConvoyItemCount_
 	adds r5, r0, #0
 	lsls r5, r5, #0x18
 	lsrs r5, r5, #0x18
@@ -12658,7 +12658,7 @@ sub_809D6CC: @ 0x0809D6CC
 	bl DrawTextInline
 	adds r5, r6, #0
 	adds r5, #0xa
-	bl sub_8097CC8
+	bl GetConvoyItemCount_
 	lsls r0, r0, #0x18
 	lsrs r0, r0, #0x18
 	movs r4, #2
@@ -12666,7 +12666,7 @@ sub_809D6CC: @ 0x0809D6CC
 	bne _0809D744
 	movs r4, #4
 _0809D744:
-	bl sub_8097CC8
+	bl GetConvoyItemCount_
 	adds r2, r0, #0
 	lsls r2, r2, #0x18
 	lsrs r2, r2, #0x18
@@ -13011,7 +13011,7 @@ sub_809DA00: @ 0x0809DA00
 	movs r0, #0x80
 	lsls r0, r0, #4
 	movs r1, #0xa
-	bl sub_8098C8C
+	bl PutImg_PrepPopupWindow
 	ldr r0, _0809DC38  @ gUnknown_08A1B9EC
 	ldr r4, _0809DC3C  @ gGenericBuffer
 	adds r1, r4, #0
@@ -13333,7 +13333,7 @@ _0809DCE6:
 	.align 2, 0
 _0809DD04: .4byte gKeyStatusPtr
 _0809DD08:
-	bl sub_8097CC8
+	bl GetConvoyItemCount_
 	lsls r0, r0, #0x18
 	lsrs r0, r0, #0x18
 	cmp r0, #0x63
@@ -14862,7 +14862,7 @@ sub_809E85C: @ 0x0809E85C
 	strb r0, [r1, #0x11]
 	cmp r4, #0
 	beq _0809E906
-	bl sub_8097CC8
+	bl GetConvoyItemCount_
 	lsls r0, r0, #0x18
 	lsrs r0, r0, #0x18
 	cmp r0, #0x64
@@ -17943,7 +17943,7 @@ sub_80A00DC: @ 0x080A00DC
 	movs r0, #0x80
 	lsls r0, r0, #4
 	movs r1, #8
-	bl sub_8098C8C
+	bl PutImg_PrepPopupWindow
 	ldr r0, _080A0308  @ gUnknown_08A1BBD0
 	ldr r4, _080A030C  @ gGenericBuffer
 	adds r1, r4, #0
