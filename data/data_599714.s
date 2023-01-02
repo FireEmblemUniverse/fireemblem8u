@@ -458,7 +458,7 @@ gProc_BMapMain:  @ 0x0859A1F0
 
     .2byte 3
     .2byte 0
-    .4byte ContinueUntilSomeTransistion6CExists
+    .4byte WaitForFade
 
     .2byte 12
     .2byte 5
@@ -482,7 +482,7 @@ gProc_BMapMain:  @ 0x0859A1F0
 
     .2byte 3
     .2byte 0
-    .4byte ContinueUntilSomeTransistion6CExists
+    .4byte WaitForFade
 
     .2byte 3
     .2byte 0
@@ -534,7 +534,7 @@ gProc_BMapMain:  @ 0x0859A1F0
 
     .2byte 3
     .2byte 0
-    .4byte ContinueUntilSomeTransistion6CExists
+    .4byte WaitForFade
 
     .2byte 12
     .2byte 9
@@ -558,7 +558,7 @@ gProc_BMapMain:  @ 0x0859A1F0
 
     .2byte 3
     .2byte 0
-    .4byte ContinueUntilSomeTransistion6CExists
+    .4byte WaitForFade
 
     .2byte 6
     .2byte 1

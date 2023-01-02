@@ -158,6 +158,14 @@ SECTIONS
         src/prepscreen.o(.text);
         src/prep_atmenu.o(.text);
         src/prep_menuproc.o(.text);
+        asm/prep_menuscroll.o(.text);
+        asm/code_prepscreen_80977AC.o(.text);
+        asm/prep_itemscreen.o(.text);
+        asm/prep_unitscreen.o(.text);
+        asm/prep_itemtrade.o(.text);
+        asm/prep_itemuse.o(.text);
+        asm/prep_itemsupply.o(.text);
+        asm/prep_itemlist.o(.text);
         asm/code_80952CC.o(.text);
         src/bmsave.o(.text);
         asm/code_80A2C3C.o(.text);

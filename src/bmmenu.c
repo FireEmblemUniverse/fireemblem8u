@@ -1665,7 +1665,7 @@ u8 SupplyCommandEffect(struct MenuProc* menu, struct MenuItemProc* menuItem) {
 
     gActionData.unitActionType = UNIT_ACTION_TRADED_1D;
 
-    sub_809EB38(gActiveUnit, NULL);
+    StartBmSupply(gActiveUnit, NULL);
 
     return MENU_ACT_SKIPCURSOR | MENU_ACT_END | MENU_ACT_SND6A | MENU_ACT_CLEAR;
 }

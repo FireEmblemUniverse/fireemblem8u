@@ -3343,20 +3343,20 @@ extern CONST_DATA struct ProcCmd ProcScr_PrepMenu[];
 // extern ??? gUnknown_08A18944
 // extern ??? gUnknown_08A18964
 // extern ??? gUnknown_08A1898C
-// extern ??? gUnknown_08A189A4
+// extern ??? ProcScr_PrepItemScreen
 // extern ??? gUnknown_08A18E34
 extern CONST_DATA u16 gUnknown_08A18E4E[];
 extern CONST_DATA u16 gUnknown_08A18E62[];
 extern CONST_DATA u16 gUnknown_08A18E76[];
 extern CONST_DATA struct ProcCmd ProcScr_PrepUnitScreen[];
-// extern ??? gUnknown_08A1901C
-// extern ??? gUnknown_08A19064
+// extern ??? ProcScr_PrepItemTradeScreen
+// extern ??? PrepScr_PrepItemUseScreen
 // extern ??? gUnknown_08A191F4
 // extern ??? gUnknown_08A19200
 // extern ??? gUnknown_08A19204
-// extern ??? gUnknown_08A1920C
-// extern ??? gUnknown_08A192EC
-// extern ??? gUnknown_08A19424
+// extern ??? ProcScr_PrepItemSupplyScreen
+// extern ??? ProcScr_BmSupplyScreen
+// extern ??? ProcScr_PrepItemListScreen
 // extern ??? gUnknown_08A1951C
 // extern ??? gUnknown_08A19524
 // extern ??? gUnknown_08A19528
@@ -3433,7 +3433,7 @@ extern u8 Img_PrepWindow[];
 // extern ??? gUnknown_08A20050
 // extern ??? gUnknown_08A20068
 // extern ??? gUnknown_08A20098
-// extern ??? gUnknown_08A200B8
+// extern ??? ProcScr_SaveMenu
 // extern ??? gUnknown_08A203A8
 // extern ??? gUnknown_08A204B8
 // extern ??? gUnknown_08A204BC
@@ -3458,7 +3458,7 @@ extern u8 Img_PrepWindow[];
 // extern ??? gUnknown_08A209F0
 // extern ??? gUnknown_08A209FC
 // extern ??? gUnknown_08A20A08
-// extern ??? gUnknown_08A20A10
+// extern ??? ProcScr_NewGameDiffilcultySelect
 // extern ??? gUnknown_08A20A98
 // extern ??? gUnknown_08A20AA0
 // extern ??? gUnknown_08A20AAE
@@ -3518,13 +3518,13 @@ extern struct ProcCmd CONST_DATA gUnknown_08A20DCC[];
 // extern ??? gUnknown_08A26380
 // extern ??? gUnknown_08A268D8
 // extern ??? gUnknown_08A268F8
-// extern ??? gUnknown_08A26A74
-// extern ??? gUnknown_08A27F68
+// extern ??? Img_SaveScreenSprits
+// extern ??? Pal_SaveScreenSprits
 // extern ??? gUnknown_08A28088
 // extern ??? gUnknown_08A280A8
-// extern ??? gUnknown_08A2812C
-// extern ??? gUnknown_08A28A0C
-// extern ??? gUnknown_08A29418
+// extern ??? Img_GameMainMenuObjs
+// extern ??? Img_DifficultyMenuObjs
+// extern ??? Pal_DifficultyMenuObjs
 // extern ??? gUnknown_08A2949A
 // extern ??? gUnknown_08A294BA
 // extern ??? gUnknown_08A29558
@@ -4037,7 +4037,7 @@ extern const struct ProcCmd gUnknown_08B1271C[];
 // extern ??? gUnknown_08B12C3C
 extern struct ProcCmd CONST_DATA gProcScr_Guide[];
 // extern ??? gUnknown_08B12D1C
-extern u8 gUnknown_08B12DB4[];  // gfx
+extern u8 Img_CommGameBgScreen[];  // gfx
 extern u16 gUnknown_08B1754C[]; // pal
 extern u16 gUnknown_08B1756C[]; // pal, used in opsubtitle
 // extern ??? gUnknown_08B176CC

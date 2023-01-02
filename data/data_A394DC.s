@@ -13,10 +13,10 @@ gUnknown_08A394DC:  @ 0x08A394DC
         .word sub_8014BD0
         @ PROC_CALL
         .short 0x2, 0x0
-        .word sub_8013D68
+        .word StartFadeInBlackMedium
         @ PROC_REPEAT
         .short 0x3, 0x0
-        .word ContinueUntilSomeTransistion6CExists
+        .word WaitForFade
         @ PROC_CALL
         .short 0x2, 0x0
         .word BMapDispSuspend
@@ -127,7 +127,7 @@ gUnknown_08A394DC:  @ 0x08A394DC
         .word sub_8013D8C
         @ PROC_REPEAT
         .short 0x3, 0x0
-        .word ContinueUntilSomeTransistion6CExists
+        .word WaitForFade
         @ PROC_CALL
         .short 0x2, 0x0
         .word SubSkipThread2
@@ -221,7 +221,7 @@ gUnknown_08A3963C:  @ 0x08A3963C
         .word sub_8013D8C
         @ PROC_REPEAT
         .short 0x3, 0x0
-        .word ContinueUntilSomeTransistion6CExists
+        .word WaitForFade
         @ PROC_CALL
         .short 0x2, 0x0
         .word SubSkipThread2
@@ -4282,7 +4282,7 @@ gUnknown_08A3D748:  @ 0x08A3D748
         .word sub_8013D80
         @ PROC_REPEAT
         .short 0x3, 0x0
-        .word ContinueUntilSomeTransistion6CExists
+        .word WaitForFade
         @ PROC_CALL
         .short 0x2, 0x0
         .word sub_80B9810
@@ -4306,7 +4306,7 @@ gUnknown_08A3D748:  @ 0x08A3D748
         .word sub_8013D80
         @ PROC_REPEAT
         .short 0x3, 0x0
-        .word ContinueUntilSomeTransistion6CExists
+        .word WaitForFade
         @ PROC_CALL
         .short 0x2, 0x0
         .word sub_80B9810
@@ -4330,7 +4330,7 @@ gUnknown_08A3D748:  @ 0x08A3D748
         .word sub_8013DA4
         @ PROC_REPEAT
         .short 0x3, 0x0
-        .word ContinueUntilSomeTransistion6CExists
+        .word WaitForFade
         @ PROC_GOTO
         .short 0xc, 0x3
         .word 0x0
@@ -4342,7 +4342,7 @@ gUnknown_08A3D748:  @ 0x08A3D748
         .word sub_8013D80
         @ PROC_REPEAT
         .short 0x3, 0x0
-        .word ContinueUntilSomeTransistion6CExists
+        .word WaitForFade
         @ PROC_CALL
         .short 0x2, 0x0
         .word sub_80B9810
@@ -4366,7 +4366,7 @@ gUnknown_08A3D748:  @ 0x08A3D748
         .word sub_8013DA4
         @ PROC_REPEAT
         .short 0x3, 0x0
-        .word ContinueUntilSomeTransistion6CExists
+        .word WaitForFade
         @ PROC_GOTO
         .short 0xc, 0x3
         .word 0x0
@@ -4378,7 +4378,7 @@ gUnknown_08A3D748:  @ 0x08A3D748
         .word sub_8013D80
         @ PROC_REPEAT
         .short 0x3, 0x0
-        .word ContinueUntilSomeTransistion6CExists
+        .word WaitForFade
         @ PROC_CALL
         .short 0x2, 0x0
         .word sub_80B9810
@@ -4402,7 +4402,7 @@ gUnknown_08A3D748:  @ 0x08A3D748
         .word sub_8013DA4
         @ PROC_REPEAT
         .short 0x3, 0x0
-        .word ContinueUntilSomeTransistion6CExists
+        .word WaitForFade
         @ PROC_GOTO
         .short 0xc, 0x3
         .word 0x0
@@ -4414,7 +4414,7 @@ gUnknown_08A3D748:  @ 0x08A3D748
         .word sub_8013D80
         @ PROC_REPEAT
         .short 0x3, 0x0
-        .word ContinueUntilSomeTransistion6CExists
+        .word WaitForFade
         @ PROC_CALL
         .short 0x2, 0x0
         .word sub_80B9FD4
@@ -4639,7 +4639,7 @@ gUnknown_08A3D748:  @ 0x08A3D748
         .word sub_8013DA4
         @ PROC_REPEAT
         .short 0x3, 0x0
-        .word ContinueUntilSomeTransistion6CExists
+        .word WaitForFade
         @ PROC_GOTO
         .short 0xc, 0x12
         .word 0x0
@@ -4657,7 +4657,7 @@ gUnknown_08A3D748:  @ 0x08A3D748
         .word sub_8013DA4
         @ PROC_REPEAT
         .short 0x3, 0x0
-        .word ContinueUntilSomeTransistion6CExists
+        .word WaitForFade
         @ PROC_GOTO
         .short 0xc, 0x3
         .word 0x0
@@ -7301,7 +7301,7 @@ gUnknown_08AA2084:  @ 0x08AA2084
         .word sub_8013D74
         @ PROC_REPEAT
         .short 0x3, 0x0
-        .word ContinueUntilSomeTransistion6CExists
+        .word WaitForFade
         @ PROC_SLEEP
         .short 0xe, 0x1e
         .word 0x0

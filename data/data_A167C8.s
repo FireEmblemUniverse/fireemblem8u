@@ -116,7 +116,7 @@ gUnknown_08A177A0:  @ 0x08A177A0
         .word sub_8013D80
         @ PROC_REPEAT
         .short 0x3, 0x0
-        .word ContinueUntilSomeTransistion6CExists
+        .word WaitForFade
         @ PROC_CALL
         .short 0x2, 0x0
         .word BMapDispSuspend
@@ -128,7 +128,7 @@ gUnknown_08A177A0:  @ 0x08A177A0
         .word sub_8013DA4
         @ PROC_REPEAT
         .short 0x3, 0x0
-        .word ContinueUntilSomeTransistion6CExists
+        .word WaitForFade
         @ PROC_LABEL
         .short 0xb, 0x1
         .word 0x0
@@ -143,7 +143,7 @@ gUnknown_08A177A0:  @ 0x08A177A0
         .word sub_8013D80
         @ PROC_REPEAT
         .short 0x3, 0x0
-        .word ContinueUntilSomeTransistion6CExists
+        .word WaitForFade
         @ PROC_CALL
         .short 0x2, 0x0
         .word sub_8091C00
@@ -161,7 +161,7 @@ gUnknown_08A177A0:  @ 0x08A177A0
         .word sub_8013DA4
         @ PROC_REPEAT
         .short 0x3, 0x0
-        .word ContinueUntilSomeTransistion6CExists
+        .word WaitForFade
         @ PROC_CALL
         .short 0x2, 0x0
         .word SubSkipThread2
@@ -228,7 +228,7 @@ gUnknown_08A178C0:  @ 0x08A178C0
         .word sub_8013D8C
         @ PROC_REPEAT
         .short 0x3, 0x0
-        .word ContinueUntilSomeTransistion6CExists
+        .word WaitForFade
         @ PROC_LABEL
         .short 0xb, 0x1
         .word 0x0
@@ -240,10 +240,10 @@ gUnknown_08A178C0:  @ 0x08A178C0
         .word sub_8091AEC
         @ PROC_CALL
         .short 0x2, 0x0
-        .word sub_8013D68
+        .word StartFadeInBlackMedium
         @ PROC_REPEAT
         .short 0x3, 0x0
-        .word ContinueUntilSomeTransistion6CExists
+        .word WaitForFade
         @ PROC_CALL
         .short 0x2, 0x0
         .word sub_8091C00
@@ -307,7 +307,7 @@ gUnknown_08A17990:  @ 0x08A17990
         .word sub_8013DA4
         @ PROC_REPEAT
         .short 0x3, 0x0
-        .word ContinueUntilSomeTransistion6CExists
+        .word WaitForFade
         @ PROC_LABEL
         .short 0xb, 0x1
         .word 0x0
@@ -322,7 +322,7 @@ gUnknown_08A17990:  @ 0x08A17990
         .word sub_8013D80
         @ PROC_REPEAT
         .short 0x3, 0x0
-        .word ContinueUntilSomeTransistion6CExists
+        .word WaitForFade
         @ PROC_CALL
         .short 0x2, 0x0
         .word sub_8091C00
@@ -374,7 +374,7 @@ gUnknown_08A17A30:  @ 0x08A17A30
         .word sub_8013DA4
         @ PROC_REPEAT
         .short 0x3, 0x0
-        .word ContinueUntilSomeTransistion6CExists
+        .word WaitForFade
         @ PROC_LABEL
         .short 0xb, 0x1
         .word 0x0
@@ -389,7 +389,7 @@ gUnknown_08A17A30:  @ 0x08A17A30
         .word sub_8013D80
         @ PROC_REPEAT
         .short 0x3, 0x0
-        .word ContinueUntilSomeTransistion6CExists
+        .word WaitForFade
         @ PROC_CALL
         .short 0x2, 0x0
         .word sub_8091C00

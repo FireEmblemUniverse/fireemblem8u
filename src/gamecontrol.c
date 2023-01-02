@@ -238,15 +238,15 @@ PROC_LABEL(18),
     PROC_CALL(sub_8009A24),
 
     PROC_CALL(sub_8013D8C),
-    PROC_REPEAT(ContinueUntilSomeTransistion6CExists),
+    PROC_REPEAT(WaitForFade),
 
     PROC_CALL(sub_8048850),
 
     PROC_WHILE(EventEngineExists),
     PROC_SLEEP(0),
 
-    PROC_CALL(sub_8013D68),
-    PROC_REPEAT(ContinueUntilSomeTransistion6CExists),
+    PROC_CALL(StartFadeInBlackMedium),
+    PROC_REPEAT(WaitForFade),
 
     PROC_CALL(EndBG3Slider),
 

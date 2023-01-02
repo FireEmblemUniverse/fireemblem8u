@@ -127,7 +127,7 @@ struct ProcCmd CONST_DATA gProcScr_ChapterStatusScreen[] = {
     PROC_CALL(AddSkipThread2),
 
     PROC_CALL(sub_8013D80),
-    PROC_REPEAT(ContinueUntilSomeTransistion6CExists),
+    PROC_REPEAT(WaitForFade),
     PROC_CALL(BMapDispSuspend),
 
     PROC_CALL(ChapterStatus_Init),
@@ -147,7 +147,7 @@ PROC_LABEL(1),
     PROC_CALL(BMapDispResume),
     PROC_CALL(RefreshBMapGraphics),
     PROC_CALL(sub_8013DA4),
-    PROC_REPEAT(ContinueUntilSomeTransistion6CExists),
+    PROC_REPEAT(WaitForFade),
 
     PROC_CALL(ChapterStatus_MaybeFocusLeaderUnit),
     PROC_SLEEP(0),

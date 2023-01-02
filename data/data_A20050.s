@@ -42,8 +42,8 @@ gUnknown_08A20098:  @ 0x08A20098
         .word 0x0
 
 
-	.global gUnknown_08A200B8
-gUnknown_08A200B8:  @ 0x08A200B8
+	.global ProcScr_SaveMenu
+ProcScr_SaveMenu:  @ 0x08A200B8
         @ PROC_NAME
         .short 0x1, 0x0
         .word 0x8205dd4
@@ -61,7 +61,7 @@ gUnknown_08A200B8:  @ 0x08A200B8
         .word 0x0
         @ PROC_CALL
         .short 0x2, 0x0
-        .word sub_80A8CD4
+        .word ProcSaveMenu_InitScreen
         @ PROC_CALL
         .short 0x2, 0x0
         .word sub_80A8F04
@@ -265,7 +265,7 @@ gUnknown_08A200B8:  @ 0x08A200B8
         .word 0x0
         @ PROC_CALL
         .short 0x2, 0x0
-        .word sub_80A8CD4
+        .word ProcSaveMenu_InitScreen
         @ PROC_CALL
         .short 0x2, 0x0
         .word sub_80A8F04
@@ -347,7 +347,7 @@ gUnknown_08A203A8:  @ 0x08A203A8
         .word 0x0
         @ PROC_CALL
         .short 0x2, 0x0
-        .word sub_80A8CD4
+        .word ProcSaveMenu_InitScreen
         @ PROC_YIELD
         .short 0xe, 0x0
         .word 0x0
@@ -678,8 +678,8 @@ gUnknown_08A209FC:  @ 0x08A209FC
 gUnknown_08A20A08:  @ 0x08A20A08
 	.incbin "baserom.gba", 0xA20A08, 0x8
 
-	.global gUnknown_08A20A10
-gUnknown_08A20A10:  @ 0x08A20A10
+	.global ProcScr_NewGameDiffilcultySelect
+ProcScr_NewGameDiffilcultySelect:  @ 0x08A20A10
         @ PROC_SET_END_CB
         .short 0x4, 0x0
         .word sub_80AC078
@@ -1422,12 +1422,12 @@ gUnknown_08A268D8:  @ 0x08A268D8
 gUnknown_08A268F8:  @ 0x08A268F8
 	.incbin "baserom.gba", 0xA268F8, 0x17C
 
-	.global gUnknown_08A26A74
-gUnknown_08A26A74:  @ 0x08A26A74
+	.global Img_SaveScreenSprits
+Img_SaveScreenSprits:  @ 0x08A26A74
 	.incbin "baserom.gba", 0xA26A74, 0x14F4
 
-	.global gUnknown_08A27F68
-gUnknown_08A27F68:  @ 0x08A27F68
+	.global Pal_SaveScreenSprits
+Pal_SaveScreenSprits:  @ 0x08A27F68
 	.incbin "baserom.gba", 0xA27F68, 0x120
 
 	.global gUnknown_08A28088
@@ -1438,16 +1438,16 @@ gUnknown_08A28088:  @ 0x08A28088
 gUnknown_08A280A8:  @ 0x08A280A8
 	.incbin "baserom.gba", 0xA280A8, 0x84
 
-	.global gUnknown_08A2812C
-gUnknown_08A2812C:  @ 0x08A2812C
+	.global Img_GameMainMenuObjs
+Img_GameMainMenuObjs:  @ 0x08A2812C
 	.incbin "baserom.gba", 0xA2812C, 0x8E0
 
-	.global gUnknown_08A28A0C
-gUnknown_08A28A0C:  @ 0x08A28A0C
+	.global Img_DifficultyMenuObjs
+Img_DifficultyMenuObjs:  @ 0x08A28A0C
 	.incbin "baserom.gba", 0xA28A0C, 0xA0C
 
-	.global gUnknown_08A29418
-gUnknown_08A29418:  @ 0x08A29418
+	.global Pal_DifficultyMenuObjs
+Pal_DifficultyMenuObjs:  @ 0x08A29418
 	.incbin "baserom.gba", 0xA29418, 0x82
 
 	.global gUnknown_08A2949A
