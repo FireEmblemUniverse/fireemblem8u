@@ -10203,7 +10203,7 @@ sub_80AD4A0: @ 0x080AD4A0
 	movs r0, #0xf
 	ands r4, r0
 	strh r4, [r2, #0x3a]
-	ldr r0, _080AD4DC  @ gUnknown_08A1D4E8
+	ldr r0, _080AD4DC  @ Img_PrepTextShadow
 	ldr r2, _080AD4E0  @ 0x06010000
 	adds r1, r5, r2
 	bl CopyDataWithPossibleUncomp
@@ -10213,7 +10213,7 @@ _080AD4D0:
 	bx r0
 	.align 2, 0
 _080AD4D8: .4byte gUnknown_08A20C1C
-_080AD4DC: .4byte gUnknown_08A1D4E8
+_080AD4DC: .4byte Img_PrepTextShadow
 _080AD4E0: .4byte 0x06010000
 
 	THUMB_FUNC_END sub_80AD4A0
@@ -15128,7 +15128,7 @@ sub_80AF7F4: @ 0x080AF7F4
 	adds r4, r0, #0
 	adds r5, r1, #0
 	adds r6, r2, #0
-	bl sub_8002A6C
+	bl MusicProc4Exists
 	lsls r0, r0, #0x18
 	asrs r3, r0, #0x18
 	cmp r3, #0
@@ -15167,7 +15167,7 @@ sub_80AF840: @ 0x080AF840
 	push {r4, r5, lr}
 	sub sp, #4
 	adds r5, r0, #0
-	bl sub_8002A6C
+	bl MusicProc4Exists
 	lsls r0, r0, #0x18
 	asrs r0, r0, #0x18
 	cmp r0, #0
@@ -15426,7 +15426,7 @@ _080AFA30:
 	ands r0, r1
 	cmp r0, #0
 	beq _080AFA4C
-	bl sub_8002A6C
+	bl MusicProc4Exists
 	lsls r0, r0, #0x18
 	cmp r0, #0
 	bne _080AFA5C
@@ -15454,7 +15454,7 @@ sub_80AFA64: @ 0x080AFA64
 	push {r4, lr}
 	sub sp, #4
 	adds r4, r0, #0
-	bl sub_8002A6C
+	bl MusicProc4Exists
 	lsls r0, r0, #0x18
 	asrs r0, r0, #0x18
 	cmp r0, #0
@@ -17774,7 +17774,7 @@ _080B0C2A:
 	movs r0, #0x80
 	lsls r0, r0, #2
 	movs r1, #2
-	bl sub_8097700
+	bl InitPrepSideBarImg
 	ldrh r1, [r6, #0x2c]
 	ldr r0, _080B0D20  @ gUnknown_08A2159C
 	ldr r0, [r0]

@@ -247,7 +247,7 @@ void InitPrepScreenMainMenu(struct ProcAtMenu* proc)
 {
     int color;
 
-    StartPrepScreenMenu();
+    StartPrepScreenMenu(proc);
     if (!CheckSomethingSomewhere()) {
         SetPrepScreenMenuItem(
             PREP_MAINMENU_UNIT,

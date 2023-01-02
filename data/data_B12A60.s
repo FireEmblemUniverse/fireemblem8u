@@ -8,7 +8,7 @@ gUnknown_08B12A60:  @ 0x08B12A60
 gUnknown_08B12A64:  @ 0x08B12A64
         @ PROC_WHILE
         .short 0x14, 0x0
-        .word sub_8002A6C
+        .word MusicProc4Exists
         @ PROC_CALL
         .short 0x2, 0x0
         .word sub_80CDDF0
@@ -26,7 +26,7 @@ gUnknown_08B12A64:  @ 0x08B12A64
         .word 0x0
         @ PROC_WHILE
         .short 0x14, 0x0
-        .word sub_8002A6C
+        .word MusicProc4Exists
         @ PROC_END
         .short 0x0, 0x0
         .word 0x0

@@ -3756,7 +3756,7 @@ sub_80906F8: @ 0x080906F8
 	movs r0, #0xe4
 	lsls r0, r0, #7
 	movs r1, #1
-	bl sub_8097700
+	bl InitPrepSideBarImg
 	bl SMS_FlushIndirect
 	movs r0, #7
 	strh r0, [r5, #0x3e]
@@ -13158,7 +13158,7 @@ _0809501E:
 	THUMB_FUNC_START sub_8095024
 sub_8095024: @ 0x08095024
 	push {r4, lr}
-	bl sub_809710C
+	bl GetActivePrepMenuItemIndex
 	adds r4, r0, #0
 	bl CheckSomethingSomewhere
 	lsls r0, r0, #0x18
@@ -13284,7 +13284,7 @@ sub_80950E8: @ 0x080950E8
 	stm r1!, {r3, r5, r6}
 	ldr r0, [r0]
 	str r0, [r1]
-	ldr r0, _08095130  @ gUnknown_08A1D8D0
+	ldr r0, _08095130  @ Img_PrepWindow
 	movs r1, #0xc0
 	lsls r1, r1, #0x13
 	adds r2, r2, r1
@@ -13307,7 +13307,7 @@ sub_80950E8: @ 0x080950E8
 	bx r0
 	.align 2, 0
 _0809512C: .4byte gUnknown_08205BB0
-_08095130: .4byte gUnknown_08A1D8D0
+_08095130: .4byte Img_PrepWindow
 _08095134: .4byte gRAMChapterData
 
 	THUMB_FUNC_END sub_80950E8

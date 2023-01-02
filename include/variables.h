@@ -1144,7 +1144,7 @@ extern const u8 gUnknown_08205714[4];
 // extern ??? gUnknown_08205BC0
 // extern ??? gUnknown_08205BFC
 // extern ??? gUnknown_08205C14
-// extern ??? gUnknown_08205C34
+// extern ??? Pals_PrepWindow
 // extern ??? gUnknown_08205C44
 // extern ??? gUnknown_08205C64
 // extern ??? gUnknown_08205C70
@@ -3315,23 +3315,23 @@ extern u16 gUnknown_08A181E8[];
 // extern ??? gUnknown_08A18200
 extern CONST_DATA struct ProcCmd ProcScr_PrepMenuDescHandler[];
 extern CONST_DATA struct ProcCmd ProcScr_AtMenu[];
-// extern ??? gUnknown_08A184B4
-// extern ??? gUnknown_08A184F4
-// extern ??? gUnknown_08A1856E
-// extern ??? gUnknown_08A18582
-// extern ??? gUnknown_08A18590
-// extern ??? gUnknown_08A1859E
-// extern ??? gUnknown_08A185AC
-// extern ??? gUnknown_08A18614
-// extern ??? gUnknown_08A186B4
-// extern ??? gUnknown_08A186DC
-// extern ??? gUnknown_08A186EC
+extern CONST_DATA struct ProcCmd gUnknown_08A184B4[];
+extern CONST_DATA struct ProcCmd ProcScr_PrepTraineePromo[];
+extern CONST_DATA u16 obj_8A1856E[];
+extern CONST_DATA u16 obj_8A18582[];
+extern CONST_DATA u16 obj_8A18590[];
+extern CONST_DATA u16 obj_8A1859E[];
+extern CONST_DATA u16 obj_8A185AC[];
+extern CONST_DATA u16 *objs_8A18614[];
+extern CONST_DATA struct ProcCmd ProcScr_PrepSpecialCharEff[];
+extern CONST_DATA struct ProcCmd ProcScr_PrepScreenMenuDummyItem[];
+extern CONST_DATA struct ProcCmd ProcScr_PrepMenu[];
 // extern ??? gUnknown_08A18744
 // extern ??? gUnknown_08A1874C
 // extern ??? gUnknown_08A18754
 // extern ??? gUnknown_08A1879C
 // extern ??? gUnknown_08A187F0
-// extern ??? gUnknown_08A18808
+// extern ??? ProcScr_PrepSideBarHandler
 // extern ??? gUnknown_08A18840
 // extern ??? gUnknown_08A18888
 // extern ??? gUnknown_08A188A8
@@ -3345,9 +3345,9 @@ extern CONST_DATA struct ProcCmd ProcScr_AtMenu[];
 // extern ??? gUnknown_08A1898C
 // extern ??? gUnknown_08A189A4
 // extern ??? gUnknown_08A18E34
-// extern ??? gUnknown_08A18E4E
-// extern ??? gUnknown_08A18E62
-// extern ??? gUnknown_08A18E76
+extern CONST_DATA u16 gUnknown_08A18E4E[];
+extern CONST_DATA u16 gUnknown_08A18E62[];
+extern CONST_DATA u16 gUnknown_08A18E76[];
 extern CONST_DATA struct ProcCmd ProcScr_PrepUnitScreen[];
 // extern ??? gUnknown_08A1901C
 // extern ??? gUnknown_08A19064
@@ -3376,23 +3376,23 @@ extern int gUnknown_08A196BC[]; /* msg lists */
 // extern ??? gUnknown_08A19872
 // extern ??? gUnknown_08A19880
 extern u16 CONST_DATA gUnknown_08A199C8[]; // TODO - Not sure; used in sallycursor
-// extern ??? gUnknown_08A19C0C
-// extern ??? gUnknown_08A19CAC
+// extern ??? Img_PrepWindowSideBar
+// extern ??? Pal_PrepWindowSideBar
 // extern ??? gUnknown_08A19CCC
 extern u16 gUnknown_08A1A084[]; // pal
 // extern ??? gUnknown_08A1A0A4
 // extern ??? gUnknown_08A1A23C
 // extern ??? gUnknown_08A1A3FC
-// extern ??? gUnknown_08A1A41C
-// extern ??? gUnknown_08A1A434
-// extern ??? gUnknown_08A1A474
+extern u8 CONST_DATA gUnknown_08A1A41C[];
+extern u8 CONST_DATA gUnknown_08A1A434[];
+extern u8 CONST_DATA gUnknown_08A1A474[];
 extern u8 CONST_DATA gUnknown_08A1A4C8[];
 // extern ??? gUnknown_08A1A8E4
 extern u8 CONST_DATA gUnknown_08A1AC88[];
 extern u16 CONST_DATA gUnknown_08A1B0D8[];
 extern u16 CONST_DATA gUnknown_08A1B154[]; // TODO - palette data from sallycursor
 extern u16 CONST_DATA gUnknown_08A1B174[];
-// extern ??? gUnknown_08A1B194
+extern u16 CONST_DATA gUnknown_08A1B194[];
 // extern ??? gUnknown_08A1B1FC
 // extern ??? gUnknown_08A1B638
 extern u8 CONST_DATA gUnknown_08A1B658[];
@@ -3417,11 +3417,11 @@ extern u8 gUnknown_08A1C704[]; // arrow gfx
 // extern ??? gUnknown_08A1D288
 // extern ??? gUnknown_08A1D448
 extern u16 CONST_DATA gUnknown_08A1D4C8[];
-// extern ??? gUnknown_08A1D4E8
+// extern ??? Img_PrepTextShadow
 extern u8 CONST_DATA gUnknown_08A1D510[];
 extern u16 CONST_DATA Pal_MapBattleInfoNum[]; // 'R is info' palette
-// extern ??? gUnknown_08A1D7DC
-// extern ??? gUnknown_08A1D8D0
+// extern ??? Img_PrepPopupWindow
+extern u8 Img_PrepWindow[];
 // extern ??? gUnknown_08A1DB80
 // extern ??? gUnknown_08A1DC1C
 // extern ??? gUnknown_08A1DD0C
@@ -4014,7 +4014,7 @@ extern u16 gPal_TitleSmallLightBubbles[];
 // extern ??? gUnknown_08B11D0C
 // extern ??? gUnknown_08B125F4
 // extern ??? gUnknown_08B12614
-// extern ??? gUnknown_08B126CC
+// extern ??? ProcScr_BranchedPromotion
 extern const struct ProcCmd gUnknown_08B1271C[];
 // extern ??? gUnknown_08B127EC
 // extern ??? gUnknown_08B1280C
