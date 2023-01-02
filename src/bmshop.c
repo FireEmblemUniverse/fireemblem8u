@@ -95,9 +95,9 @@ struct ProcCmd CONST_DATA gProcScr_ShopFadeIn[] = {
     PROC_SLEEP(1),
 
     PROC_CALL_ARG(sub_8014BD0, -1),
-    PROC_CALL(sub_8013D68),
+    PROC_CALL(StartFadeInBlackMedium),
 
-    PROC_REPEAT(ContinueUntilSomeTransistion6CExists),
+    PROC_REPEAT(WaitForFade),
     PROC_CALL(BMapDispSuspend),
 
     PROC_END,
@@ -112,7 +112,7 @@ struct ProcCmd CONST_DATA gProcScr_ShopFadeOut[] = {
     PROC_CALL(sub_80160D0),
     PROC_CALL(sub_8013D8C),
 
-    PROC_REPEAT(ContinueUntilSomeTransistion6CExists),
+    PROC_REPEAT(WaitForFade),
     PROC_CALL(SubSkipThread2),
 
     PROC_END,
@@ -1164,7 +1164,7 @@ void ShopProc_Init(struct BmShopProc* proc) {
 
     CopyToPaletteBuffer(gUnknown_08B1754C, 0x1C0, 0x20);
 
-    CopyDataWithPossibleUncomp(gUnknown_08B12DB4, (void *)(GetBackgroundTileDataOffset(3) + 0x6000000));
+    CopyDataWithPossibleUncomp(Img_CommGameBgScreen, (void *)(GetBackgroundTileDataOffset(3) + 0x6000000));
 
     CallARM_FillTileRect(gBG3TilemapBuffer, gUnknown_08A295D4, 0xE000);
 

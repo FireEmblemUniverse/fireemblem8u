@@ -90,7 +90,7 @@ _08086BFC:
 	movs r2, #0x40
 	bl CopyToPaletteBuffer
 _08086C06:
-	ldr r0, _08086C44  @ gUnknown_08B12DB4
+	ldr r0, _08086C44  @ Img_CommGameBgScreen
 	adds r1, r4, #0
 	bl CopyDataWithPossibleUncomp
 	movs r0, #3
@@ -119,7 +119,7 @@ _08086C26:
 	bx r1
 	.align 2, 0
 _08086C40: .4byte gUnknown_08B1754C
-_08086C44: .4byte gUnknown_08B12DB4
+_08086C44: .4byte Img_CommGameBgScreen
 _08086C48: .4byte 0x0000027F
 _08086C4C: .4byte ProcScr_SlidingWallBg
 
@@ -164,7 +164,7 @@ _08086C90:
 	movs r2, #0x40
 	bl CopyToPaletteBuffer
 _08086C9A:
-	ldr r0, _08086CDC  @ gUnknown_08B12DB4
+	ldr r0, _08086CDC  @ Img_CommGameBgScreen
 	adds r1, r4, #0
 	bl CopyDataWithPossibleUncomp
 	movs r0, #3
@@ -195,7 +195,7 @@ _08086CBA:
 	bx r1
 	.align 2, 0
 _08086CD8: .4byte gUnknown_08B1754C
-_08086CDC: .4byte gUnknown_08B12DB4
+_08086CDC: .4byte Img_CommGameBgScreen
 _08086CE0: .4byte 0x0000027F
 _08086CE4: .4byte ProcScr_SlidingWallBg
 
@@ -228,7 +228,7 @@ _08086D0A:
 	lsls r1, r1, #1
 	movs r2, #0x40
 	bl CopyToPaletteBuffer
-	ldr r0, _08086DB0  @ gUnknown_08B12DB4
+	ldr r0, _08086DB0  @ Img_CommGameBgScreen
 	adds r1, r6, #0
 	bl CopyDataWithPossibleUncomp
 	movs r0, #3
@@ -302,7 +302,7 @@ _08086D94:
 	.align 2, 0
 _08086DA8: .4byte gBG3TilemapBuffer
 _08086DAC: .4byte gUnknown_08B1754C
-_08086DB0: .4byte gUnknown_08B12DB4
+_08086DB0: .4byte Img_CommGameBgScreen
 _08086DB4: .4byte 0x0000027F
 _08086DB8: .4byte ProcScr_SlidingWallBg
 

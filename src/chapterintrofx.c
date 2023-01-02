@@ -25,7 +25,7 @@ void sub_80ADE90(int, s16, s16);
 void sub_80ADEE0(int, int, int, int, int);
 
 
-extern u8 gUnknown_08B12DB4[];
+extern u8 Img_CommGameBgScreen[];
 
 extern u8 gUnknown_08B17B64[];
 extern u8 gUnknown_08B18D68[];
@@ -358,7 +358,7 @@ int ChapterIntro_8020010(ProcPtr proc, void* unk_2, int unk_3) {
     }
 
     CopyToPaletteBuffer(gUnknown_08B1754C, unk_3 * 32, 0x40);
-    CopyDataWithPossibleUncomp(gUnknown_08B12DB4, unk_2);
+    CopyDataWithPossibleUncomp(Img_CommGameBgScreen, unk_2);
 
     ref1 = TILEREF(0, unk_3 & 0xF);
     ref2 = TILEREF(0, (unk_3 + 1) & 0xF);

@@ -32,10 +32,10 @@
 // hino.s
 void ArchiveCurrentPalettes();
 void WriteFadedPaletteFromArchive(int, int, int, int);
-void ContinueUntilSomeTransistion6CExists(ProcPtr);
+void WaitForFade(ProcPtr);
 void sub_8013800();
 void sub_8013844(ProcPtr);
-void sub_8013D68(ProcPtr);
+void StartFadeInBlackMedium(ProcPtr);
 void sub_8013D80(ProcPtr);
 void sub_8013D8C(ProcPtr);
 void sub_8013DA4(ProcPtr);
@@ -116,8 +116,8 @@ PROC_LABEL(2),
     PROC_GOTO(0x32),
 
 PROC_LABEL(0x33),
-    PROC_CALL(sub_8013D68),
-    PROC_REPEAT(ContinueUntilSomeTransistion6CExists),
+    PROC_CALL(StartFadeInBlackMedium),
+    PROC_REPEAT(WaitForFade),
     PROC_CALL(StartPrepAtMenu),
     PROC_WHILE(PrepAtMenuExists),
     PROC_SLEEP(0),
@@ -132,7 +132,7 @@ PROC_LABEL(0x32),
     PROC_CALL(PrepScreenProc_InitMapMenu),
     PROC_CALL(sub_80334CC),
     PROC_CALL(sub_8013D8C),
-    PROC_REPEAT(ContinueUntilSomeTransistion6CExists),
+    PROC_REPEAT(WaitForFade),
 
     PROC_GOTO(0x3D),
 
@@ -234,7 +234,7 @@ PROC_LABEL(0xB),
 
 PROC_LABEL(0x39),
     PROC_CALL(sub_8013D80),
-    PROC_REPEAT(ContinueUntilSomeTransistion6CExists),
+    PROC_REPEAT(WaitForFade),
     PROC_CALL(BMapDispSuspend),
     PROC_CALL(sub_803334C),
     PROC_CALL(sub_8033EC0),
@@ -245,7 +245,7 @@ PROC_LABEL(0x39),
 
 PROC_LABEL(0x38),
     PROC_CALL(sub_8013D80),
-    PROC_REPEAT(ContinueUntilSomeTransistion6CExists),
+    PROC_REPEAT(WaitForFade),
     PROC_CALL(BMapDispSuspend),
     PROC_CALL(sub_803334C),
     PROC_CALL(sub_808E79C),
@@ -256,7 +256,7 @@ PROC_LABEL(0x38),
 
 PROC_LABEL(0x3B),
     PROC_CALL(sub_8013D80),
-    PROC_REPEAT(ContinueUntilSomeTransistion6CExists),
+    PROC_REPEAT(WaitForFade),
     PROC_CALL(BMapDispSuspend),
     PROC_CALL(sub_803334C),
     PROC_CALL(StartPrepSaveScreen),
@@ -267,8 +267,8 @@ PROC_LABEL(0x3B),
     PROC_GOTO(0x3E),
 
 PROC_LABEL(0x37),
-    PROC_CALL(sub_8013D68),
-    PROC_REPEAT(ContinueUntilSomeTransistion6CExists),
+    PROC_CALL(StartFadeInBlackMedium),
+    PROC_REPEAT(WaitForFade),
     PROC_CALL(sub_8034078),
     PROC_CALL(nullsub_20),
     PROC_SLEEP(0),
@@ -285,13 +285,13 @@ PROC_LABEL(0x3E),
     PROC_CALL(PrepScreenProc_StartMapMenu),
     PROC_CALL(sub_80334CC),
     PROC_CALL(sub_8013DA4),
-    PROC_REPEAT(ContinueUntilSomeTransistion6CExists),
+    PROC_REPEAT(WaitForFade),
 
     PROC_GOTO(0x3D),
 
 PROC_LABEL(0x3C),
-    PROC_CALL(sub_8013D68),
-    PROC_REPEAT(ContinueUntilSomeTransistion6CExists),
+    PROC_CALL(StartFadeInBlackMedium),
+    PROC_REPEAT(WaitForFade),
     PROC_CALL(HideMoveRangeGraphics),
     PROC_CALL(BMapDispSuspend),
     PROC_CALL(CallCursorShop),
@@ -304,7 +304,7 @@ PROC_LABEL(0x3C),
     PROC_CALL(sub_8034194),
     PROC_CALL(sub_8033608),
     PROC_CALL(sub_8013D8C),
-    PROC_REPEAT(ContinueUntilSomeTransistion6CExists),
+    PROC_REPEAT(WaitForFade),
 
     PROC_GOTO(9),
 

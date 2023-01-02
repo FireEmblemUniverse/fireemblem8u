@@ -176,8 +176,8 @@ gUnknown_08A1898C:  @ 0x08A1898C
         .word 0x0
 
 
-	.global gUnknown_08A189A4
-gUnknown_08A189A4:  @ 0x08A189A4
+	.global ProcScr_PrepItemScreen
+ProcScr_PrepItemScreen:  @ 0x08A189A4
         @ PROC_YIELD
         .short 0xe, 0x0
         .word 0x0
@@ -324,7 +324,7 @@ gUnknown_08A189A4:  @ 0x08A189A4
         .word FadeOutExists
         @ PROC_CALL
         .short 0x2, 0x0
-        .word sub_8099DB8
+        .word StartPrepItemTradeScreen
         @ PROC_YIELD
         .short 0xe, 0x0
         .word 0x0
@@ -363,7 +363,7 @@ gUnknown_08A189A4:  @ 0x08A189A4
         .word sub_80989BC
         @ PROC_CALL
         .short 0x2, 0x0
-        .word sub_8099E30
+        .word StartPrepItemListScreen
         @ PROC_YIELD
         .short 0xe, 0x0
         .word 0x0
@@ -459,7 +459,7 @@ gUnknown_08A189A4:  @ 0x08A189A4
         .word sub_80989BC
         @ PROC_CALL
         .short 0x2, 0x0
-        .word sub_8099E00
+        .word StartPrepItemSupply
         @ PROC_YIELD
         .short 0xe, 0x0
         .word 0x0
@@ -785,8 +785,8 @@ ProcScr_PrepUnitScreen:  @ 0x08A18E8C
         .word 0x0
 
 
-	.global gUnknown_08A1901C
-gUnknown_08A1901C:  @ 0x08A1901C
+	.global ProcScr_PrepItemTradeScreen
+ProcScr_PrepItemTradeScreen:  @ 0x08A1901C
         @ PROC_YIELD
         .short 0xe, 0x0
         .word 0x0
@@ -816,8 +816,8 @@ gUnknown_08A1901C:  @ 0x08A1901C
         .word 0x0
 
 
-	.global gUnknown_08A19064
-gUnknown_08A19064:  @ 0x08A19064
+	.global PrepScr_PrepItemUseScreen
+PrepScr_PrepItemUseScreen:  @ 0x08A19064
         @ PROC_YIELD
         .short 0xe, 0x0
         .word 0x0
@@ -826,7 +826,7 @@ gUnknown_08A19064:  @ 0x08A19064
         .word 0x0
         @ PROC_CALL
         .short 0x2, 0x0
-        .word sub_809C4D8
+        .word PrepItemUse_OnInit
         @ PROC_CALL
         .short 0x2, 0x0
         .word PrepItemUse_InitDisplay
@@ -841,16 +841,16 @@ gUnknown_08A19064:  @ 0x08A19064
         .word 0x0
         @ PROC_REPEAT
         .short 0x3, 0x0
-        .word sub_809C820
+        .word PrepItemUse_CtrlLoop
         @ PROC_LABEL
         .short 0xb, 0x2
         .word 0x0
         @ PROC_CALL
         .short 0x2, 0x0
-        .word sub_809C9F4
+        .word PrepItemUse_AreUSureBoxInit
         @ PROC_REPEAT
         .short 0x3, 0x0
-        .word sub_809CA14
+        .word PrepItemUse_AreUSureBoxLoop
         @ PROC_GOTO
         .short 0xc, 0x1
         .word 0x0
@@ -862,7 +862,7 @@ gUnknown_08A19064:  @ 0x08A19064
         .word PrepItemUse_HandleItemEffect
         @ PROC_START_CHILD_BLOCKING
         .short 0x6, 0x1
-        .word gUnknown_08A191A4
+        .word ProcScr_PrepItemStatBoosterEffect
         @ PROC_GOTO
         .short 0xc, 0x1
         .word 0x0
@@ -871,7 +871,7 @@ gUnknown_08A19064:  @ 0x08A19064
         .word 0x0
         @ PROC_START_CHILD_BLOCKING
         .short 0x6, 0x1
-        .word gUnknown_08A191C4
+        .word ProcScr_PrepItemJunaFruitEffect
         @ PROC_GOTO
         .short 0xc, 0x1
         .word 0x0
@@ -886,13 +886,13 @@ gUnknown_08A19064:  @ 0x08A19064
         .word FadeOutExists
         @ PROC_CALL
         .short 0x2, 0x0
-        .word sub_8013D68
+        .word StartFadeInBlackMedium
         @ PROC_REPEAT
         .short 0x3, 0x0
-        .word ContinueUntilSomeTransistion6CExists
+        .word WaitForFade
         @ PROC_CALL
         .short 0x2, 0x0
-        .word sub_80CC990
+        .word StartPrepScreenPromotion
         @ PROC_SLEEP
         .short 0xe, 0x8
         .word 0x0
@@ -934,13 +934,13 @@ gUnknown_08A19064:  @ 0x08A19064
         .word 0x0
         @ PROC_CALL
         .short 0x2, 0x0
-        .word sub_809C940
+        .word ProcPrepItemUse_OnEnd
         @ PROC_END
         .short 0x0, 0x0
         .word 0x0
 
-	.global gUnknown_08A191A4
-gUnknown_08A191A4:  @ 0x08A191A4
+	.global ProcScr_PrepItemStatBoosterEffect
+ProcScr_PrepItemStatBoosterEffect:  @ 0x08A191A4
         @ PROC_SET_END_CB
         .short 0x4, 0x0
         .word PrepItemBooster_OnEnd
@@ -954,8 +954,8 @@ gUnknown_08A191A4:  @ 0x08A191A4
         .short 0x0, 0x0
         .word 0x0
 
-	.global gUnknown_08A191C4
-gUnknown_08A191C4:  @ 0x08A191C4
+	.global ProcScr_PrepItemJunaFruitEffect
+ProcScr_PrepItemJunaFruitEffect:  @ 0x08A191C4
         @ PROC_SET_END_CB
         .short 0x4, 0x0
         .word PrepJunaEffect_OnEnd
@@ -988,8 +988,8 @@ gUnknown_08A19200:  @ 0x08A19200
 gUnknown_08A19204:  @ 0x08A19204
 	.incbin "baserom.gba", 0xA19204, 0x8
 
-	.global gUnknown_08A1920C
-gUnknown_08A1920C:  @ 0x08A1920C
+	.global ProcScr_PrepItemSupplyScreen
+ProcScr_PrepItemSupplyScreen:  @ 0x08A1920C
         @ PROC_YIELD
         .short 0xe, 0x0
         .word 0x0
@@ -1076,8 +1076,8 @@ gUnknown_08A1920C:  @ 0x08A1920C
         .word 0x0
 
 
-	.global gUnknown_08A192EC
-gUnknown_08A192EC:  @ 0x08A192EC
+	.global ProcScr_BmSupplyScreen
+ProcScr_BmSupplyScreen:  @ 0x08A192EC
         @ PROC_CALL
         .short 0x2, 0x0
         .word AddSkipThread2
@@ -1086,7 +1086,7 @@ gUnknown_08A192EC:  @ 0x08A192EC
         .word sub_8013D80
         @ PROC_REPEAT
         .short 0x3, 0x0
-        .word ContinueUntilSomeTransistion6CExists
+        .word WaitForFade
         @ PROC_CALL
         .short 0x2, 0x0
         .word BMapDispSuspend
@@ -1185,7 +1185,7 @@ gUnknown_08A192EC:  @ 0x08A192EC
         .word sub_8013DA4
         @ PROC_REPEAT
         .short 0x3, 0x0
-        .word ContinueUntilSomeTransistion6CExists
+        .word WaitForFade
         @ PROC_YIELD
         .short 0xe, 0x0
         .word 0x0
@@ -1197,8 +1197,8 @@ gUnknown_08A192EC:  @ 0x08A192EC
         .word 0x0
 
 
-	.global gUnknown_08A19424
-gUnknown_08A19424:  @ 0x08A19424
+	.global ProcScr_PrepItemListScreen
+ProcScr_PrepItemListScreen:  @ 0x08A19424
         @ PROC_YIELD
         .short 0xe, 0x0
         .word 0x0
@@ -1498,7 +1498,7 @@ gUnknown_08A1975C:  @ 0x08A1975C
         .word sub_8013D8C
         @ PROC_REPEAT
         .short 0x3, 0x0
-        .word ContinueUntilSomeTransistion6CExists
+        .word WaitForFade
         @ PROC_WHILE
         .short 0x14, 0x0
         .word MusicProc4Exists
@@ -1543,10 +1543,10 @@ gUnknown_08A1975C:  @ 0x08A1975C
         .word sub_80A1930
         @ PROC_CALL
         .short 0x2, 0x0
-        .word sub_8013D68
+        .word StartFadeInBlackMedium
         @ PROC_REPEAT
         .short 0x3, 0x0
-        .word ContinueUntilSomeTransistion6CExists
+        .word WaitForFade
         @ PROC_CALL
         .short 0x2, 0x0
         .word sub_80A1554

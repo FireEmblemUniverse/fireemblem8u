@@ -280,7 +280,7 @@ def test_resolve_pointer():
     assert_eq(resolve_pointer(0xB12C14), "gUnknown_08B12C14")
     assert_eq(resolve_pointer(0x591304), "gUnknown_08591304")
     # long names aren't complete in the elf. make sure to find the right one
-    assert_eq(resolve_pointer(0x8014069), "ContinueUntilSomeTransistion6CExists")
+    assert_eq(resolve_pointer(0x8014069), "WaitForFade")
 
 
 def read_procs(f, start_off, end_off):

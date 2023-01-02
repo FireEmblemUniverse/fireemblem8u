@@ -1172,15 +1172,15 @@ _08013D64: .4byte gUnknown_0859A084
 
 	THUMB_FUNC_END sub_8013D50
 
-	THUMB_FUNC_START sub_8013D68
-sub_8013D68: @ 0x08013D68
+	THUMB_FUNC_START StartFadeInBlackMedium
+StartFadeInBlackMedium: @ 0x08013D68
 	push {lr}
 	movs r0, #0x10
 	bl sub_8013CD0
 	pop {r0}
 	bx r0
 
-	THUMB_FUNC_END sub_8013D68
+	THUMB_FUNC_END StartFadeInBlackMedium
 
 	THUMB_FUNC_START sub_8013D74
 sub_8013D74: @ 0x08013D74
@@ -1681,8 +1681,8 @@ _08014064: .4byte sub_801420C
 
 	THUMB_FUNC_END sub_8014050
 
-	THUMB_FUNC_START ContinueUntilSomeTransistion6CExists
-ContinueUntilSomeTransistion6CExists: @ 0x08014068
+	THUMB_FUNC_START WaitForFade
+WaitForFade: @ 0x08014068
 	push {r4, lr}
 	adds r4, r0, #0
 	bl sub_8013C88
@@ -1696,7 +1696,7 @@ _0801407C:
 	pop {r0}
 	bx r0
 
-	THUMB_FUNC_END ContinueUntilSomeTransistion6CExists
+	THUMB_FUNC_END WaitForFade
 
 	THUMB_FUNC_START sub_8014084
 sub_8014084: @ 0x08014084

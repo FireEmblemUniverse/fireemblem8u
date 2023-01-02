@@ -102,7 +102,7 @@ const struct OpSubtitleEnt gOpSubtitleGfxLut[] = {
 void sub_80C488C(int bg) {
     int offset = GetBackgroundTileDataOffset(bg);
 
-    CopyDataWithPossibleUncomp(gUnknown_08B12DB4, (void*)(offset + 0x6000000));
+    CopyDataWithPossibleUncomp(Img_CommGameBgScreen, (void*)(offset + 0x6000000));
 
     CpuFastFill(0, (void*)(offset + 0x06005000), 0x20);
 
@@ -827,7 +827,7 @@ PROC_LABEL(5),
     PROC_CALL(sub_80C5400),
 
     PROC_CALL(sub_8013D74),
-    PROC_REPEAT(ContinueUntilSomeTransistion6CExists),
+    PROC_REPEAT(WaitForFade),
     PROC_SLEEP(30),
 
     PROC_GOTO(7),
@@ -837,7 +837,7 @@ PROC_LABEL(6), // ended due to Start Button press
     PROC_END_EACH(gProcScr_08AA2184),
 
     PROC_CALL(sub_8013D80),
-    PROC_REPEAT(ContinueUntilSomeTransistion6CExists),
+    PROC_REPEAT(WaitForFade),
 
     PROC_SLEEP(10),
 

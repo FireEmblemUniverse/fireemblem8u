@@ -2254,7 +2254,7 @@ sub_80B67E8: @ 0x080B67E8
 	ldr r0, _080B6800  @ gUnknown_08A3F750
 	ldr r1, _080B6804  @ 0x06004C00
 	bl CopyDataWithPossibleUncomp
-	ldr r0, _080B6808  @ gUnknown_08B12DB4
+	ldr r0, _080B6808  @ Img_CommGameBgScreen
 	ldr r1, _080B680C  @ 0x06008000
 	bl CopyDataWithPossibleUncomp
 	pop {r0}
@@ -2262,7 +2262,7 @@ sub_80B67E8: @ 0x080B67E8
 	.align 2, 0
 _080B6800: .4byte gUnknown_08A3F750
 _080B6804: .4byte 0x06004C00
-_080B6808: .4byte gUnknown_08B12DB4
+_080B6808: .4byte Img_CommGameBgScreen
 _080B680C: .4byte 0x06008000
 
 	THUMB_FUNC_END sub_80B67E8

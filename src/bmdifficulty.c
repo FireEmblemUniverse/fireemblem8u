@@ -436,7 +436,7 @@ struct ProcCmd CONST_DATA sProcScr_DisplayDungeonRecord_FromMenu[] = {
     PROC_CALL(PushGlobalTimer),
     PROC_CALL(AddSkipThread2),
     PROC_CALL(sub_8013D80),
-    PROC_REPEAT(ContinueUntilSomeTransistion6CExists),
+    PROC_REPEAT(WaitForFade),
     PROC_CALL(BMapDispSuspend),
     PROC_SLEEP(0),
     PROC_CALL(SetupDungeonRecordUi),
@@ -453,7 +453,7 @@ struct ProcCmd CONST_DATA sProcScr_DisplayDungeonRecord_FromMenu[] = {
     PROC_CALL(BMapDispResume),
     PROC_CALL(RefreshBMapGraphics),
     PROC_CALL(sub_8013DA4),
-    PROC_REPEAT(ContinueUntilSomeTransistion6CExists),
+    PROC_REPEAT(WaitForFade),
     PROC_CALL(SubSkipThread2),
 
     PROC_END,
@@ -469,8 +469,8 @@ extern struct ProcCmd CONST_DATA sProcScr_DungeonRecord_UpdateNewRecordValues[];
 struct ProcCmd CONST_DATA sProcScr_DisplayDungeonRecord_AfterDungeonClear[] = {
     PROC_CALL(PushGlobalTimer),
     PROC_CALL(AddSkipThread2),
-    PROC_CALL(sub_8013D68),
-    PROC_REPEAT(ContinueUntilSomeTransistion6CExists),
+    PROC_CALL(StartFadeInBlackMedium),
+    PROC_REPEAT(WaitForFade),
     PROC_CALL(BMapDispSuspend),
     PROC_CALL(MU_EndAll),
     PROC_SLEEP(0),

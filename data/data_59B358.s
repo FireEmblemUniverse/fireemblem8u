@@ -16,7 +16,7 @@ gUnknown_0859B578:  @ 0x0859B578
         .word sub_8013D8C
         @ PROC_REPEAT
         .short 0x3, 0x0
-        .word ContinueUntilSomeTransistion6CExists
+        .word WaitForFade
         @ PROC_CALL_ARG
         .short 0x18, 0x63
         .word ChapterIntro_SetSkipTarget
@@ -28,10 +28,10 @@ gUnknown_0859B578:  @ 0x0859B578
         .word 0x0
         @ PROC_CALL
         .short 0x2, 0x0
-        .word sub_8013D68
+        .word StartFadeInBlackMedium
         @ PROC_REPEAT
         .short 0x3, 0x0
-        .word ContinueUntilSomeTransistion6CExists
+        .word WaitForFade
         @ PROC_LABEL
         .short 0xb, 0x3e7
         .word 0x0

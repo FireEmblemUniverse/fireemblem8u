@@ -805,8 +805,8 @@ struct ProcCmd CONST_DATA gProcScr_opinfoenter[] = {
     PROC_REPEAT(ClassIntro_LoopOut),
     PROC_CALL(ClassIntro_DisableAllExceptBg1),
 
-    PROC_CALL(sub_8013D68),
-    PROC_REPEAT(ContinueUntilSomeTransistion6CExists),
+    PROC_CALL(StartFadeInBlackMedium),
+    PROC_REPEAT(WaitForFade),
 
 PROC_LABEL(4),
     PROC_CALL(ClassIntro_OnEnd),

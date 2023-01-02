@@ -80,8 +80,8 @@ void LoadBattleSpritesForBranchScreen(struct PromoProc3 *proc);
 CONST_DATA
 const struct ProcCmd gUnknown_08B1271C[] =
 {
-    PROC_CALL(sub_8013D68),
-    PROC_REPEAT(ContinueUntilSomeTransistion6CExists),
+    PROC_CALL(StartFadeInBlackMedium),
+    PROC_REPEAT(WaitForFade),
     PROC_NAME("ccramify"),
     PROC_LABEL(0),
     PROC_CALL(SetupPromotionScreen),
@@ -89,19 +89,19 @@ const struct ProcCmd gUnknown_08B1271C[] =
     PROC_CALL(sub_80CCF60),
     PROC_LABEL(1),
     PROC_CALL(sub_8013D8C),
-    PROC_REPEAT(ContinueUntilSomeTransistion6CExists),
+    PROC_REPEAT(WaitForFade),
     PROC_REPEAT(LoadBattleSpritesForBranchScreen),
     PROC_GOTO(3),
     PROC_LABEL(2),
     PROC_CALL(sub_80CD294),
-    PROC_CALL(sub_8013D68),
-    PROC_REPEAT(ContinueUntilSomeTransistion6CExists),
+    PROC_CALL(StartFadeInBlackMedium),
+    PROC_REPEAT(WaitForFade),
     PROC_LABEL(4),
     PROC_CALL(sub_80CD1D4),
     PROC_CALL(sub_80CD2CC),
     PROC_SET_END_CB(sub_80CD618),
-    PROC_CALL(sub_8013D68),
-    PROC_REPEAT(ContinueUntilSomeTransistion6CExists),
+    PROC_CALL(StartFadeInBlackMedium),
+    PROC_REPEAT(WaitForFade),
     PROC_CALL(sub_80CD218),
     PROC_LABEL(5),
     PROC_LABEL(3),
@@ -113,7 +113,7 @@ const struct ProcCmd gUnknown_08B127EC[] =
 {
 	PROC_NAME("ccramify_end"),
     PROC_CALL(sub_8013D8C),
-    PROC_REPEAT(ContinueUntilSomeTransistion6CExists),
+    PROC_REPEAT(WaitForFade),
     PROC_END,
 };
 
@@ -136,7 +136,7 @@ const struct ProcCmd gUnknown_08B1280C[] =
     PROC_CALL(sub_80CD6B0),
     PROC_LABEL(1),
     PROC_CALL(sub_8013D8C),
-    PROC_REPEAT(ContinueUntilSomeTransistion6CExists),
+    PROC_REPEAT(WaitForFade),
     PROC_CALL(sub_80CD7FC),
     PROC_WHILE(sub_808F284),
     PROC_CALL(sub_80CD898),
@@ -306,7 +306,7 @@ struct Proc_80CC990 {
     u32 u30;
 };
 
-void sub_80CC990(struct Proc_80CC990 *proc) {
+void StartPrepScreenPromotion(struct Proc_80CC990 *proc) {
     struct BattleUnit *actor, *target;
     struct PromoProc *new_proc;
     struct PromoProc2 *parent;

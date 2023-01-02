@@ -630,8 +630,8 @@ _080A8CD0: .4byte gLCDControlBuffer
 
 	THUMB_FUNC_END sub_80A8C2C
 
-	THUMB_FUNC_START sub_80A8CD4
-sub_80A8CD4: @ 0x080A8CD4
+	THUMB_FUNC_START ProcSaveMenu_InitScreen
+ProcSaveMenu_InitScreen: @ 0x080A8CD4
 	push {r4, r5, r6, r7, lr}
 	mov r7, sl
 	mov r6, r9
@@ -682,10 +682,10 @@ sub_80A8CD4: @ 0x080A8CD4
 	ldr r2, _080A8ED8  @ 0x00007260
 	adds r1, r4, #0
 	bl CallARM_FillTileRect
-	ldr r0, _080A8EDC  @ gUnknown_08A26A74
+	ldr r0, _080A8EDC  @ Img_SaveScreenSprits
 	ldr r1, _080A8EE0  @ 0x06010800
 	bl CopyDataWithPossibleUncomp
-	ldr r0, _080A8EE4  @ gUnknown_08A27F68
+	ldr r0, _080A8EE4  @ Pal_SaveScreenSprits
 	movs r1, #0x90
 	lsls r1, r1, #2
 	adds r2, r6, #0
@@ -854,9 +854,9 @@ _080A8ECC: .4byte gUnknown_08A268F8
 _080A8ED0: .4byte gGenericBuffer
 _080A8ED4: .4byte gBG2TilemapBuffer
 _080A8ED8: .4byte 0x00007260
-_080A8EDC: .4byte gUnknown_08A26A74
+_080A8EDC: .4byte Img_SaveScreenSprits
 _080A8EE0: .4byte 0x06010800
-_080A8EE4: .4byte gUnknown_08A27F68
+_080A8EE4: .4byte Pal_SaveScreenSprits
 _080A8EE8: .4byte gUnknown_08A295B4
 _080A8EEC: .4byte gUnknown_02022AE8
 _080A8EF0: .4byte gUnknown_08A2C23C
@@ -865,13 +865,13 @@ _080A8EF8: .4byte gLCDControlBuffer
 _080A8EFC: .4byte gSinLookup
 _080A8F00: .4byte gPaletteBuffer
 
-	THUMB_FUNC_END sub_80A8CD4
+	THUMB_FUNC_END ProcSaveMenu_InitScreen
 
 	THUMB_FUNC_START sub_80A8F04
 sub_80A8F04: @ 0x080A8F04
 	push {r4, r5, r6, lr}
 	adds r5, r0, #0
-	ldr r0, _080A8F34  @ gUnknown_08A2812C
+	ldr r0, _080A8F34  @ Img_GameMainMenuObjs
 	ldr r1, _080A8F38  @ 0x06014000
 	bl CopyDataWithPossibleUncomp
 	adds r0, r5, #0
@@ -891,7 +891,7 @@ sub_80A8F04: @ 0x080A8F04
 	adds r4, #0x2e
 	b _080A8F6A
 	.align 2, 0
-_080A8F34: .4byte gUnknown_08A2812C
+_080A8F34: .4byte Img_GameMainMenuObjs
 _080A8F38: .4byte 0x06014000
 _080A8F3C:
 	adds r4, r5, #0
@@ -2315,7 +2315,7 @@ sub_80A9A18: @ 0x080A9A18
 	ldrb r0, [r4]
 	cmp r0, #0xe
 	bne _080A9A5A
-	ldr r0, _080A9A60  @ gUnknown_08A2812C
+	ldr r0, _080A9A60  @ Img_GameMainMenuObjs
 	ldr r1, _080A9A64  @ 0x06014000
 	bl CopyDataWithPossibleUncomp
 	adds r0, r5, #0
@@ -2325,7 +2325,7 @@ _080A9A5A:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_080A9A60: .4byte gUnknown_08A2812C
+_080A9A60: .4byte Img_GameMainMenuObjs
 _080A9A64: .4byte 0x06014000
 
 	THUMB_FUNC_END sub_80A9A18
@@ -3078,7 +3078,7 @@ _080A9FD6:
 	.align 2, 0
 _080A9FF0: .4byte gRAMChapterData
 _080A9FF4:
-	ldr r0, _080AA010  @ gUnknown_08A2812C
+	ldr r0, _080AA010  @ Img_GameMainMenuObjs
 	ldr r1, _080AA014  @ 0x06014000
 	bl CopyDataWithPossibleUncomp
 	adds r0, r4, #0
@@ -3092,7 +3092,7 @@ _080AA00A:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_080AA010: .4byte gUnknown_08A2812C
+_080AA010: .4byte Img_GameMainMenuObjs
 _080AA014: .4byte 0x06014000
 
 	THUMB_FUNC_END sub_80A9E1C
@@ -3567,10 +3567,10 @@ sub_80AA30C: @ 0x080AA30C
 	ldr r2, _080AA438  @ 0x00007260
 	adds r1, r4, #0
 	bl CallARM_FillTileRect
-	ldr r0, _080AA43C  @ gUnknown_08A26A74
+	ldr r0, _080AA43C  @ Img_SaveScreenSprits
 	ldr r1, _080AA440  @ 0x06010800
 	bl CopyDataWithPossibleUncomp
-	ldr r0, _080AA444  @ gUnknown_08A27F68
+	ldr r0, _080AA444  @ Pal_SaveScreenSprits
 	movs r1, #0x90
 	lsls r1, r1, #2
 	adds r2, r5, #0
@@ -3584,7 +3584,7 @@ sub_80AA30C: @ 0x080AA30C
 	subs r1, #0x20
 	movs r2, #1
 	bl sub_80AA790
-	ldr r0, _080AA450  @ gUnknown_08A2812C
+	ldr r0, _080AA450  @ Img_GameMainMenuObjs
 	ldr r1, _080AA454  @ 0x06014000
 	bl CopyDataWithPossibleUncomp
 	bl sub_80AB794
@@ -3631,12 +3631,12 @@ _080AA42C: .4byte gUnknown_08A268F8
 _080AA430: .4byte gGenericBuffer
 _080AA434: .4byte gBG2TilemapBuffer
 _080AA438: .4byte 0x00007260
-_080AA43C: .4byte gUnknown_08A26A74
+_080AA43C: .4byte Img_SaveScreenSprits
 _080AA440: .4byte 0x06010800
-_080AA444: .4byte gUnknown_08A27F68
+_080AA444: .4byte Pal_SaveScreenSprits
 _080AA448: .4byte gUnknown_08A295B4
 _080AA44C: .4byte gUnknown_02022AE8
-_080AA450: .4byte gUnknown_08A2812C
+_080AA450: .4byte Img_GameMainMenuObjs
 _080AA454: .4byte 0x06014000
 
 	THUMB_FUNC_END sub_80AA30C
@@ -3712,7 +3712,7 @@ sub_80AA4B4: @ 0x080AA4B4
 Make6C_savemenu: @ 0x080AA4C0
 	push {lr}
 	adds r1, r0, #0
-	ldr r0, _080AA4F0  @ gUnknown_08A200B8
+	ldr r0, _080AA4F0  @ ProcScr_SaveMenu
 	bl Proc_StartBlocking
 	adds r3, r0, #0
 	adds r3, #0x42
@@ -3734,7 +3734,7 @@ Make6C_savemenu: @ 0x080AA4C0
 	pop {r0}
 	bx r0
 	.align 2, 0
-_080AA4F0: .4byte gUnknown_08A200B8
+_080AA4F0: .4byte ProcScr_SaveMenu
 _080AA4F4: .4byte gRAMChapterData
 
 	THUMB_FUNC_END Make6C_savemenu
@@ -3778,7 +3778,7 @@ savemenu_SetDifficultyChoice: @ 0x080AA52C
 	push {r4, r5, lr}
 	adds r4, r0, #0
 	adds r5, r1, #0
-	ldr r0, _080AA54C  @ gUnknown_08A200B8
+	ldr r0, _080AA54C  @ ProcScr_SaveMenu
 	bl Proc_Find
 	cmp r0, #0
 	beq _080AA546
@@ -3792,7 +3792,7 @@ _080AA546:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_080AA54C: .4byte gUnknown_08A200B8
+_080AA54C: .4byte ProcScr_SaveMenu
 
 	THUMB_FUNC_END savemenu_SetDifficultyChoice
 
@@ -7443,8 +7443,8 @@ sub_80AC078: @ 0x080AC078
 
 	THUMB_FUNC_END sub_80AC078
 
-	THUMB_FUNC_START sub_80AC084
-sub_80AC084: @ 0x080AC084
+	THUMB_FUNC_START InitDifficultySelectScreen
+InitDifficultySelectScreen: @ 0x080AC084
 	push {r4, r5, r6, r7, lr}
 	adds r7, r0, #0
 	bl Font_ResetAllocation
@@ -7472,7 +7472,7 @@ _080AC09A:
 	movs r1, #0xe0
 	movs r2, #0x20
 	bl CopyToPaletteBuffer
-	ldr r0, _080AC180  @ gUnknown_08A27F68
+	ldr r0, _080AC180  @ Pal_SaveScreenSprits
 	movs r1, #0x90
 	lsls r1, r1, #2
 	adds r2, r4, #0
@@ -7481,10 +7481,10 @@ _080AC09A:
 	movs r1, #0x40
 	movs r2, #0x20
 	bl CopyToPaletteBuffer
-	ldr r0, _080AC188  @ gUnknown_08A28A0C
+	ldr r0, _080AC188  @ Img_DifficultyMenuObjs
 	ldr r1, _080AC18C  @ 0x06010800
 	bl CopyDataWithPossibleUncomp
-	ldr r0, _080AC190  @ gUnknown_08A29418
+	ldr r0, _080AC190  @ Pal_DifficultyMenuObjs
 	movs r1, #0x88
 	lsls r1, r1, #2
 	movs r2, #0xa0
@@ -7552,18 +7552,18 @@ _080AC09A:
 	.align 2, 0
 _080AC178: .4byte gUnknown_08A25DCC
 _080AC17C: .4byte gUnknown_08A268D8
-_080AC180: .4byte gUnknown_08A27F68
+_080AC180: .4byte Pal_SaveScreenSprits
 _080AC184: .4byte gUnknown_08A295B4
-_080AC188: .4byte gUnknown_08A28A0C
+_080AC188: .4byte Img_DifficultyMenuObjs
 _080AC18C: .4byte 0x06010800
-_080AC190: .4byte gUnknown_08A29418
+_080AC190: .4byte Pal_DifficultyMenuObjs
 _080AC194: .4byte gBG0TilemapBuffer
 _080AC198: .4byte gBG1TilemapBuffer
 _080AC19C: .4byte gUnknown_08A29558
 _080AC1A0: .4byte gGenericBuffer
 _080AC1A4: .4byte gUnknown_08A209FC
 
-	THUMB_FUNC_END sub_80AC084
+	THUMB_FUNC_END InitDifficultySelectScreen
 
 	THUMB_FUNC_START sub_80AC1A8
 sub_80AC1A8: @ 0x080AC1A8
@@ -7573,7 +7573,7 @@ sub_80AC1A8: @ 0x080AC1A8
 	movs r1, #0
 	strb r1, [r2]
 	str r1, [r0, #0x2c]
-	bl sub_80AC084
+	bl InitDifficultySelectScreen
 	pop {r0}
 	bx r0
 
@@ -7879,12 +7879,12 @@ nullsub_64: @ 0x080AC3DC
 NewNewGameDifficultySelect: @ 0x080AC3E0
 	push {lr}
 	adds r1, r0, #0
-	ldr r0, _080AC3F0  @ gUnknown_08A20A10
+	ldr r0, _080AC3F0  @ ProcScr_NewGameDiffilcultySelect
 	bl Proc_StartBlocking
 	pop {r0}
 	bx r0
 	.align 2, 0
-_080AC3F0: .4byte gUnknown_08A20A10
+_080AC3F0: .4byte ProcScr_NewGameDiffilcultySelect
 
 	THUMB_FUNC_END NewNewGameDifficultySelect
 
@@ -16802,7 +16802,7 @@ sub_80B04F8: @ 0x080B04F8
 	movs r1, #0x40
 	movs r2, #0x20
 	bl CopyToPaletteBuffer
-	ldr r0, _080B0594  @ gUnknown_08B12DB4
+	ldr r0, _080B0594  @ Img_CommGameBgScreen
 	ldr r1, _080B0598  @ 0x06001000
 	bl CopyDataWithPossibleUncomp
 	ldr r0, _080B059C  @ gBG0TilemapBuffer
@@ -16861,7 +16861,7 @@ sub_80B04F8: @ 0x080B04F8
 	.align 2, 0
 _080B058C: .4byte gUnknown_08B1754C
 _080B0590: .4byte gUnknown_08A295B4
-_080B0594: .4byte gUnknown_08B12DB4
+_080B0594: .4byte Img_CommGameBgScreen
 _080B0598: .4byte 0x06001000
 _080B059C: .4byte gBG0TilemapBuffer
 _080B05A0: .4byte gUnknown_08A295D4
@@ -17572,7 +17572,7 @@ sub_80B0ADC: @ 0x080B0ADC
 	lsls r1, r1, #1
 	movs r2, #0x20
 	bl CopyToPaletteBuffer
-	ldr r0, _080B0D0C  @ gUnknown_08B12DB4
+	ldr r0, _080B0D0C  @ Img_CommGameBgScreen
 	ldr r1, _080B0D10  @ 0x06008000
 	bl CopyDataWithPossibleUncomp
 	ldr r0, _080B0D14  @ gBG3TilemapBuffer
@@ -17800,7 +17800,7 @@ _080B0C2A:
 	.align 2, 0
 _080B0D04: .4byte gUnknown_08B1754C
 _080B0D08: .4byte gUnknown_08A295B4
-_080B0D0C: .4byte gUnknown_08B12DB4
+_080B0D0C: .4byte Img_CommGameBgScreen
 _080B0D10: .4byte 0x06008000
 _080B0D14: .4byte gBG3TilemapBuffer
 _080B0D18: .4byte gUnknown_08A295D4

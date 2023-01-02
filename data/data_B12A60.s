@@ -215,7 +215,7 @@ gProcScr_Guide:  @ 0x08B12C64
         .word sub_8013D80
         @ PROC_REPEAT
         .short 0x3, 0x0
-        .word ContinueUntilSomeTransistion6CExists
+        .word WaitForFade
         @ PROC_CALL
         .short 0x2, 0x0
         .word BMapDispSuspend
@@ -233,7 +233,7 @@ gProcScr_Guide:  @ 0x08B12C64
         .word sub_8013DA4
         @ PROC_REPEAT
         .short 0x3, 0x0
-        .word ContinueUntilSomeTransistion6CExists
+        .word WaitForFade
         @ PROC_CALL
         .short 0x2, 0x0
         .word sub_80CEF10
@@ -245,7 +245,7 @@ gProcScr_Guide:  @ 0x08B12C64
         .word sub_8013D80
         @ PROC_REPEAT
         .short 0x3, 0x0
-        .word ContinueUntilSomeTransistion6CExists
+        .word WaitForFade
         @ PROC_CALL
         .short 0x2, 0x0
         .word EndGreenTextColorManager
@@ -266,7 +266,7 @@ gProcScr_Guide:  @ 0x08B12C64
         .word sub_8013DA4
         @ PROC_REPEAT
         .short 0x3, 0x0
-        .word ContinueUntilSomeTransistion6CExists
+        .word WaitForFade
         @ PROC_CALL
         .short 0x2, 0x0
         .word SubSkipThread2
@@ -298,9 +298,9 @@ gUnknown_08B12D1C:  @ 0x08B12D1C
     @ PROC_CALL(sub_8013DA4)
     .short 0x2, 0x0
     .word sub_8013DA4
-    @ PROC_REPEAT(ContinueUntilSomeTransistion6CExists)
+    @ PROC_REPEAT(WaitForFade)
     .short 0x3, 0x0
-    .word ContinueUntilSomeTransistion6CExists
+    .word WaitForFade
     @ PROC_CALL(sub_80CEF10)
     .short 0x2, 0x0
     .word sub_80CEF10
@@ -310,9 +310,9 @@ gUnknown_08B12D1C:  @ 0x08B12D1C
     @ PROC_CALL(sub_8013D80)
     .short 0x2, 0x0
     .word sub_8013D80
-    @ PROC_REPEAT(ContinueUntilSomeTransistion6CExists)
+    @ PROC_REPEAT(WaitForFade)
     .short 0x3, 0x0
-    .word ContinueUntilSomeTransistion6CExists
+    .word WaitForFade
     @ PROC_CALL(EndGreenTextColorManager)
     .short 0x2, 0x0
     .word EndGreenTextColorManager
@@ -335,8 +335,8 @@ gUnknown_08B12D1C:  @ 0x08B12D1C
     .short 0x0, 0x0
     .word 0x0
 
-	.global gUnknown_08B12DB4
-gUnknown_08B12DB4:  @ 0x08B12DB4
+	.global Img_CommGameBgScreen
+Img_CommGameBgScreen:  @ 0x08B12DB4
 	.incbin "baserom.gba", 0xB12DB4, 0x4798
 
 	.global gUnknown_08B1754C
