@@ -133,10 +133,6 @@ void BeginMapAnimForSteal(void);
 void BeginMapAnimForSummon(void);
 void BeginMapAnimForSummonDK(void);
 
-// bmudisp.s
-void SMS_RegisterUsage(int);
-void PutUnitSprite(int, int, int, struct Unit*);
-
 // code.s
 void BWL_AddWinOrLossIdk(u8, u8, int);
 
