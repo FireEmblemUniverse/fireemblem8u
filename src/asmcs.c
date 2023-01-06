@@ -392,7 +392,7 @@ void sub_8085990(struct EventEngineProc *proc)
     sub_8026C1C(unit, count);
     
     if (63 == proc->unitLoadCount++) {
-        unit->state |= CA_MOUNTEDAID | CA_THIEF;
+        unit->state |= US_HIDDEN | US_NOT_DEPLOYED;
         RefreshEntityBmMaps();
         SMS_UpdateFromGameData();
         Proc_Break(proc);
