@@ -634,7 +634,7 @@ _08098746:
 	ldr r2, _080989A8  @ 0x01000008
 	mov r0, sl
 	bl CpuFastSet
-	bl SMS_FlushIndirect
+	bl ForceSyncUnitSpriteSheet
 	ldr r0, _080989AC  @ Img_PrepTextShadow
 	ldr r1, _080989B0  @ 0x06013E00
 	bl CopyDataWithPossibleUncomp
@@ -3800,7 +3800,7 @@ _0809A254:
 	movs r0, #0
 	adds r1, r6, #0
 	adds r2, r5, #0
-	bl sub_8027C48
+	bl PutUnitSpriteForClassId
 	add sp, #4
 	pop {r4, r5, r6}
 	pop {r0}
@@ -3883,7 +3883,7 @@ _0809A308:
 	bl PrepGetUnitAmount
 	cmp r6, r0
 	blt _0809A27C
-	bl SMS_FlushDirect
+	bl SyncUnitSpriteSheet
 	pop {r4, r5, r6, r7}
 	pop {r0}
 	bx r0

@@ -4,6 +4,7 @@
 #include "ctc.h"
 #include "variables.h"
 #include "functions.h"
+#include "bmudisp.h"
 
 /**
  * Unit Swapping Animation/Effect (When you swap unit places in the prep screen)
@@ -103,7 +104,7 @@ void StartPrepUnitSwap(ProcPtr parent, struct Unit *unit, int x_dest, int y_dest
     proc->x_tile_dest = x_dest * 16;
     proc->y_tile_dest = y_dest * 16;
 
-    HideUnitSMS(unit);
+    HideUnitSprite(unit);
 }
 
 int PrepUnitSwapProcExits()

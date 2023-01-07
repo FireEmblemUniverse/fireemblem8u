@@ -1267,7 +1267,7 @@ _0801216C:
 	bl UnitBeginAction
 	ldr r4, _08012198  @ gActiveUnit
 	ldr r0, [r4]
-	bl HideUnitSMS
+	bl HideUnitSprite
 	ldr r0, [r4]
 	bl MU_Create
 	bl MU_SetDefaultFacing_Auto
@@ -1374,7 +1374,7 @@ _08012238:
 	str r0, [r7, #0xc]
 _08012248:
 	bl RefreshEntityBmMaps
-	bl SMS_UpdateFromGameData
+	bl RefreshUnitSprites
 	pop {r4, r5, r6, r7}
 	pop {r0}
 	bx r0

@@ -6,6 +6,7 @@
 #include "bmmap.h"
 #include "bmtrick.h"
 #include "bmarch.h"
+#include "bmudisp.h"
 #include "cp_utility.h"
 #include "cp_script.h"
 
@@ -88,7 +89,7 @@ next_unit:
         {
             RefreshEntityBmMaps();
             RenderBmMap();
-            SMS_UpdateFromGameData();
+            RefreshUnitSprites();
 
             AiUpdateNoMoveFlag(gActiveUnit);
 

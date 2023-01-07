@@ -248,7 +248,7 @@ _0800BAD2:
 	ldr r0, _0800BAF4  @ gRAMChapterData
 	strb r5, [r0, #0xd]
 	bl RefreshEntityBmMaps
-	bl SMS_UpdateFromGameData
+	bl RefreshUnitSprites
 	bl RenderBmMap
 	cmp r4, #1
 	bne _0800BAEE
@@ -570,7 +570,7 @@ _0800BD12:
 	.align 2, 0
 _0800BD20: .4byte unit_icon_pal_npc
 _0800BD24:
-	ldr r0, _0800BD44  @ gUnknown_0859EEE0
+	ldr r0, _0800BD44  @ gPal_MapSpriteSepia
 	movs r1, #0xe0
 	lsls r1, r1, #2
 	movs r2, #0x20
@@ -587,16 +587,16 @@ _0800BD30:
 	beq _0800BD4E
 	b _0800BD78
 	.align 2, 0
-_0800BD44: .4byte gUnknown_0859EEE0
+_0800BD44: .4byte gPal_MapSpriteSepia
 _0800BD48:
 	cmp r1, #4
 	beq _0800BD6C
 	b _0800BD78
 _0800BD4E:
-	ldr r0, _0800BD54  @ unit_icon_pal_player
+	ldr r0, _0800BD54  @ gPal_MapSprite
 	b _0800BD5A
 	.align 2, 0
-_0800BD54: .4byte unit_icon_pal_player
+_0800BD54: .4byte gPal_MapSprite
 _0800BD58:
 	ldr r0, _0800BD68  @ unit_icon_pal_npc
 _0800BD5A:
@@ -608,7 +608,7 @@ _0800BD5A:
 	.align 2, 0
 _0800BD68: .4byte unit_icon_pal_npc
 _0800BD6C:
-	ldr r0, _0800BD8C  @ gUnknown_0859EEE0
+	ldr r0, _0800BD8C  @ gPal_MapSpriteSepia
 	movs r1, #0xe8
 	lsls r1, r1, #2
 	movs r2, #0x20
@@ -625,16 +625,16 @@ _0800BD78:
 	beq _0800BD96
 	b _0800BDC0
 	.align 2, 0
-_0800BD8C: .4byte gUnknown_0859EEE0
+_0800BD8C: .4byte gPal_MapSpriteSepia
 _0800BD90:
 	cmp r1, #4
 	beq _0800BDB4
 	b _0800BDC0
 _0800BD96:
-	ldr r0, _0800BD9C  @ unit_icon_pal_player
+	ldr r0, _0800BD9C  @ gPal_MapSprite
 	b _0800BDA2
 	.align 2, 0
-_0800BD9C: .4byte unit_icon_pal_player
+_0800BD9C: .4byte gPal_MapSprite
 _0800BDA0:
 	ldr r0, _0800BDB0  @ unit_icon_pal_enemy
 _0800BDA2:
@@ -646,7 +646,7 @@ _0800BDA2:
 	.align 2, 0
 _0800BDB0: .4byte unit_icon_pal_enemy
 _0800BDB4:
-	ldr r0, _0800BDC8  @ gUnknown_0859EEE0
+	ldr r0, _0800BDC8  @ gPal_MapSpriteSepia
 	movs r1, #0xf0
 	lsls r1, r1, #2
 	movs r2, #0x20
@@ -656,7 +656,7 @@ _0800BDC0:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_0800BDC8: .4byte gUnknown_0859EEE0
+_0800BDC8: .4byte gPal_MapSpriteSepia
 
 	THUMB_FUNC_END sub_800BCDC
 

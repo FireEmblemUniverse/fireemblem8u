@@ -15,6 +15,7 @@
 #include "bmmap.h"
 #include "bmarch.h"
 #include "bmusailment.h"
+#include "bmudisp.h"
 
 #include "bmtrap.h"
 
@@ -244,7 +245,7 @@ s8 HandlePostActionTraps(ProcPtr proc) {
     SaveSuspendedGame(3);
 
     if (GetBattleAnimType() == 1) {
-        SMS_UpdateFromGameData();
+        RefreshUnitSprites();
     }
 
     return ExecTrap(proc, gActiveUnit, 0);
@@ -259,7 +260,7 @@ s8 sub_80377F0(ProcPtr proc, struct Unit* unit) {
         MU_End(MU_GetByUnit(unit));
         RenderBmMap();
         RefreshEntityBmMaps();
-        SMS_FlushIndirect();
+        ForceSyncUnitSpriteSheet();
         return 1;
     }
 

@@ -9,6 +9,7 @@
 #include "hardware.h"
 #include "chapterdata.h"
 #include "constants/items.h"
+#include "bmudisp.h"
 
 #include "prepscreen.h"
 s8 CheckSomethingSomewhere();
@@ -496,7 +497,7 @@ void PrepUpdateSMS()
     int i, state;
     struct Unit *unit;
 
-    SMS_ClearUsageTable();
+    ResetUnitSprites();
 
     for (i = 0; i < PrepGetUnitAmount(); i++) {
         unit = GetUnitFromPrepList(i);
@@ -506,10 +507,10 @@ void PrepUpdateSMS()
         else
             unit->state |= 0xA;
 
-        SMS_RegisterUsage(GetUnitSMSId(unit));
+        UseUnitSprite(GetUnitSMSId(unit));
     }
 
-    SMS_FlushIndirect();
+    ForceSyncUnitSpriteSheet();
 }
 
 int PrepGetDeployedUnitAmt(void)

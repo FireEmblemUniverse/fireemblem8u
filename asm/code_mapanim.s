@@ -352,7 +352,7 @@ _0807D044:
 	bl ClearUnit
 	bl RefreshEntityBmMaps
 	bl RenderBmMap
-	bl SMS_UpdateFromGameData
+	bl RefreshUnitSprites
 	bl MU_EndAll
 	pop {r4, r5, r6, r7}
 	pop {r0}
@@ -8370,7 +8370,7 @@ _08080DF4:
 	cmp r1, #0xc
 	bne _08080E02
 	bl RefreshEntityBmMaps
-	bl SMS_UpdateFromGameData
+	bl RefreshUnitSprites
 	b _08080E0E
 _08080E02:
 	cmp r1, #0x11
@@ -8567,7 +8567,7 @@ _08080F6C:
 	ands r1, r2
 	str r1, [r0, #0xc]
 	bl RefreshEntityBmMaps
-	bl SMS_UpdateFromGameData
+	bl RefreshUnitSprites
 	b _08080F92
 _08080F86:
 	cmp r1, #0x11
@@ -10658,7 +10658,7 @@ sub_8081E60: @ 0x08081E60
 	push {lr}
 	bl RefreshEntityBmMaps
 	bl RenderBmMap
-	bl SMS_UpdateFromGameData
+	bl RefreshUnitSprites
 	bl MU_EndAll
 	pop {r0}
 	bx r0

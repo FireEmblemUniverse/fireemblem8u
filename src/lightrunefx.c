@@ -5,6 +5,7 @@
 #include "proc.h"
 #include "hardware.h"
 #include "soundwrapper.h"
+#include "bmudisp.h"
 #include "bmfx.h"
 
 
@@ -154,7 +155,7 @@ void ProcLightRuneAnim_Loop(struct ProcBmFx *proc)
     }
 
     if (0x18 == x && 0x09 == y)
-        SMS_UpdateFromGameData();
+        RefreshUnitSprites();
 
     TileMap_CopyRect(TILEMAP_LOCATED(gBmFrameTmap0, x, y), gBG0TilemapBuffer, 8, 9);
     BG_EnableSyncByMask(BG0_SYNC_BIT);
@@ -217,7 +218,7 @@ void ProcLightRuneAnim2_Loop(struct ProcBmFx *proc)
     }
 
     if (0x18 == x && 0x09 == y)
-        SMS_UpdateFromGameData();
+        RefreshUnitSprites();
 
     TileMap_CopyRect(TILEMAP_LOCATED(gBmFrameTmap0, x, y), gBG0TilemapBuffer, 8, 9);
     BG_EnableSyncByMask(BG0_SYNC_BIT);
@@ -280,7 +281,7 @@ void ProcLightRuneAnim3_Loop(struct ProcBmFx *proc)
     }
 
     if (0x18 == x && 0x09 == y)
-        SMS_UpdateFromGameData();
+        RefreshUnitSprites();
 
     TileMap_CopyRect(TILEMAP_LOCATED(gBmFrameTmap0, x, y), gBG0TilemapBuffer, 8, 9);
     BG_EnableSyncByMask(BG0_SYNC_BIT);

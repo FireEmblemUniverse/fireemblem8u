@@ -3348,12 +3348,12 @@ _0800EE88:
 	ldrb r0, [r4, #0x15]
 	bl AllocWeatherParticles
 	bl RenderBmMap
-	bl SMS_UpdateFromGameData
+	bl RefreshUnitSprites
 	ldr r0, [r5, #0x34]
 	adds r0, #0x44
 	ldrh r0, [r0]
 	bl sub_800BCDC
-	bl SMS_FlushIndirect
+	bl ForceSyncUnitSpriteSheet
 	ldr r0, [r5, #0x34]
 	bl Event24_
 	b _0800EEBE
@@ -3738,7 +3738,7 @@ _0800F198:
 	strh r0, [r4, #0xe]
 	bl RefreshEntityBmMaps
 	bl RenderBmMap
-	bl SMS_UpdateFromGameData
+	bl RefreshUnitSprites
 	bl RefreshBMapGraphics
 	adds r0, r5, #0
 	adds r0, #0x44
@@ -5608,7 +5608,7 @@ _0800FF36:
 	cmp r0, #1
 	beq _0800FF60
 	bl RefreshEntityBmMaps
-	bl SMS_UpdateFromGameData
+	bl RefreshUnitSprites
 	bl RenderBmMap
 	ldr r0, _0800FF5C  @ gBmMapOther
 	ldr r0, [r0]
@@ -6269,7 +6269,7 @@ _0801044C:
 	cmp r0, #0
 	bne _080104A6
 	adds r0, r5, #0
-	bl HideUnitSMS
+	bl HideUnitSprite
 	ldr r0, [r5, #0xc]
 	movs r1, #1
 	orrs r0, r1
@@ -6298,7 +6298,7 @@ _08010494:
 	bl ClearUnit
 _0801049A:
 	bl RefreshEntityBmMaps
-	bl SMS_UpdateFromGameData
+	bl RefreshUnitSprites
 	bl RenderBmMap
 _080104A6:
 	movs r0, #0
@@ -6370,7 +6370,7 @@ _08010518:
 	str r0, [r5, #4]
 _08010522:
 	bl RefreshEntityBmMaps
-	bl SMS_UpdateFromGameData
+	bl RefreshUnitSprites
 	bl RenderBmMap
 _0801052E:
 	movs r0, #0

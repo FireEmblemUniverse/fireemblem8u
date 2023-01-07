@@ -19,6 +19,7 @@
 #include "bmtrap.h"
 #include "bmtarget.h"
 #include "popup.h"
+#include "bmudisp.h"
 
 #include "bmusemind.h"
 
@@ -256,8 +257,8 @@ int sub_802EF80() {
 
     RefreshEntityBmMaps();
     RenderBmMap();
-    SMS_UpdateFromGameData();
-    SMS_FlushIndirect();
+    RefreshUnitSprites();
+    ForceSyncUnitSpriteSheet();
 
     // return; // BUG?
 }

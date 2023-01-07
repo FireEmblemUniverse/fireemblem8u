@@ -13,6 +13,7 @@
 #include "fontgrp.h"
 #include "statscreen.h"
 #include "uiutils.h"
+#include "bmudisp.h"
 #include "prepscreen.h"
 s8 CheckSomethingSomewhere();
 
@@ -231,7 +232,7 @@ void ProcPrepSpChar_OnInit(struct ProcPrepSpecialChar *proc)
     proc->unk2A = 0;
     proc->unk36 = 0;
 
-    SMS_FlushIndirect();
+    ForceSyncUnitSpriteSheet();
 
     if (CheckSomethingSomewhere()) {
         proc->apProc = APProc_Create(gUnknown_08A1B194, 0x3C, 0x10, 0x9E40, 1, 0xD);

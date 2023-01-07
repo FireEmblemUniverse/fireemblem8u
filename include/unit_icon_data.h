@@ -6,8 +6,8 @@
 #include "unit_icon_pointer.h"
 
 typedef struct {
-    short pattern; // unknown, seems to be useless
-    short size; // icon size
+    unsigned short pattern; // unknown, seems to be useless
+    unsigned short size; // icon size
     char *sheet; // animation sheet
 } UnitIconWait, *pUnitIconWait;
 

@@ -16,8 +16,8 @@ gUnknown_0859EDB0:  @ 0x0859EDB0
 gUnknown_0859EDEC:  @ 0x0859EDEC
 	.incbin "baserom.gba", 0x59EDEC, 0x34
 
-	.global unit_icon_pal_player
-unit_icon_pal_player:
+	.global gPal_MapSprite
+gPal_MapSprite:
 	.incbin "graphics/unit_icon/palette/unit_icon_pal_player.agbpal"
 
 	.global unit_icon_pal_enemy
@@ -32,16 +32,16 @@ unit_icon_pal_npc:
 unit_icon_pal_after_action:
 	.incbin "graphics/unit_icon/palette/unit_icon_pal_after_action.agbpal"
 
-	.global unit_icon_pal_p4
-unit_icon_pal_p4:
+	.global gPal_MapSpriteArena
+gPal_MapSpriteArena:
 	.incbin "graphics/unit_icon/palette/unit_icon_pal_p4.agbpal"
 
-	.global gUnknown_0859EEC0
-gUnknown_0859EEC0:  @ 0x0859EEC0
+	.global gPal_NotMapSprite
+gPal_NotMapSprite:  @ 0x0859EEC0
 	.incbin "baserom.gba", 0x59EEC0, 0x20
 
-	.global gUnknown_0859EEE0
-gUnknown_0859EEE0:  @ 0x0859EEE0
+	.global gPal_MapSpriteSepia
+gPal_MapSpriteSepia:  @ 0x0859EEE0
 	.incbin "baserom.gba", 0x59EEE0, 0x20
 
 	.global Pal_UIFont

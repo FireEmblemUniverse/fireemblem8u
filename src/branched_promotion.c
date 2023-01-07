@@ -7,6 +7,7 @@
 #include "bmio.h"
 #include "bmitem.h"
 #include "bmmap.h"
+#include "bmudisp.h"
 #include "bmunit.h"
 #include "branched_promotion.h"
 #include "classdisplayfont.h"
@@ -800,7 +801,7 @@ void sub_80CD218(struct Proc *proc) {
         RefreshBMapGraphics();
         RefreshEntityBmMaps();
         RenderBmMap();
-        SMS_UpdateFromGameData();
+        RefreshUnitSprites();
         MU_EndAll();
         MU_Create(gActiveUnit);
     }
@@ -1047,7 +1048,7 @@ void sub_80CD62C(void) {
     MU_EndAll();
     MU_Create(gActiveUnit);
     RenderBmMap();
-    SMS_UpdateFromGameData();
+    RefreshUnitSprites();
 }
 
 ProcPtr sub_80CD668(ProcPtr);

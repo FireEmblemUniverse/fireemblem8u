@@ -12,6 +12,7 @@
 #include "ctc.h"
 #include "bmio.h"
 #include "face.h"
+#include "bmudisp.h"
 
 #include "uichapterstatus.h"
 
@@ -553,10 +554,10 @@ void ChapterStatus_Init(struct ChapterStatusProc* proc) {
             continue;
         }
 
-        SMS_RegisterUsage(GetUnitSMSId(proc->units[i]));
+        UseUnitSprite(GetUnitSMSId(proc->units[i]));
     }
 
-    SMS_FlushIndirect();
+    ForceSyncUnitSpriteSheet();
 
     gLCDControlBuffer.dispcnt.win0_on = 1;
     gLCDControlBuffer.dispcnt.win1_on = 0;
@@ -933,7 +934,7 @@ void sub_808E818(struct ChapterStatusProc* proc) {
         PutUnitSprite(4, 136, 61, parent->units[parent->unitIndex]);
     }
 
-    SMS_FlushDirect();
+    SyncUnitSpriteSheet();
 
     if (parent->timesCompleted != 0) {
         if (!(gRAMChapterData.chapterStateBits & CHAPTER_FLAG_POSTGAME)) {

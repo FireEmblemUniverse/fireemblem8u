@@ -1,6 +1,7 @@
 #include "branched_promotion.h"
 
 #include "bmio.h"
+#include "bmudisp.h"
 #include "face.h"
 #include "fontgrp.h"
 #include "hardware.h"
@@ -157,9 +158,9 @@ void sub_80CC66C(struct PromoProc2 *proc) {
             break;
         case 2:
             BMapDispResume();
-            SMS_UpdateFromGameData();
+            RefreshUnitSprites();
             SetupMapSpritesPalettes();
-            SMS_FlushIndirect();
+            ForceSyncUnitSpriteSheet();
             Font_LoadForUI();
             break;
     }

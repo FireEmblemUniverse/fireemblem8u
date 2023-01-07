@@ -9,6 +9,7 @@
 #include "bmmap.h"
 #include "chapterdata.h"
 #include "bmfx.h"
+#include "bmudisp.h"
 
 /**
  * Proc Displaying Chapter Title in the middle of the screen

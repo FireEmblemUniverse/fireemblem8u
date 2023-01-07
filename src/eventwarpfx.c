@@ -4,6 +4,7 @@
 #include "constants/video-global.h"
 #include "proc.h"
 #include "hardware.h"
+#include "bmudisp.h"
 #include "bmfx.h"
 #include "soundwrapper.h"
 
@@ -125,7 +126,7 @@ void ProcEventWrapAnim_Loop(struct ProcBmFx *proc)
     }
 
     if (0x8 == proc->counter)
-        SMS_UpdateFromGameData();
+        RefreshUnitSprites();
     
     TileMap_CopyRect(
         TILEMAP_LOCATED(gBmFrameTmap0, x, y),

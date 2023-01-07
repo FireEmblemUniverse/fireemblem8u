@@ -20,6 +20,7 @@
 #include "bmtrap.h"
 #include "gamecontrol.h"
 #include "bmarena.h"
+#include "bmudisp.h"
 
 #include "bmio.h"
 
@@ -127,7 +128,7 @@ PROC_LABEL(0),
     PROC_CALL(BMapVSync_UpdateMapImgAnimations),
     PROC_CALL(BMapVSync_UpdateMapPalAnimations),
 
-    PROC_CALL(SMS_FlushDirect),
+    PROC_CALL(SyncUnitSpriteSheet),
     PROC_CALL(WfxVSync),
 
     PROC_REPEAT(BMapVSync_OnLoop),
@@ -143,7 +144,7 @@ CONST_DATA struct ProcCmd gProc_MapTask[] = { // gProc_MapTask
     PROC_SLEEP(0),
 
 PROC_LABEL(0),
-    PROC_CALL(SMS_DisplayAllFromInfoStructs),
+    PROC_CALL(PutUnitSpritesOam),
     PROC_CALL(WfxUpdate),
     PROC_CALL(UpdateBmMapDisplay),
 
@@ -983,7 +984,7 @@ void StartBattleMap(struct GameCtrlProc* gameCtrl) {
     sub_80156D4();
     SetupMapSpritesPalettes();
     ClearLocalEvents();
-    SMS_ClearUsageTable();
+    ResetUnitSprites();
     ResetMenuOverrides();
     ClearTraps();
 
@@ -1049,7 +1050,7 @@ void RestartBattleMap(void) {
 
     sub_80156D4();
     SetupMapSpritesPalettes();
-    SMS_ClearUsageTable();
+    ResetUnitSprites();
 
     ClearTraps();
 
@@ -1102,7 +1103,7 @@ void GameCtrl_StartResumedGame(struct GameCtrlProc* gameCtrl) {
 
     LoadGameCoreGfx();
     SetupMapSpritesPalettes();
-    SMS_ClearUsageTable();
+    ResetUnitSprites();
 
     InitChapterMap(gRAMChapterData.chapterIndex);
 
@@ -1178,9 +1179,9 @@ void InitMoreBMapGraphics(void) {
     UnpackChapterMapGraphics(gRAMChapterData.chapterIndex);
     AllocWeatherParticles(gRAMChapterData.chapterWeatherId);
     RenderBmMap();
-    SMS_UpdateFromGameData();
+    RefreshUnitSprites();
     SetupMapSpritesPalettes();
-    SMS_FlushIndirect();
+    ForceSyncUnitSpriteSheet();
     Font_LoadForUI();
 }
 
@@ -1270,7 +1271,7 @@ void ChapterChangeUnitCleanup(void) {
 
 void MapMain_ResumeFromPhaseIdle(struct BMapMainProc* mapMain) {
     RefreshEntityBmMaps();
-    SMS_UpdateFromGameData();
+    RefreshUnitSprites();
 
     gLCDControlBuffer.dispcnt.bg0_on = FALSE;
     gLCDControlBuffer.dispcnt.bg1_on = FALSE;
@@ -1283,7 +1284,7 @@ void MapMain_ResumeFromPhaseIdle(struct BMapMainProc* mapMain) {
 
 void MapMain_ResumeFromAction(struct BMapMainProc* mapMain) {
     RefreshEntityBmMaps();
-    SMS_UpdateFromGameData();
+    RefreshUnitSprites();
 
     gLCDControlBuffer.dispcnt.bg0_on = FALSE;
     gLCDControlBuffer.dispcnt.bg1_on = FALSE;
@@ -1296,7 +1297,7 @@ void MapMain_ResumeFromAction(struct BMapMainProc* mapMain) {
     gActiveUnit = GetUnit(gActionData.subjectIndex);
     gBmMapUnit[gActiveUnit->yPos][gActiveUnit->xPos] = 0;
 
-    HideUnitSMS(GetUnit(gActionData.subjectIndex));
+    HideUnitSprite(GetUnit(gActionData.subjectIndex));
 
     MU_Create(gActiveUnit);
     MU_SetDefaultFacing_Auto();
@@ -1304,7 +1305,7 @@ void MapMain_ResumeFromAction(struct BMapMainProc* mapMain) {
 
 void MapMain_ResumeFromBskPhase(struct BMapMainProc* mapMain) {
     RefreshEntityBmMaps();
-    SMS_UpdateFromGameData();
+    RefreshUnitSprites();
 
     gLCDControlBuffer.dispcnt.bg0_on = FALSE;
     gLCDControlBuffer.dispcnt.bg1_on = FALSE;
@@ -1333,7 +1334,7 @@ void MapMain_ResumeFromArenaFight(struct BMapMainProc* mapMain) {
 
     gBmMapUnit[gActionData.yMove][gActionData.xMove] = 0;
 
-    SMS_UpdateFromGameData();
+    RefreshUnitSprites();
 
     Proc_Goto(mapMain, 10);
 
@@ -1342,7 +1343,7 @@ void MapMain_ResumeFromArenaFight(struct BMapMainProc* mapMain) {
 
 void MapMain_ResumeFromPhaseChange(struct BMapMainProc* mapMain) {
     RefreshEntityBmMaps();
-    SMS_UpdateFromGameData();
+    RefreshUnitSprites();
 
     gLCDControlBuffer.dispcnt.bg0_on = FALSE;
     gLCDControlBuffer.dispcnt.bg1_on = FALSE;

@@ -16,6 +16,7 @@
 #include "bmtrap.h"
 #include "playerphase.h"
 #include "popup.h"
+#include "bmudisp.h"
 
 #include "cp_perform.h"
 
@@ -150,7 +151,7 @@ void CpPerform_BeginUnitMovement(struct CpPerformProc* proc) {
 
     UnitBeginAction(gActiveUnit);
 
-    HideUnitSMS(gActiveUnit);
+    HideUnitSprite(gActiveUnit);
 
     GenerateUnitMovementMap(gActiveUnit);
     SetWorkingBmMap(gBmMapMovement);
@@ -187,8 +188,8 @@ void AiRefreshMap() {
     MU_EndAll();
     RefreshEntityBmMaps();
 
-    ShowUnitSMS(gActiveUnit);
-    SMS_UpdateFromGameData();
+    ShowUnitSprite(gActiveUnit);
+    RefreshUnitSprites();
 
     return;
 }

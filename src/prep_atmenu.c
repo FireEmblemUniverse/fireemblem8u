@@ -12,6 +12,7 @@
 #include "uichapterstatus.h"
 #include "bmio.h"
 #include "mu.h"
+#include "bmudisp.h"
 
 #include "prepscreen.h"
 s8 CheckSomethingSomewhere();
@@ -137,7 +138,7 @@ void AtMenu_Reinitialize(struct ProcAtMenu* proc)
     LoadDialogueBoxGfx(NULL, 0xE);
     SetDispEnable(0, 0, 0, 0, 0);
     LoadObjUIGfx();
-    SMS_ClearUsageTable();
+    ResetUnitSprites();
     
     MakePrepUnitList();
     PrepAutoCapDeployUnits(proc);
@@ -397,9 +398,9 @@ void AtMenu_ResetBmUiEffect(struct ProcAtMenu *proc)
         sub_8042EA8();
 
     sub_801240C();
-    SMS_ClearUsageTable();
+    ResetUnitSprites();
     RefreshEntityBmMaps();
-    SMS_UpdateFromGameData();
+    RefreshUnitSprites();
 }
 
 void AtMenu_StartSubmenu(struct ProcAtMenu *proc)

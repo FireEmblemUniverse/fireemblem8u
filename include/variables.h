@@ -512,16 +512,6 @@ extern struct Unit gUnitArrayRed[50];
 extern struct Unit gUnitArrayGreen[20];
 // extern ??? gUnknown_02030B8C
 extern u8 gWorkingMovementScript[];
-// extern ??? gUnknown_02033F40
-// extern ??? gUnknown_02034010
-// extern ??? gUnknown_02036010
-// extern ??? gUnknown_02038010
-// extern ??? gUnknown_0203A010
-// extern ??? gUnknown_0203A014
-// extern ??? gUnknown_0203A018
-// extern ??? gUnknown_0203A4C8
-// extern ??? gUnknown_0203A4CC
-// extern ??? gUnknown_0203A4D0
 extern u16 gConvoyItemArray[];
 extern struct Unit* sUnitStackBase;
 extern struct Unit* sUnitStackTop;
@@ -850,7 +840,6 @@ extern const char gUnknown_080D7954[];
 // extern ??? Vectors_LightRune3
 // extern ??? Vectors_DanceringFx
 // extern ??? gUnknown_080D7C04
-// extern ??? gUnknown_080D7C0C
 // extern ??? gUnknown_080D7C14
 // extern ??? gUnknown_080D7C18
 // extern ??? gUnknown_080D7C40
@@ -1406,21 +1395,6 @@ extern u16 CONST_DATA obj_0859AEC8[];
 // extern ??? ProcScr_EmitStars
 // extern ??? Img_EmitedStar
 // extern ??? ProcScr_MineFx
-// extern ??? gUnknown_0859B668
-// extern ??? gUnknown_0859B66C
-// extern ??? gUnknown_0859B67C
-// extern ??? gUnknown_0859B73C
-// extern ??? gUnknown_0859B7F4
-// extern ??? gUnknown_0859B858
-// extern ??? gUnknown_0859B898
-// extern ??? gUnknown_0859B938
-// extern ??? gUnknown_0859B968
-// extern ??? gUnknown_0859B976
-// extern ??? gUnknown_0859B97E
-// extern ??? gUnknown_0859B986
-// extern ??? gUnknown_0859B98E
-// extern ??? gUnknown_0859B996
-// extern ??? gUnknown_0859B99E
 // extern ??? gProcScr_SquareSelectWarp
 // extern ??? gProcScr_SquareSelectTorch
 // extern ??? gUnknown_0859BC64
@@ -1476,8 +1450,10 @@ extern u16 CONST_DATA obj_0859AEC8[];
 // extern ??? gUnknown_0859EE40
 // extern ??? gUnknown_0859EE60
 // extern ??? gUnknown_0859EEA0
-// extern ??? gUnknown_0859EEC0
-// extern ??? gUnknown_0859EEE0
+extern u16 gPal_MapSprite[];
+extern u16 gPal_NotMapSprite[];
+extern u16 gPal_MapSpriteArena[];
+extern u16 gPal_MapSpriteSepia[];
 extern u8 Pal_UIFont[];
 extern u8 gUnknown_0859EF20[];
 // extern ??? gUnknown_0859EF40

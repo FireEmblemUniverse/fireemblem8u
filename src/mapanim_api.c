@@ -8,6 +8,7 @@
 #include "ap.h"
 #include "bmio.h"
 #include "event.h"
+#include "bmudisp.h"
 #include "constants/items.h"
 #include "mapanim.h"
 
@@ -266,7 +267,7 @@ void SetupMapBattleAnim(struct BattleUnit* actor, struct BattleUnit* target, str
 
     if (gCurrentMapAnimState.actorCount_maybe > 1)
     {
-        HideUnitSMS(&gBattleTarget.unit); // NOTE: uses gBattleTarget instead of target argument
+        HideUnitSprite(&gBattleTarget.unit); // NOTE: uses gBattleTarget instead of target argument
         MakeBattleMOVEUNIT(1, target, &target->unit);
     }
 
@@ -275,8 +276,8 @@ void SetupMapBattleAnim(struct BattleUnit* actor, struct BattleUnit* target, str
         MakeBattleMOVEUNIT(2, actor, gBattleStats.taUnitA);
         MakeBattleMOVEUNIT(3, actor, gBattleStats.taUnitB);
 
-        HideUnitSMS(gBattleStats.taUnitA);
-        HideUnitSMS(gBattleStats.taUnitB);
+        HideUnitSprite(gBattleStats.taUnitA);
+        HideUnitSprite(gBattleStats.taUnitB);
     }
 
     SetupBattleMOVEUNITs();

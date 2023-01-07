@@ -504,17 +504,7 @@
 . = ALIGN(4); src/bmmap.o(ewram_data);
 . = 0x033EFC; gWorkingMovementScript = .;
 . = 0x033F3C; src/bmtarget.o(ewram_data);
-. = 0x033F40; gUnknown_02033F40 = .;
-. = 0x034010; gUnknown_02034010 = .;
-. = 0x036010; gUnknown_02036010 = .;
-. = 0x038010; gUnknown_02038010 = .;
-. = 0x03A010; gUnknown_0203A010 = .;
-. = 0x03A014; gUnknown_0203A014 = .;
-. = 0x03A018; gUnknown_0203A018 = .;
-. = 0x03A4C8; gUnknown_0203A4C8 = .;
-. = 0x03A4CC; gUnknown_0203A4CC = .;
-. = 0x03A4D0; gUnknown_0203A4D0 = .;
-. = 0x03A4D4;
+. = ALIGN(4); src/bmudisp.o(ewram_data);
 . = ALIGN(4); src/bmbattle.o(ewram_data);
 . = ALIGN(4); src/bmtrade.o(ewram_data);
 . = ALIGN(4); src/bmtrick.o(ewram_data);
