@@ -260,6 +260,7 @@ SECTIONS
         . = ALIGN(4); src/lightrunefx.o(.rodata);
         . = ALIGN(4); src/danceringfx.o(.rodata);
         . = ALIGN(4); data/const_data_D7B20.o(.rodata);
+        . = ALIGN(4); src/bmudisp.o(.rodata);
         . = ALIGN(4); src/bmreliance.o(.rodata);
         . = ALIGN(4); src/bmbattle.o(.rodata);
         . = ALIGN(4); src/bmtrade.o(.rodata);
@@ -362,7 +363,7 @@ SECTIONS
         . = ALIGN(4); src/minefx.o(.data);
         . = ALIGN(4); data/data_59B358.o(.data);
         . = ALIGN(4); src/bmmenu.o(.data);
-        . = ALIGN(4); data/data_59B668.o(.data);
+        . = ALIGN(4); src/bmudisp.o(.data);
         . = ALIGN(4); src/bmreliance.o(.data);
         . = ALIGN(4); src/bmitemuse.o(.data);
         . = ALIGN(4); src/bmbattle.o(.data);
