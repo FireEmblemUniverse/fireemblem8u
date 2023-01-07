@@ -11,6 +11,7 @@
 #include "hardware.h"
 #include "ap.h"
 #include "bmmap.h"
+#include "bmudisp.h"
 #include "mapanim.h"
 
 void MapAnim_BeginMISSAnim(struct Unit* unit)
@@ -130,7 +131,7 @@ void MapAnim_Poison2ResetMap(void)
 {
     RefreshEntityBmMaps();
     RenderBmMap();
-    SMS_UpdateFromGameData();
+    RefreshUnitSprites();
     MU_EndAll();
 }
 

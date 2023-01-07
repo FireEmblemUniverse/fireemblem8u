@@ -757,8 +757,8 @@ sub_809C4B4: @ 0x0809C4B4
 	movs r0, #0
 	movs r1, #0x78
 	movs r2, #0xa
-	bl sub_8027C48
-	bl SMS_FlushDirect
+	bl PutUnitSpriteForClassId
+	bl SyncUnitSpriteSheet
 	add sp, #4
 	pop {r0}
 	bx r0
@@ -1093,8 +1093,8 @@ _0809C5CA:
 	bl ShowPrepScreenHandCursor
 	ldr r0, [r7, #0x2c]
 	bl GetUnitSMSId
-	bl SMS_RegisterUsage
-	bl SMS_FlushIndirect
+	bl UseUnitSprite
+	bl ForceSyncUnitSpriteSheet
 	add sp, #0x28
 	pop {r3, r4, r5}
 	mov r8, r3

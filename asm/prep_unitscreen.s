@@ -321,7 +321,7 @@ _0809A7EC:
 	movs r1, #0x80
 	movs r2, #0x8f
 	bl PutSpriteExt
-	bl SMS_FlushDirect
+	bl SyncUnitSpriteSheet
 	add sp, #4
 	pop {r3}
 	mov r8, r3

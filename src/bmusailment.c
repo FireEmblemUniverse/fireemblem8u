@@ -17,6 +17,7 @@
 #include "bmtarget.h"
 #include "bmtrick.h"
 #include "trapfx.h"
+#include "bmudisp.h"
 
 #include "bmusailment.h"
 
@@ -200,7 +201,7 @@ void KillAllRedUnits_Loop(struct UnknownBMUSAilmentProc* proc) {
 
     unit = GetUnit(GetTarget(proc->unk_4C)->uid);
 
-    HideUnitSMS(unit);
+    HideUnitSprite(unit);
     UnitKill(unit);
 
     x = unit->xPos * 16 - gGameState.camera.x;
@@ -232,7 +233,7 @@ PROC_LABEL(0),
 PROC_LABEL(99),
     PROC_CALL(RefreshEntityBmMaps),
     PROC_CALL(RenderBmMap),
-    PROC_CALL(SMS_UpdateFromGameData),
+    PROC_CALL(RefreshUnitSprites),
 
     PROC_END,
 };
@@ -275,7 +276,7 @@ struct ProcCmd CONST_DATA sProcScr_StatusHealEffect_OverlayBg[] = {
 
 void StatusHealEffect_BlendedSprite_Init(struct UnknownBMUSAilmentProc* proc) {
 
-    HideUnitSMS(gActiveUnit);
+    HideUnitSprite(gActiveUnit);
 
     gLCDControlBuffer.dispcnt.win0_on = 0;
     gLCDControlBuffer.dispcnt.win1_on = 0;
@@ -306,7 +307,7 @@ void StatusHealEffect_BlendedSprite_Init(struct UnknownBMUSAilmentProc* proc) {
 
 void StatusHealEffect_BlendedSprite_Loop(struct UnknownBMUSAilmentProc* proc) {
 
-    sub_8028014(
+    PutBlendWindowUnitSprite(
         4,
         gActiveUnit->xPos * 16 - gGameState.camera.x,
         gActiveUnit->yPos * 16 - gGameState.camera.y,
@@ -324,7 +325,7 @@ void StatusHealEffect_BlendedSprite_Loop(struct UnknownBMUSAilmentProc* proc) {
 }
 
 void StatusHealEffect_BlendedSprite_Finish() {
-    ShowUnitSMS(gActiveUnit);
+    ShowUnitSprite(gActiveUnit);
     return;
 }
 
@@ -544,7 +545,7 @@ void TerrainHealDisplay_Display(struct UnknownBMUSAilmentProc* proc) {
     if (target->extra < 0) {
         StartStatusHealEffect(unit, proc);
     } else {
-        HideUnitSMS(unit);
+        HideUnitSprite(unit);
         BeginUnitHealAnim(unit, target->extra);
     }
 
@@ -555,7 +556,7 @@ void FinishDamageDisplay() {
     MU_EndAll();
 
     if (gBattleActor.unit.curHP != 0) {
-        ShowUnitSMS(GetUnit(gActionData.subjectIndex));
+        ShowUnitSprite(GetUnit(gActionData.subjectIndex));
     }
 
     return;
@@ -614,7 +615,7 @@ void PoisonDamageDisplay_Display(struct UnknownBMUSAilmentProc* proc) {
     struct SelectTarget* target = GetTarget(proc->unk_4C);
     struct Unit* unit = GetUnit(target->uid);
 
-    HideUnitSMS(unit);
+    HideUnitSprite(unit);
 
     BeginUnitPoisonDamageAnim(unit, target->extra);
 
@@ -636,7 +637,7 @@ void PoisonDamageDisplay_Next(struct UnknownBMUSAilmentProc* proc) {
     }
 
     if (GetUnitCurrentHp(GetUnit(gActionData.subjectIndex)) < 1) {
-        SMS_UpdateFromGameData();
+        RefreshUnitSprites();
     }
 
     return;
@@ -671,7 +672,7 @@ void SetClassToHatchingGorgonEgg(struct Unit* unit) {
 
         RefreshEntityBmMaps();
         RenderBmMap();
-        SMS_UpdateFromGameData();
+        RefreshUnitSprites();
         MU_EndAll();
     }
 
@@ -695,7 +696,7 @@ void GorgonEggHatchDisplay_Display(struct UnknownBMUSAilmentProc* proc) {
     struct SelectTarget* target = GetTarget(proc->unk_4C);
     struct Unit* unit = GetUnit(target->uid);
 
-    HideUnitSMS(unit);
+    HideUnitSprite(unit);
 
     SetClassToHatchingGorgonEgg(unit);
     BeginGorgonEggHatchDamageAnim(unit, target->extra);
@@ -718,7 +719,7 @@ void GorgonEggHatchDisplay_Next(struct UnknownBMUSAilmentProc* proc) {
     }
 
     if (GetUnitCurrentHp(GetUnit(gActionData.subjectIndex)) < 1) {
-        SMS_UpdateFromGameData();
+        RefreshUnitSprites();
     }
 
     return;
@@ -788,7 +789,7 @@ void StatusDecayDisplay_Next(struct UnknownBMUSAilmentProc* proc) {
 
         RefreshEntityBmMaps();
         RenderBmMap();
-        SMS_UpdateFromGameData();
+        RefreshUnitSprites();
         MU_EndAll();
     }
 
@@ -900,7 +901,7 @@ void TrapDamageDisplay_Display(struct UnknownBMUSAilmentProc* proc) {
         gActionData.subjectIndex = target->uid;
         gActionData.trapType = target->extra;
 
-        HideUnitSMS(GetUnit(gActionData.subjectIndex));
+        HideUnitSprite(GetUnit(gActionData.subjectIndex));
 
         if (gActionData.trapType < 6) {
             BeginUnitPoisonDamageAnim(GetUnit(gActionData.subjectIndex), target->extra);
@@ -923,7 +924,7 @@ void TrapDamageDisplay_Next(struct UnknownBMUSAilmentProc* proc) {
     }
 
     if (GetUnitCurrentHp(unit) <= 0) {
-        SMS_UpdateFromGameData();
+        RefreshUnitSprites();
     }
 
     proc->unk_4C++;

@@ -10386,7 +10386,7 @@ _08054DF8:
 	bl sub_80715F4
 _08054E16:
 	bl RefreshEntityBmMaps
-	bl SMS_UpdateFromGameData
+	bl RefreshUnitSprites
 	bl MU_EndAll
 	b _08054E3E
 	.align 2, 0
@@ -13191,10 +13191,10 @@ ekrBattleEnding_8056310: @ 0x08056310
 	strh r4, [r5, #0x2c]
 	movs r0, #0xf
 	strh r0, [r5, #0x2e]
-	bl SMS_ClearUsageTable
+	bl ResetUnitSprites
 	bl BMapDispResume_FromBattleDelayed
-	bl SMS_UpdateFromGameData
-	bl SMS_FlushIndirect
+	bl RefreshUnitSprites
+	bl ForceSyncUnitSpriteSheet
 	bl SetupMapSpritesPalettes
 	movs r0, #3
 	movs r1, #0
@@ -37460,7 +37460,7 @@ _0806222A:
 	ands r0, r1
 	str r0, [r4, #0xc]
 	bl RefreshEntityBmMaps
-	bl SMS_UpdateFromGameData
+	bl RefreshUnitSprites
 	bl MU_EndAll
 _08062260:
 	adds r0, r6, #0

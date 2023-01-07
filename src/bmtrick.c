@@ -9,6 +9,7 @@
 #include "event.h"
 #include "uiselecttarget.h"
 #include "bmtarget.h"
+#include "bmudisp.h"
 #include "bmtrick.h"
 
 static void GenerateFireTileTrapTargets(int x, int y, int damage);
@@ -366,7 +367,7 @@ void UpdateRoofedUnits(void)
     }
 
     RefreshEntityBmMaps();
-    SMS_UpdateFromGameData();
+    RefreshUnitSprites();
 }
 
 void GenerateFireTileTrapTargets(int x, int y, int damage)

@@ -18,6 +18,7 @@
 #include "uiutils.h"
 #include "mu.h"
 #include "face.h"
+#include "bmudisp.h"
 
 #include "constants/classes.h"
 

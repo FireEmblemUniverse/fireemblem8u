@@ -19,6 +19,7 @@
 #include "uiselecttarget.h"
 #include "bmdifficulty.h"
 #include "cp_utility.h"
+#include "bmudisp.h"
 
 EWRAM_DATA u8 gActiveUnitId = 0;
 EWRAM_DATA struct Vec2 gActiveUnitMoveOrigin = {};
@@ -1166,7 +1167,7 @@ void TickActiveFactionTurn(void) {
         RefreshEntityBmMaps();
         RenderBmMap();
         NewBMXFADE(TRUE);
-        SMS_UpdateFromGameData();
+        RefreshUnitSprites();
     }
 }
 
@@ -1481,7 +1482,7 @@ void ClearTemporaryUnits(void) {
     }
 
     RefreshEntityBmMaps();
-    SMS_UpdateFromGameData();
+    RefreshUnitSprites();
 }
 
 s8 IsUnitSlotAvailable(int faction) {
@@ -1617,5 +1618,5 @@ void sub_8019108(void) {
     }
 
     RefreshEntityBmMaps();
-    SMS_UpdateFromGameData();
+    RefreshUnitSprites();
 }

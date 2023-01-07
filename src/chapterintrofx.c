@@ -10,6 +10,7 @@
 #include "bmmap.h"
 #include "chapterdata.h"
 #include "bmfx.h"
+#include "bmudisp.h"
 
 // arm_call.s
 void CALLARM_MaybeScreenFadeIn();
@@ -808,8 +809,8 @@ void ChapterIntro_8020AF8() {
     SetupBackgrounds(0);
     sub_80156D4();
     AllocWeatherParticles(gRAMChapterData.chapterWeatherId);
-    SMS_UpdateFromGameData();
-    SMS_FlushIndirect();
+    RefreshUnitSprites();
+    ForceSyncUnitSpriteSheet();
     Font_LoadForUI();
 
     return;

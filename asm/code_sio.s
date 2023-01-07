@@ -4817,8 +4817,8 @@ _08043968:
 	bl Font_ResetAllocation
 	bl sub_8043164
 	bl SetupMapSpritesPalettes
-	bl SMS_ClearUsageTable
-	bl SMS_FlushIndirect
+	bl ResetUnitSprites
+	bl ForceSyncUnitSpriteSheet
 	ldr r0, [r7, #0x3c]
 	ldr r1, _08043AFC  @ gUnknown_0203DA24
 	ldrb r1, [r1]
@@ -15995,7 +15995,7 @@ _080492D4: .4byte gUnknown_03001840
 sub_80492D8: @ 0x080492D8
 	push {lr}
 	bl sub_8049594
-	bl SMS_UpdateFromGameData
+	bl RefreshUnitSprites
 	pop {r0}
 	bx r0
 
@@ -16206,7 +16206,7 @@ _0804944C:
 	movs r1, #1
 	orrs r0, r1
 	str r0, [r5, #0xc]
-	bl SMS_UpdateFromGameData
+	bl RefreshUnitSprites
 	movs r0, #0x10
 	ldrsb r0, [r5, r0]
 	adds r4, r7, r6
@@ -16653,7 +16653,7 @@ sub_80497A0: @ 0x080497A0
 	bl SetupBackgrounds
 	bl sub_80156D4
 	bl SetupMapSpritesPalettes
-	bl SMS_FlushIndirect
+	bl ForceSyncUnitSpriteSheet
 	bl sub_8049788
 	bl Font_LoadForUI
 	ldr r1, _080497C8  @ gUnknown_0203DD90
@@ -16771,8 +16771,8 @@ _08049860:
 	strh r4, [r0, #0xe]
 	bl LoadGameCoreGfx
 	bl SetupMapSpritesPalettes
-	bl SMS_ClearUsageTable
-	bl SMS_UpdateFromGameData
+	bl ResetUnitSprites
+	bl RefreshUnitSprites
 	bl sub_8049788
 	bl sub_804B38C
 	ldr r0, _080498EC  @ gProc_MapTask
@@ -17257,7 +17257,7 @@ sub_8049C18: @ 0x08049C18
 	beq _08049C4C
 	bl MU_EndAll
 	adds r0, r5, #0
-	bl ShowUnitSMS
+	bl ShowUnitSprite
 _08049C4C:
 	cmp r4, #0
 	beq _08049C80
@@ -17281,7 +17281,7 @@ _08049C4C:
 	bl MU_Create
 	bl MU_DisableAttractCamera
 	adds r0, r4, #0
-	bl HideUnitSMS
+	bl HideUnitSprite
 _08049C80:
 	pop {r4, r5, r6, r7}
 	pop {r0}
@@ -18277,7 +18277,7 @@ _0804A494:
 	negs r1, r1
 	ands r0, r1
 	str r0, [r4, #0xc]
-	bl SMS_UpdateFromGameData
+	bl RefreshUnitSprites
 	ldr r1, _0804A4D0  @ gUnknown_0203DD90
 	ldrb r0, [r1, #5]
 	strb r0, [r1, #2]
@@ -18478,7 +18478,7 @@ sub_804A614: @ 0x0804A614
 	bl GetUnit
 	mov r8, r0
 	adds r0, r6, #0
-	bl HideUnitSMS
+	bl HideUnitSprite
 	ldr r1, _0804A694  @ gActionData
 	movs r0, #2
 	strb r0, [r1, #0x11]
@@ -18591,7 +18591,7 @@ sub_804A6A4: @ 0x0804A6A4
 	cmp r0, #0
 	beq _0804A750
 	adds r0, r6, #0
-	bl ShowUnitSMS
+	bl ShowUnitSprite
 	ldr r0, [r6, #0xc]
 	movs r1, #2
 	negs r1, r1
@@ -19008,7 +19008,7 @@ sub_804AA88: @ 0x0804AA88
 	bl MU_EndAll
 	bl sub_8049594
 	bl sub_80495F4
-	bl SMS_UpdateFromGameData
+	bl RefreshUnitSprites
 	pop {r0}
 	bx r0
 
@@ -19223,7 +19223,7 @@ _0804AC24:
 	negs r1, r1
 	ands r0, r1
 	str r0, [r4, #0xc]
-	bl SMS_UpdateFromGameData
+	bl RefreshUnitSprites
 	adds r0, r5, #0
 	movs r1, #0
 	bl Proc_Goto
@@ -19355,7 +19355,7 @@ _0804AD1C:
 	negs r1, r1
 	ands r0, r1
 	str r0, [r6, #0xc]
-	bl SMS_UpdateFromGameData
+	bl RefreshUnitSprites
 	adds r0, r7, #0
 	movs r1, #1
 	bl Proc_Goto
@@ -20136,7 +20136,7 @@ _0804B2D0:
 	ldr r1, [sp]
 	subs r4, r4, r1
 	adds r0, r6, #0
-	bl GetUnitSpritePaletteIndexWrapper
+	bl GetUnitDisplayedSpritePalette
 	adds r3, r0, #0
 	mov r0, r9
 	ands r3, r0
@@ -20158,7 +20158,7 @@ _0804B2D0:
 	subs r4, r4, r0
 	adds r4, #8
 	adds r0, r6, #0
-	bl GetUnitSpritePaletteIndexWrapper
+	bl GetUnitDisplayedSpritePalette
 	adds r3, r0, #0
 	mov r1, r9
 	ands r3, r1
@@ -20592,9 +20592,9 @@ _0804B654:
 	.align 2, 0
 _0804B65C: .4byte 0x00010004
 _0804B660:
-	bl SMS_UpdateFromGameData
+	bl RefreshUnitSprites
 	adds r0, r6, #0
-	bl HideUnitSMS
+	bl HideUnitSprite
 	adds r0, r6, #0
 	bl MU_Create
 	adds r4, r0, #0
@@ -20642,7 +20642,7 @@ sub_804B6B8: @ 0x0804B6B8
 	push {lr}
 	bl sub_8049594
 	bl sub_80495F4
-	bl SMS_UpdateFromGameData
+	bl RefreshUnitSprites
 	pop {r0}
 	bx r0
 
@@ -20880,11 +20880,11 @@ _0804B86C:
 	ldrsb r0, [r5, r0]
 	cmp r0, #0
 	bne _0804B8B8
-	bl SMS_UpdateFromGameData
+	bl RefreshUnitSprites
 	movs r0, #0xb
 	ldrsb r0, [r5, r0]
 	bl GetUnit
-	bl HideUnitSMS
+	bl HideUnitSprite
 	adds r0, r5, #0
 	bl MU_Create
 	adds r4, r0, #0

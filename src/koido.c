@@ -4,6 +4,7 @@
 
 #include "bmmap.h"
 #include "bmunit.h"
+#include "bmudisp.h"
 #include "mu.h"
 #include "functions.h"
 
@@ -79,8 +80,8 @@ void Loop6C_KOIDO(struct KoidoProc* proc)
 
     if (1 == proc->config) {
         RefreshEntityBmMaps();
-        SMS_UpdateFromGameData();
-        SMS_FlushIndirect();
+        RefreshUnitSprites();
+        ForceSyncUnitSpriteSheet();
     }
 }
 

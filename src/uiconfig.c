@@ -10,6 +10,7 @@
 #include "soundwrapper.h"
 #include "bmio.h"
 #include "statscreen.h"
+#include "bmudisp.h"
 
 #include "uiconfig.h"
 
@@ -1061,7 +1062,7 @@ void sub_80B24AC(void) {
 void sub_80B24C0(void) {
     s8* flag = GetConfigUnk37();
     *flag |= 2;
-    SMS_ClearUsageTable();
+    ResetUnitSprites();
 
     return;
 }

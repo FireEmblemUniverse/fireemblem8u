@@ -30,7 +30,7 @@
 #include "uiutils.h"
 #include "bmbattle.h"
 #include "bmitem.h"
-
+#include "bmudisp.h"
 
 struct UnkProc80855A0 {
     PROC_HEADER;
@@ -147,7 +147,7 @@ void sub_8085428(struct EventEngineProc *proc)
         unit->state |= US_HIDDEN | US_NOT_DEPLOYED;
     }
 
-    SMS_UpdateFromGameData();
+    RefreshUnitSprites();
 }
 
 void ResetAllPlayerUnitState(void)
@@ -394,7 +394,7 @@ void sub_8085990(struct EventEngineProc *proc)
     if (63 == proc->unitLoadCount++) {
         unit->state |= US_HIDDEN | US_NOT_DEPLOYED;
         RefreshEntityBmMaps();
-        SMS_UpdateFromGameData();
+        RefreshUnitSprites();
         Proc_Break(proc);
     }    
 }

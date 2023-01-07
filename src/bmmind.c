@@ -15,6 +15,7 @@
 #include "bmtrap.h"
 #include "bmarch.h"
 #include "bmtarget.h"
+#include "bmudisp.h"
 #include "bmmind.h"
 
 #include "constants/items.h"
@@ -231,7 +232,7 @@ s8 ActionRescue(ProcPtr proc) {
     );
 
     UnitRescue(subject, target);
-    HideUnitSMS(target);
+    HideUnitSprite(target);
 
     return 0;
 }
@@ -243,8 +244,8 @@ int AfterDrop_CheckTrapAfterDropMaybe(struct UnknownBMMindProc* proc) {
 int sub_80321C8() {
     RefreshEntityBmMaps();
     RenderBmMap();
-    SMS_UpdateFromGameData();
-    SMS_FlushIndirect();
+    RefreshUnitSprites();
+    ForceSyncUnitSpriteSheet();
 
     // return; // BUG?
 }
@@ -490,7 +491,7 @@ void sub_8032658(struct DeathDropAnimProc* proc) {
 
 void sub_8032664() {
     RefreshEntityBmMaps();
-    SMS_UpdateFromGameData();
+    RefreshUnitSprites();
 
     return;
 }
@@ -523,8 +524,8 @@ void DropRescueOnDeath(ProcPtr proc, struct Unit* unit) {
     child->clock = 0;
     child->clockEnd = 11;
 
-    SMS_RegisterUsage(GetUnitSMSId(child->unit));
-    SMS_FlushIndirect();
+    UseUnitSprite(GetUnitSMSId(child->unit));
+    ForceSyncUnitSpriteSheet();
 
     PlaySoundEffect(0xAC);
     return;
@@ -597,7 +598,7 @@ void BATTLE_PostCombatDeathFades(ProcPtr proc) {
 
         TryRemoveUnitFromBallista(target);
 
-        SMS_UpdateFromGameData();
+        RefreshUnitSprites();
         muProc = MU_Create(&gBattleTarget.unit);
 
         gWorkingMovementScript[0] = GetFacingDirection(gBattleActor.unit.xPos, gBattleActor.unit.yPos, gBattleTarget.unit.xPos, gBattleTarget.unit.yPos);

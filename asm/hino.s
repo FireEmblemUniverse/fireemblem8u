@@ -4524,7 +4524,7 @@ _0801540C: .4byte gUnknown_089FFC30
 sub_8015410: @ 0x08015410
 	push {lr}
 	bl ClearActiveFactionGrayedStates
-	bl SMS_UpdateFromGameData
+	bl RefreshUnitSprites
 	bl SwitchPhases
 	bl sub_8083EB8
 	lsls r0, r0, #0x18

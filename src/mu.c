@@ -10,6 +10,7 @@
 #include "bmtrick.h"
 #include "bmbattle.h"
 #include "bmarch.h"
+#include "bmudisp.h"
 #include "hardware.h"
 #include "m4a.h"
 #include "mapanim.h"
@@ -623,7 +624,7 @@ struct MUProc* MU_Create(struct Unit* pUnit) {
         classIndex,
 
         -1,
-        GetUnitMapSpritePaletteIndex(pUnit)
+        GetUnitSpritePalette(pUnit)
     );
 
     proc->pUnit = pUnit;
@@ -1488,7 +1489,7 @@ void MU_StartDeathFade(struct MUProc* muProc) {
 
     if (muProc->pUnit->state & US_IN_BALLISTA) {
         TryRemoveUnitFromBallista(muProc->pUnit);
-        HideUnitSMS(muProc->pUnit);
+        HideUnitSprite(muProc->pUnit);
     }
 }
 

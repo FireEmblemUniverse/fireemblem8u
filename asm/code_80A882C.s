@@ -17482,7 +17482,7 @@ sub_80B0A50: @ 0x080B0A50
 	push {r4, r5, r6, lr}
 	adds r6, r0, #0
 	movs r5, #0
-	bl SMS_ClearUsageTable
+	bl ResetUnitSprites
 	movs r4, #1
 _080B0A5C:
 	adds r0, r4, #0
@@ -17512,7 +17512,7 @@ _080B0A82:
 	adds r5, #1
 	adds r0, r2, #0
 	bl GetUnitSMSId
-	bl SMS_RegisterUsage
+	bl UseUnitSprite
 _080B0A98:
 	adds r4, #1
 	cmp r4, #0x3f
@@ -17522,7 +17522,7 @@ _080B0A98:
 	adds r0, #0x2b
 	strb r1, [r0]
 	bl SetupMapSpritesPalettes
-	bl SMS_FlushIndirect
+	bl ForceSyncUnitSpriteSheet
 	pop {r4, r5, r6}
 	pop {r0}
 	bx r0
@@ -18147,7 +18147,7 @@ _080B0FA8:
 	adds r2, r4, #0
 	movs r3, #0xc4
 	lsls r3, r3, #8
-	bl sub_8027C48
+	bl PutUnitSpriteForClassId
 	b _080B0FEC
 	.align 2, 0
 _080B0FD4: .4byte gUnknown_08A215A4
@@ -18160,7 +18160,7 @@ _080B0FD8:
 	adds r2, r4, #0
 	movs r3, #0xf4
 	lsls r3, r3, #8
-	bl sub_8027C48
+	bl PutUnitSpriteForClassId
 _080B0FEC:
 	adds r4, #0x10
 	adds r5, #1
@@ -18171,7 +18171,7 @@ _080B0FEC:
 	cmp r5, r0
 	blt _080B0FA8
 _080B0FFC:
-	bl SMS_FlushDirect
+	bl SyncUnitSpriteSheet
 	add sp, #4
 	pop {r4, r5, r6}
 	pop {r0}

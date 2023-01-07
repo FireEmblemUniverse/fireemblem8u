@@ -9,6 +9,8 @@
 #include "ctc.h"
 #include "mu.h"
 
+#include "bmudisp.h"
+
 #include "constants/terrains.h"
 
 /**
@@ -17,34 +19,28 @@
 
 extern UnitIconWait unit_icon_wait_table[];
 
-u8 EWRAM_DATA gUnknown_02033F40[0xD0] = {}; // gSMSGfxIndexLookup
+u8 EWRAM_DATA gSMSGfxIndexLookup[0xD0] = {};
 
-u8 EWRAM_DATA gUnknown_02034010[3][8*0x20*0x20] = {}; // gSMSGfxBuffer
+u8 EWRAM_DATA gSMSGfxBuffer[3][8*0x20*0x20] = {};
 
-int EWRAM_DATA gUnknown_0203A010 = 0; // gSMS16xGfxIndexCounter
-int EWRAM_DATA gUnknown_0203A014 = 0; // gSMS32xGfxIndexCounter
+int EWRAM_DATA gSMS16xGfxIndexCounter = 0;
+int EWRAM_DATA gSMS32xGfxIndexCounter = 0;
 
-struct SMSHandle EWRAM_DATA gUnknown_0203A018[100] = {}; // gSMSHandleArray
-struct SMSHandle* EWRAM_DATA gUnknown_0203A4C8 = NULL; // gSMSHandleIt
+struct SMSHandle EWRAM_DATA gSMSHandleArray[100] = {};
+struct SMSHandle* EWRAM_DATA gSMSHandleIt = NULL;
 
-int EWRAM_DATA gUnknown_0203A4CC = 0; // gSMSSyncFlag
+int EWRAM_DATA gSMSSyncFlag = 0;
 
-int EWRAM_DATA gUnknown_0203A4D0 = 0; // gMapSpriteSwitchHoverTimer
+int EWRAM_DATA gMapSpriteSwitchHoverTimer = 0;
 
-// pal
-extern u16 unit_icon_pal_player[]; // gPal_MapSprite
-extern u16 gUnknown_0859EEC0[]; // gPal_NotMapSprite
-extern u16 unit_icon_pal_p4[]; // gPal_MapSpriteArena
-extern u16 gUnknown_0859EEE0[]; // gPal_MapSpriteSepia
+u8* CONST_DATA gpSMSGfxDecompBuffer = gGenericBuffer;
 
-u8* CONST_DATA gUnknown_0859B668 = gGenericBuffer; // gpSMSGfxDecompBuffer
-
-int CONST_DATA gUnknown_0859B66C[] = {  // gSomeSMSLookupTable_859B66C
+int CONST_DATA gSomeSMSLookupTable_859B66C[] = {
     0,  8,
     4, 16,
 };
 
-u16 CONST_DATA gUnknown_0859B67C[] = {  // gSomeSMSLookupTable_859B67C
+u16 CONST_DATA sSlotToChrLut[] = {
     0*CHR_LINE+0x00,  2*CHR_LINE+0x00,
     0*CHR_LINE+0x02,  2*CHR_LINE+0x02,
     0*CHR_LINE+0x04,  2*CHR_LINE+0x04,
@@ -106,269 +102,260 @@ u16 CONST_DATA gUnknown_0859B73C[] = {
     0x3C,
 };
 
-u16 CONST_DATA gUnknown_0859B7BC[] = {
+u16 CONST_DATA sSprite_SleepIconA[] = {
     1,
     0x0000, 0x0000, 0x1864,
 };
 
-u16 CONST_DATA gUnknown_0859B7C4[] = {
+u16 CONST_DATA sSprite_SleepIconB[] = {
     1,
     0x00FF, 0x0000, 0x1864,
 };
 
-u16 CONST_DATA gUnknown_0859B7CC[] = {
+u16 CONST_DATA sSprite_SleepIconC[] = {
     1,
     0x00FE, 0x01FF, 0x1864,
 };
 
-u16 CONST_DATA gUnknown_0859B7D4[] = {
+u16 CONST_DATA sSprite_SleepIconD[] = {
     1,
     0x00FD, 0x41FF, 0x184A,
 };
 
-u16 CONST_DATA gUnknown_0859B7DC[] = {
+u16 CONST_DATA sSprite_SleepIconE[] = {
     1,
     0x00FC, 0x41FE, 0x184A,
 };
 
-u16 CONST_DATA gUnknown_0859B7E4[] = {
+u16 CONST_DATA sSprite_SleepIconF[] = {
     1,
     0x00FB, 0x41FE, 0x184A,
 };
 
-u16 CONST_DATA gUnknown_0859B7EC[] = {
+u16 CONST_DATA sSprite_SleepIconG[] = {
     1,
     0x00FA, 0x41FD, 0x184A,
 };
 
-u16* CONST_DATA gUnknown_0859B7F4[] = {
-    gUnknown_0859B7BC,
-    gUnknown_0859B7C4,
-    gUnknown_0859B7CC,
-    gUnknown_0859B7D4,
-    gUnknown_0859B7DC,
-    gUnknown_0859B7E4,
-    gUnknown_0859B7EC,
+u16* CONST_DATA sSleepIconSprites[] = {
+    sSprite_SleepIconA,
+    sSprite_SleepIconB,
+    sSprite_SleepIconC,
+    sSprite_SleepIconD,
+    sSprite_SleepIconE,
+    sSprite_SleepIconF,
+    sSprite_SleepIconG,
 };
 
-u16 CONST_DATA gUnknown_0859B810[] = {
+u16 CONST_DATA sSprite_BerserkIconA[] = {
     1,
     0x4000, 0x0000, 0x1842,
 };
 
-u16 CONST_DATA gUnknown_0859B818[] = {
+u16 CONST_DATA sSprite_BerserkIconB[] = {
     1,
     0x4001, 0x0001, 0x1862,
 };
 
-u16 CONST_DATA gUnknown_0859B820[] = {
+u16 CONST_DATA sSprite_BerserkIconC[] = {
     1,
     0x4001, 0x0000, 0x1844,
 };
 
-u16 CONST_DATA gUnknown_0859B828[] = {
+u16 CONST_DATA sSprite_BerserkIconD[] = {
     1,
     0x4000, 0x0001, 0x1842,
 };
 
-u16 CONST_DATA gUnknown_0859B830[] = {
+u16 CONST_DATA sSprite_BerserkIconE[] = {
     1,
     0x4000, 0x0002, 0x1862,
 };
 
-u16 CONST_DATA gUnknown_0859B838[] = {
+u16 CONST_DATA sSprite_BerserkIconF[] = {
     1,
     0x4001, 0x0000, 0x1844,
 };
 
-u16 CONST_DATA gUnknown_0859B840[] = {
+u16 CONST_DATA sSprite_BerserkIconG[] = {
     1,
     0x4000, 0x01FF, 0x1842,
 };
 
-u16 CONST_DATA gUnknown_0859B848[] = {
+u16 CONST_DATA sSprite_BerserkIconH[] = {
     1,
     0x4001, 0x0001, 0x1862,
 };
 
-u16 CONST_DATA gUnknown_0859B850[] = {
+u16 CONST_DATA sSprite_BerserkIconI[] = {
     1,
     0x4001, 0x0002, 0x1844,
 };
 
-u16* CONST_DATA gUnknown_0859B858[] = {
-    gUnknown_0859B810,
-    gUnknown_0859B818,
-    gUnknown_0859B820,
-    gUnknown_0859B828,
-    gUnknown_0859B830,
-    gUnknown_0859B838,
-    gUnknown_0859B840,
-    gUnknown_0859B848,
-    gUnknown_0859B850,
+u16* CONST_DATA sBerserkIconSprites[] = {
+    sSprite_BerserkIconA,
+    sSprite_BerserkIconB,
+    sSprite_BerserkIconC,
+    sSprite_BerserkIconD,
+    sSprite_BerserkIconE,
+    sSprite_BerserkIconF,
+    sSprite_BerserkIconG,
+    sSprite_BerserkIconH,
+    sSprite_BerserkIconI,
 };
 
-u16 CONST_DATA gUnknown_0859B87C[] = {
+u16 CONST_DATA sSprite_None[] = {
     0,
 };
 
-u16 CONST_DATA gUnknown_0859B87E[] = {
+u16 CONST_DATA sSprite_SilenceIconA[] = {
     1,
     0x4000,  0x0000,  0x1866,
 };
 
-u16 CONST_DATA gUnknown_0859B886[] = {
+u16 CONST_DATA sSprite_SilenceIconB[] = {
     1,
     0x40FF, 0x0000, 0x1846,
 };
 
-u16 CONST_DATA gUnknown_0859B88E[] = {
+u16 CONST_DATA sSprite_SilenceIconC[] = {
     1,
     0x00FE, 0x4000, 0x1848,
 };
 
-u16* CONST_DATA gUnknown_0859B898[] = {
-    gUnknown_0859B87E,
-    gUnknown_0859B886,
-    gUnknown_0859B88E,
-    gUnknown_0859B88E,
-    gUnknown_0859B88E,
-    gUnknown_0859B88E,
-    gUnknown_0859B88E,
-    gUnknown_0859B88E,
-    gUnknown_0859B88E,
-    gUnknown_0859B88E,
-    gUnknown_0859B88E,
-    gUnknown_0859B886,
-    gUnknown_0859B87E,
-    gUnknown_0859B87C,
-    gUnknown_0859B87C,
-    gUnknown_0859B87C,
-    gUnknown_0859B87C,
-    gUnknown_0859B87C,
+u16* CONST_DATA sSilenceIconSprites[] = {
+    sSprite_SilenceIconA,
+    sSprite_SilenceIconB,
+    sSprite_SilenceIconC,
+    sSprite_SilenceIconC,
+    sSprite_SilenceIconC,
+    sSprite_SilenceIconC,
+    sSprite_SilenceIconC,
+    sSprite_SilenceIconC,
+    sSprite_SilenceIconC,
+    sSprite_SilenceIconC,
+    sSprite_SilenceIconC,
+    sSprite_SilenceIconB,
+    sSprite_SilenceIconA,
+    sSprite_None,
+    sSprite_None,
+    sSprite_None,
+    sSprite_None,
+    sSprite_None,
 };
 
-u16 CONST_DATA gUnknown_0859B8E0[] = {
+u16 CONST_DATA sSprite_PoisonIconA[] = {
     2,
     0x8000, 0x0002, 0x1840,
     0x8003, 0x000A, 0x1841,
 };
 
-u16 CONST_DATA gUnknown_0859B8EE[] = {
+u16 CONST_DATA sSprite_PoisonIconB[] = {
     2,
     0x80FF, 0x1002, 0x1840,
     0x8002, 0x1008, 0x1841,
 };
 
-u16 CONST_DATA gUnknown_0859B8FC[] = {
+u16 CONST_DATA sSprite_PoisonIconC[] = {
     2,
     0x80FE, 0x0002, 0x1840,
     0x8001, 0x000A, 0x1841,
 };
 
-u16 CONST_DATA gUnknown_0859B90A[] = {
+u16 CONST_DATA sSprite_PoisonIconD[] = {
     2,
     0x80FD, 0x1002, 0x1840,
     0x8000, 0x1008, 0x1841,
 };
 
-u16 CONST_DATA gUnknown_0859B918[] = {
+u16 CONST_DATA sSprite_PoisonIconE[] = {
     1,
     0x80FC, 0x0004, 0x1840,
 };
 
-u16 CONST_DATA gUnknown_0859B920[] = {
+u16 CONST_DATA sSprite_PoisonIconF[] = {
     1,
     0x80FB, 0x0004, 0x1841,
 };
 
-u16 CONST_DATA gUnknown_0859B928[] = {
+u16 CONST_DATA sSprite_PoisonIconG[] = {
     1,
     0x80FA, 0x0004, 0x1840,
 };
 
-u16 CONST_DATA gUnknown_0859B930[] = {
+u16 CONST_DATA sSprite_PoisonIconH[] = {
     1,
     0x80F9, 0x1004, 0x1841,
 };
 
-u16* CONST_DATA gUnknown_0859B938[] = {
-    gUnknown_0859B8E0,
-    gUnknown_0859B8EE,
-    gUnknown_0859B8FC,
-    gUnknown_0859B90A,
-    gUnknown_0859B918,
-    gUnknown_0859B920,
-    gUnknown_0859B928,
-    gUnknown_0859B930,
-    gUnknown_0859B930,
-    gUnknown_0859B87C,
-    gUnknown_0859B87C,
-    gUnknown_0859B87C,
+u16* CONST_DATA sPoisonIconSprites[] = {
+    sSprite_PoisonIconA,
+    sSprite_PoisonIconB,
+    sSprite_PoisonIconC,
+    sSprite_PoisonIconD,
+    sSprite_PoisonIconE,
+    sSprite_PoisonIconF,
+    sSprite_PoisonIconG,
+    sSprite_PoisonIconH,
+    sSprite_PoisonIconH,
+    sSprite_None,
+    sSprite_None,
+    sSprite_None,
 };
 
-u16 CONST_DATA gUnknown_0859B968[] = {
+u16 CONST_DATA sSprite_0859B968[] = {
     2,
     0x4000, 0x0000, 0x1830,
     0x0008, 0x0000, 0x1850,
 };
 
-u16 CONST_DATA gUnknown_0859B976[] = { // gObj_16x16_SemiTransparent
+u16 CONST_DATA sSprite_16x16_Blend[] = {
     1,
     0x0400, 0x4000, 0x0000,
 };
 
-u16 CONST_DATA gUnknown_0859B97E[] = { // gObj_16x32_SemiTransparent
+u16 CONST_DATA sSprite_16x32_Blend[] = {
     1,
     0x8400, 0x8000, 0x0000,
 };
 
-u16 CONST_DATA gUnknown_0859B986[] = { // gObj_32x32_SemiTransparent
+u16 CONST_DATA sSprite_32x32_Blend[] = {
     1,
     0x0400, 0x8000, 0x0000,
 };
 
-u16 CONST_DATA gUnknown_0859B98E[] = { // gObj_16x16_ObjWindow
+u16 CONST_DATA sSprite_16x16_Window[] = {
     1,
     0x0800, 0x4000, 0x0000,
 };
 
-u16 CONST_DATA gUnknown_0859B996[] = { // gObj_16x32_ObjWindow
+u16 CONST_DATA sSprite_16x32_Window[] = {
     1,
     0x8800, 0x8000, 0x0000,
 };
 
-u16 CONST_DATA gUnknown_0859B99E[] = { // gObj_32x32_ObjWindow
+u16 CONST_DATA sSprite_32x32_Window[] = {
     1,
     0x0800, 0x8000, 0x0000,
 };
-
-// forward declarations
-int SomethingSMS_16x16_0(int, u32);
-int SomethingSMS_16x16(int, u32);
-int SomethingSMS_16x32(int, u32);
-int SomethingSMS_32x32(int, u32);
-struct SMSHandle* SMS_GetNewInfoStruct(int);
-void DisplayUnitAdditionalBlinkingIcons(void);
-u8 GetUnitStandingSpriteDataFlagThing(struct Unit*);
 
 #define GetInfo(id) (unit_icon_wait_table[(id) & ((1<<7)-1)])
 
 //! FE8U = 0x08026618
 void sub_8026618(void) {
-    gUnknown_0203A4CC++;
+    gSMSSyncFlag++;
     return;
 }
 
 //! FE8U = 0x08026628
 void SetupMapSpritesPalettes(void) {
 
-    CopyToPaletteBuffer(unit_icon_pal_player, 0x380, 0x80);
+    CopyToPaletteBuffer(gPal_MapSprite, 0x380, 0x80);
 
     if (gGameState.gameStateBits & 0x40) {
-        CopyToPaletteBuffer(unit_icon_pal_p4, 0x360, 0x20);
+        CopyToPaletteBuffer(gPal_MapSpriteArena, 0x360, 0x20);
     } else {
-        CopyToPaletteBuffer(gUnknown_0859EEC0, 0x360, 0x20);
+        CopyToPaletteBuffer(gPal_NotMapSprite, 0x360, 0x20);
     }
 
     return;
@@ -376,37 +363,37 @@ void SetupMapSpritesPalettes(void) {
 
 //! FE8U = 0x08026670
 void sub_8026670(void) {
-    CopyToPaletteBuffer(gUnknown_0859EEE0, 0x3c0, 0x20);
+    CopyToPaletteBuffer(gPal_MapSpriteSepia, 0x3c0, 0x20);
 
     return;
 }
 
 //! FE8U = 0x08026688
-void SMS_ClearUsageTable(void) {
+void ResetUnitSprites(void) {
 
     int i;
 
     for (i = 0xD0-1; i >= 0; i--) {
-        gUnknown_02033F40[i] |= 0xff;
+        gSMSGfxIndexLookup[i] |= 0xff;
     }
 
-    gUnknown_0203A014 = 0;
-    gUnknown_0203A010 = 0x40-1;
+    gSMS32xGfxIndexCounter = 0;
+    gSMS16xGfxIndexCounter = 0x40-1;
 
     return;
 }
 
 //! FE8U = 0x080266BC
-void sub_80266BC(void) {
+void ResetUnitSpritesB(void) {
 
     int i;
 
     for (i = 0xD0-1; i >= 0; i--) {
-        gUnknown_02033F40[i] |= 0xff;
+        gSMSGfxIndexLookup[i] |= 0xff;
     }
 
-    gUnknown_0203A014 = 0;
-    gUnknown_0203A010 = 0x60-1;
+    gSMS32xGfxIndexCounter = 0;
+    gSMS16xGfxIndexCounter = 0x60-1;
 
     return;
 }
@@ -414,116 +401,116 @@ void sub_80266BC(void) {
 //! FE8U = 0x080266F0
 int SMS_80266F0(int smsId, int frameId) {
 
-    int slot = gUnknown_0859B66C[frameId];
+    int slot = gSomeSMSLookupTable_859B66C[frameId];
 
-    CopyDataWithPossibleUncomp(GetInfo(smsId).sheet, gUnknown_0859B668);
+    CopyDataWithPossibleUncomp(GetInfo(smsId).sheet, gpSMSGfxDecompBuffer);
 
     switch (GetInfo(smsId).size) {
         case UNIT_ICON_SIZE_16x16:
-            gUnknown_02033F40[frameId] = SomethingSMS_16x16(slot, smsId) / 2;
+            gSMSGfxIndexLookup[frameId] = SomethingSMS_16x16(slot, smsId) / 2;
 
             break;
 
         case UNIT_ICON_SIZE_16x32:
-            gUnknown_02033F40[frameId] = SomethingSMS_16x32(slot, smsId) / 2;
+            gSMSGfxIndexLookup[frameId] = ApplyUnitSpriteImage16x32(slot, smsId) / 2;
 
             break;
 
         case UNIT_ICON_SIZE_32x32:
-            gUnknown_02033F40[frameId] = SomethingSMS_32x32(slot, smsId) / 2;
+            gSMSGfxIndexLookup[frameId] = ApplyUnitSpriteImage32x32(slot, smsId) / 2;
 
             break;
     }
 
-    return gUnknown_02033F40[frameId] << 1;
+    return gSMSGfxIndexLookup[frameId] << 1;
 }
 
 //! FE8U = 0x0802677C
 int SMS_SomethingGmapUnit(int smsId, int frameId, int slot) {
 
-    CopyDataWithPossibleUncomp(GetInfo(smsId).sheet, gUnknown_0859B668);
+    CopyDataWithPossibleUncomp(GetInfo(smsId).sheet, gpSMSGfxDecompBuffer);
 
     switch (GetInfo(smsId).size) {
         case UNIT_ICON_SIZE_16x16:
-            gUnknown_02033F40[frameId] = SomethingSMS_16x16(slot, smsId) / 2;
+            gSMSGfxIndexLookup[frameId] = SomethingSMS_16x16(slot, smsId) / 2;
 
             break;
 
         case UNIT_ICON_SIZE_16x32:
 
-            gUnknown_02033F40[frameId] = SomethingSMS_16x32(slot, smsId) / 2;
+            gSMSGfxIndexLookup[frameId] = ApplyUnitSpriteImage16x32(slot, smsId) / 2;
 
             break;
 
         case UNIT_ICON_SIZE_32x32:
-            gUnknown_02033F40[frameId] = SomethingSMS_32x32(slot, smsId) / 2;
+            gSMSGfxIndexLookup[frameId] = ApplyUnitSpriteImage32x32(slot, smsId) / 2;
 
             break;
     }
 
-    return gUnknown_02033F40[frameId] << 1;
+    return gSMSGfxIndexLookup[frameId] << 1;
 }
 
 //! FE8U = 0x080267FC
-int SMS_RegisterUsage(u32 id) {
+int UseUnitSprite(u32 id) {
 
-    if (gUnknown_02033F40[id] == 0xFF) {
+    if (gSMSGfxIndexLookup[id] == 0xFF) {
 
-        CopyDataWithPossibleUncomp(GetInfo(id).sheet, gUnknown_0859B668);
+        CopyDataWithPossibleUncomp(GetInfo(id).sheet, gpSMSGfxDecompBuffer);
 
         switch (GetInfo(id).size) {
             case UNIT_ICON_SIZE_16x16:
-                gUnknown_02033F40[id] = SomethingSMS_16x16_0(gUnknown_0203A010, id) / 2;
-                gUnknown_0203A010 -= 1;
+                gSMSGfxIndexLookup[id] = ApplyUnitSpriteImage16x16(gSMS16xGfxIndexCounter, id) / 2;
+                gSMS16xGfxIndexCounter -= 1;
 
                 break;
 
             case UNIT_ICON_SIZE_16x32:
-                gUnknown_02033F40[id] = SomethingSMS_16x32(gUnknown_0203A014, id) / 2;
-                gUnknown_0203A014 += 2;
+                gSMSGfxIndexLookup[id] = ApplyUnitSpriteImage16x32(gSMS32xGfxIndexCounter, id) / 2;
+                gSMS32xGfxIndexCounter += 2;
 
                 break;
 
             case UNIT_ICON_SIZE_32x32:
-                if ((gUnknown_0203A014 & 0x1e) == 0x1e) {
-                    gUnknown_0203A014 += 2;
+                if ((gSMS32xGfxIndexCounter & 0x1e) == 0x1e) {
+                    gSMS32xGfxIndexCounter += 2;
                 }
 
-                gUnknown_02033F40[id] = SomethingSMS_32x32(gUnknown_0203A014, id) / 2;
-                gUnknown_0203A014 += 4;
+                gSMSGfxIndexLookup[id] = ApplyUnitSpriteImage32x32(gSMS32xGfxIndexCounter, id) / 2;
+                gSMS32xGfxIndexCounter += 4;
 
                 break;
         }
 
-        gUnknown_0203A4CC++;
+        gSMSSyncFlag++;
 
     }
 
-    return gUnknown_02033F40[id] << 1;
+    return gSMSGfxIndexLookup[id] << 1;
 }
 
 //! FE8U = 0x080268C8
-int SomethingSMS_16x16_0(int slot, u32 id) {
+int ApplyUnitSpriteImage16x16(int slot, u32 id) {
     int i;
 
-    int outOff = gUnknown_0859B67C[slot] * CHR_SIZE;
+    int outOff = sSlotToChrLut[slot] * CHR_SIZE;
     id = ((id >> 7) ^ 1) & 1;
 
     for (i = 0; i < 3; i++) {
         int imgOff = (i * id) * 4 * CHR_SIZE;
 
-        CpuFastCopy(gUnknown_0859B668 + 0 * CHR_SIZE + imgOff, gUnknown_02034010[i] + 0 * CHR_SIZE * CHR_LINE + outOff, 2 * CHR_SIZE);
-        CpuFastCopy(gUnknown_0859B668 + 2 * CHR_SIZE + imgOff, gUnknown_02034010[i] + 1 * CHR_SIZE * CHR_LINE + outOff, 2 * CHR_SIZE);
+        CpuFastCopy(gpSMSGfxDecompBuffer + 0 * CHR_SIZE + imgOff, gSMSGfxBuffer[i] + 0 * CHR_SIZE * CHR_LINE + outOff, 2 * CHR_SIZE);
+        CpuFastCopy(gpSMSGfxDecompBuffer + 2 * CHR_SIZE + imgOff, gSMSGfxBuffer[i] + 1 * CHR_SIZE * CHR_LINE + outOff, 2 * CHR_SIZE);
     }
 
-    return gUnknown_0859B67C[slot];
+    return sSlotToChrLut[slot];
 }
 
 //! FE8U = 0x0802695C
 int SomethingSMS_16x16(int slot, u32 id) {
     int i;
 
-    int outOff = gUnknown_0859B67C[slot] * CHR_SIZE;
+    int outOff = sSlotToChrLut[slot] * CHR_SIZE;
     id = ((id >> 7) ^ 1) & 1;
 
     for (i = 0; i < 3; i++) {
@@ -531,55 +518,55 @@ int SomethingSMS_16x16(int slot, u32 id) {
 
         CpuFastFill(
             0,
-            gUnknown_02034010[i] + 0 * CHR_SIZE * CHR_LINE + outOff,
+            gSMSGfxBuffer[i] + 0 * CHR_SIZE * CHR_LINE + outOff,
             2 * CHR_SIZE
         );
         CpuFastFill(
             0,
-            gUnknown_02034010[i] + 1 * CHR_SIZE * CHR_LINE + outOff,
+            gSMSGfxBuffer[i] + 1 * CHR_SIZE * CHR_LINE + outOff,
             2 * CHR_SIZE
         );
 
         CpuFastCopy(
-            gUnknown_0859B668 + 0 * CHR_SIZE + imgOff,
-            gUnknown_02034010[i] + 2 * CHR_SIZE * CHR_LINE + outOff,
+            gpSMSGfxDecompBuffer + 0 * CHR_SIZE + imgOff,
+            gSMSGfxBuffer[i] + 2 * CHR_SIZE * CHR_LINE + outOff,
             2 * CHR_SIZE
         );
         CpuFastCopy(
-            gUnknown_0859B668 + 2 * CHR_SIZE + imgOff,
-            gUnknown_02034010[i] + 3 * CHR_SIZE * CHR_LINE + outOff,
+            gpSMSGfxDecompBuffer + 2 * CHR_SIZE + imgOff,
+            gSMSGfxBuffer[i] + 3 * CHR_SIZE * CHR_LINE + outOff,
             2 * CHR_SIZE
         );
     }
 
-    return gUnknown_0859B67C[slot];
+    return sSlotToChrLut[slot];
 }
 
 //! FE8U = 0x08026A38
-int SomethingSMS_16x32(int slot, u32 id) {
+int ApplyUnitSpriteImage16x32(int slot, u32 id) {
 
     int i;
 
-    int outOff = gUnknown_0859B67C[slot] * CHR_SIZE;
+    int outOff = sSlotToChrLut[slot] * CHR_SIZE;
     id = ((id >> 7) ^ 1) & 1;
 
     for (i = 0; i < 3; i++) {
         int imgOff = (i * id) * 8 * CHR_SIZE;
 
-        CpuFastCopy(gUnknown_0859B668 + 0 * CHR_SIZE + imgOff, gUnknown_02034010[i] + 0 * CHR_SIZE * CHR_LINE + outOff, 2 * CHR_SIZE);
-        CpuFastCopy(gUnknown_0859B668 + 2 * CHR_SIZE + imgOff, gUnknown_02034010[i] + 1 * CHR_SIZE * CHR_LINE + outOff, 2 * CHR_SIZE);
-        CpuFastCopy(gUnknown_0859B668 + 4 * CHR_SIZE + imgOff, gUnknown_02034010[i] + 2 * CHR_SIZE * CHR_LINE + outOff, 2 * CHR_SIZE);
-        CpuFastCopy(gUnknown_0859B668 + 6 * CHR_SIZE + imgOff, gUnknown_02034010[i] + 3 * CHR_SIZE * CHR_LINE + outOff, 2 * CHR_SIZE);
+        CpuFastCopy(gpSMSGfxDecompBuffer + 0 * CHR_SIZE + imgOff, gSMSGfxBuffer[i] + 0 * CHR_SIZE * CHR_LINE + outOff, 2 * CHR_SIZE);
+        CpuFastCopy(gpSMSGfxDecompBuffer + 2 * CHR_SIZE + imgOff, gSMSGfxBuffer[i] + 1 * CHR_SIZE * CHR_LINE + outOff, 2 * CHR_SIZE);
+        CpuFastCopy(gpSMSGfxDecompBuffer + 4 * CHR_SIZE + imgOff, gSMSGfxBuffer[i] + 2 * CHR_SIZE * CHR_LINE + outOff, 2 * CHR_SIZE);
+        CpuFastCopy(gpSMSGfxDecompBuffer + 6 * CHR_SIZE + imgOff, gSMSGfxBuffer[i] + 3 * CHR_SIZE * CHR_LINE + outOff, 2 * CHR_SIZE);
     }
 
-    return gUnknown_0859B67C[slot];
+    return sSlotToChrLut[slot];
 }
 
 //! FE8U = 0x08026B28
-int SomethingSMS_32x32(int slot, u32 id) {
+int ApplyUnitSpriteImage32x32(int slot, u32 id) {
     int i;
 
-    int outOff = gUnknown_0859B67C[slot] * CHR_SIZE;
+    int outOff = sSlotToChrLut[slot] * CHR_SIZE;
 
     id = ((id >> 7) ^ 1) & 1;
 
@@ -587,13 +574,13 @@ int SomethingSMS_32x32(int slot, u32 id) {
     for (i = 0; i < 3; i++) {
         int imgOff = (i * id) * 16 * CHR_SIZE;
 
-        CpuFastCopy(gUnknown_0859B668 + 0 * CHR_SIZE + imgOff, gUnknown_02034010[i] + 0 * CHR_SIZE * CHR_LINE + outOff, 4 * CHR_SIZE);
-        CpuFastCopy(gUnknown_0859B668 + 4 * CHR_SIZE + imgOff, gUnknown_02034010[i] + 1 * CHR_SIZE * CHR_LINE + outOff, 4 * CHR_SIZE);
-        CpuFastCopy(gUnknown_0859B668 + 8 * CHR_SIZE + imgOff, gUnknown_02034010[i] + 2 * CHR_SIZE * CHR_LINE + outOff, 4 * CHR_SIZE);
-        CpuFastCopy(gUnknown_0859B668 + 12 * CHR_SIZE + imgOff, gUnknown_02034010[i] + 3 * CHR_SIZE * CHR_LINE + outOff, 4 * CHR_SIZE);
+        CpuFastCopy(gpSMSGfxDecompBuffer + 0 * CHR_SIZE + imgOff, gSMSGfxBuffer[i] + 0 * CHR_SIZE * CHR_LINE + outOff, 4 * CHR_SIZE);
+        CpuFastCopy(gpSMSGfxDecompBuffer + 4 * CHR_SIZE + imgOff, gSMSGfxBuffer[i] + 1 * CHR_SIZE * CHR_LINE + outOff, 4 * CHR_SIZE);
+        CpuFastCopy(gpSMSGfxDecompBuffer + 8 * CHR_SIZE + imgOff, gSMSGfxBuffer[i] + 2 * CHR_SIZE * CHR_LINE + outOff, 4 * CHR_SIZE);
+        CpuFastCopy(gpSMSGfxDecompBuffer + 12 * CHR_SIZE + imgOff, gSMSGfxBuffer[i] + 3 * CHR_SIZE * CHR_LINE + outOff, 4 * CHR_SIZE);
     }
 
-    return gUnknown_0859B67C[slot];
+    return sSlotToChrLut[slot];
 }
 
 #if NONMATCHING
@@ -611,7 +598,7 @@ void sub_8026C1C(struct Unit* param_1, int param_2) {
     int iVar18;
 
     uVar6 = GetUnitSMSId(param_1);
-    iVar7 = SMS_RegisterUsage(uVar6) * 0x20;
+    iVar7 = UseUnitSprite(uVar6) * 0x20;
 
     uVar1 = gUnknown_0859B73C[param_2];
 
@@ -639,13 +626,13 @@ void sub_8026C1C(struct Unit* param_1, int param_2) {
 
             for (iVar9 = 0; iVar9 < 3; iVar9++) {
                 for (iVar17 = 0; iVar17 < 2; iVar17++) {
-                    gUnknown_02034010[iVar9][iVar7 + (iVar17 * CHR_SIZE) + (uVar1 >> 1) + 0 * CHR_SIZE * CHR_LINE] &= (0xf << (!(uVar1 & 1) << 2));
-                    gUnknown_02034010[iVar9][iVar7 + (iVar17 * CHR_SIZE) + (uVar1 >> 1) + 1 * CHR_SIZE * CHR_LINE] &= (0xf << (!(uVar1 & 1) << 2));
+                    gSMSGfxBuffer[iVar9][iVar7 + (iVar17 * CHR_SIZE) + (uVar1 >> 1) + 0 * CHR_SIZE * CHR_LINE] &= (0xf << (!(uVar1 & 1) << 2));
+                    gSMSGfxBuffer[iVar9][iVar7 + (iVar17 * CHR_SIZE) + (uVar1 >> 1) + 1 * CHR_SIZE * CHR_LINE] &= (0xf << (!(uVar1 & 1) << 2));
                 }
             }
 
-            CpuFastCopy(&gUnknown_02034010[uVar15][iVar7 + 0 * CHR_SIZE * CHR_LINE], (u8*)(iVar7 + 0x06011000), 2 * CHR_SIZE);
-            CpuFastCopy(&gUnknown_02034010[uVar15][iVar7 + 1 * CHR_SIZE * CHR_LINE], (u8*)(iVar7 + 0x06011400), 2 * CHR_SIZE);
+            CpuFastCopy(&gSMSGfxBuffer[uVar15][iVar7 + 0 * CHR_SIZE * CHR_LINE], (u8*)(iVar7 + 0x06011000), 2 * CHR_SIZE);
+            CpuFastCopy(&gSMSGfxBuffer[uVar15][iVar7 + 1 * CHR_SIZE * CHR_LINE], (u8*)(iVar7 + 0x06011400), 2 * CHR_SIZE);
 
             break;
 
@@ -654,17 +641,17 @@ void sub_8026C1C(struct Unit* param_1, int param_2) {
             for (iVar9 = 0; iVar9 < 3; iVar9++) {
                 for (iVar18 = 0; iVar18 < 2; iVar18++) {
 
-                    gUnknown_02034010[iVar9][iVar7 + (iVar18 * CHR_SIZE) + 0 * CHR_SIZE * CHR_LINE + (uVar1 >> 1)] &= (0xf << (!(uVar1 & 1) << 2));
-                    gUnknown_02034010[iVar9][iVar7 + (iVar18 * CHR_SIZE) + 1 * CHR_SIZE * CHR_LINE + (uVar1 >> 1)] &= (0xf << (!(uVar1 & 1) << 2));
-                    gUnknown_02034010[iVar9][iVar7 + (iVar18 * CHR_SIZE) + 2 * CHR_SIZE * CHR_LINE + (uVar1 >> 1)] &= (0xf << (!(uVar1 & 1) << 2));
-                    gUnknown_02034010[iVar9][iVar7 + (iVar18 * CHR_SIZE) + 3 * CHR_SIZE * CHR_LINE + (uVar1 >> 1)] &= (0xf << (!(uVar1 & 1) << 2));
+                    gSMSGfxBuffer[iVar9][iVar7 + (iVar18 * CHR_SIZE) + 0 * CHR_SIZE * CHR_LINE + (uVar1 >> 1)] &= (0xf << (!(uVar1 & 1) << 2));
+                    gSMSGfxBuffer[iVar9][iVar7 + (iVar18 * CHR_SIZE) + 1 * CHR_SIZE * CHR_LINE + (uVar1 >> 1)] &= (0xf << (!(uVar1 & 1) << 2));
+                    gSMSGfxBuffer[iVar9][iVar7 + (iVar18 * CHR_SIZE) + 2 * CHR_SIZE * CHR_LINE + (uVar1 >> 1)] &= (0xf << (!(uVar1 & 1) << 2));
+                    gSMSGfxBuffer[iVar9][iVar7 + (iVar18 * CHR_SIZE) + 3 * CHR_SIZE * CHR_LINE + (uVar1 >> 1)] &= (0xf << (!(uVar1 & 1) << 2));
                 }
             }
 
-            CpuFastCopy(&gUnknown_02034010[uVar15][iVar7 + 0 * CHR_SIZE * CHR_LINE], (u8*)(iVar7 + 0x06011000), 2 * CHR_SIZE);
-            CpuFastCopy(&gUnknown_02034010[uVar15][iVar7 + 1 * CHR_SIZE * CHR_LINE], (u8*)(iVar7 + 0x06011400), 2 * CHR_SIZE);
-            CpuFastCopy(&gUnknown_02034010[uVar15][iVar7 + 2 * CHR_SIZE * CHR_LINE], (u8*)(iVar7 + 0x06011800), 2 * CHR_SIZE);
-            CpuFastCopy(&gUnknown_02034010[uVar15][iVar7 + 3 * CHR_SIZE * CHR_LINE], (u8*)(iVar7 + 0x06011C00), 2 * CHR_SIZE);
+            CpuFastCopy(&gSMSGfxBuffer[uVar15][iVar7 + 0 * CHR_SIZE * CHR_LINE], (u8*)(iVar7 + 0x06011000), 2 * CHR_SIZE);
+            CpuFastCopy(&gSMSGfxBuffer[uVar15][iVar7 + 1 * CHR_SIZE * CHR_LINE], (u8*)(iVar7 + 0x06011400), 2 * CHR_SIZE);
+            CpuFastCopy(&gSMSGfxBuffer[uVar15][iVar7 + 2 * CHR_SIZE * CHR_LINE], (u8*)(iVar7 + 0x06011800), 2 * CHR_SIZE);
+            CpuFastCopy(&gSMSGfxBuffer[uVar15][iVar7 + 3 * CHR_SIZE * CHR_LINE], (u8*)(iVar7 + 0x06011C00), 2 * CHR_SIZE);
 
             break;
 
@@ -673,17 +660,17 @@ void sub_8026C1C(struct Unit* param_1, int param_2) {
             for (iVar9 = 0; iVar9 < 3; iVar9++) {
                 for (iVar18 = 0; iVar18 < 4; iVar18++) {
 
-                    gUnknown_02034010[iVar9][iVar7 + (iVar18 * 0x20) + 0 * CHR_SIZE * CHR_LINE + (uVar1 >> 1)] &= (0xf << (!(uVar1 & 1) << 2));
-                    gUnknown_02034010[iVar9][iVar7 + (iVar18 * 0x20) + 1 * CHR_SIZE * CHR_LINE + (uVar1 >> 1)] &= (0xf << (!(uVar1 & 1) << 2));
-                    gUnknown_02034010[iVar9][iVar7 + (iVar18 * 0x20) + 2 * CHR_SIZE * CHR_LINE + (uVar1 >> 1)] &= (0xf << (!(uVar1 & 1) << 2));
-                    gUnknown_02034010[iVar9][iVar7 + (iVar18 * 0x20) + 3 * CHR_SIZE * CHR_LINE + (uVar1 >> 1)] &= (0xf << (!(uVar1 & 1) << 2));
+                    gSMSGfxBuffer[iVar9][iVar7 + (iVar18 * 0x20) + 0 * CHR_SIZE * CHR_LINE + (uVar1 >> 1)] &= (0xf << (!(uVar1 & 1) << 2));
+                    gSMSGfxBuffer[iVar9][iVar7 + (iVar18 * 0x20) + 1 * CHR_SIZE * CHR_LINE + (uVar1 >> 1)] &= (0xf << (!(uVar1 & 1) << 2));
+                    gSMSGfxBuffer[iVar9][iVar7 + (iVar18 * 0x20) + 2 * CHR_SIZE * CHR_LINE + (uVar1 >> 1)] &= (0xf << (!(uVar1 & 1) << 2));
+                    gSMSGfxBuffer[iVar9][iVar7 + (iVar18 * 0x20) + 3 * CHR_SIZE * CHR_LINE + (uVar1 >> 1)] &= (0xf << (!(uVar1 & 1) << 2));
                 }
             }
 
-            CpuFastCopy(&gUnknown_02034010[uVar15][iVar7 + 0 * CHR_SIZE * CHR_LINE], (u8*)(iVar7 + 0x06011000), 4 * CHR_SIZE);
-            CpuFastCopy(&gUnknown_02034010[uVar15][iVar7 + 1 * CHR_SIZE * CHR_LINE], (u8*)(iVar7 + 0x06011400), 4 * CHR_SIZE);
-            CpuFastCopy(&gUnknown_02034010[uVar15][iVar7 + 2 * CHR_SIZE * CHR_LINE], (u8*)(iVar7 + 0x06011800), 4 * CHR_SIZE);
-            CpuFastCopy(&gUnknown_02034010[uVar15][iVar7 + 3 * CHR_SIZE * CHR_LINE], (u8*)(iVar7 + 0x06011C00), 4 * CHR_SIZE);
+            CpuFastCopy(&gSMSGfxBuffer[uVar15][iVar7 + 0 * CHR_SIZE * CHR_LINE], (u8*)(iVar7 + 0x06011000), 4 * CHR_SIZE);
+            CpuFastCopy(&gSMSGfxBuffer[uVar15][iVar7 + 1 * CHR_SIZE * CHR_LINE], (u8*)(iVar7 + 0x06011400), 4 * CHR_SIZE);
+            CpuFastCopy(&gSMSGfxBuffer[uVar15][iVar7 + 2 * CHR_SIZE * CHR_LINE], (u8*)(iVar7 + 0x06011800), 4 * CHR_SIZE);
+            CpuFastCopy(&gSMSGfxBuffer[uVar15][iVar7 + 3 * CHR_SIZE * CHR_LINE], (u8*)(iVar7 + 0x06011C00), 4 * CHR_SIZE);
 
             break;
 
@@ -691,7 +678,7 @@ void sub_8026C1C(struct Unit* param_1, int param_2) {
 
 _08026EF2:
     if (param_2 == 0x3f) {
-        gUnknown_02033F40[uVar6] |= 0xff;
+        gSMSGfxIndexLookup[uVar6] |= 0xff;
     }
     return;
 }
@@ -712,7 +699,7 @@ void sub_8026C1C(struct Unit* param_1, int param_2) {
         str r1, [sp]\n\
         bl GetUnitSMSId\n\
         str r0, [sp, #4]\n\
-        bl SMS_RegisterUsage\n\
+        bl UseUnitSprite\n\
         lsls r7, r0, #5\n\
         ldr r1, _08026C84  @ gUnknown_0859B73C\n\
         ldr r2, [sp]\n\
@@ -767,7 +754,7 @@ void sub_8026C1C(struct Unit* param_1, int param_2) {
         movs r1, #0\n\
         lsls r4, r4, #0xd\n\
         str r4, [sp, #8]\n\
-        ldr r0, _08026D0C  @ gUnknown_02034010\n\
+        ldr r0, _08026D0C  @ gSMSGfxBuffer\n\
         mov r8, r0\n\
         lsrs r5, r6, #1\n\
         movs r0, #1\n\
@@ -808,7 +795,7 @@ void sub_8026C1C(struct Unit* param_1, int param_2) {
         mov r1, r9\n\
         cmp r1, #2\n\
         ble _08026CAA\n\
-        ldr r2, _08026D0C  @ gUnknown_02034010\n\
+        ldr r2, _08026D0C  @ gSMSGfxBuffer\n\
         adds r0, r7, r2\n\
         ldr r1, [sp, #8]\n\
         adds r0, r1, r0\n\
@@ -816,7 +803,7 @@ void sub_8026C1C(struct Unit* param_1, int param_2) {
         adds r1, r7, r2\n\
         movs r2, #0x10\n\
         bl CpuFastSet\n\
-        ldr r1, _08026D0C  @ gUnknown_02034010\n\
+        ldr r1, _08026D0C  @ gSMSGfxBuffer\n\
         movs r2, #0x80\n\
         lsls r2, r2, #3\n\
         adds r0, r1, r2\n\
@@ -826,14 +813,14 @@ void sub_8026C1C(struct Unit* param_1, int param_2) {
         ldr r2, _08026D14  @ 0x06011400\n\
         b _08026DF2\n\
         .align 2, 0\n\
-    _08026D0C: .4byte gUnknown_02034010\n\
+    _08026D0C: .4byte gSMSGfxBuffer\n\
     _08026D10: .4byte 0x06011000\n\
     _08026D14: .4byte 0x06011400\n\
     _08026D18:\n\
         movs r1, #0\n\
         lsls r4, r4, #0xd\n\
         str r4, [sp, #8]\n\
-        ldr r2, _08026DFC  @ gUnknown_02034010\n\
+        ldr r2, _08026DFC  @ gSMSGfxBuffer\n\
         mov sl, r2\n\
         lsrs r2, r6, #1\n\
         mov ip, r2\n\
@@ -900,7 +887,7 @@ void sub_8026C1C(struct Unit* param_1, int param_2) {
         mov r1, r9\n\
         cmp r1, #2\n\
         ble _08026D32\n\
-        ldr r1, _08026DFC  @ gUnknown_02034010\n\
+        ldr r1, _08026DFC  @ gSMSGfxBuffer\n\
         adds r0, r7, r1\n\
         ldr r2, [sp, #8]\n\
         adds r0, r2, r0\n\
@@ -908,7 +895,7 @@ void sub_8026C1C(struct Unit* param_1, int param_2) {
         adds r1, r7, r2\n\
         movs r2, #0x10\n\
         bl CpuFastSet\n\
-        ldr r1, _08026DFC  @ gUnknown_02034010\n\
+        ldr r1, _08026DFC  @ gSMSGfxBuffer\n\
         movs r2, #0x80\n\
         lsls r2, r2, #3\n\
         adds r0, r1, r2\n\
@@ -919,7 +906,7 @@ void sub_8026C1C(struct Unit* param_1, int param_2) {
         adds r1, r7, r2\n\
         movs r2, #0x10\n\
         bl CpuFastSet\n\
-        ldr r1, _08026DFC  @ gUnknown_02034010\n\
+        ldr r1, _08026DFC  @ gSMSGfxBuffer\n\
         movs r2, #0x80\n\
         lsls r2, r2, #4\n\
         adds r0, r1, r2\n\
@@ -930,7 +917,7 @@ void sub_8026C1C(struct Unit* param_1, int param_2) {
         adds r1, r7, r2\n\
         movs r2, #0x10\n\
         bl CpuFastSet\n\
-        ldr r1, _08026DFC  @ gUnknown_02034010\n\
+        ldr r1, _08026DFC  @ gSMSGfxBuffer\n\
         movs r2, #0xc0\n\
         lsls r2, r2, #4\n\
         adds r0, r1, r2\n\
@@ -944,7 +931,7 @@ void sub_8026C1C(struct Unit* param_1, int param_2) {
         bl CpuFastSet\n\
         b _08026EF2\n\
         .align 2, 0\n\
-    _08026DFC: .4byte gUnknown_02034010\n\
+    _08026DFC: .4byte gSMSGfxBuffer\n\
     _08026E00: .4byte 0x06011000\n\
     _08026E04: .4byte 0x06011400\n\
     _08026E08: .4byte 0x06011800\n\
@@ -953,7 +940,7 @@ void sub_8026C1C(struct Unit* param_1, int param_2) {
         movs r1, #0\n\
         lsls r4, r4, #0xd\n\
         str r4, [sp, #8]\n\
-        ldr r0, _08026F14  @ gUnknown_02034010\n\
+        ldr r0, _08026F14  @ gSMSGfxBuffer\n\
         mov sl, r0\n\
         lsrs r2, r6, #1\n\
         mov ip, r2\n\
@@ -1020,7 +1007,7 @@ void sub_8026C1C(struct Unit* param_1, int param_2) {
         mov r1, r9\n\
         cmp r1, #2\n\
         ble _08026E2C\n\
-        ldr r1, _08026F14  @ gUnknown_02034010\n\
+        ldr r1, _08026F14  @ gSMSGfxBuffer\n\
         adds r0, r7, r1\n\
         ldr r2, [sp, #8]\n\
         adds r0, r2, r0\n\
@@ -1028,7 +1015,7 @@ void sub_8026C1C(struct Unit* param_1, int param_2) {
         adds r1, r7, r2\n\
         movs r2, #0x20\n\
         bl CpuFastSet\n\
-        ldr r1, _08026F14  @ gUnknown_02034010\n\
+        ldr r1, _08026F14  @ gSMSGfxBuffer\n\
         movs r2, #0x80\n\
         lsls r2, r2, #3\n\
         adds r0, r1, r2\n\
@@ -1039,7 +1026,7 @@ void sub_8026C1C(struct Unit* param_1, int param_2) {
         adds r1, r7, r2\n\
         movs r2, #0x20\n\
         bl CpuFastSet\n\
-        ldr r1, _08026F14  @ gUnknown_02034010\n\
+        ldr r1, _08026F14  @ gSMSGfxBuffer\n\
         movs r2, #0x80\n\
         lsls r2, r2, #4\n\
         adds r0, r1, r2\n\
@@ -1050,7 +1037,7 @@ void sub_8026C1C(struct Unit* param_1, int param_2) {
         adds r1, r7, r2\n\
         movs r2, #0x20\n\
         bl CpuFastSet\n\
-        ldr r1, _08026F14  @ gUnknown_02034010\n\
+        ldr r1, _08026F14  @ gSMSGfxBuffer\n\
         movs r2, #0xc0\n\
         lsls r2, r2, #4\n\
         adds r0, r1, r2\n\
@@ -1065,7 +1052,7 @@ void sub_8026C1C(struct Unit* param_1, int param_2) {
         ldr r0, [sp]\n\
         cmp r0, #0x3f\n\
         bne _08026F02\n\
-        ldr r0, _08026F28  @ gUnknown_02033F40\n\
+        ldr r0, _08026F28  @ gSMSGfxIndexLookup\n\
         ldr r1, [sp, #4]\n\
         adds r0, r1, r0\n\
         movs r1, #0xff\n\
@@ -1080,12 +1067,12 @@ void sub_8026C1C(struct Unit* param_1, int param_2) {
         pop {r0}\n\
         bx r0\n\
         .align 2, 0\n\
-    _08026F14: .4byte gUnknown_02034010\n\
+    _08026F14: .4byte gSMSGfxBuffer\n\
     _08026F18: .4byte 0x06011000\n\
     _08026F1C: .4byte 0x06011400\n\
     _08026F20: .4byte 0x06011800\n\
     _08026F24: .4byte 0x06011C00\n\
-    _08026F28: .4byte gUnknown_02033F40\n\
+    _08026F28: .4byte gSMSGfxIndexLookup\n\
         .syntax divided\n\
     ");
 
@@ -1094,53 +1081,53 @@ void sub_8026C1C(struct Unit* param_1, int param_2) {
 #endif // NONMATCHING
 
 //! FE8U = 0x08026F2C
-void SMS_FlushDirect(void) {
+void SyncUnitSpriteSheet(void) {
     int frame = GetGameClock() % 72;
 
     if (frame == 0) {
-        CpuFastCopy(gUnknown_02034010[0], (void*)0x06011000, sizeof(gUnknown_02034010[0]));
+        CpuFastCopy(gSMSGfxBuffer[0], (void*)0x06011000, sizeof(gSMSGfxBuffer[0]));
     }
 
     if (frame == 32) {
-        CpuFastCopy(gUnknown_02034010[1], (void*)0x06011000, sizeof(gUnknown_02034010[1]));
+        CpuFastCopy(gSMSGfxBuffer[1], (void*)0x06011000, sizeof(gSMSGfxBuffer[1]));
     }
 
     if (frame == 36) {
-        CpuFastCopy(gUnknown_02034010[2], (void*)0x06011000, sizeof(gUnknown_02034010[2]));
+        CpuFastCopy(gSMSGfxBuffer[2], (void*)0x06011000, sizeof(gSMSGfxBuffer[2]));
     }
 
     if (frame == 68) {
-        CpuFastCopy(gUnknown_02034010[1], (void*)0x06011000, sizeof(gUnknown_02034010[1]));
+        CpuFastCopy(gSMSGfxBuffer[1], (void*)0x06011000, sizeof(gSMSGfxBuffer[1]));
     }
 
     return;
 }
 
 //! FE8U = 0x08026F94
-void SMS_FlushIndirect(void) {
+void ForceSyncUnitSpriteSheet(void) {
     int frame;
 
-    gUnknown_0203A4CC = 0;
+    gSMSSyncFlag = 0;
 
     frame = GetGameClock() % 72;
 
     if (frame >= 68) {
-        RegisterTileGraphics(gUnknown_02034010[1], (void*)0x06011000, sizeof(gUnknown_02034010[1]));
+        RegisterTileGraphics(gSMSGfxBuffer[1], (void*)0x06011000, sizeof(gSMSGfxBuffer[1]));
         return;
     }
 
     if (frame >= 36) {
-        RegisterTileGraphics(gUnknown_02034010[2], (void*)0x06011000, sizeof(gUnknown_02034010[2]));
+        RegisterTileGraphics(gSMSGfxBuffer[2], (void*)0x06011000, sizeof(gSMSGfxBuffer[2]));
         return;
     }
 
     if (frame >= 32) {
-        RegisterTileGraphics(gUnknown_02034010[1], (void*)0x06011000, sizeof(gUnknown_02034010[1]));
+        RegisterTileGraphics(gSMSGfxBuffer[1], (void*)0x06011000, sizeof(gSMSGfxBuffer[1]));
         return;
     }
 
     if (frame >= 0) {
-        RegisterTileGraphics(gUnknown_02034010[0], (void*)0x06011000, sizeof(gUnknown_02034010[0]));
+        RegisterTileGraphics(gSMSGfxBuffer[0], (void*)0x06011000, sizeof(gSMSGfxBuffer[0]));
         return;
     }
 
@@ -1157,26 +1144,26 @@ void sub_8026FF4(int frameId, u8* dst) {
     u8* src = NULL;
 
     if (frame == 0) {
-        src = gUnknown_02034010[0];
+        src = gSMSGfxBuffer[0];
     }
 
     if (frame == 32) {
-        src = gUnknown_02034010[1];
+        src = gSMSGfxBuffer[1];
     }
 
     if (frame == 36) {
-        src = gUnknown_02034010[2];
+        src = gSMSGfxBuffer[2];
     }
 
     if (frame == 68) {
-        src = gUnknown_02034010[1];
+        src = gSMSGfxBuffer[1];
     }
 
     if (src == NULL) {
         return;
     }
 
-    off = gUnknown_0859B66C[frameId] * CHR_SIZE;
+    off = gSomeSMSLookupTable_859B66C[frameId] * CHR_SIZE;
 
     for (i = 0; i <= 3; i++) {
         u32 a = off + 0 * CHR_SIZE + i * CHR_SIZE * CHR_LINE;
@@ -1201,20 +1188,20 @@ void sub_8027068(int frameId, u8* dst) {
     u8* src = NULL;
 
     if (frame >= 68) {
-        src = gUnknown_02034010[1];
+        src = gSMSGfxBuffer[1];
     } else if (frame >= 36) {
-        src = gUnknown_02034010[2];
+        src = gSMSGfxBuffer[2];
     } else if (frame >= 32) {
-        src = gUnknown_02034010[1];
+        src = gSMSGfxBuffer[1];
     } else if (frame >= 0) {
-        src = gUnknown_02034010[0];
+        src = gSMSGfxBuffer[0];
     }
 
     if (src == NULL) {
         return;
     }
 
-    off = gUnknown_0859B66C[frameId] * 0x20;
+    off = gSomeSMSLookupTable_859B66C[frameId] * 0x20;
 
     for (i = 0; i <= 3; i++) {
         u32 a = off + 0 * CHR_SIZE + i * CHR_SIZE * CHR_LINE;
@@ -1248,13 +1235,13 @@ void sub_80270DC(int frameId, u8* dst) {
     #endif // NONMATCHING
 
     if (frame >= 68) {
-        src = gUnknown_02034010[1];
+        src = gSMSGfxBuffer[1];
     } else if (frame >= 36) {
-        src = gUnknown_02034010[2];
+        src = gSMSGfxBuffer[2];
     } else if (frame >= 32) {
-        src = gUnknown_02034010[1];
+        src = gSMSGfxBuffer[1];
     } else if (frame >= 0) {
-        src = gUnknown_02034010[0];
+        src = gSMSGfxBuffer[0];
     }
 
     if (src == NULL) {
@@ -1272,21 +1259,21 @@ void sub_80270DC(int frameId, u8* dst) {
 }
 
 //! FE8U = 0x0802713C
-int GetUnitSpritePaletteIndexWrapper(const struct Unit* unit) {
+int GetUnitDisplayedSpritePalette(const struct Unit* unit) {
 
     if (unit->state & US_BIT27) {
-        return 0xb;
+        return 0xB;
     }
 
     if (unit->state & US_UNSELECTABLE) {
-        return 0xf;
+        return 0xF;
     }
 
-    return GetUnitMapSpritePaletteIndex(unit);
+    return GetUnitSpritePalette(unit);
 }
 
 //! FE8U = 0x08027168
-int GetUnitMapSpritePaletteIndex(const struct Unit* unit) {
+int GetUnitSpritePalette(const struct Unit* unit) {
 
     switch (UNIT_FACTION(unit)) {
         case FACTION_BLUE:
@@ -1308,7 +1295,7 @@ int GetUnitMapSpritePaletteIndex(const struct Unit* unit) {
 /* https://decomp.me/scratch/76eAd */
 
 //! FE8U = 0x080271A0
-void SMS_UpdateFromGameData(void) {
+void RefreshUnitSprites(void) {
     struct SMSHandle* smsHandle;
 
     struct Trap* trap;
@@ -1316,12 +1303,12 @@ void SMS_UpdateFromGameData(void) {
 
     struct SMSHandle* nullHandle = 0;
 
-    gUnknown_0203A4C8 = &gUnknown_0203A018[0];
+    gSMSHandleIt = &gSMSHandleArray[0];
 
-    gUnknown_0203A4C8->pNext = nullHandle;
-    gUnknown_0203A4C8->yDisplay = 0x400;
+    gSMSHandleIt->pNext = nullHandle;
+    gSMSHandleIt->yDisplay = 0x400;
 
-    gUnknown_0203A4C8 = &gUnknown_0203A018[1];
+    gSMSHandleIt = &gSMSHandleArray[1];
 
     for (i = 1; i < 0xC6; i++) {
         struct Unit* unit = GetUnit(i);
@@ -1344,12 +1331,12 @@ void SMS_UpdateFromGameData(void) {
             unit->state |= US_UNSELECTABLE;
         }
 
-        smsHandle = SMS_GetNewInfoStruct(unit->yPos * 16);
+        smsHandle = AddUnitSprite(unit->yPos * 16);
 
         smsHandle->yDisplay = unit->yPos * 16;
         smsHandle->xDisplay = unit->xPos * 16;
 
-        smsHandle->oam2Base = SMS_RegisterUsage(GetUnitSMSId(unit)) + 0x80 + (GetUnitSpritePaletteIndexWrapper(unit) & 0xf) * 0x1000;
+        smsHandle->oam2Base = UseUnitSprite(GetUnitSMSId(unit)) + 0x80 + (GetUnitDisplayedSpritePalette(unit) & 0xf) * 0x1000;
 
         smsHandle->config = GetInfo(GetUnitSMSId(unit)).size;
 
@@ -1370,19 +1357,19 @@ void SMS_UpdateFromGameData(void) {
         if (trap->type == 1 && trap->data[1] == 0) {
             switch (trap->extra) {
                 case 0x35:
-                    oam2 = SMS_RegisterUsage(0x5b) - 0x4000 + 0x80;
+                    oam2 = UseUnitSprite(0x5b) - 0x4000 + 0x80;
                     break;
 
                 case 0x36:
-                    oam2 = SMS_RegisterUsage(0x5c) - 0x4000 + 0x80;
+                    oam2 = UseUnitSprite(0x5c) - 0x4000 + 0x80;
                     break;
 
                 case 0x37:
-                    oam2 = SMS_RegisterUsage(0x5d) - 0x4000 + 0x80;
+                    oam2 = UseUnitSprite(0x5d) - 0x4000 + 0x80;
                     break;
             }
 
-            smsHandle = SMS_GetNewInfoStruct(trap->yPos * 16);
+            smsHandle = AddUnitSprite(trap->yPos * 16);
 
             smsHandle->yDisplay = trap->yPos * 16;
             smsHandle->xDisplay = trap->xPos * 16;
@@ -1393,18 +1380,18 @@ void SMS_UpdateFromGameData(void) {
         }
 
         if (trap->type == 0xd) {
-            smsHandle = SMS_GetNewInfoStruct(trap->yPos * 16);
+            smsHandle = AddUnitSprite(trap->yPos * 16);
             smsHandle->yDisplay = trap->yPos * 16;
             smsHandle->xDisplay = trap->xPos * 16;
 
-            smsHandle->oam2Base = SMS_RegisterUsage(0x66) - 0x5000 + 0x80;
+            smsHandle->oam2Base = UseUnitSprite(0x66) - 0x5000 + 0x80;
 
             smsHandle->config = GetInfo(0x66).size;
         }
     }
 
-    if (gUnknown_0203A4CC != 0) {
-        SMS_FlushIndirect();
+    if (gSMSSyncFlag != 0) {
+        ForceSyncUnitSpriteSheet();
     }
 
 
@@ -1414,7 +1401,7 @@ void SMS_UpdateFromGameData(void) {
 #else // if !NONMATCHING
 
 __attribute__((naked))
-void SMS_UpdateFromGameData(void) {
+void RefreshUnitSprites(void) {
     asm("\n\
         .syntax unified\n\
         push {r4, r5, r6, r7, lr}\n\
@@ -1423,8 +1410,8 @@ void SMS_UpdateFromGameData(void) {
         push {r6, r7}\n\
         movs r0, #0\n\
         mov r8, r0\n\
-        ldr r0, _080272C0  @ gUnknown_0203A4C8\n\
-        ldr r1, _080272C4  @ gUnknown_0203A018\n\
+        ldr r0, _080272C0  @ gSMSHandleIt\n\
+        ldr r1, _080272C4  @ gSMSHandleArray\n\
         mov r2, r8\n\
         str r2, [r1]\n\
         movs r2, #0x80\n\
@@ -1477,7 +1464,7 @@ void SMS_UpdateFromGameData(void) {
         str r3, [r6, #0xc]\n\
     _08027212:\n\
         lsls r0, r2, #4\n\
-        bl SMS_GetNewInfoStruct\n\
+        bl AddUnitSprite\n\
         adds r5, r0, #0\n\
         movs r0, #0x11\n\
         ldrsb r0, [r6, r0]\n\
@@ -1489,10 +1476,10 @@ void SMS_UpdateFromGameData(void) {
         strh r0, [r5, #4]\n\
         adds r0, r6, #0\n\
         bl GetUnitSMSId\n\
-        bl SMS_RegisterUsage\n\
+        bl UseUnitSprite\n\
         adds r4, r0, #0\n\
         adds r0, r6, #0\n\
-        bl GetUnitSpritePaletteIndexWrapper\n\
+        bl GetUnitDisplayedSpritePalette\n\
         adds r4, #0x80\n\
         movs r1, #0xf\n\
         ands r1, r0\n\
@@ -1561,8 +1548,8 @@ void SMS_UpdateFromGameData(void) {
         beq _080272E2\n\
         b _080272F8\n\
         .align 2, 0\n\
-    _080272C0: .4byte gUnknown_0203A4C8\n\
-    _080272C4: .4byte gUnknown_0203A018\n\
+    _080272C0: .4byte gSMSHandleIt\n\
+    _080272C4: .4byte gSMSHandleArray\n\
     _080272C8: .4byte 0x00000201\n\
     _080272CC: .4byte gBmMapUnit\n\
     _080272D0: .4byte unit_icon_wait_table\n\
@@ -1581,7 +1568,7 @@ void SMS_UpdateFromGameData(void) {
     _080272EA:\n\
         movs r0, #0x5d\n\
     _080272EC:\n\
-        bl SMS_RegisterUsage\n\
+        bl UseUnitSprite\n\
         adds r0, r0, r6\n\
         lsls r0, r0, #0x10\n\
         lsrs r0, r0, #0x10\n\
@@ -1589,7 +1576,7 @@ void SMS_UpdateFromGameData(void) {
     _080272F8:\n\
         ldrb r0, [r4, #1]\n\
         lsls r0, r0, #4\n\
-        bl SMS_GetNewInfoStruct\n\
+        bl AddUnitSprite\n\
         adds r5, r0, #0\n\
         ldrb r0, [r4, #1]\n\
         lsls r0, r0, #4\n\
@@ -1607,7 +1594,7 @@ void SMS_UpdateFromGameData(void) {
         bne _08027344\n\
         ldrb r0, [r4, #1]\n\
         lsls r0, r0, #4\n\
-        bl SMS_GetNewInfoStruct\n\
+        bl AddUnitSprite\n\
         adds r5, r0, #0\n\
         ldrb r0, [r4, #1]\n\
         lsls r0, r0, #4\n\
@@ -1616,7 +1603,7 @@ void SMS_UpdateFromGameData(void) {
         lsls r0, r0, #4\n\
         strh r0, [r5, #4]\n\
         movs r0, #0x66\n\
-        bl SMS_RegisterUsage\n\
+        bl UseUnitSprite\n\
         ldr r1, _08027364  @ 0xFFFFB080\n\
         adds r0, r0, r1\n\
         strh r0, [r5, #8]\n\
@@ -1629,11 +1616,11 @@ void SMS_UpdateFromGameData(void) {
         cmp r0, #0\n\
         bne _080272A2\n\
     _0802734C:\n\
-        ldr r0, _08027368  @ gUnknown_0203A4CC\n\
+        ldr r0, _08027368  @ gSMSSyncFlag\n\
         ldr r0, [r0]\n\
         cmp r0, #0\n\
         beq _08027358\n\
-        bl SMS_FlushIndirect\n\
+        bl ForceSyncUnitSpriteSheet\n\
     _08027358:\n\
         pop {r3, r4}\n\
         mov r8, r3\n\
@@ -1643,7 +1630,7 @@ void SMS_UpdateFromGameData(void) {
         bx r0\n\
         .align 2, 0\n\
     _08027364: .4byte 0xFFFFB080\n\
-    _08027368: .4byte gUnknown_0203A4CC\n\
+    _08027368: .4byte gSMSSyncFlag\n\
         .syntax divided\n\
     ");
 }
@@ -1651,13 +1638,13 @@ void SMS_UpdateFromGameData(void) {
 #endif // NONMATCHING
 
 //! FE8U = 0x0802736C
-struct SMSHandle* SMS_GetNewInfoStruct(int y) {
-    struct SMSHandle* it = gUnknown_0203A018;
+struct SMSHandle* AddUnitSprite(int y) {
+    struct SMSHandle* it = gSMSHandleArray;
 
     while (1) {
         if (it->pNext == NULL || it->pNext->yDisplay < y) {
-            gUnknown_0203A4C8->pNext = it->pNext;
-            gUnknown_0203A4C8 = (it->pNext = gUnknown_0203A4C8) + 1;
+            gSMSHandleIt->pNext = it->pNext;
+            gSMSHandleIt = (it->pNext = gSMSHandleIt) + 1;
 
             return it->pNext;
         }
@@ -1669,11 +1656,11 @@ struct SMSHandle* SMS_GetNewInfoStruct(int y) {
 }
 
 //! FE8U = 0x080273A4
-void SMS_DisplayAllFromInfoStructs(void) {
+void PutUnitSpritesOam(void) {
 
-    struct SMSHandle* it = gUnknown_0203A018->pNext;
+    struct SMSHandle* it = gSMSHandleArray->pNext;
 
-    DisplayUnitAdditionalBlinkingIcons();
+    PutUnitSpriteIconsOam();
 
     if (it == NULL) {
         return;
@@ -1732,7 +1719,7 @@ void SMS_DisplayAllFromInfoStructs(void) {
 }
 
 //! FE8U = 0x08027530
-void DisplayChapterTileMarker(void) {
+void PutChapterMarkedTileIconOam(void) {
     int x;
     int y;
     int xTile;
@@ -1777,7 +1764,7 @@ void DisplayChapterTileMarker(void) {
 }
 
 //! FE8U = 0x080275E8
-void DisplayUnitAdditionalBlinkingIcons(void) {
+void PutUnitSpriteIconsOam(void) {
     u8 protectCharacterId;
     int i;
     int x;
@@ -1789,7 +1776,7 @@ void DisplayUnitAdditionalBlinkingIcons(void) {
     int berserkIconFrame;
     int silenceIconFrame;
 
-    u16 gUnknown_080D7C0C[] = {
+    u16 rescuePalLut[] = {
         0xC,
         0xE,
         0xD,
@@ -1803,16 +1790,16 @@ void DisplayUnitAdditionalBlinkingIcons(void) {
 
     displayRescueIcon = (GetGameClock() % 32) < 20 ? 1 : 0;
 
-    poisonIconFrame = GetGameClock() / 8 % ARRAY_COUNT(gUnknown_0859B938);
-    sleepIconFrame = GetGameClock() / 16 % ARRAY_COUNT(gUnknown_0859B7F4);
-    berserkIconFrame = GetGameClock() / 8 % ARRAY_COUNT(gUnknown_0859B858);
-    silenceIconFrame = GetGameClock() / 4 % ARRAY_COUNT(gUnknown_0859B898);
+    poisonIconFrame = GetGameClock() / 8 % ARRAY_COUNT(sPoisonIconSprites);
+    sleepIconFrame = GetGameClock() / 16 % ARRAY_COUNT(sSleepIconSprites);
+    berserkIconFrame = GetGameClock() / 8 % ARRAY_COUNT(sBerserkIconSprites);
+    silenceIconFrame = GetGameClock() / 4 % ARRAY_COUNT(sSilenceIconSprites);
 
     if (CheckEventId(0x84) != 0) {
         return;
     }
 
-    DisplayChapterTileMarker();
+    PutChapterMarkedTileIconOam();
 
     for (i = 1; i < 0xc0; i++) {
         struct Unit* unit = GetUnit(i);
@@ -1825,7 +1812,7 @@ void DisplayUnitAdditionalBlinkingIcons(void) {
             continue;
         }
 
-        if (GetUnitStandingSpriteDataFlagThing(unit) != 0) {
+        if (GetUnitSpriteHideFlag(unit) != 0) {
             continue;
         }
 
@@ -1842,7 +1829,7 @@ void DisplayUnitAdditionalBlinkingIcons(void) {
                     break;
                 }
 
-                CallARM_PushToSecondaryOAM(OAM1_X(0x200+x - 2), OAM0_Y(0x100+y - 4), gUnknown_0859B938[poisonIconFrame], 0);
+                CallARM_PushToSecondaryOAM(OAM1_X(0x200+x - 2), OAM0_Y(0x100+y - 4), sPoisonIconSprites[poisonIconFrame], 0);
 
                 break;
 
@@ -1858,7 +1845,7 @@ void DisplayUnitAdditionalBlinkingIcons(void) {
                     break;
                 }
 
-                CallARM_PushToSecondaryOAM(OAM1_X(0x200+x - 2), OAM0_Y(0x100+y - 4), gUnknown_0859B898[silenceIconFrame], 0);
+                CallARM_PushToSecondaryOAM(OAM1_X(0x200+x - 2), OAM0_Y(0x100+y - 4), sSilenceIconSprites[silenceIconFrame], 0);
 
                 break;
 
@@ -1874,7 +1861,7 @@ void DisplayUnitAdditionalBlinkingIcons(void) {
                     break;
                 }
 
-                CallARM_PushToSecondaryOAM(OAM1_X(0x200+x + 2), OAM0_Y(0x100+y), gUnknown_0859B7F4[sleepIconFrame], 0);
+                CallARM_PushToSecondaryOAM(OAM1_X(0x200+x + 2), OAM0_Y(0x100+y), sSleepIconSprites[sleepIconFrame], 0);
 
                 break;
 
@@ -1890,7 +1877,7 @@ void DisplayUnitAdditionalBlinkingIcons(void) {
                     break;
                 }
 
-                CallARM_PushToSecondaryOAM(OAM1_X(0x200+x + 1), OAM0_Y(0x100+y - 5), gUnknown_0859B858[berserkIconFrame], 0);
+                CallARM_PushToSecondaryOAM(OAM1_X(0x200+x + 1), OAM0_Y(0x100+y - 5), sBerserkIconSprites[berserkIconFrame], 0);
 
                 break;
 
@@ -1913,7 +1900,7 @@ void DisplayUnitAdditionalBlinkingIcons(void) {
                     break;
                 }
 
-                CallARM_PushToSecondaryOAM(OAM1_X(0x200+x - 1), OAM0_Y(0x100+y - 5), gUnknown_0859B968, 0);
+                CallARM_PushToSecondaryOAM(OAM1_X(0x200+x - 1), OAM0_Y(0x100+y - 5), sSprite_0859B968, 0);
                 break;
 
             case UNIT_STATUS_SICK:
@@ -1937,7 +1924,7 @@ void DisplayUnitAdditionalBlinkingIcons(void) {
                 continue;
             }
 
-            CallARM_PushToSecondaryOAM(OAM1_X(0x200+x + 9), OAM0_Y(0x100+y + 7), gObject_8x8, (gUnknown_080D7C0C[unit->rescueOtherUnit >> 6] & 0xf) * 0x1000 + 0x803);
+            CallARM_PushToSecondaryOAM(OAM1_X(0x200+x + 9), OAM0_Y(0x100+y + 7), gObject_8x8, (rescuePalLut[unit->rescueOtherUnit >> 6] & 0xf) * 0x1000 + 0x803);
         } else if ((UNIT_FACTION(unit) != FACTION_BLUE) && (UNIT_CATTRIBUTES(unit) & CA_BOSS)) {
             x = unit->xPos * 16 - gGameState.camera.x;
             y = unit->yPos * 16 - gGameState.camera.y;
@@ -1972,18 +1959,18 @@ void DisplayUnitAdditionalBlinkingIcons(void) {
 
 //! FE8U = 0x08027A30
 void sub_8027A30(void) {
-    gGameState.unk18.x = -1;
+    gGameState.cursorPrevious.x = -1;
     return;
 }
 
 //! FE8U = 0x08027A40
-void sub_8027A40(void) {
-    gUnknown_0203A4D0 = 0;
+void ResetUnitSpriteHover(void) {
+    gMapSpriteSwitchHoverTimer = 0;
     return;
 }
 
 //! FE8U = 0x08027A4C
-void sub_8027A4C(void) {
+void UnitSpriteHoverUpdate(void) {
     struct Unit* unit;
 
     unit = GetUnit(gBmMapUnit[gGameState.playerCursor.y][gGameState.playerCursor.x]);
@@ -1994,25 +1981,25 @@ void sub_8027A4C(void) {
             && unit->statusIndex != UNIT_STATUS_BERSERK
             && unit->statusIndex != UNIT_STATUS_SLEEP) {
 
-            gUnknown_0203A4D0++;
+            gMapSpriteSwitchHoverTimer++;
 
-            if (gUnknown_0203A4D0 == 5) {
+            if (gMapSpriteSwitchHoverTimer == 5) {
                 MU_Create(unit);
-                HideUnitSMS(unit);
+                HideUnitSprite(unit);
 
                 return;
             }
         }
     }
 
-    if (gGameState.unk18.x != gGameState.playerCursor.x || gGameState.unk18.y != gGameState.playerCursor.y) {
-        gUnknown_0203A4D0 = 0;
+    if (gGameState.cursorPrevious.x != gGameState.playerCursor.x || gGameState.cursorPrevious.y != gGameState.playerCursor.y) {
+        gMapSpriteSwitchHoverTimer = 0;
 
-        unit = GetUnit(gBmMapUnit[gGameState.unk18.y][gGameState.unk18.x]);
+        unit = GetUnit(gBmMapUnit[gGameState.cursorPrevious.y][gGameState.cursorPrevious.x]);
 
         if (unit) {
             MU_EndAll();
-            ShowUnitSMS(unit);
+            ShowUnitSprite(unit);
         }
     }
 
@@ -2020,7 +2007,7 @@ void sub_8027A4C(void) {
 }
 
 //! FE8U = 0x08027B0C
-s8 sub_8027B0C(int x, int y) {
+s8 IsUnitSpriteHoverEnabledAt(int x, int y) {
 
     struct Unit* unit = GetUnit(gBmMapUnit[y][x]);
 
@@ -2046,7 +2033,7 @@ s8 sub_8027B0C(int x, int y) {
 //! FE8U = 0x08027B60
 void PutUnitSprite(int layer, int x, int y, struct Unit* unit) {
     u32 id = GetUnitSMSId(unit);
-    int chr = SMS_RegisterUsage(id);
+    int chr = UseUnitSprite(id);
 
     if (x < -16 || x > DISPLAY_WIDTH) {
         return;
@@ -2058,17 +2045,17 @@ void PutUnitSprite(int layer, int x, int y, struct Unit* unit) {
 
     switch (GetInfo(id).size) {
         case UNIT_ICON_SIZE_16x16:
-            PutSprite(layer, x, y, gObject_16x16, (GetUnitSpritePaletteIndexWrapper(unit) & 0xf) * 0x1000 + 0x880 + chr);
+            PutSprite(layer, x, y, gObject_16x16, (GetUnitDisplayedSpritePalette(unit) & 0xf) * 0x1000 + 0x880 + chr);
 
             break;
 
         case UNIT_ICON_SIZE_16x32:
-            PutSprite(layer, x, y - 16, gObject_16x32, (GetUnitSpritePaletteIndexWrapper(unit) & 0xf) * 0x1000 + 0x880 + chr);
+            PutSprite(layer, x, y - 16, gObject_16x32, (GetUnitDisplayedSpritePalette(unit) & 0xf) * 0x1000 + 0x880 + chr);
 
             break;
 
         case UNIT_ICON_SIZE_32x32:
-            PutSprite(layer, x - 8, y - 16, gObject_32x32, (GetUnitSpritePaletteIndexWrapper(unit) & 0xf) * 0x1000 + 0x880 + chr);
+            PutSprite(layer, x - 8, y - 16, gObject_32x32, (GetUnitDisplayedSpritePalette(unit) & 0xf) * 0x1000 + 0x880 + chr);
 
             break;
     }
@@ -2077,9 +2064,9 @@ void PutUnitSprite(int layer, int x, int y, struct Unit* unit) {
 }
 
 //! FE8U = 0x08027C48
-void sub_8027C48(int layer, int x, int y, u16 oam2, int class) {
+void PutUnitSpriteForClassId(int layer, int x, int y, u16 oam2, int class) {
     u32 id = GetClassSMSId(class);
-    int chr = SMS_RegisterUsage(id) + 0x80;
+    int chr = UseUnitSprite(id) + 0x80;
 
     if (x < -16 || x > DISPLAY_WIDTH) {
         return;
@@ -2112,7 +2099,7 @@ void sub_8027C48(int layer, int x, int y, u16 oam2, int class) {
 //! FE8U = 0x08027CFC
 void sub_8027CFC(int layer, int x, int y, int class) {
     u32 id = GetClassSMSId(class);
-    int chr = SMS_RegisterUsage(id) + 0x80;
+    int chr = UseUnitSprite(id) + 0x80;
 
     if (x < -16 || x > DISPLAY_WIDTH) {
         return;
@@ -2145,7 +2132,7 @@ void sub_8027CFC(int layer, int x, int y, int class) {
 //! FE8U = 0x08027DB4
 void sub_8027DB4(int layer, int x, int y, u16 oam2, int class, int idx) {
     u32 id = GetClassSMSId(class);
-    int chr = gUnknown_0859B66C[idx] + 1;
+    int chr = gSomeSMSLookupTable_859B66C[idx] + 1;
 
     if (x < -16 || x > DISPLAY_WIDTH) {
         return;
@@ -2175,7 +2162,7 @@ void sub_8027DB4(int layer, int x, int y, u16 oam2, int class, int idx) {
 //! FE8U = 0x08027E4C
 void sub_8027E4C(int layer, int x, int y, int oam2, struct Unit* unit) {
     u32 id = GetUnitSMSId(unit);
-    int chr = SMS_RegisterUsage(id) + 0x80;
+    int chr = UseUnitSprite(id) + 0x80;
 
     if (x < -16 || x > DISPLAY_WIDTH) {
         return;
@@ -2187,17 +2174,17 @@ void sub_8027E4C(int layer, int x, int y, int oam2, struct Unit* unit) {
 
     switch (GetInfo(id).size) {
         case UNIT_ICON_SIZE_16x16:
-            PutSprite(layer, x, y, gObject_16x16, oam2 + (GetUnitMapSpritePaletteIndex(unit) & 0xf) * 0x1000 + chr);
+            PutSprite(layer, x, y, gObject_16x16, oam2 + (GetUnitSpritePalette(unit) & 0xf) * 0x1000 + chr);
 
             break;
 
         case UNIT_ICON_SIZE_16x32:
-            PutSprite(layer, x, y - 16, gObject_16x32, oam2 + (GetUnitMapSpritePaletteIndex(unit) & 0xf) * 0x1000 + chr);
+            PutSprite(layer, x, y - 16, gObject_16x32, oam2 + (GetUnitSpritePalette(unit) & 0xf) * 0x1000 + chr);
 
             break;
 
         case UNIT_ICON_SIZE_32x32:
-            PutSprite(layer, x - 8, y - 16, gObject_32x32, oam2 + (GetUnitMapSpritePaletteIndex(unit) & 0xf) * 0x1000 + chr);
+            PutSprite(layer, x - 8, y - 16, gObject_32x32, oam2 + (GetUnitSpritePalette(unit) & 0xf) * 0x1000 + chr);
 
             break;
 
@@ -2238,9 +2225,9 @@ void SMS_DisplayOne(int class, int layer, int x, int y, int oam2, s8 isBlend) {
 }
 
 //! FE8U = 0x08028014
-void sub_8028014(int layer, int x, int y, int oam2, struct Unit* unit) {
+void PutBlendWindowUnitSprite(int layer, int x, int y, int oam2, struct Unit* unit) {
     u32 id = GetUnitSMSId(unit);
-    int chr = SMS_RegisterUsage(id) + 0x80;
+    int chr = UseUnitSprite(id) + 0x80;
 
     if (x < -16 || x > DISPLAY_WIDTH) {
         return;
@@ -2253,20 +2240,20 @@ void sub_8028014(int layer, int x, int y, int oam2, struct Unit* unit) {
 
     switch (GetInfo(id).size) {
         case UNIT_ICON_SIZE_16x16:
-            PutSprite(layer, x, y, gUnknown_0859B976, oam2 + chr);
-            PutSprite(layer, x, y, gUnknown_0859B98E, oam2 + chr);
+            PutSprite(layer, x, y, sSprite_16x16_Blend, oam2 + chr);
+            PutSprite(layer, x, y, sSprite_16x16_Window, oam2 + chr);
 
             break;
 
         case UNIT_ICON_SIZE_16x32:
-            PutSprite(layer, x, y - 16, gUnknown_0859B97E, oam2 + chr);
-            PutSprite(layer, x, y - 16, gUnknown_0859B996, oam2 + chr);
+            PutSprite(layer, x, y - 16, sSprite_16x32_Blend, oam2 + chr);
+            PutSprite(layer, x, y - 16, sSprite_16x32_Window, oam2 + chr);
 
             break;
 
         case UNIT_ICON_SIZE_32x32:
-            PutSprite(layer, x - 8, y - 16, gUnknown_0859B986, oam2 + chr);
-            PutSprite(layer, x - 8, y - 16, gUnknown_0859B99E, oam2 + chr);
+            PutSprite(layer, x - 8, y - 16, sSprite_32x32_Blend, oam2 + chr);
+            PutSprite(layer, x - 8, y - 16, sSprite_32x32_Window, oam2 + chr);
 
             break;
     }
@@ -2276,15 +2263,15 @@ void sub_8028014(int layer, int x, int y, int oam2, struct Unit* unit) {
 
 //! FE8U = 0x08028100
 void sub_8028100(void) {
-    gUnknown_0203A018[0].pNext = NULL;
+    gSMSHandleArray[0].pNext = NULL;
     return;
 }
 
 //! FE8U = 0x0802810C
-void HideUnitSMS(struct Unit* unit) {
+void HideUnitSprite(struct Unit* unit) {
 
     if (!unit) {
-        SMS_UpdateFromGameData();
+        RefreshUnitSprites();
     }
 
     if (!unit->pMapSpriteHandle) {
@@ -2297,7 +2284,7 @@ void HideUnitSMS(struct Unit* unit) {
 }
 
 //! FE8U = 0x08028130
-void ShowUnitSMS(struct Unit* unit) {
+void ShowUnitSprite(struct Unit* unit) {
 
     if (!unit->pMapSpriteHandle) {
         return;
@@ -2309,7 +2296,7 @@ void ShowUnitSMS(struct Unit* unit) {
 }
 
 //! FE8U = 0x08028144
-u8 GetUnitStandingSpriteDataFlagThing(struct Unit* unit) {
+u8 GetUnitSpriteHideFlag(struct Unit* unit) {
     if (!unit->pMapSpriteHandle) {
         return 0x80;
     }

@@ -3,6 +3,7 @@
 #include "bmtrick.h"
 #include "bmitem.h"
 #include "bmunit.h"
+#include "bmudisp.h"
 
 #include "bmarch.h"
 
@@ -102,7 +103,7 @@ void RideBallista(struct Unit* unit) {
 
     SetBallistaOccupied(trap);
 
-    SMS_UpdateFromGameData();
+    RefreshUnitSprites();
 
     unit->state |= US_IN_BALLISTA;
 
@@ -126,7 +127,7 @@ void TryRemoveUnitFromBallista(struct Unit* unit) {
         trap->xPos = unit->xPos;
         trap->yPos = unit->yPos;
 
-        SMS_UpdateFromGameData();
+        RefreshUnitSprites();
     }
 
     return;

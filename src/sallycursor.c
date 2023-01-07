@@ -26,6 +26,7 @@
 #include "bb.h"
 #include "bmshop.h"
 #include "uiconfig.h"
+#include "bmudisp.h"
 
 #include "sallycursor.h"
 
@@ -128,7 +129,7 @@ PROC_LABEL(0x32),
     PROC_CALL(RefreshBMapGraphics),
     PROC_CALL(RefreshEntityBmMaps),
     PROC_CALL(RenderBmMap),
-    PROC_CALL(SMS_UpdateFromGameData),
+    PROC_CALL(RefreshUnitSprites),
     PROC_CALL(PrepScreenProc_InitMapMenu),
     PROC_CALL(sub_80334CC),
     PROC_CALL(sub_8013D8C),
@@ -155,7 +156,7 @@ PROC_LABEL(9),
     PROC_WHILE(IsSubtitleHelpActive),
     PROC_CALL(RefreshEntityBmMaps),
     PROC_CALL(RenderBmMap),
-    PROC_CALL(SMS_UpdateFromGameData),
+    PROC_CALL(RefreshUnitSprites),
     PROC_CALL(StartPlayerPhaseSideWindows),
     PROC_REPEAT(sub_8033940),
     PROC_REPEAT(PrepScreenProc_MapIdle),
@@ -214,7 +215,7 @@ PROC_LABEL(3),
     PROC_WHILE(PrepUnitSwapProcExits),
     PROC_CALL(sub_8033E8C),
     PROC_CALL(RefreshEntityBmMaps),
-    PROC_CALL(SMS_UpdateFromGameData),
+    PROC_CALL(RefreshUnitSprites),
     PROC_SLEEP(0),
     PROC_CALL(sub_8033EA4),
 
@@ -281,7 +282,7 @@ PROC_LABEL(0x3E),
     PROC_CALL(RefreshBMapGraphics),
     PROC_CALL(RefreshEntityBmMaps),
     PROC_CALL(RenderBmMap),
-    PROC_CALL(SMS_UpdateFromGameData),
+    PROC_CALL(RefreshUnitSprites),
     PROC_CALL(PrepScreenProc_StartMapMenu),
     PROC_CALL(sub_80334CC),
     PROC_CALL(sub_8013DA4),
@@ -300,7 +301,7 @@ PROC_LABEL(0x3C),
     PROC_CALL(RefreshBMapGraphics),
     PROC_CALL(RefreshEntityBmMaps),
     PROC_CALL(RenderBmMap),
-    PROC_CALL(SMS_UpdateFromGameData),
+    PROC_CALL(RefreshUnitSprites),
     PROC_CALL(sub_8034194),
     PROC_CALL(sub_8033608),
     PROC_CALL(sub_8013D8C),
@@ -433,7 +434,7 @@ void SALLYCURSOR_DeploySupplyUnit() {
         unit->yPos = GetROMChapterStruct(gRAMChapterData.chapterIndex)->merchantPosY;
 
         RefreshEntityBmMaps();
-        SMS_UpdateFromGameData();
+        RefreshUnitSprites();
     }
     return;
 }
@@ -453,7 +454,7 @@ void SALLYCURSOR_RemoveSupplyUnit() {
         unit->yPos = 0xFF;
 
         RefreshEntityBmMaps();
-        SMS_UpdateFromGameData();
+        RefreshUnitSprites();
     }
     return;
 }
@@ -940,7 +941,7 @@ void PrepScreenProc_MapMovementLoop(ProcPtr proc) {
 
         HideMoveRangeGraphics();
         RefreshEntityBmMaps();
-        SMS_UpdateFromGameData();
+        RefreshUnitSprites();
 
         PlaySoundEffect(0x6B);
         Proc_Goto(proc, 9);

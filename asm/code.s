@@ -3757,7 +3757,7 @@ sub_80906F8: @ 0x080906F8
 	lsls r0, r0, #7
 	movs r1, #1
 	bl InitPrepSideBarImg
-	bl SMS_FlushIndirect
+	bl ForceSyncUnitSpriteSheet
 	movs r0, #7
 	strh r0, [r5, #0x3e]
 	adds r1, r5, #0
@@ -3966,7 +3966,7 @@ _080908C0:
 	mov r2, r9
 	strb r0, [r2]
 _080908FC:
-	bl SMS_FlushIndirect
+	bl ForceSyncUnitSpriteSheet
 	ldrh r0, [r6, #0x38]
 	lsrs r7, r0, #4
 	movs r1, #0xf
@@ -4380,7 +4380,7 @@ _08090C0C:
 	strb r0, [r3]
 	adds r0, r7, #0
 	bl GetUnitSMSId
-	bl SMS_RegisterUsage
+	bl UseUnitSprite
 	pop {r3}
 	mov r8, r3
 	pop {r4, r5, r6, r7}
@@ -7129,7 +7129,7 @@ _080921AC:
 	bl Proc_StartBlocking
 _080921B2:
 	adds r4, r0, #0
-	bl SMS_ClearUsageTable
+	bl ResetUnitSprites
 	adds r1, r4, #0
 	adds r1, #0x39
 	movs r0, #5

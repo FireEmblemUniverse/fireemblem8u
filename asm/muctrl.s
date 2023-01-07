@@ -306,7 +306,7 @@ MuCtr_SetupWithEventMoveBuffer: @ 0x08079E78
 	mov r2, sl
 	strb r2, [r0]
 	adds r0, r7, #0
-	bl HideUnitSMS
+	bl HideUnitSprite
 	ldr r0, [r7, #0xc]
 	movs r1, #1
 	orrs r0, r1
@@ -443,7 +443,7 @@ sub_8079FA8: @ 0x08079FA8
 	ands r1, r0
 	str r1, [r5, #0xc]
 	bl RefreshEntityBmMaps
-	bl SMS_UpdateFromGameData
+	bl RefreshUnitSprites
 _0807A00C:
 	add sp, #4
 	pop {r4, r5}
@@ -622,7 +622,7 @@ _0807A14C:
 	beq _0807A186
 	ldr r4, [r5, #0x2c]
 	adds r0, r4, #0
-	bl ShowUnitSMS
+	bl ShowUnitSprite
 	ldr r0, [r4, #0xc]
 	movs r1, #2
 	negs r1, r1
@@ -642,7 +642,7 @@ _0807A14C:
 	adds r0, r0, r1
 	ldrb r1, [r4, #0xb]
 	strb r1, [r0]
-	bl SMS_UpdateFromGameData
+	bl RefreshUnitSprites
 _0807A186:
 	movs r0, #1
 _0807A188:
@@ -751,7 +751,7 @@ _0807A234:
 	adds r0, r4, #0
 	bl UnitFinalizeMovement
 	adds r0, r4, #0
-	bl ShowUnitSMS
+	bl ShowUnitSprite
 	ldr r0, [r4, #0xc]
 	movs r1, #2
 	negs r1, r1
@@ -770,7 +770,7 @@ _0807A234:
 	ldrb r1, [r4, #0xb]
 	strb r1, [r0]
 	bl RefreshEntityBmMaps
-	bl SMS_UpdateFromGameData
+	bl RefreshUnitSprites
 _0807A27A:
 	adds r0, r6, #0
 	bl MU_End
@@ -1048,7 +1048,7 @@ _0807A48C:
 	bl MU_DisableAttractCamera
 _0807A492:
 	adds r0, r6, #0
-	bl HideUnitSMS
+	bl HideUnitSprite
 	ldr r0, [r6, #0xc]
 	movs r1, #1
 	orrs r0, r1
@@ -1070,7 +1070,7 @@ _0807A492:
 	movs r0, #0
 	strb r0, [r1]
 _0807A4C0:
-	bl SMS_UpdateFromGameData
+	bl RefreshUnitSprites
 	mov r0, sp
 	ldrh r0, [r0]
 	ldr r3, [sp, #4]

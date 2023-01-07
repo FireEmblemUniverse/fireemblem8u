@@ -3102,7 +3102,7 @@ sub_809EAF4: @ 0x0809EAF4
 	beq _0809EB08
 	bl MU_EndAll
 	ldr r0, [r4]
-	bl ShowUnitSMS
+	bl ShowUnitSprite
 _0809EB08:
 	pop {r4}
 	pop {r0}
@@ -3119,7 +3119,7 @@ sub_809EB14: @ 0x0809EB14
 	ldr r0, [r4]
 	cmp r0, #0
 	beq _0809EB2C
-	bl HideUnitSMS
+	bl HideUnitSprite
 	ldr r0, [r4]
 	bl MU_Create
 	bl MU_SetDefaultFacing_Auto

@@ -6567,7 +6567,7 @@ WorldMap_Destruct: @ 0x080B8A18
 	bl SetPrimaryHBlankHandler
 	bl sub_8006A7C
 	bl sub_8008250
-	bl SMS_ClearUsageTable
+	bl ResetUnitSprites
 	movs r0, #3
 	movs r1, #0
 	movs r2, #0
@@ -7024,7 +7024,7 @@ SetupGraphicSystemsForWorldMap: @ 0x080B8D5C
 	bl ResetFaces
 	ldr r0, _080B8E0C  @ gUnknown_08A3D728
 	bl SetupFaceGfxData
-	bl SMS_ClearUsageTable
+	bl ResetUnitSprites
 	bl MU_Init
 	bl SetupMapSpritesPalettes
 	ldr r1, _080B8E10  @ gGameState
@@ -9729,7 +9729,7 @@ sub_80BA198: @ 0x080BA198
 	str r4, [r5, #0x30]
 	movs r0, #0
 	str r0, [r5, #0x2c]
-	ldr r0, _080BA1EC  @ unit_icon_pal_player
+	ldr r0, _080BA1EC  @ gPal_MapSprite
 	movs r1, #0xe0
 	lsls r1, r1, #2
 	movs r2, #0x80
@@ -9754,7 +9754,7 @@ _080BA1CE:
 	.align 2, 0
 _080BA1E4: .4byte gUnknown_08A3D748
 _080BA1E8: .4byte gUnknown_08A3DD20
-_080BA1EC: .4byte unit_icon_pal_player
+_080BA1EC: .4byte gPal_MapSprite
 _080BA1F0: .4byte gPaletteBuffer
 
 	THUMB_FUNC_END sub_80BA198
@@ -9853,7 +9853,7 @@ sub_80BA288: @ 0x080BA288
 	str r4, [r5, #0x30]
 	movs r0, #0
 	str r0, [r5, #0x2c]
-	ldr r0, _080BA2DC  @ unit_icon_pal_player
+	ldr r0, _080BA2DC  @ gPal_MapSprite
 	movs r1, #0xe0
 	lsls r1, r1, #2
 	movs r2, #0x80
@@ -9878,7 +9878,7 @@ _080BA2BE:
 	.align 2, 0
 _080BA2D4: .4byte gUnknown_08A3D748
 _080BA2D8: .4byte gUnknown_08A3DD38
-_080BA2DC: .4byte unit_icon_pal_player
+_080BA2DC: .4byte gPal_MapSprite
 _080BA2E0: .4byte gPaletteBuffer
 
 	THUMB_FUNC_END sub_80BA288
