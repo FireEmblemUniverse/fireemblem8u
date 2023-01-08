@@ -150,24 +150,30 @@ char *sub_800A2A4(void)
     return gUnknown_0202A6AC.buffer0202B156;
 }
 
-#if NONMATCHING
 char *FilterSomeTextFromStandardBuffer(void)
 {
     u8 *r5 = gUnknown_0202A6AC.buffer0202B4AC;
     u8 *r4 = gUnknown_0202A6AC.buffer0202B5AC;
+    u8 r1;
+    u32 r0;
 
     CopyString(r5, gUnknown_0202A6AC.buffer0202A6AC);
-    while (*r5 != 0)
-    {
-        u8 r1 = *r5;
 
+    while ((r0 = *r5))
+    {
+        r1 = r0;
+        while (0) ;
         if (r1 < 32)
         {
-            *r4++ = *r5++;
+            *r4 = r0;
+            ++r5;
+            ++r4;
         }
         else if (r1 != 0x80)
         {
-            *r4++ = *r5++;
+            *r4 = r0;
+            ++r5;
+            ++r4;
         }
         else
         {
@@ -179,7 +185,6 @@ char *FilterSomeTextFromStandardBuffer(void)
             }
             else
             {
-                //_0800A3F8
                 CopyString(r4, GetTacticianName());
                 while (*r4 != 0)
                     r4++;
@@ -190,70 +195,3 @@ char *FilterSomeTextFromStandardBuffer(void)
     *r4 = 0;
     return gUnknown_0202A6AC.buffer0202B5AC;
 }
-#else
-__attribute__((naked))
-char *FilterSomeTextFromStandardBuffer(void)
-{
-    asm(".syntax unified\n\
-    push {r4, r5, lr}\n\
-    ldr r5, _0800A3D0  @ gUnknown_0202B4AC\n\
-    movs r0, #0x80\n\
-    lsls r0, r0, #1\n\
-    adds r4, r5, r0\n\
-    ldr r0, _0800A3D4  @ 0xFFFFF200\n\
-    adds r1, r5, r0\n\
-    adds r0, r5, #0\n\
-    bl CopyString\n\
-    b _0800A416\n\
-    .align 2, 0\n\
-_0800A3D0: .4byte gUnknown_0202B4AC\n\
-_0800A3D4: .4byte 0xFFFFF200\n\
-_0800A3D8:\n\
-    adds r1, r0, #0\n\
-    cmp r1, #0x1f\n\
-    bls _0800A3F0\n\
-    cmp r1, #0x80\n\
-    bne _0800A3F0\n\
-    adds r5, #1\n\
-    ldrb r0, [r5]\n\
-    cmp r0, #0x20\n\
-    beq _0800A3F8\n\
-    strb r1, [r4]\n\
-    adds r4, #1\n\
-    ldrb r0, [r5]\n\
-_0800A3F0:\n\
-    strb r0, [r4]\n\
-    adds r5, #1\n\
-    adds r4, #1\n\
-    b _0800A416\n\
-_0800A3F8:\n\
-    bl GetTacticianName\n\
-    adds r1, r0, #0\n\
-    adds r0, r4, #0\n\
-    bl CopyString\n\
-    ldrb r0, [r4]\n\
-    adds r1, r5, #1\n\
-    cmp r0, #0\n\
-    beq _0800A414\n\
-_0800A40C:\n\
-    adds r4, #1\n\
-    ldrb r0, [r4]\n\
-    cmp r0, #0\n\
-    bne _0800A40C\n\
-_0800A414:\n\
-    adds r5, r1, #0\n\
-_0800A416:\n\
-    ldrb r0, [r5]\n\
-    cmp r0, #0\n\
-    bne _0800A3D8\n\
-    movs r0, #0\n\
-    strb r0, [r4]\n\
-    ldr r0, _0800A428  @ gUnknown_0202B5AC\n\
-    pop {r4, r5}\n\
-    pop {r1}\n\
-    bx r1\n\
-    .align 2, 0\n\
-_0800A428: .4byte gUnknown_0202B5AC\n\
-    .syntax divided");
-}
-#endif

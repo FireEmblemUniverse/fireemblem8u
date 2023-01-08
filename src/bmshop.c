@@ -595,7 +595,6 @@ void ShopProc_InitBuyState(struct BmShopProc* proc) {
 
 void ShopProc_Loop_BuyKeyHandler(struct BmShopProc* proc) {
     u8 unkA;
-    u32 unkB;
     u32 unkC;
     int price;
     int a;
@@ -606,8 +605,7 @@ void ShopProc_Loop_BuyKeyHandler(struct BmShopProc* proc) {
     BG_SetPosition(2, 0, sub_80B5698());
 
     unkA = proc->curIndex;
-    unkB = sub_80B568C() ^ unkA;
-    unkC = (-(unkB) | unkB) >> 31;
+    unkC = sub_80B568C() != unkA;
 
     proc->curIndex = sub_80B568C();
     proc->unk_5d = sub_80B56A8();
@@ -801,7 +799,6 @@ void ShopProc_InitSellState(struct BmShopProc* proc) {
 
 void ShopProc_Loop_SellKeyHandler(struct BmShopProc* proc) {
     u8 unkA;
-    u32 unkB;
     u32 unkC;
     int a;
     int b;
@@ -811,24 +808,13 @@ void ShopProc_Loop_SellKeyHandler(struct BmShopProc* proc) {
     BG_SetPosition(2, 0, sub_80B5698());
 
     unkA = proc->curIndex;
-    unkB = sub_80B568C() ^ unkA;
-    unkC = (-(unkB) | unkB) >> 31;
+    unkC = sub_80B568C() != unkA;
 
     proc->curIndex = sub_80B568C();
     proc->unk_5d = sub_80B56A8();
 
-    #if NONMATCHING
-
-    a = (proc->curIndex * 16);
-
-    #else // if !NONMATCHING
-
-    asm("\n\
-        ldrb %0, [r6]\n\
-        lsl %0, %0, #4\n\
-    " : "=r" (a));
-
-    #endif // NONMATCHING
+    a = proc->curIndex;
+    a *= 16;
 
     b = ((proc->unk_5d * 16)) - 72;
 
@@ -980,7 +966,6 @@ void ShopProc_EnterPrepScreenShopDialogue(struct BmShopProc* proc) {
 
 void ShopProc_Loop_UnkKeyHandler(struct BmShopProc* proc) {
     u8 unkA;
-    u32 unkB;
     u32 unkC;
     int a;
     int b;
@@ -990,8 +975,7 @@ void ShopProc_Loop_UnkKeyHandler(struct BmShopProc* proc) {
     BG_SetPosition(2, 0, sub_80B5698());
 
     unkA = proc->curIndex;
-    unkB = sub_80B568C() ^ unkA;
-    unkC = (-(unkB) | unkB) >> 31;
+    unkC = sub_80B568C() != unkA;
 
     proc->curIndex = sub_80B568C();
     proc->unk_5d = sub_80B56A8();
