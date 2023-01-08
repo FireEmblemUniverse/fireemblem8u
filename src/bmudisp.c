@@ -1290,18 +1290,14 @@ int GetUnitSpritePalette(const struct Unit* unit) {
     }
 }
 
-#if NONMATCHING
-
-/* https://decomp.me/scratch/76eAd */
-
 //! FE8U = 0x080271A0
 void RefreshUnitSprites(void) {
     struct SMSHandle* smsHandle;
 
     struct Trap* trap;
     int i;
-
-    struct SMSHandle* nullHandle = 0;
+    u16 oam2 = 0;
+    struct SMSHandle* nullHandle = NULL;
 
     gSMSHandleIt = &gSMSHandleArray[0];
 
@@ -1317,7 +1313,7 @@ void RefreshUnitSprites(void) {
             continue;
         }
 
-        unit->pMapSpriteHandle = nullHandle;
+        unit->pMapSpriteHandle = NULL;
 
         if (unit->state & (US_HIDDEN | US_BIT9)) {
             continue;
@@ -1352,8 +1348,6 @@ void RefreshUnitSprites(void) {
     }
 
     for (trap = GetTrap(0); trap->type != 0; trap++) {
-        u16 oam2;
-
         if (trap->type == 1 && trap->data[1] == 0) {
             switch (trap->extra) {
                 case 0x35:
@@ -1397,245 +1391,6 @@ void RefreshUnitSprites(void) {
 
     return;
 }
-
-#else // if !NONMATCHING
-
-__attribute__((naked))
-void RefreshUnitSprites(void) {
-    asm("\n\
-        .syntax unified\n\
-        push {r4, r5, r6, r7, lr}\n\
-        mov r7, r9\n\
-        mov r6, r8\n\
-        push {r6, r7}\n\
-        movs r0, #0\n\
-        mov r8, r0\n\
-        ldr r0, _080272C0  @ gSMSHandleIt\n\
-        ldr r1, _080272C4  @ gSMSHandleArray\n\
-        mov r2, r8\n\
-        str r2, [r1]\n\
-        movs r2, #0x80\n\
-        lsls r2, r2, #3\n\
-        strh r2, [r1, #6]\n\
-        adds r1, #0xc\n\
-        str r1, [r0]\n\
-        movs r7, #1\n\
-    _080271C0:\n\
-        adds r0, r7, #0\n\
-        bl GetUnit\n\
-        adds r6, r0, #0\n\
-        cmp r6, #0\n\
-        beq _08027282\n\
-        ldr r0, [r6]\n\
-        cmp r0, #0\n\
-        beq _08027282\n\
-        movs r0, #0\n\
-        str r0, [r6, #0x3c]\n\
-        ldr r3, [r6, #0xc]\n\
-        ldr r0, _080272C8  @ 0x00000201\n\
-        ands r0, r3\n\
-        cmp r0, #0\n\
-        bne _08027282\n\
-        movs r2, #0x11\n\
-        ldrsb r2, [r6, r2]\n\
-        ldr r0, _080272CC  @ gBmMapUnit\n\
-        ldr r1, [r0]\n\
-        lsls r0, r2, #2\n\
-        adds r0, r0, r1\n\
-        movs r1, #0x10\n\
-        ldrsb r1, [r6, r1]\n\
-        ldr r0, [r0]\n\
-        adds r0, r0, r1\n\
-        ldrb r0, [r0]\n\
-        cmp r0, #0\n\
-        beq _08027282\n\
-        adds r0, r6, #0\n\
-        adds r0, #0x30\n\
-        ldrb r0, [r0]\n\
-        movs r1, #0xf\n\
-        ands r1, r0\n\
-        cmp r1, #0xb\n\
-        beq _0802720C\n\
-        cmp r1, #0xd\n\
-        bne _08027212\n\
-    _0802720C:\n\
-        movs r0, #2\n\
-        orrs r3, r0\n\
-        str r3, [r6, #0xc]\n\
-    _08027212:\n\
-        lsls r0, r2, #4\n\
-        bl AddUnitSprite\n\
-        adds r5, r0, #0\n\
-        movs r0, #0x11\n\
-        ldrsb r0, [r6, r0]\n\
-        lsls r0, r0, #4\n\
-        strh r0, [r5, #6]\n\
-        movs r0, #0x10\n\
-        ldrsb r0, [r6, r0]\n\
-        lsls r0, r0, #4\n\
-        strh r0, [r5, #4]\n\
-        adds r0, r6, #0\n\
-        bl GetUnitSMSId\n\
-        bl UseUnitSprite\n\
-        adds r4, r0, #0\n\
-        adds r0, r6, #0\n\
-        bl GetUnitDisplayedSpritePalette\n\
-        adds r4, #0x80\n\
-        movs r1, #0xf\n\
-        ands r1, r0\n\
-        lsls r1, r1, #0xc\n\
-        adds r4, r4, r1\n\
-        strh r4, [r5, #8]\n\
-        adds r0, r6, #0\n\
-        bl GetUnitSMSId\n\
-        ldr r2, _080272D0  @ unit_icon_wait_table\n\
-        movs r1, #0x7f\n\
-        ands r1, r0\n\
-        lsls r1, r1, #3\n\
-        adds r1, r1, r2\n\
-        ldrh r0, [r1, #2]\n\
-        adds r2, r0, #0\n\
-        strb r0, [r5, #0xb]\n\
-        ldr r0, [r6, #0xc]\n\
-        movs r1, #0x80\n\
-        lsls r1, r1, #1\n\
-        ands r0, r1\n\
-        cmp r0, #0\n\
-        beq _0802726E\n\
-        adds r0, r2, #3\n\
-        strb r0, [r5, #0xb]\n\
-    _0802726E:\n\
-        ldr r0, [r6, #0xc]\n\
-        movs r1, #0x80\n\
-        lsls r1, r1, #0x11\n\
-        ands r0, r1\n\
-        cmp r0, #0\n\
-        beq _08027280\n\
-        ldrb r0, [r5, #0xb]\n\
-        adds r0, #0x40\n\
-        strb r0, [r5, #0xb]\n\
-    _08027280:\n\
-        str r5, [r6, #0x3c]\n\
-    _08027282:\n\
-        adds r7, #1\n\
-        cmp r7, #0xc5\n\
-        ble _080271C0\n\
-        movs r0, #0\n\
-        bl GetTrap\n\
-        adds r4, r0, #0\n\
-        ldrb r0, [r4, #2]\n\
-        cmp r0, #0\n\
-        beq _0802734C\n\
-        ldr r1, _080272D4  @ 0xFFFFC080\n\
-        adds r6, r1, #0\n\
-        ldr r7, _080272D8  @ unit_icon_wait_table + 0x2DA @ [91].size ballista\n\
-        movs r2, #0x58\n\
-        adds r2, r2, r7\n\
-        mov r9, r2\n\
-    _080272A2:\n\
-        cmp r0, #1\n\
-        bne _08027316\n\
-        movs r0, #5\n\
-        ldrsb r0, [r4, r0]\n\
-        cmp r0, #0\n\
-        bne _08027316\n\
-        ldrb r0, [r4, #3]\n\
-        cmp r0, #0x36\n\
-        beq _080272E6\n\
-        cmp r0, #0x36\n\
-        bgt _080272DC\n\
-        cmp r0, #0x35\n\
-        beq _080272E2\n\
-        b _080272F8\n\
-        .align 2, 0\n\
-    _080272C0: .4byte gSMSHandleIt\n\
-    _080272C4: .4byte gSMSHandleArray\n\
-    _080272C8: .4byte 0x00000201\n\
-    _080272CC: .4byte gBmMapUnit\n\
-    _080272D0: .4byte unit_icon_wait_table\n\
-    _080272D4: .4byte 0xFFFFC080\n\
-    _080272D8: .4byte unit_icon_wait_table + 0x2DA @ [91].size ballista\n\
-    _080272DC:\n\
-        cmp r0, #0x37\n\
-        beq _080272EA\n\
-        b _080272F8\n\
-    _080272E2:\n\
-        movs r0, #0x5b\n\
-        b _080272EC\n\
-    _080272E6:\n\
-        movs r0, #0x5c\n\
-        b _080272EC\n\
-    _080272EA:\n\
-        movs r0, #0x5d\n\
-    _080272EC:\n\
-        bl UseUnitSprite\n\
-        adds r0, r0, r6\n\
-        lsls r0, r0, #0x10\n\
-        lsrs r0, r0, #0x10\n\
-        mov r8, r0\n\
-    _080272F8:\n\
-        ldrb r0, [r4, #1]\n\
-        lsls r0, r0, #4\n\
-        bl AddUnitSprite\n\
-        adds r5, r0, #0\n\
-        ldrb r0, [r4, #1]\n\
-        lsls r0, r0, #4\n\
-        strh r0, [r5, #6]\n\
-        ldrb r0, [r4]\n\
-        lsls r0, r0, #4\n\
-        strh r0, [r5, #4]\n\
-        mov r0, r8\n\
-        strh r0, [r5, #8]\n\
-        ldrh r0, [r7]\n\
-        strb r0, [r5, #0xb]\n\
-    _08027316:\n\
-        ldrb r0, [r4, #2]\n\
-        cmp r0, #0xd\n\
-        bne _08027344\n\
-        ldrb r0, [r4, #1]\n\
-        lsls r0, r0, #4\n\
-        bl AddUnitSprite\n\
-        adds r5, r0, #0\n\
-        ldrb r0, [r4, #1]\n\
-        lsls r0, r0, #4\n\
-        strh r0, [r5, #6]\n\
-        ldrb r0, [r4]\n\
-        lsls r0, r0, #4\n\
-        strh r0, [r5, #4]\n\
-        movs r0, #0x66\n\
-        bl UseUnitSprite\n\
-        ldr r1, _08027364  @ 0xFFFFB080\n\
-        adds r0, r0, r1\n\
-        strh r0, [r5, #8]\n\
-        mov r2, r9\n\
-        ldrh r0, [r2]\n\
-        strb r0, [r5, #0xb]\n\
-    _08027344:\n\
-        adds r4, #8\n\
-        ldrb r0, [r4, #2]\n\
-        cmp r0, #0\n\
-        bne _080272A2\n\
-    _0802734C:\n\
-        ldr r0, _08027368  @ gSMSSyncFlag\n\
-        ldr r0, [r0]\n\
-        cmp r0, #0\n\
-        beq _08027358\n\
-        bl ForceSyncUnitSpriteSheet\n\
-    _08027358:\n\
-        pop {r3, r4}\n\
-        mov r8, r3\n\
-        mov r9, r4\n\
-        pop {r4, r5, r6, r7}\n\
-        pop {r0}\n\
-        bx r0\n\
-        .align 2, 0\n\
-    _08027364: .4byte 0xFFFFB080\n\
-    _08027368: .4byte gSMSSyncFlag\n\
-        .syntax divided\n\
-    ");
-}
-
-#endif // NONMATCHING
 
 //! FE8U = 0x0802736C
 struct SMSHandle* AddUnitSprite(int y) {
