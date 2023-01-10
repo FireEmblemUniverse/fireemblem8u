@@ -1351,7 +1351,7 @@ extern const u16 gUnknown_0859A1C0[];
 // extern ??? gUnknown_0859A4C0
 // extern ??? gUnknown_0859A530
 // extern ??? gUnknown_0859A53C
-extern const struct ProcCmd ProcScr_MaybeMapChangeAnim[]; // this is GENS/Camera Movement proc
+extern struct ProcCmd CONST_DATA ProcScr_MaybeMapChangeAnim[]; // this is GENS/Camera Movement proc
 // extern ??? gUnknown_0859A570
 // extern ??? gUnknown_0859A580
 // extern ??? gStatusNameTextIdLookup
@@ -1401,7 +1401,7 @@ extern u16 CONST_DATA obj_0859AEC8[];
 // extern ??? gUnknown_0859BCA8
 // extern ??? gUnknown_0859BCF4
 // extern ??? gUnknown_0859BD40
-// extern ??? gUnknown_0859BDA0
+extern struct ProcCmd CONST_DATA gUnknown_0859BDA0[];
 // extern ??? gUnknown_0859CFB0
 // extern ??? gUnknown_0859CFD4
 // extern ??? gUnknown_0859CFF8

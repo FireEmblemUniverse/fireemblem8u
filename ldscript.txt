@@ -250,6 +250,7 @@ SECTIONS
         . = ALIGN(4); src/gamecontrol.o(.rodata);
         . = ALIGN(4); src/messdecode.o(.rodata);
         . = ALIGN(4); data/const_data_D792C.o(.rodata);
+        . = ALIGN(4); src/bm.o(.rodata);
         . = ALIGN(4); src/bmitem.o(.rodata);
         . = ALIGN(4); src/bmunit.o(.rodata);
         . = ALIGN(4); data/const_data_D7A6C.o(.rodata);
@@ -338,6 +339,7 @@ SECTIONS
         . = ALIGN(4); data/data_5924D8.o(.data);
         . = ALIGN(4); data/data_item_icon.o(.data);
         . = ALIGN(4); data/data_599714.o(.data);
+        . = ALIGN(4); src/bm.o(.data);
         . = ALIGN(4); src/bmunit.o(.data);
         . = ALIGN(4); src/bmmap.o(.data);
         . = ALIGN(4); data/data_59A9D8.o(.data);

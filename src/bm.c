@@ -21,6 +21,7 @@
 #include "soundwrapper.h"
 #include "bmmap.h"
 #include "bmphase.h"
+#include "bmusailment.h"
 
 
 struct GENSProc {
@@ -44,27 +45,297 @@ struct UnkMapCursorProc {
     /* 38 */ int duration;
 };
 
-extern const struct ProcCmd gProc_BMapMain[];
+struct Vec2 EWRAM_DATA gUnknown_0202BD3C = {}; // sLastCoordMapCursorDrawn
+u32 EWRAM_DATA gUnknown_0202BD40 = 0; // sLastTimeMapCursorDrawn
+s8 EWRAM_DATA gUnknown_0202BD44[0x100] = { 0 }; // sCameraAnimTable
 
-extern struct Vec2 gUnknown_0202BD3C;
-extern u32 gUnknown_0202BD40;
-extern s8 gUnknown_0202BD44[];
+extern u16 gUnknown_03007FF8; // gIrqCheckFlags
 
-extern u16 gUnknown_03007FF8;
+// TODO: Move elsewhere
+extern struct ProcCmd gProcScr_ResetCursorPosition[];
+extern struct ProcCmd ProcScr_PhaseIntro[];
+extern struct ProcCmd gUnknown_0859B578[]; // gProcScr_ChapterIntroTitleOnly
 
-extern s8 gUnknown_0859A438[][2];
-extern u16 gUnknown_0859A4A6[];
-extern u16* gUnknown_0859A4C0[];
-extern u16* gUnknown_0859A530[];
-extern u16* gUnknown_0859A53C[];
-extern struct ProcCmd gUnknown_0859A570[];
-extern struct ProcCmd gUnknown_0859A580[];
-extern struct ProcCmd gUnknown_0859BDA0[];
+extern u8 gUnknown_0859E8E0[]; // gGfx_MiscUiGraphics
+extern u16 gUnknown_0859ED70[]; // gPal_MiscUiGraphics
 
-extern u8 gUnknown_0859E8E0[];
-extern u16 gUnknown_0859ED70[];
+extern u16 gUnknown_089FFC30[]; // gEvent_SkirmishCommonBeginning
 
-extern u16 gUnknown_089FFC30[];
+
+void sub_801550C(ProcPtr proc);
+int CallBeginningEvents(void);
+void UndeployEveryone(void);
+int sub_8015410(void);
+void E_BMAPMAIN_SuspendGame(void);
+s8 sub_8015434(void);
+void MakePhaseController6C(ProcPtr proc);
+int sub_80154C8(ProcPtr proc);
+void sub_80155C4(void);
+void NewPlayerPhase6C(ProcPtr proc);
+
+struct ProcCmd CONST_DATA gProc_BMapMain[] = {
+    PROC_SLEEP(0),
+
+    PROC_NAME("E_BMAPMAIN"),
+    PROC_15,
+    PROC_MARK(2),
+
+    PROC_SLEEP(0),
+
+    // fallthrough
+
+PROC_LABEL(0),
+    PROC_CALL(sub_801550C),
+    PROC_SLEEP(0),
+
+    // fallthrough
+
+PROC_LABEL(1),
+    PROC_CALL(SetEventId_0x84),
+    PROC_CALL(UpdatePrevDeployStates),
+    PROC_CALL_2(CallBeginningEvents),
+    PROC_CALL(UndeployEveryone),
+
+    // fallthrough
+
+PROC_LABEL(11),
+    PROC_CALL(UnsetEventId_0x84),
+
+    // fallthrough
+
+PROC_LABEL(3),
+    PROC_CALL_2(sub_8015410),
+    PROC_CALL(E_BMAPMAIN_SuspendGame),
+
+    // fallthrough
+
+PROC_LABEL(9),
+    PROC_START_CHILD(gProcScr_ResetCursorPosition),
+    PROC_START_CHILD_BLOCKING(ProcScr_PhaseIntro),
+    PROC_WHILE_EXISTS(ProcScr_MaybeMapChangeAnim),
+
+    PROC_CALL(TickActiveFactionTurn),
+
+    PROC_START_CHILD_BLOCKING(gProcScr_StatusDecayDisplay),
+    PROC_START_CHILD_BLOCKING(gProcScr_TerrainHealDisplay),
+    PROC_START_CHILD_BLOCKING(gProcScr_PoisonDamageDisplay),
+    PROC_START_CHILD_BLOCKING(gProcScr_GorgonEggHatchDisplay),
+
+    PROC_START_CHILD_BLOCKING(gProcScr_ResetCursorPosition),
+
+    PROC_CALL_2(sub_8015434),
+
+    // fallthrough
+
+PROC_LABEL(5),
+    PROC_REPEAT(MakePhaseController6C),
+    PROC_START_CHILD_BLOCKING(gProcScr_BerserkCpPhase),
+
+    PROC_CALL_2(sub_80154C8),
+
+    PROC_GOTO(3),
+
+PROC_LABEL(2),
+    PROC_CALL(sub_80155C4),
+    PROC_SLEEP(0),
+    PROC_START_CHILD_BLOCKING(gUnknown_0859B578),
+    PROC_SLEEP(0),
+
+    PROC_GOTO(1),
+
+PROC_LABEL(4),
+    PROC_CALL(RenderBmMap),
+    PROC_CALL(sub_80160D0),
+
+    PROC_CALL(sub_8013D8C),
+    PROC_REPEAT(WaitForFade),
+
+    PROC_GOTO(5),
+
+PROC_LABEL(6),
+    PROC_CALL(RenderBmMap),
+    PROC_CALL(sub_80160D0),
+
+    PROC_CALL(sub_8013D8C),
+    PROC_REPEAT(WaitForFade),
+
+    PROC_REPEAT(NewPlayerPhase6C),
+
+    PROC_START_CHILD_BLOCKING(gProcScr_BerserkCpPhase),
+
+    PROC_GOTO(3),
+
+PROC_LABEL(10),
+    PROC_SLEEP(0),
+
+    PROC_REPEAT(NewPlayerPhase6C),
+    PROC_START_CHILD_BLOCKING(gProcScr_BerserkCpPhase),
+
+    PROC_GOTO(3),
+
+PROC_LABEL(8),
+    PROC_CALL(RenderBmMap),
+    PROC_CALL(sub_80160D0),
+
+    PROC_CALL(sub_8013D8C),
+    PROC_REPEAT(WaitForFade),
+
+    PROC_GOTO(9),
+
+PROC_LABEL(7),
+    PROC_CALL(RenderBmMap),
+    PROC_CALL(sub_80160D0),
+
+    PROC_CALL(sub_8013D8C),
+    PROC_REPEAT(WaitForFade),
+
+    PROC_START_CHILD_BLOCKING(gProcScr_BerserkCpPhase),
+
+    PROC_GOTO(3),
+
+    PROC_END,
+};
+
+s8 CONST_DATA gUnknown_0859A438[][2] = {
+    {  0,  0, }, // 0000 none
+    { +1,  0, }, // 0001 right
+    { -1,  0, }, // 0010 left
+    {  0,  0, }, // 0011 right + left
+    {  0, -1, }, // 0100 up
+    { +1, -1, }, // 0101 up + right
+    { -1, -1, }, // 0110 up + left
+    {  0,  0, }, // 0111 up + right + left
+    {  0, +1, }, // 1000 down
+    { +1, +1, }, // 1001 down + right
+    { -1, +1, }, // 1010 down + left
+    {  0,  0, }, // 1011 down + right + left
+    {  0,  0, }, // 1100 down + up
+    {  0,  0, }, // 1101 down + up + right
+    {  0,  0, }, // 1110 down + up + left
+    {  0,  0, }, // 1111 down + up + right + left
+};
+
+u16 CONST_DATA gUnknown_0859A458[] = {
+    4,
+    0x00FC, 0x01FE, 0x0000,
+    0x00FC, 0x100A, 0x0000,
+    0x0009, 0x21FE, 0x0000,
+    0x0009, 0x300A, 0x0000,
+};
+
+u16 CONST_DATA gUnknown_0859A472[] = {
+    4,
+    0x00FD, 0x01FF, 0x0000,
+    0x00FD, 0x1009, 0x0000,
+    0x0008, 0x21FF, 0x0000,
+    0x0008, 0x3009, 0x0000,
+};
+
+u16 CONST_DATA gUnknown_0859A48C[] = {
+    4,
+    0x00FE, 0x0000, 0x0000,
+    0x00FE, 0x1008, 0x0000,
+    0x0007, 0x2000, 0x0000,
+    0x0007, 0x3008, 0x0000,
+};
+
+u16 CONST_DATA gUnknown_0859A4A6[] = {
+    4,
+    0x00F8, 0x01FC, 0x0000,
+    0x00F8, 0x100C, 0x0000,
+    0x000A, 0x21FC, 0x0000,
+    0x000A, 0x300C, 0x0000,
+};
+
+u16* CONST_DATA gUnknown_0859A4C0[] = {
+    gUnknown_0859A458,
+    gUnknown_0859A458,
+    gUnknown_0859A458,
+    gUnknown_0859A458,
+    gUnknown_0859A458,
+    gUnknown_0859A458,
+    gUnknown_0859A458,
+    gUnknown_0859A458,
+    gUnknown_0859A458,
+    gUnknown_0859A458,
+    gUnknown_0859A472,
+    gUnknown_0859A48C,
+    gUnknown_0859A48C,
+    gUnknown_0859A48C,
+    gUnknown_0859A48C,
+    gUnknown_0859A472,
+};
+
+u16 CONST_DATA gUnknown_0859A500[] = {
+    1,
+    0x8000, 0x0000, 0x004C,
+};
+
+u16 CONST_DATA gUnknown_0859A508[] = {
+    1,
+    0x8000, 0x0000, 0x004D,
+};
+
+u16 CONST_DATA gUnknown_0859A510[] = {
+    1,
+    0x80FF, 0x0000, 0x004D,
+};
+
+u16 CONST_DATA gUnknown_0859A518[] = {
+    1,
+    0x8000, 0x0000, 0x004E,
+};
+
+u16 CONST_DATA gUnknown_0859A520[] = {
+    1,
+    0x8000, 0x0000, 0x004F,
+};
+
+u16 CONST_DATA gUnknown_0859A528[] = {
+    1,
+    0x8001, 0x0000, 0x004F,
+};
+
+u16* CONST_DATA gUnknown_0859A530[] = {
+    gUnknown_0859A500,
+    gUnknown_0859A508,
+    gUnknown_0859A510,
+};
+
+u16* CONST_DATA gUnknown_0859A53C[] = {
+    gUnknown_0859A518,
+    gUnknown_0859A520,
+    gUnknown_0859A528,
+};
+
+void Init6C_GENS(struct GENSProc* proc);
+void Loop6C_GENS(struct GENSProc* proc);
+
+struct ProcCmd CONST_DATA ProcScr_MaybeMapChangeAnim[] = {
+    PROC_NAME("GENS"),
+    PROC_SLEEP(0),
+
+    PROC_CALL(Init6C_GENS),
+    PROC_REPEAT(Loop6C_GENS),
+
+    PROC_END,
+};
+
+void sub_8015F40(struct UnkMapCursorProc* proc);
+
+struct ProcCmd CONST_DATA gUnknown_0859A570[] = {
+    PROC_REPEAT(sub_8015F40),
+    PROC_END,
+};
+
+void sub_801613C(void);
+void sub_80160E0(struct GENSProc* proc);
+
+struct ProcCmd CONST_DATA gUnknown_0859A580[] = {
+    PROC_SET_END_CB(sub_801613C),
+    PROC_REPEAT(sub_80160E0),
+    PROC_END,
+};
 
 //! FE8U = 0x080152A4
 void GeneralVBlankHandler(void) {
@@ -257,7 +528,7 @@ void E_BMAPMAIN_SuspendGame(void) {
     return;
 }
 
-//! FE8U = 0x0
+//! FE8U = 0x0801550C
 void sub_801550C(ProcPtr proc) {
     if (gRAMChapterData.chapterIndex == 0x38) {
         return;
@@ -944,6 +1215,8 @@ static inline u8 CheckAltBgm2(int base, int alt) {
         return alt;
     }
 }
+
+/* https://decomp.me/scratch/5XKbq */
 
 //! FE8U = 0x08015FC8
 int GetCurrentMapMusicIndex(void) {
