@@ -14,6 +14,20 @@ struct ChapterMap {
     u8  changeLayerId;
 };
 
+enum {
+    MAP_BGM_BLUE            =  0,
+    MAP_BGM_RED             =  1,
+    MAP_BGM_GREEN           =  2,
+    MAP_BGM_BLUE_HECTOR     =  3,
+    MAP_BGM_RED_HECTOR      =  4,
+    MAP_BGM_GREEN_HECTOR    =  5,
+    MAP_BGM_BLUE_GREEN_ALT  =  6,
+    MAP_BGM_RED_ALT         =  7,
+    MAP_BGM_PROLOGUE_LYN    =  8,
+    MAP_BGM_PROLOGUE        =  9,
+    MAP_BGM_PROLOGUE_HECTOR = 10,
+};
+
 struct ROMChapterData {
     /* 00 */ const char* internalName;
 
@@ -35,17 +49,7 @@ struct ROMChapterData {
     /* 14 */ u16 difficultModeLevelBonus : 4;
     /* 14 */ u16 normalModeLevelMalus    : 4;
 
-    /* 16 */ u16 mapBgmIdBluePhase;
-    /* 18 */ u16 mapBgmIdRedPhase;
-    /* 1A */ u16 mapBgmIdGreenPhase;
-    /* 1C */ u16 mapBgmIdBluePhaseInHectorStory; // left over from FE7
-    /* 1E */ u16 mapBgmIdRedPhaseInHectorStory; // left over from FE7
-    /* 20 */ u16 mapBgmIdGreenPhaseInHectorStory; // left over from FE7
-    /* 22 */ u16 mapBgmIdBlueGreenPhaseAlt;
-    /* 24 */ u16 mapBgmIdRedPhaseAlt;
-    /* 26 */ u16 mapPrologueBgmIdInLynStory; // left over from FE7
-    /* 28 */ u16 mapPrologueBgmId;
-    /* 2A */ u16 mapPrologueBgmIdInHectorStory; // left over from FE7
+    /* 16 */ u16 mapBgmIds[11];
 
     /* 2C */ u8 mapCrackedWallHeath;
 

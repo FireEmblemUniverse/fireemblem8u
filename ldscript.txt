@@ -62,7 +62,7 @@ SECTIONS
         asm/eventcmd_44.o(.text);
         src/bmlib.o(.text);
         asm/hino.o(.text);
-        asm/bm.o(.text);
+        src/bm.o(.text);
         src/bmitem.o(.text);
         src/bmunit.o(.text);
         src/bmmap.o(.text);

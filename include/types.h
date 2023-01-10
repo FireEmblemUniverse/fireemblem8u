@@ -111,7 +111,7 @@ struct Vec2u { u16 x, y; };
 
 struct Struct0202BCB0 // Game State Struct
 {
-    /* 00 */ u8  mainLoopEndedFlag;
+    /* 00 */ s8  mainLoopEndedFlag;
 
     /* 01 */ s8  gameLogicSemaphore;
     /* 02 */ s8  gameGfxSemaphore;
@@ -138,8 +138,11 @@ struct Struct0202BCB0 // Game State Struct
     /* 2C */ u16 itemUnk2C;
     /* 2E */ u16 itemUnk2E;
 
-    /* 30 */ u8 _pad30[0x38 - 0x30];
-
+    /* 30 */ u16 unk30;
+    /* 32 */ s16 unk32;
+    /* 34 */ s16 unk34;
+    /* 36 */ s8 unk36;
+    /* 37 */ s8 unk37;
     /* 38 */ u8 altBlendACa;
     /* 39 */ u8 altBlendACb;
     /* 3A */ u8 altBlendBCa;
