@@ -9,6 +9,7 @@
 #include "bmio.h"
 #include "event.h"
 #include "bmudisp.h"
+#include "bm.h"
 #include "constants/items.h"
 #include "mapanim.h"
 

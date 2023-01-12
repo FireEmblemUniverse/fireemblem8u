@@ -23,6 +23,7 @@
 #include "minimap.h"
 #include "player_interface.h"
 #include "bmudisp.h"
+#include "bm.h"
 
 #include "playerphase.h"
 
@@ -45,11 +46,6 @@ extern u16 gUnknown_08A02F94[];
 extern u16 gUnknown_08A02FF4[];
 
 extern u8 gUnknown_08A02EB4[];
-
-// bm.s
-void HandleCursorMovement(u16 keys);
-void MoveCameraByStepMaybe(int step);
-void sub_801588C(int step);
 
 void TrySwitchViewedUnit(int, int);
 int GetUnitSelectionValueThing(struct Unit* unit);
@@ -103,7 +99,7 @@ PROC_LABEL(0),
 
     PROC_CALL(PlayerPhase_HandleAutoEnd),
 
-    PROC_CALL(sub_80160D0),
+    PROC_CALL(StartMapSongBgm),
 
     // fallthrough
 
@@ -140,7 +136,7 @@ PROC_LABEL(2),
     // fallthrough
 
 PROC_LABEL(7),
-    PROC_WHILE_EXISTS(ProcScr_MaybeMapChangeAnim),
+    PROC_WHILE_EXISTS(gProcScr_CamMove),
 
     PROC_CALL_2(PlayerPhase_PrepareAction),
 
@@ -268,15 +264,15 @@ void PlayerPhase_Suspend() {
 void HandlePlayerCursorMovement() {
 
     if ((gKeyStatusPtr->heldKeys & B_BUTTON) && !(gGameState.playerCursorDisplay.x & 7) && !(gGameState.playerCursorDisplay.y & 7)) {
-        HandleCursorMovement(gKeyStatusPtr->newKeys2);
+        HandleMapCursorInput(gKeyStatusPtr->newKeys2);
 
-        MoveCameraByStepMaybe(8);
-        sub_801588C(8);
+        HandleMoveMapCursor(8);
+        HandleMoveCameraWithMapCursor(8);
     } else {
-        HandleCursorMovement(gKeyStatusPtr->repeatedKeys);
+        HandleMapCursorInput(gKeyStatusPtr->repeatedKeys);
 
-        MoveCameraByStepMaybe(4);
-        sub_801588C(4);
+        HandleMoveMapCursor(4);
+        HandleMoveCameraWithMapCursor(4);
     }
 
     if (((gGameState.playerCursorDisplay.x | gGameState.playerCursorDisplay.y) & 0xF) != 0) {
@@ -337,7 +333,7 @@ void PlayerPhase_MainIdle(ProcPtr proc) {
                         ShowUnitSprite(unit);
                     }
 
-                    StartOrphanMenuAdjusted(&gMapMenuDef, gGameState.unk1C.x - gGameState.camera.x, 1, 0x17);
+                    StartOrphanMenuAdjusted(&gMapMenuDef, gGameState.cursorTarget.x - gGameState.camera.x, 1, 0x17);
                     sub_80832CC();
 
                     Proc_Goto(proc, 9);
@@ -378,7 +374,7 @@ void PlayerPhase_MainIdle(ProcPtr proc) {
 _0801CB38:
     UnitSpriteHoverUpdate();
 
-    DisplayCursor(
+    PutMapCursor(
         gGameState.playerCursorDisplay.x, 
         gGameState.playerCursorDisplay.y, 
         IsUnitSpriteHoverEnabledAt(gGameState.playerCursor.x, gGameState.playerCursor.y) ? 3 : 0
@@ -622,7 +618,7 @@ _0801CDE2:
         DrawUpdatedPathArrow();
     }
     
-    DisplayCursor(gGameState.playerCursorDisplay.x, gGameState.playerCursorDisplay.y, 1);
+    PutMapCursor(gGameState.playerCursorDisplay.x, gGameState.playerCursorDisplay.y, 1);
 
     return;
 }
@@ -858,7 +854,7 @@ void sub_801D404() {
 void sub_801D434(ProcPtr proc) {
 
     if (gActionData.unitActionType != UNIT_ACTION_TRAPPED) {
-        StartSemiCenteredOrphanMenu(&gUnitActionMenuDef, gGameState.unk1C.x - gGameState.camera.x, 1, 0x16);
+        StartSemiCenteredOrphanMenu(&gUnitActionMenuDef, gGameState.cursorTarget.x - gGameState.camera.x, 1, 0x16);
     }
 
     Proc_Break(proc);
@@ -885,7 +881,7 @@ void PlayerPhase_ApplyUnitMovement(ProcPtr proc) {
     }
 
     if (gActionData.unitActionType != UNIT_ACTION_TRAPPED) {
-        StartSemiCenteredOrphanMenu(&gUnitActionMenuDef, gGameState.unk1C.x - gGameState.camera.x, 1, 0x16);
+        StartSemiCenteredOrphanMenu(&gUnitActionMenuDef, gGameState.cursorTarget.x - gGameState.camera.x, 1, 0x16);
     }
 
     Proc_Break(proc);
@@ -1175,7 +1171,7 @@ void MoveLimitView_OnInit(ProcPtr proc) {
     SetBlendTargetB(0, 0, 0, 1, 1);
     sub_8001F64(1);
 
-    SetupBackgroundForWeatherMaybe();
+    InitBmBgLayers();
 
     return;
 }
@@ -1211,7 +1207,7 @@ void MoveLimitView_OnEnd(struct MoveLimitViewProc* proc) {
 
     gGameState.gameStateBits &= ~((1 << 0) | (1 << 1));
 
-    SetupBackgroundForWeatherMaybe();
+    InitBmBgLayers();
 
     return;
 }

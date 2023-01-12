@@ -21,13 +21,11 @@
 #include "gamecontrol.h"
 #include "bmarena.h"
 #include "bmudisp.h"
+#include "bm.h"
 
 #include "bmio.h"
 
 // General Battle Map System Stuff, mostly low level hardware stuff but also more
-
-// TODO: move to where appropriate
-extern const struct ProcCmd gProc_BMapMain[]; // gProc_BMapMain
 
 struct WeatherParticle {
     /* 00 */ short xPosition;
@@ -977,8 +975,8 @@ void StartBattleMap(struct GameCtrlProc* gameCtrl) {
 
     SetupBackgrounds(NULL);
 
-    SetMainUpdateRoutine(SomeUpdateRoutine);
-    SetInterrupt_LCDVBlank(GeneralVBlankHandler);
+    SetMainUpdateRoutine(OnGameLoopMain);
+    SetInterrupt_LCDVBlank(OnVBlank);
 
     ClearBattleMapState();
     sub_80156D4();
@@ -1003,7 +1001,7 @@ void StartBattleMap(struct GameCtrlProc* gameCtrl) {
     gRAMChapterData.chapterWeatherId =
         GetROMChapterStruct(gRAMChapterData.chapterIndex)->initialWeather;
 
-    SetupBackgroundForWeatherMaybe();
+    InitBmBgLayers();
     InitChapterMap(gRAMChapterData.chapterIndex);
     InitMapObstacles();
 
@@ -1045,8 +1043,8 @@ void StartBattleMap(struct GameCtrlProc* gameCtrl) {
 void RestartBattleMap(void) {
     SetupBackgrounds(NULL);
 
-    SetMainUpdateRoutine(SomeUpdateRoutine);
-    SetInterrupt_LCDVBlank(GeneralVBlankHandler);
+    SetMainUpdateRoutine(OnGameLoopMain);
+    SetInterrupt_LCDVBlank(OnVBlank);
 
     sub_80156D4();
     SetupMapSpritesPalettes();
@@ -1057,7 +1055,7 @@ void RestartBattleMap(void) {
     gRAMChapterData.chapterWeatherId =
         GetROMChapterStruct(gRAMChapterData.chapterIndex)->initialWeather;
 
-    SetupBackgroundForWeatherMaybe();
+    InitBmBgLayers();
 
     InitChapterMap(gRAMChapterData.chapterIndex);
 
@@ -1091,8 +1089,8 @@ void GameCtrl_StartResumedGame(struct GameCtrlProc* gameCtrl) {
 
     SetupBackgrounds(NULL);
 
-    SetMainUpdateRoutine(SomeUpdateRoutine);
-    SetInterrupt_LCDVBlank(GeneralVBlankHandler);
+    SetMainUpdateRoutine(OnGameLoopMain);
+    SetInterrupt_LCDVBlank(OnVBlank);
 
     ClearBattleMapState();
 
@@ -1111,8 +1109,8 @@ void GameCtrl_StartResumedGame(struct GameCtrlProc* gameCtrl) {
 
     mapMain = StartBMapMain(gameCtrl);
 
-    gGameState.camera.x = sub_8015A40(16 * gGameState.playerCursor.x);
-    gGameState.camera.y = sub_8015A6C(16 * gGameState.playerCursor.y);
+    gGameState.camera.x = GetCameraCenteredX(16 * gGameState.playerCursor.x);
+    gGameState.camera.y = GetCameraCenteredY(16 * gGameState.playerCursor.y);
 
     switch (gActionData.suspendPointType) {
 
@@ -1146,8 +1144,8 @@ void GameCtrl_StartResumedGame(struct GameCtrlProc* gameCtrl) {
 }
 
 void RefreshBMapDisplay_FromBattle(void) {
-    SetMainUpdateRoutine(SomeUpdateRoutine);
-    SetInterrupt_LCDVBlank(GeneralVBlankHandler);
+    SetMainUpdateRoutine(OnGameLoopMain);
+    SetInterrupt_LCDVBlank(OnVBlank);
 
     LoadGameCoreGfx();
     SetupMapSpritesPalettes();

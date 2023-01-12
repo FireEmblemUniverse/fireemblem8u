@@ -62,7 +62,7 @@ SECTIONS
         asm/eventcmd_44.o(.text);
         src/bmlib.o(.text);
         asm/hino.o(.text);
-        asm/bm.o(.text);
+        src/bm.o(.text);
         src/bmitem.o(.text);
         src/bmunit.o(.text);
         src/bmmap.o(.text);
@@ -250,6 +250,7 @@ SECTIONS
         . = ALIGN(4); src/gamecontrol.o(.rodata);
         . = ALIGN(4); src/messdecode.o(.rodata);
         . = ALIGN(4); data/const_data_D792C.o(.rodata);
+        . = ALIGN(4); src/bm.o(.rodata);
         . = ALIGN(4); src/bmitem.o(.rodata);
         . = ALIGN(4); src/bmunit.o(.rodata);
         . = ALIGN(4); data/const_data_D7A6C.o(.rodata);
@@ -338,6 +339,7 @@ SECTIONS
         . = ALIGN(4); data/data_5924D8.o(.data);
         . = ALIGN(4); data/data_item_icon.o(.data);
         . = ALIGN(4); data/data_599714.o(.data);
+        . = ALIGN(4); src/bm.o(.data);
         . = ALIGN(4); src/bmunit.o(.data);
         . = ALIGN(4); src/bmmap.o(.data);
         . = ALIGN(4); data/data_59A9D8.o(.data);
@@ -361,7 +363,7 @@ SECTIONS
         . = ALIGN(4); src/whitecircularfadefx.o(.data);
         . = ALIGN(4); src/emitstarfx.o(.data);
         . = ALIGN(4); src/minefx.o(.data);
-        . = ALIGN(4); data/data_59B358.o(.data);
+        . = ALIGN(4); src/chapterintrofx_title.o(.data);
         . = ALIGN(4); src/bmmenu.o(.data);
         . = ALIGN(4); src/bmudisp.o(.data);
         . = ALIGN(4); src/bmreliance.o(.data);
@@ -369,6 +371,7 @@ SECTIONS
         . = ALIGN(4); src/bmbattle.o(.data);
         . = ALIGN(4); src/bmtrade.o(.data);
         . = ALIGN(4); data/data_59BC64.o(.data);
+        . = ALIGN(4); src/bmtrick.o(.data);
         . = ALIGN(4); src/bmusemind.o(.data);
         . = ALIGN(4); src/menu_def.o(.rodata);
         . = ALIGN(4); data/data_59D238.o(.data);

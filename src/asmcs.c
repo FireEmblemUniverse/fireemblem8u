@@ -370,12 +370,12 @@ void sub_8085948(struct EventEngineProc *proc)
     Proc_EndEach(gUnknown_089EE048);
 }
 
-void SetEventId_0x84(struct EventEngineProc *proc)
+void SetEventId_0x84(ProcPtr proc)
 {
     SetEventId(0x84);
 }
 
-void UnsetEventId_0x84(struct EventEngineProc *proc)
+void UnsetEventId_0x84(ProcPtr proc)
 {
     UnsetEventId(0x84);
 }

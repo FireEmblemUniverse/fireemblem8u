@@ -17583,7 +17583,7 @@ _08049EE2:
 	adds r0, r5, #0
 	adds r1, r4, #0
 	movs r2, #0
-	bl DisplayCursor
+	bl PutMapCursor
 	ldr r0, _08049F30  @ gUnknown_0203DD90
 	ldrb r0, [r0, #2]
 	cmp sl, r0
@@ -17684,7 +17684,7 @@ _08049FB0:
 	adds r0, r5, #0
 	adds r1, r4, #0
 	movs r2, #0
-	bl DisplayCursor
+	bl PutMapCursor
 	ldr r2, _0804A024  @ gKeyStatusPtr
 	ldr r0, [r2]
 	ldrh r1, [r0, #8]

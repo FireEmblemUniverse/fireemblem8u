@@ -10,6 +10,7 @@
 #include "bmio.h"
 #include "hardware.h"
 #include "ap.h"
+#include "bm.h"
 #include "mapanim.h"
 
 void MapEventBattle_SetUpHitData(ProcPtr proc)
@@ -28,7 +29,7 @@ void MapEventBattle_OnEnd(void)
     MU_AllRestartAnimations();
     Font_ResetAllocation();
     DeleteBattleAnimInfoThing();
-    SetupBackgroundForWeatherMaybe();
+    InitBmBgLayers();
     LoadLegacyUiFrameGraphics();
     LoadObjUIGfx();
 }

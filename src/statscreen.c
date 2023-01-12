@@ -19,6 +19,7 @@
 #include "mu.h"
 #include "face.h"
 #include "bmudisp.h"
+#include "bm.h"
 
 #include "constants/classes.h"
 

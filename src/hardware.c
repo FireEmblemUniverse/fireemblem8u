@@ -1,5 +1,6 @@
 #include "global.h"
 #include "proc.h"
+#include "bm.h"
 #include "hardware.h"
 
 EWRAM_DATA struct Struct02024CD4 gUnknown_02024CD4 = {0};
@@ -894,7 +895,7 @@ void SetupBackgrounds(u16 *bgConfig)
         BG_Fill(BG_GetMapBuffer(bg), 0);
         CpuFastFill16(0, (void *)(VRAM + GetBackgroundTileDataOffset(bg)), 64);
     }
-    SetupBackgroundForWeatherMaybe();
+    InitBmBgLayers();
     sModifiedBGs |= 0xF;
 
     SetupOAMBufferSplice(0);

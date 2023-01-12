@@ -11,6 +11,7 @@
 #include "ctc.h"
 #include "bmio.h"
 #include "mu.h"
+#include "bm.h"
 
 #include "bmdifficulty.h"
 

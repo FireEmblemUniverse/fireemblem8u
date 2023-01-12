@@ -2596,7 +2596,7 @@ _0805106C:
 	movs r1, #0xef
 	lsls r1, r1, #1
 	bl LoadIconObjectGraphics
-	ldr r0, _08051168  @ gUnknown_0859ED70
+	ldr r0, _08051168  @ gPal_MiscUiGraphics
 	movs r1, #0x80
 	lsls r1, r1, #2
 	movs r2, #0x20
@@ -2633,7 +2633,7 @@ _08051158: .4byte 0x06013A00
 _0805115C: .4byte 0x06013E00
 _08051160: .4byte gUnknown_0203E188
 _08051164: .4byte gUnknown_0203E18C
-_08051168: .4byte gUnknown_0859ED70
+_08051168: .4byte gPal_MiscUiGraphics
 
 	THUMB_FUNC_END NewEkrGauge
 
@@ -13127,7 +13127,7 @@ ekrBattleEnding_8056288: @ 0x08056288
 	bl EndEkrGauge
 	adds r0, r4, #0
 	bl Proc_Break
-	bl SetupBackgroundForWeatherMaybe
+	bl InitBmBgLayers
 	ldr r0, _0805630C  @ gLCDControlBuffer
 	mov ip, r0
 	ldrb r0, [r0, #1]
@@ -23381,9 +23381,9 @@ sub_805B320: @ 0x0805B320
 	adds r4, r0, #0
 	bl EndEkrBattleDeamon
 	bl EndEkrGauge
-	ldr r0, _0805B344  @ SomeUpdateRoutine
+	ldr r0, _0805B344  @ OnGameLoopMain
 	bl SetMainUpdateRoutine
-	ldr r0, _0805B348  @ GeneralVBlankHandler
+	ldr r0, _0805B348  @ OnVBlank
 	bl SetInterrupt_LCDVBlank
 	adds r0, r4, #0
 	bl Proc_Break
@@ -23391,8 +23391,8 @@ sub_805B320: @ 0x0805B320
 	pop {r0}
 	bx r0
 	.align 2, 0
-_0805B344: .4byte SomeUpdateRoutine
-_0805B348: .4byte GeneralVBlankHandler
+_0805B344: .4byte OnGameLoopMain
+_0805B348: .4byte OnVBlank
 
 	THUMB_FUNC_END sub_805B320
 
@@ -78709,9 +78709,9 @@ sub_8076514: @ 0x08076514
 	adds r4, r0, #0
 	bl EndEkrBattleDeamon
 	bl EndEkrGauge
-	ldr r0, _08076538  @ SomeUpdateRoutine
+	ldr r0, _08076538  @ OnGameLoopMain
 	bl SetMainUpdateRoutine
-	ldr r0, _0807653C  @ GeneralVBlankHandler
+	ldr r0, _0807653C  @ OnVBlank
 	bl SetInterrupt_LCDVBlank
 	adds r0, r4, #0
 	bl Proc_Break
@@ -78719,8 +78719,8 @@ sub_8076514: @ 0x08076514
 	pop {r0}
 	bx r0
 	.align 2, 0
-_08076538: .4byte SomeUpdateRoutine
-_0807653C: .4byte GeneralVBlankHandler
+_08076538: .4byte OnGameLoopMain
+_0807653C: .4byte OnVBlank
 
 	THUMB_FUNC_END sub_8076514
 

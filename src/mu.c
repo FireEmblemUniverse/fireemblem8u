@@ -4,6 +4,7 @@
 #include "constants/classes.h"
 
 #include "ap.h"
+#include "bm.h"
 #include "bmio.h"
 #include "bmunit.h"
 #include "bmmap.h"
@@ -1060,9 +1061,9 @@ static void MU_State_DuringMovement(struct MUProc* proc) {
         proc->ySubPosition &= ~0xF;
     }
 
-    if (proc->boolAttractCamera && !Proc_Find(ProcScr_MaybeMapChangeAnim)) {
-        gGameState.camera.x = GetSomeAdjustedCameraX(proc->xSubPosition >> MU_SUBPIXEL_PRECISION);
-        gGameState.camera.y = GetSomeAdjustedCameraY(proc->ySubPosition >> MU_SUBPIXEL_PRECISION);
+    if (proc->boolAttractCamera && !Proc_Find(gProcScr_CamMove)) {
+        gGameState.camera.x = GetCameraAdjustedX(proc->xSubPosition >> MU_SUBPIXEL_PRECISION);
+        gGameState.camera.y = GetCameraAdjustedY(proc->ySubPosition >> MU_SUBPIXEL_PRECISION);
     }
 
     if (!(proc->moveConfig & 0x80))

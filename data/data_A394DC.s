@@ -121,7 +121,7 @@ gUnknown_08A394DC:  @ 0x08A394DC
         .word RefreshBMapGraphics
         @ PROC_CALL
         .short 0x2, 0x0
-        .word sub_80160D0
+        .word StartMapSongBgm
         @ PROC_CALL
         .short 0x2, 0x0
         .word sub_8013D8C
@@ -215,7 +215,7 @@ gUnknown_08A3963C:  @ 0x08A3963C
         .word RefreshBMapGraphics
         @ PROC_CALL
         .short 0x2, 0x0
-        .word sub_80160D0
+        .word StartMapSongBgm
         @ PROC_CALL
         .short 0x2, 0x0
         .word sub_8013D8C

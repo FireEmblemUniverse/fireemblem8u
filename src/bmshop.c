@@ -15,6 +15,7 @@
 #include "ctc.h"
 #include "bmio.h"
 #include "face.h"
+#include "bm.h"
 
 #include "bmshop.h"
 
@@ -109,7 +110,7 @@ struct ProcCmd CONST_DATA gProcScr_ShopFadeOut[] = {
     PROC_CALL(BMapDispResume),
     PROC_CALL(RefreshBMapGraphics),
 
-    PROC_CALL(sub_80160D0),
+    PROC_CALL(StartMapSongBgm),
     PROC_CALL(sub_8013D8C),
 
     PROC_REPEAT(WaitForFade),

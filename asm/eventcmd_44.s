@@ -12,7 +12,7 @@ sub_8012CE4: @ 0x08012CE4
 	movs r2, #0x10
 	movs r3, #0
 	bl SetSpecialColorEffectsParameters
-	bl SetupBackgroundForWeatherMaybe
+	bl InitBmBgLayers
 	pop {r0}
 	bx r0
 

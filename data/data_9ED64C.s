@@ -17857,8 +17857,8 @@ gUnknown_089F36A0:  @ 0x089F36A0
 gUnknown_089FF480:  @ 0x089FF480
 	.incbin "baserom.gba", 0x9FF480, 0x7B0
 
-	.global gUnknown_089FFC30
-gUnknown_089FFC30:  @ 0x089FFC30
+	.global gEvent_SkirmishCommonBeginning
+gEvent_SkirmishCommonBeginning:  @ 0x089FFC30
 @ Replacing .incbin "baserom.gba", 0x9FFC30, 0x134
     .4byte 0x000d0540
     .4byte 0x00000000

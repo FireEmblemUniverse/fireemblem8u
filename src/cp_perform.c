@@ -17,6 +17,7 @@
 #include "playerphase.h"
 #include "popup.h"
 #include "bmudisp.h"
+#include "bm.h"
 
 #include "cp_perform.h"
 
@@ -47,7 +48,7 @@ void AiTargetCursor_Main(struct UnkProcA* proc);
 struct ProcCmd CONST_DATA gProcScr_AiTargetCursor[] = {
     PROC_SLEEP(0),
 
-    PROC_WHILE_EXISTS(ProcScr_MaybeMapChangeAnim),
+    PROC_WHILE_EXISTS(gProcScr_CamMove),
     PROC_REPEAT(AiTargetCursor_Main),
 
     PROC_END,
@@ -95,7 +96,7 @@ s8 AiWaitAndClearScreenAction(struct CpPerformProc*);
 
 void AiTargetCursor_Main(struct UnkProcA* proc) {
 
-    DisplayCursor(proc->unk_2C, proc->unk_30, proc->unk_58);
+    PutMapCursor(proc->unk_2C, proc->unk_30, proc->unk_58);
 
     if ((gKeyStatusPtr->heldKeys & (A_BUTTON | START_BUTTON)) || (proc->unk_64 > 45)) {
         Proc_Break(proc);
@@ -121,7 +122,7 @@ void StartAiTargetCursor(int x, int y, int kind, ProcPtr parent) {
 
 void CpPerform_UpdateMapMusic() {
     if (!Proc_Find(gMusicProc3Script)) {
-        sub_80160D0();
+        StartMapSongBgm();
     }
 
     return;

@@ -10,6 +10,7 @@
 #include "statscreen.h"
 #include "face.h"
 
+#include "bm.h"
 #include "bmitem.h"
 #include "bmtrade.h"
 #include "bmunit.h"
@@ -167,7 +168,7 @@ static struct ProcCmd sProcScr_TradeMenu[] = {
     PROC_CALL(AddSkipThread2),
     PROC_YIELD,
 
-    PROC_WHILE_EXISTS(ProcScr_MaybeMapChangeAnim),
+    PROC_WHILE_EXISTS(gProcScr_CamMove),
 
     PROC_CALL(TradeMenu_InitItemDisplay),
     PROC_CALL(TradeMenu_InitUnitNameDisplay),

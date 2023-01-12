@@ -8,6 +8,7 @@
 #include "ctc.h"
 #include "bmtrick.h"
 #include "bmmap.h"
+#include "bm.h"
 #include "constants/video-global.h"
 
 
@@ -112,7 +113,7 @@ struct ProcCmd CONST_DATA ProcScr_ArrowTrapAnim[] = {
 struct ProcCmd CONST_DATA ProcScr_ShowMapChangeAnim[] = {
     PROC_YIELD,
     PROC_CALL(ProcShowMapChange_MoveCamera),
-    PROC_WHILE_EXISTS(ProcScr_MaybeMapChangeAnim),
+    PROC_WHILE_EXISTS(gProcScr_CamMove),
     PROC_CALL(ProcShowMapChange_UpdateGame),
     PROC_WHILE(DoesBMXFADEExist),
     PROC_END

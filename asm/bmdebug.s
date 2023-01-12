@@ -655,9 +655,9 @@ _0801C08C: .4byte gUnknown_02022D76
 	THUMB_FUNC_START DEBUGONLY_Startup
 DEBUGONLY_Startup: @ 0x0801C090
 	push {r4, lr}
-	ldr r0, _0801C0E0  @ SomeUpdateRoutine
+	ldr r0, _0801C0E0  @ OnGameLoopMain
 	bl SetMainUpdateRoutine
-	ldr r0, _0801C0E4  @ GeneralVBlankHandler
+	ldr r0, _0801C0E4  @ OnVBlank
 	bl SetInterrupt_LCDVBlank
 	bl RefreshBMapGraphics
 	movs r0, #2
@@ -686,8 +686,8 @@ DEBUGONLY_Startup: @ 0x0801C090
 	pop {r0}
 	bx r0
 	.align 2, 0
-_0801C0E0: .4byte SomeUpdateRoutine
-_0801C0E4: .4byte GeneralVBlankHandler
+_0801C0E0: .4byte OnGameLoopMain
+_0801C0E4: .4byte OnVBlank
 _0801C0E8: .4byte gUnknown_080D7A7C
 _0801C0EC: .4byte gDebugContinueMenuDef
 _0801C0F0: .4byte gGameState

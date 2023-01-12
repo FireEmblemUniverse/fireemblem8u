@@ -2,6 +2,7 @@
 
 #include "hardware.h"
 #include "proc.h"
+#include "bm.h"
 
 void SetAllUnitNotBackSprite();
 
@@ -31,7 +32,7 @@ void bmxfade_init(struct BmxfadeProc *proc)
 {
     proc->counter = 0x10;
 
-    SetupBackgroundForWeatherMaybe();
+    InitBmBgLayers();
 
     SetBlendTargetA(0, 0, 1, 0, 0);
     SetBlendTargetB(0, 0, 0, 1, 1);

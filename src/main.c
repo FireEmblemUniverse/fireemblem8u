@@ -7,6 +7,7 @@
 #include "mu.h"
 #include "soundwrapper.h"
 #include "gamecontrol.h"
+#include "bm.h"
 
 EWRAM_DATA static struct KeyStatusBuffer sKeyStatusBuffer = {0};
 
@@ -54,7 +55,7 @@ void AgbMain()
     m4aSoundInit();
     Sound_SetDefaultMaxNumChannels();
 
-    SetInterrupt_LCDVBlank(GeneralVBlankHandler);
+    SetInterrupt_LCDVBlank(OnVBlank);
     sub_80BC81C();
     SetSomeByte(1);
     Font_InitForUIDefault();

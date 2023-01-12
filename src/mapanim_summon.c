@@ -2,6 +2,7 @@
 #include "functions.h"
 #include "variables.h"
 #include "hardware.h"
+#include "bm.h"
 #include "bmunit.h"
 #include "bmbattle.h"
 #include "bmitem.h"

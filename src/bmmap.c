@@ -238,8 +238,8 @@ void UnpackChapterMap(void* into, int chapterId) {
         gChapterDataAssetTable[GetROMChapterStruct(chapterId)->map.tileConfigId], sTilesetConfig);
 
     // Setting max camera offsets (?) TODO: figure out
-    gGameState.unk28.x = gBmMapSize.x*16 - 240;
-    gGameState.unk28.y = gBmMapSize.y*16 - 160;
+    gGameState.cameraMax.x = gBmMapSize.x*16 - 240;
+    gGameState.cameraMax.y = gBmMapSize.y*16 - 160;
 }
 
 void UnpackChapterMapGraphics(int chapterId) {

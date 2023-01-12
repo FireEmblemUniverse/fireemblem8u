@@ -9,6 +9,7 @@
 #include "uiutils.h"
 #include "bmphase.h"
 #include "bmunit.h"
+#include "bm.h"
 #include "constants/video-global.h"
 
 /*
@@ -109,7 +110,7 @@ struct ProcCmd CONST_DATA ProcScr_PhaseIntro[] = {
     PROC_START_CHILD(gProcScr_PhaseIntroBlendBox),
     PROC_CALL(PhaseIntro_InitDisp),
     PROC_REPEAT(PhaseIntro_WaitForEnd),
-    PROC_CALL(sub_80160D0),
+    PROC_CALL(StartMapSongBgm),
     PROC_END
 };
 

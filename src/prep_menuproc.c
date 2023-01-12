@@ -14,6 +14,7 @@
 #include "statscreen.h"
 #include "uiutils.h"
 #include "bmudisp.h"
+#include "bm.h"
 #include "prepscreen.h"
 s8 CheckSomethingSomewhere();
 
