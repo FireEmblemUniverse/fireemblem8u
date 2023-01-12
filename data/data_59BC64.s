@@ -94,38 +94,3 @@ gUnknown_0859BD40:  @ 0x0859BD40
     .4byte 0xd40
     .4byte sub_802E100
     .4byte 0x120
-
-	.global gProcScr_UpdateTraps
-gProcScr_UpdateTraps:  @ 0x0859BDA0
-        @ PROC_CALL
-        .short 0x2, 0x0
-        .word CountDownTraps
-        @ PROC_CALL
-        .short 0x2, 0x0
-        .word sub_802EA00
-        @ PROC_CALL
-        .short 0x2, 0x0
-        .word GenerateTrapDamageTargets
-        @ PROC_CALL
-        .short 0x2, 0x0
-        .word sub_802EA1C
-        @ PROC_CALL
-        .short 0x2, 0x0
-        .word GenerateDisplayedTrapDamageTargets
-        @ PROC_START_CHILD_BLOCKING
-        .short 0x6, 0x1
-        .word gProcScr_TrapDamageDisplay
-        @ PROC_CALL
-        .short 0x2, 0x0
-        .word ResetCountedDownTraps
-        @ PROC_CALL
-        .short 0x2, 0x0
-        .word RefreshEntityBmMaps
-        @ PROC_CALL
-        .short 0x2, 0x0
-        .word sub_802EA28
-        @ PROC_END
-        .short 0x0, 0x0
-        .word 0x0
-
-

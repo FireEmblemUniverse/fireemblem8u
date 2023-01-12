@@ -10,7 +10,27 @@
 #include "uiselecttarget.h"
 #include "bmtarget.h"
 #include "bmudisp.h"
+#include "bmusailment.h"
 #include "bmtrick.h"
+
+struct ProcCmd CONST_DATA gProcScr_UpdateTraps[] =
+{
+    PROC_CALL(CountDownTraps),
+    PROC_CALL(sub_802EA00),
+
+    PROC_CALL(GenerateTrapDamageTargets),
+    PROC_CALL(sub_802EA1C),
+
+    PROC_CALL(GenerateDisplayedTrapDamageTargets),
+    PROC_START_CHILD_BLOCKING(gProcScr_TrapDamageDisplay),
+
+    PROC_CALL(ResetCountedDownTraps),
+    PROC_CALL(RefreshEntityBmMaps),
+
+    PROC_CALL(sub_802EA28),
+
+    PROC_END,
+};
 
 static void GenerateFireTileTrapTargets(int x, int y, int damage);
 static void GenerateArrowTrapTargets(int x, int y, int damage);
