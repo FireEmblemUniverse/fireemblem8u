@@ -116,7 +116,7 @@ struct ROMChapterData {
     /* 84 */ u8 merchantPosY;
     /* 85 */ u8 merchantPosYInHectorStory; // left over from FE7
 
-    /* 86 */ u8 victorySongEnemyThreshold;
+    /* 86 */ s8 victorySongEnemyThreshold;
     /* 87 */ bool8 fadeToBlack;
 
     /* 88 */ u16 statusObjectiveTextId;
