@@ -1205,8 +1205,6 @@ void sub_8015F90(int x, int y, int duration) {
     return;
 }
 
-#if NONMATCHING
-
 static inline int CheckAltBgm(u8 base, u8 alt) {
     if (!CheckEventId(4)) {
         return base;
@@ -1215,25 +1213,21 @@ static inline int CheckAltBgm(u8 base, u8 alt) {
     }
 }
 
-static inline u8 CheckAltBgm2(int base, int alt) {
-    if (!CheckEventId(4)) {
-        return base;
-    } else {
-        return alt;
-    }
-}
-
-/* https://decomp.me/scratch/5XKbq */
-
 //! FE8U = 0x08015FC8
 int GetCurrentMapMusicIndex(void) {
     int aliveUnits;
+    u32 thing;
 
     u8 blueBgmIdx = CheckAltBgm(MAP_BGM_BLUE, MAP_BGM_BLUE_GREEN_ALT);
-
     u8 redBgmIdx = CheckAltBgm(MAP_BGM_RED, MAP_BGM_RED_ALT);
+    u8 greenBgmIdx;
 
-    register u8 greenBgmIdx asm ("r4") = CheckAltBgm2(MAP_BGM_GREEN, MAP_BGM_BLUE_GREEN_ALT);
+    if (!CheckEventId(4)) {
+        greenBgmIdx = MAP_BGM_GREEN;
+        greenBgmIdx++; greenBgmIdx--;
+    } else {
+        greenBgmIdx = MAP_BGM_BLUE_GREEN_ALT;
+    }
 
     switch (gRAMChapterData.faction) {
         case FACTION_RED:
@@ -1248,165 +1242,18 @@ int GetCurrentMapMusicIndex(void) {
                 return GetROMChapterStruct(gRAMChapterData.chapterIndex)->mapBgmIds[blueBgmIdx];
             }
 
-            if ((GetChapterThing() == 2) || ((s8)(GetROMChapterStruct(gRAMChapterData.chapterIndex)->victorySongEnemyThreshold)) != 0) {
+            if ((GetChapterThing() == 2) || GetROMChapterStruct(gRAMChapterData.chapterIndex)->victorySongEnemyThreshold != 0) {
                 aliveUnits = CountUnitsInState(0x80, 0x0001000C);
+                thing = GetChapterThing();
 
-                if (GetChapterThing() != 2) {
-                    if (aliveUnits <= (s8)(GetROMChapterStruct(gRAMChapterData.chapterIndex)->victorySongEnemyThreshold)) {
-                        goto _080160AC;
-                    }
-                } else if (aliveUnits <= 1) {
-                _080160AC:
+                if ((thing != 2 && aliveUnits <= (GetROMChapterStruct(gRAMChapterData.chapterIndex)->victorySongEnemyThreshold))
+                    || (thing == 2 && aliveUnits <= 1))
                     return 0x10;
-                }
-
             }
 
             return GetROMChapterStruct(gRAMChapterData.chapterIndex)->mapBgmIds[blueBgmIdx];
     }
 }
-
-#else // if !NONMATCHING
-
-__attribute__((naked))
-int GetCurrentMapMusicIndex(void) {
-    asm("\n\
-            .syntax unified\n\
-            push {r4, r5, r6, r7, lr}\n\
-            movs r0, #4\n\
-            bl CheckEventId\n\
-            lsls r0, r0, #0x18\n\
-            movs r1, #6\n\
-            cmp r0, #0\n\
-            bne _08015FDA\n\
-            movs r1, #0\n\
-        _08015FDA:\n\
-            adds r7, r1, #0\n\
-            movs r0, #4\n\
-            bl CheckEventId\n\
-            lsls r0, r0, #0x18\n\
-            movs r1, #7\n\
-            cmp r0, #0\n\
-            bne _08015FEC\n\
-            movs r1, #1\n\
-        _08015FEC:\n\
-            adds r6, r1, #0\n\
-            movs r0, #4\n\
-            bl CheckEventId\n\
-            adds r1, r0, #0\n\
-            lsls r1, r1, #0x18\n\
-            cmp r1, #0\n\
-            bne _08016000\n\
-            movs r4, #2\n\
-            b _08016002\n\
-        _08016000:\n\
-            movs r4, #6\n\
-        _08016002:\n\
-            ldr r5, _08016014  @ gRAMChapterData\n\
-            ldrb r1, [r5, #0xf]\n\
-            cmp r1, #0x40\n\
-            beq _0801602E\n\
-            cmp r1, #0x40\n\
-            bgt _08016018\n\
-            cmp r1, #0\n\
-            beq _08016040\n\
-            b _080160C4\n\
-            .align 2, 0\n\
-        _08016014: .4byte gRAMChapterData\n\
-        _08016018:\n\
-            cmp r1, #0x80\n\
-            bne _080160C4\n\
-            movs r0, #0xe\n\
-            ldrsb r0, [r5, r0]\n\
-            bl GetROMChapterStruct\n\
-            lsls r1, r6, #1\n\
-            adds r0, #0x16\n\
-            adds r0, r0, r1\n\
-            ldrh r0, [r0]\n\
-            b _080160C4\n\
-        _0801602E:\n\
-            movs r0, #0xe\n\
-            ldrsb r0, [r5, r0]\n\
-            bl GetROMChapterStruct\n\
-            lsls r1, r4, #1\n\
-            adds r0, #0x16\n\
-            adds r0, r0, r1\n\
-            ldrh r0, [r0]\n\
-            b _080160C4\n\
-        _08016040:\n\
-            movs r0, #4\n\
-            bl CheckEventId\n\
-            lsls r0, r0, #0x18\n\
-            cmp r0, #0\n\
-            beq _0801605E\n\
-            movs r0, #0xe\n\
-            ldrsb r0, [r5, r0]\n\
-            bl GetROMChapterStruct\n\
-            lsls r1, r7, #1\n\
-            adds r0, #0x16\n\
-            adds r0, r0, r1\n\
-            ldrh r0, [r0]\n\
-            b _080160C4\n\
-        _0801605E:\n\
-            bl GetChapterThing\n\
-            cmp r0, #2\n\
-            beq _0801607A\n\
-            movs r0, #0xe\n\
-            ldrsb r0, [r5, r0]\n\
-            bl GetROMChapterStruct\n\
-            adds r0, #0x86\n\
-            ldrb r0, [r0]\n\
-            lsls r0, r0, #0x18\n\
-            asrs r0, r0, #0x18\n\
-            cmp r0, #0\n\
-            beq _080160B0\n\
-        _0801607A:\n\
-            ldr r1, _080160A4  @ 0x0001000C\n\
-            movs r0, #0x80\n\
-            bl CountUnitsInState\n\
-            adds r4, r0, #0\n\
-            bl GetChapterThing\n\
-            cmp r0, #2\n\
-            beq _080160A8\n\
-            movs r0, #0xe\n\
-            ldrsb r0, [r5, r0]\n\
-            bl GetROMChapterStruct\n\
-            adds r0, #0x86\n\
-            ldrb r0, [r0]\n\
-            lsls r0, r0, #0x18\n\
-            asrs r0, r0, #0x18\n\
-            cmp r4, r0\n\
-            ble _080160AC\n\
-            b _080160B0\n\
-            .align 2, 0\n\
-        _080160A4: .4byte 0x0001000C\n\
-        _080160A8:\n\
-            cmp r4, #1\n\
-            bgt _080160B0\n\
-        _080160AC:\n\
-            movs r0, #0x10\n\
-            b _080160C4\n\
-        _080160B0:\n\
-            ldr r0, _080160CC  @ gRAMChapterData\n\
-            ldrb r0, [r0, #0xe]\n\
-            lsls r0, r0, #0x18\n\
-            asrs r0, r0, #0x18\n\
-            bl GetROMChapterStruct\n\
-            lsls r1, r7, #1\n\
-            adds r0, #0x16\n\
-            adds r0, r0, r1\n\
-            ldrh r0, [r0]\n\
-        _080160C4:\n\
-            pop {r4, r5, r6, r7}\n\
-            pop {r1}\n\
-            bx r1\n\
-            .align 2, 0\n\
-        _080160CC: .4byte gRAMChapterData\n\
-            .syntax divided\n\
-        ");
-}
-
-#endif // NONMATCHING
 
 //! FE8U = 0x080160D0
 void StartMapSongBgm(void) {
