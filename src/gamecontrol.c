@@ -9,6 +9,7 @@
 #include "rng.h"
 #include "event.h"
 #include "opinfo.h"
+#include "bm.h"
 
 #include "gamecontrol.h"
 
@@ -446,7 +447,7 @@ void sub_8009A84(ProcPtr proc) {
 
     Proc_ForAll(EndProcIfNotMarkedB);
 
-    SetMainUpdateRoutine(SomeUpdateRoutine);
+    SetMainUpdateRoutine(OnGameLoopMain);
 
     return;
 }
@@ -788,9 +789,9 @@ void sub_8009EFC(ProcPtr proc) {
 void StartGame() {
     struct GameCtrlProc* proc;
 
-    SetMainUpdateRoutine(SomeUpdateRoutine);
+    SetMainUpdateRoutine(OnGameLoopMain);
 
-    SetInterrupt_LCDVBlank(GeneralVBlankHandler);
+    SetInterrupt_LCDVBlank(OnVBlank);
 
     proc = Proc_Start(gProcScr_GameControl, PROC_TREE_3);
     proc->nextAction = GAME_ACTION_0;

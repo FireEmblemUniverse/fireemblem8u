@@ -2,6 +2,7 @@
 
 #include "constants/classes.h"
 
+#include "bm.h"
 #include "bmmap.h"
 #include "bmunit.h"
 #include "bmudisp.h"

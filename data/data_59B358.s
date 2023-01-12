@@ -1,7 +1,7 @@
     .section .data
 
-	.global gUnknown_0859B578
-gUnknown_0859B578:  @ 0x0859B578
+	.global gProcScr_ChapterIntroTitleOnly
+gProcScr_ChapterIntroTitleOnly:  @ 0x0859B578
         @ PROC_CALL
         .short 0x2, 0x0
         .word BMapDispSuspend

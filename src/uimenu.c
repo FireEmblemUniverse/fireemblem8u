@@ -5,6 +5,7 @@
 #include "soundwrapper.h"
 #include "fontgrp.h"
 #include "proc.h"
+#include "bm.h"
 #include "bmio.h"
 #include "uiutils.h"
 #include "statscreen.h"
@@ -29,7 +30,7 @@ struct ProcCmd sProc_Menu[] =
     PROC_NAME("E_Menu"),
     PROC_SLEEP(0),
 
-    PROC_WHILE_EXISTS(ProcScr_MaybeMapChangeAnim),
+    PROC_WHILE_EXISTS(gProcScr_CamMove),
 
     PROC_CALL(NewGreenTextColorManager),
     PROC_CALL(RedrawMenu),

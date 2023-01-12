@@ -11,6 +11,7 @@
 #include "uichapterstatus.h"
 #include "chapterdata.h"
 #include "face.h"
+#include "bm.h"
 
 #include "constants/terrains.h"
 
@@ -142,7 +143,7 @@ struct ProcCmd CONST_DATA gProcScr_TerrainDisplay[] = {
 
 PROC_LABEL(0),
 
-    PROC_WHILE_EXISTS(ProcScr_MaybeMapChangeAnim),
+    PROC_WHILE_EXISTS(gProcScr_CamMove),
 
     PROC_REPEAT(TerrainDisplay_Loop_OnSideChange),
     PROC_REPEAT(TerrainDisplay_Loop_SlideIn),
@@ -171,7 +172,7 @@ struct ProcCmd CONST_DATA gProcScr_UnitDisplay_MinimugBox[] = {
 
 PROC_LABEL(0),
 
-    PROC_WHILE_EXISTS(ProcScr_MaybeMapChangeAnim),
+    PROC_WHILE_EXISTS(gProcScr_CamMove),
 
     PROC_REPEAT(MMB_Loop_OnSideChange),
     PROC_REPEAT(MMB_Loop_SlideIn),
@@ -246,7 +247,7 @@ struct ProcCmd CONST_DATA gProcScr_GoalDisplay[] = {
 
 PROC_LABEL(0),
 
-    PROC_WHILE_EXISTS(ProcScr_MaybeMapChangeAnim),
+    PROC_WHILE_EXISTS(gProcScr_CamMove),
 
     PROC_REPEAT(GoalDisplay_Loop_OnSideChange),
     PROC_REPEAT(GoalDisplay_Loop_SlideIn),
@@ -274,7 +275,7 @@ struct ProcCmd CONST_DATA gProcScr_PrepMap_MenuButtonDisplay[] = {
 
 PROC_LABEL(0),
 
-    PROC_WHILE_EXISTS(ProcScr_MaybeMapChangeAnim),
+    PROC_WHILE_EXISTS(gProcScr_CamMove),
 
     PROC_WHILE(IsAnyPlayerSideWindowRetracting),
 
@@ -1088,7 +1089,7 @@ void TerrainDisplay_Loop_Display(struct PlayerInterfaceProc* proc) {
         return;
     }
 
-    if (!Proc_Find(ProcScr_MaybeMapChangeAnim)) {
+    if (!Proc_Find(gProcScr_CamMove)) {
         int cursorQuadrant = GetCursorQuadrant();
 
         if ((cursorQuadrant == proc->unk_50) || ((sPlayerInterfaceConfigLut[cursorQuadrant].xTerrain == sPlayerInterfaceConfigLut[proc->unk_50].xTerrain) && (sPlayerInterfaceConfigLut[cursorQuadrant].yTerrain == sPlayerInterfaceConfigLut[proc->unk_50].yTerrain))) {
@@ -1171,7 +1172,7 @@ void MMB_Loop_Display(struct PlayerInterfaceProc* proc) {
         return;
     }
 
-    if (unit && !Proc_Find(ProcScr_MaybeMapChangeAnim)) {
+    if (unit && !Proc_Find(gProcScr_CamMove)) {
         int cursorQuadrant = GetCursorQuadrant();
 
         if ((cursorQuadrant == proc->unk_50) || ((sPlayerInterfaceConfigLut[cursorQuadrant].xMinimug == sPlayerInterfaceConfigLut[proc->unk_50].xMinimug) && (sPlayerInterfaceConfigLut[cursorQuadrant].yMinimug == sPlayerInterfaceConfigLut[proc->unk_50].yMinimug))) {
@@ -1229,7 +1230,7 @@ void BurstDisplay_Loop_Display(struct PlayerInterfaceProc* proc) {
         return;
     }
 
-    if ((proc->unk_4b == 0) || (Proc_Find(ProcScr_MaybeMapChangeAnim) != 0)) {
+    if ((proc->unk_4b == 0) || (Proc_Find(gProcScr_CamMove) != 0)) {
         return;
     }
 
@@ -1645,7 +1646,7 @@ void GoalDisplay_Loop_Display(struct PlayerInterfaceProc* proc) {
         return;
     }
 
-    if (!Proc_Find(ProcScr_MaybeMapChangeAnim)) {
+    if (!Proc_Find(gProcScr_CamMove)) {
 
         int cursorQuadrant = GetCursorQuadrant();
         int quadrant = proc->unk_50;
@@ -1777,7 +1778,7 @@ void MenuButtonDisp_Loop_Display(struct PlayerInterfaceProc* proc) {
         return;
     }
 
-    if (!Proc_Find(ProcScr_MaybeMapChangeAnim)) {
+    if (!Proc_Find(gProcScr_CamMove)) {
         int cursorQuadrant = GetCursorQuadrant();
         int quadrant = proc->unk_50;
 

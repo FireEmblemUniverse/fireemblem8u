@@ -8,6 +8,7 @@
 #include "proc.h"
 #include "hardware.h"
 #include "uiutils.h"
+#include "bm.h"
 #include "functions.h"
 
 struct MenuItemPanelProc{

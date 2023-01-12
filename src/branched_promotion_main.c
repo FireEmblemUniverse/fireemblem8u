@@ -1,5 +1,6 @@
 #include "branched_promotion.h"
 
+#include "bm.h"
 #include "bmio.h"
 #include "bmudisp.h"
 #include "face.h"

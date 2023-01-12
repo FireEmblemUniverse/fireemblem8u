@@ -8,6 +8,7 @@
 #include "soundwrapper.h"
 #include "fontgrp.h"
 #include "uiutils.h"
+#include "bm.h"
 
 #include "minimap.h"
 
@@ -1098,7 +1099,7 @@ void sub_80A8568(struct MinimapProc* proc) {
 
         y = ((gBmMapSize.y * 4) - 144);
 
-        tmp = ((gGameState.camera.y << 16) / gGameState.unk28.y) * y;
+        tmp = ((gGameState.camera.y << 16) / gGameState.cameraMax.y) * y;
 
         tmp = tmp < 0 ? tmp + 0x0000FFFF : tmp;
 
@@ -1156,16 +1157,16 @@ void Minimap_HandleDPadInput(struct MinimapProc* proc) {
         x = 0;
     }
 
-    if (x > gGameState.unk28.x) {
-        x = gGameState.unk28.x;
+    if (x > gGameState.cameraMax.x) {
+        x = gGameState.cameraMax.x;
     }
 
     if (y < 0) {
         y = 0;
     }
 
-    if (y > gGameState.unk28.y) {
-        y = gGameState.unk28.y;
+    if (y > gGameState.cameraMax.y) {
+        y = gGameState.cameraMax.y;
     }
 
     gGameState.camera.x = x;

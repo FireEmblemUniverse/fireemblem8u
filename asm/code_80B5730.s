@@ -7099,7 +7099,7 @@ sub_80B8E60: @ 0x080B8E60
 	bl BG_Fill
 	movs r0, #0xf
 	bl BG_EnableSyncByMask
-	ldr r4, _080B8F84  @ gUnknown_0859ED70
+	ldr r4, _080B8F84  @ gPal_MiscUiGraphics
 	movs r1, #0x80
 	lsls r1, r1, #2
 	adds r0, r4, #0
@@ -7201,7 +7201,7 @@ _080B8F74: .4byte gBG0TilemapBuffer
 _080B8F78: .4byte gBG1TilemapBuffer
 _080B8F7C: .4byte gBG2TilemapBuffer
 _080B8F80: .4byte gBG3TilemapBuffer
-_080B8F84: .4byte gUnknown_0859ED70
+_080B8F84: .4byte gPal_MiscUiGraphics
 _080B8F88: .4byte gUnknown_08AA11D0
 _080B8F8C: .4byte gGenericBuffer
 _080B8F90: .4byte 0x06015300

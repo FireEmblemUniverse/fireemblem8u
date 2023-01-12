@@ -1,11 +1,11 @@
     .section .data
 
-	.global gUnknown_0859E8E0
-gUnknown_0859E8E0:  @ 0x0859E8E0
+	.global gGfx_MiscUiGraphics
+gGfx_MiscUiGraphics:  @ 0x0859E8E0
 	.incbin "baserom.gba", 0x59E8E0, 0x490
 
-	.global gUnknown_0859ED70
-gUnknown_0859ED70:  @ 0x0859ED70
+	.global gPal_MiscUiGraphics
+gPal_MiscUiGraphics:  @ 0x0859ED70
 	.incbin "baserom.gba", 0x59ED70, 0x40
 
 	.global gUnknown_0859EDB0

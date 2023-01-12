@@ -5,6 +5,7 @@
 #include "m4a.h"
 #include "soundwrapper.h"
 #include "gamecontrol.h"
+#include "bm.h"
 
 struct TitleScreenProc {
     /* 00 */ PROC_HEADER;

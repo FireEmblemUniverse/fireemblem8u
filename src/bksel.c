@@ -13,6 +13,7 @@
 #include "event.h"
 #include "bmmap.h"
 #include "statscreen.h"
+#include "bm.h"
 
 #include "bksel.h"
 

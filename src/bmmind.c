@@ -16,6 +16,7 @@
 #include "bmarch.h"
 #include "bmtarget.h"
 #include "bmudisp.h"
+#include "bm.h"
 #include "bmmind.h"
 
 #include "constants/items.h"

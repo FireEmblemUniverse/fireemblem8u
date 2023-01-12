@@ -18,6 +18,7 @@
 #include "bmtrick.h"
 #include "trapfx.h"
 #include "bmudisp.h"
+#include "bm.h"
 
 #include "bmusailment.h"
 

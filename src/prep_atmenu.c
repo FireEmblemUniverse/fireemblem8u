@@ -13,6 +13,7 @@
 #include "bmio.h"
 #include "mu.h"
 #include "bmudisp.h"
+#include "bm.h"
 
 #include "prepscreen.h"
 s8 CheckSomethingSomewhere();

@@ -206,11 +206,11 @@ SetSomeRealCamPos: @ 0x0800BA5C
 _0800BA84: .4byte gGameState
 _0800BA88:
 	lsls r0, r0, #4
-	bl GetSomeAdjustedCameraX
+	bl GetCameraAdjustedX
 	ldr r4, _0800BAA4  @ gGameState
 	strh r0, [r4, #0xc]
 	lsls r0, r5, #4
-	bl GetSomeAdjustedCameraY
+	bl GetCameraAdjustedY
 	strh r0, [r4, #0xe]
 _0800BA9A:
 	add sp, #8

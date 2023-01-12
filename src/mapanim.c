@@ -17,6 +17,7 @@
 #include "soundwrapper.h"
 #include "rng.h"
 #include "bmmap.h"
+#include "bm.h"
 #include "constants/characters.h"
 #include "constants/items.h"
 #include "constants/classes.h"
@@ -82,7 +83,7 @@ void MapAnim_Cleanup(void) {
     MU_AllRestartAnimations();
 	Font_ResetAllocation();
 	DeleteBattleAnimInfoThing();
-	SetupBackgroundForWeatherMaybe();
+	InitBmBgLayers();
 	LoadUiFrameGraphics();
 	LoadObjUIGfx();
 	if (EventEngineExists())

@@ -5,6 +5,7 @@
 #include "proc.h"
 #include "hardware.h"
 #include "rng.h"
+#include "bm.h"
 
 #include "constants/faces.h"
 
@@ -209,7 +210,7 @@ struct ProcCmd CONST_DATA gProcScr_E_FACE[] =
 {
     PROC_NAME("E_FACE"),
 
-    PROC_WHILE_EXISTS(ProcScr_MaybeMapChangeAnim),
+    PROC_WHILE_EXISTS(gProcScr_CamMove),
     PROC_SLEEP(0),
 
     PROC_CALL(Face_OnInit),
@@ -225,7 +226,7 @@ struct ProcCmd CONST_DATA gProcScr_E_FACE_ExtraFrame[] =
 {
     PROC_NAME("E_FACE"),
 
-    PROC_WHILE_EXISTS(ProcScr_MaybeMapChangeAnim),
+    PROC_WHILE_EXISTS(gProcScr_CamMove),
     PROC_SLEEP(1),
 
     PROC_CALL(Face_OnInit),

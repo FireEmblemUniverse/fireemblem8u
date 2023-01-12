@@ -3730,11 +3730,11 @@ _0800F198:
 	strb r4, [r0, #0xe]
 	bl RestartBattleMap
 	lsls r0, r6, #4
-	bl sub_8015A40
+	bl GetCameraCenteredX
 	ldr r4, _0800F200  @ gGameState
 	strh r0, [r4, #0xc]
 	lsls r0, r7, #4
-	bl sub_8015A6C
+	bl GetCameraCenteredY
 	strh r0, [r4, #0xe]
 	bl RefreshEntityBmMaps
 	bl RenderBmMap
@@ -5231,7 +5231,7 @@ TryPrepareEventUnitMovement: @ 0x0800FC90
 	ands r0, r1
 	cmp r0, #0
 	beq _0800FCBE
-	ldr r0, _0800FCCC  @ ProcScr_MaybeMapChangeAnim
+	ldr r0, _0800FCCC  @ gProcScr_CamMove
 	bl Proc_Find
 	cmp r0, #0
 	bne _0800FCD0
@@ -5250,7 +5250,7 @@ _0800FCBE:
 	movs r0, #1
 	b _0800FCD2
 	.align 2, 0
-_0800FCCC: .4byte ProcScr_MaybeMapChangeAnim
+_0800FCCC: .4byte gProcScr_CamMove
 _0800FCD0:
 	movs r0, #0
 _0800FCD2:
@@ -6704,7 +6704,7 @@ _0801075E:
 	ldrsh r1, [r1, r2]
 	lsls r1, r1, #4
 	movs r2, #0
-	bl DisplayCursor
+	bl PutMapCursor
 	b _08010796
 _0801077A:
 	adds r0, r2, #0

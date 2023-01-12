@@ -11,6 +11,7 @@
 #include "bmio.h"
 #include "statscreen.h"
 #include "bmudisp.h"
+#include "bm.h"
 
 #include "uiconfig.h"
 
@@ -611,7 +612,7 @@ s8 MusicOptionChangeHandler(ProcPtr proc) {
     if ((gConfigUiState->unk_37 & 2) != 0) {
         sub_80B9FC0();
     } else {
-        sub_80160D0();
+        StartMapSongBgm();
     }
 
     return 0;

@@ -23,8 +23,16 @@
 #include "bmphase.h"
 #include "bmusailment.h"
 
+#include "bm.h"
 
-struct GENSProc {
+enum {
+    CAMERA_MARGIN_LEFT   = 16 * 3,
+    CAMERA_MARGIN_RIGHT  = 16 * 11,
+    CAMERA_MARGIN_TOP    = 16 * 2,
+    CAMERA_MARGIN_BOTTOM = 16 * 7,
+};
+
+struct CamMoveProc {
     /* 00 */ PROC_HEADER;
 
     /* 2C */ struct Vec2 to;
@@ -45,33 +53,30 @@ struct UnkMapCursorProc {
     /* 38 */ int duration;
 };
 
-struct Vec2 EWRAM_DATA gUnknown_0202BD3C = {}; // sLastCoordMapCursorDrawn
-u32 EWRAM_DATA gUnknown_0202BD40 = 0; // sLastTimeMapCursorDrawn
-s8 EWRAM_DATA gUnknown_0202BD44[0x100] = { 0 }; // sCameraAnimTable
-
-extern u16 gUnknown_03007FF8; // gIrqCheckFlags
+struct Vec2 EWRAM_DATA sLastCoordMapCursorDrawn = {};
+u32 EWRAM_DATA sLastTimeMapCursorDrawn = 0;
+s8 EWRAM_DATA sCameraAnimTable[0x100] = { 0 };
 
 // TODO: Move elsewhere
 extern struct ProcCmd gProcScr_ResetCursorPosition[];
 extern struct ProcCmd ProcScr_PhaseIntro[];
-extern struct ProcCmd gUnknown_0859B578[]; // gProcScr_ChapterIntroTitleOnly
+extern struct ProcCmd gProcScr_ChapterIntroTitleOnly[];
 
-extern u8 gUnknown_0859E8E0[]; // gGfx_MiscUiGraphics
-extern u16 gUnknown_0859ED70[]; // gPal_MiscUiGraphics
+extern u8 gGfx_MiscUiGraphics[];
+extern u16 gPal_MiscUiGraphics[];
 
-extern u16 gUnknown_089FFC30[]; // gEvent_SkirmishCommonBeginning
+extern u16 gEvent_SkirmishCommonBeginning[];
 
-
-void sub_801550C(ProcPtr proc);
+void BmMain_StartIntroFx(ProcPtr proc);
 int CallBeginningEvents(void);
 void UndeployEveryone(void);
-int sub_8015410(void);
-void E_BMAPMAIN_SuspendGame(void);
+int BmMain_ChangePhase(void);
+void BmMain_SuspendBeforePhase(void);
 s8 sub_8015434(void);
-void MakePhaseController6C(ProcPtr proc);
-int sub_80154C8(ProcPtr proc);
+void BmMain_StartPhase(ProcPtr proc);
+int BmMain_UpdateTraps(ProcPtr proc);
 void sub_80155C4(void);
-void NewPlayerPhase6C(ProcPtr proc);
+void BmMain_ResumePlayerPhase(ProcPtr proc);
 
 struct ProcCmd CONST_DATA gProc_BMapMain[] = {
     PROC_SLEEP(0),
@@ -85,7 +90,7 @@ struct ProcCmd CONST_DATA gProc_BMapMain[] = {
     // fallthrough
 
 PROC_LABEL(0),
-    PROC_CALL(sub_801550C),
+    PROC_CALL(BmMain_StartIntroFx),
     PROC_SLEEP(0),
 
     // fallthrough
@@ -104,15 +109,15 @@ PROC_LABEL(11),
     // fallthrough
 
 PROC_LABEL(3),
-    PROC_CALL_2(sub_8015410),
-    PROC_CALL(E_BMAPMAIN_SuspendGame),
+    PROC_CALL_2(BmMain_ChangePhase),
+    PROC_CALL(BmMain_SuspendBeforePhase),
 
     // fallthrough
 
 PROC_LABEL(9),
     PROC_START_CHILD(gProcScr_ResetCursorPosition),
     PROC_START_CHILD_BLOCKING(ProcScr_PhaseIntro),
-    PROC_WHILE_EXISTS(ProcScr_MaybeMapChangeAnim),
+    PROC_WHILE_EXISTS(gProcScr_CamMove),
 
     PROC_CALL(TickActiveFactionTurn),
 
@@ -128,24 +133,24 @@ PROC_LABEL(9),
     // fallthrough
 
 PROC_LABEL(5),
-    PROC_REPEAT(MakePhaseController6C),
+    PROC_REPEAT(BmMain_StartPhase),
     PROC_START_CHILD_BLOCKING(gProcScr_BerserkCpPhase),
 
-    PROC_CALL_2(sub_80154C8),
+    PROC_CALL_2(BmMain_UpdateTraps),
 
     PROC_GOTO(3),
 
 PROC_LABEL(2),
     PROC_CALL(sub_80155C4),
     PROC_SLEEP(0),
-    PROC_START_CHILD_BLOCKING(gUnknown_0859B578),
+    PROC_START_CHILD_BLOCKING(gProcScr_ChapterIntroTitleOnly),
     PROC_SLEEP(0),
 
     PROC_GOTO(1),
 
 PROC_LABEL(4),
     PROC_CALL(RenderBmMap),
-    PROC_CALL(sub_80160D0),
+    PROC_CALL(StartMapSongBgm),
 
     PROC_CALL(sub_8013D8C),
     PROC_REPEAT(WaitForFade),
@@ -154,12 +159,12 @@ PROC_LABEL(4),
 
 PROC_LABEL(6),
     PROC_CALL(RenderBmMap),
-    PROC_CALL(sub_80160D0),
+    PROC_CALL(StartMapSongBgm),
 
     PROC_CALL(sub_8013D8C),
     PROC_REPEAT(WaitForFade),
 
-    PROC_REPEAT(NewPlayerPhase6C),
+    PROC_REPEAT(BmMain_ResumePlayerPhase),
 
     PROC_START_CHILD_BLOCKING(gProcScr_BerserkCpPhase),
 
@@ -168,14 +173,14 @@ PROC_LABEL(6),
 PROC_LABEL(10),
     PROC_SLEEP(0),
 
-    PROC_REPEAT(NewPlayerPhase6C),
+    PROC_REPEAT(BmMain_ResumePlayerPhase),
     PROC_START_CHILD_BLOCKING(gProcScr_BerserkCpPhase),
 
     PROC_GOTO(3),
 
 PROC_LABEL(8),
     PROC_CALL(RenderBmMap),
-    PROC_CALL(sub_80160D0),
+    PROC_CALL(StartMapSongBgm),
 
     PROC_CALL(sub_8013D8C),
     PROC_REPEAT(WaitForFade),
@@ -184,7 +189,7 @@ PROC_LABEL(8),
 
 PROC_LABEL(7),
     PROC_CALL(RenderBmMap),
-    PROC_CALL(sub_80160D0),
+    PROC_CALL(StartMapSongBgm),
 
     PROC_CALL(sub_8013D8C),
     PROC_REPEAT(WaitForFade),
@@ -196,7 +201,7 @@ PROC_LABEL(7),
     PROC_END,
 };
 
-s8 CONST_DATA gUnknown_0859A438[][2] = {
+s8 CONST_DATA sDirKeysToOffsetLut[][2] = {
     {  0,  0, }, // 0000 none
     { +1,  0, }, // 0001 right
     { -1,  0, }, // 0010 left
@@ -215,7 +220,7 @@ s8 CONST_DATA gUnknown_0859A438[][2] = {
     {  0,  0, }, // 1111 down + up + right + left
 };
 
-u16 CONST_DATA gUnknown_0859A458[] = {
+u16 CONST_DATA sSprite_MapCursorA[] = {
     4,
     0x00FC, 0x01FE, 0x0000,
     0x00FC, 0x100A, 0x0000,
@@ -223,7 +228,7 @@ u16 CONST_DATA gUnknown_0859A458[] = {
     0x0009, 0x300A, 0x0000,
 };
 
-u16 CONST_DATA gUnknown_0859A472[] = {
+u16 CONST_DATA sSprite_MapCursorB[] = {
     4,
     0x00FD, 0x01FF, 0x0000,
     0x00FD, 0x1009, 0x0000,
@@ -231,7 +236,7 @@ u16 CONST_DATA gUnknown_0859A472[] = {
     0x0008, 0x3009, 0x0000,
 };
 
-u16 CONST_DATA gUnknown_0859A48C[] = {
+u16 CONST_DATA sSprite_MapCursorC[] = {
     4,
     0x00FE, 0x0000, 0x0000,
     0x00FE, 0x1008, 0x0000,
@@ -239,7 +244,7 @@ u16 CONST_DATA gUnknown_0859A48C[] = {
     0x0007, 0x3008, 0x0000,
 };
 
-u16 CONST_DATA gUnknown_0859A4A6[] = {
+u16 CONST_DATA sSprite_MapCursorStretched[] = {
     4,
     0x00F8, 0x01FC, 0x0000,
     0x00F8, 0x100C, 0x0000,
@@ -247,100 +252,103 @@ u16 CONST_DATA gUnknown_0859A4A6[] = {
     0x000A, 0x300C, 0x0000,
 };
 
-u16* CONST_DATA gUnknown_0859A4C0[] = {
-    gUnknown_0859A458,
-    gUnknown_0859A458,
-    gUnknown_0859A458,
-    gUnknown_0859A458,
-    gUnknown_0859A458,
-    gUnknown_0859A458,
-    gUnknown_0859A458,
-    gUnknown_0859A458,
-    gUnknown_0859A458,
-    gUnknown_0859A458,
-    gUnknown_0859A472,
-    gUnknown_0859A48C,
-    gUnknown_0859A48C,
-    gUnknown_0859A48C,
-    gUnknown_0859A48C,
-    gUnknown_0859A472,
+u16* CONST_DATA sMapCursorSpriteLut[] = {
+    sSprite_MapCursorA,
+    sSprite_MapCursorA,
+    sSprite_MapCursorA,
+    sSprite_MapCursorA,
+    sSprite_MapCursorA,
+    sSprite_MapCursorA,
+    sSprite_MapCursorA,
+    sSprite_MapCursorA,
+    sSprite_MapCursorA,
+    sSprite_MapCursorA,
+
+    sSprite_MapCursorB,
+
+    sSprite_MapCursorC,
+    sSprite_MapCursorC,
+    sSprite_MapCursorC,
+    sSprite_MapCursorC,
+
+    sSprite_MapCursorB,
 };
 
-u16 CONST_DATA gUnknown_0859A500[] = {
+u16 CONST_DATA sSprite_SysUpArrowA[] = {
     1,
     0x8000, 0x0000, 0x004C,
 };
 
-u16 CONST_DATA gUnknown_0859A508[] = {
+u16 CONST_DATA sSprite_SysUpArrowB[] = {
     1,
     0x8000, 0x0000, 0x004D,
 };
 
-u16 CONST_DATA gUnknown_0859A510[] = {
+u16 CONST_DATA sSprite_SysUpArrowC[] = {
     1,
     0x80FF, 0x0000, 0x004D,
 };
 
-u16 CONST_DATA gUnknown_0859A518[] = {
+u16 CONST_DATA sSprite_SysDownArrowA[] = {
     1,
     0x8000, 0x0000, 0x004E,
 };
 
-u16 CONST_DATA gUnknown_0859A520[] = {
+u16 CONST_DATA sSprite_SysDownArrowB[] = {
     1,
     0x8000, 0x0000, 0x004F,
 };
 
-u16 CONST_DATA gUnknown_0859A528[] = {
+u16 CONST_DATA sSprite_SysDownArrowC[] = {
     1,
     0x8001, 0x0000, 0x004F,
 };
 
 u16* CONST_DATA gUnknown_0859A530[] = {
-    gUnknown_0859A500,
-    gUnknown_0859A508,
-    gUnknown_0859A510,
+    sSprite_SysUpArrowA,
+    sSprite_SysUpArrowB,
+    sSprite_SysUpArrowC,
 };
 
 u16* CONST_DATA gUnknown_0859A53C[] = {
-    gUnknown_0859A518,
-    gUnknown_0859A520,
-    gUnknown_0859A528,
+    sSprite_SysDownArrowA,
+    sSprite_SysDownArrowB,
+    sSprite_SysDownArrowC,
 };
 
-void Init6C_GENS(struct GENSProc* proc);
-void Loop6C_GENS(struct GENSProc* proc);
+void CamMove_OnInit(struct CamMoveProc* proc);
+void CamMove_OnLoop(struct CamMoveProc* proc);
 
-struct ProcCmd CONST_DATA ProcScr_MaybeMapChangeAnim[] = {
+struct ProcCmd CONST_DATA gProcScr_CamMove[] = {
     PROC_NAME("GENS"),
     PROC_SLEEP(0),
 
-    PROC_CALL(Init6C_GENS),
-    PROC_REPEAT(Loop6C_GENS),
+    PROC_CALL(CamMove_OnInit),
+    PROC_REPEAT(CamMove_OnLoop),
 
     PROC_END,
 };
 
-void sub_8015F40(struct UnkMapCursorProc* proc);
+void UnkMapCursor_OnLoop(struct UnkMapCursorProc* proc);
 
-struct ProcCmd CONST_DATA gUnknown_0859A570[] = {
-    PROC_REPEAT(sub_8015F40),
+struct ProcCmd CONST_DATA gProcScr_UnkMapCursor[] = {
+    PROC_REPEAT(UnkMapCursor_OnLoop),
     PROC_END,
 };
 
 void sub_801613C(void);
-void sub_80160E0(struct GENSProc* proc);
+void sub_80160E0(struct CamMoveProc* proc);
 
-struct ProcCmd CONST_DATA gUnknown_0859A580[] = {
+struct ProcCmd CONST_DATA gProcScr_0859A580[] = {
     PROC_SET_END_CB(sub_801613C),
     PROC_REPEAT(sub_80160E0),
     PROC_END,
 };
 
 //! FE8U = 0x080152A4
-void GeneralVBlankHandler(void) {
+void OnVBlank(void) {
 
-    gUnknown_03007FF8 = 1;
+    INTR_CHECK = INTR_FLAG_VBLANK;
 
     IncrementGameClock();
     m4aSoundVSync();
@@ -364,7 +372,7 @@ void GeneralVBlankHandler(void) {
 }
 
 //! FE8U = 0x080152F4
-void SomeUpdateRoutine(void) {
+void OnGameLoopMain(void) {
 
     UpdateKeyStatus(gKeyStatusPtr);
 
@@ -443,14 +451,14 @@ int CallBeginningEvents(void) {
     if (GetChapterThing() != 2) {
         CallEvent(pChapterEvents->beginningSceneEvents, 1);
     } else {
-        CallEvent(gUnknown_089FFC30, 1);
+        CallEvent(gEvent_SkirmishCommonBeginning, 1);
     }
 
     return 0;
 }
 
 //! FE8U = 0x08015410
-int sub_8015410(void) {
+int BmMain_ChangePhase(void) {
 
     ClearActiveFactionGrayedStates();
     RefreshUnitSprites();
@@ -474,7 +482,7 @@ s8 sub_8015434(void) {
 }
 
 //! FE8U = 0x08015450
-void MakePhaseController6C(ProcPtr proc) {
+void BmMain_StartPhase(ProcPtr proc) {
 
     switch (gRAMChapterData.faction) {
         case FACTION_BLUE:
@@ -499,7 +507,7 @@ void MakePhaseController6C(ProcPtr proc) {
 }
 
 //! FE8U = 0x080154A4
-void NewPlayerPhase6C(ProcPtr proc) {
+void BmMain_ResumePlayerPhase(ProcPtr proc) {
     Proc_Goto(Proc_StartBlocking(gProcScr_PlayerPhase, proc), 7);
     Proc_Break(proc);
 
@@ -507,20 +515,20 @@ void NewPlayerPhase6C(ProcPtr proc) {
 }
 
 //! FE8U = 0x080154C8
-int sub_80154C8(ProcPtr proc) {
+int BmMain_UpdateTraps(ProcPtr proc) {
 
     if (gRAMChapterData.faction != FACTION_GREEN) {
         return 1;
     }
 
-    Proc_StartBlocking(gUnknown_0859BDA0, proc);
+    Proc_StartBlocking(gProcScr_UpdateTraps, proc);
     DecayTraps();
 
     return 0;
 }
 
 //! FE8U = 0x080154F4
-void E_BMAPMAIN_SuspendGame(void) {
+void BmMain_SuspendBeforePhase(void) {
 
     gActionData.suspendPointType = SUSPEND_POINT_PHASECHANGE;
     SaveSuspendedGame(SAVE_BLOCK_SUSPEND);
@@ -529,7 +537,7 @@ void E_BMAPMAIN_SuspendGame(void) {
 }
 
 //! FE8U = 0x0801550C
-void sub_801550C(ProcPtr proc) {
+void BmMain_StartIntroFx(ProcPtr proc) {
     if (gRAMChapterData.chapterIndex == 0x38) {
         return;
     }
@@ -599,7 +607,7 @@ void sub_80155C4(void) {
 }
 
 //! FE8U = 0x08015608
-void SetupBackgroundForWeatherMaybe(void) {
+void InitBmBgLayers(void) {
 
     if (gRAMChapterData.chapterWeatherId == WEATHER_CLOUDS) {
         gLCDControlBuffer.bg0cnt.priority = 0;
@@ -618,17 +626,17 @@ void SetupBackgroundForWeatherMaybe(void) {
 
 //! FE8U = 0x08015680
 void LoadObjUIGfx(void) {
-    CopyDataWithPossibleUncomp(gUnknown_0859E8E0, gGenericBuffer);
+    CopyDataWithPossibleUncomp(gGfx_MiscUiGraphics, gGenericBuffer);
     CopyTileGfxForObj(gGenericBuffer, (void*)0x06010000, 0x12, 4);
 
-    CopyToPaletteBuffer(gUnknown_0859ED70, 0x200, 0x40);
+    CopyToPaletteBuffer(gPal_MiscUiGraphics, 0x200, 0x40);
 
     return;
 }
 
 //! FE8U = 0x080156BC
 void sub_80156BC(void) {
-    CopyToPaletteBuffer(gUnknown_0859ED70, 0x200, 0x40);
+    CopyToPaletteBuffer(gPal_MiscUiGraphics, 0x200, 0x40);
     return;
 }
 
@@ -659,18 +667,18 @@ void LoadGameCoreGfx(void) {
 }
 
 //! FE8U = 0x08015714
-void HandleCursorMovement(u16 keys) {
-    int dir = (keys >> 4) & (0xf0 >> 4);
+void HandleMapCursorInput(u16 keys) {
+    int dir = (keys >> 4) & (DPAD_ANY >> 4);
 
     struct Vec2 newCursor = {
-        gGameState.playerCursor.x + gUnknown_0859A438[dir][0],
-        gGameState.playerCursor.y + gUnknown_0859A438[dir][1]
+        gGameState.playerCursor.x + sDirKeysToOffsetLut[dir][0],
+        gGameState.playerCursor.y + sDirKeysToOffsetLut[dir][1]
     };
 
     if (gGameState.gameStateBits & (1 << 1)) {
         if ((gBmMapMovement[gGameState.playerCursor.y][gGameState.playerCursor.x] < MAP_MOVEMENT_MAX)) {
             if (gBmMapMovement[newCursor.y][newCursor.x] >= MAP_MOVEMENT_MAX) {
-                if ((keys & 0xf0) != (gKeyStatusPtr->newKeys & 0xf0)) {
+                if ((keys & DPAD_ANY) != (gKeyStatusPtr->newKeys & DPAD_ANY)) {
                     return;
                 }
             }
@@ -678,14 +686,14 @@ void HandleCursorMovement(u16 keys) {
     }
 
     if ((newCursor.x >= 0) && (newCursor.x < gBmMapSize.x)) {
-        gGameState.unk1C.x += gUnknown_0859A438[dir][0] * 16;
+        gGameState.cursorTarget.x += sDirKeysToOffsetLut[dir][0] * 16;
 
         gGameState.cursorPrevious.x = gGameState.playerCursor.x;
         gGameState.playerCursor.x = newCursor.x;
     }
 
     if ((newCursor.y >= 0) && (newCursor.y < gBmMapSize.y)) {
-        gGameState.unk1C.y += gUnknown_0859A438[dir][1] * 16;
+        gGameState.cursorTarget.y += sDirKeysToOffsetLut[dir][1] * 16;
 
         gGameState.cursorPrevious.y = gGameState.playerCursor.y;
         gGameState.playerCursor.y = newCursor.y;
@@ -706,21 +714,21 @@ void HandleCursorMovement(u16 keys) {
 }
 
 //! FE8U = 0x08015838
-void MoveCameraByStepMaybe(int step) {
-    if (gGameState.playerCursorDisplay.x < gGameState.unk1C.x) {
+void HandleMoveMapCursor(int step) {
+    if (gGameState.playerCursorDisplay.x < gGameState.cursorTarget.x) {
         gGameState.playerCursorDisplay.x += step;
     }
 
-    if (gGameState.playerCursorDisplay.x > gGameState.unk1C.x)
+    if (gGameState.playerCursorDisplay.x > gGameState.cursorTarget.x)
     {
         gGameState.playerCursorDisplay.x -= step;
     }
 
-    if (gGameState.playerCursorDisplay.y < gGameState.unk1C.y) {
+    if (gGameState.playerCursorDisplay.y < gGameState.cursorTarget.y) {
         gGameState.playerCursorDisplay.y += step;
     }
 
-    if (gGameState.playerCursorDisplay.y > gGameState.unk1C.y) {
+    if (gGameState.playerCursorDisplay.y > gGameState.cursorTarget.y) {
         gGameState.playerCursorDisplay.y -= step;
     }
 
@@ -728,15 +736,15 @@ void MoveCameraByStepMaybe(int step) {
 }
 
 //! FE8U = 0x0801588C
-void sub_801588C(int step) {
+void HandleMoveCameraWithMapCursor(int step) {
 
     s8 isUpdated = 0;
 
     int xCursorSprite = gGameState.playerCursorDisplay.x;
     int yCursorSprite = gGameState.playerCursorDisplay.y;
 
-    if (gGameState.camera.x + 0x30 > xCursorSprite) {
-        if (xCursorSprite - 0x30 < 0) {
+    if (gGameState.camera.x + CAMERA_MARGIN_LEFT > xCursorSprite) {
+        if (xCursorSprite - CAMERA_MARGIN_LEFT < 0) {
             gGameState.camera.x = 0;
         } else {
             isUpdated = 1;
@@ -748,9 +756,9 @@ void sub_801588C(int step) {
         }
     }
 
-    if (gGameState.camera.x + 0xb0 < xCursorSprite) {
-        if (xCursorSprite - 0xb0 > gGameState.unk28.x) {
-            gGameState.camera.x = gGameState.unk28.x;
+    if (gGameState.camera.x + CAMERA_MARGIN_RIGHT < xCursorSprite) {
+        if (xCursorSprite - CAMERA_MARGIN_RIGHT > gGameState.cameraMax.x) {
+            gGameState.camera.x = gGameState.cameraMax.x;
         } else {
             isUpdated = 1;
 
@@ -761,8 +769,8 @@ void sub_801588C(int step) {
         }
     }
 
-    if (gGameState.camera.y + 0x20 > yCursorSprite) {
-        if (yCursorSprite - 0x20 < 0) {
+    if (gGameState.camera.y + CAMERA_MARGIN_TOP > yCursorSprite) {
+        if (yCursorSprite - CAMERA_MARGIN_TOP < 0) {
             gGameState.camera.y = 0;
         } else {
             isUpdated = 1;
@@ -773,9 +781,9 @@ void sub_801588C(int step) {
         }
     }
 
-    if (gGameState.camera.y + 0x70 < yCursorSprite) {
-        if (yCursorSprite - 0x70 > gGameState.unk28.y) {
-            gGameState.camera.y = gGameState.unk28.y;
+    if (gGameState.camera.y + CAMERA_MARGIN_BOTTOM < yCursorSprite) {
+        if (yCursorSprite - CAMERA_MARGIN_BOTTOM > gGameState.cameraMax.y) {
+            gGameState.camera.y = gGameState.cameraMax.y;
         } else {
             isUpdated = 1;
 
@@ -802,62 +810,61 @@ void sub_801588C(int step) {
 }
 
 //! FE8U = 0x080159B8
-u16 GetSomeAdjustedCameraX(int x) {
+u16 GetCameraAdjustedX(int x) {
     int result = gGameState.camera.x;
 
-    if (gGameState.camera.x + 0x30 > x) {
-        result = x - 0x30 < 0
+    if (gGameState.camera.x + CAMERA_MARGIN_LEFT > x) {
+        result = x - CAMERA_MARGIN_LEFT < 0
             ? 0
-            : x - 0x30;
+            : x - CAMERA_MARGIN_LEFT;
     }
 
-    if (gGameState.camera.x + 0xb0 < x) {
-        result = x - 0xb0 > gGameState.unk28.x
-            ? gGameState.unk28.x
-            : x - 0xb0;
+    if (gGameState.camera.x + CAMERA_MARGIN_RIGHT < x) {
+        result = x - CAMERA_MARGIN_RIGHT > gGameState.cameraMax.x
+            ? gGameState.cameraMax.x
+            : x - CAMERA_MARGIN_RIGHT;
     }
 
     return result;
 }
 
 //! FE8U = 0x080159FC
-u16 GetSomeAdjustedCameraY(int y) {
+u16 GetCameraAdjustedY(int y) {
     int result = gGameState.camera.y;
 
-    if (gGameState.camera.y + 0x20 > y) {
-        result = y - 0x20 < 0
+    if (gGameState.camera.y + CAMERA_MARGIN_TOP > y) {
+        result = y - CAMERA_MARGIN_TOP < 0
             ? 0
-            : y - 0x20;
+            : y - CAMERA_MARGIN_TOP;
     }
 
-    if (gGameState.camera.y + 0x70 < y) {
-        result = y - 0x70 > gGameState.unk28.y
-            ? gGameState.unk28.y
-            : y - 0x70;
+    if (gGameState.camera.y + CAMERA_MARGIN_BOTTOM < y) {
+        result = y - CAMERA_MARGIN_BOTTOM > gGameState.cameraMax.y
+            ? gGameState.cameraMax.y
+            : y - CAMERA_MARGIN_BOTTOM;
     }
 
     return result;
 }
 
 //! FE8U = 0x08015A40
-u16 sub_8015A40(int x) {
-    int result;
+u16 GetCameraCenteredX(int x) {
 
-    result = x - DISPLAY_WIDTH / 2;
+    int result = x - DISPLAY_WIDTH / 2;
 
     if (result < 0) {
         result = 0;
     }
 
-    if (result > gGameState.unk28.x) {
-        result = gGameState.unk28.x;
+    if (result > gGameState.cameraMax.x) {
+        result = gGameState.cameraMax.x;
     }
 
     return result &~ 0xF;
 }
 
 //! FE8U = 0x08015A6C
-u16 sub_8015A6C(int y) {
+u16 GetCameraCenteredY(int y) {
 
     int result  = y - DISPLAY_HEIGHT / 2;
 
@@ -865,15 +872,15 @@ u16 sub_8015A6C(int y) {
         result = 0;
     }
 
-    if (result > gGameState.unk28.y) {
-        result = gGameState.unk28.y;
+    if (result > gGameState.cameraMax.y) {
+        result = gGameState.cameraMax.y;
     }
 
     return result &~ 0xF;
 }
 
 //! FE8U = 0x08015A98
-void DisplayCursor(int x, int y, int kind) {
+void PutMapCursor(int x, int y, int kind) {
 
     int oam2 = 0;
 
@@ -885,36 +892,36 @@ void DisplayCursor(int x, int y, int kind) {
         case 0:
         case 1:
             oam2 = 2;
-            sprite = gUnknown_0859A4C0[frame];
+            sprite = sMapCursorSpriteLut[frame];
 
             break;
 
         case 2:
-            if (GetGameClock() - 1 == gUnknown_0202BD40) {
-                x = (x + gUnknown_0202BD3C.x) >> 1;
-                y = (y + gUnknown_0202BD3C.y) >> 1;
+            if (GetGameClock() - 1 == sLastTimeMapCursorDrawn) {
+                x = (x + sLastCoordMapCursorDrawn.x) >> 1;
+                y = (y + sLastCoordMapCursorDrawn.y) >> 1;
             }
 
             oam2 = 0x24;
 
-            sprite = gUnknown_0859A4C0[frame];
+            sprite = sMapCursorSpriteLut[frame];
 
-            gUnknown_0202BD3C.x = x;
-            gUnknown_0202BD3C.y = y;
+            sLastCoordMapCursorDrawn.x = x;
+            sLastCoordMapCursorDrawn.y = y;
 
-            gUnknown_0202BD40 = GetGameClock();
+            sLastTimeMapCursorDrawn = GetGameClock();
 
             break;
 
         case 3:
             oam2 = 2;
-            sprite = gUnknown_0859A4A6;
+            sprite = sSprite_MapCursorStretched;
 
             break;
 
         case 4:
             oam2 = 0x24;
-            sprite = gUnknown_0859A4C0[0];
+            sprite = sMapCursorSpriteLut[0];
 
             break;
     }
@@ -932,7 +939,7 @@ void sub_8015B88(int x, int y) {
     int frame = (GetGameClock() / 2) % 16;
     u32 oam2 = 2;
 
-    PutSprite(4, x, y, gUnknown_0859A4C0[frame], oam2);
+    PutSprite(4, x, y, sMapCursorSpriteLut[frame], oam2);
     return;
 }
 
@@ -942,8 +949,8 @@ void SetCursorMapPosition(int x, int y) {
     gGameState.playerCursor.x = x;
     gGameState.playerCursor.y = y;
 
-    gGameState.unk1C.x = x * 16;
-    gGameState.unk1C.y = y * 16;
+    gGameState.cursorTarget.x = x * 16;
+    gGameState.cursorTarget.y = y * 16;
 
     gGameState.playerCursorDisplay.x = x * 16;
     gGameState.playerCursorDisplay.y = y * 16;
@@ -961,7 +968,7 @@ void UpdateStatArrowSprites(int x, int y, u8 isDown) {
 }
 
 //! FE8U = 0x08015C1C
-void Init6C_GENS(struct GENSProc* proc) {
+void CamMove_OnInit(struct CamMoveProc* proc) {
     int i;
     int dist;
 
@@ -984,12 +991,12 @@ void Init6C_GENS(struct GENSProc* proc) {
 
     while (1) {
         if (dist - (speed >> 1) < 0) {
-            gUnknown_0202BD44[i] = dist;
+            sCameraAnimTable[i] = dist;
             break;
         }
 
         dist -= (speed >> 1);
-        gUnknown_0202BD44[i] = (speed >> 1);
+        sCameraAnimTable[i] = (speed >> 1);
 
         if (speed < 16) {
             speed++;
@@ -1005,7 +1012,7 @@ void Init6C_GENS(struct GENSProc* proc) {
 }
 
 //! FE8U = 0x08015CB0
-void Loop6C_GENS(struct GENSProc* proc) {
+void CamMove_OnLoop(struct CamMoveProc* proc) {
 
     if (proc->frame == 0) {
         proc->to.x = gGameState.camera.x;
@@ -1016,7 +1023,7 @@ void Loop6C_GENS(struct GENSProc* proc) {
         return;
     }
 
-    proc->distance -= gUnknown_0202BD44[proc->frame--];
+    proc->distance -= sCameraAnimTable[proc->frame--];
 
     gGameState.camera.x = proc->to.x + (proc->from.x - proc->to.x) * proc->distance / proc->calibration;
 
@@ -1053,7 +1060,7 @@ void StoreAdjustedCameraPositions(int xIn, int yIn, int* xOut, int* yOut) {
 
 //! FE8U = 0x08015D84
 s8 sub_8015D84(ProcPtr parent, int x, int y) {
-    struct GENSProc* proc;
+    struct CamMoveProc* proc;
 
     int xTarget;
     int yTarget;
@@ -1068,14 +1075,14 @@ s8 sub_8015D84(ProcPtr parent, int x, int y) {
         return 0;
     }
 
-    if (Proc_Find(ProcScr_MaybeMapChangeAnim)) {
+    if (Proc_Find(gProcScr_CamMove)) {
         return 0;
     }
 
     if (parent != 0) {
-        proc = Proc_StartBlocking(ProcScr_MaybeMapChangeAnim, parent);
+        proc = Proc_StartBlocking(gProcScr_CamMove, parent);
     } else {
-        proc = Proc_Start(ProcScr_MaybeMapChangeAnim, PROC_TREE_3);
+        proc = Proc_Start(gProcScr_CamMove, PROC_TREE_3);
     }
 
     proc->from.x = gGameState.camera.x;
@@ -1092,23 +1099,23 @@ s8 sub_8015D84(ProcPtr parent, int x, int y) {
 
 //! FE8U = 0x08015E0C
 s8 EnsureCameraOntoPosition(ProcPtr parent, int x, int y) {
-    struct GENSProc* proc;
+    struct CamMoveProc* proc;
 
-    int xTarget = GetSomeAdjustedCameraX(x * 16);
-    int yTarget = GetSomeAdjustedCameraY(y * 16);
+    int xTarget = GetCameraAdjustedX(x * 16);
+    int yTarget = GetCameraAdjustedY(y * 16);
 
     if ((xTarget == gGameState.camera.x) && (yTarget == gGameState.camera.y)) {
         return 0;
     }
 
-    if (Proc_Find(ProcScr_MaybeMapChangeAnim)) {
+    if (Proc_Find(gProcScr_CamMove)) {
         return 0;
     }
 
     if (parent) {
-        proc = Proc_StartBlocking(ProcScr_MaybeMapChangeAnim, parent);
+        proc = Proc_StartBlocking(gProcScr_CamMove, parent);
     } else {
-        proc = Proc_Start(ProcScr_MaybeMapChangeAnim, PROC_TREE_3);
+        proc = Proc_Start(gProcScr_CamMove, PROC_TREE_3);
     }
 
     proc->from.x = gGameState.camera.x;
@@ -1124,9 +1131,9 @@ s8 EnsureCameraOntoPosition(ProcPtr parent, int x, int y) {
 }
 
 //! FE8U = 0x08015E9C
-s8 ShouldMoveCameraPosSomething(int x, int y) {
-    int xTarget = GetSomeAdjustedCameraX(x * 16);
-    int yTarget = GetSomeAdjustedCameraY(y * 16);
+s8 IsCameraNotWatchingPosition(int x, int y) {
+    int xTarget = GetCameraAdjustedX(x * 16);
+    int yTarget = GetCameraAdjustedY(y * 16);
 
     if ((xTarget == gGameState.camera.x) && (yTarget == gGameState.camera.y)) {
         return 0;
@@ -1136,36 +1143,36 @@ s8 ShouldMoveCameraPosSomething(int x, int y) {
 }
 
 //! FE8U = 0x08015EDC
-s8 sub_8015EDC(ProcPtr parent) {
-    struct GENSProc* proc;
+s8 CameraMove_8015EDC(ProcPtr parent) {
+    struct CamMoveProc* proc;
 
-    if (gGameState.camera.y <= gGameState.unk28.y) {
+    if (gGameState.camera.y <= gGameState.cameraMax.y) {
         return 0;
     }
 
-    if (Proc_Find(ProcScr_MaybeMapChangeAnim)) {
+    if (Proc_Find(gProcScr_CamMove)) {
         return 0;
     }
 
     if (parent) {
-        proc = Proc_StartBlocking(ProcScr_MaybeMapChangeAnim, parent);
+        proc = Proc_StartBlocking(gProcScr_CamMove, parent);
     } else {
-        proc = Proc_Start(ProcScr_MaybeMapChangeAnim, PROC_TREE_3);
+        proc = Proc_Start(gProcScr_CamMove, PROC_TREE_3);
     }
 
     proc->from.x = gGameState.camera.x;
     proc->from.y = gGameState.camera.y;
 
     proc->to.x = gGameState.camera.x;
-    proc->to.y = gGameState.unk28.y;
+    proc->to.y = gGameState.cameraMax.y;
 
     return 1;
 }
 
 //! FE8U = 0x08015F40
-void sub_8015F40(struct UnkMapCursorProc* proc) {
+void UnkMapCursor_OnLoop(struct UnkMapCursorProc* proc) {
 
-    DisplayCursor(
+    PutMapCursor(
         ((proc->to.x - proc->from.x) * proc->clock) / proc->duration,
         ((proc->to.y - proc->from.y) * proc->clock) / proc->duration,
         0
@@ -1184,7 +1191,7 @@ void sub_8015F40(struct UnkMapCursorProc* proc) {
 void sub_8015F90(int x, int y, int duration) {
     struct UnkMapCursorProc* proc;
 
-    proc = Proc_Start(gUnknown_0859A570, PROC_TREE_3);
+    proc = Proc_Start(gProcScr_UnkMapCursor, PROC_TREE_3);
 
     proc->to.x = gGameState.playerCursor.x << 4;
     proc->to.y = gGameState.playerCursor.y << 4;
@@ -1402,13 +1409,13 @@ int GetCurrentMapMusicIndex(void) {
 #endif // NONMATCHING
 
 //! FE8U = 0x080160D0
-void sub_80160D0(void) {
+void StartMapSongBgm(void) {
     Sound_PlaySong80024D4(GetCurrentMapMusicIndex(), 0);
     return;
 }
 
 //! FE8U = 0x080160E0
-void sub_80160E0(struct GENSProc* proc) {
+void sub_80160E0(struct CamMoveProc* proc) {
     int x = Interpolate(0, proc->from.x, proc->to.x, proc->frame, proc->distance);
     int y = Interpolate(0, proc->from.y, proc->to.y, proc->frame, proc->distance);
 
@@ -1431,12 +1438,12 @@ void sub_801613C(void) {
 
 //! FE8U = 0x08016140
 void sub_8016140(ProcPtr parent, int x, int y, int distance) {
-    struct GENSProc* proc;
+    struct CamMoveProc* proc;
 
     if (parent != 0) {
-        proc = Proc_StartBlocking(gUnknown_0859A580, parent);
+        proc = Proc_StartBlocking(gProcScr_0859A580, parent);
     } else {
-        proc = Proc_Start(gUnknown_0859A580, PROC_TREE_3);
+        proc = Proc_Start(gProcScr_0859A580, PROC_TREE_3);
     }
 
     proc->from.x = gGameState.camera.x;

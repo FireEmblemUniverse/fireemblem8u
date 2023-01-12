@@ -502,9 +502,6 @@ extern struct Struct0202BCB0 gGameState;
 extern struct RAMChapterData gRAMChapterData;
 // extern ??? gUnknown_0202BD30
 // extern ??? gUnknown_0202BD31
-// extern ??? gUnknown_0202BD3C
-// extern ??? gUnknown_0202BD40
-// extern ??? gUnknown_0202BD44
 extern u8 gActiveUnitId;
 extern struct Vec2 gActiveUnitMoveOrigin;
 extern struct Unit gUnitArrayBlue[62];
@@ -1345,15 +1342,6 @@ extern const u16 gUnknown_0859A180[];
 extern const u16 gUnknown_0859A1A0[];
 extern const u16 gUnknown_0859A1C0[];
 // extern ??? gUnknown_0859A1E0
-// extern ??? gProc_BMapMain
-// extern ??? gUnknown_0859A438
-// extern ??? gUnknown_0859A4A6
-// extern ??? gUnknown_0859A4C0
-// extern ??? gUnknown_0859A530
-// extern ??? gUnknown_0859A53C
-extern struct ProcCmd CONST_DATA ProcScr_MaybeMapChangeAnim[]; // this is GENS/Camera Movement proc
-// extern ??? gUnknown_0859A570
-// extern ??? gUnknown_0859A580
 // extern ??? gStatusNameTextIdLookup
 // extern ??? gUnitLookup
 // extern ??? gTilesetTerrainLookup
@@ -1401,7 +1389,7 @@ extern u16 CONST_DATA obj_0859AEC8[];
 // extern ??? gUnknown_0859BCA8
 // extern ??? gUnknown_0859BCF4
 // extern ??? gUnknown_0859BD40
-extern struct ProcCmd CONST_DATA gUnknown_0859BDA0[];
+extern struct ProcCmd CONST_DATA gProcScr_UpdateTraps[];
 // extern ??? gUnknown_0859CFB0
 // extern ??? gUnknown_0859CFD4
 // extern ??? gUnknown_0859CFF8
@@ -1442,8 +1430,8 @@ extern struct ProcCmd CONST_DATA gUnknown_0859BDA0[];
 // extern ??? gProc_MapTask
 // extern ??? gUnknown_0859DBA0
 // extern ??? gUnknown_0859E13C
-// extern ??? gUnknown_0859E8E0
-// extern ??? gUnknown_0859ED70
+// extern ??? gGfx_MiscUiGraphics
+// extern ??? gPal_MiscUiGraphics
 // extern ??? gUnknown_0859EDB0
 // extern ??? gUnknown_0859EDEC
 // extern ??? gUnknown_0859EE20
@@ -3111,7 +3099,7 @@ extern struct ProcCmd gUnknown_089EE9E0[];
 extern struct ProcCmd gUnknown_089EEA28[];
 extern const struct MenuDef gUnknown_089F36A0;
 // extern ??? gUnknown_089FF480
-// extern ??? gUnknown_089FFC30
+// extern ??? gEvent_SkirmishCommonBeginning
 // extern ??? gUnknown_089FFD64
 // extern ??? gEvent_8A0035C
 // extern ??? gEvent_8A00364

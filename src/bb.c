@@ -4,6 +4,7 @@
 #include "ctc.h"
 #include "fontgrp.h"
 #include "bmmap.h"
+#include "bm.h"
 
 
 struct SubtitleHelpProc {
@@ -19,10 +20,6 @@ struct SubtitleHelpProc {
 };
 
 extern u8 gUnknown_0859EF20[]; // pal
-
-// bm.s
-void sub_8015EDC(int);
-
 
 void PutSubtitleHelpText(struct SubtitleHelpProc* proc, int y) {
 
@@ -178,9 +175,9 @@ void SubtitleHelp_Init(struct SubtitleHelpProc* proc) {
 
 void SubtitleHelp_OnEnd() {
 
-    gGameState.unk28.y -= 16;
+    gGameState.cameraMax.y -= 16;
 
-    sub_8015EDC(0);
+    CameraMove_8015EDC(0);
 
     Proc_BreakEach(gProcScr_SubtitleHelpDarkener);
 
@@ -235,7 +232,7 @@ void StartSubtitleHelp(ProcPtr parent, const char* string) {
 
         sub_801A278();
 
-        gGameState.unk28.y += 16;
+        gGameState.cameraMax.y += 16;
     }
 
     return;

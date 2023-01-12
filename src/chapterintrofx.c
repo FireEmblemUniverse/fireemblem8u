@@ -11,6 +11,7 @@
 #include "chapterdata.h"
 #include "bmfx.h"
 #include "bmudisp.h"
+#include "bm.h"
 
 // arm_call.s
 void CALLARM_MaybeScreenFadeIn();
@@ -854,12 +855,12 @@ void ChapterIntro_InitMapDisplay() {
     LoadObjUIGfx();
 
     var = GetROMChapterStruct(gRAMChapterData.chapterIndex)->initialPosX;
-    var = sub_8015A40(var * 16);
+    var = GetCameraCenteredX(var * 16);
     var = (var + 0xF) & 0x1F0;
     gGameState.camera.x = var;
 
     var = GetROMChapterStruct(gRAMChapterData.chapterIndex)->initialPosY;
-    var = sub_8015A6C(var * 16);
+    var = GetCameraCenteredY(var * 16);
     var = (var + 0xF) & 0x3F0;
     gGameState.camera.y = var;
 

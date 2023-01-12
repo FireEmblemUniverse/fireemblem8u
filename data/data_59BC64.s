@@ -95,8 +95,8 @@ gUnknown_0859BD40:  @ 0x0859BD40
     .4byte sub_802E100
     .4byte 0x120
 
-	.global gUnknown_0859BDA0
-gUnknown_0859BDA0:  @ 0x0859BDA0
+	.global gProcScr_UpdateTraps
+gProcScr_UpdateTraps:  @ 0x0859BDA0
         @ PROC_CALL
         .short 0x2, 0x0
         .word CountDownTraps

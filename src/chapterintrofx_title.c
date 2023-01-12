@@ -10,6 +10,7 @@
 #include "chapterdata.h"
 #include "bmfx.h"
 #include "bmudisp.h"
+#include "bm.h"
 
 /**
  * Proc Displaying Chapter Title in the middle of the screen
@@ -28,7 +29,7 @@ void ChapterIntroTitle_InitBgImg(struct ChapterIntroFXProc *proc)
         break;
     }
 
-    SetupBackgroundForWeatherMaybe();
+    InitBmBgLayers();
 
     BG_SetPosition(BG_0, 0, 0);
     BG_SetPosition(BG_1, 0, 0);
@@ -80,11 +81,11 @@ void ChapterIntroTitle_End(struct ChapterIntroFXProc *proc)
     SetupMapSpritesPalettes();
     LoadObjUIGfx();
 
-    x = sub_8015A40(GetROMChapterStruct(gRAMChapterData.chapterIndex)->initialPosX * 0x10);
+    x = GetCameraCenteredX(GetROMChapterStruct(gRAMChapterData.chapterIndex)->initialPosX * 0x10);
     _x = (x + 0xF) & 0x1F0;
     gGameState.camera.x = _x;
 
-    y = sub_8015A6C(GetROMChapterStruct(gRAMChapterData.chapterIndex)->initialPosY * 0x10);
+    y = GetCameraCenteredY(GetROMChapterStruct(gRAMChapterData.chapterIndex)->initialPosY * 0x10);
     _y = (y + 0xF) & 0x3F0;
     gGameState.camera.y = _y;
 

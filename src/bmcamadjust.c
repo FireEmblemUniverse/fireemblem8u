@@ -3,6 +3,7 @@
 #include "bmunit.h"
 #include "sallycursor.h"
 #include "bmphase.h"
+#include "bm.h"
 #include "variables.h"
 #include "functions.h"
 

@@ -19,6 +19,7 @@
 #include "playerphase.h"
 #include "bb.h"
 #include "face.h"
+#include "bm.h"
 
 #include "constants/characters.h"
 #include "constants/items.h"
@@ -100,10 +101,10 @@ struct ProcCmd CONST_DATA gProcScr_SquareSelectWarp[] =
 
     PROC_CALL(AddSkipThread2),
 
-    PROC_WHILE_EXISTS(ProcScr_MaybeMapChangeAnim),
+    PROC_WHILE_EXISTS(gProcScr_CamMove),
 
     PROC_CALL(WarpSelect_OnInit),
-    PROC_WHILE_EXISTS(ProcScr_MaybeMapChangeAnim),
+    PROC_WHILE_EXISTS(gProcScr_CamMove),
 
     PROC_REPEAT(WarpSelect_OnIdle),
 
@@ -129,7 +130,7 @@ struct ProcCmd CONST_DATA gProcScr_SquareSelectTorch[] =
     PROC_CALL(AddSkipThread2),
 
     PROC_CALL(TorchSelect_OnInit),
-    PROC_WHILE_EXISTS(ProcScr_MaybeMapChangeAnim),
+    PROC_WHILE_EXISTS(gProcScr_CamMove),
 
     PROC_REPEAT(TorchSelect_OnIdle),
 
@@ -1080,7 +1081,7 @@ void TorchSelect_OnInit(struct WarpSelectProc* proc)
     StartSubtitleHelp(proc,
         GetStringFromIndex(0x87C)); // TODO: msgid "Select an area to light up."
 
-    if (ShouldMoveCameraPosSomething(gActiveUnit->xPos, gActiveUnit->yPos))
+    if (IsCameraNotWatchingPosition(gActiveUnit->xPos, gActiveUnit->yPos))
         EnsureCameraOntoPosition(proc, gActiveUnit->xPos, gActiveUnit->yPos);
 }
 
@@ -1124,7 +1125,7 @@ void TorchSelect_OnIdle(struct WarpSelectProc* proc)
         PlaySoundEffect(0x6B); // TODO: song ids
     }
 
-    DisplayCursor(
+    PutMapCursor(
         gGameState.playerCursorDisplay.x,
         gGameState.playerCursorDisplay.y,
         TRUE);

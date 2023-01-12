@@ -2,6 +2,7 @@
 
 #include "anime.h"
 #include "ap.h"
+#include "bm.h"
 #include "bmarch.h"
 #include "bmbattle.h"
 #include "bmio.h"

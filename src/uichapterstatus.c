@@ -13,6 +13,7 @@
 #include "bmio.h"
 #include "face.h"
 #include "bmudisp.h"
+#include "bm.h"
 
 #include "uichapterstatus.h"
 

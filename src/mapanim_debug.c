@@ -10,6 +10,7 @@
 #include "mu.h"
 #include "uiutils.h"
 #include "player_interface.h"
+#include "bm.h"
 #include "mapanim.h"
 
 /* section.bss */

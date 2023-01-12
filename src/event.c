@@ -4,6 +4,7 @@
 #include "fontgrp.h"
 #include "uiutils.h"
 #include "mu.h"
+#include "bm.h"
 #include "bmio.h"
 #include "bmunit.h"
 #include "bmmap.h"

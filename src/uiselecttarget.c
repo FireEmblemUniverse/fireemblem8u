@@ -6,6 +6,7 @@
 #include "uiutils.h"
 #include "bmio.h"
 #include "face.h"
+#include "bm.h"
 
 #include "uiselecttarget.h"
 
@@ -101,7 +102,7 @@ void TargetSelection_Loop(struct SelectTargetProc* proc) {
 
     if ((TARGETSELECTION_FLAG_FROZEN & proc->flags) != 0) {
         TargetSelection_GetRealCursorPosition(proc, &x, &y);
-        DisplayCursor(x, y, 4);
+        PutMapCursor(x, y, 4);
         return;
     }
 
@@ -132,7 +133,7 @@ void TargetSelection_Loop(struct SelectTargetProc* proc) {
     if ((TARGETSELECTION_ACTION_ENDFAST & r5) == 0) {
         TargetSelection_GetRealCursorPosition(proc, &x, &y);
         if (EnsureCameraOntoPosition(proc, x >> 4, y >> 4) != 1) {
-            DisplayCursor(x, y, 2);
+            PutMapCursor(x, y, 2);
         }
     }
 

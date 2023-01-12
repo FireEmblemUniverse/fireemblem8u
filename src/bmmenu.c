@@ -31,6 +31,7 @@
 #include "bmarena.h"
 #include "face.h"
 #include "uiconfig.h"
+#include "bm.h"
 
 #include "constants/characters.h"
 #include "constants/classes.h"
@@ -77,7 +78,7 @@ struct ProcCmd CONST_DATA gProcScr_BackToUnitMenu[] = {
     PROC_CALL(AddSkipThread2),
 
     PROC_CALL(BackToUnitMenu_CamWatch),
-    PROC_WHILE_EXISTS(ProcScr_MaybeMapChangeAnim),
+    PROC_WHILE_EXISTS(gProcScr_CamMove),
 
     PROC_CALL(BackToUnitMenu_RestartMenu),
 
@@ -95,7 +96,7 @@ struct ProcCmd CONST_DATA gProcScr_0859B630[] = {
     PROC_CALL(sub_8022E38),
 
     PROC_WHILE_EXISTS(gProcScr_BKSEL),
-    PROC_WHILE_EXISTS(ProcScr_MaybeMapChangeAnim),
+    PROC_WHILE_EXISTS(gProcScr_CamMove),
 
     PROC_CALL(sub_8022E54),
 
@@ -228,7 +229,7 @@ u8 GenericSelection_BackToUM(ProcPtr proc) {
     HideMoveRangeGraphics();
 
     EnsureCameraOntoPosition(
-        StartSemiCenteredOrphanMenu(&gUnitActionMenuDef, gGameState.unk1C.x - gGameState.camera.x, 1, 22),
+        StartSemiCenteredOrphanMenu(&gUnitActionMenuDef, gGameState.cursorTarget.x - gGameState.camera.x, 1, 22),
         gActiveUnit->xPos,
         gActiveUnit->yPos
     );
@@ -238,14 +239,14 @@ u8 GenericSelection_BackToUM(ProcPtr proc) {
 
 void BackToUnitMenu_CamWatch(ProcPtr proc) {
 
-    if (ShouldMoveCameraPosSomething(gActiveUnit->xPos, gActiveUnit->yPos)) {
+    if (IsCameraNotWatchingPosition(gActiveUnit->xPos, gActiveUnit->yPos)) {
 
         int y = gActiveUnit->yPos;
 
-        Proc_EndEach(ProcScr_MaybeMapChangeAnim);
+        Proc_EndEach(gProcScr_CamMove);
 
-        if (GetSomeAdjustedCameraY(y << 4) > gGameState.unk28.y) {
-            y = (gGameState.unk28.y >> 4) + 2;
+        if (GetCameraAdjustedY(y << 4) > gGameState.cameraMax.y) {
+            y = (gGameState.cameraMax.y >> 4) + 2;
         }
 
         EnsureCameraOntoPosition(proc, gActiveUnit->xPos, y);
@@ -255,7 +256,7 @@ void BackToUnitMenu_CamWatch(ProcPtr proc) {
 }
 
 void BackToUnitMenu_RestartMenu(void) {
-    StartSemiCenteredOrphanMenu(&gUnitActionMenuDef, gGameState.unk1C.x - gGameState.camera.x, 1, 22);
+    StartSemiCenteredOrphanMenu(&gUnitActionMenuDef, gGameState.cursorTarget.x - gGameState.camera.x, 1, 22);
 
     return;
 }
@@ -282,7 +283,7 @@ u8 ItemMenu_ButtonBPressed(struct MenuProc* menu, struct MenuItemProc* menuItem)
 
     Font_ResetAllocation();
 
-    StartSemiCenteredOrphanMenu(&gUnitActionMenuDef, gGameState.unk1C.x - gGameState.camera.x, 1, 22);
+    StartSemiCenteredOrphanMenu(&gUnitActionMenuDef, gGameState.cursorTarget.x - gGameState.camera.x, 1, 22);
 
     HideMoveRangeGraphics();
 
@@ -1085,7 +1086,7 @@ u8 sub_80235A8(struct MenuProc* menu) {
 
         EndFaceById(0);
 
-        StartSemiCenteredOrphanMenu(&gUnitActionMenuDef, gGameState.unk1C.x - gGameState.camera.x, 1, 0x16);
+        StartSemiCenteredOrphanMenu(&gUnitActionMenuDef, gGameState.cursorTarget.x - gGameState.camera.x, 1, 0x16);
 
         return MENU_ACT_SKIPCURSOR | MENU_ACT_END | MENU_ACT_SND6B | MENU_ACT_CLEAR;
     }

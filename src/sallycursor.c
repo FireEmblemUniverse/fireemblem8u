@@ -27,6 +27,7 @@
 #include "bmshop.h"
 #include "uiconfig.h"
 #include "bmudisp.h"
+#include "bm.h"
 
 #include "sallycursor.h"
 
@@ -173,14 +174,14 @@ PROC_LABEL(1),
 
 PROC_LABEL(0x35),
     PROC_CALL(sub_803348C),
-    PROC_WHILE_EXISTS(ProcScr_MaybeMapChangeAnim),
+    PROC_WHILE_EXISTS(gProcScr_CamMove),
     PROC_CALL(SALLYCURSOR_DeploySupplyUnit), // add convoy unit?
 
     PROC_GOTO(0x34),
 
 PROC_LABEL(0x36),
     PROC_CALL(sub_803348C),
-    PROC_WHILE_EXISTS(ProcScr_MaybeMapChangeAnim),
+    PROC_WHILE_EXISTS(gProcScr_CamMove),
     PROC_CALL(SALLYCURSOR_RemoveSupplyUnit), // remove convoy unit?
 
     PROC_GOTO(0x34),
@@ -207,11 +208,11 @@ PROC_LABEL(6),
 PROC_LABEL(3),
     PROC_CALL(EndPlayerPhaseSideWindows),
     PROC_CALL(SALLYCURSOR6C_StartUnitSwap),
-    PROC_WHILE_EXISTS(ProcScr_MaybeMapChangeAnim),
+    PROC_WHILE_EXISTS(gProcScr_CamMove),
     PROC_REPEAT(sub_8033C90),
     PROC_CALL(HideMoveRangeGraphics),
     PROC_CALL(sub_8033E08),
-    PROC_WHILE_EXISTS(ProcScr_MaybeMapChangeAnim),
+    PROC_WHILE_EXISTS(gProcScr_CamMove),
     PROC_WHILE(PrepUnitSwapProcExits),
     PROC_CALL(sub_8033E8C),
     PROC_CALL(RefreshEntityBmMaps),
@@ -223,7 +224,7 @@ PROC_LABEL(3),
 
 PROC_LABEL(4),
     PROC_CALL(HideMoveRangeGraphics),
-    PROC_WHILE_EXISTS(ProcScr_MaybeMapChangeAnim),
+    PROC_WHILE_EXISTS(gProcScr_CamMove),
     PROC_CALL(sub_8033DD8),
     PROC_SLEEP(0),
 
@@ -406,7 +407,7 @@ void PrepMapMenu_OnFormation(struct UnknownSALLYCURSORProc* proc) {
 
     x = gGameState.playerCursorDisplay.x;
     y = gGameState.playerCursorDisplay.y;
-    DisplayCursor(x, y, 0);
+    PutMapCursor(x, y, 0);
 
     Proc_Break(proc);
     sub_803334C();
@@ -661,8 +662,8 @@ void InitPrepScreenUnitsAndCamera() {
         gRAMChapterData.chapterStateBits |= CHAPTER_FLAG_PREPSCREEN;
     }
 
-    gGameState.camera.x = sub_8015A40(0);
-    gGameState.camera.y = sub_8015A6C(0);
+    gGameState.camera.x = GetCameraCenteredX(0);
+    gGameState.camera.y = GetCameraCenteredY(0);
     gGameState.gameStateBits |= CHAPTER_FLAG_PREPSCREEN;
 
     RefreshEntityBmMaps();
@@ -686,8 +687,8 @@ void sub_80338C0() {
         SetCursorMapPosition(x, y);
     }
 
-    gGameState.camera.x = sub_8015A40(gGameState.playerCursor.x * 16);
-    gGameState.camera.y = sub_8015A6C(gGameState.playerCursor.y * 16);
+    gGameState.camera.x = GetCameraCenteredX(gGameState.playerCursor.x * 16);
+    gGameState.camera.y = GetCameraCenteredY(gGameState.playerCursor.y * 16);
 
     return;
 }
@@ -701,7 +702,7 @@ void sub_8033940(struct UnknownSALLYCURSORProc* proc) {
         Proc_Break(proc);
     }
 
-    DisplayCursor(gGameState.playerCursorDisplay.x,
+    PutMapCursor(gGameState.playerCursorDisplay.x,
         gGameState.playerCursorDisplay.y, 0);
 
     return;
@@ -792,7 +793,7 @@ void PrepScreenProc_MapIdle(ProcPtr proc) {
     }
 
     showcursor:
-    DisplayCursor(gGameState.playerCursorDisplay.x, gGameState.playerCursorDisplay.y, 0);
+    PutMapCursor(gGameState.playerCursorDisplay.x, gGameState.playerCursorDisplay.y, 0);
 
     return;
 }
@@ -974,7 +975,7 @@ void PrepScreenProc_MapMovementLoop(ProcPtr proc) {
         }
     }
 
-    DisplayCursor(gGameState.playerCursorDisplay.x, gGameState.playerCursorDisplay.y, 1);
+    PutMapCursor(gGameState.playerCursorDisplay.x, gGameState.playerCursorDisplay.y, 1);
 
     return;
 }
