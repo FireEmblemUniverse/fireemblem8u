@@ -292,15 +292,11 @@ void WmSell_Setup(struct WmSellProc* proc) {
     return;
 }
 
-#if NONMATCHING
-
-/* https://decomp.me/scratch/pd83D */
-
 //! FE8U = 0x080A032C
 s8 WmSell_MainLoop_HandleDpadKeys(struct WmSellProc* proc) {
 
     if (gKeyStatusPtr->repeatedKeys & DPAD_UP) {
-        register int count asm("r3") = GetUnitItemCount(proc->unit);
+        int count = GetUnitItemCount(proc->unit);
 
         if (proc->unk_30 != 0) {
             proc->unk_30--;
@@ -309,8 +305,10 @@ s8 WmSell_MainLoop_HandleDpadKeys(struct WmSellProc* proc) {
                 return 0;
             }
 
-            count = count - 1;
-            proc->unk_30 = count;
+            proc->unk_30 = count - 1;
+#ifndef NONMATCHING
+            asm("");
+#endif
         }
 
         PlaySoundEffect(0x66);
@@ -337,98 +335,6 @@ s8 WmSell_MainLoop_HandleDpadKeys(struct WmSellProc* proc) {
 
     return 0;
 }
-
-#else // if !NONMATCHING
-
-__attribute__((naked))
-s8 WmSell_MainLoop_HandleDpadKeys(struct WmSellProc* proc) {
-    asm("\n\
-        .syntax unified\n\
-        push {r4, r5, r6, r7, lr}\n\
-        adds r4, r0, #0\n\
-        ldr r6, _080A035C  @ gKeyStatusPtr\n\
-        ldr r0, [r6]\n\
-        ldrh r1, [r0, #6]\n\
-        movs r7, #0x40\n\
-        adds r0, r7, #0\n\
-        ands r0, r1\n\
-        lsls r0, r0, #0x10\n\
-        lsrs r5, r0, #0x10\n\
-        cmp r5, #0\n\
-        beq _080A0372\n\
-        ldr r0, [r4, #0x2c]\n\
-        bl GetUnitItemCount\n\
-        adds r3, r0, #0\n\
-        adds r2, r4, #0\n\
-        adds r2, #0x30\n\
-        ldrb r0, [r2]\n\
-        cmp r0, #0\n\
-        beq _080A0360\n\
-        subs r0, #1\n\
-        strb r0, [r2]\n\
-        b _080A03A2\n\
-        .align 2, 0\n\
-    _080A035C: .4byte gKeyStatusPtr\n\
-    _080A0360:\n\
-        ldr r0, [r6]\n\
-        ldrh r1, [r0, #8]\n\
-        adds r0, r7, #0\n\
-        ands r0, r1\n\
-        cmp r0, #0\n\
-        beq _080A03BC\n\
-        subs r0, r3, #1\n\
-        strb r0, [r2]\n\
-        b _080A03A2\n\
-    _080A0372:\n\
-        movs r7, #0x80\n\
-        adds r0, r7, #0\n\
-        ands r0, r1\n\
-        cmp r0, #0\n\
-        beq _080A03BC\n\
-        ldr r0, [r4, #0x2c]\n\
-        bl GetUnitItemCount\n\
-        adds r2, r4, #0\n\
-        adds r2, #0x30\n\
-        ldrb r1, [r2]\n\
-        subs r0, #1\n\
-        cmp r1, r0\n\
-        bge _080A0394\n\
-        adds r0, r1, #1\n\
-        strb r0, [r2]\n\
-        b _080A03A2\n\
-    _080A0394:\n\
-        ldr r0, [r6]\n\
-        ldrh r1, [r0, #8]\n\
-        adds r0, r7, #0\n\
-        ands r0, r1\n\
-        cmp r0, #0\n\
-        beq _080A03BC\n\
-        strb r5, [r2]\n\
-    _080A03A2:\n\
-        ldr r0, _080A03B8  @ gRAMChapterData\n\
-        adds r0, #0x41\n\
-        ldrb r0, [r0]\n\
-        lsls r0, r0, #0x1e\n\
-        cmp r0, #0\n\
-        blt _080A03B4\n\
-        movs r0, #0x66\n\
-        bl m4aSongNumStart\n\
-    _080A03B4:\n\
-        movs r0, #1\n\
-        b _080A03BE\n\
-        .align 2, 0\n\
-    _080A03B8: .4byte gRAMChapterData\n\
-    _080A03BC:\n\
-        movs r0, #0\n\
-    _080A03BE:\n\
-        pop {r4, r5, r6, r7}\n\
-        pop {r1}\n\
-        bx r1\n\
-        .syntax divided\n\
-    ");
-}
-
-#endif // NONMATCHING
 
 //! FE8U = 0x080A03C4
 void sub_80A03C4(struct WmSellProc* proc) {
