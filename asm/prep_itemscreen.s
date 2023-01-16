@@ -3230,7 +3230,7 @@ sub_8099E18: @ 0x08099E18
 	ldrb r0, [r0]
 	bl GetUnitFromPrepList
 	adds r1, r4, #0
-	bl sub_80A070C
+	bl StartWorldMapSellScreen
 	pop {r4}
 	pop {r0}
 	bx r0

@@ -3322,9 +3322,6 @@ extern CONST_DATA struct ProcCmd ProcScr_PrepUnitScreen[];
 // extern ??? ProcScr_PrepItemSupplyScreen
 // extern ??? ProcScr_BmSupplyScreen
 // extern ??? ProcScr_PrepItemListScreen
-// extern ??? gUnknown_08A1951C
-// extern ??? gUnknown_08A19524
-// extern ??? gUnknown_08A19528
 // extern ??? gUnknown_08A195F8
 // extern ??? gUnknown_08A19608
 // extern ??? gUnknown_08A1962C

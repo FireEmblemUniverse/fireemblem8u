@@ -38,7 +38,7 @@ struct Unknown02013648 {
 extern struct Unknown02013648 gUnknown_02013648;
 
 //! FE8U = 0x0809FDA0
-void sub_809FDA0(void) {
+void WmSell_DrawSupplyDialogueSpriteText(void) {
     int i;
 
     for (i = 0; i < 4; i++) {
@@ -48,22 +48,22 @@ void sub_809FDA0(void) {
     return;
 }
 
-int CONST_DATA gUnknown_08A1951C[] = {
+int CONST_DATA gShopSellTextIndexLookup[] = {
     0x5A3, // TODO msgid "Sell unwanted items."
     0x5A4, // TODO msgid "Are you sure?"
 };
 
-char* CONST_DATA gUnknown_08A19524 = gStringBufferAlt;
+char* CONST_DATA gpShopSellStringBuffer = gStringBufferAlt;
 
 //! FE8U = 0x0809FDD4
 void sub_809FDD4(int index, ProcPtr parent) {
 
-    StartParallelWorker(sub_809FDA0, parent);
+    StartParallelWorker(WmSell_DrawSupplyDialogueSpriteText, parent);
 
     sub_80ADD24(
         0x7000,
         13,
-        GetStringFromIndexInBuffer(gUnknown_08A1951C[index], gUnknown_08A19524),
+        GetStringFromIndexInBuffer(gShopSellTextIndexLookup[index], gpShopSellStringBuffer),
         1,
         1,
         1,
@@ -93,7 +93,7 @@ void sub_809FE1C(void) {
 }
 
 //! FE8U = 0x0809FE58
-void sub_809FE58(struct WmSellProc* proc) {
+void WmSell_Init(struct WmSellProc* proc) {
     proc->unk_34 = 0;
     proc->unk_32 = 0xff;
     proc->unk_30 = 0;
@@ -122,7 +122,7 @@ void sub_809FE68(void) {
 }
 
 //! FE8U = 0x0809FEFC
-void sub_809FEFC(void) {
+void WmSell_DrawSellOptionSpriteText(void) {
     sub_809A31C(160, 91, 8, 4, 0x8840);
 
     PutSpriteExt(4, 176, 94, gObject_32x16, 0xB088);
@@ -134,14 +134,14 @@ void sub_809FEFC(void) {
 }
 
 //! FE8U = 0x0809FF74
-void sub_809FF74(void) {
+void WmSell_DrawValueSpriteText(void) {
     PutSpriteExt(4, 136, 72, gObject_32x16, 0xB090);
     PutSpriteExt(4, 168, 72, gObject_8x16, 0xB094);
     return;
 }
 
 //! FE8U = 0x0809FFB0
-void sub_809FFB0(int item) {
+void WmSell_DrawItemGoldValue(int item) {
     TileMap_FillRect(gBG0TilemapBuffer + 0x134, 10, 1, 0);
 
     if (item != 0) {
@@ -164,7 +164,7 @@ void sub_809FFB0(int item) {
 }
 
 //! FE8U = 0x080A0034
-void sub_80A0034(void) {
+void WmSell_DrawPartyFunds(void) {
     TileMap_FillRect(gBG0TilemapBuffer + 0xF4, 10, 1, 0);
 
     sub_8004B88(gBG0TilemapBuffer + 0xF4 + 0x146, 2, GetPartyGoldAmount());
@@ -176,7 +176,7 @@ void sub_80A0034(void) {
 }
 
 //! FE8U = 0x080A007C
-void sub_80A007C(void) {
+void WmSell_PutSupplyFaceAndText(void) {
     SetFont(0);
 
     TileMap_FillRect(gBG0TilemapBuffer + 0x34, 12, 1, 0);
@@ -190,7 +190,7 @@ void sub_80A007C(void) {
 }
 
 //! FE8U = 0x080A00DC
-void sub_80A00DC(struct WmSellProc* proc) {
+void WmSell_Setup(struct WmSellProc* proc) {
     int i;
 
     gLCDControlBuffer.dispcnt.mode = 0;
@@ -282,12 +282,12 @@ void sub_80A00DC(struct WmSellProc* proc) {
     BG_EnableSyncByMask(4);
 
     sub_809B74C(gBG0TilemapBuffer + 0x122, &gUnknown_02013648.textArray[0], proc->unit, 0);
-    sub_80A007C();
+    WmSell_PutSupplyFaceAndText();
 
-    StartParallelWorker(sub_809FF74, proc);
+    StartParallelWorker(WmSell_DrawValueSpriteText, proc);
 
-    sub_809FFB0(proc->unit->items[proc->unk_30]);
-    sub_80A0034();
+    WmSell_DrawItemGoldValue(proc->unit->items[proc->unk_30]);
+    WmSell_DrawPartyFunds();
 
     return;
 }
@@ -297,7 +297,7 @@ void sub_80A00DC(struct WmSellProc* proc) {
 /* https://decomp.me/scratch/pd83D */
 
 //! FE8U = 0x080A032C
-s8 sub_80A032C(struct WmSellProc* proc) {
+s8 WmSell_MainLoop_HandleDpadKeys(struct WmSellProc* proc) {
 
     if (gKeyStatusPtr->repeatedKeys & DPAD_UP) {
         register int count asm("r3") = GetUnitItemCount(proc->unit);
@@ -341,7 +341,7 @@ s8 sub_80A032C(struct WmSellProc* proc) {
 #else // if !NONMATCHING
 
 __attribute__((naked))
-s8 sub_80A032C(struct WmSellProc* proc) {
+s8 WmSell_MainLoop_HandleDpadKeys(struct WmSellProc* proc) {
     asm("\n\
         .syntax unified\n\
         push {r4, r5, r6, r7, lr}\n\
@@ -434,11 +434,11 @@ s8 sub_80A032C(struct WmSellProc* proc) {
 void sub_80A03C4(struct WmSellProc* proc) {
     sub_809B74C(gBG0TilemapBuffer + 0x122, &gUnknown_02013648.textArray[0], proc->unit, 0);
 
-    sub_809FFB0(proc->unit->items[proc->unk_30]);
+    WmSell_DrawItemGoldValue(proc->unit->items[proc->unk_30]);
 
     sub_80ACA84(0);
 
-    Proc_End(GetParallelWorker(sub_809FEFC));
+    Proc_End(GetParallelWorker(WmSell_DrawSellOptionSpriteText));
 
     ShowPrepScreenHandCursor(16, proc->unk_30 * 16 + 72, 11, 0x400);
     sub_809FDD4(0, proc);
@@ -451,7 +451,7 @@ void sub_80A03C4(struct WmSellProc* proc) {
 /* https://decomp.me/scratch/SGaYQ */
 
 //! FE8U = 0x080A0424
-void sub_80A0424(struct WmSellProc* proc) {
+void WmSell_OnLoop_MainKeyHandler(struct WmSellProc* proc) {
     u16 item;
 
     if (proc->unk_34 == 1) {
@@ -492,9 +492,9 @@ void sub_80A0424(struct WmSellProc* proc) {
         }
     }
 
-    if (sub_80A032C(proc) != 0) {
+    if (WmSell_MainLoop_HandleDpadKeys(proc) != 0) {
         ShowPrepScreenHandCursor(16, proc->unk_30 * 16 + 72, 11, 0x400);
-        sub_809FFB0(proc->unit->items[proc->unk_30]);
+        WmSell_DrawItemGoldValue(proc->unit->items[proc->unk_30]);
         if ((proc->unk_34 == 1) && (proc->unit->items[proc->unk_30] != 0)) {
             StartItemHelpBox(16, proc->unk_30 * 16 + 72, proc->unit->items[proc->unk_30]);
         }
@@ -506,7 +506,7 @@ void sub_80A0424(struct WmSellProc* proc) {
 #else // if !NONMATCHING
 
 __attribute__((naked))
-void sub_80A0424(struct WmSellProc* proc) {
+void WmSell_OnLoop_MainKeyHandler(struct WmSellProc* proc) {
     asm("\n\
         .syntax unified\n\
         push {r4, r5, r6, lr}\n\
@@ -628,7 +628,7 @@ void sub_80A0424(struct WmSellProc* proc) {
     _080A0514: .4byte gRAMChapterData\n\
     _080A0518:\n\
         adds r0, r4, #0\n\
-        bl sub_80A032C\n\
+        bl WmSell_MainLoop_HandleDpadKeys\n\
         lsls r0, r0, #0x18\n\
         cmp r0, #0\n\
         beq _080A056A\n\
@@ -648,7 +648,7 @@ void sub_80A0424(struct WmSellProc* proc) {
         adds r1, #0x1e\n\
         adds r1, r1, r0\n\
         ldrh r0, [r1]\n\
-        bl sub_809FFB0\n\
+        bl WmSell_DrawItemGoldValue\n\
         ldrh r0, [r4, #0x34]\n\
         cmp r0, #1\n\
         bne _080A056A\n\
@@ -678,7 +678,7 @@ void sub_80A0424(struct WmSellProc* proc) {
 void sub_80A0570(struct WmSellProc* proc) {
     proc->unk_31 = 1;
 
-    StartParallelWorker(sub_809FEFC, proc);
+    StartParallelWorker(WmSell_DrawSellOptionSpriteText, proc);
 
     sub_80AC9D4(0, 16, proc->unk_30 * 16 + 72, 2);
     ShowPrepScreenHandCursor(proc->unk_31 * 32 + 164, 111, 0, 0x400);
@@ -688,7 +688,7 @@ void sub_80A0570(struct WmSellProc* proc) {
 }
 
 //! FE8U = 0x080A05BC
-void sub_80A05BC(struct WmSellProc* proc) {
+void WmSell_ConfirmSellItem(struct WmSellProc* proc) {
     int count;
 
     sub_8024E20(GetItemSellPrice(proc->unit->items[proc->unk_30]));
@@ -699,7 +699,7 @@ void sub_80A05BC(struct WmSellProc* proc) {
 
     PlaySoundEffect(0xb9);
 
-    sub_80A0034();
+    WmSell_DrawPartyFunds();
 
     count = GetUnitItemCount(proc->unit);
     if (count == 0) {
@@ -718,12 +718,12 @@ void sub_80A05BC(struct WmSellProc* proc) {
 }
 
 //! FE8U = 0x080A064C
-void sub_80A064C(struct WmSellProc* proc) {
+void WmSell_OnLoop_ConfirmSellKeyHandler(struct WmSellProc* proc) {
     int previous = proc->unk_31;
 
     if (gKeyStatusPtr->newKeys & A_BUTTON) {
         if (previous == 0) {
-            sub_80A05BC(proc);
+            WmSell_ConfirmSellItem(proc);
             return;
         } else {
             Proc_Goto(proc, 1);
@@ -762,7 +762,7 @@ void sub_80A064C(struct WmSellProc* proc) {
 }
 
 //! FE8U = 0x080A06F0
-void sub_80A06F0(void) {
+void WmSell_OnEnd(void) {
     EndBG3Slider_();
     EndFaceById(0);
     SetPrimaryHBlankHandler(0);
@@ -771,36 +771,36 @@ void sub_80A06F0(void) {
     return;
 }
 
-struct ProcCmd CONST_DATA gUnknown_08A19528[] = {
+struct ProcCmd CONST_DATA gProcScr_PrepWMShopSell[] = {
     PROC_SLEEP(0),
 
 PROC_LABEL(0),
-    PROC_CALL(sub_809FE58),
-    PROC_CALL(sub_80A00DC),
+    PROC_CALL(WmSell_Init),
+    PROC_CALL(WmSell_Setup),
 
     PROC_CALL_ARG(NewFadeIn, 16),
     PROC_WHILE(FadeInExists),
 
 PROC_LABEL(1),
     PROC_CALL(sub_80A03C4),
-    PROC_REPEAT(sub_80A0424),
+    PROC_REPEAT(WmSell_OnLoop_MainKeyHandler),
 
 PROC_LABEL(2),
     PROC_CALL(sub_80A0570),
-    PROC_REPEAT(sub_80A064C),
+    PROC_REPEAT(WmSell_OnLoop_ConfirmSellKeyHandler),
 
 PROC_LABEL(3),
     PROC_CALL_ARG(NewFadeOut, 16),
     PROC_WHILE(FadeOutExists),
 
-    PROC_CALL(sub_80A06F0),
+    PROC_CALL(WmSell_OnEnd),
 
     PROC_END,
 };
 
 //! FE8U = 0x080A070C
-void sub_80A070C(struct Unit* unit, ProcPtr parent) {
-    struct WmSellProc* proc = Proc_StartBlocking(gUnknown_08A19528, parent);
+void StartWorldMapSellScreen(struct Unit* unit, ProcPtr parent) {
+    struct WmSellProc* proc = Proc_StartBlocking(gProcScr_PrepWMShopSell, parent);
     proc->unit = unit;
 
     return;

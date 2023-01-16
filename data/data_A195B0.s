@@ -9,15 +9,15 @@ gUnknown_08A195F8:  @ 0x08A195F8
 	.global gUnknown_08A19608
 gUnknown_08A19608:  @ 0x08A19608
 @ replacing .incbin "baserom.gba", 0x00a19608, 0x24
-.4byte gUnknown_08A19528 + 0x88
-.4byte gUnknown_08A19528 + 0x90
-.4byte gUnknown_08A19528 + 0x98
-.4byte gUnknown_08A19528 + 0xa0
-.4byte gUnknown_08A19528 + 0xa8
-.4byte gUnknown_08A19528 + 0xb0
-.4byte gUnknown_08A19528 + 0xb8
-.4byte gUnknown_08A19528 + 0xc0
-.4byte gUnknown_08A19528 + 0xc8
+.4byte gProcScr_PrepWMShopSell + 0x88
+.4byte gProcScr_PrepWMShopSell + 0x90
+.4byte gProcScr_PrepWMShopSell + 0x98
+.4byte gProcScr_PrepWMShopSell + 0xa0
+.4byte gProcScr_PrepWMShopSell + 0xa8
+.4byte gProcScr_PrepWMShopSell + 0xb0
+.4byte gProcScr_PrepWMShopSell + 0xb8
+.4byte gProcScr_PrepWMShopSell + 0xc0
+.4byte gProcScr_PrepWMShopSell + 0xc8
 
 	.global gUnknown_08A1962C
 gUnknown_08A1962C:  @ 0x08A1962C
