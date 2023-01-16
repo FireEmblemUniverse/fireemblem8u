@@ -352,10 +352,6 @@ void sub_80A03C4(struct WmSellProc* proc) {
     return;
 }
 
-#if NONMATCHING
-
-/* https://decomp.me/scratch/SGaYQ */
-
 //! FE8U = 0x080A0424
 void WmSell_OnLoop_MainKeyHandler(struct WmSellProc* proc) {
     u16 item;
@@ -368,26 +364,23 @@ void WmSell_OnLoop_MainKeyHandler(struct WmSellProc* proc) {
         }
     } else {
         if (gKeyStatusPtr->newKeys & R_BUTTON) {
-            if (proc->unit->items[proc->unk_30] == 0) {
-                return;
+            item = proc->unit->items[proc->unk_30];
+            if (item) {
+                StartItemHelpBox(0x10, proc->unk_30 * 0x10 + 0x48, item);
+                proc->unk_34 = 1;
             }
-
-            StartItemHelpBox(16, proc->unk_30 * 16 + 72, proc->unit->items[proc->unk_30]);
-            proc->unk_34 = 1;
 
             return;
         }
 
         if (gKeyStatusPtr->newKeys & A_BUTTON) {
-            item = proc->unit->items[proc->unk_30];
-            if ((GetItemSellPrice(item) == 0) || (GetItemAttributes(item) & GetItemAttributes)) {
+            u16 item = proc->unit->items[proc->unk_30];
+            if ((GetItemSellPrice(item) == 0) || (GetItemAttributes(item) & 0x10)) {
+                sub_8097DA8(16, proc->unk_30 * 16 + 72, 0x850, proc);
+            } else {
                 Proc_Goto(proc, 2);
                 PlaySoundEffect(0x6a);
-                return;
             }
-
-            sub_8097DA8(16, proc->unk_30 * 16 + 72, 0x850, proc);
-
             return;
         }
 
@@ -401,184 +394,16 @@ void WmSell_OnLoop_MainKeyHandler(struct WmSellProc* proc) {
     if (WmSell_MainLoop_HandleDpadKeys(proc) != 0) {
         ShowPrepScreenHandCursor(16, proc->unk_30 * 16 + 72, 11, 0x400);
         WmSell_DrawItemGoldValue(proc->unit->items[proc->unk_30]);
-        if ((proc->unk_34 == 1) && (proc->unit->items[proc->unk_30] != 0)) {
-            StartItemHelpBox(16, proc->unk_30 * 16 + 72, proc->unit->items[proc->unk_30]);
+        if (proc->unk_34 == 1) {
+            item = proc->unit->items[proc->unk_30];
+            if (item) {
+                StartItemHelpBox(0x10, proc->unk_30 * 0x10 + 0x48, item);
+            }
         }
     }
 
     return;
 }
-
-#else // if !NONMATCHING
-
-__attribute__((naked))
-void WmSell_OnLoop_MainKeyHandler(struct WmSellProc* proc) {
-    asm("\n\
-        .syntax unified\n\
-        push {r4, r5, r6, lr}\n\
-        adds r4, r0, #0\n\
-        ldrh r0, [r4, #0x34]\n\
-        cmp r0, #1\n\
-        bne _080A044C\n\
-        ldr r0, _080A0448  @ gKeyStatusPtr\n\
-        ldr r0, [r0]\n\
-        ldrh r1, [r0, #8]\n\
-        movs r0, #0x81\n\
-        lsls r0, r0, #1\n\
-        ands r0, r1\n\
-        cmp r0, #0\n\
-        beq _080A0518\n\
-        bl CloseHelpBox\n\
-        movs r0, #0\n\
-        strh r0, [r4, #0x34]\n\
-        b _080A056A\n\
-        .align 2, 0\n\
-    _080A0448: .4byte gKeyStatusPtr\n\
-    _080A044C:\n\
-        ldr r0, _080A0484  @ gKeyStatusPtr\n\
-        ldr r0, [r0]\n\
-        ldrh r1, [r0, #8]\n\
-        movs r0, #0x80\n\
-        lsls r0, r0, #1\n\
-        ands r0, r1\n\
-        cmp r0, #0\n\
-        beq _080A0488\n\
-        ldr r0, [r4, #0x2c]\n\
-        adds r1, r4, #0\n\
-        adds r1, #0x30\n\
-        ldrb r3, [r1]\n\
-        lsls r1, r3, #1\n\
-        adds r0, #0x1e\n\
-        adds r0, r0, r1\n\
-        ldrh r2, [r0]\n\
-        cmp r2, #0\n\
-        bne _080A0472\n\
-        b _080A056A\n\
-    _080A0472:\n\
-        lsls r1, r3, #4\n\
-        adds r1, #0x48\n\
-        movs r0, #0x10\n\
-        bl StartItemHelpBox\n\
-        movs r0, #1\n\
-        strh r0, [r4, #0x34]\n\
-        b _080A056A\n\
-        .align 2, 0\n\
-    _080A0484: .4byte gKeyStatusPtr\n\
-    _080A0488:\n\
-        movs r0, #1\n\
-        ands r0, r1\n\
-        cmp r0, #0\n\
-        beq _080A04F0\n\
-        ldr r1, [r4, #0x2c]\n\
-        adds r6, r4, #0\n\
-        adds r6, #0x30\n\
-        ldrb r0, [r6]\n\
-        lsls r0, r0, #1\n\
-        adds r1, #0x1e\n\
-        adds r1, r1, r0\n\
-        ldrh r5, [r1]\n\
-        adds r0, r5, #0\n\
-        bl GetItemSellPrice\n\
-        lsls r0, r0, #0x10\n\
-        cmp r0, #0\n\
-        beq _080A04BA\n\
-        adds r0, r5, #0\n\
-        bl GetItemAttributes\n\
-        movs r1, #0x10\n\
-        ands r1, r0\n\
-        cmp r1, #0\n\
-        beq _080A04CE\n\
-    _080A04BA:\n\
-        ldrb r1, [r6]\n\
-        lsls r1, r1, #4\n\
-        adds r1, #0x48\n\
-        movs r2, #0x85\n\
-        lsls r2, r2, #4\n\
-        movs r0, #0x10\n\
-        adds r3, r4, #0\n\
-        bl sub_8097DA8\n\
-        b _080A056A\n\
-    _080A04CE:\n\
-        adds r0, r4, #0\n\
-        movs r1, #2\n\
-        bl Proc_Goto\n\
-        ldr r0, _080A04EC  @ gRAMChapterData\n\
-        adds r0, #0x41\n\
-        ldrb r0, [r0]\n\
-        lsls r0, r0, #0x1e\n\
-        cmp r0, #0\n\
-        blt _080A056A\n\
-        movs r0, #0x6a\n\
-        bl m4aSongNumStart\n\
-        b _080A056A\n\
-        .align 2, 0\n\
-    _080A04EC: .4byte gRAMChapterData\n\
-    _080A04F0:\n\
-        movs r0, #2\n\
-        ands r0, r1\n\
-        cmp r0, #0\n\
-        beq _080A0518\n\
-        adds r0, r4, #0\n\
-        movs r1, #3\n\
-        bl Proc_Goto\n\
-        ldr r0, _080A0514  @ gRAMChapterData\n\
-        adds r0, #0x41\n\
-        ldrb r0, [r0]\n\
-        lsls r0, r0, #0x1e\n\
-        cmp r0, #0\n\
-        blt _080A056A\n\
-        movs r0, #0x6b\n\
-        bl m4aSongNumStart\n\
-        b _080A056A\n\
-        .align 2, 0\n\
-    _080A0514: .4byte gRAMChapterData\n\
-    _080A0518:\n\
-        adds r0, r4, #0\n\
-        bl WmSell_MainLoop_HandleDpadKeys\n\
-        lsls r0, r0, #0x18\n\
-        cmp r0, #0\n\
-        beq _080A056A\n\
-        adds r5, r4, #0\n\
-        adds r5, #0x30\n\
-        ldrb r1, [r5]\n\
-        lsls r1, r1, #4\n\
-        adds r1, #0x48\n\
-        movs r3, #0x80\n\
-        lsls r3, r3, #3\n\
-        movs r0, #0x10\n\
-        movs r2, #0xb\n\
-        bl ShowPrepScreenHandCursor\n\
-        ldr r1, [r4, #0x2c]\n\
-        ldrb r0, [r5]\n\
-        lsls r0, r0, #1\n\
-        adds r1, #0x1e\n\
-        adds r1, r1, r0\n\
-        ldrh r0, [r1]\n\
-        bl WmSell_DrawItemGoldValue\n\
-        ldrh r0, [r4, #0x34]\n\
-        cmp r0, #1\n\
-        bne _080A056A\n\
-        ldr r0, [r4, #0x2c]\n\
-        ldrb r3, [r5]\n\
-        lsls r1, r3, #1\n\
-        adds r0, #0x1e\n\
-        adds r0, r0, r1\n\
-        ldrh r2, [r0]\n\
-        cmp r2, #0\n\
-        beq _080A056A\n\
-        lsls r1, r3, #4\n\
-        adds r1, #0x48\n\
-        movs r0, #0x10\n\
-        bl StartItemHelpBox\n\
-    _080A056A:\n\
-        pop {r4, r5, r6}\n\
-        pop {r0}\n\
-        bx r0\n\
-        .syntax divided\n\
-    ");
-}
-
-#endif // NONMATCHING
 
 //! FE8U = 0x080A0570
 void sub_80A0570(struct WmSellProc* proc) {
