@@ -166,7 +166,7 @@ SECTIONS
         asm/prep_itemuse.o(.text);
         asm/prep_itemsupply.o(.text);
         asm/prep_itemlist.o(.text);
-        asm/prep_wm_sell.o(.text);
+        src/prep_wm_sell.o(.text);
         asm/code_80952CC.o(.text);
         src/bmsave.o(.text);
         asm/code_80A2C3C.o(.text);
