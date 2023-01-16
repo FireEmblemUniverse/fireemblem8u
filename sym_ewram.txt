@@ -113,6 +113,7 @@
 . = 0x00E158; gUnknown_0200E158 = .;
 . = 0x00F158; gUnknown_0200F158 = .;
 . = 0x00F15C; gUnknown_0200F15C = .;
+. = 0x00F17C; gStringBufferAlt = .;
 . = 0x00F1C8; gUnknown_0200F1C8 = .;
 . = 0x010004; src/sallycursor.o(ewram_data);
 . = 0x01000C; gUnknown_0201000C = .;

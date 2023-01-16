@@ -123,6 +123,7 @@ extern u16 gBmFrameTmap1[];
 // extern ??? gUnknown_0200E158
 // extern ??? gUnknown_0200F158
 // extern ??? gUnknown_0200F15C
+extern char gStringBufferAlt[];
 // extern ??? gUnknown_0200F1C8
 // extern ??? gUnknown_0201000C
 extern struct TextHandle gPrepMainMenuTexts[9];
@@ -3368,7 +3369,7 @@ extern u8 CONST_DATA gUnknown_08A1B698[];
 // extern ??? gUnknown_08A1B9EC
 // extern ??? gUnknown_08A1BAB8
 // extern ??? gUnknown_08A1BAE4
-// extern ??? gUnknown_08A1BBD0
+extern u8 gUnknown_08A1BBD0[]; // tsa?
 // extern ??? gUnknown_08A1BCC0
 // extern ??? gUnknown_08A1BD00
 // extern ??? gUnknown_08A1BD40
