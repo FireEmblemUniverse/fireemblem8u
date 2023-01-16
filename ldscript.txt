@@ -166,6 +166,7 @@ SECTIONS
         asm/prep_itemuse.o(.text);
         asm/prep_itemsupply.o(.text);
         asm/prep_itemlist.o(.text);
+        src/prep_wm_sell.o(.text);
         asm/code_80952CC.o(.text);
         src/bmsave.o(.text);
         asm/code_80A2C3C.o(.text);
@@ -446,6 +447,8 @@ SECTIONS
         . = ALIGN(4); src/prep_atmenu.o(.data);
         . = ALIGN(4); src/prep_menuproc.o(.data);
         . = ALIGN(4); data/data_A184B4.o(.data);
+        . = ALIGN(4); src/prep_wm_sell.o(.data);
+        . = ALIGN(4); data/data_A195B0.o(.data);
         . = ALIGN(4); data/data_map_change.o(.data);
         . = ALIGN(4); data/data_A1FAF4.o(.data);
         . = ALIGN(4); src/minimap.o(.data);

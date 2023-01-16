@@ -13,6 +13,8 @@ enum {
     FID_ARENA               = 0x67,
     FID_SHOP_SECRET         = 0x68,
 
+    FID_SUPPLY              = 0xAB,
+
     FID_FACTION_CHIBI       = 0x7F00,
 };
 
