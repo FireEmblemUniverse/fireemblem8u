@@ -3392,11 +3392,11 @@ extern u8 Img_PrepWindow[];
 // extern ??? gUnknown_08A1FAF8
 // extern ??? gUnknown_08A1FB08
 // extern ??? gUnknown_08A1FB30
-// extern ??? gUnknown_08A20050
-// extern ??? gUnknown_08A20068
-// extern ??? gUnknown_08A20098
+// extern ??? gBgConfig_SaveMenu
+// extern ??? gProcScr_08A20068
+// extern ??? gProcScr_08A20098
 // extern ??? ProcScr_SaveMenu
-// extern ??? gUnknown_08A203A8
+// extern ??? gProcScr_SaveMenu2
 // extern ??? gUnknown_08A204B8
 // extern ??? gUnknown_08A204BC
 // extern ??? gUnknown_08A2051C

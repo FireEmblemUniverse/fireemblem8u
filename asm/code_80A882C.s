@@ -12288,8 +12288,8 @@ _080AFF18: .4byte gUnknown_08A212D4
 
 	THUMB_FUNC_END sub_80AFE8C
 
-	THUMB_FUNC_START sub_80AFF1C
-sub_80AFF1C: @ 0x080AFF1C
+	THUMB_FUNC_START StartSoundRoomScreen
+StartSoundRoomScreen: @ 0x080AFF1C
 	push {lr}
 	adds r1, r0, #0
 	ldr r0, _080AFF2C  @ gUnknown_08A21338
@@ -12299,7 +12299,7 @@ sub_80AFF1C: @ 0x080AFF1C
 	.align 2, 0
 _080AFF2C: .4byte gUnknown_08A21338
 
-	THUMB_FUNC_END sub_80AFF1C
+	THUMB_FUNC_END StartSoundRoomScreen
 
 	THUMB_FUNC_START sub_80AFF30
 sub_80AFF30: @ 0x080AFF30
@@ -15209,8 +15209,8 @@ sub_80B166C: @ 0x080B166C
 
 	THUMB_FUNC_END sub_80B166C
 
-	THUMB_FUNC_START sub_80B1688
-sub_80B1688: @ 0x080B1688
+	THUMB_FUNC_START StartBonusClaimScreen
+StartBonusClaimScreen: @ 0x080B1688
 	push {lr}
 	adds r1, r0, #0
 	ldr r0, _080B1698  @ gUnknown_08A215A8
@@ -15220,6 +15220,6 @@ sub_80B1688: @ 0x080B1688
 	.align 2, 0
 _080B1698: .4byte gUnknown_08A215A8
 
-	THUMB_FUNC_END sub_80B1688
+	THUMB_FUNC_END StartBonusClaimScreen
 
 .align 2, 0

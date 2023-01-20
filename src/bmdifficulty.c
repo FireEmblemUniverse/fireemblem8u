@@ -520,14 +520,14 @@ void sub_8038230() {
     return;
 }
 
-extern u16 gUnknown_08A20050[]; // bg config
+extern u16 gBgConfig_SaveMenu[]; // bg config
 
 extern u16 gUnknown_0200310C[];
 
 void SetupDungeonRecordUi(ProcPtr proc) {
     int i;
 
-    SetupBackgrounds(gUnknown_08A20050);
+    SetupBackgrounds(gBgConfig_SaveMenu);
 
     BG_Fill(gBG0TilemapBuffer, 0);
     BG_Fill(gBG1TilemapBuffer, 0);

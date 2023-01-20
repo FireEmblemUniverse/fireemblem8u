@@ -69,9 +69,6 @@ extern u16 gUnknown_020007A0[];
 
 s8 sub_80A9D20(struct SaveMenuProc*, int);
 void sub_80ABBB0(struct SaveMenuProc*, int, int);
-void sub_80B1688(struct SaveMenuProc*);
-void sub_80A1984(struct SaveMenuProc*);
-void sub_80AFF1C(struct SaveMenuProc*);
 void sub_80AA6EC(struct SaveMenuProc*);
 s8 sub_80ABA98(struct SaveMenuProc*);
 void sub_80AB89C(struct SaveMenuProc*);
@@ -163,7 +160,7 @@ void sub_80A88E0(struct SaveMenuProc* proc) {
 /* https://decomp.me/scratch/5PCbw */
 
 //! FE8U = 0x080A8950
-int sub_80A8950(int slot) {
+int LoadSaveMenuHelpText(int slot) {
     int leaderId;
     uintptr_t saveBase;
     int i;
@@ -223,7 +220,7 @@ int sub_80A8950(int slot) {
 #else // if !NONMATCHING
 
 __attribute__((naked))
-int sub_80A8950(int slot) {
+int LoadSaveMenuHelpText(int slot) {
     asm("\n\
         .syntax unified\n\
         push {r4, r5, r6, r7, lr}\n\
@@ -318,7 +315,7 @@ s8 sub_80A89E4(struct SaveMenuProc* proc) {
             proc->unk_40 = 7;
         }
     } else if (gKeyStatusPtr->newKeys & R_BUTTON) {
-        switch (sub_80A8950(proc->unk_2c)) {
+        switch (LoadSaveMenuHelpText(proc->unk_2c)) {
             case 0:
                 PlaySoundEffect(0x6c);
                 break;
@@ -367,7 +364,7 @@ void sub_80A8A9C(struct SaveMenuProc* proc) {
     return;
 }
 
-u16 CONST_DATA gUnknown_08A20050[] = {
+u16 CONST_DATA gBgConfig_SaveMenu[] = {
     0x0000, 0x6000, 0x0000,
     0x0000, 0x6800, 0x0000,
     0x8000, 0x7000, 0x0000,
@@ -411,7 +408,7 @@ void sub_80A8AF0(void) {
 
     sub_80AA700();
 
-    SetupBackgrounds(gUnknown_08A20050);
+    SetupBackgrounds(gBgConfig_SaveMenu);
 
     gLCDControlBuffer.dispcnt.bg0_on = 0;
     gLCDControlBuffer.dispcnt.bg1_on = 0;
@@ -438,10 +435,10 @@ void sub_80A8AF0(void) {
 }
 
 //! FE8U = 0x080A8C2C
-void sub_80A8C2C(void) {
+void SaveMenu_Init(void) {
     sub_80AA700();
 
-    SetupBackgrounds(gUnknown_08A20050);
+    SetupBackgrounds(gBgConfig_SaveMenu);
 
     gLCDControlBuffer.dispcnt.bg0_on = 0;
     gLCDControlBuffer.dispcnt.bg1_on = 0;
@@ -547,7 +544,7 @@ void ProcSaveMenu_InitScreen(struct SaveMenuProc* proc) {
 }
 
 //! FE8U = 0x080A8F04
-void sub_80A8F04(struct SaveMenuProc* proc) {
+void SaveMenu_LoadExtraMenuGraphics(struct SaveMenuProc* proc) {
     CopyDataWithPossibleUncomp(Img_GameMainMenuObjs, (void*)0x06014000);
 
     sub_80AB89C(proc);
@@ -685,7 +682,7 @@ void Loop6C_savemenu(struct SaveMenuProc* proc) {
 //! FE8U = 0x080A9250
 void sub_80A9250(struct SaveMenuProc* proc) {
     int isDifficult;
-    int isTutorial;
+    s8 isTutorial;
 
     switch (proc->unk_2a) {
         case 0:
@@ -702,7 +699,7 @@ void sub_80A9250(struct SaveMenuProc* proc) {
             break;
     }
 
-    SaveNewGame(proc->unk_2c, isDifficult, 1, (s8)isTutorial);
+    SaveNewGame(proc->unk_2c, isDifficult, 1, isTutorial);
 
     return;
 }
@@ -1498,7 +1495,7 @@ void sub_80A9DBC(struct SaveMenu8A20068Proc* proc) {
     return;
 }
 
-struct ProcCmd CONST_DATA gUnknown_08A20068[] = {
+struct ProcCmd CONST_DATA gProcScr_08A20068[] = {
     PROC_SLEEP(0),
 
     PROC_CALL(sub_80A9D84),
@@ -1512,7 +1509,7 @@ struct ProcCmd CONST_DATA gUnknown_08A20068[] = {
 
 //! FE8U = 0x080A9DFC
 void sub_80A9DFC(int x, int y, int msgId, ProcPtr parent) {
-    struct SaveMenu8A20068Proc* proc = Proc_StartBlocking(gUnknown_08A20068, parent);
+    struct SaveMenu8A20068Proc* proc = Proc_StartBlocking(gProcScr_08A20068, parent);
     proc->msgId = msgId;
     proc->x = x;
     proc->y = y;
@@ -1551,13 +1548,14 @@ void sub_80A9E1C(struct SaveMenuProc* proc) {
                         sub_80A9290(proc);
                         return;
                     }
+
                     LoadGame(proc->unk_2c);
                     Proc_Goto(proc, 0xe);
                     PlaySoundEffect(0x6a);
                     return;
                 }
 
-                sub_80A9DFC(0x40, 0x30, 0x892, proc);
+                sub_80A9DFC(0x40, 0x30, 0x892, proc); // TODO: msgid "This data[.][NL]can't be used[.][NL]on a trial map.[.]"
 
                 return;
 
@@ -1573,7 +1571,8 @@ void sub_80A9E1C(struct SaveMenuProc* proc) {
                     PlaySoundEffect(0x6a);
                     return;
                 }
-                sub_80A9DFC(0x2e, 0x38, 0x891, proc);
+
+                sub_80A9DFC(0x2e, 0x38, 0x891, proc); // TODO: msgid "Send data from[NL]Chapter 2+"
 
                 return;
 
@@ -1582,15 +1581,15 @@ void sub_80A9E1C(struct SaveMenuProc* proc) {
                     if (proc->unk_3f == 0xFF) {
                         LoadGame(proc->unk_2c);
                         sub_80A882C(proc);
-                    _080A9F86:
                         PlaySoundEffect(0x6a);
                         return;
-
                     }
+
                     sub_80A9290(proc);
                     return;
                 }
-                sub_80A9DFC(0x2e, 0x38, 0x895, proc);
+
+                sub_80A9DFC(0x2e, 0x38, 0x895, proc); // TODO: msgid "Select cleared save data.[.]"
 
                 return;
 
@@ -1689,7 +1688,7 @@ void sub_80AA118(struct SaveMenuProc* proc) {
     return;
 }
 
-struct ProcCmd CONST_DATA gUnknown_08A20098[] = {
+struct ProcCmd CONST_DATA gProcScr_08A20098[] = {
     PROC_CALL(sub_80AA100),
     PROC_SLEEP(0),
 
@@ -1699,8 +1698,8 @@ struct ProcCmd CONST_DATA gUnknown_08A20098[] = {
 };
 
 //! FE8U = 0x080AA144
-void sub_80AA144(ProcPtr parent) {
-    Proc_StartBlocking(gUnknown_08A20098, parent);
+void StartTrialMapMaybe(ProcPtr parent) {
+    Proc_StartBlocking(gProcScr_08A20098, parent);
     return;
 }
 
@@ -1721,16 +1720,16 @@ void sub_80AA158(struct SaveMenuProc* proc) {
         default:
             return;
         case 0x40:
-            sub_80AA144(proc);
+            StartTrialMapMaybe(proc);
             return;
         case 0x20:
-            sub_80B1688(proc);
+            StartBonusClaimScreen(proc);
             return;
         case 2:
-            sub_80AFF1C(proc);
+            StartSoundRoomScreen(proc);
             return;
         case 4:
-            sub_80A1984(proc);
+            StartSupportScreen(proc);
             return;
     }
 }
@@ -1901,12 +1900,12 @@ struct ProcCmd CONST_DATA ProcScr_SaveMenu[] = {
 PROC_LABEL(0),
     PROC_SLEEP(0),
 
-    PROC_CALL(sub_80A8C2C),
+    PROC_CALL(SaveMenu_Init),
     PROC_SLEEP(0),
 
     PROC_CALL(ProcSaveMenu_InitScreen),
 
-    PROC_CALL(sub_80A8F04),
+    PROC_CALL(SaveMenu_LoadExtraMenuGraphics),
     PROC_SLEEP(0),
 
     PROC_CALL_ARG(NewFadeIn, 8),
@@ -2021,12 +2020,12 @@ PROC_LABEL(14),
     PROC_CALL(sub_80AA158),
     PROC_SLEEP(0),
 
-    PROC_CALL(sub_80A8C2C),
+    PROC_CALL(SaveMenu_Init),
     PROC_SLEEP(0),
 
     PROC_CALL(ProcSaveMenu_InitScreen),
 
-    PROC_CALL(sub_80A8F04),
+    PROC_CALL(SaveMenu_LoadExtraMenuGraphics),
     PROC_SLEEP(0),
 
     PROC_CALL_ARG(NewFadeIn, 8),
@@ -2081,7 +2080,7 @@ void sub_80AA4F8(ProcPtr proc) {
     return;
 }
 
-struct ProcCmd CONST_DATA gUnknown_08A203A8[] = {
+struct ProcCmd CONST_DATA gProcScr_SaveMenu2[] = {
     PROC_NAME("savemenu"),
     PROC_SLEEP(0),
 
@@ -2140,6 +2139,6 @@ PROC_LABEL(15),
 
 //! FE8U = 0x080AA518
 void Make6C_savemenu2(ProcPtr parent) {
-    Proc_StartBlocking(gUnknown_08A203A8, parent);
+    Proc_StartBlocking(gProcScr_SaveMenu2, parent);
     return;
 }
