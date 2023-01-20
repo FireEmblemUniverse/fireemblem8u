@@ -521,15 +521,6 @@ void sub_8038230() {
 }
 
 extern u16 gUnknown_08A20050[]; // bg config
-extern u16 gUnknown_08A21658[]; // record background img
-extern u16 gUnknown_08A25DCC[]; // record background pal
-extern u16 gUnknown_08A25ECC[]; // record background tsa
-extern u16 gUnknown_08A26380[]; // fog overlay img
-extern u16 gUnknown_08A268D8[]; // fog overlay pal
-extern u16 gUnknown_08A268F8[]; // fog overlay tsa
-extern u16 gUnknown_089A234C[]; // "combat record" img
-extern u16 gUnknown_089A27B4[]; // "combat record" tsa
-extern u16 gUnknown_089A28E0[]; // "combat record" pal
 
 extern u16 gUnknown_0200310C[];
 

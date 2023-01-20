@@ -171,6 +171,7 @@ SECTIONS
         src/bmsave.o(.text);
         asm/code_80A2C3C.o(.text);
         src/minimap.o(.text);
+        src/savemenu.o(.text);
         asm/code_80A882C.o(.text);
         src/uiconfig.o(.text);
         asm/code_80B24DC.o(.text);
