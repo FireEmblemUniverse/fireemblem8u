@@ -307,6 +307,7 @@ SECTIONS
         . = ALIGN(4); src/prep_atmenu.o(.rodata);
         . = ALIGN(4); data/const_data_205BD0.o(.rodata);
         . = ALIGN(4); src/minimap.o(.rodata);
+        . = ALIGN(4); src/savemenu.o(.rodata);
         . = ALIGN(4); data/const_data_205DE9.o(.rodata);
         . = ALIGN(4); src/uiconfig.o(.rodata);
         . = ALIGN(4); data/const_data_205E74.o(.rodata);
@@ -454,6 +455,7 @@ SECTIONS
         . = ALIGN(4); data/data_A1FAF4.o(.data);
         . = ALIGN(4); src/minimap.o(.data);
         . = ALIGN(4); data/data_minimap.o(.data);
+        . = ALIGN(4); src/savemenu.o(.data);
         . = ALIGN(4); data/data_A20050.o(.data);
         . = ALIGN(4); src/uiconfig.o(.data);
         . = ALIGN(4); data/data_A2EE90.o(.data);

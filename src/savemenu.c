@@ -160,6 +160,8 @@ void sub_80A88E0(struct SaveMenuProc* proc) {
 
 #if NONMATCHING
 
+/* https://decomp.me/scratch/5PCbw */
+
 //! FE8U = 0x080A8950
 int sub_80A8950(int slot) {
     int leaderId;
@@ -207,17 +209,15 @@ int sub_80A8950(int slot) {
             continue;
         }
 
-        break;
+        gUnknown_0203EF64.unk_00 = leaderId;
+        gUnknown_0203EF64.unk_01 = unit.level;
+
+        LoadWMStuff((void*)(saveBase + 0xD8C), &mapData);
+        gUnknown_0203EF64.unk_02 = mapData.unk10[0].location;
+
+        return 2;
     }
 
-
-    gUnknown_0203EF64.unk_00 = leaderId;
-    gUnknown_0203EF64.unk_01 = unit.level;
-
-    LoadWMStuff((void*)(saveBase + 0xD8C), &mapData);
-    gUnknown_0203EF64.unk_02 = mapData.unk10[0].location;
-
-    return 2;
 }
 
 #else // if !NONMATCHING
@@ -367,7 +367,12 @@ void sub_80A8A9C(struct SaveMenuProc* proc) {
     return;
 }
 
-extern u16 gUnknown_08A20050[];
+u16 CONST_DATA gUnknown_08A20050[] = {
+    0x0000, 0x6000, 0x0000,
+    0x0000, 0x6800, 0x0000,
+    0x8000, 0x7000, 0x0000,
+    0x8000, 0x7800, 0x0000,
+};
 
 //! FE8U = 0x080A8AF0
 void sub_80A8AF0(void) {
@@ -1143,6 +1148,8 @@ void sub_80A9B44(struct SaveMenuProc* proc) {
 
 #if NONMATCHING
 
+/* https://decomp.me/scratch/6c2CV */
+
 //! FE8U = 0x080A9B90
 void sub_80A9B90(struct SaveMenuProc* proc) {
     int previous = proc->unk_34;
@@ -1188,7 +1195,7 @@ _080A9C02:
 
             case 4:
                 // _080A9C8C
-                sub_80029E8(0x100, 0xc0, 9, 0x18, 0);
+                sub_80029E8(9, 0xc0, 0x100, 0x18, 0);
                 Proc_Goto(proc, 0xe);
 
                 break;
@@ -1491,7 +1498,17 @@ void sub_80A9DBC(struct SaveMenu8A20068Proc* proc) {
     return;
 }
 
-extern struct ProcCmd gUnknown_08A20068[];
+struct ProcCmd CONST_DATA gUnknown_08A20068[] = {
+    PROC_SLEEP(0),
+
+    PROC_CALL(sub_80A9D84),
+    PROC_SLEEP(8),
+
+    PROC_REPEAT(sub_80A9DBC),
+    PROC_SLEEP(8),
+
+    PROC_END,
+};
 
 //! FE8U = 0x080A9DFC
 void sub_80A9DFC(int x, int y, int msgId, ProcPtr parent) {
@@ -1672,7 +1689,14 @@ void sub_80AA118(struct SaveMenuProc* proc) {
     return;
 }
 
-extern struct ProcCmd gUnknown_08A20098[];
+struct ProcCmd CONST_DATA gUnknown_08A20098[] = {
+    PROC_CALL(sub_80AA100),
+    PROC_SLEEP(0),
+
+    PROC_CALL(sub_80AA118),
+
+    PROC_END,
+};
 
 //! FE8U = 0x080AA144
 void sub_80AA144(ProcPtr parent) {
@@ -1871,7 +1895,171 @@ void sub_80AA4B4(void) {
     return;
 }
 
-extern struct ProcCmd ProcScr_SaveMenu[];
+struct ProcCmd CONST_DATA ProcScr_SaveMenu[] = {
+    PROC_NAME("savemenu"),
+
+PROC_LABEL(0),
+    PROC_SLEEP(0),
+
+    PROC_CALL(sub_80A8C2C),
+    PROC_SLEEP(0),
+
+    PROC_CALL(ProcSaveMenu_InitScreen),
+
+    PROC_CALL(sub_80A8F04),
+    PROC_SLEEP(0),
+
+    PROC_CALL_ARG(NewFadeIn, 8),
+    PROC_WHILE(FadeInExists),
+    PROC_SLEEP(0),
+
+    PROC_WHILE(MusicProc4Exists),
+    PROC_CALL(sub_80A9014),
+
+    // fallthrough
+
+PROC_LABEL(2),
+    PROC_REPEAT(Loop6C_savemenu),
+
+    PROC_GOTO(15),
+
+PROC_LABEL(1),
+    PROC_CALL(sub_80AA1EC),
+
+    PROC_CALL_ARG(NewFadeOut, 8),
+    PROC_WHILE(FadeOutExists),
+
+    PROC_CALL(sub_80AD5B4),
+
+    PROC_CALL(NewNewGameDifficultySelect),
+    PROC_SLEEP(0),
+
+    PROC_CALL(sub_80AA30C),
+    PROC_CALL(sub_80AA1EC),
+
+    PROC_CALL_ARG(NewFadeIn, 8),
+    PROC_WHILE(FadeInExists),
+
+    PROC_CALL(sub_80AA458),
+
+    // fallthrough
+
+PROC_LABEL(5),
+    PROC_CALL(sub_80AA47C),
+    PROC_SLEEP(0),
+
+    PROC_REPEAT(sub_80A9494),
+
+    PROC_GOTO(15),
+
+PROC_LABEL(7),
+    PROC_SLEEP(5),
+    PROC_CALL(sub_80A96D0),
+
+    PROC_GOTO(5),
+
+PROC_LABEL(6),
+    PROC_SLEEP(1),
+    PROC_CALL(sub_80A96DC),
+    PROC_SLEEP(1),
+
+    PROC_REPEAT(sub_80A96EC),
+
+    PROC_GOTO(5),
+
+PROC_LABEL(3),
+    PROC_REPEAT(sub_80A99C0),
+
+    PROC_GOTO(5),
+
+PROC_LABEL(4),
+    PROC_CALL(sub_80AA4B4),
+    PROC_REPEAT(sub_80A9A18),
+
+    PROC_GOTO(2),
+
+PROC_LABEL(8),
+    PROC_REPEAT(sub_80A9A68),
+
+    // fallthrough
+
+PROC_LABEL(9),
+    PROC_REPEAT(sub_80A9AB0),
+
+    // fallthrough
+
+PROC_LABEL(12),
+    PROC_CALL(sub_80A9A08),
+    PROC_REPEAT(sub_80A9AF4),
+
+    // fallthrough
+
+PROC_LABEL(13),
+    PROC_REPEAT(sub_80A9B44),
+
+    // fallthrough
+
+PROC_LABEL(10),
+    PROC_REPEAT(sub_80A9B90),
+
+    // fallthrough
+
+PROC_LABEL(11),
+    PROC_CALL(sub_80AA49C),
+    PROC_SLEEP(0),
+
+    PROC_REPEAT(sub_80A9E1C),
+
+    // fallthrough
+
+PROC_LABEL(14),
+    PROC_CALL_ARG(NewFadeOut, 8),
+    PROC_WHILE(FadeOutExists),
+
+    PROC_WHILE(IsMusicProc2Running),
+
+    PROC_CALL(sub_80AA158),
+    PROC_SLEEP(0),
+
+    PROC_CALL(sub_80A8C2C),
+    PROC_SLEEP(0),
+
+    PROC_CALL(ProcSaveMenu_InitScreen),
+
+    PROC_CALL(sub_80A8F04),
+    PROC_SLEEP(0),
+
+    PROC_CALL_ARG(NewFadeIn, 8),
+    PROC_WHILE(FadeInExists),
+
+    PROC_WHILE(IsMusicProc2Running),
+
+    PROC_CALL(sub_80AA1BC),
+
+    // fallthrough
+
+PROC_LABEL(21),
+    PROC_BLOCK,
+
+PROC_LABEL(18),
+    PROC_CALL_ARG(NewFadeOut, 4),
+    PROC_WHILE(FadeOutExists),
+
+    PROC_GOTO(15),
+
+PROC_LABEL(17),
+    PROC_CALL_ARG(NewFadeOut, 8),
+    PROC_WHILE(FadeOutExists),
+
+    // fallthrough
+
+PROC_LABEL(15),
+    PROC_SLEEP(0),
+    PROC_CALL(sub_80AA030),
+    PROC_SLEEP(0),
+
+    PROC_END,
+};
 
 //! FE8U = 0x080AA4C0
 void Make6C_savemenu(ProcPtr parent) {
@@ -1893,7 +2081,62 @@ void sub_80AA4F8(ProcPtr proc) {
     return;
 }
 
-extern struct ProcCmd gUnknown_08A203A8[];
+struct ProcCmd CONST_DATA gUnknown_08A203A8[] = {
+    PROC_NAME("savemenu"),
+    PROC_SLEEP(0),
+
+    PROC_CALL(sub_80A8F8C),
+
+    PROC_CALL(sub_80A8AF0),
+    PROC_SLEEP(0),
+
+    PROC_CALL(ProcSaveMenu_InitScreen),
+    PROC_SLEEP(0),
+
+    PROC_CALL(sub_80AA4F8),
+
+    PROC_CALL_ARG(NewFadeIn, 8),
+    PROC_WHILE(FadeInExists),
+
+    PROC_GOTO(5),
+
+PROC_LABEL(20),
+    PROC_CALL_ARG(NewFadeIn, 4),
+    PROC_WHILE(FadeInExists),
+
+    // fallthrough
+
+PROC_LABEL(5),
+    PROC_REPEAT(sub_80A9494),
+
+    PROC_GOTO(15),
+
+PROC_LABEL(6),
+    PROC_SLEEP(1),
+    PROC_CALL(sub_80A96DC),
+    PROC_SLEEP(1),
+    PROC_REPEAT(sub_80A96EC),
+
+    PROC_GOTO(5),
+
+PROC_LABEL(18),
+    PROC_CALL_ARG(NewFadeOut, 4),
+    PROC_WHILE(FadeOutExists),
+
+    PROC_GOTO(15),
+
+PROC_LABEL(17),
+    PROC_CALL_ARG(NewFadeOut, 8),
+    PROC_WHILE(FadeOutExists),
+
+    // fallthrough
+
+PROC_LABEL(15),
+    PROC_SLEEP(0),
+    PROC_CALL(sub_80AA030),
+
+    PROC_END,
+};
 
 //! FE8U = 0x080AA518
 void Make6C_savemenu2(ProcPtr parent) {
