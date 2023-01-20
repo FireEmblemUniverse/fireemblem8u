@@ -1143,10 +1143,6 @@ void sub_80A9B44(struct SaveMenuProc* proc) {
     return;
 }
 
-#if NONMATCHING
-
-/* https://decomp.me/scratch/6c2CV */
-
 //! FE8U = 0x080A9B90
 void sub_80A9B90(struct SaveMenuProc* proc) {
     int previous = proc->unk_34;
@@ -1171,7 +1167,6 @@ void sub_80A9B90(struct SaveMenuProc* proc) {
         }
     }
 
-_080A9C02:
     if (previous != proc->unk_34) {
         PlaySoundEffect(0x66);
     }
@@ -1183,24 +1178,39 @@ _080A9C02:
         proc->unk_29 = 0;
 
         switch (proc->unk_35) {
+            case 0x40:
+                proc->unk_2c = sub_80AB98C(GetLastUsedGameSaveSlot(), 1, 1);
+                sub_80A9D20(proc, 0);
+
+                PlaySoundEffect(0x6a);
+
+                Proc_Goto(proc, 0xc);
+
+                break;
+
             case 2:
-                // _080A9C82
                 sub_80029E8(0, 0xc0, 0, 0x18, 0);
                 Proc_Goto(proc, 0xe);
 
                 break;
 
             case 4:
-                // _080A9C8C
                 sub_80029E8(9, 0xc0, 0x100, 0x18, 0);
                 Proc_Goto(proc, 0xe);
 
                 break;
 
             case 0x10:
+                proc->unk_2c = sub_80AB98C(GetLastUsedGameSaveSlot(), 1, 1);
+                sub_80A9D20(proc, 0);
+
+                PlaySoundEffect(0x6a);
+
+                Proc_Goto(proc, 0xc);
+
+                break;
+
             case 0x20:
-            case 0x40:
-                // _080A9CA6
                 proc->unk_2c = sub_80AB98C(GetLastUsedGameSaveSlot(), 1, 1);
                 sub_80A9D20(proc, 0);
 
@@ -1211,7 +1221,6 @@ _080A9C02:
                 break;
 
             default:
-                // _080A9CDC
                 sub_80A882C(proc);
                 Proc_Goto(proc, 0x12);
                 break;
@@ -1228,218 +1237,6 @@ _080A9C02:
     return;
 
 }
-
-#else // if !NONMATCHING
-
-__attribute__((naked))
-void sub_80A9B90(struct SaveMenuProc* proc) {
-    asm("\n\
-        .syntax unified\n\
-        push {r4, r5, r6, r7, lr}\n\
-        sub sp, #4\n\
-        adds r4, r0, #0\n\
-        adds r2, r4, #0\n\
-        adds r2, #0x34\n\
-        ldrb r7, [r2]\n\
-        adds r1, r4, #0\n\
-        adds r1, #0x2e\n\
-        movs r0, #0xa\n\
-        strb r0, [r1]\n\
-        ldr r0, _080A9BD4  @ gKeyStatusPtr\n\
-        ldr r3, [r0]\n\
-        ldrh r1, [r3, #6]\n\
-        movs r6, #0x40\n\
-        adds r0, r6, #0\n\
-        ands r0, r1\n\
-        lsls r0, r0, #0x10\n\
-        lsrs r5, r0, #0x10\n\
-        cmp r5, #0\n\
-        beq _080A9BD8\n\
-        ldrb r0, [r2]\n\
-        cmp r0, #0\n\
-        bne _080A9BCE\n\
-        ldrh r1, [r3, #8]\n\
-        adds r0, r6, #0\n\
-        ands r0, r1\n\
-        cmp r0, #0\n\
-        beq _080A9C02\n\
-        adds r0, r4, #0\n\
-        adds r0, #0x33\n\
-        ldrb r0, [r0]\n\
-    _080A9BCE:\n\
-        subs r0, #1\n\
-        strb r0, [r2]\n\
-        b _080A9C02\n\
-        .align 2, 0\n\
-    _080A9BD4: .4byte gKeyStatusPtr\n\
-    _080A9BD8:\n\
-        movs r6, #0x80\n\
-        adds r0, r6, #0\n\
-        ands r0, r1\n\
-        cmp r0, #0\n\
-        beq _080A9C02\n\
-        ldrb r1, [r2]\n\
-        adds r0, r4, #0\n\
-        adds r0, #0x33\n\
-        ldrb r0, [r0]\n\
-        subs r0, #1\n\
-        cmp r1, r0\n\
-        bge _080A9BF6\n\
-        adds r0, r1, #1\n\
-        strb r0, [r2]\n\
-        b _080A9C02\n\
-    _080A9BF6:\n\
-        ldrh r1, [r3, #8]\n\
-        adds r0, r6, #0\n\
-        ands r0, r1\n\
-        cmp r0, #0\n\
-        beq _080A9C02\n\
-        strb r5, [r2]\n\
-    _080A9C02:\n\
-        adds r0, r4, #0\n\
-        adds r0, #0x34\n\
-        adds r5, r0, #0\n\
-        ldrb r0, [r5]\n\
-        cmp r7, r0\n\
-        beq _080A9C20\n\
-        ldr r0, _080A9C70  @ gRAMChapterData\n\
-        adds r0, #0x41\n\
-        ldrb r0, [r0]\n\
-        lsls r0, r0, #0x1e\n\
-        cmp r0, #0\n\
-        blt _080A9C20\n\
-        movs r0, #0x66\n\
-        bl m4aSongNumStart\n\
-    _080A9C20:\n\
-        ldr r0, _080A9C74  @ gKeyStatusPtr\n\
-        ldr r0, [r0]\n\
-        ldrh r2, [r0, #8]\n\
-        movs r1, #1\n\
-        ands r1, r2\n\
-        cmp r1, #0\n\
-        beq _080A9CEC\n\
-        adds r0, r4, #0\n\
-        adds r0, #0x32\n\
-        ldrb r0, [r0]\n\
-        ldrb r1, [r5]\n\
-        bl sub_80A8844\n\
-        adds r5, r4, #0\n\
-        adds r5, #0x35\n\
-        movs r6, #0\n\
-        strb r0, [r5]\n\
-        ldr r0, _080A9C70  @ gRAMChapterData\n\
-        adds r7, r0, #0\n\
-        adds r7, #0x41\n\
-        ldrb r0, [r7]\n\
-        lsls r0, r0, #0x1e\n\
-        cmp r0, #0\n\
-        blt _080A9C56\n\
-        movs r0, #0x6a\n\
-        bl m4aSongNumStart\n\
-    _080A9C56:\n\
-        adds r0, r4, #0\n\
-        adds r0, #0x29\n\
-        strb r6, [r0]\n\
-        ldrb r0, [r5]\n\
-        cmp r0, #0x10\n\
-        beq _080A9CA6\n\
-        cmp r0, #0x10\n\
-        bgt _080A9C78\n\
-        cmp r0, #2\n\
-        beq _080A9C82\n\
-        cmp r0, #4\n\
-        beq _080A9C8C\n\
-        b _080A9CDC\n\
-        .align 2, 0\n\
-    _080A9C70: .4byte gRAMChapterData\n\
-    _080A9C74: .4byte gKeyStatusPtr\n\
-    _080A9C78:\n\
-        cmp r0, #0x20\n\
-        beq _080A9CA6\n\
-        cmp r0, #0x40\n\
-        bne _080A9CDC\n\
-        b _080A9CA6\n\
-    _080A9C82:\n\
-        str r6, [sp]\n\
-        movs r0, #0\n\
-        movs r1, #0xc0\n\
-        movs r2, #0\n\
-        b _080A9C96\n\
-    _080A9C8C:\n\
-        movs r2, #0x80\n\
-        lsls r2, r2, #1\n\
-        str r6, [sp]\n\
-        movs r0, #9\n\
-        movs r1, #0xc0\n\
-    _080A9C96:\n\
-        movs r3, #0x18\n\
-        bl sub_80029E8\n\
-        adds r0, r4, #0\n\
-        movs r1, #0xe\n\
-        bl Proc_Goto\n\
-        b _080A9D14\n\
-    _080A9CA6:\n\
-        bl GetLastUsedGameSaveSlot\n\
-        lsls r0, r0, #0x18\n\
-        lsrs r0, r0, #0x18\n\
-        movs r1, #1\n\
-        movs r2, #1\n\
-        bl sub_80AB98C\n\
-        adds r1, r4, #0\n\
-        adds r1, #0x2c\n\
-        strb r0, [r1]\n\
-        adds r0, r4, #0\n\
-        movs r1, #0\n\
-        bl sub_80A9D20\n\
-        ldrb r0, [r7]\n\
-        lsls r0, r0, #0x1e\n\
-        cmp r0, #0\n\
-        blt _080A9CD2\n\
-        movs r0, #0x6a\n\
-        bl m4aSongNumStart\n\
-    _080A9CD2:\n\
-        adds r0, r4, #0\n\
-        movs r1, #0xc\n\
-        bl Proc_Goto\n\
-        b _080A9D14\n\
-    _080A9CDC:\n\
-        adds r0, r4, #0\n\
-        bl sub_80A882C\n\
-        adds r0, r4, #0\n\
-        movs r1, #0x12\n\
-        bl Proc_Goto\n\
-        b _080A9D14\n\
-    _080A9CEC:\n\
-        movs r0, #2\n\
-        ands r0, r2\n\
-        cmp r0, #0\n\
-        beq _080A9D14\n\
-        adds r0, r4, #0\n\
-        adds r0, #0x29\n\
-        strb r1, [r0]\n\
-        adds r0, r4, #0\n\
-        movs r1, #9\n\
-        bl Proc_Goto\n\
-        ldr r0, _080A9D1C  @ gRAMChapterData\n\
-        adds r0, #0x41\n\
-        ldrb r0, [r0]\n\
-        lsls r0, r0, #0x1e\n\
-        cmp r0, #0\n\
-        blt _080A9D14\n\
-        movs r0, #0x6b\n\
-        bl m4aSongNumStart\n\
-    _080A9D14:\n\
-        add sp, #4\n\
-        pop {r4, r5, r6, r7}\n\
-        pop {r0}\n\
-        bx r0\n\
-        .align 2, 0\n\
-    _080A9D1C: .4byte gRAMChapterData\n\
-        .syntax divided\n\
-    ");
-}
-
-#endif // NONMATCHING
 
 //! FE8U = 0x080A9D20
 s8 sub_80A9D20(struct SaveMenuProc* proc, int direction) {
