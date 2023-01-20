@@ -1,6 +1,6 @@
     .section .rodata
 
-	.incbin "baserom.gba", 0x205DD4, 0x15
+	.incbin "baserom.gba", 0x205DE0, 0x9
 
 	.global gUnknown_08205DE9
 gUnknown_08205DE9:  @ 0x08205DE9

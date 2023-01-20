@@ -26,7 +26,7 @@ void PlaySong();
 void Sound_SetDefaultMaxNumChannels();
 void Sound_SetMaxNumChannels();
 void sub_80028FC(int songId);
-// ??? IsMusicProc2Running(???);
+int IsMusicProc2Running(void);
 // ??? sub_800296C(???);
 // ??? sub_80029BC(???);
 void sub_80029E8(int songId, int b, int c, int d, ProcPtr parent);

@@ -2856,9 +2856,9 @@ extern u16 CONST_DATA gUnknown_089A18F4[];      /* a image */
 extern u16 CONST_DATA gUnknown_089A1E70[];      /* a image */
 extern u16 CONST_DATA gUnknown_089A230C[];      /* a palatte */
 extern u16 CONST_DATA gUnknown_089A232C[];      /* a palatte */
-// extern ??? gUnknown_089A234C
-// extern ??? gUnknown_089A27B4
-// extern ??? gUnknown_089A28E0
+extern u8 gUnknown_089A234C[]; // "combat record" img
+extern u8 gUnknown_089A27B4[]; // "combat record" tsa
+extern u16 gUnknown_089A28E0[]; // "combat record" pal
 // extern ??? gUnknown_089A2920
 // extern ??? gUnknown_089A2938
 // extern ??? gUnknown_089A2968
@@ -3392,11 +3392,11 @@ extern u8 Img_PrepWindow[];
 // extern ??? gUnknown_08A1FAF8
 // extern ??? gUnknown_08A1FB08
 // extern ??? gUnknown_08A1FB30
-// extern ??? gUnknown_08A20050
-// extern ??? gUnknown_08A20068
-// extern ??? gUnknown_08A20098
+// extern ??? gBgConfig_SaveMenu
+// extern ??? gProcScr_08A20068
+// extern ??? gProcScr_08A20098
 // extern ??? ProcScr_SaveMenu
-// extern ??? gUnknown_08A203A8
+// extern ??? gProcScr_SaveMenu2
 // extern ??? gUnknown_08A204B8
 // extern ??? gUnknown_08A204BC
 // extern ??? gUnknown_08A2051C
@@ -3474,23 +3474,23 @@ extern struct ProcCmd CONST_DATA gUnknown_08A20DCC[];
 // extern ??? gUnknown_08A215A0
 // extern ??? gUnknown_08A215A4
 // extern ??? gUnknown_08A215A8
-// extern ??? gUnknown_08A21658
-// extern ??? gUnknown_08A25DCC
-// extern ??? gUnknown_08A25ECC
-// extern ??? gUnknown_08A26380
-// extern ??? gUnknown_08A268D8
-// extern ??? gUnknown_08A268F8
-// extern ??? Img_SaveScreenSprits
-// extern ??? Pal_SaveScreenSprits
+extern u8 gUnknown_08A21658[]; // gfx, "records" background
+extern u16 gUnknown_08A25DCC[]; // pal, "records" background
+extern u8 gUnknown_08A25ECC[]; // tsa, "records" background
+extern u8 gUnknown_08A26380[]; // gfx, fog overlay
+extern u16 gUnknown_08A268D8[]; // pal, fog overlay
+extern u8 gUnknown_08A268F8[]; // tsa, fog overlay
+extern u8 Img_SaveScreenSprits[]; // gfx
+extern u16 Pal_SaveScreenSprits[]; // pal
 // extern ??? gUnknown_08A28088
 // extern ??? gUnknown_08A280A8
-// extern ??? Img_GameMainMenuObjs
+extern u8 Img_GameMainMenuObjs[];
 // extern ??? Img_DifficultyMenuObjs
 // extern ??? Pal_DifficultyMenuObjs
 // extern ??? gUnknown_08A2949A
 // extern ??? gUnknown_08A294BA
 // extern ??? gUnknown_08A29558
-// extern ??? gUnknown_08A295B4
+extern u16 gUnknown_08A295B4[]; // pal
 extern u8 gUnknown_08A295D4[]; // tsa
 // extern ??? gUnknown_08A29A88
 // extern ??? gUnknown_08A2B1E4

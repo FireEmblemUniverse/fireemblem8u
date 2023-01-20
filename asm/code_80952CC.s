@@ -2415,8 +2415,8 @@ _080A1980: .4byte gUnknown_08A1975C
 
 	THUMB_FUNC_END sub_80A196C
 
-	THUMB_FUNC_START sub_80A1984
-sub_80A1984: @ 0x080A1984
+	THUMB_FUNC_START StartSupportScreen
+StartSupportScreen: @ 0x080A1984
 	push {lr}
 	adds r1, r0, #0
 	ldr r0, _080A1998  @ gUnknown_08A1975C
@@ -2429,7 +2429,7 @@ sub_80A1984: @ 0x080A1984
 	.align 2, 0
 _080A1998: .4byte gUnknown_08A1975C
 
-	THUMB_FUNC_END sub_80A1984
+	THUMB_FUNC_END StartSupportScreen
 
 	THUMB_FUNC_START sub_80A199C
 sub_80A199C: @ 0x080A199C
