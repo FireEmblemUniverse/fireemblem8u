@@ -80,8 +80,6 @@ struct Unknown03004990 {
 
 extern struct Unknown03004990* gUnknown_03004990;
 
-
-
 extern u16 gUnknown_08A20570[];
 extern u16 gUnknown_08A20578[];
 extern u16 gUnknown_08A20580[];
@@ -94,14 +92,9 @@ void sub_8014E3C(void);
 void sub_8014EC4(int, int);
 void sub_8014EF4(int);
 
-s8 sub_80A32F0(int);
-s8 sub_80A3328(void);
-signed char sub_80A332C(void);
-s8 sub_80A33EC(void);
-s8 sub_80A341C(void);
 
 //! FE8U = 0x080AB314
-void sub_80AB314(struct SaveDrawCursorProc* proc) {
+void SaveDrawCursor_Init(struct SaveDrawCursorProc* proc) {
     proc->unk_36 = 0;
 
     proc->unk_2a = 0;
@@ -118,12 +111,12 @@ void sub_80AB314(struct SaveDrawCursorProc* proc) {
 }
 
 //! FE8U = 0x080AB340
-void sub_80AB340(struct SaveDrawCursorProc* proc) {
+void SaveDrawCursor_Loop(struct SaveDrawCursorProc* proc) {
     s16 yOam0;
     s16 xOam1;
     u16 xOam1_;
 
-    u8 gUnknown_08205DE9[] = {
+    u8 yOffsetLut[] = {
         0, 1, 2, 3, 3, 2, 1, 0,
     };
 
@@ -159,7 +152,7 @@ void sub_80AB340(struct SaveDrawCursorProc* proc) {
             PutSpriteExt(
                 4,
                 xOam1 & 0x1FF,
-                (yOam0 + gUnknown_08205DE9[proc->unk_2a >> 3 & 7]) & 0xff,
+                (yOam0 + yOffsetLut[proc->unk_2a >> 3 & 7]) & 0xff,
                 gUnknown_08A20570,
                 0x3000
             );
@@ -169,7 +162,7 @@ void sub_80AB340(struct SaveDrawCursorProc* proc) {
             PutSpriteExt(
                 4,
                 (xOam1 & 0x1FF) | 0x1000,
-                (yOam0 + gUnknown_08205DE9[proc->unk_2a >> 3 & 7]) & 0xff,
+                (yOam0 + yOffsetLut[proc->unk_2a >> 3 & 7]) & 0xff,
                 gUnknown_08A20570,
                 0x3000
             );
@@ -177,7 +170,7 @@ void sub_80AB340(struct SaveDrawCursorProc* proc) {
             PutSpriteExt(
                 4,
                 4,
-                (yOam0 + gUnknown_08205DE9[proc->unk_2a >> 3 & 7]) & 0xff,
+                (yOam0 + yOffsetLut[proc->unk_2a >> 3 & 7]) & 0xff,
                 gUnknown_08A20570,
                 0x3000
             );
@@ -226,18 +219,18 @@ void sub_80AB514(int a, int b, struct SaveMenuUnusedProc* proc) {
     return;
 }
 
-struct ProcCmd CONST_DATA gUnknown_08A206D8[] = {
+struct ProcCmd CONST_DATA gProcScr_SaveDrawCursor[] = {
     PROC_NAME("savedrawcursor"),
 
-    PROC_CALL(sub_80AB314),
-    PROC_REPEAT(sub_80AB340),
+    PROC_CALL(SaveDrawCursor_Init),
+    PROC_REPEAT(SaveDrawCursor_Loop),
 
     PROC_END,
 };
 
 //! FE8U = 0x080AB534
-struct SaveMenuCursorProc* sub_80AB534(ProcPtr parent) {
-    return Proc_Start(gUnknown_08A206D8, parent);
+struct SaveMenuCursorProc* StartSaveDrawCursor(ProcPtr parent) {
+    return Proc_Start(gProcScr_SaveDrawCursor, parent);
 }
 
 //! FE8U = 0x080AB548
@@ -341,7 +334,7 @@ void sub_80AB720(struct SaveMenu8A206F8Proc* proc) {
     return;
 }
 
-struct ProcCmd CONST_DATA gUnknown_08A206F8[] = {
+struct ProcCmd CONST_DATA gProcScr_08A206F8[] = {
     PROC_SET_END_CB(sub_8014E3C),
     PROC_SLEEP(0),
 
@@ -353,14 +346,14 @@ struct ProcCmd CONST_DATA gUnknown_08A206F8[] = {
 
 //! FE8U = 0x080AB760
 void sub_80AB760(void) {
-    Proc_Start(gUnknown_08A206F8, PROC_TREE_3);
+    Proc_Start(gProcScr_08A206F8, PROC_TREE_3);
     sub_8014DA8(gUnknown_02000000);
     return;
 }
 
 //! FE8U = 0x080AB77C
 void sub_80AB77C(void) {
-    Proc_EndEach(gUnknown_08A206F8);
+    Proc_EndEach(gProcScr_08A206F8);
     SetPrimaryHBlankHandler(NULL);
     return;
 }
@@ -421,19 +414,20 @@ void sub_80AB83C(struct SaveMenuProc* proc, s8 flag) {
 }
 
 //! FE8U = 0x080AB874
-void sub_80AB874(struct SaveMenuProc* proc, int flag) {
-    proc->unk_30 |= flag;
+void AddMainMenuOption(struct SaveMenuProc* proc, int option) {
+    proc->unk_30 |= option;
     proc->unk_31++;
     return;
 }
 
 //! FE8U = 0x080AB888
-void sub_80AB888(struct SaveMenuProc* proc, int flag) {
-    proc->unk_32 |= flag;
+void AddExtraMenuOption(struct SaveMenuProc* proc, int option) {
+    proc->unk_32 |= option;
     proc->unk_33++;
     return;
 }
 
+//! FE8U = 0x080AB89C
 void sub_80AB89C(struct SaveMenuProc* proc) {
     int i;
 
@@ -443,7 +437,7 @@ void sub_80AB89C(struct SaveMenuProc* proc) {
     proc->unk_30 = 0;
 
     if (proc->unk_44 == 0x100) {
-        sub_80AB874(proc, 1);
+        AddMainMenuOption(proc, MAIN_MENU_OPTION_RESUME);
     }
 
     for (i = 0; i < 3; i++) {
@@ -453,44 +447,44 @@ void sub_80AB89C(struct SaveMenuProc* proc) {
     }
 
     if (count > 0) {
-        sub_80AB874(proc, 2);
+        AddMainMenuOption(proc, MAIN_MENU_OPTION_RESTART);
 
         if (count < 3) {
-            sub_80AB874(proc, 4);
+            AddMainMenuOption(proc, MAIN_MENU_OPTION_COPY);
         }
 
-        sub_80AB874(proc, 8);
+        AddMainMenuOption(proc, MAIN_MENU_OPTION_ERASE);
     }
 
     if (count < 3) {
-        sub_80AB874(proc, 0x10);
+        AddMainMenuOption(proc, MAIN_MENU_OPTION_NEW_GAME);
     }
 
     proc->unk_32 = 0;
     proc->unk_33 = 0;
 
-    if (sub_80A32F0(0) != 0) {
-        sub_80AB888(proc, 1);
+    if (IsExtraLinkArenaEnabled(0) != 0) {
+        AddExtraMenuOption(proc, EXTRA_MENU_OPTION_LINK_ARENA);
     }
 
-    if (sub_80A3328() != 0) {
-        sub_80AB888(proc, 2);
+    if (IsExtraSoundRoomEnabled() != 0) {
+        AddExtraMenuOption(proc, EXTRA_MENU_OPTION_SOUND_ROOM);
     }
 
-    if (sub_80A332C() != 0) {
-        sub_80AB888(proc, 4);
+    if (IsExtraSupportViewerEnabled() != 0) {
+        AddExtraMenuOption(proc, EXTRA_MENU_OPTION_SUPPORT);
     }
 
-    if (sub_80A33EC() != 0) {
-        sub_80AB888(proc, 0x10);
+    if (IsExtraFreeMapEnabled() != 0) {
+        AddExtraMenuOption(proc, EXTRA_MENU_OPTION_MAP);
     }
 
-    if (sub_80A341C() != 0) {
-        sub_80AB888(proc, 0x20);
+    if (IsExtraBonusClaimEnabled() != 0) {
+        AddExtraMenuOption(proc, EXTRA_MENU_OPTION_BONUS_CLAIM);
     }
 
     if (proc->unk_32 != 0) {
-        proc->unk_30 |= 0x20;
+        proc->unk_30 |= MAIN_MENU_OPTION_EXTRAS;
         proc->unk_31++;
     }
 
@@ -601,7 +595,7 @@ s8 sub_80ABA98(struct SaveMenuProc* proc) {
 }
 
 //! FE8U = 0x080ABAB4
-void sub_80ABAB4(struct SqMaskProc* proc) {
+void SqMask_Loop(struct SqMaskProc* proc) {
     proc->unk_29 += proc->unk_2b;
 
     gLCDControlBuffer.dispcnt.win0_on = 0;
@@ -639,21 +633,21 @@ void sub_80ABAB4(struct SqMaskProc* proc) {
     return;
 }
 
-struct ProcCmd CONST_DATA gUnknown_08A2073C[] = {
+struct ProcCmd CONST_DATA gProcScr_SqMask[] = {
     PROC_NAME("SqMask"),
     PROC_SLEEP(1),
 
-    PROC_REPEAT(sub_80ABAB4),
+    PROC_REPEAT(SqMask_Loop),
 
     PROC_END,
 };
 
 //! FE8U = 0x080ABBB0
-void sub_80ABBB0(struct SaveMenuProc* parent, int b, int c) {
+void StartSqMask(struct SaveMenuProc* parent, int b, int c) {
     u8 castB = b;
     u8 castC = c;
 
-    struct SqMaskProc* proc = Proc_StartBlocking(gUnknown_08A2073C, parent);
+    struct SqMaskProc* proc = Proc_StartBlocking(gProcScr_SqMask, parent);
     proc->unk_2a = castB;
     proc->unk_2b = castC;
 
@@ -663,21 +657,21 @@ void sub_80ABBB0(struct SaveMenuProc* parent, int b, int c) {
 }
 
 //! FE8U = 0x080ABBE4
-void sub_80ABBE4(void) {
+void SaveBgUp_Loop(void) {
     RegisterTileGraphics(gBG2TilemapBuffer, (void*)0x06007000, 0x800);
     return;
 }
 
-struct ProcCmd CONST_DATA gUnknown_08A2075C[] = {
+struct ProcCmd CONST_DATA gProcScr_SaveBgUp[] = {
     PROC_NAME("SaveBgUp"),
     PROC_SLEEP(1),
 
-    PROC_REPEAT(sub_80ABBE4),
+    PROC_REPEAT(SaveBgUp_Loop),
 
     PROC_END,
 };
 
 //! FE8U = 0x080ABC00
-ProcPtr sub_80ABC00(ProcPtr parent) {
-    return Proc_Start(gUnknown_08A2075C, parent);
+ProcPtr StartSaveBgUp(ProcPtr parent) {
+    return Proc_Start(gProcScr_SaveBgUp, parent);
 }

@@ -1,6 +1,24 @@
 #ifndef GUARD_SAVEMENU_H
 #define GUARD_SAVEMENU_H
 
+enum {
+    MAIN_MENU_OPTION_RESUME     = (1 << 0),
+    MAIN_MENU_OPTION_RESTART    = (1 << 1),
+    MAIN_MENU_OPTION_COPY       = (1 << 2),
+    MAIN_MENU_OPTION_ERASE      = (1 << 3),
+    MAIN_MENU_OPTION_NEW_GAME   = (1 << 4),
+    MAIN_MENU_OPTION_EXTRAS     = (1 << 5),
+};
+
+enum {
+    EXTRA_MENU_OPTION_LINK_ARENA   = (1 << 0),
+    EXTRA_MENU_OPTION_SOUND_ROOM   = (1 << 1),
+    EXTRA_MENU_OPTION_SUPPORT      = (1 << 2),
+    // (1 << 3)
+    EXTRA_MENU_OPTION_MAP          = (1 << 4),
+    EXTRA_MENU_OPTION_BONUS_CLAIM  = (1 << 5),
+};
+
 struct SaveMenuProc {
     /* 00 */ PROC_HEADER;
     /* 29 */ u8 unk_29; // seems to be related to scrolling frame counter when scrolling from "resume" to "chapter options"

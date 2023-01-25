@@ -1145,7 +1145,6 @@ extern const u8 gUnknown_08205714[4];
 // extern ??? gUnknown_08205D87
 // extern ??? gUnknown_08205D97
 // extern ??? gUnknown_08205DB8
-// extern ??? gUnknown_08205DE9
 // extern ??? gUnknown_08205E18
 // extern ??? gUnknown_08205E28
 // extern ??? gUnknown_08205F1C
@@ -3409,11 +3408,11 @@ extern u8 Img_PrepWindow[];
 // extern ??? gUnknown_08A20650
 // extern ??? gUnknown_08A2067C
 // extern ??? gUnknown_08A206A8
-// extern ??? gUnknown_08A206D8
-// extern ??? gUnknown_08A206F8
+// extern ??? gProcScr_SaveDrawCursor
+// extern ??? gProcScr_08A206F8
 // extern ??? gUnknown_08A20720
-// extern ??? gUnknown_08A2073C
-// extern ??? gUnknown_08A2075C
+// extern ??? gProcScr_SqMask
+// extern ??? gProcScr_SaveBgUp
 // extern ??? gUnknown_08A2099C
 // extern ??? gUnknown_08A209B8
 // extern ??? gUnknown_08A209E4

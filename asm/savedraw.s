@@ -401,7 +401,7 @@ sub_80AAA78: @ 0x080AAA78
 	bl WriteOAMRotScaleData
 	strh r7, [r6, #0x2a]
 	adds r0, r6, #0
-	bl sub_80AB534
+	bl StartSaveDrawCursor
 	str r0, [r6, #0x34]
 	adds r0, r6, #0
 	adds r0, #0x39

@@ -5,42 +5,42 @@
 	.global gUnknown_08A2099C
 gUnknown_08A2099C:  @ 0x08A2099C
 @ replacing .incbin "baserom.gba", 0x00a2099c, 0x1c
-.4byte gUnknown_08A2075C + 0xee
-.4byte gUnknown_08A2075C + 0x108
-.4byte gUnknown_08A2075C + 0x122
-.4byte gUnknown_08A2075C + 0x13c
-.4byte gUnknown_08A2075C + 0x156
-.4byte gUnknown_08A2075C + 0x170
-.4byte gUnknown_08A2075C + 0x18a
+.4byte gProcScr_SaveBgUp + 0xee
+.4byte gProcScr_SaveBgUp + 0x108
+.4byte gProcScr_SaveBgUp + 0x122
+.4byte gProcScr_SaveBgUp + 0x13c
+.4byte gProcScr_SaveBgUp + 0x156
+.4byte gProcScr_SaveBgUp + 0x170
+.4byte gProcScr_SaveBgUp + 0x18a
 
 	.global gUnknown_08A209B8
 gUnknown_08A209B8:  @ 0x08A209B8
 @ replacing .incbin "baserom.gba", 0x00a209b8, 0x2c
-.4byte gUnknown_08A2075C + 0x20
-.4byte gUnknown_08A2075C + 0x3a
-.4byte gUnknown_08A2075C + 0x54
-.4byte gUnknown_08A2075C + 0x68
-.4byte gUnknown_08A2075C + 0x82
-.4byte gUnknown_08A2075C + 0x96
-.4byte gUnknown_08A2075C + 0xa4
-.4byte gUnknown_08A2075C + 0x3a
-.4byte gUnknown_08A2075C + 0xcc
-.4byte gUnknown_08A2075C + 0xe6
-.4byte gUnknown_08A2075C + 0xb2
+.4byte gProcScr_SaveBgUp + 0x20
+.4byte gProcScr_SaveBgUp + 0x3a
+.4byte gProcScr_SaveBgUp + 0x54
+.4byte gProcScr_SaveBgUp + 0x68
+.4byte gProcScr_SaveBgUp + 0x82
+.4byte gProcScr_SaveBgUp + 0x96
+.4byte gProcScr_SaveBgUp + 0xa4
+.4byte gProcScr_SaveBgUp + 0x3a
+.4byte gProcScr_SaveBgUp + 0xcc
+.4byte gProcScr_SaveBgUp + 0xe6
+.4byte gProcScr_SaveBgUp + 0xb2
 
 	.global gUnknown_08A209E4
 gUnknown_08A209E4:  @ 0x08A209E4
 @ replacing .incbin "baserom.gba", 0x00a209e4, 0xc
-.4byte gUnknown_08A2075C + 0x1ce
-.4byte gUnknown_08A2075C + 0x1f4
-.4byte gUnknown_08A2075C + 0x21a
+.4byte gProcScr_SaveBgUp + 0x1ce
+.4byte gProcScr_SaveBgUp + 0x1f4
+.4byte gProcScr_SaveBgUp + 0x21a
 
 	.global gUnknown_08A209F0
 gUnknown_08A209F0:  @ 0x08A209F0
 @ replacing .incbin "baserom.gba", 0x00a209f0, 0xc
-.4byte gUnknown_08A2075C + 0x192
-.4byte gUnknown_08A2075C + 0x1a6
-.4byte gUnknown_08A2075C + 0x1ba
+.4byte gProcScr_SaveBgUp + 0x192
+.4byte gProcScr_SaveBgUp + 0x1a6
+.4byte gProcScr_SaveBgUp + 0x1ba
 
 	.global gUnknown_08A209FC
 gUnknown_08A209FC:  @ 0x08A209FC

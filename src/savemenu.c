@@ -36,7 +36,7 @@ extern u16 gUnknown_020007A0[];
 
 
 s8 sub_80A9D20(struct SaveMenuProc*, int);
-void sub_80ABBB0(struct SaveMenuProc*, int, int);
+void StartSqMask(struct SaveMenuProc*, int, int);
 void sub_80AA6EC(struct SaveMenuProc*);
 s8 sub_80ABA98(struct SaveMenuProc*);
 void sub_80AB83C(struct SaveMenuProc*, u8);
@@ -1385,7 +1385,7 @@ void sub_80A9E1C(struct SaveMenuProc* proc) {
 //! FE8U = 0x080AA018
 void sub_80AA018(struct SaveMenuProc* proc) {
 
-    sub_80ABBB0(proc, 1, 2);
+    StartSqMask(proc, 1, 2);
     Proc_Break(proc);
     return;
 }
