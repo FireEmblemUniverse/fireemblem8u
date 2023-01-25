@@ -445,7 +445,7 @@ int sub_80A32EC()
     return 1;
 }
 
-s8 sub_80A32F0(int index)
+s8 IsExtraLinkArenaEnabled(int index)
 {
     int i;
 
@@ -459,12 +459,12 @@ s8 sub_80A32F0(int index)
     return sub_80A6A68();
 }
 
-int sub_80A3328()
+s8 IsExtraSoundRoomEnabled()
 {
     return 1;
 }
 
-signed char sub_80A332C()
+s8 IsExtraSupportViewerEnabled()
 {
     int tmp0 = GGM_IsAnyCharacterKnown(NULL);
     int tmp1 = IsGamePlayedThrough();
@@ -514,7 +514,7 @@ int sub_80A33C4()
         return 1;
 }
 
-int sub_80A33EC()
+s8 IsExtraFreeMapEnabled()
 {
     int i;
 
@@ -528,7 +528,7 @@ int sub_80A33EC()
     return 0;
 }
 
-int sub_80A341C(void) {
+s8 IsExtraBonusClaimEnabled(void) {
     unsigned char buf0[0x4C];
     struct bmsave_unkstruct0 *buf1;
     int i, ret;

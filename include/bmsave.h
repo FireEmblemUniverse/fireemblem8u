@@ -58,7 +58,7 @@ struct SramHeader {
     struct SramChunk chunks[0x7];
 };
 
-/* used in sub_80A341C */
+/* used in IsExtraBonusClaimEnabled */
 struct bmsave_unkstruct0 {
     u8 unk[0x14];
 };

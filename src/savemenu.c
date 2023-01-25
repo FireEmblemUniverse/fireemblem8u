@@ -12,39 +12,7 @@
 #include "ap.h"
 #include "gamecontrol.h"
 
-struct SaveMenuProc {
-    /* 00 */ PROC_HEADER;
-    /* 29 */ u8 unk_29; // seems to be related to scrolling frame counter when scrolling from "resume" to "chapter options"
-    /* 2A */ u8 unk_2a; // difficulty
-    /* 2B */ u8 unk_2b; // main menu current index
-    /* 2C */ u8 unk_2c; // save file menu current index
-    /* 2D */ u8 unk_2d; // static cursor index, 0xff if not showing any
-    /* 2E */ u8 unk_2e; // ??
-    /* 2F */ u8 unk_2f; // horizontal offset for menu
-    /* 30 */ u8 unk_30; // main screen active menu options (bitfield)
-    /* 31 */ u8 unk_31; // # menu options
-    /* 32 */ u8 unk_32; // extras menu current index
-    /* 33 */ u8 unk_33;
-    /* 34 */ u8 unk_34; // confirm / cancel options
-    /* 35 */ u8 unk_35;
-    /* 36 */ u8 unk_36;
-    /* 37 */ u8 unk_37[3];
-    /* 3B */ u8 unk_3b[3];
-    /* 3D */ u8 unk_3d;
-    /* 3E */ u8 unk_3e;
-    /* 3F */ u8 unk_3f;
-    /* 40 */ u8 unk_40;
-    /* 41 */ u8 unk_41;
-    /* 42 */ u16 unk_42;
-    /* 44 */ u16 unk_44;
-    /* 46 */ u16 unk_46;
-
-    /* 48 */ u8 _pad3[0x58-0x48];
-
-    /* 58 */ ProcPtr unk_58;
-    /* 5C */ u32 unk_5c;
-    /* 60 */ ProcPtr unk_60;
-};
+#include "savemenu.h"
 
 struct Unknown203EF64 {
     u8 unk_00;
@@ -68,10 +36,12 @@ extern u16 gUnknown_020007A0[];
 
 
 s8 sub_80A9D20(struct SaveMenuProc*, int);
-void sub_80ABBB0(struct SaveMenuProc*, int, int);
+void StartSqMask(struct SaveMenuProc*, int, int);
 void sub_80AA6EC(struct SaveMenuProc*);
 s8 sub_80ABA98(struct SaveMenuProc*);
+void sub_80AB83C(struct SaveMenuProc*, u8);
 void sub_80AB89C(struct SaveMenuProc*);
+s8 sub_80AB9FC(struct SaveMenuProc*, int);
 
 //! FE8U = 0x080A882C
 void sub_80A882C(ProcPtr proc) {
@@ -1415,7 +1385,7 @@ void sub_80A9E1C(struct SaveMenuProc* proc) {
 //! FE8U = 0x080AA018
 void sub_80AA018(struct SaveMenuProc* proc) {
 
-    sub_80ABBB0(proc, 1, 2);
+    StartSqMask(proc, 1, 2);
     Proc_Break(proc);
     return;
 }
