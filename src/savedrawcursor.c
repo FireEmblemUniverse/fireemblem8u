@@ -11,6 +11,9 @@
  * TODO: This file can be merged with "savemenu.c" after "savedraw.s" is completed.
  */
 
+// TODO: temp rodata - name of proc
+const char gUnknown_08205DE0[] = "savedraw";
+
 struct SaveDrawCursorProc {
     /* 00 */ PROC_HEADER;
 
@@ -87,6 +90,7 @@ void sub_80AA9D8(ProcPtr);
 u8 sub_80A88B8(u8);
 
 void sub_8014DA8(void*);
+void sub_8014E3C(void);
 void sub_8014EC4(int, int);
 void sub_8014EF4(int);
 
@@ -113,16 +117,15 @@ void sub_80AB314(struct SaveDrawCursorProc* proc) {
     return;
 }
 
-extern u8 gUnknown_08205DE9[];
-
 //! FE8U = 0x080AB340
 void sub_80AB340(struct SaveDrawCursorProc* proc) {
     s16 yOam0;
     s16 xOam1;
     u16 xOam1_;
 
-    u8 hack[8];
-    memcpy(hack, gUnknown_08205DE9, 8);
+    u8 gUnknown_08205DE9[] = {
+        0, 1, 2, 3, 3, 2, 1, 0,
+    };
 
     if ((s8)((struct SaveMenuProc*)(proc->proc_parent))->unk_29 == 0) {
         return;
@@ -156,7 +159,7 @@ void sub_80AB340(struct SaveDrawCursorProc* proc) {
             PutSpriteExt(
                 4,
                 xOam1 & 0x1FF,
-                (yOam0 + hack[proc->unk_2a >> 3 & 7]) & 0xff,
+                (yOam0 + gUnknown_08205DE9[proc->unk_2a >> 3 & 7]) & 0xff,
                 gUnknown_08A20570,
                 0x3000
             );
@@ -166,7 +169,7 @@ void sub_80AB340(struct SaveDrawCursorProc* proc) {
             PutSpriteExt(
                 4,
                 (xOam1 & 0x1FF) | 0x1000,
-                (yOam0 + hack[proc->unk_2a >> 3 & 7]) & 0xff,
+                (yOam0 + gUnknown_08205DE9[proc->unk_2a >> 3 & 7]) & 0xff,
                 gUnknown_08A20570,
                 0x3000
             );
@@ -174,7 +177,7 @@ void sub_80AB340(struct SaveDrawCursorProc* proc) {
             PutSpriteExt(
                 4,
                 4,
-                (yOam0 + hack[proc->unk_2a >> 3 & 7]) & 0xff,
+                (yOam0 + gUnknown_08205DE9[proc->unk_2a >> 3 & 7]) & 0xff,
                 gUnknown_08A20570,
                 0x3000
             );
@@ -223,7 +226,14 @@ void sub_80AB514(int a, int b, struct SaveMenuUnusedProc* proc) {
     return;
 }
 
-extern struct ProcCmd gUnknown_08A206D8[];
+struct ProcCmd CONST_DATA gUnknown_08A206D8[] = {
+    PROC_NAME("savedrawcursor"),
+
+    PROC_CALL(sub_80AB314),
+    PROC_REPEAT(sub_80AB340),
+
+    PROC_END,
+};
 
 //! FE8U = 0x080AB534
 struct SaveMenuCursorProc* sub_80AB534(ProcPtr parent) {
@@ -331,7 +341,15 @@ void sub_80AB720(struct SaveMenu8A206F8Proc* proc) {
     return;
 }
 
-extern struct ProcCmd gUnknown_08A206F8[];
+struct ProcCmd CONST_DATA gUnknown_08A206F8[] = {
+    PROC_SET_END_CB(sub_8014E3C),
+    PROC_SLEEP(0),
+
+    PROC_CALL(sub_80AB720),
+    PROC_REPEAT(sub_80AA9D8),
+
+    PROC_END,
+};
 
 //! FE8U = 0x080AB760
 void sub_80AB760(void) {
@@ -381,7 +399,15 @@ void sub_80AB7BC(int msgId, s8 flag) {
     return;
 }
 
-extern int gUnknown_08A20720[];
+int CONST_DATA gUnknown_08A20720[] = {
+    0x0000, // ""
+    0x0143, // "Start[.]"
+    0x0144, // "Copy"
+    0x0140, // "Erase[.]"
+    0x0143, // "Start[.]"
+    0x0143, // "Start[.]"
+    0x0145, // "Save"
+};
 
 //! FE8U = 0x080AB83C
 void sub_80AB83C(struct SaveMenuProc* proc, s8 flag) {
@@ -410,7 +436,7 @@ void sub_80AB888(struct SaveMenuProc* proc, int flag) {
 
 void sub_80AB89C(struct SaveMenuProc* proc) {
     int i;
-    
+
     int count = 0;
 
     proc->unk_31 = 0;
@@ -613,7 +639,14 @@ void sub_80ABAB4(struct SqMaskProc* proc) {
     return;
 }
 
-extern struct ProcCmd gUnknown_08A2073C[];
+struct ProcCmd CONST_DATA gUnknown_08A2073C[] = {
+    PROC_NAME("SqMask"),
+    PROC_SLEEP(1),
+
+    PROC_REPEAT(sub_80ABAB4),
+
+    PROC_END,
+};
 
 //! FE8U = 0x080ABBB0
 void sub_80ABBB0(struct SaveMenuProc* parent, int b, int c) {
@@ -635,7 +668,14 @@ void sub_80ABBE4(void) {
     return;
 }
 
-extern struct ProcCmd gUnknown_08A2075C[];
+struct ProcCmd CONST_DATA gUnknown_08A2075C[] = {
+    PROC_NAME("SaveBgUp"),
+    PROC_SLEEP(1),
+
+    PROC_REPEAT(sub_80ABBE4),
+
+    PROC_END,
+};
 
 //! FE8U = 0x080ABC00
 ProcPtr sub_80ABC00(ProcPtr parent) {
