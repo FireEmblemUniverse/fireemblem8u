@@ -32,6 +32,7 @@
 #include "face.h"
 #include "uiconfig.h"
 #include "bm.h"
+#include "unitinfowindow.h"
 
 #include "constants/characters.h"
 #include "constants/classes.h"
@@ -1805,7 +1806,7 @@ u8 StealCommandEffect(struct MenuProc* menu, struct MenuItemProc* menuItem) {
 }
 
 void StealTargetSelection_OnInit(ProcPtr menu) {
-    NewUnitInfoWindow_WithAllLines(menu);
+    StartUnitInventoryInfoWindow(menu);
     StartSubtitleHelp(menu, GetStringFromIndex(0x86D)); // TODO: msgid "Select which unit to steal from."
 
     return;
@@ -1814,7 +1815,7 @@ void StealTargetSelection_OnInit(ProcPtr menu) {
 int sub_802423C(ProcPtr proc, struct SelectTarget* target) {
     ChangeActiveUnitFacing(target->x, target->y);
 
-    sub_8034D48(GetUnit(target->uid));
+    RefreshUnitStealInventoryInfoWindow(GetUnit(target->uid));
 
     // return 0; // BUG?
 }
@@ -2033,7 +2034,7 @@ u8 BallistaRangeMenuHelpBox(struct MenuProc* menu, struct MenuItemProc* menuItem
 }
 
 void sub_802464C(ProcPtr proc) {
-    sub_8034F9C(proc);
+    StartUnitHpInfoWindow(proc);
 
     return;
 }
@@ -2042,13 +2043,13 @@ u8 sub_8024658(ProcPtr proc, struct SelectTarget* target) {
 
     ChangeActiveUnitFacing(target->x, target->y);
 
-    sub_8034FB0(GetUnit(target->uid));
+    RefreshUnitHpInfoWindow(GetUnit(target->uid));
 
     // return 0; // BUG?
 }
 
 void RescueSelection_OnConstruction(ProcPtr proc) {
-    sub_80351CC(proc);
+    RefreshUnitTakeRescueInfoWindows(proc);
     StartSubtitleHelp(proc, GetStringFromIndex(0x868)); // TODO: msgid "Select a unit to rescue."
 
     return;
@@ -2057,7 +2058,7 @@ void RescueSelection_OnConstruction(ProcPtr proc) {
 u8 RescueSelection_OnChange(ProcPtr proc, struct SelectTarget* target) {
     ChangeActiveUnitFacing(target->x, target->y);
 
-    SetupUnitRescueWindow(GetUnit(target->uid));
+    RefreshUnitRescueInfoWindows(GetUnit(target->uid));
 
     // return 0; // BUG?
 }
@@ -2073,7 +2074,7 @@ void sub_80246DC(void) {
 }
 
 void GiveSelection_OnInit(ProcPtr menu) {
-    sub_8035380(menu);
+    StartUnitGiveInfoWindows(menu);
 
     StartSubtitleHelp(menu, GetStringFromIndex(0x86B)); // TODO: msgid "Select a unit to give the traveler to."
     return;
@@ -2082,13 +2083,13 @@ void GiveSelection_OnInit(ProcPtr menu) {
 u8 GiveSelection_OnChange(ProcPtr proc, struct SelectTarget* target) {
     ChangeActiveUnitFacing(target->x, target->y);
 
-    sub_80353B8(GetUnit(target->uid));
+    RefreshUnitGiveInfoWindows(GetUnit(target->uid));
 
     // return 0; // BUG?
 }
 
 void TakeSelection_OnInit(ProcPtr menu) {
-    sub_80351CC(menu);
+    RefreshUnitTakeRescueInfoWindows(menu);
 
     StartSubtitleHelp(menu, GetStringFromIndex(0x86A)); // TODO: msgid "Select a unit to receive the traveler."
 
@@ -2097,13 +2098,13 @@ void TakeSelection_OnInit(ProcPtr menu) {
 
 u8 TakeSelection_OnChange(ProcPtr proc, struct SelectTarget* target) {
     ChangeActiveUnitFacing(target->x, target->y);
-    sub_80352BC(GetUnit(target->uid));
+    RefreshUnitTakeInfoWindows(GetUnit(target->uid));
 
     // return 0; // BUG?
 }
 
 void TradeTargetSelection_OnInit(ProcPtr menu) {
-    NewUnitInfoWindow_WithAllLines(menu);
+    StartUnitInventoryInfoWindow(menu);
     StartSubtitleHelp(menu, GetStringFromIndex(0x86C)); // TODO: msgid "Select which unit to trade with."
 
     return;
@@ -2112,13 +2113,13 @@ void TradeTargetSelection_OnInit(ProcPtr menu) {
 u8 TradeSelection_OnChange(ProcPtr proc, struct SelectTarget* target) {
     ChangeActiveUnitFacing(target->x, target->y);
     ResetIconGraphics();
-    sub_8034C3C(GetUnit(target->uid));
+    RefreshUnitInventoryInfoWindow(GetUnit(target->uid));
 
     // return 0; // BUG?
 }
 
 void TalkSupportSelection_OnInit(ProcPtr menu) {
-    sub_8034F9C(menu);
+    StartUnitHpInfoWindow(menu);
     StartSubtitleHelp(menu, GetStringFromIndex(0x86F)); // TODO: msgid "Select which unit to speak to."
 
     return;
@@ -2127,13 +2128,13 @@ void TalkSupportSelection_OnInit(ProcPtr menu) {
 
 u8 TalkSupportSelection_OnChange(ProcPtr proc, struct SelectTarget* target) {
     ChangeActiveUnitFacing(target->x, target->y);
-    sub_8034FB0(GetUnit(target->uid));
+    RefreshUnitHpInfoWindow(GetUnit(target->uid));
 
     // return 0; // BUG?
 }
 
 void sub_80247F4(ProcPtr menu) {
-    sub_8034F9C(menu);
+    StartUnitHpInfoWindow(menu);
     StartSubtitleHelp(menu, GetStringFromIndex(0x870)); // TODO: msgid "Select unit to refresh.[.]"
 
     return;
@@ -2142,14 +2143,14 @@ void sub_80247F4(ProcPtr menu) {
 
 u8 sub_8024814(ProcPtr proc, struct SelectTarget* target) {
     ChangeActiveUnitFacing(target->x, target->y);
-    sub_8034FB0(GetUnit(target->uid));
+    RefreshUnitHpInfoWindow(GetUnit(target->uid));
 
     // return 0; // BUG?
 }
 
 void sub_8024838(ProcPtr menu) {
 
-    sub_8034F9C(menu);
+    StartUnitHpInfoWindow(menu);
 
     return;
 }
@@ -2157,7 +2158,7 @@ void sub_8024838(ProcPtr menu) {
 
 u8 sub_8024844(ProcPtr proc, struct SelectTarget* target) {
     ChangeActiveUnitFacing(target->x, target->y);
-    sub_8034FB0(GetUnit(target->uid));
+    RefreshUnitHpInfoWindow(GetUnit(target->uid));
 
     // return 0; // BUG?
 }

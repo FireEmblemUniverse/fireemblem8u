@@ -69,7 +69,7 @@ void PutSprite(int layer, int x, int y, const u16* object, int oam2);
 void PutSpriteExt(int layer, int xOam1, int yOam0, const u16* object, int oam2);
 void PushSpriteLayerObjects(int layer);
 
-// ??? StartSpriteRefresher(???);
-// ??? MoveSpriteRefresher(???);
+struct SpriteProc* StartSpriteRefresher(ProcPtr parent, int layer, int x, int y, const u16* object, int tileref);
+void MoveSpriteRefresher(struct SpriteProc* proc, int x, int y);
 
 #endif  // GUARD_CTC_H

@@ -517,7 +517,6 @@ extern u8 sUnitStackSize;
 extern struct ActionData gActionData;
 // extern ??? gUnknown_0203A95E
 // extern ??? gUnknown_0203A974
-// extern ??? gUnknown_0203A9FC
 // extern ??? gUnknown_0203AA7F
 // extern ??? gUnknown_0203AA80
 // extern ??? gUnknown_0203AA8A
@@ -845,8 +844,6 @@ extern const char gUnknown_080D7954[];
 // extern ??? gUnknown_080D7C44
 // extern ??? gUnknown_080D7F4C
 // extern ??? gUnknown_080D7F58
-// extern ??? gUnknown_080D7F8C
-// extern ??? gUnknown_080D7F92
 // extern ??? gUnknown_080D7FD0
 // extern ??? gUnknown_080D8018
 // extern ??? gUnknown_080D8070
@@ -1429,7 +1426,6 @@ extern struct ProcCmd CONST_DATA gProcScr_UpdateTraps[];
 // extern ??? gSelectInfo_Rescue
 // extern ??? gProc_MapTask
 // extern ??? gUnknown_0859DBA0
-// extern ??? gUnknown_0859E13C
 // extern ??? gGfx_MiscUiGraphics
 // extern ??? gPal_MiscUiGraphics
 // extern ??? gUnknown_0859EDB0

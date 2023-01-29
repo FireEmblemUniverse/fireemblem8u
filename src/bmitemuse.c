@@ -20,6 +20,7 @@
 #include "bb.h"
 #include "face.h"
 #include "bm.h"
+#include "unitinfowindow.h"
 
 #include "constants/characters.h"
 #include "constants/items.h"
@@ -36,15 +37,6 @@ struct WarpSelectProc
     /* 4C */ u8 pad4C[0x54 - 0x4C];
     /* 54 */ struct APHandle* ap;
 };
-
-void sub_8034FFC(ProcPtr proc);
-void sub_803501C(struct Unit* unit);
-void sub_8035090(ProcPtr proc);
-void sub_80350A4(struct Unit* unit);
-void sub_80350FC(ProcPtr proc);
-void sub_803511C(struct Unit* unit, int number);
-void NewUnitInfoWindow_WithAllLines(ProcPtr proc);
-void DrawHammerneUnitInfoWindow(struct Unit* unit);
 
 void StartSubtitleHelp(ProcPtr parent, const char* string);
 void EndSubtitleHelp(void);
@@ -902,12 +894,12 @@ void DoUseRepairStaff(struct Unit* unit)
 int RepairSelectOnChange(ProcPtr proc, struct SelectTarget* target)
 {
     ChangeActiveUnitFacing(target->x, target->y);
-    DrawHammerneUnitInfoWindow(GetUnit(target->uid));
+    RefreshHammerneUnitInfoWindow(GetUnit(target->uid));
 }
 
 void RepairSelectOnInit(ProcPtr proc)
 {
-    NewUnitInfoWindow_WithAllLines(proc);
+    StartUnitInventoryInfoWindow(proc);
 }
 
 int RepairMenuItemOnChange(struct MenuProc* menu, struct MenuItemProc* item)
@@ -997,13 +989,13 @@ void DoUseRestoreStaff(struct Unit* unit, void(*func)(struct Unit*))
 
 int BarrierSelectOnInit(ProcPtr proc)
 {
-    sub_8034FFC(proc);
+    StartUnitHpStatusInfoWindow(proc);
 }
 
 int BarrierSelectOnChange(ProcPtr proc, struct SelectTarget* target)
 {
     ChangeActiveUnitFacing(target->x, target->y);
-    sub_803501C(GetUnit(target->uid));
+    RefreshUnitHpStatusInfoWindow(GetUnit(target->uid));
 }
 
 void DoUseBarrierStaff(struct Unit* unit)
@@ -1019,13 +1011,13 @@ void DoUseBarrierStaff(struct Unit* unit)
 
 int AttackStaffSelectOnInit(ProcPtr proc)
 {
-    sub_8035090(proc);
+    StartUnitResChangeInfoWindow(proc);
 }
 
 int AttackStaffSelectOnChange(ProcPtr proc, struct SelectTarget* target)
 {
     ChangeActiveUnitFacing(target->x, target->y);
-    sub_80350A4(GetUnit(target->uid));
+    RefreshUnitResChangeInfoWindow(GetUnit(target->uid));
 }
 
 void DoUseAttackStaff(struct Unit* unit, void(*func)(struct Unit*))
@@ -1041,14 +1033,14 @@ void DoUseAttackStaff(struct Unit* unit, void(*func)(struct Unit*))
 
 int sub_8029CDC(ProcPtr proc)
 {
-    sub_80350FC(proc);
+    StartUnitStaffOffenseInfoWindow(proc);
 }
 
 int sub_8029CE8(ProcPtr proc, struct SelectTarget* target)
 {
     ChangeActiveUnitFacing(target->x, target->y);
 
-    sub_803511C(
+    RefreshUnitStaffOffenseInfoWindow(
         GetUnit(target->uid),
         GetOffensiveStaffAccuracy(gActiveUnit, GetUnit(target->uid)));
 }

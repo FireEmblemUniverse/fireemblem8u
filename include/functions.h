@@ -861,31 +861,6 @@ void LoadPlayerUnitsFromUnitStack2();
 // ??? sub_80344E8(???);
 // ??? sub_8034514(???);
 // ??? sub_8034550(???);
-// ??? sub_803471C(???);
-// ??? NewUnitInfoWindow(???);
-// ??? UnitInfoWindow_PositionUnitName(???);
-// ??? UnitInfoWindow_DrawBase(???);
-// ??? GetUnitInfoWindowX(???);
-// ??? sub_80349FC(???);
-// ??? sub_8034A5C(???);
-// ??? sub_8034AA4(???);
-// ??? sub_8034ADC(???);
-// ??? sub_8034B10(???);
-// ??? sub_8034B48(???);
-// ??? sub_8034BAC(???);
-// ??? sub_8034BE4(???);
-void NewUnitInfoWindow_WithAllLines(ProcPtr);
-void sub_8034C3C(struct Unit*); // RefreshUnitInventoryPanel
-void sub_8034D48(struct Unit*); // RefreshUnitStealInventoryPanel
-// ??? DrawHammerneUnitInfoWindow(???);
-void sub_8034F9C(ProcPtr); // StartUnitHpPanel
-void sub_8034FB0(struct Unit*); // RefreshUnitHpPanel
-// ??? sub_803519C(???);
-void sub_80351CC(ProcPtr); // RefreshUnitTakeRescuePanels
-void SetupUnitRescueWindow(struct Unit*);
-void sub_80352BC(struct Unit*); // RefreshUnitTakePanels
-void sub_8035380(ProcPtr); // StartUnitGiveRescuePanels
-void sub_80353B8(struct Unit*); // RefreshUnitGivePanels
 s8 sub_803D450(s8 (*isEnemy)(struct Unit* unit)); // AiTryDoOffensiveAction
 // ??? sub_803D6B8(???);
 // ??? sub_803D880(???);
