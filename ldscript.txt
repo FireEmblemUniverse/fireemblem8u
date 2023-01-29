@@ -110,7 +110,7 @@ SECTIONS
         src/sallycursor.o(.text);
         asm/bmcommanddbg.o(.text);
         src/chapterdata.o(.text);
-        asm/unitinfowindow.o(.text);
+        src/unitinfowindow.o(.text);
         src/bb.o(.text);
         src/bmusailment.o(.text);
         src/bksel.o(.text);
