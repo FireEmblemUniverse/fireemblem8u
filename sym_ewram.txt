@@ -512,7 +512,8 @@
 . = 0x03A958; gActionData = .;
 . = 0x03A95E; gUnknown_0203A95E = .;
 . = 0x03A974; gUnknown_0203A974 = .;
-. = 0x03A9FC; gUnknown_0203A9FC = .;
+. = 0x03A9FC;
+. = ALIGN(4); src/unitinfowindow.o(ewram_data);
 . = 0x03AA04; gAiState = .;
 . = 0x03AA7F; gUnknown_0203AA7F = .;
 . = 0x03AA80; gUnknown_0203AA80 = .;
