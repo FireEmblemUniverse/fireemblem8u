@@ -119,12 +119,9 @@ const u16 gUnknown_080D7F92[] = {
     0x0000,
 };
 
-#if NONMATCHING
-
-/* https://decomp.me/scratch/rXjv1 */
-
 //! FE8U = 0x0803483C
 struct UnitInfoWindowProc* UnitInfoWindow_DrawBase(struct UnitInfoWindowProc* proc, struct Unit* unit, int x, int y, int width, int lines) {
+    const u16 *src = gUnknown_080D7F92;
 
     if (proc == 0) {
         proc = Proc_Find(gProcScr_UnitInfoWindow);
@@ -140,27 +137,24 @@ struct UnitInfoWindowProc* UnitInfoWindow_DrawBase(struct UnitInfoWindowProc* pr
     CallARM_FillTileRect(gBG1TilemapBuffer + TILEMAP_INDEX(x, y), gUnknown_08A173EC, 0x1000);
 
     if (width > 10) {
-        int ix;
-        u16* ptr;
+        int ix, j;
 
-        for (ix = x + 8, ptr = gUnknown_080D7F92; ix < x + width - 1; ix++) {
-
+        for (ix = x + 8, j = 0; ix < x + width - 1; ix++) {
             if (ix >= x + width - 3) {
-                ptr++;
+                j++;
             }
 
-            gBG1TilemapBuffer[TILEMAP_INDEX(ix, y+0)] = *ptr;
-            gBG1TilemapBuffer[TILEMAP_INDEX(ix, y+1)] = *(ptr+4);
-            gBG1TilemapBuffer[TILEMAP_INDEX(ix, y+2)] = *(ptr+8);
+            gBG1TilemapBuffer[TILEMAP_INDEX(ix, y+0)] = src[j];
+            gBG1TilemapBuffer[TILEMAP_INDEX(ix, y+1)] = src[j + 4];
+            gBG1TilemapBuffer[TILEMAP_INDEX(ix, y+2)] = src[j + 8];
         }
-
-        gBG1TilemapBuffer[TILEMAP_INDEX(x+7, y+0)] = gUnknown_080D7F92[0];
-        gBG1TilemapBuffer[TILEMAP_INDEX(x+7, y+1)] = gUnknown_080D7F92[4];
-        gBG1TilemapBuffer[TILEMAP_INDEX(x+7, y+2)] = gUnknown_080D7F92[8];
-
-        gBG1TilemapBuffer[TILEMAP_INDEX(x+width-1, y+0)] = gUnknown_080D7F92[3];
-        gBG1TilemapBuffer[TILEMAP_INDEX(x+width-1, y+1)] = gUnknown_080D7F92[7];
-        gBG1TilemapBuffer[TILEMAP_INDEX(x+width-1, y+2)] = gUnknown_080D7F92[11];
+        gBG1TilemapBuffer[TILEMAP_INDEX(x+7, y+0)] = src[0];
+        gBG1TilemapBuffer[TILEMAP_INDEX(x+7, y+1)] = src[4];
+        gBG1TilemapBuffer[TILEMAP_INDEX(x+7, y+2)] = src[8];
+        
+        gBG1TilemapBuffer[TILEMAP_INDEX(x+width-1, y+0)] = src[3];
+        gBG1TilemapBuffer[TILEMAP_INDEX(x+width-1, y+1)] = src[7];
+        gBG1TilemapBuffer[TILEMAP_INDEX(x+width-1, y+2)] = src[11];
     }
 
     Text_Clear(&proc->name);
@@ -176,213 +170,6 @@ struct UnitInfoWindowProc* UnitInfoWindow_DrawBase(struct UnitInfoWindowProc* pr
 
     return proc;
 }
-
-#else // if !NONMATCHING
-
-__attribute__((naked))
-struct UnitInfoWindowProc* UnitInfoWindow_DrawBase(struct UnitInfoWindowProc* proc, struct Unit* unit, int x, int y, int width, int lines) {
-
-    asm("\n\
-        .syntax unified\n\
-        push {r4, r5, r6, r7, lr}\n\
-        mov r7, sl\n\
-        mov r6, r9\n\
-        mov r5, r8\n\
-        push {r5, r6, r7}\n\
-        sub sp, #0x20\n\
-        mov r8, r0\n\
-        str r1, [sp, #4]\n\
-        adds r7, r2, #0\n\
-        mov r9, r3\n\
-        ldr r6, [sp, #0x40]\n\
-        cmp r0, #0\n\
-        bne _08034862\n\
-        ldr r0, _080349C0  @ gProcScr_UnitInfoWindow\n\
-        bl Proc_Find\n\
-        mov r8, r0\n\
-        bl ClearBg0Bg1\n\
-    _08034862:\n\
-        ldr r0, [sp, #4]\n\
-        mov r1, r8\n\
-        str r0, [r1, #0x2c]\n\
-        mov r0, r8\n\
-        adds r0, #0x60\n\
-        strb r7, [r0]\n\
-        adds r0, #1\n\
-        mov r2, r9\n\
-        strb r2, [r0]\n\
-        mov r5, r9\n\
-        adds r5, #2\n\
-        ldr r3, [sp, #0x44]\n\
-        lsls r3, r3, #1\n\
-        adds r3, #2\n\
-        movs r0, #3\n\
-        str r0, [sp]\n\
-        adds r0, r7, #0\n\
-        adds r1, r5, #0\n\
-        adds r2, r6, #0\n\
-        bl DrawUiFrame2\n\
-        mov r3, r9\n\
-        lsls r4, r3, #5\n\
-        adds r0, r4, r7\n\
-        lsls r0, r0, #1\n\
-        ldr r1, _080349C4  @ gBG1TilemapBuffer\n\
-        mov sl, r1\n\
-        add r0, sl\n\
-        ldr r1, _080349C8  @ gUnknown_08A173EC\n\
-        movs r2, #0x80\n\
-        lsls r2, r2, #5\n\
-        bl CallARM_FillTileRect\n\
-        str r5, [sp, #0x14]\n\
-        str r4, [sp, #24]\n\
-        mov r2, r9\n\
-        adds r2, #1\n\
-        str r2, [sp, #0x10]\n\
-        mov r3, r8\n\
-        adds r3, #0x30\n\
-        str r3, [sp, #0xc]\n\
-        mov r4, r8\n\
-        adds r4, #0x63\n\
-        str r4, [sp, #0x1c]\n\
-        cmp r6, #0xa\n\
-        ble _0803496C\n\
-        adds r2, r7, #0\n\
-        adds r2, #8\n\
-        adds r0, r7, r6\n\
-        subs r1, r0, #1\n\
-        mov r6, sl\n\
-        mov sl, r0\n\
-        cmp r2, r1\n\
-        bge _08034914\n\
-        str r1, [sp, #8]\n\
-        lsls r1, r2, #1\n\
-        lsls r0, r5, #6\n\
-        adds r0, r0, r6\n\
-        adds r5, r1, r0\n\
-        ldr r3, [sp, #0x10]\n\
-        lsls r0, r3, #6\n\
-        adds r0, r0, r6\n\
-        adds r4, r1, r0\n\
-        ldr r3, _080349CC  @ gUnknown_080D7F92\n\
-        movs r0, #3\n\
-        negs r0, r0\n\
-        add r0, sl\n\
-        mov ip, r0\n\
-        mov r0, r9\n\
-        lsls r0, r0, #6\n\
-        mov r9, r0\n\
-        add r9, r6\n\
-        add r1, r9\n\
-    _080348F4:\n\
-        cmp r2, ip\n\
-        blt _080348FA\n\
-        adds r3, #2\n\
-    _080348FA:\n\
-        ldrh r0, [r3]\n\
-        strh r0, [r1]\n\
-        ldrh r0, [r3, #8]\n\
-        strh r0, [r4]\n\
-        ldrh r0, [r3, #0x10]\n\
-        strh r0, [r5]\n\
-        adds r5, #2\n\
-        adds r4, #2\n\
-        adds r1, #2\n\
-        adds r2, #1\n\
-        ldr r0, [sp, #8]\n\
-        cmp r2, r0\n\
-        blt _080348F4\n\
-    _08034914:\n\
-        ldr r0, [sp, #24]\n\
-        adds r0, #7\n\
-        adds r0, r0, r7\n\
-        lsls r0, r0, #1\n\
-        adds r0, r0, r6\n\
-        ldr r2, _080349CC  @ gUnknown_080D7F92\n\
-        ldrh r1, [r2]\n\
-        strh r1, [r0]\n\
-        ldr r4, [sp, #0x10]\n\
-        lsls r3, r4, #5\n\
-        adds r0, r3, #7\n\
-        adds r0, r0, r7\n\
-        lsls r0, r0, #1\n\
-        adds r0, r0, r6\n\
-        ldrh r1, [r2, #8]\n\
-        strh r1, [r0]\n\
-        ldr r0, [sp, #0x14]\n\
-        lsls r2, r0, #5\n\
-        adds r0, r2, #7\n\
-        adds r0, r0, r7\n\
-        lsls r0, r0, #1\n\
-        adds r0, r0, r6\n\
-        ldr r4, _080349CC  @ gUnknown_080D7F92\n\
-        ldrh r1, [r4, #0x10]\n\
-        strh r1, [r0]\n\
-        ldr r0, [sp, #24]\n\
-        subs r0, #1\n\
-        add r0, sl\n\
-        lsls r0, r0, #1\n\
-        adds r0, r0, r6\n\
-        ldrh r1, [r4, #6]\n\
-        strh r1, [r0]\n\
-        subs r3, #1\n\
-        add r3, sl\n\
-        lsls r3, r3, #1\n\
-        adds r3, r3, r6\n\
-        ldrh r0, [r4, #0xe]\n\
-        strh r0, [r3]\n\
-        subs r2, #1\n\
-        add r2, sl\n\
-        lsls r2, r2, #1\n\
-        adds r2, r2, r6\n\
-        ldrh r0, [r4, #0x16]\n\
-        strh r0, [r2]\n\
-    _0803496C:\n\
-        ldr r0, [sp, #0xc]\n\
-        bl Text_Clear\n\
-        mov r0, r8\n\
-        bl UnitInfoWindow_PositionUnitName\n\
-        ldr r0, [sp, #0x1c]\n\
-        ldrb r1, [r0]\n\
-        ldr r0, [sp, #0xc]\n\
-        bl Text_SetXCursor\n\
-        ldr r1, [sp, #4]\n\
-        ldr r0, [r1]\n\
-        ldrh r0, [r0]\n\
-        bl GetStringFromIndex\n\
-        adds r1, r0, #0\n\
-        ldr r0, [sp, #0xc]\n\
-        bl Text_AppendString\n\
-        ldr r2, [sp, #0x10]\n\
-        lsls r1, r2, #5\n\
-        adds r1, #3\n\
-        adds r1, r1, r7\n\
-        lsls r1, r1, #1\n\
-        ldr r0, _080349D0  @ gBG0TilemapBuffer\n\
-        adds r1, r1, r0\n\
-        ldr r0, [sp, #0xc]\n\
-        bl Text_Draw\n\
-        movs r0, #3\n\
-        bl BG_EnableSyncByMask\n\
-        mov r0, r8\n\
-        add sp, #0x20\n\
-        pop {r3, r4, r5}\n\
-        mov r8, r3\n\
-        mov r9, r4\n\
-        mov sl, r5\n\
-        pop {r4, r5, r6, r7}\n\
-        pop {r1}\n\
-        bx r1\n\
-        .align 2, 0\n\
-    _080349C0: .4byte gProcScr_UnitInfoWindow\n\
-    _080349C4: .4byte gBG1TilemapBuffer\n\
-    _080349C8: .4byte gUnknown_08A173EC\n\
-    _080349CC: .4byte gUnknown_080D7F92\n\
-    _080349D0: .4byte gBG0TilemapBuffer\n\
-        .syntax divided\n\
-    ");
-}
-
-#endif // NONMATCHING
 
 //! FE8U = 0x080349D4
 int GetUnitInfoWindowX(struct Unit* unit, int width) {
