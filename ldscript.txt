@@ -123,6 +123,7 @@ SECTIONS
         src/cp_perform.o(.text);
         src/cp_utility.o(.text);
         src/cp_script.o(.text);
+        src/cp_battle.o(.text);
         asm/code_cpextra.o(.text);
         src/cpextra_80407F0.o(.text);
         asm/code_sio.o(.text);
