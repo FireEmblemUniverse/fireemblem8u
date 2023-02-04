@@ -45,7 +45,7 @@
 . = 0x0017AC; gUnknown_030017AC = .;
 . = 0x0017C8;
 . = ALIGN(4); src/cp_script.o(.bss);
-. = 0x0017D8; gUnknown_030017D8 = .;
+. = ALIGN(4); src/cp_battle.o(.bss);
 . = 0x0017E0; gUnknown_030017E0 = .;
 . = 0x0017E4; gUnknown_030017E4 = .;
 . = 0x0017E8; gUnknown_030017E8 = .;

@@ -671,7 +671,6 @@ extern struct OamDataTransfer gUnknown_03000030;
 // extern ??? gUnknown_03001788
 // extern ??? gDungeonState
 // extern ??? gUnknown_030017AC
-// extern ??? gUnknown_030017D8
 // extern ??? gUnknown_030017E0
 // extern ??? gUnknown_030017E4
 // extern ??? gUnknown_030017E8
@@ -849,7 +848,6 @@ extern const char gUnknown_080D7954[];
 // extern ??? gUnknown_080D8070
 // extern ??? gUnknown_080D80C4
 // extern ??? gUnknown_080D80E8
-// extern ??? gUnknown_080D867C
 // extern ??? gUnknown_080D8680
 // extern ??? gUnknown_080D868C
 // extern ??? gUnknown_080D8690
@@ -1510,8 +1508,6 @@ extern u16 CONST_DATA Pal_MineFx[];
 // extern ??? gProcScr_CpPhase
 // extern ??? gProcScr_BerserkCpPhase
 // extern ??? gProcScr_CpDecide
-// extern ??? gUnknown_085A91F0
-// extern ??? gUnknown_085A9254
 // extern ??? gUnknown_085A92B8
 // extern ??? gUnknown_085A92BC
 // extern ??? gUnknown_085A92DC

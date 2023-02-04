@@ -1482,7 +1482,7 @@ s8 sub_803C284(struct Vec2* out) {
                 continue;
             }
 
-            val = ((sub_803E23C(ix, iy) + sub_803E27C(ix, iy)) - gBmMapOther[iy][ix] / 8) + 0x7FFFFFFF;
+            val = ((AiGetTerrainCombatPositionScoreComponent(ix, iy) + AiGetFriendZoneCombatPositionScoreComponent(ix, iy)) - gBmMapOther[iy][ix] / 8) + 0x7FFFFFFF;
 
             if (maxVal >= val) {
                 continue;
