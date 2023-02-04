@@ -19821,7 +19821,7 @@ _0804B072:
 	ldrb r0, [r4, #0x11]
 	strb r0, [r6, #1]
 	add r0, sp, #4
-	bl sub_803DEC8
+	bl AiSimulateBattleAgainstTargetAtPosition
 	ldr r0, [sp, #0xc]
 	ldr r1, [sp, #0x18]
 	cmp r1, r0
@@ -19867,7 +19867,7 @@ _0804B0EC:
 	subs r0, #1
 	strb r0, [r6, #1]
 	add r0, sp, #4
-	bl sub_803DEC8
+	bl AiSimulateBattleAgainstTargetAtPosition
 	ldr r0, [sp, #0xc]
 	ldr r2, [sp, #0x18]
 	cmp r2, r0

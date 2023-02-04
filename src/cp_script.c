@@ -331,7 +331,7 @@ void AiScriptCmd_04_ActionOnSelectedCharacter(u8* pc) {
                     gAiState.unk86[0] = 3;
                     gAiScriptEnded = 0;
                 } else {
-                    sub_803D450(AiIsUnitEnemyAndScrCharId);
+                    AiAttemptOffensiveAction(AiIsUnitEnemyAndScrCharId);
                 }
             } else {
                 gAiState.unk86[0] = 1;
@@ -354,11 +354,11 @@ void AiScriptCmd_05_DoStandardAction(u8* pc) {
     if (rand <= gpAiScriptCurrent->unk_01) {
         if (gpAiScriptCurrent->unk_08 == 0) {
             if (sub_803FA40(AiIsUnitEnemy) == 0) {
-                sub_803D450(AiIsUnitEnemy);
+                AiAttemptOffensiveAction(AiIsUnitEnemy);
             }
         } else {
             if (sub_803FA40(AiIsUnitEnemyOrInScrList) == 0) {
-                sub_803D450(AiIsUnitEnemyAndNotInScrList);
+                AiAttemptOffensiveAction(AiIsUnitEnemyAndNotInScrList);
             }
         }
     } else {
@@ -384,7 +384,7 @@ void AiScriptCmd_07_DoStandardActionNoMove(u8* pc) {
         gAiState.flags |= AI_FLAG_1;
 
         if (!sub_803FA40(AiIsUnitEnemy)) {
-            sub_803D450(AiIsUnitEnemy);
+            AiAttemptOffensiveAction(AiIsUnitEnemy);
         }
     } else {
         gAiState.decideState = 4;
@@ -402,7 +402,7 @@ void AiScriptCmd_08_DoStandardActionAgainstClass(u8* pc) {
     if (rand <= gpAiScriptCurrent->unk_01) {
 
         if (sub_803FA40(AiIsUnitEnemyAndScrClassId) == 0) {
-            sub_803D450(AiIsUnitEnemyAndScrClassId);
+            AiAttemptOffensiveAction(AiIsUnitEnemyAndScrClassId);
         }
     } else {
         gAiState.decideState = 4;
@@ -636,7 +636,7 @@ void AiScriptCmd_17_DoEscape(u8* pc) {
 
 //! FE8U = 0x0803CF60
 int sub_803CF60(int x, int y) {
-    return ((sub_803E23C(x, y) + sub_803E27C(x, y)) - ((s8**)(gBmMapMovement))[y][x] - gBmMapOther[y][x] / 8) + 0x7FFFFFFF;
+    return ((AiGetTerrainCombatPositionScoreComponent(x, y) + AiGetFriendZoneCombatPositionScoreComponent(x, y)) - ((s8**)(gBmMapMovement))[y][x] - gBmMapOther[y][x] / 8) + 0x7FFFFFFF;
 }
 
 //! FE8U = 0x0803CFB4
@@ -831,7 +831,7 @@ void AiScriptCmd_1B_NoOp(u8* pc) {
 //! FE8U = 0x0803D3E4
 void AiDoBerserkAction(void) {
     if (!sub_803FA40(AiIsUnitEnemy)) {
-        sub_803D450(AiIsUnitNonActive);
+        AiAttemptOffensiveAction(AiIsUnitNonActive);
     }
 
     return;

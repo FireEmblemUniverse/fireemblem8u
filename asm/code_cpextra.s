@@ -1567,7 +1567,7 @@ sub_803EE4C: @ 0x0803EE4C
 	movs r2, #1
 	movs r3, #0x78
 	bl MapAddInRange
-	bl sub_803DB60
+	bl AiAttemptStealActionWithinMovement
 	lsls r0, r0, #0x18
 	asrs r0, r0, #0x18
 	cmp r0, r5
@@ -1707,7 +1707,7 @@ _0803EF5E:
 	ldr r0, [sp, #0xc]
 	mov r1, sl
 	adds r2, r5, #0
-	bl sub_803E1EC
+	bl AiGetInRangeCombatPositionScoreComponent
 	cmp r0, #0
 	bne _0803EED8
 _0803EFB2:
@@ -1802,7 +1802,7 @@ sub_803F018: @ 0x0803F018
 	beq _0803F0BC
 	ldr r0, [r4]
 	adds r1, r5, #0
-	bl sub_803D8D4
+	bl AiFloodMovementAndRange
 	ldr r0, _0803F0B4  @ gBmMapSize
 	movs r2, #2
 	ldrsh r0, [r0, r2]
@@ -1991,7 +1991,7 @@ sub_803F15C: @ 0x0803F15C
 	ldr r0, [r5]
 	ldr r1, [sp, #4]
 	mov r2, sl
-	bl sub_803D8D4
+	bl AiFloodMovementAndRange
 	ldr r0, _0803F1FC  @ gBmMapRange
 	ldr r1, [r0]
 	mov r2, r9
@@ -2135,7 +2135,7 @@ _0803F2EC:
 	bge _0803F26A
 _0803F2F2:
 	ldr r0, _0803F328  @ AiIsUnitEnemy
-	bl sub_803D6B8
+	bl AiAttemptCombatWithinMovement
 	ldr r0, _0803F32C  @ gAiDecision
 	ldrb r0, [r0, #0xa]
 	lsls r0, r0, #0x18
@@ -2594,7 +2594,7 @@ _0803F63C: .4byte gUnknown_0203AAA0
 _0803F640: .4byte gAiState
 _0803F644:
 	ldr r0, _0803F674  @ sub_803F5E0
-	bl sub_803D450
+	bl AiAttemptOffensiveAction
 	ldr r0, _0803F678  @ gAiState
 	adds r2, r0, #0
 	adds r2, #0x86
@@ -2731,14 +2731,14 @@ sub_803F72C: @ 0x0803F72C
 	bl GetUnit
 	adds r4, r0, #0
 	ldr r0, _0803F784  @ sub_803F680
-	bl sub_803D450
+	bl AiAttemptOffensiveAction
 	ldr r5, _0803F788  @ gAiDecision
 	movs r0, #0xa
 	ldrsb r0, [r5, r0]
 	cmp r0, #1
 	beq _0803F776
 	ldr r0, _0803F78C  @ sub_803F6B8
-	bl sub_803D450
+	bl AiAttemptOffensiveAction
 	movs r0, #0xa
 	ldrsb r0, [r5, r0]
 	cmp r0, #1
@@ -2789,7 +2789,7 @@ sub_803F790: @ 0x0803F790
 	cmp r0, #0
 	bne _0803F7D4
 	adds r0, r4, #0
-	bl sub_803D450
+	bl AiAttemptOffensiveAction
 	b _0803F7D4
 	.align 2, 0
 _0803F7C4: .4byte gAiState
@@ -2830,7 +2830,7 @@ sub_803F7DC: @ 0x0803F7DC
 	cmp r0, r4
 	bhi _0803F820
 	ldr r0, _0803F814  @ AiIsUnitEnemy
-	bl sub_803D450
+	bl AiAttemptOffensiveAction
 	b _0803F820
 	.align 2, 0
 _0803F814: .4byte AiIsUnitEnemy
@@ -3267,11 +3267,11 @@ _0803FB3A:
 	adds r0, r5, #0
 	adds r1, r7, #0
 	str r2, [sp, #8]
-	bl sub_803E23C
+	bl AiGetTerrainCombatPositionScoreComponent
 	adds r4, r0, #0
 	adds r0, r5, #0
 	adds r1, r7, #0
-	bl sub_803E27C
+	bl AiGetFriendZoneCombatPositionScoreComponent
 	adds r4, r4, r0
 	ldr r0, _0803FB9C  @ gBmMapOther
 	ldr r0, [r0]
