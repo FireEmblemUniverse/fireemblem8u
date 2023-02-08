@@ -124,6 +124,7 @@ SECTIONS
         src/cp_utility.o(.text);
         src/cp_script.o(.text);
         src/cp_battle.o(.text);
+        src/cp_0803E2F4.o(.text);
         asm/code_cpextra.o(.text);
         src/cpextra_80407F0.o(.text);
         asm/code_sio.o(.text);
