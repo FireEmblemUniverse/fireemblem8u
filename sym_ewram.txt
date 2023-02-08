@@ -519,7 +519,8 @@
 . = 0x03AA80; gUnknown_0203AA80 = .;
 . = 0x03AA8A; gUnknown_0203AA8A = .;
 . = 0x03AA94; gAiDecision = .;
-. = 0x03AAA0; gUnknown_0203AAA0 = .;
+. = 0x03AAA0;
+. = ALIGN(4); src/cp_0803E2F4.o(ewram_data);
 . = 0x03C624; gUnknown_0203C624 = .;
 . = 0x03CA24; gUnknown_0203CA24 = .;
 . = 0x03DA24; gUnknown_0203DA24 = .;

@@ -14,18 +14,19 @@
 #include "cp_script.h"
 
 #include "constants/items.h"
+#include "constants/terrains.h"
 
-extern u8 gUnknown_0203AAA0;
+u8 EWRAM_DATA gUnknown_0203AAA0 = 0;
 
 // forward declarations
-void sub_803E320(void);
+void AiFillDangerMap(void);
 s8 AiUpdateGetUnitIsHealing(struct Unit*);
 const struct AiEscapePt* GetEscapePointStructThingMaybe(void);
 void sub_803EC18(u16);
 s8 sub_803EC54(struct Unit*, int, int);
 int StoreItemAndGetUnitAttack(struct Unit*, u16*);
-s8 sub_803ED28(int, int);
-s8 sub_803EE4C(int, int);
+s8 AiTryDoDanceAdjacent(int, int);
+s8 AiTryDoStealAdjacent(int, int);
 s8 sub_803EEB0(int, int);
 
 
@@ -35,14 +36,14 @@ void AiInitDangerMap(void) {
         gAiState.dangerMapFilled = 1;
 
         BmMapFill(gBmMapOther, 0);
-        sub_803E320();
+        AiFillDangerMap();
     }
 
     return;
 }
 
 //! FE8U = 0x0803E320
-void sub_803E320(void) {
+void AiFillDangerMap(void) {
     int ix;
     int iy;
     int i;
@@ -105,7 +106,7 @@ void sub_803E320(void) {
     return;
 }
 
-s8 sub_803E448(int x, int y, u8 threshold) {
+s8 AiCheckDangerAt(int x, int y, u8 threshold) {
 
     if (gBmMapOther[y][x] > threshold) {
         return 0;
@@ -114,7 +115,7 @@ s8 sub_803E448(int x, int y, u8 threshold) {
     return 1;
 }
 
-extern u8 gUnknown_085A92B8[];
+u8 CONST_DATA sTerrainList_Fort[] = { TERRAIN_FORT, 0, 0, 0 };
 
 //! FE8U = 0x0803E470
 s8 AiTryGetNearestHealPoint(struct Vec2* out) {
@@ -144,7 +145,7 @@ s8 AiTryGetNearestHealPoint(struct Vec2* out) {
                 continue;
             }
 
-            if (!AiIsInByteList(gUnknown_085A92B8, gBmMapTerrain[iy][ix])) {
+            if (!AiIsInByteList(sTerrainList_Fort, gBmMapTerrain[iy][ix])) {
                 if ((gBmMapUnit[iy][ix] == 0) || !AreUnitsAllied(gActiveUnitId, gBmMapUnit[iy][ix])) {
                     continue;
                 }
@@ -193,18 +194,19 @@ s8 AiTryGetNearestHealPoint(struct Vec2* out) {
     return 0;
 }
 
-extern int gUnknown_080D8680[];
-
 //! FE8U = 0x0803E640
 void UpdateAllPhaseHealingAIStatus(void) {
     int i;
 
     u8 faction = gRAMChapterData.faction;
 
-    int hack[3];
-    memcpy(hack, gUnknown_080D8680, 12);
+    int factionUnitCountLut[3] = {
+        [FACTION_ID_BLUE]  = 62,
+        [FACTION_ID_GREEN] = 20,
+        [FACTION_ID_RED]   = 50
+    };
 
-    for (i = 0; i < hack[faction >> 6]; i++) {
+    for (i = 0; i < factionUnitCountLut[faction >> 6]; i++) {
         struct Unit* unit = GetUnit(faction + i + 1);
 
         if (!UNIT_IS_VALID(unit)) {
@@ -426,6 +428,8 @@ s8 sub_803E93C(u16* out) {
 }
 
 #if NONMATCHING
+
+/* https://decomp.me/scratch/8VIcJ */
 
 //! FE8U = 0x0803EA58
 void sub_803EA58(int x, int y, u16* param_3, u16* param_4, u16* param_5) {
@@ -771,11 +775,11 @@ void AiTryDanceOrStealAfterMove(void) {
         return;
     }
 
-    if (sub_803ED28(gAiDecision.xMove, gAiDecision.yMove) == 1) {
+    if (AiTryDoDanceAdjacent(gAiDecision.xMove, gAiDecision.yMove) == 1) {
         return;
     }
 
-    sub_803EE4C(gAiDecision.xMove, gAiDecision.yMove);
+    AiTryDoStealAdjacent(gAiDecision.xMove, gAiDecision.yMove);
 
     return;
 }
@@ -783,11 +787,11 @@ void AiTryDanceOrStealAfterMove(void) {
 //! FE8U = 0x0803ECF0
 void AiTryActionAfterMove(void) {
 
-    if (sub_803ED28(gAiDecision.xMove, gAiDecision.yMove) == 1) {
+    if (AiTryDoDanceAdjacent(gAiDecision.xMove, gAiDecision.yMove) == 1) {
         return;
     }
 
-    if (sub_803EE4C(gAiDecision.xMove, gAiDecision.yMove) == 1) {
+    if (AiTryDoStealAdjacent(gAiDecision.xMove, gAiDecision.yMove) == 1) {
         return;
     }
 
@@ -797,7 +801,7 @@ void AiTryActionAfterMove(void) {
 }
 
 //! FE8U = 0x0803ED28
-s8 sub_803ED28(int x, int y) {
+s8 AiTryDoDanceAdjacent(int x, int y) {
     int ix;
     int iy;
 
@@ -850,7 +854,7 @@ s8 sub_803ED28(int x, int y) {
 }
 
 //! FE8U = 0x0803EE4C
-s8 sub_803EE4C(int x, int y) {
+s8 AiTryDoStealAdjacent(int x, int y) {
     if (!(UNIT_CATTRIBUTES(gActiveUnit) & CA_STEAL)) {
         return 0;
     }
@@ -910,7 +914,7 @@ s8 sub_803EEB0(int x, int y) {
 }
 
 //! FE8U = 0x0803EFE0
-s8 sub_803EFE0(int x, int y) {
+s8 AiIsUnitAtPositionDifferentAllegiance(int x, int y) {
     if (gBmMapUnit[y][x] == 0) {
         return 0;
     }
@@ -946,7 +950,7 @@ s8 sub_803F018(const void* input) {
                     continue;
                 }
 
-                if (sub_803EFE0(ix, iy) == 1) {
+                if (AiIsUnitAtPositionDifferentAllegiance(ix, iy) == 1) {
                     count++;
                 }
             }
@@ -964,7 +968,7 @@ s8 sub_803F018(const void* input) {
                     continue;
                 }
 
-                if (sub_803EFE0(ix, iy) == 1) {
+                if (AiIsUnitAtPositionDifferentAllegiance(ix, iy) == 1) {
                     count++;
                 }
             }
@@ -1101,8 +1105,6 @@ s8 sub_803F37C(const void* input) {
 
     return 0;
 }
-
-extern const struct Vec2** CONST_DATA gUnknown_085A8400;
 
 //! FE8U = 0x0803F3AC
 s8 sub_803F3AC(struct Vec2* out) {
@@ -1318,10 +1320,10 @@ s8 sub_803F6B8(struct Unit* unit) {
     int c;
     int d;
 
-    struct Unit* iVar8 = GetUnit(gAiState.unk86[0]);
+    struct Unit* other = GetUnit(gAiState.unk86[0]);
 
-    a = (iVar8->xPos - gActiveUnit->xPos);
-    b = (iVar8->yPos - gActiveUnit->yPos);
+    a = (other->xPos - gActiveUnit->xPos);
+    b = (other->yPos - gActiveUnit->yPos);
     c = (unit->xPos - gActiveUnit->xPos);
     d = (unit->yPos - gActiveUnit->yPos);
 

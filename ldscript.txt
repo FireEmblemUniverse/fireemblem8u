@@ -289,6 +289,7 @@ SECTIONS
         . = ALIGN(4); src/cp_script.o(.rodata);
         . = ALIGN(4); src/cp_data.o(.rodata);
         . = ALIGN(4); src/cp_battle.o(.rodata);
+        . = ALIGN(4); src/cp_0803E2F4.o(.rodata);
         . = ALIGN(4); data/const_data_D80F4.o(.rodata);
         . = ALIGN(4); src/cpextra_80407F0.o(.rodata);
         . = ALIGN(4); data/const_data_D8714.o(.rodata);
@@ -405,6 +406,7 @@ SECTIONS
         . = ALIGN(4); src/cp_utility.o(.data);
         . = ALIGN(4); src/cp_data.o(.data);
         . = ALIGN(4); src/cp_battle.o(.data);
+        . = ALIGN(4); src/cp_0803E2F4.o(.data);
         . = ALIGN(4); data/data_5A80BC.o(.data);
         . = ALIGN(4); src/cpextra_80407F0.o(.data);
         . = ALIGN(4); data/data_5A92E0.o(.data);
