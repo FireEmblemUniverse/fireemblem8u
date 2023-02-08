@@ -521,7 +521,6 @@ extern struct ActionData gActionData;
 // extern ??? gUnknown_0203AA80
 // extern ??? gUnknown_0203AA8A
 // extern ??? gAiDecision
-// extern ??? gUnknown_0203AAA0
 // extern ??? gUnknown_0203C624
 // extern ??? gUnknown_0203CA24
 // extern ??? gUnknown_0203DA24
@@ -848,7 +847,6 @@ extern const char gUnknown_080D7954[];
 // extern ??? gUnknown_080D8070
 // extern ??? gUnknown_080D80C4
 // extern ??? gUnknown_080D80E8
-// extern ??? gUnknown_080D8680
 // extern ??? gUnknown_080D868C
 // extern ??? gUnknown_080D8690
 // extern ??? gUnknown_080D8714
@@ -1508,7 +1506,6 @@ extern u16 CONST_DATA Pal_MineFx[];
 // extern ??? gProcScr_CpPhase
 // extern ??? gProcScr_BerserkCpPhase
 // extern ??? gProcScr_CpDecide
-// extern ??? gUnknown_085A92B8
 // extern ??? gUnknown_085A92BC
 // extern ??? gUnknown_085A92DC
 // extern ??? gUnknown_085A92DE

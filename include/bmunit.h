@@ -275,6 +275,14 @@ enum {
 
 enum
 {
+    FACTION_ID_BLUE   = 0,
+    FACTION_ID_GREEN  = 1,
+    FACTION_ID_RED    = 2,
+    FACTION_ID_PURPLE = 3,
+};
+
+enum
+{
     // Character/Class attributes
 
     CA_NONE = 0,
