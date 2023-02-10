@@ -352,16 +352,7 @@ s8 sub_803E900(void) {
 //! FE8U = 0x0803E93C
 s8 sub_803E93C(u16* out) {
     int i;
-
-#if NONMATCHING
-
     u32 perc;
-
-#else // if !NONMATCHING
-
-    register u32 perc asm("r4");
-
-#endif // NONMATCHING
 
     if (GetUnitItemCount(gActiveUnit) == 0) {
         return 0;
@@ -399,11 +390,7 @@ s8 sub_803E93C(u16* out) {
                 out[i] |= 1;
             }
 
-            perc = Div(GetItemUses(item) * 100, GetItemMaxUses(item));
-
-#ifndef NONMATCHING
-            asm(""::"r"(perc));
-#endif // NONMATCHING
+            perc = Div(perc = GetItemUses(item) * 100, GetItemMaxUses(item));
 
             if (perc <= 10) {
                 out[i] |= 4;
