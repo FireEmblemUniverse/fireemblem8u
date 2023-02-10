@@ -365,7 +365,7 @@ s8 sub_803E93C(u16* out) {
 
 #if NONMATCHING
 
-    u32 uVar4;
+    u32 perc;
 
 #else // if !NONMATCHING
 
@@ -427,10 +427,6 @@ s8 sub_803E93C(u16* out) {
     }
 }
 
-#if NONMATCHING
-
-/* https://decomp.me/scratch/8VIcJ */
-
 //! FE8U = 0x0803EA58
 void sub_803EA58(int x, int y, u16* param_3, u16* param_4, u16* param_5) {
     int i;
@@ -483,24 +479,22 @@ void sub_803EA58(int x, int y, u16* param_3, u16* param_4, u16* param_5) {
 
         for (iVar7 = gBmMapSize.y - 1; iVar7 >= 0; iVar7--) {
             for (iVar10 = gBmMapSize.x - 1; iVar10 >= 0; iVar10--) {
-                iVar8 = 0xFF;
-
+                int var;
+#ifndef NONMATCHING
+                int a __attribute__((unused)) = iVar7 * 4;
+                gBmMapMovement = gBmMapMovement;
+                asm(""::"r"(&gBmMapOther));
+#endif
+                var = 0xFF;
                 if (gBmMapMovement[iVar7][iVar10] > 0x78) {
                     continue;
                 }
-
-                /*
                 iVar8 = gBmMapOther[iVar7][iVar10] + iVar6;
-
                 if (iVar8 > 0xFF) {
-                    iVar8 = 0xFF;
+                    while (0) ;
+                    iVar8 = var;
                 }
-
                 gBmMapOther[iVar7][iVar10] = iVar8;
-                */
-                gBmMapOther[iVar7][iVar10] = gBmMapOther[iVar7][iVar10] + iVar6 > 0xFF
-                    ? iVar8
-                    :  gBmMapOther[iVar7][iVar10] + iVar6;
             }
         }
     }
@@ -509,182 +503,6 @@ void sub_803EA58(int x, int y, u16* param_3, u16* param_4, u16* param_5) {
 
     return;
 }
-
-#else // if !NONMATCHING
-
-__attribute__((naked))
-void sub_803EA58(int x, int y, u16* param_3, u16* param_4, u16* param_5) {
-    asm("\n\
-        .syntax unified\n\
-        push {r4, r5, r6, r7, lr}\n\
-        mov r7, sl\n\
-        mov r6, r9\n\
-        mov r5, r8\n\
-        push {r5, r6, r7}\n\
-        sub sp, #0x18\n\
-        str r0, [sp, #4]\n\
-        str r1, [sp, #8]\n\
-        str r2, [sp, #0xc]\n\
-        str r3, [sp, #0x10]\n\
-        movs r0, #0\n\
-        ldr r1, [sp, #0x38]\n\
-        strh r0, [r1]\n\
-        ldr r2, [sp, #0x10]\n\
-        strh r0, [r2]\n\
-        ldr r3, [sp, #0xc]\n\
-        strh r0, [r3]\n\
-        ldr r0, _0803EB94  @ gBmMapOther\n\
-        ldr r0, [r0]\n\
-        movs r1, #0\n\
-        bl BmMapFill\n\
-        movs r4, #1\n\
-    _0803EA86:\n\
-        adds r0, r4, #0\n\
-        bl GetUnit\n\
-        adds r5, r0, #0\n\
-        adds r4, #1\n\
-        str r4, [sp, #0x14]\n\
-        cmp r5, #0\n\
-        beq _0803EB70\n\
-        ldr r0, [r5]\n\
-        cmp r0, #0\n\
-        beq _0803EB70\n\
-        ldr r0, [r5, #0xc]\n\
-        movs r1, #0x21\n\
-        ands r0, r1\n\
-        cmp r0, #0\n\
-        bne _0803EB70\n\
-        ldr r0, _0803EB98  @ gActiveUnitId\n\
-        ldrb r0, [r0]\n\
-        movs r1, #0xb\n\
-        ldrsb r1, [r5, r1]\n\
-        bl AreUnitsAllied\n\
-        lsls r0, r0, #0x18\n\
-        cmp r0, #0\n\
-        bne _0803EB70\n\
-        adds r0, r5, #0\n\
-        ldr r1, [sp, #4]\n\
-        ldr r2, [sp, #8]\n\
-        bl sub_803EC54\n\
-        lsls r0, r0, #0x18\n\
-        cmp r0, #0\n\
-        beq _0803EB70\n\
-        adds r0, r5, #0\n\
-        bl GenerateUnitMovementMap\n\
-        ldr r4, _0803EB9C  @ gBmMapMovement\n\
-        ldr r1, [r4]\n\
-        ldr r2, [sp, #8]\n\
-        lsls r0, r2, #2\n\
-        adds r0, r0, r1\n\
-        ldr r0, [r0]\n\
-        ldr r3, [sp, #4]\n\
-        adds r0, r0, r3\n\
-        ldrb r0, [r0]\n\
-        cmp r0, #0xff\n\
-        beq _0803EB70\n\
-        adds r0, r5, #0\n\
-        mov r1, sp\n\
-        bl StoreItemAndGetUnitAttack\n\
-        adds r6, r0, #0\n\
-        mov r0, sp\n\
-        ldrh r0, [r0]\n\
-        bl GetItemMinRange\n\
-        cmp r0, #1\n\
-        ble _0803EB02\n\
-        ldr r1, [sp, #0xc]\n\
-        ldrh r0, [r1]\n\
-        adds r0, r0, r6\n\
-        strh r0, [r1]\n\
-    _0803EB02:\n\
-        mov r0, sp\n\
-        ldrh r0, [r0]\n\
-        bl GetItemMaxRange\n\
-        cmp r0, #1\n\
-        bne _0803EB16\n\
-        ldr r2, [sp, #0x10]\n\
-        ldrh r0, [r2]\n\
-        adds r0, r0, r6\n\
-        strh r0, [r2]\n\
-    _0803EB16:\n\
-        ldr r1, _0803EBA0  @ gBmMapSize\n\
-        movs r3, #2\n\
-        ldrsh r0, [r1, r3]\n\
-        subs r2, r0, #1\n\
-        mov sl, r1\n\
-        cmp r2, #0\n\
-        blt _0803EB70\n\
-        mov r9, r4\n\
-        ldr r0, _0803EB94  @ gBmMapOther\n\
-        mov r8, r0\n\
-    _0803EB2A:\n\
-        mov r1, sl\n\
-        movs r3, #0\n\
-        ldrsh r0, [r1, r3]\n\
-        subs r3, r0, #1\n\
-        subs r7, r2, #1\n\
-        cmp r3, #0\n\
-        blt _0803EB6A\n\
-        lsls r4, r2, #2\n\
-        mov r1, r9\n\
-        mov r5, r8\n\
-        movs r0, #0xff\n\
-        mov ip, r0\n\
-    _0803EB42:\n\
-        ldr r0, [r1]\n\
-        adds r0, r4, r0\n\
-        ldr r0, [r0]\n\
-        adds r0, r0, r3\n\
-        ldrb r0, [r0]\n\
-        cmp r0, #0x78\n\
-        bhi _0803EB64\n\
-        ldr r0, [r5]\n\
-        adds r0, r4, r0\n\
-        ldr r0, [r0]\n\
-        adds r2, r0, r3\n\
-        ldrb r0, [r2]\n\
-        adds r0, r0, r6\n\
-        cmp r0, #0xff\n\
-        ble _0803EB62\n\
-        mov r0, ip\n\
-    _0803EB62:\n\
-        strb r0, [r2]\n\
-    _0803EB64:\n\
-        subs r3, #1\n\
-        cmp r3, #0\n\
-        bge _0803EB42\n\
-    _0803EB6A:\n\
-        adds r2, r7, #0\n\
-        cmp r2, #0\n\
-        bge _0803EB2A\n\
-    _0803EB70:\n\
-        ldr r4, [sp, #0x14]\n\
-        cmp r4, #0xbf\n\
-        ble _0803EA86\n\
-        ldr r1, [sp, #0x10]\n\
-        ldrh r0, [r1]\n\
-        ldr r2, [sp, #0xc]\n\
-        ldrh r2, [r2]\n\
-        adds r0, r0, r2\n\
-        ldr r3, [sp, #0x38]\n\
-        strh r0, [r3]\n\
-        add sp, #0x18\n\
-        pop {r3, r4, r5}\n\
-        mov r8, r3\n\
-        mov r9, r4\n\
-        mov sl, r5\n\
-        pop {r4, r5, r6, r7}\n\
-        pop {r0}\n\
-        bx r0\n\
-        .align 2, 0\n\
-    _0803EB94: .4byte gBmMapOther\n\
-    _0803EB98: .4byte gActiveUnitId\n\
-    _0803EB9C: .4byte gBmMapMovement\n\
-    _0803EBA0: .4byte gBmMapSize\n\
-        .syntax divided\n\
-    ");
-}
-
-#endif // NONMATCHING
 
 //! FE8U = 0x0803EBA4
 void sub_803EBA4(int a, u16* b) {
