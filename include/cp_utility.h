@@ -42,10 +42,10 @@ void SetupUnitInventoryAIFlags(void);
 // ??? SetupUnitHealStaffAIFlags(???);
 // ??? SaveNumberOfAlliedUnitsIn0To8Range(???);
 void CharStoreAI(struct Unit* unit, const struct UnitDefinition* uDef);
-// ??? sub_803C284(???);
-// ??? sub_803C364(???);
-// ??? sub_803C3B0(???);
-// ??? sub_803C44C(???);
+s8 sub_803C284(struct Vec2* out);
+int sub_803C364(void);
+int sub_803C3B0(void);
+s8 sub_803C44C(struct Unit* unit);
 void sub_803C490(struct Unit*);
 
 #endif // GUARD_CP_UTILITY_H

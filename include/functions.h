@@ -941,7 +941,7 @@ s8 sub_803FA40(s8 (*isEnemy)(struct Unit* unit)); // AiTryDoStaff
 // ??? sub_8040354(???);
 // ??? sub_80404E0(???);
 // ??? nullsub_29(???);
-// ??? sub_8040668(???);
+s8 sub_8040668(struct Vec2*);
 // ??? GetSpecialItemFuncIndex(???);
 s8 AiTryDoSpecialItems(void);
 // ??? AiSpecialItemDoorKey(???);
@@ -965,7 +965,7 @@ void sub_8040F54(int, int, struct Unit*);
 // ??? sub_8040FBC(???);
 // ??? sub_8040FEC(???);
 void sub_8041020(struct Unit* unit);
-// ??? sub_8041054(???);
+void sub_8041054(struct Unit* unit);
 void AiUpdateNoMoveFlag(struct Unit* unit);
 void sub_80410C4(int, int, struct Unit*);
 // ??? AiDetermineNightmareEffectiveness(???);
