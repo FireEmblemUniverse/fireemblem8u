@@ -1170,7 +1170,7 @@ s8 sub_803F790(const void* input) {
     gAiState.unk7C = ((u8*)(input))[1];
 
     if (rng <= ((u8*)(input))[0]) {
-        if (sub_803FA40(AiIsUnitEnemy) == 0) {
+        if (AiTryDoStaff(AiIsUnitEnemy) == 0) {
             AiAttemptOffensiveAction(AiIsUnitEnemy);
         }
 

@@ -324,7 +324,7 @@ void AiScriptCmd_04_ActionOnSelectedCharacter(u8* pc) {
 
     if (rand <= gpAiScriptCurrent->unk_01) {
 
-        if (!sub_803FA40(AiIsUnitEnemy)) {
+        if (!AiTryDoStaff(AiIsUnitEnemy)) {
 
             if (AiUnitWithCharIdExists(gpAiScriptCurrent->unk_04) == 1) {
                 if (GetUnitFromCharId(gpAiScriptCurrent->unk_04)->state & US_RESCUED) {
@@ -353,11 +353,11 @@ void AiScriptCmd_05_DoStandardAction(u8* pc) {
 
     if (rand <= gpAiScriptCurrent->unk_01) {
         if (gpAiScriptCurrent->unk_08 == 0) {
-            if (sub_803FA40(AiIsUnitEnemy) == 0) {
+            if (AiTryDoStaff(AiIsUnitEnemy) == 0) {
                 AiAttemptOffensiveAction(AiIsUnitEnemy);
             }
         } else {
-            if (sub_803FA40(AiIsUnitEnemyOrInScrList) == 0) {
+            if (AiTryDoStaff(AiIsUnitEnemyOrInScrList) == 0) {
                 AiAttemptOffensiveAction(AiIsUnitEnemyAndNotInScrList);
             }
         }
@@ -383,7 +383,7 @@ void AiScriptCmd_07_DoStandardActionNoMove(u8* pc) {
     if (rand <= gpAiScriptCurrent->unk_01) {
         gAiState.flags |= AI_FLAG_1;
 
-        if (!sub_803FA40(AiIsUnitEnemy)) {
+        if (!AiTryDoStaff(AiIsUnitEnemy)) {
             AiAttemptOffensiveAction(AiIsUnitEnemy);
         }
     } else {
@@ -401,7 +401,7 @@ void AiScriptCmd_08_DoStandardActionAgainstClass(u8* pc) {
 
     if (rand <= gpAiScriptCurrent->unk_01) {
 
-        if (sub_803FA40(AiIsUnitEnemyAndScrClassId) == 0) {
+        if (AiTryDoStaff(AiIsUnitEnemyAndScrClassId) == 0) {
             AiAttemptOffensiveAction(AiIsUnitEnemyAndScrClassId);
         }
     } else {
@@ -416,7 +416,7 @@ void AiScriptCmd_08_DoStandardActionAgainstClass(u8* pc) {
 //! FE8U = 0x0803CB34
 void AiScriptCmd_09_DoStaffAction(u8* pc) {
 
-    sub_803FA40(AiIsUnitEnemy);
+    AiTryDoStaff(AiIsUnitEnemy);
     (*pc)++;
 
     return;
@@ -425,7 +425,7 @@ void AiScriptCmd_09_DoStaffAction(u8* pc) {
 //! FE8U = 0x0803CB50
 void AiScriptCmd_0A_DoStaffAction(u8* pc) {
 
-    sub_803FA40(AiIsUnitEnemy);
+    AiTryDoStaff(AiIsUnitEnemy);
     (*pc)++;
 
     return;
@@ -434,7 +434,7 @@ void AiScriptCmd_0A_DoStaffAction(u8* pc) {
 //! FE8U = 0x0803CB6C
 void AiScriptCmd_0B_DoStaffAction(u8* pc) {
 
-    sub_803FA40(AiIsUnitEnemy);
+    AiTryDoStaff(AiIsUnitEnemy);
     (*pc)++;
 
     return;
@@ -830,7 +830,7 @@ void AiScriptCmd_1B_NoOp(u8* pc) {
 
 //! FE8U = 0x0803D3E4
 void AiDoBerserkAction(void) {
-    if (!sub_803FA40(AiIsUnitEnemy)) {
+    if (!AiTryDoStaff(AiIsUnitEnemy)) {
         AiAttemptOffensiveAction(AiIsUnitNonActive);
     }
 

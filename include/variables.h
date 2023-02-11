@@ -847,7 +847,6 @@ extern const char gUnknown_080D7954[];
 // extern ??? gUnknown_080D8070
 // extern ??? gUnknown_080D80C4
 // extern ??? gUnknown_080D80E8
-// extern ??? gUnknown_080D868C
 // extern ??? gUnknown_080D8690
 // extern ??? gUnknown_080D8714
 // extern ??? gUnknown_080D8740
@@ -1506,7 +1505,6 @@ extern u16 CONST_DATA Pal_MineFx[];
 // extern ??? gProcScr_CpPhase
 // extern ??? gProcScr_BerserkCpPhase
 // extern ??? gProcScr_CpDecide
-// extern ??? gUnknown_085A92BC
 // extern ??? gUnknown_085A92DC
 // extern ??? gUnknown_085A92DE
 // extern ??? gUnknown_085A92E0
