@@ -1475,7 +1475,7 @@ static inline struct UnitUsageStats *BWL_GetEntry_Inline(u8 char_id)
         return &gBWLDataArray[char_id];  
 }
 
-void sub_80A44C8(struct Unit* unit)
+void BWL_AddBattle(struct Unit* unit)
 {
     u32 char_id;
     struct UnitUsageStats *bwl;

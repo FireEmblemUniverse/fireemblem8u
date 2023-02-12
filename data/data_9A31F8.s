@@ -2571,16 +2571,16 @@ gUnknown_089A8EF8:  @ 0x089A8EF8
 gUnknown_089A8F74:  @ 0x089A8F74
 	.incbin "baserom.gba", 0x9A8F74, 0x20
 
-	.global gUnknown_089A8F94
-gUnknown_089A8F94:  @ 0x089A8F94
+	.global gGfx_ArenaBuildingFront
+gGfx_ArenaBuildingFront:  @ 0x089A8F94
 	.incbin "baserom.gba", 0x9A8F94, 0x2BDC
 
-	.global gUnknown_089ABB70
-gUnknown_089ABB70:  @ 0x089ABB70
+	.global gTsa_ArenaBuildingFront
+gTsa_ArenaBuildingFront:  @ 0x089ABB70
 	.incbin "baserom.gba", 0x9ABB70, 0x4B4
 
-	.global gUnknown_089AC024
-gUnknown_089AC024:  @ 0x089AC024
+	.global gPal_ArenaBuildingFront
+gPal_ArenaBuildingFront:  @ 0x089AC024
 	.incbin "baserom.gba", 0x9AC024, 0x80
 
 	.global Img_MapAnimMISS

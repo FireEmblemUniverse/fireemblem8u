@@ -13,16 +13,15 @@
 #include "bmitem.h"
 #include "uiutils.h"
 #include "event.h"
+#include "bm.h"
+#include "bmio.h"
 
-extern struct ProcCmd gUnknown_08A394DC[];
-extern struct ProcCmd gUnknown_08A3963C[];
+extern struct ProcCmd gProcScr_ArenaUiMain[];
+extern struct ProcCmd gProcScr_ArenaUiResults[];
+extern struct ProcCmd gProcScr_ArenaUiResultBgm[];
 
-extern u8 gUnknown_089A8F94[]; // arena building front image
-extern u8 gUnknown_089ABB70[]; // arena building front tsa
-extern u16 gUnknown_089AC024[]; // arena building front pal
-
-void sub_80B5C04(int, ProcPtr);
-void sub_80B5C48(ProcPtr);
+void StartArenaDialogue(int, ProcPtr);
+void DrawArenaOpponentDetailsText(ProcPtr);
 
 //! FE8U = 0x080B5730
 s8 sub_80B5730(void) {
@@ -34,20 +33,20 @@ s8 sub_80B5730(void) {
 }
 
 //! FE8U = 0x080B576C
-void sub_80B576C(void) {
+void StartArenaScreen(void) {
     ArenaBegin(gActiveUnit);
-    Proc_Start(gUnknown_08A394DC, PROC_TREE_3);
+    Proc_Start(gProcScr_ArenaUiMain, PROC_TREE_3);
     return;
 }
 
 //! FE8U = 0x080B578C
-void sub_80B578C(void) {
-    Proc_Start(gUnknown_08A3963C, PROC_TREE_3);
+void StartArenaResultsScreen(void) {
+    Proc_Start(gProcScr_ArenaUiResults, PROC_TREE_3);
     return;
 }
 
 //! FE8U = 0x080B57A0
-void sub_80B57A0(ProcPtr param_1) {
+void ArenaUi_Init(ProcPtr proc) {
     Proc_ForEach(gProcScr_MoveUnit, (ProcFunc) MU_Hide);
 
     sub_80B52CC();
@@ -68,7 +67,7 @@ void sub_80B57A0(ProcPtr param_1) {
 
     BG_EnableSyncByMask(2);
 
-    StartUiGoldBox(param_1);
+    StartUiGoldBox(proc);
 
     gLCDControlBuffer.dispcnt.win0_on = 1;
     gLCDControlBuffer.dispcnt.win1_on = 1;
@@ -92,15 +91,15 @@ void sub_80B57A0(ProcPtr param_1) {
     gLCDControlBuffer.wincnt.wout_enableBg3 = 1;
     gLCDControlBuffer.wincnt.wout_enableObj = 1;
 
-    gLCDControlBuffer.win0_left = 0x58;
-    gLCDControlBuffer.win0_top = 0x48;
-    gLCDControlBuffer.win0_right = 0xf0;
-    gLCDControlBuffer.win0_bottom = 0x98;
+    gLCDControlBuffer.win0_left = 88;
+    gLCDControlBuffer.win0_top = 72;
+    gLCDControlBuffer.win0_right = 240;
+    gLCDControlBuffer.win0_bottom = 152;
 
     gLCDControlBuffer.win1_left = 0;
     gLCDControlBuffer.win1_top = 8;
-    gLCDControlBuffer.win1_right = 0xf0;
-    gLCDControlBuffer.win1_bottom = 0x38;
+    gLCDControlBuffer.win1_right = 240;
+    gLCDControlBuffer.win1_bottom = 56;
 
     gLCDControlBuffer.wincnt.win0_enableBlend = 0;
     gLCDControlBuffer.wincnt.win1_enableBlend = 1;
@@ -111,9 +110,9 @@ void sub_80B57A0(ProcPtr param_1) {
     SetBlendTargetA(0, 0, 0, 1, 0);
     SetBlendTargetB(0, 0, 0, 0, 0);
 
-    CopyDataWithPossibleUncomp(gUnknown_089A8F94, (void*)(GetBackgroundTileDataOffset(3) + 0x6000000));
-    CallARM_FillTileRect(gBG3TilemapBuffer, gUnknown_089ABB70, 0xc000);
-    CopyToPaletteBuffer(gUnknown_089AC024, 0x180, 0x80);
+    CopyDataWithPossibleUncomp(gGfx_ArenaBuildingFront, (void*)(GetBackgroundTileDataOffset(3) + 0x6000000));
+    CallARM_FillTileRect(gBG3TilemapBuffer, gTsa_ArenaBuildingFront, 0xc000);
+    CopyToPaletteBuffer(gPal_ArenaBuildingFront, 0x180, 0x80);
 
     BG_EnableSyncByMask(8);
 
@@ -129,12 +128,12 @@ void sub_80B5970(void) {
 }
 
 //! FE8U = 0x080B5998
-void sub_80B5998(ProcPtr param_1) {
+void ArenaUi_WelcomeDialogue(ProcPtr proc) {
     if (UNIT_ARENA_LEVEL(gArenaState.playerUnit) < 5) {
-        sub_80B5C04(0x8d0, param_1);
+        StartArenaDialogue(0x8d0, proc);
         // TODO: msgid "Welcome to the arena![.][A]"
     } else {
-        sub_80B5C04(0x8D1, param_1);
+        StartArenaDialogue(0x8D1, proc);
         // TODO: msgid "Welcome to the arena.[.][A][NL]Oh! It's you again.[.][A][NL2][NL]I've lost a lot of gold[.][NL]thanks to you...[A][NL2][NL]If you want to continue,[A][NL]we're going to have to[NL]do things differently.[A][NL2][NL]I'm going to prepare some[.][NL]more challenging foes.[A]"
     }
 
@@ -142,25 +141,25 @@ void sub_80B5998(ProcPtr param_1) {
 }
 
 //! FE8U = 0x080B59CC
-void sub_80B59CC(ProcPtr param_1) {
+void ArenaUi_WagerGoldDialogue(ProcPtr proc) {
     sub_8008A18(ArenaGetMatchupGoldValue());
-    sub_80B5C04(0x8D2, param_1);
+    StartArenaDialogue(0x8D2, proc);
     // TODO: msgid "Would you like to wager[.][NL][G] gold?[Yes]"
     return;
 }
 
 //! FE8U = 0x080B59EC
-void sub_80B59EC(ProcPtr param_1) {
+void ArenaUi_CheckConfirmation(ProcPtr proc) {
 
     if (GetDialoguePromptResult() != 1) {
-        sub_80B5C04(0x8D4, param_1);
+        StartArenaDialogue(0x8D4, proc);
         // TODO: msgid "What's that? Bah![.][NL]Get outta here![.][A]"
-        Proc_Goto(param_1, 2);
+        Proc_Goto(proc, 2);
     } else {
         if (ArenaGetMatchupGoldValue() > (int)GetPartyGoldAmount()) {
-            sub_80B5C04(0x8DA, param_1);
+            StartArenaDialogue(0x8DA, proc);
             // TODO: msgid "You don't have the money![.][NL]Try again later.[A]"
-            Proc_Goto(param_1, 2);
+            Proc_Goto(proc, 2);
         }
     }
 
@@ -170,49 +169,48 @@ void sub_80B59EC(ProcPtr param_1) {
 extern u16 gUnknown_02022E5E[];
 
 //! FE8U = 0x080B5A38
-void sub_80B5A38(ProcPtr param_1) {
+void ArenaUi_ConfirmWager(ProcPtr proc) {
     SetPartyGoldAmount(GetPartyGoldAmount() - ArenaGetMatchupGoldValue());
     PlaySoundEffect(0xb9);
     DisplayGoldBoxText(gUnknown_02022E5E);
-    sub_80B5C48(param_1);
+    DrawArenaOpponentDetailsText(proc);
 
     return;
 }
 
 //! FE8U = 0x080B5A7C
-void sub_80B5A7C(ProcPtr param_1) {
-    sub_80B5C04(0x8D5, param_1);
+void ArenaUi_InstructionsDialogue(ProcPtr proc) {
+    StartArenaDialogue(0x8D5, proc);
     // TODO: msgid "Fight 'til you drop, or press[.][NL]the B Button to yield.[A]"
     return;
 }
 
 //! FE8U = 0x080B5A90
-void sub_80B5A90(ProcPtr param_1) {
-    sub_80B5C04(0x8D3, param_1);
+void ArenaUi_GoodLuckDialogue(ProcPtr proc) {
+    StartArenaDialogue(0x8D3, proc);
     // TODO: msgid "Good luck. Don't get[NL]yourself killed.[A]"
     return;
 }
 
 //! FE8U = 0x080B5AA4
-void sub_80B5AA4(void) {
+void ArenaUi_FadeOutBgm(void) {
     Sound_FadeOutBGM(-1);
     return;
 }
 
 //! FE8U = 0x080B5AB4
-void sub_80B5AB4(ProcPtr param_1) {
+void ArenaUi_StartArenaBattle(ProcPtr proc) {
 
-    Proc_SetMark(param_1, PROC_MARK_7);
+    Proc_SetMark(proc, PROC_MARK_7);
 
     ResetDialogueScreen();
 
     Proc_EndEach(gProcScr_GoldBox);
 
     gActionData.unitActionType = UNIT_ACTION_ARENA;
-
     gActiveUnit->state |= US_HAS_MOVED;
 
-    sub_80A44C8(gActiveUnit);
+    BWL_AddBattle(gActiveUnit);
     MU_EndAll();
 
     gActionData.trapType = 0;
@@ -232,40 +230,40 @@ void sub_80B5B00(ProcPtr proc) {
 
 //! FE8U = 0x080B5B0C
 void sub_80B5B0C(ProcPtr proc) {
-    sub_80B57A0(proc);
+    ArenaUi_Init(proc);
     return;
 }
 
 //! FE8U = 0x080B5B18
-void sub_80B5B18(ProcPtr param_1) {
-    u32 iVar1 = GetPartyGoldAmount();
+void ArenaUi_ResultsDialogue(ProcPtr proc) {
+    u32 partyGold = GetPartyGoldAmount();
 
     switch (ArenaGetResult()) {
         case 1:
             sub_8008A18(ArenaGetMatchupGoldValue() * 2);
-            sub_80B5C04(0x8D6, param_1);
+            StartArenaDialogue(0x8D6, proc);
             // TODO: msgid "So you won, eh? Here's[NL]your prize. [G] gold.[A]"
 
-            SetPartyGoldAmount(iVar1 = iVar1 + (ArenaGetMatchupGoldValue() * 2));
+            SetPartyGoldAmount(partyGold = partyGold + (ArenaGetMatchupGoldValue() * 2));
 
             break;
 
         case 2:
-            sub_80B5C04(0x8D7, param_1);
+            StartArenaDialogue(0x8D7, proc);
             // TODO: msgid "Ahh, you lost? I'd hoped[NL]for better from you.[A]"
 
             break;
 
         case 3:
-            sub_80B5C04(0x8D9, param_1);
+            StartArenaDialogue(0x8D9, proc);
             // TODO: msgid "Looks like no one wins.[.][NL]Here's your money back.[.][A]"
-            SetPartyGoldAmount(iVar1 = iVar1 + ArenaGetMatchupGoldValue());
+            SetPartyGoldAmount(partyGold = partyGold + ArenaGetMatchupGoldValue());
 
             break;
 
         case 4:
             // _080B5B88
-            sub_80B5C04(0x8D8, param_1);
+            StartArenaDialogue(0x8D8, proc);
             // TODO: msgid "What? You yield? Well,[NL]your gold is mine, then![A]"
             break;
     }
@@ -274,14 +272,14 @@ void sub_80B5B18(ProcPtr param_1) {
 }
 
 //! FE8U = 0x080B5B9C
-void sub_80B5B9C(ProcPtr param_1) {
+void ArenaUi_ShowGoldBoxOnVictoryOrDraw(ProcPtr proc) {
 
     switch (ArenaGetResult()) {
         case 1:
         case 3:
             DisplayGoldBoxText(gUnknown_02022E5E);
             PlaySoundEffect(0xb9);
-            NewBlockingTimer(param_1, 0x3c);
+            NewBlockingTimer(proc, 60);
 
             break;
 
@@ -293,19 +291,19 @@ void sub_80B5B9C(ProcPtr param_1) {
 }
 
 //! FE8U = 0x080B5BE4
-void sub_80B5BE4(void) {
+void ArenaUi_OnEnd(void) {
     Proc_EndEach(gProcScr_GoldBox);
     Proc_ForEach(gProcScr_MoveUnit, (ProcFunc) MU_Show);
     return;
 }
 
 //! FE8U = 0x080B5C04
-void sub_80B5C04(int param_1, ProcPtr param_2) {
+void StartArenaDialogue(int msgId, ProcPtr proc) {
 
     sub_8006978();
     sub_8008250();
 
-    sub_800698C(8, 2, GetStringFromIndex(param_1), param_2);
+    sub_800698C(8, 2, GetStringFromIndex(msgId), proc);
     sub_8006B10(0);
 
     sub_8006AA8(1);
@@ -320,7 +318,7 @@ void sub_80B5C04(int param_1, ProcPtr param_2) {
 extern u16 gUnknown_02022F38[];
 
 //! FE8U = 0x080B5C48
-void sub_80B5C48(ProcPtr proc) {
+void DrawArenaOpponentDetailsText(ProcPtr proc) {
 
     DrawUiFrame2(7, 9, 0x10, 6, 0);
     SetFont(0);
@@ -336,7 +334,7 @@ void sub_80B5C48(ProcPtr proc) {
 }
 
 //! FE8U = 0x080B5CE0
-void sub_80B5CE0(ProcPtr param_1) {
+void Arena_PlayResultSong(ProcPtr proc) {
     switch (ArenaGetResult()) {
         case 1:
             if (!gRAMChapterData.cfgDisableBgm) {
@@ -350,7 +348,7 @@ void sub_80B5CE0(ProcPtr param_1) {
                 Sound_PlaySong8002448(0x38, 0);
             }
 
-            Proc_End(param_1);
+            Proc_End(proc);
 
             break;
     }
@@ -359,7 +357,7 @@ void sub_80B5CE0(ProcPtr param_1) {
 }
 
 //! FE8U = 0x080B5D2C
-void sub_80B5D2C(void) {
+void Arena_PlayArenaSong(void) {
     Sound_PlaySong80024E4(0x38, 0, 0);
     return;
 }
@@ -386,3 +384,130 @@ void sub_80B5D5C(void) {
     SaveSuspendedGame(SAVE_BLOCK_SUSPEND);
     return;
 }
+
+struct ProcCmd CONST_DATA gProcScr_ArenaUiMain[] = {
+    PROC_CALL(AddSkipThread2),
+
+    PROC_SLEEP(1),
+    PROC_CALL_ARG(sub_8014BD0, 65535),
+    PROC_CALL(StartFadeInBlackMedium),
+    PROC_REPEAT(WaitForFade),
+
+    PROC_CALL(BMapDispSuspend),
+
+    PROC_CALL_ARG(sub_8014BC0, 56),
+
+    PROC_CALL(ArenaUi_Init),
+    PROC_CALL(sub_8013FC4),
+    PROC_SLEEP(1),
+
+    PROC_CALL(ArenaUi_WelcomeDialogue),
+    PROC_SLEEP(1),
+
+    PROC_CALL(ArenaUi_WagerGoldDialogue),
+    PROC_SLEEP(1),
+
+    PROC_CALL(ArenaUi_CheckConfirmation),
+    PROC_SLEEP(1),
+
+    PROC_CALL(ArenaUi_ConfirmWager),
+    PROC_SLEEP(1),
+
+    PROC_CALL(ArenaUi_InstructionsDialogue),
+    PROC_SLEEP(1),
+
+    PROC_CALL(ArenaUi_GoodLuckDialogue),
+    PROC_SLEEP(1),
+
+PROC_LABEL(0),
+    PROC_CALL_ARG(sub_8014BD0, 2),
+    PROC_CALL(sub_8013F40),
+    PROC_SLEEP(1),
+
+    PROC_CALL(ArenaUi_StartArenaBattle),
+    PROC_SLEEP(1),
+
+    PROC_CALL(SubSkipThread2),
+    PROC_CALL(BMapDispResume),
+
+    PROC_JUMP(gProcScr_ArenaUiResults),
+
+PROC_LABEL(2),
+    PROC_SLEEP(1),
+
+    PROC_CALL(sub_8013F40),
+    PROC_SLEEP(1),
+
+    PROC_CALL(ArenaUi_OnEnd),
+
+    PROC_CALL(ResetDialogueScreen),
+
+    PROC_CALL(BMapDispResume),
+    PROC_CALL(RefreshBMapGraphics),
+    PROC_CALL(StartMapSongBgm),
+
+    PROC_CALL(sub_8013D8C),
+    PROC_REPEAT(WaitForFade),
+
+    PROC_CALL(SubSkipThread2),
+
+    PROC_END,
+};
+
+struct ProcCmd CONST_DATA gProcScr_ArenaUiResults[] = {
+PROC_LABEL(1),
+    PROC_CALL(sub_80B5B00),
+
+    PROC_CALL(AddSkipThread2),
+    PROC_CALL(BMapDispSuspend),
+    PROC_SLEEP(0),
+
+    PROC_START_CHILD(gProcScr_ArenaUiResultBgm),
+
+    PROC_CALL(ArenaUi_Init),
+
+    PROC_CALL(sub_8013FC4),
+    PROC_SLEEP(0),
+
+    PROC_CALL(ArenaUi_ResultsDialogue),
+    PROC_SLEEP(0),
+
+    PROC_CALL(ArenaUi_ShowGoldBoxOnVictoryOrDraw),
+    PROC_SLEEP(0),
+
+PROC_LABEL(2),
+    PROC_SLEEP(1),
+
+    PROC_END_EACH(gProcScr_ArenaUiResultBgm),
+    PROC_SLEEP(0),
+
+    PROC_CALL_ARG(sub_8014BD0, 2),
+    PROC_CALL(sub_8013F40),
+    PROC_SLEEP(0),
+
+    PROC_CALL(sub_80B5970),
+
+    PROC_CALL(ArenaUi_OnEnd),
+
+    PROC_CALL(ResetDialogueScreen),
+
+    PROC_CALL(BMapDispResume),
+    PROC_CALL(RefreshBMapGraphics),
+    PROC_CALL(StartMapSongBgm),
+
+    PROC_CALL(sub_8013D8C),
+    PROC_REPEAT(WaitForFade),
+
+    PROC_CALL(SubSkipThread2),
+
+    PROC_END,
+};
+
+struct ProcCmd CONST_DATA gProcScr_ArenaUiResultBgm[] = {
+    PROC_CALL(Arena_PlayResultSong),
+    PROC_SLEEP(210),
+
+    PROC_CALL(Arena_PlayArenaSong),
+
+    PROC_END,
+};

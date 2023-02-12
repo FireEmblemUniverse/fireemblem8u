@@ -1336,7 +1336,7 @@ void MapMain_ResumeFromArenaFight(struct BMapMainProc* mapMain) {
 
     Proc_Goto(mapMain, 10);
 
-    sub_80B578C();
+    StartArenaResultsScreen();
 }
 
 void MapMain_ResumeFromPhaseChange(struct BMapMainProc* mapMain) {
