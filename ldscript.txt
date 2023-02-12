@@ -183,6 +183,7 @@ SECTIONS
         src/opinfo.o(.text);
         src/classdisplayfont.o(.text);
         src/bmshop.o(.text);
+        src/uiarena.o(.text);
         asm/code_80B5730.o(.text);
         src/opsubtitle.o(.text);
         src/titlescreen.o(.text);
@@ -475,6 +476,7 @@ SECTIONS
         . = ALIGN(4); src/classdisplayfont.o(.data);
         . = ALIGN(4); data/data_A2EEF0.o(.data);
         . = ALIGN(4); src/bmshop.o(.data);
+        . = ALIGN(4); src/uiarena.o(.data);
         . = ALIGN(4); data/data_A394DC.o(.data);
         . = ALIGN(4); src/opsubtitle.o(.data);
         . = ALIGN(4); data/data_opsubtitle.o(.data);
