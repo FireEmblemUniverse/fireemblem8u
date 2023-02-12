@@ -183,7 +183,7 @@ SECTIONS
         src/opinfo.o(.text);
         src/classdisplayfont.o(.text);
         src/bmshop.o(.text);
-        asm/uiarena.o(.text);
+        src/uiarena.o(.text);
         asm/code_80B5730.o(.text);
         src/opsubtitle.o(.text);
         src/titlescreen.o(.text);
