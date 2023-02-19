@@ -439,22 +439,18 @@ extern u16 gUnknown_080D77FC[];
 extern u16 gUnknown_0859F000[];
 extern u16 gUnknown_0859EFE0[];
 
-#if NONMATCHING
-
-/* https://decomp.me/scratch/eJR7M */
-
 //! FE8U = 0x08006738
 void sub_8006738(u16* a, u16 b, s8 c) {
     int i;
     int j;
-    u16* src = gUnknown_080D77FC;
+    const u16* src = gUnknown_080D77FC;
     u16* dst = a;
 
-
     if (c == 0) {
-        for (i = 0; i < 10;) {
-            for (j = 0; j < 12; j++) {
+        for (i = 0; i < 10; i++) {
+            const u16* nextSrc = src + 12;
 
+            for (j = 0; j < 12; j++) {
                 if (src[j] == 0xFFFF) {
                     dst[j] = 0;
                 } else {
@@ -463,13 +459,11 @@ void sub_8006738(u16* a, u16 b, s8 c) {
 
             }
 
-            src += 12;
+            src = nextSrc;
             dst += 0x20;
-
-            i++;
         }
     } else {
-        for (i = 0; i < 10;) {
+        for (i = 0; i < 10; i++) {
             for (j = 0; j < 12; j++) {
                 if (src[11 - j] == 0xFFFF) {
                     dst[j] = 0;
@@ -478,121 +472,11 @@ void sub_8006738(u16* a, u16 b, s8 c) {
                 }
             }
 
-
             src += 12;
             dst += 0x20;
-
-            i++;
         }
     }
 }
-
-#else // if !NONMATCHING
-
-__attribute__((naked))
-void sub_8006738(u16* a, u16 b, s8 c) {
-    asm("\n\
-        .syntax unified\n\
-        push {r4, r5, r6, r7, lr}\n\
-        mov r7, r9\n\
-        mov r6, r8\n\
-        push {r6, r7}\n\
-        lsls r1, r1, #0x10\n\
-        lsrs r7, r1, #0x10\n\
-        ldr r3, _08006770  @ gUnknown_080D77FC\n\
-        lsls r2, r2, #0x18\n\
-        cmp r2, #0\n\
-        bne _08006792\n\
-        movs r2, #0\n\
-        ldr r1, _08006774  @ 0x0000FFFF\n\
-        mov r8, r1\n\
-        movs r1, #0\n\
-        mov ip, r1\n\
-    _08006756:\n\
-        adds r6, r3, #0\n\
-        adds r6, #0x18\n\
-        adds r5, r0, #0\n\
-        adds r5, #0x40\n\
-        adds r4, r2, #1\n\
-        adds r2, r0, #0\n\
-        movs r1, #0xb\n\
-    _08006764:\n\
-        ldrh r0, [r3]\n\
-        cmp r0, r8\n\
-        bne _08006778\n\
-        mov r0, ip\n\
-        b _0800677A\n\
-        .align 2, 0\n\
-    _08006770: .4byte gUnknown_080D77FC\n\
-    _08006774: .4byte 0x0000FFFF\n\
-    _08006778:\n\
-        adds r0, r7, r0\n\
-    _0800677A:\n\
-        strh r0, [r2]\n\
-        adds r2, #2\n\
-        adds r3, #2\n\
-        subs r1, #1\n\
-        cmp r1, #0\n\
-        bge _08006764\n\
-        adds r3, r6, #0\n\
-        adds r0, r5, #0\n\
-        adds r2, r4, #0\n\
-        cmp r2, #9\n\
-        ble _08006756\n\
-        b _080067DA\n\
-    _08006792:\n\
-        movs r2, #0\n\
-        ldr r1, _080067BC  @ 0x0000FFFF\n\
-        mov r9, r1\n\
-        movs r1, #0\n\
-        mov ip, r1\n\
-        movs r1, #0x80\n\
-        lsls r1, r1, #3\n\
-        mov r8, r1\n\
-    _080067A2:\n\
-        adds r6, r3, #0\n\
-        adds r6, #0x18\n\
-        adds r5, r0, #0\n\
-        adds r5, #0x40\n\
-        adds r4, r2, #1\n\
-        adds r2, r0, #0\n\
-        adds r3, #0x16\n\
-        movs r1, #0xb\n\
-    _080067B2:\n\
-        ldrh r0, [r3]\n\
-        cmp r0, r9\n\
-        bne _080067C0\n\
-        mov r0, ip\n\
-        b _080067C4\n\
-        .align 2, 0\n\
-    _080067BC: .4byte 0x0000FFFF\n\
-    _080067C0:\n\
-        adds r0, r7, r0\n\
-        add r0, r8\n\
-    _080067C4:\n\
-        strh r0, [r2]\n\
-        adds r2, #2\n\
-        subs r3, #2\n\
-        subs r1, #1\n\
-        cmp r1, #0\n\
-        bge _080067B2\n\
-        adds r3, r6, #0\n\
-        adds r0, r5, #0\n\
-        adds r2, r4, #0\n\
-        cmp r2, #9\n\
-        ble _080067A2\n\
-    _080067DA:\n\
-        pop {r3, r4}\n\
-        mov r8, r3\n\
-        mov r9, r4\n\
-        pop {r4, r5, r6, r7}\n\
-        pop {r0}\n\
-        bx r0\n\
-        .syntax divided\n\
-    ");
-}
-
-#endif // NONMATCHING
 
 //! FE8U = 0x080067E8
 void sub_80067E8(void) {
