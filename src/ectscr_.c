@@ -19,7 +19,7 @@ extern struct CONST_DATA gfx_set gConvoBackgroundData[];
 extern struct ProcCmd CONST_DATA gProcScr_E_FACE[];
 extern u16 CONST_DATA gUnknown_085921AC[];
 extern u16 CONST_DATA gUnknown_085A7EE8[];
-void sub_80081A8(void);
+void ClearTalkBubble(void);
 void sub_80067E8(void);
 void sub_8010EE8(int, int, int);
 void sub_807132C(void* ptr, int, int, int);
@@ -45,7 +45,7 @@ void ReputConvoBg_unused(int index)
 
 void ResetDialogueScreen(void) // function: MapLevelUp_EndFace
 {
-    sub_80081A8();  // clear BG1
+    ClearTalkBubble();
     Proc_EndEach(gProcScr_E_FACE);
     ResetFaces();
     sub_80067E8();  // Reset dialogue data array?

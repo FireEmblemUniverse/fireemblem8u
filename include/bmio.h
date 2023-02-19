@@ -76,7 +76,7 @@ void SetWeather(unsigned weatherId);
 // this may have been two (or more?) source files
 // if this is to be split, this the starting point.
 
-u8 GetTextDisplaySpeed(void);
+int GetTextDisplaySpeed(void);
 int IsFirstPlaythrough(void);
 void InitPlaythroughState(int isDifficult, s8);
 void StartBattleMap(struct GameCtrlProc* gameCtrl);

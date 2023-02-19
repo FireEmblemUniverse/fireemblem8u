@@ -919,7 +919,7 @@ void SetWeather(unsigned weatherId) {
     WfxInit();
 }
 
-u8 GetTextDisplaySpeed(void) {
+int GetTextDisplaySpeed(void) {
     u8 speedLookup[4] = { 8, 4, 1, 0 };
     return speedLookup[gRAMChapterData.cfgTextSpeed];
 }

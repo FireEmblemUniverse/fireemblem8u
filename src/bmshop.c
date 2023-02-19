@@ -16,6 +16,7 @@
 #include "bmio.h"
 #include "face.h"
 #include "bm.h"
+#include "scene.h"
 
 #include "bmshop.h"
 
@@ -363,18 +364,18 @@ int ShopProc_GetPortraitIndex(struct BmShopProc* proc) {
 void StartShopDialogue(int baseMsgId, struct BmShopProc* proc) {
     int msgId = baseMsgId + gShopDialogueOffsetLut[proc->shopType];
 
-    sub_8006978();
-    sub_8008250();
+    SetInitTalkTextFont();
+    ClearTalkText();
 
-    sub_800698C(8, 2, GetStringFromIndex(msgId), proc);
+    StartTalkExt(8, 2, GetStringFromIndex(msgId), proc);
 
-    sub_8006B10(0);
+    SetTalkPrintColor(0);
 
-    sub_8006AA8(1);
-    sub_8006AA8(2);
-    sub_8006AA8(4);
+    SetTalkFlag(TALK_FLAG_INSTANTSHIFT);
+    SetTalkFlag(TALK_FLAG_NOBUBBLE);
+    SetTalkFlag(TALK_FLAG_NOSKIP);
 
-    sub_8007838(1);
+    SetActiveTalkFace(1);
 
     return;
 }
@@ -510,7 +511,7 @@ void ShopProc_EnterShopDialogue(struct BmShopProc* proc) {
 }
 
 void ShopProc_HandleEntryPrompt(struct BmShopProc* proc) {
-    switch (GetDialoguePromptResult()) {
+    switch (GetTalkChoiceResult()) {
         case 0:
         default:
             Proc_Goto(proc, 12);
@@ -662,7 +663,7 @@ void ShopProc_Loop_BuyKeyHandler(struct BmShopProc* proc) {
 
             Proc_Goto(proc, 1);
         } else {
-            sub_8008A18(price);
+            SetTalkNumber(price);
             StartShopDialogue(0x8B5, proc);
             // SHOP_TYPE_ARMORY: "How does [.][G] gold[.][NL]sound to you?[.][Yes]"
             // SHOP_TYPE_VENDOR: "That's worth [.][G] gold.[NL]Is that all right?[Yes]"
@@ -685,7 +686,7 @@ void ShopProc_Loop_BuyKeyHandler(struct BmShopProc* proc) {
 }
 
 void ShopProc_HandleBuyConfirmPrompt(struct BmShopProc* proc) {
-    if (GetDialoguePromptResult() != 1) {
+    if (GetTalkChoiceResult() != 1) {
         Proc_Goto(proc, 1);
     }
 
@@ -720,7 +721,7 @@ void ShopProc_TryAddItemToInventory(struct BmShopProc* proc) {
 }
 
 void ShopProc_HandleSendToConvoyPrompt(struct BmShopProc* proc) {
-    if (GetDialoguePromptResult() != 1) {
+    if (GetTalkChoiceResult() != 1) {
         Proc_Goto(proc, 11);
     }
 
@@ -858,7 +859,7 @@ void ShopProc_Loop_SellKeyHandler(struct BmShopProc* proc) {
 
             Proc_Goto(proc, 4);
         } else {
-            sub_8008A18(GetItemSellPrice(proc->unit->items[proc->curIndex]));
+            SetTalkNumber(GetItemSellPrice(proc->unit->items[proc->curIndex]));
             StartShopDialogue(0x8B5, proc);
             // SHOP_TYPE_ARMORY: "How does [.][G] gold[.][NL]sound to you?[.][Yes]"
             // SHOP_TYPE_VENDOR: "That's worth [.][G] gold.[NL]Is that all right?[Yes]"
@@ -881,7 +882,7 @@ void ShopProc_Loop_SellKeyHandler(struct BmShopProc* proc) {
 }
 
 void ShopProc_HandleSellConfirmPrompt(struct BmShopProc* proc) {
-    if (GetDialoguePromptResult() == 1) {
+    if (GetTalkChoiceResult() == 1) {
         sub_8014B88(0xB9, 8);
 
         gActionData.unitActionType = UNIT_ACTION_SHOPPED;
@@ -1076,7 +1077,7 @@ void ShopProc_Init(struct BmShopProc* proc) {
     gLCDControlBuffer.bg2cnt.priority = 0;
     gLCDControlBuffer.bg3cnt.priority = 3;
 
-    sub_800680C(0x200, 2, 0);
+    InitTalk(0x200, 2, 0);
 
     ResetFaces();
 
@@ -1089,7 +1090,7 @@ void ShopProc_Init(struct BmShopProc* proc) {
 
     UnpackUiVArrowGfx(0x240, 3);
 
-    sub_8007938(ShopProc_GetPortraitIndex(proc), 32, 8, 3, 1);
+    StartTalkFace(ShopProc_GetPortraitIndex(proc), 32, 8, 3, 1);
 
     CopyDataWithPossibleUncomp(gUnknown_089AD934, gGenericBuffer);
     CallARM_FillTileRect(gBG1TilemapBuffer, gGenericBuffer, 0x1000);

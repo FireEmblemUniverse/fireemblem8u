@@ -59,17 +59,17 @@ struct FaceProc {
 
 const struct FaceData* GetPortraitData(int fid);
 void ResetFaces(void);
-// ??? SetupFaceGfxData(???);
+void SetupFaceGfxData(struct FaceVramEntry*);
 // ??? FindFreeFaceSlot(???);
 // ??? Face_OnInit(???);
 // ??? Face_OnIdle(???);
-// ??? StartFaceAuto(???);
+struct FaceProc* StartFaceAuto(int fid, int x, int y, int disp);
 struct FaceProc* StartFace(int faceSlot, int portraitId, int x, int y, int displayType);
 // ??? EndFace(???);
 void EndFaceById(int faceSlot);
-// ??? SetFaceDisplayBits(???);
+int SetFaceDisplayBits(struct FaceProc*, int);
 // ??? SetFaceDisplayBitsById(???);
-// ??? GetFaceDisplayBits(???);
+int GetFaceDisplayBits(struct FaceProc*);
 // ??? GetFaceDisplayBitsById(???);
 // ??? FaceRefreshSprite(???);
 // ??? PutFaceTm(???);
@@ -89,8 +89,8 @@ void PutFace80x72_Core(u16*, int, int, int);
 void PutFace80x72(struct Proc* proc, u16* bgOut, int fid, int tileId, int palId);
 // ??? EndFacePtr(???);
 // ??? EndFaceIn8Frames(???);
-// ??? StartFaceFadeIn(???);
-// ??? StartFaceFadeOut(???);
+void StartFaceFadeIn(struct FaceProc* proc);
+void StartFaceFadeOut(struct FaceProc* proc);
 // ??? sub_8005F6C(???);
 // ??? sub_8005F9C(???);
 // ??? sub_8005FD4(???);
@@ -105,20 +105,21 @@ void PutFace80x72(struct Proc* proc, u16* bgOut, int fid, int tileId, int palId)
 // ??? sub_8006378(???);
 // ??? sub_80063BC(???);
 // ??? sub_80063C4(???);
-// ??? SetFaceBlinkControl(???);
+void SetFaceBlinkControl(struct FaceProc* proc, int blinkControl);
 void SetFaceBlinkControlById(int faceSlot, int unk);
 // ??? FaceBlinkProc_GenBlinkInterval(???);
-// ??? sub_80064D4(???);
+void sub_80064D4(struct FaceProc* proc, int unk);
 // ??? sub_80064DC(???);
 struct FaceProc* StartFace2(int slot, int fid, int x, int y, int disp);
 // ??? sub_8006618(???);
 // ??? sub_800662C(???);
 // ??? sub_8006650(???);
 // ??? sub_80066A8(???);
-// ??? sub_80066E0(???);
+void sub_80066E0(struct FaceProc* parent, int fid);
 // ??? sub_80066FC(???);
 // ??? sub_800671C(???);
 
 extern struct FaceProc* gFaces[];
+extern struct ProcCmd gProcScr_E_FACE[];
 
 #endif  // GUARD_FACE_H

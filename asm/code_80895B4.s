@@ -1911,7 +1911,7 @@ _0808A64C:
 	adds r1, r5, r2
 	bl CopyDataWithPossibleUncomp
 _0808A688:
-	bl sub_8006A98
+	bl ClearAllTalkFlags
 	bl sub_808A524
 	movs r1, #1
 	ands r1, r0
@@ -3882,7 +3882,7 @@ _0808B664:
 	adds r2, r2, r0
 	adds r2, #8
 	adds r0, r6, #0
-	bl sub_8007CD8
+	bl StartTalkWaitForInput
 	ldr r0, [r6, #0x2c]
 	adds r1, r4, #0
 	bl sub_808AB98

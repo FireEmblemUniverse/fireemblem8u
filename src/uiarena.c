@@ -15,6 +15,7 @@
 #include "event.h"
 #include "bm.h"
 #include "bmio.h"
+#include "scene.h"
 
 extern struct ProcCmd gProcScr_ArenaUiMain[];
 extern struct ProcCmd gProcScr_ArenaUiResults[];
@@ -56,9 +57,9 @@ void ArenaUi_Init(ProcPtr proc) {
     gLCDControlBuffer.bg2cnt.priority = 0;
     gLCDControlBuffer.bg3cnt.priority = 3;
 
-    sub_800680C(0x200, 2, 0);
+    InitTalk(0x200, 2, 0);
     ResetFaces();
-    sub_8007938(0x67, 0x20, 8, 3, 1);
+    StartTalkFace(0x67, 0x20, 8, 3, 1);
 
     CopyDataWithPossibleUncomp(gUnknown_089AD934, gGenericBuffer);
 
@@ -142,7 +143,7 @@ void ArenaUi_WelcomeDialogue(ProcPtr proc) {
 
 //! FE8U = 0x080B59CC
 void ArenaUi_WagerGoldDialogue(ProcPtr proc) {
-    sub_8008A18(ArenaGetMatchupGoldValue());
+    SetTalkNumber(ArenaGetMatchupGoldValue());
     StartArenaDialogue(0x8D2, proc);
     // TODO: msgid "Would you like to wager[.][NL][G] gold?[Yes]"
     return;
@@ -151,7 +152,7 @@ void ArenaUi_WagerGoldDialogue(ProcPtr proc) {
 //! FE8U = 0x080B59EC
 void ArenaUi_CheckConfirmation(ProcPtr proc) {
 
-    if (GetDialoguePromptResult() != 1) {
+    if (GetTalkChoiceResult() != 1) {
         StartArenaDialogue(0x8D4, proc);
         // TODO: msgid "What's that? Bah![.][NL]Get outta here![.][A]"
         Proc_Goto(proc, 2);
@@ -240,7 +241,7 @@ void ArenaUi_ResultsDialogue(ProcPtr proc) {
 
     switch (ArenaGetResult()) {
         case 1:
-            sub_8008A18(ArenaGetMatchupGoldValue() * 2);
+            SetTalkNumber(ArenaGetMatchupGoldValue() * 2);
             StartArenaDialogue(0x8D6, proc);
             // TODO: msgid "So you won, eh? Here's[NL]your prize. [G] gold.[A]"
 
@@ -300,17 +301,17 @@ void ArenaUi_OnEnd(void) {
 //! FE8U = 0x080B5C04
 void StartArenaDialogue(int msgId, ProcPtr proc) {
 
-    sub_8006978();
-    sub_8008250();
+    SetInitTalkTextFont();
+    ClearTalkText();
 
-    sub_800698C(8, 2, GetStringFromIndex(msgId), proc);
-    sub_8006B10(0);
+    StartTalkExt(8, 2, GetStringFromIndex(msgId), proc);
+    SetTalkPrintColor(0);
 
-    sub_8006AA8(1);
-    sub_8006AA8(2);
-    sub_8006AA8(4);
+    SetTalkFlag(TALK_FLAG_INSTANTSHIFT);
+    SetTalkFlag(TALK_FLAG_NOBUBBLE);
+    SetTalkFlag(TALK_FLAG_NOSKIP);
 
-    sub_8007838(1);
+    SetActiveTalkFace(1);
 
     return;
 }
@@ -371,7 +372,7 @@ void sub_80B5D3C(void) {
 //! FE8U = 0x080B5D48
 s8 sub_80B5D48(void) {
 
-    if (GetDialoguePromptResult() != 1) {
+    if (GetTalkChoiceResult() != 1) {
         return 0;
     }
 

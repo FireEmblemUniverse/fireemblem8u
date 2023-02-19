@@ -709,7 +709,7 @@ DrawPrepScreenItemUseItemUseDesc: @ 0x0809C3EC
 	ldr r2, _0809C474  @ gUnknown_02022FC6
 	mov r0, sp
 	movs r3, #3
-	bl sub_8008A3C
+	bl PrintStringToTexts
 	b _0809C4A2
 	.align 2, 0
 _0809C46C: .4byte gUnknown_02013560
@@ -731,7 +731,7 @@ _0809C478:
 	ldr r2, _0809C4B0  @ gUnknown_02022FC6
 	mov r0, sp
 	movs r3, #3
-	bl sub_8008A3C
+	bl PrintStringToTexts
 _0809C4A2:
 	movs r0, #1
 	bl BG_EnableSyncByMask

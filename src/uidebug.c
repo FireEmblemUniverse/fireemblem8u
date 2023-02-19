@@ -14,6 +14,7 @@
 #include "player_interface.h"
 #include "bmtrick.h"
 #include "bmreliance.h"
+#include "scene.h"
 
 struct Struct089ED67C {
     /* 00 */ u8 _pad00[0x0C];
@@ -547,7 +548,7 @@ int sub_8085308()
 
 int sub_8085324()
 {
-    return 1 == GetDialoguePromptResult();
+    return 1 == GetTalkChoiceResult();
 }
 
 int sub_8085338()

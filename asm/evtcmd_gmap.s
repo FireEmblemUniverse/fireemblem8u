@@ -2990,7 +2990,7 @@ _0800CD64:
 	cmp r0, #0
 	beq _0800CD80
 	movs r0, #4
-	bl sub_8006AA8
+	bl SetTalkFlag
 _0800CD80:
 	movs r0, #2
 _0800CD82:
