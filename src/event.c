@@ -9,6 +9,7 @@
 #include "bmunit.h"
 #include "bmmap.h"
 #include "uimenu.h"
+#include "scene.h"
 
 #include "event.h"
 
@@ -150,8 +151,6 @@ extern const u16 gEvent_GameOver[]; /* Game Over Events?
     0120 0000           | ENDA
 */
 
-extern const struct ProcCmd gUnknown_08591540[]; // extern
-
 void _MarkSomethingInMenu(void) {
     FreezeMenu();
 }
@@ -240,7 +239,7 @@ void EventEngine_OnEnd(struct EventEngineProc* proc) {
     }
 
     if (proc->execType != EV_EXEC_QUIET) {
-        sub_8006A7C(); // EndDialogueInterpreter
+        EndTalk();
         sub_808F270(); // End some thing
         sub_808BB74(); // End some more things
 
@@ -537,7 +536,7 @@ void EventEngine_StartSkip(struct EventEngineProc* proc) {
 
 void sub_800D488(struct EventEngineProc* unused) {
     sub_80141B0(); // disables layers
-    Proc_EndEach(gUnknown_08591540);
+    Proc_EndEach(gProcScr_TalkOpen);
 }
 
 void SetEventTriggerState(u16 triggerId, bool8 value) {

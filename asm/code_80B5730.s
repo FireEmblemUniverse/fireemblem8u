@@ -5755,8 +5755,8 @@ WorldMap_Destruct: @ 0x080B8A18
 	bl sub_80C1D70
 	movs r0, #0
 	bl SetPrimaryHBlankHandler
-	bl sub_8006A7C
-	bl sub_8008250
+	bl EndTalk
+	bl ClearTalkText
 	bl ResetUnitSprites
 	movs r0, #3
 	movs r1, #0
@@ -29250,27 +29250,27 @@ _080C369C: .4byte gUnknown_08A3EE44
 sub_80C36A0: @ 0x080C36A0
 	push {r4, lr}
 	adds r4, r0, #0
-	bl sub_8006A7C
+	bl EndTalk
 	movs r0, #0x80
 	lsls r0, r0, #2
 	movs r1, #2
 	movs r2, #2
-	bl sub_80068AC
+	bl InitSpriteTalk
 	bl EnablePaletteSync
 	movs r0, #1
 	movs r1, #0xf
 	adds r2, r4, #0
-	bl sub_8006A30
+	bl StartTalkMsg
 	movs r0, #4
-	bl sub_8006AF0
+	bl SetTalkPrintDelay
 	movs r0, #0x20
-	bl sub_8006AA8
+	bl SetTalkFlag
 	movs r0, #0x80
-	bl sub_8006AA8
+	bl SetTalkFlag
 	movs r0, #4
-	bl sub_8006AA8
+	bl SetTalkFlag
 	movs r0, #1
-	bl sub_8006AA8
+	bl SetTalkFlag
 	pop {r4}
 	pop {r0}
 	bx r0

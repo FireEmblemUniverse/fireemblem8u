@@ -427,7 +427,7 @@ _0808EC98:
 	adds r4, #2
 	str r4, [sp]
 	mov r1, ip
-	bl sub_8008668
+	bl PutTalkBubbleTm
 	bl sub_808EA3C
 	movs r1, #0x80
 	lsls r1, r1, #3
@@ -453,7 +453,7 @@ _0808ED1C:
 	ldrb r2, [r3]
 	subs r2, #2
 	adds r3, r4, #0
-	bl sub_80084E0
+	bl PutTalkBubbleTail
 	b _0808EDAA
 _0808ED38:
 	adds r5, r6, #0
@@ -482,7 +482,7 @@ _0808ED38:
 	adds r3, #2
 	adds r4, #2
 	str r4, [sp]
-	bl sub_8008668
+	bl PutTalkBubbleTm
 	bl sub_808EA3C
 	movs r1, #0x80
 	lsls r1, r1, #3
@@ -507,7 +507,7 @@ _0808ED92:
 	ldrb r2, [r3]
 	subs r2, #2
 	adds r3, r4, #0
-	bl sub_80084E0
+	bl PutTalkBubbleTail
 _0808EDAA:
 	bl sub_808EA3C
 	movs r1, #0x80
@@ -1016,7 +1016,7 @@ _0808F1A2:
 	movs r0, #0x80
 	lsls r0, r0, #7
 	bl sub_808E9D8
-	bl sub_8006A98
+	bl ClearAllTalkFlags
 	ldr r0, _0808F264  @ gUnknown_0203E82C
 	str r0, [r4, #0x30]
 	adds r3, r4, #0
@@ -2435,7 +2435,7 @@ _0808FD48:
 	movs r3, #0x80
 	lsls r3, r3, #3
 	mov r0, r8
-	bl sub_8007D04
+	bl StartTalkWaitForInputUnk
 	b _0808FDBE
 	.align 2, 0
 _0808FD90: .4byte 0x0000FFEF
@@ -2459,7 +2459,7 @@ _0808FD94:
 	adds r2, r2, r0
 	adds r2, #8
 	mov r0, r8
-	bl sub_8007CD8
+	bl StartTalkWaitForInput
 _0808FDBE:
 	adds r1, r5, #0
 	adds r2, r4, #0
@@ -2838,7 +2838,7 @@ _08090064:
 	movs r1, #0x2a
 	ldrsh r0, [r4, r1]
 _08090068:
-	bl sub_8008A0C
+	bl SetTalkChoiceResult
 	adds r0, r4, #0
 	bl Proc_Break
 	b _080900E2

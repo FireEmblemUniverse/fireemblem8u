@@ -10,6 +10,7 @@
 #include "ctc.h"
 #include "fontgrp.h"
 #include "bmunit.h"
+#include "scene.h"
 #include "classdisplayfont.h"
 #include "opinfo.h"
 
@@ -1614,23 +1615,23 @@ void ClassInfoDisplay_Init(struct OpInfoClassDisplayProc* proc) {
 
     proc->unk_3c = StartClassStatsDisplay(proc);
 
-    sub_800680C(0x100, 2, 0);
+    InitTalk(0x100, 2, 0);
 
-    sub_8006978();
-    sub_8008250();
-    sub_8006A7C();
+    SetInitTalkTextFont();
+    ClearTalkText();
+    EndTalk();
 
-    sub_8006A30(2, 15, proc->classReelEnt->descTextId);
+    StartTalkMsg(2, 15, proc->classReelEnt->descTextId);
 
-    sub_8006B10(0);
+    SetTalkPrintColor(0);
 
-    sub_8006AA8(1);
-    sub_8006AA8(2);
-    sub_8006AA8(4);
-    sub_8006AA8(8);
-    sub_8006AA8(0x40);
+    SetTalkFlag(TALK_FLAG_INSTANTSHIFT);
+    SetTalkFlag(TALK_FLAG_NOBUBBLE);
+    SetTalkFlag(TALK_FLAG_NOSKIP);
+    SetTalkFlag(TALK_FLAG_NOFAST);
+    SetTalkFlag(TALK_FLAG_SILENT);
 
-    sub_8006AF0(4);
+    SetTalkPrintDelay(4);
 
     gUnknown_02000000.unk_08 = proc->classReelEnt->paletteId;
     gUnknown_02000000.unk_02 = 0x104;
@@ -1990,30 +1991,30 @@ void ClassInfoDisplay_Init(struct OpInfoClassDisplayProc* proc) {
         lsls r0, r0, #1\n\
         movs r1, #2\n\
         movs r2, #0\n\
-        bl sub_800680C\n\
-        bl sub_8006978\n\
-        bl sub_8008250\n\
-        bl sub_8006A7C\n\
+        bl InitTalk\n\
+        bl SetInitTalkTextFont\n\
+        bl ClearTalkText\n\
+        bl EndTalk\n\
         mov r4, r9\n\
         ldr r0, [r4, #0x34]\n\
         ldr r2, [r0]\n\
         movs r0, #2\n\
         movs r1, #0xF\n\
-        bl sub_8006A30\n\
+        bl StartTalkMsg\n\
         movs r0, #0\n\
-        bl sub_8006B10\n\
+        bl SetTalkPrintColor\n\
         movs r0, #1\n\
-        bl sub_8006AA8\n\
+        bl SetTalkFlag\n\
         movs r0, #2\n\
-        bl sub_8006AA8\n\
+        bl SetTalkFlag\n\
         movs r0, #4\n\
-        bl sub_8006AA8\n\
+        bl SetTalkFlag\n\
         movs r0, #8\n\
-        bl sub_8006AA8\n\
+        bl SetTalkFlag\n\
         movs r0, #0x40\n\
-        bl sub_8006AA8\n\
+        bl SetTalkFlag\n\
         movs r0, #4\n\
-        bl sub_8006AF0\n\
+        bl SetTalkPrintDelay\n\
         ldr r0, _080B3BD4  @ gUnknown_02000000\n\
         ldr r3, [r4, #0x34]\n\
         movs r1, #4\n\
@@ -2313,7 +2314,7 @@ void ClassInfoDisplay_OnEnd(struct OpInfoClassDisplayProc* proc) {
 
     SetPrimaryHBlankHandler(0);
 
-    sub_8006A7C();
+    EndTalk();
     sub_806E920();
     sub_805AE14(&gUnknown_0201DB00);
     sub_806E904();

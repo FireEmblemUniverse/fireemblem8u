@@ -9245,26 +9245,26 @@ sub_8045C68: @ 0x08045C68
 	adds r4, r1, #0
 	adds r5, r2, #0
 	adds r6, r3, #0
-	bl sub_8006978
-	bl sub_8008250
+	bl SetInitTalkTextFont
+	bl ClearTalkText
 	bl Font_ResetAllocation
 	adds r0, r4, #0
 	adds r1, r5, #0
 	mov r2, r8
 	adds r3, r6, #0
-	bl sub_800698C
+	bl StartTalkExt
 	movs r0, #1
-	bl sub_8006B10
+	bl SetTalkPrintColor
 	movs r0, #1
-	bl sub_8006AA8
+	bl SetTalkFlag
 	movs r0, #2
-	bl sub_8006AA8
+	bl SetTalkFlag
 	movs r0, #4
-	bl sub_8006AA8
+	bl SetTalkFlag
 	movs r0, #2
-	bl sub_8006AF0
+	bl SetTalkPrintDelay
 	movs r0, #1
-	bl sub_8007838
+	bl SetActiveTalkFace
 	pop {r3}
 	mov r8, r3
 	pop {r4, r5, r6}
@@ -14091,7 +14091,7 @@ sub_8048418: @ 0x08048418
 	push {r4, r5, lr}
 	sub sp, #4
 	adds r5, r0, #0
-	bl GetDialoguePromptResult
+	bl GetTalkChoiceResult
 	cmp r0, #1
 	bne _08048430
 	ldr r1, _0804842C  @ gUnknown_0203DD8C
@@ -20651,7 +20651,7 @@ sub_804B6B8: @ 0x0804B6B8
 	THUMB_FUNC_START sub_804B6CC
 sub_804B6CC: @ 0x0804B6CC
 	push {lr}
-	bl GetDialoguePromptResult
+	bl GetTalkChoiceResult
 	adds r1, r0, #0
 	cmp r1, #1
 	bne _0804B6E4

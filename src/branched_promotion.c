@@ -21,6 +21,7 @@
 #include "hardware.h"
 #include "mu.h"
 #include "proc.h"
+#include "scene.h"
 #include "soundwrapper.h"
 #include "uimenu.h"
 #include "uiutils.h"
@@ -353,16 +354,16 @@ void sub_80CCA14(struct PromoProc2 *proc) {
 }
 
 void ChangeClassDescription(u32 a) {
-    sub_8006978();
-    sub_8008250();
-    sub_8006A30(2, 0xf, a);
-    sub_8006B10(0);
-    sub_8006AA8(1);
-    sub_8006AA8(2);
-    sub_8006AA8(4);
-    sub_8006AA8(8);
-    sub_8006AA8(0x40);
-    sub_8006AF0(4);
+    SetInitTalkTextFont();
+    ClearTalkText();
+    StartTalkMsg(2, 0xf, a);
+    SetTalkPrintColor(0);
+    SetTalkFlag(TALK_FLAG_INSTANTSHIFT);
+    SetTalkFlag(TALK_FLAG_NOBUBBLE);
+    SetTalkFlag(TALK_FLAG_NOSKIP);
+    SetTalkFlag(TALK_FLAG_NOFAST);
+    SetTalkFlag(TALK_FLAG_SILENT);
+    SetTalkPrintDelay(4);
 }
 
 void LoadClassReelFontPalette(struct PromoProc3 *proc, s32 b) {
@@ -649,10 +650,10 @@ void sub_80CCF60(struct PromoProc3 *proc) {
     Font_ResetAllocation();
     Font_InitForUIDefault();
     BG_EnableSyncByMask(0xf);
-    sub_800680C(0x100, 2, 0);
+    InitTalk(0x100, 2, 0);
     x = proc->u38[proc->u41];
     ChangeClassDescription(x);
-    sub_8006AF0(-1);
+    SetTalkPrintDelay(-1);
     gLCDControlBuffer.bg0cnt.priority = 0;
     gLCDControlBuffer.bg1cnt.priority = 2;
     gLCDControlBuffer.bg2cnt.priority = 1;
@@ -1107,7 +1108,7 @@ void sub_80CD6B0(struct PromoProc4 *proc) {
     gLCDControlBuffer.dispcnt.bg2_on = 0;
     gLCDControlBuffer.dispcnt.bg3_on = 1;
     gLCDControlBuffer.dispcnt.obj_on = 1;
-    sub_800680C(0x200, 3, 1);
+    InitTalk(0x200, 3, 1);
     SetSpecialColorEffectsParameters(1, 14, 8, 0);
     SetBlendTargetA(0, 0, 0, 0, 0);
     SetBlendTargetB(0, 0, 0, 1, 0);
@@ -1159,7 +1160,7 @@ void sub_80CD7FC(struct PromoProc4 *proc) {
         i = 0;
         break;
     }
-    sub_8007938(proc->u2e, 0xd4, 0x50, 0x82, 0);
+    StartTalkFace(proc->u2e, 0xd4, 0x50, 0x82, 0);
 
     negative_one = -1;
     sub_808F128(0x16, 0x12, 0x12, 4, locals.a[i], 0x06011800, negative_one, 0);
@@ -1584,7 +1585,7 @@ int PromotionCommand_OnChange(struct MenuProc *a, struct MenuItemProc *b) {
     gparent->u40 = 1;
     gparent->u41 = b->itemNumber;
     ChangeClassDescription(gparent->u38[gparent->u41]);
-    sub_8006AF0(-1);
+    SetTalkPrintDelay(-1);
 }
 
 extern struct ProcCmd gUnknown_08B12A08[];

@@ -1704,7 +1704,7 @@ Event1A_TEXTSTART: @ 0x0800E188
 	beq _0800E1C8
 	cmp r5, #5
 	beq _0800E1C8
-	bl sub_8006A7C
+	bl EndTalk
 	bl sub_808F270
 	bl sub_808BB74
 	adds r0, r4, #0
@@ -1770,7 +1770,7 @@ sub_800E210: @ 0x0800E210
 	movs r0, #0x80
 	movs r1, #2
 	movs r2, #1
-	bl sub_800680C
+	bl InitTalk
 _0800E22A:
 	ldrh r1, [r4, #0x3c]
 	movs r0, #0x40
@@ -1803,14 +1803,14 @@ _0800E260:
 	movs r0, #1
 	movs r1, #1
 	adds r2, r5, #0
-	bl sub_8006A30
+	bl StartTalkMsg
 	ldrh r1, [r4, #0x3c]
 	movs r0, #0x20
 	ands r0, r1
 	cmp r0, #0
 	beq _0800E27A
 	movs r0, #4
-	bl sub_8006AA8
+	bl SetTalkFlag
 _0800E27A:
 	ldrh r1, [r4, #0x3c]
 	movs r0, #0x40
@@ -1818,7 +1818,7 @@ _0800E27A:
 	cmp r0, #0
 	beq _0800E28A
 	movs r0, #8
-	bl sub_8006AA8
+	bl SetTalkFlag
 _0800E28A:
 	pop {r4, r5}
 	pop {r0}
@@ -1866,7 +1866,7 @@ _0800E2BA:
 	movs r0, #0x80
 	movs r1, #0
 	movs r2, #1
-	bl sub_800680C
+	bl InitTalk
 	movs r0, #1
 	bl BG_EnableSyncByMask
 	str r5, [sp]
@@ -2126,7 +2126,7 @@ _0800E4DE:
 	ldr r1, _0800E510  @ 0x0000FFF7
 	ands r1, r0
 	strh r1, [r4, #0x3c]
-	bl sub_8006A7C
+	bl EndTalk
 	bl sub_808F270
 	bl sub_808BB74
 	adds r0, r4, #0
@@ -2164,7 +2164,7 @@ Event1C_TEXTCONT: @ 0x0800E51C
 	ands r0, r1
 	cmp r0, #0
 	beq _0800E554
-	bl sub_8006A7C
+	bl EndTalk
 	bl sub_808F270
 	bl sub_808BB74
 	adds r0, r4, #0
@@ -2181,7 +2181,7 @@ _0800E54C:
 	bl sub_800E640
 	b _0800E558
 _0800E554:
-	bl sub_8006EF0
+	bl ResumeTalk
 _0800E558:
 	movs r0, #2
 	pop {r4}
@@ -2200,7 +2200,7 @@ Event1D_TEXTEND: @ 0x0800E560
 	ands r0, r1
 	cmp r0, #0
 	beq _0800E5A0
-	bl sub_8006A7C
+	bl EndTalk
 	bl sub_808F270
 	bl sub_808BB74
 	adds r0, r4, #0
@@ -2222,11 +2222,11 @@ _0800E590:
 _0800E59C: .4byte gEventSlots
 _0800E5A0:
 	movs r5, #0
-	bl sub_80089D0
+	bl IsTalkActive
 	lsls r0, r0, #0x18
 	cmp r0, #0
 	beq _0800E5B6
-	bl sub_8006ED8
+	bl IsTalkLocked
 	lsls r0, r0, #0x18
 	cmp r0, #0
 	beq _0800E5CA
@@ -2269,7 +2269,7 @@ _0800E5F8:
 	.align 2, 0
 _0800E5FC: .4byte gUnknown_08A016E0
 _0800E600:
-	bl GetDialoguePromptResult
+	bl GetTalkChoiceResult
 	ldr r1, _0800E638  @ gEventSlots
 _0800E606:
 	str r0, [r1, #0x30]
@@ -2314,7 +2314,7 @@ sub_800E640: @ 0x0800E640
 	ands r0, r1
 	cmp r0, #0
 	beq _0800E668
-	bl sub_80081A8
+	bl ClearTalkBubble
 	ldr r0, _0800E664  @ gProcScr_E_FACE
 	bl Proc_EndEach
 	bl ResetFaces
@@ -2323,11 +2323,11 @@ sub_800E640: @ 0x0800E640
 	.align 2, 0
 _0800E664: .4byte gProcScr_E_FACE
 _0800E668:
-	bl Face6CExists
+	bl FaceExists
 	lsls r0, r0, #0x18
 	cmp r0, #0
 	beq _0800E686
-	bl sub_80081A8
+	bl ClearTalkBubble
 	ldr r0, _0800E68C  @ gProcScr_E_FACE
 	ldr r1, _0800E690  @ StartFaceFadeOut
 	bl Proc_ForEach
@@ -2349,7 +2349,7 @@ _0800E694: .4byte gUnknown_08591DE8
 _WhileFace6CExists: @ 0x0800E698
 	push {r4, lr}
 	adds r4, r0, #0
-	bl Face6CExists
+	bl FaceExists
 	lsls r0, r0, #0x18
 	cmp r0, #0
 	bne _0800E6AC
@@ -2409,7 +2409,7 @@ _0800E6D4:
 	movs r0, #0x80
 	movs r1, #2
 	movs r2, #1
-	bl sub_800680C
+	bl InitTalk
 	b _0800E766
 	.align 2, 0
 _0800E714: .4byte gEventSlots
@@ -2425,12 +2425,12 @@ _0800E71C:
 	movs r0, #1
 	strb r0, [r1, #2]
 	strb r2, [r1, #3]
-	bl sub_80081A8
+	bl ClearTalkBubble
 	b _0800E766
 	.align 2, 0
 _0800E738: .4byte gUnknown_03000428
 _0800E73C:
-	bl sub_8006A7C
+	bl EndTalk
 	bl sub_808F270
 	bl sub_808BB74
 	adds r0, r4, #0
@@ -2451,7 +2451,7 @@ _0800E766:
 	ldr r2, _0800E778  @ gUnknown_03000428
 	movs r0, #0
 	movs r1, #0
-	bl sub_8006A70
+	bl StartTalk
 _0800E770:
 	movs r0, #0
 _0800E772:
@@ -2492,7 +2492,7 @@ Event1F_: @ 0x0800E77C
 	strb r3, [r2, #3]
 	movs r0, #0
 	movs r1, #0
-	bl sub_8006A70
+	bl StartTalk
 _0800E7B6:
 	movs r0, #0
 	pop {r4}
@@ -2506,7 +2506,7 @@ _0800E7C0: .4byte gUnknown_03000430
 	THUMB_FUNC_START Event20_
 Event20_: @ 0x0800E7C4
 	push {lr}
-	bl sub_80081A8
+	bl ClearTalkBubble
 	movs r0, #0
 	pop {r1}
 	bx r1
@@ -3637,7 +3637,7 @@ Event22_: @ 0x0800F0C8
 	bl BG_EnableSyncByMask
 	movs r0, #2
 	bl BG_EnableSyncByMask
-	bl sub_80081A8
+	bl ClearTalkBubble
 	ldr r0, _0800F120  @ gProcScr_E_FACE
 	bl Proc_EndEach
 	bl ResetFaces

@@ -664,7 +664,7 @@ DEBUGONLY_Startup: @ 0x0801C090
 	movs r1, #0
 	bl SetupDebugFontForBG
 	ldr r0, _0801C0E8  @ gUnknown_080D7A7C
-	bl sub_8008A24
+	bl SetTalkUnkStr
 	ldr r0, _0801C0EC  @ gDebugContinueMenuDef
 	bl StartOrphanMenu
 	ldr r4, _0801C0F0  @ gGameState

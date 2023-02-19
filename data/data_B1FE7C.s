@@ -10253,7 +10253,7 @@ gUnknown_08B1FE7C:  @ 0x08B1FE7C
     .4byte 0x00000000
     .4byte 0x00000000
     .4byte 0x00000000
-    .4byte gUnknown_085913F0
+    .4byte gProcScr_TalkWaitForInput
     .4byte 0x00000000
     .4byte 0x00000000
     .4byte 0x00000000

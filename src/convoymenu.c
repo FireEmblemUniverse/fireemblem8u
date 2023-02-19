@@ -13,7 +13,7 @@
 #include "hardware.h"
 #include "popup.h"
 #include "face.h"
-
+#include "scene.h"
 
 struct ProcCmd CONST_DATA gProcCmd_ConvoyMenu[] = {
     PROC_CALL_2(ConvoyMenuProc_StarMenu),
@@ -107,7 +107,7 @@ void HandleNewItemGetFromDrop(struct Unit* unit, int item, ProcPtr proc)
         /* Your inventory is full. Select an item to discard. */
         StartSubtitleHelp(proc, GetStringFromIndex(0x866));
 
-    sub_8008A0C(2);
+    SetTalkChoiceResult(2);
     Proc_StartBlocking(gProcCmd_ConvoyMenu, proc);
 }
 
@@ -165,7 +165,7 @@ u8 SendToConvoyMenu_Selected2(struct MenuProc* proc_menu, struct MenuItemProc* p
 
 u8 SendToConvoyMenu_Idle(struct MenuProc* proc_menu, struct MenuItemProc* proc_cmd)
 {
-    if (1 != GetDialoguePromptResult())
+    if (1 != GetTalkChoiceResult())
         return 0;
 
     gKeyStatusPtr->newKeys = 0;
