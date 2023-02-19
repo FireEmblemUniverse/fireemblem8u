@@ -87,7 +87,7 @@ int sub_800D208(void);
 void CallRetreatPromptEvent(void);
 void CallSuspendPromptEvent(void);
 void CallGameOverEvent(void);
-// ??? sub_800D3E4(???);
+void sub_800D3E4(void);
 // ??? EventEngine_StartSkip(???);
 // ??? sub_800D488(???);
 // ??? SetEventTriggerState(???);

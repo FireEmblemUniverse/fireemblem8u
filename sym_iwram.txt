@@ -14,7 +14,7 @@
 . = 0x000030; gUnknown_03000030 = .;
 . = 0x000040;
 . = ALIGN(4); src/soundwrapper.o(.bss);
-. = ALIGN(4); src/data_scene.o(.bss);
+. = ALIGN(4); src/scene.o(.bss);
 . = 0x0000D0; gUnknown_030000D0 = .;
 . = 0x0000D8; gUnknown_030000D8 = .;
 . = 0x0000E8; gUnknown_030000E8 = .;

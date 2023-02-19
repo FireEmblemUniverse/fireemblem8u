@@ -643,8 +643,6 @@ void SetupPromotionScreen(struct PromoProc3* proc) {
     }
 }
 
-void sub_800680C(u16, u8, u8);
-
 void sub_80CCF60(struct PromoProc3 *proc) {
     s16 x;
     u16 tmp;
