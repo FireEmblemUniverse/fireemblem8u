@@ -536,3 +536,68 @@ void StartWorldMapSellScreen(struct Unit* unit, ProcPtr parent) {
 
     return;
 }
+
+// TODO: Below sprite data is used in "prep_itemlist.s" and "prep_itemsupply.s"
+
+u16 CONST_DATA gSprite_08A195B0[] = {
+    1,
+    0x0000, 0x4000, 0x0406,
+};
+
+u16 CONST_DATA gSprite_08A195B8[] = {
+    1,
+    0x0000, 0x4000, 0x0408,
+};
+
+u16 CONST_DATA gSprite_08A195C0[] = {
+    1,
+    0x0000, 0x4000, 0x040A,
+};
+
+u16 CONST_DATA gSprite_08A195C8[] = {
+    1,
+    0x0000, 0x4000, 0x040C,
+};
+
+u16 CONST_DATA gSprite_08A195D0[] = {
+    1,
+    0x0000, 0x4000, 0x040E,
+};
+
+u16 CONST_DATA gSprite_08A195D8[] = {
+    1,
+    0x0000, 0x4000, 0x0410,
+};
+
+u16 CONST_DATA gSprite_08A195E0[] = {
+    1,
+    0x0000, 0x4000, 0x0412,
+};
+
+u16 CONST_DATA gSprite_08A195E8[] = {
+    1,
+    0x0000, 0x4000, 0x0414,
+};
+
+u16 CONST_DATA gSprite_08A195F0[] = {
+    1,
+    0x0000, 0x4000, 0x0416,
+};
+
+u16 CONST_DATA gUnknown_08A195F8[] = {
+    2,
+    0x4000, 0x8000, 0x0400,
+    0x4010, 0x0000, 0x0404,
+};
+
+u16* CONST_DATA gUnknown_08A19608[] = {
+    gSprite_08A195B0,
+    gSprite_08A195B8,
+    gSprite_08A195C0,
+    gSprite_08A195C8,
+    gSprite_08A195D0,
+    gSprite_08A195D8,
+    gSprite_08A195E0,
+    gSprite_08A195E8,
+    gSprite_08A195F0,
+};

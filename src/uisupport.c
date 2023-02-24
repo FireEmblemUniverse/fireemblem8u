@@ -18,13 +18,10 @@
 struct SupportScreenUnit {
     /* 00 */ u8 charId;
     /* 01 */ u8 classId;
-    /* 02 */ u8 supportLevel[7];
-    /* 09 */ u8 partnerClassId[7];
-    /* 10 */ s8 partnerIsAlive[7];
+    /* 02 */ u8 supportLevel[UNIT_SUPPORT_MAX_COUNT];
+    /* 09 */ u8 partnerClassId[UNIT_SUPPORT_MAX_COUNT];
+    /* 10 */ s8 partnerIsAlive[UNIT_SUPPORT_MAX_COUNT];
 };
-
-extern struct SupportScreenUnit* gUnknown_08A196FC;
-// 0200F17C
 
 struct SupportScreenProc {
     /* 00 */ PROC_HEADER;
@@ -40,8 +37,24 @@ struct SupportScreenProc {
     /* 43 */ s8 unk_43;
 };
 
-extern u16 gUnknown_08A19700[];
-extern u16 gUnknown_08A19726[];
+struct SupportScreenUnit* CONST_DATA gUnknown_08A196FC = (void*)gStringBufferAlt;
+
+u16 CONST_DATA gUnknown_08A19700[] = {
+    6,
+    0x4004, 0x8000, 0x0000,
+    0x4004, 0x8020, 0x0004,
+    0x4004, 0x8040, 0x0008,
+    0x4014, 0x4000, 0x000C,
+    0x4014, 0x4020, 0x0010,
+    0x4014, 0x4040, 0x0014,
+};
+
+u16 CONST_DATA gUnknown_08A19726[] = {
+    3,
+    0x4000, 0xC000, 0x0000,
+    0x0000, 0x8040, 0x0008,
+    0x8000, 0x8060, 0x000C,
+};
 
 extern u8 gUnknown_08A1DB80[];
 
@@ -314,7 +327,7 @@ int sub_80A0F6C(s8 flag, int unk) {
     if (flag != 0) {
         int var = sub_80A0F30(unk);
 
-        if (var == 5) {
+        if (var == MAX_SIMULTANEOUS_SUPPORT_COUNT) {
             return 2;
         }
 
@@ -359,7 +372,7 @@ void sub_80A0FE8(void) {
     Text_Init(th + 0, 9);
     Text_Clear(th - 1);
 
-    str = GetStringFromIndex(0x000005AD);
+    str = GetStringFromIndex(0x5AD); // TODO: msgid "Select Character"
     Text_InsertString(th - 1, (s16)GetStringTextCenteredPos(128, str), 0, str);
 
     Text_Draw(th - 1, gUnknown_02023136);
@@ -369,7 +382,7 @@ void sub_80A0FE8(void) {
         th + 0,
         0,
         perc == 100 ? 4 : 0,
-        GetStringFromIndex(0x000005AA)
+        GetStringFromIndex(0x5AA) // TODO: msgid "Success[.]"
     );
 
     Text_SetXCursor(th + 0, 52);
@@ -380,7 +393,7 @@ void sub_80A0FE8(void) {
         th + 0,
         60,
         perc == 100 ? 4 : 0,
-        GetStringFromIndex(0x000005AE)
+        GetStringFromIndex(0x5AE) // TODO: msgid "%[.]"
     );
 
     Text_Draw(th + 0, gUnknown_02023136 - 500);
@@ -417,7 +430,13 @@ void sub_80A10FC(struct SupportScreenProc* proc) {
     return;
 }
 
-extern struct ProcCmd gUnknown_08A1973C[];
+struct ProcCmd CONST_DATA gUnknown_08A1973C[] = {
+    PROC_SLEEP(0),
+    PROC_CALL(sub_80A10D0),
+    PROC_REPEAT(sub_80A10FC),
+
+    PROC_END,
+};
 
 //! FE8U = 0x080A1140
 void sub_80A1140(int a, int b, int c, ProcPtr parent) {
@@ -783,7 +802,54 @@ void sub_80A1930(struct SupportScreenProc* proc) {
     return;
 }
 
-extern struct ProcCmd gUnknown_08A1975C[];
+struct ProcCmd CONST_DATA gUnknown_08A1975C[] = {
+    PROC_SLEEP(0),
+
+    PROC_CALL(sub_80A0C40),
+    PROC_CALL(sub_80A10BC),
+
+    PROC_SLEEP(0),
+
+PROC_LABEL(0),
+    PROC_CALL(sub_80A1270),
+    PROC_WHILE(IsMusicProc2Running),
+
+    PROC_CALL(sub_8013D8C),
+    PROC_REPEAT(WaitForFade),
+
+    PROC_WHILE(MusicProc4Exists),
+
+    // fallthrough
+
+PROC_LABEL(1),
+    PROC_CALL(sub_80A157C),
+    PROC_REPEAT(sub_80A15B0),
+
+    PROC_GOTO(1),
+
+PROC_LABEL(2),
+    PROC_CALL_ARG(NewFadeOut, 8),
+    PROC_WHILE(FadeOutExists),
+
+    PROC_CALL(sub_80A1554),
+
+    PROC_CALL(sub_80A1918),
+    PROC_SLEEP(0),
+
+    PROC_GOTO(0),
+
+PROC_LABEL(3),
+    PROC_CALL(sub_80A1930),
+
+    PROC_CALL(StartFadeInBlackMedium),
+    PROC_REPEAT(WaitForFade),
+
+    PROC_CALL(sub_80A1554),
+
+    PROC_WHILE(IsMusicProc2Running),
+
+    PROC_END,
+};
 
 //! FE8U = 0x080A196C
 void sub_80A196C(ProcPtr parent) {
@@ -798,5 +864,3 @@ void StartSupportScreen(ProcPtr parent) {
     proc->unk_42 = 0;
     return;
 }
-
-

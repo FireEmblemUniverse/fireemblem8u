@@ -27,8 +27,68 @@ extern u16 gUnknown_02022F28[];
 
 extern struct TextHandle gUnknown_02013498[];
 
-extern int gUnknown_08A196BC[];
-extern int gUnknown_08A196D0[];
+void sub_80A0758(void);
+void sub_80A0900(ProcPtr);
+void sub_80A0924(struct PrepProcA1962C*);
+void sub_80A196C(ProcPtr);
+
+struct ProcCmd CONST_DATA gUnknown_08A1962C[] = {
+    PROC_SLEEP(0),
+
+    PROC_CALL(sub_80A0758),
+
+PROC_LABEL(0),
+    PROC_CALL(sub_80A0924),
+
+    // fallthrough
+
+PROC_LABEL(1),
+PROC_LABEL(2),
+    PROC_CALL(sub_80A0900),
+
+    PROC_GOTO(5),
+
+PROC_LABEL(3),
+    PROC_CALL(sub_80A0900),
+
+    PROC_GOTO(5),
+
+PROC_LABEL(4),
+    PROC_CALL(sub_80A0900),
+    PROC_CALL(sub_80A196C),
+
+    PROC_SLEEP(0),
+
+    PROC_GOTO(5),
+
+PROC_LABEL(5),
+    PROC_END,
+};
+
+int CONST_DATA gUnknown_08A196BC[] = {
+    0x586, // TODO: msgid "Rank"
+    0x587, // TODO: msgid "Tactician"
+    0x588, // TODO: msgid "Augury"
+    0x577, // TODO: msgid "Support"
+    0x589, // TODO: msgid "Augury Menu"
+};
+
+int CONST_DATA gUnknown_08A196D0[] = {
+    0x586, // TODO: msgid "Rank"
+    0x587, // TODO: msgid "Tactician"
+    0x588, // TODO: msgid "Augury"
+    0x577, // TODO: msgid "Support"
+    0x589, // TODO: msgid "Augury Menu"
+};
+
+int CONST_DATA gUnused_08A196E4[] = {
+    0x58A, // TODO: msgid "Tactics"
+    0x58B, // TODO: msgid "Survival"
+    0x58C, // TODO: msgid "Funds"
+    0x58D, // TODO: msgid "Exp"
+    0x58E, // TODO: msgid "Combat"
+    0x58F, // TODO: msgid "Objective"
+};
 
 //! FE8U = 0x080A0724
 void sub_80A0724(struct PrepProcA1962C* proc) {
@@ -147,8 +207,6 @@ void sub_80A0924(struct PrepProcA1962C* proc) {
             return;
     }
 }
-
-extern struct ProcCmd gUnknown_08A1962C[];
 
 //! FE8U = 0x080A0944
 void StartPrepSupportScreen(int a, ProcPtr parent) {
