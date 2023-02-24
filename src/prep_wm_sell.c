@@ -536,22 +536,3 @@ void StartWorldMapSellScreen(struct Unit* unit, ProcPtr parent) {
 
     return;
 }
-
-// TODO: This is probably part of a different file / proc
-
-//! FE8U = 0x080A0724
-void sub_80A0724(struct WmSellProc* proc) {
-    sub_808F128(10, 7, 17, 4, (int)proc->unit, 0x06011000, -1, 0);
-    sub_808E9D8(0x7c);
-    return;
-}
-
-//! FE8U = 0x080A0758
-void sub_80A0758(void) {
-    return;
-}
-
-//! FE8U = 0x080A075C
-void __malloc_unlock_2(void) {
-    return;
-}

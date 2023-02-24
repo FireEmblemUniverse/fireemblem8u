@@ -31,7 +31,7 @@ void ResetUnitSpriteHover(void);
 void UnitSpriteHoverUpdate(void);
 s8 IsUnitSpriteHoverEnabledAt(int, int);
 void PutUnitSprite(int, int, int, struct Unit*);
-// ??? PutUnitSpriteForClassId(???);
+void PutUnitSpriteForClassId(int layer, int x, int y, u16 oam2, int class);
 // ??? sub_8027CFC(???);
 void sub_8027DB4(int layer, int x, int y, u16 oam2base, int classId, int id);
 void sub_8027E4C(int layer, int x, int y, int oam2, struct Unit* unit);
