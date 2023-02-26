@@ -25110,10 +25110,10 @@ _0804D808: .4byte gUnknown_085AABD8
 	THUMB_FUNC_START sub_804D80C
 sub_804D80C: @ 0x0804D80C
 	push {lr}
-	ldr r0, _0804D828  @ gUnknown_08A1DD0C
+	ldr r0, _0804D828  @ gGfx_SupportMenu
 	ldr r1, _0804D82C  @ 0x06016800
 	bl CopyDataWithPossibleUncomp
-	ldr r0, _0804D830  @ gUnknown_08A1E0D8
+	ldr r0, _0804D830  @ gPal_SupportMenu
 	movs r1, #0x90
 	lsls r1, r1, #2
 	movs r2, #0x20
@@ -25121,9 +25121,9 @@ sub_804D80C: @ 0x0804D80C
 	pop {r0}
 	bx r0
 	.align 2, 0
-_0804D828: .4byte gUnknown_08A1DD0C
+_0804D828: .4byte gGfx_SupportMenu
 _0804D82C: .4byte 0x06016800
-_0804D830: .4byte gUnknown_08A1E0D8
+_0804D830: .4byte gPal_SupportMenu
 
 	THUMB_FUNC_END sub_804D80C
 

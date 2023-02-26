@@ -203,8 +203,8 @@ gUnknown_08A1A474:  @ 0x08A1A474
 gUnknown_08A1A4C8:  @ 0x08A1A4C8
 	.incbin "baserom.gba", 0xA1A4C8, 0x41C
 
-	.global gUnknown_08A1A8E4
-gUnknown_08A1A8E4:  @ 0x08A1A8E4
+	.global gGfx_SupportScreenBanner
+gGfx_SupportScreenBanner:  @ 0x08A1A8E4
 	.incbin "baserom.gba", 0xA1A8E4, 0x3A4
 
 	.global gUnknown_08A1AC88
@@ -219,8 +219,8 @@ gUnknown_08A1B0D8:  @ 0x08A1B0D8
 gUnknown_08A1B154:  @ 0x08A1B154
 	.incbin "baserom.gba", 0xA1B154, 0x20
 
-	.global gUnknown_08A1B174
-gUnknown_08A1B174:  @ 0x08A1B174
+	.global gPal_SupportScreenBanner
+gPal_SupportScreenBanner:  @ 0x08A1B174
 	.incbin "baserom.gba", 0xA1B174, 0x20
 
 	.global gUnknown_08A1B194
@@ -351,12 +351,12 @@ gUnknown_08A1DB80:  @ 0x08A1DB80
 gUnknown_08A1DC1C:  @ 0x08A1DC1C
 	.incbin "baserom.gba", 0xA1DC1C, 0xF0
 
-	.global gUnknown_08A1DD0C
-gUnknown_08A1DD0C:  @ 0x08A1DD0C
+	.global gGfx_SupportMenu
+gGfx_SupportMenu:  @ 0x08A1DD0C
 	.incbin "baserom.gba", 0xA1DD0C, 0x3CC
 
-	.global gUnknown_08A1E0D8
-gUnknown_08A1E0D8:  @ 0x08A1E0D8
+	.global gPal_SupportMenu
+gPal_SupportMenu:  @ 0x08A1E0D8
 @ Replacing .incbin "baserom.gba", 0xA1E0D8, 0x1A1C
     .4byte 0x14c7520e
     .4byte 0x2d2628e4

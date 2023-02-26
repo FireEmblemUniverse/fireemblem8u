@@ -27,35 +27,35 @@ extern u16 gUnknown_02022F28[];
 
 extern struct TextHandle gUnknown_02013498[];
 
-void sub_80A0758(void);
-void sub_80A0900(ProcPtr);
-void sub_80A0924(struct PrepProcA1962C*);
-void sub_80A196C(ProcPtr);
+void FortuneSubMenu_Init_Null(void);
+void FortuneSubMenu_OnOptionSelected(ProcPtr);
+void FortuneSubMenu_HandleOptionSwitch(struct PrepProcA1962C*);
+void StartSupportScreenFromPrepScreen(ProcPtr);
 
-struct ProcCmd CONST_DATA gUnknown_08A1962C[] = {
+struct ProcCmd CONST_DATA gProcScr_FortuneSubMenu[] = {
     PROC_SLEEP(0),
 
-    PROC_CALL(sub_80A0758),
+    PROC_CALL(FortuneSubMenu_Init_Null),
 
 PROC_LABEL(0),
-    PROC_CALL(sub_80A0924),
+    PROC_CALL(FortuneSubMenu_HandleOptionSwitch),
 
     // fallthrough
 
 PROC_LABEL(1),
 PROC_LABEL(2),
-    PROC_CALL(sub_80A0900),
+    PROC_CALL(FortuneSubMenu_OnOptionSelected),
 
     PROC_GOTO(5),
 
 PROC_LABEL(3),
-    PROC_CALL(sub_80A0900),
+    PROC_CALL(FortuneSubMenu_OnOptionSelected),
 
     PROC_GOTO(5),
 
 PROC_LABEL(4),
-    PROC_CALL(sub_80A0900),
-    PROC_CALL(sub_80A196C),
+    PROC_CALL(FortuneSubMenu_OnOptionSelected),
+    PROC_CALL(StartSupportScreenFromPrepScreen),
 
     PROC_SLEEP(0),
 
@@ -98,7 +98,7 @@ void sub_80A0724(struct PrepProcA1962C* proc) {
 }
 
 //! FE8U = 0x080A0758
-void sub_80A0758(void) {
+void FortuneSubMenu_Init_Null(void) {
     return;
 }
 
@@ -108,7 +108,7 @@ void __malloc_unlock_2(void) {
 }
 
 //! FE8U = 0x080A0760
-void sub_80A0760(struct PrepProcA1962C* proc) {
+void FortuneSubMenu_Unused_SetAvailableOptions(struct PrepProcA1962C* proc) {
     proc->unk_30[0] = 1;
     proc->unk_30[1] = sub_80A0A34();
     proc->unk_30[2] = sub_80A0A70();
@@ -117,7 +117,7 @@ void sub_80A0760(struct PrepProcA1962C* proc) {
 }
 
 //! FE8U = 0x080A078C
-void sub_80A078C(struct PrepProcA1962C* proc) {
+void FortuneSubMenu_Unused_SetupText(struct PrepProcA1962C* proc) {
     int i;
 
     struct TextHandle* th = gUnknown_02013498;
@@ -157,7 +157,7 @@ void sub_80A078C(struct PrepProcA1962C* proc) {
 }
 
 //! FE8U = 0x080A0860
-s8 sub_80A0860(struct PrepProcA1962C* proc) {
+s8 FortuneSubMenu_Unused_KeyHandler(struct PrepProcA1962C* proc) {
     int previous = proc->unk_29;
 
     if ((gKeyStatusPtr->repeatedKeys & DPAD_LEFT) && ((proc->unk_29 % 2) != 0)) {
@@ -185,7 +185,7 @@ s8 sub_80A0860(struct PrepProcA1962C* proc) {
 }
 
 //! FE8U = 0x080A0900
-void sub_80A0900(ProcPtr proc) {
+void FortuneSubMenu_OnOptionSelected(ProcPtr proc) {
     sub_808F270();
     EndAllProcChildren(proc);
     EndBG3Slider_();
@@ -195,7 +195,7 @@ void sub_80A0900(ProcPtr proc) {
 }
 
 //! FE8U = 0x080A0924
-void sub_80A0924(struct PrepProcA1962C* proc) {
+void FortuneSubMenu_HandleOptionSwitch(struct PrepProcA1962C* proc) {
     switch (proc->unk_29) {
         case 0:
         case 1:
@@ -209,9 +209,9 @@ void sub_80A0924(struct PrepProcA1962C* proc) {
 }
 
 //! FE8U = 0x080A0944
-void StartPrepSupportScreen(int a, ProcPtr parent) {
-    struct PrepProcA1962C* proc = Proc_StartBlocking(gUnknown_08A1962C, parent);
-    proc->unk_29 = a;
+void StartFortuneSubMenu(int option, ProcPtr parent) {
+    struct PrepProcA1962C* proc = Proc_StartBlocking(gProcScr_FortuneSubMenu, parent);
+    proc->unk_29 = option;
     return;
 }
 
@@ -230,37 +230,37 @@ int sub_80A095C(int var) {
 }
 
 //! FE8U = 0x080A098C
-int sub_80A098C(void) {
+int GetChapterDivinationTextIdHectorStory(void) {
     return GetROMChapterStruct(gRAMChapterData.chapterIndex)->divinationTextIdInHectorStory;
 }
 
 //! FE8U = 0x080A09A8
-int sub_80A09A8(void) {
+int GetChapterDivinationTextIdBeginning(void) {
     return GetROMChapterStruct(gRAMChapterData.chapterIndex)->divinationTextIdBeginning;
 }
 
 //! FE8U = 0x080A09C4
-int sub_80A09C4(void) {
+int GetChapterDivinationTextIdEnding(void) {
     return GetROMChapterStruct(gRAMChapterData.chapterIndex)->divinationTextIdEnding;
 }
 
 //! FE8U = 0x080A09E0
-int sub_80A09E0(void) {
+int GetChapterDivinationFee(void) {
     return GetROMChapterStruct(gRAMChapterData.chapterIndex)->divinationFee;
 }
 
 //! FE8U = 0x080A09FC
-int sub_80A09FC(void) {
+int GetChapterDivinationPortrait(void) {
     return GetROMChapterStruct(gRAMChapterData.chapterIndex)->divinationPortrait;
 }
 
 //! FE8U = 0x080A0A18
 s8 sub_80A0A18(void) {
-    if (!sub_80A098C()) {
+    if (!GetChapterDivinationTextIdHectorStory()) {
         return 0;
     }
 
-    if (sub_80A09A8()) {
+    if (GetChapterDivinationTextIdBeginning()) {
         return 0;
     }
 
@@ -269,7 +269,7 @@ s8 sub_80A0A18(void) {
 
 //! FE8U = 0x080A0A34
 s8 sub_80A0A34(void) {
-    if ((gRAMChapterData.chapterStateBits & CHAPTER_FLAG_DIFFICULT) || !sub_80A098C()) {
+    if ((gRAMChapterData.chapterStateBits & CHAPTER_FLAG_DIFFICULT) || !GetChapterDivinationTextIdHectorStory()) {
         return 0;
     }
 
@@ -278,7 +278,7 @@ s8 sub_80A0A34(void) {
 
 //! FE8U = 0x080A0A5C
 s8 sub_80A0A5C(void) {
-    if (sub_80A09FC() == 1) {
+    if (GetChapterDivinationPortrait() == 1) {
         return 1;
     }
 

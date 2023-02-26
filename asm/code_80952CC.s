@@ -31,7 +31,7 @@ sub_80A199C: @ 0x080A199C
 _080A19D0:
 	adds r0, r5, #0
 	bl Text_Clear
-	bl sub_80A0A94
+	bl GetSupportScreenUnitCount
 	cmp r6, r0
 	bge _080A1A66
 	adds r0, r7, #0
@@ -82,7 +82,7 @@ _080A1A28:
 	mov r1, r9
 	bl Text_SetColorId
 	adds r0, r6, #0
-	bl sub_80A0B44
+	bl GetSupportScreenCharIdAt
 	subs r0, #1
 	movs r1, #0x34
 	muls r0, r1, r0
@@ -126,7 +126,7 @@ _080A1A8C: .4byte gBG2TilemapBuffer
 sub_80A1A90: @ 0x080A1A90
 	push {r4, lr}
 	adds r4, r0, #0
-	ldr r0, _080A1AA8  @ gUnknown_08A1975C
+	ldr r0, _080A1AA8  @ gProcScr_SupportScreen
 	bl Proc_Find
 	cmp r0, #0
 	beq _080A1AA0
@@ -136,7 +136,7 @@ _080A1AA0:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_080A1AA8: .4byte gUnknown_08A1975C
+_080A1AA8: .4byte gProcScr_SupportScreen
 
 	THUMB_FUNC_END sub_80A1A90
 
@@ -148,13 +148,13 @@ sub_80A1AAC: @ 0x080A1AAC
 	adds r5, r0, #0
 	adds r6, r1, #0
 	mov r8, r2
-	bl sub_80A0B44
+	bl GetSupportScreenCharIdAt
 	adds r4, r0, #0
 	lsls r4, r4, #0x18
 	lsrs r4, r4, #0x18
 	adds r0, r5, #0
 	adds r1, r6, #0
-	bl sub_80A0B20
+	bl GetSupportScreenPartnerCharId
 	adds r2, r0, #0
 	lsls r2, r2, #0x18
 	lsrs r2, r2, #0x18
@@ -292,7 +292,7 @@ sub_80A1B90: @ 0x080A1B90
 	ldr r1, [r6, #0x30]
 	adds r1, #5
 	ands r1, r4
-	ldr r3, _080A1C7C  @ gUnknown_08A19700
+	ldr r3, _080A1C7C  @ gSprite_SupportScreenSuccessBox
 	ldr r0, _080A1C80  @ 0x0000ABC0
 	str r0, [sp]
 	movs r0, #4
@@ -378,7 +378,7 @@ _080A1C6C: .4byte 0x000001FF
 _080A1C70: .4byte gUnknown_08A1983C
 _080A1C74: .4byte gUnknown_08A19850
 _080A1C78: .4byte 0x0000E280
-_080A1C7C: .4byte gUnknown_08A19700
+_080A1C7C: .4byte gSprite_SupportScreenSuccessBox
 _080A1C80: .4byte 0x0000ABC0
 _080A1C84: .4byte gUnknown_08A1985E
 _080A1C88: .4byte gUnknown_08A19872
@@ -467,12 +467,12 @@ _080A1D28:
 	movs r7, #0
 	mov r2, r9
 	ldr r0, [r2, #0x2c]
-	bl sub_80A0B44
+	bl GetSupportScreenCharIdAt
 	str r0, [sp, #0x14]
 	mov r3, r9
 	ldr r0, [r3, #0x2c]
 	mov r1, sl
-	bl sub_80A0B20
+	bl GetSupportScreenPartnerCharId
 	str r0, [sp, #0x18]
 	ldrb r0, [r4]
 	cmp r0, #2
@@ -482,7 +482,7 @@ _080A1D48:
 	mov r4, r9
 	ldr r0, [r4, #0x2c]
 	mov r1, sl
-	bl sub_80A0B20
+	bl GetSupportScreenPartnerCharId
 	subs r0, #1
 	movs r6, #0x34
 	muls r0, r6, r0
@@ -512,7 +512,7 @@ _080A1D48:
 	mov r1, r9
 	ldr r0, [r1, #0x2c]
 	mov r1, sl
-	bl sub_80A0B20
+	bl GetSupportScreenPartnerCharId
 	subs r0, #1
 	muls r0, r6, r0
 	ldr r2, _080A1DD8  @ gCharacterData
@@ -658,7 +658,7 @@ sub_80A1E7C: @ 0x080A1E7C
 	bl Text_80046B4
 	ldr r4, _080A1F5C  @ gCharacterData
 	ldr r0, [r5, #0x2c]
-	bl sub_80A0B44
+	bl GetSupportScreenCharIdAt
 	subs r0, #1
 	movs r1, #0x34
 	muls r0, r1, r0
@@ -761,7 +761,7 @@ sub_80A1F68: @ 0x080A1F68
 _080A1F94:
 	ldr r0, [r6, #0x2c]
 	adds r1, r4, #0
-	bl sub_80A0B20
+	bl GetSupportScreenPartnerCharId
 	adds r7, r0, #0
 	mov r2, sl
 	adds r1, r2, r4
@@ -829,7 +829,7 @@ _080A200A:
 	strb r0, [r5]
 	ldr r0, [r6, #0x2c]
 	adds r1, r4, #0
-	bl sub_80A0B04
+	bl GetSupportScreenPartnerIsAlive
 	lsls r0, r0, #0x18
 	cmp r0, #0
 	beq _080A2034
@@ -837,7 +837,7 @@ _080A200A:
 	strb r0, [r5]
 	ldr r0, [r6, #0x2c]
 	adds r1, r4, #0
-	bl sub_80A0AD4
+	bl GetSupportScreenPartnerSupportLevel
 	ldrb r1, [r7]
 	adds r1, r1, r0
 	strb r1, [r7]
@@ -873,7 +873,7 @@ sub_80A204C: @ 0x080A204C
 _080A2060:
 	ldr r0, [r5, #0x2c]
 	adds r1, r4, #0
-	bl sub_80A0AD4
+	bl GetSupportScreenPartnerSupportLevel
 	adds r1, r7, r4
 	strb r0, [r1]
 	adds r4, #1
@@ -900,7 +900,7 @@ sub_80A207C: @ 0x080A207C
 	cmp r5, #0
 	beq _080A20A2
 	ldr r0, [r4, #0x2c]
-	bl sub_80A0F30
+	bl GetTotalSupportLevel
 	movs r1, #5
 	subs r1, r1, r0
 	adds r0, r4, #0
@@ -909,7 +909,7 @@ sub_80A207C: @ 0x080A207C
 	b _080A20EE
 _080A20A2:
 	ldr r0, [r4, #0x2c]
-	bl sub_80A0B44
+	bl GetSupportScreenCharIdAt
 	mov r9, r0
 	adds r1, r4, #0
 	adds r1, #0x3d
@@ -926,7 +926,7 @@ _080A20A2:
 _080A20C2:
 	ldr r0, [r4, #0x2c]
 	adds r1, r5, #0
-	bl sub_80A0B20
+	bl GetSupportScreenPartnerCharId
 	adds r1, r0, #0
 	mov r0, r9
 	bl sub_80A3468
@@ -939,7 +939,7 @@ _080A20C2:
 	blt _080A20C2
 _080A20E0:
 	ldr r0, [r4, #0x2c]
-	bl sub_80A0F30
+	bl GetTotalSupportLevel
 	mov r2, r8
 	ldrb r1, [r2]
 	subs r1, r1, r0
@@ -964,7 +964,7 @@ sub_80A20FC: @ 0x080A20FC
 _080A2108:
 	ldr r0, [r5, #0x2c]
 	adds r1, r4, #0
-	bl sub_80A0AEC
+	bl GetSupportScreenPartnerClassId
 	adds r1, r5, #0
 	adds r1, #0x4d
 	adds r1, r1, r4
@@ -1025,7 +1025,7 @@ _080A215C:
 	beq _080A21C4
 	ldr r0, [r7, #0x2c]
 	adds r1, r5, #0
-	bl sub_80A0AD4
+	bl GetSupportScreenPartnerSupportLevel
 	cmp r0, #0
 	ble _080A21C4
 	adds r6, r7, #0
@@ -1043,12 +1043,12 @@ _080A215C:
 	ands r4, r1
 	ldr r0, [r7, #0x2c]
 	adds r1, r5, #0
-	bl sub_80A0AD4
+	bl GetSupportScreenPartnerSupportLevel
 	cmp r4, r0
 	blt _080A21C8
 	ldr r0, [r7, #0x2c]
 	adds r1, r5, #0
-	bl sub_80A0AD4
+	bl GetSupportScreenPartnerSupportLevel
 	ldrb r2, [r6]
 	movs r1, #0xfc
 	ands r1, r2
@@ -1082,7 +1082,7 @@ sub_80A21D0: @ 0x080A21D0
 	ands r0, r1
 	strb r0, [r2]
 	ldr r0, [r4, #0x2c]
-	bl sub_80A0B44
+	bl GetSupportScreenCharIdAt
 	bl sub_80A1B6C
 	adds r1, r4, #0
 	adds r1, #0x3c
@@ -1295,7 +1295,7 @@ _080A2340:
 	bl CallARM_FillTileRect
 	ldr r4, _080A242C  @ gCharacterData
 	ldr r0, [r5, #0x2c]
-	bl sub_80A0B44
+	bl GetSupportScreenCharIdAt
 	subs r0, #1
 	movs r1, #0x34
 	muls r0, r1, r0
@@ -1312,10 +1312,10 @@ _080A2340:
 	bl sub_80A20FC
 	adds r0, r5, #0
 	bl sub_80A1E7C
-	ldr r0, _080A2434  @ gUnknown_08A1DD0C
+	ldr r0, _080A2434  @ gGfx_SupportMenu
 	ldr r1, _080A2438  @ 0x06017800
 	bl CopyDataWithPossibleUncomp
-	ldr r0, _080A243C  @ gUnknown_08A1E0D8
+	ldr r0, _080A243C  @ gPal_SupportMenu
 	movs r1, #0xd0
 	lsls r1, r1, #2
 	movs r2, #0x20
@@ -1340,9 +1340,9 @@ _080A2424: .4byte gGenericBuffer
 _080A2428: .4byte gBG1TilemapBuffer
 _080A242C: .4byte gCharacterData
 _080A2430: .4byte gUnknown_02022CEC
-_080A2434: .4byte gUnknown_08A1DD0C
+_080A2434: .4byte gGfx_SupportMenu
 _080A2438: .4byte 0x06017800
-_080A243C: .4byte gUnknown_08A1E0D8
+_080A243C: .4byte gPal_SupportMenu
 _080A2440: .4byte Pal_MapBattleInfoNum
 _080A2444: .4byte sub_80A1B90
 
@@ -1469,7 +1469,7 @@ _080A2516:
 	lsrs r1, r1, #2
 	movs r2, #7
 	ands r1, r2
-	bl sub_80A0AD4
+	bl GetSupportScreenPartnerSupportLevel
 	subs r0, #1
 	cmp r4, r0
 	bge _080A2550
@@ -1618,7 +1618,7 @@ sub_80A25F8: @ 0x080A25F8
 	bl LoadLegacyUiFrameGraphics
 	bl LoadObjUIGfx
 	ldr r0, [r5, #0x2c]
-	bl sub_80A0B44
+	bl GetSupportScreenCharIdAt
 	adds r4, r0, #0
 	lsls r4, r4, #0x18
 	lsrs r4, r4, #0x18
@@ -1628,7 +1628,7 @@ sub_80A25F8: @ 0x080A25F8
 	lsrs r1, r1, #2
 	movs r2, #7
 	ands r1, r2
-	bl sub_80A0B20
+	bl GetSupportScreenPartnerCharId
 	adds r1, r0, #0
 	lsls r1, r1, #0x18
 	lsrs r1, r1, #0x18
@@ -1864,7 +1864,7 @@ sub_80A2800: @ 0x080A2800
 	adds r0, r7, #0
 	bl Proc_Break
 	ldr r0, [r7, #0x2c]
-	bl sub_80A0AA0
+	bl GetNextSupportScreenUnit
 	str r0, [r7, #0x2c]
 _080A2864:
 	pop {r4, r5, r6, r7}
@@ -1975,7 +1975,7 @@ sub_80A28E0: @ 0x080A28E0
 	adds r0, r7, #0
 	bl Proc_Break
 	ldr r0, [r7, #0x2c]
-	bl sub_80A0AC0
+	bl GetPreviousSupportScreenUnit
 	str r0, [r7, #0x2c]
 _080A2944:
 	pop {r4, r5, r6, r7}
@@ -2076,7 +2076,7 @@ sub_80A29C0: @ 0x080A29C0
 	ands r0, r1
 	strb r0, [r2]
 	ldr r0, [r4, #0x2c]
-	bl sub_80A0B44
+	bl GetSupportScreenCharIdAt
 	bl sub_80A1B6C
 	adds r1, r4, #0
 	adds r1, #0x3c
@@ -2102,7 +2102,7 @@ sub_80A29C0: @ 0x080A29C0
 	bl CallARM_FillTileRect
 	ldr r5, _080A2AA8  @ gCharacterData
 	ldr r0, [r4, #0x2c]
-	bl sub_80A0B44
+	bl GetSupportScreenCharIdAt
 	subs r0, #1
 	movs r1, #0x34
 	muls r0, r1, r0
