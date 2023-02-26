@@ -154,7 +154,7 @@ extern struct PrepUnitList gPrepUnitList;
 // extern ??? gUnknown_02013670
 // extern ??? gUnknown_02013698
 // extern ??? gUnknown_020136D8
-// extern ??? gUnknown_020136F0
+// extern ??? sSupportScreenUnitCount
 // extern ??? gUnknown_020136F4
 // extern ??? gUnknown_02013EF4
 // extern ??? gUnknown_020145C8
@@ -3285,14 +3285,9 @@ extern CONST_DATA struct ProcCmd ProcScr_PrepUnitScreen[];
 // extern ??? ProcScr_PrepItemListScreen
 // extern ??? gUnknown_08A195F8
 // extern ??? gUnknown_08A19608
-// extern ??? gUnknown_08A1962C
+// extern ??? gProcScr_FortuneSubMenu
 extern int gUnknown_08A196BC[]; /* msg lists */
 // extern ??? gUnknown_08A196D0
-// extern ??? gUnknown_08A196FC
-// extern ??? gUnknown_08A19700
-// extern ??? gUnknown_08A19726
-// extern ??? gUnknown_08A1973C
-// extern ??? gUnknown_08A1975C
 // extern ??? gUnknown_08A1983C
 // extern ??? gUnknown_08A19850
 // extern ??? gUnknown_08A1985E
@@ -3310,11 +3305,11 @@ extern u8 CONST_DATA gUnknown_08A1A41C[];
 extern u8 CONST_DATA gUnknown_08A1A434[];
 extern u8 CONST_DATA gUnknown_08A1A474[];
 extern u8 CONST_DATA gUnknown_08A1A4C8[];
-// extern ??? gUnknown_08A1A8E4
+// extern ??? gGfx_SupportScreenBanner
 extern u8 CONST_DATA gUnknown_08A1AC88[];
 extern u16 CONST_DATA gUnknown_08A1B0D8[];
 extern u16 CONST_DATA gUnknown_08A1B154[]; // TODO - palette data from sallycursor
-extern u16 CONST_DATA gUnknown_08A1B174[];
+extern u16 CONST_DATA gPal_SupportScreenBanner[];
 extern u16 CONST_DATA gUnknown_08A1B194[];
 // extern ??? gUnknown_08A1B1FC
 // extern ??? gUnknown_08A1B638
@@ -3347,8 +3342,8 @@ extern u16 CONST_DATA Pal_MapBattleInfoNum[]; // 'R is info' palette
 extern u8 Img_PrepWindow[];
 // extern ??? gUnknown_08A1DB80
 // extern ??? gUnknown_08A1DC1C
-// extern ??? gUnknown_08A1DD0C
-// extern ??? gUnknown_08A1E0D8
+// extern ??? gGfx_SupportMenu
+// extern ??? gPal_SupportMenu
 // extern ??? gpSaveDataStart
 // extern ??? gUnknown_08A1FAF8
 // extern ??? gUnknown_08A1FB08

@@ -145,7 +145,7 @@
 . = 0x013670; gUnknown_02013670 = .;
 . = 0x013698; gUnknown_02013698 = .;
 . = 0x0136D8; gUnknown_020136D8 = .;
-. = 0x0136F0; gUnknown_020136F0 = .;
+. = 0x0136F0; sSupportScreenUnitCount = .;
 . = 0x0136F4; gUnknown_020136F4 = .;
 . = 0x013EF4; gUnknown_02013EF4 = .;
 . = 0x0145C8; gUnknown_020145C8 = .;

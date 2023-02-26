@@ -224,13 +224,13 @@ void AtMenu_AddPrepScreenSupportMenuItem(struct ProcAtMenu *proc)
         return;
 
     for (i = 0; i < 4; i++) {
-        if (0 == sub_80A095C(i))
+        if (0 == (s8)sub_80A095C(i))
             continue;
 
         proc->unk_2F |= 1 << i;
     }
 
-    if (0 == sub_80A095C(2))
+    if (0 == (s8)sub_80A095C(2))
         color = 1;
 
     SetPrepScreenMenuItem(4, PrepScreenMenu_OnSupport, color, 0x577, 0);

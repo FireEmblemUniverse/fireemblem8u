@@ -537,21 +537,67 @@ void StartWorldMapSellScreen(struct Unit* unit, ProcPtr parent) {
     return;
 }
 
-// TODO: This is probably part of a different file / proc
+// TODO: Below sprite data is used in "prep_itemlist.s" and "prep_itemsupply.s"
 
-//! FE8U = 0x080A0724
-void sub_80A0724(struct WmSellProc* proc) {
-    sub_808F128(10, 7, 17, 4, (int)proc->unit, 0x06011000, -1, 0);
-    sub_808E9D8(0x7c);
-    return;
-}
+u16 CONST_DATA gSprite_08A195B0[] = {
+    1,
+    0x0000, 0x4000, 0x0406,
+};
 
-//! FE8U = 0x080A0758
-void sub_80A0758(void) {
-    return;
-}
+u16 CONST_DATA gSprite_08A195B8[] = {
+    1,
+    0x0000, 0x4000, 0x0408,
+};
 
-//! FE8U = 0x080A075C
-void __malloc_unlock_2(void) {
-    return;
-}
+u16 CONST_DATA gSprite_08A195C0[] = {
+    1,
+    0x0000, 0x4000, 0x040A,
+};
+
+u16 CONST_DATA gSprite_08A195C8[] = {
+    1,
+    0x0000, 0x4000, 0x040C,
+};
+
+u16 CONST_DATA gSprite_08A195D0[] = {
+    1,
+    0x0000, 0x4000, 0x040E,
+};
+
+u16 CONST_DATA gSprite_08A195D8[] = {
+    1,
+    0x0000, 0x4000, 0x0410,
+};
+
+u16 CONST_DATA gSprite_08A195E0[] = {
+    1,
+    0x0000, 0x4000, 0x0412,
+};
+
+u16 CONST_DATA gSprite_08A195E8[] = {
+    1,
+    0x0000, 0x4000, 0x0414,
+};
+
+u16 CONST_DATA gSprite_08A195F0[] = {
+    1,
+    0x0000, 0x4000, 0x0416,
+};
+
+u16 CONST_DATA gUnknown_08A195F8[] = {
+    2,
+    0x4000, 0x8000, 0x0400,
+    0x4010, 0x0000, 0x0404,
+};
+
+u16* CONST_DATA gUnknown_08A19608[] = {
+    gSprite_08A195B0,
+    gSprite_08A195B8,
+    gSprite_08A195C0,
+    gSprite_08A195C8,
+    gSprite_08A195D0,
+    gSprite_08A195D8,
+    gSprite_08A195E0,
+    gSprite_08A195E8,
+    gSprite_08A195F0,
+};

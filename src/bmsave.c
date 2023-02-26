@@ -790,7 +790,7 @@ void SGM_SetCharacterKnown(s32 charId, struct SaveMeta* buf)
   }
 }
 
-int GGM_IsCharacterKnown(int index, struct SaveMeta *buf)
+s8 GGM_IsCharacterKnown(int index, struct SaveMeta *buf)
 {
     struct SaveMeta tmp_header;
     u32 _index = index;

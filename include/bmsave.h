@@ -199,5 +199,11 @@ struct UnitSaveSuPack {     /* Suspend Data */
 };
 
 s8 IsSramWorking();
+void SGM_SetCharacterKnown(s32 charId, struct SaveMeta* buf);
+int sub_80A3468(const int val0, const int val1);
+u8 LoadGeneralGameMetadata(struct SaveMeta *buf);
+s8 GGM_IsCharacterKnown(int index, struct SaveMeta *buf);
+int sub_80A3544(void);
+void sub_80A35EC(int unitId, u8* data, struct SaveMeta* buf);
 
 #endif /* BMSAVE_H */

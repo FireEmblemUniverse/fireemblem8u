@@ -126,7 +126,7 @@ void sub_8095C50(int tile, int pal)
 {
     /* "Cahpter 0", "Infomaion" */
     CopyDataWithPossibleUncomp(gUnknown_08A1AC88, OBJ_VRAM0 + tile);
-    ApplyPalette(gUnknown_08A1B174, pal + 0x10);
+    ApplyPalette(gPal_SupportScreenBanner, pal + 0x10);
 }
 
 void AtMenu_Reinitialize(struct ProcAtMenu* proc)
@@ -422,7 +422,7 @@ void AtMenu_StartSubmenu(struct ProcAtMenu *proc)
         break;
 
     case 4: /* Support */
-        StartPrepSupportScreen(2, proc);
+        StartFortuneSubMenu(2, proc);
         break;
 
     case 3: /* Save */
