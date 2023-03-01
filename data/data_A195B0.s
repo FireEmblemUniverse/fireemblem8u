@@ -200,8 +200,8 @@ Img_PrepWindow:  @ 0x08A1D8D0
 gUnknown_08A1DB80:  @ 0x08A1DB80
 	.incbin "baserom.gba", 0xA1DB80, 0x9C
 
-	.global gUnknown_08A1DC1C
-gUnknown_08A1DC1C:  @ 0x08A1DC1C
+	.global gTsa_SupportSubScreen
+gTsa_SupportSubScreen:  @ 0x08A1DC1C
 	.incbin "baserom.gba", 0xA1DC1C, 0xF0
 
 	.global gGfx_SupportMenu

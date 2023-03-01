@@ -3288,11 +3288,6 @@ extern CONST_DATA struct ProcCmd ProcScr_PrepUnitScreen[];
 // extern ??? gProcScr_FortuneSubMenu
 extern int gUnknown_08A196BC[]; /* msg lists */
 // extern ??? gUnknown_08A196D0
-// extern ??? gUnknown_08A1983C
-// extern ??? gUnknown_08A19850
-// extern ??? gUnknown_08A1985E
-// extern ??? gUnknown_08A19872
-// extern ??? gUnknown_08A19880
 extern u16 CONST_DATA gUnknown_08A199C8[]; // TODO - Not sure; used in sallycursor
 // extern ??? Img_PrepWindowSideBar
 // extern ??? Pal_PrepWindowSideBar
@@ -3341,7 +3336,7 @@ extern u16 CONST_DATA Pal_MapBattleInfoNum[]; // 'R is info' palette
 // extern ??? Img_PrepPopupWindow
 extern u8 Img_PrepWindow[];
 // extern ??? gUnknown_08A1DB80
-// extern ??? gUnknown_08A1DC1C
+// extern ??? gTsa_SupportSubScreen
 // extern ??? gGfx_SupportMenu
 // extern ??? gPal_SupportMenu
 // extern ??? gpSaveDataStart

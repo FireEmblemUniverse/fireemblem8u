@@ -41,19 +41,19 @@ struct SupportScreenProc {
 struct SubScreenProc {
     /* 00 */ PROC_HEADER;
 
-    /* 2C */ int unk_2c;
-    /* 30 */ int unk_30;
-    /* 34 */ int unk_34;
-    /* 38 */ s8 unk_38;
+    /* 2C */ int unitIdx;
+    /* 30 */ int x;
+    /* 34 */ int y;
+    /* 38 */ s8 fromPrepScreen;
     /* 39 */ u8 unk_39;
     /* 3A */ u8 unk_3a;
     /* 3B */ u8 unk_3b;
-    /* 3C */ u8 unk_3c;
-    /* 3D */ u8 unk_3d;
+    /* 3C */ u8 partnerCount;
+    /* 3D */ u8 remainingSupports;
     /* 3E */ u8 unk_3e;
-    /* 3F */ u8 unk_3f[7];
-    /* 46 */ u8 unk_46[7];
-    /* 4D */ u8 unk_4d[7];
+    /* 3F */ u8 partnerState[UNIT_SUPPORT_MAX_COUNT];
+    /* 46 */ u8 supportLevel[UNIT_SUPPORT_MAX_COUNT];
+    /* 4D */ u8 partnerClassId[UNIT_SUPPORT_MAX_COUNT];
 };
 
 struct SupportScreenUnit* CONST_DATA sSupportScreenUnits = (void*)gStringBufferAlt;
@@ -79,21 +79,20 @@ extern u8 gUnknown_08A1DB80[];
 
 extern u8 gGfx_SupportScreenBanner[];
 extern u16 gPal_SupportScreenBanner[];
-extern u8 gUnknown_08A1DC1C[]; // TSA for support sub-menu
+extern u8 gTsa_SupportSubScreen[];
 
 int GetSupportScreenCharIdAt(int);
 void sub_80A199C(struct SupportScreenProc*, int);
-int sub_80A1B6C(int);
-void sub_80A2C08(s8, int, ProcPtr);
+int GetSupportScreenPartnerCount(int);
+void StartSupportUnitSubScreen(s8, int, ProcPtr);
 
 extern struct TextHandle gUnknown_02013498[];
 extern struct TextHandle gUnknown_02013590[];
 
 extern int sSupportScreenUnitCount;
+extern u16 gUnknown_020136F4[];
 extern u8 gUnknown_0203E884;
 
-extern u16 gUnknown_020136F4[];
-extern u16 gUnknown_02022C28[]; // palette?
 extern u16 gUnknown_02022CEC[];
 extern u16 gUnknown_02023136[];
 extern u16 gUnknown_020235AA[];
@@ -250,7 +249,7 @@ void SupportScreen_SetupUnits(struct SupportScreenProc* proc) {
                 continue;
             }
 
-            if (!sub_80A1B6C(unit->pCharacterData->number)) {
+            if (!GetSupportScreenPartnerCount(unit->pCharacterData->number)) {
                 continue;
             }
 
@@ -281,7 +280,7 @@ void SupportScreen_SetupUnits(struct SupportScreenProc* proc) {
                 continue;
             }
 
-            if (!sub_80A1B6C(j)) {
+            if (!GetSupportScreenPartnerCount(j)) {
                 continue;
             }
 
@@ -290,7 +289,7 @@ void SupportScreen_SetupUnits(struct SupportScreenProc* proc) {
 
             sub_80A35EC(j, sSupportScreenUnits[sSupportScreenUnitCount].supportLevel, &saveMeta);
 
-            for (k = 0; k < sub_80A1B6C(j); k++) {
+            for (k = 0; k < GetSupportScreenPartnerCount(j); k++) {
                 int charId = GetSupportScreenPartnerCharId(sSupportScreenUnitCount, k);
 
                 sSupportScreenUnits[sSupportScreenUnitCount].partnerClassId[k] = gCharacterData[charId - 1].defaultClass;
@@ -366,7 +365,7 @@ int sub_80A0F6C(s8 flag, int idx) {
     a = 0;
     b = GetTotalSupportLevel(idx);
 
-    c = sub_80A1B6C(GetSupportScreenCharIdAt(idx));
+    c = GetSupportScreenPartnerCount(GetSupportScreenCharIdAt(idx));
 
     for (i = 0; i < c; i++) {
         a += sub_80A3468(GetSupportScreenCharIdAt(idx), GetSupportScreenPartnerCharId(idx, i));
@@ -810,7 +809,7 @@ void SupportScreen_Loop_KeyHandler(struct SupportScreenProc* proc) {
 
 //! FE8U = 0x080A1918
 void SupportScreen_StartUnitSubMenu(struct SupportScreenProc* proc) {
-    sub_80A2C08(proc->fromPrepScreen, proc->curIndex, proc);
+    StartSupportUnitSubScreen(proc->fromPrepScreen, proc->curIndex, proc);
     return;
 }
 
@@ -978,7 +977,7 @@ void sub_80A1AE4(void) {
 
 
 //! FE8U = 0x080A1B6C
-int sub_80A1B6C(int charId) {
+int GetSupportScreenPartnerCount(int charId) {
     if (gCharacterData[charId - 1].pSupportData == NULL) {
         return 0;
     }
@@ -986,56 +985,56 @@ int sub_80A1B6C(int charId) {
     return gCharacterData[charId - 1].pSupportData->supportCount;
 }
 
-u16 CONST_DATA gUnknown_08A1983C[] = {
+u16 CONST_DATA sSprite_NameAffinLv[] = {
     3,
     0x4000, 0x4000, 0x082C,
     0x4000, 0x4020, 0x0830,
     0x4000, 0x4040, 0x0834,
 };
 
-u16 CONST_DATA gUnknown_08A19850[] = {
+u16 CONST_DATA sSprite_08A19850[] = {
     2,
     0x4000, 0x8000, 0x0800,
     0x0000, 0x4020, 0x0804,
 };
 
-u16 CONST_DATA gUnknown_08A1985E[] = {
+u16 CONST_DATA sSprite_08A1985E[] = {
     3,
     0x4000, 0x8000, 0x0806,
     0x4000, 0x8020, 0x080A,
     0x0000, 0x4040, 0x080E,
 };
 
-u16 CONST_DATA gUnknown_08A19872[] = {
+u16 CONST_DATA sSprite_BackButton[] = {
     2,
     0x4000, 0x8000, 0x0018,
     0x8000, 0x0020, 0x001C,
 };
 
 //! FE8U = 0x080A1B90
-void sub_80A1B90(struct SubScreenProc* proc) {
+void DrawSupportSubScreenSprites(struct SubScreenProc* proc) {
     int oam2;
     int i;
     int x;
     int y;
 
-    PutSpriteExt(4, (proc->unk_30 + 0x80) & 0x1FF, 8, gUnknown_08A1983C, 0x23c0);
-    PutSpriteExt(4, (proc->unk_30 + 0x20) & 0x1FF, 0x50, gUnknown_08A19850, 0xE280);
-    PutSpriteExt(4, (proc->unk_30 + 5) & 0x1FF, 0x67, gSprite_SupportScreenSuccessBox, 0xABC0);
-    PutSpriteExt(4, (proc->unk_30 + 0x14) & 0x1FF, 0x6f, gUnknown_08A1985E, 0xE280);
-    PutSpriteExt(4, (proc->unk_30 + 0xc) & 0x1FF, 0x90, gUnknown_08A19872, 0x2bc0);
+    PutSpriteExt(4, (proc->x + 128) & 0x1FF, 8, sSprite_NameAffinLv, 0x23c0);
+    PutSpriteExt(4, (proc->x + 32) & 0x1FF, 80, sSprite_08A19850, 0xE280);
+    PutSpriteExt(4, (proc->x + 5) & 0x1FF, 103, gSprite_SupportScreenSuccessBox, 0xABC0);
+    PutSpriteExt(4, (proc->x + 20) & 0x1FF, 111, sSprite_08A1985E, 0xE280);
+    PutSpriteExt(4, (proc->x + 12) & 0x1FF, 144, sSprite_BackButton, 0x2bc0);
 
-    x = (proc->unk_30 + 0x70) & 0x1FF;
-    y = (proc->unk_34 + 0x16);
+    x = (proc->x + 112) & 0x1FF;
+    y = (proc->y + 22);
 
-    for (i = 0; i < proc->unk_3c; i++) {
+    for (i = 0; i < proc->partnerCount; i++) {
         oam2 = 0xc000;
 
-        if (proc->unk_3f[i] == 0) {
+        if (proc->partnerState[i] == 0) {
             oam2 = 0xd000;
         }
 
-        if (proc->unk_3f[i] == 2) {
+        if (proc->partnerState[i] == 2) {
             oam2 = 0xf000;
         }
 
@@ -1044,7 +1043,7 @@ void sub_80A1B90(struct SubScreenProc* proc) {
             x,
             y + (i * 16),
             oam2 | 0xc00,
-            proc->unk_4d[i]
+            proc->partnerClassId[i]
         );
     }
 
@@ -1054,7 +1053,7 @@ void sub_80A1B90(struct SubScreenProc* proc) {
 }
 
 //! FE8U = 0x080A1C8C
-void sub_80A1C8C(struct SubScreenProc* proc, int idx) {
+void DrawSupportSubScreenUnitPartnerText(struct SubScreenProc* proc, int idx) {
 
     int _y;
     int i;
@@ -1067,8 +1066,7 @@ void sub_80A1C8C(struct SubScreenProc* proc, int idx) {
         0x19,
     };
 
-    if (proc->unk_3f[idx] == 0) {
-
+    if (proc->partnerState[idx] == 0) {
         for (i = 0; i < 5; i++) {
             sub_8004B0C(gBG2TilemapBuffer + TILEMAP_INDEX(0x10 + i, _y = idx * 2 + 3), 1, 0x14);
         }
@@ -1083,10 +1081,10 @@ void sub_80A1C8C(struct SubScreenProc* proc, int idx) {
     } else {
         int color = 0;
 
-        unitCharId = GetSupportScreenCharIdAt(proc->unk_2c);
-        partnerCharId = GetSupportScreenPartnerCharId(proc->unk_2c, idx);
+        unitCharId = GetSupportScreenCharIdAt(proc->unitIdx);
+        partnerCharId = GetSupportScreenPartnerCharId(proc->unitIdx, idx);
 
-        if (proc->unk_3f[idx] == 2) {
+        if (proc->partnerState[idx] == 2) {
             color = 1;
         }
 
@@ -1096,21 +1094,21 @@ void sub_80A1C8C(struct SubScreenProc* proc, int idx) {
             color,
             0,
             5,
-            GetStringFromIndex(gCharacterData[GetSupportScreenPartnerCharId(proc->unk_2c, idx) - 1].nameTextId)
+            GetStringFromIndex(gCharacterData[GetSupportScreenPartnerCharId(proc->unitIdx, idx) - 1].nameTextId)
         );
 
         DrawIcon(
             gUnknown_02023CC8 + TILEMAP_INDEX(6, (idx * 2) + 3),
-            gCharacterData[GetSupportScreenPartnerCharId(proc->unk_2c, idx) - 1].affinity + 0x79,
+            gCharacterData[GetSupportScreenPartnerCharId(proc->unitIdx, idx) - 1].affinity + 0x79,
             0xe000
         );
 
         if (sub_80A3468(unitCharId, partnerCharId) == 2) {
             for (i = 0; i < 2; i++) {
                 color = 1;
-                if (proc->unk_46[idx] == 2) {
+                if (proc->supportLevel[idx] == 2) {
                     color = 4;
-                } else if (proc->unk_46[idx] > i) {
+                } else if (proc->supportLevel[idx] > i) {
                     color = 0;
                 }
 
@@ -1122,9 +1120,9 @@ void sub_80A1C8C(struct SubScreenProc* proc, int idx) {
 
             for (i = 0; i < 3; i++) {
                 color = 1;
-                if (proc->unk_46[idx] == 3) {
+                if (proc->supportLevel[idx] == 3) {
                     color = 4;
-                } else if (proc->unk_46[idx] > i) {
+                } else if (proc->supportLevel[idx] > i) {
                     color = 0;
                 }
 
@@ -1136,7 +1134,7 @@ void sub_80A1C8C(struct SubScreenProc* proc, int idx) {
 }
 
 //! FE8U = 0x080A1E7C
-void sub_80A1E7C(struct SubScreenProc* proc) {
+void DrawSupportSubScreenRemainingText(struct SubScreenProc* proc) {
     const char* str;
     struct Font font;
     struct TextHandle th;
@@ -1151,33 +1149,33 @@ void sub_80A1E7C(struct SubScreenProc* proc) {
 
     Text_80046B4(&th, 0);
 
-    str = GetStringFromIndex(gCharacterData[GetSupportScreenCharIdAt(proc->unk_2c) - 1].nameTextId);
+    str = GetStringFromIndex(gCharacterData[GetSupportScreenCharIdAt(proc->unitIdx) - 1].nameTextId);
 
     Text_InsertString(
         &th,
-        GetStringTextCenteredPos(0x28, str),
-        0,
+        GetStringTextCenteredPos(40, str),
+        TEXT_COLOR_NORMAL,
         str
     );
 
     Text_InsertString(
         &th,
-        0x30,
-        proc->unk_3d == 0 ? 1 : 0,
-        GetStringFromIndex(0x5AB)
+        48,
+        proc->remainingSupports == 0 ? TEXT_COLOR_GRAY : TEXT_COLOR_NORMAL,
+        GetStringFromIndex(0x5AB) // TODO: msgid "Remaining[.]"
     );
 
     Text_InsertString(
         &th,
-        0x60,
-        proc->unk_3d == 0 ? 1 : 0,
-        GetStringFromIndex(0x5AC)
+        96,
+        proc->remainingSupports == 0 ? TEXT_COLOR_GRAY : TEXT_COLOR_NORMAL,
+        GetStringFromIndex(0x5AC) // TODO: msgid "x[.]"
     );
 
-    Text_SetXCursor(&th, sub_80AEBEC(proc->unk_3d) * 8 + 0x60);
+    Text_SetXCursor(&th, sub_80AEBEC(proc->remainingSupports) * 8 + 96);
 
-    Text_SetColorId(&th, (proc->unk_3d == 0) ? 1 : 2);
-    Text_AppendNumberOr2Dashes(&th, proc->unk_3d);
+    Text_SetColorId(&th, (proc->remainingSupports == 0) ? TEXT_COLOR_GRAY : TEXT_COLOR_BLUE);
+    Text_AppendNumberOr2Dashes(&th, proc->remainingSupports);
 
     SetFont(0);
 
@@ -1185,15 +1183,15 @@ void sub_80A1E7C(struct SubScreenProc* proc) {
 }
 
 //! FE8U = 0x080A1F68
-void sub_80A1F68(struct SubScreenProc* proc) {
+void InitSupportSubScreenPartners(struct SubScreenProc* proc) {
     int i;
     int j;
 
-    if (proc->unk_38 != 0) {
-        for (i = 0; i < proc->unk_3c; i++) {
-            int partnerCharId = GetSupportScreenPartnerCharId(proc->unk_2c, i);
+    if (proc->fromPrepScreen) {
+        for (i = 0; i < proc->partnerCount; i++) {
+            int partnerCharId = GetSupportScreenPartnerCharId(proc->unitIdx, i);
 
-            proc->unk_3f[i] = 0;
+            proc->partnerState[i] = 0;
 
             for (j = 1; j < 0x40; j++) {
                 struct Unit* unit = GetUnit(j);
@@ -1211,21 +1209,21 @@ void sub_80A1F68(struct SubScreenProc* proc) {
                 }
 
                 if (unit->state & US_DEAD) {
-                    proc->unk_3f[i] = 2;
+                    proc->partnerState[i] = 2;
                 } else {
-                    proc->unk_3f[i] = 1;
+                    proc->partnerState[i] = 1;
                 }
             }
         }
     } else {
         proc->unk_3b = 0;
 
-        for (i = 0; i < proc->unk_3c; i++) {
-            proc->unk_3f[i] = 0;
+        for (i = 0; i < proc->partnerCount; i++) {
+            proc->partnerState[i] = 0;
 
-            if (GetSupportScreenPartnerIsAlive(proc->unk_2c, i) != 0) {
-                proc->unk_3f[i] = 1;
-                proc->unk_3b += GetSupportScreenPartnerSupportLevel(proc->unk_2c, i);
+            if (GetSupportScreenPartnerIsAlive(proc->unitIdx, i)) {
+                proc->partnerState[i] = 1;
+                proc->unk_3b += GetSupportScreenPartnerSupportLevel(proc->unitIdx, i);
             }
         }
 
@@ -1235,98 +1233,98 @@ void sub_80A1F68(struct SubScreenProc* proc) {
 }
 
 //! FE8U = 0x080A204C
-void sub_80A204C(struct SubScreenProc* proc) {
+void InitSupportSubScreenPartnerLevels(struct SubScreenProc* proc) {
     int i;
 
-    for (i = 0; i < proc->unk_3c; i++) {
-        proc->unk_46[i] = GetSupportScreenPartnerSupportLevel(proc->unk_2c, i);
+    for (i = 0; i < proc->partnerCount; i++) {
+        proc->supportLevel[i] = GetSupportScreenPartnerSupportLevel(proc->unitIdx, i);
     }
 
     return;
 }
 
 //! FE8U = 0x080A207C
-void sub_80A207C(struct SubScreenProc* proc) {
+void InitSupportSubScreenRemainingSupports(struct SubScreenProc* proc) {
     int i;
 
-    if (proc->unk_38 != 0) {
-        proc->unk_3d = 5 - GetTotalSupportLevel(proc->unk_2c);
+    if (proc->fromPrepScreen) {
+        proc->remainingSupports = 5 - GetTotalSupportLevel(proc->unitIdx);
     } else {
-        int charId = GetSupportScreenCharIdAt(proc->unk_2c);
+        int charId = GetSupportScreenCharIdAt(proc->unitIdx);
 
-        proc->unk_3d = 0;
+        proc->remainingSupports = 0;
 
-        for (i = 0; i < proc->unk_3c; i++) {
-            proc->unk_3d += sub_80A3468(charId, GetSupportScreenPartnerCharId(proc->unk_2c, i));
+        for (i = 0; i < proc->partnerCount; i++) {
+            proc->remainingSupports += sub_80A3468(charId, GetSupportScreenPartnerCharId(proc->unitIdx, i));
         }
 
-        proc->unk_3d -= GetTotalSupportLevel(proc->unk_2c);
+        proc->remainingSupports -= GetTotalSupportLevel(proc->unitIdx);
     }
 
     return;
 }
 
 //! FE8U = 0x080A20FC
-void sub_80A20FC(struct SubScreenProc* proc) {
+void DrawSupportSubScreenUnitPartnerDetails(struct SubScreenProc* proc) {
     int i;
 
     ResetUnitSprites();
 
-    for (i = 0; i < proc->unk_3c; i++) {
-        proc->unk_4d[i] = GetSupportScreenPartnerClassId(proc->unk_2c, i);
-        UseUnitSprite(GetClassSMSId(proc->unk_4d[i]));
+    for (i = 0; i < proc->partnerCount; i++) {
+        proc->partnerClassId[i] = GetSupportScreenPartnerClassId(proc->unitIdx, i);
+        UseUnitSprite(GetClassSMSId(proc->partnerClassId[i]));
     }
 
     ForceSyncUnitSpriteSheet();
 
-    for (i = 0; i < proc->unk_3c; i++) {
-        sub_80A1C8C(proc, i);
+    for (i = 0; i < proc->partnerCount; i++) {
+        DrawSupportSubScreenUnitPartnerText(proc, i);
     }
 
     return;
 }
 
 //! FE8U = 0x080A2154
-void sub_80A2154(struct SubScreenProc* proc, int partnerIdx, int unk) {
+void SupportSubScreen_MoveCursorToNextValidUnit(struct SubScreenProc* proc, int partnerIdx, int step) {
     while (1) {
         if (partnerIdx < 0) {
             return;
         }
 
-        if (partnerIdx > (proc->unk_3c - 1)) {
+        if (partnerIdx > (proc->partnerCount - 1)) {
             return;
         }
 
-        if ((proc->unk_3f[partnerIdx] & 1) != 0) {
-            if (GetSupportScreenPartnerSupportLevel(proc->unk_2c, partnerIdx) > 0) {
+        if (proc->partnerState[partnerIdx] & 1) {
+            if (GetSupportScreenPartnerSupportLevel(proc->unitIdx, partnerIdx) > 0) {
                 proc->unk_39 = (proc->unk_39 & 0xe3) + ((partnerIdx & 7) << 2);
 
-                if ((proc->unk_39 & 3) >= GetSupportScreenPartnerSupportLevel(proc->unk_2c, partnerIdx)) {
-                    proc->unk_39 = (proc->unk_39 & 0xfc) + (GetSupportScreenPartnerSupportLevel(proc->unk_2c, partnerIdx) - 1);
+                if ((proc->unk_39 & 3) >= GetSupportScreenPartnerSupportLevel(proc->unitIdx, partnerIdx)) {
+                    proc->unk_39 = (proc->unk_39 & 0xfc) + (GetSupportScreenPartnerSupportLevel(proc->unitIdx, partnerIdx) - 1);
                 }
 
                 return;
             }
         }
 
-        partnerIdx += unk;
+        partnerIdx += step;
     }
 
     return;
 }
 
 //! FE8U = 0x080A21D0
-void sub_80A21D0(struct SubScreenProc* proc) {
-    proc->unk_30 = 0;
-    proc->unk_34 = 0;
+void SupportSubScreen_Init(struct SubScreenProc* proc) {
+    proc->x = 0;
+    proc->y = 0;
     proc->unk_39 &= 0xfc;
     proc->unk_39 &= 0xe3;
-    proc->unk_3c = sub_80A1B6C(GetSupportScreenCharIdAt(proc->unk_2c));
+    proc->partnerCount = GetSupportScreenPartnerCount(GetSupportScreenCharIdAt(proc->unitIdx));
 
-    sub_80A1F68(proc);
-    sub_80A204C(proc);
-    sub_80A207C(proc);
-    sub_80A2154(proc, 0, 1);
+    InitSupportSubScreenPartners(proc);
+    InitSupportSubScreenPartnerLevels(proc);
+    InitSupportSubScreenRemainingSupports(proc);
+    SupportSubScreen_MoveCursorToNextValidUnit(proc, 0, +1);
 
     return;
 }
@@ -1334,10 +1332,10 @@ void sub_80A21D0(struct SubScreenProc* proc) {
 //! FE8U = 0x080A221C
 void sub_80A221C(void) {
     int i;
-    u16* src = gUnknown_02022C28;
-    u16* dst = gUnknown_02022C28 + 0x10;
+    u16* src = &gPaletteBuffer[0x1C * 0x10];
+    u16* dst = &gPaletteBuffer[0x1D * 0x10];
 
-    for (i = 0; i <= 0xf; dst++, src++, i++) {
+    for (i = 0; i < 0x10; dst++, src++, i++) {
         *dst = (((*src & 0x1f) >> 1) & 0x1f) + (((*src & 0x3e0) >> 1) & 0x3e0) + (((*src & 0x7c00) >> 1) & 0x7c00);
     }
 
@@ -1345,7 +1343,7 @@ void sub_80A221C(void) {
 }
 
 //! FE8U = 0x080A2274
-void sub_80A2274(struct SubScreenProc* proc) {
+void SupportSubScreen_SetupGraphics(struct SubScreenProc* proc) {
     gLCDControlBuffer.dispcnt.mode = 0;
 
     SetupBackgrounds(0);
@@ -1367,8 +1365,8 @@ void sub_80A2274(struct SubScreenProc* proc) {
 
     NewGreenTextColorManager((void*)proc);
 
-    if (proc->unk_38 == 0) {
-        gRAMChapterData.cfgTextSpeed = 1;
+    if (!proc->fromPrepScreen) {
+        gRAMChapterData.cfgTextSpeed = 1; // TODO: Text speed constants
 
         ResetPrepScreenHandCursor(proc);
         sub_80AD4A0(0x600, 1);
@@ -1401,31 +1399,31 @@ void sub_80A2274(struct SubScreenProc* proc) {
 
     sub_8098C3C(0x4000, 5);
 
-    CopyDataWithPossibleUncomp(gUnknown_08A1DC1C, gGenericBuffer);
+    CopyDataWithPossibleUncomp(gTsa_SupportSubScreen, gGenericBuffer);
     CallARM_FillTileRect(gBG1TilemapBuffer, gGenericBuffer, 0x1000);
 
     PutFace80x72(
         (struct Proc*)proc,
         gUnknown_02022CEC,
-        gCharacterData[GetSupportScreenCharIdAt(proc->unk_2c) - 1].portraitId,
+        gCharacterData[GetSupportScreenCharIdAt(proc->unitIdx) - 1].portraitId,
         0x200,
         2
     );
 
-    sub_80A20FC(proc);
-    sub_80A1E7C(proc);
+    DrawSupportSubScreenUnitPartnerDetails(proc);
+    DrawSupportSubScreenRemainingText(proc);
 
     CopyDataWithPossibleUncomp(gGfx_SupportMenu, (void*)0x06017800);
     CopyToPaletteBuffer(gPal_SupportMenu, 0x340, 0x20);
     CopyToPaletteBuffer(Pal_MapBattleInfoNum, 0x240, 0x20);
 
-    StartParallelWorker(sub_80A1B90, proc);
+    StartParallelWorker(DrawSupportSubScreenSprites, proc);
 
     return;
 }
 
 //! FE8U = 0x080A2448
-void sub_80A2448(struct SubScreenProc* proc) {
+void SupportSubScreen_Loop_KeyHandler(struct SubScreenProc* proc) {
 
     if (gKeyStatusPtr->newKeys & B_BUTTON) {
         PlaySoundEffect(0x6b);
@@ -1443,7 +1441,7 @@ void sub_80A2448(struct SubScreenProc* proc) {
         return;
     }
 
-    if (proc->unk_38 != 0) {
+    if (proc->fromPrepScreen) {
         return;
     }
 
@@ -1464,18 +1462,18 @@ void sub_80A2448(struct SubScreenProc* proc) {
         }
 
         if (gKeyStatusPtr->repeatedKeys & DPAD_RIGHT) {
-            if ((proc->unk_39 & 3) < GetSupportScreenPartnerSupportLevel(proc->unk_2c, (proc->unk_39 >> 2) & 7) - 1) {
+            if ((proc->unk_39 & 3) < GetSupportScreenPartnerSupportLevel(proc->unitIdx, (proc->unk_39 >> 2) & 7) - 1) {
                 int unk = (proc->unk_39 & 0xfc) + 1;
                 proc->unk_39 = unk + (proc->unk_39 & 3);
             }
         }
 
         if (gKeyStatusPtr->repeatedKeys & DPAD_UP) {
-            sub_80A2154(proc, ((proc->unk_39 >> 2) & 7) - 1, -1);
+            SupportSubScreen_MoveCursorToNextValidUnit(proc, ((proc->unk_39 >> 2) & 7) - 1, -1);
         }
 
         if (gKeyStatusPtr->repeatedKeys & DPAD_DOWN) {
-            sub_80A2154(proc, ((proc->unk_39 >> 2) & 7) + 1, +1);
+            SupportSubScreen_MoveCursorToNextValidUnit(proc, ((proc->unk_39 >> 2) & 7) + 1, +1);
         }
 
         if (previous != proc->unk_39) {
@@ -1521,8 +1519,8 @@ void sub_80A25F8(struct SubScreenProc* proc) {
     LoadObjUIGfx();
 
     sub_8083764(
-        GetSupportScreenCharIdAt(proc->unk_2c),
-        GetSupportScreenPartnerCharId(proc->unk_2c, proc->unk_39 >> 2 & 7),
+        GetSupportScreenCharIdAt(proc->unitIdx),
+        GetSupportScreenPartnerCharId(proc->unitIdx, proc->unk_39 >> 2 & 7),
         (proc->unk_39 & 3) + 1
     );
 
@@ -1530,7 +1528,7 @@ void sub_80A25F8(struct SubScreenProc* proc) {
 }
 
 //! FE8U = 0x080A26A8
-void sub_80A26A8(struct SubScreenProc* proc) {
+void SupportSubScreen_StartSwapPage(struct SubScreenProc* proc) {
 
     proc->unk_3a = 0;
 
@@ -1557,18 +1555,18 @@ void sub_80A2730(u32 xBase) {
     int ix;
     int iy;
 
-    for (ix = 0; ix < 0x1e; ix++) {
+    for (ix = 0; ix < 30; ix++) {
         u32 x = ix + xBase;
-        if (x < 0x1e) {
+        if (x < 30) {
 
-            for (iy = 0; iy < 0x14; iy++) {
+            for (iy = 0; iy < 20; iy++) {
                 *(gBG0TilemapBuffer + TILEMAP_INDEX(ix, iy)) = *(gUnknown_020136F4 + TILEMAP_INDEX(x, iy + 0x00));
                 *(gBG1TilemapBuffer + TILEMAP_INDEX(ix, iy)) = *(gUnknown_020136F4 + TILEMAP_INDEX(x, iy + 0x20));
                 *(gBG2TilemapBuffer + TILEMAP_INDEX(ix, iy)) = *(gUnknown_020136F4 + TILEMAP_INDEX(x, iy + 0x40));
             }
 
         } else {
-            for (iy = 0; iy < 0x14; iy++) {
+            for (iy = 0; iy < 20; iy++) {
                 *(gBG0TilemapBuffer + TILEMAP_INDEX(ix, iy)) = 0;
                 *(gBG1TilemapBuffer + TILEMAP_INDEX(ix, iy)) = 0;
                 *(gBG2TilemapBuffer + TILEMAP_INDEX(ix, iy)) = 0;
@@ -1582,7 +1580,7 @@ void sub_80A2730(u32 xBase) {
 }
 
 //! FE8U = 0x080A2800
-void sub_80A2800(struct SubScreenProc* proc) {
+void SupportSubScreen_SwapPageOut_ToLeft(struct SubScreenProc* proc) {
     int a;
     int b;
     int c;
@@ -1594,21 +1592,21 @@ void sub_80A2800(struct SubScreenProc* proc) {
     b = 8 - ((a * 8) * a / 100);
     c = 16 - (a * 0x10) * a / 100;
 
-    proc->unk_30 = -b * 8;
+    proc->x = -b * 8;
     sub_80A2730(b);
 
     SetSpecialColorEffectsParameters(1, c, 0x10 - c, 0);
 
     if (proc->unk_3a == 10) {
         Proc_Break(proc);
-        proc->unk_2c = GetNextSupportScreenUnit(proc->unk_2c);
+        proc->unitIdx = GetNextSupportScreenUnit(proc->unitIdx);
     }
 
     return;
 }
 
 //! FE8U = 0x080A286C
-void sub_80A286C(struct SubScreenProc* proc) {
+void SupportSubScreen_SwapPageIn_FromRight(struct SubScreenProc* proc) {
     int a;
     int b;
     int c;
@@ -1620,7 +1618,7 @@ void sub_80A286C(struct SubScreenProc* proc) {
     b = 8 - ((a * 8) * a / 100);
     c = 16 - (a * 0x10) * a / 100;
 
-    proc->unk_30 = (8 - b) * 8;
+    proc->x = (8 - b) * 8;
 
     sub_80A2730(b - 8);
     SetSpecialColorEffectsParameters(1, 0x10 - c, c, 0);
@@ -1633,7 +1631,7 @@ void sub_80A286C(struct SubScreenProc* proc) {
 }
 
 //! FE8U = 0x080A28E0
-void sub_80A28E0(struct SubScreenProc* proc) {
+void SupportSubScreen_SwapPageOut_ToRight(struct SubScreenProc* proc) {
     int a;
     int b;
     int c;
@@ -1645,21 +1643,21 @@ void sub_80A28E0(struct SubScreenProc* proc) {
     b = 8 - ((a * 8) * a / 100);
     c = 16 - (a * 0x10) * a / 100;
 
-    proc->unk_30 = b * 8;
+    proc->x = b * 8;
 
     sub_80A2730(-b);
     SetSpecialColorEffectsParameters(1, c, 0x10 - c, 0);
 
     if (proc->unk_3a == 10) {
         Proc_Break(proc);
-        proc->unk_2c = GetPreviousSupportScreenUnit(proc->unk_2c);
+        proc->unitIdx = GetPreviousSupportScreenUnit(proc->unitIdx);
     }
 
     return;
 }
 
 //! FE8U = 0x080A294C
-void sub_80A294C(struct SubScreenProc* proc) {
+void SupportSubScreen_SwapPageIn_FromLeft(struct SubScreenProc* proc) {
     int a;
     int b;
     int c;
@@ -1671,7 +1669,7 @@ void sub_80A294C(struct SubScreenProc* proc) {
     b = 8 - ((a * 8) * a / 100);
     c = 16 - (a * 0x10) * a / 100;
 
-    proc->unk_30 = (b - 8) * 8;
+    proc->x = (b - 8) * 8;
 
     sub_80A2730(8 - b);
     SetSpecialColorEffectsParameters(1, 0x10 - c, c, 0);
@@ -1684,7 +1682,7 @@ void sub_80A294C(struct SubScreenProc* proc) {
 }
 
 //! FE8U = 0x080A29C0
-void sub_80A29C0(struct SubScreenProc* proc) {
+void SupportSubScreen_ReinitAfterSwapPage(struct SubScreenProc* proc) {
     ResetFaces();
     Font_InitForUIDefault();
     ResetIconGraphics_();
@@ -1696,26 +1694,26 @@ void sub_80A29C0(struct SubScreenProc* proc) {
     proc->unk_39 = proc->unk_39 & 0xfc;
     proc->unk_39 = proc->unk_39 & 0xe3;
 
-    proc->unk_3c = sub_80A1B6C(GetSupportScreenCharIdAt(proc->unk_2c));
+    proc->partnerCount = GetSupportScreenPartnerCount(GetSupportScreenCharIdAt(proc->unitIdx));
 
-    sub_80A1F68(proc);
-    sub_80A204C(proc);
-    sub_80A207C(proc);
-    sub_80A2154(proc, 0, 1);
+    InitSupportSubScreenPartners(proc);
+    InitSupportSubScreenPartnerLevels(proc);
+    InitSupportSubScreenRemainingSupports(proc);
+    SupportSubScreen_MoveCursorToNextValidUnit(proc, 0, +1);
 
-    CopyDataWithPossibleUncomp(gUnknown_08A1DC1C, gGenericBuffer);
+    CopyDataWithPossibleUncomp(gTsa_SupportSubScreen, gGenericBuffer);
     CallARM_FillTileRect(gBG1TilemapBuffer, gGenericBuffer, 0x1000);
 
     PutFace80x72(
         (struct Proc*)proc,
         gBG0TilemapBuffer + 0x22,
-        gCharacterData[GetSupportScreenCharIdAt(proc->unk_2c) - 1].portraitId,
+        gCharacterData[GetSupportScreenCharIdAt(proc->unitIdx) - 1].portraitId,
         0x200,
         2
     );
 
-    sub_80A20FC(proc);
-    sub_80A1E7C(proc);
+    DrawSupportSubScreenUnitPartnerDetails(proc);
+    DrawSupportSubScreenRemainingText(proc);
     sub_80A1AE4();
 
     proc->unk_3a = 0;
@@ -1724,7 +1722,7 @@ void sub_80A29C0(struct SubScreenProc* proc) {
 }
 
 //! FE8U = 0x080A2AAC
-void sub_80A2AAC(struct SubScreenProc* proc) {
+void SupportSubScreen_EndSwapPage(struct SubScreenProc* proc) {
 
     gLCDControlBuffer.bg0cnt.priority = 1;
     gLCDControlBuffer.bg1cnt.priority = 3;
@@ -1738,7 +1736,7 @@ void sub_80A2AAC(struct SubScreenProc* proc) {
     sub_8001F48(0);
     sub_8001F64(0);
 
-    if (proc->unk_38 == 0) {
+    if (proc->fromPrepScreen == 0) {
         if (proc->unk_3b != 0) {
             ShowPrepScreenHandCursor(
                 (proc->unk_39 & 3) * 8 + 0xc4,
@@ -1755,19 +1753,19 @@ void sub_80A2AAC(struct SubScreenProc* proc) {
 }
 
 //! FE8U = 0x080A2B5C
-void sub_80A2B5C(struct SubScreenProc* proc) {
+void SupportSubScreen_OnEnd(struct SubScreenProc* proc) {
     EndAllProcChildren(proc);
     EndBG3Slider_();
     EndFaceById(0);
-    sub_80A1A90(proc->unk_2c);
+    sub_80A1A90(proc->unitIdx);
     return;
 }
 
 //! FE8U = 0x080A2B7C
-void sub_80A2B7C(struct SubScreenProc* proc) {
+void SupportSubScreen_PrepareSupportConvo(struct SubScreenProc* proc) {
 
     proc->unk_3e = sub_80A1AAC(
-        proc->unk_2c,
+        proc->unitIdx,
         proc->unk_39 >> 2 & 7,
         (proc->unk_39 & 3) + 1
     );
@@ -1793,13 +1791,13 @@ void sub_80A2BD0(struct SubScreenProc* proc) {
     return;
 }
 
-struct ProcCmd CONST_DATA gUnknown_08A19880[] = {
+struct ProcCmd CONST_DATA gProcScr_SupportUnitSubScreen[] = {
     PROC_SLEEP(0),
 
-    PROC_CALL(sub_80A21D0),
+    PROC_CALL(SupportSubScreen_Init),
 
 PROC_LABEL(0),
-    PROC_CALL(sub_80A2274),
+    PROC_CALL(SupportSubScreen_SetupGraphics),
 
     PROC_CALL_ARG(NewFadeIn, 8),
     PROC_WHILE(FadeInExists),
@@ -1807,17 +1805,17 @@ PROC_LABEL(0),
     PROC_WHILE(MusicProc4Exists),
 
 PROC_LABEL(1),
-    PROC_REPEAT(sub_80A2448),
+    PROC_REPEAT(SupportSubScreen_Loop_KeyHandler),
 
     // fallthrough
 
 PROC_LABEL(2),
-    PROC_CALL(sub_80A2B7C),
+    PROC_CALL(SupportSubScreen_PrepareSupportConvo),
 
     PROC_CALL_ARG(NewFadeOut, 8),
     PROC_WHILE(FadeOutExists),
 
-    PROC_CALL(sub_80A2B5C),
+    PROC_CALL(SupportSubScreen_OnEnd),
     PROC_SLEEP(0),
 
     PROC_WHILE(MusicProc4Exists),
@@ -1833,20 +1831,20 @@ PROC_LABEL(2),
     PROC_GOTO(0),
 
 PROC_LABEL(4),
-    PROC_CALL(sub_80A26A8),
-    PROC_REPEAT(sub_80A2800),
-    PROC_CALL(sub_80A29C0),
-    PROC_REPEAT(sub_80A286C),
-    PROC_CALL(sub_80A2AAC),
+    PROC_CALL(SupportSubScreen_StartSwapPage),
+    PROC_REPEAT(SupportSubScreen_SwapPageOut_ToLeft),
+    PROC_CALL(SupportSubScreen_ReinitAfterSwapPage),
+    PROC_REPEAT(SupportSubScreen_SwapPageIn_FromRight),
+    PROC_CALL(SupportSubScreen_EndSwapPage),
 
     PROC_GOTO(1),
 
 PROC_LABEL(5),
-    PROC_CALL(sub_80A26A8),
-    PROC_REPEAT(sub_80A28E0),
-    PROC_CALL(sub_80A29C0),
-    PROC_REPEAT(sub_80A294C),
-    PROC_CALL(sub_80A2AAC),
+    PROC_CALL(SupportSubScreen_StartSwapPage),
+    PROC_REPEAT(SupportSubScreen_SwapPageOut_ToRight),
+    PROC_CALL(SupportSubScreen_ReinitAfterSwapPage),
+    PROC_REPEAT(SupportSubScreen_SwapPageIn_FromLeft),
+    PROC_CALL(SupportSubScreen_EndSwapPage),
 
     PROC_GOTO(1),
 
@@ -1854,17 +1852,17 @@ PROC_LABEL(3),
     PROC_CALL_ARG(NewFadeOut, 8),
     PROC_WHILE(FadeOutExists),
 
-    PROC_CALL(sub_80A2B5C),
+    PROC_CALL(SupportSubScreen_OnEnd),
 
     PROC_END,
 };
 
 //! FE8U = 0x080A2C08
-void sub_80A2C08(s8 fromPrepScreen, int unitIndex, ProcPtr parent) {
-    struct SubScreenProc* proc = Proc_StartBlocking(gUnknown_08A19880, parent);
+void StartSupportUnitSubScreen(s8 fromPrepScreen, int unitIndex, ProcPtr parent) {
+    struct SubScreenProc* proc = Proc_StartBlocking(gProcScr_SupportUnitSubScreen, parent);
 
-    proc->unk_38 = fromPrepScreen;
-    proc->unk_2c = unitIndex;
+    proc->fromPrepScreen = fromPrepScreen;
+    proc->unitIdx = unitIndex;
 
     return;
 }
