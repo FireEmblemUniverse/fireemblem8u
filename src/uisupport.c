@@ -1868,12 +1868,9 @@ void StartSupportUnitSubScreen(s8 fromPrepScreen, int unitIndex, ProcPtr parent)
 }
 
 //! FE8U = 0x080A2C2C
-void sub_80A2C2C(void) {
-    u8* ptr = &gUnknown_0203E884;
-    register int zero asm("r1") = 0;
-    *ptr = zero;
-
-    return;
+u8 *sub_80A2C2C(void) {
+    gUnknown_0203E884 = 0;
+    return &gUnknown_0203E884;
 }
 
 //! FE8U = 0x080A2C38
