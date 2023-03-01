@@ -1371,98 +1371,27 @@ void SetFaceBlinkControlById(int slot, int blinkControl) {
     return;
 }
 
-#if NONMATCHING
-
 //! FE8U = 0x08006470
 int FaceBlinkProc_GenBlinkInterval(struct FaceBlinkProc* proc) {
     int var = AdvanceGetLCGRNValue() >> 0x10;
 
     switch (proc->blinkControl) {
-
-        default:
         case 3:
-            // _080064AC
             return (var >> 7) + (0x96 << 1);
 
         case 1:
-            // _080064B6
             return (var >> 7) + 0x1E;
 
         case 2:
-            // _080064BC
             return (var >> 9) + 0x1E;
 
         case 4:
-            // _080064C2
             return 1;
 
         case 5:
-            // _080064C6
             return 0x7FFFFFFF;
     }
 }
-
-#else // if !NONMATCHING
-
-//! FE8U = 0x08006470
-__attribute__((naked))
-int FaceBlinkProc_GenBlinkInterval(struct FaceBlinkProc* proc) {
-    asm("\n\
-        .syntax unified\n\
-        push {r4, lr}\n\
-        adds r4, r0, #0\n\
-        bl AdvanceGetLCGRNValue\n\
-        adds r1, r0, #0\n\
-        lsrs r2, r1, #0x10\n\
-        ldrh r1, [r4, #0x30]\n\
-        subs r1, #1\n\
-        lsls r1, r1, #0x10\n\
-        asrs r1, r1, #0x10\n\
-        cmp r1, #4\n\
-        bhi _080064C8\n\
-        lsls r0, r1, #2\n\
-        ldr r1, _08006494  @ _08006498\n\
-        adds r0, r0, r1\n\
-        ldr r0, [r0]\n\
-        mov pc, r0\n\
-        .align 2, 0\n\
-    _08006494: .4byte _08006498\n\
-    _08006498: @ jump table\n\
-        .4byte _080064B6 @ case 0\n\
-        .4byte _080064BC @ case 1\n\
-        .4byte _080064AC @ case 2\n\
-        .4byte _080064C2 @ case 3\n\
-        .4byte _080064C6 @ case 4\n\
-    _080064AC:\n\
-        asrs r0, r2, #7\n\
-        movs r1, #0x96\n\
-        lsls r1, r1, #1\n\
-        adds r0, r0, r1\n\
-        b _080064C8\n\
-    _080064B6:\n\
-        asrs r0, r2, #7\n\
-        adds r0, #0x1e\n\
-        b _080064C8\n\
-    _080064BC:\n\
-        asrs r0, r2, #9\n\
-        adds r0, #0x1e\n\
-        b _080064C8\n\
-    _080064C2:\n\
-        movs r0, #1\n\
-        b _080064C8\n\
-    _080064C6:\n\
-        ldr r0, _080064D0  @ 0x7FFFFFFF\n\
-    _080064C8:\n\
-        pop {r4}\n\
-        pop {r1}\n\
-        bx r1\n\
-        .align 2, 0\n\
-    _080064D0: .4byte 0x7FFFFFFF\n\
-        .syntax divided\n\
-    ");
-}
-
-#endif // NONMATCHING
 
 //! FE8U = 0x080064D4
 void sub_80064D4(struct FaceProc* proc, int unk) {
