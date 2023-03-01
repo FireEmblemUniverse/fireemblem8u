@@ -172,7 +172,6 @@ SECTIONS
         src/prep_wm_sell.o(.text);
         src/prep_80A0760.o(.text);
         src/uisupport.o(.text);
-        asm/code_80952CC.o(.text);
         src/bmsave.o(.text);
         asm/code_80A2C3C.o(.text);
         src/minimap.o(.text);
