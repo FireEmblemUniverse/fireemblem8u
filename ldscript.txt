@@ -316,6 +316,8 @@ SECTIONS
         . = ALIGN(4); data/const_data_205B84.o(.rodata);
         . = ALIGN(4); src/prep_atmenu.o(.rodata);
         . = ALIGN(4); data/const_data_205BD0.o(.rodata);
+        . = ALIGN(4); src/uisupport.o(.rodata);
+        . = ALIGN(4); data/const_data_205C9C.o(.rodata);
         . = ALIGN(4); src/minimap.o(.rodata);
         . = ALIGN(4); src/savemenu.o(.rodata);
         . = ALIGN(4); src/savedrawcursor.o(.rodata);

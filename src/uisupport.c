@@ -14,6 +14,7 @@
 #include "statscreen.h"
 #include "m4a.h"
 #include "soundwrapper.h"
+#include "event.h"
 
 struct SupportScreenUnit {
     /* 00 */ u8 charId;
@@ -73,13 +74,6 @@ u16 CONST_DATA gSprite_SupportScreenBanner[] = {
     0x0000, 0x8040, 0x0008,
     0x8000, 0x8060, 0x000C,
 };
-
-extern u16 gUnknown_08A1983C[];
-extern u16 gUnknown_08A19850[];
-extern u16 gUnknown_08A1985E[];
-extern u16 gUnknown_08A19872[];
-
-extern int gUnknown_08205C90[];
 
 extern u8 gUnknown_08A1DB80[];
 
@@ -992,6 +986,32 @@ int sub_80A1B6C(int charId) {
     return gCharacterData[charId - 1].pSupportData->supportCount;
 }
 
+u16 CONST_DATA gUnknown_08A1983C[] = {
+    3,
+    0x4000, 0x4000, 0x082C,
+    0x4000, 0x4020, 0x0830,
+    0x4000, 0x4040, 0x0834,
+};
+
+u16 CONST_DATA gUnknown_08A19850[] = {
+    2,
+    0x4000, 0x8000, 0x0800,
+    0x0000, 0x4020, 0x0804,
+};
+
+u16 CONST_DATA gUnknown_08A1985E[] = {
+    3,
+    0x4000, 0x8000, 0x0806,
+    0x4000, 0x8020, 0x080A,
+    0x0000, 0x4040, 0x080E,
+};
+
+u16 CONST_DATA gUnknown_08A19872[] = {
+    2,
+    0x4000, 0x8000, 0x0018,
+    0x8000, 0x0020, 0x001C,
+};
+
 //! FE8U = 0x080A1B90
 void sub_80A1B90(struct SubScreenProc* proc) {
     int oam2;
@@ -1041,8 +1061,11 @@ void sub_80A1C8C(struct SubScreenProc* proc, int idx) {
     int unitCharId;
     int partnerCharId;
 
-    int hack[3];
-    memcpy(hack, gUnknown_08205C90, 12);
+    int gUnknown_08205C90[3] = {
+        0x1B,
+        0x1A,
+        0x19,
+    };
 
     if (proc->unk_3f[idx] == 0) {
 
@@ -1091,7 +1114,7 @@ void sub_80A1C8C(struct SubScreenProc* proc, int idx) {
                     color = 0;
                 }
 
-                sub_8004B0C(gBG2TilemapBuffer + TILEMAP_INDEX(0x19 + i, (idx * 2) + 3), color, hack[i]);
+                sub_8004B0C(gBG2TilemapBuffer + TILEMAP_INDEX(0x19 + i, (idx * 2) + 3), color, gUnknown_08205C90[i]);
             }
 
             sub_8004B0C(gBG2TilemapBuffer + 0x1B + (((idx * 2) + 3) * 0x20), 1, 0x14);
@@ -1105,7 +1128,7 @@ void sub_80A1C8C(struct SubScreenProc* proc, int idx) {
                     color = 0;
                 }
 
-                sub_8004B0C(gBG2TilemapBuffer + TILEMAP_INDEX(0x19 + i, (idx * 2) + 3), color, hack[i]);
+                sub_8004B0C(gBG2TilemapBuffer + TILEMAP_INDEX(0x19 + i, (idx * 2) + 3), color, gUnknown_08205C90[i]);
             }
         }
     }
@@ -1770,7 +1793,71 @@ void sub_80A2BD0(struct SubScreenProc* proc) {
     return;
 }
 
-extern struct ProcCmd gUnknown_08A19880[];
+struct ProcCmd CONST_DATA gUnknown_08A19880[] = {
+    PROC_SLEEP(0),
+
+    PROC_CALL(sub_80A21D0),
+
+PROC_LABEL(0),
+    PROC_CALL(sub_80A2274),
+
+    PROC_CALL_ARG(NewFadeIn, 8),
+    PROC_WHILE(FadeInExists),
+
+    PROC_WHILE(MusicProc4Exists),
+
+PROC_LABEL(1),
+    PROC_REPEAT(sub_80A2448),
+
+    // fallthrough
+
+PROC_LABEL(2),
+    PROC_CALL(sub_80A2B7C),
+
+    PROC_CALL_ARG(NewFadeOut, 8),
+    PROC_WHILE(FadeOutExists),
+
+    PROC_CALL(sub_80A2B5C),
+    PROC_SLEEP(0),
+
+    PROC_WHILE(MusicProc4Exists),
+
+    PROC_CALL(sub_80A25F8),
+    PROC_SLEEP(0),
+
+    PROC_WHILE(EventEngineExists),
+
+    PROC_CALL(sub_80A2BD0),
+    PROC_SLEEP(8),
+
+    PROC_GOTO(0),
+
+PROC_LABEL(4),
+    PROC_CALL(sub_80A26A8),
+    PROC_REPEAT(sub_80A2800),
+    PROC_CALL(sub_80A29C0),
+    PROC_REPEAT(sub_80A286C),
+    PROC_CALL(sub_80A2AAC),
+
+    PROC_GOTO(1),
+
+PROC_LABEL(5),
+    PROC_CALL(sub_80A26A8),
+    PROC_REPEAT(sub_80A28E0),
+    PROC_CALL(sub_80A29C0),
+    PROC_REPEAT(sub_80A294C),
+    PROC_CALL(sub_80A2AAC),
+
+    PROC_GOTO(1),
+
+PROC_LABEL(3),
+    PROC_CALL_ARG(NewFadeOut, 8),
+    PROC_WHILE(FadeOutExists),
+
+    PROC_CALL(sub_80A2B5C),
+
+    PROC_END,
+};
 
 //! FE8U = 0x080A2C08
 void sub_80A2C08(s8 fromPrepScreen, int unitIndex, ProcPtr parent) {
