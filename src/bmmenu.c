@@ -2289,16 +2289,8 @@ u8 AttackBallistaCommandUsability(const struct MenuItemDef* def, int number) {
 
     trap = GetTrapAt(gActiveUnit->xPos, gActiveUnit->yPos);
 
-    #if NONMATCHING
-
-    // Nonmatching due to additional shift operation from s8 return type of IsBallista
-    isBallista = IsBallista(trap);
-
-    #else // if !NONMATCHING
-
-    asm("bl IsBallista" : "=r" (isBallista));
-
-    #endif // NONMATCHING
+    // This is really caused by implicit declaration
+    isBallista = ((s32 (*)(struct Trap*))IsBallista)(trap); // TODO: FIXME: UB
 
     if (isBallista == 0) {
         return MENU_NOTSHOWN;
