@@ -1050,21 +1050,9 @@ u8 sub_8023538(struct MenuProc* menu) {
 u8 sub_8023550(struct MenuProc* menu) {
     ProcPtr proc;
 
-    #if NONMATCHING
-
     sub_8023538(menu);
-    MenuCommand_SelectNo(menu, NULL);
-
-    #else // if !NONMATCHING
-
-    asm("\n\
-        add r4, r0, #0\n\
-        bl sub_8023538\n\
-        add r0, r4, #0\n\
-        bl MenuCommand_SelectNo\n\
-    ");
-
-    #endif
+    // This is really caused by implicit declaration
+    ((void (*)(struct MenuProc*))MenuCommand_SelectNo)(menu); // TODO: FIXME: UB
 
     proc = StartOrphanMenu(&gItemSelectMenuDef);
 
