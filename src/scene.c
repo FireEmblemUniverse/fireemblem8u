@@ -2680,36 +2680,11 @@ void TalkBgSync(int bg) {
     return;
 }
 
-#if NONMATCHING
-
 //! FE8U = 0x08008F3C
 s8 sub_8008F3C(void) {
-    return Proc_Find(gUnknown_08591624) ? 1 : 0;
+    if (Proc_Find(gUnknown_08591624)) return 1;
+    // TODO: FIXME: no return value when the proc is NULL
 }
-
-#else // if !NONMATCHING
-
-__attribute__((naked))
-s8 sub_8008F3C(void) {
-    asm("\n\
-        .syntax unified\n\
-        push {lr}\n\
-        ldr r0, _08008F50  @ gUnknown_08591624\n\
-        bl Proc_Find\n\
-        adds r1, r0, #0\n\
-        cmp r1, #0\n\
-        beq _08008F4C\n\
-        movs r0, #1\n\
-    _08008F4C:\n\
-        pop {r1}\n\
-        bx r1\n\
-        .align 2, 0\n\
-    _08008F50: .4byte gUnknown_08591624\n\
-        .syntax divided\n\
-    ");
-}
-
-#endif // NONMATCHING
 
 //! FE8U = 0x08008F54
 void sub_8008F54(void) {
