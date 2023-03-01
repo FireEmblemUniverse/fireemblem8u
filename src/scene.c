@@ -2295,31 +2295,13 @@ int GetTalkChoiceResult(void) {
     return sTalkChoiceResult;
 }
 
-#if NONMATCHING
-
 //! FE8U = 0x08008A0C
-void SetTalkChoiceResult(int result) {
-    sTalkChoiceResult = result;
-    return;
+int SetTalkChoiceResult(int result) {
+    int result2 = result;
+    ++result; --result;
+    sTalkChoiceResult = result2;
+    return result;
 }
-
-#else // if !NONMATCHING
-
-__attribute__((naked))
-void SetTalkChoiceResult(int result) {
-    asm("\n\
-        .syntax unified\n\
-        adds r2, r0, #0\n\
-        ldr r1, _08008A14  @ sTalkChoiceResult\n\
-        str r2, [r1]\n\
-        bx lr\n\
-        .align 2, 0\n\
-    _08008A14: .4byte sTalkChoiceResult\n\
-        .syntax divided\n\
-    ");
-}
-
-#endif // NONMATCHING
 
 //! FE8U = 0x08008A18
 void SetTalkNumber(int number) {
