@@ -2295,31 +2295,13 @@ int GetTalkChoiceResult(void) {
     return sTalkChoiceResult;
 }
 
-#if NONMATCHING
-
 //! FE8U = 0x08008A0C
-void SetTalkChoiceResult(int result) {
-    sTalkChoiceResult = result;
-    return;
+int SetTalkChoiceResult(int result) {
+    int result2 = result;
+    ++result; --result;
+    sTalkChoiceResult = result2;
+    return result;
 }
-
-#else // if !NONMATCHING
-
-__attribute__((naked))
-void SetTalkChoiceResult(int result) {
-    asm("\n\
-        .syntax unified\n\
-        adds r2, r0, #0\n\
-        ldr r1, _08008A14  @ sTalkChoiceResult\n\
-        str r2, [r1]\n\
-        bx lr\n\
-        .align 2, 0\n\
-    _08008A14: .4byte sTalkChoiceResult\n\
-        .syntax divided\n\
-    ");
-}
-
-#endif // NONMATCHING
 
 //! FE8U = 0x08008A18
 void SetTalkNumber(int number) {
@@ -2680,36 +2662,11 @@ void TalkBgSync(int bg) {
     return;
 }
 
-#if NONMATCHING
-
 //! FE8U = 0x08008F3C
 s8 sub_8008F3C(void) {
-    return Proc_Find(gUnknown_08591624) ? 1 : 0;
+    if (Proc_Find(gUnknown_08591624)) return 1;
+    // TODO: FIXME: no return value when the proc is NULL
 }
-
-#else // if !NONMATCHING
-
-__attribute__((naked))
-s8 sub_8008F3C(void) {
-    asm("\n\
-        .syntax unified\n\
-        push {lr}\n\
-        ldr r0, _08008F50  @ gUnknown_08591624\n\
-        bl Proc_Find\n\
-        adds r1, r0, #0\n\
-        cmp r1, #0\n\
-        beq _08008F4C\n\
-        movs r0, #1\n\
-    _08008F4C:\n\
-        pop {r1}\n\
-        bx r1\n\
-        .align 2, 0\n\
-    _08008F50: .4byte gUnknown_08591624\n\
-        .syntax divided\n\
-    ");
-}
-
-#endif // NONMATCHING
 
 //! FE8U = 0x08008F54
 void sub_8008F54(void) {

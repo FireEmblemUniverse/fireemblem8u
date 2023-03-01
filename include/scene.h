@@ -93,7 +93,7 @@ void ClearTalkText(void);
 // ??? IsTalkActive(???);
 // ??? FaceExists(???);
 int GetTalkChoiceResult(void);
-void SetTalkChoiceResult(int);
+int SetTalkChoiceResult(int);
 void SetTalkNumber(int);
 // ??? SetTalkUnkStr(???);
 // ??? PrintStringToTexts(???);
