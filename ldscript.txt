@@ -186,6 +186,7 @@ SECTIONS
         src/classdisplayfont.o(.text);
         src/bmshop.o(.text);
         src/uiarena.o(.text);
+        src/gamerankings.o(.text);
         asm/code_80B5730.o(.text);
         src/opsubtitle.o(.text);
         src/titlescreen.o(.text);
