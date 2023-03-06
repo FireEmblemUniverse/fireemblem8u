@@ -3,21 +3,14 @@
 #include "chapterdata.h"
 #include "bmitem.h"
 #include "bmunit.h"
+#include "bmsave.h"
 
-// bmsave.h
-int GetGameTotalTurnCount2(void);
-int BWL_GetTotalExpGained(void);
-struct ChapterWinData *GetChapterWinDataEntry(int index);
-int GetNextChapterWinDataEntryIndex(void);
-int BWL_GetTotalWins(void);
-int BWL_GetTotalBattles(void);
-
-u16 sub_80B622C(void);
-u16 sub_80B6264(void);
-u16 sub_80B6284(void);
+u16 GetGameDeathCount(void);
+u16 GetGameWinPerc(void);
+u16 GetChapterDeathCount(void);
 
 //! FE8U = 0x080B5D74
-int sub_80B5D74(void) {
+int GetGameTacticsRank(void) {
     int gameTotalTurns;
     int nextIndex;
     int i;
@@ -55,21 +48,21 @@ int sub_80B5D74(void) {
 }
 
 //! FE8U = 0x080B5E6C
-int sub_80B5E6C(void) {
-    int unk;
+int GetGameSurvivalRank(void) {
+    int deathCount;
     u8 i;
 
-    u8 gUnknown_08205F1C[4] = {
+    u8 rankThresholds[4] = {
         6,
         4,
         2,
         1,
     };
 
-    unk = sub_80B622C();
+    deathCount = GetGameDeathCount();
 
     for (i = 0; i < 4; i++) {
-        if (unk >= gUnknown_08205F1C[i]) {
+        if (deathCount >= rankThresholds[i]) {
             return i;
         }
     }
@@ -78,7 +71,7 @@ int sub_80B5E6C(void) {
 }
 
 //! FE8U = 0x080B5EA4
-int sub_80B5EA4(void) {
+int GetGameExpRank(void) {
     int nextIndex;
     int i;
     int rankThresholds[4];
@@ -115,20 +108,21 @@ int sub_80B5EA4(void) {
 }
 
 //! FE8U = 0x080B5F9C
-int sub_80B5F9C(void) {
-    int unk;
+int GetGameCombatRank(void) {
+    int winPercentage;
     int i;
 
-    u8 gUnknown_08205F20[4] = {
-        0x0F,
-        0x19,
-        0x23,
-        0x28,
+    u8 rankThresholds[4] = {
+        15,
+        25,
+        35,
+        40,
     };
 
-    unk = sub_80B6264();
+    winPercentage = GetGameWinPerc();
+
     for (i = 0; i < 4; i++) {
-        if (unk < gUnknown_08205F20[i]) {
+        if (winPercentage < rankThresholds[i]) {
             return i;
         }
     }
@@ -138,12 +132,12 @@ int sub_80B5F9C(void) {
 }
 
 //! FE8U = 0x080B5FD0
-int sub_80B5FD0(void) {
-    u32 uVar8;
+int GetGameFundsRank(void) {
+    u32 totalGoldComp;
     int i;
 
     int totalGold = GetPartyTotalGoldValue();
-    int iVar10 = 0;
+    int overallFundsRequirement = 0;
 
     int nextIndex = GetNextChapterWinDataEntryIndex();
 
@@ -151,84 +145,84 @@ int sub_80B5FD0(void) {
         struct ChapterWinData* ent = GetChapterWinDataEntry(i);
 
         if (DoesThisChapterCount(ent->chapter_index) != 0) {
-            iVar10 += gChapterDataTable[ent->chapter_index].goldForFundsRankInEliwoodStory[IsDifficultMode()];
+            overallFundsRequirement += gChapterDataTable[ent->chapter_index].goldForFundsRankInEliwoodStory[IsDifficultMode()];
         }
     }
 
-    uVar8 = totalGold * 100;
+    totalGoldComp = totalGold * 100;
 
-    if (uVar8 >= (iVar10 * 80)) {
+    if (totalGoldComp >= (overallFundsRequirement * 80)) {
         return 4;
-    } else if (uVar8 >= (iVar10 * 60)) {
+    } else if (totalGoldComp >= (overallFundsRequirement * 60)) {
         return 3;
-    } else if (uVar8 >= (iVar10 * 40)) {
+    } else if (totalGoldComp >= (overallFundsRequirement * 40)) {
         return 2;
-    } else if (uVar8 >= (iVar10 * 20)) {
+    } else if (totalGoldComp >= (overallFundsRequirement * 20)) {
         return 1;
     } else {
         return 0;
     }
 }
 
-u8 CONST_DATA gUnknown_08A3CB04[5][5] = {
+u8 CONST_DATA gOverallRankWeightLookup[5][5] = {
     {
-        [0] = 0x28,
-        [1] = 0x50,
-        [2] = 0x78,
-        [3] = 0xA0,
-        [4] = 0xC8,
+        [0] = 40,
+        [1] = 80,
+        [2] = 120,
+        [3] = 160,
+        [4] = 200,
     },
     {
-        [0] = 0x0F,
-        [1] = 0x23,
-        [2] = 0x37,
-        [3] = 0x4B,
-        [4] = 0x64,
+        [0] = 15,
+        [1] = 35,
+        [2] = 55,
+        [3] = 75,
+        [4] = 100,
     },
     {
-        [0] = 0x00,
-        [1] = 0x14,
-        [2] = 0x28,
-        [3] = 0x3C,
-        [4] = 0x50,
+        [0] = 0,
+        [1] = 20,
+        [2] = 40,
+        [3] = 60,
+        [4] = 80,
     },
     {
-        [0] = 0x00,
-        [1] = 0x14,
-        [2] = 0x28,
-        [3] = 0x3C,
-        [4] = 0x50,
+        [0] = 0,
+        [1] = 20,
+        [2] = 40,
+        [3] = 60,
+        [4] = 80,
     },
     {
-        [0] = 0x0A,
-        [1] = 0x1E,
-        [2] = 0x32,
-        [3] = 0x46,
-        [4] = 0x5A,
+        [0] = 10,
+        [1] = 30,
+        [2] = 50,
+        [3] = 70,
+        [4] = 90,
     },
 };
 
-u16 CONST_DATA gUnknown_08A3CB1E[] = {
-    [0] = 0x0064,
-    [1] = 0x00C8,
-    [2] = 0x012C,
-    [3] = 0x01C2,
-    [4] = 0x0226,
-    [5] = 0x0226,
+u16 CONST_DATA gOverallRankLookup[] = {
+    [0] = 100,
+    [1] = 200,
+    [2] = 300,
+    [3] = 450,
+    [4] = 550,
+    [5] = 550,
 };
 
 //! FE8U = 0x080B6070
-int sub_80B6070(int param_1, int param_2, int param_3, int param_4, int param_5) {
+int GetOverallRank(int tacticsRank, int survivalRank, int fundsRank, int combatRank, int expRank) {
     int i;
 
-    u16 tmp = gUnknown_08A3CB04[0][param_1];
-    tmp += gUnknown_08A3CB04[1][param_2];
-    tmp += gUnknown_08A3CB04[2][param_3];
-    tmp += gUnknown_08A3CB04[3][param_4];
-    tmp += gUnknown_08A3CB04[4][param_5];
+    u16 tmp = gOverallRankWeightLookup[0][tacticsRank];
+    tmp += gOverallRankWeightLookup[1][survivalRank];
+    tmp += gOverallRankWeightLookup[2][fundsRank];
+    tmp += gOverallRankWeightLookup[3][combatRank];
+    tmp += gOverallRankWeightLookup[4][expRank];
 
     for (i = 0; i < 5; i++) {
-        if (tmp < gUnknown_08A3CB1E[i]) {
+        if (tmp < gOverallRankLookup[i]) {
             return i;
         }
     }
@@ -238,35 +232,35 @@ int sub_80B6070(int param_1, int param_2, int param_3, int param_4, int param_5)
 
 u8 CONST_DATA gUnknown_08A3CB2A[3][5] = {
     {
-        [0] = 0x28,
-        [1] = 0x50,
-        [2] = 0x78,
-        [3] = 0xA0,
-        [4] = 0xC8,
+        [0] = 40,
+        [1] = 80,
+        [2] = 120,
+        [3] = 160,
+        [4] = 200,
     },
     {
-        [0] = 0x0F,
-        [1] = 0x23,
-        [2] = 0x37,
-        [3] = 0x4B,
-        [4] = 0x64,
+        [0] = 15,
+        [1] = 35,
+        [2] = 55,
+        [3] = 75,
+        [4] = 100,
     },
     {
-        [0] = 0x0A,
-        [1] = 0x1E,
-        [2] = 0x32,
-        [3] = 0x46,
-        [4] = 0x5A,
+        [0] = 10,
+        [1] = 30,
+        [2] = 50,
+        [3] = 70,
+        [4] = 90,
     },
 };
 
 u16 CONST_DATA gUnknown_08A3CB3A[] = {
-    [0] = 0x0041,
-    [1] = 0x007D,
-    [2] = 0x00E1,
-    [3] = 0x0131,
-    [4] = 0x0186,
-    [5] = 0x0186,
+    [0] = 65,
+    [1] = 125,
+    [2] = 225,
+    [3] = 305,
+    [4] = 390,
+    [5] = 390,
 };
 
 //! FE8U = 0x080B60C8
@@ -288,17 +282,17 @@ int sub_80B60C8(int param_1, int param_2, int param_3) {
 
 //! FE8U = 0x080B6104
 int sub_80B6104(void) {
-    return sub_80B6070(
-        sub_80B5D74(),
-        sub_80B5E6C(),
-        sub_80B5FD0(),
-        sub_80B5EA4(),
-        sub_80B5F9C()
+    return GetOverallRank(
+        GetGameTacticsRank(),
+        GetGameSurvivalRank(),
+        GetGameFundsRank(),
+        GetGameExpRank(),
+        GetGameCombatRank()
     );
 }
 
 //! FE8U = 0x080B6144
-int sub_80B6144(void) {
+int GetChapterTacticsRank(void) {
     int i;
     int rankThresholds[4];
 
@@ -323,8 +317,8 @@ int sub_80B6144(void) {
 }
 
 //! FE8U = 0x080B61C4
-int sub_80B61C4(void) {
-    int unk;
+int GetChapterSurvivalRank(void) {
+    int deathCount;
     u8 i;
 
     u8 gUnknown_08205F24[4] = {
@@ -334,10 +328,10 @@ int sub_80B61C4(void) {
         1,
     };
 
-    unk = sub_80B6284();
+    deathCount = GetChapterDeathCount();
 
     for (i = 0; i < 4; i++) {
-        if (unk >= gUnknown_08205F24[i]) {
+        if (deathCount >= gUnknown_08205F24[i]) {
             return i;
         }
     }
@@ -347,28 +341,28 @@ int sub_80B61C4(void) {
 
 u8 CONST_DATA gUnknown_08A3CB46[2][5] = {
     {
-        [0] = 0x0A,
-        [1] = 0x14,
-        [2] = 0x1E,
-        [3] = 0x28,
-        [4] = 0x32,
+        [0] = 10,
+        [1] = 20,
+        [2] = 30,
+        [3] = 40,
+        [4] = 50,
     },
     {
-        [0] = 0x0A,
-        [1] = 0x1E,
-        [2] = 0x3C,
-        [3] = 0x5A,
-        [4] = 0x96,
+        [0] = 10,
+        [1] = 30,
+        [2] = 60,
+        [3] = 90,
+        [4] = 150,
     },
 };
 
 u16 CONST_DATA gUnknown_08A3CB50[] = {
-    [0] = 0x003C,
-    [1] = 0x0050,
-    [2] = 0x0078,
-    [3] = 0x0096,
-    [4] = 0x00C8,
-    [5] = 0x00C8,
+    [0] = 60,
+    [1] = 80,
+    [2] = 120,
+    [3] = 150,
+    [4] = 200,
+    [5] = 200,
 };
 
 //! FE8U = 0x080B61FC
@@ -388,7 +382,7 @@ int sub_80B61FC(int param_1, int param_2) {
 }
 
 //! FE8U = 0x080B622C
-u16 sub_80B622C(void) {
+u16 GetGameDeathCount(void) {
     int i;
 
     int count = 0;
@@ -409,7 +403,7 @@ u16 sub_80B622C(void) {
 }
 
 //! FE8U = 0x080B6264
-u16 sub_80B6264(void) {
+u16 GetGameWinPerc(void) {
     int battles = BWL_GetTotalBattles();
     int wins = BWL_GetTotalWins() * 100;
 
@@ -417,7 +411,7 @@ u16 sub_80B6264(void) {
 }
 
 //! FE8U = 0x080B6284
-u16 sub_80B6284(void) {
+u16 GetChapterDeathCount(void) {
     int i;
 
     int count = 0;
@@ -453,7 +447,7 @@ void sub_80B62D8(void) {
 }
 
 //! FE8U = 0x080B62DC
-int sub_80B62DC(void) {
+int GetChapterFundsRank(void) {
     struct ChapterWinData* ent;
 #if NONMATCHING
     int goldInChapter;
@@ -489,9 +483,9 @@ int sub_80B62DC(void) {
 }
 
 //! FE8U = 0x080B6358
-int sub_80B6358(void) {
-    int uVar5;
-    int iVar6;
+int GetChapterWinPerc(void) {
+    int chapterTotalBattles;
+    int percentage;
     int num;
     int a;
     int b;
@@ -499,17 +493,17 @@ int sub_80B6358(void) {
     int totalBattles = BWL_GetTotalBattles();
     int totalWins = BWL_GetTotalWins();
 
-    if (totalBattles > 0x000FFFFF) {
-        totalBattles = 0x000FFFFF;
+    if (totalBattles > 0xFFFFF) {
+        totalBattles = 0xFFFFF;
     }
 
-    if (totalWins > 0x000FFFFF) {
-        totalWins = 0x000FFFFF;
+    if (totalWins > 0xFFFFF) {
+        totalWins = 0xFFFFF;
     }
 
-    uVar5 = gRAMChapterData.unk_34_00;
+    chapterTotalBattles = gRAMChapterData.unk_34_00;
 
-    if (totalBattles == uVar5) {
+    if (totalBattles == chapterTotalBattles) {
         return 40;
     }
 
@@ -517,37 +511,35 @@ int sub_80B6358(void) {
     b = gRAMChapterData.unk_38_1 << 12;
     num = (totalWins - (b | a)) * 100;
 
-    iVar6 = num / (totalBattles - uVar5);
+    percentage = num / (totalBattles - chapterTotalBattles);
 
-    if (iVar6 > 100) {
-        iVar6 = 100;
+    if (percentage > 100) {
+        percentage = 100;
     }
 
     gRAMChapterData.unk_34_00 = totalBattles;
     gRAMChapterData.unk_34_14 = (totalWins & 0x00000FFF);
-    gRAMChapterData.unk_38_1 = ((u32)totalWins >> 0xc);
+    gRAMChapterData.unk_38_1 = ((u32)totalWins >> 12);
 
-    return iVar6;
+    return percentage;
 }
 
-//extern u8 gUnknown_08205F20[];
-
 //! FE8U = 0x080B63F0
-int sub_80B63F0(void) {
-    int unk;
+int GetChapterCombatRank(void) {
+    int winPercentage;
     int i;
 
-    u8 gUnknown_08205F20[4] = {
-        0x0F,
-        0x19,
-        0x23,
-        0x28,
+    u8 rankThresholds[4] = {
+        15,
+        25,
+        35,
+        40,
     };
 
-    unk = sub_80B6358();
+    winPercentage = GetChapterWinPerc();
 
     for (i = 0; i < 4; i++) {
-        if (unk < gUnknown_08205F20[i]) {
+        if (winPercentage < rankThresholds[i]) {
             return i;
         }
     }
@@ -556,7 +548,7 @@ int sub_80B63F0(void) {
 }
 
 //! FE8U = 0x080B6424
-int sub_80B6424(void) {
+int GetChapterExpRank(void) {
     int totalExp;
     int i;
     struct ChapterWinData* ent;
@@ -569,8 +561,8 @@ int sub_80B6424(void) {
 
     totalExp = BWL_GetTotalExpGained();
 
-    if (totalExp > 0x000FFFFF) {
-        totalExp = 0x000FFFFF;
+    if (totalExp > 0xFFFFF) {
+        totalExp = 0xFFFFF;
     }
 
     expInChapter = totalExp - gRAMChapterData.unk_38_2;
@@ -597,37 +589,37 @@ int sub_80B6424(void) {
 
 //! FE8U = 0x080B6504
 void ComputeChapterRankings(void) {
-    int iVar3;
-    int uVar4;
+    int overallRank;
+    int newRank;
 
     if (GetNextChapterWinDataEntryIndex() > 0) {
 
         switch (gRAMChapterData.chapterModeIndex) {
-            case 1:
-            case 2:
-            case 3:
-                gRAMChapterData.unk_3E_02 = sub_80B6144();
-                gRAMChapterData.unk_3E_05 = sub_80B61C4();
-                gRAMChapterData.unk_3D_07 = sub_80B62DC();
-                gRAMChapterData.unk_3C_06 = sub_80B63F0();
-                gRAMChapterData.unk_3D_01 = sub_80B6424();
+            case CHAPTER_MODE_COMMON:
+            case CHAPTER_MODE_EIRIKA:
+            case CHAPTER_MODE_EPHRAIM:
+                gRAMChapterData.tacticsRank = GetChapterTacticsRank();
+                gRAMChapterData.survivalRank = GetChapterSurvivalRank();
+                gRAMChapterData.fundsRank = GetChapterFundsRank();
+                gRAMChapterData.combatRank = GetChapterCombatRank();
+                gRAMChapterData.expRank = GetChapterExpRank();
         }
 
-        iVar3 = sub_80B6070(
-            gRAMChapterData.unk_3E_02,
-            gRAMChapterData.unk_3E_05,
-            gRAMChapterData.unk_3D_07,
-            gRAMChapterData.unk_3D_01,
-            gRAMChapterData.unk_3C_06
+        overallRank = GetOverallRank(
+            gRAMChapterData.tacticsRank,
+            gRAMChapterData.survivalRank,
+            gRAMChapterData.fundsRank,
+            gRAMChapterData.expRank,
+            gRAMChapterData.combatRank
         );
 
-        uVar4 = gRAMChapterData.unk_2C_04 + iVar3;
+        newRank = gRAMChapterData.unk_2C_04 + overallRank;
 
-        if (uVar4 > 0xff) {
-            uVar4 = 0xff;
+        if (newRank > 0xff) {
+            newRank = 0xff;
         }
 
-        gRAMChapterData.unk_2C_04 = uVar4;
+        gRAMChapterData.unk_2C_04 = newRank;
     }
 
     return;

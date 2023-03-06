@@ -1135,9 +1135,6 @@ extern const u8 gUnknown_08205714[4];
 // extern ??? gUnknown_08205DB8
 // extern ??? gUnknown_08205E18
 // extern ??? gUnknown_08205E28
-// extern ??? gUnknown_08205F1C
-// extern ??? gUnknown_08205F20
-// extern ??? gUnknown_08205F24
 // extern ??? gUnknown_08205F28
 // extern ??? gUnknown_08205F7C
 // extern ??? gUnknown_08205FA0
@@ -3481,8 +3478,8 @@ extern u8 gUnknown_08A36284[]; // tsa?
 extern u8 gUnknown_08A36338[]; // gfx
 extern u8 gUnknown_08A372C0[]; // pal
 extern u16 gUnknown_08A37300[]; // pal
-// extern ??? gUnknown_08A3CB04
-// extern ??? gUnknown_08A3CB1E
+// extern ??? gOverallRankWeightLookup
+// extern ??? gOverallRankLookup
 // extern ??? gUnknown_08A3CB2A
 // extern ??? gUnknown_08A3CB3A
 // extern ??? gUnknown_08A3CB46

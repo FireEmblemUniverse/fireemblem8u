@@ -66,11 +66,11 @@ struct bmsave_unkstruct0 {
 struct GameRankSaveData {
     /* 00 */ u32 valid : 0x01;
              u32 unk00_01 : 0x03;
-             u32 unk00_04 : 0x03; 
-             u32 unk00_07 : 0x03; 
-             u32 unk00_0A : 0x03;
-             u32 unk00_0D : 0x03;
-             u32 unk00_10 : 0x03;
+             u32 tacticsRank : 0x03;
+             u32 survivalRank : 0x03;
+             u32 fundsRank : 0x03;
+             u32 expRank : 0x03;
+             u32 combatRank : 0x03;
 
              u32 chapter_mode : 0x02;
              u32 chapter_stat : 0x01;
@@ -205,5 +205,11 @@ u8 LoadGeneralGameMetadata(struct SaveMeta *buf);
 s8 GGM_IsCharacterKnown(int index, struct SaveMeta *buf);
 int sub_80A3544(void);
 void sub_80A35EC(int unitId, u8* data, struct SaveMeta* buf);
+int GetGameTotalTurnCount2(void);
+int BWL_GetTotalExpGained(void);
+struct ChapterWinData *GetChapterWinDataEntry(int index);
+int GetNextChapterWinDataEntryIndex(void);
+int BWL_GetTotalWins(void);
+int BWL_GetTotalBattles(void);
 
 #endif /* BMSAVE_H */

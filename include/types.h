@@ -204,14 +204,14 @@ struct RAMChapterData { // Chapter Data Struct
     u32 unk_38_2:20; // Used by bmdifficulty (Valni/Lagdou)
     u32 unk_38_3:4;
 
-    u32 unk_3C_00 : 6;
-    u32 unk_3C_06 : 3;
-    u32 unk_3D_01 : 3;
-    u32 unk_3D_04 : 3;
-    u32 unk_3D_07 : 3;
-    u32 unk_3E_02 : 3;
-    u32 unk_3E_05 : 3;
-    u32 unk_3F_00 : 8;
+    /* 3C */ u32 unk_3C_00 : 6;
+    /* 3C */ u32 combatRank : 3;
+    /* 3D */ u32 expRank : 3;
+    /* 3D */ u32 unk_3D_04 : 3;
+    /* 3D */ u32 fundsRank : 3;
+    /* 3E */ u32 tacticsRank : 3;
+    /* 3E */ u32 survivalRank : 3;
+    /* 3F */ u32 unk_3F_00 : 8;
 
     // option bits
     u32 cfgUnitColor:1; // 1
