@@ -1048,13 +1048,13 @@ void GenerateGameRankSaveData(struct GameRankSaveData *buf, int chapter_mode, in
         buf->cuteguy = unit->pCharacterData->number;
     }
 
-    buf->unk00_04 = sub_80B5D74();
-    buf->unk00_0A = sub_80B5FD0();
-    buf->unk00_07 = sub_80B5E6C();
-    buf->unk00_0D = sub_80B5EA4();
-    buf->unk00_10 = sub_80B5F9C();
+    buf->tacticsRank = GetGameTacticsRank();
+    buf->fundsRank = GetGameFundsRank();
+    buf->survivalRank = GetGameSurvivalRank();
+    buf->expRank = GetGameExpRank();
+    buf->combatRank = GetGameCombatRank();
 
-    buf->unk00_01 = sub_80B6070(buf->unk00_04, buf->unk00_07, buf->unk00_0A, buf->unk00_0D, buf->unk00_10);
+    buf->unk00_01 = GetOverallRank(buf->tacticsRank, buf->survivalRank, buf->fundsRank, buf->expRank, buf->combatRank);
     buf->unk08_15 = GetWonChapterCount();
     strcpy((void*)&buf->tactician_name, GetTacticianName());
 }

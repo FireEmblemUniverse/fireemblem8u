@@ -53,48 +53,30 @@ struct ROMChapterData {
 
     /* 2C */ u8 mapCrackedWallHeath;
 
-    /* 2D */ u8 turnsForTacticsRankAInEliwoodStoryNormal; // left over from FE7
-    /* 2E */ u8 turnsForTacticsRankAInEliwoodStoryHard; // left over from FE7
-    /* 2F */ u8 turnsForTacticsRankAInHectorStoryNormal; // left over from FE7
-    /* 30 */ u8 turnsForTacticsRankAInHectorStoryHard; // left over from FE7
-    /* 31 */ u8 turnsForTacticsRankBInEliwoodStoryNormal; // left over from FE7
-    /* 32 */ u8 turnsForTacticsRankBInEliwoodStoryHard; // left over from FE7
-    /* 33 */ u8 turnsForTacticsRankBInHectorStoryNormal; // left over from FE7
-    /* 34 */ u8 turnsForTacticsRankBInHectorStoryHard; // left over from FE7
-    /* 35 */ u8 turnsForTacticsRankCInEliwoodStoryNormal; // left over from FE7
-    /* 36 */ u8 turnsForTacticsRankCInEliwoodStoryHard; // left over from FE7
-    /* 37 */ u8 turnsForTacticsRankCInHectorStoryNormal; // left over from FE7
-    /* 38 */ u8 turnsForTacticsRankCInHectorStoryHard; // left over from FE7
-    /* 39 */ u8 turnsForTacticsRankDInEliwoodStoryNormal; // left over from FE7
-    /* 3A */ u8 turnsForTacticsRankDInEliwoodStoryHard; // left over from FE7
-    /* 3B */ u8 turnsForTacticsRankDInHectorStoryNormal; // left over from FE7
-    /* 3C */ u8 turnsForTacticsRankDInHectorStoryHard; // left over from FE7
+    /* 2D */ u8 turnsForTacticsRankAInEliwoodStory[2]; // left over from FE7
+    /* 2F */ u8 turnsForTacticsRankAInHectorStory[2]; // left over from FE7
+    /* 31 */ u8 turnsForTacticsRankBInEliwoodStory[2]; // left over from FE7
+    /* 33 */ u8 turnsForTacticsRankBInHectorStory[2]; // left over from FE7
+    /* 35 */ u8 turnsForTacticsRankCInEliwoodStory[2]; // left over from FE7
+    /* 37 */ u8 turnsForTacticsRankCInHectorStory[2]; // left over from FE7
+    /* 39 */ u8 turnsForTacticsRankDInEliwoodStory[2]; // left over from FE7
+    /* 3B */ u8 turnsForTacticsRankDInHectorStory[2]; // left over from FE7
 
     /* 3D */ u8 unk3D; // padding?
 
-    /* 3E */ u16 gainedExpForExpRankAInEliwoodStoryNormal; // left over from FE7
-    /* 40 */ u16 gainedExpForExpRankAInEliwoodStoryHard; // left over from FE7
-    /* 42 */ u16 gainedExpForExpRankAInHectorStoryNormal; // left over from FE7
-    /* 44 */ u16 gainedExpForExpRankAInHectorStoryHard; // left over from FE7
-    /* 46 */ u16 gainedExpForExpRankBInEliwoodStoryNormal; // left over from FE7
-    /* 48 */ u16 gainedExpForExpRankBInEliwoodStoryHard; // left over from FE7
-    /* 4A */ u16 gainedExpForExpRankBInHectorStoryNormal; // left over from FE7
-    /* 4C */ u16 gainedExpForExpRankBInHectorStoryHard; // left over from FE7
-    /* 4E */ u16 gainedExpForExpRankCInEliwoodStoryNormal; // left over from FE7
-    /* 50 */ u16 gainedExpForExpRankCInEliwoodStoryHard; // left over from FE7
-    /* 52 */ u16 gainedExpForExpRankCInHectorStoryNormal; // left over from FE7
-    /* 54 */ u16 gainedExpForExpRankCInHectorStoryHard; // left over from FE7
-    /* 56 */ u16 gainedExpForExpRankDInEliwoodStoryNormal; // left over from FE7
-    /* 58 */ u16 gainedExpForExpRankDInEliwoodStoryHard; // left over from FE7
-    /* 5A */ u16 gainedExpForExpRankDInHectorStoryNormal; // left over from FE7
-    /* 5C */ u16 gainedExpForExpRankDInHectorStoryHard; // left over from FE7
+    /* 3E */ u16 gainedExpForExpRankAInEliwoodStory[2]; // left over from FE7
+    /* 42 */ u16 gainedExpForExpRankAInHectorStory[2]; // left over from FE7
+    /* 46 */ u16 gainedExpForExpRankBInEliwoodStory[2]; // left over from FE7
+    /* 4A */ u16 gainedExpForExpRankBInHectorStory[2]; // left over from FE7
+    /* 4E */ u16 gainedExpForExpRankCInEliwoodStory[2]; // left over from FE7
+    /* 52 */ u16 gainedExpForExpRankCInHectorStory[2]; // left over from FE7
+    /* 56 */ u16 gainedExpForExpRankDInEliwoodStory[2]; // left over from FE7
+    /* 5A */ u16 gainedExpForExpRankDInHectorStory[2]; // left over from FE7
 
     /* 5E */ u16 unk5E; // padding?
 
-    /* 60 */ u32 goldForFundsRankInEliwoodStoryNormal; // left over from FE7
-    /* 64 */ u32 goldForFundsRankInEliwoodStoryHard; // left over from FE7
-    /* 68 */ u32 goldForFundsRankInHectorStoryNormal; // left over from FE7
-    /* 6C */ u32 goldForFundsRankInHectorStoryHard; // left over from FE7
+    /* 60 */ u32 goldForFundsRankInEliwoodStory[2]; // left over from FE7
+    /* 68 */ u32 goldForFundsRankInHectorStory[2]; // left over from FE7
 
     /* 70 */ u16 chapTitleTextId;
     /* 72 */ u16 chapTitleTextIdInHectorStory; // left over from FE7
@@ -201,6 +183,6 @@ const void* GetChapterMapPointer(unsigned chIndex);
 const void* GetChapterMapChangesPointer(unsigned chIndex);
 const struct ChapterEventGroup* GetChapterEventDataPointer(unsigned chIndex);
 const char* GetChapterTitle(unsigned chIndex);
-int IsDifficultMode(void);
+u8 IsDifficultMode(void);
 
 #endif // GUARD_CHAPTERDATA_H

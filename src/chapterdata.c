@@ -41,7 +41,7 @@ const char* GetChapterTitle(unsigned chIndex) {
     return gUnknown_08A1FB34[3];
 }
 
-int IsDifficultMode(void) {
+u8 IsDifficultMode(void) {
     u8 difficultState = gRAMChapterData.chapterStateBits & CHAPTER_FLAG_DIFFICULT;
     return difficultState ? TRUE : FALSE;
 }
