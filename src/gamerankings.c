@@ -54,20 +54,22 @@ int sub_80B5D74(void) {
     return i;
 }
 
-extern u8 gUnknown_08205F1C[];
-
 //! FE8U = 0x080B5E6C
 int sub_80B5E6C(void) {
     int unk;
     u8 i;
 
-    u8 hack[4];
-    memcpy(hack, gUnknown_08205F1C, 4);
+    u8 gUnknown_08205F1C[4] = {
+        6,
+        4,
+        2,
+        1,
+    };
 
     unk = sub_80B622C();
 
     for (i = 0; i < 4; i++) {
-        if (unk >= hack[i]) {
+        if (unk >= gUnknown_08205F1C[i]) {
             return i;
         }
     }
@@ -112,19 +114,21 @@ int sub_80B5EA4(void) {
     return i;
 }
 
-extern u8 gUnknown_08205F20[];
-
 //! FE8U = 0x080B5F9C
 int sub_80B5F9C(void) {
     int unk;
     int i;
 
-    u8 hack[4];
-    memcpy(hack, gUnknown_08205F20, 4);
+    u8 gUnknown_08205F20[4] = {
+        0x0F,
+        0x19,
+        0x23,
+        0x28,
+    };
 
     unk = sub_80B6264();
     for (i = 0; i < 4; i++) {
-        if (unk < hack[i]) {
+        if (unk < gUnknown_08205F20[i]) {
             return i;
         }
     }
@@ -166,8 +170,52 @@ int sub_80B5FD0(void) {
     }
 }
 
-extern u8 gUnknown_08A3CB04[5][5];
-extern u16 gUnknown_08A3CB1E[];
+u8 CONST_DATA gUnknown_08A3CB04[5][5] = {
+    {
+        [0] = 0x28,
+        [1] = 0x50,
+        [2] = 0x78,
+        [3] = 0xA0,
+        [4] = 0xC8,
+    },
+    {
+        [0] = 0x0F,
+        [1] = 0x23,
+        [2] = 0x37,
+        [3] = 0x4B,
+        [4] = 0x64,
+    },
+    {
+        [0] = 0x00,
+        [1] = 0x14,
+        [2] = 0x28,
+        [3] = 0x3C,
+        [4] = 0x50,
+    },
+    {
+        [0] = 0x00,
+        [1] = 0x14,
+        [2] = 0x28,
+        [3] = 0x3C,
+        [4] = 0x50,
+    },
+    {
+        [0] = 0x0A,
+        [1] = 0x1E,
+        [2] = 0x32,
+        [3] = 0x46,
+        [4] = 0x5A,
+    },
+};
+
+u16 CONST_DATA gUnknown_08A3CB1E[] = {
+    [0] = 0x0064,
+    [1] = 0x00C8,
+    [2] = 0x012C,
+    [3] = 0x01C2,
+    [4] = 0x0226,
+    [5] = 0x0226,
+};
 
 //! FE8U = 0x080B6070
 int sub_80B6070(int param_1, int param_2, int param_3, int param_4, int param_5) {
@@ -188,8 +236,38 @@ int sub_80B6070(int param_1, int param_2, int param_3, int param_4, int param_5)
     return i;
 }
 
-extern u8 gUnknown_08A3CB2A[3][5];
-extern u16 gUnknown_08A3CB3A[];
+u8 CONST_DATA gUnknown_08A3CB2A[3][5] = {
+    {
+        [0] = 0x28,
+        [1] = 0x50,
+        [2] = 0x78,
+        [3] = 0xA0,
+        [4] = 0xC8,
+    },
+    {
+        [0] = 0x0F,
+        [1] = 0x23,
+        [2] = 0x37,
+        [3] = 0x4B,
+        [4] = 0x64,
+    },
+    {
+        [0] = 0x0A,
+        [1] = 0x1E,
+        [2] = 0x32,
+        [3] = 0x46,
+        [4] = 0x5A,
+    },
+};
+
+u16 CONST_DATA gUnknown_08A3CB3A[] = {
+    [0] = 0x0041,
+    [1] = 0x007D,
+    [2] = 0x00E1,
+    [3] = 0x0131,
+    [4] = 0x0186,
+    [5] = 0x0186,
+};
 
 //! FE8U = 0x080B60C8
 int sub_80B60C8(int param_1, int param_2, int param_3) {
@@ -244,20 +322,22 @@ int sub_80B6144(void) {
     return i;
 }
 
-extern u8 gUnknown_08205F24[];
-
 //! FE8U = 0x080B61C4
 int sub_80B61C4(void) {
     int unk;
     u8 i;
 
-    u8 hack[4];
-    memcpy(hack, gUnknown_08205F24, 4);
+    u8 gUnknown_08205F24[4] = {
+        4,
+        3,
+        2,
+        1,
+    };
 
     unk = sub_80B6284();
 
     for (i = 0; i < 4; i++) {
-        if (unk >= hack[i]) {
+        if (unk >= gUnknown_08205F24[i]) {
             return i;
         }
     }
@@ -265,8 +345,31 @@ int sub_80B61C4(void) {
     return i;
 }
 
-extern u8 gUnknown_08A3CB46[2][5];
-extern u16 gUnknown_08A3CB50[];
+u8 CONST_DATA gUnknown_08A3CB46[2][5] = {
+    {
+        [0] = 0x0A,
+        [1] = 0x14,
+        [2] = 0x1E,
+        [3] = 0x28,
+        [4] = 0x32,
+    },
+    {
+        [0] = 0x0A,
+        [1] = 0x1E,
+        [2] = 0x3C,
+        [3] = 0x5A,
+        [4] = 0x96,
+    },
+};
+
+u16 CONST_DATA gUnknown_08A3CB50[] = {
+    [0] = 0x003C,
+    [1] = 0x0050,
+    [2] = 0x0078,
+    [3] = 0x0096,
+    [4] = 0x00C8,
+    [5] = 0x00C8,
+};
 
 //! FE8U = 0x080B61FC
 int sub_80B61FC(int param_1, int param_2) {
@@ -427,20 +530,24 @@ int sub_80B6358(void) {
     return iVar6;
 }
 
-extern u8 gUnknown_08205F20[];
+//extern u8 gUnknown_08205F20[];
 
 //! FE8U = 0x080B63F0
 int sub_80B63F0(void) {
     int unk;
     int i;
 
-    u8 hack[4];
-    memcpy(hack, gUnknown_08205F20, 4);
+    u8 gUnknown_08205F20[4] = {
+        0x0F,
+        0x19,
+        0x23,
+        0x28,
+    };
 
     unk = sub_80B6358();
 
     for (i = 0; i < 4; i++) {
-        if (unk < hack[i]) {
+        if (unk < gUnknown_08205F20[i]) {
             return i;
         }
     }
