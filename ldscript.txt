@@ -164,7 +164,7 @@ SECTIONS
         asm/prep_menuscroll.o(.text);
         asm/code_prepscreen_80977AC.o(.text);
         asm/prep_itemscreen.o(.text);
-        asm/prep_unitscreen.o(.text);
+        src/prep_unitselect.o(.text);
         asm/prep_itemtrade.o(.text);
         asm/prep_itemuse.o(.text);
         asm/prep_itemsupply.o(.text);
@@ -466,6 +466,8 @@ SECTIONS
         . = ALIGN(4); src/prep_atmenu.o(.data);
         . = ALIGN(4); src/prep_menuproc.o(.data);
         . = ALIGN(4); data/data_A184B4.o(.data);
+        . = ALIGN(4); src/prep_unitselect.o(.data);
+        . = ALIGN(4); data/data_prep_A1901C.o(.data);
         . = ALIGN(4); src/prep_wm_sell.o(.data);
         . = ALIGN(4); src/prep_80A0760.o(.data);
         . = ALIGN(4); src/uisupport.o(.data);

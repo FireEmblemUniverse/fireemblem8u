@@ -332,7 +332,7 @@ int GetLatestUnitIndexInPrepListByUId()
     return 0;
 }
 
-int GetLatestUnitIndexInPrepListByCharId()
+int PrepGetLatestUnitIndex()
 {
     int i;
     for (i = 0; i < PrepGetUnitAmount(); i++) {

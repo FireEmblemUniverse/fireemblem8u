@@ -692,7 +692,7 @@ _080988E2:
 	adds r0, r7, #0
 	movs r1, #0xe0
 	movs r2, #0xb
-	bl sub_8097748
+	bl PrepStartSideBarScroll
 	ldrh r4, [r7, #0x34]
 	bl PrepGetUnitAmount
 	subs r0, #1
@@ -2982,7 +2982,7 @@ sub_8099AF8: @ 0x08099AF8
 	ldr r0, _08099C5C  @ sub_8099AA0
 	movs r1, #1
 	mov r2, r8
-	bl sub_80ACE20
+	bl StartParallelFiniteLoop
 	bl sub_80ACAE4
 	bl sub_8098590
 	bl EndHelpPromptSprite

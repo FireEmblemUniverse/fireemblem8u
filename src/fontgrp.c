@@ -1145,7 +1145,7 @@ struct ProcCmd gUnknown_08588284[] =
 	PROC_END,
 };
 
-void NewGreenTextColorManager(struct Proc *parent)
+void NewGreenTextColorManager(ProcPtr parent)
 {
     if (parent != NULL)
         Proc_Start(gUnknown_08588284, parent);

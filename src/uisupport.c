@@ -624,7 +624,7 @@ void SupportScreen_SetupGraphics(struct SupportScreenProc* proc) {
 
     StartParallelWorker(DrawSupportScreenUnitSprites, proc);
 
-    sub_8097748(proc, 0xd8, 0x2d, 0x200, 4);
+    PrepStartSideBarScroll(proc, 0xd8, 0x2d, 0x200, 4);
 
     sub_80976CC(10, proc->unk_34, ((GetSupportScreenUnitCount() - 1) / 3) + 1, 6);
 

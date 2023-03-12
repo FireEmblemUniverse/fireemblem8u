@@ -6,6 +6,7 @@
 #include "soundwrapper.h"
 #include "face.h"
 #include "chapterdata.h"
+#include "prepscreen.h"
 
 /**
 * This proc seems to be the "sub-menu" dialogue that pops up when selecting "Fortune" on the prep screen in FE7.

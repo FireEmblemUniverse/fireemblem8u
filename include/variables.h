@@ -144,7 +144,7 @@ extern struct PrepUnitList gPrepUnitList;
 // extern ??? gUnknown_02013570
 // extern ??? gUnknown_02013588
 // extern ??? gUnknown_02013590
-// extern ??? gUnknown_02013598
+// extern ??? gPrepUnitTexts
 // extern ??? gUnknown_02013608
 // extern ??? gUnknown_02013630
 // extern ??? gUnknown_02013640
@@ -332,7 +332,7 @@ extern u16 gUnknown_02022BA4[];
 // extern ??? gUnknown_02022BA8
 // extern ??? gUnknown_02022BC8
 // extern ??? gUnknown_02022BE8
-// extern ??? gUnknown_02022C08
+extern u16 gUnknown_02022C08[];
 // extern ??? gUnknown_02022C28
 extern u16 gUnknown_02022C48[];
 // extern ??? gUnknown_02022C68
@@ -3267,10 +3267,10 @@ extern CONST_DATA struct ProcCmd ProcScr_PrepMenu[];
 // extern ??? gUnknown_08A18964
 // extern ??? gUnknown_08A1898C
 // extern ??? ProcScr_PrepItemScreen
-// extern ??? gUnknown_08A18E34
-extern CONST_DATA u16 gUnknown_08A18E4E[];
-extern CONST_DATA u16 gUnknown_08A18E62[];
-extern CONST_DATA u16 gUnknown_08A18E76[];
+extern CONST_DATA u16 obj_08A18E34[];
+extern CONST_DATA u16 obj_08A18E4E[];
+extern CONST_DATA u16 obj_08A18E62[];
+extern CONST_DATA u16 obj_08A18E76[];
 extern CONST_DATA struct ProcCmd ProcScr_PrepUnitScreen[];
 // extern ??? ProcScr_PrepItemTradeScreen
 // extern ??? PrepScr_PrepItemUseScreen
@@ -3307,8 +3307,8 @@ extern u16 CONST_DATA gUnknown_08A1B194[];
 // extern ??? gUnknown_08A1B638
 extern u8 CONST_DATA gUnknown_08A1B658[];
 extern u8 CONST_DATA gUnknown_08A1B698[];
-// extern ??? gUnknown_08A1B730
-// extern ??? gUnknown_08A1B7C8
+extern u8 CONST_DATA gUnknown_08A1B730[];
+extern u8 CONST_DATA gUnknown_08A1B7C8[];
 // extern ??? gUnknown_08A1B8B8
 // extern ??? gUnknown_08A1B990
 // extern ??? gUnknown_08A1B9EC
@@ -3382,7 +3382,7 @@ extern u8 Img_PrepWindow[];
 // extern ??? gUnknown_08A20B7C
 // extern ??? gUnknown_08A20B8A
 // extern ??? gUnknown_08A20B94
-// extern ??? gUnknown_08A20BB4
+// extern ??? ProcScr_ParallelFiniteLoop
 // extern ??? gUnknown_08A20BD4
 // extern ??? ProcScr_ParallelWorker
 // extern ??? gUnknown_08A20C1C

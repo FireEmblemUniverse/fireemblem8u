@@ -202,8 +202,8 @@ gUnknown_08A20B94:  @ 0x08A20B94
         .word 0x0
 
 
-	.global gUnknown_08A20BB4
-gUnknown_08A20BB4:  @ 0x08A20BB4
+	.global ProcScr_ParallelFiniteLoop
+ProcScr_ParallelFiniteLoop:  @ 0x08A20BB4
         @ PROC_YIELD
         .short 0xe, 0x0
         .word 0x0

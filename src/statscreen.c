@@ -1903,7 +1903,7 @@ void BgOffCtrl_OnLoop(void)
     BG_SetPosition(2, 0, yBg);
 }
 
-void StartStatScreen(struct Unit* unit, struct Proc* parent)
+void StartStatScreen(struct Unit* unit, ProcPtr parent)
 {
     gStatScreen.xDispOff = 0;
     gStatScreen.yDispOff = 0;
@@ -2546,7 +2546,7 @@ void HbLock_OnIdle(struct Proc* proc)
         Proc_Break(proc);
 }
 
-int StartLockingHelpBox_Unused(int mid, struct Proc* parent)
+int StartLockingHelpBox_Unused(int mid, ProcPtr parent)
 {
     LoadDialogueBoxGfx(NULL, -1);
 
@@ -2563,7 +2563,7 @@ void HelpPrompt_OnIdle(struct HelpPromptSprProc* proc)
         sSprite_MetaHelp, proc->tileref);
 }
 
-struct Proc* StartHelpPromptSprite_Unused(int x, int y, struct Proc* parent)
+struct Proc* StartHelpPromptSprite_Unused(int x, int y, ProcPtr parent)
 {
     struct HelpPromptSprProc* proc = (void*) Proc_Find(gProcScr_HelpPromptSpr);
 
@@ -2577,7 +2577,7 @@ struct Proc* StartHelpPromptSprite_Unused(int x, int y, struct Proc* parent)
     return (void*) proc;
 }
 
-struct Proc* StartHelpPromptSprite(int x, int y, int palid, struct Proc* parent)
+struct Proc* StartHelpPromptSprite(int x, int y, int palid, ProcPtr parent)
 {
     struct HelpPromptSprProc* proc = (void*) Proc_Find(gProcScr_HelpPromptSpr);
 
@@ -2593,7 +2593,7 @@ struct Proc* StartHelpPromptSprite(int x, int y, int palid, struct Proc* parent)
     return (void*) proc;
 }
 
-struct Proc* StartHelpPromptSprite_Unused2(int x, int y, struct Proc* parent)
+struct Proc* StartHelpPromptSprite_Unused2(int x, int y, ProcPtr parent)
 {
     struct HelpPromptSprProc* proc = (void*) Proc_Find(gProcScr_HelpPromptSpr);
 
