@@ -15,6 +15,7 @@ struct MAInfoFrameProc;
 struct MAExpBarProc;
 struct ProcAtMenu;
 struct PrepUnitList;
+struct TextHandle;
 
 // Type definitions for types without any other home :/
 

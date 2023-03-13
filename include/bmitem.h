@@ -1,6 +1,8 @@
 #ifndef GUARD_ITEMS_H
 #define GUARD_ITEMS_H
 
+#include "fontgrp.h"
+
 struct ItemStatBonuses
 {
     /* 00 */ s8 hpBonus;
@@ -146,7 +148,7 @@ enum {
 #define ITEM_INDEX(aItem) ((aItem) & 0xFF)
 #define ITEM_USES(aItem) ((aItem) >> 8)
 
-struct TextHandle;
+extern const struct ItemData gItemData[];
 
 char* GetItemNameWithArticle(int item, s8 capitalize);
 

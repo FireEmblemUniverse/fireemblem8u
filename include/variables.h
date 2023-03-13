@@ -126,7 +126,6 @@ extern u16 gBmFrameTmap1[];
 extern char gStringBufferAlt[];
 // extern ??? gUnknown_0200F1C8
 // extern ??? gUnknown_0201000C
-extern struct TextHandle gPrepMainMenuTexts[9];
 extern u8 gPrepUnitPool[];
 // extern ??? gUnknown_02011BC8
 extern struct PrepUnitList gPrepUnitList;
@@ -505,9 +504,6 @@ extern struct RAMChapterData gRAMChapterData;
 // extern ??? gUnknown_0202BD31
 extern u8 gActiveUnitId;
 extern struct Vec2 gActiveUnitMoveOrigin;
-extern struct Unit gUnitArrayBlue[62];
-extern struct Unit gUnitArrayRed[50];
-extern struct Unit gUnitArrayGreen[20];
 // extern ??? gUnknown_02030B8C
 extern u8 gWorkingMovementScript[];
 extern u16 gConvoyItemArray[];
@@ -2726,7 +2722,6 @@ extern u16 gUnknown_08803590[];
 // extern ??? gUnknown_08803CB0
 // extern ??? gUnknown_08803CD0
 // extern ??? gCharacterData
-extern const struct ItemData gItemData[];
 extern const s8 gUnknown_0880B90C[]; // terrainId to ? lookup
 extern const s8 gUnknown_0880BB96[]; // Unit drop movement cost table
 extern const s8 gUnknown_0880BC18[]; // Ballista mov cost table
@@ -2798,10 +2793,8 @@ extern u8 CONST_DATA gUnknown_088ADFA6[]; // Solar Brace class list
 // extern ??? gUnknown_088AF880
 // extern ??? gUnknown_088AFB5A
 // extern ??? gUnknown_088AFBD8
-extern const struct SupportBonuses gAffinityBonuses[];
 // extern ??? gUnknown_088B39EC
 // extern ??? gUnknown_088B3AD8
-extern struct UnitDefinition gUnitDefSumDK[];
 // extern ??? gUnknown_088D2058
 // extern ??? gConvoBackgroundData
 extern u8 CONST_DATA gUnknown_0895DFA4[][2];

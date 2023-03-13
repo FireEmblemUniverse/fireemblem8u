@@ -349,6 +349,10 @@ extern CONST_DATA struct ClassData gClassData[]; // gClassData
 extern CONST_DATA struct CharacterData gCharacterData[]; // gCharacterData
 extern struct UnitDefinition gUnitDef1;
 extern struct UnitDefinition gUnitDef2;
+extern struct UnitDefinition gUnitDefSumDK[];
+extern struct Unit gUnitArrayBlue[62];
+extern struct Unit gUnitArrayRed[50];
+extern struct Unit gUnitArrayGreen[20];
 
 void ClearUnits(void);
 void ClearUnit(struct Unit* unit);

@@ -3,6 +3,7 @@
 #include "cp_common.h"
 #include "cp_script.h"
 #include "cp_data.h"
+#include "bmunit.h"
 
 #include "constants/characters.h"
 #include "constants/items.h"

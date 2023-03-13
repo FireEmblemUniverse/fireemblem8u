@@ -1,6 +1,7 @@
 #ifndef PREP_SCREEN_H
 
 #include "proc.h"
+#include "fontgrp.h"
 
 struct PrepUnitList {
     struct Unit *units[0x40];
@@ -123,6 +124,8 @@ enum proc_label_prep_unit_select {
     PROC_LABEL_PREPUNIT_GAME_START = 0x63,
     PROC_LABEL_PREPUNIT_END = 0x64,
 };
+
+extern struct TextHandle gPrepMainMenuTexts[9];
 
 void Prep_DrawChapterGoal(int VRAM_offset, int pal);
 // ??? PrepAtMenu_OnInit(???);
