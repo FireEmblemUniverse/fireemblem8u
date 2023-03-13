@@ -555,7 +555,7 @@ void Config_Init(struct ConfigProc* proc) {
 
     DrawGameOptionHelpText();
 
-    sub_8097748(proc, 224, 47, 0x7200, 1);
+    PrepStartSideBarScroll(proc, 224, 47, 0x7200, 1);
 
     Text_Init(&gConfigUiState->unk_68, 9);
     Text_Init(&gConfigUiState->unk_a0, 14);

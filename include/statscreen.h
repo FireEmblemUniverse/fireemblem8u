@@ -158,7 +158,7 @@ struct HelpBoxInfo
 int GetLastStatScreenUid(void);
 void SetLastStatScreenUid(int uid);
 void SetStatScreenConfig(int unk);
-void StartStatScreen(struct Unit* unit, struct Proc* parent);
+void StartStatScreen(struct Unit* unit, ProcPtr parent);
 
 void HbPopulate_SSItem(struct HelpBoxProc* proc);
 void HbPopulate_SSStatus(struct HelpBoxProc* proc);
@@ -192,11 +192,11 @@ int TryRelocateHbDown(struct HelpBoxProc* proc);
 int TryRelocateHbLeft(struct HelpBoxProc* proc);
 int TryRelocateHbRight(struct HelpBoxProc* proc);
 
-int StartLockingHelpBox_Unused(int mid, struct Proc* parent);
+int StartLockingHelpBox_Unused(int mid, ProcPtr parent);
 
-struct Proc* StartHelpPromptSprite_Unused(int x, int y, struct Proc* parent);
-struct Proc* StartHelpPromptSprite(int x, int y, int palid, struct Proc* parent);
-struct Proc* StartHelpPromptSprite_Unused2(int x, int y, struct Proc* parent);
+struct Proc* StartHelpPromptSprite_Unused(int x, int y, ProcPtr parent);
+struct Proc* StartHelpPromptSprite(int x, int y, int palid, ProcPtr parent);
+struct Proc* StartHelpPromptSprite_Unused2(int x, int y, ProcPtr parent);
 void EndHelpPromptSprite(void);
 void MoveHelpPromptSprite(int x, int y);
 

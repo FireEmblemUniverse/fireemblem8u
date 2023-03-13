@@ -492,8 +492,8 @@ _08097744: .4byte ProcScr_PrepSideBarHandler
 
 	THUMB_FUNC_END InitPrepSideBarImg
 
-	THUMB_FUNC_START sub_8097748
-sub_8097748: @ 0x08097748
+	THUMB_FUNC_START PrepStartSideBarScroll
+PrepStartSideBarScroll: @ 0x08097748
 	push {r4, r5, r6, lr}
 	mov r6, r9
 	mov r5, r8
@@ -539,6 +539,6 @@ _080977A0: .4byte Pal_PrepWindowSideBar
 _080977A4: .4byte Img_PrepWindowSideBar
 _080977A8: .4byte 0x06010000
 
-	THUMB_FUNC_END sub_8097748
+	THUMB_FUNC_END PrepStartSideBarScroll
 
 .align 2, 0

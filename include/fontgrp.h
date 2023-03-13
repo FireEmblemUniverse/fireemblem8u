@@ -135,7 +135,7 @@ void sub_8004700(struct TextHandle *, struct Glyph *);
 // ??? sub_800496C(???);
 // ??? sub_8004974(???);
 // ??? sub_8004984(???);
-void NewGreenTextColorManager(struct Proc* parent);
+void NewGreenTextColorManager(ProcPtr parent);
 void EndGreenTextColorManager(void);
 // ??? sub_80049E0(???);
 // ??? sub_8004A34(???);

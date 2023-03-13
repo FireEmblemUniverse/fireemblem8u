@@ -34,7 +34,8 @@ struct ProcAtMenu {
     /* 35 */ u8 unk_35;
     /* 36 */ bool8 end_prep;
     /* 38 */ u8 unk_38[0x3C - 0x38];
-    /* 3C */ u32 yDiff; // y Pos offset of Unit SMS
+    /* 3C */ u16 yDiff; // y Pos offset of Unit SMS
+    /* 3E */ u16 unk3E;
     /* 40 */ u32 xDiff;
 };
 
@@ -95,5 +96,80 @@ struct ProcPrepMenu {
     /* 5C */ u8 (*on_PressStart)(ProcPtr);
     /* 60 */ u8 (*on_End)(ProcPtr);
 };
+
+struct ProcPrepUnit {
+    PROC_HEADER;
+    /* 29 */ u8 cur_counter; // Total unit number to be on battle
+    /* 2A */ u8 max_counter; // Total unit number can be on battle
+    /* 2B */ u8 unk_2B;
+    /* 2C */ u16 list_num_pre; // pre unit index in prep-list(for scroll)
+    /* 2E */ u16 list_num_cur; // current unit index in prep-list
+    /* 30 */ u16 yDiff_cur; // y Pos offset of Unit SMS (current)
+    /* 32 */ u16 unk_32;
+    /* 34 */ u16 unk34;
+    /* 36 */ u8 scroll_val; // each px to scroll at each frame
+    /* 37 */ u8 button_blank;
+    /* 38 */ u8 pad_38[0x3C - 0x38];
+    /* 3C */ u16 unk_3C;
+};
+
+enum proc_label_prep_unit_select {
+    PROC_LABEL_PREPUNIT_0 = 0,
+    PROC_LABEL_PREPUNIT_IDLE,
+    PROC_LABEL_PREPUNIT_2,
+    PROC_LABEL_PREPUNIT_PRESS_SELECT,
+    PROC_LABEL_PREPUNIT_PRESS_R,
+    PROC_LABEL_PREPUNIT_PRESS_B = 0xA,
+    PROC_LABEL_PREPUNIT_GAME_START = 0x63,
+    PROC_LABEL_PREPUNIT_END = 0x64,
+};
+
+void Prep_DrawChapterGoal(int VRAM_offset, int pal);
+// ??? PrepAtMenu_OnInit(???);
+// ??? ResetPrepMenuDescTexts(???);
+void ParsePrepMenuDescTexts(int msg);
+// ??? DrawPrepMenuDescTexts(???);
+// ??? PrepMenuDescOnInit(???);
+// ??? PrepMenuDescOnParse(???);
+// ??? PrepMenuDescOnDraw(???);
+void sub_8095C00(int msg, ProcPtr parent);
+// ??? sub_8095C2C(???);
+// ??? sub_8095C50(???);
+// ??? AtMenu_Reinitialize(???);
+// ??? EndPrepAtMenuIfNoUnitAvailable(???);
+// ??? sub_8095F2C(???);
+void sub_8095F54(struct ProcAtMenu *proc);
+void CleanupPrepMenuScreen(ProcPtr proc);
+// ??? sub_8096004(???);
+// ??? AtMenu_CtrlLoop(???);
+// ??? AtMenuSetUnitStateAndEndFlag(???);
+// ??? AtMenu_ResetScreenEffect(???);
+// ??? AtMenu_ResetBmUiEffect(???);
+// ??? AtMenu_StartSubmenu(???);
+// ??? AtMenu_OnSubmenuEnd(???);
+void sub_8096404();
+void AtMenu_LockGame();
+void AtMenu_UnlockGame();
+void StartPrepAtMenu();
+void StartPrepAtMenuWithConfig();
+// ??? HasConvoyAccess_(???);
+// ??? TraineePromo_ResetScreenEffect(???);
+// ??? DoPromoteAnimForChar100(???);
+// ??? IsGameLockLevelReserved(???);
+// ??? NullExpForChar100AndResetScreen(???);
+// ??? sub_80965F0(???);
+// ??? sub_8096668(???);
+// ??? NewPrepScreenTraineePromotionManager(???);
+// ??? PrepScreenTraineePromotionManagerExists(???);
+// ??? PrepAtMenuExists(???);
+// ??? PutObj8A1856E(???);
+// ??? PutObj8A18582_WithConfigs(???);
+// ??? PutObj8A18590_WithConfigs(???);
+// ??? PutObj8A1859E_WithConfigs(???);
+// ??? PutObj8A185AC(???);
+// ??? sub_8096958(???);
+// ??? ProcPrepSpChar_OnInit(???);
+// ??? ProcPrepSpChar_Idle(???);
+// ??? ProcPrepSpChar_OnEnd(???);
 
 #endif /* PREP_SCREEN_H */

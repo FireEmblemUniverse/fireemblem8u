@@ -28,6 +28,7 @@
 #include "uiconfig.h"
 #include "bmudisp.h"
 #include "bm.h"
+#include "prepscreen.h"
 
 #include "sallycursor.h"
 

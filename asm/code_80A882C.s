@@ -2456,13 +2456,13 @@ _080ACE12:
 
 	THUMB_FUNC_END sub_80ACDF8
 
-	THUMB_FUNC_START sub_80ACE20
-sub_80ACE20: @ 0x080ACE20
+	THUMB_FUNC_START StartParallelFiniteLoop
+StartParallelFiniteLoop: @ 0x080ACE20
 	push {r4, r5, lr}
 	adds r5, r0, #0
 	adds r4, r1, #0
 	adds r1, r2, #0
-	ldr r0, _080ACE38  @ gUnknown_08A20BB4
+	ldr r0, _080ACE38  @ ProcScr_ParallelFiniteLoop
 	bl Proc_Start
 	str r4, [r0, #0x2c]
 	str r5, [r0, #0x34]
@@ -2470,9 +2470,9 @@ sub_80ACE20: @ 0x080ACE20
 	pop {r0}
 	bx r0
 	.align 2, 0
-_080ACE38: .4byte gUnknown_08A20BB4
+_080ACE38: .4byte ProcScr_ParallelFiniteLoop
 
-	THUMB_FUNC_END sub_80ACE20
+	THUMB_FUNC_END StartParallelFiniteLoop
 
 	THUMB_FUNC_START sub_80ACE3C
 sub_80ACE3C: @ 0x080ACE3C
@@ -8113,7 +8113,7 @@ sub_80AF524: @ 0x080AF524
 	movs r1, #0xd8
 	movs r2, #0x48
 	adds r3, r5, #0
-	bl sub_8097748
+	bl PrepStartSideBarScroll
 	adds r0, r4, #0
 	bl sub_80AF338
 	ldr r0, _080AF7B8  @ gUnknown_08A2C908

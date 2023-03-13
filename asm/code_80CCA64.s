@@ -2203,7 +2203,7 @@ _080CEE44:
 	ldr r0, [sp, #4]
 	movs r1, #0xe0
 	movs r2, #0x2f
-	bl sub_8097748
+	bl PrepStartSideBarScroll
 	ldr r0, _080CEED0  @ gUnknown_08B12AA4
 	ldr r0, [r0]
 	adds r1, r0, #0

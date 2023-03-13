@@ -491,7 +491,7 @@ _0809EF4A:
 	adds r0, r7, #0
 	movs r1, #0xe1
 	movs r2, #0x2f
-	bl sub_8097748
+	bl PrepStartSideBarScroll
 	bl sub_8097668
 	ldr r0, [r7, #0x2c]
 	mov r2, r8
@@ -725,7 +725,7 @@ sub_809F150: @ 0x0809F150
 	ldr r0, _0809F1FC  @ sub_809EC38
 	movs r1, #2
 	adds r2, r4, #0
-	bl sub_80ACE20
+	bl StartParallelFiniteLoop
 	ldrh r0, [r4, #0x36]
 	cmp r0, #0
 	beq _0809F210
@@ -1206,7 +1206,7 @@ _0809F4D4:
 	ldr r0, _0809F5C8  @ sub_809EC38
 	movs r1, #1
 	adds r2, r6, #0
-	bl sub_80ACE20
+	bl StartParallelFiniteLoop
 _0809F56E:
 	ldrb r0, [r7]
 	lsls r0, r0, #1
@@ -2052,7 +2052,7 @@ _0809FBB6:
 	ldr r0, _0809FC1C  @ sub_809EC38
 	movs r1, #1
 	adds r2, r6, #0
-	bl sub_80ACE20
+	bl StartParallelFiniteLoop
 	movs r0, #4
 	bl BG_EnableSyncByMask
 	ldr r0, _0809FC20  @ gRAMChapterData

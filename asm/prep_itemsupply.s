@@ -1165,7 +1165,7 @@ _0809DB5C:
 	adds r0, r7, #0
 	movs r1, #0xe1
 	movs r2, #0x2f
-	bl sub_8097748
+	bl PrepStartSideBarScroll
 	bl sub_8097668
 	ldr r0, [r7, #0x2c]
 	mov r2, r8
@@ -2142,7 +2142,7 @@ _0809E304:
 	ldr r0, _0809E3F4  @ sub_809E2BC
 	movs r1, #1
 	adds r2, r7, #0
-	bl sub_80ACE20
+	bl StartParallelFiniteLoop
 	mov r1, r8
 	ldrb r0, [r1]
 	lsls r0, r0, #1
@@ -2825,7 +2825,7 @@ sub_809E85C: @ 0x0809E85C
 	ldr r0, _0809E930  @ sub_809E2BC
 	movs r1, #1
 	adds r2, r5, #0
-	bl sub_80ACE20
+	bl StartParallelFiniteLoop
 	movs r0, #4
 	bl BG_EnableSyncByMask
 	ldr r0, [r5, #0x2c]
