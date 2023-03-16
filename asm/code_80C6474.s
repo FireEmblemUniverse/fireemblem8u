@@ -2272,7 +2272,7 @@ sub_80C7618: @ 0x080C7618
 	lsls r1, r1, #1
 	movs r2, #0x20
 	bl StorePaletteToBufferMaybe
-	ldr r0, _080C766C  @ gUnknown_02022A68
+	ldr r0, _080C766C  @ pPaletteEBuffer
 	ldr r1, _080C7670  @ 0x00007FFF
 	lsls r4, r4, #0x10
 	lsrs r4, r4, #0x10
@@ -2290,7 +2290,7 @@ sub_80C7618: @ 0x080C7618
 	b _080C7678
 	.align 2, 0
 _080C7668: .4byte gUnknown_08AB8CAC
-_080C766C: .4byte gUnknown_02022A68
+_080C766C: .4byte pPaletteEBuffer
 _080C7670: .4byte 0x00007FFF
 _080C7674:
 	adds r0, r1, #1

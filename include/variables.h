@@ -281,7 +281,7 @@ extern u16 gUnknown_0201CDD4[]; // used as a palette buffer in opsubtitle
 // extern ??? gUnknown_020200A8
 // extern ??? gUnknown_020200AC
 // extern ??? gUnknown_020200B0
-// extern ??? gUnknown_020200B4
+// extern ??? gpProcEkrLevelup
 // extern ??? gUnknown_020200B8
 // extern ??? gUnknown_020200D8
 // extern ??? gUnknown_020200DC
@@ -296,8 +296,8 @@ extern u16 gUnknown_0201CDD4[]; // used as a palette buffer in opsubtitle
 // extern ??? gUnknown_02020136
 // extern ??? gUnknown_02020138
 // extern ??? gUnknown_0202013C
-// extern ??? gUnknown_02020140
-// extern ??? gUnknown_02020144
+// extern ??? gpAnimOnPopuProc
+// extern ??? gpAnimOnPopupExist
 // extern ??? gUnknown_02020148
 extern u8 gGenericBuffer[]; // gGenericBuffer
 // extern ??? gUnknown_02020208
@@ -310,15 +310,15 @@ extern s8 gUnknown_020222A8[];
 // extern ??? gUnknown_02022308
 extern u16 gPaletteBuffer[];
 // extern ??? gUnknown_020228AA
-// extern ??? gUnknown_020228C8
-// extern ??? gUnknown_020228E8
-// extern ??? gUnknown_02022908
-// extern ??? gUnknown_02022928
-// extern ??? gUnknown_02022968
-// extern ??? gUnknown_02022988
-// extern ??? gUnknown_02022A68
-// extern ??? gUnknown_02022A88
-// extern ??? gUnknown_02022AA8
+// extern ??? pPalette1Buffer
+// extern ??? pPalette2Buffer
+// extern ??? pPalette3Buffer
+// extern ??? pPalette4Buffer
+// extern ??? pPalette6Buffer
+// extern ??? pPalette7Buffer
+// extern ??? pPaletteEBuffer
+// extern ??? pPaletteFBuffer
+// extern ??? pPalette10Buffer
 // extern ??? gUnknown_02022ABA
 // extern ??? gUnknown_02022AE8
 // extern ??? gUnknown_02022B08
@@ -569,8 +569,8 @@ extern struct ActionData gActionData;
 // extern ??? gUnknown_0203E152
 // extern ??? gUnknown_0203E156
 // extern ??? gUnknown_0203E182
-// extern ??? gUnknown_0203E188
-// extern ??? gUnknown_0203E18C
+// extern ??? gpEkrBattleUnitLeft
+// extern ??? gpEkrBattleUnitRight
 // extern ??? gUnknown_0203E190
 // extern ??? gUnknown_0203E194
 // extern ??? gUnknown_0203E19C
@@ -2593,9 +2593,9 @@ extern const u16 gUnkUiFramePalettes[];
 // extern ??? gUnknown_0875929C
 // extern ??? gUnknown_087592B4
 // extern ??? gUnknown_087592CC
-// extern ??? gUnknown_087592EC
-// extern ??? gUnknown_0875930C
-// extern ??? gUnknown_0875932C
+// extern ??? EkrLuMsgsStr
+// extern ??? EkrLuMsgsMag
+// extern ??? ProcScr_EkrLevelupUi
 // extern ??? gUnknown_087593DC
 // extern ??? gUnknown_087593FC
 // extern ??? gUnknown_0875941C
@@ -2629,11 +2629,11 @@ extern const u16 gUnkUiFramePalettes[];
 // extern ??? gUnknown_0875A468
 // extern ??? gUnknown_0875A730
 // extern ??? gBattleBGDataTable
-// extern ??? gUnknown_0878D518
-// extern ??? gUnknown_0878D520
-// extern ??? gUnknown_0878D588
-// extern ??? gUnknown_0878D5F0
-// extern ??? gUnknown_0878D620
+// extern ??? gPopupIconFrameData
+// extern ??? ProcScr_ekrPopup
+// extern ??? ProcScr_ekrPopup2
+// extern ??? ProcScr_ekrHenseiInit
+// extern ??? ProcScr_ekrHenseiEnd
 // extern ??? gUnknown_0878D648
 // extern ??? gUnknown_08790F88
 // extern ??? gUnknown_0879115C
@@ -2714,8 +2714,8 @@ extern u8 gUnknown_088030C4[];
 extern u8 gUnknown_088033C4[];
 // extern ??? gUnknown_08803524
 extern u16 gUnknown_08803590[];
-// extern ??? gUnknown_088035B0
-// extern ??? gUnknown_088039E8
+// extern ??? Img_LevelUpBoxFrame
+// extern ??? Tsa_LevelUpBoxFrame
 // extern ??? gUnknown_08803B10
 // extern ??? gUnknown_08803B30
 // extern ??? gUnknown_08803BD0

@@ -38,9 +38,9 @@ extern u16 gUnknown_08B18F34[];
 extern u16 gUnknown_08B19854[];
 extern u16 gUnknown_08B196D8[];
 
-extern u16 gUnknown_02022928[];
+extern u16 pPalette4Buffer[];
 
-extern u16 gUnknown_02022968[];
+extern u16 pPalette6Buffer[];
 
 void ChapterIntro_Bg3Scroll_Loop(void);
 
@@ -773,9 +773,9 @@ void ChapterIntro_8020A40(struct ChapterIntroFXProc* proc) {
 
     MaybeResetSomePal();
 
-    MaybeSmoothChangeSomePal(gUnknown_02022928, 4, 2, -1);
-    MaybeSmoothChangeSomePal(gUnknown_02022928 + 0xA0, 0xE, 2, -1);
-    MaybeSmoothChangeSomePal(gUnknown_02022928 + 0xE0, 0x12, 1, -1);
+    MaybeSmoothChangeSomePal(pPalette4Buffer, 4, 2, -1);
+    MaybeSmoothChangeSomePal(pPalette4Buffer + 0xA0, 0xE, 2, -1);
+    MaybeSmoothChangeSomePal(pPalette4Buffer + 0xE0, 0x12, 1, -1);
 
     return;
 }
@@ -873,10 +873,10 @@ void ChapterIntro_InitMapDisplay() {
 void ChapterIntro_BeginFadeToMap(struct ChapterIntroFXProc* proc) {
     MaybeResetSomePal();
 
-    MaybeSmoothChangeSomePal(gUnknown_02022968, 6, 10, 1);
-    MaybeSmoothChangeSomePal(gUnknown_02022968 + 0x140, 0x1A, 6, 1);
-    MaybeSmoothChangeSomePal(gUnknown_02022968 + 0xA0, 0x10, 2, 1);
-    MaybeSmoothChangeSomePal(gUnknown_02022968 + 0x110, 0x17, 1, 1);
+    MaybeSmoothChangeSomePal(pPalette6Buffer, 6, 10, 1);
+    MaybeSmoothChangeSomePal(pPalette6Buffer + 0x140, 0x1A, 6, 1);
+    MaybeSmoothChangeSomePal(pPalette6Buffer + 0xA0, 0x10, 2, 1);
+    MaybeSmoothChangeSomePal(pPalette6Buffer + 0x110, 0x17, 1, 1);
 
     CALLARM_MaybeScreenFadeIn();
 
@@ -1028,10 +1028,10 @@ void ChapterIntro_BeginFastFadeToMap(struct ChapterIntroFXProc* proc) {
 
     MaybeResetSomePal();
 
-    MaybeSmoothChangeSomePal(gUnknown_02022968, 6, 10, 2);
-    MaybeSmoothChangeSomePal(gUnknown_02022968 + 0x140, 0x1A, 6, 2);
-    MaybeSmoothChangeSomePal(gUnknown_02022968 + 0xA0, 0x10, 2, 2);
-    MaybeSmoothChangeSomePal(gUnknown_02022968 + 0x110, 0x17, 1, 2);
+    MaybeSmoothChangeSomePal(pPalette6Buffer, 6, 10, 2);
+    MaybeSmoothChangeSomePal(pPalette6Buffer + 0x140, 0x1A, 6, 2);
+    MaybeSmoothChangeSomePal(pPalette6Buffer + 0xA0, 0x10, 2, 2);
+    MaybeSmoothChangeSomePal(pPalette6Buffer + 0x110, 0x17, 1, 2);
 
     CALLARM_MaybeScreenFadeIn();
 

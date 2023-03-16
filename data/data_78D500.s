@@ -1,15 +1,15 @@
         .section .data
 
-	.global gUnknown_0878D500
-gUnknown_0878D500:  @ 0x0878D500
+	.global gPopupIconOAMData
+gPopupIconOAMData:  @ 0x0878D500
 	.incbin "baserom.gba", 0x78D500, 0x18
 
-	.global gUnknown_0878D518
-gUnknown_0878D518:  @ 0x0878D518
+	.global gPopupIconFrameData
+gPopupIconFrameData:  @ 0x0878D518
 	.incbin "baserom.gba", 0x78D518, 0x8
 
-	.global gUnknown_0878D520
-gUnknown_0878D520:  @ 0x0878D520
+	.global ProcScr_ekrPopup
+ProcScr_ekrPopup:  @ 0x0878D520
         @ PROC_NAME
         .short 0x1, 0x0
         .word 0x80e829c
@@ -51,8 +51,8 @@ gUnknown_0878D520:  @ 0x0878D520
         .word 0x0
 
 
-	.global gUnknown_0878D588
-gUnknown_0878D588:  @ 0x0878D588
+	.global ProcScr_ekrPopup2
+ProcScr_ekrPopup2:  @ 0x0878D588
         @ PROC_NAME
         .short 0x1, 0x0
         .word 0x80e82a8
@@ -94,8 +94,8 @@ gUnknown_0878D588:  @ 0x0878D588
         .word 0x0
 
 
-	.global gUnknown_0878D5F0
-gUnknown_0878D5F0:  @ 0x0878D5F0
+	.global ProcScr_ekrHenseiInit
+ProcScr_ekrHenseiInit:  @ 0x0878D5F0
         @ PROC_NAME
         .short 0x1, 0x0
         .word 0x80e82b4
@@ -116,8 +116,8 @@ gUnknown_0878D5F0:  @ 0x0878D5F0
         .word 0x0
 
 
-	.global gUnknown_0878D620
-gUnknown_0878D620:  @ 0x0878D620
+	.global ProcScr_ekrHenseiEnd
+ProcScr_ekrHenseiEnd:  @ 0x0878D620
         @ PROC_NAME
         .short 0x1, 0x0
         .word 0x80e82c8
@@ -2036,12 +2036,12 @@ gUnknown_08803524:  @ 0x08803524
 gUnknown_08803590:  @ 0x08803590
 	.incbin "baserom.gba", 0x803590, 0x20
 
-	.global gUnknown_088035B0
-gUnknown_088035B0:  @ 0x088035B0
+	.global Img_LevelUpBoxFrame
+Img_LevelUpBoxFrame:  @ 0x088035B0
 	.incbin "baserom.gba", 0x8035B0, 0x438
 
-	.global gUnknown_088039E8
-gUnknown_088039E8:  @ 0x088039E8
+	.global Tsa_LevelUpBoxFrame
+Tsa_LevelUpBoxFrame:  @ 0x088039E8
 	.incbin "baserom.gba", 0x8039E8, 0x128
 
 	.global gUnknown_08803B10
