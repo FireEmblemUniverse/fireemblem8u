@@ -10342,7 +10342,7 @@ _080BB414:
 	cmp r5, #0
 	blt _080BB444
 	lsls r0, r5, #5
-	ldr r1, _080BB440  @ gUnknown_02022AA8
+	ldr r1, _080BB440  @ pPalette10Buffer
 	adds r0, r0, r1
 	movs r2, #0xa0
 	lsls r2, r2, #1
@@ -10352,7 +10352,7 @@ _080BB414:
 	b _080BB454
 	.align 2, 0
 _080BB43C: .4byte gUnknown_08A3DF2C
-_080BB440: .4byte gUnknown_02022AA8
+_080BB440: .4byte pPalette10Buffer
 _080BB444:
 	mov r1, sp
 	movs r0, #0

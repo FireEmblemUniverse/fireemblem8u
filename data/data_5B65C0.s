@@ -149355,8 +149355,8 @@ gUnknown_087592B4:  @ 0x087592B4
 gUnknown_087592CC:  @ 0x087592CC
 	.incbin "baserom.gba", 0x7592CC, 0x20
 
-	.global gUnknown_087592EC
-gUnknown_087592EC:  @ 0x087592EC
+	.global EkrLuMsgsStr
+EkrLuMsgsStr:  @ 0x087592EC
     .4byte gMid_Hp
     .4byte gMid_Str
     .4byte gMid_Skl
@@ -149366,8 +149366,8 @@ gUnknown_087592EC:  @ 0x087592EC
     .4byte gMid_Res
     .4byte gMid_Con
 
-	.global gUnknown_0875930C
-gUnknown_0875930C:  @ 0x0875930C
+	.global EkrLuMsgsMag
+EkrLuMsgsMag:  @ 0x0875930C
     .4byte gMid_Hp
     .4byte gMid_Mag
     .4byte gMid_Skl
@@ -149377,8 +149377,8 @@ gUnknown_0875930C:  @ 0x0875930C
     .4byte gMid_Res
     .4byte gMid_Con
 
-	.global gUnknown_0875932C
-gUnknown_0875932C:  @ 0x0875932C
+	.global ProcScr_EkrLevelupUi
+ProcScr_EkrLevelupUi:  @ 0x0875932C
         @ PROC_NAME
         .short 0x1, 0x0
         .word 0x80e15dc
@@ -149393,55 +149393,55 @@ gUnknown_0875932C:  @ 0x0875932C
         .word 0x0
         @ PROC_REPEAT
         .short 0x3, 0x0
-        .word sub_8073CE8
+        .word UiEkrLu_InitLevelUpBox
         @ PROC_REPEAT
         .short 0x3, 0x0
-        .word sub_8073E18
+        .word UiEkrLu_SetBgs
         @ PROC_REPEAT
         .short 0x3, 0x0
         .word sub_8073E48
         @ PROC_REPEAT
         .short 0x3, 0x0
-        .word sub_8073E8C
+        .word UiEkrLu_PutWindowOnScreen
         @ PROC_REPEAT
         .short 0x3, 0x0
-        .word sub_8073FB4
+        .word UiEkrLu_PrepareApGfx
         @ PROC_SLEEP
         .short 0xe, 0x14
         .word 0x0
         @ PROC_REPEAT
         .short 0x3, 0x0
-        .word sub_8073FE0
+        .word UiEkrLu_Promo_WindowScroll0
         @ PROC_REPEAT
         .short 0x3, 0x0
-        .word sub_8074040
+        .word UiEkrLu_Promo_DrawPromoNewClassName
         @ PROC_REPEAT
         .short 0x3, 0x0
-        .word sub_80740C8
+        .word UiEkrLu_Promo_WindowScroll1
         @ PROC_REPEAT
         .short 0x3, 0x0
-        .word sub_807411C
+        .word UiEkrLu_DrawNewLevel
         @ PROC_REPEAT
         .short 0x3, 0x0
-        .word sub_807419C
+        .word UiEkrLu_InitCounterForMainAnim
         @ PROC_REPEAT
         .short 0x3, 0x0
-        .word sub_80741CC
+        .word UiEkrLu_MainAnime
         @ PROC_REPEAT
         .short 0x3, 0x0
-        .word sub_80742BC
+        .word UiEkrLu_SetHBlank
         @ PROC_REPEAT
         .short 0x3, 0x0
-        .word sub_80742EC
+        .word UiEkrLu_DoNothing
         @ PROC_REPEAT
         .short 0x3, 0x0
-        .word sub_80742F8
+        .word UiEkrLu_PutWindowOffScreen
         @ PROC_REPEAT
         .short 0x3, 0x0
-        .word sub_80743C0
+        .word UiEkrLu_ResetScreen
         @ PROC_REPEAT
         .short 0x3, 0x0
-        .word sub_8074544
+        .word UiEkrLu_OnEnd
         @ PROC_END
         .short 0x0, 0x0
         .word 0x0

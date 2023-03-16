@@ -133,6 +133,8 @@ SECTIONS
         src/uimenu.o(.text);
         src/uiselecttarget.o(.text);
         asm/code_battleanim.o(.text);
+        asm/ekrlevelup.o(.text);
+        asm/code_banim_8076250.o(.text);
         src/monstergen.o(.text);
         src/mu.o(.text);
         asm/muctrl.o(.text);

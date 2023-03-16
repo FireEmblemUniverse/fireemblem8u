@@ -3720,7 +3720,7 @@ sub_807EA98: @ 0x0807EA98
 	adds r0, r5, #0
 	movs r1, #0
 	bl BG_Fill
-	ldr r4, _0807EB84  @ gUnknown_088035B0
+	ldr r4, _0807EB84  @ Img_LevelUpBoxFrame
 	movs r0, #1
 	bl GetBackgroundTileDataOffset
 	adds r1, r0, #0
@@ -3728,7 +3728,7 @@ sub_807EA98: @ 0x0807EA98
 	adds r1, r1, r0
 	adds r0, r4, #0
 	bl CopyDataWithPossibleUncomp
-	ldr r0, _0807EB8C  @ gUnknown_088039E8
+	ldr r0, _0807EB8C  @ Tsa_LevelUpBoxFrame
 	ldr r4, _0807EB90  @ gGenericBuffer
 	adds r1, r4, #0
 	bl CopyDataWithPossibleUncomp
@@ -3817,9 +3817,9 @@ _0807EB6C:
 	bx r0
 	.align 2, 0
 _0807EB80: .4byte gBG1TilemapBuffer
-_0807EB84: .4byte gUnknown_088035B0
+_0807EB84: .4byte Img_LevelUpBoxFrame
 _0807EB88: .4byte 0x06004000
-_0807EB8C: .4byte gUnknown_088039E8
+_0807EB8C: .4byte Tsa_LevelUpBoxFrame
 _0807EB90: .4byte gGenericBuffer
 _0807EB94: .4byte gUnknown_08803B10
 _0807EB98: .4byte gBG0TilemapBuffer
@@ -5148,7 +5148,7 @@ _0807F588: .4byte gUnknown_089A4034
 sub_807F58C: @ 0x0807F58C
 	push {r4, r5, lr}
 	adds r5, r0, #0
-	ldr r0, _0807F5BC  @ gUnknown_02022968
+	ldr r0, _0807F5BC  @ pPalette6Buffer
 	ldr r1, _0807F5C0  @ gUnknown_03005110
 	movs r2, #0x50
 	bl CpuFastSet
@@ -5168,7 +5168,7 @@ _0807F59C:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_0807F5BC: .4byte gUnknown_02022968
+_0807F5BC: .4byte pPalette6Buffer
 _0807F5C0: .4byte gUnknown_03005110
 _0807F5C4: .4byte gUnknown_0859A120
 
