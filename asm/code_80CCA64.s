@@ -2135,7 +2135,7 @@ sub_80CECB0: @ 0x080CECB0
 	ldr r0, _080CEEE0  @ gBG2TilemapBuffer
 	adds r1, r4, #0
 	bl CallARM_FillTileRect
-	ldr r0, _080CEF04  @ gRAMChapterData
+	ldr r0, _080CEF04  @ gPlaySt
 	adds r0, #0x41
 	ldrb r0, [r0]
 	lsls r0, r0, #0x1c
@@ -2240,7 +2240,7 @@ _080CEEF4: .4byte gUnknown_08B177C0
 _080CEEF8: .4byte 0x06011800
 _080CEEFC: .4byte gUnknown_08B176CC
 _080CEF00: .4byte gUnknown_02020288
-_080CEF04: .4byte gRAMChapterData
+_080CEF04: .4byte gPlaySt
 _080CEF08: .4byte gUiFramePaletteA
 _080CEF0C: .4byte gUnknown_08B12B1C
 
@@ -2383,7 +2383,7 @@ _080CEFF4: @ jump table
 	.4byte _080CF094 @ case 4
 	.4byte _080CF0B4 @ case 5
 _080CF00C:
-	ldr r0, _080CF03C  @ gRAMChapterData
+	ldr r0, _080CF03C  @ gPlaySt
 	adds r0, #0x41
 	ldrb r0, [r0]
 	lsls r0, r0, #0x1e
@@ -2408,7 +2408,7 @@ _080CF01E:
 	beq _080CF04A
 	b _080CF43A
 	.align 2, 0
-_080CF03C: .4byte gRAMChapterData
+_080CF03C: .4byte gPlaySt
 _080CF040: .4byte gUnknown_08B12AA4
 _080CF044:
 	movs r0, #0x80
@@ -2482,7 +2482,7 @@ _080CF0B4:
 	.align 2, 0
 _080CF0D0: .4byte gUnknown_08B12AA4
 _080CF0D4:
-	ldr r0, _080CF108  @ gRAMChapterData
+	ldr r0, _080CF108  @ gPlaySt
 	adds r0, #0x41
 	ldrb r0, [r0]
 	lsls r0, r0, #0x1e
@@ -2509,7 +2509,7 @@ _080CF0E6:
 	beq _080CF120
 	b _080CF43A
 	.align 2, 0
-_080CF108: .4byte gRAMChapterData
+_080CF108: .4byte gPlaySt
 _080CF10C: .4byte gUnknown_08B12AA4
 _080CF110:
 	movs r0, #0x80
@@ -2532,7 +2532,7 @@ _080CF134:
 	bl Proc_Break
 	b _080CF43A
 _080CF13C:
-	ldr r0, _080CF170  @ gRAMChapterData
+	ldr r0, _080CF170  @ gPlaySt
 	adds r0, #0x41
 	ldrb r0, [r0]
 	lsls r0, r0, #0x1e
@@ -2558,7 +2558,7 @@ _080CF14E:
 	bl SetEventId
 	b _080CF17E
 	.align 2, 0
-_080CF170: .4byte gRAMChapterData
+_080CF170: .4byte gPlaySt
 _080CF174: .4byte gUnknown_08B12AA4
 _080CF178:
 	movs r0, #0xb3
@@ -2915,7 +2915,7 @@ _080CF424:
 	cmp r4, #0
 	beq _080CF43A
 _080CF428:
-	ldr r0, _080CF444  @ gRAMChapterData
+	ldr r0, _080CF444  @ gPlaySt
 	adds r0, #0x41
 	ldrb r0, [r0]
 	lsls r0, r0, #0x1e
@@ -2929,7 +2929,7 @@ _080CF43A:
 	bx r0
 	.align 2, 0
 _080CF440: .4byte gUnknown_08B12C3C
-_080CF444: .4byte gRAMChapterData
+_080CF444: .4byte gPlaySt
 
 	THUMB_FUNC_END sub_80CEFD4
 

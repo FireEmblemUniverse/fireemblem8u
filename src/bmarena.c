@@ -4,6 +4,7 @@
 #include "rng.h"
 #include "bmitem.h"
 #include "bmbattle.h"
+#include "bmsave.h"
 #include "bmarena.h"
 
 #include "constants/characters.h"
@@ -400,7 +401,7 @@ void ArenaGenerateOpponentUnit(void) {
 
     level = unit->level;
 
-    unit->level = ((gRAMChapterData.chapterStateBits & CHAPTER_FLAG_DIFFICULT) ? level * 24 : level * 12) / 10;
+    unit->level = ((gPlaySt.chapterStateBits & PLAY_FLAG_HARD) ? level * 24 : level * 12) / 10;
 
     UnitAutolevel(unit);
 
@@ -646,12 +647,12 @@ void ArenaSetResult(int result) {
 }
 
 void ArenaContinueBattle(void) {
-    int unk = gGameState.unk3C;
+    int unk = gBmSt.just_resumed;
 
     gActionData.trapType = gBattleTarget.unit.curHP;
 
     gActionData.suspendPointType = SUSPEND_POINT_DURINGARENA;
-    SaveSuspendedGame(3);
+    WriteSuspendSave(3);
 
     BattleUnwind();
 
@@ -662,7 +663,7 @@ void ArenaContinueBattle(void) {
     UpdateUnitDuringBattle(gArenaState.playerUnit, &gBattleActor);
 
     if (!(unk) || (gBattleTarget.unit.curHP == 0)) {
-        RecordUnitBattleResult();
+        PidStatsRecordBattleRes();
     }
 
     return;

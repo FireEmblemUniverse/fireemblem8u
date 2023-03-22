@@ -119,7 +119,7 @@ void UpdateMenuItemPanel(int slot) {
 		break;
 
 	case 5:
-		item = gGameState.itemUnk2C;
+		item = gBmSt.itemUnk2C;
 		break;
 
 	default:

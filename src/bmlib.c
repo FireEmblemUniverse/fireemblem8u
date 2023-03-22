@@ -63,7 +63,8 @@ int Interpolate(int method, int lo, int hi, int x, int end)
 
 void sub_8012E94() {}
 
-u8 CheckSaveHeaderMagic(u8 *magic, u8 *keygen) {
+u8 StringCompare(u8 *magic, u8 *keygen)
+{
     int val1, val2;
 
     while (1) {

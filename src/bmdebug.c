@@ -128,11 +128,11 @@ u8 DebugMenu_MapIdle(struct MenuProc *menuProc, struct MenuItemProc *menuItemPro
 u8 DebugMenu_MapEffect(struct MenuProc *menuProc, struct MenuItemProc *menuItemProc)
 {
   EndBMapMain();
-  gRAMChapterData.chapterIndex = sub_801C650(menuItemProc->itemNumber);
-  gRAMChapterData.chapterModeIndex = gUnknown_03001780;
+  gPlaySt.chapterIndex = sub_801C650(menuItemProc->itemNumber);
+  gPlaySt.chapterModeIndex = gUnknown_03001780;
   ChapterChangeUnitCleanup();
   nullsub_9();
-  gRAMChapterData.unk4A_2 = 2;
+  gPlaySt.unk4A_2 = 2;
   return 23;
 }
 

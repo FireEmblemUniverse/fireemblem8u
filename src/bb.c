@@ -106,7 +106,7 @@ void SubtitleHelpDarkenerOnHBlank() {
         int bldy;
 
         bldy = bldyLut[vcount - 128];
-        bldy = bldy - gGameState.altBlendACa;
+        bldy = bldy - gBmSt.altBlendACa;
 
         if (bldy < 0) {
             bldy = 0;
@@ -126,7 +126,7 @@ void SubtitleHelpDarkenerOnHBlank() {
 
 void SubtitleHelpDarkener_Init() {
 
-    gGameState.altBlendACa = 8;
+    gBmSt.altBlendACa = 8;
     SetPrimaryHBlankHandler(SubtitleHelpDarkenerOnHBlank);
 
     return;
@@ -134,8 +134,8 @@ void SubtitleHelpDarkener_Init() {
 
 void SubtitleHelpDarkener_FadeIn() {
 
-    if (gGameState.altBlendACa != 0) {
-        gGameState.altBlendACa--;
+    if (gBmSt.altBlendACa != 0) {
+        gBmSt.altBlendACa--;
     }
 
     return;
@@ -143,9 +143,9 @@ void SubtitleHelpDarkener_FadeIn() {
 
 void SubtitleHelpDarkener_FadeOut(struct SubtitleHelpProc* proc) {
 
-    gGameState.altBlendACa++;
+    gBmSt.altBlendACa++;
 
-    if (gGameState.altBlendACa == 8) {
+    if (gBmSt.altBlendACa == 8) {
         SetPrimaryHBlankHandler(0);
         Proc_Break(proc);
     }
@@ -175,7 +175,7 @@ void SubtitleHelp_Init(struct SubtitleHelpProc* proc) {
 
 void SubtitleHelp_OnEnd() {
 
-    gGameState.cameraMax.y -= 16;
+    gBmSt.cameraMax.y -= 16;
 
     CameraMove_8015EDC(0);
 
@@ -223,7 +223,7 @@ struct ProcCmd CONST_DATA gProcScr_SubtitleHelp[] = {
 
 void StartSubtitleHelp(ProcPtr parent, const char* string) {
 
-    if (gRAMChapterData.cfgNoSubtitleHelp != 1) {
+    if (gPlaySt.cfgNoSubtitleHelp != 1) {
         struct SubtitleHelpProc* proc = Proc_Start(gProcScr_SubtitleHelp, parent);
 
         proc->string = string;
@@ -232,7 +232,7 @@ void StartSubtitleHelp(ProcPtr parent, const char* string) {
 
         sub_801A278();
 
-        gGameState.cameraMax.y += 16;
+        gBmSt.cameraMax.y += 16;
     }
 
     return;

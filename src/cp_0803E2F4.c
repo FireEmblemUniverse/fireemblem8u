@@ -198,7 +198,7 @@ s8 AiTryGetNearestHealPoint(struct Vec2* out) {
 void UpdateAllPhaseHealingAIStatus(void) {
     int i;
 
-    u8 faction = gRAMChapterData.faction;
+    u8 faction = gPlaySt.faction;
 
     int factionUnitCountLut[3] = {
         [FACTION_ID_BLUE]  = 62,
@@ -300,11 +300,11 @@ const struct AiEscapePt* GetEscapePointStructThingMaybe(void) {
     const struct AiEscapePt* list = NULL;
     const struct AiEscapePt* result = NULL;
 
-    int chapter = gRAMChapterData.chapterIndex;
+    int chapter = gPlaySt.chapterIndex;
 
     u8 resultMove = 0xFF;
 
-    switch (gRAMChapterData.faction) {
+    switch (gPlaySt.faction) {
         case FACTION_BLUE:
             return NULL;
 

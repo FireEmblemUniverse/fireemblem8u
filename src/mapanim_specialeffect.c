@@ -22,8 +22,8 @@ void MapAnim_BeginMISSAnim(struct Unit* unit)
 
     APProc_Create(
         Obj_MapAnimMISS,
-        16*(unit->xPos - (gGameState.camera.x>>4)) + 8,
-        16*(unit->yPos - (gGameState.camera.y>>4)) + 16,
+        16*(unit->xPos - (gBmSt.camera.x>>4)) + 8,
+        16*(unit->yPos - (gBmSt.camera.y>>4)) + 16,
         TILEREF(BM_OBJCHR_BANIM_EFFECT, 0), 0, 2);
 }
 
@@ -35,8 +35,8 @@ void MapAnim_BeginNODAMAGEAnim(struct Unit* unit)
 
     APProc_Create(
         obj_MapAnimNODAMAGE,
-        16*(unit->xPos - (gGameState.camera.x>>4)) + 8,
-        16*(unit->yPos - (gGameState.camera.y>>4)) + 16,
+        16*(unit->xPos - (gBmSt.camera.x>>4)) + 8,
+        16*(unit->yPos - (gBmSt.camera.y>>4)) + 16,
         TILEREF(BM_OBJCHR_BANIM_EFFECT, 0), 0, 2);
 }
 
@@ -46,8 +46,8 @@ void MapAnim_BeginWallBreakAnim(struct Unit* unit, int unk)
 
     proc->unit = unit;
 
-    proc->xDisplay = 16*(unit->xPos - (gGameState.camera.x>>4)) + 8;
-    proc->yDisplay = 16*(unit->yPos - (gGameState.camera.y>>4)) - 8;
+    proc->xDisplay = 16*(unit->xPos - (gBmSt.camera.x>>4)) + 8;
+    proc->yDisplay = 16*(unit->yPos - (gBmSt.camera.y>>4)) - 8;
 
     proc->unk48 = unk ^ 1;
 }
@@ -75,8 +75,8 @@ void NewMapPoisonEffect(struct Unit* unit)
 
     proc->unit = unit;
 
-    proc->xDisplay = 8*(1+2*(unit->xPos - (gGameState.camera.x>>4)));
-    proc->yDisplay = 8*(1+2*(unit->yPos - (gGameState.camera.y>>4)));
+    proc->xDisplay = 8*(1+2*(unit->xPos - (gBmSt.camera.x>>4)));
+    proc->yDisplay = 8*(1+2*(unit->yPos - (gBmSt.camera.y>>4)));
 }
 
 void MapAnim_BeginPoisonAnim(struct MAEffectProc* proc)
@@ -104,8 +104,8 @@ void sub_807CD18(struct Unit* unit)
 
     proc->unit = unit;
 
-    proc->xDisplay = 8*(1+2*(unit->xPos - (gGameState.camera.x>>4)));
-    proc->yDisplay = 8*(1+2*(unit->yPos - (gGameState.camera.y>>4)));
+    proc->xDisplay = 8*(1+2*(unit->xPos - (gBmSt.camera.x>>4)));
+    proc->yDisplay = 8*(1+2*(unit->yPos - (gBmSt.camera.y>>4)));
 }
 
 void MapAnim_BeginPoisonAnim2(struct MAEffectProc* proc)

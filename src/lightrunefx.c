@@ -173,8 +173,8 @@ void StartLightRuneAnim(ProcPtr parent, int x, int y)
 {
     Proc_StartBlocking(ProcScr_LightRuneAnim, parent);
 
-    x = x * 0x10 - gGameState.camera.x - 0x18;
-    y = y * 0x10 - gGameState.camera.y - 0x28;
+    x = x * 0x10 - gBmSt.camera.x - 0x18;
+    y = y * 0x10 - gBmSt.camera.y - 0x28;
 
     BG_SetPosition(0, -x, -y);
 }
@@ -236,8 +236,8 @@ void StartLightRuneAnim2(ProcPtr parent, int x, int y)
 {
     Proc_StartBlocking(ProcScr_LightRuneAnim2, parent);
 
-    x = x * 0x10 - gGameState.camera.x - 0x18;
-    y = y * 0x10 - gGameState.camera.y - 0x28;
+    x = x * 0x10 - gBmSt.camera.x - 0x18;
+    y = y * 0x10 - gBmSt.camera.y - 0x28;
 
     BG_SetPosition(0, -x, -y);
 }
@@ -299,8 +299,8 @@ void StartLightRuneAnim3(ProcPtr parent, int x, int y)
 {
     Proc_StartBlocking(ProcScr_LightRuneAnim3, parent);
 
-    x = x * 0x10 - gGameState.camera.x - 0x18;
-    y = y * 0x10 - gGameState.camera.y - 0x28;
+    x = x * 0x10 - gBmSt.camera.x - 0x18;
+    y = y * 0x10 - gBmSt.camera.y - 0x28;
 
     BG_SetPosition(0, -x, -y);
 }

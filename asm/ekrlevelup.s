@@ -1775,7 +1775,7 @@ sub_8074798: @ 0x08074798
 	THUMB_FUNC_START sub_80747A4
 sub_80747A4: @ 0x080747A4
 	push {lr}
-	ldr r0, _080747C8  @ gGameState
+	ldr r0, _080747C8  @ gBmSt
 	ldrb r0, [r0]
 	lsls r0, r0, #0x18
 	asrs r0, r0, #0x18
@@ -1792,7 +1792,7 @@ sub_80747A4: @ 0x080747A4
 	ldr r0, _080747D8  @ gUnknown_0201FB38
 	b _080747E2
 	.align 2, 0
-_080747C8: .4byte gGameState
+_080747C8: .4byte gBmSt
 _080747CC: .4byte gUnknown_0201FB30
 _080747D0: .4byte gUnknown_0201FDBC
 _080747D4: .4byte gUnknown_0201FB2C

@@ -68,7 +68,7 @@ void sub_808457C(void);
 int GetBattleForecastPanelSide() {
     int x;
 
-    x = (gBattleTarget.unit.xPos * 16) - gGameState.camera.x;
+    x = (gBattleTarget.unit.xPos * 16) - gBmSt.camera.x;
 
     if (x < 0x70) {
         return 1;
@@ -713,7 +713,7 @@ void NewBattleForecast() {
 
     struct BattleForecastProc* proc;
 
-    if (gRAMChapterData.cfgBattleForecastType == 2) {
+    if (gPlaySt.cfgBattleForecastType == 2) {
         Font_ResetAllocation();
         return;
     }
@@ -725,7 +725,7 @@ void NewBattleForecast() {
         SetKeyStatus_IgnoreMask(GetKeyStatus_IgnoreMask() | A_BUTTON);
     }
 
-    switch (gRAMChapterData.cfgBattleForecastType) {
+    switch (gPlaySt.cfgBattleForecastType) {
         case 0:
             proc->frameKind = 1;
             break;

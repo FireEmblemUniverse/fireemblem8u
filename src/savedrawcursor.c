@@ -4,6 +4,7 @@
 #include "rng.h"
 #include "hardware.h"
 #include "fontgrp.h"
+#include "bmsave.h"
 
 #include "savemenu.h"
 
@@ -499,7 +500,7 @@ u8 sub_80AB98C(u8 slot, int b, int c) {
 
     if (castC > 0) {
         for (i = 0; i < 3; i++) {
-            if ((SaveMetadata_LoadId(slot) == castB)) {
+            if ((IsSaveValid(slot) == castB)) {
                 return slot;
             }
 
@@ -511,7 +512,7 @@ u8 sub_80AB98C(u8 slot, int b, int c) {
         }
     } else {
         for (i = 0; i < 3; i++) {
-            if ((SaveMetadata_LoadId(slot) == castB)) {
+            if ((IsSaveValid(slot) == castB)) {
                 return slot;
             }
 

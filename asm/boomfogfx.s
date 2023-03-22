@@ -15,7 +15,7 @@ sub_8012B3C: @ 0x08012B3C
 	str r4, [r0, #0x2c]
 	movs r2, #0x10
 	ldrsb r2, [r4, r2]
-	ldr r3, _08012B80  @ gGameState
+	ldr r3, _08012B80  @ gBmSt
 	ldrh r1, [r3, #0xc]
 	lsls r1, r1, #0x10
 	asrs r1, r1, #0x14
@@ -39,7 +39,7 @@ sub_8012B3C: @ 0x08012B3C
 	bx r0
 	.align 2, 0
 _08012B7C: .4byte ProcScr_BoomFogFx
-_08012B80: .4byte gGameState
+_08012B80: .4byte gBmSt
 
 	THUMB_FUNC_END sub_8012B3C
 

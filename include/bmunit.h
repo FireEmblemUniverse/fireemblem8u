@@ -144,7 +144,7 @@ struct Unit
     /* 19 */ s8 lck;
 
     /* 1A */ s8 conBonus;
-    /* 1B */ u8 rescueOtherUnit;
+    /* 1B */ u8 rescue;
     /* 1C */ u8 ballistaIndex;
     /* 1D */ s8 movBonus;
 
@@ -354,7 +354,7 @@ extern struct Unit gUnitArrayBlue[62];
 extern struct Unit gUnitArrayRed[50];
 extern struct Unit gUnitArrayGreen[20];
 
-void ClearUnits(void);
+void InitUnits(void);
 void ClearUnit(struct Unit* unit);
 void CopyUnit(struct Unit* from, struct Unit* to);
 struct Unit* GetFreeUnit(int faction);

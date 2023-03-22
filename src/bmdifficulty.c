@@ -73,7 +73,7 @@ const struct Outer080D7FD0 gUnknown_080D7FD0 = {
 void NewPopup_NewAlly(ProcPtr, int);
 
 // code.s
-int BWL_GetTotalExpGained(void);
+int PidStatsGetTotalExpGain(void);
 void sub_80AB760(u16*);
 void sub_80AB77C(void);
 
@@ -81,7 +81,7 @@ void sub_80AB77C(void);
 void sub_800A950(struct Struct02003BE8*, int, int*);
 
 int GetCurrentPromotedLevelBonus() {
-    if (gRAMChapterData.chapterStateBits & CHAPTER_FLAG_DIFFICULT) {
+    if (gPlaySt.chapterStateBits & PLAY_FLAG_HARD) {
         return 19;
     }
 
@@ -91,7 +91,7 @@ int GetCurrentPromotedLevelBonus() {
 s8 CanUnitSeize(struct Unit* unit) {
     int leaderId;
 
-    switch (gRAMChapterData.chapterModeIndex) {
+    switch (gPlaySt.chapterModeIndex) {
         case 2: // Eirika
             leaderId = CHARACTER_EIRIKA;
             break;
@@ -103,7 +103,7 @@ s8 CanUnitSeize(struct Unit* unit) {
             break;
     }
 
-    if (gRAMChapterData.chapterIndex == 5) {
+    if (gPlaySt.chapterIndex == 5) {
         leaderId = CHARACTER_EPHRAIM;
     }
 
@@ -156,7 +156,7 @@ void UnlockPostgameAllyByEnemyCount() {
     struct Dungeon* dungeon = &gDungeonState.current;
     UpdateDungeonStats(dungeon);
 
-    if (gRAMChapterData.chapterStateBits & CHAPTER_FLAG_POSTGAME) {
+    if (gPlaySt.chapterStateBits & PLAY_FLAG_POSTGAME) {
         if ((gDungeonState.type == 0) && (dungeon->postgameEnemiesDefeated >= 200)) {
             SetEventId(0x6B); // Riev
         }
@@ -174,7 +174,7 @@ void UnlockPostgameAllyByClearCount() {
     UnlockPostgameAllyByEnemyCount();
     UpdateDungeonRecordStats();
 
-    if (gRAMChapterData.chapterStateBits & CHAPTER_FLAG_POSTGAME) {
+    if (gPlaySt.chapterStateBits & PLAY_FLAG_POSTGAME) {
         struct Dungeon* dungeon = &gDungeonState.dungeon[gDungeonState.type];
 
         if ((gDungeonState.type == 0) && (dungeon->postgameClearCount >= 3)) {
@@ -219,7 +219,7 @@ s8 PrepScreenProc_AddPostgameUnits(ProcPtr proc) {
         { },
     };
 
-    if (!(gRAMChapterData.chapterStateBits & CHAPTER_FLAG_POSTGAME)) {
+    if (!(gPlaySt.chapterStateBits & PLAY_FLAG_POSTGAME)) {
         return 0;
     }
 
@@ -242,8 +242,7 @@ s8 TryAddPostgameUnit(ProcPtr proc, const struct UnitDefinition* uDef) {
     return 0;
 }
 
-// SaveDungeonState?
-void sub_8037E08(struct Dungeon* savedDungeon) {
+void SaveDungeonState(struct Dungeon* savedDungeon) {
 
     *savedDungeon = gDungeonState.current;
     gDungeonState.current.unk_0B_4 = gDungeonState.type;
@@ -251,8 +250,7 @@ void sub_8037E08(struct Dungeon* savedDungeon) {
     return;
 }
 
-// LoadDungeonState?
-void sub_8037E30(struct Dungeon* savedDungeon) {
+void LoadDungeonState(struct Dungeon* savedDungeon) {
 
     gDungeonState.current = *savedDungeon;
     gDungeonState.type = gDungeonState.current.unk_0B_4;
@@ -260,16 +258,14 @@ void sub_8037E30(struct Dungeon* savedDungeon) {
     return;
 }
 
-// SaveDungeonRecords?
-void sub_8037E4C(struct Dungeon* savedDungeon) {
+void SaveDungeonRecords(struct Dungeon* savedDungeon) {
 
     memcpy(savedDungeon, gDungeonState.dungeon, 2 * sizeof(struct Dungeon));
 
     return;
 }
 
-// LoadDungeonRecords?
-void sub_8037E64(struct Dungeon* savedDungeon) {
+void LoadDungeonRecords(struct Dungeon* savedDungeon) {
 
     memcpy(gDungeonState.dungeon, savedDungeon, 2 * sizeof(struct Dungeon));
 
@@ -281,7 +277,7 @@ int UpdateDungeonMapTime(struct Dungeon* dungeon) {
     int time2;
 
     time1 = dungeon->mapTime;
-    time2 = Div((GetGameClock() - gRAMChapterData.unk4), 60);
+    time2 = Div((GetGameClock() - gPlaySt.time_chapter_started), 60);
     time1 = time1 + time2;
 
     if (time1 > 216000) {
@@ -297,7 +293,7 @@ void UpdateDungeonStats(struct Dungeon* dungeon) {
 
     val = dungeon->expEarned;
 
-    val += (BWL_GetTotalExpGained() - gRAMChapterData.unk_38_2);
+    val += (PidStatsGetTotalExpGain() - gPlaySt.unk_38_2);
 
     if (val > 50000) {
         val = 50000;
@@ -318,7 +314,7 @@ void UpdateDungeonStats(struct Dungeon* dungeon) {
     dungeon->unitsUsed = val;
 
     val = dungeon->turnCount; 
-    val += gRAMChapterData.chapterTurnNumber;
+    val += gPlaySt.chapterTurnNumber;
 
     if (val > 500) {
         val = 500;
@@ -329,7 +325,7 @@ void UpdateDungeonStats(struct Dungeon* dungeon) {
     dungeon->mapTime = UpdateDungeonMapTime(dungeon);
 
     val = dungeon->enemiesDefeated;
-    val += gRAMChapterData.unk48;
+    val += gPlaySt.unk48;
 
     if (val > 50000) {
         val = 50000;
@@ -337,9 +333,9 @@ void UpdateDungeonStats(struct Dungeon* dungeon) {
 
     dungeon->enemiesDefeated = val;
 
-    if (gRAMChapterData.chapterStateBits & CHAPTER_FLAG_POSTGAME) {
+    if (gPlaySt.chapterStateBits & PLAY_FLAG_POSTGAME) {
         val = dungeon->postgameEnemiesDefeated;
-        val += gRAMChapterData.unk48;
+        val += gPlaySt.unk48;
 
         if (val > 1000) {
             val = 1000;
@@ -395,7 +391,7 @@ void UpdateDungeonRecordStats() {
         record->clearCount++;
     }
 
-    if (gRAMChapterData.chapterStateBits & CHAPTER_FLAG_POSTGAME) {
+    if (gPlaySt.chapterStateBits & PLAY_FLAG_POSTGAME) {
         if (record->postgameClearCount < 10) {
             record->postgameClearCount++;
         }
@@ -420,7 +416,7 @@ void UpdateDungeonEnemiesDefeated() {
 
     dungeon->enemiesDefeated = val;
 
-    if (gRAMChapterData.chapterStateBits & CHAPTER_FLAG_POSTGAME) {
+    if (gPlaySt.chapterStateBits & PLAY_FLAG_POSTGAME) {
         val = dungeon->postgameEnemiesDefeated + current->postgameEnemiesDefeated;
 
         if (val > 1000) {
@@ -511,7 +507,7 @@ void PushGlobalTimer() {
 }
 
 void PopGlobalTimer() {
-    SetGameClock(gUnknown_020038C4);
+    SetGameTime(gUnknown_020038C4);
     return;
 }
 
@@ -892,11 +888,11 @@ void DrawDungeonRecordUiText(ProcPtr proc) {
     CpuCopy32(&gDungeonState.dungeon[gDungeonState.type], &recordDungeon, sizeof(struct Dungeon));
 
     time = GetGameClock();
-    SetGameClock(gUnknown_020038C4);
+    SetGameTime(gUnknown_020038C4);
 
     UpdateDungeonStats(&currentDungeon);
 
-    SetGameClock(time);
+    SetGameTime(time);
 
     Font_ResetAllocation();
 
@@ -1018,7 +1014,7 @@ void DungeonRecordUi_UpdateRunningTime() {
 
     unkTime1 = UpdateDungeonMapTime(&currentDungeon);
 
-    unkTime2 = ((GetGameClock() - gRAMChapterData.unk4) % 60);
+    unkTime2 = ((GetGameClock() - gPlaySt.time_chapter_started) % 60);
 
     drawPunctuation = 1;
     if (unkTime2 > 29) {
@@ -1255,11 +1251,11 @@ u32 GetCurrentDungeonValueByUiLabel(u32 label) {
     CpuCopy32(&gDungeonState.current, &currentDungeon, sizeof(struct Dungeon));
 
     clock = GetGameClock();
-    SetGameClock(gUnknown_020038C4);
+    SetGameTime(gUnknown_020038C4);
 
     UpdateDungeonStats(&currentDungeon);
 
-    SetGameClock(clock);
+    SetGameTime(clock);
 
     switch (label) {
         case DUNGEONRECORD_LABEL_MONSTERS:
@@ -1303,11 +1299,11 @@ s8 DungeonRecordUi_IsNewRecordForLabel(u32 label) {
     CpuCopy32(&gDungeonState.current, &currentDungeon, sizeof(struct Dungeon));
 
     clock = GetGameClock();
-    SetGameClock(gUnknown_020038C4);
+    SetGameTime(gUnknown_020038C4);
 
     UpdateDungeonStats(&currentDungeon);
 
-    SetGameClock(clock);
+    SetGameTime(clock);
 
     record = &gDungeonState.dungeon[gDungeonState.type];
 

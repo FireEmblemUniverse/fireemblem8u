@@ -15,6 +15,7 @@
 #include "event.h"
 #include "bm.h"
 #include "bmio.h"
+#include "bmsave.h"
 #include "scene.h"
 
 extern struct ProcCmd gProcScr_ArenaUiMain[];
@@ -211,7 +212,7 @@ void ArenaUi_StartArenaBattle(ProcPtr proc) {
     gActionData.unitActionType = UNIT_ACTION_ARENA;
     gActiveUnit->state |= US_HAS_MOVED;
 
-    BWL_AddBattle(gActiveUnit);
+    PidStatsAddBattleAmt(gActiveUnit);
     MU_EndAll();
 
     gActionData.trapType = 0;
@@ -338,14 +339,14 @@ void DrawArenaOpponentDetailsText(ProcPtr proc) {
 void Arena_PlayResultSong(ProcPtr proc) {
     switch (ArenaGetResult()) {
         case 1:
-            if (!gRAMChapterData.cfgDisableBgm) {
+            if (!gPlaySt.cfgDisableBgm) {
                 Sound_PlaySong8002448(0x3a, 0);
             }
 
             break;
 
         default:
-            if (!gRAMChapterData.cfgDisableBgm) {
+            if (!gPlaySt.cfgDisableBgm) {
                 Sound_PlaySong8002448(0x38, 0);
             }
 
@@ -382,7 +383,7 @@ s8 sub_80B5D48(void) {
 //! FE8U = 0x080B5D5C
 void sub_80B5D5C(void) {
     gActionData.suspendPointType = SUSPEND_POINT_PLAYERIDLE;
-    SaveSuspendedGame(SAVE_BLOCK_SUSPEND);
+    WriteSuspendSave(SAVE_BLOCK_SUSPEND);
     return;
 }
 

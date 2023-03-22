@@ -22,12 +22,12 @@ int GetGameTacticsRank(void) {
         rankThresholds[i] = 0;
     }
 
-    nextIndex = GetNextChapterWinDataEntryIndex();
+    nextIndex = GetNextChapterStatsSlot();
 
     for (i = 0; i < nextIndex; i++) {
-        struct ChapterWinData* ent = GetChapterWinDataEntry(i);
+        struct ChapterStats* ent = GetChapterStats(i);
 
-        if (DoesThisChapterCount(ent->chapter_index) != 0) {
+        if (IsChapterBelongCurGame(ent->chapter_index) != 0) {
             rankThresholds[0] += gChapterDataTable[ent->chapter_index].turnsForTacticsRankDInEliwoodStory[IsDifficultMode()];
 
             rankThresholds[1] += gChapterDataTable[ent->chapter_index].turnsForTacticsRankCInEliwoodStory[IsDifficultMode()];
@@ -76,18 +76,18 @@ int GetGameExpRank(void) {
     int i;
     int rankThresholds[4];
 
-    int totalExp = BWL_GetTotalExpGained();
+    int totalExp = PidStatsGetTotalExpGain();
 
     for (i = 0; i < 4; i++) {
         rankThresholds[i] = 0;
     }
 
-    nextIndex = GetNextChapterWinDataEntryIndex();
+    nextIndex = GetNextChapterStatsSlot();
 
     for (i = 0; i < nextIndex; i++) {
-        struct ChapterWinData* ent = GetChapterWinDataEntry(i);
+        struct ChapterStats* ent = GetChapterStats(i);
 
-        if (DoesThisChapterCount(ent->chapter_index)) {
+        if (IsChapterBelongCurGame(ent->chapter_index)) {
             rankThresholds[0] += gChapterDataTable[ent->chapter_index].gainedExpForExpRankDInEliwoodStory[IsDifficultMode()];
 
             rankThresholds[1] += gChapterDataTable[ent->chapter_index].gainedExpForExpRankCInEliwoodStory[IsDifficultMode()];
@@ -139,12 +139,12 @@ int GetGameFundsRank(void) {
     int totalGold = GetPartyTotalGoldValue();
     int overallFundsRequirement = 0;
 
-    int nextIndex = GetNextChapterWinDataEntryIndex();
+    int nextIndex = GetNextChapterStatsSlot();
 
     for (i = 0; i < nextIndex; i++) {
-        struct ChapterWinData* ent = GetChapterWinDataEntry(i);
+        struct ChapterStats* ent = GetChapterStats(i);
 
-        if (DoesThisChapterCount(ent->chapter_index) != 0) {
+        if (IsChapterBelongCurGame(ent->chapter_index) != 0) {
             overallFundsRequirement += gChapterDataTable[ent->chapter_index].goldForFundsRankInEliwoodStory[IsDifficultMode()];
         }
     }
@@ -296,8 +296,8 @@ int GetChapterTacticsRank(void) {
     int i;
     int rankThresholds[4];
 
-    u16 turn = gRAMChapterData.chapterTurnNumber;
-    struct ROMChapterData* chapter = &gChapterDataTable[gRAMChapterData.chapterIndex];
+    u16 turn = gPlaySt.chapterTurnNumber;
+    struct ROMChapterData* chapter = &gChapterDataTable[gPlaySt.chapterIndex];
 
     rankThresholds[0] = chapter->turnsForTacticsRankDInEliwoodStory[IsDifficultMode()];
 
@@ -404,8 +404,8 @@ u16 GetGameDeathCount(void) {
 
 //! FE8U = 0x080B6264
 u16 GetGameWinPerc(void) {
-    int battles = BWL_GetTotalBattles();
-    int wins = BWL_GetTotalWins() * 100;
+    int battles = PidStatsGetTotalBattleAmt();
+    int wins = PidStatsGetTotalWinAmt() * 100;
 
     return wins / battles;
 }
@@ -429,9 +429,9 @@ u16 GetChapterDeathCount(void) {
             continue;
         }
 
-        bwl = BWL_GetEntry(unit->pCharacterData->number);
+        bwl = GetPidStats(unit->pCharacterData->number);
 
-        if (bwl->deathLoc != gRAMChapterData.chapterIndex) {
+        if (bwl->deathLoc != gPlaySt.chapterIndex) {
             continue;
         }
 
@@ -448,7 +448,7 @@ void sub_80B62D8(void) {
 
 //! FE8U = 0x080B62DC
 int GetChapterFundsRank(void) {
-    struct ChapterWinData* ent;
+    struct ChapterStats* ent;
 #if NONMATCHING
     int goldInChapter;
 #else // if !NONMATCHING
@@ -458,12 +458,12 @@ int GetChapterFundsRank(void) {
 
     int totalGold = GetPartyTotalGoldValue();
 
-    goldInChapter = gRAMChapterData.total_gold;
+    goldInChapter = gPlaySt.total_gold;
     goldInChapter = totalGold - goldInChapter;
 
-    gRAMChapterData.total_gold = totalGold;
+    gPlaySt.total_gold = totalGold;
 
-    ent = GetChapterWinDataEntry(GetNextChapterWinDataEntryIndex() - 1);
+    ent = GetChapterStats(GetNextChapterStatsSlot() - 1);
 
     goldForFundsRank = gChapterDataTable[ent->chapter_index].goldForFundsRankInEliwoodStory[IsDifficultMode()];
 
@@ -490,8 +490,8 @@ int GetChapterWinPerc(void) {
     int a;
     int b;
 
-    int totalBattles = BWL_GetTotalBattles();
-    int totalWins = BWL_GetTotalWins();
+    int totalBattles = PidStatsGetTotalBattleAmt();
+    int totalWins = PidStatsGetTotalWinAmt();
 
     if (totalBattles > 0xFFFFF) {
         totalBattles = 0xFFFFF;
@@ -501,14 +501,14 @@ int GetChapterWinPerc(void) {
         totalWins = 0xFFFFF;
     }
 
-    chapterTotalBattles = gRAMChapterData.unk_34_00;
+    chapterTotalBattles = gPlaySt.unk_34_00;
 
     if (totalBattles == chapterTotalBattles) {
         return 40;
     }
 
-    a = gRAMChapterData.unk_34_14;
-    b = gRAMChapterData.unk_38_1 << 12;
+    a = gPlaySt.unk_34_14;
+    b = gPlaySt.unk_38_1 << 12;
     num = (totalWins - (b | a)) * 100;
 
     percentage = num / (totalBattles - chapterTotalBattles);
@@ -517,9 +517,9 @@ int GetChapterWinPerc(void) {
         percentage = 100;
     }
 
-    gRAMChapterData.unk_34_00 = totalBattles;
-    gRAMChapterData.unk_34_14 = (totalWins & 0x00000FFF);
-    gRAMChapterData.unk_38_1 = ((u32)totalWins >> 12);
+    gPlaySt.unk_34_00 = totalBattles;
+    gPlaySt.unk_34_14 = (totalWins & 0x00000FFF);
+    gPlaySt.unk_38_1 = ((u32)totalWins >> 12);
 
     return percentage;
 }
@@ -551,7 +551,7 @@ int GetChapterCombatRank(void) {
 int GetChapterExpRank(void) {
     int totalExp;
     int i;
-    struct ChapterWinData* ent;
+    struct ChapterStats* ent;
     int expInChapter;
     int rankThresholds[4];
 
@@ -559,16 +559,16 @@ int GetChapterExpRank(void) {
         rankThresholds[i] = 0;
     }
 
-    totalExp = BWL_GetTotalExpGained();
+    totalExp = PidStatsGetTotalExpGain();
 
     if (totalExp > 0xFFFFF) {
         totalExp = 0xFFFFF;
     }
 
-    expInChapter = totalExp - gRAMChapterData.unk_38_2;
-    gRAMChapterData.unk_38_2 = totalExp;
+    expInChapter = totalExp - gPlaySt.unk_38_2;
+    gPlaySt.unk_38_2 = totalExp;
 
-    ent = GetChapterWinDataEntry(GetNextChapterWinDataEntryIndex() - 1);
+    ent = GetChapterStats(GetNextChapterStatsSlot() - 1);
 
     rankThresholds[0] = gChapterDataTable[ent->chapter_index].gainedExpForExpRankDInEliwoodStory[IsDifficultMode()];
 
@@ -592,34 +592,34 @@ void ComputeChapterRankings(void) {
     int overallRank;
     int newRank;
 
-    if (GetNextChapterWinDataEntryIndex() > 0) {
+    if (GetNextChapterStatsSlot() > 0) {
 
-        switch (gRAMChapterData.chapterModeIndex) {
+        switch (gPlaySt.chapterModeIndex) {
             case CHAPTER_MODE_COMMON:
             case CHAPTER_MODE_EIRIKA:
             case CHAPTER_MODE_EPHRAIM:
-                gRAMChapterData.tacticsRank = GetChapterTacticsRank();
-                gRAMChapterData.survivalRank = GetChapterSurvivalRank();
-                gRAMChapterData.fundsRank = GetChapterFundsRank();
-                gRAMChapterData.combatRank = GetChapterCombatRank();
-                gRAMChapterData.expRank = GetChapterExpRank();
+                gPlaySt.tacticsRank = GetChapterTacticsRank();
+                gPlaySt.survivalRank = GetChapterSurvivalRank();
+                gPlaySt.fundsRank = GetChapterFundsRank();
+                gPlaySt.combatRank = GetChapterCombatRank();
+                gPlaySt.expRank = GetChapterExpRank();
         }
 
         overallRank = GetOverallRank(
-            gRAMChapterData.tacticsRank,
-            gRAMChapterData.survivalRank,
-            gRAMChapterData.fundsRank,
-            gRAMChapterData.expRank,
-            gRAMChapterData.combatRank
+            gPlaySt.tacticsRank,
+            gPlaySt.survivalRank,
+            gPlaySt.fundsRank,
+            gPlaySt.expRank,
+            gPlaySt.combatRank
         );
 
-        newRank = gRAMChapterData.unk_2C_04 + overallRank;
+        newRank = gPlaySt.unk_2C_04 + overallRank;
 
         if (newRank > 0xff) {
             newRank = 0xff;
         }
 
-        gRAMChapterData.unk_2C_04 = newRank;
+        gPlaySt.unk_2C_04 = newRank;
     }
 
     return;

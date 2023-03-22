@@ -287,7 +287,7 @@ sub_8009198: @ 0x08009198
 	push {r6}
 	sub sp, #0x18
 	mov r8, r0
-	ldr r1, _080091F8  @ gGameState
+	ldr r1, _080091F8  @ gBmSt
 	movs r2, #0xc
 	ldrsh r0, [r1, r2]
 	mov r5, r8
@@ -330,7 +330,7 @@ sub_8009198: @ 0x08009198
 	pop {r0}
 	bx r0
 	.align 2, 0
-_080091F8: .4byte gGameState
+_080091F8: .4byte gBmSt
 _080091FC: .4byte 0x000001FF
 
 	THUMB_FUNC_END sub_8009198
@@ -343,7 +343,7 @@ sub_8009200: @ 0x08009200
 	ldr r5, [r6]
 	cmp r5, #0
 	beq _08009240
-	ldr r2, _08009238  @ gGameState
+	ldr r2, _08009238  @ gBmSt
 	movs r1, #0xc
 	ldrsh r0, [r2, r1]
 	ldr r1, [r4, #0x2c]
@@ -364,7 +364,7 @@ sub_8009200: @ 0x08009200
 	bl APProc_SetParameters
 	b _08009248
 	.align 2, 0
-_08009238: .4byte gGameState
+_08009238: .4byte gBmSt
 _0800923C: .4byte 0x000001FF
 _08009240:
 	adds r0, r4, #0

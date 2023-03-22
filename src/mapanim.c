@@ -241,7 +241,7 @@ void MapAnim_InitInfoBox(ProcPtr proc)
     if (GetSpellAssocReturnBool(gCurrentMapAnimState.actors[0].pBattleUnit->weaponBefore)) {
         int y;
         if (gCurrentMapAnimState.actorCount_maybe == 1) {
-            y = gCurrentMapAnimState.actors[0].pUnit->yPos*16 - gGameState.camera.y;
+            y = gCurrentMapAnimState.actors[0].pUnit->yPos*16 - gBmSt.camera.y;
 
             if (y >= 112)
                 y = y - 40;
@@ -253,7 +253,7 @@ void MapAnim_InitInfoBox(ProcPtr proc)
             int i, actorNum;
 
             for (i = 0; i < gCurrentMapAnimState.actorCount_maybe; ++i)
-                array[i] = gCurrentMapAnimState.actors[i].pUnit->yPos*16 - gGameState.camera.y;
+                array[i] = gCurrentMapAnimState.actors[i].pUnit->yPos*16 - gBmSt.camera.y;
 
             if (array[0] - array[1] >= 0) {
                 if (array[0] - array[1] >= 80)

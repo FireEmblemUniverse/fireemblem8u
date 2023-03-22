@@ -22,6 +22,7 @@
 #include "bmmap.h"
 #include "bmphase.h"
 #include "bmusailment.h"
+#include "bmsave.h"
 
 #include "bm.h"
 
@@ -357,8 +358,8 @@ void OnVBlank(void) {
 
     FlushPrimaryOAM();
 
-    if (gGameState.mainLoopEndedFlag) {
-        gGameState.mainLoopEndedFlag = 0;
+    if (gBmSt.mainLoopEndedFlag) {
+        gBmSt.mainLoopEndedFlag = 0;
 
         FlushLCDControl();
         FlushBackgrounds();
@@ -392,8 +393,8 @@ void OnGameLoopMain(void) {
     Proc_Run(gProcTreeRootArray[4]);
     PushSpriteLayerObjects(13);
 
-    gGameState.mainLoopEndedFlag = 1;
-    gGameState.prevVCount = REG_VCOUNT;
+    gBmSt.mainLoopEndedFlag = 1;
+    gBmSt.prevVCount = REG_VCOUNT;
 
     VBlankIntrWait();
 
@@ -402,40 +403,40 @@ void OnGameLoopMain(void) {
 
 //! FE8U = 0x08015360
 void AddSkipThread2(void) {
-    gGameState.gameLogicSemaphore++;
+    gBmSt.gameLogicSemaphore++;
     return;
 }
 
 //! FE8U = 0x08015370
 void SubSkipThread2(void) {
-    gGameState.gameLogicSemaphore--;
+    gBmSt.gameLogicSemaphore--;
     return;
 }
 
 //! FE8U = 0x08015380
 u8 GetThread2SkipStack(void) {
-    return gGameState.gameLogicSemaphore;
+    return gBmSt.gameLogicSemaphore;
 }
 
 //! FE8U = 0x0801538C
 void SwitchPhases(void) {
 
-    switch (gRAMChapterData.faction) {
+    switch (gPlaySt.faction) {
         case FACTION_BLUE:
-            gRAMChapterData.faction = FACTION_RED;
+            gPlaySt.faction = FACTION_RED;
 
             break;
 
         case FACTION_RED:
-            gRAMChapterData.faction = FACTION_GREEN;
+            gPlaySt.faction = FACTION_GREEN;
 
             break;
 
         case FACTION_GREEN:
-            gRAMChapterData.faction = FACTION_BLUE;
+            gPlaySt.faction = FACTION_BLUE;
 
-            if (gRAMChapterData.chapterTurnNumber < 999) {
-                gRAMChapterData.chapterTurnNumber++;
+            if (gPlaySt.chapterTurnNumber < 999) {
+                gPlaySt.chapterTurnNumber++;
             }
 
             ProcessTurnSupportExp();
@@ -446,7 +447,7 @@ void SwitchPhases(void) {
 
 //! FE8U = 0x080153D4
 int CallBeginningEvents(void) {
-    const struct ChapterEventGroup* pChapterEvents = GetChapterEventDataPointer(gRAMChapterData.chapterIndex);
+    const struct ChapterEventGroup* pChapterEvents = GetChapterEventDataPointer(gPlaySt.chapterIndex);
 
     if (GetChapterThing() != 2) {
         CallEvent(pChapterEvents->beginningSceneEvents, 1);
@@ -484,7 +485,7 @@ s8 sub_8015434(void) {
 //! FE8U = 0x08015450
 void BmMain_StartPhase(ProcPtr proc) {
 
-    switch (gRAMChapterData.faction) {
+    switch (gPlaySt.faction) {
         case FACTION_BLUE:
             Proc_StartBlocking(gProcScr_PlayerPhase, proc);
 
@@ -517,7 +518,7 @@ void BmMain_ResumePlayerPhase(ProcPtr proc) {
 //! FE8U = 0x080154C8
 int BmMain_UpdateTraps(ProcPtr proc) {
 
-    if (gRAMChapterData.faction != FACTION_GREEN) {
+    if (gPlaySt.faction != FACTION_GREEN) {
         return 1;
     }
 
@@ -531,18 +532,18 @@ int BmMain_UpdateTraps(ProcPtr proc) {
 void BmMain_SuspendBeforePhase(void) {
 
     gActionData.suspendPointType = SUSPEND_POINT_PHASECHANGE;
-    SaveSuspendedGame(SAVE_BLOCK_SUSPEND);
+    WriteSuspendSave(SAVE_BLOCK_SUSPEND);
 
     return;
 }
 
 //! FE8U = 0x0801550C
 void BmMain_StartIntroFx(ProcPtr proc) {
-    if (gRAMChapterData.chapterIndex == 0x38) {
+    if (gPlaySt.chapterIndex == 0x38) {
         return;
     }
 
-    if (gRAMChapterData.chapterIndex == 0x06 && CheckEventId(0x88)) {
+    if (gPlaySt.chapterIndex == 0x06 && CheckEventId(0x88)) {
         return;
     }
 
@@ -557,7 +558,7 @@ void UndeployEveryone(void) {
 
     UnsetEventId(0x84);
 
-    if ((gRAMChapterData.unk4A_1) == 0) {
+    if ((gPlaySt.unk4A_1) == 0) {
         for (i = 1; i < FACTION_GREEN; i++) {
             struct Unit* unit = GetUnit(i);
 
@@ -574,7 +575,7 @@ void UndeployEveryone(void) {
 
 //! FE8U = 0x08015588
 void GotoChapterWithoutSave(int chapterId) {
-    gRAMChapterData.chapterIndex = chapterId;
+    gPlaySt.chapterIndex = chapterId;
 
     Proc_Goto(Proc_Find(gProc_BMapMain), 2);
     Proc_EndEach(gProcScr_PlayerPhase);
@@ -589,18 +590,18 @@ void sub_80155C4(void) {
     u8 flag;
 
     if (CheckEventId(3)) {
-        RegisterChapterTimeAndTurnCount(&gRAMChapterData);
+        RegisterChapterTimeAndTurnCount(&gPlaySt);
     }
 
     ComputeChapterRankings();
 
-    flag = (gRAMChapterData.unk4A_1 & 1);
+    flag = (gPlaySt.unk4A_1 & 1);
 
     ChapterChangeUnitCleanup();
     StartBattleMap(0);
 
     if (flag) {
-        gRAMChapterData.unk4A_1 = 1;
+        gPlaySt.unk4A_1 = 1;
     }
 
     return;
@@ -609,7 +610,7 @@ void sub_80155C4(void) {
 //! FE8U = 0x08015608
 void InitBmBgLayers(void) {
 
-    if (gRAMChapterData.chapterWeatherId == WEATHER_CLOUDS) {
+    if (gPlaySt.chapterWeatherId == WEATHER_CLOUDS) {
         gLCDControlBuffer.bg0cnt.priority = 0;
         gLCDControlBuffer.bg1cnt.priority = 1;
         gLCDControlBuffer.bg2cnt.priority = 2;
@@ -654,7 +655,7 @@ void sub_80156D4(void) {
 }
 
 //! FE8U = 0x080156F4
-void LoadGameCoreGfx(void) {
+void ReadGameSaveCoreGfx(void) {
 
     Font_InitForUIDefault();
     LoadUiFrameGraphics();
@@ -671,12 +672,12 @@ void HandleMapCursorInput(u16 keys) {
     int dir = (keys >> 4) & (DPAD_ANY >> 4);
 
     struct Vec2 newCursor = {
-        gGameState.playerCursor.x + sDirKeysToOffsetLut[dir][0],
-        gGameState.playerCursor.y + sDirKeysToOffsetLut[dir][1]
+        gBmSt.playerCursor.x + sDirKeysToOffsetLut[dir][0],
+        gBmSt.playerCursor.y + sDirKeysToOffsetLut[dir][1]
     };
 
-    if (gGameState.gameStateBits & (1 << 1)) {
-        if ((gBmMapMovement[gGameState.playerCursor.y][gGameState.playerCursor.x] < MAP_MOVEMENT_MAX)) {
+    if (gBmSt.gameStateBits & (1 << 1)) {
+        if ((gBmMapMovement[gBmSt.playerCursor.y][gBmSt.playerCursor.x] < MAP_MOVEMENT_MAX)) {
             if (gBmMapMovement[newCursor.y][newCursor.x] >= MAP_MOVEMENT_MAX) {
                 if ((keys & DPAD_ANY) != (gKeyStatusPtr->newKeys & DPAD_ANY)) {
                     return;
@@ -686,28 +687,28 @@ void HandleMapCursorInput(u16 keys) {
     }
 
     if ((newCursor.x >= 0) && (newCursor.x < gBmMapSize.x)) {
-        gGameState.cursorTarget.x += sDirKeysToOffsetLut[dir][0] * 16;
+        gBmSt.cursorTarget.x += sDirKeysToOffsetLut[dir][0] * 16;
 
-        gGameState.cursorPrevious.x = gGameState.playerCursor.x;
-        gGameState.playerCursor.x = newCursor.x;
+        gBmSt.cursorPrevious.x = gBmSt.playerCursor.x;
+        gBmSt.playerCursor.x = newCursor.x;
     }
 
     if ((newCursor.y >= 0) && (newCursor.y < gBmMapSize.y)) {
-        gGameState.cursorTarget.y += sDirKeysToOffsetLut[dir][1] * 16;
+        gBmSt.cursorTarget.y += sDirKeysToOffsetLut[dir][1] * 16;
 
-        gGameState.cursorPrevious.y = gGameState.playerCursor.y;
-        gGameState.playerCursor.y = newCursor.y;
+        gBmSt.cursorPrevious.y = gBmSt.playerCursor.y;
+        gBmSt.playerCursor.y = newCursor.y;
     }
 
-    if (!(gGameState.gameStateBits & (1 << 2))) {
-        if (gGameState.playerCursor.x == gGameState.cursorPrevious.x && gGameState.playerCursor.y == gGameState.cursorPrevious.y) {
+    if (!(gBmSt.gameStateBits & (1 << 2))) {
+        if (gBmSt.playerCursor.x == gBmSt.cursorPrevious.x && gBmSt.playerCursor.y == gBmSt.cursorPrevious.y) {
             return;
         }
 
         PlaySoundEffect(0x65);
-        gGameState.gameStateBits |= (1 << 2);
+        gBmSt.gameStateBits |= (1 << 2);
     } else {
-        gGameState.gameStateBits &= ~(1 << 2);
+        gBmSt.gameStateBits &= ~(1 << 2);
     }
 
     return;
@@ -715,21 +716,21 @@ void HandleMapCursorInput(u16 keys) {
 
 //! FE8U = 0x08015838
 void HandleMoveMapCursor(int step) {
-    if (gGameState.playerCursorDisplay.x < gGameState.cursorTarget.x) {
-        gGameState.playerCursorDisplay.x += step;
+    if (gBmSt.playerCursorDisplay.x < gBmSt.cursorTarget.x) {
+        gBmSt.playerCursorDisplay.x += step;
     }
 
-    if (gGameState.playerCursorDisplay.x > gGameState.cursorTarget.x)
+    if (gBmSt.playerCursorDisplay.x > gBmSt.cursorTarget.x)
     {
-        gGameState.playerCursorDisplay.x -= step;
+        gBmSt.playerCursorDisplay.x -= step;
     }
 
-    if (gGameState.playerCursorDisplay.y < gGameState.cursorTarget.y) {
-        gGameState.playerCursorDisplay.y += step;
+    if (gBmSt.playerCursorDisplay.y < gBmSt.cursorTarget.y) {
+        gBmSt.playerCursorDisplay.y += step;
     }
 
-    if (gGameState.playerCursorDisplay.y > gGameState.cursorTarget.y) {
-        gGameState.playerCursorDisplay.y -= step;
+    if (gBmSt.playerCursorDisplay.y > gBmSt.cursorTarget.y) {
+        gBmSt.playerCursorDisplay.y -= step;
     }
 
     return;
@@ -740,69 +741,69 @@ void HandleMoveCameraWithMapCursor(int step) {
 
     s8 isUpdated = 0;
 
-    int xCursorSprite = gGameState.playerCursorDisplay.x;
-    int yCursorSprite = gGameState.playerCursorDisplay.y;
+    int xCursorSprite = gBmSt.playerCursorDisplay.x;
+    int yCursorSprite = gBmSt.playerCursorDisplay.y;
 
-    if (gGameState.camera.x + CAMERA_MARGIN_LEFT > xCursorSprite) {
+    if (gBmSt.camera.x + CAMERA_MARGIN_LEFT > xCursorSprite) {
         if (xCursorSprite - CAMERA_MARGIN_LEFT < 0) {
-            gGameState.camera.x = 0;
+            gBmSt.camera.x = 0;
         } else {
             isUpdated = 1;
 
-            gGameState.camera.x -= step;
-            gGameState.unk36 = -step;
+            gBmSt.camera.x -= step;
+            gBmSt.unk36 = -step;
 
-            gGameState.unk32 = gGameState.camera.x & 0xf;
+            gBmSt.unk32 = gBmSt.camera.x & 0xf;
         }
     }
 
-    if (gGameState.camera.x + CAMERA_MARGIN_RIGHT < xCursorSprite) {
-        if (xCursorSprite - CAMERA_MARGIN_RIGHT > gGameState.cameraMax.x) {
-            gGameState.camera.x = gGameState.cameraMax.x;
+    if (gBmSt.camera.x + CAMERA_MARGIN_RIGHT < xCursorSprite) {
+        if (xCursorSprite - CAMERA_MARGIN_RIGHT > gBmSt.cameraMax.x) {
+            gBmSt.camera.x = gBmSt.cameraMax.x;
         } else {
             isUpdated = 1;
 
-            gGameState.camera.x += step;
-            gGameState.unk36 = step;
+            gBmSt.camera.x += step;
+            gBmSt.unk36 = step;
 
-            gGameState.unk32 = gGameState.camera.x & 0xf;
+            gBmSt.unk32 = gBmSt.camera.x & 0xf;
         }
     }
 
-    if (gGameState.camera.y + CAMERA_MARGIN_TOP > yCursorSprite) {
+    if (gBmSt.camera.y + CAMERA_MARGIN_TOP > yCursorSprite) {
         if (yCursorSprite - CAMERA_MARGIN_TOP < 0) {
-            gGameState.camera.y = 0;
+            gBmSt.camera.y = 0;
         } else {
             isUpdated = 1;
-            gGameState.camera.y -= step;
-            gGameState.unk37 = -step;
+            gBmSt.camera.y -= step;
+            gBmSt.unk37 = -step;
 
-            gGameState.unk34 = gGameState.camera.y & 0xf;
+            gBmSt.unk34 = gBmSt.camera.y & 0xf;
         }
     }
 
-    if (gGameState.camera.y + CAMERA_MARGIN_BOTTOM < yCursorSprite) {
-        if (yCursorSprite - CAMERA_MARGIN_BOTTOM > gGameState.cameraMax.y) {
-            gGameState.camera.y = gGameState.cameraMax.y;
+    if (gBmSt.camera.y + CAMERA_MARGIN_BOTTOM < yCursorSprite) {
+        if (yCursorSprite - CAMERA_MARGIN_BOTTOM > gBmSt.cameraMax.y) {
+            gBmSt.camera.y = gBmSt.cameraMax.y;
         } else {
             isUpdated = 1;
 
-            gGameState.camera.y += step;
-            gGameState.unk37 = step;
+            gBmSt.camera.y += step;
+            gBmSt.unk37 = step;
 
-            gGameState.unk34 = gGameState.camera.y & 0xf;
+            gBmSt.unk34 = gBmSt.camera.y & 0xf;
         }
     }
 
     if (!isUpdated) {
-        if (gGameState.unk32 != 0) {
-            gGameState.unk32 = (gGameState.unk32 + gGameState.unk36) & 0xf;
-            gGameState.camera.x += gGameState.unk36;
+        if (gBmSt.unk32 != 0) {
+            gBmSt.unk32 = (gBmSt.unk32 + gBmSt.unk36) & 0xf;
+            gBmSt.camera.x += gBmSt.unk36;
         }
 
-        if (gGameState.unk34 != 0) {
-            gGameState.unk34 = (gGameState.unk34 + gGameState.unk37) & 0xf;
-            gGameState.camera.y += gGameState.unk37;
+        if (gBmSt.unk34 != 0) {
+            gBmSt.unk34 = (gBmSt.unk34 + gBmSt.unk37) & 0xf;
+            gBmSt.camera.y += gBmSt.unk37;
         }
     }
 
@@ -811,17 +812,17 @@ void HandleMoveCameraWithMapCursor(int step) {
 
 //! FE8U = 0x080159B8
 u16 GetCameraAdjustedX(int x) {
-    int result = gGameState.camera.x;
+    int result = gBmSt.camera.x;
 
-    if (gGameState.camera.x + CAMERA_MARGIN_LEFT > x) {
+    if (gBmSt.camera.x + CAMERA_MARGIN_LEFT > x) {
         result = x - CAMERA_MARGIN_LEFT < 0
             ? 0
             : x - CAMERA_MARGIN_LEFT;
     }
 
-    if (gGameState.camera.x + CAMERA_MARGIN_RIGHT < x) {
-        result = x - CAMERA_MARGIN_RIGHT > gGameState.cameraMax.x
-            ? gGameState.cameraMax.x
+    if (gBmSt.camera.x + CAMERA_MARGIN_RIGHT < x) {
+        result = x - CAMERA_MARGIN_RIGHT > gBmSt.cameraMax.x
+            ? gBmSt.cameraMax.x
             : x - CAMERA_MARGIN_RIGHT;
     }
 
@@ -830,17 +831,17 @@ u16 GetCameraAdjustedX(int x) {
 
 //! FE8U = 0x080159FC
 u16 GetCameraAdjustedY(int y) {
-    int result = gGameState.camera.y;
+    int result = gBmSt.camera.y;
 
-    if (gGameState.camera.y + CAMERA_MARGIN_TOP > y) {
+    if (gBmSt.camera.y + CAMERA_MARGIN_TOP > y) {
         result = y - CAMERA_MARGIN_TOP < 0
             ? 0
             : y - CAMERA_MARGIN_TOP;
     }
 
-    if (gGameState.camera.y + CAMERA_MARGIN_BOTTOM < y) {
-        result = y - CAMERA_MARGIN_BOTTOM > gGameState.cameraMax.y
-            ? gGameState.cameraMax.y
+    if (gBmSt.camera.y + CAMERA_MARGIN_BOTTOM < y) {
+        result = y - CAMERA_MARGIN_BOTTOM > gBmSt.cameraMax.y
+            ? gBmSt.cameraMax.y
             : y - CAMERA_MARGIN_BOTTOM;
     }
 
@@ -856,8 +857,8 @@ u16 GetCameraCenteredX(int x) {
         result = 0;
     }
 
-    if (result > gGameState.cameraMax.x) {
-        result = gGameState.cameraMax.x;
+    if (result > gBmSt.cameraMax.x) {
+        result = gBmSt.cameraMax.x;
     }
 
     return result &~ 0xF;
@@ -872,8 +873,8 @@ u16 GetCameraCenteredY(int y) {
         result = 0;
     }
 
-    if (result > gGameState.cameraMax.y) {
-        result = gGameState.cameraMax.y;
+    if (result > gBmSt.cameraMax.y) {
+        result = gBmSt.cameraMax.y;
     }
 
     return result &~ 0xF;
@@ -926,8 +927,8 @@ void PutMapCursor(int x, int y, int kind) {
             break;
     }
 
-    x = x - gGameState.camera.x;
-    y = y - gGameState.camera.y;
+    x = x - gBmSt.camera.x;
+    y = y - gBmSt.camera.y;
 
     PutSprite(4, x, y, sprite, oam2);
 
@@ -946,14 +947,14 @@ void sub_8015B88(int x, int y) {
 //! FE8U = 0x08015BBC
 void SetCursorMapPosition(int x, int y) {
 
-    gGameState.playerCursor.x = x;
-    gGameState.playerCursor.y = y;
+    gBmSt.playerCursor.x = x;
+    gBmSt.playerCursor.y = y;
 
-    gGameState.cursorTarget.x = x * 16;
-    gGameState.cursorTarget.y = y * 16;
+    gBmSt.cursorTarget.x = x * 16;
+    gBmSt.cursorTarget.y = y * 16;
 
-    gGameState.playerCursorDisplay.x = x * 16;
-    gGameState.playerCursorDisplay.y = y * 16;
+    gBmSt.playerCursorDisplay.x = x * 16;
+    gBmSt.playerCursorDisplay.y = y * 16;
 
     return;
 }
@@ -1015,8 +1016,8 @@ void CamMove_OnInit(struct CamMoveProc* proc) {
 void CamMove_OnLoop(struct CamMoveProc* proc) {
 
     if (proc->frame == 0) {
-        proc->to.x = gGameState.camera.x;
-        proc->to.y = gGameState.camera.y;
+        proc->to.x = gBmSt.camera.x;
+        proc->to.y = gBmSt.camera.y;
 
         Proc_End(proc);
 
@@ -1025,10 +1026,10 @@ void CamMove_OnLoop(struct CamMoveProc* proc) {
 
     proc->distance -= sCameraAnimTable[proc->frame--];
 
-    gGameState.camera.x = proc->to.x + (proc->from.x - proc->to.x) * proc->distance / proc->calibration;
+    gBmSt.camera.x = proc->to.x + (proc->from.x - proc->to.x) * proc->distance / proc->calibration;
 
 
-    gGameState.camera.y = proc->to.y + (proc->from.y - proc->to.y) * proc->distance / proc->calibration;
+    gBmSt.camera.y = proc->to.y + (proc->from.y - proc->to.y) * proc->distance / proc->calibration;
 
     return;
 }
@@ -1070,8 +1071,8 @@ s8 sub_8015D84(ProcPtr parent, int x, int y) {
     xTarget = xTarget * 16;
     yTarget = yTarget * 16;
 
-    if ((xTarget == gGameState.camera.x) &&
-        (yTarget == gGameState.camera.y)) {
+    if ((xTarget == gBmSt.camera.x) &&
+        (yTarget == gBmSt.camera.y)) {
         return 0;
     }
 
@@ -1085,8 +1086,8 @@ s8 sub_8015D84(ProcPtr parent, int x, int y) {
         proc = Proc_Start(gProcScr_CamMove, PROC_TREE_3);
     }
 
-    proc->from.x = gGameState.camera.x;
-    proc->from.y = gGameState.camera.y;
+    proc->from.x = gBmSt.camera.x;
+    proc->from.y = gBmSt.camera.y;
 
     proc->to.x = xTarget;
     proc->to.y = yTarget;
@@ -1104,7 +1105,7 @@ s8 EnsureCameraOntoPosition(ProcPtr parent, int x, int y) {
     int xTarget = GetCameraAdjustedX(x * 16);
     int yTarget = GetCameraAdjustedY(y * 16);
 
-    if ((xTarget == gGameState.camera.x) && (yTarget == gGameState.camera.y)) {
+    if ((xTarget == gBmSt.camera.x) && (yTarget == gBmSt.camera.y)) {
         return 0;
     }
 
@@ -1118,8 +1119,8 @@ s8 EnsureCameraOntoPosition(ProcPtr parent, int x, int y) {
         proc = Proc_Start(gProcScr_CamMove, PROC_TREE_3);
     }
 
-    proc->from.x = gGameState.camera.x;
-    proc->from.y = gGameState.camera.y;
+    proc->from.x = gBmSt.camera.x;
+    proc->from.y = gBmSt.camera.y;
 
     proc->to.x = xTarget;
     proc->to.y = yTarget;
@@ -1135,7 +1136,7 @@ s8 IsCameraNotWatchingPosition(int x, int y) {
     int xTarget = GetCameraAdjustedX(x * 16);
     int yTarget = GetCameraAdjustedY(y * 16);
 
-    if ((xTarget == gGameState.camera.x) && (yTarget == gGameState.camera.y)) {
+    if ((xTarget == gBmSt.camera.x) && (yTarget == gBmSt.camera.y)) {
         return 0;
     }
 
@@ -1146,7 +1147,7 @@ s8 IsCameraNotWatchingPosition(int x, int y) {
 s8 CameraMove_8015EDC(ProcPtr parent) {
     struct CamMoveProc* proc;
 
-    if (gGameState.camera.y <= gGameState.cameraMax.y) {
+    if (gBmSt.camera.y <= gBmSt.cameraMax.y) {
         return 0;
     }
 
@@ -1160,11 +1161,11 @@ s8 CameraMove_8015EDC(ProcPtr parent) {
         proc = Proc_Start(gProcScr_CamMove, PROC_TREE_3);
     }
 
-    proc->from.x = gGameState.camera.x;
-    proc->from.y = gGameState.camera.y;
+    proc->from.x = gBmSt.camera.x;
+    proc->from.y = gBmSt.camera.y;
 
-    proc->to.x = gGameState.camera.x;
-    proc->to.y = gGameState.cameraMax.y;
+    proc->to.x = gBmSt.camera.x;
+    proc->to.y = gBmSt.cameraMax.y;
 
     return 1;
 }
@@ -1193,8 +1194,8 @@ void sub_8015F90(int x, int y, int duration) {
 
     proc = Proc_Start(gProcScr_UnkMapCursor, PROC_TREE_3);
 
-    proc->to.x = gGameState.playerCursor.x << 4;
-    proc->to.y = gGameState.playerCursor.y << 4;
+    proc->to.x = gBmSt.playerCursor.x << 4;
+    proc->to.y = gBmSt.playerCursor.y << 4;
 
     proc->from.x = x << 4;
     proc->from.y = y << 4;
@@ -1229,29 +1230,29 @@ int GetCurrentMapMusicIndex(void) {
         greenBgmIdx = MAP_BGM_BLUE_GREEN_ALT;
     }
 
-    switch (gRAMChapterData.faction) {
+    switch (gPlaySt.faction) {
         case FACTION_RED:
-            return GetROMChapterStruct(gRAMChapterData.chapterIndex)->mapBgmIds[redBgmIdx];
+            return GetROMChapterStruct(gPlaySt.chapterIndex)->mapBgmIds[redBgmIdx];
 
         case FACTION_GREEN:
-            return GetROMChapterStruct(gRAMChapterData.chapterIndex)->mapBgmIds[greenBgmIdx];
+            return GetROMChapterStruct(gPlaySt.chapterIndex)->mapBgmIds[greenBgmIdx];
 
         case FACTION_BLUE:
 
             if (CheckEventId(4)) {
-                return GetROMChapterStruct(gRAMChapterData.chapterIndex)->mapBgmIds[blueBgmIdx];
+                return GetROMChapterStruct(gPlaySt.chapterIndex)->mapBgmIds[blueBgmIdx];
             }
 
-            if ((GetChapterThing() == 2) || GetROMChapterStruct(gRAMChapterData.chapterIndex)->victorySongEnemyThreshold != 0) {
+            if ((GetChapterThing() == 2) || GetROMChapterStruct(gPlaySt.chapterIndex)->victorySongEnemyThreshold != 0) {
                 aliveUnits = CountUnitsInState(0x80, 0x0001000C);
                 thing = GetChapterThing();
 
-                if ((thing != 2 && aliveUnits <= (GetROMChapterStruct(gRAMChapterData.chapterIndex)->victorySongEnemyThreshold))
+                if ((thing != 2 && aliveUnits <= (GetROMChapterStruct(gPlaySt.chapterIndex)->victorySongEnemyThreshold))
                     || (thing == 2 && aliveUnits <= 1))
                     return 0x10;
             }
 
-            return GetROMChapterStruct(gRAMChapterData.chapterIndex)->mapBgmIds[blueBgmIdx];
+            return GetROMChapterStruct(gPlaySt.chapterIndex)->mapBgmIds[blueBgmIdx];
     }
 }
 
@@ -1266,8 +1267,8 @@ void sub_80160E0(struct CamMoveProc* proc) {
     int x = Interpolate(0, proc->from.x, proc->to.x, proc->frame, proc->distance);
     int y = Interpolate(0, proc->from.y, proc->to.y, proc->frame, proc->distance);
 
-    gGameState.camera.x = x;
-    gGameState.camera.y = y;
+    gBmSt.camera.x = x;
+    gBmSt.camera.y = y;
 
     proc->frame++;
 
@@ -1293,8 +1294,8 @@ void sub_8016140(ProcPtr parent, int x, int y, int distance) {
         proc = Proc_Start(gProcScr_0859A580, PROC_TREE_3);
     }
 
-    proc->from.x = gGameState.camera.x;
-    proc->from.y = gGameState.camera.y;
+    proc->from.x = gBmSt.camera.x;
+    proc->from.y = gBmSt.camera.y;
 
     proc->to.x = x * 16;
     proc->to.y = y * 16;

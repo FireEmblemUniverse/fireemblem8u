@@ -130,8 +130,8 @@ void StartDanceringAnim(ProcPtr parent)
         
         Proc_StartBlocking(ProcScr_DanceringAnim, parent);
 
-        x = x * 0x10 - gGameState.camera.x - 0x10;
-        y = y * 0x10 - gGameState.camera.y - 0x10;
+        x = x * 0x10 - gBmSt.camera.x - 0x10;
+        y = y * 0x10 - gBmSt.camera.y - 0x10;
 
         BG_SetPosition(BG_0, -x, -y);
     }

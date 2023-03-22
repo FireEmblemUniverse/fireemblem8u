@@ -28,19 +28,19 @@ struct ProcCmd CONST_DATA gProcScr_ADJUSTSFROMXI[] = {
 void GetPlayerStartCursorPosition(int *px, int *py)
 {
     struct Unit *unit;
-    if (1 == gRAMChapterData.chapterTurnNumber) {
+    if (1 == gPlaySt.chapterTurnNumber) {
         unit = GetUnitFromCharId(GetPlayerLeaderUnitId());
-        gRAMChapterData.xCursor = unit->xPos;
-        gRAMChapterData.yCursor = unit->yPos;
+        gPlaySt.xCursor = unit->xPos;
+        gPlaySt.yCursor = unit->yPos;
     }
 
-    if (1 != gRAMChapterData.cfgAutoCursor) {
+    if (1 != gPlaySt.cfgAutoCursor) {
         unit = GetUnitFromCharId(GetPlayerLeaderUnitId());
         *px = unit->xPos;
         *py = unit->yPos;
     } else {
-        *px = gRAMChapterData.xCursor;
-        *py = gRAMChapterData.yCursor;
+        *px = gPlaySt.xCursor;
+        *py = gPlaySt.yCursor;
     }
 }
 
@@ -48,7 +48,7 @@ void GetEnemyStartCursorPosition(int *px, int *py)
 {
     int i;
 
-    for (i = gRAMChapterData.faction + 1; i < gRAMChapterData.faction + 0x40; i++) {
+    for (i = gPlaySt.faction + 1; i < gPlaySt.faction + 0x40; i++) {
         struct Unit *unit = GetUnit(i);
         if (!UNIT_IS_VALID(unit))
             continue;
@@ -71,12 +71,12 @@ void ProcFun_ResetCursorPosition(ProcPtr proc)
     x = -1;
     y = -1;
 
-    if (0 == GetPhaseAbleUnitCount(gRAMChapterData.faction)) {
+    if (0 == GetPhaseAbleUnitCount(gPlaySt.faction)) {
         Proc_End(proc);
         return;
     }
 
-    switch (gRAMChapterData.faction) {
+    switch (gPlaySt.faction) {
     case FACTION_BLUE:
         GetPlayerStartCursorPosition(&x, &y);
         break;

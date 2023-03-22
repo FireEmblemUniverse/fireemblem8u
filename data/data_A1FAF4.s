@@ -1,7 +1,7 @@
     .section .data
 
-	.global gpSaveDataStart
-gpSaveDataStart:  @ 0x08A1FAF4
+	.global gSram
+gSram:  @ 0x08A1FAF4
 	.incbin "baserom.gba", 0xA1FAF4, 0x4
 
 	.global gUnknown_08A1FAF8

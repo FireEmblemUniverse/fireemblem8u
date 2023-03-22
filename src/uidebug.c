@@ -498,27 +498,27 @@ int sub_80851E4(int faction)
 
 int sub_8085220()
 {
-    return gRAMChapterData.chapterTurnNumber > 20;
+    return gPlaySt.chapterTurnNumber > 20;
 }
 
 int sub_8085238()
 {
-    return gRAMChapterData.chapterTurnNumber > 25;
+    return gPlaySt.chapterTurnNumber > 25;
 }
 
 int sub_8085250()
 {
-    return gRAMChapterData.chapterTurnNumber > 30;
+    return gPlaySt.chapterTurnNumber > 30;
 }
 
 int sub_8085268()
 {
-    return FACTION_BLUE == gRAMChapterData.faction;
+    return FACTION_BLUE == gPlaySt.faction;
 }
 
 int sub_8085280()
 {
-    return FACTION_RED == gRAMChapterData.faction;
+    return FACTION_RED == gPlaySt.faction;
 }
 
 int sub_8085298()

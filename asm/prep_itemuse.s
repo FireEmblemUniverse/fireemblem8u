@@ -62,7 +62,7 @@ _0809BEE0:
 	beq _0809BF08
 	str r6, [r4, #0x30]
 _0809BEEE:
-	ldr r0, _0809BF04  @ gRAMChapterData
+	ldr r0, _0809BF04  @ gPlaySt
 	adds r0, #0x41
 	ldrb r0, [r0]
 	lsls r0, r0, #0x1e
@@ -74,7 +74,7 @@ _0809BF00:
 	movs r0, #1
 	b _0809BF0A
 	.align 2, 0
-_0809BF04: .4byte gRAMChapterData
+_0809BF04: .4byte gPlaySt
 _0809BF08:
 	movs r0, #0
 _0809BF0A:
@@ -1176,7 +1176,7 @@ _0809C848:
 	movs r3, #0
 	bl sub_80AC9D4
 	str r5, [r4, #0x3c]
-	ldr r0, _0809C8AC  @ gRAMChapterData
+	ldr r0, _0809C8AC  @ gPlaySt
 	adds r0, #0x41
 	ldrb r0, [r0]
 	lsls r0, r0, #0x1e
@@ -1191,9 +1191,9 @@ _0809C89E:
 	b _0809C93A
 	.align 2, 0
 _0809C8A8: .4byte gKeyStatusPtr
-_0809C8AC: .4byte gRAMChapterData
+_0809C8AC: .4byte gPlaySt
 _0809C8B0:
-	ldr r0, _0809C8C4  @ gRAMChapterData
+	ldr r0, _0809C8C4  @ gPlaySt
 	adds r0, #0x41
 	ldrb r0, [r0]
 	lsls r0, r0, #0x1e
@@ -1203,7 +1203,7 @@ _0809C8B0:
 	bl m4aSongNumStart
 	b _0809C93A
 	.align 2, 0
-_0809C8C4: .4byte gRAMChapterData
+_0809C8C4: .4byte gPlaySt
 _0809C8C8:
 	movs r0, #2
 	ands r0, r1
@@ -1212,7 +1212,7 @@ _0809C8C8:
 	adds r0, r4, #0
 	movs r1, #6
 	bl Proc_Goto
-	ldr r0, _0809C8EC  @ gRAMChapterData
+	ldr r0, _0809C8EC  @ gPlaySt
 	adds r0, #0x41
 	ldrb r0, [r0]
 	lsls r0, r0, #0x1e
@@ -1222,7 +1222,7 @@ _0809C8C8:
 	bl m4aSongNumStart
 	b _0809C93A
 	.align 2, 0
-_0809C8EC: .4byte gRAMChapterData
+_0809C8EC: .4byte gPlaySt
 _0809C8F0:
 	adds r0, r4, #0
 	bl sub_809BE80
@@ -1402,7 +1402,7 @@ PrepItemUse_AreUSureBoxLoop: @ 0x0809CA14
 	movs r0, #0
 	bl sub_80ACA84
 	bl sub_809C9D8
-	ldr r0, _0809CA74  @ gRAMChapterData
+	ldr r0, _0809CA74  @ gPlaySt
 	adds r0, #0x41
 	ldrb r0, [r0]
 	lsls r0, r0, #0x1e
@@ -1414,7 +1414,7 @@ PrepItemUse_AreUSureBoxLoop: @ 0x0809CA14
 	.align 2, 0
 _0809CA6C: .4byte 0x0000A440
 _0809CA70: .4byte gKeyStatusPtr
-_0809CA74: .4byte gRAMChapterData
+_0809CA74: .4byte gPlaySt
 _0809CA78:
 	movs r6, #1
 	adds r2, r6, #0
@@ -1426,7 +1426,7 @@ _0809CA78:
 	cmp r0, #0
 	bne _0809CAB0
 	bl HidePrepScreenHandCursor
-	ldr r0, _0809CAAC  @ gRAMChapterData
+	ldr r0, _0809CAAC  @ gPlaySt
 	adds r0, #0x41
 	ldrb r0, [r0]
 	lsls r0, r0, #0x1e
@@ -1440,7 +1440,7 @@ _0809CAA2:
 	bl Proc_Goto
 	b _0809CB2A
 	.align 2, 0
-_0809CAAC: .4byte gRAMChapterData
+_0809CAAC: .4byte gPlaySt
 _0809CAB0:
 	ldr r1, [r4, #0x30]
 	lsls r1, r1, #4
@@ -1450,7 +1450,7 @@ _0809CAB0:
 	movs r0, #0x10
 	movs r2, #0xb
 	bl ShowPrepScreenHandCursor
-	ldr r0, _0809CAE4  @ gRAMChapterData
+	ldr r0, _0809CAE4  @ gPlaySt
 	adds r0, #0x41
 	ldrb r0, [r0]
 	lsls r0, r0, #0x1e
@@ -1466,7 +1466,7 @@ _0809CADA:
 	bl Proc_Break
 	b _0809CB2A
 	.align 2, 0
-_0809CAE4: .4byte gRAMChapterData
+_0809CAE4: .4byte gPlaySt
 _0809CAE8:
 	ldrh r1, [r3, #6]
 	movs r0, #0x20
@@ -1493,7 +1493,7 @@ _0809CB02:
 	movs r1, #0x78
 	movs r2, #0
 	bl ShowPrepScreenHandCursor
-	ldr r0, _0809CB34  @ gRAMChapterData
+	ldr r0, _0809CB34  @ gPlaySt
 	adds r0, #0x41
 	ldrb r0, [r0]
 	lsls r0, r0, #0x1e
@@ -1507,7 +1507,7 @@ _0809CB2A:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_0809CB34: .4byte gRAMChapterData
+_0809CB34: .4byte gPlaySt
 
 	THUMB_FUNC_END PrepItemUse_AreUSureBoxLoop
 
@@ -1547,7 +1547,7 @@ _0809CB74:
 	cmp r0, #0xc1
 	bne _0809CBA0
 _0809CB78:
-	ldr r0, _0809CB94  @ gRAMChapterData
+	ldr r0, _0809CB94  @ gPlaySt
 	adds r0, #0x41
 	ldrb r0, [r0]
 	lsls r0, r0, #0x1e
@@ -1561,7 +1561,7 @@ _0809CB8A:
 	bl Proc_Goto
 	b _0809CBA0
 	.align 2, 0
-_0809CB94: .4byte gRAMChapterData
+_0809CB94: .4byte gPlaySt
 _0809CB98:
 	adds r0, r4, #0
 	movs r1, #4
@@ -2006,7 +2006,7 @@ _0809CF1E:
 	ble _0809CEF0
 	movs r0, #0x78
 	str r0, [r7, #0x2c]
-	ldr r0, _0809CF44  @ gRAMChapterData
+	ldr r0, _0809CF44  @ gPlaySt
 	adds r0, #0x41
 	ldrb r0, [r0]
 	lsls r0, r0, #0x1e
@@ -2020,7 +2020,7 @@ _0809CF3A:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_0809CF44: .4byte gRAMChapterData
+_0809CF44: .4byte gPlaySt
 
 	THUMB_FUNC_END PrepItemBooster_OnInit
 
@@ -2283,7 +2283,7 @@ PrepJunaEffect_OnInit: @ 0x0809D0D4
 _0809D154:
 	movs r0, #0x78
 	str r0, [r7, #0x2c]
-	ldr r0, _0809D178  @ gRAMChapterData
+	ldr r0, _0809D178  @ gPlaySt
 	adds r0, #0x41
 	ldrb r0, [r0]
 	lsls r0, r0, #0x1e
@@ -2299,7 +2299,7 @@ _0809D16A:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_0809D178: .4byte gRAMChapterData
+_0809D178: .4byte gPlaySt
 
 	THUMB_FUNC_END PrepJunaEffect_OnInit
 

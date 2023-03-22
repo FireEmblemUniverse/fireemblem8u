@@ -4,7 +4,7 @@
 enum { CONVOY_ITEM_COUNT = 100 };
 
 u16* GetConvoyItemArray(void);
-void ClearConvoyItems(void);
+void ClearSupplyItems(void);
 void ShrinkConvoyItemList(void);
 int GetConvoyItemCount(void);
 int AddItemToConvoy(int);

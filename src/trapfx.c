@@ -167,8 +167,8 @@ void GasTrapSpriteAnim_Init(struct TrapfxProc *proc)
     CopyDataWithPossibleUncomp(img, OBJ_CHR_ADDR(OBJCHR_TRAPFX));
     ApplyPalette(Pal_GasTrap, 0x10 + OBJPAL_TRAPFX);
 
-    x = proc->x * 16 + 8 - gGameState.camera.x;
-    y = proc->y * 16 + 8 - gGameState.camera.y;
+    x = proc->x * 16 + 8 - gBmSt.camera.x;
+    y = proc->y * 16 + 8 - gBmSt.camera.y;
     oam2 = OAM2_CHR(OBJCHR_TRAPFX) | OAM2_PAL(OBJPAL_TRAPFX) | OAM2_LAYER(1);
 
     APProc_Create(anim, x, y, oam2, animNum, 0);
@@ -190,8 +190,8 @@ void FireTrapSpriteAnim_Init(struct TrapfxProc *proc)
 
     CopyDataWithPossibleUncomp(Img_FireTrap, OBJ_CHR_ADDR(OBJCHR_TRAPFX));
 
-    x = proc->x * 16 + 8 - gGameState.camera.x;
-    y = proc->y * 16 + 8 - gGameState.camera.y;
+    x = proc->x * 16 + 8 - gBmSt.camera.x;
+    y = proc->y * 16 + 8 - gBmSt.camera.y;
     oam2 = OAM2_CHR(OBJCHR_TRAPFX) | OAM2_PAL(OBJPAL_TRAPFX) | OAM2_LAYER(1);
 
     APProc_Create(SpriteAnim_FireTrap, x, y, oam2, 0, 0);
@@ -222,8 +222,8 @@ void StartFireTrapAnim2(ProcPtr parent, int x, int y)
 
 void ProcUnkTrapAnimFunc(struct UnkTrapfxProc *proc)
 {
-    int x = (proc->x * 16 + 8 - gGameState.camera.x) & 0x1FF;
-    int y = (proc->y * 16 + 8 - gGameState.camera.y) & 0x0FF;
+    int x = (proc->x * 16 + 8 - gBmSt.camera.x) & 0x1FF;
+    int y = (proc->y * 16 + 8 - gBmSt.camera.y) & 0x0FF;
     int tileBase = 0x2640;
 
     APProc_Create(Obj_WallBreakAnim, x, y, tileBase, 0, 0);
@@ -274,7 +274,7 @@ void ArrowTrapSpriteAnim_Init(struct TrapfxProc *proc)
     CopyDataWithPossibleUncomp(Img_ArrowTrap, OBJ_CHR_ADDR(OBJCHR_TRAPFX));
     ApplyPalette(Pal_ArrowTrap, 0x10 + OBJPAL_TRAPFX);
 
-    x = proc->x * 16 + 8 - gGameState.camera.x;
+    x = proc->x * 16 + 8 - gBmSt.camera.x;
     oam2 = OAM2_CHR(OBJCHR_TRAPFX) | OAM2_PAL(OBJPAL_TRAPFX) | OAM2_LAYER(1);
 
     APProc_Create(SpriteAnim_ArrowTrap, x, DISPLAY_HEIGHT / 2, oam2, 0, 0);
@@ -317,7 +317,7 @@ void ProcShowMapChange_UpdateGame(struct ShowMapChangeProc * proc)
     else
         song = 0xBD;
 
-    PlaySpacialSoundMaybe(song, proc->sndx /* *16 + 8 */ - gGameState.camera.x);
+    PlaySpacialSoundMaybe(song, proc->sndx /* *16 + 8 */ - gBmSt.camera.x);
 }
 
 void StartShowMapChangeAnim(ProcPtr parent, int unused, int trapid)
@@ -345,8 +345,8 @@ void PikeTrapSpriteAnim_Init(struct TrapfxProc *proc)
     CopyDataWithPossibleUncomp(Img_PikeTrap, OBJ_CHR_ADDR(OBJCHR_TRAPFX));
     ApplyPalette(Pal_PikeTrap, 0x10 + OBJPAL_TRAPFX);
 
-    x = proc->x * 16 + 8 - gGameState.camera.x;
-    y = proc->y * 16 + 8 - gGameState.camera.y;
+    x = proc->x * 16 + 8 - gBmSt.camera.x;
+    y = proc->y * 16 + 8 - gBmSt.camera.y;
     oam2 = OAM2_CHR(OBJCHR_TRAPFX) | OAM2_PAL(OBJPAL_TRAPFX) | OAM2_LAYER(1);
 
     APProc_Create(SpriteAnim_PikeTrap, x, y, oam2, proc->direction, 0);

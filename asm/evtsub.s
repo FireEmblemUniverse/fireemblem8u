@@ -1519,7 +1519,7 @@ InitPlayerUnitPositionsForPrepScreen: @ 0x08012360
 	bl GetChapterAllyUnitDataPointer
 	adds r5, r0, #0
 	movs r6, #1
-	ldr r0, _08012398  @ gRAMChapterData
+	ldr r0, _08012398  @ gPlaySt
 	mov r8, r0
 	mov r7, sp
 	adds r7, #1
@@ -1539,7 +1539,7 @@ _08012378:
 	strb r0, [r4, #0x10]
 	b _080123F8
 	.align 2, 0
-_08012398: .4byte gRAMChapterData
+_08012398: .4byte gPlaySt
 _0801239C:
 	ldr r0, [r4, #0xc]
 	ldr r1, _080123DC  @ gUnknown_0201000C
@@ -1634,7 +1634,7 @@ _08012448:
 	negs r0, r0
 	ands r1, r0
 	str r1, [r2, #0xc]
-	ldr r0, _08012478  @ gGameState
+	ldr r0, _08012478  @ gBmSt
 	ldrb r1, [r0, #4]
 	movs r0, #0x40
 	ands r0, r1
@@ -1654,7 +1654,7 @@ _0801246A:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_08012478: .4byte gGameState
+_08012478: .4byte gBmSt
 
 	THUMB_FUNC_END sub_801240C
 
@@ -1680,7 +1680,7 @@ sub_801247C: @ 0x0801247C
 	ands r0, r1
 	cmp r0, #0
 	beq _080124D0
-	ldr r4, _080124CC  @ gRAMChapterData
+	ldr r4, _080124CC  @ gPlaySt
 	movs r0, #0xe
 	ldrsb r0, [r4, r0]
 	bl GetROMChapterStruct
@@ -1697,7 +1697,7 @@ sub_801247C: @ 0x0801247C
 	strb r0, [r1, #0x11]
 	b _08012566
 	.align 2, 0
-_080124CC: .4byte gRAMChapterData
+_080124CC: .4byte gPlaySt
 _080124D0:
 	ldrb r0, [r6]
 	cmp r0, #0

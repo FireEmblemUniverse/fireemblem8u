@@ -9,6 +9,7 @@
 #include "bmudisp.h"
 #include "cp_utility.h"
 #include "cp_script.h"
+#include "bmsave.h"
 
 #include "constants/classes.h"
 
@@ -64,7 +65,7 @@ void CpDecide_Suspend(ProcPtr proc)
     else
         gActionData.suspendPointType = SUSPEND_POINT_CPPHASE;
 
-    SaveSuspendedGame(SAVE_BLOCK_SUSPEND_BASE);
+    WriteSuspendSave(SAVE_BLOCK_SUSPEND_BASE);
 }
 
 void CpDecide_Main(ProcPtr proc)

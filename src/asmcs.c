@@ -31,6 +31,7 @@
 #include "bmbattle.h"
 #include "bmitem.h"
 #include "bmudisp.h"
+#include "bmsave.h"
 
 struct UnkProc80855A0 {
     PROC_HEADER;
@@ -84,13 +85,13 @@ void sub_8085374(struct EventEngineProc *proc)
 
 void sub_8085388(struct EventEngineProc *proc)
 {
-    if ((CHAPTER_FLAG_3 & gRAMChapterData.chapterStateBits) || 0 == gRAMChapterData.cfgDisableBgm)
+    if ((PLAY_FLAG_TUTORIAL & gPlaySt.chapterStateBits) || 0 == gPlaySt.cfgDisableBgm)
         Sound_FadeOutBGM(4);
 }
 
 void sub_80853B0(struct EventEngineProc *proc)
 {
-    if ((CHAPTER_FLAG_3 | CHAPTER_FLAG_7) & gRAMChapterData.chapterStateBits)
+    if ((PLAY_FLAG_TUTORIAL | PLAY_FLAG_7) & gPlaySt.chapterStateBits)
         Proc_Goto(proc, 0);
 }
 
@@ -172,7 +173,7 @@ void ResetAllPlayerUnitState(void)
         unit->xPos = -1;
 
         unit->state |= US_HIDDEN;
-        unit->rescueOtherUnit = 0;
+        unit->rescue = 0;
     }
 
     RefreshEntityBmMaps();
@@ -234,7 +235,7 @@ void sub_8085618(struct EventEngineProc *proc)
 
     if (-1 == parent->unk4C) {
         if (GetGameClock() % 2)
-            gGameState.camera.x ^= 2;
+            gBmSt.camera.x ^= 2;
     } else {
         if (GetGameClock() % 2)
             BG_SetPosition(3, GetGameClock() & 2, 0);
@@ -247,8 +248,8 @@ void sub_8085670(struct EventEngineProc *proc)
 
     if (-1 == parent->unk4C) {
         if (GetGameClock() % 2) {
-            (u16)gGameState.camera.x &= 0xFFFD;
-            gGameState.camera.x ^= 1;
+            (u16)gBmSt.camera.x &= 0xFFFD;
+            gBmSt.camera.x ^= 1;
         }
     } else {
         if (GetGameClock() % 2)
@@ -266,8 +267,8 @@ void sub_80856D0(struct EventEngineProc *proc)
         }
     } else {
         if (GetGameClock() % 2) {
-            (u16)gGameState.camera.y &= 0xFFFD;
-            gGameState.camera.y ^= 1;
+            (u16)gBmSt.camera.y &= 0xFFFD;
+            gBmSt.camera.y ^= 1;
         }
     }
 }
@@ -320,14 +321,14 @@ void sub_808581C(struct EventEngineProc *parent)
 
 void sub_8085844(struct EventEngineProc *parent)
 {
-    (u16)gGameState.camera.x &= 0xFFFC;
+    (u16)gBmSt.camera.x &= 0xFFFC;
     Proc_EndEach(gUnknown_089EE000);
     Sound_FadeOutSE(4);
 }
 
 void sub_808586C(struct EventEngineProc *parent)
 {
-    (u16)gGameState.camera.y &= 0xFFFC;
+    (u16)gBmSt.camera.y &= 0xFFFC;
     Proc_EndEach(gUnknown_089EE030);
     Sound_FadeOutSE(4);
 }
@@ -343,8 +344,8 @@ void sub_808589C(struct EventEngineProc *proc)
 
     if (-1 == parent->unk4C) {
         if (GetGameClock() % 2) {
-            (u16)gGameState.camera.x &= 0xFFFD;
-            gGameState.camera.x ^= 1;
+            (u16)gBmSt.camera.x &= 0xFFFD;
+            gBmSt.camera.x ^= 1;
         }
     } else {
         if (GetGameClock() % 2)
@@ -365,7 +366,7 @@ void sub_808591C(struct EventEngineProc *proc)
 
 void sub_8085948(struct EventEngineProc *proc)
 {
-    (u16)gGameState.camera.y &= 0xFFFC;
+    (u16)gBmSt.camera.y &= 0xFFFC;
     Sound_FadeOutSE(4);
     Proc_EndEach(gUnknown_089EE048);
 }
@@ -918,14 +919,14 @@ int MenuCommand_DrawRouteSplit(struct MenuProc* menu, struct MenuItemProc* menu_
 
 u8 Command_EirikaMode(struct MenuProc* menu, struct MenuItemProc* menu_item)
 {
-    gRAMChapterData.chapterModeIndex = CHAPTER_MODE_EIRIKA;
+    gPlaySt.chapterModeIndex = CHAPTER_MODE_EIRIKA;
     SetEventSlotC(0xC17);
     return MENU_ACT_CLEAR | MENU_ACT_SND6A | MENU_ACT_END | MENU_ACT_SKIPCURSOR;
 }
 
 u8 Command_EphraimMode(struct MenuProc* menu, struct MenuItemProc* menu_item)
 {
-    gRAMChapterData.chapterModeIndex = CHAPTER_MODE_EPHRAIM;
+    gPlaySt.chapterModeIndex = CHAPTER_MODE_EPHRAIM;
     SetEventSlotC(0xC18);
     return MENU_ACT_CLEAR | MENU_ACT_SND6A | MENU_ACT_END | MENU_ACT_SKIPCURSOR;
 }
@@ -936,7 +937,7 @@ void sub_808659C()
     struct BattleUnit bunit;
     struct Unit *unit;
 
-    switch (gRAMChapterData.chapterModeIndex) {
+    switch (gPlaySt.chapterModeIndex) {
     case CHAPTER_MODE_EIRIKA:
         unit = GetUnitFromCharId(CHARACTER_EPHRAIM);
         break;
@@ -980,7 +981,7 @@ void sub_808659C()
 
     for (i = 0; i < 5; i++) {
         if (0 == unit->items[i]) {
-            switch (gRAMChapterData.chapterModeIndex) {
+            switch (gPlaySt.chapterModeIndex) {
             case CHAPTER_MODE_EIRIKA:
                 UnitAddItem(unit, MakeNewItem(ITEM_LANCE_STEEL));
                 break;

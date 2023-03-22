@@ -23,7 +23,7 @@ void InitBmBgLayers(void);
 void LoadObjUIGfx(void);
 void sub_80156BC(void);
 void sub_80156D4(void);
-void LoadGameCoreGfx(void);
+void ReadGameSaveCoreGfx(void);
 void HandleMapCursorInput(u16 keys);
 void HandleMoveMapCursor(int step);
 void HandleMoveCameraWithMapCursor(int step);

@@ -25,6 +25,7 @@
 #include "soundwrapper.h"
 #include "uimenu.h"
 #include "uiutils.h"
+#include "bmsave.h"
 
 u8 PromotionInit_SetNullState(struct PromoProc *proc);
 void PromotionInit_Loop(struct PromoProc *proc);
@@ -163,7 +164,7 @@ u32 sub_80CC6D4(struct PromoProc *proc) {
     struct Unit *unit;
     u8 classNumber;
     u32 somethingAboutPath;
-    switch (gRAMChapterData.chapterModeIndex) {
+    switch (gPlaySt.chapterModeIndex) {
         case 2:
         default:
             somethingAboutPath = 1;
@@ -495,26 +496,19 @@ void sub_80CCC2C(struct PromoProc3 *proc) {
     DrawTextInline(0, gUnknown_02022D2E + 0x40, 0, 0, 0x8, string);
 }
 
-struct SomeLocal {
-    u8 whatever[0x64];
-};
-
-u8 LoadGeneralGameMetadata(struct SomeLocal *);
-
-u8 sub_80CCCA4(void) {
-    struct SomeLocal local;
-    u8 unlock = LoadGeneralGameMetadata(&local);
+bool8 sub_80CCCA4(void) {
+    struct GlobalSaveInfo meta;
+    u8 unlock = ReadGlobalSaveInfo(&meta);
     if (!unlock) {
-        InitSaveMetadata();
-        LoadGeneralGameMetadata(&local);
+        InitGlobalSaveInfodata();
+        ReadGlobalSaveInfo(&meta);
     }
 
-    if (local.whatever[0xe] & 0x1c) {
-        if (local.whatever[0xe] & 0xe0) {
-            return 1;
-        }
-    }
-    return 0;
+    if (meta.Eirk_mode_easy || meta.Eirk_mode_norm || meta.Eirk_mode_hard)
+        if (meta.Ephy_mode_easy || meta.Ephy_mode_norm || meta.Ephy_mode_hard)
+            return true;
+
+    return false;
 }
 
 void sub_80CCCE0(u16 *buffer, struct Struct_8A30978 *b, u32 c) {
