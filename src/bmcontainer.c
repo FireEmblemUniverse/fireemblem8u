@@ -13,7 +13,7 @@ u16* GetConvoyItemArray() {
     return gConvoyItemArray;
 }
 
-void ClearConvoyItems() {
+void ClearSupplyItems() {
     CpuFill16(0, gConvoyItemArray, 0xC8);
     return;
 }
@@ -33,7 +33,7 @@ void ShrinkConvoyItemList() {
     }
 
     *bufferIt = 0;
-    ClearConvoyItems();
+    ClearSupplyItems();
     CpuCopy16(buffer, GetConvoyItemArray(), i * 2);
     return;
 }
@@ -54,7 +54,7 @@ int GetConvoyItemCount() {
 int AddItemToConvoy(int itemNameId) {
     int i;
     u16* convoy;
-    gGameState.itemUnk2E = 0;
+    gBmSt.itemUnk2E = 0;
     convoy = gConvoyItemArray;
     for (i = 0; i <= 0x63; ++i) {
         if (convoy[i] == 0) {
@@ -62,7 +62,7 @@ int AddItemToConvoy(int itemNameId) {
             return i;
         }
     }
-    gGameState.itemUnk2E = itemNameId;
+    gBmSt.itemUnk2E = itemNameId;
     return -1;
 }
 
@@ -99,18 +99,18 @@ bool8 HasConvoyAccess() {
         }
     }
 
-    if (gRAMChapterData.chapterIndex <= 1) {
+    if (gPlaySt.chapterIndex <= 1) {
         return 0;
-    } else if (gRAMChapterData.chapterIndex == 0x38) {
+    } else if (gPlaySt.chapterIndex == 0x38) {
         return 0;
-    } else if (gRAMChapterData.chapterIndex != 5) {
+    } else if (gPlaySt.chapterIndex != 5) {
         return 1;
     }
     return 0;
 }
 
 bool8 sub_8031660() {
-    const struct ROMChapterData* chapterData = GetROMChapterStruct(gRAMChapterData.chapterIndex);
+    const struct ROMChapterData* chapterData = GetROMChapterStruct(gPlaySt.chapterIndex);
     if (chapterData->merchantPosX == 0xFF) { // ROM Chapter Data @ 0x82
         return 0;
     }

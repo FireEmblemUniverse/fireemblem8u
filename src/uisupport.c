@@ -15,6 +15,7 @@
 #include "m4a.h"
 #include "soundwrapper.h"
 #include "event.h"
+#include "bmsave.h"
 
 struct SupportScreenUnit {
     /* 00 */ u8 charId;
@@ -270,13 +271,13 @@ void SupportScreen_SetupUnits(struct SupportScreenProc* proc) {
             sSupportScreenUnitCount++;
         }
     } else {
-        struct SaveMeta saveMeta;
-        LoadGeneralGameMetadata(&saveMeta);
+        struct GlobalSaveInfo GlobalSaveInfo;
+        ReadGlobalSaveInfo(&GlobalSaveInfo);
 
         SetTacticianName(GetStringFromIndex(0x26A)); // TODO: msgid "Mark"
 
         for (j = 0; j < 0x100; j++) {
-            if (!GGM_IsCharacterKnown(j, &saveMeta)) {
+            if (!GGM_IsCharacterKnown(j, &GlobalSaveInfo)) {
                 continue;
             }
 
@@ -287,13 +288,13 @@ void SupportScreen_SetupUnits(struct SupportScreenProc* proc) {
             sSupportScreenUnits[sSupportScreenUnitCount].charId = j;
             sSupportScreenUnits[sSupportScreenUnitCount].classId = gCharacterData[j - 1].defaultClass;
 
-            sub_80A35EC(j, sSupportScreenUnits[sSupportScreenUnitCount].supportLevel, &saveMeta);
+            sub_80A35EC(j, sSupportScreenUnits[sSupportScreenUnitCount].supportLevel, &GlobalSaveInfo);
 
             for (k = 0; k < GetSupportScreenPartnerCount(j); k++) {
                 int charId = GetSupportScreenPartnerCharId(sSupportScreenUnitCount, k);
 
                 sSupportScreenUnits[sSupportScreenUnitCount].partnerClassId[k] = gCharacterData[charId - 1].defaultClass;
-                sSupportScreenUnits[sSupportScreenUnitCount].partnerIsAlive[k] = GGM_IsCharacterKnown(charId, &saveMeta);
+                sSupportScreenUnits[sSupportScreenUnitCount].partnerIsAlive[k] = GGM_IsCharacterKnown(charId, &GlobalSaveInfo);
             }
 
             sSupportScreenUnitCount++;
@@ -1366,7 +1367,7 @@ void SupportSubScreen_SetupGraphics(struct SubScreenProc* proc) {
     NewGreenTextColorManager((void*)proc);
 
     if (!proc->fromPrepScreen) {
-        gRAMChapterData.cfgTextSpeed = 1; // TODO: Text speed constants
+        gPlaySt.cfgTextSpeed = 1; // TODO: Text speed constants
 
         ResetPrepScreenHandCursor(proc);
         sub_80AD4A0(0x600, 1);

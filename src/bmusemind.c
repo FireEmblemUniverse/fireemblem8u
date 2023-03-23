@@ -312,7 +312,7 @@ void ExecStatusStaff(ProcPtr proc) {
                 gBattleTarget.statusOut = UNIT_STATUS_SLEEP;
                 break;
             case ITEM_MONSTER_STONE:
-                switch (gRAMChapterData.faction) {
+                switch (gPlaySt.faction) {
                     case FACTION_BLUE:
                         if (UNIT_FACTION(&gBattleTarget.unit) == FACTION_BLUE) {
                             gBattleTarget.statusOut = UNIT_STATUS_13;

@@ -149,8 +149,8 @@ void StartEventWarpAnim(ProcPtr parent, int xCamera, int yCamera, s8 xWarp, s8 y
     proc->xPos = xWarp;
     proc->yPos = yWarp;
 
-    xCamera = xCamera * 0x10 - gGameState.camera.x - 0x08;
-    yCamera = yCamera * 0x10 - gGameState.camera.y - 0x20;
+    xCamera = xCamera * 0x10 - gBmSt.camera.x - 0x08;
+    yCamera = yCamera * 0x10 - gBmSt.camera.y - 0x20;
     BG_SetPosition(0, -xCamera, -yCamera);
 }
 

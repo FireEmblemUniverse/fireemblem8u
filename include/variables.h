@@ -498,8 +498,8 @@ extern u8 gUnknown_0202B4AC[];
 // extern ??? gUnknown_0202B5AC
 extern int gUnknown_0202B6AC;
 extern struct Struct202B6B0 gUnknown_0202B6B0;
-extern struct Struct0202BCB0 gGameState;
-extern struct RAMChapterData gRAMChapterData;
+extern struct BmSt gBmSt;
+extern struct PlaySt gPlaySt;
 // extern ??? gUnknown_0202BD30
 // extern ??? gUnknown_0202BD31
 extern u8 gActiveUnitId;
@@ -608,12 +608,12 @@ extern struct ActionData gActionData;
 extern struct Struct203E87C gUnknown_0203E87C;
 // extern ??? gUnknown_0203E884
 // extern ??? gBoolSramWorking
-extern struct UnitUsageStats *gpBWLSaveTarget;
-extern struct UnitUsageStats gBWLDataStorage[BWL_ARRAY_NUM];
-#define gBWLDataArray (&gBWLDataStorage[-1])
-extern struct ChapterWinData gChapterWinDataArray[WIN_ARRAY_NUM];
+extern struct UnitUsageStats *gPidStatsSaveLoc;
+extern struct UnitUsageStats gPidStatsData[BWL_ARRAY_NUM];
+#define gBWLDataArray (&gPidStatsData[-1])
+extern struct ChapterStats gChapterStats[WIN_ARRAY_NUM];
 extern u32 gBonusContentClaimFlags;
-extern u8 gUnknown_0203EDB8;    /* gSaveSuBaseSlot */
+extern u8 gSuspendSaveIdOffset;    /* gSaveSuBaseSlot */
 // extern ??? gUnknown_0203EDBC
 // extern ??? gUnknown_0203EE80
 // extern ??? gUnknown_0203EF44
@@ -1120,7 +1120,7 @@ extern const u8 gUnknown_08205714[4];
 // extern ??? gUnknown_08205C64
 // extern ??? gUnknown_08205C70
 // extern ??? gUnknown_08205C90
-// extern ??? gSaveHeaderKeygen
+// extern ??? gGlobalSaveInfoName
 // extern ??? gUnknown_08205CA4
 // extern ??? gUnknown_08205CAC
 // extern ??? gUnknown_08205CB4
@@ -3329,7 +3329,7 @@ extern u8 Img_PrepWindow[];
 // extern ??? gTsa_SupportSubScreen
 // extern ??? gGfx_SupportMenu
 // extern ??? gPal_SupportMenu
-// extern ??? gpSaveDataStart
+// extern ??? gSram
 // extern ??? gUnknown_08A1FAF8
 // extern ??? gUnknown_08A1FB08
 // extern ??? gUnknown_08A1FB30

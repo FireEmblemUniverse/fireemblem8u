@@ -37,8 +37,8 @@ void ProcMineFxFunc(struct ProcMineFx *proc)
 
 void StartMineAnim(ProcPtr parent, int x, int y)
 {
-    x = x * 0x10 - gGameState.camera.x + 8;
-    y = y * 0x10 - gGameState.camera.y + 4;
+    x = x * 0x10 - gBmSt.camera.x + 8;
+    y = y * 0x10 - gBmSt.camera.y + 4;
 
     NewBlockingTimer(parent, 0x20);
     CopyDataWithPossibleUncomp(Img_MineFx, OBJ_CHR_ADDR(OBJCHR_MINEFX));

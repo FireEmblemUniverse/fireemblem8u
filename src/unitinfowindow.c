@@ -58,7 +58,7 @@ void UnitInfoWindow_OnLoop(struct UnitInfoWindowProc* proc) {
                 x + 9,
                 y + 7,
                 gObject_8x8,
-                (factionPalLut[proc->unit->rescueOtherUnit >> 6] & 0xf) * 0x1000 + 3
+                (factionPalLut[proc->unit->rescue >> 6] & 0xf) * 0x1000 + 3
             );
         }
     } else {
@@ -174,7 +174,7 @@ struct UnitInfoWindowProc* UnitInfoWindow_DrawBase(struct UnitInfoWindowProc* pr
 //! FE8U = 0x080349D4
 int GetUnitInfoWindowX(struct Unit* unit, int width) {
 
-    if (unit->xPos * 16 - gGameState.camera.x < DISPLAY_WIDTH / 2) {
+    if (unit->xPos * 16 - gBmSt.camera.x < DISPLAY_WIDTH / 2) {
         return 30 - width;
     }
 
@@ -551,7 +551,7 @@ void RefreshUnitTakeInfoWindows(struct Unit* unit) {
 
     ClearBg0Bg1();
 
-    rescue = GetUnit(unit->rescueOtherUnit);
+    rescue = GetUnit(unit->rescue);
 
     UnitInfoWindow_DrawBase(sRescueUnitInfoWindows[0], gActiveUnit, x, y, 10, 1);
 
@@ -587,7 +587,7 @@ void RefreshUnitGiveInfoWindows(struct Unit* unit) {
     int y = 0;
     int x = GetUnitInfoWindowX(unit, 10);
 
-    struct Unit* rescue = GetUnit(gActiveUnit->rescueOtherUnit);
+    struct Unit* rescue = GetUnit(gActiveUnit->rescue);
 
     ClearBg0Bg1();
 

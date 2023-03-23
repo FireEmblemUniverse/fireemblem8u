@@ -78,8 +78,8 @@ void PrepUnitSwapProc_MainLoop(struct PrepUnitSwapProc *proc)
     u32 x = ((xd * val0) >> 0x10) + y_tmp;
     u32 y = ((yd * val0) >> 0x10) - x_tmp;
 
-    x = x + proc->x_tile_cur - gGameState.camera.x;
-    y = y + proc->y_tile_cur - gGameState.camera.y;
+    x = x + proc->x_tile_cur - gBmSt.camera.x;
+    y = y + proc->y_tile_cur - gBmSt.camera.y;
 
     if (((x + 0x10) <= 0x100) && ((y + 0x20) <= 0xC0)) {
         PutSprite(4, x, y - 0xC, gObject_16x16, 6);

@@ -840,7 +840,7 @@ sub_80768A0: @ 0x080768A0
 	ldrsh r0, [r4, r1]
 	cmp r0, #0
 	bne _080768BE
-	ldr r0, _080768F4  @ gRAMChapterData
+	ldr r0, _080768F4  @ gPlaySt
 	ldrb r0, [r0, #0xe]
 	lsls r0, r0, #0x18
 	asrs r0, r0, #0x18
@@ -873,7 +873,7 @@ _080768EC:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_080768F4: .4byte gRAMChapterData
+_080768F4: .4byte gPlaySt
 
 	THUMB_FUNC_END sub_80768A0
 

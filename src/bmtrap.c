@@ -16,12 +16,13 @@
 #include "bmarch.h"
 #include "bmusailment.h"
 #include "bmudisp.h"
+#include "bmsave.h"
 
 #include "bmtrap.h"
 
 // code.s
-void RecordUnitLossData(u8);
-void BWL_AddWinOrLossIdk(u8, u8, int);
+void PidStatsRecordLoseData(u8);
+void PidStatsRecordDefeatInfo(u8, u8, int);
 
 // trapfx.s
 void StartFireTrapAnim(ProcPtr, int, int);
@@ -89,7 +90,7 @@ void sub_80374F4(struct UnknownBMTrapProc* proc) {
     struct Unit* unit = proc->unit;
 
     if (GetUnitCurrentHp(unit) <= 10) {
-        RecordUnitLossData(unit->pCharacterData->number);
+        PidStatsRecordLoseData(unit->pCharacterData->number);
     }
 
     return;
@@ -139,7 +140,7 @@ void sub_80375A0(struct UnknownBMTrapProc* proc) {
         struct Unit* tmp = gActiveUnit;
         gActiveUnit = unit;
         
-        BWL_AddWinOrLossIdk(unit->pCharacterData->number, 0, 3);
+        PidStatsRecordDefeatInfo(unit->pCharacterData->number, 0, 3);
 
         if (CheckForWaitEvents() != 0) {
             RunWaitEvents();
@@ -242,7 +243,7 @@ s8 HandlePostActionTraps(ProcPtr proc) {
     gActionData.suspendPointType = 1;
     gActionData.unitActionType = 1;
 
-    SaveSuspendedGame(3);
+    WriteSuspendSave(3);
 
     if (GetBattleAnimType() == 1) {
         RefreshUnitSprites();

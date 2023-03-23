@@ -54,7 +54,7 @@ void CpOrderBerserkInit(ProcPtr proc)
 {
     int i, aiNum = 0;
 
-    u32 faction = gRAMChapterData.faction;
+    u32 faction = gPlaySt.faction;
 
     int factionUnitCountLut[3] = { 62, 20, 50 }; // TODO: named constant for those
 
@@ -168,7 +168,7 @@ int BuildAiUnitList(void)
 {
     int i, aiNum = 0;
 
-    u32 faction = gRAMChapterData.faction;
+    u32 faction = gPlaySt.faction;
     u32* prioIt = sUnitPriorityArray;
 
     int factionUnitCountLut[3] = { 62, 20, 50 }; // TODO: named constant for those

@@ -15,14 +15,14 @@ sub_80ABC14: @ 0x080ABC14
 	b _080ABD48
 _080ABC26:
 	adds r0, r5, #0
-	bl SaveMetadata_LoadId
+	bl IsSaveValid
 	lsls r0, r0, #0x18
 	asrs r2, r0, #0x18
 	cmp r2, #0
 	beq _080ABD04
 	adds r0, r5, #0
 	mov r1, sp
-	bl LoadSavedChapterState
+	bl ReadGameSavePlaySt
 	mov r0, sp
 	movs r2, #0xe
 	ldrsb r2, [r0, r2]
@@ -69,7 +69,7 @@ _080ABC6C:
 	adds r4, r0, r6
 	strb r5, [r4]
 	adds r0, r6, #0
-	bl CheckChapterCompleted
+	bl IsGameNotFirstChapter
 	lsls r0, r0, #0x18
 	cmp r0, #0
 	beq _080ABCAE
@@ -161,13 +161,13 @@ _080ABD48:
 	cmp r1, r0
 	bne _080ABD7E
 	movs r0, #3
-	bl sub_80A5DA8
+	bl IsValidSuspendSave
 	lsls r0, r0, #0x18
 	cmp r0, #0
 	beq _080ABD7A
 	movs r0, #3
 	mov r1, sp
-	bl sub_80A5DFC
+	bl ReadSuspendSavePlaySt
 	mov r0, sp
 	ldrb r0, [r0, #0xc]
 	adds r1, r7, #0
@@ -903,7 +903,7 @@ _080AC2D4:
 	cmp r2, #0
 	beq _080AC324
 _080AC2D8:
-	ldr r0, _080AC31C  @ gRAMChapterData
+	ldr r0, _080AC31C  @ gPlaySt
 	adds r0, #0x41
 	ldrb r0, [r0]
 	lsls r0, r0, #0x1e
@@ -935,7 +935,7 @@ _080AC2EA:
 	bl sub_80AC034
 	b _080AC3CC
 	.align 2, 0
-_080AC31C: .4byte gRAMChapterData
+_080AC31C: .4byte gPlaySt
 _080AC320: .4byte gUnknown_08A209FC
 _080AC324:
 	ldr r0, [r4, #0x34]
@@ -955,7 +955,7 @@ _080AC324:
 	cmp r0, #0
 	beq _080AC398
 	str r2, [r4, #0x2c]
-	ldr r0, _080AC370  @ gRAMChapterData
+	ldr r0, _080AC370  @ gPlaySt
 	adds r0, #0x41
 	ldrb r0, [r0]
 	lsls r0, r0, #0x1e
@@ -976,7 +976,7 @@ _080AC358:
 	b _080AC390
 	.align 2, 0
 _080AC36C: .4byte gKeyStatusPtr
-_080AC370: .4byte gRAMChapterData
+_080AC370: .4byte gPlaySt
 _080AC374:
 	cmp r0, #2
 	beq _080AC388
@@ -1008,7 +1008,7 @@ _080AC398:
 	beq _080AC3CC
 	movs r0, #0
 	str r0, [r4, #0x2c]
-	ldr r0, _080AC3D8  @ gRAMChapterData
+	ldr r0, _080AC3D8  @ gPlaySt
 	adds r0, #0x41
 	ldrb r0, [r0]
 	lsls r0, r0, #0x1e
@@ -1029,7 +1029,7 @@ _080AC3CC:
 	bx r0
 	.align 2, 0
 _080AC3D4: .4byte gKeyStatusPtr
-_080AC3D8: .4byte gRAMChapterData
+_080AC3D8: .4byte gPlaySt
 
 	THUMB_FUNC_END sub_80AC288
 
@@ -3195,7 +3195,7 @@ sub_80AD364: @ 0x080AD364
 	lsls r3, r3, #2
 	adds r2, r2, r3
 	adds r2, r2, r1
-	ldr r1, _080AD428  @ gRAMChapterData
+	ldr r1, _080AD428  @ gPlaySt
 	adds r1, #0x41
 	ldrb r1, [r1]
 	lsls r1, r1, #0x1c
@@ -3278,7 +3278,7 @@ _080AD3F2:
 	bx r0
 	.align 2, 0
 _080AD424: .4byte gPaletteBuffer
-_080AD428: .4byte gRAMChapterData
+_080AD428: .4byte gPlaySt
 _080AD42C: .4byte gUnknown_08A1D448
 _080AD430: .4byte gObject_8x8
 
@@ -6578,7 +6578,7 @@ sub_80AEB44: @ 0x080AEB44
 sub_80AEB60: @ 0x080AEB60
 	push {r4, lr}
 	adds r4, r0, #0
-	ldr r0, _080AEB88  @ gRAMChapterData
+	ldr r0, _080AEB88  @ gPlaySt
 	adds r0, #0x41
 	ldrb r0, [r0]
 	lsls r0, r0, #0x1e
@@ -6595,7 +6595,7 @@ _080AEB76:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_080AEB88: .4byte gRAMChapterData
+_080AEB88: .4byte gPlaySt
 
 	THUMB_FUNC_END sub_80AEB60
 
@@ -6612,7 +6612,7 @@ sub_80AEB8C: @ 0x080AEB8C
 	beq _080AEBBA
 	adds r0, r2, #0
 	bl Proc_Break
-	ldr r0, _080AEBC8  @ gRAMChapterData
+	ldr r0, _080AEBC8  @ gPlaySt
 	adds r0, #0x41
 	ldrb r0, [r0]
 	lsls r0, r0, #0x1e
@@ -6628,7 +6628,7 @@ _080AEBBA:
 	.align 2, 0
 _080AEBC0: .4byte gKeyStatusPtr
 _080AEBC4: .4byte 0x0000030B
-_080AEBC8: .4byte gRAMChapterData
+_080AEBC8: .4byte gPlaySt
 
 	THUMB_FUNC_END sub_80AEB8C
 
@@ -6721,7 +6721,7 @@ sub_80AEC54: @ 0x080AEC54
 	push {lr}
 	sub sp, #0x64
 	mov r0, sp
-	bl LoadGeneralGameMetadata
+	bl ReadGlobalSaveInfo
 	movs r0, #0
 	add sp, #0x64
 	pop {r1}
@@ -6734,7 +6734,7 @@ sub_80AEC68: @ 0x080AEC68
 	push {lr}
 	sub sp, #0x64
 	mov r0, sp
-	bl LoadGeneralGameMetadata
+	bl ReadGlobalSaveInfo
 	movs r0, #0
 	add sp, #0x64
 	pop {r1}
@@ -8574,7 +8574,7 @@ _080AF9F0:
 	bl sub_80AF7F4
 	b _080AFA5C
 _080AFA16:
-	ldr r0, _080AFA2C  @ gRAMChapterData
+	ldr r0, _080AFA2C  @ gPlaySt
 	adds r0, #0x41
 	ldrb r0, [r0]
 	lsls r0, r0, #0x1e
@@ -8584,7 +8584,7 @@ _080AFA16:
 	bl m4aSongNumStart
 	b _080AFA5C
 	.align 2, 0
-_080AFA2C: .4byte gRAMChapterData
+_080AFA2C: .4byte gPlaySt
 _080AFA30:
 	movs r0, #4
 	ands r0, r1
@@ -10146,7 +10146,7 @@ _080B0670: .4byte gUnknown_08A209E4
 	THUMB_FUNC_START sub_80B0674
 sub_80B0674: @ 0x080B0674
 	push {r4, lr}
-	ldr r2, _080B06B4  @ gRAMChapterData
+	ldr r2, _080B06B4  @ gPlaySt
 	ldrb r1, [r2, #0x14]
 	movs r3, #0x40
 	adds r0, r3, #0
@@ -10180,7 +10180,7 @@ _080B06AE:
 	orrs r4, r3
 	b _080B06C2
 	.align 2, 0
-_080B06B4: .4byte gRAMChapterData
+_080B06B4: .4byte gPlaySt
 _080B06B8:
 	ldrb r0, [r2, #0x1b]
 	cmp r0, #3
@@ -10201,7 +10201,7 @@ _080B06C2:
 	bl sub_8089678
 	movs r4, #0xb4
 	lsls r4, r4, #4
-	ldr r0, _080B06F8  @ gRAMChapterData
+	ldr r0, _080B06F8  @ gPlaySt
 	bl sub_8089768
 	adds r1, r0, #0
 	adds r0, r4, #0
@@ -10210,7 +10210,7 @@ _080B06C2:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_080B06F8: .4byte gRAMChapterData
+_080B06F8: .4byte gPlaySt
 
 	THUMB_FUNC_END sub_80B0674
 
@@ -10333,7 +10333,7 @@ _080B07E4:
 	beq _080B07F6
 	b _080B0834
 _080B07EA:
-	ldr r0, _080B0820  @ gRAMChapterData
+	ldr r0, _080B0820  @ gPlaySt
 	adds r0, #0x2b
 	ldrb r0, [r0]
 	ands r1, r0
@@ -10361,7 +10361,7 @@ _080B07F6:
 	strb r6, [r0, #1]
 	b _080B082E
 	.align 2, 0
-_080B0820: .4byte gRAMChapterData
+_080B0820: .4byte gPlaySt
 _080B0824: .4byte gUnknown_08A21598
 _080B0828:
 	ldr r0, [r5]
@@ -11056,7 +11056,7 @@ _080B0DCC:
 	adds r0, r5, #0
 	movs r1, #1
 	bl Proc_Goto
-	ldr r0, _080B0DEC  @ gRAMChapterData
+	ldr r0, _080B0DEC  @ gPlaySt
 	adds r0, #0x41
 	ldrb r0, [r0]
 	lsls r0, r0, #0x1e
@@ -11068,7 +11068,7 @@ _080B0DE2:
 	bl m4aSongNumStart
 	b _080B0F82
 	.align 2, 0
-_080B0DEC: .4byte gRAMChapterData
+_080B0DEC: .4byte gPlaySt
 _080B0DF0:
 	ldrb r0, [r1, #2]
 	cmp r0, #0x9f
@@ -11096,7 +11096,7 @@ _080B0E0C:
 _080B0E24: .4byte 0x00000BB8
 _080B0E28: .4byte 0x00001388
 _080B0E2C:
-	ldr r0, _080B0E44  @ gRAMChapterData
+	ldr r0, _080B0E44  @ gPlaySt
 	adds r0, #0x41
 	ldrb r0, [r0]
 	lsls r0, r0, #0x1e
@@ -11108,7 +11108,7 @@ _080B0E3A:
 	bl m4aSongNumStart
 	b _080B0F82
 	.align 2, 0
-_080B0E44: .4byte gRAMChapterData
+_080B0E44: .4byte gPlaySt
 _080B0E48:
 	movs r0, #2
 	ands r0, r1
@@ -11116,7 +11116,7 @@ _080B0E48:
 	beq _080B0E70
 	adds r0, r5, #0
 	bl Proc_Break
-	ldr r0, _080B0E6C  @ gRAMChapterData
+	ldr r0, _080B0E6C  @ gPlaySt
 	adds r0, #0x41
 	ldrb r0, [r0]
 	lsls r0, r0, #0x1e
@@ -11128,7 +11128,7 @@ _080B0E64:
 	bl m4aSongNumStart
 	b _080B0F82
 	.align 2, 0
-_080B0E6C: .4byte gRAMChapterData
+_080B0E6C: .4byte gPlaySt
 _080B0E70:
 	ldrh r1, [r2, #6]
 	movs r0, #0x40
@@ -11153,7 +11153,7 @@ _080B0E86:
 	ldr r0, [r0]
 	cmp r4, r0
 	bge _080B0F82
-	ldr r0, _080B0ED4  @ gRAMChapterData
+	ldr r0, _080B0ED4  @ gPlaySt
 	adds r0, #0x41
 	ldrb r0, [r0]
 	lsls r0, r0, #0x1e
@@ -11180,7 +11180,7 @@ _080B0EAC:
 	b _080B0F28
 	.align 2, 0
 _080B0ED0: .4byte gUnknown_08A2159C
-_080B0ED4: .4byte gRAMChapterData
+_080B0ED4: .4byte gPlaySt
 _080B0ED8:
 	adds r0, r5, #0
 	adds r0, #0x29
@@ -11701,7 +11701,7 @@ _080B12CE:
 	beq _080B12F4
 	adds r0, r5, #0
 	bl Proc_Break
-	ldr r0, _080B12F0  @ gRAMChapterData
+	ldr r0, _080B12F0  @ gPlaySt
 	adds r0, #0x41
 	ldrb r0, [r0]
 	lsls r0, r0, #0x1e
@@ -11711,7 +11711,7 @@ _080B12CE:
 	bl m4aSongNumStart
 	b _080B1344
 	.align 2, 0
-_080B12F0: .4byte gRAMChapterData
+_080B12F0: .4byte gPlaySt
 _080B12F4:
 	ldrh r1, [r2, #6]
 	movs r0, #0x40
@@ -11736,7 +11736,7 @@ _080B130A:
 	ldrb r0, [r0]
 	cmp r4, r0
 	bge _080B1344
-	ldr r0, _080B134C  @ gRAMChapterData
+	ldr r0, _080B134C  @ gPlaySt
 	adds r0, #0x41
 	ldrb r0, [r0]
 	lsls r0, r0, #0x1e
@@ -11759,7 +11759,7 @@ _080B1344:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_080B134C: .4byte gRAMChapterData
+_080B134C: .4byte gPlaySt
 
 	THUMB_FUNC_END sub_80B1288
 
@@ -11866,8 +11866,8 @@ sub_80B13BC: @ 0x080B13BC
 	bl BG_EnableSyncByMask
 	adds r0, r4, #0
 	bl sub_80B1008
-	bl GetLastUsedGameSaveSlot
-	bl SaveGame
+	bl ReadLastGameSaveId
+	bl WriteGameSave
 	movs r0, #0
 	str r0, [r4, #0x30]
 	bl sub_80ACA84
@@ -11964,7 +11964,7 @@ _080B1514: .4byte 0x00000883
 _080B1518: .4byte 0x00000286
 _080B151C: .4byte 0x00000282
 _080B1520:
-	ldr r0, _080B1534  @ gRAMChapterData
+	ldr r0, _080B1534  @ gPlaySt
 	adds r0, #0x41
 	ldrb r0, [r0]
 	lsls r0, r0, #0x1e
@@ -11974,9 +11974,9 @@ _080B1520:
 	bl m4aSongNumStart
 	b _080B154A
 	.align 2, 0
-_080B1534: .4byte gRAMChapterData
+_080B1534: .4byte gPlaySt
 _080B1538:
-	ldr r0, _080B15D8  @ gRAMChapterData
+	ldr r0, _080B15D8  @ gPlaySt
 	adds r0, #0x41
 	ldrb r0, [r0]
 	lsls r0, r0, #0x1e
@@ -12054,7 +12054,7 @@ _080B154A:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_080B15D8: .4byte gRAMChapterData
+_080B15D8: .4byte gPlaySt
 _080B15DC: .4byte gBG1TilemapBuffer
 _080B15E0: .4byte gLCDControlBuffer
 _080B15E4: .4byte 0x0000FFFC

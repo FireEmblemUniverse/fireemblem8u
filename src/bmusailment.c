@@ -66,7 +66,7 @@ void ApplyHazardHealing(ProcPtr proc, struct Unit* unit, int hp, int status) {
 
 void RenderMapForFogFadeIfUnitDied(struct Unit* unit) {
 
-    if ((GetUnitCurrentHp(unit) == 0) && (gRAMChapterData.chapterVisionRange != 0)) {
+    if ((GetUnitCurrentHp(unit) == 0) && (gPlaySt.chapterVisionRange != 0)) {
         RenderBmMapOnBg2();
     }
 
@@ -205,8 +205,8 @@ void KillAllRedUnits_Loop(struct UnknownBMUSAilmentProc* proc) {
     HideUnitSprite(unit);
     UnitKill(unit);
 
-    x = unit->xPos * 16 - gGameState.camera.x;
-    y = unit->yPos * 16 - gGameState.camera.y;
+    x = unit->xPos * 16 - gBmSt.camera.x;
+    y = unit->yPos * 16 - gBmSt.camera.y;
 
     if ((x < 0) || (x > DISPLAY_WIDTH) || (y < 0) || (y > DISPLAY_HEIGHT)) {
         proc->unk_4C++;
@@ -263,7 +263,7 @@ void StatusHealEffect_OverlayBg_Init() {
 }
 
 void StatusHealEffect_OverlayBg_Loop() {
-    BG_SetPosition(0, gGameState.camera.x - (gActiveUnit->xPos * 16), GetGameClock());
+    BG_SetPosition(0, gBmSt.camera.x - (gActiveUnit->xPos * 16), GetGameClock());
 
     return;
 }
@@ -310,8 +310,8 @@ void StatusHealEffect_BlendedSprite_Loop(struct UnknownBMUSAilmentProc* proc) {
 
     PutBlendWindowUnitSprite(
         4,
-        gActiveUnit->xPos * 16 - gGameState.camera.x,
-        gActiveUnit->yPos * 16 - gGameState.camera.y,
+        gActiveUnit->xPos * 16 - gBmSt.camera.x,
+        gActiveUnit->yPos * 16 - gBmSt.camera.y,
         0x2800,
         gActiveUnit
     );
@@ -499,7 +499,7 @@ void StartStatusHealEffect(struct Unit* unit, ProcPtr proc) {
 
 void TerrainHealDisplay_Init(struct UnknownBMUSAilmentProc* proc) {
 
-    MakeTerrainHealTargetList(gRAMChapterData.faction);
+    MakeTerrainHealTargetList(gPlaySt.faction);
 
     if (GetSelectTargetCount() == 0) {
         Proc_End(proc);
@@ -521,7 +521,7 @@ void MassEffectDisplay_Check(struct UnknownBMUSAilmentProc* proc) {
         return;
     }
 
-    if ((gRAMChapterData.chapterVisionRange != 0) && (gBmMapFog[unit->yPos][unit->xPos] == 0)) {
+    if ((gPlaySt.chapterVisionRange != 0) && (gBmMapFog[unit->yPos][unit->xPos] == 0)) {
         Proc_Goto(proc, 1);
     } else {
         if (GetUnitCurrentHp(unit) == 0) {
@@ -600,7 +600,7 @@ PROC_LABEL(1),
 };
 
 void PoisonDamageDisplay_Init(struct UnknownBMUSAilmentProc* proc) {
-    MakePoisonDamageTargetList(gRAMChapterData.faction);
+    MakePoisonDamageTargetList(gPlaySt.faction);
     sub_8026414(4);
 
     if (GetSelectTargetCount() == 0) {
@@ -682,7 +682,7 @@ void SetClassToHatchingGorgonEgg(struct Unit* unit) {
 
 void GorgonEggHatchDisplay_Init(struct UnknownBMUSAilmentProc* proc) {
 
-    MakeGorgonEggHatchTargetList(gRAMChapterData.faction);
+    MakeGorgonEggHatchTargetList(gPlaySt.faction);
 
     if (GetSelectTargetCount() == 0) {
         Proc_End(proc);
@@ -840,7 +840,7 @@ void TrapDamageDisplay_Check(struct UnknownBMUSAilmentProc* proc) {
         return;
     }
 
-    if ((gRAMChapterData.chapterVisionRange != 0) && (gBmMapFog[unit->yPos][unit->xPos] == 0)) {
+    if ((gPlaySt.chapterVisionRange != 0) && (gBmMapFog[unit->yPos][unit->xPos] == 0)) {
         Proc_Goto(proc, 1);
     } else {
         if (GetUnitCurrentHp(unit) == 0) {

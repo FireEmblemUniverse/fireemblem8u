@@ -1,7 +1,7 @@
     .section .rodata
 
-	.global gSaveHeaderKeygen
-gSaveHeaderKeygen:  @ 0x08205C9C
+	.global gGlobalSaveInfoName
+gGlobalSaveInfoName:  @ 0x08205C9C
 	.incbin "baserom.gba", 0x205C9C, 0x8
 
 	.global gUnknown_08205CA4

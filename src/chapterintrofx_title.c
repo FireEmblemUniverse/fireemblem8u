@@ -18,7 +18,7 @@
 
 void ChapterIntroTitle_InitBgImg(struct ChapterIntroFXProc *proc)
 {
-    switch (gRAMChapterData.chapterIndex) {
+    switch (gPlaySt.chapterIndex) {
     case 22:
     case 35:
         Proc_Goto(proc, 999);
@@ -51,7 +51,7 @@ void ChapterIntroTitle_InitBgImg(struct ChapterIntroFXProc *proc)
     SetWin0Box(0, 0x40, 0xF0, 0x60);
 
     sub_80895B4(8, 1);
-    sub_8089624(0x100, sub_808979C(&gRAMChapterData));
+    sub_8089624(0x100, sub_808979C(&gPlaySt));
     sub_80896D8(TILEMAP_LOCATED(gBG0TilemapBuffer, 3, 9), 1);
 
     EnablePaletteSync();
@@ -77,17 +77,17 @@ void ChapterIntroTitle_End(struct ChapterIntroFXProc *proc)
     BG_Fill(gBG2TilemapBuffer, 0);
     BG_EnableSyncByMask(BG2_SYNC_BIT);
     DisableMapPaletteAnimations();
-    UnpackChapterMapGraphics(gRAMChapterData.chapterIndex);
+    UnpackChapterMapGraphics(gPlaySt.chapterIndex);
     SetupMapSpritesPalettes();
     LoadObjUIGfx();
 
-    x = GetCameraCenteredX(GetROMChapterStruct(gRAMChapterData.chapterIndex)->initialPosX * 0x10);
+    x = GetCameraCenteredX(GetROMChapterStruct(gPlaySt.chapterIndex)->initialPosX * 0x10);
     _x = (x + 0xF) & 0x1F0;
-    gGameState.camera.x = _x;
+    gBmSt.camera.x = _x;
 
-    y = GetCameraCenteredY(GetROMChapterStruct(gRAMChapterData.chapterIndex)->initialPosY * 0x10);
+    y = GetCameraCenteredY(GetROMChapterStruct(gPlaySt.chapterIndex)->initialPosY * 0x10);
     _y = (y + 0xF) & 0x3F0;
-    gGameState.camera.y = _y;
+    gBmSt.camera.y = _y;
 
     RefreshEntityBmMaps();
     RenderBmMap();

@@ -124,8 +124,8 @@ void PhaseIntroVMatchHi()
                | BLDCNT_TGT2_BG2 | BLDCNT_TGT2_BG3 | BLDCNT_TGT2_OBJ
                | BLDCNT_TGT2_BD;
 
-    REG_BLDCA = gGameState.altBlendBCa;
-    REG_BLDCB = gGameState.altBlendBCb;
+    REG_BLDCA = gBmSt.altBlendBCa;
+    REG_BLDCB = gBmSt.altBlendBCb;
 
     SetNextVCount(72);
     SetInterrupt_LCDVCountMatch(PhaseIntroVMatchMid);
@@ -138,8 +138,8 @@ void PhaseIntroVMatchMid()
                | BLDCNT_TGT2_BG1 | BLDCNT_TGT2_BG2 | BLDCNT_TGT2_BG3 | BLDCNT_TGT2_OBJ
                | BLDCNT_TGT2_BD;
 
-    REG_BLDCA = gGameState.altBlendACa;
-    REG_BLDCB = gGameState.altBlendACb;
+    REG_BLDCA = gBmSt.altBlendACa;
+    REG_BLDCB = gBmSt.altBlendACb;
 
     SetNextVCount(96);
     SetInterrupt_LCDVCountMatch(PhaseIntroVMatchLo);
@@ -152,8 +152,8 @@ void PhaseIntroVMatchLo()
                | BLDCNT_TGT2_BG2 | BLDCNT_TGT2_BG3 | BLDCNT_TGT2_OBJ
                | BLDCNT_TGT2_BD;
 
-    REG_BLDCA = gGameState.altBlendBCa;
-    REG_BLDCB = gGameState.altBlendBCb;
+    REG_BLDCA = gBmSt.altBlendBCa;
+    REG_BLDCB = gBmSt.altBlendBCb;
 
     SetNextVCount(0);
     SetInterrupt_LCDVCountMatch(PhaseIntroVMatchHi);
@@ -194,8 +194,8 @@ void PhaseIntroText_InLoop(struct PhaseIntroSubProc *proc)
 
     BG_SetPosition(0, Interpolate(INTERPOLATE_RCUBIC, lo, hi, proc->timer, 0x10), 0);
 
-    gGameState.altBlendACa++;
-    gGameState.altBlendACb--;
+    gBmSt.altBlendACa++;
+    gBmSt.altBlendACb--;
 
     proc->timer--;
 
@@ -220,8 +220,8 @@ void PhaseIntroText_OutLoop(struct PhaseIntroSubProc *proc)
 
     BG_SetPosition(0, Interpolate(INTERPOLATE_CUBIC, lo, hi, proc->timer, 0x10), 0);
 
-    gGameState.altBlendACa--;
-    gGameState.altBlendACb++;
+    gBmSt.altBlendACa--;
+    gBmSt.altBlendACb++;
 
     proc->timer--;
 
@@ -405,8 +405,8 @@ void PhaseIntroBlendBox_InLoop(struct PhaseIntroSubProc *proc)
 
     blend = Interpolate(INTERPOLATE_LINEAR, 0, 7, proc->timer, 0x20);
 
-    gGameState.altBlendBCa = blend;
-    gGameState.altBlendBCb = 0x10 - blend;
+    gBmSt.altBlendBCa = blend;
+    gBmSt.altBlendBCb = 0x10 - blend;
 
     proc->timer++;
 
@@ -424,8 +424,8 @@ void PhaseIntroBlendBox_OutLoop(struct PhaseIntroSubProc *proc)
 
     blend = Interpolate(INTERPOLATE_LINEAR, 0, 7, proc->timer, 0x20);
 
-    gGameState.altBlendBCa = blend;
-    gGameState.altBlendBCb = 0x10 - blend;
+    gBmSt.altBlendBCa = blend;
+    gBmSt.altBlendBCb = 0x10 - blend;
 
     proc->timer--;
 
@@ -435,7 +435,7 @@ void PhaseIntroBlendBox_OutLoop(struct PhaseIntroSubProc *proc)
 
 void PhaseIntro_EndIfNoUnits(ProcPtr proc)
 {
-    if (GetPhaseAbleUnitCount(gRAMChapterData.faction) == FACTION_BLUE)
+    if (GetPhaseAbleUnitCount(gPlaySt.faction) == FACTION_BLUE)
         Proc_End(proc);
 }
 
@@ -448,7 +448,7 @@ void PhaseIntro_InitGraphics(ProcPtr proc)
     BG_SetPosition(1, 0, 0);
     BG_SetPosition(2, 0, 0);
 
-    switch (gRAMChapterData.faction)
+    switch (gPlaySt.faction)
     {
 
     case FACTION_BLUE:
@@ -484,13 +484,13 @@ void PhaseIntro_InitDisp(ProcPtr proc)
     gLCDControlBuffer.wincnt.win0_enableBlend = 1;
     gLCDControlBuffer.wincnt.wout_enableBlend = 1;
 
-    gGameState.altBlendBCa = 0;
-    gGameState.altBlendBCb = 0x10;
+    gBmSt.altBlendBCa = 0;
+    gBmSt.altBlendBCb = 0x10;
 
-    gGameState.altBlendACa = 0;
-    gGameState.altBlendACb = 0x10;
+    gBmSt.altBlendACa = 0;
+    gBmSt.altBlendACb = 0x10;
 
-    SetSpecialColorEffectsParameters(1, gGameState.altBlendBCa, gGameState.altBlendBCb, 0);
+    SetSpecialColorEffectsParameters(1, gBmSt.altBlendBCa, gBmSt.altBlendBCb, 0);
 
     SetBlendTargetA(0, 1, 0, 0, 0);
     SetBlendTargetB(0, 0, 1, 1, 1);
@@ -501,7 +501,7 @@ void PhaseIntro_InitDisp(ProcPtr proc)
 
 void PhaseIntro_WaitForEnd(ProcPtr proc)
 {
-    SetSpecialColorEffectsParameters(1, gGameState.altBlendBCa, gGameState.altBlendBCb, 0);
+    SetSpecialColorEffectsParameters(1, gBmSt.altBlendBCa, gBmSt.altBlendBCb, 0);
 
     if (Proc_Find(gProcScr_PhaseIntroText) == NULL && Proc_Find(gProcScr_PhaseIntroSquares) == NULL && Proc_Find(gProcScr_PhaseIntroBlendBox) == NULL)
     {

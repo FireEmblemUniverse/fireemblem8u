@@ -164,7 +164,7 @@ sub_808DBC8: @ 0x0808DBC8
 	adds r2, r5, #0
 	bl CpuFastSet
 	bl sub_808DB34
-	ldr r0, _0808DC6C  @ gRAMChapterData
+	ldr r0, _0808DC6C  @ gPlaySt
 	adds r0, #0x41
 	ldrb r0, [r0]
 	lsls r0, r0, #0x1e
@@ -183,7 +183,7 @@ _0808DC52:
 _0808DC60: .4byte gLCDControlBuffer
 _0808DC64: .4byte 0x01000008
 _0808DC68: .4byte 0x06008000
-_0808DC6C: .4byte gRAMChapterData
+_0808DC6C: .4byte gPlaySt
 _0808DC70: .4byte sub_808DB08
 
 	THUMB_FUNC_END sub_808DBC8

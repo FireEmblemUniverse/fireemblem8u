@@ -1,6 +1,12 @@
 #ifndef GUARD_HARDWARE_H
 #define GUARD_HARDWARE_H
 
+enum {
+    FRAMES_PER_SECOND = 60,
+    FRAMES_PER_MINUTE = 60 * FRAMES_PER_SECOND,
+    FRAMES_PER_HOUR   = 60 * FRAMES_PER_MINUTE,
+};
+
 // Utility macros and constants
 extern u16 gPaletteBuffer[];
 

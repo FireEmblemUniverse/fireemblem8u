@@ -78,7 +78,7 @@ void SetWeather(unsigned weatherId);
 
 int GetTextDisplaySpeed(void);
 int IsFirstPlaythrough(void);
-void InitPlaythroughState(int isDifficult, s8);
+void InitPlayConfig(int isDifficult, s8);
 void StartBattleMap(struct GameCtrlProc* gameCtrl);
 void RestartBattleMap(void);
 void GameCtrl_StartResumedGame(struct GameCtrlProc* gameCtrl);
@@ -94,7 +94,7 @@ void MapMain_ResumeFromBskPhase(struct BMapMainProc* mapMain);
 void MapMain_ResumeFromArenaFight(struct BMapMainProc* mapMain);
 void MapMain_ResumeFromPhaseChange(struct BMapMainProc* mapMain);
 void GameCtrl_DeclareCompletedChapter(void);
-void GameCtrl_RegisterCompletedPlaythrough(void);
+void GameCtrl_SavePlayThroughData(void);
 char* GetTacticianName(void);
 void SetTacticianName(const char* newName);
 

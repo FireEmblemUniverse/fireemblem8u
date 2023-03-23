@@ -67,8 +67,8 @@ void SetPrepScreenMenuSelectedItem(int);
 void DrawPrepScreenMenuFrameAt(int, int);
 int PrepScreenMenuExists();
 void EnablePrepScreenMenu(ProcPtr);
-void BWL_FavorReduced_H(u8);
-void BWL_IncrementDeployCountMaybe(u8);
+void PidStatsSubFavval100(u8);
+void PidStatsAddDeployAmt(u8);
 void sub_80B9FC0();
 void Make6C_savemenu2(ProcPtr);
 void NewPrepScreenTraineePromotionManager(ProcPtr);
@@ -324,7 +324,7 @@ PROC_LABEL(0x3A),
 int GetPlayerLeaderUnitId() {
     int i;
     int unitId;
-    switch (gRAMChapterData.chapterModeIndex) {
+    switch (gPlaySt.chapterModeIndex) {
         case 1: // tutorial (chapter 0-8)
         case 2: // Eirika
             unitId = CHARACTER_EIRIKA;
@@ -336,7 +336,7 @@ int GetPlayerLeaderUnitId() {
             break;
     }
 
-    if ((u8)gRAMChapterData.chapterIndex == 5) {
+    if ((u8)gPlaySt.chapterIndex == 5) {
         return CHARACTER_EPHRAIM;
     }
 
@@ -401,13 +401,13 @@ void PrepMapMenu_OnFormation(struct UnknownSALLYCURSORProc* proc) {
     s16 x, y;
     proc->unk_58 = 2;
 
-    x = gGameState.playerCursor.x;
-    y = gGameState.playerCursor.y;
+    x = gBmSt.playerCursor.x;
+    y = gBmSt.playerCursor.y;
 
     TrySwitchViewedUnit(x, y);
 
-    x = gGameState.playerCursorDisplay.x;
-    y = gGameState.playerCursorDisplay.y;
+    x = gBmSt.playerCursorDisplay.x;
+    y = gBmSt.playerCursorDisplay.y;
     PutMapCursor(x, y, 0);
 
     Proc_Break(proc);
@@ -432,8 +432,8 @@ void SALLYCURSOR_DeploySupplyUnit() {
     if (unit) {
         unit->state &= ~US_NOT_DEPLOYED;
 
-        unit->xPos = GetROMChapterStruct(gRAMChapterData.chapterIndex)->merchantPosX;
-        unit->yPos = GetROMChapterStruct(gRAMChapterData.chapterIndex)->merchantPosY;
+        unit->xPos = GetROMChapterStruct(gPlaySt.chapterIndex)->merchantPosX;
+        unit->yPos = GetROMChapterStruct(gPlaySt.chapterIndex)->merchantPosY;
 
         RefreshEntityBmMaps();
         RefreshUnitSprites();
@@ -477,8 +477,8 @@ void sub_8033468(struct UnknownSALLYCURSORProc* proc) {
 
 void sub_803348C(ProcPtr proc) {
     EnsureCameraOntoPosition(proc,
-        GetROMChapterStruct(gRAMChapterData.chapterIndex)->merchantPosX,
-            GetROMChapterStruct(gRAMChapterData.chapterIndex)->merchantPosY);
+        GetROMChapterStruct(gPlaySt.chapterIndex)->merchantPosX,
+            GetROMChapterStruct(gPlaySt.chapterIndex)->merchantPosY);
     return;
 }
 
@@ -642,8 +642,8 @@ void sub_80337F0(struct UnknownSALLYCURSORProc* proc) {
 
     proc->unk_30 += proc->unk_38;
 
-    gGameState.camera.x = proc->unk_2C;
-    gGameState.camera.y = proc->unk_30;
+    gBmSt.camera.x = proc->unk_2C;
+    gBmSt.camera.y = proc->unk_30;
 
     proc->unk_4C--;
 
@@ -657,15 +657,15 @@ void sub_80337F0(struct UnknownSALLYCURSORProc* proc) {
 void InitPrepScreenUnitsAndCamera() {
     LoadUnitPrepScreenPositions();
 
-    if (!(CHAPTER_FLAG_PREPSCREEN & gRAMChapterData.chapterStateBits)) {
+    if (!(PLAY_FLAG_PREPSCREEN & gPlaySt.chapterStateBits)) {
         SortPlayerUnitsForPrepScreen();
         InitPlayerUnitPositionsForPrepScreen();
-        gRAMChapterData.chapterStateBits |= CHAPTER_FLAG_PREPSCREEN;
+        gPlaySt.chapterStateBits |= PLAY_FLAG_PREPSCREEN;
     }
 
-    gGameState.camera.x = GetCameraCenteredX(0);
-    gGameState.camera.y = GetCameraCenteredY(0);
-    gGameState.gameStateBits |= CHAPTER_FLAG_PREPSCREEN;
+    gBmSt.camera.x = GetCameraCenteredX(0);
+    gBmSt.camera.y = GetCameraCenteredY(0);
+    gBmSt.gameStateBits |= PLAY_FLAG_PREPSCREEN;
 
     RefreshEntityBmMaps();
     RenderBmMap();
@@ -688,8 +688,8 @@ void sub_80338C0() {
         SetCursorMapPosition(x, y);
     }
 
-    gGameState.camera.x = GetCameraCenteredX(gGameState.playerCursor.x * 16);
-    gGameState.camera.y = GetCameraCenteredY(gGameState.playerCursor.y * 16);
+    gBmSt.camera.x = GetCameraCenteredX(gBmSt.playerCursor.x * 16);
+    gBmSt.camera.y = GetCameraCenteredY(gBmSt.playerCursor.y * 16);
 
     return;
 }
@@ -703,8 +703,8 @@ void sub_8033940(struct UnknownSALLYCURSORProc* proc) {
         Proc_Break(proc);
     }
 
-    PutMapCursor(gGameState.playerCursorDisplay.x,
-        gGameState.playerCursorDisplay.y, 0);
+    PutMapCursor(gBmSt.playerCursorDisplay.x,
+        gBmSt.playerCursorDisplay.y, 0);
 
     return;
 }
@@ -713,18 +713,18 @@ void PrepScreenProc_MapIdle(ProcPtr proc) {
     HandlePlayerCursorMovement();
     if (!DoesBMXFADEExist()) {
         if (L_BUTTON & gKeyStatusPtr->newKeys) {
-            TrySwitchViewedUnit(gGameState.playerCursor.x, gGameState.playerCursor.y);
+            TrySwitchViewedUnit(gBmSt.playerCursor.x, gBmSt.playerCursor.y);
             PlaySoundEffect(0x6B);
             goto showcursor;
         }
 
         if (R_BUTTON & gKeyStatusPtr->newKeys) {
-            if (gBmMapUnit[gGameState.playerCursor.y][gGameState.playerCursor.x]) {
-                if (CanShowUnitStatScreen(GetUnit(gBmMapUnit[gGameState.playerCursor.y][gGameState.playerCursor.x]))) {
+            if (gBmMapUnit[gBmSt.playerCursor.y][gBmSt.playerCursor.x]) {
+                if (CanShowUnitStatScreen(GetUnit(gBmMapUnit[gBmSt.playerCursor.y][gBmSt.playerCursor.x]))) {
                     MU_EndAll();
                     EndPlayerPhaseSideWindows();
                     SetStatScreenConfig(0x1F);
-                    StartStatScreen(GetUnit(gBmMapUnit[gGameState.playerCursor.y][gGameState.playerCursor.x]), proc);
+                    StartStatScreen(GetUnit(gBmMapUnit[gBmSt.playerCursor.y][gBmSt.playerCursor.x]), proc);
                     Proc_Goto(proc, 5);
                     return;
                 }
@@ -733,23 +733,23 @@ void PrepScreenProc_MapIdle(ProcPtr proc) {
 
         if (B_BUTTON & gKeyStatusPtr->newKeys) {
             EndPlayerPhaseSideWindows();
-            gRAMChapterData.xCursor = gGameState.playerCursor.x;
-            gRAMChapterData.yCursor = gGameState.playerCursor.y;
+            gPlaySt.xCursor = gBmSt.playerCursor.x;
+            gPlaySt.yCursor = gBmSt.playerCursor.y;
             Proc_Goto(proc, 0);
             PlaySoundEffect(0x69);
             return;
         }
 
         if (A_BUTTON & gKeyStatusPtr->newKeys) {
-            struct Unit* unit = GetUnit(gBmMapUnit[gGameState.playerCursor.y][gGameState.playerCursor.x]);
+            struct Unit* unit = GetUnit(gBmMapUnit[gBmSt.playerCursor.y][gBmSt.playerCursor.x]);
             switch (GetUnitSelectionValueThing(unit)) {
                 case 0:
                 case 1:
                     EndPlayerPhaseSideWindows();
-                    gRAMChapterData.xCursor = gGameState.playerCursor.x;
-                    gRAMChapterData.yCursor = gGameState.playerCursor.y;
+                    gPlaySt.xCursor = gBmSt.playerCursor.x;
+                    gPlaySt.yCursor = gBmSt.playerCursor.y;
 
-                    switch (gBmMapTerrain[gGameState.playerCursor.y][gGameState.playerCursor.x]) {
+                    switch (gBmMapTerrain[gBmSt.playerCursor.y][gBmSt.playerCursor.x]) {
                         case TERRAIN_VENDOR:
                         case TERRAIN_ARMORY:
                             PlaySoundEffect(0x6A);
@@ -794,7 +794,7 @@ void PrepScreenProc_MapIdle(ProcPtr proc) {
     }
 
     showcursor:
-    PutMapCursor(gGameState.playerCursorDisplay.x, gGameState.playerCursorDisplay.y, 0);
+    PutMapCursor(gBmSt.playerCursorDisplay.x, gBmSt.playerCursorDisplay.y, 0);
 
     return;
 }
@@ -812,8 +812,8 @@ void SALLYCURSOR6C_StartUnitSwap(struct UnknownSALLYCURSORProc* proc) {
 
     proc->unk_54 = ap;
     proc->unk_4A = 2;
-    proc->unk_3C = gGameState.playerCursor.x;
-    proc->unk_40 = gGameState.playerCursor.y;
+    proc->unk_3C = gBmSt.playerCursor.x;
+    proc->unk_40 = gBmSt.playerCursor.y;
 
     StartSubtitleHelp(proc, GetStringFromIndex(0x872)); // TODO: msgid "Reorder your units.[.]"
 
@@ -824,16 +824,16 @@ void SALLYCURSOR6C_StartUnitSwap(struct UnknownSALLYCURSORProc* proc) {
 }
 
 void sub_8033C90(struct UnknownSALLYCURSORProc* proc) {
-    s8 r7 = ((s8**) gBmMapRange)[gGameState.playerCursor.y][gGameState.playerCursor.x];
+    s8 r7 = ((s8**) gBmMapRange)[gBmSt.playerCursor.y][gBmSt.playerCursor.x];
     u32 xLoc, yLoc;
 
-    if (GetUnitSelectionValueThing(GetUnit(gBmMapUnit[gGameState.playerCursor.y][gGameState.playerCursor.x])) == 4) {
+    if (GetUnitSelectionValueThing(GetUnit(gBmMapUnit[gBmSt.playerCursor.y][gBmSt.playerCursor.x])) == 4) {
         r7 = 0;
     }
 
     HandlePlayerCursorMovement();
-    xLoc = (proc->unk_3C * 16) - gGameState.camera.x;
-    yLoc = (proc->unk_40 * 16) - gGameState.camera.y;
+    xLoc = (proc->unk_3C * 16) - gBmSt.camera.x;
+    yLoc = (proc->unk_40 * 16) - gBmSt.camera.y;
     if (((xLoc + 0x10) <= 256) && ((yLoc + 0x20) <= 192)) {
         PutSprite(4, xLoc, yLoc - 12, gObject_16x16, 6);
     }
@@ -860,8 +860,8 @@ void sub_8033C90(struct UnknownSALLYCURSORProc* proc) {
     }
 
     AP_Update(proc->unk_54,
-        gGameState.playerCursorDisplay.x - gGameState.camera.x,
-            gGameState.playerCursorDisplay.y - gGameState.camera.y);
+        gBmSt.playerCursorDisplay.x - gBmSt.camera.x,
+            gBmSt.playerCursorDisplay.y - gBmSt.camera.y);
 
     proc->unk_4A = r7;
 
@@ -876,9 +876,9 @@ void sub_8033DD8(ProcPtr proc) {
 
 void sub_8033E08(ProcPtr proc) {
     struct Unit* activeUnit = gActiveUnit;
-    struct Unit* targetUnit = GetUnit(gBmMapUnit[gGameState.playerCursor.y][gGameState.playerCursor.x]);
+    struct Unit* targetUnit = GetUnit(gBmMapUnit[gBmSt.playerCursor.y][gBmSt.playerCursor.x]);
     if (!targetUnit) {
-        StartPrepUnitSwap(proc, activeUnit, gGameState.playerCursor.x, gGameState.playerCursor.y);
+        StartPrepUnitSwap(proc, activeUnit, gBmSt.playerCursor.x, gBmSt.playerCursor.y);
     } else {
         StartPrepUnitSwap(proc, activeUnit, targetUnit->xPos, targetUnit->yPos);
         StartPrepUnitSwap(proc, targetUnit, activeUnit->xPos, activeUnit->yPos);
@@ -889,14 +889,14 @@ void sub_8033E08(ProcPtr proc) {
 }
 
 void sub_8033E8C() {
-    if (gRAMChapterData.chapterVisionRange != 0) {
+    if (gPlaySt.chapterVisionRange != 0) {
         RenderBmMapOnBg2();
     }
     return;
 }
 
 void sub_8033EA4() {
-    if (gRAMChapterData.chapterVisionRange != 0) {
+    if (gPlaySt.chapterVisionRange != 0) {
         RenderBmMap();
         NewBMXFADE(0);
     }
@@ -910,12 +910,12 @@ void sub_8033EC0(ProcPtr proc) {
 
 void CallCursorShop(ProcPtr proc) {
     struct EventCheckBuffer r0;
-    const struct ChapterEventGroup *einfo = GetChapterEventDataPointer(gRAMChapterData.chapterIndex);
+    const struct ChapterEventGroup *einfo = GetChapterEventDataPointer(gPlaySt.chapterIndex);
     struct EventCheckBuffer *buf;
     r0.eventDef = einfo->locationBasedEvents;
 
-    r0.xPos = gGameState.playerCursor.x;
-    r0.yPos = gGameState.playerCursor.y;
+    r0.xPos = gBmSt.playerCursor.x;
+    r0.yPos = gBmSt.playerCursor.y;
     buf = CheckForEvents(&r0);
     if (!buf) {
         return;
@@ -939,7 +939,7 @@ void PrepScreenProc_MapMovementLoop(ProcPtr proc) {
     if (gKeyStatusPtr->newKeys & (A_BUTTON | B_BUTTON)) {
         MU_EndAll();
         gActiveUnit->state &= ~US_HIDDEN;
-        gGameState.gameStateBits &= 0xF7;
+        gBmSt.gameStateBits &= 0xF7;
 
         HideMoveRangeGraphics();
         RefreshEntityBmMaps();
@@ -951,9 +951,9 @@ void PrepScreenProc_MapMovementLoop(ProcPtr proc) {
     }
 
     if (gKeyStatusPtr->newKeys & R_BUTTON) {
-        u8 uid = gBmMapUnit[gGameState.playerCursor.y][gGameState.playerCursor.x];
+        u8 uid = gBmMapUnit[gBmSt.playerCursor.y][gBmSt.playerCursor.x];
 
-        if (gActiveUnitMoveOrigin.x == gGameState.playerCursor.x && gActiveUnitMoveOrigin.y == gGameState.playerCursor.y) {
+        if (gActiveUnitMoveOrigin.x == gBmSt.playerCursor.x && gActiveUnitMoveOrigin.y == gBmSt.playerCursor.y) {
             uid = gActiveUnit->index;
         }
 
@@ -976,7 +976,7 @@ void PrepScreenProc_MapMovementLoop(ProcPtr proc) {
         }
     }
 
-    PutMapCursor(gGameState.playerCursorDisplay.x, gGameState.playerCursorDisplay.y, 1);
+    PutMapCursor(gBmSt.playerCursorDisplay.x, gBmSt.playerCursorDisplay.y, 1);
 
     return;
 }
@@ -1008,10 +1008,10 @@ void sub_8034090(ProcPtr proc) {
 }
 
 void StartPrepSaveScreen(ProcPtr proc) {
-    gRAMChapterData.unk4A_2 = 2;
+    gPlaySt.unk4A_2 = 2;
 
-    if (!(0x20 & gRAMChapterData.chapterStateBits) && ((GetChapterThing() - 1) <= 1)) {
-        gRAMChapterData.unk4A_2 = 4;
+    if (!(0x20 & gPlaySt.chapterStateBits) && ((GetChapterThing() - 1) <= 1)) {
+        gPlaySt.unk4A_2 = 4;
     }
 
     ISuspectThisToBeMusicRelated_8002730(0x100, 0x80, 0x20, 0);
@@ -1023,7 +1023,7 @@ void StartPrepSaveScreen(ProcPtr proc) {
 
 void sub_8034168() {
     ISuspectThisToBeMusicRelated_8002730(0x80, 0x100, 0x20, 0);
-    gRAMChapterData.unk4A_2 = 2;
+    gPlaySt.unk4A_2 = 2;
     return;
 }
 
@@ -1067,11 +1067,11 @@ void sub_8034200() {
 void ShrinkPlayerUnits() {
     int uid;
 
-    if (!(0x80 & gRAMChapterData.chapterStateBits)) {
+    if (!(0x80 & gPlaySt.chapterStateBits)) {
         return;
     }
 
-    if ((0x40 & gGameState.gameStateBits)) {
+    if ((0x40 & gBmSt.gameStateBits)) {
         return;
     }
 
@@ -1108,17 +1108,17 @@ void EndPrepScreen() {
         }
 
         if (unit->state & US_NOT_DEPLOYED) {
-            BWL_FavorReduced_H(unit->pCharacterData->number);
+            PidStatsSubFavval100(unit->pCharacterData->number);
         } else {
-            BWL_IncrementDeployCountMaybe(unit->pCharacterData->number);
+            PidStatsAddDeployAmt(unit->pCharacterData->number);
         }
     }
 
     ShrinkPlayerUnits();
     Proc_EndEach(gProcScr_SALLYCURSOR);
-    gGameState.gameStateBits &= 0xEF;
-    gRAMChapterData.chapterStateBits &= 0xEF;
-    gRAMChapterData.unk4A_1 = 1;
+    gBmSt.gameStateBits &= 0xEF;
+    gPlaySt.chapterStateBits &= 0xEF;
+    gPlaySt.unk4A_1 = 1;
     return;
 }
 

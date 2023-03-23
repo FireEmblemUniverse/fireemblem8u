@@ -69,7 +69,7 @@ sub_8012CFC: @ 0x08012CFC
 	movs r2, #0x10
 	ldrsb r2, [r5, r2]
 	lsls r2, r2, #4
-	ldr r1, _08012DBC  @ gGameState
+	ldr r1, _08012DBC  @ gBmSt
 	ldrh r0, [r1, #0xc]
 	subs r2, r2, r0
 	subs r2, #0x10
@@ -94,7 +94,7 @@ sub_8012CFC: @ 0x08012CFC
 	str r6, [sp, #0x10]
 	movs r1, #2
 	bl sub_80AE7C4
-	ldr r0, _08012DC4  @ gRAMChapterData
+	ldr r0, _08012DC4  @ gPlaySt
 	adds r0, #0x41
 	ldrb r0, [r0]
 	lsls r0, r0, #0x1e
@@ -110,9 +110,9 @@ _08012DAC:
 	.align 2, 0
 _08012DB4: .4byte gUnknown_08592608
 _08012DB8: .4byte gLCDControlBuffer
-_08012DBC: .4byte gGameState
+_08012DBC: .4byte gBmSt
 _08012DC0: .4byte gUnknown_08592628
-_08012DC4: .4byte gRAMChapterData
+_08012DC4: .4byte gPlaySt
 _08012DC8: .4byte 0x000002D6
 
 	THUMB_FUNC_END sub_8012CFC

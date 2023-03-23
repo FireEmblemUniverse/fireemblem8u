@@ -8,6 +8,7 @@
 #include "soundwrapper.h"
 #include "gamecontrol.h"
 #include "bm.h"
+#include "bmsave.h"
 
 EWRAM_DATA static struct KeyStatusBuffer sKeyStatusBuffer = {0};
 

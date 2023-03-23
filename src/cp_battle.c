@@ -701,11 +701,11 @@ int AiGetTargetClassCombatScoreComponent(void) {
 int AiGetTurnCombatScoreComponent(void) {
     #if NONMATCHING
 
-    int turn = gRAMChapterData.chapterTurnNumber;
+    int turn = gPlaySt.chapterTurnNumber;
 
     #else // if !NONMATCHING
 
-    register int turn asm("r0") = gRAMChapterData.chapterTurnNumber;
+    register int turn asm("r0") = gPlaySt.chapterTurnNumber;
 
     #endif // NONMATCHING
 

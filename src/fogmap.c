@@ -13,10 +13,10 @@ s8 CanUnitCrossTerrain(struct Unit* unit, int terrain);
 void UpdateMapViewWithFog(int vision_range)
 {
     if (vision_range < 0)
-        vision_range = GetROMChapterStruct(gRAMChapterData.chapterIndex)->initialFogLevel;
+        vision_range = GetROMChapterStruct(gPlaySt.chapterIndex)->initialFogLevel;
 
     RenderBmMapOnBg2();
-    gRAMChapterData.chapterVisionRange = vision_range;
+    gPlaySt.chapterVisionRange = vision_range;
     RefreshEntityBmMaps();
     RefreshUnitSprites();
     RenderBmMap();
@@ -26,9 +26,9 @@ void UpdateMapViewWithFog(int vision_range)
 void FastUpdateMapViewWithFog(int vision_range)
 {
     if (vision_range < 0)
-        vision_range = GetROMChapterStruct(gRAMChapterData.chapterIndex)->initialFogLevel;
+        vision_range = GetROMChapterStruct(gPlaySt.chapterIndex)->initialFogLevel;
 
-    gRAMChapterData.chapterVisionRange = vision_range;
+    gPlaySt.chapterVisionRange = vision_range;
     RefreshEntityBmMaps();
     RefreshUnitSprites();
     RenderBmMap();
@@ -45,7 +45,7 @@ void FillWarpRangeMap(struct Unit *unit_act, struct Unit *unit_tar) {
     y = unit_tar->yPos;
     MapAddInBoundedRange(x, y, 1, GetUnitMagBy2Range(unit_act));
 
-    if (0 == gRAMChapterData.chapterVisionRange) {
+    if (0 == gPlaySt.chapterVisionRange) {
         for (y = gBmMapSize.y - 1; y >= 0; y--) {
             for (x = gBmMapSize.x - 1; x >= 0; x--) {
                 if (gBmMapMovement[y][x] > 0x78)

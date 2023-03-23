@@ -194,7 +194,7 @@ SetSomeRealCamPos: @ 0x0800BA5C
 	add r3, sp, #4
 	mov r2, sp
 	bl StoreAdjustedCameraPositions
-	ldr r1, _0800BA84  @ gGameState
+	ldr r1, _0800BA84  @ gBmSt
 	ldr r0, [sp]
 	lsls r0, r0, #4
 	strh r0, [r1, #0xc]
@@ -203,11 +203,11 @@ SetSomeRealCamPos: @ 0x0800BA5C
 	strh r0, [r1, #0xe]
 	b _0800BA9A
 	.align 2, 0
-_0800BA84: .4byte gGameState
+_0800BA84: .4byte gBmSt
 _0800BA88:
 	lsls r0, r0, #4
 	bl GetCameraAdjustedX
-	ldr r4, _0800BAA4  @ gGameState
+	ldr r4, _0800BAA4  @ gBmSt
 	strh r0, [r4, #0xc]
 	lsls r0, r5, #4
 	bl GetCameraAdjustedY
@@ -218,7 +218,7 @@ _0800BA9A:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_0800BAA4: .4byte gGameState
+_0800BAA4: .4byte gBmSt
 
 	THUMB_FUNC_END SetSomeRealCamPos
 
@@ -232,7 +232,7 @@ sub_800BAA8: @ 0x0800BAA8
 	lsrs r5, r0, #0x10
 	cmp r0, #0
 	bge _0800BAC6
-	ldr r0, _0800BAF4  @ gRAMChapterData
+	ldr r0, _0800BAF4  @ gPlaySt
 	ldrb r0, [r0, #0xe]
 	lsls r0, r0, #0x18
 	asrs r0, r0, #0x18
@@ -245,7 +245,7 @@ _0800BAC6:
 	bne _0800BAD2
 	bl RenderBmMapOnBg2
 _0800BAD2:
-	ldr r0, _0800BAF4  @ gRAMChapterData
+	ldr r0, _0800BAF4  @ gPlaySt
 	strb r5, [r0, #0xd]
 	bl RefreshEntityBmMaps
 	bl RefreshUnitSprites
@@ -260,7 +260,7 @@ _0800BAEE:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_0800BAF4: .4byte gRAMChapterData
+_0800BAF4: .4byte gPlaySt
 
 	THUMB_FUNC_END sub_800BAA8
 

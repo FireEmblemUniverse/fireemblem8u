@@ -57,7 +57,7 @@ void UnitGainSupportLevel(struct Unit* unit, int num);
 s8 CanUnitSupportNow(struct Unit* unit, int num);
 int GetUnitSupporterInitialExp(struct Unit* unit, int num);
 int GetUnitSupporterNum(struct Unit* unit, u8 charId);
-void ClearUnitSupports(struct Unit* unit);
+void InitUnitsupports(struct Unit* unit);
 void ProcessTurnSupportExp(void);
 int GetUnitSupportBonuses(struct Unit* unit, struct SupportBonuses* bonuses);
 int GetUnitAffinityIcon(struct Unit* unit);

@@ -220,7 +220,7 @@ void AtMenu_AddPrepScreenSupportMenuItem(struct ProcAtMenu *proc)
     int color = 0;
 
     proc->unk_2F = 0;
-    if (0 != (CHAPTER_FLAG_7 & gRAMChapterData.chapterStateBits))
+    if (0 != (PLAY_FLAG_7 & gPlaySt.chapterStateBits))
         return;
 
     for (i = 0; i < 4; i++) {
@@ -238,7 +238,7 @@ void AtMenu_AddPrepScreenSupportMenuItem(struct ProcAtMenu *proc)
 
 s8 CanPrepScreenCheckMap()
 {
-    if (0x7D == gRAMChapterData.chapterIndex)
+    if (0x7D == gPlaySt.chapterIndex)
         return 0;
     else
         return 1;
@@ -587,7 +587,7 @@ void Prep_DrawChapterGoal(int VRAM_offset, int pal)
     Text_80046B4(&th, 0);
 
     if (2 != GetChapterThing())
-        msg = GetROMChapterStruct(gRAMChapterData.chapterIndex)->goalWindowTextId;
+        msg = GetROMChapterStruct(gPlaySt.chapterIndex)->goalWindowTextId;
     else
         msg = 0x19E;
 

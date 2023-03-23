@@ -88,7 +88,7 @@ _0809B5CC:
 	subs r0, r2, #1
 _0809B5CE:
 	str r0, [r4, #0x34]
-	ldr r0, _0809B5E4  @ gRAMChapterData
+	ldr r0, _0809B5E4  @ gPlaySt
 	adds r0, #0x41
 	ldrb r0, [r0]
 	lsls r0, r0, #0x1e
@@ -99,7 +99,7 @@ _0809B5DE:
 	movs r0, #0x67
 	b _0809B734
 	.align 2, 0
-_0809B5E4: .4byte gRAMChapterData
+_0809B5E4: .4byte gPlaySt
 _0809B5E8:
 	movs r0, #0x10
 	ands r0, r1
@@ -152,7 +152,7 @@ _0809B640:
 	adds r0, r2, #7
 _0809B642:
 	str r0, [r4, #0x34]
-	ldr r0, _0809B654  @ gRAMChapterData
+	ldr r0, _0809B654  @ gPlaySt
 	adds r0, #0x41
 	ldrb r0, [r0]
 	lsls r0, r0, #0x1e
@@ -161,7 +161,7 @@ _0809B642:
 	movs r0, #0x67
 	b _0809B734
 	.align 2, 0
-_0809B654: .4byte gRAMChapterData
+_0809B654: .4byte gPlaySt
 _0809B658:
 	movs r0, #0x40
 	ands r0, r1
@@ -271,7 +271,7 @@ _0809B712:
 	ands r2, r0
 	str r2, [r4, #0x34]
 _0809B726:
-	ldr r0, _0809B740  @ gRAMChapterData
+	ldr r0, _0809B740  @ gPlaySt
 	adds r0, #0x41
 	ldrb r0, [r0]
 	lsls r0, r0, #0x1e
@@ -285,7 +285,7 @@ _0809B738:
 	b _0809B746
 	.align 2, 0
 _0809B73C: .4byte gKeyStatusPtr
-_0809B740: .4byte gRAMChapterData
+_0809B740: .4byte gPlaySt
 _0809B744:
 	movs r0, #0
 _0809B746:
@@ -917,7 +917,7 @@ _0809BC60:
 _0809BC74:
 	str r0, [r6, #0x38]
 _0809BC76:
-	ldr r0, _0809BCB4  @ gRAMChapterData
+	ldr r0, _0809BCB4  @ gPlaySt
 	adds r0, #0x41
 	ldrb r0, [r0]
 	lsls r0, r0, #0x1e
@@ -947,7 +947,7 @@ _0809BC88:
 	bl ShowPrepScreenHandCursor
 	b _0809BE1A
 	.align 2, 0
-_0809BCB4: .4byte gRAMChapterData
+_0809BCB4: .4byte gPlaySt
 _0809BCB8:
 	movs r0, #2
 	ands r0, r1
@@ -970,7 +970,7 @@ _0809BCC2:
 	lsls r3, r3, #4
 	movs r2, #0xb
 	bl ShowPrepScreenHandCursor
-	ldr r0, _0809BCFC  @ gRAMChapterData
+	ldr r0, _0809BCFC  @ gPlaySt
 	adds r0, #0x41
 	ldrb r0, [r0]
 	lsls r0, r0, #0x1e
@@ -983,7 +983,7 @@ _0809BCF4:
 	bl sub_80ACA84
 	b _0809BE1A
 	.align 2, 0
-_0809BCFC: .4byte gRAMChapterData
+_0809BCFC: .4byte gPlaySt
 _0809BD00:
 	movs r2, #1
 	adds r0, r2, #0
@@ -1044,7 +1044,7 @@ _0809BD58:
 	lsls r3, r3, #4
 	movs r2, #0xb
 	bl ShowPrepScreenHandCursor
-	ldr r0, _0809BD8C  @ gRAMChapterData
+	ldr r0, _0809BD8C  @ gPlaySt
 	adds r0, #0x41
 	ldrb r0, [r0]
 	lsls r0, r0, #0x1e
@@ -1054,7 +1054,7 @@ _0809BD58:
 	bl m4aSongNumStart
 	b _0809BE1A
 	.align 2, 0
-_0809BD8C: .4byte gRAMChapterData
+_0809BD8C: .4byte gPlaySt
 _0809BD90:
 	movs r0, #2
 	ands r0, r1
@@ -1062,7 +1062,7 @@ _0809BD90:
 	beq _0809BDB8
 	adds r0, r6, #0
 	bl Proc_Break
-	ldr r0, _0809BDB4  @ gRAMChapterData
+	ldr r0, _0809BDB4  @ gPlaySt
 	adds r0, #0x41
 	ldrb r0, [r0]
 	lsls r0, r0, #0x1e
@@ -1072,7 +1072,7 @@ _0809BD90:
 	bl m4aSongNumStart
 	b _0809BE1A
 	.align 2, 0
-_0809BDB4: .4byte gRAMChapterData
+_0809BDB4: .4byte gPlaySt
 _0809BDB8:
 	adds r0, r6, #0
 	bl sub_809B564

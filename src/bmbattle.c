@@ -19,6 +19,7 @@
 #include "mu.h"
 #include "bmarch.h"
 #include "bmarena.h"
+#include "bmsave.h"
 #include "bmbattle.h"
 
 struct WeaponTriangleRule {
@@ -203,10 +204,10 @@ void BattleGenerateRealInternal(struct Unit* actor, struct Unit* target) {
 
     if (gBattleTarget.unit.index) {
         BattleApplyExpGains();
-        RecordUnitBattleResult();
+        PidStatsRecordBattleRes();
 
-        BWL_AddBattle(actor);
-        BWL_AddBattle(target);
+        PidStatsAddBattleAmt(actor);
+        PidStatsAddBattleAmt(target);
     }
 }
 
@@ -428,7 +429,7 @@ void SetBattleUnitWeapon(struct BattleUnit* bu, int itemSlot) {
         // borrowed item?
 
         bu->weaponSlotIndex = 0xFF;
-        bu->weapon = gGameState.itemUnk2C;
+        bu->weapon = gBmSt.itemUnk2C;
 
         break;
 
@@ -555,7 +556,7 @@ void ComputeBattleUnitEffectiveStats(struct BattleUnit* attacker, struct BattleU
 }
 
 void ComputeBattleUnitSupportBonuses(struct BattleUnit* attacker, struct BattleUnit* defender) {
-    if (!(gBattleStats.config & BATTLE_CONFIG_ARENA) || gRAMChapterData.chapterWeatherId) {
+    if (!(gBattleStats.config & BATTLE_CONFIG_ARENA) || gPlaySt.chapterWeatherId) {
         struct SupportBonuses tmpBonuses;
 
         GetUnitSupportBonuses(&attacker->unit, &tmpBonuses);
@@ -1039,10 +1040,10 @@ s8 BattleCheckSilencer(struct BattleUnit* attacker, struct BattleUnit* defender)
         return FALSE;
 
     case CLASS_NECROMANCER:
-        if (gRAMChapterData.chapterIndex == 0x15) // TODO: CHAPTER ID CONSTANTS
+        if (gPlaySt.chapterIndex == 0x15) // TODO: CHAPTER ID CONSTANTS
             return FALSE;
 
-        if (gRAMChapterData.chapterIndex == 0x22) // TODO: CHAPTER ID CONSTANTS
+        if (gPlaySt.chapterIndex == 0x22) // TODO: CHAPTER ID CONSTANTS
             return FALSE;
 
     } // switch (defender->unit.pClassData->number)
@@ -1192,7 +1193,7 @@ void BattleGenerateHitEffects(struct BattleUnit* attacker, struct BattleUnit* de
 
         if (defender->unit.pClassData->number != CLASS_DEMON_KING) {
             if (GetItemWeaponEffect(attacker->weapon) == WPN_EFFECT_PETRIFY) {
-                switch (gRAMChapterData.faction) {
+                switch (gPlaySt.faction) {
 
                 case FACTION_BLUE:
                     if (UNIT_FACTION(&defender->unit) == FACTION_BLUE)
@@ -1218,7 +1219,7 @@ void BattleGenerateHitEffects(struct BattleUnit* attacker, struct BattleUnit* de
 
                     break;
 
-                } // switch (gRAMChapterData.faction)
+                } // switch (gPlaySt.faction)
 
                 gBattleHitIterator->attributes |= BATTLE_HIT_ATTR_PETRIFY;
             }
@@ -1272,7 +1273,7 @@ s8 BattleGenerateHit(struct BattleUnit* attacker, struct BattleUnit* defender) {
 
 void BattleApplyExpGains(void) {
     if ((UNIT_FACTION(&gBattleActor.unit) != FACTION_BLUE) || (UNIT_FACTION(&gBattleTarget.unit) != FACTION_BLUE)) {
-        if (!(gRAMChapterData.chapterStateBits & CHAPTER_FLAG_7)) {
+        if (!(gPlaySt.chapterStateBits & PLAY_FLAG_7)) {
             gBattleActor.expGain  = GetBattleUnitExpGain(&gBattleActor, &gBattleTarget);
             gBattleTarget.expGain = GetBattleUnitExpGain(&gBattleTarget, &gBattleActor);
 
@@ -1304,7 +1305,7 @@ int GetAutoleveledStatIncrease(int growth, int levelCount) {
 }
 
 s8 CanBattleUnitGainLevels(struct BattleUnit* bu) {
-    if (gGameState.gameStateBits & 0x40)
+    if (gBmSt.gameStateBits & 0x40)
         return TRUE;
 
     if (bu->unit.exp == UNIT_EXP_DISABLED)
@@ -1616,10 +1617,10 @@ int GetBattleUnitUpdatedWeaponExp(struct BattleUnit* bu) {
     if (bu->unit.curHP == 0)
         return -1;
 
-    if (gRAMChapterData.chapterStateBits & CHAPTER_FLAG_7)
+    if (gPlaySt.chapterStateBits & PLAY_FLAG_7)
         return -1;
 
-    if (gGameState.gameStateBits & 0x40) // TODO: GAME STATE BITS CONSTANTS
+    if (gBmSt.gameStateBits & 0x40) // TODO: GAME STATE BITS CONSTANTS
         return -1;
 
     if (!(gBattleStats.config & BATTLE_CONFIG_ARENA)) {
@@ -1710,7 +1711,7 @@ void UpdateUnitFromBattle(struct Unit* unit, struct BattleUnit* bu) {
     UnitRemoveInvalidItems(unit);
 
     if (bu->expGain)
-        BWL_AddExpGained(unit->pCharacterData->number, bu->expGain);
+        PidStatsAddExpGained(unit->pCharacterData->number, bu->expGain);
 }
 
 void UpdateUnitDuringBattle(struct Unit* unit, struct BattleUnit* bu) {
@@ -1806,7 +1807,7 @@ int GetUnitKillExpBonus(struct Unit* actor, struct Unit* target) {
     result = 20;
 
     // TODO: All the definitions
-    if ((gGameState.gameStateBits & 0x40) || (gRAMChapterData.chapterModeIndex != 1)) {
+    if ((gBmSt.gameStateBits & 0x40) || (gPlaySt.chapterModeIndex != 1)) {
         result = GetUnitPowerLevel(target);
 
         result += 20;
@@ -1871,7 +1872,7 @@ int GetBattleUnitExpGain(struct BattleUnit* actor, struct BattleUnit* target) {
 }
 
 void BattleApplyItemExpGains(void) {
-    if (!(gRAMChapterData.chapterStateBits & CHAPTER_FLAG_7)) {
+    if (!(gPlaySt.chapterStateBits & PLAY_FLAG_7)) {
         if (gBattleActor.weaponAttributes & IA_STAFF) {
             if (UNIT_FACTION(&gBattleActor.unit) == FACTION_BLUE)
                 gBattleActor.wexpMultiplier++;
@@ -1916,7 +1917,7 @@ void BattleApplyMiscActionExpGains(void) {
     if (!CanBattleUnitGainLevels(&gBattleActor))
         return;
 
-    if (gRAMChapterData.chapterStateBits & CHAPTER_FLAG_7)
+    if (gPlaySt.chapterStateBits & PLAY_FLAG_7)
         return;
 
     gBattleActor.expGain = 10;
@@ -2020,7 +2021,7 @@ void InitObstacleBattleUnit(void) {
 
     gBattleTarget.unit.pClassData = GetClassData(CLASS_OBSTACLE);
 
-    gBattleTarget.unit.maxHP = GetROMChapterStruct(gRAMChapterData.chapterIndex)->mapCrackedWallHeath;
+    gBattleTarget.unit.maxHP = GetROMChapterStruct(gPlaySt.chapterIndex)->mapCrackedWallHeath;
     gBattleTarget.unit.curHP = gActionData.trapType; // TODO: better
 
     gBattleTarget.unit.xPos  = gActionData.xOther;
@@ -2120,8 +2121,8 @@ int GetBattleAnimType(void) {
     // TODO: battle anim type constants
 
     // If not solo anim, return global type
-    if (gRAMChapterData.cfgAnimationType != 2)
-        return gRAMChapterData.cfgAnimationType;
+    if (gPlaySt.cfgAnimationType != 2)
+        return gPlaySt.cfgAnimationType;
 
     // If both units are players, use actor solo anim type
     if (UNIT_FACTION(&gBattleActor.unit) == FACTION_BLUE)
@@ -2257,7 +2258,7 @@ int GetOffensiveStaffAccuracy(struct Unit* actor, struct Unit* target) {
 
 void BattleGenerateArena(struct Unit* actor) {
     struct Unit* target = gArenaState.opponentUnit;
-    int something = gGameState.unk3C;
+    int something = gBmSt.just_resumed;
 
     gBattleStats.config = BATTLE_CONFIG_REAL | BATTLE_CONFIG_ARENA;
 
@@ -2280,7 +2281,7 @@ void BattleGenerateArena(struct Unit* actor) {
     BattleApplyWeaponTriangleEffect(&gBattleActor, &gBattleTarget);
 
     gActionData.suspendPointType = SUSPEND_POINT_DURINGARENA;
-    SaveSuspendedGame(SAVE_BLOCK_SUSPEND_BASE);
+    WriteSuspendSave(SAVE_BLOCK_SUSPEND_BASE);
 
     SetBattleUnitTerrainBonusesAuto(&gBattleActor);
     SetBattleUnitTerrainBonuses(&gBattleTarget, 8); // TODO: terrain id constants
@@ -2293,7 +2294,7 @@ void BattleGenerateArena(struct Unit* actor) {
     UpdateUnitDuringBattle(actor, &gBattleActor);
 
     if (!something || (gBattleTarget.unit.curHP == 0)) {
-        RecordUnitBattleResult();
+        PidStatsRecordBattleRes();
 
         actor->state = (actor->state &~ (US_BIT17 | US_BIT18 | US_BIT19))
             + ((((UNIT_ARENA_LEVEL(actor) + 1) <= 7) ? (UNIT_ARENA_LEVEL(actor) + 1) << 17 : 7 << 17));

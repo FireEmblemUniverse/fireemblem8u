@@ -26,11 +26,11 @@ void sub_8012B9C(struct ProcCmd42* proc)
                 switch (proc->unk2A)
                 {
                     case 0:
-                        gGameState.camera.x ^= 2;
+                        gBmSt.camera.x ^= 2;
                         break;
                     
                     case 1:
-                        gGameState.camera.y ^= 2;
+                        gBmSt.camera.y ^= 2;
                         break;
                 }
                 RenderBmMap();
@@ -80,8 +80,8 @@ void sub_8012C88()
     switch (proc->unk29)
     {
         case 0:
-            (u16)gGameState.camera.x &= 0xFFFC;
-            (u16)gGameState.camera.y &= 0xFFFC;
+            (u16)gBmSt.camera.x &= 0xFFFC;
+            (u16)gBmSt.camera.y &= 0xFFFC;
             break;
 
         case 1:
