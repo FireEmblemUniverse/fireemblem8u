@@ -4416,7 +4416,7 @@ void sub_80AD1D0(int);
 // ??? sub_80AD2A8(???);
 void sub_80AD2D4();
 // ??? ParallelWorker_OnLoop(???);
-void StartParallelWorker(void*, ProcPtr);
+ProcPtr StartParallelWorker(void*, ProcPtr);
 void EndAllParallelWorkers(void);
 ProcPtr GetParallelWorker(void*);
 // ??? sub_80AD364(???);

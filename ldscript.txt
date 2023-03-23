@@ -182,7 +182,7 @@ SECTIONS
         asm/savedraw.o(.text);
         src/savedrawcursor.o(.text);
         asm/code_80A882C.o(.text);
-        asm/bonusclaim.o(.text);
+        src/bonusclaim.o(.text);
         src/uiconfig.o(.text);
         asm/code_80B24DC.o(.text);
         src/opinfo.o(.text);
