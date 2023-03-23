@@ -43,12 +43,19 @@ struct BonusClaimItemEnt {
     /* 01 */ s8 unk_01;
 };
 
-extern struct BonusClaimEnt* gUnknown_08A21590; // gpBonusClaimData
-extern struct BonusClaimEnt* gUnknown_08A21594; // gpBonusClaimDataUpdated
-extern struct BonusClaimItemEnt* gUnknown_08A21598; // gpBonusClaimItemList
-extern int* gUnknown_08A2159C; // gpBonusClaimItemCount
-extern struct TextHandle* gUnknown_08A215A0;
-extern struct Unknown8A215A4* gUnknown_08A215A4;
+extern struct BonusClaimEnt gUnknown_02000968[];
+extern struct BonusClaimEnt gUnknown_02000D68[];
+extern struct BonusClaimItemEnt gUnknown_02001168[];
+extern struct Unknown8A215A4 gUnknown_02001368[];
+extern int gUnknown_02001568;
+extern struct TextHandle gUnknown_02001668[];
+
+struct BonusClaimEnt* CONST_DATA gUnknown_08A21590 = gUnknown_02000968; // gpBonusClaimData
+struct BonusClaimEnt* CONST_DATA gUnknown_08A21594 = gUnknown_02000D68; // gpBonusClaimDataUpdated
+struct BonusClaimItemEnt* CONST_DATA gUnknown_08A21598 = gUnknown_02001168; // gpBonusClaimItemList
+int* CONST_DATA gUnknown_08A2159C = &gUnknown_02001568; // gpBonusClaimItemCount
+struct TextHandle* CONST_DATA gUnknown_08A215A0 = gUnknown_02001668;
+struct Unknown8A215A4* CONST_DATA gUnknown_08A215A4 = gUnknown_02001368;
 
 extern u16 gUnknown_02023CC0[];
 extern u16 gUnknown_02022CC4[];
@@ -1020,7 +1027,43 @@ void sub_80B166C(struct BonusClaimProc* proc) {
     return;
 }
 
-extern struct ProcCmd gUnknown_08A215A8[];
+struct ProcCmd CONST_DATA gUnknown_08A215A8[] = {
+    PROC_SLEEP(0),
+
+    PROC_CALL(sub_80B0ADC),
+
+    PROC_CALL_ARG(NewFadeIn, 8),
+    PROC_WHILE(FadeInExists),
+
+    // fallthrough
+
+PROC_LABEL(0),
+    PROC_REPEAT(sub_80B0D38),
+
+    PROC_GOTO(100),
+
+PROC_LABEL(1),
+    PROC_CALL(sub_80B1020),
+    PROC_REPEAT(sub_80B1288),
+    PROC_CALL(sub_80B1350),
+
+    PROC_GOTO(0),
+
+PROC_LABEL(2),
+    PROC_CALL(sub_80B13BC),
+    PROC_REPEAT(sub_80B15E8),
+    PROC_CALL(sub_80B1620),
+
+    PROC_GOTO(0),
+
+PROC_LABEL(100),
+    PROC_CALL_ARG(NewFadeOut, 8),
+    PROC_WHILE(FadeOutExists),
+
+    PROC_CALL(sub_80B166C),
+
+    PROC_END,
+};
 
 //! FE8U = 0x080B1688
 void StartBonusClaimScreen(ProcPtr parent) {
