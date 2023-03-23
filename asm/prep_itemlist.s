@@ -1123,7 +1123,7 @@ sub_809F498: @ 0x0809F498
 	cmp r0, #0
 	bne _0809F4D4
 _0809F4B6:
-	ldr r0, _0809F4D0  @ gRAMChapterData
+	ldr r0, _0809F4D0  @ gPlaySt
 	adds r0, #0x41
 	ldrb r0, [r0]
 	lsls r0, r0, #0x1e
@@ -1136,7 +1136,7 @@ _0809F4C4:
 	b _0809F5E2
 	.align 2, 0
 _0809F4CC: .4byte gUnknown_02012F56
-_0809F4D0: .4byte gRAMChapterData
+_0809F4D0: .4byte gPlaySt
 _0809F4D4:
 	movs r4, #0
 	strh r4, [r6, #0x36]
@@ -1231,7 +1231,7 @@ _0809F56E:
 	adds r0, r6, #0
 	movs r1, #1
 	bl Proc_Goto
-	ldr r0, _0809F5CC  @ gRAMChapterData
+	ldr r0, _0809F5CC  @ gPlaySt
 	adds r0, #0x41
 	ldrb r0, [r0]
 	lsls r0, r0, #0x1e
@@ -1246,9 +1246,9 @@ _0809F5BC: .4byte gUnknown_02022EEC
 _0809F5C0: .4byte gUnknown_02013670
 _0809F5C4: .4byte gUnknown_02023CC6
 _0809F5C8: .4byte sub_809EC38
-_0809F5CC: .4byte gRAMChapterData
+_0809F5CC: .4byte gPlaySt
 _0809F5D0:
-	ldr r0, _0809F5F0  @ gRAMChapterData
+	ldr r0, _0809F5F0  @ gPlaySt
 	adds r0, #0x41
 	ldrb r0, [r0]
 	lsls r0, r0, #0x1e
@@ -1264,7 +1264,7 @@ _0809F5E2:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_0809F5F0: .4byte gRAMChapterData
+_0809F5F0: .4byte gPlaySt
 
 	THUMB_FUNC_END sub_809F498
 
@@ -1426,7 +1426,7 @@ _0809F714:
 	cmp r0, #0
 	bne _0809F744
 _0809F724:
-	ldr r0, _0809F740  @ gRAMChapterData
+	ldr r0, _0809F740  @ gPlaySt
 	adds r0, #0x41
 	ldrb r0, [r0]
 	lsls r0, r0, #0x1e
@@ -1439,7 +1439,7 @@ _0809F732:
 	b _0809FA7A
 	.align 2, 0
 _0809F73C: .4byte gUnknown_02012F56
-_0809F740: .4byte gRAMChapterData
+_0809F740: .4byte gPlaySt
 _0809F744:
 	ldr r0, _0809F76C  @ gUnknown_020122D4
 	mov r2, r9
@@ -1466,7 +1466,7 @@ _0809F770:
 	movs r1, #6
 _0809F774:
 	bl Proc_Goto
-	ldr r0, _0809F790  @ gRAMChapterData
+	ldr r0, _0809F790  @ gPlaySt
 	adds r0, #0x41
 	ldrb r0, [r0]
 	lsls r0, r0, #0x1e
@@ -1478,7 +1478,7 @@ _0809F786:
 	bl m4aSongNumStart
 	b _0809FA7A
 	.align 2, 0
-_0809F790: .4byte gRAMChapterData
+_0809F790: .4byte gPlaySt
 _0809F794:
 	movs r0, #2
 	ands r0, r3
@@ -1487,7 +1487,7 @@ _0809F794:
 	adds r0, r4, #0
 	movs r1, #8
 	bl Proc_Goto
-	ldr r0, _0809F7BC  @ gRAMChapterData
+	ldr r0, _0809F7BC  @ gPlaySt
 	adds r0, #0x41
 	ldrb r0, [r0]
 	lsls r0, r0, #0x1e
@@ -1500,7 +1500,7 @@ _0809F7B6:
 	strh r0, [r4, #0x36]
 	b _0809FA7A
 	.align 2, 0
-_0809F7BC: .4byte gRAMChapterData
+_0809F7BC: .4byte gPlaySt
 _0809F7C0:
 	ldr r2, _0809F7DC  @ gKeyStatusPtr
 	ldr r0, [r2]
@@ -1529,7 +1529,7 @@ _0809F7E0:
 	beq _0809F828
 	movs r0, #0
 	bl sub_80ACDA4
-	ldr r0, _0809F824  @ gRAMChapterData
+	ldr r0, _0809F824  @ gPlaySt
 	adds r0, #0x41
 	ldrb r0, [r0]
 	lsls r0, r0, #0x1e
@@ -1549,7 +1549,7 @@ _0809F80A:
 	bl sub_809F218
 	b _0809FA7A
 	.align 2, 0
-_0809F824: .4byte gRAMChapterData
+_0809F824: .4byte gPlaySt
 _0809F828:
 	movs r0, #0x10
 	ands r0, r1
@@ -1557,7 +1557,7 @@ _0809F828:
 	beq _0809F864
 	movs r0, #1
 	bl sub_80ACDA4
-	ldr r0, _0809F860  @ gRAMChapterData
+	ldr r0, _0809F860  @ gPlaySt
 	adds r0, #0x41
 	ldrb r0, [r0]
 	lsls r0, r0, #0x1e
@@ -1576,7 +1576,7 @@ _0809F848:
 	bl sub_809F2C4
 	b _0809FA7A
 	.align 2, 0
-_0809F860: .4byte gRAMChapterData
+_0809F860: .4byte gPlaySt
 _0809F864:
 	ldrh r1, [r2, #4]
 	movs r0, #0x80
@@ -1727,7 +1727,7 @@ _0809F974:
 	adds r0, r0, r7
 	ldrh r0, [r0, #2]
 	mov r8, r0
-	ldr r0, _0809F9F4  @ gRAMChapterData
+	ldr r0, _0809F9F4  @ gPlaySt
 	adds r0, #0x41
 	ldrb r0, [r0]
 	lsls r0, r0, #0x1e
@@ -1785,7 +1785,7 @@ _0809F9E2:
 	b _0809FA30
 	.align 2, 0
 _0809F9F0: .4byte gUnknown_020122D4
-_0809F9F4: .4byte gRAMChapterData
+_0809F9F4: .4byte gPlaySt
 _0809F9F8:
 	ldrb r0, [r6]
 	lsls r0, r0, #1
@@ -1938,7 +1938,7 @@ _0809FB0A:
 	ldrb r3, [r3]
 	cmp ip, r3
 	beq _0809FB2C
-	ldr r0, _0809FB28  @ gRAMChapterData
+	ldr r0, _0809FB28  @ gPlaySt
 	adds r0, #0x41
 	ldrb r0, [r0]
 	lsls r0, r0, #0x1e
@@ -1950,7 +1950,7 @@ _0809FB22:
 	movs r0, #1
 	b _0809FB2E
 	.align 2, 0
-_0809FB28: .4byte gRAMChapterData
+_0809FB28: .4byte gPlaySt
 _0809FB2C:
 	movs r0, #0
 _0809FB2E:
@@ -2055,7 +2055,7 @@ _0809FBB6:
 	bl StartParallelFiniteLoop
 	movs r0, #4
 	bl BG_EnableSyncByMask
-	ldr r0, _0809FC20  @ gRAMChapterData
+	ldr r0, _0809FC20  @ gPlaySt
 	adds r0, #0x41
 	ldrb r0, [r0]
 	lsls r0, r0, #0x1e
@@ -2073,7 +2073,7 @@ _0809FC10: .4byte gUnknown_02022EEC
 _0809FC14: .4byte gUnknown_02013670
 _0809FC18: .4byte gUnknown_02023CC6
 _0809FC1C: .4byte sub_809EC38
-_0809FC20: .4byte gRAMChapterData
+_0809FC20: .4byte gPlaySt
 
 	THUMB_FUNC_END sub_809FB70
 
@@ -2177,7 +2177,7 @@ _0809FCE0:
 	bl sub_80ACA84
 	adds r0, r5, #0
 	bl Proc_Break
-	ldr r0, _0809FD08  @ gRAMChapterData
+	ldr r0, _0809FD08  @ gPlaySt
 	adds r0, #0x41
 	ldrb r0, [r0]
 	lsls r0, r0, #0x1e
@@ -2187,7 +2187,7 @@ _0809FCE0:
 	bl m4aSongNumStart
 	b _0809FD4E
 	.align 2, 0
-_0809FD08: .4byte gRAMChapterData
+_0809FD08: .4byte gPlaySt
 _0809FD0C:
 	adds r0, r5, #0
 	bl sub_809FA88

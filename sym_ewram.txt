@@ -496,8 +496,8 @@
 . = 0x02B5AC; gUnknown_0202B5AC = .;
 . = 0x02B6AC; gUnknown_0202B6AC = .;
 . = 0x02B6B0; gUnknown_0202B6B0 = .;
-. = 0x02BCB0; gGameState = .;
-. = 0x02BCF0; gRAMChapterData = .;
+. = 0x02BCB0; gBmSt = .;
+. = 0x02BCF0; gPlaySt = .;
 . = 0x02BCFE; gUnknown_0202BCFE = .;
 . = 0x02BD0B; gUnknown_0202BD0B = .;
 . = 0x02BD30; gUnknown_0202BD30 = .;
@@ -622,6 +622,8 @@
 . = 0x03E87C; gUnknown_0203E87C = .;
 . = 0x03E884; gUnknown_0203E884 = .;
 . = 0x03E88E; gBoolSramWorking = .;
+. = ALIGN(4); src/bmsave-lib.o(ewram_data);
+. = ALIGN(4); src/bmsave-bwl.o(ewram_data);
 . = ALIGN(4); src/bmsave.o(ewram_data);
 . = 0x03EDBC; gUnknown_0203EDBC = .;
 . = 0x03EE80; gUnknown_0203EE80 = .;

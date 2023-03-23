@@ -21,8 +21,8 @@ s8 sub_8083F68(u8, u8);
 s8 IsThereClosedDoorAt(s8, s8);
 
 // code.s
-void BWL_AddWinOrLossIdk(u8, u8, int);
-void RecordUnitLossData(u8);
+void PidStatsRecordDefeatInfo(u8, u8, int);
+void PidStatsRecordLoseData(u8);
 
 s8 CanUnitCrossTerrain(struct Unit* unit, int terrain);
 
@@ -228,7 +228,7 @@ void TryAddUnitToTradeTargetList(struct Unit* unit) {
     }
 
     if (unit->state & US_RESCUING) {
-        struct Unit* rescue = GetUnit(unit->rescueOtherUnit);
+        struct Unit* rescue = GetUnit(unit->rescue);
 
         if (UNIT_FACTION(rescue) != FACTION_BLUE) {
             return;
@@ -255,7 +255,7 @@ void MakeTradeTargetList(struct Unit* unit) {
 
     if (gSubjectUnit->state & US_RESCUING) {
         int count = GetSelectTargetCount();
-        TryAddUnitToTradeTargetList(GetUnit(gSubjectUnit->rescueOtherUnit));
+        TryAddUnitToTradeTargetList(GetUnit(gSubjectUnit->rescue));
 
         if (count != GetSelectTargetCount()) {
             GetTarget(count)->x = gSubjectUnit->xPos;
@@ -312,7 +312,7 @@ void TryAddToDropTargetList(int x, int y) {
         return;
     }
 
-    if (!CanUnitCrossTerrain(GetUnit(gSubjectUnit->rescueOtherUnit), gBmMapTerrain[y][x])) {
+    if (!CanUnitCrossTerrain(GetUnit(gSubjectUnit->rescue), gBmMapTerrain[y][x])) {
         return;
     }
 
@@ -347,7 +347,7 @@ void TryAddRescuedUnitToTakeTargetList(struct Unit* unit) {
         return;
     }
 
-    if (!CanUnitRescue(gSubjectUnit, GetUnit(unit->rescueOtherUnit))) {
+    if (!CanUnitRescue(gSubjectUnit, GetUnit(unit->rescue))) {
         return;
     }
 
@@ -387,7 +387,7 @@ void TryAddUnitToGiveTargetList(struct Unit* unit) {
         return;
     }
 
-    if (!CanUnitRescue(unit, GetUnit(gSubjectUnit->rescueOtherUnit))) {
+    if (!CanUnitRescue(unit, GetUnit(gSubjectUnit->rescue))) {
         return;
     }
 
@@ -794,7 +794,7 @@ void AddAsTarget_IfPositionCleanForSummon(int x, int y) {
         return;
     }
 
-    if (gRAMChapterData.chapterVisionRange != 0 && gBmMapFog[y][x] == 0) {
+    if (gPlaySt.chapterVisionRange != 0 && gBmMapFog[y][x] == 0) {
         return;
     }
 
@@ -826,7 +826,7 @@ void sub_8025CD8(int x, int y) {
         return;
     }
 
-    if (gRAMChapterData.chapterVisionRange != 0 && gBmMapFog[y][x] == 0) {
+    if (gPlaySt.chapterVisionRange != 0 && gBmMapFog[y][x] == 0) {
         return;
     }
 
@@ -1242,8 +1242,8 @@ void sub_8026414(int unk) {
         struct Unit* unit = GetUnit(target->uid);
 
         if (GetUnitCurrentHp(unit) <= target->extra) {
-            BWL_AddWinOrLossIdk(unit->pCharacterData->number, 0, unk);
-            RecordUnitLossData(unit->pCharacterData->number);
+            PidStatsRecordDefeatInfo(unit->pCharacterData->number, 0, unk);
+            PidStatsRecordLoseData(unit->pCharacterData->number);
         }
     }
 
@@ -1257,7 +1257,7 @@ void TryAddToMineTargetList(int x, int y) {
         return;
     }
 
-    if ((gRAMChapterData.chapterVisionRange != 0) && (gBmMapFog[y][x] == 0)) {
+    if ((gPlaySt.chapterVisionRange != 0) && (gBmMapFog[y][x] == 0)) {
         return;
     }
 

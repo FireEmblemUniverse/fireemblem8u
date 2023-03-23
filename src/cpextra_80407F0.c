@@ -274,7 +274,7 @@ s8 sub_8040C5C() {
             // BUG? No explicit return statement
         } else {
 
-            if (gRAMChapterData.chapterIndex == 0xE) {
+            if (gPlaySt.chapterIndex == 0xE) {
 
                 if (GetUnitItemCount(gActiveUnit) >= UNIT_ITEM_COUNT) {
                     flags |= 0xC;
@@ -547,7 +547,7 @@ s8 AiTryUseNightmareStaff(struct UnknownAiInputA* input) {
     xBest = 0;
     yBest = 0;
 
-    if (gRAMChapterData.chapterTurnNumber < 2) {
+    if (gPlaySt.chapterTurnNumber < 2) {
         gAiState.unk86[0] = 0;
         gAiState.unk86[1] = 0;
 
@@ -653,7 +653,7 @@ s8 AiTryDKSummon(struct UnknownAiInputB* input) {
 
     int totalSummonedUnits = 0;
 
-    if (gRAMChapterData.chapterTurnNumber == 1) {
+    if (gPlaySt.chapterTurnNumber == 1) {
         gAiState.unk86[0] = 1;
         gAiState.unk86[1] = gActiveUnit->xPos;
         gAiState.unk86[2] = gActiveUnit->yPos;

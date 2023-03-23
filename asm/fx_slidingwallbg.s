@@ -69,7 +69,7 @@ _08086BD2:
 	bge _08086BD8
 	movs r5, #0xe
 _08086BD8:
-	ldr r0, _08086BF4  @ gGameState
+	ldr r0, _08086BF4  @ gBmSt
 	ldrb r1, [r0, #4]
 	movs r0, #0x40
 	ands r0, r1
@@ -82,7 +82,7 @@ _08086BD8:
 	b _08086C06
 	.align 2, 0
 _08086BF0: .4byte gBG3TilemapBuffer
-_08086BF4: .4byte gGameState
+_08086BF4: .4byte gBmSt
 _08086BF8: .4byte gUnknown_08B1754C
 _08086BFC:
 	ldr r0, _08086C40  @ gUnknown_08B1754C

@@ -49,7 +49,7 @@ static void AiPhaseInit(struct Proc* proc)
     for (i = 0; i < 8; ++i)
         gAiState.unk86[i] = 0;
 
-    gAiState.specialItemFlags = gAiItemConfigTable[gRAMChapterData.chapterIndex];
+    gAiState.specialItemFlags = gAiItemConfigTable[gPlaySt.chapterIndex];
     gAiState.unk84 = 0;
 
     UpdateAllPhaseHealingAIStatus();
@@ -68,7 +68,7 @@ static void AiPhaseBerserkInit(struct Proc* proc)
     for (i = 0; i < 8; ++i)
         gAiState.unk86[i] = 0;
 
-    gAiState.specialItemFlags = gAiItemConfigTable[gRAMChapterData.chapterIndex];
+    gAiState.specialItemFlags = gAiItemConfigTable[gPlaySt.chapterIndex];
 
     UpdateAllPhaseHealingAIStatus();
     SetupUnitInventoryAIFlags();

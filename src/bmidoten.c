@@ -788,7 +788,7 @@ void GenerateDangerZoneRange(s8 boolDisplayStaffRange)
         if (boolDisplayStaffRange && !UnitHasMagicRank(unit))
             continue; // no magic in magic range mode
 
-        if (gRAMChapterData.chapterVisionRange && (gBmMapFog[unit->yPos][unit->xPos] == 0))
+        if (gPlaySt.chapterVisionRange && (gBmMapFog[unit->yPos][unit->xPos] == 0))
             continue; // in the fog
 
         if (unit->state & US_UNDER_A_ROOF)

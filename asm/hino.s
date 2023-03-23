@@ -3265,7 +3265,7 @@ PlaySpacialSoundMaybe: @ 0x08014B28
 	push {r4, r5, r6, lr}
 	adds r4, r0, #0
 	adds r6, r1, #0
-	ldr r0, _08014B78  @ gRAMChapterData
+	ldr r0, _08014B78  @ gPlaySt
 	adds r0, #0x41
 	ldrb r0, [r0]
 	lsls r0, r0, #0x1e
@@ -3300,7 +3300,7 @@ _08014B42:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_08014B78: .4byte gRAMChapterData
+_08014B78: .4byte gPlaySt
 _08014B7C: .4byte gMPlayTable
 _08014B80: .4byte gSongTable
 _08014B84: .4byte 0x0000FFFF
@@ -3326,7 +3326,7 @@ _08014B9C: .4byte sub_8014BA0
 sub_8014BA0: @ 0x08014BA0
 	push {lr}
 	adds r1, r0, #0
-	ldr r0, _08014BBC  @ gRAMChapterData
+	ldr r0, _08014BBC  @ gPlaySt
 	adds r0, #0x41
 	ldrb r0, [r0]
 	lsls r0, r0, #0x1e
@@ -3339,7 +3339,7 @@ _08014BB8:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_08014BBC: .4byte gRAMChapterData
+_08014BBC: .4byte gPlaySt
 
 	THUMB_FUNC_END sub_8014BA0
 

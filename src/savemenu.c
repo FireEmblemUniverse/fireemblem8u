@@ -134,17 +134,17 @@ int LoadSaveMenuHelpText(int slot) {
     int leaderId;
     uintptr_t saveBase;
     int i;
-    struct RAMChapterData chapterData;
+    struct PlaySt chapterData;
     struct Unit unit;
     struct GMapData mapData;
 
     u8 localbuffer[0x30];
 
-    if (!SaveMetadata_LoadId(slot)) {
+    if (!IsSaveValid(slot)) {
         return 0;
     }
 
-    LoadSavedChapterState(slot, &chapterData);
+    ReadGameSavePlaySt(slot, &chapterData);
 
     switch (chapterData.chapterModeIndex) {
         case 1:
@@ -157,7 +157,7 @@ int LoadSaveMenuHelpText(int slot) {
             break;
     }
 
-    saveBase = GetSaveSourceAddress(slot);
+    saveBase = GetSaveReadAddr(slot);
 
     for (i = 0;; i++) {
 
@@ -179,7 +179,7 @@ int LoadSaveMenuHelpText(int slot) {
         gUnknown_0203EF64.unk_00 = leaderId;
         gUnknown_0203EF64.unk_01 = unit.level;
 
-        LoadWMStuff((void*)(saveBase + 0xD8C), &mapData);
+        ReadWorldMapStuff((void*)(saveBase + 0xD8C), &mapData);
         gUnknown_0203EF64.unk_02 = mapData.unk10[0].location;
 
         return 2;
@@ -196,7 +196,7 @@ int LoadSaveMenuHelpText(int slot) {
         push {r4, r5, r6, r7, lr}\n\
         sub sp, #0x168\n\
         adds r4, r0, #0\n\
-        bl SaveMetadata_LoadId\n\
+        bl IsSaveValid\n\
         lsls r0, r0, #0x18\n\
         cmp r0, #0\n\
         bne _080A8964\n\
@@ -205,7 +205,7 @@ int LoadSaveMenuHelpText(int slot) {
     _080A8964:\n\
         adds r0, r4, #0\n\
         mov r1, sp\n\
-        bl LoadSavedChapterState\n\
+        bl ReadGameSavePlaySt\n\
         mov r0, sp\n\
         ldrb r0, [r0, #0x1b]\n\
         cmp r0, #1\n\
@@ -221,7 +221,7 @@ int LoadSaveMenuHelpText(int slot) {
         movs r6, #0xf\n\
     _080A8982:\n\
         adds r0, r4, #0\n\
-        bl GetSaveSourceAddress\n\
+        bl GetSaveReadAddr\n\
         adds r7, r0, #0\n\
         movs r5, #0\n\
         adds r4, r7, #0\n\
@@ -251,7 +251,7 @@ int LoadSaveMenuHelpText(int slot) {
         adds r0, r7, r1\n\
         add r5, sp, #0x94\n\
         adds r1, r5, #0\n\
-        bl LoadWMStuff\n\
+        bl ReadWorldMapStuff\n\
         ldrb r0, [r5, #0x11]\n\
         strb r0, [r4, #2]\n\
         b _080A89D8\n\
@@ -346,9 +346,9 @@ void sub_80A8AF0(void) {
     int mapLocation;
     u32 chapterId;
 
-    if (!(gRAMChapterData.chapterStateBits & CHAPTER_FLAG_COMPLETE)) {
+    if (!(gPlaySt.chapterStateBits & PLAY_FLAG_COMPLETE)) {
 
-        chapterId = gRAMChapterData.chapterIndex;
+        chapterId = gPlaySt.chapterIndex;
 
         if ((gGMData.state & 3) == 3) {
             if (chapterId > 0x01 && chapterId != 0x38) {
@@ -358,16 +358,16 @@ void sub_80A8AF0(void) {
                     mapLocation = 0;
                 }
 
-                gRAMChapterData.chapterIndex = WMLoc_GetChapterId(mapLocation);
+                gPlaySt.chapterIndex = WMLoc_GetChapterId(mapLocation);
             }
         } else {
-            if (gRAMChapterData.chapterIndex == 0x06 && CheckEventId(0x88) != 0) {
-                gRAMChapterData.chapterIndex = 0x38;
+            if (gPlaySt.chapterIndex == 0x06 && CheckEventId(0x88) != 0) {
+                gPlaySt.chapterIndex = 0x38;
             } else {
                 if (chapterId != 0x01 && chapterId != 0x0A && chapterId != 0x17) {
-                    if (gRAMChapterData.unk4A_2 != 2) {
-                        if (!(gGameState.gameStateBits & 0x10)) {
-                            gRAMChapterData.chapterIndex = sub_80BD224(&gGMData);
+                    if (gPlaySt.unk4A_2 != 2) {
+                        if (!(gBmSt.gameStateBits & 0x10)) {
+                            gPlaySt.chapterIndex = sub_80BD224(&gGMData);
                             asm("");
                         }
                     }
@@ -544,7 +544,7 @@ void SaveMenu_LoadExtraMenuGraphics(struct SaveMenuProc* proc) {
 //! FE8U = 0x080A8F8C
 void sub_80A8F8C(struct SaveMenuProc* proc) {
     proc->unk_2e = 5;
-    proc->unk_2c = GetLastUsedGameSaveSlot();
+    proc->unk_2c = ReadLastGameSaveId();
     proc->unk_2b = 0;
     proc->unk_34 = 0;
     proc->unk_46 = 0;
@@ -558,7 +558,7 @@ void sub_80A8F8C(struct SaveMenuProc* proc) {
 //! FE8U = 0x080A8FD0
 void sub_80A8FD0(struct SaveMenuProc* proc) {
     proc->unk_2e = 5;
-    proc->unk_2c = GetLastUsedGameSaveSlot();
+    proc->unk_2c = ReadLastGameSaveId();
     proc->unk_2b = 0;
     proc->unk_34 = 0;
     proc->unk_46 = 0;
@@ -616,7 +616,7 @@ void Loop6C_savemenu(struct SaveMenuProc* proc) {
             case 2:
             case 4:
             case 8:
-                proc->unk_2c = sub_80AB98C(GetLastUsedGameSaveSlot(), 1, 1);
+                proc->unk_2c = sub_80AB98C(ReadLastGameSaveId(), 1, 1);
                 Proc_Goto(proc, 3);
 
                 break;
@@ -669,7 +669,7 @@ void sub_80A9250(struct SaveMenuProc* proc) {
             break;
     }
 
-    SaveNewGame(proc->unk_2c, isDifficult, 1, isTutorial);
+    WriteNewGameSave(proc->unk_2c, isDifficult, 1, isTutorial);
 
     return;
 }
@@ -720,7 +720,7 @@ void sub_80A9290(struct SaveMenuProc* proc) {
             if (proc->unk_36 == 1) {
                 proc->unk_44 = 0xf0;
 
-                LoadGame(proc->unk_2c);
+                ReadGameSave(proc->unk_2c);
 
                 PlaySoundEffect(0x6a);
 
@@ -763,7 +763,7 @@ void sub_80A9290(struct SaveMenuProc* proc) {
 
         case 8:
             if (proc->unk_36 == 1) {
-                sub_80A4DC8(proc->unk_2c);
+                InvalidateGameSave(proc->unk_2c);
                 Proc_Goto(proc, 6);
                 PlaySoundEffect(0x6a);
             } else {
@@ -774,7 +774,7 @@ void sub_80A9290(struct SaveMenuProc* proc) {
 
         case 0x40:
             if (proc->unk_36 == 1) {
-                SaveGame(proc->unk_2c);
+                WriteGameSave(proc->unk_2c);
                 Proc_Goto(proc, 6);
                 PlaySoundEffect(0x60);
             } else {
@@ -1149,7 +1149,7 @@ void sub_80A9B90(struct SaveMenuProc* proc) {
 
         switch (proc->unk_35) {
             case 0x40:
-                proc->unk_2c = sub_80AB98C(GetLastUsedGameSaveSlot(), 1, 1);
+                proc->unk_2c = sub_80AB98C(ReadLastGameSaveId(), 1, 1);
                 sub_80A9D20(proc, 0);
 
                 PlaySoundEffect(0x6a);
@@ -1171,7 +1171,7 @@ void sub_80A9B90(struct SaveMenuProc* proc) {
                 break;
 
             case 0x10:
-                proc->unk_2c = sub_80AB98C(GetLastUsedGameSaveSlot(), 1, 1);
+                proc->unk_2c = sub_80AB98C(ReadLastGameSaveId(), 1, 1);
                 sub_80A9D20(proc, 0);
 
                 PlaySoundEffect(0x6a);
@@ -1181,7 +1181,7 @@ void sub_80A9B90(struct SaveMenuProc* proc) {
                 break;
 
             case 0x20:
-                proc->unk_2c = sub_80AB98C(GetLastUsedGameSaveSlot(), 1, 1);
+                proc->unk_2c = sub_80AB98C(ReadLastGameSaveId(), 1, 1);
                 sub_80A9D20(proc, 0);
 
                 PlaySoundEffect(0x6a);
@@ -1316,7 +1316,7 @@ void sub_80A9E1C(struct SaveMenuProc* proc) {
                         return;
                     }
 
-                    LoadGame(proc->unk_2c);
+                    ReadGameSave(proc->unk_2c);
                     Proc_Goto(proc, 0xe);
                     PlaySoundEffect(0x6a);
                     return;
@@ -1333,7 +1333,7 @@ void sub_80A9E1C(struct SaveMenuProc* proc) {
                         return;
                     }
 
-                    LoadGame(proc->unk_2c);
+                    ReadGameSave(proc->unk_2c);
                     Proc_Goto(proc, 0xe);
                     PlaySoundEffect(0x6a);
                     return;
@@ -1346,7 +1346,7 @@ void sub_80A9E1C(struct SaveMenuProc* proc) {
             case 0x10:
                 if (((proc->unk_3b[proc->unk_2c]) & 4) != 0) {
                     if (proc->unk_3f == 0xFF) {
-                        LoadGame(proc->unk_2c);
+                        ReadGameSave(proc->unk_2c);
                         sub_80A882C(proc);
                         PlaySoundEffect(0x6a);
                         return;
@@ -1408,7 +1408,7 @@ void sub_80AA030(struct SaveMenuProc* proc) {
                 return;
             case 0x10:
                 SetNextGameActionId(GAME_ACTION_C);
-                gRAMChapterData.chapterStateBits |= CHAPTER_FLAG_POSTGAME;
+                gPlaySt.chapterStateBits |= PLAY_FLAG_POSTGAME;
                 return;
         }
     } else if (proc->unk_42 & 0x40) {
@@ -1421,10 +1421,10 @@ void sub_80AA030(struct SaveMenuProc* proc) {
             SetNextGameActionId(GAME_ACTION_5);
         }
     } else if (proc->unk_42 & 1) {
-        LoadSuspendedGame(3);
+        ReadSuspendSave(3);
         SetNextGameActionId(GAME_ACTION_4);
     } else if (proc->unk_42 & 0x82) {
-        LoadGame(proc->unk_2c);
+        ReadGameSave(proc->unk_2c);
         SetNextGameActionId(proc->unk_2c + 1);
     } else if (proc->unk_42 & 0x10) {
         SetNextGameActionId(GAME_ACTION_0);
@@ -1444,11 +1444,11 @@ void sub_80AA118(struct SaveMenuProc* proc) {
 
     SetNextGameActionId(GAME_ACTION_7);
 
-    gRAMChapterData.chapterStateBits |= CHAPTER_FLAG_7;
+    gPlaySt.chapterStateBits |= PLAY_FLAG_7;
 
     sub_80A6C8C();
 
-    gRAMChapterData.chapterIndex = 0x7f;
+    gPlaySt.chapterIndex = 0x7f;
 
     Proc_End(proc->proc_parent);
 
@@ -1833,14 +1833,14 @@ void Make6C_savemenu(ProcPtr parent) {
     proc->unk_42 = 0x100;
     proc->unk_35 = 0;
 
-    gRAMChapterData.cfgTextSpeed = 2;
+    gPlaySt.cfgTextSpeed = 2;
 
     return;
 }
 
 //! FE8U = 0x080AA4F8
 void sub_80AA4F8(ProcPtr proc) {
-    if (!(gGameState.gameStateBits & 0x10)) {
+    if (!(gBmSt.gameStateBits & 0x10)) {
         Proc_Goto(proc, 0x14);
     }
 

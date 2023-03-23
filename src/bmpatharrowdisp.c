@@ -139,8 +139,8 @@ void ResetPathArrow(void) {
     CutOffPathLength(1);
     GenerateMovementMapForActiveUnit();
     GenerateBestMovementScript(
-        gGameState.playerCursor.x,
-        gGameState.playerCursor.y,
+        gBmSt.playerCursor.x,
+        gBmSt.playerCursor.y,
         gWorkingMovementScript);
     GetPathFromMovementScript();
 }
@@ -176,11 +176,11 @@ void PathArrowDisp_Init(u8 a) {
 }
 
 static inline s8 GetBmMapPointAtCursor() {
-    return gWorkingBmMap[gGameState.playerCursor.y][gGameState.playerCursor.x];
+    return gWorkingBmMap[gBmSt.playerCursor.y][gBmSt.playerCursor.x];
 }
 
 static inline u8 GetTerrainAtCursor() {
-    return TERRAIN_AT(gGameState.playerCursor.x, gGameState.playerCursor.y);
+    return TERRAIN_AT(gBmSt.playerCursor.x, gBmSt.playerCursor.y);
 }
 
 #define LAST_X_POINT gUnknown_0859DBA0.proc->pathX[gUnknown_0859DBA0.proc->pathLen]
@@ -192,17 +192,17 @@ void UpdatePathArrowWithCursor(void) {
     s8 point;
     s32 pointAlias;
 
-    if (gUnknown_0859DBA0.proc->lastX == gGameState.playerCursor.x &&
-        gUnknown_0859DBA0.proc->lastY == gGameState.playerCursor.y)
+    if (gUnknown_0859DBA0.proc->lastX == gBmSt.playerCursor.x &&
+        gUnknown_0859DBA0.proc->lastY == gBmSt.playerCursor.y)
     {
         return;
     }
-    SetLastCoords(gGameState.playerCursor.x, gGameState.playerCursor.y);
+    SetLastCoords(gBmSt.playerCursor.x, gBmSt.playerCursor.y);
     SetWorkingBmMap(gBmMapMovement);
     if (GetBmMapPointAtCursor() == -1)
         return;
     pointAlias = point = GetPointAlongPath(
-        gGameState.playerCursor.x, gGameState.playerCursor.y);
+        gBmSt.playerCursor.x, gBmSt.playerCursor.y);
     if (pointAlias != -1) {
         ++point;
         CutOffPathLength(point);
@@ -211,11 +211,11 @@ void UpdatePathArrowWithCursor(void) {
     if (gUnknown_0859DBA0.proc->pathCosts[gUnknown_0859DBA0.proc->pathLen] >=
         GetWorkingMoveCosts()[GetTerrainAtCursor()])
     {
-        if (abs(LAST_X_POINT - gGameState.playerCursor.x) +
-            abs(LAST_Y_POINT - gGameState.playerCursor.y) == 1)
+        if (abs(LAST_X_POINT - gBmSt.playerCursor.x) +
+            abs(LAST_Y_POINT - gBmSt.playerCursor.y) == 1)
         {
             AddPointToPathArrowProc(
-                gGameState.playerCursor.x, gGameState.playerCursor.y);
+                gBmSt.playerCursor.x, gBmSt.playerCursor.y);
             return;
         }
     }
@@ -228,8 +228,8 @@ void UpdatePathArrowWithCursor(void) {
         return;
     }
     GenerateBestMovementScript(
-        gGameState.playerCursor.x,
-        gGameState.playerCursor.y,
+        gBmSt.playerCursor.x,
+        gBmSt.playerCursor.y,
         gWorkingMovementScript);
     GetPathFromMovementScript();
     if (!PathContainsNoCycle())
@@ -263,10 +263,10 @@ u8 GetDirectionOfPathAfterIndex(u8 i) {
 }
 
 u8 PointInCameraBounds(s16 x, s16 y, u8 xBound, u8 yBound) {
-    if (y - gGameState.camera.y > -yBound &&
-		y - gGameState.camera.y <= 0x9f &&
-		x - gGameState.camera.x > -xBound &&
-		x - gGameState.camera.x <= 0xef)
+    if (y - gBmSt.camera.y > -yBound &&
+		y - gBmSt.camera.y <= 0x9f &&
+		x - gBmSt.camera.x > -xBound &&
+		x - gBmSt.camera.x <= 0xef)
 	{
 		return 1;
 	}
@@ -288,8 +288,8 @@ void DrawPathArrow(void) {
                 GetDirectionOfPathBeforeIndex(i));
             PutSprite(
                 11,
-                xp - gGameState.camera.x,
-                yp - gGameState.camera.y,
+                xp - gBmSt.camera.x,
+                yp - gBmSt.camera.y,
                 gObject_16x16,
                 oam2);
         }

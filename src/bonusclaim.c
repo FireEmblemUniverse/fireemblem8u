@@ -12,7 +12,7 @@
 #include "m4a.h"
 #include "soundwrapper.h"
 #include "bmitem.h"
-
+#include "bmsave.h"
 
 struct BonusClaimProc {
     /* 00 */ PROC_HEADER;
@@ -78,7 +78,7 @@ int LoadBonusContentData(void*);
 void sub_80895B4(int, int);
 void sub_8089678(int);
 void sub_8089624(int, u32);
-int sub_8089768(struct RAMChapterData*);
+int sub_8089768(struct PlaySt*);
 
 extern u16* gUnknown_08A209E4[];
 extern u16* gUnknown_08A209F0[];
@@ -93,23 +93,23 @@ void sub_80B0638(void) {
 //! FE8U = 0x080B0674
 void sub_80B0674(void) {
 
-    u32 flags = (-(gRAMChapterData.chapterStateBits & 0x40) >> 0x1f) & 4;
+    u32 flags = (-(gPlaySt.chapterStateBits & 0x40) >> 0x1f) & 4;
 
-    if (gRAMChapterData.cfgController == 0) {
+    if (gPlaySt.cfgController == 0) {
 
-        if (gRAMChapterData.chapterModeIndex == 1) {
+        if (gPlaySt.chapterModeIndex == 1) {
             flags |= 0x10;
         }
 
-        if (gRAMChapterData.chapterModeIndex == 2) {
+        if (gPlaySt.chapterModeIndex == 2) {
             flags |= 0x20;
         }
 
-        if (gRAMChapterData.chapterModeIndex == 3) {
+        if (gPlaySt.chapterModeIndex == 3) {
             flags |= 0x40;
         }
     } else {
-        if (gRAMChapterData.chapterModeIndex == 3) {
+        if (gPlaySt.chapterModeIndex == 3) {
             flags |= 0x40;
         } else {
             flags |= 0x20;
@@ -122,7 +122,7 @@ void sub_80B0674(void) {
     EnablePaletteSync();
 
     sub_8089678(0xac0);
-    sub_8089624(0xb40, sub_8089768(&gRAMChapterData));
+    sub_8089624(0xb40, sub_8089768(&gPlaySt));
 
     return;
 }
@@ -177,7 +177,7 @@ s8 sub_80B0760(void) {
 
             switch (ent->unk_01) {
                 case 1:
-                    if ((gRAMChapterData.unk_2B_00) == 0) {
+                    if ((gPlaySt.unk_2B_00) == 0) {
                         continue;
                     }
 
@@ -923,7 +923,7 @@ void sub_80B13BC(struct BonusClaimProc* proc) {
 
     sub_80B1008(proc);
 
-    SaveGame(GetLastUsedGameSaveSlot());
+    WriteGameSave(ReadLastGameSaveId());
 
     proc->unk_30 = 0;
     sub_80ACA84(proc->unk_30);

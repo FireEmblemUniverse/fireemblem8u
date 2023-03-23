@@ -880,8 +880,8 @@ static void MU_InterpretCommandScript(struct MUProc* proc) {
             proc->stateId = MU_STATE_BUMPING;
 
             MU_StartFogBumpFx(
-                (proc->xSubPosition >> MU_SUBPIXEL_PRECISION) - gGameState.camera.x,
-                (proc->ySubPosition >> MU_SUBPIXEL_PRECISION) - gGameState.camera.y
+                (proc->xSubPosition >> MU_SUBPIXEL_PRECISION) - gBmSt.camera.x,
+                (proc->ySubPosition >> MU_SUBPIXEL_PRECISION) - gBmSt.camera.y
             );
 
             return;
@@ -1062,8 +1062,8 @@ static void MU_State_DuringMovement(struct MUProc* proc) {
     }
 
     if (proc->boolAttractCamera && !Proc_Find(gProcScr_CamMove)) {
-        gGameState.camera.x = GetCameraAdjustedX(proc->xSubPosition >> MU_SUBPIXEL_PRECISION);
-        gGameState.camera.y = GetCameraAdjustedY(proc->ySubPosition >> MU_SUBPIXEL_PRECISION);
+        gBmSt.camera.x = GetCameraAdjustedX(proc->xSubPosition >> MU_SUBPIXEL_PRECISION);
+        gBmSt.camera.y = GetCameraAdjustedY(proc->ySubPosition >> MU_SUBPIXEL_PRECISION);
     }
 
     if (!(proc->moveConfig & 0x80))
@@ -1333,8 +1333,8 @@ u8 MU_ComputeDisplayPosition(struct MUProc* proc, struct Vec2* out) {
         out->x = (proc->xSubPosition + proc->xSubOffset) >> MU_SUBPIXEL_PRECISION;
         out->y = (proc->ySubPosition + proc->ySubOffset) >> MU_SUBPIXEL_PRECISION;
     } else {
-        short x = ((proc->xSubPosition + proc->xSubOffset) >> MU_SUBPIXEL_PRECISION) - gGameState.camera.x + 8;
-        short y = ((proc->ySubPosition + proc->ySubOffset) >> MU_SUBPIXEL_PRECISION) - gGameState.camera.y + 8;
+        short x = ((proc->xSubPosition + proc->xSubOffset) >> MU_SUBPIXEL_PRECISION) - gBmSt.camera.x + 8;
+        short y = ((proc->ySubPosition + proc->ySubOffset) >> MU_SUBPIXEL_PRECISION) - gBmSt.camera.y + 8;
 
         out->x = x;
         out->y = y + 8;
@@ -1398,7 +1398,7 @@ static void MU_DisplayAsMMS(struct MUProc* proc) {
 
         if (proc->stateId != MU_STATE_UI_DISPLAY)
             if (proc->pUnit && UNIT_FACTION(proc->pUnit) == FACTION_RED)
-                if (gRAMChapterData.chapterVisionRange != 0)
+                if (gPlaySt.chapterVisionRange != 0)
                     if (!gBmMapFog[MU_GetDisplayYOrg(proc) >> 4][MU_GetDisplayXOrg(proc) >> 4])
                         return; // whew
 
@@ -1429,7 +1429,7 @@ static u16 MU_GetMovementSpeed(struct MUProc* proc) {
 
             if (speed & 0x40)
                 speed ^= 0x40;
-            else if (gRAMChapterData.cfgGameSpeed || (gKeyStatusPtr->heldKeys & A_BUTTON))
+            else if (gPlaySt.cfgGameSpeed || (gKeyStatusPtr->heldKeys & A_BUTTON))
                 speed *= 4;
 
             if (speed > 0x80)
@@ -1441,7 +1441,7 @@ static u16 MU_GetMovementSpeed(struct MUProc* proc) {
         if (!IsFirstPlaythrough() && (gKeyStatusPtr->heldKeys & A_BUTTON))
             return 0x80;
 
-        if (gRAMChapterData.cfgGameSpeed)
+        if (gPlaySt.cfgGameSpeed)
             return 0x40;
     }
 

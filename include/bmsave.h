@@ -1,25 +1,40 @@
 #ifndef BMSAVE_H
 #define BMSAVE_H
 
-#define InterruptEnableRegister ((u16*)0x4000200)
-
 enum save_chunk_index {
-    SAVE_CHUNK_0,
-    SAVE_CHUNK_1,
-    SAVE_CHUNK_2,
-    SAVE_CHUNK_3,
-    SAVE_CHUNK_4,
-    SAVE_CHUNK_5,
-    SAVE_CHUNK_6,
-    SAVE_CHUNK_MAX
+    SAVE_ID_GAME0,
+    SAVE_ID_GAME1,
+    SAVE_ID_GAME2,
+    SAVE_ID_SUSPEND,
+    SAVE_ID_SUSPEND_ALT,
+    SAVE_ID_5,
+    SAVE_ID_6,
+    SAVE_ID_MAX
 };
 
-struct SaveMeta {
-    /* 00 */ u8 magic[0x8];
-    /* 08 */ u32 _00040624;
-    /* 0C */ u16 _200A;
+enum {
+    SAVEBLOCK_KIND_GAME,
+    SAVEBLOCK_KIND_SUSPEND,
+    SAVEBLOCK_KIND_2,
+    SAVEBLOCK_KIND_3,
+    SAVEBLOCK_KIND_INVALID = -1
+};
 
-    /* 0E */ u8 play_through_declared  : 1;
+enum bmsave_magics_fe8 {
+    SAVEMAGIC16      = 0x200A,
+    SAVEMAGIC32      = 0x40624,
+    SAVEMAGIC32_UNK5 = 0x20112,
+    SAVEMAGIC32_UNK6 = 0x20223,
+};
+
+#define MAX_SAVED_GAME_CLEARS 12
+
+struct GlobalSaveInfo {
+    /* 00 */ char name[0x8];
+    /* 08 */ u32 magic32;
+    /* 0C */ u16 magic16;
+
+    /* 0E */ u8 completed  : 1;
              u8 flag0E_1 : 1;
              u8 Eirk_mode_easy : 1;
              u8 Eirk_mode_norm : 1;
@@ -28,34 +43,37 @@ struct SaveMeta {
              u8 Ephy_mode_norm : 1;
              u8 Ephy_mode_hard : 1;
 
-    /* 0F */ u8 unk0F_0 : 1;
+    /* 0F */ u8 game_end : 1;
              u8 unk0F_1 : 7;
-
     /* 10 */ u16 unk10;
     /* 10 */ u16 unk12;
-    /* 14 */ u8 playthrough_ids[3 * 4];
+
+    /* 14 */ u8 cleared_playthroughs[MAX_SAVED_GAME_CLEARS];
     /* 20 */ u8 SuppordRecord[0x40 - 0x20];
     /* 40 */ u8 charKnownFlags[0x60 - 0x40];
-    /* 60 */ u16 sec_sum;
-    /* 62 */ u8 slot_sa;
-    /* 63 */ u8 slot_su;
+
+    /* 60 */ u16 checksum;
+    /* 62 */ u8 last_game_save_id;
+    /* 63 */ u8 last_suspend_slot;
 };
 
-struct SramChunk {
-    /* 00 */ u32 magic1;
-    /* 04 */ u16 magic2;
-    /* 06 */ u8 type;
+#define GLOBALSIZEINFO_SIZE_FOR_CHECKSUM 0x50
+
+struct SaveBlockInfo {
+    /* 00 */ u32 magic32;
+    /* 04 */ u16 magic16;
+    /* 06 */ u8 kind;
 
     /* 07 */ s8 _pad_07;
 
-    /* 08 */ u16 sram_offset;
+    /* 08 */ u16 offset;
     /* 0A */ u16 size;
-    /* 0C */ u32 cksum32;
+    /* 0C */ u32 checksum32;
 };
 
 struct SramHeader {
-    struct SaveMeta meta;
-    struct SramChunk chunks[0x7];
+    struct GlobalSaveInfo meta;
+    struct SaveBlockInfo chunks[0x7];
 };
 
 /* used in IsExtraBonusClaimEnabled */
@@ -109,8 +127,8 @@ struct bmsave_unkstruct2 {
     u16 magic2;
 };
 
-struct UnitSavePack {       /* Save Data */
-    /* 00 */ u32 class      : 7;
+struct GameSavePackedUnit {       /* Save Data */
+    /* 00 */ u32 jid      : 7;
              u32 level      : 5;
              u32 exp        : 7;
              u32 xPos       : 6;
@@ -133,7 +151,7 @@ struct UnitSavePack {       /* Save Data */
              u32 item4      : 14;
              u32 item5      : 14;
     
-    /* 14 */ u8 char_index;
+    /* 14 */ u8 pid;
     /* 15 */ u8 wpnRanks[0x8];
     /* 1D */ u8 supports[UNIT_SUPPORT_MAX_COUNT];
     /* 24 */
@@ -150,11 +168,11 @@ enum packed_unit_state_bits {
     PACKED_US_NEW_FRIEND = 1 << 7,
 };
 
-struct UnitSaveSuPack {     /* Suspend Data */
-    /* 00 */ u8 char_id;
-    /* 01 */ u8 class;
+struct SuspendSavePackedUnit {     /* Suspend Data */
+    /* 00 */ u8 pid;
+    /* 01 */ u8 jid;
     /* 02 */ u8 ai1;
-    /* 03 */ u8 rescueOtherUnit;
+    /* 03 */ u8 rescue;
     /* 04 */ u32 state;
 
     /* 08 */ u16 item1;
@@ -198,18 +216,161 @@ struct UnitSaveSuPack {     /* Suspend Data */
     /* 34 */
 };
 
-s8 IsSramWorking();
-void SGM_SetCharacterKnown(s32 charId, struct SaveMeta* buf);
+extern EWRAM_DATA bool gBoolSramWorking;
+extern CONST_DATA u8 * gSram;
+
+void SramInit(void);
+bool IsSramWorking(void);
+void WipeSram(void);
+u16 Checksum16(void const * data, int size);
+bool ReadGlobalSaveInfo(struct GlobalSaveInfo *buf);
+void WriteGlobalSaveInfo(struct GlobalSaveInfo *header);
+void WriteGlobalSaveInfoNoChecksum(struct GlobalSaveInfo *header);
+void InitGlobalSaveInfodata(void);
+void EraseBonusContentData(void);
+void *SramOffsetToAddr(u16 off);
+u16 SramAddrToOffset(void * addr);
+bool ReadSaveBlockInfo(struct SaveBlockInfo *buf, int index);
+void WriteSaveBlockInfo(struct SaveBlockInfo *buf, int index);
+void EraseSaveBlockInfo(int index);
+void *GetSaveWriteAddr(int index);
+void *GetSaveReadAddr(int index);
+void WriteChapterFlags(void *sram_dest);
+void WritePermanentFlags(void *sram_dest);
+void ReadChapterFlags(void *ewram_dest);
+void ReadPermanentFlags(void *ewram_dest);
+void ReadPermanentFlags_ret(void *sram_src, void *ewram_dest);
+void WriteSupplyItems(void *sram_dest);
+void ReadSupplyItems(const void *sram_src);
+bool null_true(void);
+bool IsExtraLinkArenaEnabled(int);
+bool IsExtraSoundRoomEnabled(void);
+bool IsExtraSupportViewerEnabled(void);
+// ??? sub_80A3348(???);
+// ??? sub_80A33C4(???);
+bool IsExtraFreeMapEnabled(void);
+bool IsExtraBonusClaimEnabled(void);
 int sub_80A3468(const int val0, const int val1);
-u8 LoadGeneralGameMetadata(struct SaveMeta *buf);
-s8 GGM_IsCharacterKnown(int index, struct SaveMeta *buf);
+int sub_80A34CC(void);
+int sub_80A3500(struct GlobalSaveInfo *buf);
 int sub_80A3544(void);
-void sub_80A35EC(int unitId, u8* data, struct SaveMeta* buf);
+int sub_80A3584(int param0, int param1, struct GlobalSaveInfo *buf);
+void sub_80A35EC(int unitId, u8* data, struct GlobalSaveInfo* buf);
+bool sub_80A3724(int unitA, int unitB, int supportRank);
+void SGM_SetCharacterKnown(s32 charId, struct GlobalSaveInfo* buf);
+bool GGM_IsCharacterKnown(int index, struct GlobalSaveInfo *buf);
+int GGM_IsAnyCharacterKnown(struct GlobalSaveInfo *buf);
+void sub_80A3868(void);
+void __malloc_unlock_3(void);
+int IsGamePlayedThrough(void);
+bool LoadAndVerfyRankData(void *buf);
+// bool LoadBonusContentData(void *buf); // Cannot be declared due to a non-match in "bonusclaim.c"
+void SaveBonusContentData(void *buf);
+void SaveRankings(void *buf);
+void sub_80A39B4(void);
+int GetNextChapterMode(void);
+int sub_80A39E4(void *buf, int chapter_mode, int difficulty);
+void SaveNewRankData(void *buf, int chapter_mode, int difficulty);
+u8 JudgeGameRankSaveData(struct GameRankSaveData *old, struct GameRankSaveData *new);
+void GenerateGameRankSaveData(struct GameRankSaveData *buf, int chapter_mode, int difficulty);
+void SaveEndgameRankings(void);
+void sub_80A3E28(void);
+u8 sub_80A3E4C(void *buf);
+void sub_80A3EA4(void *);
+int sub_80A3ED0(void *buf, int val);
+void sub_80A3F84(void);
+u8 sub_80A3FA8(void *buf);
+void sub_80A4000(struct bmsave_unkstruct2 *buf);
+int sub_80A402C(void *buf, int val);
+int sub_80A402C(void *buf, int val);
+void sub_80A40A8(void);
+void ClearPidChStatsSaveData(void *sram_dest);
+void ClearPidStats_ret(void);
+void ClearPidStats(void);
+void ReadPidStats(void *sram_src);
+void ReadChapterStats(const void *sram_src);
+void WritePidStats(void *sram_dest);
+void WriteChapterStats(void *sram_dest);
+struct ChapterStats *GetChapterStats(int index);
+bool IsChapterStatsValid(struct ChapterStats *chapter_stats);
+int GetNextChapterStatsSlot(void);
+void sub_80A3F08(struct bmsave_unkstruct1 *buf, int val);
+int GetCurCompleteChapters(void);
+int GetNextChapterStatsEntry(void);
+void RegisterChapterTimeAndTurnCount(struct PlaySt* chData);
+int GetGameTotalTime_unused(void);
+int GetGameTotalTurnCount(void);
+bool IsChapterBelongCurGame(u32 ch_index);
+int GetGameTotalTime(void);
 int GetGameTotalTurnCount2(void);
-int BWL_GetTotalExpGained(void);
-struct ChapterWinData *GetChapterWinDataEntry(int index);
-int GetNextChapterWinDataEntryIndex(void);
-int BWL_GetTotalWins(void);
-int BWL_GetTotalBattles(void);
+void PidStatsAddBattleAmt(struct Unit* unit);
+void PidStatsAddWinAmt(u8 pid);
+void PidStatsRecordLoseData(u8 pid);
+void PidStatsRecordDefeatInfo(u8 pid, u8 killerPid, int deathCause);
+void PidStatsAddActAmt(u8 pid);
+void PidStatsAddStatViewAmt(u8 pid);
+void PidStatsAddDeployAmt(u8 pid);
+void PidStatsAddSquaresMoved(u8 pid, int amount);
+void PidStatsAddExpGained(u8 pid, int expGain);
+void PidStatsSubFavval08(u8 pid);
+void PidStatsSubFavval100(u8 pid);
+int PidStatsGetTotalBattleAmt(void);
+int PidStatsGetTotalWinAmt(void);
+int PidStatsGetTotalLossAmt(void);
+int PidStatsGetTotalLevel(void);
+int PidStatsGetTotalExpGain(void);
+int PidStatsGetExpGain(u8 pid);
+int PidStatsGetFavval(u8 pid);
+void PidStatsAddFavval(u8 pid, int);
+void PidStatsRecordBattleRes(void);
+bool IsPlaythroughIdUnique(int index);
+int GetNewPlaythroughId(void);
+int GetGlobalCompletionCntByInfo(struct GlobalSaveInfo *sec_head);
+int GetGlobalCompletionCount(void);
+bool RegisterCompletedPlaythrough(struct GlobalSaveInfo *sec_head, int index);
+int GetCurerentGameMode(void);
+void SavePlayThroughData(void);
+void SetGameEndFlag(void);
+void SetGameEndFlag(void);
+struct UnitUsageStats* GetPidStats(u8 pid);
+u32 GetBonusContentClaimFlags(void);
+void SetBonusContentClaimFlags(u32 num);
+void WriteBonusContentClaimFlags(void *sram_dest);
+void ReadBonusContentClaimFlags(const void *sram_src);
+void WriteLastGameSaveId(int num);
+int ReadLastGameSaveId(void);
+void InvalidateGameSave(int);
+void CopyGameSave(int index_src, int index_dest);
+void WriteNewGameSave(int index, int isDifficult, int mode, int isTutorial);
+void WriteGameSave(int slot);
+void ReadGameSave(int slot);
+bool IsSaveValid(int);
+void ReadGameSavePlaySt(int, struct PlaySt*);
+u32 LoadSavedBonusClaimFlags(int slot);
+void LoadSavedWMStuff(int slot, void *dest);
+s8 LoadSavedEid8A(int slot);
+bool IsGameNotFirstChapter(struct PlaySt *chapter_data);
+bool IsGameSaveNotFirstChapter(int);
+bool IsGameSaveComplete(int);
+void WriteGameSavePackedUnit(struct Unit *unit, void *sram_dest);
+void LoadSavedUnit(const void *sram_src, struct Unit *unit);
+void WriteGMMonsterRnState(void *sram_dest);
+void ReadGMMonsterRnState(const void *sram_src);
+void InvalidateSuspendSave(int);
+void WriteSuspendSave(int saveBlockId);
+void ReadSuspendSave(int slot);
+u8 IsValidSuspendSave(int);
+void ReadSuspendSavePlaySt(int index, struct PlaySt *buf);
+void EncodeSuspendSavePackedUnit(struct Unit *unit, void *buf);
+void ReadSuspendSavePackedUnit(const void *sram_src, struct Unit *unit);
+void WriteTraps(void *sram_dest);
+void ReadTraps(void *sram_dest); /* ReadTraps */
+int GetLastSuspendSaveId(void);
+int GetNextSuspendSaveId(void);
+void WriteSwappedSuspendSaveId(void);
+int SramChecksum32(void *sram_src, int size);
+bool VerifySaveBlockChecksum(struct SaveBlockInfo *buf);
+void PopulateSaveBlockChecksum(struct SaveBlockInfo* buf);
+u16 GetGameStateChecksum_Unused(void);
 
 #endif /* BMSAVE_H */

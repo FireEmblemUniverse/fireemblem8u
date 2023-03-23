@@ -14,6 +14,7 @@
 #include "face.h"
 #include "bmudisp.h"
 #include "bm.h"
+#include "bmsave.h"
 
 #include "uichapterstatus.h"
 
@@ -327,7 +328,7 @@ struct Unit* GetEnemyBossUnit() {
 
     struct Unit* unit = NULL;
 
-    switch (gRAMChapterData.chapterIndex) {
+    switch (gPlaySt.chapterIndex) {
         case 0x0D:
             unit = GetUnitFromCharId(CHARACTER_AIAS);
             break;
@@ -719,7 +720,7 @@ void ChapterStatus_SetupFont(ProcPtr proc) {
 void DrawChapterStatusStatValues() {
     TileMap_FillRect(gBG0TilemapBuffer + 0x1C0, 15, 6, 0);
 
-    sub_8004B88(gBG0TilemapBuffer + 0x1C0 + 0xC, 2, gRAMChapterData.chapterTurnNumber);
+    sub_8004B88(gBG0TilemapBuffer + 0x1C0 + 0xC, 2, gPlaySt.chapterTurnNumber);
 
     sub_8004B88(gBG0TilemapBuffer + 0x1C0 + 0x4B, 2, GetPartyGoldAmount());
 
@@ -745,7 +746,7 @@ void ChapterStatus_DrawText(struct ChapterStatusProc* proc) {
 
     sub_8004B88(gBG1TilemapBuffer + 0xA4, 2, proc->numAllyUnits);
 
-    if (gRAMChapterData.chapterVisionRange != 0) {
+    if (gPlaySt.chapterVisionRange != 0) {
         sub_8004B0C(gBG1TilemapBuffer + 0xA4 + 7, 2, 20);
         sub_8004B0C(gBG1TilemapBuffer + 0xA4 + 8, 2, 20);
     } else {
@@ -756,7 +757,7 @@ void ChapterStatus_DrawText(struct ChapterStatusProc* proc) {
 
     str = GetStringFromIndex(
         GetChapterThing() != 2 ?
-            GetROMChapterStruct(gRAMChapterData.chapterIndex)->statusObjectiveTextId
+            GetROMChapterStruct(gPlaySt.chapterIndex)->statusObjectiveTextId
             : 0x1C0 // TODO: Defeat all monsters[.]
     );
 
@@ -777,7 +778,7 @@ void ChapterStatus_DrawText(struct ChapterStatusProc* proc) {
     }
 
     if (proc->timesCompleted != 0) {
-        if (!(gRAMChapterData.chapterStateBits & CHAPTER_FLAG_POSTGAME)) {
+        if (!(gPlaySt.chapterStateBits & PLAY_FLAG_POSTGAME)) {
             DrawDecNumber(gBG0TilemapBuffer + 0x1A, 0, proc->timesCompleted + 1);
         }
     }
@@ -892,7 +893,7 @@ void sub_808E7B4(struct ChapterStatusProc* proc) {
 
     sub_80895B4(0x80, 0x13);
 
-    sub_8089624(0xB80, sub_808979C(&gRAMChapterData));
+    sub_8089624(0xB80, sub_808979C(&gPlaySt));
 
     return;
 }
@@ -938,8 +939,8 @@ void sub_808E818(struct ChapterStatusProc* proc) {
     SyncUnitSpriteSheet();
 
     if (parent->timesCompleted != 0) {
-        if (!(gRAMChapterData.chapterStateBits & CHAPTER_FLAG_POSTGAME)) {
-            PutSprite(4, 219, 3, sSprite_08A01AA4, gRAMChapterData.chapterStateBits & CHAPTER_FLAG_POSTGAME);
+        if (!(gPlaySt.chapterStateBits & PLAY_FLAG_POSTGAME)) {
+            PutSprite(4, 219, 3, sSprite_08A01AA4, gPlaySt.chapterStateBits & PLAY_FLAG_POSTGAME);
         }
     }
 

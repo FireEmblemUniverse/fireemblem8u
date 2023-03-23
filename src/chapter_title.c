@@ -126,24 +126,24 @@ void sub_8089744(u16* tm, int pal) {
     return;
 }
 
-int sub_8089768(struct RAMChapterData* chapterData) {
+int sub_8089768(struct PlaySt* chapterData) {
 
     if (chapterData == 0) {
         return 0x54; // No Data
     }
 
-    if (chapterData->chapterStateBits & CHAPTER_FLAG_POSTGAME) {
+    if (chapterData->chapterStateBits & PLAY_FLAG_POSTGAME) {
         return 0x57; // Creature Campaign
     }
 
-    if (chapterData->chapterStateBits & CHAPTER_FLAG_COMPLETE) {
+    if (chapterData->chapterStateBits & PLAY_FLAG_COMPLETE) {
         return 0x55; // Epilogue
     }
 
     return GetROMChapterStruct(chapterData->chapterIndex)->chapTitleId;
 }
 
-int sub_808979C(struct RAMChapterData* chapterData) {
+int sub_808979C(struct PlaySt* chapterData) {
     int unk;
     int i;
 
@@ -153,7 +153,7 @@ int sub_808979C(struct RAMChapterData* chapterData) {
 
     unk = sub_80BCFDC(chapterData->chapterIndex);
 
-    if ((chapterData->chapterStateBits & CHAPTER_FLAG_POSTGAME) || sub_80BD014(&gGMData) != unk) {
+    if ((chapterData->chapterStateBits & PLAY_FLAG_POSTGAME) || sub_80BD014(&gGMData) != unk) {
 
         for (i = 0; i < gWMMonsterSpawnsSize; i++) {
 

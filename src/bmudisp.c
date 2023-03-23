@@ -352,7 +352,7 @@ void SetupMapSpritesPalettes(void) {
 
     CopyToPaletteBuffer(gPal_MapSprite, 0x380, 0x80);
 
-    if (gGameState.gameStateBits & 0x40) {
+    if (gBmSt.gameStateBits & 0x40) {
         CopyToPaletteBuffer(gPal_MapSpriteArena, 0x360, 0x20);
     } else {
         CopyToPaletteBuffer(gPal_NotMapSprite, 0x360, 0x20);
@@ -1424,8 +1424,8 @@ void PutUnitSpritesOam(void) {
     for (; it != NULL; it = it->pNext) {
         int r3 = 0;
 
-        int x = it->xDisplay - gGameState.camera.x;
-        int y = it->yDisplay - gGameState.camera.y;
+        int x = it->xDisplay - gBmSt.camera.x;
+        int y = it->yDisplay - gBmSt.camera.y;
 
         if (x < -16 || x > DISPLAY_WIDTH) {
             continue;
@@ -1481,8 +1481,8 @@ void PutChapterMarkedTileIconOam(void) {
     int yTile;
     int shouldDisplay;
 
-    xTile = GetROMChapterStruct(gRAMChapterData.chapterIndex)->destPosX;
-    yTile = GetROMChapterStruct(gRAMChapterData.chapterIndex)->destPosY;
+    xTile = GetROMChapterStruct(gPlaySt.chapterIndex)->destPosX;
+    yTile = GetROMChapterStruct(gPlaySt.chapterIndex)->destPosY;
 
     shouldDisplay = (GetGameClock() & 0x1f) < 0x14 ? 1 : 0;
 
@@ -1502,8 +1502,8 @@ void PutChapterMarkedTileIconOam(void) {
         return;
     }
 
-    x = xTile * 16 - gGameState.camera.x;
-    y = yTile * 16 - gGameState.camera.y;
+    x = xTile * 16 - gBmSt.camera.x;
+    y = yTile * 16 - gBmSt.camera.y;
 
     if (x < -16 || x > DISPLAY_WIDTH) {
         return;
@@ -1538,7 +1538,7 @@ void PutUnitSpriteIconsOam(void) {
     };
 
     if (GetChapterThing() != 2) {
-        protectCharacterId = GetROMChapterStruct(gRAMChapterData.chapterIndex)->protectCharacterIndex;
+        protectCharacterId = GetROMChapterStruct(gPlaySt.chapterIndex)->protectCharacterIndex;
     } else {
         protectCharacterId = 0;
     }
@@ -1573,8 +1573,8 @@ void PutUnitSpriteIconsOam(void) {
 
         switch (unit->statusIndex) {
             case UNIT_STATUS_POISON:
-                x = unit->xPos * 16 - gGameState.camera.x;
-                y = unit->yPos * 16 - gGameState.camera.y;
+                x = unit->xPos * 16 - gBmSt.camera.x;
+                y = unit->yPos * 16 - gBmSt.camera.y;
 
                 if (x < -16 || x > DISPLAY_WIDTH) {
                     break;
@@ -1589,8 +1589,8 @@ void PutUnitSpriteIconsOam(void) {
                 break;
 
             case UNIT_STATUS_SILENCED:
-                x = unit->xPos * 16 - gGameState.camera.x;
-                y = unit->yPos * 16 - gGameState.camera.y;
+                x = unit->xPos * 16 - gBmSt.camera.x;
+                y = unit->yPos * 16 - gBmSt.camera.y;
 
                 if (x < -16 || x > DISPLAY_WIDTH) {
                     break;
@@ -1605,8 +1605,8 @@ void PutUnitSpriteIconsOam(void) {
                 break;
 
             case UNIT_STATUS_SLEEP:
-                x = unit->xPos * 16 - gGameState.camera.x;
-                y = unit->yPos * 16 - gGameState.camera.y;
+                x = unit->xPos * 16 - gBmSt.camera.x;
+                y = unit->yPos * 16 - gBmSt.camera.y;
 
                 if (x < -16 || x > DISPLAY_WIDTH) {
                     break;
@@ -1621,8 +1621,8 @@ void PutUnitSpriteIconsOam(void) {
                 break;
 
             case UNIT_STATUS_BERSERK:
-                x = unit->xPos * 16 - gGameState.camera.x;
-                y = unit->yPos * 16 - gGameState.camera.y;
+                x = unit->xPos * 16 - gBmSt.camera.x;
+                y = unit->yPos * 16 - gBmSt.camera.y;
 
                 if (x < -16 || x > DISPLAY_WIDTH) {
                     break;
@@ -1644,8 +1644,8 @@ void PutUnitSpriteIconsOam(void) {
                     continue;
                 }
 
-                x = unit->xPos * 16 - gGameState.camera.x;
-                y = unit->yPos * 16 - gGameState.camera.y;
+                x = unit->xPos * 16 - gBmSt.camera.x;
+                y = unit->yPos * 16 - gBmSt.camera.y;
 
                 if (x < -16 || x > DISPLAY_WIDTH) {
                     break;
@@ -1668,8 +1668,8 @@ void PutUnitSpriteIconsOam(void) {
         }
 
         if (unit->state & US_RESCUING) {
-            x = unit->xPos * 16 - gGameState.camera.x;
-            y = unit->yPos * 16 - gGameState.camera.y;
+            x = unit->xPos * 16 - gBmSt.camera.x;
+            y = unit->yPos * 16 - gBmSt.camera.y;
 
             if (x < -16 || x > DISPLAY_WIDTH) {
                 continue;
@@ -1679,10 +1679,10 @@ void PutUnitSpriteIconsOam(void) {
                 continue;
             }
 
-            CallARM_PushToSecondaryOAM(OAM1_X(0x200+x + 9), OAM0_Y(0x100+y + 7), gObject_8x8, (rescuePalLut[unit->rescueOtherUnit >> 6] & 0xf) * 0x1000 + 0x803);
+            CallARM_PushToSecondaryOAM(OAM1_X(0x200+x + 9), OAM0_Y(0x100+y + 7), gObject_8x8, (rescuePalLut[unit->rescue >> 6] & 0xf) * 0x1000 + 0x803);
         } else if ((UNIT_FACTION(unit) != FACTION_BLUE) && (UNIT_CATTRIBUTES(unit) & CA_BOSS)) {
-            x = unit->xPos * 16 - gGameState.camera.x;
-            y = unit->yPos * 16 - gGameState.camera.y;
+            x = unit->xPos * 16 - gBmSt.camera.x;
+            y = unit->yPos * 16 - gBmSt.camera.y;
 
             if (x < -16 || x > DISPLAY_WIDTH) {
                 continue;
@@ -1694,8 +1694,8 @@ void PutUnitSpriteIconsOam(void) {
 
             CallARM_PushToSecondaryOAM(OAM1_X(0x200+x + 9), OAM0_Y(0x100+y + 7), gObject_8x8, 0x810);
         } else if (protectCharacterId == unit->pCharacterData->number) {
-            x = unit->xPos * 16 - gGameState.camera.x;
-            y = unit->yPos * 16 - gGameState.camera.y;
+            x = unit->xPos * 16 - gBmSt.camera.x;
+            y = unit->yPos * 16 - gBmSt.camera.y;
 
             if (x < -16 || x > DISPLAY_WIDTH) {
                 continue;
@@ -1714,7 +1714,7 @@ void PutUnitSpriteIconsOam(void) {
 
 //! FE8U = 0x08027A30
 void sub_8027A30(void) {
-    gGameState.cursorPrevious.x = -1;
+    gBmSt.cursorPrevious.x = -1;
     return;
 }
 
@@ -1728,7 +1728,7 @@ void ResetUnitSpriteHover(void) {
 void UnitSpriteHoverUpdate(void) {
     struct Unit* unit;
 
-    unit = GetUnit(gBmMapUnit[gGameState.playerCursor.y][gGameState.playerCursor.x]);
+    unit = GetUnit(gBmMapUnit[gBmSt.playerCursor.y][gBmSt.playerCursor.x]);
 
     if (unit) {
         if (!(unit->state & US_UNSELECTABLE)
@@ -1747,10 +1747,10 @@ void UnitSpriteHoverUpdate(void) {
         }
     }
 
-    if (gGameState.cursorPrevious.x != gGameState.playerCursor.x || gGameState.cursorPrevious.y != gGameState.playerCursor.y) {
+    if (gBmSt.cursorPrevious.x != gBmSt.playerCursor.x || gBmSt.cursorPrevious.y != gBmSt.playerCursor.y) {
         gMapSpriteSwitchHoverTimer = 0;
 
-        unit = GetUnit(gBmMapUnit[gGameState.cursorPrevious.y][gGameState.cursorPrevious.x]);
+        unit = GetUnit(gBmMapUnit[gBmSt.cursorPrevious.y][gBmSt.cursorPrevious.x]);
 
         if (unit) {
             MU_EndAll();

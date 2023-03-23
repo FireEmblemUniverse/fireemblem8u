@@ -97,14 +97,14 @@ void UnitGainSupportExp(struct Unit* unit, int num)
             gain = maxExp - currentExp;
 
         unit->supports[num] = currentExp + gain;
-        gRAMChapterData.chapterTotalSupportGain += gain;
+        gPlaySt.chapterTotalSupportGain += gain;
     }
 }
 
 void UnitGainSupportLevel(struct Unit* unit, int num)
 {
     unit->supports[num]++;
-    gRAMChapterData.chapterTotalSupportGain++;
+    gPlaySt.chapterTotalSupportGain++;
 
     SetSupportLevelGained(unit->pCharacterData->number, GetUnitSupporterCharacter(unit, num));
 }
@@ -113,10 +113,10 @@ s8 CanUnitSupportNow(struct Unit* unit, int num)
 {
     int exp, maxExp;
 
-    if (gRAMChapterData.chapterStateBits & CHAPTER_FLAG_7)
+    if (gPlaySt.chapterStateBits & PLAY_FLAG_7)
         return FALSE;
 
-    if (gRAMChapterData.chapterStateBits & CHAPTER_FLAG_3)
+    if (gPlaySt.chapterStateBits & PLAY_FLAG_TUTORIAL)
         return FALSE;
 
     if (HasUnitGainedSupportLevel(unit, num))
@@ -158,7 +158,7 @@ int GetUnitSupporterNum(struct Unit* unit, u8 charId)
     return -1;
 }
 
-void ClearUnitSupports(struct Unit* unit)
+void InitUnitsupports(struct Unit* unit)
 {
     int i, count = GetUnitSupporterCount(unit);
 
@@ -178,10 +178,10 @@ void ProcessTurnSupportExp(void)
 {
     int i, j, jMax;
 
-    if (gRAMChapterData.chapterTurnNumber == 1)
+    if (gPlaySt.chapterTurnNumber == 1)
         return;
 
-    if (gRAMChapterData.chapterStateBits & CHAPTER_FLAG_7)
+    if (gPlaySt.chapterStateBits & PLAY_FLAG_7)
         return;
 
     for (i = 1; i < 0x40; ++i)
@@ -216,7 +216,7 @@ void ProcessTurnSupportExp(void)
             {
 
             case 0:
-                if (!(unit->rescueOtherUnit == other->index))
+                if (!(unit->rescue == other->index))
                     break;
 
                 goto add_support_points;
@@ -292,7 +292,7 @@ int GetUnitSupportBonuses(struct Unit* unit, struct SupportBonuses* bonuses)
             continue;
 
         // TODO: gameStateBits constants
-        if (!(gGameState.gameStateBits & 0x40))
+        if (!(gBmSt.gameStateBits & 0x40))
         {
             if (RECT_DISTANCE(unit->xPos, unit->yPos, other->xPos, other->yPos) > SUPPORT_BONUSES_MAX_DISTANCE)
                 continue;

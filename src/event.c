@@ -219,7 +219,7 @@ void EventEngine_OnEnd(struct EventEngineProc* proc) {
         break;
 
     case EV_EXEC_UNK5:
-        LoadGameCoreGfx();
+        ReadGameSaveCoreGfx();
         UnpackChapterMapPalette();
         sub_800BCDC(proc->mapSpritePalIdOverride);
 
@@ -330,7 +330,7 @@ struct EventEngineProc* EventEngine_Create(const u16* events, u8 execType) {
 
     case EV_EXEC_CUTSCENE:
     case EV_EXEC_GAMEPLAY:
-        proc->chapterIndex = gRAMChapterData.chapterIndex;
+        proc->chapterIndex = gPlaySt.chapterIndex;
         AddSkipThread2();
         break;
     }
@@ -469,7 +469,7 @@ void CallRetreatPromptEvent(void) {
     // Calls Retreat events
     CallEvent(gEvent_SkirmishRetreat, EV_EXEC_CUTSCENE);
 
-    gEventSlots[0x2] = gRAMChapterData.chapterIndex;
+    gEventSlots[0x2] = gPlaySt.chapterIndex;
 }
 
 void CallSuspendPromptEvent(void) {

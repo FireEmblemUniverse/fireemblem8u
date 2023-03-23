@@ -201,7 +201,7 @@ sub_8012AE0: @ 0x08012AE0
 	bl Proc_Start
 	lsls r4, r4, #0x10
 	asrs r4, r4, #0xc
-	ldr r2, _08012B20  @ gGameState
+	ldr r2, _08012B20  @ gBmSt
 	movs r3, #0xc
 	ldrsh r1, [r2, r3]
 	subs r4, r4, r1
@@ -218,7 +218,7 @@ sub_8012AE0: @ 0x08012AE0
 	bx r0
 	.align 2, 0
 _08012B1C: .4byte gUnknown_08592580
-_08012B20: .4byte gGameState
+_08012B20: .4byte gBmSt
 
 	THUMB_FUNC_END sub_8012AE0
 

@@ -6,8 +6,8 @@ const char AgbLibSramVersion[] = "SRAM_F_V103";
 static u16 verifySramFast_Work[80]; // buffer to hold code of VerifySramFast_Core
 static u16 readSramFast_Work[64];  // buffer to hold code of ReadSramFast_Core
 
-u32 (*VerifySramFast)(const u8 *src, u8 *dest, u32 size);  // pointer to verifySramFast_Work
-void (*ReadSramFast)(const u8 *src, u8 *dest, u32 size);  // pointer to readSramFast_Work
+u32 (* VerifySramFast)(void const * src, void * dest, u32 size);    // pointer to verifySramFast_Work
+void (* ReadSramFast)(void const * src, void * dest, u32 size);     // pointer to readSramFast_Work
 
 void ReadSramFast_Core(const u8 *src, u8 *dest, u32 size)
 {
@@ -73,7 +73,7 @@ void SetSramFastFunc(void)
     REG_WAITCNT = (REG_WAITCNT & ~3) | 3;
 }
 
-u32 WriteAndVerifySramFast(const u8 *src, u8 *dest, u32 size)
+u32 WriteAndVerifySramFast(void const * src, void * dest, u32 size)
 {
     u8 i;
     u32 errorAddr;

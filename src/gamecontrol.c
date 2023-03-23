@@ -10,6 +10,7 @@
 #include "event.h"
 #include "opinfo.h"
 #include "bm.h"
+#include "bmsave.h"
 
 #include "gamecontrol.h"
 
@@ -221,7 +222,7 @@ PROC_LABEL(16),
     // fallthrough
 
 PROC_LABEL(17),
-    PROC_CALL(GameCtrl_RegisterCompletedPlaythrough),
+    PROC_CALL(GameCtrl_SavePlayThroughData),
 
     PROC_CALL(CallGameEndingEvent),
     PROC_SLEEP(0),
@@ -345,7 +346,7 @@ u8 sub_8009950() {
     int furthestChapter;
     int chapter;
     int i;
-    struct RAMChapterData chapterData;
+    struct PlaySt chapterData;
 
     if (GetGlobalCompletionCount() != 0) {
         return 9;
@@ -355,11 +356,11 @@ u8 sub_8009950() {
 
     for (i = 0; i < 3; i++) {
 
-        if (SaveMetadata_LoadId(i) == 0) {
+        if (IsSaveValid(i) == 0) {
             continue;
         }
 
-        LoadSavedChapterState(i, &chapterData);
+        ReadGameSavePlaySt(i, &chapterData);
 
         if (chapterData.unk_2C_2 != 0) {
             return 9;
@@ -415,7 +416,7 @@ void sub_8009A24(ProcPtr proc) {
     SetupBackgrounds(0);
     sub_80156D4();
 
-    gRAMChapterData.cfgTextSpeed = 1;
+    gPlaySt.cfgTextSpeed = 1;
 
     sub_8086BB8(PROC_TREE_3, 0, -1);
 
@@ -592,16 +593,16 @@ void sub_8009C5C(struct GameCtrlProc* proc) {
     if (proc->nextAction == GAME_ACTION_5) {
         Proc_Goto(proc, 5);
     } else {
-        InitPlaythroughState(0, 0);
+        InitPlayConfig(0, 0);
 
-        gRAMChapterData.chapterStateBits |= CHAPTER_FLAG_3;
+        gPlaySt.chapterStateBits |= PLAY_FLAG_TUTORIAL;
 
-        sub_8083D18();
+        ResetPermanentFlags();
         ClearLocalEvents();
 
-        ClearUnits();
+        InitUnits();
 
-        gRAMChapterData.chapterIndex = proc->nextChapter;
+        gPlaySt.chapterIndex = proc->nextChapter;
     }
 
     return;
@@ -609,19 +610,19 @@ void sub_8009C5C(struct GameCtrlProc* proc) {
 
 void sub_8009CA4(ProcPtr proc) {
     sub_80A6D38();
-    sub_80A41C8();
+    ClearPidStats();
 
     ChapterChangeUnitCleanup();
 
-    gRAMChapterData.chapterIndex = 0x7F;
+    gPlaySt.chapterIndex = 0x7F;
 
     return;
 }
 
 void sub_8009CC0(ProcPtr proc) {
-    ClearSaveBlock(3);
+    InvalidateSuspendSave(SAVE_ID_SUSPEND);
 
-    gRAMChapterData.cfgDisableBgm = 0;
+    gPlaySt.cfgDisableBgm = 0;
 
     return;
 }
@@ -649,7 +650,7 @@ void GameControl_PostChapterSwitch(struct GameCtrlProc* proc) {
 }
 
 void sub_8009D1C(struct GameCtrlProc* proc) {
-    if ((gRAMChapterData.unk4A_2 == 2) || (gRAMChapterData.unk4A_2 == 4)) {
+    if ((gPlaySt.unk4A_2 == 2) || (gPlaySt.unk4A_2 == 4)) {
         Proc_Goto(proc, 6);
     }
 
@@ -657,11 +658,11 @@ void sub_8009D1C(struct GameCtrlProc* proc) {
 }
 
 void sub_8009D44(struct GameCtrlProc* proc) {
-    if (gRAMChapterData.chapterStateBits & CHAPTER_FLAG_POSTGAME) {
+    if (gPlaySt.chapterStateBits & PLAY_FLAG_POSTGAME) {
         return;
     }
 
-    if (!(gRAMChapterData.chapterStateBits & CHAPTER_FLAG_COMPLETE)) {
+    if (!(gPlaySt.chapterStateBits & PLAY_FLAG_COMPLETE)) {
         return;
     }
 
@@ -671,7 +672,7 @@ void sub_8009D44(struct GameCtrlProc* proc) {
 }
 
 void sub_8009D6C(struct GameCtrlProc* proc) {
-    if (gRAMChapterData.chapterStateBits & CHAPTER_FLAG_7) {
+    if (gPlaySt.chapterStateBits & PLAY_FLAG_7) {
         Proc_Goto(proc, 10);
     } else {
         Proc_Goto(proc, 9);
@@ -690,12 +691,12 @@ void GameControl_ChapterSwitch(struct GameCtrlProc* proc) {
     StoreRNState(gGmMonsterRnState);
 
     if (CheckEventId(3) != 0) {
-        RegisterChapterTimeAndTurnCount(&gRAMChapterData);
+        RegisterChapterTimeAndTurnCount(&gPlaySt);
     }
 
     ComputeChapterRankings();
 
-    gRAMChapterData.chapterIndex = proc->nextChapter;
+    gPlaySt.chapterIndex = proc->nextChapter;
 
     ChapterChangeUnitCleanup();
 
@@ -703,7 +704,7 @@ void GameControl_ChapterSwitch(struct GameCtrlProc* proc) {
 }
 
 void GameControl_CallPostChapterSaveMenu(struct GameCtrlProc* proc) {
-    if (gRAMChapterData.chapterIndex != 0x38) {
+    if (gPlaySt.chapterIndex != 0x38) {
         Make6C_savemenu2(proc);
     }
 
@@ -711,11 +712,11 @@ void GameControl_CallPostChapterSaveMenu(struct GameCtrlProc* proc) {
 }
 
 void sub_8009E00(struct GameCtrlProc* proc) {
-    if (gRAMChapterData.chapterStateBits & CHAPTER_FLAG_POSTGAME) {
+    if (gPlaySt.chapterStateBits & PLAY_FLAG_POSTGAME) {
         return;
     }
 
-    if (gRAMChapterData.chapterIndex != 0) {
+    if (gPlaySt.chapterIndex != 0) {
         return;
     }
 
@@ -736,7 +737,7 @@ void sub_8009E28(ProcPtr proc) {
 void sub_8009E54(ProcPtr proc) {
     SetupBackgrounds(0);
 
-    switch (gRAMChapterData.chapterModeIndex) {
+    switch (gPlaySt.chapterModeIndex) {
         case 2:
             CallEvent(gEvent_8A0035C, EV_EXEC_CUTSCENE);
             break;
@@ -756,7 +757,7 @@ void CallGameEndingEvent(ProcPtr proc) {
 
     sub_80141B0();
 
-    switch (gRAMChapterData.chapterModeIndex) {
+    switch (gPlaySt.chapterModeIndex) {
         case 2:
             CallEvent(gEvent_EirikaModeGameEnd, EV_EXEC_CUTSCENE);
             break;
@@ -772,17 +773,17 @@ void CallGameEndingEvent(ProcPtr proc) {
 }
 
 void GameControl_RememberChapterId(struct GameCtrlProc* proc) {
-    proc->unk_30 = gRAMChapterData.chapterIndex;
+    proc->unk_30 = gPlaySt.chapterIndex;
     return;
 }
 
 void GameControl_RestoreChapterId(struct GameCtrlProc* proc) {
-    gRAMChapterData.chapterIndex = proc->unk_30;
+    gPlaySt.chapterIndex = proc->unk_30;
     return;
 }
 
 void sub_8009EFC(ProcPtr proc) {
-    sub_80A4CD8();
+    SetGameEndFlag();
     return;
 }
 
@@ -860,21 +861,21 @@ void nullsub_9() {
 }
 
 void GameControl_EnableSoundEffects(ProcPtr proc) {
-    gRAMChapterData.cfgDisableBgm = 0;
-    gRAMChapterData.cfgDisableSoundEffects = 0;
+    gPlaySt.cfgDisableBgm = 0;
+    gPlaySt.cfgDisableSoundEffects = 0;
 
     return;
 }
 
 void sub_8009FF8(ProcPtr proc) {
 
-    gRAMChapterData.cfgAnimationType = 0;
-    gRAMChapterData.cfgTextSpeed = 1;
-    gRAMChapterData.cfgGameSpeed = 0;
-    gRAMChapterData.cfgDisableBgm = 0;
-    gRAMChapterData.cfgDisableSoundEffects = 1;
-    gRAMChapterData.cfgWindowColor = 0;
-    gRAMChapterData.cfgUnitColor = 0;
+    gPlaySt.cfgAnimationType = 0;
+    gPlaySt.cfgTextSpeed = 1;
+    gPlaySt.cfgGameSpeed = 0;
+    gPlaySt.cfgDisableBgm = 0;
+    gPlaySt.cfgDisableSoundEffects = 1;
+    gPlaySt.cfgWindowColor = 0;
+    gPlaySt.cfgUnitColor = 0;
 
     return;
 }

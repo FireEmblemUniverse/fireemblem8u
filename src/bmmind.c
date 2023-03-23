@@ -136,7 +136,7 @@ void BeginMapAnimForSummon(void);
 void BeginMapAnimForSummonDK(void);
 
 // code.s
-void BWL_AddWinOrLossIdk(u8, u8, int);
+void PidStatsRecordDefeatInfo(u8, u8, int);
 
 // popup.s
 void NewPopup_GeneralItemGot(struct Unit*, int, ProcPtr);
@@ -471,8 +471,8 @@ void sub_80325AC(struct DeathDropAnimProc* proc) {
 
     PutUnitSprite(
         7,
-        x - gGameState.camera.x,
-        y - gGameState.camera.y,
+        x - gBmSt.camera.x,
+        y - gBmSt.camera.y,
         proc->unit
     );
 
@@ -510,7 +510,7 @@ void DropRescueOnDeath(ProcPtr proc, struct Unit* unit) {
 
     child = Proc_StartBlocking(sProcScr_DeathDropAnim, proc);
 
-    child->unit = GetUnit(unit->rescueOtherUnit);
+    child->unit = GetUnit(unit->rescue);
 
     UnitGetDeathDropLocation(unit, &child->xDrop, &child->yDrop);
     UnitDrop(unit, child->xDrop, child->yDrop);
@@ -537,7 +537,7 @@ void KillUnitOnCombatDeath(struct Unit* unitA, struct Unit* unitB) {
         return;
     }
 
-    BWL_AddWinOrLossIdk(unitA->pCharacterData->number, unitB->pCharacterData->number, 2);
+    PidStatsRecordDefeatInfo(unitA->pCharacterData->number, unitB->pCharacterData->number, 2);
 
     UnitKill(unitA);
 
@@ -551,7 +551,7 @@ void KillUnitOnArenaDeathMaybe(struct Unit* unit) {
 
     UnitKill(unit);
 
-    BWL_AddWinOrLossIdk(unit->pCharacterData->number, 0, 6);
+    PidStatsRecordDefeatInfo(unit->pCharacterData->number, 0, 6);
 
     return;
 }

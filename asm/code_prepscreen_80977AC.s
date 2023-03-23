@@ -1542,7 +1542,7 @@ _080982B4: .4byte 0x00010004
 	THUMB_FUNC_START sub_80982B8
 sub_80982B8: @ 0x080982B8
 	push {r4, r5, lr}
-	bl ClearConvoyItems
+	bl ClearSupplyItems
 	movs r4, #0
 	ldr r0, _080982F4  @ gUnknown_02012F54
 	ldrh r0, [r0]
@@ -1580,7 +1580,7 @@ _080982F8: .4byte gUnknown_020122D4
 	THUMB_FUNC_START sub_80982FC
 sub_80982FC: @ 0x080982FC
 	push {r4, r5, lr}
-	bl ClearConvoyItems
+	bl ClearSupplyItems
 	movs r4, #0
 	movs r5, #0x88
 _08098306:

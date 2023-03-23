@@ -1068,14 +1068,14 @@ void sub_80A851C(struct MinimapProc* proc) {
         0x0028,
     };
 
-    xBase = gGameState.camera.x;
+    xBase = gBmSt.camera.x;
     if (xBase < 0) {
         xBase = xBase + 3;
     }
     xBase = (xBase >> 2);
     xNew = proc->unk_3c + xBase;
 
-    yBase = gGameState.camera.y;
+    yBase = gBmSt.camera.y;
     if (yBase < 0) {
         yBase = yBase + 3;
     }
@@ -1099,7 +1099,7 @@ void sub_80A8568(struct MinimapProc* proc) {
 
         y = ((gBmMapSize.y * 4) - 144);
 
-        tmp = ((gGameState.camera.y << 16) / gGameState.cameraMax.y) * y;
+        tmp = ((gBmSt.camera.y << 16) / gBmSt.cameraMax.y) * y;
 
         tmp = tmp < 0 ? tmp + 0x0000FFFF : tmp;
 
@@ -1122,8 +1122,8 @@ void Minimap_HandleDPadInput(struct MinimapProc* proc) {
     int x;
     int y;
 
-    x = gGameState.camera.x;
-    y = gGameState.camera.y;
+    x = gBmSt.camera.x;
+    y = gBmSt.camera.y;
 
     if (((x & 0xF) == 0) && ((y & 0xF) == 0)) {
         proc->unk_2c = 0;
@@ -1157,20 +1157,20 @@ void Minimap_HandleDPadInput(struct MinimapProc* proc) {
         x = 0;
     }
 
-    if (x > gGameState.cameraMax.x) {
-        x = gGameState.cameraMax.x;
+    if (x > gBmSt.cameraMax.x) {
+        x = gBmSt.cameraMax.x;
     }
 
     if (y < 0) {
         y = 0;
     }
 
-    if (y > gGameState.cameraMax.y) {
-        y = gGameState.cameraMax.y;
+    if (y > gBmSt.cameraMax.y) {
+        y = gBmSt.cameraMax.y;
     }
 
-    gGameState.camera.x = x;
-    gGameState.camera.y = y;
+    gBmSt.camera.x = x;
+    gBmSt.camera.y = y;
 
     return;
 }
@@ -1190,7 +1190,7 @@ void Minimap_AdjustCursorOnClose(struct MinimapProc* proc) {
     int y;
 
     if (proc->unk_4a != 0) {
-        x = gGameState.camera.x;
+        x = gBmSt.camera.x;
 
         if (x < 0) {
             x += 15;
@@ -1199,7 +1199,7 @@ void Minimap_AdjustCursorOnClose(struct MinimapProc* proc) {
         x = (x >> 4);
         x += 7;
 
-        y = gGameState.camera.y;
+        y = gBmSt.camera.y;
 
         if (y < 0) {
             y += 15;
@@ -1234,7 +1234,7 @@ void Minimap_Idle_InputHandler(ProcPtr proc) {
         SetSpecialColorEffectsParameters(3, 16, 0, 4);
     }
 
-    if (((gGameState.camera.x & 0xF) == 0) && ((gGameState.camera.y & 0xF) == 0) && (gKeyStatusPtr->newKeys & (B_BUTTON | START_BUTTON))) {
+    if (((gBmSt.camera.x & 0xF) == 0) && ((gBmSt.camera.y & 0xF) == 0) && (gKeyStatusPtr->newKeys & (B_BUTTON | START_BUTTON))) {
         Proc_Break(proc);
     }
 

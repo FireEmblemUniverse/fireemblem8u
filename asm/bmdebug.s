@@ -532,7 +532,7 @@ _0801BF9A:
 	adds r5, #1
 _0801BFAE:
 	mov r0, sp
-	bl LoadGeneralGameMetadata
+	bl ReadGlobalSaveInfo
 	add r1, sp, #0x14
 	movs r2, #0
 	mov r0, sp
@@ -549,7 +549,7 @@ _0801BFCA:
 	adds r4, #1
 	mov r0, sp
 	adds r1, r4, #0
-	bl GGM_RegisterCompletedPlaythrough
+	bl RegisterCompletedPlaythrough
 	cmp r4, r5
 	blt _0801BFCA
 _0801BFD8:
@@ -572,7 +572,7 @@ _0801BFF0:
 	strb r1, [r0, #0xe]
 _0801BFFA:
 	mov r0, sp
-	bl SaveGeneralGameMetadata
+	bl WriteGlobalSaveInfo
 	adds r0, r6, #0
 	adds r1, r7, #0
 	bl DebugMenu_ClearDraw
@@ -609,21 +609,21 @@ _0801C02C: .4byte gDebugClearMenuDef
 	THUMB_FUNC_START DebugClearMenu_ClearFile
 DebugClearMenu_ClearFile: @ 0x0801C030
 	push {lr}
-	bl RegisterCompletedPlaythrough
-	ldr r2, _0801C058  @ gRAMChapterData
+	bl SavePlayThroughData
+	ldr r2, _0801C058  @ gPlaySt
 	ldrb r1, [r2, #0x14]
 	movs r0, #0xef
 	ands r0, r1
 	strb r0, [r2, #0x14]
 	bl ChapterChangeUnitCleanup
-	bl GetLastUsedGameSaveSlot
-	bl SaveGame
+	bl ReadLastGameSaveId
+	bl WriteGameSave
 	movs r0, #0xff
 	bl SoftReset
 	pop {r1}
 	bx r1
 	.align 2, 0
-_0801C058: .4byte gRAMChapterData
+_0801C058: .4byte gPlaySt
 
 	THUMB_FUNC_END DebugClearMenu_ClearFile
 
@@ -631,7 +631,7 @@ _0801C058: .4byte gRAMChapterData
 DebugMenuInit: @ 0x0801C05C
 	push {r4, lr}
 	ldr r1, _0801C084  @ gUnknown_03001780
-	ldr r0, _0801C088  @ gRAMChapterData
+	ldr r0, _0801C088  @ gPlaySt
 	ldrb r0, [r0, #0x1b]
 	strb r0, [r1]
 	ldr r4, _0801C08C  @ gUnknown_02022D76
@@ -647,7 +647,7 @@ DebugMenuInit: @ 0x0801C05C
 	bx r1
 	.align 2, 0
 _0801C084: .4byte gUnknown_03001780
-_0801C088: .4byte gRAMChapterData
+_0801C088: .4byte gPlaySt
 _0801C08C: .4byte gUnknown_02022D76
 
 	THUMB_FUNC_END DebugMenuInit
@@ -667,7 +667,7 @@ DEBUGONLY_Startup: @ 0x0801C090
 	bl SetTalkUnkStr
 	ldr r0, _0801C0EC  @ gDebugContinueMenuDef
 	bl StartOrphanMenu
-	ldr r4, _0801C0F0  @ gGameState
+	ldr r4, _0801C0F0  @ gBmSt
 	ldrb r2, [r4, #4]
 	movs r1, #0x40
 	orrs r1, r2
@@ -690,7 +690,7 @@ _0801C0E0: .4byte OnGameLoopMain
 _0801C0E4: .4byte OnVBlank
 _0801C0E8: .4byte gUnknown_080D7A7C
 _0801C0EC: .4byte gDebugContinueMenuDef
-_0801C0F0: .4byte gGameState
+_0801C0F0: .4byte gBmSt
 _0801C0F4: .4byte 0x0600B000
 _0801C0F8: .4byte gUnknown_02023CE8
 
@@ -708,7 +708,7 @@ DebugContinueMenuInit: @ 0x0801C0FC
 	bl BG_EnableSyncByMask
 	add r0, sp, #4
 	movs r1, #3
-	bl SaveMetadata_Load
+	bl ReadSaveBlockInfo
 	lsls r0, r0, #0x18
 	asrs r0, r0, #0x18
 	cmp r0, #1
@@ -813,21 +813,21 @@ sub_801C1DC: @ 0x0801C1DC
 	push {lr}
 	bl GetGameClock
 	bl InitRN
-	bl ClearUnits
+	bl InitUnits
 	movs r3, #1
 	negs r3, r3
 	movs r0, #0
 	movs r1, #0
 	movs r2, #0
-	bl SaveNewGame
+	bl WriteNewGameSave
 	ldr r0, _0801C21C  @ 0x0000026A
 	bl GetStringFromIndex
 	bl SetTacticianName
-	ldr r1, _0801C220  @ gRAMChapterData
+	ldr r1, _0801C220  @ gPlaySt
 	movs r0, #1
 	strb r0, [r1, #0xe]
 	movs r0, #0
-	bl SaveGame
+	bl WriteGameSave
 	bl ChapterChangeUnitCleanup
 	bl sub_8009FD4
 	movs r0, #2
@@ -835,7 +835,7 @@ sub_801C1DC: @ 0x0801C1DC
 	bx r1
 	.align 2, 0
 _0801C21C: .4byte 0x0000026A
-_0801C220: .4byte gRAMChapterData
+_0801C220: .4byte gPlaySt
 
 	THUMB_FUNC_END sub_801C1DC
 
@@ -867,7 +867,7 @@ sub_801C248: @ 0x0801C248
 	adds r4, r1, #0
 	bl GetGameClock
 	bl InitRN
-	bl ClearUnits
+	bl InitUnits
 	ldr r0, _0801C278  @ gKeyStatusPtr
 	ldr r0, [r0]
 	ldrh r1, [r0, #4]
@@ -881,7 +881,7 @@ sub_801C248: @ 0x0801C248
 	movs r0, #0
 	movs r1, #1
 	movs r2, #0
-	bl SaveNewGame
+	bl WriteNewGameSave
 	b _0801C28A
 	.align 2, 0
 _0801C278: .4byte gKeyStatusPtr
@@ -891,7 +891,7 @@ _0801C27C:
 	movs r0, #0
 	movs r1, #0
 	movs r2, #0
-	bl SaveNewGame
+	bl WriteNewGameSave
 _0801C28A:
 	ldr r0, _0801C2C4  @ 0x0000026A
 	bl GetStringFromIndex
@@ -902,13 +902,13 @@ _0801C28A:
 	lsls r0, r0, #0x18
 	asrs r0, r0, #0x18
 	bl sub_801C650
-	ldr r1, _0801C2C8  @ gRAMChapterData
+	ldr r1, _0801C2C8  @ gPlaySt
 	strb r0, [r1, #0xe]
 	ldr r0, _0801C2CC  @ gUnknown_03001780
 	ldrb r0, [r0]
 	strb r0, [r1, #0x1b]
 	movs r0, #0
-	bl SaveGame
+	bl WriteGameSave
 	bl ChapterChangeUnitCleanup
 	bl nullsub_9
 	movs r0, #2
@@ -917,7 +917,7 @@ _0801C28A:
 	bx r1
 	.align 2, 0
 _0801C2C4: .4byte 0x0000026A
-_0801C2C8: .4byte gRAMChapterData
+_0801C2C8: .4byte gPlaySt
 _0801C2CC: .4byte gUnknown_03001780
 
 	THUMB_FUNC_END sub_801C248
@@ -974,7 +974,7 @@ DebugChuudanMenu_ManualSave: @ 0x0801C30C
 	cmp r0, #1
 	bne _0801C320
 	movs r0, #4
-	bl SaveSuspendedGame
+	bl WriteSuspendSave
 	movs r0, #0x17
 	b _0801C322
 _0801C320:
@@ -989,7 +989,7 @@ _0801C322:
 DebugContinueMenu_IsManualContinueAvailable: @ 0x0801C328
 	push {lr}
 	movs r0, #4
-	bl sub_80A5DA8
+	bl IsValidSuspendSave
 	lsls r0, r0, #0x18
 	movs r1, #2
 	cmp r0, #0
@@ -1019,7 +1019,7 @@ _0801C34E:
 	bl EndBMapMain
 _0801C35C:
 	movs r0, #4
-	bl LoadSuspendedGame
+	bl ReadSuspendSave
 	bl RestartGameAndGoto8
 	movs r0, #0x17
 _0801C368:
@@ -1060,7 +1060,7 @@ _0801C398: .4byte gProc_BMapMain
 DebugContinueMenu_IsContinueChapterAvailable: @ 0x0801C39C
 	push {lr}
 	movs r0, #3
-	bl sub_80A5DA8
+	bl IsValidSuspendSave
 	lsls r0, r0, #0x18
 	movs r1, #2
 	cmp r0, #0
@@ -1081,7 +1081,7 @@ DebugContinueMenu_ContinueChapter: @ 0x0801C3B4
 	cmp r0, #1
 	bne _0801C3CC
 	movs r0, #3
-	bl LoadSuspendedGame
+	bl ReadSuspendSave
 	bl RestartGameAndGoto8
 	movs r0, #0x17
 	b _0801C3CE
@@ -1110,7 +1110,7 @@ DebugMenu_FogDraw: @ 0x0801C3D4
 	movs r2, #0
 	bl Text_InsertString
 	ldr r2, _0801C43C  @ gUnknown_0859AA7C
-	ldr r0, _0801C440  @ gRAMChapterData
+	ldr r0, _0801C440  @ gPlaySt
 	ldrb r1, [r0, #0xd]
 	negs r0, r1
 	orrs r0, r1
@@ -1142,7 +1142,7 @@ DebugMenu_FogDraw: @ 0x0801C3D4
 	bx r1
 	.align 2, 0
 _0801C43C: .4byte gUnknown_0859AA7C
-_0801C440: .4byte gRAMChapterData
+_0801C440: .4byte gPlaySt
 _0801C444: .4byte gBG0TilemapBuffer
 
 	THUMB_FUNC_END DebugMenu_FogDraw
@@ -1163,7 +1163,7 @@ DebugMenu_FogIdle: @ 0x0801C448
 	ands r0, r1
 	cmp r0, #0
 	beq _0801C4A6
-	ldr r4, _0801C484  @ gRAMChapterData
+	ldr r4, _0801C484  @ gPlaySt
 	ldrb r0, [r4, #0xd]
 	cmp r0, #0
 	bne _0801C498
@@ -1175,7 +1175,7 @@ DebugMenu_FogIdle: @ 0x0801C448
 	b _0801C49E
 	.align 2, 0
 _0801C480: .4byte gKeyStatusPtr
-_0801C484: .4byte gRAMChapterData
+_0801C484: .4byte gPlaySt
 _0801C488:
 	movs r0, #0xe
 	ldrsb r0, [r4, r0]
@@ -1249,7 +1249,7 @@ DebugChargeMenu_Draw: @ 0x0801C4D0
 	adds r7, r4, #0
 	cmp r0, #0
 	beq _0801C514
-	ldr r0, _0801C510  @ gRAMChapterData
+	ldr r0, _0801C510  @ gPlaySt
 	adds r0, #0x43
 	ldrb r0, [r0]
 	lsls r0, r0, #0x1d
@@ -1257,9 +1257,9 @@ DebugChargeMenu_Draw: @ 0x0801C4D0
 	.align 2, 0
 _0801C508: .4byte gUnknown_080D7A88
 _0801C50C: .4byte gUnknown_080D7A8C
-_0801C510: .4byte gRAMChapterData
+_0801C510: .4byte gPlaySt
 _0801C514:
-	ldr r0, _0801C580  @ gRAMChapterData
+	ldr r0, _0801C580  @ gPlaySt
 	adds r0, #0x42
 	ldrh r0, [r0]
 	lsls r0, r0, #0x17
@@ -1309,7 +1309,7 @@ _0801C51C:
 	pop {r1}
 	bx r1
 	.align 2, 0
-_0801C580: .4byte gRAMChapterData
+_0801C580: .4byte gPlaySt
 _0801C584: .4byte gBG0TilemapBuffer
 
 	THUMB_FUNC_END DebugChargeMenu_Draw
@@ -1334,7 +1334,7 @@ DebugChargeMenu_Idle: @ 0x0801C588
 	adds r4, r0, #0
 	cmp r1, #0
 	beq _0801C5C0
-	ldr r1, _0801C5BC  @ gRAMChapterData
+	ldr r1, _0801C5BC  @ gPlaySt
 	adds r0, r1, #0
 	adds r0, #0x43
 	ldrb r0, [r0]
@@ -1342,9 +1342,9 @@ DebugChargeMenu_Idle: @ 0x0801C588
 	b _0801C5CA
 	.align 2, 0
 _0801C5B8: .4byte gKeyStatusPtr
-_0801C5BC: .4byte gRAMChapterData
+_0801C5BC: .4byte gPlaySt
 _0801C5C0:
-	ldr r1, _0801C610  @ gRAMChapterData
+	ldr r1, _0801C610  @ gPlaySt
 	adds r0, r1, #0
 	adds r0, #0x42
 	ldrh r0, [r0]
@@ -1390,7 +1390,7 @@ _0801C5F2:
 	strb r0, [r3]
 	b _0801C626
 	.align 2, 0
-_0801C610: .4byte gRAMChapterData
+_0801C610: .4byte gPlaySt
 _0801C614:
 	adds r3, #0x42
 	movs r0, #3

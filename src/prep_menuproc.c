@@ -240,7 +240,7 @@ void ProcPrepSpChar_OnInit(struct ProcPrepSpecialChar *proc)
     } else {
         proc->apProc = APProc_Create(gUnknown_08A1B194, 0x3C, 0x10, 0x9E40, 0, 0xD);
 
-        chIndex = gRAMChapterData.chapterIndex;
+        chIndex = gPlaySt.chapterIndex;
         if ((chIndex - 0x24) < 10)
             proc->unk30 = 2;
         else if ((chIndex - 0x2E) < 10)

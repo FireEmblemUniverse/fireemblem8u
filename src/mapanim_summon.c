@@ -219,7 +219,7 @@ s8 SelectSummonPos(int x, int y, struct SumThing* result)
             if (gBmMapUnit[iy][ix] != 0)
                 continue; // there's a unit here!
 
-            if (gRAMChapterData.chapterVisionRange && gBmMapFog[iy][ix] == 0)
+            if (gPlaySt.chapterVisionRange && gBmMapFog[iy][ix] == 0)
                 continue; // there's fog here!
 
             if (!CanUnitCrossTerrain(&gBattleActor.unit, gBmMapTerrain[iy][ix]))

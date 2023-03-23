@@ -243,7 +243,7 @@ _0808300C:
 	THUMB_FUNC_START sub_8083018
 sub_8083018: @ 0x08083018
 	push {lr}
-	ldr r0, _08083038  @ gRAMChapterData
+	ldr r0, _08083038  @ gPlaySt
 	ldrb r0, [r0, #0xf]
 	cmp r0, #0x80
 	bne _0808303C
@@ -258,7 +258,7 @@ sub_8083018: @ 0x08083018
 	movs r0, #1
 	b _0808303E
 	.align 2, 0
-_08083038: .4byte gRAMChapterData
+_08083038: .4byte gPlaySt
 _0808303C:
 	movs r0, #0
 _0808303E:
@@ -270,7 +270,7 @@ _0808303E:
 	THUMB_FUNC_START sub_8083044
 sub_8083044: @ 0x08083044
 	push {lr}
-	ldr r0, _08083088  @ gRAMChapterData
+	ldr r0, _08083088  @ gPlaySt
 	ldrb r0, [r0, #0xf]
 	cmp r0, #0x80
 	bne _08083084
@@ -302,7 +302,7 @@ _08083084:
 	movs r0, #0
 	b _0808308E
 	.align 2, 0
-_08083088: .4byte gRAMChapterData
+_08083088: .4byte gPlaySt
 _0808308C:
 	movs r0, #1
 _0808308E:
@@ -329,7 +329,7 @@ sub_8083094: @ 0x08083094
 	THUMB_FUNC_START sub_80830AC
 sub_80830AC: @ 0x080830AC
 	push {lr}
-	ldr r0, _080830C8  @ gRAMChapterData
+	ldr r0, _080830C8  @ gPlaySt
 	ldrb r0, [r0, #0xf]
 	cmp r0, #0x80
 	bne _080830CC
@@ -342,7 +342,7 @@ sub_80830AC: @ 0x080830AC
 	asrs r0, r0, #0x18
 	b _080830CE
 	.align 2, 0
-_080830C8: .4byte gRAMChapterData
+_080830C8: .4byte gPlaySt
 _080830CC:
 	movs r0, #0
 _080830CE:
@@ -354,7 +354,7 @@ _080830CE:
 	THUMB_FUNC_START sub_80830D4
 sub_80830D4: @ 0x080830D4
 	push {lr}
-	ldr r0, _080830F0  @ gRAMChapterData
+	ldr r0, _080830F0  @ gPlaySt
 	ldrb r0, [r0, #0xf]
 	cmp r0, #0x80
 	bne _080830F4
@@ -367,7 +367,7 @@ sub_80830D4: @ 0x080830D4
 	asrs r0, r0, #0x18
 	b _080830F6
 	.align 2, 0
-_080830F0: .4byte gRAMChapterData
+_080830F0: .4byte gPlaySt
 _080830F4:
 	movs r0, #0
 _080830F6:
@@ -379,7 +379,7 @@ _080830F6:
 	THUMB_FUNC_START sub_80830FC
 sub_80830FC: @ 0x080830FC
 	push {lr}
-	ldr r0, _08083118  @ gRAMChapterData
+	ldr r0, _08083118  @ gPlaySt
 	ldrb r0, [r0, #0xf]
 	cmp r0, #0x80
 	bne _0808311C
@@ -392,7 +392,7 @@ sub_80830FC: @ 0x080830FC
 	asrs r0, r0, #0x18
 	b _0808311E
 	.align 2, 0
-_08083118: .4byte gRAMChapterData
+_08083118: .4byte gPlaySt
 _0808311C:
 	movs r0, #0
 _0808311E:
@@ -404,7 +404,7 @@ _0808311E:
 	THUMB_FUNC_START sub_8083124
 sub_8083124: @ 0x08083124
 	push {lr}
-	ldr r0, _08083140  @ gRAMChapterData
+	ldr r0, _08083140  @ gPlaySt
 	ldrb r0, [r0, #0xf]
 	cmp r0, #0x80
 	bne _08083144
@@ -417,7 +417,7 @@ sub_8083124: @ 0x08083124
 	asrs r0, r0, #0x18
 	b _08083146
 	.align 2, 0
-_08083140: .4byte gRAMChapterData
+_08083140: .4byte gPlaySt
 _08083144:
 	movs r0, #0
 _08083146:
@@ -620,7 +620,7 @@ _0808327A:
 	THUMB_FUNC_START sub_8083280
 sub_8083280: @ 0x08083280
 	push {r4, lr}
-	ldr r0, _080832A4  @ gRAMChapterData
+	ldr r0, _080832A4  @ gPlaySt
 	ldrb r0, [r0, #0xe]
 	lsls r0, r0, #0x18
 	asrs r0, r0, #0x18
@@ -634,7 +634,7 @@ sub_8083280: @ 0x08083280
 	bl CallEvent
 	b _080832B0
 	.align 2, 0
-_080832A4: .4byte gRAMChapterData
+_080832A4: .4byte gPlaySt
 _080832A8:
 	ldr r0, _080832C0  @ gUnknown_089FFD64
 	movs r1, #1
@@ -720,7 +720,7 @@ _08083304:
 	THUMB_FUNC_START GetCurrentChapterBallistaePtr
 GetCurrentChapterBallistaePtr: @ 0x08083308
 	push {lr}
-	ldr r0, _0808331C  @ gRAMChapterData
+	ldr r0, _0808331C  @ gPlaySt
 	ldrb r0, [r0, #0xe]
 	lsls r0, r0, #0x18
 	asrs r0, r0, #0x18
@@ -729,14 +729,14 @@ GetCurrentChapterBallistaePtr: @ 0x08083308
 	pop {r1}
 	bx r1
 	.align 2, 0
-_0808331C: .4byte gRAMChapterData
+_0808331C: .4byte gPlaySt
 
 	THUMB_FUNC_END GetCurrentChapterBallistaePtr
 
 	THUMB_FUNC_START GetCurrentChapterBallistae2Ptr
 GetCurrentChapterBallistae2Ptr: @ 0x08083320
 	push {r4, lr}
-	ldr r4, _0808333C  @ gRAMChapterData
+	ldr r4, _0808333C  @ gPlaySt
 	movs r0, #0xe
 	ldrsb r0, [r4, r0]
 	bl GetChapterEventDataPointer
@@ -749,7 +749,7 @@ GetCurrentChapterBallistae2Ptr: @ 0x08083320
 	movs r0, #0
 	b _08083342
 	.align 2, 0
-_0808333C: .4byte gRAMChapterData
+_0808333C: .4byte gPlaySt
 _08083340:
 	ldr r0, [r2, #0x24]
 _08083342:
@@ -762,7 +762,7 @@ _08083342:
 	THUMB_FUNC_START GetChapterAllyUnitDataPointer
 GetChapterAllyUnitDataPointer: @ 0x08083348
 	push {r4, r5, lr}
-	ldr r5, _08083370  @ gRAMChapterData
+	ldr r5, _08083370  @ gPlaySt
 	movs r0, #0xe
 	ldrsb r0, [r5, r0]
 	bl GetChapterEventDataPointer
@@ -779,7 +779,7 @@ GetChapterAllyUnitDataPointer: @ 0x08083348
 	ldr r0, [r4, #0x2c]
 	b _080833A8
 	.align 2, 0
-_08083370: .4byte gRAMChapterData
+_08083370: .4byte gPlaySt
 _08083374:
 	ldr r0, [r4, #0x28]
 	b _080833A8
@@ -822,7 +822,7 @@ _080833A8:
 	THUMB_FUNC_START sub_80833B0
 sub_80833B0: @ 0x080833B0
 	push {lr}
-	ldr r0, _080833E0  @ gRAMChapterData
+	ldr r0, _080833E0  @ gPlaySt
 	ldrb r0, [r0, #0xe]
 	lsls r0, r0, #0x18
 	asrs r0, r0, #0x18
@@ -844,7 +844,7 @@ sub_80833B0: @ 0x080833B0
 	beq _080833EE
 	b _080833F8
 	.align 2, 0
-_080833E0: .4byte gRAMChapterData
+_080833E0: .4byte gPlaySt
 _080833E4: .4byte gGMData
 _080833E8:
 	cmp r0, #2
@@ -890,7 +890,7 @@ sub_8083400: @ 0x08083400
 	THUMB_FUNC_START sub_8083424
 sub_8083424: @ 0x08083424
 	push {lr}
-	ldr r0, _0808345C  @ gRAMChapterData
+	ldr r0, _0808345C  @ gPlaySt
 	ldrb r0, [r0, #0xe]
 	lsls r0, r0, #0x18
 	asrs r0, r0, #0x18
@@ -917,7 +917,7 @@ sub_8083424: @ 0x08083424
 	movs r0, #1
 	b _08083462
 	.align 2, 0
-_0808345C: .4byte gRAMChapterData
+_0808345C: .4byte gPlaySt
 _08083460:
 	movs r0, #0
 _08083462:
@@ -945,7 +945,7 @@ _08083472:
 	ldrb r0, [r4, #1]
 	cmp r0, #0x4f
 	beq _08083498
-	ldr r0, _0808349C  @ gRAMChapterData
+	ldr r0, _0808349C  @ gPlaySt
 	ldrb r0, [r0, #0xe]
 	lsls r0, r0, #0x18
 	asrs r0, r0, #0x18
@@ -956,7 +956,7 @@ _08083498:
 	adds r0, r4, #0
 	b _080834AA
 	.align 2, 0
-_0808349C: .4byte gRAMChapterData
+_0808349C: .4byte gPlaySt
 _080834A0:
 	adds r4, #0xc
 _080834A2:
@@ -1080,7 +1080,7 @@ sub_8083570: @ 0x08083570
 	bl GetChapterThing
 	cmp r0, #0
 	beq _08083598
-	ldr r0, _080835A4  @ gRAMChapterData
+	ldr r0, _080835A4  @ gPlaySt
 	ldrb r0, [r0, #0xe]
 	lsls r0, r0, #0x18
 	asrs r0, r0, #0x18
@@ -1099,7 +1099,7 @@ _0808359E:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_080835A4: .4byte gRAMChapterData
+_080835A4: .4byte gPlaySt
 
 	THUMB_FUNC_END sub_8083570
 
@@ -1154,7 +1154,7 @@ sub_80835DC: @ 0x080835DC
 	movs r0, #0x3e
 	movs r1, #0
 	bl Sound_PlaySong80024D4
-	ldr r0, _08083610  @ gRAMChapterData
+	ldr r0, _08083610  @ gPlaySt
 	adds r0, #0x41
 	ldrb r1, [r0]
 	movs r2, #1
@@ -1162,7 +1162,7 @@ sub_80835DC: @ 0x080835DC
 	strb r1, [r0]
 	b _08083630
 	.align 2, 0
-_08083610: .4byte gRAMChapterData
+_08083610: .4byte gPlaySt
 _08083614:
 	adds r0, r5, #0
 	bl GetUnitFromCharId
@@ -1226,7 +1226,7 @@ _0808365E:
 	lsrs r0, r0, #0x18
 	movs r1, #0
 	movs r2, #7
-	bl BWL_AddWinOrLossIdk
+	bl PidStatsRecordDefeatInfo
 	adds r0, r4, #0
 	bl UnitKill
 	adds r0, r4, #0
@@ -1387,7 +1387,7 @@ sub_80837B0: @ 0x080837B0
 	movs r0, #0x3e
 	movs r1, #0
 	bl Sound_PlaySong80024D4
-	ldr r0, _080837D4  @ gRAMChapterData
+	ldr r0, _080837D4  @ gPlaySt
 	adds r0, #0x41
 	ldrb r1, [r0]
 	movs r2, #1
@@ -1397,14 +1397,14 @@ sub_80837B0: @ 0x080837B0
 	pop {r0}
 	bx r0
 	.align 2, 0
-_080837D4: .4byte gRAMChapterData
+_080837D4: .4byte gPlaySt
 
 	THUMB_FUNC_END sub_80837B0
 
 	THUMB_FUNC_START sub_80837D8
 sub_80837D8: @ 0x080837D8
 	push {lr}
-	ldr r0, _080837EC  @ gRAMChapterData
+	ldr r0, _080837EC  @ gPlaySt
 	ldrb r1, [r0, #0x14]
 	movs r0, #0x40
 	ands r0, r1
@@ -1413,7 +1413,7 @@ sub_80837D8: @ 0x080837D8
 	movs r0, #0
 	b _080837F2
 	.align 2, 0
-_080837EC: .4byte gRAMChapterData
+_080837EC: .4byte gPlaySt
 _080837F0:
 	movs r0, #1
 _080837F2:
@@ -1426,7 +1426,7 @@ _080837F2:
 sub_80837F8: @ 0x080837F8
 	push {lr}
 	movs r3, #0
-	ldr r2, _0808382C  @ gRAMChapterData
+	ldr r2, _0808382C  @ gPlaySt
 	ldrb r1, [r2, #0x14]
 	movs r0, #0x40
 	ands r0, r1
@@ -1450,7 +1450,7 @@ _08083824:
 	pop {r1}
 	bx r1
 	.align 2, 0
-_0808382C: .4byte gRAMChapterData
+_0808382C: .4byte gPlaySt
 
 	THUMB_FUNC_END sub_80837F8
 
@@ -1509,7 +1509,7 @@ _08083878:
 	bne _0808387E
 	ldr r0, _0808389C  @ 0x7FFFFFFF
 _0808387E:
-	ldr r5, _080838A0  @ gRAMChapterData
+	ldr r5, _080838A0  @ gPlaySt
 	ldrh r1, [r5, #0x10]
 	cmp r4, r1
 	bgt _080838A4
@@ -1526,7 +1526,7 @@ _0808387E:
 	b _080838A6
 	.align 2, 0
 _0808389C: .4byte 0x7FFFFFFF
-_080838A0: .4byte gRAMChapterData
+_080838A0: .4byte gPlaySt
 _080838A4:
 	movs r0, #0
 _080838A6:
@@ -2220,8 +2220,8 @@ _08083D14: .4byte gUnknown_03005250
 
 	THUMB_FUNC_END UnsetGlobalEventId
 
-	THUMB_FUNC_START sub_8083D18
-sub_8083D18: @ 0x08083D18
+	THUMB_FUNC_START ResetPermanentFlags
+ResetPermanentFlags: @ 0x08083D18
 	push {lr}
 	ldr r1, _08083D30  @ gUnknown_03005250
 	movs r2, #0
@@ -2237,7 +2237,7 @@ _08083D22:
 	.align 2, 0
 _08083D30: .4byte gUnknown_03005250
 
-	THUMB_FUNC_END sub_8083D18
+	THUMB_FUNC_END ResetPermanentFlags
 
 	THUMB_FUNC_START sub_8083D34
 sub_8083D34: @ 0x08083D34
@@ -2336,37 +2336,37 @@ _08083DB8:
 
 	THUMB_FUNC_END CheckEventId
 
-	THUMB_FUNC_START GetGlobalEventIdStorage
-GetGlobalEventIdStorage: @ 0x08083DC0
+	THUMB_FUNC_START GetPermanentFlagBits
+GetPermanentFlagBits: @ 0x08083DC0
 	ldr r0, _08083DC4  @ gUnknown_03005250
 	bx lr
 	.align 2, 0
 _08083DC4: .4byte gUnknown_03005250
 
-	THUMB_FUNC_END GetGlobalEventIdStorage
+	THUMB_FUNC_END GetPermanentFlagBits
 
-	THUMB_FUNC_START GetGlobalEventIdStorageSize
-GetGlobalEventIdStorageSize: @ 0x08083DC8
+	THUMB_FUNC_START GetPermanentFlagBitsSize
+GetPermanentFlagBitsSize: @ 0x08083DC8
 	movs r0, #0x19
 	bx lr
 
-	THUMB_FUNC_END GetGlobalEventIdStorageSize
+	THUMB_FUNC_END GetPermanentFlagBitsSize
 
-	THUMB_FUNC_START GetLocalEventIdStorage
-GetLocalEventIdStorage: @ 0x08083DCC
+	THUMB_FUNC_START GetChapterFlagBits
+GetChapterFlagBits: @ 0x08083DCC
 	ldr r0, _08083DD0  @ gUnknown_03005270
 	bx lr
 	.align 2, 0
 _08083DD0: .4byte gUnknown_03005270
 
-	THUMB_FUNC_END GetLocalEventIdStorage
+	THUMB_FUNC_END GetChapterFlagBits
 
-	THUMB_FUNC_START GetLocalEventIdStorageSize
-GetLocalEventIdStorageSize: @ 0x08083DD4
+	THUMB_FUNC_START GetChapterFlagBitsSize
+GetChapterFlagBitsSize: @ 0x08083DD4
 	movs r0, #5
 	bx lr
 
-	THUMB_FUNC_END GetLocalEventIdStorageSize
+	THUMB_FUNC_END GetChapterFlagBitsSize
 
 	THUMB_FUNC_START sub_8083DD8
 sub_8083DD8: @ 0x08083DD8
@@ -2375,7 +2375,7 @@ sub_8083DD8: @ 0x08083DD8
 	lsls r1, r1, #0x18
 	lsrs r6, r1, #0x18
 	movs r4, #0
-	ldr r5, _08083E18  @ gRAMChapterData
+	ldr r5, _08083E18  @ gPlaySt
 	movs r0, #0xe
 	ldrsb r0, [r5, r0]
 	bl GetChapterEventDataPointer
@@ -2403,7 +2403,7 @@ _08083DFE:
 	strb r0, [r2]
 	b _08083E2C
 	.align 2, 0
-_08083E18: .4byte gRAMChapterData
+_08083E18: .4byte gPlaySt
 _08083E1C:
 	adds r0, r4, #1
 	lsls r0, r0, #0x10
@@ -2425,7 +2425,7 @@ sub_8083E34: @ 0x08083E34
 	push {lr}
 	lsls r0, r0, #0x18
 	lsrs r2, r0, #0x18
-	ldr r1, _08083E58  @ gRAMChapterData
+	ldr r1, _08083E58  @ gPlaySt
 	adds r0, r1, #0
 	adds r0, #0x4b
 	ldrb r0, [r0]
@@ -2440,7 +2440,7 @@ sub_8083E34: @ 0x08083E34
 	movs r0, #1
 	b _08083E5E
 	.align 2, 0
-_08083E58: .4byte gRAMChapterData
+_08083E58: .4byte gPlaySt
 _08083E5C:
 	movs r0, #0
 _08083E5E:
@@ -2454,7 +2454,7 @@ TryCallSelectEvents_u1C: @ 0x08083E64
 	push {r4, r5, r6, lr}
 	lsls r0, r0, #0x18
 	lsrs r2, r0, #0x18
-	ldr r1, _08083EAC  @ gRAMChapterData
+	ldr r1, _08083EAC  @ gPlaySt
 	adds r6, r1, #0
 	adds r6, #0x4b
 	ldrb r0, [r6]
@@ -2486,7 +2486,7 @@ TryCallSelectEvents_u1C: @ 0x08083E64
 	movs r0, #1
 	b _08083EB2
 	.align 2, 0
-_08083EAC: .4byte gRAMChapterData
+_08083EAC: .4byte gPlaySt
 _08083EB0:
 	movs r0, #0
 _08083EB2:
@@ -2506,7 +2506,7 @@ sub_8083EB8: @ 0x08083EB8
 	movs r0, #0
 	b _08083F60
 _08083EC8:
-	ldr r0, _08083EEC  @ gRAMChapterData
+	ldr r0, _08083EEC  @ gPlaySt
 	ldrb r0, [r0, #0xe]
 	lsls r0, r0, #0x18
 	asrs r0, r0, #0x18
@@ -2523,7 +2523,7 @@ _08083EC8:
 	ldrb r0, [r0]
 	b _08083EF2
 	.align 2, 0
-_08083EEC: .4byte gRAMChapterData
+_08083EEC: .4byte gPlaySt
 _08083EF0:
 	movs r0, #1
 _08083EF2:
@@ -2549,7 +2549,7 @@ _08083F18:
 	bl TryCallSelectEvents_u1C
 	lsls r0, r0, #0x18
 	lsrs r4, r0, #0x18
-	ldr r0, _08083F58  @ gRAMChapterData
+	ldr r0, _08083F58  @ gPlaySt
 	ldrb r0, [r0, #0xe]
 	lsls r0, r0, #0x18
 	asrs r0, r0, #0x18
@@ -2572,7 +2572,7 @@ _08083F40:
 	movs r0, #1
 	b _08083F60
 	.align 2, 0
-_08083F58: .4byte gRAMChapterData
+_08083F58: .4byte gPlaySt
 _08083F5C:
 	lsls r0, r4, #0x18
 	asrs r0, r0, #0x18
@@ -2595,7 +2595,7 @@ sub_8083F68: @ 0x08083F68
 	bl GetChapterThing
 	cmp r0, #2
 	beq _08083F9A
-	ldr r0, _08083FA0  @ gRAMChapterData
+	ldr r0, _08083FA0  @ gPlaySt
 	ldrb r0, [r0, #0xe]
 	lsls r0, r0, #0x18
 	asrs r0, r0, #0x18
@@ -2612,7 +2612,7 @@ _08083F9A:
 	movs r0, #0
 	b _08083FA6
 	.align 2, 0
-_08083FA0: .4byte gRAMChapterData
+_08083FA0: .4byte gPlaySt
 _08083FA4:
 	movs r0, #1
 _08083FA6:
@@ -2634,7 +2634,7 @@ sub_8083FB0: @ 0x08083FB0
 	bl GetChapterThing
 	cmp r0, #2
 	beq _08083FEE
-	ldr r0, _08083FF8  @ gRAMChapterData
+	ldr r0, _08083FF8  @ gPlaySt
 	ldrb r0, [r0, #0xe]
 	lsls r0, r0, #0x18
 	asrs r0, r0, #0x18
@@ -2657,7 +2657,7 @@ _08083FEE:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_08083FF8: .4byte gRAMChapterData
+_08083FF8: .4byte gPlaySt
 
 	THUMB_FUNC_END sub_8083FB0
 
@@ -2742,7 +2742,7 @@ GetAvailableLocaCommandAt: @ 0x08084078
 	lsrs r4, r4, #0x18
 	lsls r5, r5, #0x18
 	lsrs r5, r5, #0x18
-	ldr r0, _080840B4  @ gRAMChapterData
+	ldr r0, _080840B4  @ gPlaySt
 	ldrb r0, [r0, #0xe]
 	lsls r0, r0, #0x18
 	asrs r0, r0, #0x18
@@ -2761,7 +2761,7 @@ GetAvailableLocaCommandAt: @ 0x08084078
 	ldr r0, [sp, #0xc]
 	b _080840BA
 	.align 2, 0
-_080840B4: .4byte gRAMChapterData
+_080840B4: .4byte gPlaySt
 _080840B8:
 	movs r0, #0
 _080840BA:
@@ -2780,7 +2780,7 @@ sub_80840C4: @ 0x080840C4
 	lsrs r5, r0, #0x18
 	lsls r1, r1, #0x18
 	lsrs r4, r1, #0x18
-	ldr r0, _08084104  @ gRAMChapterData
+	ldr r0, _08084104  @ gPlaySt
 	ldrb r0, [r0, #0xe]
 	lsls r0, r0, #0x18
 	asrs r0, r0, #0x18
@@ -2806,7 +2806,7 @@ _080840F8:
 	ldr r0, [r0]
 	mov pc, r0
 	.align 2, 0
-_08084104: .4byte gRAMChapterData
+_08084104: .4byte gPlaySt
 _08084108: .4byte _0808410C
 _0808410C: @ jump table
 	.4byte _08084324 @ case 0
@@ -3085,7 +3085,7 @@ _08084374:
 	bl sub_8083E34
 	lsls r0, r0, #0x18
 	lsrs r4, r0, #0x18
-	ldr r0, _080843AC  @ gRAMChapterData
+	ldr r0, _080843AC  @ gPlaySt
 	ldrb r0, [r0, #0xe]
 	lsls r0, r0, #0x18
 	asrs r0, r0, #0x18
@@ -3107,7 +3107,7 @@ _08084374:
 	asrs r0, r0, #0x18
 	b _080843B6
 	.align 2, 0
-_080843AC: .4byte gRAMChapterData
+_080843AC: .4byte gPlaySt
 _080843B0: .4byte gActiveUnit
 _080843B4:
 	movs r0, #1
@@ -3155,7 +3155,7 @@ _08084402:
 	beq _0808444E
 	movs r0, #1
 	bl TryCallSelectEvents_u1C
-	ldr r0, _08084454  @ gRAMChapterData
+	ldr r0, _08084454  @ gPlaySt
 	ldrb r0, [r0, #0xe]
 	lsls r0, r0, #0x18
 	asrs r0, r0, #0x18
@@ -3187,7 +3187,7 @@ _0808444E:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_08084454: .4byte gRAMChapterData
+_08084454: .4byte gPlaySt
 _08084458: .4byte gActiveUnit
 
 	THUMB_FUNC_END RunWaitEvents
@@ -3206,7 +3206,7 @@ _0808446C:
 	bl TryCallSelectEvents_u1C
 	lsls r0, r0, #0x18
 	lsrs r4, r0, #0x18
-	ldr r0, _0808448C  @ gRAMChapterData
+	ldr r0, _0808448C  @ gPlaySt
 	ldrb r0, [r0, #0xe]
 	lsls r0, r0, #0x18
 	asrs r0, r0, #0x18
@@ -3216,7 +3216,7 @@ _0808446C:
 	bl sub_80845A4
 	b _0808449A
 	.align 2, 0
-_0808448C: .4byte gRAMChapterData
+_0808448C: .4byte gPlaySt
 _08084490:
 	mov r0, sp
 	movs r1, #1
@@ -3251,7 +3251,7 @@ _080844C0:
 	bl TryCallSelectEvents_u1C
 	lsls r0, r0, #0x18
 	lsrs r4, r0, #0x18
-	ldr r0, _080844EC  @ gRAMChapterData
+	ldr r0, _080844EC  @ gPlaySt
 	ldrb r0, [r0, #0xe]
 	lsls r0, r0, #0x18
 	asrs r0, r0, #0x18
@@ -3266,7 +3266,7 @@ _080844C0:
 	asrs r0, r0, #0x18
 	b _080844FE
 	.align 2, 0
-_080844EC: .4byte gRAMChapterData
+_080844EC: .4byte gPlaySt
 _080844F0:
 	bl sub_80845A4
 	mov r0, sp
@@ -3295,7 +3295,7 @@ _08084518:
 	bl TryCallSelectEvents_u1C
 	lsls r0, r0, #0x18
 	lsrs r4, r0, #0x18
-	ldr r0, _08084544  @ gRAMChapterData
+	ldr r0, _08084544  @ gPlaySt
 	ldrb r0, [r0, #0xe]
 	lsls r0, r0, #0x18
 	asrs r0, r0, #0x18
@@ -3310,7 +3310,7 @@ _08084518:
 	asrs r0, r0, #0x18
 	b _08084556
 	.align 2, 0
-_08084544: .4byte gRAMChapterData
+_08084544: .4byte gPlaySt
 _08084548:
 	bl sub_80845A4
 	mov r0, sp
@@ -3502,7 +3502,7 @@ _08084662:
 	cmp r0, #0xff
 	beq _08084686
 	adds r1, r0, #0
-	ldr r0, _080846B4  @ gRAMChapterData
+	ldr r0, _080846B4  @ gPlaySt
 	ldrb r0, [r0, #0xe]
 	lsls r0, r0, #0x18
 	asrs r0, r0, #0x18
@@ -3538,7 +3538,7 @@ _080846A8:
 	.align 2, 0
 _080846AC: .4byte gUnknown_089EC6BC
 _080846B0: .4byte 0x0000FFFF
-_080846B4: .4byte gRAMChapterData
+_080846B4: .4byte gPlaySt
 _080846B8:
 	ldrh r0, [r4, #2]
 	cmp r0, #0
@@ -3580,7 +3580,7 @@ sub_80846E4: @ 0x080846E4
 	ldr r1, _08084730  @ 0x0000FFFF
 	cmp r0, r1
 	beq _08084740
-	ldr r5, _08084734  @ gRAMChapterData
+	ldr r5, _08084734  @ gPlaySt
 	adds r7, r1, #0
 _080846F8:
 	ldrb r0, [r4, #2]
@@ -3612,7 +3612,7 @@ _08084714:
 	.align 2, 0
 _0808472C: .4byte gUnknown_089ECD4C
 _08084730: .4byte 0x0000FFFF
-_08084734: .4byte gRAMChapterData
+_08084734: .4byte gPlaySt
 _08084738:
 	adds r4, #0xc
 	ldrh r0, [r4]
@@ -3756,7 +3756,7 @@ IsCharacterForceDeployed_: @ 0x08084800
 	ldr r1, _08084840  @ 0x0000FFFF
 	cmp r0, r1
 	beq _08084850
-	ldr r3, _08084844  @ gRAMChapterData
+	ldr r3, _08084844  @ gPlaySt
 	adds r5, r1, #0
 _08084814:
 	ldrb r0, [r2, #2]
@@ -3783,7 +3783,7 @@ _08084830:
 	.align 2, 0
 _0808483C: .4byte gUnknown_089ED64C
 _08084840: .4byte 0x0000FFFF
-_08084844: .4byte gRAMChapterData
+_08084844: .4byte gPlaySt
 _08084848:
 	adds r2, #4
 	ldrh r0, [r2]

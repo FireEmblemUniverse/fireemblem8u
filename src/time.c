@@ -19,7 +19,7 @@ u32 GetGameClock() {
   return gGameClock;
 };
 
-void SetGameClock(int newTime) {
+void SetGameTime(int newTime) {
   gGameClock = newTime;
 };
 

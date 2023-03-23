@@ -14,11 +14,11 @@
 // TODO: figure out those two inline functions and where they belong
 
 static inline void SetChapterUnk1C(int arg, u8 val) {
-    gRAMChapterData.unk1C[arg] = val;
+    gPlaySt.unk1C[arg] = val;
 }
 
 static inline int GetChapterUnk1C(int arg) {
-    return gRAMChapterData.unk1C[arg];
+    return gPlaySt.unk1C[arg];
 }
 
 char* GetItemNameWithArticle(int item, s8 capitalize) {

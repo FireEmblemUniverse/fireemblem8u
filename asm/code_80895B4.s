@@ -1072,7 +1072,7 @@ sub_808A00C: @ 0x0808A00C
 	adds r0, r4, #0
 	adds r0, #0x5e
 	strh r5, [r0]
-	ldr r0, _0808A0BC  @ gRAMChapterData
+	ldr r0, _0808A0BC  @ gPlaySt
 	adds r0, #0x40
 	ldrb r0, [r0]
 	lsls r0, r0, #0x19
@@ -1087,7 +1087,7 @@ sub_808A00C: @ 0x0808A00C
 	.align 2, 0
 _0808A0B4: .4byte gUnknown_0203E794
 _0808A0B8: .4byte gUnknown_08A01628
-_0808A0BC: .4byte gRAMChapterData
+_0808A0BC: .4byte gPlaySt
 _0808A0C0:
 	cmp r2, #2
 	beq _0808A0DA
@@ -1285,7 +1285,7 @@ sub_808A200: @ 0x0808A200
 	movs r1, #3
 	bl Proc_Start
 	adds r5, r0, #0
-	ldr r0, _0808A248  @ gRAMChapterData
+	ldr r0, _0808A248  @ gPlaySt
 	adds r0, #0x41
 	ldrb r0, [r0]
 	lsls r0, r0, #0x1e
@@ -1303,7 +1303,7 @@ _0808A230:
 	b _0808A268
 	.align 2, 0
 _0808A244: .4byte gUnknown_08A01678
-_0808A248: .4byte gRAMChapterData
+_0808A248: .4byte gPlaySt
 _0808A24C:
 	ldrh r0, [r5, #0x30]
 	strh r0, [r5, #0x38]
@@ -1369,7 +1369,7 @@ _0808A2CC: .4byte gUnknown_0203E7E4
 	THUMB_FUNC_START sub_808A2D0
 sub_808A2D0: @ 0x0808A2D0
 	push {lr}
-	ldr r0, _0808A2F4  @ gRAMChapterData
+	ldr r0, _0808A2F4  @ gPlaySt
 	adds r0, #0x41
 	ldrb r0, [r0]
 	lsls r0, r0, #0x1e
@@ -1384,7 +1384,7 @@ _0808A2E4:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_0808A2F4: .4byte gRAMChapterData
+_0808A2F4: .4byte gPlaySt
 _0808A2F8: .4byte gUnknown_08A01678
 
 	THUMB_FUNC_END sub_808A2D0
@@ -2017,7 +2017,7 @@ _0808A764:
 	ands r1, r0
 	cmp r1, #0
 	beq _0808A794
-	ldr r0, _0808A7A8  @ gRAMChapterData
+	ldr r0, _0808A7A8  @ gPlaySt
 	adds r0, #0x41
 	ldrb r0, [r0]
 	lsls r0, r0, #0x1e
@@ -2033,7 +2033,7 @@ _0808A794:
 _0808A79C: .4byte gUnknown_0203E800
 _0808A7A0: .4byte Pal_UIFont
 _0808A7A4: .4byte gUnknown_0203E7E8
-_0808A7A8: .4byte gRAMChapterData
+_0808A7A8: .4byte gPlaySt
 _0808A7AC: .4byte 0x000002E6
 
 	THUMB_FUNC_END sub_808A5D0
@@ -2191,7 +2191,7 @@ sub_808A8AC: @ 0x0808A8AC
 	ands r1, r0
 	cmp r1, #0
 	beq _0808A8CC
-	ldr r0, _0808A8DC  @ gRAMChapterData
+	ldr r0, _0808A8DC  @ gPlaySt
 	adds r0, #0x41
 	ldrb r0, [r0]
 	lsls r0, r0, #0x1e
@@ -2206,7 +2206,7 @@ _0808A8CC:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_0808A8DC: .4byte gRAMChapterData
+_0808A8DC: .4byte gPlaySt
 _0808A8E0: .4byte 0x000002E7
 
 	THUMB_FUNC_END sub_808A8AC
@@ -3960,7 +3960,7 @@ _0808B730:
 	ands r1, r0
 	cmp r1, #0
 	beq _0808B758
-	ldr r0, _0808B750  @ gRAMChapterData
+	ldr r0, _0808B750  @ gPlaySt
 	adds r0, #0x41
 	ldrb r0, [r0]
 	lsls r0, r0, #0x1e
@@ -3970,10 +3970,10 @@ _0808B730:
 	bl m4aSongNumStart
 	b _0808B76A
 	.align 2, 0
-_0808B750: .4byte gRAMChapterData
+_0808B750: .4byte gPlaySt
 _0808B754: .4byte 0x000002E5
 _0808B758:
-	ldr r0, _0808B784  @ gRAMChapterData
+	ldr r0, _0808B784  @ gPlaySt
 	adds r0, #0x41
 	ldrb r0, [r0]
 	lsls r0, r0, #0x1e
@@ -3997,7 +3997,7 @@ _0808B778:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_0808B784: .4byte gRAMChapterData
+_0808B784: .4byte gPlaySt
 
 	THUMB_FUNC_END sub_808B178
 

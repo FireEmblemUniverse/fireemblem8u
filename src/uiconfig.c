@@ -334,7 +334,7 @@ void SetGameOption(u8, u8);
 s16 sub_80B169C(void) {
     int unk = gConfigUiState->unk_32;
 
-    if (!(gRAMChapterData.chapterStateBits & CHAPTER_FLAG_DIFFICULT)) {
+    if (!(gPlaySt.chapterStateBits & PLAY_FLAG_HARD)) {
         return unk;
     }
 
@@ -669,7 +669,7 @@ u8 GetGameOption(u8 index) {
 
     switch (index) {
         case GAME_OPTION_ANIMATION:
-            switch (gRAMChapterData.cfgAnimationType) {
+            switch (gPlaySt.cfgAnimationType) {
                 case 0:
                     return 0;
                 case 3:
@@ -683,77 +683,77 @@ u8 GetGameOption(u8 index) {
             // fallthrough
 
         case GAME_OPTION_TERRAIN:
-            value = gRAMChapterData.cfgDisableTerrainDisplay;
+            value = gPlaySt.cfgDisableTerrainDisplay;
 
             break;
 
         case GAME_OPTION_UNIT:
-            value = gRAMChapterData.cfgUnitDisplayType;
+            value = gPlaySt.cfgUnitDisplayType;
 
             break;
 
         case GAME_OPTION_AUTOCURSOR:
-            value = gRAMChapterData.cfgAutoCursor;
+            value = gPlaySt.cfgAutoCursor;
 
             break;
 
         case GAME_OPTION_TEXT_SPEED:
-            value = gRAMChapterData.cfgTextSpeed;
+            value = gPlaySt.cfgTextSpeed;
 
             break;
 
         case GAME_OPTION_GAME_SPEED:
-            value = gRAMChapterData.cfgGameSpeed;
+            value = gPlaySt.cfgGameSpeed;
 
             break;
 
         case GAME_OPTION_MUSIC:
-            value = gRAMChapterData.cfgDisableBgm;
+            value = gPlaySt.cfgDisableBgm;
 
             break;
 
         case GAME_OPTION_SOUND_EFFECTS:
-            value = gRAMChapterData.cfgDisableSoundEffects;
+            value = gPlaySt.cfgDisableSoundEffects;
 
             break;
 
         case GAME_OPTION_WINDOW_COLOR:
-            value = gRAMChapterData.cfgWindowColor;
+            value = gPlaySt.cfgWindowColor;
 
             break;
 
         case GAME_OPTION_COMBAT:
-            value = gRAMChapterData.cfgBattleForecastType;
+            value = gPlaySt.cfgBattleForecastType;
 
             break;
 
         case GAME_OPTION_SUBTITLE_HELP:
-            value = gRAMChapterData.cfgNoSubtitleHelp;
+            value = gPlaySt.cfgNoSubtitleHelp;
 
             break;
 
         case GAME_OPTION_AUTOEND_TURNS:
-            value = gRAMChapterData.cfgDisableAutoEndTurns;
+            value = gPlaySt.cfgDisableAutoEndTurns;
 
             break;
 
         case GAME_OPTION_UNIT_COLOR:
-            value = gRAMChapterData.cfgUnitColor;
+            value = gPlaySt.cfgUnitColor;
 
             break;
 
         case GAME_OPTION_OBJECTIVE:
-            value = gRAMChapterData.cfgDisableGoalDisplay;
+            value = gPlaySt.cfgDisableGoalDisplay;
 
             break;
 
         case GAME_OPTION_CONTROLLER:
-            value = gRAMChapterData.cfgController;
+            value = gPlaySt.cfgController;
 
             break;
 
         case GAME_OPTION_RANK_DISPLAY:
-            value = gRAMChapterData.cfgRankDisplay;
+            value = gPlaySt.cfgRankDisplay;
 
             break;
 
@@ -769,96 +769,96 @@ void SetGameOption(u8 index, u8 newValue) {
         case GAME_OPTION_ANIMATION:
             switch (newValue) {
                 case 0:
-                    gRAMChapterData.cfgAnimationType = 0;
+                    gPlaySt.cfgAnimationType = 0;
                     return;
 
                 case 1:
-                    gRAMChapterData.cfgAnimationType = 3;
+                    gPlaySt.cfgAnimationType = 3;
                     return;
 
                 case 2:
-                    gRAMChapterData.cfgAnimationType = 1;
+                    gPlaySt.cfgAnimationType = 1;
                     return;
 
                 case 3:
-                    gRAMChapterData.cfgAnimationType = 2;
+                    gPlaySt.cfgAnimationType = 2;
                     return;
             }
 
             // fallthrough
 
         case GAME_OPTION_TERRAIN:
-            gRAMChapterData.cfgDisableTerrainDisplay = newValue;
+            gPlaySt.cfgDisableTerrainDisplay = newValue;
 
             break;
 
         case GAME_OPTION_UNIT:
-            gRAMChapterData.cfgUnitDisplayType = newValue;
+            gPlaySt.cfgUnitDisplayType = newValue;
 
             break;
 
         case GAME_OPTION_AUTOCURSOR:
-            gRAMChapterData.cfgAutoCursor = newValue;
+            gPlaySt.cfgAutoCursor = newValue;
 
             break;
 
         case GAME_OPTION_TEXT_SPEED:
-            gRAMChapterData.cfgTextSpeed = newValue;
+            gPlaySt.cfgTextSpeed = newValue;
 
             break;
 
         case GAME_OPTION_GAME_SPEED:
-            gRAMChapterData.cfgGameSpeed = newValue;
+            gPlaySt.cfgGameSpeed = newValue;
 
             break;
 
         case GAME_OPTION_MUSIC:
-            gRAMChapterData.cfgDisableBgm = newValue;
+            gPlaySt.cfgDisableBgm = newValue;
 
             break;
 
         case GAME_OPTION_SOUND_EFFECTS:
-            gRAMChapterData.cfgDisableSoundEffects = newValue;
+            gPlaySt.cfgDisableSoundEffects = newValue;
 
             break;
 
         case GAME_OPTION_WINDOW_COLOR:
-            gRAMChapterData.cfgWindowColor = newValue;
+            gPlaySt.cfgWindowColor = newValue;
 
             break;
 
         case GAME_OPTION_COMBAT:
-            gRAMChapterData.cfgBattleForecastType = newValue;
+            gPlaySt.cfgBattleForecastType = newValue;
 
             break;
 
         case GAME_OPTION_SUBTITLE_HELP:
-            gRAMChapterData.cfgNoSubtitleHelp = newValue;
+            gPlaySt.cfgNoSubtitleHelp = newValue;
 
             break;
 
         case GAME_OPTION_AUTOEND_TURNS:
-            gRAMChapterData.cfgDisableAutoEndTurns = newValue;
+            gPlaySt.cfgDisableAutoEndTurns = newValue;
 
             break;
 
         case GAME_OPTION_UNIT_COLOR:
-            gRAMChapterData.cfgUnitColor = newValue;
+            gPlaySt.cfgUnitColor = newValue;
 
             break;
 
         case GAME_OPTION_OBJECTIVE:
-            gRAMChapterData.cfgDisableGoalDisplay = newValue;
+            gPlaySt.cfgDisableGoalDisplay = newValue;
 
             break;
 
         case GAME_OPTION_CONTROLLER:
-            gRAMChapterData.cfgController = newValue;
+            gPlaySt.cfgController = newValue;
 
             break;
 
         case GAME_OPTION_RANK_DISPLAY:
-            gRAMChapterData.cfgRankDisplay = newValue;
+            gPlaySt.cfgRankDisplay = newValue;
 
             break;
 

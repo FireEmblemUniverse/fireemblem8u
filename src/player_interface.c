@@ -317,13 +317,13 @@ int GetCursorQuadrant() {
     int x;
     int y;
 
-    cursorX = (gGameState.playerCursor.x * 16);
-    camX = (gGameState.camera.x - 8);
+    cursorX = (gBmSt.playerCursor.x * 16);
+    camX = (gBmSt.camera.x - 8);
 
     x = cursorX - camX;
 
-    cursorY = (gGameState.playerCursor.y * 16);
-    camY = (gGameState.camera.y - 8);
+    cursorY = (gBmSt.playerCursor.y * 16);
+    camY = (gBmSt.camera.y - 8);
 
     y = cursorY - camY;
 
@@ -453,7 +453,7 @@ void MMB_Loop_SlideIn(struct PlayerInterfaceProc* proc) {
 
         Proc_Break(proc);
 
-        DrawUnitDisplayHpOrStatus(proc, GetUnit(gBmMapUnit[gGameState.playerCursor.y][gGameState.playerCursor.x]));
+        DrawUnitDisplayHpOrStatus(proc, GetUnit(gBmMapUnit[gBmSt.playerCursor.y][gBmSt.playerCursor.x]));
     }
 
     return;
@@ -651,7 +651,7 @@ void GetMinimugFactionPalette(int faction, int palId) {
 
 int sub_808C314() {
 
-    if (((gGameState.playerCursor.x * 16) - gGameState.camera.x) < 0x70) {
+    if (((gBmSt.playerCursor.x * 16) - gBmSt.camera.x) < 0x70) {
         return 1;
     } else {
         return -1;
@@ -660,7 +660,7 @@ int sub_808C314() {
 
 int sub_808C33C() {
 
-    if (((gGameState.playerCursor.x * 16) - gGameState.camera.x) > 0x70) {
+    if (((gBmSt.playerCursor.x * 16) - gBmSt.camera.x) > 0x70) {
         return -1;
     } else {
         return 1;
@@ -890,7 +890,7 @@ void sub_808C750(struct PlayerInterfaceProc* proc, struct Unit* unit) {
     char* nameStr;
     int pos;
 
-    int tmp = unit->xPos * 16 - gGameState.camera.x;
+    int tmp = unit->xPos * 16 - gBmSt.camera.x;
 
     if (tmp < 0) {
         tmp += 7;
@@ -898,7 +898,7 @@ void sub_808C750(struct PlayerInterfaceProc* proc, struct Unit* unit) {
 
     x = tmp >> 3;
 
-    tmp = unit->yPos * 16 - gGameState.camera.y;
+    tmp = unit->yPos * 16 - gBmSt.camera.y;
 
     if (tmp < 0) {
         tmp += 7;
@@ -973,7 +973,7 @@ void DrawTerrainDisplayWindow(struct PlayerInterfaceProc* proc) {
     char* str;
     int num;
 
-    int terrainId = gBmMapTerrain[gGameState.playerCursor.y][gGameState.playerCursor.x];
+    int terrainId = gBmMapTerrain[gBmSt.playerCursor.y][gBmSt.playerCursor.x];
 
     TileMap_FillRect(gUnknown_02003FAC, 14, 7, 0);
     TileMap_FillRect(gUnknown_020044AC, 14, 7, 0);
@@ -1002,7 +1002,7 @@ void DrawTerrainDisplayWindow(struct PlayerInterfaceProc* proc) {
         case TERRAIN_WALL_1B:
             CallARM_FillTileRect(gUnknown_020040AE, gTSA_TerrainBox_Destructable, 0x2100);
 
-            num = GetObstacleHpAt(gGameState.playerCursor.x, gGameState.playerCursor.y);
+            num = GetObstacleHpAt(gBmSt.playerCursor.x, gBmSt.playerCursor.y);
 
             if (num == 100) {
                 CallARM_FillTileRect(gUnknown_020040AE + 0x23,gUnknown_08A176B4, 0x100);
@@ -1018,7 +1018,7 @@ void DrawTerrainDisplayWindow(struct PlayerInterfaceProc* proc) {
         case TERRAIN_BALLISTA_KILLER:
             CallARM_FillTileRect(gUnknown_02003FAC + 0x81, gTSA_TerrainBox_Ballistae, 0x100);
 
-            StoreNumberStringToSmallBuffer(GetObstacleHpAt(gGameState.playerCursor.x, gGameState.playerCursor.y));
+            StoreNumberStringToSmallBuffer(GetObstacleHpAt(gBmSt.playerCursor.x, gBmSt.playerCursor.y));
             sub_8013138(gUnknown_02003FAC + 0x85, gUnknown_02028E44+7, 0x2128, 2);
 
             break;
@@ -1069,8 +1069,8 @@ void TerrainDisplay_Loop_OnSideChange(struct PlayerInterfaceProc* proc) {
 
     DrawTerrainDisplayWindow(proc);
 
-    proc->xCursor = gGameState.playerCursor.x;
-    proc->yCursor = gGameState.playerCursor.y;
+    proc->xCursor = gBmSt.playerCursor.x;
+    proc->yCursor = gBmSt.playerCursor.y;
 
     Proc_Break(proc);
 
@@ -1082,8 +1082,8 @@ void TerrainDisplay_Loop_Display(struct PlayerInterfaceProc* proc) {
     proc->xCursorPrev = proc->xCursor;
     proc->yCursorPrev = proc->yCursor;
 
-    proc->xCursor = gGameState.playerCursor.x;
-    proc->yCursor = gGameState.playerCursor.y;
+    proc->xCursor = gBmSt.playerCursor.x;
+    proc->yCursor = gBmSt.playerCursor.y;
 
     if ((proc->xCursor == proc->xCursorPrev) && (proc->yCursor == proc->yCursorPrev)) {
         return;
@@ -1120,7 +1120,7 @@ void MMB_Loop_OnSideChange(struct PlayerInterfaceProc* proc) {
     int quadrant;
     struct PlayerInterfaceProc* tiProc;
 
-    struct Unit* unit = GetUnit(gBmMapUnit[gGameState.playerCursor.y][gGameState.playerCursor.x]);
+    struct Unit* unit = GetUnit(gBmMapUnit[gBmSt.playerCursor.y][gBmSt.playerCursor.x]);
 
     if (!unit) {
         return;
@@ -1140,8 +1140,8 @@ void MMB_Loop_OnSideChange(struct PlayerInterfaceProc* proc) {
 
     proc->quadrant = quadrant;
 
-    proc->xCursor = gGameState.playerCursor.x;
-    proc->yCursor = gGameState.playerCursor.y;
+    proc->xCursor = gBmSt.playerCursor.x;
+    proc->yCursor = gBmSt.playerCursor.y;
 
     InitMinimugBoxMaybe(proc, unit);
 
@@ -1152,7 +1152,7 @@ void MMB_Loop_OnSideChange(struct PlayerInterfaceProc* proc) {
 
 void MMB_Loop_Display(struct PlayerInterfaceProc* proc) {
 
-    struct Unit* unit = GetUnit(gBmMapUnit[gGameState.playerCursor.y][gGameState.playerCursor.x]);
+    struct Unit* unit = GetUnit(gBmMapUnit[gBmSt.playerCursor.y][gBmSt.playerCursor.x]);
 
     proc->unk_44++;
 
@@ -1165,8 +1165,8 @@ void MMB_Loop_Display(struct PlayerInterfaceProc* proc) {
     proc->xCursorPrev = proc->xCursor;
     proc->yCursorPrev = proc->yCursor;
 
-    proc->xCursor = gGameState.playerCursor.x;
-    proc->yCursor = gGameState.playerCursor.y;
+    proc->xCursor = gBmSt.playerCursor.x;
+    proc->yCursor = gBmSt.playerCursor.y;
 
     if ((proc->xCursor == proc->xCursorPrev) && (proc->yCursor == proc->yCursorPrev)) {
         return;
@@ -1190,7 +1190,7 @@ void MMB_Loop_Display(struct PlayerInterfaceProc* proc) {
 
 void MMB_CheckForUnit(struct PlayerInterfaceProc* proc) {
 
-    struct Unit* unit = GetUnit(gBmMapUnit[gGameState.playerCursor.y][gGameState.playerCursor.x]);
+    struct Unit* unit = GetUnit(gBmMapUnit[gBmSt.playerCursor.y][gBmSt.playerCursor.x]);
 
     if (!unit) {
         Proc_Goto(proc, 3);
@@ -1221,7 +1221,7 @@ void BurstDisplay_Loop_Display(struct PlayerInterfaceProc* proc) {
 
     proc->unk_4a = proc->unk_4b;
 
-    proc->unk_4b = gBmMapUnit[gGameState.playerCursor.y][gGameState.playerCursor.x];
+    proc->unk_4b = gBmMapUnit[gBmSt.playerCursor.y][gBmSt.playerCursor.x];
 
     if ((proc->unk_4a != proc->unk_4b) && (proc->unk_4a != 0)) {
         sub_808C8EC(proc);
@@ -1313,23 +1313,23 @@ void InitPlayerPhaseInterface() {
 
     Font_ResetAllocation();
 
-    if (gRAMChapterData.cfgDisableTerrainDisplay == 0) {
+    if (gPlaySt.cfgDisableTerrainDisplay == 0) {
         Proc_Start(gProcScr_TerrainDisplay, PROC_TREE_3);
     }
 
-    if (gGameState.gameStateBits & 0x10) {
+    if (gBmSt.gameStateBits & 0x10) {
         Proc_Start(gProcScr_PrepMap_MenuButtonDisplay, PROC_TREE_3);
     } else {
-        if ((gRAMChapterData.cfgDisableGoalDisplay == 0) && (CheckEventId(0x66) == 0)) {
+        if ((gPlaySt.cfgDisableGoalDisplay == 0) && (CheckEventId(0x66) == 0)) {
             Proc_Start(gProcScr_GoalDisplay, PROC_TREE_3);
         }
     }
 
-    if (gRAMChapterData.cfgUnitDisplayType == 0) {
+    if (gPlaySt.cfgUnitDisplayType == 0) {
         Proc_Start(gProcScr_UnitDisplay_MinimugBox, PROC_TREE_3);
     }
 
-    if (gRAMChapterData.cfgUnitDisplayType == 1) {
+    if (gPlaySt.cfgUnitDisplayType == 1) {
         Proc_Start(gProcScr_UnitDisplay_Burst, PROC_TREE_3);
     }
 
@@ -1358,7 +1358,7 @@ void EndPlayerPhaseSideWindows() {
 
 s8 sub_808D190() {
 
-    if (((gGameState.playerCursor.y * 16) - gGameState.camera.y) > 0x40) {
+    if (((gBmSt.playerCursor.y * 16) - gBmSt.camera.y) > 0x40) {
         return 1;
     }
 
@@ -1430,7 +1430,7 @@ void GoalDisplay_Init(struct PlayerInterfaceProc* proc) {
     Text_Clear(&proc->unk_2c[1]);
 
     if (GetChapterThing() != 2) {
-        goalTextId = GetROMChapterStruct(gRAMChapterData.chapterIndex)->goalWindowTextId;
+        goalTextId = GetROMChapterStruct(gPlaySt.chapterIndex)->goalWindowTextId;
     } else {
         goalTextId = 0x19E; // TODO: msgid "Defeat enemy"
     }
@@ -1439,7 +1439,7 @@ void GoalDisplay_Init(struct PlayerInterfaceProc* proc) {
     Text_InsertString(&proc->unk_2c[0], GetStringTextCenteredPos(0x40, str), 0, str);
 
     if (GetChapterThing() != 2) {
-        goalWindowType = GetROMChapterStruct(gRAMChapterData.chapterIndex)->goalWindowDataType;
+        goalWindowType = GetROMChapterStruct(gPlaySt.chapterIndex)->goalWindowDataType;
     } else {
         goalWindowType = 1;
     }
@@ -1455,7 +1455,7 @@ void GoalDisplay_Init(struct PlayerInterfaceProc* proc) {
         case 1:
             Text_InsertString(&proc->unk_2c[1], 0x10, 0, GetStringFromIndex(0x1C1)); // TODO: msgid "Left"
 
-            if (gRAMChapterData.chapterVisionRange != 0) {
+            if (gPlaySt.chapterVisionRange != 0) {
                 Text_InsertString(&proc->unk_2c[1], 0x28, 1, GetStringFromIndex(0x535));
             } else {
                 Text_InsertNumberOr2Dashes(&proc->unk_2c[1], 0x30, 2, CountUnitsByFaction(FACTION_RED));
@@ -1464,11 +1464,11 @@ void GoalDisplay_Init(struct PlayerInterfaceProc* proc) {
             break;
 
         case 2:
-            turnNumber = gRAMChapterData.chapterTurnNumber;
+            turnNumber = gPlaySt.chapterTurnNumber;
 
             if (GetChapterThing() != 2) {
 
-                if (turnNumber >= (GetROMChapterStruct(gRAMChapterData.chapterIndex)->goalWindowEndTurnNumber - 1)) {
+                if (turnNumber >= (GetROMChapterStruct(gPlaySt.chapterIndex)->goalWindowEndTurnNumber - 1)) {
                     goto _0808D3DC;
                 }
             } else {
@@ -1481,14 +1481,14 @@ void GoalDisplay_Init(struct PlayerInterfaceProc* proc) {
                 }
             }
 
-            Text_InsertNumberOr2Dashes(&proc->unk_2c[1], 0xA, 2, gRAMChapterData.chapterTurnNumber);
+            Text_InsertNumberOr2Dashes(&proc->unk_2c[1], 0xA, 2, gPlaySt.chapterTurnNumber);
 
             Text_InsertString(&proc->unk_2c[1], 0x12, 0, GetStringFromIndex(0x539)); // TODO: msgid "/[.]"
 
             th = &proc->unk_2c[1];
 
             if (GetChapterThing() != 2) {
-                lastTurnNumber = GetROMChapterStruct(gRAMChapterData.chapterIndex)->goalWindowEndTurnNumber - 1;
+                lastTurnNumber = GetROMChapterStruct(gPlaySt.chapterIndex)->goalWindowEndTurnNumber - 1;
             } else {
                 lastTurnNumber = -1;
             }
@@ -1529,8 +1529,8 @@ void GoalDisplay_Loop_OnSideChange(struct PlayerInterfaceProc* proc) {
 
     sub_808D200(proc);
 
-    proc->xCursor = gGameState.playerCursor.x;
-    proc->yCursor = gGameState.playerCursor.y;
+    proc->xCursor = gBmSt.playerCursor.x;
+    proc->yCursor = gBmSt.playerCursor.y;
 
     proc->xCursorPrev = proc->xCursor;
     proc->yCursorPrev = proc->yCursor;
@@ -1639,8 +1639,8 @@ void GoalDisplay_Loop_Display(struct PlayerInterfaceProc* proc) {
     proc->xCursorPrev = proc->xCursor;
     proc->yCursorPrev = proc->yCursor;
 
-    proc->xCursor = gGameState.playerCursor.x;
-    proc->yCursor = gGameState.playerCursor.y;
+    proc->xCursor = gBmSt.playerCursor.x;
+    proc->yCursor = gBmSt.playerCursor.y;
 
     if (proc->xCursor == proc->xCursorPrev && proc->yCursor == proc->yCursorPrev) {
         return;
@@ -1743,8 +1743,8 @@ void MenuButtonDisp_UpdateCursorPos(struct PlayerInterfaceProc* proc) {
 
     proc->unk_58 = 0;
 
-    proc->xCursor = gGameState.playerCursor.x;
-    proc->yCursor = gGameState.playerCursor.y;
+    proc->xCursor = gBmSt.playerCursor.x;
+    proc->yCursor = gBmSt.playerCursor.y;
 
     return;
 }
@@ -1771,8 +1771,8 @@ void MenuButtonDisp_Loop_Display(struct PlayerInterfaceProc* proc) {
     proc->xCursorPrev = proc->xCursor;
     proc->yCursorPrev = proc->yCursor;
 
-    proc->xCursor = gGameState.playerCursor.x;
-    proc->yCursor = gGameState.playerCursor.y;
+    proc->xCursor = gBmSt.playerCursor.x;
+    proc->yCursor = gBmSt.playerCursor.y;
 
     if (proc->xCursor == proc->xCursorPrev && proc->yCursor == proc->yCursorPrev) {
         return;

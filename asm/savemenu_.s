@@ -140,7 +140,7 @@ sub_80AA614: @ 0x080AA614
 	movs r0, #0x40
 	movs r1, #0x30
 	bl StartHelpBoxExt_Unk
-	ldr r0, _080AA648  @ gRAMChapterData
+	ldr r0, _080AA648  @ gPlaySt
 	adds r0, #0x41
 	ldrb r0, [r0]
 	lsls r0, r0, #0x1e
@@ -151,7 +151,7 @@ sub_80AA614: @ 0x080AA614
 	b _080AA654
 	.align 2, 0
 _080AA644: .4byte 0x00000893
-_080AA648: .4byte gRAMChapterData
+_080AA648: .4byte gPlaySt
 _080AA64C:
 	adds r0, r1, #0
 	movs r1, #0
@@ -176,7 +176,7 @@ sub_80AA658: @ 0x080AA658
 	movs r0, #0x40
 	movs r1, #0x30
 	bl StartHelpBoxExt_Unk
-	ldr r0, _080AA68C  @ gRAMChapterData
+	ldr r0, _080AA68C  @ gPlaySt
 	adds r0, #0x41
 	ldrb r0, [r0]
 	lsls r0, r0, #0x1e
@@ -187,7 +187,7 @@ sub_80AA658: @ 0x080AA658
 	b _080AA698
 	.align 2, 0
 _080AA688: .4byte 0x00000894
-_080AA68C: .4byte gRAMChapterData
+_080AA68C: .4byte gPlaySt
 _080AA690:
 	adds r0, r1, #0
 	movs r1, #1

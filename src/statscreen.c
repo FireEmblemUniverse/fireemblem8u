@@ -20,6 +20,7 @@
 #include "face.h"
 #include "bmudisp.h"
 #include "bm.h"
+#include "bmsave.h"
 
 #include "constants/classes.h"
 
@@ -604,18 +605,18 @@ void DisplayLeftPanel(void)
 static
 void DisplayBwl(void)
 {
-    struct UnitUsageStats* stats = BWL_GetEntry(gStatScreen.unit->pCharacterData->number);
+    struct UnitUsageStats* stats = GetPidStats(gStatScreen.unit->pCharacterData->number);
 
     if (!stats)
         return;
 
-    if (gGameState.gameStateBits & 0x40)
+    if (gBmSt.gameStateBits & 0x40)
         return;
 
-    if (gRAMChapterData.chapterStateBits & CHAPTER_FLAG_3)
+    if (gPlaySt.chapterStateBits & PLAY_FLAG_TUTORIAL)
         return;
 
-    if (gRAMChapterData.chapterStateBits & CHAPTER_FLAG_7)
+    if (gPlaySt.chapterStateBits & PLAY_FLAG_7)
         return;
 
     if (IsFirstPlaythrough() == TRUE)
@@ -1623,7 +1624,7 @@ void PageNumCtrl_DisplayBlinkIcons(struct StatScreenPageNameProc* proc)
             {
                 PutSprite(4,
                     184, 78, gObject_8x8,
-                    TILEREF(3, 0xF & palidLut[gStatScreen.unit->rescueOtherUnit >> 6]) + OAM2_PRIORITY(2));
+                    TILEREF(3, 0xF & palidLut[gStatScreen.unit->rescue >> 6]) + OAM2_PRIORITY(2));
             }
         }
 
@@ -1633,7 +1634,7 @@ void PageNumCtrl_DisplayBlinkIcons(struct StatScreenPageNameProc* proc)
             {
                 PutSprite(4,
                     10, 86, gObject_8x8,
-                    TILEREF(3, 0xF & palidLut[gStatScreen.unit->rescueOtherUnit>>6]) + OAM2_PRIORITY(2));
+                    TILEREF(3, 0xF & palidLut[gStatScreen.unit->rescue>>6]) + OAM2_PRIORITY(2));
             }
         }
     }
@@ -1860,9 +1861,9 @@ void StatScreen_OnIdle(struct Proc* proc)
         StartUnitSlide(unit, +1, proc);
     }
 
-    else if ((gKeyStatusPtr->repeatedKeys & A_BUTTON) && (gStatScreen.unit->rescueOtherUnit))
+    else if ((gKeyStatusPtr->repeatedKeys & A_BUTTON) && (gStatScreen.unit->rescue))
     {
-        unit = GetUnit(gStatScreen.unit->rescueOtherUnit);
+        unit = GetUnit(gStatScreen.unit->rescue);
         StartUnitSlide(unit, (gStatScreen.unit->state & US_RESCUING) ? +1 : -1, proc);
     }
 
@@ -1876,7 +1877,7 @@ void StatScreen_OnIdle(struct Proc* proc)
 static
 void StatScreen_OnClose(void)
 {
-    gRAMChapterData.chapterStateBits = (gRAMChapterData.chapterStateBits &~ 3) | (gStatScreen.page & 3);
+    gPlaySt.chapterStateBits = (gPlaySt.chapterStateBits &~ 3) | (gStatScreen.page & 3);
     sStatScreenInfo.unitId = gStatScreen.unit->index;
 
     SetInterrupt_LCDVCountMatch(NULL);
@@ -1907,13 +1908,13 @@ void StartStatScreen(struct Unit* unit, ProcPtr parent)
 {
     gStatScreen.xDispOff = 0;
     gStatScreen.yDispOff = 0;
-    gStatScreen.page = gRAMChapterData.chapterStateBits & 3;
+    gStatScreen.page = gPlaySt.chapterStateBits & 3;
     gStatScreen.unit = unit;
     gStatScreen.help = NULL;
     gStatScreen.pageSlideKey = 0;
     gStatScreen.inTransition = FALSE;
 
-    BWL_IncrementStatScreenViews(unit->pCharacterData->number);
+    PidStatsAddStatViewAmt(unit->pCharacterData->number);
 
     PlaySoundEffect(0x6A); // TODO: song ids
 

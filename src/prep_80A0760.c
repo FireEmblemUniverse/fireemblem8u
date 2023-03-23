@@ -232,27 +232,27 @@ int sub_80A095C(int var) {
 
 //! FE8U = 0x080A098C
 int GetChapterDivinationTextIdHectorStory(void) {
-    return GetROMChapterStruct(gRAMChapterData.chapterIndex)->divinationTextIdInHectorStory;
+    return GetROMChapterStruct(gPlaySt.chapterIndex)->divinationTextIdInHectorStory;
 }
 
 //! FE8U = 0x080A09A8
 int GetChapterDivinationTextIdBeginning(void) {
-    return GetROMChapterStruct(gRAMChapterData.chapterIndex)->divinationTextIdBeginning;
+    return GetROMChapterStruct(gPlaySt.chapterIndex)->divinationTextIdBeginning;
 }
 
 //! FE8U = 0x080A09C4
 int GetChapterDivinationTextIdEnding(void) {
-    return GetROMChapterStruct(gRAMChapterData.chapterIndex)->divinationTextIdEnding;
+    return GetROMChapterStruct(gPlaySt.chapterIndex)->divinationTextIdEnding;
 }
 
 //! FE8U = 0x080A09E0
 int GetChapterDivinationFee(void) {
-    return GetROMChapterStruct(gRAMChapterData.chapterIndex)->divinationFee;
+    return GetROMChapterStruct(gPlaySt.chapterIndex)->divinationFee;
 }
 
 //! FE8U = 0x080A09FC
 int GetChapterDivinationPortrait(void) {
-    return GetROMChapterStruct(gRAMChapterData.chapterIndex)->divinationPortrait;
+    return GetROMChapterStruct(gPlaySt.chapterIndex)->divinationPortrait;
 }
 
 //! FE8U = 0x080A0A18
@@ -270,7 +270,7 @@ s8 sub_80A0A18(void) {
 
 //! FE8U = 0x080A0A34
 s8 sub_80A0A34(void) {
-    if ((gRAMChapterData.chapterStateBits & CHAPTER_FLAG_DIFFICULT) || !GetChapterDivinationTextIdHectorStory()) {
+    if ((gPlaySt.chapterStateBits & PLAY_FLAG_HARD) || !GetChapterDivinationTextIdHectorStory()) {
         return 0;
     }
 
@@ -294,7 +294,7 @@ s8 sub_80A0A70(void) {
 //! FE8U = 0x080A0A74
 s8 sub_80A0A74(void) {
 
-    if (gRAMChapterData.chapterIndex > 0x61) {
+    if (gPlaySt.chapterIndex > 0x61) {
         return 1;
     }
 

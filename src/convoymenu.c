@@ -53,7 +53,7 @@ int ConvoyMenuProc_MenuEnd(ProcPtr proc)
     EndMenuItemPanel();
 
     /* this should be item to be sent to convoy */
-    if (0 == gGameState.itemUnk2E) {
+    if (0 == gBmSt.itemUnk2E) {
         Proc_Goto(proc, 0x63);
         return 1;
     }
@@ -69,7 +69,7 @@ int ConvoyMenuProc_MaybeStartSelectConvoyItem(ProcPtr proc)
 
 int ConvoyMenuProc_SendToConvoyReal(ProcPtr proc)
 {
-    return AddItemToConvoy(gGameState.itemUnk2E);
+    return AddItemToConvoy(gBmSt.itemUnk2E);
 }
 
 void ConvoyMenuProc_SetupActiveUnit(ProcPtr proc)
@@ -95,7 +95,7 @@ void HandleNewItemGetFromDrop(struct Unit* unit, int item, ProcPtr proc)
         return;
 
     gActiveUnit = unit;
-    gGameState.itemUnk2C = item;
+    gBmSt.itemUnk2C = item;
     StartFace(0, GetUnitPortraitId(unit), 0xB0, 4, 2);
     SetFaceBlinkControlById(0, 5);
     ForceMenuItemPanel(proc, unit, 0xF, 0xA);
@@ -118,7 +118,7 @@ int SendToConvoyMenu_Draw(struct MenuProc* proc_menu, struct MenuItemProc* proc_
 
 int MenuCommand_DrawExtraItem(struct MenuProc* proc_menu, struct MenuItemProc* proc_cmd)
 {
-    u16 item = gGameState.itemUnk2C;
+    u16 item = gBmSt.itemUnk2C;
     struct TextHandle* text = &proc_cmd->text;
 
     Text_SetColorId(text, TEXT_COLOR_BLUE);
@@ -132,14 +132,14 @@ u8 SendToConvoyMenu_NormalEffect(struct MenuProc* proc_menu, struct MenuItemProc
     AddItemToConvoy(gActiveUnit->items[proc_cmd->itemNumber]);
     gActionData.item = gActiveUnit->items[proc_cmd->itemNumber];
     UnitRemoveItem(gActiveUnit, proc_cmd->itemNumber);
-    UnitAddItem(gActiveUnit, gGameState.itemUnk2C);
+    UnitAddItem(gActiveUnit, gBmSt.itemUnk2C);
     return MENU_ACT_ENDFACE | MENU_ACT_CLEAR | MENU_ACT_SND6A | MENU_ACT_END | MENU_ACT_SKIPCURSOR;
 }
 
 u8 MenuCommand_SendItemToConvoy(struct MenuProc* proc_menu, struct MenuItemProc* proc_cmd)
 {
-    AddItemToConvoy(gGameState.itemUnk2C);
-    gActionData.item = gGameState.itemUnk2C;
+    AddItemToConvoy(gBmSt.itemUnk2C);
+    gActionData.item = gBmSt.itemUnk2C;
     return MENU_ACT_ENDFACE | MENU_ACT_CLEAR | MENU_ACT_SND6A | MENU_ACT_END | MENU_ACT_SKIPCURSOR;
 }
 
@@ -155,7 +155,7 @@ u8 SendToConvoyMenu_Selected(struct MenuProc* proc_menu, struct MenuItemProc* pr
 
 u8 SendToConvoyMenu_Selected2(struct MenuProc* proc_menu, struct MenuItemProc* proc_cmd)
 {
-    gActionData.item = gGameState.itemUnk2C;
+    gActionData.item = gBmSt.itemUnk2C;
     gActionData.unk08 = UNIT_ITEM_COUNT;
     LoadDialogueBoxGfx(NULL, -1);
     /* maybe draw hand? */
@@ -172,7 +172,7 @@ u8 SendToConvoyMenu_Idle(struct MenuProc* proc_menu, struct MenuItemProc* proc_c
 
     if (gActionData.unk08 < UNIT_ITEM_COUNT) {
         UnitRemoveItem(gActiveUnit, gActionData.unk08);
-        UnitAddItem(gActiveUnit, gGameState.itemUnk2C);
+        UnitAddItem(gActiveUnit, gBmSt.itemUnk2C);
     }
 
     return MENU_ACT_ENDFACE | MENU_ACT_CLEAR | MENU_ACT_SND6A | MENU_ACT_END | MENU_ACT_SKIPCURSOR;
