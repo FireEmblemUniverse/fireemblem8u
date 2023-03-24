@@ -342,7 +342,6 @@ extern u16 gBG0TilemapBuffer[];
 // extern ??? gUnknown_02022CB0
 // extern ??? gUnknown_02022CB4
 // extern ??? gUnknown_02022CB8
-// extern ??? gUnknown_02022CC4
 // extern ??? gUnknown_02022CC6
 // extern ??? gUnknown_02022CCA
 // extern ??? gUnknown_02022CCE
@@ -450,7 +449,6 @@ extern u16 gBG1TilemapBuffer[];
 extern u16 gBG2TilemapBuffer[];
 // extern ??? gUnknown_02023CAA
 // extern ??? gUnknown_02023CAE
-// extern ??? gUnknown_02023CC0
 // extern ??? gUnknown_02023CC2
 // extern ??? gUnknown_02023CC6
 // extern ??? gUnknown_02023CC8
@@ -3357,8 +3355,8 @@ extern u8 Img_PrepWindow[];
 // extern ??? gProcScr_SaveBgUp
 // extern ??? gUnknown_08A2099C
 // extern ??? gUnknown_08A209B8
-// extern ??? gUnknown_08A209E4
-// extern ??? gUnknown_08A209F0
+extern u16* gUnknown_08A209E4[];
+extern u16* gUnknown_08A209F0[];
 // extern ??? gUnknown_08A209FC
 // extern ??? gUnknown_08A20A08
 // extern ??? ProcScr_NewGameDiffilcultySelect
@@ -3408,13 +3406,6 @@ extern struct ProcCmd CONST_DATA gUnknown_08A20DCC[];
 // extern ??? gUnknown_08A21530
 // extern ??? gUnknown_08A21550
 // extern ??? gUnknown_08A21568
-// extern ??? gUnknown_08A21590
-// extern ??? gUnknown_08A21594
-// extern ??? gUnknown_08A21598
-// extern ??? gUnknown_08A2159C
-// extern ??? gUnknown_08A215A0
-// extern ??? gUnknown_08A215A4
-// extern ??? gUnknown_08A215A8
 extern u8 gUnknown_08A21658[]; // gfx, "records" background
 extern u16 gUnknown_08A25DCC[]; // pal, "records" background
 extern u8 gUnknown_08A25ECC[]; // tsa, "records" background
