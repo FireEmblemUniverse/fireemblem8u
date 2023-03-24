@@ -184,6 +184,7 @@ SECTIONS
         asm/savedraw.o(.text);
         src/savedrawcursor.o(.text);
         asm/code_80A882C.o(.text);
+        src/bonusclaim.o(.text);
         src/uiconfig.o(.text);
         asm/code_80B24DC.o(.text);
         src/opinfo.o(.text);
@@ -484,6 +485,8 @@ SECTIONS
         . = ALIGN(4); data/data_A20050.o(.data);
         . = ALIGN(4); src/savedrawcursor.o(.data);
         . = ALIGN(4); data/data_A2077C.o(.data);
+        . = ALIGN(4); src/bonusclaim.o(.data);
+        . = ALIGN(4); data/data_A21658.o(.data);
         . = ALIGN(4); src/uiconfig.o(.data);
         . = ALIGN(4); data/data_A2EE90.o(.data);
         . = ALIGN(4); src/opinfo.o(.data);

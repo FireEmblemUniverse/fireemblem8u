@@ -264,7 +264,7 @@ void sub_80A3868(void);
 void __malloc_unlock_3(void);
 int IsGamePlayedThrough(void);
 bool LoadAndVerfyRankData(void *buf);
-bool LoadBonusContentData(void *buf);
+// bool LoadBonusContentData(void *buf); // Cannot be declared due to a non-match in "bonusclaim.c"
 void SaveBonusContentData(void *buf);
 void SaveRankings(void *buf);
 void sub_80A39B4(void);

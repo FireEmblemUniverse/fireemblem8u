@@ -7,6 +7,9 @@
 #include "bmsave.h"
 #include "sram-layout.h"
 
+// TODO: Should be in "bmsave.h", but doing so causes a non-match (implicit declaration?) in "bonusclaim.c"
+bool LoadBonusContentData(void *buf);
+
 extern EWRAM_DATA bool gBoolSramWorking;
 extern CONST_DATA u8 gGlobalSaveInfoName[];
 extern CONST_DATA unsigned char gUnknown_08205CA4[]; /* related to convoy */

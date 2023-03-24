@@ -31,14 +31,20 @@
 . = 0x000940; gUnknown_02000940 = .;
 . = 0x000944; gUnknown_02000944 = .;
 . = 0x000948; gUnknown_02000948 = .;
+. = 0x000968; gUnknown_02000968 = .;
 . = 0x000C60; gUnknown_02000C60 = .;
 . = 0x000C78; gUnknown_02000C78 = .;
+. = 0x000D68; gUnknown_02000D68 = .;
 . = 0x000F00; gUnknown_02000F00 = .;
 . = 0x001000; gBmMapBuffer = .;
 . = 0x001088; gUnknown_02001088 = .;
+. = 0x001168; gUnknown_02001168 = .;
 . = 0x001180; gUnknown_02001180 = .;
 . = 0x001184; gUnknown_02001184 = .;
 . = 0x001188; gUnknown_02001188 = .;
+. = 0x001368; gUnknown_02001368 = .;
+. = 0x001568; gUnknown_02001568 = .;
+. = 0x001668; gUnknown_02001668 = .;
 . = 0x001F70; gConvoyItemCount = .;
 . = 0x002038; gUnknown_02002038 = .;
 . = 0x002088; gUnknown_02002088 = .;
@@ -336,7 +342,6 @@
 . = 0x022CB0; gUnknown_02022CB0 = .;
 . = 0x022CB4; gUnknown_02022CB4 = .;
 . = 0x022CB8; gUnknown_02022CB8 = .;
-. = 0x022CC4; gUnknown_02022CC4 = .;
 . = 0x022CC6; gUnknown_02022CC6 = .;
 . = 0x022CCA; gUnknown_02022CCA = .;
 . = 0x022CCE; gUnknown_02022CCE = .;
@@ -440,7 +445,6 @@
 . = 0x023CA8; gBG2TilemapBuffer = .;
 . = 0x023CAA; gUnknown_02023CAA = .;
 . = 0x023CAE; gUnknown_02023CAE = .;
-. = 0x023CC0; gUnknown_02023CC0 = .;
 . = 0x023CC2; gUnknown_02023CC2 = .;
 . = 0x023CC6; gUnknown_02023CC6 = .;
 . = 0x023CC8; gUnknown_02023CC8 = .;
