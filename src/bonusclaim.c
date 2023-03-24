@@ -683,28 +683,18 @@ void BonusClaim_StartSelectTargetSubMenu(struct BonusClaimProc* proc) {
     return;
 }
 
-#if NONMATCHING
-
-/* https://decomp.me/scratch/Opqpi */
-
 //! FE8U = 0x080B11E4
 s8 TryClaimBonusItem(struct BonusClaimProc* proc) {
     int itemId;
-    struct BonusClaimItemEnt* itemEnt;
-    struct BonusClaimEnt* ent;
-    int tmp2;
-    struct Unknown8A215A4* unk;
 
     int tmp = proc->submenuIndex;
+    struct Unknown8A215A4* base = gUnknown_08A215A4;
+    struct Unknown8A215A4* unk = base - (-tmp);
 
-    unk = gUnknown_08A215A4 + proc->submenuIndex;
-    unk += tmp;
+    struct BonusClaimItemEnt* itemEnt = gpBonusClaimItemList + proc->menuIndex;
+    int tmp2 = itemEnt->unk_00;
 
-
-    itemEnt = gpBonusClaimItemList + proc->menuIndex;
-    tmp2 = itemEnt->unk_00;
-
-    ent = gpBonusClaimData;
+    struct BonusClaimEnt* ent = gpBonusClaimData;
     ent += tmp2;
 
     itemId = ent->itemId;
@@ -724,95 +714,6 @@ s8 TryClaimBonusItem(struct BonusClaimProc* proc) {
 
     return 1;
 }
-
-#else // if !NONMATCHING
-
-__attribute__((naked))
-s8 TryClaimBonusItem(struct BonusClaimProc* proc) {
-    asm("\n\
-        .syntax unified\n\
-        push {r4, r5, r6, r7, lr}\n\
-        mov r7, r9\n\
-        mov r6, r8\n\
-        push {r6, r7}\n\
-        adds r4, r0, #0\n\
-        movs r0, #0x2a\n\
-        adds r0, r0, r4\n\
-        mov r8, r0\n\
-        ldrb r3, [r0]\n\
-        ldr r1, _080B122C  @ gUnknown_08A215A4\n\
-        mov r9, r1\n\
-        ldr r0, [r1]\n\
-        lsls r3, r3, #3\n\
-        adds r3, r3, r0\n\
-        ldr r0, _080B1230  @ gpBonusClaimItemList\n\
-        adds r6, r4, #0\n\
-        adds r6, #0x29\n\
-        ldrb r5, [r6]\n\
-        lsls r1, r5, #2\n\
-        ldr r0, [r0]\n\
-        adds r0, r0, r1\n\
-        movs r2, #0\n\
-        ldrsb r2, [r0, r2]\n\
-        ldr r0, _080B1234  @ gpBonusClaimData\n\
-        ldr r1, [r0]\n\
-        lsls r0, r2, #2\n\
-        adds r0, r0, r2\n\
-        lsls r0, r0, #2\n\
-        adds r1, r1, r0\n\
-        ldrb r7, [r1, #2]\n\
-        movs r0, #0\n\
-        ldrsb r0, [r3, r0]\n\
-        cmp r0, #0\n\
-        bne _080B1238\n\
-        movs r0, #0\n\
-        b _080B127A\n\
-        .align 2, 0\n\
-    _080B122C: .4byte gUnknown_08A215A4\n\
-    _080B1230: .4byte gpBonusClaimItemList\n\
-    _080B1234: .4byte gpBonusClaimData\n\
-    _080B1238:\n\
-        adds r0, r5, #0\n\
-        bl SetBonusItemClaimed\n\
-        ldrb r0, [r6]\n\
-        bl DrawBonusClaimItemText\n\
-        mov r0, r8\n\
-        ldrb r2, [r0]\n\
-        adds r0, r4, #0\n\
-        adds r0, #0x2b\n\
-        ldrb r0, [r0]\n\
-        subs r0, #1\n\
-        cmp r2, r0\n\
-        bne _080B1260\n\
-        adds r0, r7, #0\n\
-        bl MakeNewItem\n\
-        bl AddItemToConvoy\n\
-        b _080B1278\n\
-    _080B1260:\n\
-        mov r0, r9\n\
-        ldr r1, [r0]\n\
-        lsls r0, r2, #3\n\
-        adds r0, r0, r1\n\
-        ldr r4, [r0, #4]\n\
-        adds r0, r7, #0\n\
-        bl MakeNewItem\n\
-        adds r1, r0, #0\n\
-        adds r0, r4, #0\n\
-        bl UnitAddItem\n\
-    _080B1278:\n\
-        movs r0, #1\n\
-    _080B127A:\n\
-        pop {r3, r4}\n\
-        mov r8, r3\n\
-        mov r9, r4\n\
-        pop {r4, r5, r6, r7}\n\
-        pop {r1}\n\
-        bx r1\n\
-        .syntax divided\n\
-    ");
-}
-
-#endif // NONMATCHING
 
 //! FE8U = 0x080B1288
 void BonusClaim_Loop_SelectTargetKeyHandler(struct BonusClaimProc* proc) {
