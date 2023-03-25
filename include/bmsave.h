@@ -323,7 +323,7 @@ extern struct UnitUsageStats gPidStatsData[BWL_ARRAY_NUM];
 #define gBWLDataArray (&gPidStatsData[-1])
 extern struct ChapterStats gChapterStats[WIN_ARRAY_NUM];
 
-extern struct MultiArenaRankingEnt CONST_DATA gInitialMultiArenaRankings[MULTIARENA_MAX_RANKINGS];
+extern struct MultiArenaRankingEnt const gInitialMultiArenaRankings[MULTIARENA_MAX_RANKINGS];
 extern struct MultiArenaSaveTeam EWRAM_DATA gMultiArenaSaveTeamBufA;
 extern struct MultiArenaSaveTeam EWRAM_DATA gMultiArenaSaveTeamBufB;
 
