@@ -16,7 +16,7 @@
 
 void MapAnim_BeginMISSAnim(struct Unit* unit)
 {
-    CopyDataWithPossibleUncomp(
+    Decompress(
         Img_MapAnimMISS,
         OBJ_VRAM0 + 0x20 * BM_OBJCHR_BANIM_EFFECT);
 
@@ -29,7 +29,7 @@ void MapAnim_BeginMISSAnim(struct Unit* unit)
 
 void MapAnim_BeginNODAMAGEAnim(struct Unit* unit)
 {
-    CopyDataWithPossibleUncomp(
+    Decompress(
         Img_MapAnimNODAMAGE,
         OBJ_VRAM0 + 0x20 * BM_OBJCHR_BANIM_EFFECT);
 
@@ -54,7 +54,7 @@ void MapAnim_BeginWallBreakAnim(struct Unit* unit, int unk)
 
 void WallBreakAnim_Init(struct MAEffectProc* proc)
 {
-    CopyDataWithPossibleUncomp(
+    Decompress(
         Img_WallBreakAnim,
         OBJ_VRAM0 + 0x20 * BM_OBJCHR_BANIM_EFFECT);
 
@@ -83,7 +83,7 @@ void MapAnim_BeginPoisonAnim(struct MAEffectProc* proc)
 {
     PlaySpacialSoundMaybe(0xB7, proc->xDisplay); // TODO: song ids
 
-    CopyDataWithPossibleUncomp(
+    Decompress(
         Img_PoisonAnim,
         OBJ_VRAM0 + 0x20 * BM_OBJCHR_BANIM_EFFECT2);
 
@@ -112,7 +112,7 @@ void MapAnim_BeginPoisonAnim2(struct MAEffectProc* proc)
 {
     PlaySpacialSoundMaybe(0xB7, proc->xDisplay); // TODO: song ids
 
-    CopyDataWithPossibleUncomp(
+    Decompress(
         Img_PoisonAnim,
         OBJ_VRAM0 + 0x20 * BM_OBJCHR_BANIM_EFFECT2);
 

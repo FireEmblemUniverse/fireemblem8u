@@ -83,9 +83,9 @@ void ProcEventWrapAnim_Init(struct ProcBmFx *proc)
 {
     int i;
 
-    CopyDataWithPossibleUncomp(Img_EventWarp, BG_CHR_ADDR(BGCHR_BMFX_IMG));
+    Decompress(Img_EventWarp, BG_CHR_ADDR(BGCHR_BMFX_IMG));
     ApplyPalette(Pal_EventWarp, BGPAL_EVENTWARP_IMG);
-    CopyDataWithPossibleUncomp(Tsa_EventWarp, gBmFrameTmap0);
+    Decompress(Tsa_EventWarp, gBmFrameTmap0);
 
     for (i = 0; i < 0x360; i++)
         gBmFrameTmap0[i] += TILEREF(BGCHR_BMFX_IMG, BGPAL_EVENTWARP_IMG);

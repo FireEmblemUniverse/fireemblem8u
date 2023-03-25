@@ -609,7 +609,7 @@ void sub_8009C5C(struct GameCtrlProc* proc) {
 }
 
 void sub_8009CA4(ProcPtr proc) {
-    sub_80A6D38();
+    NullBmMapHidden_();
     ClearPidStats();
 
     ChapterChangeUnitCleanup();

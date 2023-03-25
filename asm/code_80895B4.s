@@ -24,27 +24,27 @@ _08089816:
 	movs r2, #0xd8
 	lsls r2, r2, #2
 	adds r1, r5, r2
-	bl CopyDataWithPossibleUncomp
+	bl Decompress
 	ldr r0, _080898AC  @ gUnknown_08A02884
 	movs r2, #0xec
 	lsls r2, r2, #3
 	adds r1, r5, r2
-	bl CopyDataWithPossibleUncomp
+	bl Decompress
 	ldr r0, _080898B0  @ gUnknown_08A028AC
 	movs r2, #0xb6
 	lsls r2, r2, #4
 	adds r1, r5, r2
-	bl CopyDataWithPossibleUncomp
+	bl Decompress
 	ldr r0, _080898B4  @ gUnknown_08A02914
 	movs r2, #0xf6
 	lsls r2, r2, #4
 	adds r1, r5, r2
-	bl CopyDataWithPossibleUncomp
+	bl Decompress
 	ldr r0, _080898B8  @ gUnknown_08A02980
 	movs r2, #0x9b
 	lsls r2, r2, #5
 	adds r1, r5, r2
-	bl CopyDataWithPossibleUncomp
+	bl Decompress
 	ldr r7, _080898BC  @ gUnknown_0203E794
 	adds r0, r7, #0
 	adds r1, r5, #0
@@ -108,27 +108,27 @@ _080898D6:
 	movs r2, #0xd8
 	lsls r2, r2, #2
 	adds r1, r5, r2
-	bl CopyDataWithPossibleUncomp
+	bl Decompress
 	ldr r0, _08089968  @ gUnknown_08A02884
 	movs r2, #0xec
 	lsls r2, r2, #3
 	adds r1, r5, r2
-	bl CopyDataWithPossibleUncomp
+	bl Decompress
 	ldr r0, _0808996C  @ gUnknown_08A028AC
 	movs r2, #0xb6
 	lsls r2, r2, #4
 	adds r1, r5, r2
-	bl CopyDataWithPossibleUncomp
+	bl Decompress
 	ldr r0, _08089970  @ gUnknown_08A02914
 	movs r2, #0xf6
 	lsls r2, r2, #4
 	adds r1, r5, r2
-	bl CopyDataWithPossibleUncomp
+	bl Decompress
 	ldr r0, _08089974  @ gUnknown_08A02980
 	movs r2, #0x9b
 	lsls r2, r2, #5
 	adds r1, r5, r2
-	bl CopyDataWithPossibleUncomp
+	bl Decompress
 	ldr r7, _08089978  @ gUnknown_0203E794
 	adds r0, r7, #0
 	adds r1, r5, #0
@@ -1855,27 +1855,27 @@ _0808A5E2:
 	movs r2, #0xd8
 	lsls r2, r2, #2
 	adds r1, r5, r2
-	bl CopyDataWithPossibleUncomp
+	bl Decompress
 	ldr r0, _0808A63C  @ gUnknown_08A02A1C
 	movs r2, #0xec
 	lsls r2, r2, #3
 	adds r1, r5, r2
-	bl CopyDataWithPossibleUncomp
+	bl Decompress
 	ldr r0, _0808A640  @ gUnknown_08A02A94
 	movs r2, #0xb6
 	lsls r2, r2, #4
 	adds r1, r5, r2
-	bl CopyDataWithPossibleUncomp
+	bl Decompress
 	ldr r0, _0808A644  @ gUnknown_08A02B3C
 	movs r2, #0xf8
 	lsls r2, r2, #4
 	adds r1, r5, r2
-	bl CopyDataWithPossibleUncomp
+	bl Decompress
 	ldr r0, _0808A648  @ gUnknown_08A02BAC
 	movs r2, #0x9c
 	lsls r2, r2, #5
 	adds r1, r5, r2
-	bl CopyDataWithPossibleUncomp
+	bl Decompress
 	b _0808A688
 	.align 2, 0
 _0808A634: .4byte 0x06013000
@@ -1889,27 +1889,27 @@ _0808A64C:
 	movs r2, #0xd8
 	lsls r2, r2, #2
 	adds r1, r5, r2
-	bl CopyDataWithPossibleUncomp
+	bl Decompress
 	ldr r0, _0808A700  @ gUnknown_08A02884
 	movs r2, #0xec
 	lsls r2, r2, #3
 	adds r1, r5, r2
-	bl CopyDataWithPossibleUncomp
+	bl Decompress
 	ldr r0, _0808A704  @ gUnknown_08A028AC
 	movs r2, #0xb6
 	lsls r2, r2, #4
 	adds r1, r5, r2
-	bl CopyDataWithPossibleUncomp
+	bl Decompress
 	ldr r0, _0808A708  @ gUnknown_08A02914
 	movs r2, #0xf6
 	lsls r2, r2, #4
 	adds r1, r5, r2
-	bl CopyDataWithPossibleUncomp
+	bl Decompress
 	ldr r0, _0808A70C  @ gUnknown_08A02980
 	movs r2, #0x9b
 	lsls r2, r2, #5
 	adds r1, r5, r2
-	bl CopyDataWithPossibleUncomp
+	bl Decompress
 _0808A688:
 	bl ClearAllTalkFlags
 	bl sub_808A524

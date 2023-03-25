@@ -11,7 +11,7 @@
 
 void UncompMapBattleBoxNumGfx(int tileNum)
 {
-    CopyDataWithPossibleUncomp(
+    Decompress(
         Img_MapBattleInfoNum,
         (u8*)(VRAM) + GetBackgroundTileDataOffset(0) + 0x20*(tileNum & 0x3FF));
 }
@@ -42,7 +42,7 @@ void sub_807BA28(u16* tilemap, int num, int tileref, int len, u16 blankref, int 
 void PrepareMapBattleBoxNumGfx(const u8* src)
 {
     UncompMapBattleBoxNumGfx(0x20);
-    CopyDataWithPossibleUncomp(src, (u8*)(VRAM + 0x20 * 43)); // TODO: named constants
+    Decompress(src, (u8*)(VRAM + 0x20 * 43)); // TODO: named constants
     ApplyPalette(Pal_MapBattleInfoNum, 5);
 }
 
@@ -109,7 +109,7 @@ void ProcMapInfoBox_OnDraw(struct MAInfoFrameProc* proc)
     BG_SetPosition(0, 0, 0);
     BG_SetPosition(1, 0, 0);
 
-    CopyDataWithPossibleUncomp(
+    Decompress(
         Img_MapBattleInfoBox,
         (void*)(VRAM) + GetBackgroundTileDataOffset(1) + BM_BGCHR_BANIM_IFBACK * 0x20); //< TODO: put in macro?
 
@@ -215,7 +215,7 @@ void DisplayBattleInfoBox(struct MAInfoFrameProc* proc, int index, int arg2)
         GetBattleInfoPalByFaction(gCurrentMapAnimState.actors[index].pUnit),
         BM_BGPAL_BANIM_IFBACK + index);
 
-    CopyDataWithPossibleUncomp(
+    Decompress(
         TsaSet_MapBattleBoxGfx[gCurrentMapAnimState.actorCount_maybe][index], gGenericBuffer);
 
     CallARM_FillTileRect(

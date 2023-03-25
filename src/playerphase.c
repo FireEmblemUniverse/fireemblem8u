@@ -257,7 +257,7 @@ struct ProcCmd CONST_DATA sProcScr_MoveLimitView[] = {
 
 void PlayerPhase_Suspend() {
     gActionData.suspendPointType = SUSPEND_POINT_PLAYERIDLE;
-    WriteSuspendSave(SAVE_BLOCK_SUSPEND_BASE);
+    WriteSuspendSave(SAVE_ID_SUSPEND);
 
     return;
 }
@@ -726,7 +726,7 @@ s8 PlayerPhase_PrepareAction(ProcPtr proc) {
 
     if ((gActionData.unitActionType != UNIT_ACTION_WAIT) && !gBmSt.just_resumed) {
         gActionData.suspendPointType = SUSPEND_POINT_DURINGACTION;
-        WriteSuspendSave(SAVE_BLOCK_SUSPEND_BASE);
+        WriteSuspendSave(SAVE_ID_SUSPEND);
     }
 
     return cameraReturn;

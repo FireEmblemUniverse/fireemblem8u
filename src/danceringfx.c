@@ -70,9 +70,9 @@ void ProcDanceAnim_Init(struct ProcBmFx *proc)
 {
     int i;
 
-    CopyDataWithPossibleUncomp(Img_DanceringFx, BG_CHR_ADDR(BGCHR_BMFX_IMG));
+    Decompress(Img_DanceringFx, BG_CHR_ADDR(BGCHR_BMFX_IMG));
     ApplyPalette(Pal_DanceringFx, BGPAL_DANCERING_IMG);
-    CopyDataWithPossibleUncomp(Tsa_DanceringFx, gBmFrameTmap0);
+    Decompress(Tsa_DanceringFx, gBmFrameTmap0);
 
     for (i = 0; i < 0x240; i++)
         gBmFrameTmap0[i] += TILEREF(BGCHR_BMFX_IMG, BGPAL_DANCERING_IMG);

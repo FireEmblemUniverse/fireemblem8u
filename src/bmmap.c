@@ -225,16 +225,16 @@ void BmMapFillEdges(u8** map, u8 value) {
 }
 
 void UnpackChapterMap(void* into, int chapterId) {
-    // CopyDataWithPossibleUncomp map data
-    CopyDataWithPossibleUncomp(
+    // Decompress map data
+    Decompress(
         GetChapterMapPointer(chapterId), into);
 
     // Setting map size
     gBmMapSize.x = ((u8*)(into))[0];
     gBmMapSize.y = ((u8*)(into))[1];
 
-    // CopyDataWithPossibleUncomp tileset config
-    CopyDataWithPossibleUncomp(
+    // Decompress tileset config
+    Decompress(
         gChapterDataAssetTable[GetROMChapterStruct(chapterId)->map.tileConfigId], sTilesetConfig);
 
     // Setting max camera offsets (?) TODO: figure out
@@ -243,14 +243,14 @@ void UnpackChapterMap(void* into, int chapterId) {
 }
 
 void UnpackChapterMapGraphics(int chapterId) {
-    // CopyDataWithPossibleUncomp tileset graphics (part 1)
-    CopyDataWithPossibleUncomp(
+    // Decompress tileset graphics (part 1)
+    Decompress(
         gChapterDataAssetTable[GetROMChapterStruct(chapterId)->map.obj1Id],
         (void*)(BG_VRAM + 0x20 * 0x400)); // TODO: tile id constant?
 
-    // CopyDataWithPossibleUncomp tileset graphics (part 2, if it exists)
+    // Decompress tileset graphics (part 2, if it exists)
     if (gChapterDataAssetTable[GetROMChapterStruct(chapterId)->map.obj2Id])
-        CopyDataWithPossibleUncomp(
+        Decompress(
             gChapterDataAssetTable[GetROMChapterStruct(chapterId)->map.obj2Id],
             (void*)(BG_VRAM + 0x20 * 0x600)); // TODO: tile id constant?
 
@@ -688,7 +688,7 @@ void RevertMapChange(int id) {
     const struct MapChange* mapChange;
     u8 ix, iy;
 
-    CopyDataWithPossibleUncomp(GetChapterMapPointer(gPlaySt.chapterIndex), gBmMapBuffer);
+    Decompress(GetChapterMapPointer(gPlaySt.chapterIndex), gBmMapBuffer);
 
     mapChange = GetMapChange(id);
 

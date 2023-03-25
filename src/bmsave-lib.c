@@ -11,10 +11,36 @@
 bool LoadBonusContentData(void *buf);
 
 extern EWRAM_DATA bool gBoolSramWorking;
-extern CONST_DATA u8 gGlobalSaveInfoName[];
-extern CONST_DATA unsigned char gUnknown_08205CA4[]; /* related to convoy */
-extern CONST_DATA unsigned char gUnknown_08205CAC[];
-extern CONST_DATA int gUnknown_08A1FAF8[][2];
+
+static const char sSaveMarker[] = "AGB-FE9";
+static const u8 sConvySavePackMask1[] = {
+    0xC0,   /* 1100 0000 */
+    0x81,   /* 1000 0001 */
+    0x03,   /* 0000 0011 */
+    0x07,   /* 0000 0111 */
+    0x0F,   /* 0000 1111 */
+    0x1F,   /* 0001 1111 */
+    0x3F,   /* 0011 1111 */
+    0x7F,   /* 0111 1111 */
+};
+
+static const u8 sConvySavePackMask2[] = {
+    0x00,   /* 0000 0000 */
+    0x00,   /* 0000 0000 */
+    0x00,   /* 0000 0000 */
+    0xF7,   /* 1111 0111 */
+    0xFC,   /* 1111 1100 */
+    0xF8,   /* 1111 1000 */
+    0xF0,   /* 1111 0000 */
+    0xE0,   /* 1110 0000 */
+};
+
+CONST_DATA u8 *gSram = CART_SRAM;
+
+CONST_DATA int sSupportUnkLut[][2] = {
+    { 0x0100, 0x0100 }, 
+    { 0x0000, 0x0000 }
+};
 
 void SramInit()
 {
@@ -80,7 +106,7 @@ bool ReadGlobalSaveInfo(struct GlobalSaveInfo *buf)
 
     ReadSramFast(gSram, buf, sizeof(struct GlobalSaveInfo));
 
-    if (0 != StringCompare(buf->name, gGlobalSaveInfoName)
+    if (0 != StringCompare(buf->name, sSaveMarker)
         && SAVEMAGIC32 == buf->magic32
         && SAVEMAGIC16 == buf->magic16
         && buf->checksum == Checksum16(buf, GLOBALSIZEINFO_SIZE_FOR_CHECKSUM))
@@ -106,7 +132,7 @@ void InitGlobalSaveInfodata()
     int i;
 
     WipeSram();
-    CopyString(info.name, gGlobalSaveInfoName);
+    CopyString(info.name, sSaveMarker);
 
     info.magic32 = SAVEMAGIC32;
     info.magic16 = SAVEMAGIC16;
@@ -183,12 +209,12 @@ bool ReadSaveBlockInfo(struct SaveBlockInfo *chunk, int index)
         magic = SAVEMAGIC32;
         break;
 
-    case SAVE_ID_5:
-        magic = SAVEMAGIC32_UNK5;
+    case SAVE_ID_ARENA:
+        magic = SAVEMAGIC32_ARENA;
         break;
 
-    case SAVE_ID_6:
-        magic = SAVEMAGIC32_UNK6;
+    case SAVE_ID_XMAP:
+        magic = SAVEMAGIC32_XMAP;
         break;
     
     default:
@@ -224,11 +250,11 @@ void WriteSaveBlockInfo(struct SaveBlockInfo *chunk, int index)
         chunk->size = SRAM_SIZE_SUSPEND;
         break;
 
-    case SAVEBLOCK_KIND_2:
+    case SAVEBLOCK_KIND_ARENA:
         chunk->size = SRAM_SIZE_5;
         break;
 
-    case SAVEBLOCK_KIND_3:
+    case SAVEBLOCK_KIND_XMAP:
         chunk->size = SRAM_SIZE_6;
         break;
 
@@ -282,11 +308,11 @@ void *GetSaveWriteAddr(int index)
             return SRAM_OFFSET_SUS1 + gSram;
             break;
 
-        case SAVE_ID_5:
+        case SAVE_ID_ARENA:
             return SRAM_OFFSET_5 + gSram;
             break;
 
-        case SAVE_ID_6:
+        case SAVE_ID_XMAP:
             return CART_SRAM + SRAM_OFFSET_6;
             break;
 
@@ -357,14 +383,14 @@ void WriteSupplyItems(void *sram_dest)
         item_use = ITEM_USES(items[0]) & 0x3F;
         var0 = var1 & 0x7;
         *cur = 
-            (*cur & gUnknown_08205CA4[var0]) |
+            (*cur & sConvySavePackMask1[var0]) |
             (item_use << var0);
 
         if (var0 > 1) {
             cur++;
             if (var0 > 2) {
                 *cur =
-                    (*cur & gUnknown_08205CAC[var0]) |
+                    (*cur & sConvySavePackMask2[var0]) |
                     (item_use >> (8 - var0));
             }
         }
@@ -390,13 +416,13 @@ void ReadSupplyItems(const void *sram_src)
     for (i = 0; i < 100; i++) {
         items[0] = buf[i];
         var0 = var1 & 0x7;
-        item_use = (*cur & ~gUnknown_08205CA4[var0]) >> var0;
+        item_use = (*cur & ~sConvySavePackMask1[var0]) >> var0;
 
         if (var0 > 1) {
             cur++;
 
             if (var0 > 2) {
-                item_use |= (*cur & ~gUnknown_08205CAC[var0]) << (8 - var0);
+                item_use |= (*cur & ~sConvySavePackMask2[var0]) << (8 - var0);
             }
         }
 
@@ -423,7 +449,7 @@ bool IsExtraLinkArenaEnabled(int index)
         if (IsGameSaveNotFirstChapter(i))
             return 1;
 
-    return sub_80A6A68();
+    return IsMultiArenaSaveReady();
 }
 
 bool IsExtraSoundRoomEnabled()
@@ -468,17 +494,17 @@ unsigned int sub_80A3348(void) {
     return r4;
 }
 
-int sub_80A33C4()
+bool sub_80A33C4()
 {
     struct GlobalSaveInfo buf;
 
     if (!ReadGlobalSaveInfo(&buf))
-        return 0;
+        return false;
 
-    if (!sub_80A6C1C())
-        return 0;
+    if (!IsExtraMapAvailable())
+        return false;
     else
-        return 1;
+        return true;
 }
 
 bool IsExtraFreeMapEnabled()
@@ -490,9 +516,9 @@ bool IsExtraFreeMapEnabled()
 
     for (i = 0; i < 3; i++)
         if (IsGameSaveComplete(i))
-            return 1;
+            return true;
 
-    return 0;
+    return false;
 }
 
 bool IsExtraBonusClaimEnabled(void) {
@@ -510,58 +536,58 @@ bool IsExtraBonusClaimEnabled(void) {
                 continue;
     
             if (0 == buf1[i].unk[1])
-                ret = 1;
+                ret = true;
 
             if (2 == buf1[i].unk[1])
-                ret = 1;
+                ret = true;
         }
 
         if (0 == ret)
-            return 0;
+            return false;
         else
-            return 1;
+            return true;
     }
     return 0;
 }
 
-int sub_80A3468(const int val0, const int val1)
+int GetUnitsAverageSupportValue(const int unitA, const int unitB)
 {
     int i;
 
-    if (0 != gUnknown_08A1FAF8[0][0]) {
-        for (i = 0; 0 != gUnknown_08A1FAF8[i][0]; i++) {
-            if (gUnknown_08A1FAF8[i][0] == val0)
-                if (gUnknown_08A1FAF8[i][1] != val1)
-                    return 2;
 
-            if (gUnknown_08A1FAF8[i][0] == val1)
-                if (gUnknown_08A1FAF8[i][1] != val0)
-                    return 2;
+    for (i = 0; 0 != sSupportUnkLut[i][0]; i++) {
+        if (sSupportUnkLut[i][0] == unitA)
+            if (sSupportUnkLut[i][1] != unitB)
+                return 2;
+
+        if (sSupportUnkLut[i][0] == unitB)
+            if (sSupportUnkLut[i][1] != unitA)
+                return 2;
             
-            if (gUnknown_08A1FAF8[i][1] == val0)
-                if (gUnknown_08A1FAF8[i][0] != val1)
-                    return 2;
+        if (sSupportUnkLut[i][1] == unitA)
+            if (sSupportUnkLut[i][0] != unitB)
+                return 2;
 
-            if (gUnknown_08A1FAF8[i][1] == val1)
-                if (gUnknown_08A1FAF8[i][0] != val0)
-                    return 2;
-        }
+        if (sSupportUnkLut[i][1] == unitB)
+            if (sSupportUnkLut[i][0] != unitA)
+                return 2;
     }
+
     return 3;
 }
 
-int sub_80A34CC()
+int GetTotalAverageSupportValue()
 {
     int ret = 0;
-    struct SupportTalkEnt *buf = sub_80847F8();
+    struct SupportTalkEnt *buf = GetSupportTalkList();
 
     for (; 0xFFFF != buf->unitA; buf++)
-        ret += sub_80A3468(buf->unitA, buf->unitB);
+        ret += GetUnitsAverageSupportValue(buf->unitA, buf->unitB);
 
     return ret;
 }
 
-int sub_80A3500(struct GlobalSaveInfo *buf)
+int GetTotalGlobalSupportValue(struct GlobalSaveInfo *buf)
 {
     int i, j, tmp1, tmp2, ret = 0;
     unsigned char *SuppordRecord;
@@ -584,59 +610,54 @@ int sub_80A3500(struct GlobalSaveInfo *buf)
     return ret;
 }
 
-int sub_80A3544(void)
+int GetTotalSupportCollection(void)
 {
-    int tmp0 = sub_80A3500(0);
-    int tmp1 = sub_80A34CC();
+    int tmp0 = GetTotalGlobalSupportValue(0);
+    int tmp1 = GetTotalAverageSupportValue();
 
-    if ((tmp0 > 0) && (0 == ((tmp0 * 0x64) / tmp1)))
+    if ((tmp0 > 0) && (0 == ((tmp0 * 100) / tmp1)))
             tmp0 = 1;
     else
-        tmp0 = (tmp0 * 0x64) / tmp1;
+        tmp0 = (tmp0 * 100) / tmp1;
 
-    if (tmp0 > 0x64)
-        tmp0 = 0x64;
+    if (tmp0 > 100)
+        tmp0 = 100;
     
     return tmp0;
 }
 
-int sub_80A3584(int param0, int param1, struct GlobalSaveInfo *buf)
+int GetGlobalBestSupport(int unitA, int unitB, struct GlobalSaveInfo *info)
 {
-    struct GlobalSaveInfo tmp_header;
+    struct GlobalSaveInfo local_info;
     int i = 0;
     int ret = 0;
     int tmp0, tmp1, tmp2, tmp3;
     unsigned char *SuppordRecord;
-    struct SupportTalkEnt *cur = sub_80847F8();
+    struct SupportTalkEnt *cur = GetSupportTalkList();
 
-    if (buf == NULL) {
-        buf = &tmp_header;
-        ReadGlobalSaveInfo(buf);
+    if (info == NULL) {
+        info = &local_info;
+        ReadGlobalSaveInfo(info);
     }
 
-    while (1) {
-        if (cur->unitA == 0xFFFF)
-            break;
+    for (; cur->unitA != 0xFFFF; i++, cur++) {
         
-        if (cur->unitA == param0 && cur->unitB == param1)
+        if (cur->unitA == unitA && cur->unitB == unitB)
             break;
     
-        if (cur->unitA == param1 && cur->unitB == param0)
+        if (cur->unitA == unitB && cur->unitB == unitA)
             break;
-
-        i++;
-        cur++;
     }
 
     tmp0 =  i >> 2;
     tmp1 = (3 & i) << 1;
-    ret = 3 & buf->SuppordRecord[tmp0] >> tmp1;
+    ret = 3 & info->SuppordRecord[tmp0] >> tmp1;
     return ret;
 }
 
-void sub_80A35EC(int unitId, u8* data, struct GlobalSaveInfo* buf)
+void GetGlobalSupportListFromSave(int unitId, u8* data, struct GlobalSaveInfo* info)
 {
-    struct GlobalSaveInfo tempHeader;
+    struct GlobalSaveInfo local_info;
     struct SupportTalkEnt* ptr;
     int i;
     int j;
@@ -651,23 +672,21 @@ void sub_80A35EC(int unitId, u8* data, struct GlobalSaveInfo* buf)
     }
 
     j = 0;
-    ptr = sub_80847F8();
+    ptr = GetSupportTalkList();
 
-    if (buf == 0) {
-        buf = &tempHeader;
-        ReadGlobalSaveInfo(buf);
+    if (info == NULL) {
+        info = &local_info;
+        ReadGlobalSaveInfo(info);
     }
 
     for (; ; j++, ptr++) {
         int tmp1, tmp2;
 
-        if (ptr->unitA == 0xFFFF) {
+        if (ptr->unitA == 0xFFFF)
             break;
-        }
 
-        if ((ptr->unitA != unitId) && (ptr->unitB != unitId)) {
+        if ((ptr->unitA != unitId) && (ptr->unitB != unitId))
             continue;
-        }
 
         tmp1 = j >> 2;
         tmp2 = (j & 3) << 1;
@@ -679,7 +698,7 @@ void sub_80A35EC(int unitId, u8* data, struct GlobalSaveInfo* buf)
                 continue;
             }
 
-            data[i] = (buf->SuppordRecord[tmp1] >> (tmp2)) & 3;
+            data[i] = (info->SuppordRecord[tmp1] >> (tmp2)) & 3;
 
             break;
         }
@@ -692,34 +711,31 @@ void sub_80A35EC(int unitId, u8* data, struct GlobalSaveInfo* buf)
     return;
 }
 
-bool sub_80A3724(int unitA, int unitB, int supportRank) {
+bool UpdateBestGlobalSupportValue(int unitA, int unitB, int supportRank) {
     int convo;
     int var0;
     int var1;
-    struct GlobalSaveInfo tempHeader;
+    struct GlobalSaveInfo info;
     struct SupportTalkEnt* ptr;
 
     supportRank = supportRank & 3;
 
-    if (!ReadGlobalSaveInfo(&tempHeader)) {
+    if (!ReadGlobalSaveInfo(&info)) {
         return 0;
     }
 
     convo = 0;
 
-    for (ptr = sub_80847F8(); ; ptr++) {
+    for (ptr = GetSupportTalkList(); ; ptr++) {
 
-        if (ptr->unitA == 0xFFFF) {
+        if (ptr->unitA == 0xFFFF)
             break;
-        }
 
-        if ((ptr->unitA == unitA) && (ptr->unitB == unitB)) {
+        if ((ptr->unitA == unitA) && (ptr->unitB == unitB))
             break;
-        }
 
-        if ((ptr->unitA == unitB) && (ptr->unitB == unitA)) {
+        if ((ptr->unitA == unitB) && (ptr->unitB == unitA))
             break;
-        }
 
         convo++;
     }
@@ -727,16 +743,15 @@ bool sub_80A3724(int unitA, int unitB, int supportRank) {
     var0 = convo >> 2;
     var1 = (convo & 3) << 1;
 
-    if (((tempHeader.SuppordRecord[var0] >> var1) & 3) >= (supportRank)) {
-        return 0;
-    }
+    if (((info.SuppordRecord[var0] >> var1) & 3) >= (supportRank))
+        return false;
 
-    tempHeader.SuppordRecord[var0] &= ~(3 << var1);
-    tempHeader.SuppordRecord[var0] += (supportRank << var1);
+    info.SuppordRecord[var0] &= ~(3 << var1);
+    info.SuppordRecord[var0] += (supportRank << var1);
 
-    WriteGlobalSaveInfo(&tempHeader);
+    WriteGlobalSaveInfo(&info);
 
-    return 1;
+    return true;
 }
 
 void SGM_SetCharacterKnown(s32 charId, struct GlobalSaveInfo* buf)
@@ -879,7 +894,7 @@ void SaveRankings(void *buf)
     );
 }
 
-void sub_80A39B4()
+void EraseSaveRankData()
 {
     u16 _buf[0x94 / 2];
 
@@ -1047,13 +1062,13 @@ void sub_80A3E28()
     sub_80A3EA4(buf);
 }
 
-u8 sub_80A3E4C(void *buf)
+bool sub_80A3E4C(void *buf)
 {
     struct bmsave_unkstruct1 *_buf = buf;
     struct bmsave_unkstruct1 tmp;
 
     if (!IsSramWorking())
-        return 0;
+        return false;
 
     if (NULL == buf)
         _buf = &tmp;
@@ -1061,9 +1076,9 @@ u8 sub_80A3E4C(void *buf)
     ReadSramFast(gSram + 0x7224, _buf, sizeof(struct bmsave_unkstruct1));
 
     if (_buf->magic1 != Checksum16(_buf, sizeof(struct bmsave_unkstruct1) - 4))
-        return 0;
+        return false;
     else
-        return 1;
+        return true;
 }
 
 void sub_80A3EA4(void *buf)
@@ -1131,7 +1146,7 @@ void sub_80A3F84()
     sub_80A4000(&buf);
 }
 
-u8 sub_80A3FA8(void *buf)
+bool sub_80A3FA8(void *buf)
 {
     struct bmsave_unkstruct2 tmp, *_buf = buf;
 
@@ -1195,7 +1210,7 @@ void sub_80A4064(struct bmsave_unkstruct2 *buf, int val)
     sub_80A4000(buf);
 }
 
-void sub_80A40A8()
+void LoadAndVerifySramSaveData()
 {
     if (!ReadGlobalSaveInfo(NULL))
         InitGlobalSaveInfodata();
@@ -1204,7 +1219,7 @@ void sub_80A40A8()
         EraseBonusContentData();
     
     if (!LoadAndVerfyRankData(NULL))
-        sub_80A39B4();
+        EraseSaveRankData();
     
     if (!sub_80A3E4C(NULL))
         sub_80A3E28();
@@ -1212,5 +1227,5 @@ void sub_80A40A8()
     if (!sub_80A3FA8(NULL))
         sub_80A3F84();
     
-    sub_80A6AA0();
+    LoadAndVerfySuspendSave();
 }

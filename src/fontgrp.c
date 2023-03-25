@@ -34,7 +34,7 @@ EWRAM_DATA int gUnknown_02028E50 = 0;
 EWRAM_DATA int gUnknown_02028E54 = 0;
 EWRAM_DATA struct Font gDefaultFont = {0};
 EWRAM_DATA struct Font *gCurrentFont = 0;
-EWRAM_DATA u8 gUnknown_02028E74 = 0;
+EWRAM_DATA u8 gLanguageMode = 0;
 EWRAM_DATA struct Struct02028E78 gUnknown_02028E78[64] = {0};
 
 #include "graphics/debug_font.4bpp.h"
@@ -323,14 +323,14 @@ void sub_8003C44(s16 a, s16 b, const char *fmt, ...)
     PrintDebugStringAsOBJ(a, b, buffer);
 }
 
-int GetSomeByte(void)
+int GetLang(void)
 {
-    return gUnknown_02028E74;
+    return gLanguageMode;
 }
 
-void SetSomeByte(int a)
+void SetLang(int a)
 {
-    gUnknown_02028E74 = a;
+    gLanguageMode = a;
 }
 
 void Font_InitForUIDefault(void)
@@ -348,7 +348,7 @@ void Font_InitForUI(struct Font *font, void *vramDest, int c, int d)
     font->paletteNum = d;
     font->unk10 = c + (d << 12);
     font->unk12 = 0;
-    font->isAscii = GetSomeByte();
+    font->isAscii = GetLang();
     SetFont(font);
     Font_LoadForUI();
 }
@@ -964,7 +964,7 @@ void InitSomeOtherGraphicsRelatedStruct(struct Font *font, void *vramDest, int c
     font->paletteNum = (c & 0xF) + 16;
     font->unk10 = ((uintptr_t)vramDest & 0x1FFFF) >> 5;
     font->unk12 = 0;
-    font->isAscii = GetSomeByte();
+    font->isAscii = GetLang();
     SetFont(font);
     font->drawGlyph = sub_8004700;
 }

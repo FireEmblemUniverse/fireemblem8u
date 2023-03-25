@@ -358,7 +358,7 @@ sub_809ED8C: @ 0x0809ED8C
 	ldr r0, _0809F0C8  @ gUnknown_08A1B9EC
 	ldr r4, _0809F0CC  @ gGenericBuffer
 	adds r1, r4, #0
-	bl CopyDataWithPossibleUncomp
+	bl Decompress
 	ldr r0, _0809F0D0  @ gBG1TilemapBuffer
 	movs r2, #0x80
 	lsls r2, r2, #5
@@ -477,7 +477,7 @@ _0809EF4A:
 	bl sub_809D8D4
 	ldr r0, _0809F0E0  @ gUnknown_08A19CCC
 	ldr r1, _0809F0E4  @ 0x06015000
-	bl CopyDataWithPossibleUncomp
+	bl Decompress
 	ldr r0, _0809F0E8  @ gUnknown_08A1A084
 	movs r4, #0xa0
 	lsls r4, r4, #2

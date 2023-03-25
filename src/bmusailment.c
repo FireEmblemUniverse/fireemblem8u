@@ -246,7 +246,7 @@ void StatusHealEffect_OverlayBg_Init() {
 
     ClearBg0Bg1();
 
-    CopyDataWithPossibleUncomp(gUnknown_08A032AC, (u8*)BG_VRAM + 0x5000);
+    Decompress(gUnknown_08A032AC, (u8*)BG_VRAM + 0x5000);
     CopyToPaletteBuffer(gUnknown_08A03334, 0x60, 0x20);
 
     CallARM_FillTileRect(gBG0TilemapBuffer, gUnknown_08A03354, 0x3280);

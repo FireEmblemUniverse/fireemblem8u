@@ -215,13 +215,13 @@ void Title_SetupMainGraphics(struct TitleScreenProc* proc) {
 
     switch (proc->timer) {
         case 0:
-            CopyDataWithPossibleUncomp(gGfx_TitleMainBackground_1, (void*)0x6000000);
+            Decompress(gGfx_TitleMainBackground_1, (void*)0x6000000);
 
             break;
 
         case 1:
-            CopyDataWithPossibleUncomp(gGfx_TitleMainBackground_2, (void*)0x06003000);
-            CopyDataWithPossibleUncomp(gTsa_TitleMainBackground, gBG1TilemapBuffer);
+            Decompress(gGfx_TitleMainBackground_2, (void*)0x06003000);
+            Decompress(gTsa_TitleMainBackground, gBG1TilemapBuffer);
             CopyToPaletteBuffer(gPal_TitleMainBackground, 0x1c0, 0x20);
 
             for (i = 0; i < 0x280; i++) {
@@ -237,8 +237,8 @@ void Title_SetupMainGraphics(struct TitleScreenProc* proc) {
             break;
 
         case 2:
-            CopyDataWithPossibleUncomp(gGfx_TitleDragonForeground, (void*)0x06005000);
-            CopyDataWithPossibleUncomp(gTsa_TitleDragonForeground, gBG0TilemapBuffer);
+            Decompress(gGfx_TitleDragonForeground, (void*)0x06005000);
+            Decompress(gTsa_TitleDragonForeground, gBG0TilemapBuffer);
             CopyToPaletteBuffer(gPal_TitleDragonForeground, 0x1e0, 0x20);
 
             for (i = 0; i < 0x280; i++) {
@@ -250,12 +250,12 @@ void Title_SetupMainGraphics(struct TitleScreenProc* proc) {
             break;
 
         case 3:
-            CopyDataWithPossibleUncomp(gGfx_FireEmblemLogo, (void*)0x06010000);
+            Decompress(gGfx_FireEmblemLogo, (void*)0x06010000);
 
             break;
 
         case 4:
-            CopyDataWithPossibleUncomp(gGfx_SubtitlePressStart, (void*)0x06013000);
+            Decompress(gGfx_SubtitlePressStart, (void*)0x06013000);
             CopyToPaletteBuffer(gPal_PressStart, 0x200, 0x80);
 
             proc->timer = 0;
@@ -308,16 +308,16 @@ void Title_SetupSpecialEffectGraphics(struct TitleScreenProc* proc) {
             SetBackgroundTileDataOffset(0, 0xc000);
             SetBackgroundMapDataOffset(0, 0x7800);
 
-            CopyDataWithPossibleUncomp(gGfx_08AAFD14, (void*)0x06008000);
-            CopyDataWithPossibleUncomp(gTsa_08AAFF10, (void*)0x0600B000);
+            Decompress(gGfx_08AAFD14, (void*)0x06008000);
+            Decompress(gTsa_08AAFF10, (void*)0x0600B000);
             CopyToPaletteBuffer(gPal_08AB0114, 0, 0x20);
             gPaletteBuffer[0] = 0x7FFF;
 
             goto _080C5A14;
 
         case 1:
-            CopyDataWithPossibleUncomp(gGfx_08AADC08, (void*)0x0600C000);
-            CopyDataWithPossibleUncomp(gTsa_08AAE61C, gBG0TilemapBuffer);
+            Decompress(gGfx_08AADC08, (void*)0x0600C000);
+            Decompress(gTsa_08AAE61C, gBG0TilemapBuffer);
             CopyToPaletteBuffer(gPal_08AAE8CC, 0x20, 0x20);
 
             for (i = 0; i < 0x280; i++) {
@@ -329,8 +329,8 @@ void Title_SetupSpecialEffectGraphics(struct TitleScreenProc* proc) {
             goto _080C5A14;
 
         case 2:
-            CopyDataWithPossibleUncomp(gGfx_08AAE8EC, (void*)0x0600D000);
-            CopyDataWithPossibleUncomp(gTsa_08AAF928, gBG0TilemapBuffer);
+            Decompress(gGfx_08AAE8EC, (void*)0x0600D000);
+            Decompress(gTsa_08AAF928, gBG0TilemapBuffer);
             CopyToPaletteBuffer(gPal_08AAFCF4, 0x40, 0x20);
 
             for (i = 0; i < 0x280; i++) {
@@ -340,9 +340,9 @@ void Title_SetupSpecialEffectGraphics(struct TitleScreenProc* proc) {
             goto _080C5A14;
 
         case 3:
-            CopyDataWithPossibleUncomp(gGfx_TitleLargeGlowingOrb, (void*)0x06014400);
+            Decompress(gGfx_TitleLargeGlowingOrb, (void*)0x06014400);
             CopyToPaletteBuffer(gPal_TitleLargeGlowingOrb, 0x280, 0x60);
-            CopyDataWithPossibleUncomp(gGfx_TitleSmallLightBubbles, (void*)0x06015400);
+            Decompress(gGfx_TitleSmallLightBubbles, (void*)0x06015400);
             CopyToPaletteBuffer(gPal_TitleSmallLightBubbles, 0x2e0, 0x20);
 
             goto _080C5A14;
@@ -578,8 +578,8 @@ void Title_Loop_FlashFxExpand(struct TitleScreenProc* proc) {
 void Title_LoadDemonKingOnBg2(void) {
     int i;
 
-    CopyDataWithPossibleUncomp(gGfx_TitleDemonKing, (void*)0x06008000);
-    CopyDataWithPossibleUncomp(gTsa_TitleDemonKing, gBG2TilemapBuffer);
+    Decompress(gGfx_TitleDemonKing, (void*)0x06008000);
+    Decompress(gTsa_TitleDemonKing, gBG2TilemapBuffer);
 
     CopyToPaletteBuffer(gPal_TitleDemonKing, 0x60, 0x20);
 
@@ -629,8 +629,8 @@ void Title_PrepareMainLogoZoom(void) {
 
     sub_80C5548(0x40);
 
-    CopyDataWithPossibleUncomp(gGfx_08AB0134, (void*)0x06008000);
-    CopyDataWithPossibleUncomp(gTsa_08AB0A20, gBG2TilemapBuffer);
+    Decompress(gGfx_08AB0134, (void*)0x06008000);
+    Decompress(gTsa_08AB0A20, gBG2TilemapBuffer);
 
     CopyToPaletteBuffer(gPal_08AB0B24, 0, 0x20);
 

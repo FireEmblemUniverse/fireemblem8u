@@ -266,7 +266,7 @@ _0808EB46:
 	bl CopyToPaletteBuffer
 	ldr r0, _0808EBCC  @ gUnknown_085A638C
 	ldr r1, _0808EBD0  @ 0x06017900
-	bl CopyDataWithPossibleUncomp
+	bl Decompress
 _0808EBB6:
 	add sp, #0x40
 	pop {r4, r5}
@@ -3776,7 +3776,7 @@ sub_80906F8: @ 0x080906F8
 	strh r1, [r0]
 	ldr r0, _0809077C  @ gUnknown_08A1C7D8
 	ldr r1, _08090780  @ 0x06010280
-	bl CopyDataWithPossibleUncomp
+	bl Decompress
 	pop {r4, r5}
 	pop {r0}
 	bx r0
@@ -4693,7 +4693,7 @@ _08090E88:
 	bl LoadUiFrameGraphics
 	ldr r0, _08090F7C  @ gUnknown_08A1CD68
 	ldr r1, _08090F80  @ 0x06014800
-	bl CopyDataWithPossibleUncomp
+	bl Decompress
 	mov r1, sl
 	ldrb r0, [r1]
 	ldr r2, _08090F84  @ gUnknown_08A1D288
@@ -4703,7 +4703,7 @@ _08090E88:
 _08090EC4:
 	ldr r1, _08090F8C  @ 0x06015800
 	adds r0, r2, #0
-	bl CopyDataWithPossibleUncomp
+	bl Decompress
 	ldr r0, _08090F90  @ gUnknown_08A1B154
 	movs r1, #0xc8
 	lsls r1, r1, #2
@@ -4964,7 +4964,7 @@ _0809104E:
 	strb r0, [r7, #0x18]
 	ldr r0, _08091170  @ gUnknown_08A1C7D8
 	ldr r1, _08091174  @ gUnknown_020239A8
-	bl CopyDataWithPossibleUncomp
+	bl Decompress
 	ldr r0, _08091178  @ gUnknown_08A1A084
 	movs r1, #0xf0
 	lsls r1, r1, #1
@@ -13289,7 +13289,7 @@ sub_80950E8: @ 0x080950E8
 	lsls r1, r1, #0x13
 	adds r2, r2, r1
 	adds r1, r2, #0
-	bl CopyDataWithPossibleUncomp
+	bl Decompress
 	ldr r0, _08095134  @ gPlaySt
 	adds r0, #0x41
 	ldrb r1, [r0]

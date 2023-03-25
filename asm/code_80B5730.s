@@ -41,7 +41,7 @@ _080B661A:
 	adds r1, r1, r0
 	ldr r0, [r1]
 	adds r1, r4, #0
-	bl CopyDataWithPossibleUncomp
+	bl Decompress
 	movs r2, #0x80
 	lsls r2, r2, #4
 	adds r4, r4, r2
@@ -292,10 +292,10 @@ sub_80B67E8: @ 0x080B67E8
 	push {lr}
 	ldr r0, _080B6800  @ gUnknown_08A3F750
 	ldr r1, _080B6804  @ 0x06004C00
-	bl CopyDataWithPossibleUncomp
+	bl Decompress
 	ldr r0, _080B6808  @ Img_CommGameBgScreen
 	ldr r1, _080B680C  @ 0x06008000
-	bl CopyDataWithPossibleUncomp
+	bl Decompress
 	pop {r0}
 	bx r0
 	.align 2, 0
@@ -1025,7 +1025,7 @@ sub_80B6D24: @ 0x080B6D24
 	ldr r0, _080B6EAC  @ gUnknown_08A40204
 	ldr r4, _080B6EB0  @ gGenericBuffer
 	adds r1, r4, #0
-	bl CopyDataWithPossibleUncomp
+	bl Decompress
 	ldr r0, [r5, #8]
 	ldr r6, _080B6EB4  @ 0x0000C260
 	adds r1, r4, #0
@@ -1033,7 +1033,7 @@ sub_80B6D24: @ 0x080B6D24
 	bl CallARM_FillTileRect
 	ldr r0, _080B6EB8  @ gUnknown_08A400E4
 	adds r1, r4, #0
-	bl CopyDataWithPossibleUncomp
+	bl Decompress
 	ldr r0, [r5, #4]
 	adds r1, r4, #0
 	adds r2, r6, #0
@@ -1264,7 +1264,7 @@ sub_80B6F34: @ 0x080B6F34
 	ldr r0, _080B71A4  @ gUnknown_08A40470
 	ldr r4, _080B71A8  @ gGenericBuffer
 	adds r1, r4, #0
-	bl CopyDataWithPossibleUncomp
+	bl Decompress
 	ldr r0, [r5, #8]
 	ldr r6, _080B71AC  @ 0x0000C260
 	adds r1, r4, #0
@@ -1272,7 +1272,7 @@ sub_80B6F34: @ 0x080B6F34
 	bl CallARM_FillTileRect
 	ldr r0, _080B71B0  @ gUnknown_08A4034C
 	adds r1, r4, #0
-	bl CopyDataWithPossibleUncomp
+	bl Decompress
 	ldr r0, [r5, #4]
 	adds r1, r4, #0
 	adds r2, r6, #0
@@ -1875,11 +1875,11 @@ sub_80B745C: @ 0x080B745C
 	bl CopyToPaletteBuffer
 	ldr r0, _080B7498  @ gUnknown_08A405D4
 	ldr r1, _080B749C  @ 0x06001000
-	bl CopyDataWithPossibleUncomp
+	bl Decompress
 	ldr r0, _080B74A0  @ gUnknown_08A409D0
 	ldr r4, _080B74A4  @ gGenericBuffer
 	adds r1, r4, #0
-	bl CopyDataWithPossibleUncomp
+	bl Decompress
 	ldr r0, _080B74A8  @ gBG2TilemapBuffer
 	ldr r2, _080B74AC  @ 0x0000E080
 	adds r1, r4, #0
@@ -2066,7 +2066,7 @@ sub_80B75AC: @ 0x080B75AC
 	bl CopyToPaletteBuffer
 	ldr r0, _080B7604  @ Img_ChapterIntroFog
 	ldr r1, _080B7608  @ 0x06004000
-	bl CopyDataWithPossibleUncomp
+	bl Decompress
 	ldr r0, _080B760C  @ gBG2TilemapBuffer
 	ldr r1, _080B7610  @ gUnknown_085A647C
 	movs r2, #0xa4
@@ -3344,7 +3344,7 @@ sub_80B8014: @ 0x080B8014
 	lsls r0, r0, #0x13
 	adds r1, r1, r0
 	adds r0, r4, #0
-	bl CopyDataWithPossibleUncomp
+	bl Decompress
 	ldr r0, _080B8144  @ gUnknown_08A25DCC
 	movs r2, #0x80
 	lsls r2, r2, #1
@@ -3362,11 +3362,11 @@ sub_80B8014: @ 0x080B8014
 	ldr r0, _080B8150  @ 0x06004C00
 	adds r1, r1, r0
 	adds r0, r4, #0
-	bl CopyDataWithPossibleUncomp
+	bl Decompress
 	ldr r0, _080B8154  @ gUnknown_08A268F8
 	ldr r4, _080B8158  @ gGenericBuffer
 	adds r1, r4, #0
-	bl CopyDataWithPossibleUncomp
+	bl Decompress
 	ldr r0, _080B815C  @ gUnknown_08A268D8
 	movs r1, #0xe0
 	movs r2, #0x20
@@ -5094,11 +5094,11 @@ sub_80B8E14: @ 0x080B8E14
 	bl CopyToPaletteBuffer
 	ldr r0, _080B8E4C  @ gUnknown_08A96308
 	ldr r1, _080B8E50  @ 0x06011000
-	bl CopyDataWithPossibleUncomp
+	bl Decompress
 	ldr r0, _080B8E54  @ gUnknown_08A97410
 	ldr r4, _080B8E58  @ gGenericBuffer
 	adds r1, r4, #0
-	bl CopyDataWithPossibleUncomp
+	bl Decompress
 	ldr r1, _080B8E5C  @ 0x06010280
 	adds r0, r4, #0
 	movs r2, #0xc
@@ -5152,7 +5152,7 @@ sub_80B8E60: @ 0x080B8E60
 	ldr r0, _080B8F88  @ gUnknown_08AA11D0
 	ldr r4, _080B8F8C  @ gGenericBuffer
 	adds r1, r4, #0
-	bl CopyDataWithPossibleUncomp
+	bl Decompress
 	ldr r1, _080B8F90  @ 0x06015300
 	adds r0, r4, #0
 	movs r2, #8
@@ -5166,7 +5166,7 @@ sub_80B8E60: @ 0x080B8E60
 	bl CopyToPaletteBuffer
 	ldr r0, _080B8F98  @ gUnknown_08A97ED8
 	ldr r1, _080B8F9C  @ 0x06005000
-	bl CopyDataWithPossibleUncomp
+	bl Decompress
 	bl LoadUiFrameGraphics
 	bl Font_InitForUIDefault
 	bl Font_ResetAllocation
@@ -8576,7 +8576,7 @@ MapScreen_Init: @ 0x080BA764
 	ldr r0, _080BA800  @ gUnknown_08A96064
 	ldr r5, _080BA804  @ gUnknown_020087A0
 	adds r1, r5, #0
-	bl CopyDataWithPossibleUncomp
+	bl Decompress
 	str r5, [r6, #0x44]
 	adds r0, r6, #0
 	adds r0, #0x2c
@@ -9530,7 +9530,7 @@ _080BAE44:
 	bl GetMapUnitMMSGfxBuffer
 	adds r1, r0, #0
 	adds r0, r4, #0
-	bl CopyDataWithPossibleUncomp
+	bl Decompress
 	adds r0, r7, #0
 	bl GetMapUnitMMSGfxBuffer
 	str r0, [r6, #0x24]
@@ -9937,7 +9937,7 @@ _080BB12E:
 	bl GetMapUnitMMSGfxBuffer
 	adds r1, r0, #0
 	adds r0, r4, #0
-	bl CopyDataWithPossibleUncomp
+	bl Decompress
 	adds r0, r7, #0
 	bl GetMapUnitMMSGfxBuffer
 	str r0, [r6, #0x24]
@@ -18637,7 +18637,7 @@ sub_80BF048: @ 0x080BF048
 	ldr r0, _080BF11C  @ gUnknown_08A9901C
 	ldr r4, _080BF120  @ gGenericBuffer
 	adds r1, r4, #0
-	bl CopyDataWithPossibleUncomp
+	bl Decompress
 	ldr r1, _080BF124  @ 0x06004660
 	adds r0, r4, #0
 	movs r2, #0xd
@@ -18649,7 +18649,7 @@ sub_80BF048: @ 0x080BF048
 	bl CopyToPaletteBuffer
 	ldr r0, _080BF12C  @ gUnknown_08A97A80
 	ldr r1, _080BF130  @ 0x06004620
-	bl CopyDataWithPossibleUncomp
+	bl Decompress
 	ldr r0, _080BF134  @ gUnknown_08A97A60
 	movs r1, #0x60
 	movs r2, #0x20
@@ -20363,11 +20363,11 @@ sub_80BFD28: @ 0x080BFD28
 	bl EnablePaletteSync
 	ldr r0, _080BFD64  @ gUnknown_08A9E544
 	ldr r1, _080BFD68  @ 0x06004C00
-	bl CopyDataWithPossibleUncomp
+	bl Decompress
 	ldr r0, _080BFD6C  @ gUnknown_08A9E5DC
 	ldr r4, _080BFD70  @ gGenericBuffer
 	adds r1, r4, #0
-	bl CopyDataWithPossibleUncomp
+	bl Decompress
 	ldr r0, _080BFD74  @ gBG0TilemapBuffer
 	ldr r2, _080BFD78  @ 0x00002260
 	adds r1, r4, #0
@@ -21650,7 +21650,7 @@ sub_80C06F0: @ 0x080C06F0
 	adds r7, r0, #0
 	ldr r0, _080C07A0  @ gUnknown_08AA1970
 	ldr r1, _080C07A4  @ 0x06013000
-	bl CopyDataWithPossibleUncomp
+	bl Decompress
 	movs r5, #0
 	movs r4, #0
 	mov r6, sp
@@ -22472,7 +22472,7 @@ sub_80C0CF4: @ 0x080C0CF4
 	bl sub_8086BB8
 	ldr r0, _080C0DC4  @ gUnknown_08A986C0
 	ldr r1, _080C0DC8  @ 0x06003000
-	bl CopyDataWithPossibleUncomp
+	bl Decompress
 	ldr r0, _080C0DCC  @ gUnknown_08A98DCC
 	movs r1, #0xc0
 	movs r2, #0x60
@@ -22481,7 +22481,7 @@ sub_80C0CF4: @ 0x080C0CF4
 	ldr r0, _080C0DD0  @ gUnknown_08A98BF8
 	ldr r4, _080C0DD4  @ gGenericBuffer
 	adds r1, r4, #0
-	bl CopyDataWithPossibleUncomp
+	bl Decompress
 	movs r2, #0x80
 	lsls r2, r2, #5
 	adds r0, r5, #0
@@ -23185,7 +23185,7 @@ sub_80C12AC: @ 0x080C12AC
 	ldr r0, _080C1314  @ gUnknown_08A97C98
 	ldr r4, _080C1318  @ gGenericBuffer
 	adds r1, r4, #0
-	bl CopyDataWithPossibleUncomp
+	bl Decompress
 	ldr r1, _080C131C  @ 0x06013000
 	adds r0, r4, #0
 	movs r2, #6
@@ -23688,7 +23688,7 @@ sub_80C168C: @ 0x080C168C
 	adds r6, r1, #0
 	ldr r0, _080C16CC  @ gUnknown_089ADD4C
 	ldr r1, _080C16D0  @ 0x06013000
-	bl CopyDataWithPossibleUncomp
+	bl Decompress
 	ldr r0, _080C16D4  @ gUnknown_089A8EF8
 	movs r1, #7
 	bl AP_Create
@@ -24981,7 +24981,7 @@ sub_80C1FE0: @ 0x080C1FE0
 	ldr r0, _080C2044  @ gUnknown_08A99140
 	movs r1, #0xc0
 	lsls r1, r1, #0x13
-	bl CopyDataWithPossibleUncomp
+	bl Decompress
 	ldr r0, _080C2048  @ gUnknown_08A9E4C4
 	movs r1, #0xa0
 	movs r2, #0x80
@@ -24989,7 +24989,7 @@ sub_80C1FE0: @ 0x080C1FE0
 	ldr r0, _080C204C  @ gUnknown_08A9DF74
 	ldr r4, _080C2050  @ gGenericBuffer
 	adds r1, r4, #0
-	bl CopyDataWithPossibleUncomp
+	bl Decompress
 	ldr r0, _080C2054  @ gBG1TilemapBuffer
 	movs r2, #0xa0
 	lsls r2, r2, #7
@@ -25164,7 +25164,7 @@ sub_80C214C: @ 0x080C214C
 	mov sl, r0
 	ldr r0, _080C2238  @ gUnknown_08A97ED8
 	ldr r1, _080C223C  @ 0x06005000
-	bl CopyDataWithPossibleUncomp
+	bl Decompress
 	ldr r4, _080C2240  @ gUnknown_08A3D748
 	adds r0, r4, #0
 	bl Proc_Find
@@ -26433,7 +26433,7 @@ sub_80C2AAC: @ 0x080C2AAC
 	adds r0, r0, r3
 	ldr r0, [r0]
 	adds r1, r2, #0
-	bl CopyDataWithPossibleUncomp
+	bl Decompress
 	pop {r0}
 	bx r0
 	.align 2, 0
@@ -26986,7 +26986,7 @@ sub_80C2EA4: @ 0x080C2EA4
 	bl sub_80C2E04
 	ldr r0, _080C2EE4  @ gUnknown_08AA114C
 	ldr r1, _080C2EE8  @ 0x060133C0
-	bl CopyDataWithPossibleUncomp
+	bl Decompress
 	ldr r0, _080C2EEC  @ gUnknown_08AA11B0
 	movs r1, #0xa0
 	lsls r1, r1, #2
@@ -29060,7 +29060,7 @@ sub_80C3DAC: @ 0x080C3DAC
 	bl sub_8001F48
 	ldr r0, _080C3E6C  @ gUnknown_08AA1280
 	ldr r1, _080C3E70  @ 0x06003C00
-	bl CopyDataWithPossibleUncomp
+	bl Decompress
 	ldr r0, _080C3E74  @ gUnknown_08AA188C
 	movs r1, #0xe0
 	movs r2, #0x20
@@ -29784,12 +29784,12 @@ _080C4302:
 	movs r2, #0xc0
 	lsls r2, r2, #0x13
 	adds r1, r4, r2
-	bl CopyDataWithPossibleUncomp
+	bl Decompress
 	ldr r0, [r5]
 	ldr r0, [r0, #4]
 	ldr r5, _080C4354  @ gGenericBuffer
 	adds r1, r5, #0
-	bl CopyDataWithPossibleUncomp
+	bl Decompress
 	ldr r0, _080C4358  @ gUnknown_0201C5D4
 	lsrs r4, r4, #5
 	movs r1, #0xe0
@@ -30137,7 +30137,7 @@ sub_80C45E0: @ 0x080C45E0
 	lsls r1, r1, #0xb
 	ldr r2, _080C4618  @ 0x06008000
 	adds r1, r1, r2
-	bl CopyDataWithPossibleUncomp
+	bl Decompress
 	b _080C463E
 	.align 2, 0
 _080C4618: .4byte 0x06008000
@@ -30303,11 +30303,11 @@ sub_80C4738: @ 0x080C4738
 	movs r2, #0xc0
 	lsls r2, r2, #0x13
 	adds r1, r4, r2
-	bl CopyDataWithPossibleUncomp
+	bl Decompress
 	ldr r0, [r5, #4]
 	ldr r5, _080C47A0  @ gGenericBuffer
 	adds r1, r5, #0
-	bl CopyDataWithPossibleUncomp
+	bl Decompress
 	ldr r0, _080C47A4  @ gBG0TilemapBuffer
 	lsrs r4, r4, #5
 	movs r1, #0xe0

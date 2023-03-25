@@ -175,7 +175,6 @@ struct MapChangeInfo
 };
 
 extern struct ROMChapterData CONST_DATA gChapterDataTable[];
-extern const void** gUnknown_08A1FB34;
 extern const void* gChapterDataAssetTable[];
 
 const struct ROMChapterData* GetROMChapterStruct(unsigned chIndex);

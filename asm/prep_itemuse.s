@@ -933,11 +933,11 @@ _0809C5CA:
 	bl PutImg_PrepPopupWindow
 	ldr r0, _0809C7FC  @ gUnknown_08A1BAB8
 	ldr r1, _0809C800  @ 0x06000440
-	bl CopyDataWithPossibleUncomp
+	bl Decompress
 	ldr r0, _0809C804  @ gUnknown_08A1BAE4
 	ldr r4, _0809C808  @ gGenericBuffer
 	adds r1, r4, #0
-	bl CopyDataWithPossibleUncomp
+	bl Decompress
 	ldr r0, _0809C80C  @ gBG1TilemapBuffer
 	movs r2, #0x80
 	lsls r2, r2, #5

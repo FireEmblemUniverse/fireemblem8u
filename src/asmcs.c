@@ -516,17 +516,17 @@ void sub_8085BFC(struct EventEngineProc *proc)
 
 void sub_8085C10()
 {
-    sub_80A3724(0x100, 0x100, 1);
+    UpdateBestGlobalSupportValue(0x100, 0x100, 1);
 }
 
 void sub_8085C24()
 {
-    sub_80A3724(0x100, 0x100, 2);
+    UpdateBestGlobalSupportValue(0x100, 0x100, 2);
 }
 
 void sub_8085C38()
 {
-    sub_80A3724(0x100, 0x100, 3);
+    UpdateBestGlobalSupportValue(0x100, 0x100, 3);
 }
 
 void sub_8085C4C()
@@ -572,17 +572,17 @@ void sub_8085C7C(ProcPtr parent, int val)
     SetBlendTargetA(0, 1, 0, 0, 0);
     SetBlendTargetB(0, 0, 1, 1, 1);
 
-    CopyDataWithPossibleUncomp(Img_PhaseChangeSquares, BG_CHR_ADDR(BGCHR_PHASE_CHANGE_SQUARES));
+    Decompress(Img_PhaseChangeSquares, BG_CHR_ADDR(BGCHR_PHASE_CHANGE_SQUARES));
     ApplyPalette(Pal_PhaseChangePlayer, BGPAL_PHASE_CHANGE);
 
     sub_8085DCC(0, 0);
     ApplyPalette(gUnknown_089A18D4, 0);
 
     if (0 == val) {
-        CopyDataWithPossibleUncomp(gUnknown_089A18F4, BG_CHR_ADDR(0xA00));
+        Decompress(gUnknown_089A18F4, BG_CHR_ADDR(0xA00));
         ApplyPalette(gUnknown_089A230C, 0x12);
     } else {
-        CopyDataWithPossibleUncomp(gUnknown_089A1E70, BG_CHR_ADDR(0xA00));
+        Decompress(gUnknown_089A1E70, BG_CHR_ADDR(0xA00));
         ApplyPalette(gUnknown_089A232C, 0x12);
     }
 
@@ -594,9 +594,9 @@ void sub_8085C7C(ProcPtr parent, int val)
 void sub_8085DCC(int index, int mode)
 {
     if (0 == mode)
-        CopyDataWithPossibleUncomp(gUnknown_089EE9B0[index], BG_CHR_ADDR(0x140));
+        Decompress(gUnknown_089EE9B0[index], BG_CHR_ADDR(0x140));
     else
-        CopyDataWithPossibleUncomp(gUnknown_089EE9B0[index], BG_CHR_ADDR(0x200));
+        Decompress(gUnknown_089EE9B0[index], BG_CHR_ADDR(0x200));
 }
 
 void sub_8085E08(int index, int mode)
@@ -607,7 +607,7 @@ void sub_8085E08(int index, int mode)
     if (0 == mode)
         val = 0x140;
 
-    CopyDataWithPossibleUncomp(gUnknown_089EE9C8[index], buf);
+    Decompress(gUnknown_089EE9C8[index], buf);
 
     for (i = 0; i < 0x160; i++, buf++)
         *buf += val;

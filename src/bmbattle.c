@@ -2281,7 +2281,7 @@ void BattleGenerateArena(struct Unit* actor) {
     BattleApplyWeaponTriangleEffect(&gBattleActor, &gBattleTarget);
 
     gActionData.suspendPointType = SUSPEND_POINT_DURINGARENA;
-    WriteSuspendSave(SAVE_BLOCK_SUSPEND_BASE);
+    WriteSuspendSave(SAVE_ID_SUSPEND);
 
     SetBattleUnitTerrainBonusesAuto(&gBattleActor);
     SetBattleUnitTerrainBonuses(&gBattleTarget, 8); // TODO: terrain id constants

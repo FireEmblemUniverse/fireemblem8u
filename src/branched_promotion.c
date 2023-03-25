@@ -390,7 +390,7 @@ void LoadClassReelFontPalette(struct PromoProc3 *proc, s32 b) {
         if ((s32) buffer + index > (s32) buffer + 0x13)
             break;
     }
-    CopyDataWithPossibleUncomp(&gUnknown_08A36338, (void *) 0x06011000);
+    Decompress(&gUnknown_08A36338, (void *) 0x06011000);
     CopyToPaletteBuffer(&gUnknown_08A372C0, 0x280, 0x40);
 }
 
@@ -477,7 +477,7 @@ void sub_80CCCE0(u16 *buffer, struct Struct_8A30978 *b, u32 c);
 void LoadUIForPromoScreen(void) {
     u8 *a = gUnknown_08A30800;
     u32 off = GetBackgroundTileDataOffset(2);
-    CopyDataWithPossibleUncomp(a, (void *)0x06003000 + off);
+    Decompress(a, (void *)0x06003000 + off);
     sub_80CCCE0(gBG2TilemapBuffer, &gUnknown_08A30978, 0x8c << 5);
 }
 

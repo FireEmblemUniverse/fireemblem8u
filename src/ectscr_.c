@@ -33,7 +33,7 @@ void ReputConvoBg_unused(int index)
     BG_SetPosition(2, 0, 0);
     BG_SetPosition(3, 0, 0);
 
-    CopyDataWithPossibleUncomp(
+    Decompress(
         gConvoBackgroundData[index].gfx,
         (void*)(GetBackgroundTileDataOffset(3) + BG_VRAM));
 

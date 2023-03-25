@@ -225,7 +225,7 @@ void WmSell_Setup(struct WmSellProc* proc) {
     sub_8098C3C(0x5000, 5);
     PutImg_PrepPopupWindow(0x800, 8);
 
-    CopyDataWithPossibleUncomp(gUnknown_08A1BBD0, gGenericBuffer);
+    Decompress(gUnknown_08A1BBD0, gGenericBuffer);
     CallARM_FillTileRect(gBG1TilemapBuffer, gGenericBuffer, 0x1000);
 
     BG_EnableSyncByMask(7);

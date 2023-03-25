@@ -856,7 +856,7 @@ void sub_80A6544()
     u8 buf[8];
 }
 
-bool IsSaveBlockValid2(int index)
+bool IsMultiArenaSaveValid(int index)
 {
     return ReadSaveBlockInfo(NULL, index);
 }

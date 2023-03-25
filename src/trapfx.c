@@ -164,7 +164,7 @@ void GasTrapSpriteAnim_Init(struct TrapfxProc *proc)
 
     }
 
-    CopyDataWithPossibleUncomp(img, OBJ_CHR_ADDR(OBJCHR_TRAPFX));
+    Decompress(img, OBJ_CHR_ADDR(OBJCHR_TRAPFX));
     ApplyPalette(Pal_GasTrap, 0x10 + OBJPAL_TRAPFX);
 
     x = proc->x * 16 + 8 - gBmSt.camera.x;
@@ -188,7 +188,7 @@ void FireTrapSpriteAnim_Init(struct TrapfxProc *proc)
 {
     int x, y, oam2;
 
-    CopyDataWithPossibleUncomp(Img_FireTrap, OBJ_CHR_ADDR(OBJCHR_TRAPFX));
+    Decompress(Img_FireTrap, OBJ_CHR_ADDR(OBJCHR_TRAPFX));
 
     x = proc->x * 16 + 8 - gBmSt.camera.x;
     y = proc->y * 16 + 8 - gBmSt.camera.y;
@@ -257,7 +257,7 @@ void StartUnkTrapAnim(ProcPtr parent, int x, int y, int direction, int time)
 {
     struct UnkTrapfxProc *proc;
 
-    CopyDataWithPossibleUncomp(Img_WallBreakAnim, OBJ_CHR_ADDR(OBJCHR_TRAPFX));
+    Decompress(Img_WallBreakAnim, OBJ_CHR_ADDR(OBJCHR_TRAPFX));
     ApplyPalette(Pal_WallBreakAnim, 0x10 + OBJPAL_TRAPFX);
 
     proc = Proc_StartBlocking(ProcScr_UnkTrapAnim, parent);
@@ -271,7 +271,7 @@ void ArrowTrapSpriteAnim_Init(struct TrapfxProc *proc)
 {
     int x, oam2;
 
-    CopyDataWithPossibleUncomp(Img_ArrowTrap, OBJ_CHR_ADDR(OBJCHR_TRAPFX));
+    Decompress(Img_ArrowTrap, OBJ_CHR_ADDR(OBJCHR_TRAPFX));
     ApplyPalette(Pal_ArrowTrap, 0x10 + OBJPAL_TRAPFX);
 
     x = proc->x * 16 + 8 - gBmSt.camera.x;
@@ -342,7 +342,7 @@ void PikeTrapSpriteAnim_Init(struct TrapfxProc *proc)
 {
     int x, y, oam2;
 
-    CopyDataWithPossibleUncomp(Img_PikeTrap, OBJ_CHR_ADDR(OBJCHR_TRAPFX));
+    Decompress(Img_PikeTrap, OBJ_CHR_ADDR(OBJCHR_TRAPFX));
     ApplyPalette(Pal_PikeTrap, 0x10 + OBJPAL_TRAPFX);
 
     x = proc->x * 16 + 8 - gBmSt.camera.x;

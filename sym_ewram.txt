@@ -623,10 +623,8 @@
 . = ALIGN(4); src/bmsave-lib.o(ewram_data);
 . = ALIGN(4); src/bmsave-bwl.o(ewram_data);
 . = ALIGN(4); src/bmsave.o(ewram_data);
-. = 0x03EDBC; gUnknown_0203EDBC = .;
-. = 0x03EE80; gUnknown_0203EE80 = .;
-. = 0x03EF44; gUnknown_0203EF44 = .;
-. = 0x03EF60; gUnknown_0203EF60 = .;
+. = ALIGN(4); src/bmsave-multiarena.o(ewram_data);
+. = ALIGN(4); src/bmsave-xmap.o(ewram_data);
 . = 0x03EF64; gUnknown_0203EF64 = .;
 . = 0x03EF68; gShopItemTexts = .;
 . = 0x03EF98; sShopState = .;

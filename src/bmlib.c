@@ -63,26 +63,16 @@ int Interpolate(int method, int lo, int hi, int x, int end)
 
 void sub_8012E94() {}
 
-u8 StringCompare(u8 *magic, u8 *keygen)
+bool StringCompare(const char *str1, const char *str2)
 {
-    int val1, val2;
+    while (!!(*str1 | *str2))
+        if (*str1++ != *str2++)
+            return false;
 
-    while (1) {
-        val1 = *magic;
-        val2 = *keygen;
-        if ( !(val2 | val1) )
-            break;
-
-        ++keygen;
-        ++magic;
-        if ( val1 != val2 )
-            return 0;
-    }
-
-    return 1;
+    return true;
 }
 
-void CopyString(char *dst, char *src)
+void CopyString(char *dst, const char *src)
 {
     while ('\0' != *src)
         *dst++ = *src++;
@@ -107,7 +97,7 @@ void sub_8012F20(u8 *src, u8 *dst)
     CpuFastCopy(gGenericBuffer, dst, FilterR0ForRawCopy(src));
 }
 
-void CopyDataWithPossibleUncomp(const void* src, void* dst)
+void Decompress(const void* src, void* dst)
 {
     const u8 *_src;
     u8 *_dst;
@@ -143,7 +133,7 @@ void sub_8012F98(struct Struct8012F98 *buf, int a2, int a3)
 int sub_8012FB0(struct Struct8012F98 *buf, u8 *src)
 {
     int val, size;
-    CopyDataWithPossibleUncomp(src, buf->unk0);
+    Decompress(src, buf->unk0);
     val = FilterR0ForRawCopy(src);
     buf->unk0 += val;
     size = buf->unk4;

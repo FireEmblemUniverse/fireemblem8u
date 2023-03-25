@@ -196,7 +196,7 @@ void UnpackLegacyUiFrameImage(void* dest)
     if (dest == NULL)
         dest = BG_CHAR_ADDR(0);
 
-    CopyDataWithPossibleUncomp(sLegacyUiFrameImageLookup[gPlaySt.cfgWindowColor], dest);
+    Decompress(sLegacyUiFrameImageLookup[gPlaySt.cfgWindowColor], dest);
 }
 
 void UnpackUiFrameImage(void* dest)
@@ -204,7 +204,7 @@ void UnpackUiFrameImage(void* dest)
     if (dest == NULL)
         dest = BG_CHAR_ADDR(0);
 
-    CopyDataWithPossibleUncomp(sUiFrameImageLookup[gPlaySt.cfgWindowColor], dest);
+    Decompress(sUiFrameImageLookup[gPlaySt.cfgWindowColor], dest);
 }
 
 void UnpackUiBarPalette(int palId)
@@ -226,7 +226,7 @@ void UnpackUiFrameBuffered(int id)
     bufSize = FilterR0ForRawCopy(sUiFrameImageLookup[id]);
     bufAddr = gUnknown_02022288 - bufSize;
 
-    CopyDataWithPossibleUncomp(sUiFrameImageLookup[id], bufAddr);
+    Decompress(sUiFrameImageLookup[id], bufAddr);
     RegisterTileGraphics(bufAddr, BG_CHAR_ADDR(0), bufSize);
 
     UnpackUiFramePalette(-1);
@@ -1132,7 +1132,7 @@ void ClearUiItemHoverExt(int bg, int base, int x, int y, int width)
 
 void UnpackUnkUiFrame(void* vram, int palId, int palCount)
 {
-    CopyDataWithPossibleUncomp(gUnkUiFrameImage, vram);
+    Decompress(gUnkUiFrameImage, vram);
     ApplyPalettes(gUnkUiFramePalettes, palId, palCount);
 }
 

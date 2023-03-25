@@ -441,8 +441,8 @@ void PhaseIntro_EndIfNoUnits(ProcPtr proc)
 
 void PhaseIntro_InitGraphics(ProcPtr proc)
 {
-    CopyDataWithPossibleUncomp(Img_PhaseChangeUnk, BG_CHR_ADDR(0xA00));
-    CopyDataWithPossibleUncomp(Img_PhaseChangeSquares, BG_CHR_ADDR(BGCHR_PHASE_CHANGE_SQUARES));
+    Decompress(Img_PhaseChangeUnk, BG_CHR_ADDR(0xA00));
+    Decompress(Img_PhaseChangeSquares, BG_CHR_ADDR(BGCHR_PHASE_CHANGE_SQUARES));
 
     BG_SetPosition(0, 0, 0);
     BG_SetPosition(1, 0, 0);
@@ -452,19 +452,19 @@ void PhaseIntro_InitGraphics(ProcPtr proc)
     {
 
     case FACTION_BLUE:
-        CopyDataWithPossibleUncomp(Img_PhaseChangePlayer, BG_CHR_ADDR(BGCHR_PHASE_CHANGE_NAME));
+        Decompress(Img_PhaseChangePlayer, BG_CHR_ADDR(BGCHR_PHASE_CHANGE_NAME));
         ApplyPalette(Pal_PhaseChangePlayer, BGPAL_PHASE_CHANGE);
         ApplyPalette(Pal_PhaseChangePlayer, 18);
         break;
 
     case FACTION_RED:
-        CopyDataWithPossibleUncomp(Img_PhaseChangeEnemy, BG_CHR_ADDR(BGCHR_PHASE_CHANGE_NAME));
+        Decompress(Img_PhaseChangeEnemy, BG_CHR_ADDR(BGCHR_PHASE_CHANGE_NAME));
         ApplyPalette(Pal_PhaseChangeEnemy, BGPAL_PHASE_CHANGE);
         ApplyPalette(Pal_PhaseChangeEnemy, 18);
         break;
 
     case FACTION_GREEN:
-        CopyDataWithPossibleUncomp(Img_PhaseChangeOther, BG_CHR_ADDR(BGCHR_PHASE_CHANGE_NAME));
+        Decompress(Img_PhaseChangeOther, BG_CHR_ADDR(BGCHR_PHASE_CHANGE_NAME));
         ApplyPalette(Pal_PhaseChangeOther, BGPAL_PHASE_CHANGE);
         ApplyPalette(Pal_PhaseChangeOther, 18);
         break;

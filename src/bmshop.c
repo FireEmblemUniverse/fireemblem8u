@@ -1092,7 +1092,7 @@ void ShopProc_Init(struct BmShopProc* proc) {
 
     StartTalkFace(ShopProc_GetPortraitIndex(proc), 32, 8, 3, 1);
 
-    CopyDataWithPossibleUncomp(gUnknown_089AD934, gGenericBuffer);
+    Decompress(gUnknown_089AD934, gGenericBuffer);
     CallARM_FillTileRect(gBG1TilemapBuffer, gGenericBuffer, 0x1000);
 
     DrawUiFrame2(6, 8, 20, 12, 0);
@@ -1150,7 +1150,7 @@ void ShopProc_Init(struct BmShopProc* proc) {
 
     CopyToPaletteBuffer(gUnknown_08B1754C, 0x1C0, 0x20);
 
-    CopyDataWithPossibleUncomp(Img_CommGameBgScreen, (void *)(GetBackgroundTileDataOffset(3) + 0x6000000));
+    Decompress(Img_CommGameBgScreen, (void *)(GetBackgroundTileDataOffset(3) + 0x6000000));
 
     CallARM_FillTileRect(gBG3TilemapBuffer, gUnknown_08A295D4, 0xE000);
 
@@ -1162,7 +1162,7 @@ void ShopProc_Init(struct BmShopProc* proc) {
 void StartUiGoldBox(ProcPtr parent) {
     struct BmShopProc* proc;
 
-    CopyDataWithPossibleUncomp(gUnknown_089AD9F8, (void *)0x06014C00);
+    Decompress(gUnknown_089AD9F8, (void *)0x06014C00);
 
     proc = Proc_Start(gProcScr_GoldBox, parent);
     proc->unk_64 = 0xAC;
@@ -1464,7 +1464,7 @@ void DisplayShopUiArrows(void) {
 }
 
 void UnpackUiVArrowGfx(int index, int palIdx) {
-    CopyDataWithPossibleUncomp(gUnknown_08A1C704, (void *)((0x3FF & index) * 0x20 + 0x06010000));
+    Decompress(gUnknown_08A1C704, (void *)((0x3FF & index) * 0x20 + 0x06010000));
     CopyToPaletteBuffer(gUnknown_08A1A084, (palIdx + 0x10) * 0x20, 0x20);
 
     return;

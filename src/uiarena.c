@@ -62,7 +62,7 @@ void ArenaUi_Init(ProcPtr proc) {
     ResetFaces();
     StartTalkFace(0x67, 0x20, 8, 3, 1);
 
-    CopyDataWithPossibleUncomp(gUnknown_089AD934, gGenericBuffer);
+    Decompress(gUnknown_089AD934, gGenericBuffer);
 
     CallARM_FillTileRect(gBG1TilemapBuffer, gGenericBuffer, 0x1000);
     TileMap_FillRect(gBG1TilemapBuffer + 0x100, 0x1e, 0xc, 0);
@@ -112,7 +112,7 @@ void ArenaUi_Init(ProcPtr proc) {
     SetBlendTargetA(0, 0, 0, 1, 0);
     SetBlendTargetB(0, 0, 0, 0, 0);
 
-    CopyDataWithPossibleUncomp(gGfx_ArenaBuildingFront, (void*)(GetBackgroundTileDataOffset(3) + 0x6000000));
+    Decompress(gGfx_ArenaBuildingFront, (void*)(GetBackgroundTileDataOffset(3) + 0x6000000));
     CallARM_FillTileRect(gBG3TilemapBuffer, gTsa_ArenaBuildingFront, 0xc000);
     CopyToPaletteBuffer(gPal_ArenaBuildingFront, 0x180, 0x80);
 
@@ -383,7 +383,7 @@ s8 sub_80B5D48(void) {
 //! FE8U = 0x080B5D5C
 void sub_80B5D5C(void) {
     gActionData.suspendPointType = SUSPEND_POINT_PLAYERIDLE;
-    WriteSuspendSave(SAVE_BLOCK_SUSPEND);
+    WriteSuspendSave(SAVE_ID_SUSPEND);
     return;
 }
 

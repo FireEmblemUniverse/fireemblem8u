@@ -92,7 +92,7 @@ _08086BFC:
 _08086C06:
 	ldr r0, _08086C44  @ Img_CommGameBgScreen
 	adds r1, r4, #0
-	bl CopyDataWithPossibleUncomp
+	bl Decompress
 	movs r0, #3
 	bl GetBackgroundTileDataOffset
 	subs r0, r4, r0
@@ -166,7 +166,7 @@ _08086C90:
 _08086C9A:
 	ldr r0, _08086CDC  @ Img_CommGameBgScreen
 	adds r1, r4, #0
-	bl CopyDataWithPossibleUncomp
+	bl Decompress
 	movs r0, #3
 	bl GetBackgroundTileDataOffset
 	subs r0, r4, r0
@@ -230,7 +230,7 @@ _08086D0A:
 	bl CopyToPaletteBuffer
 	ldr r0, _08086DB0  @ Img_CommGameBgScreen
 	adds r1, r6, #0
-	bl CopyDataWithPossibleUncomp
+	bl Decompress
 	movs r0, #3
 	bl GetBackgroundTileDataOffset
 	subs r0, r6, r0

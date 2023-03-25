@@ -65,7 +65,7 @@ void CpDecide_Suspend(ProcPtr proc)
     else
         gActionData.suspendPointType = SUSPEND_POINT_CPPHASE;
 
-    WriteSuspendSave(SAVE_BLOCK_SUSPEND_BASE);
+    WriteSuspendSave(SAVE_ID_SUSPEND);
 }
 
 void CpDecide_Main(ProcPtr proc)

@@ -507,7 +507,7 @@ void sub_8033514(int r4) {
 
 void sub_8033548(ProcPtr proc) {
     StartHelpPromptSprite(0xAA, 0x8C, 2, proc);
-    CopyDataWithPossibleUncomp(gUnknown_08A199C8, (void *) (OBJ_VRAM1 + 0x3000));
+    Decompress(gUnknown_08A199C8, (void *) (OBJ_VRAM1 + 0x3000));
     ((struct UnknownSALLYCURSORProc*)(proc))->unk_58 = 0;
     return;
 }

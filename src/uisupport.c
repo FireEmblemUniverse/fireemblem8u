@@ -183,7 +183,7 @@ int GetSupportClassForCharId(int charId) {
 s8 sub_80A0BBC(int charId) {
     struct SupportTalkEnt* iter;
 
-    for (iter = sub_80847F8(); ; iter++) {
+    for (iter = GetSupportTalkList(); ; iter++) {
         if (iter->unitA == 0xFFFF) {
             break;
         }
@@ -200,10 +200,10 @@ s8 sub_80A0BBC(int charId) {
 void sub_80A0BF4(void) {
     struct SupportTalkEnt* iter;
 
-    for (iter = sub_80847F8(); iter->unitA != 0xFFFF; iter++) {
+    for (iter = GetSupportTalkList(); iter->unitA != 0xFFFF; iter++) {
         SGM_SetCharacterKnown(iter->unitA, NULL);
         SGM_SetCharacterKnown(iter->unitB, NULL);
-        sub_80A3724(iter->unitA, iter->unitB, sub_80A3468(iter->unitA, iter->unitB));
+        UpdateBestGlobalSupportValue(iter->unitA, iter->unitB, GetUnitsAverageSupportValue(iter->unitA, iter->unitB));
     }
 
     return;
@@ -288,7 +288,7 @@ void SupportScreen_SetupUnits(struct SupportScreenProc* proc) {
             sSupportScreenUnits[sSupportScreenUnitCount].charId = j;
             sSupportScreenUnits[sSupportScreenUnitCount].classId = gCharacterData[j - 1].defaultClass;
 
-            sub_80A35EC(j, sSupportScreenUnits[sSupportScreenUnitCount].supportLevel, &GlobalSaveInfo);
+            GetGlobalSupportListFromSave(j, sSupportScreenUnits[sSupportScreenUnitCount].supportLevel, &GlobalSaveInfo);
 
             for (k = 0; k < GetSupportScreenPartnerCount(j); k++) {
                 int charId = GetSupportScreenPartnerCharId(sSupportScreenUnitCount, k);
@@ -369,7 +369,7 @@ int sub_80A0F6C(s8 flag, int idx) {
     c = GetSupportScreenPartnerCount(GetSupportScreenCharIdAt(idx));
 
     for (i = 0; i < c; i++) {
-        a += sub_80A3468(GetSupportScreenCharIdAt(idx), GetSupportScreenPartnerCharId(idx, i));
+        a += GetUnitsAverageSupportValue(GetSupportScreenCharIdAt(idx), GetSupportScreenPartnerCharId(idx, i));
     }
 
     if (a == b) {
@@ -391,7 +391,7 @@ void DrawSupportScreenText(void) {
 
     th = gUnknown_02013590;
 
-    perc = sub_80A3544();
+    perc = GetTotalSupportCollection();
 
     Text_Init(th - 1, 16);
     Text_Init(th + 0, 9);
@@ -443,7 +443,7 @@ extern u16 gPal_SupportMenu[];
 
 //! FE8U = 0x080A10D0
 void DrawSupportBannerSprites_Init(struct Proc* proc) {
-    CopyDataWithPossibleUncomp(gGfx_SupportMenu, (void*)0x06017800);
+    Decompress(gGfx_SupportMenu, (void*)0x06017800);
     CopyToPaletteBuffer(gPal_SupportMenu, (proc->unk34 + 16) * 32, 32);
     return;
 }
@@ -568,10 +568,10 @@ void SupportScreen_SetupGraphics(struct SupportScreenProc* proc) {
     sub_80A0EC0((void*)proc);
     sub_8098C3C(0x5000, 5);
 
-    CopyDataWithPossibleUncomp(gUnknown_08A1DB80, gGenericBuffer);
+    Decompress(gUnknown_08A1DB80, gGenericBuffer);
     CallARM_FillTileRect(gUnknown_020235AA, gGenericBuffer, 0x1200);
 
-    CopyDataWithPossibleUncomp(gGfx_SupportScreenBanner, (void*)0x06013800);
+    Decompress(gGfx_SupportScreenBanner, (void*)0x06013800);
     CopyToPaletteBuffer(gPal_SupportScreenBanner, 0x240, 0x20);
 
     BG_EnableSyncByMask(7);
@@ -1104,7 +1104,7 @@ void DrawSupportSubScreenUnitPartnerText(struct SubScreenProc* proc, int idx) {
             0xe000
         );
 
-        if (sub_80A3468(unitCharId, partnerCharId) == 2) {
+        if (GetUnitsAverageSupportValue(unitCharId, partnerCharId) == 2) {
             for (i = 0; i < 2; i++) {
                 color = 1;
                 if (proc->supportLevel[idx] == 2) {
@@ -1256,7 +1256,7 @@ void InitSupportSubScreenRemainingSupports(struct SubScreenProc* proc) {
         proc->remainingSupports = 0;
 
         for (i = 0; i < proc->partnerCount; i++) {
-            proc->remainingSupports += sub_80A3468(charId, GetSupportScreenPartnerCharId(proc->unitIdx, i));
+            proc->remainingSupports += GetUnitsAverageSupportValue(charId, GetSupportScreenPartnerCharId(proc->unitIdx, i));
         }
 
         proc->remainingSupports -= GetTotalSupportLevel(proc->unitIdx);
@@ -1400,7 +1400,7 @@ void SupportSubScreen_SetupGraphics(struct SubScreenProc* proc) {
 
     sub_8098C3C(0x4000, 5);
 
-    CopyDataWithPossibleUncomp(gTsa_SupportSubScreen, gGenericBuffer);
+    Decompress(gTsa_SupportSubScreen, gGenericBuffer);
     CallARM_FillTileRect(gBG1TilemapBuffer, gGenericBuffer, 0x1000);
 
     PutFace80x72(
@@ -1414,7 +1414,7 @@ void SupportSubScreen_SetupGraphics(struct SubScreenProc* proc) {
     DrawSupportSubScreenUnitPartnerDetails(proc);
     DrawSupportSubScreenRemainingText(proc);
 
-    CopyDataWithPossibleUncomp(gGfx_SupportMenu, (void*)0x06017800);
+    Decompress(gGfx_SupportMenu, (void*)0x06017800);
     CopyToPaletteBuffer(gPal_SupportMenu, 0x340, 0x20);
     CopyToPaletteBuffer(Pal_MapBattleInfoNum, 0x240, 0x20);
 
@@ -1702,7 +1702,7 @@ void SupportSubScreen_ReinitAfterSwapPage(struct SubScreenProc* proc) {
     InitSupportSubScreenRemainingSupports(proc);
     SupportSubScreen_MoveCursorToNextValidUnit(proc, 0, +1);
 
-    CopyDataWithPossibleUncomp(gTsa_SupportSubScreen, gGenericBuffer);
+    Decompress(gTsa_SupportSubScreen, gGenericBuffer);
     CallARM_FillTileRect(gBG1TilemapBuffer, gGenericBuffer, 0x1000);
 
     PutFace80x72(

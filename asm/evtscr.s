@@ -2577,7 +2577,7 @@ _0800E842:
 	lsls r0, r0, #0x13
 	adds r1, r1, r0
 	adds r0, r6, #0
-	bl CopyDataWithPossibleUncomp
+	bl Decompress
 	ldr r0, _0800E898  @ gBG3TilemapBuffer
 	adds r1, r5, #4
 	adds r1, r4, r1
@@ -3127,7 +3127,7 @@ _0800EC94:
 	lsls r0, r0, #0x13
 	adds r1, r1, r0
 	adds r0, r4, #0
-	bl CopyDataWithPossibleUncomp
+	bl Decompress
 	ldr r0, _0800ECF8  @ gBG2TilemapBuffer
 	ldrh r2, [r6, #0x2c]
 	lsls r1, r2, #1
@@ -3245,7 +3245,7 @@ _0800ED94:
 	lsls r0, r0, #0x13
 	adds r1, r1, r0
 	adds r0, r4, #0
-	bl CopyDataWithPossibleUncomp
+	bl Decompress
 	ldr r0, _0800EDFC  @ gBG3TilemapBuffer
 	ldrh r2, [r6, #0x2c]
 	lsls r1, r2, #1

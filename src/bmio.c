@@ -454,7 +454,7 @@ void WfxSandStorm_Init(void) {
 
     AllocWeatherParticles(gPlaySt.chapterWeatherId);
 
-    CopyDataWithPossibleUncomp(gUnknown_085A3964, gGenericBuffer);
+    Decompress(gUnknown_085A3964, gGenericBuffer);
     CopyTileGfxForObj(gGenericBuffer, OBJ_VRAM0 + 0x1C * 0x20, 4, 4);
 
     for (i = 0; i < 0x40; ++i) {
@@ -494,7 +494,7 @@ void WfxSnowStorm_Init(void) {
 
     AllocWeatherParticles(gPlaySt.chapterWeatherId);
 
-    CopyDataWithPossibleUncomp(gUnknown_085A39EC, gGenericBuffer);
+    Decompress(gUnknown_085A39EC, gGenericBuffer);
     CopyTileGfxForObj(gGenericBuffer, OBJ_VRAM0 + 0x18 * 0x20, 8, 4);
 
     for (i = 0; i < 0x40; ++i) {
@@ -649,7 +649,7 @@ void WfxFlamesInitParticles(void) {
     int i;
 
     AllocWeatherParticles(gPlaySt.chapterWeatherId);
-    CopyDataWithPossibleUncomp(gUnknown_085A3A84, OBJ_VRAM0 + 0x18 * 0x20);
+    Decompress(gUnknown_085A3A84, OBJ_VRAM0 + 0x18 * 0x20);
     CopyToPaletteBuffer(gUnknown_085A3AC0, 0x340, 0x20);
 
     for (i = 0; i < 0x10; ++i) {
@@ -770,7 +770,7 @@ void WfxCloudsOffsetGraphicsEffect(u32* lines) {
 void WfxClouds_Init(void) {
     AllocWeatherParticles(WEATHER_FINE);
 
-    CopyDataWithPossibleUncomp(
+    Decompress(
         gUnknown_085A3B00,
         sWeatherEffect.gfxData
     );
@@ -1086,7 +1086,7 @@ void GameCtrl_StartResumedGame(struct GameCtrlProc* gameCtrl) {
     struct BMapMainProc* mapMain;
 
     if (gPlaySt.chapterIndex == 0x7F) // TODO: CHAPTER_SPECIAL enum?
-        sub_80A6C8C();
+        ReadExtraMapInfo();
 
     SetupBackgrounds(NULL);
 

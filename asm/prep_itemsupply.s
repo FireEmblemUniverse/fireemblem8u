@@ -80,12 +80,12 @@ StoreConvoyWeaponIconGraphics: @ 0x0809D2C4
 	movs r2, #0xc0
 	lsls r2, r2, #0x13
 	adds r1, r4, r2
-	bl CopyDataWithPossibleUncomp
+	bl Decompress
 	ldr r0, _0809D2F8  @ gUnknown_08A1A23C
 	ldr r1, _0809D2FC  @ 0x06000200
 	adds r4, r4, r1
 	adds r1, r4, #0
-	bl CopyDataWithPossibleUncomp
+	bl Decompress
 	pop {r4}
 	pop {r0}
 	bx r0
@@ -989,7 +989,7 @@ sub_809DA00: @ 0x0809DA00
 	ldr r0, _0809DC38  @ gUnknown_08A1B9EC
 	ldr r4, _0809DC3C  @ gGenericBuffer
 	adds r1, r4, #0
-	bl CopyDataWithPossibleUncomp
+	bl Decompress
 	ldr r5, _0809DC40  @ gBG1TilemapBuffer
 	movs r6, #0x80
 	lsls r6, r6, #5
@@ -999,7 +999,7 @@ sub_809DA00: @ 0x0809DA00
 	bl CallARM_FillTileRect
 	ldr r0, _0809DC44  @ gUnknown_08A1BCC0
 	adds r1, r4, #0
-	bl CopyDataWithPossibleUncomp
+	bl Decompress
 	adds r0, r5, #0
 	adds r1, r4, #0
 	adds r2, r6, #0
@@ -1151,7 +1151,7 @@ _0809DB5C:
 	bl sub_809D8D4
 	ldr r0, _0809DC5C  @ gUnknown_08A19CCC
 	ldr r1, _0809DC60  @ 0x06015000
-	bl CopyDataWithPossibleUncomp
+	bl Decompress
 	ldr r0, _0809DC64  @ gUnknown_08A1A084
 	movs r6, #0xa0
 	lsls r6, r6, #2

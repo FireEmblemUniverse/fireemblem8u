@@ -843,7 +843,7 @@ void DisplayPage1(void)
     int i, item;
     const char* str;
 
-    CopyDataWithPossibleUncomp(
+    Decompress(
         gUnknown_08A02204,
         gGenericBuffer);
 
@@ -1711,12 +1711,12 @@ void StatScreen_InitDisplay(struct Proc* proc)
 
     // Load and display Halo
 
-    CopyDataWithPossibleUncomp(
+    Decompress(
         gUnknown_08A064E0, (void*)(VRAM + 0x220 * 0x20));
 
     ApplyPalette(gUnknown_08A0731C, STATSCREEN_BGPAL_HALO);
 
-    CopyDataWithPossibleUncomp(
+    Decompress(
         gUnknown_08A071FC, gGenericBuffer);
 
     CallARM_FillTileRect(gBG1TilemapBuffer + TILEMAP_INDEX(12, 0),
@@ -1724,19 +1724,19 @@ void StatScreen_InitDisplay(struct Proc* proc)
 
     // Load and display Background
 
-    CopyDataWithPossibleUncomp(
+    Decompress(
         gUnknown_08A03368, (void*)(VRAM + 0x580 * 0x20));
 
     ApplyPalettes(gUnknown_08A06460, STATSCREEN_BGPAL_BACKGROUND, 4);
 
-    CopyDataWithPossibleUncomp(gUnknown_08A05F10, gGenericBuffer);
+    Decompress(gUnknown_08A05F10, gGenericBuffer);
 
     CallARM_FillTileRect(gBG3TilemapBuffer, gGenericBuffer,
         TILEREF(0x180, 12));
 
     // Load object graphics
 
-    CopyDataWithPossibleUncomp(
+    Decompress(
         gUnknown_08A02274, (void*)(VRAM + 0x10000 + 0x240 * 0x20));
 
     LoadIconPalettes(STATSCREEN_BGPAL_ITEMICONS);
@@ -1745,14 +1745,14 @@ void StatScreen_InitDisplay(struct Proc* proc)
 
     LoadIconPalette(1, 0x13);
 
-    CopyDataWithPossibleUncomp(
+    Decompress(
         gUnknown_08A01F24, (void*)(VRAM + 0x440 * 0x20));
 
     ApplyPalette(gUnknown_08A021E4, STATSCREEN_BGPAL_7);
 
     LoadIconPalette(1, 0x14);
 
-    CopyDataWithPossibleUncomp(
+    Decompress(
         gUnknown_08A020F0, (void*)(VRAM + 0x60 * 0x20));
 
     gStatScreen.mu = NULL;

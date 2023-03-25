@@ -605,17 +605,7 @@ extern struct ActionData gActionData;
 // extern ??? gUnknown_0203E82C
 extern struct Struct203E87C gUnknown_0203E87C;
 // extern ??? gUnknown_0203E884
-// extern ??? gBoolSramWorking
-extern struct UnitUsageStats *gPidStatsSaveLoc;
-extern struct UnitUsageStats gPidStatsData[BWL_ARRAY_NUM];
-#define gBWLDataArray (&gPidStatsData[-1])
-extern struct ChapterStats gChapterStats[WIN_ARRAY_NUM];
-extern u32 gBonusContentClaimFlags;
-extern u8 gSuspendSaveIdOffset;    /* gSaveSuBaseSlot */
-// extern ??? gUnknown_0203EDBC
-// extern ??? gUnknown_0203EE80
-// extern ??? gUnknown_0203EF44
-// extern ??? gUnknown_0203EF60
+// extern ??? gExtraMapStatus
 // extern ??? gUnknown_0203EF64
 // extern ??? gUnknown_0203EFB4
 // extern ??? end
@@ -1118,10 +1108,10 @@ extern const u8 gUnknown_08205714[4];
 // extern ??? gUnknown_08205C64
 // extern ??? gUnknown_08205C70
 // extern ??? gUnknown_08205C90
-// extern ??? gGlobalSaveInfoName
-// extern ??? gUnknown_08205CA4
-// extern ??? gUnknown_08205CAC
-// extern ??? gUnknown_08205CB4
+// extern ??? sSaveMarker
+// extern ??? sConvySavePackMask1
+// extern ??? sConvySavePackMask2
+// extern ??? gInitialMultiArenaRankings
 // extern ??? gUnknown_08205D7C
 // extern ??? gUnknown_08205D84
 // extern ??? gUnknown_08205D87
@@ -3328,9 +3318,9 @@ extern u8 Img_PrepWindow[];
 // extern ??? gGfx_SupportMenu
 // extern ??? gPal_SupportMenu
 // extern ??? gSram
-// extern ??? gUnknown_08A1FAF8
-// extern ??? gUnknown_08A1FB08
-// extern ??? gUnknown_08A1FB30
+// extern ??? sSupportUnkLut
+// extern ??? sArenaCpTeamNameLut
+// extern ??? gpSramExtraData
 // extern ??? gBgConfig_SaveMenu
 // extern ??? gProcScr_08A20068
 // extern ??? gProcScr_08A20098

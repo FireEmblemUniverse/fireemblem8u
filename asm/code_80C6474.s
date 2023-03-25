@@ -850,16 +850,16 @@ Initialize6CIntroSequence: @ 0x080C6A54
 	strb r0, [r2, #1]
 	ldr r0, _080C6B18  @ gUnknown_08AF1AE8
 	ldr r1, _080C6B1C  @ 0x06010000
-	bl CopyDataWithPossibleUncomp
+	bl Decompress
 	ldr r0, _080C6B20  @ gUnknown_08AF1B38
 	ldr r1, _080C6B24  @ 0x06010100
-	bl CopyDataWithPossibleUncomp
+	bl Decompress
 	ldr r0, _080C6B28  @ gUnknown_08AF1FD0
 	ldr r1, _080C6B2C  @ 0x060108C0
-	bl CopyDataWithPossibleUncomp
+	bl Decompress
 	ldr r0, _080C6B30  @ gUnknown_08AF2654
 	ldr r1, _080C6B34  @ 0x06011140
-	bl CopyDataWithPossibleUncomp
+	bl Decompress
 	ldr r0, _080C6B38  @ gUnknown_08AF1B18
 	movs r1, #0x80
 	lsls r1, r1, #2
@@ -1145,10 +1145,10 @@ sub_80C6C24: @ 0x080C6C24
 	lsls r5, r5, #0x13
 	adds r1, r1, r5
 	adds r0, r4, #0
-	bl CopyDataWithPossibleUncomp
+	bl Decompress
 	ldr r0, _080C6DF0  @ gUnknown_08AB5D90
 	ldr r1, _080C6DF4  @ 0x0600F000
-	bl CopyDataWithPossibleUncomp
+	bl Decompress
 	movs r0, #0
 	str r0, [sp, #4]
 	ldr r1, _080C6DF8  @ gPaletteBuffer
@@ -1166,7 +1166,7 @@ sub_80C6C24: @ 0x080C6C24
 	adds r1, r0, #0
 	adds r1, r1, r5
 	adds r0, r4, #0
-	bl CopyDataWithPossibleUncomp
+	bl Decompress
 	ldr r0, _080C6E08  @ gUnknown_08AB7DB0
 	movs r1, #0x40
 	movs r2, #0x20
@@ -1174,7 +1174,7 @@ sub_80C6C24: @ 0x080C6C24
 	ldr r4, _080C6E0C  @ 0x0600E800
 	ldr r0, _080C6E10  @ gUnknown_08AB7AC0
 	adds r1, r4, #0
-	bl CopyDataWithPossibleUncomp
+	bl Decompress
 	movs r0, #0x80
 	lsls r0, r0, #6
 	adds r1, r0, #0
@@ -1774,7 +1774,7 @@ sub_80C71E4: @ 0x080C71E4
 	ldr r0, _080C7264  @ 0x06008000
 	adds r1, r1, r0
 	adds r0, r6, #0
-	bl CopyDataWithPossibleUncomp
+	bl Decompress
 	ldr r0, _080C7268  @ gUnknown_08AA6EA4
 	adds r4, r4, r0
 	ldr r4, [r4]
@@ -2006,10 +2006,10 @@ _080C73E8:
 	ldr r0, _080C7440  @ 0x06002000
 	adds r1, r1, r0
 	adds r0, r4, #0
-	bl CopyDataWithPossibleUncomp
+	bl Decompress
 	ldr r0, _080C7444  @ gUnknown_08AB87E0
 	ldr r1, _080C7448  @ gBG3TilemapBuffer
-	bl CopyDataWithPossibleUncomp
+	bl Decompress
 	ldr r0, _080C744C  @ gPaletteBuffer
 	ldr r1, _080C7450  @ 0x00007FFF
 	movs r2, #0xe1
@@ -2055,10 +2055,10 @@ _080C7454:
 	lsls r0, r0, #0x13
 	adds r1, r1, r0
 	adds r0, r4, #0
-	bl CopyDataWithPossibleUncomp
+	bl Decompress
 	ldr r0, _080C7478  @ gUnknown_08AC1878
 	ldr r1, _080C747C  @ gGenericBuffer
-	bl CopyDataWithPossibleUncomp
+	bl Decompress
 	b _080C7604
 	.align 2, 0
 _080C7474: .4byte gUnknown_08ABF168
@@ -2072,10 +2072,10 @@ _080C7480:
 	ldr r2, _080C74A4  @ 0x06002000
 	adds r1, r1, r2
 	adds r0, r4, #0
-	bl CopyDataWithPossibleUncomp
+	bl Decompress
 	ldr r0, _080C74A8  @ gUnknown_08AC1B98
 	ldr r1, _080C74AC  @ gUnknown_02020988
-	bl CopyDataWithPossibleUncomp
+	bl Decompress
 	b _080C7604
 	.align 2, 0
 _080C74A0: .4byte gUnknown_08AC0BD8
@@ -2091,10 +2091,10 @@ _080C74B0:
 	lsls r3, r3, #0x13
 	adds r1, r1, r3
 	adds r0, r4, #0
-	bl CopyDataWithPossibleUncomp
+	bl Decompress
 	ldr r0, _080C74E0  @ gUnknown_08ABC074
 	ldr r1, _080C74E4  @ gUnknown_02021188
-	bl CopyDataWithPossibleUncomp
+	bl Decompress
 	ldr r0, _080C74E8  @ gUnknown_08AC1C8C
 	movs r2, #0xb0
 	lsls r2, r2, #1
@@ -2109,10 +2109,10 @@ _080C74E8: .4byte gUnknown_08AC1C8C
 _080C74EC:
 	ldr r0, _080C7500  @ gUnknown_08ABE304
 	ldr r1, _080C7504  @ 0x06008000
-	bl CopyDataWithPossibleUncomp
+	bl Decompress
 	ldr r0, _080C7508  @ gUnknown_08ABEF70
 	ldr r1, _080C750C  @ 0x0600C000
-	bl CopyDataWithPossibleUncomp
+	bl Decompress
 	b _080C7604
 	.align 2, 0
 _080C7500: .4byte gUnknown_08ABE304
@@ -2122,11 +2122,11 @@ _080C750C: .4byte 0x0600C000
 _080C7510:
 	ldr r0, _080C753C  @ gUnknown_08ABD348
 	ldr r1, _080C7540  @ 0x0600A000
-	bl CopyDataWithPossibleUncomp
+	bl Decompress
 	ldr r0, _080C7544  @ gUnknown_08ABE120
 	ldr r4, _080C7548  @ 0x0600C800
 	adds r1, r4, #0
-	bl CopyDataWithPossibleUncomp
+	bl Decompress
 	movs r0, #0x80
 	lsls r0, r0, #1
 	adds r1, r0, #0
@@ -2395,7 +2395,7 @@ _080C772C: .4byte 0x0600C800
 _080C7730:
 	ldr r0, _080C7744  @ gUnknown_08ABC22C
 	ldr r1, _080C7748  @ 0x06008000
-	bl CopyDataWithPossibleUncomp
+	bl Decompress
 	lsls r0, r6, #0x10
 	asrs r0, r0, #0x10
 	movs r2, #0x30
@@ -2410,7 +2410,7 @@ _080C7750:
 	ldr r0, _080C7768  @ gUnknown_08ABD174
 	ldr r4, _080C776C  @ 0x0600C000
 	adds r1, r4, #0
-	bl CopyDataWithPossibleUncomp
+	bl Decompress
 	lsls r0, r6, #0x10
 	asrs r0, r0, #0x10
 	str r4, [sp]
@@ -3238,10 +3238,10 @@ _080C7DEC:
 	lsls r0, r0, #0x13
 	adds r1, r1, r0
 	adds r0, r4, #0
-	bl CopyDataWithPossibleUncomp
+	bl Decompress
 	ldr r0, _080C7E10  @ gUnknown_08AC8DDC
 	ldr r1, _080C7E14  @ gGenericBuffer
-	bl CopyDataWithPossibleUncomp
+	bl Decompress
 	b _080C7F80
 	.align 2, 0
 _080C7E0C: .4byte gUnknown_08AC5614
@@ -3255,10 +3255,10 @@ _080C7E18:
 	ldr r2, _080C7E3C  @ 0x06002000
 	adds r1, r1, r2
 	adds r0, r4, #0
-	bl CopyDataWithPossibleUncomp
+	bl Decompress
 	ldr r0, _080C7E40  @ gUnknown_08AC91F8
 	ldr r1, _080C7E44  @ gUnknown_02020988
-	bl CopyDataWithPossibleUncomp
+	bl Decompress
 	b _080C7F80
 	.align 2, 0
 _080C7E38: .4byte gUnknown_08AC7374
@@ -3274,10 +3274,10 @@ _080C7E48:
 	lsls r0, r0, #0x13
 	adds r1, r1, r0
 	adds r0, r4, #0
-	bl CopyDataWithPossibleUncomp
+	bl Decompress
 	ldr r0, _080C7E78  @ gUnknown_08AC2B24
 	ldr r1, _080C7E7C  @ gUnknown_02021188
-	bl CopyDataWithPossibleUncomp
+	bl Decompress
 	ldr r0, _080C7E80  @ gUnknown_08AC933C
 	movs r2, #0xb0
 	lsls r2, r2, #1
@@ -3292,10 +3292,10 @@ _080C7E80: .4byte gUnknown_08AC933C
 _080C7E84:
 	ldr r0, _080C7E98  @ gUnknown_08AC4928
 	ldr r1, _080C7E9C  @ 0x06008000
-	bl CopyDataWithPossibleUncomp
+	bl Decompress
 	ldr r0, _080C7EA0  @ gUnknown_08AC5420
 	ldr r1, _080C7EA4  @ 0x0600C000
-	bl CopyDataWithPossibleUncomp
+	bl Decompress
 	b _080C7F80
 	.align 2, 0
 _080C7E98: .4byte gUnknown_08AC4928
@@ -3305,11 +3305,11 @@ _080C7EA4: .4byte 0x0600C000
 _080C7EA8:
 	ldr r0, _080C7ED4  @ gUnknown_08AC3BC8
 	ldr r1, _080C7ED8  @ 0x0600A000
-	bl CopyDataWithPossibleUncomp
+	bl Decompress
 	ldr r0, _080C7EDC  @ gUnknown_08AC4760
 	ldr r4, _080C7EE0  @ 0x0600C800
 	adds r1, r4, #0
-	bl CopyDataWithPossibleUncomp
+	bl Decompress
 	movs r2, #0x80
 	lsls r2, r2, #1
 	adds r1, r2, #0
@@ -3464,7 +3464,7 @@ _080C7FF4: .4byte 0x0600C800
 _080C7FF8:
 	ldr r0, _080C800C  @ gUnknown_08AC2CB4
 	ldr r1, _080C8010  @ 0x06008000
-	bl CopyDataWithPossibleUncomp
+	bl Decompress
 	lsls r0, r6, #0x10
 	asrs r0, r0, #0x10
 	movs r2, #0x30
@@ -3479,7 +3479,7 @@ _080C8018:
 	ldr r0, _080C8030  @ gUnknown_08AC3A2C
 	ldr r4, _080C8034  @ 0x0600C000
 	adds r1, r4, #0
-	bl CopyDataWithPossibleUncomp
+	bl Decompress
 	lsls r0, r6, #0x10
 	asrs r0, r0, #0x10
 	str r4, [sp]
@@ -4380,11 +4380,11 @@ _080C86F0:
 	ldr r0, _080C8734  @ 0x06002000
 	adds r1, r1, r0
 	adds r0, r4, #0
-	bl CopyDataWithPossibleUncomp
+	bl Decompress
 	ldr r0, _080C8738  @ gUnknown_08AB942C
 	ldr r4, _080C873C  @ gBG3TilemapBuffer
 	adds r1, r4, #0
-	bl CopyDataWithPossibleUncomp
+	bl Decompress
 	movs r3, #0xe1
 	lsls r3, r3, #8
 	adds r2, r3, #0
@@ -4415,10 +4415,10 @@ _080C8740:
 	lsls r0, r0, #0x13
 	adds r1, r1, r0
 	adds r0, r4, #0
-	bl CopyDataWithPossibleUncomp
+	bl Decompress
 	ldr r0, _080C8764  @ gUnknown_08ACBF58
 	ldr r1, _080C8768  @ gGenericBuffer
-	bl CopyDataWithPossibleUncomp
+	bl Decompress
 	b _080C8802
 	.align 2, 0
 _080C8760: .4byte gUnknown_08AC949C
@@ -4432,10 +4432,10 @@ _080C876C:
 	ldr r3, _080C8790  @ 0x06002000
 	adds r1, r1, r3
 	adds r0, r4, #0
-	bl CopyDataWithPossibleUncomp
+	bl Decompress
 	ldr r0, _080C8794  @ gUnknown_08ACC340
 	ldr r1, _080C8798  @ gUnknown_02020988
-	bl CopyDataWithPossibleUncomp
+	bl Decompress
 	b _080C8802
 	.align 2, 0
 _080C878C: .4byte gUnknown_08ACAF70
@@ -4464,7 +4464,7 @@ _080C87C8: .4byte 0x01000400
 _080C87CC:
 	ldr r0, _080C87D8  @ gUnknown_08AF312C
 	ldr r1, _080C87DC  @ 0x06004000
-	bl CopyDataWithPossibleUncomp
+	bl Decompress
 	b _080C8802
 	.align 2, 0
 _080C87D8: .4byte gUnknown_08AF312C
@@ -4473,7 +4473,7 @@ _080C87E0:
 	ldr r0, _080C8820  @ gUnknown_08AF404C
 	ldr r4, _080C8824  @ 0x0600F000
 	adds r1, r4, #0
-	bl CopyDataWithPossibleUncomp
+	bl Decompress
 	movs r0, #0x80
 	lsls r0, r0, #8
 	adds r2, r0, #0
@@ -4560,10 +4560,10 @@ _080C8880:
 	lsls r0, r0, #0x13
 	adds r1, r1, r0
 	adds r0, r4, #0
-	bl CopyDataWithPossibleUncomp
+	bl Decompress
 	ldr r0, _080C88A4  @ gUnknown_08ACEED0
 	ldr r1, _080C88A8  @ gGenericBuffer
-	bl CopyDataWithPossibleUncomp
+	bl Decompress
 	b _080C88FA
 	.align 2, 0
 _080C88A0: .4byte gUnknown_08ACC540
@@ -4577,10 +4577,10 @@ _080C88AC:
 	ldr r0, _080C88D0  @ 0x06002000
 	adds r1, r1, r0
 	adds r0, r4, #0
-	bl CopyDataWithPossibleUncomp
+	bl Decompress
 	ldr r0, _080C88D4  @ gUnknown_08ACF200
 	ldr r1, _080C88D8  @ gUnknown_02020988
-	bl CopyDataWithPossibleUncomp
+	bl Decompress
 	b _080C88FA
 	.align 2, 0
 _080C88CC: .4byte gUnknown_08ACE0B8
@@ -4672,10 +4672,10 @@ _080C8978:
 	lsls r0, r0, #0x13
 	adds r1, r1, r0
 	adds r0, r4, #0
-	bl CopyDataWithPossibleUncomp
+	bl Decompress
 	ldr r0, _080C899C  @ gUnknown_08AD206C
 	ldr r1, _080C89A0  @ gGenericBuffer
-	bl CopyDataWithPossibleUncomp
+	bl Decompress
 	b _080C89F2
 	.align 2, 0
 _080C8998: .4byte gUnknown_08ACF474
@@ -4689,10 +4689,10 @@ _080C89A4:
 	ldr r0, _080C89C8  @ 0x06002000
 	adds r1, r1, r0
 	adds r0, r4, #0
-	bl CopyDataWithPossibleUncomp
+	bl Decompress
 	ldr r0, _080C89CC  @ gUnknown_08AD236C
 	ldr r1, _080C89D0  @ gUnknown_02020988
-	bl CopyDataWithPossibleUncomp
+	bl Decompress
 	b _080C89F2
 	.align 2, 0
 _080C89C4: .4byte gUnknown_08AD1048
@@ -4781,10 +4781,10 @@ _080C8A64:
 	lsls r0, r0, #0x13
 	adds r1, r1, r0
 	adds r0, r4, #0
-	bl CopyDataWithPossibleUncomp
+	bl Decompress
 	ldr r0, _080C8A88  @ gUnknown_08AD5094
 	ldr r1, _080C8A8C  @ gGenericBuffer
-	bl CopyDataWithPossibleUncomp
+	bl Decompress
 	b _080C8ADE
 	.align 2, 0
 _080C8A84: .4byte gUnknown_08AD2614
@@ -4798,10 +4798,10 @@ _080C8A90:
 	ldr r0, _080C8AB4  @ 0x06002000
 	adds r1, r1, r0
 	adds r0, r4, #0
-	bl CopyDataWithPossibleUncomp
+	bl Decompress
 	ldr r0, _080C8AB8  @ gUnknown_08AD543C
 	ldr r1, _080C8ABC  @ gUnknown_02020988
-	bl CopyDataWithPossibleUncomp
+	bl Decompress
 	b _080C8ADE
 	.align 2, 0
 _080C8AB0: .4byte gUnknown_08AD423C
@@ -4890,10 +4890,10 @@ _080C8B50:
 	lsls r0, r0, #0x13
 	adds r1, r1, r0
 	adds r0, r4, #0
-	bl CopyDataWithPossibleUncomp
+	bl Decompress
 	ldr r0, _080C8B74  @ gUnknown_08AD8518
 	ldr r1, _080C8B78  @ gGenericBuffer
-	bl CopyDataWithPossibleUncomp
+	bl Decompress
 	b _080C8BCA
 	.align 2, 0
 _080C8B70: .4byte gUnknown_08AD563C
@@ -4907,10 +4907,10 @@ _080C8B7C:
 	ldr r0, _080C8BA0  @ 0x06002000
 	adds r1, r1, r0
 	adds r0, r4, #0
-	bl CopyDataWithPossibleUncomp
+	bl Decompress
 	ldr r0, _080C8BA4  @ gUnknown_08AD88D4
 	ldr r1, _080C8BA8  @ gUnknown_02020988
-	bl CopyDataWithPossibleUncomp
+	bl Decompress
 	b _080C8BCA
 	.align 2, 0
 _080C8B9C: .4byte gUnknown_08AD72FC
@@ -4999,10 +4999,10 @@ _080C8C3C:
 	lsls r0, r0, #0x13
 	adds r1, r1, r0
 	adds r0, r4, #0
-	bl CopyDataWithPossibleUncomp
+	bl Decompress
 	ldr r0, _080C8C60  @ gUnknown_08ADB804
 	ldr r1, _080C8C64  @ gGenericBuffer
-	bl CopyDataWithPossibleUncomp
+	bl Decompress
 	b _080C8CB6
 	.align 2, 0
 _080C8C5C: .4byte gUnknown_08AD8B08
@@ -5016,10 +5016,10 @@ _080C8C68:
 	ldr r0, _080C8C8C  @ 0x06002000
 	adds r1, r1, r0
 	adds r0, r4, #0
-	bl CopyDataWithPossibleUncomp
+	bl Decompress
 	ldr r0, _080C8C90  @ gUnknown_08ADBC0C
 	ldr r1, _080C8C94  @ gUnknown_02020988
-	bl CopyDataWithPossibleUncomp
+	bl Decompress
 	b _080C8CB6
 	.align 2, 0
 _080C8C88: .4byte gUnknown_08ADA31C
@@ -5216,7 +5216,7 @@ _080C8E18: .4byte gUnknown_08ADBE78
 _080C8E1C:
 	ldr r0, _080C8E3C  @ gUnknown_08ADBE98
 	ldr r1, _080C8E40  @ 0x06010000
-	bl CopyDataWithPossibleUncomp
+	bl Decompress
 	ldr r0, _080C8E44  @ gUnknown_08ADC708
 	movs r1, #0x80
 	lsls r1, r1, #2
@@ -5224,7 +5224,7 @@ _080C8E1C:
 	bl StorePaletteToBufferMaybe
 	ldr r0, _080C8E48  @ gUnknown_08ADC3C0
 	ldr r1, _080C8E4C  @ 0x06010F00
-	bl CopyDataWithPossibleUncomp
+	bl Decompress
 	b _080C8EA0
 	.align 2, 0
 _080C8E3C: .4byte gUnknown_08ADBE98
@@ -5235,7 +5235,7 @@ _080C8E4C: .4byte 0x06010F00
 _080C8E50:
 	ldr r0, _080C8E70  @ gUnknown_08ADC728
 	ldr r1, _080C8E74  @ 0x06011E00
-	bl CopyDataWithPossibleUncomp
+	bl Decompress
 	ldr r0, _080C8E78  @ gUnknown_08ADD050
 	movs r1, #0x90
 	lsls r1, r1, #2
@@ -5243,7 +5243,7 @@ _080C8E50:
 	bl StorePaletteToBufferMaybe
 	ldr r0, _080C8E7C  @ gUnknown_08ADCCB8
 	ldr r1, _080C8E80  @ 0x06012D00
-	bl CopyDataWithPossibleUncomp
+	bl Decompress
 	b _080C8EA0
 	.align 2, 0
 _080C8E70: .4byte gUnknown_08ADC728
@@ -5254,7 +5254,7 @@ _080C8E80: .4byte 0x06012D00
 _080C8E84:
 	ldr r0, _080C8EB4  @ gUnknown_08ADD070
 	ldr r1, _080C8EB8  @ 0x06013C00
-	bl CopyDataWithPossibleUncomp
+	bl Decompress
 	ldr r0, _080C8EBC  @ gUnknown_08ADDA54
 	movs r1, #0xa0
 	lsls r1, r1, #2
@@ -5262,7 +5262,7 @@ _080C8E84:
 	bl StorePaletteToBufferMaybe
 	ldr r0, _080C8EC0  @ gUnknown_08ADD6EC
 	ldr r1, _080C8EC4  @ 0x06014B00
-	bl CopyDataWithPossibleUncomp
+	bl Decompress
 _080C8EA0:
 	ldrh r0, [r7, #0x2a]
 	cmp r0, #0x26
@@ -5344,7 +5344,7 @@ _080C8F30:
 _080C8F3A:
 	ldr r0, _080C8F58  @ gUnknown_08ADDA74
 	ldr r1, _080C8F5C  @ 0x06010000
-	bl CopyDataWithPossibleUncomp
+	bl Decompress
 	ldr r0, _080C8F60  @ gUnknown_08ADE47C
 	movs r1, #0x80
 	lsls r1, r1, #2
@@ -5352,7 +5352,7 @@ _080C8F3A:
 	bl StorePaletteToBufferMaybe
 	ldr r0, _080C8F64  @ gUnknown_08ADE080
 	ldr r1, _080C8F68  @ 0x06010F00
-	bl CopyDataWithPossibleUncomp
+	bl Decompress
 	b _080C8FF0
 	.align 2, 0
 _080C8F58: .4byte gUnknown_08ADDA74
@@ -5363,7 +5363,7 @@ _080C8F68: .4byte 0x06010F00
 _080C8F6C:
 	ldr r0, _080C8F8C  @ gUnknown_08ADEEF4
 	ldr r1, _080C8F90  @ 0x06011E00
-	bl CopyDataWithPossibleUncomp
+	bl Decompress
 	ldr r0, _080C8F94  @ gUnknown_08ADFA08
 	movs r1, #0x90
 	lsls r1, r1, #2
@@ -5371,7 +5371,7 @@ _080C8F6C:
 	bl StorePaletteToBufferMaybe
 	ldr r0, _080C8F98  @ gUnknown_08ADF58C
 	ldr r1, _080C8F9C  @ 0x06012D00
-	bl CopyDataWithPossibleUncomp
+	bl Decompress
 	b _080C8FF0
 	.align 2, 0
 _080C8F8C: .4byte gUnknown_08ADEEF4
@@ -5382,7 +5382,7 @@ _080C8F9C: .4byte 0x06012D00
 _080C8FA0:
 	ldr r0, _080C8FC0  @ gUnknown_08ADE49C
 	ldr r1, _080C8FC4  @ 0x06013C00
-	bl CopyDataWithPossibleUncomp
+	bl Decompress
 	ldr r0, _080C8FC8  @ gUnknown_08ADEED4
 	movs r1, #0xa0
 	lsls r1, r1, #2
@@ -5390,7 +5390,7 @@ _080C8FA0:
 	bl StorePaletteToBufferMaybe
 	ldr r0, _080C8FCC  @ gUnknown_08ADEB1C
 	ldr r1, _080C8FD0  @ 0x06014B00
-	bl CopyDataWithPossibleUncomp
+	bl Decompress
 	b _080C8FF0
 	.align 2, 0
 _080C8FC0: .4byte gUnknown_08ADE49C
@@ -5401,7 +5401,7 @@ _080C8FD0: .4byte 0x06014B00
 _080C8FD4:
 	ldr r0, _080C9004  @ gUnknown_08ADFA28
 	ldr r1, _080C9008  @ 0x06015A00
-	bl CopyDataWithPossibleUncomp
+	bl Decompress
 	ldr r0, _080C900C  @ gUnknown_08AE04D4
 	movs r1, #0xb0
 	lsls r1, r1, #2
@@ -5409,7 +5409,7 @@ _080C8FD4:
 	bl StorePaletteToBufferMaybe
 	ldr r0, _080C9010  @ gUnknown_08AE00E4
 	ldr r1, _080C9014  @ 0x06016900
-	bl CopyDataWithPossibleUncomp
+	bl Decompress
 _080C8FF0:
 	ldrh r0, [r4, #0x2a]
 	cmp r0, #7
@@ -5483,7 +5483,7 @@ _080C906A:
 _080C907C:
 	ldr r0, _080C909C  @ gUnknown_08AE04F4
 	ldr r1, _080C90A0  @ 0x06010000
-	bl CopyDataWithPossibleUncomp
+	bl Decompress
 	ldr r0, _080C90A4  @ gUnknown_08AE0D74
 	movs r1, #0x80
 	lsls r1, r1, #2
@@ -5491,7 +5491,7 @@ _080C907C:
 	bl StorePaletteToBufferMaybe
 	ldr r0, _080C90A8  @ gUnknown_08AE0A48
 	ldr r1, _080C90AC  @ 0x06010F00
-	bl CopyDataWithPossibleUncomp
+	bl Decompress
 	b _080C90CC
 	.align 2, 0
 _080C909C: .4byte gUnknown_08AE04F4
@@ -5502,7 +5502,7 @@ _080C90AC: .4byte 0x06010F00
 _080C90B0:
 	ldr r0, _080C90E0  @ gUnknown_08AE0D94
 	ldr r1, _080C90E4  @ 0x06011E00
-	bl CopyDataWithPossibleUncomp
+	bl Decompress
 	ldr r0, _080C90E8  @ gUnknown_08AE1634
 	movs r1, #0x90
 	lsls r1, r1, #2
@@ -5510,7 +5510,7 @@ _080C90B0:
 	bl StorePaletteToBufferMaybe
 	ldr r0, _080C90EC  @ gUnknown_08AE12BC
 	ldr r1, _080C90F0  @ 0x06012D00
-	bl CopyDataWithPossibleUncomp
+	bl Decompress
 _080C90CC:
 	ldrh r0, [r4, #0x2a]
 	cmp r0, #8
@@ -5590,7 +5590,7 @@ _080C915C:
 _080C9162:
 	ldr r0, _080C9180  @ gUnknown_08AE1654
 	ldr r1, _080C9184  @ 0x06010000
-	bl CopyDataWithPossibleUncomp
+	bl Decompress
 	ldr r0, _080C9188  @ gUnknown_08AE20C4
 	movs r1, #0x80
 	lsls r1, r1, #2
@@ -5598,7 +5598,7 @@ _080C9162:
 	bl StorePaletteToBufferMaybe
 	ldr r0, _080C918C  @ gUnknown_08AE1D00
 	ldr r1, _080C9190  @ 0x06010F00
-	bl CopyDataWithPossibleUncomp
+	bl Decompress
 	b _080C91E4
 	.align 2, 0
 _080C9180: .4byte gUnknown_08AE1654
@@ -5609,7 +5609,7 @@ _080C9190: .4byte 0x06010F00
 _080C9194:
 	ldr r0, _080C91B4  @ gUnknown_08AE20E4
 	ldr r1, _080C91B8  @ 0x06011E00
-	bl CopyDataWithPossibleUncomp
+	bl Decompress
 	ldr r0, _080C91BC  @ gUnknown_08AE2BF4
 	movs r1, #0x90
 	lsls r1, r1, #2
@@ -5617,7 +5617,7 @@ _080C9194:
 	bl StorePaletteToBufferMaybe
 	ldr r0, _080C91C0  @ gUnknown_08AE281C
 	ldr r1, _080C91C4  @ 0x06012D00
-	bl CopyDataWithPossibleUncomp
+	bl Decompress
 	b _080C91E4
 	.align 2, 0
 _080C91B4: .4byte gUnknown_08AE20E4
@@ -5628,7 +5628,7 @@ _080C91C4: .4byte 0x06012D00
 _080C91C8:
 	ldr r0, _080C91F8  @ gUnknown_08AE2C14
 	ldr r1, _080C91FC  @ 0x06013C00
-	bl CopyDataWithPossibleUncomp
+	bl Decompress
 	ldr r0, _080C9200  @ gUnknown_08AE3734
 	movs r1, #0xa0
 	lsls r1, r1, #2
@@ -5636,7 +5636,7 @@ _080C91C8:
 	bl StorePaletteToBufferMaybe
 	ldr r0, _080C9204  @ gUnknown_08AE33D4
 	ldr r1, _080C9208  @ 0x06014B00
-	bl CopyDataWithPossibleUncomp
+	bl Decompress
 _080C91E4:
 	ldrh r0, [r4, #0x2a]
 	cmp r0, #9
@@ -5716,7 +5716,7 @@ _080C9274:
 _080C927A:
 	ldr r0, _080C9298  @ gUnknown_08AE3754
 	ldr r1, _080C929C  @ 0x06010000
-	bl CopyDataWithPossibleUncomp
+	bl Decompress
 	ldr r0, _080C92A0  @ gUnknown_08AE41E4
 	movs r1, #0x80
 	lsls r1, r1, #2
@@ -5724,7 +5724,7 @@ _080C927A:
 	bl StorePaletteToBufferMaybe
 	ldr r0, _080C92A4  @ gUnknown_08AE3E54
 	ldr r1, _080C92A8  @ 0x06010F00
-	bl CopyDataWithPossibleUncomp
+	bl Decompress
 	b _080C92FC
 	.align 2, 0
 _080C9298: .4byte gUnknown_08AE3754
@@ -5735,7 +5735,7 @@ _080C92A8: .4byte 0x06010F00
 _080C92AC:
 	ldr r0, _080C92CC  @ gUnknown_08AE4204
 	ldr r1, _080C92D0  @ 0x06011E00
-	bl CopyDataWithPossibleUncomp
+	bl Decompress
 	ldr r0, _080C92D4  @ gUnknown_08AE4CE8
 	movs r1, #0x90
 	lsls r1, r1, #2
@@ -5743,7 +5743,7 @@ _080C92AC:
 	bl StorePaletteToBufferMaybe
 	ldr r0, _080C92D8  @ gUnknown_08AE4940
 	ldr r1, _080C92DC  @ 0x06012D00
-	bl CopyDataWithPossibleUncomp
+	bl Decompress
 	b _080C92FC
 	.align 2, 0
 _080C92CC: .4byte gUnknown_08AE4204
@@ -5754,7 +5754,7 @@ _080C92DC: .4byte 0x06012D00
 _080C92E0:
 	ldr r0, _080C9310  @ gUnknown_08AE4D08
 	ldr r1, _080C9314  @ 0x06013C00
-	bl CopyDataWithPossibleUncomp
+	bl Decompress
 	ldr r0, _080C9318  @ gUnknown_08AE5730
 	movs r1, #0xa0
 	lsls r1, r1, #2
@@ -5762,7 +5762,7 @@ _080C92E0:
 	bl StorePaletteToBufferMaybe
 	ldr r0, _080C931C  @ gUnknown_08AE53C8
 	ldr r1, _080C9320  @ 0x06014B00
-	bl CopyDataWithPossibleUncomp
+	bl Decompress
 _080C92FC:
 	ldrh r0, [r4, #0x2a]
 	cmp r0, #0xa
@@ -5836,7 +5836,7 @@ _080C9376:
 _080C9388:
 	ldr r0, _080C93A8  @ gUnknown_08AE5750
 	ldr r1, _080C93AC  @ 0x06010000
-	bl CopyDataWithPossibleUncomp
+	bl Decompress
 	ldr r0, _080C93B0  @ gUnknown_08AE60B0
 	movs r1, #0x80
 	lsls r1, r1, #2
@@ -5844,7 +5844,7 @@ _080C9388:
 	bl StorePaletteToBufferMaybe
 	ldr r0, _080C93B4  @ gUnknown_08AE5D54
 	ldr r1, _080C93B8  @ 0x06010F00
-	bl CopyDataWithPossibleUncomp
+	bl Decompress
 	b _080C93D8
 	.align 2, 0
 _080C93A8: .4byte gUnknown_08AE5750
@@ -5855,7 +5855,7 @@ _080C93B8: .4byte 0x06010F00
 _080C93BC:
 	ldr r0, _080C93EC  @ gUnknown_08AE60D0
 	ldr r1, _080C93F0  @ 0x06011E00
-	bl CopyDataWithPossibleUncomp
+	bl Decompress
 	ldr r0, _080C93F4  @ gUnknown_08AE69EC
 	movs r1, #0x90
 	lsls r1, r1, #2
@@ -5863,7 +5863,7 @@ _080C93BC:
 	bl StorePaletteToBufferMaybe
 	ldr r0, _080C93F8  @ gUnknown_08AE6648
 	ldr r1, _080C93FC  @ 0x06012D00
-	bl CopyDataWithPossibleUncomp
+	bl Decompress
 _080C93D8:
 	ldrh r0, [r4, #0x2a]
 	cmp r0, #0xb
@@ -5945,7 +5945,7 @@ _080C9468:
 _080C9472:
 	ldr r0, _080C9490  @ gUnknown_08AE6A0C
 	ldr r1, _080C9494  @ 0x06010000
-	bl CopyDataWithPossibleUncomp
+	bl Decompress
 	ldr r0, _080C9498  @ gUnknown_08AE72C8
 	movs r1, #0x80
 	lsls r1, r1, #2
@@ -5953,7 +5953,7 @@ _080C9472:
 	bl StorePaletteToBufferMaybe
 	ldr r0, _080C949C  @ gUnknown_08AE6FA8
 	ldr r1, _080C94A0  @ 0x06010F00
-	bl CopyDataWithPossibleUncomp
+	bl Decompress
 	b _080C9528
 	.align 2, 0
 _080C9490: .4byte gUnknown_08AE6A0C
@@ -5964,7 +5964,7 @@ _080C94A0: .4byte 0x06010F00
 _080C94A4:
 	ldr r0, _080C94C4  @ gUnknown_08AE84DC
 	ldr r1, _080C94C8  @ 0x06011E00
-	bl CopyDataWithPossibleUncomp
+	bl Decompress
 	ldr r0, _080C94CC  @ gUnknown_08AE8D84
 	movs r1, #0x90
 	lsls r1, r1, #2
@@ -5972,7 +5972,7 @@ _080C94A4:
 	bl StorePaletteToBufferMaybe
 	ldr r0, _080C94D0  @ gUnknown_08AE8AB8
 	ldr r1, _080C94D4  @ 0x06012D00
-	bl CopyDataWithPossibleUncomp
+	bl Decompress
 	b _080C9528
 	.align 2, 0
 _080C94C4: .4byte gUnknown_08AE84DC
@@ -5983,7 +5983,7 @@ _080C94D4: .4byte 0x06012D00
 _080C94D8:
 	ldr r0, _080C94F8  @ gUnknown_08AE72E8
 	ldr r1, _080C94FC  @ 0x06013C00
-	bl CopyDataWithPossibleUncomp
+	bl Decompress
 	ldr r0, _080C9500  @ gUnknown_08AE7C2C
 	movs r1, #0xa0
 	lsls r1, r1, #2
@@ -5991,7 +5991,7 @@ _080C94D8:
 	bl StorePaletteToBufferMaybe
 	ldr r0, _080C9504  @ gUnknown_08AE78B0
 	ldr r1, _080C9508  @ 0x06014B00
-	bl CopyDataWithPossibleUncomp
+	bl Decompress
 	b _080C9528
 	.align 2, 0
 _080C94F8: .4byte gUnknown_08AE72E8
@@ -6002,7 +6002,7 @@ _080C9508: .4byte 0x06014B00
 _080C950C:
 	ldr r0, _080C953C  @ gUnknown_08AE7C4C
 	ldr r1, _080C9540  @ 0x06015A00
-	bl CopyDataWithPossibleUncomp
+	bl Decompress
 	ldr r0, _080C9544  @ gUnknown_08AE84BC
 	movs r1, #0xb0
 	lsls r1, r1, #2
@@ -6010,7 +6010,7 @@ _080C950C:
 	bl StorePaletteToBufferMaybe
 	ldr r0, _080C9548  @ gUnknown_08AE819C
 	ldr r1, _080C954C  @ 0x06016900
-	bl CopyDataWithPossibleUncomp
+	bl Decompress
 _080C9528:
 	ldrh r0, [r4, #0x2a]
 	cmp r0, #0xc
@@ -6084,7 +6084,7 @@ _080C95A2:
 _080C95B4:
 	ldr r0, _080C95D4  @ gUnknown_08AE8DA4
 	ldr r1, _080C95D8  @ 0x06010000
-	bl CopyDataWithPossibleUncomp
+	bl Decompress
 	ldr r0, _080C95DC  @ gUnknown_08AE9720
 	movs r1, #0x80
 	lsls r1, r1, #2
@@ -6092,7 +6092,7 @@ _080C95B4:
 	bl StorePaletteToBufferMaybe
 	ldr r0, _080C95E0  @ gUnknown_08AE9364
 	ldr r1, _080C95E4  @ 0x06010F00
-	bl CopyDataWithPossibleUncomp
+	bl Decompress
 	b _080C9604
 	.align 2, 0
 _080C95D4: .4byte gUnknown_08AE8DA4
@@ -6103,7 +6103,7 @@ _080C95E4: .4byte 0x06010F00
 _080C95E8:
 	ldr r0, _080C9618  @ gUnknown_08AE9740
 	ldr r1, _080C961C  @ 0x06011E00
-	bl CopyDataWithPossibleUncomp
+	bl Decompress
 	ldr r0, _080C9620  @ gUnknown_08AEA02C
 	movs r1, #0x90
 	lsls r1, r1, #2
@@ -6111,7 +6111,7 @@ _080C95E8:
 	bl StorePaletteToBufferMaybe
 	ldr r0, _080C9624  @ gUnknown_08AE9CA4
 	ldr r1, _080C9628  @ 0x06012D00
-	bl CopyDataWithPossibleUncomp
+	bl Decompress
 _080C9604:
 	ldrh r0, [r4, #0x2a]
 	cmp r0, #0xd
@@ -6191,7 +6191,7 @@ _080C9694:
 _080C969A:
 	ldr r0, _080C96B8  @ gUnknown_08AECAE0
 	ldr r1, _080C96BC  @ 0x06010000
-	bl CopyDataWithPossibleUncomp
+	bl Decompress
 	ldr r0, _080C96C0  @ gUnknown_08AED3E8
 	movs r1, #0x80
 	lsls r1, r1, #2
@@ -6199,7 +6199,7 @@ _080C969A:
 	bl StorePaletteToBufferMaybe
 	ldr r0, _080C96C4  @ gUnknown_08AED0A4
 	ldr r1, _080C96C8  @ 0x06010F00
-	bl CopyDataWithPossibleUncomp
+	bl Decompress
 	b _080C971C
 	.align 2, 0
 _080C96B8: .4byte gUnknown_08AECAE0
@@ -6210,7 +6210,7 @@ _080C96C8: .4byte 0x06010F00
 _080C96CC:
 	ldr r0, _080C96EC  @ gUnknown_08AED408
 	ldr r1, _080C96F0  @ 0x06011E00
-	bl CopyDataWithPossibleUncomp
+	bl Decompress
 	ldr r0, _080C96F4  @ gUnknown_08AEDC80
 	movs r1, #0x90
 	lsls r1, r1, #2
@@ -6218,7 +6218,7 @@ _080C96CC:
 	bl StorePaletteToBufferMaybe
 	ldr r0, _080C96F8  @ gUnknown_08AED95C
 	ldr r1, _080C96FC  @ 0x06012D00
-	bl CopyDataWithPossibleUncomp
+	bl Decompress
 	b _080C971C
 	.align 2, 0
 _080C96EC: .4byte gUnknown_08AED408
@@ -6229,7 +6229,7 @@ _080C96FC: .4byte 0x06012D00
 _080C9700:
 	ldr r0, _080C9730  @ gUnknown_08AEDCA0
 	ldr r1, _080C9734  @ 0x06013C00
-	bl CopyDataWithPossibleUncomp
+	bl Decompress
 	ldr r0, _080C9738  @ gUnknown_08AEE564
 	movs r1, #0xa0
 	lsls r1, r1, #2
@@ -6237,7 +6237,7 @@ _080C9700:
 	bl StorePaletteToBufferMaybe
 	ldr r0, _080C973C  @ gUnknown_08AEE218
 	ldr r1, _080C9740  @ 0x06014B00
-	bl CopyDataWithPossibleUncomp
+	bl Decompress
 _080C971C:
 	ldrh r0, [r4, #0x2a]
 	cmp r0, #0xe
@@ -6319,7 +6319,7 @@ _080C97AC:
 _080C97B6:
 	ldr r0, _080C97D4  @ gUnknown_08AEA04C
 	ldr r1, _080C97D8  @ 0x06010000
-	bl CopyDataWithPossibleUncomp
+	bl Decompress
 	ldr r0, _080C97DC  @ gUnknown_08AEAB50
 	movs r1, #0x80
 	lsls r1, r1, #2
@@ -6327,7 +6327,7 @@ _080C97B6:
 	bl StorePaletteToBufferMaybe
 	ldr r0, _080C97E0  @ gUnknown_08AEA7A8
 	ldr r1, _080C97E4  @ 0x06010F00
-	bl CopyDataWithPossibleUncomp
+	bl Decompress
 	b _080C986C
 	.align 2, 0
 _080C97D4: .4byte gUnknown_08AEA04C
@@ -6338,7 +6338,7 @@ _080C97E4: .4byte 0x06010F00
 _080C97E8:
 	ldr r0, _080C9808  @ gUnknown_08AEAB70
 	ldr r1, _080C980C  @ 0x06011E00
-	bl CopyDataWithPossibleUncomp
+	bl Decompress
 	ldr r0, _080C9810  @ gUnknown_08AEB56C
 	movs r1, #0x90
 	lsls r1, r1, #2
@@ -6346,7 +6346,7 @@ _080C97E8:
 	bl StorePaletteToBufferMaybe
 	ldr r0, _080C9814  @ gUnknown_08AEB1B8
 	ldr r1, _080C9818  @ 0x06012D00
-	bl CopyDataWithPossibleUncomp
+	bl Decompress
 	b _080C986C
 	.align 2, 0
 _080C9808: .4byte gUnknown_08AEAB70
@@ -6357,7 +6357,7 @@ _080C9818: .4byte 0x06012D00
 _080C981C:
 	ldr r0, _080C983C  @ gUnknown_08AEB58C
 	ldr r1, _080C9840  @ 0x06013C00
-	bl CopyDataWithPossibleUncomp
+	bl Decompress
 	ldr r0, _080C9844  @ gUnknown_08AEC048
 	movs r1, #0xa0
 	lsls r1, r1, #2
@@ -6365,7 +6365,7 @@ _080C981C:
 	bl StorePaletteToBufferMaybe
 	ldr r0, _080C9848  @ gUnknown_08AEBCEC
 	ldr r1, _080C984C  @ 0x06014B00
-	bl CopyDataWithPossibleUncomp
+	bl Decompress
 	b _080C986C
 	.align 2, 0
 _080C983C: .4byte gUnknown_08AEB58C
@@ -6376,7 +6376,7 @@ _080C984C: .4byte 0x06014B00
 _080C9850:
 	ldr r0, _080C9880  @ gUnknown_08AEC068
 	ldr r1, _080C9884  @ 0x06015A00
-	bl CopyDataWithPossibleUncomp
+	bl Decompress
 	ldr r0, _080C9888  @ gUnknown_08AECAC0
 	movs r1, #0xb0
 	lsls r1, r1, #2
@@ -6384,7 +6384,7 @@ _080C9850:
 	bl StorePaletteToBufferMaybe
 	ldr r0, _080C988C  @ gUnknown_08AEC724
 	ldr r1, _080C9890  @ 0x06016900
-	bl CopyDataWithPossibleUncomp
+	bl Decompress
 _080C986C:
 	ldrh r0, [r4, #0x2a]
 	cmp r0, #0xf
@@ -6464,7 +6464,7 @@ _080C98FC:
 _080C9902:
 	ldr r0, _080C9920  @ gUnknown_08AEE584
 	ldr r1, _080C9924  @ 0x06010000
-	bl CopyDataWithPossibleUncomp
+	bl Decompress
 	ldr r0, _080C9928  @ gUnknown_08AEEECC
 	movs r1, #0x80
 	lsls r1, r1, #2
@@ -6472,7 +6472,7 @@ _080C9902:
 	bl StorePaletteToBufferMaybe
 	ldr r0, _080C992C  @ gUnknown_08AEEBB0
 	ldr r1, _080C9930  @ 0x06010F00
-	bl CopyDataWithPossibleUncomp
+	bl Decompress
 	b _080C9984
 	.align 2, 0
 _080C9920: .4byte gUnknown_08AEE584
@@ -6483,7 +6483,7 @@ _080C9930: .4byte 0x06010F00
 _080C9934:
 	ldr r0, _080C9954  @ gUnknown_08AEEEEC
 	ldr r1, _080C9958  @ 0x06011E00
-	bl CopyDataWithPossibleUncomp
+	bl Decompress
 	ldr r0, _080C995C  @ gUnknown_08AEF880
 	movs r1, #0x90
 	lsls r1, r1, #2
@@ -6491,7 +6491,7 @@ _080C9934:
 	bl StorePaletteToBufferMaybe
 	ldr r0, _080C9960  @ gUnknown_08AEF580
 	ldr r1, _080C9964  @ 0x06012D00
-	bl CopyDataWithPossibleUncomp
+	bl Decompress
 	b _080C9984
 	.align 2, 0
 _080C9954: .4byte gUnknown_08AEEEEC
@@ -6502,7 +6502,7 @@ _080C9964: .4byte 0x06012D00
 _080C9968:
 	ldr r0, _080C9998  @ gUnknown_08AEF8A0
 	ldr r1, _080C999C  @ 0x06013C00
-	bl CopyDataWithPossibleUncomp
+	bl Decompress
 	ldr r0, _080C99A0  @ gUnknown_08AF0130
 	movs r1, #0xa0
 	lsls r1, r1, #2
@@ -6510,7 +6510,7 @@ _080C9968:
 	bl StorePaletteToBufferMaybe
 	ldr r0, _080C99A4  @ gUnknown_08AEFDC8
 	ldr r1, _080C99A8  @ 0x06014B00
-	bl CopyDataWithPossibleUncomp
+	bl Decompress
 _080C9984:
 	ldrh r0, [r4, #0x2a]
 	cmp r0, #0x10
@@ -6584,7 +6584,7 @@ _080C99FE:
 _080C9A10:
 	ldr r0, _080C9A30  @ gUnknown_08AF0150
 	ldr r1, _080C9A34  @ 0x06010000
-	bl CopyDataWithPossibleUncomp
+	bl Decompress
 	ldr r0, _080C9A38  @ gUnknown_08AF0DE8
 	movs r1, #0x80
 	lsls r1, r1, #2
@@ -6592,7 +6592,7 @@ _080C9A10:
 	bl StorePaletteToBufferMaybe
 	ldr r0, _080C9A3C  @ gUnknown_08AF09E4
 	ldr r1, _080C9A40  @ 0x06010F00
-	bl CopyDataWithPossibleUncomp
+	bl Decompress
 	b _080C9A60
 	.align 2, 0
 _080C9A30: .4byte gUnknown_08AF0150
@@ -6603,7 +6603,7 @@ _080C9A40: .4byte 0x06010F00
 _080C9A44:
 	ldr r0, _080C9A74  @ gUnknown_08AF0E08
 	ldr r1, _080C9A78  @ 0x06011E00
-	bl CopyDataWithPossibleUncomp
+	bl Decompress
 	ldr r0, _080C9A7C  @ gUnknown_08AF1AC8
 	movs r1, #0x90
 	lsls r1, r1, #2
@@ -6611,7 +6611,7 @@ _080C9A44:
 	bl StorePaletteToBufferMaybe
 	ldr r0, _080C9A80  @ gUnknown_08AF16CC
 	ldr r1, _080C9A84  @ 0x06012D00
-	bl CopyDataWithPossibleUncomp
+	bl Decompress
 _080C9A60:
 	ldrh r0, [r4, #0x2a]
 	cmp r0, #0x12
@@ -10919,7 +10919,7 @@ _080CBCFE:
 	ldr r0, _080CBD5C  @ gUnknown_08AF4330
 	ldr r4, _080CBD60  @ 0x0600F000
 	adds r1, r4, #0
-	bl CopyDataWithPossibleUncomp
+	bl Decompress
 	movs r3, #0x80
 	lsls r3, r3, #8
 	adds r2, r3, #0
@@ -11080,21 +11080,21 @@ sub_80CBE0C: @ 0x080CBE0C
 	ldr r0, _080CBED0  @ gUnknown_08B10630
 	movs r1, #0xc0
 	lsls r1, r1, #0x13
-	bl CopyDataWithPossibleUncomp
+	bl Decompress
 	ldr r0, _080CBED4  @ gUnknown_08B104D8
 	ldr r4, _080CBED8  @ gGenericBuffer
 	adds r1, r4, #0
-	bl CopyDataWithPossibleUncomp
+	bl Decompress
 	ldr r0, _080CBEDC  @ gBG0TilemapBuffer
 	adds r1, r4, #0
 	movs r2, #0
 	bl CallARM_FillTileRect
 	ldr r0, _080CBEE0  @ gUnknown_08B10CA4
 	ldr r1, _080CBEE4  @ 0x06002000
-	bl CopyDataWithPossibleUncomp
+	bl Decompress
 	ldr r0, _080CBEE8  @ gUnknown_08B10ADC
 	adds r1, r4, #0
-	bl CopyDataWithPossibleUncomp
+	bl Decompress
 	ldr r0, _080CBEEC  @ gBG1TilemapBuffer
 	movs r2, #0x88
 	lsls r2, r2, #5
@@ -11607,18 +11607,18 @@ _080CC21C:
 	ldr r0, _080CC2D0  @ gUnknown_08B11D0C
 	movs r1, #0xc0
 	lsls r1, r1, #0x13
-	bl CopyDataWithPossibleUncomp
+	bl Decompress
 	ldr r0, _080CC2D4  @ gUnknown_08B118C4
 	ldr r5, _080CC2D8  @ gGenericBuffer
 	adds r1, r5, #0
-	bl CopyDataWithPossibleUncomp
+	bl Decompress
 	ldr r0, _080CC2DC  @ gBG1TilemapBuffer
 	adds r1, r5, #0
 	movs r2, #0
 	bl CallARM_FillTileRect
 	ldr r0, _080CC2E0  @ gUnknown_08B11C0C
 	adds r1, r5, #0
-	bl CopyDataWithPossibleUncomp
+	bl Decompress
 	ldr r0, _080CC2E4  @ gBG0TilemapBuffer
 	adds r1, r5, #0
 	movs r2, #0

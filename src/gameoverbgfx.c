@@ -151,9 +151,9 @@ void GameOverScreen_Init(struct ProcGameOverScreen *proc)
     SetBackgroundTileDataOffset(2, 0);
     SetBackgroundTileDataOffset(3, 0);
 
-    CopyDataWithPossibleUncomp(Img_GameOverText, BG_CHR_ADDR(BGCHR_GAMEOVER_TEXT));
+    Decompress(Img_GameOverText, BG_CHR_ADDR(BGCHR_GAMEOVER_TEXT));
     ApplyPalette(Pal_GameOverText1, BGPAL_GAMEOVER_4);
-    CopyDataWithPossibleUncomp(Img_ChapterIntroFog, BG_CHR_ADDR(BGCHR_BMFX_IMG));
+    Decompress(Img_ChapterIntroFog, BG_CHR_ADDR(BGCHR_BMFX_IMG));
     ApplyPalette(Pal_GameOverText2, BGPAL_GAMEOVER_TEXT);
 
     BG_SetPosition(0, 0, 0);

@@ -543,10 +543,10 @@ void Config_Init(struct ConfigProc* proc) {
     CopyToPaletteBuffer(gUnknown_08A07A98, 0x80, 0x20);
     CopyToPaletteBuffer(gUnknown_08A07A98, 0x240, 0x20);
 
-    CopyDataWithPossibleUncomp(gUnknown_08A0733C, (void*)0x06011800);
-    CopyDataWithPossibleUncomp(gUnknown_08A0754C, (void*)0x06004000);
+    Decompress(gUnknown_08A0733C, (void*)0x06011800);
+    Decompress(gUnknown_08A0754C, (void*)0x06004000);
 
-    CopyDataWithPossibleUncomp(gUnknown_08A079B4, gGenericBuffer + 0x80);
+    Decompress(gUnknown_08A079B4, gGenericBuffer + 0x80);
     CallARM_FillTileRect(gBG2TilemapBuffer, gGenericBuffer + 0x80, 0x1000);
 
     Font_ResetAllocation();

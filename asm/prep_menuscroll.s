@@ -470,7 +470,7 @@ InitPrepSideBarImg: @ 0x08097700
 	ldr r0, _0809773C  @ Img_PrepWindowSideBar
 	ldr r2, _08097740  @ 0x06010000
 	adds r1, r4, r2
-	bl CopyDataWithPossibleUncomp
+	bl Decompress
 	ldr r0, _08097744  @ ProcScr_PrepSideBarHandler
 	bl Proc_Find
 	adds r2, r0, #0
@@ -522,7 +522,7 @@ PrepStartSideBarScroll: @ 0x08097748
 	ldr r0, _080977A4  @ Img_PrepWindowSideBar
 	ldr r2, _080977A8  @ 0x06010000
 	adds r1, r5, r2
-	bl CopyDataWithPossibleUncomp
+	bl Decompress
 	asrs r5, r5, #5
 	strh r5, [r4, #0x36]
 	lsls r6, r6, #0xc

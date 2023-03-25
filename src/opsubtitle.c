@@ -102,7 +102,7 @@ const struct OpSubtitleEnt gOpSubtitleGfxLut[] = {
 void sub_80C488C(int bg) {
     int offset = GetBackgroundTileDataOffset(bg);
 
-    CopyDataWithPossibleUncomp(Img_CommGameBgScreen, (void*)(offset + 0x6000000));
+    Decompress(Img_CommGameBgScreen, (void*)(offset + 0x6000000));
 
     CpuFastFill(0, (void*)(offset + 0x06005000), 0x20);
 
@@ -179,7 +179,7 @@ void OpSubtitle_Init(struct OpSubtitleProc* proc) {
     SetBlendTargetA(0, 0, 1, 0, 0);
     SetBlendTargetB(1, 1, 0, 0, 1);
 
-    CopyDataWithPossibleUncomp(gUnknown_08B17B64, (void*)(GetBackgroundTileDataOffset(2) + 0x6000000));
+    Decompress(gUnknown_08B17B64, (void*)(GetBackgroundTileDataOffset(2) + 0x6000000));
     CopyToPaletteBuffer(gUnknown_08B18ED4, 0, 0x60);
 
     BG_Fill(gBG2TilemapBuffer, 0);
@@ -311,9 +311,9 @@ void OpSubtitle_AwaitTimer2a(struct OpSubtitleProc* proc) {
 //! FE8U = 0x080C4C60
 void sub_80C4C60(struct OpSubtitleProc* proc) {
 
-    CopyDataWithPossibleUncomp(gOpSubtitleGfxLut[proc->index].gfx, (void*)0x06001000);
+    Decompress(gOpSubtitleGfxLut[proc->index].gfx, (void*)0x06001000);
 
-    CopyDataWithPossibleUncomp(gOpSubtitleGfxLut[proc->index].tsa, gGenericBuffer);
+    Decompress(gOpSubtitleGfxLut[proc->index].tsa, gGenericBuffer);
 
     CallARM_FillTileRect(gBG0TilemapBuffer, gGenericBuffer, 0x3080);
 
@@ -329,9 +329,9 @@ void sub_80C4C60(struct OpSubtitleProc* proc) {
 //! FE8U = 0x080C4CD0
 void sub_80C4CD0(struct OpSubtitleProc* proc) {
 
-    CopyDataWithPossibleUncomp(gOpSubtitleGfxLut[proc->index].gfx, (void*)0x06001000);
+    Decompress(gOpSubtitleGfxLut[proc->index].gfx, (void*)0x06001000);
 
-    CopyDataWithPossibleUncomp(gOpSubtitleGfxLut[proc->index].tsa, gGenericBuffer);
+    Decompress(gOpSubtitleGfxLut[proc->index].tsa, gGenericBuffer);
 
     CallARM_FillTileRect(gBG0TilemapBuffer, gGenericBuffer, 0x3080);
     CallARM_FillTileRect(gBG1TilemapBuffer, gGenericBuffer, 0xE080);
@@ -348,9 +348,9 @@ void sub_80C4CD0(struct OpSubtitleProc* proc) {
 //! FE8U = 0x080C4D54
 void sub_80C4D54(int index) {
 
-    CopyDataWithPossibleUncomp(gOpSubtitleGfxLut[index].gfx, (void*)0x06005000);
+    Decompress(gOpSubtitleGfxLut[index].gfx, (void*)0x06005000);
 
-    CopyDataWithPossibleUncomp(gOpSubtitleGfxLut[index].tsa, gGenericBuffer);
+    Decompress(gOpSubtitleGfxLut[index].tsa, gGenericBuffer);
 
     CallARM_FillTileRect(gBG0TilemapBuffer, gGenericBuffer, 0x3280);
 
