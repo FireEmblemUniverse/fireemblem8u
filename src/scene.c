@@ -504,7 +504,7 @@ void InitTalk(int chr, int lines, s8 unpackBubble) {
     }
 
     if (unpackBubble != 0) {
-        CopyDataWithPossibleUncomp(gUnknown_089E8238, (void*)(GetBackgroundTileDataOffset(1) + 0x06000200));
+        Decompress(gUnknown_089E8238, (void*)(GetBackgroundTileDataOffset(1) + 0x06000200));
         CopyToPaletteBuffer(gUnknown_089E84D4, 0x60, 0x20);
     }
 
@@ -2011,7 +2011,7 @@ void TalkBubbleOpen_OnIdle(struct Proc* proc) {
         return;
     }
 
-    CopyDataWithPossibleUncomp(gUnknown_080D78EC[proc->unk64 >> 1], (void*)(GetBackgroundTileDataOffset(1) + 0x06000200));
+    Decompress(gUnknown_080D78EC[proc->unk64 >> 1], (void*)(GetBackgroundTileDataOffset(1) + 0x06000200));
 
     if (gUnknown_080D78EC[(proc->unk64 >> 1) + 1] == 0) {
         Proc_Break(proc);

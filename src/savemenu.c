@@ -445,18 +445,18 @@ void ProcSaveMenu_InitScreen(struct SaveMenuProc* proc) {
 
     CopyToPaletteBuffer(gUnknown_08A25DCC, 0x100, 0x100);
 
-    CopyDataWithPossibleUncomp(gUnknown_08A21658, (void*)(GetBackgroundTileDataOffset(3) + 0x6000000));
+    Decompress(gUnknown_08A21658, (void*)(GetBackgroundTileDataOffset(3) + 0x6000000));
 
     CallARM_FillTileRect(gBG3TilemapBuffer, gUnknown_08A25ECC, 0x8000);
 
     CopyToPaletteBuffer(gUnknown_08A268D8, 0xe0, 0x20);
 
-    CopyDataWithPossibleUncomp(gUnknown_08A26380, (void*)(GetBackgroundTileDataOffset(3) + 0x06004C00));
+    Decompress(gUnknown_08A26380, (void*)(GetBackgroundTileDataOffset(3) + 0x06004C00));
 
-    CopyDataWithPossibleUncomp(gUnknown_08A268F8, gGenericBuffer);
+    Decompress(gUnknown_08A268F8, gGenericBuffer);
     CallARM_FillTileRect(gBG2TilemapBuffer, gGenericBuffer, 0x00007260);
 
-    CopyDataWithPossibleUncomp(Img_SaveScreenSprits, (void*)0x06010800);
+    Decompress(Img_SaveScreenSprits, (void*)0x06010800);
 
     CopyToPaletteBuffer(Pal_SaveScreenSprits, 0x240, 0x100);
     CopyToPaletteBuffer(gUnknown_08A295B4, 0x40, 0x20);
@@ -515,7 +515,7 @@ void ProcSaveMenu_InitScreen(struct SaveMenuProc* proc) {
 
 //! FE8U = 0x080A8F04
 void SaveMenu_LoadExtraMenuGraphics(struct SaveMenuProc* proc) {
-    CopyDataWithPossibleUncomp(Img_GameMainMenuObjs, (void*)0x06014000);
+    Decompress(Img_GameMainMenuObjs, (void*)0x06014000);
 
     sub_80AB89C(proc);
 
@@ -1034,7 +1034,7 @@ void sub_80A9A18(struct SaveMenuProc* proc) {
     proc->unk_2f = (unk * 0xdc * unk / 0xc4);
 
     if (proc->unk_29 == 0xe) {
-        CopyDataWithPossibleUncomp(Img_GameMainMenuObjs, (void*)0x06014000);
+        Decompress(Img_GameMainMenuObjs, (void*)0x06014000);
         Proc_Break(proc);
     }
 
@@ -1374,7 +1374,7 @@ void sub_80A9E1C(struct SaveMenuProc* proc) {
             return;
         }
 
-        CopyDataWithPossibleUncomp(Img_GameMainMenuObjs, (void*)0x06014000);
+        Decompress(Img_GameMainMenuObjs, (void*)0x06014000);
         proc->unk_29 = 0;
         Proc_Goto(proc, 13);
 
@@ -1446,7 +1446,7 @@ void sub_80AA118(struct SaveMenuProc* proc) {
 
     gPlaySt.chapterStateBits |= PLAY_FLAG_7;
 
-    sub_80A6C8C();
+    ReadExtraMapInfo();
 
     gPlaySt.chapterIndex = 0x7f;
 
@@ -1594,21 +1594,21 @@ void sub_80AA30C(struct SaveMenuProc* proc) {
 
     CopyToPaletteBuffer(gUnknown_08A25DCC, 0x100, 0x100);
 
-    CopyDataWithPossibleUncomp(gUnknown_08A21658, (void*)(GetBackgroundTileDataOffset(3) + 0x6000000));
+    Decompress(gUnknown_08A21658, (void*)(GetBackgroundTileDataOffset(3) + 0x6000000));
     CallARM_FillTileRect(gBG3TilemapBuffer, gUnknown_08A25ECC, 0x8000);
     CopyToPaletteBuffer(gUnknown_08A268D8, 0xe0, 0x20);
 
-    CopyDataWithPossibleUncomp(gUnknown_08A26380, (void*)(GetBackgroundTileDataOffset(3) + 0x06004C00));
+    Decompress(gUnknown_08A26380, (void*)(GetBackgroundTileDataOffset(3) + 0x06004C00));
 
-    CopyDataWithPossibleUncomp(gUnknown_08A268F8, gGenericBuffer);
+    Decompress(gUnknown_08A268F8, gGenericBuffer);
     CallARM_FillTileRect(gBG2TilemapBuffer, gGenericBuffer, 0x00007260);
 
-    CopyDataWithPossibleUncomp(Img_SaveScreenSprits, (void*)0x06010800);
+    Decompress(Img_SaveScreenSprits, (void*)0x06010800);
     CopyToPaletteBuffer(Pal_SaveScreenSprits, 0x240, 0x100);
     CopyToPaletteBuffer(gUnknown_08A295B4, 0x40, 0x20);
 
     sub_80AA790(&gPaletteBuffer[0x12 * 0x10], &gPaletteBuffer[0x12 * 0x10] - 0x10, 1);
-    CopyDataWithPossibleUncomp(Img_GameMainMenuObjs, (void*)0x06014000);
+    Decompress(Img_GameMainMenuObjs, (void*)0x06014000);
 
     sub_80AB794();
     sub_80A8A9C(proc);

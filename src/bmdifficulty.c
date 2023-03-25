@@ -558,7 +558,7 @@ void SetupDungeonRecordUi(ProcPtr proc) {
 
     SetSpecialColorEffectsParameters(1, 6, 16, 0);
 
-    CopyDataWithPossibleUncomp(gUnknown_08A21658, (void *)BG_VRAM + GetBackgroundTileDataOffset(3));
+    Decompress(gUnknown_08A21658, (void *)BG_VRAM + GetBackgroundTileDataOffset(3));
 
     CopyToPaletteBuffer(gUnknown_08A25DCC, 0x100, 0x100);
 
@@ -566,9 +566,9 @@ void SetupDungeonRecordUi(ProcPtr proc) {
 
     // Load and display fog overlay
 
-    CopyDataWithPossibleUncomp(gUnknown_08A26380, (void *)(BG_VRAM + 0x4C00) + GetBackgroundTileDataOffset(2));
+    Decompress(gUnknown_08A26380, (void *)(BG_VRAM + 0x4C00) + GetBackgroundTileDataOffset(2));
 
-    CopyDataWithPossibleUncomp(gUnknown_08A268F8, gGenericBuffer);
+    Decompress(gUnknown_08A268F8, gGenericBuffer);
 
     CopyToPaletteBuffer(gUnknown_08A268D8, 0xE0, 0x20);
 
@@ -576,9 +576,9 @@ void SetupDungeonRecordUi(ProcPtr proc) {
 
     // Load and display "Combat Record" graphic
 
-    CopyDataWithPossibleUncomp(gUnknown_089A234C, (void *)(BG_VRAM + 0x4000) + GetBackgroundTileDataOffset(1));
+    Decompress(gUnknown_089A234C, (void *)(BG_VRAM + 0x4000) + GetBackgroundTileDataOffset(1));
 
-    CopyDataWithPossibleUncomp(gUnknown_089A27B4, gBG1TilemapBuffer);
+    Decompress(gUnknown_089A27B4, gBG1TilemapBuffer);
 
     CopyToPaletteBuffer(gUnknown_089A28E0, 0x40, 0x40);
 

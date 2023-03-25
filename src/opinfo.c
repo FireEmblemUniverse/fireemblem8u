@@ -655,7 +655,7 @@ void ClassIntro_Init(struct OpInfoEnterProc* proc) {
     proc->classNameLength = strlen(str);
 
     while (*str != 0) {
-        CopyDataWithPossibleUncomp((gUnknown_08A2F2C0[*str] != 0) ? gUnknown_08A2F2C0[*str] : gUnknown_08A2F2C0[0x58], gGenericBuffer);
+        Decompress((gUnknown_08A2F2C0[*str] != 0) ? gUnknown_08A2F2C0[*str] : gUnknown_08A2F2C0[0x58], gGenericBuffer);
         CopyTileGfxForObj(gGenericBuffer, (void*)(ptr + 0x06010000), 2, 4);
 
         str++;
@@ -665,24 +665,24 @@ void ClassIntro_Init(struct OpInfoEnterProc* proc) {
     CopyToPaletteBuffer(gUnknown_08A30780, 0x3C0, 0x20);
     CopyToPaletteBuffer(gUnknown_08A30780, 0x3E0, 0x20);
 
-    CopyDataWithPossibleUncomp(gUnknown_08A301B0, (void *)0x06016000);
+    Decompress(gUnknown_08A301B0, (void *)0x06016000);
 
     proc->unk_2c = ((240 - (((proc->classNameLength << 1) + proc->classNameLength) << 2)) >> 1) - 8;
 
     *proc->letterProcsPtr = StartClassNameIntroLetter(proc, 0);
 
-    CopyDataWithPossibleUncomp(gUnknown_08A360E8, (void *)0x6000000);
+    Decompress(gUnknown_08A360E8, (void *)0x6000000);
 
-    CopyDataWithPossibleUncomp(gUnknown_08A36284, gGenericBuffer);
+    Decompress(gUnknown_08A36284, gGenericBuffer);
     CallARM_FillTileRect(gUnknown_02022E68, gGenericBuffer, 0x4000);
 
-    CopyDataWithPossibleUncomp(gUnknown_08A35A3C, (void *)0x06000800);
+    Decompress(gUnknown_08A35A3C, (void *)0x06000800);
 
-    CopyDataWithPossibleUncomp(gUnknown_08A35FD0, gGenericBuffer);
+    Decompress(gUnknown_08A35FD0, gGenericBuffer);
     CallARM_FillTileRect(gBG1TilemapBuffer, gGenericBuffer, 0x5040);
     CopyToPaletteBuffer(gUnknown_08A360C8, 0xA0, 0x20);
 
-    CopyDataWithPossibleUncomp(gUnknown_08B17B64, (void *)0x06008000);
+    Decompress(gUnknown_08B17B64, (void *)0x06008000);
 
     sub_800154C(gBG2TilemapBuffer, gUnknown_08B18D68, 0, 5);
 
@@ -1570,12 +1570,12 @@ void ClassInfoDisplay_Init(struct OpInfoClassDisplayProc* proc) {
     BG_SetPosition(2, 0, 0);
     BG_SetPosition(3, 0, 0);
 
-    CopyDataWithPossibleUncomp(gUnknown_08A30E2C, (void *)(GetBackgroundTileDataOffset(3) + 0x6000000));
+    Decompress(gUnknown_08A30E2C, (void *)(GetBackgroundTileDataOffset(3) + 0x6000000));
     CopyToPaletteBuffer(gUnknown_08A3593C, 0xE0, 0x100);
 
     CallARM_FillTileRect(gBG3TilemapBuffer, gUnknown_08A35488, 0x7000);
 
-    CopyDataWithPossibleUncomp(gUnknown_08A30800, (void *)(GetBackgroundTileDataOffset(2) + 0x6000000));
+    Decompress(gUnknown_08A30800, (void *)(GetBackgroundTileDataOffset(2) + 0x6000000));
     CopyToPaletteBuffer(gUiFramePaletteA, 0xC0, 0x20);
 
     CallARM_FillTileRect(gBG2TilemapBuffer, gUnknown_08A30978, 0x6000);
@@ -1827,7 +1827,7 @@ void ClassInfoDisplay_Init(struct OpInfoClassDisplayProc* proc) {
         lsls r5, r5, #0x13\n\
         adds r1, r1, r5\n\
         adds r0, r4, #0\n\
-        bl CopyDataWithPossibleUncomp\n\
+        bl Decompress\n\
         ldr r0, _080B3A3C  @ gUnknown_08A3593C\n\
         movs r2, #0x80\n\
         lsls r2, r2, #1\n\
@@ -1844,7 +1844,7 @@ void ClassInfoDisplay_Init(struct OpInfoClassDisplayProc* proc) {
         adds r1, r0, #0\n\
         adds r1, r1, r5\n\
         adds r0, r4, #0\n\
-        bl CopyDataWithPossibleUncomp\n\
+        bl Decompress\n\
         ldr r0, _080B3A4C  @ gUiFramePaletteA\n\
         movs r1, #0xC0\n\
         movs r2, #0x20\n\
@@ -2406,7 +2406,7 @@ void ClassStatsDisplay_Init(struct OpInfoGaugeDrawProc* proc) {
         }
     }
 
-    CopyDataWithPossibleUncomp(gUnknown_08A36338, (void *)0x06010000);
+    Decompress(gUnknown_08A36338, (void *)0x06010000);
 
     CopyToPaletteBuffer(gUnknown_08A372C0, 0x280, 0x40);
 

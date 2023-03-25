@@ -177,6 +177,8 @@ SECTIONS
         src/bmsave-lib.o(.text);
         src/bmsave-bwl.o(.text);
         src/bmsave.o(.text);
+        src/bmsave-multiarena.o(.text);
+        src/bmsave-xmap.o(.text);
         asm/code_80A2C3C.o(.text);
         src/minimap.o(.text);
         src/savemenu.o(.text);
@@ -323,6 +325,7 @@ SECTIONS
         . = ALIGN(4); src/prep_atmenu.o(.rodata);
         . = ALIGN(4); data/const_data_205BD0.o(.rodata);
         . = ALIGN(4); src/uisupport.o(.rodata);
+        . = ALIGN(4); src/bmsave-lib.o(.rodata);
         . = ALIGN(4); data/const_data_205C9C.o(.rodata);
         . = ALIGN(4); src/minimap.o(.rodata);
         . = ALIGN(4); src/savemenu.o(.rodata);
@@ -478,6 +481,9 @@ SECTIONS
         . = ALIGN(4); src/uisupport.o(.data);
         . = ALIGN(4); data/data_A195B0.o(.data);
         . = ALIGN(4); data/data_map_change.o(.data);
+        . = ALIGN(4); src/bmsave-lib.o(.data);
+        . = ALIGN(4); src/bmsave-multiarena.o(.data);
+        . = ALIGN(4); src/bmsave-xmap.o(.data);
         . = ALIGN(4); data/data_A1FAF4.o(.data);
         . = ALIGN(4); src/minimap.o(.data);
         . = ALIGN(4); data/data_minimap.o(.data);

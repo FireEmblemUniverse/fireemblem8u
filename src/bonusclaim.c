@@ -368,7 +368,7 @@ void BonusClaim_Init(struct BonusClaimProc* proc) {
 
     CopyToPaletteBuffer(gUnknown_08B1754C, 0x180, 0x40);
     CopyToPaletteBuffer(gUnknown_08A295B4, 0x1c0, 0x20);
-    CopyDataWithPossibleUncomp(Img_CommGameBgScreen, (void*)0x06008000);
+    Decompress(Img_CommGameBgScreen, (void*)0x06008000);
 
     CallARM_FillTileRect(gBG3TilemapBuffer, gUnknown_08A295D4, 0xc000);
 

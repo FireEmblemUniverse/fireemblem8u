@@ -409,7 +409,7 @@ int FindFreeFaceSlot(void) {
 //! FE8U = 0x08005594
 void Face_OnInit(struct FaceProc* proc) {
 
-    CopyDataWithPossibleUncomp(proc->pFaceInfo->img, (void *)(sFaceConfig[proc->faceSlot].tileOffset + 0x06010000));
+    Decompress(proc->pFaceInfo->img, (void *)(sFaceConfig[proc->faceSlot].tileOffset + 0x06010000));
 
     return;
 }
@@ -653,7 +653,7 @@ void UnpackFaceChibiGraphics(int fid, int chr, int pal) {
     } else {
         const struct FaceData* info = GetPortraitData(fid);
 
-        CopyDataWithPossibleUncomp(info->imgChibi, (void *)(chr * 0x20 + VRAM));
+        Decompress(info->imgChibi, (void *)(chr * 0x20 + VRAM));
         CopyToPaletteBuffer(info->pal, pal * 0x20, 0x20);
     }
     return;
@@ -685,7 +685,7 @@ void UnpackFaceChibiSprGraphics(int fid, int chr, int pal) {
     } else {
         const struct FaceData* info = GetPortraitData(fid);
 
-        CopyDataWithPossibleUncomp(info->imgChibi, buffer);
+        Decompress(info->imgChibi, buffer);
 
         CpuFastCopy(buffer + 0x00, (void *)((chr + 0x00) * 0x20 + VRAM), 0x80);
         CpuFastCopy(buffer + 0x80, (void *)((chr + 0x20) * 0x20 + VRAM), 0x80);
@@ -811,7 +811,7 @@ void PutFace80x72_Core(u16* tm, int fid, int chr, int pal) {
     if (info->img != 0) {
         int i;
 
-        CopyDataWithPossibleUncomp(info->img, (void *)(chr * 0x20 + VRAM));
+        Decompress(info->img, (void *)(chr * 0x20 + VRAM));
         CopyToPaletteBuffer(info->pal, pal * 0x20, 0x20);
 
         if (ShouldFaceBeRaised(fid) != 0) {
@@ -826,7 +826,7 @@ void PutFace80x72_Core(u16* tm, int fid, int chr, int pal) {
         }
 
     } else {
-        CopyDataWithPossibleUncomp(info->imgCard, (void*)(chr * 0x20 + VRAM));
+        Decompress(info->imgCard, (void*)(chr * 0x20 + VRAM));
         sub_8013104(tm, (pal << 12) + (0x3FF & chr), 10, 9);
     }
 
@@ -1497,7 +1497,7 @@ void sub_8006650(struct UnkFaceProc* proc) {
 
     proc->pFaceInfo = GetPortraitData(proc->faceId);
 
-    CopyDataWithPossibleUncomp(proc->pFaceInfo->img, (void*)(sFaceConfig[proc->pFaceProc->faceSlot].tileOffset + 0x06010000));
+    Decompress(proc->pFaceInfo->img, (void*)(sFaceConfig[proc->pFaceProc->faceSlot].tileOffset + 0x06010000));
 
     CopyToPaletteBuffer(proc->pFaceInfo->pal, (sFaceConfig[proc->pFaceProc->faceSlot].paletteId + 0x10) * 0x20, 0x20);
 
@@ -1537,7 +1537,7 @@ void sub_80066E0(struct FaceProc* parent, int fid) {
 
 //! FE8U = 0x080066FC
 void sub_80066FC(int offset, int fid) {
-    CopyDataWithPossibleUncomp(GetPortraitData(fid)->img, (void*)(offset * 0x20 + VRAM));
+    Decompress(GetPortraitData(fid)->img, (void*)(offset * 0x20 + VRAM));
     return;
 }
 

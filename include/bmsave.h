@@ -1,31 +1,38 @@
 #ifndef BMSAVE_H
 #define BMSAVE_H
 
+#include "global.h"
+#include "bmunit.h"
+#include "bmbattle.h"
+#include "bmtrick.h"
+
 enum save_chunk_index {
     SAVE_ID_GAME0,
     SAVE_ID_GAME1,
     SAVE_ID_GAME2,
     SAVE_ID_SUSPEND,
     SAVE_ID_SUSPEND_ALT,
-    SAVE_ID_5,
-    SAVE_ID_6,
+    SAVE_ID_ARENA,
+    SAVE_ID_XMAP,
     SAVE_ID_MAX
 };
 
 enum {
     SAVEBLOCK_KIND_GAME,
     SAVEBLOCK_KIND_SUSPEND,
-    SAVEBLOCK_KIND_2,
-    SAVEBLOCK_KIND_3,
+    SAVEBLOCK_KIND_ARENA,
+    SAVEBLOCK_KIND_XMAP,
     SAVEBLOCK_KIND_INVALID = -1
 };
 
 enum bmsave_magics_fe8 {
-    SAVEMAGIC16      = 0x200A,
-    SAVEMAGIC32      = 0x40624,
-    SAVEMAGIC32_UNK5 = 0x20112,
-    SAVEMAGIC32_UNK6 = 0x20223,
+    SAVEMAGIC16       = 0x200A,
+    SAVEMAGIC32       = 0x40624,
+    SAVEMAGIC32_ARENA = 0x20112,
+    SAVEMAGIC32_XMAP  = 0x20223,
 };
+
+#define XMAP_MAGIC 0x50414D58 // 'XMAP'
 
 #define MAX_SAVED_GAME_CLEARS 12
 
@@ -127,6 +134,34 @@ struct bmsave_unkstruct2 {
     u16 magic2;
 };
 
+struct UnitUsageStats {
+	/* 000 */ unsigned lossAmt     : 8;
+	/* 008 */ unsigned favval      : 16;
+	/* 024 */ unsigned actAmt      : 8;
+	/* 032 */ unsigned statViewAmt : 8;
+	/* 040 */ unsigned deathLoc    : 6;
+	/* 046 */ unsigned deathTurn   : 10;
+	/* 056 */ unsigned deployAmt   : 6;
+	/* 062 */ unsigned moveAmt     : 10;
+	/* 072 */ unsigned deathCause  : 4;
+	/* 076 */ unsigned expGained   : 12;
+	/* 088 */ unsigned winAmt      : 10;
+	/* 098 */ unsigned battleAmt   : 12;
+	/* 110 */ unsigned killerPid   : 9;
+	/* 119 */ unsigned deathSkirm  : 1;
+	/* 120 */ /* 8bit pad */
+};
+
+#define BWL_ARRAY_NUM 0x46
+
+struct ChapterStats {
+    /* 00 */ u16 chapter_index : 0x07;
+             u16 chapter_turn  : 0x09;
+             u16 chapter_time  : 0x10;
+};
+
+#define WIN_ARRAY_NUM 0x30
+
 struct GameSavePackedUnit {       /* Save Data */
     /* 00 */ u32 jid      : 7;
              u32 level      : 5;
@@ -216,8 +251,89 @@ struct SuspendSavePackedUnit {     /* Suspend Data */
     /* 34 */
 };
 
+/* link arena */
+
+enum {
+    MULTIARENA_CONFIG_SHOWUNITS    = 1 << 0,
+    MULTIARENA_CONFIG_SURVIVALMODE = 1 << 1,
+    MULTIARENA_CONFIG_AUTOEQUIPOFF = 1 << 2,
+    MULTIARENA_CONFIG_3            = 1 << 3,
+};
+
+#define MULTIARENA_TEAMNAME_SIZE 14
+#define MULTIARENA_UNITS_PER_TEAM 5
+#define MULTIARENA_MAX_TEAMS 10
+#define MULTIARENA_MAX_RANKINGS 10
+
+struct MultiArenaRankingEnt {
+    /* 00 */ u32 ranking : 2;
+    /*    */ u32 player_count : 2;
+    /*    */ u32 mode : 1;
+    /*    */ u32 points : 27;
+    /* 04 */ char name[MULTIARENA_TEAMNAME_SIZE + 1];
+};
+
+struct MultiArenaSaveTeam {
+    /* 00 */ char name[MULTIARENA_TEAMNAME_SIZE + 1];
+    /* 10 */ struct GameSavePackedUnit units[MULTIARENA_UNITS_PER_TEAM];
+};
+
+struct MultiArenaSaveBlock {
+    /* 000 */ struct MultiArenaSaveTeam teams[MULTIARENA_MAX_TEAMS];
+    /* 870 */ u16 config;
+    /* 874 */ struct MultiArenaRankingEnt rankings[MULTIARENA_MAX_RANKINGS];
+};
+
+struct ExtraMapSaveHead {
+    /* 00 */ u32 xmap_magic;
+    /* 04 */ u16 xmap_size;
+    /* 06 */ u16 xmap_checksum;
+    /* 08 */ u32 save_magic32;
+    /* 0C */ u8 _pad_0C[0xF - 0xC];
+    /* 0F */ u8 unk0F;
+    /* 10 */ void const * map_sram;
+    /* 14 */ s16 map_size;
+    /* 16 */ s16 info_size;
+    /* 18 */ void const * info_sram;
+};
+
+struct ExtraMapInfo {
+    /* 00 */ struct ROMChapterData const * chapter_info;
+    /* 04 */ struct MapChangeInfo const * map_change_info;
+    /* 08 */ struct ChapterEventGroup const * event_info;
+    /* 0C */ char const * chapter_title;
+    /* 10 */ char const * msg_10;
+    /* 14 */ char const * msg_14;
+    /* 18 */ struct PlaySt * play_st;
+    /* 1C */ struct BmSt * bm_st;
+    /* 20 */ struct Unit ** active_unit;
+    /* 24 */ struct Unit * const * unit_lut;
+    /* 28 */ struct BattleUnit * bu_a;
+    /* 2C */ struct BattleUnit * bu_b;
+    /* 30 */ struct BattleHit * battle_hits;
+    /* 34 */ struct Trap * traps;
+    /* 38 */ u8 * permanent_flags;
+    /* 3C */ u8 * chapter_frags;
+};
+
+#define EWRAM_XMAP_SIZE 0x1000u
+
+extern struct UnitUsageStats *gPidStatsSaveLoc;
+extern struct UnitUsageStats gPidStatsData[BWL_ARRAY_NUM];
+#define gBWLDataArray (&gPidStatsData[-1])
+extern struct ChapterStats gChapterStats[WIN_ARRAY_NUM];
+
+extern struct MultiArenaRankingEnt CONST_DATA gInitialMultiArenaRankings[MULTIARENA_MAX_RANKINGS];
+extern struct MultiArenaSaveTeam EWRAM_DATA gMultiArenaSaveTeamBufA;
+extern struct MultiArenaSaveTeam EWRAM_DATA gMultiArenaSaveTeamBufB;
+
 extern EWRAM_DATA bool gBoolSramWorking;
 extern CONST_DATA u8 * gSram;
+extern u32 gBonusContentClaimFlags;
+extern u8 gSuspendSaveIdOffset;    /* gSaveSuBaseSlot */
+extern CONST_DATA struct ExtraMapInfo *gExtraMapInfo;
+extern CONST_DATA u8 *gpSramExtraData;
+extern EWRAM_DATA struct ExtraMapSaveHead gExtraMapSaveHead;
 
 void SramInit(void);
 bool IsSramWorking(void);
@@ -250,13 +366,13 @@ bool IsExtraSupportViewerEnabled(void);
 // ??? sub_80A33C4(???);
 bool IsExtraFreeMapEnabled(void);
 bool IsExtraBonusClaimEnabled(void);
-int sub_80A3468(const int val0, const int val1);
-int sub_80A34CC(void);
-int sub_80A3500(struct GlobalSaveInfo *buf);
-int sub_80A3544(void);
-int sub_80A3584(int param0, int param1, struct GlobalSaveInfo *buf);
-void sub_80A35EC(int unitId, u8* data, struct GlobalSaveInfo* buf);
-bool sub_80A3724(int unitA, int unitB, int supportRank);
+int GetUnitsAverageSupportValue(const int val0, const int val1);
+int GetTotalAverageSupportValue(void);
+int GetTotalGlobalSupportValue(struct GlobalSaveInfo *buf);
+int GetTotalSupportCollection(void);
+int GetGlobalBestSupport(int unitA, int unitB, struct GlobalSaveInfo *info);
+void GetGlobalSupportListFromSave(int unitId, u8* data, struct GlobalSaveInfo* buf);
+bool UpdateBestGlobalSupportValue(int unitA, int unitB, int supportRank);
 void SGM_SetCharacterKnown(s32 charId, struct GlobalSaveInfo* buf);
 bool GGM_IsCharacterKnown(int index, struct GlobalSaveInfo *buf);
 int GGM_IsAnyCharacterKnown(struct GlobalSaveInfo *buf);
@@ -267,7 +383,7 @@ bool LoadAndVerfyRankData(void *buf);
 // bool LoadBonusContentData(void *buf); // Cannot be declared due to a non-match in "bonusclaim.c"
 void SaveBonusContentData(void *buf);
 void SaveRankings(void *buf);
-void sub_80A39B4(void);
+void EraseSaveRankData(void);
 int GetNextChapterMode(void);
 int sub_80A39E4(void *buf, int chapter_mode, int difficulty);
 void SaveNewRankData(void *buf, int chapter_mode, int difficulty);
@@ -275,15 +391,15 @@ u8 JudgeGameRankSaveData(struct GameRankSaveData *old, struct GameRankSaveData *
 void GenerateGameRankSaveData(struct GameRankSaveData *buf, int chapter_mode, int difficulty);
 void SaveEndgameRankings(void);
 void sub_80A3E28(void);
-u8 sub_80A3E4C(void *buf);
+bool sub_80A3E4C(void *buf);
 void sub_80A3EA4(void *);
 int sub_80A3ED0(void *buf, int val);
 void sub_80A3F84(void);
-u8 sub_80A3FA8(void *buf);
+bool sub_80A3FA8(void *buf);
 void sub_80A4000(struct bmsave_unkstruct2 *buf);
 int sub_80A402C(void *buf, int val);
 int sub_80A402C(void *buf, int val);
-void sub_80A40A8(void);
+void LoadAndVerifySramSaveData(void);
 void ClearPidChStatsSaveData(void *sram_dest);
 void ClearPidStats_ret(void);
 void ClearPidStats(void);
@@ -372,5 +488,59 @@ int SramChecksum32(void *sram_src, int size);
 bool VerifySaveBlockChecksum(struct SaveBlockInfo *buf);
 void PopulateSaveBlockChecksum(struct SaveBlockInfo* buf);
 u16 GetGameStateChecksum_Unused(void);
+bool IsMultiArenaSaveValid(int index);
+void WriteNewMultiArenaSave(void);
+bool ReadMultiArenaSaveTeamRaw(int team, struct MultiArenaSaveTeam *dst);
+bool ReadMultiArenaSaveTeamName(int team, char *dst);
+void WriteMultiArenaSaveTeamName(int team, char *name);
+void WipeMultiArenaSaveTeam(int team);
+void CopyMultiArenaSaveTeam(int team_src, int team_dst);
+void SwapMultiArenaSaveTeams(int team_a, int team_b);
+void WriteMultiArenaSaveTeam(int team, struct Unit *units_src, char const *name_src);
+bool ReadMultiArenaSaveTeam(int team, struct Unit *units_dst, char *name_dst);
+void WriteMultiArenaSaveRankings(struct MultiArenaRankingEnt const *src);
+void ReadMultiArenaSaveRankings(struct MultiArenaRankingEnt *dst);
+void WriteMultiArenaSaveConfig(u16 const *config_src);
+void ReadMultiArenaSaveConfig(u16 *config_dst);
+bool IsMultiArenaSaveReady();
+void LoadAndVerfySuspendSave();
+// ??? ReadExtraMapSaveHead(???);
+void const * GetExtraMapMapReadAddr(void);
+unsigned  GetExtraMapMapSize(void);
+// ??? GetExtraMapInfoReadAddr(???);
+// ??? GetExtraMapInfoSize(???);
+// ??? ExtraMapChecksum(???);
+bool IsExtraMapAvailable();
+void ReadExtraMapInfo(void);
+// ??? sub_80A6D1C(???);
+// ??? sub_80A6D24(???);
+// ??? bmsave_null_false1(???);
+// ??? bmsave_null_false2(???);
+void NullBmMapHidden_(void);
+// ??? sub_80A6D4C(???);
+// ??? sub_80A6DA0(???);
+// ??? sub_80A6E24(???);
+// ??? sub_80A6EB0(???);
+// ??? sub_80A6F0C(???);
+// ??? sub_80A6F50(???);
+// ??? sub_80A6FBC(???);
+// ??? sub_80A7034(???);
+// ??? sub_80A7054(???);
+void ClearWorldMapStuff(void *ptr);
+void WriteWorldMapStuff(void *sram_dest, void *src); /* SaveWMStaff */
+void ReadWorldMapStuff(const void *sram_src, void *src);
+void sub_80A71E4(void*);
+void sub_80A71F8(void*);
+// ??? sub_80A720C(???);
+// ??? sub_80A723C(???);
+// ??? sub_80A7258(???);
+// ??? sub_80A7298(???);
+// ??? sub_80A72B0(???);
+// ??? sub_80A72EC(???);
+// ??? sub_80A7328(???);
+// ??? sub_80A733C(???);
+// ??? sub_80A734C(???);
+// ??? sub_80A7360(???);
+void sub_80A7374();
 
 #endif /* BMSAVE_H */

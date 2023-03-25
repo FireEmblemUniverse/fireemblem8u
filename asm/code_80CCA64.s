@@ -2122,14 +2122,14 @@ sub_80CECB0: @ 0x080CECB0
 	bl CopyToPaletteBuffer
 	ldr r0, _080CEEEC  @ gUnknown_08B17864
 	ldr r1, _080CEEF0  @ 0x06011000
-	bl CopyDataWithPossibleUncomp
+	bl Decompress
 	ldr r0, _080CEEF4  @ gUnknown_08B177C0
 	ldr r1, _080CEEF8  @ 0x06011800
-	bl CopyDataWithPossibleUncomp
+	bl Decompress
 	ldr r0, _080CEEFC  @ gUnknown_08B176CC
 	ldr r4, _080CEF00  @ gUnknown_02020288
 	adds r1, r4, #0
-	bl CopyDataWithPossibleUncomp
+	bl Decompress
 	movs r2, #0x80
 	lsls r2, r2, #5
 	ldr r0, _080CEEE0  @ gBG2TilemapBuffer

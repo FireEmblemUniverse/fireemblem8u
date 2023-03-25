@@ -125,7 +125,7 @@ void sub_8095C2C(struct ProcAtMenu *proc)
 void sub_8095C50(int tile, int pal)
 {
     /* "Cahpter 0", "Infomaion" */
-    CopyDataWithPossibleUncomp(gUnknown_08A1AC88, OBJ_VRAM0 + tile);
+    Decompress(gUnknown_08A1AC88, OBJ_VRAM0 + tile);
     ApplyPalette(gPal_SupportScreenBanner, pal + 0x10);
 }
 
@@ -156,9 +156,9 @@ void AtMenu_Reinitialize(struct ProcAtMenu* proc)
     Text_Init(&gPrepMainMenuTexts[0], 0xA);
 
     /* "Preparations" */
-    CopyDataWithPossibleUncomp(gUnknown_08A1A4C8, (void*)0x6014800);
+    Decompress(gUnknown_08A1A4C8, (void*)0x6014800);
     /* "Menu", "Start" button */
-    CopyDataWithPossibleUncomp(gUnknown_08A1D510, (void*)0x6016000);
+    Decompress(gUnknown_08A1D510, (void*)0x6016000);
     ApplyPalettes(gUnknown_08A1B154, 0x19, 2);
     
     sub_8095C50(0x7000, 0x6);
@@ -187,12 +187,12 @@ void AtMenu_Reinitialize(struct ProcAtMenu* proc)
     ApplyPalettes(gUiFramePaletteB, 0x2, 3);
 
     if (CheckSomethingSomewhere()) {
-        CopyDataWithPossibleUncomp(gUnknown_08A1B698, gGenericBuffer);
+        Decompress(gUnknown_08A1B698, gGenericBuffer);
         CallARM_FillTileRect(TILEMAP_LOCATED(gBG1TilemapBuffer, 1, 5), gGenericBuffer, 0x1000);
     } else {
-        CopyDataWithPossibleUncomp(gUnknown_08A1B658, gGenericBuffer);
+        Decompress(gUnknown_08A1B658, gGenericBuffer);
         CallARM_FillTileRect(TILEMAP_LOCATED(gBG1TilemapBuffer, 0x10, 2), gGenericBuffer, 0x1000);
-        CopyDataWithPossibleUncomp(gUnknown_08A1B698, gGenericBuffer);
+        Decompress(gUnknown_08A1B698, gGenericBuffer);
         CallARM_FillTileRect(TILEMAP_LOCATED(gBG1TilemapBuffer, 1, 6), gGenericBuffer, 0x1000);
     }
 
@@ -322,9 +322,9 @@ void AtMenu_CtrlLoop(struct ProcAtMenu *proc)
 
         if (B_BUTTON & gKeyStatusPtr->newKeys) {
             CleanupPrepMenuScreen(proc);
-            CopyDataWithPossibleUncomp(gUnknown_08A1B658, gGenericBuffer);
+            Decompress(gUnknown_08A1B658, gGenericBuffer);
             CallARM_FillTileRect(TILEMAP_LOCATED(gBG1TilemapBuffer, 0x10, 2), gGenericBuffer, 0x1000);
-            CopyDataWithPossibleUncomp(gUnknown_08A1B698, gGenericBuffer);
+            Decompress(gUnknown_08A1B698, gGenericBuffer);
             CallARM_FillTileRect(TILEMAP_LOCATED(gBG1TilemapBuffer, 1, 6), gGenericBuffer, 0x1000);
 
             SetPrepScreenMenuPosition(1, 6);

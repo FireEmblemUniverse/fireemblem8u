@@ -722,7 +722,7 @@ static struct MUProc* MU_CreateInternal(u16 x, u16 y, u16 classIndex, int objTil
     ap = AP_Create(MU_GetAnimationByClassId(classIndex), 10);
     AP_SwitchAnimation(ap, MU_FACING_SELECTED);
 
-    CopyDataWithPossibleUncomp(
+    Decompress(
         MU_GetSheetGfx(proc),
         MU_GetGfxBufferById(config->muIndex)
     );
@@ -945,7 +945,7 @@ void MU_StartFogBumpFx(int x, int y) {
     struct APHandle* ap;
     struct MUFogBumpFxProc* proc;
 
-    CopyDataWithPossibleUncomp(
+    Decompress(
         gUnknown_089ADD4C,
         OBJ_VRAM0 + 0x20 * 0x180
     );
@@ -1805,7 +1805,7 @@ void MU_SetSpecialSprite(struct MUProc* proc, int displayedClassId, const u16* p
         MU_GetAnimationByClassId(proc->displayedClassId)
     );
 
-    CopyDataWithPossibleUncomp(
+    Decompress(
         MU_GetSheetGfx(proc),
         MU_GetGfxBufferById(proc->pMUConfig->muIndex)
     );

@@ -580,7 +580,7 @@ sub_8011BA4: @ 0x08011BA4
 	ldr r1, [r7, #0x38]
 	ldr r2, _08011C8C  @ 0x06010000
 	adds r1, r1, r2
-	bl CopyDataWithPossibleUncomp
+	bl Decompress
 	mov r0, sl
 	bl GetStringTextWidth
 	adds r6, r0, #0

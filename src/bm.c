@@ -532,7 +532,7 @@ int BmMain_UpdateTraps(ProcPtr proc) {
 void BmMain_SuspendBeforePhase(void) {
 
     gActionData.suspendPointType = SUSPEND_POINT_PHASECHANGE;
-    WriteSuspendSave(SAVE_BLOCK_SUSPEND);
+    WriteSuspendSave(SAVE_ID_SUSPEND);
 
     return;
 }
@@ -627,7 +627,7 @@ void InitBmBgLayers(void) {
 
 //! FE8U = 0x08015680
 void LoadObjUIGfx(void) {
-    CopyDataWithPossibleUncomp(gGfx_MiscUiGraphics, gGenericBuffer);
+    Decompress(gGfx_MiscUiGraphics, gGenericBuffer);
     CopyTileGfxForObj(gGenericBuffer, (void*)0x06010000, 0x12, 4);
 
     CopyToPaletteBuffer(gPal_MiscUiGraphics, 0x200, 0x40);

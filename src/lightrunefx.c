@@ -120,9 +120,9 @@ void ProcLightRuneAnim_Init(struct ProcBmFx *proc)
 {
     int i;
 
-    CopyDataWithPossibleUncomp(Img_LightRune, BG_CHR_ADDR(BGCHR_BMFX_IMG));
+    Decompress(Img_LightRune, BG_CHR_ADDR(BGCHR_BMFX_IMG));
     ApplyPalette(Pal_LightRune, BGPAL_LIGHTRUNE_IMG);
-    CopyDataWithPossibleUncomp(Tsa_LightRune, gBmFrameTmap0);
+    Decompress(Tsa_LightRune, gBmFrameTmap0);
 
     for (i = 0; i < 0x360; i++)
         gBmFrameTmap0[i] += TILEREF(BGCHR_BMFX_IMG, BGPAL_LIGHTRUNE_IMG);
@@ -183,9 +183,9 @@ void ProcLightRuneAnim2_Init(struct ProcBmFx *proc)
 {
     int i;
 
-    CopyDataWithPossibleUncomp(Img_LightRune, BG_CHR_ADDR(BGCHR_BMFX_IMG));
+    Decompress(Img_LightRune, BG_CHR_ADDR(BGCHR_BMFX_IMG));
     ApplyPalette(Pal_LightRune, BGPAL_LIGHTRUNE_IMG);
-    CopyDataWithPossibleUncomp(Tsa_LightRune, gBmFrameTmap0);
+    Decompress(Tsa_LightRune, gBmFrameTmap0);
 
     for (i = 0; i < 0x360; i++)
         gBmFrameTmap0[i] += TILEREF(BGCHR_BMFX_IMG, BGPAL_LIGHTRUNE_IMG);
@@ -246,9 +246,9 @@ void ProcLightRuneAnim3_Init(struct ProcBmFx *proc)
 {
     int i;
 
-    CopyDataWithPossibleUncomp(Img_LightRune, BG_CHR_ADDR(BGCHR_BMFX_IMG));
+    Decompress(Img_LightRune, BG_CHR_ADDR(BGCHR_BMFX_IMG));
     ApplyPalette(Pal_LightRune, BGPAL_LIGHTRUNE_IMG);
-    CopyDataWithPossibleUncomp(Tsa_LightRune, gBmFrameTmap0);
+    Decompress(Tsa_LightRune, gBmFrameTmap0);
 
     for (i = 0; i < 0x360; i++)
         gBmFrameTmap0[i] += TILEREF(BGCHR_BMFX_IMG, BGPAL_LIGHTRUNE_IMG);

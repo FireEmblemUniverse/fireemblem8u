@@ -2300,7 +2300,7 @@ sub_8074B90: @ 0x08074B90
 	ldr r0, _08074BE4  @ 0x06010000
 	adds r1, r1, r0
 	adds r0, r2, #0
-	bl CopyDataWithPossibleUncomp
+	bl Decompress
 	ldr r4, _08074BE8  @ gUnknown_089AC9A8
 	adds r1, r5, #0
 	adds r1, #0x10

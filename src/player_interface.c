@@ -1302,8 +1302,8 @@ void InitPlayerPhaseInterface() {
 
     SetBlendTargetB(0, 0, 1, 1, 1);
 
-    CopyDataWithPossibleUncomp(gGfx_PlayerInterfaceFontTiles, (void*)(VRAM + 0x2000));
-    CopyDataWithPossibleUncomp(gGfx_PlayerInterfaceNumbers, (void*)(VRAM + 0x15C00));
+    Decompress(gGfx_PlayerInterfaceFontTiles, (void*)(VRAM + 0x2000));
+    Decompress(gGfx_PlayerInterfaceNumbers, (void*)(VRAM + 0x15C00));
 
     CpuFastSet((void*)(VRAM + 0x2EA0), (void*)(VRAM + 0x15D40), 8);
 
@@ -1692,7 +1692,7 @@ s8 IsAnyPlayerSideWindowRetracting() {
 }
 
 void MenuButtonDisp_Init(struct PlayerInterfaceProc* proc) {
-    CopyDataWithPossibleUncomp(gUnknown_08A199C8, OBJ_VRAM1 + 0x1000);
+    Decompress(gUnknown_08A199C8, OBJ_VRAM1 + 0x1000);
 
     proc->unk_46 = 136;
     proc->unk_48 = 140;

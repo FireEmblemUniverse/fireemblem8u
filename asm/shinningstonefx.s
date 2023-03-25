@@ -98,7 +98,7 @@ sub_8012A2C: @ 0x08012A2C
 	bl PlaySpacialSoundMaybe
 	ldr r0, _08012A58  @ gUnknown_089B06AC
 	ldr r1, _08012A5C  @ 0x06013800
-	bl CopyDataWithPossibleUncomp
+	bl Decompress
 	ldr r0, _08012A60  @ gUnknown_089B0700
 	movs r1, #0xa0
 	lsls r1, r1, #2

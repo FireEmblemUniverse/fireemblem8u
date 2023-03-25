@@ -971,7 +971,7 @@ void ApplyMinimapGraphics(int palId) {
         palId = 3;
     }
 
-    CopyDataWithPossibleUncomp(gGfx_MinimapTiles, gGenericBuffer);
+    Decompress(gGfx_MinimapTiles, gGenericBuffer);
 
     CopyToPaletteBuffer(gPal_MinimapTiles, palId * 0x20, 0x20);
     CopyToPaletteBuffer(gPal_08A1FFD0, (palId + 1) * 0x20, 0x20);

@@ -1,6 +1,8 @@
 #ifndef GUARD_UI_MENU_H
 #define GUARD_UI_MENU_H
 
+#include "fontgrp.h"
+
 // config
 
 enum

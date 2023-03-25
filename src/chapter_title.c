@@ -53,7 +53,7 @@ void sub_8089624(int chr, u32 titleId) {
 
     gUnknown_0203E78C.unk_02 = chr & 0x3FF;
 
-    CopyDataWithPossibleUncomp(chap_title_data[titleId].save, (void*)((chr * 0x20) + 0x6000000));
+    Decompress(chap_title_data[titleId].save, (void*)((chr * 0x20) + 0x6000000));
 
     return;
 }
@@ -67,7 +67,7 @@ void sub_8089678(int chr) {
 
     gUnknown_0203E78C.unk_00 = chr & 0x3FF;
 
-    CopyDataWithPossibleUncomp(gGfx_08A09E4C, (void*)((chr * 0x20) + 0x6000000));
+    Decompress(gGfx_08A09E4C, (void*)((chr * 0x20) + 0x6000000));
 
     return;
 }
@@ -78,7 +78,7 @@ void sub_80896A8(int chr) {
 
     gUnknown_0203E78C.unk_00 = chr & 0x3FF;
 
-    CopyDataWithPossibleUncomp(gUnknown_08A0A4E8, (void*)((chr * 0x20) + 0x6000000));
+    Decompress(gUnknown_08A0A4E8, (void*)((chr * 0x20) + 0x6000000));
 
     return;
 }

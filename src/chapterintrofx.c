@@ -360,7 +360,7 @@ int ChapterIntro_8020010(ProcPtr proc, void* unk_2, int unk_3) {
     }
 
     CopyToPaletteBuffer(gUnknown_08B1754C, unk_3 * 32, 0x40);
-    CopyDataWithPossibleUncomp(Img_CommGameBgScreen, unk_2);
+    Decompress(Img_CommGameBgScreen, unk_2);
 
     ref1 = TILEREF(0, unk_3 & 0xF);
     ref2 = TILEREF(0, (unk_3 + 1) & 0xF);
@@ -463,12 +463,12 @@ void ChapterIntro_Init(struct ChapterIntroFXProc* proc) {
     gLCDControlBuffer.bg2cnt.screenSize = 1;
     gLCDControlBuffer.bg2cnt.areaOverflowMode = 1;
 
-    CopyDataWithPossibleUncomp(gUnknown_08B17B64, BG_CHAR_ADDR(2));
+    Decompress(gUnknown_08B17B64, BG_CHAR_ADDR(2));
     CopyToPaletteBuffer(gUnknown_08B18ED4, 0, 0x60);
 
     sub_800154C(gBG2TilemapBuffer, gUnknown_08B18D68, 0, 5);
 
-    CopyDataWithPossibleUncomp(gUnknown_08B19874, OBJ_VRAM1);
+    Decompress(gUnknown_08B19874, OBJ_VRAM1);
     CopyToPaletteBuffer(gUnknown_08B19DEC, 0x240, 0x20);
 
     ChapterIntro_8020010(proc, 0, 0xE);
@@ -738,10 +738,10 @@ void ChapterIntro_8020944(struct ChapterIntroFXProc* proc) {
     SetBlendTargetA(0, 0, 1, 0, 0);
     SetBlendTargetB(0, 1, 0, 0, 0);
 
-    CopyDataWithPossibleUncomp(gUnknown_08B18F34, BG_CHAR_ADDR(2));
+    Decompress(gUnknown_08B18F34, BG_CHAR_ADDR(2));
     CopyToPaletteBuffer(gUnknown_08B19854, 0x80, 0x20);
 
-    CopyDataWithPossibleUncomp(gUnknown_08B196D8, gGenericBuffer);
+    Decompress(gUnknown_08B196D8, gGenericBuffer);
     CallARM_FillTileRect(gBG2TilemapBuffer, gGenericBuffer, 0x4000);
 
     BG_EnableSyncByMask(4);

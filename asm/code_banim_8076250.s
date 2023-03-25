@@ -645,10 +645,10 @@ sub_80766E4: @ 0x080766E4
 	bl BG_EnableSyncByMask
 	ldr r0, _0807677C  @ gUnknown_087F4798
 	ldr r1, _08076780  @ 0x06008000
-	bl CopyDataWithPossibleUncomp
+	bl Decompress
 	ldr r0, _08076784  @ gUnknown_087F798C
 	ldr r1, _08076788  @ gUnknown_02019790
-	bl CopyDataWithPossibleUncomp
+	bl Decompress
 	bl sub_806FBB8
 	ldr r0, _0807678C  @ gUnknown_0201FB0C
 	ldr r0, [r0]
@@ -2373,7 +2373,7 @@ sub_8077474: @ 0x08077474
 	ldr r0, _08077500  @ gUnknown_087F798C
 	ldr r6, _08077504  @ gUnknown_02019790
 	adds r1, r6, #0
-	bl CopyDataWithPossibleUncomp
+	bl Decompress
 	movs r1, #0xf0
 	lsls r1, r1, #3
 	adds r0, r6, r1
@@ -3578,7 +3578,7 @@ sub_8077DC8: @ 0x08077DC8
 	ldr r0, _08077E4C  @ gUnknown_087F45D0
 	ldr r4, _08077E50  @ gUnknown_02019790
 	adds r1, r4, #0
-	bl CopyDataWithPossibleUncomp
+	bl Decompress
 	ldr r1, _08077E54  @ gBG1TilemapBuffer
 	movs r5, #1
 	str r5, [sp]

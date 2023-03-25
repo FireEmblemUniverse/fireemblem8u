@@ -142,11 +142,11 @@ void PrepUnit_InitGfx()
     Prep_DrawChapterGoal(0x6000, 8);
     sub_80950E8(0x6000, 0xF);
 
-    CopyDataWithPossibleUncomp(gUnknown_08A1B730, (void*)0x06000440);
-    CopyDataWithPossibleUncomp(gUnknown_08A1B7C8, gGenericBuffer);
+    Decompress(gUnknown_08A1B730, (void*)0x06000440);
+    Decompress(gUnknown_08A1B7C8, gGenericBuffer);
     CallARM_FillTileRect(gBG1TilemapBuffer, gGenericBuffer, 0x1000);
 
-    CopyDataWithPossibleUncomp(gUnknown_08A1D510, (void*)0x6010800);
+    Decompress(gUnknown_08A1D510, (void*)0x6010800);
     ApplyPalette(Pal_MapBattleInfoNum, 0x19);
     EnablePaletteSync();
 }

@@ -1326,7 +1326,7 @@ sub_808371C: @ 0x0808371C
 	adds r0, r5, #0
 	adds r1, r4, #0
 	adds r2, r6, #0
-	bl sub_80A3724
+	bl UpdateBestGlobalSupportValue
 _0808375E:
 	pop {r4, r5, r6, r7}
 	pop {r0}
@@ -3737,14 +3737,14 @@ _080847F0:
 
 	THUMB_FUNC_END sub_808478C
 
-	THUMB_FUNC_START sub_80847F8
-sub_80847F8: @ 0x080847F8
+	THUMB_FUNC_START GetSupportTalkList
+GetSupportTalkList: @ 0x080847F8
 	ldr r0, _080847FC  @ gSupportTalkList
 	bx lr
 	.align 2, 0
 _080847FC: .4byte gSupportTalkList
 
-	THUMB_FUNC_END sub_80847F8
+	THUMB_FUNC_END GetSupportTalkList
 
 	THUMB_FUNC_START IsCharacterForceDeployed_
 IsCharacterForceDeployed_: @ 0x08084800

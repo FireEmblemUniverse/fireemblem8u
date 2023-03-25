@@ -50,7 +50,7 @@ void AgbMain()
     InitRN(AdvanceGetLCGRNValue());
     sub_8000D0C();
     sub_80A7374();
-    sub_80A40A8();
+    LoadAndVerifySramSaveData();
 
     // initialize sound
     m4aSoundInit();
@@ -58,7 +58,7 @@ void AgbMain()
 
     SetInterrupt_LCDVBlank(OnVBlank);
     sub_80BC81C();
-    SetSomeByte(1);
+    SetLang(1);
     Font_InitForUIDefault();
     StartGame();
 

@@ -403,7 +403,7 @@ int SMS_80266F0(int smsId, int frameId) {
 
     int slot = gSomeSMSLookupTable_859B66C[frameId];
 
-    CopyDataWithPossibleUncomp(GetInfo(smsId).sheet, gpSMSGfxDecompBuffer);
+    Decompress(GetInfo(smsId).sheet, gpSMSGfxDecompBuffer);
 
     switch (GetInfo(smsId).size) {
         case UNIT_ICON_SIZE_16x16:
@@ -428,7 +428,7 @@ int SMS_80266F0(int smsId, int frameId) {
 //! FE8U = 0x0802677C
 int SMS_SomethingGmapUnit(int smsId, int frameId, int slot) {
 
-    CopyDataWithPossibleUncomp(GetInfo(smsId).sheet, gpSMSGfxDecompBuffer);
+    Decompress(GetInfo(smsId).sheet, gpSMSGfxDecompBuffer);
 
     switch (GetInfo(smsId).size) {
         case UNIT_ICON_SIZE_16x16:
@@ -456,7 +456,7 @@ int UseUnitSprite(u32 id) {
 
     if (gSMSGfxIndexLookup[id] == 0xFF) {
 
-        CopyDataWithPossibleUncomp(GetInfo(id).sheet, gpSMSGfxDecompBuffer);
+        Decompress(GetInfo(id).sheet, gpSMSGfxDecompBuffer);
 
         switch (GetInfo(id).size) {
             case UNIT_ICON_SIZE_16x16:

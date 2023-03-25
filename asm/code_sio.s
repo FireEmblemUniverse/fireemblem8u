@@ -3872,13 +3872,13 @@ sub_8043244: @ 0x08043244
 	push {r4, lr}
 	ldr r4, _08043264  @ gUnknown_0203DB10
 	adds r0, r4, #0
-	bl sub_80A6A40
+	bl ReadMultiArenaSaveConfig
 	ldrb r0, [r4]
 	movs r1, #8
 	orrs r0, r1
 	strb r0, [r4]
 	adds r0, r4, #0
-	bl sub_80A6A04
+	bl WriteMultiArenaSaveConfig
 	pop {r4}
 	pop {r0}
 	bx r0
@@ -4132,7 +4132,7 @@ _08043404:
 	adds r4, r7, r0
 	adds r0, r6, #0
 	adds r1, r4, #0
-	bl sub_80A66F4
+	bl ReadMultiArenaSaveTeamName
 	lsls r0, r0, #0x18
 	asrs r0, r0, #0x18
 	cmp r0, #1
@@ -4162,7 +4162,7 @@ _08043440:
 	adds r1, r0, #0
 	adds r0, r6, #0
 	mov r2, sp
-	bl sub_80A693C
+	bl ReadMultiArenaSaveTeam
 	movs r1, #5
 	add r8, r1
 	adds r7, #0x14
@@ -4179,7 +4179,7 @@ _08043460:
 	adds r4, r1, r0
 	adds r0, r6, #0
 	adds r1, r4, #0
-	bl sub_80A66F4
+	bl ReadMultiArenaSaveTeamName
 	lsls r0, r0, #0x18
 	asrs r0, r0, #0x18
 	cmp r0, #1
@@ -4195,7 +4195,7 @@ _08043460:
 	adds r1, r0, #0
 	adds r0, r6, #0
 	mov r2, sp
-	bl sub_80A693C
+	bl ReadMultiArenaSaveTeam
 	adds r7, #1
 _08043498:
 	adds r6, #1
@@ -4406,11 +4406,11 @@ sub_80435F0: @ 0x080435F0
 	ldrb r1, [r4, #0xf]
 	movs r0, #0x7f
 	ands r0, r1
-	bl sub_80A6774
+	bl WipeMultiArenaSaveTeam
 	adds r0, r5, #0
 	adds r1, r6, #0
 	adds r2, r4, #0
-	bl sub_80A693C
+	bl ReadMultiArenaSaveTeam
 	movs r0, #0xcc
 	bl GetStringFromIndex
 	adds r1, r4, #0
@@ -4502,7 +4502,7 @@ sub_80436C0: @ 0x080436C0
 	adds r4, r4, r3
 	ldrb r2, [r4, #0xf]
 	ands r1, r2
-	bl sub_80A6840
+	bl SwapMultiArenaSaveTeams
 	ldrb r1, [r6, #0x10]
 	ldrb r0, [r4, #0x10]
 	strb r0, [r6, #0x10]
@@ -4513,7 +4513,7 @@ sub_80436C0: @ 0x080436C0
 	adds r1, r0, #0
 	mov r0, r8
 	adds r2, r6, #0
-	bl sub_80A693C
+	bl ReadMultiArenaSaveTeam
 	lsls r0, r0, #0x18
 	cmp r0, #0
 	bne _08043734
@@ -4544,7 +4544,7 @@ _08043738:
 	adds r4, r4, r0
 	adds r0, r7, #0
 	adds r2, r4, #0
-	bl sub_80A693C
+	bl ReadMultiArenaSaveTeam
 	lsls r0, r0, #0x18
 	cmp r0, #0
 	bne _08043778
@@ -4777,7 +4777,7 @@ sub_8043904: @ 0x08043904
 	bl sub_8086CE8
 	ldr r0, _08043AD4  @ gUnknown_085ABD68
 	ldr r1, _08043AD8  @ 0x06014800
-	bl CopyDataWithPossibleUncomp
+	bl Decompress
 	ldr r0, _08043ADC  @ gUnknown_02023DBA
 	ldr r1, _08043AE0  @ gUnknown_085ADF40
 	movs r2, #0x80
@@ -4790,7 +4790,7 @@ sub_8043904: @ 0x08043904
 	bl CopyToPaletteBuffer
 	ldr r0, _08043AE8  @ gUnknown_085AC604
 	ldr r1, _08043AEC  @ 0x06016000
-	bl CopyDataWithPossibleUncomp
+	bl Decompress
 	ldr r0, _08043AF0  @ gUnknown_08A1BD00
 	movs r1, #0x88
 	lsls r1, r1, #2
@@ -5251,7 +5251,7 @@ sub_8043CF4: @ 0x08043CF4
 	adds r0, r0, r3
 	ldrb r0, [r0, #0xf]
 	mov r2, sp
-	bl sub_80A693C
+	bl ReadMultiArenaSaveTeam
 	adds r0, r4, #0
 	bl sub_8092164
 	add sp, #0x10
@@ -6274,7 +6274,7 @@ sub_8044530: @ 0x08044530
 	adds r1, r0, #0
 	adds r0, r4, #0
 	mov r2, sp
-	bl sub_80A693C
+	bl ReadMultiArenaSaveTeam
 	add sp, #0x10
 	pop {r4}
 	pop {r0}
@@ -6589,7 +6589,7 @@ sub_8044768: @ 0x08044768
 	bl sub_8086CE8
 	ldr r0, _080447DC  @ gUnknown_085ABD68
 	ldr r1, _080447E0  @ 0x06014800
-	bl CopyDataWithPossibleUncomp
+	bl Decompress
 	ldr r0, _080447E4  @ gUnknown_085ADC48
 	movs r1, #0x98
 	lsls r1, r1, #2
@@ -6859,7 +6859,7 @@ _080449C2:
 	mov r0, r9
 	mov r1, r8
 	mov r2, sl
-	bl sub_80A68DC
+	bl WriteMultiArenaSaveTeam
 	pop {r3, r4, r5}
 	mov r8, r3
 	mov r9, r4
@@ -8489,13 +8489,13 @@ sub_8045640: @ 0x08045640
 	bl sub_804C33C
 	ldr r0, _0804579C  @ gUnknown_085ABD68
 	ldr r1, _080457A0  @ 0x06014800
-	bl CopyDataWithPossibleUncomp
+	bl Decompress
 	ldr r0, _080457A4  @ gUnknown_085ADA38
 	ldr r1, _080457A8  @ 0x06016000
-	bl CopyDataWithPossibleUncomp
+	bl Decompress
 	ldr r0, _080457AC  @ gUnknown_085AD0CC
 	ldr r1, _080457B0  @ 0x06016800
-	bl CopyDataWithPossibleUncomp
+	bl Decompress
 	ldr r0, _080457B4  @ gUnknown_085ADC48
 	movs r1, #0x98
 	lsls r1, r1, #2
@@ -8508,7 +8508,7 @@ sub_8045640: @ 0x08045640
 	bl CopyToPaletteBuffer
 	ldr r0, _080457BC  @ gUnknown_085ACD20
 	ldr r1, _080457C0  @ 0x06000F00
-	bl CopyDataWithPossibleUncomp
+	bl Decompress
 	ldr r0, _080457C4  @ gUnknown_085ADE08
 	movs r1, #0x40
 	movs r2, #0x20
@@ -8521,7 +8521,7 @@ sub_8045640: @ 0x08045640
 	lsls r0, r0, #0x13
 	adds r1, r1, r0
 	adds r0, r4, #0
-	bl CopyDataWithPossibleUncomp
+	bl Decompress
 	ldr r0, _080457CC  @ gUnknown_085B081C
 	movs r1, #0xa0
 	lsls r1, r1, #1
@@ -8530,7 +8530,7 @@ sub_8045640: @ 0x08045640
 	ldr r0, _080457D0  @ gUnknown_085B089C
 	ldr r4, _080457D4  @ gGenericBuffer
 	adds r1, r4, #0
-	bl CopyDataWithPossibleUncomp
+	bl Decompress
 	ldr r0, _080457D8  @ gBG3TilemapBuffer
 	movs r2, #0xa0
 	lsls r2, r2, #8
@@ -9012,7 +9012,7 @@ sub_8045A64: @ 0x08045A64
 	mov r9, r0
 	ldr r0, _08045ADC  @ gUnknown_0203DC44
 	mov r8, r0
-	bl sub_80A69DC
+	bl ReadMultiArenaSaveRankings
 	adds r0, r4, #0
 	adds r1, r6, #0
 	adds r2, r5, #0
@@ -9020,7 +9020,7 @@ sub_8045A64: @ 0x08045A64
 	bl sub_8045930
 	str r0, [r7, #0x58]
 	mov r0, r8
-	bl sub_80A69A0
+	bl WriteMultiArenaSaveRankings
 	ldr r1, [r7, #0x58]
 	movs r0, #1
 	negs r0, r0
@@ -9083,7 +9083,7 @@ _08045B1C:
 	ldr r1, _08045B80  @ gUnknown_0203DAC5
 	adds r2, r2, r1
 	adds r1, r5, #0
-	bl sub_80A693C
+	bl ReadMultiArenaSaveTeam
 	movs r7, #0
 	adds r0, r6, #1
 	mov sl, r0
@@ -9420,13 +9420,13 @@ sub_8045DC0: @ 0x08045DC0
 	bl sub_8086CE8
 	ldr r0, _08045ECC  @ gUnknown_085ABD68
 	ldr r1, _08045ED0  @ 0x06014800
-	bl CopyDataWithPossibleUncomp
+	bl Decompress
 	ldr r0, _08045ED4  @ gUnknown_085ADA38
 	ldr r1, _08045ED8  @ 0x06016000
-	bl CopyDataWithPossibleUncomp
+	bl Decompress
 	ldr r0, _08045EDC  @ gUnknown_085AC604
 	ldr r1, _08045EE0  @ 0x06016800
-	bl CopyDataWithPossibleUncomp
+	bl Decompress
 	movs r4, #0x98
 	lsls r4, r4, #2
 	movs r5, #3
@@ -9442,7 +9442,7 @@ _08045DFC:
 	ldr r4, _08045EE8  @ gUnknown_0203DA24
 	ldrb r0, [r4, #3]
 	add r1, sp, #4
-	bl sub_80A66F4
+	bl ReadMultiArenaSaveTeamName
 	ldr r0, _08045EEC  @ gUnknown_0203DB64
 	bl SetFont
 	bl Font_LoadForUI
@@ -10266,7 +10266,7 @@ sub_80464B0: @ 0x080464B0
 	ldrb r0, [r0, #3]
 	ldr r4, _08046578  @ gUnknown_085A9884
 	ldr r1, [r4]
-	bl sub_80A66C0
+	bl ReadMultiArenaSaveTeamRaw
 	movs r6, #0
 	ldr r0, _0804657C  @ gUnknown_0203DDB4
 	mov sl, r0
@@ -10697,14 +10697,14 @@ sub_8046838: @ 0x08046838
 	ldr r0, _08046970  @ 0x06000F00
 	adds r1, r1, r0
 	adds r0, r4, #0
-	bl CopyDataWithPossibleUncomp
+	bl Decompress
 	ldr r0, _08046974  @ gUnknown_085ADCC8
 	movs r1, #0xc0
 	movs r2, #0x20
 	bl CopyToPaletteBuffer
 	ldr r0, _08046978  @ gUnknown_085ABD68
 	ldr r1, _0804697C  @ 0x06014800
-	bl CopyDataWithPossibleUncomp
+	bl Decompress
 	ldr r0, _08046980  @ gUnknown_085ADC48
 	movs r1, #0x98
 	lsls r1, r1, #2
@@ -10715,7 +10715,7 @@ sub_8046838: @ 0x08046838
 	ldr r0, _08046984  @ gUnknown_085AE778
 	ldr r4, _08046988  @ gGenericBuffer
 	adds r1, r4, #0
-	bl CopyDataWithPossibleUncomp
+	bl Decompress
 	ldr r0, _0804698C  @ gUnknown_02023DEA
 	movs r2, #0x80
 	lsls r2, r2, #5
@@ -10862,7 +10862,7 @@ sub_80469C4: @ 0x080469C4
 	bl sub_8086CE8
 	ldr r0, _08046AB8  @ gUnknown_085ABD68
 	ldr r1, _08046ABC  @ 0x06014800
-	bl CopyDataWithPossibleUncomp
+	bl Decompress
 	ldr r0, _08046AC0  @ gUnknown_0203DB64
 	bl SetFont
 	bl Font_LoadForUI
@@ -11675,14 +11675,14 @@ sub_8047008: @ 0x08047008
 	ldr r0, _080471C4  @ 0x06000F00
 	adds r1, r1, r0
 	adds r0, r4, #0
-	bl CopyDataWithPossibleUncomp
+	bl Decompress
 	ldr r0, _080471C8  @ gUnknown_085ADCC8
 	movs r1, #0xc0
 	movs r2, #0x20
 	bl CopyToPaletteBuffer
 	ldr r0, _080471CC  @ gUnknown_085ABD68
 	ldr r1, _080471D0  @ 0x06014800
-	bl CopyDataWithPossibleUncomp
+	bl Decompress
 	ldr r0, _080471D4  @ gUnknown_085ADC48
 	movs r1, #0x98
 	lsls r1, r1, #2
@@ -11766,7 +11766,7 @@ _08047094:
 	movs r1, #1
 	bl sub_8043100
 	ldr r0, _08047204  @ gUnknown_0203DC44
-	bl sub_80A69DC
+	bl ReadMultiArenaSaveRankings
 	bl sub_8046F68
 	ldr r1, _08047208  @ gLCDControlBuffer
 	mov ip, r1
@@ -12037,17 +12037,17 @@ sub_8047324: @ 0x08047324
 	ldr r0, _08047524  @ 0x06000F00
 	adds r1, r1, r0
 	adds r0, r4, #0
-	bl CopyDataWithPossibleUncomp
+	bl Decompress
 	ldr r0, _08047528  @ gUnknown_085ADCC8
 	movs r1, #0xc0
 	movs r2, #0x20
 	bl CopyToPaletteBuffer
 	ldr r0, _0804752C  @ gUnknown_085ABD68
 	ldr r1, _08047530  @ 0x06014800
-	bl CopyDataWithPossibleUncomp
+	bl Decompress
 	ldr r0, _08047534  @ gUnknown_085ACEFC
 	ldr r1, _08047538  @ 0x06016000
-	bl CopyDataWithPossibleUncomp
+	bl Decompress
 	ldr r0, _0804753C  @ gUnknown_085ADE08
 	movs r1, #0x98
 	lsls r1, r1, #2
@@ -12137,7 +12137,7 @@ _080473D2:
 	adds r0, r4, #0
 	bl Text_Draw
 	ldr r0, _08047568  @ gUnknown_0203DC44
-	bl sub_80A69DC
+	bl ReadMultiArenaSaveRankings
 	bl sub_8046F68
 	ldr r1, _0804756C  @ gLCDControlBuffer
 	mov ip, r1
@@ -12562,14 +12562,14 @@ sub_8047780: @ 0x08047780
 	ldr r0, _080478F0  @ 0x06000F00
 	adds r1, r1, r0
 	adds r0, r4, #0
-	bl CopyDataWithPossibleUncomp
+	bl Decompress
 	ldr r0, _080478F4  @ gUnknown_085ADCC8
 	movs r1, #0xc0
 	movs r2, #0x20
 	bl CopyToPaletteBuffer
 	ldr r0, _080478F8  @ gUnknown_085ABD68
 	ldr r1, _080478FC  @ 0x06014800
-	bl CopyDataWithPossibleUncomp
+	bl Decompress
 	ldr r0, _08047900  @ gUnknown_085ADC48
 	movs r1, #0x98
 	lsls r1, r1, #2
@@ -12580,7 +12580,7 @@ sub_8047780: @ 0x08047780
 	ldr r0, _08047904  @ gUnknown_085AE778
 	ldr r4, _08047908  @ gGenericBuffer
 	adds r1, r4, #0
-	bl CopyDataWithPossibleUncomp
+	bl Decompress
 	ldr r0, _0804790C  @ gUnknown_02023DEA
 	movs r2, #0x80
 	lsls r2, r2, #5
@@ -12729,7 +12729,7 @@ sub_8047928: @ 0x08047928
 	movs r0, #1
 	bl sub_804320C
 	ldr r0, _08047A48  @ gUnknown_0203DB10
-	bl sub_80A6A04
+	bl WriteMultiArenaSaveConfig
 	adds r0, r6, #0
 	bl Proc_Break
 _08047952:
@@ -12990,7 +12990,7 @@ sub_8047B34: @ 0x08047B34
 	adds r6, r0, #0
 	ldr r4, _08047BC4  @ gUnknown_0203DB10
 	adds r0, r4, #0
-	bl sub_80A6A40
+	bl ReadMultiArenaSaveConfig
 	ldrb r0, [r4]
 	lsls r0, r0, #0x1c
 	lsrs r0, r0, #0x1f
@@ -13007,7 +13007,7 @@ sub_8047B34: @ 0x08047B34
 	bl sub_8086CE8
 	ldr r0, _08047BC8  @ gUnknown_085AB358
 	ldr r1, _08047BCC  @ 0x06014800
-	bl CopyDataWithPossibleUncomp
+	bl Decompress
 	ldr r0, _08047BD0  @ gUnknown_085ADBE8
 	movs r1, #0x98
 	lsls r1, r1, #2
@@ -13019,7 +13019,7 @@ sub_8047B34: @ 0x08047B34
 	bl Font_ResetAllocation
 	bl sub_8043164
 	str r4, [r6, #0x4c]
-	bl sub_80A6A68
+	bl IsMultiArenaSaveReady
 	adds r2, r6, #0
 	adds r2, #0x58
 	strb r0, [r2]
@@ -13277,7 +13277,7 @@ sub_8047D88: @ 0x08047D88
 	adds r6, r0, #0
 	ldr r4, _08047E20  @ gUnknown_0203DB10
 	adds r0, r4, #0
-	bl sub_80A6A40
+	bl ReadMultiArenaSaveConfig
 	ldrb r0, [r4]
 	lsls r0, r0, #0x1c
 	lsrs r0, r0, #0x1f
@@ -13294,7 +13294,7 @@ sub_8047D88: @ 0x08047D88
 	bl sub_8086CE8
 	ldr r0, _08047E24  @ gUnknown_085AB358
 	ldr r1, _08047E28  @ 0x06014800
-	bl CopyDataWithPossibleUncomp
+	bl Decompress
 	ldr r0, _08047E2C  @ gUnknown_085ADBE8
 	movs r1, #0x98
 	lsls r1, r1, #2
@@ -13306,7 +13306,7 @@ sub_8047D88: @ 0x08047D88
 	bl Font_ResetAllocation
 	bl sub_8043164
 	str r4, [r6, #0x4c]
-	bl sub_80A6A68
+	bl IsMultiArenaSaveReady
 	adds r2, r6, #0
 	adds r2, #0x58
 	strb r0, [r2]
@@ -13817,7 +13817,7 @@ sub_80481E0: @ 0x080481E0
 	lsls r0, r0, #0x18
 	cmp r0, #0
 	bne _08048204
-	bl sub_80A6560
+	bl WriteNewMultiArenaSave
 _08048204:
 	ldr r1, _08048250  @ gUnknown_0203DA24
 	movs r0, #0
@@ -14010,7 +14010,7 @@ _0804836C:
 	asrs r0, r0, #0x18
 	cmp r0, #0
 	bne _080483B4
-	bl sub_80A6C1C
+	bl IsExtraMapAvailable
 	lsls r0, r0, #0x18
 	cmp r0, #0
 	bne _080483B4
@@ -14612,7 +14612,7 @@ sub_804881C: @ 0x0804881C
 	bl sub_8045CBC
 	bl sub_8045CE0
 	bl sub_8041898
-	bl sub_80A6AA0
+	bl LoadAndVerfySuspendSave
 	pop {r0}
 	bx r0
 
@@ -14622,7 +14622,7 @@ sub_804881C: @ 0x0804881C
 sub_8048838: @ 0x08048838
 	push {lr}
 	bl InitGlobalSaveInfodata
-	bl sub_80A39B4
+	bl EraseSaveRankData
 	bl sub_80A3E28
 	bl sub_80A3F84
 	pop {r0}
@@ -14820,7 +14820,7 @@ sub_8048988: @ 0x08048988
 	adds r4, r0, #0
 	ldr r0, _08048A48  @ gUnknown_085AD80C
 	ldr r1, _08048A4C  @ 0x06002800
-	bl CopyDataWithPossibleUncomp
+	bl Decompress
 	ldr r0, _08048A50  @ gUnknown_085ADC48
 	movs r1, #0x40
 	movs r2, #0x80
@@ -16637,7 +16637,7 @@ sub_8049788: @ 0x08049788
 	push {lr}
 	ldr r0, _08049798  @ gUnknown_085AD9CC
 	ldr r1, _0804979C  @ 0x06013E00
-	bl CopyDataWithPossibleUncomp
+	bl Decompress
 	pop {r0}
 	bx r0
 	.align 2, 0
@@ -21921,7 +21921,7 @@ sub_804C02C: @ 0x0804C02C
 	adds r4, r0, #0
 	ldr r0, _0804C06C  @ gUnknown_089AE224
 	ldr r1, _0804C070  @ 0x06004400
-	bl CopyDataWithPossibleUncomp
+	bl Decompress
 	ldr r0, _0804C074  @ gUnknown_089AE484
 	movs r1, #0x60
 	movs r2, #0x20
@@ -22479,11 +22479,11 @@ sub_804C3EC: @ 0x0804C3EC
 	movs r3, #0xc0
 	lsls r3, r3, #0x13
 	adds r1, r1, r3
-	bl CopyDataWithPossibleUncomp
+	bl Decompress
 	ldr r0, _0804C468  @ gUnknown_085AAE0C
 	ldr r6, _0804C46C  @ gGenericBuffer
 	adds r1, r6, #0
-	bl CopyDataWithPossibleUncomp
+	bl Decompress
 	adds r4, r4, r5
 	adds r4, r4, r6
 	ldr r1, _0804C470  @ 0x06014000
@@ -24427,13 +24427,13 @@ sub_804D2A4: @ 0x0804D2A4
 	str r0, [r1]
 	ldr r0, _0804D354  @ Img_PhaseChangeUnk
 	ldr r1, _0804D358  @ 0x06014000
-	bl CopyDataWithPossibleUncomp
+	bl Decompress
 	ldr r0, _0804D35C  @ Img_PhaseChangeSquares
 	ldr r1, _0804D360  @ 0x06002000
-	bl CopyDataWithPossibleUncomp
+	bl Decompress
 	ldr r0, _0804D364  @ gUnknown_085AE7EC
 	ldr r1, _0804D368  @ 0x06002800
-	bl CopyDataWithPossibleUncomp
+	bl Decompress
 	ldr r5, _0804D36C  @ gPlaySt
 	ldrb r0, [r5, #0xf]
 	lsls r0, r0, #2
@@ -24441,7 +24441,7 @@ sub_804D2A4: @ 0x0804D2A4
 	ldr r0, [r0]
 	ldr r4, _0804D370  @ gGenericBuffer
 	adds r1, r4, #0
-	bl CopyDataWithPossibleUncomp
+	bl Decompress
 	ldr r1, _0804D374  @ 0x06002980
 	adds r0, r4, #0
 	movs r2, #3
@@ -25112,7 +25112,7 @@ sub_804D80C: @ 0x0804D80C
 	push {lr}
 	ldr r0, _0804D828  @ gGfx_SupportMenu
 	ldr r1, _0804D82C  @ 0x06016800
-	bl CopyDataWithPossibleUncomp
+	bl Decompress
 	ldr r0, _0804D830  @ gPal_SupportMenu
 	movs r1, #0x90
 	lsls r1, r1, #2

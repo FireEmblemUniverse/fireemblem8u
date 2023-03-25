@@ -353,6 +353,7 @@ extern struct UnitDefinition gUnitDefSumDK[];
 extern struct Unit gUnitArrayBlue[62];
 extern struct Unit gUnitArrayRed[50];
 extern struct Unit gUnitArrayGreen[20];
+extern CONST_DATA struct Unit *gUnitLookup[0x100];
 
 void InitUnits(void);
 void ClearUnit(struct Unit* unit);

@@ -526,49 +526,7 @@ struct MapChange
     /* 08 */ const void* data;
 };
 
-struct UnitUsageStats
-{
-	/* 000 */ unsigned lossAmt     : 8;
-	/* 008 */ unsigned favval      : 16;
-	/* 024 */ unsigned actAmt      : 8;
-	/* 032 */ unsigned statViewAmt : 8;
-	/* 040 */ unsigned deathLoc    : 6;
-	/* 046 */ unsigned deathTurn   : 10;
-	/* 056 */ unsigned deployAmt   : 6;
-	/* 062 */ unsigned moveAmt     : 10;
-	/* 072 */ unsigned deathCause  : 4;
-	/* 076 */ unsigned expGained   : 12;
-	/* 088 */ unsigned winAmt      : 10;
-	/* 098 */ unsigned battleAmt   : 12;
-	/* 110 */ unsigned killerPid   : 9;
-	/* 119 */ unsigned deathSkirm  : 1;
-	/* 120 */ /* 8bit pad */
-};
-
-#define BWL_ARRAY_NUM 0x46
-
-struct ChapterStats {
-    /* 00 */ u16 chapter_index : 0x07;
-             u16 chapter_turn  : 0x09;
-             u16 chapter_time  : 0x10;
-};
-
-#define WIN_ARRAY_NUM 0x30
-
 enum { UNIT_SUPPORT_MAX_COUNT = 7 };
-
-enum
-{
-    SAVE_BLOCK_SAVE_BASE      = 0,
-    SAVE_BLOCK_SAVE1          = SAVE_BLOCK_SAVE_BASE + 0,
-    SAVE_BLOCK_SAVE2          = SAVE_BLOCK_SAVE_BASE + 1,
-    SAVE_BLOCK_SAVE3          = SAVE_BLOCK_SAVE_BASE + 2,
-
-    SAVE_BLOCK_SUSPEND_BASE   = 3,
-    SAVE_BLOCK_SUSPEND        = SAVE_BLOCK_SUSPEND_BASE + 0,
-    SAVE_BLOCK_SUSPEND_BACKUP = SAVE_BLOCK_SUSPEND_BASE + 1,
-    // TODO: 5 & 6
-};
 
 enum
 {

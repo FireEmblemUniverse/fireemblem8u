@@ -647,7 +647,7 @@ _080AC09A:
 	bl CopyToPaletteBuffer
 	ldr r0, _080AC188  @ Img_DifficultyMenuObjs
 	ldr r1, _080AC18C  @ 0x06010800
-	bl CopyDataWithPossibleUncomp
+	bl Decompress
 	ldr r0, _080AC190  @ Pal_DifficultyMenuObjs
 	movs r1, #0x88
 	lsls r1, r1, #2
@@ -669,7 +669,7 @@ _080AC09A:
 	ldr r0, _080AC19C  @ gUnknown_08A29558
 	ldr r5, _080AC1A0  @ gGenericBuffer
 	adds r1, r5, #0
-	bl CopyDataWithPossibleUncomp
+	bl Decompress
 	movs r0, #0xd1
 	lsls r0, r0, #1
 	adds r4, r4, r0
@@ -1881,10 +1881,10 @@ sub_80AC9D4: @ 0x080AC9D4
 	beq _080ACA2E
 	ldr r0, _080ACA3C  @ gUnknown_0859EDB0
 	ldr r1, _080ACA40  @ 0x060100C0
-	bl CopyDataWithPossibleUncomp
+	bl Decompress
 	ldr r0, _080ACA44  @ gUnknown_0859EDEC
 	ldr r1, _080ACA48  @ 0x060104C0
-	bl CopyDataWithPossibleUncomp
+	bl Decompress
 _080ACA2E:
 	pop {r3}
 	mov r8, r3
@@ -2303,14 +2303,14 @@ sub_80ACCF4: @ 0x080ACCF4
 	ldr r0, _080ACD54  @ gUnknown_08A1C7D8
 	ldr r2, _080ACD58  @ 0x06010000
 	adds r1, r4, r2
-	bl CopyDataWithPossibleUncomp
+	bl Decompress
 _080ACD24:
 	cmp r6, #1
 	bne _080ACD32
 	ldr r0, _080ACD5C  @ gUnknown_08A1C704
 	ldr r2, _080ACD58  @ 0x06010000
 	adds r1, r4, r2
-	bl CopyDataWithPossibleUncomp
+	bl Decompress
 _080ACD32:
 	asrs r1, r4, #5
 	movs r2, #0xf
@@ -2960,7 +2960,7 @@ sub_80AD1D0: @ 0x080AD1D0
 	ldr r0, _080AD1FC  @ gUnknown_08A2E950
 	ldr r2, _080AD200  @ 0x06010000
 	adds r1, r4, r2
-	bl CopyDataWithPossibleUncomp
+	bl Decompress
 _080AD1F2:
 	pop {r4}
 	pop {r0}
@@ -3370,7 +3370,7 @@ sub_80AD4A0: @ 0x080AD4A0
 	ldr r0, _080AD4DC  @ Img_PrepTextShadow
 	ldr r2, _080AD4E0  @ 0x06010000
 	adds r1, r5, r2
-	bl CopyDataWithPossibleUncomp
+	bl Decompress
 _080AD4D0:
 	pop {r4, r5}
 	pop {r0}
@@ -4001,7 +4001,7 @@ sub_80AD950: @ 0x080AD950
 	ldr r0, _080AD98C  @ gUnknown_085B92C4
 	ldr r2, _080AD990  @ 0x06010000
 	adds r1, r4, r2
-	bl CopyDataWithPossibleUncomp
+	bl Decompress
 	ldr r0, _080AD994  @ pPalette1Buffer
 	adds r1, r6, #0
 	adds r1, #0x10
@@ -4313,7 +4313,7 @@ StartSmallBrownNameBoxes: @ 0x080ADB7C
 	ldr r0, _080ADBF0  @ gUnknown_08A1B0D8
 	ldr r2, _080ADBF4  @ 0x06010000
 	adds r1, r4, r2
-	bl CopyDataWithPossibleUncomp
+	bl Decompress
 	ldr r0, _080ADBF8  @ gUnknown_08A1B154
 	mov r1, r8
 	adds r1, #0x10
@@ -5848,7 +5848,7 @@ _080AE64A:
 	ldr r2, [r5, #0x48]
 	muls r2, r3, r2
 	adds r1, r1, r2
-	bl CopyDataWithPossibleUncomp
+	bl Decompress
 _080AE66A:
 	ldrh r1, [r6, #8]
 	ldr r0, [r5, #0x44]
@@ -6343,7 +6343,7 @@ sub_80AE9B0: @ 0x080AE9B0
 	ldr r0, _080AEA20  @ 0x06010000
 	adds r1, r1, r0
 	adds r0, r5, #0
-	bl CopyDataWithPossibleUncomp
+	bl Decompress
 _080AE9E0:
 	cmp r6, #0
 	beq _080AE9F4
@@ -7532,7 +7532,7 @@ _080AF1E6:
 	ble _080AF1E6
 	ldr r1, _080AF218  @ 0x06010800
 	adds r0, r5, #0
-	bl CopyDataWithPossibleUncomp
+	bl Decompress
 	ldr r0, _080AF21C  @ gUnknown_08A2C8A8
 	movs r1, #0xe8
 	lsls r1, r1, #2
@@ -8118,7 +8118,7 @@ sub_80AF524: @ 0x080AF524
 	bl sub_80AF338
 	ldr r0, _080AF7B8  @ gUnknown_08A2C908
 	ldr r1, _080AF7BC  @ 0x06004000
-	bl CopyDataWithPossibleUncomp
+	bl Decompress
 	ldr r0, _080AF7C0  @ gUnknown_08A01EE4
 	movs r1, #0x80
 	movs r2, #0x20
@@ -8148,7 +8148,7 @@ sub_80AF524: @ 0x080AF524
 	bl sub_80AF4D0
 	ldr r0, _080AF7D0  @ gUnknown_08A2D32C
 	ldr r1, _080AF7D4  @ 0x06016000
-	bl CopyDataWithPossibleUncomp
+	bl Decompress
 	ldr r0, _080AF7D8  @ gUnknown_08A2E1B8
 	movs r1, #0xe0
 	lsls r1, r1, #2
@@ -8213,7 +8213,7 @@ sub_80AF524: @ 0x080AF524
 	strb r0, [r2]
 	ldr r0, _080AF7E0  @ gUnknown_08A2CABC
 	ldr r1, _080AF7E4  @ 0x06012000
-	bl CopyDataWithPossibleUncomp
+	bl Decompress
 	ldr r0, _080AF7E8  @ gUnknown_08A2D2CC
 	movs r1, #0x98
 	lsls r1, r1, #2
@@ -9968,7 +9968,7 @@ sub_80B04F8: @ 0x080B04F8
 	bl CopyToPaletteBuffer
 	ldr r0, _080B0594  @ Img_CommGameBgScreen
 	ldr r1, _080B0598  @ 0x06001000
-	bl CopyDataWithPossibleUncomp
+	bl Decompress
 	ldr r0, _080B059C  @ gBG0TilemapBuffer
 	ldr r1, _080B05A0  @ gUnknown_08A295D4
 	movs r2, #0x80
@@ -9983,10 +9983,10 @@ sub_80B04F8: @ 0x080B04F8
 	bl CopyToPaletteBuffer
 	ldr r0, _080B05A8  @ gUnknown_08A29A88
 	ldr r1, _080B05AC  @ 0x06010800
-	bl CopyDataWithPossibleUncomp
+	bl Decompress
 	ldr r0, _080B05B0  @ gUnknown_08A2B1E4
 	ldr r1, _080B05B4  @ 0x06014000
-	bl CopyDataWithPossibleUncomp
+	bl Decompress
 	ldr r0, _080B05B8  @ sub_80B0458
 	bl SetPrimaryHBlankHandler
 	ldr r2, _080B05BC  @ gLCDControlBuffer

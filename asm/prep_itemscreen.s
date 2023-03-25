@@ -109,7 +109,7 @@ sub_8098448: @ 0x08098448
 	adds r4, r0, #0
 	ldr r0, _08098468  @ gUnknown_08A1B1FC
 	ldr r1, _0809846C  @ 0x06013000
-	bl CopyDataWithPossibleUncomp
+	bl Decompress
 	ldr r0, _08098470  @ gUnknown_08A1B638
 	ldr r1, [r4, #0x34]
 	adds r1, #0x10
@@ -637,7 +637,7 @@ _08098746:
 	bl ForceSyncUnitSpriteSheet
 	ldr r0, _080989AC  @ Img_PrepTextShadow
 	ldr r1, _080989B0  @ 0x06013E00
-	bl CopyDataWithPossibleUncomp
+	bl Decompress
 	movs r0, #0x3c
 	str r0, [sp]
 	movs r0, #0
@@ -1092,7 +1092,7 @@ sub_8098C3C: @ 0x08098C3C
 	lsls r1, r1, #0x13
 	adds r2, r2, r1
 	adds r1, r2, #0
-	bl CopyDataWithPossibleUncomp
+	bl Decompress
 	ldr r0, _08098C88  @ gPlaySt
 	adds r0, #0x41
 	ldrb r1, [r0]
@@ -1124,7 +1124,7 @@ PutImg_PrepPopupWindow: @ 0x08098C8C
 	ldr r1, _08098CB8  @ 0x06010000
 	adds r2, r2, r1
 	adds r1, r2, #0
-	bl CopyDataWithPossibleUncomp
+	bl Decompress
 	ldr r0, _08098CBC  @ gUiFramePaletteD
 	adds r4, #0x10
 	lsls r4, r4, #5
@@ -1176,7 +1176,7 @@ sub_8098CC0: @ 0x08098CC0
 	ldr r0, _08098D78  @ gUnknown_08A1B8B8
 	ldr r4, _08098D7C  @ gGenericBuffer
 	adds r1, r4, #0
-	bl CopyDataWithPossibleUncomp
+	bl Decompress
 	ldr r0, _08098D80  @ gBG1TilemapBuffer
 	movs r2, #0x80
 	lsls r2, r2, #5
@@ -2130,7 +2130,7 @@ sub_80994C4: @ 0x080994C4
 	ldr r0, _080995C0  @ gUnknown_08A1B8B8
 	ldr r4, _080995C4  @ gGenericBuffer
 	adds r1, r4, #0
-	bl CopyDataWithPossibleUncomp
+	bl Decompress
 	ldr r0, _080995C8  @ gBG1TilemapBuffer
 	movs r2, #0x80
 	lsls r2, r2, #5
@@ -2886,7 +2886,7 @@ sub_8099AF8: @ 0x08099AF8
 	ldr r0, _08099C40  @ gUnknown_08A1B8B8
 	ldr r5, _08099C44  @ gGenericBuffer
 	adds r1, r5, #0
-	bl CopyDataWithPossibleUncomp
+	bl Decompress
 	ldr r4, _08099C48  @ gBG1TilemapBuffer
 	movs r6, #0x80
 	lsls r6, r6, #5
@@ -2896,7 +2896,7 @@ sub_8099AF8: @ 0x08099AF8
 	bl CallARM_FillTileRect
 	ldr r0, _08099C4C  @ gUnknown_08A1B990
 	adds r1, r5, #0
-	bl CopyDataWithPossibleUncomp
+	bl Decompress
 	ldr r0, _08099C50  @ 0x0000025E
 	adds r4, r4, r0
 	adds r0, r4, #0

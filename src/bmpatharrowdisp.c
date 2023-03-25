@@ -161,7 +161,7 @@ bool8 PathContainsNoCycle(void) {
 }
 
 void PathArrowDisp_Init(u8 a) {
-    CopyDataWithPossibleUncomp(gUnknown_08A03054, (void *) OBJ_VRAM0 + 0x5E00);
+    Decompress(gUnknown_08A03054, (void *) OBJ_VRAM0 + 0x5E00);
     CopyToPaletteBuffer(gUnknown_08A0328C, 0x98 * 4, 0x20);
     if (a == 0) {
         gUnknown_0859DBA0.proc->maxMov =
