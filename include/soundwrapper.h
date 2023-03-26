@@ -30,7 +30,7 @@ int IsMusicProc2Running(void);
 // ??? sub_800296C(???);
 // ??? sub_80029BC(???);
 void sub_80029E8(int songId, int b, int c, int d, ProcPtr parent);
-int MusicProc4Exists(void);
+s8 MusicProc4Exists(void);
 // ??? sub_8002A88(???);
 void DeleteAll6CWaitMusicRelated();
 void sub_8002AC8(void);

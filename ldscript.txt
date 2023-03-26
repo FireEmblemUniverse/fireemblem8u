@@ -186,7 +186,8 @@ SECTIONS
         asm/savedraw.o(.text);
         src/savedrawcursor.o(.text);
         asm/code_80A882C.o(.text);
-        asm/soundroom.o(.text);
+        src/soundroom.o(.text);
+        src/extramenu_unk.o(.text);
         src/bonusclaim.o(.text);
         src/uiconfig.o(.text);
         asm/code_80B24DC.o(.text);
