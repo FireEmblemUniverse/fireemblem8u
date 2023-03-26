@@ -39,7 +39,12 @@ void sub_80B0458(void) {
     return;
 }
 
-extern u16 gUnknown_08A21550[]; // bgconfig
+u16 CONST_DATA gUnknown_08A21550[] = {
+    0x0000, 0x6000, 0x0000,
+    0x0000, 0x6800, 0x0000,
+    0x8000, 0x7800, 0x0000,
+    0x8000, 0x7800, 0x0000,
+};
 
 //! FE8U = 0x080B04BC
 void sub_80B04BC(struct Proc8A21568* proc) {
@@ -96,7 +101,16 @@ void sub_80B05C4(struct Proc8A21568* proc) {
     return;
 }
 
-extern struct ProcCmd gUnknown_08A21568[];
+struct ProcCmd CONST_DATA gUnknown_08A21568[] = {
+    PROC_CALL(sub_80B04BC),
+    PROC_CALL(sub_80B04F8),
+
+    PROC_SET_END_CB(nullsub_66),
+
+    PROC_REPEAT(sub_80B05C4),
+
+    PROC_END,
+};
 
 //! FE8U = 0x080B060C
 void sub_80B060C(ProcPtr parent) {

@@ -49,17 +49,6 @@ struct Proc8A21530 {
     /* 2C */ int unk_2c;
 };
 
-extern u16 gUnknown_08A214A6[]; // sprite
-extern u16 gUnknown_08A214AE[]; // sprite
-extern u16* gUnknown_08A21508[]; // sprite array
-
-extern u16 gUnknown_08A2146A[]; // sprite
-extern u16 gUnknown_08A2148A[]; // sprite
-extern u16 gUnknown_08A2149E[]; // sprite
-extern u16 gUnknown_08A21440[]; // sprite
-extern u16 gUnknown_08A2144E[]; // sprite
-extern u16 gUnknown_08A2145C[]; // sprite
-
 struct Unknown201F148 {
     /* 00 */ struct Font font;
     /* 18 */ struct TextHandle th1;
@@ -99,7 +88,16 @@ extern u8 gUnknown_08A2C92C[];
 extern u8 gUnknown_08A2C5A8[];
 extern u8 gUnknown_08A2C7A4[];
 
+// forward declarations
+void sub_80AF878(struct SoundRoomProc*);
+void sub_80AFF30(void);
+void sub_80B0018(int);
+ProcPtr sub_80B0444(ProcPtr);
+
+// TODO: Move elsewhere?
 void sub_80AC844(void*, int, int, int, int, int, int, int);
+
+// TODO: Decompile these next
 s8 sub_80AECEC(struct SoundRoomProc*, int);
 void sub_80AED64(struct SoundRoomProc*);
 void sub_80AEF24(struct SoundRoomProc*);
@@ -107,6 +105,9 @@ void sub_80AEF64(struct SoundRoomProc*);
 void sub_80AF0E0(struct SoundRoomProc*);
 void sub_80AF140(struct SoundRoomProc*);
 void sub_80AF1D8(void);
+void sub_80AF220(ProcPtr);
+void nullsub_65(void);
+void sub_80AF22C(ProcPtr);
 void sub_80AF338(struct SoundRoomProc*);
 void sub_80AF350(struct SoundRoomProc*);
 int sub_80AF378(struct SoundRoomProc*);
@@ -114,10 +115,17 @@ void sub_80AF3C8(struct SoundRoomProc*);
 void sub_80AF4D0(u16*, struct SoundRoomProc*);
 void sub_80AF510(void);
 
-void sub_80AF878(struct SoundRoomProc*);
-void sub_80AFF30(void);
-void sub_80B0018(int);
-ProcPtr sub_80B0444(ProcPtr);
+struct ProcCmd CONST_DATA gUnknown_08A21308[] = {
+    PROC_SLEEP(0),
+    PROC_CALL(sub_80AF220),
+
+    PROC_SLEEP(0),
+    PROC_CALL(nullsub_65),
+
+    PROC_REPEAT(sub_80AF22C),
+
+    PROC_END,
+};
 
 //! FE8U = 0x080AF524
 void sub_80AF524(struct SoundRoomProc* proc) {
@@ -628,7 +636,59 @@ void sub_80AFE8C(struct SoundRoomProc* proc) {
     return;
 }
 
-extern struct ProcCmd gUnknown_08A21338[];
+struct ProcCmd CONST_DATA gUnknown_08A21338[] = {
+    PROC_SLEEP(0),
+
+    PROC_CALL(sub_80AF524),
+
+    PROC_CALL_ARG(NewFadeIn, 4),
+    PROC_WHILE(FadeInExists),
+
+    PROC_WHILE(MusicProc4Exists),
+
+PROC_LABEL(0),
+    PROC_REPEAT(sub_80AF8A0),
+
+    // fallthrough
+
+PROC_LABEL(1),
+    PROC_CALL(sub_80AFBBC),
+    PROC_REPEAT(sub_80AFC60),
+    PROC_REPEAT(sub_80AFC98),
+    PROC_CALL(sub_80AFCE4),
+    PROC_REPEAT(sub_80AFCF8),
+
+    PROC_GOTO(0),
+
+PROC_LABEL(2),
+    PROC_CALL(sub_80AFBBC),
+    PROC_REPEAT(sub_80AFC60),
+    PROC_CALL(sub_80AFD48),
+    PROC_REPEAT(sub_80AFD5C),
+
+    PROC_SLEEP(16),
+
+    PROC_REPEAT(sub_80AFDF4),
+    PROC_REPEAT(sub_80AFE8C),
+    PROC_CALL(sub_80AFCE4),
+    PROC_REPEAT(sub_80AFCF8),
+
+    PROC_SLEEP(16),
+
+    PROC_GOTO(0),
+
+PROC_LABEL(3),
+    PROC_REPEAT(sub_80AFA64),
+
+    PROC_CALL_ARG(NewFadeOut, 4),
+    PROC_WHILE(FadeOutExists),
+
+    PROC_CALL(sub_80AFA94),
+
+    PROC_SLEEP(0),
+
+    PROC_END,
+};
 
 //! FE8U = 0x080AFF1C
 ProcPtr StartSoundRoomScreen(ProcPtr parent) {
@@ -766,7 +826,6 @@ void sub_80B017C(int x, int y, int param_3, int param_4) {
     return;
 }
 
-
 //! FE8U = 0x080B0204
 void sub_80B0204(struct Proc8A21530* proc) {
     int i;
@@ -784,6 +843,124 @@ void sub_80B0204(struct Proc8A21530* proc) {
 
     return;
 }
+
+// Sound Room Control PlayButton
+u16 CONST_DATA gUnknown_08A21440[] = {
+    2,
+    0x0000, 0x4008, 0x0550,
+    0x4000, 0x8020, 0x0512,
+};
+
+// Sound Room Control StopButton
+u16 CONST_DATA gUnknown_08A2144E[] = {
+    2,
+    0x4000, 0x8000, 0x0552,
+    0x4000, 0x8020, 0x0516,
+};
+
+// Sound Room Control RandomMode Button
+u16 CONST_DATA gUnknown_08A2145C[] = {
+    2,
+    0x4000, 0x8000, 0x0556,
+    0x4000, 0x8020, 0x051A,
+};
+
+// Sound Room RANDOM MODE
+u16 CONST_DATA gUnknown_08A2146A[] = {
+    5,
+    0x4000, 0x8000, 0x0500,
+    0x4000, 0x8020, 0x0504,
+    0x4000, 0x8040, 0x0508,
+    0x4000, 0x8060, 0x050C,
+    0x0000, 0x4080, 0x0510,
+};
+
+// Sound Room RANDOMMODE Seek bar knob at playback position
+u16 CONST_DATA gUnknown_08A2148A[] = {
+    3,
+    0x4000, 0x4000, 0x0560,
+    0x4000, 0x4020, 0x0564,
+    0x0000, 0x0040, 0x0568,
+};
+
+// Sound Room RANDOMMODE Seek bar at playback position
+u16 CONST_DATA gUnknown_08A2149E[] = {
+    1,
+    0x0000, 0x0000, 0x014F,
+};
+
+u16 CONST_DATA gUnknown_08A214A6[] = {
+    1,
+    0x4000, 0x4000, 0x0140,
+};
+
+u16 CONST_DATA gUnknown_08A214AE[] = {
+    1,
+    0x0000, 0x0000, 0x014E,
+};
+
+u16 CONST_DATA gSprite_08A214B6[] = {
+    1,
+    OAM0_SHAPE_8x8, OAM1_SIZE_8x8, OAM2_CHR(0x144),
+};
+
+u16 CONST_DATA gSprite_08A214BE[] = {
+    1,
+    OAM0_SHAPE_8x8, OAM1_SIZE_8x8, OAM2_CHR(0x145),
+};
+
+u16 CONST_DATA gSprite_08A214C6[] = {
+    1,
+    OAM0_SHAPE_8x8, OAM1_SIZE_8x8, OAM2_CHR(0x146),
+};
+
+u16 CONST_DATA gSprite_08A214CE[] = {
+    1,
+    OAM0_SHAPE_8x8, OAM1_SIZE_8x8, OAM2_CHR(0x147),
+};
+
+u16 CONST_DATA gSprite_08A214D6[] = {
+    1,
+    OAM0_SHAPE_8x8, OAM1_SIZE_8x8, OAM2_CHR(0x148),
+};
+
+u16 CONST_DATA gSprite_08A214DE[] = {
+    1,
+    OAM0_SHAPE_8x8, OAM1_SIZE_8x8, OAM2_CHR(0x149),
+};
+
+u16 CONST_DATA gSprite_08A214E6[] = {
+    1,
+    OAM0_SHAPE_8x8, OAM1_SIZE_8x8, OAM2_CHR(0x14A),
+};
+
+u16 CONST_DATA gSprite_08A214EE[] = {
+    1,
+    OAM0_SHAPE_8x8, OAM1_SIZE_8x8, OAM2_CHR(0x14B),
+};
+
+u16 CONST_DATA gSprite_08A214F6[] = {
+    1,
+    OAM0_SHAPE_8x8, OAM1_SIZE_8x8, OAM2_CHR(0x14C),
+};
+
+u16 CONST_DATA gSprite_08A214FE[] = {
+    1,
+    OAM0_SHAPE_8x8, OAM1_SIZE_8x8, OAM2_CHR(0x14D),
+};
+
+u16* CONST_DATA gUnknown_08A21508[] = {
+    gSprite_08A214B6,
+    gSprite_08A214BE,
+    gSprite_08A214C6,
+    gSprite_08A214CE,
+    gSprite_08A214D6,
+    gSprite_08A214DE,
+    gSprite_08A214E6,
+    gSprite_08A214EE,
+    gSprite_08A214F6,
+    gSprite_08A214FE,
+};
 
 //! FE8U = 0x080B0240
 void sub_80B0240(int x, int y, int time) {
@@ -849,16 +1026,23 @@ void sub_80B0324(struct Proc8A21530* proc) {
         sub_80B0240(0x30, y, parent->unk_2c);
     }
 
-    PutSprite(0xb, (parent->unk_3d * 8 + 17) & 0x000001FF, 88, gUnknown_08A21440, 0x3000);
-    PutSprite(0xb, (parent->unk_3d * 8 + 17) & 0x000001FF, 104, gUnknown_08A2144E, 0x3000);
-    PutSprite(0xb, (parent->unk_3d * 8 + 17) & 0x000001FF, 120, gUnknown_08A2145C, 0x3000);
+    PutSprite(0xb, (parent->unk_3d * 8 + 17) & 0x1FF, 88, gUnknown_08A21440, 0x3000);
+    PutSprite(0xb, (parent->unk_3d * 8 + 17) & 0x1FF, 104, gUnknown_08A2144E, 0x3000);
+    PutSprite(0xb, (parent->unk_3d * 8 + 17) & 0x1FF, 120, gUnknown_08A2145C, 0x3000);
 
     sub_80B0204(proc);
 
     return;
 }
 
-extern struct ProcCmd gUnknown_08A21530[];
+struct ProcCmd CONST_DATA gUnknown_08A21530[] = {
+    PROC_SLEEP(0),
+
+    PROC_CALL(sub_80B031C),
+    PROC_REPEAT(sub_80B0324),
+
+    PROC_END,
+};
 
 //! FE8U = 0x080B0444
 ProcPtr sub_80B0444(ProcPtr parent) {
