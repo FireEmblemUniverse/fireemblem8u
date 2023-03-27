@@ -15,14 +15,11 @@ jobs:
     steps:
     - uses: actions/checkout@v3
 
-    - name: Install prebuilt agbcc
-      run: cp -rf /usr/local/bin/agbcc/ tools/
+    - name: Install tools
+      run: cd tools/ && for d in *; do mv /usr/local/bin/$d $d/; done && cp -rf /usr/local/bin/agbcc . && cd ..
 
     - name: Install dependencies
-      run: apk add python3 perl build-base libpng-dev
-
-    - name: Build tools
-      run: sh build_tools.sh
+      run: apk add python3 perl
 
     - name: Mock base ROM
       run: head -c 16777216 /dev/urandom > baserom.gba
