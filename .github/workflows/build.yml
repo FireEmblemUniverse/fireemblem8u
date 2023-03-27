@@ -23,30 +23,30 @@ jobs:
       url: ${{ steps.deployment.outputs.page_url }}
 
     runs-on: ubuntu-latest
-    container: laqieer/gba-disasm-decomp-tools:fireemblem8u
 
     steps:
+    - name: Install dependencies
+      run: apt-get update && apt-get install -y build-essential binutils-arm-none-eabi libpng-dev
+
     - uses: actions/checkout@v3
 
-    - name: Install tools
-      run: cd tools/ && for d in *; do mv /usr/local/bin/$d $d/; done && cp -rf /usr/local/bin/agbcc . && cd ..
+    - name: Install agbcc
+      run: git clone -b fix-dwarf-debug-line https://github.com/StanHash/agbcc.git && cd agbcc/ && ./build.sh && ./install.sh .. && cd ..
 
-    - name: Install dependencies
-      run: apk add python3 perl
+    - name: Build tools
+      run: ./build_tools.sh
 
     - name: Mock base ROM
-      run: head -c 16777216 /dev/urandom > baserom.gba
+      run: head -c 16M /dev/urandom > baserom.gba
 
     - name: Build target ROM
       run: make fireemblem8.gba
 
-    - uses: actions/upload-artifact@v3
-      with:
-        name: linker-mapfile
-        path: fireemblem8.map
+    - name: Calculate decomp progress
+      run: scripts/calcrom.sh > _site/progress.txt
 
-    - name: Analyze decomp progress
-      run: mkdir _site/ && sh scripts/calcrom.sh | tee _site/index.txt
+    - name: Extract symbol table
+      run: arm-none-eabi-nm -l -n fireemblem8.elf | grep -v '^00' | uniq > _site/symbols.txt
 
     - name: Setup Pages
       uses: actions/configure-pages@v3
