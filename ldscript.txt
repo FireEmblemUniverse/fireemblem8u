@@ -133,6 +133,7 @@ SECTIONS
         src/uimenu.o(.text);
         src/uiselecttarget.o(.text);
         asm/code_battleanim.o(.text);
+        src/ekrlevelup.o(.text);
         asm/ekrlevelup.o(.text);
         asm/code_banim_8076250.o(.text);
         src/monstergen.o(.text);
@@ -308,6 +309,8 @@ SECTIONS
         . = ALIGN(4); src/uimenu.o(.rodata);
         . = ALIGN(4); src/uiselecttarget.o(.rodata);
         . = ALIGN(4); data/const_data_DA3A4.o(.rodata);
+        . = ALIGN(4); src/ekrlevelup.o(.rodata);
+        . = ALIGN(4); data/const_data_E162A.o(.rodata);
         . = ALIGN(4); src/msg_data.o(.rodata);
         . = ALIGN(4); data/const_data_chapter_maps.o(.rodata);
         . = ALIGN(4); data/const_data_unit_icon_wait.o(.rodata);
@@ -429,6 +432,8 @@ SECTIONS
         . = ALIGN(4); src/uimenu.o(.data);
         . = ALIGN(4); src/uiselecttarget.o(.data);
         . = ALIGN(4); data/data_5B65C0.o(.data);
+        . = ALIGN(4); src/ekrlevelup.o(.data);
+        . = ALIGN(4); data/data_7593DC.o(.data);
         . = ALIGN(4); data/data_btl_bg.o(.data);
         . = ALIGN(4); data/data_78D500.o(.data);
         . = ALIGN(4); src/data_characters.o(.data);

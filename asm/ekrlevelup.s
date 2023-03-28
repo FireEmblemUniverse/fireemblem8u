@@ -2,112 +2,8 @@
 
 	.SYNTAX UNIFIED
 
-    @ level up UI for anime-on
-
-	THUMB_FUNC_START NewEkrLevelup
-NewEkrLevelup: @ 0x08073988
-	push {r4, r5, r6, lr}
-	adds r4, r0, #0
-	ldr r5, _080739B8  @ gpProcEkrLevelup
-	ldr r0, _080739BC  @ ProcScr_EkrLevelupUi
-	movs r1, #3
-	bl Proc_Start
-	adds r6, r0, #0
-	str r6, [r5]
-	str r4, [r6, #0x5c]
-	adds r0, r4, #0
-	bl GetCoreAIStruct
-	str r0, [r6, #0x60]
-	ldr r0, _080739C0  @ gUnknown_0203E120
-	movs r1, #0
-	ldrsh r0, [r0, r1]
-	cmp r0, #4
-	beq _080739C4
-	adds r1, r6, #0
-	adds r1, #0x2a
-	movs r0, #0
-	b _080739CA
-	.align 2, 0
-_080739B8: .4byte gpProcEkrLevelup
-_080739BC: .4byte ProcScr_EkrLevelupUi
-_080739C0: .4byte gUnknown_0203E120
-_080739C4:
-	adds r1, r6, #0
-	adds r1, #0x2a
-	movs r0, #1
-_080739CA:
-	strb r0, [r1]
-	movs r0, #0
-	movs r1, #0
-	strh r1, [r6, #0x2c]
-	adds r1, r6, #0
-	adds r1, #0x29
-	strb r0, [r1]
-	pop {r4, r5, r6}
-	pop {r0}
-	bx r0
-
-	THUMB_FUNC_END NewEkrLevelup
-
-	THUMB_FUNC_START sub_80739E0
-sub_80739E0: @ 0x080739E0
-	push {r4, lr}
-	adds r4, r0, #0
-	adds r0, #0x2a
-	ldrb r1, [r0]
-	cmp r1, #0
-	beq _080739F4
-	adds r0, r4, #0
-	bl Proc_Break
-	b _08073A46
-_080739F4:
-	ldrh r0, [r4, #0x2c]
-	adds r0, #1
-	strh r0, [r4, #0x2c]
-	lsls r0, r0, #0x10
-	asrs r0, r0, #0x10
-	cmp r0, #1
-	bne _08073A12
-	bl NewEfxSpellCast
-	ldr r0, [r4, #0x5c]
-	movs r1, #0x78
-	movs r2, #0x58
-	bl sub_80749F4
-	b _08073A46
-_08073A12:
-	cmp r0, #0x19
-	bne _08073A24
-	ldr r0, [r4, #0x5c]
-	bl sub_8074964
-	ldr r0, [r4, #0x5c]
-	bl sub_8074A60
-	b _08073A46
-_08073A24:
-	cmp r0, #0x3b
-	bne _08073A30
-	ldr r0, [r4, #0x5c]
-	bl sub_80748C4
-	b _08073A46
-_08073A30:
-	cmp r0, #0x49
-	bne _08073A3A
-	bl sub_8055000
-	b _08073A46
-_08073A3A:
-	cmp r0, #0x53
-	bne _08073A46
-	strh r1, [r4, #0x2c]
-	adds r0, r4, #0
-	bl Proc_Break
-_08073A46:
-	pop {r4}
-	pop {r0}
-	bx r0
-
-	THUMB_FUNC_END sub_80739E0
-
-	THUMB_FUNC_START sub_8073A4C
-sub_8073A4C: @ 0x08073A4C
+	THUMB_FUNC_START EkrLvup_InitScreen
+EkrLvup_InitScreen: @ 0x08073A4C
 	push {r4, r5, r6, r7, lr}
 	mov r7, sl
 	mov r6, r9
@@ -324,10 +220,10 @@ _08073B6E:
 	orrs r0, r6
 	strb r0, [r4, #0x18]
 _08073C24:
-	ldr r0, _08073CD8  @ gUnknown_02020134
+	ldr r0, _08073CD8  @ gEkrLvupScrollPos1
 	movs r1, #0x90
 	strh r1, [r0]
-	ldr r0, _08073CDC  @ gUnknown_02020136
+	ldr r0, _08073CDC  @ gEkrLvupScrollPos2
 	strh r1, [r0]
 	movs r0, #2
 	movs r1, #0
@@ -396,15 +292,15 @@ _08073C24:
 	.align 2, 0
 _08073CD0: .4byte 0x0000F3FF
 _08073CD4: .4byte gLCDControlBuffer
-_08073CD8: .4byte gUnknown_02020134
-_08073CDC: .4byte gUnknown_02020136
+_08073CD8: .4byte gEkrLvupScrollPos1
+_08073CDC: .4byte gEkrLvupScrollPos2
 _08073CE0: .4byte gUnknown_020200D8
 _08073CE4: .4byte gUnknown_020200DC
 
-	THUMB_FUNC_END sub_8073A4C
+	THUMB_FUNC_END EkrLvup_InitScreen
 
-	THUMB_FUNC_START UiEkrLu_InitLevelUpBox
-UiEkrLu_InitLevelUpBox: @ 0x08073CE8
+	THUMB_FUNC_START EkrLvup_InitLevelUpBox
+EkrLvup_InitLevelUpBox: @ 0x08073CE8
 	push {r4, r5, r6, r7, lr}
 	mov r7, r9
 	mov r6, r8
@@ -510,7 +406,7 @@ _08073DBA:
 	add r0, sp, #8
 	bl CpuFastSet
 	adds r0, r7, #0
-	bl sub_807352C
+	bl EkrLvup_InitStatusText
 	adds r0, r7, #0
 	bl Proc_Break
 	add sp, #0xc
@@ -527,10 +423,10 @@ _08073E0C: .4byte gFaces
 _08073E10: .4byte gBG2TilemapBuffer
 _08073E14: .4byte 0x01000200
 
-	THUMB_FUNC_END UiEkrLu_InitLevelUpBox
+	THUMB_FUNC_END EkrLvup_InitLevelUpBox
 
-	THUMB_FUNC_START UiEkrLu_SetBgs
-UiEkrLu_SetBgs: @ 0x08073E18
+	THUMB_FUNC_START EkrLvup_SetBgs
+EkrLvup_SetBgs: @ 0x08073E18
 	push {r4, lr}
 	adds r4, r0, #0
 	ldr r0, _08073E44  @ sub_8074834
@@ -550,10 +446,10 @@ UiEkrLu_SetBgs: @ 0x08073E18
 	.align 2, 0
 _08073E44: .4byte sub_8074834
 
-	THUMB_FUNC_END UiEkrLu_SetBgs
+	THUMB_FUNC_END EkrLvup_SetBgs
 
-	THUMB_FUNC_START sub_8073E48
-sub_8073E48: @ 0x08073E48
+	THUMB_FUNC_START EkrLvup_InitPalette
+EkrLvup_InitPalette: @ 0x08073E48
 	push {r4, lr}
 	adds r4, r0, #0
 	ldrh r0, [r4, #0x2c]
@@ -587,10 +483,10 @@ _08073E7E:
 _08073E84: .4byte gPaletteBuffer
 _08073E88: .4byte gUnknown_020165C8
 
-	THUMB_FUNC_END sub_8073E48
+	THUMB_FUNC_END EkrLvup_InitPalette
 
-	THUMB_FUNC_START UiEkrLu_PutWindowOnScreen
-UiEkrLu_PutWindowOnScreen: @ 0x08073E8C
+	THUMB_FUNC_START EkrLvup_PutWindowOnScreen
+EkrLvup_PutWindowOnScreen: @ 0x08073E8C
 	push {r4, r5, r6, r7, lr}
 	mov r7, sl
 	mov r6, r9
@@ -670,7 +566,7 @@ _08073EE2:
 	adds r3, r5, #0
 	bl Interpolate
 	mov sl, r0
-	ldr r5, _08073FA0  @ gUnknown_02020134
+	ldr r5, _08073FA0  @ gEkrLvupScrollPos1
 	str r4, [sp]
 	movs r0, #0
 	movs r1, #0x90
@@ -678,7 +574,7 @@ _08073EE2:
 	adds r3, r6, #0
 	bl Interpolate
 	strh r0, [r5]
-	ldr r5, _08073FA4  @ gUnknown_02020136
+	ldr r5, _08073FA4  @ gEkrLvupScrollPos2
 	str r4, [sp]
 	movs r0, #0
 	movs r1, #0x90
@@ -730,16 +626,16 @@ _08073F8E:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_08073FA0: .4byte gUnknown_02020134
-_08073FA4: .4byte gUnknown_02020136
+_08073FA0: .4byte gEkrLvupScrollPos1
+_08073FA4: .4byte gEkrLvupScrollPos2
 _08073FA8: .4byte gFaces
 _08073FAC: .4byte gUnknown_020165C8
 _08073FB0: .4byte gPaletteBuffer
 
-	THUMB_FUNC_END UiEkrLu_PutWindowOnScreen
+	THUMB_FUNC_END EkrLvup_PutWindowOnScreen
 
-	THUMB_FUNC_START UiEkrLu_PrepareApGfx
-UiEkrLu_PrepareApGfx: @ 0x08073FB4
+	THUMB_FUNC_START EkrLvup_PrepareApGfx
+EkrLvup_PrepareApGfx: @ 0x08073FB4
 	push {r4, lr}
 	adds r4, r0, #0
 	movs r0, #0xa0
@@ -762,10 +658,10 @@ _08073FC8:
 	.align 2, 0
 _08073FDC: .4byte gUnknown_020200B8
 
-	THUMB_FUNC_END UiEkrLu_PrepareApGfx
+	THUMB_FUNC_END EkrLvup_PrepareApGfx
 
-	THUMB_FUNC_START UiEkrLu_Promo_WindowScroll0
-UiEkrLu_Promo_WindowScroll0: @ 0x08073FE0
+	THUMB_FUNC_START EkrLvup_Promo_WindowScroll0
+EkrLvup_Promo_WindowScroll0: @ 0x08073FE0
 	push {r4, r5, lr}
 	adds r5, r0, #0
 	adds r0, #0x2a
@@ -807,10 +703,10 @@ _08074034: .4byte sub_8074874
 _08074038: .4byte gUnknown_020200D8
 _0807403C: .4byte 0x000002CD
 
-	THUMB_FUNC_END UiEkrLu_Promo_WindowScroll0
+	THUMB_FUNC_END EkrLvup_Promo_WindowScroll0
 
-	THUMB_FUNC_START UiEkrLu_Promo_DrawPromoNewClassName
-UiEkrLu_Promo_DrawPromoNewClassName: @ 0x08074040
+	THUMB_FUNC_START EkrLvup_Promo_DrawPromoNewClassName
+EkrLvup_Promo_DrawPromoNewClassName: @ 0x08074040
 	push {r4, r5, lr}
 	sub sp, #4
 	adds r5, r0, #0
@@ -822,7 +718,7 @@ UiEkrLu_Promo_DrawPromoNewClassName: @ 0x08074040
 	bl Proc_Break
 	b _080740AC
 _08074056:
-	ldr r4, _080740B4  @ gUnknown_02020134
+	ldr r4, _080740B4  @ gEkrLvupScrollPos1
 	movs r2, #0x80
 	lsls r2, r2, #5
 	movs r0, #0x2c
@@ -843,18 +739,18 @@ _08074056:
 	ldrsh r1, [r5, r2]
 	cmp r0, r1
 	ble _080740AC
-	ldr r1, _080740B8  @ gUnknown_02020108
-	ldr r0, _080740BC  @ gUnknown_0202010C
+	ldr r1, _080740B8  @ gpEkrLvupUnit
+	ldr r0, _080740BC  @ gpEkrLvupBattleUnit
 	ldr r0, [r0]
 	str r0, [r1]
 	adds r0, r5, #0
-	bl sub_8073910
-	ldr r1, _080740C0  @ gUnknown_02020110
-	ldr r0, _080740C4  @ gUnknown_02020112
+	bl EkrLvup_DrawUnitName
+	ldr r1, _080740C0  @ gEkrLvupPreLevel
+	ldr r0, _080740C4  @ gEkrLvupPostLevel
 	ldrh r0, [r0]
 	strh r0, [r1]
 	adds r0, r5, #0
-	bl sub_8073948
+	bl EkrLvup_DrawPreLevelValue
 	movs r0, #0
 	strh r0, [r5, #0x2c]
 	movs r0, #8
@@ -867,16 +763,16 @@ _080740AC:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_080740B4: .4byte gUnknown_02020134
-_080740B8: .4byte gUnknown_02020108
-_080740BC: .4byte gUnknown_0202010C
-_080740C0: .4byte gUnknown_02020110
-_080740C4: .4byte gUnknown_02020112
+_080740B4: .4byte gEkrLvupScrollPos1
+_080740B8: .4byte gpEkrLvupUnit
+_080740BC: .4byte gpEkrLvupBattleUnit
+_080740C0: .4byte gEkrLvupPreLevel
+_080740C4: .4byte gEkrLvupPostLevel
 
-	THUMB_FUNC_END UiEkrLu_Promo_DrawPromoNewClassName
+	THUMB_FUNC_END EkrLvup_Promo_DrawPromoNewClassName
 
-	THUMB_FUNC_START UiEkrLu_Promo_WindowScroll1
-UiEkrLu_Promo_WindowScroll1: @ 0x080740C8
+	THUMB_FUNC_START EkrLvup_Promo_WindowScroll1
+EkrLvup_Promo_WindowScroll1: @ 0x080740C8
 	push {r4, r5, lr}
 	sub sp, #4
 	adds r5, r0, #0
@@ -888,7 +784,7 @@ UiEkrLu_Promo_WindowScroll1: @ 0x080740C8
 	bl Proc_Break
 	b _08074110
 _080740DE:
-	ldr r4, _08074118  @ gUnknown_02020134
+	ldr r4, _08074118  @ gEkrLvupScrollPos1
 	movs r1, #0x80
 	lsls r1, r1, #5
 	movs r0, #0x2c
@@ -917,12 +813,12 @@ _08074110:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_08074118: .4byte gUnknown_02020134
+_08074118: .4byte gEkrLvupScrollPos1
 
-	THUMB_FUNC_END UiEkrLu_Promo_WindowScroll1
+	THUMB_FUNC_END EkrLvup_Promo_WindowScroll1
 
-	THUMB_FUNC_START UiEkrLu_DrawNewLevel
-UiEkrLu_DrawNewLevel: @ 0x0807411C
+	THUMB_FUNC_START EkrLvup_DrawNewLevel
+EkrLvup_DrawNewLevel: @ 0x0807411C
 	push {r4, r5, lr}
 	sub sp, #8
 	adds r5, r0, #0
@@ -938,12 +834,12 @@ UiEkrLu_DrawNewLevel: @ 0x0807411C
 	movs r2, #0x84
 	movs r3, #0x3c
 	bl sub_8074D58
-	ldr r1, _08074168  @ gUnknown_02020110
-	ldr r0, _0807416C  @ gUnknown_02020112
+	ldr r1, _08074168  @ gEkrLvupPreLevel
+	ldr r0, _0807416C  @ gEkrLvupPostLevel
 	ldrh r0, [r0]
 	strh r0, [r1]
 	adds r0, r5, #0
-	bl sub_8073948
+	bl EkrLvup_DrawPreLevelValue
 	ldr r4, _08074170  @ 0x000002CD
 	movs r1, #0x80
 	lsls r1, r1, #1
@@ -957,8 +853,8 @@ UiEkrLu_DrawNewLevel: @ 0x0807411C
 	bl Proc_Break
 	b _0807418E
 	.align 2, 0
-_08074168: .4byte gUnknown_02020110
-_0807416C: .4byte gUnknown_02020112
+_08074168: .4byte gEkrLvupPreLevel
+_0807416C: .4byte gEkrLvupPostLevel
 _08074170: .4byte 0x000002CD
 _08074174:
 	ldr r4, _08074198  @ gUnknown_020200D8
@@ -979,10 +875,10 @@ _0807418E:
 	.align 2, 0
 _08074198: .4byte gUnknown_020200D8
 
-	THUMB_FUNC_END UiEkrLu_DrawNewLevel
+	THUMB_FUNC_END EkrLvup_DrawNewLevel
 
-	THUMB_FUNC_START UiEkrLu_InitCounterForMainAnim
-UiEkrLu_InitCounterForMainAnim: @ 0x0807419C
+	THUMB_FUNC_START EkrLvup_InitCounterForMainAnim
+EkrLvup_InitCounterForMainAnim: @ 0x0807419C
 	push {lr}
 	adds r1, r0, #0
 	adds r0, #0x2a
@@ -1008,10 +904,10 @@ _080741C8:
 	pop {r0}
 	bx r0
 
-	THUMB_FUNC_END UiEkrLu_InitCounterForMainAnim
+	THUMB_FUNC_END EkrLvup_InitCounterForMainAnim
 
-	THUMB_FUNC_START UiEkrLu_MainAnime
-UiEkrLu_MainAnime: @ 0x080741CC
+	THUMB_FUNC_START EkrLvup_MainAnime
+EkrLvup_MainAnime: @ 0x080741CC
 	push {r4, r5, r6, r7, lr}
 	mov r7, r8
 	push {r7}
@@ -1030,14 +926,14 @@ UiEkrLu_MainAnime: @ 0x080741CC
 	ldrsh r0, [r5, r1]
 	cmp r0, #8
 	beq _080742A6
-	ldr r7, _08074278  @ gUnknown_02020114
+	ldr r7, _08074278  @ gEkrLvupBaseStatus
 _080741F2:
 	movs r2, #0x2e
 	ldrsh r0, [r5, r2]
 	lsls r0, r0, #1
 	adds r3, r0, r7
 	ldrh r2, [r3]
-	ldr r1, _0807427C  @ gUnknown_02020124
+	ldr r1, _0807427C  @ gEkrLvupPostStatus
 	adds r0, r0, r1
 	ldrh r0, [r0]
 	subs r6, r0, r2
@@ -1049,7 +945,7 @@ _080741F2:
 	movs r2, #0x2e
 	ldrsh r1, [r5, r2]
 	adds r0, r5, #0
-	bl sub_80738B8
+	bl EkrLvup_DrawUpdatedStatus
 	movs r0, #0x76
 	movs r1, #0x80
 	lsls r1, r1, #1
@@ -1058,7 +954,7 @@ _080741F2:
 	movs r1, #0x38
 	movs r2, #0
 	bl sub_8071AB0
-	ldr r1, _08074280  @ gUnknown_080E15CC
+	ldr r1, _08074280  @ sEfxLvupPartsPos
 	movs r0, #0x2e
 	ldrsh r4, [r5, r0]
 	lsls r0, r4, #1
@@ -1097,9 +993,9 @@ _08074272:
 	strh r0, [r5, #0x2c]
 	b _0807429E
 	.align 2, 0
-_08074278: .4byte gUnknown_02020114
-_0807427C: .4byte gUnknown_02020124
-_08074280: .4byte gUnknown_080E15CC
+_08074278: .4byte gEkrLvupBaseStatus
+_0807427C: .4byte gEkrLvupPostStatus
+_08074280: .4byte sEfxLvupPartsPos
 _08074284: .4byte gUnknown_0203E1B0
 _08074288: .4byte gUnknown_0203E1B4
 _0807428C: .4byte 0x0000FFFF
@@ -1129,10 +1025,10 @@ _080742B0:
 	pop {r0}
 	bx r0
 
-	THUMB_FUNC_END UiEkrLu_MainAnime
+	THUMB_FUNC_END EkrLvup_MainAnime
 
-	THUMB_FUNC_START UiEkrLu_SetHBlank
-UiEkrLu_SetHBlank: @ 0x080742BC
+	THUMB_FUNC_START EkrLvup_SetHBlank
+EkrLvup_SetHBlank: @ 0x080742BC
 	push {r4, lr}
 	adds r4, r0, #0
 	ldrh r0, [r4, #0x2c]
@@ -1156,23 +1052,23 @@ _080742E2:
 	.align 2, 0
 _080742E8: .4byte sub_8074834
 
-	THUMB_FUNC_END UiEkrLu_SetHBlank
+	THUMB_FUNC_END EkrLvup_SetHBlank
 
-	THUMB_FUNC_START UiEkrLu_DoNothing
-UiEkrLu_DoNothing: @ 0x080742EC
+	THUMB_FUNC_START EkrLvup_DoNothing
+EkrLvup_DoNothing: @ 0x080742EC
 	push {lr}
 	bl Proc_Break
 	pop {r0}
 	bx r0
 
-	THUMB_FUNC_END UiEkrLu_DoNothing
+	THUMB_FUNC_END EkrLvup_DoNothing
 
-	THUMB_FUNC_START UiEkrLu_PutWindowOffScreen
-UiEkrLu_PutWindowOffScreen: @ 0x080742F8
+	THUMB_FUNC_START EkrLvup_PutWindowOffScreen
+EkrLvup_PutWindowOffScreen: @ 0x080742F8
 	push {r4, r5, r6, r7, lr}
 	sub sp, #4
 	adds r7, r0, #0
-	ldr r5, _080743AC  @ gUnknown_02020134
+	ldr r5, _080743AC  @ gEkrLvupScrollPos1
 	movs r0, #0x2c
 	ldrsh r3, [r7, r0]
 	movs r4, #8
@@ -1182,7 +1078,7 @@ UiEkrLu_PutWindowOffScreen: @ 0x080742F8
 	movs r2, #0x90
 	bl Interpolate
 	strh r0, [r5]
-	ldr r5, _080743B0  @ gUnknown_02020136
+	ldr r5, _080743B0  @ gEkrLvupScrollPos2
 	movs r0, #0x2c
 	ldrsh r3, [r7, r0]
 	str r4, [sp]
@@ -1252,16 +1148,16 @@ _080743A2:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_080743AC: .4byte gUnknown_02020134
-_080743B0: .4byte gUnknown_02020136
+_080743AC: .4byte gEkrLvupScrollPos1
+_080743B0: .4byte gEkrLvupScrollPos2
 _080743B4: .4byte gFaces
 _080743B8: .4byte gUnknown_020165C8
 _080743BC: .4byte gPaletteBuffer
 
-	THUMB_FUNC_END UiEkrLu_PutWindowOffScreen
+	THUMB_FUNC_END EkrLvup_PutWindowOffScreen
 
-	THUMB_FUNC_START UiEkrLu_ResetScreen
-UiEkrLu_ResetScreen: @ 0x080743C0
+	THUMB_FUNC_START EkrLvup_ResetScreen
+EkrLvup_ResetScreen: @ 0x080743C0
 	push {r4, r5, r6, lr}
 	sub sp, #0x2c
 	adds r5, r0, #0
@@ -1434,10 +1330,10 @@ _0807452C:
 	.align 2, 0
 _08074540: .4byte gLCDControlBuffer
 
-	THUMB_FUNC_END UiEkrLu_ResetScreen
+	THUMB_FUNC_END EkrLvup_ResetScreen
 
-	THUMB_FUNC_START UiEkrLu_OnEnd
-UiEkrLu_OnEnd: @ 0x08074544
+	THUMB_FUNC_START EkrLvup_OnEnd
+EkrLvup_OnEnd: @ 0x08074544
 	push {r4, lr}
 	adds r4, r0, #0
 	ldr r0, _08074578  @ gUnknown_020200D8
@@ -1462,7 +1358,7 @@ UiEkrLu_OnEnd: @ 0x08074544
 _08074578: .4byte gUnknown_020200D8
 _0807457C: .4byte gUnknown_020200DC
 
-	THUMB_FUNC_END UiEkrLu_OnEnd
+	THUMB_FUNC_END EkrLvup_OnEnd
 
 	THUMB_FUNC_START sub_8074580
 sub_8074580: @ 0x08074580
@@ -1497,8 +1393,8 @@ _080745A6:
 _080745AE:
 	movs r3, #0
 	movs r6, #0
-	ldr r5, _080745D8  @ gUnknown_02020134
-	ldr r4, _080745DC  @ gUnknown_02020136
+	ldr r5, _080745D8  @ gEkrLvupScrollPos1
+	ldr r4, _080745DC  @ gEkrLvupScrollPos2
 _080745B6:
 	cmp r3, #0x27
 	bhi _080745E0
@@ -1512,8 +1408,8 @@ _080745C8: .4byte gUnknown_0201FB38
 _080745CC: .4byte gUnknown_0201FC78
 _080745D0: .4byte gUnknown_0201FDC4
 _080745D4: .4byte gUnknown_0201FF04
-_080745D8: .4byte gUnknown_02020134
-_080745DC: .4byte gUnknown_02020136
+_080745D8: .4byte gEkrLvupScrollPos1
+_080745DC: .4byte gEkrLvupScrollPos2
 _080745E0:
 	cmp r3, #0x47
 	bhi _080745EE
@@ -1607,7 +1503,7 @@ _08074658:
 	bhi _080746A4
 	movs r0, #0
 	ldrsh r1, [r6, r0]
-	ldr r0, _0807469C  @ gUnknown_02020134
+	ldr r0, _0807469C  @ gEkrLvupScrollPos1
 	ldrh r0, [r0]
 	muls r0, r1, r0
 	lsls r0, r0, #4
@@ -1632,7 +1528,7 @@ _0807468C: .4byte gUnknown_0201FC78
 _08074690: .4byte gUnknown_0201FDC4
 _08074694: .4byte gUnknown_0201FF04
 _08074698: .4byte gUnknown_0875941C
-_0807469C: .4byte gUnknown_02020134
+_0807469C: .4byte gEkrLvupScrollPos1
 _080746A0: .4byte 0x0000FFE0
 _080746A4:
 	cmp r4, #0x9f
@@ -4529,7 +4425,7 @@ DrawBattlePopup: @ 0x08075CA8
 	ldr r0, _08075D1C  @ gUnknown_08803CD0
 	ldr r1, _08075D20  @ gUnknown_02019790
 	bl LZ77UnCompWram
-	ldr r0, _08075D24  @ gUnknown_02017648
+	ldr r0, _08075D24  @ gSomeFontStruct
 	ldr r1, _08075D28  @ 0x06002100
 	movs r2, #0x84
 	lsls r2, r2, #1
@@ -4563,7 +4459,7 @@ _08075D14: .4byte gUnknown_08803B30
 _08075D18: .4byte 0x06002000
 _08075D1C: .4byte gUnknown_08803CD0
 _08075D20: .4byte gUnknown_02019790
-_08075D24: .4byte gUnknown_02017648
+_08075D24: .4byte gSomeFontStruct
 _08075D28: .4byte 0x06002100
 _08075D2C: .4byte gUnknown_08803CB0
 _08075D30: .4byte pPalette1Buffer
@@ -4605,7 +4501,7 @@ _08075D7A:
 	lsls r1, r6, #0x10
 	lsrs r1, r1, #0x10
 	bl MakeBattlePopupTileMapFromTSA
-	ldr r5, _08075DD8  @ gUnknown_02017660
+	ldr r5, _08075DD8  @ gTextEkrlvupMsg
 	adds r0, r5, #0
 	adds r1, r6, #0
 	bl Text_Init
@@ -4638,7 +4534,7 @@ _08075D7A:
 	b _08075E0E
 	.align 2, 0
 _08075DD4: .4byte gBG1TilemapBuffer
-_08075DD8: .4byte gUnknown_02017660
+_08075DD8: .4byte gTextEkrlvupMsg
 _08075DDC: .4byte gUnknown_08803BD0
 _08075DE0: .4byte 0x06002100
 _08075DE4:

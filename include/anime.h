@@ -1,6 +1,9 @@
 #ifndef GUARD_ANIME_H
 #define GUARD_ANIME_H
 
+#include "bmbattle.h"
+#include "fontgrp.h"
+
 struct Anim
 {
     /* 00 */ u16 state;
@@ -97,6 +100,10 @@ enum
 // TODO: add macro helpers for writing animation scripts.
 
 #define ANIM_IS_DISABLED(anim) ((anim)->state == 0)
+
+extern struct BattleUnit *gpEkrBattleUnitLeft;
+extern struct BattleUnit *gpEkrBattleUnitRight;
+extern struct Font gSomeFontStruct;
 
 void AnimUpdateAll(void);
 void AnimClearAll(void);
