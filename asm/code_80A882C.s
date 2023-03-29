@@ -7117,13 +7117,13 @@ sub_80AEEE8: @ 0x080AEEE8
 	ldrsb r1, [r0, r1]
 	adds r0, r4, #0
 	movs r2, #0
-	bl sub_80AF7F4
+	bl StartSoundRoomSong
 	adds r0, r4, #0
 	adds r0, #0x32
 	ldrb r0, [r0]
 	lsls r0, r0, #0x18
 	asrs r0, r0, #0x18
-	bl sub_80B0018
+	bl DrawSoundRoomSongTitle
 	adds r4, #0x3f
 	movs r0, #0
 	strb r0, [r4]
@@ -7395,7 +7395,7 @@ _080AF0EE:
 	adds r0, r4, #0
 	adds r1, r2, #0
 	movs r2, #0x20
-	bl sub_80AF7F4
+	bl StartSoundRoomSong
 	lsls r0, r0, #0x18
 	cmp r0, #0
 	beq _080AF126
@@ -7404,7 +7404,7 @@ _080AF0EE:
 	ldrb r0, [r0]
 	lsls r0, r0, #0x18
 	asrs r0, r0, #0x18
-	bl sub_80B0018
+	bl DrawSoundRoomSongTitle
 	movs r0, #1
 	b _080AF138
 _080AF126:
@@ -7449,7 +7449,7 @@ _080AF14E:
 	adds r0, r4, #0
 	adds r1, r2, #0
 	movs r2, #0x20
-	bl sub_80AF7F4
+	bl StartSoundRoomSong
 	lsls r0, r0, #0x18
 	cmp r0, #0
 	beq _080AF186
@@ -7458,7 +7458,7 @@ _080AF14E:
 	ldrb r0, [r0]
 	lsls r0, r0, #0x18
 	asrs r0, r0, #0x18
-	bl sub_80B0018
+	bl DrawSoundRoomSongTitle
 	movs r0, #1
 	b _080AF198
 _080AF186:
