@@ -10,6 +10,7 @@
 #include "event.h"
 #include "bmudisp.h"
 #include "bm.h"
+#include "spellassoc.h"
 #include "constants/items.h"
 #include "mapanim.h"
 

@@ -18,6 +18,7 @@
 #include "mu.h"
 #include "proc.h"
 #include "soundwrapper.h"
+#include "spellassoc.h"
 
 /*
     "MOVEUNIT" proc and related functions.

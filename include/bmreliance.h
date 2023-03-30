@@ -45,7 +45,7 @@ struct SupportBonuses
 };
 
 extern struct SupportData CONST_DATA gSupportData[];
-extern const struct SupportBonuses gAffinityBonuses[];
+extern CONST_DATA struct SupportBonuses gAffinityBonuses[];
 
 int GetUnitSupporterCount(struct Unit* unit);
 u8 GetUnitSupporterCharacter(struct Unit* unit, int num);
