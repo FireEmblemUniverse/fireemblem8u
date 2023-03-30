@@ -136,6 +136,7 @@ SECTIONS
         src/ekrlevelup.o(.text);
         asm/ekrlevelup.o(.text);
         asm/code_banim_8076250.o(.text);
+        src/spellassoc.o(.text);
         src/monstergen.o(.text);
         src/mu.o(.text);
         asm/muctrl.o(.text);
@@ -445,6 +446,8 @@ SECTIONS
         . = ALIGN(4); src/portrait_data.o(.data);
         . = ALIGN(4); data/data_8ADEB0.o(.data);
         . = ALIGN(4); src/unit_icon_wait_data.o(.data);
+        . = ALIGN(4); src/spellassoc-data.o(.data);
+        . = ALIGN(4); src/bmreliance-data.o(.data);
         . = ALIGN(4); data/data_8AFBD8.o(.data);
         . = ALIGN(4); src/chapterdata.o(.data);
         . = ALIGN(4); data/data_8B363C.o(.data);

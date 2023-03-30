@@ -2756,7 +2756,7 @@ extern u8 CONST_DATA gUnknown_088ADFA6[]; // Solar Brace class list
 // extern ??? gUnknown_088AF834
 // extern ??? gUnknown_088AF880
 // extern ??? gUnknown_088AFB5A
-// extern ??? gUnknown_088AFBD8
+// extern ??? gSpellAssocData
 // extern ??? gUnknown_088B39EC
 // extern ??? gUnknown_088B3AD8
 // extern ??? gUnknown_088D2058
@@ -2884,29 +2884,31 @@ extern CONST_DATA struct ProcCmd gUnknown_089A398C[];
 // extern ??? gUnknown_089A470C
 // extern ??? gUnknown_089A4734
 extern CONST_DATA struct ProcCmd ProcScr_MapAnimDefaultItemEffect[];
-extern CONST_DATA struct ProcCmd gUnknown_089A481C[];
-extern CONST_DATA struct ProcCmd gUnknown_089A489C[];
-extern CONST_DATA struct ProcCmd gUnknown_089A4914[];
-extern CONST_DATA struct ProcCmd gUnknown_089A495C[];
-extern CONST_DATA struct ProcCmd gUnknown_089A49A4[];
-extern CONST_DATA struct ProcCmd gUnknown_089A49FC[];
-extern CONST_DATA struct ProcCmd gUnknown_089A4A54[];
-extern CONST_DATA struct ProcCmd gUnknown_089A4ABC[];
-extern CONST_DATA struct ProcCmd gUnknown_089A4B24[];
-extern CONST_DATA struct ProcCmd gUnknown_089A4B8C[];
-extern CONST_DATA struct ProcCmd gUnknown_089A4BF4[];
-extern CONST_DATA struct ProcCmd gUnknown_089A4C3C[];
-extern CONST_DATA struct ProcCmd gUnknown_089A4CC4[];
-extern CONST_DATA struct ProcCmd gUnknown_089A4D64[];
-extern CONST_DATA struct ProcCmd gUnknown_089A4E04[];
-extern CONST_DATA struct ProcCmd gUnknown_089A4EA4[];
-extern CONST_DATA struct ProcCmd gUnknown_089A4F44[];
-extern CONST_DATA struct ProcCmd gUnknown_089A4FCC[];
+extern CONST_DATA struct ProcCmd ProcScr_SpellAssocNightMare[];
+extern CONST_DATA struct ProcCmd ProcScr_SpellAssocLatona[];
+extern CONST_DATA struct ProcCmd ProcScr_SpellAssocAntitoxin[];
+extern CONST_DATA struct ProcCmd ProcScr_SpellAssocPureWater[];
+extern CONST_DATA struct ProcCmd ProcScr_SpellAssocElixir[];
+extern CONST_DATA struct ProcCmd ProcScr_SpellAssocVulenrary[];
+extern CONST_DATA struct ProcCmd ProcScr_SpellAssocHeal[];
+extern CONST_DATA struct ProcCmd ProcScr_SpellAssocMend[];
+extern CONST_DATA struct ProcCmd ProcScr_SpellAssocRecover[];
+extern CONST_DATA struct ProcCmd ProcScr_SpellAssocPhysic[];
+extern CONST_DATA struct ProcCmd ProcScr_SpellAssocTorch[];
+extern CONST_DATA struct ProcCmd ProcScr_SpellAssocUnlock[];
+extern CONST_DATA struct ProcCmd ProcScr_SpellAssocBerserk[];
+extern CONST_DATA struct ProcCmd ProcScr_SpellAssocSleep[];
+extern CONST_DATA struct ProcCmd ProcScr_SpellAssocMonsterStone[];
+extern CONST_DATA struct ProcCmd ProcScr_SpellAssocSilence[];
+extern CONST_DATA struct ProcCmd ProcScr_SpellAssocRestore[];
+extern CONST_DATA struct ProcCmd ProcScr_SpellAssocRepair[];
 extern CONST_DATA struct ProcCmd gUnknown_089A5054[];
 extern CONST_DATA struct ProcCmd ProcScr_PoisonDmgMapEffect[];
 extern CONST_DATA struct ProcCmd ProcScr_EggDmgMapEffect1[];
 extern CONST_DATA struct ProcCmd ProcScr_EggDmgMapEffect2[];
 extern CONST_DATA struct ProcCmd ProcScr_CritAtkMapEffect[];
+extern CONST_DATA struct ProcCmd ProcScr_SpellAssocBarrier[];
+extern CONST_DATA struct ProcCmd ProcScr_SpellAssocWarp[];
 // extern ??? gUnknown_089A52FC
 // extern ??? gUnknown_089A5314
 // extern ??? gUnknown_089A5A6C
