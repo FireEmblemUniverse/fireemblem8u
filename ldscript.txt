@@ -188,6 +188,8 @@ SECTIONS
         asm/savedraw.o(.text);
         src/savedrawcursor.o(.text);
         asm/code_80A882C.o(.text);
+        src/soundroom.o(.text);
+        src/extramenu_unk.o(.text);
         src/bonusclaim.o(.text);
         src/uiconfig.o(.text);
         asm/code_80B24DC.o(.text);
@@ -499,6 +501,8 @@ SECTIONS
         . = ALIGN(4); data/data_A20050.o(.data);
         . = ALIGN(4); src/savedrawcursor.o(.data);
         . = ALIGN(4); data/data_A2077C.o(.data);
+        . = ALIGN(4); src/soundroom.o(.data);
+        . = ALIGN(4); src/extramenu_unk.o(.data);
         . = ALIGN(4); src/bonusclaim.o(.data);
         . = ALIGN(4); data/data_A21658.o(.data);
         . = ALIGN(4); src/uiconfig.o(.data);

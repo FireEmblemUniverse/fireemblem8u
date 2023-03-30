@@ -3361,17 +3361,17 @@ extern struct ProcCmd CONST_DATA gUnknown_08A20DCC[];
 // extern ??? gUnknown_08A212E4
 // extern ??? gUnknown_08A21304
 // extern ??? gUnknown_08A21308
-// extern ??? gUnknown_08A21338
+// extern ??? gProcScr_SoundRoomUi
 // extern ??? gUnknown_08A21440
 // extern ??? gUnknown_08A2144E
 // extern ??? gUnknown_08A2145C
-// extern ??? gUnknown_08A2146A
-// extern ??? gUnknown_08A2148A
-// extern ??? gUnknown_08A2149E
-// extern ??? gUnknown_08A214A6
-// extern ??? gUnknown_08A214AE
-// extern ??? gUnknown_08A21508
-// extern ??? gUnknown_08A21530
+// extern ??? gSprite_RandomModeBanner
+// extern ??? gSprite_MusicPlayer_SeekBar
+// extern ??? gSprite_MusicPlayer_SeekBarIndicator
+// extern ??? gSprite_MusicPlayer_Time
+// extern ??? gSprite_MusicPlayer_Colon
+// extern ??? gSpriteArray_MusicPlayer_TimeNumbers
+// extern ??? gProcScr_SoundRoom_DrawSprites
 // extern ??? gUnknown_08A21550
 // extern ??? gUnknown_08A21568
 extern u8 gUnknown_08A21658[]; // gfx, "records" background
