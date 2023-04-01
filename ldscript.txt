@@ -165,6 +165,7 @@ SECTIONS
         asm/fx_slidingwallbg.o(.text);
         src/statscreen.o(.text);
         src/chapter_title.o(.text);
+        src/helpbox.o(.text);
         asm/code_80895B4.o(.text);
         src/player_interface.o(.text);
         asm/code_808DAE4.o(.text);
