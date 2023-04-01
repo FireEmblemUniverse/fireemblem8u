@@ -36,7 +36,7 @@ struct SaveMenuProc {
     /* 35 */ u8 unk_35;
     /* 36 */ u8 unk_36;
     /* 37 */ u8 unk_37[3];
-    /* 3B */ u8 unk_3b[3];
+    /* 3A */ u8 unk_3a[3];
     /* 3D */ u8 unk_3d;
     /* 3E */ u8 unk_3e;
     /* 3F */ u8 unk_3f;

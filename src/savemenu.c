@@ -1310,7 +1310,7 @@ void sub_80A9E1C(struct SaveMenuProc* proc) {
 
         switch (proc->unk_35) {
             case 0x40:
-                if (((proc->unk_3b[proc->unk_2c]) & 1) != 0) {
+                if (((proc->unk_3a[proc->unk_2c]) & 1) != 0) {
                     if (proc->unk_3f != 0xFF) {
                         sub_80A9290(proc);
                         return;
@@ -1327,7 +1327,7 @@ void sub_80A9E1C(struct SaveMenuProc* proc) {
                 return;
 
             case 0x20:
-                if (((proc->unk_3b[proc->unk_2c]) & 2) != 0) {
+                if (((proc->unk_3a[proc->unk_2c]) & 2) != 0) {
                     if (proc->unk_3f != 0xFF) {
                         sub_80A9290(proc);
                         return;
@@ -1344,7 +1344,7 @@ void sub_80A9E1C(struct SaveMenuProc* proc) {
                 return;
 
             case 0x10:
-                if (((proc->unk_3b[proc->unk_2c]) & 4) != 0) {
+                if (((proc->unk_3a[proc->unk_2c]) & 4) != 0) {
                     if (proc->unk_3f == 0xFF) {
                         ReadGameSave(proc->unk_2c);
                         sub_80A882C(proc);
