@@ -136,27 +136,20 @@ void EkrLvup_InitStatusText(struct ProcEkrLevelup *proc)
 {
     int i;
     struct BattleUnit *bunit, *bunit2;
-
-#if NONMATCHING
-    struct BattleUnit **pbu;
     struct Unit *unit;
-#else
-    register struct BattleUnit **pbu asm("r0");
-    register struct Unit *unit asm("r5");
-#endif
     struct TextHandle *th;
 
     if (proc->ais_main == NULL) {
         bunit2 = gpEkrBattleUnitLeft;
         gpEkrLvupUnit = unit = &bunit2->unit;
-        pbu = &gpEkrBattleUnitRight;
+        if (&gpEkrBattleUnitRight == &gpEkrBattleUnitRight)
+            gpEkrLvupBattleUnit = bunit = gpEkrBattleUnitRight;
     } else {
         bunit2 = gpEkrBattleUnitRight;
         gpEkrLvupUnit = unit = &bunit2->unit;
-        pbu = &gpEkrBattleUnitLeft;
+        if (&gpEkrBattleUnitLeft == &gpEkrBattleUnitLeft)
+            gpEkrLvupBattleUnit = bunit = gpEkrBattleUnitLeft;
     }
-
-    gpEkrLvupBattleUnit = *pbu;
     
     if (!proc->is_promotion) {
         unit = GetUnit(unit->index);
@@ -192,24 +185,24 @@ void EkrLvup_InitStatusText(struct ProcEkrLevelup *proc)
         gEkrLvupBaseStatus[EKRLVUP_STAT_CON] = unit->pClassData->baseCon + unit->pCharacterData->baseCon;
         gEkrLvupPostLevel = 1;
 
-        gEkrLvupPostStatus[EKRLVUP_STAT_HP] = gpEkrLvupBattleUnit->unit.maxHP;
-        gEkrLvupPostStatus[EKRLVUP_STAT_POW] = gpEkrLvupBattleUnit->unit.pow;
-        gEkrLvupPostStatus[EKRLVUP_STAT_SKL] = gpEkrLvupBattleUnit->unit.skl;
-        gEkrLvupPostStatus[EKRLVUP_STAT_LCK] = gpEkrLvupBattleUnit->unit.lck;
-        gEkrLvupPostStatus[EKRLVUP_STAT_SPD] = gpEkrLvupBattleUnit->unit.spd;
-        gEkrLvupPostStatus[EKRLVUP_STAT_DEF] = gpEkrLvupBattleUnit->unit.def;
-        gEkrLvupPostStatus[EKRLVUP_STAT_RES] = gpEkrLvupBattleUnit->unit.res;
-        gEkrLvupPostStatus[EKRLVUP_STAT_CON] = gpEkrLvupBattleUnit->unit.pClassData->baseCon + gpEkrLvupBattleUnit->unit.pCharacterData->baseCon;
+        gEkrLvupPostStatus[EKRLVUP_STAT_HP] = bunit->unit.maxHP;
+        gEkrLvupPostStatus[EKRLVUP_STAT_POW] = bunit->unit.pow;
+        gEkrLvupPostStatus[EKRLVUP_STAT_SKL] = bunit->unit.skl;
+        gEkrLvupPostStatus[EKRLVUP_STAT_LCK] = bunit->unit.lck;
+        gEkrLvupPostStatus[EKRLVUP_STAT_SPD] = bunit->unit.spd;
+        gEkrLvupPostStatus[EKRLVUP_STAT_DEF] = bunit->unit.def;
+        gEkrLvupPostStatus[EKRLVUP_STAT_RES] = bunit->unit.res;
+        gEkrLvupPostStatus[EKRLVUP_STAT_CON] = bunit->unit.pClassData->baseCon + bunit->unit.pCharacterData->baseCon;
     }
 
     Font_InitForUI(&gSomeFontStruct, BG_CHR_ADDR(0x146), 0x146, 0);
 
     for (i = 0; i < EKRLVUP_STAT_MAX; i++) {
-        const char *str = GetStringFromIndex(
-            !UnitHasMagicRank(unit)
-                ? *EkrLvupMsgsStr[i]
-                : *EkrLvupMsgsMag[i]
-        );
+        const char *str;
+        if (!UnitHasMagicRank(unit))
+            str = GetStringFromIndex(*EkrLvupMsgsStr[i]);
+        else
+            str = GetStringFromIndex(*EkrLvupMsgsMag[i]);
 
         Text_Init(&gTextEkrlvupMsg[i], 3);
         Text_SetXCursor(&gTextEkrlvupMsg[i], 0);

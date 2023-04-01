@@ -16910,12 +16910,12 @@ GetSpellAnimId: @ 0x08057FF8
 	bl GetItemIndex
 	lsls r0, r0, #0x10
 	lsrs r0, r0, #0x10
-	ldr r3, _08058014  @ gUnknown_088AFBD8
+	ldr r3, _08058014  @ gSpellAssocData
 	ldrh r1, [r3]
 	ldr r2, _08058018  @ 0x0000FFFF
 	b _08058020
 	.align 2, 0
-_08058014: .4byte gUnknown_088AFBD8
+_08058014: .4byte gSpellAssocData
 _08058018: .4byte 0x0000FFFF
 _0805801C:
 	adds r3, #0x10

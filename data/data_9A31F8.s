@@ -1407,8 +1407,8 @@ ProcScr_MapAnimDefaultItemEffect:  @ 0x089A4764
         .short 0x0, 0x0
         .word 0x0
 
-	.global gUnknown_089A481C
-gUnknown_089A481C:  @ 0x089A481C
+	.global ProcScr_SpellAssocNightMare
+ProcScr_SpellAssocNightMare:  @ 0x089A481C
         @ PROC_CALL
         .short 0x2, 0x0
         .word DisableMapPaletteAnimations
@@ -1458,8 +1458,8 @@ gUnknown_089A481C:  @ 0x089A481C
         .short 0x0, 0x0
         .word 0x0
 
-	.global gUnknown_089A489C
-gUnknown_089A489C:  @ 0x089A489C
+	.global ProcScr_SpellAssocLatona
+ProcScr_SpellAssocLatona:  @ 0x089A489C
         @ PROC_CALL
         .short 0x2, 0x0
         .word DisableMapPaletteAnimations
@@ -1506,8 +1506,8 @@ gUnknown_089A489C:  @ 0x089A489C
         .short 0x0, 0x0
         .word 0x0
 
-	.global gUnknown_089A4914
-gUnknown_089A4914:  @ 0x089A4914
+	.global ProcScr_SpellAssocAntitoxin
+ProcScr_SpellAssocAntitoxin:  @ 0x089A4914
         @ PROC_CALL
         .short 0x2, 0x0
         .word MapAnim_AnimateSubjectIdle
@@ -1536,8 +1536,8 @@ gUnknown_089A4914:  @ 0x089A4914
         .short 0x0, 0x0
         .word 0x0
 
-	.global gUnknown_089A495C
-gUnknown_089A495C:  @ 0x089A495C
+	.global ProcScr_SpellAssocPureWater
+ProcScr_SpellAssocPureWater:  @ 0x089A495C
         @ PROC_CALL
         .short 0x2, 0x0
         .word MapAnim_AnimateSubjectIdle
@@ -1566,8 +1566,8 @@ gUnknown_089A495C:  @ 0x089A495C
         .short 0x0, 0x0
         .word 0x0
 
-	.global gUnknown_089A49A4
-gUnknown_089A49A4:  @ 0x089A49A4
+	.global ProcScr_SpellAssocElixir
+ProcScr_SpellAssocElixir:  @ 0x089A49A4
         @ PROC_CALL
         .short 0x2, 0x0
         .word MapAnim_AnimateSubjectIdle
@@ -1602,8 +1602,8 @@ gUnknown_089A49A4:  @ 0x089A49A4
         .short 0x0, 0x0
         .word 0x0
 
-	.global gUnknown_089A49FC
-gUnknown_089A49FC:  @ 0x089A49FC
+	.global ProcScr_SpellAssocVulenrary
+ProcScr_SpellAssocVulenrary:  @ 0x089A49FC
         @ PROC_CALL
         .short 0x2, 0x0
         .word MapAnim_AnimateSubjectIdle
@@ -1638,8 +1638,8 @@ gUnknown_089A49FC:  @ 0x089A49FC
         .short 0x0, 0x0
         .word 0x0
 
-	.global gUnknown_089A4A54
-gUnknown_089A4A54:  @ 0x089A4A54
+	.global ProcScr_SpellAssocHeal
+ProcScr_SpellAssocHeal:  @ 0x089A4A54
         @ PROC_CALL
         .short 0x2, 0x0
         .word MapAnim_MoveCameraOnTarget
@@ -1680,8 +1680,8 @@ gUnknown_089A4A54:  @ 0x089A4A54
         .short 0x0, 0x0
         .word 0x0
 
-	.global gUnknown_089A4ABC
-gUnknown_089A4ABC:  @ 0x089A4ABC
+	.global ProcScr_SpellAssocMend
+ProcScr_SpellAssocMend:  @ 0x089A4ABC
         @ PROC_CALL
         .short 0x2, 0x0
         .word MapAnim_MoveCameraOnTarget
@@ -1722,8 +1722,8 @@ gUnknown_089A4ABC:  @ 0x089A4ABC
         .short 0x0, 0x0
         .word 0x0
 
-	.global gUnknown_089A4B24
-gUnknown_089A4B24:  @ 0x089A4B24
+	.global ProcScr_SpellAssocRecover
+ProcScr_SpellAssocRecover:  @ 0x089A4B24
         @ PROC_CALL
         .short 0x2, 0x0
         .word MapAnim_MoveCameraOnTarget
@@ -1764,8 +1764,8 @@ gUnknown_089A4B24:  @ 0x089A4B24
         .short 0x0, 0x0
         .word 0x0
 
-	.global gUnknown_089A4B8C
-gUnknown_089A4B8C:  @ 0x089A4B8C
+	.global ProcScr_SpellAssocPhysic
+ProcScr_SpellAssocPhysic:  @ 0x089A4B8C
         @ PROC_CALL
         .short 0x2, 0x0
         .word MapAnim_MoveCameraOnTarget
@@ -1806,8 +1806,8 @@ gUnknown_089A4B8C:  @ 0x089A4B8C
         .short 0x0, 0x0
         .word 0x0
 
-	.global gUnknown_089A4BF4
-gUnknown_089A4BF4:  @ 0x089A4BF4
+	.global ProcScr_SpellAssocTorch
+ProcScr_SpellAssocTorch:  @ 0x089A4BF4
         @ PROC_CALL
         .short 0x2, 0x0
         .word MapAnim_AnimateSubjectIdle
@@ -1836,8 +1836,8 @@ gUnknown_089A4BF4:  @ 0x089A4BF4
         .short 0x0, 0x0
         .word 0x0
 
-	.global gUnknown_089A4C3C
-gUnknown_089A4C3C:  @ 0x089A4C3C
+	.global ProcScr_SpellAssocUnlock
+ProcScr_SpellAssocUnlock:  @ 0x089A4C3C
         @ PROC_CALL
         .short 0x2, 0x0
         .word DisableMapPaletteAnimations
@@ -1890,8 +1890,8 @@ gUnknown_089A4C3C:  @ 0x089A4C3C
         .short 0x0, 0x0
         .word 0x0
 
-	.global gUnknown_089A4CC4
-gUnknown_089A4CC4:  @ 0x089A4CC4
+	.global ProcScr_SpellAssocBerserk
+ProcScr_SpellAssocBerserk:  @ 0x089A4CC4
         @ PROC_CALL
         .short 0x2, 0x0
         .word DisableMapPaletteAnimations
@@ -1953,8 +1953,8 @@ gUnknown_089A4CC4:  @ 0x089A4CC4
         .short 0x0, 0x0
         .word 0x0
 
-	.global gUnknown_089A4D64
-gUnknown_089A4D64:  @ 0x089A4D64
+	.global ProcScr_SpellAssocSleep
+ProcScr_SpellAssocSleep:  @ 0x089A4D64
         @ PROC_CALL
         .short 0x2, 0x0
         .word DisableMapPaletteAnimations
@@ -2016,8 +2016,8 @@ gUnknown_089A4D64:  @ 0x089A4D64
         .short 0x0, 0x0
         .word 0x0
 
-	.global gUnknown_089A4E04
-gUnknown_089A4E04:  @ 0x089A4E04
+	.global ProcScr_SpellAssocMonsterStone
+ProcScr_SpellAssocMonsterStone:  @ 0x089A4E04
         @ PROC_CALL
         .short 0x2, 0x0
         .word DisableMapPaletteAnimations
@@ -2079,8 +2079,8 @@ gUnknown_089A4E04:  @ 0x089A4E04
         .short 0x0, 0x0
         .word 0x0
 
-	.global gUnknown_089A4EA4
-gUnknown_089A4EA4:  @ 0x089A4EA4
+	.global ProcScr_SpellAssocSilence
+ProcScr_SpellAssocSilence:  @ 0x089A4EA4
         @ PROC_CALL
         .short 0x2, 0x0
         .word DisableMapPaletteAnimations
@@ -2142,8 +2142,8 @@ gUnknown_089A4EA4:  @ 0x089A4EA4
         .short 0x0, 0x0
         .word 0x0
 
-	.global gUnknown_089A4F44
-gUnknown_089A4F44:  @ 0x089A4F44
+	.global ProcScr_SpellAssocRestore
+ProcScr_SpellAssocRestore:  @ 0x089A4F44
         @ PROC_CALL
         .short 0x2, 0x0
         .word DisableMapPaletteAnimations
@@ -2196,8 +2196,8 @@ gUnknown_089A4F44:  @ 0x089A4F44
         .short 0x0, 0x0
         .word 0x0
 
-	.global gUnknown_089A4FCC
-gUnknown_089A4FCC:  @ 0x089A4FCC
+	.global ProcScr_SpellAssocRepair
+ProcScr_SpellAssocRepair:  @ 0x089A4FCC
         @ PROC_CALL
         .short 0x2, 0x0
         .word DisableMapPaletteAnimations
@@ -2382,8 +2382,8 @@ ProcScr_CritAtkMapEffect:  @ 0x089A5154
         .short 0x0, 0x0
         .word 0x0
 
-	.global gUnknown_089A518C
-gUnknown_089A518C:  @ 0x089A518C
+	.global ProcScr_SpellAssocBarrier
+ProcScr_SpellAssocBarrier:  @ 0x089A518C
         @ PROC_CALL
         .short 0x2, 0x0
         .word DisableMapPaletteAnimations
@@ -2436,8 +2436,8 @@ gUnknown_089A518C:  @ 0x089A518C
         .short 0x0, 0x0
         .word 0x0
 
-	.global gUnknown_089A5214
-gUnknown_089A5214:  @ 0x089A5214
+	.global ProcScr_SpellAssocWarp
+ProcScr_SpellAssocWarp:  @ 0x089A5214
         @ PROC_CALL
         .short 0x2, 0x0
         .word MapAnim_MoveCameraOnTarget

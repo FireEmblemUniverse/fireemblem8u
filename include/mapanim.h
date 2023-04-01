@@ -10,6 +10,9 @@ enum {
     MA_FACING_STANDING,
 };
 
+#define SCREEN_TILE_X(xPos) ((xPos) - (gBmSt.camera.x >> 4))
+#define SCREEN_TILE_Y(yPos) ((yPos) - (gBmSt.camera.y >> 4))
+
 struct MAExpBarProc {
     /* 00 */ PROC_HEADER;
 
