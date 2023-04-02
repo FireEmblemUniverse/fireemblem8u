@@ -1,0 +1,15 @@
+{{ code/total }} total bytes of code
+{{ code }} bytes of code in src ({{ ignore }}%)
+{{ ignore }} bytes of code in asm ({{ ignore }}%)
+
+{{ symbols/total }} total symbols
+{{ symbols }} symbols documented ({{ ignore }}%)
+{{ symbols/wip }} symbols partially documented ({{ ignore }}%)
+{{ ignore }} symbols undocumented ({{ ignore }}%)
+
+{{ data/total }} total bytes of data
+{{ data }} bytes of data in src ({{ ignore }}%)
+{{ ignore }} bytes of data in data ({{ ignore }}%)
+{{ data/banim }} bytes of data is in data/banim
+{{ functions/total }} functions in total, {{ functions }} functions ({{ ignore }}%) have been decompiled.
+{{ functions/unmatched }} functions are marked as unmatched.
