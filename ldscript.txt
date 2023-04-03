@@ -132,6 +132,7 @@ SECTIONS
         src/uiutils.o(.text);
         src/uimenu.o(.text);
         src/uiselecttarget.o(.text);
+        src/banim-ekrcore.o(.text);
         asm/code_battleanim.o(.text);
         src/ekrlevelup.o(.text);
         asm/ekrlevelup.o(.text);

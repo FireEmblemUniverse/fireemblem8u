@@ -107,24 +107,6 @@ enum {
 
 #define ANIM_IS_DISABLED(anim) ((anim)->state == 0)
 
-enum ganims_entry_index {
-    GANIM_INDEX_LEFT_FRONT,
-    GANIM_INDEX_LEFY_BACK,
-    GANIM_INDEX_RIGHT_FRONT,
-    GANIM_INDEX_RIGHT_BACK,
-    GANIM_INDEX_MAX
-};
-
-extern struct Anim *gAnims[GANIM_INDEX_MAX];
-
-extern u16 gBattleActorSide;
-extern u16 gBattleInitSide;
-extern struct AnimRoundData gAnimRoundData;
-
-extern struct BattleUnit *gpEkrBattleUnitLeft;
-extern struct BattleUnit *gpEkrBattleUnitRight;
-extern struct Font gSomeFontStruct;
-
 void AnimUpdateAll(void);
 void AnimClearAll(void);
 struct Anim* AnimCreate_unused(const void* script);

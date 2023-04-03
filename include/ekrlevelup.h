@@ -4,6 +4,7 @@
 #include "proc.h"
 #include "bmunit.h"
 #include "bmbattle.h"
+#include "anime.h"
 
 struct ProcEkrLevelup {
     PROC_HEADER;
@@ -18,8 +19,8 @@ struct ProcEkrLevelup {
     /* 4C */ int unk_4C;
     /* 50 */ int unk_50;
     /* 54 */ u8 _pad_54[0x5C - 0x54];
-    /* 5C */ void *ais_main;
-    /* 60 */ void *ais_struct;
+    /* 5C */ struct Anim *ais_main;
+    /* 60 */ struct Anim *ais_core;
 };
 
 enum ekr_lvup_status_index {
@@ -70,7 +71,7 @@ void EkrLvup_InitStatusText(struct ProcEkrLevelup *proc);
 void EkrLvup_DrawUpdatedStatus(struct ProcEkrLevelup *proc, int index);
 void EkrLvup_DrawUnitName(void);
 void EkrLvup_DrawPreLevelValue(void);
-void NewEkrLevelup(void *ais);
+void NewEkrLevelup(struct Anim *ais);
 void EkrLvup_OnPrepare(struct ProcEkrLevelup *proc);
 void EkrLvup_InitScreen(struct ProcEkrLevelup *proc);
 void EkrLvup_InitLevelUpBox(struct ProcEkrLevelup *proc);

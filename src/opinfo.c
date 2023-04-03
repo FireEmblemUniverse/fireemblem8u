@@ -13,6 +13,7 @@
 #include "scene.h"
 #include "classdisplayfont.h"
 #include "opinfo.h"
+#include "ekrbattle.h"
 
 #include "constants/classes.h"
 
@@ -1477,7 +1478,6 @@ extern struct Unk201DB00 gUnknown_0201DB00;
 
 ProcPtr StartClassStatsDisplay(ProcPtr);
 
-extern u8 gUnknown_02000038[];
 extern u8 gUnknown_02002038[];
 extern u8 gUnknown_02007838[];
 extern u8 gUnknown_020078D8[];
