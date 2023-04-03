@@ -86,10 +86,10 @@ gUnknown_085B92C4:  @ 0x085B92C4
 
 	.global gUnknown_085B9354
 gUnknown_085B9354:  @ 0x085B9354
-	.incbin "baserom.gba", 0x5B9354, 0x4
+	.word 0
 
-	.global gUnknown_085B9358
-gUnknown_085B9358:  @ 0x085B9358
+	.global gProc_ekrBattleDeamon
+gProc_ekrBattleDeamon:  @ 0x085B9358
         @ PROC_NAME
         .short 0x1, 0x0
         .word 0x80da3a4
@@ -104,8 +104,8 @@ gUnknown_085B9358:  @ 0x085B9358
         .word 0x0
 
 
-	.global gUnknown_085B9378
-gUnknown_085B9378:  @ 0x085B9378
+	.global gProc_ekrBattle
+gProc_ekrBattle:  @ 0x085B9378
         @ PROC_NAME
         .short 0x1, 0x0
         .word 0x80da3b4
@@ -123,8 +123,8 @@ gUnknown_085B9378:  @ 0x085B9378
         .word 0x0
 
 
-	.global gUnknown_085B93A0
-gUnknown_085B93A0:  @ 0x085B93A0
+	.global gProc_ekrLvupFan
+gProc_ekrLvupFan:  @ 0x085B93A0
         @ PROC_NAME
         .short 0x1, 0x0
         .word 0x80da3c0
@@ -136,8 +136,8 @@ gUnknown_085B93A0:  @ 0x085B93A0
         .word 0x0
 
 
-	.global gUnknown_085B93B8
-gUnknown_085B93B8:  @ 0x085B93B8
+	.global gProc_ekrGauge
+gProc_ekrGauge:  @ 0x085B93B8
         @ PROC_NAME
         .short 0x1, 0x0
         .word 0x80da3cc
@@ -197,8 +197,8 @@ gUnknown_085B95BC:  @ 0x085B95BC
 gUnknown_085B95D4:  @ 0x085B95D4
 	.incbin "baserom.gba", 0x5B95D4, 0x18
 
-	.global gUnknown_085B95EC
-gUnknown_085B95EC:  @ 0x085B95EC
+	.global gProc_ekrDispUP
+gProc_ekrDispUP:  @ 0x085B95EC
         @ PROC_NAME
         .short 0x1, 0x0
         .word 0x80da3d8
@@ -210,8 +210,8 @@ gUnknown_085B95EC:  @ 0x085B95EC
         .word 0x0
 
 
-	.global gUnknown_085B9604
-gUnknown_085B9604:  @ 0x085B9604
+	.global gProc_efxHPBar
+gProc_efxHPBar:  @ 0x085B9604
         @ PROC_NAME
         .short 0x1, 0x0
         .word 0x80da3e4
@@ -229,8 +229,8 @@ gUnknown_085B9604:  @ 0x085B9604
         .word 0x0
 
 
-	.global gUnknown_085B962C
-gUnknown_085B962C:  @ 0x085B962C
+	.global gProc_efxHPBarResire
+gProc_efxHPBarResire:  @ 0x085B962C
         @ PROC_NAME
         .short 0x1, 0x0
         .word 0x80da3f0
@@ -254,8 +254,8 @@ gUnknown_085B962C:  @ 0x085B962C
         .word 0x0
 
 
-	.global gUnknown_085B9664
-gUnknown_085B9664:  @ 0x085B9664
+	.global gProc_efxAvoid
+gProc_efxAvoid:  @ 0x085B9664
         @ PROC_NAME
         .short 0x1, 0x0
         .word 0x80da400
@@ -273,8 +273,8 @@ gUnknown_085B9664:  @ 0x085B9664
         .word 0x0
 
 
-	.global gUnknown_085B968C
-gUnknown_085B968C:  @ 0x085B968C
+	.global gProc_efxHPBarLive
+gProc_efxHPBarLive:  @ 0x085B968C
         @ PROC_NAME
         .short 0x1, 0x0
         .word 0x80da40c
@@ -292,8 +292,8 @@ gUnknown_085B968C:  @ 0x085B968C
         .word 0x0
 
 
-	.global gUnknown_085B96B4
-gUnknown_085B96B4:  @ 0x085B96B4
+	.global gProc_efxNoDamage
+gProc_efxNoDamage:  @ 0x085B96B4
         @ PROC_NAME
         .short 0x1, 0x0
         .word 0x80da41c
@@ -311,8 +311,8 @@ gUnknown_085B96B4:  @ 0x085B96B4
         .word 0x0
 
 
-	.global gUnknown_085B96DC
-gUnknown_085B96DC:  @ 0x085B96DC
+	.global gProc_efxNoDamageYure
+gProc_efxNoDamageYure:  @ 0x085B96DC
         @ PROC_NAME
         .short 0x1, 0x0
         .word 0x80da428
@@ -324,8 +324,8 @@ gUnknown_085B96DC:  @ 0x085B96DC
         .word 0x0
 
 
-	.global gUnknown_085B96F4
-gUnknown_085B96F4:  @ 0x085B96F4
+	.global gProc_efxStatusCHG
+gProc_efxStatusCHG:  @ 0x085B96F4
         @ PROC_NAME
         .short 0x1, 0x0
         .word 0x80da454
@@ -346,8 +346,8 @@ gUnknown_085B96F4:  @ 0x085B96F4
         .word 0x0
 
 
-	.global gUnknown_085B9724
-gUnknown_085B9724:  @ 0x085B9724
+	.global gProc_efxDeadEvent
+gProc_efxDeadEvent:  @ 0x085B9724
         @ PROC_NAME
         .short 0x1, 0x0
         .word 0x80da464
@@ -371,8 +371,8 @@ gUnknown_085B9724:  @ 0x085B9724
         .word 0x0
 
 
-	.global gUnknown_085B975C
-gUnknown_085B975C:  @ 0x085B975C
+	.global gProc_efxDead
+gProc_efxDead:  @ 0x085B975C
         @ PROC_NAME
         .short 0x1, 0x0
         .word 0x80da474
@@ -387,8 +387,8 @@ gUnknown_085B975C:  @ 0x085B975C
         .word 0x0
 
 
-	.global gUnknown_085B977C
-gUnknown_085B977C:  @ 0x085B977C
+	.global gProc_efxDeadPika
+gProc_efxDeadPika:  @ 0x085B977C
         @ PROC_NAME
         .short 0x1, 0x0
         .word 0x80da47c
@@ -400,8 +400,8 @@ gUnknown_085B977C:  @ 0x085B977C
         .word 0x0
 
 
-	.global gUnknown_085B9794
-gUnknown_085B9794:  @ 0x085B9794
+	.global gProc_efxDeadAlpha
+gProc_efxDeadAlpha:  @ 0x085B9794
         @ PROC_NAME
         .short 0x1, 0x0
         .word 0x80da488
@@ -413,8 +413,8 @@ gUnknown_085B9794:  @ 0x085B9794
         .word 0x0
 
 
-	.global gUnknown_085B97AC
-gUnknown_085B97AC:  @ 0x085B97AC
+	.global gProc_efxDeadDragonAlpha
+gProc_efxDeadDragonAlpha:  @ 0x085B97AC
         @ PROC_NAME
         .short 0x1, 0x0
         .word 0x80da498
@@ -426,8 +426,8 @@ gUnknown_085B97AC:  @ 0x085B97AC
         .word 0x0
 
 
-	.global gUnknown_085B97C4
-gUnknown_085B97C4:  @ 0x085B97C4
+	.global gProc_efxFarAttack
+gProc_efxFarAttack:  @ 0x085B97C4
         @ PROC_NAME
         .short 0x1, 0x0
         .word 0x80da4ac
@@ -445,8 +445,8 @@ gUnknown_085B97C4:  @ 0x085B97C4
         .word 0x0
 
 
-	.global gUnknown_085B97EC
-gUnknown_085B97EC:  @ 0x085B97EC
+	.global gProc_efxQuakePure
+gProc_efxQuakePure:  @ 0x085B97EC
         @ PROC_NAME
         .short 0x1, 0x0
         .word 0x80dabc0
@@ -493,8 +493,8 @@ gUnknown_085B9804:  @ 0x085B9804
     .4byte gUnknown_080DA66E + 0x208
     .4byte 0
 
-	.global gUnknown_085B9884
-gUnknown_085B9884:  @ 0x085B9884
+	.global gProc_efxHitQuakePure
+gProc_efxHitQuakePure:  @ 0x085B9884
         @ PROC_NAME
         .short 0x1, 0x0
         .word 0x80dabd0
@@ -506,8 +506,8 @@ gUnknown_085B9884:  @ 0x085B9884
         .word 0x0
 
 
-	.global gUnknown_085B989C
-gUnknown_085B989C:  @ 0x085B989C
+	.global gProc_efxQuake
+gProc_efxQuake:  @ 0x085B989C
         @ PROC_NAME
         .short 0x1, 0x0
         .word 0x80dabe0
@@ -519,8 +519,8 @@ gUnknown_085B989C:  @ 0x085B989C
         .word 0x0
 
 
-	.global gUnknown_085B98B4
-gUnknown_085B98B4:  @ 0x085B98B4
+	.global gProc_efxHitQuake
+gProc_efxHitQuake:  @ 0x085B98B4
         @ PROC_NAME
         .short 0x1, 0x0
         .word 0x80dabec
@@ -532,8 +532,8 @@ gUnknown_085B98B4:  @ 0x085B98B4
         .word 0x0
 
 
-	.global gUnknown_085B98CC
-gUnknown_085B98CC:  @ 0x085B98CC
+	.global gProc_efxFlashBG
+gProc_efxFlashBG:  @ 0x085B98CC
         @ PROC_NAME
         .short 0x1, 0x0
         .word 0x80dabf8
@@ -551,8 +551,8 @@ gUnknown_085B98CC:  @ 0x085B98CC
         .word 0x0
 
 
-	.global gUnknown_085B98F4
-gUnknown_085B98F4:  @ 0x085B98F4
+	.global gProc_efxWhiteOUT
+gProc_efxWhiteOUT:  @ 0x085B98F4
         @ PROC_NAME
         .short 0x1, 0x0
         .word 0x80dac04
@@ -570,8 +570,8 @@ gUnknown_085B98F4:  @ 0x085B98F4
         .word 0x0
 
 
-	.global gUnknown_085B991C
-gUnknown_085B991C:  @ 0x085B991C
+	.global gProc_efxWhiteIN
+gProc_efxWhiteIN:  @ 0x085B991C
         @ PROC_NAME
         .short 0x1, 0x0
         .word 0x80dac10
@@ -589,8 +589,8 @@ gUnknown_085B991C:  @ 0x085B991C
         .word 0x0
 
 
-	.global gUnknown_085B9944
-gUnknown_085B9944:  @ 0x085B9944
+	.global gProc_efxBlackOUT
+gProc_efxBlackOUT:  @ 0x085B9944
         @ PROC_NAME
         .short 0x1, 0x0
         .word 0x80dac1c
@@ -608,8 +608,8 @@ gUnknown_085B9944:  @ 0x085B9944
         .word 0x0
 
 
-	.global gUnknown_085B996C
-gUnknown_085B996C:  @ 0x085B996C
+	.global gProc_efxBlackIN
+gProc_efxBlackIN:  @ 0x085B996C
         @ PROC_NAME
         .short 0x1, 0x0
         .word 0x80dac28
@@ -627,8 +627,8 @@ gUnknown_085B996C:  @ 0x085B996C
         .word 0x0
 
 
-	.global gUnknown_085B9994
-gUnknown_085B9994:  @ 0x085B9994
+	.global gProc_efxFlashHPBar
+gProc_efxFlashHPBar:  @ 0x085B9994
         @ PROC_NAME
         .short 0x1, 0x0
         .word 0x80dac34
@@ -649,8 +649,8 @@ gUnknown_085B9994:  @ 0x085B9994
         .word 0x0
 
 
-	.global gUnknown_085B99C4
-gUnknown_085B99C4:  @ 0x085B99C4
+	.global gProc_efxHPBarColorChange
+gProc_efxHPBarColorChange:  @ 0x085B99C4
         @ PROC_NAME
         .short 0x1, 0x0
         .word 0x80dac44
@@ -665,8 +665,8 @@ gUnknown_085B99C4:  @ 0x085B99C4
         .word 0x0
 
 
-	.global gUnknown_085B99E4
-gUnknown_085B99E4:  @ 0x085B99E4
+	.global gProc_efxFlashUnit
+gProc_efxFlashUnit:  @ 0x085B99E4
         @ PROC_NAME
         .short 0x1, 0x0
         .word 0x80daca4
@@ -684,8 +684,8 @@ gUnknown_085B99E4:  @ 0x085B99E4
         .word 0x0
 
 
-	.global gUnknown_085B9A0C
-gUnknown_085B9A0C:  @ 0x085B9A0C
+	.global gProc_efxFlashUnitEffect
+gProc_efxFlashUnitEffect:  @ 0x085B9A0C
         @ PROC_NAME
         .short 0x1, 0x0
         .word 0x80dacb4
@@ -703,8 +703,8 @@ gUnknown_085B9A0C:  @ 0x085B9A0C
         .word 0x0
 
 
-	.global gUnknown_085B9A34
-gUnknown_085B9A34:  @ 0x085B9A34
+	.global gProc_efxStatusUnit
+gProc_efxStatusUnit:  @ 0x085B9A34
         @ PROC_NAME
         .short 0x1, 0x0
         .word 0x80daccc
@@ -722,8 +722,8 @@ gUnknown_085B9A34:  @ 0x085B9A34
         .word 0x0
 
 
-	.global gUnknown_085B9A5C
-gUnknown_085B9A5C:  @ 0x085B9A5C
+	.global gProc_efxWeaponIcon
+gProc_efxWeaponIcon:  @ 0x085B9A5C
         @ PROC_NAME
         .short 0x1, 0x0
         .word 0x80dacfc
@@ -741,8 +741,8 @@ gUnknown_085B9A5C:  @ 0x085B9A5C
         .word 0x0
 
 
-	.global gUnknown_085B9A84
-gUnknown_085B9A84:  @ 0x085B9A84
+	.global gProc_efxSpellCast
+gProc_efxSpellCast:  @ 0x085B9A84
         @ PROC_NAME
         .short 0x1, 0x0
         .word 0x80dad38
@@ -763,8 +763,8 @@ gUnknown_085B9A84:  @ 0x085B9A84
         .word 0x0
 
 
-	.global gUnknown_085B9AB4
-gUnknown_085B9AB4:  @ 0x085B9AB4
+	.global gProc_efxspdquake
+gProc_efxspdquake:  @ 0x085B9AB4
         @ PROC_NAME
         .short 0x1, 0x0
         .word 0x80dad48
@@ -779,8 +779,8 @@ gUnknown_085B9AB4:  @ 0x085B9AB4
         .word 0x0
 
 
-	.global gUnknown_085B9AD4
-gUnknown_085B9AD4:  @ 0x085B9AD4
+	.global gProc_ekrBattleStarting
+gProc_ekrBattleStarting:  @ 0x085B9AD4
         @ PROC_NAME
         .short 0x1, 0x0
         .word 0x80dad54
@@ -810,8 +810,8 @@ gUnknown_085B9AD4:  @ 0x085B9AD4
         .word 0x0
 
 
-	.global gUnknown_085B9B1C
-gUnknown_085B9B1C:  @ 0x085B9B1C
+	.global gProc_ekrbattleendin
+gProc_ekrbattleendin:  @ 0x085B9B1C
         @ PROC_NAME
         .short 0x1, 0x0
         .word 0x80dad68
@@ -997,8 +997,8 @@ gUnknown_085B9CE4:  @ 0x085B9CE4
         .word 0x0
 
 
-	.global gUnknown_085B9D0C
-gUnknown_085B9D0C:  @ 0x085B9D0C
+	.global gProc_ekrWindowAppear
+gProc_ekrWindowAppear:  @ 0x085B9D0C
         @ PROC_NAME
         .short 0x1, 0x0
         .word 0x80dae58
@@ -1010,8 +1010,8 @@ gUnknown_085B9D0C:  @ 0x085B9D0C
         .word 0x0
 
 
-	.global gUnknown_085B9D24
-gUnknown_085B9D24:  @ 0x085B9D24
+	.global gProc_ekrNamewinAppear
+gProc_ekrNamewinAppear:  @ 0x085B9D24
         @ PROC_NAME
         .short 0x1, 0x0
         .word 0x80dae68
@@ -1026,8 +1026,8 @@ gUnknown_085B9D24:  @ 0x085B9D24
         .word 0x0
 
 
-	.global gUnknown_085B9D44
-gUnknown_085B9D44:  @ 0x085B9D44
+	.global gProc_ekrBaseAppear
+gProc_ekrBaseAppear:  @ 0x085B9D44
         @ PROC_NAME
         .short 0x1, 0x0
         .word 0x80dae7c
@@ -1056,8 +1056,8 @@ gUnknown_085B9D6C:  @ 0x085B9D6C
     .4byte gUnknown_085B9E4C + 0xc
     .4byte gUnknown_085B9E4C + 0xa4
 
-	.global gUnknown_085B9D94
-gUnknown_085B9D94:  @ 0x085B9D94
+	.global gProc_ekrChienCHR
+gProc_ekrChienCHR:  @ 0x085B9D94
         @ PROC_NAME
         .short 0x1, 0x0
         .word 0x80daf34
@@ -1069,8 +1069,8 @@ gUnknown_085B9D94:  @ 0x085B9D94
         .word 0x0
 
 
-	.global gUnknown_085B9DAC
-gUnknown_085B9DAC:  @ 0x085B9DAC
+	.global gProc_efxAnimeDrvProc
+gProc_efxAnimeDrvProc:  @ 0x085B9DAC
         @ PROC_NAME
         .short 0x1, 0x0
         .word 0x80daf40
@@ -1081,9 +1081,8 @@ gUnknown_085B9DAC:  @ 0x085B9DAC
         .short 0x0, 0x0
         .word 0x0
 
-
-	.global gUnknown_085B9DC4
-gUnknown_085B9DC4:  @ 0x085B9DC4
+	.global ProcScr_ekrUnitMainMini
+ProcScr_ekrUnitMainMini:  @ 0x085B9DC4
         @ PROC_NAME
         .short 0x1, 0x0
         .word 0x80daf50
@@ -1095,8 +1094,8 @@ gUnknown_085B9DC4:  @ 0x085B9DC4
         .word 0x0
 
 
-	.global gUnknown_085B9DDC
-gUnknown_085B9DDC:  @ 0x085B9DDC
+	.global gProc_ekrTogiInit
+gProc_ekrTogiInit:  @ 0x085B9DDC
         @ PROC_NAME
         .short 0x1, 0x0
         .word 0x80daff8
@@ -1117,8 +1116,8 @@ gUnknown_085B9DDC:  @ 0x085B9DDC
         .word 0x0
 
 
-	.global gUnknown_085B9E0C
-gUnknown_085B9E0C:  @ 0x085B9E0C
+	.global gProc_ekrTogiEnd
+gProc_ekrTogiEnd:  @ 0x085B9E0C
         @ PROC_NAME
         .short 0x1, 0x0
         .word 0x80db008
@@ -1136,8 +1135,8 @@ gUnknown_085B9E0C:  @ 0x085B9E0C
         .word 0x0
 
 
-	.global gUnknown_085B9E34
-gUnknown_085B9E34:  @ 0x085B9E34
+	.global gProc_ekrTogiColor
+gProc_ekrTogiColor:  @ 0x085B9E34
         @ PROC_NAME
         .short 0x1, 0x0
         .word 0x80db018
