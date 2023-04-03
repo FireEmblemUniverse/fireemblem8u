@@ -130,7 +130,7 @@ gProc_ekrLvupFan:  @ 0x085B93A0
         .word 0x80da3c0
         @ PROC_REPEAT
         .short 0x3, 0x0
-        .word sub_8050E00
+        .word EkrLvupFanMain
         @ PROC_END
         .short 0x0, 0x0
         .word 0x0
@@ -844,8 +844,8 @@ gProc_ekrbattleendin:  @ 0x085B9B1C
         .word 0x0
 
 
-	.global gUnknown_085B9B6C
-gUnknown_085B9B6C:  @ 0x085B9B6C
+	.global gProc_EkrBaseKaiten
+gProc_EkrBaseKaiten:  @ 0x085B9B6C
         @ PROC_NAME
         .short 0x1, 0x0
         .word 0x80dad78

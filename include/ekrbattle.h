@@ -119,7 +119,7 @@ extern struct ProcCmd gProc_efxSpellCast[];
 extern struct ProcCmd gProc_efxspdquake[];
 extern struct ProcCmd gProc_ekrBattleStarting[];
 extern struct ProcCmd gProc_ekrbattleendin[];
-// extern ??? gUnknown_085B9B6C
+// extern ??? gProc_EkrBaseKaiten
 // extern ??? gUnknown_085B9B84
 // extern ??? gUnknown_085B9BA4
 // extern ??? gUnknown_085B9BC4
@@ -193,7 +193,7 @@ void ekrBattle_8050244(struct ProcEkrBattle *proc);
 // ??? ekrBattle_8050DA8(???);
 // ??? nullsub_69(???);
 // ??? NewEkrLvlupFan(???);
-// ??? sub_8050E00(???);
+// ??? EkrLvupFanMain(???);
 // ??? sub_8050E40(???);
 // ??? sub_8050E90(???);
 // ??? NewEkrGauge(???);
