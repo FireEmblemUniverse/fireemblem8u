@@ -1,11 +1,18 @@
 #ifndef GUARD_ANIME_H
 #define GUARD_ANIME_H
 
+#include "global.h"
 #include "bmbattle.h"
 #include "fontgrp.h"
 
-struct Anim
-{
+struct Anim {
+    enum state {
+        ANIM_BIT_ENABLED = (1 << 0),
+        ANIM_BIT_HIDDEN  = (1 << 1),
+        ANIM_BIT_2       = (1 << 2),
+        ANIM_BIT_FROZEN  = (1 << 3),
+    };
+
     /* 00 */ u16 state;
     /* 02 */ short xPosition;
     /* 04 */ short yPosition;
@@ -37,50 +44,49 @@ struct Anim
     /* 44 */ const void* pUnk44;
 };
 
-struct AnimSpriteData
-{
+struct AnimRoundData {
+    enum type_identifier {
+        ANIM_ROUND_HIT_CLOSE,
+        ANIM_ROUND_CRIT_CLOSE,
+        ANIM_ROUND_NONCRIT_FAR,
+        ANIM_ROUND_CRIT_FAR,
+        ANIM_ROUND_TAKING_MISS_CLOSE,
+        ANIM_ROUND_TAKING_MISS_FAR,
+        ANIM_ROUND_TAKING_HIT_CLOSE,
+        ANIM_ROUND_STANDING,
+        ANIM_ROUND_TAKING_HIT_FAR,
+        ANIM_ROUND_MISS_CLOSE,
+    };
+
+    s16 type_identifier;
+    u16 flags;
+};
+
+struct AnimSpriteData {
     /* 00 */ u32 header;
 
-    union
-    {
+    union {
+        struct {
+            /* 04 */ u16 pa;
+            /* 06 */ u16 pb;
+            /* 08 */ u16 pc;
+            /* 0A */ u16 pd;
+        } affine;
 
-    struct
-    {
-        /* 04 */ u16 pa;
-        /* 06 */ u16 pb;
-        /* 08 */ u16 pc;
-        /* 0A */ u16 pd;
-    } affine;
-
-    struct
-    {
-        /* 04 */ u16 oam2;
-        /* 06 */ short x;
-        /* 08 */ short y;
-    } object;
-
+        struct {
+            /* 04 */ u16 oam2;
+            /* 06 */ short x;
+            /* 08 */ short y;
+        } object;
     } as;
 };
 
-enum
-{
-    // For use with Anim::state
-
-    ANIM_BIT_ENABLED = (1 << 0),
-    ANIM_BIT_HIDDEN  = (1 << 1),
-    ANIM_BIT_2       = (1 << 2),
-    ANIM_BIT_FROZEN  = (1 << 3),
-};
-
-enum
-{
+enum {
     ANIM_MAX_COUNT = 50,
 };
 
-enum
-{
+enum {
     // Animation Command Identifiers
-
     // TODO: complete during battle animation decomp
 
     ANIM_CMD_NOP     = 0x00,
@@ -100,6 +106,20 @@ enum
 // TODO: add macro helpers for writing animation scripts.
 
 #define ANIM_IS_DISABLED(anim) ((anim)->state == 0)
+
+enum ganims_entry_index {
+    GANIM_INDEX_LEFT_FRONT,
+    GANIM_INDEX_LEFY_BACK,
+    GANIM_INDEX_RIGHT_FRONT,
+    GANIM_INDEX_RIGHT_BACK,
+    GANIM_INDEX_MAX
+};
+
+extern struct Anim *gAnims[GANIM_INDEX_MAX];
+
+extern u16 gBattleActorSide;
+extern u16 gBattleInitSide;
+extern struct AnimRoundData gAnimRoundData;
 
 extern struct BattleUnit *gpEkrBattleUnitLeft;
 extern struct BattleUnit *gpEkrBattleUnitRight;
