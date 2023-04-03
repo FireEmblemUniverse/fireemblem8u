@@ -10,6 +10,7 @@
 #include "bmmap.h"
 #include "uimenu.h"
 #include "scene.h"
+#include "ekrbattle.h"
 
 #include "event.h"
 

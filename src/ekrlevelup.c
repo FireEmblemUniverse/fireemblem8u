@@ -4,6 +4,7 @@
 #include "proc.h"
 #include "fontgrp.h"
 #include "hardware.h"
+#include "ekrbattle.h"
 #include "ekrlevelup.h"
 
 /**
@@ -267,13 +268,13 @@ void EkrLvup_DrawPreLevelValue(void)
     Text_Draw(&gTextEkrlvupValue[EKRLVUP_STAT_LVPRE_VAL], TILEMAP_LOCATED(gBG2TilemapBuffer, 13, 7));
 }
 
-void NewEkrLevelup(void *ais)
+void NewEkrLevelup(struct Anim *ais)
 {
     struct ProcEkrLevelup *proc;
     gpProcEkrLevelup = proc = Proc_Start(ProcScr_EkrLevelup, PROC_TREE_3);
 
     proc->ais_main = ais;
-    proc->ais_struct = GetCoreAIStruct(ais);
+    proc->ais_core = GetCoreAIStruct(ais);
 
     if (gUnknown_0203E120 != 4)
         proc->is_promotion = false;

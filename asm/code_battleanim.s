@@ -5,652 +5,6 @@
 	@ Everything related to (non-map) battle animations
 	@ Needs further splitting
 
-	THUMB_FUNC_START sub_804FD48
-sub_804FD48: @ 0x0804FD48
-	ldr r1, _0804FD50  @ gUnknown_0203E0F0
-	str r0, [r1]
-	bx lr
-	.align 2, 0
-_0804FD50: .4byte gUnknown_0203E0F0
-
-	THUMB_FUNC_END sub_804FD48
-
-	THUMB_FUNC_START sub_804FD54
-sub_804FD54: @ 0x0804FD54
-	ldr r0, _0804FD5C  @ gUnknown_0203E0F0
-	ldr r0, [r0]
-	bx lr
-	.align 2, 0
-_0804FD5C: .4byte gUnknown_0203E0F0
-
-	THUMB_FUNC_END sub_804FD54
-
-	THUMB_FUNC_START NewEkrBattleDeamon
-NewEkrBattleDeamon: @ 0x0804FD60
-	push {r4, lr}
-	ldr r4, _0804FD80  @ gpProcEkrBattleDeamon
-	ldr r0, _0804FD84  @ gProc_ekrBattleDeamon
-	movs r1, #3
-	bl Proc_Start
-	str r0, [r4]
-	ldr r1, _0804FD88  @ gBattleDeamonActive
-	movs r0, #1
-	str r0, [r1]
-	bl AddSkipThread2
-	pop {r4}
-	pop {r0}
-	bx r0
-	.align 2, 0
-_0804FD80: .4byte gpProcEkrBattleDeamon
-_0804FD84: .4byte gProc_ekrBattleDeamon
-_0804FD88: .4byte gBattleDeamonActive
-
-	THUMB_FUNC_END NewEkrBattleDeamon
-
-	THUMB_FUNC_START EndEkrBattleDeamon
-EndEkrBattleDeamon: @ 0x0804FD8C
-	push {lr}
-	ldr r0, _0804FD9C  @ gpProcEkrBattleDeamon
-	ldr r0, [r0]
-	bl Proc_End
-	pop {r0}
-	bx r0
-	.align 2, 0
-_0804FD9C: .4byte gpProcEkrBattleDeamon
-
-	THUMB_FUNC_END EndEkrBattleDeamon
-
-	THUMB_FUNC_START IsBattleDeamonActive
-IsBattleDeamonActive: @ 0x0804FDA0
-	push {lr}
-	ldr r0, _0804FDB0  @ gBattleDeamonActive
-	ldr r0, [r0]
-	cmp r0, #1
-	beq _0804FDB4
-	movs r0, #0
-	b _0804FDB6
-	.align 2, 0
-_0804FDB0: .4byte gBattleDeamonActive
-_0804FDB4:
-	movs r0, #1
-_0804FDB6:
-	pop {r1}
-	bx r1
-
-	THUMB_FUNC_END IsBattleDeamonActive
-
-	THUMB_FUNC_START ekrBattleDeamon_Destructor
-ekrBattleDeamon_Destructor: @ 0x0804FDBC
-	push {lr}
-	ldr r1, _0804FDCC  @ gBattleDeamonActive
-	movs r0, #0
-	str r0, [r1]
-	bl SubSkipThread2
-	pop {r0}
-	bx r0
-	.align 2, 0
-_0804FDCC: .4byte gBattleDeamonActive
-
-	THUMB_FUNC_END ekrBattleDeamon_Destructor
-
-	THUMB_FUNC_START nullsub_35
-nullsub_35: @ 0x0804FDD0
-	bx lr
-
-	THUMB_FUNC_END nullsub_35
-
-	THUMB_FUNC_START NewEkrBattle
-NewEkrBattle: @ 0x0804FDD4
-	push {r4, lr}
-	bl AnimClearAll
-	ldr r4, _0804FE1C  @ gpProcEkrBattle
-	ldr r0, _0804FE20  @ gProc_ekrBattle
-	movs r1, #3
-	bl Proc_Start
-	str r0, [r4]
-	ldr r0, _0804FE24  @ InBattleMainRoutine
-	bl SetMainUpdateRoutine
-	bl sub_8052220
-	ldr r0, _0804FE28  @ gUnknown_02017724
-	movs r1, #0
-	str r1, [r0]
-	ldr r0, _0804FE2C  @ gUnknown_02000018
-	str r1, [r0]
-	ldr r0, _0804FE30  @ gUnknown_0200001C
-	str r1, [r0]
-	ldr r0, _0804FE34  @ gUnknown_02000020
-	str r1, [r0]
-	ldr r0, _0804FE38  @ gUnknown_02000024
-	str r1, [r0]
-	ldr r0, _0804FE3C  @ gUnknown_0203E0FC
-	movs r1, #0
-	ldrsh r0, [r0, r1]
-	cmp r0, #0
-	bne _0804FE14
-	bl sub_80726AC
-_0804FE14:
-	pop {r4}
-	pop {r0}
-	bx r0
-	.align 2, 0
-_0804FE1C: .4byte gpProcEkrBattle
-_0804FE20: .4byte gProc_ekrBattle
-_0804FE24: .4byte InBattleMainRoutine
-_0804FE28: .4byte gUnknown_02017724
-_0804FE2C: .4byte gUnknown_02000018
-_0804FE30: .4byte gUnknown_0200001C
-_0804FE34: .4byte gUnknown_02000020
-_0804FE38: .4byte gUnknown_02000024
-_0804FE3C: .4byte gUnknown_0203E0FC
-
-	THUMB_FUNC_END NewEkrBattle
-
-	THUMB_FUNC_START InBattleMainRoutine
-InBattleMainRoutine: @ 0x0804FE40
-	push {lr}
-	ldr r0, _0804FE58  @ gKeyStatusPtr
-	ldr r0, [r0]
-	bl UpdateKeyStatus
-	ldr r0, _0804FE5C  @ gUnknown_0200001C
-	ldr r0, [r0]
-	cmp r0, #0
-	bne _0804FE60
-	bl MainUpdate_804FEE4
-	b _0804FE6C
-	.align 2, 0
-_0804FE58: .4byte gKeyStatusPtr
-_0804FE5C: .4byte gUnknown_0200001C
-_0804FE60:
-	ldr r0, _0804FE80  @ gUnknown_02000020
-	ldr r0, [r0]
-	cmp r0, #1
-	bne _0804FE6C
-	bl MainUpdate_804FEE4
-_0804FE6C:
-	ldr r0, _0804FE84  @ gUnknown_02017724
-	ldr r0, [r0]
-	cmp r0, #1
-	beq _0804FE88
-	cmp r0, #1
-	bcc _0804FEC4
-	cmp r0, #2
-	beq _0804FE98
-	b _0804FEC4
-	.align 2, 0
-_0804FE80: .4byte gUnknown_02000020
-_0804FE84: .4byte gUnknown_02017724
-_0804FE88:
-	ldr r0, _0804FE94  @ gUnknown_0203E0FC
-	movs r1, #0
-	ldrsh r0, [r0, r1]
-	cmp r0, #0
-	bne _0804FEC4
-	b _0804FEA2
-	.align 2, 0
-_0804FE94: .4byte gUnknown_0203E0FC
-_0804FE98:
-	ldr r0, _0804FEB0  @ gUnknown_0203E0FC
-	movs r1, #0
-	ldrsh r0, [r0, r1]
-	cmp r0, #0
-	bne _0804FEB8
-_0804FEA2:
-	ldr r0, _0804FEB4  @ gpProcEkrBattle
-	ldr r0, [r0]
-	bl Proc_End
-	bl sub_8055C38
-	b _0804FEC4
-	.align 2, 0
-_0804FEB0: .4byte gUnknown_0203E0FC
-_0804FEB4: .4byte gpProcEkrBattle
-_0804FEB8:
-	ldr r0, _0804FED8  @ gpProcEkrBattle
-	ldr r0, [r0]
-	bl Proc_End
-	bl EndEkrGauge
-_0804FEC4:
-	ldr r1, _0804FEDC  @ gBmSt
-	movs r0, #1
-	strb r0, [r1]
-	ldr r0, _0804FEE0  @ 0x04000006
-	ldrh r0, [r0]
-	strh r0, [r1, #6]
-	bl VBlankIntrWait
-	pop {r0}
-	bx r0
-	.align 2, 0
-_0804FED8: .4byte gpProcEkrBattle
-_0804FEDC: .4byte gBmSt
-_0804FEE0: .4byte 0x04000006
-
-	THUMB_FUNC_END InBattleMainRoutine
-
-	THUMB_FUNC_START MainUpdate_804FEE4
-MainUpdate_804FEE4: @ 0x0804FEE4
-	push {r4, lr}
-	bl ClearSprites
-	bl sub_8071A8C
-	bl GetThread2SkipStack
-	lsls r0, r0, #0x18
-	cmp r0, #0
-	bne _0804FF00
-	ldr r0, _0804FF50  @ gProcTreeRootArray
-	ldr r0, [r0, #8]
-	bl Proc_Run
-_0804FF00:
-	ldr r4, _0804FF50  @ gProcTreeRootArray
-	ldr r0, [r4, #0xc]
-	bl Proc_Run
-	ldr r0, [r4, #0x14]
-	bl Proc_Run
-	movs r0, #0
-	bl PushSpriteLayerObjects
-	ldr r0, [r4, #4]
-	bl Proc_Run
-	bl AnimUpdateAll
-	bl BattleAIS_ExecCommands
-	ldr r0, [r4, #0x10]
-	bl Proc_Run
-	ldr r1, _0804FF54  @ gUnknown_02000020
-	movs r0, #0
-	str r0, [r1]
-	ldr r1, _0804FF58  @ gUnknown_0201FB04
-	ldr r0, [r1]
-	ldr r1, [r1, #4]
-	adds r0, r0, r1
-	cmp r0, #2
-	beq _0804FF42
-	ldr r1, _0804FF5C  @ gUnknown_02000018
-	ldr r0, [r1]
-	adds r0, #1
-	str r0, [r1]
-_0804FF42:
-	movs r0, #0xd
-	bl PushSpriteLayerObjects
-	pop {r4}
-	pop {r0}
-	bx r0
-	.align 2, 0
-_0804FF50: .4byte gProcTreeRootArray
-_0804FF54: .4byte gUnknown_02000020
-_0804FF58: .4byte gUnknown_0201FB04
-_0804FF5C: .4byte gUnknown_02000018
-
-	THUMB_FUNC_END MainUpdate_804FEE4
-
-	THUMB_FUNC_START nullsub_36
-nullsub_36: @ 0x0804FF60
-	bx lr
-
-	THUMB_FUNC_END nullsub_36
-
-	THUMB_FUNC_START ekrBattle_Init
-ekrBattle_Init: @ 0x0804FF64
-	push {r4, lr}
-	adds r4, r0, #0
-	ldr r1, _0804FF88  @ gUnknown_0201FB0C
-	movs r0, #0
-	str r0, [r1]
-	ldr r0, _0804FF8C  @ gUnknown_02017744
-	ldr r0, [r0]
-	cmp r0, #0
-	bne _0804FF9A
-	ldr r0, _0804FF90  @ gUnknown_0203E120
-	movs r2, #0
-	ldrsh r0, [r0, r2]
-	cmp r0, #1
-	bne _0804FF94
-	movs r0, #0x20
-	negs r0, r0
-	b _0804FF98
-	.align 2, 0
-_0804FF88: .4byte gUnknown_0201FB0C
-_0804FF8C: .4byte gUnknown_02017744
-_0804FF90: .4byte gUnknown_0203E120
-_0804FF94:
-	movs r0, #0xf0
-	negs r0, r0
-_0804FF98:
-	str r0, [r1]
-_0804FF9A:
-	bl sub_8059D28
-	bl sub_8070B3C
-	bl sub_8070254
-	ldr r0, _0804FFB8  @ gUnknown_02000024
-	movs r1, #1
-	str r1, [r0]
-	bl sub_805B028
-	cmp r0, #1
-	bne _0804FFBC
-	movs r0, #0
-	b _0804FFBE
-	.align 2, 0
-_0804FFB8: .4byte gUnknown_02000024
-_0804FFBC:
-	movs r0, #0x1e
-_0804FFBE:
-	strh r0, [r4, #0x2c]
-	ldr r0, _0804FFD4  @ gUnknown_0203E100
-	movs r1, #0
-	ldrsh r0, [r0, r1]
-	cmp r0, #0
-	bne _0804FFDC
-	ldr r1, _0804FFD8  @ gUnknown_0203E190
-	ldrb r0, [r1]
-	ldrb r1, [r1, #1]
-	b _0804FFE2
-	.align 2, 0
-_0804FFD4: .4byte gUnknown_0203E100
-_0804FFD8: .4byte gUnknown_0203E190
-_0804FFDC:
-	ldr r1, _0804FFFC  @ gUnknown_0203E190
-	ldrb r0, [r1, #1]
-	ldrb r1, [r1]
-_0804FFE2:
-	bl ShouldCallBattleQuote
-	lsls r0, r0, #0x18
-	asrs r0, r0, #0x18
-	str r0, [r4, #0x54]
-	movs r0, #0
-	str r0, [r4, #0x58]
-	adds r0, r4, #0
-	bl Proc_Break
-	pop {r4}
-	pop {r0}
-	bx r0
-	.align 2, 0
-_0804FFFC: .4byte gUnknown_0203E190
-
-	THUMB_FUNC_END ekrBattle_Init
-
-	THUMB_FUNC_START ekrBattle_8050000
-ekrBattle_8050000: @ 0x08050000
-	push {r4, lr}
-	adds r4, r0, #0
-	ldrh r0, [r4, #0x2c]
-	adds r0, #1
-	strh r0, [r4, #0x2c]
-	lsls r0, r0, #0x10
-	asrs r0, r0, #0x10
-	cmp r0, #0x1f
-	bne _08050048
-	bl sub_804FD54
-	cmp r0, #1
-	beq _08050040
-	ldr r0, [r4, #0x54]
-	cmp r0, #1
-	beq _08050026
-	ldr r0, [r4, #0x58]
-	cmp r0, #1
-	bne _08050040
-_08050026:
-	movs r0, #1
-	movs r1, #7
-	bl NewEkrWindowAppear
-	movs r0, #1
-	movs r1, #7
-	movs r2, #0
-	bl NewEkrNamewinAppear
-	ldr r0, _0805003C  @ ekrBattle_8050054
-	b _08050042
-	.align 2, 0
-_0805003C: .4byte ekrBattle_8050054
-_08050040:
-	ldr r0, _08050050  @ ekrBattle_8050158
-_08050042:
-	str r0, [r4, #0xc]
-	movs r0, #0
-	strh r0, [r4, #0x2c]
-_08050048:
-	pop {r4}
-	pop {r0}
-	bx r0
-	.align 2, 0
-_08050050: .4byte ekrBattle_8050158
-
-	THUMB_FUNC_END ekrBattle_8050000
-
-	THUMB_FUNC_START ekrBattle_8050054
-ekrBattle_8050054: @ 0x08050054
-	push {r4, lr}
-	sub sp, #4
-	adds r4, r0, #0
-	bl sub_8056D74
-	lsls r0, r0, #0x18
-	asrs r0, r0, #0x18
-	cmp r0, #1
-	bne _080500DE
-	bl EkrGauge_8051218
-	bl sub_8051B90
-	movs r0, #0
-	str r0, [sp]
-	ldr r1, _080500B8  @ gBG0TilemapBuffer
-	ldr r2, _080500BC  @ 0x01000200
-	mov r0, sp
-	bl CpuFastSet
-	ldr r0, _080500C0  @ gUnknown_02000038
-	ldrh r1, [r0]
-	ldrh r2, [r0, #2]
-	movs r0, #0
-	bl BG_SetPosition
-	movs r0, #1
-	movs r1, #0
-	movs r2, #0
-	bl BG_SetPosition
-	movs r0, #1
-	bl BG_EnableSyncByMask
-	bl EkrGauge_8051190
-	ldr r0, [r4, #0x54]
-	cmp r0, #1
-	bne _080500DA
-	ldr r0, _080500C4  @ gUnknown_0203E100
-	movs r1, #0
-	ldrsh r0, [r0, r1]
-	cmp r0, #0
-	bne _080500CC
-	ldr r1, _080500C8  @ gUnknown_0203E190
-	ldrb r0, [r1]
-	ldrb r1, [r1, #1]
-	bl CallBattleQuoteEventsIfAny
-	b _080500D6
-	.align 2, 0
-_080500B8: .4byte gBG0TilemapBuffer
-_080500BC: .4byte 0x01000200
-_080500C0: .4byte gUnknown_02000038
-_080500C4: .4byte gUnknown_0203E100
-_080500C8: .4byte gUnknown_0203E190
-_080500CC:
-	ldr r1, _080500E8  @ gUnknown_0203E190
-	ldrb r0, [r1, #1]
-	ldrb r1, [r1]
-	bl CallBattleQuoteEventsIfAny
-_080500D6:
-	movs r0, #0
-	str r0, [r4, #0x54]
-_080500DA:
-	ldr r0, _080500EC  @ ekrBattle_80500F0
-	str r0, [r4, #0xc]
-_080500DE:
-	add sp, #4
-	pop {r4}
-	pop {r0}
-	bx r0
-	.align 2, 0
-_080500E8: .4byte gUnknown_0203E190
-_080500EC: .4byte ekrBattle_80500F0
-
-	THUMB_FUNC_END ekrBattle_8050054
-
-	THUMB_FUNC_START ekrBattle_80500F0
-ekrBattle_80500F0: @ 0x080500F0
-	push {r4, lr}
-	adds r4, r0, #0
-	bl BattleEventEngineExists
-	cmp r0, #0
-	bne _08050128
-	bl sub_8051F1C
-	movs r0, #1
-	bl BG_EnableSyncByMask
-	movs r0, #0
-	movs r1, #7
-	bl NewEkrWindowAppear
-	movs r0, #0
-	movs r1, #7
-	movs r2, #0
-	bl NewEkrNamewinAppear
-	bl EkrGauge_8051228
-	bl sub_8051BA0
-	bl EkrGauge_8051180
-	ldr r0, _08050130  @ ekrBattle_8050134
-	str r0, [r4, #0xc]
-_08050128:
-	pop {r4}
-	pop {r0}
-	bx r0
-	.align 2, 0
-_08050130: .4byte ekrBattle_8050134
-
-	THUMB_FUNC_END ekrBattle_80500F0
-
-	THUMB_FUNC_START ekrBattle_8050134
-ekrBattle_8050134: @ 0x08050134
-	push {r4, lr}
-	adds r4, r0, #0
-	bl sub_8056D74
-	lsls r0, r0, #0x18
-	asrs r0, r0, #0x18
-	cmp r0, #1
-	bne _0805014C
-	ldr r0, _08050154  @ ekrBattle_8050158
-	str r0, [r4, #0xc]
-	movs r0, #0
-	strh r0, [r4, #0x2c]
-_0805014C:
-	pop {r4}
-	pop {r0}
-	bx r0
-	.align 2, 0
-_08050154: .4byte ekrBattle_8050158
-
-	THUMB_FUNC_END ekrBattle_8050134
-
-	THUMB_FUNC_START ekrBattle_8050158
-ekrBattle_8050158: @ 0x08050158
-	ldr r1, _0805016C  @ gUnknown_0203E100
-	movs r2, #0
-	ldrsh r1, [r1, r2]
-	str r1, [r0, #0x44]
-	movs r1, #0
-	str r1, [r0, #0x48]
-	ldr r1, _08050170  @ ekrBattle_8050174
-	str r1, [r0, #0xc]
-	bx lr
-	.align 2, 0
-_0805016C: .4byte gUnknown_0203E100
-_08050170: .4byte ekrBattle_8050174
-
-	THUMB_FUNC_END ekrBattle_8050158
-
-	THUMB_FUNC_START ekrBattle_8050174
-ekrBattle_8050174: @ 0x08050174
-	push {r4, lr}
-	adds r4, r0, #0
-	ldr r0, [r4, #0x48]
-	cmp r0, #2
-	bne _08050188
-	ldr r0, _08050184  @ ekrBattle_8050244
-	str r0, [r4, #0xc]
-	b _0805021A
-	.align 2, 0
-_08050184: .4byte ekrBattle_8050244
-_08050188:
-	ldr r0, [r4, #0x44]
-	cmp r0, #0
-	bne _080501D4
-	ldr r0, _080501A8  @ gUnknown_02000000
-	ldr r0, [r0]
-	str r0, [r4, #0x5c]
-	bl sub_806FA6C
-	cmp r0, #2
-	beq _080501BA
-	cmp r0, #2
-	bhi _080501AC
-	cmp r0, #1
-	beq _080501B2
-	b _080501CC
-	.align 2, 0
-_080501A8: .4byte gUnknown_02000000
-_080501AC:
-	cmp r0, #3
-	beq _080501C2
-	b _080501CC
-_080501B2:
-	ldr r0, [r4, #0x5c]
-	bl sub_80701B8
-	b _080501C8
-_080501BA:
-	ldr r0, [r4, #0x5c]
-	bl sub_8076540
-	b _080501C8
-_080501C2:
-	ldr r0, [r4, #0x5c]
-	bl sub_80708CC
-_080501C8:
-	ldr r0, _080501D0  @ ekrBattle_8050224
-	str r0, [r4, #0xc]
-_080501CC:
-	movs r0, #1
-	b _08050212
-	.align 2, 0
-_080501D0: .4byte ekrBattle_8050224
-_080501D4:
-	ldr r0, _080501EC  @ gUnknown_02000000
-	ldr r0, [r0, #8]
-	str r0, [r4, #0x5c]
-	bl sub_806FA6C
-	cmp r0, #2
-	beq _080501FE
-	cmp r0, #2
-	bhi _080501F0
-	cmp r0, #1
-	beq _080501F6
-	b _08050210
-	.align 2, 0
-_080501EC: .4byte gUnknown_02000000
-_080501F0:
-	cmp r0, #3
-	beq _08050206
-	b _08050210
-_080501F6:
-	ldr r0, [r4, #0x5c]
-	bl sub_80701B8
-	b _0805020C
-_080501FE:
-	ldr r0, [r4, #0x5c]
-	bl sub_8076540
-	b _0805020C
-_08050206:
-	ldr r0, [r4, #0x5c]
-	bl sub_80708CC
-_0805020C:
-	ldr r0, _08050220  @ ekrBattle_8050224
-	str r0, [r4, #0xc]
-_08050210:
-	movs r0, #0
-_08050212:
-	str r0, [r4, #0x44]
-	ldr r0, [r4, #0x48]
-	adds r0, #1
-	str r0, [r4, #0x48]
-_0805021A:
-	pop {r4}
-	pop {r0}
-	bx r0
-	.align 2, 0
-_08050220: .4byte ekrBattle_8050224
-
-	THUMB_FUNC_END ekrBattle_8050174
-
 	THUMB_FUNC_START ekrBattle_8050224
 ekrBattle_8050224: @ 0x08050224
 	push {r4, lr}
@@ -4758,7 +4112,7 @@ _080521C4:
 	ldrsh r0, [r0, r2]
 	cmp r0, #0
 	bne _080521EC
-	ldr r4, _080521F8  @ gUnknown_0203E190
+	ldr r4, _080521F8  @ gEkrBuIndexes
 	ldrb r0, [r4]
 	ldrb r1, [r4, #1]
 	bl ShouldCallBattleQuote
@@ -4776,7 +4130,7 @@ _080521EC:
 	b _0805220E
 	.align 2, 0
 _080521F4: .4byte gUnknown_0203E0FC
-_080521F8: .4byte gUnknown_0203E190
+_080521F8: .4byte gEkrBuIndexes
 _080521FC:
 	cmp r1, #1
 	beq _0805220C
@@ -5110,7 +4464,7 @@ _08052494: .4byte gUnknown_0203E1AC
 _08052498: .4byte gUnknown_0203E152
 _0805249C: .4byte gUnknown_02017780
 _080524A0:
-	ldr r4, _080524C4  @ gUnknown_0203E190
+	ldr r4, _080524C4  @ gEkrBuIndexes
 	adds r0, r6, #0
 	bl GetAISSubjectId
 	adds r0, r0, r4
@@ -5126,7 +4480,7 @@ _080524B4:
 	bl sub_8052DD4
 	b _080524E4
 	.align 2, 0
-_080524C4: .4byte gUnknown_0203E190
+_080524C4: .4byte gEkrBuIndexes
 _080524C8:
 	bl sub_805B07C
 	adds r0, r6, #0
@@ -5660,7 +5014,7 @@ _08052904: .4byte gUnknown_0203E1AC
 _08052908: .4byte gUnknown_0203E152
 _0805290C: .4byte gUnknown_02017780
 _08052910:
-	ldr r4, _08052934  @ gUnknown_0203E190
+	ldr r4, _08052934  @ gEkrBuIndexes
 	adds r0, r6, #0
 	bl GetAISSubjectId
 	adds r0, r0, r4
@@ -5676,7 +5030,7 @@ _08052924:
 	bl sub_8052DD4
 	b _08052954
 	.align 2, 0
-_08052934: .4byte gUnknown_0203E190
+_08052934: .4byte gEkrBuIndexes
 _08052938:
 	bl sub_805B07C
 	adds r0, r6, #0
@@ -6400,7 +5754,7 @@ sub_8052EAC: @ 0x08052EAC
 	push {r4, r5, lr}
 	sub sp, #4
 	adds r5, r0, #0
-	bl sub_8056D74
+	bl DoesEkrWindowAppearExist
 	lsls r0, r0, #0x18
 	asrs r0, r0, #0x18
 	cmp r0, #1
@@ -6425,7 +5779,7 @@ sub_8052EAC: @ 0x08052EAC
 	movs r0, #1
 	bl BG_EnableSyncByMask
 	bl EkrGauge_8051190
-	ldr r4, _08052F20  @ gUnknown_0203E190
+	ldr r4, _08052F20  @ gEkrBuIndexes
 	ldr r0, [r5, #0x5c]
 	bl GetAISSubjectId
 	adds r0, r0, r4
@@ -6442,7 +5796,7 @@ _08052F0A:
 _08052F14: .4byte gBG0TilemapBuffer
 _08052F18: .4byte 0x01000200
 _08052F1C: .4byte gUnknown_02000038
-_08052F20: .4byte gUnknown_0203E190
+_08052F20: .4byte gEkrBuIndexes
 
 	THUMB_FUNC_END sub_8052EAC
 
@@ -6492,7 +5846,7 @@ _08052F80: .4byte gUnknown_0203E104
 sub_8052F84: @ 0x08052F84
 	push {r4, lr}
 	adds r4, r0, #0
-	bl sub_8056D74
+	bl DoesEkrWindowAppearExist
 	lsls r0, r0, #0x18
 	asrs r0, r0, #0x18
 	cmp r0, #1
@@ -12301,7 +11655,7 @@ _08055BF2:
 	str r1, [r0, #4]
 	str r1, [r0, #8]
 	str r1, [r0, #0xc]
-	ldr r0, _08055C30  @ gAnims
+	ldr r0, _08055C30  @ gUnknown_02000010
 	str r1, [r0]
 	str r1, [r0, #4]
 	ldr r0, _08055C34  @ MainUpdate_8055C68
@@ -12314,7 +11668,7 @@ _08055C24:
 	.align 2, 0
 _08055C28: .4byte gUnknown_02017744
 _08055C2C: .4byte gUnknown_02000000
-_08055C30: .4byte gAnims
+_08055C30: .4byte gUnknown_02000010
 _08055C34: .4byte MainUpdate_8055C68
 
 	THUMB_FUNC_END BeginAnimsOnBattleAnimations
@@ -14472,7 +13826,7 @@ _08056D46:
 	lsls r1, r1, #0x10
 	asrs r1, r1, #0x10
 	bl EkrGauge_80511D0
-	ldr r1, _08056D70  @ gUnknown_0201FACC
+	ldr r1, _08056D70  @ gEkrWindowAppearExist
 	movs r0, #1
 	str r0, [r1]
 	bl EkrGauge_8051208
@@ -14482,28 +13836,28 @@ _08056D46:
 	.align 2, 0
 _08056D68: .4byte gProc_ekrWindowAppear
 _08056D6C: .4byte gUnknown_02000038
-_08056D70: .4byte gUnknown_0201FACC
+_08056D70: .4byte gEkrWindowAppearExist
 
 	THUMB_FUNC_END NewEkrWindowAppear
 
-	THUMB_FUNC_START sub_8056D74
-sub_8056D74: @ 0x08056D74
+	THUMB_FUNC_START DoesEkrWindowAppearExist
+DoesEkrWindowAppearExist: @ 0x08056D74
 	push {lr}
-	ldr r0, _08056D84  @ gUnknown_0201FACC
+	ldr r0, _08056D84  @ gEkrWindowAppearExist
 	ldr r0, [r0]
 	cmp r0, #0
 	beq _08056D88
 	movs r0, #0
 	b _08056D8A
 	.align 2, 0
-_08056D84: .4byte gUnknown_0201FACC
+_08056D84: .4byte gEkrWindowAppearExist
 _08056D88:
 	movs r0, #1
 _08056D8A:
 	pop {r1}
 	bx r1
 
-	THUMB_FUNC_END sub_8056D74
+	THUMB_FUNC_END DoesEkrWindowAppearExist
 
 	THUMB_FUNC_START sub_8056D90
 sub_8056D90: @ 0x08056D90
@@ -14517,7 +13871,7 @@ sub_8056D90: @ 0x08056D90
 	ldrsh r0, [r4, r3]
 	cmp r1, r0
 	blt _08056DBC
-	ldr r1, _08056DB8  @ gUnknown_0201FACC
+	ldr r1, _08056DB8  @ gEkrWindowAppearExist
 	movs r0, #0
 	str r0, [r1]
 	bl EkrGauge_80511F8
@@ -14525,7 +13879,7 @@ sub_8056D90: @ 0x08056D90
 	bl Proc_Break
 	b _08056E04
 	.align 2, 0
-_08056DB8: .4byte gUnknown_0201FACC
+_08056DB8: .4byte gEkrWindowAppearExist
 _08056DBC:
 	adds r0, r2, #1
 	strh r0, [r4, #0x2c]
@@ -15776,7 +15130,7 @@ _08057758:
 	ldr r1, _080579E0  @ gUnknown_0203E114
 	strh r0, [r1, #2]
 _08057772:
-	ldr r1, _080579E4  @ gUnknown_0203E190
+	ldr r1, _080579E4  @ gEkrBuIndexes
 	movs r7, #0
 	strb r7, [r1, #1]
 	strb r7, [r1]
@@ -16109,7 +15463,7 @@ _080579D2:
 	.align 2, 0
 _080579DC: .4byte gUnknown_02000000
 _080579E0: .4byte gUnknown_0203E114
-_080579E4: .4byte gUnknown_0203E190
+_080579E4: .4byte gEkrBuIndexes
 _080579E8: .4byte gUnknown_0203E1B8
 _080579EC: .4byte 0x0000FFFF
 _080579F0: .4byte gUnknown_0203E1BC
@@ -37051,7 +36405,7 @@ sub_8061E8C: @ 0x08061E8C
 	adds r6, r1, #0
 	orrs r0, r6
 	strh r0, [r5, #8]
-	ldr r4, _08061F74  @ gAnims
+	ldr r4, _08061F74  @ gUnknown_02000010
 	adds r0, r5, #0
 	bl GetAISSubjectId
 	lsls r0, r0, #2
@@ -37094,7 +36448,7 @@ _08061F64: .4byte gUnknown_085D6A44
 _08061F68: .4byte gUnknown_08670548
 _08061F6C: .4byte gLCDControlBuffer
 _08061F70: .4byte 0x0000F3FF
-_08061F74: .4byte gAnims
+_08061F74: .4byte gUnknown_02000010
 
 	THUMB_FUNC_END sub_8061E8C
 
@@ -37106,7 +36460,7 @@ sub_8061F78: @ 0x08061F78
 	adds r0, r6, #0
 	bl GetCoreAIStruct
 	adds r7, r0, #0
-	ldr r4, _08061FD4  @ gAnims
+	ldr r4, _08061FD4  @ gUnknown_02000010
 	adds r0, r6, #0
 	bl GetAISSubjectId
 	lsls r0, r0, #2
@@ -37144,7 +36498,7 @@ _08061FA8:
 	bl sub_8055670
 	b _08062046
 	.align 2, 0
-_08061FD4: .4byte gAnims
+_08061FD4: .4byte gUnknown_02000010
 _08061FD8: .4byte 0x0000F3FF
 _08061FDC:
 	movs r0, #1
@@ -61333,7 +60687,7 @@ _0806DF14:
 	str r4, [r6, #0x60]
 	ldr r0, [r6, #0x5c]
 	bl GetAISSubjectId
-	ldr r1, _0806DF7C  @ gAnims
+	ldr r1, _0806DF7C  @ gUnknown_02000010
 	lsls r0, r0, #2
 	adds r0, r0, r1
 	ldr r1, [r6, #0x60]
@@ -61358,7 +60712,7 @@ _0806DF14:
 _0806DF70: .4byte gUnknown_085F1BD8
 _0806DF74: .4byte gUnknown_085F1D6C
 _0806DF78: .4byte gUnknown_085D9284
-_0806DF7C: .4byte gAnims
+_0806DF7C: .4byte gUnknown_02000010
 _0806DF80:
 	ldrh r0, [r4, #8]
 	movs r2, #0x93
@@ -61423,7 +60777,7 @@ sub_806DFD0: @ 0x0806DFD0
 	bl AnimDelete
 	ldr r0, [r4, #0x5c]
 	bl GetAISSubjectId
-	ldr r1, _0806E010  @ gAnims
+	ldr r1, _0806E010  @ gUnknown_02000010
 	lsls r0, r0, #2
 	adds r0, r0, r1
 	movs r1, #0
@@ -61435,7 +60789,7 @@ _0806E00A:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_0806E010: .4byte gAnims
+_0806E010: .4byte gUnknown_02000010
 
 	THUMB_FUNC_END sub_806DFD0
 
@@ -61719,7 +61073,7 @@ _0806E202:
 	str r4, [r5, #0x60]
 	ldr r0, [r5, #0x5c]
 	bl GetAISSubjectId
-	ldr r1, _0806E268  @ gAnims
+	ldr r1, _0806E268  @ gUnknown_02000010
 	lsls r0, r0, #2
 	adds r0, r0, r1
 	ldr r1, [r5, #0x60]
@@ -61744,7 +61098,7 @@ _0806E202:
 _0806E25C: .4byte gUnknown_08746508
 _0806E260: .4byte gUnknown_0874670C
 _0806E264: .4byte gUnknown_085D9300
-_0806E268: .4byte gAnims
+_0806E268: .4byte gUnknown_02000010
 _0806E26C:
 	ldrh r0, [r4, #8]
 	movs r2, #0x93
@@ -61787,7 +61141,7 @@ sub_806E290: @ 0x0806E290
 	bl AnimDelete
 	ldr r0, [r6, #0x5c]
 	bl GetAISSubjectId
-	ldr r1, _0806E304  @ gAnims
+	ldr r1, _0806E304  @ gUnknown_02000010
 	lsls r0, r0, #2
 	adds r0, r0, r1
 	movs r1, #0
@@ -61819,7 +61173,7 @@ _0806E2FC:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_0806E304: .4byte gAnims
+_0806E304: .4byte gUnknown_02000010
 _0806E308: .4byte gUnknown_02000000
 
 	THUMB_FUNC_END sub_806E290

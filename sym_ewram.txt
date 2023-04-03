@@ -1,5 +1,5 @@
 . = 0x000000; gUnknown_02000000 = .;
-. = 0x000010; gAnims = .;
+. = 0x000010; gUnknown_02000010 = .;
 . = 0x000018; gUnknown_02000018 = .;
 . = 0x00001C; gUnknown_0200001C = .;
 . = 0x000020; gUnknown_02000020 = .;
@@ -250,7 +250,7 @@
 . = 0x01FA38; gUnknown_0201FA38 = .;
 . = 0x01FA68; gUnknown_0201FA68 = .;
 . = 0x01FAC8; gUnknown_0201FAC8 = .;
-. = 0x01FACC; gUnknown_0201FACC = .;
+. = 0x01FACC; gEkrWindowAppearExist = .;
 . = 0x01FAD0; gUnknown_0201FAD0 = .;
 . = 0x01FAD4; gUnknown_0201FAD4 = .;
 . = 0x01FAD8; gUnknown_0201FAD8 = .;
@@ -574,7 +574,7 @@
 . = 0x03E182; gUnknown_0203E182 = .;
 . = 0x03E188; gpEkrBattleUnitLeft = .;
 . = 0x03E18C; gpEkrBattleUnitRight = .;
-. = 0x03E190; gUnknown_0203E190 = .;
+. = 0x03E190; gEkrBuIndexes = .;
 . = 0x03E194; gUnknown_0203E194 = .;
 . = 0x03E19C; gUnknown_0203E19C = .;
 . = 0x03E1A4; gUnknown_0203E1A4 = .;

@@ -26,6 +26,7 @@
 #include "uimenu.h"
 #include "uiutils.h"
 #include "bmsave.h"
+#include "ekrbattle.h"
 
 u8 PromotionInit_SetNullState(struct PromoProc *proc);
 void PromotionInit_Loop(struct PromoProc *proc);
