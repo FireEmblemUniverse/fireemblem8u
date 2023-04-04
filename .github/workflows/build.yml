@@ -26,7 +26,7 @@ jobs:
 
     steps:
     - name: Install dependencies
-      run: sudo apt-get update && sudo apt-get install -y build-essential binutils-arm-none-eabi libpng-dev
+      run: sudo apt-get update && sudo apt-get install -y build-essential binutils-arm-none-eabi libpng-dev && python -m pip install ttp
 
     - uses: actions/checkout@v3
 
@@ -43,7 +43,10 @@ jobs:
       run: make fireemblem8.gba
 
     - name: Calculate decomp progress
-      run: scripts/calcrom.sh > _site/progress.txt
+      run: scripts/calcrom.sh | tee _site/progress.txt
+
+    - name: Upload decomp progress
+      run: python scripts/upload-progress.py -b "https://progress.deco.mp" -a ${{secrets.PROGRESS_API_KEY}} -p fireemblem8 -v us -t scripts/progress-template.txt _site/progress.txt
 
     - name: Extract symbol table
       run: arm-none-eabi-nm -l -n fireemblem8.elf | grep -v '^00' | uniq > _site/symbols.txt
