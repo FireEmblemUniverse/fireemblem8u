@@ -20,6 +20,7 @@
 #include "bmarch.h"
 #include "bmarena.h"
 #include "bmsave.h"
+#include "ekrbattle.h"
 #include "bmbattle.h"
 
 struct WeaponTriangleRule {

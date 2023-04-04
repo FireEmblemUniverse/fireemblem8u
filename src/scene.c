@@ -13,6 +13,7 @@
 #include "face.h"
 #include "bmunit.h"
 #include "uiutils.h"
+#include "ekrbattle.h"
 
 #include "scene.h"
 
