@@ -1,6 +1,8 @@
 #ifndef GUARD_BMARENA_H
 #define GUARD_BMARENA_H
 
+#include "global.h"
+
 struct ArenaData
 {
     /* 00 */ struct Unit* playerUnit;

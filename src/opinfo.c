@@ -13,7 +13,7 @@
 #include "scene.h"
 #include "classdisplayfont.h"
 #include "opinfo.h"
-#include "ekrbattle.h"
+#include "anime.h"
 
 #include "constants/classes.h"
 

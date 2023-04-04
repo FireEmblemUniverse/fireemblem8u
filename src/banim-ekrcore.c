@@ -5,6 +5,8 @@
 #include "ctc.h"
 #include "event.h"
 #include "proc.h"
+#include "bmbattle.h"
+#include "bmarena.h"
 #include "ekrbattle.h"
 
 extern struct Anim *gUnknown_02000000[4];
@@ -292,4 +294,261 @@ void ekrBattle_8050174(struct ProcEkrBattle *proc)
     }
 
     proc->unk48++;
+}
+
+void ekrBattle_8050224(struct ProcEkrBattle *proc)
+{
+    if (sub_806FBF8(proc->anim) == true)
+        proc->proc_idleCb = (ProcFunc)ekrBattle_8050174;
+}
+
+void ekrBattle_8050244(struct ProcEkrBattle *proc)
+{
+    if (gUnknown_0203E100 != gUnknown_02017744) {
+        sub_80533D0(gUnknown_02000000[gUnknown_02017744 * 2], -1);
+        proc->timer = 0;
+        proc->proc_idleCb = (ProcFunc)ekrBattle_8050290;
+    } else
+        proc->proc_idleCb = (ProcFunc)ekrBattle_80502B0;
+}
+
+void ekrBattle_8050290(struct ProcEkrBattle *proc)
+{
+    if (++proc->timer == 8)
+        proc->proc_idleCb = (ProcFunc)ekrBattle_80502B0;
+}
+
+void ekrBattle_80502B0(struct ProcEkrBattle *proc)
+{
+    NewEfxStatusUnit(gUnknown_02000000[0]);
+    NewEfxStatusUnit(gUnknown_02000000[2]);
+    sub_8054E8C(gUnknown_0203E1D8.x, gUnknown_0203E1D8.y);
+
+    if (gBattleStats.config & BATTLE_CONFIG_REFRESH)
+        sub_8054B64(gUnknown_02000000[0]);
+
+    sub_80545C0(gUnknown_02000000[0]);
+    proc->proc_idleCb = (ProcFunc)ekrBattle_8050304;
+}
+
+void ekrBattle_8050304(struct ProcEkrBattle *proc)
+{
+    if (gUnknown_0203E194 != false) {
+        NewEkrTriangle(gUnknown_02000000[2]);
+        proc->proc_idleCb = (ProcFunc)ekrBattle_8050338;
+    } else
+        proc->proc_idleCb = (ProcFunc)ekrBattle_8050360;
+}
+
+void ekrBattle_8050338(struct ProcEkrBattle *proc)
+{
+    if (sub_8074F3C() == true) {
+        nullsub_18();
+        proc->timer = 0x1E;
+        proc->proc_idleCb = (ProcFunc)ekrBattle_8050360;
+    }
+}
+
+void ekrBattle_8050360(struct ProcEkrBattle *proc)
+{
+    struct Anim *anim;
+
+    if (++proc->timer <= 0x1E)
+        return;
+
+    if (gUnknown_0203E104[0] == true) {
+        anim = gUnknown_02000000[0];
+        anim->state3 = 0x8000;
+        anim->state2 |= 0x4000;
+
+        anim = gUnknown_02000000[1];
+        anim->state3 = 0x8000;
+        anim->state2 |= 0x4000;
+    }
+
+    if (gUnknown_0203E104[1] == true) {
+        anim = gUnknown_02000000[2];
+        anim->state3 = 0x8000;
+        anim->state2 |= 0x4000;
+
+        anim = gUnknown_02000000[3];
+        anim->state3 = 0x8000;
+        anim->state2 |= 0x4000;
+    }
+
+    gUnknown_0201FB04[0] = 0;
+    gUnknown_0201FB04[1] = 0;
+    proc->proc_idleCb = (ProcFunc)ekrBattle_80503EC;
+}
+
+void ekrBattle_80503EC(struct ProcEkrBattle *proc)
+{
+    gUnknown_02000024 = 0;
+    proc->proc_idleCb = (ProcFunc)ekrBattle_8050400;
+}
+
+void ekrBattle_8050400(struct ProcEkrBattle *proc)
+{
+    if (gUnknown_0203E120 == 4) {
+        NewEkrClassChg(gUnknown_02000000[2]);
+        proc->proc_idleCb = (ProcFunc)ekrBattle_8050440;
+    } else {
+        proc->unk29 = 0;
+        proc->proc_idleCb = (ProcFunc)ekrBattle_805046C;
+    }
+}
+
+void ekrBattle_8050440(struct ProcEkrBattle *proc)
+{
+    if (EkrClasschgFinished() == true) {
+        EndEkrClasschg();
+        gUnknown_0203E1C8[0] = 1;
+        proc->proc_idleCb = (ProcFunc)ekrBattle_CheckForLevelup_8050C34;
+    }
+}
+
+void ekrBattle_805046C(struct ProcEkrBattle *proc)
+{
+    int ret = 0;
+    if (gKeyStatusPtr->heldKeys & 2)
+        proc->unk29 = 1;
+
+    switch (gUnknown_0203E120) {
+    case 0:
+    case 1:
+    case 2:
+        if ((gUnknown_0201FB04[0] + gUnknown_0201FB04[1]) == 2) {
+            if (sub_805B028() == 0)
+                ret = 1;
+            else {
+                gUnknown_0203E1C8[0] = gpEkrBattleUnitLeft->expGain;
+                gUnknown_0203E1C8[1] = gpEkrBattleUnitRight->expGain;
+    
+                if (gUnknown_0203E1AC[0] == 0) {
+                    ArenaSetResult(1);
+                    ret = 1;
+                } else if (gUnknown_0203E1AC[1] == 0) {
+                    ArenaSetResult(2);
+                    gUnknown_0203E1C8[1] = 0;
+                    ret = 1;
+                } else if (proc->unk29 == 1) {
+                    sub_805B094();
+                    ArenaSetResult(4);
+                    gUnknown_0203E1C8[1] = 0;
+                    ret = 1;
+                } else {
+                    u8 val = 0;
+                    struct Anim *anim1 = gUnknown_02000000[0];
+                    struct Anim *anim2 = gUnknown_02000000[2];
+    
+                    switch (anim1->currentRoundType) {
+                    case 6:
+                    case 7:
+                    case 8:
+                        val = 1;
+                        break;
+    
+                    default:
+                        break;
+                    } /* switch */
+    
+                    switch (anim2->currentRoundType) {
+                    case 6:
+                    case 7:
+                    case 8:
+                        val++;
+                        break;
+    
+                    default:
+                        break;
+                    } /* switch */
+    
+                    if (val == 2) {
+                        if (sub_8054BD4(anim1) & 0xC)
+                            sub_8054BA4(anim1, NULL);
+    
+                        if (sub_8054BD4(anim2) & 0xC)
+                            sub_8054BA4(anim2, NULL);
+    
+                        if (anim1->xPosition == 0x44)
+                            sub_80533D0(anim1, -1);
+    
+                        ArenaContinueBattle();
+                        sub_80581EC();
+                        AnimClearAll();
+                        sub_80599E8();
+                        sub_8059D28();
+    
+                        proc->timer = 0;
+                        proc->proc_idleCb = (ProcFunc)ekrBattle_8050360;
+                    } /* if */
+                }
+            } /* if */
+        } /* switch */
+        break;
+
+    case 3:
+        if ((gUnknown_0201FB04[0] + gUnknown_0201FB04[1]) == 1)
+            ret = 1;
+        break;
+
+    case 4:
+        ret = 1;
+        break;
+    }
+
+    if (ret == 1)
+        proc->proc_idleCb = (ProcFunc)ekrBattle_80505EC;
+}
+
+void ekrBattle_80505EC(struct ProcEkrBattle *proc)
+{
+    proc->unk29 = 0;
+    proc->proc_idleCb = (ProcFunc)ekrBattle_8050600;
+}
+
+void ekrBattle_8050600(struct ProcEkrBattle *proc)
+{
+    int val, ret;
+
+    if (gUnknown_02017728 != 0)
+        return;
+
+    if (gUnknown_02017738 != 0)
+        return;
+
+    ret = sub_8056E60();
+    if (ret != true)
+        return;
+
+    proc->timer = 0;
+    proc->proc_idleCb = (ProcFunc)ekrBattle_WaitForPostBattleAct;
+
+    if (sub_8070214(gUnknown_02000000[0]) != false)
+        return;
+
+    if (gUnknown_0203E1C8[0] != 0)
+        val = 0;
+    else
+        val = 1;
+
+    if (val != gUnknown_02017744)
+        proc->unk29 = ret;
+
+    if (proc->unk29 == 1)
+        sub_80533D0(gUnknown_02000000[gUnknown_02017744 * 2], -1);
+}
+
+/**
+ * Battle anim has done and prepare to draw up exp bar
+ */
+void ekrBattle_WaitForPostBattleAct(struct ProcEkrBattle *proc)
+{
+    if (++proc->timer < 0x1E)
+        return;
+
+    if (sub_804FD54() != 1 && gUnknown_0203E1C8[0] != -gUnknown_0203E1C8[1])
+        proc->proc_idleCb = (ProcFunc)ekrBattle_80506C8;
+    else
+        proc->proc_idleCb = (ProcFunc)ekrBattle_MakePopups;
 }

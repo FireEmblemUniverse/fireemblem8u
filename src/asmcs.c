@@ -32,6 +32,7 @@
 #include "bmitem.h"
 #include "bmudisp.h"
 #include "bmsave.h"
+#include "ekrbattle.h"
 
 struct UnkProc80855A0 {
     PROC_HEADER;
