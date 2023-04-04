@@ -120,9 +120,9 @@ const char aEfxlvupbg2[] = "efxLvupBG2";
  * section.text
  */
 
-bool DoesEkrLevelUpSomething(void)
+bool CheckEkrLvupDone(void)
 {
-    if (gpProcEkrLevelup->unk29 == true)
+    if (gpProcEkrLevelup->finished == true)
         return true;
     else
         return false;
@@ -282,7 +282,7 @@ void NewEkrLevelup(struct Anim *ais)
         proc->is_promotion = true;
     
     proc->count = 0;
-    proc->unk29 = false;
+    proc->finished = false;
 }
 
 void EkrLvup_OnPrepare(struct ProcEkrLevelup *proc)

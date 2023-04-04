@@ -154,11 +154,11 @@ extern struct PrepUnitList gPrepUnitList;
 // extern ??? gUnknown_020176F0
 // extern ??? gUnknown_02017700
 extern u32 gUnknown_02017724;
-// extern ??? gUnknown_02017728
+extern u32 gUnknown_02017728;
 // extern ??? gUnknown_0201772C
 // extern ??? gUnknown_02017730
 // extern ??? gUnknown_02017734
-// extern ??? gUnknown_02017738
+extern u32 gUnknown_02017738;
 // extern ??? gUnknown_0201773C
 // extern ??? gUnknown_02017740
 extern u32 gUnknown_02017744;
@@ -511,21 +511,21 @@ extern struct ActionData gActionData;
 // extern ??? gUnknown_0203E156
 // extern ??? gUnknown_0203E182
 extern u8 gEkrBuIndexes[2];
-// extern ??? gUnknown_0203E194
+extern int gUnknown_0203E194;
 // extern ??? gUnknown_0203E19C
 // extern ??? gUnknown_0203E1A4
-// extern ??? gUnknown_0203E1AC
+extern short gUnknown_0203E1AC[2];
 // extern ??? gUnknown_0203E1B0
 // extern ??? gUnknown_0203E1B4
 // extern ??? gUnknown_0203E1B8
 // extern ??? gUnknown_0203E1BC
 // extern ??? gUnknown_0203E1C0
 // extern ??? gUnknown_0203E1C4
-// extern ??? gUnknown_0203E1C8
+extern short gUnknown_0203E1C8[2];
 // extern ??? gUnknown_0203E1CC
 // extern ??? gUnknown_0203E1D0
 // extern ??? gUnknown_0203E1D4
-// extern ??? gUnknown_0203E1D8
+extern struct Vec2 gUnknown_0203E1D8;
 // extern ??? gUnknown_0203E1DC
 // extern ??? gUnknown_0203E1E0
 // extern ??? gUnknown_0203E1E4

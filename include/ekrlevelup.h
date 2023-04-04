@@ -9,7 +9,7 @@
 struct ProcEkrLevelup {
     PROC_HEADER;
 
-    /* 29 */ bool8 unk29;
+    /* 29 */ bool8 finished;
     /* 2A */ bool8 is_promotion; // promo = 1, else = 0
     /* 2C */ s16 count;    // init 0, maybe a counter
     /* 2E */ s16 stat_id;
@@ -65,7 +65,7 @@ extern u16 gEkrLvupScrollPos2;
 // extern ??? gUnknown_02020138
 // extern ??? gUnknown_0202013C
 
-bool DoesEkrLevelUpSomething(void);
+bool CheckEkrLvupDone(void);
 void EndEkrLevelUp(void);
 void EkrLvup_InitStatusText(struct ProcEkrLevelup *proc);
 void EkrLvup_DrawUpdatedStatus(struct ProcEkrLevelup *proc, int index);
