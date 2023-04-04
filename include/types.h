@@ -3,7 +3,7 @@
 
 #include "gba/types.h"
 
-#ifndef bool
+#ifndef __STDBOOL_H__
 typedef s8 bool;
 enum { false, true };
 #define false	false
