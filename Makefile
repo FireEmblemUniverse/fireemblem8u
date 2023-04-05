@@ -84,7 +84,7 @@ DEPS_DIR     := .dep
 AUTO_GEN_TARGETS :=
 
 # Use the older compiler to build library code
-src/agb_sram.o: CC1FLAGS := -mthumb-interwork -Wimplicit -Wparentheses -Werror -O1 -g
+src/agb_sram.o: CC1FLAGS := -mthumb-interwork -Wimplicit -Wparentheses -Werror -O1 -ffix-debug-line -g
 src/m4a.o: CC1 := $(CC1_OLD)
 
 # TODO: find a more elegant solution to the inlining issue
