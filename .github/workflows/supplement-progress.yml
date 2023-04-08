@@ -6,6 +6,9 @@ on:
       range:
         description: 'Range'
         required: true
+      beforeBuild:
+        description: 'Before Build'
+        default: 'echo build'
 
 jobs:
   build:
@@ -31,4 +34,4 @@ jobs:
       run: head -c 16777216 /dev/urandom > baserom.gba
 
     - name: Supplement progress data
-      run: for commit in `git log --merges --format=%h ${{ inputs.range }}`; do git checkout -f $commit && git checkout ${{ github.ref_name }} scripts && make fireemblem8.gba && sh scripts/calcrom.sh > progress.txt && make clean && python scripts/upload-progress.py -b "https://progress.deco.mp" -a ${{secrets.PROGRESS_API_KEY}} -p fireemblem8 -v us -t scripts/progress-template.txt progress.txt; done
+      run: for commit in `git log --merges --format=%h ${{ inputs.range }}`; do git checkout -f $commit && git checkout ${{ github.ref_name }} scripts && ${{ inputs.beforeBuild }} && make fireemblem8.gba && sh scripts/calcrom.sh > progress.txt && make clean && python scripts/upload-progress.py -b "https://progress.deco.mp" -a ${{secrets.PROGRESS_API_KEY}} -p fireemblem8 -v us -t scripts/progress-template.txt progress.txt; done
