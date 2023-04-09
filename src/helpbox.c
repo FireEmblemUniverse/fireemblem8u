@@ -461,6 +461,11 @@ _08089EE0:
     return;
 }
 
+struct ProcCmd CONST_DATA gUnknown_08A01628[] = {
+    PROC_REPEAT(sub_8089E58),
+    PROC_END,
+};
+
 //! FE8U = 0x08089EEC
 void sub_8089EEC(struct HelpBoxScrollProc* proc) {
     int i;
@@ -506,6 +511,12 @@ _08089F4C:
     SetFont(proc->unk_30);
     return;
 }
+
+struct ProcCmd CONST_DATA gUnknown_08A01638[] = {
+    PROC_SLEEP(0),
+    PROC_CALL(sub_8089EEC),
+    PROC_END,
+};
 
 //! FE8U = 0x08089F58
 void sub_8089F58(struct HelpBox8A01650Proc* proc) {
@@ -624,6 +635,17 @@ void sub_808A00C(struct HelpBox8A01650Proc* proc) {
     return;
 }
 
+struct ProcCmd CONST_DATA gUnknown_08A01650[] = {
+    PROC_SLEEP(6),
+
+    PROC_REPEAT(sub_8089F58),
+    PROC_REPEAT(sub_8089FCC),
+
+    PROC_CALL(sub_808A00C),
+
+    PROC_END,
+};
+
 //! FE8U = 0x0808A0FC
 void sub_808A0FC(int item, int msgId) {
     struct HelpBox8A01650Proc* proc = Proc_Start(gUnknown_08A01650, PROC_TREE_3);
@@ -693,6 +715,14 @@ void sub_808A1B8(struct HelpBoxProc* proc) {
 
     return;
 }
+
+struct ProcCmd CONST_DATA gUnknown_08A01678[] = {
+    PROC_REPEAT(sub_808A160),
+    PROC_CALL(sub_808A188),
+    PROC_REPEAT(sub_808A1B8),
+
+    PROC_END,
+};
 
 //! FE8U = 0x0808A1E0
 void sub_808A1E0(int x, int y, int msgId) {
@@ -798,6 +828,17 @@ void sub_808A340(struct HelpBoxProc* proc) {
 
     return;
 }
+
+struct ProcCmd CONST_DATA gUnknown_08A01698[] = {
+    PROC_SLEEP(1),
+
+PROC_LABEL(0),
+    PROC_CALL(sub_808A2FC),
+    PROC_REPEAT(sub_808A320),
+    PROC_CALL(sub_808A2D0),
+
+    PROC_END,
+};
 
 //! FE8U = 0x0808A354
 void sub_808A354(const struct HelpBoxInfo* info) {
@@ -913,6 +954,11 @@ void sub_808A4A4(ProcPtr proc) {
 
     return;
 }
+
+struct ProcCmd CONST_DATA gUnknown_08A016C8[] = {
+    PROC_REPEAT(sub_808A4A4),
+    PROC_END,
+};
 
 //! FE8U = 0x0808A4C4
 s8 sub_808A4C4(int msgId, ProcPtr parent) {
@@ -1548,6 +1594,31 @@ void sub_808A8AC(void) {
     return;
 }
 
+int CONST_DATA gUnknown_08A016D8[] = {
+    0x0843, // TODO: msgid "Yes[.]"
+    0x0844, // TODO: msgid "No"
+};
+
+struct ProcCmd CONST_DATA gUnknown_08A016E0[] = {
+    PROC_SLEEP(0),
+    PROC_CALL(sub_808A848),
+
+PROC_LABEL(0),
+    PROC_REPEAT(sub_808A87C),
+
+PROC_LABEL(1),
+    PROC_BLOCK,
+
+PROC_LABEL(3),
+    PROC_SLEEP(6),
+
+PROC_LABEL(2),
+    PROC_CALL(sub_808A8AC),
+    PROC_SLEEP(10),
+
+    PROC_END,
+};
+
 //! FE8U = 0x0808A8E4
 void sub_808A8E4(struct HelpBoxProc* proc, int interpolateMethod) {
     int xBox = proc->xBoxFinal;
@@ -1601,6 +1672,14 @@ void sub_808A9C0(struct HelpBoxProc* proc) {
 
     return;
 }
+
+struct ProcCmd CONST_DATA gUnknown_08A01740[] = {
+    PROC_REPEAT(sub_808A974),
+    PROC_CALL(sub_808A99C),
+    PROC_REPEAT(sub_808A9C0),
+
+    PROC_END,
+};
 
 //! FE8U = 0x0808A9F0
 void sub_808A9F0(void) {
@@ -2636,8 +2715,6 @@ void sub_808B11C(struct HelpBox8A01760Proc* proc) {
     return;
 }
 
-extern int gUnknown_08A016D8[];
-
 //! FE8U = 0x0808B178
 void sub_808B178(struct HelpBox8A01760Proc* proc) {
     int iVar5;
@@ -2975,6 +3052,42 @@ void sub_808B870(struct HelpBox8A01760Proc* proc) {
     return;
 }
 
+struct ProcCmd CONST_DATA gUnknown_08A01760[] = {
+    PROC_SLEEP(0),
+    PROC_CALL(sub_808B09C),
+
+PROC_LABEL(0),
+    PROC_REPEAT(sub_808B178),
+
+    PROC_GOTO(2),
+
+PROC_LABEL(1),
+    PROC_REPEAT(sub_808B788),
+
+    // fallthrough
+
+PROC_LABEL(4),
+    PROC_REPEAT(sub_808B7B8),
+
+    PROC_GOTO(0),
+
+PROC_LABEL(5),
+    PROC_REPEAT(sub_808B7B8),
+    PROC_CALL(sub_808B804),
+
+    PROC_GOTO(0),
+
+PROC_LABEL(6),
+    PROC_REPEAT(sub_808B870),
+
+    PROC_GOTO(0),
+
+PROC_LABEL(2),
+    PROC_CALL(sub_808B844),
+
+    PROC_END,
+};
+
 //! FE8U = 0x0808B904
 s8 sub_808B904(void) {
     struct HelpBox8A016E0Proc* proc = Proc_Find(gUnknown_08A016E0);
@@ -2989,8 +3102,6 @@ s8 sub_808B904(void) {
 
     return 0;
 }
-
-extern struct ProcCmd gUnknown_08A01760[];
 
 //! FE8U = 0x0808B928
 void sub_808B928(struct HelpBox8A01800Proc* proc) {
@@ -3049,7 +3160,12 @@ void sub_808B928(struct HelpBox8A01800Proc* proc) {
     return;
 }
 
-extern struct ProcCmd gUnknown_08A01800[];
+struct ProcCmd CONST_DATA gUnknown_08A01800[] = {
+    PROC_SLEEP(6),
+    PROC_CALL(sub_808B928),
+
+    PROC_END,
+};
 
 //! FE8U = 0x0808BA60
 void sub_808BA60(int msgId, int x, int y) {
@@ -3100,6 +3216,11 @@ void sub_808BAA4(void) {
 
     return;
 }
+
+struct ProcCmd CONST_DATA gUnknown_08A01818[] = {
+    PROC_BLOCK,
+    PROC_END,
+};
 
 //! FE8U = 0x0808BB44
 void sub_808BB44(void) {
