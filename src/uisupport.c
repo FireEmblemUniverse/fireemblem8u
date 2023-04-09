@@ -639,7 +639,7 @@ void SupportScreen_SetupGraphics(struct SupportScreenProc* proc) {
 
     proc->helpTextActive = 0;
 
-    LoadDialogueBoxGfx((void*)0x06014800, 10);
+    LoadHelpBoxGfx((void*)0x06014800, 10);
 
     gLCDControlBuffer.dispcnt.bg0_on = 1;
     gLCDControlBuffer.dispcnt.bg1_on = 1;

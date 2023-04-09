@@ -217,7 +217,7 @@ void WmSell_Setup(struct WmSellProc* proc) {
     BG_SetPosition(1, 0, 0);
     BG_SetPosition(2, 0, 0);
 
-    LoadDialogueBoxGfx((void*)0x06014000, -1);
+    LoadHelpBoxGfx((void*)0x06014000, -1);
     LoadIconPalettes(4);
 
     EndSlidingWallEffectMaybe();

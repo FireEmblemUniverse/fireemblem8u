@@ -114,7 +114,7 @@ void sub_80A88E0(struct SaveMenuProc* proc) {
         case 0x10:
         case 0x20:
             if ((proc->unk_36 != 0) && (proc->unk_3e == 0)) {
-                LoadDialogueBoxGfx((void*)0x06014000, 9);
+                LoadHelpBoxGfx((void*)0x06014000, 9);
                 StartHelpBoxExt_Unk(0x30, 0x30, 0x882);
                 proc->unk_3e = 1;
             }
@@ -291,7 +291,7 @@ s8 sub_80A89E4(struct SaveMenuProc* proc) {
                 break;
             case 1:
             case 2:
-                LoadDialogueBoxGfx((void*)0x06014000, 9);
+                LoadHelpBoxGfx((void*)0x06014000, 9);
                 StartItemHelpBox(0x50, proc->unk_2c * 0x20 + 0x2c, 0xFFFE);
                 proc->unk_40 = r7;
                 break;
@@ -1244,7 +1244,7 @@ s8 sub_80A9D20(struct SaveMenuProc* proc, int direction) {
 
 //! FE8U = 0x080A9D84
 void sub_80A9D84(struct SaveMenu8A20068Proc* proc) {
-    LoadDialogueBoxGfx((void*)0x06014000, 9);
+    LoadHelpBoxGfx((void*)0x06014000, 9);
     StartHelpBoxExt_Unk(proc->x, proc->y, proc->msgId);
     PlaySoundEffect(0x70);
     return;

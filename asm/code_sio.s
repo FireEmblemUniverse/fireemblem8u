@@ -20704,7 +20704,7 @@ sub_804B71C: @ 0x0804B71C
 	adds r5, r0, #0
 	ldr r0, _0804B760  @ 0x06015000
 	movs r1, #6
-	bl LoadDialogueBoxGfx
+	bl LoadHelpBoxGfx
 	ldr r2, _0804B764  @ 0x00000756
 	movs r0, #0x40
 	movs r1, #0x38

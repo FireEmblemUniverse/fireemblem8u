@@ -347,7 +347,7 @@ sub_809ED8C: @ 0x0809ED8C
 	ldr r0, _0809F0C4  @ 0x06012000
 	movs r1, #1
 	negs r1, r1
-	bl LoadDialogueBoxGfx
+	bl LoadHelpBoxGfx
 	movs r0, #4
 	bl LoadIconPalettes
 	bl EndSlidingWallEffectMaybe

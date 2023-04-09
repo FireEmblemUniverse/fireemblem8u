@@ -112,7 +112,7 @@ _080AA5F4: .4byte 0x010000A2
 _080AA5F8:
 	ldr r0, _080AA610  @ 0x06014000
 	movs r1, #9
-	bl LoadDialogueBoxGfx
+	bl LoadHelpBoxGfx
 _080AA600:
 	add sp, #4
 	pop {r3, r4}

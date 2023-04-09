@@ -147,7 +147,7 @@ u8 SendToConvoyMenu_Selected(struct MenuProc* proc_menu, struct MenuItemProc* pr
 {
     gActionData.item = gActiveUnit->items[proc_cmd->itemNumber];
     gActionData.unk08 = proc_cmd->itemNumber;
-    LoadDialogueBoxGfx(NULL, -1);
+    LoadHelpBoxGfx(NULL, -1);
     /* maybe draw hand? */
     sub_808AA04(0x8, proc_cmd->itemNumber * 0x10 + 0x20, 0x84B, proc_menu);
     return 0;
@@ -157,7 +157,7 @@ u8 SendToConvoyMenu_Selected2(struct MenuProc* proc_menu, struct MenuItemProc* p
 {
     gActionData.item = gBmSt.itemUnk2C;
     gActionData.unk08 = UNIT_ITEM_COUNT;
-    LoadDialogueBoxGfx(NULL, -1);
+    LoadHelpBoxGfx(NULL, -1);
     /* maybe draw hand? */
     sub_808AA04(0x8, proc_cmd->itemNumber * 0x10 + 0x20, 0x84B, proc_menu);
     return 0;

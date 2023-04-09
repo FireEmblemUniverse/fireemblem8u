@@ -790,7 +790,7 @@ int StartBattleForecastHelpBox(ProcPtr parent) {
         x = 20;
     }
 
-    LoadDialogueBoxGfx(0, -1);
+    LoadHelpBoxGfx(0, -1);
 
     switch (proc->frameKind) {
         case 1:

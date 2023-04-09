@@ -301,7 +301,7 @@ struct HelpBoxInfo sHelpInfo_ChapterStatus_TimePlayed = {
 
 
 void StartChapterStatusHelpBox(ProcPtr proc) {
-    LoadDialogueBoxGfx(OBJ_VRAM1 + 0x1000, 6);
+    LoadHelpBoxGfx(OBJ_VRAM1 + 0x1000, 6);
     StartMovingHelpBox(&sHelpInfo_ChapterStatus_AllyUnits, proc);
 
     return;

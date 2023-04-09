@@ -540,7 +540,7 @@ _08098746:
 	ldr r0, _08098998  @ 0x06014000
 	movs r1, #1
 	negs r1, r1
-	bl LoadDialogueBoxGfx
+	bl LoadHelpBoxGfx
 	movs r0, #0
 	bl sub_8001F48
 	movs r0, #0

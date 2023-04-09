@@ -654,7 +654,7 @@ void TradeMenu_HelpBox_OnInit(struct Proc* proc)
         tradeMenu->hasItem[tradeMenu->extraColumn][tradeMenu->extraRow] = FALSE;
     }
 
-    LoadDialogueBoxGfx(NULL, -1);
+    LoadHelpBoxGfx(NULL, -1);
 
     StartItemHelpBox(
         8 * sItemDisplayTileLocation[tradeMenu->hoverColumn][tradeMenu->hoverRow].x,

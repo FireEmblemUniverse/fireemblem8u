@@ -472,7 +472,7 @@ void ProcPrepUnit_InitScreen(struct ProcPrepUnit *proc)
 
     PrepUnit_DrawPickLeftBar(proc, 0);
     NewGreenTextColorManager(proc);
-    LoadDialogueBoxGfx(BG_SCREEN_ADDR(0x29), 5);
+    LoadHelpBoxGfx(BG_SCREEN_ADDR(0x29), 5);
     EndSlidingWallEffectMaybe();
 }
 

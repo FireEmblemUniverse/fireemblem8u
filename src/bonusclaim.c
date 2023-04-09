@@ -459,7 +459,7 @@ void BonusClaim_Init(struct BonusClaimProc* proc) {
 
     SetupBonusClaimTargets(proc);
 
-    LoadDialogueBoxGfx((void*)0x06013800, 5);
+    LoadHelpBoxGfx((void*)0x06013800, 5);
 
     return;
 }

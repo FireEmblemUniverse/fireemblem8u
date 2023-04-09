@@ -1974,7 +1974,7 @@ _0800E3A6:
 	bl sub_808AA04
 	lsls r0, r4, #0x10
 	lsrs r0, r0, #0x10
-	bl sub_808A518
+	bl SetDialogueBoxConfig
 	add sp, #8
 	pop {r3}
 	mov r8, r3
@@ -2235,7 +2235,7 @@ _0800E5B6:
 	lsls r0, r0, #0x18
 	cmp r0, #0
 	bne _0800E5CA
-	ldr r0, _0800E5FC  @ gUnknown_08A016E0
+	ldr r0, _0800E5FC  @ gProcScr_BoxDialogue
 	bl Proc_Find
 	cmp r0, #0
 	beq _0800E5CC
@@ -2267,7 +2267,7 @@ _0800E5F8:
 	movs r0, #3
 	b _0800E630
 	.align 2, 0
-_0800E5FC: .4byte gUnknown_08A016E0
+_0800E5FC: .4byte gProcScr_BoxDialogue
 _0800E600:
 	bl GetTalkChoiceResult
 	ldr r1, _0800E638  @ gEventSlots
