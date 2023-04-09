@@ -986,38 +986,31 @@ u16 GetDialogueBoxConfig(void) {
     return gUnknown_0203E7E8.unk_42;
 }
 
-#if NONMATCHING
-
-/* https://decomp.me/scratch/mwTRE */
-
 //! FE8U = 0x0808A530
 void sub_808A530(int a, int b) {
-    int* ptr;
-    int j;
-    int i;
-    int r7;
+    int* ptr, *r4;
+    int i, j, k;
+    int r3;
 
     ptr = (int*)((((0x3FF & gUnknown_0203E7E8.unk_40) + gUnknown_0203E7E8.unk_18[0].unk0) * 0x20) + 0x06010000);
 
-    for (i = 0, r7 = b*2; i < r7; i++) {
+    for (i = 0, r3 = b*2; i < b*2; i++) {
+        r4 = ptr;
         for (j = 0; j < a; j++) {
-            int k;
-
             for (k = 0; k <= 6; k++) {
-                *ptr++ = *(ptr + 1);
+                *r4++ = r4[1];
             }
 
-            if (i == (r7 - 1)) {
+            if (i == (b*2 - 1)) {
 
                 if ((GetDialogueBoxConfig() & 1) == 0) {
-                    *ptr++ = 0x44444444;
+                    *r4++ = 0x44444444;
                 } else {
-                    *ptr++ = 0;
+                    *r4++ = 0;
                 }
 
-
             } else {
-                *ptr++ = *(ptr + ((j + 0x20) << 3));
+                *r4++ = *(ptr + ((j + 0x20) << 3));
             }
 
         }
@@ -1027,102 +1020,6 @@ void sub_808A530(int a, int b) {
 
     return;
 }
-
-#else // if !NONMATCHING
-
-__attribute__((naked))
-void sub_808A530(int param_1, int param_2) {
-    asm("\n\
-        .syntax unified\n\
-        push {r4, r5, r6, r7, lr}\n\
-        mov r7, r9\n\
-        mov r6, r8\n\
-        push {r6, r7}\n\
-        sub sp, #4\n\
-        mov r9, r0\n\
-        ldr r3, _0808A590  @ gUnknown_0203E7E8\n\
-        adds r0, r3, #0\n\
-        adds r0, #0x40\n\
-        ldrh r2, [r0]\n\
-        ldr r0, _0808A594  @ 0x000003FF\n\
-        ands r0, r2\n\
-        ldrh r3, [r3, #0x18]\n\
-        adds r0, r0, r3\n\
-        lsls r0, r0, #5\n\
-        ldr r2, _0808A598  @ 0x06010000\n\
-        adds r5, r0, r2\n\
-        movs r7, #0\n\
-        lsls r0, r1, #1\n\
-        cmp r7, r0\n\
-        bge _0808A5C2\n\
-        adds r3, r0, #0\n\
-    _0808A55C:\n\
-        adds r4, r5, #0\n\
-        movs r2, #0\n\
-        adds r0, r7, #1\n\
-        mov r8, r0\n\
-        cmp r2, r9\n\
-        bge _0808A5B6\n\
-    _0808A568:\n\
-        adds r6, r2, #1\n\
-        movs r1, #6\n\
-    _0808A56C:\n\
-        ldr r0, [r4, #4]\n\
-        stm r4!, {r0}\n\
-        subs r1, #1\n\
-        cmp r1, #0\n\
-        bge _0808A56C\n\
-        subs r0, r3, #1\n\
-        cmp r7, r0\n\
-        bne _0808A5A4\n\
-        str r3, [sp]\n\
-        bl GetDialogueBoxConfig\n\
-        movs r1, #1\n\
-        ands r1, r0\n\
-        ldr r3, [sp]\n\
-        cmp r1, #0\n\
-        bne _0808A5A0\n\
-        ldr r0, _0808A59C  @ 0x44444444\n\
-        b _0808A5AE\n\
-        .align 2, 0\n\
-    _0808A590: .4byte gUnknown_0203E7E8\n\
-    _0808A594: .4byte 0x000003FF\n\
-    _0808A598: .4byte 0x06010000\n\
-    _0808A59C: .4byte 0x44444444\n\
-    _0808A5A0:\n\
-        movs r0, #0\n\
-        b _0808A5AE\n\
-    _0808A5A4:\n\
-        adds r0, r2, #0\n\
-        adds r0, #0x20\n\
-        lsls r0, r0, #5\n\
-        adds r0, r0, r5\n\
-        ldr r0, [r0]\n\
-    _0808A5AE:\n\
-        stm r4!, {r0}\n\
-        adds r2, r6, #0\n\
-        cmp r2, r9\n\
-        blt _0808A568\n\
-    _0808A5B6:\n\
-        movs r2, #0x80\n\
-        lsls r2, r2, #3\n\
-        adds r5, r5, r2\n\
-        mov r7, r8\n\
-        cmp r7, r3\n\
-        blt _0808A55C\n\
-    _0808A5C2:\n\
-        add sp, #4\n\
-        pop {r3, r4}\n\
-        mov r8, r3\n\
-        mov r9, r4\n\
-        pop {r4, r5, r6, r7}\n\
-        pop {r0}\n\
-        bx r0\n\
-        .syntax divided\n\
-    ");
-}
-
-#endif // NONMATCHING
 
 //! FE8U = 0x0808A5D0
 void sub_808A5D0(void* param_1, int param_2) {
