@@ -68,9 +68,9 @@ struct FaceProc* StartFace(int faceSlot, int portraitId, int x, int y, int displ
 // ??? EndFace(???);
 void EndFaceById(int faceSlot);
 int SetFaceDisplayBits(struct FaceProc*, int);
-// ??? SetFaceDisplayBitsById(???);
+int SetFaceDisplayBitsById(int slot, int disp);
 int GetFaceDisplayBits(struct FaceProc*);
-// ??? GetFaceDisplayBitsById(???);
+int GetFaceDisplayBitsById(int slot);
 // ??? FaceRefreshSprite(???);
 // ??? PutFaceTm(???);
 // ??? UnpackFaceChibiGraphics(???);

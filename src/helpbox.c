@@ -7,7 +7,10 @@
 #include "statscreen.h"
 #include "m4a.h"
 #include "soundwrapper.h"
-
+#include "uiutils.h"
+#include "face.h"
+#include "scene.h"
+#include "bmio.h"
 
 struct HelpBoxScrollProc {
     /* 00 */ PROC_HEADER;
@@ -34,6 +37,53 @@ struct HelpBox8A01650Proc {
     /* 5C */ int unk_5c;
     /* 60 */ int unk_60;
     /* 64 */ s16 unk_64;
+};
+
+struct HelpBox8A016E0Proc {
+    /* 00 */ PROC_HEADER;
+
+    /* 2C */ int unk_2c;
+    /* 30 */ int unk_30;
+    /* 34 */ int unk_34;
+
+    /* 38 */ u8 unk_38;
+
+    /* 3C */ u16* unk_3c;
+    /* 40 */ u8 unk_40;
+};
+
+struct HelpBox8A01760Proc {
+    /* 00 */ PROC_HEADER;
+
+    /* 2C */ const char* unk_2c;
+    /* 30 */ struct Font* unk_30;
+    /* 34 */ struct TextHandle* unk_34[5];
+
+    /* 48 */ s16 unk_48;
+    /* 4A */ s16 unk_4a;
+    /* 4C */ s16 unk_4c;
+    /* 4E */ s16 unk_4e;
+    /* 50 */ u8 unk_50;
+    /* 51 */ u8 unk_51;
+    /* 52 */ u8 unk_52;
+    /* 53 */ u8 unk_53;
+    /* 54 */ u8 unk_54;
+    /* 55 */ u8 unk_55;
+    /* 56 */ u8 unk_56;
+    /* 57 */ u8 unk_57;
+    /* 58 */ u8 unk_58;
+    /* 59 */ u8 unk_59;
+};
+
+struct HelpBox8A01800Proc {
+    /* 00 */ PROC_HEADER;
+
+    /* 2C */ int unk_2c;
+    /* 30 */ int unk_30;
+
+    /* 34 */ u8 _pad[0x5c-0x34];
+
+    /* 5C */ int unk_5c;
 };
 
 struct Struct203E794 {
@@ -63,6 +113,28 @@ extern struct ProcCmd gUnknown_08A01628[];
 extern struct ProcCmd gUnknown_08A01650[];
 extern struct ProcCmd gUnknown_08A01678[];
 extern struct ProcCmd gUnknown_08A01698[];
+extern struct ProcCmd gUnknown_08A016C8[];
+extern struct ProcCmd gUnknown_08A016E0[];
+extern struct ProcCmd gUnknown_08A01740[];
+extern struct ProcCmd gUnknown_08A01818[];
+
+extern u16 gUnknown_0859EF80[];
+extern u16 gUnknown_0859EF60[];
+
+struct Struct0203E7E8 {
+    /* 00 */ struct Font unk_00;
+    /* 18 */ struct TextHandle unk_18[5];
+    /* 40 */ u16 unk_40;
+    /* 42 */ u16 unk_42;
+};
+
+extern struct Struct0203E7E8 gUnknown_0203E7E8;
+
+extern u8 gUnknown_08A029A8[];
+extern u8 gUnknown_08A02A1C[];
+extern u8 gUnknown_08A02A94[];
+extern u8 gUnknown_08A02B3C[];
+extern u8 gUnknown_08A02BAC[];
 
 // (probably) forward declarations
 
@@ -71,8 +143,13 @@ void sub_808A384(struct HelpBoxProc*, int, int);
 void sub_808A3C4(struct HelpBoxProc*, int, int);
 void sub_808A43C(struct HelpBoxProc*, int, int);
 void sub_808A444(struct HelpBoxProc*);
-
-void sub_80045FC(struct TextHandle *th);
+int sub_808A454(int);
+void sub_808AC0C(int, int, int);
+void sub_808A9F0(void);
+void sub_808ACFC(int, int, int, int);
+void sub_808BAA4(void);
+void sub_808BA60(int, int, int);
+void sub_80900EC(int*, struct TextHandle*, int, int, int, int, ProcPtr);
 
 //! FE8U = 0x08089804
 void LoadDialogueBoxGfx(void* vram, int palId) {
@@ -734,4 +811,2317 @@ void sub_808A354(const struct HelpBoxInfo* info) {
 //! FE8U = 0x0808A36C
 s8 sub_808A36C(void) {
     return Proc_Find(gUnknown_08A01698) ? 1 : 0;
+}
+
+//! FE8U = 0x0808A384
+void sub_808A384(struct HelpBoxProc* proc, int w, int h) {
+
+    w = (w + 0x1f) & 0xe0;
+
+    switch (sub_808A454(proc->item)) {
+        case 1:
+            w = 0xA0;
+            h = h + 0x20;
+
+            break;
+
+        case 2:
+            if (w < 0x60) {
+                w = 0x60;
+            }
+
+            h = h + 0x10;
+
+            break;
+    }
+
+    proc->wBoxFinal = w;
+    proc->hBoxFinal = h;
+
+    return;
+}
+
+//! FE8U = 0x0808A3C4
+void sub_808A3C4(struct HelpBoxProc* proc, int x, int y) {
+    int xSpan = proc->wBoxFinal + 0x10;
+    int ySpan = proc->hBoxFinal + 0x10;
+
+    proc->xBoxFinal = x - 0x10 - xSpan / 6;
+
+    if (proc->xBoxFinal < 0) {
+        proc->xBoxFinal = 0;
+    }
+
+    if (proc->xBoxFinal + xSpan > 0xF0) {
+        proc->xBoxFinal = 0xf0 - xSpan;
+    }
+
+    proc->yBoxFinal = y + 0x10;
+    if (proc->yBoxFinal + ySpan > 0xA0) {
+        proc->yBoxFinal = y - ySpan;
+    }
+
+    proc->xBoxFinal += 8;
+    proc->yBoxFinal += 8;
+
+    return;
+}
+
+//! FE8U = 0x0808A43C
+void sub_808A43C(struct HelpBoxProc* proc, int xInit, int yInit) {
+    proc->xBoxInit = xInit;
+    proc->yBoxInit = yInit;
+
+    return;
+}
+
+//! FE8U = 0x0808A444
+void sub_808A444(struct HelpBoxProc* proc) {
+    proc->wBoxInit = 0x20;
+    proc->hBoxInit = 0x10;
+
+    return;
+}
+
+//! FE8U = 0x0808A454
+int sub_808A454(int item) {
+
+    if (item == (u16)-2) {
+        return 3;
+    }
+
+    if (GetItemAttributes(item) & IA_LOCK_3) {
+        return 0;
+    }
+
+    if (GetItemAttributes(item) & IA_WEAPON) {
+        return 1;
+    }
+
+    if (GetItemAttributes(item) & IA_STAFF) {
+        return 2;
+    }
+
+    return 0;
+}
+
+//! FE8U = 0x0808A4A4
+void sub_808A4A4(ProcPtr proc) {
+    if (gKeyStatusPtr->newKeys & A_BUTTON) {
+        Proc_Break(proc);
+    }
+
+    return;
+}
+
+//! FE8U = 0x0808A4C4
+s8 sub_808A4C4(int msgId, ProcPtr parent) {
+    LoadDialogueBoxGfx(0, -1);
+
+    sub_808A1E0(GetUiHandPrevDisplayX(), GetUiHandPrevDisplayY(), msgId);
+
+    Proc_StartBlocking(gUnknown_08A016C8, parent);
+
+    return 1;
+}
+
+//! FE8U = 0x0808A4FC
+s8 sub_808A4FC(void) {
+
+    if (Proc_Find(gUnknown_08A016E0)) {
+        return 1;
+    }
+
+    return 0;
+}
+
+//! FE8U = 0x0808A518
+void sub_808A518(int unk) {
+    gUnknown_0203E7E8.unk_42 = unk;
+    return;
+}
+
+//! FE8U = 0x0808A524
+u16 sub_808A524(void) {
+    return gUnknown_0203E7E8.unk_42;
+}
+
+#if NONMATCHING
+
+//! FE8U = 0x0808A530
+void sub_808A530(int param_1, int param_2) {
+    int uVar3;
+    int iVar4;
+    int* puVar8;
+    int iVar9;
+    int iVar10;
+
+    puVar8 = (int*)((((0x3FF & gUnknown_0203E7E8.unk_40) + gUnknown_0203E7E8.unk_18[0].unk0) * 0x20) + 0x06010000);
+
+    for (iVar10 = 0; iVar10 < param_2 * 2; iVar10++) {
+
+        for (iVar9 = 0; iVar9 < param_1; iVar9++) {
+
+            for (iVar4 = 0; iVar4 <= 6; iVar4++) {
+                *puVar8++ = *(puVar8 + 1);
+            }
+
+            if (iVar10 == (param_2 * 2 - 1)) {
+                if ((sub_808A524() & 1) == 0) {
+                    *puVar8++ = 0x44444444;
+                } else {
+                    *puVar8++ = 0;
+                }
+
+
+            } else {
+                *puVar8++ = *(puVar8 + ((iVar9 + 0x20) << 3));
+            }
+
+        }
+
+        puVar8 = puVar8 + 0x100;
+    }
+
+    return;
+}
+
+#else // if !NONMATCHING
+
+__attribute__((naked))
+void sub_808A530(int param_1, int param_2) {
+    asm("\n\
+        .syntax unified\n\
+        push {r4, r5, r6, r7, lr}\n\
+        mov r7, r9\n\
+        mov r6, r8\n\
+        push {r6, r7}\n\
+        sub sp, #4\n\
+        mov r9, r0\n\
+        ldr r3, _0808A590  @ gUnknown_0203E7E8\n\
+        adds r0, r3, #0\n\
+        adds r0, #0x40\n\
+        ldrh r2, [r0]\n\
+        ldr r0, _0808A594  @ 0x000003FF\n\
+        ands r0, r2\n\
+        ldrh r3, [r3, #0x18]\n\
+        adds r0, r0, r3\n\
+        lsls r0, r0, #5\n\
+        ldr r2, _0808A598  @ 0x06010000\n\
+        adds r5, r0, r2\n\
+        movs r7, #0\n\
+        lsls r0, r1, #1\n\
+        cmp r7, r0\n\
+        bge _0808A5C2\n\
+        adds r3, r0, #0\n\
+    _0808A55C:\n\
+        adds r4, r5, #0\n\
+        movs r2, #0\n\
+        adds r0, r7, #1\n\
+        mov r8, r0\n\
+        cmp r2, r9\n\
+        bge _0808A5B6\n\
+    _0808A568:\n\
+        adds r6, r2, #1\n\
+        movs r1, #6\n\
+    _0808A56C:\n\
+        ldr r0, [r4, #4]\n\
+        stm r4!, {r0}\n\
+        subs r1, #1\n\
+        cmp r1, #0\n\
+        bge _0808A56C\n\
+        subs r0, r3, #1\n\
+        cmp r7, r0\n\
+        bne _0808A5A4\n\
+        str r3, [sp]\n\
+        bl sub_808A524\n\
+        movs r1, #1\n\
+        ands r1, r0\n\
+        ldr r3, [sp]\n\
+        cmp r1, #0\n\
+        bne _0808A5A0\n\
+        ldr r0, _0808A59C  @ 0x44444444\n\
+        b _0808A5AE\n\
+        .align 2, 0\n\
+    _0808A590: .4byte gUnknown_0203E7E8\n\
+    _0808A594: .4byte 0x000003FF\n\
+    _0808A598: .4byte 0x06010000\n\
+    _0808A59C: .4byte 0x44444444\n\
+    _0808A5A0:\n\
+        movs r0, #0\n\
+        b _0808A5AE\n\
+    _0808A5A4:\n\
+        adds r0, r2, #0\n\
+        adds r0, #0x20\n\
+        lsls r0, r0, #5\n\
+        adds r0, r0, r5\n\
+        ldr r0, [r0]\n\
+    _0808A5AE:\n\
+        stm r4!, {r0}\n\
+        adds r2, r6, #0\n\
+        cmp r2, r9\n\
+        blt _0808A568\n\
+    _0808A5B6:\n\
+        movs r2, #0x80\n\
+        lsls r2, r2, #3\n\
+        adds r5, r5, r2\n\
+        mov r7, r8\n\
+        cmp r7, r3\n\
+        blt _0808A55C\n\
+    _0808A5C2:\n\
+        add sp, #4\n\
+        pop {r3, r4}\n\
+        mov r8, r3\n\
+        mov r9, r4\n\
+        pop {r4, r5, r6, r7}\n\
+        pop {r0}\n\
+        bx r0\n\
+        .syntax divided\n\
+    ");
+}
+
+#endif // NONMATCHING
+
+#if NONMATCHING
+
+//! FE8U = 0x0808A5D0
+void sub_808A5D0(void* param_1, int param_2) {
+    int uVar1;
+    int iVar3;
+    int iVar4;
+    int iVar5;
+
+    if (param_1 == 0) {
+        param_1 = (void *)0x06013000;
+    }
+
+    if (param_2 < 0) {
+        param_2 = 5;
+    }
+
+    param_2 = (param_2 & 0xf) + 0x10;
+
+    if ((sub_808A524() & 0x10) != 0) {
+        Decompress(gUnknown_08A029A8, param_1 + 0x360);
+        Decompress(gUnknown_08A02A1C, param_1 + 0x760);
+        Decompress(gUnknown_08A02A94, param_1 + 0xb60);
+        Decompress(gUnknown_08A02B3C, param_1 + 0xf80);
+        Decompress(gUnknown_08A02BAC, param_1 + 0x1380);
+    } else {
+        Decompress(gUnknown_08A0285C, param_1 + 0x360);
+        Decompress(gUnknown_08A02884, param_1 + 0x760);
+        Decompress(gUnknown_08A028AC, param_1 + 0xb60);
+        Decompress(gUnknown_08A02914, param_1 + 0xf60);
+        Decompress(gUnknown_08A02980, param_1 + 0x1360);
+    }
+
+    ClearAllTalkFlags();
+
+    if ((sub_808A524() & 1) == 0) {
+        InitSomeOtherGraphicsRelatedStruct(&gUnknown_0203E7E8.unk_00, param_1, param_2);
+
+        Text_Init3(&gUnknown_0203E7E8.unk_18[0]);
+        Text_Init3(&gUnknown_0203E7E8.unk_18[1]);
+        Text_Init3(&gUnknown_0203E7E8.unk_18[2]);
+
+        if ((sub_808A524() & 0x10) && !(sub_808A524() & 0x20)) {
+            Text_Init3(&gUnknown_0203E7E8.unk_18[3]);
+            Text_Init3(&gUnknown_0203E7E8.unk_18[4]);
+        }
+
+        SetFont(0);
+
+        if (sub_808A524() & 0x10) {
+            CopyToPaletteBuffer(gUnknown_0859EF80, param_2 * 0x20, 0x20);
+        } else {
+            CopyToPaletteBuffer(gUnknown_0859EF60, param_2 * 0x20, 0x20);
+        }
+
+    } else {
+        InitSomeOtherGraphicsRelatedStruct(&gUnknown_0203E7E8.unk_00, param_1, param_2);
+
+        for (iVar4 = 0; iVar4 < ((u16)sub_808A524() >> 8); iVar4++) {
+            Text_Init3(&gUnknown_0203E7E8.unk_18[iVar4]);
+        }
+
+        SetFont(0);
+
+        CopyToPaletteBuffer(Pal_UIFont, param_2 * 0x20, 0x20);
+    }
+
+    // TODO: Fails here - the "<< 0x11" gets moved earlier
+    gUnknown_0203E7E8.unk_40 = ((((u32)param_1 << 0x11) >> 0x16) + (param_2 & 0xF) * 0x1000);
+
+    if (sub_808A524() & 0x10) {
+        PlaySoundEffect(0x2E6);
+    }
+
+    return;
+}
+
+#else // if !NONMATCHING
+
+__attribute__((naked))
+void sub_808A5D0(void* param_1, int param_2) {
+    asm("\n\
+        .syntax unified\n\
+        push {r4, r5, r6, r7, lr}\n\
+        adds r5, r0, #0\n\
+        adds r6, r1, #0\n\
+        cmp r5, #0\n\
+        bne _0808A5DC\n\
+        ldr r5, _0808A634  @ 0x06013000\n\
+    _0808A5DC:\n\
+        cmp r6, #0\n\
+        bge _0808A5E2\n\
+        movs r6, #5\n\
+    _0808A5E2:\n\
+        movs r0, #0xf\n\
+        ands r0, r6\n\
+        adds r6, r0, #0\n\
+        adds r6, #0x10\n\
+        bl sub_808A524\n\
+        movs r1, #0x10\n\
+        ands r1, r0\n\
+        cmp r1, #0\n\
+        beq _0808A64C\n\
+        ldr r0, _0808A638  @ gUnknown_08A029A8\n\
+        movs r2, #0xd8\n\
+        lsls r2, r2, #2\n\
+        adds r1, r5, r2\n\
+        bl Decompress\n\
+        ldr r0, _0808A63C  @ gUnknown_08A02A1C\n\
+        movs r2, #0xec\n\
+        lsls r2, r2, #3\n\
+        adds r1, r5, r2\n\
+        bl Decompress\n\
+        ldr r0, _0808A640  @ gUnknown_08A02A94\n\
+        movs r2, #0xb6\n\
+        lsls r2, r2, #4\n\
+        adds r1, r5, r2\n\
+        bl Decompress\n\
+        ldr r0, _0808A644  @ gUnknown_08A02B3C\n\
+        movs r2, #0xf8\n\
+        lsls r2, r2, #4\n\
+        adds r1, r5, r2\n\
+        bl Decompress\n\
+        ldr r0, _0808A648  @ gUnknown_08A02BAC\n\
+        movs r2, #0x9c\n\
+        lsls r2, r2, #5\n\
+        adds r1, r5, r2\n\
+        bl Decompress\n\
+        b _0808A688\n\
+        .align 2, 0\n\
+    _0808A634: .4byte 0x06013000\n\
+    _0808A638: .4byte gUnknown_08A029A8\n\
+    _0808A63C: .4byte gUnknown_08A02A1C\n\
+    _0808A640: .4byte gUnknown_08A02A94\n\
+    _0808A644: .4byte gUnknown_08A02B3C\n\
+    _0808A648: .4byte gUnknown_08A02BAC\n\
+    _0808A64C:\n\
+        ldr r0, _0808A6FC  @ gUnknown_08A0285C\n\
+        movs r2, #0xd8\n\
+        lsls r2, r2, #2\n\
+        adds r1, r5, r2\n\
+        bl Decompress\n\
+        ldr r0, _0808A700  @ gUnknown_08A02884\n\
+        movs r2, #0xec\n\
+        lsls r2, r2, #3\n\
+        adds r1, r5, r2\n\
+        bl Decompress\n\
+        ldr r0, _0808A704  @ gUnknown_08A028AC\n\
+        movs r2, #0xb6\n\
+        lsls r2, r2, #4\n\
+        adds r1, r5, r2\n\
+        bl Decompress\n\
+        ldr r0, _0808A708  @ gUnknown_08A02914\n\
+        movs r2, #0xf6\n\
+        lsls r2, r2, #4\n\
+        adds r1, r5, r2\n\
+        bl Decompress\n\
+        ldr r0, _0808A70C  @ gUnknown_08A02980\n\
+        movs r2, #0x9b\n\
+        lsls r2, r2, #5\n\
+        adds r1, r5, r2\n\
+        bl Decompress\n\
+    _0808A688:\n\
+        bl ClearAllTalkFlags\n\
+        bl sub_808A524\n\
+        movs r1, #1\n\
+        ands r1, r0\n\
+        cmp r1, #0\n\
+        bne _0808A728\n\
+        ldr r4, _0808A710  @ gUnknown_0203E7E8\n\
+        adds r0, r4, #0\n\
+        adds r1, r5, #0\n\
+        adds r2, r6, #0\n\
+        bl InitSomeOtherGraphicsRelatedStruct\n\
+        adds r0, r4, #0\n\
+        adds r0, #0x18\n\
+        bl Text_Init3\n\
+        adds r0, r4, #0\n\
+        adds r0, #0x20\n\
+        bl Text_Init3\n\
+        adds r0, r4, #0\n\
+        adds r0, #0x28\n\
+        bl Text_Init3\n\
+        bl sub_808A524\n\
+        movs r1, #0x10\n\
+        ands r1, r0\n\
+        cmp r1, #0\n\
+        beq _0808A6E4\n\
+        bl sub_808A524\n\
+        movs r1, #0x20\n\
+        ands r1, r0\n\
+        cmp r1, #0\n\
+        bne _0808A6E4\n\
+        adds r0, r4, #0\n\
+        adds r0, #0x30\n\
+        bl Text_Init3\n\
+        adds r0, r4, #0\n\
+        adds r0, #0x38\n\
+        bl Text_Init3\n\
+    _0808A6E4:\n\
+        movs r0, #0\n\
+        bl SetFont\n\
+        bl sub_808A524\n\
+        movs r1, #0x10\n\
+        ands r1, r0\n\
+        cmp r1, #0\n\
+        beq _0808A718\n\
+        ldr r0, _0808A714  @ gUnknown_0859EF80\n\
+        b _0808A71A\n\
+        .align 2, 0\n\
+    _0808A6FC: .4byte gUnknown_08A0285C\n\
+    _0808A700: .4byte gUnknown_08A02884\n\
+    _0808A704: .4byte gUnknown_08A028AC\n\
+    _0808A708: .4byte gUnknown_08A02914\n\
+    _0808A70C: .4byte gUnknown_08A02980\n\
+    _0808A710: .4byte gUnknown_0203E7E8\n\
+    _0808A714: .4byte gUnknown_0859EF80\n\
+    _0808A718:\n\
+        ldr r0, _0808A724  @ gUnknown_0859EF60\n\
+    _0808A71A:\n\
+        lsls r1, r6, #5\n\
+        movs r2, #0x20\n\
+        bl CopyToPaletteBuffer\n\
+        b _0808A764\n\
+        .align 2, 0\n\
+    _0808A724: .4byte gUnknown_0859EF60\n\
+    _0808A728:\n\
+        ldr r0, _0808A738  @ gUnknown_0203E7E8\n\
+        adds r1, r5, #0\n\
+        adds r2, r6, #0\n\
+        bl InitSomeOtherGraphicsRelatedStruct\n\
+        movs r4, #0\n\
+        lsls r7, r6, #5\n\
+        b _0808A748\n\
+        .align 2, 0\n\
+    _0808A738: .4byte gUnknown_0203E7E8\n\
+    _0808A73C:\n\
+        lsls r0, r4, #3\n\
+        ldr r1, _0808A79C  @ gUnknown_0203E800\n\
+        adds r0, r0, r1\n\
+        bl Text_Init3\n\
+        adds r4, #1\n\
+    _0808A748:\n\
+        bl sub_808A524\n\
+        lsls r0, r0, #0x10\n\
+        lsrs r0, r0, #0x18\n\
+        cmp r4, r0\n\
+        blt _0808A73C\n\
+        movs r0, #0\n\
+        bl SetFont\n\
+        ldr r0, _0808A7A0  @ Pal_UIFont\n\
+        adds r1, r7, #0\n\
+        movs r2, #0x20\n\
+        bl CopyToPaletteBuffer\n\
+    _0808A764:\n\
+        ldr r2, _0808A7A4  @ gUnknown_0203E7E8\n\
+        lsls r1, r5, #0x11\n\
+        lsrs r1, r1, #0x16\n\
+        movs r0, #0xf\n\
+        ands r0, r6\n\
+        lsls r0, r0, #0xc\n\
+        adds r1, r1, r0\n\
+        adds r2, #0x40\n\
+        strh r1, [r2]\n\
+        bl sub_808A524\n\
+        movs r1, #0x10\n\
+        ands r1, r0\n\
+        cmp r1, #0\n\
+        beq _0808A794\n\
+        ldr r0, _0808A7A8  @ gPlaySt\n\
+        adds r0, #0x41\n\
+        ldrb r0, [r0]\n\
+        lsls r0, r0, #0x1e\n\
+        cmp r0, #0\n\
+        blt _0808A794\n\
+        ldr r0, _0808A7AC  @ 0x000002E6\n\
+        bl m4aSongNumStart\n\
+    _0808A794:\n\
+        pop {r4, r5, r6, r7}\n\
+        pop {r0}\n\
+        bx r0\n\
+        .align 2, 0\n\
+    _0808A79C: .4byte gUnknown_0203E800\n\
+    _0808A7A0: .4byte Pal_UIFont\n\
+    _0808A7A4: .4byte gUnknown_0203E7E8\n\
+    _0808A7A8: .4byte gPlaySt\n\
+    _0808A7AC: .4byte 0x000002E6\n\
+        .syntax divided\n\
+    ");
+
+}
+
+#endif // NONMATCHING
+
+#if NONMATCHING
+
+//! FE8U = 0x0808A7B0
+void sub_808A7B0(struct HelpBoxProc* proc, int x, int y) {
+    int xSpan;
+    int ySpan;
+
+    ySpan = proc->hBoxFinal + 0x10;
+
+    if (proc->wBoxFinal >= 0xc0) {
+        proc->wBoxFinal = 0xc0;
+    }
+
+    xSpan = proc->wBoxFinal + 0x10;
+
+    if (!(sub_808A524() & 1)) {
+        proc->xBoxFinal = x;
+        proc->yBoxFinal = y + 8;
+
+        if (!(sub_808A524() & 0x40)) {
+            if (proc->xBoxFinal + xSpan > 0xf0) {
+                proc->xBoxFinal = 0xf0 - xSpan;
+            }
+
+            if (proc->yBoxFinal + ySpan > 0xa0) {
+                proc->yBoxFinal = 0xa0 - 8 - ySpan;
+            }
+        }
+
+        proc->xBoxFinal += 8;
+
+        return;
+    }
+
+    proc->xBoxFinal = x;
+    proc->yBoxFinal = y;
+
+    return;
+}
+
+#else // if !NONMATCHING
+
+__attribute__((naked))
+void sub_808A7B0(struct HelpBoxProc* proc, int x, int y) {
+    asm("\n\
+        .syntax unified\n\
+        push {r4, r5, r6, r7, lr}\n\
+        mov r7, r8\n\
+        push {r7}\n\
+        adds r4, r0, #0\n\
+        adds r5, r1, #0\n\
+        adds r6, r2, #0\n\
+        adds r0, #0x46\n\
+        movs r1, #0\n\
+        ldrsh r0, [r0, r1]\n\
+        adds r0, #0x10\n\
+        mov r8, r0\n\
+        adds r1, r4, #0\n\
+        adds r1, #0x44\n\
+        movs r2, #0\n\
+        ldrsh r0, [r1, r2]\n\
+        cmp r0, #0xbf\n\
+        ble _0808A7D6\n\
+        movs r0, #0xc0\n\
+        strh r0, [r1]\n\
+    _0808A7D6:\n\
+        movs r2, #0\n\
+        ldrsh r0, [r1, r2]\n\
+        adds r7, r0, #0\n\
+        adds r7, #0x10\n\
+        bl sub_808A524\n\
+        movs r1, #1\n\
+        ands r1, r0\n\
+        cmp r1, #0\n\
+        bne _0808A828\n\
+        strh r5, [r4, #0x3c]\n\
+        adds r0, r6, #0\n\
+        adds r0, #8\n\
+        strh r0, [r4, #0x3e]\n\
+        bl sub_808A524\n\
+        movs r1, #0x40\n\
+        ands r1, r0\n\
+        cmp r1, #0\n\
+        bne _0808A820\n\
+        movs r1, #0x3c\n\
+        ldrsh r0, [r4, r1]\n\
+        adds r0, r0, r7\n\
+        cmp r0, #0xf0\n\
+        ble _0808A80E\n\
+        movs r0, #0xf0\n\
+        subs r0, r0, r7\n\
+        strh r0, [r4, #0x3c]\n\
+    _0808A80E:\n\
+        movs r2, #0x3e\n\
+        ldrsh r0, [r4, r2]\n\
+        add r0, r8\n\
+        cmp r0, #0xa0\n\
+        ble _0808A820\n\
+        movs r0, #0x98\n\
+        mov r1, r8\n\
+        subs r0, r0, r1\n\
+        strh r0, [r4, #0x3e]\n\
+    _0808A820:\n\
+        ldrh r0, [r4, #0x3c]\n\
+        adds r0, #8\n\
+        strh r0, [r4, #0x3c]\n\
+        b _0808A82C\n\
+    _0808A828:\n\
+        strh r5, [r4, #0x3c]\n\
+        strh r6, [r4, #0x3e]\n\
+    _0808A82C:\n\
+        pop {r3}\n\
+        mov r8, r3\n\
+        pop {r4, r5, r6, r7}\n\
+        pop {r0}\n\
+        bx r0\n\
+        .syntax divided\n\
+    ");
+
+}
+
+#endif // NONMATCHING
+
+void sub_808A838(struct HelpBoxProc* proc, int w, int h) {
+    w &= 0xF8;
+
+    proc->wBoxFinal = w;
+    proc->hBoxFinal = h;
+
+    return;
+}
+
+//! FE8U = 0x0808A848
+void sub_808A848(struct HelpBox8A016E0Proc* proc) {
+    if (proc->unk_40 == (u8)-1) {
+        sub_808A5D0(0, -1);
+    } else {
+        sub_808A5D0(proc->unk_3c, proc->unk_40);
+    }
+
+    sub_808AC0C(proc->unk_2c, proc->unk_30, proc->unk_34);
+
+    return;
+}
+
+//! FE8U = 0x0808A87C
+void sub_808A87C(struct HelpBox8A016E0Proc* proc) {
+
+    if (sub_808A524() & 0x82) {
+        return;
+    }
+
+    if (gKeyStatusPtr->newKeys & (B_BUTTON | START_BUTTON)) {
+        Proc_Goto(proc, 2);
+    }
+
+    return;
+}
+
+//! FE8U = 0x0808A8AC
+void sub_808A8AC(void) {
+
+    if (sub_808A524() & 0x10) {
+        PlaySoundEffect(0x2E7);
+    }
+
+    SetFontGlyphSet(0);
+    sub_808A9F0();
+
+    return;
+}
+
+//! FE8U = 0x0808A8E4
+void sub_808A8E4(struct HelpBoxProc* proc, int interpolateMethod) {
+    int xBox = proc->xBoxFinal;
+    int yBox = proc->yBoxFinal;
+
+    int wBox = Interpolate(interpolateMethod, proc->wBoxInit, proc->wBoxFinal, proc->timer, proc->timerMax);
+
+    int hBox = Interpolate(interpolateMethod, proc->hBoxInit, proc->hBoxFinal, proc->timer, proc->timerMax);
+
+    proc->xBox = xBox;
+    proc->yBox = yBox;
+
+    sub_808ACFC(xBox, yBox, wBox, hBox);
+
+    return;
+}
+
+//! FE8U = 0x0808A974
+void sub_808A974(struct HelpBoxProc* proc) {
+
+    sub_808A8E4(proc, 5);
+
+    if (proc->timer < proc->timerMax) {
+        proc->timer++;
+    }
+
+    return;
+}
+
+//! FE8U = 0x0808A99C
+void sub_808A99C(struct HelpBoxProc* proc) {
+    ResetHelpBoxInitSize(proc);
+
+    proc->timerMax = proc->timerMax / 3;
+    proc->timer = proc->timerMax;
+
+    return;
+}
+
+//! FE8U = 0x0808A9C0
+void sub_808A9C0(struct HelpBoxProc* proc) {
+
+    sub_808A8E4(proc, 0);
+
+    proc->timer--;
+
+    if (proc->timer < 0) {
+        Proc_Break(proc);
+        Proc_EndEach(gUnknown_08A01818);
+    }
+
+    return;
+}
+
+//! FE8U = 0x0808A9F0
+void sub_808A9F0(void) {
+    sub_808BAA4();
+
+    Proc_BreakEach(gUnknown_08A01740);
+
+    return;
+}
+
+//! FE8U = 0x0808AA04
+void sub_808AA04(int x, int y, int msgId, ProcPtr parent) {
+    struct HelpBox8A016E0Proc* proc;
+
+    Proc_EndEach(gUnknown_08A016E0);
+
+    sub_808A518(0);
+
+    if (!parent) {
+        proc = Proc_Start(gUnknown_08A016E0, PROC_TREE_3);
+    } else {
+        proc = Proc_StartBlocking(gUnknown_08A016E0, parent);
+    }
+
+    proc->unk_2c = x;
+    proc->unk_30 = y;
+    proc->unk_34 = msgId;
+    proc->unk_40 = 0xff;
+    proc->unk_38 = 1;
+
+    Proc_Start(gUnknown_08A01818, 0);
+
+    return;
+}
+
+//! FE8U = 0x0808AA6C
+void sub_808AA6C(int x, int y, int msgId, u16* unkA, int unkB, ProcPtr parent) {
+    struct HelpBox8A016E0Proc* proc;
+
+    Proc_EndEach(gUnknown_08A016E0);
+
+    sub_808A518(0);
+
+    if (!parent) {
+        proc = Proc_Start(gUnknown_08A016E0, PROC_TREE_3);
+    } else {
+        proc = Proc_StartBlocking(gUnknown_08A016E0, parent);
+    }
+
+    proc->unk_2c = x;
+    proc->unk_30 = y;
+    proc->unk_34 = msgId;
+    proc->unk_40 = unkB;
+    proc->unk_3c = unkA;
+    proc->unk_38 = 1;
+
+    Proc_Start(gUnknown_08A01818, 0);
+
+    return;
+}
+
+#if NONMATCHING
+
+//! FE8U = 0x0808AADC
+void sub_808AADC(const char* str, int* wOut, int* hOut) {
+    int charWidth;
+
+    int w = 0;
+    int h = 16;
+
+    *wOut = 0;
+    *hOut = 0;
+
+    while (1) {
+
+        switch (*str) {
+            case 0x80: // control signal?
+                // _0808AB28
+                str += 2;
+
+                continue;
+
+            case 0x01: // [NL]
+                // _0808AB2C
+
+                h += 16;
+
+                if (*wOut < w) {
+                    *wOut = w;
+                }
+
+                // fallthrough
+
+            case 0x18: // [Yes]
+            case 0x19: // [No]
+                // _0808AB36
+                w = 0;
+
+                // fallthrough
+
+            case 0x04: // [....]
+            case 0x05: // [.....]
+            case 0x06: // [......]
+            case 0x07: // [.......]
+                // _0808AB38
+                str++;
+
+                continue;
+
+            case 0x02: // [NL2]
+                // _0808AB3C
+                str++;
+
+                if (*hOut < h) {
+                    *hOut = h;
+                }
+
+                h = 0;
+
+                if (*wOut < w) {
+                    *wOut = w;
+                }
+
+                w = 0;
+
+                continue;
+
+            case 0x03: // [A]
+                // _0808AB52
+                str++;
+
+                if (*hOut < h) {
+                    *hOut = h;
+                }
+
+                h = 0;
+
+                w += 8;
+
+                if (*wOut < w) {
+                    *wOut = w;
+                }
+
+                w = 0;
+
+                continue;
+
+            case 0x00: // [X]
+            case 0x12: // [NormalPrint] // FE6 only?
+            case 0x13: // [FastPrint] // FE6 only?
+            case 0x14: // [CloseSpeechFast]
+                // _0808AB6E
+
+                if (*wOut < w) {
+                    *wOut = w;
+                }
+
+                if (*hOut < h) {
+                    *hOut = h;
+                }
+
+                return;
+
+            default:
+                // _0808AB80
+                str = GetCharTextWidth(str, &charWidth);
+                w += charWidth;
+
+                continue;
+        }
+    }
+}
+
+#else // if !NONMATCHING
+
+__attribute__((naked))
+void sub_808AADC(const char* str, int* wOut, int* hOut) {
+    asm("\n\
+        .syntax unified\n\
+        push {r4, r5, r6, r7, lr}\n\
+        sub sp, #4\n\
+        adds r3, r0, #0\n\
+        adds r4, r1, #0\n\
+        adds r5, r2, #0\n\
+        movs r7, #0\n\
+        movs r6, #0x10\n\
+        str r7, [r4]\n\
+        str r7, [r5]\n\
+    _0808AAEE:\n\
+        ldrb r0, [r3]\n\
+        cmp r0, #7\n\
+        bgt _0808AB10\n\
+        cmp r0, #4\n\
+        bge _0808AB38\n\
+        cmp r0, #1\n\
+        beq _0808AB2C\n\
+        cmp r0, #1\n\
+        bgt _0808AB06\n\
+        cmp r0, #0\n\
+        beq _0808AB6E\n\
+        b _0808AB80\n\
+    _0808AB06:\n\
+        cmp r0, #2\n\
+        beq _0808AB3C\n\
+        cmp r0, #3\n\
+        beq _0808AB52\n\
+        b _0808AB80\n\
+    _0808AB10:\n\
+        cmp r0, #0x19\n\
+        ble _0808AB1A\n\
+        cmp r0, #0x80\n\
+        beq _0808AB28\n\
+        b _0808AB80\n\
+    _0808AB1A:\n\
+        cmp r0, #0x18\n\
+        bge _0808AB36\n\
+        cmp r0, #0x14\n\
+        bgt _0808AB80\n\
+        cmp r0, #0x12\n\
+        blt _0808AB80\n\
+        b _0808AB6E\n\
+    _0808AB28:\n\
+        adds r3, #2\n\
+        b _0808AAEE\n\
+    _0808AB2C:\n\
+        adds r6, #0x10\n\
+        ldr r0, [r4]\n\
+        cmp r0, r7\n\
+        bge _0808AB36\n\
+        str r7, [r4]\n\
+    _0808AB36:\n\
+        movs r7, #0\n\
+    _0808AB38:\n\
+        adds r3, #1\n\
+        b _0808AAEE\n\
+    _0808AB3C:\n\
+        adds r3, #1\n\
+        ldr r0, [r5]\n\
+        cmp r0, r6\n\
+        bge _0808AB46\n\
+        str r6, [r5]\n\
+    _0808AB46:\n\
+        movs r6, #0\n\
+        ldr r0, [r4]\n\
+        cmp r0, r7\n\
+        bge _0808AB6A\n\
+        str r7, [r4]\n\
+        b _0808AB6A\n\
+    _0808AB52:\n\
+        adds r3, #1\n\
+        ldr r0, [r5]\n\
+        cmp r0, r6\n\
+        bge _0808AB5C\n\
+        str r6, [r5]\n\
+    _0808AB5C:\n\
+        movs r6, #0\n\
+        adds r1, r7, #0\n\
+        adds r1, #8\n\
+        ldr r0, [r4]\n\
+        cmp r0, r1\n\
+        bge _0808AB6A\n\
+        str r1, [r4]\n\
+    _0808AB6A:\n\
+        movs r7, #0\n\
+        b _0808AAEE\n\
+    _0808AB6E:\n\
+        ldr r0, [r4]\n\
+        cmp r0, r7\n\
+        bge _0808AB76\n\
+        str r7, [r4]\n\
+    _0808AB76:\n\
+        ldr r0, [r5]\n\
+        cmp r0, r6\n\
+        bge _0808AB90\n\
+        str r6, [r5]\n\
+        b _0808AB90\n\
+    _0808AB80:\n\
+        adds r0, r3, #0\n\
+        mov r1, sp\n\
+        bl GetCharTextWidth\n\
+        adds r3, r0, #0\n\
+        ldr r0, [sp]\n\
+        adds r7, r7, r0\n\
+        b _0808AAEE\n\
+    _0808AB90:\n\
+        add sp, #4\n\
+        pop {r4, r5, r6, r7}\n\
+        pop {r0}\n\
+        bx r0\n\
+        .syntax divided\n\
+    ");
+}
+
+#endif // NONMATCHING
+
+//! FE8U = 0x0808AB98
+void sub_808AB98(const char* str, u8* xOut) {
+
+    int charWidth;
+    u8 a;
+
+    int x = 0;
+    const char* it = str;
+
+    *xOut = x;
+
+    SetFontGlyphSet(1);
+
+    while (1) {
+        switch (*it) {
+            case 0x02: // [NL2]
+            case 0x04: // [....]
+            case 0x05: // [.....]
+            case 0x06: // [......]
+            case 0x07: // [.......]
+            case 0x12: // [NormalPrint] // FE6 only?
+            case 0x13: // [FastPrint] // FE6 only?
+            case 0x14: // [CloseSpeechFast]
+                it++;
+
+                continue;
+
+            case 0x01: // [NL]
+            case 0x18: // [Yes]
+            case 0x19: // [No]
+                it++;
+                x = 0;
+
+                continue;
+
+            case 0x80:
+                it += 2;
+
+                continue;
+
+
+            default:
+                it = GetCharTextWidth(it, &charWidth);
+                x += charWidth;
+
+                continue;
+
+            case 0x00: // [X]
+            case 0x03: // [A]
+                a = x + 2;
+                *xOut = a;
+
+                return;
+        }
+    }
+}
+
+//! FE8U = 0x0808AC0C
+void sub_808AC0C(int x, int y, int msg) {
+    struct HelpBoxProc* proc;
+
+    int wInner = 0;
+    int hInner = 0;
+
+    Proc_EndEach(gUnknown_08A01740);
+
+    proc = Proc_Start(gUnknown_08A01740, PROC_TREE_3);
+
+    SetHelpBoxInitPosition(proc, x, y);
+    ResetHelpBoxInitSize(proc);
+
+    proc->info = NULL;
+    proc->timer = 0;
+
+    if (sub_808A524() & 1) {
+        proc->timerMax = 0;
+    } else {
+        proc->timerMax = 0xc;
+    }
+
+    proc->item = 0;
+
+    proc->mid = msg;
+
+    SetFontGlyphSet(1);
+
+    // ??
+    GetStringFromIndex(proc->mid);
+
+    sub_808AADC(sub_800A2A4(), &wInner, &hInner);
+
+    SetFontGlyphSet(0);
+
+    sub_808A838(proc, wInner, hInner);
+
+    if ((sub_808A524() & 0x100) != 0) {
+        x = x + (0xd8 - proc->wBoxFinal) / 2;
+        y = y + (0x90 - proc->hBoxFinal) / 2;
+    }
+
+    sub_808A7B0(proc, x, y);
+
+    sub_808BAA4();
+
+    sub_808BA60(proc->mid, wInner, hInner);
+
+    return;
+}
+
+#if NONMATCHING
+
+//! FE8U = 0x0808ACFC
+void sub_808ACFC(int x, int y, int width, int height) {
+    int flag;
+
+    if (width < 0x20) {
+        width = 0x20;
+    }
+
+    if (width > 0xc0) {
+        width = 0xc0;
+    }
+
+    if (height < 0x10) {
+        height = 0x10;
+    }
+
+    if (height > 0x50) {
+        height = 0x50;
+    }
+
+    flag = sub_808A524() & 1;
+
+    if (flag == 0) {
+        int ix;
+        int iy;
+
+        int spriteWidth = (width + 0x7) >> 3;
+        int spriteHeight = (height + 0xf) >> 4;
+
+        for (ix = spriteHeight - 3; ix >= 0; ix -= 4) {
+            for (iy = spriteWidth; iy >= 0; iy--) {
+                int spriteX = iy * 0x10;
+                int spriteY = (ix + 1) * 0x10;
+                if (spriteY > height) {
+                    spriteY = height;
+                }
+                PutSprite(2, x + iy * 8, y + spriteY - 0x10, gObject_32x16, gUnknown_0203E7E8.unk_40 + iy + ix * 0x40);
+            }
+        }
+
+        for (ix = spriteHeight - 1; ix >= 0; ix--) {
+            for (iy = flag; iy >= 0; iy--) {
+                int spriteTile;
+                int spriteX = iy * 0x10;
+                int spriteY = (ix + 1) * 0x10;
+
+                if (spriteY > height) {
+                    spriteY = height;
+                }
+
+                spriteTile = gUnknown_0203E7E8.unk_40 + iy + (flag << 6);
+                if (ix < spriteHeight - 1) {
+                    PutSprite(2, x + iy * 8, y + spriteY - 0x10, gObject_16x16, spriteTile);
+                } else {
+                    PutSprite(2, x + iy * 8, y + spriteY - 0x10, gObject_8x16, spriteTile);
+                }
+            }
+        }
+
+        for (ix = 0; ix < spriteHeight; ix++) {
+            if (ix < spriteHeight - 1) {
+                int spriteX = x + ix * 8;
+                int spriteTile = gUnknown_0203E7E8.unk_40 + 0x40;
+                int spritePalette = spriteTile + 0x1b;
+                int spriteMod = (ix + 6) % 10;
+                if (spriteMod == 0) {
+                    spritePalette = spriteTile + 0x1d;
+                }
+                PutSprite(2, spriteX, y, gObject_16x8, spritePalette);
+            }
+        }
+
+        PutSprite(2, x - 8, y - 8, gObject_8x8, (gUnknown_0203E7E8.unk_40 + 0x40) + 0x5b);
+        x = x + spriteHeight * 8;
+        PutSprite(2, x, y - 8, gObject_8x8, (gUnknown_0203E7E8.unk_40 + 0x40) + 0x5c);
+        PutSprite(2, x - 8, y + height, gObject_8x8, (gUnknown_0203E7E8.unk_40 + 0x40) + 0x5d);
+        PutSprite(2, x, y + height, gObject_8x8, (gUnknown_0203E7E8.unk_40 + 0x40) + 0x5e);
+    } else {
+        int ix;
+        int iy;
+        int xPx;
+        int yPx;
+        int yCount = (height + 0x0f) / 0x10;
+        int xCount = (width + 0x1f) / 0x20;
+
+        for (ix = xCount - 1; ix >= 0; ix--) {
+            for (iy = ((sub_808A524() << 0x10) >> 0x18) - 1; iy >= 0; iy--) {
+                yPx = (iy + 1) * 0x10;
+                PutSprite(2, x + xPx * 0x20, yPx, gObject_32x16, gUnknown_0203E7E8.unk_40 + ix * 4 + iy * 0x40);
+            }
+        }
+    }
+    return;
+}
+
+
+#else // if !NONMATCHING
+
+__attribute__((naked))
+void sub_808ACFC(int param_1,int param_2,int param_3,int param_4) {
+    asm("\n\
+        .syntax unified\n\
+        push {r4, r5, r6, r7, lr}\n\
+        mov r7, sl\n\
+        mov r6, r9\n\
+        mov r5, r8\n\
+        push {r5, r6, r7}\n\
+        sub sp, #0x28\n\
+        str r0, [sp, #4]\n\
+        str r1, [sp, #8]\n\
+        adds r4, r2, #0\n\
+        mov r8, r3\n\
+        mov r0, r8\n\
+        asrs r0, r0, #5\n\
+        str r0, [sp, #0x14]\n\
+        cmp r4, #0x1f\n\
+        bgt _0808AD1C\n\
+        movs r4, #0x20\n\
+    _0808AD1C:\n\
+        cmp r4, #0xc0\n\
+        ble _0808AD22\n\
+        movs r4, #0xc0\n\
+    _0808AD22:\n\
+        mov r1, r8\n\
+        cmp r1, #0xf\n\
+        bgt _0808AD2C\n\
+        movs r2, #0x10\n\
+        mov r8, r2\n\
+    _0808AD2C:\n\
+        mov r3, r8\n\
+        cmp r3, #0x50\n\
+        ble _0808AD36\n\
+        movs r0, #0x50\n\
+        mov r8, r0\n\
+    _0808AD36:\n\
+        bl sub_808A524\n\
+        movs r1, #1\n\
+        ands r1, r0\n\
+        cmp r1, #0\n\
+        beq _0808AD44\n\
+        b _0808B020\n\
+    _0808AD44:\n\
+        mov r0, r8\n\
+        adds r0, #0xf\n\
+        cmp r0, #0\n\
+        bge _0808AD4E\n\
+        adds r0, #0xf\n\
+    _0808AD4E:\n\
+        asrs r0, r0, #4\n\
+        str r0, [sp, #0x10]\n\
+        adds r0, r4, #7\n\
+        cmp r0, #0\n\
+        bge _0808AD5A\n\
+        adds r0, #7\n\
+    _0808AD5A:\n\
+        asrs r0, r0, #3\n\
+        adds r1, r0, #1\n\
+        str r1, [sp, #0xc]\n\
+        movs r7, #0\n\
+        subs r0, #3\n\
+        ldr r2, [sp, #8]\n\
+        subs r2, #8\n\
+        str r2, [sp, #0x24]\n\
+        ldr r3, [sp, #8]\n\
+        add r3, r8\n\
+        str r3, [sp, #0x1c]\n\
+        ldr r1, [sp, #4]\n\
+        subs r1, #8\n\
+        str r1, [sp, #0x20]\n\
+        cmp r7, r0\n\
+        bge _0808ADBE\n\
+        mov sl, r0\n\
+    _0808AD7C:\n\
+        lsls r6, r7, #3\n\
+        ldr r5, [sp, #0x10]\n\
+        adds r4, r7, #4\n\
+        cmp r5, #0\n\
+        blt _0808ADB8\n\
+        ldr r2, _0808AE04  @ gUnknown_0203E828\n\
+        mov r9, r2\n\
+    _0808AD8A:\n\
+        adds r0, r5, #1\n\
+        lsls r0, r0, #4\n\
+        cmp r0, r8\n\
+        ble _0808AD94\n\
+        mov r0, r8\n\
+    _0808AD94:\n\
+        subs r0, #0x10\n\
+        ldr r3, [sp, #8]\n\
+        adds r2, r3, r0\n\
+        mov r1, r9\n\
+        ldrh r0, [r1]\n\
+        adds r0, r0, r7\n\
+        lsls r1, r5, #6\n\
+        adds r0, r0, r1\n\
+        str r0, [sp]\n\
+        movs r0, #2\n\
+        ldr r3, [sp, #4]\n\
+        adds r1, r3, r6\n\
+        ldr r3, _0808AE08  @ gObject_32x16\n\
+        bl PutSprite\n\
+        subs r5, #1\n\
+        cmp r5, #0\n\
+        bge _0808AD8A\n\
+    _0808ADB8:\n\
+        adds r7, r4, #0\n\
+        cmp r7, sl\n\
+        blt _0808AD7C\n\
+    _0808ADBE:\n\
+        ldr r0, [sp, #0xc]\n\
+        cmp r7, r0\n\
+        bge _0808AE40\n\
+        subs r0, #2\n\
+        mov sl, r0\n\
+    _0808ADC8:\n\
+        lsls r6, r7, #3\n\
+        ldr r5, [sp, #0x10]\n\
+        cmp r5, #0\n\
+        blt _0808AE32\n\
+        ldr r1, _0808AE04  @ gUnknown_0203E828\n\
+        mov r9, r1\n\
+        lsls r4, r5, #6\n\
+    _0808ADD6:\n\
+        adds r0, r5, #1\n\
+        lsls r0, r0, #4\n\
+        cmp r0, r8\n\
+        ble _0808ADE0\n\
+        mov r0, r8\n\
+    _0808ADE0:\n\
+        subs r0, #0x10\n\
+        cmp r7, sl\n\
+        bge _0808AE10\n\
+        ldr r3, [sp, #8]\n\
+        adds r2, r3, r0\n\
+        mov r1, r9\n\
+        ldrh r0, [r1]\n\
+        adds r0, r0, r7\n\
+        adds r0, r0, r4\n\
+        str r0, [sp]\n\
+        movs r0, #2\n\
+        ldr r3, [sp, #4]\n\
+        adds r1, r3, r6\n\
+        ldr r3, _0808AE0C  @ gObject_16x16\n\
+        bl PutSprite\n\
+        b _0808AE2A\n\
+        .align 2, 0\n\
+    _0808AE04: .4byte gUnknown_0203E828\n\
+    _0808AE08: .4byte gObject_32x16\n\
+    _0808AE0C: .4byte gObject_16x16\n\
+    _0808AE10:\n\
+        ldr r1, [sp, #8]\n\
+        adds r2, r1, r0\n\
+        mov r3, r9\n\
+        ldrh r0, [r3]\n\
+        adds r0, r0, r7\n\
+        adds r0, r0, r4\n\
+        str r0, [sp]\n\
+        movs r0, #2\n\
+        ldr r3, [sp, #4]\n\
+        adds r1, r3, r6\n\
+        ldr r3, _0808AEAC  @ gObject_8x16\n\
+        bl PutSprite\n\
+    _0808AE2A:\n\
+        subs r4, #0x40\n\
+        subs r5, #1\n\
+        cmp r5, #0\n\
+        bge _0808ADD6\n\
+    _0808AE32:\n\
+        cmp r7, sl\n\
+        bge _0808AE38\n\
+        adds r7, #1\n\
+    _0808AE38:\n\
+        adds r7, #1\n\
+        ldr r0, [sp, #0xc]\n\
+        cmp r7, r0\n\
+        blt _0808ADC8\n\
+    _0808AE40:\n\
+        movs r7, #0\n\
+        ldr r1, [sp, #0xc]\n\
+        cmp r7, r1\n\
+        bge _0808AEEC\n\
+        ldr r2, _0808AEB0  @ gUnknown_0203E7E8\n\
+        str r2, [sp, #0x18]\n\
+    _0808AE4C:\n\
+        lsls r6, r7, #3\n\
+        ldr r0, [sp, #0xc]\n\
+        subs r0, #2\n\
+        cmp r7, r0\n\
+        bge _0808AEB8\n\
+        ldr r3, [sp, #4]\n\
+        adds r3, r3, r6\n\
+        mov r9, r3\n\
+        ldr r0, [sp, #0x18]\n\
+        adds r0, #0x40\n\
+        mov sl, r0\n\
+        ldrh r5, [r0]\n\
+        adds r6, r5, #0\n\
+        adds r6, #0x1b\n\
+        adds r4, r7, #6\n\
+        adds r0, r4, #0\n\
+        movs r1, #0xa\n\
+        bl __modsi3\n\
+        cmp r0, #0\n\
+        bne _0808AE78\n\
+        adds r6, #2\n\
+    _0808AE78:\n\
+        str r6, [sp]\n\
+        movs r0, #2\n\
+        mov r1, r9\n\
+        ldr r2, [sp, #0x24]\n\
+        ldr r3, _0808AEB4  @ gObject_16x8\n\
+        bl PutSprite\n\
+        mov r2, sl\n\
+        ldrh r1, [r2]\n\
+        adds r2, r1, #0\n\
+        adds r2, #0x3b\n\
+        movs r0, #7\n\
+        ands r4, r0\n\
+        cmp r4, #0\n\
+        bne _0808AE98\n\
+        adds r2, #2\n\
+    _0808AE98:\n\
+        str r2, [sp]\n\
+        movs r0, #2\n\
+        mov r1, r9\n\
+        ldr r2, [sp, #0x1c]\n\
+        ldr r3, _0808AEB4  @ gObject_16x8\n\
+        bl PutSprite\n\
+        adds r7, #1\n\
+        b _0808AEE4\n\
+        .align 2, 0\n\
+    _0808AEAC: .4byte gObject_8x16\n\
+    _0808AEB0: .4byte gUnknown_0203E7E8\n\
+    _0808AEB4: .4byte gObject_16x8\n\
+    _0808AEB8:\n\
+        ldr r3, [sp, #4]\n\
+        adds r4, r3, r6\n\
+        ldr r1, _0808AF60  @ gUnknown_0203E828\n\
+        ldrh r0, [r1]\n\
+        adds r0, #0x1b\n\
+        str r0, [sp]\n\
+        movs r0, #2\n\
+        adds r1, r4, #0\n\
+        ldr r2, [sp, #0x24]\n\
+        ldr r3, _0808AF64  @ gObject_8x8\n\
+        bl PutSprite\n\
+        ldr r2, _0808AF60  @ gUnknown_0203E828\n\
+        ldrh r0, [r2]\n\
+        adds r0, #0x3b\n\
+        str r0, [sp]\n\
+        movs r0, #2\n\
+        adds r1, r4, #0\n\
+        ldr r2, [sp, #0x1c]\n\
+        ldr r3, _0808AF64  @ gObject_8x8\n\
+        bl PutSprite\n\
+    _0808AEE4:\n\
+        adds r7, #1\n\
+        ldr r3, [sp, #0xc]\n\
+        cmp r7, r3\n\
+        blt _0808AE4C\n\
+    _0808AEEC:\n\
+        bl sub_808A524\n\
+        movs r1, #0x10\n\
+        ands r1, r0\n\
+        cmp r1, #0\n\
+        beq _0808AF70\n\
+        ldr r5, [sp, #0x10]\n\
+        lsls r7, r7, #3\n\
+        mov r9, r7\n\
+        cmp r5, #0\n\
+        blt _0808AFBA\n\
+    _0808AF02:\n\
+        adds r0, r5, #1\n\
+        lsls r0, r0, #4\n\
+        cmp r0, r8\n\
+        ble _0808AF0C\n\
+        mov r0, r8\n\
+    _0808AF0C:\n\
+        subs r0, #0x10\n\
+        ldr r1, [sp, #8]\n\
+        adds r4, r1, r0\n\
+        ldr r6, _0808AF68  @ gObject_8x16\n\
+        ldr r0, _0808AF6C  @ gUnknown_0203E7E8\n\
+        adds r7, r0, #0\n\
+        adds r7, #0x40\n\
+        ldrh r2, [r7]\n\
+        movs r0, #1\n\
+        ands r0, r5\n\
+        adds r1, r2, #0\n\
+        adds r1, #0x5f\n\
+        cmp r0, #0\n\
+        beq _0808AF2A\n\
+        adds r1, #0x20\n\
+    _0808AF2A:\n\
+        str r1, [sp]\n\
+        movs r0, #2\n\
+        ldr r1, [sp, #0x20]\n\
+        adds r2, r4, #0\n\
+        adds r3, r6, #0\n\
+        bl PutSprite\n\
+        ldr r1, [sp, #4]\n\
+        add r1, r9\n\
+        ldrh r0, [r7]\n\
+        adds r2, r0, #0\n\
+        adds r2, #0x1f\n\
+        ldr r3, [sp, #0x14]\n\
+        cmp r5, r3\n\
+        bne _0808AF4A\n\
+        adds r2, #0x5f\n\
+    _0808AF4A:\n\
+        str r2, [sp]\n\
+        movs r0, #2\n\
+        adds r2, r4, #0\n\
+        adds r3, r6, #0\n\
+        bl PutSprite\n\
+        subs r5, #1\n\
+        cmp r5, #0\n\
+        bge _0808AF02\n\
+        b _0808AFBA\n\
+        .align 2, 0\n\
+    _0808AF60: .4byte gUnknown_0203E828\n\
+    _0808AF64: .4byte gObject_8x8\n\
+    _0808AF68: .4byte gObject_8x16\n\
+    _0808AF6C: .4byte gUnknown_0203E7E8\n\
+    _0808AF70:\n\
+        ldr r5, [sp, #0x10]\n\
+        lsls r7, r7, #3\n\
+        mov r9, r7\n\
+        cmp r5, #0\n\
+        blt _0808AFBA\n\
+        ldr r6, _0808B010  @ gObject_8x16\n\
+        ldr r7, _0808B014  @ gUnknown_0203E828\n\
+    _0808AF7E:\n\
+        adds r0, r5, #1\n\
+        lsls r0, r0, #4\n\
+        cmp r0, r8\n\
+        ble _0808AF88\n\
+        mov r0, r8\n\
+    _0808AF88:\n\
+        subs r0, #0x10\n\
+        ldr r1, [sp, #8]\n\
+        adds r4, r1, r0\n\
+        ldrh r0, [r7]\n\
+        adds r0, #0x5f\n\
+        str r0, [sp]\n\
+        movs r0, #2\n\
+        ldr r1, [sp, #0x20]\n\
+        adds r2, r4, #0\n\
+        adds r3, r6, #0\n\
+        bl PutSprite\n\
+        ldrh r0, [r7]\n\
+        adds r0, #0x1f\n\
+        str r0, [sp]\n\
+        movs r0, #2\n\
+        ldr r1, [sp, #4]\n\
+        add r1, r9\n\
+        adds r2, r4, #0\n\
+        adds r3, r6, #0\n\
+        bl PutSprite\n\
+        subs r5, #1\n\
+        cmp r5, #0\n\
+        bge _0808AF7E\n\
+    _0808AFBA:\n\
+        ldr r5, _0808B018  @ gObject_8x8\n\
+        ldr r4, _0808B01C  @ gUnknown_0203E7E8\n\
+        adds r4, #0x40\n\
+        ldrh r0, [r4]\n\
+        adds r0, #0x5b\n\
+        str r0, [sp]\n\
+        movs r0, #2\n\
+        ldr r1, [sp, #0x20]\n\
+        ldr r2, [sp, #0x24]\n\
+        adds r3, r5, #0\n\
+        bl PutSprite\n\
+        ldr r6, [sp, #4]\n\
+        add r6, r9\n\
+        ldrh r0, [r4]\n\
+        adds r0, #0x5c\n\
+        str r0, [sp]\n\
+        movs r0, #2\n\
+        adds r1, r6, #0\n\
+        ldr r2, [sp, #0x24]\n\
+        adds r3, r5, #0\n\
+        bl PutSprite\n\
+        ldrh r0, [r4]\n\
+        adds r0, #0x5d\n\
+        str r0, [sp]\n\
+        movs r0, #2\n\
+        ldr r1, [sp, #0x20]\n\
+        ldr r2, [sp, #0x1c]\n\
+        adds r3, r5, #0\n\
+        bl PutSprite\n\
+        ldrh r0, [r4]\n\
+        adds r0, #0x5e\n\
+        str r0, [sp]\n\
+        movs r0, #2\n\
+        adds r1, r6, #0\n\
+        ldr r2, [sp, #0x1c]\n\
+        adds r3, r5, #0\n\
+        bl PutSprite\n\
+        b _0808B082\n\
+        .align 2, 0\n\
+    _0808B010: .4byte gObject_8x16\n\
+    _0808B014: .4byte gUnknown_0203E828\n\
+    _0808B018: .4byte gObject_8x8\n\
+    _0808B01C: .4byte gUnknown_0203E7E8\n\
+    _0808B020:\n\
+        adds r0, r4, #0\n\
+        adds r0, #0x1f\n\
+        cmp r0, #0\n\
+        bge _0808B02A\n\
+        adds r0, #0x1f\n\
+    _0808B02A:\n\
+        asrs r0, r0, #5\n\
+        str r0, [sp, #0xc]\n\
+        bl sub_808A524\n\
+        lsls r0, r0, #0x10\n\
+        lsrs r0, r0, #0x18\n\
+        subs r0, #1\n\
+        str r0, [sp, #0x10]\n\
+        ldr r7, [sp, #0xc]\n\
+        subs r7, #1\n\
+        cmp r7, #0\n\
+        blt _0808B082\n\
+    _0808B042:\n\
+        ldr r5, [sp, #0x10]\n\
+        subs r2, r7, #1\n\
+        mov r8, r2\n\
+        cmp r5, #0\n\
+        blt _0808B07C\n\
+        lsls r6, r7, #5\n\
+        ldr r3, _0808B094  @ gUnknown_0203E828\n\
+        mov r9, r3\n\
+        lsls r0, r5, #4\n\
+        ldr r1, [sp, #8]\n\
+        adds r4, r0, r1\n\
+    _0808B058:\n\
+        lsls r0, r7, #2\n\
+        mov r2, r9\n\
+        ldrh r2, [r2]\n\
+        adds r0, r0, r2\n\
+        lsls r1, r5, #6\n\
+        adds r0, r0, r1\n\
+        str r0, [sp]\n\
+        movs r0, #2\n\
+        ldr r3, [sp, #4]\n\
+        adds r1, r3, r6\n\
+        adds r2, r4, #0\n\
+        ldr r3, _0808B098  @ gObject_32x16\n\
+        bl PutSprite\n\
+        subs r4, #0x10\n\
+        subs r5, #1\n\
+        cmp r5, #0\n\
+        bge _0808B058\n\
+    _0808B07C:\n\
+        mov r7, r8\n\
+        cmp r7, #0\n\
+        bge _0808B042\n\
+    _0808B082:\n\
+        add sp, #0x28\n\
+        pop {r3, r4, r5}\n\
+        mov r8, r3\n\
+        mov r9, r4\n\
+        mov sl, r5\n\
+        pop {r4, r5, r6, r7}\n\
+        pop {r0}\n\
+        bx r0\n\
+        .align 2, 0\n\
+    _0808B094: .4byte gUnknown_0203E828\n\
+    _0808B098: .4byte gObject_32x16\n\
+        .syntax divided\n\
+    ");
+}
+
+#endif // NONMATCHING
+
+//! FE8U = 0x0808B09C
+void sub_808B09C(struct HelpBox8A01760Proc* proc) {
+    struct HelpBoxProc* helpBoxProc = Proc_Find(gUnknown_08A01740);
+
+    proc->unk_59 = 0;
+    proc->unk_50 = helpBoxProc->xBox - 8;
+    proc->unk_51 = helpBoxProc->yBox - 8;
+
+    sub_808AB98(proc->unk_2c, &proc->unk_52);
+
+    return;
+}
+
+//! FE8U = 0x0808B0D4
+void sub_808B0D4(void) {
+
+    if (sub_808A524() & 4) {
+        SetFaceDisplayBitsById(0, GetFaceDisplayBitsById(0) &~ 0x10);
+    }
+
+    return;
+}
+
+//! FE8U = 0x0808B0F8
+void sub_808B0F8(void) {
+
+    if (sub_808A524() & 4) {
+        SetFaceDisplayBitsById(0, GetFaceDisplayBitsById(0) | 0x10);
+    }
+
+    return;
+}
+
+//! FE8U = 0x0808B11C
+void sub_808B11C(struct HelpBox8A01760Proc* proc) {
+
+    sub_80045FC(&gUnknown_0203E7E8.unk_18[0]);
+    sub_80045FC(&gUnknown_0203E7E8.unk_18[1]);
+    sub_80045FC(&gUnknown_0203E7E8.unk_18[2]);
+
+    if (sub_808A524() & 0x10) {
+        if (!(sub_808A524() & 0x20)) {
+            sub_80045FC(&gUnknown_0203E7E8.unk_18[3]);
+            sub_80045FC(&gUnknown_0203E7E8.unk_18[4]);
+        }
+    }
+
+    proc->unk_58 = 0;
+    proc->unk_48 = 0;
+
+    return;
+}
+
+extern int gUnknown_08A016D8[];
+
+//! FE8U = 0x0808B178
+void sub_808B178(struct HelpBox8A01760Proc* proc) {
+    int iVar5;
+    int i;
+
+    iVar5 = proc->unk_4e;
+
+    if (((gKeyStatusPtr->newKeys & 0xf3) != 0) && ((sub_808A524() & 8) == 0)) {
+        iVar5 = 0x80;
+    } else {
+        proc->unk_4a--;
+
+        if (proc->unk_4a > 0) {
+            return;
+        }
+
+        proc->unk_4a = proc->unk_4c;
+    }
+
+    sub_808B0F8();
+
+    SetFont(proc->unk_30);
+
+    for (i = 0; i < iVar5; i++) {
+        struct HelpBoxProc* r3;
+        const char* r1;
+        int r0;
+        int a, b;
+
+        switch (*proc->unk_2c) {
+            case 0x18: // [Yes]
+                sub_808B0D4();
+
+                r3 = Proc_Find(gUnknown_08A01740);
+
+                sub_80900EC(gUnknown_08A016D8, proc->unk_34[proc->unk_48], r3->xBoxFinal, r3->yBoxFinal + proc->unk_48 * 16, 6, 1, proc);
+
+                proc->unk_2c++;
+                goto _0808B772;
+
+            case 0x19: // [No]
+                sub_808B0D4();
+
+                r3 = Proc_Find(gUnknown_08A01740);
+
+                sub_80900EC(gUnknown_08A016D8, proc->unk_34[proc->unk_48], r3->xBoxFinal, r3->yBoxFinal + proc->unk_48 * 16, 6, 2, proc);
+
+                proc->unk_2c++;
+                goto _0808B772;
+
+            case 0x80:
+                r1 = proc->unk_2c + 1;
+                proc->unk_2c = r1;
+
+                if (*r1 == 0x21) { // [ToggleRed]
+                    r0 = proc->unk_59;
+                    proc->unk_59 = (r0+1) & 1;
+                    proc->unk_2c++;
+                    i--;
+
+                    continue;
+                } else if (*r1 == 0x04) { // [LoadOverworldFaces]
+                    sub_808B0D4();
+
+                    Proc_Goto(Proc_Find(gUnknown_08A016E0), 1);
+                    Proc_Goto(proc, 1);
+
+                    Proc_EndEach(gUnknown_08A01818);
+                    proc->unk_2c++;
+
+                    goto _0808B772;
+
+                } else if (*r1 == 0x25) { // [ToggleColorInvert]
+                    proc->unk_2c++;
+
+                    goto _0808B772;
+                }
+
+                // fallthrough
+
+            case 0x12: // [NormalPrint] fe6 only?
+            case 0x13: // [FastPrint] fe6 only?
+            case 0x14: // [CloseSpeechFast]
+            {
+                struct HelpBoxProc* r4 = Proc_Find(gUnknown_08A01740);
+
+                sub_808B0D4();
+
+                proc->unk_2c++;
+                if (*proc->unk_2c == 0x01) {
+                    proc->unk_2c++;
+                }
+
+                if (r4 != 0) {
+                    sub_808B11C(proc);
+                    sub_808AADC(proc->unk_2c, &a, &b);
+
+                    proc->unk_56 = a;
+                    proc->unk_57 = b;
+
+                    proc->unk_54 = r4->wBoxFinal;
+                    proc->unk_55 = r4->hBoxFinal;
+                    proc->unk_58 = 0;
+
+                    Proc_Goto(proc, 6);
+                }
+
+                goto _0808B772;
+            }
+            case 0x00: // [X]
+                sub_808B0D4();
+
+                if ((sub_808A524() & 2) == 0) {
+                    Proc_Break(proc);
+                    goto _0808B772;
+                }
+
+                Proc_Goto(Proc_Find(gUnknown_08A016E0), 1);
+                Proc_Goto(proc, 1);
+
+                Proc_EndEach(gUnknown_08A01818);
+
+                goto _0808B772;
+
+            case 0x01: // [NL]
+                sub_808B0D4();
+
+                proc->unk_2c++;
+
+                if (proc->unk_55 == (proc->unk_48 + 1)) {
+                    // b _0808B1DE
+                    proc->unk_58 = 0;
+                    Proc_Goto(proc, 4);
+
+                    goto _0808B772;
+                }
+
+                proc->unk_48++;
+
+                continue;
+
+            case 0x04: // [....]
+                sub_808B0D4();
+
+                proc->unk_2c++;
+
+                proc->unk_4a = 8;
+
+                goto _0808B772;
+
+            case 0x05: // [.....]
+                sub_808B0D4();
+
+                proc->unk_2c++;
+
+                proc->unk_4a = 0x10;
+
+                goto _0808B772;
+
+            case 0x06: // [......]
+                sub_808B0D4();
+
+                proc->unk_2c++;
+
+                proc->unk_4a = 0x20;
+
+                goto _0808B772;
+
+            case 0x07: // [.......]
+                sub_808B0D4();
+
+                proc->unk_2c++;
+
+                proc->unk_4a = 0x40;
+
+                goto _0808B772;
+
+            case 0x02: // [NL2]
+                sub_808B0D4();
+
+                proc->unk_2c++;
+
+                if (*proc->unk_2c == 0x01) { // [NL]
+                    proc->unk_2c++;
+                }
+
+                if (*proc->unk_2c == 0x00) { // [X]
+                    if ((sub_808A524() & 2) == 0) {
+                        Proc_Break(proc);
+                    } else {
+                        Proc_Goto(Proc_Find(gUnknown_08A016E0), 1);
+                        Proc_Goto(proc, 1);
+                        Proc_EndEach(gUnknown_08A01818);
+                    }
+                } else {
+                    if ((sub_808A524() & 0x10) != 0) {
+                        sub_808B11C(proc);
+                    } else {
+                        if (*proc->unk_2c != 0) {
+                            proc->unk_58 = 0;
+                            Proc_Goto(proc, 5);
+                        }
+                    }
+                }
+
+                goto _0808B772;
+
+            case 0x03: { // [A]
+                int x;
+                int y;
+                struct HelpBoxProc* r0;
+
+                sub_808B0D4();
+
+                proc->unk_2c++;
+
+                r0 = Proc_Find(gUnknown_08A01740);
+
+                x = r0->xBoxFinal + proc->unk_52;
+                y = r0->yBoxFinal + proc->unk_48 * 16;
+                StartTalkWaitForInput(proc, x, y + 8);
+
+                sub_808AB98(proc->unk_2c, &proc->unk_52);
+
+                goto _0808B772;
+            }
+        _0808B76A:
+            continue;
+        }
+
+        if ((sub_808A524() & 1) != 0) {
+            Text_SetColorId(proc->unk_34[proc->unk_48], 1);
+        } else {
+            if (proc->unk_59 != 0) {
+                Text_SetColorId(proc->unk_34[proc->unk_48], 10);
+            } else {
+                Text_SetColorId(proc->unk_34[proc->unk_48], 6);
+            }
+        }
+
+        proc->unk_2c = Text_AppendChar(proc->unk_34[proc->unk_48], proc->unk_2c);
+
+        if (GetTextDisplaySpeed() != 1 || (GetGameClock() & 1) != 0) {
+
+            if ((sub_808A524() & 0x10) != 0) {
+                PlaySoundEffect(0x2E5);
+            } else {
+                PlaySoundEffect(0x6e);
+            }
+        }
+    }
+_0808B772:
+    SetFont(0);
+
+    return;
+}
+
+//! FE8U = 0x0808B788
+void sub_808B788(ProcPtr proc) {
+    if (Proc_Find(gUnknown_08A01818)) {
+        Proc_Goto(Proc_Find(gUnknown_08A016E0), 0);
+        Proc_Goto(proc, 0);
+    }
+
+    return;
+}
+
+//! FE8U = 0x0808B7B8
+void sub_808B7B8(struct HelpBox8A01760Proc* proc) {
+    sub_808A530(proc->unk_54 + 1, proc->unk_55);
+
+    proc->unk_58++;
+
+    if (proc->unk_58 == 16) {
+        Text_SetXCursor(&gUnknown_0203E7E8.unk_18[proc->unk_48], 0);
+        Proc_Break(proc);
+    }
+
+    return;
+}
+
+
+//! FE8U = 0x0808B804
+void sub_808B804(struct HelpBox8A01760Proc* proc) {
+    if (proc->unk_48 == 0) {
+        Proc_Break(proc);
+    } else {
+        Proc_Goto(proc, 5);
+    }
+
+    if (proc->unk_48 != 0) {
+        proc->unk_48--;
+    }
+
+    proc->unk_58 = 0;
+
+    return;
+}
+
+//! FE8U = 0x0808B844
+void sub_808B844(ProcPtr proc) {
+    Proc_Goto(Proc_Find(gUnknown_08A016E0), 3);
+    Proc_Break(proc);
+
+    SetFont(NULL);
+    SetFontGlyphSet(0);
+
+    return;
+}
+
+//! FE8U = 0x0808B870
+void sub_808B870(struct HelpBox8A01760Proc* proc) {
+    struct HelpBoxProc* helpBoxProc = Proc_Find(gUnknown_08A01740);
+
+    proc->unk_58++;
+
+    if (helpBoxProc) {
+        int x = (proc->unk_54 * (2 - proc->unk_58) + proc->unk_58 * proc->unk_56) / 2;
+        int y = (proc->unk_55 * (2 - proc->unk_58) + proc->unk_58 * proc->unk_57) / 2;
+
+        sub_808A838(helpBoxProc, x, y);
+    }
+
+    if (proc->unk_58 == 2) {
+        u8 tmp;
+
+        proc->unk_54 = proc->unk_56 / 8;
+
+        tmp = proc->unk_57 / 16;
+        proc->unk_55 = tmp < 5 ? tmp : 5;
+
+        Proc_Break(proc);
+    }
+
+    return;
+}
+
+//! FE8U = 0x0808B904
+s8 sub_808B904(void) {
+    struct HelpBox8A016E0Proc* proc = Proc_Find(gUnknown_08A016E0);
+
+    if (!proc) {
+        return 1;
+    }
+
+    if (proc->unk_38 != 0) {
+        return 1;
+    }
+
+    return 0;
+}
+
+extern struct ProcCmd gUnknown_08A01760[];
+
+//! FE8U = 0x0808B928
+void sub_808B928(struct HelpBox8A01800Proc* proc) {
+    struct HelpBox8A01760Proc* otherProc;
+
+    SetFont(&gUnknown_0203E7E8.unk_00);
+    SetFontGlyphSet(0);
+    SetFontGlyphSet(1);
+
+    if ((sub_808A524() & 1) == 0) {
+        Text_SetColorId(&gUnknown_0203E7E8.unk_18[0], 6);
+        Text_SetColorId(&gUnknown_0203E7E8.unk_18[1], 6);
+        Text_SetColorId(&gUnknown_0203E7E8.unk_18[2], 6);
+        if (((sub_808A524() & 0x10) != 0) && ((sub_808A524() & 0x20) == 0)) {
+            Text_SetColorId(&gUnknown_0203E7E8.unk_18[3], 6);
+            Text_SetColorId(&gUnknown_0203E7E8.unk_18[4], 6);
+        }
+    } else {
+        int i;
+
+        for (i = 0; i < (int)((u32)(sub_808A524() << 0x10) >> 0x18); i++) {
+            Text_SetColorId(&gUnknown_0203E7E8.unk_18[i], 0);
+        }
+    }
+
+    SetFont(NULL);
+
+    Proc_EndEach(gUnknown_08A01760);
+    otherProc = Proc_Start(gUnknown_08A01760, PROC_TREE_3);
+
+    otherProc->unk_30 = &gUnknown_0203E7E8.unk_00;
+    otherProc->unk_34[0] = &gUnknown_0203E7E8.unk_18[0];
+    otherProc->unk_34[1] = &gUnknown_0203E7E8.unk_18[1];
+    otherProc->unk_34[2] = &gUnknown_0203E7E8.unk_18[2];
+    otherProc->unk_34[3] = &gUnknown_0203E7E8.unk_18[3];
+    otherProc->unk_34[4] = &gUnknown_0203E7E8.unk_18[4];
+    otherProc->unk_48 = 0;
+
+    GetStringFromIndex(proc->unk_5c);
+
+    otherProc->unk_2c = sub_800A2A4();
+    otherProc->unk_54 = proc->unk_2c;
+    otherProc->unk_55 = proc->unk_30;
+
+    if (sub_808B904() != 0) {
+        otherProc->unk_4c = GetTextDisplaySpeed();
+
+        otherProc->unk_4e = otherProc->unk_4c != 0 ? 1 : 0x80;
+    } else {
+        otherProc->unk_4c = 0;
+        otherProc->unk_4e = 0x80;
+    }
+
+    otherProc->unk_4a = 0;
+
+    return;
+}
+
+extern struct ProcCmd gUnknown_08A01800[];
+
+//! FE8U = 0x0808BA60
+void sub_808BA60(int msgId, int x, int y) {
+    struct HelpBox8A01800Proc* proc = Proc_Start(gUnknown_08A01800, PROC_TREE_3);
+
+    proc->unk_5c = msgId;
+
+    proc->unk_2c = x / 8;
+
+    if (y / 16 < 6) {
+        if (y / 16 < 0) {
+            proc->unk_30 = 0;
+            return;
+        } else {
+            proc->unk_30 = y / 16;
+            return;
+        }
+    }
+
+    proc->unk_30 = 5;
+
+    return;
+}
+
+//! FE8U = 0x0808BAA4
+void sub_808BAA4(void) {
+    SetFont(&gUnknown_0203E7E8.unk_00);
+
+    if ((sub_808A524() & 1) == 0) {
+        sub_80045FC(&gUnknown_0203E7E8.unk_18[0]);
+        sub_80045FC(&gUnknown_0203E7E8.unk_18[1]);
+        sub_80045FC(&gUnknown_0203E7E8.unk_18[2]);
+        if (((sub_808A524() & 0x10) != 0) && ((sub_808A524() & 0x20) == 0)) {
+            sub_80045FC(&gUnknown_0203E7E8.unk_18[3]);
+            sub_80045FC(&gUnknown_0203E7E8.unk_18[4]);
+        }
+    } else {
+        int i;
+        for (i = 0; i < (int)((u32)(sub_808A524() << 0x10) >> 0x18); i++) {
+            Text_80046B4(&gUnknown_0203E7E8.unk_18[i], 0);
+        }
+    }
+
+    Proc_EndEach(gUnknown_08A01760);
+    Proc_EndEach(gUnknown_08A01800);
+
+    SetFont(NULL);
+
+    return;
+}
+
+//! FE8U = 0x0808BB44
+void sub_808BB44(void) {
+    Proc_Start(gUnknown_08A01818, PROC_TREE_VSYNC);
+    return;
+}
+
+//! FE8U = 0x0808BB58
+s8 sub_808BB58(void) {
+    if (Proc_Find(gUnknown_08A01818)) {
+        return 1;
+    }
+
+    return 0;
+}
+
+//! FE8U = 0x0808BB74
+void sub_808BB74(void) {
+    Proc_EndEach(gUnknown_08A016E0);
+    Proc_EndEach(gUnknown_08A01818);
+    Proc_EndEach(gUnknown_08A01740);
+    Proc_EndEach(gUnknown_08A01760);
+    Proc_EndEach(gUnknown_08A01800);
+    return;
 }
