@@ -990,15 +990,15 @@ u16 GetDialogueBoxConfig(void) {
 void sub_808A530(int a, int b) {
     int* ptr, *r4;
     int i, j, k;
-    int r3;
 
     ptr = (int*)((((0x3FF & gUnknown_0203E7E8.unk_40) + gUnknown_0203E7E8.unk_18[0].unk0) * 0x20) + 0x06010000);
 
-    for (i = 0, r3 = b*2; i < b*2; i++) {
+    for (i = 0; i < b*2; i++) {
         r4 = ptr;
         for (j = 0; j < a; j++) {
             for (k = 0; k <= 6; k++) {
-                *r4++ = r4[1];
+                r4[0] = r4[1];
+                ++r4;
             }
 
             if (i == (b*2 - 1)) {
