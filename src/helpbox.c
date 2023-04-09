@@ -998,7 +998,8 @@ void sub_808A530(int a, int b) {
         r4 = ptr;
         for (j = 0; j < a; j++) {
             for (k = 0; k <= 6; k++) {
-                *r4++ = r4[1];
+                r4[0] = r4[1];
+                ++r4;
             }
 
             if (i == (b*2 - 1)) {
