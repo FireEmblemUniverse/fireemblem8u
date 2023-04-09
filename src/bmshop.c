@@ -1441,7 +1441,7 @@ void sub_80B52CC(void) {
 
     LoadIconPalettes(4);
 
-    LoadDialogueBoxGfx(0, -1);
+    LoadHelpBoxGfx(0, -1);
 
     return;
 }

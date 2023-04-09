@@ -56,12 +56,12 @@ gUnknown_0859EF20:  @ 0x0859EF20
 gUnknown_0859EF40:  @ 0x0859EF40
 	.incbin "baserom.gba", 0x59EF40, 0x20
 
-	.global gUnknown_0859EF60
-gUnknown_0859EF60:  @ 0x0859EF60
+	.global gPal_HelpTextBox
+gPal_HelpTextBox:  @ 0x0859EF60
 	.incbin "baserom.gba", 0x59EF60, 0x20
 
-	.global gUnknown_0859EF80
-gUnknown_0859EF80:  @ 0x0859EF80
+	.global gPal_YellowTextBox
+gPal_YellowTextBox:  @ 0x0859EF80
 	.incbin "baserom.gba", 0x59EF80, 0x40
 
 	.global gUnknown_0859EFC0

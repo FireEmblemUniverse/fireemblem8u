@@ -555,7 +555,7 @@ u8 MenuStdHelpBox(struct MenuProc* menu, struct MenuItemProc* item)
 
 void Menu_AutoHelpBox_OnInit(struct MenuProc* proc)
 {
-    LoadDialogueBoxGfx(NULL, -1); // TODO: NOPAL constant?
+    LoadHelpBoxGfx(NULL, -1); // TODO: NOPAL constant?
     proc->def->onHelpBox(proc, proc->menuItems[proc->itemCurrent]);
 }
 
@@ -609,7 +609,7 @@ u8 MenuFrozenHelpBox(struct MenuProc* proc, int msgid)
 {
     Proc_GotoScript(proc, sProc_MenuFrozenHelpBox);
 
-    LoadDialogueBoxGfx(NULL, -1); // TODO: default constants?
+    LoadHelpBoxGfx(NULL, -1); // TODO: default constants?
     StartHelpBox(GetUiHandPrevDisplayX(), GetUiHandPrevDisplayY(), msgid);
 }
 

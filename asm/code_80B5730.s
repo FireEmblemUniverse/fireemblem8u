@@ -22076,7 +22076,7 @@ sub_80C09EC: @ 0x080C09EC
 	adds r4, r0, #0
 	ldr r0, _080C0A08  @ 0x06013000
 	movs r1, #9
-	bl LoadDialogueBoxGfx
+	bl LoadHelpBoxGfx
 	ldr r0, _080C0A0C  @ gUnknown_08A3E78C
 	adds r1, r4, #0
 	bl StartMovingHelpBox

@@ -857,7 +857,7 @@ PrepItemUse_InitDisplay: @ 0x0809C4E4
 	ldr r0, _0809C7EC  @ 0x06014000
 	movs r1, #1
 	negs r1, r1
-	bl LoadDialogueBoxGfx
+	bl LoadHelpBoxGfx
 	movs r0, #4
 	bl LoadIconPalettes
 	bl EndSlidingWallEffectMaybe
@@ -2114,7 +2114,7 @@ _0809CFD4:
 	ldr r0, _0809D010  @ 0x06014000
 	movs r1, #1
 	negs r1, r1
-	bl LoadDialogueBoxGfx
+	bl LoadHelpBoxGfx
 	pop {r4, r5}
 	pop {r0}
 	bx r0
@@ -2392,7 +2392,7 @@ _0809D208:
 	ldr r0, _0809D240  @ 0x06014000
 	movs r1, #1
 	negs r1, r1
-	bl LoadDialogueBoxGfx
+	bl LoadHelpBoxGfx
 	pop {r4, r5}
 	pop {r0}
 	bx r0

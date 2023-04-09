@@ -169,44 +169,44 @@ gUnknown_08A02274:  @ 0x08A02274
 gUnknown_08A027FC:  @ 0x08A027FC
 	.incbin "baserom.gba", 0xA027FC, 0x60
 
-	.global gUnknown_08A0285C
-gUnknown_08A0285C:  @ 0x08A0285C
+	.global gGfx_HelpTextBox
+gGfx_HelpTextBox:  @ 0x08A0285C
 	.incbin "baserom.gba", 0xA0285C, 0x28
 
-	.global gUnknown_08A02884
-gUnknown_08A02884:  @ 0x08A02884
+	.global gGfx_HelpTextBox2
+gGfx_HelpTextBox2:  @ 0x08A02884
 	.incbin "baserom.gba", 0xA02884, 0x28
 
-	.global gUnknown_08A028AC
-gUnknown_08A028AC:  @ 0x08A028AC
+	.global gGfx_HelpTextBox3
+gGfx_HelpTextBox3:  @ 0x08A028AC
 	.incbin "baserom.gba", 0xA028AC, 0x68
 
-	.global gUnknown_08A02914
-gUnknown_08A02914:  @ 0x08A02914
+	.global gGfx_HelpTextBox4
+gGfx_HelpTextBox4:  @ 0x08A02914
 	.incbin "baserom.gba", 0xA02914, 0x6C
 
-	.global gUnknown_08A02980
-gUnknown_08A02980:  @ 0x08A02980
+	.global gGfx_HelpTextBox5
+gGfx_HelpTextBox5:  @ 0x08A02980
 	.incbin "baserom.gba", 0xA02980, 0x28
 
-	.global gUnknown_08A029A8
-gUnknown_08A029A8:  @ 0x08A029A8
+	.global gGfx_YellowTextBox
+gGfx_YellowTextBox:  @ 0x08A029A8
 	.incbin "baserom.gba", 0xA029A8, 0x74
 
-	.global gUnknown_08A02A1C
-gUnknown_08A02A1C:  @ 0x08A02A1C
+	.global gGfx_YellowTextBox2
+gGfx_YellowTextBox2:  @ 0x08A02A1C
 	.incbin "baserom.gba", 0xA02A1C, 0x78
 
-	.global gUnknown_08A02A94
-gUnknown_08A02A94:  @ 0x08A02A94
+	.global gGfx_YellowTextBox3
+gGfx_YellowTextBox3:  @ 0x08A02A94
 	.incbin "baserom.gba", 0xA02A94, 0xA8
 
-	.global gUnknown_08A02B3C
-gUnknown_08A02B3C:  @ 0x08A02B3C
+	.global gGfx_YellowTextBox4
+gGfx_YellowTextBox4:  @ 0x08A02B3C
 	.incbin "baserom.gba", 0xA02B3C, 0x70
 
-	.global gUnknown_08A02BAC
-gUnknown_08A02BAC:  @ 0x08A02BAC
+	.global gGfx_YellowTextBox5
+gGfx_YellowTextBox5:  @ 0x08A02BAC
 	.incbin "baserom.gba", 0xA02BAC, 0x88
 
 	.global gUnknown_08A02C34

@@ -1923,7 +1923,7 @@ void StartStatScreen(struct Unit* unit, ProcPtr parent)
 
 void StartStatScreenHelp(int pageid, struct Proc* proc)
 {
-    LoadDialogueBoxGfx(NULL, -1); // default
+    LoadHelpBoxGfx(NULL, -1); // default
 
     if (!gStatScreen.help)
     {
@@ -2075,7 +2075,7 @@ void UpdateHelpBoxDisplay(struct HelpBoxProc* proc, int arg1)
     proc->wBox = Interpolate(arg1, proc->wBoxInit, proc->wBoxFinal, proc->timer, proc->timerMax);
     proc->hBox = Interpolate(arg1, proc->hBoxInit, proc->hBoxFinal, proc->timer, proc->timerMax);
 
-    sub_8089980(proc->xBox, proc->yBox, proc->wBox, proc->hBox, proc->unk52);
+    DisplayHelpBoxObj(proc->xBox, proc->yBox, proc->wBox, proc->hBox, proc->unk52);
 }
 
 static
@@ -2236,8 +2236,8 @@ void StartHelpBoxExt(const struct HelpBoxInfo* info, int unk)
     ApplyHelpBoxContentSize(proc, wContent, hContent);
     ApplyHelpBoxPosition(proc, info->xDisplay, info->yDisplay);
 
-    sub_808A118();
-    sub_808A0FC(proc->item, proc->mid);
+    ClearHelpBoxText();
+    StartHelpBoxTextInit(proc->item, proc->mid);
 
     sLastHbi = info;
 }
@@ -2276,8 +2276,8 @@ void StartHelpBoxExt_Unk(int x, int y, int mid)
     proc->xBoxFinal = x + 8;
     proc->yBoxFinal = y + 8;
 
-    sub_808A118();
-    sub_808A0FC(proc->item, proc->mid);
+    ClearHelpBoxText();
+    StartHelpBoxTextInit(proc->item, proc->mid);
 }
 
 void CloseHelpBox(void)
@@ -2286,7 +2286,7 @@ void CloseHelpBox(void)
 
     if (proc)
     {
-        sub_808A118();
+        ClearHelpBoxText();
         Proc_Goto(proc, 0x63);
     }
 }
@@ -2297,7 +2297,7 @@ void EndHelpBox(void)
 
     if (proc)
     {
-        sub_808A118();
+        ClearHelpBoxText();
         Proc_End(proc);
     }
 }
@@ -2549,7 +2549,7 @@ void HbLock_OnIdle(struct Proc* proc)
 
 int StartLockingHelpBox_Unused(int mid, ProcPtr parent)
 {
-    LoadDialogueBoxGfx(NULL, -1);
+    LoadHelpBoxGfx(NULL, -1);
 
     StartHelpBox(GetUiHandPrevDisplayX(), GetUiHandPrevDisplayY(), mid);
     Proc_StartBlocking(gProcScr_HelpBoxLock, parent);

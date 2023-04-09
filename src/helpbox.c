@@ -95,31 +95,28 @@ struct Struct203E794 {
 extern struct Struct203E794 gUnknown_0203E794;
 
 // gfx
-extern u8 gUnknown_08A0285C[];
-extern u8 gUnknown_08A02884[];
-extern u8 gUnknown_08A028AC[];
-extern u8 gUnknown_08A02914[];
-extern u8 gUnknown_08A02980[];
+extern u8 gGfx_HelpTextBox[];
+extern u8 gGfx_HelpTextBox2[];
+extern u8 gGfx_HelpTextBox3[];
+extern u8 gGfx_HelpTextBox4[];
+extern u8 gGfx_HelpTextBox5[];
 
 extern u16 gUnknown_0859EF40[]; // pal
-
-char* sub_80AA768(void); // GetWMNodeNameForSaveMenu
-int sub_80AA744(void); // GetHeroLevelForSaveMenu
 
 extern struct HelpBoxInfo gUnknown_0203E7C8;
 extern const struct HelpBoxInfo* gUnknown_0203E7E4;
 
-extern struct ProcCmd gUnknown_08A01628[];
+extern struct ProcCmd gProcScr_HelpBoxTextScroll[];
 extern struct ProcCmd gUnknown_08A01650[];
 extern struct ProcCmd gUnknown_08A01678[];
 extern struct ProcCmd gUnknown_08A01698[];
 extern struct ProcCmd gUnknown_08A016C8[];
-extern struct ProcCmd gUnknown_08A016E0[];
+extern struct ProcCmd gProcScr_BoxDialogue[];
 extern struct ProcCmd gUnknown_08A01740[];
 extern struct ProcCmd gUnknown_08A01818[];
 
-extern u16 gUnknown_0859EF80[];
-extern u16 gUnknown_0859EF60[];
+extern u16 gPal_YellowTextBox[];
+extern u16 gPal_HelpTextBox[];
 
 struct Struct0203E7E8 {
     /* 00 */ struct Font unk_00;
@@ -130,11 +127,11 @@ struct Struct0203E7E8 {
 
 extern struct Struct0203E7E8 gUnknown_0203E7E8;
 
-extern u8 gUnknown_08A029A8[];
-extern u8 gUnknown_08A02A1C[];
-extern u8 gUnknown_08A02A94[];
-extern u8 gUnknown_08A02B3C[];
-extern u8 gUnknown_08A02BAC[];
+extern u8 gGfx_YellowTextBox[];
+extern u8 gGfx_YellowTextBox2[];
+extern u8 gGfx_YellowTextBox3[];
+extern u8 gGfx_YellowTextBox4[];
+extern u8 gGfx_YellowTextBox5[];
 
 // (probably) forward declarations
 
@@ -149,10 +146,9 @@ void sub_808A9F0(void);
 void sub_808ACFC(int, int, int, int);
 void sub_808BAA4(void);
 void sub_808BA60(int, int, int);
-void sub_80900EC(int*, struct TextHandle*, int, int, int, int, ProcPtr);
 
 //! FE8U = 0x08089804
-void LoadDialogueBoxGfx(void* vram, int palId) {
+void LoadHelpBoxGfx(void* vram, int palId) {
 
     if (vram == 0) {
         vram = (void *)0x06013000;
@@ -164,11 +160,11 @@ void LoadDialogueBoxGfx(void* vram, int palId) {
 
     palId = (palId & 0xF) + 0x10;
 
-    Decompress(gUnknown_08A0285C, vram + 0x360);
-    Decompress(gUnknown_08A02884, vram + 0x760);
-    Decompress(gUnknown_08A028AC, vram + 0xb60);
-    Decompress(gUnknown_08A02914, vram + 0xf60);
-    Decompress(gUnknown_08A02980, vram + 0x1360);
+    Decompress(gGfx_HelpTextBox, vram + 0x360);
+    Decompress(gGfx_HelpTextBox2, vram + 0x760);
+    Decompress(gGfx_HelpTextBox3, vram + 0xb60);
+    Decompress(gGfx_HelpTextBox4, vram + 0xf60);
+    Decompress(gGfx_HelpTextBox5, vram + 0x1360);
 
     InitSomeOtherGraphicsRelatedStruct(&gUnknown_0203E794.font, vram, palId);
 
@@ -198,11 +194,11 @@ void sub_80898C4(void* vram, int palId) {
 
     palId = (palId & 0xf) + 0x10;
 
-    Decompress(gUnknown_08A0285C, vram + 0x360);
-    Decompress(gUnknown_08A02884, vram + 0x760);
-    Decompress(gUnknown_08A028AC, vram + 0xb60);
-    Decompress(gUnknown_08A02914, vram + 0xf60);
-    Decompress(gUnknown_08A02980, vram + 0x1360);
+    Decompress(gGfx_HelpTextBox, vram + 0x360);
+    Decompress(gGfx_HelpTextBox2, vram + 0x760);
+    Decompress(gGfx_HelpTextBox3, vram + 0xb60);
+    Decompress(gGfx_HelpTextBox4, vram + 0xf60);
+    Decompress(gGfx_HelpTextBox5, vram + 0x1360);
 
     InitSomeOtherGraphicsRelatedStruct(&gUnknown_0203E794.font, vram, palId);
 
@@ -221,7 +217,7 @@ void sub_80898C4(void* vram, int palId) {
 }
 
 //! FE8U = 0x08089980
-void sub_8089980(int x, int y, int w, int h, int unk) {
+void DisplayHelpBoxObj(int x, int y, int w, int h, int unk) {
     s8 flag;
     s8 flag_;
     s8 anotherFlag;
@@ -345,7 +341,7 @@ void sub_8089980(int x, int y, int w, int h, int unk) {
 }
 
 //! FE8U = 0x08089C40
-int sub_8089C40(int item) {
+int DrawHelpBoxWeaponLabels(int item) {
     Text_InsertString(&gUnknown_0203E794.text[0], 0, 8, GetWeaponTypeDisplayString(GetItemType(item)));
     Text_InsertString(&gUnknown_0203E794.text[0], 47, 8, GetStringFromIndex(0x500)); // TODO: msg id "Rng[.]"
     Text_InsertString(&gUnknown_0203E794.text[0], 97, 8, GetStringFromIndex(0x502)); // TODO: msg id "Wt"
@@ -358,7 +354,7 @@ int sub_8089C40(int item) {
 }
 
 //! FE8U = 0x08089CD4
-void sub_8089CD4(int item) {
+void DrawHelpBoxWeaponStats(int item) {
 
     Text_InsertString(&gUnknown_0203E794.text[0], 32, 7, GetItemDisplayRankString(item));
     Text_InsertString(&gUnknown_0203E794.text[0], 67, 7, GetItemDisplayRangeString(item));
@@ -372,7 +368,7 @@ void sub_8089CD4(int item) {
 }
 
 //! FE8U = 0x08089D50
-int sub_8089D50(int item) {
+int DrawHelpBoxStaffLabels(int item) {
     Text_InsertString(&gUnknown_0203E794.text[0], 0, 8, GetStringFromIndex(0x509)); // TODO: msg id "Staff[.]"
     Text_InsertString(&gUnknown_0203E794.text[0], 30, 7, GetItemDisplayRankString(item));
     Text_InsertString(&gUnknown_0203E794.text[0], 48, 8, GetStringFromIndex(0x500)); // TODO: msg id "Rng[.]"
@@ -382,7 +378,7 @@ int sub_8089D50(int item) {
 }
 
 //! FE8U = 0x08089DB0
-void sub_8089DB0(void) {
+void DrawHelpBoxSaveMenuLabels(void) {
     Text_InsertString(&gUnknown_0203E794.text[0], 0, 8, GetStringFromIndex(0x147)); // TODO: msg id "Base"
     Text_InsertString(&gUnknown_0203E794.text[0], 90, 8, GetStringFromIndex(0x148)); // TODO: msg id "LV"
 
@@ -390,7 +386,7 @@ void sub_8089DB0(void) {
 }
 
 //! FE8U = 0x08089DE8
-void sub_8089DE8(void) {
+void DrawHelpBoxSaveMenuStats(void) {
     int level;
 
     char* str = sub_80AA768();
@@ -413,8 +409,7 @@ void sub_8089DE8(void) {
 }
 
 //! FE8U = 0x08089E58
-void sub_8089E58(struct HelpBoxScrollProc* proc) {
-
+void HelpBoxTextScroll_OnLoop(struct HelpBoxScrollProc* proc) {
     int i;
 
     proc->unk_5e--;
@@ -461,8 +456,8 @@ _08089EE0:
     return;
 }
 
-struct ProcCmd CONST_DATA gUnknown_08A01628[] = {
-    PROC_REPEAT(sub_8089E58),
+struct ProcCmd CONST_DATA gProcScr_HelpBoxTextScroll[] = {
+    PROC_REPEAT(HelpBoxTextScroll_OnLoop),
     PROC_END,
 };
 
@@ -531,17 +526,17 @@ void sub_8089F58(struct HelpBox8A01650Proc* proc) {
             break;
 
         case 1:
-            sub_8089C40(item);
+            DrawHelpBoxWeaponLabels(item);
             proc->unk_64 = 2;
             break;
 
         case 2:
-            sub_8089D50(item);
+            DrawHelpBoxStaffLabels(item);
             proc->unk_64 = 1;
             break;
 
         case 3:
-            sub_8089DB0();
+            DrawHelpBoxSaveMenuLabels();
             proc->unk_64 = 1;
             break;
     }
@@ -561,11 +556,11 @@ void sub_8089FCC(struct HelpBox8A01650Proc* proc) {
 
     switch (GetHelpBoxItemInfoKind(item)) {
         case 1:
-            sub_8089CD4(item);
+            DrawHelpBoxWeaponStats(item);
             break;
 
         case 3:
-            sub_8089DE8();
+            DrawHelpBoxSaveMenuStats();
             break;
     }
 
@@ -591,9 +586,9 @@ void sub_808A00C(struct HelpBox8A01650Proc* proc) {
 
     SetFont(0);
 
-    Proc_EndEach(gUnknown_08A01628);
+    Proc_EndEach(gProcScr_HelpBoxTextScroll);
 
-    otherProc = Proc_Start(gUnknown_08A01628, PROC_TREE_3);
+    otherProc = Proc_Start(gProcScr_HelpBoxTextScroll, PROC_TREE_3);
     otherProc->unk_30 = &gUnknown_0203E794.font;
 
     otherProc->unk_34[0] = &gUnknown_0203E794.text[0];
@@ -647,7 +642,7 @@ struct ProcCmd CONST_DATA gUnknown_08A01650[] = {
 };
 
 //! FE8U = 0x0808A0FC
-void sub_808A0FC(int item, int msgId) {
+void StartHelpBoxTextInit(int item, int msgId) {
     struct HelpBox8A01650Proc* proc = Proc_Start(gUnknown_08A01650, PROC_TREE_3);
 
     proc->unk_58 = item;
@@ -657,7 +652,7 @@ void sub_808A0FC(int item, int msgId) {
 }
 
 //! FE8U = 0x0808A118
-void sub_808A118(void) {
+void ClearHelpBoxText(void) {
 
     SetFont(&gUnknown_0203E794.font);
 
@@ -665,7 +660,7 @@ void sub_808A118(void) {
     sub_80045FC(&gUnknown_0203E794.text[1]);
     sub_80045FC(&gUnknown_0203E794.text[2]);
 
-    Proc_EndEach(gUnknown_08A01628);
+    Proc_EndEach(gProcScr_HelpBoxTextScroll);
     Proc_EndEach(gUnknown_08A01650);
 
     SetFont(0);
@@ -762,7 +757,7 @@ void sub_808A200(const struct HelpBoxInfo* info) {
 
     proc->info = info;
     proc->timer = 0;
-    proc->timerMax = 0xc;
+    proc->timerMax = 12;
 
     proc->mid = info->mid;
 
@@ -775,9 +770,8 @@ void sub_808A200(const struct HelpBoxInfo* info) {
     sub_808A384(proc, wTextBox, hTextBox);
     sub_808A3C4(proc, info->xDisplay, info->yDisplay);
 
-    sub_808A118();
-
-    sub_808A0FC(proc->item, proc->mid);
+    ClearHelpBoxText();
+    StartHelpBoxTextInit(proc->item, proc->mid);
 
     gUnknown_0203E7E4 = info;
 
@@ -789,7 +783,7 @@ void sub_808A2D0(void) {
 
     PlaySoundEffect(0x71);
 
-    sub_808A118();
+    ClearHelpBoxText();
 
     Proc_BreakEach(gUnknown_08A01678);
 
@@ -962,7 +956,7 @@ struct ProcCmd CONST_DATA gUnknown_08A016C8[] = {
 
 //! FE8U = 0x0808A4C4
 s8 sub_808A4C4(int msgId, ProcPtr parent) {
-    LoadDialogueBoxGfx(0, -1);
+    LoadHelpBoxGfx(0, -1);
 
     sub_808A1E0(GetUiHandPrevDisplayX(), GetUiHandPrevDisplayY(), msgId);
 
@@ -974,7 +968,7 @@ s8 sub_808A4C4(int msgId, ProcPtr parent) {
 //! FE8U = 0x0808A4FC
 s8 sub_808A4FC(void) {
 
-    if (Proc_Find(gUnknown_08A016E0)) {
+    if (Proc_Find(gProcScr_BoxDialogue)) {
         return 1;
     }
 
@@ -982,51 +976,53 @@ s8 sub_808A4FC(void) {
 }
 
 //! FE8U = 0x0808A518
-void sub_808A518(int unk) {
-    gUnknown_0203E7E8.unk_42 = unk;
+void SetDialogueBoxConfig(int config) {
+    gUnknown_0203E7E8.unk_42 = config;
     return;
 }
 
 //! FE8U = 0x0808A524
-u16 sub_808A524(void) {
+u16 GetDialogueBoxConfig(void) {
     return gUnknown_0203E7E8.unk_42;
 }
 
 #if NONMATCHING
 
+/* https://decomp.me/scratch/mwTRE */
+
 //! FE8U = 0x0808A530
-void sub_808A530(int param_1, int param_2) {
-    int uVar3;
-    int iVar4;
-    int* puVar8;
-    int iVar9;
-    int iVar10;
+void sub_808A530(int a, int b) {
+    int* ptr;
+    int j;
+    int i;
+    int r7;
 
-    puVar8 = (int*)((((0x3FF & gUnknown_0203E7E8.unk_40) + gUnknown_0203E7E8.unk_18[0].unk0) * 0x20) + 0x06010000);
+    ptr = (int*)((((0x3FF & gUnknown_0203E7E8.unk_40) + gUnknown_0203E7E8.unk_18[0].unk0) * 0x20) + 0x06010000);
 
-    for (iVar10 = 0; iVar10 < param_2 * 2; iVar10++) {
+    for (i = 0, r7 = b*2; i < r7; i++) {
+        for (j = 0; j < a; j++) {
+            int k;
 
-        for (iVar9 = 0; iVar9 < param_1; iVar9++) {
-
-            for (iVar4 = 0; iVar4 <= 6; iVar4++) {
-                *puVar8++ = *(puVar8 + 1);
+            for (k = 0; k <= 6; k++) {
+                *ptr++ = *(ptr + 1);
             }
 
-            if (iVar10 == (param_2 * 2 - 1)) {
-                if ((sub_808A524() & 1) == 0) {
-                    *puVar8++ = 0x44444444;
+            if (i == (r7 - 1)) {
+
+                if ((GetDialogueBoxConfig() & 1) == 0) {
+                    *ptr++ = 0x44444444;
                 } else {
-                    *puVar8++ = 0;
+                    *ptr++ = 0;
                 }
 
 
             } else {
-                *puVar8++ = *(puVar8 + ((iVar9 + 0x20) << 3));
+                *ptr++ = *(ptr + ((j + 0x20) << 3));
             }
 
         }
 
-        puVar8 = puVar8 + 0x100;
+        ptr = ptr + 0x100;
     }
 
     return;
@@ -1080,7 +1076,7 @@ void sub_808A530(int param_1, int param_2) {
         cmp r7, r0\n\
         bne _0808A5A4\n\
         str r3, [sp]\n\
-        bl sub_808A524\n\
+        bl GetDialogueBoxConfig\n\
         movs r1, #1\n\
         ands r1, r0\n\
         ldr r3, [sp]\n\
@@ -1130,6 +1126,8 @@ void sub_808A530(int param_1, int param_2) {
 
 #if NONMATCHING
 
+/* https://decomp.me/scratch/usoZg */
+
 //! FE8U = 0x0808A5D0
 void sub_808A5D0(void* param_1, int param_2) {
     int uVar1;
@@ -1147,46 +1145,46 @@ void sub_808A5D0(void* param_1, int param_2) {
 
     param_2 = (param_2 & 0xf) + 0x10;
 
-    if ((sub_808A524() & 0x10) != 0) {
-        Decompress(gUnknown_08A029A8, param_1 + 0x360);
-        Decompress(gUnknown_08A02A1C, param_1 + 0x760);
-        Decompress(gUnknown_08A02A94, param_1 + 0xb60);
-        Decompress(gUnknown_08A02B3C, param_1 + 0xf80);
-        Decompress(gUnknown_08A02BAC, param_1 + 0x1380);
+    if (GetDialogueBoxConfig() & 0x10) {
+        Decompress(gGfx_YellowTextBox, param_1 + 0x360);
+        Decompress(gGfx_YellowTextBox2, param_1 + 0x760);
+        Decompress(gGfx_YellowTextBox3, param_1 + 0xb60);
+        Decompress(gGfx_YellowTextBox4, param_1 + 0xf80);
+        Decompress(gGfx_YellowTextBox5, param_1 + 0x1380);
     } else {
-        Decompress(gUnknown_08A0285C, param_1 + 0x360);
-        Decompress(gUnknown_08A02884, param_1 + 0x760);
-        Decompress(gUnknown_08A028AC, param_1 + 0xb60);
-        Decompress(gUnknown_08A02914, param_1 + 0xf60);
-        Decompress(gUnknown_08A02980, param_1 + 0x1360);
+        Decompress(gGfx_HelpTextBox, param_1 + 0x360);
+        Decompress(gGfx_HelpTextBox2, param_1 + 0x760);
+        Decompress(gGfx_HelpTextBox3, param_1 + 0xb60);
+        Decompress(gGfx_HelpTextBox4, param_1 + 0xf60);
+        Decompress(gGfx_HelpTextBox5, param_1 + 0x1360);
     }
 
     ClearAllTalkFlags();
 
-    if ((sub_808A524() & 1) == 0) {
+    if (!(GetDialogueBoxConfig() & 1)) {
         InitSomeOtherGraphicsRelatedStruct(&gUnknown_0203E7E8.unk_00, param_1, param_2);
 
         Text_Init3(&gUnknown_0203E7E8.unk_18[0]);
         Text_Init3(&gUnknown_0203E7E8.unk_18[1]);
         Text_Init3(&gUnknown_0203E7E8.unk_18[2]);
 
-        if ((sub_808A524() & 0x10) && !(sub_808A524() & 0x20)) {
+        if ((GetDialogueBoxConfig() & 0x10) && !(GetDialogueBoxConfig() & 0x20)) {
             Text_Init3(&gUnknown_0203E7E8.unk_18[3]);
             Text_Init3(&gUnknown_0203E7E8.unk_18[4]);
         }
 
         SetFont(0);
 
-        if (sub_808A524() & 0x10) {
-            CopyToPaletteBuffer(gUnknown_0859EF80, param_2 * 0x20, 0x20);
+        if (GetDialogueBoxConfig() & 0x10) {
+            CopyToPaletteBuffer(gPal_YellowTextBox, param_2 * 0x20, 0x20);
         } else {
-            CopyToPaletteBuffer(gUnknown_0859EF60, param_2 * 0x20, 0x20);
+            CopyToPaletteBuffer(gPal_HelpTextBox, param_2 * 0x20, 0x20);
         }
 
     } else {
         InitSomeOtherGraphicsRelatedStruct(&gUnknown_0203E7E8.unk_00, param_1, param_2);
 
-        for (iVar4 = 0; iVar4 < ((u16)sub_808A524() >> 8); iVar4++) {
+        for (iVar4 = 0; iVar4 < ((u16)GetDialogueBoxConfig() >> 8); iVar4++) {
             Text_Init3(&gUnknown_0203E7E8.unk_18[iVar4]);
         }
 
@@ -1198,7 +1196,7 @@ void sub_808A5D0(void* param_1, int param_2) {
     // TODO: Fails here - the "<< 0x11" gets moved earlier
     gUnknown_0203E7E8.unk_40 = ((((u32)param_1 << 0x11) >> 0x16) + (param_2 & 0xF) * 0x1000);
 
-    if (sub_808A524() & 0x10) {
+    if (GetDialogueBoxConfig() & 0x10) {
         PlaySoundEffect(0x2E6);
     }
 
@@ -1226,32 +1224,32 @@ void sub_808A5D0(void* param_1, int param_2) {
         ands r0, r6\n\
         adds r6, r0, #0\n\
         adds r6, #0x10\n\
-        bl sub_808A524\n\
+        bl GetDialogueBoxConfig\n\
         movs r1, #0x10\n\
         ands r1, r0\n\
         cmp r1, #0\n\
         beq _0808A64C\n\
-        ldr r0, _0808A638  @ gUnknown_08A029A8\n\
+        ldr r0, _0808A638  @ gGfx_YellowTextBox\n\
         movs r2, #0xd8\n\
         lsls r2, r2, #2\n\
         adds r1, r5, r2\n\
         bl Decompress\n\
-        ldr r0, _0808A63C  @ gUnknown_08A02A1C\n\
+        ldr r0, _0808A63C  @ gGfx_YellowTextBox2\n\
         movs r2, #0xec\n\
         lsls r2, r2, #3\n\
         adds r1, r5, r2\n\
         bl Decompress\n\
-        ldr r0, _0808A640  @ gUnknown_08A02A94\n\
+        ldr r0, _0808A640  @ gGfx_YellowTextBox3\n\
         movs r2, #0xb6\n\
         lsls r2, r2, #4\n\
         adds r1, r5, r2\n\
         bl Decompress\n\
-        ldr r0, _0808A644  @ gUnknown_08A02B3C\n\
+        ldr r0, _0808A644  @ gGfx_YellowTextBox4\n\
         movs r2, #0xf8\n\
         lsls r2, r2, #4\n\
         adds r1, r5, r2\n\
         bl Decompress\n\
-        ldr r0, _0808A648  @ gUnknown_08A02BAC\n\
+        ldr r0, _0808A648  @ gGfx_YellowTextBox5\n\
         movs r2, #0x9c\n\
         lsls r2, r2, #5\n\
         adds r1, r5, r2\n\
@@ -1259,40 +1257,40 @@ void sub_808A5D0(void* param_1, int param_2) {
         b _0808A688\n\
         .align 2, 0\n\
     _0808A634: .4byte 0x06013000\n\
-    _0808A638: .4byte gUnknown_08A029A8\n\
-    _0808A63C: .4byte gUnknown_08A02A1C\n\
-    _0808A640: .4byte gUnknown_08A02A94\n\
-    _0808A644: .4byte gUnknown_08A02B3C\n\
-    _0808A648: .4byte gUnknown_08A02BAC\n\
+    _0808A638: .4byte gGfx_YellowTextBox\n\
+    _0808A63C: .4byte gGfx_YellowTextBox2\n\
+    _0808A640: .4byte gGfx_YellowTextBox3\n\
+    _0808A644: .4byte gGfx_YellowTextBox4\n\
+    _0808A648: .4byte gGfx_YellowTextBox5\n\
     _0808A64C:\n\
-        ldr r0, _0808A6FC  @ gUnknown_08A0285C\n\
+        ldr r0, _0808A6FC  @ gGfx_HelpTextBox\n\
         movs r2, #0xd8\n\
         lsls r2, r2, #2\n\
         adds r1, r5, r2\n\
         bl Decompress\n\
-        ldr r0, _0808A700  @ gUnknown_08A02884\n\
+        ldr r0, _0808A700  @ gGfx_HelpTextBox2\n\
         movs r2, #0xec\n\
         lsls r2, r2, #3\n\
         adds r1, r5, r2\n\
         bl Decompress\n\
-        ldr r0, _0808A704  @ gUnknown_08A028AC\n\
+        ldr r0, _0808A704  @ gGfx_HelpTextBox3\n\
         movs r2, #0xb6\n\
         lsls r2, r2, #4\n\
         adds r1, r5, r2\n\
         bl Decompress\n\
-        ldr r0, _0808A708  @ gUnknown_08A02914\n\
+        ldr r0, _0808A708  @ gGfx_HelpTextBox4\n\
         movs r2, #0xf6\n\
         lsls r2, r2, #4\n\
         adds r1, r5, r2\n\
         bl Decompress\n\
-        ldr r0, _0808A70C  @ gUnknown_08A02980\n\
+        ldr r0, _0808A70C  @ gGfx_HelpTextBox5\n\
         movs r2, #0x9b\n\
         lsls r2, r2, #5\n\
         adds r1, r5, r2\n\
         bl Decompress\n\
     _0808A688:\n\
         bl ClearAllTalkFlags\n\
-        bl sub_808A524\n\
+        bl GetDialogueBoxConfig\n\
         movs r1, #1\n\
         ands r1, r0\n\
         cmp r1, #0\n\
@@ -1311,12 +1309,12 @@ void sub_808A5D0(void* param_1, int param_2) {
         adds r0, r4, #0\n\
         adds r0, #0x28\n\
         bl Text_Init3\n\
-        bl sub_808A524\n\
+        bl GetDialogueBoxConfig\n\
         movs r1, #0x10\n\
         ands r1, r0\n\
         cmp r1, #0\n\
         beq _0808A6E4\n\
-        bl sub_808A524\n\
+        bl GetDialogueBoxConfig\n\
         movs r1, #0x20\n\
         ands r1, r0\n\
         cmp r1, #0\n\
@@ -1330,30 +1328,30 @@ void sub_808A5D0(void* param_1, int param_2) {
     _0808A6E4:\n\
         movs r0, #0\n\
         bl SetFont\n\
-        bl sub_808A524\n\
+        bl GetDialogueBoxConfig\n\
         movs r1, #0x10\n\
         ands r1, r0\n\
         cmp r1, #0\n\
         beq _0808A718\n\
-        ldr r0, _0808A714  @ gUnknown_0859EF80\n\
+        ldr r0, _0808A714  @ gPal_YellowTextBox\n\
         b _0808A71A\n\
         .align 2, 0\n\
-    _0808A6FC: .4byte gUnknown_08A0285C\n\
-    _0808A700: .4byte gUnknown_08A02884\n\
-    _0808A704: .4byte gUnknown_08A028AC\n\
-    _0808A708: .4byte gUnknown_08A02914\n\
-    _0808A70C: .4byte gUnknown_08A02980\n\
+    _0808A6FC: .4byte gGfx_HelpTextBox\n\
+    _0808A700: .4byte gGfx_HelpTextBox2\n\
+    _0808A704: .4byte gGfx_HelpTextBox3\n\
+    _0808A708: .4byte gGfx_HelpTextBox4\n\
+    _0808A70C: .4byte gGfx_HelpTextBox5\n\
     _0808A710: .4byte gUnknown_0203E7E8\n\
-    _0808A714: .4byte gUnknown_0859EF80\n\
+    _0808A714: .4byte gPal_YellowTextBox\n\
     _0808A718:\n\
-        ldr r0, _0808A724  @ gUnknown_0859EF60\n\
+        ldr r0, _0808A724  @ gPal_HelpTextBox\n\
     _0808A71A:\n\
         lsls r1, r6, #5\n\
         movs r2, #0x20\n\
         bl CopyToPaletteBuffer\n\
         b _0808A764\n\
         .align 2, 0\n\
-    _0808A724: .4byte gUnknown_0859EF60\n\
+    _0808A724: .4byte gPal_HelpTextBox\n\
     _0808A728:\n\
         ldr r0, _0808A738  @ gUnknown_0203E7E8\n\
         adds r1, r5, #0\n\
@@ -1371,7 +1369,7 @@ void sub_808A5D0(void* param_1, int param_2) {
         bl Text_Init3\n\
         adds r4, #1\n\
     _0808A748:\n\
-        bl sub_808A524\n\
+        bl GetDialogueBoxConfig\n\
         lsls r0, r0, #0x10\n\
         lsrs r0, r0, #0x18\n\
         cmp r4, r0\n\
@@ -1392,7 +1390,7 @@ void sub_808A5D0(void* param_1, int param_2) {
         adds r1, r1, r0\n\
         adds r2, #0x40\n\
         strh r1, [r2]\n\
-        bl sub_808A524\n\
+        bl GetDialogueBoxConfig\n\
         movs r1, #0x10\n\
         ands r1, r0\n\
         cmp r1, #0\n\
@@ -1422,8 +1420,6 @@ void sub_808A5D0(void* param_1, int param_2) {
 
 #endif // NONMATCHING
 
-#if NONMATCHING
-
 //! FE8U = 0x0808A7B0
 void sub_808A7B0(struct HelpBoxProc* proc, int x, int y) {
     int xSpan;
@@ -1437,11 +1433,11 @@ void sub_808A7B0(struct HelpBoxProc* proc, int x, int y) {
 
     xSpan = proc->wBoxFinal + 0x10;
 
-    if (!(sub_808A524() & 1)) {
+    if (!(GetDialogueBoxConfig() & 1)) {
         proc->xBoxFinal = x;
         proc->yBoxFinal = y + 8;
 
-        if (!(sub_808A524() & 0x40)) {
+        if (!(GetDialogueBoxConfig() & 0x40)) {
             if (proc->xBoxFinal + xSpan > 0xf0) {
                 proc->xBoxFinal = 0xf0 - xSpan;
             }
@@ -1461,89 +1457,6 @@ void sub_808A7B0(struct HelpBoxProc* proc, int x, int y) {
 
     return;
 }
-
-#else // if !NONMATCHING
-
-__attribute__((naked))
-void sub_808A7B0(struct HelpBoxProc* proc, int x, int y) {
-    asm("\n\
-        .syntax unified\n\
-        push {r4, r5, r6, r7, lr}\n\
-        mov r7, r8\n\
-        push {r7}\n\
-        adds r4, r0, #0\n\
-        adds r5, r1, #0\n\
-        adds r6, r2, #0\n\
-        adds r0, #0x46\n\
-        movs r1, #0\n\
-        ldrsh r0, [r0, r1]\n\
-        adds r0, #0x10\n\
-        mov r8, r0\n\
-        adds r1, r4, #0\n\
-        adds r1, #0x44\n\
-        movs r2, #0\n\
-        ldrsh r0, [r1, r2]\n\
-        cmp r0, #0xbf\n\
-        ble _0808A7D6\n\
-        movs r0, #0xc0\n\
-        strh r0, [r1]\n\
-    _0808A7D6:\n\
-        movs r2, #0\n\
-        ldrsh r0, [r1, r2]\n\
-        adds r7, r0, #0\n\
-        adds r7, #0x10\n\
-        bl sub_808A524\n\
-        movs r1, #1\n\
-        ands r1, r0\n\
-        cmp r1, #0\n\
-        bne _0808A828\n\
-        strh r5, [r4, #0x3c]\n\
-        adds r0, r6, #0\n\
-        adds r0, #8\n\
-        strh r0, [r4, #0x3e]\n\
-        bl sub_808A524\n\
-        movs r1, #0x40\n\
-        ands r1, r0\n\
-        cmp r1, #0\n\
-        bne _0808A820\n\
-        movs r1, #0x3c\n\
-        ldrsh r0, [r4, r1]\n\
-        adds r0, r0, r7\n\
-        cmp r0, #0xf0\n\
-        ble _0808A80E\n\
-        movs r0, #0xf0\n\
-        subs r0, r0, r7\n\
-        strh r0, [r4, #0x3c]\n\
-    _0808A80E:\n\
-        movs r2, #0x3e\n\
-        ldrsh r0, [r4, r2]\n\
-        add r0, r8\n\
-        cmp r0, #0xa0\n\
-        ble _0808A820\n\
-        movs r0, #0x98\n\
-        mov r1, r8\n\
-        subs r0, r0, r1\n\
-        strh r0, [r4, #0x3e]\n\
-    _0808A820:\n\
-        ldrh r0, [r4, #0x3c]\n\
-        adds r0, #8\n\
-        strh r0, [r4, #0x3c]\n\
-        b _0808A82C\n\
-    _0808A828:\n\
-        strh r5, [r4, #0x3c]\n\
-        strh r6, [r4, #0x3e]\n\
-    _0808A82C:\n\
-        pop {r3}\n\
-        mov r8, r3\n\
-        pop {r4, r5, r6, r7}\n\
-        pop {r0}\n\
-        bx r0\n\
-        .syntax divided\n\
-    ");
-
-}
-
-#endif // NONMATCHING
 
 void sub_808A838(struct HelpBoxProc* proc, int w, int h) {
     w &= 0xF8;
@@ -1570,7 +1483,7 @@ void sub_808A848(struct HelpBox8A016E0Proc* proc) {
 //! FE8U = 0x0808A87C
 void sub_808A87C(struct HelpBox8A016E0Proc* proc) {
 
-    if (sub_808A524() & 0x82) {
+    if (GetDialogueBoxConfig() & 0x82) {
         return;
     }
 
@@ -1584,7 +1497,7 @@ void sub_808A87C(struct HelpBox8A016E0Proc* proc) {
 //! FE8U = 0x0808A8AC
 void sub_808A8AC(void) {
 
-    if (sub_808A524() & 0x10) {
+    if (GetDialogueBoxConfig() & 0x10) {
         PlaySoundEffect(0x2E7);
     }
 
@@ -1599,7 +1512,7 @@ int CONST_DATA gUnknown_08A016D8[] = {
     0x0844, // TODO: msgid "No"
 };
 
-struct ProcCmd CONST_DATA gUnknown_08A016E0[] = {
+struct ProcCmd CONST_DATA gProcScr_BoxDialogue[] = {
     PROC_SLEEP(0),
     PROC_CALL(sub_808A848),
 
@@ -1639,7 +1552,7 @@ void sub_808A8E4(struct HelpBoxProc* proc, int interpolateMethod) {
 //! FE8U = 0x0808A974
 void sub_808A974(struct HelpBoxProc* proc) {
 
-    sub_808A8E4(proc, 5);
+    sub_808A8E4(proc, INTERPOLATE_RCUBIC);
 
     if (proc->timer < proc->timerMax) {
         proc->timer++;
@@ -1661,7 +1574,7 @@ void sub_808A99C(struct HelpBoxProc* proc) {
 //! FE8U = 0x0808A9C0
 void sub_808A9C0(struct HelpBoxProc* proc) {
 
-    sub_808A8E4(proc, 0);
+    sub_808A8E4(proc, INTERPOLATE_LINEAR);
 
     proc->timer--;
 
@@ -1694,14 +1607,14 @@ void sub_808A9F0(void) {
 void sub_808AA04(int x, int y, int msgId, ProcPtr parent) {
     struct HelpBox8A016E0Proc* proc;
 
-    Proc_EndEach(gUnknown_08A016E0);
+    Proc_EndEach(gProcScr_BoxDialogue);
 
-    sub_808A518(0);
+    SetDialogueBoxConfig(0);
 
     if (!parent) {
-        proc = Proc_Start(gUnknown_08A016E0, PROC_TREE_3);
+        proc = Proc_Start(gProcScr_BoxDialogue, PROC_TREE_3);
     } else {
-        proc = Proc_StartBlocking(gUnknown_08A016E0, parent);
+        proc = Proc_StartBlocking(gProcScr_BoxDialogue, parent);
     }
 
     proc->unk_2c = x;
@@ -1719,14 +1632,14 @@ void sub_808AA04(int x, int y, int msgId, ProcPtr parent) {
 void sub_808AA6C(int x, int y, int msgId, u16* unkA, int unkB, ProcPtr parent) {
     struct HelpBox8A016E0Proc* proc;
 
-    Proc_EndEach(gUnknown_08A016E0);
+    Proc_EndEach(gProcScr_BoxDialogue);
 
-    sub_808A518(0);
+    SetDialogueBoxConfig(0);
 
     if (!parent) {
-        proc = Proc_Start(gUnknown_08A016E0, PROC_TREE_3);
+        proc = Proc_Start(gProcScr_BoxDialogue, PROC_TREE_3);
     } else {
-        proc = Proc_StartBlocking(gUnknown_08A016E0, parent);
+        proc = Proc_StartBlocking(gProcScr_BoxDialogue, parent);
     }
 
     proc->unk_2c = x;
@@ -1742,6 +1655,8 @@ void sub_808AA6C(int x, int y, int msgId, u16* unkA, int unkB, ProcPtr parent) {
 }
 
 #if NONMATCHING
+
+/* https://decomp.me/scratch/4vJG1 */
 
 //! FE8U = 0x0808AADC
 void sub_808AADC(const char* str, int* wOut, int* hOut) {
@@ -1977,7 +1892,6 @@ void sub_808AADC(const char* str, int* wOut, int* hOut) {
 
 //! FE8U = 0x0808AB98
 void sub_808AB98(const char* str, u8* xOut) {
-
     int charWidth;
     u8 a;
 
@@ -2049,7 +1963,7 @@ void sub_808AC0C(int x, int y, int msg) {
     proc->info = NULL;
     proc->timer = 0;
 
-    if (sub_808A524() & 1) {
+    if (GetDialogueBoxConfig() & 1) {
         proc->timerMax = 0;
     } else {
         proc->timerMax = 0xc;
@@ -2070,7 +1984,7 @@ void sub_808AC0C(int x, int y, int msg) {
 
     sub_808A838(proc, wInner, hInner);
 
-    if ((sub_808A524() & 0x100) != 0) {
+    if ((GetDialogueBoxConfig() & 0x100) != 0) {
         x = x + (0xd8 - proc->wBoxFinal) / 2;
         y = y + (0x90 - proc->hBoxFinal) / 2;
     }
@@ -2106,7 +2020,7 @@ void sub_808ACFC(int x, int y, int width, int height) {
         height = 0x50;
     }
 
-    flag = sub_808A524() & 1;
+    flag = GetDialogueBoxConfig() & 1;
 
     if (flag == 0) {
         int ix;
@@ -2172,7 +2086,7 @@ void sub_808ACFC(int x, int y, int width, int height) {
         int xCount = (width + 0x1f) / 0x20;
 
         for (ix = xCount - 1; ix >= 0; ix--) {
-            for (iy = ((sub_808A524() << 0x10) >> 0x18) - 1; iy >= 0; iy--) {
+            for (iy = ((GetDialogueBoxConfig() << 0x10) >> 0x18) - 1; iy >= 0; iy--) {
                 yPx = (iy + 1) * 0x10;
                 PutSprite(2, x + xPx * 0x20, yPx, gObject_32x16, gUnknown_0203E7E8.unk_40 + ix * 4 + iy * 0x40);
             }
@@ -2180,7 +2094,6 @@ void sub_808ACFC(int x, int y, int width, int height) {
     }
     return;
 }
-
 
 #else // if !NONMATCHING
 
@@ -2221,7 +2134,7 @@ void sub_808ACFC(int param_1,int param_2,int param_3,int param_4) {
         movs r0, #0x50\n\
         mov r8, r0\n\
     _0808AD36:\n\
-        bl sub_808A524\n\
+        bl GetDialogueBoxConfig\n\
         movs r1, #1\n\
         ands r1, r0\n\
         cmp r1, #0\n\
@@ -2447,7 +2360,7 @@ void sub_808ACFC(int param_1,int param_2,int param_3,int param_4) {
         cmp r7, r3\n\
         blt _0808AE4C\n\
     _0808AEEC:\n\
-        bl sub_808A524\n\
+        bl GetDialogueBoxConfig\n\
         movs r1, #0x10\n\
         ands r1, r0\n\
         cmp r1, #0\n\
@@ -2601,7 +2514,7 @@ void sub_808ACFC(int param_1,int param_2,int param_3,int param_4) {
     _0808B02A:\n\
         asrs r0, r0, #5\n\
         str r0, [sp, #0xc]\n\
-        bl sub_808A524\n\
+        bl GetDialogueBoxConfig\n\
         lsls r0, r0, #0x10\n\
         lsrs r0, r0, #0x18\n\
         subs r0, #1\n\
@@ -2678,7 +2591,7 @@ void sub_808B09C(struct HelpBox8A01760Proc* proc) {
 //! FE8U = 0x0808B0D4
 void sub_808B0D4(void) {
 
-    if (sub_808A524() & 4) {
+    if (GetDialogueBoxConfig() & 4) {
         SetFaceDisplayBitsById(0, GetFaceDisplayBitsById(0) &~ 0x10);
     }
 
@@ -2688,7 +2601,7 @@ void sub_808B0D4(void) {
 //! FE8U = 0x0808B0F8
 void sub_808B0F8(void) {
 
-    if (sub_808A524() & 4) {
+    if (GetDialogueBoxConfig() & 4) {
         SetFaceDisplayBitsById(0, GetFaceDisplayBitsById(0) | 0x10);
     }
 
@@ -2702,8 +2615,8 @@ void sub_808B11C(struct HelpBox8A01760Proc* proc) {
     sub_80045FC(&gUnknown_0203E7E8.unk_18[1]);
     sub_80045FC(&gUnknown_0203E7E8.unk_18[2]);
 
-    if (sub_808A524() & 0x10) {
-        if (!(sub_808A524() & 0x20)) {
+    if (GetDialogueBoxConfig() & 0x10) {
+        if (!(GetDialogueBoxConfig() & 0x20)) {
             sub_80045FC(&gUnknown_0203E7E8.unk_18[3]);
             sub_80045FC(&gUnknown_0203E7E8.unk_18[4]);
         }
@@ -2716,13 +2629,13 @@ void sub_808B11C(struct HelpBox8A01760Proc* proc) {
 }
 
 //! FE8U = 0x0808B178
-void sub_808B178(struct HelpBox8A01760Proc* proc) {
+void BoxDialogueInterpreter_Main(struct HelpBox8A01760Proc* proc) {
     int iVar5;
     int i;
 
     iVar5 = proc->unk_4e;
 
-    if (((gKeyStatusPtr->newKeys & 0xf3) != 0) && ((sub_808A524() & 8) == 0)) {
+    if ((gKeyStatusPtr->newKeys & (DPAD_ANY | A_BUTTON | B_BUTTON)) && !(GetDialogueBoxConfig() & 8)) {
         iVar5 = 0x80;
     } else {
         proc->unk_4a--;
@@ -2779,7 +2692,7 @@ void sub_808B178(struct HelpBox8A01760Proc* proc) {
                 } else if (*r1 == 0x04) { // [LoadOverworldFaces]
                     sub_808B0D4();
 
-                    Proc_Goto(Proc_Find(gUnknown_08A016E0), 1);
+                    Proc_Goto(Proc_Find(gProcScr_BoxDialogue), 1);
                     Proc_Goto(proc, 1);
 
                     Proc_EndEach(gUnknown_08A01818);
@@ -2827,12 +2740,12 @@ void sub_808B178(struct HelpBox8A01760Proc* proc) {
             case 0x00: // [X]
                 sub_808B0D4();
 
-                if ((sub_808A524() & 2) == 0) {
+                if ((GetDialogueBoxConfig() & 2) == 0) {
                     Proc_Break(proc);
                     goto _0808B772;
                 }
 
-                Proc_Goto(Proc_Find(gUnknown_08A016E0), 1);
+                Proc_Goto(Proc_Find(gProcScr_BoxDialogue), 1);
                 Proc_Goto(proc, 1);
 
                 Proc_EndEach(gUnknown_08A01818);
@@ -2902,15 +2815,15 @@ void sub_808B178(struct HelpBox8A01760Proc* proc) {
                 }
 
                 if (*proc->unk_2c == 0x00) { // [X]
-                    if ((sub_808A524() & 2) == 0) {
+                    if ((GetDialogueBoxConfig() & 2) == 0) {
                         Proc_Break(proc);
                     } else {
-                        Proc_Goto(Proc_Find(gUnknown_08A016E0), 1);
+                        Proc_Goto(Proc_Find(gProcScr_BoxDialogue), 1);
                         Proc_Goto(proc, 1);
                         Proc_EndEach(gUnknown_08A01818);
                     }
                 } else {
-                    if ((sub_808A524() & 0x10) != 0) {
+                    if ((GetDialogueBoxConfig() & 0x10) != 0) {
                         sub_808B11C(proc);
                     } else {
                         if (*proc->unk_2c != 0) {
@@ -2945,7 +2858,7 @@ void sub_808B178(struct HelpBox8A01760Proc* proc) {
             continue;
         }
 
-        if ((sub_808A524() & 1) != 0) {
+        if (GetDialogueBoxConfig() & 1) {
             Text_SetColorId(proc->unk_34[proc->unk_48], 1);
         } else {
             if (proc->unk_59 != 0) {
@@ -2959,7 +2872,7 @@ void sub_808B178(struct HelpBox8A01760Proc* proc) {
 
         if (GetTextDisplaySpeed() != 1 || (GetGameClock() & 1) != 0) {
 
-            if ((sub_808A524() & 0x10) != 0) {
+            if (GetDialogueBoxConfig() & 0x10) {
                 PlaySoundEffect(0x2E5);
             } else {
                 PlaySoundEffect(0x6e);
@@ -2975,7 +2888,7 @@ _0808B772:
 //! FE8U = 0x0808B788
 void sub_808B788(ProcPtr proc) {
     if (Proc_Find(gUnknown_08A01818)) {
-        Proc_Goto(Proc_Find(gUnknown_08A016E0), 0);
+        Proc_Goto(Proc_Find(gProcScr_BoxDialogue), 0);
         Proc_Goto(proc, 0);
     }
 
@@ -2996,7 +2909,6 @@ void sub_808B7B8(struct HelpBox8A01760Proc* proc) {
     return;
 }
 
-
 //! FE8U = 0x0808B804
 void sub_808B804(struct HelpBox8A01760Proc* proc) {
     if (proc->unk_48 == 0) {
@@ -3016,7 +2928,7 @@ void sub_808B804(struct HelpBox8A01760Proc* proc) {
 
 //! FE8U = 0x0808B844
 void sub_808B844(ProcPtr proc) {
-    Proc_Goto(Proc_Find(gUnknown_08A016E0), 3);
+    Proc_Goto(Proc_Find(gProcScr_BoxDialogue), 3);
     Proc_Break(proc);
 
     SetFont(NULL);
@@ -3052,12 +2964,12 @@ void sub_808B870(struct HelpBox8A01760Proc* proc) {
     return;
 }
 
-struct ProcCmd CONST_DATA gUnknown_08A01760[] = {
+struct ProcCmd CONST_DATA gProcScr_BoxDialogueInterpreter[] = {
     PROC_SLEEP(0),
     PROC_CALL(sub_808B09C),
 
 PROC_LABEL(0),
-    PROC_REPEAT(sub_808B178),
+    PROC_REPEAT(BoxDialogueInterpreter_Main),
 
     PROC_GOTO(2),
 
@@ -3090,7 +3002,7 @@ PROC_LABEL(2),
 
 //! FE8U = 0x0808B904
 s8 sub_808B904(void) {
-    struct HelpBox8A016E0Proc* proc = Proc_Find(gUnknown_08A016E0);
+    struct HelpBox8A016E0Proc* proc = Proc_Find(gProcScr_BoxDialogue);
 
     if (!proc) {
         return 1;
@@ -3111,26 +3023,26 @@ void sub_808B928(struct HelpBox8A01800Proc* proc) {
     SetFontGlyphSet(0);
     SetFontGlyphSet(1);
 
-    if ((sub_808A524() & 1) == 0) {
+    if ((GetDialogueBoxConfig() & 1) == 0) {
         Text_SetColorId(&gUnknown_0203E7E8.unk_18[0], 6);
         Text_SetColorId(&gUnknown_0203E7E8.unk_18[1], 6);
         Text_SetColorId(&gUnknown_0203E7E8.unk_18[2], 6);
-        if (((sub_808A524() & 0x10) != 0) && ((sub_808A524() & 0x20) == 0)) {
+        if (((GetDialogueBoxConfig() & 0x10) != 0) && ((GetDialogueBoxConfig() & 0x20) == 0)) {
             Text_SetColorId(&gUnknown_0203E7E8.unk_18[3], 6);
             Text_SetColorId(&gUnknown_0203E7E8.unk_18[4], 6);
         }
     } else {
         int i;
 
-        for (i = 0; i < (int)((u32)(sub_808A524() << 0x10) >> 0x18); i++) {
+        for (i = 0; i < (int)((u32)(GetDialogueBoxConfig() << 0x10) >> 0x18); i++) {
             Text_SetColorId(&gUnknown_0203E7E8.unk_18[i], 0);
         }
     }
 
     SetFont(NULL);
 
-    Proc_EndEach(gUnknown_08A01760);
-    otherProc = Proc_Start(gUnknown_08A01760, PROC_TREE_3);
+    Proc_EndEach(gProcScr_BoxDialogueInterpreter);
+    otherProc = Proc_Start(gProcScr_BoxDialogueInterpreter, PROC_TREE_3);
 
     otherProc->unk_30 = &gUnknown_0203E7E8.unk_00;
     otherProc->unk_34[0] = &gUnknown_0203E7E8.unk_18[0];
@@ -3194,22 +3106,22 @@ void sub_808BA60(int msgId, int x, int y) {
 void sub_808BAA4(void) {
     SetFont(&gUnknown_0203E7E8.unk_00);
 
-    if ((sub_808A524() & 1) == 0) {
+    if (!(GetDialogueBoxConfig() & 1)) {
         sub_80045FC(&gUnknown_0203E7E8.unk_18[0]);
         sub_80045FC(&gUnknown_0203E7E8.unk_18[1]);
         sub_80045FC(&gUnknown_0203E7E8.unk_18[2]);
-        if (((sub_808A524() & 0x10) != 0) && ((sub_808A524() & 0x20) == 0)) {
+        if (((GetDialogueBoxConfig() & 0x10) != 0) && ((GetDialogueBoxConfig() & 0x20) == 0)) {
             sub_80045FC(&gUnknown_0203E7E8.unk_18[3]);
             sub_80045FC(&gUnknown_0203E7E8.unk_18[4]);
         }
     } else {
         int i;
-        for (i = 0; i < (int)((u32)(sub_808A524() << 0x10) >> 0x18); i++) {
+        for (i = 0; i < (int)((u32)(GetDialogueBoxConfig() << 0x10) >> 0x18); i++) {
             Text_80046B4(&gUnknown_0203E7E8.unk_18[i], 0);
         }
     }
 
-    Proc_EndEach(gUnknown_08A01760);
+    Proc_EndEach(gProcScr_BoxDialogueInterpreter);
     Proc_EndEach(gUnknown_08A01800);
 
     SetFont(NULL);
@@ -3239,10 +3151,10 @@ s8 sub_808BB58(void) {
 
 //! FE8U = 0x0808BB74
 void sub_808BB74(void) {
-    Proc_EndEach(gUnknown_08A016E0);
+    Proc_EndEach(gProcScr_BoxDialogue);
     Proc_EndEach(gUnknown_08A01818);
     Proc_EndEach(gUnknown_08A01740);
-    Proc_EndEach(gUnknown_08A01760);
+    Proc_EndEach(gProcScr_BoxDialogueInterpreter);
     Proc_EndEach(gUnknown_08A01800);
     return;
 }

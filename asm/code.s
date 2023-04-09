@@ -1076,7 +1076,7 @@ _0808F214:
 	bl InitSomeOtherGraphicsRelatedStruct
 	movs r0, #0
 	bl SetFont
-	ldr r0, _0808F26C  @ gUnknown_0859EF60
+	ldr r0, _0808F26C  @ gPal_HelpTextBox
 	lsls r1, r5, #5
 	movs r2, #0x20
 	bl CopyToPaletteBuffer
@@ -1108,7 +1108,7 @@ _0808F254:
 	.align 2, 0
 _0808F264: .4byte gUnknown_0203E82C
 _0808F268: .4byte 0x06013000
-_0808F26C: .4byte gUnknown_0859EF60
+_0808F26C: .4byte gPal_HelpTextBox
 
 	THUMB_FUNC_END sub_808F128
 
@@ -4984,7 +4984,7 @@ _0809104E:
 	movs r1, #1
 	negs r1, r1
 	movs r0, #0
-	bl LoadDialogueBoxGfx
+	bl LoadHelpBoxGfx
 	add sp, #0x18
 	pop {r3, r4, r5}
 	mov r8, r3

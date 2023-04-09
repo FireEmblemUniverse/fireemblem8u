@@ -536,7 +536,7 @@ void PrepMapMenu_OnEnd() {
 }
 
 void PrepScreenProc_StartMapMenu(struct UnknownSALLYCURSORProc* proc) {
-    LoadDialogueBoxGfx(0, -1);
+    LoadHelpBoxGfx(0, -1);
     Font_InitForUIDefault();
     EndPlayerPhaseSideWindows();
     HideMoveRangeGraphics();

@@ -1333,8 +1333,8 @@ extern u16 gPal_MapSpriteSepia[];
 extern u8 Pal_UIFont[];
 extern u8 gUnknown_0859EF20[];
 // extern ??? gUnknown_0859EF40
-// extern ??? gUnknown_0859EF60
-// extern ??? gUnknown_0859EF80
+// extern ??? gPal_HelpTextBox
+// extern ??? gPal_YellowTextBox
 extern u16 gUnknown_0859EFC0[];
 // extern ??? gUnknown_0859EFE0
 // extern ??? gUnknown_0859F000
@@ -2974,15 +2974,15 @@ extern unsigned CONST_DATA gMid_Anima;
 extern unsigned CONST_DATA gMid_Light;
 extern unsigned CONST_DATA gMid_Dark;
 // extern ??? gUnknown_08A01208
-// extern ??? gUnknown_08A01628
+// extern ??? gProcScr_HelpBoxTextScroll
 // extern ??? gUnknown_08A01650
 // extern ??? gUnknown_08A01678
 // extern ??? gUnknown_08A01698
 // extern ??? gUnknown_08A016C8
 // extern ??? gUnknown_08A016D8
-// extern ??? gUnknown_08A016E0
+// extern ??? gProcScr_BoxDialogue
 // extern ??? gUnknown_08A01740
-// extern ??? gUnknown_08A01760
+// extern ??? gProcScr_BoxDialogueInterpreter
 // extern ??? gUnknown_08A01800
 // extern ??? gUnknown_08A01818
 // extern ??? gUnknown_08A01D88
@@ -3001,16 +3001,16 @@ extern u8  CONST_DATA gUnknown_08A02204[]; // tsa
 extern u8  CONST_DATA gUnknown_08A02250[]; // tsa
 extern u8  CONST_DATA gUnknown_08A02274[]; // img objects
 extern u16 CONST_DATA gUnknown_08A027FC[][0x10]; // color animation for each page
-// extern ??? gUnknown_08A0285C
-// extern ??? gUnknown_08A02884
-// extern ??? gUnknown_08A028AC
-// extern ??? gUnknown_08A02914
-// extern ??? gUnknown_08A02980
-// extern ??? gUnknown_08A029A8
-// extern ??? gUnknown_08A02A1C
-// extern ??? gUnknown_08A02A94
-// extern ??? gUnknown_08A02B3C
-// extern ??? gUnknown_08A02BAC
+// extern ??? gGfx_HelpTextBox
+// extern ??? gGfx_HelpTextBox2
+// extern ??? gGfx_HelpTextBox3
+// extern ??? gGfx_HelpTextBox4
+// extern ??? gGfx_HelpTextBox5
+// extern ??? gGfx_YellowTextBox
+// extern ??? gGfx_YellowTextBox2
+// extern ??? gGfx_YellowTextBox3
+// extern ??? gGfx_YellowTextBox4
+// extern ??? gGfx_YellowTextBox5
 extern u8 CONST_DATA gUnknown_08A02C34[];
 // extern ??? gUnknown_08A02EB4
 // extern ??? gUnknown_08A02F34

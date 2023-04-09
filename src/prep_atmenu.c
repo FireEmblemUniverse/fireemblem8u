@@ -136,7 +136,7 @@ void AtMenu_Reinitialize(struct ProcAtMenu* proc)
     SetupBackgrounds(gUnknown_08A181E8);
     Font_InitForUIDefault();
     LoadUiFrameGraphics();
-    LoadDialogueBoxGfx(NULL, 0xE);
+    LoadHelpBoxGfx(NULL, 0xE);
     SetDispEnable(0, 0, 0, 0, 0);
     LoadObjUIGfx();
     ResetUnitSprites();
