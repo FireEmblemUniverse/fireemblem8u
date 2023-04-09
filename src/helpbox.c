@@ -1433,10 +1433,6 @@ void sub_808AA6C(int x, int y, int msgId, u16* unkA, int unkB, ProcPtr parent) {
     return;
 }
 
-#if NONMATCHING
-
-/* https://decomp.me/scratch/4vJG1 */
-
 //! FE8U = 0x0808AADC
 void sub_808AADC(const char* str, int* wOut, int* hOut) {
     int charWidth;
@@ -1450,41 +1446,53 @@ void sub_808AADC(const char* str, int* wOut, int* hOut) {
     while (1) {
 
         switch (*str) {
+            case 0x12: // [NormalPrint] // FE6 only?
+            case 0x13: // [FastPrint] // FE6 only?
+            case 0x14: // [CloseSpeechFast]
+                if (*wOut < w) {
+                    *wOut = w;
+                }
+
+                if (*hOut < h) {
+                    *hOut = h;
+                }
+
+                break;
+
             case 0x80: // control signal?
-                // _0808AB28
                 str += 2;
 
                 continue;
 
             case 0x01: // [NL]
-                // _0808AB2C
-
                 h += 16;
 
                 if (*wOut < w) {
                     *wOut = w;
                 }
 
-                // fallthrough
+                w = 0;
+
+                str++;
+
+                continue;
 
             case 0x18: // [Yes]
             case 0x19: // [No]
-                // _0808AB36
                 w = 0;
+                str++;
 
-                // fallthrough
+                continue;
 
             case 0x04: // [....]
             case 0x05: // [.....]
             case 0x06: // [......]
             case 0x07: // [.......]
-                // _0808AB38
                 str++;
 
                 continue;
 
             case 0x02: // [NL2]
-                // _0808AB3C
                 str++;
 
                 if (*hOut < h) {
@@ -1502,7 +1510,6 @@ void sub_808AADC(const char* str, int* wOut, int* hOut) {
                 continue;
 
             case 0x03: // [A]
-                // _0808AB52
                 str++;
 
                 if (*hOut < h) {
@@ -1511,10 +1518,8 @@ void sub_808AADC(const char* str, int* wOut, int* hOut) {
 
                 h = 0;
 
-                w += 8;
-
-                if (*wOut < w) {
-                    *wOut = w;
+                if (*wOut < w + 8) {
+                    *wOut = w + 8;
                 }
 
                 w = 0;
@@ -1522,11 +1527,6 @@ void sub_808AADC(const char* str, int* wOut, int* hOut) {
                 continue;
 
             case 0x00: // [X]
-            case 0x12: // [NormalPrint] // FE6 only?
-            case 0x13: // [FastPrint] // FE6 only?
-            case 0x14: // [CloseSpeechFast]
-                // _0808AB6E
-
                 if (*wOut < w) {
                     *wOut = w;
                 }
@@ -1535,139 +1535,20 @@ void sub_808AADC(const char* str, int* wOut, int* hOut) {
                     *hOut = h;
                 }
 
-                return;
+                break;
 
             default:
-                // _0808AB80
                 str = GetCharTextWidth(str, &charWidth);
                 w += charWidth;
 
                 continue;
         }
+
+        break;
     }
+
+    return;
 }
-
-#else // if !NONMATCHING
-
-__attribute__((naked))
-void sub_808AADC(const char* str, int* wOut, int* hOut) {
-    asm("\n\
-        .syntax unified\n\
-        push {r4, r5, r6, r7, lr}\n\
-        sub sp, #4\n\
-        adds r3, r0, #0\n\
-        adds r4, r1, #0\n\
-        adds r5, r2, #0\n\
-        movs r7, #0\n\
-        movs r6, #0x10\n\
-        str r7, [r4]\n\
-        str r7, [r5]\n\
-    _0808AAEE:\n\
-        ldrb r0, [r3]\n\
-        cmp r0, #7\n\
-        bgt _0808AB10\n\
-        cmp r0, #4\n\
-        bge _0808AB38\n\
-        cmp r0, #1\n\
-        beq _0808AB2C\n\
-        cmp r0, #1\n\
-        bgt _0808AB06\n\
-        cmp r0, #0\n\
-        beq _0808AB6E\n\
-        b _0808AB80\n\
-    _0808AB06:\n\
-        cmp r0, #2\n\
-        beq _0808AB3C\n\
-        cmp r0, #3\n\
-        beq _0808AB52\n\
-        b _0808AB80\n\
-    _0808AB10:\n\
-        cmp r0, #0x19\n\
-        ble _0808AB1A\n\
-        cmp r0, #0x80\n\
-        beq _0808AB28\n\
-        b _0808AB80\n\
-    _0808AB1A:\n\
-        cmp r0, #0x18\n\
-        bge _0808AB36\n\
-        cmp r0, #0x14\n\
-        bgt _0808AB80\n\
-        cmp r0, #0x12\n\
-        blt _0808AB80\n\
-        b _0808AB6E\n\
-    _0808AB28:\n\
-        adds r3, #2\n\
-        b _0808AAEE\n\
-    _0808AB2C:\n\
-        adds r6, #0x10\n\
-        ldr r0, [r4]\n\
-        cmp r0, r7\n\
-        bge _0808AB36\n\
-        str r7, [r4]\n\
-    _0808AB36:\n\
-        movs r7, #0\n\
-    _0808AB38:\n\
-        adds r3, #1\n\
-        b _0808AAEE\n\
-    _0808AB3C:\n\
-        adds r3, #1\n\
-        ldr r0, [r5]\n\
-        cmp r0, r6\n\
-        bge _0808AB46\n\
-        str r6, [r5]\n\
-    _0808AB46:\n\
-        movs r6, #0\n\
-        ldr r0, [r4]\n\
-        cmp r0, r7\n\
-        bge _0808AB6A\n\
-        str r7, [r4]\n\
-        b _0808AB6A\n\
-    _0808AB52:\n\
-        adds r3, #1\n\
-        ldr r0, [r5]\n\
-        cmp r0, r6\n\
-        bge _0808AB5C\n\
-        str r6, [r5]\n\
-    _0808AB5C:\n\
-        movs r6, #0\n\
-        adds r1, r7, #0\n\
-        adds r1, #8\n\
-        ldr r0, [r4]\n\
-        cmp r0, r1\n\
-        bge _0808AB6A\n\
-        str r1, [r4]\n\
-    _0808AB6A:\n\
-        movs r7, #0\n\
-        b _0808AAEE\n\
-    _0808AB6E:\n\
-        ldr r0, [r4]\n\
-        cmp r0, r7\n\
-        bge _0808AB76\n\
-        str r7, [r4]\n\
-    _0808AB76:\n\
-        ldr r0, [r5]\n\
-        cmp r0, r6\n\
-        bge _0808AB90\n\
-        str r6, [r5]\n\
-        b _0808AB90\n\
-    _0808AB80:\n\
-        adds r0, r3, #0\n\
-        mov r1, sp\n\
-        bl GetCharTextWidth\n\
-        adds r3, r0, #0\n\
-        ldr r0, [sp]\n\
-        adds r7, r7, r0\n\
-        b _0808AAEE\n\
-    _0808AB90:\n\
-        add sp, #4\n\
-        pop {r4, r5, r6, r7}\n\
-        pop {r0}\n\
-        bx r0\n\
-        .syntax divided\n\
-    ");
-}
-
-#endif // NONMATCHING
 
 //! FE8U = 0x0808AB98
 void sub_808AB98(const char* str, u8* xOut) {
