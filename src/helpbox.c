@@ -986,38 +986,31 @@ u16 GetDialogueBoxConfig(void) {
     return gUnknown_0203E7E8.unk_42;
 }
 
-#if NONMATCHING
-
-/* https://decomp.me/scratch/mwTRE */
-
 //! FE8U = 0x0808A530
 void sub_808A530(int a, int b) {
-    int* ptr;
-    int j;
-    int i;
-    int r7;
+    int* ptr, *r4;
+    int i, j, k;
+    int r3;
 
     ptr = (int*)((((0x3FF & gUnknown_0203E7E8.unk_40) + gUnknown_0203E7E8.unk_18[0].unk0) * 0x20) + 0x06010000);
 
-    for (i = 0, r7 = b*2; i < r7; i++) {
+    for (i = 0, r3 = b*2; i < b*2; i++) {
+        r4 = ptr;
         for (j = 0; j < a; j++) {
-            int k;
-
             for (k = 0; k <= 6; k++) {
-                *ptr++ = *(ptr + 1);
+                *r4++ = r4[1];
             }
 
-            if (i == (r7 - 1)) {
+            if (i == (b*2 - 1)) {
 
                 if ((GetDialogueBoxConfig() & 1) == 0) {
-                    *ptr++ = 0x44444444;
+                    *r4++ = 0x44444444;
                 } else {
-                    *ptr++ = 0;
+                    *r4++ = 0;
                 }
 
-
             } else {
-                *ptr++ = *(ptr + ((j + 0x20) << 3));
+                *r4++ = *(ptr + ((j + 0x20) << 3));
             }
 
         }
@@ -1027,106 +1020,6 @@ void sub_808A530(int a, int b) {
 
     return;
 }
-
-#else // if !NONMATCHING
-
-__attribute__((naked))
-void sub_808A530(int param_1, int param_2) {
-    asm("\n\
-        .syntax unified\n\
-        push {r4, r5, r6, r7, lr}\n\
-        mov r7, r9\n\
-        mov r6, r8\n\
-        push {r6, r7}\n\
-        sub sp, #4\n\
-        mov r9, r0\n\
-        ldr r3, _0808A590  @ gUnknown_0203E7E8\n\
-        adds r0, r3, #0\n\
-        adds r0, #0x40\n\
-        ldrh r2, [r0]\n\
-        ldr r0, _0808A594  @ 0x000003FF\n\
-        ands r0, r2\n\
-        ldrh r3, [r3, #0x18]\n\
-        adds r0, r0, r3\n\
-        lsls r0, r0, #5\n\
-        ldr r2, _0808A598  @ 0x06010000\n\
-        adds r5, r0, r2\n\
-        movs r7, #0\n\
-        lsls r0, r1, #1\n\
-        cmp r7, r0\n\
-        bge _0808A5C2\n\
-        adds r3, r0, #0\n\
-    _0808A55C:\n\
-        adds r4, r5, #0\n\
-        movs r2, #0\n\
-        adds r0, r7, #1\n\
-        mov r8, r0\n\
-        cmp r2, r9\n\
-        bge _0808A5B6\n\
-    _0808A568:\n\
-        adds r6, r2, #1\n\
-        movs r1, #6\n\
-    _0808A56C:\n\
-        ldr r0, [r4, #4]\n\
-        stm r4!, {r0}\n\
-        subs r1, #1\n\
-        cmp r1, #0\n\
-        bge _0808A56C\n\
-        subs r0, r3, #1\n\
-        cmp r7, r0\n\
-        bne _0808A5A4\n\
-        str r3, [sp]\n\
-        bl GetDialogueBoxConfig\n\
-        movs r1, #1\n\
-        ands r1, r0\n\
-        ldr r3, [sp]\n\
-        cmp r1, #0\n\
-        bne _0808A5A0\n\
-        ldr r0, _0808A59C  @ 0x44444444\n\
-        b _0808A5AE\n\
-        .align 2, 0\n\
-    _0808A590: .4byte gUnknown_0203E7E8\n\
-    _0808A594: .4byte 0x000003FF\n\
-    _0808A598: .4byte 0x06010000\n\
-    _0808A59C: .4byte 0x44444444\n\
-    _0808A5A0:\n\
-        movs r0, #0\n\
-        b _0808A5AE\n\
-    _0808A5A4:\n\
-        adds r0, r2, #0\n\
-        adds r0, #0x20\n\
-        lsls r0, r0, #5\n\
-        adds r0, r0, r5\n\
-        ldr r0, [r0]\n\
-    _0808A5AE:\n\
-        stm r4!, {r0}\n\
-        adds r2, r6, #0\n\
-        cmp r2, r9\n\
-        blt _0808A568\n\
-    _0808A5B6:\n\
-        movs r2, #0x80\n\
-        lsls r2, r2, #3\n\
-        adds r5, r5, r2\n\
-        mov r7, r8\n\
-        cmp r7, r3\n\
-        blt _0808A55C\n\
-    _0808A5C2:\n\
-        add sp, #4\n\
-        pop {r3, r4}\n\
-        mov r8, r3\n\
-        mov r9, r4\n\
-        pop {r4, r5, r6, r7}\n\
-        pop {r0}\n\
-        bx r0\n\
-        .syntax divided\n\
-    ");
-}
-
-#endif // NONMATCHING
-
-#if NONMATCHING
-
-/* https://decomp.me/scratch/usoZg */
 
 //! FE8U = 0x0808A5D0
 void sub_808A5D0(void* param_1, int param_2) {
@@ -1193,8 +1086,8 @@ void sub_808A5D0(void* param_1, int param_2) {
         CopyToPaletteBuffer(Pal_UIFont, param_2 * 0x20, 0x20);
     }
 
-    // TODO: Fails here - the "<< 0x11" gets moved earlier
-    gUnknown_0203E7E8.unk_40 = ((((u32)param_1 << 0x11) >> 0x16) + (param_2 & 0xF) * 0x1000);
+    if (&param_1)
+        gUnknown_0203E7E8.unk_40 = ((((u32)param_1 << 0x11) >> 0x16) + (param_2 & 0xF) * 0x1000);
 
     if (GetDialogueBoxConfig() & 0x10) {
         PlaySoundEffect(0x2E6);
@@ -1202,223 +1095,6 @@ void sub_808A5D0(void* param_1, int param_2) {
 
     return;
 }
-
-#else // if !NONMATCHING
-
-__attribute__((naked))
-void sub_808A5D0(void* param_1, int param_2) {
-    asm("\n\
-        .syntax unified\n\
-        push {r4, r5, r6, r7, lr}\n\
-        adds r5, r0, #0\n\
-        adds r6, r1, #0\n\
-        cmp r5, #0\n\
-        bne _0808A5DC\n\
-        ldr r5, _0808A634  @ 0x06013000\n\
-    _0808A5DC:\n\
-        cmp r6, #0\n\
-        bge _0808A5E2\n\
-        movs r6, #5\n\
-    _0808A5E2:\n\
-        movs r0, #0xf\n\
-        ands r0, r6\n\
-        adds r6, r0, #0\n\
-        adds r6, #0x10\n\
-        bl GetDialogueBoxConfig\n\
-        movs r1, #0x10\n\
-        ands r1, r0\n\
-        cmp r1, #0\n\
-        beq _0808A64C\n\
-        ldr r0, _0808A638  @ gGfx_YellowTextBox\n\
-        movs r2, #0xd8\n\
-        lsls r2, r2, #2\n\
-        adds r1, r5, r2\n\
-        bl Decompress\n\
-        ldr r0, _0808A63C  @ gGfx_YellowTextBox2\n\
-        movs r2, #0xec\n\
-        lsls r2, r2, #3\n\
-        adds r1, r5, r2\n\
-        bl Decompress\n\
-        ldr r0, _0808A640  @ gGfx_YellowTextBox3\n\
-        movs r2, #0xb6\n\
-        lsls r2, r2, #4\n\
-        adds r1, r5, r2\n\
-        bl Decompress\n\
-        ldr r0, _0808A644  @ gGfx_YellowTextBox4\n\
-        movs r2, #0xf8\n\
-        lsls r2, r2, #4\n\
-        adds r1, r5, r2\n\
-        bl Decompress\n\
-        ldr r0, _0808A648  @ gGfx_YellowTextBox5\n\
-        movs r2, #0x9c\n\
-        lsls r2, r2, #5\n\
-        adds r1, r5, r2\n\
-        bl Decompress\n\
-        b _0808A688\n\
-        .align 2, 0\n\
-    _0808A634: .4byte 0x06013000\n\
-    _0808A638: .4byte gGfx_YellowTextBox\n\
-    _0808A63C: .4byte gGfx_YellowTextBox2\n\
-    _0808A640: .4byte gGfx_YellowTextBox3\n\
-    _0808A644: .4byte gGfx_YellowTextBox4\n\
-    _0808A648: .4byte gGfx_YellowTextBox5\n\
-    _0808A64C:\n\
-        ldr r0, _0808A6FC  @ gGfx_HelpTextBox\n\
-        movs r2, #0xd8\n\
-        lsls r2, r2, #2\n\
-        adds r1, r5, r2\n\
-        bl Decompress\n\
-        ldr r0, _0808A700  @ gGfx_HelpTextBox2\n\
-        movs r2, #0xec\n\
-        lsls r2, r2, #3\n\
-        adds r1, r5, r2\n\
-        bl Decompress\n\
-        ldr r0, _0808A704  @ gGfx_HelpTextBox3\n\
-        movs r2, #0xb6\n\
-        lsls r2, r2, #4\n\
-        adds r1, r5, r2\n\
-        bl Decompress\n\
-        ldr r0, _0808A708  @ gGfx_HelpTextBox4\n\
-        movs r2, #0xf6\n\
-        lsls r2, r2, #4\n\
-        adds r1, r5, r2\n\
-        bl Decompress\n\
-        ldr r0, _0808A70C  @ gGfx_HelpTextBox5\n\
-        movs r2, #0x9b\n\
-        lsls r2, r2, #5\n\
-        adds r1, r5, r2\n\
-        bl Decompress\n\
-    _0808A688:\n\
-        bl ClearAllTalkFlags\n\
-        bl GetDialogueBoxConfig\n\
-        movs r1, #1\n\
-        ands r1, r0\n\
-        cmp r1, #0\n\
-        bne _0808A728\n\
-        ldr r4, _0808A710  @ gUnknown_0203E7E8\n\
-        adds r0, r4, #0\n\
-        adds r1, r5, #0\n\
-        adds r2, r6, #0\n\
-        bl InitSomeOtherGraphicsRelatedStruct\n\
-        adds r0, r4, #0\n\
-        adds r0, #0x18\n\
-        bl Text_Init3\n\
-        adds r0, r4, #0\n\
-        adds r0, #0x20\n\
-        bl Text_Init3\n\
-        adds r0, r4, #0\n\
-        adds r0, #0x28\n\
-        bl Text_Init3\n\
-        bl GetDialogueBoxConfig\n\
-        movs r1, #0x10\n\
-        ands r1, r0\n\
-        cmp r1, #0\n\
-        beq _0808A6E4\n\
-        bl GetDialogueBoxConfig\n\
-        movs r1, #0x20\n\
-        ands r1, r0\n\
-        cmp r1, #0\n\
-        bne _0808A6E4\n\
-        adds r0, r4, #0\n\
-        adds r0, #0x30\n\
-        bl Text_Init3\n\
-        adds r0, r4, #0\n\
-        adds r0, #0x38\n\
-        bl Text_Init3\n\
-    _0808A6E4:\n\
-        movs r0, #0\n\
-        bl SetFont\n\
-        bl GetDialogueBoxConfig\n\
-        movs r1, #0x10\n\
-        ands r1, r0\n\
-        cmp r1, #0\n\
-        beq _0808A718\n\
-        ldr r0, _0808A714  @ gPal_YellowTextBox\n\
-        b _0808A71A\n\
-        .align 2, 0\n\
-    _0808A6FC: .4byte gGfx_HelpTextBox\n\
-    _0808A700: .4byte gGfx_HelpTextBox2\n\
-    _0808A704: .4byte gGfx_HelpTextBox3\n\
-    _0808A708: .4byte gGfx_HelpTextBox4\n\
-    _0808A70C: .4byte gGfx_HelpTextBox5\n\
-    _0808A710: .4byte gUnknown_0203E7E8\n\
-    _0808A714: .4byte gPal_YellowTextBox\n\
-    _0808A718:\n\
-        ldr r0, _0808A724  @ gPal_HelpTextBox\n\
-    _0808A71A:\n\
-        lsls r1, r6, #5\n\
-        movs r2, #0x20\n\
-        bl CopyToPaletteBuffer\n\
-        b _0808A764\n\
-        .align 2, 0\n\
-    _0808A724: .4byte gPal_HelpTextBox\n\
-    _0808A728:\n\
-        ldr r0, _0808A738  @ gUnknown_0203E7E8\n\
-        adds r1, r5, #0\n\
-        adds r2, r6, #0\n\
-        bl InitSomeOtherGraphicsRelatedStruct\n\
-        movs r4, #0\n\
-        lsls r7, r6, #5\n\
-        b _0808A748\n\
-        .align 2, 0\n\
-    _0808A738: .4byte gUnknown_0203E7E8\n\
-    _0808A73C:\n\
-        lsls r0, r4, #3\n\
-        ldr r1, _0808A79C  @ gUnknown_0203E800\n\
-        adds r0, r0, r1\n\
-        bl Text_Init3\n\
-        adds r4, #1\n\
-    _0808A748:\n\
-        bl GetDialogueBoxConfig\n\
-        lsls r0, r0, #0x10\n\
-        lsrs r0, r0, #0x18\n\
-        cmp r4, r0\n\
-        blt _0808A73C\n\
-        movs r0, #0\n\
-        bl SetFont\n\
-        ldr r0, _0808A7A0  @ Pal_UIFont\n\
-        adds r1, r7, #0\n\
-        movs r2, #0x20\n\
-        bl CopyToPaletteBuffer\n\
-    _0808A764:\n\
-        ldr r2, _0808A7A4  @ gUnknown_0203E7E8\n\
-        lsls r1, r5, #0x11\n\
-        lsrs r1, r1, #0x16\n\
-        movs r0, #0xf\n\
-        ands r0, r6\n\
-        lsls r0, r0, #0xc\n\
-        adds r1, r1, r0\n\
-        adds r2, #0x40\n\
-        strh r1, [r2]\n\
-        bl GetDialogueBoxConfig\n\
-        movs r1, #0x10\n\
-        ands r1, r0\n\
-        cmp r1, #0\n\
-        beq _0808A794\n\
-        ldr r0, _0808A7A8  @ gPlaySt\n\
-        adds r0, #0x41\n\
-        ldrb r0, [r0]\n\
-        lsls r0, r0, #0x1e\n\
-        cmp r0, #0\n\
-        blt _0808A794\n\
-        ldr r0, _0808A7AC  @ 0x000002E6\n\
-        bl m4aSongNumStart\n\
-    _0808A794:\n\
-        pop {r4, r5, r6, r7}\n\
-        pop {r0}\n\
-        bx r0\n\
-        .align 2, 0\n\
-    _0808A79C: .4byte gUnknown_0203E800\n\
-    _0808A7A0: .4byte Pal_UIFont\n\
-    _0808A7A4: .4byte gUnknown_0203E7E8\n\
-    _0808A7A8: .4byte gPlaySt\n\
-    _0808A7AC: .4byte 0x000002E6\n\
-        .syntax divided\n\
-    ");
-
-}
-
-#endif // NONMATCHING
 
 //! FE8U = 0x0808A7B0
 void sub_808A7B0(struct HelpBoxProc* proc, int x, int y) {
@@ -1654,10 +1330,6 @@ void sub_808AA6C(int x, int y, int msgId, u16* unkA, int unkB, ProcPtr parent) {
     return;
 }
 
-#if NONMATCHING
-
-/* https://decomp.me/scratch/4vJG1 */
-
 //! FE8U = 0x0808AADC
 void sub_808AADC(const char* str, int* wOut, int* hOut) {
     int charWidth;
@@ -1671,41 +1343,53 @@ void sub_808AADC(const char* str, int* wOut, int* hOut) {
     while (1) {
 
         switch (*str) {
+            case 0x12: // [NormalPrint] // FE6 only?
+            case 0x13: // [FastPrint] // FE6 only?
+            case 0x14: // [CloseSpeechFast]
+                if (*wOut < w) {
+                    *wOut = w;
+                }
+
+                if (*hOut < h) {
+                    *hOut = h;
+                }
+
+                break;
+
             case 0x80: // control signal?
-                // _0808AB28
                 str += 2;
 
                 continue;
 
             case 0x01: // [NL]
-                // _0808AB2C
-
                 h += 16;
 
                 if (*wOut < w) {
                     *wOut = w;
                 }
 
-                // fallthrough
+                w = 0;
+
+                str++;
+
+                continue;
 
             case 0x18: // [Yes]
             case 0x19: // [No]
-                // _0808AB36
                 w = 0;
+                str++;
 
-                // fallthrough
+                continue;
 
             case 0x04: // [....]
             case 0x05: // [.....]
             case 0x06: // [......]
             case 0x07: // [.......]
-                // _0808AB38
                 str++;
 
                 continue;
 
             case 0x02: // [NL2]
-                // _0808AB3C
                 str++;
 
                 if (*hOut < h) {
@@ -1723,7 +1407,6 @@ void sub_808AADC(const char* str, int* wOut, int* hOut) {
                 continue;
 
             case 0x03: // [A]
-                // _0808AB52
                 str++;
 
                 if (*hOut < h) {
@@ -1732,10 +1415,8 @@ void sub_808AADC(const char* str, int* wOut, int* hOut) {
 
                 h = 0;
 
-                w += 8;
-
-                if (*wOut < w) {
-                    *wOut = w;
+                if (*wOut < w + 8) {
+                    *wOut = w + 8;
                 }
 
                 w = 0;
@@ -1743,11 +1424,6 @@ void sub_808AADC(const char* str, int* wOut, int* hOut) {
                 continue;
 
             case 0x00: // [X]
-            case 0x12: // [NormalPrint] // FE6 only?
-            case 0x13: // [FastPrint] // FE6 only?
-            case 0x14: // [CloseSpeechFast]
-                // _0808AB6E
-
                 if (*wOut < w) {
                     *wOut = w;
                 }
@@ -1756,139 +1432,20 @@ void sub_808AADC(const char* str, int* wOut, int* hOut) {
                     *hOut = h;
                 }
 
-                return;
+                break;
 
             default:
-                // _0808AB80
                 str = GetCharTextWidth(str, &charWidth);
                 w += charWidth;
 
                 continue;
         }
+
+        break;
     }
+
+    return;
 }
-
-#else // if !NONMATCHING
-
-__attribute__((naked))
-void sub_808AADC(const char* str, int* wOut, int* hOut) {
-    asm("\n\
-        .syntax unified\n\
-        push {r4, r5, r6, r7, lr}\n\
-        sub sp, #4\n\
-        adds r3, r0, #0\n\
-        adds r4, r1, #0\n\
-        adds r5, r2, #0\n\
-        movs r7, #0\n\
-        movs r6, #0x10\n\
-        str r7, [r4]\n\
-        str r7, [r5]\n\
-    _0808AAEE:\n\
-        ldrb r0, [r3]\n\
-        cmp r0, #7\n\
-        bgt _0808AB10\n\
-        cmp r0, #4\n\
-        bge _0808AB38\n\
-        cmp r0, #1\n\
-        beq _0808AB2C\n\
-        cmp r0, #1\n\
-        bgt _0808AB06\n\
-        cmp r0, #0\n\
-        beq _0808AB6E\n\
-        b _0808AB80\n\
-    _0808AB06:\n\
-        cmp r0, #2\n\
-        beq _0808AB3C\n\
-        cmp r0, #3\n\
-        beq _0808AB52\n\
-        b _0808AB80\n\
-    _0808AB10:\n\
-        cmp r0, #0x19\n\
-        ble _0808AB1A\n\
-        cmp r0, #0x80\n\
-        beq _0808AB28\n\
-        b _0808AB80\n\
-    _0808AB1A:\n\
-        cmp r0, #0x18\n\
-        bge _0808AB36\n\
-        cmp r0, #0x14\n\
-        bgt _0808AB80\n\
-        cmp r0, #0x12\n\
-        blt _0808AB80\n\
-        b _0808AB6E\n\
-    _0808AB28:\n\
-        adds r3, #2\n\
-        b _0808AAEE\n\
-    _0808AB2C:\n\
-        adds r6, #0x10\n\
-        ldr r0, [r4]\n\
-        cmp r0, r7\n\
-        bge _0808AB36\n\
-        str r7, [r4]\n\
-    _0808AB36:\n\
-        movs r7, #0\n\
-    _0808AB38:\n\
-        adds r3, #1\n\
-        b _0808AAEE\n\
-    _0808AB3C:\n\
-        adds r3, #1\n\
-        ldr r0, [r5]\n\
-        cmp r0, r6\n\
-        bge _0808AB46\n\
-        str r6, [r5]\n\
-    _0808AB46:\n\
-        movs r6, #0\n\
-        ldr r0, [r4]\n\
-        cmp r0, r7\n\
-        bge _0808AB6A\n\
-        str r7, [r4]\n\
-        b _0808AB6A\n\
-    _0808AB52:\n\
-        adds r3, #1\n\
-        ldr r0, [r5]\n\
-        cmp r0, r6\n\
-        bge _0808AB5C\n\
-        str r6, [r5]\n\
-    _0808AB5C:\n\
-        movs r6, #0\n\
-        adds r1, r7, #0\n\
-        adds r1, #8\n\
-        ldr r0, [r4]\n\
-        cmp r0, r1\n\
-        bge _0808AB6A\n\
-        str r1, [r4]\n\
-    _0808AB6A:\n\
-        movs r7, #0\n\
-        b _0808AAEE\n\
-    _0808AB6E:\n\
-        ldr r0, [r4]\n\
-        cmp r0, r7\n\
-        bge _0808AB76\n\
-        str r7, [r4]\n\
-    _0808AB76:\n\
-        ldr r0, [r5]\n\
-        cmp r0, r6\n\
-        bge _0808AB90\n\
-        str r6, [r5]\n\
-        b _0808AB90\n\
-    _0808AB80:\n\
-        adds r0, r3, #0\n\
-        mov r1, sp\n\
-        bl GetCharTextWidth\n\
-        adds r3, r0, #0\n\
-        ldr r0, [sp]\n\
-        adds r7, r7, r0\n\
-        b _0808AAEE\n\
-    _0808AB90:\n\
-        add sp, #4\n\
-        pop {r4, r5, r6, r7}\n\
-        pop {r0}\n\
-        bx r0\n\
-        .syntax divided\n\
-    ");
-}
-
-#endif // NONMATCHING
 
 //! FE8U = 0x0808AB98
 void sub_808AB98(const char* str, u8* xOut) {
