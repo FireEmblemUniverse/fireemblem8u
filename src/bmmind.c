@@ -702,33 +702,10 @@ void BATTLE_HandleArenaDeathsMaybe(ProcPtr proc) {
     return;
 }
 
-#if NONMATCHING
+extern u8 gUnknown_0203A974[];
 
-??? sub_80329C0(u8 r0) {
-    CpuFastFill(r0, gUnknown_0203A974, 7);
-
+//! FE8U = 0x080329C0
+u8* sub_80329C0(u8* r0) {
+    CpuFastCopy(r0, gUnknown_0203A974, 0x1C);
     return gUnknown_0203A974;
 }
-
-#else // if !NONMATCHING
-
-__attribute__((naked))
-void sub_80329C0(u8 r0) {
-    asm("\n\
-        .syntax unified\n\
-        push {r4, lr}\n\
-        ldr r4, _080329D4  @ gUnknown_0203A974\n\
-        adds r1, r4, #0\n\
-        movs r2, #7\n\
-        bl CpuFastSet\n\
-        adds r0, r4, #0\n\
-        pop {r4}\n\
-        pop {r1}\n\
-        bx r1\n\
-        .align 2, 0\n\
-    _080329D4: .4byte gUnknown_0203A974\n\
-        .syntax divided\n\
-    ");
-}
-
-#endif // NONMATCHING
