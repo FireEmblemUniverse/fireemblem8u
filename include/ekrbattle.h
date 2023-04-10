@@ -25,6 +25,23 @@ struct ProcEkrBattle {
     /* 5C */ struct Anim *anim;
 };
 
+struct ProcEkrBattleStarting {
+    PROC_HEADER;
+
+    /* 29 */ u8 _pad_29[0x2C - 0x29];
+
+    /* 2C */ s16 unk2C;
+    /* 2E */ s16 unk2E;
+    /* 30 */ u16 unk30;
+    /* 32 */ s16 unk32;
+    /* 34 */ s16 unk34;
+
+    /* 36 */ u8 _pad_36[0x3A - 0x36];
+
+    /* 3A */ s16 unk3A;
+    /* 3C */ s16 unk3C;
+};
+
 extern int gUnknown_02000018, gUnknown_0200001C;
 
 extern u16 gBattleActorSide;
@@ -56,9 +73,9 @@ extern int gUnknown_0203E0F0;
 extern int gBattleDeamonActive;
 extern struct ProcEkrBattleDeamon *gpProcEkrBattleDeamon;
 extern short gUnknown_0203E0FC;
-// extern ??? gUnknown_0203E0FE
+extern short gUnknown_0203E0FE;
 extern short gUnknown_0203E100;
-// extern ??? gUnknown_0203E102
+extern short gUnknown_0203E102;
 extern short gUnknown_0203E104[];
 // extern ??? gUnknown_0203E108
 // extern ??? gUnknown_0203E114
@@ -66,7 +83,7 @@ extern short gUnknown_0203E104[];
 // extern ??? gUnknown_0203E11A
 // extern ??? gUnknown_0203E11C
 extern EWRAM_DATA s16 gUnknown_0203E120;
-// extern ??? gUnknown_0203E122
+extern EWRAM_DATA s16 gUnknown_0203E122[4];
 // extern ??? gAnimRoundData
 
 extern struct ProcCmd gProc_ekrBattleDeamon[];
@@ -131,7 +148,7 @@ extern struct ProcCmd gProc_ekrbattleendin[];
 // extern ??? gUnknown_085B9C84
 // extern ??? gUnknown_085B9CA4
 // extern ??? gUnknown_085B9CC4
-// extern ??? gUnknown_085B9CE4
+// extern ??? ProcScr_ekrUnitKakudai
 extern struct ProcCmd gProc_ekrWindowAppear[];
 extern struct ProcCmd gProc_ekrNamewinAppear[];
 extern struct ProcCmd gProc_ekrBaseAppear[];
@@ -146,12 +163,12 @@ extern struct ProcCmd gProc_ekrTogiColor[];
 
 void sub_804FD48(int unk);
 // ??? sub_804FD54(???);
-// ??? NewEkrBattleDeamon(???);
+void NewEkrBattleDeamon(void);
 // ??? EndEkrBattleDeamon(???);
 int IsBattleDeamonActive(void); // battle?
 // ??? ekrBattleDeamon_Destructor(???);
 // ??? nullsub_35(???);
-// ??? NewEkrBattle(???);
+void NewEkrBattle(void);
 void InBattleMainRoutine(void);
 void MainUpdate_804FEE4(void);
 // ??? nullsub_36(???);
@@ -196,12 +213,12 @@ void ekrBattle_WaitForPopup(struct ProcEkrBattle *proc);
 // ??? EkrLvupFanMain(???);
 // ??? sub_8050E40(???);
 // ??? sub_8050E90(???);
-// ??? NewEkrGauge(???);
+void NewEkrGauge(void);
 void EndEkrGauge(void);
 void EkrGauge_8051180(void);
 void EkrGauge_8051190(void);
-// ??? EkrGauge_80511A0(???);
-// ??? EkrGauge_80511B0(???);
+void EkrGauge_80511A0(void);
+void EkrGauge_80511B0(void);
 // ??? EkrGauge_80511C0(???);
 // ??? EkrGauge_80511D0(???);
 // ??? EkrGauge_80511E4(???);
@@ -211,12 +228,12 @@ void EkrGauge_8051218(void);
 void EkrGauge_8051228(void);
 // ??? sub_8051238(???);
 // ??? ekrGauge_Loop(???);
-// ??? NewEkrDispUP(???);
+void NewEkrDispUP(void);
 // ??? sub_8051AF4(???);
 // ??? sub_8051B08(???);
 // ??? sub_8051B18(???);
-// ??? sub_8051B28(???);
-// ??? sub_8051B38(???);
+void sub_8051B28(void);
+void sub_8051B38(void);
 // ??? EkrDispUP_8051B48(???);
 // ??? sub_8051B5C(???);
 // ??? sub_8051B70(???);
@@ -224,10 +241,10 @@ void EkrGauge_8051228(void);
 void sub_8051B90(void);
 void sub_8051BA0(void);
 // ??? ekrDispUP_Loop(???);
-// ??? sub_8051CC4(???);
+void sub_8051CC4(void);
 // ??? sub_8051E00(???);
 void sub_8051F1C(void);
-// ??? sub_8052184(???);
+int sub_8052184(void);
 // ??? sub_8052214(???);
 void sub_8052220(void);
 // ??? sub_80522CC(???);
@@ -378,16 +395,16 @@ void sub_8055000(void);
 s8 sub_8055BC4(void);
 void BeginAnimsOnBattleAnimations(void);
 void sub_8055C38(void);
-// ??? MainUpdate_8055C68(???);
-// ??? NewEkrBattleStarting(???);
-// ??? ekrBattleStarting_8055CF0(???);
-// ??? ekrBattleStarting_8055DF4(???);
-// ??? ekrBattleStarting_8055F00(???);
-// ??? ekrBattleStarting_8055FA0(???);
-// ??? ekrBattleStarting_8055FE8(???);
-// ??? ekrBattleStarting_8056024(???);
-// ??? ekrBattleStarting_8056078(???);
-// ??? sub_80560D8(???);
+void MainUpdate_8055C68(void);
+void NewEkrBattleStarting(void);
+// ??? ekrBaStart_InitScreen(???);
+// ??? ekrBaStart_SreenFailIn(???);
+// ??? ekrBaStart_InitBattleScreen(???);
+// ??? ekrBaStart_ExecEkrBattle6C(???);
+// ??? ekrBaStart_8055FE8(???);
+// ??? ekrBaStart_8056024(???);
+// ??? ekrBaStart_8056078(???);
+void sub_80560D8(void);
 // ??? ekrBattleEnding_80560F0(???);
 // ??? ekrBattleEnding_8056170(???);
 // ??? ekrBattleEnding_80561C8(???);
@@ -396,9 +413,9 @@ void sub_8055C38(void);
 // ??? ekrBattleEnding_8056310(???);
 // ??? ekrBattleEnding_8056390(???);
 // ??? ekrBattleEnding_8056484(???);
-// ??? sub_805649C(???);
+void sub_805649C(u32 val);
 // ??? sub_8056864(???);
-// ??? sub_8056900(???);
+void sub_8056900(u32 val);
 // ??? sub_8056974(???);
 // ??? sub_8056B70(???);
 // ??? sub_8056D18(???);
@@ -409,6 +426,6 @@ void NewEkrNamewinAppear(int, int, int);
 bool sub_8056E60(void);
 // ??? sub_8056E7C(???);
 // ??? sub_8056EA4(???);
-// ??? sub_8056F20(???);
+void sub_8056F20(int, int);
 // ??? sub_8056F68(???);
 // ??? sub_8056F84(???);

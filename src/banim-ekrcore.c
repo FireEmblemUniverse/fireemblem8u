@@ -157,7 +157,7 @@ void ekrBattle_Init(struct ProcEkrBattle *proc)
 
     gUnknown_02000024 = 1;
 
-    if (true == sub_805B028())
+    if (true == GetBattleAnimArenaFlag())
         proc->timer = 0;
     else
         proc->timer = 0x1E;
@@ -418,7 +418,7 @@ void ekrBattle_805046C(struct ProcEkrBattle *proc)
     case 1:
     case 2:
         if ((gUnknown_0201FB04[0] + gUnknown_0201FB04[1]) == 2) {
-            if (sub_805B028() == 0)
+            if (GetBattleAnimArenaFlag() == 0)
                 ret = 1;
             else {
                 gUnknown_0203E1C8[0] = gpEkrBattleUnitLeft->expGain;
