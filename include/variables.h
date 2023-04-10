@@ -232,7 +232,7 @@ extern u16 gUnknown_0201CDD4[]; // used as a palette buffer in opsubtitle
 // extern ??? gEkrWindowAppearExist
 // extern ??? gUnknown_0201FAD0
 // extern ??? gUnknown_0201FAD4
-// extern ??? gUnknown_0201FAD8
+extern u32 gUnknown_0201FAD8;
 
 extern u32 gUnknown_0201FB04[];
 extern u32 gUnknown_0201FB0C;
@@ -528,7 +528,7 @@ extern short gUnknown_0203E1C8[2];
 extern struct Vec2 gUnknown_0203E1D8;
 // extern ??? gUnknown_0203E1DC
 // extern ??? gUnknown_0203E1E0
-// extern ??? gUnknown_0203E1E4
+// extern ??? gBaArenaFlag
 // extern ??? gUnknown_0203E1E8
 // extern ??? gUnknown_0203E1EC
 // extern ??? gUnknown_0203E1F8

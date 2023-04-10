@@ -329,7 +329,7 @@ ekrBattleEnding_8056310: @ 0x08056310
 	movs r1, #0x20
 	orrs r0, r1
 	strb r0, [r2]
-	bl sub_805B028
+	bl GetBattleAnimArenaFlag
 	cmp r0, #1
 	beq _08056372
 	bl UnpackChapterMapPalette

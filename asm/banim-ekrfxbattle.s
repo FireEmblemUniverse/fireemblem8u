@@ -414,7 +414,7 @@ sub_8051CC4: @ 0x08051CC4
 	adds r1, r6, #0
 	adds r2, r5, #0
 	bl CpuFastSet
-	bl sub_805B028
+	bl GetBattleAnimArenaFlag
 	cmp r0, #0
 	bne _08051DCC
 	bl sub_8051E00
@@ -3353,7 +3353,7 @@ sub_8053514: @ 0x08053514
 	bl sub_806FB2C
 	ldr r0, [r5]
 	bl sub_8053618
-	bl sub_805B028
+	bl GetBattleAnimArenaFlag
 	cmp r0, #0
 	beq _0805355A
 	ldr r0, [r5]
@@ -3408,7 +3408,7 @@ sub_8053584: @ 0x08053584
 	bl sub_806FB2C
 	ldr r0, [r5]
 	bl sub_8053618
-	bl sub_805B028
+	bl GetBattleAnimArenaFlag
 	cmp r0, #0
 	beq _080535CA
 	ldr r0, [r5]
@@ -3463,7 +3463,7 @@ sub_8053618: @ 0x08053618
 	bl sub_806FAB0
 	cmp r0, #2
 	beq _08053668
-	bl sub_805B028
+	bl GetBattleAnimArenaFlag
 	cmp r0, #0
 	bne _08053668
 	asrs r4, r5, #3
@@ -4024,7 +4024,7 @@ _08053A5E:
 	.align 2, 0
 _08053A74: .4byte gUnknown_080DA4BA
 _08053A78:
-	bl sub_805B028
+	bl GetBattleAnimArenaFlag
 	cmp r0, #0
 	beq _08053A84
 	str r4, [r5, #0x64]

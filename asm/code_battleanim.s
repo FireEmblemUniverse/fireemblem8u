@@ -90,7 +90,7 @@ _080568F6:
 sub_8056900: @ 0x08056900
 	push {r4, r5, lr}
 	adds r5, r0, #0
-	ldr r0, _0805692C  @ gUnknown_085B9CE4
+	ldr r0, _0805692C  @ ProcScr_ekrUnitKakudai
 	movs r1, #3
 	bl Proc_Start
 	adds r4, r0, #0
@@ -109,7 +109,7 @@ sub_8056900: @ 0x08056900
 	beq _0805695C
 	b _0805696E
 	.align 2, 0
-_0805692C: .4byte gUnknown_085B9CE4
+_0805692C: .4byte ProcScr_ekrUnitKakudai
 _08056930: .4byte gUnknown_0203E120
 _08056934:
 	ldr r0, _08056958  @ gUnknown_0203E104
@@ -2348,7 +2348,7 @@ _08057A8A:
 	bne _08057A9E
 	movs r4, #1
 _08057A9E:
-	bl sub_805B028
+	bl GetBattleAnimArenaFlag
 	cmp r0, #1
 	bne _08057AA8
 	movs r4, #1
@@ -9142,23 +9142,23 @@ _0805B018: .4byte gUnknown_0201CF84
 
 	THUMB_FUNC_START SetBattleAnimArenaFlag
 SetBattleAnimArenaFlag: @ 0x0805B01C
-	ldr r1, _0805B024  @ gUnknown_0203E1E4
+	ldr r1, _0805B024  @ gBaArenaFlag
 	str r0, [r1]
 	bx lr
 	.align 2, 0
-_0805B024: .4byte gUnknown_0203E1E4
+_0805B024: .4byte gBaArenaFlag
 
 	THUMB_FUNC_END SetBattleAnimArenaFlag
 
-	THUMB_FUNC_START sub_805B028
-sub_805B028: @ 0x0805B028
-	ldr r0, _0805B030  @ gUnknown_0203E1E4
+	THUMB_FUNC_START GetBattleAnimArenaFlag
+GetBattleAnimArenaFlag: @ 0x0805B028
+	ldr r0, _0805B030  @ gBaArenaFlag
 	ldr r0, [r0]
 	bx lr
 	.align 2, 0
-_0805B030: .4byte gUnknown_0203E1E4
+_0805B030: .4byte gBaArenaFlag
 
-	THUMB_FUNC_END sub_805B028
+	THUMB_FUNC_END GetBattleAnimArenaFlag
 
 	THUMB_FUNC_START sub_805B034
 sub_805B034: @ 0x0805B034
@@ -9200,7 +9200,7 @@ _0805B078: .4byte gBG3TilemapBuffer
 	THUMB_FUNC_START sub_805B07C
 sub_805B07C: @ 0x0805B07C
 	push {lr}
-	bl sub_805B028
+	bl GetBattleAnimArenaFlag
 	cmp r0, #0
 	beq _0805B090
 	movs r1, #0x80
@@ -9216,7 +9216,7 @@ _0805B090:
 	THUMB_FUNC_START sub_805B094
 sub_805B094: @ 0x0805B094
 	push {lr}
-	bl sub_805B028
+	bl GetBattleAnimArenaFlag
 	cmp r0, #0
 	beq _0805B0A4
 	movs r0, #0x8e
@@ -56380,7 +56380,7 @@ sub_8072258: @ 0x08072258
 	push {r4, lr}
 	lsls r0, r0, #0x10
 	lsrs r4, r0, #0x10
-	bl sub_805B028
+	bl GetBattleAnimArenaFlag
 	cmp r0, #1
 	bne _0807226A
 _08072266:
@@ -56874,7 +56874,7 @@ _080726C4:
 	beq _080726E2
 	movs r6, #0x19
 _080726E2:
-	bl sub_805B028
+	bl GetBattleAnimArenaFlag
 	cmp r0, #1
 	bne _08072708
 	bl Sound_SetDefaultMaxNumChannels

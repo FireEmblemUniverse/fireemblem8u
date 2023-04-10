@@ -107,7 +107,7 @@ _08073B38:
 	orrs r0, r2
 	strh r0, [r7]
 _08073B3E:
-	bl sub_805B028
+	bl GetBattleAnimArenaFlag
 	cmp r0, #0
 	bne _08073B6E
 	bl sub_806FAB0
@@ -1162,7 +1162,7 @@ EkrLvup_ResetScreen: @ 0x080743C0
 	sub sp, #0x2c
 	adds r5, r0, #0
 	ldr r4, _080744DC  @ gUnknown_020200E0
-	bl sub_805B028
+	bl GetBattleAnimArenaFlag
 	cmp r0, #0
 	bne _080743DE
 	bl sub_806FAB0
@@ -1215,7 +1215,7 @@ _080743DE:
 	ldr r0, _080744EC  @ gUnknown_0203E102
 	ldrh r0, [r0]
 	strh r0, [r4, #0x10]
-	bl sub_805B028
+	bl GetBattleAnimArenaFlag
 	cmp r0, #0
 	bne _08074460
 	bl sub_806FAB0

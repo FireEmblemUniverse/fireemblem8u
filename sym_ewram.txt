@@ -592,7 +592,7 @@
 . = 0x03E1D8; gUnknown_0203E1D8 = .;
 . = 0x03E1DC; gUnknown_0203E1DC = .;
 . = 0x03E1E0; gUnknown_0203E1E0 = .;
-. = 0x03E1E4; gUnknown_0203E1E4 = .;
+. = 0x03E1E4; gBaArenaFlag = .;
 . = 0x03E1E8; gUnknown_0203E1E8 = .;
 . = 0x03E1EC; gUnknown_0203E1EC = .;
 . = 0x03E1F0; gCurrentMapAnimState = .;
