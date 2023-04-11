@@ -259,7 +259,7 @@ _08073C24:
 	str r0, [r1]
 	bl sub_8074598
 	movs r0, #2
-	bl EkrGauge_80511C0
+	bl EkrGauge_Setup44
 	mov r3, r9
 	ldr r0, [r3, #0x5c]
 	bl sub_8054B64
@@ -1258,7 +1258,7 @@ _08074460:
 	movs r0, #2
 	bl BG_EnableSyncByMask
 	movs r0, #0
-	bl EkrGauge_80511C0
+	bl EkrGauge_Setup44
 	bl sub_806FAB0
 	cmp r0, #1
 	bne _08074500
@@ -3943,7 +3943,7 @@ sub_80758D4: @ 0x080758D4
 	negs r1, r1
 	lsls r1, r1, #0x10
 	asrs r1, r1, #0x10
-	bl EkrGauge_80511E4
+	bl EkrGauge_Setxy323A
 	ldrh r0, [r6]
 	ldrh r3, [r4]
 	adds r0, r0, r3
@@ -4025,7 +4025,7 @@ sub_80758D4: @ 0x080758D4
 	negs r1, r1
 	lsls r1, r1, #0x10
 	asrs r1, r1, #0x10
-	bl EkrGauge_80511E4
+	bl EkrGauge_Setxy323A
 	ldrh r0, [r6]
 	negs r0, r0
 	lsls r0, r0, #0x10

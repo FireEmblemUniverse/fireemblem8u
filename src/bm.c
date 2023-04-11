@@ -63,9 +63,6 @@ extern struct ProcCmd gProcScr_ResetCursorPosition[];
 extern struct ProcCmd ProcScr_PhaseIntro[];
 extern struct ProcCmd gProcScr_ChapterIntroTitleOnly[];
 
-extern u8 gGfx_MiscUiGraphics[];
-extern u16 gPal_MiscUiGraphics[];
-
 extern u16 gEvent_SkirmishCommonBeginning[];
 
 void BmMain_StartIntroFx(ProcPtr proc);

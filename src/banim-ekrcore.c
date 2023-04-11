@@ -11,14 +11,14 @@
 
 extern struct Anim *gUnknown_02000000[4];
 
-void sub_804FD48(int unk)
+void SetEkrEventFlagMaybe(int flag)
 {
-    gUnknown_0203E0F0 = unk;
+    gEkrEventFlagMaybe = flag;
 }
 
-int sub_804FD54(void)
+int GetEkrEventFlagMaybe(void)
 {
-    return gUnknown_0203E0F0;
+    return gEkrEventFlagMaybe;
 }
 
 void NewEkrBattleDeamon(void)
@@ -74,9 +74,9 @@ void InBattleMainRoutine(void)
     UpdateKeyStatus(gKeyStatusPtr);
     
     if (gUnknown_0200001C == 0)
-        MainUpdate_804FEE4();
+        MainUpdateEkrBattle();
     else if (gUnknown_02000020 == 1)
-        MainUpdate_804FEE4();
+        MainUpdateEkrBattle();
     
     switch (gUnknown_02017724) {
     case 0:
@@ -108,7 +108,7 @@ void InBattleMainRoutine(void)
     VBlankIntrWait();
 }
 
-void MainUpdate_804FEE4(void)
+void MainUpdateEkrBattle(void)
 {
     ClearSprites();
     sub_8071A8C();
@@ -171,13 +171,13 @@ void ekrBattle_Init(struct ProcEkrBattle *proc)
     Proc_Break(proc);
 }
 
-void ekrBattle_8050000(struct ProcEkrBattle *proc)
+void ekrBattleMain(struct ProcEkrBattle *proc)
 {
     if (++proc->timer == 0x1F) {
-        if (sub_804FD54() != 1 && (proc->is_quote == true || proc->unk58 == true)) {
+        if (GetEkrEventFlagMaybe() != 1 && (proc->is_quote == true || proc->unk58 == true)) {
             NewEkrWindowAppear(1, 7);
             NewEkrNamewinAppear(1, 7, 0);
-            proc->proc_idleCb = (ProcFunc)ekrBattle_8050054;
+            proc->proc_idleCb = (ProcFunc)ekrBattle_HandlePreEventMaybe;
             proc->timer = 0;
         } else {
             proc->proc_idleCb = (ProcFunc)ekrBattle_8050158;
@@ -186,18 +186,18 @@ void ekrBattle_8050000(struct ProcEkrBattle *proc)
     }
 }
 
-void ekrBattle_8050054(struct ProcEkrBattle *proc)
+void ekrBattle_HandlePreEventMaybe(struct ProcEkrBattle *proc)
 {
     if (DoesEkrWindowAppearExist() != true)
         return;
 
-    EkrGauge_8051218();
+    EkrGauge_Set2A();
     sub_8051B90();
     CpuFastFill(0, gBG0TilemapBuffer, 0x800);
     BG_SetPosition(BG_0, gUnknown_02000038.x, gUnknown_02000038.y);
     BG_SetPosition(BG_1, 0, 0);
     BG_EnableSyncByMask(BG0_SYNC_BIT);
-    EkrGauge_8051190();
+    EkrGauge_Set4C50();
 
     if (proc->is_quote == true) {
         if (gUnknown_0203E100 == 0)
@@ -220,9 +220,9 @@ void ekrBattle_80500F0(struct ProcEkrBattle *proc)
     BG_EnableSyncByMask(BG0_SYNC_BIT);
     NewEkrWindowAppear(0, 7);
     NewEkrNamewinAppear(0, 7, 0);
-    EkrGauge_8051228();
+    EkrGauge_Clr2A();
     sub_8051BA0();
-    EkrGauge_8051180();
+    EkrGauge_Clr4C50();
     proc->proc_idleCb = (ProcFunc)ekrBattle_8050134;
 }
 
@@ -547,8 +547,33 @@ void ekrBattle_WaitForPostBattleAct(struct ProcEkrBattle *proc)
     if (++proc->timer < 0x1E)
         return;
 
-    if (sub_804FD54() != 1 && gUnknown_0203E1C8[0] != -gUnknown_0203E1C8[1])
+    if (GetEkrEventFlagMaybe() != 1 && gUnknown_0203E1C8[0] != -gUnknown_0203E1C8[1])
         proc->proc_idleCb = (ProcFunc)ekrBattle_80506C8;
     else
         proc->proc_idleCb = (ProcFunc)ekrBattle_MakePopups;
 }
+
+/**
+ * section.data
+ */
+
+CONST_DATA struct ProcCmd gProc_ekrBattleDeamon[] = {
+    PROC_NAME("ekrBattleDaemon"),
+    PROC_SET_END_CB(ekrBattleDeamon_Destructor),
+    PROC_REPEAT(nullsub_35),
+    PROC_END
+};
+
+CONST_DATA struct ProcCmd gProc_ekrBattle[] = {
+    PROC_NAME("ekrBattle"),
+    PROC_SET_END_CB(nullsub_36),
+    PROC_REPEAT(ekrBattle_Init),
+    PROC_REPEAT(ekrBattleMain),
+    PROC_END
+};
+
+CONST_DATA struct ProcCmd gProc_ekrLvupFan[] = {
+    PROC_NAME("ekrLvupFan"),
+    PROC_REPEAT(EkrLvupFanMain),
+    PROC_END
+};

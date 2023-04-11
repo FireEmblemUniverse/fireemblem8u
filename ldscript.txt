@@ -134,6 +134,7 @@ SECTIONS
         src/uiselecttarget.o(.text);
         src/banim-ekrcore.o(.text);
         asm/banim-ekrcore.o(.text);
+        src/banim-ekrgauge.o(.text);
         asm/banim-ekrgauge.o(.text);
         asm/banim-ekrfxbattle.o(.text);
         asm/banim-ekrfxbg.o(.text);
@@ -319,6 +320,8 @@ SECTIONS
         . = ALIGN(4); src/uiutils.o(.rodata);
         . = ALIGN(4); src/uimenu.o(.rodata);
         . = ALIGN(4); src/uiselecttarget.o(.rodata);
+        . = ALIGN(4); src/banim-ekrcore.o(.rodata);
+        . = ALIGN(4); src/banim-ekrgauge.o(.rodata);
         . = ALIGN(4); data/const_data_DA3A4.o(.rodata);
         . = ALIGN(4); src/banim-ekrbattlestarting.o(.rodata);
         . = ALIGN(4); data/const_data_DAD68.o(.rodata);
@@ -445,6 +448,9 @@ SECTIONS
         . = ALIGN(4); src/uimenu.o(.data);
         . = ALIGN(4); src/uiselecttarget.o(.data);
         . = ALIGN(4); data/data_5B65C0.o(.data);
+        . = ALIGN(4); src/banim-ekrcore.o(.data);
+        . = ALIGN(4); src/banim-ekrgauge.o(.data);
+        . = ALIGN(4); data/data_banim_5B93D0.o(.data);
         . = ALIGN(4); src/banim-ekrbattlestarting.o(.data);
         . = ALIGN(4); data/data_banim.o(.data);
         . = ALIGN(4); src/ekrlevelup.o(.data);

@@ -161,7 +161,7 @@ _080507EC:
 	strb r0, [r3, #0x18]
 _08050818:
 	movs r0, #1
-	bl EkrGauge_80511C0
+	bl EkrGauge_Setup44
 	ldr r0, _08050834  @ gUnknown_0203E1C8
 	movs r1, #0
 	ldrsh r0, [r0, r1]
@@ -589,7 +589,7 @@ _08050B4C:
 	ble _08050C28
 	bl ClearBG1
 	movs r0, #0
-	bl EkrGauge_80511C0
+	bl EkrGauge_Setup44
 	bl sub_806FAB0
 	cmp r0, #2
 	bhi _08050BA0

@@ -957,7 +957,7 @@ sub_8052220: @ 0x08052220
 	ldr r0, _080522B8  @ gUnknown_02017768
 	strh r4, [r0]
 	strh r4, [r0, #2]
-	ldr r0, _080522BC  @ gUnknown_02017780
+	ldr r0, _080522BC  @ gEkrHitEfxBool
 	strh r4, [r0]
 	strh r4, [r0, #2]
 	ldr r0, _080522C0  @ gUnknown_0201776C
@@ -985,7 +985,7 @@ _080522AC: .4byte gUnknown_02017758
 _080522B0: .4byte gUnknown_0201775C
 _080522B4: .4byte gUnknown_02017764
 _080522B8: .4byte gUnknown_02017768
-_080522BC: .4byte gUnknown_02017780
+_080522BC: .4byte gEkrHitEfxBool
 _080522C0: .4byte gUnknown_0201776C
 _080522C4: .4byte gUnknown_02017778
 _080522C8: .4byte gUnknown_0201777C
@@ -1016,18 +1016,18 @@ _080522EE:
 
 	THUMB_FUNC_END sub_80522CC
 
-	THUMB_FUNC_START sub_80522F4
-sub_80522F4: @ 0x080522F4
-	ldr r1, _08052300  @ gUnknown_02017780
+	THUMB_FUNC_START EkrEfxIsUnitHittedNow
+EkrEfxIsUnitHittedNow: @ 0x080522F4
+	ldr r1, _08052300  @ gEkrHitEfxBool
 	lsls r0, r0, #1
 	adds r0, r0, r1
 	movs r1, #0
 	ldrsh r0, [r0, r1]
 	bx lr
 	.align 2, 0
-_08052300: .4byte gUnknown_02017780
+_08052300: .4byte gEkrHitEfxBool
 
-	THUMB_FUNC_END sub_80522F4
+	THUMB_FUNC_END EkrEfxIsUnitHittedNow
 
 	THUMB_FUNC_START sub_8052304
 sub_8052304: @ 0x08052304
@@ -1126,7 +1126,7 @@ _080523C2:
 	str r1, [r6, #0x58]
 	ldr r0, [r6, #0x60]
 	bl GetAISSubjectId
-	ldr r1, _080523E8  @ gUnknown_02017780
+	ldr r1, _080523E8  @ gEkrHitEfxBool
 	lsls r0, r0, #1
 	adds r0, r0, r1
 	movs r1, #1
@@ -1136,7 +1136,7 @@ _080523E0:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_080523E8: .4byte gUnknown_02017780
+_080523E8: .4byte gEkrHitEfxBool
 
 	THUMB_FUNC_END sub_8052304
 
@@ -1206,14 +1206,14 @@ _0805244E:
 	strh r1, [r0]
 	ldr r0, [r5, #0x60]
 	bl GetAISSubjectId
-	ldr r1, _0805249C  @ gUnknown_02017780
+	ldr r1, _0805249C  @ gEkrHitEfxBool
 	lsls r0, r0, #1
 	adds r0, r0, r1
 	strh r4, [r0]
 	ldr r0, [r5, #0x50]
 	cmp r0, #0
 	bne _080524E4
-	bl sub_804FD54
+	bl GetEkrEventFlagMaybe
 	cmp r0, #1
 	bne _080524A0
 	movs r0, #0
@@ -1222,7 +1222,7 @@ _0805244E:
 _08052490: .4byte gUnknown_02000000
 _08052494: .4byte gUnknown_0203E1AC
 _08052498: .4byte gUnknown_0203E152
-_0805249C: .4byte gUnknown_02017780
+_0805249C: .4byte gEkrHitEfxBool
 _080524A0:
 	ldr r4, _080524C4  @ gEkrBuIndexes
 	adds r0, r6, #0
@@ -1475,7 +1475,7 @@ _08052692:
 	str r1, [r0]
 	ldr r0, [r6, #0x60]
 	bl GetAISSubjectId
-	ldr r1, _080526C4  @ gUnknown_02017780
+	ldr r1, _080526C4  @ gEkrHitEfxBool
 	lsls r0, r0, #1
 	adds r0, r0, r1
 	movs r1, #1
@@ -1486,7 +1486,7 @@ _080526BA:
 	bx r0
 	.align 2, 0
 _080526C0: .4byte gUnknown_02017750
-_080526C4: .4byte gUnknown_02017780
+_080526C4: .4byte gEkrHitEfxBool
 
 	THUMB_FUNC_END sub_80525E8
 
@@ -1547,7 +1547,7 @@ _08052718:
 	strh r1, [r0]
 	ldr r0, [r5, #0x60]
 	bl GetAISSubjectId
-	ldr r1, _0805276C  @ gUnknown_02017780
+	ldr r1, _0805276C  @ gEkrHitEfxBool
 	lsls r0, r0, #1
 	adds r0, r0, r1
 	strh r4, [r0]
@@ -1569,7 +1569,7 @@ _08052752:
 	.align 2, 0
 _08052764: .4byte gUnknown_0203E1AC
 _08052768: .4byte gUnknown_0203E152
-_0805276C: .4byte gUnknown_02017780
+_0805276C: .4byte gEkrHitEfxBool
 _08052770: .4byte gUnknown_02017750
 _08052774:
 	adds r0, #1
@@ -1655,7 +1655,7 @@ _0805280A:
 	bl Proc_Break
 	ldr r0, [r6, #0x5c]
 	bl GetAISSubjectId
-	ldr r1, _08052828  @ gUnknown_02017780
+	ldr r1, _08052828  @ gEkrHitEfxBool
 	lsls r0, r0, #1
 	adds r0, r0, r1
 	movs r1, #2
@@ -1665,7 +1665,7 @@ _08052822:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_08052828: .4byte gUnknown_02017780
+_08052828: .4byte gEkrHitEfxBool
 
 	THUMB_FUNC_END sub_8052788
 
@@ -1754,7 +1754,7 @@ _080528BC:
 	strh r1, [r0]
 	ldr r0, [r5, #0x5c]
 	bl GetAISSubjectId
-	ldr r1, _0805290C  @ gUnknown_02017780
+	ldr r1, _0805290C  @ gEkrHitEfxBool
 	lsls r0, r0, #1
 	adds r0, r0, r1
 	strh r4, [r0]
@@ -1763,7 +1763,7 @@ _080528BC:
 	ldrb r0, [r0]
 	cmp r0, #1
 	bne _08052954
-	bl sub_804FD54
+	bl GetEkrEventFlagMaybe
 	cmp r0, #1
 	bne _08052910
 	movs r0, #0
@@ -1772,7 +1772,7 @@ _080528BC:
 _08052900: .4byte gUnknown_02000000
 _08052904: .4byte gUnknown_0203E1AC
 _08052908: .4byte gUnknown_0203E152
-_0805290C: .4byte gUnknown_02017780
+_0805290C: .4byte gEkrHitEfxBool
 _08052910:
 	ldr r4, _08052934  @ gEkrBuIndexes
 	adds r0, r6, #0
@@ -1998,7 +1998,7 @@ _08052ABE:
 	str r7, [r6, #0x64]
 	ldr r0, [r6, #0x5c]
 	bl GetAISSubjectId
-	ldr r1, _08052AE0  @ gUnknown_02017780
+	ldr r1, _08052AE0  @ gEkrHitEfxBool
 	lsls r0, r0, #1
 	adds r0, r0, r1
 	movs r1, #2
@@ -2008,7 +2008,7 @@ _08052AD8:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_08052AE0: .4byte gUnknown_02017780
+_08052AE0: .4byte gEkrHitEfxBool
 
 	THUMB_FUNC_END sub_8052A0C
 
@@ -2075,7 +2075,7 @@ _08052B40:
 	strh r1, [r0]
 	adds r0, r6, #0
 	bl GetAISSubjectId
-	ldr r1, _08052B80  @ gUnknown_02017780
+	ldr r1, _08052B80  @ gEkrHitEfxBool
 	lsls r0, r0, #1
 	adds r0, r0, r1
 	strh r4, [r0]
@@ -2085,7 +2085,7 @@ _08052B40:
 	.align 2, 0
 _08052B78: .4byte gUnknown_0203E1AC
 _08052B7C: .4byte gUnknown_0203E152
-_08052B80: .4byte gUnknown_02017780
+_08052B80: .4byte gEkrHitEfxBool
 _08052B84:
 	adds r0, r1, #1
 	str r0, [r5, #0x54]
@@ -2519,7 +2519,7 @@ sub_8052EAC: @ 0x08052EAC
 	asrs r0, r0, #0x18
 	cmp r0, #1
 	bne _08052F0A
-	bl EkrGauge_8051218
+	bl EkrGauge_Set2A
 	bl sub_8051B90
 	movs r0, #0
 	str r0, [sp]
@@ -2538,7 +2538,7 @@ sub_8052EAC: @ 0x08052EAC
 	bl BG_SetPosition
 	movs r0, #1
 	bl BG_EnableSyncByMask
-	bl EkrGauge_8051190
+	bl EkrGauge_Set4C50
 	ldr r4, _08052F20  @ gEkrBuIndexes
 	ldr r0, [r5, #0x5c]
 	bl GetAISSubjectId
@@ -2588,9 +2588,9 @@ sub_8052F24: @ 0x08052F24
 	movs r1, #7
 	movs r2, #0
 	bl NewEkrNamewinAppear
-	bl EkrGauge_8051228
+	bl EkrGauge_Clr2A
 	bl sub_8051BA0
-	bl EkrGauge_8051180
+	bl EkrGauge_Clr4C50
 	adds r0, r4, #0
 	bl Proc_Break
 _08052F7A:
@@ -4287,7 +4287,7 @@ _08053C9A:
 	negs r1, r1
 	lsls r1, r1, #0x10
 	asrs r1, r1, #0x10
-	bl EkrGauge_80511E4
+	bl EkrGauge_Setxy323A
 	ldrh r0, [r4]
 	negs r0, r0
 	lsls r0, r0, #0x10
@@ -4424,7 +4424,7 @@ _08053DAE:
 	negs r1, r1
 	lsls r1, r1, #0x10
 	asrs r1, r1, #0x10
-	bl EkrGauge_80511E4
+	bl EkrGauge_Setxy323A
 	ldrh r0, [r4]
 	ldrh r3, [r5]
 	adds r0, r0, r3

@@ -20838,7 +20838,7 @@ sub_804B800: @ 0x0804B800
 	cmp r0, #0
 	beq _0804B830
 	movs r0, #1
-	bl sub_804FD48
+	bl SetEkrEventFlagMaybe
 	bl BeginAnimsOnBattleAnimations
 	b _0804B846
 	.align 2, 0
