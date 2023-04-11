@@ -456,22 +456,13 @@ void sub_803EA58(int x, int y, u16* param_3, u16* param_4, u16* param_5) {
 
         for (iVar7 = gBmMapSize.y - 1; iVar7 >= 0; iVar7--) {
             for (iVar10 = gBmMapSize.x - 1; iVar10 >= 0; iVar10--) {
-                int var;
-#ifndef NONMATCHING
-                int a __attribute__((unused)) = iVar7 * 4;
-                gBmMapMovement = gBmMapMovement;
-                asm(""::"r"(&gBmMapOther));
-#endif
-                var = 0xFF;
-                if (gBmMapMovement[iVar7][iVar10] > 0x78) {
+                if (gBmMapMovement[iVar7][iVar10] > MAP_MOVEMENT_MAX)
                     continue;
-                }
-                iVar8 = gBmMapOther[iVar7][iVar10] + iVar6;
-                if (iVar8 > 0xFF) {
-                    while (0) ;
-                    iVar8 = var;
-                }
-                gBmMapOther[iVar7][iVar10] = iVar8;
+
+                if (gBmMapOther[iVar7][iVar10] + iVar6 <= 0xFF)
+                    gBmMapOther[iVar7][iVar10] = gBmMapOther[iVar7][iVar10] + iVar6;
+                else
+                    gBmMapOther[iVar7][iVar10] = 0xFF;
             }
         }
     }
