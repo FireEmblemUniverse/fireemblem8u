@@ -334,7 +334,7 @@ ekrBattleEnding_8056310: @ 0x08056310
 	beq _08056372
 	bl UnpackChapterMapPalette
 _08056372:
-	bl sub_804FD54
+	bl GetEkrEventFlagMaybe
 	cmp r0, #1
 	bne _0805637E
 	bl sub_8049788

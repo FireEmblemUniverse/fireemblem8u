@@ -16,7 +16,7 @@
 . = 0x00005C; gUnknown_0200005C = .;
 . = 0x000060; gUnknown_02000060 = .;
 . = 0x000064; gpProcEkrBattle = .;
-. = 0x000068; gUnknown_02000068 = .;
+. = 0x000068; gpProcEkrGauge = .;
 . = 0x00006C; gUnknown_0200006C = .;
 . = 0x000088; gUnknown_02000088 = .;
 . = 0x000280; gUnknown_02000280 = .;
@@ -196,7 +196,7 @@
 . = 0x017774; gUnknown_02017774 = .;
 . = 0x017778; gUnknown_02017778 = .;
 . = 0x01777C; gUnknown_0201777C = .;
-. = 0x017780; gUnknown_02017780 = .;
+. = 0x017780; gEkrHitEfxBool = .;
 . = 0x017790; gUnknown_02017790 = .;
 . = 0x019490; gUnknown_02019490 = .;
 . = 0x019790; gUnknown_02019790 = .;
@@ -551,7 +551,7 @@
 . = 0x03DDDC; gUnknown_0203DDDC = .;
 . = 0x03DDE0; src/uiutils.o(ewram_data);
 . = ALIGN(4); src/uiselecttarget.o(ewram_data);
-. = 0x03E0F0; gUnknown_0203E0F0 = .;
+. = 0x03E0F0; gEkrEventFlagMaybe = .;
 . = 0x03E0F4; gBattleDeamonActive = .;
 . = 0x03E0F8; gpProcEkrBattleDeamon = .;
 . = 0x03E0FC; gUnknown_0203E0FC = .;

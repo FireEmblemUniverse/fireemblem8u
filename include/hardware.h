@@ -22,7 +22,8 @@ extern u16 gPaletteBuffer[];
 #define BG_CHR_ADDR(n)   (void *)(BG_VRAM + (CHR_SIZE * (n)))
 #define OBJ_CHR_ADDR(n)  (void *)(OBJ_VRAM0 + (CHR_SIZE * (n)))
 
-#define PAL_COLOR(palid, colornum) gPaletteBuffer[(palid) * 0x10 + (colornum)]
+#define PAL_BUF_COLOR(buf, palid, colornum) buf[(palid) * 0x10 + (colornum)]
+#define PAL_COLOR(palid, colornum) PAL_BUF_COLOR(gPaletteBuffer, palid, colornum)
 #define PAL_BG_COLOR(palid, colornum) PAL_COLOR(palid, colornum)
 #define PAL_OBJ_COLOR(palid, colornum) PAL_COLOR((palid) + 0x10, colornum)
 

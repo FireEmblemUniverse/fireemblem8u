@@ -440,7 +440,7 @@ _08056BB8:
 	str r1, [sp]
 	add r1, sp, #4
 	adds r2, r3, #0
-	bl sub_807180C
+	bl EkrEfxHandleUnitHittedEffect
 	ldr r0, [r4, #0x44]
 	cmp r0, #0
 	bne _08056C16
@@ -518,7 +518,7 @@ _08056C6A:
 	str r1, [sp]
 	add r1, sp, #4
 	adds r2, r3, #0
-	bl sub_807180C
+	bl EkrEfxHandleUnitHittedEffect
 	ldr r0, [r4, #0x44]
 	cmp r0, #0
 	bne _08056CB6
@@ -631,11 +631,11 @@ _08056D46:
 	adds r1, r1, r2
 	lsls r1, r1, #0x10
 	asrs r1, r1, #0x10
-	bl EkrGauge_80511D0
+	bl EkrGauge_Clr323A
 	ldr r1, _08056D70  @ gEkrWindowAppearExist
 	movs r0, #1
 	str r0, [r1]
-	bl EkrGauge_8051208
+	bl EkrGauge_ClrInitFlag
 	pop {r4, r5}
 	pop {r0}
 	bx r0
@@ -680,7 +680,7 @@ sub_8056D90: @ 0x08056D90
 	ldr r1, _08056DB8  @ gEkrWindowAppearExist
 	movs r0, #0
 	str r0, [r1]
-	bl EkrGauge_80511F8
+	bl EkrGauge_SetInitFlag
 	adds r0, r4, #0
 	bl Proc_Break
 	b _08056E04
@@ -722,7 +722,7 @@ _08056DEC:
 	adds r1, r1, r2
 	lsls r1, r1, #0x10
 	asrs r1, r1, #0x10
-	bl EkrGauge_80511D0
+	bl EkrGauge_Clr323A
 _08056E04:
 	add sp, #4
 	pop {r4}
@@ -1037,13 +1037,13 @@ _0805702A:
 	cmp r0, #0
 	bne _08057044
 	movs r0, #0
-	bl sub_804FD48
+	bl SetEkrEventFlagMaybe
 	b _0805704A
 	.align 2, 0
 _08057040: .4byte gBmSt
 _08057044:
 	movs r0, #1
-	bl sub_804FD48
+	bl SetEkrEventFlagMaybe
 _0805704A:
 	ldr r0, _08057064  @ gBattleStats
 	ldrh r1, [r0]
@@ -1152,7 +1152,7 @@ _08057128:
 	strh r0, [r1, #2]
 	strh r0, [r1]
 	movs r4, #0
-	bl sub_804FD54
+	bl GetEkrEventFlagMaybe
 	cmp r0, #1
 	beq _08057150
 	lsls r0, r7, #0x10
@@ -2251,7 +2251,7 @@ _080579AE:
 	ldrh r0, [r0]
 	bl GetItemIndex
 _080579BE:
-	bl sub_804FD54
+	bl GetEkrEventFlagMaybe
 	cmp r0, #1
 	beq _080579D2
 	ldr r0, _08057A10  @ gPlaySt
@@ -10888,7 +10888,7 @@ Loop6C_efxMagicQUAKE: @ 0x0805BCC4
 	negs r1, r1
 	lsls r1, r1, #0x10
 	asrs r1, r1, #0x10
-	bl EkrGauge_80511E4
+	bl EkrGauge_Setxy323A
 	ldrh r0, [r4]
 	ldrh r3, [r5]
 	adds r0, r0, r3
@@ -11000,7 +11000,7 @@ _0805BD68:
 	negs r1, r1
 	lsls r1, r1, #0x10
 	asrs r1, r1, #0x10
-	bl EkrGauge_80511E4
+	bl EkrGauge_Setxy323A
 	ldrh r0, [r4]
 	negs r0, r0
 	lsls r0, r0, #0x10
@@ -52355,7 +52355,7 @@ sub_80703C4: @ 0x080703C4
 	negs r1, r1
 	lsls r1, r1, #0x10
 	asrs r1, r1, #0x10
-	bl EkrGauge_80511E4
+	bl EkrGauge_Setxy323A
 	ldrh r0, [r6]
 	ldrh r3, [r4]
 	adds r0, r0, r3
@@ -52443,7 +52443,7 @@ _08070498:
 	negs r1, r1
 	lsls r1, r1, #0x10
 	asrs r1, r1, #0x10
-	bl EkrGauge_80511E4
+	bl EkrGauge_Setxy323A
 	ldrh r0, [r6]
 	negs r0, r0
 	lsls r0, r0, #0x10
@@ -55082,8 +55082,8 @@ _08071808: .4byte gUnknown_080E13F4
 
 	THUMB_FUNC_END sub_80717F0
 
-	THUMB_FUNC_START sub_807180C
-sub_807180C: @ 0x0807180C
+	THUMB_FUNC_START EkrEfxHandleUnitHittedEffect
+EkrEfxHandleUnitHittedEffect: @ 0x0807180C
 	push {r4, r5, r6, r7, lr}
 	mov r7, r9
 	mov r6, r8
@@ -55269,7 +55269,7 @@ _08071984: .4byte 0xFFFF0000
 _08071988: .4byte 0xFFFF0004
 _0807198C: .4byte 0xC1FFFFFF
 
-	THUMB_FUNC_END sub_807180C
+	THUMB_FUNC_END EkrEfxHandleUnitHittedEffect
 
 	THUMB_FUNC_START SomePlaySound_8071990
 SomePlaySound_8071990: @ 0x08071990
@@ -56887,7 +56887,7 @@ _080726FC: .4byte gUnknown_020200A8
 _08072700: .4byte gUnknown_0203E114
 _08072704: .4byte gUnknown_0203E100
 _08072708:
-	bl sub_804FD54
+	bl GetEkrEventFlagMaybe
 	cmp r0, #1
 	bne _0807271C
 _08072710:

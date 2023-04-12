@@ -219,7 +219,7 @@ _080763DC: .4byte gUnknown_020165C8
 sub_80763E0: @ 0x080763E0
 	push {r4, lr}
 	adds r4, r0, #0
-	bl EkrGauge_80511A0
+	bl EkrGauge_Set4C
 	bl sub_8051B28
 	movs r0, #0
 	strh r0, [r4, #0x2c]
@@ -2966,7 +2966,7 @@ _080778BC:
 	negs r1, r1
 	lsls r1, r1, #0x10
 	asrs r1, r1, #0x10
-	bl EkrGauge_80511E4
+	bl EkrGauge_Setxy323A
 	ldrh r0, [r6]
 	ldrh r1, [r5]
 	adds r0, r0, r1
@@ -3121,7 +3121,7 @@ _08077A02:
 	negs r1, r1
 	lsls r1, r1, #0x10
 	asrs r1, r1, #0x10
-	bl EkrGauge_80511E4
+	bl EkrGauge_Setxy323A
 	ldrh r0, [r6]
 	negs r0, r0
 	lsls r0, r0, #0x10
@@ -3420,7 +3420,7 @@ sub_8077C54: @ 0x08077C54
 	negs r1, r1
 	lsls r1, r1, #0x10
 	asrs r1, r1, #0x10
-	bl EkrGauge_80511E4
+	bl EkrGauge_Setxy323A
 	ldrh r0, [r4]
 	adds r0, r5, r0
 	negs r0, r0

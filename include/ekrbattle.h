@@ -4,6 +4,11 @@
 #include "proc.h"
 #include "anime.h"
 
+enum ekr_battle_unit_position {
+    EKR_BATTLE_LEFT,
+    EKR_BATTLE_RIGHT
+};
+
 struct ProcEkrBattleDeamon {
     PROC_HEADER;
 
@@ -23,6 +28,34 @@ struct ProcEkrBattle {
     /* 54 */ int is_quote;
     /* 58 */ int unk58;
     /* 5C */ struct Anim *anim;
+};
+
+struct ProcEkrLvupFan {
+    PROC_HEADER;
+
+    /* 29 */
+};
+
+struct EkrGaugeStruct1 {
+    u8 _pad_00[0x3C - 0x0];
+    void *unk3C;
+};
+
+struct ProcEkrGauge {
+    PROC_HEADER;
+
+    /* 29 */ u8 battle_init;           /* 1 in battle-starting and 0 after battle started */
+    /* 2A */ u8 unk2A;
+    /* 2B */ u8 _pad_2B[0x32 - 0x2B];
+    /* 32 */ s16 unk32;
+    /* 34 */ u8 _pad_34[0x3A - 0x34];
+    /* 3A */ s16 unk3A;
+    /* 3C */ u8 _pad_3C[0x44 - 0x3C];
+    /* 44 */ int unk44;
+    /* 48 */ int unk48;
+    /* 4C */ int unk4C;
+    /* 50 */ int unk50;
+    /* 54 */
 };
 
 struct ProcEkrBattleStarting {
@@ -60,7 +93,7 @@ extern u32 gUnknown_02000024;
 // extern ??? gUnknown_0200002C
 // extern ??? gUnknown_02000030
 // extern ??? gUnknown_02000034
-extern struct Vec2u gUnknown_02000038;
+extern struct Vec2 gUnknown_02000038;
 // extern ??? gUnknown_0200003C
 // extern ??? gUnknown_02000044
 // extern ??? gUnknown_0200004C
@@ -68,8 +101,11 @@ extern struct Vec2u gUnknown_02000038;
 // extern ??? gUnknown_0200005C
 // extern ??? gUnknown_02000060
 extern struct ProcEkrBattle *gpProcEkrBattle;
+extern struct ProcEkrGauge *gpProcEkrGauge;
+// extern ??? gUnknown_0200006C
+// extern ??? gUnknown_02000088
 
-extern int gUnknown_0203E0F0;
+extern int gEkrEventFlagMaybe;
 extern int gBattleDeamonActive;
 extern struct ProcEkrBattleDeamon *gpProcEkrBattleDeamon;
 extern short gUnknown_0203E0FC;
@@ -78,7 +114,7 @@ extern short gUnknown_0203E100;
 extern short gUnknown_0203E102;
 extern short gUnknown_0203E104[];
 // extern ??? gUnknown_0203E108
-// extern ??? gUnknown_0203E114
+extern short gUnknown_0203E114[2];
 // extern ??? gUnknown_0203E118
 // extern ??? gUnknown_0203E11A
 // extern ??? gUnknown_0203E11C
@@ -96,12 +132,12 @@ extern struct ProcCmd gProc_ekrGauge[];
 // extern ??? gUnknown_085B949C
 // extern ??? gUnknown_085B94F0
 // extern ??? gUnknown_085B9544
-// extern ??? gUnknown_085B955C
-// extern ??? gUnknown_085B9574
-// extern ??? gUnknown_085B958C
-// extern ??? gUnknown_085B95A4
-// extern ??? gUnknown_085B95BC
-// extern ??? gUnknown_085B95D4
+extern u16 gUnknown_085B955C[];
+extern u16 gUnknown_085B9574[];
+extern u16 gUnknown_085B958C[];
+extern u16 gUnknown_085B95A4[];
+extern u16 gUnknown_085B95BC[];
+extern u16 gUnknown_085B95D4[];
 extern struct ProcCmd gProc_ekrDispUP[];
 extern struct ProcCmd gProc_efxHPBar[];
 extern struct ProcCmd gProc_efxHPBarResire[];
@@ -161,8 +197,8 @@ extern struct ProcCmd gProc_ekrTogiInit[];
 extern struct ProcCmd gProc_ekrTogiEnd[];
 extern struct ProcCmd gProc_ekrTogiColor[];
 
-void sub_804FD48(int unk);
-// ??? sub_804FD54(???);
+void SetEkrEventFlagMaybe(int unk);
+// ??? GetEkrEventFlagMaybe(???);
 void NewEkrBattleDeamon(void);
 // ??? EndEkrBattleDeamon(???);
 int IsBattleDeamonActive(void); // battle?
@@ -170,11 +206,11 @@ int IsBattleDeamonActive(void); // battle?
 // ??? nullsub_35(???);
 void NewEkrBattle(void);
 void InBattleMainRoutine(void);
-void MainUpdate_804FEE4(void);
+void MainUpdateEkrBattle(void);
 // ??? nullsub_36(???);
 // ??? ekrBattle_Init(???);
-// ??? ekrBattle_8050000(???);
-void ekrBattle_8050054(struct ProcEkrBattle *proc);
+// ??? ekrBattleMain(???);
+void ekrBattle_HandlePreEventMaybe(struct ProcEkrBattle *proc);
 void ekrBattle_80500F0(struct ProcEkrBattle *proc);
 void ekrBattle_8050134(struct ProcEkrBattle *proc);
 void ekrBattle_8050158(struct ProcEkrBattle *proc);
@@ -210,24 +246,24 @@ void ekrBattle_WaitForPopup(struct ProcEkrBattle *proc);
 // ??? ekrBattle_8050DA8(???);
 // ??? nullsub_69(???);
 // ??? NewEkrLvlupFan(???);
-// ??? EkrLvupFanMain(???);
+void EkrLvupFanMain(struct ProcEkrLvupFan *proc);
 // ??? sub_8050E40(???);
-// ??? sub_8050E90(???);
+// ??? ModDec(???);
 void NewEkrGauge(void);
 void EndEkrGauge(void);
-void EkrGauge_8051180(void);
-void EkrGauge_8051190(void);
-void EkrGauge_80511A0(void);
-void EkrGauge_80511B0(void);
-// ??? EkrGauge_80511C0(???);
-// ??? EkrGauge_80511D0(???);
-// ??? EkrGauge_80511E4(???);
-// ??? EkrGauge_80511F8(???);
-// ??? EkrGauge_8051208(???);
-void EkrGauge_8051218(void);
-void EkrGauge_8051228(void);
+void EkrGauge_Clr4C50(void);
+void EkrGauge_Set4C50(void);
+void EkrGauge_Set4C(void);
+void EkrGauge_Set50(void);
+void EkrGauge_Setup44(u16 val);
+void EkrGauge_Clr323A(int x, int y);
+void EkrGauge_Setxy323A(int x, int y);
+// ??? EkrGauge_SetInitFlag(???);
+void EkrGauge_ClrInitFlag(void);
+void EkrGauge_Set2A(void);
+void EkrGauge_Clr2A(void);
 // ??? sub_8051238(???);
-// ??? ekrGauge_Loop(???);
+void ekrGaugeMain(struct ProcEkrGauge *proc);
 void NewEkrDispUP(void);
 // ??? sub_8051AF4(???);
 // ??? sub_8051B08(???);
@@ -248,7 +284,7 @@ int sub_8052184(void);
 // ??? sub_8052214(???);
 void sub_8052220(void);
 // ??? sub_80522CC(???);
-// ??? sub_80522F4(???);
+short EkrEfxIsUnitHittedNow(enum ekr_battle_unit_position);
 // ??? sub_8052304(???);
 // ??? sub_80523EC(???);
 // ??? sub_8052504(???);
