@@ -134,6 +134,17 @@ struct bmsave_unkstruct2 {
     u16 magic2;
 };
 
+enum
+{
+    DEFEAT_CAUSE_0,
+    DEFEAT_CAUSE_1,
+    DEFEAT_CAUSE_COMBAT,
+    DEFEAT_CAUSE_TRAP,
+    DEFEAT_CAUSE_POISON,
+    DEFEAT_CAUSE_5,
+    DEFEAT_CAUSE_ARENA,
+};
+
 struct UnitUsageStats {
 	/* 000 */ unsigned lossAmt     : 8;
 	/* 008 */ unsigned favval      : 16;
