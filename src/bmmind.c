@@ -17,20 +17,23 @@
 #include "bmtarget.h"
 #include "bmudisp.h"
 #include "bm.h"
+#include "bmsave.h"
+#include "uiutils.h"
+
 #include "bmmind.h"
 
 #include "constants/items.h"
 #include "constants/terrains.h"
 
-struct UnknownBMMindProc {
+struct AfterDropActionProc {
     /* 00 */ PROC_HEADER;
 
     /* 29 */ u8 unk_29[0x54-0x29];
 
-    /* 54 */ struct Unit* unk_54;
+    /* 54 */ struct Unit* unit;
 };
 
-struct UnknownBMMindProc_2 {
+struct CombatActionProc {
     /* 00 */ PROC_HEADER;
 
     /* 29 */ u8 unk_29[0x54-0x29];
@@ -56,34 +59,39 @@ struct DeathDropAnimProc {
     /* 48 */ short clockEnd;
 };
 
-static int AfterDrop_CheckTrapAfterDropMaybe(struct UnknownBMMindProc* proc);
+static int AfterDrop_CheckTrapAfterDropMaybe(struct AfterDropActionProc* proc);
 static int sub_80321C8(void);
 
 struct ProcCmd CONST_DATA sProcScr_AfterDropAction[] = {
     PROC_SLEEP(0),
+
     PROC_WHILE(MU_IsAnyActive),
+
     PROC_CALL_2(AfterDrop_CheckTrapAfterDropMaybe),
     PROC_CALL(sub_80321C8),
 
     PROC_END,
 };
 
-static void sub_80325AC(struct DeathDropAnimProc* proc);
-static void sub_8032658(struct DeathDropAnimProc* proc);
-static void sub_8032664(void);
+static void DeathDropSpriteAnim_Loop(struct DeathDropAnimProc* proc);
+static void DeathDropSpriteAnim_ExecAnyTrap(struct DeathDropAnimProc* proc);
+static void DeathDropSpriteAnim_End(void);
 
 struct ProcCmd CONST_DATA sProcScr_DeathDropAnim[] = {
-    PROC_REPEAT(sub_80325AC),
-    PROC_CALL(sub_8032658),
+    PROC_REPEAT(DeathDropSpriteAnim_Loop),
+    PROC_CALL(DeathDropSpriteAnim_ExecAnyTrap),
+
     PROC_SLEEP(0),
-    PROC_CALL(sub_8032664),
+
+    PROC_CALL(DeathDropSpriteAnim_End),
 
     PROC_END,
 };
 
-static void BATTLE_PostCombatDeathFades(ProcPtr proc);
-static bool8 BATTLE_HandleItemDrop(ProcPtr proc);
-static void BATTLE_HandleCombatDeaths(ProcPtr proc);
+static void BATTLE_PostCombatDeathFades(struct CombatActionProc* proc);
+static bool BATTLE_HandleItemDrop(struct CombatActionProc* proc);
+static void BATTLE_HandleCombatDeaths(struct CombatActionProc* proc);
+void BATTLE_DeleteLinkedMOVEUNIT(struct CombatActionProc* proc);
 
 struct ProcCmd CONST_DATA sProcScr_CombatAction[] = {
     PROC_CALL(BeginBattleAnimations),
@@ -91,8 +99,11 @@ struct ProcCmd CONST_DATA sProcScr_CombatAction[] = {
     PROC_CALL(BattleApplyGameStateUpdates),
     PROC_WHILE(DoesBMXFADEExist),
     PROC_CALL(BATTLE_GOTO1_IfNobodyIsDead),
+
     PROC_CALL(BATTLE_PostCombatDeathFades),
-    PROC_SLEEP(0x20),
+
+    PROC_SLEEP(32),
+
     PROC_CALL(BATTLE_DeleteLinkedMOVEUNIT),
 
 PROC_LABEL(1),
@@ -109,8 +120,11 @@ static void BATTLE_HandleArenaDeathsMaybe(ProcPtr proc);
 struct ProcCmd CONST_DATA sProcScr_ArenaAction[] = {
     PROC_SLEEP(0),
     PROC_CALL(sub_8032974),
+
     PROC_CALL(BATTLE_PostCombatDeathFades),
-    PROC_SLEEP(0x20),
+
+    PROC_SLEEP(32),
+
     PROC_CALL(BATTLE_DeleteLinkedMOVEUNIT),
 
 PROC_LABEL(1),
@@ -120,25 +134,7 @@ PROC_LABEL(1),
     PROC_END,
 };
 
-
-// koido.s
-void Make6CKOIDO(struct Unit*, int, u8, ProcPtr);
-int GetSomeFacingDirection(int, int, int, int);
-
-// ev_triggercheck.s
-void sub_808371C(u8, u8, int);
-void sub_8083FB0(u8, u8);
-void sub_80840C4(int, int);
-
-// code_mapanim.s
-void BeginMapAnimForSteal(void);
-void BeginMapAnimForSummon(void);
-void BeginMapAnimForSummonDK(void);
-
-// code.s
-void PidStatsRecordDefeatInfo(u8, u8, int);
-
-// popup.s
+// TODO: Should #include "popup.h", but doing so does not match. Implicit declaration?
 void NewPopup_GeneralItemGot(struct Unit*, int, ProcPtr);
 
 s8 ActionRescue(ProcPtr);
@@ -153,17 +149,20 @@ s8 ActionSummon(ProcPtr);
 s8 ActionSummonDK(ProcPtr);
 s8 ActionArena(ProcPtr);
 
-void StoreRNStateToActionStruct() {
+//! FE8U = 0x08031FEC
+void StoreRNStateToActionStruct(void) {
     StoreRNState(gActionData._u00);
     return;
 }
 
-void LoadRNStateFromActionStruct() {
+//! FE8U = 0x08031FFC
+void LoadRNStateFromActionStruct(void) {
     LoadRNState(gActionData._u00);
     return;
 }
 
-unsigned int ApplyUnitAction(ProcPtr proc) {
+//! FE8U = 0x0803200C
+u32 ApplyUnitAction(ProcPtr proc) {
     gActiveUnit = GetUnit(gActionData.subjectIndex);
 
     if (gActionData.unitActionType == UNIT_ACTION_COMBAT) {
@@ -182,43 +181,58 @@ unsigned int ApplyUnitAction(ProcPtr proc) {
         case UNIT_ACTION_TRAPPED:
             gActiveUnit->state |= US_HAS_MOVED;
             return 1;
+
         case UNIT_ACTION_RESCUE:
             return ActionRescue(proc);
+
         case UNIT_ACTION_DROP:
             return ActionDrop(proc);
+
         case UNIT_ACTION_VISIT:
         case UNIT_ACTION_SEIZE:
             return ActionVisitAndSeize(proc);
+
         case UNIT_ACTION_COMBAT:
             return ActionCombat(proc);
+
         case UNIT_ACTION_DANCE:
             return ActionDance(proc);
+
         case UNIT_ACTION_TALK:
             return ActionTalk(proc);
+
         case UNIT_ACTION_SUPPORT:
             return ActionSupport(proc);
+
         case UNIT_ACTION_STEAL:
             return ActionSteal(proc);
+
         case UNIT_ACTION_SUMMON:
             return ActionSummon(proc);
+
         case UNIT_ACTION_SUMMON_DK:
             return ActionSummonDK(proc);
+
         case UNIT_ACTION_ARENA:
             return ActionArena(proc);
+
         case UNIT_ACTION_STAFF:
         case UNIT_ACTION_DOOR:
         case UNIT_ACTION_CHEST:
         case UNIT_ACTION_USE_ITEM:
             ActionStaffDoorChestUseItem(proc);
             return 0;
+
         case UNIT_ACTION_PICK:
             ActionPick(proc);
             return 0;
+
         default:
             return 1;
     }
 }
 
+//! FE8U = 0x08032164
 s8 ActionRescue(ProcPtr proc) {
     struct Unit* subject = GetUnit(gActionData.subjectIndex);
     struct Unit* target = GetUnit(gActionData.targetIndex);
@@ -238,11 +252,13 @@ s8 ActionRescue(ProcPtr proc) {
     return 0;
 }
 
-int AfterDrop_CheckTrapAfterDropMaybe(struct UnknownBMMindProc* proc) {
-    return sub_80377F0(proc, proc->unk_54);
+//! FE8U = 0x080321B8
+int AfterDrop_CheckTrapAfterDropMaybe(struct AfterDropActionProc* proc) {
+    return sub_80377F0(proc, proc->unit);
 }
 
-int sub_80321C8() {
+//! FE8U = 0x080321C8
+int sub_80321C8(void) {
     RefreshEntityBmMaps();
     RenderBmMap();
     RefreshUnitSprites();
@@ -251,13 +267,15 @@ int sub_80321C8() {
     // return; // BUG?
 }
 
+//! FE8U = 0x080321E0
 s8 ActionDrop(ProcPtr proc) {
-    struct Unit* target = GetUnit(gActionData.targetIndex);
-    ProcPtr child;
+    struct AfterDropActionProc* child;
 
-    if ((1 & gBmMapHidden[gActionData.yOther][gActionData.xOther])) {
-        gWorkingMovementScript[0] = 0xA;
-        gWorkingMovementScript[1] = 4;
+    struct Unit* target = GetUnit(gActionData.targetIndex);
+
+    if (gBmMapHidden[gActionData.yOther][gActionData.xOther] & HIDDEN_BIT_UNIT) {
+        gWorkingMovementScript[0] = MU_COMMAND_BUMP;
+        gWorkingMovementScript[1] = MU_COMMAND_HALT;
         MU_StartMoveScript_Auto(gWorkingMovementScript);
         return 0;
     }
@@ -278,24 +296,22 @@ s8 ActionDrop(ProcPtr proc) {
     );
 
     child = Proc_StartBlocking(sProcScr_AfterDropAction, proc);
-    ((struct UnknownBMMindProc*)(child))->unk_54 = target;
+    child->unit = target;
 
     return 0;
 }
 
-// TODO: Fake match - register allocation prefers r5 without the register keyword
+//! FE8U = 0x08032270
 s8 ActionVisitAndSeize(ProcPtr proc) {
-    register int x asm("r4");
-    int y;
-
-    x = GetUnit(gActionData.subjectIndex)->xPos;
-    y = GetUnit(gActionData.subjectIndex)->yPos;
+    int x = GetUnit(gActionData.subjectIndex)->xPos;
+    int y = GetUnit(gActionData.subjectIndex)->yPos;
 
     sub_80840C4(x, y);
 
     return 0;
 }
 
+//! FE8U = 0x0803229C
 s8 ActionCombat(ProcPtr proc) {
     struct Unit* target = GetUnit(gActionData.targetIndex);
 
@@ -306,7 +322,8 @@ s8 ActionCombat(ProcPtr proc) {
     gBattleActor.hasItemEffectTarget = 0;
 
     if (itemIdx == ITEM_NIGHTMARE) {
-        int i, targetCount;
+        int i;
+        int targetCount;
 
         MakeTargetListForFuckingNightmare(GetUnit(gActionData.subjectIndex));
         targetCount = GetSelectTargetCount();
@@ -323,7 +340,7 @@ s8 ActionCombat(ProcPtr proc) {
         InitObstacleBattleUnit();
     }
 
-    if (gActionData.itemSlotIndex == 8) {
+    if (gActionData.itemSlotIndex == BU_ISLOT_BALLISTA) {
         BattleGenerateBallistaReal(GetUnit(gActionData.subjectIndex), target);
     } else {
         BattleGenerateReal(GetUnit(gActionData.subjectIndex), target);
@@ -334,18 +351,20 @@ s8 ActionCombat(ProcPtr proc) {
     return 0;
 }
 
+//! FE8U = 0x08032344
 s8 ActionArena(ProcPtr proc) {
     Proc_StartBlocking(sProcScr_ArenaAction, proc);
     return 0;
 }
 
+//! FE8U = 0x08032358
 s8 ActionDance(ProcPtr proc) {
     GetUnit(gActionData.targetIndex)->state &= ~( US_UNSELECTABLE | US_HAS_MOVED | US_HAS_MOVED_AI );
 
     BattleInitItemEffect(GetUnit(gActionData.subjectIndex), -1);
     BattleInitItemEffectTarget(GetUnit(gActionData.targetIndex));
 
-    gBattleStats.config = 0x40;
+    gBattleStats.config = BATTLE_CONFIG_REFRESH;
 
     BattleApplyMiscAction(proc);
     BeginBattleAnimations();
@@ -353,6 +372,7 @@ s8 ActionDance(ProcPtr proc) {
     return 0;
 }
 
+//! FE8U = 0x080323A8
 s8 ActionTalk(ProcPtr proc) {
     sub_8083FB0(
         GetUnit(gActionData.subjectIndex)->pCharacterData->number,
@@ -362,8 +382,10 @@ s8 ActionTalk(ProcPtr proc) {
     return 0;
 }
 
+//! FE8U = 0x080323D4
 s8 ActionSupport(ProcPtr proc) {
-    int subjectExp, targetExp;
+    int subjectExp;
+    int targetExp;
 
     struct Unit* target = GetUnit(gActionData.targetIndex);
 
@@ -397,21 +419,23 @@ s8 ActionSupport(ProcPtr proc) {
     return 0;
 }
 
+//! FE8U = 0x0803247C
 s8 ActionSteal(ProcPtr proc) {
-    int itemIdx;
+    int item;
+
     struct Unit* target = GetUnit(gActionData.targetIndex);
 
-    if ((target->state & US_DROP_ITEM)) {
+    if (target->state & US_DROP_ITEM) {
         if (gActionData.itemSlotIndex == (GetUnitItemCount(target) - 1)) {
             target->state &= ~US_DROP_ITEM;
         }
     }
 
-    itemIdx = GetUnit(gActionData.targetIndex)->items[gActionData.itemSlotIndex];
+    item = GetUnit(gActionData.targetIndex)->items[gActionData.itemSlotIndex];
 
     UnitRemoveItem(GetUnit(gActionData.targetIndex), gActionData.itemSlotIndex);
 
-    switch (0xFF & itemIdx) {
+    switch (ITEM_INDEX(item)) {
         case ITEM_1G:
         case ITEM_5G:
         case ITEM_10G:
@@ -421,17 +445,18 @@ s8 ActionSteal(ProcPtr proc) {
         case ITEM_200G:
         case ITEM_3000G:
         case ITEM_5000G:
-            SetPartyGoldAmount(GetPartyGoldAmount() + GetItemCost(itemIdx));
+            SetPartyGoldAmount(GetPartyGoldAmount() + GetItemCost(item));
             break;
+
         default:
-            UnitAddItem(GetUnit(gActionData.subjectIndex), itemIdx);
+            UnitAddItem(GetUnit(gActionData.subjectIndex), item);
             break;
     }
 
     BattleInitItemEffect(GetUnit(gActionData.subjectIndex), -1);
     gBattleTarget.terrainId = TERRAIN_PLAINS;
     InitBattleUnit(&gBattleTarget, GetUnit(gActionData.targetIndex));
-    gBattleTarget.weapon = itemIdx;
+    gBattleTarget.weapon = item;
     BattleApplyMiscAction(proc);
 
     MU_EndAll();
@@ -440,6 +465,7 @@ s8 ActionSteal(ProcPtr proc) {
     return 0;
 }
 
+//! FE8U = 0x08032554
 s8 ActionSummon(ProcPtr proc) {
     InitBattleUnit(&gBattleActor, gActiveUnit);
 
@@ -450,6 +476,7 @@ s8 ActionSummon(ProcPtr proc) {
     return 0;
 }
 
+//! FE8U = 0x08032580
 s8 ActionSummonDK(ProcPtr proc) {
     InitBattleUnit(&gBattleActor, gActiveUnit);
 
@@ -460,9 +487,10 @@ s8 ActionSummonDK(ProcPtr proc) {
     return 0;
 }
 
-void sub_80325AC(struct DeathDropAnimProc* proc) {
-    int x = Interpolate(0, proc->xFrom, proc->xTo, proc->clock, proc->clockEnd);
-    int y = Interpolate(0, proc->yFrom, proc->yTo, proc->clock, proc->clockEnd);
+//! FE8U = 0x080325AC
+void DeathDropSpriteAnim_Loop(struct DeathDropAnimProc* proc) {
+    int x = Interpolate(INTERPOLATE_LINEAR, proc->xFrom, proc->xTo, proc->clock, proc->clockEnd);
+    int y = Interpolate(INTERPOLATE_LINEAR, proc->yFrom, proc->yTo, proc->clock, proc->clockEnd);
 
     y += proc->yOffset;
 
@@ -485,18 +513,21 @@ void sub_80325AC(struct DeathDropAnimProc* proc) {
     return;
 }
 
-void sub_8032658(struct DeathDropAnimProc* proc) {
+//! FE8U = 0x08032658
+void DeathDropSpriteAnim_ExecAnyTrap(struct DeathDropAnimProc* proc) {
     sub_8037830(proc, proc->unit);
     return;
 }
 
-void sub_8032664() {
+//! FE8U = 0x08032664
+void DeathDropSpriteAnim_End(void) {
     RefreshEntityBmMaps();
     RefreshUnitSprites();
 
     return;
 }
 
+//! FE8U = 0x08032674
 void DropRescueOnDeath(ProcPtr proc, struct Unit* unit) {
     struct DeathDropAnimProc* child;
 
@@ -529,21 +560,24 @@ void DropRescueOnDeath(ProcPtr proc, struct Unit* unit) {
     ForceSyncUnitSpriteSheet();
 
     PlaySoundEffect(0xAC);
+
     return;
 }
 
+//! FE8U = 0x08032728
 void KillUnitOnCombatDeath(struct Unit* unitA, struct Unit* unitB) {
     if (GetUnitCurrentHp(unitA) != 0) {
         return;
     }
 
-    PidStatsRecordDefeatInfo(unitA->pCharacterData->number, unitB->pCharacterData->number, 2);
+    PidStatsRecordDefeatInfo(unitA->pCharacterData->number, unitB->pCharacterData->number, DEFEAT_CAUSE_COMBAT);
 
     UnitKill(unitA);
 
     return;
 }
 
+//! FE8U = 0x08032750
 void KillUnitOnArenaDeathMaybe(struct Unit* unit) {
     if (GetUnitCurrentHp(unit) != 0) {
         return;
@@ -551,13 +585,14 @@ void KillUnitOnArenaDeathMaybe(struct Unit* unit) {
 
     UnitKill(unit);
 
-    PidStatsRecordDefeatInfo(unit->pCharacterData->number, 0, 6);
+    PidStatsRecordDefeatInfo(unit->pCharacterData->number, 0, DEFEAT_CAUSE_ARENA);
 
     return;
 }
 
+//! FE8U = 0x08032774
 void BATTLE_GOTO1_IfNobodyIsDead(ProcPtr proc) {
-    if ((gBattleStats.config & 0x80) == 0) {
+    if (!(gBattleStats.config & BATTLE_CONFIG_MAPANIMS)) {
         if (gBattleActor.unit.curHP == 0) {
             return;
         }
@@ -572,23 +607,25 @@ void BATTLE_GOTO1_IfNobodyIsDead(ProcPtr proc) {
     return;
 }
 
-bool8 DidUnitDie(struct Unit* unit) {
+//! FE8U = 0x080327B4
+bool DidUnitDie(struct Unit* unit) {
     if (GetUnitCurrentHp(unit) != 0) {
-        return 0;
-    } else {
-        return 1;
+        return false;
     }
+
+    return true;
 }
 
-void BATTLE_PostCombatDeathFades(ProcPtr proc) {
+//! FE8U = 0x080327B4
+void BATTLE_PostCombatDeathFades(struct CombatActionProc* proc) {
     struct MUProc* muProc;
 
-    ((struct UnknownBMMindProc_2*)(proc))->unk_54 = 0;
+    proc->unk_54 = NULL;
 
     if (DidUnitDie(&gBattleActor.unit)) {
         muProc = Proc_Find(gProcScr_MoveUnit);
         MU_StartDeathFade(muProc);
-        ((struct UnknownBMMindProc_2*)(proc))->unk_54 = muProc;
+        proc->unk_54 = muProc;
 
         TryRemoveUnitFromBallista(&gBattleActor.unit);
     }
@@ -603,25 +640,27 @@ void BATTLE_PostCombatDeathFades(ProcPtr proc) {
         muProc = MU_Create(&gBattleTarget.unit);
 
         gWorkingMovementScript[0] = GetFacingDirection(gBattleActor.unit.xPos, gBattleActor.unit.yPos, gBattleTarget.unit.xPos, gBattleTarget.unit.yPos);
-        gWorkingMovementScript[1] = 4;
+        gWorkingMovementScript[1] = MU_COMMAND_HALT;
 
         MU_StartMoveScript(muProc, gWorkingMovementScript);
         MU_StartDeathFade(muProc);
 
-        ((struct UnknownBMMindProc_2*)(proc))->unk_54 = muProc;
+        proc->unk_54 = muProc;
     }
 
     return;
 }
 
-void BATTLE_DeleteLinkedMOVEUNIT(ProcPtr proc) {
-    MU_End(((struct UnknownBMMindProc_2*)(proc))->unk_54);
+//! FE8U = 0x08032860
+void BATTLE_DeleteLinkedMOVEUNIT(struct CombatActionProc* proc) {
+    MU_End(proc->unk_54);
     return;
 }
 
-void BATTLE_HandleCombatDeaths(ProcPtr proc) {
-    struct Unit* unitA = GetUnit(((struct UnknownBMMindProc_2*)(proc))->unitIdA);
-    struct Unit* unitB = GetUnit(((struct UnknownBMMindProc_2*)(proc))->unitIdB);
+//! FE8U = 0x0803286C
+void BATTLE_HandleCombatDeaths(struct CombatActionProc* proc) {
+    struct Unit* unitA = GetUnit(proc->unitIdA);
+    struct Unit* unitB = GetUnit(proc->unitIdB);
 
     DropRescueOnDeath(proc, unitA);
     DropRescueOnDeath(proc, unitB);
@@ -632,7 +671,8 @@ void BATTLE_HandleCombatDeaths(ProcPtr proc) {
     return;
 }
 
-void sub_80328B0() {
+//! FE8U = 0x080328B0
+void sub_80328B0(void) {
     int bgmIdx = GetCurrentMapMusicIndex();
 
     if (Sound_GetCurrentSong() != bgmIdx) {
@@ -642,12 +682,13 @@ void sub_80328B0() {
     return;
 }
 
-bool8 BATTLE_HandleItemDrop(ProcPtr proc) {
+//! FE8U = 0x080328D0
+bool BATTLE_HandleItemDrop(struct CombatActionProc* proc) {
     struct Unit* unitA = NULL;
     struct Unit* unitB;
 
-    ((struct UnknownBMMindProc_2*)(proc))->unitIdA = gBattleActor.unit.index;
-    ((struct UnknownBMMindProc_2*)(proc))->unitIdB = gBattleTarget.unit.index;
+    proc->unitIdA = gBattleActor.unit.index;
+    proc->unitIdB = gBattleTarget.unit.index;
 
     if (gBattleActor.unit.curHP == 0) {
         unitA = GetUnit(gBattleActor.unit.index);
@@ -660,19 +701,19 @@ bool8 BATTLE_HandleItemDrop(ProcPtr proc) {
     }
 
     if (unitA == NULL) {
-        return 1;
+        return true;
     }
 
     if (!(unitA->state & US_DROP_ITEM)) {
-        return 1;
+        return true;
     }
 
     if (unitA->items[0] == 0) {
-        return 1;
+        return true;
     }
 
-    if ((UNIT_FACTION(unitB)) != 0) {
-        return 1;
+    if (UNIT_FACTION(unitB) != FACTION_BLUE) {
+        return true;
     }
 
     NewPopup_GeneralItemGot(
@@ -681,9 +722,10 @@ bool8 BATTLE_HandleItemDrop(ProcPtr proc) {
         proc
     );
 
-    return 0;
+    return false;
 }
 
+//! FE8U = 0x08032974
 void sub_8032974(ProcPtr proc) {
     gBattleTarget.unit.maxHP = 1;
     gBattleTarget.unit.curHP = 1;
@@ -695,6 +737,7 @@ void sub_8032974(ProcPtr proc) {
     return;
 }
 
+//! FE8U = 0x080329A0
 void BATTLE_HandleArenaDeathsMaybe(ProcPtr proc) {
     KillUnitOnArenaDeathMaybe(gActiveUnit);
     DropRescueOnDeath(proc, gActiveUnit);
@@ -702,33 +745,10 @@ void BATTLE_HandleArenaDeathsMaybe(ProcPtr proc) {
     return;
 }
 
-#if NONMATCHING
+extern u8 gUnknown_0203A974[];
 
-??? sub_80329C0(u8 r0) {
-    CpuFastFill(r0, gUnknown_0203A974, 7);
-
+//! FE8U = 0x080329C0
+u8* sub_80329C0(u8* r0) {
+    CpuFastCopy(r0, gUnknown_0203A974, 0x1C);
     return gUnknown_0203A974;
 }
-
-#else // if !NONMATCHING
-
-__attribute__((naked))
-void sub_80329C0(u8 r0) {
-    asm("\n\
-        .syntax unified\n\
-        push {r4, lr}\n\
-        ldr r4, _080329D4  @ gUnknown_0203A974\n\
-        adds r1, r4, #0\n\
-        movs r2, #7\n\
-        bl CpuFastSet\n\
-        adds r0, r4, #0\n\
-        pop {r4}\n\
-        pop {r1}\n\
-        bx r1\n\
-        .align 2, 0\n\
-    _080329D4: .4byte gUnknown_0203A974\n\
-        .syntax divided\n\
-    ");
-}
-
-#endif // NONMATCHING
