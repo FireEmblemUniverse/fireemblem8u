@@ -150,7 +150,7 @@ PROC_LABEL(4),
     PROC_CALL(RenderBmMap),
     PROC_CALL(StartMapSongBgm),
 
-    PROC_CALL(sub_8013D8C),
+    PROC_CALL(IntroPromoTraineeEventFace),
     PROC_REPEAT(WaitForFade),
 
     PROC_GOTO(5),
@@ -159,7 +159,7 @@ PROC_LABEL(6),
     PROC_CALL(RenderBmMap),
     PROC_CALL(StartMapSongBgm),
 
-    PROC_CALL(sub_8013D8C),
+    PROC_CALL(IntroPromoTraineeEventFace),
     PROC_REPEAT(WaitForFade),
 
     PROC_REPEAT(BmMain_ResumePlayerPhase),
@@ -180,7 +180,7 @@ PROC_LABEL(8),
     PROC_CALL(RenderBmMap),
     PROC_CALL(StartMapSongBgm),
 
-    PROC_CALL(sub_8013D8C),
+    PROC_CALL(IntroPromoTraineeEventFace),
     PROC_REPEAT(WaitForFade),
 
     PROC_GOTO(9),
@@ -189,7 +189,7 @@ PROC_LABEL(7),
     PROC_CALL(RenderBmMap),
     PROC_CALL(StartMapSongBgm),
 
-    PROC_CALL(sub_8013D8C),
+    PROC_CALL(IntroPromoTraineeEventFace),
     PROC_REPEAT(WaitForFade),
 
     PROC_START_CHILD_BLOCKING(gProcScr_BerserkCpPhase),

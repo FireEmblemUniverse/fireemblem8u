@@ -11,70 +11,80 @@
 #include "statscreen.h"
 #include "uiutils.h"
 
-void sub_80CC4AC(struct PromoProc2 *proc);
-void sub_80CC5B4(struct PromoProc2 *proc);
-int sub_80CDA2C(struct PromoProc2 *proc);
-u32 sub_80CDA38(struct PromoProc2 *proc);
-void sub_80CC628(struct PromoProc2 *proc);
-u32 sub_80CD2F8(struct PromoProc2 *proc);
-u32 sub_80CD330(struct PromoProc2 *proc);
-void sub_80CDEA8(struct PromoProc2 *proc);
-void sub_80CC66C(struct PromoProc2 *proc);
-void sub_80CC698(struct PromoProc2 *proc);
+void PromoMain_InitScreen(struct ProcPromoMain *proc);
+void PromoMain_HandleType(struct ProcPromoMain *proc);
+int PromoMain_SetupTraineeEvent_(struct ProcPromoMain *proc);
+bool PromoTraineeEventExists(struct ProcPromoMain *proc);
+void PromoHandleTraineePostType(struct ProcPromoMain *proc);
+bool StartAndWaitPromoSelect(ProcPtr proc);
+u32 sub_80CD330(struct ProcPromoMain *proc);
+void PromoMain_PostSelect(struct ProcPromoMain *proc);
+void PromoMain_HandlePrepEndEffect(struct ProcPromoMain *proc);
+void PromoMain_OnEnd(struct ProcPromoMain *proc);
 
 CONST_DATA
-struct ProcCmd gUnknown_08B12614[] =
+struct ProcCmd ProcScr_PromoMain[] =
 {
 	PROC_NAME("ccramify"),
-	PROC_LABEL(0),
-    PROC_CALL(sub_80CC4AC),
+
+PROC_LABEL(PROMOMAIN_LABEL_START),
+    PROC_CALL(PromoMain_InitScreen),
     PROC_SLEEP(3),
-	PROC_LABEL(1),
-    PROC_CALL(sub_80CC5B4),
-    PROC_LABEL(2),
-    PROC_WHILE(sub_80CDA2C),
-    PROC_WHILE(sub_80CDA38),
-    PROC_CALL(sub_80CC628),
-    PROC_LABEL(4),
-    PROC_WHILE(sub_80CD2F8),
+
+PROC_LABEL(PROMOMAIN_LABEL_1),
+    PROC_CALL(PromoMain_HandleType),
+
+PROC_LABEL(PROMOMAIN_LABEL_TRAINEE),
+    PROC_WHILE(PromoMain_SetupTraineeEvent_),
+    PROC_WHILE(PromoTraineeEventExists),
+    PROC_CALL(PromoHandleTraineePostType),
+
+PROC_LABEL(PROMOMAIN_LABEL_SEL_EN),
+    PROC_WHILE(StartAndWaitPromoSelect),
     PROC_SLEEP(5),
     PROC_REPEAT(sub_80CD330),
-    PROC_LABEL(5),
-    PROC_CALL(sub_80CDEA8),
+
+PROC_LABEL(PROMOMAIN_LABEL_POST_SEL),
+    PROC_CALL(PromoMain_PostSelect),
     PROC_SLEEP(2),
-    PROC_LABEL(6),
-    PROC_CALL(sub_80CC66C),
-    PROC_LABEL(7),
-    PROC_LABEL(8),
-    PROC_CALL(sub_80CC698),
+
+PROC_LABEL(6),
+    PROC_CALL(PromoMain_HandlePrepEndEffect),
+
+PROC_LABEL(7),
+PROC_LABEL(8),
+    PROC_CALL(PromoMain_OnEnd),
     PROC_END,
 };
 
-struct PromoProc2 *Make6C_PromotionMain(ProcPtr proc);
+struct ProcPromoMain *Make6C_PromotionMain(ProcPtr proc);
 
-void MakePromotionScreen(ProcPtr proc, u32 a, u32 b) {
-    struct PromoProc *proc_ = (struct PromoProc *) proc;
-    u8 a_ = a;
-    u8 b_ = b;
-    struct PromoProc2 *res;
-    proc_->u30 = 0;
-    res = Make6C_PromotionMain(proc_);
-    proc_->u2c = res;
-    res->u38 = a_;
-    res->u39 = b_;
+void MakePromotionScreen(struct ProcPromoHandler *proc, u8 pid, u8 terrain)
+{
+    struct ProcPromoMain *child;
+
+    /* set callback stat */
+    proc->stat = PROMO_HANDLER_STAT_INIT;
+
+    child = Make6C_PromotionMain(proc);
+    proc->promo_main = child;
+    child->pid = pid;
+    child->terrain = terrain;
 }
 
-struct PromoProc2 *Make6C_PromotionMain(ProcPtr proc) {
-    Proc_StartBlocking(gUnknown_08B12614, proc);
+struct ProcPromoMain *Make6C_PromotionMain(ProcPtr proc)
+{
+    Proc_StartBlocking(ProcScr_PromoMain, proc);
 }
 
-void sub_80CC4AC(struct PromoProc2 *proc) {
-    struct PromoProc *parent;
-    proc->u29 = 0;
-    proc->u30 = 0;
-    proc->u34 = 0;
+void PromoMain_InitScreen(struct ProcPromoMain *proc)
+{
+    struct ProcPromoHandler *parent;
+    proc->stat = PROMO_HANDLER_STAT_INIT;
+    proc->priv = 0;
+    proc->sel_en = 0;
     parent = proc->proc_parent;
-    if (parent->u31 == 0) {
+    if (parent->bmtype == PROMO_HANDLER_TYPE_TRANINEE) {
         ResetFaces();
         Font_InitForUIDefault();
         LoadUiFrameGraphics();
@@ -84,8 +94,8 @@ void sub_80CC4AC(struct PromoProc2 *proc) {
         gLCDControlBuffer.bg2cnt.priority = 1;
         gLCDControlBuffer.bg3cnt.priority = 3;
     }
-    if (parent->u31 == 1) {
-        struct PromoProc *gparent = parent->proc_parent;
+    if (parent->bmtype == PROMO_HANDLER_TYPE_BM) {
+        struct ProcPromoHandler *gparent = parent->proc_parent;
 
         SetupBackgrounds(0);
         EndGreenTextColorManager();
@@ -105,7 +115,7 @@ void sub_80CC4AC(struct PromoProc2 *proc) {
         gLCDControlBuffer.bg3cnt.priority = 3;
         BG_EnableSyncByMask(2);
     }
-    if (parent->u31 == 2) {
+    if (parent->bmtype == PROMO_HANDLER_TYPE_PREP) {
         gLCDControlBuffer.bg0cnt.priority = 0;
         gLCDControlBuffer.bg1cnt.priority = 2;
         gLCDControlBuffer.bg2cnt.priority = 1;
@@ -113,51 +123,60 @@ void sub_80CC4AC(struct PromoProc2 *proc) {
     }
 }
 
-void sub_80CC5B4(struct PromoProc2 *proc) {
-    struct PromoProc *parent = proc->proc_parent;
-    switch (parent->u31) {
-        case 0:
-            Proc_Goto(proc, 2);
+void PromoMain_HandleType(struct ProcPromoMain *proc)
+{
+    struct ProcPromoHandler *parent = proc->proc_parent;
+    switch (parent->bmtype) {
+        case PROMO_HANDLER_TYPE_TRANINEE:
+            Proc_Goto(proc, PROMOMAIN_LABEL_TRAINEE);
             break;
-        case 1:
-            if (!parent->u34) {
-                proc->u3b = parent->u35;
-                Proc_Goto(proc, 5);
+
+        case PROMO_HANDLER_TYPE_BM:
+
+            /* If not select, direcly promote unit */
+            if (parent->sel_en == false) {
+                proc->jid = parent->jid;
+                Proc_Goto(proc, PROMOMAIN_LABEL_POST_SEL);
             }
-            else if (parent->u34 == 1)
-                Proc_Goto(proc, 4);
+            /* other prepare for branch selection */
+            else if (parent->sel_en == true)
+                Proc_Goto(proc, PROMOMAIN_LABEL_SEL_EN);
             break;
-        case 2:
-            if (!parent->u34) {
-                proc->u3b = parent->u35;
-                Proc_Goto(proc, 5);
+
+        case PROMO_HANDLER_TYPE_PREP:
+            if (parent->sel_en == false) {
+                proc->jid = parent->jid;
+                Proc_Goto(proc, PROMOMAIN_LABEL_POST_SEL);
             }
-            else if (parent->u34 == 1)
-                Proc_Goto(proc, 4);
+            else if (parent->sel_en == true)
+                Proc_Goto(proc, PROMOMAIN_LABEL_SEL_EN);
             break;
     }
 }
 
-void sub_80CC628(struct PromoProc2 *proc) {
-    struct PromoProc *parent = proc->proc_parent;
-    if (parent->u31 == 0) {
-        if (parent->u34 == 0) {
-            proc->u3b = parent->u35;
-            Proc_Goto(proc, 5);
+void PromoHandleTraineePostType(struct ProcPromoMain *proc)
+{
+    struct ProcPromoHandler *parent = proc->proc_parent;
+    if (parent->bmtype == PROMO_HANDLER_TYPE_TRANINEE) {
+        if (parent->sel_en == false) {
+            proc->jid = parent->jid;
+            Proc_Goto(proc, PROMOMAIN_LABEL_POST_SEL);
         }
-        if (parent->u34 == 1) {
-            Proc_Goto(proc, 4);
+        if (parent->sel_en == true) {
+            Proc_Goto(proc, PROMOMAIN_LABEL_SEL_EN);
         }
     }
 }
 
-void sub_80CC66C(struct PromoProc2 *proc) {
-    struct PromoProc *parent = proc->proc_parent;
-    switch (parent->u31) {
-        case 0:
-        case 1:
+void PromoMain_HandlePrepEndEffect(struct ProcPromoMain *proc)
+{
+    struct ProcPromoHandler *parent = proc->proc_parent;
+    switch (parent->bmtype) {
+        case PROMO_HANDLER_TYPE_TRANINEE:
+        case PROMO_HANDLER_TYPE_BM:
             break;
-        case 2:
+
+        case PROMO_HANDLER_TYPE_PREP:
             BMapDispResume();
             RefreshUnitSprites();
             SetupMapSpritesPalettes();
@@ -167,15 +186,15 @@ void sub_80CC66C(struct PromoProc2 *proc) {
     }
 }
 
-void sub_80CC698(struct PromoProc2 *proc) {
-    struct PromoProc *parent = proc->proc_parent;
-    if (parent->u31 == 0) {
+void PromoMain_OnEnd(struct ProcPromoMain *proc)
+{
+    struct ProcPromoHandler *parent = proc->proc_parent;
+    if (parent->bmtype == PROMO_HANDLER_TYPE_TRANINEE) {
         sub_8002670();
         Sound_SetSEVolume(0x100);
         sub_8002620(0x34);
     }
-    parent->u30 = 2;
+    parent->stat = 2;
     EndAllProcChildren(proc);
     Proc_End(proc);
 }
-

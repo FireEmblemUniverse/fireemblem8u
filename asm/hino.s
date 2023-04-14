@@ -1202,15 +1202,15 @@ sub_8013D80: @ 0x08013D80
 
 	THUMB_FUNC_END sub_8013D80
 
-	THUMB_FUNC_START sub_8013D8C
-sub_8013D8C: @ 0x08013D8C
+	THUMB_FUNC_START IntroPromoTraineeEventFace
+IntroPromoTraineeEventFace: @ 0x08013D8C
 	push {lr}
 	movs r0, #0x10
 	bl sub_8013CEC
 	pop {r0}
 	bx r0
 
-	THUMB_FUNC_END sub_8013D8C
+	THUMB_FUNC_END IntroPromoTraineeEventFace
 
 	THUMB_FUNC_START sub_8013D98
 sub_8013D98: @ 0x08013D98

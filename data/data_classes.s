@@ -15,7 +15,7 @@ gClassData:  @ 0x08807164
     .4byte 0x20002000
     .4byte 0x00001f00
     .4byte 0x00000000
-    .4byte gUnknown_088ADFA6 + 0x1032
+    .4byte gItemUseJidList_SolarBrace + 0x1032
     .4byte gItemData + 0x1cf8
     .4byte gUnknown_0880BC18 + 0x41
     .4byte gUnknown_0880BC18 + 0x451
@@ -36,7 +36,7 @@ gClassData:  @ 0x08807164
     .4byte 0x10022000
     .4byte 0x00000001
     .4byte 0x00000000
-    .4byte gUnknown_088ADFA6 + 0x103e
+    .4byte gItemUseJidList_SolarBrace + 0x103e
     .4byte gItemData + 0x1cf8
     .4byte gUnknown_0880BC18 + 0x41
     .4byte gUnknown_0880BC18 + 0x451
@@ -57,7 +57,7 @@ gClassData:  @ 0x08807164
     .4byte 0x20002503
     .4byte 0x00004700
     .4byte 0x00000000
-    .4byte gUnknown_088ADFA6 + 0x104a
+    .4byte gItemUseJidList_SolarBrace + 0x104a
     .4byte gUnknown_0880B90C + 0x1c7
     .4byte gUnknown_0880BC18 + 0x30c
     .4byte gUnknown_0880BC18 + 0x71c
@@ -78,7 +78,7 @@ gClassData:  @ 0x08807164
     .4byte 0x10022503
     .4byte 0x00000047
     .4byte 0x00000000
-    .4byte gUnknown_088ADFA6 + 0x1056
+    .4byte gItemUseJidList_SolarBrace + 0x1056
     .4byte gUnknown_0880B90C + 0x1c7
     .4byte gUnknown_0880BC18 + 0x30c
     .4byte gUnknown_0880BC18 + 0x71c
@@ -99,7 +99,7 @@ gClassData:  @ 0x08807164
     .4byte 0x00000403
     .4byte 0x00001f01
     .4byte 0x00000000
-    .4byte gUnknown_088ADFA6 + 0x1062
+    .4byte gItemUseJidList_SolarBrace + 0x1062
     .4byte gUnknown_0880B90C + 0x186
     .4byte gUnknown_0880BC18 + 0x2cb
     .4byte gUnknown_0880BC18 + 0x6db
@@ -120,7 +120,7 @@ gClassData:  @ 0x08807164
     .4byte 0x00000403
     .4byte 0x00001f01
     .4byte 0x00000000
-    .4byte gUnknown_088ADFA6 + 0x1072
+    .4byte gItemUseJidList_SolarBrace + 0x1072
     .4byte gUnknown_0880B90C + 0x186
     .4byte gUnknown_0880BC18 + 0x2cb
     .4byte gUnknown_0880BC18 + 0x6db
@@ -141,7 +141,7 @@ gClassData:  @ 0x08807164
     .4byte 0x00000503
     .4byte 0x00001f1f
     .4byte 0x00000000
-    .4byte gUnknown_088ADFA6 + 0x1082
+    .4byte gItemUseJidList_SolarBrace + 0x1082
     .4byte gUnknown_0880B90C + 0x1c7
     .4byte gUnknown_0880BC18 + 0x30c
     .4byte gUnknown_0880BC18 + 0x71c
@@ -162,7 +162,7 @@ gClassData:  @ 0x08807164
     .4byte 0x00000503
     .4byte 0x00001f1f
     .4byte 0x00000000
-    .4byte gUnknown_088ADFA6 + 0x1092
+    .4byte gItemUseJidList_SolarBrace + 0x1092
     .4byte gUnknown_0880B90C + 0x1c7
     .4byte gUnknown_0880BC18 + 0x30c
     .4byte gUnknown_0880BC18 + 0x71c
@@ -183,7 +183,7 @@ gClassData:  @ 0x08807164
     .4byte 0x00000000
     .4byte 0x00001f00
     .4byte 0x00000000
-    .4byte gUnknown_088ADFA6 + 0x10a2
+    .4byte gItemUseJidList_SolarBrace + 0x10a2
     .4byte gItemData + 0x1d7a
     .4byte gUnknown_0880BC18 + 0xc3
     .4byte gUnknown_0880BC18 + 0x4d3
@@ -204,7 +204,7 @@ gClassData:  @ 0x08807164
     .4byte 0x00000000
     .4byte 0x00001f00
     .4byte 0x00000000
-    .4byte gUnknown_088ADFA6 + 0x10ae
+    .4byte gItemUseJidList_SolarBrace + 0x10ae
     .4byte gItemData + 0x1d7a
     .4byte gUnknown_0880BC18 + 0xc3
     .4byte gUnknown_0880BC18 + 0x4d3
@@ -225,7 +225,7 @@ gClassData:  @ 0x08807164
     .4byte 0x00000100
     .4byte 0x00014701
     .4byte 0x00000000
-    .4byte gUnknown_088ADFA6 + 0x10ba
+    .4byte gItemUseJidList_SolarBrace + 0x10ba
     .4byte gItemData + 0x1d7a
     .4byte gUnknown_0880BC18 + 0xc3
     .4byte gUnknown_0880BC18 + 0x4d3
@@ -246,7 +246,7 @@ gClassData:  @ 0x08807164
     .4byte 0x00000100
     .4byte 0x00014701
     .4byte 0x00000000
-    .4byte gUnknown_088ADFA6 + 0x10da
+    .4byte gItemUseJidList_SolarBrace + 0x10da
     .4byte gItemData + 0x1d7a
     .4byte gUnknown_0880BC18 + 0xc3
     .4byte gUnknown_0880BC18 + 0x4d3
@@ -267,7 +267,7 @@ gClassData:  @ 0x08807164
     .4byte 0x0000000c
     .4byte 0x00000001
     .4byte 0x00000000
-    .4byte gUnknown_088ADFA6 + 0x10fa
+    .4byte gItemUseJidList_SolarBrace + 0x10fa
     .4byte gUnknown_0880B90C + 0xc3
     .4byte gUnknown_0880BC18 + 0x208
     .4byte gUnknown_0880BC18 + 0x618
@@ -288,7 +288,7 @@ gClassData:  @ 0x08807164
     .4byte 0x00040000
     .4byte 0x00000000
     .4byte 0x00000000
-    .4byte gUnknown_088ADFA6 + 0x1106
+    .4byte gItemUseJidList_SolarBrace + 0x1106
     .4byte gUnknown_0880BB96
     .4byte gUnknown_0880BC18 + 0x3cf
     .4byte gUnknown_0880BC18 + 0x7df
@@ -309,7 +309,7 @@ gClassData:  @ 0x08807164
     .4byte 0x00000000
     .4byte 0x0000001f
     .4byte 0x00000000
-    .4byte gUnknown_088ADFA6 + 0x1112
+    .4byte gItemUseJidList_SolarBrace + 0x1112
     .4byte gItemData + 0x1d39
     .4byte gUnknown_0880BC18 + 0x82
     .4byte gUnknown_0880BC18 + 0x492
@@ -330,7 +330,7 @@ gClassData:  @ 0x08807164
     .4byte 0x00000000
     .4byte 0x0000001f
     .4byte 0x00000000
-    .4byte gUnknown_088ADFA6 + 0x111e
+    .4byte gItemUseJidList_SolarBrace + 0x111e
     .4byte gItemData + 0x1d39
     .4byte gUnknown_0880BC18 + 0x82
     .4byte gUnknown_0880BC18 + 0x492
@@ -351,7 +351,7 @@ gClassData:  @ 0x08807164
     .4byte 0x00000100
     .4byte 0x001f0047
     .4byte 0x00000000
-    .4byte gUnknown_088ADFA6 + 0x112a
+    .4byte gItemUseJidList_SolarBrace + 0x112a
     .4byte gItemData + 0x1cf8
     .4byte gUnknown_0880BC18 + 0x41
     .4byte gUnknown_0880BC18 + 0x451
@@ -372,7 +372,7 @@ gClassData:  @ 0x08807164
     .4byte 0x00000100
     .4byte 0x001f0047
     .4byte 0x00000000
-    .4byte gUnknown_088ADFA6 + 0x1146
+    .4byte gItemUseJidList_SolarBrace + 0x1146
     .4byte gItemData + 0x1cf8
     .4byte gUnknown_0880BC18 + 0x41
     .4byte gUnknown_0880BC18 + 0x451
@@ -393,7 +393,7 @@ gClassData:  @ 0x08807164
     .4byte 0x00020000
     .4byte 0x0000001f
     .4byte 0x00000000
-    .4byte gUnknown_088ADFA6 + 0x1162
+    .4byte gItemUseJidList_SolarBrace + 0x1162
     .4byte gItemData + 0x1d39
     .4byte gUnknown_0880BC18 + 0x82
     .4byte gUnknown_0880BC18 + 0x492
@@ -414,7 +414,7 @@ gClassData:  @ 0x08807164
     .4byte 0x00020000
     .4byte 0x0000001f
     .4byte 0x00000000
-    .4byte gUnknown_088ADFA6 + 0x116e
+    .4byte gItemUseJidList_SolarBrace + 0x116e
     .4byte gItemData + 0x1d39
     .4byte gUnknown_0880BC18 + 0x82
     .4byte gUnknown_0880BC18 + 0x492
@@ -435,7 +435,7 @@ gClassData:  @ 0x08807164
     .4byte 0x00020140
     .4byte 0x00000047
     .4byte 0x00000000
-    .4byte gUnknown_088ADFA6 + 0x117a
+    .4byte gItemUseJidList_SolarBrace + 0x117a
     .4byte gItemData + 0x1cf8
     .4byte gUnknown_0880BC18 + 0x41
     .4byte gUnknown_0880BC18 + 0x451
@@ -456,7 +456,7 @@ gClassData:  @ 0x08807164
     .4byte 0x00020140
     .4byte 0x00000047
     .4byte 0x00000000
-    .4byte gUnknown_088ADFA6 + 0x1186
+    .4byte gItemUseJidList_SolarBrace + 0x1186
     .4byte gItemData + 0x1cf8
     .4byte gUnknown_0880BC18 + 0x41
     .4byte gUnknown_0880BC18 + 0x451
@@ -477,7 +477,7 @@ gClassData:  @ 0x08807164
     .4byte 0x02020108
     .4byte 0x0000001f
     .4byte 0x00000000
-    .4byte gUnknown_088ADFA6 + 0x1192
+    .4byte gItemUseJidList_SolarBrace + 0x1192
     .4byte gUnknown_0880B90C + 0xc3
     .4byte gUnknown_0880BC18 + 0x208
     .4byte gUnknown_0880BC18 + 0x618
@@ -498,7 +498,7 @@ gClassData:  @ 0x08807164
     .4byte 0x02020108
     .4byte 0x0000001f
     .4byte 0x00000000
-    .4byte gUnknown_088ADFA6 + 0x119e
+    .4byte gItemUseJidList_SolarBrace + 0x119e
     .4byte gUnknown_0880B90C + 0xc3
     .4byte gUnknown_0880BC18 + 0x208
     .4byte gUnknown_0880BC18 + 0x618
@@ -519,7 +519,7 @@ gClassData:  @ 0x08807164
     .4byte 0x00000080
     .4byte 0x1f000000
     .4byte 0x00000000
-    .4byte gUnknown_088ADFA6 + 0x11aa
+    .4byte gItemUseJidList_SolarBrace + 0x11aa
     .4byte gItemData + 0x1d39
     .4byte gUnknown_0880BC18 + 0x82
     .4byte gUnknown_0880BC18 + 0x492
@@ -540,7 +540,7 @@ gClassData:  @ 0x08807164
     .4byte 0x00000080
     .4byte 0x1f000000
     .4byte 0x00000000
-    .4byte gUnknown_088ADFA6 + 0x11c2
+    .4byte gItemUseJidList_SolarBrace + 0x11c2
     .4byte gItemData + 0x1d39
     .4byte gUnknown_0880BC18 + 0x82
     .4byte gUnknown_0880BC18 + 0x492
@@ -561,7 +561,7 @@ gClassData:  @ 0x08807164
     .4byte 0x00000180
     .4byte 0x47000000
     .4byte 0x00000000
-    .4byte gUnknown_088ADFA6 + 0x11da
+    .4byte gItemUseJidList_SolarBrace + 0x11da
     .4byte gItemData + 0x1cf8
     .4byte gUnknown_0880BC18 + 0x41
     .4byte gUnknown_0880BC18 + 0x451
@@ -582,7 +582,7 @@ gClassData:  @ 0x08807164
     .4byte 0x00000180
     .4byte 0x47000000
     .4byte 0x00000000
-    .4byte gUnknown_088ADFA6 + 0x11f2
+    .4byte gItemUseJidList_SolarBrace + 0x11f2
     .4byte gItemData + 0x1cf8
     .4byte gUnknown_0880BC18 + 0x41
     .4byte gUnknown_0880BC18 + 0x451
@@ -603,7 +603,7 @@ gClassData:  @ 0x08807164
     .4byte 0x00000503
     .4byte 0x1f00001f
     .4byte 0x00000000
-    .4byte gUnknown_088ADFA6 + 0x120a
+    .4byte gItemUseJidList_SolarBrace + 0x120a
     .4byte gUnknown_0880B90C + 0x249
     .4byte gUnknown_0880BC18 + 0x38e
     .4byte gUnknown_0880BC18 + 0x79e
@@ -624,7 +624,7 @@ gClassData:  @ 0x08807164
     .4byte 0x00000503
     .4byte 0x1f00001f
     .4byte 0x00000000
-    .4byte gUnknown_088ADFA6 + 0x121a
+    .4byte gItemUseJidList_SolarBrace + 0x121a
     .4byte gUnknown_0880B90C + 0x249
     .4byte gUnknown_0880BC18 + 0x38e
     .4byte gUnknown_0880BC18 + 0x79e
@@ -645,7 +645,7 @@ gClassData:  @ 0x08807164
     .4byte 0x00000803
     .4byte 0x00001f00
     .4byte 0x00000000
-    .4byte gUnknown_088ADFA6 + 0x122a
+    .4byte gItemUseJidList_SolarBrace + 0x122a
     .4byte gUnknown_0880BB96
     .4byte gUnknown_0880BC18 + 0x3cf
     .4byte gUnknown_0880BC18 + 0x7df
@@ -666,7 +666,7 @@ gClassData:  @ 0x08807164
     .4byte 0x00000803
     .4byte 0x00001f00
     .4byte 0x00000000
-    .4byte gUnknown_088ADFA6 + 0x1236
+    .4byte gItemUseJidList_SolarBrace + 0x1236
     .4byte gUnknown_0880BB96
     .4byte gUnknown_0880BC18 + 0x3cf
     .4byte gUnknown_0880BC18 + 0x7df
@@ -687,7 +687,7 @@ gClassData:  @ 0x08807164
     .4byte 0x00000903
     .4byte 0x0000471f
     .4byte 0x00000000
-    .4byte gUnknown_088ADFA6 + 0x1242
+    .4byte gItemUseJidList_SolarBrace + 0x1242
     .4byte gUnknown_0880BB96
     .4byte gUnknown_0880BC18 + 0x3cf
     .4byte gUnknown_0880BC18 + 0x7df
@@ -708,7 +708,7 @@ gClassData:  @ 0x08807164
     .4byte 0x00000903
     .4byte 0x0000471f
     .4byte 0x00000000
-    .4byte gUnknown_088ADFA6 + 0x1252
+    .4byte gItemUseJidList_SolarBrace + 0x1252
     .4byte gUnknown_0880BB96
     .4byte gUnknown_0880BC18 + 0x3cf
     .4byte gUnknown_0880BC18 + 0x7df
@@ -729,7 +729,7 @@ gClassData:  @ 0x08807164
     .4byte 0x00000903
     .4byte 0x00004700
     .4byte 0x00000000
-    .4byte gUnknown_088ADFA6 + 0x1262
+    .4byte gItemUseJidList_SolarBrace + 0x1262
     .4byte gUnknown_0880BB96
     .4byte gUnknown_0880BC18 + 0x3cf
     .4byte gUnknown_0880BC18 + 0x7df
@@ -750,7 +750,7 @@ gClassData:  @ 0x08807164
     .4byte 0x00000903
     .4byte 0x00004700
     .4byte 0x00000000
-    .4byte gUnknown_088ADFA6 + 0x126e
+    .4byte gItemUseJidList_SolarBrace + 0x126e
     .4byte gUnknown_0880BB96
     .4byte gUnknown_0880BC18 + 0x3cf
     .4byte gUnknown_0880BC18 + 0x7df
@@ -771,7 +771,7 @@ gClassData:  @ 0x08807164
     .4byte 0x00000000
     .4byte 0x00000000
     .4byte 0x00001f00
-    .4byte gUnknown_088ADFA6 + 0x127a
+    .4byte gItemUseJidList_SolarBrace + 0x127a
     .4byte gUnknown_0880B90C + 0x104
     .4byte gUnknown_0880BC18 + 0x249
     .4byte gUnknown_0880BC18 + 0x659
@@ -792,7 +792,7 @@ gClassData:  @ 0x08807164
     .4byte 0x00000000
     .4byte 0x00000000
     .4byte 0x00001f00
-    .4byte gUnknown_088ADFA6 + 0x128e
+    .4byte gItemUseJidList_SolarBrace + 0x128e
     .4byte gUnknown_0880B90C + 0x104
     .4byte gUnknown_0880BC18 + 0x249
     .4byte gUnknown_0880BC18 + 0x659
@@ -813,7 +813,7 @@ gClassData:  @ 0x08807164
     .4byte 0x00000100
     .4byte 0x00000000
     .4byte 0x001f471f
-    .4byte gUnknown_088ADFA6 + 0x12a2
+    .4byte gItemUseJidList_SolarBrace + 0x12a2
     .4byte gUnknown_0880B90C + 0x104
     .4byte gUnknown_0880BC18 + 0x249
     .4byte gUnknown_0880BC18 + 0x659
@@ -834,7 +834,7 @@ gClassData:  @ 0x08807164
     .4byte 0x00000100
     .4byte 0x00000000
     .4byte 0x001f471f
-    .4byte gUnknown_088ADFA6 + 0x12ba
+    .4byte gItemUseJidList_SolarBrace + 0x12ba
     .4byte gUnknown_0880B90C + 0x104
     .4byte gUnknown_0880BC18 + 0x249
     .4byte gUnknown_0880BC18 + 0x659
@@ -855,7 +855,7 @@ gClassData:  @ 0x08807164
     .4byte 0x00000503
     .4byte 0x00000000
     .4byte 0x0000471f
-    .4byte gUnknown_088ADFA6 + 0x12d2
+    .4byte gItemUseJidList_SolarBrace + 0x12d2
     .4byte gUnknown_0880B90C + 0x1c7
     .4byte gUnknown_0880BC18 + 0x30c
     .4byte gUnknown_0880BC18 + 0x71c
@@ -876,7 +876,7 @@ gClassData:  @ 0x08807164
     .4byte 0x00000503
     .4byte 0x00000000
     .4byte 0x0000471f
-    .4byte gUnknown_088ADFA6 + 0x12ea
+    .4byte gItemUseJidList_SolarBrace + 0x12ea
     .4byte gUnknown_0880B90C + 0x1c7
     .4byte gUnknown_0880BC18 + 0x30c
     .4byte gUnknown_0880BC18 + 0x71c
@@ -897,7 +897,7 @@ gClassData:  @ 0x08807164
     .4byte 0x00000100
     .4byte 0x00000000
     .4byte 0x001f0047
-    .4byte gUnknown_088ADFA6 + 0x1302
+    .4byte gItemUseJidList_SolarBrace + 0x1302
     .4byte gUnknown_0880B90C + 0x104
     .4byte gUnknown_0880BC18 + 0x249
     .4byte gUnknown_0880BC18 + 0x659
@@ -918,7 +918,7 @@ gClassData:  @ 0x08807164
     .4byte 0x00000100
     .4byte 0x00000000
     .4byte 0x001f0047
-    .4byte gUnknown_088ADFA6 + 0x131a
+    .4byte gItemUseJidList_SolarBrace + 0x131a
     .4byte gUnknown_0880B90C + 0x104
     .4byte gUnknown_0880BC18 + 0x249
     .4byte gUnknown_0880BC18 + 0x659
@@ -939,7 +939,7 @@ gClassData:  @ 0x08807164
     .4byte 0x00000000
     .4byte 0x00000000
     .4byte 0x1f000000
-    .4byte gUnknown_088ADFA6 + 0x1332
+    .4byte gItemUseJidList_SolarBrace + 0x1332
     .4byte gUnknown_0880B90C + 0x104
     .4byte gUnknown_0880BC18 + 0x249
     .4byte gUnknown_0880BC18 + 0x659
@@ -960,7 +960,7 @@ gClassData:  @ 0x08807164
     .4byte 0x00000000
     .4byte 0x00000000
     .4byte 0x1f000000
-    .4byte gUnknown_088ADFA6 + 0x1346
+    .4byte gItemUseJidList_SolarBrace + 0x1346
     .4byte gUnknown_0880B90C + 0x104
     .4byte gUnknown_0880BC18 + 0x249
     .4byte gUnknown_0880BC18 + 0x659
@@ -981,7 +981,7 @@ gClassData:  @ 0x08807164
     .4byte 0x00000100
     .4byte 0x00000000
     .4byte 0x47001f01
-    .4byte gUnknown_088ADFA6 + 0x135a
+    .4byte gItemUseJidList_SolarBrace + 0x135a
     .4byte gUnknown_0880B90C + 0x104
     .4byte gUnknown_0880BC18 + 0x249
     .4byte gUnknown_0880BC18 + 0x659
@@ -1002,7 +1002,7 @@ gClassData:  @ 0x08807164
     .4byte 0x00000100
     .4byte 0x00000000
     .4byte 0x47001f01
-    .4byte gUnknown_088ADFA6 + 0x1372
+    .4byte gItemUseJidList_SolarBrace + 0x1372
     .4byte gUnknown_0880B90C + 0x104
     .4byte gUnknown_0880BC18 + 0x249
     .4byte gUnknown_0880BC18 + 0x659
@@ -1023,7 +1023,7 @@ gClassData:  @ 0x08807164
     .4byte 0x08000100
     .4byte 0x00000000
     .4byte 0x47000001
-    .4byte gUnknown_088ADFA6 + 0x138a
+    .4byte gItemUseJidList_SolarBrace + 0x138a
     .4byte gUnknown_0880B90C + 0x104
     .4byte gUnknown_0880BC18 + 0x249
     .4byte gUnknown_0880BC18 + 0x659
@@ -1044,7 +1044,7 @@ gClassData:  @ 0x08807164
     .4byte 0x08000100
     .4byte 0x00000000
     .4byte 0x47000001
-    .4byte gUnknown_088ADFA6 + 0x13a2
+    .4byte gItemUseJidList_SolarBrace + 0x13a2
     .4byte gUnknown_0880B90C + 0x104
     .4byte gUnknown_0880BC18 + 0x249
     .4byte gUnknown_0880BC18 + 0x659
@@ -1065,7 +1065,7 @@ gClassData:  @ 0x08807164
     .4byte 0x0000010c
     .4byte 0x00000001
     .4byte 0x00000000
-    .4byte gUnknown_088ADFA6 + 0x13ba
+    .4byte gItemUseJidList_SolarBrace + 0x13ba
     .4byte gUnknown_0880B90C + 0xc3
     .4byte gUnknown_0880BC18 + 0x208
     .4byte gUnknown_0880BC18 + 0x618
@@ -1107,7 +1107,7 @@ gClassData:  @ 0x08807164
     .4byte 0x00000503
     .4byte 0x001f1f01
     .4byte 0x00000000
-    .4byte gUnknown_088ADFA6 + 0x13c6
+    .4byte gItemUseJidList_SolarBrace + 0x13c6
     .4byte gUnknown_0880B90C + 0x1c7
     .4byte gUnknown_0880BC18 + 0x30c
     .4byte gUnknown_0880BC18 + 0x71c
@@ -1128,7 +1128,7 @@ gClassData:  @ 0x08807164
     .4byte 0x00000503
     .4byte 0x001f1f01
     .4byte 0x00000000
-    .4byte gUnknown_088ADFA6 + 0x13e6
+    .4byte gItemUseJidList_SolarBrace + 0x13e6
     .4byte gUnknown_0880B90C + 0x1c7
     .4byte gUnknown_0880BC18 + 0x30c
     .4byte gUnknown_0880BC18 + 0x71c
@@ -1149,7 +1149,7 @@ gClassData:  @ 0x08807164
     .4byte 0x00000000
     .4byte 0x00001f00
     .4byte 0x00000000
-    .4byte gUnknown_088ADFA6 + 0x1406
+    .4byte gItemUseJidList_SolarBrace + 0x1406
     .4byte gItemData + 0x1d39
     .4byte gUnknown_0880BC18 + 0x82
     .4byte gUnknown_0880BC18 + 0x492
@@ -1170,7 +1170,7 @@ gClassData:  @ 0x08807164
     .4byte 0x00000140
     .4byte 0x00470000
     .4byte 0x00000000
-    .4byte gUnknown_088ADFA6 + 0x1412
+    .4byte gItemUseJidList_SolarBrace + 0x1412
     .4byte gItemData + 0x1dbb
     .4byte gUnknown_0880BC18 + 0x104
     .4byte gUnknown_0880BC18 + 0x514
@@ -1191,7 +1191,7 @@ gClassData:  @ 0x08807164
     .4byte 0x00000100
     .4byte 0x00000000
     .4byte 0x1f014700
-    .4byte gUnknown_088ADFA6 + 0x142a
+    .4byte gItemUseJidList_SolarBrace + 0x142a
     .4byte gUnknown_0880B90C + 0x104
     .4byte gUnknown_0880BC18 + 0x249
     .4byte gUnknown_0880BC18 + 0x659
@@ -1212,7 +1212,7 @@ gClassData:  @ 0x08807164
     .4byte 0x00000140
     .4byte 0x00004700
     .4byte 0x00000000
-    .4byte gUnknown_088ADFA6 + 0x143e
+    .4byte gItemUseJidList_SolarBrace + 0x143e
     .4byte gItemData + 0x1d39
     .4byte gUnknown_0880BC18 + 0x82
     .4byte gUnknown_0880BC18 + 0x492
@@ -1233,7 +1233,7 @@ gClassData:  @ 0x08807164
     .4byte 0x00040100
     .4byte 0x00000000
     .4byte 0x00000000
-    .4byte gUnknown_088ADFA6 + 0x144a
+    .4byte gItemUseJidList_SolarBrace + 0x144a
     .4byte gUnknown_0880BB96
     .4byte gUnknown_0880BC18 + 0x3cf
     .4byte gUnknown_0880BC18 + 0x7df
@@ -1254,7 +1254,7 @@ gClassData:  @ 0x08807164
     .4byte 0x00040000
     .4byte 0x00000000
     .4byte 0x00000000
-    .4byte gUnknown_088ADFA6 + 0x1456
+    .4byte gItemUseJidList_SolarBrace + 0x1456
     .4byte gUnknown_0880BB96
     .4byte gUnknown_0880BC18 + 0x3cf
     .4byte gUnknown_0880BC18 + 0x7df
@@ -1275,7 +1275,7 @@ gClassData:  @ 0x08807164
     .4byte 0x00080000
     .4byte 0x00010000
     .4byte 0x00000000
-    .4byte gUnknown_088ADFA6 + 0x1462
+    .4byte gItemUseJidList_SolarBrace + 0x1462
     .4byte gItemData + 0x1dbb
     .4byte gUnknown_0880BC18 + 0x104
     .4byte gUnknown_0880BC18 + 0x514
@@ -1296,7 +1296,7 @@ gClassData:  @ 0x08807164
     .4byte 0x00080000
     .4byte 0x00000000
     .4byte 0x00000100
-    .4byte gUnknown_088ADFA6 + 0x147a
+    .4byte gItemUseJidList_SolarBrace + 0x147a
     .4byte gUnknown_0880B90C + 0x104
     .4byte gUnknown_0880BC18 + 0x249
     .4byte gUnknown_0880BC18 + 0x659
@@ -1317,7 +1317,7 @@ gClassData:  @ 0x08807164
     .4byte 0x00000000
     .4byte 0x001f0000
     .4byte 0x00000000
-    .4byte gUnknown_088ADFA6 + 0x148e
+    .4byte gItemUseJidList_SolarBrace + 0x148e
     .4byte gItemData + 0x1dbb
     .4byte gUnknown_0880BC18 + 0x104
     .4byte gUnknown_0880BC18 + 0x514
@@ -1338,7 +1338,7 @@ gClassData:  @ 0x08807164
     .4byte 0x00000100
     .4byte 0x01470000
     .4byte 0x00000000
-    .4byte gUnknown_088ADFA6 + 0x14a6
+    .4byte gItemUseJidList_SolarBrace + 0x14a6
     .4byte gItemData + 0x1dbb
     .4byte gUnknown_0880BC18 + 0x104
     .4byte gUnknown_0880BC18 + 0x514
@@ -1359,7 +1359,7 @@ gClassData:  @ 0x08807164
     .4byte 0x00000000
     .4byte 0x001f0000
     .4byte 0x00000000
-    .4byte gUnknown_088ADFA6 + 0x14c2
+    .4byte gItemUseJidList_SolarBrace + 0x14c2
     .4byte gUnknown_0880B90C + 0x41
     .4byte gUnknown_0880BC18 + 0x186
     .4byte gUnknown_0880BC18 + 0x596
@@ -1380,7 +1380,7 @@ gClassData:  @ 0x08807164
     .4byte 0x00000000
     .4byte 0x001f0000
     .4byte 0x00000000
-    .4byte gUnknown_088ADFA6 + 0x14da
+    .4byte gItemUseJidList_SolarBrace + 0x14da
     .4byte gUnknown_0880B90C + 0x82
     .4byte gUnknown_0880BC18 + 0x1c7
     .4byte gUnknown_0880BC18 + 0x5d7
@@ -1401,7 +1401,7 @@ gClassData:  @ 0x08807164
     .4byte 0x00000140
     .4byte 0x00470000
     .4byte 0x00000000
-    .4byte gUnknown_088ADFA6 + 0x14f2
+    .4byte gItemUseJidList_SolarBrace + 0x14f2
     .4byte gUnknown_0880B90C
     .4byte gUnknown_0880BC18 + 0x145
     .4byte gUnknown_0880BC18 + 0x555
@@ -1422,7 +1422,7 @@ gClassData:  @ 0x08807164
     .4byte 0x00000000
     .4byte 0x00000000
     .4byte 0x00010000
-    .4byte gUnknown_088ADFA6 + 0x150a
+    .4byte gItemUseJidList_SolarBrace + 0x150a
     .4byte gUnknown_0880B90C + 0x104
     .4byte gUnknown_0880BC18 + 0x249
     .4byte gUnknown_0880BC18 + 0x659
@@ -1443,7 +1443,7 @@ gClassData:  @ 0x08807164
     .4byte 0x00000000
     .4byte 0x00000000
     .4byte 0x0000001f
-    .4byte gUnknown_088ADFA6 + 0x151e
+    .4byte gItemUseJidList_SolarBrace + 0x151e
     .4byte gUnknown_0880B90C + 0x104
     .4byte gUnknown_0880BC18 + 0x249
     .4byte gUnknown_0880BC18 + 0x659
@@ -1485,7 +1485,7 @@ gClassData:  @ 0x08807164
     .4byte 0x00080000
     .4byte 0x00000100
     .4byte 0x00000000
-    .4byte gUnknown_088ADFA6 + 0x152a
+    .4byte gItemUseJidList_SolarBrace + 0x152a
     .4byte gItemData + 0x1d39
     .4byte gUnknown_0880BC18 + 0x82
     .4byte gUnknown_0880BC18 + 0x492
@@ -1506,7 +1506,7 @@ gClassData:  @ 0x08807164
     .4byte 0x00001003
     .4byte 0x00001f00
     .4byte 0x00000000
-    .4byte gUnknown_088ADFA6 + 0x1536
+    .4byte gItemUseJidList_SolarBrace + 0x1536
     .4byte gUnknown_0880BB96
     .4byte gUnknown_0880BC18 + 0x3cf
     .4byte gUnknown_0880BC18 + 0x7df
@@ -1527,7 +1527,7 @@ gClassData:  @ 0x08807164
     .4byte 0x00001103
     .4byte 0x00004701
     .4byte 0x00000000
-    .4byte gUnknown_088ADFA6 + 0x1542
+    .4byte gItemUseJidList_SolarBrace + 0x1542
     .4byte gUnknown_0880BB96
     .4byte gUnknown_0880BC18 + 0x3cf
     .4byte gUnknown_0880BC18 + 0x7df
@@ -1548,7 +1548,7 @@ gClassData:  @ 0x08807164
     .4byte 0x00000000
     .4byte 0x00000000
     .4byte 0x0000001f
-    .4byte gUnknown_088ADFA6 + 0x1552
+    .4byte gItemUseJidList_SolarBrace + 0x1552
     .4byte gUnknown_0880B90C + 0x104
     .4byte gUnknown_0880BC18 + 0x249
     .4byte gUnknown_0880BC18 + 0x659
@@ -1569,7 +1569,7 @@ gClassData:  @ 0x08807164
     .4byte 0x00000403
     .4byte 0x00000000
     .4byte 0x0000001f
-    .4byte gUnknown_088ADFA6 + 0x155e
+    .4byte gItemUseJidList_SolarBrace + 0x155e
     .4byte gUnknown_0880B90C + 0x186
     .4byte gUnknown_0880BC18 + 0x2cb
     .4byte gUnknown_0880BC18 + 0x6db
@@ -1590,7 +1590,7 @@ gClassData:  @ 0x08807164
     .4byte 0x00000503
     .4byte 0x00000000
     .4byte 0x001f001f
-    .4byte gUnknown_088ADFA6 + 0x156a
+    .4byte gItemUseJidList_SolarBrace + 0x156a
     .4byte gUnknown_0880B90C + 0x1c7
     .4byte gUnknown_0880BC18 + 0x30c
     .4byte gUnknown_0880BC18 + 0x71c
@@ -1611,7 +1611,7 @@ gClassData:  @ 0x08807164
     .4byte 0x00000010
     .4byte 0x00000000
     .4byte 0x00000000
-    .4byte gUnknown_088ADFA6 + 0x1582
+    .4byte gItemUseJidList_SolarBrace + 0x1582
     .4byte gItemData + 0x1d39
     .4byte gUnknown_0880BC18 + 0x82
     .4byte gUnknown_0880BC18 + 0x492
@@ -1632,7 +1632,7 @@ gClassData:  @ 0x08807164
     .4byte 0x00000000
     .4byte 0x00000100
     .4byte 0x00000000
-    .4byte gUnknown_088ADFA6 + 0x1596
+    .4byte gItemUseJidList_SolarBrace + 0x1596
     .4byte gItemData + 0x1d39
     .4byte gUnknown_0880BC18 + 0x82
     .4byte gUnknown_0880BC18 + 0x492
@@ -1653,7 +1653,7 @@ gClassData:  @ 0x08807164
     .4byte 0x08000100
     .4byte 0x00000000
     .4byte 0xfb0000fb
-    .4byte gUnknown_088ADFA6 + 0x15a2
+    .4byte gItemUseJidList_SolarBrace + 0x15a2
     .4byte gUnknown_0880B90C + 0x104
     .4byte gUnknown_0880BC18 + 0x249
     .4byte gUnknown_0880BC18 + 0x659
@@ -1716,7 +1716,7 @@ gClassData:  @ 0x08807164
     .4byte 0x00040000
     .4byte 0x00000000
     .4byte 0x00000000
-    .4byte gUnknown_088ADFA6 + 0x15ba
+    .4byte gItemUseJidList_SolarBrace + 0x15ba
     .4byte gItemData + 0x1d39
     .4byte gUnknown_0880BC18 + 0x82
     .4byte gUnknown_0880BC18 + 0x492
@@ -1737,7 +1737,7 @@ gClassData:  @ 0x08807164
     .4byte 0x00040100
     .4byte 0x00000000
     .4byte 0x00000000
-    .4byte gUnknown_088ADFA6 + 0x15c6
+    .4byte gItemUseJidList_SolarBrace + 0x15c6
     .4byte gItemData + 0x1d39
     .4byte gUnknown_0880BC18 + 0x82
     .4byte gUnknown_0880BC18 + 0x492
@@ -1758,7 +1758,7 @@ gClassData:  @ 0x08807164
     .4byte 0x00020000
     .4byte 0x00004747
     .4byte 0x00000000
-    .4byte gUnknown_088ADFA6 + 0x15d2
+    .4byte gItemUseJidList_SolarBrace + 0x15d2
     .4byte gItemData + 0x1d39
     .4byte gUnknown_0880BC18 + 0x82
     .4byte gUnknown_0880BC18 + 0x492
@@ -1779,7 +1779,7 @@ gClassData:  @ 0x08807164
     .4byte 0x00000000
     .4byte 0x47000000
     .4byte 0x00000000
-    .4byte gUnknown_088ADFA6 + 0x15e2
+    .4byte gItemUseJidList_SolarBrace + 0x15e2
     .4byte gItemData + 0x1d39
     .4byte gUnknown_0880BC18 + 0x82
     .4byte gUnknown_0880BC18 + 0x492
@@ -1800,7 +1800,7 @@ gClassData:  @ 0x08807164
     .4byte 0x00020100
     .4byte 0x0000b5b5
     .4byte 0x00000000
-    .4byte gUnknown_088ADFA6 + 0x15ee
+    .4byte gItemUseJidList_SolarBrace + 0x15ee
     .4byte gItemData + 0x1d39
     .4byte gUnknown_0880BC18 + 0x82
     .4byte gUnknown_0880BC18 + 0x492
@@ -1821,7 +1821,7 @@ gClassData:  @ 0x08807164
     .4byte 0x00000100
     .4byte 0xb5000000
     .4byte 0x00000000
-    .4byte gUnknown_088ADFA6 + 0x15fe
+    .4byte gItemUseJidList_SolarBrace + 0x15fe
     .4byte gItemData + 0x1d39
     .4byte gUnknown_0880BC18 + 0x82
     .4byte gUnknown_0880BC18 + 0x492
@@ -1842,7 +1842,7 @@ gClassData:  @ 0x08807164
     .4byte 0x00040000
     .4byte 0x00000000
     .4byte 0x00000000
-    .4byte gUnknown_088ADFA6 + 0x160a
+    .4byte gItemUseJidList_SolarBrace + 0x160a
     .4byte gUnknown_0880B90C + 0x41
     .4byte gUnknown_0880BC18 + 0x186
     .4byte gUnknown_0880BC18 + 0x596
@@ -1863,7 +1863,7 @@ gClassData:  @ 0x08807164
     .4byte 0x00040100
     .4byte 0x00000000
     .4byte 0x00000000
-    .4byte gUnknown_088ADFA6 + 0x1616
+    .4byte gItemUseJidList_SolarBrace + 0x1616
     .4byte gUnknown_0880B90C + 0x41
     .4byte gUnknown_0880BC18 + 0x186
     .4byte gUnknown_0880BC18 + 0x596
@@ -1884,7 +1884,7 @@ gClassData:  @ 0x08807164
     .4byte 0x00000100
     .4byte 0x00b50000
     .4byte 0x00000000
-    .4byte gUnknown_088ADFA6 + 0x1622
+    .4byte gItemUseJidList_SolarBrace + 0x1622
     .4byte gItemData + 0x1dbb
     .4byte gUnknown_0880BC18 + 0x104
     .4byte gUnknown_0880BC18 + 0x514
@@ -1905,7 +1905,7 @@ gClassData:  @ 0x08807164
     .4byte 0x00040000
     .4byte 0x00000000
     .4byte 0x00000000
-    .4byte gUnknown_088ADFA6 + 0x163a
+    .4byte gItemUseJidList_SolarBrace + 0x163a
     .4byte gUnknown_0880B90C + 0x208
     .4byte gUnknown_0880BC18 + 0x34d
     .4byte gUnknown_0880BC18 + 0x75d
@@ -1926,7 +1926,7 @@ gClassData:  @ 0x08807164
     .4byte 0x00040100
     .4byte 0x00000000
     .4byte 0x00000000
-    .4byte gUnknown_088ADFA6 + 0x1646
+    .4byte gItemUseJidList_SolarBrace + 0x1646
     .4byte gUnknown_0880B90C + 0x249
     .4byte gUnknown_0880BC18 + 0x38e
     .4byte gUnknown_0880BC18 + 0x79e
@@ -1947,7 +1947,7 @@ gClassData:  @ 0x08807164
     .4byte 0x00000000
     .4byte 0x00470000
     .4byte 0x00000000
-    .4byte gUnknown_088ADFA6 + 0x1652
+    .4byte gItemUseJidList_SolarBrace + 0x1652
     .4byte gUnknown_0880B90C + 0x208
     .4byte gUnknown_0880BC18 + 0x34d
     .4byte gUnknown_0880BC18 + 0x75d
@@ -1968,7 +1968,7 @@ gClassData:  @ 0x08807164
     .4byte 0x00000100
     .4byte 0xb5b50000
     .4byte 0x00000000
-    .4byte gUnknown_088ADFA6 + 0x166a
+    .4byte gItemUseJidList_SolarBrace + 0x166a
     .4byte gUnknown_0880B90C + 0x249
     .4byte gUnknown_0880BC18 + 0x38e
     .4byte gUnknown_0880BC18 + 0x79e
@@ -1989,7 +1989,7 @@ gClassData:  @ 0x08807164
     .4byte 0x00040000
     .4byte 0x00000000
     .4byte 0x47000000
-    .4byte gUnknown_088ADFA6 + 0x1686
+    .4byte gItemUseJidList_SolarBrace + 0x1686
     .4byte gUnknown_0880BB96
     .4byte gUnknown_0880BC18 + 0x3cf
     .4byte gUnknown_0880BC18 + 0x7df
@@ -2010,7 +2010,7 @@ gClassData:  @ 0x08807164
     .4byte 0x00040100
     .4byte 0x00000000
     .4byte 0xb5000000
-    .4byte gUnknown_088ADFA6 + 0x169a
+    .4byte gItemUseJidList_SolarBrace + 0x169a
     .4byte gUnknown_0880BB96
     .4byte gUnknown_0880BC18 + 0x3cf
     .4byte gUnknown_0880BC18 + 0x7df
@@ -2031,7 +2031,7 @@ gClassData:  @ 0x08807164
     .4byte 0x00040100
     .4byte 0x00000000
     .4byte 0xb5000000
-    .4byte gUnknown_088ADFA6 + 0x16ae
+    .4byte gItemUseJidList_SolarBrace + 0x16ae
     .4byte gUnknown_0880B90C + 0x104
     .4byte gUnknown_0880BC18 + 0x249
     .4byte gUnknown_0880BC18 + 0x659
@@ -2073,7 +2073,7 @@ gClassData:  @ 0x08807164
     .4byte 0x00000000
     .4byte 0x00004700
     .4byte 0x00000000
-    .4byte gUnknown_088ADFA6 + 0x16c2
+    .4byte gItemUseJidList_SolarBrace + 0x16c2
     .4byte gUnknown_0880BB96
     .4byte gUnknown_0880BC18 + 0x3cf
     .4byte gUnknown_0880BC18 + 0x7df
@@ -2094,7 +2094,7 @@ gClassData:  @ 0x08807164
     .4byte 0x00000100
     .4byte 0x0000b500
     .4byte 0x00000000
-    .4byte gUnknown_088ADFA6 + 0x16ce
+    .4byte gItemUseJidList_SolarBrace + 0x16ce
     .4byte gUnknown_0880BB96
     .4byte gUnknown_0880BC18 + 0x3cf
     .4byte gUnknown_0880BC18 + 0x7df
@@ -2115,7 +2115,7 @@ gClassData:  @ 0x08807164
     .4byte 0x00040100
     .4byte 0x00000000
     .4byte 0x00000000
-    .4byte gUnknown_088ADFA6 + 0x16da
+    .4byte gItemUseJidList_SolarBrace + 0x16da
     .4byte gUnknown_0880BB96
     .4byte gUnknown_0880BC18 + 0x3cf
     .4byte gUnknown_0880BC18 + 0x7df
@@ -2136,7 +2136,7 @@ gClassData:  @ 0x08807164
     .4byte 0x00040100
     .4byte 0x00000000
     .4byte 0x00000000
-    .4byte gUnknown_088ADFA6 + 0x16e6
+    .4byte gItemUseJidList_SolarBrace + 0x16e6
     .4byte gUnknown_0880BB96 + 0x41
     .4byte gUnknown_0880BB96 + 0x41
     .4byte gUnknown_0880BB96 + 0x41
@@ -2598,7 +2598,7 @@ gClassData:  @ 0x08807164
     .4byte 0x00000100
     .4byte 0x00fb0000
     .4byte 0x00000000
-    .4byte gUnknown_088ADFA6 + 0x16fe
+    .4byte gItemUseJidList_SolarBrace + 0x16fe
     .4byte gItemData + 0x1dbb
     .4byte gUnknown_0880BC18 + 0x104
     .4byte gUnknown_0880BC18 + 0x514
@@ -2619,7 +2619,7 @@ gClassData:  @ 0x08807164
     .4byte 0x00040100
     .4byte 0x00000000
     .4byte 0x00000000
-    .4byte gUnknown_088ADFA6 + 0x1716
+    .4byte gItemUseJidList_SolarBrace + 0x1716
     .4byte gUnknown_0880B90C + 0x41
     .4byte gUnknown_0880BC18 + 0x186
     .4byte gUnknown_0880BC18 + 0x596
@@ -2640,7 +2640,7 @@ gClassData:  @ 0x08807164
     .4byte 0x00000000
     .4byte 0x001f0000
     .4byte 0x00000000
-    .4byte gUnknown_088ADFA6 + 0x1722
+    .4byte gItemUseJidList_SolarBrace + 0x1722
     .4byte gItemData + 0x1dbb
     .4byte gUnknown_0880BC18 + 0x104
     .4byte gUnknown_0880BC18 + 0x514
@@ -2661,7 +2661,7 @@ gClassData:  @ 0x08807164
     .4byte 0x00000000
     .4byte 0x00000000
     .4byte 0x00001f00
-    .4byte gUnknown_088ADFA6 + 0x173a
+    .4byte gItemUseJidList_SolarBrace + 0x173a
     .4byte gUnknown_0880B90C + 0x104
     .4byte gUnknown_0880BC18 + 0x249
     .4byte gUnknown_0880BC18 + 0x659

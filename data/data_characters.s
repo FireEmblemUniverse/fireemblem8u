@@ -16,7 +16,7 @@ _gCharacterData:  @ 0x08803D64
     .4byte 0x00320f1e
     .4byte 0x00000000
     .4byte 0x00004000
-    .4byte gUnknown_088ADFA6 + 0xe8e
+    .4byte gItemUseJidList_SolarBrace + 0xe8e
     .4byte 0x00000007
     .4byte 0x02800224
     .4byte 0x001a4413
@@ -29,7 +29,7 @@ _gCharacterData:  @ 0x08803D64
     .4byte 0x0019370f
     .4byte 0x00000000
     .4byte 0x00000000
-    .4byte gUnknown_088ADFA6 + 0xd0e
+    .4byte gItemUseJidList_SolarBrace + 0xd0e
     .4byte 0x00000000
     .4byte 0x02810225
     .4byte 0x001b0f14
@@ -42,7 +42,7 @@ _gCharacterData:  @ 0x08803D64
     .4byte 0x001e1923
     .4byte 0x00000000
     .4byte 0x00000000
-    .4byte gUnknown_088ADFA6 + 0xdce
+    .4byte gItemUseJidList_SolarBrace + 0xdce
     .4byte 0x00000004
     .4byte 0x02820226
     .4byte 0x001c4d15
@@ -55,7 +55,7 @@ _gCharacterData:  @ 0x08803D64
     .4byte 0x00504b1e
     .4byte 0x00000000
     .4byte 0x00004000
-    .4byte gUnknown_088ADFA6 + 0xde6
+    .4byte gItemUseJidList_SolarBrace + 0xde6
     .4byte 0x00000007
     .4byte 0x02830227
     .4byte 0x001e1416
@@ -68,7 +68,7 @@ _gCharacterData:  @ 0x08803D64
     .4byte 0x0032190f
     .4byte 0x00000000
     .4byte 0x00004000
-    .4byte gUnknown_088ADFA6 + 0xdfe
+    .4byte gItemUseJidList_SolarBrace + 0xdfe
     .4byte 0x0000000c
     .4byte 0x02840228
     .4byte 0x00202717
@@ -81,7 +81,7 @@ _gCharacterData:  @ 0x08803D64
     .4byte 0x0028231e
     .4byte 0x00000000
     .4byte 0x00000000
-    .4byte gUnknown_088ADFA6 + 0xe16
+    .4byte gItemUseJidList_SolarBrace + 0xe16
     .4byte 0x00000006
     .4byte 0x02850229
     .4byte 0x00213e18
@@ -94,7 +94,7 @@ _gCharacterData:  @ 0x08803D64
     .4byte 0x0032280f
     .4byte 0x00000000
     .4byte 0x00000000
-    .4byte gUnknown_088ADFA6 + 0xe2e
+    .4byte gItemUseJidList_SolarBrace + 0xe2e
     .4byte 0x00000005
     .4byte 0x0286022a
     .4byte 0x00224b19
@@ -107,7 +107,7 @@ _gCharacterData:  @ 0x08803D64
     .4byte 0x0041320f
     .4byte 0x00000000
     .4byte 0x00004000
-    .4byte gUnknown_088ADFA6 + 0xe46
+    .4byte gItemUseJidList_SolarBrace + 0xe46
     .4byte 0x0000000b
     .4byte 0x0287022b
     .4byte 0x0023431a
@@ -120,7 +120,7 @@ _gCharacterData:  @ 0x08803D64
     .4byte 0x001e191e
     .4byte 0x00000000
     .4byte 0x00000000
-    .4byte gUnknown_088ADFA6 + 0xe5e
+    .4byte gItemUseJidList_SolarBrace + 0xe5e
     .4byte 0x00000004
     .4byte 0x00000267
     .4byte 0x0000411b
@@ -146,7 +146,7 @@ _gCharacterData:  @ 0x08803D64
     .4byte 0x00191e19
     .4byte 0x00000000
     .4byte 0x00000000
-    .4byte gUnknown_088ADFA6 + 0xea6
+    .4byte gItemUseJidList_SolarBrace + 0xea6
     .4byte 0x00000000
     .4byte 0x0289022e
     .4byte 0x0025351d
@@ -159,7 +159,7 @@ _gCharacterData:  @ 0x08803D64
     .4byte 0x00141e2d
     .4byte 0x00000000
     .4byte 0x00000000
-    .4byte gUnknown_088ADFA6 + 0xebe
+    .4byte gItemUseJidList_SolarBrace + 0xebe
     .4byte 0x00000004
     .4byte 0x028a022f
     .4byte 0x00263c1e
@@ -172,7 +172,7 @@ _gCharacterData:  @ 0x08803D64
     .4byte 0x001e1e96
     .4byte 0x00000000
     .4byte 0x00004000
-    .4byte gUnknown_088ADFA6 + 0xed6
+    .4byte gItemUseJidList_SolarBrace + 0xed6
     .4byte 0x0000000c
     .4byte 0x028b0230
     .4byte 0x00292d1f
@@ -185,7 +185,7 @@ _gCharacterData:  @ 0x08803D64
     .4byte 0x00142d0a
     .4byte 0x00000000
     .4byte 0x00000000
-    .4byte gUnknown_088ADFA6 + 0xeee
+    .4byte gItemUseJidList_SolarBrace + 0xeee
     .4byte 0x00000003
     .4byte 0x028c0231
     .4byte 0x002a1320
@@ -198,7 +198,7 @@ _gCharacterData:  @ 0x08803D64
     .4byte 0x001e1414
     .4byte 0x00000000
     .4byte 0x00000000
-    .4byte gUnknown_088ADFA6 + 0xd56
+    .4byte gItemUseJidList_SolarBrace + 0xd56
     .4byte 0x00000003
     .4byte 0x028d0232
     .4byte 0x002b4921
@@ -211,7 +211,7 @@ _gCharacterData:  @ 0x08803D64
     .4byte 0x001e3214
     .4byte 0x00000000
     .4byte 0x00204000
-    .4byte gUnknown_088ADFA6 + 0xf06
+    .4byte gItemUseJidList_SolarBrace + 0xf06
     .4byte 0x0000000a
     .4byte 0x028e0233
     .4byte 0x002c4822
@@ -224,7 +224,7 @@ _gCharacterData:  @ 0x08803D64
     .4byte 0x003c1914
     .4byte 0x00000000
     .4byte 0x00204000
-    .4byte gUnknown_088ADFA6 + 0xd9e
+    .4byte gItemUseJidList_SolarBrace + 0xd9e
     .4byte 0x0000000a
     .4byte 0x028f0234
     .4byte 0x00464f23

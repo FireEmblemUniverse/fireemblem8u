@@ -28,17 +28,17 @@
 #include "bmsave.h"
 #include "ekrbattle.h"
 
-u8 PromotionInit_SetNullState(struct PromoProc *proc);
-void PromotionInit_Loop(struct PromoProc *proc);
+u8 PromoHandler_SetInitStat(struct ProcPromoHandler *proc);
+void PromoHandlerIdle(struct ProcPromoHandler *proc);
 
 CONST_DATA
-struct ProcCmd ProcScr_BranchedPromotion[] =
+struct ProcCmd ProcScr_PromoHandler[] =
 {
     PROC_SLEEP(3),
     PROC_LABEL(0),
-    PROC_CALL(PromotionInit_SetNullState),
+    PROC_CALL(PromoHandler_SetInitStat),
     PROC_LABEL(1),
-    PROC_REPEAT(PromotionInit_Loop),
+    PROC_REPEAT(PromoHandlerIdle),
     PROC_LABEL(7),
     PROC_END,
 };
@@ -61,240 +61,256 @@ struct TraineeData {
     u8 class;
 };
 
-struct TraineeList {
-    struct TraineeData members[3];
-};
-const struct TraineeList gTrainees = {
-    {
-        { CHARACTER_ROSS, 10, CLASS_JOURNEYMAN },
-        { CHARACTER_AMELIA, 10, CLASS_RECRUIT },
-        { CHARACTER_EWAN, 10, CLASS_PUPIL }
-    }
+const struct TraineeData gTrainees[] = {
+    { CHARACTER_ROSS,   10, CLASS_JOURNEYMAN },
+    { CHARACTER_AMELIA, 10, CLASS_RECRUIT },
+    { CHARACTER_EWAN,   10, CLASS_PUPIL },
 };
 
-void SetupPromotionScreen(struct PromoProc3 *proc);
-void sub_80CCF60(struct PromoProc3 *proc);
-void sub_8013D8C(ProcPtr);
+void SetupPromotionScreen(struct ProcPromoSel *proc);
+void sub_80CCF60(struct ProcPromoSel *proc);
+void IntroPromoTraineeEventFace(ProcPtr);
 void sub_80CD294(struct Proc *proc);
 void sub_80CD1D4(struct Proc *proc);
 void sub_80CD2CC(struct Proc *proc);
 void sub_80CD618(void);
 void sub_80CD218(struct Proc *proc);
-void LoadBattleSpritesForBranchScreen(struct PromoProc3 *proc);
+void LoadBattleSpritesForBranchScreen(struct ProcPromoSel *proc);
 
 CONST_DATA
-const struct ProcCmd gUnknown_08B1271C[] =
+const struct ProcCmd ProcScr_PromoSelect[] =
 {
     PROC_CALL(StartFadeInBlackMedium),
     PROC_REPEAT(WaitForFade),
+
+    /* ? */
     PROC_NAME("ccramify"),
-    PROC_LABEL(0),
+
+PROC_LABEL(0),
     PROC_CALL(SetupPromotionScreen),
     PROC_SLEEP(6),
     PROC_CALL(sub_80CCF60),
-    PROC_LABEL(1),
-    PROC_CALL(sub_8013D8C),
+
+PROC_LABEL(1),
+    PROC_CALL(IntroPromoTraineeEventFace),
     PROC_REPEAT(WaitForFade),
     PROC_REPEAT(LoadBattleSpritesForBranchScreen),
     PROC_GOTO(3),
-    PROC_LABEL(2),
+
+/* Pre End */
+PROC_LABEL(2),
     PROC_CALL(sub_80CD294),
     PROC_CALL(StartFadeInBlackMedium),
     PROC_REPEAT(WaitForFade),
-    PROC_LABEL(4),
+
+/* On End */
+PROC_LABEL(4),
     PROC_CALL(sub_80CD1D4),
     PROC_CALL(sub_80CD2CC),
     PROC_SET_END_CB(sub_80CD618),
     PROC_CALL(StartFadeInBlackMedium),
     PROC_REPEAT(WaitForFade),
     PROC_CALL(sub_80CD218),
-    PROC_LABEL(5),
-    PROC_LABEL(3),
+
+PROC_LABEL(5),
+PROC_LABEL(3),
     PROC_END,
 };
 
 CONST_DATA
-const struct ProcCmd gUnknown_08B127EC[] =
+const struct ProcCmd ProcScr_PromoSelectEnd[] =
 {
 	PROC_NAME("ccramify_end"),
-    PROC_CALL(sub_8013D8C),
+    PROC_CALL(IntroPromoTraineeEventFace),
     PROC_REPEAT(WaitForFade),
     PROC_END,
 };
 
-void sub_80CD6B0(struct PromoProc4 *proc);
-void sub_80CD7FC(struct PromoProc4 *proc);
-void sub_808F284(ProcPtr);
-void sub_80CD898(struct PromoProc4 *proc);
-void sub_80CD8F8(struct PromoProc4 *proc);
-void sub_80CD958(struct PromoProc4 *proc);
-void sub_80CD9B8(struct PromoProc4 *proc);
-u32 sub_80CD67C(void);
-void sub_80CD790(struct Proc *proc);
+void PromoTrainee_InitScreen(struct ProcPromoTraineeEvent *proc);
+void PromoTrainee_Talk1(struct ProcPromoTraineeEvent *proc);
+void PromoTrainee_Talk2(struct ProcPromoTraineeEvent *proc);
+void PromoTrainee_Talk3(struct ProcPromoTraineeEvent *proc);
+void PromoTrainee_Talk4(struct ProcPromoTraineeEvent *proc);
+void PromoTrainee_Talk5(struct ProcPromoTraineeEvent *proc);
+u32 RemovePromoTraineeEventFace(void);
+void PromoTrainee_OnEnd(struct Proc *proc);
 
 CONST_DATA
-const struct ProcCmd gUnknown_08B1280C[] =
+const struct ProcCmd ProcScr_PromoSelectEvent[] =
 {
     PROC_SLEEP(8),
 	PROC_NAME("ccramify_event"),
     PROC_LABEL(0),
-    PROC_CALL(sub_80CD6B0),
+    PROC_CALL(PromoTrainee_InitScreen),
     PROC_LABEL(1),
-    PROC_CALL(sub_8013D8C),
+    PROC_CALL(IntroPromoTraineeEventFace),
     PROC_REPEAT(WaitForFade),
-    PROC_CALL(sub_80CD7FC),
-    PROC_WHILE(sub_808F284),
-    PROC_CALL(sub_80CD898),
-    PROC_WHILE(sub_808F284),
-    PROC_CALL(sub_80CD8F8),
-    PROC_WHILE(sub_808F284),
-    PROC_CALL(sub_80CD958),
-    PROC_WHILE(sub_808F284),
-    PROC_CALL(sub_80CD9B8),
-    PROC_WHILE(sub_808F284),
+    PROC_CALL(PromoTrainee_Talk1),
+    PROC_WHILE(SomeTalkProcExists),
+    PROC_CALL(PromoTrainee_Talk2),
+    PROC_WHILE(SomeTalkProcExists),
+    PROC_CALL(PromoTrainee_Talk3),
+    PROC_WHILE(SomeTalkProcExists),
+    PROC_CALL(PromoTrainee_Talk4),
+    PROC_WHILE(SomeTalkProcExists),
+    PROC_CALL(PromoTrainee_Talk5),
+    PROC_WHILE(SomeTalkProcExists),
     PROC_LABEL(3),
-    PROC_WHILE(sub_80CD67C),
+    PROC_WHILE(RemovePromoTraineeEventFace),
     PROC_LABEL(2),
-    PROC_CALL(sub_80CD790),
+    PROC_CALL(PromoTrainee_OnEnd),
     PROC_LABEL(4),
     PROC_END,
 };
 
-u32 sub_80CC6D4(struct PromoProc *proc) {
-    struct TraineeList trainees = gTrainees;
+u32 PromoHandler_SetupAndStartUI(struct ProcPromoHandler *proc) {
+
+    struct TraineeList {
+        struct TraineeData members[3];
+    };
+
     struct Unit *unit;
     u8 classNumber;
-    u32 somethingAboutPath;
+    u32 terrain;
+
+    struct TraineeList trainees = *(struct TraineeList *)gTrainees;
+
     switch (gPlaySt.chapterModeIndex) {
-        case 2:
+        case CHAPTER_MODE_EIRIKA:
         default:
-            somethingAboutPath = 1;
+            terrain = TERRAIN_PLAINS;
             break;
-        case 3:
-            somethingAboutPath = 0xf;
+
+        case CHAPTER_MODE_EPHRAIM:
+            terrain = TERRAIN_DESERT;
             break;
     }
-    if (!proc->u31) {
+
+    if (proc->bmtype == PROMO_HANDLER_TYPE_TRANINEE) {
         u8 i;
         u8 flag;
-        proc->u31 = 0;
-        proc->u34 = 1;
+        proc->bmtype = PROMO_HANDLER_TYPE_TRANINEE;
+        proc->sel_en = 1;
         // This probably loops over trainee units - not sure why it goes to 6 though.
         flag = 0;
         for (i = 0; i < 7; i++) {
             unit = GetUnitFromCharId(trainees.members[i].charId);
-            if (!unit) {
-                flag = 1;
-            }
-            if (unit->state & 0x10004) {
-                flag = 1;
-            }
-            if (unit->level < trainees.members[i].promotionLevel) {
-                flag = 1;
-            }
+            if (!unit)
+                flag = true;
+
+            if (unit->state & (US_BIT16 | US_DEAD))
+                flag = true;
+
+            if (unit->level < trainees.members[i].promotionLevel)
+                flag = true;
+
             classNumber = unit->pClassData->number;
-            if (classNumber != trainees.members[i].class) {
-                flag = 1;
-            }
-            if (!gUnknown_0895DFA4[classNumber][0] && !gUnknown_0895DFA4[classNumber][1]) {
-                flag = 1;
-            }
+            if (classNumber != trainees.members[i].class)
+                flag = true;
+
+            if (!gPromoJidLut[classNumber][0] && !gPromoJidLut[classNumber][1])
+                flag = true;
+
             if (!flag) {
-                if (gUnknown_0895DFA4[classNumber][0] && !gUnknown_0895DFA4[classNumber][1]) {
-                    proc->u35 = gUnknown_0895DFA4[classNumber][0];
-                    proc->u34 = 0;
-                }
-                if (!gUnknown_0895DFA4[classNumber][0] && gUnknown_0895DFA4[classNumber][1]) {
-                    proc->u35 = gUnknown_0895DFA4[classNumber][1];
-                    proc->u34 = 0;
+                if (gPromoJidLut[classNumber][0] && !gPromoJidLut[classNumber][1]) {
+                    proc->jid = gPromoJidLut[classNumber][0];
+                    proc->sel_en = 0;
                 }
 
-                if (trainees.members[i].charId != somethingAboutPath) {
-                    MakePromotionScreen(proc, trainees.members[i].charId, (u8) somethingAboutPath);
-                } else {
-                    MakePromotionScreen(proc, somethingAboutPath, 2);
+                if (!gPromoJidLut[classNumber][0] && gPromoJidLut[classNumber][1]) {
+                    proc->jid = gPromoJidLut[classNumber][1];
+                    proc->sel_en = 0;
                 }
-                return 1;
+
+                if (trainees.members[i].charId != terrain)
+                    MakePromotionScreen(proc, trainees.members[i].charId, terrain);
+                else
+                    MakePromotionScreen(proc, trainees.members[i].charId, TERRAIN_ROAD);
+
+                return PROMO_HANDLER_STAT_IDLE;
             }
             flag = 0;
         }
-        return 2;
+        return PROMO_HANDLER_STAT_END;
     }
-    else if (proc->u31 == 1) {
-        proc->u31 = 1;
-        proc->u34 = 1;
-        unit = GetUnitFromCharId(proc->u33);
+    else if (proc->bmtype == PROMO_HANDLER_TYPE_BM) {
+        proc->bmtype = PROMO_HANDLER_TYPE_BM;
+        proc->sel_en = 1;
+        unit = GetUnitFromCharId(proc->pid);
         classNumber = unit->pClassData->number;
-        if (!gUnknown_0895DFA4[classNumber][0] && !gUnknown_0895DFA4[classNumber][1]) {
-            return 2;
-        }
-        if (gUnknown_0895DFA4[classNumber][0] && !gUnknown_0895DFA4[classNumber][1]) {
-            proc->u35 = gUnknown_0895DFA4[classNumber][0];
-            proc->u34 = 0;
 
-        }
-        if (!gUnknown_0895DFA4[classNumber][0] && gUnknown_0895DFA4[classNumber][1]) {
-            proc->u35 = gUnknown_0895DFA4[classNumber][1];
-            proc->u34 = 0;
+        /* If no class to promote, end the handler proc */
+        if (!gPromoJidLut[classNumber][0] && !gPromoJidLut[classNumber][1])
+            return PROMO_HANDLER_STAT_END;
+
+        if (gPromoJidLut[classNumber][0] && !gPromoJidLut[classNumber][1]) {
+            proc->jid = gPromoJidLut[classNumber][0];
+            proc->sel_en = 0;
         }
 
-        MakePromotionScreen(proc, proc->u33, 1);
-        return 1;
+        if (!gPromoJidLut[classNumber][0] && gPromoJidLut[classNumber][1]) {
+            proc->jid = gPromoJidLut[classNumber][1];
+            proc->sel_en = 0;
+        }
+
+        MakePromotionScreen(proc, proc->pid, TERRAIN_PLAINS);
+        return PROMO_HANDLER_STAT_IDLE;
     }
-    else if (proc->u31 == 2) {
-        proc->u31 = 2;
-        proc->u34 = 1;
-        unit = GetUnitFromCharId(proc->u33);
+    else if (proc->bmtype == PROMO_HANDLER_TYPE_PREP) {
+        proc->bmtype = PROMO_HANDLER_TYPE_PREP;
+        proc->sel_en = 1;
+        unit = GetUnitFromCharId(proc->pid);
         classNumber = unit->pClassData->number;
-        if (!gUnknown_0895DFA4[classNumber][0] && !gUnknown_0895DFA4[classNumber][1]) {
+        if (!gPromoJidLut[classNumber][0] && !gPromoJidLut[classNumber][1]) {
             BMapDispResume();
             RefreshBMapGraphics();
-            return 2;
+            return PROMO_HANDLER_STAT_END;
         }
-        if (gUnknown_0895DFA4[classNumber][0] && !gUnknown_0895DFA4[classNumber][1]) {
-            proc->u35 = gUnknown_0895DFA4[classNumber][0];
-            proc->u34 = 0;
+        if (gPromoJidLut[classNumber][0] && !gPromoJidLut[classNumber][1]) {
+            proc->jid = gPromoJidLut[classNumber][0];
+            proc->sel_en = 0;
         }
-        if (!gUnknown_0895DFA4[classNumber][0] && gUnknown_0895DFA4[classNumber][1]) {
-            proc->u35 = gUnknown_0895DFA4[classNumber][1];
-            proc->u34 = 0;
+        if (!gPromoJidLut[classNumber][0] && gPromoJidLut[classNumber][1]) {
+            proc->jid = gPromoJidLut[classNumber][1];
+            proc->sel_en = 0;
         }
-        MakePromotionScreen(proc, proc->u33, 1);
-        return 1;
+        MakePromotionScreen(proc, proc->pid, TERRAIN_PLAINS);
+        return PROMO_HANDLER_STAT_IDLE;
     }
     else
-        return 2;
+        return PROMO_HANDLER_STAT_END;
 }
 
-u8 PromotionInit_SetNullState(struct PromoProc *proc) {
-    proc->u30 = 0;
+u8 PromoHandler_SetInitStat(struct ProcPromoHandler *proc) {
+    proc->stat = PROMO_HANDLER_STAT_INIT;
     return 0;
 }
 
-void PromotionInit_Loop(struct PromoProc *proc) {
-    switch (proc->u30) {
-    case 1:
+void PromoHandlerIdle(struct ProcPromoHandler *proc) {
+    switch (proc->stat) {
+    case PROMO_HANDLER_STAT_IDLE:
     default:
         return;
-    case 0:
-        proc->u30 = sub_80CC6D4(proc);
-        break;
-    case 2:
-        Proc_Break(proc);
+
+    case PROMO_HANDLER_STAT_INIT:
+        proc->stat = PromoHandler_SetupAndStartUI(proc);
         break;
 
+    case PROMO_HANDLER_STAT_END:
+        Proc_Break(proc);
+        break;
     }
 }
 
-extern struct ProcCmd ProcScr_BranchedPromotion[];
+extern struct ProcCmd ProcScr_PromoHandler[];
 
-void StartBranchedPromoScreen(ProcPtr parent) {
+void StartTraineePromoScreen(ProcPtr parent) {
     struct BattleUnit *actor, *target;
-    struct PromoProc *proc = Proc_StartBlocking(ProcScr_BranchedPromotion, parent);
-    proc->u31 = 0;
+    struct ProcPromoHandler *proc = Proc_StartBlocking(ProcScr_PromoHandler, parent);
+    proc->bmtype = PROMO_HANDLER_TYPE_TRANINEE;
     proc->u32 = 0;
-    proc->u38 = 0;
-    proc->u3c = -1;
+    proc->unit = NULL;
+    proc->item_slot = -1;
     actor = &gBattleActor;
     target = &gBattleTarget;
     target->weaponBefore = 0;
@@ -313,8 +329,8 @@ struct Proc_80CC990 {
 
 void StartPrepScreenPromotion(struct Proc_80CC990 *proc) {
     struct BattleUnit *actor, *target;
-    struct PromoProc *new_proc;
-    struct PromoProc2 *parent;
+    struct ProcPromoHandler *new_proc;
+    struct ProcPromoMain *parent;
 
     u32 weapon;
     u32 u30 = proc->u30;
@@ -332,25 +348,25 @@ void StartPrepScreenPromotion(struct Proc_80CC990 *proc) {
     actor->weapon = weapon;
     target->statusOut = -1;
 
-    new_proc = Proc_StartBlocking(ProcScr_BranchedPromotion, proc);
-    new_proc->u31 = 1;
+    new_proc = Proc_StartBlocking(ProcScr_PromoHandler, proc);
+    new_proc->bmtype = PROMO_HANDLER_TYPE_BM;
     new_proc->u32 = 0;
 
     parent = new_proc->proc_parent;
-    new_proc->u33 = parent->unit->pCharacterData->number;
-    new_proc->u38 = parent->unit;
-    new_proc->u3c = (s32) parent->u30;
+    new_proc->pid = parent->unit->pCharacterData->number;
+    new_proc->unit = parent->unit;
+    new_proc->item_slot = (s32) parent->priv;
 }
 
-void sub_80CCA14(struct PromoProc2 *proc) {
+void StartBmPromotion(struct ProcPromoMain *proc) {
     struct Unit *unit;
-    struct PromoProc *new_proc = Proc_StartBlocking(ProcScr_BranchedPromotion, proc);
-    new_proc->u31 = 2;
+    struct ProcPromoHandler *new_proc = Proc_StartBlocking(ProcScr_PromoHandler, proc);
+    new_proc->bmtype = PROMO_HANDLER_TYPE_PREP;
     new_proc->u32 = 0;
     unit = GetUnit(gActionData.subjectIndex);
-    new_proc->u33 = unit->pCharacterData->number;
-    new_proc->u38 = GetUnit(gActionData.subjectIndex);
-    new_proc->u3c = gActionData.itemSlotIndex;
+    new_proc->pid = unit->pCharacterData->number;
+    new_proc->unit = GetUnit(gActionData.subjectIndex);
+    new_proc->item_slot = gActionData.itemSlotIndex;
     BMapDispSuspend();
     MU_EndAll();
 }
@@ -368,7 +384,7 @@ void ChangeClassDescription(u32 a) {
     SetTalkPrintDelay(4);
 }
 
-void LoadClassReelFontPalette(struct PromoProc3 *proc, s32 b) {
+void LoadClassReelFontPalette(struct ProcPromoSel *proc, s32 b) {
     u16 tmp = b;
     s8 buffer[0x20];
     s32 index, bufferStart;
@@ -395,10 +411,10 @@ void LoadClassReelFontPalette(struct PromoProc3 *proc, s32 b) {
     CopyToPaletteBuffer(&gUnknown_08A372C0, 0x280, 0x40);
 }
 
-void LoadClassNameInClassReelFont(struct PromoProc3 *proc) {
+void LoadClassNameInClassReelFont(struct ProcPromoSel *proc) {
     s8 buffer[0x20];
     s32 index;
-    u8 idx = proc->u41;
+    u8 idx = proc->menu_index;
     u16 classNum = proc->u2c[idx];
     u32 xOffs = 0x74;
     const struct ClassData *class = GetClassData(classNum);
@@ -447,8 +463,8 @@ extern struct Unknown_030053A0 gUnknown_030053A0;
 struct Unknown_0201FADC {
     u16 things[8];
     u16 _pad1;
-    struct PromoProc3 *p1;
-    struct PromoProc3 *p2;
+    struct ProcPromoSel *p1;
+    struct ProcPromoSel *p2;
     u32 u1c;
     u8 * u20;
     u32 _pad2;
@@ -482,7 +498,7 @@ void LoadUIForPromoScreen(void) {
     sub_80CCCE0(gBG2TilemapBuffer, &gUnknown_08A30978, 0x8c << 5);
 }
 
-void sub_80CCC2C(struct PromoProc3 *proc) {
+void sub_80CCC2C(struct ProcPromoSel *proc) {
     u8 local[0x16];
     const struct ClassData *class;
     char *string;
@@ -536,8 +552,8 @@ void sub_80CCCE0(u16 *buffer, struct Struct_8A30978 *b, u32 c) {
     }
 }
 
-ProcPtr Make6C_PromotionSub(ProcPtr parent) {
-    return Proc_StartBlocking(gUnknown_08B1271C, parent);
+ProcPtr StartPromoClassSelect(ProcPtr parent) {
+    return Proc_StartBlocking(ProcScr_PromoSelect, parent);
 }
 
 u8 LoadClassBattleSprite(u16*, u16, u16);
@@ -549,15 +565,15 @@ void EndSlidingWallEffectMaybe(void);
 
 ProcPtr Make6C_PromotionMenuSelect(ProcPtr);
 
-void SetupPromotionScreen(struct PromoProc3* proc) {
-    struct PromoProc2 *parent = proc->proc_parent;
-    struct PromoProc *grandparent;
+void SetupPromotionScreen(struct ProcPromoSel* proc) {
+    struct ProcPromoMain *parent = proc->proc_parent;
+    struct ProcPromoHandler *grandparent;
     struct Unit *unit;
     s32 i;
     s32 charnumber;
     ProcPtr select;
-    parent->u29 = 2;
-    proc->u42 = parent->u38;
+    parent->stat = PROMO_MAIN_STAT_2;
+    proc->pid = parent->pid;
     proc->u50 = 9;
     BG_Fill(gBG0TilemapBuffer, 0);
     BG_Fill(gBG1TilemapBuffer, 0);
@@ -580,19 +596,19 @@ void SetupPromotionScreen(struct PromoProc3* proc) {
 
         if (!UNIT_IS_VALID(unit))
             continue;
-        if (unit->pCharacterData->number !=  proc->u42)
+        if (unit->pCharacterData->number !=  proc->pid)
             continue;
         charnumber = unit->pClassData->number;
         weapon = GetUnitEquippedWeapon(unit);
         for (j = 0; j < 2; j++) {
             u8 sprite;
-            proc->u2c[j] = gUnknown_0895DFA4[charnumber][j];
+            proc->u2c[j] = gPromoJidLut[charnumber][j];
             sprite = LoadClassBattleSprite(
                 &proc->u32[j],
-                gUnknown_0895DFA4[charnumber][j],
+                gPromoJidLut[charnumber][j],
                 weapon);
             proc->u4a[j] = sprite;
-            proc->u38[j] = GetClassData(gUnknown_0895DFA4[charnumber][j])->descTextId;
+            proc->msg_desc[j] = GetClassData(gPromoJidLut[charnumber][j])->descTextId;
         }
         proc->u48 = weapon;
         if (!sub_80CCCA4())
@@ -602,19 +618,19 @@ void SetupPromotionScreen(struct PromoProc3* proc) {
             case 0x3d:
                 proc->u2c[2] = 0x7e;
                 proc->u4a[2] = LoadClassBattleSprite(&proc->u32[2], 0x7e, weapon);
-                proc->u38[2] = GetClassData(0x7e)->descTextId;
+                proc->msg_desc[2] = GetClassData(0x7e)->descTextId;
 
                 break;
             case 0x3e:
                 proc->u2c[2] = 0x7f;
                 proc->u4a[2] = LoadClassBattleSprite(&proc->u32[2], 0x7f, weapon);
-                proc->u38[2] = GetClassData(0x7f)->descTextId;
+                proc->msg_desc[2] = GetClassData(0x7f)->descTextId;
 
                 break;
             case 0x47:
                 proc->u2c[2] = 0x37;
                 proc->u4a[2] = LoadClassBattleSprite(&proc->u32[2], 0x37, weapon);
-                proc->u38[2] = GetClassData(0x37)->descTextId;
+                proc->msg_desc[2] = GetClassData(0x37)->descTextId;
 
                 break;
         }
@@ -625,29 +641,27 @@ void SetupPromotionScreen(struct PromoProc3* proc) {
         proc->u32[0] = 0;
     }
     proc->u40 = 1;
-    proc->u41 = 0;
+    proc->menu_index = 0;
     LoadClassReelFontPalette(proc, charnumber);
     LoadClassNameInClassReelFont(proc);
     LoadObjUIGfx();
 
     select = Make6C_PromotionMenuSelect(proc);
-    proc->u54 = select;
+    proc->menu_proc = select;
     grandparent = parent->proc_parent;
-    if (grandparent->u31 == 1) {
+    if (grandparent->bmtype == PROMO_HANDLER_TYPE_BM) {
         EndSlidingWallEffectMaybe();
         BG_EnableSyncByMask(0xf);
     }
 }
 
-void sub_80CCF60(struct PromoProc3 *proc) {
-    s16 x;
+void sub_80CCF60(struct ProcPromoSel *proc) {
     u16 tmp;
     Font_ResetAllocation();
     Font_InitForUIDefault();
     BG_EnableSyncByMask(0xf);
     InitTalk(0x100, 2, 0);
-    x = proc->u38[proc->u41];
-    ChangeClassDescription(x);
+    ChangeClassDescription(proc->msg_desc[proc->menu_index]);
     SetTalkPrintDelay(-1);
     gLCDControlBuffer.bg0cnt.priority = 0;
     gLCDControlBuffer.bg1cnt.priority = 2;
@@ -671,11 +685,11 @@ void sub_80CCF60(struct PromoProc3 *proc) {
 u16 GetBattleAnimationId(struct Unit *unit, const void *anim, u16 wpn, u32 *out);
 u8 sub_805A96C(struct Unknown_030053A0 *);
 void sub_805A990(struct Unknown_030053A0 *);
-void LoadBattleSpritesForBranchScreen(struct PromoProc3 *proc) {
+void LoadBattleSpritesForBranchScreen(struct ProcPromoSel *proc) {
     u32 a;
     u8 b;
-    struct PromoProc3 *p2;
-    struct PromoProc3 *c2;
+    struct ProcPromoSel *p2;
+    struct ProcPromoSel *c2;
     struct Anim *anim1;
     struct Anim *anim2;
     struct Unit copied_unit;
@@ -709,12 +723,12 @@ void LoadBattleSpritesForBranchScreen(struct PromoProc3 *proc) {
         if (proc->u40 == 2) {
             sub_805A9E0();
             sub_805AA28(&gUnknown_030053A0);
-            r4 = proc->u42 - 1;
-            r6 = proc->u2c[proc->u41];
+            r4 = proc->pid - 1;
+            r6 = proc->u2c[proc->menu_index];
             sp58 = 0xffff;
-            unit = GetUnitFromCharId(proc->u42);
+            unit = GetUnitFromCharId(proc->pid);
             copied_unit = *unit;
-            copied_unit.pClassData = GetClassData(proc->u2c[proc->u41]);
+            copied_unit.pClassData = GetClassData(proc->u2c[proc->menu_index]);
             battle_anim_ptr = copied_unit.pClassData->pBattleAnimDef;
             ret = GetBattleAnimationId(
                 &copied_unit,
@@ -729,7 +743,7 @@ void LoadBattleSpritesForBranchScreen(struct PromoProc3 *proc) {
             }
             sub_80CD47C((s16) ret, (s16) sp58, (s16) (p2->u32[0] + 0x28), 0x58, 6);
             sub_805AE14(&gUnknown_0201FADC);
-            sub_80CD408(proc->u50, p2->u32[0], p2->u38[1]);
+            sub_80CD408(proc->u50, p2->u32[0], p2->msg_desc[1]);
         } else {
             goto D1AC;
         }
@@ -762,11 +776,11 @@ D1AC:
 
 void sub_80CD1D4(struct Proc *proc) {
     struct Proc *parent = proc->proc_parent;
-    struct PromoProc *gparent = parent->proc_parent;
-    switch (gparent->u31) {
-    case 0:
+    struct ProcPromoHandler *gparent = parent->proc_parent;
+    switch (gparent->bmtype) {
+    case PROMO_HANDLER_TYPE_TRANINEE:
         return;
-    case 1:
+    case PROMO_HANDLER_TYPE_BM:
         Proc_End(proc);
         Proc_End(parent);
         Proc_End(gparent);
@@ -778,12 +792,12 @@ void sub_80CD1D4(struct Proc *proc) {
 
 void sub_80CD218(struct Proc *proc) {
     struct Proc *parent;
-    struct PromoProc *gparent;
+    struct ProcPromoHandler *gparent;
     struct Proc *ggparent;
     parent = proc->proc_parent;
     gparent = parent->proc_parent;
     ggparent = gparent->proc_parent;
-    if (gparent->u31 == 2) {
+    if (gparent->bmtype == PROMO_HANDLER_TYPE_PREP) {
         Proc_End(proc);
         Proc_End(parent);
         Proc_End(gparent);
@@ -804,53 +818,60 @@ void sub_80CD218(struct Proc *proc) {
 
 void sub_80CD294(struct Proc *proc) {
     struct Proc *parent;
-    struct PromoProc *gparent;
+    struct ProcPromoHandler *gparent;
     parent = proc->proc_parent;
     gparent = parent->proc_parent;
-    if (gparent->u31 == 0) {
+    if (gparent->bmtype == PROMO_HANDLER_TYPE_TRANINEE) {
         Proc_Goto(proc, 4);
-    } else if (gparent->u31 == 1) {
+    } else if (gparent->bmtype == PROMO_HANDLER_TYPE_BM) {
         Proc_Break(proc);
-    } else if (gparent->u31 == 2) {
+    } else if (gparent->bmtype == PROMO_HANDLER_TYPE_PREP) {
         Proc_Goto(proc, 4);
     }
 }
 
 void sub_80CD2CC(struct Proc *proc) {
     struct Proc *parent;
-    struct PromoProc *gparent;
+    struct ProcPromoHandler *gparent;
     parent = proc->proc_parent;
     gparent = parent->proc_parent;
-    if (gparent->u31 == 0) {
+
+    if (gparent->bmtype == PROMO_HANDLER_TYPE_TRANINEE) {
         Proc_Goto(proc, 5);
-    } else if (gparent->u31 == 1) {
+    } else if (gparent->bmtype == PROMO_HANDLER_TYPE_BM) {
         Proc_Goto(proc, 5);
-    } else if (gparent->u31 == 2) {
+    } else if (gparent->bmtype == PROMO_HANDLER_TYPE_PREP) {
         Proc_Break(proc);
     }
 }
 
-u32 sub_80CD2F8(struct PromoProc2 *proc) {
-    struct PromoProc2 *tmp = (struct PromoProc2 *)proc;
-    switch (tmp->u29) {
-    case 1:
-        return 0;
-    case 0xff:
-    case 0:
-        proc->u34 = Make6C_PromotionSub(proc);
-        tmp->u29 = 1;
-        return 0;
+bool StartAndWaitPromoSelect(struct ProcPromoMain *proc)
+{
+    struct ProcPromoMain *tmp = (struct ProcPromoMain *)proc;
+    switch (tmp->stat) {
+    case PROMO_MAIN_STAT_SELECTION:
+        return false;
+
+    case PROMO_MAIN_STAT_TRAINEE_EVENT:
+    case PROMO_MAIN_STAT_INIT:
+        proc->sel_en = StartPromoClassSelect(proc);
+        tmp->stat = PROMO_MAIN_STAT_SELECTION;
+        return false;
+
     default:
-        return 1;
+        return true;
     }
 }
-u32 sub_80CD330(struct PromoProc2 *proc) {
-    switch (proc->u29) {
-    case 0:
-    case 1:
+
+u32 sub_80CD330(struct ProcPromoMain *proc) {
+    switch (proc->stat) {
+    case PROMO_MAIN_STAT_INIT:
+    case PROMO_MAIN_STAT_SELECTION:
         return 1;
-    case 2:
+
+    case PROMO_MAIN_STAT_2:
         return 0;
+
     default:
         return 1;
     }
@@ -946,13 +967,11 @@ void sub_805AA00(struct Unknown_030053A0 *);
 void sub_80CD47C(int a, int b, int c, int d, int e) {
     u16 c1 = c;
     u16 d1 = d;
-    if (gKeyStatusPtr->heldKeys & 0xc) {
+    if (gKeyStatusPtr->heldKeys & 0xc)
         gUnknown_03005408[0] = 0;
-    }
 
-    if (gKeyStatusPtr->newKeys & 0x200) {
+    if (gKeyStatusPtr->newKeys & 0x200)
         gUnknown_03005408[0] += 1;
-    }
 
     NewEfxAnimeDrvProc();
     gUnknown_030053A0.u02 = c1;
@@ -1033,7 +1052,7 @@ u8 LoadClassBattleSprite(u16 *a, u16 b, u16 c) {
 }
 
 void sub_80CD618(void) {
-    Proc_Start(gUnknown_08B127EC, (ProcPtr)3);
+    Proc_Start(ProcScr_PromoSelectEnd, (ProcPtr)3);
 }
 
 void sub_80CD62C(void) {
@@ -1046,17 +1065,17 @@ void sub_80CD62C(void) {
     RefreshUnitSprites();
 }
 
-ProcPtr sub_80CD668(ProcPtr);
+ProcPtr StartPromoTraineeEvent(ProcPtr);
 
-void sub_80CD658(struct PromoProc2 *proc) {
-    proc->u30 = sub_80CD668(proc);
+void PromoMain_SetupTraineeEvent(struct ProcPromoMain *proc) {
+    proc->priv = (u32)StartPromoTraineeEvent(proc);
 }
 
-ProcPtr sub_80CD668(ProcPtr proc) {
-    return Proc_StartBlocking(gUnknown_08B1280C, proc);
+ProcPtr StartPromoTraineeEvent(ProcPtr proc) {
+    return Proc_StartBlocking(ProcScr_PromoSelectEvent, proc);
 }
 
-u32 sub_80CD67C(void) {
+u32 RemovePromoTraineeEventFace(void) {
     u16 start = gFaces[0]->xPos;
     s16 cmp = start;
 
@@ -1075,16 +1094,16 @@ u32 sub_80CD67C(void) {
     }
 }
 
-void sub_80CD6B0(struct PromoProc4 *proc) {
-    struct PromoProc2 *parent = proc->proc_parent;
+void PromoTrainee_InitScreen(struct ProcPromoTraineeEvent *proc) {
+    struct ProcPromoMain *parent = proc->proc_parent;
     struct Unit *unit;
-    proc->u2a = parent->u38;
-    unit = GetUnitFromCharId(proc->u2a);
-    if (unit) {
-        proc->u2e = unit->pCharacterData->portraitId;
-    } else {
-        proc->u2e = 0;
-    }
+    proc->pid = parent->pid;
+    unit = GetUnitFromCharId(proc->pid);
+    if (unit)
+        proc->face = unit->pCharacterData->portraitId;
+    else
+        proc->face = 0;
+
     ResetFaces();
     Font_InitForUIDefault();
     LoadUiFrameGraphics();
@@ -1098,20 +1117,16 @@ void sub_80CD6B0(struct PromoProc4 *proc) {
     BG_Fill(gBG2TilemapBuffer, 0);
     BG_EnableSyncByMask(0xf);
 
-    gLCDControlBuffer.dispcnt.bg0_on = 1;
-    gLCDControlBuffer.dispcnt.bg1_on = 0;
-    gLCDControlBuffer.dispcnt.bg2_on = 0;
-    gLCDControlBuffer.dispcnt.bg3_on = 1;
-    gLCDControlBuffer.dispcnt.obj_on = 1;
+    SetDispEnable(1, 0, 0, 1, 1);
     InitTalk(0x200, 3, 1);
     SetSpecialColorEffectsParameters(1, 14, 8, 0);
     SetBlendTargetA(0, 0, 0, 0, 0);
     SetBlendTargetB(0, 0, 0, 1, 0);
 }
 
-void sub_80CD790(struct Proc *proc) {
-    struct PromoProc2 *parent = proc->proc_parent;
-    parent->u29 = -1;
+void PromoTrainee_OnEnd(struct Proc *proc) {
+    struct ProcPromoMain *parent = proc->proc_parent;
+    parent->stat = PROMO_MAIN_STAT_TRAINEE_EVENT;
     ResetDialogueScreen();
     EndPrepSpecialCharEffect();
     APProc_DeleteAll();
@@ -1121,45 +1136,41 @@ void sub_80CD790(struct Proc *proc) {
     BG_SetPosition(4, 0, 0);
     BG_SetPosition(8, 0, 0);
     BG_EnableSyncByMask(15);
-
-    gLCDControlBuffer.dispcnt.bg0_on = 1;
-    gLCDControlBuffer.dispcnt.bg1_on = 1;
-    gLCDControlBuffer.dispcnt.bg2_on = 1;
-    gLCDControlBuffer.dispcnt.bg3_on = 1;
-    gLCDControlBuffer.dispcnt.obj_on = 1;
+    SetDispEnable(1, 1, 1, 1, 1);
 }
 
-struct Unknown_PromotionTriple {
-    u32 a[3];
-};
-const struct Unknown_PromotionTriple gUnknown_0820707C = { 0xc44, 0xc48, 0xc4d };
+extern s8 gUnknown_03005398;
 
-extern s8 gUnknown_03005398[];
-
-void sub_80CD7FC(struct PromoProc4 *proc) {
-    struct Unknown_PromotionTriple locals = gUnknown_0820707C;
+void PromoTrainee_Talk1(struct ProcPromoTraineeEvent *proc)
+{
     struct FaceProc *b;
     struct FaceProc *c;
     struct FaceProc *d;
     u8 i;
-    u8 negative_one;
-    switch (proc->u2a) {
-    case 0x12:
+
+    const u32 msgs[3] = { 
+        0xc44,  /* [ToggleSmile]Wow... Would you look at[NL]these muscles![A][ToggleSmile] */
+        0xc48,  /* [ToggleSmile]I'm ready to fight now![.][A][ToggleSmile] */
+        0xc4d   /* [ToggleSmile]Oh, my... Look at this![.][A][ToggleSmile] */
+    };
+
+    switch (proc->pid) {
+    case CHARACTER_AMELIA:
         i = 1;
         break;
-    case 0x18:
+
+    case CHARACTER_EWAN:
         i = 2;
         break;
-    case 0:
+
+    case CHARACTER_ROSS:
     default:
         i = 0;
         break;
     }
-    StartTalkFace(proc->u2e, 0xd4, 0x50, 0x82, 0);
+    StartTalkFace(proc->face, 0xd4, 0x50, 0x82, 0);
 
-    negative_one = -1;
-    sub_808F128(0x16, 0x12, 0x12, 4, locals.a[i], 0x06011800, negative_one, 0);
-
+    sub_808F128(0x16, 0x12, 0x12, 4, msgs[i], 0x06011800, -1, 0);
     sub_808E9D8(0xa);
 
     gFaces[0]->displayBits = FACE_DISP_KIND(2) | FACE_DISP_HLAYER(2);
@@ -1170,125 +1181,140 @@ void sub_80CD7FC(struct PromoProc4 *proc) {
     c->displayBits = FACE_DISP_BIT_14;
     b->displayBits = FACE_DISP_BIT_14;
 
-    gUnknown_03005398[0] = negative_one;
+    gUnknown_03005398 = -1;
 }
 
-const struct Unknown_PromotionTriple gUnknown_08207088 = { 0xc45, 0xc49, 0xc4e };
-
-void sub_80CD898(struct PromoProc4 *proc) {
-    struct Unknown_PromotionTriple locals = gUnknown_08207088;
+void PromoTrainee_Talk2(struct ProcPromoTraineeEvent *proc)
+{
     u8 i;
-    u8 negative_one;
-    switch (proc->u2a) {
-    case 0x12:
+
+    const u32 msgs[3] = {
+        0xc45,  /* [ToggleSmile]I had no idea how much[NL]stronger I'd gotten...[A][ToggleSmile] */
+        0xc49,  /* [ToggleSmile]This armor used to be too[.][NL]heavy for me to wear...[.][A][ToggleSmile] */
+        0xc4e   /* [ToggleSmile]Magic used to seem so hard,[.][NL]but I...I think I've got it.[A][ToggleSmile] */
+    };
+
+    switch (proc->pid) {
+    case CHARACTER_AMELIA:
         i = 1;
         break;
-    case 0x18:
+
+    case CHARACTER_EWAN:
         i = 2;
         break;
-    case 0:
+
+    case CHARACTER_ROSS:
     default:
         i = 0;
         break;
     }
 
-    negative_one = -1;
-    sub_808F128(0x16, 0x12, 0x12, 4, locals.a[i], 0x06011800, negative_one, 0);
-
+    sub_808F128(0x16, 0x12, 0x12, 4, msgs[i], 0x06011800, -1, 0);
     sub_808E9D8(0xa);
 }
 
-const struct Unknown_PromotionTriple gUnknown_08207094 = { 0xc46, 0xc4a, 0xc4f };
-
-void sub_80CD8F8(struct PromoProc4 *proc) {
-    struct Unknown_PromotionTriple locals = gUnknown_08207094;
+void PromoTrainee_Talk3(struct ProcPromoTraineeEvent *proc)
+{
     u8 i;
-    u8 negative_one;
-    switch (proc->u2a) {
-    case 0x12:
+
+    const u32 msgs[3] = {
+        0xc46,  /* [ToggleSmile]Why, I bet I could take on my[.][NL]dad or just about anyone![.][A][ToggleSmile] */
+        0xc4a,  /* [ToggleSmile]But now, it's no problem![.][NL]I've come a long way.[.][A][ToggleSmile] */
+        0xc4f   /* [ToggleSmile]I've turned a corner in my[NL]education. I'm a real mage![.][A][ToggleSmile] */
+    };
+
+    switch (proc->pid) {
+    case CHARACTER_AMELIA:
         i = 1;
         break;
-    case 0x18:
+
+    case CHARACTER_EWAN:
         i = 2;
         break;
-    case 0:
+
+    case CHARACTER_ROSS:
     default:
         i = 0;
         break;
     }
 
-    negative_one = -1;
-    sub_808F128(0x16, 0x12, 0x12, 4, locals.a[i], 0x06011800, negative_one, 0);
-
+    sub_808F128(0x16, 0x12, 0x12, 4, msgs[i], 0x06011800, -1, 0);
     sub_808E9D8(0xa);
 }
 
-const struct Unknown_PromotionTriple gUnknown_082070A0 = { 0xc47, 0xc4b, 0xc50 };
-
-void sub_80CD958(struct PromoProc4 *proc) {
-    struct Unknown_PromotionTriple locals = gUnknown_082070A0;
+void PromoTrainee_Talk4(struct ProcPromoTraineeEvent *proc)
+{
     u8 i;
-    u8 negative_one;
-    switch (proc->u2a) {
-    case 0x12:
+
+    const u32 msgs[3] = {
+        0xc47,  /* [ToggleSmile]I knew if I worked at it, I'd[.][NL]become a great warrior![.][A][ToggleSmile] */
+        0xc4b,  /* [ToggleSmile]That's right. I'm a real[NL]soldier now![A][ToggleSmile] */
+        0xc50   /* [ToggleSmile]But I'm not going to stop[.][NL]studying...[.][A][ToggleSmile] */
+    };
+
+    switch (proc->pid) {
+    case CHARACTER_AMELIA:
         i = 1;
         break;
-    case 0x18:
+
+    case CHARACTER_EWAN:
         i = 2;
         break;
-    case 0:
+
+    case CHARACTER_ROSS:
     default:
         i = 0;
         break;
     }
 
-    negative_one = -1;
-    sub_808F128(0x16, 0x12, 0x12, 4, locals.a[i], 0x06011800, negative_one, 0);
-
+    sub_808F128(0x16, 0x12, 0x12, 4, msgs[i], 0x06011800, -1, 0);
     sub_808E9D8(0xa);
 }
 
-const struct Unknown_PromotionTriple gUnknown_082070AC = { -1, 0xc4c, 0xc51 };
-
-void sub_80CD9B8(struct PromoProc4 *proc) {
-    struct Unknown_PromotionTriple locals = gUnknown_082070AC;
+void PromoTrainee_Talk5(struct ProcPromoTraineeEvent *proc) {
     u8 i;
-    u8 negative_one;
-    switch (proc->u2a) {
-    case 0x12:
+
+    const u32 msgs[3] = {
+        -1,
+        0xc4c,  /* [ToggleSmile]But I'm not about to stop.[NL]I'm just getting started![.][A][ToggleSmile] */
+        0xc51   /* [ToggleSmile]Not until I've become a[.][NL]great sage, like my teacher.[A][ToggleSmile] */
+    };
+
+    switch (proc->pid) {
+    case CHARACTER_AMELIA:
         i = 1;
         break;
-    case 0x18:
+
+    case CHARACTER_EWAN:
         i = 2;
         break;
-    case 0:
+
+    case CHARACTER_ROSS:
     default:
         i = 0;
         break;
     }
 
-    negative_one = -1;
-
-    if (locals.a[i] == -1) {
+    if (msgs[i] == (u32)-1) {
         Proc_Goto(proc, 3);
-    } else {
-        sub_808F128(0x16, 0x12, 0x12, 4, locals.a[i], 0x06011800, negative_one, 0);
-
+        return;
+    }
+    else {
+        sub_808F128(0x16, 0x12, 0x12, 4, msgs[i], 0x06011800, -1, 0);
         sub_808E9D8(0xa);
     }
 }
 
-int sub_80CDA2C(struct PromoProc2 *proc) {
-    sub_80CD658(proc);
+int PromoMain_SetupTraineeEvent_(struct ProcPromoMain *proc) {
+    PromoMain_SetupTraineeEvent(proc);
     return 0;
 }
 
-u32 sub_80CDA38(struct PromoProc2 *proc) {
-    if (proc->u29 == 0xff) {
-        return 0;
-    } else {
-        return 1;
-    }
+bool PromoTraineeEventExists(struct ProcPromoMain *proc) {
+    if (proc->stat == PROMO_MAIN_STAT_TRAINEE_EVENT)
+        return false;
+    else
+        return true;
 }
 
 void sub_80CDA4C(struct MenuProc *proc) {
@@ -1300,7 +1326,7 @@ void sub_80CDA4C(struct MenuProc *proc) {
     }
 }
 
-u8 sub_80CDA84(struct MenuProc *proc) {
+u8 PromoSelMenu_OnInit(struct MenuProc *proc) {
     SyncMenuBgs(proc);
     return 0;
 }
@@ -1309,7 +1335,7 @@ extern u16 gUnknown_02022DB8[];
 extern u16 gUnknown_02023DB8[];
 extern struct Font gUnknown_03005380;
 
-u8 sub_80CDA90(struct MenuProc *proc) {
+u8 PromoSelMenu_OnEnd(struct MenuProc *proc) {
     TileMap_FillRect(gUnknown_02022DB8, 0xa, 6, 0);
     TileMap_FillRect(gUnknown_02023DB8, 0xa, 6, 0);
     SetFont(&gUnknown_03005380);
@@ -1324,7 +1350,7 @@ u8 sub_80CDAD8(struct MenuProc *proc, struct MenuItemProc *b) {
         ProcPtr found;
         EndMenu(proc);
         EndMenu(proc->proc_parent);
-        found = Proc_Find(gUnknown_08B12614);
+        found = Proc_Find(ProcScr_PromoMain);
 
         EndAllProcChildren(found);
         sub_80CCBD4();
@@ -1333,16 +1359,16 @@ u8 sub_80CDAD8(struct MenuProc *proc, struct MenuItemProc *b) {
     return 7;
 }
 
-u8 sub_80CDB18(struct MenuProc *_proc, struct MenuItemProc *_proc2) {
-    return 0xb;
+u8 PromoSelMenu_OnBPress(struct MenuProc *_proc, struct MenuItemProc *_proc2) {
+    return MENU_ACT_SKIPCURSOR | MENU_ACT_END | MENU_ACT_SND6B;
 }
 
-u32 sub_80CDB1C(struct MenuProc *proc) {
+u32 PromoSelMenuOnInit(struct MenuProc *proc) {
     SyncMenuBgs(proc);
     return 0;
 }
 
-u32 sub_80CDB28(struct MenuProc *proc) {
+u32 PromoSelMenuOnEnd(struct MenuProc *proc) {
     SyncMenuBgs(proc);
     return 0;
 }
@@ -1357,26 +1383,26 @@ const char gText_082070E4[] = { 0x81, 0x40, 0x91, 0xe6, 0x82, 0x50, 0x95, 0xba, 
 u8 sub_80CDAD8(struct MenuProc *proc, struct MenuItemProc *b);
 
 CONST_DATA
-struct MenuItemDef gUnknown_08B128C4[] = {
+struct MenuItemDef MenuItem_PromoSel[] = {
     { gText_082070C4, 35, 0, 0, 0, MenuAlwaysEnabled, 0, sub_80CDAD8, 0, 0 },
     { gText_082070B8, 36, 0, 0, 1, MenuAlwaysEnabled, 0, sub_80CDAD8, 0, 0 },
     { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
 };
 
-u8 sub_80CDA84(struct MenuProc *proc);
-u8 sub_80CDA90(struct MenuProc *proc);
-u8 sub_80CDB18(struct MenuProc *proc, struct MenuItemProc *proc2);
+u8 PromoSelMenu_OnInit(struct MenuProc *proc);
+u8 PromoSelMenu_OnEnd(struct MenuProc *proc);
+u8 PromoSelMenu_OnBPress(struct MenuProc *proc, struct MenuItemProc *proc2);
 
 CONST_DATA
-struct MenuDef gUnknown_08B12930 = {
+struct MenuDef Menu_PromoSel = {
     { 9, 4, 6, 0 },
     1,
-    gUnknown_08B128C4,
-    (void(*)(struct MenuProc*)) sub_80CDA84,
-    (void(*)(struct MenuProc*)) sub_80CDA90,
-    0,
-    sub_80CDB18,
-    0,
+    MenuItem_PromoSel,
+    (void(*)(struct MenuProc*)) PromoSelMenu_OnInit,
+    (void(*)(struct MenuProc*)) PromoSelMenu_OnEnd,
+    NULL,
+    PromoSelMenu_OnBPress,
+    NULL,
     MenuStdHelpBox
 };
 
@@ -1386,7 +1412,7 @@ int PromotionCommand_OnChange(struct MenuProc *a, struct MenuItemProc *b);
 u8 Usability_ThirdPromotionOption(const struct MenuItemDef *, int number);
 
 CONST_DATA
-struct MenuItemDef gUnknown_08B12954[] = {
+struct MenuItemDef gMenuItem_PromoSel[] = {
     {
         gText_082070E4,
         0,
@@ -1429,29 +1455,25 @@ struct MenuItemDef gUnknown_08B12954[] = {
     { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }
 };
 
-u32 sub_80CDB1C(struct MenuProc *proc);
-u32 sub_80CDB28(struct MenuProc *proc);
-u8 sub_80CDC14(struct MenuProc *proc, struct MenuItemProc *proc2);
+u32 PromoSelMenuOnInit(struct MenuProc *proc);
+u32 PromoSelMenuOnEnd(struct MenuProc *proc);
+u8 PromoSelMenuOnPressB(struct MenuProc *proc, struct MenuItemProc *proc2);
 
 CONST_DATA
-struct MenuDef gUnknown_08B129E4 = {
-    { 16, 2, 8, 0 },
-    0,
-    gUnknown_08B12954,
-    (void(*)(struct MenuProc*)) sub_80CDB1C,
-    (void(*)(struct MenuProc*)) sub_80CDB28,
-    0,
-    sub_80CDC14,
-    0,
-    0,
+struct MenuDef gMenuDef_PromoSel = {
+    .rect = { 16, 2, 8, 0 },
+    .menuItems = gMenuItem_PromoSel,
+    .onInit = (void(*)(struct MenuProc*)) PromoSelMenuOnInit,
+    .onEnd = (void(*)(struct MenuProc*)) PromoSelMenuOnEnd,
+    .onBPress = PromoSelMenuOnPressB,
 };
 
-void BuildPromotionMenu(struct PromoProc *proc);
+void BuildPromotionMenu(struct ProcPromoHandler *proc);
 void sub_80CDDD4(void);
 void nullsub_61(void);
 
 CONST_DATA
-struct ProcCmd gUnknown_08B12A08[] = {
+struct ProcCmd ProcScr_PromoMenuSel[] = {
     PROC_SLEEP(6),
 	PROC_NAME("CCRamifyMenuSelect"),
     PROC_CALL(BuildPromotionMenu),
@@ -1469,39 +1491,39 @@ extern struct Font gUnknown_03005360;
 extern u16 gUnknown_02022DBA[];
 u8 PromotionCommand_OnSelect(struct MenuProc *proc, struct MenuItemProc *proc2) {
     struct Proc *parent;
-    struct PromoProc3 *gparent;
-    struct PromoProc2 *ggparent;
+    struct ProcPromoSel *gparent;
+    struct ProcPromoMain *ggparent;
     parent = proc->proc_parent;
     gparent = parent->proc_parent;
     ggparent = gparent->proc_parent;
     if (gparent->u40 == 0) {
-        struct Unit *unit = GetUnitFromCharId(ggparent->u38);
+        struct Unit *unit = GetUnitFromCharId(ggparent->pid);
         u8 classnumber = unit->pClassData->number;
         if (proc2->itemNumber <= 1) {
-            classnumber = gUnknown_0895DFA4[classnumber][proc2->itemNumber];
-            ggparent->u3b = classnumber;
+            classnumber = gPromoJidLut[classnumber][proc2->itemNumber];
+            ggparent->jid = classnumber;
         } else {
             if (proc2->itemNumber == 2) {
                 switch (classnumber) {
-                case 0x3d:
-                    ggparent->u3b = 0x7e;
+                case CLASS_JOURNEYMAN:
+                    ggparent->jid = CLASS_JOURNEYMAN_T1;
                     break;
-                case 0x3e:
-                    ggparent->u3b = 0x7f;
+                case CLASS_PUPIL:
+                    ggparent->jid = CLASS_PUPIL_T1;
                     break;
-                case 0x47:
-                    ggparent->u3b = 0x37;
+                case CLASS_RECRUIT:
+                    ggparent->jid = CLASS_RECRUIT_T1;
                     break;
                 default:
-                    ggparent->u3b = classnumber;
+                    ggparent->jid = classnumber;
                     break;
                 }
             }
         }
-        switch ((u8) ggparent->u3b) {
-            case 0x1e:
-            case 0x1d:
-            if (unit->state & 0x800) {
+        switch ((u8) ggparent->jid) {
+            case CLASS_RANGER:
+            case CLASS_RANGER_F:
+            if (unit->state & US_IN_BALLISTA) {
                 TryRemoveUnitFromBallista(unit);
             }
             break;
@@ -1509,29 +1531,29 @@ u8 PromotionCommand_OnSelect(struct MenuProc *proc, struct MenuItemProc *proc2) 
         Font_InitForUI(&gUnknown_03005360, (void *) 0x06001000, 0x80, 0x5);
         TileMap_FillRect(gUnknown_02022DBA, 0xa, 0x6, 0);
         BG_EnableSyncByMask(1);
-        StartMenuExt(&gUnknown_08B12930, 2, 0, 0, 0, (struct Proc *) proc);
+        StartMenuExt(&Menu_PromoSel, 2, 0, 0, 0, (struct Proc *) proc);
     }
     return 0;
 }
 
-u8 sub_80CDC14(struct MenuProc *proc, struct MenuItemProc *_proc2) {
+u8 PromoSelMenuOnPressB(struct MenuProc *proc, struct MenuItemProc *_proc2) {
     struct Proc *parent;
     struct Proc *gparent;
     struct Proc *ggparent;
-    struct PromoProc *gggparent;
+    struct ProcPromoHandler *gggparent;
     parent = proc->proc_parent;
     gparent = parent->proc_parent;
     ggparent = gparent->proc_parent;
     gggparent = ggparent->proc_parent;
-    if (gggparent->u31 == 0) {
+    if (gggparent->bmtype == PROMO_HANDLER_TYPE_TRANINEE) {
         return 0;
     } else {
-        if (gggparent->u31 == 1) {
+        if (gggparent->bmtype == PROMO_HANDLER_TYPE_BM) {
             Proc_End(parent);
             Proc_Goto(gparent, 2);
             return 11;
         }
-        if (gggparent->u31 == 2) {
+        if (gggparent->bmtype == PROMO_HANDLER_TYPE_PREP) {
             Proc_End(parent);
             Proc_Goto(gparent, 2);
             return 11;
@@ -1560,7 +1582,7 @@ void sub_80CDC48(struct MenuProc *a, struct MenuItemProc *b, char *c) {
 int PromotionCommand_OnTextDraw(struct MenuProc *a, struct MenuItemProc *b) {
     u8 unused_stack[0x48];
     struct Proc *parent;
-    struct PromoProc3 *gparent;
+    struct ProcPromoSel *gparent;
     const struct ClassData *class_data;
     char *string;
     parent = a->proc_parent;
@@ -1572,26 +1594,26 @@ int PromotionCommand_OnTextDraw(struct MenuProc *a, struct MenuItemProc *b) {
 
 int PromotionCommand_OnChange(struct MenuProc *a, struct MenuItemProc *b) {
     struct Proc *parent;
-    struct PromoProc3 *gparent;
+    struct ProcPromoSel *gparent;
     const struct ClassData *class_data;
     const char *string;
     parent = a->proc_parent;
     gparent = parent->proc_parent;
     gparent->u40 = 1;
-    gparent->u41 = b->itemNumber;
-    ChangeClassDescription(gparent->u38[gparent->u41]);
+    gparent->menu_index = b->itemNumber;
+    ChangeClassDescription(gparent->msg_desc[gparent->menu_index]);
     SetTalkPrintDelay(-1);
 }
 
-extern struct ProcCmd gUnknown_08B12A08[];
+extern struct ProcCmd ProcScr_PromoMenuSel[];
 u8 Usability_ThirdPromotionOption(const struct MenuItemDef * _def, int _number) {
-    struct Proc *proc = Proc_Find(gUnknown_08B12A08);
+    struct Proc *proc = Proc_Find(ProcScr_PromoMenuSel);
     struct Proc *parent = proc->proc_parent;
-    struct PromoProc2 *gparent = parent->proc_parent;
+    struct ProcPromoMain *gparent = parent->proc_parent;
     const struct ClassData *class_data;
     const char *string;
     if (sub_80CCCA4()) {
-        struct Unit *unit = GetUnitFromCharId(gparent->u38);
+        struct Unit *unit = GetUnitFromCharId(gparent->pid);
         switch (unit->pClassData->number) {
         case 0x3d:
         case 0x3e:
@@ -1605,9 +1627,14 @@ u8 Usability_ThirdPromotionOption(const struct MenuItemDef * _def, int _number) 
     }
 }
 
-extern struct MenuRect gUnknown_08B12A60;
+CONST_DATA struct MenuRect PromotionMenuRect = {
+    .x = 1,
+    .y = 1,
+    .w = 12,
+    .h = 0
+};
 
-void BuildPromotionMenu(struct PromoProc *proc) {
+void BuildPromotionMenu(struct ProcPromoHandler *proc) {
     proc->u4c = 0;
     Font_ResetAllocation();
     Font_InitForUIDefault();
@@ -1615,8 +1642,8 @@ void BuildPromotionMenu(struct PromoProc *proc) {
     Font_InitForUI(&gUnknown_03005380, (void *) 0x06001400, 160, 5);
     SetFont(&gUnknown_03005380);
     proc->u50 = StartMenuCore(
-		&gUnknown_08B129E4,
-		gUnknown_08B12A60,
+		&gMenuDef_PromoSel,
+		PromotionMenuRect,
 		2,
 		0,
 		0,
@@ -1629,7 +1656,7 @@ void sub_80CDDD4(void) {}
 void nullsub_61(void) {}
 
 ProcPtr Make6C_PromotionMenuSelect(ProcPtr parent) {
-	return Proc_Start(gUnknown_08B12A08, parent);
+	return Proc_Start(ProcScr_PromoMenuSel, parent);
 }
 
 // Some proc names for procs in data_B12A60

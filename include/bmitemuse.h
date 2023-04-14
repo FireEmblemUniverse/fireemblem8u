@@ -1,6 +1,9 @@
 #ifndef GUARD_ITEMUSE_H
 #define GUARD_ITEMUSE_H
 
+#include "global.h"
+#include "proc.h"
+
 struct MenuItemDef;
 struct MenuProc;
 struct MenuItemProc;

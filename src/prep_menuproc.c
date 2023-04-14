@@ -730,7 +730,7 @@ CONST_DATA struct ProcCmd gUnknown_08A184B4[] = {
 
 CONST_DATA struct ProcCmd ProcScr_PrepTraineePromo[] = {
     PROC_CALL(AtMenu_LockGame),
-    PROC_CALL(StartBranchedPromoScreen),
+    PROC_CALL(StartTraineePromoScreen),
     PROC_YIELD,
 
 PROC_LABEL(0xC8),

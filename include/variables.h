@@ -2628,17 +2628,17 @@ extern u16 CONST_DATA gUnknown_0880D374[]; // terrainid-to-textid lookup
 extern u8 CONST_DATA gUnknown_088ADEF1[]; // Some bow effectiveness list
 extern u8 CONST_DATA gUnknown_088ADF2A[]; // Some bow effectiveness list
 extern u8 CONST_DATA gUnknown_088ADF39[]; // Slayer effectiveness list
-extern u8 CONST_DATA gUnknown_088ADF57[]; // Hero Crest class list
-extern u8 CONST_DATA gUnknown_088ADF5E[]; // Knight Crest class list
-extern u8 CONST_DATA gUnknown_088ADF64[]; // Orion's Bolt class list
-extern u8 CONST_DATA gUnknown_088ADF67[]; // Elysian Whip class list
-extern u8 CONST_DATA gUnknown_088ADF6B[]; // Guiding ring class list
-extern u8 CONST_DATA gUnknown_088ADF76[]; // Master seal class list
-extern u8 CONST_DATA gUnknown_088ADF96[]; // Heaven seal class list
-extern u8 CONST_DATA gUnknown_088ADF9E[]; // Ocean seal class list
-extern u8 CONST_DATA gUnknown_088ADFA3[]; // Unk (C1) class list
-extern u8 CONST_DATA gUnknown_088ADFA4[]; // Lunar Brace class list
-extern u8 CONST_DATA gUnknown_088ADFA6[]; // Solar Brace class list
+extern u8 CONST_DATA gItemUseJidList_HeroCrest[]; // Hero Crest class list
+extern u8 CONST_DATA gItemUseJidList_KnightCrest[]; // Knight Crest class list
+extern u8 CONST_DATA gItemUseJidList_OrionsBlot[]; // Orion's Bolt class list
+extern u8 CONST_DATA gItemUseJidList_ElysianWhip[]; // Elysian Whip class list
+extern u8 CONST_DATA gItemUseJidList_GuidRing[]; // Guiding ring class list
+extern u8 CONST_DATA gItemUseJidList_MasterSeal[]; // Master seal class list
+extern u8 CONST_DATA gItemUseJidList_HeavenSeal[]; // Heaven seal class list
+extern u8 CONST_DATA gItemUseJidList_OceanSeal[]; // Ocean seal class list
+extern u8 CONST_DATA gItemUseJidList_C1[]; // Unk (C1) class list
+extern u8 CONST_DATA gItemUseJidList_LunarBrace[]; // Lunar Brace class list
+extern u8 CONST_DATA gItemUseJidList_SolarBrace[]; // Solar Brace class list
 // extern ??? gSupportData
 // extern ??? gUnknown_088AEEC4
 // extern ??? gUnknown_088AF834
@@ -2649,7 +2649,7 @@ extern u8 CONST_DATA gUnknown_088ADFA6[]; // Solar Brace class list
 // extern ??? gUnknown_088B3AD8
 // extern ??? gUnknown_088D2058
 // extern ??? gConvoBackgroundData
-extern u8 CONST_DATA gUnknown_0895DFA4[][2];
+extern u8 CONST_DATA gPromoJidLut[][2];
 extern u8 gUnknown_0895E0A4[];
 extern u8 gUnknown_0895EEA4[];
 extern u8 gUnknown_0895F5A4[4][2];
@@ -3761,16 +3761,16 @@ extern u16 gPal_TitleSmallLightBubbles[];
 // extern ??? gUnknown_08B11C0C
 // extern ??? gUnknown_08B11D0C
 // extern ??? gUnknown_08B125F4
-// extern ??? gUnknown_08B12614
-// extern ??? ProcScr_BranchedPromotion
-extern const struct ProcCmd gUnknown_08B1271C[];
-// extern ??? gUnknown_08B127EC
-// extern ??? gUnknown_08B1280C
-// extern ??? gUnknown_08B12930
-// extern ??? gUnknown_08B129E4
-// extern ??? gUnknown_08B12A08
-// extern ??? gUnknown_08B12A60
-// extern ??? gUnknown_08B12A64
+// extern ??? ProcScr_PromoMain
+// extern ??? ProcScr_PromoHandler
+extern const struct ProcCmd ProcScr_PromoSelect[];
+// extern ??? ProcScr_PromoSelectEnd
+// extern ??? ProcScr_PromoSelectEvent
+// extern ??? Menu_PromoSel
+// extern ??? gMenuDef_PromoSel
+// extern ??? ProcScr_PromoMenuSel
+// extern ??? PromotionMenuRect
+// extern ??? ProcScr_PromoPostSel
 // extern ??? gUnknown_08B12AA4
 // extern ??? gUnknown_08B12AA8
 // extern ??? gUnknown_08B12AC2
@@ -3783,8 +3783,8 @@ extern const struct ProcCmd gUnknown_08B1271C[];
 // extern ??? gUnknown_08B12BEC
 // extern ??? gUnknown_08B12C14
 // extern ??? gUnknown_08B12C3C
-extern struct ProcCmd CONST_DATA gProcScr_Guide[];
-// extern ??? gUnknown_08B12D1C
+extern struct ProcCmd CONST_DATA ProcScr_E_Guide1[];
+// extern ??? ProcScr_E_Guide2
 extern u8 Img_CommGameBgScreen[];  // gfx
 extern u16 gUnknown_08B1754C[]; // pal
 extern u16 gUnknown_08B1756C[]; // pal, used in opsubtitle

@@ -70,7 +70,7 @@ void sub_80831C8(s8, s8);
 void sub_808320C(s8, s8);
 
 // code.s
-void sub_80CCA14(ProcPtr);
+void StartBmPromotion(ProcPtr);
 
 void ExecStandardHeal(ProcPtr proc) {
     int amount;
@@ -1020,7 +1020,7 @@ void ActionStaffDoorChestUseItem(ProcPtr proc) {
 
             gBattleTarget.statusOut = -1;
 
-            sub_80CCA14(proc);
+            StartBmPromotion(proc);
             break;
         case ITEM_BOOSTER_HP:
         case ITEM_BOOSTER_POW:
