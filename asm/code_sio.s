@@ -861,7 +861,7 @@ _08041C5C:
 	adds r1, r1, r0
 	movs r0, #0
 	strb r0, [r1]
-	bl sub_808DC74
+	bl StartSioErrorScreen
 _08041C76:
 	ldr r4, _08041CE8  @ gUnknown_085A92E0
 	ldr r0, [r4]
@@ -879,7 +879,7 @@ _08041C76:
 	adds r0, #0xb
 	adds r0, r0, r1
 	strb r2, [r0]
-	bl sub_808DC74
+	bl StartSioErrorScreen
 _08041C9C:
 	movs r4, #0
 	ldr r5, _08041CE8  @ gUnknown_085A92E0
@@ -897,7 +897,7 @@ _08041CA0:
 	adds r0, r0, r4
 	movs r1, #0
 	strb r1, [r0]
-	bl sub_808DC74
+	bl StartSioErrorScreen
 _08041CBE:
 	adds r4, #1
 	cmp r4, #3
@@ -915,7 +915,7 @@ _08041CC4:
 	ldrb r0, [r1, #0x11]
 	cmp r0, #0x3c
 	bls _08041CEC
-	bl sub_808DC74
+	bl StartSioErrorScreen
 	ldr r1, [r4]
 	movs r0, #2
 	strh r0, [r1, #4]
@@ -10571,7 +10571,7 @@ _0804673A:
 	lsls r0, r0, #2
 	cmp r1, r0
 	ble _0804674E
-	bl sub_808DC74
+	bl StartSioErrorScreen
 _0804674E:
 	ldr r0, _080467A0  @ gUnknown_03004F0C
 	movs r1, #0x89
