@@ -207,6 +207,7 @@ SECTIONS
         src/bmshop.o(.text);
         src/uiarena.o(.text);
         src/gamerankings.o(.text);
+        src/cg.o(.text);
         asm/code_80B5730.o(.text);
         src/opsubtitle.o(.text);
         src/titlescreen.o(.text);
@@ -532,6 +533,7 @@ SECTIONS
         . = ALIGN(4); src/uiarena.o(.data);
         . = ALIGN(4); data/data_A394DC.o(.data);
         . = ALIGN(4); src/gamerankings.o(.data);
+        . = ALIGN(4); src/cg.o(.data);
         . = ALIGN(4); data/data_A3CB04.o(.data);
         . = ALIGN(4); src/opsubtitle.o(.data);
         . = ALIGN(4); data/data_opsubtitle.o(.data);
