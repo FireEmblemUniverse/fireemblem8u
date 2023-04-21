@@ -12,6 +12,8 @@
 #include "bmio.h"
 #include "mu.h"
 #include "bm.h"
+#include "bmsave.h"
+#include "popup.h"
 
 #include "bmdifficulty.h"
 
@@ -67,15 +69,6 @@ const struct Outer080D7FD0 gUnknown_080D7FD0 = {
     0x1A,
     0x11,
 };
-
-
-// popup.s
-void NewPopup_NewAlly(ProcPtr, int);
-
-// code.s
-int PidStatsGetTotalExpGain(void);
-void sub_80AB760(u16*);
-void sub_80AB77C(void);
 
 // spline.s
 void sub_800A950(struct Struct02003BE8*, int, int*);

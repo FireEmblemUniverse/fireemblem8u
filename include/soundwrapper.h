@@ -13,7 +13,7 @@ void Sound_PlaySong8002448(int songId, struct MusicPlayerInfo *player);
 void Sound_PlaySong80024D4(int songId, struct MusicPlayerInfo *player);
 void Sound_PlaySong80024E4(int songId, int speed, struct MusicPlayerInfo *player);
 // ??? sub_80024F0(???);
-// ??? Sound_PlaySong8002574(???);
+void Sound_PlaySong8002574(int songId, int b, struct MusicPlayerInfo *player);
 void sub_8002620(int songId);
 void sub_8002670(void);
 // ??? sub_80026BC(???);

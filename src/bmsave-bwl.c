@@ -643,7 +643,7 @@ void SavePlayThroughData(void)
     WriteGlobalSaveInfo(&info);
 }
 
-int CheckGameEndFlag()
+s8 CheckGameEndFlag()
 {
     struct GlobalSaveInfo info;
 

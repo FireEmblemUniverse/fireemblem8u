@@ -457,7 +457,7 @@ int GetGlobalCompletionCount(void);
 bool RegisterCompletedPlaythrough(struct GlobalSaveInfo *sec_head, int index);
 int GetCurerentGameMode(void);
 void SavePlayThroughData(void);
-void SetGameEndFlag(void);
+s8 CheckGameEndFlag(void);
 void SetGameEndFlag(void);
 struct UnitUsageStats* GetPidStats(u8 pid);
 u32 GetBonusContentClaimFlags(void);
