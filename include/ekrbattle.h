@@ -21,6 +21,7 @@ struct ProcEkrBattle {
     /* 29 */ u8 unk29;
     /* 2A */ u8 _pad_2A[0x2C - 0x2A];
     /* 2C */ s16 timer;
+    /* 2E */ s16 unk2E;
     /* 30 */ u8 _pad_30[0x44 - 0x30];
     /* 44 */ int unk44;
     /* 48 */ int unk48;
@@ -33,7 +34,8 @@ struct ProcEkrBattle {
 struct ProcEkrLvupFan {
     PROC_HEADER;
 
-    /* 29 */
+    /* 29 */ u8 _pad_29[0x2C - 0x29];
+    /* 2C */ s16 timer;
 };
 
 struct EkrGaugeStruct1 {
@@ -124,7 +126,7 @@ extern EWRAM_DATA s16 gUnknown_0203E122[4];
 
 extern struct ProcCmd gProc_ekrBattleDeamon[];
 extern struct ProcCmd gProc_ekrBattle[];
-extern struct ProcCmd gProc_ekrLvupFan[];
+extern struct ProcCmd ProcScr_ekrLvupFan[];
 extern struct ProcCmd gProc_ekrGauge[];
 // extern ??? gUnknown_085B93D0
 // extern ??? gUnknown_085B940C
@@ -238,14 +240,14 @@ void ekrBattle_8050AB8(struct ProcEkrBattle *proc);
 void ekrBattle_8050B08(struct ProcEkrBattle *proc);
 void ekrBattle_CheckForLevelup_8050C34(struct ProcEkrBattle *proc);
 void ekrBattle_WaitForLevelup_8050C6C(struct ProcEkrBattle *proc);
-void ekrBattle_MakePopups(struct ProcEkrBattle *proc);
+void ekrNewEkrPopup(struct ProcEkrBattle *proc);
 void ekrBattle_WaitForPopup(struct ProcEkrBattle *proc);
-// ??? ekrBattle_8050CCC(???);
-// ??? ekrBattle_8050CF8(???);
-// ??? ekrBattle_8050D88(???);
-// ??? ekrBattle_8050DA8(???);
-// ??? nullsub_69(???);
-// ??? NewEkrLvlupFan(???);
+void ekrBattle_8050CCC(struct ProcEkrBattle *proc);
+void ekrBattle_8050CF8(struct ProcEkrBattle *proc);
+void ekrBattle_8050D88(struct ProcEkrBattle *proc);
+void ekrBattle_8050DA8(struct ProcEkrBattle *proc);
+void nullsub_69(struct ProcEkrBattle *proc);
+void NewEkrLvlupFan(void);
 void EkrLvupFanMain(struct ProcEkrLvupFan *proc);
 // ??? sub_8050E40(???);
 // ??? ModDec(???);
@@ -359,7 +361,7 @@ void sub_80533D0(struct Anim *anim, int arg);
 // ??? sub_8054498(???);
 // ??? sub_805452C(???);
 void sub_80545C0(struct Anim *anim);
-// ??? sub_80546B0(???);
+void sub_80546B0(void);
 // ??? sub_80546C4(???);
 // ??? sub_80546D4(???);
 // ??? sub_80546E4(???);
@@ -380,7 +382,7 @@ u32 sub_8054BD4(struct Anim *anim);
 // ??? sub_8054C94(???);
 // ??? sub_8054E4C(???);
 void sub_8054E8C(s16 a, s16 b);
-// ??? sub_8054ED4(???);
+void sub_8054ED4(void);
 // ??? sub_8054EF0(???);
 // ??? sub_8054F00(???);
 // ??? sub_8054F10(???);
@@ -395,7 +397,7 @@ void sub_8055000(void);
 // ??? SetSomethingSpellFxToTrue(???);
 // ??? SetSomethingSpellFxToFalse(???);
 // ??? ClearBG1Setup(???);
-// ??? ClearBG1(???);
+void ClearBG1(void);
 // ??? sub_80551B0(???);
 // ??? sub_805526C(???);
 // ??? ThisMakesTheHPInSpellAnimGoAway(???);

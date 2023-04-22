@@ -4187,24 +4187,24 @@ _08075B1C: .4byte gPaletteBuffer
 
 	THUMB_FUNC_END sub_8075AD8
 
-	THUMB_FUNC_START DoesBattlePopupExist
-DoesBattlePopupExist: @ 0x08075B20
+	THUMB_FUNC_START CheckEkrPopupEnded
+CheckEkrPopupEnded: @ 0x08075B20
 	push {lr}
-	ldr r0, _08075B30  @ gpAnimOnPopupExist
+	ldr r0, _08075B30  @ gpEkrPopupEndFlag
 	ldr r0, [r0]
 	cmp r0, #1
 	beq _08075B34
 	movs r0, #0
 	b _08075B36
 	.align 2, 0
-_08075B30: .4byte gpAnimOnPopupExist
+_08075B30: .4byte gpEkrPopupEndFlag
 _08075B34:
 	movs r0, #1
 _08075B36:
 	pop {r1}
 	bx r1
 
-	THUMB_FUNC_END DoesBattlePopupExist
+	THUMB_FUNC_END CheckEkrPopupEnded
 
 	THUMB_FUNC_START DeleteAnimsOnPopup
 DeleteAnimsOnPopup: @ 0x08075B3C
@@ -4675,8 +4675,8 @@ _08075F14: .4byte gLCDControlBuffer
 
 	THUMB_FUNC_END DrawBattlePopup
 
-	THUMB_FUNC_START Battle_MakePopups
-Battle_MakePopups: @ 0x08075F18
+	THUMB_FUNC_START NewEkrPopup
+NewEkrPopup: @ 0x08075F18
 	push {r4, r5, lr}
 	ldr r0, _08075F6C  @ gUnknown_0203E120
 	movs r1, #0
@@ -4689,7 +4689,7 @@ Battle_MakePopups: @ 0x08075F18
 	bl Proc_Start
 	adds r5, r0, #0
 	str r5, [r4]
-	ldr r1, _08075F78  @ gpAnimOnPopupExist
+	ldr r1, _08075F78  @ gpEkrPopupEndFlag
 	movs r0, #0
 	str r0, [r1]
 	subs r0, #1
@@ -4722,7 +4722,7 @@ _08075F44:
 _08075F6C: .4byte gUnknown_0203E120
 _08075F70: .4byte gpAnimOnPopuProc
 _08075F74: .4byte ProcScr_ekrPopup2
-_08075F78: .4byte gpAnimOnPopupExist
+_08075F78: .4byte gpEkrPopupEndFlag
 _08075F7C: .4byte gpEkrBattleUnitRight
 _08075F80: .4byte gpEkrBattleUnitLeft
 _08075F84:
@@ -4746,7 +4746,7 @@ _08075F9E:
 	bl Proc_Start
 	adds r5, r0, #0
 	str r5, [r4]
-	ldr r1, _08076050  @ gpAnimOnPopupExist
+	ldr r1, _08076050  @ gpEkrPopupEndFlag
 	movs r0, #0
 	str r0, [r1]
 	strh r0, [r5, #0x2c]
@@ -4819,7 +4819,7 @@ _0807602C:
 	cmn r0, r1
 	bne _08076060
 _0807603C:
-	ldr r1, _08076050  @ gpAnimOnPopupExist
+	ldr r1, _08076050  @ gpEkrPopupEndFlag
 	movs r0, #1
 	str r0, [r1]
 	bl DeleteAnimsOnPopup
@@ -4827,7 +4827,7 @@ _0807603C:
 	.align 2, 0
 _08076048: .4byte gpAnimOnPopuProc
 _0807604C: .4byte ProcScr_ekrPopup
-_08076050: .4byte gpAnimOnPopupExist
+_08076050: .4byte gpEkrPopupEndFlag
 _08076054: .4byte gUnknown_0203E114
 _08076058: .4byte gpEkrBattleUnitLeft
 _0807605C: .4byte gpEkrBattleUnitRight
@@ -4839,7 +4839,7 @@ _08076066:
 	pop {r0}
 	bx r0
 
-	THUMB_FUNC_END Battle_MakePopups
+	THUMB_FUNC_END NewEkrPopup
 
 	THUMB_FUNC_START BattlePopup_Wait16Frames
 BattlePopup_Wait16Frames: @ 0x0807606C
@@ -5093,7 +5093,7 @@ ekrPopup_MarkEnd: @ 0x0807621C
 	asrs r0, r0, #0x10
 	cmp r0, #0x10
 	ble _08076242
-	ldr r0, _08076248  @ gpAnimOnPopupExist
+	ldr r0, _08076248  @ gpEkrPopupEndFlag
 	movs r1, #1
 	str r1, [r0]
 	movs r0, #0x80
@@ -5106,7 +5106,7 @@ _08076242:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_08076248: .4byte gpAnimOnPopupExist
+_08076248: .4byte gpEkrPopupEndFlag
 
 	THUMB_FUNC_END ekrPopup_MarkEnd
 
