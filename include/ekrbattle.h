@@ -104,7 +104,6 @@ extern struct Vec2 gUnknown_02000038;
 // extern ??? gUnknown_02000060
 extern struct ProcEkrBattle *gpProcEkrBattle;
 extern struct ProcEkrGauge *gpProcEkrGauge;
-// extern ??? gUnknown_0200006C
 // extern ??? gUnknown_02000088
 
 extern int gEkrEventFlagMaybe;
@@ -267,15 +266,15 @@ void EkrGauge_Clr2A(void);
 // ??? sub_8051238(???);
 void ekrGaugeMain(struct ProcEkrGauge *proc);
 void NewEkrDispUP(void);
-// ??? sub_8051AF4(???);
-// ??? sub_8051B08(???);
-// ??? sub_8051B18(???);
-void sub_8051B28(void);
-void sub_8051B38(void);
-// ??? EkrDispUP_8051B48(???);
+// ??? EndEkrDispUP(???);
+void EkrDispUpClear4C50(void);
+// ??? EkrDispUpSet4C50(???);
+void EkrDispUpSet4C(void);
+void EkrDispUpSet50(void);
+void EkrDispUP_8051B48(u32, u32);
 // ??? sub_8051B5C(???);
 // ??? sub_8051B70(???);
-// ??? sub_8051B80(???);
+void sub_8051B80(void);
 void sub_8051B90(void);
 void sub_8051BA0(void);
 // ??? ekrDispUP_Loop(???);

@@ -175,18 +175,18 @@ void ekrBaStart_InitBattleScreen(struct ProcEkrBattleStarting *proc)
         case 3:
             if (gUnknown_0203E104[0] == 0) {
                 EkrGauge_Set4C();
-                sub_8051B28();
+                EkrDispUpSet4C();
             }
 
             if (gUnknown_0203E104[1] == 0) {
                 EkrGauge_Set50();
-                sub_8051B38();
+                EkrDispUpSet50();
             }
             break;
 
         case 4:
             EkrGauge_Set4C();
-            sub_8051B28();
+            EkrDispUpSet4C();
             break;
 
         default:
