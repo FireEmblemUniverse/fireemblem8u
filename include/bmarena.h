@@ -16,7 +16,7 @@ struct ArenaData
     /* 0F */ u8 playerClassId;
     /* 10 */ u8 opponentClassId;
     /* 11 */ u8 playerLevel;
-    /* 12 */ u8 oppenentLevel;
+    /* 12 */ u8 opponentLevel;
     /* 13 */ s8 playerIsMagic;
     /* 14 */ s8 opponentIsMagic;
     /* 16 */ u16 playerPowerWeight;
