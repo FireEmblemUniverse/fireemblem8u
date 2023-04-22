@@ -292,7 +292,7 @@
 . = 0x020138; gUnknown_02020138 = .;
 . = 0x02013C; gUnknown_0202013C = .;
 . = 0x020140; gpAnimOnPopuProc = .;
-. = 0x020144; gpAnimOnPopupExist = .;
+. = 0x020144; gpEkrPopupEndFlag = .;
 . = 0x020148; gUnknown_02020148 = .;
 . = 0x020188; gGenericBuffer = .;
 . = 0x020208; gUnknown_02020208 = .;

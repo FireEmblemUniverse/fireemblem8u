@@ -255,7 +255,7 @@ extern u32 gUnknown_0201FB0C;
 // extern ??? gUnknown_020200AC
 // extern ??? gUnknown_020200B0
 // extern ??? gpAnimOnPopuProc
-// extern ??? gpAnimOnPopupExist
+// extern ??? gpEkrPopupEndFlag
 // extern ??? gUnknown_02020148
 extern u8 gGenericBuffer[]; // gGenericBuffer
 // extern ??? gUnknown_02020208
@@ -517,7 +517,7 @@ extern short gUnknown_0203E1B4[2];
 extern short gUnknown_0203E1B8[2];
 extern short gUnknown_0203E1BC[2];
 extern short gUnknown_0203E1C0[2];
-// extern ??? gUnknown_0203E1C4
+extern short gUnknown_0203E1C4[2];
 extern short gUnknown_0203E1C8[2];
 // extern ??? gUnknown_0203E1CC
 // extern ??? gUnknown_0203E1D0
@@ -2562,8 +2562,8 @@ extern u16 gUnknown_08802B04[];
 extern u16 gUnknown_08802C84[];
 // extern ??? gUnknown_08802D24
 extern u8 gUnknown_08802D44[];
-extern u8 gUnknown_088030C4[];
-extern u8 gUnknown_088033C4[];
+extern u16 gUnknown_088030C4[];
+extern u16 gUnknown_088033C4[];
 // extern ??? gUnknown_08803524
 extern u16 gUnknown_08803590[];
 // extern ??? Img_LevelUpBoxFrame
