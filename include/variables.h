@@ -2543,8 +2543,8 @@ extern const u16 gUnkUiFramePalettes[];
 // extern ??? gUnknown_08801FF4
 // extern ??? gUnknown_08802044
 // extern ??? gUnknown_088020BC
-// extern ??? gUnknown_0880210C
-// extern ??? gUnknown_088021C0
+extern u8 gUnknown_0880210C[];
+extern u8 gUnknown_088021C0[];
 extern u8 gUnknown_08802274[];
 extern u8 gUnknown_08802348[];
 extern u8 gUnknown_08802428[];

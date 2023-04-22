@@ -839,7 +839,7 @@ sub_8056EA4: @ 0x08056EA4
 	ldr r0, [r4, #0x44]
 	cmp r0, #2
 	bne _08056ECC
-	bl sub_8051AF4
+	bl EndEkrDispUP
 _08056ECC:
 	adds r0, r4, #0
 	bl Proc_Break

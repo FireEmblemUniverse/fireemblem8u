@@ -17,7 +17,7 @@
 . = 0x000060; gUnknown_02000060 = .;
 . = 0x000064; gpProcEkrBattle = .;
 . = 0x000068; gpProcEkrGauge = .;
-. = 0x00006C; gUnknown_0200006C = .;
+. = 0x00006C; gpProcEkrDispUP = .;
 . = 0x000088; gUnknown_02000088 = .;
 . = 0x000280; gUnknown_02000280 = .;
 . = 0x000500; gUnknown_02000500 = .;

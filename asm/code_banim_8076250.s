@@ -220,7 +220,7 @@ sub_80763E0: @ 0x080763E0
 	push {r4, lr}
 	adds r4, r0, #0
 	bl EkrGauge_Set4C
-	bl sub_8051B28
+	bl EkrDispUpSet4C
 	movs r0, #0
 	strh r0, [r4, #0x2c]
 	movs r0, #0x10
