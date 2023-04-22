@@ -48,9 +48,9 @@ void ArenaBeginInternal(struct Unit* unit) {
     gArenaState.playerLevel = unit->level;
 
     if (UNIT_ARENA_LEVEL(unit) < 5) {
-        gArenaState.oppenentLevel = ArenaGetOpposingLevel(gArenaState.playerLevel);
+        gArenaState.opponentLevel = ArenaGetOpposingLevel(gArenaState.playerLevel);
     } else {
-        gArenaState.oppenentLevel = ArenaGetOpposingLevel(gArenaState.playerLevel) + 7;
+        gArenaState.opponentLevel = ArenaGetOpposingLevel(gArenaState.playerLevel) + 7;
     }
 
     ArenaGenerateOpponentUnit();
@@ -381,7 +381,7 @@ void ArenaGenerateOpponentUnit(void) {
     udef.charIndex = CHARACTER_ARENA_OPPONENT;
     udef.classIndex = gArenaState.opponentClassId;
     udef.allegiance = 0;
-    udef.level = gArenaState.oppenentLevel;
+    udef.level = gArenaState.opponentLevel;
     udef.autolevel = 1;
     udef.items[0] = 0;
     udef.items[1] = 0;
@@ -647,7 +647,7 @@ void ArenaSetResult(int result) {
 }
 
 void ArenaContinueBattle(void) {
-    int unk = gBmSt.just_resumed;
+    int resumedFlag = gBmSt.just_resumed;
 
     gActionData.trapType = gBattleTarget.unit.curHP;
 
@@ -662,7 +662,7 @@ void ArenaContinueBattle(void) {
 
     UpdateUnitDuringBattle(gArenaState.playerUnit, &gBattleActor);
 
-    if (!(unk) || (gBattleTarget.unit.curHP == 0)) {
+    if (!(resumedFlag) || (gBattleTarget.unit.curHP == 0)) {
         PidStatsRecordBattleRes();
     }
 
