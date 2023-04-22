@@ -1385,7 +1385,7 @@ extern u16 CONST_DATA Tsa_EventWarp[];
 
 // extern ??? gUnknown_085A638C
 // extern ??? gUnknown_085A643C
-// extern ??? gUnknown_085A647C
+extern u8 gUnknown_085A647C[]; // tsa
 
 extern u16 CONST_DATA Img_DanceringFx[];
 extern u16 CONST_DATA Tsa_DanceringFx[];
@@ -3035,7 +3035,7 @@ extern u16 gPal_08A07AD8[]; // pal
 // extern ??? gUnknown_08A07C0A
 extern u16 gPal_08A07C58[]; // pal
 extern u16 CONST_DATA Img_ChapterIntroFog[];
-// extern ??? gUnknown_08A09A5C
+extern u16 gUnknown_08A09A5C[]; // pal
 extern u8 gGfx_08A09E4C[]; // gfx
 // extern ??? gUnknown_08A0A4E8
 extern u8 gTsa_08A0A9F8[]; // tsa
@@ -3325,30 +3325,6 @@ extern u16 gUnknown_08A37300[]; // pal
 // extern ??? gUnknown_08A3CB46
 // extern ??? gUnknown_08A3CB50
 // extern ??? gCGDataTable
-// extern ??? gUnknown_08A3CD64
-// extern ??? gUnknown_08A3D1A8
-// extern ??? gUnknown_08A3D1B0
-// extern ??? gUnknown_08A3D2C0
-// extern ??? gUnknown_08A3D348
-// extern ??? gUnknown_08A3D358
-// extern ??? gUnknown_08A3D35C
-// extern ??? gUnknown_08A3D40C
-// extern ??? gUnknown_08A3D420
-// extern ??? gUnknown_08A3D440
-// extern ??? gUnknown_08A3D478
-// extern ??? gUnknown_08A3D498
-// extern ??? gUnknown_08A3D540
-// extern ??? gUnknown_08A3D560
-// extern ??? gUnknown_08A3D56E
-// extern ??? gUnknown_08A3D57C
-// extern ??? gUnknown_08A3D58A
-// extern ??? gUnknown_08A3D598
-// extern ??? gUnknown_08A3D5A6
-// extern ??? gUnknown_08A3D5B4
-// extern ??? gUnknown_08A3D624
-// extern ??? gUnknown_08A3D63C
-// extern ??? gUnknown_08A3D674
-// extern ??? gUnknown_08A3D678
 // extern ??? gUnknown_08A3D6E0
 // extern ??? gUnknown_08A3D700
 // extern ??? gUnknown_08A3D728
@@ -3420,19 +3396,19 @@ extern u16 gUnknown_08A37300[]; // pal
 // extern ??? gUnknown_08A3EE74
 // extern ??? gUnknown_08A3EED4
 // extern ??? gUnknown_08A3EEEC
-// extern ??? gUnknown_08A3F710
-// extern ??? gUnknown_08A3F750
-// extern ??? gUnknown_08A3FFEC
-// extern ??? gUnknown_08A40068
-// extern ??? gUnknown_08A400E4
-// extern ??? gUnknown_08A40204
-// extern ??? gUnknown_08A4034C
-// extern ??? gUnknown_08A40470
-// extern ??? gUnknown_08A405B4
-// extern ??? gUnknown_08A405D4
-// extern ??? gUnknown_08A409D0
-// extern ??? gUnknown_08A40AD4
-// extern ??? gUnknown_08A40B14
+extern u16 gPal_CharacterEndingMenu[];
+extern u8 gGfx_CharacterEndingMenu[];
+extern u8 gUnknown_08A3FFEC[]; // tsa
+extern u8 gUnknown_08A40068[]; // tsa
+extern u8 gTsa_SoloEndingNameplate[];
+extern u8 gTsa_SoloEndingWindow[];
+extern u8 gTsa_PairedEndingNameplates[];
+extern u8 gTsa_PairedEndingWindow[];
+extern u16 gPal_FinScreen[];
+extern u8 gGfx_FinScreen[];
+extern u8 gTsa_FinScreen[];
+extern u16 gUnknown_08A40AD4[]; // pal
+extern u8 gUnknown_08A40B14[]; // tsa
 // extern ??? gUnknown_08A40FC8
 // extern ??? gUnknown_08A4CF2C
 // extern ??? gUnknown_08A4D0CC

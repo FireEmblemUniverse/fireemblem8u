@@ -2268,12 +2268,12 @@ gUnknown_08A3EEEC:  @ 0x08A3EEEC
         .word 0x0
 	.incbin "baserom.gba", 0xA3EEEC + 0xC8, 0x824 - 0xC8
 
-	.global gUnknown_08A3F710
-gUnknown_08A3F710:  @ 0x08A3F710
+	.global gPal_CharacterEndingMenu
+gPal_CharacterEndingMenu:  @ 0x08A3F710
 	.incbin "baserom.gba", 0xA3F710, 0x40
 
-	.global gUnknown_08A3F750
-gUnknown_08A3F750:  @ 0x08A3F750
+	.global gGfx_CharacterEndingMenu
+gGfx_CharacterEndingMenu:  @ 0x08A3F750
 	.incbin "baserom.gba", 0xA3F750, 0x89C
 
 	.global gUnknown_08A3FFEC
@@ -2284,32 +2284,32 @@ gUnknown_08A3FFEC:  @ 0x08A3FFEC
 gUnknown_08A40068:  @ 0x08A40068
 	.incbin "baserom.gba", 0xA40068, 0x7C
 
-	.global gUnknown_08A400E4
-gUnknown_08A400E4:  @ 0x08A400E4
+	.global gTsa_SoloEndingNameplate
+gTsa_SoloEndingNameplate:  @ 0x08A400E4
 	.incbin "baserom.gba", 0xA400E4, 0x120
 
-	.global gUnknown_08A40204
-gUnknown_08A40204:  @ 0x08A40204
+	.global gTsa_SoloEndingWindow
+gTsa_SoloEndingWindow:  @ 0x08A40204
 	.incbin "baserom.gba", 0xA40204, 0x148
 
-	.global gUnknown_08A4034C
-gUnknown_08A4034C:  @ 0x08A4034C
+	.global gTsa_PairedEndingNameplates
+gTsa_PairedEndingNameplates:  @ 0x08A4034C
 	.incbin "baserom.gba", 0xA4034C, 0x124
 
-	.global gUnknown_08A40470
-gUnknown_08A40470:  @ 0x08A40470
+	.global gTsa_PairedEndingWindow
+gTsa_PairedEndingWindow:  @ 0x08A40470
 	.incbin "baserom.gba", 0xA40470, 0x144
 
-	.global gUnknown_08A405B4
-gUnknown_08A405B4:  @ 0x08A405B4
+	.global gPal_FinScreen
+gPal_FinScreen:  @ 0x08A405B4
 	.incbin "baserom.gba", 0xA405B4, 0x20
 
-	.global gUnknown_08A405D4
-gUnknown_08A405D4:  @ 0x08A405D4
+	.global gGfx_FinScreen
+gGfx_FinScreen:  @ 0x08A405D4
 	.incbin "baserom.gba", 0xA405D4, 0x3FC
 
-	.global gUnknown_08A409D0
-gUnknown_08A409D0:  @ 0x08A409D0
+	.global gTsa_FinScreen
+gTsa_FinScreen:  @ 0x08A409D0
 	.incbin "baserom.gba", 0xA409D0, 0x104
 
 	.global gUnknown_08A40AD4

@@ -10,78 +10,47 @@
 #include "bmsave.h"
 #include "ctc.h"
 
+#include "ending_details.h"
+
 #include "constants/characters.h"
 
-enum {
-    CHARACTER_ENDING_NONE   = 0,
-
-    CHARACTER_ENDING_SOLO   = 1,
-    CHARACTER_ENDING_PAIRED = 2,
-};
-
-enum {
-    DEFEAT_DIED                 = 0,
-    DEFEAT_WOUNDED_PARTEDWAYS   = 1, // unused in FE8
-    DEFEAT_WOUNDED_REMAINED     = 2,
-    // 3?
-    DEFEAT_TYPE_4               = 4,
-    DEFEAT_TYPE_5               = 5,
-};
-
-struct EndingTitleEnt {
-    /* 00 */ u8 pid;
-    /* 04 */ int titleTextId;
-};
-
-struct EndingWithdrawalEnt {
-    /* 00 */ u8 pid;
-    /* 01 */ u8 retreatDesignation;
-};
-
-struct EndingPairingEnt {
-    /* 00 */ u8 type;
-    /* 01 */ u8 pidA;
-    /* 02 */ u8 pidB;
-    /* 04 */ int textId;
-};
-
-struct EndingDetailsProc {
+struct CharacterEndingProc {
     /* 00 */ PROC_HEADER;
 
     /* 29 */ u8 _pad[0x2E - 0x29];
     /* 2E */ u16 unk_2e;
-    /* 30 */ struct EndingPairingEnt* unk_30;
-    /* 34 */ void* unk_34;
+    /* 30 */ struct CharacterEndingEnt* unk_30;
+    /* 34 */ struct CharacterEndingEnt* unk_34;
     /* 38 */ struct Unit* unitA;
     /* 3C */ struct Unit* unitB;
-    /* 40 */ u32* unk_40;
+    /* 40 */ u32* unk_40; // flags for characters who have already been shown in an ending
 };
 
-struct EndingDetails8A3D420Proc {
+struct EndingBattleDisplayProc {
     /* 00 */ PROC_HEADER;
 
     /* 2C */ struct Unit* units[2];
     /* 34 */ int unk_34;
-    /* 38 */ struct EndingPairingEnt* unk_38;
+    /* 38 */ struct CharacterEndingEnt* pCharacterEnding;
     /* 3C */ u16 battleAmounts[2];
     /* 40 */ u16 winAmounts[2];
     /* 44 */ u16 lossAmounts[2];
 };
 
-struct EndingDetails8A3D478Proc {
+struct EndingBattleTextProc {
     /* 00 */ PROC_HEADER;
 
-    /* 2C */ struct EndingPairingEnt* unk_2c;
+    /* 2C */ struct CharacterEndingEnt* pCharacterEnding;
     /* 30 */ struct Unit* unitA;
     /* 34 */ struct Unit* unitB;
     /* 38 */ u32 unk_38;
-    /* 3C */ int unk_3c;
-    /* 40 */ int unk_40;
-    /* 44 */ const char* unk_44;
+    /* 3C */ int pauseTimer;
+    /* 40 */ int defaultPauseDelay;
+    /* 44 */ const char* str;
     /* 48 */ struct TextHandle* textHandle;
 };
 
-struct Fin8A3D498Proc {
+struct FinScreenProc {
     /* 00 */ PROC_HEADER;
 
     /* 29 */ u8 _pad[0x4c-0x29];
@@ -114,7 +83,7 @@ extern char gUnknown_020007A0[];
 
 char* CONST_DATA gUnknown_08A3CD64 = gUnknown_020007A0;
 
-struct EndingPairingEnt CONST_DATA gUnknown_08A3CD68[] = {
+struct CharacterEndingEnt CONST_DATA gCharacterEndings_Eirika[] = {
     { CHARACTER_ENDING_PAIRED, CHARACTER_SETH,     CHARACTER_NATASHA,  0x0000081F, },
     { CHARACTER_ENDING_SOLO,   CHARACTER_SETH,     CHARACTER_NONE,     0x000007D8, },
     { CHARACTER_ENDING_PAIRED, CHARACTER_FRANZ,    CHARACTER_AMELIA,   0x00000820, },
@@ -186,7 +155,7 @@ struct EndingPairingEnt CONST_DATA gUnknown_08A3CD68[] = {
     { CHARACTER_ENDING_NONE },
 };
 
-struct EndingPairingEnt CONST_DATA gUnknown_08A3CF88[] = {
+struct CharacterEndingEnt CONST_DATA gCharacterEndings_Ephraim[] = {
     { CHARACTER_ENDING_PAIRED, CHARACTER_SETH,     CHARACTER_NATASHA,  0x0000081F, },
     { CHARACTER_ENDING_SOLO,   CHARACTER_SETH,     CHARACTER_NONE,     0x000007D8, },
     { CHARACTER_ENDING_PAIRED, CHARACTER_FRANZ,    CHARACTER_AMELIA,   0x00000820, },
@@ -258,12 +227,12 @@ struct EndingPairingEnt CONST_DATA gUnknown_08A3CF88[] = {
     { CHARACTER_ENDING_NONE },
 };
 
-struct EndingPairingEnt* CONST_DATA gUnknown_08A3D1A8[] = {
-    gUnknown_08A3CD68,
-    gUnknown_08A3CF88,
+struct CharacterEndingEnt* CONST_DATA gCharacterEndingsByRoute[] = {
+    gCharacterEndings_Eirika,
+    gCharacterEndings_Ephraim,
 };
 
-struct EndingTitleEnt CONST_DATA gUnknown_08A3D1B0[] = {
+struct EndingTitleEnt CONST_DATA gCharacterEndingTitleLut[] = {
     { CHARACTER_SETH,     0x000007D7 },
     { CHARACTER_FRANZ,    0x000007DB },
     { CHARACTER_GILLIAM,  0x000007D9 },
@@ -298,10 +267,10 @@ struct EndingTitleEnt CONST_DATA gUnknown_08A3D1B0[] = {
     { CHARACTER_EPHRAIM,  0x000007F1 },
     { CHARACTER_EIRIKA,   0x000007D5 },
 
-    { 0 },
+    { CHARACTER_NONE },
 };
 
-struct EndingWithdrawalEnt CONST_DATA gUnknown_08A3D2C0[] = {
+struct EndingDefeatEnt CONST_DATA gCharacterEndingDefeatLut[] = {
     { CHARACTER_EIRIKA,   DEFEAT_DIED,             },
     { CHARACTER_EPHRAIM,  DEFEAT_DIED,             },
     { CHARACTER_SETH,     DEFEAT_WOUNDED_REMAINED, },
@@ -336,7 +305,7 @@ struct EndingWithdrawalEnt CONST_DATA gUnknown_08A3D2C0[] = {
     { CHARACTER_SALEH,    DEFEAT_DIED,             },
     { CHARACTER_MYRRH,    DEFEAT_WOUNDED_REMAINED, },
 
-    { 0 },
+    { CHARACTER_NONE },
 };
 
 extern u16 gUnknown_02000FA0[];
@@ -353,37 +322,14 @@ u16* CONST_DATA gUnknown_08A3D348[] = {
 extern struct TextHandle gUnknown_020027A0[];
 struct TextHandle* gUnknown_08A3D358 = gUnknown_020027A0;
 
-extern u8 gUnknown_08A3F750[]; // gfx
-extern u8 gUnknown_08A3FFEC[]; // tsa
-extern u8 gUnknown_08A40068[]; // tsa
-extern u16 gUnknown_08A3F710[]; // pal
-extern u16 gUnknown_08B1754C[]; // pal
-
-extern u8 gUnknown_08A40204[]; // tsa
-extern u8 gUnknown_08A400E4[]; // tsa
-
-extern u8 gUnknown_08A40470[]; // tsa
-extern u8 gUnknown_08A4034C[]; // tsa
-
-extern u16 gUnknown_08A09A5C[]; // pal
-extern u8 gUnknown_085A647C[]; // tsa
-
-extern u16 gUnknown_08A40AD4[]; // pal
-extern u8 gUnknown_08A40B14[]; // tsa
-
-// "Fin" image
-extern u16 gUnknown_08A405B4[]; // pal
-extern u8 gUnknown_08A405D4[]; // gfx
-extern u8 gUnknown_08A409D0[]; // tsa
-
 // forward declarations
-void sub_80B6F14(struct EndingPairingEnt*, struct Unit*, struct EndingDetailsProc*);
-void sub_80B72A4(struct EndingPairingEnt*, struct Unit*, struct Unit*, struct EndingDetailsProc*);
-void sub_80B742C(struct EndingPairingEnt*, struct Unit*, struct Unit*, struct EndingDetailsProc*);
-void sub_80B744C(void);
+void StartSoloEndingBattleDisplay(struct CharacterEndingEnt*, struct Unit*, struct CharacterEndingProc*);
+void StartPairedEndingBattleDisplay(struct CharacterEndingEnt*, struct Unit*, struct Unit*, struct CharacterEndingProc*);
+void StartEndingBattleText(struct CharacterEndingEnt*, struct Unit*, struct Unit*, struct CharacterEndingProc*);
+void EndEndingBattleText(void);
 
 //! FE8U = 0x080B6674
-char* sub_80B6674(u16 textIdA, u16 defeatedChapter, u16 textIdB, char* str) {
+char* PrepareUnitDefeatLocationString(u16 textIdA, u16 defeatedChapter, u16 textIdB, char* str) {
     const char* locationStr;
 
     u8 count = 0;
@@ -422,10 +368,10 @@ char* sub_80B6674(u16 textIdA, u16 defeatedChapter, u16 textIdB, char* str) {
 }
 
 //! FE8U = 0x080B6720
-int sub_80B6720(int pid) {
+int GetPidTitleTextId(int pid) {
     struct EndingTitleEnt* ent;
 
-    for (ent = gUnknown_08A3D1B0; ent->pid != 0; ent++) {
+    for (ent = gCharacterEndingTitleLut; ent->pid != 0; ent++) {
         if (ent->pid == pid) {
             return ent->titleTextId;
         }
@@ -435,12 +381,12 @@ int sub_80B6720(int pid) {
 }
 
 //! FE8U = 0x080B6744
-int sub_80B6744(int pid) {
-    struct EndingWithdrawalEnt* ent;
+int GetPidDefeatType(int pid) {
+    struct EndingDefeatEnt* ent;
 
-    for (ent = gUnknown_08A3D2C0; ent->pid != 0; ent++) {
+    for (ent = gCharacterEndingDefeatLut; ent->pid != 0; ent++) {
         if (ent->pid == pid) {
-            return ent->retreatDesignation;
+            return ent->defeatType;
         }
     }
 
@@ -448,13 +394,13 @@ int sub_80B6744(int pid) {
 }
 
 //! FE8U = 0x080B6768
-char* sub_80B6768(int pid) {
+char* GetPidDefeatedEndingString(int pid) {
     struct UnitUsageStats* bwl;
     int defeatDetails;
 
     char* str = gUnknown_08A3CD64;
 
-    int type = sub_80B6744(pid);
+    int type = GetPidDefeatType(pid);
 
     if (type == DEFEAT_TYPE_4) {
         CheckGlobalEventId(0x7d);
@@ -466,23 +412,23 @@ char* sub_80B6768(int pid) {
 
     switch (type) {
         case DEFEAT_DIED: // "Died at <xyz>."
-            sub_80B6674(0x7D1, defeatDetails, 0x22, str);
+            PrepareUnitDefeatLocationString(0x7D1, defeatDetails, 0x22, str);
             break;
 
         case DEFEAT_WOUNDED_REMAINED: // Wounded at <xyz>, but remained until the end."
-            sub_80B6674(0x7D3, defeatDetails, 0x7D4, str);
+            PrepareUnitDefeatLocationString(0x7D3, defeatDetails, 0x7D4, str);
             break;
 
         case DEFEAT_TYPE_5:
-            return 0;
+            return NULL;
     }
 
     return gUnknown_08A3CD64;
 }
 
 //! FE8U = 0x080B67E8
-void sub_80B67E8(void) {
-    Decompress(gUnknown_08A3F750, (void *)0x06004C00);
+void SetupCharacterEndingGfx(void) {
+    Decompress(gGfx_CharacterEndingMenu, (void *)0x06004C00);
     Decompress(Img_CommGameBgScreen, (void *)0x06008000);
     return;
 }
@@ -493,7 +439,7 @@ void sub_80B6810(void) {
     int i;
     u16* tm;
 
-    CopyToPaletteBuffer(gUnknown_08A3F710, 0x180, 0x40);
+    CopyToPaletteBuffer(gPal_CharacterEndingMenu, 0x180, 0x40);
     CopyToPaletteBuffer(gUnknown_08B1754C, 0x1c0, 0x40);
 
     tm = gBG3TilemapBuffer;
@@ -544,11 +490,10 @@ void sub_80B6920(void) {
 }
 
 //! FE8U = 0x080B696C
-void sub_80B696C(struct EndingDetailsProc* proc) {
-
-    SetupBackgrounds(0);
+void CharacterEnding_Init(struct CharacterEndingProc* proc) {
+    SetupBackgrounds(NULL);
     ResetFaces();
-    sub_80B67E8();
+    SetupCharacterEndingGfx();
     SetDefaultColorEffects();
 
     proc->unk_2e = 0;
@@ -558,11 +503,11 @@ void sub_80B696C(struct EndingDetailsProc* proc) {
     switch (gPlaySt.chapterModeIndex) {
         case CHAPTER_MODE_COMMON:
         case CHAPTER_MODE_EIRIKA:
-            proc->unk_30 = gUnknown_08A3D1A8[0];
+            proc->unk_30 = gCharacterEndingsByRoute[0];
             break;
 
         case CHAPTER_MODE_EPHRAIM:
-            proc->unk_30 = gUnknown_08A3D1A8[1];
+            proc->unk_30 = gCharacterEndingsByRoute[1];
             break;
     }
 
@@ -579,7 +524,7 @@ void sub_80B69D4(void) {
 
     ResetDialogueScreen();
 
-    sub_80B744C();
+    EndEndingBattleText();
     sub_80B6810();
 
     BG_EnableSyncByMask(7);
@@ -613,7 +558,7 @@ struct Unit* sub_80B6A10(int pid) {
 }
 
 //! FE8U = 0x080B6A4C
-int sub_80B6A4C(struct Unit* unit) {
+int GetUnitASupporterPid(struct Unit* unit) {
     int i;
 
     if (unit == NULL) {
@@ -630,9 +575,9 @@ int sub_80B6A4C(struct Unit* unit) {
 }
 
 //! FE8U = 0x080B6A80
-s8 sub_80B6A80(struct EndingPairingEnt* pairingEnt, struct Unit* unit) {
+s8 DoesUnitHavePairedEnding(struct CharacterEndingEnt* pairingEnt, struct Unit* unit) {
     int pidA = unit->pCharacterData->number;
-    int pidB = sub_80B6A4C(unit);
+    int pidB = GetUnitASupporterPid(unit);
 
     if (pidB == 0) {
         return 0;
@@ -660,7 +605,7 @@ s8 sub_80B6A80(struct EndingPairingEnt* pairingEnt, struct Unit* unit) {
 }
 
 //! FE8U = 0x080B6AE0
-void sub_80B6AE0(struct EndingDetailsProc* proc) {
+void LoadNextCharacterEnding(struct CharacterEndingProc* proc) {
     proc->unitB = NULL;
     proc->unitA = NULL;
 
@@ -682,13 +627,13 @@ void sub_80B6AE0(struct EndingDetailsProc* proc) {
 
         proc->unitA = sub_80B6A10(proc->unk_30->pidA);
 
-        if (proc->unitA == 0) {
+        if (proc->unitA == NULL) {
             continue;
         }
 
         switch (proc->unk_30->type) {
             case CHARACTER_ENDING_SOLO:
-                if (sub_80B6A80(proc->unk_34, proc->unitA)) {
+                if (DoesUnitHavePairedEnding(proc->unk_34, proc->unitA)) {
                     continue;
                 }
 
@@ -701,7 +646,7 @@ void sub_80B6AE0(struct EndingDetailsProc* proc) {
                     continue;
                 }
 
-                if (sub_80B6A4C(proc->unitA) != proc->unk_30->pidB) {
+                if (GetUnitASupporterPid(proc->unitA) != proc->unk_30->pidB) {
                     continue;
                 }
 
@@ -729,15 +674,15 @@ void sub_80B6AE0(struct EndingDetailsProc* proc) {
 }
 
 //! FE8U = 0x080B6BD8
-void sub_80B6BD8(struct EndingDetailsProc* proc) {
+void CharacterEnding_StartBattleDisplay(struct CharacterEndingProc* proc) {
 
     switch (proc->unk_30->type) {
         case CHARACTER_ENDING_SOLO:
-            sub_80B6F14(proc->unk_30, proc->unitA, proc);
+            StartSoloEndingBattleDisplay(proc->unk_30, proc->unitA, proc);
             break;
 
         case CHARACTER_ENDING_PAIRED:
-            sub_80B72A4(proc->unk_30, proc->unitA, proc->unitB, proc);
+            StartPairedEndingBattleDisplay(proc->unk_30, proc->unitA, proc->unitB, proc);
             break;
     }
 
@@ -745,16 +690,16 @@ void sub_80B6BD8(struct EndingDetailsProc* proc) {
 }
 
 //! FE8U = 0x080B6C00
-void sub_80B6C00(struct EndingDetailsProc* proc) {
-    sub_80B742C(proc->unk_30, proc->unitA, proc->unitB, proc);
+void CharacterEnding_StartBattleDisplayText(struct CharacterEndingProc* proc) {
+    StartEndingBattleText(proc->unk_30, proc->unitA, proc->unitB, proc);
     return;
 }
 
 //! FE8U = 0x080B6C14
-void sub_80B6C14(void) {
-    SetupBackgrounds(0);
+void CharacterEnding_End(void) {
+    SetupBackgrounds(NULL);
     ResetDialogueScreen();
-    sub_80B744C();
+    EndEndingBattleText();
 
     SetSpecialColorEffectsParameters(3, 0, 0, 0x10);
 
@@ -771,7 +716,7 @@ void sub_80B6C14(void) {
 }
 
 //! FE8U = 0x080B6C74
-void sub_80B6C74(struct EndingDetailsProc* proc) {
+void CharacterEnding_Unused_80B6C74(struct CharacterEndingProc* proc) {
     proc->unk_30++;
 
     if (proc->unk_30->type == CHARACTER_ENDING_NONE) {
@@ -781,24 +726,24 @@ void sub_80B6C74(struct EndingDetailsProc* proc) {
     return;
 }
 
-struct ProcCmd CONST_DATA gUnknown_08A3D35C[] = {
+struct ProcCmd CONST_DATA gProcScr_CharacterEndings[] = {
     PROC_SLEEP(0),
-    PROC_CALL(sub_80B696C),
-    PROC_CALL(sub_80B6AE0),
+    PROC_CALL(CharacterEnding_Init),
+    PROC_CALL(LoadNextCharacterEnding),
 
 PROC_LABEL(0),
     PROC_CALL(sub_80B69D4),
     PROC_CALL_ARG(NewFadeIn, 4),
     PROC_WHILE(FadeInExists),
 
-    PROC_CALL(sub_80B6BD8),
+    PROC_CALL(CharacterEnding_StartBattleDisplay),
 
     PROC_SLEEP(30),
-    PROC_CALL(sub_80B6C00),
+    PROC_CALL(CharacterEnding_StartBattleDisplayText),
     PROC_SLEEP(114),
 
 PROC_LABEL(99),
-    PROC_CALL(sub_80B6AE0),
+    PROC_CALL(LoadNextCharacterEnding),
 
     PROC_CALL_ARG(NewFadeOut, 4),
     PROC_WHILE(FadeOutExists),
@@ -811,19 +756,19 @@ PROC_LABEL(100),
     PROC_CALL_ARG(NewFadeOut, 2),
     PROC_WHILE(FadeOutExists),
 
-    PROC_CALL(sub_80B6C14),
+    PROC_CALL(CharacterEnding_End),
 
     PROC_END,
 };
 
 //! FE8U = 0x080B6C94
-void sub_80B6C94(ProcPtr parent) {
-    Proc_StartBlocking(gUnknown_08A3D35C, parent);
+void StartCharacterEndings(ProcPtr parent) {
+    Proc_StartBlocking(gProcScr_CharacterEndings, parent);
     return;
 }
 
 //! FE8U = 0x080B6CA8
-void sub_80B6CA8(struct EndingDetails8A3D420Proc* proc) {
+void sub_80B6CA8(struct EndingBattleDisplayProc* proc) {
     int i;
 
     for (i = 0; i < 2; i++) {
@@ -846,7 +791,7 @@ void sub_80B6CA8(struct EndingDetails8A3D420Proc* proc) {
 }
 
 //! FE8U = 0x080B6D24
-void sub_80B6D24(struct EndingDetails8A3D420Proc* proc) {
+void SoloEndingBattleDisp_Init(struct EndingBattleDisplayProc* proc) {
     const char* str;
 
     sub_80B6920();
@@ -857,13 +802,13 @@ void sub_80B6D24(struct EndingDetails8A3D420Proc* proc) {
     BG_Fill(gUnknown_08A3D348[1], 0);
     BG_Fill(gUnknown_08A3D348[2], 0);
 
-    Decompress(gUnknown_08A40204, gGenericBuffer);
+    Decompress(gTsa_SoloEndingWindow, gGenericBuffer);
     CallARM_FillTileRect(gUnknown_08A3D348[2], gGenericBuffer, 0x0000C260);
 
-    Decompress(gUnknown_08A400E4, gGenericBuffer);
+    Decompress(gTsa_SoloEndingNameplate, gGenericBuffer);
     CallARM_FillTileRect(gUnknown_08A3D348[1], gGenericBuffer, 0x0000C260);
 
-    str = GetStringFromIndex(sub_80B6720(proc->unk_38->pidA));
+    str = GetStringFromIndex(GetPidTitleTextId(proc->pCharacterEnding->pidA));
 
     DrawTextInline(gUnknown_08A3D358 + 5, gUnknown_08A3D348[0] + 0x61, 0, GetStringTextCenteredPos(0x78, str), 0, str);
 
@@ -875,7 +820,7 @@ void sub_80B6D24(struct EndingDetails8A3D420Proc* proc) {
     sub_8004B88(gUnknown_08A3D348[0] + 0x35 + sub_80AEBEC(proc->winAmounts[0]), 2, proc->winAmounts[0]);
     sub_8004B88(gUnknown_08A3D348[0] + 0x39 + sub_80AEBEC(proc->lossAmounts[0]), 2, proc->lossAmounts[0]);
 
-    StartFace2(0, gCharacterData[proc->unk_38->pidA - 1].portraitId, 0x1a0, 0x38, 0x502);
+    StartFace2(0, gCharacterData[proc->pCharacterEnding->pidA - 1].portraitId, 0x1a0, 0x38, 0x502);
 
     if (proc->units[0]->state & US_DEAD) {
         ArchivePalette(0x16);
@@ -896,7 +841,7 @@ u8 CONST_DATA gUnknown_08A3D40C[] = {
 };
 
 //! FE8U = 0x080B6ED0
-void sub_80B6ED0(struct EndingDetails8A3D420Proc* proc) {
+void SoloEndingBattleDisp_Loop(struct EndingBattleDisplayProc* proc) {
     int a = 30;
 
     int b = gUnknown_08A3D40C[proc->unk_34];
@@ -905,6 +850,7 @@ void sub_80B6ED0(struct EndingDetails8A3D420Proc* proc) {
     a -= b;
 
     sub_8006618(0, (a * 8 + 176) & 0x1FF, 0x38);
+
     sub_80B689C(a, 0);
 
     if (b == 30) {
@@ -914,29 +860,29 @@ void sub_80B6ED0(struct EndingDetails8A3D420Proc* proc) {
     return;
 }
 
-struct ProcCmd CONST_DATA gUnknown_08A3D420[] = {
+struct ProcCmd CONST_DATA gProcScr_EndingBattleDisplay_Solo[] = {
     PROC_SLEEP(0),
-    PROC_CALL(sub_80B6D24),
+    PROC_CALL(SoloEndingBattleDisp_Init),
 
-    PROC_REPEAT(sub_80B6ED0),
+    PROC_REPEAT(SoloEndingBattleDisp_Loop),
 
     PROC_END,
 };
 
 //! FE8U = 0x080B6F14
-void sub_80B6F14(struct EndingPairingEnt* pairingEnt, struct Unit* unit, struct EndingDetailsProc* parent) {
-    struct EndingDetails8A3D420Proc* proc = Proc_StartBlocking(gUnknown_08A3D420, parent);
+void StartSoloEndingBattleDisplay(struct CharacterEndingEnt* endingEnt, struct Unit* unit, struct CharacterEndingProc* parent) {
+    struct EndingBattleDisplayProc* proc = Proc_StartBlocking(gProcScr_EndingBattleDisplay_Solo, parent);
 
     proc->units[0] = unit;
     proc->units[1] = NULL;
 
-    proc->unk_38 = pairingEnt;
+    proc->pCharacterEnding = endingEnt;
 
     return;
 }
 
 //! FE8U = 0x080B6F34
-void sub_80B6F34(struct EndingDetails8A3D420Proc* proc) {
+void sub_80B6F34(struct EndingBattleDisplayProc* proc) {
     const char* str;
 
     sub_80B6920();
@@ -947,13 +893,13 @@ void sub_80B6F34(struct EndingDetails8A3D420Proc* proc) {
     BG_Fill(gUnknown_08A3D348[1], 0);
     BG_Fill(gUnknown_08A3D348[2], 0);
 
-    Decompress(gUnknown_08A40470, gGenericBuffer);
+    Decompress(gTsa_PairedEndingWindow, gGenericBuffer);
     CallARM_FillTileRect(gUnknown_08A3D348[2], gGenericBuffer, 0x0000C260);
 
-    Decompress(gUnknown_08A4034C, gGenericBuffer);
+    Decompress(gTsa_PairedEndingNameplates, gGenericBuffer);
     CallARM_FillTileRect(gUnknown_08A3D348[1], gGenericBuffer, 0x0000C260);
 
-    str = GetStringFromIndex(sub_80B6720(proc->unk_38->pidA));
+    str = GetStringFromIndex(GetPidTitleTextId(proc->pCharacterEnding->pidA));
 
     DrawTextInline(gUnknown_08A3D358 + 5, gUnknown_08A3D348[0] + 0x61, 0, GetStringTextCenteredPos(0x78, str), 0, str);
 
@@ -965,7 +911,7 @@ void sub_80B6F34(struct EndingDetails8A3D420Proc* proc) {
     sub_8004B88(gUnknown_08A3D348[0] + 0x35 + sub_80AEBEC(proc->winAmounts[0]), 2, proc->winAmounts[0]);
     sub_8004B88(gUnknown_08A3D348[0] + 0x39 + sub_80AEBEC(proc->lossAmounts[0]), 2, proc->lossAmounts[0]);
 
-    str = GetStringFromIndex(sub_80B6720(proc->unk_38->pidB));
+    str = GetStringFromIndex(GetPidTitleTextId(proc->pCharacterEnding->pidB));
     DrawTextInline(gUnknown_08A3D358 + 6, gUnknown_08A3D348[0] + 0x22E, 0, GetStringTextCenteredPos(0x78, str), 0, str);
 
     DrawTextInline(gUnknown_08A3D358 + 8, gUnknown_08A3D348[0] + 0x221, 3, 0, 0, GetStringFromIndex(0x51F));
@@ -980,14 +926,14 @@ void sub_80B6F34(struct EndingDetails8A3D420Proc* proc) {
 
     SetDefaultColorEffects();
 
-    StartFace2(0, gCharacterData[proc->unk_38->pidA - 1].portraitId, 0x130, 0x30, 0x503);
-    StartFace2(1, gCharacterData[proc->unk_38->pidB - 1].portraitId, 0x1a0, 0x30, 0x502);
+    StartFace2(0, gCharacterData[proc->pCharacterEnding->pidA - 1].portraitId, 0x130, 0x30, 0x503);
+    StartFace2(1, gCharacterData[proc->pCharacterEnding->pidB - 1].portraitId, 0x1a0, 0x30, 0x502);
 
     return;
 }
 
 //! FE8U = 0x080B71DC
-void sub_80B71DC(struct EndingDetails8A3D420Proc* proc) {
+void sub_80B71DC(struct EndingBattleDisplayProc* proc) {
     int a = 30;
 
     int b = gUnknown_08A3D40C[proc->unk_34];
@@ -1008,7 +954,7 @@ void sub_80B71DC(struct EndingDetails8A3D420Proc* proc) {
 }
 
 //! FE8U = 0x080B723C
-void sub_80B723C(struct EndingDetails8A3D420Proc* proc) {
+void sub_80B723C(struct EndingBattleDisplayProc* proc) {
     proc->unk_34 = 0;
 
     SetSpecialColorEffectsParameters(1, 0x10, 0, 0);
@@ -1020,7 +966,7 @@ void sub_80B723C(struct EndingDetails8A3D420Proc* proc) {
 }
 
 //! FE8U = 0x080B7274
-void sub_80B7274(struct EndingDetails8A3D420Proc* proc) {
+void sub_80B7274(struct EndingBattleDisplayProc* proc) {
     int var = proc->unk_34 >> 2;
 
     proc->unk_34++;
@@ -1033,7 +979,7 @@ void sub_80B7274(struct EndingDetails8A3D420Proc* proc) {
     return;
 }
 
-struct ProcCmd CONST_DATA gUnknown_08A3D440[] = {
+struct ProcCmd CONST_DATA gProcScr_EndingBattleDisplay_Paired[] = {
     PROC_SLEEP(0),
 
     PROC_CALL(sub_80B6F34),
@@ -1048,25 +994,25 @@ struct ProcCmd CONST_DATA gUnknown_08A3D440[] = {
 };
 
 //! FE8U = 0x080B72A4
-void sub_80B72A4(struct EndingPairingEnt* pairingEnt, struct Unit* unitA, struct Unit* unitB, struct EndingDetailsProc* parent) {
-    struct EndingDetails8A3D420Proc* proc = Proc_StartBlocking(gUnknown_08A3D440, parent);
+void StartPairedEndingBattleDisplay(struct CharacterEndingEnt* endingEnt, struct Unit* unitA, struct Unit* unitB, struct CharacterEndingProc* parent) {
+    struct EndingBattleDisplayProc* proc = Proc_StartBlocking(gProcScr_EndingBattleDisplay_Paired, parent);
 
     proc->units[0] = unitA;
     proc->units[1] = unitB;
 
-    proc->unk_38 = pairingEnt;
+    proc->pCharacterEnding = endingEnt;
 
     return;
 }
 
 //! FE8U = 0x080B72C4
-void sub_80B72C4(struct EndingDetails8A3D478Proc* proc) {
+void EndingBattleText_Init(struct EndingBattleTextProc* proc) {
     int i;
 
     proc->textHandle = gUnknown_08A3D358;
 
-    proc->unk_40 = 4;
-    proc->unk_3c = 4;
+    proc->defaultPauseDelay = 4;
+    proc->pauseTimer = 4;
 
     Text_SetXCursor(proc->textHandle, 0);
     Text_SetColorId(proc->textHandle, 0);
@@ -1081,42 +1027,42 @@ void sub_80B72C4(struct EndingDetails8A3D478Proc* proc) {
     BG_EnableSyncByMask(1);
 
     if (proc->unitA->state & US_DEAD) {
-        proc->unk_44 = sub_80B6768(proc->unitA->pCharacterData->number);
+        proc->str = GetPidDefeatedEndingString(proc->unitA->pCharacterData->number);
 
-        if (proc->unk_44 != 0) {
+        if (proc->str != 0) {
             return;
         }
     }
 
-    proc->unk_44 = GetStringFromIndex(proc->unk_2c->textId);
+    proc->str = GetStringFromIndex(proc->pCharacterEnding->textId);
 
     return;
 }
 
 //! FE8U = 0x080B734C
-void sub_80B734C(struct EndingDetails8A3D478Proc* proc) {
+void EndingBattleText_Loop(struct EndingBattleTextProc* proc) {
     if ((gKeyStatusPtr->newKeys & START_BUTTON) && (CheckGameEndFlag() != 0)) {
         Proc_Break(proc);
         Proc_Goto(proc->proc_parent, 100);
         return;
     }
 
-    if (proc->unk_3c != 0) {
-        proc->unk_3c--;
+    if (proc->pauseTimer != 0) {
+        proc->pauseTimer--;
         return;
     }
 
     SetFont(NULL);
 
-    switch (*proc->unk_44) {
+    switch (*proc->str) {
         case 0x00: // [X]
             Proc_Break(proc);
             break;
 
         case 0x01: // [NL]
-            proc->unk_44++;
+            proc->str++;
             proc->textHandle++;
-            proc->unk_3c += 16;
+            proc->pauseTimer += 16;
 
             Text_SetXCursor(proc->textHandle, 0);
             Text_SetColorId(proc->textHandle, 0);
@@ -1124,52 +1070,53 @@ void sub_80B734C(struct EndingDetails8A3D478Proc* proc) {
             break;
 
         case 0x04: // [....]
-            proc->unk_3c = 8;
-            proc->unk_44++;
+            proc->pauseTimer = 8;
+            proc->str++;
 
             break;
 
         case 0x05: // [.....]
-            proc->unk_3c = 16;
-            proc->unk_44++;
+            proc->pauseTimer = 16;
+            proc->str++;
 
             break;
 
         case 0x06: // [......]
-            proc->unk_3c = 32;
-            proc->unk_44++;
+            proc->pauseTimer = 32;
+            proc->str++;
 
             break;
 
         case 0x07: // [.......]
-            proc->unk_3c = 64;
-            proc->unk_44++;
+            proc->pauseTimer = 64;
+            proc->str++;
 
             break;
 
         case 0x02: // [NL2]
         case 0x03: // [A]
         default:
-            proc->unk_44 = Text_AppendChar(proc->textHandle, proc->unk_44);
+            proc->str = Text_AppendChar(proc->textHandle, proc->str);
     }
 
-    proc->unk_3c = proc->unk_40;
+    // TODO: Is this a bug? Seems to overwrite any pauses with the default delay of 4 frames...
+    proc->pauseTimer = proc->defaultPauseDelay;
 
     return;
 }
 
-struct ProcCmd CONST_DATA gUnknown_08A3D478[] = {
+struct ProcCmd CONST_DATA gProcScr_EndingBattleDisplay_Text[] = {
     PROC_SLEEP(0),
-    PROC_CALL(sub_80B72C4),
-    PROC_REPEAT(sub_80B734C),
+    PROC_CALL(EndingBattleText_Init),
+    PROC_REPEAT(EndingBattleText_Loop),
 
     PROC_END,
 };
 
 //! FE8U = 0x080B742C
-void sub_80B742C(struct EndingPairingEnt* pairingEnt, struct Unit* unitA, struct Unit* unitB, struct EndingDetailsProc* parent) {
-    struct EndingDetails8A3D478Proc* proc = Proc_StartBlocking(gUnknown_08A3D478, parent);
-    proc->unk_2c = pairingEnt;
+void StartEndingBattleText(struct CharacterEndingEnt* pairingEnt, struct Unit* unitA, struct Unit* unitB, struct CharacterEndingProc* parent) {
+    struct EndingBattleTextProc* proc = Proc_StartBlocking(gProcScr_EndingBattleDisplay_Text, parent);
+    proc->pCharacterEnding = pairingEnt;
     proc->unitA = unitA;
     proc->unitB = unitB;
 
@@ -1177,18 +1124,18 @@ void sub_80B742C(struct EndingPairingEnt* pairingEnt, struct Unit* unitA, struct
 }
 
 //! FE8U = 0x080B744C
-void sub_80B744C(void) {
-    Proc_EndEach(gUnknown_08A3D478);
+void EndEndingBattleText(void) {
+    Proc_EndEach(gProcScr_EndingBattleDisplay_Text);
     return;
 }
 
 //! FE8U = 0x080B745C
-void sub_80B745C(void) {
-    CopyToPaletteBuffer(gUnknown_08A405B4, 0x1c0, 0x20);
+void SetupFinScreenGfx(void) {
+    CopyToPaletteBuffer(gPal_FinScreen, 0x1c0, 0x20);
 
-    Decompress(gUnknown_08A405D4, (void *)0x06001000);
+    Decompress(gGfx_FinScreen, (void *)0x06001000);
 
-    Decompress(gUnknown_08A409D0, gGenericBuffer);
+    Decompress(gTsa_FinScreen, gGenericBuffer);
     CallARM_FillTileRect(gBG2TilemapBuffer, gGenericBuffer, 0x0000E080);
 
     BG_EnableSyncByMask(4);
@@ -1197,13 +1144,13 @@ void sub_80B745C(void) {
 }
 
 //! FE8U = 0x080B74B0
-void sub_80B74B0(struct Fin8A3D498Proc* proc) {
+void Fin_Init(struct FinScreenProc* proc) {
     proc->unk_4c = 0;
     proc->unk_58 = 0;
 
     SetupBackgrounds(0);
 
-    sub_80B745C();
+    SetupFinScreenGfx();
 
     Sound_PlaySong8002574(0x56, 7, 0);
     SetDefaultColorEffects();
@@ -1212,7 +1159,7 @@ void sub_80B74B0(struct Fin8A3D498Proc* proc) {
 }
 
 //! FE8U = 0x080B74D8
-void sub_80B74D8(struct Fin8A3D498Proc* proc) {
+void Fin_Loop_KeyListener(struct FinScreenProc* proc) {
     proc->unk_58++;
 
     if (gKeyStatusPtr->newKeys & (A_BUTTON | START_BUTTON)) {
@@ -1223,20 +1170,20 @@ void sub_80B74D8(struct Fin8A3D498Proc* proc) {
 }
 
 //! FE8U = 0x080B7500
-void sub_80B7500(struct Fin8A3D498Proc* proc) {
+void sub_80B7500(struct FinScreenProc* proc) {
     SetSpecialColorEffectsParameters(1, 0, 0x10, 0);
     SetBlendTargetA(0, 0, 1, 0, 0);
     SetBlendTargetB(0, 0, 0, 1, 0);
 
     proc->unk_4c = 0;
 
-    sub_80B745C();
+    SetupFinScreenGfx();
 
     return;
 }
 
 //! FE8U = 0x080B7540
-void sub_80B7540(struct Fin8A3D498Proc* proc) {
+void sub_80B7540(struct FinScreenProc* proc) {
     int b;
 
     s16 a = proc->unk_4c;
@@ -1254,22 +1201,22 @@ void sub_80B7540(struct Fin8A3D498Proc* proc) {
 }
 
 //! FE8U = 0x080B7574
-void sub_80B7574(void) {
+void Fin_End(void) {
     SetSpecialColorEffectsParameters(3, 0, 0, 0x10);
     SetBlendTargetA(1, 1, 1, 1, 1);
     return;
 }
 
-struct ProcCmd CONST_DATA gUnknown_08A3D498[] = {
+struct ProcCmd CONST_DATA gProcScr_FinScreen[] = {
     PROC_SLEEP(30),
 
-    PROC_CALL(sub_80B74B0),
+    PROC_CALL(Fin_Init),
 
     PROC_CALL_ARG(NewFadeIn, 4),
     PROC_WHILE(FadeInExists),
 
 PROC_LABEL(0),
-    PROC_REPEAT(sub_80B74D8),
+    PROC_REPEAT(Fin_Loop_KeyListener),
     PROC_CALL_ARG(sub_8014BD0, 4),
 
     PROC_CALL_ARG(NewFadeOut, 4),
@@ -1290,14 +1237,14 @@ PROC_LABEL(1),
     PROC_GOTO(0),
 
 PROC_LABEL(100),
-    PROC_CALL(sub_80B7574),
+    PROC_CALL(Fin_End),
 
     PROC_END,
 };
 
 //! FE8U = 0x080B7598
-void sub_80B7598(ProcPtr parent) {
-    Proc_StartBlocking(gUnknown_08A3D498, parent);
+void StartFinScreen(ProcPtr parent) {
+    Proc_StartBlocking(gProcScr_FinScreen, parent);
     return;
 }
 
@@ -1468,7 +1415,7 @@ void sub_80B7614(struct EndingTurnRecordProc* proc) {
     return;
 }
 
-struct ProcCmd CONST_DATA gUnknown_08A3D654[] = {
+struct ProcCmd CONST_DATA gProcScr_08A3D654[] = {
     PROC_SLEEP(0),
     PROC_CALL(sub_80B75AC),
     PROC_REPEAT(sub_80B7614),
@@ -2029,6 +1976,7 @@ void sub_80B7B30(struct EndingTurnRecordProc* proc) {
         if (proc->unk_39 == (pos / 16)) {
             if (proc->unk_2c >= proc->unk_38) {
                 int unk = proc->unk_2c - proc->unk_38;
+
                 if (unk == 1) {
                     sub_80B7800((void *)-1, proc->unk_39);
                 } else if (unk >= 3) {
@@ -2201,7 +2149,7 @@ int sub_80B8168(void) {
     // return; // BUG
 }
 
-struct ProcCmd CONST_DATA gUnknown_08A3D678[] = {
+struct ProcCmd CONST_DATA gProcScr_EndingTurnRecord[] = {
     PROC_SLEEP(0),
     PROC_CALL(sub_80B7648),
 
@@ -2224,8 +2172,8 @@ struct ProcCmd CONST_DATA gUnknown_08A3D678[] = {
 };
 
 //! FE8U = 0x080B8174
-void sub_80B8174(ProcPtr parent) {
-    Proc_StartBlocking(gUnknown_08A3D678, parent);
+void StartEndingTurnRecordScreen(ProcPtr parent) {
+    Proc_StartBlocking(gProcScr_EndingTurnRecord, parent);
     return;
 }
 

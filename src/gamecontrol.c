@@ -11,6 +11,7 @@
 #include "opinfo.h"
 #include "bm.h"
 #include "bmsave.h"
+#include "ending_details.h"
 
 #include "gamecontrol.h"
 
@@ -229,7 +230,7 @@ PROC_LABEL(17),
 
     PROC_WHILE(EventEngineExists),
 
-    PROC_CALL(sub_80B7598),
+    PROC_CALL(StartFinScreen),
     PROC_CALL(sub_8009EFC),
 
     PROC_SLEEP(30),
