@@ -174,7 +174,7 @@ extern u32 gUnknown_02017744;
 // extern ??? gUnknown_0201777C
 extern short gEkrHitEfxBool[2];     /* [0] for left and [1] for right, if in hit routine, 1, otherwise 0 */
 // extern ??? gUnknown_02017790
-// extern ??? gUnknown_02019490
+extern u16 gUnknown_02019490[];
 // extern ??? gUnknown_02019790
 // extern ??? gUnknown_02019D00
 // extern ??? gUnknown_0201A790
@@ -396,7 +396,7 @@ extern u16 gBG1TilemapBuffer[];
 // extern ??? gUnknown_0202387E
 // extern ??? gUnknown_020238A8
 // extern ??? gUnknown_020238CA
-// extern ??? gUnknown_020238F4
+extern u16 gUnknown_020238F4[];
 // extern ??? gUnknown_020238F6
 // extern ??? gUnknown_0202393E
 // extern ??? gUnknown_0202396C
@@ -2564,7 +2564,7 @@ extern u16 gUnknown_08802C84[];
 extern u8 gUnknown_08802D44[];
 extern u16 gUnknown_088030C4[];
 extern u16 gUnknown_088033C4[];
-// extern ??? gUnknown_08803524
+extern u16 gUnknown_08803524[];
 extern u16 gUnknown_08803590[];
 // extern ??? Img_LevelUpBoxFrame
 // extern ??? Tsa_LevelUpBoxFrame
