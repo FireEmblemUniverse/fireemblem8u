@@ -10,10 +10,27 @@
 #include "bmsave.h"
 #include "ctc.h"
 
+#include "constants/characters.h"
+
+enum {
+    CHARACTER_ENDING_NONE   = 0,
+
+    CHARACTER_ENDING_SOLO   = 1,
+    CHARACTER_ENDING_PAIRED = 2,
+};
+
+enum {
+    DEFEAT_DIED                 = 0,
+    DEFEAT_WOUNDED_PARTEDWAYS   = 1, // unused in FE8
+    DEFEAT_WOUNDED_REMAINED     = 2,
+    // 3?
+    DEFEAT_TYPE_4               = 4,
+    DEFEAT_TYPE_5               = 5,
+};
+
 struct EndingTitleEnt {
     /* 00 */ u8 pid;
-    /* 02 */ u16 titleTextId;
-    /* 04 */ int unk_04;
+    /* 04 */ int titleTextId;
 };
 
 struct EndingWithdrawalEnt {
@@ -22,7 +39,7 @@ struct EndingWithdrawalEnt {
 };
 
 struct EndingPairingEnt {
-    /* 00 */ u8 type; // 1 = Alone, 2 = with A Support
+    /* 00 */ u8 type;
     /* 01 */ u8 pidA;
     /* 02 */ u8 pidB;
     /* 04 */ int textId;
@@ -93,19 +110,248 @@ struct UnkProc {
     /* 4C */ u16 unk_4c[5];
 };
 
-extern struct EndingTitleEnt gUnknown_08A3D1B0[];
-extern struct EndingWithdrawalEnt gUnknown_08A3D2C0[];
-extern struct EndingPairingEnt* gUnknown_08A3D1A8[];
+extern char gUnknown_020007A0[];
 
-extern char* gUnknown_08A3CD64;
+char* CONST_DATA gUnknown_08A3CD64 = gUnknown_020007A0;
 
-extern u16* gUnknown_08A3D348[];
+struct EndingPairingEnt CONST_DATA gUnknown_08A3CD68[] = {
+    { CHARACTER_ENDING_PAIRED, CHARACTER_SETH,     CHARACTER_NATASHA,  0x0000081F, },
+    { CHARACTER_ENDING_SOLO,   CHARACTER_SETH,     CHARACTER_NONE,     0x000007D8, },
+    { CHARACTER_ENDING_PAIRED, CHARACTER_FRANZ,    CHARACTER_AMELIA,   0x00000820, },
+    { CHARACTER_ENDING_SOLO,   CHARACTER_FRANZ,    CHARACTER_NONE,     0x000007DC, },
+    { CHARACTER_ENDING_PAIRED, CHARACTER_GILLIAM,  CHARACTER_SYRENE,   0x00000821, },
+    { CHARACTER_ENDING_SOLO,   CHARACTER_GILLIAM,  CHARACTER_NONE,     0x000007DA, },
+    { CHARACTER_ENDING_SOLO,   CHARACTER_MOULDER,  CHARACTER_NONE,     0x000007DE, },
+    { CHARACTER_ENDING_SOLO,   CHARACTER_VANESSA,  CHARACTER_NONE,     0x000007E0, },
+    { CHARACTER_ENDING_PAIRED, CHARACTER_ROSS,     CHARACTER_AMELIA,   0x00000832, },
+    { CHARACTER_ENDING_SOLO,   CHARACTER_ROSS,     CHARACTER_NONE,     0x000007E2, },
+    { CHARACTER_ENDING_PAIRED, CHARACTER_GARCIA,   CHARACTER_ROSS,     0x00000824, },
+    { CHARACTER_ENDING_SOLO,   CHARACTER_GARCIA,   CHARACTER_NONE,     0x000007E8, },
+    { CHARACTER_ENDING_PAIRED, CHARACTER_COLM,     CHARACTER_NEIMI,    0x00000825, },
+    { CHARACTER_ENDING_SOLO,   CHARACTER_COLM,     CHARACTER_NONE,     0x000007E6, },
+    { CHARACTER_ENDING_SOLO,   CHARACTER_NEIMI,    CHARACTER_NONE,     0x000007E4, },
+    { CHARACTER_ENDING_PAIRED, CHARACTER_ARTUR,    CHARACTER_LUTE,     0x00000826, },
+    { CHARACTER_ENDING_SOLO,   CHARACTER_ARTUR,    CHARACTER_NONE,     0x000007FA, },
+    { CHARACTER_ENDING_SOLO,   CHARACTER_LUTE,     CHARACTER_NONE,     0x000007EC, },
+    { CHARACTER_ENDING_PAIRED, CHARACTER_JOSHUA,   CHARACTER_MARISA,   0x00000830, },
+    { CHARACTER_ENDING_PAIRED, CHARACTER_JOSHUA,   CHARACTER_GERIK,    0x00000834, },
+    { CHARACTER_ENDING_PAIRED, CHARACTER_JOSHUA,   CHARACTER_NATASHA,  0x00000828, },
+    { CHARACTER_ENDING_SOLO,   CHARACTER_JOSHUA,   CHARACTER_NONE,     0x00000812, },
+    { CHARACTER_ENDING_SOLO,   CHARACTER_NATASHA,  CHARACTER_NONE,     0x000007EE, },
+    { CHARACTER_ENDING_PAIRED, CHARACTER_FORDE,    CHARACTER_VANESSA,  0x00000823, },
+    { CHARACTER_ENDING_SOLO,   CHARACTER_FORDE,    CHARACTER_NONE,     0x000007F4, },
+    { CHARACTER_ENDING_PAIRED, CHARACTER_KYLE,     CHARACTER_FORDE,    0x00000829, },
+    { CHARACTER_ENDING_PAIRED, CHARACTER_KYLE,     CHARACTER_SYRENE,   0x00000837, },
+    { CHARACTER_ENDING_PAIRED, CHARACTER_KYLE,     CHARACTER_LUTE,     0x00000827, },
+    { CHARACTER_ENDING_SOLO,   CHARACTER_KYLE,     CHARACTER_NONE,     0x000007F6, },
+    { CHARACTER_ENDING_PAIRED, CHARACTER_TANA,     CHARACTER_CORMAG,   0x0000082A, },
+    { CHARACTER_ENDING_SOLO,   CHARACTER_TANA,     CHARACTER_NONE,     0x00000816, },
+    { CHARACTER_ENDING_PAIRED, CHARACTER_INNES,    CHARACTER_LARACHEL, 0x0000082B, },
+    { CHARACTER_ENDING_PAIRED, CHARACTER_INNES,    CHARACTER_VANESSA,  0x00000822, },
+    { CHARACTER_ENDING_SOLO,   CHARACTER_INNES,    CHARACTER_NONE,     0x000007EA, },
+    { CHARACTER_ENDING_PAIRED, CHARACTER_SYRENE,   CHARACTER_VANESSA,  0x00000835, },
+    { CHARACTER_ENDING_SOLO,   CHARACTER_SYRENE,   CHARACTER_NONE,     0x00000814, },
+    { CHARACTER_ENDING_SOLO,   CHARACTER_AMELIA,   CHARACTER_NONE,     0x000007F8, },
+    { CHARACTER_ENDING_PAIRED, CHARACTER_DUESSEL,  CHARACTER_AMELIA,   0x00000838, },
+    { CHARACTER_ENDING_SOLO,   CHARACTER_DUESSEL,  CHARACTER_NONE,     0x0000080C, },
+    { CHARACTER_ENDING_SOLO,   CHARACTER_KNOLL,    CHARACTER_NONE,     0x00000810, },
+    { CHARACTER_ENDING_SOLO,   CHARACTER_CORMAG,   CHARACTER_NONE,     0x000007F0, },
+    { CHARACTER_ENDING_PAIRED, CHARACTER_LARACHEL, CHARACTER_DOZLA,    0x00000831, },
+    { CHARACTER_ENDING_SOLO,   CHARACTER_LARACHEL, CHARACTER_NONE,     0x00000806, },
+    { CHARACTER_ENDING_SOLO,   CHARACTER_DOZLA,    CHARACTER_NONE,     0x00000808, },
+    { CHARACTER_ENDING_SOLO,   CHARACTER_RENNAC,   CHARACTER_NONE,     0x0000080A, },
+    { CHARACTER_ENDING_PAIRED, CHARACTER_GERIK,    CHARACTER_TETHYS,   0x0000082C, },
+    { CHARACTER_ENDING_PAIRED, CHARACTER_GERIK,    CHARACTER_MARISA,   0x0000082D, },
+    { CHARACTER_ENDING_SOLO,   CHARACTER_GERIK,    CHARACTER_NONE,     0x000007FC, },
+    { CHARACTER_ENDING_SOLO,   CHARACTER_TETHYS,   CHARACTER_NONE,     0x000007FE, },
+    { CHARACTER_ENDING_PAIRED, CHARACTER_EWAN,     CHARACTER_AMELIA,   0x00000833, },
+    { CHARACTER_ENDING_SOLO,   CHARACTER_EWAN,     CHARACTER_NONE,     0x00000804, },
+    { CHARACTER_ENDING_SOLO,   CHARACTER_MARISA,   CHARACTER_NONE,     0x00000800, },
+    { CHARACTER_ENDING_PAIRED, CHARACTER_SALEH,    CHARACTER_EWAN,     0x0000082F, },
+    { CHARACTER_ENDING_SOLO,   CHARACTER_SALEH,    CHARACTER_NONE,     0x00000802, },
+    { CHARACTER_ENDING_PAIRED, CHARACTER_MYRRH,    CHARACTER_SALEH,    0x0000082E, },
+    { CHARACTER_ENDING_SOLO,   CHARACTER_MYRRH,    CHARACTER_NONE,     0x0000080E, },
+    { CHARACTER_ENDING_PAIRED, CHARACTER_EPHRAIM,  CHARACTER_EIRIKA,   0x00000817, },
+    { CHARACTER_ENDING_PAIRED, CHARACTER_EPHRAIM,  CHARACTER_MYRRH,    0x0000081C, },
+    { CHARACTER_ENDING_PAIRED, CHARACTER_EPHRAIM,  CHARACTER_LARACHEL, 0x0000081D, },
+    { CHARACTER_ENDING_PAIRED, CHARACTER_EPHRAIM,  CHARACTER_TANA,     0x0000081E, },
+    { CHARACTER_ENDING_SOLO,   CHARACTER_EPHRAIM,  CHARACTER_NONE,     0x000007F2, },
+    { CHARACTER_ENDING_PAIRED, CHARACTER_EIRIKA,   CHARACTER_SETH,     0x00000818, },
+    { CHARACTER_ENDING_PAIRED, CHARACTER_EIRIKA,   CHARACTER_SALEH,    0x00000819, },
+    { CHARACTER_ENDING_PAIRED, CHARACTER_EIRIKA,   CHARACTER_TANA,     0x0000081A, },
+    { CHARACTER_ENDING_PAIRED, CHARACTER_EIRIKA,   CHARACTER_FORDE,    0x0000081B, },
+    { CHARACTER_ENDING_PAIRED, CHARACTER_EIRIKA,   CHARACTER_INNES,    0x00000836, },
+    { CHARACTER_ENDING_SOLO,   CHARACTER_EIRIKA,   CHARACTER_NONE,     0x000007D6, },
 
-extern struct TextHandle* gUnknown_08A3D358;
+    { CHARACTER_ENDING_NONE },
+};
 
-extern u8 gUnknown_08A3D40C[];
+struct EndingPairingEnt CONST_DATA gUnknown_08A3CF88[] = {
+    { CHARACTER_ENDING_PAIRED, CHARACTER_SETH,     CHARACTER_NATASHA,  0x0000081F, },
+    { CHARACTER_ENDING_SOLO,   CHARACTER_SETH,     CHARACTER_NONE,     0x000007D8, },
+    { CHARACTER_ENDING_PAIRED, CHARACTER_FRANZ,    CHARACTER_AMELIA,   0x00000820, },
+    { CHARACTER_ENDING_SOLO,   CHARACTER_FRANZ,    CHARACTER_NONE,     0x000007DC, },
+    { CHARACTER_ENDING_PAIRED, CHARACTER_GILLIAM,  CHARACTER_SYRENE,   0x00000821, },
+    { CHARACTER_ENDING_SOLO,   CHARACTER_GILLIAM,  CHARACTER_NONE,     0x000007DA, },
+    { CHARACTER_ENDING_SOLO,   CHARACTER_MOULDER,  CHARACTER_NONE,     0x000007DE, },
+    { CHARACTER_ENDING_SOLO,   CHARACTER_VANESSA,  CHARACTER_NONE,     0x000007E0, },
+    { CHARACTER_ENDING_PAIRED, CHARACTER_ROSS,     CHARACTER_AMELIA,   0x00000832, },
+    { CHARACTER_ENDING_SOLO,   CHARACTER_ROSS,     CHARACTER_NONE,     0x000007E2, },
+    { CHARACTER_ENDING_PAIRED, CHARACTER_GARCIA,   CHARACTER_ROSS,     0x00000824, },
+    { CHARACTER_ENDING_SOLO,   CHARACTER_GARCIA,   CHARACTER_NONE,     0x000007E8, },
+    { CHARACTER_ENDING_PAIRED, CHARACTER_COLM,     CHARACTER_NEIMI,    0x00000825, },
+    { CHARACTER_ENDING_SOLO,   CHARACTER_COLM,     CHARACTER_NONE,     0x000007E6, },
+    { CHARACTER_ENDING_SOLO,   CHARACTER_NEIMI,    CHARACTER_NONE,     0x000007E4, },
+    { CHARACTER_ENDING_PAIRED, CHARACTER_ARTUR,    CHARACTER_LUTE,     0x00000826, },
+    { CHARACTER_ENDING_SOLO,   CHARACTER_ARTUR,    CHARACTER_NONE,     0x000007FA, },
+    { CHARACTER_ENDING_SOLO,   CHARACTER_LUTE,     CHARACTER_NONE,     0x000007EC, },
+    { CHARACTER_ENDING_PAIRED, CHARACTER_JOSHUA,   CHARACTER_MARISA,   0x00000830, },
+    { CHARACTER_ENDING_PAIRED, CHARACTER_JOSHUA,   CHARACTER_GERIK,    0x00000834, },
+    { CHARACTER_ENDING_PAIRED, CHARACTER_JOSHUA,   CHARACTER_NATASHA,  0x00000828, },
+    { CHARACTER_ENDING_SOLO,   CHARACTER_JOSHUA,   CHARACTER_NONE,     0x00000812, },
+    { CHARACTER_ENDING_SOLO,   CHARACTER_NATASHA,  CHARACTER_NONE,     0x000007EE, },
+    { CHARACTER_ENDING_PAIRED, CHARACTER_FORDE,    CHARACTER_VANESSA,  0x00000823, },
+    { CHARACTER_ENDING_SOLO,   CHARACTER_FORDE,    CHARACTER_NONE,     0x000007F4, },
+    { CHARACTER_ENDING_PAIRED, CHARACTER_KYLE,     CHARACTER_FORDE,    0x00000829, },
+    { CHARACTER_ENDING_PAIRED, CHARACTER_KYLE,     CHARACTER_SYRENE,   0x00000837, },
+    { CHARACTER_ENDING_PAIRED, CHARACTER_KYLE,     CHARACTER_LUTE,     0x00000827, },
+    { CHARACTER_ENDING_SOLO,   CHARACTER_KYLE,     CHARACTER_NONE,     0x000007F6, },
+    { CHARACTER_ENDING_PAIRED, CHARACTER_TANA,     CHARACTER_CORMAG,   0x0000082A, },
+    { CHARACTER_ENDING_SOLO,   CHARACTER_TANA,     CHARACTER_NONE,     0x00000816, },
+    { CHARACTER_ENDING_PAIRED, CHARACTER_INNES,    CHARACTER_LARACHEL, 0x0000082B, },
+    { CHARACTER_ENDING_PAIRED, CHARACTER_INNES,    CHARACTER_VANESSA,  0x00000822, },
+    { CHARACTER_ENDING_SOLO,   CHARACTER_INNES,    CHARACTER_NONE,     0x000007EA, },
+    { CHARACTER_ENDING_PAIRED, CHARACTER_SYRENE,   CHARACTER_VANESSA,  0x00000835, },
+    { CHARACTER_ENDING_SOLO,   CHARACTER_SYRENE,   CHARACTER_NONE,     0x00000814, },
+    { CHARACTER_ENDING_SOLO,   CHARACTER_AMELIA,   CHARACTER_NONE,     0x000007F8, },
+    { CHARACTER_ENDING_PAIRED, CHARACTER_DUESSEL,  CHARACTER_AMELIA,   0x00000838, },
+    { CHARACTER_ENDING_SOLO,   CHARACTER_DUESSEL,  CHARACTER_NONE,     0x0000080C, },
+    { CHARACTER_ENDING_SOLO,   CHARACTER_KNOLL,    CHARACTER_NONE,     0x00000810, },
+    { CHARACTER_ENDING_SOLO,   CHARACTER_CORMAG,   CHARACTER_NONE,     0x000007F0, },
+    { CHARACTER_ENDING_PAIRED, CHARACTER_LARACHEL, CHARACTER_DOZLA,    0x00000831, },
+    { CHARACTER_ENDING_SOLO,   CHARACTER_LARACHEL, CHARACTER_NONE,     0x00000806, },
+    { CHARACTER_ENDING_SOLO,   CHARACTER_DOZLA,    CHARACTER_NONE,     0x00000808, },
+    { CHARACTER_ENDING_SOLO,   CHARACTER_RENNAC,   CHARACTER_NONE,     0x0000080A, },
+    { CHARACTER_ENDING_PAIRED, CHARACTER_GERIK,    CHARACTER_TETHYS,   0x0000082C, },
+    { CHARACTER_ENDING_PAIRED, CHARACTER_GERIK,    CHARACTER_MARISA,   0x0000082D, },
+    { CHARACTER_ENDING_SOLO,   CHARACTER_GERIK,    CHARACTER_NONE,     0x000007FC, },
+    { CHARACTER_ENDING_SOLO,   CHARACTER_TETHYS,   CHARACTER_NONE,     0x000007FE, },
+    { CHARACTER_ENDING_PAIRED, CHARACTER_EWAN,     CHARACTER_AMELIA,   0x00000833, },
+    { CHARACTER_ENDING_SOLO,   CHARACTER_EWAN,     CHARACTER_NONE,     0x00000804, },
+    { CHARACTER_ENDING_SOLO,   CHARACTER_MARISA,   CHARACTER_NONE,     0x00000800, },
+    { CHARACTER_ENDING_PAIRED, CHARACTER_SALEH,    CHARACTER_EWAN,     0x0000082F, },
+    { CHARACTER_ENDING_SOLO,   CHARACTER_SALEH,    CHARACTER_NONE,     0x00000802, },
+    { CHARACTER_ENDING_PAIRED, CHARACTER_MYRRH,    CHARACTER_SALEH,    0x0000082E, },
+    { CHARACTER_ENDING_SOLO,   CHARACTER_MYRRH,    CHARACTER_NONE,     0x0000080E, },
+    { CHARACTER_ENDING_PAIRED, CHARACTER_EIRIKA,   CHARACTER_SETH,     0x00000818, },
+    { CHARACTER_ENDING_PAIRED, CHARACTER_EIRIKA,   CHARACTER_SALEH,    0x00000819, },
+    { CHARACTER_ENDING_PAIRED, CHARACTER_EIRIKA,   CHARACTER_TANA,     0x0000081A, },
+    { CHARACTER_ENDING_PAIRED, CHARACTER_EIRIKA,   CHARACTER_FORDE,    0x0000081B, },
+    { CHARACTER_ENDING_PAIRED, CHARACTER_EIRIKA,   CHARACTER_INNES,    0x00000836, },
+    { CHARACTER_ENDING_SOLO,   CHARACTER_EIRIKA,   CHARACTER_NONE,     0x000007D6, },
+    { CHARACTER_ENDING_PAIRED, CHARACTER_EPHRAIM,  CHARACTER_EIRIKA,   0x00000817, },
+    { CHARACTER_ENDING_PAIRED, CHARACTER_EPHRAIM,  CHARACTER_MYRRH,    0x0000081C, },
+    { CHARACTER_ENDING_PAIRED, CHARACTER_EPHRAIM,  CHARACTER_LARACHEL, 0x0000081D, },
+    { CHARACTER_ENDING_PAIRED, CHARACTER_EPHRAIM,  CHARACTER_TANA,     0x0000081E, },
+    { CHARACTER_ENDING_SOLO,   CHARACTER_EPHRAIM,  CHARACTER_NONE,     0x000007F2, },
 
-extern struct TextHandle* gUnknown_08A3D674;
+    { CHARACTER_ENDING_NONE },
+};
+
+struct EndingPairingEnt* CONST_DATA gUnknown_08A3D1A8[] = {
+    gUnknown_08A3CD68,
+    gUnknown_08A3CF88,
+};
+
+struct EndingTitleEnt CONST_DATA gUnknown_08A3D1B0[] = {
+    { CHARACTER_SETH,     0x000007D7 },
+    { CHARACTER_FRANZ,    0x000007DB },
+    { CHARACTER_GILLIAM,  0x000007D9 },
+    { CHARACTER_MOULDER,  0x000007DD },
+    { CHARACTER_VANESSA,  0x000007DF },
+    { CHARACTER_ROSS,     0x000007E1 },
+    { CHARACTER_GARCIA,   0x000007E7 },
+    { CHARACTER_COLM,     0x000007E5 },
+    { CHARACTER_NEIMI,    0x000007E3 },
+    { CHARACTER_ARTUR,    0x000007F9 },
+    { CHARACTER_LUTE,     0x000007EB },
+    { CHARACTER_JOSHUA,   0x00000811 },
+    { CHARACTER_NATASHA,  0x000007ED },
+    { CHARACTER_FORDE,    0x000007F3 },
+    { CHARACTER_KYLE,     0x000007F5 },
+    { CHARACTER_TANA,     0x00000815 },
+    { CHARACTER_INNES,    0x000007E9 },
+    { CHARACTER_SYRENE,   0x00000813 },
+    { CHARACTER_AMELIA,   0x000007F7 },
+    { CHARACTER_DUESSEL,  0x0000080B },
+    { CHARACTER_KNOLL,    0x0000080F },
+    { CHARACTER_CORMAG,   0x000007EF },
+    { CHARACTER_LARACHEL, 0x00000805 },
+    { CHARACTER_DOZLA,    0x00000807 },
+    { CHARACTER_RENNAC,   0x00000809 },
+    { CHARACTER_GERIK,    0x000007FB },
+    { CHARACTER_TETHYS,   0x000007FD },
+    { CHARACTER_EWAN,     0x00000803 },
+    { CHARACTER_MARISA,   0x000007FF },
+    { CHARACTER_SALEH,    0x00000801 },
+    { CHARACTER_MYRRH,    0x0000080D },
+    { CHARACTER_EPHRAIM,  0x000007F1 },
+    { CHARACTER_EIRIKA,   0x000007D5 },
+
+    { 0 },
+};
+
+struct EndingWithdrawalEnt CONST_DATA gUnknown_08A3D2C0[] = {
+    { CHARACTER_EIRIKA,   DEFEAT_DIED,             },
+    { CHARACTER_EPHRAIM,  DEFEAT_DIED,             },
+    { CHARACTER_SETH,     DEFEAT_WOUNDED_REMAINED, },
+    { CHARACTER_FRANZ,    DEFEAT_DIED,             },
+    { CHARACTER_GILLIAM,  DEFEAT_DIED,             },
+    { CHARACTER_MOULDER,  DEFEAT_DIED,             },
+    { CHARACTER_VANESSA,  DEFEAT_DIED,             },
+    { CHARACTER_ROSS,     DEFEAT_DIED,             },
+    { CHARACTER_GARCIA,   DEFEAT_DIED,             },
+    { CHARACTER_COLM,     DEFEAT_DIED,             },
+    { CHARACTER_NEIMI,    DEFEAT_DIED,             },
+    { CHARACTER_ARTUR,    DEFEAT_DIED,             },
+    { CHARACTER_LUTE,     DEFEAT_DIED,             },
+    { CHARACTER_JOSHUA,   DEFEAT_DIED,             },
+    { CHARACTER_NATASHA,  DEFEAT_DIED,             },
+    { CHARACTER_FORDE,    DEFEAT_DIED,             },
+    { CHARACTER_KYLE,     DEFEAT_DIED,             },
+    { CHARACTER_TANA,     DEFEAT_DIED,             },
+    { CHARACTER_INNES,    DEFEAT_WOUNDED_REMAINED, },
+    { CHARACTER_SYRENE,   DEFEAT_DIED,             },
+    { CHARACTER_AMELIA,   DEFEAT_DIED,             },
+    { CHARACTER_DUESSEL,  DEFEAT_DIED,             },
+    { CHARACTER_KNOLL,    DEFEAT_DIED,             },
+    { CHARACTER_CORMAG,   DEFEAT_DIED,             },
+    { CHARACTER_LARACHEL, DEFEAT_WOUNDED_REMAINED, },
+    { CHARACTER_DOZLA,    DEFEAT_DIED,             },
+    { CHARACTER_RENNAC,   DEFEAT_DIED,             },
+    { CHARACTER_GERIK,    DEFEAT_DIED,             },
+    { CHARACTER_TETHYS,   DEFEAT_DIED,             },
+    { CHARACTER_EWAN,     DEFEAT_DIED,             },
+    { CHARACTER_MARISA,   DEFEAT_DIED,             },
+    { CHARACTER_SALEH,    DEFEAT_DIED,             },
+    { CHARACTER_MYRRH,    DEFEAT_WOUNDED_REMAINED, },
+
+    { 0 },
+};
+
+extern u16 gUnknown_02000FA0[];
+extern u16 gUnknown_020017A0[];
+extern u16 gUnknown_02001FA0[];
+
+u16* CONST_DATA gUnknown_08A3D348[] = {
+    (u16*) gUnknown_020007A0,
+    gUnknown_02000FA0,
+    gUnknown_020017A0,
+    gUnknown_02001FA0,
+};
+
+extern struct TextHandle gUnknown_020027A0[];
+struct TextHandle* gUnknown_08A3D358 = gUnknown_020027A0;
 
 extern u8 gUnknown_08A3F750[]; // gfx
 extern u8 gUnknown_08A3FFEC[]; // tsa
@@ -118,7 +364,6 @@ extern u8 gUnknown_08A400E4[]; // tsa
 
 extern u8 gUnknown_08A40470[]; // tsa
 extern u8 gUnknown_08A4034C[]; // tsa
-extern u16 gUnknown_02022CAC[];
 
 extern u16 gUnknown_08A09A5C[]; // pal
 extern u8 gUnknown_085A647C[]; // tsa
@@ -130,19 +375,6 @@ extern u8 gUnknown_08A40B14[]; // tsa
 extern u16 gUnknown_08A405B4[]; // pal
 extern u8 gUnknown_08A405D4[]; // gfx
 extern u8 gUnknown_08A409D0[]; // tsa
-
-// Sprites
-extern u16 gUnknown_08A3D540[];
-extern u16 gUnknown_08A3D5B4[];
-extern u16 gUnknown_08A3D560[];
-extern u16 gUnknown_08A3D56E[];
-extern u16 gUnknown_08A3D598[];
-extern u16 gUnknown_08A3D57C[];
-extern u16 gUnknown_08A3D58A[];
-extern u16 gUnknown_08A3D5A6[];
-
-extern u16* gUnknown_08A3D624[];
-extern u16* gUnknown_08A3D63C[];
 
 // forward declarations
 void sub_80B6F14(struct EndingPairingEnt*, struct Unit*, struct EndingDetailsProc*);
@@ -195,7 +427,7 @@ int sub_80B6720(int pid) {
 
     for (ent = gUnknown_08A3D1B0; ent->pid != 0; ent++) {
         if (ent->pid == pid) {
-            return ent->unk_04;
+            return ent->titleTextId;
         }
     }
 
@@ -224,7 +456,7 @@ char* sub_80B6768(int pid) {
 
     int type = sub_80B6744(pid);
 
-    if (type == 4) {
+    if (type == DEFEAT_TYPE_4) {
         CheckGlobalEventId(0x7d);
         pid = 0x100;
     }
@@ -233,15 +465,15 @@ char* sub_80B6768(int pid) {
     defeatDetails = bwl->deathLoc | (bwl->deathSkirm << 0xf);
 
     switch (type) {
-        case 0: // "Died at <xyz>."
+        case DEFEAT_DIED: // "Died at <xyz>."
             sub_80B6674(0x7D1, defeatDetails, 0x22, str);
             break;
 
-        case 2: // Wounded at <xyz>, but remained until the end."
+        case DEFEAT_WOUNDED_REMAINED: // Wounded at <xyz>, but remained until the end."
             sub_80B6674(0x7D3, defeatDetails, 0x7D4, str);
             break;
 
-        case 5:
+        case DEFEAT_TYPE_5:
             return 0;
     }
 
@@ -305,7 +537,7 @@ void sub_80B6920(void) {
     }
 
     for (i = 0; i < 5; i++) {
-        Text_Init(gUnknown_08A3D358 + i, 0x1a);
+        Text_Init(gUnknown_08A3D358 + i, 26);
     }
 
     return;
@@ -324,12 +556,12 @@ void sub_80B696C(struct EndingDetailsProc* proc) {
     CpuFill16(0, &proc->unk_40, 0x20);
 
     switch (gPlaySt.chapterModeIndex) {
-        case 1:
-        case 2:
+        case CHAPTER_MODE_COMMON:
+        case CHAPTER_MODE_EIRIKA:
             proc->unk_30 = gUnknown_08A3D1A8[0];
             break;
 
-        case 3:
+        case CHAPTER_MODE_EPHRAIM:
             proc->unk_30 = gUnknown_08A3D1A8[1];
             break;
     }
@@ -359,7 +591,7 @@ void sub_80B69D4(void) {
 struct Unit* sub_80B6A10(int pid) {
     int i;
 
-    for (i = 1; i < 0x40; i++) {
+    for (i = FACTION_BLUE + 1; i < FACTION_GREEN; i++) {
         struct Unit* unit = GetUnit(i);
 
         if (!UNIT_IS_VALID(unit)) {
@@ -388,8 +620,8 @@ int sub_80B6A4C(struct Unit* unit) {
         return 0;
     }
 
-    for (i = 0; i < 7; i++) {
-        if (GetUnitSupportLevel(unit, i) == 3) {
+    for (i = 0; i < UNIT_SUPPORT_MAX_COUNT; i++) {
+        if (GetUnitSupportLevel(unit, i) == SUPPORT_LEVEL_A) {
             return GetUnitSupporterCharacter(unit, i);
         }
     }
@@ -433,7 +665,7 @@ void sub_80B6AE0(struct EndingDetailsProc* proc) {
     proc->unitA = NULL;
 
     for (;; proc->unk_30++) {
-        if (proc->unk_30->type == 0) {
+        if (proc->unk_30->type == CHARACTER_ENDING_NONE) {
             Proc_Goto(proc, 100);
             return;
         }
@@ -455,14 +687,14 @@ void sub_80B6AE0(struct EndingDetailsProc* proc) {
         }
 
         switch (proc->unk_30->type) {
-            case 1:
+            case CHARACTER_ENDING_SOLO:
                 if (sub_80B6A80(proc->unk_34, proc->unitA)) {
                     continue;
                 }
 
                 break;
 
-            case 2:
+            case CHARACTER_ENDING_PAIRED:
                 proc->unitB = sub_80B6A10(proc->unk_30->pidB);
 
                 if (proc->unitB == NULL) {
@@ -500,11 +732,11 @@ void sub_80B6AE0(struct EndingDetailsProc* proc) {
 void sub_80B6BD8(struct EndingDetailsProc* proc) {
 
     switch (proc->unk_30->type) {
-        case 1:
+        case CHARACTER_ENDING_SOLO:
             sub_80B6F14(proc->unk_30, proc->unitA, proc);
             break;
 
-        case 2:
+        case CHARACTER_ENDING_PAIRED:
             sub_80B72A4(proc->unk_30, proc->unitA, proc->unitB, proc);
             break;
     }
@@ -542,14 +774,47 @@ void sub_80B6C14(void) {
 void sub_80B6C74(struct EndingDetailsProc* proc) {
     proc->unk_30++;
 
-    if (proc->unk_30->type == 0) {
+    if (proc->unk_30->type == CHARACTER_ENDING_NONE) {
         Proc_Goto(proc, 100);
     }
 
     return;
 }
 
-extern struct ProcCmd gUnknown_08A3D35C[];
+struct ProcCmd CONST_DATA gUnknown_08A3D35C[] = {
+    PROC_SLEEP(0),
+    PROC_CALL(sub_80B696C),
+    PROC_CALL(sub_80B6AE0),
+
+PROC_LABEL(0),
+    PROC_CALL(sub_80B69D4),
+    PROC_CALL_ARG(NewFadeIn, 4),
+    PROC_WHILE(FadeInExists),
+
+    PROC_CALL(sub_80B6BD8),
+
+    PROC_SLEEP(30),
+    PROC_CALL(sub_80B6C00),
+    PROC_SLEEP(114),
+
+PROC_LABEL(99),
+    PROC_CALL(sub_80B6AE0),
+
+    PROC_CALL_ARG(NewFadeOut, 4),
+    PROC_WHILE(FadeOutExists),
+
+    PROC_GOTO(0),
+
+PROC_LABEL(100),
+    PROC_CALL_ARG(sub_8014BD0, 7),
+
+    PROC_CALL_ARG(NewFadeOut, 2),
+    PROC_WHILE(FadeOutExists),
+
+    PROC_CALL(sub_80B6C14),
+
+    PROC_END,
+};
 
 //! FE8U = 0x080B6C94
 void sub_80B6C94(ProcPtr parent) {
@@ -623,6 +888,13 @@ void sub_80B6D24(struct EndingDetails8A3D420Proc* proc) {
     return;
 }
 
+u8 CONST_DATA gUnknown_08A3D40C[] = {
+    0x00, 0x03, 0x06, 0x08, 0x0A,
+    0x0C, 0x0E, 0x10, 0x12, 0x14,
+    0x15, 0x16, 0x17, 0x18, 0x19,
+    0x1A, 0x1B, 0x1C, 0x1D, 0x1E,
+};
+
 //! FE8U = 0x080B6ED0
 void sub_80B6ED0(struct EndingDetails8A3D420Proc* proc) {
     int a = 30;
@@ -642,7 +914,14 @@ void sub_80B6ED0(struct EndingDetails8A3D420Proc* proc) {
     return;
 }
 
-extern struct ProcCmd gUnknown_08A3D420[];
+struct ProcCmd CONST_DATA gUnknown_08A3D420[] = {
+    PROC_SLEEP(0),
+    PROC_CALL(sub_80B6D24),
+
+    PROC_REPEAT(sub_80B6ED0),
+
+    PROC_END,
+};
 
 //! FE8U = 0x080B6F14
 void sub_80B6F14(struct EndingPairingEnt* pairingEnt, struct Unit* unit, struct EndingDetailsProc* parent) {
@@ -754,7 +1033,19 @@ void sub_80B7274(struct EndingDetails8A3D420Proc* proc) {
     return;
 }
 
-extern struct ProcCmd gUnknown_08A3D440[];
+struct ProcCmd CONST_DATA gUnknown_08A3D440[] = {
+    PROC_SLEEP(0),
+
+    PROC_CALL(sub_80B6F34),
+    PROC_REPEAT(sub_80B71DC),
+
+    PROC_SLEEP(16),
+
+    PROC_CALL(sub_80B723C),
+    PROC_REPEAT(sub_80B7274),
+
+    PROC_END,
+};
 
 //! FE8U = 0x080B72A4
 void sub_80B72A4(struct EndingPairingEnt* pairingEnt, struct Unit* unitA, struct Unit* unitB, struct EndingDetailsProc* parent) {
@@ -784,7 +1075,7 @@ void sub_80B72C4(struct EndingDetails8A3D478Proc* proc) {
         int offset = 0xc0 + i * 0x40;
 
         Text_Clear(gUnknown_08A3D358 + i);
-        Text_Draw(gUnknown_08A3D358 + i, gUnknown_02022CAC + offset);
+        Text_Draw(gUnknown_08A3D358 + i, gBG0TilemapBuffer + 2 + offset);
     }
 
     BG_EnableSyncByMask(1);
@@ -867,7 +1158,13 @@ void sub_80B734C(struct EndingDetails8A3D478Proc* proc) {
     return;
 }
 
-extern struct ProcCmd gUnknown_08A3D478[];
+struct ProcCmd CONST_DATA gUnknown_08A3D478[] = {
+    PROC_SLEEP(0),
+    PROC_CALL(sub_80B72C4),
+    PROC_REPEAT(sub_80B734C),
+
+    PROC_END,
+};
 
 //! FE8U = 0x080B742C
 void sub_80B742C(struct EndingPairingEnt* pairingEnt, struct Unit* unitA, struct Unit* unitB, struct EndingDetailsProc* parent) {
@@ -963,13 +1260,178 @@ void sub_80B7574(void) {
     return;
 }
 
-extern struct ProcCmd gUnknown_08A3D498[];
+struct ProcCmd CONST_DATA gUnknown_08A3D498[] = {
+    PROC_SLEEP(30),
+
+    PROC_CALL(sub_80B74B0),
+
+    PROC_CALL_ARG(NewFadeIn, 4),
+    PROC_WHILE(FadeInExists),
+
+PROC_LABEL(0),
+    PROC_REPEAT(sub_80B74D8),
+    PROC_CALL_ARG(sub_8014BD0, 4),
+
+    PROC_CALL_ARG(NewFadeOut, 4),
+    PROC_WHILE(FadeOutExists),
+    PROC_SLEEP(60),
+
+    PROC_GOTO(100),
+
+PROC_LABEL(1),
+    PROC_CALL_ARG(NewFadeIn, 4),
+    PROC_WHILE(FadeInExists),
+
+    PROC_SLEEP(60),
+
+    PROC_CALL(sub_80B7500),
+    PROC_REPEAT(sub_80B7540),
+
+    PROC_GOTO(0),
+
+PROC_LABEL(100),
+    PROC_CALL(sub_80B7574),
+
+    PROC_END,
+};
 
 //! FE8U = 0x080B7598
 void sub_80B7598(ProcPtr parent) {
     Proc_StartBlocking(gUnknown_08A3D498, parent);
     return;
 }
+
+// === TODO: File split here?
+
+// Sprites
+u16 CONST_DATA gUnknown_08A3D540[] = {
+    5,
+    0x4000, 0x8000, 0x0000,
+    0x4000, 0x8020, 0x0004,
+    0x4000, 0x8040, 0x0008,
+    0x4000, 0x8060, 0x000C,
+    0x8000, 0x0080, 0x0010,
+};
+
+u16 CONST_DATA gUnknown_08A3D560[] = {
+    2,
+    0x4000, 0x8000, 0x0040,
+    0x4000, 0x8020, 0x0044,
+};
+
+u16 CONST_DATA gUnknown_08A3D56E[] = {
+    2,
+    0x4000, 0x8000, 0x0048,
+    0x4000, 0x8020, 0x004C,
+};
+
+u16 CONST_DATA gUnknown_08A3D57C[] = {
+    2,
+    0x4000, 0x8000, 0x0050,
+    0x4000, 0x8020, 0x0054,
+};
+
+u16 CONST_DATA gUnknown_08A3D58A[] = {
+    2,
+    0x4000, 0x8000, 0x0058,
+    0x4000, 0x8020, 0x005C,
+};
+
+u16 CONST_DATA gUnknown_08A3D598[] = {
+    2,
+    0x4000, 0x8000, 0x0088,
+    0x4000, 0x8020, 0x008C,
+};
+
+u16 CONST_DATA gUnknown_08A3D5A6[] = {
+    2,
+    0x4000, 0x8000, 0x0080,
+    0x4000, 0x8020, 0x0084,
+};
+
+u16 CONST_DATA gUnknown_08A3D5B4[] = {
+    2,
+    0x4000, 0x4000, 0x001B,
+    0x0000, 0x0020, 0x001F,
+};
+
+u16 CONST_DATA gSprite_08A3D5C2[] = {
+    1,
+    OAM0_SHAPE_32x32, OAM1_SIZE_32x32, OAM2_CHR(0xC0),
+};
+
+u16 CONST_DATA gSprite_08A3D5CA[] = {
+    1,
+    OAM0_SHAPE_32x32, OAM1_SIZE_32x32, OAM2_CHR(0xC4),
+};
+
+u16 CONST_DATA gSprite_08A3D5D2[] = {
+    1,
+    OAM0_SHAPE_32x32, OAM1_SIZE_32x32, OAM2_CHR(0xC8),
+};
+
+u16 CONST_DATA gSprite_08A3D5DA[] = {
+    1,
+    OAM0_SHAPE_32x32, OAM1_SIZE_32x32, OAM2_CHR(0xCC),
+};
+
+u16 CONST_DATA gSprite_08A3D5E2[] = {
+    1,
+    OAM0_SHAPE_32x32, OAM1_SIZE_32x32, OAM2_CHR(0xD0),
+};
+
+u16 CONST_DATA gSprite_08A3D5EA[] = {
+    1,
+    OAM0_SHAPE_32x32, OAM1_SIZE_32x32, OAM2_CHR(0xD4),
+};
+
+u16 CONST_DATA gSprite_08A3D5F2[] = {
+    1,
+    OAM0_SHAPE_32x32, OAM1_SIZE_32x32, OAM2_CHR(0x140),
+};
+
+u16 CONST_DATA gSprite_08A3D5FA[] = {
+    1,
+    OAM0_SHAPE_32x32, OAM1_SIZE_32x32, OAM2_CHR(0x144),
+};
+
+u16 CONST_DATA gSprite_08A3D602[] = {
+    1,
+    OAM0_SHAPE_32x32, OAM1_SIZE_32x32, OAM2_CHR(0x148),
+};
+
+u16 CONST_DATA gSprite_08A3D60A[] = {
+    1,
+    OAM0_SHAPE_32x32, OAM1_SIZE_32x32, OAM2_CHR(0x14C),
+};
+
+u16 CONST_DATA gSprite_08A3D612[] = {
+    1,
+    OAM0_SHAPE_32x32, OAM1_SIZE_32x32, OAM2_CHR(0x150),
+};
+
+u16 CONST_DATA gSprite_08A3D61A[] = {
+    1,
+    OAM0_SHAPE_32x32, OAM1_SIZE_32x32, OAM2_CHR(0x154),
+};
+
+u16* CONST_DATA gUnknown_08A3D624[] = {
+    gSprite_08A3D5EA,
+    gSprite_08A3D5E2,
+    gSprite_08A3D5DA,
+    gSprite_08A3D5D2,
+    gSprite_08A3D5CA,
+    gSprite_08A3D5C2,
+};
+
+u16* CONST_DATA gUnknown_08A3D63C[] = {
+    gSprite_08A3D61A,
+    gSprite_08A3D612,
+    gSprite_08A3D60A,
+    gSprite_08A3D602,
+    gSprite_08A3D5FA,
+    gSprite_08A3D5F2,
+};
 
 //! FE8U = 0x080B75AC
 void sub_80B75AC(struct EndingTurnRecordProc* proc) {
@@ -1005,6 +1467,14 @@ void sub_80B7614(struct EndingTurnRecordProc* proc) {
 
     return;
 }
+
+struct ProcCmd CONST_DATA gUnknown_08A3D654[] = {
+    PROC_SLEEP(0),
+    PROC_CALL(sub_80B75AC),
+    PROC_REPEAT(sub_80B7614),
+
+    PROC_END,
+};
 
 //! FE8U = 0x080B7648
 void sub_80B7648(struct EndingTurnRecordProc* proc) {
@@ -1045,6 +1515,8 @@ void sub_80B7648(struct EndingTurnRecordProc* proc) {
 
     return;
 }
+
+struct TextHandle* CONST_DATA gUnknown_08A3D674 = gUnknown_020027A0;
 
 //! FE8U = 0x080B770C
 void sub_80B770C(void) {
@@ -1582,6 +2054,7 @@ void sub_80B7B30(struct EndingTurnRecordProc* proc) {
     return;
 }
 
+//! FE8U = 0x080B7BD8
 void sub_80B7BD8(struct UnkProc* proc) {
     int i;
 
@@ -1728,7 +2201,27 @@ int sub_80B8168(void) {
     // return; // BUG
 }
 
-extern struct ProcCmd gUnknown_08A3D678[];
+struct ProcCmd CONST_DATA gUnknown_08A3D678[] = {
+    PROC_SLEEP(0),
+    PROC_CALL(sub_80B7648),
+
+    PROC_CALL(sub_80B770C),
+    PROC_CALL(sub_80B8014),
+
+    PROC_CALL_ARG(NewFadeIn, 4),
+    PROC_WHILE(FadeInExists),
+
+    PROC_REPEAT(sub_80B7B30),
+    PROC_SLEEP(120),
+
+    PROC_CALL_ARG(NewFadeOut, 4),
+    PROC_WHILE(FadeOutExists),
+
+    PROC_CALL(sub_80B8168),
+    PROC_SLEEP(60),
+
+    PROC_END,
+};
 
 //! FE8U = 0x080B8174
 void sub_80B8174(ProcPtr parent) {
