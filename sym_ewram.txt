@@ -36,6 +36,7 @@
 . = 0x000C78; gUnknown_02000C78 = .;
 . = 0x000D68; gUnknown_02000D68 = .;
 . = 0x000F00; gUnknown_02000F00 = .;
+. = 0x000FA0; gUnknown_02000FA0 = .;
 . = 0x001000; gBmMapBuffer = .;
 . = 0x001088; gUnknown_02001088 = .;
 . = 0x001168; gUnknown_02001168 = .;
@@ -45,11 +46,14 @@
 . = 0x001368; gUnknown_02001368 = .;
 . = 0x001568; gUnknown_02001568 = .;
 . = 0x001668; gUnknown_02001668 = .;
+. = 0x0017A0; gUnknown_020017A0 = .;
 . = 0x001F70; gConvoyItemCount = .;
+. = 0x001FA0; gUnknown_02001FA0 = .;
 . = 0x002038; gUnknown_02002038 = .;
 . = 0x002088; gUnknown_02002088 = .;
 . = 0x002774; gUnknown_02002774 = .;
 . = 0x00278C; gTradeMenuText = .;
+. = 0x0027A0; gUnknown_020027A0 = .;
 . = 0x0027DC; src/bmio.o(ewram_data); /* probably not actually ewram_data */
 . = 0x002FDC; gaBattleForecastTextStructs = .;
 . = 0x002FF4; gUnknown_02002FF4 = .;

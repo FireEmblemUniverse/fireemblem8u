@@ -18334,7 +18334,7 @@ gEvent_8A00364:  @ 0x08A00364
     .4byte 0x00070228
     .4byte 0x00000120
     .4byte 0x00000d40
-    .4byte sub_80B6C94
+    .4byte StartCharacterEndings
     .4byte 0x00010e20
     .4byte 0x00000120
 
@@ -18556,7 +18556,7 @@ gEvent_EphraimModeGameEnd:  @ 0x08A0048C
     .4byte 0x00020220
     .4byte 0x00780e20
     .4byte 0x00000d40
-    .4byte sub_80B8174
+    .4byte StartEndingTurnRecordScreen
     .4byte 0x00010e20
     .4byte 0x00000a40
     .4byte gEvent_8A00364 + 0x8

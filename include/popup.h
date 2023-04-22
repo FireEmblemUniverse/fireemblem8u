@@ -98,6 +98,7 @@ ProcPtr NewPopup_Simple(const struct PopupInstruction *inst,
                        int clock,
                        int winStyle,
                        ProcPtr parent);
+void NewPopup_NewAlly(ProcPtr, u8);
 void NewPopup_VerySimple(u32 msg, u32 sound_index, ProcPtr parent);
 
 void NewPopup_ItemGot_unused(struct Unit* unit, u16 item, ProcPtr parent);

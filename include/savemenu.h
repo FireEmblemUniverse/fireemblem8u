@@ -53,5 +53,4 @@ struct SaveMenuProc {
     /* 60 */ ProcPtr unk_60;
 };
 
-
 #endif // GUARD_SAVEMENU_H

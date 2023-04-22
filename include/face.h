@@ -111,7 +111,7 @@ void SetFaceBlinkControlById(int faceSlot, int unk);
 void sub_80064D4(struct FaceProc* proc, int unk);
 // ??? sub_80064DC(???);
 struct FaceProc* StartFace2(int slot, int fid, int x, int y, int disp);
-// ??? sub_8006618(???);
+void sub_8006618(int slot, int x, int y);
 // ??? sub_800662C(???);
 // ??? sub_8006650(???);
 // ??? sub_80066A8(???);
