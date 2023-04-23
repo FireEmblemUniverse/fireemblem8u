@@ -95,10 +95,10 @@ extern u32 gUnknown_02000024;
 // extern ??? gUnknown_0200002C
 // extern ??? gUnknown_02000030
 // extern ??? gUnknown_02000034
-extern struct Vec2 gUnknown_02000038;
-// extern ??? gUnknown_0200003C
-// extern ??? gUnknown_02000044
-// extern ??? gUnknown_0200004C
+extern struct Vec2 gBanimBgPosMaybe;
+extern void *gUnknown_0200003C[2];
+extern void *gUnknown_02000044[2];
+extern void *gBanimTerrainPaletteMaybe[2];
 // extern ??? gUnknown_02000054
 // extern ??? gUnknown_0200005C
 // extern ??? gUnknown_02000060
@@ -111,15 +111,15 @@ extern int gBattleDeamonActive;
 extern struct ProcEkrBattleDeamon *gpProcEkrBattleDeamon;
 extern short gUnknown_0203E0FC;
 extern short gUnknown_0203E0FE;
-extern short gUnknown_0203E100;
+extern short gEkrPos1Maybe;
 extern short gUnknown_0203E102;
-extern short gUnknown_0203E104[];
+extern short gBanimSideVaildFlagMaybe[2];
 // extern ??? gUnknown_0203E108
 extern short gUnknown_0203E114[2];
 // extern ??? gUnknown_0203E118
 // extern ??? gUnknown_0203E11A
-// extern ??? gUnknown_0203E11C
-extern EWRAM_DATA s16 gUnknown_0203E120;
+extern EWRAM_DATA s16 gBanimTerrainIndexMaybe[2];
+extern EWRAM_DATA s16 gEkrSomeType;
 extern EWRAM_DATA s16 gUnknown_0203E122[4];
 // extern ??? gAnimRoundData
 
@@ -140,10 +140,10 @@ extern u16 gUnknown_085B95A4[];
 extern u16 gUnknown_085B95BC[];
 extern u16 gUnknown_085B95D4[];
 extern struct ProcCmd gProc_ekrDispUP[];
-extern struct ProcCmd gProc_efxHPBar[];
-extern struct ProcCmd gProc_efxHPBarResire[];
+extern struct ProcCmd ProcScr_efxHPBar[];
+extern struct ProcCmd ProcScr_efxHPBarResire[];
 extern struct ProcCmd gProc_efxAvoid[];
-extern struct ProcCmd gProc_efxHPBarLive[];
+extern struct ProcCmd ProcScr_efxHPBarLive[];
 extern struct ProcCmd gProc_efxNoDamage[];
 extern struct ProcCmd gProc_efxNoDamageYure[];
 extern struct ProcCmd gProc_efxStatusCHG[];
@@ -164,7 +164,7 @@ extern struct ProcCmd gProc_efxWhiteIN[];
 extern struct ProcCmd gProc_efxBlackOUT[];
 extern struct ProcCmd gProc_efxBlackIN[];
 extern struct ProcCmd gProc_efxFlashHPBar[];
-extern struct ProcCmd gProc_efxHPBarColorChange[];
+extern struct ProcCmd ProcScr_efxHPBarColorChange[];
 extern struct ProcCmd gProc_efxFlashUnit[];
 extern struct ProcCmd gProc_efxFlashUnitEffect[];
 extern struct ProcCmd gProc_efxStatusUnit[];
@@ -190,7 +190,7 @@ extern struct ProcCmd gProc_ekrWindowAppear[];
 extern struct ProcCmd gProc_ekrNamewinAppear[];
 extern struct ProcCmd gProc_ekrBaseAppear[];
 // extern ??? gUnknown_085B9D5C
-// extern ??? gUnknown_085B9D6C
+extern void *gUnknown_085B9D6C[];
 extern struct ProcCmd gProc_ekrChienCHR[];
 extern struct ProcCmd gProc_efxAnimeDrvProc[];
 extern struct ProcCmd ProcScr_ekrUnitMainMini[];
@@ -199,7 +199,7 @@ extern struct ProcCmd gProc_ekrTogiEnd[];
 extern struct ProcCmd gProc_ekrTogiColor[];
 
 void SetEkrEventFlagMaybe(int unk);
-// ??? GetEkrEventFlagMaybe(???);
+int GetEkrEventFlagMaybe(void);
 void NewEkrBattleDeamon(void);
 // ??? EndEkrBattleDeamon(???);
 int IsBattleDeamonActive(void); // battle?
@@ -279,38 +279,38 @@ void sub_8051B90(void);
 void sub_8051BA0(void);
 // ??? ekrDispUP_Loop(???);
 void sub_8051CC4(void);
-// ??? sub_8051E00(???);
+void sub_8051E00(void);
 void sub_8051F1C(void);
-int sub_8052184(void);
-// ??? sub_8052214(???);
-void sub_8052220(void);
-// ??? sub_80522CC(???);
-short EkrEfxIsUnitHittedNow(enum ekr_battle_unit_position);
-// ??? sub_8052304(???);
-// ??? sub_80523EC(???);
-// ??? sub_8052504(???);
-// ??? sub_80525A4(???);
-// ??? sub_80525E8(???);
-// ??? sub_80526C8(???);
-// ??? sub_8052788(???);
-// ??? sub_805282C(???);
+int GetEkrSomePosMaybe(void);
+void sub_8052214(int a, int b);
+void EkrEfxStatusClear(void);
+int sub_80522CC(void);
+short EkrEfxIsUnitHittedNow(int pos);
+// ??? NewEfxHPBar(???);
+// ??? efxHPBar_80523EC(???);
+// ??? efxHPBar_8052504(???);
+// ??? efxHPBar_80525A4(???);
+// ??? NewEfxHPBarResire(???);
+// ??? EfxHPBarResire_80526C8(???);
+// ??? EfxHPBarResire_8052788(???);
+// ??? EfxHPBarResire_805282C(???);
 // ??? sub_8052978(???);
-// ??? sub_80529F0(???);
+// ??? EfxAvoid_80529F0(???);
 // ??? sub_8052A0C(???);
-// ??? sub_8052AE4(???);
+// ??? EfxHPBarLive_8052AE4(???);
 // ??? sub_8052B98(???);
-// ??? sub_8052C24(???);
+// ??? EfxNoDamage_8052C24(???);
 // ??? sub_8052C7C(???);
-// ??? sub_8052CA0(???);
+// ??? EfxNoDamageYure_8052CA0(???);
 // ??? sub_8052D8C(???);
-// ??? sub_8052DB8(???);
-// ??? sub_8052DD4(???);
+// ??? EfxStatusCHG_8052CA0(???);
+void sub_8052DD4(struct Anim *anim1, struct Anim *anim2);
 // ??? sub_8052DFC(???);
 // ??? sub_8052E7C(???);
 // ??? sub_8052EAC(???);
 // ??? sub_8052F24(???);
 // ??? sub_8052F84(???);
-// ??? sub_8052FAC(???);
+void sub_8052FAC(struct Anim *anim1, struct Anim *anim2);
 // ??? sub_8052FEC(???);
 // ??? sub_8053080(???);
 // ??? sub_8053120(???);

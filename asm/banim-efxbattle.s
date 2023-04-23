@@ -2,970 +2,8 @@
 
 	.SYNTAX UNIFIED
 
-	THUMB_FUNC_START sub_8051CC4
-sub_8051CC4: @ 0x08051CC4
-	push {r4, r5, r6, lr}
-	sub sp, #0x10
-	ldr r4, _08051DB8  @ gLCDControlBuffer
-	ldrb r0, [r4]
-	movs r2, #8
-	negs r2, r2
-	ands r2, r0
-	ldrb r0, [r4, #1]
-	movs r5, #1
-	orrs r0, r5
-	movs r6, #2
-	orrs r0, r6
-	movs r1, #4
-	orrs r0, r1
-	movs r1, #8
-	orrs r0, r1
-	movs r1, #0x10
-	orrs r0, r1
-	strb r0, [r4, #1]
-	movs r0, #0x41
-	negs r0, r0
-	ands r2, r0
-	strb r2, [r4]
-	movs r0, #0
-	movs r1, #0
-	movs r2, #0
-	bl BG_SetPosition
-	movs r0, #1
-	movs r1, #0
-	movs r2, #0
-	bl BG_SetPosition
-	movs r0, #2
-	movs r1, #0
-	movs r2, #0
-	bl BG_SetPosition
-	movs r0, #0
-	movs r1, #0
-	bl SetBackgroundTileDataOffset
-	movs r0, #1
-	movs r1, #0
-	bl SetBackgroundTileDataOffset
-	movs r0, #2
-	movs r1, #0
-	bl SetBackgroundTileDataOffset
-	movs r1, #0x80
-	lsls r1, r1, #8
-	movs r0, #3
-	bl SetBackgroundTileDataOffset
-	movs r1, #0xc0
-	lsls r1, r1, #7
-	movs r0, #0
-	bl SetBackgroundMapDataOffset
-	movs r1, #0xd0
-	lsls r1, r1, #7
-	movs r0, #1
-	bl SetBackgroundMapDataOffset
-	movs r1, #0xe0
-	lsls r1, r1, #7
-	movs r0, #2
-	bl SetBackgroundMapDataOffset
-	movs r1, #0xf0
-	lsls r1, r1, #7
-	movs r0, #3
-	bl SetBackgroundMapDataOffset
-	ldrb r2, [r4, #0xc]
-	movs r1, #4
-	negs r1, r1
-	adds r0, r1, #0
-	ands r0, r2
-	strb r0, [r4, #0xc]
-	ldrb r2, [r4, #0x10]
-	adds r0, r1, #0
-	ands r0, r2
-	orrs r0, r5
-	strb r0, [r4, #0x10]
-	ldrb r0, [r4, #0x14]
-	ands r1, r0
-	orrs r1, r6
-	strb r1, [r4, #0x14]
-	ldrb r0, [r4, #0x18]
-	movs r1, #3
-	orrs r0, r1
-	strb r0, [r4, #0x18]
-	movs r4, #0
-	str r4, [sp]
-	ldr r1, _08051DBC  @ gBG0TilemapBuffer
-	ldr r5, _08051DC0  @ 0x01000200
-	mov r0, sp
-	adds r2, r5, #0
-	bl CpuFastSet
-	str r4, [sp, #4]
-	add r0, sp, #4
-	ldr r1, _08051DC4  @ gBG1TilemapBuffer
-	adds r2, r5, #0
-	bl CpuFastSet
-	str r4, [sp, #8]
-	add r0, sp, #8
-	ldr r6, _08051DC8  @ gBG2TilemapBuffer
-	adds r1, r6, #0
-	adds r2, r5, #0
-	bl CpuFastSet
-	bl GetBattleAnimArenaFlag
-	cmp r0, #0
-	bne _08051DCC
-	bl sub_8051E00
-	b _08051DD8
-	.align 2, 0
-_08051DB8: .4byte gLCDControlBuffer
-_08051DBC: .4byte gBG0TilemapBuffer
-_08051DC0: .4byte 0x01000200
-_08051DC4: .4byte gBG1TilemapBuffer
-_08051DC8: .4byte gBG2TilemapBuffer
-_08051DCC:
-	str r4, [sp, #0xc]
-	add r0, sp, #0xc
-	adds r1, r6, #0
-	adds r2, r5, #0
-	bl CpuFastSet
-_08051DD8:
-	bl sub_8051F1C
-	bl EnablePaletteSync
-	movs r0, #1
-	bl BG_EnableSyncByMask
-	movs r0, #2
-	bl BG_EnableSyncByMask
-	movs r0, #4
-	bl BG_EnableSyncByMask
-	bl SetDefaultColorEffects
-	add sp, #0x10
-	pop {r4, r5, r6}
-	pop {r0}
-	bx r0
-
-	THUMB_FUNC_END sub_8051CC4
-
-	THUMB_FUNC_START sub_8051E00
-sub_8051E00: @ 0x08051E00
-	push {r4, r5, r6, r7, lr}
-	mov r7, r8
-	push {r7}
-	ldr r4, _08051E40  @ gUnknown_0201FADC
-	ldr r2, _08051E44  @ gUnknown_0203E11C
-	movs r0, #0
-	ldrsh r1, [r2, r0]
-	lsls r0, r1, #1
-	adds r0, r0, r1
-	lsls r0, r0, #3
-	ldr r3, _08051E48  @ battle_terrain_table
-	adds r5, r0, r3
-	movs r6, #2
-	ldrsh r1, [r2, r6]
-	lsls r0, r1, #1
-	adds r0, r0, r1
-	lsls r0, r0, #3
-	adds r3, r0, r3
-	ldr r0, _08051E4C  @ gUnknown_0203E120
-	movs r7, #0
-	ldrsh r1, [r0, r7]
-	mov r8, r2
-	adds r6, r0, #0
-	cmp r1, #3
-	bgt _08051E54
-	cmp r1, #1
-	bge _08051E78
-	cmp r1, #0
-	beq _08051E5C
-	ldr r0, _08051E50  @ gUnknown_020145C8
-	b _08051E8A
-	.align 2, 0
-_08051E40: .4byte gUnknown_0201FADC
-_08051E44: .4byte gUnknown_0203E11C
-_08051E48: .4byte battle_terrain_table
-_08051E4C: .4byte gUnknown_0203E120
-_08051E50: .4byte gUnknown_020145C8
-_08051E54:
-	ldr r7, _08051E70  @ gUnknown_020145C8
-	mov ip, r7
-	cmp r1, #4
-	bne _08051E8C
-_08051E5C:
-	ldr r0, _08051E74  @ gUnknown_0200003C
-	ldr r1, _08051E70  @ gUnknown_020145C8
-	str r1, [r0]
-	movs r7, #0x80
-	lsls r7, r7, #5
-	adds r2, r1, r7
-	str r2, [r0, #4]
-	mov ip, r1
-	b _08051E8C
-	.align 2, 0
-_08051E70: .4byte gUnknown_020145C8
-_08051E74: .4byte gUnknown_0200003C
-_08051E78:
-	ldr r0, _08051EFC  @ gUnknown_0200003C
-	ldr r1, _08051F00  @ gUnknown_02014DC8
-	str r1, [r0]
-	movs r7, #0x80
-	lsls r7, r7, #5
-	adds r2, r1, r7
-	str r2, [r0, #4]
-	ldr r0, _08051F04  @ 0xFFFFF800
-	adds r0, r0, r1
-_08051E8A:
-	mov ip, r0
-_08051E8C:
-	ldr r0, _08051F08  @ gPlaySt
-	ldrb r0, [r0, #0x15]
-	ldr r0, _08051F0C  @ gUnknown_0200004C
-	ldr r1, [r5, #0x10]
-	str r1, [r0]
-	ldr r1, [r3, #0x10]
-	str r1, [r0, #4]
-	ldr r2, _08051F10  @ gUnknown_02000044
-	ldr r1, _08051F14  @ gUnknown_085B9D6C
-	movs r3, #0
-	ldrsh r0, [r6, r3]
-	lsls r0, r0, #3
-	adds r0, r0, r1
-	ldr r0, [r0]
-	str r0, [r2]
-	movs r7, #0
-	ldrsh r0, [r6, r7]
-	lsls r0, r0, #1
-	adds r0, #1
-	lsls r0, r0, #2
-	adds r0, r0, r1
-	ldr r0, [r0]
-	str r0, [r2, #4]
-	mov r1, r8
-	ldrh r0, [r1]
-	movs r2, #0
-	strh r0, [r4]
-	movs r0, #4
-	strh r0, [r4, #2]
-	movs r1, #0xa0
-	lsls r1, r1, #2
-	strh r1, [r4, #4]
-	mov r3, r8
-	ldrh r0, [r3, #2]
-	strh r0, [r4, #6]
-	movs r0, #5
-	strh r0, [r4, #8]
-	strh r1, [r4, #0xa]
-	ldrh r0, [r6]
-	strh r0, [r4, #0xc]
-	movs r0, #2
-	strh r0, [r4, #0xe]
-	str r2, [r4, #0x1c]
-	mov r6, ip
-	str r6, [r4, #0x20]
-	ldr r0, _08051F18  @ gUnknown_0203E102
-	ldrh r0, [r0]
-	strh r0, [r4, #0x10]
-	adds r0, r4, #0
-	bl sub_805AA68
-	pop {r3}
-	mov r8, r3
-	pop {r4, r5, r6, r7}
-	pop {r0}
-	bx r0
-	.align 2, 0
-_08051EFC: .4byte gUnknown_0200003C
-_08051F00: .4byte gUnknown_02014DC8
-_08051F04: .4byte 0xFFFFF800
-_08051F08: .4byte gPlaySt
-_08051F0C: .4byte gUnknown_0200004C
-_08051F10: .4byte gUnknown_02000044
-_08051F14: .4byte gUnknown_085B9D6C
-_08051F18: .4byte gUnknown_0203E102
-
-	THUMB_FUNC_END sub_8051E00
-
-	THUMB_FUNC_START sub_8051F1C
-sub_8051F1C: @ 0x08051F1C
-	push {r4, r5, r6, lr}
-	sub sp, #8
-	ldr r4, _08051F5C  @ Pal_UIFont
-	adds r0, r4, #0
-	movs r1, #0x40
-	movs r2, #0x20
-	bl CopyToPaletteBuffer
-	adds r0, r4, #0
-	movs r1, #0x60
-	movs r2, #0x20
-	bl CopyToPaletteBuffer
-	ldr r0, _08051F60  @ gSomeFontStruct
-	ldr r1, _08051F64  @ 0x06001880
-	movs r2, #0xc4
-	movs r3, #2
-	bl Font_InitForUI
-	bl Font_SetSomeSpecialDrawingRoutine
-	ldr r0, _08051F68  @ gUnknown_08801C14
-	ldr r1, _08051F6C  @ 0x06001000
-	bl LZ77UnCompVram
-	ldr r0, _08051F70  @ gUnknown_0203E104
-	movs r1, #0
-	ldrsh r0, [r0, r1]
-	cmp r0, #0
-	bne _08051F78
-	ldr r5, _08051F74  @ gUnknown_085B9354
-	b _08051F86
-	.align 2, 0
-_08051F5C: .4byte Pal_UIFont
-_08051F60: .4byte gSomeFontStruct
-_08051F64: .4byte 0x06001880
-_08051F68: .4byte gUnknown_08801C14
-_08051F6C: .4byte 0x06001000
-_08051F70: .4byte gUnknown_0203E104
-_08051F74: .4byte gUnknown_085B9354
-_08051F78:
-	ldr r0, _08051FC0  @ gpEkrBattleUnitLeft
-	ldr r0, [r0]
-	ldr r0, [r0]
-	ldrh r0, [r0]
-	bl GetStringFromIndex
-	adds r5, r0, #0
-_08051F86:
-	ldr r4, _08051FC4  @ gTextEkrlvupMsg
-	adds r0, r4, #0
-	movs r1, #7
-	bl Text_Init
-	movs r0, #0x38
-	adds r1, r5, #0
-	bl GetStringTextCenteredPos
-	adds r1, r0, #0
-	adds r0, r4, #0
-	bl Text_SetXCursor
-	ldr r0, _08051FC8  @ gUnknown_08801F7C
-	ldr r1, _08051FCC  @ 0x06001880
-	bl LZ77UnCompVram
-	adds r0, r4, #0
-	adds r1, r5, #0
-	bl Text_AppendString
-	ldr r0, _08051FD0  @ gUnknown_0203E104
-	movs r1, #0
-	ldrsh r0, [r0, r1]
-	cmp r0, #0
-	bne _08051FD8
-	ldr r5, _08051FD4  @ gUnknown_085B9354
-	b _08051FE6
-	.align 2, 0
-_08051FC0: .4byte gpEkrBattleUnitLeft
-_08051FC4: .4byte gTextEkrlvupMsg
-_08051FC8: .4byte gUnknown_08801F7C
-_08051FCC: .4byte 0x06001880
-_08051FD0: .4byte gUnknown_0203E104
-_08051FD4: .4byte gUnknown_085B9354
-_08051FD8:
-	ldr r0, _08052020  @ gpEkrBattleUnitLeft
-	ldr r0, [r0]
-	adds r0, #0x4a
-	ldrh r0, [r0]
-	bl GetItemName
-	adds r5, r0, #0
-_08051FE6:
-	ldr r4, _08052024  @ gUnknown_02017670
-	adds r0, r4, #0
-	movs r1, #8
-	bl Text_Init
-	movs r0, #0x40
-	adds r1, r5, #0
-	bl GetStringTextCenteredPos
-	adds r1, r0, #0
-	adds r0, r4, #0
-	bl Text_SetXCursor
-	ldr r0, _08052028  @ gUnknown_08801FF4
-	ldr r1, _0805202C  @ 0x06001A40
-	bl LZ77UnCompVram
-	adds r0, r4, #0
-	adds r1, r5, #0
-	bl Text_AppendString
-	ldr r0, _08052030  @ gUnknown_0203E104
-	movs r1, #2
-	ldrsh r0, [r0, r1]
-	cmp r0, #0
-	bne _08052038
-	ldr r5, _08052034  @ gUnknown_085B9354
-	b _08052046
-	.align 2, 0
-_08052020: .4byte gpEkrBattleUnitLeft
-_08052024: .4byte gUnknown_02017670
-_08052028: .4byte gUnknown_08801FF4
-_0805202C: .4byte 0x06001A40
-_08052030: .4byte gUnknown_0203E104
-_08052034: .4byte gUnknown_085B9354
-_08052038:
-	ldr r0, _08052080  @ gpEkrBattleUnitRight
-	ldr r0, [r0]
-	ldr r0, [r0]
-	ldrh r0, [r0]
-	bl GetStringFromIndex
-	adds r5, r0, #0
-_08052046:
-	ldr r4, _08052084  @ gUnknown_02017678
-	adds r0, r4, #0
-	movs r1, #7
-	bl Text_Init
-	movs r0, #0x38
-	adds r1, r5, #0
-	bl GetStringTextCenteredPos
-	adds r1, r0, #0
-	adds r0, r4, #0
-	bl Text_SetXCursor
-	ldr r0, _08052088  @ gUnknown_08802044
-	ldr r1, _0805208C  @ 0x06001C40
-	bl LZ77UnCompVram
-	adds r0, r4, #0
-	adds r1, r5, #0
-	bl Text_AppendString
-	ldr r0, _08052090  @ gUnknown_0203E104
-	movs r1, #2
-	ldrsh r0, [r0, r1]
-	cmp r0, #0
-	bne _08052098
-	ldr r5, _08052094  @ gUnknown_085B9354
-	b _080520A6
-	.align 2, 0
-_08052080: .4byte gpEkrBattleUnitRight
-_08052084: .4byte gUnknown_02017678
-_08052088: .4byte gUnknown_08802044
-_0805208C: .4byte 0x06001C40
-_08052090: .4byte gUnknown_0203E104
-_08052094: .4byte gUnknown_085B9354
-_08052098:
-	ldr r0, _0805215C  @ gpEkrBattleUnitRight
-	ldr r0, [r0]
-	adds r0, #0x4a
-	ldrh r0, [r0]
-	bl GetItemName
-	adds r5, r0, #0
-_080520A6:
-	ldr r4, _08052160  @ gUnknown_02017668
-	adds r0, r4, #0
-	movs r1, #8
-	bl Text_Init
-	movs r0, #0x3e
-	adds r1, r5, #0
-	bl GetStringTextCenteredPos
-	adds r1, r0, #0
-	adds r0, r4, #0
-	bl Text_SetXCursor
-	ldr r0, _08052164  @ gUnknown_088020BC
-	ldr r1, _08052168  @ 0x06001E00
-	bl LZ77UnCompVram
-	adds r0, r4, #0
-	adds r1, r5, #0
-	bl Text_AppendString
-	ldr r4, _0805216C  @ gBG0TilemapBuffer
-	adds r0, r4, #0
-	movs r1, #0x80
-	bl BG_Fill
-	ldr r0, _08052170  @ gUnknown_08802508
-	adds r6, r4, #0
-	adds r6, #0x3c
-	movs r1, #1
-	negs r1, r1
-	str r1, [sp]
-	str r1, [sp, #4]
-	adds r1, r6, #0
-	movs r2, #2
-	movs r3, #0x14
-	bl sub_8070E94
-	adds r4, #0x3e
-	movs r5, #0x80
-	str r5, [sp]
-	adds r0, r4, #0
-	movs r1, #1
-	movs r2, #0x14
-	movs r3, #2
-	bl sub_8070D04
-	str r5, [sp]
-	adds r0, r6, #0
-	movs r1, #1
-	movs r2, #0x14
-	movs r3, #3
-	bl sub_8070D04
-	movs r0, #1
-	bl BG_EnableSyncByMask
-	ldr r6, _08052174  @ gUnknown_0203E114
-	movs r1, #0
-	ldrsh r0, [r6, r1]
-	lsls r0, r0, #5
-	ldr r5, _08052178  @ gUnknown_08802558
-	adds r0, r0, r5
-	ldr r4, _0805217C  @ pPalette2Buffer
-	adds r1, r4, #0
-	movs r2, #8
-	bl CpuFastSet
-	movs r1, #2
-	ldrsh r0, [r6, r1]
-	lsls r0, r0, #5
-	adds r0, r0, r5
-	adds r4, #0x20
-	adds r1, r4, #0
-	movs r2, #8
-	bl CpuFastSet
-	bl EnablePaletteSync
-	ldr r1, _08052180  @ gUnknown_02000038
-	movs r0, #0
-	strh r0, [r1]
-	strh r0, [r1, #2]
-	movs r1, #0
-	movs r2, #0
-	bl BG_SetPosition
-	add sp, #8
-	pop {r4, r5, r6}
-	pop {r0}
-	bx r0
-	.align 2, 0
-_0805215C: .4byte gpEkrBattleUnitRight
-_08052160: .4byte gUnknown_02017668
-_08052164: .4byte gUnknown_088020BC
-_08052168: .4byte 0x06001E00
-_0805216C: .4byte gBG0TilemapBuffer
-_08052170: .4byte gUnknown_08802508
-_08052174: .4byte gUnknown_0203E114
-_08052178: .4byte gUnknown_08802558
-_0805217C: .4byte pPalette2Buffer
-_08052180: .4byte gUnknown_02000038
-
-	THUMB_FUNC_END sub_8051F1C
-
-	THUMB_FUNC_START sub_8052184
-sub_8052184: @ 0x08052184
-	push {r4, r5, lr}
-	ldr r0, _0805219C  @ gUnknown_0203E120
-	movs r1, #0
-	ldrsh r0, [r0, r1]
-	cmp r0, #4
-	bhi _080521C4
-	lsls r0, r0, #2
-	ldr r1, _080521A0  @ _080521A4
-	adds r0, r0, r1
-	ldr r0, [r0]
-	mov pc, r0
-	.align 2, 0
-_0805219C: .4byte gUnknown_0203E120
-_080521A0: .4byte _080521A4
-_080521A4: @ jump table
-	.4byte _0805220C @ case 0
-	.4byte _080521B8 @ case 1
-	.4byte _080521C4 @ case 2
-	.4byte _0805220C @ case 3
-	.4byte _0805220C @ case 4
-_080521B8:
-	ldr r0, _080521C0  @ gUnknown_0203E100
-	movs r2, #0
-	ldrsh r0, [r0, r2]
-	b _0805220E
-	.align 2, 0
-_080521C0: .4byte gUnknown_0203E100
-_080521C4:
-	movs r1, #0
-	movs r5, #0
-	ldr r0, _080521F4  @ gUnknown_0203E0FC
-	movs r2, #0
-	ldrsh r0, [r0, r2]
-	cmp r0, #0
-	bne _080521EC
-	ldr r4, _080521F8  @ gEkrBuIndexes
-	ldrb r0, [r4]
-	ldrb r1, [r4, #1]
-	bl ShouldCallBattleQuote
-	lsls r0, r0, #0x18
-	asrs r5, r0, #0x18
-	ldrb r0, [r4, #1]
-	ldrb r1, [r4]
-	bl ShouldCallBattleQuote
-	lsls r0, r0, #0x18
-	asrs r1, r0, #0x18
-_080521EC:
-	cmp r5, #1
-	bne _080521FC
-	movs r0, #0
-	b _0805220E
-	.align 2, 0
-_080521F4: .4byte gUnknown_0203E0FC
-_080521F8: .4byte gEkrBuIndexes
-_080521FC:
-	cmp r1, #1
-	beq _0805220C
-	ldr r0, _08052208  @ gUnknown_0203E100
-	movs r1, #0
-	ldrsh r0, [r0, r1]
-	b _0805220E
-	.align 2, 0
-_08052208: .4byte gUnknown_0203E100
-_0805220C:
-	movs r0, #1
-_0805220E:
-	pop {r4, r5}
-	pop {r1}
-	bx r1
-
-	THUMB_FUNC_END sub_8052184
-
-	THUMB_FUNC_START sub_8052214
-sub_8052214: @ 0x08052214
-	ldr r2, _0805221C  @ gUnknown_02017760
-	strh r0, [r2]
-	strh r1, [r2, #2]
-	bx lr
-	.align 2, 0
-_0805221C: .4byte gUnknown_02017760
-
-	THUMB_FUNC_END sub_8052214
-
-	THUMB_FUNC_START sub_8052220
-sub_8052220: @ 0x08052220
-	push {r4, lr}
-	ldr r0, _08052284  @ gUnknown_02017728
-	movs r4, #0
-	str r4, [r0]
-	ldr r0, _08052288  @ gUnknown_0201772C
-	str r4, [r0]
-	ldr r0, _0805228C  @ gUnknown_02017730
-	str r4, [r0]
-	ldr r0, _08052290  @ gUnknown_02017738
-	str r4, [r0]
-	ldr r0, _08052294  @ gUnknown_0201773C
-	str r4, [r0]
-	ldr r0, _08052298  @ gUnknown_02017740
-	str r4, [r0]
-	ldr r0, _0805229C  @ gUnknown_02017748
-	str r4, [r0]
-	ldr r0, _080522A0  @ gUnknown_0201774C
-	str r4, [r0]
-	ldr r0, _080522A4  @ gUnknown_02017750
-	str r4, [r0]
-	ldr r0, _080522A8  @ gUnknown_02017754
-	str r4, [r0]
-	ldr r0, _080522AC  @ gUnknown_02017758
-	str r4, [r0]
-	ldr r0, _080522B0  @ gUnknown_0201775C
-	str r4, [r0]
-	movs r0, #0
-	movs r1, #0
-	bl sub_8052214
-	ldr r0, _080522B4  @ gUnknown_02017764
-	strh r4, [r0]
-	strh r4, [r0, #2]
-	ldr r0, _080522B8  @ gUnknown_02017768
-	strh r4, [r0]
-	strh r4, [r0, #2]
-	ldr r0, _080522BC  @ gEkrHitEfxBool
-	strh r4, [r0]
-	strh r4, [r0, #2]
-	ldr r0, _080522C0  @ gUnknown_0201776C
-	str r4, [r0]
-	str r4, [r0, #4]
-	ldr r0, _080522C4  @ gUnknown_02017778
-	str r4, [r0]
-	ldr r0, _080522C8  @ gUnknown_0201777C
-	str r4, [r0]
-	pop {r4}
-	pop {r0}
-	bx r0
-	.align 2, 0
-_08052284: .4byte gUnknown_02017728
-_08052288: .4byte gUnknown_0201772C
-_0805228C: .4byte gUnknown_02017730
-_08052290: .4byte gUnknown_02017738
-_08052294: .4byte gUnknown_0201773C
-_08052298: .4byte gUnknown_02017740
-_0805229C: .4byte gUnknown_02017748
-_080522A0: .4byte gUnknown_0201774C
-_080522A4: .4byte gUnknown_02017750
-_080522A8: .4byte gUnknown_02017754
-_080522AC: .4byte gUnknown_02017758
-_080522B0: .4byte gUnknown_0201775C
-_080522B4: .4byte gUnknown_02017764
-_080522B8: .4byte gUnknown_02017768
-_080522BC: .4byte gEkrHitEfxBool
-_080522C0: .4byte gUnknown_0201776C
-_080522C4: .4byte gUnknown_02017778
-_080522C8: .4byte gUnknown_0201777C
-
-	THUMB_FUNC_END sub_8052220
-
-	THUMB_FUNC_START sub_80522CC
-sub_80522CC: @ 0x080522CC
-	push {lr}
-	ldr r0, _080522E4  @ gUnknown_02017728
-	ldr r0, [r0]
-	cmp r0, #0
-	bne _080522EC
-	ldr r0, _080522E8  @ gUnknown_0201772C
-	ldr r0, [r0]
-	cmp r0, #0
-	bne _080522EC
-	movs r0, #1
-	b _080522EE
-	.align 2, 0
-_080522E4: .4byte gUnknown_02017728
-_080522E8: .4byte gUnknown_0201772C
-_080522EC:
-	movs r0, #0
-_080522EE:
-	pop {r1}
-	bx r1
-
-	THUMB_FUNC_END sub_80522CC
-
-	THUMB_FUNC_START EkrEfxIsUnitHittedNow
-EkrEfxIsUnitHittedNow: @ 0x080522F4
-	ldr r1, _08052300  @ gEkrHitEfxBool
-	lsls r0, r0, #1
-	adds r0, r0, r1
-	movs r1, #0
-	ldrsh r0, [r0, r1]
-	bx lr
-	.align 2, 0
-_08052300: .4byte gEkrHitEfxBool
-
-	THUMB_FUNC_END EkrEfxIsUnitHittedNow
-
-	THUMB_FUNC_START sub_8052304
-sub_8052304: @ 0x08052304
-	push {r4, r5, r6, lr}
-	adds r4, r0, #0
-	bl GetAISSubjectId
-	adds r1, r0, #0
-	ldrh r0, [r4, #0xe]
-	subs r0, #1
-	lsls r0, r0, #1
-	adds r0, r0, r1
-	bl sub_8058A34
-	movs r1, #0x80
-	lsls r1, r1, #3
-	ands r1, r0
-	cmp r1, #0
-	bne _080523E0
-	ldr r1, _08052350  @ gUnknown_02017728
-	ldr r0, [r1]
-	cmp r0, #0
-	bne _080523E0
-	movs r0, #1
-	str r0, [r1]
-	ldr r0, _08052354  @ gProc_efxHPBar
-	movs r1, #3
-	bl Proc_Start
-	adds r6, r0, #0
-	str r4, [r6, #0x64]
-	adds r0, r4, #0
-	bl GetAISSubjectId
-	cmp r0, #0
-	bne _0805235C
-	ldr r0, _08052358  @ gUnknown_02000000
-	ldr r1, [r0, #8]
-	str r1, [r6, #0x5c]
-	ldr r0, [r0]
-	b _08052364
-	.align 2, 0
-_08052350: .4byte gUnknown_02017728
-_08052354: .4byte gProc_efxHPBar
-_08052358: .4byte gUnknown_02000000
-_0805235C:
-	ldr r0, _080523B8  @ gUnknown_02000000
-	ldr r1, [r0]
-	str r1, [r6, #0x5c]
-	ldr r0, [r0, #8]
-_08052364:
-	str r0, [r6, #0x60]
-	ldr r4, _080523BC  @ gUnknown_0203E152
-	ldr r0, [r6, #0x60]
-	bl GetAISSubjectId
-	lsls r0, r0, #1
-	adds r0, r0, r4
-	movs r1, #0
-	ldrsh r5, [r0, r1]
-	adds r4, r5, #1
-	lsls r4, r4, #0x10
-	lsrs r4, r4, #0x10
-	ldr r0, [r6, #0x60]
-	bl GetAISSubjectId
-	lsls r5, r5, #1
-	adds r5, r5, r0
-	adds r0, r5, #0
-	bl sub_8058A60
-	lsls r0, r0, #0x10
-	asrs r0, r0, #0x10
-	str r0, [r6, #0x4c]
-	ldr r0, [r6, #0x60]
-	bl GetAISSubjectId
-	lsls r4, r4, #0x10
-	asrs r4, r4, #0xf
-	adds r4, r4, r0
-	adds r0, r4, #0
-	bl sub_8058A60
-	lsls r0, r0, #0x10
-	asrs r0, r0, #0x10
-	str r0, [r6, #0x50]
-	ldr r1, [r6, #0x4c]
-	cmp r1, r0
-	ble _080523C0
-	movs r0, #1
-	negs r0, r0
-	b _080523C2
-	.align 2, 0
-_080523B8: .4byte gUnknown_02000000
-_080523BC: .4byte gUnknown_0203E152
-_080523C0:
-	movs r0, #1
-_080523C2:
-	str r0, [r6, #0x48]
-	movs r1, #0
-	strh r1, [r6, #0x2c]
-	ldr r0, [r6, #0x4c]
-	strh r0, [r6, #0x2e]
-	str r1, [r6, #0x54]
-	str r1, [r6, #0x58]
-	ldr r0, [r6, #0x60]
-	bl GetAISSubjectId
-	ldr r1, _080523E8  @ gEkrHitEfxBool
-	lsls r0, r0, #1
-	adds r0, r0, r1
-	movs r1, #1
-	strh r1, [r0]
-_080523E0:
-	pop {r4, r5, r6}
-	pop {r0}
-	bx r0
-	.align 2, 0
-_080523E8: .4byte gEkrHitEfxBool
-
-	THUMB_FUNC_END sub_8052304
-
-	THUMB_FUNC_START sub_80523EC
-sub_80523EC: @ 0x080523EC
-	push {r4, r5, r6, r7, lr}
-	adds r5, r0, #0
-	ldr r4, _08052490  @ gUnknown_02000000
-	ldr r0, [r5, #0x60]
-	bl GetAISSubjectId
-	lsls r0, r0, #3
-	adds r0, r0, r4
-	ldr r6, [r0]
-	ldr r0, [r5, #0x60]
-	bl GetAISSubjectId
-	lsls r0, r0, #1
-	adds r0, #1
-	lsls r0, r0, #2
-	adds r0, r0, r4
-	ldr r7, [r0]
-	ldr r1, [r5, #0x58]
-	cmp r1, #0
-	bne _0805244E
-	ldrh r0, [r5, #0x2c]
-	adds r0, #1
-	strh r0, [r5, #0x2c]
-	lsls r0, r0, #0x10
-	asrs r0, r0, #0x10
-	cmp r0, #2
-	bne _0805244E
-	strh r1, [r5, #0x2c]
-	ldr r1, [r5, #0x48]
-	ldrh r0, [r5, #0x2e]
-	adds r0, r0, r1
-	strh r0, [r5, #0x2e]
-	ldr r0, [r5, #0x60]
-	bl GetAISSubjectId
-	ldr r1, _08052494  @ gUnknown_0203E1AC
-	lsls r0, r0, #1
-	adds r0, r0, r1
-	ldr r2, [r5, #0x48]
-	ldrh r1, [r0]
-	adds r1, r1, r2
-	strh r1, [r0]
-	movs r0, #0x2e
-	ldrsh r1, [r5, r0]
-	ldr r0, [r5, #0x50]
-	cmp r1, r0
-	bne _0805244E
-	movs r0, #1
-	str r0, [r5, #0x58]
-_0805244E:
-	ldr r1, [r5, #0x54]
-	cmp r1, #0x1e
-	bne _080524F0
-	ldr r0, [r5, #0x58]
-	cmp r0, #1
-	bne _080524F0
-	ldr r4, _08052498  @ gUnknown_0203E152
-	ldr r0, [r5, #0x60]
-	bl GetAISSubjectId
-	lsls r0, r0, #1
-	adds r0, r0, r4
-	ldrh r1, [r0]
-	adds r1, #1
-	movs r4, #0
-	strh r1, [r0]
-	ldr r0, [r5, #0x60]
-	bl GetAISSubjectId
-	ldr r1, _0805249C  @ gEkrHitEfxBool
-	lsls r0, r0, #1
-	adds r0, r0, r1
-	strh r4, [r0]
-	ldr r0, [r5, #0x50]
-	cmp r0, #0
-	bne _080524E4
-	bl GetEkrEventFlagMaybe
-	cmp r0, #1
-	bne _080524A0
-	movs r0, #0
-	b _080524B4
-	.align 2, 0
-_08052490: .4byte gUnknown_02000000
-_08052494: .4byte gUnknown_0203E1AC
-_08052498: .4byte gUnknown_0203E152
-_0805249C: .4byte gEkrHitEfxBool
-_080524A0:
-	ldr r4, _080524C4  @ gEkrBuIndexes
-	adds r0, r6, #0
-	bl GetAISSubjectId
-	adds r0, r0, r4
-	ldrb r0, [r0]
-	bl sub_80835A8
-	lsls r0, r0, #0x18
-	asrs r0, r0, #0x18
-_080524B4:
-	cmp r0, #1
-	bne _080524C8
-	adds r0, r6, #0
-	adds r1, r7, #0
-	bl sub_8052DD4
-	b _080524E4
-	.align 2, 0
-_080524C4: .4byte gEkrBuIndexes
-_080524C8:
-	bl sub_805B07C
-	adds r0, r6, #0
-	adds r1, r7, #0
-	bl sub_8052FAC
-	ldr r0, [r5, #0x60]
-	bl GetAISSubjectId
-	ldr r1, _080524EC  @ gUnknown_0203E104
-	lsls r0, r0, #1
-	adds r0, r0, r1
-	movs r1, #0
-	strh r1, [r0]
-_080524E4:
-	adds r0, r5, #0
-	bl Proc_Break
-	b _080524FC
-	.align 2, 0
-_080524EC: .4byte gUnknown_0203E104
-_080524F0:
-	adds r0, r1, #1
-	str r0, [r5, #0x54]
-	cmp r0, #0x1d
-	bls _080524FC
-	movs r0, #0x1e
-	str r0, [r5, #0x54]
-_080524FC:
-	pop {r4, r5, r6, r7}
-	pop {r0}
-	bx r0
-
-	THUMB_FUNC_END sub_80523EC
-
-	THUMB_FUNC_START sub_8052504
-sub_8052504: @ 0x08052504
+	THUMB_FUNC_START efxHPBar_8052504
+efxHPBar_8052504: @ 0x08052504
 	push {r4, r5, lr}
 	adds r5, r0, #0
 	ldr r0, _0805254C  @ gUnknown_0201774C
@@ -988,7 +26,7 @@ sub_8052504: @ 0x08052504
 	bl sub_805A21C
 	cmp r0, #1
 	bne _08052596
-	ldr r0, _08052554  @ gUnknown_0203E120
+	ldr r0, _08052554  @ gEkrSomeType
 	movs r1, #0
 	ldrsh r0, [r0, r1]
 	cmp r0, #4
@@ -1001,7 +39,7 @@ sub_8052504: @ 0x08052504
 	.align 2, 0
 _0805254C: .4byte gUnknown_0201774C
 _08052550: .4byte gUnknown_0201772C
-_08052554: .4byte gUnknown_0203E120
+_08052554: .4byte gEkrSomeType
 _08052558: .4byte _0805255C
 _0805255C: @ jump table
 	.4byte _08052570 @ case 0
@@ -1034,10 +72,10 @@ _0805259C:
 	pop {r0}
 	bx r0
 
-	THUMB_FUNC_END sub_8052504
+	THUMB_FUNC_END efxHPBar_8052504
 
-	THUMB_FUNC_START sub_80525A4
-sub_80525A4: @ 0x080525A4
+	THUMB_FUNC_START efxHPBar_80525A4
+efxHPBar_80525A4: @ 0x080525A4
 	push {lr}
 	adds r2, r0, #0
 	ldrh r0, [r2, #0x2c]
@@ -1072,10 +110,10 @@ _080525E0:
 	.align 2, 0
 _080525E4: .4byte gUnknown_02017728
 
-	THUMB_FUNC_END sub_80525A4
+	THUMB_FUNC_END efxHPBar_80525A4
 
-	THUMB_FUNC_START sub_80525E8
-sub_80525E8: @ 0x080525E8
+	THUMB_FUNC_START NewEfxHPBarResire
+NewEfxHPBarResire: @ 0x080525E8
 	push {r4, r5, r6, lr}
 	adds r4, r0, #0
 	ldr r1, _08052620  @ gUnknown_02017728
@@ -1084,7 +122,7 @@ sub_80525E8: @ 0x080525E8
 	bne _080526BA
 	movs r0, #1
 	str r0, [r1]
-	ldr r0, _08052624  @ gProc_efxHPBarResire
+	ldr r0, _08052624  @ ProcScr_efxHPBarResire
 	movs r1, #3
 	bl Proc_Start
 	adds r6, r0, #0
@@ -1102,7 +140,7 @@ sub_80525E8: @ 0x080525E8
 	b _08052634
 	.align 2, 0
 _08052620: .4byte gUnknown_02017728
-_08052624: .4byte gProc_efxHPBarResire
+_08052624: .4byte ProcScr_efxHPBarResire
 _08052628: .4byte gUnknown_02000000
 _0805262C:
 	ldr r0, _08052688  @ gUnknown_02000000
@@ -1179,10 +217,10 @@ _080526BA:
 _080526C0: .4byte gUnknown_02017750
 _080526C4: .4byte gEkrHitEfxBool
 
-	THUMB_FUNC_END sub_80525E8
+	THUMB_FUNC_END NewEfxHPBarResire
 
-	THUMB_FUNC_START sub_80526C8
-sub_80526C8: @ 0x080526C8
+	THUMB_FUNC_START EfxHPBarResire_80526C8
+EfxHPBarResire_80526C8: @ 0x080526C8
 	push {r4, r5, r6, lr}
 	adds r5, r0, #0
 	ldr r0, [r5, #0x60]
@@ -1274,10 +312,10 @@ _08052780:
 	pop {r0}
 	bx r0
 
-	THUMB_FUNC_END sub_80526C8
+	THUMB_FUNC_END EfxHPBarResire_80526C8
 
-	THUMB_FUNC_START sub_8052788
-sub_8052788: @ 0x08052788
+	THUMB_FUNC_START EfxHPBarResire_8052788
+EfxHPBarResire_8052788: @ 0x08052788
 	push {r4, r5, r6, r7, lr}
 	adds r6, r0, #0
 	ldrh r0, [r6, #0x2c]
@@ -1358,10 +396,10 @@ _08052822:
 	.align 2, 0
 _08052828: .4byte gEkrHitEfxBool
 
-	THUMB_FUNC_END sub_8052788
+	THUMB_FUNC_END EfxHPBarResire_8052788
 
-	THUMB_FUNC_START sub_805282C
-sub_805282C: @ 0x0805282C
+	THUMB_FUNC_START EfxHPBarResire_805282C
+EfxHPBarResire_805282C: @ 0x0805282C
 	push {r4, r5, r6, r7, lr}
 	mov r7, r8
 	push {r7}
@@ -1465,7 +503,7 @@ _08052904: .4byte gUnknown_0203E1AC
 _08052908: .4byte gUnknown_0203E152
 _0805290C: .4byte gEkrHitEfxBool
 _08052910:
-	ldr r4, _08052934  @ gEkrBuIndexes
+	ldr r4, _08052934  @ gEkrPids
 	adds r0, r6, #0
 	bl GetAISSubjectId
 	adds r0, r0, r4
@@ -1481,7 +519,7 @@ _08052924:
 	bl sub_8052DD4
 	b _08052954
 	.align 2, 0
-_08052934: .4byte gEkrBuIndexes
+_08052934: .4byte gEkrPids
 _08052938:
 	bl sub_805B07C
 	adds r0, r6, #0
@@ -1489,7 +527,7 @@ _08052938:
 	bl sub_8052FAC
 	ldr r0, [r5, #0x60]
 	bl GetAISSubjectId
-	ldr r1, _0805295C  @ gUnknown_0203E104
+	ldr r1, _0805295C  @ gBanimSideVaildFlagMaybe
 	lsls r0, r0, #1
 	adds r0, r0, r1
 	movs r1, #0
@@ -1499,7 +537,7 @@ _08052954:
 	bl Proc_Break
 	b _0805296C
 	.align 2, 0
-_0805295C: .4byte gUnknown_0203E104
+_0805295C: .4byte gBanimSideVaildFlagMaybe
 _08052960:
 	adds r0, r1, #1
 	str r0, [r5, #0x54]
@@ -1514,7 +552,7 @@ _0805296C:
 	pop {r0}
 	bx r0
 
-	THUMB_FUNC_END sub_805282C
+	THUMB_FUNC_END EfxHPBarResire_805282C
 
 	THUMB_FUNC_START sub_8052978
 sub_8052978: @ 0x08052978
@@ -1577,8 +615,8 @@ _080529EC: .4byte gUnknown_02000000
 
 	THUMB_FUNC_END sub_8052978
 
-	THUMB_FUNC_START sub_80529F0
-sub_80529F0: @ 0x080529F0
+	THUMB_FUNC_START EfxAvoid_80529F0
+EfxAvoid_80529F0: @ 0x080529F0
 	push {lr}
 	adds r1, r0, #0
 	ldrh r0, [r1, #0x2c]
@@ -1594,7 +632,7 @@ _08052A08:
 	pop {r0}
 	bx r0
 
-	THUMB_FUNC_END sub_80529F0
+	THUMB_FUNC_END EfxAvoid_80529F0
 
 	THUMB_FUNC_START sub_8052A0C
 sub_8052A0C: @ 0x08052A0C
@@ -1606,7 +644,7 @@ sub_8052A0C: @ 0x08052A0C
 	bne _08052AD8
 	movs r0, #1
 	str r0, [r1]
-	ldr r0, _08052A40  @ gProc_efxHPBarLive
+	ldr r0, _08052A40  @ ProcScr_efxHPBarLive
 	movs r1, #3
 	bl Proc_Start
 	adds r6, r0, #0
@@ -1621,7 +659,7 @@ sub_8052A0C: @ 0x08052A0C
 	b _08052A50
 	.align 2, 0
 _08052A3C: .4byte gUnknown_02017728
-_08052A40: .4byte gProc_efxHPBarLive
+_08052A40: .4byte ProcScr_efxHPBarLive
 _08052A44: .4byte gUnknown_02000000
 _08052A48:
 	ldr r0, _08052AA8  @ gUnknown_02000000
@@ -1703,8 +741,8 @@ _08052AE0: .4byte gEkrHitEfxBool
 
 	THUMB_FUNC_END sub_8052A0C
 
-	THUMB_FUNC_START sub_8052AE4
-sub_8052AE4: @ 0x08052AE4
+	THUMB_FUNC_START EfxHPBarLive_8052AE4
+EfxHPBarLive_8052AE4: @ 0x08052AE4
 	push {r4, r5, r6, lr}
 	adds r5, r0, #0
 	ldr r6, [r5, #0x60]
@@ -1789,7 +827,7 @@ _08052B90:
 	pop {r0}
 	bx r0
 
-	THUMB_FUNC_END sub_8052AE4
+	THUMB_FUNC_END EfxHPBarLive_8052AE4
 
 	THUMB_FUNC_START sub_8052B98
 sub_8052B98: @ 0x08052B98
@@ -1859,8 +897,8 @@ _08052C20: .4byte gProc_efxNoDamage
 
 	THUMB_FUNC_END sub_8052B98
 
-	THUMB_FUNC_START sub_8052C24
-sub_8052C24: @ 0x08052C24
+	THUMB_FUNC_START EfxNoDamage_8052C24
+EfxNoDamage_8052C24: @ 0x08052C24
 	push {r4, r5, r6, lr}
 	adds r4, r0, #0
 	ldr r0, [r4, #0x5c]
@@ -1903,7 +941,7 @@ _08052C70:
 	.align 2, 0
 _08052C78: .4byte gUnknown_0203E152
 
-	THUMB_FUNC_END sub_8052C24
+	THUMB_FUNC_END EfxNoDamage_8052C24
 
 	THUMB_FUNC_START sub_8052C7C
 sub_8052C7C: @ 0x08052C7C
@@ -1926,8 +964,8 @@ _08052C9C: .4byte gProc_efxNoDamageYure
 
 	THUMB_FUNC_END sub_8052C7C
 
-	THUMB_FUNC_START sub_8052CA0
-sub_8052CA0: @ 0x08052CA0
+	THUMB_FUNC_START EfxNoDamageYure_8052CA0
+EfxNoDamageYure_8052CA0: @ 0x08052CA0
 	push {r4, r5, r6, r7, lr}
 	mov r7, r9
 	mov r6, r8
@@ -2042,7 +1080,7 @@ _08052D78:
 _08052D84: .4byte gUnknown_02000028
 _08052D88: .4byte gUnknown_0201FB0C
 
-	THUMB_FUNC_END sub_8052CA0
+	THUMB_FUNC_END EfxNoDamageYure_8052CA0
 
 	THUMB_FUNC_START sub_8052D8C
 sub_8052D8C: @ 0x08052D8C
@@ -2069,8 +1107,8 @@ _08052DB4: .4byte gProc_efxStatusCHG
 
 	THUMB_FUNC_END sub_8052D8C
 
-	THUMB_FUNC_START sub_8052DB8
-sub_8052DB8: @ 0x08052DB8
+	THUMB_FUNC_START EfxStatusCHG_8052CA0
+EfxStatusCHG_8052CA0: @ 0x08052DB8
 	push {lr}
 	adds r1, r0, #0
 	ldrh r0, [r1, #0x2c]
@@ -2086,7 +1124,7 @@ _08052DD0:
 	pop {r0}
 	bx r0
 
-	THUMB_FUNC_END sub_8052DB8
+	THUMB_FUNC_END EfxStatusCHG_8052CA0
 
 	THUMB_FUNC_START sub_8052DD4
 sub_8052DD4: @ 0x08052DD4
@@ -2140,14 +1178,14 @@ _08052E2E:
 	bne _08052E62
 	movs r0, #7
 	strh r0, [r5, #0x2c]
-	ldr r0, _08052E74  @ gUnknown_0203E120
+	ldr r0, _08052E74  @ gEkrSomeType
 	movs r1, #0
 	ldrsh r0, [r0, r1]
 	cmp r0, #0
 	beq _08052E5C
 	ldr r0, [r5, #0x5c]
 	bl GetAISSubjectId
-	ldr r1, _08052E78  @ gUnknown_02017744
+	ldr r1, _08052E78  @ gEkrPos2Maybe
 	ldr r1, [r1]
 	cmp r0, r1
 	beq _08052E5C
@@ -2168,8 +1206,8 @@ _08052E62:
 _08052E68: .4byte gUnknown_0201774C
 _08052E6C: .4byte gUnknown_0201772C
 _08052E70: .4byte gUnknown_0201FB04
-_08052E74: .4byte gUnknown_0203E120
-_08052E78: .4byte gUnknown_02017744
+_08052E74: .4byte gEkrSomeType
+_08052E78: .4byte gEkrPos2Maybe
 
 	THUMB_FUNC_END sub_8052DFC
 
@@ -2218,7 +1256,7 @@ sub_8052EAC: @ 0x08052EAC
 	ldr r2, _08052F18  @ 0x01000200
 	mov r0, sp
 	bl CpuFastSet
-	ldr r0, _08052F1C  @ gUnknown_02000038
+	ldr r0, _08052F1C  @ gBanimBgPosMaybe
 	ldrh r1, [r0]
 	ldrh r2, [r0, #2]
 	movs r0, #0
@@ -2230,7 +1268,7 @@ sub_8052EAC: @ 0x08052EAC
 	movs r0, #1
 	bl BG_EnableSyncByMask
 	bl EkrGauge_Set4C50
-	ldr r4, _08052F20  @ gEkrBuIndexes
+	ldr r4, _08052F20  @ gEkrPids
 	ldr r0, [r5, #0x5c]
 	bl GetAISSubjectId
 	adds r0, r0, r4
@@ -2246,8 +1284,8 @@ _08052F0A:
 	.align 2, 0
 _08052F14: .4byte gBG0TilemapBuffer
 _08052F18: .4byte 0x01000200
-_08052F1C: .4byte gUnknown_02000038
-_08052F20: .4byte gEkrBuIndexes
+_08052F1C: .4byte gBanimBgPosMaybe
+_08052F20: .4byte gEkrPids
 
 	THUMB_FUNC_END sub_8052EAC
 
@@ -2266,7 +1304,7 @@ sub_8052F24: @ 0x08052F24
 	bl sub_8051F1C
 	ldr r0, [r4, #0x5c]
 	bl GetAISSubjectId
-	ldr r1, _08052F80  @ gUnknown_0203E104
+	ldr r1, _08052F80  @ gBanimSideVaildFlagMaybe
 	lsls r0, r0, #1
 	adds r0, r0, r1
 	strh r5, [r0]
@@ -2289,7 +1327,7 @@ _08052F7A:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_08052F80: .4byte gUnknown_0203E104
+_08052F80: .4byte gBanimSideVaildFlagMaybe
 
 	THUMB_FUNC_END sub_8052F24
 
@@ -2854,7 +1892,7 @@ sub_80533D0: @ 0x080533D0
 	adds r5, r0, #0
 	lsls r1, r1, #0x10
 	lsrs r6, r1, #0x10
-	ldr r0, _080533EC  @ gUnknown_0203E120
+	ldr r0, _080533EC  @ gEkrSomeType
 	movs r1, #0
 	ldrsh r0, [r0, r1]
 	cmp r0, #4
@@ -2865,7 +1903,7 @@ sub_80533D0: @ 0x080533D0
 	ldr r0, [r0]
 	mov pc, r0
 	.align 2, 0
-_080533EC: .4byte gUnknown_0203E120
+_080533EC: .4byte gEkrSomeType
 _080533F0: .4byte _080533F4
 _080533F4: @ jump table
 	.4byte _0805349E @ case 0
@@ -2895,13 +1933,13 @@ _08053408:
 	strh r0, [r4, #0x2e]
 	subs r0, r2, r0
 	strh r0, [r4, #0x30]
-	ldr r2, _08053440  @ gUnknown_0203E120
+	ldr r2, _08053440  @ gEkrSomeType
 	b _0805345E
 	.align 2, 0
 _0805343C: .4byte gProc_efxFarAttack
-_08053440: .4byte gUnknown_0203E120
+_08053440: .4byte gEkrSomeType
 _08053444:
-	ldr r0, _08053454  @ gUnknown_0203E120
+	ldr r0, _08053454  @ gEkrSomeType
 	movs r2, #0
 	ldrsh r1, [r0, r2]
 	adds r2, r0, #0
@@ -2910,7 +1948,7 @@ _08053444:
 	movs r0, #5
 	b _0805345A
 	.align 2, 0
-_08053454: .4byte gUnknown_0203E120
+_08053454: .4byte gEkrSomeType
 _08053458:
 	movs r0, #7
 _0805345A:
@@ -3119,14 +2157,14 @@ _080535CA:
 	ldrb r0, [r0]
 	cmp r0, #0
 	bne _080535F4
-	ldr r1, _080535F0  @ gUnknown_02017744
+	ldr r1, _080535F0  @ gEkrPos2Maybe
 	movs r0, #1
 	b _080535F8
 	.align 2, 0
 _080535EC: .4byte gUnknown_0201FB0C
-_080535F0: .4byte gUnknown_02017744
+_080535F0: .4byte gEkrPos2Maybe
 _080535F4:
-	ldr r1, _08053610  @ gUnknown_02017744
+	ldr r1, _08053610  @ gEkrPos2Maybe
 	movs r0, #0
 _080535F8:
 	str r0, [r1]
@@ -3141,7 +2179,7 @@ _08053606:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_08053610: .4byte gUnknown_02017744
+_08053610: .4byte gEkrPos2Maybe
 _08053614: .4byte gUnknown_02017748
 
 	THUMB_FUNC_END sub_8053584
@@ -3574,7 +2612,7 @@ _0805392C:
 	movs r3, #2
 	ldrsh r0, [r2, r3]
 	subs r5, r1, r0
-	ldr r0, _0805399C  @ gUnknown_0203E120
+	ldr r0, _0805399C  @ gEkrSomeType
 	movs r1, #0
 	ldrsh r0, [r0, r1]
 	cmp r0, #0
@@ -3598,7 +2636,7 @@ _0805398C: .4byte gUnknown_02000028
 _08053990: .4byte gUnknown_0201FB0C
 _08053994: .4byte gUnknown_0200002C
 _08053998: .4byte gUnknown_02017760
-_0805399C: .4byte gUnknown_0203E120
+_0805399C: .4byte gEkrSomeType
 _080539A0:
 	cmp r0, #0
 	blt _080539D2
@@ -3721,7 +2759,7 @@ _08053A78:
 	str r4, [r5, #0x64]
 	b _08053B90
 _08053A84:
-	ldr r0, _08053A94  @ gUnknown_0203E120
+	ldr r0, _08053A94  @ gEkrSomeType
 	movs r1, #0
 	ldrsh r0, [r0, r1]
 	cmp r0, #0
@@ -3729,7 +2767,7 @@ _08053A84:
 	str r0, [r5, #0x64]
 	b _08053B90
 	.align 2, 0
-_08053A94: .4byte gUnknown_0203E120
+_08053A94: .4byte gEkrSomeType
 _08053A98:
 	ldr r0, [r5, #0x5c]
 	bl GetAISSubjectId
@@ -3808,7 +2846,7 @@ _08053B10:
 	ldrsh r0, [r0, r1]
 	cmp r0, #0x39
 	bne _08053B56
-	ldr r4, _08053BA8  @ gUnknown_0200004C
+	ldr r4, _08053BA8  @ gBanimTerrainPaletteMaybe
 	mov r0, r9
 	bl GetAISSubjectId
 	lsls r0, r0, #2
@@ -3818,7 +2856,7 @@ _08053B10:
 	movs r2, #8
 	bl CpuFastSet
 _08053B56:
-	ldr r4, _08053BA8  @ gUnknown_0200004C
+	ldr r4, _08053BA8  @ gBanimTerrainPaletteMaybe
 	mov r0, r8
 	bl GetAISSubjectId
 	lsls r0, r0, #2
@@ -3828,7 +2866,7 @@ _08053B56:
 	movs r2, #8
 	bl CpuFastSet
 	bl EnablePaletteSync
-	ldr r0, _08053BB4  @ gUnknown_0203E120
+	ldr r0, _08053BB4  @ gEkrSomeType
 	movs r1, #0
 	ldrsh r4, [r0, r1]
 	mov r0, r8
@@ -3852,10 +2890,10 @@ _08053B90:
 _08053B9C: .4byte gUnknown_0200003C
 _08053BA0: .4byte 0x06011800
 _08053BA4: .4byte gUnknown_0203E118
-_08053BA8: .4byte gUnknown_0200004C
+_08053BA8: .4byte gBanimTerrainPaletteMaybe
 _08053BAC: .4byte gUnknown_02016828
 _08053BB0: .4byte gUnknown_02022B08
-_08053BB4: .4byte gUnknown_0203E120
+_08053BB4: .4byte gEkrSomeType
 _08053BB8: .4byte gUnknown_0201FB0C
 
 	THUMB_FUNC_END sub_80539DC
@@ -3882,7 +2920,7 @@ _08053BDC:
 	movs r0, #0
 	movs r1, #0
 	bl sub_8052214
-	ldr r0, _08053C10  @ gUnknown_0203E120
+	ldr r0, _08053C10  @ gEkrSomeType
 	movs r3, #0
 	ldrsh r0, [r0, r3]
 	cmp r0, #0
@@ -3901,7 +2939,7 @@ _08053BDC:
 	b _08053C36
 	.align 2, 0
 _08053C0C: .4byte 0x00007FFF
-_08053C10: .4byte gUnknown_0203E120
+_08053C10: .4byte gEkrSomeType
 _08053C14:
 	cmp r0, #0
 	blt _08053C36
@@ -3965,7 +3003,7 @@ _08053C46:
 	movs r2, #0
 	bl BG_SetPosition
 _08053C9A:
-	ldr r4, _08053CEC  @ gUnknown_02000038
+	ldr r4, _08053CEC  @ gBanimBgPosMaybe
 	ldrh r1, [r4]
 	ldrh r2, [r4, #2]
 	movs r0, #0
@@ -3998,7 +3036,7 @@ _08053CDC: .4byte gUnknown_0201FADC
 _08053CE0: .4byte gUnknown_02000028
 _08053CE4: .4byte gUnknown_0200002C
 _08053CE8: .4byte gUnknown_02017740
-_08053CEC: .4byte gUnknown_02000038
+_08053CEC: .4byte gBanimBgPosMaybe
 _08053CF0:
 	movs r6, #0x2c
 	ldrsh r4, [r7, r6]
@@ -4090,7 +3128,7 @@ _08053D8C:
 	bl BG_SetPosition
 _08053DAE:
 	ldr r5, _08053E40  @ gUnknown_02017760
-	ldr r4, _08053E44  @ gUnknown_02000038
+	ldr r4, _08053E44  @ gBanimBgPosMaybe
 	ldrh r1, [r4]
 	ldrh r0, [r5]
 	adds r1, r1, r0
@@ -4159,7 +3197,7 @@ _08053E18:
 	b _08053E70
 	.align 2, 0
 _08053E40: .4byte gUnknown_02017760
-_08053E44: .4byte gUnknown_02000038
+_08053E44: .4byte gBanimBgPosMaybe
 _08053E48: .4byte gUnknown_02000028
 _08053E4C: .4byte gUnknown_0201FB0C
 _08053E50: .4byte gUnknown_0200002C
@@ -4196,7 +3234,7 @@ _08053E70:
 	movs r3, #2
 	ldrsh r0, [r2, r3]
 	subs r5, r1, r0
-	ldr r0, _08053ECC  @ gUnknown_0203E120
+	ldr r0, _08053ECC  @ gEkrSomeType
 	movs r1, #0
 	ldrsh r0, [r0, r1]
 	cmp r0, #0
@@ -4220,7 +3258,7 @@ _08053EBC: .4byte gUnknown_02000028
 _08053EC0: .4byte gUnknown_02017760
 _08053EC4: .4byte gUnknown_0201FB0C
 _08053EC8: .4byte gUnknown_0200002C
-_08053ECC: .4byte gUnknown_0203E120
+_08053ECC: .4byte gEkrSomeType
 _08053ED0:
 	cmp r0, #0
 	blt _08053F02

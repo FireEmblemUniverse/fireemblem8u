@@ -56,7 +56,7 @@ _080512DC:
 	subs r1, r1, r0
 	lsls r1, r1, #1
 	mov r8, r1
-	ldr r0, _08051300  @ gUnknown_0203E120
+	ldr r0, _08051300  @ gEkrSomeType
 	movs r3, #0
 	ldrsh r0, [r0, r3]
 	cmp r0, #0
@@ -69,7 +69,7 @@ _080512DC:
 	str r5, [sp, #0xdc]
 	b _0805130A
 	.align 2, 0
-_08051300: .4byte gUnknown_0203E120
+_08051300: .4byte gEkrSomeType
 _08051304:
 	movs r0, #8
 	str r0, [sp, #0xdc]
@@ -195,7 +195,7 @@ _080513EE:
 	mov r8, r1
 	ldrh r0, [r0, #2]
 	str r0, [sp, #0xd4]
-	ldr r0, _08051430  @ gUnknown_0203E120
+	ldr r0, _08051430  @ gEkrSomeType
 	movs r2, #0
 	ldrsh r0, [r0, r2]
 	cmp r0, #3
@@ -215,9 +215,9 @@ _08051420: .4byte gBG0TilemapBuffer
 _08051424: .4byte gUnknown_0203E1B4
 _08051428: .4byte gUnknown_0203E1AC
 _0805142C: .4byte gUnknown_0203E1B0
-_08051430: .4byte gUnknown_0203E120
+_08051430: .4byte gEkrSomeType
 _08051434:
-	ldr r0, _08051448  @ gUnknown_0203E104
+	ldr r0, _08051448  @ gBanimSideVaildFlagMaybe
 	movs r1, #0
 	ldrsh r0, [r0, r1]
 	cmp r0, #1
@@ -228,7 +228,7 @@ _08051434:
 	adds r0, #0x38
 	b _0805145C
 	.align 2, 0
-_08051448: .4byte gUnknown_0203E104
+_08051448: .4byte gBanimSideVaildFlagMaybe
 _0805144C:
 	mov r4, sl
 	movs r1, #0x32

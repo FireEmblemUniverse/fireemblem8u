@@ -1491,7 +1491,6 @@ extern struct TextHandle gUnknown_0201FB28[6];
 void sub_805AA00(struct Unk200A2D8*);
 
 extern u8 gUnknown_0201DB28[];
-void sub_805AA68(struct Unk201DB00*);
 void sub_805AE40(struct Unk201DB00*, int, int, int, int);
 
 const int gUnknown_08205EDC[2][6] = {
@@ -1642,7 +1641,7 @@ void ClassInfoDisplay_Init(struct OpInfoClassDisplayProc* proc) {
     gUnknown_02000000.unk_0C = 1;
     gUnknown_02000000.unk_0E = 0x180;
     gUnknown_02000000.unk_10 = 2;
-    gUnknown_02000000.unk_1C = gUnknown_02000038;
+    gUnknown_02000000.unk_1C = gBanimBgPosMaybe;
     gUnknown_02000000.unk_24 = gUnknown_02002038;
     gUnknown_02000000.unk_20 = gUnknown_02007838;
     gUnknown_02000000.unk_28 = gUnknown_020078D8;
@@ -2038,7 +2037,7 @@ void ClassInfoDisplay_Init(struct OpInfoClassDisplayProc* proc) {
         strh r1, [r0, #0xE]\n\
         movs r1, #2\n\
         strh r1, [r0, #0x10]\n\
-        ldr r1, _080B3BD8  @ gUnknown_02000038\n\
+        ldr r1, _080B3BD8  @ gBanimBgPosMaybe\n\
         str r1, [r0, #0x1C]\n\
         ldr r1, _080B3BDC  @ gUnknown_02002038\n\
         str r1, [r0, #0x24]\n\
@@ -2125,7 +2124,7 @@ void ClassInfoDisplay_Init(struct OpInfoClassDisplayProc* proc) {
         .align 2, 0\n\
     _080B3BD0: .4byte gUnknown_0201FB28\n\
     _080B3BD4: .4byte gUnknown_02000000\n\
-    _080B3BD8: .4byte gUnknown_02000038\n\
+    _080B3BD8: .4byte gBanimBgPosMaybe\n\
     _080B3BDC: .4byte gUnknown_02002038\n\
     _080B3BE0: .4byte gUnknown_02007838\n\
     _080B3BE4: .4byte gUnknown_020078D8\n\

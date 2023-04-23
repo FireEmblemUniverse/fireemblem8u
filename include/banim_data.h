@@ -24,3 +24,7 @@ typedef struct {
     short *palette;
     int null_1; // useless, always 00
 } BattleAnimTerrain, *pBattleAnimTerrain;
+
+extern BattleAnim banim_data[];
+extern BattleAnimCharaPal character_battle_animation_palette_table[];
+extern BattleAnimTerrain battle_terrain_table[];

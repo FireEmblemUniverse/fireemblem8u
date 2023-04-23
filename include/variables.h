@@ -136,7 +136,7 @@ extern struct PrepUnitList gPrepUnitList;
 // extern ??? sSupportScreenUnitCount
 // extern ??? gUnknown_020136F4
 // extern ??? gUnknown_02013EF4
-// extern ??? gUnknown_020145C8
+extern u8 gUnknown_020145C8[];
 // extern ??? gUnknown_020146F4
 // extern ??? gUnknown_02014DC8
 // extern ??? gUnknown_02014EF4
@@ -152,27 +152,27 @@ extern u16 gUnknown_020169C8[];
 extern u16 gUnknown_02017700[];
 extern u32 gUnknown_02017724;
 extern u32 gUnknown_02017728;
-// extern ??? gUnknown_0201772C
-// extern ??? gUnknown_02017730
-// extern ??? gUnknown_02017734
+extern u32 gUnknown_0201772C;
+extern u32 gUnknown_02017730;
+extern u32 gUnknown_02017734;
 extern u32 gUnknown_02017738;
-// extern ??? gUnknown_0201773C
-// extern ??? gUnknown_02017740
-extern u32 gUnknown_02017744;
-// extern ??? gUnknown_02017748
-// extern ??? gUnknown_0201774C
-// extern ??? gUnknown_02017750
-// extern ??? gUnknown_02017754
-// extern ??? gUnknown_02017758
-// extern ??? gUnknown_0201775C
-// extern ??? gUnknown_02017760
-// extern ??? gUnknown_02017764
-// extern ??? gUnknown_02017768
-// extern ??? gUnknown_0201776C
+extern u32 gUnknown_0201773C;
+extern u32 gUnknown_02017740;
+extern u32 gEkrPos2Maybe;
+extern u32 gUnknown_02017748;
+extern u32 gUnknown_0201774C;
+extern u32 gUnknown_02017750;
+extern u32 gUnknown_02017754;
+extern u32 gUnknown_02017758;
+extern u32 gUnknown_0201775C;
+extern short gUnknown_02017760[2];
+extern short gUnknown_02017764[2];
+extern short gUnknown_02017768[2];
+extern u32 gUnknown_0201776C[2];
 // extern ??? gUnknown_02017774
-// extern ??? gUnknown_02017778
-// extern ??? gUnknown_0201777C
-extern short gEkrHitEfxBool[2];     /* [0] for left and [1] for right, if in hit routine, 1, otherwise 0 */
+extern u32 gUnknown_02017778;
+extern u32 gUnknown_0201777C;
+extern short gEkrHitEfxBool[];     /* [0] for left and [1] for right, if in hit routine, 1, otherwise 0 */
 // extern ??? gUnknown_02017790
 extern u16 gUnknown_02019490[];
 // extern ??? gUnknown_02019790
@@ -269,7 +269,7 @@ extern s8 gUnknown_020222A8[];
 extern u16 gPaletteBuffer[];
 // extern ??? gUnknown_020228AA
 // extern ??? pPalette1Buffer
-// extern ??? pPalette2Buffer
+extern u16 pPalette2Buffer[];
 // extern ??? pPalette3Buffer
 // extern ??? pPalette4Buffer
 // extern ??? pPalette6Buffer
@@ -504,14 +504,14 @@ extern struct ActionData gActionData;
 // extern ??? gUnknown_0203DD9F
 // extern ??? gUnknown_0203DDB4
 // extern ??? gUnknown_0203DDDC
-// extern ??? gUnknown_0203E152
+extern short gUnknown_0203E152[];
 // extern ??? gUnknown_0203E156
 // extern ??? gUnknown_0203E182
-extern u8 gEkrBuIndexes[2];
+extern u8 gEkrPids[2];
 extern int gUnknown_0203E194;
 // extern ??? gUnknown_0203E19C
 // extern ??? gUnknown_0203E1A4
-extern short gUnknown_0203E1AC[2];
+extern short gUnknown_0203E1AC[];
 // extern ??? gUnknown_0203E1B0
 extern short gUnknown_0203E1B4[2];
 extern short gUnknown_0203E1B8[2];
@@ -1536,7 +1536,7 @@ extern const u16 gUiBarPaletteD[];
 extern const u8  gUnkUiFrameImage[];
 extern const u16 gUnkUiFramePalettes[];
 // extern ??? gUnknown_085B92C4
-// extern ??? gUnknown_085B9354
+extern char gNopStr[];
 // extern ??? gUnknown_085B9E4C
 // extern ??? gUnknown_085BA0B8
 // extern ??? gUnknown_085BA2E0
@@ -2538,18 +2538,18 @@ extern const u16 gUnkUiFramePalettes[];
 // extern ??? gUnknown_088018A0
 // extern ??? gUnknown_08801AAC
 // extern ??? gUnknown_08801AB4
-// extern ??? gUnknown_08801C14
-// extern ??? gUnknown_08801F7C
-// extern ??? gUnknown_08801FF4
-// extern ??? gUnknown_08802044
-// extern ??? gUnknown_088020BC
+extern u16 gUnknown_08801C14[];
+extern u16 gUnknown_08801F7C[];
+extern u16 gUnknown_08801FF4[];
+extern u16 gUnknown_08802044[];
+extern u16 gUnknown_088020BC[];
 extern u8 gUnknown_0880210C[];
 extern u8 gUnknown_088021C0[];
 extern u8 gUnknown_08802274[];
 extern u8 gUnknown_08802348[];
 extern u8 gUnknown_08802428[];
-// extern ??? gUnknown_08802508
-// extern ??? gUnknown_08802558
+extern u8 gUnknown_08802508[];
+extern u16 gUnknown_08802558[];
 extern u16 gUnknown_088025D8[];
 extern u16 gUnknown_08802674[];
 extern u16 gUnknown_08802698[];

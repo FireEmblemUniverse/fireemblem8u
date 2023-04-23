@@ -83,7 +83,3 @@ gUnkUiFramePalettes:  @ 0x085B9244
 	.global gUnknown_085B92C4
 gUnknown_085B92C4:  @ 0x085B92C4
 	.incbin "baserom.gba", 0x5B92C4, 0x90
-
-	.global gUnknown_085B9354
-gUnknown_085B9354:  @ 0x085B9354
-	.word 0

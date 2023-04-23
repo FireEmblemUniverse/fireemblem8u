@@ -45,7 +45,7 @@ EkrLvup_InitScreen: @ 0x08073A4C
 	adds r0, r6, #0
 	adds r2, r4, #0
 	bl RegisterTileGraphics
-	ldr r1, _08073B1C  @ gUnknown_0203E11C
+	ldr r1, _08073B1C  @ gBanimTerrainIndexMaybe
 	ldrh r4, [r1]
 	strh r4, [r7]
 	movs r0, #3
@@ -59,7 +59,7 @@ EkrLvup_InitScreen: @ 0x08073A4C
 	movs r0, #0xa0
 	lsls r0, r0, #1
 	strh r0, [r7, #0xa]
-	ldr r0, _08073B20  @ gUnknown_0203E120
+	ldr r0, _08073B20  @ gEkrSomeType
 	ldrh r1, [r0]
 	strh r1, [r7, #0xc]
 	movs r0, #1
@@ -78,7 +78,7 @@ EkrLvup_InitScreen: @ 0x08073A4C
 	asrs r1, r1, #0x10
 	cmp r1, #2
 	bne _08073B3E
-	ldr r0, _08073B34  @ gUnknown_02017744
+	ldr r0, _08073B34  @ gEkrPos2Maybe
 	ldr r0, [r0]
 	cmp r0, #0
 	bne _08073B38
@@ -95,13 +95,13 @@ _08073B0C: .4byte 0x06006800
 _08073B10: .4byte 0x06007000
 _08073B14: .4byte 0x06005000
 _08073B18: .4byte 0x06005800
-_08073B1C: .4byte gUnknown_0203E11C
-_08073B20: .4byte gUnknown_0203E120
+_08073B1C: .4byte gBanimTerrainIndexMaybe
+_08073B20: .4byte gEkrSomeType
 _08073B24: .4byte 0x0000FFFF
 _08073B28: .4byte 0x06010000
 _08073B2C: .4byte gUnknown_020145C8
 _08073B30: .4byte gUnknown_0203E102
-_08073B34: .4byte gUnknown_02017744
+_08073B34: .4byte gEkrPos2Maybe
 _08073B38:
 	adds r0, r4, #0
 	orrs r0, r2
@@ -1190,7 +1190,7 @@ _080743DE:
 	movs r1, #0
 	bl SetBackgroundScreenSize
 	mov r4, sp
-	ldr r2, _080744E0  @ gUnknown_0203E11C
+	ldr r2, _080744E0  @ gBanimTerrainIndexMaybe
 	ldrh r0, [r2]
 	movs r3, #0
 	strh r0, [r4]
@@ -1204,7 +1204,7 @@ _080743DE:
 	movs r0, #5
 	strh r0, [r4, #8]
 	strh r1, [r4, #0xa]
-	ldr r0, _080744E4  @ gUnknown_0203E120
+	ldr r0, _080744E4  @ gEkrSomeType
 	ldrh r0, [r0]
 	strh r0, [r4, #0xc]
 	movs r0, #2
@@ -1287,8 +1287,8 @@ _08074460:
 	b _0807452C
 	.align 2, 0
 _080744DC: .4byte gUnknown_020200E0
-_080744E0: .4byte gUnknown_0203E11C
-_080744E4: .4byte gUnknown_0203E120
+_080744E0: .4byte gBanimTerrainIndexMaybe
+_080744E4: .4byte gEkrSomeType
 _080744E8: .4byte gUnknown_020145C8
 _080744EC: .4byte gUnknown_0203E102
 _080744F0: .4byte 0x0000F3FF
@@ -3918,7 +3918,7 @@ sub_80758D4: @ 0x080758D4
 	ldrh r2, [r4, #2]
 	movs r0, #2
 	bl BG_SetPosition
-	ldr r6, _08075A3C  @ gUnknown_02000038
+	ldr r6, _08075A3C  @ gBanimBgPosMaybe
 	ldrh r1, [r6]
 	ldrh r0, [r4]
 	adds r1, r1, r0
@@ -4074,7 +4074,7 @@ _08075A2A:
 	bx r0
 	.align 2, 0
 _08075A38: .4byte gUnknown_02017760
-_08075A3C: .4byte gUnknown_02000038
+_08075A3C: .4byte gBanimBgPosMaybe
 _08075A40: .4byte gUnknown_02000028
 _08075A44: .4byte gUnknown_0201FB0C
 _08075A48: .4byte gUnknown_0200002C
@@ -4678,7 +4678,7 @@ _08075F14: .4byte gLCDControlBuffer
 	THUMB_FUNC_START NewEkrPopup
 NewEkrPopup: @ 0x08075F18
 	push {r4, r5, lr}
-	ldr r0, _08075F6C  @ gUnknown_0203E120
+	ldr r0, _08075F6C  @ gEkrSomeType
 	movs r1, #0
 	ldrsh r0, [r0, r1]
 	cmp r0, #4
@@ -4719,7 +4719,7 @@ _08075F44:
 	str r2, [r5, #0x44]
 	b _08075F86
 	.align 2, 0
-_08075F6C: .4byte gUnknown_0203E120
+_08075F6C: .4byte gEkrSomeType
 _08075F70: .4byte gpAnimOnPopuProc
 _08075F74: .4byte ProcScr_ekrPopup2
 _08075F78: .4byte gpEkrPopupEndFlag

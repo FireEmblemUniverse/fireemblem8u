@@ -556,7 +556,7 @@ _08056524:
 	blt _0805652C
 	movs r4, #5
 _0805652C:
-	ldr r0, _08056540  @ gUnknown_0203E120
+	ldr r0, _08056540  @ gEkrSomeType
 	movs r1, #0
 	ldrsh r0, [r0, r1]
 	cmp r0, #3
@@ -567,7 +567,7 @@ _0805652C:
 	beq _08056548
 	b _08056550
 	.align 2, 0
-_08056540: .4byte gUnknown_0203E120
+_08056540: .4byte gEkrSomeType
 _08056544:
 	cmp r0, #4
 	bne _08056550
@@ -590,7 +590,7 @@ _08056552:
 	movs r2, #1
 	bl CpuFastSet
 	bl EnablePaletteSync
-	ldr r0, _08056594  @ gUnknown_0203E120
+	ldr r0, _08056594  @ gEkrSomeType
 	movs r2, #0
 	ldrsh r0, [r0, r2]
 	cmp r0, #4
@@ -607,7 +607,7 @@ _08056584: .4byte gUnknown_085B9BA4
 _08056588: .4byte 0x06010000
 _0805658C: .4byte gUnknown_080DC85C
 _08056590: .4byte gUnknown_02022B28
-_08056594: .4byte gUnknown_0203E120
+_08056594: .4byte gEkrSomeType
 _08056598: .4byte _0805659C
 _0805659C: @ jump table
 	.4byte _080565B0 @ case 0
@@ -722,12 +722,12 @@ _08056650:
 	strh r2, [r5, #0x34]
 	movs r0, #0x68
 	strh r0, [r5, #0x3c]
-	ldr r0, _080566B4  @ gUnknown_02017744
+	ldr r0, _080566B4  @ gEkrPos2Maybe
 	ldr r0, [r0]
 	cmp r0, #1
 	bne _080566A2
 	ldr r1, _080566B8  @ gUnknown_080DAF28
-	ldr r0, _080566BC  @ gUnknown_0203E120
+	ldr r0, _080566BC  @ gEkrSomeType
 	movs r3, #0
 	ldrsh r0, [r0, r3]
 	lsls r0, r0, #1
@@ -744,9 +744,9 @@ _080566A2:
 	.align 2, 0
 _080566AC: .4byte gProc_EkrBaseKaiten
 _080566B0: .4byte gUnknown_0203E122
-_080566B4: .4byte gUnknown_02017744
+_080566B4: .4byte gEkrPos2Maybe
 _080566B8: .4byte gUnknown_080DAF28
-_080566BC: .4byte gUnknown_0203E120
+_080566BC: .4byte gEkrSomeType
 _080566C0: .4byte gUnknown_085B9BE4
 _080566C4:
 	ldr r0, _080566F4  @ gUnknown_085B9C44
@@ -814,12 +814,12 @@ _080566FE:
 	strh r0, [r5, #0x34]
 	movs r0, #0x68
 	strh r0, [r5, #0x3c]
-	ldr r0, _08056778  @ gUnknown_02017744
+	ldr r0, _08056778  @ gEkrPos2Maybe
 	ldr r0, [r0]
 	cmp r0, #0
 	bne _08056760
 	ldr r1, _0805677C  @ gUnknown_080DAF28
-	ldr r0, _08056780  @ gUnknown_0203E120
+	ldr r0, _08056780  @ gEkrSomeType
 	movs r3, #0
 	ldrsh r0, [r0, r3]
 	lsls r0, r0, #1
@@ -837,9 +837,9 @@ _08056760:
 _0805676C: .4byte gUnknown_085B9CA4
 _08056770: .4byte gProc_EkrBaseKaiten
 _08056774: .4byte gUnknown_0203E122
-_08056778: .4byte gUnknown_02017744
+_08056778: .4byte gEkrPos2Maybe
 _0805677C: .4byte gUnknown_080DAF28
-_08056780: .4byte gUnknown_0203E120
+_08056780: .4byte gEkrSomeType
 _08056784: .4byte gUnknown_085B9C04
 _08056788:
 	ldr r0, _080567B8  @ gUnknown_085B9C64

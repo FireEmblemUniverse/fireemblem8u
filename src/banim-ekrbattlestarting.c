@@ -38,8 +38,8 @@ void BeginAnimsOnBattleAnimations(void)
 
     NewEkrBattleDeamon();
     AnimClearAll();
-    ret = sub_8052184();
-    gUnknown_02017744 = ret;
+    ret = GetEkrSomePosMaybe();
+    gEkrPos2Maybe = ret;
     NewEkrBattleStarting();
 
     gUnknown_02000000[0] = NULL;
@@ -166,19 +166,19 @@ void ekrBaStart_InitBattleScreen(struct ProcEkrBattleStarting *proc)
         NewEkrGauge();
         NewEkrDispUP();
 
-        switch (gUnknown_0203E120) {
+        switch (gEkrSomeType) {
         case 0:
         case 1:
         case 2:
             break;
 
         case 3:
-            if (gUnknown_0203E104[0] == 0) {
+            if (gBanimSideVaildFlagMaybe[0] == 0) {
                 EkrGauge_Set4C();
                 EkrDispUpSet4C();
             }
 
-            if (gUnknown_0203E104[1] == 0) {
+            if (gBanimSideVaildFlagMaybe[1] == 0) {
                 EkrGauge_Set50();
                 EkrDispUpSet50();
             }

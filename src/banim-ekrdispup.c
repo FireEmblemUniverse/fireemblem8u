@@ -3,7 +3,7 @@
 #include "ekrbattle.h"
 #include "anime.h"
 #include "hardware.h"
-#include "ekrefxbattle.h"
+#include "efxbattle.h"
 
 CONST_DATA struct ProcCmd gProc_ekrDispUP[] = {
     PROC_NAME("ekrDispUP"),
@@ -105,9 +105,9 @@ void ekrDispUP_Loop(struct ProcEkrDispUP *proc)
 
     val3 = 30 * (6 - val2);
 
-    if (gUnknown_0203E120 >= 0)
+    if (gEkrSomeType >= 0)
     {
-        if (gUnknown_0203E120 <= 2)
+        if (gEkrSomeType <= 2)
             val4 = 0;
         else
             goto label;

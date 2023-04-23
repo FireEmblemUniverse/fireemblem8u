@@ -64,7 +64,7 @@ void NewEkrGauge(void)
     EkrGauge_Clr4C50();
     EkrGauge_Clr2A();
     EkrGauge_ClrInitFlag();
-    EkrGauge_Clr323A(gUnknown_02000038.x, gUnknown_02000038.y);
+    EkrGauge_Clr323A(gBanimBgPosMaybe.x, gBanimBgPosMaybe.y);
 
     if (gUnknown_0203E1AC[0] > 0x50)
         CpuCopy16(gUnknown_08802C84, gUnknown_02022C08, 0x10 * sizeof(u16));
