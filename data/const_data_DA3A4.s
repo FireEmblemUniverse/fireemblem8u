@@ -1,6 +1,6 @@
     .section .rodata
 
-	.incbin "baserom.gba", 0xDA3F0, 0x48
+	.incbin "baserom.gba", 0xDA400, 0x38
 
 	.global gUnknown_080DA438
 gUnknown_080DA438:  @ 0x080DA438

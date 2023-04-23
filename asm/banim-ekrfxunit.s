@@ -1310,7 +1310,7 @@ _08055402:
 	b _08055414
 _0805540E:
 	adds r0, r5, #0
-	bl sub_8052978
+	bl NewEfxAvoid
 _08055414:
 	add sp, #4
 	pop {r3, r4, r5}
@@ -1429,7 +1429,7 @@ _080554EE:
 _08055500: .4byte gUnknown_02017750
 _08055504:
 	adds r0, r5, #0
-	bl sub_8052978
+	bl NewEfxAvoid
 _0805550A:
 	pop {r3, r4}
 	mov r8, r3
@@ -1467,7 +1467,7 @@ _08055544:
 	bl sub_8052D8C
 	b _0805554E
 _0805554A:
-	bl sub_8052978
+	bl NewEfxAvoid
 _0805554E:
 	pop {r4}
 	pop {r0}

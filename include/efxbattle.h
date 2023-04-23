@@ -76,7 +76,8 @@ extern struct Unknown_0201FADC gUnknown_0201FADC;
 struct ProcEfxHPBar {
     PROC_HEADER;
 
-    /* 29 */ u8 _pad_29[0x2C - 0x29];
+    /* 29 */ u8 unk29;
+    /* 2A */ u8 _pad_2A[0x2C - 0x2A];
     /* 2C */ s16 unk2C;
     /* 2E */ s16 unk2E;
     /* 30 */ u8 _pad_30[0x48 - 0x30];

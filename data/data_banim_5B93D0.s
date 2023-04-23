@@ -1,30 +1,5 @@
 	.section .data
 
-	.global ProcScr_efxHPBarResire
-ProcScr_efxHPBarResire:  @ 0x085B962C
-        @ PROC_NAME
-        .short 0x1, 0x0
-        .word 0x80da3f0
-        @ PROC_REPEAT
-        .short 0x3, 0x0
-        .word EfxHPBarResire_80526C8
-        @ PROC_REPEAT
-        .short 0x3, 0x0
-        .word EfxHPBarResire_8052788
-        @ PROC_REPEAT
-        .short 0x3, 0x0
-        .word EfxHPBarResire_805282C
-        @ PROC_REPEAT
-        .short 0x3, 0x0
-        .word efxHPBar_8052504
-        @ PROC_REPEAT
-        .short 0x3, 0x0
-        .word efxHPBar_80525A4
-        @ PROC_END
-        .short 0x0, 0x0
-        .word 0x0
-
-
 	.global gProc_efxAvoid
 gProc_efxAvoid:  @ 0x085B9664
         @ PROC_NAME

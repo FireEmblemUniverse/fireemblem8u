@@ -21424,7 +21424,7 @@ _08061118:
 	cmp r0, #0xa6
 	bne _08061124
 	adds r0, r5, #0
-	bl sub_8052A0C
+	bl NewEfxHPBarLive
 	b _08061150
 _08061124:
 	cmp r0, #0xb5
@@ -21594,7 +21594,7 @@ _08061274:
 	cmp r1, r0
 	bne _08061284
 	adds r0, r5, #0
-	bl sub_8052A0C
+	bl NewEfxHPBarLive
 	b _080612B4
 _08061284:
 	adds r0, r2, #0
@@ -21766,7 +21766,7 @@ _080613D8:
 	cmp r1, r0
 	bne _080613E8
 	adds r0, r5, #0
-	bl sub_8052A0C
+	bl NewEfxHPBarLive
 	b _08061418
 _080613E8:
 	adds r0, r2, #0
@@ -21944,7 +21944,7 @@ _0806154C:
 	cmp r1, r0
 	bne _0806155C
 	adds r0, r5, #0
-	bl sub_8052A0C
+	bl NewEfxHPBarLive
 	b _0806158C
 _0806155C:
 	adds r0, r2, #0

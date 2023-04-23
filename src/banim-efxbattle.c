@@ -290,7 +290,7 @@ void NewEfxHPBar(struct Anim *anim)
     proc->unk2E = proc->unk4C;
     proc->unk54 = 0;
     proc->unk58 = 0;
-    gEkrHitEfxBool[GetAISSubjectId(proc->anim60)] = true;
+    gEkrHitEfxBool[GetAISSubjectId(proc->anim60)] = 1;
 }
 
 void efxHPBar_80523EC(struct ProcEfxHPBar *proc)
@@ -319,7 +319,7 @@ void efxHPBar_80523EC(struct ProcEfxHPBar *proc)
                 ret = 0;
             else
                 ret = sub_80835A8(gEkrPids[GetAISSubjectId(anim1)]);
-    
+
             if (ret == true)
                 sub_8052DD4(anim1, anim2);
             else {
@@ -337,12 +337,219 @@ void efxHPBar_80523EC(struct ProcEfxHPBar *proc)
         proc->unk54 = 0x1E;
 }
 
-void efxHPBar_8052504(struct ProcEfxHPBar *proc);
-void efxHPBar_80525A4(struct ProcEfxHPBar *proc);
+void efxHPBar_8052504(struct ProcEfxHPBar *proc)
+{
+    struct Anim *anim;
+
+    if (gUnknown_0201774C != 0 || gUnknown_0201772C != 0)
+        return;
+
+    proc->unk2C = 0;
+    proc->unk2E = 1;
+    anim = GetCoreAIStruct(proc->anim64);
+
+    if (sub_805A21C(sub_805A2F0(anim)) == 1) {
+        switch (gEkrSomeType) {
+        case 0:
+        case 1:
+        case 3:
+        case 4:
+            proc->unk2E = 0x10;
+            sub_80533D0(GetCoreAIStruct(anim), -1);
+            break;
+
+        case 2:
+            proc->unk2E = 0x14;
+            sub_80533D0(GetCoreAIStruct(anim), -1);
+            break;
+        }
+    }
+
+    Proc_Break(proc);
+}
+
+void efxHPBar_80525A4(struct ProcEfxHPBar *proc)
+{
+    if (++proc->unk2C == (proc->unk2E - 4)) {
+        GetCoreAIStruct(proc->anim64);
+        BG_EnableSyncByMask(BG2_SYNC_BIT);
+    } else if (proc->unk2C == proc->unk2E){
+        gUnknown_02017728--;
+        Proc_Break(proc);
+    }
+}
 
 CONST_DATA struct ProcCmd ProcScr_efxHPBar[] = {
     PROC_NAME("efxHPBar"),
     PROC_REPEAT(efxHPBar_80523EC),
+    PROC_REPEAT(efxHPBar_8052504),
+    PROC_REPEAT(efxHPBar_80525A4),
+    PROC_END
+};
+
+void NewEfxHPBarResire(struct Anim *anim)
+{
+    int val1;
+    s16 val2;
+    struct ProcEfxHPBar *proc;
+
+    if (gUnknown_02017728 != 0)
+        return;
+
+    gUnknown_02017728 = 1;
+
+    proc = Proc_Start(ProcScr_efxHPBarResire, PROC_TREE_3);
+    proc->anim64 = GetCoreAIStruct(anim);
+
+    if (GetAISSubjectId(anim) == 0) {
+        proc->anim5C = gUnknown_02000000[2];
+        proc->anim60 = gUnknown_02000000[0];
+    } else {
+        proc->anim5C = gUnknown_02000000[0];
+        proc->anim60 = gUnknown_02000000[2];
+    }
+
+    val1 = gUnknown_0203E152[GetAISSubjectId(proc->anim60)];
+    val2 = val1 + 1;
+
+    proc->unk4C = sub_8058A60(val1 * 2 + GetAISSubjectId(proc->anim60));
+    proc->unk50 = sub_8058A60(val2 * 2 + GetAISSubjectId(proc->anim60));
+
+    if (proc->unk4C > proc->unk50)
+        proc->unk48 = -1;
+    else
+        proc->unk48 = 1;
+
+    proc->unk29 = 0;
+    proc->unk2C = 0;
+    proc->unk2E = proc->unk4C;
+    proc->unk54 = 0;
+    proc->unk58 = 0;
+    gUnknown_02017750 = 0;
+    gEkrHitEfxBool[GetAISSubjectId(proc->anim60)] = 1;
+}
+
+void EfxHPBarResire_80526C8(struct ProcEfxHPBar *proc)
+{
+    GetAISSubjectId(proc->anim60);
+    GetAISSubjectId(proc->anim60);
+
+    if (proc->unk58 == 0) {
+        if (++proc->unk2C == 2) {
+            proc->unk2C = 0;
+            proc->unk2E += proc->unk48;
+            gUnknown_0203E1AC[GetAISSubjectId(proc->anim60)] += proc->unk48;
+
+            if (proc->unk2E == proc->unk50)
+                proc->unk58 = 1;
+        }
+    }
+
+    if (proc->unk54 == 0x54 && proc->unk58 == 1) {
+        gUnknown_0203E152[GetAISSubjectId(proc->anim60)]++;
+        gEkrHitEfxBool[GetAISSubjectId(proc->anim60)] = 0;
+
+        if (proc->unk50 == 0)
+            proc->unk29 = 1;
+
+        proc->unk2C = 0;
+        proc->unk2E = 0xA;
+        gUnknown_02017750 = 1;
+
+        Proc_Break(proc);
+        return;
+    }
+
+    if (++proc->unk54 >= 0x54u)
+        proc->unk54 = 0x54;
+}
+
+void EfxHPBarResire_8052788(struct ProcEfxHPBar *proc)
+{
+    int val1;
+    s16 val2;
+
+    if (++proc->unk2C <= proc->unk2E)
+        return;
+
+    val1 = gUnknown_0203E152[GetAISSubjectId(proc->anim5C)];
+    val2 = val1 + 1;
+
+    proc->unk4C = sub_8058A60(val1 * 2 + GetAISSubjectId(proc->anim5C));
+    proc->unk50 = sub_8058A60(val2 * 2 + GetAISSubjectId(proc->anim5C));
+
+    proc->unk2C = 0;
+    proc->unk2E = proc->unk4C;
+    proc->unk54 = 0;
+    proc->unk58 = 0;
+
+    if (proc->unk4C == proc->unk50)
+        proc->unk58 = 1;
+
+    if (proc->unk4C > proc->unk50)
+        proc->unk48 = -1;
+    else
+        proc->unk48 = 1;
+
+    Proc_Break(proc);
+    gEkrHitEfxBool[GetAISSubjectId(proc->anim5C)] = 2;
+}
+
+void EfxHPBarResire_805282C(struct ProcEfxHPBar *proc)
+{
+    struct Anim *anim1, *anim2, *anim3, *anim4;
+
+    anim1 = gUnknown_02000000[GetAISSubjectId(proc->anim5C) * 2];
+    anim2 = gUnknown_02000000[GetAISSubjectId(proc->anim5C) * 2 + 1];
+    anim3 = gUnknown_02000000[GetAISSubjectId(proc->anim60) * 2];
+    anim4 = gUnknown_02000000[GetAISSubjectId(proc->anim60) * 2 + 1];
+
+    if (proc->unk58 == 0) {
+        if (++proc->unk2C == 4) {
+            proc->unk2C = 0;
+            proc->unk2E += proc->unk48;
+            gUnknown_0203E1AC[GetAISSubjectId(proc->anim5C)] += proc->unk48;
+            SomePlaySound_8071990(0x75, 0x100);
+            sub_8071AB0(0x75, anim1->xPosition, 1);
+
+            if (proc->unk2E == proc->unk50)
+                proc->unk58 = 1;
+        }
+    }
+
+    if (proc->unk54 == 0x1E && proc->unk58 == 1) {
+        gUnknown_0203E152[GetAISSubjectId(proc->anim5C)]++;
+        gEkrHitEfxBool[GetAISSubjectId(proc->anim5C)] = 0;
+    
+        if (proc->unk29 == 1) {
+            int ret;
+            if (GetEkrEventFlagMaybe() == true)
+                ret = 0;
+            else
+                ret = sub_80835A8(gEkrPids[GetAISSubjectId(anim3)]);
+
+            if (ret == true)
+                sub_8052DD4(anim3, anim4);
+            else {
+                sub_805B07C();
+                sub_8052FAC(anim3, anim4);
+                gBanimSideVaildFlagMaybe[GetAISSubjectId(proc->anim60)] = false;
+            }
+        }
+    
+        Proc_Break(proc);
+        return;
+    }
+
+    if (++proc->unk54 >= 0x1Eu)
+        proc->unk54 = 0x1E;
+}
+
+CONST_DATA struct ProcCmd ProcScr_efxHPBarResire[] = {
+    PROC_NAME("efxHPBarResire"),
+    PROC_REPEAT(EfxHPBarResire_80526C8),
+    PROC_REPEAT(EfxHPBarResire_8052788),
+    PROC_REPEAT(EfxHPBarResire_805282C),
     PROC_REPEAT(efxHPBar_8052504),
     PROC_REPEAT(efxHPBar_80525A4),
     PROC_END
