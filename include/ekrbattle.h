@@ -119,7 +119,7 @@ extern short gUnknown_0203E114[2];
 // extern ??? gUnknown_0203E118
 // extern ??? gUnknown_0203E11A
 extern EWRAM_DATA s16 gBanimTerrainIndexMaybe[2];
-extern EWRAM_DATA s16 gEkrSomeType;
+extern EWRAM_DATA s16 gEkrSomeType; /* 0 maybe normal, 2 for counterable item, 3 for uncounterable item, 4 maybe promotion */
 extern EWRAM_DATA s16 gUnknown_0203E122[4];
 // extern ??? gAnimRoundData
 
@@ -278,9 +278,9 @@ void sub_8051B80(void);
 void sub_8051B90(void);
 void sub_8051BA0(void);
 // ??? ekrDispUP_Loop(???);
-void sub_8051CC4(void);
+void EfxClearScreenFx(void);
 void sub_8051E00(void);
-void sub_8051F1C(void);
+void EfxPrepareScreenFx(void);
 int GetEkrSomePosMaybe(void);
 void sub_8052214(int a, int b);
 void EkrEfxStatusClear(void);

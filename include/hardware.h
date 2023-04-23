@@ -28,6 +28,8 @@ extern u16 gPaletteBuffer[];
 #define PAL_COLOR(palid, colornum) PAL_BUF_COLOR(gPaletteBuffer, palid, colornum)
 #define PAL_BG_COLOR(palid, colornum) PAL_COLOR(palid, colornum)
 #define PAL_OBJ_COLOR(palid, colornum) PAL_COLOR((palid) + 0x10, colornum)
+#define PAL_BG(palid) (&PAL_BG_COLOR(palid, 0))
+#define PAL_OBJ(palid) (&PAL_OBJ_COLOR(palid, 0))
 
 #define OAM2_PRIORITY(aValue) (((aValue) & 0x3) << 10)
 

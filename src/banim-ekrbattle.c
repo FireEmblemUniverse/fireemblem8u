@@ -217,7 +217,7 @@ void ekrBattle_80500F0(struct ProcEkrBattle *proc)
     if (BattleEventEngineExists() != false)
         return;
 
-    sub_8051F1C();
+    EfxPrepareScreenFx();
     BG_EnableSyncByMask(BG0_SYNC_BIT);
     NewEkrWindowAppear(0, 7);
     NewEkrNamewinAppear(0, 7, 0);

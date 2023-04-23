@@ -181,7 +181,7 @@ sub_8076380: @ 0x08076380
 	adds r5, r0, #0
 	movs r0, #0
 	bl SetupOAMBufferSplice
-	bl sub_8051CC4
+	bl EfxClearScreenFx
 	bl sub_80599E8
 	bl NewEkrGauge
 	bl NewEkrDispUP

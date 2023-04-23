@@ -142,14 +142,14 @@ extern u8 gUnknown_020145C8[];
 // extern ??? gUnknown_02014EF4
 // extern ??? gUnknown_020165C8
 // extern ??? gUnknown_02016828
-extern u16 gUnknown_020169C8[];
+extern u16 gObjBuf_EkrSideHitDmgCrit[];
 // extern ??? gUnknown_02016DC8
 // extern ??? gUnknown_02016E48
 // extern ??? gUnknown_02017048
 // extern ??? gUnknown_02017248
 // extern ??? gUnknown_02017448
 // extern ??? gUnknown_020176F0
-extern u16 gUnknown_02017700[];
+extern u16 gDecodedEkrHitDmgCritBuf[];
 extern u32 gUnknown_02017724;
 extern u32 gUnknown_02017728;
 extern u32 gUnknown_0201772C;
@@ -514,9 +514,9 @@ extern int gUnknown_0203E194;
 extern short gUnknown_0203E1AC[];
 // extern ??? gUnknown_0203E1B0
 extern short gUnknown_0203E1B4[2];
-extern short gUnknown_0203E1B8[2];
-extern short gUnknown_0203E1BC[2];
-extern short gUnknown_0203E1C0[2];
+extern short gEkrHitPair[2];
+extern short gEkrDmgPair[2];
+extern short gEkrCritPair[2];
 extern short gUnknown_0203E1C4[2];
 extern short gUnknown_0203E1C8[2];
 // extern ??? gUnknown_0203E1CC
@@ -1949,30 +1949,30 @@ extern char gNopStr[];
 // extern ??? gUnknown_085D8C64
 // extern ??? gUnknown_085D8C7C
 // extern ??? gUnknown_085D8CA0
-// extern ??? gUnknown_085D8CC4
+// extern ??? ProcScr_efxGorgonBGFinish
 // extern ??? gUnknown_085D8CE4
 // extern ??? gUnknown_085D8D14
-// extern ??? gUnknown_085D8D44
-// extern ??? gUnknown_085D8D5C
-// extern ??? gUnknown_085D8D74
-// extern ??? gUnknown_085D8D8C
-// extern ??? gUnknown_085D8DA4
-// extern ??? gUnknown_085D8DC4
-// extern ??? gUnknown_085D8DDC
+// extern ??? ProcScr_efxDamageMojiEffect
+// extern ??? ProcScr_efxDamageMojiEffectOBJ
+// extern ??? ProcScr_efxCriricalEffect
+// extern ??? ProcScr_efxCriricalEffectBG
+// extern ??? ProcScr_efxCriricalEffectBGCOL
+// extern ??? ProcScr_efxNormalEffect
+// extern ??? ProcScr_efxNormalEffectBG
 // extern ??? gUnknown_085D8DF4
-// extern ??? gUnknown_085D8E1C
-// extern ??? gUnknown_085D8E34
-// extern ??? gUnknown_085D8E4C
-// extern ??? gUnknown_085D8E6C
-// extern ??? gUnknown_085D8E84
+// extern ??? ProcScr_efxPierceCriticalEffect
+// extern ??? ProcScr_efxPierceCriticalEffectBG
+// extern ??? ProcScr_efxPierceCriticalEffectBGCOL
+// extern ??? ProcScr_efxPierceNormalEffect
+// extern ??? ProcScr_efxPierceNormalEffectBG
 // extern ??? gUnknown_085D8E9C
-// extern ??? gUnknown_085D8EC4
-// extern ??? gUnknown_085D8EDC
-// extern ??? gUnknown_085D8F0C
-// extern ??? gUnknown_085D8F24
-// extern ??? gUnknown_085D8F5C
-// extern ??? gUnknown_085D8F94
-// extern ??? gUnknown_085D8FAC
+// extern ??? ProcScr_efxYushaSpinShield
+// extern ??? ProcScr_efxYushaSpinShieldOBJ
+// extern ??? ProcScr_efxHurtmutEff00
+// extern ??? ProcScr_efxHurtmutEff00OBJ
+// extern ??? ProcScr_efxHurtmutEff01OBJ
+// extern ??? ProcScr_efxMagfcast
+// extern ??? ProcScr_efxMagfcastBG
 // extern ??? gUnknown_085D8FC4
 // extern ??? gUnknown_085D8FDC
 // extern ??? gUnknown_085D901C
@@ -2539,10 +2539,10 @@ extern char gNopStr[];
 // extern ??? gUnknown_08801AAC
 // extern ??? gUnknown_08801AB4
 extern u16 gUnknown_08801C14[];
-extern u16 gUnknown_08801F7C[];
-extern u16 gUnknown_08801FF4[];
-extern u16 gUnknown_08802044[];
-extern u16 gUnknown_088020BC[];
+extern u16 Img_EfxLeftNameBox[];
+extern u16 Img_EfxLeftItemBox[];
+extern u16 Img_EfxRightNameBox[];
+extern u16 Img_EfxRightItemBox[];
 extern u8 gUnknown_0880210C[];
 extern u8 gUnknown_088021C0[];
 extern u8 gUnknown_08802274[];
@@ -2550,9 +2550,9 @@ extern u8 gUnknown_08802348[];
 extern u8 gUnknown_08802428[];
 extern u8 gUnknown_08802508[];
 extern u16 gUnknown_08802558[];
-extern u16 gUnknown_088025D8[];
-extern u16 gUnknown_08802674[];
-extern u16 gUnknown_08802698[];
+extern u16 Img_EfxSideHitDmgCrit[];
+extern u16 Img_EfxWTAArrow1[];
+extern u16 Img_EfxWTAArrow2[];
 extern u16 gUnknown_088026E4[];
 extern u16 gUnknown_08802884[];
 extern u16 gUnknown_08802904[];

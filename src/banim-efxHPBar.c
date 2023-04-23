@@ -10,7 +10,7 @@
 
 extern struct Anim *gUnknown_02000000[4];
 
-void sub_8051CC4(void)
+void EfxClearScreenFx(void)
 {
     gLCDControlBuffer.dispcnt.mode = 0;
     SetDispEnable(1, 1, 1, 1, 1);
@@ -44,7 +44,7 @@ void sub_8051CC4(void)
     else
         CpuFastFill16(0, gBG2TilemapBuffer, 0x800);
 
-    sub_8051F1C();
+    EfxPrepareScreenFx();
     EnablePaletteSync();
 
     BG_EnableSyncByMask(BG0_SYNC_BIT);
@@ -105,7 +105,7 @@ void sub_8051E00(void)
     sub_805AA68(unk0201FADC);
 }
 
-void sub_8051F1C(void)
+void EfxPrepareScreenFx(void)
 {
     const char *str;
 
@@ -123,7 +123,7 @@ void sub_8051F1C(void)
 
     Text_Init(&gTextEkrlvupMsg[0], 7);
     Text_SetXCursor(&gTextEkrlvupMsg[0], GetStringTextCenteredPos(0x38, str));
-    LZ77UnCompVram(gUnknown_08801F7C, (void *)0x6001880);
+    LZ77UnCompVram(Img_EfxLeftNameBox, (void *)0x6001880);
     Text_AppendString(&gTextEkrlvupMsg[0], str);
 
     /* left unit item */
@@ -134,7 +134,7 @@ void sub_8051F1C(void)
 
     Text_Init(&gTextEkrlvupMsg[2], 8);
     Text_SetXCursor(&gTextEkrlvupMsg[2], GetStringTextCenteredPos(0x40, str));
-    LZ77UnCompVram(gUnknown_08801FF4, (void *)0x6001A40);
+    LZ77UnCompVram(Img_EfxLeftItemBox, (void *)0x6001A40);
     Text_AppendString(&gTextEkrlvupMsg[2], str);
 
     /* right unit name */
@@ -145,7 +145,7 @@ void sub_8051F1C(void)
 
     Text_Init(&gTextEkrlvupMsg[3], 7);
     Text_SetXCursor(&gTextEkrlvupMsg[3], GetStringTextCenteredPos(0x38, str));
-    LZ77UnCompVram(gUnknown_08802044, (void *)0x6001C40);
+    LZ77UnCompVram(Img_EfxRightNameBox, (void *)0x6001C40);
     Text_AppendString(&gTextEkrlvupMsg[3], str);
 
     /* right unit item */
@@ -156,7 +156,7 @@ void sub_8051F1C(void)
 
     Text_Init(&gTextEkrlvupMsg[1], 8);
     Text_SetXCursor(&gTextEkrlvupMsg[1], GetStringTextCenteredPos(0x3E, str));
-    LZ77UnCompVram(gUnknown_088020BC, (void *)0x6001E00);
+    LZ77UnCompVram(Img_EfxRightItemBox, (void *)0x6001E00);
     Text_AppendString(&gTextEkrlvupMsg[1], str);
 
     BG_Fill(gBG0TilemapBuffer, 0x80);

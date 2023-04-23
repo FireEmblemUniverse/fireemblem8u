@@ -1928,20 +1928,20 @@ gUnknown_08801AB4:  @ 0x08801AB4
 gUnknown_08801C14:  @ 0x08801C14
 	.incbin "baserom.gba", 0x801C14, 0x368
 
-	.global gUnknown_08801F7C
-gUnknown_08801F7C:  @ 0x08801F7C
+	.global Img_EfxLeftNameBox
+Img_EfxLeftNameBox:  @ 0x08801F7C
 	.incbin "baserom.gba", 0x801F7C, 0x78
 
-	.global gUnknown_08801FF4
-gUnknown_08801FF4:  @ 0x08801FF4
+	.global Img_EfxLeftItemBox
+Img_EfxLeftItemBox:  @ 0x08801FF4
 	.incbin "baserom.gba", 0x801FF4, 0x50
 
-	.global gUnknown_08802044
-gUnknown_08802044:  @ 0x08802044
+	.global Img_EfxRightNameBox
+Img_EfxRightNameBox:  @ 0x08802044
 	.incbin "baserom.gba", 0x802044, 0x78
 
-	.global gUnknown_088020BC
-gUnknown_088020BC:  @ 0x088020BC
+	.global Img_EfxRightItemBox
+Img_EfxRightItemBox:  @ 0x088020BC
 	.incbin "baserom.gba", 0x8020BC, 0x50
 
 	.global gUnknown_0880210C
@@ -1972,16 +1972,16 @@ gUnknown_08802508:  @ 0x08802508
 gUnknown_08802558:  @ 0x08802558
 	.incbin "baserom.gba", 0x802558, 0x80
 
-	.global gUnknown_088025D8
-gUnknown_088025D8:  @ 0x088025D8
+	.global Img_EfxSideHitDmgCrit
+Img_EfxSideHitDmgCrit:  @ 0x088025D8
 	.incbin "baserom.gba", 0x8025D8, 0x9C
 
-	.global gUnknown_08802674
-gUnknown_08802674:  @ 0x08802674
+	.global Img_EfxWTAArrow1
+Img_EfxWTAArrow1:  @ 0x08802674
 	.incbin "baserom.gba", 0x802674, 0x24
 
-	.global gUnknown_08802698
-gUnknown_08802698:  @ 0x08802698
+	.global Img_EfxWTAArrow2
+Img_EfxWTAArrow2:  @ 0x08802698
 	.incbin "baserom.gba", 0x802698, 0x4C
 
 	.global gUnknown_088026E4

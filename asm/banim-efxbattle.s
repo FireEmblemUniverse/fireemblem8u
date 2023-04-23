@@ -749,7 +749,7 @@ sub_8052F24: @ 0x08052F24
 	ldr r0, [r4, #0x5c]
 	ldr r1, [r4, #0x60]
 	bl sub_8052FAC
-	bl sub_8051F1C
+	bl EfxPrepareScreenFx
 	ldr r0, [r4, #0x5c]
 	bl GetAISSubjectId
 	ldr r1, _08052F80  @ gBanimSideVaildFlagMaybe

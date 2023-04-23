@@ -1952,7 +1952,7 @@ _08057784:
 	ldrb r0, [r3, #4]
 	strb r0, [r1, #1]
 _0805778E:
-	ldr r3, _080579E8  @ gUnknown_0203E1B8
+	ldr r3, _080579E8  @ gEkrHitPair
 	cmp r6, #0
 	beq _0805779C
 	ldr r0, [sp, #8]
@@ -1986,7 +1986,7 @@ _080577B8:
 _080577C6:
 	cmp r6, #0
 	beq _08057800
-	ldr r4, _080579F0  @ gUnknown_0203E1BC
+	ldr r4, _080579F0  @ gEkrDmgPair
 	ldr r2, [sp, #8]
 	adds r2, #0x5a
 	ldr r0, [sp, #0xc]
@@ -2018,7 +2018,7 @@ _08057800:
 	ldr r2, [sp, #0x28]
 	cmp r2, #0
 	beq _0805783E
-	ldr r4, _080579F0  @ gUnknown_0203E1BC
+	ldr r4, _080579F0  @ gEkrDmgPair
 	ldr r2, [sp, #0xc]
 	adds r2, #0x5a
 	ldr r0, [sp, #8]
@@ -2050,7 +2050,7 @@ _0805782E:
 _0805783E:
 	ldr r7, [sp, #0x24]
 	asrs r5, r7, #0x10
-	ldr r7, _080579F4  @ gUnknown_0203E1C0
+	ldr r7, _080579F4  @ gEkrCritPair
 	cmp r5, #0
 	beq _08057850
 	ldr r0, [sp, #8]
@@ -2105,10 +2105,10 @@ _0805789E:
 	ldrsh r0, [r2, r3]
 	cmp r0, #4
 	bne _080578B8
-	ldr r1, _080579E8  @ gUnknown_0203E1B8
+	ldr r1, _080579E8  @ gEkrHitPair
 	ldr r0, _080579EC  @ 0x0000FFFF
 	strh r0, [r1, #2]
-	ldr r1, _080579F0  @ gUnknown_0203E1BC
+	ldr r1, _080579F0  @ gEkrDmgPair
 	movs r0, #1
 	negs r0, r0
 	strh r0, [r1, #2]
@@ -2270,10 +2270,10 @@ _080579D2:
 _080579DC: .4byte gUnknown_02000000
 _080579E0: .4byte gUnknown_0203E114
 _080579E4: .4byte gEkrPids
-_080579E8: .4byte gUnknown_0203E1B8
+_080579E8: .4byte gEkrHitPair
 _080579EC: .4byte 0x0000FFFF
-_080579F0: .4byte gUnknown_0203E1BC
-_080579F4: .4byte gUnknown_0203E1C0
+_080579F0: .4byte gEkrDmgPair
+_080579F4: .4byte gEkrCritPair
 _080579F8: .4byte gEkrSomeType
 _080579FC: .4byte gUnknown_0203E1C4
 _08057A00: .4byte gUnknown_0203E1C8
@@ -4617,40 +4617,40 @@ _08058B92:
 
 	THUMB_FUNC_START sub_8058B98
 sub_8058B98: @ 0x08058B98
-	ldr r1, _08058BA4  @ gUnknown_0203E1B8
+	ldr r1, _08058BA4  @ gEkrHitPair
 	lsls r0, r0, #1
 	adds r0, r0, r1
 	movs r1, #0
 	ldrsh r0, [r0, r1]
 	bx lr
 	.align 2, 0
-_08058BA4: .4byte gUnknown_0203E1B8
+_08058BA4: .4byte gEkrHitPair
 
 	THUMB_FUNC_END sub_8058B98
 
 	THUMB_FUNC_START sub_8058BA8
 sub_8058BA8: @ 0x08058BA8
-	ldr r1, _08058BB4  @ gUnknown_0203E1BC
+	ldr r1, _08058BB4  @ gEkrDmgPair
 	lsls r0, r0, #1
 	adds r0, r0, r1
 	movs r1, #0
 	ldrsh r0, [r0, r1]
 	bx lr
 	.align 2, 0
-_08058BB4: .4byte gUnknown_0203E1BC
+_08058BB4: .4byte gEkrDmgPair
 
 	THUMB_FUNC_END sub_8058BA8
 
 	THUMB_FUNC_START sub_8058BB8
 sub_8058BB8: @ 0x08058BB8
-	ldr r1, _08058BC4  @ gUnknown_0203E1C0
+	ldr r1, _08058BC4  @ gEkrCritPair
 	lsls r0, r0, #1
 	adds r0, r0, r1
 	movs r1, #0
 	ldrsh r0, [r0, r1]
 	bx lr
 	.align 2, 0
-_08058BC4: .4byte gUnknown_0203E1C0
+_08058BC4: .4byte gEkrCritPair
 
 	THUMB_FUNC_END sub_8058BB8
 
@@ -9288,7 +9288,7 @@ sub_805B104: @ 0x0805B104
 	movs r2, #0
 	ldrsh r0, [r0, r2]
 	str r0, [r1]
-	bl sub_8051CC4
+	bl EfxClearScreenFx
 	bl sub_80599E8
 	bl NewEkrGauge
 	bl NewEkrDispUP
@@ -40160,7 +40160,7 @@ sub_806A3F4: @ 0x0806A3F4
 	ldr r0, [r1]
 	adds r0, #1
 	str r0, [r1]
-	ldr r0, _0806A43C  @ gUnknown_085D8CC4
+	ldr r0, _0806A43C  @ ProcScr_efxGorgonBGFinish
 	movs r1, #3
 	bl Proc_Start
 	str r4, [r0, #0x5c]
@@ -40187,7 +40187,7 @@ sub_806A3F4: @ 0x0806A3F4
 	b _0806A454
 	.align 2, 0
 _0806A438: .4byte gUnknown_0201774C
-_0806A43C: .4byte gUnknown_085D8CC4
+_0806A43C: .4byte ProcScr_efxGorgonBGFinish
 _0806A440: .4byte gUnknown_080DF0E0
 _0806A444: .4byte gUnknown_085D8C7C
 _0806A448: .4byte gUnknown_085D8CA0
@@ -43748,7 +43748,7 @@ sub_806C0B8: @ 0x0806C0B8
 	ldr r0, [r1]
 	adds r0, #1
 	str r0, [r1]
-	ldr r0, _0806C100  @ gUnknown_085D8CC4
+	ldr r0, _0806C100  @ ProcScr_efxGorgonBGFinish
 	movs r1, #3
 	bl Proc_Start
 	str r4, [r0, #0x5c]
@@ -43775,7 +43775,7 @@ sub_806C0B8: @ 0x0806C0B8
 	b _0806C118
 	.align 2, 0
 _0806C0FC: .4byte gUnknown_0201774C
-_0806C100: .4byte gUnknown_085D8CC4
+_0806C100: .4byte ProcScr_efxGorgonBGFinish
 _0806C104: .4byte gUnknown_080DF0E0
 _0806C108: .4byte gUnknown_085D8C7C
 _0806C10C: .4byte gUnknown_085D8CA0
@@ -44369,7 +44369,7 @@ sub_806C61C: @ 0x0806C61C
 	push {r4, r5, lr}
 	adds r4, r0, #0
 	adds r5, r1, #0
-	ldr r0, _0806C644  @ gUnknown_085D8D44
+	ldr r0, _0806C644  @ ProcScr_efxDamageMojiEffect
 	movs r1, #3
 	bl Proc_Start
 	str r4, [r0, #0x5c]
@@ -44384,14 +44384,14 @@ sub_806C61C: @ 0x0806C61C
 	pop {r0}
 	bx r0
 	.align 2, 0
-_0806C644: .4byte gUnknown_085D8D44
+_0806C644: .4byte ProcScr_efxDamageMojiEffect
 _0806C648: .4byte gUnknown_085BA0B8
 _0806C64C: .4byte 0x06012000
 
 	THUMB_FUNC_END sub_806C61C
 
-	THUMB_FUNC_START sub_806C650
-sub_806C650: @ 0x0806C650
+	THUMB_FUNC_START efxDamageMojiEffectMain
+efxDamageMojiEffectMain: @ 0x0806C650
 	push {lr}
 	adds r1, r0, #0
 	ldrh r0, [r1, #0x2c]
@@ -44415,7 +44415,7 @@ _0806C678:
 	pop {r0}
 	bx r0
 
-	THUMB_FUNC_END sub_806C650
+	THUMB_FUNC_END efxDamageMojiEffectMain
 
 	THUMB_FUNC_START sub_806C67C
 sub_806C67C: @ 0x0806C67C
@@ -44423,7 +44423,7 @@ sub_806C67C: @ 0x0806C67C
 	sub sp, #0xc
 	adds r5, r0, #0
 	adds r4, r1, #0
-	ldr r0, _0806C6A0  @ gUnknown_085D8D5C
+	ldr r0, _0806C6A0  @ ProcScr_efxDamageMojiEffectOBJ
 	movs r1, #3
 	bl Proc_Start
 	adds r6, r0, #0
@@ -44437,7 +44437,7 @@ sub_806C67C: @ 0x0806C67C
 	ldr r4, _0806C6A4  @ gUnknown_085C81A4
 	b _0806C6AE
 	.align 2, 0
-_0806C6A0: .4byte gUnknown_085D8D5C
+_0806C6A0: .4byte ProcScr_efxDamageMojiEffectOBJ
 _0806C6A4: .4byte gUnknown_085C81A4
 _0806C6A8:
 	movs r0, #0x32
@@ -44476,8 +44476,8 @@ _0806C6E8: .4byte gUnknown_085C8218
 
 	THUMB_FUNC_END sub_806C67C
 
-	THUMB_FUNC_START sub_806C6EC
-sub_806C6EC: @ 0x0806C6EC
+	THUMB_FUNC_START efxDamageMojiEffectOBJMain
+efxDamageMojiEffectOBJMain: @ 0x0806C6EC
 	push {r4, lr}
 	adds r4, r0, #0
 	ldr r1, [r4, #0x60]
@@ -44502,7 +44502,7 @@ _0806C716:
 	pop {r0}
 	bx r0
 
-	THUMB_FUNC_END sub_806C6EC
+	THUMB_FUNC_END efxDamageMojiEffectOBJMain
 
 	THUMB_FUNC_START sub_806C71C
 sub_806C71C: @ 0x0806C71C
@@ -44529,7 +44529,7 @@ sub_806C71C: @ 0x0806C71C
 	b _0806C75E
 _0806C74E:
 	bl ClearBG1Setup
-	ldr r0, _0806C764  @ gUnknown_085D8D74
+	ldr r0, _0806C764  @ ProcScr_efxCriricalEffect
 	movs r1, #3
 	bl Proc_Start
 	str r5, [r0, #0x5c]
@@ -44539,12 +44539,12 @@ _0806C75E:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_0806C764: .4byte gUnknown_085D8D74
+_0806C764: .4byte ProcScr_efxCriricalEffect
 
 	THUMB_FUNC_END sub_806C71C
 
-	THUMB_FUNC_START sub_806C768
-sub_806C768: @ 0x0806C768
+	THUMB_FUNC_START efxCriricalEffectMain
+efxCriricalEffectMain: @ 0x0806C768
 	push {r4, lr}
 	adds r4, r0, #0
 	ldrh r0, [r4, #0x2c]
@@ -44569,13 +44569,13 @@ _0806C792:
 	pop {r0}
 	bx r0
 
-	THUMB_FUNC_END sub_806C768
+	THUMB_FUNC_END efxCriricalEffectMain
 
 	THUMB_FUNC_START sub_806C798
 sub_806C798: @ 0x0806C798
 	push {r4, r5, lr}
 	adds r5, r0, #0
-	ldr r0, _0806C7D4  @ gUnknown_085D8D8C
+	ldr r0, _0806C7D4  @ ProcScr_efxCriricalEffectBG
 	movs r1, #3
 	bl Proc_Start
 	adds r4, r0, #0
@@ -44598,7 +44598,7 @@ sub_806C798: @ 0x0806C798
 	pop {r0}
 	bx r0
 	.align 2, 0
-_0806C7D4: .4byte gUnknown_085D8D8C
+_0806C7D4: .4byte ProcScr_efxCriricalEffectBG
 _0806C7D8: .4byte gUnknown_085E7028
 _0806C7DC: .4byte gUnknown_085E8108
 _0806C7E0: .4byte gUnknown_085E8308
@@ -44606,8 +44606,8 @@ _0806C7E4: .4byte gUnknown_085E87A8
 
 	THUMB_FUNC_END sub_806C798
 
-	THUMB_FUNC_START sub_806C7E8
-sub_806C7E8: @ 0x0806C7E8
+	THUMB_FUNC_START efxCriricalEffectBGMain
+efxCriricalEffectBGMain: @ 0x0806C7E8
 	push {r4, lr}
 	adds r4, r0, #0
 	ldrh r0, [r4, #0x2c]
@@ -44626,13 +44626,13 @@ _0806C808:
 	pop {r0}
 	bx r0
 
-	THUMB_FUNC_END sub_806C7E8
+	THUMB_FUNC_END efxCriricalEffectBGMain
 
 	THUMB_FUNC_START sub_806C810
 sub_806C810: @ 0x0806C810
 	push {r4, lr}
 	adds r4, r0, #0
-	ldr r0, _0806C834  @ gUnknown_085D8DA4
+	ldr r0, _0806C834  @ ProcScr_efxCriricalEffectBGCOL
 	movs r1, #3
 	bl Proc_Start
 	str r4, [r0, #0x5c]
@@ -44647,14 +44647,14 @@ sub_806C810: @ 0x0806C810
 	pop {r0}
 	bx r0
 	.align 2, 0
-_0806C834: .4byte gUnknown_085D8DA4
+_0806C834: .4byte ProcScr_efxCriricalEffectBGCOL
 _0806C838: .4byte gUnknown_080DF188
 _0806C83C: .4byte gUnknown_085E8108
 
 	THUMB_FUNC_END sub_806C810
 
-	THUMB_FUNC_START sub_806C840
-sub_806C840: @ 0x0806C840
+	THUMB_FUNC_START efxCriricalEffectBGCOLMain
+efxCriricalEffectBGCOLMain: @ 0x0806C840
 	push {r4, lr}
 	adds r4, r0, #0
 	adds r0, #0x2c
@@ -44684,7 +44684,7 @@ _0806C874:
 	pop {r0}
 	bx r0
 
-	THUMB_FUNC_END sub_806C840
+	THUMB_FUNC_END efxCriricalEffectBGCOLMain
 
 	THUMB_FUNC_START sub_806C87C
 sub_806C87C: @ 0x0806C87C
@@ -44710,7 +44710,7 @@ sub_806C87C: @ 0x0806C87C
 	bl sub_806CB1C
 	b _0806C8BA
 _0806C8AE:
-	ldr r0, _0806C8C0  @ gUnknown_085D8DC4
+	ldr r0, _0806C8C0  @ ProcScr_efxNormalEffect
 	movs r1, #3
 	bl Proc_Start
 	str r4, [r0, #0x5c]
@@ -44720,12 +44720,12 @@ _0806C8BA:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_0806C8C0: .4byte gUnknown_085D8DC4
+_0806C8C0: .4byte ProcScr_efxNormalEffect
 
 	THUMB_FUNC_END sub_806C87C
 
-	THUMB_FUNC_START sub_806C8C4
-sub_806C8C4: @ 0x0806C8C4
+	THUMB_FUNC_START efxNormalEffectMain
+efxNormalEffectMain: @ 0x0806C8C4
 	push {r4, lr}
 	adds r4, r0, #0
 	ldr r0, [r4, #0x5c]
@@ -44758,7 +44758,7 @@ _0806C8FE:
 	pop {r0}
 	bx r0
 
-	THUMB_FUNC_END sub_806C8C4
+	THUMB_FUNC_END efxNormalEffectMain
 
 	THUMB_FUNC_START sub_806C904
 sub_806C904: @ 0x0806C904
@@ -44768,7 +44768,7 @@ sub_806C904: @ 0x0806C904
 	ldr r0, [r1]
 	adds r0, #1
 	str r0, [r1]
-	ldr r0, _0806C968  @ gUnknown_085D8DDC
+	ldr r0, _0806C968  @ ProcScr_efxNormalEffectBG
 	movs r1, #3
 	bl Proc_Start
 	adds r5, r0, #0
@@ -44805,7 +44805,7 @@ sub_806C904: @ 0x0806C904
 	b _0806C98A
 	.align 2, 0
 _0806C964: .4byte gUnknown_0201774C
-_0806C968: .4byte gUnknown_085D8DDC
+_0806C968: .4byte ProcScr_efxNormalEffectBG
 _0806C96C: .4byte gUnknown_080DF1EE
 _0806C970: .4byte gUnknown_085D8DF4
 _0806C974: .4byte gUnknown_085E9150
@@ -44823,8 +44823,8 @@ _0806C98A:
 
 	THUMB_FUNC_END sub_806C904
 
-	THUMB_FUNC_START sub_806C990
-sub_806C990: @ 0x0806C990
+	THUMB_FUNC_START efxNormalEffectBGMain
+efxNormalEffectBGMain: @ 0x0806C990
 	push {r4, lr}
 	adds r4, r0, #0
 	adds r0, #0x2c
@@ -44866,14 +44866,14 @@ _0806C9DC:
 	.align 2, 0
 _0806C9E4: .4byte gUnknown_0201774C
 
-	THUMB_FUNC_END sub_806C990
+	THUMB_FUNC_END efxNormalEffectBGMain
 
 	THUMB_FUNC_START sub_806C9E8
 sub_806C9E8: @ 0x0806C9E8
 	push {r4, lr}
 	adds r4, r0, #0
 	bl ClearBG1Setup
-	ldr r0, _0806CA04  @ gUnknown_085D8E1C
+	ldr r0, _0806CA04  @ ProcScr_efxPierceCriticalEffect
 	movs r1, #3
 	bl Proc_Start
 	str r4, [r0, #0x5c]
@@ -44883,12 +44883,12 @@ sub_806C9E8: @ 0x0806C9E8
 	pop {r0}
 	bx r0
 	.align 2, 0
-_0806CA04: .4byte gUnknown_085D8E1C
+_0806CA04: .4byte ProcScr_efxPierceCriticalEffect
 
 	THUMB_FUNC_END sub_806C9E8
 
-	THUMB_FUNC_START sub_806CA08
-sub_806CA08: @ 0x0806CA08
+	THUMB_FUNC_START efxPierceCriticalEffectMain
+efxPierceCriticalEffectMain: @ 0x0806CA08
 	push {r4, lr}
 	adds r4, r0, #0
 	ldrh r0, [r4, #0x2c]
@@ -44913,13 +44913,13 @@ _0806CA32:
 	pop {r0}
 	bx r0
 
-	THUMB_FUNC_END sub_806CA08
+	THUMB_FUNC_END efxPierceCriticalEffectMain
 
 	THUMB_FUNC_START sub_806CA38
 sub_806CA38: @ 0x0806CA38
 	push {r4, r5, lr}
 	adds r5, r0, #0
-	ldr r0, _0806CA74  @ gUnknown_085D8E34
+	ldr r0, _0806CA74  @ ProcScr_efxPierceCriticalEffectBG
 	movs r1, #3
 	bl Proc_Start
 	adds r4, r0, #0
@@ -44942,7 +44942,7 @@ sub_806CA38: @ 0x0806CA38
 	pop {r0}
 	bx r0
 	.align 2, 0
-_0806CA74: .4byte gUnknown_085D8E34
+_0806CA74: .4byte ProcScr_efxPierceCriticalEffectBG
 _0806CA78: .4byte gUnknown_085CFB70
 _0806CA7C: .4byte gUnknown_085D0820
 _0806CA80: .4byte gUnknown_085D0A20
@@ -44950,8 +44950,8 @@ _0806CA84: .4byte gUnknown_085D0CE0
 
 	THUMB_FUNC_END sub_806CA38
 
-	THUMB_FUNC_START sub_806CA88
-sub_806CA88: @ 0x0806CA88
+	THUMB_FUNC_START efxPierceCriticalEffectBGMain
+efxPierceCriticalEffectBGMain: @ 0x0806CA88
 	push {r4, lr}
 	adds r4, r0, #0
 	ldrh r0, [r4, #0x2c]
@@ -44970,13 +44970,13 @@ _0806CAA8:
 	pop {r0}
 	bx r0
 
-	THUMB_FUNC_END sub_806CA88
+	THUMB_FUNC_END efxPierceCriticalEffectBGMain
 
 	THUMB_FUNC_START sub_806CAB0
 sub_806CAB0: @ 0x0806CAB0
 	push {r4, lr}
 	adds r4, r0, #0
-	ldr r0, _0806CAD4  @ gUnknown_085D8E4C
+	ldr r0, _0806CAD4  @ ProcScr_efxPierceCriticalEffectBGCOL
 	movs r1, #3
 	bl Proc_Start
 	str r4, [r0, #0x5c]
@@ -44991,14 +44991,14 @@ sub_806CAB0: @ 0x0806CAB0
 	pop {r0}
 	bx r0
 	.align 2, 0
-_0806CAD4: .4byte gUnknown_085D8E4C
+_0806CAD4: .4byte ProcScr_efxPierceCriticalEffectBGCOL
 _0806CAD8: .4byte gUnknown_080DF26A
 _0806CADC: .4byte gUnknown_085D0820
 
 	THUMB_FUNC_END sub_806CAB0
 
-	THUMB_FUNC_START sub_806CAE0
-sub_806CAE0: @ 0x0806CAE0
+	THUMB_FUNC_START efxPierceCriticalEffectBGCOLMain
+efxPierceCriticalEffectBGCOLMain: @ 0x0806CAE0
 	push {r4, lr}
 	adds r4, r0, #0
 	adds r0, #0x2c
@@ -45028,14 +45028,14 @@ _0806CB14:
 	pop {r0}
 	bx r0
 
-	THUMB_FUNC_END sub_806CAE0
+	THUMB_FUNC_END efxPierceCriticalEffectBGCOLMain
 
 	THUMB_FUNC_START sub_806CB1C
 sub_806CB1C: @ 0x0806CB1C
 	push {r4, lr}
 	adds r4, r0, #0
 	bl ClearBG1Setup
-	ldr r0, _0806CB38  @ gUnknown_085D8E6C
+	ldr r0, _0806CB38  @ ProcScr_efxPierceNormalEffect
 	movs r1, #3
 	bl Proc_Start
 	str r4, [r0, #0x5c]
@@ -45045,12 +45045,12 @@ sub_806CB1C: @ 0x0806CB1C
 	pop {r0}
 	bx r0
 	.align 2, 0
-_0806CB38: .4byte gUnknown_085D8E6C
+_0806CB38: .4byte ProcScr_efxPierceNormalEffect
 
 	THUMB_FUNC_END sub_806CB1C
 
-	THUMB_FUNC_START sub_806CB3C
-sub_806CB3C: @ 0x0806CB3C
+	THUMB_FUNC_START efxPierceNormalEffectMain
+efxPierceNormalEffectMain: @ 0x0806CB3C
 	push {r4, lr}
 	adds r4, r0, #0
 	ldr r0, [r4, #0x5c]
@@ -45083,7 +45083,7 @@ _0806CB76:
 	pop {r0}
 	bx r0
 
-	THUMB_FUNC_END sub_806CB3C
+	THUMB_FUNC_END efxPierceNormalEffectMain
 
 	THUMB_FUNC_START sub_806CB7C
 sub_806CB7C: @ 0x0806CB7C
@@ -45093,7 +45093,7 @@ sub_806CB7C: @ 0x0806CB7C
 	ldr r0, [r1]
 	adds r0, #1
 	str r0, [r1]
-	ldr r0, _0806CBE0  @ gUnknown_085D8E84
+	ldr r0, _0806CBE0  @ ProcScr_efxPierceNormalEffectBG
 	movs r1, #3
 	bl Proc_Start
 	adds r5, r0, #0
@@ -45130,7 +45130,7 @@ sub_806CB7C: @ 0x0806CB7C
 	b _0806CC02
 	.align 2, 0
 _0806CBDC: .4byte gUnknown_0201774C
-_0806CBE0: .4byte gUnknown_085D8E84
+_0806CBE0: .4byte ProcScr_efxPierceNormalEffectBG
 _0806CBE4: .4byte gUnknown_080DF2DC
 _0806CBE8: .4byte gUnknown_085D8E9C
 _0806CBEC: .4byte gUnknown_085D1470
@@ -45148,8 +45148,8 @@ _0806CC02:
 
 	THUMB_FUNC_END sub_806CB7C
 
-	THUMB_FUNC_START sub_806CC08
-sub_806CC08: @ 0x0806CC08
+	THUMB_FUNC_START efxPierceNormalEffectBGMain
+efxPierceNormalEffectBGMain: @ 0x0806CC08
 	push {r4, lr}
 	adds r4, r0, #0
 	adds r0, #0x2c
@@ -45191,14 +45191,14 @@ _0806CC54:
 	.align 2, 0
 _0806CC5C: .4byte gUnknown_0201774C
 
-	THUMB_FUNC_END sub_806CC08
+	THUMB_FUNC_END efxPierceNormalEffectBGMain
 
 	THUMB_FUNC_START sub_806CC60
 sub_806CC60: @ 0x0806CC60
 	push {r4, r5, lr}
 	adds r4, r0, #0
 	adds r5, r1, #0
-	ldr r0, _0806CC84  @ gUnknown_085D8EC4
+	ldr r0, _0806CC84  @ ProcScr_efxYushaSpinShield
 	movs r1, #3
 	bl Proc_Start
 	str r4, [r0, #0x5c]
@@ -45211,18 +45211,18 @@ sub_806CC60: @ 0x0806CC60
 	pop {r0}
 	bx r0
 	.align 2, 0
-_0806CC84: .4byte gUnknown_085D8EC4
+_0806CC84: .4byte ProcScr_efxYushaSpinShield
 
 	THUMB_FUNC_END sub_806CC60
 
-	THUMB_FUNC_START sub_806CC88
-sub_806CC88: @ 0x0806CC88
+	THUMB_FUNC_START EfxYushaSpinShieldMain
+EfxYushaSpinShieldMain: @ 0x0806CC88
 	push {lr}
 	bl Proc_Break
 	pop {r0}
 	bx r0
 
-	THUMB_FUNC_END sub_806CC88
+	THUMB_FUNC_END EfxYushaSpinShieldMain
 
 	THUMB_FUNC_START sub_806CC94
 sub_806CC94: @ 0x0806CC94
@@ -45230,7 +45230,7 @@ sub_806CC94: @ 0x0806CC94
 	sub sp, #4
 	adds r6, r0, #0
 	adds r4, r1, #0
-	ldr r0, _0806CCBC  @ gUnknown_085D8EDC
+	ldr r0, _0806CCBC  @ ProcScr_efxYushaSpinShieldOBJ
 	movs r1, #3
 	bl Proc_Start
 	adds r5, r0, #0
@@ -45246,7 +45246,7 @@ sub_806CC94: @ 0x0806CC94
 	ldr r3, _0806CCC4  @ gUnknown_085EBDF8
 	b _0806CCCC
 	.align 2, 0
-_0806CCBC: .4byte gUnknown_085D8EDC
+_0806CCBC: .4byte ProcScr_efxYushaSpinShieldOBJ
 _0806CCC0: .4byte gUnknown_085EAB58
 _0806CCC4: .4byte gUnknown_085EBDF8
 _0806CCC8:
@@ -45291,8 +45291,8 @@ _0806CD06:
 
 	THUMB_FUNC_END sub_806CC94
 
-	THUMB_FUNC_START sub_806CD14
-sub_806CD14: @ 0x0806CD14
+	THUMB_FUNC_START efxYushaSpinShieldOBJ_806CD14
+efxYushaSpinShieldOBJ_806CD14: @ 0x0806CD14
 	push {r4, r5, lr}
 	adds r5, r0, #0
 	ldr r4, [r5, #0x60]
@@ -45347,10 +45347,10 @@ _0806CD72:
 	.align 2, 0
 _0806CD78: .4byte gUnknown_085ED1CC
 
-	THUMB_FUNC_END sub_806CD14
+	THUMB_FUNC_END efxYushaSpinShieldOBJ_806CD14
 
-	THUMB_FUNC_START sub_806CD7C
-sub_806CD7C: @ 0x0806CD7C
+	THUMB_FUNC_START efxYushaSpinShieldOBJ_806CD7C
+efxYushaSpinShieldOBJ_806CD7C: @ 0x0806CD7C
 	push {lr}
 	adds r1, r0, #0
 	ldr r0, [r1, #0x5c]
@@ -45371,10 +45371,10 @@ _0806CD9E:
 	pop {r0}
 	bx r0
 
-	THUMB_FUNC_END sub_806CD7C
+	THUMB_FUNC_END efxYushaSpinShieldOBJ_806CD7C
 
-	THUMB_FUNC_START sub_806CDA4
-sub_806CDA4: @ 0x0806CDA4
+	THUMB_FUNC_START efxYushaSpinShieldOBJ_806CDA4
+efxYushaSpinShieldOBJ_806CDA4: @ 0x0806CDA4
 	push {r4, r5, lr}
 	adds r5, r0, #0
 	ldr r4, [r5, #0x60]
@@ -45425,10 +45425,10 @@ _0806CDFE:
 	.align 2, 0
 _0806CE04: .4byte gUnknown_085ED1F4
 
-	THUMB_FUNC_END sub_806CDA4
+	THUMB_FUNC_END efxYushaSpinShieldOBJ_806CDA4
 
-	THUMB_FUNC_START sub_806CE08
-sub_806CE08: @ 0x0806CE08
+	THUMB_FUNC_START efxYushaSpinShieldOBJ_806CE08
+efxYushaSpinShieldOBJ_806CE08: @ 0x0806CE08
 	push {r4, lr}
 	adds r4, r0, #0
 	ldrh r0, [r4, #0x2c]
@@ -45449,7 +45449,7 @@ _0806CE2A:
 	pop {r0}
 	bx r0
 
-	THUMB_FUNC_END sub_806CE08
+	THUMB_FUNC_END efxYushaSpinShieldOBJ_806CE08
 
 	THUMB_FUNC_START sub_806CE30
 sub_806CE30: @ 0x0806CE30
@@ -45459,7 +45459,7 @@ sub_806CE30: @ 0x0806CE30
 	ldr r5, [r0]
 	cmp r5, #0
 	bne _0806CE6E
-	ldr r0, _0806CE60  @ gUnknown_085D8F0C
+	ldr r0, _0806CE60  @ ProcScr_efxHurtmutEff00
 	movs r1, #3
 	bl Proc_Start
 	str r4, [r0, #0x5c]
@@ -45474,7 +45474,7 @@ sub_806CE30: @ 0x0806CE30
 	b _0806CE6E
 	.align 2, 0
 _0806CE5C: .4byte gUnknown_0201774C
-_0806CE60: .4byte gUnknown_085D8F0C
+_0806CE60: .4byte ProcScr_efxHurtmutEff00
 _0806CE64: .4byte gEkrSomeType
 _0806CE68:
 	adds r0, r4, #0
@@ -45486,14 +45486,14 @@ _0806CE6E:
 
 	THUMB_FUNC_END sub_806CE30
 
-	THUMB_FUNC_START sub_806CE74
-sub_806CE74: @ 0x0806CE74
+	THUMB_FUNC_START EfxHurtmutEff00Main
+EfxHurtmutEff00Main: @ 0x0806CE74
 	push {lr}
 	bl Proc_Break
 	pop {r0}
 	bx r0
 
-	THUMB_FUNC_END sub_806CE74
+	THUMB_FUNC_END EfxHurtmutEff00Main
 
 	THUMB_FUNC_START sub_806CE80
 sub_806CE80: @ 0x0806CE80
@@ -45504,7 +45504,7 @@ sub_806CE80: @ 0x0806CE80
 	ldr r0, [r1]
 	adds r0, #1
 	str r0, [r1]
-	ldr r0, _0806CEBC  @ gUnknown_085D8F24
+	ldr r0, _0806CEBC  @ ProcScr_efxHurtmutEff00OBJ
 	movs r1, #3
 	bl Proc_Start
 	adds r4, r0, #0
@@ -45524,13 +45524,13 @@ sub_806CE80: @ 0x0806CE80
 	bx r0
 	.align 2, 0
 _0806CEB8: .4byte gUnknown_0201774C
-_0806CEBC: .4byte gUnknown_085D8F24
+_0806CEBC: .4byte ProcScr_efxHurtmutEff00OBJ
 _0806CEC0: .4byte gUnknown_085D4F90
 
 	THUMB_FUNC_END sub_806CE80
 
-	THUMB_FUNC_START sub_806CEC4
-sub_806CEC4: @ 0x0806CEC4
+	THUMB_FUNC_START efxHurtmutEff00OBJ_806CEC4
+efxHurtmutEff00OBJ_806CEC4: @ 0x0806CEC4
 	push {r4, r5, lr}
 	adds r5, r0, #0
 	ldr r4, [r5, #0x60]
@@ -45566,10 +45566,10 @@ _0806CF04: .4byte gUnknown_085E1960
 _0806CF08: .4byte gUnknown_085DFA08
 _0806CF0C: .4byte gUnknown_085DE984
 
-	THUMB_FUNC_END sub_806CEC4
+	THUMB_FUNC_END efxHurtmutEff00OBJ_806CEC4
 
-	THUMB_FUNC_START sub_806CF10
-sub_806CF10: @ 0x0806CF10
+	THUMB_FUNC_START efxHurtmutEff00OBJ_806CF10
+efxHurtmutEff00OBJ_806CF10: @ 0x0806CF10
 	push {r4, r5, lr}
 	adds r5, r0, #0
 	ldr r4, [r5, #0x60]
@@ -45605,10 +45605,10 @@ _0806CF50: .4byte gUnknown_085E1EA4
 _0806CF54: .4byte gUnknown_085DFA08
 _0806CF58: .4byte gUnknown_085DF224
 
-	THUMB_FUNC_END sub_806CF10
+	THUMB_FUNC_END efxHurtmutEff00OBJ_806CF10
 
-	THUMB_FUNC_START sub_806CF5C
-sub_806CF5C: @ 0x0806CF5C
+	THUMB_FUNC_START efxHurtmutEff00OBJ_806CF5C
+efxHurtmutEff00OBJ_806CF5C: @ 0x0806CF5C
 	push {r4, lr}
 	adds r4, r0, #0
 	ldr r1, _0806CF7C  @ gUnknown_0201774C
@@ -45625,7 +45625,7 @@ sub_806CF5C: @ 0x0806CF5C
 	.align 2, 0
 _0806CF7C: .4byte gUnknown_0201774C
 
-	THUMB_FUNC_END sub_806CF5C
+	THUMB_FUNC_END efxHurtmutEff00OBJ_806CF5C
 
 	THUMB_FUNC_START sub_806CF80
 sub_806CF80: @ 0x0806CF80
@@ -45636,7 +45636,7 @@ sub_806CF80: @ 0x0806CF80
 	ldr r0, [r1]
 	adds r0, #1
 	str r0, [r1]
-	ldr r0, _0806CFBC  @ gUnknown_085D8F5C
+	ldr r0, _0806CFBC  @ ProcScr_efxHurtmutEff01OBJ
 	movs r1, #3
 	bl Proc_Start
 	adds r4, r0, #0
@@ -45656,13 +45656,13 @@ sub_806CF80: @ 0x0806CF80
 	bx r0
 	.align 2, 0
 _0806CFB8: .4byte gUnknown_0201774C
-_0806CFBC: .4byte gUnknown_085D8F5C
+_0806CFBC: .4byte ProcScr_efxHurtmutEff01OBJ
 _0806CFC0: .4byte gUnknown_085D4F90
 
 	THUMB_FUNC_END sub_806CF80
 
-	THUMB_FUNC_START sub_806CFC4
-sub_806CFC4: @ 0x0806CFC4
+	THUMB_FUNC_START efxHurtmutEff01OBJ_806CFC4
+efxHurtmutEff01OBJ_806CFC4: @ 0x0806CFC4
 	push {r4, r5, lr}
 	adds r5, r0, #0
 	ldr r4, [r5, #0x60]
@@ -45698,10 +45698,10 @@ _0806D004: .4byte gUnknown_085E19A8
 _0806D008: .4byte gUnknown_085DFA08
 _0806D00C: .4byte gUnknown_085DE984
 
-	THUMB_FUNC_END sub_806CFC4
+	THUMB_FUNC_END efxHurtmutEff01OBJ_806CFC4
 
-	THUMB_FUNC_START sub_806D010
-sub_806D010: @ 0x0806D010
+	THUMB_FUNC_START efxHurtmutEff01OBJ_806D010
+efxHurtmutEff01OBJ_806D010: @ 0x0806D010
 	push {r4, r5, lr}
 	adds r5, r0, #0
 	ldr r4, [r5, #0x60]
@@ -45737,10 +45737,10 @@ _0806D050: .4byte gUnknown_085E1EB4
 _0806D054: .4byte gUnknown_085DFA08
 _0806D058: .4byte gUnknown_085DF224
 
-	THUMB_FUNC_END sub_806D010
+	THUMB_FUNC_END efxHurtmutEff01OBJ_806D010
 
-	THUMB_FUNC_START sub_806D05C
-sub_806D05C: @ 0x0806D05C
+	THUMB_FUNC_START efxHurtmutEff01OBJ_806D05C
+efxHurtmutEff01OBJ_806D05C: @ 0x0806D05C
 	push {r4, lr}
 	adds r4, r0, #0
 	ldr r1, _0806D07C  @ gUnknown_0201774C
@@ -45757,7 +45757,7 @@ sub_806D05C: @ 0x0806D05C
 	.align 2, 0
 _0806D07C: .4byte gUnknown_0201774C
 
-	THUMB_FUNC_END sub_806D05C
+	THUMB_FUNC_END efxHurtmutEff01OBJ_806D05C
 
 	THUMB_FUNC_START sub_806D080
 sub_806D080: @ 0x0806D080
@@ -45771,7 +45771,7 @@ sub_806D080: @ 0x0806D080
 	b _0806D192
 _0806D090:
 	bl ClearBG1Setup
-	ldr r0, _0806D0C8  @ gUnknown_085D8F94
+	ldr r0, _0806D0C8  @ ProcScr_efxMagfcast
 	movs r1, #3
 	bl Proc_Start
 	adds r4, r0, #0
@@ -45795,7 +45795,7 @@ _0806D090:
 	mov pc, r0
 	.align 2, 0
 _0806D0C4: .4byte gUnknown_0201774C
-_0806D0C8: .4byte gUnknown_085D8F94
+_0806D0C8: .4byte ProcScr_efxMagfcast
 _0806D0CC: .4byte gUnknown_0203E182
 _0806D0D0: .4byte _0806D0D4
 _0806D0D4: @ jump table
@@ -45858,8 +45858,8 @@ _0806D192:
 
 	THUMB_FUNC_END sub_806D080
 
-	THUMB_FUNC_START sub_806D198
-sub_806D198: @ 0x0806D198
+	THUMB_FUNC_START EfxMagfcastMain
+EfxMagfcastMain: @ 0x0806D198
 	push {lr}
 	adds r1, r0, #0
 	ldrh r0, [r1, #0x2c]
@@ -45875,7 +45875,7 @@ _0806D1B0:
 	pop {r0}
 	bx r0
 
-	THUMB_FUNC_END sub_806D198
+	THUMB_FUNC_END EfxMagfcastMain
 
 	THUMB_FUNC_START sub_806D1B4
 sub_806D1B4: @ 0x0806D1B4
@@ -45886,7 +45886,7 @@ sub_806D1B4: @ 0x0806D1B4
 	ldr r0, [r1]
 	adds r0, #1
 	str r0, [r1]
-	ldr r0, _0806D1EC  @ gUnknown_085D8FAC
+	ldr r0, _0806D1EC  @ ProcScr_efxMagfcastBG
 	movs r1, #3
 	bl Proc_Start
 	adds r4, r0, #0
@@ -45905,7 +45905,7 @@ sub_806D1B4: @ 0x0806D1B4
 	b _0806D23A
 	.align 2, 0
 _0806D1E8: .4byte gUnknown_0201774C
-_0806D1EC: .4byte gUnknown_085D8FAC
+_0806D1EC: .4byte ProcScr_efxMagfcastBG
 _0806D1F0:
 	ldr r0, _0806D1F8  @ gUnknown_080DF386
 	str r0, [r4, #0x48]
@@ -45985,8 +45985,8 @@ _0806D28E:
 
 	THUMB_FUNC_END sub_806D1B4
 
-	THUMB_FUNC_START sub_806D294
-sub_806D294: @ 0x0806D294
+	THUMB_FUNC_START EfxMagfcastBGMain
+EfxMagfcastBGMain: @ 0x0806D294
 	push {r4, r5, lr}
 	adds r4, r0, #0
 	adds r0, #0x2c
@@ -46052,7 +46052,7 @@ _0806D314:
 	.align 2, 0
 _0806D31C: .4byte gUnknown_0201774C
 
-	THUMB_FUNC_END sub_806D294
+	THUMB_FUNC_END EfxMagfcastBGMain
 
 	THUMB_FUNC_START sub_806D320
 sub_806D320: @ 0x0806D320

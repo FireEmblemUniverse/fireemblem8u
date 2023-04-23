@@ -164,7 +164,7 @@
 . = 0x014EF4; gUnknown_02014EF4 = .;
 . = 0x0165C8; gUnknown_020165C8 = .;
 . = 0x016828; gUnknown_02016828 = .;
-. = 0x0169C8; gUnknown_020169C8 = .;
+. = 0x0169C8; gObjBuf_EkrSideHitDmgCrit = .;
 . = 0x016DC8; gUnknown_02016DC8 = .;
 . = 0x016E48; gUnknown_02016E48 = .;
 . = 0x017048; gUnknown_02017048 = .;
@@ -177,7 +177,7 @@
 . = 0x017678; gUnknown_02017678 = .;
 . = 0x0176A0; gTextEkrlvupValue = .;
 . = 0x0176F0; gUnknown_020176F0 = .;
-. = 0x017700; gUnknown_02017700 = .;
+. = 0x017700; gDecodedEkrHitDmgCritBuf = .;
 . = 0x017724; gUnknown_02017724 = .;
 . = 0x017728; gUnknown_02017728 = .;
 . = 0x01772C; gUnknown_0201772C = .;
@@ -585,9 +585,9 @@
 . = 0x03E1AC; gUnknown_0203E1AC = .;
 . = 0x03E1B0; gUnknown_0203E1B0 = .;
 . = 0x03E1B4; gUnknown_0203E1B4 = .;
-. = 0x03E1B8; gUnknown_0203E1B8 = .;
-. = 0x03E1BC; gUnknown_0203E1BC = .;
-. = 0x03E1C0; gUnknown_0203E1C0 = .;
+. = 0x03E1B8; gEkrHitPair = .;
+. = 0x03E1BC; gEkrDmgPair = .;
+. = 0x03E1C0; gEkrCritPair = .;
 . = 0x03E1C4; gUnknown_0203E1C4 = .;
 . = 0x03E1C8; gUnknown_0203E1C8 = .;
 . = 0x03E1CC; gUnknown_0203E1CC = .;
