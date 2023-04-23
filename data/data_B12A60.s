@@ -1,11 +1,7 @@
     .section .data
 
-	.global gUnknown_08B12A60
-gUnknown_08B12A60:  @ 0x08B12A60
-	.incbin "baserom.gba", 0xB12A60, 0x4
-
-	.global gUnknown_08B12A64
-gUnknown_08B12A64:  @ 0x08B12A64
+	.global ProcScr_PromoPostSel
+ProcScr_PromoPostSel:  @ 0x08B12A64
         @ PROC_WHILE
         .short 0x14, 0x0
         .word MusicProc4Exists
@@ -202,8 +198,8 @@ gUnknown_08B12C3C:  @ 0x08B12C3C
     .word 0x0
 
 
-	.global gProcScr_Guide
-gProcScr_Guide:  @ 0x08B12C64
+	.global ProcScr_E_Guide1
+ProcScr_E_Guide1:  @ 0x08B12C64
         @ PROC_NAME("E_Guide")
         .short 0x1, 0x0
         .word 0x820717c
@@ -275,11 +271,11 @@ gProcScr_Guide:  @ 0x08B12C64
         .word 0x0
 
 
-	.global gUnknown_08B12D1C
-gUnknown_08B12D1C:  @ 0x08B12D1C
+	.global ProcScr_E_Guide2
+ProcScr_E_Guide2:  @ 0x08B12D1C
     @ PROC_NAME(E_Guide)
     .short 0x1, 0x0
-    .word gUnknown_082070AC + 0xd0
+    .word 0x0820717C
     @ PROC_CALL(AddSkipThread2)
     .short 0x2, 0x0
     .word AddSkipThread2

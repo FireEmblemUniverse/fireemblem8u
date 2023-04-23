@@ -112,7 +112,7 @@ struct ProcCmd CONST_DATA gProcScr_ShopFadeOut[] = {
     PROC_CALL(RefreshBMapGraphics),
 
     PROC_CALL(StartMapSongBgm),
-    PROC_CALL(sub_8013D8C),
+    PROC_CALL(IntroPromoTraineeEventFace),
 
     PROC_REPEAT(WaitForFade),
     PROC_CALL(SubSkipThread2),

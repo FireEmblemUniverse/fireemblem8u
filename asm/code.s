@@ -1125,8 +1125,8 @@ _0808F280: .4byte gUnknown_08A01DBC
 
 	THUMB_FUNC_END sub_808F270
 
-	THUMB_FUNC_START sub_808F284
-sub_808F284: @ 0x0808F284
+	THUMB_FUNC_START SomeTalkProcExists
+SomeTalkProcExists: @ 0x0808F284
 	push {lr}
 	ldr r0, _0808F294  @ gUnknown_08A01DBC
 	bl Proc_Find
@@ -1142,7 +1142,7 @@ _0808F29A:
 	pop {r1}
 	bx r1
 
-	THUMB_FUNC_END sub_808F284
+	THUMB_FUNC_END SomeTalkProcExists
 
 	THUMB_FUNC_START sub_808F2A0
 sub_808F2A0: @ 0x0808F2A0

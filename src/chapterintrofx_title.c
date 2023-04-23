@@ -106,7 +106,7 @@ struct ProcCmd CONST_DATA gProcScr_ChapterIntroTitleOnly[] =
 
     PROC_START_CHILD(sProcScr_ChapterIntro_KeyListen),
 
-    PROC_CALL(sub_8013D8C),
+    PROC_CALL(IntroPromoTraineeEventFace),
     PROC_REPEAT(WaitForFade),
 
     PROC_CALL_ARG(ChapterIntro_SetSkipTarget, 99),

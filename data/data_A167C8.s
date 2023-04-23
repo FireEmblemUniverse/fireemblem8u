@@ -225,7 +225,7 @@ gUnknown_08A178C0:  @ 0x08A178C0
         .word sub_8091180
         @ PROC_CALL
         .short 0x2, 0x0
-        .word sub_8013D8C
+        .word IntroPromoTraineeEventFace
         @ PROC_REPEAT
         .short 0x3, 0x0
         .word WaitForFade

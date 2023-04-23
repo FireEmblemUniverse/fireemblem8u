@@ -240,7 +240,7 @@ PROC_LABEL(17),
 PROC_LABEL(18),
     PROC_CALL(sub_8009A24),
 
-    PROC_CALL(sub_8013D8C),
+    PROC_CALL(IntroPromoTraineeEventFace),
     PROC_REPEAT(WaitForFade),
 
     PROC_CALL(sub_8048850),

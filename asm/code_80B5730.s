@@ -2978,7 +2978,7 @@ sub_80B987C: @ 0x080B987C
 	adds r4, r0, #0
 	movs r0, #8
 	bl Proc_BlockEachMarked
-	ldr r0, _080B9898  @ gUnknown_08B12D1C
+	ldr r0, _080B9898  @ ProcScr_E_Guide2
 	adds r1, r4, #0
 	bl Proc_StartBlocking
 	movs r0, #0
@@ -2986,7 +2986,7 @@ sub_80B987C: @ 0x080B987C
 	pop {r1}
 	bx r1
 	.align 2, 0
-_080B9898: .4byte gUnknown_08B12D1C
+_080B9898: .4byte ProcScr_E_Guide2
 
 	THUMB_FUNC_END sub_80B987C
 

@@ -104,8 +104,8 @@ sub_80CDE98: @ 0x080CDE98
 
 	THUMB_FUNC_END sub_80CDE98
 
-	THUMB_FUNC_START sub_80CDEA8
-sub_80CDEA8: @ 0x080CDEA8
+	THUMB_FUNC_START PromoMain_PostSelect
+PromoMain_PostSelect: @ 0x080CDEA8
 	push {r4, r5, lr}
 	sub sp, #4
 	adds r4, r0, #0
@@ -154,7 +154,7 @@ sub_80CDEA8: @ 0x080CDEA8
 	bl SetBlendTargetA
 	adds r0, r4, #0
 	bl EndAllProcChildren
-	ldr r0, _080CDF48  @ gUnknown_08B12A64
+	ldr r0, _080CDF48  @ ProcScr_PromoPostSel
 	adds r1, r4, #0
 	bl Proc_StartBlocking
 	adds r0, r5, #0
@@ -177,9 +177,9 @@ _080CDF38:
 	.align 2, 0
 _080CDF40: .4byte gUnknown_03005398
 _080CDF44: .4byte gLCDControlBuffer
-_080CDF48: .4byte gUnknown_08B12A64
+_080CDF48: .4byte ProcScr_PromoPostSel
 
-	THUMB_FUNC_END sub_80CDEA8
+	THUMB_FUNC_END PromoMain_PostSelect
 
 	THUMB_FUNC_START sub_80CDF4C
 sub_80CDF4C: @ 0x080CDF4C

@@ -837,7 +837,7 @@ PROC_LABEL(0),
     PROC_CALL(SupportScreen_SetupGraphics),
     PROC_WHILE(IsMusicProc2Running),
 
-    PROC_CALL(sub_8013D8C),
+    PROC_CALL(IntroPromoTraineeEventFace),
     PROC_REPEAT(WaitForFade),
 
     PROC_WHILE(MusicProc4Exists),

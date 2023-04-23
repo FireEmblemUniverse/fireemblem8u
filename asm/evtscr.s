@@ -2231,7 +2231,7 @@ _0800E5A0:
 	cmp r0, #0
 	beq _0800E5CA
 _0800E5B6:
-	bl sub_808F284
+	bl SomeTalkProcExists
 	lsls r0, r0, #0x18
 	cmp r0, #0
 	bne _0800E5CA

@@ -564,7 +564,7 @@ gItemData:  @ 0x08809B10
     .4byte 0x045e03af
     .4byte 0x053e0000
     .4byte 0x00000013
-    .4byte gUnknown_088ADFA6 + 0xf1e
+    .4byte gItemUseJidList_SolarBrace + 0xf1e
     .4byte gUnknown_088ADF39
     .4byte 0x0d5a121e
     .4byte 0x0000120a
@@ -672,7 +672,7 @@ gItemData:  @ 0x08809B10
     .4byte 0x046a03bb
     .4byte 0x074a0000
     .4byte 0x00000013
-    .4byte gUnknown_088ADFA6 + 0xf2a
+    .4byte gItemUseJidList_SolarBrace + 0xf2a
     .4byte 0x00000000
     .4byte 0x1450171e
     .4byte 0x00001200
@@ -825,7 +825,7 @@ gItemData:  @ 0x08809B10
     .4byte 0x048303d4
     .4byte 0x095b04c1
     .4byte 0x00000000
-    .4byte gUnknown_088ADFA6 + 0xf36
+    .4byte gItemUseJidList_SolarBrace + 0xf36
     .4byte 0x00000000
     .4byte 0x00000001
     .4byte 0x1f401100
@@ -834,7 +834,7 @@ gItemData:  @ 0x08809B10
     .4byte 0x048403d5
     .4byte 0x095c04c2
     .4byte 0x00000000
-    .4byte gUnknown_088ADFA6 + 0xf42
+    .4byte gItemUseJidList_SolarBrace + 0xf42
     .4byte 0x00000000
     .4byte 0x00000001
     .4byte 0x1f401100
@@ -843,7 +843,7 @@ gItemData:  @ 0x08809B10
     .4byte 0x048503d6
     .4byte 0x095d04c3
     .4byte 0x00000000
-    .4byte gUnknown_088ADFA6 + 0xf4e
+    .4byte gItemUseJidList_SolarBrace + 0xf4e
     .4byte 0x00000000
     .4byte 0x00000001
     .4byte 0x1f401100
@@ -852,7 +852,7 @@ gItemData:  @ 0x08809B10
     .4byte 0x048603d7
     .4byte 0x095e04c4
     .4byte 0x00000000
-    .4byte gUnknown_088ADFA6 + 0xf5a
+    .4byte gItemUseJidList_SolarBrace + 0xf5a
     .4byte 0x00000000
     .4byte 0x00000001
     .4byte 0x1f401100
@@ -861,7 +861,7 @@ gItemData:  @ 0x08809B10
     .4byte 0x048703d8
     .4byte 0x095f04c5
     .4byte 0x00000000
-    .4byte gUnknown_088ADFA6 + 0xf66
+    .4byte gItemUseJidList_SolarBrace + 0xf66
     .4byte 0x00000000
     .4byte 0x00000001
     .4byte 0x1f401100
@@ -870,7 +870,7 @@ gItemData:  @ 0x08809B10
     .4byte 0x048803d9
     .4byte 0x096004c6
     .4byte 0x00000000
-    .4byte gUnknown_088ADFA6 + 0xf72
+    .4byte gItemUseJidList_SolarBrace + 0xf72
     .4byte 0x00000000
     .4byte 0x00000001
     .4byte 0x1f401100
@@ -879,7 +879,7 @@ gItemData:  @ 0x08809B10
     .4byte 0x048903da
     .4byte 0x096104c7
     .4byte 0x00000000
-    .4byte gUnknown_088ADFA6 + 0xf7e
+    .4byte gItemUseJidList_SolarBrace + 0xf7e
     .4byte 0x00000000
     .4byte 0x00000001
     .4byte 0x1f401100
@@ -888,7 +888,7 @@ gItemData:  @ 0x08809B10
     .4byte 0x048a03db
     .4byte 0x096204c8
     .4byte 0x00000000
-    .4byte gUnknown_088ADFA6 + 0xf8a
+    .4byte gItemUseJidList_SolarBrace + 0xf8a
     .4byte 0x00000000
     .4byte 0x00000001
     .4byte 0x1f401100
@@ -897,7 +897,7 @@ gItemData:  @ 0x08809B10
     .4byte 0x048b03dc
     .4byte 0x096304c9
     .4byte 0x00000000
-    .4byte gUnknown_088ADFA6 + 0xf96
+    .4byte gItemUseJidList_SolarBrace + 0xf96
     .4byte 0x00000000
     .4byte 0x00000001
     .4byte 0x1f401100
@@ -1203,7 +1203,7 @@ gItemData:  @ 0x08809B10
     .4byte 0x04160366
     .4byte 0x00850000
     .4byte 0x00040011
-    .4byte gUnknown_088ADFA6 + 0xfa2
+    .4byte gItemUseJidList_SolarBrace + 0xfa2
     .4byte gUnknown_088ADF39
     .4byte 0x095a101e
     .4byte 0x00001100
@@ -1221,7 +1221,7 @@ gItemData:  @ 0x08809B10
     .4byte 0x046403b5
     .4byte 0x06870000
     .4byte 0x00000013
-    .4byte gUnknown_088ADFA6 + 0xfae
+    .4byte gItemUseJidList_SolarBrace + 0xfae
     .4byte gUnknown_088ADF39
     .4byte 0x0a5a111e
     .4byte 0x00001205
@@ -1284,7 +1284,7 @@ gItemData:  @ 0x08809B10
     .4byte 0x04260376
     .4byte 0x018e0000
     .4byte 0x00000011
-    .4byte gUnknown_088ADFA6 + 0xfba
+    .4byte gItemUseJidList_SolarBrace + 0xfba
     .4byte gUnknown_088ADF39
     .4byte 0x0b550f1e
     .4byte 0x00001100
@@ -1302,7 +1302,7 @@ gItemData:  @ 0x08809B10
     .4byte 0x04470397
     .4byte 0x0b9004ac
     .4byte 0x00020409
-    .4byte gUnknown_088ADFA6 + 0xfc6
+    .4byte gItemUseJidList_SolarBrace + 0xfc6
     .4byte 0x00000000
     .4byte 0x00640a00
     .4byte 0x00001200
@@ -1311,7 +1311,7 @@ gItemData:  @ 0x08809B10
     .4byte 0x04170367
     .4byte 0x00910000
     .4byte 0x00000011
-    .4byte gUnknown_088ADFA6 + 0xfd2
+    .4byte gItemUseJidList_SolarBrace + 0xfd2
     .4byte gUnknown_088ADF39
     .4byte 0x0955121e
     .4byte 0x00001100
@@ -1320,7 +1320,7 @@ gItemData:  @ 0x08809B10
     .4byte 0x04250375
     .4byte 0x01920000
     .4byte 0x00080011
-    .4byte gUnknown_088ADFA6 + 0xfde
+    .4byte gItemUseJidList_SolarBrace + 0xfde
     .4byte gUnknown_088ADF39
     .4byte 0x0b50111e
     .4byte 0x00001100
@@ -1329,7 +1329,7 @@ gItemData:  @ 0x08809B10
     .4byte 0x04380389
     .4byte 0x02930000
     .4byte 0x00000011
-    .4byte gUnknown_088ADFA6 + 0xfea
+    .4byte gItemUseJidList_SolarBrace + 0xfea
     .4byte gUnknown_088ADF39
     .4byte 0x0d4b141e
     .4byte 0x00001100
@@ -1338,7 +1338,7 @@ gItemData:  @ 0x08809B10
     .4byte 0x04460396
     .4byte 0x03940000
     .4byte 0x00000011
-    .4byte gUnknown_088ADFA6 + 0xff6
+    .4byte gItemUseJidList_SolarBrace + 0xff6
     .4byte gUnknown_088ADEF1
     .4byte 0x0750121e
     .4byte 0x00002200
@@ -1500,7 +1500,7 @@ gItemData:  @ 0x08809B10
     .4byte 0x044c039c
     .4byte 0x04a60000
     .4byte 0x00000004
-    .4byte gUnknown_088ADFA6 + 0x1002
+    .4byte gItemUseJidList_SolarBrace + 0x1002
     .4byte 0x00000000
     .4byte 0x08460001
     .4byte 0x00001300
@@ -1518,7 +1518,7 @@ gItemData:  @ 0x08809B10
     .4byte 0x044a039a
     .4byte 0x0ba80000
     .4byte 0x00000409
-    .4byte gUnknown_088ADFA6 + 0x100e
+    .4byte gItemUseJidList_SolarBrace + 0x100e
     .4byte 0x00000000
     .4byte 0x003c0f00
     .4byte 0x00001300
@@ -1527,7 +1527,7 @@ gItemData:  @ 0x08809B10
     .4byte 0x044b039b
     .4byte 0x0ba90000
     .4byte 0x00000409
-    .4byte gUnknown_088ADFA6 + 0x101a
+    .4byte gItemUseJidList_SolarBrace + 0x101a
     .4byte 0x00000000
     .4byte 0x00550f00
     .4byte 0x0000110a
@@ -1536,7 +1536,7 @@ gItemData:  @ 0x08809B10
     .4byte 0x04480398
     .4byte 0x0baa04ad
     .4byte 0x00000411
-    .4byte gUnknown_088ADFA6 + 0x1026
+    .4byte gItemUseJidList_SolarBrace + 0x1026
     .4byte gUnknown_088ADF39
     .4byte 0x00641032
     .4byte 0x0000110f

@@ -188,7 +188,7 @@ int MapMenu_GuideCommandDraw(struct MenuProc* menu, struct MenuItemProc* menuIte
 }
 
 u8 MapMenu_GuideCommand(struct MenuProc* menu, struct MenuItemProc* menuItem) {
-    Proc_Start(gProcScr_Guide, PROC_TREE_3);
+    Proc_Start(ProcScr_E_Guide1, PROC_TREE_3);
 
     return MENU_ACT_SKIPCURSOR | MENU_ACT_END | MENU_ACT_SND6A | MENU_ACT_CLEAR;
 }

@@ -40,7 +40,7 @@ void sub_8013800();
 void sub_8013844(ProcPtr);
 void StartFadeInBlackMedium(ProcPtr);
 void sub_8013D80(ProcPtr);
-void sub_8013D8C(ProcPtr);
+void IntroPromoTraineeEventFace(ProcPtr);
 void sub_8013DA4(ProcPtr);
 
 // ev_triggercheck.s
@@ -134,7 +134,7 @@ PROC_LABEL(0x32),
     PROC_CALL(RefreshUnitSprites),
     PROC_CALL(PrepScreenProc_InitMapMenu),
     PROC_CALL(sub_80334CC),
-    PROC_CALL(sub_8013D8C),
+    PROC_CALL(IntroPromoTraineeEventFace),
     PROC_REPEAT(WaitForFade),
 
     PROC_GOTO(0x3D),
@@ -306,7 +306,7 @@ PROC_LABEL(0x3C),
     PROC_CALL(RefreshUnitSprites),
     PROC_CALL(sub_8034194),
     PROC_CALL(sub_8033608),
-    PROC_CALL(sub_8013D8C),
+    PROC_CALL(IntroPromoTraineeEventFace),
     PROC_REPEAT(WaitForFade),
 
     PROC_GOTO(9),
